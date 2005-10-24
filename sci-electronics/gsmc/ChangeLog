@@ -1,0 +1,4 @@
+*gsmc-1.0 (23 Oct 2005)
+
+  23 Oct 2003; Lucas Chiesa lucas.chiesa@gmail.com gsmc-1.0.ebuild:
+  Initial import of gsmc - A program for doing Smith Chart calculations.
