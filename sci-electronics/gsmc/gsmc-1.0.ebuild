@@ -4,14 +4,14 @@
 
 DESCRIPTION="A GTK program for doing Smith Chart calculations"
 HOMEPAGE="http://www.qsl.net/ik5nax/"
-SRC_URI="http://www.qsl.net/ik5nax/${PN}-${PV}.tar.gz"
+SRC_URI="http://www.qsl.net/ik5nax/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
 
-DEPEND=">=x11-libs/gtk+-2.0"
+DEPEND=">=x11-libs/gtk+-2.6.8"
 RDEPEND=""
 
 src_compile() {
@@ -20,6 +20,6 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR=${D} PREFIX=/usr/ install || die "make install failed"
+	make DESTDIR=${D} install || die "make install failed"
 	dodoc AUTHORS NEWS README ChangeLog TODO
 }

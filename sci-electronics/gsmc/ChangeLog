@@ -1,4 +1,12 @@
+# ChangeLog for sci-electronics/gsmc
+# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  23 Oct 2005; Lucas Chiesa <lucas.chiesa@gmail.com> gsmc-1.0.ebuild:
+  Changed ${PN}-${PV} to ${P}. It now depends on >=x11-libs/gkt+-2.6.8.
+  Removed PREFIX=/usr/ from the make install line.
+
 *gsmc-1.0 (23 Oct 2005)
 
-  23 Oct 2003; Lucas Chiesa lucas.chiesa@gmail.com gsmc-1.0.ebuild:
+  23 Oct 2005; Lucas Chiesa <lucas.chiesa@gmail.com> gsmc-1.0.ebuild:
   Initial import of gsmc - A program for doing Smith Chart calculations.
