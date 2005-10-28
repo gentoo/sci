@@ -1,0 +1,9 @@
+# ChangeLog for sci-electronics/linsmith
+# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*linsmith-0.9.0_alpha3 (25 Oct 2005)
+
+  23 Oct 2005; Lucas Chiesa <lucas.chiesa@gmail.com> linsmith-0.9.0_alpha3:
+  Initial import of lismith - Smith Charting program, mainly designed for 
+  educational use.
