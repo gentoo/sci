@@ -2,6 +2,12 @@
 # Copyright 2000-2005 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/media-gfx/kst/ChangeLog,v 1.9 2005/09/02 19:43:41 hansmi Exp $
 
+*kst-1.1.0-r1 (28 Oct 2005)
+
+  28 Oct 2005; Marcus D. Hanwell <cryos@gentoo.org> +kst-1.1.0-r1.ebuild
+  -kst-1.1.0.ebuild -kst-0.97.ebuild:
+  Revision bump to propagate patch, ebuild cleanups.
+
   25 Oct 2005; Lucas Chiesa <lucas.chiesa@gmail.com> kst-1.1.0.ebuild:
   Added patch to prevent kst linking to netcdf when it shouldn't. 
 
