@@ -27,7 +27,12 @@ RDEPEND="sys-libs/zlib
 DEPEND=">=sys-devel/gcc-3.0.4
 	>=sys-devel/autoconf-2.59
 	>=sys-devel/automake-1.9.3
-	X? (	virtual/glut
+	X? (	|| ( ( x11-libs/libXmu
+				x11-libs/libXt
+				x11-libs/libX11
+				x11-proto/xproto )
+				virtual/x11 )
+		virtual/glut
 		virtual/glu
 		media-libs/jpeg )
 	server? ( virtual/imap-c-client )
