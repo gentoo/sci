@@ -2,8 +2,16 @@
 # Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*linmith-0.9.1 (3 Nov 2005)
+
+  3 Nov 2005; Lucas Chiesa <lucas.chiesa@gmail.com> linsmith-0.9.1.ebuild:
+  Added doc use flag which compiles a lyx manual included in the source.
+  Patch Makefile.am to prevent it installing examples in /usr/share/linsmith.
+  Added the man page from the debian package.
+
 *linsmith-0.9.0_alpha3 (25 Oct 2005)
 
   23 Oct 2005; Lucas Chiesa <lucas.chiesa@gmail.com> linsmith-0.9.0_alpha3:
   Initial import of lismith - Smith Charting program, mainly designed for 
-  educational use.
+  educational use. Thanks to Vincent Paeder <vpaeder@net2000.ch> for the initial
+  ebuild. Closes bug #79082.
