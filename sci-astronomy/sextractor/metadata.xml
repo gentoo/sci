@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>seb@ist.utl.pt</email>
+    <name>Sebastien Fabbro</name>
+  </maintainer>
+  <longdescription lang="en">
+      SExtractor stands for Source Extractor, a program that build a catalog of objects from astronomical FITS images.
+  </longdescription>
+</pkgmetadata>
