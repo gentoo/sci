@@ -1,0 +1,8 @@
+# ChangeLog for sci-libs/minuit
+# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+* minuit-1.7.6 (28 Nov 2005)
+
+  28 Nov 2005; Sebastien Fabbro <seb@ist.utl.pt> +minuit-1.7.6.ebuild.
+  Initial import. Close bug #65672
