@@ -10,12 +10,11 @@ SRC_URI="mirror://sourceforge/gnudatalanguage/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="python fftw hdf hdf5 imagemagick netcdf python fftw"
+IUSE="python fftw hdf hdf5 imagemagick netcdf fftw"
 
 DEPEND=">=sys-libs/readline-4.3
 	sci-libs/gsl
 	>=sci-libs/plplot-5.3
-    ncurses? ( sys-libs/ncurses )
 	imagemagick? ( media-gfx/imagemagick )
 	hdf?  ( sci-libs/hdf )
 	hdf5? ( sci-libs/hdf5 )
@@ -27,15 +26,16 @@ DEPEND=">=sys-libs/readline-4.3
 "
 
 src_compile() {
+	local myconf="--without-Magick"
+	use imagemagick && myconf=" --with-Magick "
 	econf \
-	  $(use_with magick ) \
+	  ${myconf} \
 	  $(use_with hdf ) \
 	  $(use_with hdf5 ) \
 	  $(use_with netcdf ) \
 	  $(use_with python ) \
 	  $(use_with fftw ) \
 	  || die "econf failed"
-#	libtoolize --copy --force || die "libtoolize failed"
 	emake || die "emake failed"
 }
 
