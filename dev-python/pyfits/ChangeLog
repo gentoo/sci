@@ -1,0 +1,9 @@
+# ChangeLog for dev-python/pyfits
+# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+* pyfits-1.0 (29 Nov 2005)
+
+  29 Nov 2005; Sebastien Fabbro <seb@ist.utl.pt> +pyfits-1.0.ebuild.
+  Initial import. Close bug #65691
+

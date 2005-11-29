@@ -28,10 +28,10 @@ src_compile() {
 src_install() {
 	make DESTDIR=${D} install || die "make install failed"
 	dodir /usr/share/doc/${PF}/MnTutorial
-	insinto /usr/share/doc/${PF}/MnTutorial
 	doins tests/MnTutorial/*.{h,cpp}
 	if use doc; then
-		doins ${DISTDIR}/mnusersguide.pdf || die "doins failed"
+		insinto /usr/share/doc/${PF}
+		doins mnusersguide.pdf || die "doins failed"
 		dohtml -r doc/html/* || die "dohtml failed"
 	fi
 }
