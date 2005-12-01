@@ -1,0 +1,9 @@
+# ChangeLog for sci-mathematics/kseg
+# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*kseg-0.402 (30 Nov 2005)
+
+  30 Nov 2005; Lucas Chiesa <lucas.chiesa@gmail.com> kseg-0.402.ebuild:
+  Initial import of kseg. Thanks to Gard Spreemann <spreeman@stud.ntnu.no>
+  for his work. Closes bug #101341
