@@ -13,6 +13,7 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="static doc icc"
 DEPEND="icc? ( dev-lang/icc >= 9 )"
+RDEPEND=""
 
 CONFDIR=/usr/share/${PN}/config
 
@@ -43,8 +44,8 @@ src_install () {
 
 pkg_postinst() {
 	einfo
-    einfo "You can find sextractor configuration files"
-    einfo "in /usr/share/${PN}/config and are enabled by default."
+    einfo "SExtractor configuration files are located"
+    einfo "in /usr/share/${PN}/config and loaded by default."
 	einfo
 }
 
