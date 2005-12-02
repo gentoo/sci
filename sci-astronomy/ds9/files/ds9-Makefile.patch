@@ -1,0 +1,59 @@
+--- Makefile.old	2005-12-01 23:31:19.000000000 +0000
++++ Makefile	2005-12-01 19:52:04.000000000 +0000
+@@ -141,22 +141,22 @@
+ tclsh	: FORCE
+ 	@echo "Installing Tcl shared..."
+ 	cd $(TCLDIRDIR); CC=$(CCc) ./configure $(TCLFLAGS) --enable-shared
+-	cd $(TCLDIRDIR); $(MAKE) install
++	cd $(TCLDIRDIR); $(MAKE) install-binaries install-libraries
+ 
+ tcl	: FORCE
+ 	@echo "Installing Tcl noshared..."
+ 	cd $(TCLDIRDIR); CC=$(CCc) ./configure $(TCLFLAGS) --disable-shared
+-	cd $(TCLDIRDIR); $(MAKE) install
++	cd $(TCLDIRDIR); $(MAKE) install-binaries install-libraries
+ 
+ tksh	: FORCE
+ 	@echo "Installing Tk shared..."
+ 	cd $(TKDIRDIR); CC=$(CCc) ./configure $(TCLFLAGS) --enable-shared
+-	cd $(TKDIRDIR); $(MAKE) install
++	cd $(TKDIRDIR); $(MAKE) install-binaries install-libraries
+ 
+ tk	: FORCE
+ 	@echo "Installing Tk noshared..."
+ 	cd $(TKDIRDIR); CC=$(CCc) ./configure $(TCLFLAGS) --disable-shared
+-	cd $(TKDIRDIR); $(MAKE) install
++	cd $(TKDIRDIR); $(MAKE) install-binaries install-libraries
+ 
+ tclxsh  : FORCE
+ 	@echo "Installing TCLX shared..."
+@@ -171,17 +171,17 @@
+ tktablesh : FORCE
+ 	@echo "Installing TkTable..."
+ 	cd $(TKTABLEDIR); CC=$(CCc) ./configure $(TCLFLAGS) --enable-shared
+-	cd $(TKTABLEDIR); $(MAKE); $(MAKE) install 
++	cd $(TKTABLEDIR); $(MAKE); $(MAKE) install-binaries install-libraries
+ 
+ tktable	: FORCE
+ 	@echo "Installing TkTable..."
+ 	cd $(TKTABLEDIR); CC=$(CCc) ./configure $(TCLFLAGS) --disable-shared
+-	cd $(TKTABLEDIR); $(MAKE); $(MAKE) install
++	cd $(TKTABLEDIR); $(MAKE); $(MAKE) install-binaries install-libraries
+ 
+ tcllib	: FORCE
+ 	@echo "Installing TCLLIB..."
+ 	cd $(TCLLIBDIR); ./configure $(TCLLIBFLAGS)
+-	cd $(TCLLIBDIR); $(MAKE) install
++	cd $(TCLLIBDIR); $(MAKE) install-libraries
+ 
+ tkindex : FORCE
+ 	@echo "Installing Tk mkIndex..."
+@@ -190,7 +190,7 @@
+ blt	: FORCE
+ 	@echo "Installing BLT..."
+ 	cd $(BLTDIR); ./configure $(BLTFLAGS)
+-	cd $(BLTDIR); $(MAKE); $(MAKE) install
++	cd $(BLTDIR); $(MAKE); $(MAKE) -C src install; $(MAKE) -C library install
+ 
+ mktclapp: FORCE
+ 	@echo "Installing MKTCLAPP..."
