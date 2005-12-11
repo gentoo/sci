@@ -41,4 +41,3 @@ src_install () {
 		doins doc/*
 	fi
 }
-
