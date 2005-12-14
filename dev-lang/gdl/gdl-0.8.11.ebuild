@@ -5,7 +5,7 @@
 DESCRIPTION="An Interactive Data Language compatible incremental compiler"
 HOMEPAGE="http://gnudatalanguage.sourceforge.net/"
 SRC_URI="mirror://sourceforge/gnudatalanguage/${P}.tar.gz"
-LICENSE="GPL"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="python fftw hdf hdf5 imagemagick netcdf"
@@ -40,8 +40,6 @@ src_install() {
 	doins -r src/pro
 	doins -r src/py
 	dodoc README PYTHON.txt AUTHORS ChangeLog NEWS TODO
-	# add GDL provided routines to IDL_PATH
-	#echo "IDL_PATH=:/usr/share/${PN}/pro:" > 99gdl
 	echo "IDL_STARTUP=/usr/share/${PN}/pro" > 99gdl
 	doenvd 99gdl
 }

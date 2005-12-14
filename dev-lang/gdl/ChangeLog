@@ -3,8 +3,9 @@
 # $Header: $
 
 
-* gdl-0.8.11 (28 Nov 2005)
+*gdl-0.8.11 (14 Dec 2005)
 
-  28 Nov 2005; Sebastien Fabbro <seb@ist.utl.pt> +gdl-0.8.11.ebuild
-  Initial import. Ebuild submitted by Daniel Veillette <danielv@snet.net> (bug #82660)
+  14 Dec 2005; Sebastien Fabbro <seb@ist.utl.pt> +gdl-0.8.11.ebuild
+  Initial import. Close bug #82660. 
+  Thanks for the ebuild submitted by Daniel Veillette <danielv@snet.net>.
 
