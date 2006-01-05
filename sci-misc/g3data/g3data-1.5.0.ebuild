@@ -14,7 +14,7 @@ IUSE=""
 RDEPEND=">=x11-libs/gtk+-2.6.0
 	media-libs/imlib"
 DEPEND="${RDEPEND}
-	=app-text/docbook-sgml-utils-0.6.14"
+	~app-text/docbook-sgml-utils-0.6.14"
 
 src_compile() {
 	emake || die "emake failed"
