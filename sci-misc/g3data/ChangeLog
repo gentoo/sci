@@ -1,0 +1,11 @@
+# ChangeLog for sci-misc/boinc
+# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-misc/boinc/ChangeLog,v 1.18 2005/12/18 13:29:00 cryos Exp $
+
+*g3data-1.5.0 (05 Jan 2006)
+
+  05 Jan 2006; Marcus D. Hanwell <cryos@gentoo.org>
+  +g3data-1.5.0.ebuild:
+  Initial import in the science overlay from bug 50565. Thanks to 
+  Jonathan S. Romero <jonnyro@jonnyro.isa-geek.com> and 
+  Maxim Loginov <Zeliboba@mail.ru> for the work on the initial ebuilds.
