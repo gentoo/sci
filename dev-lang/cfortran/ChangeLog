@@ -1,0 +1,8 @@
+# ChangeLog for dev-lang/cfortran
+# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*cfortran-4.4 (02 Jan 2006)
+
+  02 Jan 2006; Sebastien Fabbro <seb@ist.utl.pt>;
+  +metadata.xml, +cfortran-4.4.ebuild
