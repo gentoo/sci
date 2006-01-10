@@ -29,10 +29,9 @@ src_compile() {
 }
 
 src_install() {
-	insinto /usr/include
+	insinto /usr/include/cfortran
 	doins cfortran.h
-	dodoc cfortran.doc
-	insinto /usr/share/doc/${P}
-	doins -r cfortest.c  cfortran.doc cfortran.html \
+	dosym /usr/include/cfortran/cfortran.h /usr/include/cfortran.h 
+	dodoc -r cfortest.c  cfortran.doc cfortran.html \
 		index.htm cfortex.f debian examples
 }
