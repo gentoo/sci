@@ -26,7 +26,7 @@ S=${WORKDIR}/sao${PN}
 src_unpack() {
 	unpack ${A}
 	cd ${S}
-    # The patch is to speed up the compilation 
+    # The patch is to speed up the compilation
     # (avoid generating tcl man files for ex.) 
     # and avoid local install bugs with symbolic linking.
 	epatch ${FILESDIR}/${PN}-Makefile.patch
@@ -38,15 +38,16 @@ src_compile() {
 	use x86   && ln -s make.linux make.include
 	use amd64 && ln -s make.linux64 make.include
 	emake -j1 || die "emake failed"
+	# only install locally
 	make install || die "make install (local) failed"
 }
 
 src_install () {
-	dobin bin/ds9 || die "dobin ds9 failed"
+	dobin bin/ds9
 	if use xpa; then
-		dobin bin/xpa* || die "dobin xpa failed"
-		doman man/man?/xpa* || die "doman xpa failed"
+		dobin bin/xpa*
+		doman man/man?/xpa*
 	fi
-	dodoc README acknowledgement copyright || die "dodoc failed"
-	use doc && dohtml ds9/doc/* || die "dohtml failed"
+	dodoc README acknowledgement copyright
+	use doc && dohtml ds9/doc/*
 }
