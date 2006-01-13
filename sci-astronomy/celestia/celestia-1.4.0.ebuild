@@ -14,48 +14,44 @@ KEYWORDS="~amd64 ~ppc ~x86"
 IUSE="gnome gtk kde arts threads nls lua"
 
 DEPEND="virtual/glu
-        media-libs/jpeg
-        media-libs/libpng
-        gtk? ( !gnome? ( !kde? (
-			    >=x11-libs/gtk+-2.6 
-			    >=x11-libs/gtkglext-1.0 
-			) ) )
-        gnome? ( !kde? ( 
-		        >=x11-libs/gtk+-2.6 
-		        >=x11-libs/gtkglext-1.0
-		        >=gnome-base/libgnomeui-2.0
-		    ) )
-        kde? ( !gnome? ( 
-               >=kde-base/kdelibs-3.0.5
-               arts? ( kde-base/arts )
-	        ) )
-        !gtk? ( !gnome? ( !kde? ( virtual/glut ) ) )
-        lua? ( >=dev-lang/lua-5.0 )"
+	media-libs/jpeg
+	media-libs/libpng
+	gtk? ( !gnome? ( !kde? (
+		>=x11-libs/gtk+-2.6
+		>=x11-libs/gtkglext-1.0
+	) ) )
+	gnome? ( !kde? (
+		>=x11-libs/gtk+-2.6
+		>=x11-libs/gtkglext-1.0
+		>=gnome-base/libgnomeui-2.0
+	) )
+	kde?  ( ! gnome ( >=kde-base/kdelibs-3.0.5 ) )
+	!gtk? ( !gnome? ( !kde? ( virtual/glut ) ) )
+	arts? ( kde-base/arts )
+	lua? ( >=dev-lang/lua-5.0 )"
 
 pkg_setup() {
 	# Check for one for the following use flags to be set.
-	if use kde ; then
+	if ! use gnome && use kde; then
 		einfo "USE=\"kde\" detected."
-		export mygui="kde"
-	elif use gnome ; then
+		mygui="kde"
+	elif ! use kde && use gnome; then
 		einfo "USE=\"gnome\" detected."
-		export mygui="gnome"
-	elif use gtk ; then
+		USE_DESTDIR="1"
+		mygui="gnome"
+	elif ! use kde && ! use gnome && use gtk; then
 		einfo "USE=\"gtk\" detected."
-		export mygui="gtk"
+		mygui="gtk"
+	elif use kde && use gnome; then
+		einfo "Both gnome and kde support requested. Defaulting to gtk"
+		mygui="gtk"
 	else
 		ewarn "If you want to use the full gui, set USE=\"{kde/gnome/gtk}\""
 		ewarn "Defaulting to glut support (no GUI)."
-		export mygui="glut"
+		mygui="glut"
 	fi
 
-	# Get X11 implementation
-	X11_IMPLEM_P="$(best_version virtual/x11)"
-	X11_IMPLEM="${X11_IMPLEM_P%-[0-9]*}"
-	X11_IMPLEM="${X11_IMPLEM##*\/}"
-
-	einfo "Please note:"
-	einfo "if you experience problems building celestia with nvidia drivers,"
+	einfo "If you experience problems building celestia with nvidia drivers,"
 	einfo "you can try:"
 	einfo "eselect opengl set xorg-x11"
 	einfo "emerge celestia"
@@ -65,20 +61,23 @@ pkg_setup() {
 src_compile() {
 	filter-flags "-funroll-loops -frerun-loop-opt"
 	addwrite ${QTDIR}/etc/settings
+
 	# remove manual installation in /usr/share/${PN}/manual
 	# replaced with dohtml in src_install
 	sed -i -e "s:manual::g" Makefile.in
+
 	if [ "${mygui}" = "kde" ]; then
 		set-kdedir 3
 		set-qtdir 3
 		export kde_widgetdir="$KDEDIR/lib/kde3/plugins/designer"
 	fi
+
 	econf \
 		--with-${mygui} \
-		$(use_with arts ) \
-		$(use_with lua ) \
-		$(use_enable threads threading ) \
-		$(use_enable nls ) \
+		$(use_with arts) \
+		$(use_with lua) \
+		$(use_enable threads threading) \
+		$(use_enable nls) \
 		|| die "econf failed"
 	emake || die "emake failed"
 }
@@ -93,5 +92,5 @@ src_install() {
 
 	dodoc AUTHORS README TODO NEWS TRANSLATORS ChangeLog \
 		CelestiaKeyAssignments.txt KbdMouseJoyControls.txt devguide.txt
-	dohtml coding-standars.html manual/*.html manual/*.css
+	dohtml coding-standards.html manual/*.html manual/*.css
 }

@@ -1,6 +1,6 @@
 MD5 87233acdbef08c144d95e7dad998d42c ChangeLog 6039
 MD5 6be90f964bc6ca0195b0623338dfd1f0 celestia-1.3.2.ebuild 3063
-MD5 c191839acce72e8120ea5e6d0a232f8a celestia-1.4.0.ebuild 2650
+MD5 50cccd714b46ad2e5c3737207c31cf51 celestia-1.4.0.ebuild 2510
 MD5 f659f2616eeaaa4d3b6422e586d2bfa2 files/celestia-1.3.2-noarts.patch 3566
 MD5 d4ff8e51fb3a546279e7442cf24e07d7 files/digest-celestia-1.3.2 68
 MD5 8e1dfea9c274b2242b921a467ec1d54b files/digest-celestia-1.4.0 68
