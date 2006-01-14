@@ -1,0 +1,9 @@
+# ChangeLog for dev-python/pygsl
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pygsl-0.3.2 (14 Jan 2006)
+
+  14 Jan 2006; Sebastien Fabbro <seb@ist.utl.pt> +pygsl-0.3.2.ebuild, 
+  +ChangeLog, +metadata.xml :
+  Initial import.  Ebuild submitted by Pablo De Nápoli <pdenapo@yahoo.com>.
