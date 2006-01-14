@@ -5,12 +5,12 @@
 inherit distutils
 
 DESCRIPTION="A Python interface for the GNU scientific library (gsl)."
-HOMEPAGE="http://${PN}.sourceforge.net/"
+HOMEPAGE="http://pygsl.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 DEPEND=">=dev-lang/python-2.2 
 	>=sci-libs/gsl-1.4

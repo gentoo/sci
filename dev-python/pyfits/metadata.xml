@@ -4,7 +4,7 @@
   <herd>sci</herd>
   <maintainer>
     <email>seb@ist.utl.pt</email>
-    <name> Sebastien Fabbro</name>
+    <name>Sebastien Fabbro</name>
   </maintainer>
   <longdescription lang="en">
 	PyFITS provides an interface to FITS formatted files under 
