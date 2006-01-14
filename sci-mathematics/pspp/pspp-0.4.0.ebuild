@@ -3,11 +3,11 @@
 # $Header: $
 
 DESCRIPTION="PSPP is a program for statistical analysis of sampled data."
-HOMEPAGE="http://www.gnu.org/software/${PN}/${PN}.html"
+HOMEPAGE="http://www.gnu.org/software/pspp/pspp.html"
 SRC_URI="ftp://ftp.gnu.org/pub/gnu/${PN}/${P}.tar.gz"
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc ncurses emacs plotutils nls"
 
 DEPEND=">=sci-libs/gsl-1.6
@@ -34,10 +34,12 @@ src_install() {
 	dodoc ABOUT-NLS AUTHORS ChangeLog \
 		INSTALL NEWS ONEWS README THANKS TODO
 	docinto examples && dodoc examples/{ChangeLog,descript.stat}
+
 	if use doc; then
 		docinto html
 		dohtml doc/pspp.html/*.html
 	fi
+
 	if use emacs; then
 		insinto /usr/share/emacs/site-lisp
 		doins pspp.el
