@@ -3,7 +3,7 @@
 # $Header: $
 
 
-* swarp-2.15.6 (02 Dec 2005)	
+*swarp-2.15.6 (02 Dec 2005)	
 	
   02 Dec 2005; Sebastien Fabbro <seb@ist.utl.pt> swarp-2.15.6.ebuild
   Initial import. Close bug #65685.

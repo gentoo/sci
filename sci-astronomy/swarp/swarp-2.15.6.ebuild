@@ -10,17 +10,17 @@ SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="static doc threads mpi icc"
 DEPEND="mpi? ( || ( sys-cluster/lam-mpi sys-cluster/mpich ) )
-        icc? ( dev-lang/icc >= 9 )
-       "
+        icc? ( dev-lang/icc >= 9 )"
+
 # mpi stuff untested.
 src_compile() {
 	# trust swarp cflags to be optimized.
 	filter-flags ${CFLAGS}
-	# --disable-threads does not work
-	# note we could calculate a number of threads (~= ncpu)
+	# --disable-threads does not compile
+	# todo: calculate a number of threads (~= ncpu)
 	local myconf=""
 	use threads && myconf="--enable-threads "
 	! use mpi && export MPICC="gcc"
@@ -37,7 +37,7 @@ src_install () {
 	make DESTDIR=${D} install || die "make install failed"
 	dodoc AUTHORS ChangeLog COPYING HISTORY README THANKS
 	if use doc; then
-		insinto /usr/share/doc/${PF} 
+		insinto /usr/share/doc/${PF}
 		doins doc/*
 	fi
 }

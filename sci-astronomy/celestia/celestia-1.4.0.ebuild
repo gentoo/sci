@@ -5,7 +5,7 @@
 inherit eutils flag-o-matic gnome2 kde-functions
 
 DESCRIPTION="Free space simulation that lets you experience our universe in three dimensions"
-HOMEPAGE="http://www.shatters.net/${PN}/"
+HOMEPAGE="http://www.shatters.net/celestia/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"

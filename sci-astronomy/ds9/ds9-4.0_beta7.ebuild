@@ -10,7 +10,7 @@ HOMEPAGE="http://hea-www.harvard.edu/RD/ds9"
 SRC_URI="http://hea-www.harvard.edu/saord/download/${PN}/source/${PN}.${MY_PV}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc xpa"
 DEPEND=">=sys-devel/gcc-3.4
         virtual/x11"

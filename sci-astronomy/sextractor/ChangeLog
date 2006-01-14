@@ -2,7 +2,7 @@
 # Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-* sextractor-2.4.4 (27 Nov 2005)
+*sextractor-2.4.4 (27 Nov 2005)
 
    26 Nov 2005; Sebastien Fabbro <seb@ist.utl.pt> +sextractor-2.4.4.ebuild:
    Initial import. Close bug #65684

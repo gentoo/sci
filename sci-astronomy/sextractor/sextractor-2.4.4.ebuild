@@ -5,12 +5,12 @@
 inherit flag-o-matic
 
 DESCRIPTION="Extract catalogs of sources from astronomical FITS images."
-HOMEPAGE="http://terapix.iap.fr/soft/${PN}"
+HOMEPAGE="http://terapix.iap.fr/soft/sextractor"
 SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=" ~amd64 ~x86"
 IUSE="static doc icc"
 DEPEND="icc? ( dev-lang/icc >= 9 )"
 RDEPEND=""
@@ -45,7 +45,7 @@ src_install () {
 pkg_postinst() {
 	einfo
     einfo "SExtractor configuration files are located"
-    einfo "in /usr/share/${PN}/config and loaded by default."
+    einfo "in ${CONFDIR} and loaded by default."
 	einfo
 }
 
