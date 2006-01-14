@@ -30,7 +30,7 @@ diff -urN kseg-0.402.orig/main.cpp kseg-0.402/main.cpp
    //set some default properties
    KSegProperties::setPropertyDefault("Language", "");
 -  KSegProperties::setPropertyDefault("LanguageDir", ".");
-+  KSegProperties::setPropertyDefault("LanguageDir", "/usr/share/doc/kseg-0.402/help");
++  KSegProperties::setPropertyDefault("LanguageDir", "KSEG_HELP_DIR");
    KSegProperties::setPropertyDefault("SelectType", "BorderSelect");
    KSegProperties::setPropertyDefault("QuickPlayDirectory", ".");
    KSegProperties::setPropertyDefault("RecentListSize", "4");
