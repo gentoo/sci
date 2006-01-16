@@ -25,7 +25,7 @@ DEPEND="virtual/glu
 		>=x11-libs/gtkglext-1.0
 		>=gnome-base/libgnomeui-2.0
 	) )
-	kde?  ( !gnome ( >=kde-base/kdelibs-3.0.5 ) )
+	kde?  ( !gnome? ( >=kde-base/kdelibs-3.0.5 ) )
 	!gtk? ( !gnome? ( !kde? ( virtual/glut ) ) )
 	arts? ( kde-base/arts )
 	lua? ( >=dev-lang/lua-5.0 )"
