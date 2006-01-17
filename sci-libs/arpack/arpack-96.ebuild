@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit toolchain-funcs
+inherit toolchain-funcs fortran
 
 
 DESCRIPTION="ARPACK is a collection of Fortran77 subroutines designed to solve large scale eigenvalue problems."
@@ -20,15 +20,15 @@ KEYWORDS="~amd64 ~x86"
 DEPEND="virtual/libc
     mpi? ( virtual/mpi )"
 
-S=${WORKDIR}/ARPACK
-ARPACKLIB=libarpack.a
-
-# lapack USE/dependence not included because README file strongly
+# lapack USE/dependence not implemented because README file strongly
 # recommands using arpack internal lapack (unless is lapack-2,
 # which does not exist on gentoo).
+# anyway, i could not run examples with the installed lapack-3 on my system
 
 # mpi use is very experimental (basically non working)
 
+
+S=${WORKDIR}/ARPACK
 
 src_compile() {
 	local mpiconf=""
@@ -43,30 +43,46 @@ src_compile() {
 		RANLIB=$(tc-getRANLIB) \
 		FFLAGS="${FFLAGS}" \
 		MAKE=/usr/bin/make \
-		ARPACKLIB=${S}/${ARPACKLIB} \
+		ARPACKLIB=${S}/libarpack.a \
+		PRECISIONS="single double complex complex16 sdrv ddrv cdrv zdrv" \
 		${mpiconf} \
 		all || die "emake failed"
 }
 
 src_install() {
-	dolib.a ${ARPACKLIB}
+	dolib.a libarpack.a
 	dodoc README
 	docinto DOCUMENTS
 	dodoc DOCUMENTS/*
 
-	if use examples; then 
-		for mkfile in `ls -d EXAMPLES/*/makefile`; do
-			sed -i -e "s:\$(ALIBS):-larpack:g" ${mkfile}
+	if use examples; then
+		for mkfile in $(ls -d EXAMPLES/*/makefile); do
+			sed -e '/^include/d' \
+				-e '1i ALIBS=-larpack' \
+				-i ${mkfile}
 		done
 		insinto /usr/share/doc/${P}
 		doins -r EXAMPLES
 		if use mpi; then
-			for mkfile in `ls -d PARPACK/EXAMPLES/*/makefile`; do
-				sed -i -e "s:\$(PLIBS):-lparpack:g" ${mkfile}
+			for mkfile in $(ls -d PARPACK/EXAMPLES/*/makefile); do
+				sed -e '/^include/d' \
+					-e 's:_\$(PLAT)::g' \
+					-e '1i PLIBS=-lparpack' \
+					-e '2i PFC=$(tc-getF77)' \
+					-e '3i PFFLAGS=${FFLAGS}' \
+					-i ${mkfile}
 			done
 			insinto /usr/share/doc/${P}/PARPACK
 			doins -r PARPACK/EXAMPLES
 		fi
 	fi
+
+}
+
+src_postinst() {
+	einfo
+	einfo "ARPACK has been compiled with internal LAPACK routines"
+	einfo "\"LDFLAGS=-llarpack\" is enough to link your applications"
+	einfo
 
 }
