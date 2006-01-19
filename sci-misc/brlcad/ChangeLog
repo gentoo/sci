@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/plplot
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*brlcad-7.6.6 (19 January 2006)
+
+  19 January 2006; Marcus D. Hanwell <cryos@gentoo.org>
+  +brlcad-7.6.6.ebuild:
+  Initial import into the science overlay, bug 77197.
