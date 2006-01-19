@@ -17,7 +17,7 @@ DEPEND=">=sys-libs/readline-4.2
     fftw?  ( =sci-libs/fftw-2.1* )
     gsl?   ( >=sci-libs/gsl-1.5 )
     qt?    ( $(qt_min_version 3.3) )
-    mpi?   ( virtual/mpi )
+    mpi?   ( sys-cluster/lam-mpi )
     ginac? ( >=sci-mathematics/ginac-1.2.0 )
     cln?   ( >=sci-libs/cln-1.1.6 )"
 
