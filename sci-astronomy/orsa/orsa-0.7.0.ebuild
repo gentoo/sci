@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~ppc"
-IUSE="opengl qt mpi ginac cln gsl fftw xinerama threads static"
+IUSE="custom-cflags opengl qt mpi ginac cln gsl fftw xinerama threads static"
 
 DEPEND=">=sys-libs/readline-4.2
     fftw?  ( =sci-libs/fftw-2.1* )
@@ -27,6 +27,10 @@ replace-flags k6 i586
 
 src_compile() {
 	local myconf=""
+	if ! use mpi; then
+		export MPICXX="g++"
+	fi
+
 	if ! use ginac; then
 		myconf="--with-ginac-prefix=/no/such/file"
 	fi
@@ -58,8 +62,8 @@ src_compile() {
 		sed -e 's/\(orsa_LDADD = .*\)/\1 -llammpi++ -lmpi -llam -lpthread -lutil/' \
 			-i src/orsa/Makefile
 	fi
-
-	emake || die "emake failed"
+	
+	emake CFLAGS="${CFLAGS}" || die "emake failed"
 }
 
 src_install() {
