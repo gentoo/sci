@@ -8,12 +8,12 @@ MY_PV="v${PV}"
 MY_PN="`echo \"${PN}\" | tr a-z A-Z`"
 
 DESCRIPTION="Library for unsymmetric sparse linear algebra using the Unsymmetric MultiFrontal method"
-HOMEPAGE="http://www.cise.ufl.edu/research/sparse/${PN}/"
+HOMEPAGE="http://www.cise.ufl.edu/research/sparse/umfpack"
 SRC_URI="http://www.cise.ufl.edu/research/sparse/${PN}/${MY_PV}/${MY_PN}${MY_PV}.tar.gz"
 # licence in tar file
 LICENSE="UMFPACK"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="blas doc"
 DEPEND="blas? ( virtual/blas )"
 
@@ -27,10 +27,10 @@ src_compile() {
 
 	if use blas; then 
 		MYCFLAGS="${MYCFLAGS} $(blas-config --cflags)"
-		MYCONFIG="-DCBLAS" 
+		MYCONFIG="-DCBLAS"
 		MYLIB="${MYLIB} $(blas-config --clibs)"
 	fi
-
+	
 	# upstream Makefile forbids to use parallell builds.
 	# given its simplicity, we reproduce it here
 
@@ -65,6 +65,9 @@ src_install() {
 		dodoc ${udir}/README.txt
 		docinto ${udir}/Doc
 		dodoc ${udir}/Doc/ChangeLog
-		use doc && dopdf ${udir}/Doc/*.pdf
+		if use doc; then 
+			insinto /usr/share/${PF}/${udir}/Doc/ChangeLog
+			doins ${udir}/Doc/*.pdf
+		fi
 	done
 }

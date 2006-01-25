@@ -31,9 +31,7 @@ src_compile() {
 
 src_install () {
 	make DESTDIR=${D} install || die "make install failed"
-	dodoc AUTHORS BUGS ChangeLog COPYING HISTORY README THANKS
-	dodir /usr/share/${PN}
-	dodir ${CONFDIR}
+	dodoc AUTHORS BUGS ChangeLog HISTORY README THANKS
 	insinto ${CONFDIR}
 	doins config/*
 	if use doc; then

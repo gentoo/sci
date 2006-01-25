@@ -22,7 +22,7 @@ src_compile() {
 	emake || die "emake failed"
 	if use doc; then
 		make docs || die "make docs failed"
-	fi	
+	fi
 }
 
 src_install() {

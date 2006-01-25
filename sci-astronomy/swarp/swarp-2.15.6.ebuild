@@ -5,7 +5,7 @@
 inherit flag-o-matic
 
 DESCRIPTION="Resample and coadd astronomical FITS images"
-HOMEPAGE="http://terapix.iap.fr/soft/${PN}"
+HOMEPAGE="http://terapix.iap.fr/soft/swarp"
 SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2"
