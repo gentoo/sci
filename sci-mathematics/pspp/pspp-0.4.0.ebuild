@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+inherit elisp-common
+
 DESCRIPTION="PSPP is a program for statistical analysis of sampled data."
 HOMEPAGE="http://www.gnu.org/software/pspp/pspp.html"
 SRC_URI="ftp://ftp.gnu.org/pub/gnu/${PN}/${P}.tar.gz"
@@ -19,9 +21,9 @@ DEPEND=">=sci-libs/gsl-1.6
 
 src_compile() {
 	econf \
-		$(use_with plotutils ) \
-		$(use_with ncurses ) \
-		$(use_enable nls ) \
+		$(use_with plotutils) \
+		$(use_with ncurses) \
+		$(use_enable nls) \
 		|| die "econf failed"
 	emake || die "emake failed"
 	use doc && (emake html || die "make html failed")
@@ -29,7 +31,6 @@ src_compile() {
 
 src_install() {
 	make DESTDIR="${D}" install || die "make install failed"
-	make DESTDIR="${D}" install-man || die "make install-man failed"
 
 	dodoc ABOUT-NLS AUTHORS ChangeLog \
 		INSTALL NEWS ONEWS README THANKS TODO
@@ -40,8 +41,13 @@ src_install() {
 		dohtml doc/pspp.html/*.html
 	fi
 
-	if use emacs; then
-		insinto /usr/share/emacs/site-lisp
-		doins pspp.el
-	fi
+	use emacs && elisp-site-file-install pspp-mode.el
+}
+
+pkg_postinst () {
+	use emacs && elisp-site-regen
+}
+
+pkg_postrm() {
+	use emacs && elisp-site-regen
 }
