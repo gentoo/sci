@@ -1,0 +1,125 @@
+# ChangeLog for sci-mathematics/maxima
+# Copyright 2002-2005 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-mathematics/maxima/ChangeLog,v 1.12 2005/10/04 19:52:21 gustavoz Exp $
+
+  04 Oct 2005; Gustavo Zacarias <gustavoz@gentoo.org>
+  maxima-5.9.1-r5.ebuild:
+  Keyworded ~sparc
+
+*maxima-5.9.1-r5 (01 Oct 2005)
+
+  01 Oct 2005; Olivier Fisette <ribosome@gentoo.org>
+  +maxima-5.9.1-r5.ebuild:
+  Install info files in "/usr/share/info", not "/usr/info" (fixes bug #105705).
+
+*maxima-5.9.1-r4 (19 Sep 2005)
+
+  19 Sep 2005; Olivier Fisette <ribosome@gentoo.org>
+  -files/5.9.1-sbcl-gentoo.patch, -maxima-5.9.1-r2.ebuild,
+  -maxima-5.9.1-r3.ebuild, +maxima-5.9.1-r4.ebuild:
+  New ebuild with improved support for LISP compilers, thanks to Lucas Chiesa
+  <lucas.chiesa@gmail.com> (fixes bug #98763). Removed obsolete versions.
+
+  29 Aug 2005; Olivier Fisette <ribosome@gentoo.org> maxima-5.9.1-r3.ebuild:
+  Readded ~amd64 support, thanks to a patch by Matthew Kennedy
+  <mkennedy@gentoo.org>. Partially fixes bug #98763.
+
+*maxima-5.9.1-r3 (20 Aug 2005)
+
+  20 Aug 2005; Olivier Fisette <ribosome@gentoo.org>
+  +files/maxima-5.9.1-unicode-fix.patch, +maxima-5.9.1-r3.ebuild:
+  New revision incorporating a Unicode patch, thanks to Thomas Weidner
+  <3.14159@gmx.net> (fixes bug #92644).
+
+  20 Aug 2005; Olivier Fisette <ribosome@gentoo.org> maxima-5.9.1-r2.ebuild:
+  Depend on >=gcl-2.6.7 (fixes bug #81869). Removed ~amd64 previously added by
+  Matthew Kennedy since AMD64 support is obviously broken (see bug #98763).
+
+  07 Aug 2005; Michael Hanselmann <hansmi@gentoo.org> maxima-5.9.1.ebuild:
+  Stable on ppc.
+
+  01 Jul 2005; Matthew Kennedy <mkennedy@gentoo.org>
+  +files/5.9.1-sbcl-gentoo.patch, maxima-5.9.1-r2.ebuild:
+  Patch for SBCL support; Keywording ~mad64.
+
+  17 Apr 2005; Olivier Fisette <ribosome@gentoo.org> -maxima-5.9.0.ebuild,
+  -maxima-5.9.0-r2.ebuild, -maxima-5.9.0-r3.ebuild, -maxima-5.9.1-r1.ebuild:
+  Removed obsolete versions.
+
+*maxima-5.9.1-r2 (17 Apr 2005)
+
+  17 Apr 2005; Olivier Fisette <ribosome@gentoo.org>
+  +maxima-5.9.1-r2.ebuild:
+  Fixed documentation location problem (#82000).
+
+*maxima-5.9.1-r1 (28 Dec 2004)
+
+  28 Dec 2004; Olivier Fisette <ribosome@gentoo.org> +metadata.xml,
+  +files/50maxima-gentoo.el, +files/maxima-emacs.patch,
+  +maxima-5.9.0-r2.ebuild, +maxima-5.9.0-r3.ebuild, +maxima-5.9.0.ebuild,
+  +maxima-5.9.1-r1.ebuild, +maxima-5.9.1.ebuild:
+  Moved from app-sci/maxima to sci-mathematics/maxima.
+
+  14 Oct 2004; Stefan Jones <cretin@gentoo.org> maxima-5.9.1-r1.ebuild:
+  Add missing pkg_postrm function on uninstall
+
+*maxima-5.9.1-r1 (07 Oct 2004)
+
+  07 Oct 2004; Stefan Jones <cretin@gentoo.org> maxima-5.9.1-r1.ebuild:
+  Add user submitted emacs install, bug #66135
+
+  07 Oct 2004; Patrick Kursawe <phosphan@gentoo.org> maxima-5.9.1.ebuild:
+  Escaping what should be escaped in postinst output - see bug #65395
+
+*maxima-5.9.1 (05 Oct 2004)
+
+  05 Oct 2004; Stefan Jones <cretin@gentoo.org> maxima-5.9.1.ebuild:
+  New version bump, fixes bug #53470
+
+  25 Aug 2004; Sven Wegener <swegener@gentoo.org> maxima-5.9.0-r2.ebuild,
+  maxima-5.9.0-r3.ebuild, maxima-5.9.0.ebuild:
+  Changed SRC_URI to use mirror:// syntax.
+
+  08 Aug 2004; Olivier Fisette <ribosome@gentoo.org>
+  maxima-5.9.0-r3.ebuild, files/maxima-emacs.patch:
+  Fixed invalid reference to "/usr/local/info" in maxima emacs mode.
+  Reported by Dirk Gerrits <dirk@dirkgerrits.com> in bug #59288.
+
+  27 Jun 2004; Aron Griffis <agriffis@gentoo.org> maxima-5.9.0-r2.ebuild:
+  QA - fix use invocation
+
+  02 Jun 2004; Aron Griffis <agriffis@gentoo.org> maxima-5.9.0-r2.ebuild:
+  Fix use invocation
+
+  18 May 2004; Mamoru KOMACHI <usata@gentoo.org> maxima-5.9.0-r2.ebuild:
+  Changed app-text/tetex to virutal/tetex.
+
+  19 Apr 2004; Patrick Kursawe <phosphan@gentoo.org> maxima-5.9.0-r1.ebuild,
+  maxima-5.9.0-r2.ebuild, maxima-5.9.0.ebuild:
+  Depend on gcl/cmucl only for x86. Added IUSE. Cleanup.
+
+*maxima-5.9.0-r2 (05 Oct 2003)
+
+  05 Oct 2003; Matthew Kennedy <mkennedy@gentoo.org> maxima-5.9.0-r2.ebuild:
+  use cmucl and not cmucl-bin (now masked)
+
+  21 Sep 2003; Matthew Kennedy <mkennedy@gentoo.org> maxima-5.9.0-r1.ebuild:
+  depend on virtual/emacs, not app-editors/emacs
+
+  31 Aug 2003; George Shapovalov <george@gentoo.org> maxima-5.9.0-r1.ebuild :
+  few more improvements from #16529. Now supports clisp, cmucl and gcl in any combination
+
+*maxima-5.9.0-r1 (06 Aug 2003)
+
+  06 Aug 2003; George Shapovalov <george@gentoo.org> maxima-5.9.0-r1.ebuild :
+  expandedn the ebuild following the #16529.
+  Now has 4 use flags (two of the local) and some emacs and tex related functionality.
+  Can be built with either clisp or cmucl
+  Thanks to  Cliff Yapp  and  Sourav Mandal for suggestions and additions
+
+*maxima-5.9.0 (19 Apr 2003)
+
+  19 Apr 2003; George Shapovalov <george@gentoo.org> maxima-5.9.0.ebuild, files/{digest-maxima-5.9.0} :
+  initial release (#16529)
+  Free computer algebra environment, based on Macsyma
+  ebuild submitted by Sourav Mandal <sourav@sourav.net>

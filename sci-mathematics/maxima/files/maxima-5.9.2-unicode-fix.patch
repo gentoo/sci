@@ -1,0 +1,63 @@
+diff -ru maxima-5.9.2/src/cl-info.lisp maxima-5.9.2.new/src/cl-info.lisp
+--- maxima-5.9.2/src/cl-info.lisp	2005-06-10 14:04:25.000000000 +0200
++++ maxima-5.9.2.new/src/cl-info.lisp	2005-11-17 14:05:38.825785640 +0100
+@@ -118,7 +118,7 @@
+ (eval-when (compile eval load)
+   (defun sharp-u-reader (stream subchar arg)
+     (declare (ignore subchar arg))
+-    (let ((tem (make-array 10 :element-type 'base-char
++    (let ((tem (make-array 10 :element-type 'character
+ 			   :fill-pointer 0 :adjustable t)))
+       (unless (eql (read-char stream) #\")
+ 	(error "sharp-u-reader reader needs a \"right after it"))
+@@ -132,7 +132,7 @@
+ 					      (#\r . #\return))))
+ 			     ch))))
+ 	 (vector-push-extend ch tem)))
+-      (coerce tem '(simple-array base-char (*)))))
++      (coerce tem '(simple-array character (*)))))
+ 
+   (set-dispatch-macro-character #\# #\u 'sharp-u-reader)
+   )
+@@ -153,7 +153,7 @@
+ 	(error "illegal file start ~a" start))
+       #-gcl
+       (let ((tem (make-array (- len start)
+-			     :element-type 'base-char)))
++			     :element-type 'character)))
+ 	(when (> start 0)
+ 	  (file-position st start))
+ 	(read-sequence tem st :start 0 :end (length tem))
+@@ -249,7 +249,7 @@
+ 	       ((> extra 0)
+ 		(setq tem 
+ 		      (make-array (+ (length x) extra)
+-				  :element-type 'base-char :fill-pointer 0))
++				  :element-type 'character :fill-pointer 0))
+ 		(setq i 0)
+ 		(go AGAIN))
+ 	       (t (setq tem x)))
+diff -ru maxima-5.9.2/src/numerical/f2cl-lib.lisp maxima-5.9.2.new/src/numerical/f2cl-lib.lisp
+--- maxima-5.9.2/src/numerical/f2cl-lib.lisp	2005-05-19 14:40:27.000000000 +0200
++++ maxima-5.9.2.new/src/numerical/f2cl-lib.lisp	2005-11-17 14:05:38.801789288 +0100
+@@ -1346,7 +1346,7 @@
+ ;;; These changes come from maxima.
+ ;;;
+ ;;; Revision 1.61  2005/03/28 20:38:18  rtoy
+-;;; Make strings with an element-type of character instead of base-char,
++;;; Make strings with an element-type of character instead of character,
+ ;;; in case the Lisp implementation has unicode support.
+ ;;;
+ ;;; Revision 1.60  2004/09/01 14:17:57  rtoy
+diff -ru maxima-5.9.2/src/server.lisp maxima-5.9.2.new/src/server.lisp
+--- maxima-5.9.2/src/server.lisp	2005-03-30 19:14:50.000000000 +0200
++++ maxima-5.9.2.new/src/server.lisp	2005-11-17 14:05:39.186730768 +0100
+@@ -52,7 +52,7 @@
+ 	      :element-type (if bin '(unsigned-byte 8) 'character)))
+     #+gcl (si::socket port :host host)
+     #+lispworks (comm:open-tcp-stream host port :direction :io :element-type
+-                                      (if bin 'unsigned-byte 'base-char))
++                                      (if bin 'unsigned-byte 'character))
+     #-(or allegro clisp cmu sbcl gcl lispworks)
+     (error 'not-implemented :proc (list 'open-socket host port bin))))
+ 
