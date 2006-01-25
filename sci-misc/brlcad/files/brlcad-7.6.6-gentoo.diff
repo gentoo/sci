@@ -1,0 +1,38 @@
+--- configure.ac	2006-01-20 03:25:29.000000000 +0000
++++ configure.ac	2006-01-20 03:33:25.000000000 +0000
+@@ -177,7 +177,7 @@
+ # set up our default shared/non-shared data install directories
+ #         e.g. /usr/local/share/brlcad/7.4.0
+ AC_MSG_CHECKING([where BRL-CAD resources are to be installed])
+-if test "x$datadir" = "x\${prefix}/share" ; then
++if test "x$datadir" = "x${prefix}/share" ; then
+ 	bc_data_dir="${bc_prefix}/share/brlcad/${BRLCAD_VERSION}"
+ elif test "x$datadir" = "x${prefix}/share" ; then
+ 	bc_data_dir="${bc_prefix}/share/brlcad/${BRLCAD_VERSION}"
+@@ -1905,9 +1905,8 @@
+ #ifdef HAVE_TCL_H
+ #  include <tcl.h>
+ #endif
+-#ifdef HAVE_TK_H
++#  include <tcl.h>
+ #  include <tk.h>
+-#endif
+ #ifndef TK_MAJOR_VERSION
+ #  error Unknown major version of Tk
+ #endif
+@@ -2068,14 +2067,12 @@
+ dnl this test is probably not sufficient if iwidgets is not locateable
+ dnl in the tcl auto_path.
+ AC_TRY_RUN([
+-#ifdef HAVE_TCL_H
+ #  include <tcl.h>
+-#endif
+ int main() {
+     Tcl_Interp *interp;
+     const char *cmd = "package require Iwidgets";
+     interp = Tcl_CreateInterp();
+-    if (Itcl_Init(interp) == TCL_ERROR) {
++    if (Tcl_Init(interp) == TCL_ERROR) {
+ 	return 1;
+     }
+     if (Tcl_Eval(interp, cmd) != TCL_OK || interp->result[0] == '\0') {
