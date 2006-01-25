@@ -1,4 +1,4 @@
-MD5 6546dec592c0a3635bdd2f8bb564fea7 ChangeLog 251
+MD5 13df6deca0111b09ebbf486f041df6bd ChangeLog 278
 MD5 59f60aedbd56419f50ce3bb6b8c6e97f files/digest-pyfits-1.0 63
 MD5 a55cc50eb06e249a66c191eaf41b9324 metadata.xml 447
-MD5 18ae1dfdc25c9ad32c29096983740003 pyfits-1.0.ebuild 717
+MD5 19c6faa8df295081e3346e981d66303b pyfits-1.0.ebuild 686

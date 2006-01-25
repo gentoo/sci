@@ -21,9 +21,7 @@ S=${WORKDIR}/${PN}
 
 src_install() {
 	distutils_src_install
-	
 	if use doc; then
-		dodir /usr/share/doc/${PF}
 		insinto /usr/share/doc/${PF}
 		doins docs/Users_Manual.pdf
 	fi
