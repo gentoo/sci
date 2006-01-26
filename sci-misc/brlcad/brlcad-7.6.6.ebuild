@@ -34,15 +34,17 @@ pkg_setup() {
 		einfo "See bug #104769 on http://bugs.gentoo.org"
 	fi
 }
-#src_unpack() {
-#	unpack ${A}
-#	cd ${S}
-#	epatch ${FILESDIR}/${PF}-gentoo.diff
+src_unpack() {
+	unpack ${A}
+	cd ${S}
+	cp ${FILESDIR}/tcl.m4 ${S}/m4/
+	epatch ${FILESDIR}/${PF}-gentoo.diff
 	# We must rebuild ./configure, becouse the patch modifies configure.ac.
-#	rm configure
-#	autoconf
-#	cd ${S}
-#}
+	rm configure
+	econf "Running autoconf..."
+	autoconf
+	cd ${S}
+}
 
 src_compile() {
 	local myconf
