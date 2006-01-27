@@ -1,0 +1,54 @@
+# ChangeLog for sci-libs/geos
+# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-libs/geos/ChangeLog,v 1.10 2005/11/21 19:36:08 blubb Exp $
+
+*geos-2.2.1 (27 Jan 2005)
+
+  27 Jan 2006; Lucas Chiesa <lucas.chiesa@gmail.com> geos-2.2.1.ebuild:
+  Version bump. Thanks to Etienne Dube <etdube@globetrotter.net>
+  for his work.
+  
+  21 Nov 2005; Simon Stelling <blubb@gentoo.org> geos-2.1.2.ebuild:
+  stable on amd64
+
+  17 Sep 2005; Michael Hanselmann <hansmi@gentoo.org> geos-2.1.2.ebuild:
+  Stable on ppc.
+
+  11 Sep 2005; Steve Arnold <nerdboy@gentoo.org> geos-2.1.1.ebuild,
+  geos-2.1.2.ebuild:
+  stable bump for sparc
+
+*geos-2.1.4 (27 Aug 2005)
+
+  27 Aug 2005; Masatomo Nakano <nakano@gentoo.org> +geos-2.1.4.ebuild:
+  Version bump.
+
+  23 Jul 2005; Steve Arnold <nerdboy@gentoo.org> geos-2.1.1.ebuild,
+  geos-2.1.2.ebuild:
+  stable bump for x86 and keyworded for ~sparc
+
+*geos-2.1.2 (03 Jul 2005)
+
+  03 Jul 2005; Masatomo Nakano <nakano@gentoo.org> +geos-2.1.2.ebuild:
+  Version bump.
+
+  17 May 2005; Chris White <chriswhite@gentoo.org> geos-2.1.1.ebuild:
+  Marked ppc unstable.
+
+  14 May 2005; MATSUU Takuto <matsuu@gentoo.org>
+  +files/geos-2.1.1-multilib.patch, geos-2.1.1.ebuild:
+  clean up ebuild. Fixed multilib problem.
+
+  14 May 2005; MATSUU Takuto <matsuu@gentoo.org> geos-2.1.1.ebuild:
+  mark ~amd64
+
+*geos-2.1.1 (11 May 2005)
+
+  11 May 2005; Masatomo Nakano <nakano@gentoo.org> +metadata.xml,
+  +geos-2.1.1.ebuild:
+  Initial import. Ebuild submitted by
+    Nathaniel C. Domingo <nathaniel.domingo@up.edu.ph>,
+    Paul Sumner <paul@zanfx.com>,
+    Jeff Kowalczyk <jtk@yahoo.com>,
+    MZM <marazm@navigator.lv>,
+    FENOY Gérald  djayweb@djayux.net>.
