@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 LICENSE="GPL-2 AECA"
 SLOT="0"
 KEYWORDS="~x86 ~amd64 ~sparc"
-IUSE="cmucl clisp sbcl tetex emacs auctex tcltk rlwrap"
+IUSE="cmucl clisp sbcl tetex emacs auctex tcltk"
 
 DEPEND="tetex? ( virtual/tetex )
 	emacs? ( virtual/emacs )
@@ -20,10 +20,12 @@ DEPEND="tetex? ( virtual/tetex )
 	!clisp? ( !sbcl? ( !cmucl? ( >=dev-lisp/gcl-2.6.7 ) ) )
 	cmucl? ( >=dev-lisp/cmucl-19a )
 	clisp? ( >=dev-lisp/clisp-2.33.2-r1 )
-	sbcl?  ( >=dev-lisp/sbcl-0.8.14 )"
-RDEPEND="rlwrap? app-misc/rlwrap
-     tcktk? >=dev-lang/tk-8.3.3
-	 >=media-gfx/gnuplot-4.0-r1"
+	sbcl?  ( >=dev-lisp/sbcl-0.9.4 )"
+# rlwrap is actually recommanded for clisp and sbcl 
+RDEPEND=">=media-gfx/gnuplot-4.0
+     cmucl? ( app-misc/rlwrap )
+     sbcl?  ( app-misc/rlwrap )
+     tcktk? ( >=dev-lang/tk-8.3.3 )"
 
 src_unpack() {
 	unpack ${A}
@@ -41,7 +43,7 @@ src_compile() {
 
 	# remove xmaxima and rmaxima if not requested
 	use tcltk  || sed -i -e '/^SUBDIRS/s/xmaxima//' interfaces/Makefile.in
-	use rlwrap || sed -i -e '/^@WIN32_FALSE@bin_SCRIPTS/s/rmaxima//' src/Makefile.in
+	(! use sbcl && ! use cmucl) || sed -i -e '/^@WIN32_FALSE@bin_SCRIPTS/s/rmaxima//' src/Makefile.in
 
 	local myconf=""
 	if use cmucl || use clisp || use sbcl; then
