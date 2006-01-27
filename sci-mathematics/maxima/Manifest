@@ -2,4 +2,4 @@ MD5 34088e52192b29787ef45aa41a483be9 ChangeLog 5013
 MD5 6957a9bafd71a24b58e148bb2ee58257 files/50maxima-gentoo.el 346
 MD5 f94d8f9a9d0bf93b5f28b15f6198261e files/digest-maxima-5.9.2 65
 MD5 7a31ee68476b8dfb009b4b917b4e4e4c files/maxima-5.9.2-unicode-fix.patch 2738
-MD5 f4977f92fd46a982f7142427e1f81ab5 maxima-5.9.2.ebuild 2505
+MD5 2a3e3dd585f61aa9dd2f3b3e354d6e11 maxima-5.9.2.ebuild 2567

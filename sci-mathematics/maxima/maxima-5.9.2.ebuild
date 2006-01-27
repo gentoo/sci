@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils elisp-common
+inherit eutils elisp-common autotools
 
 DESCRIPTION="Free computer algebra environment, based on Macsyma"
 HOMEPAGE="http://maxima.sourceforge.net/"
@@ -36,6 +36,8 @@ src_unpack() {
 }
 
 src_compile() {
+	# automake version mismatch otherwise
+	eautoreconf
 
 	# remove xmaxima and rmaxima if not requested
 	use tcltk  || sed -i -e '/^SUBDIRS/s/xmaxima//' interfaces/Makefile.in
