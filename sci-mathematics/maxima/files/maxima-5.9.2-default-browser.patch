@@ -1,0 +1,14 @@
+--- maxima-5.9.2/interfaces/xmaxima/Tkmaxima/Menu.tcl~	2005-09-30 16:26:26.000000000 +0100
++++ maxima-5.9.2/interfaces/xmaxima/Tkmaxima/Menu.tcl	2006-01-28 10:08:45.000000000 +0000
+@@ -215,9 +215,9 @@
+ 	}
+     } else {
+ 	
+-	set selectedbrowser mozilla
++	set selectedbrowser firefox
+ 
+-	foreach b { mozilla konqueror epiphany firefox netscape } {
++	foreach b { firefox konqueror epiphany mozilla opera netscape } {
+ 	    if { ! [catch {exec which $b} ] } {
+ 		set selectedbrowser $b
+ 		break } }

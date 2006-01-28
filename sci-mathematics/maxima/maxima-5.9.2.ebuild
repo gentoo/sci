@@ -13,33 +13,42 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64 ~sparc"
 IUSE="cmucl clisp sbcl tetex emacs auctex tcltk"
 
-DEPEND="tetex? ( virtual/tetex )
+DEPEND=">=sys-apps/texinfo-4.3
+    tetex? ( virtual/tetex )
 	emacs? ( virtual/emacs )
 	auctex? ( app-emacs/auctex )
-	>=sys-apps/texinfo-4.3
 	!clisp? ( !sbcl? ( !cmucl? ( >=dev-lisp/gcl-2.6.7 ) ) )
 	cmucl? ( >=dev-lisp/cmucl-19a )
 	clisp? ( >=dev-lisp/clisp-2.33.2-r1 )
 	sbcl?  ( >=dev-lisp/sbcl-0.9.4 )"
+
 # rlwrap is actually recommanded for clisp and sbcl 
 RDEPEND=">=media-gfx/gnuplot-4.0
-     cmucl? ( app-misc/rlwrap )
      sbcl?  ( app-misc/rlwrap )
+     cmucl? ( app-misc/rlwrap )
      tcktk? ( >=dev-lang/tk-8.3.3 )"
 
 src_unpack() {
 	unpack ${A}
-	epatch "${FILESDIR}"/maxima-${PV}-unicode-fix.patch
-	# replace ugly default ghostview with gv - could do kpdf/evince more general
-	cd ${S}
-	for gvfile in $(grep -rl *); do
-		sed -i -e 's/ghostview/gv/g' ${gvfile}
+	# patch to fix unicde stuff
+	epatch "${FILESDIR}"/${PF}-unicode-fix.patch
+	# small patch taken from Fedora package
+	epatch "${FILESDIR}"/${PF}-emaxima.patch
+	# patch to select firefox as def. browswer and add opera as choices
+	epatch "${FILESDIR}"/${PF}-default-browser.patch
+	# replace ugly ghostview with chosen postscript viewer
+	# right now, chosen apps are hardcoded: 
+	# - gv for postscript
+	# - acroread for pdf
+	# - xdvi for dvi. this could change.
+	for psfile in $(grep -rl ghostview ${PF}/*); do
+		sed -i -e 's/ghostview/gv/g' ${psfile}
 	done
 }
 
 src_compile() {
-	# automake version mismatch otherwise
-	eautoreconf
+	# automake version mismatch otherwise (sbcl only)
+	use sbcl && eautoreconf
 
 	# remove xmaxima and rmaxima if not requested
 	use tcltk  || sed -i -e '/^SUBDIRS/s/xmaxima//' interfaces/Makefile.in
@@ -64,6 +73,8 @@ src_compile() {
 
 src_install() {
 	make DESTDIR="${D}" install || die "make install failed"
+
+	use_tcltk && make_desktop_entry xmaxima xmaxima 
 	
 	if use emacs
 	then
