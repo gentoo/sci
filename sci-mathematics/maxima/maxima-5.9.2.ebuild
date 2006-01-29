@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 LICENSE="GPL-2 AECA"
 SLOT="0"
 KEYWORDS="~x86 ~amd64 ~sparc"
-IUSE="cmucl clisp sbcl tetex emacs auctex tcltk"
+IUSE="cmucl clisp sbcl gcl tetex emacs auctex tcltk"
 
 DEPEND=">=sys-apps/texinfo-4.3
     tetex? ( virtual/tetex )
@@ -20,13 +20,20 @@ DEPEND=">=sys-apps/texinfo-4.3
 	!clisp? ( !sbcl? ( !cmucl? ( >=dev-lisp/gcl-2.6.7 ) ) )
 	cmucl? ( >=dev-lisp/cmucl-19a )
 	clisp? ( >=dev-lisp/clisp-2.33.2-r1 )
+    gcl?   ( >=dev-lisp/gcl-2.6.7 )
 	sbcl?  ( >=dev-lisp/sbcl-0.9.4 )"
 
-# rlwrap is actually recommanded for clisp and sbcl 
+# rlwrap is recommended for clisp and sbcl
 RDEPEND=">=media-gfx/gnuplot-4.0
+     app-text/gv
      sbcl?  ( app-misc/rlwrap )
      cmucl? ( app-misc/rlwrap )
      tcktk? ( >=dev-lang/tk-8.3.3 )"
+
+# chosen apps are hardcoded in maxima source:
+# - ghostview for postscript (changed to gv)
+# - acroread for pdf
+# - xdvi for dvi. this could change, with pain.
 
 src_unpack() {
 	unpack ${A}
@@ -36,30 +43,33 @@ src_unpack() {
 	epatch "${FILESDIR}"/${PF}-emaxima.patch
 	# patch to select firefox as def. browswer and add opera as choices
 	epatch "${FILESDIR}"/${PF}-default-browser.patch
-	# replace ugly ghostview with chosen postscript viewer
-	# right now, chosen apps are hardcoded: 
-	# - gv for postscript
-	# - acroread for pdf
-	# - xdvi for dvi. this could change.
+	# replace ugly ghostview with gv
 	for psfile in $(grep -rl ghostview ${PF}/*); do
 		sed -i -e 's/ghostview/gv/g' ${psfile}
 	done
 }
 
 src_compile() {
+
 	# automake version mismatch otherwise (sbcl only)
 	use sbcl && eautoreconf
 
-	# remove xmaxima and rmaxima if not requested
-	use tcltk  || sed -i -e '/^SUBDIRS/s/xmaxima//' interfaces/Makefile.in
-	(! use sbcl && ! use cmucl) || sed -i -e '/^@WIN32_FALSE@bin_SCRIPTS/s/rmaxima//' src/Makefile.in
+	# remove rmaxima if neither cmucl nor sbcl
+	if ! use sbcl && ! use cmucl ; then
+		sed -i -e '/^@WIN32_FALSE@bin_SCRIPTS/s/rmaxima//' src/Makefile.in
+	fi
 
+	# remove xmaxima if no tk
 	local myconf=""
-	if use cmucl || use clisp || use sbcl; then
-		myconf="${myconf} $(use_enable cmucl)"
-		myconf="${myconf} $(use_enable clisp)"
-		myconf="${myconf} $(use_enable sbcl)"
+	if use tcltk; then
+		myconf="${myconf} --with-wish=wish"
 	else
+		myconf="${myconf} --with-wish=none"		
+		sed -i -e '/^SUBDIRS/s/xmaxima//' interfaces/Makefile.in
+	fi
+
+	# enable gcl if no other lisp selected
+	if use gcl || (! cmucl && ! clisp && ! sbcl ); then
 		if ! built_with_use dev-lisp/gcl ansi; then
 			eerror "GCL must be installed with ANSI."
 			eerror "Try USE=\"ansi\" emerge gcl"
@@ -67,50 +77,41 @@ src_compile() {
 		fi
 		myconf="${myconf} --enable-gcl"
 	fi
-	econf ${myconf} || die "econf failed"
+
+	econf \
+		$(use_enable cmucl) \
+		$(use_enable clisp) \
+		$(use_enable sbcl) \
+		${myconf} \
+		|| die "econf failed"
 	emake || die "emake failed"
 }
 
 src_install() {
 	make DESTDIR="${D}" install || die "make install failed"
 
-	use_tcltk && make_desktop_entry xmaxima xmaxima 
+	use tcltk && make_desktop_entry xmaxima xmaxima \
+		/usr/share/${PN}/${PV}/xmaxima/maxima-new.png
 	
-	if use emacs
-	then
-		elisp-site-file-install "${FILESDIR}"/50maxima-gentoo.el
-	fi
+	use emacs && elisp-site-file-install "${FILESDIR}"/50maxima-gentoo.el
 
-	if use tetex
-	then
+	if use tetex; then
 		insinto /usr/share/texmf/tex/latex/emaxima
 		doins interfaces/emacs/emaxima/emaxima.sty
 	fi
 
-	# Install documentation.
-	insinto /usr/share/${PN}/${PV}/doc
-	doins AUTHORS ChangeLog COPYING NEWS README*
+	# install documentation
+	#insinto /usr/share/${PN}/${PV}/doc
+	#doins AUTHORS ChangeLog COPYING NEWS README*
 	dodir /usr/share/doc
 	dosym /usr/share/${PN}/${PV}/doc /usr/share/doc/${PF}
 }
 
 pkg_postinst() {
-	if use emacs
-	then
-		einfo "Running elisp-site-regen...."
-		elisp-site-regen
-	fi
-	if use tetex
-	then
-		einfo "Running mktexlsr to rebuild ls-R database...."
-		mktexlsr
-	fi
+	use emacs && elisp-site-regen
+	use tetex && mktexlsr
 }
 
 pkg_postrm() {
-	if use emacs
-	then
-		einfo "Running elisp-site-regen...."
-		elisp-site-regen
-	fi
+	use emacs && elisp-site-regen
 }
