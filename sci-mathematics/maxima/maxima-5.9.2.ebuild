@@ -101,8 +101,8 @@ src_install() {
 	fi
 
 	# install documentation
-	#insinto /usr/share/${PN}/${PV}/doc
-	#doins AUTHORS ChangeLog COPYING NEWS README*
+	insinto /usr/share/${PN}/${PV}/doc
+	doins AUTHORS ChangeLog COPYING NEWS README*
 	dodir /usr/share/doc
 	dosym /usr/share/${PN}/${PV}/doc /usr/share/doc/${PF}
 }
