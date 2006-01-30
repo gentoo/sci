@@ -69,7 +69,7 @@ src_compile() {
 	fi
 
 	# enable gcl if no other lisp selected
-	if use gcl || (! cmucl && ! clisp && ! sbcl ); then
+	if use gcl || (! use cmucl && ! use clisp && ! use sbcl ); then
 		if ! built_with_use dev-lisp/gcl ansi; then
 			eerror "GCL must be installed with ANSI."
 			eerror "Try USE=\"ansi\" emerge gcl"
@@ -105,6 +105,15 @@ src_install() {
 	doins AUTHORS ChangeLog COPYING NEWS README*
 	dodir /usr/share/doc
 	dosym /usr/share/${PN}/${PV}/doc /usr/share/doc/${PF}
+}
+
+pkg_preinst() {
+	# do not gunzip the info files in certain cases of lisp
+	if use cmucl || use clisp || use sbcl; then
+		for infofile in $(ls ${D}/usr/share/info/*.gz); do
+			gunzip ${infofile}
+		done
+	fi
 }
 
 pkg_postinst() {
