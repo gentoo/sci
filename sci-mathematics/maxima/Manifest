@@ -4,5 +4,5 @@ MD5 f94d8f9a9d0bf93b5f28b15f6198261e files/digest-maxima-5.9.2 65
 MD5 747d47c6dc73b0a7b3f473d37b3f6457 files/maxima-5.9.2-default-browser.patch 495
 MD5 5d3f88598716fb548c832bd2d0cc9791 files/maxima-5.9.2-emaxima.patch 706
 MD5 7a31ee68476b8dfb009b4b917b4e4e4c files/maxima-5.9.2-unicode-fix.patch 2738
-MD5 dad1806ac4e089fbc7e8f19b501b9faa maxima-5.9.2.ebuild 3359
+MD5 424c3b2c4ee9d0f39117d583712ed2f1 maxima-5.9.2.ebuild 3367
 MD5 c3d7c3219b41fb3757f8852ce032e3e6 metadata.xml 806
