@@ -24,7 +24,7 @@ DEPEND=">=sys-apps/texinfo-4.3
 	sbcl?  ( >=dev-lisp/sbcl-0.9.4 )"
 
 # rlwrap is recommended for clisp and sbcl
-RDEPEND=">=media-gfx/gnuplot-4.0
+RDEPEND=">=sci-visualization/gnuplot-4.0
      app-text/gv
      sbcl?  ( app-misc/rlwrap )
      cmucl? ( app-misc/rlwrap )
