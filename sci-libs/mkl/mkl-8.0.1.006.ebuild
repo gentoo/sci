@@ -64,7 +64,7 @@ RPM_INSTALLATION=
 " > answers.txt
 
 	einfo "Building rpm file (be patient)..."
-	./install --noroot --nonrpm --installpath ${D}/${INSTDIR} --silent answers.txt &> /dev/null 
+	./install --noroot --nonrpm --installpath ${S}/opt --silent answers.txt &> /dev/null 
 	rm -rf ${WORKDIR}/bin ${S}/*
 
 	cd ${WORKDIR}/rpm
@@ -74,7 +74,8 @@ RPM_INSTALLATION=
 		tar xfz ${x/.rpm/.tar.gz} -C ${S}
 		rm -f ${x} ${x/.rpm/.tar.gz}
 	done
-	cp ${PN}_license ${S}/opt/intel/licenses
+	mkdir ${S}/opt/intel/licenses
+	cp ${PN}_license ${S}/opt/intel/licenses/
 	cd ${WORKDIR}
 	rm -rf rpm
 	case ${ARCH} in
@@ -97,8 +98,8 @@ src_compile() {
 
 
 src_test() {
-	# todo: testing with other compilers than gnu
-	cd ${WORKDIR}${INSTDIR}/tests
+	# todo: testing with compilers other than gcc/g77
+	cd ${S}${INSTDIR}/tests
 	for testdir in *; do
 		einfo "Testing $testdir"
 		cd $testdir
@@ -107,7 +108,7 @@ src_test() {
 }
 
 src_install () {
-	cd ${WORKDIR}${INSTDIR}
+	cd ${S}${INSTDIR}
 	# remove unnecessary libraries
 	use ${ARCH} || rm -rf lib/${IARCH}
 	
@@ -115,7 +116,7 @@ src_install () {
 	insinto ${INSTDIR}
 	doins -r doc examples include interfaces tests tools/builder
 	insinto ${INSTDIR}/lib
-	doins -r lib/${IARCH}/*
+	install -m0644 lib/${IARCH}/*.{so,a}
 
 	echo "INCLUDE=${INSTDIR}/include:\${INCLUDE}" > 35mkl
 	echo "LD_LIBRARY_PATH=${INSTDIR}/lib/${IARCH}:\${LD_LIBRARY_PATH}" >> 35mkl
