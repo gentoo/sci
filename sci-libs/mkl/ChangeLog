@@ -1,0 +1,48 @@
+# ChangeLog for sci-libs/mkl
+# Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mkl-8.0.1.006 (02 Feb 2006)
+  
+  02 Feb 2006; Sebastien Fabbro <seb@ist.utl.pt> 
+  +mkl-8.0.1.006.ebuild, +metadata.xml
+  Major version bump, close bug #96426, and ebuild fully rewritten.
+  Added english description on metadata.xml
+
+  24 Aug 2005; Patrick Kursawe <phosphan@gentoo.org> mkl-5.2.ebuild:
+  No longer using cp -a (bug #103487)
+
+  26 Jun 2005; Olivier Fisette <ribosome@gentoo.org> -mkl-5.1.ebuild:
+  Removed obsolete version.
+
+*mkl-5.2 (28 Dec 2004)
+
+  28 Dec 2004; Olivier Fisette <ribosome@gentoo.org> +metadata.xml,
+  +files/5.1/35mkl, +mkl-5.1.ebuild, +mkl-5.2.ebuild:
+  Moved from dev-libs/mkl to sci-libs/mkl.
+
+  24 Mar 2004; Jason Wever <weeve@gentoo.org> mkl-5.1.ebuild, mkl-5.2.ebuild:
+  All masked on sparc as this is an x86 binary only package.
+
+  03 Mar 2004; Peter Bienstman <pbienst@gentoo.org> mkl-5.2.ebuild :
+  mark stable on x86
+
+*mkl-5.2 (30 Jan 2004)
+
+  30 Jan 2004; George Shapovalov <george@gentoo.org> mkl-5.2.ebuild, metadata.xml :
+  new version (#38830), few cleanups, added metadata
+  Thanks to Peter Bienstman <Peter.Bienstman@rug.ac.be> for an update.
+  The "new" license was different only in the version number in one place. I just modified 
+  the file under license to accomodate both 5.1 and 5.2
+
+  06 Dec 2002; Rodney Rees <manson@gentoo.org> : changed sparc ~sparc keywords
+ 
+*mkl-5.1 (26 Apr 2002)
+
+  28 Nov 2002; Zach Welch <zwelch@genoot.org> :
+  Minor fixes to ebuild to make repoman and lintool happy.  Please use
+  these tools; all commits should be done via 'repoman' commit.
+
+  26 Apr 2002; William McArthur <sandymac@gentoo.org> mkl-5.1.ebuild :
+  
+  Initial ebuild for the Intel Math Kernel Library.
