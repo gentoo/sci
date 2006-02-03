@@ -2,9 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+inherit eutils
+
 MYPV=${PV/.006//}
 
-DESCRIPTION="Intel(R) Math Kernel Library: linear algebra, fft, etc..."
+DESCRIPTION="Intel(R) Math Kernel Library: linear algebra, fft, random number generators."
 HOMEPAGE="http://developer.intel.com/software/products/mkl/"
 SRC_URI="l_${PN}_p_${PV}.tgz"
 RESTRICT="nostrip fetch"
@@ -90,6 +92,10 @@ RPM_INSTALLATION=
 			;;
 	esac
 	export IARCH
+	# remove unnecessary stuff
+	use ${ARCH} || rm -rf ${S}${INSTDIR}/lib/${IARCH}
+	rm -rf ${S}${INSTDIR}/tools/environment
+	
 }
 
 src_compile() {
@@ -98,25 +104,30 @@ src_compile() {
 
 
 src_test() {
-	# todo: testing with compilers other than gcc/g77
+	# todo: testing with compilers and flags other than gcc/g77
 	cd ${S}${INSTDIR}/tests
 	for testdir in *; do
 		einfo "Testing $testdir"
 		cd $testdir
-		emake so$IARCH F=gnu
+		emake so$IARCH F=gnu || die "make $testdir failed"
 	done
 }
 
 src_install () {
+	#does not work
+	#cp -pPR * ${D}
+
 	cd ${S}${INSTDIR}
-	# remove unnecessary libraries
-	use ${ARCH} || rm -rf lib/${IARCH}
-	
-	# install all necessary stuff
 	insinto ${INSTDIR}
-	doins -r doc examples include interfaces tests tools/builder
-	insinto ${INSTDIR}/lib
-	install -m0644 lib/${IARCH}/*.{so,a}
+	# should we keep the tests dir? if yes, remove test results
+	doins -r doc examples include interfaces tools
+
+	insinto ${INSTDIR}/lib/${IARCH}
+	doins lib/${IARCH}/*.a
+	insopts -m0755
+	doins lib/${IARCH}/*.so
+
+	#todo: make it work with eselect/blas-config/lapack-config
 
 	echo "INCLUDE=${INSTDIR}/include:\${INCLUDE}" > 35mkl
 	echo "LD_LIBRARY_PATH=${INSTDIR}/lib/${IARCH}:\${LD_LIBRARY_PATH}" >> 35mkl
