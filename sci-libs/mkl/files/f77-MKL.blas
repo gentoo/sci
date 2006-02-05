@@ -1,0 +1,16 @@
+F77LIBS="-L/usr/$(get_libdir)/blas/mkl -lmkl"
+
+setup() {
+
+MY_LIBDIR="$(get_libdir)"
+
+einfo "/usr/${MY_LIBDIR}/libblas.so -> libmkl.so"
+ln -sf blas/mkl/libmkl.so /usr/${MY_LIBDIR}/libblas.so
+
+einfo "/usr/${MY_LIBDIR}/libblas.so.0 -> libmkl.so"
+ln -sf blas/mkl/libmkl.so /usr/${MY_LIBDIR}/libblas.so.0
+
+einfo "/usr/${MY_LIBDIR}/libblas.a -> libmkl_IKERN.a"
+ln -sf blas/mkl/libmkl_IKERN.a /usr/${MY_LIBDIR}/libblas.a
+
+}

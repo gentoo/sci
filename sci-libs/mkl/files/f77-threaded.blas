@@ -1,0 +1,14 @@
+F77LIBS="-L/usr/$(get_libdir)/blas/threaded-mkl -lmkl_blas -lpthread"
+
+setup() {
+MY_LIBDIR="$(get_libdir)"
+
+einfo "/usr/${MY_LIBDIR}/libblas.so -> libmkl_blas.so"
+ln -sf blas/threaded-mkl/libmkl_blas.so /usr/${MY_LIBDIR}/libblas.so
+
+einfo "/usr/${MY_LIBDIR}/libblas.so.0 -> libmkl_blas.so"
+ln -sf blas/threaded-mkl/libmkl_blas.so /usr/${MY_LIBDIR}/libblas.so.0
+
+einfo "/usr/${MY_LIBDIR}/libblas.a -> libmkl_blas.a"
+ln -sf blas/threaded-mkl/libmkl_blas.a /usr/${MY_LIBDIR}/libblas.a
+}

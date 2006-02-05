@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+inherit fortran rpm
 
 MYPV=${PV/.006//}
 
@@ -10,21 +10,32 @@ DESCRIPTION="Intel(R) Math Kernel Library: linear algebra, fft, random number ge
 HOMEPAGE="http://developer.intel.com/software/products/mkl/"
 SRC_URI="l_${PN}_p_${PV}.tgz"
 RESTRICT="nostrip fetch"
-IUSE=""
+
+#fortran95 implements a fortran 95 blas/lapack interface
+IUSE="fortran95 examples"
 SLOT="0"
-LICENSE="mkl-8.0"
+LICENSE="mkl-8.0.1"
 KEYWORDS="-* ~x86 ~amd64 ~ia64"
-DEPEND="virtual/libc
-    app-arch/rpm2targz"
-RDEPEND="virtual/libc
+DEPEND="virtual/libc"
+RDEPEND="${DEPEND}
     app-admin/eselect"
+
 PROVIDE="virtual/blas
 	     virtual/lapack"
-# should it provide fft as well?
 
 
 S="${WORKDIR}/l_${PN}_p_${PV}"
 
+pkg_setup() {
+	if use fortran95; then
+		FORTRAN="ifc gfortran"
+		fortran_pkg_setup
+	fi
+}
+
+
+# the whole shmol is to extract rpm files non-interactively
+# from the big mkl installation
 # hopefully recyclable for ipp
 src_unpack() {
 
@@ -42,20 +53,17 @@ src_unpack() {
 	ewarn
 
 	unpack ${A}
-
-	# we cannot sed on such a big binary install file, so we trick it
-	# fake rpm commands to exit the nasty install once done building the rpm
-	# anyway, might just a dependence to rpm after all
-
+		
+	# fake rpm commands to trick the big install script
 	mkdir -p bin
 	echo "exit 1" > bin/rpm2cpio
 	echo "exit 1" > bin/rpm
 	chmod +x bin/*
-	export PATH=".:${PATH}:$PWD/bin"
-	export INSTDIR=/opt/intel/${PN}/${MYPV}
+	PATH=".:${PATH}:$PWD/bin"
+	INSTDIR=/opt/intel/${PN}/${MYPV}
 
 	cd ${S}/install
-	# create an answer file to the install program
+	# answer file to make the big install script non-interactive
 	echo $"
 [${PN}_install]
 EULA_ACCEPT_REJECT=accept
@@ -66,79 +74,108 @@ RPM_INSTALLATION=
 " > answers.txt
 
 	einfo "Building rpm file (be patient)..."
-	./install --noroot --nonrpm --installpath ${S}/opt --silent answers.txt &> /dev/null 
+	./install \
+		--noroot \
+		--nonrpm \
+		--installpath ${S}/opt \
+		--silent answers.txt &> /dev/null
+
 	rm -rf ${WORKDIR}/bin ${S}/*
 
-	cd ${WORKDIR}/rpm
-	for x in *.rpm; do
-		einfo "Extracting ${x}..."
-		rpm2targz ${x} || die "rpm2targz failed"
-		tar xfz ${x/.rpm/.tar.gz} -C ${S}
-		rm -f ${x} ${x/.rpm/.tar.gz}
+	cd ${S}
+	for x in $(ls ../rpm/*.rpm); do
+		einfo "Extracting $(basename ${x})..."
+		rpm_unpack ${x} || die "rpm_unpack failed"
 	done
-	mkdir ${S}/opt/intel/licenses
-	cp ${PN}_license ${S}/opt/intel/licenses/
-	cd ${WORKDIR}
-	rm -rf rpm
-	case ${ARCH} in
-		amd64)
-			IARCH="em64t"
-			;;
-		ia64)
-			IARCH="64"
-			;;
-		x86)
-			IARCH="32"
-			;;
-	esac
-	export IARCH
-	# remove unnecessary stuff
-	use ${ARCH} || rm -rf ${S}${INSTDIR}/lib/${IARCH}
-	rm -rf ${S}${INSTDIR}/tools/environment
-	
+	mkdir opt/intel/licenses
+	mv ../rpm/${PN}_license opt/intel/licenses/
+
+	# clean up
+	rm -rf ${WORKDIR}/rpm
+    rm -rf ${S}${INSTDIR}/tools/environment	
 }
 
 src_compile() {
-	einfo "Nothing to compile"
+
+	case ${ARCH} in
+		amd64)
+			IARCH="em64t"
+			IKERN="em64t"
+			;;
+		ia64)
+			IARCH="64"
+			IKERN="ipf"			
+			;;
+		x86)
+			IARCH="32"
+			IKERN="ia32"			
+			;;
+	esac
+
+	use ${ARCH} || rm -rf ${S}${INSTDIR}/lib/${IARCH}
+
+	if use fortran95; then
+		local fc=${FORTRANC}
+		if [ "${FORTRANC}" = "ifc" ]; then
+			fc=ifort
+		fi
+		for x in blas lapack; do
+			cd ${S}${INSTDIR}/interfaces/${x}95
+			make lib \
+				PLAT=lnx${IARCH/em64t/32e} \
+				FC=${fc} \
+				INSTALL_DIR=${S}${INSTDIR}/lib/${IARCH}
+		done
+	fi
+
 }
 
-
 src_test() {
-	# todo: testing with compilers and flags other than gcc/g77
+
+	local fc="gnu"
+	if [ "${FORTRANC}" = "ifc" ]; then
+		fc="ifort"
+	fi
+
 	cd ${S}${INSTDIR}/tests
 	for testdir in *; do
 		einfo "Testing $testdir"
 		cd $testdir
-		emake so$IARCH F=gnu || die "make $testdir failed"
+		emake so$IARCH F=${fc} || die "make $testdir failed"
+		rm -rf _results
 	done
 }
 
 src_install () {
-	#does not work
-	#cp -pPR * ${D}
 
-	cd ${S}${INSTDIR}
+	# regular intel-style installation
 	insinto ${INSTDIR}
-	# should we keep the tests dir? if yes, remove test results
-	doins -r doc examples include interfaces tools
-
+	doins -r ./${INSTDIR}/{doc,include,tools}
 	insinto ${INSTDIR}/lib/${IARCH}
-	doins lib/${IARCH}/*.a
+	doins ./${INSTDIR}/lib/${IARCH}/*.a
 	insopts -m0755
-	doins lib/${IARCH}/*.so
+	doins ./${INSTDIR}/lib/${IARCH}/*.so
+	insopts -m0644
+	use examples && doins -r examples
 
-	#todo: make it work with eselect/blas-config/lapack-config
+	# gentoo-style installation
+	dosym ${INSTDIR}/include /usr/include${PN}
+	dodir /usr/$(get_libdir)/{blas,lapack}/{mkl,threaded-mkl}
+	# TODO: stack the shared lib to one big one, rename proper libs
 
-	echo "INCLUDE=${INSTDIR}/include:\${INCLUDE}" > 35mkl
-	echo "LD_LIBRARY_PATH=${INSTDIR}/lib/${IARCH}:\${LD_LIBRARY_PATH}" >> 35mkl
-	doenvd 35mkl
+	# install the required configuration 
+	for x in blas lapack; do
+		insinto /usr/$(get_libdir)/${x}
+		for y in f77 f77-threaded c c-threaded; do
+			newins ${FILESDIR}/${y}-MKL.${x} ${y}-MKL
+		done
+	done
 }
 
 pkg_postinst() {
 	einfo
-	einfo "To use MKL's BLAS features, you have to issue (as root):"
-	einfo "\n\teselect blas set MKL"
-	einfo "To use MKL's LAPACK features, you have to issue (as root):"
-	einfo "\n\teselect lapack set MKL"
+	einfo "To use MKL's linear algebra, features, you have to issue (as root):"
+	einfo "\t eselect <impl> set MKL"
+	einfo "Where <impl> is blas or lapack"
 	einfo
 }

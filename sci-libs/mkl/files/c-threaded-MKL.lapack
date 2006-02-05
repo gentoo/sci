@@ -1,0 +1,17 @@
+CFLAGS="-I/usr/include/mkl"
+CLIBS="-L/usr/$(get_libdir)/lapack/mkl -lmkl_lapack -lpthread"
+
+setup() {
+
+MY_LIBDIR="$(get_libdir)"
+
+einfo "/usr/${MY_LIBDIR}/libclapack.so -> libmkl.so"
+ln -sf lapack/threaded-mkl/libmkl.so /usr/${MY_LIBDIR}/libclapack.so
+
+einfo "/usr/${MY_LIBDIR}/libclapack.so.0 -> libmkl.so"
+ln -sf lapack/threaded-mkl/libmkl.so /usr/${MY_LIBDIR}/libclapack.so.0
+
+einfo "/usr/${MY_LIBDIR}/libclapack.a -> libmkl_lapack.a"
+ln -sf lapack/threaded-mkl/libmkl_lapack.a /usr/${MY_LIBDIR}/libclapack.a
+
+}
