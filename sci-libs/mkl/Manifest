@@ -9,4 +9,4 @@ MD5 73b9deafc1ec5bb4398751c6875c911b files/f77-MKL.lapack 474
 MD5 12308b5448e67e8b264abf7539a97539 files/f77-threaded-MKL.blas 484
 MD5 c6dbd399b994048332e3bc58e4d449f6 files/f77-threaded-MKL.lapack 518
 MD5 729a826a74e62fe48daf668e3dccefb4 metadata.xml 603
-MD5 5170318c31dc0398589547bf447e5900 mkl-8.0.1.006.ebuild 5781
+MD5 f38445162e380dfbaf86a019f73af186 mkl-8.0.1.006.ebuild 6060

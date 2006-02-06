@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit fortran rpm
+inherit fortran rpm flag-o-matic
 
 MYPV=${PV/.006/}
 DESCRIPTION="Intel(R) Math Kernel Library: linear algebra, fft, random number generators."
@@ -110,8 +110,9 @@ src_compile() {
 		amd64)
 			IARCH="em64t"
 			IKERN="em64t"
-			# need to work out cpu detection
 			ICPU="def"
+			(is-flag '-march=k8' || 
+				is-flag '-march=nocona' ) && ICPU="p4n"
 			;;
 		ia64)
 			IARCH="64"
@@ -121,13 +122,18 @@ src_compile() {
 		x86)
 			IARCH="32"
 			IKERN="ia32"
-			# need to work out cpu detection
 			ICPU="def"
+			# could work out better cpu detection. now works for gcc-3.4 and icc
+			( is-flag '-march=pentium3' || \
+				is-flag '-march=pentiumiii') && ICPU="p3"
+			( is-flag '-march=pentium4' || \
+				is-flag '-msse2') && ICPU="p4"
+			is-flag '-msse3' && ICPU="p4e"
 			;;
 	esac
 	ILIBDIR=${INSTDIR}/lib/${IARCH}
-	use ${ARCH} || rm -rf ${S}/${ILIBDIR}
-	
+	einfo "IARCH=$IARCH IKERN=$IKERN ICPU=$ICPU"
+
 	if use fortran95; then
 		local fc=${FORTRANC}
 		if [ "${FORTRANC}" = "ifc" ]; then
@@ -184,6 +190,7 @@ src_install () {
 
 	# All install stuff below needs work using nasty libtool
 	# ---------------------------------------------------
+
 	insopts -m0755
 	gcc -fPIC -shared -L${S}/${ILIBDIR} -lmkl -lmkl_${ICPU} \
 		-o libmkl_blas.so
