@@ -6,4 +6,9 @@
     <email>seb@ist.utl.pt</email>
     <name>Sebastien Fabbro</name>
   </maintainer>
+  <longdescription lang="en">
+    Numdisplay provides the capability to visualize numarray array objects
+    using astronomical image display tools such as DS9 or XIMTOOL
+    directly from the Python command line.
+  </longdescription>
 </pkgmetadata>

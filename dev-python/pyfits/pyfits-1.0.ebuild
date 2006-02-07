@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit distutils
+inherit distutils eutils
 
 DESCRIPTION="Provides an interface to FITS formatted files under python"
 SRC_URI="ftp://ra.stsci.edu/pub/${PN}/${PN}_v${PV}.tar.gz"
@@ -13,8 +13,6 @@ DEPEND=">=dev-lang/python-2.3
 IUSE="doc"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-
-# license to get from http://projects.scipy.org/astropy/pyfits/file/trunk/lib/LICENSE.txt
 LICENSE="AURA"
 
 S=${WORKDIR}/${PN}

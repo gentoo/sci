@@ -9,7 +9,7 @@ SRC_URI="http://stsdas.stsci.edu/${PN}/download/${PN}_v${PV/./}.tar"
 HOMEPAGE="http://stsdas.stsci.edu/numdisplay/"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-LICENSE="as-is"
+LICENSE="AURA"
 DEPEND=">=dev-lang/python-2.3
 	dev-python/numarray"
 IUSE="doc"
