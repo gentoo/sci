@@ -1,0 +1,17 @@
+# Copyright 1999-2006 Gentoo Foundation.
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+# This file contains descriptions of local USE flags, and the ebuilds which
+# contain them.
+# Keep it sorted.
+
+# We keep here only the new USE flags introduced by packages in the overlay.
+# Ultimately, they will be merged into the main tree.
+
+sci-astronomy/ds9:xpa - Install the XPA seamless communication system as well as ds9
+sci-misc/brlcad:proengineer - Yet to be described
+sci-misc/brlcad:optimize - Yet to be described
+sci-misc/emu:esps - Yet to be described
+sci-misc/emu:estools - Yet to be described
+sci-misc/emu:nist-sphere - Yet to be described
