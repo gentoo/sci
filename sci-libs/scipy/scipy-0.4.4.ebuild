@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit distutils
+inherit distutils fortran
 
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 DESCRIPTION="Open source scientific tools for Python"
@@ -21,11 +21,14 @@ RDEPEND=">=dev-lang/python-2.3.3
 	fftw? ( =sci-libs/fftw-2.1* )"
 
 # install doc claims fftw-2 is faster for complex ffts.
+# install doc claims gcc-4 not fully tested
 # wxwindows seems to have disapeared.
 # f2py seems to be in numpy.
+# 
+FORTRAN="g77"
 
 DEPEND="${RDEPEND}
-	>=sys-devel/gcc-3"
+	=sys-devel/gcc-3*"
 
 src_test() {
 	einfo "Testing installation ..."
