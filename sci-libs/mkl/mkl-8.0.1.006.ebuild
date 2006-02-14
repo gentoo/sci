@@ -15,9 +15,9 @@ IUSE="fortran95 examples"
 SLOT="0"
 LICENSE="mkl-8.0.1"
 KEYWORDS="~x86 ~amd64 ~ia64"
-DEPEND="virtual/libc"
-RDEPEND="${DEPEND}
-    app-admin/eselect"
+DEPEND="virtual/libc
+	sci-libs/lapack-config
+	sci-libs/blas-config"
 
 PROVIDE="virtual/blas
 	     virtual/lapack"
@@ -110,29 +110,23 @@ src_compile() {
 		amd64)
 			IARCH="em64t"
 			IKERN="em64t"
-			ICPU="def"
-			(is-flag '-march=k8' || 
-				is-flag '-march=nocona' ) && ICPU="p4n"
 			;;
 		ia64)
 			IARCH="64"
 			IKERN="ipf"
-			ICPU="i2p"
 			;;
 		x86)
 			IARCH="32"
 			IKERN="ia32"
-			ICPU="def"
-			# could work out better cpu detection. now works for gcc-3.4 and icc
-			( is-flag '-march=pentium3' || \
-				is-flag '-march=pentiumiii') && ICPU="p3"
-			( is-flag '-march=pentium4' || \
-				is-flag '-msse2') && ICPU="p4"
-			is-flag '-msse3' && ICPU="p4e"
 			;;
 	esac
 	ILIBDIR=${INSTDIR}/lib/${IARCH}
-	einfo "IARCH=$IARCH IKERN=$IKERN ICPU=$ICPU"
+	einfo "IARCH=$IARCH IKERN=$IKERN"
+
+	for x in blas cblas lapack; do
+		cd ${S}/${INSTDIR}/tools/builder
+		make ${IKERN} export=${x}_list name=libmkl_${x}
+	done
 
 	if use fortran95; then
 		local fc=${FORTRANC}
@@ -147,7 +141,6 @@ src_compile() {
 				INSTALL_DIR=${S}/${ILIBDIR}
 		done
 	fi
-
 }
 
 src_test() {
@@ -167,72 +160,48 @@ src_test() {
 
 src_install () {
 	cd ${S}
-	# regular intel-style installation
+
+	# install license
 	if  [ -n "${INTEL_LICENSE}" ] && \
 		[ -f "${INTEL_LICENSE}" ]; then
 		insinto /opt/intel/licenses
 		doins ${INTEL_LICENSE}
 	fi
-	insinto /${INSTDIR}
-	doins -r ${INSTDIR}/{doc,include,tools}
-	use examples && doins -r ${INSTDIR}/examples
-	insinto /${ILIBDIR}
-	doins ${ILIBDIR}/*.a
-	insopts -m0755
-	doins ${ILIBDIR}/*.so
-	insopts -m0644
 
-	# gentoo-style installation
+	# install documentation and include files
+	insinto /${INSTDIR}
+	doins -r ${INSTDIR}/{doc,include}
 	dodir /usr/include
 	dosym /${INSTDIR}/include /usr/include/${PN}
+	use examples && doins -r ${INSTDIR}/examples
 
-	dodir /usr/$(get_libdir)/{blas,lapack}/{mkl,threaded-mkl}
-
-	# All install stuff below needs work using nasty libtool
-	# ---------------------------------------------------
-
-	insopts -m0755
-	gcc -fPIC -shared -L${S}/${ILIBDIR} -lmkl -lmkl_${ICPU} \
-		-o libmkl_blas.so
-	insinto /usr/$(get_libdir)/blas/mkl
-	doins libmkl_blas.so
-
-	gcc -fPIC -shared -L${S}/${ILIBDIR} -lmkl_lapack32 -lmkl_lapack64 \
-		-o libmkl_lapack.so 
-	insinto /usr/$(get_libdir)/lapack/mkl
-	doins libmkl_lapack.so
-
-	gcc -fPIC -shared -L${S}/${ILIBDIR} -lmkl -lmkl_${ICPU} -lguide \
-		-o libmkl_blas.so
-	insinto /usr/$(get_libdir)/blas/threaded-mkl
-	doins libmkl_blas.so
-
-	gcc -fPIC -shared -L${S}/${ILIBDIR} -lmkl_lapack32 -lmkl_lapack64 -lguide \
-		-o libmkl_lapack.so
-	insinto /usr/$(get_libdir)/lapack/threaded-mkl
-	doins libmkl_lapack.so
-	
-	insopts -m0644
-	ar cr libmkl_blas.a ${ILIBDIR}/lib{mkl_${IKERN},guide}.a
-	ranlib libmkl_blas.a
-	insinto /usr/$(get_libdir)/blas/threaded-mkl
-	doins libmkl_blas.a
-
-	ar cr libmkl_lapack.a ${ILIBDIR}/lib{mkl_lapack,guide}.a
-	ranlib libmkl_lapack.a	
-	insinto /usr/$(get_libdir)/lapack/threaded-mkl
-	doins libmkl_lapack.a
-	# ---------------------------------------------------
-
+	# install static libraries
+	insinto /${ILIBDIR}
+	doins ${ILIBDIR}/*.a
+	dodir /usr/$(get_libdir)/{blas,lapack}/mkl
 	dosym /${ILIBDIR}/libmkl_${IKERN}.a \
 		/usr/$(get_libdir)/blas/mkl/libmkl_blas.a 
 	dosym /${ILIBDIR}/libmkl_lapack.a \
 		/usr/$(get_libdir)/lapack/mkl/libmkl_lapack.a 
 
-	# install the required configuration scripts
+	# install shared libraries
+	insopts -m0755
+	doins ${ILIBDIR}/*.so
+	insinto /usr/$(get_libdir)/blas/mkl
+	doins ${INSTDIR}/tools/builder/libmkl_{,c}blas.so
+	insinto /usr/$(get_libdir)/lapack/mkl
+	doins ${INSTDIR}/tools/builder/libmkl_lapack.so
+
+	# install tools
+	insopts -m0644
+	insinto /${INSTDIR}
+	rm -f ${INSTDIR}/tools/builder/*.so
+	doins -r ${INSTDIR}/tools
+
+	# install required configuration scripts
 	for x in blas lapack; do
 		insinto /usr/$(get_libdir)/${x}		
-		for y in f77 f77-threaded c c-threaded; do
+		for y in f77 c; do
 			newins ${FILESDIR}/${y}-MKL.${x} ${y}-MKL
 		done
 	done
@@ -240,9 +209,12 @@ src_install () {
 
 pkg_postinst() {
 
+	${DESTTREE}/bin/blas-config MKL
+	${DESTTREE}/bin/lapack-config MKL
+
 	einfo
-	einfo "To use MKL's linear algebra, features, you have to issue (as root):"
-	einfo "\t eselect <impl> set MKL"
-	einfo "where <impl> is blas or lapack"
-	einfo
+	einfo "MKL ${PV} is not yet available for eselect"
+	einfo "Use blas-config and lapack-config to configure"
+	einfo "blas or lapack with MKL"
+	einfo 
 }
