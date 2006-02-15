@@ -1,5 +1,5 @@
-MD5 5e60f4e4df628fd5f7bb6038e58c1b29 ChangeLog 283
-MD5 ef4489ae5e6f79f5dbdc3dbf8b14277b brlcad-7.6.6.ebuild 2275
+MD5 6353e343d8313f50707cefa84347e17d ChangeLog 496
+MD5 08e1e3c7a45480fc6579c3fdb8a16299 brlcad-7.6.6.ebuild 2279
 MD5 68a57b217f4da990b3c3b3f5ced5da27 files/brlcad-7.6.6-gentoo.diff 7334
 MD5 a59a2b5ac2565d0a2b630c1c7bfe59fa files/digest-brlcad-7.6.6 67
 MD5 d969404eabef2c8f310650575ea75e61 files/tcl.m4 123808

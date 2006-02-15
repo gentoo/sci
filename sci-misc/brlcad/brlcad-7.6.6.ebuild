@@ -1,4 +1,4 @@
-# Copyright 1999-2005 Gentoo Foundation
+# Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ DESCRIPTION="The BRL-CAD package is a powerful Constructive Solid Geometry (CSG)
 HOMEPAGE="http://brlcad.org/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 
-LICENSE="GPL LGPL GFDL BSD"
+LICENSE="GPL-2 LGPL-2 GFDL BSD"
 SLOT="0"
 KEYWORDS="-*"
 IUSE="java pic debug proengineer optimize" 
