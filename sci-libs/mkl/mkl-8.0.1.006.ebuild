@@ -123,10 +123,16 @@ src_compile() {
 	ILIBDIR=${INSTDIR}/lib/${IARCH}
 	einfo "IARCH=$IARCH IKERN=$IKERN"
 
+	cd ${S}/${INSTDIR}/tools/builder
 	for x in blas cblas lapack; do
-		cd ${S}/${INSTDIR}/tools/builder
-		make ${IKERN} export=${x}_list name=libmkl_${x}
+		#cp ${x}_list ${x}.mylist
+		#echo "xerbla_" >> ${x}.mylist
+		#echo "ilaenv_" >> ${x}.mylist
+		make ${IKERN} export=${FILESDIR}/${x}.list name=libmkl_${x}
 	done
+	#cp cblas_list cblas.mylist
+	#echo "cblas_xerbla" >> cblas.mylist
+	#make ${IKERN} export=cblas.mylist name=libmkl_cblas
 
 	if use fortran95; then
 		local fc=${FORTRANC}
@@ -199,12 +205,11 @@ src_install () {
 	doins -r ${INSTDIR}/tools
 
 	# install required configuration scripts
-	for x in blas lapack; do
-		insinto /usr/$(get_libdir)/${x}		
-		for y in f77 c; do
-			newins ${FILESDIR}/${y}-MKL.${x} ${y}-MKL
-		done
-	done
+	insinto /usr/$(get_libdir)/blas	
+	newins ${FILESDIR}/f77-MKL.blas f77-MKL
+	newins ${FILESDIR}/c-MKL.blas c-MKL
+	insinto /usr/$(get_libdir)/lapack
+	newins ${FILESDIR}/f77-MKL.lapack f77-MKL
 }
 
 pkg_postinst() {
