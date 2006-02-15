@@ -9,7 +9,7 @@ SRC_URI="http://ftp.debian.org/debian/pool/main/c/${PN}/${PN}_${PV}.orig.tar.gz
          http://ftp.debian.org/debian/pool/main/c/${PN}/${PN}_${PV}-${DEB_PVER}.diff.gz"
 HOMEPAGE="http://www-zeus.desy.de/~burow/cfortran/"
 KEYWORDS="~amd64 ~x86"
-LICENSE="LGPL"
+LICENSE="LGPL-2"
 IUSE="examples"
 SLOT="0"
 
