@@ -1,0 +1,44 @@
+# ChangeLog for sci-electronics/freehdl
+# Copyright 2000-2005 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-electronics/freehdl/ChangeLog,v 1.5 2005/08/30 12:44:04 phosphan Exp $
+
+*freehdl-0.0.1 (14 Feb 2006)
+
+  14 Feb 2006; Lucas Chiesa <lucas.chiesa@gmail.com> freehdl-0.0.1.ebuild:
+  Version bump. Removed flex from DEPEND and the path applied. 
+  Thanks Stefan Jahn <stefan@gruft.de>. Closing bug #122790.
+  
+
+  30 Aug 2005; Patrick Kursawe <phosphan@gentoo.org>
+  +files/freehdl-20050510-memory.patch, freehdl-20050510.ebuild:
+  Fixed #104122 with a little patch. Marking ~arch for x86 and ppc.
+
+*freehdl-20050510 (29 Aug 2005)
+
+  29 Aug 2005; Patrick Kursawe <phosphan@gentoo.org> +freehdl-20050510.ebuild:
+  Version bump. Uses flex instead of bringing a patch with flex results. Marked
+  as -* until bug #104122 has been fixed.
+
+  05 Jan 2005; Patrick Kursawe <phosphan@gentoo.org> freehdl-20040113.ebuild:
+  Adding guile to dependencies (bug #75809)
+
+*freehdl-20040113 (27 Dec 2004)
+
+  27 Dec 2004; Olivier Fisette <ribosome@gentoo.org> +metadata.xml,
+  +files/freehdl-20040113-gcc3.4.patch, +freehdl-20040113.ebuild:
+  Moved from app-sci/freehdl to sci-electronics/freehdl.
+
+  04 Oct 2004; Patrick Kursawe <phosphan@gentoo.org>
+  +files/freehdl-20040113-gcc3.4.patch, freehdl-20040113.ebuild:
+  Adding patch for gcc 3.4. Adding ~x86 to "KEYWORDS".
+
+  01 Jul 2004; Jeremy Huddleston <eradicator@gentoo.org>
+  freehdl-20040113.ebuild:
+  virtual/glibc -> virtual/libc
+
+*freehdl-20040113 (13 May 2004)
+
+  13 May 2004; David Holm <dholm@gentoo.org> +metadata.xml,
+  +freehdl-20040113.ebuild:
+  Initial import.
+
