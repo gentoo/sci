@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~ppc"
-IUSE="custom-cflags opengl qt mpi ginac cln gsl fftw xinerama threads static"
+IUSE="opengl qt mpi ginac cln gsl fftw xinerama threads static"
 
 DEPEND=">=sys-libs/readline-4.2
     fftw?  ( =sci-libs/fftw-2.1* )
@@ -63,7 +63,7 @@ src_compile() {
 			-i src/orsa/Makefile
 	fi
 	
-	emake CFLAGS="${CFLAGS}" || die "emake failed"
+	emake || die "emake failed"
 }
 
 src_install() {
