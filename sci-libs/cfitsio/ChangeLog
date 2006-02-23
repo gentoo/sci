@@ -1,0 +1,57 @@
+# ChangeLog for sci-libs/cfitsio
+# Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+
+*cfitsio-3.006 (22 Feb 2006)
+
+  22 Feb 2006; Sebastien Fabbro <seb@ist.utl.pt> +cfitsio-3.006.ebuild,  
+  New version bump, added src_test, corrected minor stuff, added long
+  description in metadata.xml
+
+  16 Sep 2005; Aron Griffis <agriffis@gentoo.org> cfitsio-2.510.ebuild:
+  Mark 2.510 stable on alpha
+
+  12 Sep 2005; Luis Medinas <metalgod@gentoo.org> cfitsio-2.510.ebuild:
+  Marked Stable on AMD64.
+
+  27 Jun 2005; Steve Arnold <nerdboy@gentoo.org> cfitsio-2.500.ebuild,
+  cfitsio-2.510.ebuild:
+  stable bump for tested arches (x86, ppc, sparc) and to close bug 95278
+
+*cfitsio-2.510 (18 May 2005)
+
+  18 May 2005; Steve Arnold <nerdboy@gentoo.org> cfitsio-2.500.ebuild,
+  +cfitsio-2.510.ebuild:
+  bumped 2.500 to x86 and added 2.510 to close bug 80721
+
+*cfitsio-2.500 (28 Dec 2004)
+
+  28 Dec 2004; Olivier Fisette <ribosome@gentoo.org> +metadata.xml,
+  +cfitsio-2.490.ebuild, +cfitsio-2.500.ebuild:
+  Moved from dev-libs/cfitsio to sci-libs/cfitsio.
+
+*cfitsio-2.500 (18 Dec 2004)
+
+  18 Dec 2004; Steve Arnold <nerdboy@gentoo.org> metadata.xml,
+  cfitsio-2.490.ebuild, +cfitsio-2.500.ebuild:
+  bumped 2.490 to x86 and added cleaned up 2.500 (bug 65654)
+
+  30 Jul 2004; Jon Hood <squinky86@gentoo.org> cfitsio-2.490.ebuild:
+  change virtual/glibc to virtual/libc
+
+  26 Jul 2004; Olivier Fisette <ribosome@gentoo.org>
+  cfitsio-2.430.ebuild, cfitsio-2.490.ebuild:
+  Version bump suggested by Nathaniel C. Domingo <nathaniel.domingo@up.edu.ph>
+  (in bug # 39311).
+  Removed obsolete version (2.430).
+
+  01 Jul 2004; Jeremy Huddleston <eradicator@gentoo.org> cfitsio-2.430.ebuild:
+  virtual/glibc -> virtual/libc
+
+*cfitsio-2.430 (04 Jan 2003)
+
+  04 Jan 2003; George Shapovalov <george@gentoo.org> cfitsio-2.430.ebuild, ChangeLog, files/digest-cfitsio-2.430 :
+  initial release (ref #11508)
+  C and Fortran library for reading and writing files in FITS data format
+  ebuild submitted by Nathaniel C. Domingo <nathaniel.domingo@upd.edu.ph>
