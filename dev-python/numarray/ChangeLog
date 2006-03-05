@@ -1,0 +1,80 @@
+# ChangeLog for dev-python/numarray
+# Copyright 2000-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*numarray-1.5.1-r1 (04 Mar 2006)
+
+  04 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt> +numarray-1.5.1-r1.ebuild:
+  Added installation of C API, a src_test function and the use of 
+  external blas/lapack via USE flag lapack, shorten DESCRIPTION.	
+
+*numarray-1.5.1 (22 Feb 2006)
+
+  22 Feb 2006; Carsten Lohrke <carlo@gentoo.org> +numarray-1.5.1.ebuild:
+  Version bump.
+
+*numarray-1.5.0 (07 Dec 2005)
+
+  07 Dec 2005; Alastair Tse <liquidx@gentoo.org> -numarray-0.8.ebuild,
+  -numarray-0.9.ebuild, -numarray-1.0.ebuild, -numarray-1.1.1.ebuild,
+  +numarray-1.5.0.ebuild:
+  version bump. purge old versions
+
+*numarray-1.4.1 (01 Dec 2005)
+
+  01 Dec 2005; Carsten Lohrke <carlo@gentoo.org> +numarray-1.4.1.ebuild:
+  version bump
+
+  24 Nov 2005; Simon Stelling <blubb@gentoo.org> numarray-1.3.1.ebuild:
+  stable on amd64
+
+  19 Nov 2005; Chris White <chriswhite@gentoo.org> metadata.xml:
+  Added japanese metadata.xml translation thanks to Yoshino-san.
+
+  10 Sep 2005; Aron Griffis <agriffis@gentoo.org> numarray-1.3.1.ebuild:
+  Mark 1.3.1 stable on alpha
+
+*numarray-1.3.1 (21 Apr 2005)
+
+  21 Apr 2005; Bryan Østergaard <kloeri@gentoo.org> +numarray-1.3.1.ebuild:
+  Version bump, fixes some 64-bit issues and a hang on x86.
+
+  12 Jan 2005; Mike Doty <kingtaco@gentoo.org> numarray-1.1.1.ebuild:
+  ~amd64 keyword added
+
+  30 Dec 2004; Ciaran McCreesh <ciaranm@gentoo.org> :
+  Change encoding to UTF-8 for GLEP 31 compliance
+
+*numarray-1.1.1 (07 Dec 2004)
+
+  07 Dec 2004; Carsten Lohrke <carlo@gentoo.org> +numarray-1.1.1.ebuild:
+  version bump
+
+*numarray-1.0 (06 Jul 2004)
+
+  06 Jul 2004; Lukasz Strzygowski <lucass@gentoo.org> metadata.xml,
+  +numarray-1.0.ebuild:
+  Version bump. Added commands to install whole documentation and examples.
+  Added long description to metadata.xml.
+
+  15 Apr 2004; Michael McCabe <randy@gentoo.org> numarray-0.9.ebuild:
+  adding s390 keywords
+
+  28 Mar 2004; David Holm <dholm@gentoo.org> numarray-0.9.ebuild:
+  Added to ~ppc.
+
+*numarray-0.9 (28 Mar 2004)
+
+  28 Mar 2004; Bryan Østergaard <kloeri@gentoo.org> numarray-0.9.ebuild:
+  Version bump.
+
+*numarray-0.8 (13 Dec 2003)
+
+  13 Dec 2003; Bryan Østergaard,,, <kloeri@gentoo.org> numarray-0.8.ebuild:
+  Version bump.
+
+*numarray-0.7 (16 Sep 2003)
+
+  16 Sep 2003; Alastair Tse <liquidx@gentoo.org> numarray-0.7.ebuild:
+  initial commit.
+
