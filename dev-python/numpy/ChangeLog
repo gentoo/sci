@@ -1,0 +1,14 @@
+# ChangeLog for dev-python/numpy
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*numpy-0.9.5 (05 Mar 2006)
+
+  05 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt> +numpy-0.9.5.ebuild:
+  Added lapack use flag, a src_test function, and marked ~amd64.
+
+*numpy-0.9.4 (07 Feb 2006)
+
+  07 Feb 2006; Alastair Tse <liquidx@gentoo.org> +numpy-0.9.4.ebuild:
+  initial ebuild thanks to Alok Singhal (#119305)
+
