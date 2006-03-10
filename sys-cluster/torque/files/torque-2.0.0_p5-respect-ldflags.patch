@@ -1,0 +1,61 @@
+diff -urN torque-2.0.0p2.orig/src/iff/Makefile.in torque-2.0.0p2/src/iff/Makefile.in
+--- torque-2.0.0p2.orig/src/iff/Makefile.in	2005-11-09 18:30:16.000000000 +0100
++++ torque-2.0.0p2/src/iff/Makefile.in	2005-12-11 03:01:15.000000000 +0100
+@@ -114,7 +114,7 @@
+ 	$(INSTALL) -m 4755 $(TARGET) $(sbindir)
+ 
+ pbs_iff: $(OBJS) $(PBS_LIBS)
+-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(PBS_LIBS) $(LIBS)
++	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $(OBJS) $(PBS_LIBS) $(LIBS)
+ 
+ @mk_cleanup@
+ @mk_tail@
+diff -urN torque-2.0.0p2.orig/src/mom_rcp/Makefile.in torque-2.0.0p2/src/mom_rcp/Makefile.in
+--- torque-2.0.0p2.orig/src/mom_rcp/Makefile.in	2005-11-09 18:30:17.000000000 +0100
++++ torque-2.0.0p2/src/mom_rcp/Makefile.in	2005-12-11 03:01:15.000000000 +0100
+@@ -115,7 +115,7 @@
+ 	$(INSTALL) -m 4755 $(TARGET) $(sbindir)
+ 
+ $(TARGET): $(OBJS)
+-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
++	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
+ 
+ 
+ # needed for make depend
+diff -urN torque-2.0.0p2.orig/src/scheduler.basl/Makefile.in torque-2.0.0p2/src/scheduler.basl/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.basl/Makefile.in	2005-11-09 18:30:20.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.basl/Makefile.in	2005-12-11 03:01:15.000000000 +0100
+@@ -133,7 +133,7 @@
+ 	$(CC) $(CFLAGS) -o $@ $(OBJS_COMMON) $(OBJS_COMP) $(LIBRARIES)
+ 
+ pbs_sched: $(OBJS_COMMON) $(OBJS_SCHED)
+-	$(CC) $(CFLAGS) -o $@ $(OBJS_COMMON) $(OBJS_SCHED) $(LIBRARIES)
++	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $(OBJS_COMMON) $(OBJS_SCHED) $(LIBRARIES)
+ 
+ pbs_sched.o: $(SCHD_SRC) $(srcdir)/af_system.h $(srcdir)/af_server.h basl2c
+ 	@if expr $(SCHD_SRC) : '.*\.basl$$' > /dev/null 2>&1; then \
+diff -urN torque-2.0.0p2.orig/src/scheduler.cc/Makefile.in torque-2.0.0p2/src/scheduler.cc/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.cc/Makefile.in	2005-11-09 18:30:17.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.cc/Makefile.in	2005-12-11 03:01:15.000000000 +0100
+@@ -127,7 +127,7 @@
+ 	$(INSTALL) -m 700 $(TARGET) $(sbindir)
+ 
+ $(TARGET): $(OBJS) $(SCHEDLIB)
+-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(SCHEDLIB) $(PBSLIBS) $(LIBS)
++	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $(OBJS) $(SCHEDLIB) $(PBSLIBS) $(LIBS)
+ 
+ distclean::
+ 	-(cd $(SCHD_BUILD) && $(MAKE) $@; exit 0) > /dev/null 2>&1
+diff -urN torque-2.0.0p2.orig/src/scheduler.tcl/Makefile.in torque-2.0.0p2/src/scheduler.tcl/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.tcl/Makefile.in	2005-11-09 18:30:11.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.tcl/Makefile.in	2005-12-11 03:01:15.000000000 +0100
+@@ -119,7 +119,7 @@
+ 	$(INSTALL) -m 700 $(TARGET) $(sbindir)
+ 
+ $(TARGET): $(OBJS)
+-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBRARIES)
++	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $(OBJS) $(LIBRARIES)
+ 
+ @mk_cleanup@
+ @mk_tail@
+

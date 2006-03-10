@@ -1,0 +1,7 @@
+MD5 a86d41db4f868c9baa3365bb96c60e5f files/digest-torque-2.0.0_p7 67
+MD5 7647c23d0d5189ae7a9c2a4322ce1bb6 files/torque-2.0.0_p5-destdir-fixes.patch 539
+MD5 5f41eb14cea3408472c133849550faef files/torque-2.0.0_p5-makedepend.patch 754
+MD5 3ea9d3a2e1cff3ccd224f0e0b33da6d5 files/torque-2.0.0_p5-respect-ldflags.patch 2710
+MD5 f362dc4addcab08a5d537913b99c9484 files/torque-2.0.0_p5-setuid-safety.patch 997
+MD5 b551147a374f034bf251490ce985be6b files/torque-2.0.0_p7-respect-destdir.patch 21832
+MD5 c9bcf93e9f31d3c5968db2365e5c621c torque-2.0.0_p7.ebuild 4583

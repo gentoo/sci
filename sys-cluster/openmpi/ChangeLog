@@ -1,0 +1,9 @@
+# ChangeLog for sys-cluster/openmpi
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*openmpi-1.0.1 (10 Mar 2006)
+
+  10 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +openmpi-1.0.1.ebuild, +metadata.xml
+  Initial import. Thanks for kyron for his input.
