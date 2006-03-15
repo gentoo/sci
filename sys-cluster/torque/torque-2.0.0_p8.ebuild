@@ -53,7 +53,7 @@ src_unpack() {
 }
 
 src_compile() {
-	
+
 	local myconf
 #	use X || myconf="--disable-gui"
 #	use tcltk && myconf="${myconf} --with-tcl"
@@ -141,8 +141,7 @@ src_install() {
 
 	# The build script isn't alternative install location friendly,
 	# So we have to fix some hard-coded paths in tclIndex for xpbs* to work
-	for file in `find ${D} -iname tclIndex`
-	do 
+	for file in `find ${D} -iname tclIndex`; do
 		sed -e "s/${D//\// }/ /" "${file}" > "${file}.new"
 		mv "${file}.new" "${file}"
 	done
