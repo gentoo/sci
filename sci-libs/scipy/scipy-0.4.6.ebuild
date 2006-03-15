@@ -12,41 +12,49 @@ LICENSE="BSD"
 SLOT="0"
 IUSE="fftw"
 KEYWORDS="~amd64 ~x86"
-#keyworded to x86 only because of numpy
-#could use any lapack, but it seems that lapack-atlas provides non-f2c clapack routines
+
+# did not use virtual/blas and virtual/lapack
+# because scipy needs to compile all libraries with the same compiler
+# needs more work
 RDEPEND=">=dev-lang/python-2.3.3
 	>=dev-python/numpy-0.9.5
-	virtual/blas
+	sci-libs/blas-atlas
 	sci-libs/lapack-atlas
 	fftw? ( =sci-libs/fftw-2.1* )"
 
-# install doc claims fftw-2 is faster for complex ffts.
-# install doc claims gcc-4 not fully tested
-# wxwindows seems to have disapeared.
-# f2py seems to be in numpy.
-# 
-FORTRAN="g77"
-
 DEPEND="${RDEPEND}
-    app-admin/eselect
+	app-admin/eselect
 	=sys-devel/gcc-3*"
 
-pkg_setup() {	
-	if [ -z "$(/usr/bin/eselect lapack show | grep ATLAS)" ]; then
-		eerror "You need to set lapack-atlas to use this version of scipy"
-		einfo "Please run:"
-		einfo "\teselect lapack set ATLAS"
-		einfo "or, if you have the threaded version:"
-		einfo "\teselect lapack set threaded-ATLAS"		
-		einfo "And re-emerge scipy"
-		die "setup failed"
+# install doc claims fftw-2 is faster for complex ffts.
+# install doc claims gcc-4 not fully tested
+# wxwindows seems to have disapeared : ?
+# f2py seems to be in numpy.
+#
+
+FORTRAN="g77"
+
+pkg_setup() {
+	if [ -d "/usr/$(getlib_dir)/atlas/threaded-atlas" ]; then
+		eselect blas set threaded-ATLAS
+	else
+		eselect blas set ATLAS
 	fi
+	eselect lapack set ATLAS
+}
+
+src_unpack() {
+	unpack ${A}
+    cd "${S}"
+	einfo ""
+	echo "[atlas]"  > site.cfg
+	echo "atlas_libs = lapack, blas, cblas, atlas" >> site.cfg
+	# let discover fftw by itself if installed
 }
 
 src_test() {
-	einfo "Testing installation ..."
 	python -c "import scipy; scipy.test(level=1)" || \
-		die "Unit tests failed!"
+		die "tests failed"
 }
 
 src_install() {
