@@ -1,3 +1,5 @@
-MD5 478f0f621c59819395b4e740ee008b24 ChangeLog 430
+MD5 3abf235b64d60ff95dec5b02d7840e28 ChangeLog 430
 MD5 5238e63b838e1c26ed682d2c3050cea8 files/digest-numpy-0.9.5 63
+MD5 3d1644c7fef9abd10cb81c674838b436 files/digest-numpy-0.9.6 63
 MD5 04c542ab54b370936205c9a08cab2af7 numpy-0.9.5.ebuild 1096
+MD5 04c542ab54b370936205c9a08cab2af7 numpy-0.9.6.ebuild 1096

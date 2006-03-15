@@ -2,9 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*numpy-0.9.5 (05 Mar 2006)
+*numpy-0.9.6 (15 Mar 2006)
 
-  05 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt> +numpy-0.9.5.ebuild:
+  15 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt> +numpy-0.9.6.ebuild:
   Added lapack use flag, a src_test function, and marked ~amd64.
 
 *numpy-0.9.4 (07 Feb 2006)
