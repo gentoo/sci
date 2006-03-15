@@ -4,7 +4,7 @@
 
 inherit flag-o-matic toolchain-funcs fortran
 
-IUSE="crypt pbs fortran threads static"
+IUSE="crypt pbs fortran threads static pic"
 
 MY_P=${P/-mpi}
 S=${WORKDIR}/${MY_P}
@@ -34,7 +34,7 @@ src_compile() {
 	einfo "OpenMPI has an overwhelming count of configuration options."
 	einfo "Don't forget the EXTRA_ECONF environment variable can let you"
 	einfo "specify configure options."
-	einfo "${A} will be installed in /usr/lib/openmpi/${PV}"
+	einfo "${A} will be installed in /usr/$(get_libdir)/${PN}/${PV}-${COMPILER}"
 	einfo
 
 	local myconf=""
@@ -42,13 +42,15 @@ src_compile() {
 	use threads && myconf="${myconf} --with-threads=posix --enable-mpi-threads"
 	use pbs     && append-ldflags "-L/usr/$(get_libdir)/pbs"
 	use static  && myconf="${myconf} --enable-static --disable-shared"
+	use fortran || myconf="${myconf} --disable-mpi-f77 --disable-mpi-f90"
 
 	COMPILER="gcc-$(gcc-version)"
 
 	econf \
+		$(use_with pic) \
 		--prefix=/usr/$(get_libdir)/${PN}/${PV}-${COMPILER} \
 		--datadir=/usr/share/${PN}/${PV}-${COMPILER} \
-		--program-suffix=${PV}-${COMPILER} \
+		--program-suffix=-${PV}-${COMPILER} \
 		--enable-pretty-print-stacktrace \
 		--sysconfdir=/etc/${P} \
 		${myconf} || die "econf failed"
