@@ -41,7 +41,7 @@ src_unpack() {
 	cd "${S}"
 
 	# disable autodetection, rely on USE instead
-	epatch "${FILESDIR}/${PN}-0.87-no-autodetect.patch"
+	epatch "${FILESDIR}/${PN}-0.87.1-no-autodetect.patch"
 	sed -i \
 		-e "/^BUILD_GTK/s/'auto'/$(use gtk && echo 1 || echo 0)/" \
 		-e "/^BUILD_WX/s/'auto'/0/" \
@@ -52,7 +52,7 @@ src_unpack() {
 	# http://www.scipy.org/Cookbook/Matplotlib/mplot3D
 	if use mplot3d; then
 		cd ${WORKDIR}/3d
-		epatch "${FILESDIR}/${PN}-0.87-mplot3d.patch"
+		epatch "${FILESDIR}/${PN}-0.87.1-mplot3d.patch"
 	fi
 
 }
