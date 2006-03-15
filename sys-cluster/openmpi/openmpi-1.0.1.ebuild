@@ -4,7 +4,7 @@
 
 inherit flag-o-matic toolchain-funcs fortran
 
-IUSE="crypt pbs fortran threads static pic"
+IUSE="crypt pbs fortran threads static"
 
 MY_P=${P/-mpi}
 S=${WORKDIR}/${MY_P}
@@ -30,6 +30,8 @@ pkg_setup() {
 
 src_compile() {
 
+	COMPILER="gcc-$(gcc-version)"
+
 	einfo
 	einfo "OpenMPI has an overwhelming count of configuration options."
 	einfo "Don't forget the EXTRA_ECONF environment variable can let you"
@@ -42,12 +44,9 @@ src_compile() {
 	use threads && myconf="${myconf} --with-threads=posix --enable-mpi-threads"
 	use pbs     && append-ldflags "-L/usr/$(get_libdir)/pbs"
 	use static  && myconf="${myconf} --enable-static --disable-shared"
-	use fortran || myconf="${myconf} --disable-mpi-f77 --disable-mpi-f90"
-
-	COMPILER="gcc-$(gcc-version)"
+	use fortran || myconf="${myconf} --disable-mpi-f77 --disable-mpi-f90"	
 
 	econf \
-		$(use_with pic) \
 		--prefix=/usr/$(get_libdir)/${PN}/${PV}-${COMPILER} \
 		--datadir=/usr/share/${PN}/${PV}-${COMPILER} \
 		--program-suffix=-${PV}-${COMPILER} \
@@ -62,5 +61,4 @@ src_install () {
 
 	make DESTDIR="${D}" install || die "make install failed"
 	dodoc README AUTHORS NEWS HISTORY VERSION INSTALL
-
 }
