@@ -35,7 +35,7 @@ DEPEND="${RDEPEND}
 FORTRAN="g77"
 
 pkg_setup() {
-	if [ -d "/usr/$(getlib_dir)/atlas/threaded-atlas" ]; then
+	if [ -d "/usr/$(get_libdir)/blas/threaded-atlas" ]; then
 		eselect blas set threaded-ATLAS
 	else
 		eselect blas set ATLAS
