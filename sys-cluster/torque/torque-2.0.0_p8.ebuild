@@ -14,19 +14,18 @@ LICENSE="openpbs"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="tcltk X scp server doc"
+IUSE="tcltk scp server doc"
 PROVIDE="virtual/pbs"
 
 # ed is used by makedepend-sh
 DEPEND_COMMON="virtual/libc
-			   X? ( virtual/x11 dev-lang/tk )
-			   tcltk? ( dev-lang/tcl )
+			   tcltk? ( dev-lang/tk )
 			   !virtual/pbs"
 DEPEND="${DEPEND_COMMON}
 		sys-apps/ed"
 RDEPEND="${DEPEND_COMMON}
 		 net-misc/openssh"
-PDEPEND=">=sys-cluster/openpbs-common-1.1.0"
+PDEPEND=">=sys-cluster/openpbs-common-1.1.1"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -116,13 +115,10 @@ src_install() {
 	pbs_createspool "${D}"
 
 	einfo "Running make install"
-	make DESTDIR=${D} install || die
+	make DESTDIR=${D} install || die "make install failed"
 
 	einfo "Doing docs & lib symlinks"
 	dodoc INSTALL PBS_License.txt README.torque Release_Notes
-	# Init scripts come from openpbs-common
-	#newinitd ${FILESDIR}/pbs-init.d pbs
-	#newconfd ${FILESDIR}/pbs-conf.d pbs
 	dosym /usr/$(get_libdir)/pbs/libpbs.a /usr/$(get_libdir)/libpbs.a
 
 	einfo "Handling /etc/pbs_environment and /var/spool/PBS/server_name"
@@ -150,6 +146,7 @@ src_install() {
 pkg_postinst() {
 	# make sure the damn directories exist
 	pbs_createspool "${ROOT}"
-	[ ! -f "${ROOT}/etc/pbs_environment" ] && touch "${ROOT}/etc/pbs_environment"
+	[ ! -f "${ROOT}/etc/pbs_environment" ] && \
+		touch "${ROOT}/etc/pbs_environment"
 }
 
