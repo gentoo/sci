@@ -1,0 +1,13 @@
+diff -urN torque-2.0.0p2/src/gui/Makefile.in torque-2.0.0p20patched/src/gui/Makefile.in
+--- torque-2.0.0p2/src/gui/Makefile.in	2005-12-11 14:05:12.000000000 +0100
++++ torque-2.0.0p2patched/src/gui/Makefile.in	2005-12-11 14:03:23.000000000 +0100
+@@ -155,7 +155,7 @@
+ 	#
+ 	@echo Install xpbs
+ 	$(INSTALL) -m 755 xpbs $(DESTDIR)$(bindir)/xpbs
+-	@chmod 755 $(bindir)/xpbs 2> /dev/null
++	@chmod 755 $(DESTDIR)$(bindir)/xpbs 2> /dev/null
+ 	#
+ 	$(INSTALL) -m 755 buildindex $(DESTDIR)$(XPBS_LIB)
+ 	$(INSTALL) -m 644 xpbsrc $(DESTDIR)$(XPBS_LIB)
+

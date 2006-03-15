@@ -1,0 +1,493 @@
+diff -urN torque-2.0.0p2.orig/buildutils/mkincludes/lib.mk.in torque-2.0.0p2/buildutils/mkincludes/lib.mk.in
+--- torque-2.0.0p2.orig/buildutils/mkincludes/lib.mk.in	2005-11-09 18:30:21.000000000 +0100
++++ torque-2.0.0p2/buildutils/mkincludes/lib.mk.in	2005-12-11 02:51:06.000000000 +0100
+@@ -16,7 +16,7 @@
+ 
+ install:: $(TARGET)
+ 	@# a two step process is best to work around broken installs
+-	$(INSTALL) -d $(libdir) && \
+-	$(INSTALL) -m 644 $(TARGET) $(libdir)/$(TARGET)
++	$(INSTALL) -d $(DESTDIR)$(libdir) && \
++	$(INSTALL) -m 644 $(TARGET) $(DESTDIR)$(libdir)/$(TARGET)
+ 
+ # END lib.mk
+diff -urN torque-2.0.0p2.orig/buildutils/pbs_mkdirs.in torque-2.0.0p2/buildutils/pbs_mkdirs.in
+--- torque-2.0.0p2.orig/buildutils/pbs_mkdirs.in	2005-11-09 18:30:21.000000000 +0100
++++ torque-2.0.0p2/buildutils/pbs_mkdirs.in	2005-12-11 02:51:06.000000000 +0100
+@@ -140,6 +140,7 @@
+ 	# dlist will contain a list of directory names to make
+ 	id_dlist=""
+ 
++	id_dname=${DESTDIR}$id_dname
+ 	while [ ! \( -z "$id_dname" -o "$id_dname" = / -o \
+ 		"$id_dname" = "." \) ]; do
+ 
+@@ -188,15 +189,15 @@
+ 		echo $idv_dvarname exists and is not a directory 1>&2
+ 		return 1
+ 	elif [ -d $idv_dname ] ; then
+-		chmod $idv_mode $idv_dname
+-		test -n "$idv_owner" && chown $idv_owner $idv_dname
++		chmod $idv_mode ${DESTDIR}$idv_dname > /dev/null 2>&1
++		test -n "$idv_owner" && chown $idv_owner ${DESTDIR}$idv_dname > /dev/null 2>&1
+ 		return 0
+ 	elif [ ! -d $idv_dname ] ; then
+ 		test -n "$verbose" && echo Creating $idv_dname
+ 		install_dir `dirname $idv_dname` 755 $idv_owner && \
+-		    mkdir $idv_dname && chmod $idv_mode $idv_dname || return 1
++		    mkdir ${DESTDIR}$idv_dname && chmod $idv_mode ${DESTDIR}$idv_dname || return 1
+ 		if test -n "$idv_owner"; then
+-			chown $idv_owner $idv_name || return 1
++			chown $idv_owner ${DESTDIR}$idv_name || return 1
+ 		fi
+  	
+ 	fi
+@@ -207,6 +208,7 @@
+ check_env()
+ {
+ 	test -n "$verbose" && echo Making environment file
++	PBS_ENVIRON="${DESTDIR}${PBS_ENVIRON}"
+ 	if [ ! -f $PBS_ENVIRON ] ; then
+ 		install_dir `dirname $PBS_ENVIRON`
+ 		echo "PATH=/bin:/usr/bin" > $PBS_ENVIRON
+@@ -324,6 +326,7 @@
+         #  if default already exists, leave alone 
+ 
+ 	# solaris fails on '-e', use '-f'
++	PBS_DEFAULT_FILE="${DESTDIR}${PBS_DEFAULT_FILE}"
+ 	if [ ! -f $PBS_DEFAULT_FILE ]; then
+ 	    rm -f $PBS_DEFAULT_FILE > /dev/null 2>&1
+ 	    echo $PBS_DEFAULT_SERVER > $PBS_DEFAULT_FILE && \
+diff -urN torque-2.0.0p2.orig/doc/Makefile.in torque-2.0.0p2/doc/Makefile.in
+--- torque-2.0.0p2.orig/doc/Makefile.in	2005-11-11 20:49:57.000000000 +0100
++++ torque-2.0.0p2/doc/Makefile.in	2005-12-11 02:56:26.000000000 +0100
+@@ -196,49 +196,49 @@
+ 
+ install1:	${MAN1}
+ 	@echo Installing section 1 man pages
+-	@$(INSTALL) -d -m 755 $(PBS_MAN) && \
+-	$(INSTALL) -d -m 755 $(PBS_MAN1) && \
++	@$(INSTALL) -d -m 755 $(DESTDIR)$(PBS_MAN) && \
++	$(INSTALL) -d -m 755 $(DESTDIR)$(PBS_MAN1) && \
+ 	for t in $?; do \
+ 		tt=`basename $$t B`; \
+-		${SOELIM} -d $(DOCSRC)/ers $$t | sed -e 's/^\.Sh/.SH/' >${PBS_MAN1}/$${tt}$(MAN_SUFFIX); \
+-		chmod 644 ${PBS_MAN1}/$${tt}$(MAN_SUFFIX); \
++		${SOELIM} -d $(DOCSRC)/ers $$t | sed -e 's/^\.Sh/.SH/' >$(DESTDIR)${PBS_MAN1}/$${tt}$(MAN_SUFFIX); \
++		chmod 644 $(DESTDIR)${PBS_MAN1}/$${tt}$(MAN_SUFFIX); \
+ 	done
+ 
+ install3: $(MAN3)
+ 	@echo Installing section 3 man pages
+-	@$(INSTALL) -d -m 755 $(PBS_MAN) && \
+-	$(INSTALL) -d -m 755 $(PBS_MAN3) && \
++	@$(INSTALL) -d -m 755 $(DESTDIR)$(PBS_MAN) && \
++	$(INSTALL) -d -m 755 $(DESTDIR)$(PBS_MAN3) && \
+ 	for t in $?; do \
+ 		tt=`basename $$t B`; \
+-		${SOELIM} -d $(DOCSRC)/ers $$t | sed -e 's/^\.Sh/.SH/' >${PBS_MAN3}/$${tt}$(MAN_SUFFIX); \
+-		chmod 644 ${PBS_MAN3}/$${tt}$(MAN_SUFFIX); \
++		${SOELIM} -d $(DOCSRC)/ers $$t | sed -e 's/^\.Sh/.SH/' >$(DESTDIR)${PBS_MAN3}/$${tt}$(MAN_SUFFIX); \
++		chmod 644 $(DESTDIR)${PBS_MAN3}/$${tt}$(MAN_SUFFIX); \
+ 	done
+ 
+ install7: $(MAN7)
+ 	@echo Installing section 7 man pages
+-	@$(INSTALL) -d -m 755 $(PBS_MAN) && \
+-	$(INSTALL) -d -m 755 $(PBS_MAN7) && \
++	@$(INSTALL) -d -m 755 $(DESTDIR)$(PBS_MAN) && \
++	$(INSTALL) -d -m 755 $(DESTDIR)$(PBS_MAN7) && \
+ 	for t in $?;  do \
+ 		tt=`basename $$t B`; \
+-		${SOELIM} -d $(DOCSRC)/ers $$t | sed -e 's/^\.Sh/.SH/' >${PBS_MAN7}/$${tt}$(MAN_SUFFIX); \
+-		chmod 644 ${PBS_MAN7}/$${tt}$(MAN_SUFFIX); \
++		${SOELIM} -d $(DOCSRC)/ers $$t | sed -e 's/^\.Sh/.SH/' >$(DESTDIR)${PBS_MAN7}/$${tt}$(MAN_SUFFIX); \
++		chmod 644 $(DESTDIR)${PBS_MAN7}/$${tt}$(MAN_SUFFIX); \
+ 	done
+-	@rm -f ${PBS_MAN7}/pbs_resources.7$(MAN_SUFFIX)
+-	@if test -f ${PBS_MAN7}/pbs_resources_$(DEFAULT_MAN_RESOURCE_TYPE).7$(MAN_SUFFIX) ;then \
+-		ln ${PBS_MAN7}/pbs_resources_$(DEFAULT_MAN_RESOURCE_TYPE).7$(MAN_SUFFIX) ${PBS_MAN7}/pbs_resources.7$(MAN_SUFFIX); \
++	@rm -f $(DESTDIR)${PBS_MAN7}/pbs_resources.7$(MAN_SUFFIX)
++	@if test -f $(DESTDIR)${PBS_MAN7}/pbs_resources_$(DEFAULT_MAN_RESOURCE_TYPE).7$(MAN_SUFFIX) ;then \
++		ln $(DESTDIR)${PBS_MAN7}/pbs_resources_$(DEFAULT_MAN_RESOURCE_TYPE).7$(MAN_SUFFIX) $(DESTDIR)${PBS_MAN7}/pbs_resources.7$(MAN_SUFFIX); \
+ 	fi
+ 
+ install8: $(MAN8)
+ 	@echo Installing section 8 man pages
+-	@$(INSTALL) -d -m 755 $(PBS_MAN) && \
+-	$(INSTALL) -d -m 755 $(PBS_MAN8) && \
++	@$(INSTALL) -d -m 755 $(DESTDIR)$(PBS_MAN) && \
++	$(INSTALL) -d -m 755 $(DESTDIR)$(PBS_MAN8) && \
+ 	for t in $?; do \
+ 		tt=`basename $$t B`; \
+-		${SOELIM} -d $(DOCSRC)/ers $$t | sed -e 's/^\.Sh/.SH/' >${PBS_MAN8}/$${tt}$(MAN_SUFFIX); \
+-		chmod 644 ${PBS_MAN8}/$${tt}$(MAN_SUFFIX); \
++		${SOELIM} -d $(DOCSRC)/ers $$t | sed -e 's/^\.Sh/.SH/' >$(DESTDIR)${PBS_MAN8}/$${tt}$(MAN_SUFFIX); \
++		chmod 644 $(DESTDIR)${PBS_MAN8}/$${tt}$(MAN_SUFFIX); \
+ 	done
+-	@rm -f ${PBS_MAN8}/pbs_sched.8$(MAN_SUFFIX)
+-	@case ${SCHD_TYPE} in cc|tcl|basl) ln ${PBS_MAN8}/pbs_sched_${SCHD_TYPE}.8$(MAN_SUFFIX) ${PBS_MAN8}/pbs_sched.8$(MAN_SUFFIX);; esac
++	@rm -f $(DESTDIR)${PBS_MAN8}/pbs_sched.8$(MAN_SUFFIX)
++	@case ${SCHD_TYPE} in cc|tcl|basl) ln $(DESTDIR)${PBS_MAN8}/pbs_sched_${SCHD_TYPE}.8$(MAN_SUFFIX) $(DESTDIR)${PBS_MAN8}/pbs_sched.8$(MAN_SUFFIX);; esac
+ 
+ depend::
+ 
+diff -urN torque-2.0.0p2.orig/src/cmds/Makefile.in torque-2.0.0p2/src/cmds/Makefile.in
+--- torque-2.0.0p2.orig/src/cmds/Makefile.in	2005-11-09 18:30:13.000000000 +0100
++++ torque-2.0.0p2/src/cmds/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -135,12 +135,12 @@
+ 	$(PBS_MKDIRS) clients
+ 	$(PBS_MKDIRS) aux
+ 	$(PBS_MKDIRS) default
+-	$(INSTALL) -d -m 755 $(bindir) && \
++	$(INSTALL) -d -m 755 $(DESTDIR)$(bindir) && \
+ 	for f in $(USER) $(OPER) $(ADMN) $(SCRIPTS) ; do \
+-	    $(INSTALL) -m 755 $$f $(bindir)/$$f ; \
++	    $(INSTALL) -m 755 $$f $(DESTDIR)$(bindir)/$$f ; \
+ 	done
+ 	for f in $(SUPP) ; do \
+-	    $(INSTALL) -m 755 $$f $(sbindir)/$$f ; \
++	    $(INSTALL) -m 755 $$f $(DESTDIR)$(sbindir)/$$f ; \
+ 	done
+ 
+ #
+diff -urN torque-2.0.0p2.orig/src/gui/Ccode/Makefile.in torque-2.0.0p2/src/gui/Ccode/Makefile.in
+--- torque-2.0.0p2.orig/src/gui/Ccode/Makefile.in	2005-11-09 18:30:12.000000000 +0100
++++ torque-2.0.0p2/src/gui/Ccode/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -115,9 +115,9 @@
+ build: $(TARGETS)
+ 
+ install: build
+-	-test -d $(XPBS_LIB)/bin || $(INSTALL) -d $(XPBS_LIB)/bin
++	-test -d $(DESTDIR)$(XPBS_LIB)/bin || $(INSTALL) -d $(DESTDIR)$(XPBS_LIB)/bin
+ 	for f in $(TARGETS); do \
+-	    $(INSTALL) -m 755 $$f $(XPBS_LIB)/bin; \
++	    $(INSTALL) -m 755 $$f $(DESTDIR)$(XPBS_LIB)/bin; \
+ 	done
+ 
+ DFLT_ACTION = $(CC) $(CFLAGS) $@.o -o $@ $(LIBRARIES)
+diff -urN torque-2.0.0p2.orig/src/gui/Makefile.in torque-2.0.0p2/src/gui/Makefile.in
+--- torque-2.0.0p2.orig/src/gui/Makefile.in	2005-11-09 18:30:12.000000000 +0100
++++ torque-2.0.0p2/src/gui/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -133,34 +133,34 @@
+ 	@MAKE_POSIX_PLUS@@echo Making in Ccode for xpbs; cd Ccode; $(MAKE) all
+ 
+ install: build
+-	test -d $(XPBS_LIB) || $(INSTALL) -m 755 -d $(XPBS_LIB)
+-	test -d $(XPBS_LIB)/bitmaps || $(INSTALL) -m 755 -d $(XPBS_LIB)/bitmaps
+-	test -d $(XPBS_LIB)/help || $(INSTALL) -m 755 -d $(XPBS_LIB)/help
++	test -d $(DESTDIR)$(XPBS_LIB) || $(INSTALL) -m 755 -d $(DESTDIR)$(XPBS_LIB)
++	test -d $(DESTDIR)$(XPBS_LIB)/bitmaps || $(INSTALL) -m 755 -d $(DESTDIR)$(XPBS_LIB)/bitmaps
++	test -d $(DESTDIR)$(XPBS_LIB)/help || $(INSTALL) -m 755 -d $(DESTDIR)$(XPBS_LIB)/help
+ 	#
+ 	for f in $(srcdir)/bitmaps/*; do \
+-	    test -f $$f && $(INSTALL) -m 644 $$f $(XPBS_LIB)/bitmaps; \
++	    test -f $$f && $(INSTALL) -m 644 $$f $(DESTDIR)$(XPBS_LIB)/bitmaps; \
+ 	done
+ 	#
+ 	for f in $(srcdir)/help/*.hlp; do \
+-	    $(INSTALL) -m 644 $$f $(XPBS_LIB)/help; \
++	    $(INSTALL) -m 644 $$f $(DESTDIR)$(XPBS_LIB)/help; \
+ 	done
+ 	#
+ 	@cd Ccode; $(MAKE) install
+ 	#
+ 	for f in $(srcdir)/*.tcl $(srcdir)/*.tk; do \
+-	    $(INSTALL) -m 644 $$f $(XPBS_LIB); \
++	    $(INSTALL) -m 644 $$f $(DESTDIR)$(XPBS_LIB); \
+ 	done
+ 	#
+ 	# install xpbs changing the location of libdir and appdefdir
+ 	#
+ 	@echo Install xpbs
+-	$(INSTALL) -m 755 xpbs $(bindir)/xpbs
++	$(INSTALL) -m 755 xpbs $(DESTDIR)$(bindir)/xpbs
+ 	@chmod 755 $(bindir)/xpbs 2> /dev/null
+ 	#
+-	$(INSTALL) -m 755 buildindex $(XPBS_LIB)
+-	$(INSTALL) -m 644 xpbsrc $(XPBS_LIB)
++	$(INSTALL) -m 755 buildindex $(DESTDIR)$(XPBS_LIB)
++	$(INSTALL) -m 644 xpbsrc $(DESTDIR)$(XPBS_LIB)
+ 	#
+-	cd $(XPBS_LIB) && ./buildindex $(XPBS_LIB) && chmod 644 tclIndex
++	cd $(DESTDIR)$(XPBS_LIB) && ./buildindex $(DESTDIR)$(XPBS_LIB) && chmod 644 tclIndex
+ 
+ 
+ distclean clean::
+diff -urN torque-2.0.0p2.orig/src/iff/Makefile.in torque-2.0.0p2/src/iff/Makefile.in
+--- torque-2.0.0p2.orig/src/iff/Makefile.in	2005-11-09 18:30:16.000000000 +0100
++++ torque-2.0.0p2/src/iff/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -110,8 +110,8 @@
+ build: $(TARGET)
+ 
+ install: $(TARGET)
+-	@$(INSTALL) -d -m 755 $(sbindir) && \
+-	$(INSTALL) -m 4755 $(TARGET) $(sbindir)
++	@$(INSTALL) -d -m 755 $(DESTDIR)$(sbindir) && \
++	$(INSTALL) -m 4755 $(TARGET) $(DESTDIR)$(sbindir)
+ 
+ pbs_iff: $(OBJS) $(PBS_LIBS)
+ 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(PBS_LIBS) $(LIBS)
+diff -urN torque-2.0.0p2.orig/src/include/Makefile.in torque-2.0.0p2/src/include/Makefile.in
+--- torque-2.0.0p2.orig/src/include/Makefile.in	2005-11-09 18:30:14.000000000 +0100
++++ torque-2.0.0p2/src/include/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -146,9 +146,9 @@
+ 
+ 
+ install:
+-	@$(INSTALL) -d -m 755 $(includedir) && \
++	@$(INSTALL) -d -m 755 $(DESTDIR)$(includedir) && \
+ 	for f in $(USERH); do \
+-	    $(INSTALL) -m 444 $$f $(includedir); \
++	    $(INSTALL) -m 444 $$f $(DESTDIR)$(includedir); \
+ 	done
+ 
+ clean::
+diff -urN torque-2.0.0p2.orig/src/mom_rcp/Makefile.in torque-2.0.0p2/src/mom_rcp/Makefile.in
+--- torque-2.0.0p2.orig/src/mom_rcp/Makefile.in	2005-11-09 18:30:17.000000000 +0100
++++ torque-2.0.0p2/src/mom_rcp/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -111,8 +111,8 @@
+ build: $(TARGET)
+ 
+ install: $(TARGET)
+-	$(INSTALL) -d $(sbindir)
+-	$(INSTALL) -m 4755 $(TARGET) $(sbindir)
++	$(INSTALL) -d $(DESTDIR)$(sbindir)
++	$(INSTALL) -m 4755 $(TARGET) $(DESTDIR)$(sbindir)
+ 
+ $(TARGET): $(OBJS)
+ 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBS)
+diff -urN torque-2.0.0p2.orig/src/resmom/Makefile.in torque-2.0.0p2/src/resmom/Makefile.in
+--- torque-2.0.0p2.orig/src/resmom/Makefile.in	2005-11-09 18:30:10.000000000 +0100
++++ torque-2.0.0p2/src/resmom/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -142,8 +142,8 @@
+ install: build
+ 	$(PBS_MKDIRS) mom
+ 	$(PBS_MKDIRS) aux
+-	@$(INSTALL) -d -m 755 $(sbindir) && \
+-	$(INSTALL) -m 700 $(TARGET) $(sbindir)
++	@$(INSTALL) -d -m 755 $(DESTDIR)$(sbindir) && \
++	$(INSTALL) -m 700 $(TARGET) $(DESTDIR)$(sbindir)
+ 
+ pbs_mom: $(OBJS) $(PBSLIBS)
+ 	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $(OBJS) $(PBSLIBS) $(LIBS) $(MOMLIBS)
+diff -urN torque-2.0.0p2.orig/src/scheduler.basl/Makefile.in torque-2.0.0p2/src/scheduler.basl/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.basl/Makefile.in	2005-11-09 18:30:20.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.basl/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -124,10 +124,10 @@
+ build: $(TARGETS)
+ 
+ install: build
+-	$(INSTALL) -d -m 755 $(bindir) &&    \
+-	$(INSTALL) -m 755 basl2c $(bindir) ; \
+-	$(INSTALL) -d -m 755 $(sbindir) &&   \
+-	$(INSTALL) -m 700 pbs_sched $(sbindir)
++	$(INSTALL) -d -m 755 $(DESTDIR)$(bindir) &&    \
++	$(INSTALL) -m 755 basl2c $(DESTDIR)$(bindir) ; \
++	$(INSTALL) -d -m 755 $(DESTDIR)$(sbindir) &&   \
++	$(INSTALL) -m 700 pbs_sched $(DESTDIR)$(sbindir)
+ 
+ basl2c: $(OBJS_COMMON) $(OBJS_COMP)
+ 	$(CC) $(CFLAGS) -o $@ $(OBJS_COMMON) $(OBJS_COMP) $(LIBRARIES)
+diff -urN torque-2.0.0p2.orig/src/scheduler.cc/Makefile.in torque-2.0.0p2/src/scheduler.cc/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.cc/Makefile.in	2005-11-09 18:30:17.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.cc/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -123,8 +123,8 @@
+ 
+ install: build
+ 	@MAKE_POSIX_PLUS@@cd $(SCHD_BUILD) && $(MAKE) install
+-	@$(INSTALL) -d -m 755 $(sbindir) && \
+-	$(INSTALL) -m 700 $(TARGET) $(sbindir)
++	@$(INSTALL) -d -m 755 $(DESTDIR)$(sbindir) && \
++	$(INSTALL) -m 700 $(TARGET) $(DESTDIR)$(sbindir)
+ 
+ $(TARGET): $(OBJS) $(SCHEDLIB)
+ 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(SCHEDLIB) $(PBSLIBS) $(LIBS)
+diff -urN torque-2.0.0p2.orig/src/scheduler.cc/samples/cray_t3e/Makefile.in torque-2.0.0p2/src/scheduler.cc/samples/cray_t3e/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.cc/samples/cray_t3e/Makefile.in	2005-11-09 18:30:17.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.cc/samples/cray_t3e/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -161,11 +161,11 @@
+ 
+ install:: $(TARGET)
+ 	@# a two step process is best to work around broken installs
+-	$(INSTALL) -d $(libdir) && \
+-	$(INSTALL) -m 644 $(TARGET) $(libdir)/$(TARGET)
++	$(INSTALL) -d $(DESTDIR)$(libdir) && \
++	$(INSTALL) -m 644 $(TARGET) $(DESTDIR)$(libdir)/$(TARGET)
+ 	@for f in $(SCHD_CONFIGS); do \
+-		test -f $(PBS_SERVER_HOME)/sched_priv/$$f || \
+-		$(INSTALL) -m 644 $(srcdir)/$$f $(PBS_SERVER_HOME)/sched_priv; \
++		test -f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv/$$f || \
++		$(INSTALL) -m 644 $(srcdir)/$$f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv; \
+ 	done
+ 
+ @mk_cleanup@
+diff -urN torque-2.0.0p2.orig/src/scheduler.cc/samples/dec_cluster/Makefile.in torque-2.0.0p2/src/scheduler.cc/samples/dec_cluster/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.cc/samples/dec_cluster/Makefile.in	2005-11-09 18:30:18.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.cc/samples/dec_cluster/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -109,8 +109,8 @@
+ install::
+ 	@echo Installing scheduler config file
+ 	@for f in $(SCHD_CONFIG); do \
+-	    test -f $(PBS_SERVER_HOME)/sched_priv/$$f || \
+-	        $(INSTALL) -m 644 $(srcdir)/$$f $(PBS_SERVER_HOME)/sched_priv; \
++	    test -f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv/$$f || \
++	        $(INSTALL) -m 644 $(srcdir)/$$f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv; \
+ 	done
+ 
+ @mk_cleanup@
+diff -urN torque-2.0.0p2.orig/src/scheduler.cc/samples/fifo/Makefile.in torque-2.0.0p2/src/scheduler.cc/samples/fifo/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.cc/samples/fifo/Makefile.in	2005-11-09 18:30:17.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.cc/samples/fifo/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -110,8 +110,8 @@
+ install::
+ 	@echo Installing other scheduler config files
+ 	@for f in $(SCHD_CONFIGS); do \
+-	    test -f $(PBS_SERVER_HOME)/sched_priv/$$f || \
+-	        $(INSTALL) -m 644 $(srcdir)/$$f $(PBS_SERVER_HOME)/sched_priv; \
++	    test -f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv/$$f || \
++	        $(INSTALL) -m 644 $(srcdir)/$$f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv; \
+ 	done
+ 
+ @mk_cleanup@
+diff -urN torque-2.0.0p2.orig/src/scheduler.cc/samples/msic_cluster/Makefile.in torque-2.0.0p2/src/scheduler.cc/samples/msic_cluster/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.cc/samples/msic_cluster/Makefile.in	2005-11-09 18:30:19.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.cc/samples/msic_cluster/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -130,8 +130,8 @@
+ install::
+ 	@echo Installing scheduler config file
+ 	@for f in $(SCHD_CONFIG); do \
+-	    test -f $(PBS_SERVER_HOME)/sched_priv/$$f || \
+-	        $(INSTALL) -m 644 $(srcdir)/$$f $(PBS_SERVER_HOME)/sched_priv; \
++	    test -f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv/$$f || \
++	        $(INSTALL) -m 644 $(srcdir)/$$f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv; \
+ 	done
+ 
+ @mk_cleanup@
+diff -urN torque-2.0.0p2.orig/src/scheduler.cc/samples/sgi_origin/Makefile.in torque-2.0.0p2/src/scheduler.cc/samples/sgi_origin/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.cc/samples/sgi_origin/Makefile.in	2005-11-09 18:30:19.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.cc/samples/sgi_origin/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -165,11 +165,11 @@
+ 
+ install:: $(TARGET)
+ 	@# a two step process is best to work around broken installs
+-	$(INSTALL) -d $(libdir) && \
+-	$(INSTALL) -m 644 $(TARGET) $(libdir)/$(TARGET)
++	$(INSTALL) -d $(DESTDIR)$(libdir) && \
++	$(INSTALL) -m 644 $(TARGET) $(DESTDIR)$(libdir)/$(TARGET)
+ 	@for f in $(SCHD_CONFIGS); do \
+-		test -f $(PBS_SERVER_HOME)/sched_priv/$$f || \
+-		$(INSTALL) -m 644 $(srcdir)/$$f $(PBS_SERVER_HOME)/sched_priv; \
++		test -f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv/$$f || \
++		$(INSTALL) -m 644 $(srcdir)/$$f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv; \
+ 	done
+ 
+ @mk_cleanup@
+diff -urN torque-2.0.0p2.orig/src/scheduler.cc/samples/umn_cluster/Makefile.in torque-2.0.0p2/src/scheduler.cc/samples/umn_cluster/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.cc/samples/umn_cluster/Makefile.in	2005-11-09 18:30:18.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.cc/samples/umn_cluster/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -120,8 +120,8 @@
+ install::
+ 	@echo Installing scheduler config file
+ 	@for f in $(SCHD_CONFIG); do \
+-	    test -f $(PBS_SERVER_HOME)/sched_priv/$$f || \
+-	        $(INSTALL) -m 644 $(srcdir)/$$f $(PBS_SERVER_HOME)/sched_priv; \
++	    test -f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv/$$f || \
++	        $(INSTALL) -m 644 $(srcdir)/$$f $(DESTDIR)$(PBS_SERVER_HOME)/sched_priv; \
+ 	done
+ 
+ qschedule:
+diff -urN torque-2.0.0p2.orig/src/scheduler.tcl/Makefile.in torque-2.0.0p2/src/scheduler.tcl/Makefile.in
+--- torque-2.0.0p2.orig/src/scheduler.tcl/Makefile.in	2005-11-09 18:30:11.000000000 +0100
++++ torque-2.0.0p2/src/scheduler.tcl/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -115,8 +115,8 @@
+ 
+ 
+ install: build
+-	@$(INSTALL) -d -m 755 $(sbindir) && \
+-	$(INSTALL) -m 700 $(TARGET) $(sbindir)
++	@$(INSTALL) -d -m 755 $(DESTDIR)$(sbindir) && \
++	$(INSTALL) -m 700 $(TARGET) $(DESTDIR)$(sbindir)
+ 
+ $(TARGET): $(OBJS)
+ 	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBRARIES)
+diff -urN torque-2.0.0p2.orig/src/server/Makefile.in torque-2.0.0p2/src/server/Makefile.in
+--- torque-2.0.0p2.orig/src/server/Makefile.in	2005-11-09 18:30:21.000000000 +0100
++++ torque-2.0.0p2/src/server/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -168,8 +168,8 @@
+ install: build
+ 	$(PBS_MKDIRS) server
+ 	$(PBS_MKDIRS) aux
+-	@$(INSTALL) -d -m 755 $(sbindir) && \
+-	$(INSTALL) -m 700 $(TARGET) $(sbindir)
++	@$(INSTALL) -d -m 755 $(DESTDIR)$(sbindir) && \
++	$(INSTALL) -m 700 $(TARGET) $(DESTDIR)$(sbindir)
+ 
+ pbs_server: $(OBJS) $(PBSLIBS) 
+ 	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $(OBJS) $(PBSLIBS) $(LIBS)
+diff -urN torque-2.0.0p2.orig/src/tools/Makefile.in torque-2.0.0p2/src/tools/Makefile.in
+--- torque-2.0.0p2.orig/src/tools/Makefile.in	2005-11-09 18:30:11.000000000 +0100
++++ torque-2.0.0p2/src/tools/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -130,9 +130,9 @@
+ build: $(TARGETS)
+ 
+ install: build
+-	test -d $(bindir) || $(INSTALL) -m 755 -d $(bindir)
++	test -d $(bindir) || $(INSTALL) -m 755 -d $(DESTDIR)$(bindir)
+ 	for f in $(TARGETS); do \
+-		$(INSTALL) -m 755 $$f $(bindir); \
++		$(INSTALL) -m 755 $$f $(DESTDIR)$(bindir); \
+ 	done
+ 	@MAKE_POSIX_PLUS@@if test -n "$(TK_VER)"; then { cd xpbsmon && $(MAKE) install;} ; fi
+ 
+diff -urN torque-2.0.0p2.orig/src/tools/xpbsmon/Makefile.in torque-2.0.0p2/src/tools/xpbsmon/Makefile.in
+--- torque-2.0.0p2.orig/src/tools/xpbsmon/Makefile.in	2005-11-09 18:30:11.000000000 +0100
++++ torque-2.0.0p2/src/tools/xpbsmon/Makefile.in	2005-12-11 02:51:06.000000000 +0100
+@@ -129,33 +129,33 @@
+ 
+ 
+ install: build
+-	test -d $(XPBSMON_LIB) || $(INSTALL) -m 755 -d $(XPBSMON_LIB)
+-	test -d $(XPBSMON_LIB)/bitmaps || \
+-	    $(INSTALL) -m 755 -d $(XPBSMON_LIB)/bitmaps
+-	test -d $(XPBSMON_LIB)/help || \
+-	    $(INSTALL) -m 755 -d $(XPBSMON_LIB)/help
++	test -d $(DESTDIR)$(XPBSMON_LIB) || $(INSTALL) -m 755 -d $(DESTDIR)$(XPBSMON_LIB)
++	test -d $(DESTDIR)$(XPBSMON_LIB)/bitmaps || \
++	    $(INSTALL) -m 755 -d $(DESTDIR)$(XPBSMON_LIB)/bitmaps
++	test -d $(DESTDIR)$(XPBSMON_LIB)/help || \
++	    $(INSTALL) -m 755 -d $(DESTDIR)$(XPBSMON_LIB)/help
+ 	#
+ 	for f in $(srcdir)/bitmaps/*; do \
+-	    test -f $$f && $(INSTALL) -m 644 $$f $(XPBSMON_LIB)/bitmaps; \
++	    test -f $$f && $(INSTALL) -m 644 $$f $(DESTDIR)$(XPBSMON_LIB)/bitmaps; \
+ 	done
+ 	#
+ 	for f in $(srcdir)/help/*.hlp; do \
+-	    $(INSTALL) -m 644 $$f $(XPBSMON_LIB)/help; \
++	    $(INSTALL) -m 644 $$f $(DESTDIR)$(XPBSMON_LIB)/help; \
+ 	done
+ 	#
+ 	for f in $(srcdir)/*.tcl $(srcdir)/*.tk; do \
+-	    $(INSTALL) -m 644 $$f $(XPBSMON_LIB); \
++	    $(INSTALL) -m 644 $$f $(DESTDIR)$(XPBSMON_LIB); \
+ 	done
+ 	#
+ 	# install xpbsmon changing the location of pbs_tclsh and libdir
+ 	#
+-	$(INSTALL) -m 755 xpbsmon $(bindir)/xpbsmon
+-	chmod 755 $(bindir)/xpbsmon 2> /dev/null
++	$(INSTALL) -m 755 xpbsmon $(DESTDIR)$(bindir)/xpbsmon
++	chmod 755 $(DESTDIR)$(bindir)/xpbsmon 2> /dev/null
+ 	#
+-	$(INSTALL) -m 755 buildindex $(XPBSMON_LIB)
+-	$(INSTALL) -m 644 xpbsmonrc $(XPBSMON_LIB)
++	$(INSTALL) -m 755 buildindex $(DESTDIR)$(XPBSMON_LIB)
++	$(INSTALL) -m 644 xpbsmonrc $(DESTDIR)$(XPBSMON_LIB)
+ 	#
+-	cd $(XPBSMON_LIB) && ./buildindex $(XPBSMON_LIB) && chmod 644 tclIndex
++	cd $(DESTDIR)$(XPBSMON_LIB) && ./buildindex $(DESTDIR)$(XPBSMON_LIB) && chmod 644 tclIndex
+ 
+ clean::
+ 	$(RM) tclIndex; exit 0
+
