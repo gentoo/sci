@@ -24,10 +24,6 @@ SLOT="6"
 KEYWORDS="~amd64 ~x86"
 LICENSE="BSD"
 
-pkg_setup() {
-	: # make sure fortran_pkg_setup does NOT run
-}
-
 src_compile() {
 
 	COMPILER="gcc-$(gcc-version)"
@@ -48,8 +44,13 @@ src_compile() {
 	if use static; then
 		myconf="${myconf} --enable-static --disable-shared"
 	elif use amd64; then
-		build_with_use virtual/pbs pic || \
-			die "your pbs implementation must be compiled with USE=pic"
+		if build_with_use virtual/pbs pic; then
+			eerror "openmpi needs position independant code for shared libs"
+			eerror "you either re-emerge openmpi with USE=static or"
+			eerror "your pbs implementation must be re-emerged with USE=pic"
+			eerror "if it supports pic, or add -fPIC to your flags"
+			die
+		fi
 	fi
 
 	econf \
