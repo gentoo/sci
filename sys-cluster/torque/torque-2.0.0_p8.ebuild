@@ -14,7 +14,7 @@ LICENSE="openpbs"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="tcltk scp server doc"
+IUSE="tcltk scp server doc pic"
 PROVIDE="virtual/pbs"
 
 # ed is used by makedepend-sh
@@ -58,7 +58,8 @@ src_compile() {
 #	use tcltk && myconf="${myconf} --with-tcl"
 	use doc && myconf="${myconf} --enable-docs"
 	append-flags -DJOB_DELETE_NANNY
-	use amd64 && append-flags -fPIC
+	# needed for openmpi on amd64 with shared libs
+	use pic && append-flags -fPIC
 
 	./configure ${myconf} \
 		$(use_enable X gui) \

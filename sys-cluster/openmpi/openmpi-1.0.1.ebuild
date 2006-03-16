@@ -43,8 +43,14 @@ src_compile() {
 	use crypt   && RSH=ssh || RSH=rsh;	myconf="${myconf} --with-rsh=${RSH}"
 	use threads && myconf="${myconf} --with-threads=posix --enable-mpi-threads"
 	use pbs     && append-ldflags "-L/usr/$(get_libdir)/pbs"
-	use static  && myconf="${myconf} --enable-static --disable-shared"
 	use fortran || myconf="${myconf} --disable-mpi-f77 --disable-mpi-f90"	
+
+	if use static; then
+		myconf="${myconf} --enable-static --disable-shared"
+	elif use amd64; then
+		build_with_use virtual/pbs pic || \
+			die "your pbs implementation must be compiled with USE=pic"
+	fi
 
 	econf \
 		--prefix=/usr/$(get_libdir)/${PN}/${PV}-${COMPILER} \
