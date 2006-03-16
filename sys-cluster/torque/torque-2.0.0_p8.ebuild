@@ -14,17 +14,21 @@ LICENSE="openpbs"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="tcltk scp server doc pic"
+IUSE="tcltk scp server pic"
 PROVIDE="virtual/pbs"
 
 # ed is used by makedepend-sh
 DEPEND_COMMON="virtual/libc
-			   tcltk? ( dev-lang/tk )
-			   !virtual/pbs"
+	tcltk? ( dev-tcltk/tclx )
+	!virtual/pbs"
+
 DEPEND="${DEPEND_COMMON}
-		sys-apps/ed"
+	sys-apps/ed"
+
 RDEPEND="${DEPEND_COMMON}
-		 net-misc/openssh"
+	scp? net-misc/openssh
+	!scp? ( net-misc/netkit-rsh )"
+
 PDEPEND=">=sys-cluster/openpbs-common-1.1.1"
 
 S="${WORKDIR}/${MY_P}"
@@ -53,27 +57,25 @@ src_unpack() {
 
 src_compile() {
 
-	local myconf
-#	use X || myconf="--disable-gui"
-#	use tcltk && myconf="${myconf} --with-tcl"
-	use doc && myconf="${myconf} --enable-docs"
 	append-flags -DJOB_DELETE_NANNY
 	# needed for openmpi on amd64 with shared libs
 	use pic && append-flags -fPIC
 
 	./configure ${myconf} \
-		$(use_enable X gui) \
 		$(use_enable server) \
+		$(use_enable tcltk gui) \
+		$(use_enable tcltk tcl-qstat) \
+		$(use_with tcltk tclx) \
 		$(use_with tcltk tcl) \
+		$(use_with scp) \
 		--prefix=/usr \
 		--mandir=/usr/share/man \
 		--libdir="\${exec_prefix}/$(get_libdir)/pbs" \
 		--enable-mom \
 		--enable-clients \
+		--enable-docs \
 		--enable-shared \
 		--enable-depend-cache \
-		$(use_with scp) \
-		$(use_enable tcltk tcl-qstat) \
 		--set-server-home=${PBS_SERVER_HOME} \
 		--set-environ=/etc/pbs_environment || die "./configure failed"
 

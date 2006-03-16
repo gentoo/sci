@@ -6,4 +6,4 @@ MD5 b551147a374f034bf251490ce985be6b files/torque-2.0.0_p8-respect-destdir.patch
 MD5 3ea9d3a2e1cff3ccd224f0e0b33da6d5 files/torque-2.0.0_p8-respect-ldflags.patch 2710
 MD5 f362dc4addcab08a5d537913b99c9484 files/torque-2.0.0_p8-setuid-safety.patch 997
 MD5 873d7e3e93527942f580edbddb57061b metadata.xml 647
-MD5 9c6db47f242e4c35d08b2237c2192ff1 torque-2.0.0_p8.ebuild 4478
+MD5 cdacdd95aac9717577e1a837cc55e457 torque-2.0.0_p8.ebuild 4414
