@@ -10,7 +10,7 @@ HOMEPAGE="http://www.scipy.org/"
 LICENSE="BSD"
 
 SLOT="0"
-IUSE="fftw ifc"
+IUSE="fftw"
 KEYWORDS="~amd64 ~x86"
 
 # did not use virtual/blas and virtual/lapack
