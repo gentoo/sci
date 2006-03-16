@@ -10,7 +10,7 @@ HOMEPAGE="http://www.scipy.org/"
 LICENSE="BSD"
 
 SLOT="0"
-IUSE="fftw"
+IUSE="fftw ifc"
 KEYWORDS="~amd64 ~x86"
 
 # did not use virtual/blas and virtual/lapack
@@ -23,31 +23,35 @@ RDEPEND=">=dev-lang/python-2.3.3
 	fftw? ( =sci-libs/fftw-2.1* )"
 
 DEPEND="${RDEPEND}
-	app-admin/eselect
 	=sys-devel/gcc-3*"
 
 # install doc claims fftw-2 is faster for complex ffts.
-# install doc claims gcc-4 not fully tested
+# install doc claims gcc-4 not fully tested and blas-atlas is compiled
+# with g77 only, so force use of g77 here as well.
 # wxwindows seems to have disapeared : ?
 # f2py seems to be in numpy.
-#
 
 FORTRAN="g77"
 
 pkg_setup() {
-	if [ -d "/usr/$(get_libdir)/blas/threaded-atlas" ]; then
-		eselect blas set threaded-ATLAS
-	else
-		eselect blas set ATLAS
+	if built_with_use lapack-atlas ifc; then
+		ewarn  "scipy needs consistency among fortran compiler!"
+		eerror "lapack-atlas was compiled with the ifc"
+		eerror "whereas blas-atlas and scipy will use the GNU compiler"
+		eerror "please re-emerge lapack-atlas with USE=-ifc"
+		die
 	fi
-	eselect lapack set ATLAS
 }
 
 src_unpack() {
 	unpack ${A}
     cd "${S}"
-	einfo ""
 	echo "[atlas]"  > site.cfg
+	if [ -d "/usr/$(get_libdir)/blas/threaded-atlas" ]; then
+		echo "library_dirs = /usr/$(get_libdir)/blas/threaded-atlas" >> site.cfg
+	else
+		echo "library_dirs = /usr/$(get_libdir)/blas/atlas" >> site.cfg
+	fi
 	echo "atlas_libs = lapack, blas, cblas, atlas" >> site.cfg
 	# let discover fftw by itself if installed
 }
