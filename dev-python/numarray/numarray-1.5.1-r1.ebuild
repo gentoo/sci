@@ -29,12 +29,6 @@ src_compile() {
 	python setup.py build ${myconf} || die "build failed"
 }
 
-src_test() {
-	einfo "Testing installation ..."
-	python -c "import numarray.testall as nt; nt.test()" || \
-		die "test failed!"
-}
-
 src_install() {
 	distutils_src_install
 	dodoc Doc/*.txt LICENSE.txt
