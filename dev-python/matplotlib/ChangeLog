@@ -2,10 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*matplotlib-0.87 (05 Mar 2006)
+*matplotlib-0.87.2 (17 Mar 2006)
 
-  05 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt>
-  +files/matplotlib-0.87-no-autodetect.patch, +matplotlib-0.87.ebuild:
+  17 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +files/matplotlib-0.87.2-no-autodetect.patch, +matplotlib-0.87.2.ebuild:
   version bump, with mplot3d plot USE and added a user doc.
 
 *matplotlib-0.86.2 (07 Feb 2006)
