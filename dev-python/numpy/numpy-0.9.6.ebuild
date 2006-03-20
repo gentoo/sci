@@ -4,7 +4,7 @@
 
 inherit distutils
 
-DESCRIPTION="Numpy contains a powerful N-dimensional array object for Python."
+DESCRIPTION="Powerful N-dimensional array object and processing for Python."
 SRC_URI="mirror://sourceforge/numpy/${P}.tar.gz"
 HOMEPAGE="http://numeric.scipy.org/"
 DEPEND=">=dev-lang/python-2.3
@@ -18,31 +18,31 @@ LICENSE="BSD"
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	# note the default are fine to use with
-	# blas/lapack reference and mkl.
+
 	if use lapack; then
+		# only modify [atlas]
+		# the default [blas] and [lapack] are fine
+		# for other implementations
 		echo "[atlas]"  > site.cfg
+		echo "include_dirs = /usr/include/atlas" >> site.cfg
 		echo "atlas_libs = lapack, blas, cblas, atlas" >> site.cfg
+		echo -n "library_dirs = /usr/$(get_libdir)/lapack:" >> site.cfg
+		if [ -d "/usr/$(get_libdir)/blas/threaded-atlas" ]; then
+			echo "/usr/$(get_libdir)/blas/threaded-atlas" >> site.cfg
+		elif [ -d "/usr/$(get_libdir)/blas/atlas" ]; then
+			echo "/usr/$(get_libdir)/blas/atlas" >> site.cfg
+		fi
+		
 	else
-		echo "[DEFAULT]" > site.cfg
-		echo "library_dirs =" >> site.cfg
-		echo "include_dirs =" >> site.cfg
-		echo "src_dirs =" >> site.cfg
-		echo "[blas_opt] =" >> site.cfg
+		export ATLAS=None
+		export PTATLAS=None
+		export BLAS=None
+		export LAPACK=None
 		echo "[lapack_opt] =" >> site.cfg
 	fi
 }
-
-# he test only works after install
-# to be worked out.
-#src_test() {
-#	python -c "import numpy; numpy.test()" || \
-#		die "test failed!"
-#}
 
 src_install() {
 	distutils_src_install
 	dodoc numpy/doc/*
 }
-
-
