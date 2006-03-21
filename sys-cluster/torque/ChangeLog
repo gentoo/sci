@@ -12,7 +12,8 @@
   +files/torque-2.0.0_p8-setuid-safety.patch
   +files/torque-2.0.0_p8-respect-destdir.patch
   Version bump. Closes bug #115189. Updated metadata.xml.
-  Thanks to Lukasz Flis <foxman@krosno24.pl> and everyone on the bug.
+  Thanks to Lukasz Flis <foxman@krosno24.pl>, Eric Thibodeau <kyron@neuralbs.com> 
+  and everyone else on the bug.
 	
   18 Jan 2006; Donnie Berkholz <spyderous@gentoo.org>;
   torque-1.2.0_p5-r2.ebuild:

@@ -3,7 +3,7 @@
 # $Header: $
 
 
-inherit flag-o-matic eutils
+inherit autotools flag-o-matic eutils
 
 MY_P="${P/_}"
 DESCRIPTION="Resource manager and queuing system based on OpenPBS"
@@ -52,16 +52,18 @@ src_unpack() {
 		|| die "epatch for setuid failed"
 	epatch ${FILESDIR}/${P}-makedepend.patch \
 		|| die "epatch for makedepend failed"
+	epatch ${FILESDIR}/${P}-libpbs-pic.patch \
+		|| die "epatch for libpbs PIC compiling failed"
 
 	sed -i \
 		-e "s|/tmp/|\${TMPDIR}/|g" \
 		${S}/buildutils/makedepend-sh || die "sed for makedepend failed"
+
 }
 
 src_compile() {
 
 	append-flags -DJOB_DELETE_NANNY
-	append-flags -fPIC
 
 	local myconf=""
 	if use server; then
