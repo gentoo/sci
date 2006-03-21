@@ -8,17 +8,19 @@ inherit flag-o-matic eutils
 MY_P="${P/_}"
 DESCRIPTION="Resource manager and queuing system based on OpenPBS"
 HOMEPAGE="http://www.clusterresources.com/products/torque/"
-SRC_URI="http://www.clusterresources.com/downloads/torque/${MY_P}.tar.gz"
+SRC_URI="http://www.clusterresources.com/downloads/${PN}/${MY_P}.tar.gz"
 
 LICENSE="openpbs"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="tcltk scp server pic"
+IUSE="tcltk scp server"
 PROVIDE="virtual/pbs"
 
 # ed is used by makedepend-sh
 DEPEND_COMMON="virtual/libc
+	sys-libs/ncurses
+	sys-libs/readline
 	tcltk? ( dev-tcltk/tclx )
 	!virtual/pbs"
 
@@ -39,6 +41,7 @@ PBS_SERVER_HOME="${SPOOL_LOCATION}/PBS/"
 src_unpack() {
 	unpack ${MY_P}.tar.gz
 	export EPATCH_OPTS="-p1 -d ${S}"
+
 	epatch ${FILESDIR}/${P}-respect-ldflags.patch \
 		|| die "epatch for ldflags failed"
 	epatch ${FILESDIR}/${P}-respect-destdir.patch \
@@ -58,18 +61,25 @@ src_unpack() {
 src_compile() {
 
 	append-flags -DJOB_DELETE_NANNY
-	# needed for openmpi on amd64 with shared libs
-	use pic && append-flags -fPIC
+	append-flags -fPIC
+
+	local myconf=""
+	if use server; then
+		myconf="--enable-server  --set-default-server=$(hostname)"
+	elif [ -z "${PBS_SERVER_NAME}" ]; then
+		myconf="--disable-server --set-default-server=${PBS_SERVER_NAME}"
+	else
+		myconf="--disable-server --set-default-server=$(hostname)"
+	fi
 
 	./configure ${myconf} \
-		$(use_enable server) \
 		$(use_enable tcltk gui) \
 		$(use_enable tcltk tcl-qstat) \
 		$(use_with tcltk tclx) \
 		$(use_with tcltk tcl) \
 		$(use_with scp) \
-		--prefix=/usr \
-		--mandir=/usr/share/man \
+		--prefix="/usr" \
+		--mandir="/usr/share/man" \
 		--libdir="\${exec_prefix}/$(get_libdir)/pbs" \
 		--enable-mom \
 		--enable-clients \
@@ -77,7 +87,7 @@ src_compile() {
 		--enable-shared \
 		--enable-depend-cache \
 		--set-server-home=${PBS_SERVER_HOME} \
-		--set-environ=/etc/pbs_environment || die "./configure failed"
+		--set-environ=/etc/pbs_environment || die "econf failed"
 
 	emake || die "emake failed"
 }
@@ -117,14 +127,10 @@ src_install() {
 	# Make directories first
 	pbs_createspool "${D}"
 
-	einfo "Running make install"
 	make DESTDIR=${D} install || die "make install failed"
-
-	einfo "Doing docs & lib symlinks"
-	dodoc INSTALL PBS_License.txt README.torque Release_Notes
 	dosym /usr/$(get_libdir)/pbs/libpbs.a /usr/$(get_libdir)/libpbs.a
+	dodoc CHANGELOG DEVELOPMENT README.* Release_Notes doc/admin_guide.ps
 
-	einfo "Handling /etc/pbs_environment and /var/spool/PBS/server_name"
 	# this file MUST exist for PBS/Torque to work
 	# but try to preserve any customatizations that the user has made
 	dodir /etc
