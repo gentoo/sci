@@ -1,4 +1,4 @@
-MD5 3d3fcde6bd30b5b6a9f15355ba520176 ChangeLog 5486
+MD5 249df5a7a372b24e503305e3bde8791a ChangeLog 5434
 MD5 cf4938ca2752c9563ec72aac156f6b47 files/digest-torque-2.0.0_p8 67
 MD5 7647c23d0d5189ae7a9c2a4322ce1bb6 files/torque-2.0.0_p8-destdir-fixes.patch 539
 MD5 9f25beb5f23e2ec65b02a6dc174fc452 files/torque-2.0.0_p8-libpbs-pic.patch 557

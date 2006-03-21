@@ -39,7 +39,7 @@ src_compile() {
 	use crypt   && RSH=ssh || RSH=rsh;	myconf="${myconf} --with-rsh=${RSH}"
 	use threads && myconf="${myconf} --with-threads=posix --enable-mpi-threads"
 	use pbs     && append-ldflags "-L/usr/$(get_libdir)/pbs"
-	use fortran || myconf="${myconf} --disable-mpi-f77 --disable-mpi-f90"	
+	use fortran || myconf="${myconf} --disable-mpi-f77 --disable-mpi-f90"
 	use static  && myconf="${myconf} --enable-static --disable-shared"
 
 	econf \

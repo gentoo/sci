@@ -1,16 +1,17 @@
 # ChangeLog for sys-cluster/torque
 # Copyright 2000-2006 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sys-cluster/torque/ChangeLog,v 1.25 2006/01/18 07:51:39 spyderous Exp $
+# $Header: $
 
-*torque-2.0.0_p8 (15 Mar 2006)
+*torque-2.0.0_p8 (20 Mar 2006)
 
-  15 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt>;
+  20 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt>;
   +torque-2.0.0_p8.ebuild
   +files/torque-2.0.0_p8-destdir-fixes.patch
   +files/torque-2.0.0_p8-makedepend.patch
   +files/torque-2.0.0_p8-respect-ldflags.patch
   +files/torque-2.0.0_p8-setuid-safety.patch
   +files/torque-2.0.0_p8-respect-destdir.patch
+  +files/torque-2.0.0_p8-libpbs-pic.patch
   Version bump. Closes bug #115189. Updated metadata.xml.
   Thanks to Lukasz Flis <foxman@krosno24.pl>, Eric Thibodeau <kyron@neuralbs.com> 
   and everyone else on the bug.
