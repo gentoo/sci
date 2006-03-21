@@ -40,18 +40,7 @@ src_compile() {
 	use threads && myconf="${myconf} --with-threads=posix --enable-mpi-threads"
 	use pbs     && append-ldflags "-L/usr/$(get_libdir)/pbs"
 	use fortran || myconf="${myconf} --disable-mpi-f77 --disable-mpi-f90"	
-
-	if use static; then
-		myconf="${myconf} --enable-static --disable-shared"
-	elif use amd64; then
-		if build_with_use virtual/pbs pic; then
-			eerror "openmpi needs position independant code for shared libs"
-			eerror "you either re-emerge openmpi with USE=static or"
-			eerror "your pbs implementation must be re-emerged with USE=pic"
-			eerror "if it supports pic, or add -fPIC to your flags"
-			die
-		fi
-	fi
+	use static  && myconf="${myconf} --enable-static --disable-shared"
 
 	econf \
 		--prefix=/usr/$(get_libdir)/${PN}/${PV}-${COMPILER} \
