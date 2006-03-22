@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit flag-o-matic toolchain-funcs fortran
+inherit multilib toolchain-funcs fortran
 
-IUSE="crypt pbs fortran threads static"
+IUSE="pbs fortran threads static"
 
 MY_P=${P/-mpi}
 S=${WORKDIR}/${MY_P}
@@ -15,46 +15,64 @@ HOMEPAGE="http://www.open-mpi.org"
 PROVIDE="virtual/mpi"
 DEPEND="virtual/libc
 		pbs? ( virtual/pbs )"
-# we need ssh if we want to use it instead of rsh
-RDEPEND="${DEPEND}
-	crypt? ( net-misc/openssh )
-	!crypt? ( net-misc/netkit-rsh )"
 
 SLOT="6"
 KEYWORDS="~amd64 ~x86"
 LICENSE="BSD"
 
+FORTRAN="gfortran g77"
+
 src_compile() {
 
-	COMPILER="gcc-$(gcc-version)"
+	OMPISLOT=${PV}-"gcc-$(gcc-version)"
 
 	einfo
 	einfo "OpenMPI has an overwhelming count of configuration options."
 	einfo "Don't forget the EXTRA_ECONF environment variable can let you"
 	einfo "specify configure options."
-	einfo "${A} will be installed in /usr/$(get_libdir)/${PN}/${PV}-${COMPILER}"
+	einfo "${A} will be installed in /usr/$(get_libdir)/${PN}/${OMPISLOT}"
 	einfo
 
-	local myconf=""
-	use crypt   && RSH=ssh || RSH=rsh;	myconf="${myconf} --with-rsh=${RSH}"
-	use threads && myconf="${myconf} --with-threads=posix --enable-mpi-threads"
-	use pbs     && append-ldflags "-L/usr/$(get_libdir)/pbs"
-	use fortran || myconf="${myconf} --disable-mpi-f77 --disable-mpi-f90"
-	use static  && myconf="${myconf} --enable-static --disable-shared"
+	local myconf="--prefix=/usr/$(get_libdir)/${PN}/${OMPISLOT}"
+	myconf="${myconf} --datadir=/usr/share/${PN}/${OMPISLOT}"
+	myconf="${myconf} --program-suffix=-${OMPISLOT}"
+	myconf="${myconf} --sysconfdir=/etc/${PN}/${OMPISLOT}"
+	myconf="${myconf} --enable-pretty-print-stacktrace"
 
-	econf \
-		--prefix=/usr/$(get_libdir)/${PN}/${PV}-${COMPILER} \
-		--datadir=/usr/share/${PN}/${PV}-${COMPILER} \
-		--program-suffix=-${PV}-${COMPILER} \
-		--enable-pretty-print-stacktrace \
-		--sysconfdir=/etc/${P} \
-		${myconf} || die "econf failed"
+	if use threads; then		
+		myconf="${myconf} --enable-mpi-threads"
+		myconf="${myconf} --with-progress-threads"
+		myconf="${myconf} --with-threads=posix"
+	fi
 
+	if use fortran; then
+		myconf="${myconf} $(use enable fortran mpi-f77)"
+		[ "${FORTRANC}" = "g77" ] && \
+			myconf="${myconf} --disable-mpi-f90" || \
+			myconf="${myconf} --enable-mpi-f90"
+	fi
+	
+	if use static; then
+		myconf="${myconf} --enable-static"
+		myconf="${myconf} --disable-shared"
+		myconf="${myconf} --without-memory-manager"
+	fi
+	
+	use pbs && myconf="${myconf} $(use_with pbs tm /usr/$(get_libdir)/pbs)"
+
+	econf ${myconf} || die "econf failed"
 	emake  || die "emake failed"
 }
 
 src_install () {
 
 	make DESTDIR="${D}" install || die "make install failed"
-	dodoc README AUTHORS NEWS HISTORY VERSION INSTALL
+
+	dodir /usr/bin
+	for c in ${D}/usr/$(get_libdir)/${PN}/${OMPISLOT}/bin/*${OMPISLOT}; do
+		p=$(basename ${c})
+		dosym ${c/${D}/} /usr/bin/${p/-${OMPISLOT}/}
+	done
+
+	dodoc README AUTHORS NEWS VERSION
 }
