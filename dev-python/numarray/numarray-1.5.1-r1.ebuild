@@ -16,21 +16,28 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 LICENSE="BSD"
 
-src_compile() {
-
-	local myconf="--genapi"
+src_unpack() {
+	unpack ${A}; 
+	cd ${S}
 	if use lapack; then
+		local myblas="/usr/$(get_libdir)/blas/atlas"
+		[ -d "/usr/$(get_libdir)/blas/threaded-atlas" ] && \
+			myblas=${myblas/threaded-/}
 		sed -i cfg_packages.py \
-			-e 's:/usr/local/lib/atlas:/usr/lib/blas/atlas:g' \
+			-e 's:/usr/local/lib/atlas:${myblas}:g' \
 			-e 's:/usr/local/include/atlas:/usr/include/atlas:g' \
 			-e 's:f77blas:blas:g'
-		myconf="${myconf} --use_lapack"
 	fi
-	python setup.py build ${myconf} || die "build failed"
+}
+
+src_compile() {
+	export USE_LAPACK=1
+	distutils_src_compile
 }
 
 src_install() {
 	distutils_src_install
 	dodoc Doc/*.txt LICENSE.txt
-	cp -r Doc/*.py Doc/manual Doc/release_notes Examples ${D}/usr/share/doc/${PF}
+	cp -r Doc/*.py Doc/manual Doc/release_notes \
+		Examples ${D}/usr/share/doc/${PF}
 }
