@@ -20,7 +20,7 @@ DEPEND="virtual/libc
 	sci-libs/blas-config"
 
 PROVIDE="virtual/blas
-	     virtual/lapack"
+	virtual/lapack"
 
 
 S="${WORKDIR}/l_${PN}_p_${PV}"
@@ -34,8 +34,8 @@ pkg_setup() {
 		fortran_pkg_setup
 	fi
 
-    if  [ -z "${INTEL_LICENSE}" ] && \
-		[ -z $(find /opt/intel/licenses -name *mkl*.lic) ]; then
+	if  [ -z "${INTEL_LICENSE}" -a  -z \
+		$(find /opt/intel/licenses -name *mkl*.lic) ]; then
 		eerror "Did not find any valid mkl license."
 		eerror "Please locate your license file and run:"
 		eerror "\t INTEL_LICENSE=/my/license/files emerge ${PN}"
@@ -101,7 +101,7 @@ RPM_INSTALLATION=
 
 	# clean up
 	rm -rf ${WORKDIR}/rpm
-    rm -rf ${S}/${INSTDIR}/tools/environment
+	rm -rf ${S}/${INSTDIR}/tools/environment
 }
 
 src_compile() {
@@ -125,14 +125,9 @@ src_compile() {
 
 	cd ${S}/${INSTDIR}/tools/builder
 	for x in blas cblas lapack; do
-		#cp ${x}_list ${x}.mylist
-		#echo "xerbla_" >> ${x}.mylist
-		#echo "ilaenv_" >> ${x}.mylist
-		make ${IKERN} export=${FILESDIR}/${x}.list name=libmkl_${x}
+		make ${IKERN} export=${FILESDIR}/${x}.list name=libmkl_${x} \
+			|| die "make ${IKERN} failed"
 	done
-	#cp cblas_list cblas.mylist
-	#echo "cblas_xerbla" >> cblas.mylist
-	#make ${IKERN} export=cblas.mylist name=libmkl_cblas
 
 	if use fortran95; then
 		local fc=${FORTRANC}
@@ -144,17 +139,14 @@ src_compile() {
 			make lib \
 				PLAT=lnx${IARCH/em64t/32e} \
 				FC=${fc} \
-				INSTALL_DIR=${S}/${ILIBDIR}
+				INSTALL_DIR=${S}/${ILIBDIR} || die "make lib failed"
 		done
 	fi
 }
 
 src_test() {
-
 	local fc="gnu"
-	if [ "${FORTRANC}" = "ifc" ]; then
-		fc="ifort"
-	fi
+	[ "${FORTRANC}" = "ifc" ] && fc="ifort"
 
 	cd ${S}/${INSTDIR}/tests
 	for testdir in *; do
@@ -168,8 +160,7 @@ src_install () {
 	cd ${S}
 
 	# install license
-	if  [ -n "${INTEL_LICENSE}" ] && \
-		[ -f "${INTEL_LICENSE}" ]; then
+	if  [ -n "${INTEL_LICENSE}" -a -f "${INTEL_LICENSE}" ]; then
 		insinto /opt/intel/licenses
 		doins ${INTEL_LICENSE}
 	fi
@@ -210,6 +201,10 @@ src_install () {
 	newins ${FILESDIR}/c-MKL.blas c-MKL
 	insinto /usr/$(get_libdir)/lapack
 	newins ${FILESDIR}/f77-MKL.lapack f77-MKL
+	
+	# install environment var
+	echo "LD_LIBRARY_PATH=/${ILIBDIR}" > 35mkl
+	doenvd 35mkl
 }
 
 pkg_postinst() {
@@ -221,5 +216,5 @@ pkg_postinst() {
 	einfo "MKL ${PV} is not yet available for eselect"
 	einfo "Use blas-config and lapack-config to configure"
 	einfo "blas or lapack with MKL"
-	einfo 
+	einfo
 }
