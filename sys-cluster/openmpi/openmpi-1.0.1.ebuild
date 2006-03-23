@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit multilib toolchain-funcs fortran
+inherit multilib flag-o-matic toolchain-funcs fortran
 
 IUSE="pbs fortran threads static"
 
@@ -59,6 +59,7 @@ src_compile() {
 	fi
 	
 	use pbs && myconf="${myconf} $(use_with pbs tm /usr/$(get_libdir)/pbs)"
+	append-ldflags -Wl,-z,-noexecstack
 
 	econf ${myconf} || die "econf failed"
 	emake  || die "emake failed"
@@ -68,11 +69,11 @@ src_install () {
 
 	make DESTDIR="${D}" install || die "make install failed"
 
-	dodir /usr/bin
+	# fix broken links
 	for c in ${D}/usr/$(get_libdir)/${PN}/${OMPISLOT}/bin/*${OMPISLOT}; do
-		p=$(basename ${c})
-		dosym ${c/${D}/} /usr/bin/${p/-${OMPISLOT}/}
+		p=${c/${D}/}
+		dosym ${p} ${p/-${OMPISLOT}/}
 	done
-
+	
 	dodoc README AUTHORS NEWS VERSION
 }
