@@ -33,6 +33,20 @@ DEPEND="${RDEPEND}
 FORTRAN="g77"
 
 pkg_setup() {
+
+	# force ATLAS
+	if [ -z "$(/usr/bin/eselect lapack show $(get_libdir) | grep ATLAS)"] &&
+		[ -z "$(/usr/bin/eselect blas show $(get_libdir) C | grep ATLAS)" ]; then
+		eerror "You need to set blas,lapack-atlas to use this version of scipy"
+		einfo "Please run:"
+		einfo "\teselect blas set ATLAS"
+		einfo "\teselect lapack set ATLAS"
+		einfo "or, if you have the threaded version:"
+		einfo "\teselect blas set threaded-ATLAS"
+		einfo "And re-emerge scipy"
+		die "setup failed"
+	fi
+
 	if built_with_use lapack-atlas ifc; then
 		ewarn  "scipy needs consistency among fortran compiler!"
 		eerror "lapack-atlas was compiled with the ifc"
@@ -40,6 +54,8 @@ pkg_setup() {
 		eerror "please re-emerge lapack-atlas with USE=-ifc"
 		die
 	fi
+	
+	fortran_pkg_setup
 }
 
 src_unpack() {
@@ -49,7 +65,7 @@ src_unpack() {
 	echo "[atlas]"  > site.cfg
 	echo "include_dirs = /usr/include/atlas" >> site.cfg
 	echo "atlas_libs = lapack, blas, cblas, atlas" >> site.cfg
-	echo -n "library_dirs = /usr/$(get_libdir)/lapack:" >> site.cfg
+	echo -n "library_dirs = /usr/$(get_libdir)/lapack:/usr/$(get_libdir):" >> site.cfg
 	if [ -d "/usr/$(get_libdir)/blas/threaded-atlas" ]; then
 		echo "/usr/$(get_libdir)/blas/threaded-atlas" >> site.cfg
 	else
