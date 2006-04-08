@@ -1,5 +1,5 @@
---- maxima-5.9.2/interfaces/xmaxima/Tkmaxima/Menu.tcl~	2005-09-30 16:26:26.000000000 +0100
-+++ maxima-5.9.2/interfaces/xmaxima/Tkmaxima/Menu.tcl	2006-01-28 10:08:45.000000000 +0000
+--- maxima-5.9.3/interfaces/xmaxima/Tkmaxima/Menu.tcl	2005-09-30 16:23:11.000000000 +0100
++++ maxima-5.9.3/interfaces/xmaxima/Tkmaxima/Menu.tcl.new	2006-04-08 16:01:02.000000000 +0100
 @@ -215,9 +215,9 @@
  	}
      } else {

@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 LICENSE="GPL-2 AECA"
 SLOT="0"
 KEYWORDS="~x86 ~amd64 ~sparc"
-IUSE="cmucl clisp sbcl gcl tetex emacs auctex tcltk"
+IUSE="cmucl clisp sbcl gcl tetex emacs auctex tcltk nls unicode"
 
 DEPEND=">=sys-apps/texinfo-4.3
     tetex? ( virtual/tetex )
@@ -30,6 +30,8 @@ RDEPEND=">=sci-visualization/gnuplot-4.0
      cmucl? ( app-misc/rlwrap )
      tcktk? ( >=dev-lang/tk-8.3.3 )"
 
+
+
 # chosen apps are hardcoded in maxima source:
 # - ghostview for postscript (changed to gv)
 # - acroread for pdf
@@ -37,7 +39,7 @@ RDEPEND=">=sci-visualization/gnuplot-4.0
 
 src_unpack() {
 	unpack ${A}
-	# patch to fix unicde stuff
+	# patch to fix unicode stuff
 	epatch "${FILESDIR}"/${PF}-unicode-fix.patch
 	# small patch taken from Fedora package
 	epatch "${FILESDIR}"/${PF}-emaxima.patch
@@ -78,6 +80,16 @@ src_compile() {
 		myconf="${myconf} --enable-gcl"
 	fi
 
+	# enable existing translated doc
+	if use nls; then
+		for lang in es pt; do
+			if use linguas_${lang}; then
+				myconf="${myconf} --enable-lang-${lang}"
+				use unicode && myconf="${myconf} --enable-lang-${lang}-utf8"
+			fi
+		done
+	fi
+
 	econf \
 		$(use_enable cmucl) \
 		$(use_enable clisp) \
@@ -93,7 +105,10 @@ src_install() {
 	use tcltk && make_desktop_entry xmaxima xmaxima \
 		/usr/share/${PN}/${PV}/xmaxima/maxima-new.png
 	
-	use emacs && elisp-site-file-install "${FILESDIR}"/50maxima-gentoo.el
+	if use emacs; then
+		sed -e "s/PV/${PV}/" "${FILESDIR}"/50maxima-gentoo.el > 50maxima-gentoo.el
+		elisp-site-file-install 50maxima-gentoo.el
+	fi
 
 	if use tetex; then
 		insinto /usr/share/texmf/tex/latex/emaxima

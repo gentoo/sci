@@ -2,14 +2,17 @@
 # Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*maxima-5.9.2 (30 Jan 2006)
+*maxima-5.9.3 (08 Apr 2006)
 
-  30 Jan 2006; Sebastien Fabbro <seb@ist.utl.pt>
-  +maxima-5.9.2.ebuild: New version bump + a lot of fixes and cleaning.
-  +files/maxima-5.9.2-default-browser.patch
-  +files/maxima-5.9.2-emaxima.patch
+  08 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +maxima-5.9.3.ebuild: version bump. 
+  +files/maxima-5.9.3-default-browser.patch
+  +files/maxima-5.9.3-emaxima.patch
+  +files/maxima-5.9.3-unicode-fix.patch
+  +files/50maxima-gentoo.el
+  Lots of fixes, cleaning (see bugs).
   Closes bug #112717 and #112754.
-  Thanks to Robert Dodier <robert.dodier@gmail.com> for his input.
+  Thanks to Robert Dodier <robert.dodier@gmail.com> and others.
 	
   04 Oct 2005; Gustavo Zacarias <gustavoz@gentoo.org>
   maxima-5.9.1-r5.ebuild:

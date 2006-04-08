@@ -1,5 +1,5 @@
---- maxima-5.9.2/interfaces/emacs/emaxima/maxima.el~	2005-07-24 03:19:00.000000000 +0100
-+++ maxima-5.9.2/interfaces/emacs/emaxima/maxima.el	2006-01-28 09:41:52.000000000 +0000
+--- maxima-5.9.3/interfaces/emacs/emaxima/maxima.el~	2005-06-21 23:48:42.000000000 -0400
++++ maxima-5.9.3/interfaces/emacs/emaxima/maxima.el	2006-04-07 12:10:29.000000000 -0400
 @@ -2756,8 +2756,8 @@
        (save-excursion
          (set-buffer mbuf)
