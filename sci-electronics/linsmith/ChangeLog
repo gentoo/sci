@@ -2,6 +2,12 @@
 # Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*linsmith-0.9.4 (09 Apr 2006)
+
+  09 Apr 2006; Lucas Chiesa <lucas.chiesa@gmail.com> linsmith-0.9.4.ebuild:
+  Version bump. Fixed bug which prevented the documentation from being 
+  installed  when USE="doc" was used. Removed linsmith-0.9.0-alpha3.ebuild.
+
 *linsmith-0.9.2 (16 Nov 2005)
 
   16 Nov 2005; Lucas Chiesa <lucas.chiesa@gmail.com> linsmith-0.9.2.ebuild:
