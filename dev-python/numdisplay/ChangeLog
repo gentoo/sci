@@ -4,7 +4,6 @@
 
 *numdisplay-1.0 (20 Jan 2006)
 
-  20 Jan 2006; Sebastien Fabbro <seb@ist.utl.pt> 
-  +numdisplay-1.0.ebuild, +metadata.xml, +ChangeLog
-  Initial import.
+  20 Jan 2006; Sebastien Fabbro <seb@ist.utl.pt>; 
+  +numdisplay-1.0.ebuild, +metadata.xml, +ChangeLog: Initial import.
 
