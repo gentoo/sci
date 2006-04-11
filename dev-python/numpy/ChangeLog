@@ -1,11 +1,27 @@
 # ChangeLog for dev-python/numpy
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/dev-python/numpy/ChangeLog,v 1.3 2006/04/01 20:23:26 ribosome Exp $
 
-*numpy-0.9.6 (15 Mar 2006)
 
-  15 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt> +numpy-0.9.6.ebuild:
-  Added lapack use flag, a src_test function, and marked ~amd64.
+
+*numpy-0.9.8 (11 Apr 2006)
+
+  11 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> +numpy-0.9.6-r1.ebuild:
+  Fixed default atlas, and lapack stuff.
+  Note at comment below: bicatali is Sebastien Fabbro!
+
+  01 Apr 2006; Olivier Fisette <ribosome@gentoo.org> -numpy-0.9.4.ebuild,
+  +numpy-0.9.6.ebuild:
+  Removed old version.
+
+*numpy-0.9.6 (01 Apr 2006)
+
+  01 Apr 2006; Olivier Fisette <ribosome@gentoo.org> +numpy-0.9.6.ebuild:
+  New version. Thanks to bicatali and Sebastien Fabbro <seb@ist.utl.pt> for
+  their work.
+
+  01 Apr 2006; Aron Griffis <agriffis@gentoo.org> numpy-0.9.4.ebuild:
+  Mark 0.9.4 ~ia64
 
 *numpy-0.9.4 (07 Feb 2006)
 
