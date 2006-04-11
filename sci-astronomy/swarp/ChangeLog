@@ -1,10 +1,10 @@
 # ChangeLog for sci-astronomy/swarp
-# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
 
-*swarp-2.15.6 (02 Dec 2005)	
+*swarp-2.15.7 (11 Apr 2006)	
 	
-  02 Dec 2005; Sebastien Fabbro <seb@ist.utl.pt> swarp-2.15.6.ebuild
+  11 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> swarp-2.15.7.ebuild
   Initial import. Close bug #65685.
 

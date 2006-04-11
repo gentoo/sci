@@ -1,4 +1,4 @@
-MD5 d8f338413648f675021b3489445a9222 ChangeLog 258
-MD5 55cc4a25b090f2fbac8ee76ff19eb5e0 files/digest-swarp-2.15.6 65
+MD5 ea582cfc2d4191f4c495380abd0ca945 ChangeLog 258
+MD5 232f146c5cb3fdf556b7d013b7480db9 files/digest-swarp-2.15.7 65
 MD5 79b02536bd71bf7a4f217cda0ec8edb4 metadata.xml 410
-MD5 bf4c67b873aa1a4e427d1ce677667650 swarp-2.15.6.ebuild 1093
+MD5 d5a1b72ad49b11ccfee47e9cba61c713 swarp-2.15.7.ebuild 1109

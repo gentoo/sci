@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit flag-o-matic
+inherit flag-o-matic toolchain-funcs
 
 DESCRIPTION="Resample and coadd astronomical FITS images"
 HOMEPAGE="http://terapix.iap.fr/soft/swarp"
@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="static doc threads mpi icc"
 DEPEND="mpi? ( virtual/mpi ) )
-        icc? ( dev-lang/icc >= 9 )"
+	icc? ( dev-lang/icc >= 9 )"
 
 # mpi stuff untested.
 src_compile() {
@@ -23,7 +23,7 @@ src_compile() {
 	# todo: calculate a number of threads (~= ncpu)
 	local myconf=""
 	use threads && myconf="--enable-threads "
-	! use mpi && export MPICC="gcc"
+	use mpi || export MPICC="$(tc-getCC)"
 	econf \
 		$(use_enable static ) \
 		$(use_enable icc ) \
@@ -41,3 +41,4 @@ src_install () {
 		doins doc/*
 	fi
 }
+
