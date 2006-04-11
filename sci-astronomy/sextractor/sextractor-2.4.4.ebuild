@@ -22,9 +22,9 @@ src_compile() {
 	filter-flags ${CFLAGS}
 	# change default configuration files location from current dir
 	sed -i -e "s:default\.:${CONFDIR}/default\.:" src/preflist.h
-    econf \
-        $(use_enable static) \
-        $(use_enable icc) \
+	econf \
+		$(use_enable static) \
+		$(use_enable icc) \
 		|| die "econf failed"
 	emake || die "emake failed"
 }

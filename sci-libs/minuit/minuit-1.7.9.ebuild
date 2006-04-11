@@ -7,7 +7,7 @@ MY_P=Minuit-${PV//./_}
 DESCRIPTION="A C++ physics analysis tool for function minimization"
 HOMEPAGE="http://seal.web.cern.ch/seal/snapshot/work-packages/mathlibs/minuit"
 SRC_URI="http://seal.web.cern.ch/seal/${PN}/releases/${MY_P}.tar.gz
-    doc? http://seal.cern.ch/documents/${PN}/mnusersguide.pdf"
+	doc? http://seal.cern.ch/documents/${PN}/mnusersguide.pdf"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -35,3 +35,4 @@ src_install() {
 		dohtml -r doc/html/* || die "dohtml failed"
 	fi
 }
+

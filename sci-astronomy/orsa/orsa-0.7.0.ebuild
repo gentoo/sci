@@ -14,12 +14,12 @@ KEYWORDS="~amd64 ~x86 ~ppc"
 IUSE="opengl qt mpi ginac cln gsl fftw xinerama threads static"
 
 DEPEND=">=sys-libs/readline-4.2
-    fftw?  ( =sci-libs/fftw-2.1* )
-    gsl?   ( >=sci-libs/gsl-1.5 )
-    qt?    ( $(qt_min_version 3.3) )
-    mpi?   ( sys-cluster/lam-mpi )
-    ginac? ( >=sci-mathematics/ginac-1.2.0 )
-    cln?   ( >=sci-libs/cln-1.1.6 )"
+	fftw?  ( =sci-libs/fftw-2.1* )
+	gsl?   ( >=sci-libs/gsl-1.5 )
+	qt?    ( $(qt_min_version 3.3) )
+	mpi?   ( sys-cluster/lam-mpi )
+	ginac? ( >=sci-mathematics/ginac-1.2.0 )
+	cln?   ( >=sci-libs/cln-1.1.6 )"
 
 replace-flags k6-3 i586
 replace-flags k6-2 i586
@@ -27,22 +27,11 @@ replace-flags k6 i586
 
 src_compile() {
 	local myconf=""
-	if ! use mpi; then
-		export MPICXX="g++"
-	fi
-
-	if ! use ginac; then
-		myconf="--with-ginac-prefix=/no/such/file"
-	fi
-	if ! use gsl; then
-		myconf="${myconf} --with-gsl-prefix=/no/such/file"
-	fi
-	if ! use cln; then
-		myconf="${myconf} --with-cln-prefix=/no/such/file"
-	fi
-	if ! use fftw; then
-		sed -e 's/have_fftw=yes/have_fftw=no/' -i configure
-	fi
+	use mpi || export MPICXX="g++"
+	use ginac || myconf="--with-ginac-prefix=/no/such/file"
+	use gsl || myconf="${myconf} --with-gsl-prefix=/no/such/file"
+	use cln || myconf="${myconf} --with-cln-prefix=/no/such/file"
+	use fftw || sed -i -e 's/have_fftw=yes/have_fftw=no/' configure
 	if ! use qt; then
 		myconf="${myconf} --with-qt-dir=/no/such/file"
 	else
@@ -73,3 +62,4 @@ src_install() {
 	insinto /usr/share/doc/${P}/test
 	doins src/test/*.{cc,h,fft,ggo}
 }
+
