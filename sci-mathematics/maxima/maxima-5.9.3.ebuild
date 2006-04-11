@@ -39,9 +39,7 @@ RDEPEND=">=sci-visualization/gnuplot-4.0
 
 src_unpack() {
 	unpack ${A}
-	# patch to fix unicode stuff
-	epatch "${FILESDIR}"/${PF}-unicode-fix.patch
-	# small patch taken from Fedora package
+	# small patch for emaxima (from fedora)
 	epatch "${FILESDIR}"/${PF}-emaxima.patch
 	# patch to select firefox as def. browswer and add opera as choices
 	epatch "${FILESDIR}"/${PF}-default-browser.patch
