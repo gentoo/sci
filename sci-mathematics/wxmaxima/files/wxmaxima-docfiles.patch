@@ -1,0 +1,32 @@
+diff -Nuar wxMaxima-0.6.4.orig/Makefile.am wxMaxima-0.6.4/Makefile.am
+--- wxMaxima-0.6.4.orig/Makefile.am	2005-05-18 19:52:15.000000000 -0300
++++ wxMaxima-0.6.4/Makefile.am	2006-04-14 20:02:59.000000000 -0300
+@@ -11,5 +11,5 @@
+              art/icons.h art/small/icons.h art/big/icons.h               \
+              art/maximaicon.xpm art/maximaicon.ico
+ 
+-docdir = ${datadir}/wxMaxima
++docdir = ${datadir}/doc/#PF#
+ doc_DATA = README COPYING
+diff -Nuar wxMaxima-0.6.4.orig/data/Makefile.am wxMaxima-0.6.4/data/Makefile.am
+--- wxMaxima-0.6.4.orig/data/Makefile.am	2005-03-16 10:42:29.000000000 -0300
++++ wxMaxima-0.6.4/data/Makefile.am	2006-04-14 20:01:16.000000000 -0300
+@@ -1,4 +1,4 @@
+ wxmaximadatadir = ${datadir}/wxMaxima
+-wxmaximadata_DATA = docs.zip intro.zip tips.txt wxmathml.lisp
++wxmaximadata_DATA = tips.txt wxmathml.lisp
+ 
+-EXTRA_DIST = docs.zip intro.zip tips.txt wxmathml.lisp
++EXTRA_DIST = tips.txt wxmathml.lisp
+diff -Nuar wxMaxima-0.6.4.orig/src/wxMaxima.cpp wxMaxima-0.6.4/src/wxMaxima.cpp
+--- wxMaxima-0.6.4.orig/src/wxMaxima.cpp	2005-11-21 18:28:25.000000000 -0300
++++ wxMaxima-0.6.4/src/wxMaxima.cpp	2006-04-14 20:04:11.000000000 -0300
+@@ -2065,7 +2065,7 @@
+       wxString filename;
+ #ifndef __WXMSW__
+       filename = wxT(PREFIX);
+-      filename += wxT("/share/wxMaxima/");
++      filename += wxT("/share/doc/#PF#/");
+       if (!wxFileExists(filename + wxT("docs.zip")))
+       {
+         filename = wxT(PREFIX);

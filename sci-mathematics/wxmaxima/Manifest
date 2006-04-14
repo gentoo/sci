@@ -1,4 +1,7 @@
 MD5 327d856dcdf03df067fca15fec2495a4 ChangeLog 406
 MD5 d89c1ded9e09d8d9016fdedd932dfffd files/digest-wxmaxima-0.6.4 66
+MD5 d89c1ded9e09d8d9016fdedd932dfffd files/digest-wxmaxima-0.6.4-r1 66
+MD5 b363e4de48445f52bde30676e8e78d8a files/wxmaxima-docfiles.patch 1441
 MD5 db6b7bcfdff65546db2b62be1a72fe93 metadata.xml 257
+MD5 ef0413e82363ed70711ee4fc404ccb04 wxmaxima-0.6.4-r1.ebuild 1133
 MD5 ab3cf7dbf16b93af191666fa1bf33552 wxmaxima-0.6.4.ebuild 850
