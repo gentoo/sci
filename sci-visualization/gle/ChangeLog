@@ -1,0 +1,10 @@
+# ChangeLog for sci-visualization
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*gle-4.0.11 (14 Apr 2006)
+
+  14 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +metadata.xml, +gle-4.0.11.ebuild: initial import.
+  Closes bug #128322.
+  Thanks for Andrey Groznin <a.g.grozin@inp.nsk.su> for initial ebuild.
