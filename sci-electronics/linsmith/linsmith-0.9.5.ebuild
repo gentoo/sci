@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/linsmith/${P}.tar.gz"
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc"
+IUSE="doc examples"
 
 DEPEND=">=gnome-base/libgnomeprint-2.10.3
 		>=dev-libs/libxml2-2.6.20-r2
