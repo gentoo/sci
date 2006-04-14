@@ -4,15 +4,13 @@
 
 inherit eutils
 
-DESCRIPTION="linSmith is a Smith Charting program, mainly designed for
-educational use."
+DESCRIPTION="linSmith is a Smith Charting program, mainly designed for educational use"
 HOMEPAGE="http://jcoppens.com/soft/linsmith/index.en.php"
-
 SRC_URI="mirror://sourceforge/linsmith/${P}.tar.gz"
 
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
 DEPEND=">=gnome-base/libgnomeprint-2.10.3
@@ -22,14 +20,12 @@ RDEPEND=""
 
 src_unpack() {
 	unpack ${A}
-
 	cd ${S}
-	
 	# This patch is to prevent make install copying
 	# the examples in /usr/share/linsmith
 	# Now they are cp to the correct location.
 	epatch ${FILESDIR}/${PN}-datafiles.patch
-	
+
 	einfo "Regenerating autotools files..."
 	WANT_AUTOMAKE=1.8 automake || die "automake failed"
 }
@@ -40,30 +36,29 @@ src_compile() {
 }
 
 src_install() {
-	cd ${S}
-	
 	# Delete this file, otherwise it is installed with the pixmaps.
 	rm pixmaps/Makefile.am~
-	
+
 	make DESTDIR=${D} install || die "make install failed"
-	
-	insinto "/usr/share/${PN}/"
+
+	insinto "/usr/share/${PN}"
 	doins datafiles/conv0809
-	
+
 	dodoc AUTHORS NEWS README ChangeLog TODO
 	doman doc/linsmith.1
-	
-	insinto "/usr/share/applications/"
+
+	insinto "/usr/share/applications"
 	doins linsmith.desktop
-	insinto "/usr/share/pixmaps/${PN}/"
+	insinto "/usr/share/pixmaps/${PN}"
 	doins linsmith_icon.xpm
 
 	if use doc; then
-		insinto "/usr/share/doc/${PF}/"
+		insinto "/usr/share/doc/${PF}"
 		doins doc/manual.pdf 
 	fi
-	
-	insinto "/usr/share/doc/${PF}/examples"
-	doins datafiles/*.circ datafiles/*.load 
-	
+
+	if use examples; then
+		insinto "/usr/share/doc/${PF}/examples"
+		doins datafiles/*.circ datafiles/*.load
+	fi
 }
