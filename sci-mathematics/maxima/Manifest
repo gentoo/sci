@@ -1,7 +1,0 @@
-MD5 0799102eed9ffc970b20e0a84f836212 ChangeLog 5319
-MD5 b97aaf31b888a90139f3e81e504b63ce files/50maxima-gentoo.el 625
-MD5 ac0c8d5019ce779963eb865a3fae115f files/digest-maxima-5.9.3 65
-MD5 19f868e092b9726a4d0371521ebce6ff files/maxima-5.9.3-default-browser.patch 498
-MD5 71f7028fab51b5e5378fd5021ffa1962 files/maxima-5.9.3-emaxima.patch 706
-MD5 eea16a972633943a51103d4add194ddf maxima-5.9.3.ebuild 3617
-MD5 c3d7c3219b41fb3757f8852ce032e3e6 metadata.xml 806
