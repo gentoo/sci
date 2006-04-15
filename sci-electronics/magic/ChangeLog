@@ -1,0 +1,83 @@
+# ChangeLog for sci-electronics/magic
+# Copyright 2002-2005 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-electronics/magic/ChangeLog,v 1.7 2005/09/21 15:14:01 phosphan Exp $
+
+*magic-7.4.8 (15 Apr 2006)
+
+  15 Apr 2006; Lucas Chiesa <lucas.chiesa@gmail.com>
+  +magic-7.4.8.ebuild
+  Updating to magic-7.4.8. Closes bug #123013.
+
+  21 Sep 2005; Patrick Kursawe <phosphan@gentoo.org> -magic-7.1-r3.ebuild,
+  -magic-7.1-r4.ebuild, magic-7.1-r5.ebuild:
+  7.1-r5 stable for x86, cleanup.
+
+*magic-7.1-r5 (22 Aug 2005)
+
+  22 Aug 2005; Patrick Kursawe <phosphan@gentoo.org> +files/defs.mak-7.1-r3,
+  +magic-7.1-r5.ebuild:
+  Uses system readline instead of its own and ncurses instead of termacp (bug
+  #103105).
+
+*magic-7.1-r4 (09 Jul 2005)
+
+  09 Jul 2005; Olivier Fisette <ribosome@gentoo.org> +files/README.Gentoo,
+  +magic-7.1-r4.ebuild:
+  Fixed bug #74592 ("app-sci/magic" interferes with "sys-apps/file") by using
+  "~/.magic-cad" rather than "~/.magic".
+
+  27 Jun 2005; Olivier Fisette <ribosome@gentoo.org> -files/defs.mak-7.1,
+  -files/defs.mak-7.1-r1, -magic-7.1-r2.ebuild, magic-7.1-r3.ebuild:
+  Made "sys-apps/file" a blocker; fixes bug #74592; thanks to Keri Harris.
+  Added to x86. Removed old version and unused files.
+
+*magic-7.1-r3 (21 Apr 2005)
+
+  21 Apr 2005; Stephanie Lockwood-Childs <wormo@gentoo.org>
+  +files/magic-7.1-ppc-endian.patch, +files/magic-7.1-remove-decl.patch,
+  +magic-7.1-r3.ebuild:
+  Took out a conflicting declaration to fix compile under gcc3.4
+  Make it build on ppc by defining powerpc endianness in header
+  and getting correct CFLAGS into defs.mak
+  Fix file collisions caused by man pages with very generic names;
+  add "magic-" prefix to man page filenames
+
+*magic-7.1-r2 (27 Dec 2004)
+
+  27 Dec 2004; Olivier Fisette <ribosome@gentoo.org> +metadata.xml,
+  +files/10magic, +files/defs.mak-7.1, +files/defs.mak-7.1-r1,
+  +files/defs.mak-7.1-r2, +files/magic-7.1-fhs.patch,
+  +files/magic-7.1-gcc3.2.patch, +files/magic-7.1-misc.patch,
+  +magic-7.1-r2.ebuild:
+  Moved from app-sci/magic to sci-electronics/magic.
+
+  18 Nov 2003; Patrick Kursawe <phosphan@gentoo.org> magic-7.1-r2.ebuild,
+  files/magic-7.1-misc.patch, files/magic-7.1-paths.patch,
+  files/magic-7.1-vararg.patch:
+  Should compile _and_ work now.
+
+*magic-7.1-r2 (17 Nov 2003)
+
+  17 Nov 2003; Patrick Kursawe <phosphan@gentoo.org> magic-7.1-r2.ebuild,
+  files/magic-7.1-vararg.patch:
+  Working on bug 32956 - package compiles fine now, paths are still incorrect.
+
+  15 Dec 2002; Daniel Ahlberg <aliz@gentoo.org> magic-7.1-r1.ebuild :
+  Marked as stable.
+
+*magic-7.1-r1 (03 Oct 2002)
+ 
+  03 Oct 2002; Daniel Ahlberg <aliz@gentoo.org> :
+  Closes #8581. Thanks to D Kindlund <gentoo@kindlund.net> for reporting this and
+  to Michael Nygard <michael.nygard@halleysfifth.com> for providing the fix.
+
+* magic-7.1 (30 April 2002)
+
+  25 Jul 2002; Daniel Ahlberg <aliz@gentoo.org> magic-7.1.ebuild :
+  Added KEYWORDS.
+
+  30 April 2002; Michael Nygard <michael.nygard@halleysfifth.com> ChangeLog :
+  
+  First Gentoo release of this package.  Magic predates autoconf, so has its
+  own (manual) configuration script.  I may work with the upstream
+  developers to transition to autoconf.
