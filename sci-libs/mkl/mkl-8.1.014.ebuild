@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit fortran rpm flag-o-matic
+inherit fortran
 
 MYPV=${PV/.014/}
 DESCRIPTION="Intel(R) Math Kernel Library: linear algebra, fft, random number generators."
@@ -16,20 +16,36 @@ LICENSE="mkl-8.1"
 KEYWORDS="~x86 ~amd64 ~ia64"
 DEPEND="virtual/libc"
 
-intel_arch() {
+get_intel_arch() {
+	local lib
+	local del
 	case ${ARCH} in
-		amd64) echo "em64t"	;;
-		ia64)  echo "64" ;;
-		x86)   echo "32" ;;
+		amd64) lib=em64t del="32 64"	;;
+		ia64)  lib=64 del="32 em64t" ;;
+		x86)   lib=32 del="64 em64t" ;;
 	esac
+	[ ${1} = "lib" ] && echo "${lib}"
+	[ ${1} = "del" ] && echo "${del}"
 }
 
-MKL_LIB_DIR=lib/$(intel_arch)
+get_intel_fortran() {
+	if [ "${FORTRANC}" = "ifc" ]; then
+		echo ifort
+	else
+		echo g77
+	fi
+}
+
+get_intel_c() {
+	echo gnu
+}
+
+MKL_LIB_DIR=lib/$(get_intel_arch lib)
 	
 pkg_nofetch() {
-    einfo "Please download the intel mkl from:"
-    einfo "http://www.intel.com/software/products/mkl/downloads/lin_mkl.htm"
-    einfo "and place it in ${DISTDIR}"
+	einfo "Please download the intel mkl from:"
+	einfo "http://www.intel.com/software/products/mkl/downloads/lin_mkl.htm"
+	einfo "and place it in ${DISTDIR}"
 	einfo "Also you need to register in ${HOMEPAGE}"
 	einfo "and keep the license Intel sent you"
 	ewarn "This version is only available through http://premier.intel.com"
@@ -41,7 +57,9 @@ pkg_setup() {
 		FORTRAN="ifc gfortran"
 		fortran_pkg_setup
 	fi
-
+	if has test ${FEATURES}; then
+		FORTRAN="${FORTRAN} g77"
+	fi
 	if  [ -z "${INTEL_LICENSE}" ] &&
 		[ -z "$(find /opt/intel/licenses -name *mkl*.lic)" ]; then
 		eerror "Did not find any valid mkl license."
@@ -80,28 +98,24 @@ INSTALL_DESTINATION=${S}" > answers.txt
 		--nonrpm \
 		--installpath ${S} \
 		--silent answers.txt &> /dev/null
-
-	[ -z $(find ${WORKDIR} -name "*.rpm") ] \
+	
+	[ -z $(find ${WORKDIR} -name "libvml.so") ] \
 		&& 	die "extracting the rpm failed"
 
-	# clean up
 	cd ${WORKDIR}
 	rm -rf l_${PN}_p_${PV} tmp
-	rm -rf `ls ${S}/lib/* | grep -v $(intel_arch)`
+	for d in $(get_intel_arch del); do		
+		rm -rf ${S}/lib/${d}
+	done
 }
 
 src_compile() {
-	local arch=$(intel_arch)
 	if use fortran95; then
-		local fc=${FORTRANC}
-		if [ "${FORTRANC}" = "ifc" ]; then
-			fc=ifort
-		fi
 		for x in blas95 lapack95; do
 			cd ${S}/interfaces/${x}
-			make lib \
+			emake lib \
 				PLAT=lnx${myplat/em64t/32e}
-				FC=${fc} \
+				FC=$(intel_fortran) \
 				INSTALL_DIR=${MKL_LIB_DIR} \
 				|| die "make ${x} failed"
 		done
@@ -110,8 +124,8 @@ src_compile() {
 	if use fftw; then
 		for x in fftw2xc fftw2xf fftw3xc; do
 			cd ${S}/interfaces/${x}
-			make lib${arch} \
-				F=gnu \
+			emake lib$(get_intel_arch lib) \
+				F=$(get_intel_c) \
 				|| die "make ${x} failed"
 		done
 		
@@ -119,21 +133,20 @@ src_compile() {
 }
 
 src_test() {
-	local fc="gnu"
-	[ "${FORTRANC}" = "ifc" ] && fc="ifort"
-
-	cd ${S}/tests
-	for testdir in *; do
+	for testdir in ${S}/tests/*; do
 		einfo "Testing $testdir"
 		cd ${testdir}
-		emake so$(intel_arch) F=${fc} || die "make ${testdir} failed"
+		emake so$(get_intel_arch lib) \
+			FC=$(get_intel_fortran) \
+			F=$(get_intel_c) \
+			|| die "make ${testdir} failed"
 	done
 }
 
 src_install () {
 	MKL_DIR=/opt/intel/${PN}/${MYPV}
 	dodir ${MKL_DIR}
-    cp -aurL doc include lib "${D}"/${MKL_DIR}
+	cp -pPR doc include lib "${D}"/${MKL_DIR}
 	if use examples; then
 		insinto ${MKL_DIR}
 		doins -r examples
@@ -142,3 +155,4 @@ src_install () {
 	echo "LD_LIBRARY_PATH=${MKL_DIR}/${MKL_LIB_DIR}" >> 35mkl
 	doenvd 35mkl
 }
+

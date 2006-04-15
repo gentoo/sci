@@ -1,11 +1,18 @@
 # ChangeLog for sci-libs/mkl
-# Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*mkl-8.0.1.006 (02 Feb 2006)
+*mkl-8.1.014 (14 Apr 2006)
   
-  02 Feb 2006; Sebastien Fabbro <seb@ist.utl.pt> 
-  +mkl-8.0.1.006.ebuild, +metadata.xml
+  14 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> 
+  +mkl-8.1.014.ebuild,
+  Version bump. Ebuild simplified due to installation changes upstream.
+  Removed virtual/blas and lapack for now. Will add it later.
+
+*mkl-8.0.2.004 (14 Apr 2006)
+  
+  14 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> 
+  +mkl-8.0.2.004.ebuild, +metadata.xml
   Major version bump, close bug #96426, and ebuild fully rewritten.
   Added english description on metadata.xml
 
