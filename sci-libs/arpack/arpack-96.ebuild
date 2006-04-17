@@ -28,16 +28,6 @@ DEPEND="virtual/libc
 
 S=${WORKDIR}/ARPACK
 
-src_unpack() {
-	unpack ${A}
-	# patches to fix examples makefiles
-#	epatch ${FILESDIR}/${P}-examples.patch || die "epatch arpack failed"
-#	if use mpi; then
-#		epatch ${FILESDIR}/${P}-parpack-examples.patch \
-#			|| "epatch parpack failed"
-#	fi
-}
-
 src_compile() {
 	cp -f "${FILESDIR}"/ARmake.inc ${S}
 	RPATH="${DESTTREE}"/$(get_libdir)
