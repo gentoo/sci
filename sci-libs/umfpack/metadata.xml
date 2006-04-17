@@ -6,4 +6,8 @@
     <email>seb@ist.utl.pt</email>
     <name>Sebastien Fabbro</name>
   </maintainer>
+  <longdescription lang="en">
+  UMFPACK is a set of routines for solving unsymmetric sparse linear
+  systems, Ax=b, using the Unsymmetric MultiFrontal method.
+  </longdescription>
 </pkgmetadata>

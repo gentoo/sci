@@ -1,6 +1,11 @@
 # ChangeLog for sci-libs/umfpack
-# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*umfpack-4.4 (17 Apr 2006)
+
+  17 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> +umfpack-4.6.ebuild.
+  Version bump. Added libtool, cblas flag, and cleaning.
 
 *umfpack-4.4 (14 Dec 2005)
 
