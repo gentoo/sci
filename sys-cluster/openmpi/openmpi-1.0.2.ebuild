@@ -22,6 +22,17 @@ LICENSE="BSD"
 
 FORTRAN="gfortran g77"
 
+pkg_setup() {
+	if use threads; then
+		ewarn
+		ewarn "WARNING: use of threads is higly experimental."
+		ewarn "You may stop now and set USE=-threads"
+		ewarn
+		sleep 5
+	fi
+	fortran_pkg_setup
+}
+
 src_compile() {
 
 	OMPISLOT=${PV}-"gcc-$(gcc-version)"
@@ -39,7 +50,7 @@ src_compile() {
 	myconf="${myconf} --sysconfdir=/etc/${PN}/${OMPISLOT}"
 	myconf="${myconf} --enable-pretty-print-stacktrace"
 
-	if use threads; then		
+	if use threads; then
 		myconf="${myconf} --enable-mpi-threads"
 		myconf="${myconf} --with-progress-threads"
 		myconf="${myconf} --with-threads=posix"
@@ -51,13 +62,13 @@ src_compile() {
 			myconf="${myconf} --disable-mpi-f90" || \
 			myconf="${myconf} --enable-mpi-f90"
 	fi
-	
+
 	if use static; then
 		myconf="${myconf} --enable-static"
 		myconf="${myconf} --disable-shared"
 		myconf="${myconf} --without-memory-manager"
 	fi
-	
+
 	use pbs && myconf="${myconf} $(use_with pbs tm /usr/$(get_libdir)/pbs)"
 	append-ldflags -Wl,-z,-noexecstack
 
@@ -74,6 +85,6 @@ src_install () {
 		p=${c/${D}/}
 		dosym ${p} ${p/-${OMPISLOT}/}
 	done
-	
+
 	dodoc README AUTHORS NEWS VERSION
 }

@@ -1,4 +1,6 @@
-MD5 5857c1a5ccb8ec1a1b24454e7f74a2d9 ChangeLog 342
+MD5 ec3d27ee675ab193dbfe2561e6988349 ChangeLog 342
 MD5 914db9dc84c9ae3fdc732b8fb13fe21c files/digest-openmpi-1.0.1 67
+MD5 23219ab14ab5b826dfad619ae053acc3 files/digest-openmpi-1.0.2 67
 MD5 c92d111706d0769823a1ff19c0abaacf metadata.xml 541
 MD5 5dfd31d0de72fcffd0742bbae52da8ec openmpi-1.0.1.ebuild 2102
+MD5 10dcbb78442a9559f79c3d6c38323828 openmpi-1.0.2.ebuild 2290
