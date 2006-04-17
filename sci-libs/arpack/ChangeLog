@@ -2,9 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*arpack-96 (16 Jan 2006)
+*arpack-96 (17 Apr 2006)
 
-  16 Jan 2006; Sebastien Fabbro <seb@ist.utl.pt> +arpack-96.ebuild.
-  Initial import. Close bug . 
-  Thanks David Grant <david.grant@telus.net> for the ebuild.
-	
+  17 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> +arpack-96.ebuild.
+  Initial import. Close bug #69241.
+  Thanks David Grant <david.grant@telus.net> for the innitial ebuild.
+  Added blas, examples use flag, libtoolization and a lot of cleaning.

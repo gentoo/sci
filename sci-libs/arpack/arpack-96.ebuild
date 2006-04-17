@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit toolchain-funcs fortran
+inherit toolchain-funcs eutils fortran
 
 
 DESCRIPTION="Library to solve large scale eigenvalue problems."
@@ -15,65 +15,80 @@ SRC_URI="http://www.caam.rice.edu/software/ARPACK/SRC/${PN}${PV}.tar.gz
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="mpi examples"
+# lapack USE/dependence not implemented. 
+# README file strongly recommands using arpack 
+# internal lapack
+IUSE="blas mpi examples"
 KEYWORDS="~amd64 ~x86"
 DEPEND="virtual/libc
-mpi? ( virtual/mpi )"
-
-# lapack USE/dependence not implemented because README file strongly
-# recommands using arpack internal lapack (unless is lapack-2,
-# which does not exist on gentoo).
-# anyway, I could not run examples with the installed lapack-3 on my system
-
-# mpi use is experimental
+	>=sys-devel/libtool-1.5
+	blas? ( virtual/blas )
+	blas? ( sci-libs/blas-config )
+	mpi? ( virtual/mpi )"
 
 S=${WORKDIR}/ARPACK
 
+src_unpack() {
+	unpack ${A}
+	# patches to fix examples makefiles
+#	epatch ${FILESDIR}/${P}-examples.patch || die "epatch arpack failed"
+#	if use mpi; then
+#		epatch ${FILESDIR}/${P}-parpack-examples.patch \
+#			|| "epatch parpack failed"
+#	fi
+}
+
 src_compile() {
+	cp -f "${FILESDIR}"/ARmake.inc ${S}
+	RPATH="${DESTTREE}"/$(get_libdir)
+
+	if use blas; then
+		sed -i \
+			-e "s:BLASLIB=:BLASLIB=$(blas-config --f77libs):" \
+			-e "s:\$\(BLASdir\)::" \
+			ARmake.inc || die "sed failed"
+	fi
 
 	emake \
-		home=${S} \
-		FC=${FORTRANC} \
-		AR=$(tc-getAR) \
-		RANLIB=$(tc-getRANLIB) \
+		FC="libtool --mode=compile --tag=F77 ${FORTRANC}" \
+		PFC="libtool --mode=compile --tag=F77 mpif77" \
 		FFLAGS="${FFLAGS}" \
-		MAKE=$(which make) \
-		ARPACKLIB=${S}/libarpack.a \
+		AR="$(tc-getAR)" \
+		RANLIB="$(tc-getRANLIB)" \
 		PRECISIONS="single double complex complex16 sdrv ddrv cdrv zdrv" \
+		ARPACKLIB="${S}/libarpack.la" \
+		PARPACKLIB="${S}/libparpack.la" \
 		all || die "emake failed"
 
-	# todo: make shared libraries
+	libtool --mode=link --tag=CC ${FORTRANC} ${FFLAGS} -o libarpack.la */*.lo \
+		-rpath ${RPATH} || die "libtool failed"
+	if use mpi; then
+		libtool --mode=link --tag=CC mpif77 ${FFLAGS} \
+			-o libparpack.la */*.lo -rpath ${RPATH} || die "libtool failed"
+	fi
 }
 
 src_install() {
-	dolib.a libarpack.a
-
-	dodoc -README
+	dodir ${RPATH}
+	libtool --mode=install install -s libarpack.la \
+		${D}/${RPATH} || die "libtool failed"
+	if use mpi; then
+		libtool --mode=install install -s libparpack.la \
+			${D}/${RPATH} || die "libtool failed"
+	fi
+	dodoc README
 	docinto DOCUMENTS
 	dodoc DOCUMENTS/*
 
 	if use examples; then
-		for mkfile in $(ls -d EXAMPLES/*/makefile); do
-			sed -e '/^include/d' \
-				-e '1i ALIBS=-larpack' \
-				-i ${mkfile}
-		done
 		insinto /usr/share/doc/${P}
+		doins ARmake.inc
 		doins -r EXAMPLES
 		if use mpi; then
-			for mkfile in $(ls -d PARPACK/EXAMPLES/*/makefile); do
-				sed -e '/^include/d' \
-					-e 's:_\$(PLAT)::g' \
-					-e '1i PLIBS=-lparpack' \
-					-e '2i PFC=mpif77' \
-					-e '3i PFFLAGS=${FFLAGS}' \
-					-i ${mkfile}
-			done
 			insinto /usr/share/doc/${P}/PARPACK
 			doins -r PARPACK/EXAMPLES
 		fi
 	fi
-
 }
 
 src_postinst() {
