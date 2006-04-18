@@ -1,0 +1,56 @@
+diff -urN -x Makefile -x autom4te.cache -x configure -x libtool -x make.log -x src -x setup coot-0.0.33.orig/aclocal.m4 coot-0.0.33/aclocal.m4
+--- coot-0.0.33.orig/aclocal.m4	2005-06-30 05:45:04.000000000 -0700
++++ coot-0.0.33/aclocal.m4	2006-01-08 06:38:18.000000000 -0800
+@@ -5330,7 +5330,7 @@
+ 	# --gtkcanvas-prefix=/some/thing
+ 	#
+ 
+- GTKCANVAS_CFLAGS="-DHAVE_GTK_CANVAS -I$gtkcanvas_prefix/include $IMLIB_CFLAGS"
++ GTKCANVAS_CFLAGS="-DHAVE_GTK_CANVAS -I$gtkcanvas_prefix/include -I$gtkcanvas_prefix/include/gnome-1.0 $IMLIB_CFLAGS"
+  #
+  # Similarly for gtkcanvas, the uninstalled library position is simply in
+  # $gtkcanvas_prefix, but the installed is in the standard prefixed subdirectory.
+@@ -5731,7 +5731,7 @@
+  # when MMDB and dependencies get installed - we infact, include both
+  # directories.
+  #  
+- ac_MMDB_CXXFLAGS="-I$mmdb_prefix/include -I$mmdb_prefix/src"
++ ac_MMDB_CXXFLAGS="-I$mmdb_prefix/include -I$mmdb_prefix/include/mmdb -I$mmdb_prefix/src"
+  #
+  # Similarly for mmdb, the uninstalled library position is simply in
+  # $mmdb_prefix, but the installed is in the standard prefixed subdirectory.
+@@ -5805,7 +5805,7 @@
+ 
+ if test x$with_ssmlib_prefix != x; then
+ 
+-   MMDBSSM_CXXFLAGS="-DHAVE_SSMLIB -I$with_ssmlib_prefix/include"
++   MMDBSSM_CXXFLAGS="-DHAVE_SSMLIB -I$with_ssmlib_prefix/include -I$with_ssmlib_prefix/include/ssm"
+    MMDBSSM_LIBS="-L$with_ssmlib_prefix/lib -lssm"
+   
+ else 
+@@ -5857,7 +5857,7 @@
+  # should ideally be CLIPPER_CFLAGS="-I$clipper_prefix/include", and the like
+  # when clipper and dependencies get installed.
+  #  
+- CLIPPER_CXXFLAGS="-I$clipper_prefix/mccp4 -I$clipper_prefix/fftw/include -I$clipper_prefix/boost -I$clipper_prefix/include"
++ CLIPPER_CXXFLAGS="-I$clipper_prefix/include/mccp4 -I$clipper_prefix/fftw/include -I$clipper_prefix/boost -I$clipper_prefix/include"
+ # -I$clipper_prefix/cctbx
+  
+  # yes, libmmtz.a is in -L$clipper_prefix/umtz!
+@@ -5868,14 +5868,14 @@
+  # HACK! FIXME
+  # added lz, we should have proper autoconf check for this.
+  #
+- CLIPPER_LDOPTS="-L$clipper_prefix/lib -lclipper-mtz -lclipper-cif -lclipper-phs -lclipper-contrib -lclipper-mmdb -lclipper-mmdbold -lclipper-core -lmccp4 $MMDB_LIBS -lrfftw -lfftw -lz -lm"
++ CLIPPER_LDOPTS="-L$clipper_prefix/lib  -lclipper-cif -lclipper-phs -lclipper-contrib -lclipper-mmdb -lclipper-mmdbold -lclipper-core -lclipper-mtz -lmccp4 $MMDB_LIBS -lrfftw -lfftw -lz -lm"
+ # -L$clipper_prefix/boost/lib -lclipper-cctbx -L$clipper_prefix/cctbx/lib -lsgtbx -luctbx 
+ else
+  # the compiler looks in the "standard" places for clipper.  In real life,
+  # it would be quite unlikely that clipper would be installed in /usr/include, 
+  # /usr/lib etc. so this code will not usually find the right dependencies.
+  CLIPPER_CXXFLAGS=""
+- CLIPPER_LDOPTS="-lclipper-mtz -lclipper-cif -lclipper-phs -lclipper-contrib -lclipper-mmdb -lclipper-mmdbold -lclipper-core -lmccp4 $MMDB_LIBS -lrfftw -lfftw -lz -lm"
++ CLIPPER_LDOPTS=" -lclipper-cif -lclipper-phs -lclipper-contrib -lclipper-mmdb -lclipper-mmdbold -lclipper-core -lclipper-mtz -lmccp4 $MMDB_LIBS -lrfftw -lfftw -lz -lm"
+ fi
+ 
+ AC_MSG_CHECKING([for Clipper])

@@ -1,0 +1,124 @@
+diff -ur -x libtool -x coot_wrap_python.cc coot-0.1.orig/coords/Cartesian.h coot-0.1/coords/Cartesian.h
+--- coot-0.1.orig/coords/Cartesian.h	2005-05-09 15:56:01.000000000 -0700
++++ coot-0.1/coords/Cartesian.h	2006-04-13 17:57:43.000000000 -0700
+@@ -155,6 +155,9 @@
+ 
+    short int is_an_in_triangle(surface_face_data face,  const Cartesian &b,
+ 			       const Cartesian &c); 
++   double  cos_angle_btwn_vecs(const Cartesian &a, const Cartesian &b);
++   float           dot_product(const Cartesian &a, const Cartesian &b);
++   Cartesian     cross_product(const Cartesian &a, const Cartesian &b);
+ 
+ 
+    class CartesianPairInfo { 
+diff -ur -x libtool -x coot_wrap_python.cc coot-0.1.orig/coot-utils/coot-map-heavy.hh coot-0.1/coot-utils/coot-map-heavy.hh
+--- coot-0.1.orig/coot-utils/coot-map-heavy.hh	2005-11-05 16:43:03.000000000 -0800
++++ coot-0.1/coot-utils/coot-map-heavy.hh	2006-04-13 17:20:24.000000000 -0700
+@@ -83,7 +83,7 @@
+ 	 // searching of the trns components of the rtops.  We use the
+ 	 // molecule size (min_molecule_radius_) to do that.
+ 	 std::vector<std::pair<float, clipper::RTop_orth> >
+-	 fffear_search::filter_by_distance_to_higher_peak(const std::vector<std::pair<float, clipper::RTop_orth> > &vr) const;
++	 filter_by_distance_to_higher_peak(const std::vector<std::pair<float, clipper::RTop_orth> > &vr) const;
+ 	 
+       public:
+ 	 clipper::NXmap<float> nxmap;
+@@ -97,7 +97,7 @@
+ 	 // transformations of the coords need to apply this
+ 	 // translation of the molecule (to be centered round the
+ 	 // origin) before applying the RTop of the (negative) peaks of the fffear map.
+-	 clipper::RTop_orth coot::util::fffear_search::mid_point_transformation() const;
++	 clipper::RTop_orth mid_point_transformation() const;
+       };
+ 
+    }
+diff -ur -x libtool -x coot_wrap_python.cc coot-0.1.orig/coot-utils/peak-search.hh coot-0.1/coot-utils/peak-search.hh
+--- coot-0.1.orig/coot-utils/peak-search.hh	2005-10-20 04:39:25.000000000 -0700
++++ coot-0.1/coot-utils/peak-search.hh	2006-04-13 17:18:28.000000000 -0700
+@@ -40,7 +40,7 @@
+ 				  const clipper::Xmap<float> &xmap) const;
+ 
+       const std::vector<int>
+-      coot::peak_search::find_protein_to_origin_translations(const std::vector<clipper::Coord_orth> &sampled_protein_coords, const clipper::Xmap<float> &xmap) const;
++      find_protein_to_origin_translations(const std::vector<clipper::Coord_orth> &sampled_protein_coords, const clipper::Xmap<float> &xmap) const;
+       
+       double
+       min_dist_to_protein(const clipper::Coord_orth &point,
+diff -ur -x libtool -x coot_wrap_python.cc coot-0.1.orig/ligand/dunbrack.hh coot-0.1/ligand/dunbrack.hh
+--- coot-0.1.orig/ligand/dunbrack.hh	2006-03-22 09:44:17.000000000 -0800
++++ coot-0.1/ligand/dunbrack.hh	2006-04-13 18:12:51.000000000 -0700
+@@ -37,7 +37,7 @@
+       double probability_score(double chi_angle, int ichi, const coot::simple_rotamer &rot);
+ 
+       std::vector<coot::simple_rotamer>
+-      coot::dunbrack::get_all_rotamers(const std::string &res_type) const;
++      get_all_rotamers(const std::string &res_type) const;
+       std::pair<short int, double> probability_of_this_rotamer(const std::vector<double> &chi_angles,
+ 							       const std::vector<coot::simple_rotamer> &rots) const;
+       std::vector<std::vector<int> > rotamer_atom_names_to_indices(const std::vector<std::vector<std::string> > &residue_rotamer_atoms, PCAtom *residue_atoms, int n_residue_atoms) const;
+diff -ur -x libtool -x coot_wrap_python.cc coot-0.1.orig/ligand/helix-placement.hh coot-0.1/ligand/helix-placement.hh
+--- coot-0.1.orig/ligand/helix-placement.hh	2005-10-07 11:56:00.000000000 -0700
++++ coot-0.1/ligand/helix-placement.hh	2006-04-13 18:16:32.000000000 -0700
+@@ -68,12 +68,12 @@
+       void build_on_N_end(minimol::fragment *m, float min_density_limit) const;
+       void build_on_C_end(minimol::fragment *m, float min_density_limit) const;
+       minimol::residue
+-      helix_placement::build_N_terminal_ALA(const clipper::Coord_orth &prev_n,
++      build_N_terminal_ALA(const clipper::Coord_orth &prev_n,
+                                             const clipper::Coord_orth &prev_ca,
+                                             const clipper::Coord_orth &prev_c,
+ 					    int seqno) const;
+       minimol::residue
+-      helix_placement::build_C_terminal_ALA(const clipper::Coord_orth &prev_n,
++      build_C_terminal_ALA(const clipper::Coord_orth &prev_n,
+                                             const clipper::Coord_orth &prev_ca,
+                                             const clipper::Coord_orth &prev_c,
+ 					    int seqno) const;
+diff -ur -x libtool -x coot_wrap_python.cc coot-0.1.orig/ligand/residue_by_phi_psi.hh coot-0.1/ligand/residue_by_phi_psi.hh
+--- coot-0.1.orig/ligand/residue_by_phi_psi.hh	2005-09-15 03:56:01.000000000 -0700
++++ coot-0.1/ligand/residue_by_phi_psi.hh	2006-04-13 18:07:06.000000000 -0700
+@@ -58,7 +58,7 @@
+ 							  short int do_rigid_body_refinement);
+ 
+      minimol::fragment
+-     coot::residue_by_phi_psi::make_2_res_joining_frag(const std::string &chain_id,
++     make_2_res_joining_frag(const std::string &chain_id,
+ 						       const phi_psi_pair &pp1,
+ 						       const phi_psi_pair &pp2,
+ 						       int seqnum,
+diff -ur -x libtool -x coot_wrap_python.cc coot-0.1.orig/src/graphics-info.h coot-0.1/src/graphics-info.h
+--- coot-0.1.orig/src/graphics-info.h	2006-03-27 01:12:01.000000000 -0800
++++ coot-0.1/src/graphics-info.h	2006-04-13 18:02:41.000000000 -0700
+@@ -657,7 +657,7 @@
+    }
+ 
+    // 
+-   static short int graphics_info_t::use_graphics_interface_flag; 
++   static short int use_graphics_interface_flag; 
+ 
+    // Display size
+    static int graphics_x_size;
+diff -ur -x libtool -x coot_wrap_python.cc coot-0.1.orig/src/molecule-class-info.h coot-0.1/src/molecule-class-info.h
+--- coot-0.1.orig/src/molecule-class-info.h	2006-03-30 23:25:04.000000000 -0800
++++ coot-0.1/src/molecule-class-info.h	2006-04-13 18:02:09.000000000 -0700
+@@ -395,7 +395,7 @@
+ 
+    // change chain id internal function
+    std::pair<int, std::string>
+-   molecule_class_info_t::change_chain_id_with_residue_range(const std::string &from_chain_id,
++   change_chain_id_with_residue_range(const std::string &from_chain_id,
+ 							     const std::string &to_chain_id,
+ 							     int start_resno,
+ 							     int end_resno);
+diff -ur -x libtool -x coot_wrap_python.cc coot-0.1.orig/src/rama_plot.hh coot-0.1/src/rama_plot.hh
+--- coot-0.1.orig/src/rama_plot.hh	2006-03-30 23:25:06.000000000 -0800
++++ coot-0.1/src/rama_plot.hh	2006-04-13 18:02:24.000000000 -0700
+@@ -289,7 +289,7 @@
+    // SelResidue is guaranteed to have 3 residues (there is no protection
+    // for that in this function).
+    std::pair<short int, coot::phi_psi_t>
+-   coot::rama_plot::get_phi_psi(PCResidue *SelResidue) const;
++   get_phi_psi(PCResidue *SelResidue) const;
+ 
+ 
+    void map_mouse_pos(double x, double y);

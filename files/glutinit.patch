@@ -1,0 +1,20 @@
+diff -urN coot-0.0.33.orig/src/main.cc coot-0.0.33/src/main.cc
+--- coot-0.0.33.orig/src/main.cc	2006-01-08 08:20:58.000000000 -0800
++++ coot-0.0.33/src/main.cc	2006-01-08 08:31:44.000000000 -0800
+@@ -31,6 +31,7 @@
+ 
+ #include <gtk/gtk.h>
+ 
++#include <GL/glut.h> // for glutInit
+ 
+ #include "interface.h"
+ #ifndef HAVE_SUPPORT_H
+@@ -121,6 +122,8 @@
+   textdomain (PACKAGE);
+ #endif
+ 
++  glutInit(&argc, argv);
++
+   // command line
+   command_line_data cld = parse_command_line(argc, argv); 
+   

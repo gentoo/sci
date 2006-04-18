@@ -1,0 +1,15 @@
+diff -urN coot-0.0.33.orig/setup/Makefile.am coot-0.0.33/setup/Makefile.am
+--- coot-0.0.33.orig/setup/Makefile.am	2006-01-08 08:20:58.000000000 -0800
++++ coot-0.0.33/setup/Makefile.am	2006-01-08 08:25:34.000000000 -0800
+@@ -1,8 +1,8 @@
+ # Install in both bin and setup
+-setupdir = $(prefix)/setup
++#setupdir = $(prefix)/setup
+ 
+-# bin_SCRIPTS = coot.csh coot.sh
+-setup_SCRIPTS = coot.csh coot.sh
++bin_SCRIPTS = coot.csh coot.sh
++# setup_SCRIPTS = coot.csh coot.sh
+ 
+ EXTRA_DIST = coot.csh coot.sh
+ 
