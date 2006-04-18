@@ -181,7 +181,7 @@ src_install() {
 	# Also the main clipper library is built as libclipper-core, not libclipper
 	sed -i \
 		-e "s:${S}:${ROOT}usr:g" \
-		-e "s:lclipper :lclipper-core:g" \
+		-e "s:lclipper :lclipper-core :g" \
 		${S}/bin/clipper-config
 #	sed -i \
 #		-e "s:${S}:${ROOT}usr:g" \
