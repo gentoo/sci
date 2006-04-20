@@ -32,11 +32,6 @@ src_unpack() {
 	automake || die "automake failed"
 }
 
-src_compile() {
-	econf || die "econf failed"
-	emake || die "emake failed"
-}
-
 src_install() {
 	make DESTDIR=${D} install  || die "make install failed"
 }
