@@ -4,5 +4,5 @@ MD5 a6df390c5a8f3a558a6a23aee446f7e5 files/digest-linsmith-0.9.4 67
 MD5 3514b4891ceefe51e3b5e1288d0bf29d files/digest-linsmith-0.9.5 67
 MD5 8eed8f5e5acb161567180193e3c94642 files/linsmith-datafiles.patch 757
 MD5 afadc040e05573a886c5152caf055233 files/linsmith.1 2109
-MD5 3a2ee4625b103c30644910e56399d8d0 linsmith-0.9.5.ebuild 1515
+MD5 585f2c28708e01cfba0898d3a22f9252 linsmith-0.9.5.ebuild 1438
 MD5 e86b876c1011b9eef88da979183746eb metadata.xml 260

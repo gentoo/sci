@@ -30,11 +30,6 @@ src_unpack() {
 	WANT_AUTOMAKE=1.8 automake || die "automake failed"
 }
 
-src_compile() {
-	econf || die "econf failed"
-	emake || die "emake failed"
-}
-
 src_install() {
 	# Delete this file, otherwise it is installed with the pixmaps.
 	rm pixmaps/Makefile.am~
