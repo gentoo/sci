@@ -1,0 +1,9 @@
+# ChangeLog for x11-libs/agg
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*agg-2.3 (21 Apr 2006)
+
+  21 Apr 2006; Foo Bar <foobar@gentoo.org> agg-2.3.ebuild :
+  Initial import. Closes bug #91120. 
+  Thanks  Hanno Meyer-Thurow <h.mth@web.de>, and everyone in the bug.
