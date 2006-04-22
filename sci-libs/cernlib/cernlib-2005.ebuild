@@ -44,6 +44,8 @@ src_compile() {
 }
 
 src_install() {
+	dodir /usr/share/doc/${P}/geant321
+	dodir /usr/share/doc/${P}/montecarlo
 	einstall \
 		GEANTDOC=/usr/share/doc/${P}/geant321 \
 		MCDOC=/usr/share/doc/${P}/montecarlo \
