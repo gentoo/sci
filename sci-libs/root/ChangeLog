@@ -1,0 +1,110 @@
+# ChangeLog for sci-libs/root
+# Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*root-5.10.00 (23 Apr 2006)
+
+  23 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> root-5.10.00.ebuild
+  +root-5.10.00.ebuild, +metadata.xml (added longdescription)
+  Major version bump, and major ebuild change. 
+  Closes bug #109307, #124635, #98235, #98236, #34415.
+
+  03 Feb 2006; Patrick Kursawe <phosphan@gentoo.org> root-3.05.04.ebuild,
+  root-3.10.02-r1.ebuild, root-4.02.00.ebuild:
+  Porting to modular X
+
+  28 Jul 2005; Caleb Tennis <caleb@gentoo.org> root-3.10.02-r1.ebuild,
+  root-4.02.00.ebuild:
+  Fix qt dep per bug #100235
+
+  26 Jun 2005; Olivier Fisette <ribosome@gentoo.org>
+  -files/root-4.00.06a-gcc-3.4.patch, -root-3.03.04-r2.ebuild,
+  -root-4.00.06a.ebuild:
+  Removed obsolete versions.
+
+  08 Apr 2005; Michael Hanselmann <hansmi@gentoo.org> root-4.02.00.ebuild:
+  Like on sparc, this package doesn't work yet on ppc.
+
+  29 Mar 2005; Ferris McCormick <fmccor@gentoo.org> root-4.02.00.ebuild:
+  Add -sparc keyword to make explicit that as distributed, this package cannot
+  build on sparc.  Supported architectures are hardwired in a tgz file included
+  within the package: xrootd/src/xrootd-20041124-0752.src.tgz, and in
+  unix/src/TUnixSystem.cxx, and linux:sparc is not among them.  There is no
+  apparent for this package not to work on sparc, but as constituted, it cannot
+  without upstream support.
+
+  12 Mar 2005; Patrick Kursawe <phosphan@gentoo.org> root-4.02.00.ebuild:
+  No bugs for this version for about two months -> stable
+
+*root-4.02.00 (15 Jan 2005)
+
+  15 Jan 2005; Olivier Fisette <ribosome@gentoo.org> +root-4.02.00.ebuild:
+  New version. GCC 3.4 patch no longer required.
+
+  29 Dec 2004; Ciaran McCreesh <ciaranm@gentoo.org> :
+  Change encoding to UTF-8 for GLEP 31 compliance
+
+*root-3.10.02-r1 (28 Dec 2004)
+
+  28 Dec 2004; Olivier Fisette <ribosome@gentoo.org> +metadata.xml,
+  +files/pgsql-no-libpq-int.patch, +files/root-4.00.06a-gcc-3.4.patch,
+  +files/root-makefile.patch, +root-3.03.04-r2.ebuild, +root-3.05.04.ebuild,
+  +root-3.10.02-r1.ebuild, +root-4.00.06a.ebuild:
+  Moved from dev-libs/root to sci-libs/root.
+
+*root-4.00.06a (02 Jul 2004)
+
+  02 Jul 2004; Patrick Kursawe <phosphan@gentoo.org> metadata.xml,
+  root-4.00.06a.ebuild, files/root-4.00.06a-gcc-3.4.patch:
+  Version bump, see bug #55719 - gcc 3.4 patch extracted from "root" CVS.
+
+*root-3.10.02-r1 (15 Jun 2004)
+
+  15 Jun 2004; Patrick Kursawe <phosphan@gentoo.org> root-3.10.02-r1.ebuild,
+  root-3.10.02.ebuild:
+  Shared libs were not found, see bug #53095
+
+  07 Jun 2004; Patrick Kursawe <phosphan@gentoo.org> root-3.10.02.ebuild:
+  According to user report (forums/slackerman) it works for amd64.
+
+*root-3.10.02 (20 Apr 2004)
+
+  20 Apr 2004; Patrick Kursawe <phosphan@gentoo.org> root-3.10.02.ebuild:
+  Version bump, see bug #34412
+
+  06 Oct 2003; Heinrich Wendel <lanius@gentoo.org> root-3.05.04.ebuild:
+  stable bump #29947
+
+  12 Jun 2003; Seemant Kulleen <seemant@gentoo.org> root-3.03.04-r2.ebuild:
+  xfree provides xpm
+
+*root-3.05.04 (25 Apr 2003)
+
+  25 Feb 2003; Luca Barbato <kain@kain.org> root-3.05.04.ebuild :
+  New version, as suggested by Dmitry Kustov <dimok77@hotmail.com>
+  
+*root-3.03.04-r2 (22 Feb 2003)
+
+  22 Feb 2003; Bryon Roche <kain@kain.org> root-3.03.04-r1.ebuild root-3.03.04-r2.ebuild files/digest-root-3.03.04-r2 files/pgsql-no-libpq-int.patch files/root-makefile.patch :
+  Fixed header include issues with the PostgreSQL api, as well as configuration/compilation issues.
+
+  06 Dec 2002; Rodney Rees <manson@gentoo.org> : changed sparc ~sparc keywords
+ 
+*root-3.03.04-r1 (11 Apr 2002)
+
+  24 Oct 2002; J.Alberto Suárez López <bass@gentoo.org> root-3.03.04-r1.ebuild
+  Typo error in the ebuild appear 'econ' not 'econf'.
+  
+  11 Apr 2002; G.Bevin <gbevin@gentoo.org> root-3.03.04-r1.ebuild
+  files/digest-root-3.03.04-r1 :
+  
+  Added env entry for the libs.
+  Removed rpath switch from configure since it created a segfaulting root
+  executable.
+  
+*root-3.03.04 (11 Apr 2002)
+
+  11 Apr 2002; G.Bevin <gbevin@gentoo.org> root-3.03.04.ebuild
+  files/digest-root-3.03.04 :
+  
+  Initial release
