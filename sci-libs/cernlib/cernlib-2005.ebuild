@@ -38,17 +38,17 @@ src_compile() {
 		datadir=/usr/share \
 		sysconfdir=/etc \
 		OPTIMIZED_OPTS="\#define OptimizationLevel ${CFLAGS}" \
-		GEANTDOC=/usr/share/doc/${P}/geant321 \
-		MCDOC=/usr/share/doc/${P}/montecarlo \
-		|| "make failed"
+		GEANTDOC="/usr/share/doc/${P}/geant321" \
+		MCDOC="/usr/share/doc/${P}/montecarlo" \
+		|| die "make failed"
 }
 
 src_install() {
 	dodir /usr/share/doc/${P}/geant321
 	dodir /usr/share/doc/${P}/montecarlo
 	einstall \
-		GEANTDOC=/usr/share/doc/${P}/geant321 \
-		MCDOC=/usr/share/doc/${P}/montecarlo \
+		GEANTDOC="${D}/usr/share/doc/${P}/geant321" \
+		MCDOC="${D}/usr/share/doc/${P}/montecarlo" \
 		|| die "einstall failed"
 	
 	cd "${S}"/debian
