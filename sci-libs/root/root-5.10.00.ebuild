@@ -4,17 +4,21 @@
 
 inherit flag-o-matic eutils
 
-S=${WORKDIR}/${PN}
-DESCRIPTION="An Object-Oriented Data Analysis Framework"
 MY_VER=${PV%[a-z]}
 MY_PATCH=${PV##"${MY_VER}"}
-SRC_URI="ftp://root.cern.ch/root/root_v${MY_VER}.source${MY_PATCH}.tar.gz"
+DOC_PV=5_08
+REF_PV=${PV:0:4}
+
+DESCRIPTION="An Object-Oriented Data Analysis Framework"
+SRC_URI="ftp://root.cern.ch/root/root_v${MY_VER}.source${MY_PATCH}.tar.gz
+	doc? ftp://root.cern.ch/root/html${REF_PV/.}.tar.gz
+	doc? ftp://root.cern.ch/root/doc/Users_Guide_${DOC_PV}.pdf"
 HOMEPAGE="http://root.cern.ch/"
 
 SLOT="0"
 LICENSE="LGPL-2"
 KEYWORDS="~amd64 ~x86"
-IUSE="afs cern icc kerberos ldap mysql opengl postgres python ruby qt ssl tiff xml"
+IUSE="afs cern doc icc kerberos ldap mysql opengl postgres python ruby qt ssl tiff xml"
 
 RDEPEND="|| (
 				virtual/x11
@@ -44,6 +48,8 @@ DEPEND="${RDEPEND}
 			virtual/x11
 			x11-proto/xproto
 		   )"
+
+S=${WORKDIR}/${PN}
 
 pkg_setup() {
 	einfo
@@ -169,5 +175,12 @@ src_install() {
 	make DESTDIR=${D} install || die "make install failed"
 	echo "LDPATH=\"/usr/$(get_libdir)/root\"" > 99root
 	doenvd 99root
+
+	if use doc; then
+		einfo "Installing user's guide and ref manual"
+		insinto /usr/share/doc/${P}
+		doins "${DISTDIR}"/Users_Guide_${DOC_PV}.pdf
+		dohtml -r ${WORKDIR}/htmldoc
+	fi
 }
 
