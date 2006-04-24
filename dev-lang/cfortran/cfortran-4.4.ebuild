@@ -4,10 +4,11 @@
 
 inherit eutils
 
-DEB_PVER=9
+DEB_PR="10"
+
 DESCRIPTION="Header file allowing to call Fortran routines from C and C++"
-SRC_URI="http://ftp.debian.org/debian/pool/main/c/${PN}/${PN}_${PV}.orig.tar.gz
-	http://ftp.debian.org/debian/pool/main/c/${PN}/${PN}_${PV}-${DEB_PVER}.diff.gz"
+SRC_URI="mirror://debian/pool/main/c/${PN}/${PN}_${PV}.orig.tar.gz
+	mirror://debian/pool/main/c/${PN}/${PN}_${PV}-${DEB_PR}.diff.gz"
 HOMEPAGE="http://www-zeus.desy.de/~burow/cfortran/"
 KEYWORDS="~amd64 ~x86"
 LICENSE="LGPL-2"
@@ -17,7 +18,7 @@ SLOT="0"
 src_unpack() {
 	unpack ${A}
 	cd ${S}
-	epatch ${WORKDIR}/${PN}_${PV}-${DEB_PVER}.diff
+	epatch ${WORKDIR}/${PN}_${PV}-${DEB_PR}.diff
 	if use examples; then
 		unpack cfortran.examples.tar.gz
 		mv eg examples
@@ -39,4 +40,3 @@ src_install() {
 	doins cfortran.html index.htm  cfortest.c cfortex.f
 	use examples && doins -r examples
 }
-
