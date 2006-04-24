@@ -25,11 +25,30 @@ FORTRAN="gfortran ifc g77"
 
 src_unpack() {
 	unpack ${A}
-	epatch ${PN}_${DEB_PV}-${DEB_PR}.diff
+
+	# apply the big debian patch
+	epatch ${PN}_${DEB_PV}-${DEB_PR}.diff || die "epatch failed"
+
+	cd "${S}"
+	# temporary fix for threading support (while we have buggy eselect)
+	if blas-config -p | grep "F77 BLAS:" | grep -q f77-threaded-ATLAS; then
+		einfo "Fixing threads linking for blas"
+		sed -i \
+			-e 's/$DEPS -lm/$DEPS -lm -lpthread/' \
+			-e 's/$DEPS -l$1 -lm/$DEPS -l$1 -lm -lpthread/' \
+			debian/add-ons/bin/cernlib.in
+	fi
+	
+	cp debian/add-ons/Makefile .
+	einfo "Appying Debian patches"
+	make patch
+	# since we depend on cfortran, do not use the one from cernlib
+	# (adapted from $S/debian/rules)
+	mv -f src/include/cfortran/cfortran.h \
+		src/include/cfortran/cfortran.h.disabled
 }
 
 src_compile() {
-	cp debian/add-ons/Makefile .
 	make \
 		prefix=/usr \
 		libdir=/usr/$(get_libdir) \
