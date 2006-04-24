@@ -58,11 +58,15 @@ pkg_setup() {
 
 src_compile() {
 
+	local rootconf="--disable-xrootd"
 	# first determine building arch
+	# xrootd still not debugged upstream for amd64
+
 	case ${ARCH} in
 		x86)
 			rootarch=linux
 			use icc && rootarch=linuxicc
+			rootconf="--enable-xrootd"
 			;;
 		amd64)
 			rootarch=linuxx8664gcc
@@ -91,12 +95,11 @@ src_compile() {
 		x86-fbsd)
 			rootarch=freebsd5
 			;;
-		*) eerror "root not supported upstream for this architecture" && die ;;
+		*) die "root not supported upstream for this architecture";;
 	esac
 
-	local rootconf
-	# xrootd still not debugged upstream for amd64
-	use x86 && rootconf="--enable-xrootd" || rootconf="--disable-xrootd"
+	
+
 # use configure cause not autoconf standard
 	./configure ${rootarch} \
 		--prefix=/usr \
@@ -157,6 +160,7 @@ src_compile() {
 		$(use_enable xml) \
 		$(use_enable ssl) \
 		${rootconf} \
+		${EXTRA_ECONF} \
 		|| die "configure failed"
 	emake OPTFLAGS="${CFLAGS}" || die "emake failed"
 }
