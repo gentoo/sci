@@ -11,14 +11,15 @@ REF_PV=${PV:0:4}
 
 DESCRIPTION="An Object-Oriented Data Analysis Framework"
 SRC_URI="ftp://root.cern.ch/root/root_v${MY_VER}.source${MY_PATCH}.tar.gz
-	doc? ftp://root.cern.ch/root/html${REF_PV/.}.tar.gz
-	doc? ftp://root.cern.ch/root/doc/Users_Guide_${DOC_PV}.pdf"
+	doc? ( ftp://root.cern.ch/root/html${REF_PV/.}.tar.gz
+		   ftp://root.cern.ch/root/doc/Users_Guide_${DOC_PV}.pdf )"
 HOMEPAGE="http://root.cern.ch/"
 
 SLOT="0"
 LICENSE="LGPL-2"
 KEYWORDS="~amd64 ~x86"
-IUSE="afs cern doc icc kerberos ldap mysql opengl postgres python ruby qt ssl tiff xml"
+IUSE="afs cern doc icc kerberos ldap mysql opengl postgres 
+	  python ruby qt ssl tiff xml"
 
 RDEPEND="|| (
 				virtual/x11
@@ -166,9 +167,9 @@ src_compile() {
 		$(use_enable xml) \
 		$(use_enable ssl) \
 		${rootconf} \
-		${EXTRA_ECONF} \
+		${EXTRA_CONF} \
 		|| die "configure failed"
-	emake OPTFLAGS="${CFLAGS}" || die "emake failed"
+	emake OPTFLAGS="${CXXFLAGS}" || die "emake failed"
 }
 
 src_install() {
@@ -183,4 +184,3 @@ src_install() {
 		dohtml -r ${WORKDIR}/htmldoc
 	fi
 }
-
