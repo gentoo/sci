@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+inherit eutils autotools
 
 MYP=wxMaxima-${PV}
 
@@ -24,13 +24,14 @@ S=${WORKDIR}/${MYP}
 src_unpack () {
 	unpack ${A}
 	
-	sed 's|#PF#|'${PF}'|g' ${FILESDIR}/${PN}-docfiles.patch > ${PN}-docfiles.patch
+	sed 's|#PF#|'${PF}'|g' \
+		${FILESDIR}/${PN}-docfiles.patch > ${PN}-docfiles.patch
 		
 	epatch ${PN}-docfiles.patch
 
 	cd ${S}
 	einfo "Regenerating autotools files..."
-	automake || die "automake failed"
+	eautomake || die "eautomake failed"
 }	
 
 

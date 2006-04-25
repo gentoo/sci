@@ -16,8 +16,8 @@ DEPEND=">=sci-libs/gsl-1.6
     sys-libs/readline
 	>=sys-devel/gettext-0.14.1
 	>=dev-lang/perl-5.6
-	ncurses? >=sys-libs/ncurses-5.4
-	plotutils? >=media-libs/plotutils-2.4.1"
+	ncurses? ( >=sys-libs/ncurses-5.4 )
+	plotutils? ( >=media-libs/plotutils-2.4.1 )"
 
 src_compile() {
 	econf \
@@ -26,7 +26,9 @@ src_compile() {
 		$(use_enable nls) \
 		|| die "econf failed"
 	emake || die "emake failed"
-	use doc && (emake html || die "make html failed")
+	if use doc; then
+		emake html || die "emake html failed"
+	fi
 }
 
 src_install() {
@@ -36,11 +38,7 @@ src_install() {
 		INSTALL NEWS ONEWS README THANKS TODO
 	docinto examples && dodoc examples/{ChangeLog,descript.stat}
 
-	if use doc; then
-		docinto html
-		dohtml doc/pspp.html/*.html
-	fi
-
+	use doc && dohtml doc/pspp.html/*.html
 	use emacs && elisp-site-file-install pspp-mode.el
 }
 
@@ -51,3 +49,4 @@ pkg_postinst () {
 pkg_postrm() {
 	use emacs && elisp-site-regen
 }
+

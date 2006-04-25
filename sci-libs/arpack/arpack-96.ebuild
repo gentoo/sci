@@ -9,9 +9,9 @@ DESCRIPTION="Library to solve large scale eigenvalue problems."
 HOMEPAGE="http://www.caam.rice.edu/software/ARPACK"
 # not a very good name: patch.tar.gz :(
 SRC_URI="http://www.caam.rice.edu/software/ARPACK/SRC/${PN}${PV}.tar.gz
-		 http://www.caam.rice.edu/software/ARPACK/SRC/patch.tar.gz
-		 mpi? http://www.caam.rice.edu/software/ARPACK/SRC/p${PN}${PV}.tar.gz
-		 mpi? http://www.caam.rice.edu/software/ARPACK/SRC/ppatch.tar.gz"
+	http://www.caam.rice.edu/software/ARPACK/SRC/patch.tar.gz
+	mpi? ( http://www.caam.rice.edu/software/ARPACK/SRC/p${PN}${PV}.tar.gz
+		   http://www.caam.rice.edu/software/ARPACK/SRC/ppatch.tar.gz )"
 
 LICENSE="BSD"
 SLOT="0"
@@ -22,8 +22,9 @@ IUSE="blas mpi examples"
 KEYWORDS="~amd64 ~x86"
 DEPEND="virtual/libc
 	>=sys-devel/libtool-1.5
-	blas? ( virtual/blas )
-	blas? ( sci-libs/blas-config )
+	blas? ( virtual/blas 
+			sci-libs/blas-config 
+		  )
 	mpi? ( virtual/mpi )"
 
 S=${WORKDIR}/ARPACK
@@ -87,3 +88,4 @@ src_postinst() {
 	einfo "\"LDFLAGS=-llarpack\" is enough to link your applications"
 	einfo
 }
+

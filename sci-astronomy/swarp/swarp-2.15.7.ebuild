@@ -12,7 +12,7 @@ LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="static doc threads mpi icc"
-DEPEND="mpi? ( virtual/mpi ) )
+DEPEND="mpi? ( virtual/mpi )
 	icc? ( dev-lang/icc >= 9 )"
 
 # mpi stuff untested.
@@ -20,7 +20,6 @@ src_compile() {
 	# trust swarp cflags to be optimized.
 	filter-flags ${CFLAGS}
 	# --disable-threads does not compile
-	# todo: calculate a number of threads (~= ncpu)
 	local myconf=""
 	use threads && myconf="--enable-threads "
 	use mpi || export MPICC="$(tc-getCC)"

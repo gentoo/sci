@@ -46,4 +46,3 @@ pkg_postinst() {
     einfo "in ${CONFDIR} and loaded by default."
 	einfo
 }
-

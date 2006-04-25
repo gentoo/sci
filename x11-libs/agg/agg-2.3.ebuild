@@ -5,7 +5,6 @@
 inherit eutils versionator autotools
 
 MY_PV="$(delete_all_version_separators ${PV})"
-S="${WORKDIR}/${PN}${MY_PV}"
 
 DESCRIPTION="Anti-Grain Geometry - A High Quality Rendering Engine for C++"
 HOMEPAGE="http://antigrain.com/"
@@ -20,17 +19,18 @@ RDEPEND="virtual/x11"
 DEPEND="${RDEPEND}
 	>=media-libs/freetype-2"
 
+S="${WORKDIR}/${PN}${MY_PV}"
+
 src_compile() {
 	use examples || sed -i -e 's/examples//' Makefile.am
 	eautoreconf || die "eautoreconf failed"
 	econf || die "econf failed"
-	emake || die "make failed!"
+	emake || die "emake failed"
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "make install failed!"
+	make DESTDIR="${D}" install || die "make install failed"
 	dodoc readme README.txt authors ChangeLog news
-	insinto /usr/share/doc/${P}
+	insinto /usr/share/doc/${PF}
 	doins -r tutorial
 }
-
