@@ -8,7 +8,7 @@ FORTRAN="g77 ifc"
 
 DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
-SRC_URI="ftp://ftp.ccp4.ac.uk/ccp4/${PV}/packed/${PN}-core.tar.gz"
+SRC_URI="ftp://ftp.ccp4.ac.uk/ccp4/packed/${P}-core-src.tar.gz"
 #	ftp://ftp.ccp4.ac.uk/ccp4/${PV}/packed/phaser-cctbx.tar.gz"
 #	ftp://ftp.ccp4.ac.uk/ccp4/${PV}/prerelease/${P}_gfortran.tar.gz"
 LICENSE="ccp4"
@@ -51,6 +51,8 @@ DEPEND="${RDEPEND}
 				virtual/x11
 			)
 		)"
+
+S="${WORKDIR}/${PN}-${PV%.*}"
 
 src_unpack() {
 	unpack ${A}
