@@ -58,14 +58,15 @@ src_unpack() {
 	unpack ${A}
 
 	einfo "Applying Gentoo patches ..."
-# These two only needed when attempting to install outside build dir via
-# --bindir and --libdir instead of straight copying after build
+	# These two only needed when attempting to install outside build dir via
+	# --bindir and --libdir instead of straight copying after build
+
 	# it attempts to install some libraries during the build
-#	ccp_patch ${FILESDIR}/${P}-install-libs-at-install-time.patch
+	#ccp_patch ${FILESDIR}/${P}-install-libs-at-install-time.patch
 	# hklview/ipdisp.exe/xdlmapman/ipmosflm can't find libxdl_view
 	# without this patch when --libdir is set
 	# Rotgen still needs more patching to find it
-#	ccp_patch ${FILESDIR}/add-xdl-libdir.patch
+	#ccp_patch ${FILESDIR}/add-xdl-libdir.patch
 
 	# it tries to create libdir, bindir etc on live system in configure
 	ccp_patch ${FILESDIR}/dont-make-dirs-in-configure.patch
