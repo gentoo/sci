@@ -4,7 +4,7 @@
 
 inherit fortran eutils gnuconfig
 
-FORTRAN="g77 ifc"
+FORTRAN="g77 gfortran ifc"
 
 SRC="ftp://ftp.ccp4.ac.uk/ccp4"
 
