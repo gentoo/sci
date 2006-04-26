@@ -17,7 +17,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="java doc"
 
 S=${WORKDIR}/CMT/${CMT_PV}
-CMTDIR=/usr/share/${PN}/${CMT_PV}
+CMTDIR=/usr/share/CMT/${CMT_PV}
+
 
 src_compile() {
 	cd ${S}/mgr
@@ -33,16 +34,19 @@ src_install() {
 	sed -i -e "s:${S}:${CMTDIR}:" mgr/setup.{sh,csh}
 	dodir ${CMTDIR}
 	cp -pPR mgr src "${D}"/${CMTDIR}
-	exeinto /usr/bin
-	newexe ${CMTCONFIG}/cmt.exe cmt
 
 	echo "CMTROOT=${CMTDIR}" > 99cmt
 	echo "CMTBIN=`uname`-`uname -m | sed -e 's# ##g'`" >> 99cmt
 	echo "CMTCONFIG=`${CMTROOT}/mgr/cmt_system.sh`" >> 99cmt
+	rm -f ${CMTBIN}/*.o
+	cp -pPR ${CMTBIN} "${D}"/${CMTDIR}
+	dodir /usr/bin
+	dosym ${CMTDIR}/${CMTBIN}/cmt.exe /usr/bin/cmt
 
 	if use java; then
 		echo "#!/bin/sh" > jcmt
 		echo "java cmt_parser" >> jcmt
+		exeinto /usr/bin
 		doexe jcmt
 		echo "CLASSPATH=${CLASSPATH}:${CMTDIR}/java/cmt.jar" >> 99cmt
 	fi
