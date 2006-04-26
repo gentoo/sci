@@ -152,6 +152,11 @@ src_compile() {
 	export FC=${FORTRANC}
 	export FOPTIM=${FFLAGS:- -O2}
 
+	# Add xdl libraries to library search path
+	# Note: some of configure attaches CCP4_LIB to -L, and other parts
+	# append libfoo.a immediately after it, so it can only be a single path.
+	export CCP4_LIB="${CCP4}/x-windows/xdl_view/src/.libs"
+
 	# Can't use econf, configure rejects unknown options like --prefix
 	./configure \
 		$(use_enable X x) \
