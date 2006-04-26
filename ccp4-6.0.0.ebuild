@@ -171,7 +171,8 @@ src_install() {
 	# in configure script, now patched out by dont-make-dirs-in-configure.patch
 #	dodir /usr/include /usr/$(get_libdir) /usr/bin
 
-	make install || die "install failed"
+#	make install || die "install failed"
+	einstall || die "install failed"
 
 	# Fix env
 	sed -i \
