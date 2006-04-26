@@ -26,6 +26,7 @@ PATCH7=( lib/clipper/src
 
 DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
+RESTRICT="mirror"
 SRC_URI="${SRC}/${PV}/packed/${P}-core-src.tar.gz
 	${SRC}/${PV}/patches/${PATCH1[1]}
 	${SRC}/${PV}/patches/${PATCH2[1]}
