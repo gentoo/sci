@@ -137,7 +137,7 @@ src_compile() {
 
 	# Fix up variables -- need to reset CCP4_MASTER at install-time
 	sed -i \
-		-e "s~^\(setenv CCP4_MASTER.*\)/xtal~\1${WORKDIR}~g" \
+		-e "s~^\(setenv CCP4_MASTER.*\)/.*~\1${WORKDIR}~g" \
 		-e "s~^\(setenv CCP4I_TCLTK.*\)/usr/local/bin~\1/usr/bin~g" \
 		${S}/include/ccp4.setup*
 
