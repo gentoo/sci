@@ -57,48 +57,52 @@ S="${WORKDIR}/${PN}-${PV%.*}"
 src_unpack() {
 	unpack ${A}
 
+	einfo "Applying Gentoo patches ..."
 # These two only needed when attempting to install outside build dir via
 # --bindir and --libdir instead of straight copying after build
 	# it attempts to install some libraries during the build
-#	epatch ${FILESDIR}/${P}-install-libs-at-install-time.patch
+#	ccp_patch ${FILESDIR}/${P}-install-libs-at-install-time.patch
 	# hklview/ipdisp.exe/xdlmapman/ipmosflm can't find libxdl_view
 	# without this patch when --libdir is set
 	# Rotgen still needs more patching to find it
-#	epatch ${FILESDIR}/add-xdl-libdir.patch
+#	ccp_patch ${FILESDIR}/add-xdl-libdir.patch
 
 	# it tries to create libdir, bindir etc on live system in configure
-	epatch ${FILESDIR}/dont-make-dirs-in-configure.patch
+	ccp_patch ${FILESDIR}/dont-make-dirs-in-configure.patch
 
 	# We already have sci-chemistry/rasmol
-	epatch ${FILESDIR}/dont-build-rasmol.patch
+	ccp_patch ${FILESDIR}/dont-build-rasmol.patch
 
 	# We already have sci-chemistry/pdb-extract
 # Use configure option instead
-#	epatch ${FILESDIR}/dont-build-pdb-extract.patch
+#	ccp_patch ${FILESDIR}/dont-build-pdb-extract.patch
 
-	epatch ${FILESDIR}/create-mosflm-bindir.patch
-	epatch ${FILESDIR}/make-mosflm-libdir.patch
-	epatch ${FILESDIR}/make-mosflm-index-libdir.patch
-	epatch ${FILESDIR}/make-mosflm-cbf-libdir.patch
-	epatch ${FILESDIR}/make-ipmosflm-dir.patch
+	ccp_patch ${FILESDIR}/create-mosflm-bindir.patch
+	ccp_patch ${FILESDIR}/make-mosflm-libdir.patch
+	ccp_patch ${FILESDIR}/make-mosflm-index-libdir.patch
+	ccp_patch ${FILESDIR}/make-mosflm-cbf-libdir.patch
+	ccp_patch ${FILESDIR}/make-ipmosflm-dir.patch
 
 # Don't use these when we aren't building phaser
-#	epatch ${FILESDIR}/make-phaser-bindir.patch
-#	epatch ${FILESDIR}/no-phaser-ld-assume-kernel.patch
+#	ccp_patch ${FILESDIR}/make-phaser-bindir.patch
+#	ccp_patch ${FILESDIR}/no-phaser-ld-assume-kernel.patch
 #	# scons config.py tries to chmod python on live system
-#	epatch ${FILESDIR}/dont-chmod-python-binary.patch
+#	ccp_patch ${FILESDIR}/dont-chmod-python-binary.patch
 
 	# Don't use this when we aren't building clipper
 	# For some reason clipper check for $enableval even when --enable is passed
-	epatch ${FILESDIR}/pass-clipper-enablevals.patch
-	epatch ${FILESDIR}/clipper-find-mccp4-includes.patch
+	ccp_patch ${FILESDIR}/pass-clipper-enablevals.patch
+	ccp_patch ${FILESDIR}/clipper-find-mccp4-includes.patch
 
 	# Default to firefox browser, not 'netscape'
-	epatch ${FILESDIR}/ccp4i-default-to-firefox.patch
+	ccp_patch ${FILESDIR}/ccp4i-default-to-firefox.patch
 
 	# Also use -lpthread when linking blas and lapack
 	# We may need more fixing to use libcblas for the C files
-	epatch ${FILESDIR}/check-blas-lapack-pthread.patch
+	ccp_patch ${FILESDIR}/check-blas-lapack-pthread.patch
+
+	einfo "Done." # done applying Gentoo patches
+	echo
 
 	gnuconfig_update
 }
@@ -344,6 +348,11 @@ pkg_postinst() {
 	ewarn "Set your .bashrc or other shell login file to source"
 	ewarn "one of the ccp4.setup* files in ${ROOT}usr/$(get_libdir)/ccp4/include."
 	ewarn "CCP4 will not work without this."
+}
+
+# Epatch wrapper for bulk patching
+ccp_patch() {
+	EPATCH_SINGLE_MSG="  ${1##*/} ..." epatch ${1}
 }
 
 # Links libname.so, libname.so.major and libname.so.major.minor
