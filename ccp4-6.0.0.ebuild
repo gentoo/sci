@@ -80,6 +80,22 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${PN}-${PV%.*}"
 
+pkg_setup() {
+	local RPATH_FILE="/usr/$(get_libdir)/portage/bin/misc-functions.sh"
+	local CMD="grep -i '^[[:space:]]*die.*rpath' ${RPATH_FILE}"
+	ewarn "This package installs with an insecure RPATH."
+	if [[ ! -e ${RPATH_FILE} ]]; then
+		eerror "Upgrade to a version of portage that installs"
+		eerror "${RPATH_FILE}"
+		die "Needs portage 2.1_pre7 or newer."
+	elif $(eval ${CMD} -q); then
+		eerror "You must change ${RPATH_FILE} as follows:"
+		eerror "Change 'die' in this line to 'ewarn':"
+		eerror "$(eval ${CMD})"
+		die "Follow the instructions above."
+	fi
+}
+
 src_unpack() {
 	unpack ${A}
 	cd ${S}
