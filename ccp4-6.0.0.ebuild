@@ -6,11 +6,37 @@ inherit fortran eutils gnuconfig
 
 FORTRAN="g77 ifc"
 
+SRC="ftp://ftp.ccp4.ac.uk/ccp4"
+
+PATCH_TOT="7"
+PATCH1=( ccp4i/src
+	CCP4_utils.tcl-r1.48-r1.48.2.1.diff )
+PATCH2=( lib/src
+	ccplib.f-27Feb2006.diff )
+PATCH3=( lib/clipper/src
+	cphasecombine.cpp-09Mar2006.diff )
+PATCH4=( lib/clipper/clipper/core
+	derivs.h-06Mar2006.diff )
+PATCH5=( src
+	geomcalc.f-28Feb2006.diff )
+PATCH6=( ccp4i/templates
+	molrep.com-13Mar2006.diff )
+PATCH7=( lib/clipper/src
+	pirancslib.cpp-23Feb2006.diff )
+
 DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
-SRC_URI="ftp://ftp.ccp4.ac.uk/ccp4/packed/${P}-core-src.tar.gz"
-#	ftp://ftp.ccp4.ac.uk/ccp4/${PV}/packed/phaser-cctbx.tar.gz"
-#	ftp://ftp.ccp4.ac.uk/ccp4/${PV}/prerelease/${P}_gfortran.tar.gz"
+SRC_URI="${SRC}/${PV}/packed/${P}-core-src.tar.gz
+	${SRC}/${PV}/patches/${PATCH1[1]}
+	${SRC}/${PV}/patches/${PATCH2[1]}
+	${SRC}/${PV}/patches/${PATCH3[1]}
+	${SRC}/${PV}/patches/${PATCH4[1]}
+	${SRC}/${PV}/patches/${PATCH5[1]}
+	${SRC}/${PV}/patches/${PATCH6[1]}
+	${SRC}/${PV}/patches/${PATCH7[1]}"
+#	${SRC}/${PV}/packed/chooch-5.0.2-src.tar.gz"
+#	${SRC}/${PV}/packed/phaser-1.3.2-cctbx-src.tar.gz"
+#	${SRC}/${PV}/prerelease/${P}_gfortran.tar.gz"
 LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~ppc ~x86"
@@ -56,6 +82,19 @@ S="${WORKDIR}/${PN}-${PV%.*}"
 
 src_unpack() {
 	unpack ${A}
+	cd ${S}
+
+	einfo "Applying upstream patches ..."
+	for patch in $(seq $PATCH_TOT); do
+		base="PATCH${patch}"
+		dir=$(eval echo \${${base}[0]})
+		p=$(eval echo \${${base}[1]})
+		pushd ${dir} >& /dev/null
+		ccp_patch ${DISTDIR}/${p}
+		popd >& /dev/null
+	done
+	einfo "Done."
+	echo
 
 	einfo "Applying Gentoo patches ..."
 	# These two only needed when attempting to install outside build dir via
