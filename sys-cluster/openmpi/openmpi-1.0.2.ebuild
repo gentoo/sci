@@ -30,7 +30,7 @@ pkg_setup() {
 		ewarn
 		sleep 5
 	fi
-	fortran_pkg_setup
+	use fortran && fortran_pkg_setup
 }
 
 src_compile() {
