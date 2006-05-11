@@ -2,8 +2,8 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*cmt-1.18.20060301 (25 Apr 2006)
+*cmt-1.18.20060505 (11 May 2006)
 
-  25 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> 
-  +cmt-1.18.20060301.ebuild, +ChangeLog, +metadata.xml
+  11 May 2006; Sebastien Fabbro <seb@ist.utl.pt> 
+  +cmt-1.18.20060505.ebuild, +ChangeLog, +metadata.xml
   Initial import. Close bug #65835.

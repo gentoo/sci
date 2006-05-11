@@ -14,7 +14,7 @@ SRC_URI="http://www.cmtsite.org/${CMT_PV}/CMT${CMT_PV}.tar.gz"
 LICENSE="CeCILL-v2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="java doc"
+IUSE="emacs java doc"
 
 S=${WORKDIR}/CMT/${CMT_PV}
 CMTDIR=/usr/share/CMT/${CMT_PV}
