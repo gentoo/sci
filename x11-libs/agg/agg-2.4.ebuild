@@ -15,7 +15,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="sdl truetype X"
 
 DEPEND="sdl? ( >=media-libs/libsdl-1.2.0 )
-	X? ( virtual/X11 )
+	X? ( virtual/x11 )
 	truetype? ( >=media-libs/freetype-2 )"
 
 src_compile() {
