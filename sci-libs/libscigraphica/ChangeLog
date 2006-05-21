@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/libscigraphica
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*libscigraphica-2.1.1 (20 May 2006)
+
+  20 May 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +libscigraphica-2.1.1.ebuild, 
+  +files/libscigraphica-2.1.1-configure.in.patch
+  +metadata.xml Initial import. Closes bug #93095. 
+  Thanks to Jan Kohnert <bughunter@jankoh.dyndns.org>

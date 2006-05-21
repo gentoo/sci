@@ -1,0 +1,5 @@
+MD5 e2826b8c4c11cf063eefb1461b5c0ec3 ChangeLog 398
+MD5 ff8634bac963de9ea1130997082ad1d7 files/digest-libscigraphica-2.1.1 72
+MD5 37e35001cfb7d40b53595a336b68c651 files/libscigraphica-2.1.1-configure.in.patch 928
+MD5 5f9151caf8a35e24dceb9667f2e744fa libscigraphica-2.1.1.ebuild 923
+MD5 8c623e53daafa025137077c6b65815bd metadata.xml 156

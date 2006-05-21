@@ -1,0 +1,4 @@
+MD5 b5bda0a146b7087f4b61bc6f2b20c2fc ChangeLog 2221
+MD5 57332e7677e7c610ea59d310a1af4c66 files/digest-scigraphica-2.1.0 69
+MD5 11c49b8e72228f0d5836e9cba9e8654f files/scigraphica-2.1.0-configure.in.patch 922
+MD5 88191af9d4089b002ce48f6784cc8d6f scigraphica-2.1.0.ebuild 994
