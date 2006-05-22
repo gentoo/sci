@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit fortran eutils gnuconfig
+inherit fortran eutils gnuconfig toolchain-funcs
 
 FORTRAN="g77 gfortran ifc"
 
@@ -34,7 +34,9 @@ SRC_URI="${SRC}/${PV}/packed/${P}-core-src.tar.gz
 	${SRC}/${PV}/patches/${PATCH4[1]}
 	${SRC}/${PV}/patches/${PATCH5[1]}
 	${SRC}/${PV}/patches/${PATCH6[1]}
-	${SRC}/${PV}/patches/${PATCH7[1]}"
+	${SRC}/${PV}/patches/${PATCH7[1]}
+	${SRC}/${PV}/prerelease/${PN}-${PV%.*}_gfortran-4.0.tar.gz
+	${SRC}/${PV}/prerelease/mosflm-XIA.tar.gz"
 #	${SRC}/${PV}/packed/chooch-5.0.2-src.tar.gz"
 #	${SRC}/${PV}/packed/phaser-1.3.2-cctbx-src.tar.gz"
 #	${SRC}/${PV}/prerelease/${P}_gfortran.tar.gz"
@@ -134,6 +136,9 @@ src_unpack() {
 # Use configure option instead
 #	ccp_patch ${FILESDIR}/dont-build-pdb-extract.patch
 
+	# plot84lib.f:4934: Error: COMMON attribute conflicts with SAVE attribute
+	ccp_patch ${FILESDIR}/${PV}-fix-gcc-4.1.1.patch
+
 	ccp_patch ${FILESDIR}/create-mosflm-bindir.patch
 	ccp_patch ${FILESDIR}/make-mosflm-libdir.patch
 	ccp_patch ${FILESDIR}/make-mosflm-index-libdir.patch
@@ -222,6 +227,7 @@ src_compile() {
 		--disable-pdb_extract \
 		--disable-cctbx \
 		--disable-phaser \
+		--tmpdir="${TMPDIR}" \
 		${GENTOO_OSNAME} || die "econf failed"
 	emake -j1 || die "emake failed"
 }
