@@ -1,0 +1,11 @@
+diff -urN ccp4-6.0.orig/lib/src/plot84lib.f ccp4-6.0/lib/src/plot84lib.f
+--- ccp4-6.0.orig/lib/src/plot84lib.f	2006-05-21 22:01:06.000000000 -0700
++++ ccp4-6.0/lib/src/plot84lib.f	2006-05-21 22:01:17.000000000 -0700
+@@ -4931,7 +4931,6 @@
+ ccb     *     /GSUTR/,/GSBTST/,/GSCHX/
+       SAVE CHORGX,CHORGY,CUORGX,CUORGY,PI,XORIG,YORIG
+       SAVE NFLEN,NFSTRT
+-      SAVE PASWRD,TITLEH
+       SAVE NCTRAN,NSTRAN
+ C
+ C     .. Equivalences ..
