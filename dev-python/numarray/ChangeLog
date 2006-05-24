@@ -2,6 +2,12 @@
 # Copyright 2000-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*numarray-1.5.1-r2 (24 May 2006)
+
+  24 May 2006; Sebastien Fabbro <seb@ist.utl.pt> +numarray-1.5.1-r2.ebuild,
+  +files/numarray-1.5.1-include.patch. Fixed gcc-4.1 problems, fixed headers
+  problems (from Debian patch)
+
 *numarray-1.5.1-r1 (04 Mar 2006)
 
   04 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt> +numarray-1.5.1-r1.ebuild:
