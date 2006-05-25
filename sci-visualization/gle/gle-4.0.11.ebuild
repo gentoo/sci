@@ -8,7 +8,7 @@ DESCRIPTION="Graphics Layout Engine - Professional Graphics Language"
 HOMEPAGE="http://glx.sourceforge.net/"
 SLOT="0"
 LICENSE="BSD"
-KEYWORDS="~x86"
+KEYWORDS="~x86 -amd64"
 IUSE="doc emacs X png tiff"
 DEPEND="app-arch/unzip
 	X? ( virtual/x11 )

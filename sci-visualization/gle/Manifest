@@ -2,5 +2,5 @@ MD5 f06f0b25e95debc1364662fdff841c2d ChangeLog 341
 MD5 5b87d09501955796184d50dec56aedb4 files/64gle-gentoo.el 123
 MD5 0f509d58597399e0cfef4a75ccb99f14 files/digest-gle-4.0.11 248
 MD5 a226b1c5637fae62d00669b3ba3a3393 files/gle-4.0.11-make.patch 3147
-MD5 8b6b895008d1a6045dc39bd6e1cb1132 gle-4.0.11.ebuild 1859
+MD5 27e54659855a2b6df648e9e6386badcd gle-4.0.11.ebuild 1866
 MD5 27ab946a7acfad3acdd32106f9bd78a6 metadata.xml 523
