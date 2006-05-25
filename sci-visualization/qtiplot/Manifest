@@ -1,0 +1,5 @@
+MD5 a37fdfbfa432e869150800208d982d46 ChangeLog 3350
+MD5 22bcf93072028006b6f0b91ccec2b76e files/digest-qtiplot-0.8.5 66
+MD5 368896cc81a7ffdc53eeccec04069ae4 files/qtiplot-0.8.5-qmake.patch 467
+MD5 be5373660391ac23dc1d97a654ca9e79 metadata.xml 604
+MD5 101733a515ef43247e5e8f81cab1693f qtiplot-0.8.5.ebuild 1189
