@@ -2,11 +2,23 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*matplotlib-0.87.2 (17 Mar 2006)
+*matplotlib-0.87.2-r2 (30 May 2006)
 
-  17 Mar 2006; Sebastien Fabbro <seb@ist.utl.pt>
-  +files/matplotlib-0.87.2-no-autodetect.patch, +matplotlib-0.87.2.ebuild:
-  version bump, with mplot3d plot USE and added a user doc.
+  30 May 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +matplotlib-0.87.2-r2.ebuild,
+  +files/matplotlib-mplot3d.patch
+  +metadata.xml
+  added 3d support, agg support, wxwindow support, swap numpy/numeric order check,
+  and added a doc flag which fetches and installs user guide.
+
+*matplotlib-0.87.2 (04 Apr 2006)
+*matplotlib-0.86.2-r1 (04 Apr 2006)
+
+  04 Apr 2006; Marien Zwart <marienz@gentoo.org>
+  +files/matplotlib-0.86.2-no-setuptools.patch, -matplotlib-0.86.2.ebuild,
+  +matplotlib-0.86.2-r1.ebuild, +matplotlib-0.87.2.ebuild:
+  Revision bump for 0.86.2 to disable setuptools (install with setuptools
+  present is completely broken). Version bump.
 
 *matplotlib-0.86.2 (07 Feb 2006)
 

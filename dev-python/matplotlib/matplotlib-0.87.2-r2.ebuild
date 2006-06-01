@@ -17,9 +17,9 @@ LICENSE="PYTHON"
 
 DEPEND="virtual/python
 		|| (
-		>=dev-python/numeric-22
-		dev-python/numarray
 		dev-python/numpy
+		dev-python/numarray
+		>=dev-python/numeric-22
 		)
 		>=media-libs/freetype-2.1.7
 		media-libs/libpng
