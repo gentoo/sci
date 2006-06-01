@@ -4,7 +4,6 @@
 
 inherit eutils autotools
 
-
 DESCRIPTION="Anti-Grain Geometry - A High Quality Rendering Engine for C++"
 HOMEPAGE="http://antigrain.com/"
 SRC_URI="http://antigrain.com/${P}.tar.gz"
@@ -15,7 +14,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="sdl truetype X"
 
 DEPEND="sdl? ( >=media-libs/libsdl-1.2.0 )
-	X? ( virtual/x11 )
+	X? ( || ( x11-libs/libX11 virtual/x11 ) )
 	truetype? ( >=media-libs/freetype-2 )"
 
 src_compile() {
