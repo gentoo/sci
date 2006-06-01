@@ -1,14 +1,17 @@
 # ChangeLog for dev-python/numpy
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/numpy/ChangeLog,v 1.3 2006/04/01 20:23:26 ribosome Exp $
+# $Header: $
 
+*numpy-0.9.8 (30 May 2006)
 
+  30 May 2006; Sebastien Fabbro <seb@ist.utl.pt> +numpy-0.9.8.ebuild:
+  Version bump. Changed homepage.
 
-*numpy-0.9.8 (11 Apr 2006)
+*numpy-0.9.6-r1 (11 Apr 2006)
 
   11 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> +numpy-0.9.6-r1.ebuild:
-  Fixed default atlas, and lapack stuff.
-  Note at comment below: bicatali is Sebastien Fabbro!
+  Fixed default atlas, and lapack stuff. Changed homepage.
+  Note at comment below: bicatali and Sebastien Fabbro are the same.
 
   01 Apr 2006; Olivier Fisette <ribosome@gentoo.org> -numpy-0.9.4.ebuild,
   +numpy-0.9.6.ebuild:
