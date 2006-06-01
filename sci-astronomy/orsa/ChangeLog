@@ -1,7 +1,12 @@
 # ChangeLog for sci-astronomy/orsa
-# Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-astronomy/orsa/ChangeLog,v 1.10 2006/01/04 23:19:16 ribosome Exp $
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
 
+*orsa-0.7.0-r1 (01 Jun 2006)
+
+  01 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt> +orsa-0.7.0-r1.ebuild
+  fixed for gcc-4.1.
+	
 *orsa-0.7.0 (19 Jan 2006)
 
   19 Jan 2006; Sebastien Fabbro <seb@ist.utl.pt> +orsa-0.7.0.ebuild

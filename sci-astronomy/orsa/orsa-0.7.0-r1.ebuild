@@ -27,6 +27,7 @@ replace-flags k6 i586
 
 src_unpack() {
 	unpack ${A}
+	# patch backward compatible with gcc-3
 	epatch "${FILESDIR}"/${P}-gcc41.patch
 }
 
@@ -67,4 +68,3 @@ src_install() {
 	insinto /usr/share/doc/${P}/test
 	doins src/test/*.{cc,h,fft,ggo}
 }
-
