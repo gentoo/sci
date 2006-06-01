@@ -1,13 +1,31 @@
 # ChangeLog for sci-libs/cfitsio
 # Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-libs/cfitsio/ChangeLog,v 1.9 2006/05/23 20:13:56 corsair Exp $
 
+*cfitsio-3.006-r1 (01 Jun 2006)
 
-*cfitsio-3.006 (22 Feb 2006)
+  01 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +files/Makefile.am
+  +files/configure.ac
+  +files/cfitsio-3.006-r1.ebuild
+  metadata.xml
+  Proper autotoolization, added longdescription in metadata.xml
+	
+  23 May 2006; Markus Rothe <corsair@gentoo.org> cfitsio-2.510-r1.ebuild:
+  Stable on ppc64
 
-  22 Feb 2006; Sebastien Fabbro <seb@ist.utl.pt> +cfitsio-3.006.ebuild,  
-  New version bump, added src_test, corrected minor stuff, added long
-  description in metadata.xml
+  17 May 2006; Steve Arnold <nerdboy@gentoo.org> cfitsio-2.510-r1.ebuild,
+  cfitsio-3.006.ebuild:
+  fixed minor issue with lib installation; added symlink
+
+*cfitsio-3.006 (17 May 2006)
+
+  17 May 2006; Steve Arnold <nerdboy@gentoo.org>
+  +files/cfitsio-2.510-configure.patch,
+  +files/cfitsio-3.006-configure.patch, +cfitsio-2.510-r1.ebuild,
+  +cfitsio-3.006.ebuild, -cfitsio-2.510.ebuild:
+  fixed broken configure and bumped to the current release; newer portage
+  will bomb on the older ebuilds.
 
   16 Sep 2005; Aron Griffis <agriffis@gentoo.org> cfitsio-2.510.ebuild:
   Mark 2.510 stable on alpha
