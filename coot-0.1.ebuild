@@ -6,9 +6,7 @@ inherit eutils autotools
 
 DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, completion and validation"
 HOMEPAGE="http://www.ysbl.york.ac.uk/~emsley/coot/"
-SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/${P}.tar.gz
-	http://www.ysbl.york.ac.uk/~emsley/software/extras/reference-structures.tar.gz
-	http://www.ysbl.york.ac.uk/~emsley/software/extras/refmac-lib-data-monomers.tar.gz"
+SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~ppc ~x86"
@@ -23,8 +21,10 @@ RDEPEND=">=sci-libs/gsl-1.3
 	x11-libs/gtk-canvas
 	dev-lang/python
 	x11-libs/guile-gtk
+	dev-libs/guile-gui
 	dev-libs/goosh
-	dev-libs/guile-www"
+	dev-libs/guile-www
+	sci-libs/coot-data"
 DEPEND="${RDEPEND}"
 
 src_unpack() {
@@ -70,11 +70,4 @@ src_install() {
 	# Install misses this
 	insinto /usr/share/coot/python
 	doins ${S}/src/coot.py
-
-	ebegin "Copying reference structures to ${D}/usr/share/coot/"
-	cp -R ${WORKDIR}/reference-structures ${D}/usr/share/coot/
-	eend
-	ebegin "Copying monomer library to ${D}/usr/share/coot/"
-	cp -R ${WORKDIR}/lib ${D}/usr/share/coot/
-	eend
 }
