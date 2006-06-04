@@ -1,0 +1,35 @@
+--- pgplot.orig/makemake	1999-05-04 15:35:43.000000000 -0700
++++ pgplot/makemake	2005-12-15 20:48:42.000000000 -0800
+@@ -666,7 +666,7 @@
+ # the library don't have to list a slew of other implementation-specific
+ # libraries when they link their executables.
+ #
+-SHARED_LIB_LIBS=$SHARED_LIB_LIBS
++SHARED_LIB_LIBS=-lpng
+ #
+ # Ranlib command if required
+ #
+@@ -681,7 +681,7 @@
+ OBSOLETE_ROUTINES=$OBSOLETE_ROUTINES
+ DRIVERS=$DRIV_LIST
+ PGDISP_ROUTINES=$PGDISP_ROUTINES
+-DEMOS=$DEMOS
++#DEMOS=$DEMOS
+ #
+ #-----------------------------------------------------------------------
+ # Target "all" makes everything (except the library of obsolete routines)
+@@ -1025,12 +1025,12 @@
+ grivas.o : $(DRVDIR)/gadef.h
+ grtv00.o : $(DRVDIR)/imdef.h
+ pgxwin.o : $(DRVDIR)/pgxwin.h
+-pndriv.o : ./png.h ./pngconf.h ./zlib.h ./zconf.h
++pndriv.o :
+ 
+ x2driv.o figdisp_comm.o: $(DRVDIR)/commands.h
+ 
+ 
+-cpg:	libcpgplot.a cpgplot.h cpgdemo 
++cpg:	libcpgplot.a cpgplot.h
+ 	@echo ' '
+ 	@echo '*** Finished compilation of the C PGPLOT wrapper library ***'
+ 	@echo ' '

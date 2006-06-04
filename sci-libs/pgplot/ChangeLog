@@ -1,0 +1,23 @@
+# ChangeLog for sci-libs/pgplot
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pgplot-5.2.2-r1 (03 Jun 2006)
+
+  03 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>, +pgplot-5.2.2-r1.ebuild
+  +files/pgplot-path.patch, +metadata.xml
+  Tested on ~amd64, more doc install, and motif flag,
+  added also a longdescription in metadata.xml. 
+  Does not build on gfortran (%val not yet implemented in gfortran)
+
+  30 Mar 2006; Aron Griffis <agriffis@gentoo.org> pgplot-5.2.2.ebuild:
+  Mark 5.2.2 ~ia64
+
+*pgplot-5.2.2 (16 Dec 2005)
+
+  16 Dec 2005; Donnie Berkholz <spyderous@gentoo.org>;
+  +files/pgplot-compile-setup.patch, +files/pgplot-drivers.patch,
+  +files/pgplot-makemake.patch, +metadata.xml, +pgplot-5.2.2.ebuild:
+  A Fortran- or C-callable, device-independent graphics package for making
+  simple scientific graphs.
+

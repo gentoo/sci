@@ -1,0 +1,49 @@
+diff -ur pgplot.orig/sys_linux/g77_gcc.conf pgplot/sys_linux/g77_gcc.conf
+--- pgplot.orig/sys_linux/g77_gcc.conf	1999-07-05 11:10:33.000000000 -0700
++++ pgplot/sys_linux/g77_gcc.conf	2005-12-15 19:59:28.000000000 -0800
+@@ -5,7 +5,7 @@
+ #           X2DRIV (/xdisp and /figdisp).
+ # The arguments needed by the C compiler to locate X-window include files.
+  
+-   XINCL="-I/usr/X11R6/include"
++#   XINCL="-I/usr/X11R6/include"
+ 
+ # Optional: Needed by XMDRIV (/xmotif).
+ # The arguments needed by the C compiler to locate Motif, Xt and
+@@ -40,7 +40,8 @@
+ # The FORTRAN compiler flags to use when compiling the pgplot library.
+ # (NB. makemake prepends -c to $FFLAGC where needed)
+  
+-   FFLAGC="-u -Wall -fPIC -O"
++   FFLAGOPT="-O"
++   FFLAGC="-u -Wall -fPIC $FFLAGOPT"
+ 
+ # Mandatory.
+ # The FORTRAN compiler flags to use when compiling fortran demo programs.
+@@ -56,13 +57,14 @@
+ 
+ # Mandatory.
+ # The C compiler flags to use when compiling the pgplot library.
+- 
+-   CFLAGC="-Wall -fPIC -DPG_PPU -O"
++
++   CFLAGOPT="-O"
++   CFLAGC="-Wall -fPIC -DPG_PPU $CFLAGOPT"
+ 
+ # Mandatory.
+ # The C compiler flags to use when compiling C demo programs.
+  
+-   CFLAGD="-Wall -O"
++   CFLAGD="-Wall $CFLAGOPT"
+ 
+ # Optional: Only needed if the cpgplot library is to be compiled.
+ # The flags to use when running pgbind to create the C pgplot wrapper
+@@ -74,7 +76,7 @@
+ # The library-specification flags to use when linking normal pgplot
+ # demo programs.
+  
+-   LIBS="-L/usr/X11R6/lib -lX11"
++   LIBS="-lX11"
+ 
+ # Optional: Needed by XMDRIV (/xmotif).
+ # The library-specification flags to use when linking motif

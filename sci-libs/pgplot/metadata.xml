@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<maintainer>
+<email>spyderous@gentoo.org</email>
+<name>Donnie Berkholz</name>
+</maintainer>
+<longdescription>
+The PGPLOT Graphics Subroutine Library is a Fortran- or C-callable,
+device-independent graphics package for making simple scientific
+graphs. It is intended for making graphical images of publication
+quality with minimum effort on the part of the user. For most
+applications, the program can be device-independent, and the output
+can be directed to the appropriate device at run time.
+</longdescription>
+</pkgmetadata>
