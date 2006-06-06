@@ -9,7 +9,7 @@ SRC_URI="http://koti.welho.com/jfrantz/software/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~sci ~amd64 ~x86"
-IUSE=""
+IUSE="examples"
 
 RDEPEND=">=x11-libs/gtk+-2.6.0
 	media-libs/imlib"
@@ -23,4 +23,10 @@ src_compile() {
 src_install() {
 	dobin g3data || die "dobin failed - no binary!"
 	doman g3data.1.gz || die "doman failed"
+	if use examples; then
+		insinto ${DESTDIR}usr/share/doc/${PF}/
+		dodoc README.TEST
+		doins test1.png test1.values test2.png test2.values
+	fi
+	dodoc README.SOURCE
 }
