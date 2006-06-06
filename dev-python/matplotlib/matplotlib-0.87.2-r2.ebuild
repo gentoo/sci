@@ -10,7 +10,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz
 	mplot3d? http://matplotlib.sourceforge.net/mpl3d.zip
 	doc? http://matplotlib.sourceforge.net/users_guide_0.87.1.pdf"
 
-IUSE="doc gtk tcltk wxpython mplot3d agg"
+IUSE="doc gtk tcltk wxwindows mplot3d agg"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
 LICENSE="PYTHON"
@@ -25,10 +25,10 @@ DEPEND="virtual/python
 		media-libs/libpng
 		sys-libs/zlib
 		gtk? ( >=dev-python/pygtk-1.99.16 )
-		wxpython? ( dev-python/wxpython )
+		wxwindows? ( dev-python/wxpython )
 		dev-python/pytz
 		dev-python/python-dateutil
-        agg? ( x11-libs/agg )"
+	agg? ( x11-libs/agg )"
 
 pkg_setup() {
 	if use tcltk; then

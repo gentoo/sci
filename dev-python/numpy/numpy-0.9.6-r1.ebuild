@@ -41,7 +41,7 @@ src_unpack() {
 			echo "/usr/$(get_libdir)/blas/threaded-atlas" >> site.cfg
 		else
 			echo "/usr/$(get_libdir)/blas/atlas" >> site.cfg
-		fi		
+		fi
 	else
 		export ATLAS=None
 	fi

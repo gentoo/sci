@@ -1,6 +1,4 @@
 MD5 3e0700df75a48ebda06597d7613108cd ChangeLog 2650
-MD5 3b253945667c1a85499157ac13dd220c files/digest-numarray-1.5.1-r1 67
 MD5 3b253945667c1a85499157ac13dd220c files/digest-numarray-1.5.1-r2 67
 MD5 37520cfe4faa14a59f09635d2328cbeb files/numarray-1.5.1-include.patch 2479
-MD5 c0d179b38525d0edd04153b5f207d79d numarray-1.5.1-r1.ebuild 1104
-MD5 2fc20693917253db6902e502f5e96c14 numarray-1.5.1-r2.ebuild 1630
+MD5 da04b59a3fc0c3af5aafae8fab07b318 numarray-1.5.1-r2.ebuild 1616

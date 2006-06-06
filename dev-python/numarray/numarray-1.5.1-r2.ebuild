@@ -35,11 +35,11 @@ src_unpack() {
 			-e 's:f77blas:blas:g' \
 			cfg_packages.py
 		# fix gfortran for > gcc-4
-        if  [[ ${FORTRANC} == gfortran ]]; then
+	if  [[ ${FORTRANC} == gfortran ]]; then
 			sed -i \
 				-e "s:g2c:gfortran:g" \
 				cfg_packages.py
-        fi
+	fi
 	fi
 }
 
