@@ -1,0 +1,27 @@
+# ChangeLog for sci-libs/scipy
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+
+*scipy-0.4.9 (06 Jun 2006)
+
+  06 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt> +scipy-0.4.9.ebuild:
+  Version bump. Tested also with gcc4.1, added a threaded ATLAS better check.
+  Had to force fpic on amd64 :(. Also restored metadata.xml which had a long
+  description on this overlay.
+	
+*scipy-0.4.8-r1 (13 Apr 2006)
+
+  13 Apr 2006; Olivier Fisette <ribosome@gentoo.org> +scipy-0.4.8-r1.ebuild:
+  Added ATLAS profile check in pk_setup() (fixes bug #129524).
+
+*scipy-0.4.8 (01 Apr 2006)
+
+  01 Apr 2006; Olivier Fisette <ribosome@gentoo.org> +scipy-0.4.8.ebuild:
+  New version. Thanks to bicatali and other contributors for their work.
+
+*scipy-0.3.2 (22 Aug 2005)
+
+  22 Aug 2005; Peter Bienstman <pbienst@gentoo.org> +files/system_info.diff,
+  +metadata.xml, +scipy-0.3.2.ebuild:
+  Initial import. Closes 24593. Thanks to D. Grant, D. Dale and others.
