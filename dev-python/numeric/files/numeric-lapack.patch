@@ -1,0 +1,25 @@
+--- Numeric-24.2/customize.py	2005-11-13 02:40:14.000000000 +0000
++++ Numeric-24.2.new/customize.py	2006-06-06 20:13:20.000000000 +0100
+@@ -13,9 +13,9 @@
+ # will be used, except on Mac OS X, where the vecLib framework will be used
+ # if found.
+ 
+-use_system_lapack = 0
++use_system_lapack = 1
+ lapack_library_dirs = []
+-lapack_libraries = []
++lapack_libraries = ['lapack', 'cblas', 'blas', 'atlas', 'g2c']
+ lapack_extra_link_args = []
+ 
+ # Example: using ATLAS
+@@ -35,8 +35,8 @@
+ 
+ # Set use_dotblas to 1 to use BLAS for the matrix multiplication routines.
+ # Put the directory that 'cblas.h' is in into dotblas_include_dirs
+-use_dotblas = 0
+-dotblas_include_dirs = []
++use_dotblas = 1
++dotblas_include_dirs = ['/usr/include/atlas']
+ dotblas_cblas_header = '<cblas.h>'
+ dotblas_library_dirs = lapack_library_dirs
+ dotblas_libraries = lapack_libraries

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>python</herd>
+  <longdescription lang="en">
+  The Numeric Python extensions is a set of extensions to the Python
+  programming language which allows Python programmers to efficiently
+  manipulate large sets of objects organized in grid-like
+  fashion. It contains fast array manipulation, masking, ffts, linear
+  algebra and random number generator routines.
+   Numeric is still needed for various packages, but is
+  being slowly deprecated in favor of newer numpy.
+  </longdescription>
+</pkgmetadata>
