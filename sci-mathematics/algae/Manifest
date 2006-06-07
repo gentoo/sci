@@ -1,0 +1,7 @@
+MD5 f1f1d5c841fe800de2736fd0a3ffd33c ChangeLog 421
+MD5 a6af78ce76e49116505ed9a61903da2e algae-4.3.6.ebuild 1794
+MD5 dfdf358f51965233c7aab48bb053b7f5 files/Makefile.in-doc.patch 235
+MD5 15e742c4cecbbf844cb164d1dd88f594 files/Makefile.in-src.patch 193
+MD5 45f6c34d4c5f7c60fc1e7a163c5ce2db files/configure.in.patch 466
+MD5 29a736ea9fb4fd44159d5750eb255098 files/digest-algae-4.3.6 64
+MD5 70e878d78fa8b8ba85a84e2a6c8028a7 metadata.xml 565
