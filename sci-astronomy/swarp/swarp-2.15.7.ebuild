@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="static doc threads mpi icc"
 DEPEND="mpi? ( virtual/mpi )
-	icc? ( dev-lang/icc >= 9 )"
+	icc? ( dev-lang/icc )"
 
 # mpi stuff untested.
 src_compile() {
@@ -40,4 +40,3 @@ src_install () {
 		doins doc/*
 	fi
 }
-

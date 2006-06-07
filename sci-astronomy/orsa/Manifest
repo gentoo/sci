@@ -1,6 +1,4 @@
 MD5 467eb29d395b029bbdae3723b0018ca6 ChangeLog 3577
-MD5 9262d4bfc4a3de52a3c15e1bf1027797 files/digest-orsa-0.7.0 62
 MD5 9262d4bfc4a3de52a3c15e1bf1027797 files/digest-orsa-0.7.0-r1 62
 MD5 8142fcf645edbd59c53d94edbbfaf58f files/orsa-0.7.0-gcc41.patch 3850
-MD5 23d8fed8c65bca85f67c828c2f3ef5b4 orsa-0.7.0-r1.ebuild 1821
-MD5 86e33a71566ac7597168c40ff2d3307b orsa-0.7.0.ebuild 1782
+MD5 105ee167ce60c096ab101196abce6004 orsa-0.7.0-r1.ebuild 1820

@@ -57,7 +57,7 @@ src_compile() {
 		sed -e 's/\(orsa_LDADD = .*\)/\1 -llammpi++ -lmpi -llam -lpthread -lutil/' \
 			-i src/orsa/Makefile
 	fi
-	
+
 	emake || die "emake failed"
 }
 

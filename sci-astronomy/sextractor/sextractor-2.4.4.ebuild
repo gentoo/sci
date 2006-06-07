@@ -12,7 +12,7 @@ LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS=" ~amd64 ~x86"
 IUSE="static doc icc"
-DEPEND="icc? ( dev-lang/icc >= 9 )"
+DEPEND="icc? ( dev-lang/icc )"
 RDEPEND=""
 
 CONFDIR=/usr/share/${PN}/config
@@ -35,7 +35,7 @@ src_install () {
 	insinto ${CONFDIR}
 	doins config/*
 	if use doc; then
-		insinto /usr/share/doc/${PF} 
+		insinto /usr/share/doc/${PF}
 		doins doc/*
 	fi
 }
