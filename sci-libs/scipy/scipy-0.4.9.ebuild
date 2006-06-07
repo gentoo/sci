@@ -22,7 +22,7 @@ DEPEND=">=dev-lang/python-2.3.3
 	sci-libs/lapack-config
 	sci-libs/lapack-atlas
 	fftw? ( =sci-libs/fftw-2.1* )
-	umfpack? ( sci-libs/umfpack )"
+	umfpack? ( dev-lang/swig sci-libs/umfpack )"
 
 # install doc claims fftw-2 is faster for complex ffts.
 # install doc claims gcc-4 not fully tested and blas-atlas is compiled
