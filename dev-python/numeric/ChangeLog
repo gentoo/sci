@@ -9,7 +9,7 @@
   +numeric-24.2-r1.ebuild: fixed a memory leak, and added the possibility
   to compile linear algebra with installed blas/cblas/lapack.
   Tested against gcc41 and gcc34 on amd64, x86. Added longdescription
-  in metadata.xml.
+  in metadata.xml. Closes bugs #81520 and #114885.
 
 *numeric-24.2 (01 Dec 2005)
 

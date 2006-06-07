@@ -22,8 +22,7 @@ IUSE="lapack"
 # due to the current state of eselect blas/cblas, will force
 # blas-atlas which provides both easily
 DEPEND=">=dev-lang/python-2.3
-	lapack? ( sci-libs/blas-atlas )
-	lapack? ( virtual/lapack )"
+	lapack? ( sci-libs/blas-atlas virtual/lapack )"
 
 src_unpack() {
 	unpack ${A}
