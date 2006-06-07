@@ -2,11 +2,16 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt> numpy-0.9.8.ebuild:
+  Blocks f2py (closes bug #131833). Tested with gcc-4.1, works. 
+  Does not compile with as-needed. Cleaning.
+		
 *numpy-0.9.8 (30 May 2006)
 
   30 May 2006; Sebastien Fabbro <seb@ist.utl.pt> +numpy-0.9.8.ebuild:
-  Version bump. Changed homepage.
-
+  Version bump. Changed homepage. Blocks f2py (closes bug #131833)
+  Tested with gcc-4.1, works. Does not compile with as-needed.
+	
 *numpy-0.9.6-r1 (11 Apr 2006)
 
   11 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> +numpy-0.9.6-r1.ebuild:

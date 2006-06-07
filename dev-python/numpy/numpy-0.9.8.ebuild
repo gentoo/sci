@@ -4,14 +4,15 @@
 
 inherit distutils
 
-DESCRIPTION="Powerful N-dimensional array object and processing for Python."
+DESCRIPTION="Multi-dimensional array object and processing for Python."
 SRC_URI="mirror://sourceforge/numpy/${P}.tar.gz"
 HOMEPAGE="http://www.scipy.org/"
-# temp fix force atlas, while eselect gets ready.
-DEPEND=">=dev-lang/python-2.3
-	lapack? ( sci-libs/blas-atlas )
-	lapack? ( sci-libs/lapack-atlas )"
 IUSE="lapack"
+
+# force atlas, while eselect blas/lapack gets more usable
+DEPEND=">=dev-lang/python-2.3
+	!dev-python/f2py
+	lapack? ( sci-libs/blas-atlas sci-libs/lapack-atlas )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 LICENSE="BSD"
@@ -20,7 +21,7 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 
-	# sed to patch ATLAS libraries names
+	# sed to patch ATLAS libraries names (gentoo specific)
 	sed -i \
 		-e "s:f77blas: blas:g" \
 		-e "s:'f77blas':'blas':g" \
