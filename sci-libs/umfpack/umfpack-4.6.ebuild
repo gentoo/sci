@@ -44,7 +44,7 @@ src_compile() {
 	for uplib in ${uplibs}; do
 		cd ${WORKDIR}/$(upper ${uplib})/Source
 		emake \
-			CC="libtool --mode=compile --tag=C $(tc-getCC)" \
+			CC="libtool --mode=compile --tag=CC $(tc-getCC)" \
 			CFLAGS="${CFLAGS}" \
 			AR="$(tc-getAR) cr" \
 			RANLIB="$(tc-getRANLIB)" \
