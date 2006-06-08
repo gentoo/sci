@@ -1,0 +1,25 @@
+diff -urN scigraphica-2.1.0/configure.in scigraphica-2.1.0.new/configure.in
+--- scigraphica-2.1.0/configure.in	2006-06-08 17:06:44.000000000 +0100
++++ scigraphica-2.1.0.new/configure.in	2006-06-08 17:12:33.000000000 +0100
+@@ -428,9 +428,9 @@
+ #
+ 
+ UNAME=`uname -s -m -r -p`
+-GTK_EXTRA_VERSION=`$GTK_EXTRA_CONFIG --version`
+-GTK_VERSION=`$GTK_CONFIG --version`
+-XML_VERSION=`$XML_CONFIG --version`
++GTK_EXTRA_VERSION=`$PKG_CONFIG --modversion gtkextra-2.0`
++GTK_VERSION=`$PKG_CONFIG --modversion gtk+-2.0`
++XML_VERSION=`$PKG_CONFIG --modversion libxml-2.0`
+ 
+ # strip duplicate entries in compiler flags
+ echo "stripping compiler flags"
+@@ -472,7 +472,7 @@
+ xml-$XML_VERSION  python-$PY_VVERSION  $array_loc\\n"\
+ __DATE__ " " __TIME__ "\\n\
+ Compiler flags:$COMPILER_FLAGS\\n\
+-(C) 2000 Adrian E. Feiguin\\n"
++(C) 2000 - 2005 Adrian E. Feiguin\\n"
+ )
+ 
+ AC_DEFINE_UNQUOTED(SCIGRAPHICA_ROOT, "$prefix")

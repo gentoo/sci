@@ -2,6 +2,19 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scigraphica-2.1.0-r1 (08 Jun 2006)
+
+  08 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  -scigraphica-2.1.0.ebuild,
+  -files/scigraphica-2.1.0-configure.in.patch,
+  +scigraphica-2.1.0-r1.ebuild,
+  +files/scigraphica-2.1.0-arrayobject.patch,
+  +files/scigraphica-2.1.0-intl.patch,
+  +files/scigraphica-2.1.0-desktop.patch
+  +files/scigraphica-2.1.0-versioning.patch
+  Fixed compilation with gcc-41 and with as-needed, deskop locations,
+  and internationalization.
+	
 *scigraphica-2.1.0 (20 May 2006)
 
   20 May 2006; Sebastien Fabbro <seb@ist.utl.pt>

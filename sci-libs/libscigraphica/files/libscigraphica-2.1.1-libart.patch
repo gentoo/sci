@@ -1,0 +1,23 @@
+--- libscigraphica-2.1.1/configure.in	2005-06-25 02:38:20.000000000 +0100
++++ libscigraphica-2.1.1.new/configure.in	2006-06-08 15:46:27.000000000 +0100
+@@ -222,16 +222,16 @@
+ 
+ PKG_CHECK_MODULES(GTK_EXTRA, gtkextra-2.0 >= 2.1.0)
+ 
+-AC_CHECK_PROG(libart_config_found,libart-config, yes,no)
+-AC_CHECK_LIB(art_lgpl, art_pixbuf_new_rgb,
++AC_CHECK_PROG(libart_config_found,libart2-config, yes,no)
++AC_CHECK_LIB(art_lgpl_2, art_pixbuf_new_rgb,
+ [libart_found=yes],
+ AC_MSG_RESULT(Cannot find LIBART, disabling anti-aliasing)) 
+ 
+ if eval "test x$libart_found != xno && test x$libart_config_found != xno"; then
+- LIBART_CFLAGS="`libart-config --cflags`"
++ LIBART_CFLAGS="`libart2-config --cflags`"
+  AC_SUBST(LIBART_CFLAGS)
+  CFLAGS="$CFLAGS $LIBART_CFLAGS -DWITH_LIBART"
+- LIBART_LIBS="`libart-config --libs`"
++ LIBART_LIBS="`libart2-config --libs`"
+  AC_SUBST(LIBART_LIBS)
+  LIBS="$LIBS $LIBART_LIBS"
+ fi

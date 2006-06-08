@@ -1,0 +1,23 @@
+diff -urN scigraphica-2.1.0/docs/Makefile.am scigraphica-2.1.0.new/docs/Makefile.am
+--- scigraphica-2.1.0/docs/Makefile.am	2006-06-08 17:13:06.000000000 +0100
++++ scigraphica-2.1.0.new/docs/Makefile.am	2006-06-08 17:16:00.000000000 +0100
+@@ -25,6 +25,6 @@
+ 
+ EXTRA_DIST = $(HTMLFILES) topic.dat
+ 
+-htmldir = $(datadir)/gnome/help/scigraphica/C/
++htmldir = $(datadir)/scigraphica
+ 
+ html_DATA = $(HTMLFILES) topic.dat
+diff -urN scigraphica-2.1.0/Makefile.am scigraphica-2.1.0.new/Makefile.am
+--- scigraphica-2.1.0/Makefile.am	2006-06-08 17:13:06.000000000 +0100
++++ scigraphica-2.1.0.new/Makefile.am	2006-06-08 17:14:07.000000000 +0100
+@@ -26,7 +26,7 @@
+         gnome-pty.h  \
+         sg.desktop
+ 
+-Applicationsdir = $(datadir)/gnome/apps/Applications
++Applicationsdir = $(datadir)/applications
+ Applications_DATA = sg.desktop
+ 
+ man_MANS = scigraphica.1

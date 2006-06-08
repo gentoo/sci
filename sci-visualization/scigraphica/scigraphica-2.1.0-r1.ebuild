@@ -11,19 +11,32 @@ HOMEPAGE="http://scigraphica.sourceforge.net/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~ppc"
-
+IUSE=""
 DEPEND=">=sci-libs/libscigraphica-2.1.0
-	>=dev-python/pygtk-2.8.1-r1
+	>=dev-python/pygtk-2.6.1-r1
 	>=media-libs/imlib-1.9.7"
 
 src_unpack() {
+
 	unpack "${A}"
 	cd "${S}"
-	epatch "${FILESDIR}"/${P}-configure.in.patch
+
+	# fix arrayobject problems
+	epatch "${FILESDIR}"/${P}-arrayobject.patch
+	# fix versioning stuff
+	epatch "${FILESDIR}"/${P}-versioning.patch
+	# fix desktop entry and docs
+	epatch "${FILESDIR}"/${P}-desktop.patch
+	# fix intltoolization and switch to glib_gettext
+	epatch "${FILESDIR}"/${P}-intl.patch
+
 	sed -i \
 		-e "s:/lib:/$(get_libdir):g" \
 		configure.in || die "sed for configure.in failed"
-	eautoreconf || die "eautoreconf failed"
+
+	einfo "Running intltoolize --copy --force --automake"
+	intltoolize --copy --force --automake || die "intltoolize failed"
+	eautoreconf
 }
 
 src_install() {
@@ -33,8 +46,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	ewarn "Please be shure to rm your old scigraphica"
+	ewarn "Please be sure to remove your old scigraphica"
 	ewarn "configuration directory."
-	ewarn "Otherwise sg won't work."
-	sleep 5
+	ewarn "Otherwise scigraphica won't work."
 }

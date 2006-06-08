@@ -1,5 +1,5 @@
 --- libscigraphica-2.1.1/configure.in	2005-06-25 02:38:20.000000000 +0100
-+++ libscigraphica-2.1.1.new/configure.in	2006-05-21 14:44:07.000000000 +0100
++++ libscigraphica-2.1.1.new/configure.in	2006-06-08 15:41:52.000000000 +0100
 @@ -324,9 +324,9 @@
                    PY_CFLAGS="-I$PY_PREFIX/include/python$PY_VERSION"
  		  PY_LIBS="python$PY_VERSION"

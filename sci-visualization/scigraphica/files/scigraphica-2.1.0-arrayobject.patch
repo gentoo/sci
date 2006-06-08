@@ -1,5 +1,6 @@
+diff -urN scigraphica-2.1.0/configure.in scigraphica-2.1.0.new/configure.in
 --- scigraphica-2.1.0/configure.in	2005-06-24 02:43:36.000000000 +0100
-+++ scigraphica-2.1.0.new/configure.in	2006-05-21 16:10:54.000000000 +0100
++++ scigraphica-2.1.0.new/configure.in	2006-06-08 17:06:44.000000000 +0100
 @@ -381,9 +381,9 @@
                    PY_CFLAGS="-I$PY_PREFIX/include/python$PY_VERSION"
  		  PY_LIBS="python$PY_VERSION"
