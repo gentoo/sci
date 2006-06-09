@@ -1,15 +1,13 @@
 diff -urN libscigraphica-2.1.1/configure.in libscigraphica-2.1.1.new/configure.in
---- libscigraphica-2.1.1/configure.in	2006-06-08 16:45:51.000000000 +0100
-+++ libscigraphica-2.1.1.new/configure.in	2006-06-08 16:48:31.000000000 +0100
-@@ -186,12 +186,12 @@
- dnl i18n internationalization
+--- libscigraphica-2.1.1/configure.in	2006-06-09 20:43:37.000000000 +0100
++++ libscigraphica-2.1.1.new/configure.in	2006-06-09 20:42:41.000000000 +0100
+@@ -187,11 +187,11 @@
  # The list of languages known to SciGraphica
  # This is needed by GNU gettext
--#ALL_LINGUAS="es de nl"
+ #ALL_LINGUAS="es de nl"
 -#GETTEXT_PACKAGE=libscigraphica
 -#AC_SUBST(GETTEXT_PACKAGE)
 -#AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE")
-+ALL_LINGUAS="es de nl"
 +GETTEXT_PACKAGE=libscigraphica
 +AC_SUBST(GETTEXT_PACKAGE)
 +AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE")
@@ -29,7 +27,7 @@ diff -urN libscigraphica-2.1.1/configure.in libscigraphica-2.1.1.new/configure.i
  plugins/styles/Makefile
 diff -urN libscigraphica-2.1.1/Makefile.am libscigraphica-2.1.1.new/Makefile.am
 --- libscigraphica-2.1.1/Makefile.am	2005-06-24 02:40:55.000000000 +0100
-+++ libscigraphica-2.1.1.new/Makefile.am	2006-06-08 16:48:31.000000000 +0100
++++ libscigraphica-2.1.1.new/Makefile.am	2006-06-09 20:41:58.000000000 +0100
 @@ -1,6 +1,6 @@
  ## Makefile.am for sg
  
@@ -40,7 +38,7 @@ diff -urN libscigraphica-2.1.1/Makefile.am libscigraphica-2.1.1.new/Makefile.am
  VERSION = @VERSION@
 diff -urN libscigraphica-2.1.1/po/POTFILES.in libscigraphica-2.1.1.new/po/POTFILES.in
 --- libscigraphica-2.1.1/po/POTFILES.in	1970-01-01 01:00:00.000000000 +0100
-+++ libscigraphica-2.1.1.new/po/POTFILES.in	2006-06-08 16:48:31.000000000 +0100
++++ libscigraphica-2.1.1.new/po/POTFILES.in	2006-06-09 20:41:58.000000000 +0100
 @@ -0,0 +1,8 @@
 +plugins/layers/plugin.xml.in
 +plugins/io/plugin.xml.in
