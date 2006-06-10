@@ -35,7 +35,7 @@ src_test() {
 src_install () {
 	make DESTDIR="${D}" install || die "make install failed"
 	dodoc changes.txt README License.txt
-	insinto /usr/share/doc/${P}
+	insinto /usr/share/doc/${PF}
 	doins cookbook.{f,c}
 	use doc && dodoc *.ps
 }

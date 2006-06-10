@@ -1,5 +1,5 @@
 MD5 d9eb5d7cfb1c36de4a887a3d2f5f9797 ChangeLog 2770
-MD5 ce43be3cedc92597cc10ed8c2135db27 cfitsio-3.006-r1.ebuild 941
+MD5 2164f438a31b80e1b15724375060430e cfitsio-3.006-r1.ebuild 942
 MD5 88a5ecb927507caf1e038c610d97fef4 files/Makefile.am 1079
 MD5 f6966240945562f0e2bcaabd7fdd7e2c files/configure.ac 6748
 MD5 0726d0c8ac1fab10d9b5a140cc6265a6 files/digest-cfitsio-3.006-r1 64
