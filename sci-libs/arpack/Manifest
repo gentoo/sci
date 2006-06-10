@@ -1,5 +1,5 @@
 MD5 5d4b169cadf04dcdecbd217d7fcf34b7 ChangeLog 387
-MD5 0636773f3188f1abec27d7a1b4a8295c arpack-96-r1.ebuild 1345
+MD5 fc7afdf160b3a55361c803f71744802f arpack-96-r1.ebuild 1346
 MD5 82ff082f1a730871f0ed8b06511b92d7 arpack-96.ebuild 2415
 MD5 f5b6414b7b27aca2014468d9755dc1db files/ARmake.inc 3836
 MD5 224181365f13d82aa825639a5b1ff65d files/arpack-autotools.patch 17551

@@ -47,7 +47,7 @@ src_install() {
 	dodoc DOCUMENTS/*
 
 	if use examples; then
-		insinto /usr/share/doc/${P}
+		insinto /usr/share/doc/${PF}
 		doins "${FILESDIR}"/ARmake.inc
 		doins -r EXAMPLES
 		if use mpi; then 
