@@ -1,0 +1,13 @@
+--- maxima-5.9.3/interfaces/emacs/emaxima/maxima.el~	2005-06-21 23:48:42.000000000 -0400
++++ maxima-5.9.3/interfaces/emacs/emaxima/maxima.el	2006-04-07 12:10:29.000000000 -0400
+@@ -2756,8 +2756,8 @@
+       (save-excursion
+         (set-buffer mbuf)
+         (setq inferior-maxima-process (get-buffer-process mbuf))
+-        (add-to-list 'comint-output-filter-functions
+-                     'inferior-maxima-output-filter)
++;        (add-to-list 'comint-output-filter-functions
++;                     'inferior-maxima-output-filter)
+ ;        (add-to-list 'comint-output-filter-functions
+ ;                     'inferior-maxima-replace-tabs-by-spaces)
+         (add-to-list 'comint-output-filter-functions
