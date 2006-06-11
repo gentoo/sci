@@ -4,9 +4,16 @@
 
 inherit autotools
 
+MY_PV=${PV/_pre/-pre-}
+MY_P="${PN}-${MY_PV}"
+
 DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, completion and validation"
 HOMEPAGE="http://www.ysbl.york.ac.uk/~emsley/coot/"
-SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/${P}.tar.gz"
+if [[ ${MY_PV} = *pre* ]]; then
+	SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/pre-release/${MY_P}.tar.gz"
+else
+	SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/${MY_P}.tar.gz"
+fi
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~ppc ~x86"
@@ -29,6 +36,7 @@ RDEPEND=">=sci-libs/gsl-1.3
 	sci-chemistry/reduce
 	sci-chemistry/probe"
 DEPEND="${RDEPEND}"
+S="${WORKDIR}/${MY_P}"
 
 src_unpack() {
 	unpack ${A}
