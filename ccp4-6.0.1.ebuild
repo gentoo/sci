@@ -216,9 +216,10 @@ src_install() {
 		-e "s~^\(setenv CCP4_MASTER.*\)${WORKDIR}~\1/usr~g" \
 		-e "s~^\(setenv CCP4.*\$CCP4_MASTER\).*~\1~g" \
 		-e "s~^\(setenv CCP4I_TOP\).*~\1 \$CCP4/$(get_libdir)/ccp4/ccp4i~g" \
-		-e "s~^\(.*setenv CINCL.*\$CCP4\).*~\1/$(get_libdir)/ccp4/include~g" \
-		-e "s~^\(.*setenv CLIBD .*\$CCP4\).*~\1/$(get_libdir)/ccp4/data~g" \
+		-e "s~^\(.*setenv CINCL.*\$CCP4\).*~\1/share/ccp4/include~g" \
+		-e "s~^\(.*setenv CLIBD .*\$CCP4\).*~\1/share/ccp4/data~g" \
 		-e "s~^\(.*setenv CLIBD_MON .*\)\$CCP4.*~\1\$CLIBD/monomers/~g" \
+		-e "s~^\(.*setenv MOLREPLIB .*\)\$CCP4.*~\1\$CLIBD/monomers/~g" \
 		-e "s~^\(.*setenv CCP4_BROWSER.*\).*~\1 firefox~g" \
 		${S}/include/ccp4.setup*
 
@@ -328,14 +329,14 @@ src_install() {
 #	dosym libxdl_view.so.2.0.0 /usr/$(get_libdir)/libxdl_view.so.2.0
 
 	# Environment files, setup scripts, etc.
-	INSDESTTREE="/usr/$(get_libdir)/ccp4/include" doins ${S}/include/*
+	INSDESTTREE="/usr/share/ccp4/include" doins ${S}/include/*
 
 	# CCP4Interface - GUI
 	INSDESTTREE="/usr/$(get_libdir)/ccp4" doins -r ${S}/ccp4i
 	EXEDESTTREE="/usr/$(get_libdir)/ccp4/ccp4i/bin" doexe ${S}/ccp4i/bin/*
 
 	# Data
-	INSDESTTREE="/usr/$(get_libdir)/ccp4" doins -r ${S}/lib/data
+	INSDESTTREE="/usr/share/ccp4" doins -r ${S}/lib/data
 
 	# Include files
 	for i in ccp4 clipper mmdb ssm; do
@@ -358,6 +359,10 @@ src_install() {
 	dohtml -r ${S}/html/*
 	dodoc ${S}/examples/README
 
+	# Fix wrongly installed HTML pages from clipper
+	dohtml "${D}"/usr/html/*
+	rm -rf "${D}"/usr/html
+
 	for i in data rnase toxd; do
 		DOCDESTTREE="examples/${i}" dodoc ${S}/examples/${i}/*
 	done
@@ -374,7 +379,7 @@ src_install() {
 
 	# Needed for ccp4i docs to work
 	dosym ../../share/doc/${PF}/examples /usr/$(get_libdir)/ccp4/examples
-	dosym ../../share/doc/${PF}/html /usr/$(get_libdir)/ccp4/examples
+	dosym ../../share/doc/${PF}/html /usr/$(get_libdir)/ccp4/html
 
 	# Fix overlaps with other packages
 	rm ${D}/usr/share/man/man1/rasmol.1.gz
@@ -382,10 +387,10 @@ src_install() {
 
 pkg_postinst() {
 	einfo "The Web browser defaults to firefox. Change CCP4_BROWSER"
-	einfo "in /usr/$(get_libdir)/ccp4/include/ccp4.setup* to modify this."
+	einfo "in /usr/share/ccp4/include/ccp4.setup* to modify this."
 
 	ewarn "Set your .bashrc or other shell login file to source"
-	ewarn "one of the ccp4.setup* files in ${ROOT}usr/$(get_libdir)/ccp4/include."
+	ewarn "one of the ccp4.setup* files in ${ROOT}usr/share/ccp4/include."
 	ewarn "CCP4 will not work without this."
 }
 
