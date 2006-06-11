@@ -8,37 +8,21 @@ FORTRAN="g77 gfortran ifc"
 
 SRC="ftp://ftp.ccp4.ac.uk/ccp4"
 
-PATCH_TOT="7"
-PATCH1=( ccp4i/src
-	CCP4_utils.tcl-r1.48-r1.48.2.1.diff )
-PATCH2=( lib/src
-	ccplib.f-27Feb2006.diff )
-PATCH3=( lib/clipper/src
-	cphasecombine.cpp-09Mar2006.diff )
-PATCH4=( lib/clipper/clipper/core
-	derivs.h-06Mar2006.diff )
-PATCH5=( src
-	geomcalc.f-28Feb2006.diff )
-PATCH6=( ccp4i/templates
-	molrep.com-13Mar2006.diff )
-PATCH7=( lib/clipper/src
-	pirancslib.cpp-23Feb2006.diff )
+PATCH_TOT="0"
+#PATCH1=( src
+#	anisoanl.f-r1.22-r1.24.diff )
+#PATCH2=( src/sc_
+#	sc.f-r1.9-r1.9.2.1.diff )
+#PATCH3=( src/sc_
+#	setup.fh-r1.5-r1.5.2.1.diff )
 
 DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
 RESTRICT="mirror stricter"
-SRC_URI="${SRC}/${PV}/packed/${P}-core-src.tar.gz
-	${SRC}/${PV}/patches/${PATCH1[1]}
-	${SRC}/${PV}/patches/${PATCH2[1]}
-	${SRC}/${PV}/patches/${PATCH3[1]}
-	${SRC}/${PV}/patches/${PATCH4[1]}
-	${SRC}/${PV}/patches/${PATCH5[1]}
-	${SRC}/${PV}/patches/${PATCH6[1]}
-	${SRC}/${PV}/patches/${PATCH7[1]}
-	${SRC}/${PV}/prerelease/mosflm-XIA.tar.gz"
-#	${SRC}/${PV}/packed/chooch-5.0.2-src.tar.gz"
-#	${SRC}/${PV}/packed/phaser-1.3.2-cctbx-src.tar.gz"
-#	${SRC}/${PV}/prerelease/${P}_gfortran.tar.gz"
+SRC_URI="${SRC}/${PV}/packed/${P}-core-src.tar.gz"
+#	${SRC}/${PV}/patches/${PATCH1[1]}
+#	${SRC}/${PV}/patches/${PATCH2[1]}
+#	${SRC}/${PV}/patches/${PATCH3[1]}"
 LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~ppc ~x86"
@@ -80,7 +64,13 @@ DEPEND="${RDEPEND}
 			)
 		)"
 
-S="${WORKDIR}/${PN}-${PV%.*}"
+S="${WORKDIR}/${PN}-${PV}"
+
+pkg_setup() {
+	ewarn "Ensure that you have applied"
+	ewarn "http://dev.gentoo.org/~spyderous/portage-honor-restrict-stricter.patch"
+	ewarn "It should be in portage versions 2.1.1 and newer."
+}
 
 src_unpack() {
 	unpack ${A}
@@ -110,7 +100,7 @@ src_unpack() {
 	#ccp_patch ${FILESDIR}/add-xdl-libdir.patch
 
 	# it tries to create libdir, bindir etc on live system in configure
-	ccp_patch ${FILESDIR}/dont-make-dirs-in-configure.patch
+	ccp_patch ${FILESDIR}/${PV}-dont-make-dirs-in-configure.patch
 
 	# We already have sci-chemistry/rasmol
 	ccp_patch ${FILESDIR}/dont-build-rasmol.patch
