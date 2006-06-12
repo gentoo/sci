@@ -6,7 +6,7 @@ inherit distutils
 
 DESCRIPTION="Multi-dimensional array object and processing for Python."
 SRC_URI="mirror://sourceforge/numpy/${P}.tar.gz"
-HOMEPAGE="http://www.scipy.org/"
+HOMEPAGE="http://www.scipy.org/numpy"
 IUSE="lapack"
 
 # force atlas, while eselect blas/lapack gets more usable

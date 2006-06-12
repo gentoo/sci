@@ -4,7 +4,7 @@
 
   06 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt> numpy-0.9.8.ebuild:
   Blocks f2py (closes bug #131833). Tested with gcc-4.1, works. 
-  Does not compile with as-needed. Cleaning.
+  Does not compile with as-needed. Fixed home page and cleaning.
 		
 *numpy-0.9.8 (30 May 2006)
 
