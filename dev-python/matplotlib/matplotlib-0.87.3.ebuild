@@ -2,13 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit distutils python
+inherit distutils python wxwidgets
 
 DESCRIPTION="Python plotting library with Matlab like syntax"
 HOMEPAGE="http://matplotlib.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz
 	doc? http://matplotlib.sourceforge.net/users_guide_0.87.1.pdf"
 
+# agg: use external agg library
+# wxwindows: enable wxpython backend
 IUSE="doc gtk tcltk wxwindows agg"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
@@ -24,15 +26,18 @@ DEPEND="virtual/python
 		media-libs/libpng
 		sys-libs/zlib
 		gtk? ( >=dev-python/pygtk-1.99.16 )
-		wxwindows? ( dev-python/wxpython )
+		wxwindows? ( >=dev-python/wxpython-2.6 )
 		dev-python/pytz
 		dev-python/python-dateutil
 		agg? ( x11-libs/agg )"
 
 pkg_setup() {
-	if use tcltk; then
-		python_tkinter_exists
+	use tcltk && distutils_python_tkinter
+	if use wxwindows; then
+		export WX_GTK_VER="2.6"
+		need-wxwidgets gtk2
 	fi
+   
 }
 
 src_unpack() {
@@ -42,6 +47,9 @@ src_unpack() {
 
 	# disable autodetection, rely on USE instead
 	epatch "${FILESDIR}/${PN}-0.87.2-no-autodetect.patch"
+	# tkinter opens a window to determine paths! remove it
+	epatch "${FILESDIR}/${P}-tcltk.patch"
+	
 	sed -i \
 		-e "/^BUILD_GTK/s/'auto'/$(use gtk && echo 1 || echo 0)/g" \
 		-e "/^BUILD_WX/s/'auto'/$(use wxwindows && echo 1 || echo 0)/g" \
@@ -50,8 +58,16 @@ src_unpack() {
 		setup.py
 }
 
+src_compile() {
+	# needs this hack below: why?
+	use wxwindows && export WX_CONFIG="${WX_CONFIG}"
+	distutils_src_compile
+}
+
 src_install() {
+	use wxwindows && export WX_CONFIG="${WX_CONFIG}"
 	distutils_src_install
+	dodoc INTERACTIVE API_CHANGES NUMARRAY_ISSUES
 	if use doc ; then
 		insinto /usr/share/doc/${PF}/examples
 		doins examples/*.py examples/README

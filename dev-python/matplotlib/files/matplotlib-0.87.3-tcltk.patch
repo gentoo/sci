@@ -1,0 +1,23 @@
+--- setupext.py	2006-05-08 18:45:53.000000000 +0100
++++ setupext.py.new	2006-06-13 13:37:39.000000000 +0100
+@@ -336,13 +336,13 @@
+     try:
+         tk=Tkinter.Tk()	
+     except Tkinter.TclError:
+-        print "Using default library and include directories for Tcl and Tk because a"
+-        print "Tk window failed to open.  You may need to define DISPLAY for Tk to work"
+-        print "so that setup can determine where your libraries are located."
+-        o.tcl_lib = "/usr/local/lib"
+-        o.tcl_inc = "/usr/local/include"
+-        o.tk_lib = "/usr/local/lib"
+-        o.tk_inc = "/usr/local/include"
++        #print "Using default library and include directories for Tcl and Tk because a"
++        #print "Tk window failed to open.  You may need to define DISPLAY for Tk to work"
++        #print "so that setup can determine where your libraries are located."
++        o.tcl_lib = "/usr/lib"
++        o.tcl_inc = "/usr/include"
++        o.tk_lib = "/usr/lib"
++        o.tk_inc = "/usr/include"
+         o.tkv = ""
+     else:
+         tk.withdraw()

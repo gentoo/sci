@@ -2,7 +2,14 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*matplotlib-0.87.3 (30 May 2006)
+*matplotlib-0.87.3-r1 (13 Jun 2006)
+
+  13 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +matplotlib-0.87.3-r1.ebuild, +files/matplotlib-0.87.3-tcltk.patch
+  Fixed wxpython versioning, added patch to avoid opening a window
+  with tcltk.
+	
+*matplotlib-0.87.3 (09 Jun 2006)
 
   09 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>
   +matplotlib-0.87.3.ebuild,
