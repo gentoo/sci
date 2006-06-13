@@ -1,0 +1,5 @@
+--- doxygen/Makefile.in.orig	2006-03-11 03:37:32.000000000 +0100
++++ doxygen/Makefile.in	2006-06-14 00:01:41.000000000 +0200
+@@ -182 +182 @@
+-docdir = $(prefix)/doc
++docdir = $(prefix)/share/doc/matio-1.0
