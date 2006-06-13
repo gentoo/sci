@@ -5,24 +5,12 @@
 *matplotlib-0.87.3-r1 (13 Jun 2006)
 
   13 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>
-  +matplotlib-0.87.3-r1.ebuild, +files/matplotlib-0.87.3-tcltk.patch
-  Fixed wxpython versioning, added patch to avoid opening a window
-  with tcltk.
-	
-*matplotlib-0.87.3 (09 Jun 2006)
-
-  09 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>
-  +matplotlib-0.87.3.ebuild,
-  Version bump. Removed mplot3d since it is now included.
-	
-*matplotlib-0.87.2-r2 (30 May 2006)
-
-  30 May 2006; Sebastien Fabbro <seb@ist.utl.pt>
-  +matplotlib-0.87.2-r2.ebuild,
-  +files/matplotlib-mplot3d.patch
+  +matplotlib-0.87.3-r1.ebuild, 
+  +files/matplotlib-0.87.3-tcltk.patch
   +metadata.xml
-  added 3d support, agg support, wxwindow support, swap numpy/numeric 
-  order check, and added a doc flag which fetches and installs user guide.
+  Added patch to avoid opening a window with tcltk, added agg support, 
+  wxwindow support, swap numpy/numeric order check, and added a doc flag.
+  Also added long description in metadata.xml
 
 *matplotlib-0.87.2 (04 Apr 2006)
 *matplotlib-0.86.2-r1 (04 Apr 2006)

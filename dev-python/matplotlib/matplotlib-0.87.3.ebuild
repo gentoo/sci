@@ -37,7 +37,6 @@ pkg_setup() {
 		export WX_GTK_VER="2.6"
 		need-wxwidgets gtk2
 	fi
-   
 }
 
 src_unpack() {
@@ -49,7 +48,7 @@ src_unpack() {
 	epatch "${FILESDIR}/${PN}-0.87.2-no-autodetect.patch"
 	# tkinter opens a window to determine paths! remove it
 	epatch "${FILESDIR}/${P}-tcltk.patch"
-	
+
 	sed -i \
 		-e "/^BUILD_GTK/s/'auto'/$(use gtk && echo 1 || echo 0)/g" \
 		-e "/^BUILD_WX/s/'auto'/$(use wxwindows && echo 1 || echo 0)/g" \
