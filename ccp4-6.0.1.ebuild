@@ -133,6 +133,9 @@ src_unpack() {
 	# We may need more fixing to use libcblas for the C files
 	ccp_patch ${FILESDIR}/check-blas-lapack-pthread.patch
 
+	# gerror_ gets defined twice on ppc if you're using gfortran/g95
+	ccp_patch ${FILESDIR}/${PV}-ppc-double-define-gerror.patch
+
 	einfo "Done." # done applying Gentoo patches
 	echo
 
