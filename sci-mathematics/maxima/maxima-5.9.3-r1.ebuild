@@ -13,22 +13,24 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE="cmucl clisp sbcl gcl tetex emacs auctex tcltk nls unicode"
 
-DEPEND=">=sys-apps/texinfo-4.3
-	tetex? ( virtual/tetex )
-	emacs? ( virtual/emacs )
-	auctex? ( app-emacs/auctex )
-	!clisp? ( !sbcl? ( !cmucl? ( >=dev-lisp/gcl-2.6.7 ) ) )
-	cmucl? ( >=dev-lisp/cmucl-19a )
-	clisp? ( >=dev-lisp/clisp-2.33.2-r1 )
-	gcl?   ( >=dev-lisp/gcl-2.6.7 )
-	sbcl?  ( >=dev-lisp/sbcl-0.9.4 )"
-
 # rlwrap is recommended for clisp and sbcl
 RDEPEND=">=sci-visualization/gnuplot-4.0
 	app-text/gv
-	sbcl?  ( app-misc/rlwrap )
-	cmucl? ( app-misc/rlwrap )
+	tetex? ( virtual/tetex )
+	emacs? ( virtual/emacs )
+	auctex? ( app-emacs/auctex )
+	clisp? ( >=dev-lisp/clisp-2.33.2-r1 )
+	gcl?   ( >=dev-lisp/gcl-2.6.7 )
+	sbcl?  ( >=dev-lisp/sbcl-0.9.4 app-misc/rlwrap )
+	cmucl? ( >=dev-lisp/cmucl-19a app-misc/rlwrap )
+	!clisp? ( !sbcl? ( !cmucl? ( >=dev-lisp/gcl-2.6.7 ) ) )
 	tcltk? ( >=dev-lang/tk-8.3.3 )"
+
+DEPEND="${RDEPEND} >=sys-apps/texinfo-4.3"
+
+for lang in es pt; do
+	IUSE="${IUSE} linguas_${lang}"
+done
 
 # chosen apps are hardcoded in maxima source:
 # - ghostview for postscript (changed to gv)
@@ -37,14 +39,14 @@ RDEPEND=">=sci-visualization/gnuplot-4.0
 
 src_unpack() {
 	unpack ${A}
-	# small patch for emaxima (from fedora)
-	epatch ${FILESDIR}/${P}-emaxima.patch
-	# patch to select firefox as def. browswer and add opera as choices
-	epatch ${FILESDIR}/${P}-default-browser.patch
+	# emacs mode patch
+	epatch "${FILESDIR}"/${P}-emaxima.patch
+	# replace obsolete netscape with firefox, add opera as choices
+	epatch "${FILESDIR}"/${P}-default-browser.patch
 	# replace ugly ghostview with gv
-	for psfile in $(grep -rl ghostview ${P}/*); do
-		sed -i -e 's/ghostview/gv/g' ${psfile}
-	done
+	epatch "${FILESDIR}"/${P}-default-psviewer.patch
+	# no debug during compile
+	epatch "${FILESDIR}"/${P}-sbcl-disable-debugger.patch
 }
 
 src_compile() {
@@ -110,7 +112,6 @@ src_install() {
 		doins interfaces/emacs/emaxima/emaxima.sty
 	fi
 
-	# install documentation
 	insinto /usr/share/${PN}/${PV}/doc
 	doins AUTHORS ChangeLog COPYING NEWS README*
 	dodir /usr/share/doc
@@ -118,7 +119,7 @@ src_install() {
 }
 
 pkg_preinst() {
-	# do not gunzip the info files in certain cases of lisp
+	# some lisp do not gunzip on the fly info files
 	if use cmucl || use clisp || use sbcl; then
 		for infofile in $(ls ${D}/usr/share/info/*.gz); do
 			gunzip ${infofile}

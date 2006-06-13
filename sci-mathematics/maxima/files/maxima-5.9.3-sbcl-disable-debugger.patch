@@ -1,0 +1,22 @@
+--- maxima-5.9.3/src/Makefile.am.sbcl-disable-debugger	2006-02-11 08:25:06.000000000 -0600
++++ maxima-5.9.3/src/Makefile.am	2006-04-26 14:30:15.000000000 -0500
+@@ -151,7 +151,7 @@
+ 
+ 
+ if SBCL
+-EXECUTESBCL = $(SBCL_NAME) --noinform --noprint --eval
++EXECUTESBCL = $(SBCL_NAME) --noinform --noprint --disable-debugger --eval
+ all-local: binary-sbcl/maxima.core
+ install-exec-local: install-sbcl
+ uninstall: uninstall-sbcl
+--- maxima-5.9.3/src/Makefile.in.sbcl-disable-debugger	2006-03-19 09:23:40.000000000 -0600
++++ maxima-5.9.3/src/Makefile.in	2006-04-26 14:31:14.000000000 -0500
+@@ -204,7 +204,7 @@
+ @CMUCL_TRUE@EXECUTECMUCL = $(CMUCL_NAME) -noinit -batch
+ @SCL_TRUE@EXECUTESCL = $(SCL_NAME) -noinit -batch
+ @ACL6_TRUE@EXECUTEACL6 = $(ACL6_NAME) -batch
+-@SBCL_TRUE@EXECUTESBCL = $(SBCL_NAME) --noinform --noprint --eval
++@SBCL_TRUE@EXECUTESBCL = $(SBCL_NAME) --noinform --noprint --disable-debugger --eval
+ @GCL_TRUE@EXECUTEGCL = $(GCL_NAME) -batch -eval
+ @OPENMCL_TRUE@EXECUTEOPENMCL = $(OPENMCL_NAME) -e
+ genericdir = $(instsrcdir)

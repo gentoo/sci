@@ -6,6 +6,7 @@
 
   10 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>
   +files/50maxima-gentoo.el, +maxima-5.9.3-r1.ebuild, +metadata.xml
+  +files/maxima-5.9.3-default-psviewer.patch. Changed RDEPEND. Added linguas.
   Fixed typos in files, closing bugs #130287, #130245 and #134795.
   Added longdescription in metadata.xml.
 

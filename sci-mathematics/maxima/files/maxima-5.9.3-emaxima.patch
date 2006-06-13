@@ -1,13 +1,22 @@
---- maxima-5.9.3/interfaces/emacs/emaxima/maxima.el~	2005-06-21 23:48:42.000000000 -0400
-+++ maxima-5.9.3/interfaces/emacs/emaxima/maxima.el	2006-04-07 12:10:29.000000000 -0400
-@@ -2756,8 +2756,8 @@
-       (save-excursion
-         (set-buffer mbuf)
-         (setq inferior-maxima-process (get-buffer-process mbuf))
--        (add-to-list 'comint-output-filter-functions
--                     'inferior-maxima-output-filter)
-+;        (add-to-list 'comint-output-filter-functions
-+;                     'inferior-maxima-output-filter)
+--- maxima-5.9.3.orig/interfaces/emacs/emaxima/maxima.el	2005-06-22 04:48:42.000000000 +0100
++++ maxima-5.9.3/interfaces/emacs/emaxima/maxima.el	2006-06-13 10:01:08.000000000 +0100
+@@ -2705,7 +2705,7 @@
+ 
+ (defun inferior-maxima-wait-for-output ()
+   "Wait for output from the Maxima process."
+-  (while (and 
++  (when (and 
+           inferior-maxima-waiting-for-output
+           (inferior-maxima-running))
+     (accept-process-output inferior-maxima-process))
+@@ -2760,8 +2760,8 @@
+                      'inferior-maxima-output-filter)
  ;        (add-to-list 'comint-output-filter-functions
  ;                     'inferior-maxima-replace-tabs-by-spaces)
-         (add-to-list 'comint-output-filter-functions
+-        (add-to-list 'comint-output-filter-functions
+-                     'inferior-maxima-remove-double-input-prompt)
++;        (add-to-list 'comint-output-filter-functions
++;                     'inferior-maxima-remove-double-input-prompt)
+ 	(if maxima-fix-double-prompt
+             (add-to-list 'comint-output-filter-functions
+                          'inferior-maxima-remove-double-prompt))

@@ -1,0 +1,45 @@
+diff -urN maxima-5.9.3.orig/interfaces/emacs/misc/bookmode.el maxima-5.9.3/interfaces/emacs/misc/bookmode.el
+--- maxima-5.9.3.orig/interfaces/emacs/misc/bookmode.el	2000-05-08 07:09:44.000000000 +0100
++++ maxima-5.9.3/interfaces/emacs/misc/bookmode.el	2006-06-13 10:09:32.000000000 +0100
+@@ -680,7 +680,7 @@
+ 		
+ 		  (and tem
+ 		       (list (concat "View "(nth 1 tem))
+-			     'call-process  "ghostview" nil nil nil
++			     'call-process  "gv" nil nil nil
+ 			     (expand-file-name(nth 1 tem))
+ 			     ))
+ 		  (list "Cancel")
+@@ -705,7 +705,7 @@
+ 			 (concat
+ 			  (cond ((looking-at "%PS") "")
+ 				(t "gzip -dc | "))
+-			  "ghostview -")
++			  "gv -")
+ 			 
+ 	)))
+ 	 
+diff -urN maxima-5.9.3.orig/interfaces/xmaxima/Tkmaxima/Constants.tcl maxima-5.9.3/interfaces/xmaxima/Tkmaxima/Constants.tcl
+--- maxima-5.9.3.orig/interfaces/xmaxima/Tkmaxima/Constants.tcl	2004-10-28 19:26:29.000000000 +0100
++++ maxima-5.9.3/interfaces/xmaxima/Tkmaxima/Constants.tcl	2006-06-13 10:09:32.000000000 +0100
+@@ -132,7 +132,7 @@
+     text/html  netmath
+     text/plain netmath
+     image/gif  netmath
+-    application/postscript "ghostview -safer %s"
++    application/postscript "gv -safer %s"
+     application/pdf "acroread %s"
+     application/x-dvi "xdvi %s"
+ }
+diff -urN maxima-5.9.3.orig/src/plot.lisp maxima-5.9.3/src/plot.lisp
+--- maxima-5.9.3.orig/src/plot.lisp	2006-02-10 06:49:35.000000000 +0000
++++ maxima-5.9.3/src/plot.lisp	2006-06-13 10:09:32.000000000 +0100
+@@ -73,7 +73,7 @@
+ 			((mlist) $logy nil)
+ 			))
+ 
+-(defvar $viewps_command  "(ghostview \"~a\")")
++(defvar $viewps_command  "(gv \"~a\")")
+ 
+ ;;(defvar $viewps_command  "(gs -I. -Q  ~a)")
+ 
