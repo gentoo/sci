@@ -5,8 +5,9 @@
 *imaxima-0.94b (10 Jun 2006)
 
   10 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt> +metadata.xml,
-  +imaxima-0.94b.ebuild: version bump + added longdescription in
-  metadata.xml. Tested on amd64 as well. Closing #101186 and #135592.
+  +imaxima-0.94b.ebuild, +files/imaxima-0.94b-imaxima.el.patch: 
+  Version bump, added patch, added longdescription in metadata.xml.
+  Tested on amd64 as well. Closing #101186 and #135592.
   Thanks to Sebastian Schubert <sebastian-schubert@gmx.de> and others.
 	
   24 Aug 2005; Matthew Kennedy <mkennedy@gentoo.org> imaxima-0.9.ebuild:

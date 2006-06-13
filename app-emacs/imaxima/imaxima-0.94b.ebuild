@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit elisp
+inherit eutils elisp
 
 MY_P="${PN}-imath-${PV}"
 DESCRIPTION="Imaxima enables graphical output in Maxima sessions with emacs"
@@ -21,6 +21,11 @@ DEPEND="virtual/emacs
 	>=sci-mathematics/maxima-5.9.1"
 
 S=${WORKDIR}/${MY_P}
+
+src_unpack() {
+	unpack ${A}
+	epatch "${FILESDIR}"/${P}-imaxima.el.patch
+}
 
 src_compile() {
 	econf || die "econf failed"
