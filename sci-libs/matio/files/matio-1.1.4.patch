@@ -1,4 +1,4 @@
-diff -U2 -r matio.orig/Makefile.am matio/Makefile.am
+diff -r -U2 matio.orig/Makefile.am matio/Makefile.am
 --- matio.orig/Makefile.am	2006-01-11 15:34:34.000000000 +0100
 +++ matio/Makefile.am	2006-06-16 21:16:52.000000000 +0200
 @@ -8,7 +8,5 @@
@@ -24,29 +24,20 @@ diff -U2 -r matio.orig/Makefile.am matio/Makefile.am
 -
  print:
  	subdirs='$(SUBDIRS)'; \
-diff -U2 -r matio.orig/doxygen/Makefile.am matio/doxygen/Makefile.am
+diff -r -U2 matio.orig/doxygen/Makefile.am matio/doxygen/Makefile.am
 --- matio.orig/doxygen/Makefile.am	2006-01-11 15:34:29.000000000 +0100
 +++ matio/doxygen/Makefile.am	2006-06-16 21:07:05.000000000 +0200
 @@ -8,5 +8,5 @@
  VPATH = @srcdir@
  
 -docdir = $(prefix)/doc
-+docdir = $(prefix)/share/doc/matio-$(PV)
++docdir = $(prefix)/share/doc/matio-1.0
  doc_DATA = $(top_builddir)/doxygen/latex/libmatio.pdf
  
-diff -U2 -r matio.orig/src/Makefile.am matio/src/Makefile.am
+diff -r -U2 matio.orig/src/Makefile.am matio/src/Makefile.am
 --- matio.orig/src/Makefile.am	2006-03-11 03:36:40.000000000 +0100
-+++ matio/src/Makefile.am	2006-06-16 21:16:47.000000000 +0200
-@@ -9,8 +9,4 @@
- AM_LDFLAGS =
- 
--if HAVE_ZLIB
--    ZLIB_SRC = inflate.c
--endif
--
- include_HEADERS     = matio.h matioConfig.h
- lib_LTLIBRARIES     = libmatio.la
-@@ -29,7 +25,4 @@
++++ matio/src/Makefile.am	2006-06-16 23:36:48.000000000 +0200
+@@ -29,7 +29,4 @@
                -e 's,\/,\\,g'
  
 -doc:
@@ -54,7 +45,7 @@ diff -U2 -r matio.orig/src/Makefile.am matio/src/Makefile.am
 -
  print:
  	@list='$(libmatio_a_SOURCES)'; \
-diff -U2 -r matio.orig/test/Makefile.am matio/test/Makefile.am
+diff -r -U2 matio.orig/test/Makefile.am matio/test/Makefile.am
 --- matio.orig/test/Makefile.am	2006-02-09 20:48:24.000000000 +0100
 +++ matio/test/Makefile.am	2006-06-16 21:36:44.000000000 +0200
 @@ -7,5 +7,5 @@

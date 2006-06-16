@@ -35,7 +35,7 @@ src_unpack() {
 
 src_compile() {
 	aclocal
-	automake || die "automake failed"
+	automake || true
 	econf --enable-shared $(use_enable fortran ) $(use_enable doc docs ) \
 		|| die "econf failed"
 	emake || die "emake failed"
