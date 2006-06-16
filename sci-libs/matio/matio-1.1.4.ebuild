@@ -11,7 +11,8 @@ LICENSE="LGPL"
 KEYWORDS="~x86"
 IUSE="doc fortran"
 SRC_URI="${PN}.zip"
-DEPEND="doc? ( app-doc/doxygen )"
+DEPEND="doc? ( app-doc/doxygen virtual/tetex )
+	fortran? ( >=gcc-4.1 )"
 S="${WORKDIR}/${PN}"
 RESTRICT="fetch"
 
@@ -22,19 +23,25 @@ pkg_nofetch() {
 	einfo "and put it into ${DISTDIR}"
 }
 
+pkg_setup() {
+	use fortran && ! built_with_use gcc fortran && die "Re-emerge gcc with USE flag fortran"
+}
+
 src_unpack() {
 	unpack ${A}
 	cd ${S}
-	epatch "${FILESDIR}/Makefile.in.patch"
+	epatch "${FILESDIR}/matio-1.1.4.patch"
 }
 
 src_compile() {
+	aclocal
+	automake || die "automake failed"
 	econf --enable-shared $(use_enable fortran ) $(use_enable doc docs ) \
 		|| die "econf failed"
 	emake || die "emake failed"
 }
 
 src_install() {
-	docdir="${D}usr/share/doc/${P}" make DESTDIR="${D}" install
+	make DESTDIR="${D}" install
 	dodoc README ChangeLog
 }

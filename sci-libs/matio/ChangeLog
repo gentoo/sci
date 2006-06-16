@@ -2,8 +2,8 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*matio-1.0 (13 June 2006)
+*matio-1.1.4 (16 June 2006)
 
-  13 June 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
-  +metadata.xml, +algae-4.3.6.ebuild, +files/Makefile.in.patch:
+  16 June 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +metadata.xml, +matio-1.1.4.ebuild, +files/matio-1.1.4.patch:
   Initial import.
