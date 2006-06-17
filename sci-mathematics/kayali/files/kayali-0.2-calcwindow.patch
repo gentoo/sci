@@ -1,0 +1,11 @@
+--- kayali/calcwindow.py	2006-06-02 17:42:16.000000000 +0200
++++ kayali/calcwindow.py	2006-06-02 17:42:27.000000000 +0200
+@@ -661,7 +661,7 @@
+ 
+         self.frmInputEdit = QFrame(self.centralWidget(),"frmInputEdit")
+         self.frmInputEdit.setGeometry(QRect(2,3,661,30))
+-        self.frmInputEdit.setSizePolicy(QSizePolicy(7,5,0,0,self.frmInputEdit.sizePolicy().hasHeightForWidth()))
++        #self.frmInputEdit.setSizePolicy(QSizePolicy(7,5,0,0,self.frmInputEdit.sizePolicy().hasHeightForWidth()))
+         self.frmInputEdit.setMinimumSize(QSize(0,30))
+         self.frmInputEdit.setFrameShape(QFrame.NoFrame)
+         self.frmInputEdit.setFrameShadow(QFrame.Plain)

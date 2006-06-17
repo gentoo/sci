@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.2
+Name=Kayali
+TryExec=kayali
+GenericName=Computer Algebry System Frontend for Maxima and Gnuplot
+StartupNotify=true
+Exec=kayali
+Icon=kayali.png
+Terminal=false
+Type=Application
+Categories=Application;Science;Math;
