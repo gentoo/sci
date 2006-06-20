@@ -24,7 +24,12 @@ pkg_nofetch() {
 }
 
 pkg_setup() {
-	use fortran && ! built_with_use gcc fortran && die "Re-emerge gcc with USE flag fortran"
+	if use fortran ; then
+		if ! built_with_use gcc fortran ; then
+			einfo "Please re-emerge gcc with the USE flag fortran and try again"
+			die
+		fi
+	fi
 }
 
 src_unpack() {

@@ -31,7 +31,7 @@ src_unpack() {
 }
 
 src_compile() {
-	autoconf configure.in > configure
+	autoconf
 	if use icc; then
 		F77="ifort" FFLAGS="-O3 -axKWNBP -ip" \
 		CC="icc" CFLAGS="-O3 -axKWNBP -ip" \
