@@ -1,0 +1,9 @@
+# ChangeLog for sci-mathematics/rkward
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*rkward-0.3.7_pre1 (21 Jun 2006)
+
+  21 Jun 2006; Lucas Chiesa <lucas.chiesa@gmail.com>: 
+  +rkward-0.3.7_pre1.ebuild, Initial import. 
+  Thanks to Colin Kiegel <kiegel@gmx.de> for the ebuild.
