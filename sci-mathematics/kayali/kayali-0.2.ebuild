@@ -9,20 +9,20 @@ inherit eutils
 DESCRIPTION="A KDE based Computer Algebra System (CAS) Frontend for Maxima and Gnuplot."
 HOMEPAGE="http://kayali.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
-LICENSE="GPL"
+
+#The source code does not state any licence. 
+#Upstream was emailed for this issue
+LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~x86"
 IUSE="plotting"
 DEPEND=""
 RDEPEND="virtual/python
-		sci-mathematics/maxima 
-		dev-python/PyQt
-		plotting? (>sci-visualization/gnuplot-4.0
-		media-libs/gd)"
-		
-# gnuplot python maxima pyqt 
-# gnuplot-py depends on gnuplot and python
+	sci-mathematics/maxima
+	dev-python/PyQt
+	plotting? ( >sci-visualization/gnuplot-4.0
+	media-libs/gd )"
 
 S=${WORKDIR}/${PN}
 
