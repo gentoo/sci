@@ -1,0 +1,12 @@
+--- acinclude.m4.orig	2006-06-17 00:03:28.000000000 +0200
++++ acinclude.m4	2006-06-17 00:01:49.000000000 +0200
+@@ -292,4 +292,9 @@
+   LIBS="-lumfpack $LIBS"
+ fi
++AC_CHECK_HEADERS(umfpack/umfpack.h)
++if $HAVE_UMFPACK_UMFPACK_H; then
++  CFLAGS="$CFLAGS -I/usr/include/umfpack"
++  CXXFLAGS="$CXXFLAGS -I/usr/include/umfpack"
++fi
+ AC_CHECK_LIB(fftw3f,fftwf_malloc,found_fftw3f="yes",found_fftw3f="no")
+ if test x"$found_fftw3f" == xyes; then

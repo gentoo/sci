@@ -1,0 +1,9 @@
+# ChangeLog for sci-mathematics/freemat
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*freemat-2.0 (30 June 2006)
+
+  30 June 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +metadata.xml, +freemat-2.0.ebuild, +files/acinclude.m4.patch, +files/Inspect.cpp.patch:
+  Initial import
