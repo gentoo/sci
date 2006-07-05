@@ -1,4 +1,4 @@
-# Copyright 1999-2005 Gentoo Foundation
+# Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -49,7 +49,7 @@ src_install() {
 
 	if use doc; then
 		insinto "/usr/share/doc/${PF}"
-		doins doc/manual.pdf 
+		doins doc/manual.pdf
 	fi
 
 	if use examples; then
