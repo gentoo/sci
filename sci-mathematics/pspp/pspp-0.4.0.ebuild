@@ -13,7 +13,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc ncurses emacs plotutils nls"
 
 DEPEND=">=sci-libs/gsl-1.6
-    sys-libs/readline
+	sys-libs/readline
 	>=sys-devel/gettext-0.14.1
 	>=dev-lang/perl-5.6
 	ncurses? ( >=sys-libs/ncurses-5.4 )

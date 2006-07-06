@@ -1,6 +1,6 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $
+# $Header: $
 
 inherit eutils
 
@@ -11,7 +11,7 @@ DESCRIPTION="Graphical output functions for Matlab and Octave"
 HOMEPAGE="http://www.epstk.de"
 SRC_URI="http://epstk.sourceforge.net/down/${MY_P}.zip"
 
-LICENSE="GPL"
+LICENSE="GPL-2"
 KEYWORDS="~x86 ~amd64"
 SLOT="0"
 IUSE=""
@@ -26,10 +26,10 @@ src_unpack () {
 }
 
 src_install () {
-	dodir ${MY_DIR} 
+	dodir ${MY_DIR}
 	cd ${WORKDIR}/epstk21/m
-	insinto ${MY_DIR} 
-	doins *	
+	insinto ${MY_DIR}
+	doins *
 	cd ${WORKDIR}/epstk21/
 	dodoc License.txt
 }

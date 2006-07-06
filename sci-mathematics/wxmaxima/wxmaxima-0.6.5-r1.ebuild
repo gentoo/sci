@@ -23,16 +23,16 @@ S=${WORKDIR}/${MYP}
 
 src_unpack () {
 	unpack ${A}
-	
+
 	sed 's|#PF#|'${PF}'|g' \
 		${FILESDIR}/${PF}-docfiles.patch > ${PF}-docfiles.patch
-		
+
 	epatch ${PF}-docfiles.patch
 
 	cd ${S}
 	einfo "Regenerating autotools files..."
 	eautomake || die "eautomake failed"
-}	
+}
 
 
 src_compile () {
@@ -48,11 +48,11 @@ src_compile () {
 src_install () {
 	make DESTDIR=${D} install || die "make install failed"
 	insinto /usr/share/pixmaps/
-	doins maxima-new.png 
+	doins maxima-new.png
 	make_desktop_entry wxmaxima wxMaxima maxima-new
-	
+
 	cd ${S}/data
-	
+
 	if use doc; then
 		insinto "/usr/share/doc/${PF}"
 		doins docs.zip intro.zip

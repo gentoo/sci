@@ -1,6 +1,5 @@
-# Copyright 2006 Gentoo Foundation
+# Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-#
 # $Header: $
 
 inherit eutils
@@ -17,9 +16,9 @@ IUSE="arts"
 
 DEPEND=">=sci-libs/lapack-3.0
 		>=x11-libs/qt-3.3.4
-        >=kde-base/kdelibs-3.4.1
-        >=dev-lang/R-2.2.0
-        >=dev-lang/php-4.3.11
+		>=kde-base/kdelibs-3.4.1
+		>=dev-lang/R-2.2.0
+		>=dev-lang/php-4.3.11
 		arts? ( kde-base/arts
 	    	|| ( kde-base/kdemultimedia-arts kde-base/kdemultimedia ) )"
 
