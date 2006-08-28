@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~x86"
 
 DEPEND=">=sys-libs/ncurses-5.4-r5 virtual/blas virtual/lapack dev-libs/ffcall\
-	sci-libs/umfpack sci-libs/arpack sci-libs/matio"
+	sci-libs/umfpack sci-libs/arpack >=sci-libs/matio-1.3.0"
 
 S=${WORKDIR}/${MY_P}
 
@@ -28,6 +28,7 @@ src_unpack() {
 	find -name '*.moc.cpp' | xargs rm -f
 	epatch "${FILESDIR}/acinclude.m4.patch"
 	epatch "${FILESDIR}/Inspect.cpp.patch"
+	epatch "${FILESDIR}/matio.patch"
 }
 
 src_compile() {
