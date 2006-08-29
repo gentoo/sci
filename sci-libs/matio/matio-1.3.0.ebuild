@@ -10,18 +10,10 @@ SLOT="0"
 LICENSE="LGPL"
 KEYWORDS="~x86"
 IUSE="doc fortran"
-SRC_URI="${PN}.zip"
+SRC_URI="http://www.mathworks.com/matlabcentral/files/8187/${PN}.zip"
 DEPEND="doc? ( app-doc/doxygen virtual/tetex )
 	fortran? ( >=gcc-4.1 )"
 S="${WORKDIR}/${PN}"
-RESTRICT="fetch"
-
-pkg_nofetch() {
-	einfo "Please visit"
-	einfo "${HOMEPAGE}"
-	einfo "download ${PN}.zip"
-	einfo "and put it into ${DISTDIR}"
-}
 
 pkg_setup() {
 	if use fortran ; then
