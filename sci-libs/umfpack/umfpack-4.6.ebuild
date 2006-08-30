@@ -15,7 +15,7 @@ DESCRIPTION="Library for unsymmetric sparse linear algebra using the Unsymmetric
 HOMEPAGE="http://www.cise.ufl.edu/research/sparse/umfpack"
 SRC_URI="http://www.cise.ufl.edu/research/sparse/${PN}/${MY_PV}/${MY_PN}.tar.gz
 	http://www.cise.ufl.edu/research/sparse/UFconfig/current/UFconfig.tar.gz
-	http://www.cise.ufl.edu/research/sparse/amd/current/AMD.tar.gz"
+	http://www.cise.ufl.edu/research/sparse/amd/v1.2/AMD.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"

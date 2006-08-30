@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Aug 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>:
+  changed the download url for amd to .../v1.2/AMD.tar.gz
+  because current points to a newer version.
+
   07 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt> umfpack-4.6.ebuild:
   Tested against gcc4.1.1, and with as-needed, fixed a typo.
 	
