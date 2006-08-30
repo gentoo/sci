@@ -2,15 +2,28 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*matplotlib-0.87.3-r1 (13 Jun 2006)
+*matplotlib-0.87.4-r1 (29 Aug 2006)
 
-  13 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>
-  +matplotlib-0.87.3-r1.ebuild, 
-  +files/matplotlib-0.87.3-tcltk.patch
+  29 Aug 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +matplotlib-0.87.4-r1.ebuild:
   +metadata.xml
-  Added patch to avoid opening a window with tcltk, added agg support, 
-  wxwindow support, swap numpy/numeric order check, and added a doc flag.
-  Also added long description in metadata.xml
+  Changed tk use flag, added more doc, added agg dependency if needed,
+  window opening bug, and added longdescription in metadata.xml.
+  Fixes bug .
+	
+*matplotlib-0.87.4 (17 Jul 2006)
+
+  17 Jul 2006; Alastair Tse <liquidx@gentoo.org>
+  +files/matplotlib-0.87.4-fix-bad-win32-detect.patch,
+  -matplotlib-0.87.3.ebuild, +matplotlib-0.87.4.ebuild:
+  version bump. fix broken compiling of c++ modules.
+
+*matplotlib-0.87.3 (16 Jul 2006)
+
+  16 Jul 2006; Alastair Tse <liquidx@gentoo.org> -matplotlib-0.73.1.ebuild,
+  -matplotlib-0.81.ebuild, -matplotlib-0.82.ebuild, -matplotlib-0.85.ebuild,
+  -matplotlib-0.86.2-r1.ebuild, +matplotlib-0.87.3.ebuild:
+  version bump. (#136429)
 
 *matplotlib-0.87.2 (04 Apr 2006)
 *matplotlib-0.86.2-r1 (04 Apr 2006)
