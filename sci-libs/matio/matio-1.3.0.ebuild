@@ -31,6 +31,8 @@ src_unpack() {
 }
 
 src_compile() {
+	addwrite /var/cache/fonts
+	addwrite /usr/share/texmf
 	aclocal
 	automake || true
 	econf --enable-shared $(use_enable fortran ) $(use_enable doc docs ) \
