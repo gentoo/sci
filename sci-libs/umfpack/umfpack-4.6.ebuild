@@ -10,12 +10,14 @@ upper() {
 
 MY_PV="v${PV}"
 MY_PN="$(upper ${PN})"
+AMD_VERSION="v1.2"
+UFCONFIG_VERSION="v1.0"
 
 DESCRIPTION="Library for unsymmetric sparse linear algebra using the Unsymmetric MultiFrontal method"
 HOMEPAGE="http://www.cise.ufl.edu/research/sparse/umfpack"
 SRC_URI="http://www.cise.ufl.edu/research/sparse/${PN}/${MY_PV}/${MY_PN}.tar.gz
-	http://www.cise.ufl.edu/research/sparse/UFconfig/v1.0/UFconfig.tar.gz
-	http://www.cise.ufl.edu/research/sparse/amd/v1.2/AMD.tar.gz"
+	http://www.cise.ufl.edu/research/sparse/UFconfig/${UFCONFIG_VERSION}/UFconfig.tar.gz
+	http://www.cise.ufl.edu/research/sparse/amd/${AMD_VERSION}/AMD.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
