@@ -1,0 +1,20 @@
+--- numarray-1.5.2/Doc/manual/Makefile	2005-04-28 16:58:23.000000000 +0100
++++ numarray-1.5.2.new/Doc/manual/Makefile	2006-08-30 19:54:21.000000000 +0100
+@@ -52,7 +52,7 @@
+ 
+ dvi:		numarray.dvi
+ 
+-html:		numarray
++html:		numarray.html
+ 
+ pdf:		numarray.pdf
+ 
+@@ -71,7 +71,7 @@
+ 		echo "You need to create a link to mkhowto,"
+ 		echo "see the README for details."
+ 
+-numarray:	Makefile mkhowto $(SOURCES)
++numarray.html:	Makefile mkhowto $(SOURCES)
+ 		$(MKHOWTO) --html $(OPTIONS) numarray.tex
+ 
+ numarray.dvi:	Makefile mkhowto $(SOURCES)

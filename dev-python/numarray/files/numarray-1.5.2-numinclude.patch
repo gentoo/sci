@@ -1,0 +1,11 @@
+--- numarray-1.5.2/Lib/numinclude.py	2006-08-24 19:40:48.000000000 +0100
++++ numarray-1.5.2.new/Lib/numinclude.py	2006-08-30 19:54:21.000000000 +0100
+@@ -4,7 +4,7 @@
+ import _ndarray
+ import os
+ 
+-include_dir = '/home/jmiller/work/debug/include/python2.5/numarray'
++include_dir = '/usr/include/python2.4/numarray'
+ version     = '1.5.2'
+ hasUInt64   = _ndarray.hasUInt64()
+ LP64        = _ndarray.lp64()
