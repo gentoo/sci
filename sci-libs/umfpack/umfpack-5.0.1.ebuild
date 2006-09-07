@@ -47,7 +47,6 @@ src_compile() {
 			RANLIB="$(tc-getRANLIB)" \
 			LIB="-lm" \
 			UMFPACK_CONFIG="${UPCONFIG}" \
-			BLAS="${UPBLAS}" \
 			|| die "emake for ${uplib} failed"
 		libtool --mode=link --tag=CC $(tc-getCC) ${CFLAGS} \
 			-o lib${uplib}.la *.lo -rpath ${RPATH} \
@@ -57,6 +56,7 @@ src_compile() {
 
 src_test() {
 
+	use blas && LIB="-lm -lblas"
 	for uplib in ${uplibs}; do
 		cd ${WORKDIR}/$(upper ${uplib})/Demo
 		emake \
@@ -64,7 +64,7 @@ src_test() {
 			CFLAGS="${CFLAGS}" \
 			AR="$(tc-getAR) cr" \
 			RANLIB="$(tc-getRANLIB)" \
-			LIB="-lm" \
+			LIB="${LIB}" \
 			UMFPACK_CONFIG="${UPCONFIG}" \
 			BLAS="${UPBLAS}" \
 			|| die "emake for ${uplib} failed"
