@@ -10,23 +10,21 @@ upper() {
 
 MY_PV="v${PV}"
 MY_PN="$(upper ${PN})"
-AMD_VERSION="v1.2"
-UFCONFIG_VERSION="v1.0"
+AMD_VERSION="2.0.1"
+UFCONFIG_VERSION="2.1"
 
 DESCRIPTION="Library for unsymmetric sparse linear algebra using the Unsymmetric MultiFrontal method"
 HOMEPAGE="http://www.cise.ufl.edu/research/sparse/umfpack"
 SRC_URI="http://www.cise.ufl.edu/research/sparse/${PN}/${MY_PV}/${MY_PN}.tar.gz
-	http://www.cise.ufl.edu/research/sparse/UFconfig/${UFCONFIG_VERSION}/UFconfig.tar.gz
-	http://www.cise.ufl.edu/research/sparse/amd/${AMD_VERSION}/AMD.tar.gz"
+	http://www.cise.ufl.edu/research/sparse/UFconfig/v${UFCONFIG_VERSION}/UFconfig.tar.gz
+	http://www.cise.ufl.edu/research/sparse/amd/v${AMD_VERSION}/AMD.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cblas doc"
+IUSE="blas doc"
 DEPEND=">=sys-devel/libtool-1.5
-	cblas? ( || ( >=sci-libs/blas-atlas-3.6.0
-				>=sci-libs/mkl-8.0
-				sci-libs/cblas-reference ) )"
+	blas? ( virtual/blas )"
 
 S="${WORKDIR}/${MY_PN}"
 
@@ -35,11 +33,8 @@ src_compile() {
 	RPATH="${DESTTREE}"/$(get_libdir)
 
 	UPCONFIG="-DNBLAS"
+	use blas && UPCONFIG=""
 	use amd64 && UPCONFIG="${UPCONFIG} -DLP64"
-	if use cblas; then
-		UPCONFIG="${UPCONFIG} -DCBLAS $(blas-config --cflags)"
-		UPBLAS="$(blas-config --clibs)"
-	fi
 
 	# upstream Makefile forbids to use parallell builds.
 	# given its simplicity, we bypass it
@@ -92,7 +87,7 @@ src_install() {
 		docinto ${UPLIB}/Doc
 		dodoc ${UPDIR}/Doc/ChangeLog
 		if use doc; then
-			insinto /usr/share/${PF}/${UPLIB}/Doc
+			insinto /usr/share/doc/${PF}/${UPLIB}/Doc
 			doins ${UPDIR}/Doc/*.pdf
 		fi
 	done
