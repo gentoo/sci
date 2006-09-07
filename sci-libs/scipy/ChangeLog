@@ -2,15 +2,34 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scipy-0.5.1 (07 Sep 2006)
 
-*scipy-0.4.9 (06 Jun 2006)
+  07 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt>.
+  Version bump. Use portage version from 0.4.9 + added umfpack option.  
 
-  06 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt> +scipy-0.4.9.ebuild:
-  Version bump. Tested also with gcc4.1, added a threaded ATLAS better check.
-  Added a umfpack use flag, which depends on swig.
-  Had to force fpic on amd64 :(. Also restored metadata.xml which had a long
-  description on this overlay.
-	
+*scipy-0.4.9 (14 Jun 2006)
+
+  14 Jun 2006; Donnie Berkholz <spyderous@gentoo.org>; +scipy-0.4.9.ebuild:
+  Bump. Incorporates many changes from the science overlay, mainly from bicatali.
+
+  14 Jun 2006; Donnie Berkholz <spyderous@gentoo.org>;
+  scipy-0.4.8-r1.ebuild:
+  Remove =gcc-3* dep.
+
+  13 Jun 2006; Donnie Berkholz <spyderous@gentoo.org>;
+  scipy-0.4.8-r1.ebuild:
+  Keyword ~ppc.
+
+  13 Jun 2006; Donnie Berkholz <spyderous@gentoo.org>;
+  scipy-0.4.8-r1.ebuild:
+  (#134248) Fix for gcc4, and stop appending -O3 -funroll-loops at the end of
+  our compiler flags by specifying --opt.
+
+  13 Jun 2006; Donnie Berkholz <spyderous@gentoo.org>;
+  scipy-0.4.8-r1.ebuild:
+  When checking for ATLAS, do it case-insensitively. Future planning for
+  blas-config and lapack-config as eselect wrappers.
+
 *scipy-0.4.8-r1 (13 Apr 2006)
 
   13 Apr 2006; Olivier Fisette <ribosome@gentoo.org> +scipy-0.4.8-r1.ebuild:
@@ -26,3 +45,4 @@
   22 Aug 2005; Peter Bienstman <pbienst@gentoo.org> +files/system_info.diff,
   +metadata.xml, +scipy-0.3.2.ebuild:
   Initial import. Closes 24593. Thanks to D. Grant, D. Dale and others.
+

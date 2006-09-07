@@ -11,12 +11,12 @@ LICENSE="BSD"
 
 SLOT="0"
 IUSE="fftw umfpack"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~ppc ~x86"
 
 # did not use virtual/blas and virtual/lapack
 # because doc says scipy needs to compile all libraries with the same compiler
-DEPEND=">=dev-lang/python-2.3.3
-	>=dev-python/numpy-0.9.8
+RDEPEND=">=dev-lang/python-2.3.3
+	>=dev-python/numpy-1.0_beta2
 	sci-libs/blas-atlas
 	sci-libs/blas-config
 	sci-libs/lapack-config
@@ -24,15 +24,16 @@ DEPEND=">=dev-lang/python-2.3.3
 	fftw? ( =sci-libs/fftw-2.1* )
 	umfpack? ( dev-lang/swig sci-libs/umfpack )"
 
-# install doc claims fftw-2 is faster for complex ffts.
-# install doc claims gcc-4 not fully tested and blas-atlas is compiled
-# with g77 only, so force use of g77 here as well.
-# wxwindows seems to have disapeared : ?
-# f2py seems to be in numpy.
+DEPEND="${RDEPEND}"
+
+# install doc claims fftw-2 is faster for complex ffts. is this really true?
+# f2py is in numpy.
 
 FORTRAN="g77 gfortran"
 
 pkg_setup() {
+	fortran_pkg_setup
+
 	if built_with_use sci-libs/lapack-atlas ifc; then
 		echo
 		ewarn  "${PN} needs consistency among Fortran compilers."
@@ -46,14 +47,14 @@ pkg_setup() {
 	echo
 	einfo "Checking active BLAS implementations for ATLAS."
 	blas-config -p
-	if ! blas-config -p | grep "F77 BLAS:" | grep -q ATLAS; then
+	if ! blas-config -p | grep "F77 BLAS:" | grep -q -i atlas; then
 		eerror "Your F77 BLAS profile is not set to the ATLAS implementation,"
 		eerror "which is required by ${PN} to compile and run properly."
 		eerror "Use: 'blas-config -f ATLAS' to activate ATLAS."
 		echo
 		bad_profile=1
 	fi
-	if ! blas-config -p | grep "C BLAS:" | grep -q ATLAS; then
+	if ! blas-config -p | grep "C BLAS:" | grep -q -i atlas; then
 		eerror "Your C BLAS profile is not set to the ATLAS implementation,"
 		eerror "Which is required by ${PN} to compile and run properly."
 		eerror "Use: 'blas-config -c ATLAS' to activate ATLAS."
@@ -62,7 +63,7 @@ pkg_setup() {
 	fi
 	einfo "Checking active LAPACK implementation for ATLAS."
 	lapack-config -p
-	if ! lapack-config -p | grep "F77 LAPACK:" | grep -q ATLAS; then
+	if ! lapack-config -p | grep "F77 LAPACK:" | grep -q -i atlas; then
 		eerror "Your F77 LAPACK profile is not set to the ATLAS implementation,"
 		eerror "which is required by ${PN} to compile and run properly."
 		eerror "Use: 'lapack-config ATLAS' to activate ATLAS."
@@ -104,12 +105,41 @@ src_unpack() {
 	else
 		export UMFPACK=None
 	fi
+}
 
-	# forcing fpic for now, avoiding it would need a lot of work
-	if use amd64; then
-		append-flags -fPIC
-		FFLAGS="${FFLAGS} -fPIC"
-	fi
+src_compile() {
+	# Map compilers to what scipy calls them
+	local SCIPY_FC
+	case "${FORTRANC}" in
+		gfortran)
+			SCIPY_FC="gnu95"
+			;;
+		g77)
+			SCIPY_FC="gnu"
+			;;
+		g95)
+			SCIPY_FC="g95"
+			;;
+		ifc|ifort)
+			if use ia64; then
+				SCIPY_FC="intele"
+			elif use amd64; then
+				SCIPY_FC="intelem"				
+			else
+				SCIPY_FC="intel"
+			fi
+			;;
+		*)
+			local msg="Invalid Fortran compiler \'${FORTRANC}\'"
+			eerror "${msg}"
+			die "${msg}"
+			;;
+	esac
+	distutils_src_compile \
+		config_fc \
+		--fcompiler=${SCIPY_FC} \
+		--opt="${CFLAGS}" \
+		|| die "compilation failed"
 }
 
 src_install() {
