@@ -2,12 +2,25 @@
 # Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*root-5.10.00 (23 Apr 2006)
+*root-5.12.00a (23 Aug 2006)
 
-  23 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> root-5.10.00.ebuild
-  +root-5.10.00.ebuild, +metadata.xml (added longdescription)
-  Major version bump, and major ebuild change. 
+  23 Aug 2006; Sebastien Fabbro <seb@ist.utl.pt> root-5.12.00a.ebuild
+  +root-5.12.00a.ebuild, +metadata.xml (added longdescription)
+  Major version bump, and major ebuild change.
   Closes bug #109307, #124635, #98235, #98236, #34415.
+
+  02 Jul 2006; Luis Medinas <metalgod@gentoo.org> metadata.xml:
+  Update metadata to sci-physics.
+
+  02 Jul 2006; Luis Medinas <metalgod@gentoo.org>
+  +files/pgsql-no-libpq-int.patch, +files/root-makefile.patch,
+  +metadata.xml, +root-3.05.04.ebuild, +root-3.10.02-r1.ebuild,
+  +root-4.02.00.ebuild:
+  Moved from sci-libs/root to sci-physics/root.
+
+  23 Jun 2006; Doug Goldstein <cardoe@gentoo.org> root-3.10.02-r1.ebuild,
+  root-4.02.00.ebuild:
+  USE flag qt->qt3/qt4 change
 
   03 Feb 2006; Patrick Kursawe <phosphan@gentoo.org> root-3.05.04.ebuild,
   root-3.10.02-r1.ebuild, root-4.02.00.ebuild:
