@@ -4,8 +4,8 @@
 
 inherit eutils multilib fortran
 
-DEB_PV="2005.05.09.dfsg"
-DEB_PR="7"
+DEB_PV="${PV}.dfsg"
+DEB_PR="3"
 
 DESCRIPTION="CERN program library for High Energy Physics"
 HOMEPAGE="http://wwwasd.web.cern.ch/wwwasd/cernlib"
@@ -16,6 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 DEPEND="virtual/motif
 	x11-misc/imake
+	sci-libs/blas-config
 	virtual/lapack
 	dev-lang/cfortran
 	virtual/tetex"
@@ -31,6 +32,7 @@ src_unpack() {
 	epatch ${PN}_${DEB_PV}-${DEB_PR}.diff || die "epatch failed"
 
 	cd "${S}"
+
 	# temporary fix for threading support (while we have buggy eselect)
 	if blas-config -p | grep "F77 BLAS:" | grep -q f77-threaded-ATLAS; then
 		einfo "Fixing threads linking for blas"
@@ -39,45 +41,40 @@ src_unpack() {
 			-e 's/$DEPS -l$1 -lm/$DEPS -l$1 -lm -lpthread/' \
 			debian/add-ons/bin/cernlib.in
 	fi
+
 	# fix X11 library path
 	sed -i \
 		-e "s:L/usr/X11R6/lib:L/usr/$(get_libdir)/X11:g" \
 		-e "s:XDIR=/usr/X11R6/lib:XDIR=/usr/$(get_libdir)/X11:g" \
 		-e "s:XDIR64=/usr/X11R6/lib:XDIR64=/usr/$(get_libdir)/X11:g" \
 		debian/add-ons/bin/cernlib.in
-	
+
+
+	# fix some default paths
+	sed -i \
+		-e "s:/usr/local:/usr:g" \
+		-e "s:prefix)/lib:prefix)/$(get_libdir):" \
+		-e 's:$(prefix)/etc:/etc:' \
+		-e 's:$(prefix)/man:$(prefix)/share/man:' \
+		debian/add-ons/cernlib.mk
+
 	cp debian/add-ons/Makefile .
-	einfo "Applying Debian patches"
+	einfo "Applying Debian patches"http://www.google.com/search?q=cernlib+rpm&ie=UTF-8&oe=UTF-8
 	make patch &> /dev/null || die "make patch failed"
 	# since we depend on cfortran, do not use the one from cernlib
 	# (adapted from $S/debian/rules)
 	mv -f src/include/cfortran/cfortran.h \
 		src/include/cfortran/cfortran.h.disabled
-
 }
 
+
 src_compile() {
-	make \
-		prefix=/usr \
-		libdir=/usr/$(get_libdir) \
-		host=${CHOST} \
-		mandir=/usr/share/man \
-		datadir=/usr/share \
-		sysconfdir=/etc \
-		OPTIMIZED_OPTS="\#define OptimizationLevel ${CFLAGS}" \
-		GEANTDOC="/usr/share/doc/${P}/geant321" \
-		MCDOC="/usr/share/doc/${P}/montecarlo" \
-		|| die "make failed"
+	make || die "make failed"
 }
 
 src_install() {
-	dodir /usr/share/doc/${P}/geant321
-	dodir /usr/share/doc/${P}/montecarlo
-	einstall \
-		GEANTDOC="${D}/usr/share/doc/${P}/geant321" \
-		MCDOC="${D}/usr/share/doc/${P}/montecarlo" \
-		|| die "einstall failed"
-	
+	make DESTDIR="${D}" install || die "make install failed"
+	#einstall | die "einstall failed"
 	cd "${S}"/debian
 	docinto debian
 	dodoc changelog README.* deadpool.txt NEWS copyright
@@ -86,7 +83,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	einfo 
+	einfo
 	einfo "Gentoo cernlib is based on Debian's one"
 	einfo "and respects file system standards, contrary"
 	einfo "to standard cernlib from cern"
