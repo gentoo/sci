@@ -10,7 +10,6 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz
 	doc? http://matplotlib.sourceforge.net/users_guide_0.87.1.pdf"
 
 # agg: use external agg library
-# wxwindows: enable wxpython backend
 IUSE="doc gtk tk agg"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
@@ -18,7 +17,7 @@ LICENSE="PYTHON"
 
 DEPEND="virtual/python
 		|| (
-		dev-python/numpy
+		>=dev-python/numpy-1.0_beta5
 		dev-python/numarray
 		>=dev-python/numeric-23
 		)
@@ -45,8 +44,8 @@ src_unpack() {
 
 	# tkinter opens a window to determine paths. remove it by providing tcltk paths.
 	sed -i \
-		-e "s/'/usr/local/include'/'/usr/include'/g"
-		-e "s/'/usr/local/lib'/'/usr/'$(get_libdir)'/lib'/g"
+		-e "s:/usr/local/include:/usr/include:g" \
+		-e "s:/usr/local/lib:/usr/$(get_libdir)/lib:g" \
 		setupext.py
 	
 	sed -i \
@@ -56,7 +55,6 @@ src_unpack() {
 		-e "/^BUILD_AGG/s/'auto'/$(use agg && echo 1 || echo 0)/g" \
 		setup.py
 
-	epatch ${FILESDIR}/${PN}-0.87.4-fix-bad-win32-detect.patch
 }
 
 src_install() {
