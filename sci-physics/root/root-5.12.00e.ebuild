@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit flag-o-matic eutils
+inherit flag-o-matic eutils fortran
 
 MY_VER=${PV%[a-z]}
 MY_PATCH=${PV##"${MY_VER}"}
@@ -18,39 +18,29 @@ HOMEPAGE="http://root.cern.ch/"
 SLOT="0"
 LICENSE="LGPL-2"
 KEYWORDS="~amd64 ~x86"
-IUSE="afs cern doc fftw icc kerberos ldap mysql opengl postgres
-	  python ruby qt3 ssl tiff xml"
+IUSE="afs cern doc fftw kerberos ldap mysql opengl postgres
+	  python ruby qt3 ssl xml"
 
-RDEPEND="|| (
-				virtual/x11
-				x11-libs/libXpm
-			)
-	>=media-libs/freetype-2.0.9
+RDEPEND="
 	sys-apps/shadow
->=sci-libs/gsl-1.8
+	>=sci-libs/gsl-1.8
+	dev-libs/libpcre
+	|| ( media-libs/libafterimage x11-wm/afterstep )
 	opengl? ( virtual/opengl virtual/glu )
-	mysql? ( >=dev-db/mysql-3.23.49 )
-	postgres? ( >=dev-db/postgresql-7.1.3-r4 )
+	mysql? ( dev-db/mysql )
+	postgres? ( dev-db/postgresql )
 	afs? ( net-fs/openafs )
 	kerberos? ( app-crypt/mit-krb5 )
 	ldap? ( net-nds/openldap )
 	qt3? ( =x11-libs/qt-3* )
 	fftw? ( >=sci-libs/fftw-3 )
 	python? ( dev-lang/python )
-	media-libs/libpng
-	dev-libs/libpcre
 	cern? ( sci-physics/cernlib )
 	ruby? ( dev-lang/ruby )
 	ssl? ( dev-libs/openssl )
-	xml? ( dev-libs/libxml2 )
-	tiff? ( media-libs/tiff )
-	icc? ( dev-lang/icc )"
+	xml? ( dev-libs/libxml2 )"
 
-DEPEND="${RDEPEND}
-		|| (
-			virtual/x11
-			x11-proto/xproto
-		   )"
+DEPEND="${RDEPEND}"
 
 S=${WORKDIR}/${PN}
 
@@ -63,30 +53,43 @@ pkg_setup() {
 	einfo "Example, for PYTHIA, you would do: "
 	einfo "EXTRA_CONF=\"--enable-pythia --with-pythia-libdir=/usr/lib\" emerge root"
 	einfo
+
+	if use cern; then
+		FORTRAN="gfortran g77"
+		fortran_pkg_setup
+		# hack to support gfortran (upstream problem?)
+		if [[ "${FORTRANC}" == "gfortran" ]]; then
+			FORTRANLIBS="-lgfortran -lgfortranbegin"
+		else
+			FORTRANLIBS="-lg2c"
+		fi		
+	fi
 }
 
 src_compile() {
 
 	local rootconf="--disable-xrootd"
 	# first determine building arch
-	# xrootd still not debugged upstream for amd64
+	# xrootd still not debugged upstream for amd64 and probably others
+
+	# icc/ifc still needs some work
 
 	case ${ARCH} in
 		x86)
 			rootarch=linux
-			use icc && rootarch=linuxicc
+			#rootarch=linuxicc
 			rootconf="--enable-xrootd"
 			;;
 		amd64)
 			rootarch=linuxx8664gcc
-			use icc && rootarch=linuxx8664icc
+			#rootarch=linuxx8664icc
 			;;
 		ia64)
 			rootarch=linuxia64gcc
-			use icc && rootarch=linuxia64ecc
+			#rootarch=linuxia64ecc
 			;;
 		arm)
-			rootarcg=linuxarm
+			rootarch=linuxarm
 			;;
 		ppc)
 			rootarch=linuxppcgcc
@@ -107,8 +110,7 @@ src_compile() {
 		*) die "root not supported upstream for this architecture";;
 	esac
 
-s
-# use configure cause not autoconf standard
+	# use configure cause not autoconf standard
 	./configure ${rootarch} \
 		--prefix=/usr \
 		--bindir=/usr/bin \
@@ -129,8 +131,10 @@ s
 		--etcdir=/etc/${PN} \
 		--disable-alien \
 		--disable-asimage \
+		--disable-builtin-afterimage \
 		--disable-builtin-freetype \
 		--disable-builtin-pcre \
+		--disable-builtin-zlib \
 		--disable-chirp \
 		--disable-dcache \
 		--disable-globus \
@@ -138,40 +142,42 @@ s
 		--disable-rpath \
 		--disable-sapdb \
 		--disable-srp \
-		--enable-asimage \
-		--enable-builtin-afterimage \
 		--enable-cintex \
 		--enable-exceptions	\
 		--enable-explicitlink \
-		--enable-mathmore \
 		--enable-mathcore \
-		--enable-roofit \
+		--enable-mathmore \
 		--enable-minuit2 \
 		--enable-reflex \
-		--enable-rpath \
-		--enable-shadowpw \
+		--enable-roofit \
 		--enable-shared	\
 		--enable-soversion \
 		--enable-table \
 		--enable-thread \
-		--enable-xrootd \
+		$(use_enable afs) \
+		$(use_enable cern) \
 		$(use_enable kerberos krb5) \
 		$(use_enable ldap) \
 		$(use_enable mysql) \
 		$(use_enable opengl) \
 		$(use_enable postgres pgsql) \
+		$(use_enable python) \
 		$(use_enable qt3 qt) \
 		$(use_enable qt3 qtgsi) \
-		$(use_enable python) \
 		$(use_enable ruby) \
-		$(use_enable cern) \
-		$(use_enable tiff astiff) \
-		$(use_enable xml) \
 		$(use_enable ssl) \
+		$(use_enable xml) \
 		${rootconf} \
 		${EXTRA_CONF} \
 		|| die "configure failed"
-	emake OPTFLAGS="${CXXFLAGS}" || die "emake failed"
+
+	emake \
+		OPTFLAGS="${CXXFLAGS}" \
+		F77="${FORTRANC}" \
+		F77LIBS="${FORTRANLIBS}" \
+		|| die "emake failed"
+
+	make cintdlls || die "make cintdlls failed"
 }
 
 src_install() {

@@ -2,10 +2,10 @@
 # Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*root-5.12.00a (23 Aug 2006)
+*root-5.12.00e (12 Sep 2006)
 
-  23 Aug 2006; Sebastien Fabbro <seb@ist.utl.pt> root-5.12.00a.ebuild
-  +root-5.12.00a.ebuild, +metadata.xml (added longdescription)
+  12 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> root-5.12.00e.ebuild
+  +root-5.12.00e.ebuild, +metadata.xml (added longdescription)
   Major version bump, and major ebuild change.
   Closes bug #109307, #124635, #98235, #98236, #34415.
 
