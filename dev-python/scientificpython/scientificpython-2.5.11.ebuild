@@ -4,7 +4,7 @@
 
 MY_P=${P/scientificpython/ScientificPython}
 S=${WORKDIR}/${MY_P}
-DV=984 # hardcoded download version
+DV=1000 # hardcoded download version
 inherit distutils
 
 IUSE=""
