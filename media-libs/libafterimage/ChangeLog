@@ -1,0 +1,10 @@
+# ChangeLog for media-libs/libafterimage
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*libafterimage-1.0.7 (13 Sep 2006)
+
+  13 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +libafterimage-1.0.7.ebuild. +metadata.xml
+  Initial import.
+
