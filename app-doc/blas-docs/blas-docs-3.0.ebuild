@@ -5,8 +5,8 @@
 DESCRIPTION="Documentation reference and man pages for blas implementations"
 HOMEPAGE="http://www.netlib.org/blas"
 SRC_URI="http://www.netlib.org/lapack/manpages.tgz
-http://www.netlib.org/blas/blasqr.ps
-http://www.netlib.org/blas/blast-forum/blas-report.ps"
+	http://www.netlib.org/blas/blasqr.ps
+	http://www.netlib.org/blas/blast-forum/blas-report.ps"
 
 LICENSE="public-domain"
 SLOT="0"
