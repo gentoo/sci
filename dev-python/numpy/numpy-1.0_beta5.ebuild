@@ -44,7 +44,7 @@ src_unpack() {
 
 	# could not make it work with as-needed stuff
 	# it looks like you need to remove the ldflags in the make.conf
-	# and run env-update to really remove the as-needed. The filter does not seem to 
+	# and run env-update to really remove the as-needed. The filter does not seem to
 	# do anything. Anyone has a clue?
 	#filter-ldflags -Wl,--as-needed --as-needed
 }

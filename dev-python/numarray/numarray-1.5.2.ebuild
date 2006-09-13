@@ -55,7 +55,7 @@ src_install() {
 	dodoc Doc/*.txt LICENSE.txt Doc/release_notes/ANNOUNCE-${PV:0:3}
 	if use doc; then
 		insinto /usr/share/doc/${PF}
-		doins -r Examples		
+		doins -r Examples
 		dohtml ${WORKDIR}/html
 	fi
 }

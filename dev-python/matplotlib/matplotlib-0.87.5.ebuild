@@ -47,7 +47,7 @@ src_unpack() {
 		-e "s:/usr/local/include:/usr/include:g" \
 		-e "s:/usr/local/lib:/usr/$(get_libdir)/lib:g" \
 		setupext.py
-	
+
 	sed -i \
 		-e "/^BUILD_GTK/s/'auto'/$(use gtk && echo 1 || echo 0)/g" \
 		-e "/^BUILD_WX/s/'auto'/0/g" \
