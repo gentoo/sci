@@ -11,12 +11,12 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~ppc"
-IUSE="opengl qt mpi ginac cln gsl fftw xinerama threads static"
+IUSE="opengl qt3 mpi ginac cln gsl fftw xinerama threads static"
 
 DEPEND=">=sys-libs/readline-4.2
 	fftw?  ( =sci-libs/fftw-2.1* )
 	gsl?   ( >=sci-libs/gsl-1.5 )
-	qt?    ( $(qt_min_version 3.3) )
+	qt3?   ( $(qt_min_version 3.3) )
 	mpi?   ( sys-cluster/lam-mpi )
 	ginac? ( >=sci-mathematics/ginac-1.2.0 )
 	cln?   ( >=sci-libs/cln-1.1.6 )"
@@ -38,7 +38,7 @@ src_compile() {
 	use gsl || myconf="${myconf} --with-gsl-prefix=/no/such/file"
 	use cln || myconf="${myconf} --with-cln-prefix=/no/such/file"
 	use fftw || sed -i -e 's/have_fftw=yes/have_fftw=no/' configure
-	if ! use qt; then
+	if ! use qt3; then
 		myconf="${myconf} --with-qt-dir=/no/such/file"
 	else
 		addwrite "${QTDIR}/etc/settings"
