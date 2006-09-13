@@ -14,6 +14,7 @@ KEYWORDS="~amd64 ~x86 ~ppc"
 IUSE="opengl qt3 mpi ginac cln gsl fftw xinerama threads static"
 
 DEPEND=">=sys-libs/readline-4.2
+	opengl? ( virtual/opengl )
 	fftw?  ( =sci-libs/fftw-2.1* )
 	gsl?   ( >=sci-libs/gsl-1.5 )
 	qt3?   ( $(qt_min_version 3.3) )
