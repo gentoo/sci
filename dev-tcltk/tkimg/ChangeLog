@@ -1,0 +1,14 @@
+# ChangeLog for dev-tcltk/tkimg
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*tkimg-1.3 (14 Sep 2006)
+
+  14 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt>;
+  +tkimg-1.3.ebuild, +metadata.xml,
+  +files/tkimg-1.3-m4.patch
+  +files/tkimg-1.3-makedeps.patch	   
+  +files/tkimg-1.3-syslibs.patch
+  +files/tkimg-1.3-warnings.patch
+  Initial import.
+
