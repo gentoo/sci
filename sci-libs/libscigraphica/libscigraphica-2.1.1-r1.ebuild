@@ -16,7 +16,7 @@ DEPEND=">=x11-libs/gtk+extra-2.1.0
 	>=dev-python/numarray-1.3.1
 	>=dev-libs/libxml2-2.4.10
 	>=media-libs/libart_lgpl-2.3
-	>=intltool-0.27.2"
+	>=dev-util/intltool-0.27.2"
 
 src_unpack() {
 
