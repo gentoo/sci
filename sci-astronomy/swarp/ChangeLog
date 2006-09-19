@@ -3,8 +3,8 @@
 # $Header: $
 
 
-*swarp-2.15.7 (11 Apr 2006)	
+*swarp-2.16.0 (10 Sep 2006)	
 	
-  11 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt> swarp-2.15.7.ebuild
+  10 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> swarp-2.16.0.ebuild
   Initial import. Close bug #65685.
 

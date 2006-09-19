@@ -6,8 +6,8 @@
   <email>seb@ist.utl.pt</email>
   <name> Sebastien Fabbro</name>
 </maintainer>
-  <longdescription lang="en">
-      SWarp takes astronomical FITS images with a WCS-like projection, resample
-      and coadd them together.
-  </longdescription>
+<longdescription lang="en">
+SWarp takes astronomical FITS images with a WCS-like projection,
+resample and coadd them together.
+</longdescription>
 </pkgmetadata>

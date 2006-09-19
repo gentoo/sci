@@ -34,7 +34,7 @@ src_compile() {
 
 src_install () {
 	make DESTDIR=${D} install || die "make install failed"
-	dodoc AUTHORS ChangeLog COPYING HISTORY README THANKS
+	dodoc AUTHORS ChangeLog HISTORY README THANKS
 	if use doc; then
 		insinto /usr/share/doc/${PF}
 		doins doc/*
