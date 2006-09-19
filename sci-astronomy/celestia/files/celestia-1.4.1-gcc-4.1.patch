@@ -1,0 +1,28 @@
+--- src/celengine/star.h.old	2006-03-06 20:29:28.000000000 -0600
++++ src/celengine/star.h	2006-03-06 20:30:26.000000000 -0600
+@@ -30,7 +30,7 @@ class StarDetails
+     // orbits and StarDetails objects.  Currently, it's assumed that they
+     // have lifetimes that continue until program termination.
+  public:
+-    StarDetails::StarDetails();
++    StarDetails();
+ 
+     inline float getRadius() const;
+     inline float getTemperature() const;
+--- src/celengine/command.h.old	2006-03-06 20:29:47.000000000 -0600
++++ src/celengine/command.h	2006-03-06 20:30:35.000000000 -0600
+@@ -94,10 +94,10 @@ class CommandGoto : public Instantaneous
+ class CommandGotoLongLat : public InstantaneousCommand
+ {
+  public:
+-    CommandGotoLongLat::CommandGotoLongLat(double t,
+-                                           double dist,
+-                                           float _longitude, float _latitude,
+-                                           Vec3f _up);
++    CommandGotoLongLat(double t,
++                       double dist,
++                       float _longitude, float _latitude,
++                       Vec3f _up);
+     ~CommandGotoLongLat();
+     void process(ExecutionEnvironment&);
+ 
