@@ -1,0 +1,10 @@
+# ChangeLog for sci-astronomy/cdsclient
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+
+*cdsclient-2.85 (19 Sep 2006)	
+	
+  19 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> cdsclient-2.85.ebuild
+  Initial import.
+
