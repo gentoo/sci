@@ -11,11 +11,4 @@
 
 app-office/texmacs:aspell - Use aspell for spell-checking
 app-office/texmacs:ispell - Use ispell for spell-checking
-sci-astronomy/ds9:xpa - Install the XPA seamless communication system as well as ds9
-sci-libs/mkl:fortran95 - Install the FORTRAN95 blas and lapack interfaces for mkl
-sci-misc/brlcad:proengineer - Yet to be described
-sci-misc/brlcad:optimize - Yet to be described
-sci-misc/emu:R - Yet to be described
-sci-misc/emu:esps - Yet to be described
-sci-misc/emu:estools - Yet to be described
-sci-misc/emu:nist-sphere - Yet to be described
+sci-astronomy/scamp:plplot - Add plplot to allow diagnostic plots during processing 
