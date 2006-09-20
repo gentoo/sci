@@ -28,6 +28,14 @@ DEPEND=">=sys-devel/libtool-1.5
 
 S="${WORKDIR}/${MY_PN}"
 
+pkg_setup() {
+	ewarn "If you upgrade from an earlier version of ${PN}"
+	ewarn "and get digest verification errors, remove"
+	ewarn "${MY_PN}.tar.gz AMD.tar.gz UFconfig.tar.gz"
+	ewarn "from ${DISTDIR} and try again"
+	ebeep
+}
+
 src_compile() {
 	uplibs="amd umfpack"
 	RPATH="${DESTTREE}"/$(get_libdir)
