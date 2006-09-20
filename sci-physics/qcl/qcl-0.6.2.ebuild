@@ -1,6 +1,7 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+inherit flag-o-matic eutils
 
 DESCRIPTION="Quantum Computation Language with an emulator of a quantum computer"
 HOMEPAGE="http://tph.tuwien.ac.at/~oemer/qcl.html"
@@ -15,8 +16,15 @@ SRC_URI="http://tph.tuwien.ac.at/~oemer/tgz/qcl-0.6.2.tgz
 		http://tph.tuwien.ac.at/~oemer/doc/quprog.pdf )"
 DEPENDS="media-libs/plotutils"
 
+src_unpack() {
+	unpack ${A}
+	cd ${S}
+	epatch "${FILESDIR}/qcl-0.6.2.patch"
+}
+
 src_compile() {
-	emake QCLDIR="/usr/share/${PN}" || die "emake failed"
+	strip-flags
+	emake QCLDIR="/usr/share/${PN}" OPT="${CXXFLAGS}" || die "emake failed"
 }
 
 src_install() {
