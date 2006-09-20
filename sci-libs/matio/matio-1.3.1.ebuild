@@ -5,15 +5,15 @@
 inherit eutils
 
 DESCRIPTION="Library for reading and writing matlab .mat files"
-HOMEPAGE="http://www.mathworks.com/matlabcentral/fileexchange/loadFile.do?objectId=8187&objectType=file"
+HOMEPAGE="http://sourceforge.net/projects/matio/"
 SLOT="0"
 LICENSE="LGPL"
 KEYWORDS="~x86"
 IUSE="doc fortran"
-SRC_URI="http://www.mathworks.com/matlabcentral/files/8187/${PN}.zip"
+RESTRICT="nomirror"
+SRC_URI="mirror://sourceforge/matio/${P}.tar.gz"
 DEPEND="doc? ( app-doc/doxygen virtual/tetex )
 	fortran? ( >=gcc-4.1 )"
-S="${WORKDIR}/${PN}"
 
 pkg_setup() {
 	if use fortran ; then
@@ -24,18 +24,12 @@ pkg_setup() {
 	fi
 }
 
-src_unpack() {
-	unpack ${A}
-	cd ${S}
-	epatch "${FILESDIR}/matio-1.1.4.patch"
-}
-
 src_compile() {
 	addwrite /var/cache/fonts
 	addwrite /usr/share/texmf
-	aclocal
-	automake || true
-	econf --enable-shared $(use_enable fortran ) $(use_enable doc docs ) \
+	aclocal -I config
+	automake
+	econf --enable-shared --disable-test $(use_enable fortran ) $(use_enable doc docs ) \
 		|| die "econf failed"
 	emake || die "emake failed"
 }
