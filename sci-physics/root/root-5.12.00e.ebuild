@@ -62,7 +62,7 @@ pkg_setup() {
 			FORTRANLIBS="-lgfortran -lgfortranbegin"
 		else
 			FORTRANLIBS="-lg2c"
-		fi		
+		fi
 	fi
 }
 
