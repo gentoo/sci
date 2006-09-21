@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz
 # agg: use external agg library
 IUSE="doc gtk tk agg"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~x86"
 LICENSE="PYTHON"
 
 DEPEND="virtual/python
