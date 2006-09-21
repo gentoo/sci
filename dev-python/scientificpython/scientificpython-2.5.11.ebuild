@@ -12,7 +12,7 @@ DESCRIPTION="Scientific Module for Python"
 SRC_URI="http://sourcesup.cru.fr/frs/download.php/${DV}/${MY_P}.tar.gz"
 HOMEPAGE="http://dirac.cnrs-orleans.fr/ScientificPython/"
 SLOT="0"
-LICENSE="CeCILL"
+LICENSE="CeCILL-2"
 KEYWORDS="~amd64 ~x86"
 
 DEPEND="virtual/python

@@ -11,7 +11,7 @@ DESCRIPTION="Cross platform configuration management environment"
 HOMEPAGE="http://www.cmtsite.org/"
 SRC_URI="http://www.cmtsite.org/${CMT_PV}/CMT${CMT_PV}.tar.gz"
 
-LICENSE="CeCILL-v2"
+LICENSE="CeCILL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="emacs java doc"
