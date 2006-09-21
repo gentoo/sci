@@ -2,6 +2,13 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*maxima-5.10.0 (21 Sep 2006)
+
+  21 Sep 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +maxima-5.10.0.ebuild, +files/maxima-5.10.0.patch.
+  Version bump. tcltk use flag replaced by tk, as everywhere.
+  Patches from 5.9.3 were not applied cleanly, fixed.
+
 *maxima-5.9.3-r1 (10 Jun 2006)
 
   10 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>
