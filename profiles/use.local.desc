@@ -11,4 +11,5 @@
 
 app-office/texmacs:aspell - Use aspell for spell-checking
 app-office/texmacs:ispell - Use ispell for spell-checking
+dev-python/matplotlib:agg - Build with external antigrain library
 sci-astronomy/scamp:plplot - Add plplot to allow diagnostic plots during processing 
