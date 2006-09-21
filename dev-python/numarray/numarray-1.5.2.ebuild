@@ -17,6 +17,14 @@ LICENSE="BSD"
 
 FORTRAN="gfortran g77"
 
+# USE_LAPACK does not get exported to distutils_src_compile
+# if not outside subroutines
+use lapack && export USE_LAPACK=1
+
+pkg_setup() {
+	use lapack && fortran_pkg_setup
+}
+
 src_unpack() {
 	unpack ${A}
 	use doc && mv ${PN}-1.5 html
@@ -32,6 +40,7 @@ src_unpack() {
 
 	cd ${S}
 	if use lapack; then
+		fortran_src_unpack
 		local myblas="/usr/$(get_libdir)/blas/atlas"
 		[ -d "/usr/$(get_libdir)/blas/threaded-atlas" ] && \
 			myblas=${myblas/threaded-/}
