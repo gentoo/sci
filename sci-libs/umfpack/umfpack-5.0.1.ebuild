@@ -13,7 +13,7 @@ MY_PN="$(upper ${PN})"
 AMD_VERSION="2.0.1"
 UFCONFIG_VERSION="2.1"
 
-DESCRIPTION="Library for unsymmetric sparse linear algebra using the Unsymmetric MultiFrontal method"
+DESCRIPTION="Library for unsymmetric sparse linear algebra"
 HOMEPAGE="http://www.cise.ufl.edu/research/sparse/umfpack"
 SRC_URI="http://www.cise.ufl.edu/research/sparse/${PN}/${MY_PV}/${MY_PN}.tar.gz
 	http://www.cise.ufl.edu/research/sparse/UFconfig/v${UFCONFIG_VERSION}/UFconfig.tar.gz
@@ -29,6 +29,7 @@ DEPEND=">=sys-devel/libtool-1.5
 S="${WORKDIR}/${MY_PN}"
 
 pkg_setup() {
+	ewarn "Overlay warning:"
 	ewarn "If you upgrade from an earlier version of ${PN}"
 	ewarn "and get digest verification errors, remove"
 	ewarn "${MY_PN}.tar.gz AMD.tar.gz UFconfig.tar.gz"
@@ -99,4 +100,6 @@ src_install() {
 			doins ${UPDIR}/Doc/*.pdf
 		fi
 	done
+	insinto /usr/include/umfpack
+	doins ${WORKDIR}/UFconfig/*.h
 }

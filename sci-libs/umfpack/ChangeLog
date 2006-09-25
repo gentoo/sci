@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> +umfpack-5.0.1.ebuild.
+  Now install UFconfig.h
+	
 *umfpack-5.0.1 (07 Sep 2006)
 
   07 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> +umfpack-5.0.1.ebuild.
