@@ -2,47 +2,7 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*scipy-0.5.1 (07 Sep 2006)
+*scipy-0.5.1-r1 (24 Sep 2006)
 
-  07 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt>.
-  Version bump. Use portage version from 0.4.9 + added umfpack option.  
-
-*scipy-0.4.9 (14 Jun 2006)
-
-  14 Jun 2006; Donnie Berkholz <spyderous@gentoo.org>; +scipy-0.4.9.ebuild:
-  Bump. Incorporates many changes from the science overlay, mainly from bicatali.
-
-  14 Jun 2006; Donnie Berkholz <spyderous@gentoo.org>;
-  scipy-0.4.8-r1.ebuild:
-  Remove =gcc-3* dep.
-
-  13 Jun 2006; Donnie Berkholz <spyderous@gentoo.org>;
-  scipy-0.4.8-r1.ebuild:
-  Keyword ~ppc.
-
-  13 Jun 2006; Donnie Berkholz <spyderous@gentoo.org>;
-  scipy-0.4.8-r1.ebuild:
-  (#134248) Fix for gcc4, and stop appending -O3 -funroll-loops at the end of
-  our compiler flags by specifying --opt.
-
-  13 Jun 2006; Donnie Berkholz <spyderous@gentoo.org>;
-  scipy-0.4.8-r1.ebuild:
-  When checking for ATLAS, do it case-insensitively. Future planning for
-  blas-config and lapack-config as eselect wrappers.
-
-*scipy-0.4.8-r1 (13 Apr 2006)
-
-  13 Apr 2006; Olivier Fisette <ribosome@gentoo.org> +scipy-0.4.8-r1.ebuild:
-  Added ATLAS profile check in pk_setup() (fixes bug #129524).
-
-*scipy-0.4.8 (01 Apr 2006)
-
-  01 Apr 2006; Olivier Fisette <ribosome@gentoo.org> +scipy-0.4.8.ebuild:
-  New version. Thanks to bicatali and other contributors for their work.
-
-*scipy-0.3.2 (22 Aug 2005)
-
-  22 Aug 2005; Peter Bienstman <pbienst@gentoo.org> +files/system_info.diff,
-  +metadata.xml, +scipy-0.3.2.ebuild:
-  Initial import. Closes 24593. Thanks to D. Grant, D. Dale and others.
-
+  24 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt>; +scipy-0.5.1-r1.ebuild:
+  Basically scipy-0.5.1 from main tree + umfpack + fix for fPIC.
