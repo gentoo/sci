@@ -1,0 +1,9 @@
+# ChangeLog for sci-visualization/hippodraw
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*hippodraw-1.18.3 (23 Sep 2006)
+
+  23 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> 
+  +hippodraw-1.18.3.ebuild, +metadata.xml
+  Initial import, closing bug #65673.
