@@ -5,4 +5,4 @@
 *scipy-0.5.1-r1 (24 Sep 2006)
 
   24 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt>; +scipy-0.5.1-r1.ebuild:
-  Basically scipy-0.5.1 from main tree + umfpack + fix for fPIC.
+  scipy-0.5.1 from main tree + umfpack + fix for PIC on non-x86 arches.

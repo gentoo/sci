@@ -93,7 +93,7 @@ src_compile() {
 	# http://projects.scipy.org/scipy/numpy/ticket/182
 	# Can't set LDFLAGS
 	unset LDFLAGS
-
+	export F77FLAGS="${CFLAGS} -fPIC"
 	distutils_src_compile \
 		config_fc \
 		--fcompiler=${SCIPY_FC} \
