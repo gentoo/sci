@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  Now inherits qt3, and added addwrite qt settings
+
 *hippodraw-1.18.3 (23 Sep 2006)
 
   23 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> 

@@ -2,14 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+inherit eutils qt3
 
 MY_PN=HippoDraw
 
 DESCRIPTION="Highly interactive data analysis Qt environment for C++ and python"
 HOMEPAGE="http://www.slac.stanford.edu/grp/ek/hippodraw/"
 SRC_URI="ftp://ftp.slac.stanford.edu/users/pfkeb/${PN}/${MY_PN}-${PV}.tar.gz"
-LICENSE="LGPL-2"
+LICENSE=""
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="root fits minuit numarray doc"
@@ -24,7 +24,7 @@ IUSE="root fits minuit numarray doc"
 
 RDEPEND=">=dev-lang/python-2.3
 	>=dev-libs/boost-1.32
-	=x11-libs/qt-3*
+	$(qt_min_version 3.1)
 	minuit? ( !root? >=sci-libs/minuit-5 )
 	numarray? ( dev-python/numarray )
 	fits? ( sci-libs/cfitsio
@@ -92,7 +92,7 @@ src_compile() {
 		myconf="${myconf} --with-cfitsio-include=/usr/include"
 		myconf="${myconf} --with-cfitsio-lib=/usr/$(get_libdir)"
 	fi
-
+	addwrite "${QTDIR}/etc/settings"
 	econf \
 		$(use_enable numarray numarraybuild) \
 		$(use_enable doc help) \
