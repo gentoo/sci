@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Oct 2006; Bryan Green <bgreen@gentoo.org>
+  -libibverbs-1.0.9999.ebuild, -libibverbs-1.1.9999.ebuild:
+  Removed live ebuilds
+
   27 Sep 2006; Bryan Green <bgreen@nas.nasa.gov>
   +libibverbs-1.0.3.ebuild, +libibverbs-1.0.9999.ebuild,
   +libibverbs-1.1.9999.ebuild, +libibverbs-1.1_rc6.ebuild:
