@@ -16,8 +16,7 @@ HOMEPAGE="http://www.openib.org/"
 
 IUSE=""
 
-DEPEND="virtual/libc
-        sys-fs/sysfsutils"
+DEPEND="sys-fs/sysfsutils"
 RDEPEND="${DEPEND}"
 
 src_compile() {
@@ -27,7 +26,7 @@ src_compile() {
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
-	dodoc README AUTHORS COPYING ChangeLog 
+	dodoc README AUTHORS COPYING ChangeLog
 	docinto examples
 	dodoc examples/*.[ch]
 }
