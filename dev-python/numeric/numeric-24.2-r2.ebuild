@@ -18,16 +18,16 @@ KEYWORDS="~amd64 ~x86"
 # lapack: compiles linear algebra from external optimized blas/cblas/lapack
 IUSE="lapack"
 
-# the blas stuff also needs a cblas implementation
-# due to the current state of eselect blas/cblas, will force
-# blas-atlas which provides both easily
 DEPEND=">=dev-lang/python-2.3
-	lapack? ( sci-libs/blas-atlas virtual/lapack )"
+	lapack? ( virtual/cblas virtual/lapack )"
 
 src_unpack() {
 	unpack ${A}
 	# fix list problem
 	epatch "${FILESDIR}"/${PN}-arrayobject.patch
+	# fix skips of acosh, asinh
+	epatch "${FILESDIR}"/${PN}-umath.patch
+
 	# adapt lapack support
 	if use lapack; then
 		epatch "${FILESDIR}"/${PN}-lapack.patch
@@ -36,7 +36,6 @@ src_unpack() {
 		fi
 	fi
 }
-
 
 src_install() {
 	distutils_src_install

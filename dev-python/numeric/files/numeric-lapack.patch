@@ -1,5 +1,5 @@
---- Numeric-24.2/customize.py	2005-11-13 02:40:14.000000000 +0000
-+++ Numeric-24.2.new/customize.py	2006-06-06 20:13:20.000000000 +0100
+--- Numeric-24.2.orig/customize.py	2005-11-13 02:40:14.000000000 +0000
++++ Numeric-24.2/customize.py	2006-10-10 17:58:33.000000000 +0100
 @@ -13,9 +13,9 @@
  # will be used, except on Mac OS X, where the vecLib framework will be used
  # if found.
@@ -23,3 +23,12 @@
  dotblas_cblas_header = '<cblas.h>'
  dotblas_library_dirs = lapack_library_dirs
  dotblas_libraries = lapack_libraries
+@@ -45,7 +45,7 @@
+ # Example: using ATLAS
+ if 0:
+     use_dotblas = 1
+-    dotblas_include_dirs = ['/usr/include/atlas']
++    dotblas_include_dirs = ['/usr/include/atlas','/usr/include/cblas']
+     dotblas_library_dirs = lapack_library_dirs
+     dotblas_libraries = ['cblas', 'atlas', 'g2c']
+ 
