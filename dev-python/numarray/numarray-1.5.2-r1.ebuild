@@ -9,17 +9,13 @@ SRC_URI="mirror://sourceforge/numpy/${P}.tar.gz
 doc? mirror://sourceforge/numpy/${PN}-1.5.html.tar.gz"
 HOMEPAGE="http://www.stsci.edu/resources/software_hardware/numarray"
 DEPEND=">=dev-lang/python-2.3
-	lapack? ( sci-libs/blas-atlas virtual/lapack )"
+	lapack? ( virtual/lapack )"
 IUSE="doc lapack"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 LICENSE="BSD"
 
 FORTRAN="gfortran g77"
-
-# USE_LAPACK does not get exported to distutils_src_compile
-# if not outside subroutines
-use lapack && export USE_LAPACK=1
 
 pkg_setup() {
 	use lapack && fortran_pkg_setup
@@ -28,7 +24,6 @@ pkg_setup() {
 src_unpack() {
 	unpack ${A}
 	use doc && mv ${PN}-1.5 html
-	# various patches inspired from Debian packaging.
 	# include Python.h from header files using the PyObject_HEAD macro.
 	epatch "${FILESDIR}"/${P}-includes.patch
 
@@ -38,15 +33,12 @@ src_unpack() {
 	# fix hard-coded path in numinclude
 	epatch "${FILESDIR}"/${P}-numinclude.patch
 
-	cd ${S}
+	cd "${S}"
 	if use lapack; then
 		fortran_src_unpack
-		local myblas="/usr/$(get_libdir)/blas/atlas"
-		[ -d "/usr/$(get_libdir)/blas/threaded-atlas" ] && \
-			myblas=${myblas/threaded-/}
-		# fix default location and lib names
 		sed -i \
-			-e 's:/usr/local/lib/atlas:${myblas}:g' \
+			-e '/^if USE_LAPACK:/iUSE_LAPACK=True' \
+			-e "s:/usr/local/lib/atlas:/usr/$(get_libdir):g" \
 			-e 's:/usr/local/include/atlas:/usr/include/atlas:g' \
 			-e 's:f77blas:blas:g' \
 			cfg_packages.py
