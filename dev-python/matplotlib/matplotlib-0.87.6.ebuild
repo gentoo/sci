@@ -34,13 +34,13 @@ pkg_setup() {
 
 src_unpack() {
 	unpack ${A}
+	# fix default paths for matplotlibrc
+	epatch "${FILESDIR}/${PN}-0.87.6-matplotlibrc.patch"
+
 	cd "${S}"
 
 	# fix install data path
 	epatch "${FILESDIR}/${PN}-0.87.6-install-data.patch"
-
-	# fix default paths for matplotlibrc
-	epatch "${FILESDIR}/${PN}-0.87.6-matplotlibrc.patch"
 
 	# disable autodetection, rely on USE flags
 	epatch "${FILESDIR}/${PN}-0.86.2-no-autodetect.patch"
