@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt>;
+  Changed gsl mininum version to 1.5.
+	
 *pygsl-0.3.2 (14 Jan 2006)
 
   14 Jan 2006; Sebastien Fabbro <seb@ist.utl.pt> +pygsl-0.3.2.ebuild, 

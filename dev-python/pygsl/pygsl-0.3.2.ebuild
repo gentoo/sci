@@ -13,7 +13,7 @@ LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 DEPEND=">=dev-lang/python-2.2
-	>=sci-libs/gsl-1.4
+	>=sci-libs/gsl-1.5
 	dev-python/numeric"
 
 src_install() {
