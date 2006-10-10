@@ -1,7 +1,14 @@
 # ChangeLog for dev-python/scientificpython
-# Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scientificpython-2.6 (14 Oct 2006)
+
+  14 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt>.
+  +scientificpython-2.6.ebuild
+  -scientificpython-2.5.10.ebuild
+  Version bump, added mpi support. Removed dev version.
+	
 *scientificpython-2.5.10 (07 Sep 2006)
 
   07 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt>.
