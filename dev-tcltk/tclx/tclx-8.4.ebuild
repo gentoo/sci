@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 DEPEND=">=dev-lang/tcl-8.4.6
-tk? ( >=dev-lang/tk-8.4.6 )"
+	tk? ( >=dev-lang/tk-8.4.6 )"
 
 S=${WORKDIR}/${PN}${PV}
 
@@ -29,7 +29,6 @@ src_compile() {
 	econf \
 		$(use_enable tk) \
 		$(use_enable threads) \
-		$(use_enable amd64 64bits) \
 		--enable-shared \
 		|| die "econf failed"
 	emake || die "emake failed"
