@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/itpp/ChangeLog,v 1.11 2006/10/08 11:43:25 ticho Exp $
 
+  12 Oct 2006; Jeff Gardner <je_fro@gentoo.org> ChangeLog:
+  Keyword ~amd64
+
   08 Oct 2006; Andrej Kacian <ticho@gentoo.org> itpp-3.10.5.ebuild:
   Stable on x86, bug #150388.
 
