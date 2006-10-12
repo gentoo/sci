@@ -2,6 +2,10 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt>:
+  +pspp-0.4.0.ebuild, +metadata.xml; updated longdescription
+  plotutils fix.
+	
 *pspp-0.4.0 (10 Jan 2006)
 
   10 Jan 2006; Sebastien Fabbro <seb@ist.utl.pt>:

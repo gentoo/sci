@@ -21,7 +21,7 @@ DEPEND=">=sci-libs/gsl-1.6
 
 src_compile() {
 	econf \
-		$(use_with plotutils) \
+		$(use_with plotutils libplot) \
 		$(use_with ncurses) \
 		$(use_enable nls) \
 		|| die "econf failed"
@@ -49,4 +49,3 @@ pkg_postinst () {
 pkg_postrm() {
 	use emacs && elisp-site-regen
 }
-
