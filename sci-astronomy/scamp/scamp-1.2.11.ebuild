@@ -13,6 +13,7 @@ LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="static doc threads icc plplot"
+# I think this works only with ATLAS lapack implementation.
 DEPEND="sci-astronomy/cdsclient
 	sci-libs/blas-atlas
 	sci-libs/lapack-atlas
@@ -27,8 +28,22 @@ pkg_setup() {
 			die
 		fi
 	fi
-	einfo "Make sure you have blas-atlas and lapack-atlas selected"
-	einfo "(TODO)"
+
+	if ! eselect blas show | grep -q atlas; then
+		ewarn "You must have atlas selected for blas: run"
+		ewarn "$ eselect blas set atlas"
+		die
+	fi
+	if ! eselect cblas show | grep -q atlas; then
+		ewarn "You must have atlas selected for cblas: run"
+		ewarn "$ eselect cblas set atlas"
+		die
+	fi
+	if ! eselect lapack show | grep -q atlas; then
+		ewarn "You must have atlas selected for lapack: run"
+		ewarn "$ eselect lapack set atlas"
+		die
+	fi
 }
 
 src_compile() {

@@ -1,7 +1,10 @@
 # ChangeLog for sci-astronomy/scamp
-# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+   15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt> +scamp-1.2.11.ebuild:
+   Forced atlas dep with a warning.
+	
 *scamp-1.2.11 (19 Sep 2006)
 
    19 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> +scamp-1.2.11.ebuild:
