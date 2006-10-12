@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt> +metadata.xml
+  Added longdescription on metadata.xml.
+	
 *orsa-0.7.0-r1 (01 Jun 2006)
 
   01 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt> +orsa-0.7.0-r1.ebuild
