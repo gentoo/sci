@@ -15,7 +15,7 @@ SRC_URI="mirror://sourceforge/freemat/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 amd64"
 
 DEPEND=">=sys-libs/ncurses-5.4-r5 virtual/blas virtual/lapack dev-libs/ffcall\
 	sci-libs/umfpack sci-libs/arpack >=sci-libs/matio-1.3.0"
