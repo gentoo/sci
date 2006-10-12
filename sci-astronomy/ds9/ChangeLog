@@ -1,7 +1,16 @@
 # ChangeLog for sci-astronomy/ds9
-# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ds9-4.0_beta10 (15 Oct 2006)
+
+   15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt> 
+   +ds9-4.0_beta10.ebuild
+   +files/ds9-iis.patch
+   +files/ds9-Makefile.patch
+   -ds9-4.0_beta7.ebuild	
+   Version bump. Removed outdated version. 
+	
 *ds9-4.0_beta7 (02 Dec 2005)
 
    O2 Dec 2005; Sebastien Fabbro <seb@ist.utl.pt> +ds9-4.0_beta7.ebuild:

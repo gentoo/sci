@@ -1,0 +1,11 @@
+--- iis/xim.C	2006-04-25 01:39:32.000000000 +0100
++++ iis/xim.C.new	2006-10-12 19:47:11.000000000 +0100
+@@ -24,7 +24,7 @@
+ 
+ void iisIO(void* data, int mask)
+ {
+-  int fd = (int)data;
++  int fd = (long)data;
+ 
+   if (IISDebug)
+     cerr << "iisIO() " << fd << ' ' << mask << endl;
