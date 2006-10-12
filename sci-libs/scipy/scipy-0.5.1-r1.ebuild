@@ -11,7 +11,7 @@ LICENSE="BSD"
 
 SLOT="0"
 IUSE="fftw umfpack"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~x86"
 
 # doc says scipy needs to compile all libraries with the same compiler
 RDEPEND=">=dev-lang/python-2.3.3
