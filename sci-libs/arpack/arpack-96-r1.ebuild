@@ -50,7 +50,7 @@ src_install() {
 		insinto /usr/share/doc/${PF}
 		doins "${FILESDIR}"/ARmake.inc
 		doins -r EXAMPLES
-		if use mpi; then 
+		if use mpi; then
 			insinto /usr/share/doc/${P}/PARPACK/EXAMPLES
 			doins -r PARPACK/EXAMPLES/MPI
 		fi
