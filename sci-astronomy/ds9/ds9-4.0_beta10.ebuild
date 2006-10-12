@@ -12,7 +12,11 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
-DEPEND="app-arch/zip"
+RDEPEND="x11-libs/libX11
+	x11-libs/libXdmcp
+	x11-libs/libXau"
+DEPEND="${RDEPEND}
+	app-arch/zip"
 
 S=${WORKDIR}/sao${PN}
 
