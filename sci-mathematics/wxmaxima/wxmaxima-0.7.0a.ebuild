@@ -22,7 +22,7 @@ RDEPEND=">=sci-mathematics/maxima-5.10.0"
 S=${WORKDIR}/${MYP}
 
 src_compile () {
-	WX_GTK_VER="2.6"
+	export WX_GTK_VER="2.6"
 	econf \
 		--with-wx-config=${WX_CONFIG} \
 		--with-wxbase-config=${WX_CONFIG} \
@@ -37,8 +37,7 @@ src_install () {
 	doins maxima-new.png
 	make_desktop_entry wxmaxima wxMaxima maxima-new
 
-	cd ${S}/data
-
+	cd "${S}"/data
 	if use doc; then
 		insinto "/usr/share/doc/${PF}"
 		doins docs.zip intro.zip

@@ -2,6 +2,11 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*wxmaxima-0.7.0a (15 Oct 2006)
+
+  15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt>: 
+  +wxmaxima-0.7.0a.ebuild. Version bump.
+	
   06 Jul 2006; Lucas Chiesa <lucas.chiesa@gmail.com>:
   Removed versions older then 0.6.5-r1
 
