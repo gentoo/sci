@@ -11,8 +11,8 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc x86"
-IUSE="gnome gtk kde arts threads nls lua"
-
+# cairo: use cairo for GTK splash screen
+IUSE="cairo gnome gtk kde arts threads nls lua"
 
 DEPEND="virtual/glu
 	media-libs/jpeg
@@ -29,7 +29,8 @@ DEPEND="virtual/glu
 	kde?  ( !gnome? ( >=kde-base/kdelibs-3.0.5 ) )
 	!gtk? ( !gnome? ( !kde? ( virtual/glut ) ) )
 	arts? ( kde-base/arts )
-	lua? ( >=dev-lang/lua-5.0 )"
+	lua? ( >=dev-lang/lua-5.0 )
+	cairo? ( x11-libs/cairo )"
 
 pkg_setup() {
 	# Check for one for the following use flags to be set.
@@ -86,18 +87,20 @@ src_compile() {
 
 	econf \
 		--with-${mygui} \
-		--with-pic \
 		--enable-pch \
 		$(use_with arts) \
 		$(use_with lua) \
+		$(use_enable cairo) \
 		$(use_enable threads threading) \
 		$(use_enable nls) \
 		|| die "econf failed"
 
 	#fix Makefiles to avoid Access Violations while fixing bug #119339
 	if [ "${mygui}" != "gnome" ] ; then
-	for d in . src data extras textures textures/lores textures/medres textures/hires models shaders fonts  po ; do
-	sed -i -e "s#pkgdatadir = /usr/share/celestia#pkgdatadir = ${D}/usr/share/celestia#" $d/Makefile; done
+	for d in . src data extras textures textures/lores textures/medres textures/hires models shaders fonts po; do
+		sed -i \
+			-e "s#pkgdatadir = /usr/share/celestia#pkgdatadir = ${D}/usr/share/celestia#" \
+			$d/Makefile; done
 	fi
 
 	emake || die "emake failed"
