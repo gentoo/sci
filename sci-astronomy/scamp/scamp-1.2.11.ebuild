@@ -17,6 +17,9 @@ IUSE="static doc threads icc plplot"
 DEPEND="sci-astronomy/cdsclient
 	sci-libs/blas-atlas
 	sci-libs/lapack-atlas
+	app-admin/eselect-blas
+	app-admin/eselect-cblas
+	app-admin/eselect-lapack
 	>=sci-libs/fftw-3
 	plplot? ( >=sci-libs/plplot-5.1 )
 	icc? ( dev-lang/icc )"
