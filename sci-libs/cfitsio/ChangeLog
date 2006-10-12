@@ -2,6 +2,13 @@
 # Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cfitsio-3.006-r2 (15 Oct 2006)
+
+  01 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +files/cfitsio-cfortran.patch
+  +cfitsio-3.006-r2.ebuild
+  Added cfortran dep.
+	
 *cfitsio-3.006-r1 (01 Jun 2006)
 
   01 Jun 2006; Sebastien Fabbro <seb@ist.utl.pt>

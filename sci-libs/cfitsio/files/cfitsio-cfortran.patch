@@ -1,0 +1,10 @@
+--- f77_wrap.h	2005-12-20 20:23:55.000000000 +0000
++++ f77_wrap.h.new	2006-10-12 22:20:17.000000000 +0100
+@@ -1,6 +1,6 @@
+ #define UNSIGNED_BYTE
+ 
+-#include "cfortran.h"
++#include <cfortran.h>
+ 
+ /************************************************************************
+    Some platforms creates longs as 8-byte integers.  On other machines, ints
