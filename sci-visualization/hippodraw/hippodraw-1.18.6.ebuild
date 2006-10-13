@@ -92,7 +92,7 @@ src_compile() {
 		myconf="${myconf} --with-cfitsio-include=/usr/include"
 		myconf="${myconf} --with-cfitsio-lib=/usr/$(get_libdir)"
 	fi
-	addwrite "${QTDIR}/etc/settings"
+
 	econf \
 		$(use_enable numarray numarraybuild) \
 		$(use_enable doc help) \
