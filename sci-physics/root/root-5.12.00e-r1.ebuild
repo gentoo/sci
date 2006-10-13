@@ -2,27 +2,24 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit flag-o-matic eutils fortran
+inherit flag-o-matic eutils toolchain-funcs fortran qt3
 
-MY_VER=${PV%[a-z]}
-MY_PATCH=${PV##"${MY_VER}"}
 DOC_PV=5_12
-REF_PV=${PV:0:4}
+REF_PV=${DOC_PV/_/}
 
 DESCRIPTION="An Object-Oriented Data Analysis Framework"
-SRC_URI="ftp://root.cern.ch/root/root_v${MY_VER}${MY_PATCH}.source.tar.gz
-	doc? ( ftp://root.cern.ch/root/html${REF_PV/.}.tar.gz
+SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
+	doc? ( ftp://root.cern.ch/root/html${REF_PV}.tar.gz
 		   ftp://root.cern.ch/root/doc/Users_Guide_${DOC_PV}.pdf )"
 HOMEPAGE="http://root.cern.ch/"
 
 SLOT="0"
 LICENSE="LGPL-2"
 KEYWORDS="~amd64 ~x86"
-IUSE="afs cern doc fftw kerberos ldap mysql opengl postgres
+IUSE="afs cern doc fftw kerberos ldap mysql odbc opengl postgres
 	  python ruby qt3 ssl xml"
 
-RDEPEND="
-	sys-apps/shadow
+RDEPEND="sys-apps/shadow
 	>=sci-libs/gsl-1.8
 	dev-libs/libpcre
 	|| ( media-libs/libafterimage x11-wm/afterstep )
@@ -32,13 +29,14 @@ RDEPEND="
 	afs? ( net-fs/openafs )
 	kerberos? ( app-crypt/mit-krb5 )
 	ldap? ( net-nds/openldap )
-	qt3? ( =x11-libs/qt-3* )
+	qt3? ( $(qt_min_version 3.3.4) )
 	fftw? ( >=sci-libs/fftw-3 )
 	python? ( dev-lang/python )
 	cern? ( sci-physics/cernlib )
 	ruby? ( dev-lang/ruby )
 	ssl? ( dev-libs/openssl )
-	xml? ( dev-libs/libxml2 )"
+	xml? ( dev-libs/libxml2 )
+	odbc? ( dev-db/unixODBC )"
 
 DEPEND="${RDEPEND}"
 
@@ -54,64 +52,21 @@ pkg_setup() {
 	einfo "EXTRA_CONF=\"--enable-pythia --with-pythia-libdir=/usr/lib\" emerge root"
 	einfo
 
-	if use cern; then
-		FORTRAN="gfortran g77"
-		fortran_pkg_setup
-		# hack to support gfortran (upstream problem?)
-		if [[ "${FORTRANC}" == "gfortran" ]]; then
-			FORTRANLIBS="-lgfortran -lgfortranbegin"
-		else
-			FORTRANLIBS="-lg2c"
-		fi
-	fi
+	FORTRAN="gfortran g77"
+	fortran_pkg_setup
 }
 
 src_compile() {
 
-	local rootconf="--disable-xrootd"
-	# first determine building arch
-	# xrootd still not debugged upstream for amd64 and probably others
+	local rootconf="--enable-xrootd"
+	# xrootd does not work with > gcc-4.1
+	if [[ $(gcc-major-version)$(gcc-minor-version) -ge 41 ]]; then
+		rootconf="--disable-xrootd"
+	fi
 
 	# icc/ifc still needs some work
-
-	case ${ARCH} in
-		x86)
-			rootarch=linux
-			#rootarch=linuxicc
-			rootconf="--enable-xrootd"
-			;;
-		amd64)
-			rootarch=linuxx8664gcc
-			#rootarch=linuxx8664icc
-			;;
-		ia64)
-			rootarch=linuxia64gcc
-			#rootarch=linuxia64ecc
-			;;
-		arm)
-			rootarch=linuxarm
-			;;
-		ppc)
-			rootarch=linuxppcgcc
-			append-flags "-fsigned-char"
-			;;
-		ppc64)
-			rootarch=linuxppc64gcc
-			;;
-		ppc-macos)
-			rootarch=macosx
-			;;
-		alpha)
-			rootarch=linuxalpha
-			;;
-		x86-fbsd)
-			rootarch=freebsd5
-			;;
-		*) die "root not supported upstream for this architecture";;
-	esac
-
-	# use configure cause not autoconf standard
-	./configure ${rootarch} \
+	# use configure and not econf cause not autoconf standard
+	./configure \
 		--prefix=/usr \
 		--bindir=/usr/bin \
 		--mandir=/usr/share/man/man1 \
@@ -130,7 +85,6 @@ src_compile() {
 		--elispdir=/usr/share/emacs/site-lisp \
 		--etcdir=/etc/${PN} \
 		--disable-alien \
-		--disable-asimage \
 		--disable-builtin-afterimage \
 		--disable-builtin-freetype \
 		--disable-builtin-pcre \
@@ -159,6 +113,7 @@ src_compile() {
 		$(use_enable kerberos krb5) \
 		$(use_enable ldap) \
 		$(use_enable mysql) \
+		$(use_enable odbc) \
 		$(use_enable opengl) \
 		$(use_enable postgres pgsql) \
 		$(use_enable python) \
@@ -171,12 +126,19 @@ src_compile() {
 		${EXTRA_CONF} \
 		|| die "configure failed"
 
+	# hack to support gfortran (upstream problem?)
+	if [[ "${FORTRANC}" == "gfortran" ]]; then
+		FORTRANLIBS="-lgfortran -lgfortranbegin"
+	else
+		FORTRANLIBS="-lg2c"
+	fi
 	emake \
 		OPTFLAGS="${CXXFLAGS}" \
 		F77="${FORTRANC}" \
 		F77LIBS="${FORTRANLIBS}" \
 		|| die "emake failed"
 
+	# is this only for windows? not quite sure.
 	make cintdlls || die "make cintdlls failed"
 }
 
