@@ -19,7 +19,7 @@ DEPEND="sci-physics/cernlib"
 
 S=${WORKDIR}/${PN}-${DEB_PV}.orig
 
-FORTRAN="g77 ifc"
+FORTRAN="g77"
 
 src_unpack() {
 	unpack ${A}
