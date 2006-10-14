@@ -2,6 +2,13 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*sextractor-2.5.0-r1 (15 Oct 2006)
+
+   15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt> 
+   +sextractor-2.5.0-r1.ebuild -sextractor-2.5.0.ebuild
+   -sextractor-2.4.4.ebuild: removed flag filtering, cleaning,
+   removed old versions.
+
 *sextractor-2.5.0 (06 Sep 2006)
 
    06 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> +sextractor-2.5.0.ebuild:

@@ -2,12 +2,12 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <herd>sci</herd>
-<maintainer>
-    <email>seb@ist.utl.pt</email>
-    <name>Sebastien Fabbro</name>
-</maintainer>
 <longdescription lang="en">
-SExtractor stands for Source Extractor, a program that build a catalog
-of objects from astronomical FITS images.
+SExtractor (Source Extractor) is a program that builds a catalogue of
+objects from an astronomical image. Although it is particularly
+oriented towards reduction of large scale galaxy-survey data, it
+performs rather well on moderately crowded star fields. It has the
+ability to automatically separate stars and galaxy using neural
+networks.
 </longdescription>
 </pkgmetadata>

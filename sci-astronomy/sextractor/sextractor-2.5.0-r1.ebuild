@@ -8,18 +8,17 @@ DESCRIPTION="Extract catalogs of sources from astronomical FITS images."
 HOMEPAGE="http://terapix.iap.fr/soft/sextractor"
 SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/${PN}/${P}.tar.gz"
 
-LICENSE="LGPL-2"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=" ~amd64 ~x86"
 IUSE="static doc icc"
-DEPEND="icc? ( dev-lang/icc )"
-RDEPEND=""
+RDEPEND="virtual/libc"
+DEPEND="${RDEPEND}
+	icc? ( dev-lang/icc )"
 
 CONFDIR=/usr/share/${PN}/config
 
 src_compile() {
-	# trust sextractor cflags to be optimized.
-	filter-flags ${CFLAGS}
 	# change default configuration files location from current dir
 	sed -i -e "s:default\.:${CONFDIR}/default\.:" src/preflist.h
 	econf \
@@ -30,7 +29,7 @@ src_compile() {
 }
 
 src_install () {
-	make DESTDIR=${D} install || die "make install failed"
+	make DESTDIR="${D}" install || die "make install failed"
 	dodoc AUTHORS BUGS ChangeLog HISTORY README THANKS
 	insinto ${CONFDIR}
 	doins config/*
@@ -42,7 +41,7 @@ src_install () {
 
 pkg_postinst() {
 	einfo
-    einfo "SExtractor configuration files are located"
-    einfo "in ${CONFDIR} and loaded by default."
+	einfo "SExtractor configuration files are located"
+	einfo "in ${CONFDIR} and loaded by default."
 	einfo
 }

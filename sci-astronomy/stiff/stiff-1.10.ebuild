@@ -2,22 +2,19 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit flag-o-matic
-
 DESCRIPTION="Converts astronomical FITS images to the TIFF format for illustration purposes."
 HOMEPAGE="http://terapix.iap.fr/soft/stiff"
 SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/${PN}/${P}.tar.gz"
 
-LICENSE="LGPL-2"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=" ~amd64 ~x86"
 IUSE="doc icc"
-DEPEND="icc? ( dev-lang/icc )"
-RDEPEND=""
+RDEPEND="virtual/libc"
+DEPEND="${RDEPEND}
+	icc? ( dev-lang/icc )"
 
 src_compile() {
-	# trust cflags to be optimized.
-	filter-flags ${CFLAGS}
 	econf \
 		$(use_enable icc) \
 		|| die "econf failed"
