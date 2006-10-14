@@ -1,0 +1,10 @@
+# ChangeLog for sci-astronomy/esorex
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*esorex-3.6 (15 Oct 2006)
+
+  15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt>;
+  +esorex-3.6.ebuild,  +metadata.xml.
+  Initial import.
+  
