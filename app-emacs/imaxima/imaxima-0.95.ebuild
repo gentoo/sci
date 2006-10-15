@@ -17,7 +17,7 @@ IUSE=""
 DEPEND="virtual/emacs
 	virtual/tetex
 	virtual/ghostscript
-	|| (>=dev-tex/breqn-0.94 app-text/texlive)
+	|| ( >=dev-tex/breqn-0.94 app-text/texlive )
 	>=sci-mathematics/maxima-5.10"
 
 S=${WORKDIR}/${MY_P}

@@ -2,10 +2,6 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <herd>sci</herd>
-<maintainer>
-  <email>seb@ist.utl.pt</email>
-  <name> Sebastien Fabbro</name>
-</maintainer>
 <longdescription lang="en">
   The cdsclient package is a set of C and csh routines which can be
   built on Unix stations or PCs running Linux, which once compiled allow

@@ -38,8 +38,11 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_unpack() {
 	unpack ${A}
-	cd "${S}"
+	# patch to build the application examples
 	epatch "${FILESDIR}"/${PN}-makefiles.patch
+	cd "${S}"
+	# patch for afterimage-config
+	epatch "${FILESDIR}"/${PN}-config.patch
 	eautoreconf
 }
 
@@ -67,6 +70,6 @@ src_install() {
 	dodir /usr/include
 	dodir /usr/bin
 	dodir /usr/$(get_libdir)
-	make DESTDIR=${D} install || die "make install failed"
+	emake DESTDIR="${D}" install || die "make install failed"
 	dodoc ChangeLog README
 }

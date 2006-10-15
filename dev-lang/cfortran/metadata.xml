@@ -2,8 +2,10 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <herd>sci</herd>
-<maintainer>
-<email>seb@ist.utl.pt</email>
-<name>Sebastien Fabbro</name>
-</maintainer>
+<longdescription lang="en">
+cfortran.h is an easy-to-use powerful bridge between C and FORTRAN. It
+provides a completely transparent, machine independent interface
+between C and FORTRAN routines and global data, i.e. structures and
+COMMON blocks.
+</longdescription>
 </pkgmetadata>

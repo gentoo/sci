@@ -2,9 +2,10 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <herd>sci</herd>
+<maintainer>
+  <email>email@mail.com</email>
+</maintainer>
 <longdescription lang="en">
-  SCAMP computes astrometric and photometric solutions from SExtractor catalogs
-  and stores them in header files. These headers files can be read by SWarp to
-  coadd images.
+    Long description of the package.
 </longdescription>
 </pkgmetadata>

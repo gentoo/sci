@@ -18,7 +18,7 @@ DEPEND=">=sci-libs/libscigraphica-2.1.0
 
 src_unpack() {
 
-	unpack "${A}"
+	unpack ${A}
 	cd "${S}"
 
 	# fix arrayobject problems

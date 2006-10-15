@@ -3,7 +3,7 @@
 <pkgmetadata>
 <herd>sci</herd>
 <maintainer><email>nerdboy@gentoo.org</email></maintainer>
-<longdescription>
+<longdescription lang="en">
   CFITSIO is a library of C and Fortran subroutines for reading and
   writing data files in FITS (Flexible Image Transport System) data
   format. CFITSIO provides simple high-level routines for reading and

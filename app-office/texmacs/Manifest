@@ -45,9 +45,9 @@ SHA256 1731205c2a08fe04888082fab956b53fcb3deec04f328769b7f6b5d1ae304d5b files/di
 MD5 0f9f6816359c7380df733789fb58d926 files/digest-texmacs-1.0.6.4 527
 RMD160 514b0c266833b85b6fc196f70c23d6c87b83e332 files/digest-texmacs-1.0.6.4 527
 SHA256 ce47617a724e3748cd1275738e1aafd4665008d3ffa00206544f8579f2740285 files/digest-texmacs-1.0.6.4 527
-MD5 9d667c77693c78b5d2caf42fafafbf26 files/digest-texmacs-1.0.6.5 527
-RMD160 bef414b4284db2f78c65823903b013c9750dd536 files/digest-texmacs-1.0.6.5 527
-SHA256 fac2d7add5810a412dc7c692702728ba818683de602d3a8c6af8ec720de48483 files/digest-texmacs-1.0.6.5 527
-MD5 19e9dd0072325da5d9a4b427e27f7676 files/digest-texmacs-1.0.6.6 527
-RMD160 3f2b8aa1b26e6203409db6b6e94dc47efc72968c files/digest-texmacs-1.0.6.6 527
-SHA256 5827502a03492c92fb0b207d87df6369b3d9360b689ee40e29b36d37d3e89f27 files/digest-texmacs-1.0.6.6 527
+MD5 142dfbad0854f44ed1fd509f55f34099 files/digest-texmacs-1.0.6.5 455
+RMD160 dbbacbbc10cd12ee1babe7fea8ed7f8bd20cc045 files/digest-texmacs-1.0.6.5 455
+SHA256 8b39934d861ae3bce0fbc4a29070a650c3632198a7481a58ac607709d41fccc0 files/digest-texmacs-1.0.6.5 455
+MD5 3464bd4ec236d512addd68dce0e746bd files/digest-texmacs-1.0.6.6 455
+RMD160 b66e99b7ee3d2b4c07e5ec46b003e77b0fd066e1 files/digest-texmacs-1.0.6.6 455
+SHA256 8f25756ee7a77494c730e33c9117820c5ca94f5e4a58a81b9f9764baa3dbef34 files/digest-texmacs-1.0.6.6 455
