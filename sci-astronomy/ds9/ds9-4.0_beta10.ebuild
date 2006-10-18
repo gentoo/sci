@@ -56,10 +56,8 @@ src_compile() {
 			;;
 		*) die "ds9 not supported upstream for this architecture";;
 	esac
-
 	ln -s make.${ds9arch} make.include
-	emake || die "emake failed"
-	# only install locally
+	emake OPTS="${CXXFLAGS}" || die "emake failed"
 }
 
 src_install () {

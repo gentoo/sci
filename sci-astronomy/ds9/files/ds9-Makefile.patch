@@ -1,5 +1,5 @@
---- Makefile	2006-09-05 19:16:36.000000000 +0100
-+++ Makefile.new	2006-10-12 19:46:14.000000000 +0100
+--- Makefile.orig	2006-10-18 11:47:43.000000000 +0100
++++ Makefile	2006-10-18 11:48:37.000000000 +0100
 @@ -286,40 +286,40 @@
  tclsh	: FORCE
  	@echo "Installing Tcl shared..."
@@ -75,3 +75,12 @@
  	cd bin; strip xpa*
  
  xpa	: FORCE
+@@ -427,7 +427,7 @@
+ 	@echo "Installing ZIP..."
+ 	cd $(ZIPDIR); PREFIX=$(root) $(MAKE) CC=$(CC) CFLAGS='$(OPTS) -I. -DUNIX' LFLAGS1='$(OPTS)' -f unix/Makefile generic
+ 	cd $(ZIPDIR); PREFIX=$(root) $(MAKE) CC=$(CC) CFLAGS='$(OPTS) -I. -DUNIX' LFLAGS1='$(OPTS)' -f unix/Makefile install
+-	ce $(ZIPDIR); $(RM) libzip.a
++	cd $(ZIPDIR); $(RM) libzip.a
+ 	cd $(ZIPDIR); $(AR) -cr libzip.a $(ZIPOBJS)
+ 	cp $(ZIPDIR)/libzip.a lib/libzip.a
+ 
