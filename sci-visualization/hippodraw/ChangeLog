@@ -2,6 +2,11 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*hippodraw-1.19.0 (26 Oct 2006)
+
+  26 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt> 
+  +hippodraw-1.19.0.ebuild, version bump.
+	
 *hippodraw-1.18.6 (15 Oct 2006)
 
   15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt> 
