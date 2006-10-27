@@ -2,6 +2,10 @@
 # Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt> 
+  +root-5.12.00e-r1.ebuild
+  Only needs fortran when cern is selected.
+	
 *root-5.12.00e-r1 (16 Oct 2006)
   16 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt> 
   +root-5.12.00e-r1.ebuild

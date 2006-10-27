@@ -52,8 +52,20 @@ pkg_setup() {
 	einfo "EXTRA_CONF=\"--enable-pythia --with-pythia-libdir=/usr/lib\" emerge root"
 	einfo
 
-	FORTRAN="gfortran g77"
-	fortran_pkg_setup
+	if use cern; then
+		# only g77 allowed so far, because cernlib does not compile
+		# with gfortran
+		FORTRAN="g77"
+		fortran_pkg_setup
+	fi
+}
+
+src_unpack() {
+	if use cern; then
+		fortran_src_unpack
+	else
+		unpack ${A}
+	fi
 }
 
 src_compile() {
@@ -127,15 +139,16 @@ src_compile() {
 		|| die "configure failed"
 
 	# hack to support gfortran (upstream problem?)
-	if [[ "${FORTRANC}" == "gfortran" ]]; then
-		FORTRANLIBS="-lgfortran -lgfortranbegin"
-	else
-		FORTRANLIBS="-lg2c"
-	fi
+	#if [[ "${FORTRANC}" == "gfortran" ]]; then
+	#	FORTRANLIBS="-lgfortran -lgfortranbegin"
+	#else
+	#	FORTRANLIBS="-lg2c"
+	#fi
+	local myfortran
+	use cern && myfortran="F77=\"${FORTRANC}\" F77LIBS=\"${FORTRANLIBS}\""
 	emake \
 		OPTFLAGS="${CXXFLAGS}" \
-		F77="${FORTRANC}" \
-		F77LIBS="${FORTRANLIBS}" \
+		${myfortran} \
 		|| die "emake failed"
 
 	# is this only for windows? not quite sure.
