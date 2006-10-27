@@ -20,4 +20,8 @@ sci-visualization/hippodraw:fits - Add FITS support to hippodraw, via cfitsio
 sci-visualization/hippodraw:minuit - Add minimization software minuit support
 sci-visualization/hippodraw:numarray - Add numarray python array support
 sci-visualization/hippodraw:root - Add root i/o, and minuit support
-
+sys-cluster/openib:dapl - add DAPL (Direct Access Provider Library) support.
+sys-cluster/openib:ipath - add PathScale HCA support.
+sys-cluster/openib:opensm - add OpenSM Subnet Management support.
+sys-cluster/openib-mvapich2:large-cluster - build _LARGE_CLUSTER configuration
+sys-cluster/openib-mvapich2:medium-cluster - build _MEDIUM_CLUSTER configuration
