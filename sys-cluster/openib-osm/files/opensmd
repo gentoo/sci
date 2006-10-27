@@ -1,0 +1,277 @@
+#!/sbin/runscript
+# Copyright 1999-2006 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+# Based on opensmd script from openfabrics.org,
+#  Copyright (c) 2006 Mellanox Technologies. All rights reserved.
+#  Distributed under the terms of the GNU General Public License v2
+
+depend() {
+    need openib
+    after net    # ip net seems to be needed to perform management.
+}
+
+if [ -r /etc/opensm.conf ]; then
+    . /etc/opensm.conf
+fi
+
+prog=/usr/bin/opensm
+bin=${prog##*/}
+
+# Handover daemon for updating guid2lid cache file
+sldd_prog=/usr/bin/sldd.sh
+sldd_bin=${sldd_prog##*/}
+sldd_pid_file=/var/run/sldd.pid
+
+# Setting OpenSM start parameters
+PID_FILE=/var/run/${bin}.pid
+
+if [[ -z $DEBUG || "$DEBUG" == "none" ]]; then
+    DEBUG_FLAG=""
+else
+    DEBUG_FLAG="-d ${DEBUG}"
+fi
+
+if [[ -z $LMC || "$LMC" == "0" ]]; then
+    LMC_FLAG=""
+else
+    LMC_FLAG="-l ${LMC}"
+fi
+
+if [[ -z $MAXSMPS || "$MAXSMPS" == "0" ]]; then
+    MAXSMPS_FLAG=""
+else
+    MAXSMPS_FLAG="-maxsmps ${MAXSMPS}"
+fi
+
+if [[ -z $REASSIGN_LIDS || "$REASSIGN_LIDS" == "no" ]]; then
+    REASSIGN_LIDS_FLAG=""
+else
+    REASSIGN_LIDS_FLAG="-r"
+fi
+
+if [[ -z $SWEEP || "$SWEEP" == "10" ]]; then
+    SWEEP_FLAG=""
+else
+    SWEEP_FLAG="-s ${SWEEP}"
+fi
+
+if [[ -z $TIMEOUT || "$TIMEOUT" == "100" ]]; then
+    TIMEOUT_FLAG=""
+else
+    TIMEOUT_FLAG="-t ${TIMEOUT}"
+fi
+
+if [[ -z $OSM_LOG || "$OSM_LOG" == "/tmp/osm.log" ]]; then
+    OSM_LOG_FLAG=""
+else
+    OSM_LOG_FLAG="-f ${OSM_LOG}"
+fi
+
+if [[ -z $VERBOSE || "$VERBOSE" == "none" ]]; then
+    VERBOSE_FLAG=""
+else
+    VERBOSE_FLAG="${VERBOSE}"
+fi
+
+if [[ -z $UPDN || "$UPDN" == "off" ]]; then
+    UPDN_FLAG=""
+else
+    UPDN_FLAG="-u"
+fi
+
+if [[ -z $GUID_FILE || "$GUID_FILE" == "none" ]]; then
+    GUID_FILE_FLAG=""
+else
+    GUID_FILE_FLAG="-a ${GUID_FILE}"
+fi
+
+if [[ -z $GUID || "$GUID" == "none" ]]; then
+    GUID_FLAG=""
+else
+    GUID_FLAG="-g ${GUID}"
+fi
+
+if [[ -z $HONORE_GUID2LID || "$HONORE_GUID2LID" == "none" ]]; then
+    HONORE_GUID2LID_FLAG=""
+else
+    HONORE_GUID2LID_FLAG="--honor_guid2lid"
+fi
+
+if [[ -n "${OSM_HOSTS}" && $(echo -n ${OSM_HOSTS} | wc -w | tr -d '[:space:]') -gt 1  ]]; then
+    HONORE_GUID2LID_FLAG="--honor_guid2lid"
+fi
+
+
+if [[ -z $CACHE_OPTIONS || "$CACHE_OPTIONS" == "none" ]]; then
+    CACHE_OPTIONS_FLAG=""
+else
+    CACHE_OPTIONS_FLAG="--cache-options"
+fi
+
+
+if [ -z $PORT_NUM ]; then
+    PORT_FLAG=1
+else
+    PORT_FLAG="${PORT_NUM}"
+fi
+
+# Check if $pid (could be plural) are running
+checkpid() {
+        local i
+
+        for i in $* ; do
+                [ -d "/proc/$i" ] || return 1
+        done
+        return 0
+}
+
+start_sldd()
+{
+    if [ -f $sldd_pid_file ]; then
+        local line p
+        read line < $sldd_pid_file
+        for p in $line ; do
+            [ -z "${p//[0-9]/}" -a -d "/proc/$p" ] && sldd_pid="$sldd_pid $p"
+        done
+    fi
+
+    if [ -z "$sldd_pid" ]; then
+        sldd_pid=`pidof -x $sldd_bin`
+    fi
+
+    if [ -n "${sldd_pid:-}" ] ; then
+        kill -9 ${sldd_pid} > /dev/null 2>&1
+    fi
+
+    einfo "starting sldd daemon"
+    $sldd_prog > /dev/null 2>&1 &
+    sldd_pid=$!
+
+    echo ${sldd_pid} > $sldd_pid_file
+    # Sleep is needed in order to update local gid2lid cache file before running opensm
+    sleep 3
+}
+
+stop_sldd()
+{
+    if [ -f $sldd_pid_file ]; then
+        local line p
+        read line < $sldd_pid_file
+        for p in $line ; do
+            [ -z "${p//[0-9]/}" -a -d "/proc/$p" ] && sldd_pid="$sldd_pid $p"
+        done
+    fi
+
+    if [ -z "$sldd_pid" ]; then
+        sldd_pid=`pidof -x $sldd_bin`
+    fi
+
+    if [ -n "${sldd_pid:-}" ] ; then
+        einfo "killing sldd daemon"
+        kill -15 ${sldd_pid} > /dev/null 2>&1
+    fi
+
+}
+
+start() {
+    ebegin "Starting OpenSM Infiniband Subnet Manager"
+    eindent
+
+    local OSM_PID=
+    local RC=0
+
+    if [ -f $PID_FILE ]; then
+        local line p
+        read line < $PID_FILE
+        for p in $line ; do
+            [ -z "${p//[0-9]/}" -a -d "/proc/$p" ] && pid="$pid $p"
+        done
+    fi
+
+    if [ -z "$pid" ]; then
+        pid=`pidof -o $$ -o $PPID -o %PPID -x $bin`
+    fi
+
+    if [ -n "${pid:-}" ] ; then
+        ewarn $"${bin} (pid $pid) is already running..."
+    else
+        if [ -n "${HONORE_GUID2LID_FLAG}" ]; then
+            # Run sldd daemod
+            start_sldd
+        fi
+
+        # Start opensm
+        local START_FLAGS=""
+        for flag in "$DEBUG_FLAG" "$LMC_FLAG" "$MAXSMPS_FLAG" "$REASSIGN_LIDS_FLAG" "$SWEEP_FLAG" "$TIMEOUT_FLAG" "$OSM_LOG_FLAG" "$VERBOSE_FLAG" "$UPDN_FLAG" "$GUID_FILE_FLAG" "$GUID_FLAG" "$HONORE_GUID2LID_FLAG" "$CACHE_OPTIONS_FLAG"
+        do
+            [ ! -z "$flag" ] && START_FLAGS="$START_FLAGS $flag"
+        done
+
+        echo $PORT_FLAG | $prog $START_FLAGS > /dev/null 2>&1 &
+        OSM_PID=$!
+        echo $OSM_PID > $PID_FILE
+        sleep 1
+        checkpid $OSM_PID
+        RC=$?
+    fi
+
+    eoutdent
+    eend $RC
+}
+
+stop() {
+    ebegin "Stopping OpenSM Infiniband Subnet Manager"
+    local RC=0
+    local pid=
+    local pid1=
+    local pid2=
+
+    # Stop sldd daemon
+    stop_sldd
+
+    if [ -f $PID_FILE ]; then
+        local line p
+        read line < $PID_FILE
+        for p in $line ; do
+                [ -z "${p//[0-9]/}" -a -d "/proc/$p" ] && pid1="$pid1 $p"
+        done
+    fi
+
+    pid2=`pidof -o $$ -o $PPID -o %PPID -x $bin`
+
+    pid=`echo "$pid1 $pid2" | sed -e 's/\ /\n/g' | sort -n | uniq | sed -e 's/\n/\ /g'`
+
+    if [ -n "${pid:-}" ] ; then
+        # Kill opensm
+        kill -15 $pid > /dev/null 2>&1
+        cnt=0
+        while [ $cnt -lt 6 ]; do
+            #echo -n ".";
+            sleep 1; let cnt++
+        done
+
+        for p in $pid
+        do
+            while checkpid $p ; do
+                kill -KILL $p > /dev/null 2>&1
+                #echo -n "."
+                sleep 1
+            done
+        done
+        checkpid $pid
+        RC=$?
+        [ $RC -eq 0 ] && eerror "$bin shutdown failed"
+        RC=$((! $RC))
+    else
+        ewarn "$bin does not appear to be running"
+        RC=1
+    fi
+
+    # Remove pid file if any.
+    rm -f $PID_FILE
+
+    eend $RC
+}
+
