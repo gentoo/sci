@@ -3,16 +3,13 @@
 # $Header: $
 
 SLOT="0"
-LICENSE="GPL-2"
-
-# NOTE: actually distributed under two licenses, of which "you choose to be
-# licensed under", according to the COPYING file: "GPL-2" and "OpenIB.org BSD"
+LICENSE="|| ( GPL-2 BSD-2 )"
 
 KEYWORDS="~amd64"
 
 DESCRIPTION="a library that allows programs to use InfiniBand 'verbs' for direct access to IB hardware from userspace"
-SRC_URI="http://www.openib.org/downloads/${P}.tar.gz"
-HOMEPAGE="http://www.openib.org/"
+SRC_URI="http://www.openfabrics.org/downloads/${P}.tar.gz"
+HOMEPAGE="http://www.openfabrics.org/"
 
 IUSE=""
 
