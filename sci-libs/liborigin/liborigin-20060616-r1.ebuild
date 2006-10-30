@@ -30,4 +30,6 @@ src_install() {
 	dolib liborigin.so*
 	dobin opj2dat
 	dodoc COPYING README ws4.opj
+	insinto /usr/include
+	doins OPJFile.h
 }
