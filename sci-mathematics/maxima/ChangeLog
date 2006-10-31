@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  31 Oct 2006; Jeff Gardner <je_fro@gentoo.org> ChangeLog:
+  Very minor fix to a comment.
+
 *maxima-5.10.0 (21 Sep 2006)
 
   21 Sep 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
