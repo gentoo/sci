@@ -112,7 +112,7 @@ src_install() {
 }
 
 pkg_preinst() {
-	# some lisp do not gunzip on the fly info files
+	# some lisp do not gunzip info files on the fly
 	if use cmucl || use clisp || use sbcl; then
 		for infofile in $(ls ${D}/usr/share/info/*.gz); do
 			gunzip ${infofile}
