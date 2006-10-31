@@ -11,17 +11,18 @@ KEYWORDS="~amd64"
 LICENSE="LGPL-2.1"
 
 IUSE=""
+SLOT="0"
 
 RDEPEND=">=virtual/jre-1.4"
 DEPEND=">=virtual/jre-1.4
 	dev-java/ant-core
-	vhosts? app-admin/webapp-config"
+	vhosts? ( app-admin/webapp-config )"
 
 
 pkg_setup() {
 	
 	if use vhosts ; then
-		webapp_pkg_setup
+		webapp_pkg_setup || die "Failed to setup webapp"
 	fi
 
 }
@@ -32,13 +33,14 @@ src_unpack() {
 	cd "${S}"
 
 # i18n is broken without files from svn.
-	epatch "${FILESDIR}"/${P}-nointl.patch
+	epatch "${FILESDIR}"/${P}-nointl.patch || die "Failed nointl patch."
 
-	epatch "${FILESDIR}"/${P}-manifest.patch
+	epatch "${FILESDIR}"/${P}-manifest.patch || die "Failed manifest patch."
 
 	sed -i "s/${PN}/${P}\/lib/" "${PN}" || die "Failed running sed."
 
 	mkdir "${S}"/selfSignedCertificate || die "Failed to create Cert directory."
+	
 	cp "${FILESDIR}"/selfSignedCertificate.store "${S}"/selfSignedCertificate/ \
 		|| die "Failed to install Cert file."
 
@@ -60,9 +62,9 @@ src_install() {
 	dobin   jmol || die "Failed to install startup script."
 
 	if use vhosts ; then
-		webapp_src_preinst || die 
-		cp Jmol.* "${D}${MY_HTDOCSDIR}" || die "Failed installing webapp files."
-		cp jmol "${D}${MY_HTDOCSDIR}" || die "Failed installing webapp files."
+		webapp_src_preinst || die "Failed webapp_src_preinst."
+		cp Jmol.* "${D}${MY_HTDOCSDIR}" || die 
+		cp jmol "${D}${MY_HTDOCSDIR}" || die
 		cp JmolApplet.* "${D}${MY_HTDOCSDIR}" die
 		cp applet.classes "${D}${MY_HTDOCSDIR}" || die
 		cp -r build/classes/* "${D}${MY_HTDOCSDIR}" || die 
