@@ -3,6 +3,9 @@
 # $Header: $
 
   01 Nov 2006; Jeff Gardner <je_fro@gentoo.org> ChangeLog:
+  Make sed statement more readable.
+
+  01 Nov 2006; Jeff Gardner <je_fro@gentoo.org> ChangeLog:
   Assorted ebuild fixes.
 
   31 Oct 2006; Jeff Gardner <je_fro@gentoo.org> ChangeLog:

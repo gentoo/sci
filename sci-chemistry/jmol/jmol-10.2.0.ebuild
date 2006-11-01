@@ -11,7 +11,6 @@ KEYWORDS="~amd64"
 LICENSE="LGPL-2.1"
 
 IUSE=""
-# SLOT="0"
 
 RDEPEND=">=virtual/jre-1.4"
 DEPEND=">=virtual/jre-1.4
@@ -37,7 +36,7 @@ src_unpack() {
 
 	epatch "${FILESDIR}"/${P}-manifest.patch || die "Failed manifest patch."
 
-	sed -i "s/${PN}/${P}\/lib/" "${PN}" || die "Failed running sed."
+	sed -i "s:${PN}:${P}\/lib:" "${PN}" || die "Failed running sed."
 
 	mkdir "${S}"/selfSignedCertificate || die "Failed to create Cert directory."
 	
