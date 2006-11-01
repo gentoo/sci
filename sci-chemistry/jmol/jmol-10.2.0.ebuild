@@ -11,7 +11,7 @@ KEYWORDS="~amd64"
 LICENSE="LGPL-2.1"
 
 IUSE=""
-SLOT="0"
+# SLOT="0"
 
 RDEPEND=">=virtual/jre-1.4"
 DEPEND=">=virtual/jre-1.4
@@ -55,22 +55,30 @@ src_compile() {
 
 src_install() {
 
-	java-pkg_dojar   Jmol.jar JmolApplet.* || die "Failed to install jars."
+	java-pkg_dojar   Jmol.jar JmolApplet.*  
 	dohtml -r  build/doc/* || die "Failed to install html docs."
-	dodoc  *.txt doc/*license* || die "Failed to install licenses."
+	dodoc *.txt doc/*license* || die "Failed to install licenses."
 	edos2unix jmol || die "Failed to convert jmol from DOS format."
-	dobin   jmol || die "Failed to install startup script."
+	dobin jmol || die "Failed to install startup script."
 
 	if use vhosts ; then
 		webapp_src_preinst || die "Failed webapp_src_preinst."
-		cp Jmol.* "${D}${MY_HTDOCSDIR}" || die 
-		cp jmol "${D}${MY_HTDOCSDIR}" || die
-		cp JmolApplet.* "${D}${MY_HTDOCSDIR}" die
-		cp applet.classes "${D}${MY_HTDOCSDIR}" || die
-		cp -r build/classes/* "${D}${MY_HTDOCSDIR}" || die 
-		cp -r build/appjars/* "${D}${MY_HTDOCSDIR}" || die 
-		cp "${FILESDIR}"/caffeine.xyz "${D}${MY_HTDOCSDIR}" || die
-		cp "${FILESDIR}"/index.html "${D}${MY_HTDOCSDIR}" || die
+		cmd="cp Jmol.* "${D}${MY_HTDOCSDIR}"" ; ${cmd} \
+		|| die "${cmd} failed." 
+		cmd="cp jmol "${D}${MY_HTDOCSDIR}"" ; ${cmd} \
+		|| die "${cmd} failed."
+		cmd="cp JmolApplet.* "${D}${MY_HTDOCSDIR}"" ; ${cmd} \
+		|| die "${cmd} failed."
+		cmd="cp applet.classes "${D}${MY_HTDOCSDIR}"" ; ${cmd} \
+		|| die "${cmd} failed."
+		cmd="cp -r build/classes/* "${D}${MY_HTDOCSDIR}"" ; ${cmd} \
+		|| die "${cmd} failed."
+		cmd="cp -r build/appjars/* "${D}${MY_HTDOCSDIR}"" ; ${cmd} \
+		|| die "${cmd} failed."
+		cmd="cp "${FILESDIR}"/caffeine.xyz "${D}${MY_HTDOCSDIR}"" ; ${cmd} \
+		|| die "${cmd} failed."
+		cmd="cp "${FILESDIR}"/index.html "${D}${MY_HTDOCSDIR}"" ; ${cmd} \
+		|| die "${cmd} failed."
 
 		webapp_src_install || die "Failed running webapp_src_install"
 	fi
@@ -80,7 +88,7 @@ src_install() {
 pkg_postinst() {
 	
 	if use vhosts ; then
-		webapp_pkg_postinst || die "pkg_postinst failed"
+		webapp_pkg_postinst || die "webapp_pkg_postinst failed"
 	fi
 
 }
@@ -88,7 +96,7 @@ pkg_postinst() {
 pkg_prerm() {
 
 	if use vhosts ; then
-		webapp_pkg_prerm || die "pkg_prerm failed"
+		webapp_pkg_prerm || die "webapp_pkg_prerm failed"
 	fi
 
 }
