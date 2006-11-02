@@ -8,16 +8,13 @@ SLOT="0"
 LICENSE="MIT"
 KEYWORDS="~x86"
 IUSE="doc"
-SRC_URI="mirror://sourceforge/muparser/${PN}.tar.gz"
+MY_PN=${PN/P/p}
+SRC_URI="mirror://sourceforge/${MY_PN}/${MY_PN}.tar.gz"
 DEPEND="doc? ( app-doc/doxygen )"
-S="${WORKDIR}/muParser"
-
-#### Remove the next line when moving this ebuild to the main tree!
-RESTRICT="nomirror"
 
 src_compile() {
 	econf --disable-samples || die "econf failed"
-	emake CXXFLAGS="${CXXFLAGS}" || die "emake failed"
+	MAKEOPTS="$MAKEOPTS -j1" emake CXXFLAGS="${CXXFLAGS}" || die "emake failed"
 	if use doc; then
 		make documentation || die "make documentation failed"
 	fi
