@@ -17,10 +17,10 @@ SLOT="0"
 
 src_unpack() {
 	unpack ${A}
-	cd ${S}
-	epatch ${WORKDIR}/${PN}_${PV}-${DEB_PR}.diff
+	cd "${S}"
+	epatch "${WORKDIR}"/${PN}_${PV}-${DEB_PR}.diff
 	if use examples; then
-		unpack cfortran.examples.tar.gz
+		unpack "${PN}".examples.tar.gz
 		mv eg examples
 		ln -sfn sz1.c examples/sz1/sz1.C
 		ln -sfn pz.c examples/pz/pz.C
