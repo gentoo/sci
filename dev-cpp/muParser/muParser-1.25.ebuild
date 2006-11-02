@@ -8,9 +8,10 @@ SLOT="0"
 LICENSE="MIT"
 KEYWORDS="~x86"
 IUSE="doc"
-MY_PN=${PN/P/p}
+MY_PN="${PN/P/p}"
 SRC_URI="mirror://sourceforge/${MY_PN}/${MY_PN}.tar.gz"
 DEPEND="doc? ( app-doc/doxygen )"
+S="${WORKDIR}/${PN}"
 
 src_compile() {
 	econf --disable-samples || die "econf failed"
