@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE="cmucl clisp sbcl gcl tetex emacs auctex tk nls unicode"
 
-# rlwrap is recommended for clisp and sbcl
+# rlwrap is recommended for cmucl and sbcl
 RDEPEND=">=sci-visualization/gnuplot-4.0
 	app-text/gv
 	tetex? ( virtual/tetex )
