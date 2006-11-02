@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Nov 2006; Sebastien Fabbro <seb@ist.utl.pt>;
+  +imaxima-0.95.ebuild, some cleanup. -imaxima-0.94b.ebuild (in tree).
+	
 *imaxima-0.95 (15 Oct 2006)
 
   15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt>;
@@ -15,19 +18,3 @@
   Tested on amd64 as well. Closing #101186, #135592 and #136289.
   Thanks to Sebastian Schubert <sebastian-schubert@gmx.de> and others.
 	
-  24 Aug 2005; Matthew Kennedy <mkennedy@gentoo.org> imaxima-0.9.ebuild:
-  Removing ~amd64.
-
-  01 Jul 2005; Matthew Kennedy <mkennedy@gentoo.org> imaxima-0.9.ebuild:
-  Keywording ~amd64
-
-  28 Nov 2004; Joseph Jezak <josejx@gentoo.org> imaxima-0.9.ebuild:
-  Marked ~ppc for bug #72351.
-
-*imaxima-0.9 (09 Oct 2004)
-
-  09 Oct 2004; Mamoru KOMACHI <usata@gentoo.org> +metadata.xml,
-  +files/50imaxima-gentoo.el, +imaxima-0.9.ebuild:
-  Initial import. Ebuild submitted by Cliff Yapp <smustudent1@yahoo.com> and
-  P.L.Hayes <paul@wolfbone.ath.cx>, closing bug #60148.
-

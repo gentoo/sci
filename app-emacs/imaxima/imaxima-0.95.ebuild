@@ -18,7 +18,7 @@ DEPEND="virtual/emacs
 	virtual/tetex
 	virtual/ghostscript
 	|| ( >=dev-tex/breqn-0.94 app-text/texlive )
-	>=sci-mathematics/maxima-5.10"
+	>=sci-mathematics/maxima-5.9.3"
 
 S=${WORKDIR}/${MY_P}
 
@@ -34,8 +34,8 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "make install failed"
-	elisp-site-file-install ${FILESDIR}/50imaxima-gentoo.el
+	emake DESTDIR="${D}" install || die "emake install failed"
+	elisp-site-file-install "${FILESDIR}"/50imaxima-gentoo.el
 	dodoc ChangeLog NEWS README
 	docinto imath-example
 	dodoc imath-example/*.txt
