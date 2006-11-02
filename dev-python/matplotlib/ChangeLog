@@ -2,6 +2,15 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*matplotlib-0.87.7 (02 Nov 2006)
+
+  02 Nov 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +matplotlib-0.87.7.ebuild, 
+  +files/matplotlib-0.87.7-no-autodetect.patch
+  +files/matplotlib-0.87.7-matplotlibrc.patch
+  +matplotlib-0.87.7.ebuild, 
+  Version bump, with adapted patches.
+
   14 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt>
   +matplotlib-0.87.6.ebuild, +files/matplotlib-0.87.6-matplotlibrc.patch
   Now commited the proper version
@@ -19,138 +28,7 @@
 
   12 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt>
   +matplotlib-0.87.5.ebuild:
-  +metadata.xml
+  +metadata.xml. Import from main tree.
   Changed tk use flag, added more doc, added agg dependency if needed,
   window opening bug, and added longdescription in metadata.xml.
 	
-*matplotlib-0.87.4 (17 Jul 2006)
-
-  17 Jul 2006; Alastair Tse <liquidx@gentoo.org>
-  +files/matplotlib-0.87.4-fix-bad-win32-detect.patch,
-  -matplotlib-0.87.3.ebuild, +matplotlib-0.87.4.ebuild:
-  version bump. fix broken compiling of c++ modules.
-
-*matplotlib-0.87.3 (16 Jul 2006)
-
-  16 Jul 2006; Alastair Tse <liquidx@gentoo.org> -matplotlib-0.73.1.ebuild,
-  -matplotlib-0.81.ebuild, -matplotlib-0.82.ebuild, -matplotlib-0.85.ebuild,
-  -matplotlib-0.86.2-r1.ebuild, +matplotlib-0.87.3.ebuild:
-  version bump. (#136429)
-
-*matplotlib-0.87.2 (04 Apr 2006)
-*matplotlib-0.86.2-r1 (04 Apr 2006)
-
-  04 Apr 2006; Marien Zwart <marienz@gentoo.org>
-  +files/matplotlib-0.86.2-no-setuptools.patch, -matplotlib-0.86.2.ebuild,
-  +matplotlib-0.86.2-r1.ebuild, +matplotlib-0.87.2.ebuild:
-  Revision bump for 0.86.2 to disable setuptools (install with setuptools
-  present is completely broken). Version bump.
-
-*matplotlib-0.86.2 (07 Feb 2006)
-
-  07 Feb 2006; Alastair Tse <liquidx@gentoo.org>
-  +files/matplotlib-0.86.2-no-autodetect.patch, +matplotlib-0.86.2.ebuild:
-  version bump. updated patch and ebuild thanks to Alok Singhal (#119468).
-  Supports dev-python/numpy.
-
-  24 Dec 2005; Tobias Scherbaum <dertobi123@gentoo.org>
-  matplotlib-0.85.ebuild:
-  Added to ~ppc, #114776
-
-  10 Dec 2005; Luis Medinas <metalgod@gentoo.org> matplotlib-0.85.ebuild:
-  Added ~amd64 keyword. Bug #114776.
-
-*matplotlib-0.85 (07 Dec 2005)
-
-  07 Dec 2005; Marien Zwart <marienz@gentoo.org>
-  +files/matplotlib-0.85-no-autodetect.patch, matplotlib-0.73.1.ebuild,
-  matplotlib-0.80-r1.ebuild, matplotlib-0.81.ebuild, matplotlib-0.82.ebuild,
-  +matplotlib-0.85.ebuild:
-  Fix insinfo / insinto typo in all versions. Version bump (bug #105443),
-  dropping ~ppc and ~amd64 keywords because new deps have not been keyworded
-  yet (bug #114776)
-
-  24 Nov 2005; Marien Zwart <marienz@gentoo.org> matplotlib-0.73.1.ebuild,
-  matplotlib-0.80-r1.ebuild, matplotlib-0.81.ebuild, matplotlib-0.82.ebuild:
-  Block pytz and python-dateutil (to be added to the tree soon) because of
-  file collisions. Thanks to blubb@gentoo.org for spotting this.
-
-  26 Sep 2005; Alastair Tse <liquidx@gentoo.org> matplotlib-0.73.1.ebuild,
-  matplotlib-0.80-r1.ebuild, matplotlib-0.81.ebuild, matplotlib-0.82.ebuild:
-  change license to PYTHON rather than as-is. (#105802)
-
-*matplotlib-0.82 (02 Jul 2005)
-
-  02 Jul 2005; Fernando Serboncini <fserb@gentoo.org>
-  -matplotlib-0.71.ebuild, -matplotlib-0.80.ebuild,
-  matplotlib-0.80-r1.ebuild, +matplotlib-0.82.ebuild:
-  Version bump. Made 0.80-r1 stable.
-  Removed 0.80 and 0.71 versions.
-  New ebuild assures that non portage extensions are always installed
-  and use correct deps.
-
-  13 Jun 2005; Fernando Serboncini <fserb@gentoo.org>
-  matplotlib-0.81.ebuild:
-  Fixed dependencies. Closes #95905.
-
-  11 Jun 2005; David Holm <dholm@gentoo.org> matplotlib-0.81.ebuild:
-  Added to ~ppc.
-
-*matplotlib-0.81 (11 Jun 2005)
-
-  11 Jun 2005; Fernando Serboncini <fserb@gentoo.org>
-  matplotlib-0.73.1.ebuild, +matplotlib-0.81.ebuild:
-  Version bump.
-  0.73.1 stable on x86.
-
-*matplotlib-0.80-r1 (26 May 2005)
-
-  26 May 2005; Fernando Serboncini <fserb@gentoo.org>
-  +matplotlib-0.80-r1.ebuild:
-  Removed need for virtualx on new matplotlib. Fixes #91553.
-
-  26 May 2005; Fernando Serboncini <fserb@gentoo.org>
-  -matplotlib-0.64.ebuild, -matplotlib-0.65.ebuild, matplotlib-0.71.ebuild:
-  Removed old version.
-  Marked 0.71 as stable.
-
-  23 Apr 2005; Bryan Østergaard <kloeri@gentoo.org> matplotlib-0.64.ebuild,
-  matplotlib-0.65.ebuild:
-  Remove RESTRICT="nomirror".
-
-*matplotlib-0.80 (14 Apr 2005)
-
-  14 Apr 2005; Bryan Østergaard <kloeri@gentoo.org>
-  +matplotlib-0.80.ebuild:
-  Version bump.
-
-  07 Apr 2005; Jan Brinkmann <luckyduck@gentoo.org> matplotlib-0.73.1.ebuild:
-  added ~amd64 to KEYWORDS, fixes #87950
-
-*matplotlib-0.73.1 (22 Mar 2005)
-
-  22 Mar 2005; Fernando Serboncini <fserb@gentoo.org>
-  matplotlib-0.71.ebuild, +matplotlib-0.73.1.ebuild:
-  Version bump. Removed nomirror restriction from newer ebuilds.
-
-*matplotlib-0.64 (11 Feb 2005)
-
-  11 Feb 2005; Bryan Østergaard <kloeri@gentoo.org> matplotlib-0.64.ebuild,
-  matplotlib-0.65.ebuild, matplotlib-0.71.ebuild:
-  gtk should be optional, bug 81506.
-
-*matplotlib-0.71 (24 Jan 2005)
-
-  24 Jan 2005; <fserb@gentoo.org> +matplotlib-0.71.ebuild:
-  Version bump
-
-*matplotlib-0.65 (20 Dec 2004)
-
-  20 Dec 2004; Bryan Østergaard <kloeri@gentoo.org>
-  +matplotlib-0.65.ebuild:
-  Version bump, new ebuild by Fernando Serboncini <fserb@terra.com.br>
-
-  05 Dec 2004; Bryan Østergaard <kloeri@gentoo.org> :
-  Initial import, ebuild by Fernando A. Serboncini <fserb@terra.com.br> in bug
-  32895.
-
