@@ -2,115 +2,13 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+	
+  14 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt>; +tclx-8.4.ebuild
+  Minor cosmetic fixes.
+	
 *tclx-8.4 (14 Sep 2006)
 
   14 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt>; +tclx-8.4.ebuild
   +files/tclx-8.4-relid.patch, +files/tclx-8.4-varinit.patch
   Version bump. Needs some testing on arches.
 	
-  23 Aug 2006; Jason Wever <weeve@gentoo.org> tclx-8.3.5.ebuild:
-  Stable on SPARC.
-
-  27 Apr 2006; Marien Zwart <marienz@gentoo.org> files/digest-tclx-8.3-r1,
-  files/digest-tclx-8.3.5, Manifest:
-  Fixing SHA256 digest, pass four
-
-  28 Feb 2006; Mike Frysinger <vapier@gentoo.org>
-  +files/tclx-8.3.5-configure.patch, tclx-8.3.5.ebuild:
-  Fix bug in configure script #119619 by Markus Ullmann and Richard Benjamin
-  Voigt.
-
-  04 May 2005; Ferris McCormick <fmccor@gentoo.org> tclx-8.3.5.ebuild:
-  Add ~sparc keyword.  Builds and tests OK.
-
-  21 Apr 2005; Michael Hanselmann <hansmi@gentoo.org> tclx-8.3.5.ebuild:
-  Stable on ppc.
-
-  01 Apr 2005; Simon Stelling <blubb@gentoo.org> tclx-8.3.5.ebuild:
-  stable on amd64
-
-  09 Jan 2005; Sven Wegener <swegener@gentoo.org> tclx-8.3-r1.ebuild,
-  tclx-8.3.5.ebuild, tclx-8.3.ebuild:
-  Added missing parentheses in SRC_URI/*DEPEND/LICENSE.
-
-  31 Dec 2004; Ciaran McCreesh <ciaranm@gentoo.org> :
-  Change encoding to UTF-8 for GLEP 31 compliance
-
-  19 Oct 2004; Bryan Østergaard <kloeri@gentoo.org> tclx-8.3.5.ebuild:
-  Stable on alpha.
-
-  19 Oct 2004; Dylan Carlson <absinthe@gentoo.org> tclx-8.3.5.ebuild:
-  KEYWORDS ~amd64.
-
-  14 Oct 2004; Bryan Østergaard <kloeri@gentoo.org> tclx-8.3.5.ebuild:
-  Add ~alpha keyword.
-
-  06 Sep 2004; Ciaran McCreesh <ciaranm@gentoo.org> tclx-8.3-r1.ebuild:
-  Switch to use epause and ebeep, bug #62950
-
-  05 Sep 2004; Doug Goldstein <cardoe@gentoo.org> tclx-8.3.5.ebuild:
-  stable x86
-
-  30 Aug 2004; Danny van Dyk <kugelfang@gentoo.org> tclx-8.3-r1.ebuild,
-  tclx-8.3.5.ebuild:
-  Removed append-flags -fPIC. Not necessary. See BUG #55238.
-
-  07 Aug 2004; Doug Goldstein <cardoe@gentoo.org> tclx-8.3.5.ebuild:
-  Fixes for bug #58730 and #46565.
-  Revision bump and this one resolves some previous problems.
-  Now will emerge without having to unmerge prior version
-
-  03 Jun 2004; Aron Griffis <agriffis@gentoo.org> tclx-8.3-r1.ebuild,
-  tclx-8.3.ebuild:
-  Fix use invocation
-
-  25 Apr 2004; Aron Griffis <agriffis@gentoo.org> tclx-8.3-r1.ebuild,
-  tclx-8.3.ebuild:
-  Add die following econf for bug 48950
-
-  14 Apr 2004; Daniel Ahlberg <aliz@gentoo.org> tclx-8.3-r1.ebuild,
-  tclx-8.3.ebuild:
-  Inherit eutils.
-
-  09 Jan 2004; Aron Griffis <agriffis@gentoo.org> tclx-8.3.ebuild:
-  stable on alpha
-
-  15 Dec 2003; Jason Wever <weeve@gentoo.org> tclx-8.3-r1.ebuild:
-  Added ~sparc keyword to fix broken dependencies in app-sci/lard.
-
-  16 Nov 2003; Brad House <brad_mssw@gentoo.org> tclx-8.3-r1.ebuild:
-  mark stable on amd64
-
-*tclx-8.3-r1 (23 Apr 2003)
-
-  05 May 2003; Stanislav Brabec <utx@gentoo.org> tclx-8.3-r1.ebuild:
-  Added "unmerge before update" warning (bug #19913).
-
-  23 Apr 2003; Stanislav Brabec <utx@gentoo.org> tclx-8.3-r1.ebuild:
-  Added new ebuild, which builds tclx against tcl/tk 8.4.2 (bug #19555).
-
-*tclx-8.3 (15 Aug 2002)
-
-  13 Feb 2003; Mark Guertin <gerk@gentoo.org> tclx-8.3.ebuild :
-  added ~ppc to keywords
-
-  31 Mar 2003; Aron Griffis <agriffis@gentoo.org> tclx-8.3.ebuild:
-  Add -fPIC on alpha to close bug 10921
-
-  16 Aug 2002; George Shapovalov <george@gentoo.org> tclx-8.3.ebuild :
-
-  incorporated modification by <pcgod@gmx.net> to make tk dependency optional (if
-  X is defined)
-  Also moved long description into ChangeLog, leaving a one-liner in the ebuild
-  
-
-  15 Aug 2002; Daniel Ahlberg <aliz@gentoo.org> tclx-8.3.ebuild :
-  Initial import. Ebuild submitted by Chris Bainbridge <chrb@dcs.ed.ac.uk>.
-
-  short description:
-  A set of extensions to TCL oriented towards common
-  UNIX/Linux programming tasks.  TclX enhances Tcl support for files,
-  network access, debugging, math, lists, and message catalogs, provides
-  additional interfaces to the native operating system, as well as many
-  new programming constructs, text manipulation tools, and debugging
-  capabilities

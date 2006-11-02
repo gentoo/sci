@@ -35,8 +35,7 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR=${D} install || die "make install failed"
-	cd "${S}"
+	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc ChangeLog README
 	doman doc/*.[n3]
 }
