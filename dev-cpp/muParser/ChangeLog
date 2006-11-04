@@ -1,9 +1,0 @@
-# ChangeLog for sci-libs/matio
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*muparser-1.25 (5 Oct 2006)
-
-  5 Oct 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
-  +muParser-1.25.ebuild, +metadata.xml, +ChangeLog:
-  initial import
