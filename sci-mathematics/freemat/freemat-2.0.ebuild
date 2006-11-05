@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+inherit eutils autotools
 
 DESCRIPTION="Freemat is a free environment for rapid engineering and scientific prototyping and data processing"
 HOMEPAGE="http://freemat.sourceforge.net/"
@@ -15,7 +15,7 @@ SRC_URI="mirror://sourceforge/freemat/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 amd64"
+KEYWORDS="~x86"
 
 DEPEND=">=sys-libs/ncurses-5.4-r5 virtual/blas virtual/lapack dev-libs/ffcall\
 	sci-libs/umfpack sci-libs/arpack >=sci-libs/matio-1.3.0"
@@ -32,7 +32,7 @@ src_unpack() {
 }
 
 src_compile() {
-	autoconf
+	eautoconf
 	econf || die "econf failed"
 	emake || die "emake failed"
 }
