@@ -1,0 +1,52 @@
+--- qtiplot.pro.orig	2006-11-05 18:24:28.000000000 +0100
++++ qtiplot.pro	2006-11-05 22:16:38.000000000 +0100
+@@ -17,9 +17,5 @@
+ # Python support is unstable; use at your own risk
+-SCRIPTING_LANGS += Python
++#SCRIPTING_LANGS += Python
+ 
+-TRANSLATIONS = translations/qtiplot_de.ts \
+-			   translations/qtiplot_es.ts \
+-			   translations/qtiplot_fr.ts \
+-			   translations/qtiplot_ru.ts \
+-			   translations/qtiplot_sv.ts 
++TRANSLATIONS =
+ 
+@@ -28,10 +24,6 @@
+ 
+-INCLUDEPATH	+= ../3rdparty/qwt/include
+-INCLUDEPATH	+= ../3rdparty/liborigin
+-
+ ##################### Linux (Mac OS X) settings ##################### 
+ 
+-INCLUDEPATH  += -I /usr/include/qwtplot3d
+-LIBS         += ../3rdparty/qwt/lib$${libsuff}/libqwt.a
+-LIBS         += -L /usr/lib$${libsuff} -lgsl -lgslcblas -lqwtplot3d -lz -lorigin
++INCLUDEPATH  += -I /usr/include/qwt5 -I /usr/include/qwtplot3d
++LIBS += -lgsl -lgslcblas -lqwtplot3d -lz -lorigin -lqwt -lmuparser
+ 
+@@ -221,22 +213,4 @@
+   DEFINES +=	SCRIPTING_MUPARSER
+-  HEADERS +=	src/muParserScripting.h \
+-		../3rdparty/muParser/muParser.h \
+-		../3rdparty/muParser/muParserBase.h \
+-		../3rdparty/muParser/muParserInt.h \
+-		../3rdparty/muParser/muParserError.h \
+-		../3rdparty/muParser/muParserStack.h \
+-		../3rdparty/muParser/muParserToken.h \
+-		../3rdparty/muParser/muParserBytecode.h \
+-		../3rdparty/muParser/muParserCallback.h \
+-		../3rdparty/muParser/muParserTokenReader.h \ 
+-		../3rdparty/muParser/muParserFixes.h \
+-		../3rdparty/muParser/muParserDef.h  	   
+-  SOURCES +=	src/muParserScripting.cpp \
+-		../3rdparty/muParser/muParser.cpp \
+-		../3rdparty/muParser/muParserBase.cpp \
+-		../3rdparty/muParser/muParserInt.cpp \
+-		../3rdparty/muParser/muParserBytecode.cpp \
+-		../3rdparty/muParser/muParserCallback.cpp \
+-		../3rdparty/muParser/muParserTokenReader.cpp \
+-		../3rdparty/muParser/muParserError.cpp
++  HEADERS +=	src/muParserScripting.h
++  SOURCES +=	src/muParserScripting.cpp
+ }

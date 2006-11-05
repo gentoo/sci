@@ -1,0 +1,5 @@
+--- parser.h.orig	2006-11-05 21:36:23.000000000 +0100
++++ parser.h	2006-11-05 21:36:59.000000000 +0100
+@@ -4 +4 @@
+-#include "../3rdparty/muParser/muParser.h"
++#include <muParser.h>
