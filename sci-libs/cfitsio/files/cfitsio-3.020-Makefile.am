@@ -10,7 +10,7 @@ libcfitsio_la_SOURCES = \
 	putcolj.c putcolk.c putcoluk.c putcoll.c putcols.c putcolsb.c \
 	putcolu.c putcolui.c putcoluj.c putkey.c region.c scalnull.c \
 	swapproc.c wcssub.c wcsutil.c imcompress.c quantize.c ricecomp.c \
-	pliocomp.c \
+	pliocomp.c  fits_hcompress.c fits_hdecompress.c \
 	f77_wrap1.c f77_wrap2.c f77_wrap3.c f77_wrap4.c
 libcfitsio_la_LIBADD = -lm
 include_HEADERS = fitsio.h fitsio2.h longnam.h drvrsmem.h

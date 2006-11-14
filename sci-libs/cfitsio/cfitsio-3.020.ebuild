@@ -12,16 +12,18 @@ SRC_URI="ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/${PN}${PV//.}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~amd64 ~x86"
 
-DEPEND="virtual/libc"
+DEPEND="dev-lang/cfortran"
 
 S=${WORKDIR}/${PN}
 
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	cp "${FILESDIR}"/{Makefile.am,configure.ac} .
+	epatch "${FILESDIR}"/${PN}-cfortran.patch
+	cp "${FILESDIR}"/${P}-Makefile.am Makefile.am
+	cp "${FILESDIR}"/${P}-configure.ac configure.ac
 	eautoreconf
 }
 
