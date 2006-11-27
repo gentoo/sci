@@ -43,9 +43,6 @@ src_unpack() {
 		else
 			echo "/usr/$(get_libdir)/blas/atlas" >> site.cfg
 		fi
-	else
-		rm -f site.cfg
-		export ATLAS=None
 	fi
 }
 
@@ -53,6 +50,12 @@ src_compile() {
 	# http://projects.scipy.org/scipy/numpy/ticket/182
 	# Can't set LDFLAGS
 	unset LDFLAGS
+	if !(use lapack); then
+		rm -f site.cfg
+		export BLAS=None
+		export LAPACK=None
+		export ATLAS=None
+	fi
 
 	distutils_src_compile
 }

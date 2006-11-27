@@ -3,6 +3,14 @@
 # $Header: $
 
 
+  21 Nov 2006; Sebastien Fabbro <seb@ist.utl.pt>; +numpy-1.0.ebuild:
+  Fixes again the USE=-lapack. 
+  Thanks to Toon Verstraelen <toon.verstraelen@ugent.be>.
+
+
+
+
+
 *numpy-1.0 (02 Nov 2006)
 
   O2 Nov 2006; Sebastien Fabbro <seb@ist.utl.pt>; +numpy-1.0.ebuild:
