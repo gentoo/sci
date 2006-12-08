@@ -5,7 +5,7 @@
 
 *numpy-1.0.1 (08 Dec 2006)
 
-  O8 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>; +numpy-1.0.ebuild:
+  O8 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>; +numpy-1.0.1.ebuild:
   Version bump.
 	
   21 Nov 2006; Sebastien Fabbro <seb@ist.utl.pt>; +numpy-1.0.ebuild:
