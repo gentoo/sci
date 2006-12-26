@@ -2,6 +2,20 @@
 # Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*texmacs-1.0.6.7 (26 Dec 2006)
+
+  26 Dec 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +texmacs-1.0.6.6.ebuild -texmacs-1.0.6.2.ebuild -texmacs-1.0.6.3.ebuild
+  -texmacs-1.0.6.4.ebuild -texmacs-1.0.6.5.ebuild:
+  Version bump; USE flag aspell removed (now TeXmacs uses
+  either ispell or aspell automatically); cleaning up old versions
+
+*texmacs-1.0.6.6 (22 August 2006)
+
+  22 August 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +texmacs-1.0.6.6.ebuild:
+  Version bump
+
 *texmacs-1.0.6.5 (8 August 2006)
 
   8 August 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
