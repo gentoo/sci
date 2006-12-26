@@ -1,7 +1,10 @@
 # ChangeLog for dev-lang/cfortran
-# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>;
+  update to new minor patch from debian.
+	
 *cfortran-4.4 (02 Jan 2006)
 
   02 Jan 2006; Sebastien Fabbro <seb@ist.utl.pt>;

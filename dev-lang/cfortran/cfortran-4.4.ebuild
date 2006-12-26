@@ -4,7 +4,7 @@
 
 inherit eutils
 
-DEB_PR="10"
+DEB_PR="11"
 
 DESCRIPTION="Header file allowing to call Fortran routines from C and C++"
 SRC_URI="mirror://debian/pool/main/c/${PN}/${PN}_${PV}.orig.tar.gz
