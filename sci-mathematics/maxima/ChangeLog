@@ -2,6 +2,15 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*maxima-5.11.0 (26 Dec 2006)
+
+  26 Dec 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +maxima-5.11.0.ebuild, +files/maxima-5.11.0-default-browser.patch,
+  +files/maxima-5.11.0-default-psviewer.patch,
+  +files/maxima-5.11.0-diff_form.patch,
+  +files/maxima-5.11.0-sbcl-disable-debugger.patch:
+  Version bump. emaxima.patch has been applied by the upstream.
+
   02 Nov 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>:
   The comment about rlwrap corrected.
 
@@ -11,7 +20,7 @@
 *maxima-5.10.0 (21 Sep 2006)
 
   21 Sep 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
-  +maxima-5.10.0.ebuild, +files/maxima-5.10.0.patch.
+  +maxima-5.10.0.ebuild, +files/maxima-5.10.0.patch:
   Version bump. tcltk use flag replaced by tk, as everywhere.
   Patches from 5.9.3 were not applied cleanly, fixed.
 
