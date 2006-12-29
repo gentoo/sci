@@ -12,7 +12,7 @@ IUSE=""
 DEPEND="sci-astronomy/cpl"
 
 src_install() {
-	make DESTDIR=${D} install || die "make install failed"
+	emake DESTDIR=${D} install || die "emake install failed"
 	dodoc README AUTHORS NEWS TODO BUGS ChangeLog
 	insinto /usr/share/doc/${PF}
 	doins examples/*
