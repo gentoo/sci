@@ -37,7 +37,7 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc README CHANGES VERSION
 	for d in tclutil astrotcl rtd cat skycat; do
 		docinto ${d}
