@@ -32,7 +32,7 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 
 	dodoc ABOUT-NLS AUTHORS ChangeLog \
 		INSTALL NEWS ONEWS README THANKS TODO
