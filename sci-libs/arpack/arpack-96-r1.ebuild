@@ -4,7 +4,6 @@
 
 inherit eutils autotools fortran
 
-
 DESCRIPTION="Arnoldi Package Library to solve large scale eigenvalue problems."
 HOMEPAGE="http://www.caam.rice.edu/software/ARPACK"
 # not a very good name: patch.tar.gz :(
@@ -18,8 +17,7 @@ SLOT="0"
 
 IUSE="blas mpi examples"
 KEYWORDS="~amd64 ~x86"
-DEPEND="virtual/libc
-	blas? ( virtual/blas )
+DEPEND="blas? ( virtual/blas )
 	mpi? ( virtual/mpi )"
 
 S=${WORKDIR}/ARPACK
@@ -41,7 +39,7 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc README
 	docinto DOCUMENTS
 	dodoc DOCUMENTS/*

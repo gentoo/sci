@@ -12,7 +12,7 @@ IUSE="doc"
 DEPEND="virtual/libc"
 
 src_install() {
-	make DESTDIR=${D} install || die "make install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc README AUTHORS
 	use doc && dohtml html
 }

@@ -2,15 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-MY_P=Minuit-${PV//./_}
+MY_PN=Minuit2
 
 DESCRIPTION="A C++ physics analysis tool for function minimization"
-HOMEPAGE="http://seal.web.cern.ch/seal/snapshot/work-packages/mathlibs/minuit"
-SRC_URI="http://seal.web.cern.ch/seal/${PN}/releases/${MY_P}.tar.gz
+HOMEPAGE="http://seal.web.cern.ch/seal/MathLibs/Minuit2/html/index.html"
+
+SRC_URI="http://seal.web.cern.ch/seal/MathLibs/${MY_PN}/${MY_PN}-${PV}.tar.gz
 	doc? http://seal.cern.ch/documents/minuit/mnusersguide.pdf
 	doc? http://seal.cern.ch/documents/minuit/mntutorial.pdf
 	doc? http://seal.cern.ch/documents/minuit/mnerror.pdf"
-
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -18,7 +18,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="doc"
 DEPEND="doc? ( app-doc/doxygen )"
 
-S=${WORKDIR}/${MY_P}
+S=${WORKDIR}/${MY_PN}-${PV}
 
 src_compile() {
 	econf || die "econf failed"
@@ -34,8 +34,7 @@ src_install() {
 	doins tests/MnTutorial/*.{h,cpp}
 	if use doc; then
 		insinto /usr/share/doc/${PF}
-		doins "${DISTDIR}"/mn*.pdf || die "doins failed"
+		doins ${DISTDIR}/mn*.pdf || die "doins failed"
 		dohtml -r doc/html/* || die "dohtml failed"
 	fi
 }
-

@@ -9,15 +9,3 @@
   Tested on ~amd64, more doc install, and motif flag,
   added also a longdescription in metadata.xml. 
   Does not build on gfortran (%val not yet implemented in gfortran)
-
-  30 Mar 2006; Aron Griffis <agriffis@gentoo.org> pgplot-5.2.2.ebuild:
-  Mark 5.2.2 ~ia64
-
-*pgplot-5.2.2 (16 Dec 2005)
-
-  16 Dec 2005; Donnie Berkholz <spyderous@gentoo.org>;
-  +files/pgplot-compile-setup.patch, +files/pgplot-drivers.patch,
-  +files/pgplot-makemake.patch, +metadata.xml, +pgplot-5.2.2.ebuild:
-  A Fortran- or C-callable, device-independent graphics package for making
-  simple scientific graphs.
-
