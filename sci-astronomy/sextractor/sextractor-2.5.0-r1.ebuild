@@ -11,10 +11,9 @@ SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=" ~amd64 ~x86"
-IUSE="static doc icc"
+IUSE="static doc"
 RDEPEND="virtual/libc"
-DEPEND="${RDEPEND}
-	icc? ( dev-lang/icc )"
+DEPEND="${RDEPEND}"
 
 CONFDIR=/usr/share/${PN}/config
 
@@ -23,7 +22,6 @@ src_compile() {
 	sed -i -e "s:default\.:${CONFDIR}/default\.:" src/preflist.h
 	econf \
 		$(use_enable static) \
-		$(use_enable icc) \
 		|| die "econf failed"
 	emake || die "emake failed"
 }

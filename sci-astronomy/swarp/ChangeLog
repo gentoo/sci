@@ -2,6 +2,9 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>;
+  Removed icc flag, too buggy.
+	
 *swarp-2.16.0-r1 (15 Oct 2006)
 	
   15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt> swarp-2.16.0-r1.ebuild
@@ -11,4 +14,3 @@
 	
   10 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> swarp-2.16.0.ebuild
   Initial import. Close bug #65685.
-

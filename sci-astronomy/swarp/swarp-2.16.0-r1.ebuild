@@ -11,10 +11,9 @@ SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="static doc threads mpi icc"
+IUSE="static doc threads mpi"
 RDEPEND="mpi? ( virtual/mpi )"
-DEPEND="${RDEPEND}
-	icc? ( dev-lang/icc )"
+DEPEND="${RDEPEND}"
 
 # mpi stuff untested.
 src_compile() {
@@ -24,7 +23,6 @@ src_compile() {
 	use threads && myconf="--enable-threads"
 	econf \
 		$(use_enable static) \
-		$(use_enable icc) \
 		$(use_enable mpi) \
 		${myconf} \
 		|| die "econf failed"

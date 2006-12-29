@@ -12,7 +12,7 @@ SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/${PN}/${P}.tar.gz
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="static doc icc threads plplot"
+IUSE="static doc threads plplot"
 
 # I think this works only with ATLAS lapack implementation.
 RDEPEND="sci-astronomy/cdsclient
@@ -23,8 +23,7 @@ RDEPEND="sci-astronomy/cdsclient
 DEPEND="${RDEPEND}
 	app-admin/eselect-blas
 	app-admin/eselect-cblas
-	app-admin/eselect-lapack
-	icc? ( dev-lang/icc )"
+	app-admin/eselect-lapack"
 
 pkg_setup() {
 	if ! eselect blas show | grep -q atlas; then
@@ -56,7 +55,6 @@ src_compile() {
 	use threads && myconf="--enable-threads"
 	econf \
 		$(use_enable static) \
-		$(use_enable icc) \
 		$(use_with plplot) \
 		${myconf} \
 		|| die "econf failed"
