@@ -2,20 +2,18 @@
 # Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*wcstools-3.6.6 (29 Dec 2006)
+
+  29 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>;
+  Version bump.
+	
 *wcstools-3.6.5 (15 Oct 2006)
 
   15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt>;
   +metadata.xml, Added longdescription to metadata.xml.
   +files/wcstools-autotools.patch : autotoolization
-  +files/wcstools-codewarn.patch : fix some warnings
-  +files/wcstools-edhead.patch : fix a pointer problem in edhead
+  +files/wcstools-3.6.5-codewarn.patch : fix some warnings
+  +files/wcstools-3.6.5-edhead.patch : fix a pointer problem in edhead
   +wcstools-3.6.5.ebuild: Version bump. Some cleaning.
   Changed LICENSE, install location for headers to /usr/include/wcs. 
   Close #151001. Also thanks to Joshua Rich <joshua@mso.anu.edu.au>.
-
-*wcstools-3.6.2 (02 Oct 2005)
-
-  02 Oct 2005; Olivier Fisette <ribosome@gentoo.org> +metadata.xml,
-  +wcstools-3.6.2.ebuild:
-  Initial import. Ebuild submitted by Sebastien Fabbro <seb@ist.utl.pt> (bug
-  #65666).

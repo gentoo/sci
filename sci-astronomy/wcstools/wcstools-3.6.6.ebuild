@@ -15,18 +15,16 @@ IUSE=""
 
 src_unpack() {
 	unpack ${A}
-	# fixed a pointer problem in edhead
-	epatch "${FILESDIR}"/${P}-edhead.patch
 	# fixed some warnings
 	epatch "${FILESDIR}"/${P}-codewarn.patch
 	# autotoolization
-	epatch "${FILESDIR}"/${PN}-autotools.patch
+	epatch "${FILESDIR}"/${P}-autotools.patch
 	cd "${S}"
 	eautoreconf
 }
 
 src_install () {
-	make DESTDIR=${D} install || die "make install failed"
+	emake DESTDIR=${D} install || die "emake install failed"
 	doman Man/man1/*
 	dodoc Readme Programs NEWS
 	docinto libwcs

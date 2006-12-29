@@ -1,6 +1,6 @@
-diff -Nur wcstools-3.6.5/configure.ac wcstools-3.6.5.new/configure.ac
---- wcstools-3.6.5/configure.ac	1970-01-01 01:00:00.000000000 +0100
-+++ wcstools-3.6.5.new/configure.ac	2006-10-12 18:14:54.000000000 +0100
+diff -Nur wcstools-3.6.6/configure.ac wcstools-3.6.6.new/configure.ac
+--- wcstools-3.6.6/configure.ac	1970-01-01 01:00:00.000000000 +0100
++++ wcstools-3.6.6.new/configure.ac	2006-12-29 15:55:28.000000000 +0000
 @@ -0,0 +1,11 @@
 +AC_PREREQ([2.57])
 +AC_INIT(wcstools, 3.6.5, [http://tdc-www.harvard.edu/wcstools/])
@@ -13,9 +13,9 @@ diff -Nur wcstools-3.6.5/configure.ac wcstools-3.6.5.new/configure.ac
 +AC_CHECK_LIB(m, sin)
 +AC_CONFIG_FILES([libwcs/Makefile Makefile])
 +AC_OUTPUT
-diff -Nur wcstools-3.6.5/libwcs/Makefile.am wcstools-3.6.5.new/libwcs/Makefile.am
---- wcstools-3.6.5/libwcs/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ wcstools-3.6.5.new/libwcs/Makefile.am	2006-10-12 18:15:21.000000000 +0100
+diff -Nur wcstools-3.6.6/libwcs/Makefile.am wcstools-3.6.6.new/libwcs/Makefile.am
+--- wcstools-3.6.6/libwcs/Makefile.am	1970-01-01 01:00:00.000000000 +0100
++++ wcstools-3.6.6.new/libwcs/Makefile.am	2006-12-29 15:56:04.000000000 +0000
 @@ -0,0 +1,14 @@
 +lib_LTLIBRARIES = libwcs.la
 +wcsdir = $(pkgincludedir)/wcs
@@ -31,9 +31,9 @@ diff -Nur wcstools-3.6.5/libwcs/Makefile.am wcstools-3.6.5.new/libwcs/Makefile.a
 +	worldpos.c tnxpos.c dsspos.c platepos.c \
 +	sortstar.c platefit.c iget.c fileutil.c polfit.c \
 +	wcslib.c lin.c cel.c proj.c sph.c wcstrig.c distort.c
-diff -Nur wcstools-3.6.5/Makefile.am wcstools-3.6.5.new/Makefile.am
---- wcstools-3.6.5/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ wcstools-3.6.5.new/Makefile.am	2006-10-12 18:15:07.000000000 +0100
+diff -Nur wcstools-3.6.6/Makefile.am wcstools-3.6.6.new/Makefile.am
+--- wcstools-3.6.6/Makefile.am	1970-01-01 01:00:00.000000000 +0100
++++ wcstools-3.6.6.new/Makefile.am	2006-12-29 15:55:40.000000000 +0000
 @@ -0,0 +1,149 @@
 +AUTOMAKE_OPTIONS = foreign no-dependencies
 +SUBDIRS = libwcs
