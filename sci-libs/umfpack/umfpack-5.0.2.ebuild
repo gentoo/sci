@@ -10,14 +10,14 @@ upper() {
 
 MY_PV="v${PV}"
 MY_PN="$(upper ${PN})"
-AMD_VERSION="2.0.1"
-UFCONFIG_VERSION="2.1"
+AMD_VERSION="2.0.3"
+UFCONFIG_VERSION="2.3.1"
 
 DESCRIPTION="Library for unsymmetric sparse linear algebra"
 HOMEPAGE="http://www.cise.ufl.edu/research/sparse/umfpack"
-SRC_URI="http://www.cise.ufl.edu/research/sparse/${PN}/${MY_PV}/${MY_PN}.tar.gz
-	http://www.cise.ufl.edu/research/sparse/UFconfig/v${UFCONFIG_VERSION}/UFconfig.tar.gz
-	http://www.cise.ufl.edu/research/sparse/amd/v${AMD_VERSION}/AMD.tar.gz"
+SRC_URI="http://www.cise.ufl.edu/research/sparse/${PN}/${MY_PN}-${PV}.tar.gz
+	http://www.cise.ufl.edu/research/sparse/UFconfig/UFconfig-${UFCONFIG_VERSION}.tar.gz
+	http://www.cise.ufl.edu/research/sparse/amd/AMD-${AMD_VERSION}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
@@ -27,15 +27,6 @@ DEPEND=">=sys-devel/libtool-1.5
 	blas? ( virtual/blas )"
 
 S="${WORKDIR}/${MY_PN}"
-
-pkg_setup() {
-	ewarn "Overlay warning:"
-	ewarn "If you upgrade from an earlier version of ${PN}"
-	ewarn "and get digest verification errors, remove"
-	ewarn "${MY_PN}.tar.gz AMD.tar.gz UFconfig.tar.gz"
-	ewarn "from ${DISTDIR} and try again"
-	ebeep
-}
 
 src_compile() {
 	uplibs="amd umfpack"
