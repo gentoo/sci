@@ -12,7 +12,7 @@ IUSE="doc"
 DEPEND="sci-libs/qfits"
 
 src_install() {
-	make DESTDIR=${D} install || die "make install failed"
+	emake DESTDIR=${D} install || die "emake install failed"
 	dodoc README AUTHORS NEWS TODO BUGS ChangeLog
 	if use doc; then
 		make htmldir=usr/share/doc/${PF} install-html \
