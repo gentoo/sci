@@ -27,7 +27,7 @@ src_compile() {
 }
 
 src_install () {
-	make DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc AUTHORS BUGS ChangeLog HISTORY README THANKS
 	insinto ${CONFDIR}
 	doins config/*
