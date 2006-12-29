@@ -62,7 +62,7 @@ src_compile() {
 }
 
 src_install () {
-	make DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc AUTHORS ChangeLog HISTORY README THANKS
 	if use doc; then
 		insinto /usr/share/doc/${PF}
