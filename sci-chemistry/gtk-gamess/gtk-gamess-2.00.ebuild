@@ -16,7 +16,8 @@ IUSE=""
 
 RDEPEND=">=gnome-base/libglade-2.4
 	>=x11-libs/gtk+-2.6
-	dev-libs/libxml2"
+	dev-libs/libxml2
+	sci-chemistry/gamess"
 
 src_install() {
 
