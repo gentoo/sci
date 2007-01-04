@@ -1,0 +1,7 @@
+# ChangeLog for sci-chemistry/ghemical
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  04 Jan 2007; Jeff Gardner <je_fro@gentoo.org> ChangeLog:
+  Initial import of ghemical-2.10 into sci overlay.
+
