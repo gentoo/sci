@@ -32,9 +32,9 @@ src_unpack() {
 	cd "${S}"
 
 # i18n is broken without files from svn.
-	epatch "${FILESDIR}"/${P}-nointl.patch || die "Failed nointl patch."
+	epatch "${FILESDIR}"/${P}-nointl.patch
 
-	epatch "${FILESDIR}"/${P}-manifest.patch || die "Failed manifest patch."
+	epatch "${FILESDIR}"/${P}-manifest.patch
 
 	sed -i "s:${PN}:${P}\/lib:" "${PN}" || die "Failed running sed."
 
