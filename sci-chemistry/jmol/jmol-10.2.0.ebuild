@@ -5,7 +5,7 @@
 inherit eutils java-pkg-2 webapp
 
 DESCRIPTION="Jmol is a java molecular viever for 3-D chemical structures."
-SRC_URI="mirror://sourceforge.net/${PN}/${P}-full.tar.gz"
+SRC_URI="mirror://sourceforge/${PN}/${P}-full.tar.gz"
 HOMEPAGE="http://jmol.sourceforge.net/"
 KEYWORDS="~amd64"
 LICENSE="LGPL-2.1"
