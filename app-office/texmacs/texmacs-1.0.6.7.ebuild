@@ -17,7 +17,7 @@ LICENSE="GPL-2"
 SLOT="0"
 IUSE="spell static"
 # TeXmacs 1.0.X-r? -> stable release, TeXmacs 1.0.X.Y -> development release
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 
 RDEPEND="virtual/tetex
 	>=dev-scheme/guile-1.4
