@@ -20,7 +20,7 @@ IUSE="spell static"
 KEYWORDS="~x86"
 
 RDEPEND="virtual/tetex
-	>=dev-util/guile-1.4
+	>=dev-scheme/guile-1.4
 	>=sys-apps/sed-4
 	media-libs/freetype
 	|| ( ( x11-libs/libX11
