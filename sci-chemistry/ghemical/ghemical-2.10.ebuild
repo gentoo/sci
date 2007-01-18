@@ -60,7 +60,6 @@ src_compile() {
 		$(use_enable toolbar shortcuts) \
 		$(use_enable openbabel) \
 		$(use_enable threads) \
-		$(use_enable mopac7) \
 		$(use_enable gamess) \
 		|| die "configure failed"
 	emake || die "make failed"
