@@ -13,7 +13,7 @@ LICENSE="GPL-2"
 SLOT="0"
 
 KEYWORDS="~amd64 ~x86"
-IUSE="threads openbabel gamess toolbar seamonkey"
+IUSE="threads openbabel gamess mopac7 toolbar seamonkey"
 RDEPEND="virtual/glut
 	virtual/glu
 	virtual/opengl
