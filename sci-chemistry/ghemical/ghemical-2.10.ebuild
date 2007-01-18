@@ -13,7 +13,7 @@ LICENSE="GPL-2"
 SLOT="0"
 
 KEYWORDS="~amd64 ~x86"
-IUSE="threads openbabel mopac7 gamess toolbar"
+IUSE="threads openbabel mopac7 gamess toolbar seamonkey"
 RDEPEND="virtual/glut
 	virtual/glu
 	virtual/opengl
@@ -40,6 +40,13 @@ DEPEND="${RDEPEND}
 
 
 src_compile() {
+
+	if use seamonkey ; then
+		sed -i -e 's|mozilla|seamonkey|g' src/main.cpp || die "sed failed for seamonkey!"
+	else
+		sed -i -e 's|mozilla|firefox|g' src/main.cpp || die "sed failed for seamonkey!"
+	fi
+
 	# For libf2c
 	if use mopac7; then
 		append-ldflags -lf2c -lm -Xlinker -defsym -Xlinker MAIN__=main
