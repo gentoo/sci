@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,7 +13,7 @@ LICENSE="GPL-2"
 SLOT="0"
 
 KEYWORDS="~amd64 ~x86"
-IUSE="threads openbabel mopac7 gamess toolbar seamonkey"
+IUSE="threads openbabel gamess toolbar seamonkey"
 RDEPEND="virtual/glut
 	virtual/glu
 	virtual/opengl
@@ -33,8 +33,8 @@ RDEPEND="virtual/glut
 	openbabel? ( >=sci-chemistry/openbabel-2 )
 	threads? ( >=dev-libs/glib-2.4 )
 	mopac7? ( sci-chemistry/mopac7 )
-	gamess? ( sci-chemistry/gamess 
-			sci-chemistry/gtk-gamess)"
+	gamess? ( sci-chemistry/gamess
+			sci-chemistry/gtk-gamess )"
 
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.15"
@@ -42,6 +42,9 @@ DEPEND="${RDEPEND}
 
 src_compile() {
 
+# With amd64, if you want gamess I recommend adding gamess and gtk-gamess to package.provided for now.
+
+# Change the built-in help browser.
 	if use seamonkey ; then
 		sed -i -e 's|mozilla|seamonkey|g' src/main.cpp || die "sed failed for seamonkey!"
 	else
