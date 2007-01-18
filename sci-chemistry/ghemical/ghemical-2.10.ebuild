@@ -33,7 +33,8 @@ RDEPEND="virtual/glut
 	openbabel? ( >=sci-chemistry/openbabel-2 )
 	threads? ( >=dev-libs/glib-2.4 )
 	mopac7? ( sci-chemistry/mopac7 )
-	gamess? ( sci-chemistry/gamess )"
+	gamess? ( sci-chemistry/gamess 
+			sci-chemistry/gtk-gamess)"
 
 DEPEND="${RDEPEND}
 	>=dev-util/pkgconfig-0.15"
