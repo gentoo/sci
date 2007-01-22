@@ -17,9 +17,9 @@ IUSE="boehm-gc doc fftw emacs gsl vim"
 RDEPEND=">=sys-libs/readline-4.3-r5
 	>=sys-libs/ncurses-5.4-r5
 	dev-libs/libsigsegv
-	boehm-gc? >=dev-libs/boehm-gc-6.7 
+	boehm-gc? ( >=dev-libs/boehm-gc-6.7 )
 	virtual/tetex
-	fftw? >=sci-libs/fftw-3.0.1
+	fftw? ( >=sci-libs/fftw-3.0.1 )
 	emacs? ( virtual/emacs )
 	gsl? ( sci-libs/gsl )
 	vim? ( app-editors/vim )"
