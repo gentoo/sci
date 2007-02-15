@@ -9,8 +9,6 @@
 # We keep here only the new USE flags introduced by packages in the overlay.
 # Ultimately, they will be merged into the main tree.
 
-app-office/texmacs:aspell - Use aspell for spell-checking
-app-office/texmacs:ispell - Use ispell for spell-checking
 dev-python/matplotlib:agg - Build with external antigrain library
 sci-astronomy/celestia:cairo - Use cairo for celestia GTK splash screen
 sci-astronomy/scamp:plplot - Add plplot to allow diagnostic plots during processing 
