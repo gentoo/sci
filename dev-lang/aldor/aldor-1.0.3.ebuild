@@ -48,22 +48,19 @@ pkg_nofetch() {
 	einfo "Then move the downloaded file${PLURAL} to ${DISTDIR}"
 }
 
-src_unpack() {
+src_compile() {
 	if use emacs; then
 		notangle "${DISTDIR}/aldor.el.nw" > aldor.el
 		notangle -Rinit.el "${DISTDIR}/aldor.el.nw" | \
 			sed -e '1s/^.*$/;; aldor mode/' > 64aldor-gentoo.el
-		use doc && noweave "${DISTDIR}/aldor.el.nw" > aldor-mode.tex
-	fi
-}
-
-src_compile() {
-	if use doc; then
-		dvipdfm algebra.dvi
-		if use emacs; then
+		if use doc; then
+			noweave "${DISTDIR}/aldor.el.nw" > aldor-mode.tex
 			pdflatex aldor-mode.tex
 			pdflatex aldor-mode.tex
 		fi
+	fi
+	if use doc; then
+		dvipdfm algebra.dvi
 	fi
 }
 
@@ -71,8 +68,7 @@ src_install() {
 	local LINE="205"
 	dodir /opt
 	cd "${D}/opt"
-	tail -n +"${LINE}" "${DISTDIR}/${SRC_URI}" | tar xzf -
-	dodir "/opt/${PN}/${PV}"
+	tail -n +"${LINE}" "${DISTDIR}/${ALDOR}" | tar xzf -
 	cd "${D}/opt/${PN}/linux/${PV}/bin"
 	cd "${S}"
 	cat > 64aldor <<EOF
@@ -91,11 +87,15 @@ EOF
 }
 
 pkg_postinst() {
-	ln -s "/opt/${PN}/linux/${PV}" "/opt/${PN}/${PV}/linux"
-	ln -s `which ar` "/opt/${PN}/linux/${PV}/bin/uniar"
+	mkdir "${ROOT}opt/${PN}/${PV}"
+	ln -s "${ROOT}opt/${PN}/linux/${PV}" "${ROOT}opt/${PN}/${PV}/linux"
+	ln -s `which ar` "${ROOT}opt/${PN}/linux/${PV}/bin/uniar"
+	use emacs && elisp-site-regen
 }
 
 pkg_prerm() {
-	rm -f "/opt/${PN}/${PV}/linux"
-	rm -rf "/opt/${PN}/linux"
+	rm -f "${ROOT}opt/${PN}/${PV}/linux"
+	rmdir "${ROOT}opt/${PN}/${PV}"
+	rm -f "${ROOT}opt/${PN}/linux/${PV}/bin/uniar"
+	[ -f "${SITELISP}/site-gentoo.el" ] && elisp-site-regen
 }
