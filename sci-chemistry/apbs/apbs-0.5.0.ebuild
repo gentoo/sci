@@ -39,7 +39,7 @@ src_compile() {
 
 	use mpi && myconf="${myconf} --with-mpiinc=/usr/include"
 
-	econf $( use_enable python ) ${myconf} || die "configure failed"
+	econf ${myconf} || die "configure failed"
 
 	# build
 	make DESTDIR=${D} || die "make failed"
@@ -50,23 +50,23 @@ src_install() {
 	# install apbs binary
 	dobin bin/apbs || die "failed to install apbs binary"
 
-	# fix up and install examples
+	# remove useless files and install docs
 	find ./examples -name 'test.sh' -exec rm -f {} \; || \
 		die "Failed to remove test.sh files"
 	find ./examples -name 'Makefile*' -exec rm -f {} \; || \
 		die "Failed to remove Makefiles"
-	find ./doc -name 'Makefile*' -exec rm -f {} \; || \
+	find ./tools -name 'Makefile*' -exec rm -f {} \; || \
 		die "Failed to remove Makefiles"
+
+	dohtml -r doc/index.html doc/programmer doc/tutorial \
+		doc/user-guide doc/license || \
+			die "Failed to install html docs"
+	
 	insinto /usr/share/doc/${PF}/examples
-	doins -r examples/* || die "failed to install examples"
+	doins -r examples/* || \
+		die "Failed to install examples"
 
-	# install docs
-	insinto /usr/share/doc/${PF}/html/programmer
-	doins doc/programmer/* || die "failed to install html docs"
+	insinto /usr/share/${PF}/tools
+	doins -r tools/* || die "failed to install tools"
 
-	insinto /usr/share/doc/${PF}/html/tutorial
-	doins doc/tutorial/* || die "failed to install html docs"
-
-	insinto /usr/share/doc/${PF}/html/user-guide
-	doins doc/user-guide/* || die "failed to install html docs"
 }
