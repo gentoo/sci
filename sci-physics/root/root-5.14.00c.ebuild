@@ -72,7 +72,7 @@ src_unpack() {
 
 src_compile() {
 	# the configure script is not the standard autotools
-	./configure "${EXTRA_CONF}" \
+	./configure \
 		--prefix=/usr \
 		--bindir=/usr/bin \
 		--mandir=/usr/share/man/man1 \
@@ -133,6 +133,7 @@ src_compile() {
 		$(use_enable ruby) \
 		$(use_enable ssl) \
 		$(use_enable xml) \
+		"${EXTRA_CONF}" \
 		|| die "configure failed"
 
 	emake \
