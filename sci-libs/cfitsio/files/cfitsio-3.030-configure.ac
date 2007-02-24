@@ -6,6 +6,34 @@ AC_INIT(cfitsio, 3.030, pence@tetra.gsfc.nasa.gov)
 AM_INIT_AUTOMAKE([foreign])
 AC_PROG_LIBTOOL
 
+AC_CHECK_PROGS(FC, f77 xlf cf77 gf77 gfortran g77 af77 ncf f2c ifort g95 , nope)
+if test $FC = 'nope' ; then
+   AC_MSG_WARN(cfitsio: == No acceptable f77 found in \$PATH)
+   AC_MSG_WARN(cfitsio: == Cfitsio will be built without Fortran wrapper support)
+   FC=
+   F77_WRAPPERS=
+else
+  CFORTRANFLAGS=
+  F77_WRAPPERS="\${FITSIO_SRC}"
+  echo $ac_n "checking whether we are using GNU Fortran""... $ac_c" 1>&6
+  if test `$FC --version -c < /dev/null 2> /dev/null | grep -c GNU` -gt 0 -o \
+          `$FC --version -c < /dev/null 2> /dev/null | grep -ic egcs` -gt 0
+  then
+    echo "$ac_t""yes" 1>&6
+    echo $ac_n "cfitsio: == Adding wrapper support for GNU Fortran""... $ac_c" 1>&6
+    CFORTRANFLAGS="-Dg77Fortran"
+    echo "$ac_t"" done" 1>&6
+  else
+    echo "$ac_t""no" 1>&6
+    if test $FC = 'f2c' ; then
+      echo $ac_n "cfitsio: == Adding wrapper support for f2c""... $ac_c" 1>&6
+      CFORTRANFLAGS="-Df2cFortran"
+      echo "$ac_t"" done" 1>&6
+    fi
+  fi
+fi
+
+
 # taken from configure.in
 # determine system type
 #--------------------------------------------------------------------
@@ -223,8 +251,7 @@ AC_CHECK_FUNC(gethostbyname, , AC_CHECK_LIB(nsl, main, [LIBS="$LIBS -lnsl"]))
 AC_DEFINE(HAVE_NET_SERVICES)
 
 # ==================== END OF unix networking SECTION ================
-
-
+AM_CONDITIONAL(F77BUILD, test x$F77WRAPPERS )
+AC_CHECK_LIB(m, cos, [LIBS="$LIBS -lm"])
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
-
