@@ -1,9 +1,0 @@
-# ChangeLog for dev-python/basemap-data
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*basemap-data-0.9 (30 Dec 2006)
-
-  30 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>
-  +basemap-data-0.9.ebuild, +metadata.xml
-  Initial import.
