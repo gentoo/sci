@@ -1,4 +1,4 @@
-# Copyright 1999-2005 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,7 +16,7 @@ LICENSE="GPL-2"
 
 KEYWORDS="x86"
 
-DEPEND="dev-util/guile
+DEPEND="dev-scheme/guile
         sci-libs/gsl"
 
 src_unpack() {
