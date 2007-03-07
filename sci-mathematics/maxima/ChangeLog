@@ -1,7 +1,27 @@
 # ChangeLog for sci-mathematics/maxima
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*maxima-5.11.0-r2 (21 Jan 2007)
+
+  21 Jan 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  -files/maxima-5.9.3-emaxima.patch
+  -files/maxima-5.9.3-default-browser.patch
+  -files/maxima-5.9.3-default-psviewer.patch
+  -files/maxima-5.9.3-sbcl-disable-debugger.patch
+  -files/maxima-5.10.0.patch
+  -files/maxima-5.11.0-default-browser.patch
+  -files/maxima-5.11.0-default-psviewer.patch
+  -files/maxima-5.11.0-sbcl-disable-debugger.patch
+  -maxima-5.9.3-r1.ebuild
+  -maxima-5.10.0.ebuild
+  +files/50maxima-gentoo.el
+  -maxima-5.11.0-r1.ebuild
+  Cleaning unused versions. 
+  Trying a fix of bug #169588, to get rid of auctex flag, and added a
+  warning using gnuplot.
+  Would like fixing bug #169178. Anyone?
+	
 *maxima-5.11.0-r1 (21 Jan 2007)
 
   21 Jan 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>

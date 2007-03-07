@@ -1,24 +1,24 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 inherit eutils elisp-common autotools
 
-DESCRIPTION="Free computer algebra environment, based on Macsyma"
+DESCRIPTION="Free computer algebra environment based on Macsyma"
 HOMEPAGE="http://maxima.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2 AECA"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
-IUSE="cmucl clisp sbcl gcl tetex emacs auctex tk nls unicode"
+IUSE="cmucl clisp sbcl gcl tetex emacs tk nls unicode"
 
 # rlwrap is recommended for cmucl and sbcl
 RDEPEND=">=sci-visualization/gnuplot-4.0
-	app-text/gv
+	x11-misc/xdg-utils
 	tetex? ( virtual/tetex )
-	emacs? ( virtual/emacs )
-	auctex? ( app-emacs/auctex )
+	emacs? ( virtual/emacs
+	     tetex? ( || ( app-emacs/auctex app-xemacs/auctex ) ) )
 	clisp? ( >=dev-lisp/clisp-2.33.2-r1 )
 	gcl?   ( >=dev-lisp/gcl-2.6.7 )
 	sbcl?  ( >=dev-lisp/sbcl-0.9.4 app-misc/rlwrap )
@@ -27,26 +27,35 @@ RDEPEND=">=sci-visualization/gnuplot-4.0
 	tk? ( >=dev-lang/tk-8.3.3 )"
 
 DEPEND="${RDEPEND} >=sys-apps/texinfo-4.3"
+LINGUAS="es pt"
 
-for lang in es pt; do
-	IUSE="${IUSE} linguas_${lang}"
-done
+pkg_setup() {
 
-# chosen apps are hardcoded in maxima source:
-# - ghostview for postscript (changed to gv)
-# - acroread for pdf
-# - xdvi for dvi. this could change, with pain.
+	if ! built_with_use -a sci-visualization/gnuplot png gd; then
+		elog "To benefit full plotting capability of maxima,"
+		elog "enable the png and gd USE flags enabled for"
+		elog "both sci-visualization/gnuplot and media-libs/gd"
+		elog "Then re-emerge maxima"
+		epause 5
+	fi
+
+	# enable gcl if no other lisp selected
+	if use gcl || (! use cmucl && ! use clisp && ! use sbcl ); then
+		if ! built_with_use dev-lisp/gcl ansi; then
+			eerror "GCL must be installed with ANSI."
+			eerror "Try USE=\"ansi\" emerge gcl"
+			die "This package needs gcl with USE=ansi"
+		fi
+		enablegcl="--enable-gcl"
+	fi
+}
 
 src_unpack() {
 	unpack ${A}
-	# replace obsolete netscape with firefox, add opera as choices
-	epatch "${FILESDIR}"/${P}-default-browser.patch
-	# replace ugly ghostview with gv
-	epatch "${FILESDIR}"/${P}-default-psviewer.patch
-	# no debug during compile
-	epatch "${FILESDIR}"/${P}-sbcl-disable-debugger.patch
+	# use xdg-open to view html, ps, pdf
+	epatch "${FILESDIR}"/${P}-xdg-utils.patch
 	# diff_form autoloading
-	epatch "${FILESDIR}/${P}-diff_form.patch"
+	epatch "${FILESDIR}"/${P}-diff_form.patch
 }
 
 src_compile() {
@@ -59,7 +68,7 @@ src_compile() {
 	fi
 
 	# remove xmaxima if no tk
-	local myconf=""
+	local myconf="${enablegcl}"
 	if use tk; then
 		myconf="${myconf} --with-wish=wish"
 	else
@@ -67,19 +76,9 @@ src_compile() {
 		sed -i -e '/^SUBDIRS/s/xmaxima//' interfaces/Makefile.in
 	fi
 
-	# enable gcl if no other lisp selected
-	if use gcl || (! use cmucl && ! use clisp && ! use sbcl ); then
-		if ! built_with_use dev-lisp/gcl ansi; then
-			eerror "GCL must be installed with ANSI."
-			eerror "Try USE=\"ansi\" emerge gcl"
-			die "This package needs gcl with USE=ansi"
-		fi
-		myconf="${myconf} --enable-gcl"
-	fi
-
 	# enable existing translated doc
 	if use nls; then
-		for lang in es pt; do
+		for lang in ${LINGUAS}; do
 			if use linguas_${lang}; then
 				myconf="${myconf} --enable-lang-${lang}"
 				use unicode && myconf="${myconf} --enable-lang-${lang}-utf8"
@@ -97,15 +96,13 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 
 	use tk && make_desktop_entry xmaxima xmaxima \
 		/usr/share/${PN}/${PV}/xmaxima/maxima-new.png
 
-	if use emacs; then
-		sed -e "s/PV/${PV}/" "${FILESDIR}"/50maxima-gentoo.el > 50maxima-gentoo.el
-		elisp-site-file-install 50maxima-gentoo.el
-	fi
+	use emacs && \
+		elisp-site-file-install "${FILESDIR}"/50maxima-gentoo.el
 
 	if use tetex; then
 		insinto /usr/share/texmf/tex/latex/emaxima

@@ -1,5 +1,5 @@
 ;; maxima mode
-(setq load-path (cons "/usr/share/maxima/PV/emacs" load-path))
+(add-to-list 'load-path "@SITELISP@")
 (autoload 'maxima-mode "maxima" "Maxima mode" t)
 (autoload 'maxima "maxima" "Maxima interactive" t)
 (setq auto-mode-alist (cons '("\\.max" . maxima-mode) auto-mode-alist))
@@ -10,4 +10,3 @@
 ;; emaxima mode
 (autoload 'emaxima-mode "emaxima" "EMaxima" t)
 (add-hook 'emaxima-mode-hook 'emaxima-mark-file-as-emaxima)
-
