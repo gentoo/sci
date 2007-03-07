@@ -1,0 +1,18 @@
+diff -Naur gromacs-3.2.1/include/ppc_altivec.h gromacs-3.2.1-new/include/ppc_altivec.h
+--- gromacs-3.2.1/include/ppc_altivec.h	2003-11-18 02:41:58.000000000 -0600
++++ gromacs-3.2.1-new/include/ppc_altivec.h	2005-08-04 13:42:05.000000000 -0500
+@@ -33,6 +33,14 @@
+ #ifndef _ppc_altivec_h
+ #define _ppc_altivec_h
+ 
++#if !defined(__APPLE_ALTIVEC__) 
++#include <altivec.h>
++#ifdef bool
++#undef bool
++#define bool int
++#endif
++#endif
++
+ static char *SRCID_ppc_altivec_h = "$Id: ppc_altivec.h,v 1.7 2003/11/18 08:41:58 lindahl Exp $";
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>

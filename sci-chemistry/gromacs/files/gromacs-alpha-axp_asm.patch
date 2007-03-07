@@ -1,0 +1,11 @@
+diff -Naur gromacs-3.2.1/src/gmxlib/Makefile.in gromacs-3.2.1-new/src/gmxlib/Makefile.in
+--- gromacs-3.2.1/src/gmxlib/Makefile.in	2004-03-01 20:49:02.000000000 +0100
++++ gromacs-3.2.1-new/src/gmxlib/Makefile.in	2006-05-30 17:40:33.000000000 +0200
+@@ -301,6 +301,7 @@
+ LTF77COMPILE = $(LIBTOOL) --mode=compile $(F77) $(AM_FFLAGS) $(FFLAGS)
+ F77LD = $(F77)
+ CCASCOMPILE = $(CCAS) $(AM_CCASFLAGS) $(CCASFLAGS)
++LTASCOMPILE = $(LIBTOOL) --mode=compile $(AS) $(AM_ASFLAGS) $(ASFLAGS)
+ LTCCASCOMPILE = $(LIBTOOL) --mode=compile $(CCAS) $(AM_CCASFLAGS) \
+ 	$(CCASFLAGS)
+ DIST_SOURCES = $(libgmx@LIBSUFFIX@_la_SOURCES) \
