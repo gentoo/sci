@@ -15,8 +15,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-lang/R
-	dev-lang/php"
+DEPEND="dev-lang/R"
+RDEPEND="${DEPEND} dev-lang/php"
 
 src_install() {
 	kde_src_install
