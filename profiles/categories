@@ -1,5 +1,3 @@
-app-doc
-app-emacs
 app-office
 dev-cpp
 dev-lang
@@ -9,10 +7,8 @@ dev-util
 media-libs
 sci-astronomy
 sci-biology
-sci-calculators
 sci-chemistry
 sci-electronics
-sci-geosciences
 sci-libs
 sci-mathematics
 sci-misc
