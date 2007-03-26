@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,10 +9,11 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
-DEPEND="sci-libs/qfits"
+
+DEPEND=">=sci-libs/qfits-6.2"
 
 src_install() {
-	emake DESTDIR=${D} install || die "emake install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc README AUTHORS NEWS TODO BUGS ChangeLog
 	if use doc; then
 		make htmldir=usr/share/doc/${PF} install-html \
