@@ -1,8 +1,11 @@
 # ChangeLog for sci-astronomy/scamp
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-	
+  26 Mar 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  -scamp-1.2.11-r1.ebuild, +scamp-1.3.5.ebuild:
+  Version bump.
+
   29 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>;
   Removed icc flag, too buggy.
 	
