@@ -1,8 +1,11 @@
 # ChangeLog for sci-astronomy/sextractor
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-	
+  26 Mar 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  sextractor-2.5.0-r1.ebuild:
+  Cleaning, adapting for new portage.
+
   29 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>;
   Removed icc flag, too buggy.
 	
