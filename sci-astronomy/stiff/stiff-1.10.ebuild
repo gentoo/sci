@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,19 +8,12 @@ SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=" ~amd64 ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc"
-RDEPEND="virtual/libc"
-DEPEND="${RDEPEND}"
-
-src_compile() {
-	econf \
-		|| die "econf failed"
-	emake || die "emake failed"
-}
+DEPEND=""
 
 src_install () {
-	emake DESTDIR=${D} install || die "emake install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc AUTHORS BUGS ChangeLog HISTORY README THANKS
 	use doc && dodoc doc/*
 }
