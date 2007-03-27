@@ -1,6 +1,10 @@
 # ChangeLog for sci-astronomy/swarp
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  26 Mar 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  swarp-2.16.0-r1.ebuild:
+  cleaning
 
   29 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>;
   Removed icc flag, too buggy.
