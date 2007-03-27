@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,7 +18,7 @@ DEPEND="dev-lang/tk
 	media-libs/libpng
 	media-libs/tiff"
 
-S="${WORKDIR}/${MY_P}"
+S=${WORKDIR}/${MY_P}
 
 src_unpack() {
 	unpack ${A}
@@ -35,7 +35,10 @@ src_unpack() {
 }
 
 src_install() {
-	make DESTDIR="${D}" INSTALL_ROOT="${D}" install || die "make install failed"
+	emake \
+		DESTDIR="${D}" \
+		INSTALL_ROOT="${D}" \
+		install || die "emake install failed"
 	dodoc ChangeLog README Reorganization.Notes.txt changes ANNOUNCE
 	insinto /usr/share/doc/${PF}/demo
 	doins -r demo/*

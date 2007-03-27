@@ -1,6 +1,9 @@
 # ChangeLog for dev-tcltk/tkimg
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  27 Mar 2007; Sébastien Fabbro <bicatali@gentoo.org> tkimg-1.3.ebuild:
+  cleaning
 
 *tkimg-1.3 (14 Sep 2006)
 
