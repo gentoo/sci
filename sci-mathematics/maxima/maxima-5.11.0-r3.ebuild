@@ -28,8 +28,44 @@ RDEPEND=">=sci-visualization/gnuplot-4.0
 
 DEPEND="${RDEPEND} >=sys-apps/texinfo-4.3"
 LINGUAS="es pt"
+RESTRICT="nostrip"
 
 pkg_setup() {
+
+	# Don't install in the main tree, as this causes file collisions
+	# with app-text/tetex, see bug #155944
+	if use tetex; then
+		local TEXMFPATH="$(kpsewhich -var-value=TEXMFSITE)"
+		local TEXMFCONFIGFILE="$(kpsewhich texmf.cnf)"
+
+		if [ -z "${TEXMFPATH}" ]; then
+			eerror "You haven't defined the TEXMFSITE variable in your TeX config."
+			eerror "Please do so in the file ${TEXMFCONFIGFILE:-/var/lib/texmf/web2c/texmf.cnf}"
+			die "Define TEXMFSITE in TeX configuration!"
+		else
+			# go through the colon separated list of directories (maybe only one) provided in the variable
+			# TEXMFPATH (generated from TEXMFSITE from TeX's config) and choose only the first entry.
+			# All entries are separated by colons, even when defined with semi-colons, kpsewhich changes
+			# the output to a generic format, so IFS has to be redefined.
+			local IFS="${IFS}:"
+
+			for strippedpath in ${TEXMFPATH}
+			do
+				if [ -d ${strippedpath} ]; then
+					MAXIMA_TEXMFDIR="${strippedpath}"
+					break
+				fi
+			done
+
+			# verify if an existing path was chosen to prevent from installing into the wrong directory
+			if [ -z ${MAXIMA_TEXMFDIR} ]; then
+				eerror "TEXMFSITE does not contain any existing directory."
+				eerror "Please define an existing directory in your TeX config file"
+				eerror "${TEXMFCONFIGFILE:-/var/lib/texmf/web2c/texmf.cnf} or create at least one of the there specified directories"
+				die "TEXMFSITE variable did not contain an existing directory"
+			fi
+		fi
+	fi
 
 	if ! built_with_use -a sci-visualization/gnuplot png gd; then
 		elog "To benefit full plotting capability of maxima,"
@@ -105,7 +141,7 @@ src_install() {
 		elisp-site-file-install "${FILESDIR}"/50maxima-gentoo.el
 
 	if use tetex; then
-		insinto /usr/share/texmf/tex/latex/emaxima
+		insinto "${MAXIMA_TEXMFDIR}/tex/latex/emaxima"
 		doins interfaces/emacs/emaxima/emaxima.sty
 	fi
 
@@ -126,7 +162,7 @@ pkg_preinst() {
 
 pkg_postinst() {
 	use emacs && elisp-site-regen
-	use tetex && mktexlsr
+	use tetex && mktexlsr "${MAXIMA_TEXMFDIR}"
 }
 
 pkg_postrm() {
