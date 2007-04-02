@@ -1,0 +1,95 @@
+# Copyright 1999-2007 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+inherit eutils multilib fortran
+
+DEB_PV="${PV}.dfsg"
+DEB_PR="1"
+
+DESCRIPTION="CERN program library for High Energy Physics"
+HOMEPAGE="http://wwwasd.web.cern.ch/wwwasd/cernlib"
+LICENSE="GPL-2 LGPL-2"
+SRC_URI="mirror://debian/pool/main/c/${PN}/${PN}_${DEB_PV}.orig.tar.gz
+	mirror://debian/pool/main/c/${PN}/${PN}_${DEB_PV}-${DEB_PR}.diff.gz"
+SLOT="0"
+KEYWORDS="~amd64 ~x86"
+DEPEND="virtual/motif
+	x11-misc/imake
+	app-admin/eselect-blas
+	virtual/lapack
+	dev-lang/cfortran
+	virtual/tetex"
+
+RESTRICT="test"
+
+S=${WORKDIR}/${PN}_${DEB_PV}.orig
+
+FORTRAN="gfortran g77 ifc"
+
+src_unpack() {
+	unpack ${A}
+
+	# apply the big debian patch
+	epatch "${PN}_${DEB_PV}-${DEB_PR}".diff || die "epatch failed"
+	mv ${PN}-2006.dfsg/debian "${S}"/
+	rm -rf ${PN}-2006.dfsg
+
+	cd "${S}"
+
+	# temporary fix for threading support (while we have buggy eselect)
+	if eselect blas show | grep -q threaded-atlas; then
+		einfo "Fixing threads linking for blas"
+		sed -i \
+			-e 's/$DEPS -lm/$DEPS -lm -lpthread/' \
+			-e 's/$DEPS -l$1 -lm/$DEPS -l$1 -lm -lpthread/' \
+			debian/add-ons/bin/cernlib.in || die "sed failed"
+	fi
+
+	# fix X11 library path and fortran stuff
+	sed -i \
+		-e "s:L/usr/X11R6/lib:L/usr/$(get_libdir)/X11:g" \
+		-e "s:XDIR=/usr/X11R6/lib:XDIR=/usr/$(get_libdir)/X11:g" \
+		-e "s:XDIR64=/usr/X11R6/lib:XDIR64=/usr/$(get_libdir)/X11:g" \
+		debian/add-ons/bin/cernlib.in || die "sed failed"
+
+	# fix some default paths
+	sed -i \
+		-e "s:/usr/local:/usr:g" \
+		-e "s:prefix)/lib:prefix)/$(get_libdir):" \
+		-e 's:$(prefix)/etc:/etc:' \
+		-e 's:$(prefix)/man:$(prefix)/share/man:' \
+		debian/add-ons/cernlib.mk || die "sed failed"
+
+	cp debian/add-ons/Makefile .
+	einfo "Applying Debian patches"
+	make \
+		DEB_BUILD_OPTIONS="${FORTRANC} nostrip" \
+		patch &> /dev/null || die "make patch failed"
+	# since we depend on cfortran, do not use the one from cernlib
+	# (adapted from $S/debian/rules)
+	mv -f src/include/cfortran/cfortran.h \
+		src/include/cfortran/cfortran.h.disabled
+}
+
+src_compile() {
+	make DEB_BUILD_OPTIONS="${FORTRANC} nostrip" \
+		|| die "make failed"
+}
+
+src_install() {
+	make DESTDIR="${D}" install || die "make install failed"
+	#einstall | die "einstall failed"
+	cd "${S}"/debian
+	docinto debian
+	dodoc changelog README.* deadpool.txt NEWS copyright
+	newdoc add-ons/README README.add-ons
+}
+
+pkg_postinst() {
+	elog "Gentoo cernlib is based on Debian's one:"
+	elog " - apply a significant amount of patches"
+	elog " - respects file system standards"
+	elog "Heavy cernlib users might want to check:"
+	elog "http://people.debian.org/~kmccarty/cernlib/"
+}
