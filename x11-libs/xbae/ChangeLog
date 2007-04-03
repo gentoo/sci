@@ -1,0 +1,16 @@
+# ChangeLog for x11-libs/xbae
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  03 Apr 2007; Sébastien Fabbro <bicatali@gentoo.org> +xbae-4.60.4.ebuild,
+  +files/xbae-4.60.4-Makefile.in.patch, +files/xbae-4.60.4-lxmp.patch,
+  +files/xbae-4.60.4-tmpl.patch, +metadata.xml:
+  Initial import.
+
+  03 Apr 2007; Sébastien Fabbro <bicatali@gentoo.org> +xbae-4.60.4.ebuild,
+  +files/xbae-4.60.4-Makefile.in.patch, +files/xbae-4.60.4-lxmp.patch,
+  +files/xbae-4.60.4-tmpl.patch, +metadata.xml:
+  initial import
+  initial
+  import
+
