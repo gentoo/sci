@@ -1,6 +1,10 @@
 # ChangeLog for sci-physics/paw
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Apr 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  paw-2.14.04-r1.ebuild, +paw-2.14.04-r2.ebuild, metadata.xml:
+  version adapted for cernlib-2006 paw new revision for cernlib-2006
 
 *paw-2.14.04-r1 (15 Oct 2006)
 

@@ -4,48 +4,56 @@
 
 inherit eutils multilib fortran
 
-DEB_PV="${PV}"
-DEB_PR="7"
+DEB_PV="${PV}.dfsg"
+DEB_PR="1"
 
 DESCRIPTION="CERN's Physics Analysis Workstation data analysis program"
 HOMEPAGE="http://wwwasd.web.cern.ch/wwwasd/paw/index.html"
-LICENSE="GPL-2 LGPL-2"
+LICENSE="BSD"
 SRC_URI="mirror://debian/pool/main/p/${PN}/${PN}_${DEB_PV}.orig.tar.gz
 	mirror://debian/pool/main/p/${PN}/${PN}_${DEB_PV}-${DEB_PR}.diff.gz"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-DEPEND="=sci-physics/cernlib-2005*"
+DEPEND="x11-libs/xbae
+	>=sci-physics/cernlib-2006"
 
-S=${WORKDIR}/${PN}-${DEB_PV}.orig
+S=${WORKDIR}/${PN}_${DEB_PV}.orig
 
-FORTRAN="g77"
+FORTRAN="gfortran g77 ifc"
 
 src_unpack() {
-	unpack ${A}
+	fortran_src_unpack
+
+	cd "${WORKDIR}"
 	epatch ${PN}_${DEB_PV}-${DEB_PR}.diff || die "epatch failed"
+	mv ${PN}-${PV}.dfsg/debian "${S}"/
+	rm -rf ${PN}-${PV}.dfsg
+
 	cd "${S}"
 	cp debian/add-ons/Makefile .
 	# fix some path stuff and collision for comis.h, already installed by cernlib
 	sed -i \
 		-e "s:/usr/local:/usr:g" \
 		-e '/comis.h/d' \
-		Makefile
+		-e "s/g77/${FORTRANC}/g" \
+		Makefile || die "sed failed"
 
 	einfo "Applying Debian patches"
-	make patch &> /dev/null || die "make patch failed"
+	make \
+		DEB_BUILD_OPTIONS="${FORTRANC} nostrip" \
+		patch &> /dev/null || die "make patch failed"
 }
 
 
 src_compile() {
-	make || die "make failed"
+	emake -j1 DEB_BUILD_OPTIONS="${FORTRANC} nostrip" \
+		|| die "emake failed"
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 	cd "${S}"/debian
-	docinto debian
-	dodoc changelog README.* deadpool.txt copyright
-	docinto debian/add-ons
-	dodoc add-ons/README
+	dodoc changelog README.* deadpool.txt copyright.txt
+	newdoc add-ons/README README.add-ons
 }
