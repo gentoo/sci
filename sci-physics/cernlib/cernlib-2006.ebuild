@@ -28,12 +28,13 @@ S=${WORKDIR}/${PN}_${DEB_PV}.orig
 FORTRAN="gfortran g77 ifc"
 
 src_unpack() {
-	unpack ${A}
+	fortran_src_unpack ${A}
+	cd "${WORKDIR}"
 
 	# apply the big debian patch
 	epatch "${PN}_${DEB_PV}-${DEB_PR}".diff || die "epatch failed"
-	mv ${PN}-2006.dfsg/debian "${S}"/
-	rm -rf ${PN}-2006.dfsg
+	mv ${PN}-${PV}.dfsg/debian "${S}"/
+	rm -rf ${PN}-${PV}.dfsg
 
 	cd "${S}"
 
@@ -73,15 +74,13 @@ src_unpack() {
 }
 
 src_compile() {
-	make DEB_BUILD_OPTIONS="${FORTRANC} nostrip" \
-		|| die "make failed"
+	emake -j1 DEB_BUILD_OPTIONS="${FORTRANC} nostrip" \
+		|| die "emake failed"
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "make install failed"
-	#einstall | die "einstall failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 	cd "${S}"/debian
-	docinto debian
 	dodoc changelog README.* deadpool.txt NEWS copyright
 	newdoc add-ons/README README.add-ons
 }
