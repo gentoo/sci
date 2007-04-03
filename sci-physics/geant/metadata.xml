@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci-physics</herd>
+<longdescription lang="en">
+Geant simulates the passage of subatomic particles through matter, for
+instance, particle detectors. For maximum flexibility, Geant
+simulations are performed by linking Fortran code supplied by the user
+with the Geant libraries, then running the resulting executable.
+
+This package includes gxint, the script used to perform this linking step.
+</longdescription>
+</pkgmetadata>
