@@ -1,6 +1,6 @@
-# Copyright 1999-2004 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/fortran.eclass,v 1.16 2006/06/05 08:51:09 spyderous Exp $
+# $Header: $
 #
 # Author: Danny van Dyk <kugelfang@gentoo.org>
 #
@@ -35,13 +35,13 @@ fortran_conf() {
 #   * gfortran - GCC Fortran 95
 #   * g77 - GCC Fortran 77
 #   * f2c - Fortran 2 C Translator
-#   * ifc - Intel Fortran Compiler
+#   * ifort or ifc - Intel Fortran Compiler
 #   * pgf77 - Portland Group Fortran 77 compiler
 #   * pgf90 - Portland Group Fortran 90/95 compiler
 #
 # Checks if at least one of <profiles> is installed.
-# Checks also if F77 (the fortran compiler to use) is available
-# on the System.
+# Checks also if ${F77} (the fortran 77 compiler to use) and ${FC} (the fortran 90 )
+#  are available on the system.
 need_fortran() {
 	if [ -z "$*" ]; then
 		eerror "Call need_fortran with at least one argument !"
@@ -51,38 +51,38 @@ need_fortran() {
 	for PROFILE in $@; do
 		case ${PROFILE} in
 			gfortran)
-				if [ -x "$(which gfortran 2> /dev/null)" ]; then
+				if [ -x "$(type -P gfortran 2> /dev/null)" ]; then
 					AVAILABLE="${AVAILABLE} gfortran"
 				fi
 				;;
 			g77)
-				if [ -x "$(which g77 2> /dev/null)" ]; then
+				if [ -x "$(type -P g77 2> /dev/null)" ]; then
 					AVAILABLE="${AVAILABLE} g77"
 				fi
 				;;
 			f2c)
-				if [ -x "$(which f2c 2> /dev/null)" ]; then
+				if [ -x "$(type -P f2c 2> /dev/null)" ]; then
 					AVAILABLE="${AVAILABLE} f2c"
 				fi
 				;;
 			pgf77)
-				if [ -x "$(which pgf77 2> /dev/null)" ]; then
+				if [ -x "$(type -P pgf77 2> /dev/null)" ]; then
 					AVAILABLE="${AVAILABLE} pgf77"
 				fi
 				;;
 			pgf90)
-				if [ -x "$(which pgf90 2> /dev/null)" ]; then
+				if [ -x "$(type -P pgf90 2> /dev/null)" ]; then
 					AVAILABLE="${AVAILABLE} pgf90"
                 else
                     echo "Else..."
 				fi
 				;;
-			ifc)
+			ifort|ifc)
 				case ${ARCH} in
 					x86|ia64|amd64)
-						if [ -x "$(which ifort 2> /dev/null)" ]; then
+						if [ -x "$(type -P ifort 2> /dev/null)" ]; then
 							AVAILABLE="${AVAILABLE} ifort"
-						elif [ -x "$(which ifc 2> /dev/null)" ]; then
+						elif [ -x "$(type -P ifc 2> /dev/null)" ]; then
 							AVAILABLE="${AVAILABLE} ifc"
 						fi
 						;;
@@ -115,9 +115,9 @@ need_fortran() {
 				pgf77)
 					eerror "[${i}] emerge dev-lang/pgi-workstation"
 					;;
-				ifc)
+				ifort|ifc)
 					case ${ARCH} in
-						x86|ia64)
+						x86|ia64|amd64)
 							eerror "[${i}] emerge dev-lang/ifc"
 							;;
 						*)
@@ -132,7 +132,7 @@ need_fortran() {
 		einfo "Installed are: ${AVAILABLE}"
 		if [ -n "${F77}" -o -n "${FC}" -o -n "${F2C}" ]; then
 			if [ -n "${F77}" ]; then
- 				if [ "${F77}" != "pgf77" ] && [ "${FC}" != "pgf90"]; then
+ 				if [ "${F77}" != "pgf77" ] && [ "${FC}" != "pgf90" ]; then
 					FC="${F77}"						# F77 overwrites FC
  				fi
 			fi
@@ -180,7 +180,7 @@ need_fortran() {
 		esac
 	fi
 	use debug && echo "FORTRANC: \"${FORTRANC}\""
- 	einfo "Using $FORTRANC"
+ 	einfo "Using ${FORTRANC}"
 }
 
 # patch_fortran():
