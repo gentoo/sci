@@ -8,7 +8,7 @@ DEB_PN="mclibs"
 DEB_PV="${PV}.dfsg"
 DEB_PR="2"
 
-DESCRIPTION="CERN program library for High Energy Physics"
+DESCRIPTION=""
 HOMEPAGE="http://wwwasd.web.cern.ch/wwwasd/cernlib"
 LICENSE="GPL-2 LGPL-2"
 SRC_URI="mirror://debian/pool/main/m/${DEB_PN}/${DEB_PN}_${DEB_PV}.orig.tar.gz

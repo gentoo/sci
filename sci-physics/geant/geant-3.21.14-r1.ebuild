@@ -8,7 +8,7 @@ DEB_PN="${PN}321"
 DEB_PV="${PV}.dfsg"
 DEB_PR="4"
 
-DESCRIPTION="CERN's Detector Description and Simulation Tool "
+DESCRIPTION="CERN's detector description and simulation Tool "
 HOMEPAGE="http://wwwasd.web.cern.ch/wwwasd/geant/index.html"
 LICENSE="GPL-2 LGPL-2"
 SRC_URI="mirror://debian/pool/main/g/${DEB_PN}/${DEB_PN}_${DEB_PV}.orig.tar.gz
@@ -16,36 +16,37 @@ SRC_URI="mirror://debian/pool/main/g/${DEB_PN}/${DEB_PN}_${DEB_PV}.orig.tar.gz
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-DEPEND="=sci-physics/cernlib-2006*
+DEPEND="=sci-physics/cernlib-2005*
 	sci-physics/paw"
 
 S=${WORKDIR}/${DEB_PN}-${DEB_PV}.orig
 
-FORTRAN="gfortran g77 ifc"
+FORTRAN="g77"
 
 src_unpack() {
-	fortran_src_unpack ${A}
-
-	cd "${WORKDIR}"
-	epatch ${DEB_PN}_${DEB_PV}-${DEB_PR}.diff || die "epatch failed"
-
+	unpack ${A}
+	epatch ${DEB_PN}_${DEB_PV}-${DEB_PR}.diff
 	cd "${S}"
 	cp debian/add-ons/Makefile .
 	sed -i \
 		-e "s:/usr/local:/usr:g" \
 		Makefile || die "sed failed"
 	make \
-		DEB_BUILD_OPTIONS="${FORTRANC} nostrip" \
+		DEB_BUILD_OPTIONS="nostrip" \
 		patch &> /dev/null || die "make patch failed"
 }
 
 src_compile() {
-	emake -j1 DEB_BUILD_OPTIONS="${FORTRANC} nostrip" \
+	emake -j1 \
+		DEB_BUILD_OPTIONS="nostrip" \
 		|| die "emake failed"
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
+	emake \
+		DEB_BUILD_OPTIONS="nostrip" \
+		DESTDIR="${D}" \
+		install || die "emake install failed"
 	cd "${S}"/debian
 	dodoc changelog README.* deadpool.txt copyright
 	newdoc add-ons/README README.addons

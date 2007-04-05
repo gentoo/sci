@@ -2,43 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils multilib fortran
+inherit cernlib
 
-DEB_PV="${PV}.dfsg"
-DEB_PR="1"
-
-DESCRIPTION="CERN program library for High Energy Physics"
-HOMEPAGE="http://wwwasd.web.cern.ch/wwwasd/cernlib"
-LICENSE="GPL-2 LGPL-2"
-SRC_URI="mirror://debian/pool/main/c/${PN}/${PN}_${DEB_PV}.orig.tar.gz
-	mirror://debian/pool/main/c/${PN}/${PN}_${DEB_PV}-${DEB_PR}.diff.gz"
-SLOT="0"
-KEYWORDS="~amd64 ~x86"
-DEPEND="virtual/motif
-	x11-misc/imake
-	app-admin/eselect-blas
-	virtual/lapack
-	dev-lang/cfortran
-	virtual/tetex"
-
-RESTRICT="test"
-
-S=${WORKDIR}/${PN}_${DEB_PV}.orig
-
-FORTRAN="gfortran g77 ifc"
+DEPEND="app-admin/eselect-blas"
 
 src_unpack() {
-	fortran_src_unpack ${A}
-	cd "${WORKDIR}"
-
-	# apply the big debian patch
-	epatch "${PN}_${DEB_PV}-${DEB_PR}".diff || die "epatch failed"
-	mv ${PN}-${PV}.dfsg/debian "${S}"/
-	rm -rf ${PN}-${PV}.dfsg
-
+	cernlib_unpack
 	cd "${S}"
-
-	# temporary fix for threading support (while we have buggy eselect)
+	# temporary fix for threading support (might be supported by eselect)
 	if eselect blas show | grep -q threaded-atlas; then
 		einfo "Fixing threads linking for blas"
 		sed -i \
@@ -47,7 +18,7 @@ src_unpack() {
 			debian/add-ons/bin/cernlib.in || die "sed failed"
 	fi
 
-	# fix X11 library path and fortran stuff
+	# fix X11 library path
 	sed -i \
 		-e "s:L/usr/X11R6/lib:L/usr/$(get_libdir)/X11:g" \
 		-e "s:XDIR=/usr/X11R6/lib:XDIR=/usr/$(get_libdir)/X11:g" \
@@ -62,33 +33,5 @@ src_unpack() {
 		-e 's:$(prefix)/man:$(prefix)/share/man:' \
 		debian/add-ons/cernlib.mk || die "sed failed"
 
-	cp debian/add-ons/Makefile .
-	einfo "Applying Debian patches"
-	make \
-		DEB_BUILD_OPTIONS="${FORTRANC} nostrip" \
-		patch &> /dev/null || die "make patch failed"
-	# since we depend on cfortran, do not use the one from cernlib
-	# (adapted from $S/debian/rules)
-	mv -f src/include/cfortran/cfortran.h \
-		src/include/cfortran/cfortran.h.disabled
-}
-
-src_compile() {
-	emake -j1 DEB_BUILD_OPTIONS="${FORTRANC} nostrip" \
-		|| die "emake failed"
-}
-
-src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
-	cd "${S}"/debian
-	dodoc changelog README.* deadpool.txt NEWS copyright
-	newdoc add-ons/README README.add-ons
-}
-
-pkg_postinst() {
-	elog "Gentoo cernlib is based on Debian's one:"
-	elog " - apply a significant amount of patches"
-	elog " - respects file system standards"
-	elog "Heavy cernlib users might want to check:"
-	elog "http://people.debian.org/~kmccarty/cernlib/"
+	cernlib_patch
 }
