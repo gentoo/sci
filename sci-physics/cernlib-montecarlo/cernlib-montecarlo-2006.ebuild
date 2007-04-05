@@ -8,3 +8,4 @@ DEB_PR="1"
 inherit cernlib
 
 DESCRIPTION="cernlib monte-carlo libraries"
+KEYWORDS="~amd64 ~x86"

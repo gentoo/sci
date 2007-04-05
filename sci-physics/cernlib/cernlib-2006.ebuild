@@ -5,6 +5,7 @@
 inherit cernlib
 
 DEPEND="app-admin/eselect-blas"
+KEYWORDS="~x86 ~amd64"
 
 src_unpack() {
 	cernlib_unpack

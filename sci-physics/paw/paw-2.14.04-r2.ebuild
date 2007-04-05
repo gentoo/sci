@@ -6,6 +6,7 @@ inherit cernlib
 
 DESCRIPTION="CERN's Physics Analysis Workstation data analysis program"
 HOMEPAGE="http://wwwasd.web.cern.ch/wwwasd/paw/index.html"
+KEYWORDS="~amd64 ~x86"
 DEPEND="x11-libs/xbae"
 
 src_unpack() {

@@ -10,6 +10,7 @@ inherit cernlib
 
 DESCRIPTION="CERN's detector description and simulation Tool"
 HOMEPAGE="http://wwwasd.web.cern.ch/wwwasd/geant/index.html"
+KEYWORDS="~amd64 ~x86"
 DEPEND="sci-physics/paw"
 
 S=${WORKDIR}/${DEB_PN}-${DEB_PV}.orig
