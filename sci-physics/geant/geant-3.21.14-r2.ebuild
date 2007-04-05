@@ -18,6 +18,6 @@ S=${WORKDIR}/${DEB_PN}-${DEB_PV}.orig
 src_unpack() {
 	unpack ${A}
 	epatch ${DEB_PN}_${DEB_PV}-${DEB_PR}.diff
-	rm -f ${DEB_PN}_${DEB_PV}-${DEB_PR}.diff	
+	rm -f ${DEB_PN}_${DEB_PV}-${DEB_PR}.diff
 	cernlib_patch
 }

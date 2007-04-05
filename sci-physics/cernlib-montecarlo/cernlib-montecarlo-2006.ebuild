@@ -7,5 +7,5 @@ DEB_PR="1"
 
 inherit cernlib
 
-DESCRIPTION="cernlib monte-carlo libraries"
+DESCRIPTION="Monte-carlo library and tools for the cernlib"
 KEYWORDS="~amd64 ~x86"
