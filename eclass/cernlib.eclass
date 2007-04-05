@@ -34,7 +34,6 @@ LICENSE="GPL-2 LGPL-2 BSD"
 SRC_URI="mirror://debian/pool/main/${DEB_PN:0:1}/${DEB_PN}/${DEB_PN}_${DEB_PV}.orig.tar.gz
 	mirror://debian/pool/main/${DEB_PN:0:1}/${DEB_PN}/${DEB_PN}_${DEB_PV}-${DEB_PR}.diff.gz"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="virtual/motif
