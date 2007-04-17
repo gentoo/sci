@@ -1,11 +1,11 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 inherit elisp-common toolchain-funcs versionator
 
 CPV=($(get_version_components ${PV}))
-CMT_PV=v${CPV[0]}r${CPV[1]}p${CPV[2]}
+CMT_PV=v${CPV[0]}r${CPV[1]}
 
 DESCRIPTION="Cross platform configuration management environment"
 HOMEPAGE="http://www.cmtsite.org/"
@@ -21,7 +21,7 @@ CMTDIR=/usr/share/CMT/${CMT_PV}
 
 
 src_compile() {
-	cd ${S}/mgr
+	cd mgr
 	./INSTALL
 	source setup.sh
 	make \
@@ -36,8 +36,8 @@ src_install() {
 	cp -pPR mgr src "${D}"/${CMTDIR}
 
 	echo "CMTROOT=${CMTDIR}" > 99cmt
-	echo "CMTBIN=`uname`-`uname -m | sed -e 's# ##g'`" >> 99cmt
-	echo "CMTCONFIG=`${CMTROOT}/mgr/cmt_system.sh`" >> 99cmt
+	echo "CMTBIN=$(uname`-`uname -m | sed -e 's# ##g')" >> 99cmt
+	echo "CMTCONFIG=$(${CMTROOT}/mgr/cmt_system.sh)" >> 99cmt
 	rm -f ${CMTBIN}/*.o
 	cp -pPR ${CMTBIN} "${D}"/${CMTDIR}
 	dodir /usr/bin
@@ -48,7 +48,7 @@ src_install() {
 		echo "java cmt_parser" >> jcmt
 		exeinto /usr/bin
 		doexe jcmt
-		echo "CLASSPATH=${CLASSPATH}:${CMTDIR}/java/cmt.jar" >> 99cmt
+		echo "CLASSPATH=${CMTDIR}/java/cmt.jar" >> 99cmt
 	fi
 	doenvd 99cmt
 	dodoc doc/*.txt
@@ -62,7 +62,7 @@ src_install() {
 	fi
 	if use emacs; then
 		elisp-site-file-install \
-			doc/cmt-mode.el ${FILESDIR}/80cmt-mode-gentoo.el
+			doc/cmt-mode.el "${FILESDIR}"/80cmt-mode-gentoo.el
 		insinto ${CMTDIR}/xemacs
 		doins ${S}/doc/init.el
 	fi
