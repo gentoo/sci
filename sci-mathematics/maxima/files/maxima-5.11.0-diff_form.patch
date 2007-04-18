@@ -1,9 +1,0 @@
-diff -U2 --recursive maxima-5.11.0-orig/src/init-cl.lisp maxima-5.11.0/src/init-cl.lisp
---- maxima-5.11.0-orig/src/init-cl.lisp	2006-12-09 22:50:19.000000000 +0100
-+++ maxima-5.11.0/src/init-cl.lisp	2006-12-27 00:11:06.000000000 +0100
-@@ -326,4 +326,5 @@
-          "contrib/unit"
-          "contrib/Zeilberger"
-+         "diff_form"
-          "diffequations"
-          "lbfgs"
