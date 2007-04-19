@@ -2,6 +2,9 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Apr 2007; Sébastien Fabbro <bicatali@gentoo.org> freemat-3.2.ebuild:
+  freemat: added post_install function
+
   19 Apr 2007; Sébastien Fabbro <bicatali@gentoo.org> -freemat-2.0.ebuild,
   -freemat-3.0.ebuild, -files/freemat-3.0.patch, +freemat-3.2.ebuild,
   -files/Inspect.cpp.patch, -files/acinclude.m4.patch, -files/matio.patch,
