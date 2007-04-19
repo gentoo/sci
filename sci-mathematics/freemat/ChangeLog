@@ -1,6 +1,12 @@
 # ChangeLog for sci-mathematics/freemat
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  19 Apr 2007; Sébastien Fabbro <bicatali@gentoo.org> -freemat-2.0.ebuild,
+  -freemat-3.0.ebuild, -files/freemat-3.0.patch, +freemat-3.2.ebuild,
+  -files/Inspect.cpp.patch, -files/acinclude.m4.patch, -files/matio.patch,
+  metadata.xml:
+  version bump, adapted to sparse libraries in main tree.
 
 *freemat-3.0 (26 Feb 2007)
 

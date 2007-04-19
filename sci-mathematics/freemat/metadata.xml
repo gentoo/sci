@@ -2,10 +2,6 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <herd>sci</herd>
-<maintainer>
-<email>A.G.Grozin@inp.nsk.su</email>
-<name>Andrey Grozin</name>
-</maintainer>
 <longdescription lang="en">
 FreeMat is a free environment for rapid engineering and scientific prototyping
 and data processing. It is similar to commercial systems such as MATLAB from Mathworks,
