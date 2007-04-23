@@ -18,7 +18,7 @@ LICENSE="BSD LGPL-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="doc examples mpi patented python tcl tk threads qt3 qt4"
-RDEPEND="java? ( >=virtual/jdk-1.4.2 )
+RDEPEND="java? ( =virtual/jdk-1.5* )
 	mpi? ( virtual/mpi )
 	python? ( >=dev-lang/python-2.0 )
 	tcl? ( >=dev-lang/tcl-8.2.3 )
