@@ -21,7 +21,7 @@ src_compile() {
 	sed -i -e "s:default\.:${CONFDIR}/default\.:" src/preflist.h
 	local myconf
 	[[ "$(tc-getCC)" == "icc" ]] \
-		&& myconf="${myconf} --enable-icc"	
+		&& myconf="${myconf} --enable-icc"
 	econf "${myconf}" || die "econf failed"
 	emake || die "emake failed"
 }
