@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>sci</herd>
+	<maintainer>
+		<email>markusle@gentoo.org</email>
+		<name>Markus Dittrich</name>
+	</maintainer>
+<longdescription lang="en">
+The Visualization ToolKit (VTK) is an object oriented software system for 3D
+computer graphics, image processing, and visualization. VTK includes a
+textbook, a C++ class library, and several interpreted interface layers
+including Tcl/Tk, Java, and Python. VTK supports a wide variety of
+visualization algorithms including scalar, vector, tensor, texture, and
+volumetric methods. It also supports advanced modeling techniques like
+implicit modeling, polygon reduction, mesh smoothing, cutting, contouring,
+and Delaunay triangulation.  Moreover, dozens of imaging algorithms have been
+integrated into the system. This allows mixing 2D imaging / 3D graphics
+algorithms and data.
+</longdescription>
+</pkgmetadata>
