@@ -73,6 +73,9 @@ ALDORROOT=/opt/${PN}/linux/${PV0}
 PATH=/opt/${PN}/linux/${PV0}/bin
 EOF
 	doenvd 64aldor
+	dodir "/opt/${PN}/${PV0}"
+	dosym "/opt/${PN}/linux/${PV0}" "/opt/${PN}/${PV0}/linux"
+	dosym `which ar` "/opt/${PN}/linux/${PV0}/bin/uniar"
 	if use doc; then
 		insinto "/usr/share/doc/aldor-${PV}"
 		doins *.pdf
@@ -84,15 +87,9 @@ EOF
 }
 
 pkg_postinst() {
-	mkdir "${ROOT}opt/${PN}/${PV0}"
-	ln -s "${ROOT}opt/${PN}/linux/${PV0}" "${ROOT}opt/${PN}/${PV0}/linux"
-	ln -s `which ar` "${ROOT}opt/${PN}/linux/${PV0}/bin/uniar"
 	use emacs && elisp-site-regen
 }
 
 pkg_prerm() {
-	rm -f "${ROOT}opt/${PN}/${PV0}/linux"
-	rmdir "${ROOT}opt/${PN}/${PV0}"
-	rm -f "${ROOT}opt/${PN}/linux/${PV0}/bin/uniar"
 	[ -f "${SITELISP}/site-gentoo.el" ] && elisp-site-regen
 }
