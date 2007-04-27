@@ -1,0 +1,11 @@
+# ChangeLog for sci-biology/sibsim4
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  27 Apr 2007; Andrey Kislyuk <weaver@horizon.ath.cx> +sibsim4-0.14.ebuild:
+  Mass import from sunrise
+
+  18 Apr 2007; Andrey Kislyuk <weaver@horizon.ath.cx> +sibsim4-0.14.ebuild,
+  +metadata.xml:
+  new package (bug 175143)
+

@@ -1,0 +1,11 @@
+# ChangeLog for sci-biology/mummer
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  27 Apr 2007; Andrey Kislyuk <weaver@horizon.ath.cx> +mummer-3.19.ebuild:
+  Mass import from sunrise
+
+  07 Mar 2007; Andrey Kislyuk <weaver@horizon.ath.cx> +mummer-3.19.ebuild,
+  +metadata.xml:
+  New package, Bug 169793
+

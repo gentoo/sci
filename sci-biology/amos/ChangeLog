@@ -1,0 +1,13 @@
+# ChangeLog for sci-biology/amos
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  27 Apr 2007; Andrey Kislyuk <weaver@horizon.ath.cx> ChangeLog:
+  Mass import from sunrise
+
+  20 Apr 2007; Andrey Kislyuk <weaver@horizon.ath.cx> amos-2.0.2.ebuild:
+  fix die messages
+
+  20 Apr 2007; Andrey Kislyuk <weaver@horizon.ath.cx> +amos-2.0.2.ebuild, +metadata.xml:
+  new package (bug 175293)
+
