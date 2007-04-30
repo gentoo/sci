@@ -2,6 +2,9 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Apr 2007; Andrey Kislyuk <weaver@horizon.ath.cx> +blat-34.ebuild:
+  version bump!
+
   27 Apr 2007; Andrey Kislyuk <weaver@horizon.ath.cx> +blat-33.ebuild:
   Mass import from sunrise
 
