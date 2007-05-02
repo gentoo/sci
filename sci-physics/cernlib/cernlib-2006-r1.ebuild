@@ -2,8 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+DEB_PV="${PV}.dfsg.2"
+DEB_PR="1"
 inherit cernlib
-
 DEPEND="app-admin/eselect-blas"
 KEYWORDS="~x86 ~amd64"
 

@@ -3,6 +3,7 @@
 # $Header: $
 
 DEB_PN="mclibs"
+DEB_PV="${PV}.dfsg.2"
 DEB_PR="1"
 
 inherit cernlib
