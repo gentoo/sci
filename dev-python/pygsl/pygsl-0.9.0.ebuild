@@ -1,4 +1,4 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -11,13 +11,21 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
-DEPEND=">=dev-lang/python-2.2
-	>=sci-libs/gsl-1.5
-	dev-python/numeric"
+IUSE="examples"
+
+DEPEND=">=sci-libs/gsl-1.8
+	>=dev-python/numpy-1.0"
+
+
+src_test() {
+	cd "${S}/tests"
+	PYTHONPATH=../build/lib* "${python}" run_test.py || die "tests failed"
+}
 
 src_install() {
 	distutils_src_install
-	insinto /usr/share/doc/${PF}/examples
-	doins examples/*
+	if use examples; then
+		insinto /usr/share/doc/${PF}
+		doins -r examples
+	fi
 }
