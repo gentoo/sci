@@ -1,7 +1,0 @@
-# ChangeLog for sci-chemistry/pymol
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  29 Apr 2007; Jeff Gardner <je_fro@gentoo.org> ChangeLog:
-  Version bump to pymol-0.99_rc8, big thanks to hodak at ncsu.
-
