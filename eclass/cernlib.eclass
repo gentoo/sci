@@ -53,13 +53,13 @@ fi
 
 RESTRICT="test"
 FORTRAN="gfortran g77 ifc"
-S=${WORKDIR}/${DEB_PN}_${DEB_PV}.orig
+S=${WORKDIR}/${DEB_PN}-${DEB_PV}.orig
 
 cernlib_unpack() {
 	unpack ${A}
 	epatch "${DEB_PN}_${DEB_PV}-${DEB_PR}".diff
-	mv ${DEB_PN}-${DEB_PV}/debian "${S}"/
-	rm -rf ${DEB_PN}-${DEB_PV} "${DEB_PN}_${DEB_PV}-${DEB_PR}".diff
+	#mv ${DEB_PN}-${DEB_PV}/debian "${S}"/
+	#rm -rf ${DEB_PN}-${DEB_PV} "${DEB_PN}_${DEB_PV}-${DEB_PR}".diff
 }
 
 cernlib_patch() {
