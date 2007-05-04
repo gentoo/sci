@@ -15,9 +15,9 @@ HOMEPAGE="http://www.texmacs.org/"
 LICENSE="GPL-2"
 
 SLOT="0"
-IUSE="ispell aspell static"
+IUSE="spell static"
 # TeXmacs 1.0.X-r? -> stable release, TeXmacs 1.0.X.Y -> development release
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 
 RDEPEND="virtual/tetex
 	>=dev-scheme/guile-1.4
@@ -28,8 +28,7 @@ RDEPEND="virtual/tetex
 		virtual/x11
 	)
 	media-libs/imlib2
-	ispell? ( >=app-text/ispell-3.2 )
-	aspell? ( >=app-text/aspell-0.5 )"
+	spell? ( || ( >=app-text/ispell-3.2 >=app-text/aspell-0.5 ) )"
 
 DEPEND="${RDEPEND}
 	|| ( x11-proto/xproto
@@ -38,8 +37,7 @@ DEPEND="${RDEPEND}
 
 src_unpack() {
 	unpack ${A}
-	cd "${S}"
-	use aspell && sed -i -e 's/ispell -a -d/aspell -a -d/' src/Plugins/Ispell/ispell.cpp
+	epatch "${FILESDIR}/${PN}-maxima-5.12.0.patch"
 }
 
 src_compile() {
