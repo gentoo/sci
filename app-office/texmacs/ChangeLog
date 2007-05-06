@@ -2,6 +2,9 @@
 # Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+6 May 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  Added a check that, if guile is 1.8, it is emerged with +deprecated
+
 *texmacs-1.0.6.9-r1 (3 May 2007)
   3 May 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
   -texmacs-1.0.6.6.ebuild -texmacs-1.0.6.7.ebuild -texmacs-1.0.6.8.ebuild
