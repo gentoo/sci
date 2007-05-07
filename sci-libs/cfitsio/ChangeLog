@@ -1,6 +1,13 @@
 # ChangeLog for sci-libs/cfitsio
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  07 May 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  -cfitsio-3.030.ebuild, -files/cfitsio-3.030-Makefile.am,
+  -files/cfitsio-3.030-configure.ac, +cfitsio-3.040.ebuild,
+  +files/cfitsio-3.040-Makefile.am, +files/cfitsio-3.040-configure.ac,
+  -files/cfitsio-cfortran.patch:
+  Version bump
 
   29 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>
   -cfitsio-3.020.ebuild
