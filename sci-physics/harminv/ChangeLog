@@ -1,0 +1,8 @@
+# ChangeLog for sci-physics/harminv
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  09 May 2007; Sébastien Fabbro <bicatali@gentoo.org> ChangeLog:
+  Initial import. Initial ebuild submitted by Ben Schwartz
+  <bmschwar@fas.harvard.edu>, see bug #170989
+
