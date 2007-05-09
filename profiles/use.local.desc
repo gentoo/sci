@@ -11,6 +11,7 @@
 
 sci-astronomy/scamp:plplot - Add plplot to allow diagnostic plots during processing 
 sci-biology/tgi-tools:pvm - Use sys-cluster/pvm (Parallel Virtual Machine) and build the pvmsx utility
+sci-physics/root:cern - Add cernlib i/o functionality to root
 sys-cluster/openib:dapl - add DAPL (Direct Access Provider Library) support.
 sys-cluster/openib:ipath - add PathScale HCA support.
 sys-cluster/openib:opensm - add OpenSM Subnet Management support.
