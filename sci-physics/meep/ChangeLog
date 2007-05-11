@@ -1,0 +1,9 @@
+# ChangeLog for sci-physics/meep
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  11 May 2007; Sébastien Fabbro <bicatali@gentoo.org> +meep-0.10.ebuild,
+  +metadata.xml:
+  Initial import of meep. Initial ebuild was submitted by Ben Schwartz
+  <bmschwar@fas.harvard.edu>. Closes bug #170989.
+
