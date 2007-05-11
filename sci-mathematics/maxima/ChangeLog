@@ -2,6 +2,11 @@
 # Copyright 2002-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-mathematics/maxima/ChangeLog,v 1.28 2007/04/18 17:53:41 bicatali Exp $
 
+  10 May 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  eautoreconf always; einstall - an attempt to circumvent the problem
+  that /usr/share/maxima/5.12.0/doc/html/ is created twice on some
+  systems (don't know why)
+
 *maxima-5.12.0 (4 May 2007)
   4 May 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
   +maxima-5.12.0.ebuild, +files/maxima-5.12.0-xdg-utils.patch:

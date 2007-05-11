@@ -10,7 +10,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2 AECA"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="cmucl clisp sbcl gcl tetex emacs tk nls unicode"
 
 # rlwrap is recommended for cmucl and sbcl
@@ -97,8 +97,7 @@ src_unpack() {
 }
 
 src_compile() {
-	# automake version mismatch otherwise (sbcl only)
-	use sbcl && eautoreconf
+	eautoreconf
 
 	# remove rmaxima if neither cmucl nor sbcl
 	if ! use sbcl && ! use cmucl ; then
@@ -134,7 +133,7 @@ src_compile() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
+	einstall || die "einstall failed"
 
 	use tk && make_desktop_entry xmaxima xmaxima \
 		/usr/share/${PN}/${PV}/xmaxima/maxima-new.png
