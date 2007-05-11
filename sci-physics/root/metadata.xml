@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci-physics</herd>
+<longdescription lang="en">
+  ROOT Object Oriented Technologies is an object oriented data
+  analysis framework written in C++ by the CERN. Widely used in
+  high energy physics, but also in other data analysis applications. It
+  contains the CINT C/C++ interpreter and many classes such as
+  statistics, serialization, optimization, linear algebra, graphics,
+  GUI toolkit, and a complete visualization framework.
+</longdescription>
+</pkgmetadata>

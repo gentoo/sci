@@ -1,0 +1,30 @@
+--- root/configure-	2007-02-09 15:44:32.000000000 +0000
++++ root/configure	2007-02-09 15:48:07.000000000 +0000
+@@ -696,6 +696,7 @@
+         linux:x86_64:*)        arch=linuxx8664gcc   ;;
+         linux:alpha:*)         arch=linuxalphagcc   ;;
+         linux:arm*:*)          arch=linuxarm        ;;
++        linux:sparc*:*)        arch=linux           ;;
+         linux:ppc64*:*)        arch=linuxppc64gcc   ;;
+         linux:ppc*:*)          arch=linuxppcgcc     ;;
+         linux:i*86:*)          arch=linux           ;;
+--- root/xrootd/src/xrootd/config/ARCHS-	2007-02-09 15:40:20.000000000 +0000
++++ root/xrootd/src/xrootd/config/ARCHS	2007-02-09 15:43:33.000000000 +0000
+@@ -35,6 +35,7 @@
+ x86_64_linux_26 iccx8664  all    for AMD Opteron 64 Linux kernel 2.6.x Intel icc
+ x86_64_linux    iccx8664  all    for AMD Opteron 64 Linux Intel icc
+ alpha_linux     gcc       all    for Alpha Linux egcs and glibc
++sparc_linux     gcc       all    for Sparc Linux gcc and glibc
+ arm_linux       gcc       no     for ARM Linux egcs and glibc
+ ppc_linux       gcc       all    for PPC Linux egcs/gcc and glibc
+ ppc_linux       gccppc64  all    for PPC Linux egcs/gcc and glibc - 64 bit
+--- root/xrootd/src/xrootd/configure.classic-	2007-02-09 15:35:58.000000000 +0000
++++ root/xrootd/src/xrootd/configure.classic	2007-02-09 15:37:38.000000000 +0000
+@@ -421,6 +421,7 @@
+       linux:arm*:*)       arch=arm_linux       ; platform=linux; ccflv=gcc;;
+       linux:ppc64:*)      arch=ppc_linux       ; platform=linux; ccflv=gccppc64;;
+       linux:ppc*:*)       arch=ppc_linux       ; platform=linux; ccflv=gcc;;
++      linux:sparc*:*)     arch=sparc_linux     ; platform=linux; ccflv=gcc;;
+       darwin:power*:7.4*) arch=macosx_74       ; platform=macosx; ccflv=macos;;
+       darwin:power*:7*)   arch=ppc_darwin_70   ; platform=macosx; ccflv=macos;;
+       darwin:power*:*)    arch=macosx          ; platform=macosx; ccflv=macos;;
