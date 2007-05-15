@@ -35,6 +35,20 @@ DEPEND="${RDEPEND}
 	     virtual/x11 )
 	virtual/ghostscript"
 
+pkg_setup() {
+	if has_version ">=dev-scheme/guile-1.8"; then
+		if ! built_with_use dev-scheme/guile deprecated; then
+			eerror "Please re-emerge dev-scheme/guile with the USE flag +deprecated"
+			die "Bad guile version"
+		fi
+	fi
+}
+
+src_unpack() {
+	unpack ${A}
+	epatch "${FILESDIR}/${P}.patch"
+}
+
 src_compile() {
 
 	# we're not trusting texmacs optimisations here, so
