@@ -15,7 +15,7 @@ LICENSE="LGPL-2.1"
 IUSE="vhosts"
 
 RDEPEND=">=virtual/jre-1.4" 
-DEPEND="=virtual/jdk-1.6
+DEPEND=">=virtual/jdk-1.4
 	dev-java/ant-core
 	dev-java/ant-contrib
 	dev-java/commons-cli
