@@ -29,7 +29,7 @@ src_unpack() {
 
 src_compile() {
 	cp "${FILESDIR}/src.list" "${T}"
-	ejavac -d "${S}/classes" "@${T}/src.list"
+	ejavac -sourcepath "" -d "${S}/classes" "@${T}/src.list"
 	cd "${S}/classes"
 	jar -cf "${PN}.jar" * || die "failed to create jar"
 }
