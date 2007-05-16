@@ -1,6 +1,6 @@
---- jmol-10.2.0-orig/build.xml	2006-10-18 12:10:44.016019000 -0500
-+++ jmol-10.2.0/build.xml	2006-10-18 17:58:42.640019000 -0500
-@@ -96,10 +96,6 @@
+--- jmol-11.0-orig/build.xml	2007-05-16 00:15:09.000000000 -0500
++++ jmol-11.0/build.xml	2007-05-16 00:36:42.000000000 -0500
+@@ -100,10 +100,6 @@
            <srcfiles dir="doc/source"
                      includes="JmolGuide.docbook.xml, guide/*.docbook.xml"/>
          </uptodate>
@@ -11,7 +11,7 @@
        </and>
      </condition>
  
-@@ -109,14 +105,6 @@
+@@ -113,14 +109,6 @@
            <srcfiles dir="doc/source"
                      includes="JmolHistory.xml,JmolHistoryToHtml.xsl,history/changes.xml" />
          </uptodate>
@@ -26,7 +26,7 @@
        </and>
      </condition>
      
-@@ -126,14 +114,6 @@
+@@ -130,14 +118,6 @@
            <srcfiles dir="doc/source"
                      includes="JmolDevelopersGuide.docbook.xml"/>
          </uptodate>
@@ -41,7 +41,7 @@
        </and>
      </condition>
  
-@@ -143,14 +123,6 @@
+@@ -147,14 +127,6 @@
            <srcfiles dir="doc/source"
                      includes="JmolAppletGuide.docbook.xml, applet/*.docbook.xml"/>
          </uptodate>
@@ -56,7 +56,7 @@
        </and>
      </condition>
  
-@@ -326,17 +298,12 @@
+@@ -332,17 +304,12 @@
    </target>
  
    <target name="jar" id="jar"
@@ -75,7 +75,55 @@
      <copy todir="${classes.dir}/org/openscience/jmol/Data" >
        <fileset dir="build/doc/JmolHistory">
          <include name="**/*.html" />
-@@ -571,7 +538,7 @@
+@@ -462,7 +429,6 @@
+         <!-- note that this class is included in JmolApplet0.jar -->
+         <exclude name="org/jmol/api/JmolAppletInterface.class" />
+         <include name="org/jmol/applet/**" />
+-        <include name="org/jmol/i18n/**" />
+         <include name="org/jmol/popup/**" />
+       </fileset>
+     </jar>
+@@ -502,12 +468,6 @@
+       </fileset>
+     </jar>
+ 
+-    <jar destfile="${jmol.applet.build.dir}/JmolApplet_i18n.jar" manifest="manifest/applet_i18n.txt" >
+-      <fileset dir="${applet.classes.dir}">
+-        <include name="org/jmol/translation/**" />
+-      </fileset>
+-    </jar>
+-
+     <!-- vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv -->
+     <!-- changes to this must be replicated below for the signed applet -->
+     <jar destfile="${jmol.applet.build.dir}/JmolApplet0.jar"
+@@ -527,7 +487,6 @@
+         <pathelement path="${jmol.applet.build.dir}/JmolApplet4.jar" />
+         <pathelement path="${jmol.applet.build.dir}/JmolApplet5.jar" />
+         <pathelement path="${jmol.applet.build.dir}/JmolApplet6.jar" />
+-        <pathelement path="${jmol.applet.build.dir}/JmolApplet_i18n.jar" />
+       </indexjars>
+     </jar>
+     <!-- changes to this must be replicated below for the signed applet -->
+@@ -564,10 +523,6 @@
+              signedjar="${jmol.applet.build.dir}/JmolAppletSigned6.jar"
+              keystore="selfSignedCertificate/selfSignedCertificate.store"
+              storepass="selfSignedCertificate" alias="selfSignedCertificate" />
+-    <signjar jar="${jmol.applet.build.dir}/JmolApplet_i18n.jar"
+-             signedjar="${jmol.applet.build.dir}/JmolAppletSigned_i18n.jar"
+-             keystore="selfSignedCertificate/selfSignedCertificate.store"
+-             storepass="selfSignedCertificate" alias="selfSignedCertificate" />
+ 
+     <!-- vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv -->
+     <!-- this one must be treated specially because of jar indexing
+@@ -589,7 +544,6 @@
+         <pathelement path="${jmol.applet.build.dir}/JmolAppletSigned4.jar" />
+         <pathelement path="${jmol.applet.build.dir}/JmolAppletSigned5.jar" />
+         <pathelement path="${jmol.applet.build.dir}/JmolAppletSigned6.jar" />
+-        <pathelement path="${jmol.applet.build.dir}/JmolAppletSigned_i18n.jar" />
+       </indexjars>
+     </jar>
+     <signjar jar="${jmol.applet.build.dir}/JmolAppletSigned0.jar"
+@@ -599,7 +553,7 @@
    </target>
  
    <target name="dist" id="dist"
@@ -84,7 +132,15 @@
      <!-- first build binary distribution -->
      <delete dir="build/dist/jmol-${version}"/>
      <mkdir dir="build/dist/jmol-${version}"/>
-@@ -711,7 +678,6 @@
+@@ -655,7 +609,6 @@
+       <fileset dir=".">
+         <include name="applet.classes" />
+         <include name="build.xml" />
+-        <include name="build-i18n.xml" />
+       </fileset>
+     </copy>
+ 
+@@ -744,7 +697,6 @@
        <fileset dir=".">
          <include name="apisio.classes" />
          <include name="build.xml" />
@@ -92,8 +148,8 @@
        </fileset>
      </copy>
  
-@@ -801,7 +767,7 @@
-     </delete>
+@@ -839,7 +791,7 @@
+   <target name="xclean" id="xclean">
    </target>
  
 -  <target name="spotless" id="spotless" depends="clean,spotless-i18n">
@@ -101,7 +157,7 @@
      <delete dir="build"/>
      <delete dir="${javadoc.dir}"/>
      <delete dir="packaging/rpm/dist"/>
-@@ -862,16 +828,6 @@
+@@ -900,16 +852,6 @@
        <arg value="../../../doc/source/JmolGuide.docbook.xml" />
        <arg value="../../${docbook-xsl}/html/chunk.xsl" />
      </java>
@@ -118,7 +174,7 @@
    </target>
  
    <target name="jmolHistory" id="jmolHistory"
-@@ -886,26 +842,6 @@
+@@ -924,26 +866,6 @@
        <arg value="../../../doc/source/JmolHistory.xml" />
        <arg value="../../../doc/source/JmolHistoryToHtml.xsl" />
      </java>
@@ -145,7 +201,7 @@
    </target>
  
    <target name="jmolDevelopersGuide" id="jmolDevelopersGuide"
-@@ -919,24 +855,6 @@
+@@ -957,24 +879,6 @@
        <arg value="../../doc/source/JmolDevelopersGuide.docbook.xml" />
        <arg value="../${docbook-xsl}/html/docbook.xsl" />
      </java>
@@ -170,7 +226,7 @@
    </target>
  
    <target name="jmolAppletGuide" id="jmolAppletGuide" depends="initdoc"
-@@ -950,24 +868,6 @@
+@@ -988,24 +892,6 @@
        <arg value="../../doc/source/JmolAppletGuide.docbook.xml" />
        <arg value="../${docbook-xsl}/html/docbook.xsl" />
      </java>
@@ -195,8 +251,8 @@
    </target>
  
    <target name="test" id="test" depends="main,compile-tests">
-@@ -998,12 +898,6 @@
-     <jar destfile="Tests.jar" basedir="${test-classes.dir}" />
+@@ -1036,12 +922,4 @@
+     <jar destfile="${tests.dir}/Tests.jar" basedir="${test-classes.dir}" />
    </target>
  
 -  <!-- i18n stuff -->
@@ -206,6 +262,5 @@
 -  <target name="spotless-i18n">
 -    <ant antfile="build-i18n.xml" target="spotless-i18n"/>
 -  </target>
-+  <!-- i18n stuff je_fro says - this isn't working in 10.2, only in svn -->
- 
+-
  </project>

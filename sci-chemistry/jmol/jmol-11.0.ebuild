@@ -15,8 +15,8 @@ LICENSE="LGPL-2.1"
 
 IUSE="vhosts"
 
-RDEPEND=">=virtual/jre-1.4"
-DEPEND=">=virtual/jre-1.4
+RDEPEND=">=virtual/jre-1.4" 
+DEPEND="=virtual/jdk-1.6
 	dev-java/ant-core
 	dev-java/ant-contrib
 	dev-java/commons-cli
@@ -25,12 +25,18 @@ DEPEND=">=virtual/jre-1.4
 	dev-java/gnu-jaxp
 	dev-java/sax
 	dev-java/saxon
+	sci-chemistry/jmol-acme
 	vhosts? ( app-admin/webapp-config )"
 
+#	dev-java/sun-java3d-bin
+#	dev-java/ant-contrib
 
 
 pkg_setup() {
-	
+
+#JAVA_PKG_WANT_SOURCE="1.5"
+#JAVA_PKG_WANT_TARGET="1.5"	
+
 	if use vhosts ; then
 		webapp_pkg_setup || die "Failed to setup webapp"
 	fi
@@ -40,27 +46,29 @@ pkg_setup() {
 src_unpack() {
 
 	unpack ${A}
+	epatch "${FILESDIR}"/${P}-nointl.patch
+	epatch "${FILESDIR}"/${P}-manifest.patch
+
+pwd &&	sed -i "s:${PN}:${P}\/lib:" "${S}/${PN}" || die "Failed running sed."
+	mkdir "${S}"/selfSignedCertificate || die "Failed to create Cert directory."
+	cp "${FILESDIR}"/selfSignedCertificate.store "${S}"/selfSignedCertificate/ \
+		|| die "Failed to install Cert file."
+
 	cd "${S}/jars"
 
-	java-pkg_jar-from ant-contrib
-	java-pkg_jar-from itext
-	java-pkg_jar-from junit
-	java-pkg_jar-from gnu-jaxp
-	java-pkg_jar-from sax
-	java-pkg_jar-from saxon
-	java-pkg_jar-from commons-cli-1
+	java-pkg_jar-from --build-only ant-contrib
+	java-pkg_jar-from --build-only itext
+	java-pkg_jar-from --build-only junit
+	java-pkg_jar-from --build-only gnu-jaxp
+#	java-pkg_jar-from sax
+	java-pkg_jar-from --build-only saxon
+	java-pkg_jar-from --build-only commons-cli-1 commons-cli.jar commons-cli-1.0.jar
+	java-pkg_jar-from --build-only jmol-acme jmol-acme.jar Acme.jar
+#	java-pkg_jar-from --build-only sun-java3d-bin vecmath.jar
 
 # i18n is broken without files from svn.
-#	epatch "${FILESDIR}"/${P}-nointl.patch
 
-#	epatch "${FILESDIR}"/${P}-manifest.patch
 
-#	sed -i "s:${PN}:${P}\/lib:" "${PN}" || die "Failed running sed."
-
-#	mkdir "${S}"/selfSignedCertificate || die "Failed to create Cert directory."
-	
-#	cp "${FILESDIR}"/selfSignedCertificate.store "${S}"/selfSignedCertificate/ \
-#		|| die "Failed to install Cert file."
 
 }
 
