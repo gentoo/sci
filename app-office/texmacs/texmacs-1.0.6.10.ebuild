@@ -44,11 +44,6 @@ pkg_setup() {
 	fi
 }
 
-src_unpack() {
-	unpack ${A}
-	epatch "${FILESDIR}/${P}.patch"
-}
-
 src_compile() {
 
 	# we're not trusting texmacs optimisations here, so
