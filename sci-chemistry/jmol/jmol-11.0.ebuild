@@ -1,9 +1,8 @@
-#THIS EBUILD IS FAR FROM WORKING...IM SIMPLY STORING IT HERE WHILE I WORK ON IT
-
-
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+# This ebuild is still VERY rough...
 
 inherit eutils java-pkg-2 webapp
 
@@ -28,14 +27,7 @@ DEPEND="=virtual/jdk-1.6
 	sci-chemistry/jmol-acme
 	vhosts? ( app-admin/webapp-config )"
 
-#	dev-java/sun-java3d-bin
-#	dev-java/ant-contrib
-
-
 pkg_setup() {
-
-#JAVA_PKG_WANT_SOURCE="1.5"
-#JAVA_PKG_WANT_TARGET="1.5"	
 
 	if use vhosts ; then
 		webapp_pkg_setup || die "Failed to setup webapp"
@@ -65,10 +57,6 @@ pwd &&	sed -i "s:${PN}:${P}\/lib:" "${S}/${PN}" || die "Failed running sed."
 	java-pkg_jar-from --build-only commons-cli-1 commons-cli.jar commons-cli-1.0.jar
 	java-pkg_jar-from --build-only jmol-acme jmol-acme.jar Acme.jar
 #	java-pkg_jar-from --build-only sun-java3d-bin vecmath.jar
-
-# i18n is broken without files from svn.
-
-
 
 }
 
