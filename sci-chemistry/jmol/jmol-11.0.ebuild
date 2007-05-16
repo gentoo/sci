@@ -41,7 +41,7 @@ src_unpack() {
 	epatch "${FILESDIR}"/${P}-nointl.patch
 	epatch "${FILESDIR}"/${P}-manifest.patch
 
-pwd &&	sed -i "s:${PN}:${P}\/lib:" "${S}/${PN}" || die "Failed running sed."
+	sed -i "s:${PN}:${P}\/lib:" "${S}/${PN}" || die "Failed running sed."
 	mkdir "${S}"/selfSignedCertificate || die "Failed to create Cert directory."
 	cp "${FILESDIR}"/selfSignedCertificate.store "${S}"/selfSignedCertificate/ \
 		|| die "Failed to install Cert file."
