@@ -15,7 +15,7 @@ LICENSE="LGPL-2.1"
 IUSE="vhosts"
 
 RDEPEND=">=virtual/jre-1.4" 
-DEPEND="=dev-java/blackdown-jdk-1.4.2.03
+DEPEND="=dev-java/blackdown-jdk-1.4.2.03-r13
 	dev-java/ant-core
 	dev-java/ant-contrib
 	dev-java/commons-cli
