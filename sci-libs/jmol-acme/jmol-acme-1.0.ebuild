@@ -14,7 +14,7 @@ SRC_URI="http://www.acme.com/resources/classes/${MY_P}.tar.gz"
 
 LICENSE="ACME"
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=virtual/jdk-1.4"
