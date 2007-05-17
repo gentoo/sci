@@ -3,10 +3,10 @@
 # $Header: $
 
 inherit java-pkg-2
-MY_P="${P/_/.}"
+MY_PN="${PN/-objectclub/1.2}"
 DESCRIPTION=" Unofficial free implementation of Sun javax.vecmath by Kenji Hiranabe"
 HOMEPAGE="http://www.objectclub.jp/download/vecmath_e"
-SRC_URI="http://www.objectclub.jp/download/files/vecmath/${MY_P}.tar.gz"
+SRC_URI="http://www.objectclub.jp/download/files/vecmath/${MY_PN}-${PV}.tar.gz"
 
 LICENSE="AS-IS"
 SLOT="0"
@@ -16,7 +16,7 @@ IUSE=""
 DEPEND=">=virtual/jdk-1.4"
 RDEPEND=">=virtual/jre-1.4"
 
-S="${WORKDIR}/${MY_P}"
+S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_unpack() {
 	unpack ${A}

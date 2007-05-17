@@ -25,7 +25,7 @@ DEPEND=">=virtual/jdk-1.4
 	dev-java/sax
 	dev-java/saxon
 	sci-chemistry/jmol-acme
-	sci-libs/vecmath1_2
+	sci-libs/vecmath-objectclub
 	vhosts? ( app-admin/webapp-config )"
 
 pkg_setup() {
@@ -59,7 +59,7 @@ src_unpack() {
 	java-pkg_jar-from --build-only saxon saxon8.jar saxon.jar
 	java-pkg_jar-from --build-only commons-cli-1 commons-cli.jar commons-cli-1.0.jar
 	java-pkg_jar-from --build-only jmol-acme jmol-acme.jar Acme.jar
-	java-pkg_jar-from --build-only vecmath1_2 vecmath1_2.jar vecmath1.2-1.14.jar
+	java-pkg_jar-from --build-only vecmath-objectclub vecmath-objectclub.jar vecmath1.2-1.14.jar
 	java-pkg_jar-from --build-only gnu-jaxp gnujaxp.jar gnujaxp-onlysax.jar
 }
 
