@@ -9,13 +9,13 @@ inherit eutils java-pkg-2 webapp
 DESCRIPTION="Jmol is a java molecular viever for 3-D chemical structures."
 SRC_URI="mirror://sourceforge/${PN}/${P}-full.tar.gz"
 HOMEPAGE="http://jmol.sourceforge.net/"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 LICENSE="LGPL-2.1"
 
 IUSE="vhosts"
 
 RDEPEND=">=virtual/jre-1.4" 
-DEPEND=">=virtual/jdk-1.4
+DEPEND="=dev-java/blackdown-jdk-1.4.2.03
 	dev-java/ant-core
 	dev-java/ant-contrib
 	dev-java/commons-cli
@@ -25,7 +25,10 @@ DEPEND=">=virtual/jdk-1.4
 	dev-java/sax
 	dev-java/saxon
 	sci-chemistry/jmol-acme
+	sci-libs/vecmath1_2
 	vhosts? ( app-admin/webapp-config )"
+
+JAVA_PKG_FORCE_VM="blackdown-jdk-1.4"
 
 pkg_setup() {
 
@@ -47,17 +50,20 @@ src_unpack() {
 		|| die "Failed to install Cert file."
 
 	cd "${S}/jars"
+	rm *.jar
+# Since I haven't yet found an "elegant" solution yet, I'm doing the ugliest thing imaginable...
+# EVIL EVIL EVIL - DO NOT DO THIS!!!
+ln -sf /opt/blackdown-jre-1.4.2.03/lib/plugin.jar netscape.jar
 
 	java-pkg_jar-from --build-only ant-contrib
-	java-pkg_jar-from --build-only itext
+	java-pkg_jar-from --build-only itext iText.jar itext-1.4.5.jar
 	java-pkg_jar-from --build-only junit
 	java-pkg_jar-from --build-only gnu-jaxp
-#	java-pkg_jar-from sax
-	java-pkg_jar-from --build-only saxon
+	java-pkg_jar-from --build-only saxon saxon8.jar saxon.jar
 	java-pkg_jar-from --build-only commons-cli-1 commons-cli.jar commons-cli-1.0.jar
 	java-pkg_jar-from --build-only jmol-acme jmol-acme.jar Acme.jar
-#	java-pkg_jar-from --build-only sun-java3d-bin vecmath.jar
-
+	java-pkg_jar-from --build-only vecmath1_2 vecmath1_2.jar vecmath1.2-1.14.jar
+	java-pkg_jar-from --build-only gnu-jaxp gnujaxp.jar gnujaxp-onlysax.jar
 }
 
 src_compile() {

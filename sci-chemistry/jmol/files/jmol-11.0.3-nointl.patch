@@ -1,5 +1,5 @@
---- jmol-11.0-orig/build.xml	2007-05-16 00:15:09.000000000 -0500
-+++ jmol-11.0/build.xml	2007-05-16 00:36:42.000000000 -0500
+--- jmol-11.0.3-orig/build.xml	2007-05-17 09:35:04.000000000 -0500
++++ jmol-11.0.3/build.xml	2007-05-17 09:40:21.000000000 -0500
 @@ -100,10 +100,6 @@
            <srcfiles dir="doc/source"
                      includes="JmolGuide.docbook.xml, guide/*.docbook.xml"/>
