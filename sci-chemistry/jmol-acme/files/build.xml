@@ -1,5 +1,0 @@
-
-  <javac sourcepath="" srcdir="src"
-         destdir="${build}" >
-    <include name="**/*.java"/>
-  </javac>
