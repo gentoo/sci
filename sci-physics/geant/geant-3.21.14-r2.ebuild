@@ -3,7 +3,7 @@
 # $Header: $
 
 DEB_PN="${PN}321"
-DEB_PR="4"
+DEB_PR="5"
 
 inherit cernlib
 
