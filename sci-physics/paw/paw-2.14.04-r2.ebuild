@@ -12,6 +12,9 @@ DEPEND="x11-libs/xbae"
 src_unpack() {
 	cernlib_unpack
 	# fix some path stuff and collision for comis.h, already installed by cernlib
+	# does not yet follow cernlib-06
+	mv "${WORKDIR}/${DEB_PN}_${DEB_PV}.orig" ${S}
+	mv "${WORKDIR}/${DEB_PN}-${DEB_PV}/debian" ${S}/
 	sed -i \
 		-e '/comis.h/d' \
 		-e "s/g77/${FORTRANC}/g" \
