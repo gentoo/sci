@@ -1,0 +1,10 @@
+--- Numeric-24.2/Packages/RNG/Src/RNGmodule.c	2005-04-22 11:54:38.000000000 +0100
++++ Numeric-24.2.new/Packages/RNG/Src/RNGmodule.c	2007-02-13 20:06:07.000000000 +0000
+@@ -93,6 +93,7 @@
+ {
+ 	Py_XDECREF(self->parameters);
+ 	PyMem_DEL(self);
++	PyObject_FREE(self);
+ }
+ 
+ 

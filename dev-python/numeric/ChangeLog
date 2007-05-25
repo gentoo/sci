@@ -1,0 +1,7 @@
+# ChangeLog for dev-python/numeric
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  25 May 2007; Sébastien Fabbro <bicatali@gentoo.org> ChangeLog:
+  various new patches to work with python 2.5
+

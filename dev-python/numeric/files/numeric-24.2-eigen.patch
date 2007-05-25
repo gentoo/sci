@@ -1,0 +1,11 @@
+--- Numeric-24.2/Src/dlamch.c.fix-dlamc3	2006-10-29 22:30:52.000000000 -0500
++++ Numeric-24.2/Src/dlamch.c	2006-10-29 22:31:00.000000000 -0500
+@@ -672,7 +672,7 @@
+ */
+ /* >>Start of File<<   
+        System generated locals */
+-    doublereal ret_val;
++    volatile doublereal ret_val;
+ 
+ 
+ 

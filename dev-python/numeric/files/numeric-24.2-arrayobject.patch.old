@@ -1,0 +1,20 @@
+--- Numeric-24.2/Src/arrayobject.c	2005-11-11 07:30:18.000000000 +0000
++++ Numeric-24.2.new/Src/arrayobject.c	2007-02-08 12:12:01.000000000 +0000
+@@ -1866,7 +1866,7 @@
+     for (i=0; i<sz; i++) {
+ 	v=array_item((PyArrayObject *)self, i);
+ 	PyList_SetItem(lp, i, PyArray_ToList(v));
+-	if (((PyArrayObject *)self)->nd>1){
++	if (((PyArrayObject *)self)->nd>0){
+ 	    Py_DECREF(v);
+ 	}
+     }
+@@ -2877,7 +2877,7 @@
+     PyArrayObject *ret=NULL;
+     PyArray_Descr *descr;
+     char *data;
+-    int buffer_len;
++    ssize_t buffer_len;
+     int res, i, n;
+     int dims[MAX_DIMS], strides[MAX_DIMS];
+     int swap;

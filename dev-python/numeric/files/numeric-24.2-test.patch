@@ -1,0 +1,12 @@
+--- Numeric-24.2/Test/test.py	2005-08-16 06:20:25.000000000 +0100
++++ Numeric-24.2.new/Test/test.py	2007-02-13 20:10:41.000000000 +0000
+@@ -581,7 +581,8 @@
+         assert_eq(Numeric.diagonal(b), [1,6,3,8])
+         assert_eq(Numeric.diagonal(b, -1), [5,2,7])
+         c = Numeric.array([b,b])
+-        assert_eq(Numeric.diagonal(c,1), [[2,7,4], [2,7,4]])
++        # default axes for "diagonal" are now 0 and 1. 
++        assert_eq(Numeric.diagonal(c,1,-2,-1), [[2,7,4], [2,7,4]])
+         
+ class UniversalFunctionsTestCase (unittest.TestCase):
+     def setUp (self):

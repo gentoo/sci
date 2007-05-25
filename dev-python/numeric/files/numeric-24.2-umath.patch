@@ -1,0 +1,14 @@
+--- Numeric-24.2.orig/Src/umathmodule.c	2005-04-20 19:48:47.000000000 +0100
++++ Numeric-24.2/Src/umathmodule.c	2006-10-10 16:16:40.000000000 +0100
+@@ -1,9 +1,9 @@
+-
++#include <math.h>
+ #include "Python.h"
+ #include "Numeric/arrayobject.h"
+ #include "Numeric/ufuncobject.h"
+ #include "abstract.h"
+-#include <math.h>
++
+ 
+ #ifndef CHAR_BIT
+ #define CHAR_BIT 8
