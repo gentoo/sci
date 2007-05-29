@@ -25,7 +25,7 @@ DEPEND="sys-apps/shadow
 	mysql? ( dev-db/mysql )
 	postgres? ( dev-db/postgresql )
 	afs? ( net-fs/openafs )
-	kerberos? ( app-crypt/mit-krb5 )
+	kerberos? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
 	qt3? ( $(qt_min_version 3.3.4) )
 	fftw? ( >=sci-libs/fftw-3 )
