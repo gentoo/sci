@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 May 2007; weaver <weaver@horizon.ath.cx> files/digest-gmap-2007.05.25,
+  Manifest:
+  upstream re-rolled tarball due to single bug, updating digests
+
   29 May 2007; weaver <weaver@horizon.ath.cx> +gmap-2007.05.25.ebuild:
   version bump
 
