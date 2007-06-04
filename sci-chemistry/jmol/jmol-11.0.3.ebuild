@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils java-pkg-2 webapp
+inherit eutils webapp java-pkg-2 java-ant-2
 
 DESCRIPTION="Jmol is a java molecular viever for 3-D chemical structures."
 SRC_URI="mirror://sourceforge/${PN}/${P}-full.tar.gz"
@@ -11,6 +11,10 @@ KEYWORDS="~amd64 ~x86"
 LICENSE="LGPL-2.1"
 
 IUSE="vhosts"
+
+WEBAPP_MANUAL_SLOT="yes" 
+SLOT="0"
+SAXON_SLOT="6.5"
 
 RDEPEND=">=virtual/jre-1.4" 
 DEPEND=">=virtual/jdk-1.4
@@ -26,13 +30,13 @@ DEPEND=">=virtual/jdk-1.4
 	sci-libs/vecmath-objectclub
 	vhosts? ( app-admin/webapp-config )"
 
-SAXON_SLOT="6.5"
-
 pkg_setup() {
 
 	if use vhosts ; then
 		webapp_pkg_setup || die "Failed to setup webapp"
 	fi
+
+java-pkg-2_pkg_setup
 
 }
 
@@ -48,6 +52,7 @@ src_unpack() {
 	cp "${FILESDIR}"/selfSignedCertificate.store "${S}"/selfSignedCertificate/ \
 		|| die "Failed to install Cert file."
 
+# The only bundled jar we still rely on is netscape.jar.
 	cd "${S}/jars"
 
 	java-pkg_jar-from --build-only ant-contrib
@@ -59,16 +64,13 @@ src_unpack() {
 	java-pkg_jar-from --build-only jmol-acme jmol-acme.jar Acme.jar
 	java-pkg_jar-from --build-only vecmath-objectclub vecmath-objectclub.jar vecmath1.2-1.14.jar
 	java-pkg_jar-from --build-only gnu-jaxp gnujaxp.jar gnujaxp-onlysax.jar
-}
 
-src_compile() {
-	ant || die "Compilation problem"
 }
-
 
 src_install() {
 
-	java-pkg_dojar   Jmol.jar JmolApplet.*  
+#	java-pkg_jarinto /usr/share/${PN}/lib/
+	java-pkg_dojar Jmol.jar JmolApplet.jar  
 	dohtml -r  build/doc/* || die "Failed to install html docs."
 	dodoc *.txt doc/*license* || die "Failed to install licenses."
 	edos2unix jmol || die "Failed to convert jmol from DOS format."
@@ -76,7 +78,7 @@ src_install() {
 
 	dodir /etc/env.d/java
 	cat >> "${D}"/etc/env.d/java/30jmol << EOF
-JMOL_HOME=/usr/share/${P}/lib
+JMOL_HOME=/usr/share/${PN}/lib
 EOF
 
 	if use vhosts ; then
