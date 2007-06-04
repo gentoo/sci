@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+DEB_PV="${PV}.dfsg.2"
+DEB_PR="1"
 inherit cernlib
 
 DESCRIPTION="CERN's Physics Analysis Workstation data analysis program"
@@ -11,10 +13,8 @@ DEPEND="x11-libs/xbae"
 
 src_unpack() {
 	cernlib_unpack
-	# fix some path stuff and collision for comis.h, already installed by cernlib
-	# does not yet follow cernlib-06
-	mv "${WORKDIR}/${DEB_PN}_${DEB_PV}.orig" ${S}
-	mv "${WORKDIR}/${DEB_PN}-${DEB_PV}/debian" ${S}/
+	# fix some path stuff and collision for comis.h, 
+	# already installed by cernlib and replace hardcoded fortran compiler
 	sed -i \
 		-e '/comis.h/d' \
 		-e "s/g77/${FORTRANC}/g" \
