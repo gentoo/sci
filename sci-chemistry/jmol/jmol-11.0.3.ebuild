@@ -26,7 +26,7 @@ DEPEND=">=virtual/jdk-1.4
 	dev-java/gnu-jaxp
 	dev-java/sax
 	=dev-java/saxon-6.5.5
-	sci-chemistry/jmol-acme
+	sci-libs/jmol-acme
 	sci-libs/vecmath-objectclub
 	vhosts? ( app-admin/webapp-config )"
 
