@@ -10,7 +10,7 @@ HOMEPAGE="http://jmol.sourceforge.net/"
 KEYWORDS="~amd64 ~x86"
 LICENSE="LGPL-2.1"
 
-IUSE="vhosts"
+IUSE="client-only vhosts"
 
 WEBAPP_MANUAL_SLOT="yes" 
 SLOT="0"
@@ -32,7 +32,7 @@ DEPEND=">=virtual/jdk-1.4
 
 pkg_setup() {
 
-	if use vhosts ; then
+	if ! use client-only ; then
 		webapp_pkg_setup || die "Failed to setup webapp"
 	fi
 
@@ -81,7 +81,7 @@ src_install() {
 JMOL_HOME=/usr/share/${PN}/lib
 EOF
 
-	if use vhosts ; then
+	if ! use client-only ; then
 		webapp_src_preinst || die "Failed webapp_src_preinst."
 		cmd="cp Jmol.* "${D}${MY_HTDOCSDIR}"" ; ${cmd} \
 		|| die "${cmd} failed." 
@@ -107,7 +107,7 @@ EOF
 
 pkg_postinst() {
 	
-	if use vhosts ; then
+	if ! use client-only ; then
 		webapp_pkg_postinst || die "webapp_pkg_postinst failed"
 	fi
 
@@ -115,9 +115,8 @@ pkg_postinst() {
 
 pkg_prerm() {
 
-	if use vhosts ; then
+	if ! use client-only ; then
 		webapp_pkg_prerm || die "webapp_pkg_prerm failed"
 	fi
 
 }
-
