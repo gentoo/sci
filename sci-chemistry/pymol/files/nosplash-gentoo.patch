@@ -1,0 +1,8 @@
+--- modules/pymol/invocation.py.orig	2003-06-11 13:40:13.000000000 -0400
++++ modules/pymol/invocation.py	2003-06-11 13:40:29.000000000 -0400
+@@ -179,5 +179,3 @@
+ 
+          else:
+             options.deferred.append(a)
+-      if options.show_splash and not options.no_gui:
+-         options.deferred.insert(0,"_do__ cmd.splash(1)")
