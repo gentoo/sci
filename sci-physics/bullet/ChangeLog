@@ -1,0 +1,8 @@
+# ChangeLog for sci-physics/bullet
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  10 Jun 2007; Sébastien Fabbro <bicatali@gentoo.org> +bullet-2.52.ebuild:
+  Initial import. Thanks Renato Caldas <seventhguardian@gmail.com> for his
+  initial work on the ebuild.
+
