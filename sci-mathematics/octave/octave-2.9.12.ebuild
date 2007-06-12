@@ -17,7 +17,8 @@ SRC_URI="ftp://ftp.octave.org/pub/octave/bleeding-edge/${P}.tar.bz2
 
 SLOT="0"
 IUSE="static readline zlib doc hdf5 mpi"
-KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
+# KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS=""
 
 DEPEND="virtual/libc
 	dev-util/dejagnu
