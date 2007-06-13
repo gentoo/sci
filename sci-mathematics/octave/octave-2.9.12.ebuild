@@ -1,109 +1,100 @@
 # Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-mathematics/octave/octave-2.1.73-r1.ebuild,v 1.2 2006/11/03 15:44:39 markusle Exp $
 
 inherit flag-o-matic fortran autotools
 
-# This was bumped from octave-2.1.73-r2.ebuild because of some complaining I saw on IRC.
-# I disabled the patches and it seems to compile and run okay.
-# I don't use this program in my work, so it's unlikely I'll find any bugs :)
-# Feel free to ping me if you find any.
+# Copied shamelessly from markusle's devspace at http://dev.gentoo.org/~markusle/octave-overlay/
 
 DESCRIPTION="GNU Octave is a high-level language (MatLab compatible) intended for numerical computations"
 LICENSE="GPL-2"
 HOMEPAGE="http://www.octave.org/"
-SRC_URI="ftp://ftp.octave.org/pub/octave/bleeding-edge/${P}.tar.bz2
-		ftp://ftp.math.uni-hamburg.de/pub/soft/math/octave/${P}.tar.bz2"
+SRC_URI="ftp://ftp.octave.org/pub/${PN}/${P}.tar.bz2"
 
 SLOT="0"
-IUSE="static readline zlib doc hdf5 mpi"
+IUSE="emacs readline zlib doc hdf5 curl"
 # KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
 KEYWORDS=""
 
-DEPEND="virtual/libc
-	dev-util/dejagnu
-	>=sys-libs/ncurses-5.2-r3
-	>=sci-visualization/gnuplot-3.7.1-r3
-	>=sci-libs/fftw-2.1.3
-	>=dev-util/gperf-2.7.2
+DEPEND="dev-util/dejagnu
 	virtual/blas
 	virtual/lapack
+	dev-libs/libpcre
+	virtual/tetex
+	>=sys-libs/ncurses-5.2-r3
+	>=sci-visualization/gnuplot-3.7.1-r3
+	>=sci-libs/fftw-3.1.2
+	>=sci-mathematics/glpk-4.15
+	>=dev-util/gperf-2.7.2
 	zlib? ( sys-libs/zlib )
 	hdf5? ( sci-libs/hdf5 )
-	doc? ( virtual/tetex )
-	mpi? ( virtual/mpi )
+	curl? ( net-misc/curl )
 	!=app-text/texi2html-1.70"
 
-# NOTE: octave supports blas/lapack from intel but this is not open
-# source nor is it free (as in beer OR speech) Check out...
-# http://developer.intel.com/software/products/mkl/mkl52/index.htm for
-# more information
 FORTRAN="gfortran g77 f2c"
 
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
 
-#	epatch "${FILESDIR}"/${P}-gcc4.1-gentoo.patch
-#	epatch "${FILESDIR}"/${PN}-example-fix.patch
-#	epatch "${FILESDIR}"/${P}-f2c-fix.patch
-	eautoconf
+	epatch "${FILESDIR}"/${P}-disable-sparse-tests.patch
+	epatch "${FILESDIR}"/${P}-test-fix.patch
 }
 
-
 src_compile() {
-	filter-flags -ffast-math
-
 	local myconf="--localstatedir=/var/state/octave --enable-rpath"
-	myconf="${myconf} --enable-lite-kernel"
-	use static || myconf="${myconf} --disable-static --enable-shared --enable-dl"
-	# Only add -lz to LDFLAGS if we have zlib in USE !
-	# BUG #52604
-	# Danny van Dyk 2004/08/26
-	use zlib && append-ldflags -lz
 
-	# MPI requires the use of gcc/g++ wrappers
-	# mpicc/mpic++
-	# octave links agains -lmpi by default
-	# mpich needs -lmpich instead
-	if use mpi; then
-		CC="mpicc" && CXX="mpiCC"
-		if has_version 'sys-cluster/mpich'; then
-			myconf="${myconf} --with-mpi=mpich"
-		else
-			myconf="${myconf} --with-mpi=mpi"
-		fi
-	else
-		CC="$(tc-getCC)"
-		CXX="$(tc-getCXX)"
-		myconf="${myconf} --without-mpi"
+	# force use of external blas, lapack, fftw
+	myconf="${myconf} --with-blas=blas --with-lapack=lapack"
+	myconf="${myconf} --with-fftw"
+	myconf="${myconf} --enable-static --enable-shared --enable-dl"
+	
+	# disable sparse matrix stuff for now
+	myconf="${myconf} --without-umfpack --without-colamd"
+	myconf="${myconf} --without-ccolamd --without-cholmod --without-cxsparse"
+
+	if [[ "${FORTRANC}" == "g77" ]]; then
+		myconf="${myconf} --with-f77"
+	elif [[ "${FORTRANC}" == "f2c" ]]; then
+		myconf="${myconf} --with-f2c"
 	fi
 
-	# force use of external blas and lapack
-	myconf="${myconf} --with-blas=blas --with-lapack=lapack"
-
-	CC="${CC}" CXX="${CXX}" \
 	econf \
 		$(use_with hdf5) \
+		$(use_with curl) \
+		$(use_with zlib) \
 		$(use_enable readline) \
 		${myconf} \
 		|| die "econf failed"
 
-	emake || die "emake failed"
+	emake -j1 || die "emake failed"
 }
 
 src_install() {
+	cd "${S}"
 	make install DESTDIR="${D}" || die "make install failed"
 	if use doc; then
 		octave-install-doc || die "Octave doc install failed"
 	fi
-
+	if use emacs; then
+		cd emacs
+		exeinto /usr/bin
+		doexe octave-tags || die "Failed to install octave-tags"
+		doman octave-tags.1 || die "Failed to install octave-tags.1"
+		for emacsdir in /usr/share/emacs/site-lisp /usr/lib/xemacs/site-lisp; do
+			insinto ${emacsdir}
+			doins *.el || die "Failed to install emacs files"
+		done
+		cd ..
+	fi
 	dodir /etc/env.d || die
-	echo "LDPATH=/usr/lib/octave-${PV}" > "${D}"/etc/env.d/99octave || die
+	echo "LDPATH=/usr/lib/octave-${PV}" > "${D}"/etc/env.d/99octave \
+		|| die "Failed to set up env.d files"
 
 	# Fixes ls-R files to remove /var/tmp/portage references.
-	sed -i -e "s:${D}::g" "${D}"/usr/libexec/${PN}/ls-R || die
-	sed -i -e "s:${D}::g" "${D}"/usr/share/${PN}/ls-R || die
+	sed -i -e "s:${D}::g" "${D}"/usr/libexec/${PN}/ls-R && \
+	sed -i -e "s:${D}::g" "${D}"/usr/share/${PN}/ls-R || \
+		die "Failed to fix ls-R files."
 }
 
 pkg_postinst() {
@@ -127,10 +118,10 @@ pkg_postinst() {
 octave-install-doc() {
 	echo "Installing documentation..."
 	insinto /usr/share/doc/${PF}
-	doins doc/faq/Octave-FAQ.dvi || die
-	doins doc/interpreter/octave.dvi || die
-	doins doc/liboctave/liboctave.dvi || die
-	doins doc/refcard/refcard-a4.dvi || die
-	doins doc/refcard/refcard-legal.dvi || die
-	doins doc/refcard/refcard-letter.dvi || die
+	doins doc/faq/Octave-FAQ.pdf || die
+	doins doc/interpreter/octave.pdf || die
+	doins doc/liboctave/liboctave.pdf || die
+	doins doc/refcard/refcard-a4.pdf || die
+	doins doc/refcard/refcard-legal.pdf || die
+	doins doc/refcard/refcard-letter.pdf || die
 }

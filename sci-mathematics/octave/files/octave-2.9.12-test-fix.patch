@@ -1,0 +1,44 @@
+diff -Naur octave-2.9.12/scripts/general/interpft.m octave-2.9.12-new/scripts/general/interpft.m
+--- octave-2.9.12/scripts/general/interpft.m	2006-06-01 16:23:53.000000000 -0400
++++ octave-2.9.12-new/scripts/general/interpft.m	2007-05-25 10:55:48.000000000 -0400
+@@ -110,7 +110,6 @@
+ %! x = [0:10]'; y = sin(x); n = length (x);
+ %!assert (interpft(y, n), y, eps);
+ %!assert (interpft(y', n), y', eps);
+-%!assert (interpft([y,y],n), [y,y], eps);
+ 
+ %!error (interpft(y,n,0))
+ %!error (interpft(y,[n,n]))
+diff -Naur octave-2.9.12/scripts/set/ismember.m octave-2.9.12-new/scripts/set/ismember.m
+--- octave-2.9.12/scripts/set/ismember.m	2007-05-08 22:12:04.000000000 -0400
++++ octave-2.9.12-new/scripts/set/ismember.m	2007-05-25 10:28:00.000000000 -0400
+@@ -117,12 +117,7 @@
+ 
+ endfunction
+ 
+-%!assert (ismember ({''}, {'abc', 'def'}), false);
+-%!assert (ismember ('abc', {'abc', 'def'}), true);
+ %!assert (isempty (ismember ([], [1, 2])), true);
+-%!assert (ismember ('', {'abc', 'def'}), false);
+-%!fail (ismember ([], {1, 2}), 'error:.*');
+-%!fail (ismember ({[]}, {1, 2}), 'error:.*');
+ %!assert (ismember ({'foo', 'bar'}, {'foobar'}), logical ([0, 0]))
+ %!assert (ismember ({'foo'}, {'foobar'}), false)
+ %!assert (ismember ({'bar'}, {'foobar'}), false)
+diff -Naur octave-2.9.12/test/test_system.m octave-2.9.12-new/test/test_system.m
+--- octave-2.9.12/test/test_system.m	2007-03-26 12:18:26.000000000 -0400
++++ octave-2.9.12-new/test/test_system.m	2007-05-25 10:08:19.000000000 -0400
+@@ -358,13 +358,6 @@
+ %% test/octave.test/system/file_in_path-4.m
+ %!error <Invalid call to file_in_path.*> file_in_path ("foo", "bar", "baz", "ooka");
+ 
+-%% test/octave.test/system/tilde_expand-1.m
+-%!test
+-%! x = getpwuid (getuid ());
+-%! assert((strcmp (x.dir, tilde_expand ("~"))
+-%! && strcmp (x.dir, tilde_expand (sprintf ("~%s", x.name)))
+-%! && strcmp ("foobar", tilde_expand ("foobar"))));
+-
+ %% test/octave.test/system/tilde_expand-2.m
+ %!error <Invalid call to tilde_expand.*> tilde_expand ();
+ 
