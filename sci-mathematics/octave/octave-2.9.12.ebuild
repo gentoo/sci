@@ -14,7 +14,7 @@ SRC_URI="ftp://ftp.octave.org/pub/${PN}/${P}.tar.bz2"
 SLOT="0"
 IUSE="emacs readline zlib doc hdf5 curl"
 # KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 DEPEND="dev-util/dejagnu
 	virtual/blas
