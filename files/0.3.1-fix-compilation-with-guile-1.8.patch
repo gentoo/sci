@@ -1,0 +1,34 @@
+We need to include the guile header outside of our C declaration, because with
+guile 1.8, guile started using gmp, which also has "intelligent" headers
+designed for use with C or C++.
+
+- Donnie Berkholz <dberkholz@gentoo.org>
+
+--- src/c-interface.h.orig	2007-06-19 11:43:35.000000000 -0700
++++ src/c-interface.h	2007-06-19 11:42:19.000000000 -0700
+@@ -68,6 +68,12 @@
+ #endif
+ #endif /* BEGIN_C_DECLS */
+ 
++#ifdef __cplusplus
++#ifdef USE_GUILE
++#include <libguile.h>		/* for SCM type (returned by safe_scheme_command) */
++#endif // USE_GUILE
++#endif
++
+ BEGIN_C_DECLS
+ 
+ /* Fix this on a rainy day. */
+@@ -82,12 +88,6 @@
+ 
+ #define COOT_SCHEME_DIR "COOT_SCHEME_DIR"
+ 
+-#ifdef __cplusplus
+-#ifdef USE_GUILE
+-#include <libguile.h>		/* for SCM type (returned by safe_scheme_command) */
+-#endif // USE_GUILE
+-#endif 
+-
+ /*  ------------------------------------------------------------------------ */
+ /*                         File system Functions:                            */
+ /*  ------------------------------------------------------------------------ */
