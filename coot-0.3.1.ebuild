@@ -17,10 +17,18 @@ fi
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~ppc ~x86"
-IUSE=""
+IUSE="gtk2"
 RDEPEND=">=sci-libs/gsl-1.3
-	=dev-libs/glib-1.2*
-	=x11-libs/gtkglarea-1.2*
+	gtk2? (
+		>=x11-libs/gtk+-2.2
+		gnome-base/libgnomecanvas
+		=x11-libs/guile-gtk-2*
+	)
+	!gtk2? (
+		=dev-libs/glib-1.2*
+		=x11-libs/gtkglarea-1.2*
+		=x11-libs/guile-gtk-1*
+	)
 	x11-libs/gtkglext
 	virtual/glut
 	virtual/opengl
@@ -28,7 +36,6 @@ RDEPEND=">=sci-libs/gsl-1.3
 	dev-lang/python
 	>=x11-libs/gtk-canvas-0.1.1-r2
 	dev-lang/python
-	x11-libs/guile-gtk
 	dev-scheme/guile-gui
 	dev-scheme/net-http
 	dev-scheme/goosh
@@ -42,6 +49,7 @@ S="${WORKDIR}/${MY_P}"
 
 src_unpack() {
 	unpack ${A}
+	cd "${S}"
 
 	epatch "${FILESDIR}"/${PV}-as-needed.patch
 	epatch "${FILESDIR}"/${PV}-fix-compilation-with-guile-1.8.patch
@@ -83,6 +91,7 @@ src_compile() {
 		--with-ssmlib-prefix=/usr \
 		--with-guile=/usr \
 		--with-python=/usr \
+		$(use_with gtk2) \
 		|| die "econf failed"
 
 	# Parallel build's broken
@@ -90,7 +99,7 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "install failed"
+	emake -j1 DESTDIR="${D}" install || die "install failed"
 
 	# Install misses this
 	insinto /usr/share/coot/python
