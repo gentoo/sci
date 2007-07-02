@@ -40,7 +40,8 @@ DEPEND="virtual/motif
 	virtual/lapack
 	virtual/tetex
 	dev-lang/cfortran
-	x11-misc/imake"
+	x11-misc/imake
+	x11-misc/makedepend"
 
 RDEPEND="virtual/motif
 	virtual/lapack
