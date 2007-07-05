@@ -71,7 +71,7 @@ src_unpack() {
 src_compile() {
 
 	local target
-	if [[ "$(tc-getCC)" == icc* ]]; then
+	if [[ "$(tc-getCXX)" == icc* ]]; then
 		if use amd64; then
 			target=linuxx8664icc
 		elif use x86; then

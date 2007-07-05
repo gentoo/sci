@@ -2,6 +2,9 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jul 2007; Sébastien Fabbro <bicatali@gentoo.org> root-5.16.00.ebuild:
+  root: fixed CC -> CXX
+
   05 Jul 2007; Sébastien Fabbro <bicatali@gentoo.org> root-5.16.00.ebuild,
   +files/root-5.16.00-fortran.patch:
   added truetype option, fixed intel and fortran compilers support
