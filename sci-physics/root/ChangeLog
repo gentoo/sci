@@ -2,6 +2,9 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jul 2007; Sébastien Fabbro <bicatali@gentoo.org> +root-5.16.00.ebuild:
+  Version bump
+
   04 Jun 2007; Sébastien Fabbro <bicatali@gentoo.org>
   -root-5.14.00e.ebuild, -files/sparc-root-5.14.00e.patch,
   +root-5.14.00f.ebuild, +files/sparc-root-5.14.00f.patch:
