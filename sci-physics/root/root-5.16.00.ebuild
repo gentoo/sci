@@ -16,7 +16,7 @@ SLOT="0"
 LICENSE="LGPL-2"
 KEYWORDS="~amd64 ~sparc ~x86"
 IUSE="afs cern doc fftw kerberos ldap mysql odbc opengl postgres
-	  python ruby qt3 ssl xml"
+	  python ruby qt3 ssl truetype xml"
 
 DEPEND="sys-apps/shadow
 	>=sci-libs/gsl-1.8
@@ -35,19 +35,21 @@ DEPEND="sys-apps/shadow
 	ssl? ( dev-libs/openssl )
 	xml? ( dev-libs/libxml2 )
 	cern? ( sci-physics/cernlib )
-	odbc? ( dev-db/unixODBC )"
+	odbc? ( dev-db/unixODBC )
+	truetype? ( x11-libs/libXft )"
 
 S=${WORKDIR}/${PN}
 
 pkg_setup() {
 	elog
 	elog "You may want to build ROOT with these non Gentoo extra packages:"
-	elog "AliEn, castor, Chirp, Globus, Monalisa, Oracle, peac, "
+	elog "AliEn, castor, Chirp, clarens, Globus, Monalisa, Oracle, peac, "
 	elog "PYTHIA, PYTHIA6, SapDB, SRP, Venus"
 	elog "You can use the EXTRA_CONF variable for this."
 	elog "Example, for PYTHIA, you would do: "
 	elog "EXTRA_CONF=\"--enable-pythia --with-pythia-libdir=/usr/$(get_libdir)\" emerge root"
 	elog
+	elog "You can also build root with icc, simply by letting CC=icc"
 
 	if use cern; then
 		FORTRAN="gfortran g77 ifc"
@@ -56,17 +58,34 @@ pkg_setup() {
 }
 
 src_unpack() {
-
 	if use cern; then
 		fortran_src_unpack
 	else
 		unpack ${A}
 	fi
+	cd "${S}"
+	# patch to properly set link flags with fortran compilers
+	epatch "${FILESDIR}"/${P}-fortran.patch
 }
 
 src_compile() {
-	# the configure script is not the standard autotools
-	./configure ${EXTRA_CONF} \
+
+	local target
+	if [[ "$(tc-getCC)" == icc* ]]; then
+		if use amd64; then
+			target=linuxx8664icc
+		elif use x86; then
+			target=linuxicc
+		fi
+	fi
+
+	local myfortran
+	use cern && myfortran="F77=${FORTRANC}"
+
+	# watch: the configure script is not the standard autotools
+	# disable-pch: precompiled headers buggy with icc
+
+	./configure ${target} \
 		--prefix=/usr \
 		--bindir=/usr/bin \
 		--mandir=/usr/share/man/man1 \
@@ -92,6 +111,7 @@ src_compile() {
 		--disable-chirp \
 		--disable-dcache \
 		--disable-globus \
+		--disable-pch \
 		--disable-rfio \
 		--disable-rpath \
 		--disable-sapdb \
@@ -110,7 +130,6 @@ src_compile() {
 		--enable-shared	\
 		--enable-soversion \
 		--enable-table \
-		--enable-thread \
 		--enable-unuran \
 		--enable-xrootd \
 		$(use_enable afs) \
@@ -127,17 +146,11 @@ src_compile() {
 		$(use_enable qt3 qtgsi) \
 		$(use_enable ruby) \
 		$(use_enable ssl) \
+		$(use_enable truetype xft) \
 		$(use_enable xml) \
+		${EXTRA_CONF} \
 		|| die "configure failed"
-	local myfortran
-	if use cern; then
-		myfortran="F77=${FORTRANC} F77LD=${FORTRANC}"
-		if [[ "${FORTRANC}" == "g77" ]]; then
-			myfortran="${myfortran} F77LIBS=-lg2c"
-		else
-			myfortran="${myfortran} F77LIBS=-lgfortran"
-		fi
-	fi
+
 	emake \
 		OPTFLAGS="${CXXFLAGS}" \
 		${myfortran} \

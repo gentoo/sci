@@ -1,0 +1,165 @@
+diff -Nur config.orig/Makefile.linux config/Makefile.linux
+--- config.orig/Makefile.linux	2007-05-30 11:59:15.000000000 +0100
++++ config/Makefile.linux	2007-07-05 15:17:22.000000000 +0100
+@@ -44,7 +44,8 @@
+ CRYPTLIBS     = -lcrypt
+ 
+ # Fortran:
+-F77           =
++F77           = gfortran
++
+ ifeq ($(shell which gfortran 2>&1 | sed -ne "s/.*\/gfortran/gfortran/p"),gfortran)
+ ifeq ($(shell gfortran -print-libgcc-file-name),$(shell $(CC) -print-libgcc-file-name))
+ F77           = gfortran
+@@ -53,7 +54,8 @@
+ F77LD         = gfortran
+ endif
+ endif
+-ifneq ($(F77),gfortran)
++
++ifeq ($(F77),g77)
+ F77           = g77
+ F77FLAGS      = -fPIC
+ ifneq ($(shell $(F77) -print-file-name=libg2c.so),libg2c.so)
+@@ -63,4 +65,11 @@
+ endif
+ endif
+ 
++ifeq ($(F77),ifort)
++F77           = ifort
++F77FLAGS      = -fPIC 
++F77LIBS      := -L$(shell which ifort | sed -e 's|bin/ifort|lib|') \
++		-lifcore
++endif
++
+ # Extras
+diff -Nur config.orig/Makefile.linuxicc config/Makefile.linuxicc
+--- config.orig/Makefile.linuxicc	2007-02-13 00:23:09.000000000 +0000
++++ config/Makefile.linuxicc	2007-07-05 15:17:55.000000000 +0100
+@@ -67,18 +67,33 @@
+ CRYPTLIBS     = -lcrypt
+ 
+ # Fortran:
+-F77           = ifort
+-F77FLAGS      =
+-# check for libg2c and libfrtbegin
+-ifneq ($(shell g77 -print-file-name=libg2c.so),libg2c.so)
+-LIBG2C        := $(shell g77 -print-file-name=libg2c.so) -lnsl
++F77           = gfortran
++
++ifeq ($(shell which gfortran 2>&1 | sed -ne "s/.*\/gfortran/gfortran/p"),gfortran)
++ifeq ($(shell gfortran -print-libgcc-file-name),$(shell $(CC) -print-libgcc-file-name))
++F77           = gfortran
++F77FLAGS      = -fPIC -std=legacy
++F77LIBS       = -lgfortran -lgfortranbegin -lnsl
++F77LD         = gfortran
++endif
++endif
++
++ifeq ($(F77),g77)
++F77           = g77
++F77FLAGS      = -fPIC
++ifneq ($(shell $(F77) -print-file-name=libg2c.so),libg2c.so)
++F77LIBS      := $(shell $(F77) -print-file-name=libg2c.so) -lnsl
+ else
+-LIBG2C        := $(shell g77 -print-file-name=libg2c.a)  -lnsl
++F77LIBS      := $(shell $(F77) -print-file-name=libg2c.a) -lnsl
++endif
++endif
++
++ifeq ($(F77),ifort)
++F77           = ifort
++F77FLAGS      = -fPIC 
++F77LIBS      := -L$(shell which ifort | sed -e 's|bin/ifort|lib|') \
++		-lifcore
+ endif
+-LIBFRTBEGIN  := $(shell g77 -print-file-name=libfrtbegin.a)
+-F77LIBS       = $(LIBFRTBEGIN) $(LIBG2C) \
+-                -L$(shell which ifort | sed -e 's|bin/ifort|lib|') \
+-                -lifcore
+ 
+ # Precompiled headers:
+ PCHSUPPORTED := $(ENABLEPCH)
+diff -Nur config.orig/Makefile.linuxx8664gcc config/Makefile.linuxx8664gcc
+--- config.orig/Makefile.linuxx8664gcc	2006-06-04 00:48:43.000000000 +0100
++++ config/Makefile.linuxx8664gcc	2007-07-05 15:18:16.000000000 +0100
+@@ -43,6 +43,18 @@
+ CRYPTLIBS     = -lcrypt
+ 
+ # Fortran:
++F77           = gfortran
++
++ifeq ($(shell which gfortran 2>&1 | sed -ne "s/.*\/gfortran/gfortran/p"),gfortran)
++ifeq ($(shell gfortran -print-libgcc-file-name),$(shell $(CC) -print-libgcc-file-name))
++F77           = gfortran
++F77FLAGS      = -fPIC -std=legacy
++F77LIBS       = -lgfortran -lgfortranbegin -lnsl
++F77LD         = gfortran
++endif
++endif
++
++ifeq ($(F77),g77)
+ F77           = g77
+ F77FLAGS      = -fPIC
+ ifneq ($(shell $(F77) -print-file-name=libg2c.so),libg2c.so)
+@@ -50,5 +62,13 @@
+ else
+ F77LIBS      := $(shell $(F77) -print-file-name=libg2c.a) -lnsl
+ endif
++endif
++
++ifeq ($(F77),ifort)
++F77           = ifort
++F77FLAGS      = -fPIC 
++F77LIBS      := -L$(shell which ifort | sed -e 's|bin/ifort|lib|') \
++		-lifcore
++endif
+ 
+ # Extras
+diff -Nur config.orig/Makefile.linuxx8664icc config/Makefile.linuxx8664icc
+--- config.orig/Makefile.linuxx8664icc	2007-01-18 13:00:33.000000000 +0000
++++ config/Makefile.linuxx8664icc	2007-07-05 15:18:32.000000000 +0100
+@@ -67,18 +67,34 @@
+ CRYPTLIBS     = -lcrypt
+ 
+ # Fortran:
+-F77           = ifort
++F77           = gfortran
++
++ifeq ($(shell which gfortran 2>&1 | sed -ne "s/.*\/gfortran/gfortran/p"),gfortran)
++ifeq ($(shell gfortran -print-libgcc-file-name),$(shell $(CC) -print-libgcc-file-name))
++F77           = gfortran
++F77FLAGS      = -fPIC -std=legacy
++F77LIBS       = -lgfortran -lgfortranbegin -lnsl
++F77LD         = gfortran
++endif
++endif
++
++ifeq ($(F77),g77)
++F77           = g77
+ F77FLAGS      = -fPIC
+-# check for libg2c and libfrtbegin
+-ifneq ($(shell g77 -print-file-name=libg2c.so),libg2c.so)
+-LIBG2C        := $(shell g77 -print-file-name=libg2c.so) -lnsl
++ifneq ($(shell $(F77) -print-file-name=libg2c.so),libg2c.so)
++F77LIBS      := $(shell $(F77) -print-file-name=libg2c.so) -lnsl
+ else
+-LIBG2C        := $(shell g77 -print-file-name=libg2c.a)  -lnsl
++F77LIBS      := $(shell $(F77) -print-file-name=libg2c.a) -lnsl
+ endif
+-LIBFRTBEGIN  := $(shell g77 -print-file-name=libfrtbegin.a)
+-F77LIBS       = $(LIBFRTBEGIN) $(LIBG2C) \
+-                -L$(shell which ifort | sed -e 's|bin/ifort|lib|') \
+-                -lifcore
++endif
++
++ifeq ($(F77),ifort)
++F77           = ifort
++F77FLAGS      = -fPIC 
++F77LIBS      := -L$(shell which ifort | sed -e 's|bin/ifort|lib|') \
++		-lifcore
++endif
++
+ 
+ # Precompiled headers:
+ PCHSUPPORTED := $(ENABLEPCH)
