@@ -36,4 +36,9 @@ src_unpack() {
 		debian/add-ons/cernlib.mk || die "sed failed"
 
 	cernlib_patch
+
+	# fix an ifort problem
+	sed -i \
+		-e 's/= $(CLIBS) -nofor_main/+= -nofor_main/' \
+		src/packlib/kuip/programs/kxterm/Imakefile || die "sed failed"
 }

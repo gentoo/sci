@@ -4,6 +4,10 @@
 
   05 Jul 2007; Sébastien Fabbro <bicatali@gentoo.org>
   cernlib-2006-r1.ebuild:
+  cernlib: fixed an ifc problem
+
+  05 Jul 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  cernlib-2006-r1.ebuild:
   Updated for new debian patches
 
   02 Apr 2007; Sébastien Fabbro <bicatali@gentoo.org> ChangeLog:
