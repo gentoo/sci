@@ -21,7 +21,6 @@
 # DEB_PV                   - Debian package version name, default to $PV.dfsg
 # DEB_PR                   - Debian patch version, default to 1
 
-
 inherit eutils multilib fortran
 
 [[ -z "${DEB_PN}" ]] && DEB_PN="${PN}"
@@ -59,8 +58,6 @@ S=${WORKDIR}/${DEB_PN}-${DEB_PV}.orig
 cernlib_unpack() {
 	unpack ${A}
 	epatch "${DEB_PN}_${DEB_PV}-${DEB_PR}".diff
-	#mv ${DEB_PN}-${DEB_PV}/debian "${S}"/
-	#rm -rf ${DEB_PN}-${DEB_PV} "${DEB_PN}_${DEB_PV}-${DEB_PR}".diff
 }
 
 cernlib_patch() {
@@ -106,8 +103,13 @@ cernlib_src_install() {
 
 cernlib_pkg_postinst() {
 	elog "Gentoo ${PN} is based on Debian similar package."
-	elog "Heavy cernlib users might want to check:"
+	elog "Serious cernlib users might want to check:"
 	elog "http://people.debian.org/~kmccarty/cernlib/"
+	elog "for the changes and licensing from the original package"
+	if use amd64; then
+		elog "Please see the possible warnings in using ${PN} on 64 bits:"
+		elog "/usr/share/doc/${PF}/README.*64*"
+	fi
 }
 
 EXPORT_FUNCTIONS src_unpack src_compile src_install pkg_postinst
