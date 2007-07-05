@@ -3,7 +3,7 @@
 # $Header: $
 
 DEB_PV="${PV}.dfsg.2"
-DEB_PR="1"
+DEB_PR="2"
 inherit cernlib
 DEPEND="app-admin/eselect-blas"
 KEYWORDS="~x86 ~amd64"

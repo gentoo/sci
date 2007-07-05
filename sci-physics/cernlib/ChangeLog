@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jul 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  cernlib-2006-r1.ebuild:
+  Updated for new debian patches
+
   02 Apr 2007; Sébastien Fabbro <bicatali@gentoo.org> ChangeLog:
   Version bump + cleaning.
 
