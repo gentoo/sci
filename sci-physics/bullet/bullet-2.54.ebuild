@@ -11,19 +11,24 @@ SRC_URI="mirror://sourceforge/bullet/${P}.tgz"
 LICENSE="ZLIB"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc examples"
+IUSE="test doc examples"
 
 RDEPEND="examples? ( virtual/opengl )"
 DEPEND="${DEPEND}
 	dev-util/jam"
+#	test? ( dev-util/cppunit )"
 
 src_compile() {
 	econf \
 		$(use_with examples x) \
 		$(use_with examples mesa) \
 		|| die "econf failed"
-	jam ${MAKEOPTS:} || die "jam failed"
+	jam ${MAKEOPTS} || die "jam failed"
 }
+
+#src_test() {
+#	jam check || die "jam check failed"
+#}
 
 src_install() {
 	jam -sDESTDIR="${D}" install || die "jam install failed"
