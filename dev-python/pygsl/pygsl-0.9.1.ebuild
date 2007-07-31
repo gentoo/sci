@@ -19,7 +19,7 @@ DEPEND=">=sci-libs/gsl-1.8
 
 src_test() {
 	cd "${S}/tests"
-	PYTHONPATH=../build/lib* "${python}" run_test.py || die "tests failed"
+	PYTHONPATH=$(ls -d ../build/lib*) "${python}" run_test.py || die "tests failed"
 }
 
 src_install() {
