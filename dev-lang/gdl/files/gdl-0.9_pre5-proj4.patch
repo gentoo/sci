@@ -1,0 +1,39 @@
+--- configure.orig	2007-07-05 20:53:22.000000000 +0100
++++ configure	2007-08-01 11:42:25.853492000 +0100
+@@ -20805,20 +20805,20 @@
+ 
+ if test "x$with_libproj4" != "xno"; then
+   if test "x$with_libproj4" != "xyes"; then
+-    LIBS="$LIBS -L$with_libproj4/lib -lproj4"
++    LIBS="$LIBS -L$with_libproj4/lib -lproj"
+     INCLUDES="$INCLUDES -I$with_libproj4/include"
+   else
+     INCLUDES="$INCLUDES -I/usr/include"
+-    LIBS="$LIBS -lproj4"
++    LIBS="$LIBS -lproj"
+   fi
+ 
+-  { echo "$as_me:$LINENO: checking for pj_init in -lproj4" >&5
+-echo $ECHO_N "checking for pj_init in -lproj4... $ECHO_C" >&6; }
++  { echo "$as_me:$LINENO: checking for pj_init in -lproj" >&5
++echo $ECHO_N "checking for pj_init in -lproj... $ECHO_C" >&6; }
+ if test "${ac_cv_lib_proj4_pj_init+set}" = set; then
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lproj4  $LIBS"
++LIBS="-lproj  $LIBS"
+ cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+--- src/math_utl.hpp.orig	2007-07-05 19:09:24.000000000 +0100
++++ src/math_utl.hpp	2007-08-01 12:33:11.118722250 +0100
+@@ -42,7 +42,7 @@
+ #define COMPLEX COMPLEX2
+ 
+ extern "C" {
+-#include "lib_proj.h"
++#include "projects.h"
+ }
+ 
+   PJ *map_init();
