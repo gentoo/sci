@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  01 Aug 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  -swarp-2.16.0-r1.ebuild, +swarp-2.16.4.ebuild:
+  Version bump
+
   26 Mar 2007; Sébastien Fabbro <bicatali@gentoo.org>
   swarp-2.16.0-r1.ebuild:
   cleaning
