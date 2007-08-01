@@ -1,6 +1,6 @@
---- Makefile.orig	2007-04-19 19:25:12.771792750 +0100
-+++ Makefile	2007-04-19 19:30:25.975366750 +0100
-@@ -345,40 +345,40 @@
+--- Makefile.orig	2007-08-01 17:41:38.172069500 +0100
++++ Makefile	2007-08-01 17:57:17.200552750 +0100
+@@ -351,40 +351,41 @@
  tclsh	: FORCE
  	@echo "Installing Tcl shared..."
  	cd $(TCLDIRDIR); CC='$(CC) $(OPTS) $(TCLOPTS)' ./configure $(TCLFLAGS) --enable-shared
@@ -10,14 +10,14 @@
  tcl	: FORCE
  	@echo "Installing Tcl noshared..."
  	cd $(TCLDIRDIR); CC='$(CC) $(OPTS) $(TCLOPTS)' ./configure $(TCLFLAGS) --disable-shared
--	cd $(TCLDIRDIR); $(MAKE) install
+ 	cd $(TCLDIRDIR); $(MAKE) install
 +	cd $(TCLDIRDIR); $(MAKE) install-binaries install-libraries
  
  tksh	: FORCE
  	@echo "Installing Tk shared..."
  	cd $(TKDIRDIR); CC='$(CC) $(OPTS) $(TCLOPTS)' ./configure $(TCLFLAGS) --enable-shared
 -	cd $(TKDIRDIR); $(MAKE) install
-+	cd $(TKDIRDIR); $(MAKE) install-binaries install-libraries
++	cd $(TCLDIRDIR); $(MAKE) install-binaries install-libraries
  	$(RM) -r lib/tk8.4/demos
  	$(RM) -r lib/$(TKVER)/demos
  
@@ -48,7 +48,7 @@
  
  tkindex : FORCE
  	@echo "Installing Tk mkIndex..."
-@@ -397,7 +397,7 @@
+@@ -403,7 +404,7 @@
  zlibsh  : FORCE
  	@echo "Installing zlib..."
  	cd $(ZLIBDIR); CC=$(CC) CFLAGS='$(OPTS)' ./configure $(ZLIBFLAGS) --shared
@@ -57,7 +57,7 @@
  
  tkimg	: FORCE
  	@echo "Installing TKIMG noshared..."
-@@ -407,7 +407,7 @@
+@@ -413,7 +414,7 @@
  tkimgsh	: FORCE
  	@echo "Installing TKIMG shared..."
  	cd $(TKIMGDIR); CC='$(CC) $(OPTS)' ./configure $(TKIMGFLAGS)
@@ -66,21 +66,3 @@
  
  tkmpeg	: FORCE
  	@echo "Installing TKMPEG..."
-@@ -430,7 +430,7 @@
- xpash	: FORCE
- 	@echo "Installing XPA shared..."
- 	cd $(XPADIR); CC=$(CC) CFLAGS='$(OPTS)' LDFLAGS='$(OPTS)' ./configure $(XPAFLAGS) --enable-shared
--	cd $(XPADIR); $(MAKE); $(MAKE) tclxpa; $(MAKE) install
-+	cd $(XPADIR); $(MAKE); $(MAKE) tclxpa; $(MAKE) install-binaries install-libraries
- 	cd bin; $(STRIP) xpa*
- 
- xpa	: FORCE
-@@ -490,7 +490,7 @@
- 	@echo "Installing ZIP..."
- 	cd $(ZIPDIR); PREFIX=$(root) $(MAKE) CC=$(CC) CFLAGS='$(OPTS) -I. -DUNIX' LFLAGS1='$(OPTS)' -f unix/Makefile generic
- 	cd $(ZIPDIR); PREFIX=$(root) $(MAKE) CC=$(CC) CFLAGS='$(OPTS) -I. -DUNIX' LFLAGS1='$(OPTS)' -f unix/Makefile install
--	ce $(ZIPDIR); $(RM) libzip.a
-+	cd $(ZIPDIR); $(RM) libzip.a
- 	cd $(ZIPDIR); $(AR) -cr libzip.a $(ZIPOBJS)
- 	cp $(ZIPDIR)/libzip.a lib/libzip.a
- 

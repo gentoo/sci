@@ -25,24 +25,16 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 	# patch to speed up compilation (no man pages generation)
-	epatch "${FILESDIR}"/${PN}-Makefile.patch
+	epatch "${FILESDIR}"/${P}-Makefile.patch
 }
 
 src_compile() {
 	local ds9arch
 	case ${ARCH} in
-		x86)
-			ds9arch=linux
-			;;
-		amd64)
-			ds9arch=linux64
-			;;
-		ppc)
-			ds9arch=linuxppc
-			;;
-		x86-fbsd)
-			ds9arch=freebsd
-			;;
+		x86) ds9arch=linux ;;
+		amd64) ds9arch=linux64 ;;
+		ppc) ds9arch=linuxppc ;;
+		x86-fbsd) ds9arch=freebsd ;;
 		*) die "ds9 not supported upstream for this architecture";;
 	esac
 	ln -s make.${ds9arch} make.include
