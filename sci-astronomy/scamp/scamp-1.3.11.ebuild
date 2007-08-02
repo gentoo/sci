@@ -16,37 +16,15 @@ RESTRICT="test"
 
 # right now just work with ATLAS implementations
 # need more work on virtual/cblas eselect for more blas/lapack impl.
+# or need clapack.
 RDEPEND="sci-astronomy/cdsclient
 	>=sci-libs/blas-atlas-3.7.11-r1
 	>=sci-libs/lapack-atlas-3.7.11-r1
 	>=sci-libs/fftw-3
 	plplot? ( >=sci-libs/plplot-5.1 )"
-DEPEND="${RDEPEND}
-	app-admin/eselect-cblas
-	app-admin/eselect-lapack"
 
-pkg_setup() {
+DEPEND="${RDEPEND}"
 
-	if ! eselect cblas show | grep -q atlas; then
-		ewarn "You must have atlas selected for cblas: try"
-		ewarn "$ eselect cblas set atlas  # or threaded-atlas"
-		die
-	fi
-
-	if ! eselect lapack show | grep -q atlas; then
-		ewarn "You must have atlas selected for lapack: try"
-		ewarn "$ eselect lapack set atlas"
-		die
-	fi
-
-	if use threads && ! eselect cblas show | grep -q threaded; then
-		ewarn "scamp with threads only works with threaded-atlas"
-		ewarn "You must have threaded-atlas selected for cblas: try"
-		ewarn "$ eselect cblas set threaded-atlas"
-		die
-	fi
-
-}
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
@@ -62,11 +40,17 @@ src_compile() {
 	[[ "$(tc-getCC)" == "icc" ]] \
 		&& myconf="${myconf} --enable-icc"
 
+	local myatlas=atlas
+	use threads && \
+		[[ -f /usr/$(get_libdir)/blas/threaded-atlas/libcblas.a ]] && \
+		myatlas="threaded-atlas"	
+	local ldpath="/usr/$(get_libdir)/blas/${myatlas}"
+	ldpath="${ldpath}:/usr/$(get_libdir)/lapack/${myatlas}"
+	
 	econf \
 		$(use_with plplot) \
 		$(use_enable threads) \
 		"${myconf}" \
-		LDPATH=-L/usr/$(get_libdir)/lapack/atlas \
 		|| die "econf failed"
 	emake || die "emake failed"
 }
