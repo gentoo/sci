@@ -43,10 +43,10 @@ src_compile() {
 	local myatlas=atlas
 	use threads && \
 		[[ -f /usr/$(get_libdir)/blas/threaded-atlas/libcblas.a ]] && \
-		myatlas="threaded-atlas"	
+		myatlas="threaded-atlas"
 	local ldpath="/usr/$(get_libdir)/blas/${myatlas}"
 	ldpath="${ldpath}:/usr/$(get_libdir)/lapack/${myatlas}"
-	
+
 	econf \
 		$(use_with plplot) \
 		$(use_enable threads) \
