@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit toolchain-funcs
+inherit toolchain-funcs flag-o-matic
 
 DESCRIPTION="Extract catalogs of sources from astronomical FITS images."
 HOMEPAGE="http://terapix.iap.fr/soft/sextractor"
@@ -19,6 +19,8 @@ src_compile() {
 	CONFDIR=/usr/share/${PN}/config
 	# change default configuration files location from current dir
 	sed -i -e "s:default\.:${CONFDIR}/default\.:" src/preflist.h
+	# buggy with >= O2
+	replace-flags -O[2-9] -O1
 	local myconf
 	[[ "$(tc-getCC)" == "icc" ]] \
 		&& myconf="${myconf} --enable-icc"

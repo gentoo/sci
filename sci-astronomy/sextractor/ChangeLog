@@ -2,6 +2,10 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Aug 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  sextractor-2.5.0-r1.ebuild:
+  filter optim flags
+
   26 Mar 2007; Sébastien Fabbro <bicatali@gentoo.org>
   sextractor-2.5.0-r1.ebuild:
   Cleaning, adapting for new portage.
