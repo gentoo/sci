@@ -24,7 +24,7 @@ RDEPEND=">=sys-libs/readline-4.3
 	python? ( virtual/python
 			dev-python/numarray
 			dev-python/matplotlib )
-	fftw? ( sci-libs/fftw )
+	fftw? ( >=sci-libs/fftw-3 )
 	proj? ( sci-libs/proj )"
 
 DEPEND="${RDEPEND}
