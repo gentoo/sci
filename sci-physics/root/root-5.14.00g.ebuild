@@ -13,7 +13,7 @@ HOMEPAGE="http://root.cern.ch/"
 
 SLOT="0"
 LICENSE="LGPL-2"
-KEYWORDS="~amd64 ~sparc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="afs cern doc fftw kerberos ldap mysql odbc opengl postgres
 	  python ruby qt3 ssl xml"
 

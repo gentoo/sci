@@ -4,8 +4,7 @@
 
 inherit versionator flag-o-matic eutils toolchain-funcs qt3 fortran
 
-#DOC_PV=$(get_major_version)_$(get_version_component_range 2)
-DOC_PV=5_14
+DOC_PV=$(get_major_version)_$(get_version_component_range 2)
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
@@ -14,7 +13,7 @@ HOMEPAGE="http://root.cern.ch/"
 
 SLOT="0"
 LICENSE="LGPL-2"
-KEYWORDS="~amd64 ~sparc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="afs cern doc fftw kerberos ldap mysql odbc opengl postgres
 	  python ruby qt3 ssl truetype xml"
 
