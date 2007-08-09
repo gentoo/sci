@@ -1,7 +1,7 @@
 # Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
+inherit autotools
 SRC_URI="${P}.tar.gz"
 
 DESCRIPTION="Clustering software for microarray analysis"
