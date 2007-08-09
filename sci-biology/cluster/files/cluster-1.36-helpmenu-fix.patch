@@ -1,0 +1,30 @@
+--- X11/gui.c	2007-05-05 00:21:30.000000000 -0500
++++ X11/gui.c-new	2007-08-09 04:25:53.000000000 -0500
+@@ -1786,15 +1786,15 @@
+ {   int item_no = (int) client_data;
+     switch (item_no)
+     {   case CMD_HELP_HTMLHELP:
+-        {   system("netscape "PREFIX"/cluster/html/index.html &");
++        {   system("xdg-open "PREFIX"/share/doc/cluster-1.36/html/index.html &");
+ 	    break;
+ 	}
+         case CMD_HELP_MANUAL:
+-        {   system("acroread "PREFIX"/cluster/doc/cluster3.pdf &");
++        {   system("xpdf "PREFIX"/share/doc/cluster-1.36/cluster3.pdf &");
+ 	    break;
+ 	}
+         case CMD_HELP_DOWNLOAD:
+-        {   system("netscape http://bonsai.ims.u-tokyo.ac.jp/~mdehoon/software/cluster/manual/index.html &");
++        {   system("xdg-open http://bonsai.ims.u-tokyo.ac.jp/~mdehoon/software/cluster/manual/index.html &");
+ 	    break;
+ 	}
+         case CMD_HELP_FILEFORMAT:
+@@ -1852,7 +1852,7 @@
+ 	    XtManageChild(widget);
+             free(helptext);
+ 	    n = 0;
+-	    pixmap = XmGetPixmap(XtScreen(dialog),PREFIX"/cluster/format.xpm",0,0);
++	    pixmap = XmGetPixmap(XtScreen(dialog),PREFIX"/share/doc/cluster-1.36/format.xpm",0,0);
+ 	    XtSetArg(args[n], XmNx, 10); n++;
+ 	    XtSetArg(args[n], XmNy, 410); n++;
+ 	    XtSetArg(args[n],XmNlabelType, XmPIXMAP); n++;
