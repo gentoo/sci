@@ -6,7 +6,7 @@ SRC_URI="${P}.tar.gz"
 
 DESCRIPTION="Clustering software for microarrays analisys"
 HOMEPAGE="http://bonsai.ims.u-tokyo.ac.jp/~mdehoon/software/cluster/software.htm#ctv"
-LICENSE="as Python Licence"
+LICENSE=""
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="X"
