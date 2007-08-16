@@ -1,0 +1,5 @@
+blas/threaded-atlas/libcblas.so /usr/@LIBDIR@/libcblas.so
+blas/threaded-atlas/libcblas.so.0 /usr/@LIBDIR@/libcblas.so.0
+blas/threaded-atlas/libcblas.so.0 /usr/@LIBDIR@/libcblas.a
+../blas/threaded-atlas/cblas.pc /usr/@LIBDIR@/pkgconfig/cblas.pc
+cblas/cblas.h /usr/include/cblas.h

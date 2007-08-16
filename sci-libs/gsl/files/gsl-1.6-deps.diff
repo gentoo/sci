@@ -1,0 +1,13 @@
+--- Makefile.am
++++ Makefile.am	2005/04/25 13:12:35
+@@ -17,8 +17,8 @@
+ 
+ lib_LTLIBRARIES = libgsl.la
+ libgsl_la_SOURCES = version.c
+-libgsl_la_LIBADD = $(SUBLIBS)
+-libgsl_la_LDFLAGS = -version-info $(GSL_LT_VERSION)
++libgsl_la_LIBADD = $(SUBLIBS) cblas/libgslcblas.la
++libgsl_la_LDFLAGS = -no-undefined -version-info $(GSL_LT_VERSION)
+ noinst_HEADERS = templates_on.h templates_off.h
+ 
+ m4datadir = $(datadir)/aclocal

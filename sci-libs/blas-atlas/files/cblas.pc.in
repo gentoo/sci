@@ -1,0 +1,12 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=/usr/@LIBDIR@
+includedir=${prefix}/include
+
+Name: cblas
+Description: Automatically Tuned Linear Algebra Software C BLAS implementation
+Version: @PV@
+URL: http://math-atlas.sourceforge.net/
+Libs: -L${libdir} -lcblas -latlas
+Libs.private: @EXTLIBS@
+Cflags: -I${includedir}

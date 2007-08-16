@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=/usr/@LIBDIR@
+includedir=/usr/include
+
+Name: blas
+Description: MKL implementations of the F77 Basic Linear Algebra Subroutines
+Version: @PV@
+URL: http://developer.intel.com/software/products/mkl/
+Libs: -L${libdir} -lblas @EXTLIBS@

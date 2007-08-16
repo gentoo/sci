@@ -1,0 +1,13 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=/usr/@LIBDIR@
+includedir=${prefix}/include
+
+Name: lapack
+Description: Automatically Tuned Linear Algebra Software F77 and C LAPACK implementation
+Version: @PV@
+URL: http://math-atlas.sourceforge.net/
+Requires: blas cblas
+Libs: -L${libdir} -llapack
+Libs.private: -latlas @EXTLIBS@
+Include: -I${includedir}

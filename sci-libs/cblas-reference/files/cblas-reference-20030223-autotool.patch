@@ -1,0 +1,380 @@
+--- configure.ac 	1970-01-01 01:00:00.000000000 +0100
++++ configure.ac	2007-08-16 11:32:24.000000000 +0100
+@@ -0,0 +1,30 @@
++AC_PREREQ(2.61)
++AC_INIT(cblas, 20030223, lapack@cs.utk.edu)
++AC_CONFIG_SRCDIR([cblas_example2.c])
++AC_CONFIG_HEADER([config.h])
++AM_INIT_AUTOMAKE([foreign])
++
++AC_LANG(C)
++AC_PROG_CC
++AC_PROG_F77
++AC_F77_LIBRARY_LDFLAGS
++dnl ACX_F77_CMAIN_FFLAGS
++dnl FFLAGS=$FFLAGS $F77_CMAIN_FFLAGS
++AC_PROG_LIBTOOL
++
++AC_F77_FUNC(sgemm)
++
++PKG_PROG_PKG_CONFIG
++if test -n "$PKG_CONFIG"; then
++   PKG_CHECK_MODULES([BLAS], [blas])
++else
++   AC_CHECK_LIB(blas, $sgemm)
++   BLAS_LIBS=-lblas
++   AC_SUBST(BLAS_LIBS)
++fi
++
++AC_CONFIG_FILES([Makefile
++		 src/Makefile
++		 testing/Makefile
++		 cblas.pc])
++AC_OUTPUT
+--- Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ Makefile.am	2007-08-14 11:39:12.000000000 +0100
+@@ -0,0 +1,8 @@
++SUBDIRS = src testing
++
++pkgconfigdir = $(libdir)
++pkgconfig_DATA = cblas.pc
++
++EXTRA = cblas.pc
++
++
+--- cblas.pc.in 	1970-01-01 01:00:00.000000000 +0100
++++ cblas.pc.in	2007-08-14 17:17:22.000000000 +0100
+@@ -0,0 +1,13 @@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
++
++Name: @PACKAGE_NAME@
++Description: Basic Linear Algebra Subprograms C reference wrapper
++Version: @PACKAGE_VERSION@
++Requires: blas
++URL: http://www.netlib.org/blas/
++Libs: -lcblas
++Libs.private: -lm @FLIBS@
++Cflags: -I${includedir}
+--- src/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ src/Makefile.am	2007-08-16 12:21:02.000000000 +0100
+@@ -0,0 +1,232 @@
++lib_LTLIBRARIES = libcblas.la
++
++pkgincludedir = $(includedir)/cblas
++pkginclude_HEADERS = cblas.h
++
++AM_CPPFLAGS = -DADD_
++
++ERRHAND_SOURCES = \
++	cblas_globals.c \
++	cblas_xerbla.c \
++	xerbla.c
++
++SINGLE_SOURCES = \
++	cblas_scasum.c \
++	cblas_scnrm2.c \
++	scasumsub.f \
++	scnrm2sub.f
++
++SLEV_SOURCES = \
++	isamaxsub.f \
++	sdotsub.f \
++	sdsdotsub.f \
++	snrm2sub.f \
++	sasumsub.f
++
++SLEV1_SOURCES = \
++	cblas_srotg.c \
++	cblas_srotmg.c \
++	cblas_srot.c \
++	cblas_srotm.c \
++	cblas_sswap.c \
++	cblas_sscal.c \
++	cblas_scopy.c \
++	cblas_saxpy.c \
++	cblas_sdot.c \
++	cblas_sdsdot.c \
++	cblas_snrm2.c \
++	cblas_sasum.c \
++	cblas_isamax.c
++
++SLEV2_SOURCES = \
++	cblas_sgemv.c \
++	cblas_sgbmv.c \
++	cblas_sger.c \
++	cblas_ssbmv.c \
++	cblas_sspmv.c \
++	cblas_sspr.c \
++	cblas_sspr2.c \
++	cblas_ssymv.c \
++	cblas_ssyr.c \
++	cblas_ssyr2.c \
++	cblas_stbmv.c \
++	cblas_stbsv.c \
++	cblas_stpmv.c \
++	cblas_stpsv.c \
++	cblas_strmv.c \
++	cblas_strsv.c
++
++SLEV3_SOURCES = \
++	cblas_sgemm.c \
++	cblas_ssymm.c \
++	cblas_ssyrk.c \
++	cblas_ssyr2k.c \
++	cblas_strmm.c \
++	cblas_strsm.c
++
++DLEV_SOURCES = \
++	ddotsub.f \
++	dsdotsub.f \
++	dnrm2sub.f \
++	dasumsub.f \
++	idamaxsub.f
++
++DLEV1_SOURCES = \
++	cblas_drotg.c \
++	cblas_drotmg.c \
++	cblas_drot.c \
++	cblas_drotm.c \
++	cblas_dswap.c \
++	cblas_dscal.c \
++	cblas_dcopy.c \
++	cblas_daxpy.c \
++	cblas_ddot.c \
++	cblas_dsdot.c \
++	cblas_dnrm2.c \
++	cblas_dasum.c \
++	cblas_idamax.c
++
++DLEV2_SOURCES = \
++	cblas_dgemv.c \
++	cblas_dgbmv.c \
++	cblas_dger.c \
++	cblas_dsbmv.c \
++	cblas_dspmv.c \
++	cblas_dspr.c \
++	cblas_dspr2.c \
++	cblas_dsymv.c \
++	cblas_dsyr.c \
++	cblas_dsyr2.c \
++	cblas_dtbmv.c \
++	cblas_dtbsv.c \
++	cblas_dtpmv.c \
++	cblas_dtpsv.c \
++	cblas_dtrmv.c \
++	cblas_dtrsv.c
++
++DLEV3_SOURCES = \
++	cblas_dgemm.c \
++	cblas_dsymm.c \
++	cblas_dsyrk.c \
++	cblas_dsyr2k.c \
++	cblas_dtrmm.c \
++	cblas_dtrsm.c
++
++CLEV_SOURCES = \
++	cdotcsub.f \
++	cdotusub.f \
++	icamaxsub.f
++
++CLEV1_SOURCES = \
++	cblas_cswap.c \
++	cblas_cscal.c \
++	cblas_csscal.c \
++	cblas_ccopy.c \
++	cblas_caxpy.c \
++	cblas_cdotu_sub.c \
++	cblas_cdotc_sub.c \
++	cblas_icamax.c
++
++CLEV2_SOURCES = \
++	cblas_cgemv.c \
++	cblas_cgbmv.c \
++	cblas_chemv.c \
++	cblas_chbmv.c \
++	cblas_chpmv.c \
++	cblas_ctrmv.c \
++	cblas_ctbmv.c \
++	cblas_ctpmv.c \
++	cblas_ctrsv.c \
++	cblas_ctbsv.c \
++	cblas_ctpsv.c \
++	cblas_cgeru.c \
++	cblas_cgerc.c \
++	cblas_cher.c \
++	cblas_cher2.c \
++	cblas_chpr.c \
++	cblas_chpr2.c
++
++CLEV3_SOURCES = \
++	cblas_cgemm.c \
++	cblas_csymm.c \
++	cblas_chemm.c \
++	cblas_cherk.c \
++	cblas_cher2k.c \
++	cblas_ctrmm.c \
++	cblas_ctrsm.c \
++	cblas_csyrk.c \
++	cblas_csyr2k.c
++
++ZLEV_SOURCES = \
++	zdotcsub.f \
++	zdotusub.f \
++	dzasumsub.f \
++	dznrm2sub.f \
++	izamaxsub.f
++
++ZLEV1_SOURCES = \
++	cblas_zswap.c \
++	cblas_zscal.c \
++	cblas_zdscal.c \
++	cblas_zcopy.c \
++	cblas_zaxpy.c \
++	cblas_zdotu_sub.c \
++	cblas_zdotc_sub.c \
++	cblas_dznrm2.c \
++	cblas_dzasum.c \
++	cblas_izamax.c
++
++ZLEV2_SOURCES = \
++	cblas_zgemv.c \
++	cblas_zgbmv.c \
++	cblas_zhemv.c \
++	cblas_zhbmv.c \
++	cblas_zhpmv.c \
++	cblas_ztrmv.c \
++	cblas_ztbmv.c \
++	cblas_ztpmv.c \
++	cblas_ztrsv.c \
++	cblas_ztbsv.c \
++	cblas_ztpsv.c \
++	cblas_zgeru.c \
++	cblas_zgerc.c \
++	cblas_zher.c \
++	cblas_zher2.c \
++	cblas_zhpr.c \
++	cblas_zhpr2.c
++
++ZLEV3_SOURCES = \
++	cblas_zgemm.c \
++	cblas_zsymm.c \
++	cblas_zhemm.c \
++	cblas_zherk.c \
++	cblas_zher2k.c \
++	cblas_ztrmm.c \
++	cblas_ztrsm.c \
++	cblas_zsyrk.c \
++	cblas_zsyr2k.c
++
++libcblas_la_SOURCES = \
++	cblas_f77.h \
++	cblas.h \
++	$(ERRHAND_SOURCES) \
++	$(SINGLE_SOURCES) \
++	$(SLEV_SOURCES) \
++	$(DLEV_SOURCES) \
++	$(CLEV_SOURCES) \
++	$(ZLEV_SOURCES) \
++	$(SLEV1_SOURCES) \
++	$(DLEV1_SOURCES) \
++	$(CLEV1_SOURCES) \
++	$(ZLEV1_SOURCES) \
++	$(SLEV2_SOURCES) \
++	$(DLEV2_SOURCES) \
++	$(CLEV2_SOURCES) \
++	$(ZLEV2_SOURCES) \
++	$(SLEV3_SOURCES) \
++	$(DLEV3_SOURCES) \
++	$(CLEV3_SOURCES) \
++	$(ZLEV3_SOURCES)
++
++libcblas_la_LIBADD = @BLAS_LIBS@
++
+--- testing/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ testing/Makefile.am	2007-08-16 12:16:57.000000000 +0100
+@@ -0,0 +1,71 @@
++TESTS = cblas_tests
++
++cblas_tests:
++	@install -m0755 cblas_tests.sh cblas_tests
++
++check_PROGRAMS = \
++	xscblat1 xdcblat1 xccblat1 xzcblat1 \
++	xscblat2 xdcblat2 xccblat2 xzcblat2 \
++	xscblat3 xdcblat3 xccblat3 xzcblat3
++
++LDADD = $(top_builddir)/src/libcblas.la @BLAS_LIBS@
++
++AM_CPPFLAGS = -I$(top_srcdir)/src -DADD_
++AM_FFLAGS = @BLAS_CFLAGS@
++
++AUX_SOURCES = \
++	auxiliary.c \
++	c_xerbla.c
++
++xscblat1_SOURCES = \
++	c_sblas1.c \
++	c_sblat1.f
++xscblat2_SOURCES = \
++	c_sblas2.c \
++	c_s2chke.c \
++	c_sblat2.f \
++	$(AUX_SOURCES)
++xscblat3_SOURCES = \
++	c_sblas3.c \
++	c_s3chke.c \
++	c_sblat3.f \
++	$(AUX_SOURCES)
++xdcblat1_SOURCES = \
++	c_dblas1.c \
++	c_dblat1.f
++xdcblat2_SOURCES = \
++	c_dblas2.c \
++	c_d2chke.c \
++	c_dblat2.f \
++	$(AUX_SOURCES)
++xdcblat3_SOURCES = \
++	c_dblas3.c \
++	c_d3chke.c \
++	c_dblat3.f \
++	$(AUX_SOURCES)
++xccblat1_SOURCES = \
++	c_cblas1.c \
++	c_cblat1.f
++xccblat2_SOURCES = \
++	c_cblas2.c \
++	c_c2chke.c \
++	c_cblat2.f \
++	$(AUX_SOURCES)
++xccblat3_SOURCES = \
++	c_cblas3.c \
++	c_c3chke.c \
++	c_cblat3.f \
++	$(AUX_SOURCES)
++xzcblat1_SOURCES = \
++	c_zblas1.c \
++	c_zblat1.f
++xzcblat2_SOURCES = \
++	c_zblas2.c \
++	c_z2chke.c \
++	c_zblat2.f \
++	$(AUX_SOURCES)
++xzcblat3_SOURCES = \
++	c_zblas3.c \
++	c_z3chke.c \
++	c_zblat3.f \
++	$(AUX_SOURCES)
+--- testing/cblas_tests.sh 	1970-01-01 01:00:00.000000000 +0100
++++ testing/cblas_tests.sh	2007-07-16 01:50:16.000000000 +0100
+@@ -0,0 +1,8 @@
++#!/bin/sh
++
++for t in x*blat1; do
++    ./${t}
++done
++for t in x*blat{2,3}; do
++    ./${t} < ${t:1:1}in${t:7:1}
++done
