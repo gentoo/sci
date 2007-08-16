@@ -1,8 +1,0 @@
-# ChangeLog for sci-libs/libctl
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  11 May 2007; Sébastien Fabbro <bicatali@gentoo.org> +libctl-3.0.2.ebuild,
-  +metadata.xml:
-  Import, bump and clean from main tree
-
