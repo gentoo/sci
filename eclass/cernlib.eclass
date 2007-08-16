@@ -4,10 +4,10 @@
 #
 # Author Sebastien Fabbro <bicatali@gentoo.org>
 #
-# An eclass to be used to install cernlib based packages.
+# A simple eclass to be used to install cernlib based packages.
 # The packages so far have been based on Debian's ones,
 # since they provide a fair amount of useful patches
-# and already split and repackage the full tar ball.
+# and already split and re-package the full tar balls.
 #
 # - Features:
 # cernlib_unpack()        - unpack properly debian packages
@@ -20,7 +20,8 @@
 # DEB_PN                   - Debian package name, default to $PN
 # DEB_PV                   - Debian package version name, default to $PV.dfsg
 # DEB_PR                   - Debian patch version, default to 1
-
+# CERNLIB_PV               - CERNLIB version, default to 2006
+#
 inherit eutils multilib fortran
 
 [[ -z "${DEB_PN}" ]] && DEB_PN="${PN}"
@@ -47,8 +48,9 @@ RDEPEND="virtual/motif
 	dev-lang/cfortran"
 
 if [[ "${PN}" != "cernlib" ]]; then
-	DEPEND="${DEPEND} >=sci-physics/cernlib-2006"
-	RDEPEND="${RDEPEND} >=sci-physics/cernlib-2006"
+	[[ -z "${CERNLIB_PV}" ]] && CERNLIB_PV=2006
+	DEPEND="${DEPEND} >=sci-physics/cernlib-${CERNLIB_PV}"
+	RDEPEND="${RDEPEND} >=sci-physics/cernlib-${CERNLIB_PV}"
 fi
 
 RESTRICT="test"
@@ -97,8 +99,8 @@ cernlib_src_install() {
 		DESTDIR="${D}" \
 		install || die "emake install failed"
 	cd "${S}"/debian
-	dodoc changelog README.* deadpool.txt NEWS copyright
-	newdoc add-ons/README README.add-ons
+	dodoc changelog README.* deadpool.txt NEWS copyright || die "dodoc failed"
+	newdoc add-ons/README README.add-ons || die "newdoc failed"
 }
 
 cernlib_pkg_postinst() {
