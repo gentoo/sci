@@ -9,7 +9,9 @@ MYP="${PN}-${MYPV}"
 
 DESCRIPTION="Intel(R) Math Kernel Library: linear algebra, fft, random number generators."
 HOMEPAGE="http://developer.intel.com/software/products/mkl/"
-SRC_URI="l_${PN}_enh_p_${PV}.tgz"
+SRC_URI="!int64? ( !serial? ( l_${PN}_p_${PV}.tgz ) )
+    int64?  ( l_${PN}_enh_p_${PV}.tgz )
+    serial? ( l_${PN}_enh_p_${PV}.tgz )"
 
 LICENSE="${MYP}"
 
@@ -19,7 +21,7 @@ LICENSE="${MYP}"
 SLOT="0"
 RESTRICT="strip fetch"
 KEYWORDS="~x86 ~amd64 ~ia64"
-IUSE="threads int64 fortran95 fftw doc examples"
+IUSE="serial int64 fortran95 fftw doc examples"
 
 DEPEND="app-admin/eselect-blas
 	app-admin/eselect-cblas
@@ -38,11 +40,18 @@ pkg_nofetch() {
 	einfo "Also you need to register in ${HOMEPAGE}"
 	einfo "and keep the license Intel sent you"
 	einfo "SRC=${A}"
+
+    if use int64 || use serial; then
+        einfo "Since you have either USE=int64 or USE=serial"
+        einfo "You will need to download the enhanced version"
+    fi
 }
 
 pkg_setup() {
 	# setting up license
-	[[ -z "${MKL_LICENSE}" ]] && MKL_LICENSE="$(find /opt/intel/licenses -name *MKL*.lic)"
+	[[ -z "${MKL_LICENSE}" ]] && [[ -d /opt/intel/licenses ]] && \
+		MKL_LICENSE="$(find /opt/intel/licenses -name *MKL*.lic)"
+
 	if  [[ -z "${MKL_LICENSE}" ]]; then
 		eerror "Did not find any valid mkl license."
 		eerror "Please locate your license file and run:"
@@ -64,8 +73,10 @@ pkg_setup() {
 src_unpack() {
 
 	ewarn
-	ewarn "Intel ${PN} requires in average 400Mb of disk space"
-	ewarn "Make sure you have them on ${PORTAGE_TMPDIR} and in /opt"
+	local dp=950
+	! use serial && ! use int64 && dp=400
+	ewarn "Intel ${PN} requires ${dp}Mb of disk space"
+	ewarn "Make sure you have enough in ${PORTAGE_TMPDIR} and in /opt"
 	ewarn
 	unpack ${A}
 
@@ -92,8 +103,11 @@ EOF
 		--silent ${PWD}/mkl.ini \
 		--log log.txt &> /dev/null
 
-	[[ -z $(find "${S}" -name libmkl.so) ]] \
-		&& die "extracting failed"
+	if [[ -z $(find "${S}" -name libmkl.so) ]]; then
+		eerror "could not find extracted files" 
+		eerror "see ${PWD}/log.txt to see why"
+		die "extracting failed"
+	fi
 
 	# remove unused stuff and set up intel names
 	rm -rf "${WORKDIR}"/l_*
@@ -112,18 +126,18 @@ EOF
 			;;
 	esac
 
-	MKL_PROF="serial"
+	MKL_PROF="regular"
 
-	if use threads; then
-		MKL_PROF="${MKL_PROF} regular"
+	if use serial; then
+		MKL_PROF="${MKL_PROF} serial"
 	else
-		rm -rf "${S}"/lib
+		[[ -d "${S}"/lib_serial ]] && rm -rf "${S}"/lib_serial
 	fi
 
 	if use int64; then
 		MKL_PROF="${MKL_PROF} ilp64"
 	else
-		rm -rf "${S}"/lib_ilp64
+		[[ -d "${S}"/lib_ilp64 ]] && rm -rf "${S}"/lib_ilp64
 	fi
 
 	# fix a bad makefile in the test
@@ -188,17 +202,14 @@ src_test() {
 mkl_install_lib() {
 
 	local proflib=lib_${1}
-	[[ "${1}" == "regular" ]] && proflib=lib
+	local prof=${PN}-${1}
+	[[ "${1}" == "regular" ]] && proflib=lib && prof=${PN}-threads
 	local libdir="${MKL_DIR}/${proflib}/${MKL_ARCH}"
-	local prof=${PN}
-	local extlibs
+	local extlibs="-L${libdir} -lguide -lpthread"
+	[[ "${1}" == "serial" ]] && extlibs=""
+
 	[[ "${FORTRANC}" == "gfortran" ]] && \
 		extlibs="${extlibs} -L${libdir} -lmkl_gfortran"
-	if [[ "${1}" == "regular" ]]; then
-		extlibs="${extlibs} -L${libdir} -lguide -lpthread"
-		prof=${prof}-threads
-	fi
-	[[ "${1}" == "ilp64" ]] && prof=${prof}-int64
 
 	cp -pPR "${S}"/${proflib} "${D}"${MKL_DIR}
 
@@ -247,17 +258,25 @@ src_install() {
 	fi
 
 	# keep intel dir in /opt as default install
+	einfo "Installing headers, man pages and tools"
 	insinto ${MKL_DIR}
 	doins -r include man tools || die "doins include|man|tools failed"
 
-	use examples &&	doins -r examples
+	if use examples; then
+		einfo "Installing examples"
+		doins -r examples || die "doins examples failed"
+	fi
 
 	insinto ${MKL_DIR}/doc
-	doins doc/*.txt
-	use doc && doins doc/*.pdf doc/*.htm
+	doins doc/*.txt || die "basic doc install failed"
+	if use doc; then
+		einfo "Installing examples"
+		doins doc/*.pdf doc/*.htm || die ""
+	fi
 
 	# take care of lib and eselect files
 	for p in ${MKL_PROF}; do
+		einfo "Installing profile ${p}"
 		mkl_install_lib ${p}
 	done
 
@@ -271,7 +290,9 @@ pkg_postinst() {
 	local defprof="${PN}-${FORTRANC}"
 	if use int64; then
 		defprof="${defprof}-int64"
-	elif use threads; then
+	elif use serial; then
+		defprof="${defprof}-serial"
+	else
 		defprof="${defprof}-threads"
 	fi
 
