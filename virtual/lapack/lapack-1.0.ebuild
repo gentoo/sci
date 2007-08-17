@@ -10,9 +10,10 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
 IUSE=""
 RDEPEND="|| (
-		sci-libs/lapack-reference
-		sci-libs/lapack-atlas
-		sci-libs/mkl
-		sci-libs/acml
+		>=sci-libs/lapack-reference-3.1.1-r1
+		>=sci-libs/lapack-atlas-3.7.37
+		>=sci-libs/mkl-9.1.023
+		>=sci-libs/acml-3.6.1-r1
+		=sci-libs/acml-3.6.0-r1
 	)"
 DEPEND=""

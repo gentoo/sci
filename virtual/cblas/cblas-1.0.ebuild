@@ -10,9 +10,9 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
 IUSE=""
 RDEPEND="|| (
-		sci-libs/cblas-reference
-		sci-libs/blas-atlas
-		sci-libs/gsl
-		sci-libs/mkl
+		>=sci-libs/cblas-reference-20030223-r4
+		>=sci-libs/blas-atlas-3.7.37
+		>=sci-libs/gsl-1.9-r1
+		>=sci-libs/mkl-9.1.023
 	)"
 DEPEND=""
