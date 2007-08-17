@@ -1,0 +1,1349 @@
+diff -Naur ATLAS.orig/CONFIG/src/Makefile ATLAS/CONFIG/src/Makefile
+--- ATLAS.orig/CONFIG/src/Makefile	2007-08-10 16:57:42.000000000 +0100
++++ ATLAS/CONFIG/src/Makefile	2007-08-17 13:35:37.000000000 +0100
+@@ -347,6 +347,18 @@
+ 	$(MAKE) -f Make.top sanity_test
+ pttest :
+ 	$(MAKE) -f Make.top ptsanity_test
++shared :
++	$(MAKE) -f Make.top shared arch=$(arch)
++shared-strip :
++	$(MAKE) -f Make.top shared-strip arch=$(arch)
++ptshared :
++	$(MAKE) -f Make.top ptshared arch=$(arch)
++ptshared-strip :
++	$(MAKE) -f Make.top ptshared-strip arch=$(arch)
++liblapack.so :
++	$(MAKE) -f Make.top liblapack.so arch=$(arch)
++
++
+ $(INCINSTdir) :
+ 	mkdir -p $(INCINSTdir)
+ 	chmod 0755 $(INCINSTdir)
+diff -Naur ATLAS.orig/CONFIG/src/SpewMakeInc.c ATLAS/CONFIG/src/SpewMakeInc.c
+--- ATLAS.orig/CONFIG/src/SpewMakeInc.c	2007-08-10 16:57:42.000000000 +0100
++++ ATLAS/CONFIG/src/SpewMakeInc.c	2007-08-17 13:35:37.000000000 +0100
+@@ -642,10 +642,12 @@
+    fprintf(fpout, "   NCFLAGS = $(ICCFLAGS)\n");
+    fprintf(fpout, "\n   CLINKER = $(ICC)\n   CLINKFLAGS = $(ICCFLAGS)\n");
+    fprintf(fpout, "   FLINKER = $(F77)\n   FLINKFLAGS = $(F77FLAGS)\n");
+-   fprintf(fpout, "   FCLINKFLAGS = $(FLINKFLAGS)");
+-   if (strstr(comps[F77_], "ifort") && !OSIsWin(OS))
+-      fprintf(fpout, " -nofor_main");
+-   fprintf(fpout, "\n   ARCHIVER = ar\n");
++   fprintf(fpout, "   FLINKER = $(F77)\n   FLINKFLAGS = $(F77FLAGS)");
++   if (strstr(comps[F77_], "ifort"))
++     fprintf(fpout, "   -nofor_main");
++   fprintf(fpout, "\n   LIBTOOL = libtool --mode=compile\n");
++   fprintf(fpout, "   FCLINKFLAGS = $(FLINKFLAGS)\n");
++   fprintf(fpout, "   ARCHIVER = $(BLDdir)/war ar\n");
+    fprintf(fpout, "   ARFLAGS  = r\n");
+    if (OS == OSOSX && MachIsPPC(mach))
+       fprintf(fpout, "   RANLIB   = ranlib\n\n");
+diff -Naur ATLAS.orig/include/gentoo_libtool.inc ATLAS/include/gentoo_libtool.inc
+--- ATLAS.orig/include/gentoo_libtool.inc	1970-01-01 01:00:00.000000000 +0100
++++ ATLAS/include/gentoo_libtool.inc	2007-08-17 13:35:37.000000000 +0100
+@@ -0,0 +1,8 @@
++ICC:=$(LIBTOOL) --tag=CC $(ICC)
++SMC:=$(LIBTOOL) --tag=CC $(SMC)
++DMC:=$(LIBTOOL) --tag=CC $(DMC)
++SKC:=$(LIBTOOL) --tag=CC $(SKC)
++DKC:=$(LIBTOOL) --tag=CC $(DKC)
++XCC:=$(LIBTOOL) --tag=CC $(XCC)
++F77:=$(LIBTOOL) --tag=F77 $(F77)
++
+diff -Naur ATLAS.orig/makes/Make.aux ATLAS/makes/Make.aux
+--- ATLAS.orig/makes/Make.aux	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.aux	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/auxil
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ ptobj = ATL_ptflushcache.o
+ obj = ATL_flushcache.o ATL_cputime.o ATL_walltime.o ATL_xerbla.o ATL_lcm.o \
+       ATL_buildinfo.o ATL_ssyreflect.o ATL_sgemoveT.o ATL_sgemove.o \
+@@ -118,12 +120,16 @@
+ 
+ ATL_cputime.o : $(SYSdir)/ATL_cputime.o
+ 	cp $(SYSdir)/ATL_cputime.o ATL_cputime.o
++	ln -sf $(SYSdir)/ATL_cputime.lo ATL_cputime.lo
++	ln -sf $(SYSdir)/.libs/ATL_cputime.o .libs/ATL_cputime.o
+ $(SYSdir)/ATL_cputime.o: $(SYSdir)/ATL_cputime.c
+ 	cd $(SYSdir) ; $(MAKE) ATL_cputime.o
+ $(SYSdir)/ATL_cputime.c:
+ 	cd $(SYSdir) ; $(MAKE) ATL_cputime.o
+ ATL_walltime.o : $(SYSdir)/ATL_walltime.o
+ 	cp $(SYSdir)/ATL_walltime.o ATL_walltime.o
++	ln -sf $(SYSdir)/ATL_walltime.lo ATL_walltime.lo
++	ln -sf $(SYSdir)/.libs/ATL_walltime.o .libs/ATL_walltime.o
+ $(SYSdir)/ATL_walltime.o: $(SYSdir)/ATL_walltime.c
+ 	cd $(SYSdir) ; $(MAKE) ATL_walltime.o
+ $(SYSdir)/ATL_walltime.c:
+diff -Naur ATLAS.orig/makes/Make.bin ATLAS/makes/Make.bin
+--- ATLAS.orig/makes/Make.bin	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.bin	2007-08-17 13:35:37.000000000 +0100
+@@ -58,11 +58,11 @@
+ 	cd $(BLDdir)/src/blas/level3 ; $(MAKE) lib
+ 	cd $(BLDdir)/src/blas/pklevel3 ; $(MAKE) lib
+ 	cd $(BLDdir)/src/blas/reference/level3 ; $(MAKE) lib
+-	cd $(BLDdir)/src/lapack ; $(MAKE) lib
++#	cd $(BLDdir)/src/lapack ; $(MAKE) lib
+ 	cd $(BLDdir)/interfaces/blas/C/src ; $(MAKE) all
+ 	- cd $(BLDdir)/interfaces/blas/F77/src ; $(MAKE) lib
+-	cd $(BLDdir)/interfaces/lapack/C/src ; $(MAKE) lib
+-	- cd $(BLDdir)/interfaces/lapack/F77/src ; $(MAKE) lib
++#	cd $(BLDdir)/interfaces/lapack/C/src ; $(MAKE) lib
++#	- cd $(BLDdir)/interfaces/lapack/F77/src ; $(MAKE) lib
+ 
+ IPostTune:
+ 	cd $(L3Tdir) ; $(MAKE) res/atlas_trsmNB.h
+@@ -1079,7 +1079,7 @@
+ 	cd $(L1Bdir) ; $(MAKE) slvl1
+ 
+ slapack :
+-	cd $(BLDdir)/src/lapack ; $(MAKE) slib
++#	cd $(BLDdir)/src/lapack ; $(MAKE) slib
+ 
+ xsprintblk : sprintblk.o
+ 	$(CLINKER) -o $@ sprintblk.o $(ATLASlib)
+@@ -1972,7 +1972,7 @@
+ 	cd $(L1Bdir) ; $(MAKE) dlvl1
+ 
+ dlapack :
+-	cd $(BLDdir)/src/lapack ; $(MAKE) dlib
++#	cd $(BLDdir)/src/lapack ; $(MAKE) dlib
+ 
+ xdprintblk : dprintblk.o
+ 	$(CLINKER) -o $@ dprintblk.o $(ATLASlib)
+@@ -2865,7 +2865,7 @@
+ 	cd $(L1Bdir) ; $(MAKE) clvl1
+ 
+ clapack :
+-	cd $(BLDdir)/src/lapack ; $(MAKE) clib
++#	cd $(BLDdir)/src/lapack ; $(MAKE) clib
+ 
+ xcprintblk : cprintblk.o
+ 	$(CLINKER) -o $@ cprintblk.o $(ATLASlib)
+@@ -3758,7 +3758,7 @@
+ 	cd $(L1Bdir) ; $(MAKE) zlvl1
+ 
+ zlapack :
+-	cd $(BLDdir)/src/lapack ; $(MAKE) zlib
++#	cd $(BLDdir)/src/lapack ; $(MAKE) zlib
+ 
+ xzprintblk : zprintblk.o
+ 	$(CLINKER) -o $@ zprintblk.o $(ATLASlib)
+diff -Naur ATLAS.orig/makes/Make.cblas ATLAS/makes/Make.cblas
+--- ATLAS.orig/makes/Make.cblas	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.cblas	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/interfaces/blas/C/src/
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ aobj = cblas_xerbla.o cblas_errprn.o
+ sptlvl3obj = cblas_sptgemm.o cblas_sptsymm.o cblas_sptsyr2k.o cblas_sptsyrk.o \
+              cblas_spttrmm.o cblas_spttrsm.o
+diff -Naur ATLAS.orig/makes/Make.Clp ATLAS/makes/Make.Clp
+--- ATLAS.orig/makes/Make.Clp	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.Clp	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/interfaces/lapack/C/src
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ sobj = clapack_sgesv.o clapack_sgetrf.o clapack_sgetri.o clapack_sgetrs.o \
+        clapack_slauum.o clapack_sposv.o clapack_spotrf.o clapack_spotri.o \
+        clapack_spotrs.o clapack_strtri.o
+diff -Naur ATLAS.orig/makes/Make.f77blas ATLAS/makes/Make.f77blas
+--- ATLAS.orig/makes/Make.f77blas	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.f77blas	2007-08-17 13:35:37.000000000 +0100
+@@ -39,6 +39,9 @@
+ #
+ include Make.inc
+ mySRCdir = $(SRCdir)/interfaces/blas/F77/src
++
++include $(INCSdir)/gentoo_libtool.inc
++
+ #
+ ########################################################################
+ #
+diff -Naur ATLAS.orig/makes/Make.Flp ATLAS/makes/Make.Flp
+--- ATLAS.orig/makes/Make.Flp	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.Flp	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/interfaces/lapack/F77/src
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ sobj = ATL_f77wrap_sgesv.o ATL_f77wrap_sgetnb.o ATL_f77wrap_sgetrf.o \
+        ATL_f77wrap_sgetri.o ATL_f77wrap_sgetrs.o ATL_f77wrap_slauum.o \
+        ATL_f77wrap_sposv.o ATL_f77wrap_spotrf.o ATL_f77wrap_spotrs.o \
+diff -Naur ATLAS.orig/makes/Make.gpmm ATLAS/makes/Make.gpmm
+--- ATLAS.orig/makes/Make.gpmm	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.gpmm	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/pklevel3/gpmm
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ all : lib
+ lib : dlib slib zlib clib
+ clean : sclean dclean cclean zclean
+diff -Naur ATLAS.orig/makes/Make.l1ptblas ATLAS/makes/Make.l1ptblas
+--- ATLAS.orig/makes/Make.l1ptblas	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l1ptblas	2007-08-17 13:35:37.000000000 +0100
+@@ -1,3 +1,5 @@
++include $(INCSdir)/gentoo_libtool.inc
++
+ slib:
+ dlib:
+ clib:
+diff -Naur ATLAS.orig/makes/Make.l1ref ATLAS/makes/Make.l1ref
+--- ATLAS.orig/makes/Make.l1ref	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l1ref	2007-08-17 13:35:37.000000000 +0100
+@@ -39,6 +39,10 @@
+ #
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/reference/level1
++
++include $(INCSdir)/gentoo_libtool.inc
++
++
+ #
+ ########################################################################
+ #
+diff -Naur ATLAS.orig/makes/Make.l1src ATLAS/makes/Make.l1src
+--- ATLAS.orig/makes/Make.l1src	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l1src	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/level1
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ sobj = ATL_dsdot.o ATL_sdsdot.o ATL_srotg.o ATL_srotm.o ATL_srotmg.o
+ 
+ dobj = ATL_drotg.o ATL_drotm.o ATL_drotmg.o
+@@ -17,29 +19,29 @@
+ 
+ sgen :
+ 	$(MAKE) Make_srot
+-	$(MAKE) -f Make_srot lib
++	$(MAKE) -f Make_srot lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_saxpby
+-	$(MAKE) -f Make_saxpby lib
++	$(MAKE) -f Make_saxpby lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_scpsc
+-	$(MAKE) -f Make_scpsc lib
++	$(MAKE) -f Make_scpsc lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_sset
+-	$(MAKE) -f Make_sset lib
++	$(MAKE) -f Make_sset lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_snrm2
+-	$(MAKE) -f Make_snrm2 lib
++	$(MAKE) -f Make_snrm2 lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_sasum
+-	$(MAKE) -f Make_sasum lib
++	$(MAKE) -f Make_sasum lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_sdot
+-	$(MAKE) -f Make_sdot lib
++	$(MAKE) -f Make_sdot lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_sswap
+-	$(MAKE) -f Make_sswap lib
++	$(MAKE) -f Make_sswap lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_sscal
+-	$(MAKE) -f Make_sscal lib
++	$(MAKE) -f Make_sscal lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_scopy
+-	$(MAKE) -f Make_scopy lib
++	$(MAKE) -f Make_scopy lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_saxpy
+-	$(MAKE) -f Make_saxpy lib
++	$(MAKE) -f Make_saxpy lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_siamax
+-	$(MAKE) -f Make_siamax lib
++	$(MAKE) -f Make_siamax lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ slvl1 : slib
+ slib :   slib.grd
+ 	$(MAKE) sgen
+@@ -52,29 +54,29 @@
+ 	rm -f $(sobj) s*.grd
+ dgen :
+ 	$(MAKE) Make_drot
+-	$(MAKE) -f Make_drot lib
++	$(MAKE) -f Make_drot lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_daxpby
+-	$(MAKE) -f Make_daxpby lib
++	$(MAKE) -f Make_daxpby lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_dcpsc
+-	$(MAKE) -f Make_dcpsc lib
++	$(MAKE) -f Make_dcpsc lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_dset
+-	$(MAKE) -f Make_dset lib
++	$(MAKE) -f Make_dset lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_dnrm2
+-	$(MAKE) -f Make_dnrm2 lib
++	$(MAKE) -f Make_dnrm2 lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_dasum
+-	$(MAKE) -f Make_dasum lib
++	$(MAKE) -f Make_dasum lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_ddot
+-	$(MAKE) -f Make_ddot lib
++	$(MAKE) -f Make_ddot lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_dswap
+-	$(MAKE) -f Make_dswap lib
++	$(MAKE) -f Make_dswap lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_dscal
+-	$(MAKE) -f Make_dscal lib
++	$(MAKE) -f Make_dscal lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_dcopy
+-	$(MAKE) -f Make_dcopy lib
++	$(MAKE) -f Make_dcopy lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_daxpy
+-	$(MAKE) -f Make_daxpy lib
++	$(MAKE) -f Make_daxpy lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_diamax
+-	$(MAKE) -f Make_diamax lib
++	$(MAKE) -f Make_diamax lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ dlvl1 : dlib
+ dlib :   dlib.grd
+ 	$(MAKE) dgen
+@@ -87,31 +89,31 @@
+ 	rm -f $(dobj) d*.grd
+ cgen :
+ 	$(MAKE) Make_crot
+-	$(MAKE) -f Make_crot lib
++	$(MAKE) -f Make_crot lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_caxpby
+-	$(MAKE) -f Make_caxpby lib
++	$(MAKE) -f Make_caxpby lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_ccpsc
+-	$(MAKE) -f Make_ccpsc lib
++	$(MAKE) -f Make_ccpsc lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_cset
+-	$(MAKE) -f Make_cset lib
++	$(MAKE) -f Make_cset lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_cnrm2
+-	$(MAKE) -f Make_cnrm2 lib
++	$(MAKE) -f Make_cnrm2 lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_casum
+-	$(MAKE) -f Make_casum lib
++	$(MAKE) -f Make_casum lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_cdot
+-	$(MAKE) -f Make_cdot lib
++	$(MAKE) -f Make_cdot lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_cswap
+-	$(MAKE) -f Make_cswap lib
++	$(MAKE) -f Make_cswap lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_cscal
+-	$(MAKE) -f Make_cscal lib
++	$(MAKE) -f Make_cscal lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_ccopy
+-	$(MAKE) -f Make_ccopy lib
++	$(MAKE) -f Make_ccopy lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_caxpy
+-	$(MAKE) -f Make_caxpy lib
++	$(MAKE) -f Make_caxpy lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_ciamax
+-	$(MAKE) -f Make_ciamax lib
++	$(MAKE) -f Make_ciamax lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_cdotc
+-	$(MAKE) -f Make_cdotc lib
++	$(MAKE) -f Make_cdotc lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ clvl1 : clib
+ clib : slib clib.grd
+ 	$(MAKE) cgen
+@@ -124,31 +126,31 @@
+ 	rm -f $(cobj) c*.grd
+ zgen :
+ 	$(MAKE) Make_zrot
+-	$(MAKE) -f Make_zrot lib
++	$(MAKE) -f Make_zrot lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_zaxpby
+-	$(MAKE) -f Make_zaxpby lib
++	$(MAKE) -f Make_zaxpby lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_zcpsc
+-	$(MAKE) -f Make_zcpsc lib
++	$(MAKE) -f Make_zcpsc lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_zset
+-	$(MAKE) -f Make_zset lib
++	$(MAKE) -f Make_zset lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_znrm2
+-	$(MAKE) -f Make_znrm2 lib
++	$(MAKE) -f Make_znrm2 lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_zasum
+-	$(MAKE) -f Make_zasum lib
++	$(MAKE) -f Make_zasum lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_zdot
+-	$(MAKE) -f Make_zdot lib
++	$(MAKE) -f Make_zdot lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_zswap
+-	$(MAKE) -f Make_zswap lib
++	$(MAKE) -f Make_zswap lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_zscal
+-	$(MAKE) -f Make_zscal lib
++	$(MAKE) -f Make_zscal lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_zcopy
+-	$(MAKE) -f Make_zcopy lib
++	$(MAKE) -f Make_zcopy lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_zaxpy
+-	$(MAKE) -f Make_zaxpy lib
++	$(MAKE) -f Make_zaxpy lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_ziamax
+-	$(MAKE) -f Make_ziamax lib
++	$(MAKE) -f Make_ziamax lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(MAKE) Make_zdotc
+-	$(MAKE) -f Make_zdotc lib
++	$(MAKE) -f Make_zdotc lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ zlvl1 : zlib
+ zlib : dlib zlib.grd
+ 	$(MAKE) zgen
+diff -Naur ATLAS.orig/makes/Make.l1tune ATLAS/makes/Make.l1tune
+--- ATLAS.orig/makes/Make.l1tune	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l1tune	2007-08-17 13:35:37.000000000 +0100
+@@ -1221,7 +1221,7 @@
+ 	./xaxpysrch -p c
+ 	cp -f GEN/* $(L1Bdir)/.
+ ATL_caxpy_stub.o : $(mySRCdir)/AXPY/axpy_stub.c
+-	$(ICC) $(ICCFLAGS) -DSCPLX -c -o $@ $(mySRCdir)/AXPY/axpy_stub.c
++	$(LIBTOOL) --tag=CC $(ICC) $(ICCFLAGS) -DSCPLX -c -o $@ $(mySRCdir)/AXPY/axpy_stub.c
+ caxpytime.o : $(mySRCdir)/axpytime.c
+ 	$(ICC) $(ICCFLAGS) -o caxpytime.o -c -DSCPLX $(mySRCdir)/axpytime.c
+ caxpytest.o : $(mySRCdir)/axpytest.c tstlib.grd
+diff -Naur ATLAS.orig/makes/Make.l2 ATLAS/makes/Make.l2
+--- ATLAS.orig/makes/Make.l2	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l2	2007-08-17 13:35:37.000000000 +0100
+@@ -39,6 +39,9 @@
+ #
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/level2/
++
++include $(INCSdir)/gentoo_libtool.inc
++
+ #
+ ########################################################################
+ #
+diff -Naur ATLAS.orig/makes/Make.l2aux ATLAS/makes/Make.l2aux
+--- ATLAS.orig/makes/Make.l2aux	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l2aux	2007-08-17 13:35:37.000000000 +0100
+@@ -39,6 +39,9 @@
+ #
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/level2/kernel
++
++include $(INCSdir)/gentoo_libtool.inc
++
+ #
+ ########################################################################
+ #
+diff -Naur ATLAS.orig/makes/Make.l2kern ATLAS/makes/Make.l2kern
+--- ATLAS.orig/makes/Make.l2kern	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l2kern	2007-08-17 13:35:37.000000000 +0100
+@@ -1,5 +1,7 @@
+ include Make.inc
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ sobj = ATL_sgpmvUN_a1_x1_b0_y1.o ATL_sgpmvLN_a1_x1_b0_y1.o \
+             ATL_sgpmvUN_a1_x1_b1_y1.o ATL_sgpmvLN_a1_x1_b1_y1.o \
+             ATL_sgpmvUN_a1_x1_bX_y1.o ATL_sgpmvLN_a1_x1_bX_y1.o
+diff -Naur ATLAS.orig/makes/Make.l2ptblas ATLAS/makes/Make.l2ptblas
+--- ATLAS.orig/makes/Make.l2ptblas	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l2ptblas	2007-08-17 13:35:37.000000000 +0100
+@@ -1,3 +1,5 @@
++include $(INCSdir)/gentoo_libtool.inc
++
+ slib:
+ dlib:
+ clib:
+diff -Naur ATLAS.orig/makes/Make.l2ref ATLAS/makes/Make.l2ref
+--- ATLAS.orig/makes/Make.l2ref	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l2ref	2007-08-17 13:35:37.000000000 +0100
+@@ -39,6 +39,9 @@
+ #
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/reference/level2
++
++include $(INCSdir)/gentoo_libtool.inc
++
+ #
+ ########################################################################
+ # 
+diff -Naur ATLAS.orig/makes/Make.l2src ATLAS/makes/Make.l2src
+--- ATLAS.orig/makes/Make.l2src	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l2src	2007-08-17 13:35:37.000000000 +0100
+@@ -1,5 +1,7 @@
+ include Make.inc
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ sobj = ATL_sktrmvLNN.o ATL_sktrmvLNU.o ATL_sktrmvLTN.o ATL_sktrmvLTU.o \
+        ATL_sktrmvUNN.o ATL_sktrmvUNU.o ATL_sktrmvUTN.o ATL_sktrmvUTU.o \
+        ATL_strmv.o ATL_strmvLN.o ATL_strmvLT.o ATL_strmvUN.o ATL_strmvUT.o
+diff -Naur ATLAS.orig/makes/Make.l3 ATLAS/makes/Make.l3
+--- ATLAS.orig/makes/Make.l3	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l3	2007-08-17 13:35:37.000000000 +0100
+@@ -39,6 +39,9 @@
+ #
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/level3
++
++include $(INCSdir)/gentoo_libtool.inc
++
+ #
+ ########################################################################
+ #
+diff -Naur ATLAS.orig/makes/Make.l3aux ATLAS/makes/Make.l3aux
+--- ATLAS.orig/makes/Make.l3aux	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l3aux	2007-08-17 13:35:37.000000000 +0100
+@@ -39,6 +39,9 @@
+ #
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/level3/rblas
++
++include $(INCSdir)/gentoo_libtool.inc
++
+ #
+ ########################################################################
+ #
+diff -Naur ATLAS.orig/makes/Make.l3kern ATLAS/makes/Make.l3kern
+--- ATLAS.orig/makes/Make.l3kern	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l3kern	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/level3/kernel
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ sobj = ATL_ssycopyL_a1.o ATL_ssycopyL_aX.o ATL_ssycopyU_a1.o \
+        ATL_ssycopyU_aX.o ATL_ssymmLL.o ATL_ssymmLU.o ATL_ssymmRL.o \
+        ATL_ssymmRU.o ATL_ssyr2kLN.o ATL_ssyr2kLT.o ATL_ssyr2kUN.o \
+diff -Naur ATLAS.orig/makes/Make.l3ptblas ATLAS/makes/Make.l3ptblas
+--- ATLAS.orig/makes/Make.l3ptblas	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l3ptblas	2007-08-17 13:35:37.000000000 +0100
+@@ -40,6 +40,9 @@
+ #
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/pthreads/blas/level3
++
++include $(INCSdir)/gentoo_libtool.inc
++
+ #
+ ########################################################################
+ #
+diff -Naur ATLAS.orig/makes/Make.l3ref ATLAS/makes/Make.l3ref
+--- ATLAS.orig/makes/Make.l3ref	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l3ref	2007-08-17 13:35:37.000000000 +0100
+@@ -39,6 +39,9 @@
+ #
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/reference/level3
++
++include $(INCSdir)/gentoo_libtool.inc
++
+ #
+ ########################################################################
+ #
+diff -Naur ATLAS.orig/makes/Make.l3tune ATLAS/makes/Make.l3tune
+--- ATLAS.orig/makes/Make.l3tune	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.l3tune	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/tune/blas/level3
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ $(SYSdir)/time.o:
+ 	cd $(SYSdir) ; $(MAKE) time.o
+ 
+@@ -33,16 +35,16 @@
+ 
+ force_build :
+ 
+-res/atlas_trsmNB.h : xgen_trsmnb res/sTRSM_NB res/dTRSM_NB
+-	./xgen_trsmnb
+-	rm -f $(INCAdir)/atlas_trsmNB.h
+-	cp res/atlas_trsmNB.h $(INCAdir)/.
++res/atlas_trsmNB.h : 
++#	./xgen_trsmnb
++#	rm -f $(INCAdir)/atlas_trsmNB.h
++#	cp res/atlas_trsmNB.h $(INCAdir)/.
+ xgen_trsmnb : $(mySRCdir)/gen_trsmnb.c
+ 	$(XCC) $(XCCFLAGS) -o $@ $(mySRCdir)/gen_trsmnb.c
+ 
+ res/sTRSM_NB :
+-	$(MAKE) xsinvtrsm
+-	$(ATLRUN) $(L3Tdir) xsinvtrsm
++#	$(MAKE) xsinvtrsm
++#	$(ATLRUN) $(L3Tdir) xsinvtrsm
+ xsinvtrsm : sinvtrsm.o ATL_strsm.o 
+ 	$(MAKE) sbindep
+ 	$(FLINKER) $(FCLINKFLAGS) -o $@ sinvtrsm.o ATL_strsm.o \
+@@ -57,8 +59,8 @@
+ 	$(SKC) -o $@ -c $(sKCFLAGS) -DSREAL $(mySRCdir)/ATL_trsm.c
+ 
+ res/dTRSM_NB :
+-	$(MAKE) xdinvtrsm
+-	$(ATLRUN) $(L3Tdir) xdinvtrsm
++#	$(MAKE) xdinvtrsm
++#	$(ATLRUN) $(L3Tdir) xdinvtrsm
+ xdinvtrsm : dinvtrsm.o ATL_dtrsm.o 
+ 	$(MAKE) dbindep
+ 	$(FLINKER) $(FCLINKFLAGS) -o $@ dinvtrsm.o ATL_dtrsm.o \
+@@ -73,8 +75,8 @@
+ 	$(DKC) -o $@ -c $(dKCFLAGS) -DDREAL $(mySRCdir)/ATL_trsm.c
+ 
+ res/cTRSM_NB :
+-	$(MAKE) xcinvtrsm
+-	$(ATLRUN) $(L3Tdir) xcinvtrsm
++#	$(MAKE) xcinvtrsm
++#	$(ATLRUN) $(L3Tdir) xcinvtrsm
+ xcinvtrsm : cinvtrsm.o ATL_ctrsm.o 
+ 	$(MAKE) cbindep
+ 	$(FLINKER) $(FCLINKFLAGS) -o $@ cinvtrsm.o ATL_ctrsm.o \
+@@ -89,8 +91,8 @@
+ 	$(CKC) -o $@ -c $(cKCFLAGS) -DSCPLX $(mySRCdir)/ATL_trsm.c
+ 
+ res/zTRSM_NB :
+-	$(MAKE) xzinvtrsm
+-	$(ATLRUN) $(L3Tdir) xzinvtrsm
++#	$(MAKE) xzinvtrsm
++#	$(ATLRUN) $(L3Tdir) xzinvtrsm
+ xzinvtrsm : zinvtrsm.o ATL_ztrsm.o 
+ 	$(MAKE) zbindep
+ 	$(FLINKER) $(FCLINKFLAGS) -o $@ zinvtrsm.o ATL_ztrsm.o \
+diff -Naur ATLAS.orig/makes/Make.lpsrc ATLAS/makes/Make.lpsrc
+--- ATLAS.orig/makes/Make.lpsrc	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.lpsrc	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/lapack
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ all : lib
+ lib : dlib slib zlib clib
+ clean : sclean dclean cclean zclean
+diff -Naur ATLAS.orig/makes/Make.miptblas ATLAS/makes/Make.miptblas
+--- ATLAS.orig/makes/Make.miptblas	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.miptblas	2007-08-17 13:35:37.000000000 +0100
+@@ -39,6 +39,9 @@
+ #
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/pthreads/misc
++
++include $(INCSdir)/gentoo_libtool.inc
++
+ #
+ ########################################################################
+ #
+diff -Naur ATLAS.orig/makes/Make.mmsrc ATLAS/makes/Make.mmsrc
+--- ATLAS.orig/makes/Make.mmsrc	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.mmsrc	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/gemm
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ $(INCAdir)/atlas_type.h :
+ 	cd $(SYSdir) ; $(MAKE) RunTyp
+ 
+@@ -82,7 +84,7 @@
+ sclean :
+ 	rm -f $(sobj) s*.grd
+ scleanuplib :
+-	cd KERNEL ; $(MAKE) -f sMakefile slib
++	cd KERNEL ; $(MAKE) -f sMakefile slib ICC="$(ICC)"
+ 
+ slib : 
+ 	$(MAKE) auxillib scleanuplib susergemm
+@@ -223,7 +225,7 @@
+ dclean :
+ 	rm -f $(dobj) d*.grd
+ dcleanuplib :
+-	cd KERNEL ; $(MAKE) -f dMakefile dlib
++	cd KERNEL ; $(MAKE) -f dMakefile dlib ICC="$(ICC)"
+ 
+ dlib : 
+ 	$(MAKE) auxillib dcleanuplib dusergemm
+@@ -364,7 +366,7 @@
+ cclean :
+ 	rm -f $(cobj) c*.grd
+ ccleanuplib :
+-	cd KERNEL ; $(MAKE) -f cMakefile clib
++	cd KERNEL ; $(MAKE) -f cMakefile clib ICC="$(ICC)"
+ 
+ clib : 
+ 	$(MAKE) auxillib ccleanuplib cusergemm
+@@ -616,7 +618,7 @@
+ zclean :
+ 	rm -f $(zobj) z*.grd
+ zcleanuplib :
+-	cd KERNEL ; $(MAKE) -f zMakefile zlib
++	cd KERNEL ; $(MAKE) -f zMakefile zlib ICC="$(ICC)"
+ 
+ zlib : 
+ 	$(MAKE) auxillib zcleanuplib zusergemm
+diff -Naur ATLAS.orig/makes/Make.mvsrc ATLAS/makes/Make.mvsrc
+--- ATLAS.orig/makes/Make.mvsrc	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.mvsrc	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/gemv
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ sobj = ATL_sgemv.o
+ 
+ dobj = ATL_dgemv.o
+@@ -19,7 +21,7 @@
+ clean : sclean dclean cclean zclean
+ 
+ dlib : 
+-	$(PMAKE) -f Make_dmv dlib
++	$(PMAKE) -f Make_dmv dlib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(PMAKE) dlib.grd
+ dlib.grd : $(dobj)
+ 	$(ARCHIVER) $(ARFLAGS) $(ATLASlib) $(dobj)
+@@ -28,7 +30,7 @@
+ dclean : 
+ 	rm -f $(dobj) d*.grd
+ slib : 
+-	$(PMAKE) -f Make_smv slib
++	$(PMAKE) -f Make_smv slib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(PMAKE) slib.grd
+ slib.grd : $(sobj)
+ 	$(ARCHIVER) $(ARFLAGS) $(ATLASlib) $(sobj)
+@@ -37,7 +39,7 @@
+ sclean : 
+ 	rm -f $(sobj) s*.grd
+ clib : 
+-	$(PMAKE) -f Make_cmv clib
++	$(PMAKE) -f Make_cmv clib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(PMAKE) clib.grd
+ clib.grd : $(cobj)
+ 	$(ARCHIVER) $(ARFLAGS) $(ATLASlib) $(cobj)
+@@ -46,7 +48,7 @@
+ cclean : 
+ 	rm -f $(cobj) c*.grd
+ zlib : 
+-	$(PMAKE) -f Make_zmv zlib
++	$(PMAKE) -f Make_zmv zlib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ 	$(PMAKE) zlib.grd
+ zlib.grd : $(zobj)
+ 	$(ARCHIVER) $(ARFLAGS) $(ATLASlib) $(zobj)
+diff -Naur ATLAS.orig/makes/Make.mvtune ATLAS/makes/Make.mvtune
+--- ATLAS.orig/makes/Make.mvtune	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.mvtune	2007-08-17 13:35:37.000000000 +0100
+@@ -178,26 +178,26 @@
+ sgemvtune.o : $(mySRCdir)/gemvtune.c
+ 	$(ICC) -c $(ICCFLAGS) -o $@ -DSREAL $(mySRCdir)/gemvtune.c
+ ATL_ssymv.o : $(mySRCdir)/ATL_symv.c atlas_smvN.h atlas_smvS.h
+-	$(SKC) -c -I$(MVTdir) $(sKCFLAGS) -o $@ -DSREAL $(mySRCdir)/ATL_symv.c
++	$(LIBTOOL) --tag=CC $(SKC) -c -I$(MVTdir) $(sKCFLAGS) -o $@ -DSREAL $(mySRCdir)/ATL_symv.c
+ ATL_sgemv.o : ATL_gemv.c atlas_smv.h atlas_smvN.h atlas_smvT.h
+-	$(SKC) -c -I$(MVTdir) $(sKCFLAGS) -o $@ -DSREAL ATL_gemv.c
++	$(LIBTOOL) --tag=CC $(SKC) -c -I$(MVTdir) $(sKCFLAGS) -o $@ -DSREAL ATL_gemv.c
+ ATL_sgemvN_b0.o : ATL_sgemvN.c
+-	$(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
++	$(LIBTOOL) --tag=CC $(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
+               -DSREAL -DBETA0 -DALPHA1 ATL_sgemvN.c
+ ATL_sgemvN_b1.o : ATL_sgemvN.c
+-	$(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
++	$(LIBTOOL) --tag=CC $(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
+               -DSREAL -DBETA1 -DALPHA1 ATL_sgemvN.c
+ ATL_sgemvN_bX.o : ATL_sgemvN.c
+-	$(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
++	$(LIBTOOL) --tag=CC $(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
+               -DSREAL -DBETAX -DALPHA1 ATL_sgemvN.c
+ ATL_sgemvT_b0.o : ATL_sgemvT.c
+-	$(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
++	$(LIBTOOL) --tag=CC $(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
+               -DSREAL -DBETA0 -DALPHA1 ATL_sgemvT.c
+ ATL_sgemvT_b1.o : ATL_sgemvT.c
+-	$(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
++	$(LIBTOOL) --tag=CC $(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
+               -DSREAL -DBETA1 -DALPHA1 ATL_sgemvT.c
+ ATL_sgemvT_bX.o : ATL_sgemvT.c
+-	$(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
++	$(LIBTOOL) --tag=CC $(sMVCC) -c -I$(MVTdir) $(sMVFLAGS) $(CDEFS) $(EXTFLAGS) -o $@ \
+               -DSREAL -DBETAX -DALPHA1 ATL_sgemvT.c
+ 
+ res/sMVRES : xmvsearch force_build
+diff -Naur ATLAS.orig/makes/Make.pkl3 ATLAS/makes/Make.pkl3
+--- ATLAS.orig/makes/Make.pkl3	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.pkl3	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/pklevel3
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ all : lib
+ lib : dlib slib zlib clib
+ clean : sclean dclean cclean zclean
+diff -Naur ATLAS.orig/makes/Make.r1src ATLAS/makes/Make.r1src
+--- ATLAS.orig/makes/Make.r1src	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.r1src	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/ger
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ sobj = ATL_sger.o
+ dobj = ATL_dger.o
+ cobj = ATL_cgeru.o ATL_cgerc.o
+@@ -17,7 +19,7 @@
+ 
+ dlib :
+ 	$(PMAKE) dlib.grd
+-	$(PMAKE) -f Make_dr1 lib
++	$(PMAKE) -f Make_dr1 lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ dlib.grd : $(dobj)
+ 	$(ARCHIVER) $(ARFLAGS) $(ATLASlib) $(dobj)
+ 	$(RANLIB) $(ATLASlib)
+@@ -26,7 +28,7 @@
+ 	rm -f $(dobj) d*.grd
+ slib :
+ 	$(PMAKE) slib.grd
+-	$(PMAKE) -f Make_sr1 lib
++	$(PMAKE) -f Make_sr1 lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ slib.grd : $(sobj)
+ 	$(ARCHIVER) $(ARFLAGS) $(ATLASlib) $(sobj)
+ 	$(RANLIB) $(ATLASlib)
+@@ -35,7 +37,7 @@
+ 	rm -f $(sobj) s*.grd
+ clib :
+ 	$(PMAKE) clib.grd
+-	$(PMAKE) -f Make_cr1 lib
++	$(PMAKE) -f Make_cr1 lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ clib.grd : $(cobj)
+ 	$(ARCHIVER) $(ARFLAGS) $(ATLASlib) $(cobj)
+ 	$(RANLIB) $(ATLASlib)
+@@ -44,7 +46,7 @@
+ 	rm -f $(cobj) c*.grd
+ zlib :
+ 	$(PMAKE) zlib.grd
+-	$(PMAKE) -f Make_zr1 lib
++	$(PMAKE) -f Make_zr1 lib ICC="$(ICC)" SKC="$(SKC)" DKC="$(DKC)"
+ zlib.grd : $(zobj)
+ 	$(ARCHIVER) $(ARFLAGS) $(ATLASlib) $(zobj)
+ 	$(RANLIB) $(ATLASlib)
+diff -Naur ATLAS.orig/makes/Make.r1tune ATLAS/makes/Make.r1tune
+--- ATLAS.orig/makes/Make.r1tune	2007-08-10 16:57:41.000000000 +0100
++++ ATLAS/makes/Make.r1tune	2007-08-17 13:35:37.000000000 +0100
+@@ -74,12 +74,12 @@
+ ATL_sger.o : ATL_ger.c atlas_sr1.h
+ 	$(ICC) -c $(ICCFLAGS) -o $@ -DSREAL -I$(R1Tdir) ATL_ger.c
+ ATL_sger1.o : ATL_sger1.c
+-	$(sR1CC) -c $(CDEFS) $(sR1CFLAGS) -I$(R1Tdir) -o $@ -DSREAL ATL_sger1.c
++	$(LIBTOOL) --tag=CC $(sR1CC) -c $(CDEFS) $(sR1CFLAGS) -I$(R1Tdir) -o $@ -DSREAL ATL_sger1.c
+ ATL_sger1c.o : ATL_sger1.c
+-	$(sR1CC) -c $(CDEFS) $(sR1CFLAGS) -I$(R1Tdir) -o $@ -DSREAL -DConj_ \
++	$(LIBTOOL) --tag=CC $(sR1CC) -c $(CDEFS) $(sR1CFLAGS) -I$(R1Tdir) -o $@ -DSREAL -DConj_ \
+               ATL_sger1.c
+ ATL_sger1_dummy.o : ATL_sger1_dummy.c
+-	$(ICC) -c $(ICCFLAGS) -I$(R1Tdir) -o $@ -DSREAL ATL_sger1_dummy.c
++	$(LIBTOOL) --tag=CC $(ICC) -c $(ICCFLAGS) -I$(R1Tdir) -o $@ -DSREAL ATL_sger1_dummy.c
+ 
+ res/sR1RES : xr1search force_build
+ 	./xr1search -p s
+@@ -177,14 +177,14 @@
+ cger1tune.o : $(mySRCdir)/ger1tune.c
+ 	$(ICC) -c $(ICCFLAGS) -o $@ -DSCPLX $(mySRCdir)/ger1tune.c
+ ATL_cger.o : ATL_ger.c atlas_cr1.h
+-	$(ICC) -c $(ICCFLAGS) -o $@ -DSCPLX -I$(R1Tdir) ATL_ger.c
++	$(LIBTOOL) --tag=CC $(ICC) -c $(ICCFLAGS) -o $@ -DSCPLX -I$(R1Tdir) ATL_ger.c
+ ATL_cger1.o : ATL_cger1.c
+-	$(cR1CC) -c $(CDEFS) $(cR1CFLAGS) -I$(R1Tdir) -o $@ -DSCPLX ATL_cger1.c
++	$(LIBTOOL) --tag=CC $(cR1CC) -c $(CDEFS) $(cR1CFLAGS) -I$(R1Tdir) -o $@ -DSCPLX ATL_cger1.c
+ ATL_cger1c.o : ATL_cger1.c
+-	$(cR1CC) -c $(CDEFS) $(cR1CFLAGS) -I$(R1Tdir) -o $@ -DSCPLX -DConj_ \
++	$(LIBTOOL) --tag=CC $(cR1CC) -c $(CDEFS) $(cR1CFLAGS) -I$(R1Tdir) -o $@ -DSCPLX -DConj_ \
+               ATL_cger1.c
+ ATL_cger1_dummy.o : ATL_cger1_dummy.c
+-	$(ICC) -c $(ICCFLAGS) -I$(R1Tdir) -o $@ -DSCPLX ATL_cger1_dummy.c
++	$(LIBTOOL) --tag=CC $(ICC) -c $(ICCFLAGS) -I$(R1Tdir) -o $@ -DSCPLX ATL_cger1_dummy.c
+ 
+ res/cR1RES : xr1search force_build
+ 	./xr1search -p c
+@@ -230,14 +230,14 @@
+ zger1tune.o : $(mySRCdir)/ger1tune.c
+ 	$(ICC) -c $(ICCFLAGS) -o $@ -DDCPLX $(mySRCdir)/ger1tune.c
+ ATL_zger.o : ATL_ger.c atlas_zr1.h
+-	$(ICC) -c $(ICCFLAGS) -o $@ -DDCPLX -I$(R1Tdir) ATL_ger.c
++	$(LIBTOOL) --tag=CC $(ICC) -c $(ICCFLAGS) -o $@ -DDCPLX -I$(R1Tdir) ATL_ger.c
+ ATL_zger1.o : ATL_zger1.c
+-	$(zR1CC) -c $(CDEFS) $(zR1CFLAGS) -I$(R1Tdir) -o $@ -DDCPLX ATL_zger1.c
++	$(LIBTOOL) --tag=CC $(zR1CC) -c $(CDEFS) $(zR1CFLAGS) -I$(R1Tdir) -o $@ -DDCPLX ATL_zger1.c
+ ATL_zger1c.o : ATL_zger1.c
+-	$(zR1CC) -c $(CDEFS) $(zR1CFLAGS) -I$(R1Tdir) -o $@ -DDCPLX -DConj_ \
++	$(LIBTOOL) --tag=CC $(zR1CC) -c $(CDEFS) $(zR1CFLAGS) -I$(R1Tdir) -o $@ -DDCPLX -DConj_ \
+               ATL_zger1.c
+ ATL_zger1_dummy.o : ATL_zger1_dummy.c
+-	$(ICC) -c $(ICCFLAGS) -I$(R1Tdir) -o $@ -DDCPLX ATL_zger1_dummy.c
++	$(LIBTOOL) --tag=CC $(ICC) -c $(ICCFLAGS) -I$(R1Tdir) -o $@ -DDCPLX ATL_zger1_dummy.c
+ 
+ res/zR1RES : xr1search force_build
+ 	./xr1search -p z
+diff -Naur ATLAS.orig/makes/Make.sprk ATLAS/makes/Make.sprk
+--- ATLAS.orig/makes/Make.sprk	2007-08-10 16:57:42.000000000 +0100
++++ ATLAS/makes/Make.sprk	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/blas/pklevel3/sprk
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ all : lib
+ lib : dlib slib zlib clib
+ clean : sclean dclean cclean zclean
+diff -Naur ATLAS.orig/makes/Make.sysinfo ATLAS/makes/Make.sysinfo
+--- ATLAS.orig/makes/Make.sysinfo	2007-08-10 16:57:42.000000000 +0100
++++ ATLAS/makes/Make.sysinfo	2007-08-17 13:35:37.000000000 +0100
+@@ -111,12 +111,12 @@
+ ATL_cputime.c : 
+ 	cp $(mySRCdir)/ATL_cputime.c .
+ ATL_cputime.o : ATL_cputime.c
+-	$(ICC) -c $(ICCFLAGS) ATL_cputime.c
++	$(LIBTOOL) --tag=CC $(ICC) -c $(ICCFLAGS) ATL_cputime.c
+ 
+ ATL_walltime.c : 
+ 	cp $(mySRCdir)/ATL_walltime.c .
+ ATL_walltime.o : ATL_walltime.c
+-	$(ICC) -c $(ICCFLAGS) ATL_walltime.c
++	$(LIBTOOL) --tag=CC $(ICC) -c $(ICCFLAGS) ATL_walltime.c
+ 
+ ATL_Xwalltime.o : ATL_walltime.o
+ 	$(XCC) $(XCCFLAGS) -c -o ATL_Xwalltime.o ATL_walltime.c
+diff -Naur ATLAS.orig/makes/Make.tstsrc ATLAS/makes/Make.tstsrc
+--- ATLAS.orig/makes/Make.tstsrc	2007-08-10 16:57:42.000000000 +0100
++++ ATLAS/makes/Make.tstsrc	2007-08-17 13:35:37.000000000 +0100
+@@ -1,6 +1,8 @@
+ include Make.inc
+ mySRCdir = $(SRCdir)/src/testing
+ 
++include $(INCSdir)/gentoo_libtool.inc
++
+ INCdep = $(INCSdir)/atlas_misc.h $(INCSdir)/atlas_f77.h \
+          $(INCSdir)/atlas_tst.h
+ INCdep1 = $(INCSdir)/atlas_misc.h $(INCSdir)/atlas_tst.h
+diff -Naur ATLAS.orig/Make.top ATLAS/Make.top
+--- ATLAS.orig/Make.top	2007-08-10 16:57:40.000000000 +0100
++++ ATLAS/Make.top	2007-08-17 13:35:37.000000000 +0100
+@@ -24,6 +24,75 @@
+ 	- fgrep -e fault -e FAULT -e error -e ERROR -e fail -e FAIL \
+ 	        bin/sanity.out
+ 	@ echo "DONE"
++
++
++shared: INSTALLER = cp
++shared: libatlas.so libblas.so libcblas.so
++
++shared-strip: INSTALLER = install -s
++shared-strip: libatlas.so libblas.so libcblas.so
++
++ptshared: INSTALLER = cp
++ptshared: libptblas.so libptcblas.so
++
++ptshared-strip: INSTALLER = install -s
++ptshared-strip: libptblas.so libptcblas.so
++
++libatlas.so:
++	mkdir -p gentoo/libs
++	@echo
++	@echo Linking a really big library, please be patient...
++	@echo
++	cd gentoo/libatlas.a ; \
++	libtool --mode=link --tag=CC $(CC)  $(LIBS) -o libatlas.la \
++		*.lo -rpath /usr/$(LIBDIR) ; \
++	libtool --mode=install $(INSTALLER) libatlas.la $(BLDdir)/gentoo/libs
++
++libblas.so:
++	cd gentoo/libf77blas.a ; \
++       	libtool --mode=link --tag=CC $(CC) $(F77SYSLIB) -o libblas.la \
++       		../libs/libatlas.la *.lo -rpath $(RPATH); \
++	rm -f .libs/libblas.so.0.0.0; \
++	$(CC) -shared .libs/*.o $(LDFLAGS) $(F77SYSLIB) $(BLDdir)/gentoo/libs/libatlas.so \
++       	      -Wl,-soname -Wl,libblas.so.0 -o .libs/libblas.so.0.0.0; \
++	libtool --mode=install $(INSTALLER) libblas.la $(BLDdir)/gentoo/libs
++
++libcblas.so:
++	cd gentoo/libcblas.a ; \
++       	libtool --mode=link --tag=CC $(CC) $(F77SYSLIB) -o libcblas.la \
++		../libs/libatlas.la *.lo -rpath $(RPATH) ; \
++       	rm -f .libs/libcblas.so.0.0.0; \
++       	$(CC) -shared .libs/*.o $(LDFLAGS) $(F77SYSLIB) $(BLDdir)/gentoo/libs/libatlas.so \
++	       -Wl,-soname -Wl,libcblas.so.0 -o .libs/libcblas.so.0.0.0; \
++       libtool --mode=install $(INSTALLER) libcblas.la $(BLDdir)/gentoo/libs
++
++libptblas.so:
++	mkdir -p gentoo/threaded-libs
++	cd gentoo/libptf77blas.a ; \
++	libtool --mode=link --tag=CC $(CC) $(F77SYSLIB) -o libblas.la \
++		../libs/libatlas.la *.lo -rpath $(RPATH); \
++	rm -f .libs/libblas.so.0.0.0; \
++	$(CC) -shared .libs/*.o  $(F77SYSLIB) $(BLDdir)/gentoo/libs/libatlas.so \
++	      -Wl,-soname -Wl,libblas.so.0 -o .libs/libblas.so.0.0.0; \
++	libtool --mode=install $(INSTALLER) libblas.la $(BLDdir)/gentoo/threaded-libs
++
++libptcblas.so:
++	cd gentoo/libptcblas.a ; \
++	libtool --mode=link --tag=CC $(CC) $(F77SYSLIB) -o libcblas.la \
++		../libs/libatlas.la *.lo -rpath $(RPATH); \
++       	rm -f .libs/libcblas.so.0.0.0; \
++       	$(CC) -shared .libs/*.o  $(F77SYSLIB) $(BLDdir)/gentoo/libs/libatlas.so \
++	      -Wl,-soname -Wl,libcblas.so.0 -o .libs/libcblas.so.0.0.0; \
++       	libtool --mode=install $(INSTALLER) libcblas.la $(BLDdir)/gentoo/threaded-libs
++
++liblapack.so:
++	mkdir -p gentoo/libs
++	cd gentoo/liblapack.a ; \
++       	libtool --mode=link --tag=CC $(CC) $(F77SYSLIB) -o liblapack.la \
++                *.lo -rpath $(RPATH) -lblas -lcblas -latlas ; \
++	libtool --mode=install $(INSTALLER) liblapack.la $(BLDdir)/gentoo/libs
++
++
+ sanity_test :
+ 	@ echo "BUILDING TESTERS:"
+ 	cd bin ; $(MAKE) sanity_test
+diff -Naur ATLAS.orig/tune/blas/gemm/emit_mm.c ATLAS/tune/blas/gemm/emit_mm.c
+--- ATLAS.orig/tune/blas/gemm/emit_mm.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/gemm/emit_mm.c	2007-08-17 13:35:37.000000000 +0100
+@@ -2606,6 +2606,12 @@
+    assert(fp);
+ 
+    fprintf(fp, "include ../Make.inc\n\n");
++   fprintf(fp, "ICC:=$(LIBTOOL) --tag=CC $(ICC)\n\n");
++   fprintf(fp, "SMC:=$(LIBTOOL) --tag=CC $(SMC)\n\n");
++   fprintf(fp, "DMC:=$(LIBTOOL) --tag=CC $(DMC)\n\n");
++   fprintf(fp, "SKC:=$(LIBTOOL) --tag=CC $(SKC)\n\n");
++   fprintf(fp, "DKC:=$(LIBTOOL) --tag=CC $(DKC)\n\n");
++   fprintf(fp, "XCC:=$(LIBTOOL) --tag=CC $(XCC)\n\n");
+    fprintf(fp, "CDEFS2 = $(CDEFS)");
+    for (i=0; i < 3; i++)
+       if (cp[i]) fprintf(fp, " -DATL_UCLEAN%c", cwh[i]);
+@@ -2685,7 +2691,7 @@
+                              wp->NBs[k], wp->imult, wp->fixed, betas[j]);
+                   else sprintf(fnam, "ATL_%cNBmm_b%c", pre, betas[j]);
+                      fprintf(fp, "%s.o : %s.c \n", fnam, fnam);
+-                  fprintf(fp, "\t%s $(CDEFS2) -DATL_BETA=%c -c %s %s.c\n",
++		     fprintf(fp, "\t$(LIBTOOL) --tag=CC %s $(CDEFS2) -DATL_BETA=%c -c %s %s.c\n",
+                           wp->CC, betas[j], wp->CCFLAGS, fnam);
+                }
+             }
+diff -Naur ATLAS.orig/tune/blas/gemv/mvsearch.c ATLAS/tune/blas/gemv/mvsearch.c
+--- ATLAS.orig/tune/blas/gemv/mvsearch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/gemv/mvsearch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -512,7 +512,7 @@
+    fprintf(fp, "include Make.inc\n\n");
+ 
+    if (ccN[0] == '\0') fprintf(fp, "MVNCC = $(%cKC)\n", UPR);
+-   else fprintf(fp, "MVNCC = %s\n", ccN);
++   else fprintf(fp, "MVNCC = $(LIBTOOL) --tag=CC %s\n", ccN);
+    if (ccN[0] == '\0' && ccflagsN[0] != '\0')
+       fprintf(fp, "MVNFLAGS = $(CDEFS) $(%cKCFLAGS) %s -D%s\n",
+               UPR, ccflagsN, typ);
+@@ -526,7 +526,7 @@
+    }
+ 
+    if (ccT[0] == '\0') fprintf(fp, "MVTCC = $(%cKC)\n", UPR);
+-   else fprintf(fp, "MVTCC = %s\n", ccT);
++   else fprintf(fp, "MVTCC = $(LIBTOOL) --tag=CC %s\n", ccT);
+    if (ccT[0] == '\0' && ccflagsT[0] != '\0')
+       fprintf(fp, "MVTFLAGS = $(CDEFS) $(%cKCFLAGS) %s -D%s\n",
+               UPR, ccflagsT, typ);
+@@ -540,7 +540,7 @@
+    }
+ 
+    if (ccS[0] == '\0') fprintf(fp, "MVSCC = $(%cKC)\n", UPR);
+-   else fprintf(fp, "MVSCC = %s\n", ccS);
++   else fprintf(fp, "MVSCC = $(LIBTOOL) --tag=CC %s\n", ccS);
+    if (ccS[0] == '\0' && ccflagsS[0] != '\0')
+       fprintf(fp, "MVSFLAGS = $(CDEFS) $(%cKCFLAGS) %s -D%s",
+               UPR, ccflagsS, typ);
+diff -Naur ATLAS.orig/tune/blas/level1/asumsrch.c ATLAS/tune/blas/level1/asumsrch.c
+--- ATLAS.orig/tune/blas/level1/asumsrch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/asumsrch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -159,6 +159,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -180,7 +181,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++        /* Gentoo         pcc = cc; */
++	 strcpy(temp, "$(LIBTOOL) --tag=CC ");
++	 strcat(temp, cc);
++	 pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;
+diff -Naur ATLAS.orig/tune/blas/level1/axpbysrch.c ATLAS/tune/blas/level1/axpbysrch.c
+--- ATLAS.orig/tune/blas/level1/axpbysrch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/axpbysrch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -159,6 +159,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -188,7 +189,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++         /* Gentoo         pcc = cc; */
++         strcpy(temp, "$(LIBTOOL) --tag=CC ");
++         strcat(temp, cc);
++         pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;
+diff -Naur ATLAS.orig/tune/blas/level1/axpysrch.c ATLAS/tune/blas/level1/axpysrch.c
+--- ATLAS.orig/tune/blas/level1/axpysrch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/axpysrch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -159,6 +159,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -186,7 +187,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++         /* Gentoo         pcc = cc; */
++         strcpy(temp, "$(LIBTOOL) --tag=CC ");
++         strcat(temp, cc);
++         pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;
+diff -Naur ATLAS.orig/tune/blas/level1/copysrch.c ATLAS/tune/blas/level1/copysrch.c
+--- ATLAS.orig/tune/blas/level1/copysrch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/copysrch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -159,6 +159,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -180,7 +181,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++         /* Gentoo         pcc = cc; */
++	 strcpy(temp, "$(LIBTOOL) --tag=CC ");
++	 strcat(temp, cc);
++	 pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;
+diff -Naur ATLAS.orig/tune/blas/level1/cpscsrch.c ATLAS/tune/blas/level1/cpscsrch.c
+--- ATLAS.orig/tune/blas/level1/cpscsrch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/cpscsrch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -159,6 +159,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -186,7 +187,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++         /* Gentoo         pcc = cc; */
++         strcpy(temp, "$(LIBTOOL) --tag=CC ");
++         strcat(temp, cc);
++         pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;
+diff -Naur ATLAS.orig/tune/blas/level1/dotsrch.c ATLAS/tune/blas/level1/dotsrch.c
+--- ATLAS.orig/tune/blas/level1/dotsrch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/dotsrch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -161,6 +161,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -182,7 +183,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++         /* Gentoo         pcc = cc; */
++         strcpy(temp, "$(LIBTOOL) --tag=CC ");
++         strcat(temp, cc);
++         pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;
+diff -Naur ATLAS.orig/tune/blas/level1/iamaxsrch.c ATLAS/tune/blas/level1/iamaxsrch.c
+--- ATLAS.orig/tune/blas/level1/iamaxsrch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/iamaxsrch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -159,6 +159,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -179,7 +180,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++         /* Gentoo         pcc = cc; */
++	 strcpy(temp, "$(LIBTOOL) --tag=CC ");
++	 strcat(temp, cc);
++	 pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;
+diff -Naur ATLAS.orig/tune/blas/level1/nrm2srch.c ATLAS/tune/blas/level1/nrm2srch.c
+--- ATLAS.orig/tune/blas/level1/nrm2srch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/nrm2srch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -159,6 +159,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -180,7 +181,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++         /* Gentoo         pcc = cc; */
++         strcpy(temp, "$(LIBTOOL) --tag=CC ");
++         strcat(temp, cc);
++         pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;
+diff -Naur ATLAS.orig/tune/blas/level1/rotsrch.c ATLAS/tune/blas/level1/rotsrch.c
+--- ATLAS.orig/tune/blas/level1/rotsrch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/rotsrch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -159,6 +159,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -189,7 +190,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++         /* Gentoo         pcc = cc; */
++         strcpy(temp, "$(LIBTOOL) --tag=CC ");
++         strcat(temp, cc);
++         pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;
+diff -Naur ATLAS.orig/tune/blas/level1/scalsrch.c ATLAS/tune/blas/level1/scalsrch.c
+--- ATLAS.orig/tune/blas/level1/scalsrch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/scalsrch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -159,6 +159,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -187,7 +188,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++         /* Gentoo         pcc = cc; */
++         strcpy(temp, "$(LIBTOOL) --tag=CC ");
++         strcat(temp, cc);
++         pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;
+diff -Naur ATLAS.orig/tune/blas/level1/setsrch.c ATLAS/tune/blas/level1/setsrch.c
+--- ATLAS.orig/tune/blas/level1/setsrch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/setsrch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -159,6 +159,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -181,7 +182,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++         /* Gentoo         pcc = cc; */
++	 strcpy(temp, "$(LIBTOOL) --tag=CC ");
++	 strcat(temp, cc);
++	 pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;
+diff -Naur ATLAS.orig/tune/blas/level1/swapsrch.c ATLAS/tune/blas/level1/swapsrch.c
+--- ATLAS.orig/tune/blas/level1/swapsrch.c	2007-08-10 16:58:24.000000000 +0100
++++ ATLAS/tune/blas/level1/swapsrch.c	2007-08-17 13:35:37.000000000 +0100
+@@ -159,6 +159,7 @@
+    FILE *fpin;
+    FILENODE *fbase, *fn, *fp=NULL;
+    char ln[512], rout[256], auth[256], cc[256], ccflags[256];
++   char temp[256];
+    char *pcc, *pccflags;
+    int i, n, ID, alpha, beta, incX, incY;
+ 
+@@ -180,7 +181,10 @@
+          assert(fgets(ccflags, 512, fpin) != NULL);
+          FixFlags(cc);
+          FixFlags(ccflags);
+-         pcc = cc;
++         /* Gentoo         pcc = cc; */
++         strcpy(temp, "$(LIBTOOL) --tag=CC ");
++         strcat(temp, cc);
++         pcc = temp;
+          pccflags = ccflags;
+       }
+       else pcc = pccflags = NULL;

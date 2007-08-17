@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils toolchain-funcs fortran
+inherit eutils toolchain-funcs fortran multilib
 
 DESCRIPTION="Automatically Tuned Linear Algebra Software BLAS implementation"
 HOMEPAGE="http://math-atlas.sourceforge.net/"
 MY_PN=${PN/blas-/}
-SRC_URI="mirror://sourceforge/math-atlas/${MY_PN}${PV}.tar.bz2
-		http://dev.gentoo.org/~bicatali/${MY_PN}-${PV}-shared-libs.patch.bz2"
+SRC_URI="mirror://sourceforge/math-atlas/${MY_PN}${PV}.tar.bz2"
+#		mirror://gentoo/${MY_PN}-${PV}-shared-libs.patch.bz2"
 
 LICENSE="BSD"
 SLOT="0"
@@ -59,7 +59,8 @@ src_unpack() {
 	unpack ${A}
 	cd ${S}
 
-	epatch "${DISTDIR}"/${MY_PN}-${PV}-shared-libs.patch.bz2
+	#epatch "${DISTDIR}"/${MY_PN}-${PV}-shared-libs.patch.bz2
+	epatch "${FILESDIR}"/${MY_PN}-${PV}-shared-libs.patch
 	epatch "${FILESDIR}"/${MY_PN}-asm-gentoo.patch
 
 	# increase amount of workspace to improve threaded performance
@@ -83,17 +84,19 @@ src_unpack() {
 		archselect="-b 32"
 	fi
 
-	../configure \
+    ../configure \
 		--cc="$(tc-getCC)" \
-		--cflags="${CFLAGS}" \
-		--prefix="${D}/${DESTTREE}" \
-		--libdir="${D}/${DESTTREE}/$(get_libdir)/atlas" \
-		--incdir="${D}/${DESTTREE}/include" \
-		-C ac "$(tc-getCC)" -F ac "${CFLAGS}" \
-		-C if "${FORTRANC}" -F if "${FFLAGS}" \
-		-Ss pmake "\$(MAKE) ${MAKEOPTS}" \
-		-Si cputhrchk 0 ${archselect} \
-		|| die "configure failed"
+        --cflags="${CFLAGS}" \
+        --prefix="${D}/${DESTTREE}" \
+        --libdir="${D}/${DESTTREE}/$(get_libdir)/atlas" \
+        --incdir="${D}/${DESTTREE}/include" \
+        -C ac "$(tc-getCC)" -F ac "${CFLAGS}" \
+        -C if "${FORTRANC}" -F if "${FFLAGS}" \
+        -Ss pmake "\$(MAKE) ${MAKEOPTS}" \
+        -Si cputhrchk 0 ${archselect} \
+        || die "configure failed"
+
+
 }
 
 src_compile() {
