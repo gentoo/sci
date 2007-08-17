@@ -3,7 +3,7 @@ exec_prefix=${prefix}
 libdir=/usr/@LIBDIR@
 includedir=/usr/include
 
-Name: cblas
+Name: lapack
 Description: MKL implementations of the F77 Linear Algebra PACKage
 Version: @PV@
 URL: http://developer.intel.com/software/products/mkl/
