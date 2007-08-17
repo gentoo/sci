@@ -118,8 +118,7 @@ src_compile() {
 	[[ ${FORTRANC} == "gfortran" ]] && flibs="-lgfortran"
 	[[ ${FORTRANC} == "g77" ]] && flibs="-lg2c"
 	../libtool --mode=link --tag=F77 ${FORTRANC} \
-		$(pkg-config --libs blas) \
-		$(pkg-config --libs cblas) \
+		$(pkg-config --libs blas cblas) \
 		${flibs} \
 		-o liblapack.la *.lo -rpath "${RPATH}" \
 		|| die "Failed to create liblapack.la"

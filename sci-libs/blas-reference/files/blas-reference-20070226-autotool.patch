@@ -30,7 +30,7 @@
 +EXTRA = blas.pc
 +
 --- BLAS/blas.pc.in 	1970-01-01 01:00:00.000000000 +0100
-+++ BLAS/blas.pc.in	2007-08-14 17:15:43.000000000 +0100
++++ BLAS/blas.pc.in	2007-08-17 11:38:23.000000000 +0100
 @@ -0,0 +1,11 @@
 +prefix=@prefix@
 +exec_prefix=@exec_prefix@
@@ -42,7 +42,7 @@
 +Version: @PACKAGE_VERSION@
 +URL: http://www.netlib.org/blas
 +Libs: -lblas
-+Libs.private: -lm @FLIBS@
++Libs.private: -lm
 --- BLAS/SRC/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
 +++ BLAS/SRC/Makefile.am	2007-07-16 01:50:12.000000000 +0100
 @@ -0,0 +1,153 @@

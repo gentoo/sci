@@ -2,10 +2,10 @@ AUX eselect.lapack.reference 237 RMD160 f87f6c802089ce23b5d53cb40403ed32b9b9f866
 MD5 bd194e115c97d3ef79f2a0d029a97b0f files/eselect.lapack.reference 237
 RMD160 f87f6c802089ce23b5d53cb40403ed32b9b9f866 files/eselect.lapack.reference 237
 SHA256 2a72a6a9b49ec944656e164842907ee76d878a6772a7d71c1cb196d8beb6fa13 files/eselect.lapack.reference 237
-AUX lapack-reference-3.1.1-autotool.patch 16994 RMD160 becd221cdb3dcdb0dd3ac4b7c11416c5da6aba44 SHA1 a1eda6146c1cd32f972b0f1703610c85b58b7c74 SHA256 6cd32492e97740d3e98e93de38a0e192dd6d249c35ade4caf7e7ab4c45edadec
-MD5 0750e86c04390617206f5170f2c07652 files/lapack-reference-3.1.1-autotool.patch 16994
-RMD160 becd221cdb3dcdb0dd3ac4b7c11416c5da6aba44 files/lapack-reference-3.1.1-autotool.patch 16994
-SHA256 6cd32492e97740d3e98e93de38a0e192dd6d249c35ade4caf7e7ab4c45edadec files/lapack-reference-3.1.1-autotool.patch 16994
+AUX lapack-reference-3.1.1-autotool.patch 16975 RMD160 6079931019165f92da5f5168dce45e0297fac8a0 SHA1 f2ac7b9a46ae739e545249f480f8d7db25a3901a SHA256 2989944e9ac4a95ac6731bdde9551a8dca44618cac92aec8cac9caac8d1f1dc9
+MD5 f6145b76d7bda11e4b2071626a2a293d files/lapack-reference-3.1.1-autotool.patch 16975
+RMD160 6079931019165f92da5f5168dce45e0297fac8a0 files/lapack-reference-3.1.1-autotool.patch 16975
+SHA256 2989944e9ac4a95ac6731bdde9551a8dca44618cac92aec8cac9caac8d1f1dc9 files/lapack-reference-3.1.1-autotool.patch 16975
 AUX lapack-reference-3.1.1-test-fix.patch 2120 RMD160 9c37d349af207f0bbb6deb1ae88addb9676c73fc SHA1 bf73066396b08def6bcd81d0ce09aab682224cb1 SHA256 40c514db2bf9a08ce9630e53058ef3d863fd981c774987b233f6bdce3601a6f8
 MD5 d9f7c5dbfc41c255eab86b32702f5650 files/lapack-reference-3.1.1-test-fix.patch 2120
 RMD160 9c37d349af207f0bbb6deb1ae88addb9676c73fc files/lapack-reference-3.1.1-test-fix.patch 2120

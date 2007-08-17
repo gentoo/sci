@@ -8,6 +8,6 @@ Description: Automatically Tuned Linear Algebra Software F77 and C LAPACK implem
 Version: @PV@
 URL: http://math-atlas.sourceforge.net/
 Requires: blas cblas
-Libs: -L${libdir} -llapack
-Libs.private: -latlas @EXTLIBS@
+Libs: -L${libdir} -llapack -latlas
+Libs.private: @EXTLIBS@
 Include: -I${includedir}

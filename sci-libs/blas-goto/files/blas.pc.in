@@ -7,6 +7,4 @@ Name: blas
 Description: GOTO implementations of the F77 Basic Linear Algebra Subroutines
 Version: @PV@
 URL: http://www.tacc.utexas.edu/resources/software/software.php
-Libs: -L${libdir} -lblas
-Libs.private: @EXTLIBS@
-
+Libs: -L${libdir} -lblas @EXTLIBS@
