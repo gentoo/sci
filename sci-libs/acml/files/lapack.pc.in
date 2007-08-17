@@ -7,6 +7,5 @@ Name: lapack
 Description: ACML implementation of the F77 Linear Algebra PACKage
 Version: @PV@
 URL: http://developer.amd.com/acml.jsp
-Libs: -L${libdir} -llapack -L@ACMLDIR@/lib -lacml_mv
-Libs.private: @EXTLIBS@
+Libs: -L${libdir} -llapack @EXTLIBS@
 Cflags: @EXTFLAGS@

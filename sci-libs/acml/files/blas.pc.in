@@ -7,6 +7,5 @@ Name: blas
 Description: ACML implementations of the Basic Linear Algebra Subroutines
 Version: @PV@
 URL: http://developer.amd.com/acml.jsp
-Libs: -L${libdir} -lblas -L@ACMLDIR@/lib -lacml_mv 
-Libs.private: @EXTLIBS@
+Libs: -L${libdir} -lblas @EXTLIBS@
 Cflags: @EXTFLAGS@
