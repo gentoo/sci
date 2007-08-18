@@ -14,8 +14,8 @@ LICENSE="BSD"
 HOMEPAGE="http://math-atlas.sourceforge.net/"
 SRC_URI1="mirror://sourceforge/math-atlas/${MY_PN}${PV}.tar.bz2"
 SRC_URI2="http://www.netlib.org/${L_PN}/${L_PN}-lite-${L_PV}.tgz"
-SRC_URI="${SRC_URI1} ${SRC_URI2}
-		http://dev.gentoo.org/~bicatali/${MY_PN}-${PV}-shared-libs.patch.bz2"
+SRC_URI="${SRC_URI1} ${SRC_URI2}"
+#	mirror://gentoo/${MY_PN}-${PV}-shared-libs.patch.bz2"
 
 SLOT="0"
 IUSE="doc"
@@ -41,7 +41,8 @@ RPATH="${DESTTREE}/$(get_libdir)/${L_PN}/${MY_PN}"
 src_unpack() {
 	unpack ${A}
 
-	epatch "${DISTDIR}"/${MY_PN}-${PV}-shared-libs.patch.bz2
+	#epatch "${DISTDIR}"/${MY_PN}-${PV}-shared-libs.patch.bz2
+	epatch "${FILESDIR}"/${MY_PN}-${PV}-shared-libs.patch
 	epatch "${FILESDIR}"/${MY_PN}-asm-gentoo.patch
 
 	cd "${S}"
