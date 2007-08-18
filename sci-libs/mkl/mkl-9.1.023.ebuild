@@ -10,8 +10,8 @@ MYP="${PN}-${MYPV}"
 DESCRIPTION="Intel(R) Math Kernel Library: linear algebra, fft, random number generators."
 HOMEPAGE="http://developer.intel.com/software/products/mkl/"
 SRC_URI="!int64? ( !serial? ( l_${PN}_p_${PV}.tgz ) )
-    int64?  ( l_${PN}_enh_p_${PV}.tgz )
-    serial? ( l_${PN}_enh_p_${PV}.tgz )"
+	int64?  ( l_${PN}_enh_p_${PV}.tgz )
+	serial? ( l_${PN}_enh_p_${PV}.tgz )"
 
 LICENSE="${MYP}"
 
@@ -41,10 +41,10 @@ pkg_nofetch() {
 	einfo "and keep the license Intel sent you"
 	einfo "SRC=${A}"
 
-    if use int64 || use serial; then
-        einfo "Since you have either USE=int64 or USE=serial"
-        einfo "You will need to download the enhanced version"
-    fi
+	if use int64 || use serial; then
+		einfo "Since you have either USE=int64 or USE=serial"
+		einfo "You will need to download the enhanced version"
+	fi
 }
 
 pkg_setup() {
@@ -76,7 +76,7 @@ src_unpack() {
 	local dp=950
 	! use serial && ! use int64 && dp=400
 	ewarn "Intel ${PN} requires ${dp}Mb of disk space"
-	ewarn "Make sure you have enough in ${PORTAGE_TMPDIR} and in /opt"
+	ewarn "Make sure you have enough in ${PORTAGE_TMPDIR}, /tmp and in /opt"
 	ewarn
 	unpack ${A}
 
@@ -87,8 +87,8 @@ src_unpack() {
 	# tar xf l_*; ./install.sh --duplicate mkl.ini;
 	# the file will be instman/mkl.ini
 
-	# binary blob extractor installs log crap in /opt/intel
-	#addwrite /opt/intel
+	# binary blob extractor installs crap in /opt/intel
+	addwrite /opt/intel
 	cp ${MKL_LICENSE} ${WORKDIR}/
 	MKL_LICENSE="$(basename ${MKL_LICENSE})"
 	cat > mkl.ini << EOF
@@ -104,7 +104,7 @@ EOF
 		--log log.txt &> /dev/null
 
 	if [[ -z $(find "${S}" -name libmkl.so) ]]; then
-		eerror "could not find extracted files" 
+		eerror "could not find extracted files"
 		eerror "see ${PWD}/log.txt to see why"
 		die "extracting failed"
 	fi
