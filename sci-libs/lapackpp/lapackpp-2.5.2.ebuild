@@ -5,7 +5,7 @@
 DESCRIPTION="C++ wrapper for LAPACK"
 HOMEPAGE="http://lapackpp.sourceforge.net"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
-LICENSE=""
+LICENSE="LGPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -19,6 +19,7 @@ DEPEND="${DEPEND}
 
 src_compile() {
 	econf \
+		--disable-atlas \
 		--with-blas="$(pkg-config --libs blas)" \
 		--with-lapack="$(pkg-config --libs lapack)" \
 		|| die "econf failed"
