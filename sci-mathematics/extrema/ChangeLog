@@ -1,0 +1,9 @@
+# ChangeLog for sci-mathematics/extrema
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*extrema-4.2.7 (23 Aug 2007)
+
+  23 Aug 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +metadata.xml, +extrema-4.2.7.ebuild:
+  Initial import
