@@ -7,7 +7,7 @@ DESCRIPTION="Interactive data analysis and visualization tool"
 HOMEPAGE="http://exsitewebware.com/extrema/"
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 SRC_URI="mirror://sourceforge/extrema/${P}.tar.gz"
 DEPEND=">=x11-libs/wxGTK-2.6.3
