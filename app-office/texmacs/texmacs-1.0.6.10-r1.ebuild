@@ -23,16 +23,13 @@ RDEPEND="virtual/tetex
 	>=dev-scheme/guile-1.4
 	>=sys-apps/sed-4
 	media-libs/freetype
-	|| ( ( x11-libs/libX11
-		   x11-libs/libICE )
-		virtual/x11
-	)
+	x11-libs/libX11
+	x11-libs/libICE
 	media-libs/imlib2
 	spell? ( || ( >=app-text/ispell-3.2 >=app-text/aspell-0.5 ) )"
 
 DEPEND="${RDEPEND}
-	|| ( x11-proto/xproto
-	     virtual/x11 )
+	x11-proto/xproto
 	virtual/ghostscript"
 
 pkg_setup() {
@@ -46,7 +43,7 @@ pkg_setup() {
 
 src_unpack() {
 	unpack ${A}
-	epatch "${FILESDIR}/${PN}-maxima-5.12.0.patch"
+	epatch "${FILESDIR}/${PN}-maxima-5.13.0.patch"
 }
 
 src_compile() {
