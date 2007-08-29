@@ -24,8 +24,7 @@ SLOT="${MAJOR}.${MINOR}"
 RESTRICT="test strip mirror"
 IUSE="emacs"
 
-RDEPEND="virtual/libc
-	sys-devel/gcc"
+RDEPEND="amd64? ( app-emulation/emul-linux-x86-compat )"
 
 if use x86; then
 	MY_P="${PACKAGEID}_ia32"
@@ -35,11 +34,6 @@ elif use ia64; then
 	MY_P="${PACKAGEID}_ia64"
 fi
 S="${WORKDIR}/${MY_P}"
-
-pkg_setup() {
-	# for amd64, the binary is x86 => ABI=x86
-	has_multilib_profile && ABI="x86"
-}
 
 src_unpack() {
 	unpack ${A}
