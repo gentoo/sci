@@ -76,6 +76,7 @@ src_install() {
 
 	local env_file=05${PN}
 	echo "PATH=${INSTALL_DIR}/bin" > ${env_file}
+	echo "ROOTPATH=${INSTALL_DIR}/bin" >> ${env_file}
 	echo "LDPATH=${INSTALL_DIR}/lib" >> ${env_file}
 	echo "MANPATH=${INSTALL_DIR}/man" >> ${env_file}
 	echo "INCLUDE=${INSTALL_DIR}/include" >> ${env_file}
@@ -85,6 +86,7 @@ src_install() {
 		cp -pPR "${S}"/opt/intel/idb* "${D}"/opt/intel || die "copying debugger failed"
 		local idb_env_file=06idb
 		echo "PATH=${INSTALL_IDB_DIR}/bin" > ${idb_env_file}
+		echo "ROOTPATH=${INSTALL_IDB_DIR}/bin" >> ${idb_env_file}
 		echo "MANPATH=${INSTALL_IDB_DIR}/man" >> ${idb_env_file}
 		doenvd ${idb_env_file} || die "doenvd ${idb_env_file} failed"
 		use emacs && \
