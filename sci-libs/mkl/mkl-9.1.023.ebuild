@@ -4,24 +4,24 @@
 
 inherit eutils toolchain-funcs fortran versionator
 
-MYPV="$(get_major_version ${PV}).$(get_version_component_range 2 ${PV})"
-MYP="${PN}-${MYPV}"
-
+PID=779
+PB=${PN}
 DESCRIPTION="Intel(R) Math Kernel Library: linear algebra, fft, random number generators."
 HOMEPAGE="http://developer.intel.com/software/products/mkl/"
-SRC_URI="!int64? ( !serial? ( l_${PN}_p_${PV}.tgz ) )
-	int64?  ( l_${PN}_enh_p_${PV}.tgz )
-	serial? ( l_${PN}_enh_p_${PV}.tgz )"
 
-LICENSE="${MYP}"
-
-# slotting mechanism would need to select proper env-variables
-# which could require a mkl-config like pkg.
-#SLOT="${MYPV}"
-SLOT="0"
-RESTRICT="strip fetch"
 KEYWORDS="~x86 ~amd64 ~ia64"
+SRC_URI="!int64? ( !serial? ( http://registrationcenter-download.intel.com/irc_nas/${PID}/l_${PN}_p_${PV}.tgz ) )
+	int64?  ( http://registrationcenter-download.intel.com/irc_nas/${PID}/l_${PN}_enh_p_${PV}.tgz )
+	serial? ( http://registrationcenter-download.intel.com/irc_nas/${PID}/l_${PN}_enh_p_${PV}.tgz )"
+
+MAJOR=$(get_major_version ${PV})
+MINOR=$(get_version_component_range 2 ${PV})
+
+SLOT="${MAJOR}.${MINOR}"
+LICENSE="${PN}-${MAJOR}.${MINOR}"
+
 IUSE="serial int64 fortran95 fftw doc examples"
+RESTRICT="strip mirror"
 
 DEPEND="app-admin/eselect-blas
 	app-admin/eselect-cblas
@@ -31,21 +31,7 @@ RDEPEND="${DEPEND}
 	dev-util/pkgconfig
 	doc? ( app-doc/blas-docs app-doc/lapack-docs )"
 
-MKL_DIR=/opt/intel/${PN}/${MYPV}
-
-pkg_nofetch() {
-	einfo "Please download the intel mkl from:"
-	einfo "http://www.intel.com/software/products/mkl/downloads/lin_mkl.htm"
-	einfo "and place it in ${DISTDIR}"
-	einfo "Also you need to register in ${HOMEPAGE}"
-	einfo "and keep the license Intel sent you"
-	einfo "SRC=${A}"
-
-	if use int64 || use serial; then
-		einfo "Since you have either USE=int64 or USE=serial"
-		einfo "You will need to download the enhanced version"
-	fi
-}
+MKL_DIR=/opt/intel/${PN}/${MAJOR}.${MINOR}
 
 pkg_setup() {
 	# setting up license
