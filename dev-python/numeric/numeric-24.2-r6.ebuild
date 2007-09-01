@@ -13,8 +13,8 @@ HOMEPAGE="http://numeric.scipy.org/"
 SRC_URI="mirror://sourceforge/numpy/${MY_P}.tar.gz
 	doc? ( http://numpy.scipy.org/numpy.pdf )"
 
-# numeric does not work yet with other cblas implementations
-# than cblas-reference or blas-atlas (work in progress)
+# numeric needs cblas (virtual/cblas work in progress)
+# and lapack. needs fortran to get the proper fortran to C library.
 RDEPEND="lapack? ( || ( >=sci-libs/blas-atlas-3.7.11-r1
 				   >=sci-libs/cblas-reference-20030223-r3 )
 				   virtual/lapack )"
@@ -30,7 +30,7 @@ S=${WORKDIR}/${MY_P}
 
 pkg_setup() {
 	if use lapack; then
-		FORTRAN="gfortran g77"
+		FORTRAN="gfortran g77 ifc"
 		fortran_pkg_setup
 		for d in $(eselect cblas show); do mycblas=${d}; done
 		if [[ -z "${mycblas/reference/}" ]] && [[ -z "${mycblas/atlas/}" ]]; then
@@ -78,11 +78,6 @@ src_unpack() {
 	fi
 }
 
-#src_compile() {
-#	use lapack && unset LDFLAGS
-#	distutils_src_compile
-#}
-
 src_test() {
 	cd build/lib*
 	PYTHONPATH=. "${python}" "${S}"/Test/test.py \
@@ -91,7 +86,6 @@ src_test() {
 
 src_install() {
 	distutils_src_install
-	distutils_python_version
 
 	# install various README from packages
 	newdoc Packages/MA/README README.MA

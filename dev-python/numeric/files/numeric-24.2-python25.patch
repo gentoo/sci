@@ -196,3 +196,24 @@ diff -Nur Numeric-24.2/Src/ufuncobject.c Numeric-24.2.new/Src/ufuncobject.c
  
      nargs = PyTuple_Size(args);
      if ((nargs != self->nin) && (nargs != self->nin+self->nout)) {
+
+From: Daniel Drake <d.drake@mmm.com>
+
+Fix list slicing on python 2.5 
+
+Numeric.arange(0,10) was working fine but Numeric.arange(0,10)[:] was
+returning nonsense. Using the correct data type fixes the problem.
+
+Index: Numeric-24.2/Src/arrayobject.c
+===================================================================
+--- Numeric-24.2.orig/Src/arrayobject.c
++++ Numeric-24.2/Src/arrayobject.c
+@@ -708,7 +708,7 @@ extern PyObject *PyArray_Return(PyArrayO
+ }
+ 
+ static PyObject *
+-array_slice(PyArrayObject *self, int ilow, int ihigh)
++array_slice(PyArrayObject *self, Py_ssize_t ilow, Py_ssize_t ihigh)
+ {
+     PyArrayObject *r;
+     int l;
