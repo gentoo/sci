@@ -6,7 +6,8 @@ inherit versionator elisp-common rpm multilib
 
 PID=786
 PB=cc
-DESCRIPTION="Intel C/C++ Compiler - Intel's optimized compiler for Linux"
+PEXEC=icc
+DESCRIPTION="Intel C/C++ optimized compiler for Linux"
 HOMEPAGE="http://www.intel.com/software/products/compilers/clin/"
 
 # everything below should not change between ifc and icc
@@ -56,23 +57,23 @@ src_unpack() {
 	done
 
 	einfo "Fixing paths and tagging"
-	sed -i \
-		-e "s|<INSTALLDIR>|${INSTALL_DIR}|g" \
-		"${S}"/opt/intel/*/*/bin/* \
+	cd "${S}/${INSTALL_DIR}"/bin
+	sed -e "s|<INSTALLDIR>|${INSTALL_DIR}|g" \
+		-i ${PEXEC} ${PEXEC}*sh \
 		|| die "sed fixing path failed"
 
-	sed -i \
-		-e "s|\<installpackageid\>|${PACKAGEID}|g" \
+	cd "${S}/${INSTALL_DIR}"/doc
+	sed -e "s|\<installpackageid\>|${PACKAGEID}|g" \
 		-e "s|\<INSTALLTIMECOMBOPACKAGEID\>|${PACKAGEID}|g" \
-		"${S}"/opt/intel/*/*/doc/*support \
+		-i *support \
 		|| die "sed support file failed"
-	chmod 644 "${S}"/opt/intel/*/*/doc/*support
-
+	chmod 644 *support
 }
 
 src_install() {
-	dodir /opt/intel
-	cp -pPR "${S}"/opt/intel/${PB}* "${D}"/opt/intel || die "copying ${PN} failed"
+	einfo "Copying files"
+	dodir ${INSTALL_DIR}
+	cp -pPR "${S}/${INSTALL_DIR}"/* "${D}/${INSTALL_DIR}/" || die "copying ${PN} failed"
 
 	local env_file=05${PN}
 	echo "PATH=${INSTALL_DIR}/bin" > ${env_file}
@@ -83,7 +84,8 @@ src_install() {
 	doenvd ${env_file} || die "doenvd ${env_file} failed"
 
 	if [[ -n "${INSTALL_IDB_DIR}" ]]; then
-		cp -pPR "${S}"/opt/intel/idb* "${D}"/opt/intel || die "copying debugger failed"
+		dodir ${INSTALL_IDB_DIR}
+		cp -pPR "${S}/${INSTALL_IDB_DIR}"/* "${D}/${INSTALL_IDB_DIR}/" || die "copying debugger failed"
 		local idb_env_file=06idb
 		echo "PATH=${INSTALL_IDB_DIR}/bin" > ${idb_env_file}
 		echo "ROOTPATH=${INSTALL_IDB_DIR}/bin" >> ${idb_env_file}
