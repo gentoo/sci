@@ -2,6 +2,11 @@
 # Copyright 2002-2006 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*texmacs-1.0.6.11 (04 Sep 2007)
+04 Sep 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +texmacs-1.0.6.11.ebuild:
+  version bump
+
 *texmacs-1.0.6.10-r1 (28 Aug 2007)
 28 Aug 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
   +texmacs-1.0.6.10-r1.ebuild, +files/texmacs-maxima-5.13.0.patch,
