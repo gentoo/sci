@@ -98,7 +98,7 @@ src_compile() {
 	# build atlas' part of lapack
 	cd "${BLD_DIR}"
 	for d in src/lapack interfaces/lapack/C/src interfaces/lapack/F77/src; do
-		cd "${BLD_DIR}/{d}"
+		cd "${BLD_DIR}/${d}"
 		make lib || die "Failed to make lib in ${d}"
 	done
 
@@ -119,8 +119,7 @@ src_compile() {
 	[[ ${FORTRANC} == "gfortran" ]] && flibs="-lgfortran"
 	[[ ${FORTRANC} == "g77" ]] && flibs="-lg2c"
 	../libtool --mode=link --tag=F77 ${FORTRANC} \
-		$(pkg-config --libs blas cblas) \
-		${flibs} \
+		$(pkg-config --libs blas cblas) -latlas ${flibs} \
 		-o liblapack.la *.lo -rpath "${RPATH}" \
 		|| die "Failed to create liblapack.la"
 
