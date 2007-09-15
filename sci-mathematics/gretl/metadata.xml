@@ -3,15 +3,15 @@
 <pkgmetadata>
 <herd>sci-mathematics</herd>
 <longdescription lang="en">
-Gretl (GNU regression, econometrics and time-series library) comprises
-libgretl, a shared library which provides various functions relating
-to econometric estimation, a command-line client program and a
-gui. Libgretl is based on the stand-alone command-line econometrics
-program ESL, originally written by Ramu Ramanathan of the Department
-of Economics at UC-San Diego. gretl offers several least-squares based
+Gretl (GNU regression, econometrics and time-series library) provides
+a library which comprises various functions relating to econometric
+estimation, a command-line client program and a GUI. The library is
+based on the stand-alone command-line econometrics program ESL,
+originally written by Ramu Ramanathan of the Department of Economics
+at UC-San Diego. The interfaces offer several least-squares based
 estimators.  Besides reading data files in its own format it also
-reads RATS 4 databases.  It has a built-in spreadsheet for editing
-data, and uses gnuplot for graphing.  It can output regression results
+reads RATS 4 databases. It has a built-in spreadsheet for editing
+data, and uses gnuplot for graphing. It can output regression results
 in LaTeX format.
 </longdescription>
 </pkgmetadata>
