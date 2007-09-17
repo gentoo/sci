@@ -73,7 +73,7 @@ src_unpack() {
 		--libdir=${D}/${DESTTREE}/$(get_libdir)/atlas \
 		--incdir=${D}/${DESTTREE}/include \
 		-C ac "$(tc-getCC)" -F ac "${CFLAGS}" \
-		-C if "${FORTRANC}" -F if "${FFLAGS}" \
+		-C if "${FORTRANC}" -F if "${FFLAGS:--O2}" \
 		-Ss pmake "\$(MAKE) ${MAKEOPTS}" \
 		-Si cputhrchk 0 ${archselect} \
 		|| die "configure failed"

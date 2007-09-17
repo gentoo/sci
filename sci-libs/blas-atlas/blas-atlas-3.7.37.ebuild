@@ -84,17 +84,17 @@ src_unpack() {
 		archselect="-b 32"
 	fi
 
-    ../configure \
+	../configure \
 		--cc="$(tc-getCC)" \
-        --cflags="${CFLAGS}" \
-        --prefix="${D}/${DESTTREE}" \
-        --libdir="${D}/${DESTTREE}/$(get_libdir)/atlas" \
-        --incdir="${D}/${DESTTREE}/include" \
-        -C ac "$(tc-getCC)" -F ac "${CFLAGS}" \
-        -C if "${FORTRANC}" -F if "${FFLAGS}" \
-        -Ss pmake "\$(MAKE) ${MAKEOPTS}" \
-        -Si cputhrchk 0 ${archselect} \
-        || die "configure failed"
+		--cflags="${CFLAGS}" \
+		--prefix="${D}/${DESTTREE}" \
+		--libdir="${D}/${DESTTREE}/$(get_libdir)/atlas" \
+		--incdir="${D}/${DESTTREE}/include" \
+		-C ac "$(tc-getCC)" -F ac "${CFLAGS}" \
+		-C if "${FORTRANC}" -F if "${FFLAGS:--O2}" \
+		-Ss pmake "\$(MAKE) ${MAKEOPTS}" \
+		-Si cputhrchk 0 ${archselect} \
+		|| die "configure failed"
 
 
 }
