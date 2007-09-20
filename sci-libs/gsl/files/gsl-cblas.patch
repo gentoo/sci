@@ -1,0 +1,90 @@
+--- configure.ac.orig	2007-09-19 13:25:25.644286706 +0100
++++ configure.ac	2007-09-19 15:58:30.963832549 +0100
+@@ -130,6 +130,14 @@
+   AC_CHECK_LIB(m, cos)
+ fi
+ 
++dnl Use alternate cblas if specified by user
++CBLAS_LIBS="-lgslcblas"
++AC_ARG_WITH(cblas,
++	    [AC_HELP_STRING([--with-cblas=<lib>], [use external CBLAS library <lib>])],
++	    [CBLAS_LIBS="$withval"])
++AM_CONDITIONAL(LINK_WITH_CBLAS_EXTERNAL, [ test ! "x$CBLAS_LIBS" = x"-lgslcblas" ])
++AC_SUBST(CBLAS_LIBS)
++
+ dnl Remember to put a definition in acconfig.h for each of these
+ AC_CHECK_DECLS(feenableexcept,,,[#define _GNU_SOURCE 1
+ #include <fenv.h>]) 
+--- Makefile.am.orig	2007-09-19 13:25:11.299469242 +0100
++++ Makefile.am	2007-09-19 15:53:28.594601509 +0100
+@@ -15,28 +15,29 @@
+ 
+ EXTRA_DIST = autogen.sh gsl-config.in gsl.pc.in configure.ac THANKS BUGS SUPPORT gsl.spec.in gsl.m4 test_gsl_histogram.sh
+ 
+-lib_LTLIBRARIES = libgsl.la
+-libgsl_la_SOURCES = version.c
+-libgsl_la_LIBADD = $(SUBLIBS)
+-libgsl_la_LDFLAGS = -version-info $(GSL_LT_VERSION)
+-noinst_HEADERS = templates_on.h templates_off.h
++lib_LTLIBRARIES = libgsl.la 
+ 
+-MINGW32_HOST = @MINGW32_HOST@
+-if MINGW32_HOST
+-libgsl_la_LIBADD += cblas/libgslcblas.la
+-libgsl_la_LDFLAGS += -no-undefined
++if LINK_WITH_CBLAS_EXTERNAL
++gsl_cblas = $(CBLAS_LIBS)
++else
++gsl_cblas = cblas/libgslcblas.la
+ endif
+ 
++libgsl_la_SOURCES = version.c
++libgsl_la_LDFLAGS = -no-undefined -version-info $(GSL_LT_VERSION)
++libgsl_la_LIBADD = $(SUBLIBS) $(gsl_cblas)
++noinst_HEADERS = templates_on.h templates_off.h
++
+ m4datadir = $(datadir)/aclocal
+ m4data_DATA = gsl.m4
+ 
+ bin_PROGRAMS = gsl-randist gsl-histogram
+ 
+ gsl_randist_SOURCES = gsl-randist.c
+-gsl_randist_LDADD = libgsl.la cblas/libgslcblas.la
++gsl_randist_LDADD = libgsl.la $(gsl_cblas)
+ 
+ gsl_histogram_SOURCES = gsl-histogram.c
+-gsl_histogram_LDADD = libgsl.la cblas/libgslcblas.la
++gsl_histogram_LDADD = libgsl.la $(gsl_cblas)
+ 
+ check_SCRIPTS = test_gsl_histogram.sh
+ TESTS = test_gsl_histogram.sh
+--- gsl-config.in.orig	2007-09-19 13:25:39.373069065 +0100
++++ gsl-config.in	2007-09-19 13:01:31.410346928 +0100
+@@ -19,8 +19,7 @@
+   --version		output version information
+ 
+ An external CBLAS library can be specified using the GSL_CBLAS_LIB
+-environment variable. The GSL CBLAS library is used by default.
+-
++environment variable. By default, it will use the one compiled with gsl: @CBLAS_LIBS@.
+ EOF
+ 
+     exit $1
+@@ -62,7 +61,7 @@
+        	;;
+ 
+     --libs)
+-        : ${GSL_CBLAS_LIB=-lgslcblas}
++        : ${GSL_CBLAS_LIB=@CBLAS_LIBS@}
+        	echo @GSL_LIBS@ $GSL_CBLAS_LIB -lm
+        	;;
+ 
+--- gsl.pc.in.orig	2007-09-19 13:25:49.477644892 +0100
++++ gsl.pc.in	2007-09-19 13:01:56.355768487 +0100
+@@ -6,5 +6,5 @@
+ Name: GSL
+ Description: GNU Scientific Library
+ Version: @VERSION@
+-Libs: @GSL_LIBS@ -lgslcblas @LIBS@
++Libs: @GSL_LIBS@ @CBLAS_LIBS@ @LIBS@
+ Cflags: @GSL_CFLAGS@
