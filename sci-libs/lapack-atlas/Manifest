@@ -1,7 +1,7 @@
-AUX atlas-3.7.37-shared-libs.patch 50262 RMD160 8ee22edbbfdfc88739cf7622ee3e898515258117 SHA1 6322ec071f5cedd3c9b80eb82fbe076266855fb0 SHA256 4dda9bb21e692b8f56a635e4475e7ad5569c0ef5cddacb2ddfa8449a2a5859a1
-MD5 1d6c7b69a8522c5b3c4cbb573f9d5df3 files/atlas-3.7.37-shared-libs.patch 50262
-RMD160 8ee22edbbfdfc88739cf7622ee3e898515258117 files/atlas-3.7.37-shared-libs.patch 50262
-SHA256 4dda9bb21e692b8f56a635e4475e7ad5569c0ef5cddacb2ddfa8449a2a5859a1 files/atlas-3.7.37-shared-libs.patch 50262
+AUX atlas-3.7.37-shared-libs.patch 50209 RMD160 aa9b112aee0819c85a67729dafd6c5b306966db9 SHA1 dd88d38a41b5413d9a9ec40b3456e8284c0d4a5f SHA256 1c34034f1342efb38c63485efa67e056b8e3268259d81fd0f089341e34f7309a
+MD5 535722fdc28d77fd14f922ec57d7fa76 files/atlas-3.7.37-shared-libs.patch 50209
+RMD160 aa9b112aee0819c85a67729dafd6c5b306966db9 files/atlas-3.7.37-shared-libs.patch 50209
+SHA256 1c34034f1342efb38c63485efa67e056b8e3268259d81fd0f089341e34f7309a files/atlas-3.7.37-shared-libs.patch 50209
 AUX atlas-asm-gentoo.patch 408 RMD160 3cea2f4a5a96ec22a4d0cfc78d691198a2d1a0da SHA1 493d066be68c66cca1f0c906d588da8983ec7afa SHA256 00f9247d422c758ef8ff43446a36a6dbb7962f94e5d01307318c87a90a78355b
 MD5 fb9ca923b595b67967a744339e7a32a6 files/atlas-asm-gentoo.patch 408
 RMD160 3cea2f4a5a96ec22a4d0cfc78d691198a2d1a0da files/atlas-asm-gentoo.patch 408

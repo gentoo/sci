@@ -1023,10 +1023,10 @@ diff -Nur ATLAS.orig/Make.top ATLAS/Make.top
 +
 +libcblas.so:
 +	cd gentoo/libcblas.a ; \
-+       	libtool --mode=link --tag=CC $(CC) $(F77SYSLIB) -o libcblas.la \
++       	libtool --mode=link --tag=CC $(CC) -o libcblas.la \
 +		../libs/libatlas.la *.lo -rpath $(RPATH) ; \
 +       	rm -f .libs/libcblas.so.0.0.0; \
-+       	$(CC) -shared .libs/*.o $(LDFLAGS) $(F77SYSLIB) $(BLDdir)/gentoo/libs/libatlas.so \
++       	$(CC) -shared .libs/*.o $(LDFLAGS) $(BLDdir)/gentoo/libs/libatlas.so \
 +	       -Wl,-soname -Wl,libcblas.so.0 -o .libs/libcblas.so.0.0.0; \
 +       libtool --mode=install $(INSTALLER) libcblas.la $(BLDdir)/gentoo/libs
 +
@@ -1042,10 +1042,10 @@ diff -Nur ATLAS.orig/Make.top ATLAS/Make.top
 +
 +libptcblas.so:
 +	cd gentoo/libptcblas.a ; \
-+	libtool --mode=link --tag=CC $(CC) $(F77SYSLIB) -o libcblas.la \
++	libtool --mode=link --tag=CC $(CC) -o libcblas.la \
 +		../libs/libatlas.la *.lo -rpath $(RPATH); \
 +       	rm -f .libs/libcblas.so.0.0.0; \
-+       	$(CC) -shared .libs/*.o  $(F77SYSLIB) $(BLDdir)/gentoo/libs/libatlas.so \
++       	$(CC) -shared .libs/*.o $(BLDdir)/gentoo/libs/libatlas.so \
 +	      -Wl,-soname -Wl,libcblas.so.0 -o .libs/libcblas.so.0.0.0; \
 +       	libtool --mode=install $(INSTALLER) libcblas.la $(BLDdir)/gentoo/threaded-libs
 +
