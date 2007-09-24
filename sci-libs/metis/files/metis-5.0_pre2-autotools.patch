@@ -1,0 +1,1596 @@
+--- configure.ac 	1970-01-01 01:00:00.000000000 +0100
++++ configure.ac	2007-09-24 15:12:11.917289395 +0100
+@@ -0,0 +1,54 @@
++AC_INIT([metis], [5.0pre2], [metis@cs.umn.edu], [metis])
++AM_INIT_AUTOMAKE([foreign])
++
++AC_PROG_MAKE_SET
++AC_PROG_LIBTOOL
++
++AC_CHECK_LIB(m, [sqrt, pow, log])
++
++AC_ARG_ENABLE(openmp,
++    [AC_HELP_STRING([--enable-openmp],
++		    [compile with openmp])],
++     [enable_openmp=$enableval],
++     [enable_openmp="yes"])
++AC_MSG_RESULT($enable_openmp)
++
++if test x$enable_openmp = xyes; then
++   AC_CHECK_HEADERS(omp.h)  
++   OMP_CPPFLAGS=-D__OPENMP__
++   if test x$CC = xicc; then
++       OMP_CFLAGS="-openmp -openmp-report2"
++       OMP_LDFLAGS=-openmp
++   else
++       OMP_CFLAGS=-fopenmp
++       OMP_LDFLAGS=-lgomp
++   fi	
++fi
++
++# very basic pcre check
++AC_ARG_ENABLE(pcre,
++	[AC_HELP_STRING([--enable-pcre],
++			[Enable PCRE regex support])],
++     [enable_pcre=$enableval],
++     [enable_pcre="yes"])
++AC_MSG_RESULT($enable_pcre)
++if test x$enable_pcre = xyes; then
++  AC_PATH_PROGS(PCRE_CONFIG, pcre-config, no)
++  if test "$PCRE_CONFIG" = "no"; then
++      AC_MSG_ERROR(Unable to find pcre-config in path for PCRE support)
++  else
++      AC_CHECK_HEADERS(pcre.h)
++      PCRE="yes"
++      PCRE_CPPFLAGS=-D__WITHPCRE__
++      PCRE_LDFLAGS=-lpcre
++  fi
++fi
++
++AC_CONFIG_FILES( \
++    Makefile \
++    GKlib/trunk/Makefile \
++    libmetis/Makefile \
++    programs/Makefile \
++    test/Makefile 
++)
++AC_OUTPUT
+--- Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ Makefile.am	2007-09-24 15:12:11.921289623 +0100
+@@ -0,0 +1,3 @@
++SUBDIRS = GKlib/trunk libmetis programs test
++EXTRA_DIST = CHANGES.v4 CHANGES.v5
++include_HEADERS = include/metis.h
+--- GKlib/trunk/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ GKlib/trunk/Makefile.am	2007-09-24 15:12:11.949291219 +0100
+@@ -0,0 +1,26 @@
++AM_CPPFLAGS = -DLINUX -D_FILE_OFFSET_BITS=6 $(PCRE_CPPFLAGS) $(OMP_CPPFLAGS)
++AM_CFLAGS = -std=c99 $(OMP_CFLAGS)
++
++noinst_LTLIBRARIES = libgklib.la
++noinst_HEADERS = GKlib.h
++
++libgklib_la_SOURCES = \
++	b64.c \
++	blas.c \
++	dfkvkselect.c \
++	dlmalloc.c \
++	error.c \
++	fs.c \
++	getopt.c \
++	htable.c \
++	io.c \
++	memory.c \
++	omp.c \
++	pdb.c \
++	seq.c \
++	sort.c \
++	string.c \
++	timers.c \
++	tokenizer.c \
++	util.c
++libgklib_la_LIBADD = $(OMP_LDFLAGS) $(PCRE_LDFLAGS)
+--- libmetis/smbfactor.c 	1970-01-01 01:00:00.000000000 +0100
++++ libmetis/smbfactor.c	2007-09-24 15:12:11.949291219 +0100
+@@ -0,0 +1,385 @@
++/*
++ * Copyright 1997, Regents of the University of Minnesota
++ *
++ * smbfactor.c
++ *
++ * This file performs the symbolic factorization of a matrix
++ *
++ * Started 8/1/97
++ * George
++ *
++ * $Id: smbfactor.c,v 1.2 2002/08/10 06:02:55 karypis Exp $
++ *
++ */
++
++#include <metislib.h>
++
++
++/*************************************************************************
++* This function sets up data structures for fill-in computations
++**************************************************************************/
++void ComputeFillIn(GraphType *graph, idxtype *iperm)
++{
++  idxtype i, j, k, nvtxs, maxlnz, maxsub;
++  idxtype *xadj, *adjncy;
++  idxtype *perm, *xlnz, *xnzsub, *nzsub;
++  double opc;
++
++/*
++  mprintf("\nSymbolic factorization... --------------------------------------------\n");
++*/
++
++  nvtxs = graph->nvtxs;
++  xadj = graph->xadj;
++  adjncy = graph->adjncy;
++
++  maxsub = 4*xadj[nvtxs];
++
++  /* Relabel the vertices so that it starts from 1 */
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]++;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]++;
++
++  /* Allocate the required memory */
++  perm = idxmalloc(nvtxs+1, "ComputeFillIn: perm");
++  xlnz = idxmalloc(nvtxs+1, "ComputeFillIn: xlnz");
++  xnzsub = idxmalloc(nvtxs+1, "ComputeFillIn: xnzsub");
++  nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++
++  /* Construct perm from iperm and change the numbering of iperm */
++  for (i=0; i<nvtxs; i++)
++    perm[iperm[i]] = i;
++  for (i=0; i<nvtxs; i++) {
++    iperm[i]++;
++    perm[i]++;
++  }
++  
++  /*
++   * Call sparspak routine.
++   */
++  if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) {
++    gk_free((void **)&nzsub, LTERM);
++
++    maxsub = 4*maxsub; 
++    nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++    if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) 
++      errexit("MAXSUB is too small!");
++  }
++
++  opc = 0;
++  for (i=0; i<nvtxs; i++)
++    xlnz[i]--;
++  for (i=0; i<nvtxs; i++)
++    opc += (xlnz[i+1]-xlnz[i])*(xlnz[i+1]-xlnz[i]) - (xlnz[i+1]-xlnz[i]);
++
++  mprintf("  Nonzeros: %D, \tOperation Count: %6.4le\n", maxlnz, opc);
++
++
++  gk_free((void **)&perm, &xlnz, &xnzsub, &nzsub, LTERM);
++
++
++  /* Relabel the vertices so that it starts from 0 */
++  for (i=0; i<nvtxs; i++)
++    iperm[i]--;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]--;
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]--;
++
++}
++
++
++
++/*************************************************************************
++* This function sets up data structures for fill-in computations
++**************************************************************************/
++idxtype ComputeFillIn2(GraphType *graph, idxtype *iperm)
++{
++  idxtype i, j, k, nvtxs, maxlnz, maxsub;
++  idxtype *xadj, *adjncy;
++  idxtype *perm, *xlnz, *xnzsub, *nzsub;
++  double opc;
++
++  nvtxs = graph->nvtxs;
++  xadj = graph->xadj;
++  adjncy = graph->adjncy;
++
++  maxsub = 4*xadj[nvtxs];
++
++  /* Relabel the vertices so that it starts from 1 */
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]++;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]++;
++
++  /* Allocate the required memory */
++  perm = idxmalloc(nvtxs+1, "ComputeFillIn: perm");
++  xlnz = idxmalloc(nvtxs+1, "ComputeFillIn: xlnz");
++  xnzsub = idxmalloc(nvtxs+1, "ComputeFillIn: xnzsub");
++  nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++
++  /* Construct perm from iperm and change the numbering of iperm */
++  for (i=0; i<nvtxs; i++)
++    perm[iperm[i]] = i;
++  for (i=0; i<nvtxs; i++) {
++    iperm[i]++;
++    perm[i]++;
++  }
++  
++  /*
++   * Call sparspak routine.
++   */
++  if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) {
++    gk_free((void **)&nzsub, LTERM);
++
++    maxsub = 4*maxsub; 
++    nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++    if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) 
++      errexit("MAXSUB is too small!");
++  }
++
++  opc = 0;
++  for (i=0; i<nvtxs; i++)
++    xlnz[i]--;
++  for (i=0; i<nvtxs; i++)
++    opc += (xlnz[i+1]-xlnz[i])*(xlnz[i+1]-xlnz[i]) - (xlnz[i+1]-xlnz[i]);
++
++
++  gk_free((void **)&perm, &xlnz, &xnzsub, &nzsub, LTERM);
++
++
++  /* Relabel the vertices so that it starts from 0 */
++  for (i=0; i<nvtxs; i++)
++    iperm[i]--;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]--;
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]--;
++
++  return maxlnz;
++
++}
++
++
++/*****************************************************************          
++**********     SMBFCT ..... SYMBOLIC FACTORIZATION       ********* 
++******************************************************************          
++*   PURPOSE - THIS ROUTINE PERFORMS SYMBOLIC FACTORIZATION               
++*   ON A PERMUTED LINEAR SYSTEM AND IT ALSO SETS UP THE               
++*   COMPRESSED DATA STRUCTURE FOR THE SYSTEM.                         
++*
++*   INPUT PARAMETERS -                                               
++*      NEQNS - NUMBER OF EQUATIONS.                                 
++*      (XADJ, ADJNCY) - THE ADJACENCY STRUCTURE.                   
++*      (PERM, INVP) - THE PERMUTATION VECTOR AND ITS INVERSE.     
++*
++*   UPDATED PARAMETERS -                                         
++*      MAXSUB - SIZE OF THE SUBSCRIPT ARRAY NZSUB.  ON RETURN,  
++*             IT CONTAINS THE NUMBER OF SUBSCRIPTS USED        
++*
++*   OUTPUT PARAMETERS -                                       
++*      XLNZ - INDEX INTO THE NONZERO STORAGE VECTOR LNZ.   
++*      (XNZSUB, NZSUB) - THE COMPRESSED SUBSCRIPT VECTORS. 
++*      MAXLNZ - THE NUMBER OF NONZEROS FOUND.             
++*
++*******************************************************************/
++idxtype smbfct(idxtype neqns, idxtype *xadj, idxtype *adjncy, idxtype *perm, idxtype *invp, 
++	       idxtype *xlnz, idxtype *maxlnz, idxtype *xnzsub, idxtype *nzsub, idxtype *maxsub)
++{
++  /* Local variables */
++  idxtype node, rchm, mrgk, lmax, i, j, k, m, nabor, nzbeg, nzend;
++  idxtype kxsub, jstop, jstrt, mrkflg, inz, knz, flag;
++  idxtype *mrglnk, *marker, *rchlnk;
++
++  rchlnk = idxmalloc(neqns+1, "smbfct: rchlnk");
++  marker = idxsmalloc(neqns+1, 0, "smbfct: marker");
++  mrglnk = idxsmalloc(neqns+1, 0, "smbfct: mgrlnk");
++
++  /* Parameter adjustments */
++  --marker;
++  --mrglnk;
++  --rchlnk;
++  --nzsub;
++  --xnzsub;
++  --xlnz;
++  --invp;
++  --perm;
++  --adjncy;
++  --xadj;
++
++  /* Function Body */
++  flag = 0;
++  nzbeg = 1;
++  nzend = 0;
++  xlnz[1] = 1;
++
++  /* FOR EACH COLUMN KNZ COUNTS THE NUMBER OF NONZEROS IN COLUMN K ACCUMULATED IN RCHLNK. */
++  for (k = 1; k <= neqns; ++k) {
++    knz = 0;
++    mrgk = mrglnk[k];
++    mrkflg = 0;
++    marker[k] = k;
++    if (mrgk != 0) 
++      marker[k] = marker[mrgk];
++    xnzsub[k] = nzend;
++    node = perm[k];
++
++    if (xadj[node] >= xadj[node+1]) {
++      xlnz[k+1] = xlnz[k];
++      continue;
++    }
++
++    /* USE RCHLNK TO LINK THROUGH THE STRUCTURE OF A(*,K) BELOW DIAGONAL */
++    rchlnk[k] = neqns+1;
++    for (j=xadj[node]; j<xadj[node+1]; j++) {
++      nabor = invp[adjncy[j]];
++      if (nabor <= k) 
++        continue;
++      rchm = k;
++
++      do {
++        m = rchm;
++        rchm = rchlnk[m];
++      } while (rchm <= nabor); 
++
++      knz++;
++      rchlnk[m] = nabor;
++      rchlnk[nabor] = rchm;
++      if (marker[nabor] != marker[k]) 
++        mrkflg = 1;
++    }
++
++    /* TEST FOR MASS SYMBOLIC ELIMINATION */
++    lmax = 0;
++    if (mrkflg != 0 || mrgk == 0 || mrglnk[mrgk] != 0) 
++      goto L350;
++    xnzsub[k] = xnzsub[mrgk] + 1;
++    knz = xlnz[mrgk + 1] - (xlnz[mrgk] + 1);
++    goto L1400;
++
++
++    /* LINK THROUGH EACH COLUMN I THAT AFFECTS L(*,K) */
++L350:
++    i = k;
++    while ((i = mrglnk[i]) != 0) {
++      inz = xlnz[i+1] - (xlnz[i]+1);
++      jstrt = xnzsub[i] + 1;
++      jstop = xnzsub[i] + inz;
++
++      if (inz > lmax) { 
++        lmax = inz;
++        xnzsub[k] = jstrt;
++      }
++
++      /* MERGE STRUCTURE OF L(*,I) IN NZSUB INTO RCHLNK. */ 
++      rchm = k;
++      for (j = jstrt; j <= jstop; ++j) {
++        nabor = nzsub[j];
++        do {
++          m = rchm;
++          rchm = rchlnk[m];
++        } while (rchm < nabor);
++
++        if (rchm != nabor) {
++          knz++;
++          rchlnk[m] = nabor;
++          rchlnk[nabor] = rchm;
++          rchm = nabor;
++        }
++      }
++    }
++
++    /* CHECK IF SUBSCRIPTS DUPLICATE THOSE OF ANOTHER COLUMN */
++    if (knz == lmax) 
++      goto L1400;
++
++    /* OR IF TAIL OF K-1ST COLUMN MATCHES HEAD OF KTH */
++    if (nzbeg > nzend) 
++      goto L1200;
++
++    i = rchlnk[k];
++    for (jstrt = nzbeg; jstrt <= nzend; ++jstrt) {
++      if (nzsub[jstrt] < i) 
++        continue;
++
++      if (nzsub[jstrt] == i) 
++        goto L1000;
++      else 
++        goto L1200;
++    }
++    goto L1200;
++
++L1000:
++    xnzsub[k] = jstrt;
++    for (j = jstrt; j <= nzend; ++j) {
++      if (nzsub[j] != i) 
++        goto L1200;
++      
++      i = rchlnk[i];
++      if (i > neqns) 
++        goto L1400;
++    }
++    nzend = jstrt - 1;
++
++    /* COPY THE STRUCTURE OF L(*,K) FROM RCHLNK TO THE DATA STRUCTURE (XNZSUB, NZSUB) */
++L1200:
++    nzbeg = nzend + 1;
++    nzend += knz;
++
++    if (nzend > *maxsub) {
++      flag = 1; /* Out of memory */
++      break;
++    }
++
++    i = k;
++    for (j=nzbeg; j<=nzend; ++j) {
++      i = rchlnk[i];
++      nzsub[j] = i;
++      marker[i] = k;
++    }
++    xnzsub[k] = nzbeg;
++    marker[k] = k;
++
++    /*
++     * UPDATE THE VECTOR MRGLNK.  NOTE COLUMN L(*,K) JUST FOUND   
++     * IS REQUIRED TO DETERMINE COLUMN L(*,J), WHERE              
++     * L(J,K) IS THE FIRST NONZERO IN L(*,K) BELOW DIAGONAL.      
++     */
++L1400:
++    if (knz > 1) { 
++      kxsub = xnzsub[k];
++      i = nzsub[kxsub];
++      mrglnk[k] = mrglnk[i];
++      mrglnk[i] = k;
++    }
++
++    xlnz[k + 1] = xlnz[k] + knz;
++  }
++
++  if (flag == 0) {
++    *maxlnz = xlnz[neqns] - 1;
++    *maxsub = xnzsub[neqns];
++    xnzsub[neqns + 1] = xnzsub[neqns];
++  }
++
++  marker++;
++  mrglnk++;
++  rchlnk++;
++  nzsub++;
++  xnzsub++;
++  xlnz++;
++  invp++;
++  perm++;
++  adjncy++;
++  xadj++;
++  gk_free((void **)&rchlnk, &mrglnk, &marker, LTERM);
++
++  return flag;
++  
++} 
++
+--- libmetis/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ libmetis/Makefile.am	2007-09-24 15:12:11.933290307 +0100
+@@ -0,0 +1,16 @@
++AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/GKlib/trunk -DLINUX -DUNIX -D_FILE_OFFSET_BITS=64
++lib_LTLIBRARIES = libmetis.la
++libmetis_la_SOURCES= \
++	balance.c bucketsort.c ccgraph.c checkgraph.c cmetis.c \
++	coarsen.c compress.c debug.c estmem.c fm.c fortran.c \
++	frename.c graph.c initpart.c kfmetis.c kmetis.c kvmetis.c \
++	kwayfm.c kwayrefine.c kwayvolfm.c kwayvolrefine.c match.c \
++	mbalance.c mbalance2.c mcoarsen.c memory.c mesh.c meshpart.c \
++	mfm.c mfm2.c mincover.c minitpart.c minitpart2.c mkmetis.c \
++	mkwayfmh.c mkwayrefine.c mmatch.c mmd.c mpmetis.c mrefine.c \
++	mrefine2.c mrkmetis.c mutil.c myqsort.c ometis.c parmetis.c \
++	pmetis.c pqueue.c refine.c rkmetis.c separator.c sfm.c \
++	srefine.c stat.c streamio.c subdomains.c timing.c util.c \
++	smbfactor.c
++
++libmetis_la_LIBADD = $(top_builddir)/GKlib/trunk/libgklib.la
+--- programs/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ programs/Makefile.am	2007-09-24 15:12:11.933290307 +0100
+@@ -0,0 +1,19 @@
++AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/GKlib/trunk -DLINUX -DUNIX -D_FILE_OFFSET_BITS=64
++bin_PROGRAMS = cmetis graphchk kfmetis kmetis mesh2dual mesh2nodal metis \
++	oemetis onmetis partdmesh partnmesh pmetis
++
++# Differing from upstream, a lot of these get smbfactor.c as we need
++# ComputeFillIn2, which is referenced in proto.h <- metisbin.h
++LDADD = $(top_builddir)/libmetis/libmetis.la
++cmetis_SOURCES = cmetis.c io.c cmdline_cmetis.c 
++graphchk_SOURCES = graphchk.c io.c 
++kfmetis_SOURCES = kfmetis.c io.c cmdline_kfmetis.c
++kmetis_SOURCES = kmetis.c io.c 
++mesh2dual_SOURCES = mesh2dual.c io.c 
++mesh2nodal_SOURCES = mesh2nodal.c io.c 
++metis_SOURCES = metis.c io.c
++oemetis_SOURCES = oemetis.c io.c
++onmetis_SOURCES = onmetis.c io.c
++partdmesh_SOURCES = partdmesh.c io.c 
++partnmesh_SOURCES = partnmesh.c io.c 
++pmetis_SOURCES = pmetis.c io.c cmdline_pmetis.c 
+--- test/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ test/Makefile.am	2007-09-24 15:17:00.921758821 +0100
+@@ -0,0 +1,4 @@
++AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/libmetis -I$(top_srcdir)/GKlib/trunk -DLINUX -DUNIX -D_FILE_OFFSET_BITS=64
++check_PROGRAMS = mtest
++mtest_SOURCES = mtest.c $(top_srcdir)/programs/io.c
++mtest_LDADD = $(top_builddir)/libmetis/libmetis.la
+--- configure.ac 	1970-01-01 01:00:00.000000000 +0100
++++ configure.ac	2007-09-24 15:12:11.917289395 +0100
+@@ -0,0 +1,54 @@
++AC_INIT([metis], [5.0pre2], [metis@cs.umn.edu], [metis])
++AM_INIT_AUTOMAKE([foreign])
++
++AC_PROG_MAKE_SET
++AC_PROG_LIBTOOL
++
++AC_CHECK_LIB(m, [sqrt, pow, log])
++
++AC_ARG_ENABLE(openmp,
++    [AC_HELP_STRING([--enable-openmp],
++		    [compile with openmp])],
++     [enable_openmp=$enableval],
++     [enable_openmp="yes"])
++AC_MSG_RESULT($enable_openmp)
++
++if test x$enable_openmp = xyes; then
++   AC_CHECK_HEADERS(omp.h)  
++   OMP_CPPFLAGS=-D__OPENMP__
++   if test x$CC = xicc; then
++       OMP_CFLAGS="-openmp -openmp-report2"
++       OMP_LDFLAGS=-openmp
++   else
++       OMP_CFLAGS=-fopenmp
++       OMP_LDFLAGS=-lgomp
++   fi	
++fi
++
++# very basic pcre check
++AC_ARG_ENABLE(pcre,
++	[AC_HELP_STRING([--enable-pcre],
++			[Enable PCRE regex support])],
++     [enable_pcre=$enableval],
++     [enable_pcre="yes"])
++AC_MSG_RESULT($enable_pcre)
++if test x$enable_pcre = xyes; then
++  AC_PATH_PROGS(PCRE_CONFIG, pcre-config, no)
++  if test "$PCRE_CONFIG" = "no"; then
++      AC_MSG_ERROR(Unable to find pcre-config in path for PCRE support)
++  else
++      AC_CHECK_HEADERS(pcre.h)
++      PCRE="yes"
++      PCRE_CPPFLAGS=-D__WITHPCRE__
++      PCRE_LDFLAGS=-lpcre
++  fi
++fi
++
++AC_CONFIG_FILES( \
++    Makefile \
++    GKlib/trunk/Makefile \
++    libmetis/Makefile \
++    programs/Makefile \
++    test/Makefile 
++)
++AC_OUTPUT
+--- Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ Makefile.am	2007-09-24 15:12:11.921289623 +0100
+@@ -0,0 +1,3 @@
++SUBDIRS = GKlib/trunk libmetis programs test
++EXTRA_DIST = CHANGES.v4 CHANGES.v5
++include_HEADERS = include/metis.h
+--- GKlib/trunk/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ GKlib/trunk/Makefile.am	2007-09-24 15:12:11.949291219 +0100
+@@ -0,0 +1,26 @@
++AM_CPPFLAGS = -DLINUX -D_FILE_OFFSET_BITS=6 $(PCRE_CPPFLAGS) $(OMP_CPPFLAGS)
++AM_CFLAGS = -std=c99 $(OMP_CFLAGS)
++
++noinst_LTLIBRARIES = libgklib.la
++noinst_HEADERS = GKlib.h
++
++libgklib_la_SOURCES = \
++	b64.c \
++	blas.c \
++	dfkvkselect.c \
++	dlmalloc.c \
++	error.c \
++	fs.c \
++	getopt.c \
++	htable.c \
++	io.c \
++	memory.c \
++	omp.c \
++	pdb.c \
++	seq.c \
++	sort.c \
++	string.c \
++	timers.c \
++	tokenizer.c \
++	util.c
++libgklib_la_LIBADD = $(OMP_LDFLAGS) $(PCRE_LDFLAGS)
+--- libmetis/smbfactor.c 	1970-01-01 01:00:00.000000000 +0100
++++ libmetis/smbfactor.c	2007-09-24 15:12:11.949291219 +0100
+@@ -0,0 +1,385 @@
++/*
++ * Copyright 1997, Regents of the University of Minnesota
++ *
++ * smbfactor.c
++ *
++ * This file performs the symbolic factorization of a matrix
++ *
++ * Started 8/1/97
++ * George
++ *
++ * $Id: smbfactor.c,v 1.2 2002/08/10 06:02:55 karypis Exp $
++ *
++ */
++
++#include <metislib.h>
++
++
++/*************************************************************************
++* This function sets up data structures for fill-in computations
++**************************************************************************/
++void ComputeFillIn(GraphType *graph, idxtype *iperm)
++{
++  idxtype i, j, k, nvtxs, maxlnz, maxsub;
++  idxtype *xadj, *adjncy;
++  idxtype *perm, *xlnz, *xnzsub, *nzsub;
++  double opc;
++
++/*
++  mprintf("\nSymbolic factorization... --------------------------------------------\n");
++*/
++
++  nvtxs = graph->nvtxs;
++  xadj = graph->xadj;
++  adjncy = graph->adjncy;
++
++  maxsub = 4*xadj[nvtxs];
++
++  /* Relabel the vertices so that it starts from 1 */
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]++;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]++;
++
++  /* Allocate the required memory */
++  perm = idxmalloc(nvtxs+1, "ComputeFillIn: perm");
++  xlnz = idxmalloc(nvtxs+1, "ComputeFillIn: xlnz");
++  xnzsub = idxmalloc(nvtxs+1, "ComputeFillIn: xnzsub");
++  nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++
++  /* Construct perm from iperm and change the numbering of iperm */
++  for (i=0; i<nvtxs; i++)
++    perm[iperm[i]] = i;
++  for (i=0; i<nvtxs; i++) {
++    iperm[i]++;
++    perm[i]++;
++  }
++  
++  /*
++   * Call sparspak routine.
++   */
++  if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) {
++    gk_free((void **)&nzsub, LTERM);
++
++    maxsub = 4*maxsub; 
++    nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++    if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) 
++      errexit("MAXSUB is too small!");
++  }
++
++  opc = 0;
++  for (i=0; i<nvtxs; i++)
++    xlnz[i]--;
++  for (i=0; i<nvtxs; i++)
++    opc += (xlnz[i+1]-xlnz[i])*(xlnz[i+1]-xlnz[i]) - (xlnz[i+1]-xlnz[i]);
++
++  mprintf("  Nonzeros: %D, \tOperation Count: %6.4le\n", maxlnz, opc);
++
++
++  gk_free((void **)&perm, &xlnz, &xnzsub, &nzsub, LTERM);
++
++
++  /* Relabel the vertices so that it starts from 0 */
++  for (i=0; i<nvtxs; i++)
++    iperm[i]--;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]--;
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]--;
++
++}
++
++
++
++/*************************************************************************
++* This function sets up data structures for fill-in computations
++**************************************************************************/
++idxtype ComputeFillIn2(GraphType *graph, idxtype *iperm)
++{
++  idxtype i, j, k, nvtxs, maxlnz, maxsub;
++  idxtype *xadj, *adjncy;
++  idxtype *perm, *xlnz, *xnzsub, *nzsub;
++  double opc;
++
++  nvtxs = graph->nvtxs;
++  xadj = graph->xadj;
++  adjncy = graph->adjncy;
++
++  maxsub = 4*xadj[nvtxs];
++
++  /* Relabel the vertices so that it starts from 1 */
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]++;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]++;
++
++  /* Allocate the required memory */
++  perm = idxmalloc(nvtxs+1, "ComputeFillIn: perm");
++  xlnz = idxmalloc(nvtxs+1, "ComputeFillIn: xlnz");
++  xnzsub = idxmalloc(nvtxs+1, "ComputeFillIn: xnzsub");
++  nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++
++  /* Construct perm from iperm and change the numbering of iperm */
++  for (i=0; i<nvtxs; i++)
++    perm[iperm[i]] = i;
++  for (i=0; i<nvtxs; i++) {
++    iperm[i]++;
++    perm[i]++;
++  }
++  
++  /*
++   * Call sparspak routine.
++   */
++  if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) {
++    gk_free((void **)&nzsub, LTERM);
++
++    maxsub = 4*maxsub; 
++    nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++    if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) 
++      errexit("MAXSUB is too small!");
++  }
++
++  opc = 0;
++  for (i=0; i<nvtxs; i++)
++    xlnz[i]--;
++  for (i=0; i<nvtxs; i++)
++    opc += (xlnz[i+1]-xlnz[i])*(xlnz[i+1]-xlnz[i]) - (xlnz[i+1]-xlnz[i]);
++
++
++  gk_free((void **)&perm, &xlnz, &xnzsub, &nzsub, LTERM);
++
++
++  /* Relabel the vertices so that it starts from 0 */
++  for (i=0; i<nvtxs; i++)
++    iperm[i]--;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]--;
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]--;
++
++  return maxlnz;
++
++}
++
++
++/*****************************************************************          
++**********     SMBFCT ..... SYMBOLIC FACTORIZATION       ********* 
++******************************************************************          
++*   PURPOSE - THIS ROUTINE PERFORMS SYMBOLIC FACTORIZATION               
++*   ON A PERMUTED LINEAR SYSTEM AND IT ALSO SETS UP THE               
++*   COMPRESSED DATA STRUCTURE FOR THE SYSTEM.                         
++*
++*   INPUT PARAMETERS -                                               
++*      NEQNS - NUMBER OF EQUATIONS.                                 
++*      (XADJ, ADJNCY) - THE ADJACENCY STRUCTURE.                   
++*      (PERM, INVP) - THE PERMUTATION VECTOR AND ITS INVERSE.     
++*
++*   UPDATED PARAMETERS -                                         
++*      MAXSUB - SIZE OF THE SUBSCRIPT ARRAY NZSUB.  ON RETURN,  
++*             IT CONTAINS THE NUMBER OF SUBSCRIPTS USED        
++*
++*   OUTPUT PARAMETERS -                                       
++*      XLNZ - INDEX INTO THE NONZERO STORAGE VECTOR LNZ.   
++*      (XNZSUB, NZSUB) - THE COMPRESSED SUBSCRIPT VECTORS. 
++*      MAXLNZ - THE NUMBER OF NONZEROS FOUND.             
++*
++*******************************************************************/
++idxtype smbfct(idxtype neqns, idxtype *xadj, idxtype *adjncy, idxtype *perm, idxtype *invp, 
++	       idxtype *xlnz, idxtype *maxlnz, idxtype *xnzsub, idxtype *nzsub, idxtype *maxsub)
++{
++  /* Local variables */
++  idxtype node, rchm, mrgk, lmax, i, j, k, m, nabor, nzbeg, nzend;
++  idxtype kxsub, jstop, jstrt, mrkflg, inz, knz, flag;
++  idxtype *mrglnk, *marker, *rchlnk;
++
++  rchlnk = idxmalloc(neqns+1, "smbfct: rchlnk");
++  marker = idxsmalloc(neqns+1, 0, "smbfct: marker");
++  mrglnk = idxsmalloc(neqns+1, 0, "smbfct: mgrlnk");
++
++  /* Parameter adjustments */
++  --marker;
++  --mrglnk;
++  --rchlnk;
++  --nzsub;
++  --xnzsub;
++  --xlnz;
++  --invp;
++  --perm;
++  --adjncy;
++  --xadj;
++
++  /* Function Body */
++  flag = 0;
++  nzbeg = 1;
++  nzend = 0;
++  xlnz[1] = 1;
++
++  /* FOR EACH COLUMN KNZ COUNTS THE NUMBER OF NONZEROS IN COLUMN K ACCUMULATED IN RCHLNK. */
++  for (k = 1; k <= neqns; ++k) {
++    knz = 0;
++    mrgk = mrglnk[k];
++    mrkflg = 0;
++    marker[k] = k;
++    if (mrgk != 0) 
++      marker[k] = marker[mrgk];
++    xnzsub[k] = nzend;
++    node = perm[k];
++
++    if (xadj[node] >= xadj[node+1]) {
++      xlnz[k+1] = xlnz[k];
++      continue;
++    }
++
++    /* USE RCHLNK TO LINK THROUGH THE STRUCTURE OF A(*,K) BELOW DIAGONAL */
++    rchlnk[k] = neqns+1;
++    for (j=xadj[node]; j<xadj[node+1]; j++) {
++      nabor = invp[adjncy[j]];
++      if (nabor <= k) 
++        continue;
++      rchm = k;
++
++      do {
++        m = rchm;
++        rchm = rchlnk[m];
++      } while (rchm <= nabor); 
++
++      knz++;
++      rchlnk[m] = nabor;
++      rchlnk[nabor] = rchm;
++      if (marker[nabor] != marker[k]) 
++        mrkflg = 1;
++    }
++
++    /* TEST FOR MASS SYMBOLIC ELIMINATION */
++    lmax = 0;
++    if (mrkflg != 0 || mrgk == 0 || mrglnk[mrgk] != 0) 
++      goto L350;
++    xnzsub[k] = xnzsub[mrgk] + 1;
++    knz = xlnz[mrgk + 1] - (xlnz[mrgk] + 1);
++    goto L1400;
++
++
++    /* LINK THROUGH EACH COLUMN I THAT AFFECTS L(*,K) */
++L350:
++    i = k;
++    while ((i = mrglnk[i]) != 0) {
++      inz = xlnz[i+1] - (xlnz[i]+1);
++      jstrt = xnzsub[i] + 1;
++      jstop = xnzsub[i] + inz;
++
++      if (inz > lmax) { 
++        lmax = inz;
++        xnzsub[k] = jstrt;
++      }
++
++      /* MERGE STRUCTURE OF L(*,I) IN NZSUB INTO RCHLNK. */ 
++      rchm = k;
++      for (j = jstrt; j <= jstop; ++j) {
++        nabor = nzsub[j];
++        do {
++          m = rchm;
++          rchm = rchlnk[m];
++        } while (rchm < nabor);
++
++        if (rchm != nabor) {
++          knz++;
++          rchlnk[m] = nabor;
++          rchlnk[nabor] = rchm;
++          rchm = nabor;
++        }
++      }
++    }
++
++    /* CHECK IF SUBSCRIPTS DUPLICATE THOSE OF ANOTHER COLUMN */
++    if (knz == lmax) 
++      goto L1400;
++
++    /* OR IF TAIL OF K-1ST COLUMN MATCHES HEAD OF KTH */
++    if (nzbeg > nzend) 
++      goto L1200;
++
++    i = rchlnk[k];
++    for (jstrt = nzbeg; jstrt <= nzend; ++jstrt) {
++      if (nzsub[jstrt] < i) 
++        continue;
++
++      if (nzsub[jstrt] == i) 
++        goto L1000;
++      else 
++        goto L1200;
++    }
++    goto L1200;
++
++L1000:
++    xnzsub[k] = jstrt;
++    for (j = jstrt; j <= nzend; ++j) {
++      if (nzsub[j] != i) 
++        goto L1200;
++      
++      i = rchlnk[i];
++      if (i > neqns) 
++        goto L1400;
++    }
++    nzend = jstrt - 1;
++
++    /* COPY THE STRUCTURE OF L(*,K) FROM RCHLNK TO THE DATA STRUCTURE (XNZSUB, NZSUB) */
++L1200:
++    nzbeg = nzend + 1;
++    nzend += knz;
++
++    if (nzend > *maxsub) {
++      flag = 1; /* Out of memory */
++      break;
++    }
++
++    i = k;
++    for (j=nzbeg; j<=nzend; ++j) {
++      i = rchlnk[i];
++      nzsub[j] = i;
++      marker[i] = k;
++    }
++    xnzsub[k] = nzbeg;
++    marker[k] = k;
++
++    /*
++     * UPDATE THE VECTOR MRGLNK.  NOTE COLUMN L(*,K) JUST FOUND   
++     * IS REQUIRED TO DETERMINE COLUMN L(*,J), WHERE              
++     * L(J,K) IS THE FIRST NONZERO IN L(*,K) BELOW DIAGONAL.      
++     */
++L1400:
++    if (knz > 1) { 
++      kxsub = xnzsub[k];
++      i = nzsub[kxsub];
++      mrglnk[k] = mrglnk[i];
++      mrglnk[i] = k;
++    }
++
++    xlnz[k + 1] = xlnz[k] + knz;
++  }
++
++  if (flag == 0) {
++    *maxlnz = xlnz[neqns] - 1;
++    *maxsub = xnzsub[neqns];
++    xnzsub[neqns + 1] = xnzsub[neqns];
++  }
++
++  marker++;
++  mrglnk++;
++  rchlnk++;
++  nzsub++;
++  xnzsub++;
++  xlnz++;
++  invp++;
++  perm++;
++  adjncy++;
++  xadj++;
++  gk_free((void **)&rchlnk, &mrglnk, &marker, LTERM);
++
++  return flag;
++  
++} 
++
+--- libmetis/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ libmetis/Makefile.am	2007-09-24 15:12:11.933290307 +0100
+@@ -0,0 +1,16 @@
++AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/GKlib/trunk -DLINUX -DUNIX -D_FILE_OFFSET_BITS=64
++lib_LTLIBRARIES = libmetis.la
++libmetis_la_SOURCES= \
++	balance.c bucketsort.c ccgraph.c checkgraph.c cmetis.c \
++	coarsen.c compress.c debug.c estmem.c fm.c fortran.c \
++	frename.c graph.c initpart.c kfmetis.c kmetis.c kvmetis.c \
++	kwayfm.c kwayrefine.c kwayvolfm.c kwayvolrefine.c match.c \
++	mbalance.c mbalance2.c mcoarsen.c memory.c mesh.c meshpart.c \
++	mfm.c mfm2.c mincover.c minitpart.c minitpart2.c mkmetis.c \
++	mkwayfmh.c mkwayrefine.c mmatch.c mmd.c mpmetis.c mrefine.c \
++	mrefine2.c mrkmetis.c mutil.c myqsort.c ometis.c parmetis.c \
++	pmetis.c pqueue.c refine.c rkmetis.c separator.c sfm.c \
++	srefine.c stat.c streamio.c subdomains.c timing.c util.c \
++	smbfactor.c
++
++libmetis_la_LIBADD = $(top_builddir)/GKlib/trunk/libgklib.la
+--- programs/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ programs/Makefile.am	2007-09-24 15:12:11.933290307 +0100
+@@ -0,0 +1,19 @@
++AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/GKlib/trunk -DLINUX -DUNIX -D_FILE_OFFSET_BITS=64
++bin_PROGRAMS = cmetis graphchk kfmetis kmetis mesh2dual mesh2nodal metis \
++	oemetis onmetis partdmesh partnmesh pmetis
++
++# Differing from upstream, a lot of these get smbfactor.c as we need
++# ComputeFillIn2, which is referenced in proto.h <- metisbin.h
++LDADD = $(top_builddir)/libmetis/libmetis.la
++cmetis_SOURCES = cmetis.c io.c cmdline_cmetis.c 
++graphchk_SOURCES = graphchk.c io.c 
++kfmetis_SOURCES = kfmetis.c io.c cmdline_kfmetis.c
++kmetis_SOURCES = kmetis.c io.c 
++mesh2dual_SOURCES = mesh2dual.c io.c 
++mesh2nodal_SOURCES = mesh2nodal.c io.c 
++metis_SOURCES = metis.c io.c
++oemetis_SOURCES = oemetis.c io.c
++onmetis_SOURCES = onmetis.c io.c
++partdmesh_SOURCES = partdmesh.c io.c 
++partnmesh_SOURCES = partnmesh.c io.c 
++pmetis_SOURCES = pmetis.c io.c cmdline_pmetis.c 
+--- test/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ test/Makefile.am	2007-09-24 15:45:23.683980202 +0100
+@@ -0,0 +1,10 @@
++AM_CPPFLAGS = \
++	-I$(top_srcdir)/include \
++	-I$(top_srcdir)/libmetis \
++	-I$(top_srcdir)/programs \
++	-I$(top_srcdir)/GKlib/trunk \
++	-DLINUX -DUNIX -D_FILE_OFFSET_BITS=64
++
++check_PROGRAMS = mtest
++mtest_SOURCES = mtest.c $(top_srcdir)/programs/io.c
++mtest_LDADD = $(top_builddir)/libmetis/libmetis.la
+--- configure.ac 	1970-01-01 01:00:00.000000000 +0100
++++ configure.ac	2007-09-24 15:12:11.917289395 +0100
+@@ -0,0 +1,54 @@
++AC_INIT([metis], [5.0pre2], [metis@cs.umn.edu], [metis])
++AM_INIT_AUTOMAKE([foreign])
++
++AC_PROG_MAKE_SET
++AC_PROG_LIBTOOL
++
++AC_CHECK_LIB(m, [sqrt, pow, log])
++
++AC_ARG_ENABLE(openmp,
++    [AC_HELP_STRING([--enable-openmp],
++		    [compile with openmp])],
++     [enable_openmp=$enableval],
++     [enable_openmp="yes"])
++AC_MSG_RESULT($enable_openmp)
++
++if test x$enable_openmp = xyes; then
++   AC_CHECK_HEADERS(omp.h)  
++   OMP_CPPFLAGS=-D__OPENMP__
++   if test x$CC = xicc; then
++       OMP_CFLAGS="-openmp -openmp-report2"
++       OMP_LDFLAGS=-openmp
++   else
++       OMP_CFLAGS=-fopenmp
++       OMP_LDFLAGS=-lgomp
++   fi	
++fi
++
++# very basic pcre check
++AC_ARG_ENABLE(pcre,
++	[AC_HELP_STRING([--enable-pcre],
++			[Enable PCRE regex support])],
++     [enable_pcre=$enableval],
++     [enable_pcre="yes"])
++AC_MSG_RESULT($enable_pcre)
++if test x$enable_pcre = xyes; then
++  AC_PATH_PROGS(PCRE_CONFIG, pcre-config, no)
++  if test "$PCRE_CONFIG" = "no"; then
++      AC_MSG_ERROR(Unable to find pcre-config in path for PCRE support)
++  else
++      AC_CHECK_HEADERS(pcre.h)
++      PCRE="yes"
++      PCRE_CPPFLAGS=-D__WITHPCRE__
++      PCRE_LDFLAGS=-lpcre
++  fi
++fi
++
++AC_CONFIG_FILES( \
++    Makefile \
++    GKlib/trunk/Makefile \
++    libmetis/Makefile \
++    programs/Makefile \
++    test/Makefile 
++)
++AC_OUTPUT
+--- Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ Makefile.am	2007-09-24 15:12:11.921289623 +0100
+@@ -0,0 +1,3 @@
++SUBDIRS = GKlib/trunk libmetis programs test
++EXTRA_DIST = CHANGES.v4 CHANGES.v5
++include_HEADERS = include/metis.h
+--- GKlib/trunk/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ GKlib/trunk/Makefile.am	2007-09-24 15:12:11.949291219 +0100
+@@ -0,0 +1,26 @@
++AM_CPPFLAGS = -DLINUX -D_FILE_OFFSET_BITS=6 $(PCRE_CPPFLAGS) $(OMP_CPPFLAGS)
++AM_CFLAGS = -std=c99 $(OMP_CFLAGS)
++
++noinst_LTLIBRARIES = libgklib.la
++noinst_HEADERS = GKlib.h
++
++libgklib_la_SOURCES = \
++	b64.c \
++	blas.c \
++	dfkvkselect.c \
++	dlmalloc.c \
++	error.c \
++	fs.c \
++	getopt.c \
++	htable.c \
++	io.c \
++	memory.c \
++	omp.c \
++	pdb.c \
++	seq.c \
++	sort.c \
++	string.c \
++	timers.c \
++	tokenizer.c \
++	util.c
++libgklib_la_LIBADD = $(OMP_LDFLAGS) $(PCRE_LDFLAGS)
+--- libmetis/smbfactor.c 	1970-01-01 01:00:00.000000000 +0100
++++ libmetis/smbfactor.c	2007-09-24 15:12:11.949291219 +0100
+@@ -0,0 +1,385 @@
++/*
++ * Copyright 1997, Regents of the University of Minnesota
++ *
++ * smbfactor.c
++ *
++ * This file performs the symbolic factorization of a matrix
++ *
++ * Started 8/1/97
++ * George
++ *
++ * $Id: smbfactor.c,v 1.2 2002/08/10 06:02:55 karypis Exp $
++ *
++ */
++
++#include <metislib.h>
++
++
++/*************************************************************************
++* This function sets up data structures for fill-in computations
++**************************************************************************/
++void ComputeFillIn(GraphType *graph, idxtype *iperm)
++{
++  idxtype i, j, k, nvtxs, maxlnz, maxsub;
++  idxtype *xadj, *adjncy;
++  idxtype *perm, *xlnz, *xnzsub, *nzsub;
++  double opc;
++
++/*
++  mprintf("\nSymbolic factorization... --------------------------------------------\n");
++*/
++
++  nvtxs = graph->nvtxs;
++  xadj = graph->xadj;
++  adjncy = graph->adjncy;
++
++  maxsub = 4*xadj[nvtxs];
++
++  /* Relabel the vertices so that it starts from 1 */
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]++;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]++;
++
++  /* Allocate the required memory */
++  perm = idxmalloc(nvtxs+1, "ComputeFillIn: perm");
++  xlnz = idxmalloc(nvtxs+1, "ComputeFillIn: xlnz");
++  xnzsub = idxmalloc(nvtxs+1, "ComputeFillIn: xnzsub");
++  nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++
++  /* Construct perm from iperm and change the numbering of iperm */
++  for (i=0; i<nvtxs; i++)
++    perm[iperm[i]] = i;
++  for (i=0; i<nvtxs; i++) {
++    iperm[i]++;
++    perm[i]++;
++  }
++  
++  /*
++   * Call sparspak routine.
++   */
++  if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) {
++    gk_free((void **)&nzsub, LTERM);
++
++    maxsub = 4*maxsub; 
++    nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++    if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) 
++      errexit("MAXSUB is too small!");
++  }
++
++  opc = 0;
++  for (i=0; i<nvtxs; i++)
++    xlnz[i]--;
++  for (i=0; i<nvtxs; i++)
++    opc += (xlnz[i+1]-xlnz[i])*(xlnz[i+1]-xlnz[i]) - (xlnz[i+1]-xlnz[i]);
++
++  mprintf("  Nonzeros: %D, \tOperation Count: %6.4le\n", maxlnz, opc);
++
++
++  gk_free((void **)&perm, &xlnz, &xnzsub, &nzsub, LTERM);
++
++
++  /* Relabel the vertices so that it starts from 0 */
++  for (i=0; i<nvtxs; i++)
++    iperm[i]--;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]--;
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]--;
++
++}
++
++
++
++/*************************************************************************
++* This function sets up data structures for fill-in computations
++**************************************************************************/
++idxtype ComputeFillIn2(GraphType *graph, idxtype *iperm)
++{
++  idxtype i, j, k, nvtxs, maxlnz, maxsub;
++  idxtype *xadj, *adjncy;
++  idxtype *perm, *xlnz, *xnzsub, *nzsub;
++  double opc;
++
++  nvtxs = graph->nvtxs;
++  xadj = graph->xadj;
++  adjncy = graph->adjncy;
++
++  maxsub = 4*xadj[nvtxs];
++
++  /* Relabel the vertices so that it starts from 1 */
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]++;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]++;
++
++  /* Allocate the required memory */
++  perm = idxmalloc(nvtxs+1, "ComputeFillIn: perm");
++  xlnz = idxmalloc(nvtxs+1, "ComputeFillIn: xlnz");
++  xnzsub = idxmalloc(nvtxs+1, "ComputeFillIn: xnzsub");
++  nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++
++  /* Construct perm from iperm and change the numbering of iperm */
++  for (i=0; i<nvtxs; i++)
++    perm[iperm[i]] = i;
++  for (i=0; i<nvtxs; i++) {
++    iperm[i]++;
++    perm[i]++;
++  }
++  
++  /*
++   * Call sparspak routine.
++   */
++  if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) {
++    gk_free((void **)&nzsub, LTERM);
++
++    maxsub = 4*maxsub; 
++    nzsub = idxmalloc(maxsub, "ComputeFillIn: nzsub");
++    if (smbfct(nvtxs, xadj, adjncy, perm, iperm, xlnz, &maxlnz, xnzsub, nzsub, &maxsub)) 
++      errexit("MAXSUB is too small!");
++  }
++
++  opc = 0;
++  for (i=0; i<nvtxs; i++)
++    xlnz[i]--;
++  for (i=0; i<nvtxs; i++)
++    opc += (xlnz[i+1]-xlnz[i])*(xlnz[i+1]-xlnz[i]) - (xlnz[i+1]-xlnz[i]);
++
++
++  gk_free((void **)&perm, &xlnz, &xnzsub, &nzsub, LTERM);
++
++
++  /* Relabel the vertices so that it starts from 0 */
++  for (i=0; i<nvtxs; i++)
++    iperm[i]--;
++  for (i=0; i<nvtxs+1; i++)
++    xadj[i]--;
++  k = xadj[nvtxs];
++  for (i=0; i<k; i++)
++    adjncy[i]--;
++
++  return maxlnz;
++
++}
++
++
++/*****************************************************************          
++**********     SMBFCT ..... SYMBOLIC FACTORIZATION       ********* 
++******************************************************************          
++*   PURPOSE - THIS ROUTINE PERFORMS SYMBOLIC FACTORIZATION               
++*   ON A PERMUTED LINEAR SYSTEM AND IT ALSO SETS UP THE               
++*   COMPRESSED DATA STRUCTURE FOR THE SYSTEM.                         
++*
++*   INPUT PARAMETERS -                                               
++*      NEQNS - NUMBER OF EQUATIONS.                                 
++*      (XADJ, ADJNCY) - THE ADJACENCY STRUCTURE.                   
++*      (PERM, INVP) - THE PERMUTATION VECTOR AND ITS INVERSE.     
++*
++*   UPDATED PARAMETERS -                                         
++*      MAXSUB - SIZE OF THE SUBSCRIPT ARRAY NZSUB.  ON RETURN,  
++*             IT CONTAINS THE NUMBER OF SUBSCRIPTS USED        
++*
++*   OUTPUT PARAMETERS -                                       
++*      XLNZ - INDEX INTO THE NONZERO STORAGE VECTOR LNZ.   
++*      (XNZSUB, NZSUB) - THE COMPRESSED SUBSCRIPT VECTORS. 
++*      MAXLNZ - THE NUMBER OF NONZEROS FOUND.             
++*
++*******************************************************************/
++idxtype smbfct(idxtype neqns, idxtype *xadj, idxtype *adjncy, idxtype *perm, idxtype *invp, 
++	       idxtype *xlnz, idxtype *maxlnz, idxtype *xnzsub, idxtype *nzsub, idxtype *maxsub)
++{
++  /* Local variables */
++  idxtype node, rchm, mrgk, lmax, i, j, k, m, nabor, nzbeg, nzend;
++  idxtype kxsub, jstop, jstrt, mrkflg, inz, knz, flag;
++  idxtype *mrglnk, *marker, *rchlnk;
++
++  rchlnk = idxmalloc(neqns+1, "smbfct: rchlnk");
++  marker = idxsmalloc(neqns+1, 0, "smbfct: marker");
++  mrglnk = idxsmalloc(neqns+1, 0, "smbfct: mgrlnk");
++
++  /* Parameter adjustments */
++  --marker;
++  --mrglnk;
++  --rchlnk;
++  --nzsub;
++  --xnzsub;
++  --xlnz;
++  --invp;
++  --perm;
++  --adjncy;
++  --xadj;
++
++  /* Function Body */
++  flag = 0;
++  nzbeg = 1;
++  nzend = 0;
++  xlnz[1] = 1;
++
++  /* FOR EACH COLUMN KNZ COUNTS THE NUMBER OF NONZEROS IN COLUMN K ACCUMULATED IN RCHLNK. */
++  for (k = 1; k <= neqns; ++k) {
++    knz = 0;
++    mrgk = mrglnk[k];
++    mrkflg = 0;
++    marker[k] = k;
++    if (mrgk != 0) 
++      marker[k] = marker[mrgk];
++    xnzsub[k] = nzend;
++    node = perm[k];
++
++    if (xadj[node] >= xadj[node+1]) {
++      xlnz[k+1] = xlnz[k];
++      continue;
++    }
++
++    /* USE RCHLNK TO LINK THROUGH THE STRUCTURE OF A(*,K) BELOW DIAGONAL */
++    rchlnk[k] = neqns+1;
++    for (j=xadj[node]; j<xadj[node+1]; j++) {
++      nabor = invp[adjncy[j]];
++      if (nabor <= k) 
++        continue;
++      rchm = k;
++
++      do {
++        m = rchm;
++        rchm = rchlnk[m];
++      } while (rchm <= nabor); 
++
++      knz++;
++      rchlnk[m] = nabor;
++      rchlnk[nabor] = rchm;
++      if (marker[nabor] != marker[k]) 
++        mrkflg = 1;
++    }
++
++    /* TEST FOR MASS SYMBOLIC ELIMINATION */
++    lmax = 0;
++    if (mrkflg != 0 || mrgk == 0 || mrglnk[mrgk] != 0) 
++      goto L350;
++    xnzsub[k] = xnzsub[mrgk] + 1;
++    knz = xlnz[mrgk + 1] - (xlnz[mrgk] + 1);
++    goto L1400;
++
++
++    /* LINK THROUGH EACH COLUMN I THAT AFFECTS L(*,K) */
++L350:
++    i = k;
++    while ((i = mrglnk[i]) != 0) {
++      inz = xlnz[i+1] - (xlnz[i]+1);
++      jstrt = xnzsub[i] + 1;
++      jstop = xnzsub[i] + inz;
++
++      if (inz > lmax) { 
++        lmax = inz;
++        xnzsub[k] = jstrt;
++      }
++
++      /* MERGE STRUCTURE OF L(*,I) IN NZSUB INTO RCHLNK. */ 
++      rchm = k;
++      for (j = jstrt; j <= jstop; ++j) {
++        nabor = nzsub[j];
++        do {
++          m = rchm;
++          rchm = rchlnk[m];
++        } while (rchm < nabor);
++
++        if (rchm != nabor) {
++          knz++;
++          rchlnk[m] = nabor;
++          rchlnk[nabor] = rchm;
++          rchm = nabor;
++        }
++      }
++    }
++
++    /* CHECK IF SUBSCRIPTS DUPLICATE THOSE OF ANOTHER COLUMN */
++    if (knz == lmax) 
++      goto L1400;
++
++    /* OR IF TAIL OF K-1ST COLUMN MATCHES HEAD OF KTH */
++    if (nzbeg > nzend) 
++      goto L1200;
++
++    i = rchlnk[k];
++    for (jstrt = nzbeg; jstrt <= nzend; ++jstrt) {
++      if (nzsub[jstrt] < i) 
++        continue;
++
++      if (nzsub[jstrt] == i) 
++        goto L1000;
++      else 
++        goto L1200;
++    }
++    goto L1200;
++
++L1000:
++    xnzsub[k] = jstrt;
++    for (j = jstrt; j <= nzend; ++j) {
++      if (nzsub[j] != i) 
++        goto L1200;
++      
++      i = rchlnk[i];
++      if (i > neqns) 
++        goto L1400;
++    }
++    nzend = jstrt - 1;
++
++    /* COPY THE STRUCTURE OF L(*,K) FROM RCHLNK TO THE DATA STRUCTURE (XNZSUB, NZSUB) */
++L1200:
++    nzbeg = nzend + 1;
++    nzend += knz;
++
++    if (nzend > *maxsub) {
++      flag = 1; /* Out of memory */
++      break;
++    }
++
++    i = k;
++    for (j=nzbeg; j<=nzend; ++j) {
++      i = rchlnk[i];
++      nzsub[j] = i;
++      marker[i] = k;
++    }
++    xnzsub[k] = nzbeg;
++    marker[k] = k;
++
++    /*
++     * UPDATE THE VECTOR MRGLNK.  NOTE COLUMN L(*,K) JUST FOUND   
++     * IS REQUIRED TO DETERMINE COLUMN L(*,J), WHERE              
++     * L(J,K) IS THE FIRST NONZERO IN L(*,K) BELOW DIAGONAL.      
++     */
++L1400:
++    if (knz > 1) { 
++      kxsub = xnzsub[k];
++      i = nzsub[kxsub];
++      mrglnk[k] = mrglnk[i];
++      mrglnk[i] = k;
++    }
++
++    xlnz[k + 1] = xlnz[k] + knz;
++  }
++
++  if (flag == 0) {
++    *maxlnz = xlnz[neqns] - 1;
++    *maxsub = xnzsub[neqns];
++    xnzsub[neqns + 1] = xnzsub[neqns];
++  }
++
++  marker++;
++  mrglnk++;
++  rchlnk++;
++  nzsub++;
++  xnzsub++;
++  xlnz++;
++  invp++;
++  perm++;
++  adjncy++;
++  xadj++;
++  gk_free((void **)&rchlnk, &mrglnk, &marker, LTERM);
++
++  return flag;
++  
++} 
++
+--- libmetis/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ libmetis/Makefile.am	2007-09-24 15:12:11.933290307 +0100
+@@ -0,0 +1,16 @@
++AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/GKlib/trunk -DLINUX -DUNIX -D_FILE_OFFSET_BITS=64
++lib_LTLIBRARIES = libmetis.la
++libmetis_la_SOURCES= \
++	balance.c bucketsort.c ccgraph.c checkgraph.c cmetis.c \
++	coarsen.c compress.c debug.c estmem.c fm.c fortran.c \
++	frename.c graph.c initpart.c kfmetis.c kmetis.c kvmetis.c \
++	kwayfm.c kwayrefine.c kwayvolfm.c kwayvolrefine.c match.c \
++	mbalance.c mbalance2.c mcoarsen.c memory.c mesh.c meshpart.c \
++	mfm.c mfm2.c mincover.c minitpart.c minitpart2.c mkmetis.c \
++	mkwayfmh.c mkwayrefine.c mmatch.c mmd.c mpmetis.c mrefine.c \
++	mrefine2.c mrkmetis.c mutil.c myqsort.c ometis.c parmetis.c \
++	pmetis.c pqueue.c refine.c rkmetis.c separator.c sfm.c \
++	srefine.c stat.c streamio.c subdomains.c timing.c util.c \
++	smbfactor.c
++
++libmetis_la_LIBADD = $(top_builddir)/GKlib/trunk/libgklib.la
+--- programs/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ programs/Makefile.am	2007-09-24 15:12:11.933290307 +0100
+@@ -0,0 +1,19 @@
++AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/GKlib/trunk -DLINUX -DUNIX -D_FILE_OFFSET_BITS=64
++bin_PROGRAMS = cmetis graphchk kfmetis kmetis mesh2dual mesh2nodal metis \
++	oemetis onmetis partdmesh partnmesh pmetis
++
++# Differing from upstream, a lot of these get smbfactor.c as we need
++# ComputeFillIn2, which is referenced in proto.h <- metisbin.h
++LDADD = $(top_builddir)/libmetis/libmetis.la
++cmetis_SOURCES = cmetis.c io.c cmdline_cmetis.c 
++graphchk_SOURCES = graphchk.c io.c 
++kfmetis_SOURCES = kfmetis.c io.c cmdline_kfmetis.c
++kmetis_SOURCES = kmetis.c io.c 
++mesh2dual_SOURCES = mesh2dual.c io.c 
++mesh2nodal_SOURCES = mesh2nodal.c io.c 
++metis_SOURCES = metis.c io.c
++oemetis_SOURCES = oemetis.c io.c
++onmetis_SOURCES = onmetis.c io.c
++partdmesh_SOURCES = partdmesh.c io.c 
++partnmesh_SOURCES = partnmesh.c io.c 
++pmetis_SOURCES = pmetis.c io.c cmdline_pmetis.c 
+--- test/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
++++ test/Makefile.am	2007-09-24 15:45:23.683980202 +0100
+@@ -0,0 +1,10 @@
++AM_CPPFLAGS = \
++	-I$(top_srcdir)/include \
++	-I$(top_srcdir)/libmetis \
++	-I$(top_srcdir)/programs \
++	-I$(top_srcdir)/GKlib/trunk \
++	-DLINUX -DUNIX -D_FILE_OFFSET_BITS=64
++
++check_PROGRAMS = mtest
++mtest_SOURCES = mtest.c $(top_srcdir)/programs/io.c
++mtest_LDADD = $(top_builddir)/libmetis/libmetis.la
