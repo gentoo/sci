@@ -2,6 +2,12 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*extrema-4.2.8 (24 Sep 2007)
+
+  24 Sep 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +extrema-4.2.8.ebuild:
+  Version bump
+
 *extrema-4.2.7 (23 Aug 2007)
 
   23 Aug 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
