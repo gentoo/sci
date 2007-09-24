@@ -15,18 +15,20 @@ SRC_URI="x86?     ( acml-${MY_PV}-gfortran-32bit.tgz )
 
 
 RESTRICT="strip fetch"
-IUSE="openmp int64 doc examples"
+IUSE="openmp int64 test doc examples"
 LICENSE="ACML"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
 
 # proper gcc needed for tests
 DEPEND="app-admin/eselect-blas
-	app-admin/eselect-lapack
-	openmp? ( >=sys-devel/gcc-4.2 )
-	!openmp? ( =sys-devel/gcc-4.1* )"
+	openmp? ( test? ( >=sys-devel/gcc-4.2 ) )
+	!openmp? ( test? ( =sys-devel/gcc-4.1* ) )
+	app-admin/eselect-lapack"
 
 RDEPEND="${DEPEND}
+	openmp? ( >=sys-devel/gcc-4.2 )
+	!openmp? ( =sys-devel/gcc-4.1* )
 	doc? ( app-doc/blas-docs app-doc/lapack-docs )"
 
 pkg_nofetch() {
@@ -42,6 +44,7 @@ pkg_setup() {
 	elog "hardware without SSE/SSE2 instructions. "
 	elog "For older 32-bit hardware that does not support SSE/SSE2,"
 	elog "you must continue to use an older version (ACML 3.1.0 and ealier)."
+	epause
 	FORTRAN="gfortran"
 	fortran_pkg_setup
 	if use test; then
@@ -61,6 +64,7 @@ src_unpack() {
 	unpack ${A}
 	(DISTDIR="${S}" unpack contents-acml-*.tgz)
 	case ${FORTRANC} in
+		g77) FORT=gnu ;;
 		gfortran) FORT=gfortran ;;
 		ifc|ifort) FORT=ifort ;;
 		*) eerror "Unsupported fortran compiler: ${FORTRANC}"
@@ -72,6 +76,7 @@ src_unpack() {
 
 src_compile() {
 	einfo "Nothing to compile"
+	return
 }
 
 src_test() {
@@ -80,12 +85,12 @@ src_test() {
 	use openmp && forts="$(ls -d ${FORT}*_mp*)"
 	for fort in ${forts}; do
 		einfo "Testing acml for ${fort}"
-		cd "${S}"/${fort}/examples
+		cd "${S}/${fort}/examples"
 		for d in . acml_mv; do
-			cd "${S}"/${fort}/examples/${d}
+			cd "${S}/${fort}/examples/${d}"
 			emake \
-				ACMLDIR="${S}"/${fort} \
-				F77=${FORTRANC} \
+				ACMLDIR="${S}/${fort}" \
+				F77="${FORTRANC}" \
 				CC="$(tc-getCC)" \
 				CPLUSPLUS="$(tc-getCXX)" \
 				|| die "emake test in ${fort}/examples/${d} failed"
@@ -96,28 +101,28 @@ src_test() {
 
 src_install() {
 	# respect acml default install dir (and FHS)
-	local instdir=/opt/${PN}${PV}
+	local instdir="/opt/${PN}${PV}"
 	dodir ${instdir}
 
 	for fort in ${FORTDIRS}; do
 		# install acml
-		use examples || rm -rf "${S}"/${fort}/examples
-		cp -pPR "${S}/${fort}" "${D}"${instdir} || die "copy ${fort} failed"
+		use examples || rm -rf "${S}/${fort}"/examples
+		cp -pPR "${S}/${fort}" "${D}${instdir}"
 
 		# install profiles
-		ESELECT_PROF=acml-${FORTRANC}
 		local acmldir=${instdir}/${fort}
 		local libname=${acmldir}/lib/libacml
+		local prof=acml-${FORTRANC}
 		local extlibs
 		local extflags
-		if [[ ${fort} =~ int64 ]]; then
-			ESELECT_PROF=${ESELECT_PROF}-int64
+		if [[ "${fort}" =~ "int64" ]]; then
+			prof="${prof}-int64"
 			extflags="${extflags} -fdefault-integer-8"
 		fi
-		if [[ ${fort} =~ _mp ]]; then
-			ESELECT_PROF=${ESELECT_PROF}-openmp
-			extlibs=-lpthread
-			libname=${libname}_mp
+		if [[ "${fort}" =~ "_mp" ]]; then
+			prof="${prof}-openmp"
+			extlibs="-lpthread"
+			libname="${libname}_mp"
 			extflags="${extflags} -fopenmp"
 		fi
 		for l in blas lapack; do
@@ -139,29 +144,30 @@ ${libname}.so /usr/@LIBDIR@/lib${l}.so
 ${libname}.a /usr/@LIBDIR@/lib${l}.a
 ${acmldir}/lib/${l}.pc  /usr/@LIBDIR@/pkgconfig/${l}.pc
 EOF
-			eselect ${l} add $(get_libdir) eselect.${l} ${ESELECT_PROF}
-		done
-		echo "LDPATH=${acmldir}/lib" > "${S}"/35acml
-		echo "INCLUDE=${acmldir}/include" >> "${S}"/35acml
-	done
 
-	doenvd "${S}"/35acml || die "doenvd failed"
+			eselect ${l} add $(get_libdir) eselect.${l} ${prof}
+		done
+		echo "LDPATH=${acmldir}/lib" > ${S}/35acml
+		echo "INCLUDE=${acmldir}/include" >> ${S}/35acml
+	done
+	doenvd "${S}"/35acml
 	use doc || rm -rf "${S}"/Doc/acml.pdf "${S}"/Doc/html
-	cp -pPR "${S}"/Doc "${D}"${instdir} || die "copy doc failed"
+	cp -pPR "${S}"/Doc "${D}${instdir}"
 }
 
 pkg_postinst() {
-	for p in blas lapack; do
-		local current_p=$(eselect ${p} show | cut -d' ' -f2)
-		if [[ -z ${current_p} ]] || [[ ${current_p} == ${ESELECT_PROF} ]]; then
-			eselect ${p} set ${ESELECT_PROF}
-			elog "${p} has been eselected to ${ESELECT_PROF}"
-		else
-			elog "Current eselected ${p} is ${current_p}"
-			elog "To use ${p} ${ESELECT_PROF} implementation, you have to issue (as root):"
-			elog "\t eselect ${p} set ${ESELECT_PROF}"
+	# set acml if none are set yet
+	for l in blas lapack; do
+		if [[ -z "$(eselect ${l} show)" ]]; then
+			local prof=${FORTRANC}
+			use int64 && ext="${prof}-int64"
+			use openmp && ext="${prof}-openmp"
+			eselect ${l} set ${prof}
 		fi
 	done
+	elog "Use 'eselect blas' and 'eselect lapack' to select"
+	elog "one of the multiple acml blas and lapack profiles"
+	echo
 	if use openmp; then
 		elog "Remember that if you want to use openmp"
 		elog "You need to switch to gcc >= 4.2 with gcc-config"

@@ -63,17 +63,18 @@ src_unpack() {
 
 src_compile() {
 	einfo "Nothing to compile"
+	return
 }
 
 src_test() {
 	for fort in ${FORTDIRS}; do
 		einfo "Testing acml for $(basename ${fort})"
-		cd "${S}"/${fort}/examples
+		cd "${S}/${fort}/examples"
 		for d in . acml_mv; do
-			cd "${S}"/${fort}/examples/${d}
+			cd "${S}/${fort}/examples/${d}"
 			emake \
-				ACMLDIR="${S}"/${fort} \
-				F77=${FORTRANC} \
+				ACMLDIR="${S}/${fort}" \
+				F77="${FORTRANC}" \
 				CC="$(tc-getCC)" \
 				CPLUSPLUS="$(tc-getCXX)" \
 				|| die "emake test in ${fort}/examples/${d} failed"
@@ -84,24 +85,24 @@ src_test() {
 
 src_install() {
 	# respect acml default install dir (and FHS)
-	local instdir=/opt/${PN}${PV}
+	local instdir="/opt/${PN}${PV}"
 	dodir ${instdir}
 
 	for fort in ${FORTDIRS}; do
 		# install acml
-		use examples || rm -rf "${S}"/${fort}/examples
-		cp -pPR "${S}/${fort}" "${D}"${instdir} || die "copy ${fort} failed"
+		use examples || rm -rf "${S}/${fort}"/examples
+		cp -pPR "${S}/${fort}" "${D}${instdir}"
 
 		# install profiles
-		ESELECT_PROF=acml-${FORTRANC}
 		local acmldir=${instdir}/${fort}
 		local libname=${acmldir}/lib/libacml
+		local prof=acml-${FORTRANC}
 		local extlibs
 		local extflags
-		if [[ ${fort} =~ _mp ]]; then
-			ESELECT_PROF=${ESELECT_PROF}-openmp
-			extlibs=-lpthread
-			libname=${libname}_mp
+		if [[ "${fort}" =~ "_mp" ]]; then
+			prof="${prof}-openmp"
+			extlibs="-lpthread"
+			libname="${libname}_mp"
 			extflags="${extflags} -openmp"
 		fi
 		for l in blas lapack; do
@@ -114,7 +115,7 @@ src_install() {
 				"${FILESDIR}"/${l}.pc.in > ${l}.pc \
 				|| die "sed ${l}.pc failed"
 			insinto ${acmldir}/lib
-			doins ${l}.pc || die "doins ${l}.pc failed"
+			doins ${l}.pc
 
 			# eselect files
 			cat > eselect.${l} << EOF
@@ -123,28 +124,28 @@ ${libname}.so /usr/@LIBDIR@/lib${l}.so
 ${libname}.a /usr/@LIBDIR@/lib${l}.a
 ${acmldir}/lib/${l}.pc  /usr/@LIBDIR@/pkgconfig/${l}.pc
 EOF
-			eselect ${l} add $(get_libdir) eselect.${l} ${ESELECT_PROF}
+			eselect ${l} add $(get_libdir) eselect.${l} ${prof}
 		done
-		echo "LDPATH=${instdir}/${fort}/lib" > 35acml
-		echo "INCLUDE=${instdir}/${fort}/include" >> 35acml
+	echo "LDPATH=${instdir}/${fort}/lib" > 35acml
+	echo "INCLUDE=${instdir}/${fort}/include" >> 35acml
 	done
 
-	doenvd 35acml || die "doenvd failed"
+	# paths
+	doenvd 35acml
 
 	use doc || rm -rf "${S}"/Doc/acml.pdf "${S}"/Doc/html
-	cp -pPR "${S}"/Doc "${D}"${instdir} || die "copy doc failed"
+	cp -pPR "${S}"/Doc "${D}${instdir}"
 }
 
 pkg_postinst() {
-	for p in blas lapack; do
-		local current_p=$(eselect ${p} show | cut -d' ' -f2)
-		if [[ -z ${current_p} ]] || [[ ${current_p} == ${ESELECT_PROF} ]]; then
-			eselect ${p} set ${ESELECT_PROF}
-			elog "${p} has been eselected to ${ESELECT_PROF}"
-		else
-			elog "Current eselected ${p} is ${current_p}"
-			elog "To use ${p} ${ESELECT_PROF} implementation, you have to issue (as root):"
-			elog "\t eselect ${p} set ${ESELECT_PROF}"
+	# set acml if none are set yet
+	for l in blas lapack; do
+		if [[ -z "$(eselect ${l} show)" ]]; then
+			local prof=acml-${FORTRANC}
+			use openmp && prof="${prof}-openmp"
+			eselect ${l} set ${prof}
 		fi
 	done
+	elog "Use 'eselect blas' and 'eselect lapack' to select"
+	elog "one of the multiple acml blas and lapack profiles"
 }
