@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Technologies, Inc.
+# Copyright 1999-2007 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -11,7 +11,7 @@ HOMEPAGE="http://www-users.cs.umn.edu/~karypis/metis/metis/index.html"
 SRC_URI="http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/metis-${MY_PV}.tar.gz"
 
 KEYWORDS="~amd64 ~x86"
-LICENSE="as-is"
+LICENSE="free-noncomm"
 
 IUSE="pcre openmp int64 threads"
 SLOT="0"
@@ -58,6 +58,6 @@ src_compile() {
 
 
 src_install() {
-	emake DESTDIR=${D} install || die "emake install failed"
+	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc CHANGES.v5 INSTALL.v5 || die "dodoc failed"
 }
