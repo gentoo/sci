@@ -1,0 +1,11 @@
+--- configure.ac.orig	2007-09-27 09:44:17.206142973 +0100
++++ configure.ac	2007-09-27 09:45:17.825597479 +0100
+@@ -11,7 +11,7 @@
+ AM_CONFIG_HEADER(config.h)
+ AM_MAINTAINER_MODE
+ AC_SUBST(SHARED_VERSION_INFO)
+-AM_ENABLE_SHARED(no) dnl shared libs cause too many headaches to be default
++#AM_ENABLE_SHARED(no) dnl shared libs cause too many headaches to be default
+ 
+ MEEP_SUFFIX=""
+ 

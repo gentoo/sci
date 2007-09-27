@@ -13,21 +13,26 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="virtual/lapack"
+RDEPEND="virtual/lapack"
+DEPEND="${RDEPEND}
+	dev-util/pkgconfig"
 
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	# --enable-shared gave text realloc on amd64
-	# autoreconf with latest which seems ok.
-	sed -i \
-		-e 's/SHARED(no)/SHARED(yes)/' \
-		configure.ac || die "sed failed"
-	# eautoreconf does not like it.
-	autoreconf -fi || die "autoreconf failed"
+	epatch "${FILESDIR}"/${P}-configure.ac.patch
+	eautoreconf
+}
+
+src_compile() {
+	econf \
+		--with-blas="$(pkg-config --libs blas)" \
+		--with-lapack="$(pkg-config --libs lapack)" \
+		|| die "econf failed"
+	emake || die "emake failed"
 }
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
-	dodoc AUTHORS COPYRIGHT NEWS README
+	dodoc AUTHORS COPYRIGHT NEWS README || die "dodoc failed"
 }

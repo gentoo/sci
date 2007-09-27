@@ -23,13 +23,8 @@ DEPEND="sci-libs/fftw
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	# --enable-shared gave text realloc on amd64
-	# autoreconf with latest which seems ok.
-	sed -i \
-		-e 's/SHARED(no)/SHARED(yes)/' \
-		configure.ac || die "sed failed"
-	# eautoreconf gives errors
-	autoreconf -fi || die "autoreconf failed"
+	epatch "${FILESDIR}"/${P}-configure.ac.patch
+	AT_M4DIR="m4" eautoreconf
 }
 
 src_compile() {
@@ -42,9 +37,9 @@ src_compile() {
 }
 
 src_install() {
-	emake install DESTDIR=${D} || die "emake install failed"
-	dodoc AUTHORS COPYRIGHT NEWS README TODO
+	emake install DESTDIR="${D}" || die "emake install failed"
+	dodoc AUTHORS COPYRIGHT NEWS README TODO || die "dodoc failed"
 	insinto /usr/share/doc/${PF}
-	use doc && doins doc/meep.pdf
-	use examples && doins -r examples
+	use doc && { doins doc/meep.pdf || die "install doc failed"; }
+	use examples && { doins -r examples || die "install examples failed"; }
 }
