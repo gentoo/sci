@@ -1,9 +1,0 @@
-# ChangeLog for sci-electronics/linsmith
-# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-* emu-1.10 (16 Nov 2005)
-
-  16 Nov 2005; Lucas Chiesa <lucas.chiesa@gmail.com> emu-1.10.ebuild:
-  Initial import of sci-misc/emu. Thanks Flammie Pirinen 
-  <flammie@gentoo.org> for the ebuild. Closes bug #98051.

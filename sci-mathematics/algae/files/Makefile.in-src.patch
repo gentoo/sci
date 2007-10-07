@@ -1,4 +1,0 @@
---- src/Makefile.in.orig	2006-06-07 22:54:40.000000000 +0200
-+++ src/Makefile.in	2006-06-07 22:56:27.000000000 +0200
-@@ -223 +222,0 @@
--	ln -s $(bindir)/algae-$(VERSION_NUMBER) $(bindir)/algae

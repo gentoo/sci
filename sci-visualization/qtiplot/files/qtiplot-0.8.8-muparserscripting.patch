@@ -1,5 +1,0 @@
---- muParserScripting.h.orig	2006-11-05 21:41:41.000000000 +0100
-+++ muParserScripting.h	2006-11-05 21:42:08.000000000 +0100
-@@ -6 +6 @@
--#include "../3rdparty/muParser/muParser.h"
-+#include <muParser.h>

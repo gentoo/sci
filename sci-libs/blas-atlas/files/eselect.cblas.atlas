@@ -1,5 +1,0 @@
-blas/atlas/libcblas.so /usr/@LIBDIR@/libcblas.so
-blas/atlas/libcblas.so.0 /usr/@LIBDIR@/libcblas.so.0
-blas/atlas/libcblas.a /usr/@LIBDIR@/libcblas.a
-../blas/atlas/cblas.pc /usr/@LIBDIR@/pkgconfig/cblas.pc
-atlas/cblas.h /usr/include/cblas.h

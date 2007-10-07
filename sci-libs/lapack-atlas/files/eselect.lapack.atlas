@@ -1,4 +1,0 @@
-lapack/atlas/liblapack.so /usr/@LIBDIR@/liblapack.so
-lapack/atlas/liblapack.so.0 /usr/@LIBDIR@/liblapack.so.0
-lapack/atlas/liblapack.a /usr/@LIBDIR@/liblapack.a
-../lapack/atlas/lapack.pc /usr/@LIBDIR@/pkgconfig/lapack.pc

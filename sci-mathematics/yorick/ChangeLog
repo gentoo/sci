@@ -1,9 +1,0 @@
-# ChangeLog for sci-mathematics/yorick
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*yorick-1.5.22 (25 May 2006)
-
-  25 May 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
-  +yorick-1.5.22.ebuild:
-  Initial import, bug 130155
