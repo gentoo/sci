@@ -1,0 +1,15 @@
+diff -ur coot-0.4-pre-1.orig/macros/guile-gtk.m4 coot-0.4-pre-1/macros/guile-gtk.m4
+--- coot-0.4-pre-1.orig/macros/guile-gtk.m4	2007-11-07 18:25:15.000000000 -0800
++++ coot-0.4-pre-1/macros/guile-gtk.m4	2007-11-07 18:25:20.000000000 -0800
+@@ -66,9 +66,9 @@
+    # we have the variable coot_gtk2 in configure.in, which is either TRUE or FALSE
+    # Let's use that here.  Perhaps there is a better (set by gtk macro?) variable?
+    if test $coot_gtk2 = TRUE ; then
+-	GUILE_GTK_LIBS=$guile_gtk_prefix/lib/libguilegtk-2.0.la
++	GUILE_GTK_LIBS="-L$guile_gtk_prefix/lib -lguilegtk-2.0"
+    else 
+-	GUILE_GTK_LIBS=$guile_gtk_prefix/lib/libguilegtk-1.2.la
++	GUILE_GTK_LIBS="-L$guile_gtk_prefix/lib -lguilegtk-1.2"
+    fi
+    # do we need to set this in fact?
+    GUILE_GTK_CFLAGS="-I$guile_gtk_prefix/include"
