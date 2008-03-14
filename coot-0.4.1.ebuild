@@ -18,7 +18,7 @@ else
 fi
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~ppc ~x86"
+KEYWORDS="~amd64 ~ppc ~x86"
 IUSE=""
 RDEPEND=">=sci-libs/gsl-1.3
 	>=x11-libs/gtk+-2.2
