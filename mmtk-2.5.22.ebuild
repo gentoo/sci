@@ -9,14 +9,14 @@ inherit distutils
 
 # This number identifies each release on the CRU website.
 # Can't figure out how to avoid hardcoding it.
-NUMBER="1114"
+NUMBER="1837"
 IUSE=""
 DESCRIPTION="Molecular Modeling ToolKit for Python"
 SRC_URI="http://sourcesup.cru.fr/frs/download.php/${NUMBER}/${MY_P}.tar.gz"
 HOMEPAGE="http://dirac.cnrs-orleans.fr/MMTK/"
 SLOT="0"
 LICENSE="as-is"
-KEYWORDS="~ppc ~x86"
+KEYWORDS="~amd64 ~ppc ~x86"
 
 RDEPEND="dev-python/scientificpython"
 DEPEND="${RDEPEND}"
