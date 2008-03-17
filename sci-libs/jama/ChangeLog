@@ -1,0 +1,8 @@
+# ChangeLog for sci-libs/jama
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  17 Dec 2007; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +jama-1.2.5.ebuild:
+  Initial import
+

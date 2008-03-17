@@ -1,0 +1,22 @@
+# ChangeLog for sci-mathematics/octave-forge-parallel
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  30 Dec 2007; Markus Dittrich <markusle@gentoo.org> +octave-3.0.0.ebuild:
+  Version bump.
+
+  14 Dec 2007; Markus Dittrich <markusle@gentoo.org> +octave-2.9.19.ebuild:
+  Version bump.
+
+  14 Dec 2007; Markus Dittrich <markusle@gentoo.org> octave-2.9.18.ebuild:
+  Switched SRC_URI to main gnu mirror.
+
+  07 Dec 2007; Markus Dittrich <markusle@gentoo.org>
+  -files/octave-2.9.12-test-fix.patch, -files/octave-2.9.14-test-fix.patch,
+  +files/octave-2.9.18-test-fix.patch, -octave-2.9.14.ebuild,
+  -octave-2.9.15.ebuild, +octave-2.9.18.ebuild:
+  Version bump.
+
+  20 Oct 2007; Markus Dittrich <markusle@gentoo.org> ChangeLog:
+  Initial import.
+

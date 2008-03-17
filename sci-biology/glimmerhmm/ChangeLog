@@ -1,0 +1,16 @@
+# ChangeLog for sci-biology/glimmerhmm
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  27 Apr 2007; Andrey Kislyuk <weaver@horizon.ath.cx>
+  +glimmerhmm-3.0.1.ebuild:
+  Mass import from sunrise
+
+  15 Mar 2007; Christian Faulhammer <opfer@gentoo.org>
+  glimmerhmm-3.0.1.ebuild:
+  Orthographic sex-up
+
+  14 Mar 2007; Andrey Kislyuk <weaver@horizon.ath.cx> +glimmerhmm-3.0.1.ebuild,
+  +metadata.xml:
+  new package sci-biology/glimmerhmm (bug 170964)
+

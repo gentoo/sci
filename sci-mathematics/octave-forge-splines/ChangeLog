@@ -1,0 +1,8 @@
+# ChangeLog for sci-mathematics/octave-forge-time
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  26 Feb 2008; Markus Dittrich <markusle@gentoo.org>
+  +octave-forge-splines-1.0.4.ebuild:
+  New package.
+

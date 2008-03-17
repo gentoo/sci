@@ -1,0 +1,13 @@
+# ChangeLog for dev-cpp/growler-thread
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  31 Oct 2007; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  removed CRs from DESCRIPTION
+
+*growler-thread-0.3.4 (28 Oct 2007)
+
+  28 Oct 2007; Bryan Green <bryan.d.green@nasa.gov>
+  +growler-thread-0.3.4.ebuild:
+  Initial import
+

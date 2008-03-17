@@ -1,0 +1,9 @@
+# ChangeLog for sys-cluster/openib-perf
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*openib-perf-1.1 (26 Oct 2006)
+
+  26 Oct 2006; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  Initial Import
+

@@ -1,0 +1,12 @@
+# ChangeLog for dev-cpp/growler-link
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  31 Oct 2007; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  removed CRs from DESCRIPTION
+
+*growler-link-0.3.7 (28 Oct 2007)
+
+  28 Oct 2007; Bryan Green <bryan.d.green@nasa.gov>
+  +growler-link-0.3.7.ebuild: Initial import
+

@@ -1,0 +1,49 @@
+# Copyright 1999-2006 Gentoo Foundation.
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+# This file contains descriptions of local USE flags, and the ebuilds which
+# contain them.
+# Keep it sorted.
+
+# We keep here only the new USE flags introduced by packages in the overlay.
+# Ultimately, they will be merged into the main tree.
+
+app-office/texmacs:netpbm - Allows TeXmacs to include images in a number of formats
+sci-astronomy/scamp:plplot - Add plplot to allow diagnostic plots during processing 
+sci-biology/tgi-tools:pvm - Use sys-cluster/pvm (Parallel Virtual Machine) and build the pvmsx utility
+sci-mathematics/gap:xtom - extra tables of marks
+sci-mathematics/netgen:opencascade - Enable OpenCASCADE support
+sci-misc/opencascade/opencascade:draw-harness - Enable building of draw-harness
+sci-misc/opencascade/opencascade:stlport - Build OpenCASCADE with STLPort
+sci-misc/opencascade/opencascade:wok - Enable building of WOK
+sci-misc/opennlp-tools:models - Install prebuild ME models (requires a ton of disk space)
+sci-physics/clhep:exceptions - Build CLHEP with exception mechanism
+sci-physics/meep:hdf5 - Enable support for the Hierarchical Data Format version 5
+sci-visualization/nodemon:pbs - Adds support for PBS (Portable Batch System) queries
+sci-visualization/fityk:gnuplot - Add gnuplot support, useful for command line
+sys-cluster/openib:dapl - add DAPL (Direct Access Provider Library) support.
+sys-cluster/openib:ipath - add PathScale HCA support.
+sys-cluster/openib:opensm - add OpenSM Subnet Management support.
+sys-cluster/openib-drivers:memtrack - enable momory tracking
+sys-cluster/openib-drivers:hpage-patch - apply huge pages patch
+sys-cluster/openib-drivers:srp - make CONFIG_INFINIBAND_SDP=m
+sys-cluster/openib-drivers:ipath - make CONFIG_INFINIBAND_IPATH=m
+sys-cluster/openib-drivers:iser - make CONFIG_INFINIBAND_ISER=m
+sys-cluster/openib-drivers:ehca - make CONFIG_INFINIBAND_EHCA=m
+sys-cluster/openib-drivers:rds - make CONFIG_RDS=m
+sys-cluster/openib-drivers:madeye - make CONFIG_INFINIBAND_MADEYE=m
+sys-cluster/openib-drivers:vnic - make CONFIG_INFINIBAND_VNIC=m
+sys-cluster/openib-drivers:cxgb3 - make CONFIG_INFINIBAND_CXGB3=m
+sys-cluster/openib-userspace:srptools - include srptools package
+sys-cluster/openib-userspace:ehca - include libehca package
+sys-cluster/openib-userspace:ipath - add PathScale HCA support
+sys-cluster/openib-userspace:cxgb3 - include libcxgb3 package
+sys-cluster/openib-userspace:opensm - add OpenSM Subnet Management support.
+sys-cluster/openib-userspace:dapl - add DAPL (Direct Access Provider Library) support
+sys-cluster/openib-userspace:qlvnictools - include qlvnictools package
+sys-cluster/openib-userspace:tvflash - include tvflash package
+sys-cluster/openib-userspace:mstflint - include mstflint package
+sys-cluster/openib-mvapich2:large-cluster - build _LARGE_CLUSTER configuration
+sys-cluster/openib-mvapich2:medium-cluster - build _MEDIUM_CLUSTER configuration
+sys-cluster/openib-mvapich2:rdma - use rdmacm

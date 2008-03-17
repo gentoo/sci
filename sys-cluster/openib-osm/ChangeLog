@@ -1,0 +1,14 @@
+# ChangeLog for sys-cluster/openib-osm
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  27 Nov 2007; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  converted to standalone package
+  -openib-osm-1.1.ebuild: removed
+  +openib-osm-3.1.5.ebuild: added
+
+*openib-osm-1.1 (26 Oct 2006)
+
+  26 Oct 2006; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  Initial Import
+

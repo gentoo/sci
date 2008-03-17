@@ -1,0 +1,18 @@
+--- make.inc.orig	2008-02-01 11:04:11.332831878 +0000
++++ make.inc	2008-02-01 11:54:43.192532528 +0000
+@@ -29,12 +29,9 @@
+ ARCHFLAGS    = cr
+ RANLIB       = ranlib
+ 
+-CC           = cc
+-CFLAGS       = -xO3 -xcg92
+-FORTRAN	     = f77
+-FFLAGS       = -O
+-LOADER       = cc
+-LOADOPTS     = -xO3
++FORTRAN	     = $(F77)
++LOADER       = gcc
++LOADOPTS     = $(LDFLAGS)
+ 
+ #
+ #  C preprocessor defs for compilation (-DNoChange, -DAdd_, or -DUpCase)

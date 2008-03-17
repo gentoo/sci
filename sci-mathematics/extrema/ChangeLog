@@ -1,0 +1,71 @@
+# ChangeLog for sci-mathematics/extrema
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*extrema-4.3.5 (03 Feb 2008)
+
+  03 Feb 2008; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +extrema-4.3.5.ebuild -extrema-4.3.0.ebuild
+  -extrema-4.3.1.ebuild -extrema-4.3.2.ebuild:
+  Version bump, old versions cleaned
+
+*extrema-4.3.4 (14 Jan 2008)
+
+  14 Jan 2008; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +extrema-4.3.4.ebuild:
+  Version bump; now depends on wxGTK-2.8.*, not 2.6.*
+
+*extrema-4.3.2 (08 Jan 2008)
+
+  08 Jan 2008; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +extrema-4.3.2.ebuild:
+  Version bump
+
+*extrema-4.3.1 (04 Dec 2007)
+
+  04 Dec 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +extrema-4.3.1.ebuild -extrema-4.2.10-r1.ebuild:
+  Version bump
+
+  25 Nov 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  -files/extrema-4.3.0.patch:
+  The upstream tarball has changed with no version change,
+  the patch is already incorporated
+
+*extrema-4.3.0 (22 Nov 2007)
+
+  22 Nov 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +extrema-4.3.0.ebuild +files/extrema-4.3.0.patch
+  -extrema-4.2.10.ebuild:
+  Version bump
+
+*extrema-4.2.10-r1 (09 Nov 2007)
+
+  09 Nov 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +extrema-4.2.10-r1.ebuild -extrema-4.2.7.ebuild
+  -extrema-4.2.8.ebuild -extrema-4.2.9.ebuild:
+  Cleanup; USE flag "examples"
+
+*extrema-4.2.10 (04 Nov 2007)
+
+  04 Nov 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +extrema-4.2.10.ebuild:
+  Version bump
+
+*extrema-4.2.9 (08 Oct 2007)
+
+  08 Oct 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +extrema-4.2.9.ebuild:
+  Version bump
+
+*extrema-4.2.8 (24 Sep 2007)
+
+  24 Sep 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +extrema-4.2.8.ebuild:
+  Version bump
+
+*extrema-4.2.7 (23 Aug 2007)
+
+  23 Aug 2007; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +metadata.xml, +extrema-4.2.7.ebuild:
+  Initial import

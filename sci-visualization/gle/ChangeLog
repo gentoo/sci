@@ -1,0 +1,22 @@
+# ChangeLog for sci-visualization/gle
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*gle-4.1.1 (09 Jan 2008)
+
+  09 Jan 2008; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +gle-4.1.1.ebuild, -gle-4.0.11.ebuild, -files/gle-4.0.11-make.patch:
+  Version bump, cleaning an old version
+
+*gle-4.0.12 (21 Nov 2006)
+
+  21 Nov 2006; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +gle-4.0.12.ebuild, +files/gle-4.0.12-configure.patch:
+  version bump, several new USE flags
+
+*gle-4.0.11 (14 Apr 2006)
+
+  14 Apr 2006; Sebastien Fabbro <seb@ist.utl.pt>
+  +metadata.xml, +gle-4.0.11.ebuild: initial import.
+  Closes bug #128322.
+  Thanks for Andrey Groznin <a.g.grozin@inp.nsk.su> for initial ebuild.

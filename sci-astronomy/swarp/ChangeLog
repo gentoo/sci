@@ -1,0 +1,31 @@
+# ChangeLog for sci-astronomy/swarp
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  14 Jan 2008; Sébastien Fabbro <bicatali@gentoo.org> -swarp-2.17.0.ebuild,
+  +swarp-2.17.1.ebuild:
+  Version bump
+
+  09 Jan 2008; Sébastien Fabbro <bicatali@gentoo.org> +swarp-2.17.0.ebuild:
+  Version bump
+
+  01 Aug 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  -swarp-2.16.0-r1.ebuild, +swarp-2.16.4.ebuild:
+  Version bump
+
+  26 Mar 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  swarp-2.16.0-r1.ebuild:
+  cleaning
+
+  29 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>;
+  Removed icc flag, too buggy.
+	
+*swarp-2.16.0-r1 (15 Oct 2006)
+	
+  15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt> swarp-2.16.0-r1.ebuild
+  Removed flag filtering. Some cleaning.
+
+*swarp-2.16.0 (10 Sep 2006)	
+	
+  10 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> swarp-2.16.0.ebuild
+  Initial import. Close bug #65685.

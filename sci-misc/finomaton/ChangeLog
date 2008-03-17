@@ -1,0 +1,8 @@
+# ChangeLog for sci-misc/finomaton
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*finomaton-1.0 (17 Mar 2008)
+
+  17 Mar 2008; Flammie Pirinen <flammie@gentoo.org> +finomaton-1.0.ebuild :
+  Initial import.

@@ -1,0 +1,237 @@
+# Copyright 1999-2005 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Id: $
+
+DESCRIPTION="Manage MPI implementations"
+MAINTAINER="jsbronder@gentoo.org"
+SVN_DATE='$Date: $'
+VERSION="0.0.2"
+
+inherit path-manipulation config
+
+# The basic idea is we want to allow every use to select their own mpi
+# implementation they want, and a ${HOME}/.env.d/mpi file is created for them.
+#   A user then is -required- to source the env file.  This sets PATH, MANPATH,
+# and LD_LIBRARY_PATH.  I'm sure I'm forgetting something here.
+# Calling unset only wipes out the env file, replacing it with what we
+# previously added stripped out.
+
+# If you can think of a better way to do this, while still allowing user's
+# freedom, please let me know.
+
+# List the valid mpi implementations currently installed.
+find_implementations() {
+    local imps
+    for f in ${ROOT}/etc/env.d/mpi/*; do
+        [[ -f ${f} ]] || continue
+        f=$(basename ${f})
+        [[ "${f#mpi-}" == "${f}" ]] && continue
+        imps=(${imps[@]} ${f})
+    done
+    echo ${imps[@]}
+}
+
+# User's current environment has the implementation configured in it.
+is_in_use() { [ "${ESELECT_MPI_IMP}" == "${1}" ]; }
+
+# User's env file is ready for sourcing for this implementation.
+is_enabled() {
+    [ "$(var_from_user_envd ESELECT_MPI_IMP)" == "${1}" ]
+}
+
+var_from_user_envd(){
+    [ ! -f ${user_ev} ] && return 0
+    echo "$(source ${user_ev}; echo ${!1})"
+}
+
+# Is this a valid implementation?
+is_implementation() {
+    local imps=$(find_implementations)
+    for i in ${imps[@]}; do
+        [[ "${i}" == "${1}" ]] && return 0
+    done
+    return 1
+}
+
+init() {
+    local d
+    [[ ${UID} -eq 0 ]] && HOME="${ROOT}/root"
+    d="$(canonicalise "${ROOT}/${HOME}")"
+    d="${d}/.env.d/"
+    user_ev="${d}mpi"; 
+    
+    if [[ ! -d "${d}" ]]; then
+        mkdir "${d}" || die -q "Failed to create ${d}."
+    elif [[ ! -w "${d}" ]]; then
+        die -q "You do not have permission to mkdir ${d}."
+    fi
+    [[ -f "${user_ev}" && ! -w "${user_ev}" ]] \
+        && die -q "You do not have permission to write to ${user_ev}."
+}
+
+global_env() {
+    local d=$(canonicalise "${ROOT}/etc/env.d/mpi/${1}")
+    [ -z "${d}" ] && die "Cannot find global env file for ${1}"
+    ev=${d}
+}
+
+clean_var() { 
+	local imp v
+	local value="${!1}"
+	local d="$(canonicalise "${ROOT}/etc/env.d/mpi/${imp}")"
+	[ -z "${value}" ] && return 0
+	[ -z "${d}" ] && continue
+	
+	for imp in $(find_implementations); do
+		v=$(load_config ${d}/${imp} ${1})
+		[ -z "${v}" ] && continue
+		value="$(echo ${value} | sed -e "s|${v}:||g")"
+	done
+	echo ${value}
+}
+
+
+### list action ###
+
+describe_list() {  echo "List available implementations"; }
+describe_list_parameters() { echo "[-p]"; }
+
+do_list() {
+    imps=( $(find_implementations) )
+    init
+    if [[ ${@} == *-p* ]]; then
+        echo "${imps[@]}"
+    else
+        write_list_start "Available MPI implementations:"
+        if [[ -n "${imps[@]}" ]]; then
+            for (( i=0; i<${#imps[@]}; i++ )); do
+                if is_in_use ${imps[$i]} && is_enabled ${imps[$i]}; then
+                    write_kv_list_entry "${imps[$i]}" "Enabled, In Use"
+                elif is_in_use ${imps[$i]}; then
+                    write_kv_list_entry "${imps[$i]}" "In Use"
+                elif is_enabled ${imps[$i]}; then
+                    write_kv_list_entry "${imps[$i]}" "Enabled"
+                else
+                    write_kv_list_entry "${imps[$i]}" "--"
+                fi
+            done
+        else
+            write_kv_list_entry "(none found)" ""
+        fi
+    fi
+    return 0
+}
+
+
+### set action ###
+
+describe_set() {
+    echo "Select a MPI implementation."
+}
+
+describe_set_parameters() {
+    echo "<target>"
+}
+
+do_set() {
+    local binpath lld manpath
+
+    init
+    global_env ${1}
+
+    [[ -z ${1} ]] && die -q "You didnt specifiy any implementation for use."
+    [[ ${#@} -ne 1 ]] && die -q "You may only select exactly one implementation."
+    ! is_implementation ${1} && die -q "${1} is not an implementation."
+    is_enabled ${1} && return 0
+    
+	binpath="$(load_config ${ev} PATH):$(clean_var PATH)"
+	lld="$(load_config ${ev} LD_LIBRARY_PATH):$(clean_var LD_LIBRARY_PATH)"
+	manpath="$(load_config ${ev} MANPATH):$(clean_var MANPATH)"
+
+cat <<-EOF >${user_ev}
+PATH="${binpath}"
+MANPATH="${manpath}"
+LD_LIBRARY_PATH="${lld}"
+ESELECT_MPI_IMP="${1}"
+export LD_LIBRARY_PATH
+export PATH
+export MANPATH
+export ESELECT_MPI_IMP
+EOF
+    echo "Remember to source ${user_ev}"
+}
+
+
+### unset action ###
+describe_unset() {
+    echo "Restore MPI-less environment."
+}
+
+do_unset() {
+	local binpath lld manpath
+
+	init
+	
+	binpath="$(clean_var PATH)"
+	lld="$(clean_var LD_LIBRARY_PATH)"
+	manpath="$(clean_var MANPATH)"
+cat <<-EOF >${user_ev}
+PATH="${binpath}"
+MANPATH="${manpath}"
+LD_LIBRARY_PATH="${lld}"
+export LD_LIBRARY_PATH
+export PATH
+export MANPATH
+unset ESELECT_MPI_IMP
+EOF
+	echo "Remember to source ${user_ev}"
+}
+
+### add action (from skel pretty much)
+describe_add() {
+    echo "Add a new mpi implementation"
+}
+
+describe_add_parameters() {
+    echo "<file>"
+}
+
+do_add() {
+    local imp
+    [[ ${#@} -ne 1 ]] \
+        && die -q "Bad arguments, use:  mpi add /some/full/path/<implementation>.eselect"
+
+    # If $D is set, we're adding from portage so we want to respect sandbox.
+    # Otherwise, respect the ROOT variable.
+    local PREFIX=${D:-${ROOT}/}
+
+    # Create directory if necessary
+    if [[ ! -e ${PREFIX}/etc/env.d/mpi/ ]]; then
+        mkdir -p ${PREFIX}/etc/env.d/mpi/
+    else
+        if [[ ! -d ${PREFIX}/etc/env.d/mpi/ ]]; then
+            die -q "${PREFIX}/etc/env.d/mpi/ exists but isn't a directory!"
+        fi
+    fi
+
+    imp=$(basename ${1}); imp=${imp%.eselect}
+    if ! cp ${1} ${PREFIX}/etc/env.d/mpi/${imp}; then
+        die -q "Installing ${1} as ${PREFIX}/etc/env.d/mpi/${imp} failed!"
+    fi
+}
+
+
+### printvar action ###
+describe_printvar() { echo "Print variables stored in global env.d file."; }
+describe_printvar_parameters() { echo "<implementation> <variable>"; }
+
+do_printvar() {
+    if [[ ${#@} -ne 2 ]] \
+        || ! is_implementation ${1}; then
+        die -q "Specify exactly 1 implementation and 1 variable."
+    fi
+    global_env ${1}
+    echo "$(load_config ${ev} ${2})"
+}
+
+# vim: set ft=eselect :

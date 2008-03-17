@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>cpp</herd>
+<maintainer>
+<email>bryan.d.green@nasa.gov</email>
+<name>Bryan Green</name>
+</maintainer>
+<longdescription>
+Growler is a C++-based distributed object and event architecture.
+</longdescription>
+</pkgmetadata>

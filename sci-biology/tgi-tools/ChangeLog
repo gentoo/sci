@@ -1,0 +1,20 @@
+# ChangeLog for sci-biology/tgi-tools
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  27 Apr 2007; Andrey Kislyuk <weaver@horizon.ath.cx> +tgi-tools-0.1.ebuild:
+  Mass import from sunrise
+
+  15 Apr 2007; Stefan Schweizer <genstef@gentoo.org> tgi-tools-0.1.ebuild:
+  Remove RESTRICT=mirror, Artistic license allows redistribution
+
+  14 Dec 2006; Markus Ullmann <jokey@gentoo.org> tgi-tools-0.1.ebuild:
+  Whiteys
+
+  12 Dec 2006; Jakub Moc <jakub@gentoo.org> tgi-tools-0.1.ebuild:
+  QA: quoting, formatting, nomirror -> mirror etc.
+
+  12 Dec 2006; Andrey Kislyuk (weaver) <weaver@horizon.ath.cx>
+  +tgi-tools-0.1.ebuild, +metadata.xml:
+  New ebuild, Bug 157827
+

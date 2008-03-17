@@ -1,0 +1,16 @@
+# ChangeLog for sys-cluster/libibumad
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*libibumad-1.1.3 (27 Nov 2007)
+
+  27 Nov 2007; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  converted to standalone package
+  -libibumad.1.1.ebuild: removed
+  +libibumad.1.1.3.ebuild: added
+
+*libibumad-1.1 (26 Oct 2006)
+
+  26 Oct 2006; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  Initial Import
+

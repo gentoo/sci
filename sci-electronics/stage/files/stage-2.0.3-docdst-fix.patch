@@ -1,0 +1,12 @@
+diff -ur stage-2.0.3/docsrc/Makefile.am stage-2.0.3-fix/docsrc/Makefile.am
+--- stage-2.0.3/docsrc/Makefile.am	2006-06-09 02:39:47.000000000 +0200
++++ stage-2.0.3-fix/docsrc/Makefile.am	2007-07-14 15:06:31.414020298 +0200
+@@ -9,7 +9,7 @@
+ 
+ #header.html
+ 
+-DOCDIR = $(prefix)/share/doc
++DOCDIR = $(DESTDIR)$(prefix)/share/doc
+ 
+ # build docs manually with 'make doc'
+ doc:

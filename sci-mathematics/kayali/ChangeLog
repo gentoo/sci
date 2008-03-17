@@ -1,0 +1,16 @@
+# ChangeLog for sci-mathematics/kayali
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*kayali-0.3.2 (20 Mar 2007)
+
+  20 Mar 2007; SÃbastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +kayali-0.3.2.ebuild, Âversion bump and cleaning.
+
+*kayali-0.2 (16 Jun 2006)
+
+  16 Jun 2006; Lucas Chiesa <lucas.chiesa@gmail.com>: 
+  +kayali-0.2.ebuild, Initial import of kayali.
+  Thanks to Colin Kiegel <kiegel@gmx.de> for the ebuild and
+  path. 
+  Initial import. Closing bug #134313.

@@ -1,0 +1,384 @@
+diff -Nur skycat-3.0.1/astrotcl/generic/Fits_IO.h skycat-3.0.1.new/astrotcl/generic/Fits_IO.h
+--- skycat-3.0.1/astrotcl/generic/Fits_IO.h	2006-01-12 16:43:52.000000000 +0000
++++ skycat-3.0.1.new/astrotcl/generic/Fits_IO.h	2006-09-14 11:34:20.000000000 +0100
+@@ -49,7 +49,7 @@
+     // extend the size of the FITS header by one header block 
+     int extendHeader();
+ 
+-    static void* FitsIO::reallocFile(void* p, size_t newsize);
++    static void* reallocFile(void* p, size_t newsize);
+ 
+ protected:   
+     // Check that this object represents a FITS file (and not just some kind of memory)
+diff -Nur skycat-3.0.1/rtd/generic/ImageData.h skycat-3.0.1.new/rtd/generic/ImageData.h
+--- skycat-3.0.1/rtd/generic/ImageData.h	2006-01-12 16:39:00.000000000 +0000
++++ skycat-3.0.1.new/rtd/generic/ImageData.h	2006-09-14 11:36:42.000000000 +0100
+@@ -348,16 +348,16 @@
+     int getSpectrum(double* xyvalues, int x0, int y0, int x1, int y1);
+ 
+     // get meander coords of a horizontal line at position y (index starting at 0)
+-    int ImageData::getXline4(int y, int x0, int x1,  double *xyvalues);
++    int getXline4(int y, int x0, int x1,  double *xyvalues);
+ 
+     // same as getXline4 but with specified x ranges (start xr0, delta dxr)
+-    int ImageData::getXline4(int y, int x0, int x1,  double *xyvalues, double xr0, double dxr);
++    int getXline4(int y, int x0, int x1,  double *xyvalues, double xr0, double dxr);
+ 
+     // get meander coords of a vertical line at position x (index starting at 0)
+-    int ImageData::getYline4(int x, int y0, int y1,  double *xyvalues);
++    int getYline4(int x, int y0, int y1,  double *xyvalues);
+ 
+     // Return the image coords of the visible image area (bounding box)
+-    void ImageData::getBbox(double *x0, double *x1, double *y0, double *y1);
++    void getBbox(double *x0, double *x1, double *y0, double *y1);
+ 
+     // get min and max values of an image area
+     int getMinMax(double rx0, double ry0, int w, int h, double *minval, double *maxval);
+diff -Nur skycat-3.0.1/rtd/generic/ImageDisplay.h skycat-3.0.1.new/rtd/generic/ImageDisplay.h
+--- skycat-3.0.1/rtd/generic/ImageDisplay.h	2006-01-12 16:39:29.000000000 +0000
++++ skycat-3.0.1.new/rtd/generic/ImageDisplay.h	2006-09-14 11:35:30.000000000 +0100
+@@ -78,7 +78,7 @@
+     }
+ 
+     // flush X output buffer
+-    void ImageDisplay::flushX();
++    void flushX();
+ 
+     // other info
+     int width() {return xImage_ ? xImage_->width : 0;}
+diff -Nur skycat-3.0.1/rtd/generic/RtdCamera.h skycat-3.0.1.new/rtd/generic/RtdCamera.h
+--- skycat-3.0.1/rtd/generic/RtdCamera.h	2006-01-12 16:39:14.000000000 +0000
++++ skycat-3.0.1.new/rtd/generic/RtdCamera.h	2006-09-14 11:39:21.000000000 +0100
+@@ -48,7 +48,7 @@
+ public:
+ 
+     // constructor
+-    RtdCamera::RtdCamera(
++  RtdCamera(
+ 	const char* name,
+ 	Tcl_Interp*,
+ 	int verbose,
+@@ -56,64 +56,64 @@
+ 	char* image = "RtdCamera");
+     
+     // destructor 
+-    virtual RtdCamera::~RtdCamera();
++    virtual ~RtdCamera();
+ 
+     // static file handler, called by Tk file handler for realtime image events
+-    static void RtdCamera::fileEventProc(ClientData, int mask);
++    static void fileEventProc(ClientData, int mask);
+ 
+     // start/stop/pause or continue accepting images
+-    int   RtdCamera::start(const char* cameraName);
+-    int   RtdCamera::stop();
+-    int   RtdCamera::pause();
+-    int   RtdCamera::cont();
++    int   start(const char* cameraName);
++    int   stop();
++    int   pause();
++    int   cont();
+ 
+     // return camera name
+-    char* RtdCamera::camera() {return camera_;}
++    char* camera() {return camera_;}
+ 
+     // Add timestamp in performance tool.
+-    void  RtdCamera::timeStamp(char *evDesc);
++    void  timeStamp(char *evDesc);
+ 
+     // update global variables
+-    int   RtdCamera::updateGlobals();
++    int   updateGlobals();
+ 
+     // check if camera is attached
+-    int   RtdCamera::attached();
++    int   attached();
+ 
+ protected:
+ 
+     // member called by fileEventProc for image events
+-    int   RtdCamera::fileEvent();
++    int   fileEvent();
+ 
+     // cleanup image events in the socket queue
+-    void  RtdCamera::cleanup();
++    void  cleanup();
+ 
+     // called to display new image from shared memory
+     // (defined in a derived class)
+-    virtual int RtdCamera::display(const rtdIMAGE_INFO&, const Mem& data) = 0;
++    virtual int display(const rtdIMAGE_INFO&, const Mem& data) = 0;
+ 
+     // set camera name
+-    void  RtdCamera::camera(const char *camera) {strcpy(camBuf_, camera);}
++    void  camera(const char *camera) {strcpy(camBuf_, camera);}
+ 
+     // create/delete the Tcl file handler
+-    void  RtdCamera::fileHandler(int create);
++    void  fileHandler(int create);
+ 
+     // disconnect from camera
+-    void  RtdCamera::disconnect();
++    void  disconnect();
+ 
+     // Decrement the semaphore
+-    void  RtdCamera::semDecr();
++    void  semDecr();
+ 
+     // check if rtdServer is alive
+-    void  RtdCamera::rtdServerCheck();
++    void  rtdServerCheck();
+ 
+     // check status after image event failure
+-    void  RtdCamera::checkStat();
++    void  checkStat();
+ 
+     // start accepting events from the camera
+-    int   RtdCamera::attach(const char* camera);
++    int   attach(const char* camera);
+ 
+     // check image type
+-    int   RtdCamera::checkType(int type);
++    int   checkType(int type);
+ 
+     Tcl_Interp* interp_;           // Tcl interp (for file events, error handling)
+     rtdIMAGE_EVT_HNDL* eventHndl_; // image event handle
+@@ -133,9 +133,9 @@
+ 
+     // -- short cuts --
+ 
+-    int   RtdCamera::connected() {return connected_;}
+-    void  RtdCamera::connected(int set) {connected_ = set; }
+-    void  RtdCamera::attached(int set) {attached_ = set; }
++    int   connected() {return connected_;}
++    void  connected(int set) {connected_ = set; }
++    void  attached(int set) {attached_ = set; }
+ };
+ 
+ #endif /* _RtdCamera_h_ */
+diff -Nur skycat-3.0.1/rtd/generic/RtdImage.h skycat-3.0.1.new/rtd/generic/RtdImage.h
+--- skycat-3.0.1/rtd/generic/RtdImage.h	2006-01-12 16:39:28.000000000 +0000
++++ skycat-3.0.1.new/rtd/generic/RtdImage.h	2006-09-14 11:47:08.000000000 +0100
+@@ -428,7 +428,7 @@
+     static int rtd_set_cmap(ClientData, Tcl_Interp* interp, int argc, char** argv);
+  
+     // update idle tasks and performance test variables
+-    void RtdImage::updateRequests();   
++    void updateRequests();   
+ 
+     // read-only access to configuration options
+     static ImageColor* colors() {return colors_;}
+diff -Nur skycat-3.0.1/rtd/generic/RtdPerf.h skycat-3.0.1.new/rtd/generic/RtdPerf.h
+--- skycat-3.0.1/rtd/generic/RtdPerf.h	2006-01-12 16:39:21.000000000 +0000
++++ skycat-3.0.1.new/rtd/generic/RtdPerf.h	2006-09-14 11:40:28.000000000 +0100
+@@ -23,42 +23,42 @@
+ 
+ public:
+     // Constructor
+-    RtdPerf::RtdPerf(Tcl_Interp* interp);
++    RtdPerf(Tcl_Interp* interp);
+ 
+     // Destructor
+-    RtdPerf::~RtdPerf();
++    ~RtdPerf();
+ 
+     // Add delta time to 'timevar'
+-    void   RtdPerf::timeInc(double *timevar);
++    void   timeInc(double *timevar);
+  
+     // Start a new cycle
+-    void   RtdPerf::newCycle();
++    void   newCycle();
+ 
+     // End a cycle and set the Tcl global variables
+-    void   RtdPerf::endCycle();
++    void   endCycle();
+ 
+     // Reset the time variables and Tcl global variables
+-    void   RtdPerf::reset();
++    void   reset();
+ 
+     // Switch performance test on
+-    void   RtdPerf::on() {maybeOn_ = 1; on_ = 0;}
+-    void   RtdPerf::on(int set) {on_ = set;}
++    void   on() {maybeOn_ = 1; on_ = 0;}
++    void   on(int set) {on_ = set;}
+ 
+     // Switch performance test on
+-    void   RtdPerf::off() {maybeOn_ = 0; on_ = 0;}
++    void   off() {maybeOn_ = 0; on_ = 0;}
+ 
+     // Set verbose and debug flag
+-    void   RtdPerf::verbose(int set) {verbose_ = set;}
+-    void   RtdPerf::debug(int set) {debug_ = set;}
++    void   verbose(int set) {verbose_ = set;}
++    void   debug(int set) {debug_ = set;}
+ 
+     // Set the instance name of the RtdImage (used for global Tcl variables)
+-    void   RtdPerf::name(char *nam) {strcpy(name_, nam);}
++    void   name(char *nam) {strcpy(name_, nam);}
+ 
+     // -- short cuts --
+ 
+-    void  RtdPerf::GENtime() {timeInc(&GENtime_);}
+-    void  RtdPerf::TCLtime() {timeInc(&TCLtime_);}
+-    void  RtdPerf::Xtime() {timeInc(&Xtime_);}
++    void  GENtime() {timeInc(&GENtime_);}
++    void  TCLtime() {timeInc(&TCLtime_);}
++    void  Xtime() {timeInc(&Xtime_);}
+ 
+ protected:
+     RtdDebugLog *dbl_;    // debug log object
+@@ -84,9 +84,9 @@
+ 
+     // -- short cuts --
+ 
+-    char* RtdPerf::name() {return(name_);}
+-    int   RtdPerf::isOn() {return on_;}
+-    int   RtdPerf::maybeOn() {return maybeOn_;}
++    char* name() {return(name_);}
++    int   isOn() {return on_;}
++    int   maybeOn() {return maybeOn_;}
+ };
+ 
+ #endif /* _RtdPerf_h_ */
+diff -Nur skycat-3.0.1/rtd/generic/RtdUtils.h skycat-3.0.1.new/rtd/generic/RtdUtils.h
+--- skycat-3.0.1/rtd/generic/RtdUtils.h	2006-01-12 16:39:16.000000000 +0000
++++ skycat-3.0.1.new/rtd/generic/RtdUtils.h	2006-09-14 11:37:32.000000000 +0100
+@@ -28,11 +28,11 @@
+ class RtdDebugLog {
+ public:
+     
+-    RtdDebugLog::RtdDebugLog(char *nam, int debug);
++  RtdDebugLog(char *nam, int debug);
+ 
+-    void RtdDebugLog::log(const char *format, ...);
+-    void RtdDebugLog::setlog(int set) {debug_ = set;}
+-    int  RtdDebugLog::setlog() {return debug_;}
++    void log(const char *format, ...);
++    void setlog(int set) {debug_ = set;}
++    int  setlog() {return debug_;}
+     
+ protected:
+     char name_[100];  // name of application
+diff -Nur skycat-3.0.1/rtd/rtdevt/rtdCLNT.h skycat-3.0.1.new/rtd/rtdevt/rtdCLNT.h
+--- skycat-3.0.1/rtd/rtdevt/rtdCLNT.h	2006-01-12 16:40:00.000000000 +0000
++++ skycat-3.0.1.new/rtd/rtdevt/rtdCLNT.h	2006-09-14 11:51:56.000000000 +0100
+@@ -40,52 +40,52 @@
+     ~rtdCLNT();
+ 
+     // store/return the name of the requestor
+-    char *rtdCLNT::ReqName() { return reqName_; }
+-    void  rtdCLNT::ReqName(char *name) { strncpy (reqNameBuf_, name, RTD_NAMELEN); }
++    char *ReqName() { return reqName_; }
++    void  ReqName(char *name) { strncpy (reqNameBuf_, name, RTD_NAMELEN); }
+   
+     // store/return the name of the camera
+-    char *rtdCLNT::CamName() { return camName_; }
+-    void  rtdCLNT::CamName(char *name) { strncpy (camNameBuf_, name, RTD_NAMELEN); }
++    char *CamName() { return camName_; }
++    void  CamName(char *name) { strncpy (camNameBuf_, name, RTD_NAMELEN); }
+   
+     // store/return the name of the socket file descriptor
+-    int   rtdCLNT::Socket() { return socket_; }
+-    void  rtdCLNT::Socket(int socket) { socket_ = socket; }
++    int   Socket() { return socket_; }
++    void  Socket(int socket) { socket_ = socket; }
+   
+     // return the semaphore params set by the requestor
+-    int   rtdCLNT::semId() { return semId_; }
++    int   semId() { return semId_; }
+   
+     // return the number of semaphores
+-    int   rtdCLNT::shmNum() { return shmNum_; }
++    int   shmNum() { return shmNum_; }
+ 
+     // set the values for semId and shmNum
+-    void  rtdCLNT::SetSemPar(int semId, int shmNum);
++    void  SetSemPar(int semId, int shmNum);
+    
+     // store/return the index
+-    int   rtdCLNT::Index() { return index_; }
+-    void  rtdCLNT::Index(int index) { index_ = index; }
++    int   Index() { return index_; }
++    void  Index(int index) { index_ = index; }
+    
+     // store/return the port number
+-    int   rtdCLNT::Port() { return port_; }
+-    void  rtdCLNT::Port(int port) { port_ = port; }
++    int   Port() { return port_; }
++    void  Port(int port) { port_ = port; }
+    
+     // store/return the type number
+-    int   rtdCLNT::Type() { return type_; }
+-    void  rtdCLNT::Type(int type) { type_ = type; }
++    int   Type() { return type_; }
++    void  Type(int type) { type_ = type; }
+  
+     // clear a buffer
+-    void  rtdCLNT::BufClear(char *name) { memset (name, '\0', RTD_NAMELEN); }
++    void  BufClear(char *name) { memset (name, '\0', RTD_NAMELEN); }
+   
+     // are we attched?
+-    int   rtdCLNT::Attached() { return (*reqName_ == '\0' || *camName_ == '\0'); }
++    int   Attached() { return (*reqName_ == '\0' || *camName_ == '\0'); }
+ 
+-    void  rtdCLNT::Attach(char* reqName, char *camName);
+-    void  rtdCLNT::Detach();
++    void  Attach(char* reqName, char *camName);
++    void  Detach();
+ 
+-    int   rtdCLNT::Forward(rtdPACKET *rtdPacket);
+-    void  rtdCLNT::Cleanup();
+-    int   rtdCLNT::Accept(int listenSocket);
+-    int   rtdCLNT::AttachedToCamera(char *camera);
+-    char *rtdCLNT::TypeName();
++    int   Forward(rtdPACKET *rtdPacket);
++    void  Cleanup();
++    int   Accept(int listenSocket);
++    int   AttachedToCamera(char *camera);
++    char *TypeName();
+   
+ private:
+     char *reqName_;                    // name of requestor
+diff -Nur skycat-3.0.1/rtd/rtdevt/rtdLOG.h skycat-3.0.1.new/rtd/rtdevt/rtdLOG.h
+--- skycat-3.0.1/rtd/rtdevt/rtdLOG.h	2006-01-12 16:39:54.000000000 +0000
++++ skycat-3.0.1.new/rtd/rtdevt/rtdLOG.h	2006-09-14 11:51:06.000000000 +0100
+@@ -24,8 +24,8 @@
+     rtdLOG(int);
+     ~rtdLOG();
+ 
+-    void  rtdLOG::log(const char *format, ...);
+-    int   rtdLOG::Verbose() { return verbose_; }
++    void  log(const char *format, ...);
++    int   Verbose() { return verbose_; }
+ 
+ private:
+     int verbose_;
+diff -Nur skycat-3.0.1/rtd/rtdevt/rtdSERVER.h skycat-3.0.1.new/rtd/rtdevt/rtdSERVER.h
+--- skycat-3.0.1/rtd/rtdevt/rtdSERVER.h	2006-01-12 16:39:57.000000000 +0000
++++ skycat-3.0.1.new/rtd/rtdevt/rtdSERVER.h	2006-09-14 11:52:24.000000000 +0100
+@@ -39,15 +39,15 @@
+     rtdSERVER(int, int, int);
+     ~rtdSERVER();
+   
+-    int      rtdSERVER::Loop();
++    int      Loop();
+   
+ protected:
+-    rtdCLNT *rtdSERVER::GetCurrClient();
+-    void     rtdSERVER::ServImageCmd(rtdPACKET *rtdPacket);
+-    void     rtdSERVER::ServStatusCmd(int socket);
+-    int      rtdSERVER::IncrSem(rtdPACKET *rtdPacket, int increment);
+-    rtdCLNT *rtdSERVER::Accept();
+-    void     rtdSERVER::DisconnectClient(rtdCLNT *client);
++    rtdCLNT *GetCurrClient();
++    void     ServImageCmd(rtdPACKET *rtdPacket);
++    void     ServStatusCmd(int socket);
++    int      IncrSem(rtdPACKET *rtdPacket, int increment);
++    rtdCLNT *Accept();
++    void     DisconnectClient(rtdCLNT *client);
+ 
+ private:
+     int       socketFd_;           // listen socket

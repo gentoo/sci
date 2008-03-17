@@ -1,0 +1,12 @@
+--- configure.orig	2006-09-14 00:41:37.000000000 +0200
++++ configure	2006-11-21 20:51:04.000000000 +0100
+@@ -2707,5 +2707,8 @@
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lX11 -lXt -L$x_libraries $LIBS"
++if [ -n "$x_libraries" ]
++then LIBS="-lX11 -lXt -L$x_libraries $LIBS"
++else LIBS="-lX11 -lXt $LIBS"
++fi
+ cat >conftest.$ac_ext <<_ACEOF
+ #line $LINENO "configure"

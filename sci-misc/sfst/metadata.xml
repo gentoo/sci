@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>no-herd</herd>
+<maintainer>
+  <email>flammie@gentoo.org</email>
+  <description>N.B. This is used in my master’s thesis project</description>
+</maintainer>
+<longdescription>
+  SFST is open source package for compiling and using Finite State
+  Transducers, mainly for linguistic uses, made in university of
+  Stuttgart, Germany.
+</longdescription>
+</pkgmetadata>

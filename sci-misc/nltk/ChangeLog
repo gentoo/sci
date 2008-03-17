@@ -1,0 +1,13 @@
+# ChangeLog for sci-misc/nltk
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*nltk-0.9.1 (29 Jan 2008)
+
+  29 Jan 2008; Flammie Pirinen <flammie@gentoo.org> +nltk-0.9.1.ebuild:
+  Version bump.
+
+*nltk-0.9 (23 Dec 2007)
+
+  23 Dec 2007; Flammie Pirinen <flammie@gentoo.org> +nltk-0.9.ebuild:
+  Initial import.

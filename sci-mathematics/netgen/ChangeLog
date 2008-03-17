@@ -1,0 +1,12 @@
+# ChangeLog for sci-mathematics/netgen
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  15 Jan 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/debian-netgen_4.4-7.patch, +files/densemat.patch,
+  +files/meshtype.patch, +files/togl_tk.patch, +metadata.xml,
+  +netgen-4.4.ebuild:
+  Initial import. See bug #155424 for anything relating the building process.
+  Ebuild from Daniel Tourde <daniel.tourde@caelae.se> and Oliver Borm
+  <oli.borm@web.de>.
+

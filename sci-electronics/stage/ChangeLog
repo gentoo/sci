@@ -1,0 +1,10 @@
+# ChangeLog for sci-electronics/player
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*stage-2.0.3 (25 Nov 2007)
+	
+  25 Nov 2007; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +stage-2.0.3.ebuild:
+  Initial import. Thanks Angelo Arrifano for his work. See bug #185298 for
+  problems.

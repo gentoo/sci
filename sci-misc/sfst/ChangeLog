@@ -1,0 +1,17 @@
+# ChangeLog for sci-misc/sfst
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*sfst-1.2 (11 Mar 2008)
+
+  11 Mar 2008; Flammie Pirinen <flammie@gentoo.org> +sfst-1.2.ebuild:
+  Version bump.
+
+  11 Jan 2008; Flammie Pirinen <flammie@gentoo.org> sfst-1.1.ebuild:
+  sed CFLAGS.
+
+*sfst-1.1 (20 Dec 2007)
+
+  20 Dec 2007; Flammie Pirinen <flammie@gentoo.org> +sfst-1.1.ebuild,
+  +files/ftdetect-sfst.vim, +files/50sfst-gentoo.el:
+  Initial import. Includse vim and emacs syntax support.

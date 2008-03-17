@@ -1,0 +1,9 @@
+# ChangeLog for sci-misc/stanford-tagger
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*stanford-tagger-20060521 (04 Jan 2008)
+
+  04 Jan 2008; Flammie Pirinen <flammie@gentoo.org>
+  +stanford-tagger-20060521.ebuild :
+  Initial import.

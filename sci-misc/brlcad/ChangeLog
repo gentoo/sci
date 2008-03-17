@@ -1,0 +1,18 @@
+# ChangeLog for sci-libs/plplot
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  19 Dec 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  -files/brlcad-7.6.6-gentoo.diff, +files/brlcad-tcltk-man_install.patch,
+  -files/tcl.m4, -brlcad-7.6.6.ebuild, +brlcad-7.10.4.ebuild:
+  Version bump
+
+  26 January 2006; Lucas Chiesa <lucas.chiesa@gmail.com> brlcad-7.6.6.ebuild:
+  Added brlcad-7.6.6-gentoo.diff which replaces the entire test for 
+  tcl/tk/itcl/iwidgets in configure.ac. It needs some more work.
+
+*brlcad-7.6.6 (19 January 2006)
+
+  19 January 2006; Marcus D. Hanwell <cryos@gentoo.org>
+  +brlcad-7.6.6.ebuild:
+  Initial import into the science overlay, bug 77197.

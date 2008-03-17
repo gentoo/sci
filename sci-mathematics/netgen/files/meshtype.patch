@@ -1,0 +1,11 @@
+--- libsrc/meshing/meshtype.hpp.org	2004-11-07 17:12:10.000000000 +0100
++++ libsrc/meshing/meshtype.hpp	2006-10-13 22:18:00.000000000 +0200
+@@ -954,7 +954,7 @@
+ 
+ 
+ 
+-
++class Mesh;
+ 
+ /**
+    Identification of periodic surfaces, close surfaces, etc. 

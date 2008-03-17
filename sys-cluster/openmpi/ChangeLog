@@ -1,0 +1,78 @@
+# ChangeLog for sys-cluster/openmpi
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sys-cluster/openmpi/ChangeLog,v 1.13 2008/01/31 06:57:45 dberkholz Exp $
+
+  29 Feb 2008; Justin Bronder <jsbronder@gentoo.org> ChangeLog:
+  Use mpi.eclass for empi support.  Fix an as-needed bug.
+
+  31 Jan 2008; Donnie Berkholz <dberkholz@gentoo.org>;
+  -openmpi-1.1.1.ebuild, -openmpi-1.1.2.ebuild, -openmpi-1.2.4.ebuild,
+  -openmpi-1.2.4-r1.ebuild:
+  Clean up.
+
+*openmpi-1.2.5 (17 Jan 2008)
+
+  17 Jan 2008; Justin Bronder <jsbronder@gentoo.org> +openmpi-1.2.5.ebuild:
+  Version bump.  Remove slurm USE flag as slurm isn't in the tree.  Let
+  configure find libtorque via pbs-config.
+
+  13 Dec 2007; Justin Bronder <jsbronder@gentoo.org> openmpi-1.2.4.ebuild:
+  Minor fixes to sys-cluster/openmpi-1.2.4, thanks to dberkholz for pointing
+  them out.
+
+*openmpi-1.2.4 (13 Dec 2007)
+
+  13 Dec 2007; Justin Bronder <jsbronder@gentoo.org> +openmpi-1.2.4.ebuild:
+  Bump sys-cluster/openmpi-1.2.4 (Bug #166787).  Change virtual/pbs to
+  sys-cluster/torque.  Add use flags nocxx romio slurm heterogeneous smp and
+  ipv6.  Disable xgrid support (OS X).  Include /usr/include by default with
+  gfortran and mpif77.
+
+  26 Apr 2007; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Update for cluster herd split to hp-cluster and ha-cluster.
+
+  06 Jan 2007; Donnie Berkholz <dberkholz@gentoo.org>; openmpi-1.1.2.ebuild:
+  Fix miscalled use_enable(). This would result in Fortran not being enabled
+  as expected (Aaron Tygart).
+
+  06 Dec 2006; Donnie Berkholz <dberkholz@gentoo.org>; openmpi-1.1.1.ebuild,
+  openmpi-1.1.2.ebuild:
+  Stop PROVIDEing mpi virtual, we're on a new-style virtual now.
+
+  06 Dec 2006; Donnie Berkholz <dberkholz@gentoo.org>; openmpi-1.1.1.ebuild,
+  openmpi-1.1.2.ebuild:
+  Can't do that with new-style virtuals, block on other providers instead.
+
+  06 Dec 2006; Donnie Berkholz <dberkholz@gentoo.org>; openmpi-1.1.1.ebuild,
+  openmpi-1.1.2.ebuild:
+  Block virtual/mpi (Aaron Tygart).
+
+  06 Dec 2006; Donnie Berkholz <dberkholz@gentoo.org>; openmpi-1.1.1.ebuild,
+  openmpi-1.1.2.ebuild:
+  Explicitly set DEPEND to RDEPEND.
+
+*openmpi-1.1.2 (23 Nov 2006)
+
+  23 Nov 2006; Donnie Berkholz <dberkholz@gentoo.org>;
+  +openmpi-1.1.2.ebuild:
+  (#153968) Bump. Interesting changes include correctness and performance
+  fixes for heterogenous nodes as well as TCP updates to support non-uniform
+  TCP environments. More info at
+  http://www.open-mpi.org/community/lists/announce/2006/10/0008.php.
+
+  25 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>; openmpi-1.1.1.ebuild:
+  Add MPI to the description, drop some capital letters.
+
+*openmpi-1.1.1 (25 Sep 2006)
+
+  25 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>; +metadata.xml,
+  +openmpi-1.1.1.ebuild:
+  (#126295) Add Open MPI ebuild from the science overlay (Sebastien Fabbro,
+  Eric Thibodeau). I removed the compiler-based slotting mechanism because
+  portage lacks support for multiple slots of the same version -- the SLOT
+  file in /var/db/pkg just gets overwritten and it loses track of the others,
+  amongst other issues. Removed USE=static, that's used to compile static
+  binaries, not to also build static libraries. Changed SLOT to 0 from 6 in
+  the overlay. Removed the hack for PGI compilers, that needs to happen in
+  fortran.eclass. Use epause() from eutils.eclass rather than sleep.
+

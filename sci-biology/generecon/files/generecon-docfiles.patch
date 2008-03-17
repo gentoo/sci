@@ -1,0 +1,12 @@
+diff -Nuar generecon-1.2.1.orig/Makefile.am generecon-1.2.1/Makefile.am
+--- generecon-1.2.1.orig/Makefile.am	2006-04-19 12:52:18.000000000 -0300
++++ generecon-1.2.1/Makefile.am	2006-04-19 12:55:53.000000000 -0300
+@@ -31,7 +31,7 @@
+ bin_PROGRAMS     = generecon
+ 
+ 
+-docdir = ${prefix}/share/generecon/doc
++docdir = ${prefix}/share/doc/#PF#
+ dist_doc_DATA =
+ test_inputdir = ${prefix}/share/generecon/test-input
+ dist_test_input_DATA =

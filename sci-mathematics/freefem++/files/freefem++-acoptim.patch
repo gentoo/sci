@@ -1,0 +1,17 @@
+--- freefem++-2.20-1/acoptim.m4	2006-01-27 16:51:16.000000000 +0100
++++ freefem++-2.20-1.new/acoptim.m4	2007-11-14 18:50:37.000000000 +0100
+@@ -16,14 +16,6 @@
+ AC_ARG_ENABLE(debug,[  --enable-debug	Turn on debug versions of FreeFem++])
+ AC_ARG_ENABLE(optim,[  --enable-optim	Turn on compiler optimization])
+ 
+-# Autoconf always chooses -O2. -O2 in gcc makes some functions
+-# disappear. This is not ideal for debugging. And when we optimize, we
+-# do not use -O2 anyway.
+-
+-CFLAGS="`echo $CFLAGS | sed 's/-O2//g'`"
+-FFLAGS="`echo $FFLAGS | sed 's/-O2//g'`"
+-CXXFLAGS="`echo $CXXFLAGS | sed 's/-O2//g'`"
+-
+ if test "$enable_debug" = yes;
+ then
+ 	AC_MSG_RESULT(yes)

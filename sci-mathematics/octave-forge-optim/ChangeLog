@@ -1,0 +1,16 @@
+# ChangeLog for sci-mathematics/octave-forge-optim
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  02 Mar 2008; Markus Dittrich <markusle@gentoo.org>
+  octave-forge-optim-1.0.2.ebuild:
+  Added missing dependency on octave-forge-miscellanous.
+
+  25 Feb 2008; Markus Dittrich <markusle@gentoo.org>
+  +octave-forge-optim-1.0.2.ebuild:
+  Version bump. Host renamed package tarballs (octave-forge-*) on gentoo
+  mirrors to avoid future name clashes.
+
+  20 Oct 2007; Markus Dittrich <markusle@gentoo.org> ChangeLog:
+  Initial import.
+

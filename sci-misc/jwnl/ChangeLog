@@ -1,0 +1,8 @@
+# ChangeLog for sci-misc/jwnl
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*jwnl-1.3_rc3 (03 Jan 2008)
+
+  03 Jan 2008; Flammie Pirinen <flammie@gentoo.org> +jwnl-1.3_rc3.ebuild :
+  Initial import.

@@ -1,0 +1,24 @@
+diff -U2 --recursive TeXmacs-1.0.6.12-src-orig/plugins/maxima/bin/maxima_detect TeXmacs-1.0.6.12-src/plugins/maxima/bin/maxima_detect
+--- TeXmacs-1.0.6.12-src-orig/plugins/maxima/bin/maxima_detect	2007-11-05 15:21:32.000000000 +0600
++++ TeXmacs-1.0.6.12-src/plugins/maxima/bin/maxima_detect	2008-01-09 04:43:10.000000000 +0600
+@@ -63,7 +63,8 @@
+ version 5.11
+ version 5.12
+-version 5.13" >/dev/null
++version 5.13
++version 5.14" >/dev/null
+         then
+-          # 5.9.1 or 5.9.2 or 5.9.3 or 5.10 or 5.11 or 5.12 or 5.13
++          # 5.9.1 or 5.9.2 or 5.9.3 or 5.10 or 5.11 or 5.12 or 5.13 or 5.14
+           maxima -d | grep -F 'maxima-htmldir=' | sed -e \
+           's/maxima-htmldir=/"/' -e 's|$|/maxima_toc.html"|'
+diff -U2 --recursive TeXmacs-1.0.6.12-src-orig/plugins/maxima/bin/tm_maxima TeXmacs-1.0.6.12-src/plugins/maxima/bin/tm_maxima
+--- TeXmacs-1.0.6.12-src-orig/plugins/maxima/bin/tm_maxima	2007-11-05 15:21:32.000000000 +0600
++++ TeXmacs-1.0.6.12-src/plugins/maxima/bin/tm_maxima	2008-01-09 04:43:10.000000000 +0600
+@@ -18,5 +18,5 @@
+   5.9.1.1* | 5.9.2* | 5.9.3*) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.9.2.lisp";;
+   5.10.*) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.10.0.lisp";;
+-  5.11.* | 5.12.* | 5.13.*) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.11.0.lisp";;
++  5.11.* | 5.12.* | 5.13.* | 5.14.*) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.11.0.lisp";;
+   cygwin)
+     exec maxima.bat -p "`echo $TEXMACS_MAXIMA_PATH/texmacs-maxima-5.11.0.lisp|cygpath --windows -f -`";;

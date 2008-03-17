@@ -1,0 +1,32 @@
+# ChangeLog for sci-astronomy/sextractor
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  02 Aug 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  sextractor-2.5.0-r1.ebuild:
+  filter optim flags
+
+  26 Mar 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  sextractor-2.5.0-r1.ebuild:
+  Cleaning, adapting for new portage.
+
+  29 Dec 2006; Sebastien Fabbro <seb@ist.utl.pt>;
+  Removed icc flag, too buggy.
+	
+*sextractor-2.5.0-r1 (15 Oct 2006)
+
+  15 Oct 2006; Sebastien Fabbro <seb@ist.utl.pt> 
+  +sextractor-2.5.0-r1.ebuild -sextractor-2.5.0.ebuild
+  -sextractor-2.4.4.ebuild: removed flag filtering, cleaning,
+  removed old versions.
+
+*sextractor-2.5.0 (06 Sep 2006)
+
+  06 Sep 2006; Sebastien Fabbro <seb@ist.utl.pt> +sextractor-2.5.0.ebuild:
+  Version bump.
+	
+*sextractor-2.4.4 (27 Nov 2005)
+
+  26 Nov 2005; Sebastien Fabbro <seb@ist.utl.pt> +sextractor-2.4.4.ebuild:
+  Initial import. Close bug #65684
+

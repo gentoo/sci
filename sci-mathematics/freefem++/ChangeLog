@@ -1,0 +1,27 @@
+# ChangeLog for sci-mathematics/freefem++
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+	
+*freefem++-2.23.2 (08 Feb 2008)
+	
+  08 Feb 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  -freefem++-2.22.ebuild, +freefem++-2.23.2.ebuild:
+  Version bump.
+
+*freefem++-2.23.1 (30 Jan 2008)
+	
+  30 Jan 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  +freefem++-2.23.1.ebuild:
+  Version bump
+
+*freefem++-2.22 (27 Dec 2007)
+	
+  27 Dec 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  -freefem++-2.21.1.ebuild, +freefem++-2.22.ebuild:
+  Version bump
+
+*freefem++-2.21.1 (22 Nov 2007)
+	
+  22 Nov 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/freefem++-acoptim.patch, +metadata.xml, +freefem++-2.21.1.ebuild:
+  Initial import. Ebuild submitted by David Radice. See bug #34498.

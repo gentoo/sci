@@ -1,0 +1,9 @@
+# ChangeLog for sci-misc/opennlp-maxent
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*opennlp-maxent-2.4.0 (03 Jan 2008)
+
+  03 Jan 2008; Flammie Pirinen <flammie@gentoo.org>
+  +opennlp-maxent-2.4.0.ebuild :
+  Initial import.

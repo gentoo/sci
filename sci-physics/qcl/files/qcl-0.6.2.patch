@@ -1,0 +1,32 @@
+diff -r -U4 qcl-0.6.2/Makefile qcl-0.6.2.new/Makefile
+--- qcl-0.6.2/Makefile	2006-05-18 15:20:15.000000000 +0200
++++ qcl-0.6.2.new/Makefile	2006-09-21 02:42:51.000000000 +0200
+@@ -29,11 +29,12 @@
+ #ARCHOPT = -m32 -march=i686
+ 
+ # Debugging and optimization options
+ 
++OPT = -g -O2
+ #DEBUG = -g -pg -DQCL_DEBUG -DQC_DEBUG
+ #DEBUG = -g -DQCL_DEBUG -DQC_DEBUG
+-DEBUG = -O2 -g -DQCL_DEBUG -DQC_DEBUG
++DEBUG = $(OPT) -DQCL_DEBUG -DQC_DEBUG
+ #DEBUG = -O2
+ 
+ # Plotting support 
+ #
+diff -r -U4 qcl-0.6.2/qc/Makefile qcl-0.6.2.new/qc/Makefile
+--- qcl-0.6.2/qc/Makefile	2006-05-18 15:20:15.000000000 +0200
++++ qcl-0.6.2.new/qc/Makefile	2006-09-21 02:41:51.000000000 +0200
+@@ -15,9 +15,10 @@
+ #ARCHOPT = -m32 -march=i686
+ 
+ # Debugging options
+ 
+-DEBUG = -g -O2 -DQC_DEBUG
++OPT = -g -O2
++DEBUG = $(OPT) -DQC_DEBUG
+ #DEBUG = -g -pg -DQC_DEBUG
+ #DEBUG = -O2
+ 
+ # Comment out if you if you want to use SysV Xrand48() linear congruential 

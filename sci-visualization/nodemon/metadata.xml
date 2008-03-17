@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<maintainer>
+<email>bryan.d.green@nasa.gov</email>
+<name>Bryan Green</name>
+</maintainer>
+<longdescription>
+NodeMon is a distributed visualization tool for monitoring system resource
+utilization.  It is primarily intended for clusters and large-scale NUMA
+systems.
+</longdescription>
+</pkgmetadata>

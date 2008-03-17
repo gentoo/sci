@@ -1,0 +1,55 @@
+--- src/perfquery.c.orig	2007-11-27 17:05:08.000000000 -0800
++++ src/perfquery.c	2007-11-27 17:10:01.000000000 -0800
+@@ -1,5 +1,6 @@
+ /*
+  * Copyright (c) 2004-2007 Voltaire Inc.  All rights reserved.
++ * Copyright (c) 2007 Xsigo Systems Inc.  All rights reserved.
+  *
+  * This software is available to you under a choice of one of two
+  * licenses.  You may choose to be licensed under the terms of the GNU
+@@ -96,8 +97,11 @@
+ 	int udebug = 0;
+ 	char *ca = 0;
+ 	int ca_port = 0;
+-	int extended = 0;
+ 	uint16_t cap_mask, *pc2;
++        int allports = 0;
++        int node_type, num_ports;
++        uint8_t data[IB_SMP_DATA_SIZE];
++	int extended = 0;
+ 
+ 	static char const str_opts[] = "C:P:s:t:dGearRVhu";
+ 	static const struct option long_opts[] = {
+@@ -190,6 +194,32 @@
+ 	/* PerfMgt ClassPortInfo is a required attribute */
+ 	if (!perf_classportinfo_query(pc, &portid, port, timeout))
+ 		IBERROR("classportinfo query");
++        if (!(cap_mask & 0x100)) /* bit 8 is AllPortSelect */
++                if (port == 255) {
++                        allports = 1;
++                        IBWARN("AllPortSelect not supported");
++                }
++ 
++        if (allports == 1) {
++ 
++                /*
++                 * Simulate all ports support in PMA
++                 * Determine node type, number of (physical) ports,
++                 * and, if switch, whether SP0 is enhanced
++                 * to determine first and last port to query
++                 */
++ 
++                /* For now, support single port CAs */
++                if (smp_query(data, &portid, IB_ATTR_NODE_INFO, 0, 0) < 0)
++                        IBERROR("smp query nodeinfo failed");
++                node_type = mad_get_field(data, 0, IB_NODE_TYPE_F);
++                if (node_type != IB_NODE_CA)    /* NodeType other than CA ? */
++                        IBERROR("smp query nodeinfo: Node type not CA");
++                mad_decode_field(data, IB_NODE_NPORTS_F, &num_ports);
++                if (num_ports != 1)
++                        IBERROR("smp query nodeinfo: %d ports; only 1 supported currently", num_ports);
++                port = num_ports;
++        }
+ 
+ 	if (reset_only)
+ 		goto do_reset;
