@@ -1,6 +1,11 @@
 # ChangeLog for sci-mathematics/octave-forge-parallel
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Mar 2008; Markus Dittrich <markusle@gentoo.org>
+  +files/octave-3.0.0-pkg.patch, octave-3.0.0.ebuild:
+  Added patch to have 'pkg install' exit with error code if it can't
+  find the source tarball.
 
   30 Dec 2007; Markus Dittrich <markusle@gentoo.org> +octave-3.0.0.ebuild:
   Version bump.
