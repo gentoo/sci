@@ -1,0 +1,69 @@
+diff -U2 --recursive yorick-2.1.orig/Makefile yorick-2.1/Makefile
+--- yorick-2.1.orig/Makefile	2005-11-14 03:01:56.000000000 +0600
++++ yorick-2.1/Makefile	2008-03-19 09:34:30.000000000 +0600
+@@ -84,15 +84,16 @@
+ Y_BINDIR=
+ Y_DOCDIR=
++Y_INCDIR=
+ install: yorexe gistexe docs
+-	./instally.sh +both "$(INSTALL_ROOT)" "$(Y_BINDIR)" "$(Y_DOCDIR)"
++	./instally.sh +both "$(INSTALL_ROOT)" "$(Y_BINDIR)" "$(Y_DOCDIR)" "$(Y_INCDIR)"
+ 
+ install1: yorexe gistexe
+-	./instally.sh +home "$(INSTALL_ROOT)" "$(Y_BINDIR)" "$(Y_DOCDIR)"
++	./instally.sh +home "$(INSTALL_ROOT)" "$(Y_BINDIR)" "$(Y_DOCDIR)" "$(Y_INCDIR)"
+ 
+ uninstall:
+-	./instally.sh -both "$(INSTALL_ROOT)" "$(Y_BINDIR)" "$(Y_DOCDIR)"
++	./instally.sh -both "$(INSTALL_ROOT)" "$(Y_BINDIR)" "$(Y_DOCDIR)" "$(Y_INCDIR)"
+ 
+ uninstall1:
+-	./instally.sh -home "$(INSTALL_ROOT)" "$(Y_BINDIR)" "$(Y_DOCDIR)"
++	./instally.sh -home "$(INSTALL_ROOT)" "$(Y_BINDIR)" "$(Y_DOCDIR)" "$(Y_INCDIR)"
+ 
+ dist: siteclean
+diff -U2 --recursive yorick-2.1.orig/instally.sh yorick-2.1/instally.sh
+--- yorick-2.1.orig/instally.sh	2005-09-19 05:03:40.000000000 +0700
++++ yorick-2.1/instally.sh	2008-03-19 09:40:19.000000000 +0600
+@@ -41,4 +41,10 @@
+ fi
+ 
++if test -n "$5"; then
++  Y_INCDIR="$5"
++else
++  Y_INCDIR="$Y_HOME/include"
++fi
++
+ EXE_SFX=`grep '^EXE_SFX=' Make.cfg | sed -e 's/^EXE_SFX=//'`
+ 
+@@ -49,7 +55,9 @@
+ touch ./junk.tst
+ if test -f "$Y_HOME"/junk.tst; then
+-  for sub in include lib bin; do rm -rf "$Y_HOME"/$sub; done
++  for sub in lib bin; do rm -rf "$Y_HOME"/$sub; done
++  rm -rf "$Y_INCDIR"
+   rm -f "$Y_HOME"/Make* "$Y_HOME"/install*
+ else
++  rm -rf "$Y_INCDIR"
+   rm -rf "$Y_HOME"
+ fi
+@@ -81,5 +89,5 @@
+ $YNSTALL $YGP "$Y_HOME"
+ $YNSTALL $YGP "$Y_HOME/i-start"
+-$YNSTALL $YGP "$Y_HOME/include"
++$YNSTALL $YGP "$Y_INCDIR"
+ $YNSTALL $YGP "$Y_HOME/lib"
+ if test -n "$3"; then
+@@ -95,10 +103,10 @@
+   hconfig=play/unix/config.h
+ fi
+-$YNSTALL $YGP $hconfig play/*.h gist/*.h yorick/*.h "$Y_HOME/include"
++$YNSTALL $YGP $hconfig play/*.h gist/*.h yorick/*.h "$Y_INCDIR"
+ touch ./junk.tst
+ if test -f "$Y_HOME/junk.tst"; then
+   :
+ else
+-  $YNSTALL $YGP LICENSE Make.cfg Makepkg Makeexe Makedll "$Y_HOME"
++  $YNSTALL $YGP Make.cfg Makepkg Makeexe Makedll "$Y_HOME"
+ fi
+ rm -f ./junk.tst
