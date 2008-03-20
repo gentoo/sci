@@ -12,7 +12,7 @@ HOMEPAGE="http://developer.intel.com/software/products/mkl/"
 KEYWORDS="~amd64 ~ia64 ~x86"
 SRC_URI="http://registrationcenter-download.intel.com/irc_nas/${PID}/l_${PN}_p_${PV}.tgz"
 
-#slotting not yet supported (would need a mkl-config)
+#slotting not yet supported (need eselect-mkl)
 #MAJOR=$(get_major_version ${PV})
 #MINOR=$(get_version_component_range 2 ${PV})
 #SLOT="${MAJOR}.${MINOR}"
@@ -33,16 +33,17 @@ RDEPEND="${DEPEND}
 	mpi? ( virtual/mpi )"
 
 MKL_DIR=/opt/intel/${PN}/${PV}
+INTEL_LIC_DIR=/opt/intel/licenses
 
 pkg_setup() {
 
 	# Check the license
-	[[ -z ${MKL_LICENSE} && -d /opt/intel/licenses ]] && \
-		MKL_LICENSE=$(find /opt/intel/licenses -name *MKL*.lic)
+	[[ -z ${MKL_LICENSE} && -d ${INTEL_LIC_DIR} ]] && \
+		MKL_LICENSE=$(find ${ROOT}/${INTEL_LIC_DIR} -name "*MKL*.lic" | tail -n 1)
 	if  [[ -z ${MKL_LICENSE} ]]; then
 		eerror "Did not find any valid mkl license."
 		eerror "Register at ${HOMEPAGE} to receive a license"
-		eerror "and place it in /opt/intel/licenses or run:"
+		eerror "and place it in ${INTEL_LIC_DIR} or run:"
 		eerror "\t MKL_LICENSE=/my/license/dir emerge mkl"
 		die "license setup failed"
 	fi
@@ -274,8 +275,8 @@ src_install() {
 	dosym ${MKL_DIR} ${MKL_DIR/mkl/cmkl}
 
 	# install license
-	if  [[ ! -f /opt/intel/licenses/${MKL_LIC} ]]; then
-		insinto /opt/intel/licenses
+	if  [[ ! -f ${INTEL_LIC_DIR}/${MKL_LIC} ]]; then
+		insinto ${INTEL_LIC_DIR}
 		doins "${WORKDIR}"/${MKL_LIC} || die "install license failed"
 	fi
 
