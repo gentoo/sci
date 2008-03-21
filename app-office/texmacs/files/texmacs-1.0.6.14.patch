@@ -1,0 +1,113 @@
+diff --recursive -U2 TeXmacs-1.0.6.14-src.orig/plugins/maxima/bin/maxima_detect TeXmacs-1.0.6.14-src/plugins/maxima/bin/maxima_detect
+--- TeXmacs-1.0.6.14-src.orig/plugins/maxima/bin/maxima_detect	2008-03-19 23:16:36.000000000 +0600
++++ TeXmacs-1.0.6.14-src/plugins/maxima/bin/maxima_detect	2008-03-22 10:12:13.000000000 +0600
+@@ -37,4 +37,30 @@
+ }
+ 
++# maximum version
++V1=0; V2=0; V3=0
++
++max_ver() {
++  if [ -z "$1" ]; then
++    return
++  fi
++
++  if [ $1 -gt $V1 ]
++  then V1=$1; V2=$2; V3=$3
++  elif [ $1 -eq $V1 ]
++  then
++    if [ $2 -gt $V2 ]
++    then V2=$2; V3=$3
++    elif [ $2 -eq $V2 ]
++    then
++      if [ $3 -gt $V3 ]
++      then V3=$3
++      fi
++    fi
++  fi
++
++  shift; shift; shift
++  max_ver $@
++}
++
+ if [ $OSTYPE = "cygwin" ] ; then EXT='.bat'; else EXT=''; fi
+ MAXIMA=`which maxima$EXT 2>/dev/null`
+@@ -57,16 +83,28 @@
+       if [ "$1" ]
+       then
+-        if $MAXIMA --list-avail | grep -F "version 5.9.1
+-version 5.9.2
+-version 5.9.3
+-version 5.10
+-version 5.11
+-version 5.12
+-version 5.13
+-version 5.14" >/dev/null
++        max_ver `maxima --list-avail | \
++          grep '^version [a-z0-9\.]\+, lisp [a-z]\+$' |\
++          sed -e 's/^version \([0-9]\+\)\.\([0-9]\+\)\.\([0-9]\+\).*$/\1 \2 \3/'`
++
++        GOOD=no
++        if [ $V1 -gt 5 ]
++        then GOOD=yes
++        elif [ $V1 -eq 5 ]
++        then
++          if [ $V2 -gt 9 ]
++          then GOOD=yes
++          elif [ $V2 -eq 9 ]
++          then
++            if [ $V3 -gt 0 ]
++            then GOOD=yes
++            fi
++          fi
++        fi
++
++        if [ $GOOD = yes ]
+         then
+-          # 5.9.1 or 5.9.2 or 5.9.3 or 5.10 or 5.11 or 5.12 or 5.13 or 5.14
++          # 5.9.1 or later
+           maxima -d | grep -F 'maxima-htmldir=' | sed -e \
+-          's/maxima-htmldir=/"/' -e 's|$|/maxima_toc.html"|'
++            's/maxima-htmldir=/"/' -e 's|$|/maxima_toc.html"|'
+         else
+           # 5.9.0
+@@ -74,6 +112,9 @@
+         fi
+       else
+-        maxima --list-avail | sed -e '1d' -e 's/version /"/' \
+-        -e 's/, lisp / /' -e 's/$/"/' -e '2s/^/(/' -e '$s/$/)/'
++        echo '('
++        maxima --list-avail |\
++          grep '^version [a-z0-9\.]\+, lisp [a-z]\+$' |\
++          sed -e 's/^version \([a-z0-9\.]\+\), lisp \([a-z]\+\)$/"\1 \2"/'
++        echo ')'
+       fi
+     else
+diff --recursive -U2 TeXmacs-1.0.6.14-src.orig/plugins/maxima/bin/tm_maxima TeXmacs-1.0.6.14-src/plugins/maxima/bin/tm_maxima
+--- TeXmacs-1.0.6.14-src.orig/plugins/maxima/bin/tm_maxima	2008-03-19 23:16:36.000000000 +0600
++++ TeXmacs-1.0.6.14-src/plugins/maxima/bin/tm_maxima	2008-03-22 10:12:13.000000000 +0600
+@@ -5,4 +5,5 @@
+ 
+ case $1 in
++  cygwin) exec maxima.bat -p "`echo $TEXMACS_MAXIMA_PATH/texmacs-maxima-5.11.0.lisp|cygpath --windows -f -`";;
+   5.6)
+     case $2 in
+@@ -11,14 +12,9 @@
+       clisp) exec maxima -i "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.6.lisp" \
+           | maxima_filter;;
+-      *) echo -e "\2latex:\\red Unsupported lisp for old maxima: $2\5"
+     esac;;
+-  5.9.0) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.9.0.lisp" \
+-      | maxima_filter;;
+-  5.9.1) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.9.1.lisp";;
+-  5.9.1.1* | 5.9.2* | 5.9.3*) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.9.2.lisp";;
++  5.9.0) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.9.0.lisp" | maxima_filter;;
++  5.9.1*) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.9.1.lisp";;
++  5.9.2* | 5.9.3*) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.9.2.lisp";;
+   5.10.*) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.10.0.lisp";;
+-  5.11.* | 5.12.* | 5.13.* | 5.14.*) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.11.0.lisp";;
+-  cygwin)
+-    exec maxima.bat -p "`echo $TEXMACS_MAXIMA_PATH/texmacs-maxima-5.11.0.lisp|cygpath --windows -f -`";;
+-  *) echo -e "\2latex:\\red Unsupported version of maxima: $1\5"
++  *) exec maxima -u $1 -l $2 -p "$TEXMACS_MAXIMA_PATH/texmacs-maxima-5.11.0.lisp";;
+ esac
