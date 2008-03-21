@@ -10,7 +10,11 @@ SLOT="0"
 LICENSE="BSD"
 KEYWORDS="~x86"
 SRC_URI="mirror://sourceforge/yorick/${P}.tgz"
-DEPEND="emacs? ( virtual/emacs )"
+DEPEND="x11-proto/xproto
+	x11-libs/libX11
+	x11-libs/libXau
+	x11-libs/libXdmcp
+	emacs? ( virtual/emacs )"
 S="${WORKDIR}/${PN}-$(get_version_component_range 1-2 )"
 
 #### Remove the following line when moving this ebuild to the main tree!
