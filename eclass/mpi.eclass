@@ -134,7 +134,7 @@ get_imp() {
 }
 
 get_mpi_dir() {
-	if is_imp ${CATEGORY} || is_empi_imp_build; then
+	if is_empi_build && is_imp ${CATEGORY}; then
 		echo "/usr/$(get_libdir)/mpi/${MPI_IMP}"
 	fi
 }
