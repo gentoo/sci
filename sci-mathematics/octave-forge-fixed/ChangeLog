@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Mar 2008; Markus Dittrich <markusle@gentoo.org>
+  +files/octave-forge-fixed-0.7.5-make.patch,
+  octave-forge-fixed-0.7.5.ebuild:
+  Fixed ebuild to work with the updated octave-forge.eclass
+
   23 Feb 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-fixed-0.7.3.ebuild, +octave-forge-fixed-0.7.5.ebuild:
   Version bump. Host renamed package tarballs (octave-forge-*) on gentoo

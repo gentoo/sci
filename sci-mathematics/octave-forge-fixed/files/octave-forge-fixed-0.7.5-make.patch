@@ -1,0 +1,11 @@
+diff -Naur fixed-0.7.5/src/Makeconf.in fixed-0.7.5.new/src/Makeconf.in
+--- fixed-0.7.5/src/Makeconf.in	2008-02-16 05:14:10.000000000 -0500
++++ fixed-0.7.5.new/src/Makeconf.in	2008-03-23 07:24:01.000000000 -0400
+@@ -25,6 +25,7 @@
+ INSTALLOCT=octinst.sh
+ 
+ DESTDIR =
++OCT_INCLUDES_LIB = 1
+ 
+ RANLIB = @RANLIB@
+ STRIP = @STRIP@

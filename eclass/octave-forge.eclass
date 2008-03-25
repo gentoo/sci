@@ -3,7 +3,7 @@
 # $Header
 
 #
-# Version: 0.08 (2008-02-23)
+# Version: 0.09 (2008-03-24)
 # Authors: Markus Dittrich <markusle@gentoo.org>
 #
 # The octave-forge eclass installs and manages the split
@@ -25,7 +25,10 @@ HOMEPAGE="http://octave.sourceforge.net"
 SLOT="0"
 LICENSE="GPL-2"
 
-EXPORT_FUNCTIONS src_compile src_install pkg_postinst pkg_prerm
+inherit eutils
+
+
+EXPORT_FUNCTIONS src_unpack src_compile src_install pkg_postinst pkg_prerm
 
 # unless requested otherwise we're happy with octave-3.0.0
 NEED_OCTAVE=${NEED_OCTAVE:-3.0.0}
@@ -42,37 +45,15 @@ RDEPEND="${RDEPEND}
 #################################################################
 OCT_PKG=${P#octave-forge-}
 OCT_PKG_NAME=${PN#octave-forge-}
+OCT_PKG_TARBALL="${OCT_PKG}.tar.gz"
 OCT_INSTALL_ROOT=/usr/share/octave
 OCT_INSTALL_PKG="${OCT_INSTALL_ROOT}/packages/${OCT_PKG}"
+OCT_INSTALL_PATH="${D}usr/share/octave/packages"
 OCT_BINARY=$(type -p octave)
 OCT_DATABASE="${OCT_INSTALL_ROOT}/octave_packages"
 OCT_DESC="${OCT_INSTALL_PKG}/packinfo/DESCRIPTION"
 S="${WORKDIR}/${OCT_PKG}"
-OCT_DESC_SRC="${S}/DESCRIPTION"
 
-
-################################################################
-# generate the name of the architecture dependend install
-# directory for binary files (*.mex, *.oct)
-################################################################
-octave_getarch() {
-	local host_type="$(octave-config -p CANONICAL_HOST_TYPE)";
-	eval $1="${host_type}-$(octave-config -p API_VERSION)";
-}
-
-
-#################################################################
-# determine if autoload is requested
-#################################################################
-check_autoload() {
-	local answer="$(fgrep -i 'autoload' "${OCT_DESC_SRC}"  | cut -d' ' -f2)"
-	if [[  "${answer}" == "yes" \
-		|| "${answer}" == "true" \
-		|| "${answer}" == "0" \
-		|| "${answer}" == "1" ]]; then
-			eval $1="${answer}"
-	fi
-}
 
 #################################################################
 # extract package description from the DESCRIPTION file into
@@ -231,150 +212,64 @@ delete_pkg_from_database()
 # compilation via configure/make, make only, and some simply
 # install several *.m files without any compilation at all.
 #################################################################
-octave-forge_src_compile() {
-	cd "${S}"
-
-	# check for configure/makefile since not all octave-forge
-	# packages have one
-	if [[ -e src/configure ]]; then
-		pushd . && cd src/
-		econf || die "configure failed in src"
-		popd
+octave-forge_src_unpack() {
+	
+	if [[ -n "${PATCHES}" ]]; then
+		unpack "${A}"
+		pushd "${S}" >& /dev/null
+		for patch in "${PATCHES}"; do
+			epatch "${FILESDIR}/${patch}"
+		done
+		popd >& /dev/null
+		tar czf "${OCT_PKG_TARBALL}" "${OCT_PKG}" \
+		&& rm -fr "${OCT_PKG}" \
+		|| die "Failed to recompress the source"
+	else
+		cp "${DISTDIR}/${OCT_PKG_TARBALL}" ./
 	fi
 
-	if [[ -e src/Makefile ]]; then
-		pushd . && cd src/
-		emake -j1 || die "make failed in src"
-		popd
-	fi
 
-	# we need to check if there are any examples
-	# to build as well
-	if [[ -e examples/configure ]]; then
-		pushd . && cd examples/
-		econf || die "configure failed in examples"
-		popd
-	fi
-
-	if [[ -e examples/Makefile ]]; then
-		pushd . && cd examples/
-		emake -j1 || die "make failed in examples"
-		popd
-	fi
 }
 
+
+####################################################################
+# we explicitly override src_compile to make sure nothing is
+# being done here since all compilation (if needed) is done
+# by octave's pkg manager in src_install
+####################################################################
+octave-forge_src_compile() {
+	echo "octave will now start compiling ..." 
+}
 
 ####################################################################
 # install *.m and *.oct/*.mex files if present into the locations
 # where octave expects them.
 ####################################################################
 octave-forge_src_install() {
-	cd "${S}"
+	cd "${WORKDIR}"
 
-	# get arch string
-	local octave_arch=""
-	octave_getarch octave_arch
+	# create image install directory to make octave happy
+	mkdir -p "${OCT_INSTALL_PATH}"
 
-	# check if we have *.m, *.mex, and *.oct files in src
-	m_files=$(find ./src -type f -name "*.m" -print0 2> /dev/null)
-	oct_files=$(find ./src -type f -name "*.oct" -print0 2> /dev/null)
-	mex_files=$(find ./src -type f -name "*.mex" -print0 2> /dev/null)
+	# securely generate tmp file
+	OCT_TMP=$(mktemp /tmp/octave-install.XXXXXXXXXX) || \
+		die "Failed to generate temporary file."
 
-	# install *.m files
-	insinto "${OCT_INSTALL_PKG}"
-	if [[ -n "${m_files}" ]]; then
-		doins src/*.m \
-			|| die "failed to install m files"
-	fi
+	# generate octave code to remove relevant entry from
+	# global file
+	cat >> "${OCT_TMP}" <<-EOF
+		pkg prefix "${OCT_INSTALL_PATH}" "${OCT_INSTALL_PATH}" 
+		pkg install -verbose -local ${OCT_PKG_TARBALL}
+	EOF
 
-	# install *.mex/*.oct files if present
-	if [[ -n "${oct_files}" || -n "${mex_files}" ]]; then
-		insinto "${OCT_INSTALL_PKG}/${octave_arch}"
-		if [[ -n "${oct_files}" ]]; then
-			doins src/*.oct \
-				|| die "failed to install oct files"
-		fi
-		if [[ -n "${mex_files}" ]]; then
-			doins src/*.mex \
-				|| die "failed to install mex files"
-		fi
-	fi
+	# let octave do the final setup of the database file
+	echo "Compiling ${P}. Please be patient ...." 
+	"${OCT_BINARY}" -q "${OCT_TMP}" >& /dev/null \
+		|| die "Failed to compile package"
 
-	# include PKG_ADD and PKG_DEL
-	# TODO: need to scan included *.m *.cc files for
-	# additional PKG_ADD/PKG_DEL commands for appending
-	if [[ -e "${S}/PKG_ADD" ]]; then
-		insinto "${OCT_INSTALL_PKG}"
-		doins "${S}/PKG_ADD" \
-			|| die "failed to install PKG_ADD"
-	fi
-	if [[ -e "${S}/PKG_DEL" ]]; then
-		insinto "${OCT_INSTALL_PKG}"
-		doins "${S}/PKG_DEL" \
-			|| die "failed to install PKG_ADD"
-	fi
-
-	# copy files in inst if they exits
-	if [[ -d "${S}"/inst ]]; then
-		insinto "${OCT_INSTALL_PKG}"
-		doins inst/* \
-			|| die "failed to install inst/"
-	fi
-
-	# check for on_uninstall.m and install if present
-	local uninstall_file=$(find "${S}" -name 'on_uninstall.m')
-	if [[ -n "${uninstall_file}" ]]; then
-		doins "${uninstall_file}" \
-			|| die "failed to install on_uninstall.m"
-	fi
-
-	# copy files in packinfo
-	insinto "${OCT_INSTALL_PKG}"/packinfo
-	doins COPYING DESCRIPTION \
-		|| die "failed to install packinfo files"
-
-	# copy Changelog if present
-	if [[ -e "Changelog" ]]; then
-		doins Changelog \
-			|| die "failed to install Changelog"
-	fi
-
-	# mark package as autoload if requested
-	local want_autoload=""
-	check_autoload want_autoload
-	if [[ -n "${want_autoload}" ]]; then
-		touch "${T}"/.autoload && doins "${T}"/.autoload \
-			|| die "failed to install autoload"
-	fi
-
-	# check for index file
-	# TODO: need to generate index file in case it is missing
-	local index_file=$(find "${S}" -name 'INDEX')
-	if [ -n "${index_file}" ]; then
-		doins "${index_file}" \
-			|| die "failed to install INDEX"
-	fi
-
-	# check for doc directory and install content if present
-	if [[ -d "${S}"/doc ]]; then
-		insinto "${OCT_INSTALL_PKG}"/doc
-		doins doc/* \
-			|| die "failed to install docs"
-	fi
-
-	# check for bin directory and install content if present
-	if [[ -d "${S}"/bin ]]; then
-		insinto "${OCT_INSTALL_PKG}"/bin
-		doins bin/* \
-			|| die "failed to install bin"
-	fi
-
-	# check for examples to be installed
-	if [[ -d "${S}"/examples ]]; then
-		insinto "${OCT_INSTALL_PKG}"/examples
-		doins examples/*.m examples/*.oct examples/README \
-			|| die "failed to install example files"
-	fi
+	# remove the temporary octave file
+	rm -f "${OCT_TMP}" \
+		|| die "Failed to remove temporary octave database code."
 }
 
 

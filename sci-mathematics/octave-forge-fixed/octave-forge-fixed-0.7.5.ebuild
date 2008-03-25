@@ -13,10 +13,4 @@ SLOT="0"
 IUSE=""
 KEYWORDS="~amd64 ~x86"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-	sed -e "s:DESTDIR =:DESTDIR =\nOCT_INCLUDES_LIB=1:" \
-		-i src/Makeconf.in \
-		|| die "Failed to fix Makeconf.in"
-}
+PATCHES="${P}-make.patch"
