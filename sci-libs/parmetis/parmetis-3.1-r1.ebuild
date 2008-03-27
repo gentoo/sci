@@ -12,7 +12,6 @@ SRC_URI="http://glaros.dtc.umn.edu/gkhome/fetch/sw/${PN}/${MYP}.tar.gz"
 
 KEYWORDS="~amd64 ~x86"
 LICENSE="free-noncomm"
-
 SLOT="0"
 IUSE="doc"
 

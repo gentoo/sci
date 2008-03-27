@@ -1,21 +1,3 @@
---- configure.ac 	1970-01-01 01:00:00.000000000 +0100
-+++ configure.ac	2008-02-05 19:26:56.002301741 +0000
-@@ -0,0 +1,15 @@
-+# -*- Autoconf -*-
-+AC_PREREQ(2.59)
-+AC_INIT(parmetis, 3.1, karypis@cs.umn.edu)
-+AM_INIT_AUTOMAKE([foreign])
-+AC_PROG_INSTALL
-+AC_PROG_LIBTOOL
-+AC_CHECK_LIB(m, sqrt)
-+sinclude(acx_mpi.m4)
-+AC_LANG_PUSH([C])
-+ACX_MPI([], AC_MSG_ERROR([could not compile an mpi test program]))
-+AC_CONFIG_FILES([Makefile 
-+		 METISLib/Makefile
-+		 ParMETISLib/Makefile
-+		 Programs/Makefile])
-+AC_OUTPUT
 --- acx_mpi.m4 	1970-01-01 01:00:00.000000000 +0100
 +++ acx_mpi.m4	2008-02-01 16:24:54.723228974 +0000
 @@ -0,0 +1,183 @@
@@ -202,8 +184,41 @@
 +        :
 +fi
 +])dnl ACX_MPI
+--- configure.ac 	1970-01-01 01:00:00.000000000 +0100
++++ configure.ac	2008-03-25 11:18:28.135641410 +0000
+@@ -0,0 +1,17 @@
++# -*- Autoconf -*-
++AC_PREREQ(2.59)
++AC_INIT(parmetis, 3.1, karypis@cs.umn.edu)
++AM_INIT_AUTOMAKE([foreign])
++AC_CONFIG_HEADER([config.h])
++AC_PROG_INSTALL
++AC_PROG_LIBTOOL
++AC_CHECK_LIB(m, sqrt)
++sinclude(acx_mpi.m4)
++AC_LANG_PUSH([C])
++ACX_MPI([], AC_MSG_ERROR([could not compile an mpi test program]))
++AC_CONFIG_FILES([Makefile 
++		 parmetis.pc
++		 ParMETISLib/Makefile
++		 METISLib/Makefile
++		 Programs/Makefile])
++AC_OUTPUT
+--- parmetis.pc.in 	1970-01-01 01:00:00.000000000 +0100
++++ parmetis.pc.in	2008-03-25 11:04:08.281809709 +0000
+@@ -0,0 +1,10 @@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
++
++Name: ParMetis
++Description: Software for parallel (mpi) unstructured graph partitioning
++Version: @VERSION@
++Libs: -L${libdir} -lmetis -lparmetis
++Cflags: -I${includedir}
 --- ./METISLib/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
-+++ ./METISLib/Makefile.am	2008-02-05 19:35:52.892897392 +0000
++++ ./METISLib/Makefile.am	2008-03-25 09:45:51.421429040 +0000
 @@ -0,0 +1,18 @@
 +include_HEADERS = defs.h macros.h metis.h proto.h rename.h \
 +	stdheaders.h struct.h
@@ -222,10 +237,10 @@
 +	mrefine2.c minitpart2.c mbalance2.c mfm2.c \
 +	kvmetis.c kwayvolrefine.c kwayvolfm.c subdomains.c \
 +	mfm.c memory.c mrefine.c checkgraph.c
-+libmetis_la_LIBADD = -lm
++libmetis_la_LDFLAGS = -no-undefined -version-info 4:1:0 
 --- ./ParMETISLib/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
-+++ ./ParMETISLib/Makefile.am	2008-02-05 20:04:29.533802831 +0000
-@@ -0,0 +1,20 @@
++++ ./ParMETISLib/Makefile.am	2008-03-25 11:16:59.090567020 +0000
+@@ -0,0 +1,21 @@
 +include_HEADERS = defs.h macros.h parmetislib.h proto.h \
 +	rename.h stdheaders.h struct.h
 +pkgincludedir = $(includedir)/parmetis
@@ -245,9 +260,10 @@
 +	csrmatch.c redomylink.c balancemylink.c \
 +	selectq.c akwayfm.c serial.c move.c \
 +	mmetis.c mesh.c memory.c weird.c backcompat.c
-+libparmetis_la_LIBADD = $(MPILIBS) -lm
++libparmetis_la_LDFLAGS = -no-undefined -version-info 3:1:0
++libparmetis_la_LIBADD = @MPILIBS@
 --- ./Programs/Makefile.am 	1970-01-01 01:00:00.000000000 +0100
-+++ ./Programs/Makefile.am	2008-02-05 20:08:32.879670321 +0000
++++ ./Programs/Makefile.am	2008-03-25 11:16:01.063260233 +0000
 @@ -0,0 +1,13 @@
 +AM_CPPFLAGS = -I$(top_srcdir)/ParMETISLib
 +LDADD = $(top_builddir)/METISLib/libmetis.la \
@@ -263,8 +279,8 @@
 +	$(MPIRUN) ptest ../Graphs/rotor.graph
 +	$(MPIRUN) mtest ../Graphs/bricks.hex3d 2
 --- ./Makefile.am 	1970-01-01 01:00:00.000000000 +0100
-+++ ./Makefile.am	2008-01-31 11:53:52.663337599 +0000
++++ ./Makefile.am	2008-03-26 00:34:09.072802498 +0000
 @@ -0,0 +1,3 @@
 +SUBDIRS = METISLib ParMETISLib Programs
-+EXTRA_DIST = CHANGES
++EXTRA_DIST = CHANGES VERSION parmetis.pc.in
 +include_HEADERS = parmetis.h
