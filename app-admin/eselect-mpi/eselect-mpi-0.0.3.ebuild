@@ -3,7 +3,7 @@
 # $Header: $
 
 DESCRIPTION="eselect-mpi"
-HOMEPAGE="localhost"
+HOMEPAGE="http://www.gentoo.org/proj/en/eselect/"
 SRC_URI=""
 
 LICENSE="GPL-2"
@@ -21,4 +21,3 @@ src_install() {
 	insinto ${MODULEDIR}
 	newins "${FILESDIR}"/${MODULE}.eselect-${PVR} ${MODULE}.eselect
 }
-
