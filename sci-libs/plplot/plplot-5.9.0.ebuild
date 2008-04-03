@@ -14,7 +14,7 @@ LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="ada doc +fortran fortran95 +gd gnome +java
-	octave perl +python qhull +tcl +threads +tk wxwindows"
+	octave perl +python qhull +tcl +threads +tk truetype wxwindows"
 
 RDEPEND="ada? ( virtual/gnat )
 	python? ( dev-python/numpy )
@@ -60,7 +60,9 @@ pkg_setup() {
 
 	FORTRAN="gfortran ifc g77"
 	use fortran95 && FORTRAN="gfortran ifc"
-	use fortran && fortran_pkg_setup
+	if use fortran || use fortran95; then
+		fortran_pkg_setup
+	fi
 }
 
 src_compile() {
