@@ -66,10 +66,12 @@ pkg_setup() {
 }
 
 src_compile() {
+	export FC=${FORTRANC}
+	export F77=${FORTRANC}
 	local mycmakeargs="
 		$(cmake-utils_has qhull QHULL)
 		$(cmake-utils_has python numpy)
-		$(cmake-utils_has freetype FREETYPE)
+		$(cmake-utils_has truetype FREETYPE)
 		$(cmake-utils_has threads PTHREAD)
 		$(cmake-utils_use_enable python python)
 		$(cmake-utils_use_enable perl pdl)
@@ -86,10 +88,10 @@ src_compile() {
 		$(cmake-utils_use_enable wxwindows wxwidgets)
 		$(cmake-utils_use_enable gnome gnome2)"
 
-	use freetype && mycmakeargs="${mycmakeargs}
+	use truetype && mycmakeargs="${mycmakeargs}
 		-DPL_FREETYPE_FONT_PATH:PATH=/usr/share/fonts/freefont-ttf"
 
-	use wxwidgets &&  mycmakeargs="${mycmakeargs}
+	use wxwindows &&  mycmakeargs="${mycmakeargs}
 		-DwxWidgets_INCLUDE_DIR=/usr/include/wx${WX_GTK_VER}"
 
 	if use python && use gnome; then
