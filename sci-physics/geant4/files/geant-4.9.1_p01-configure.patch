@@ -1,0 +1,116 @@
+--- Configure.orig	2007-11-28 13:49:23.000000000 +0000
++++ Configure	2008-04-07 18:45:41.317949330 +0000
+@@ -579,16 +579,17 @@
+ 	;;
+ esac
+ 
+-: Sanity checks
+-case "$fastread$alldone" in
+-yescont|yesexit) ;;
+-*)
+-	if test ! -t 0; then
+-		echo "Say 'sh Configure', not 'sh <Configure'"
+-		exit 1
+-	fi
+-	;;
+-esac
++# breaks things in a sandbox.
++# : Sanity checks
++# case "$fastread$alldone" in
++# yescont|yesexit) ;;
++# *)
++# 	if test ! -t 0; then
++# 		echo "Say 'sh Configure', not 'sh <Configure'"
++# 		exit 1
++# 	fi
++# 	;;
++# esac
+ 
+ exec 4>&1
+ case "$silent" in
+@@ -982,7 +983,7 @@
+ : general instructions
+ needman=true
+ firsttime=true
+-user=`(logname) 2>/dev/null`
++user=`(logname || true) 2>/dev/null`
+ case "$user" in
+ '') user=`whoami 2>&1`;;
+ esac
+@@ -1315,7 +1316,6 @@
+ '')
+ myuname=`( ($uname -a) 2>/dev/null || hostname) 2>&1`
+ 
+-mygcc=`( ($g++ -v) 2>/dev/null) 2>&1`
+ myuname=`echo $myuname | $sed -e 's/^[^=]*=//' -e 's/\///g' | \
+ 	./tr '[A-Z]' '[a-z]' | tr '\012' ' '`
+ newmyuname="$myuname"
+@@ -1911,7 +1911,7 @@
+ 	
+ 	. $src/.config/bin/$g4system/move.sh
+ 
+-	exit 1
++	exit 0
+ 
+ 	fi #end of cppflags
+ 
+@@ -2119,7 +2119,7 @@
+ cp -i $src/.config/bin/$g4system/env.csh .
+ cp -i $src/.config/bin/$g4system/env.sh  .
+ 
+-	exit 1
++	exit 0
+ 	fi #end of -lib or user
+ else #there is no env.sh
+ 
+@@ -2217,7 +2217,7 @@
+ 
+ : who configured the system
+ cf_time=`$date 2>&1`
+-cf_by=`(logname) 2>/dev/null`
++cf_by=`(logname || true) 2>/dev/null`
+ case "$cf_by" in
+ "")
+ 	cf_by=`(whoami) 2>/dev/null`
+@@ -4200,9 +4200,9 @@
+ if test "X$g4osname" = "XLinux" ; then
+ g4vis_xmflags=" -I$g4vis_xmhome/include "
+ 	if test "X$g4vis_xmhome" = "X/usr/X11R6" ; then
+-		g4vis_xmlibs=" -lXm -lXpm "
++		g4vis_xmlibs=" -lXm "
+ 	else
+-		g4vis_xmlibs=" -L$g4vis_xmhome/lib -lXm -lXpm "
++		g4vis_xmlibs=" -L$g4vis_xmhome/lib -lXm "
+ 	fi
+ fi
+ 
+@@ -4908,9 +4908,9 @@
+ if test "X$g4osname" = "XLinux" ; then
+ g4vis_xmflags=" -I$g4vis_xmhome/include "
+ 	if test "X$g4vis_xmhome" = "X/usr/X11R6" ; then
+-		g4vis_xmlibs=" -lXm -lXpm "
++		g4vis_xmlibs=" -lXm "
+ 	else
+-		g4vis_xmlibs=" -L$g4vis_xmhome/lib -lXm -lXpm "
++		g4vis_xmlibs=" -L$g4vis_xmhome/lib -lXm "
+ 	fi
+ fi
+ 
+@@ -6123,7 +6123,7 @@
+ 
+ echo ""
+ 
+-	g4_gmake_version=`(gmake -v) 2>/dev/null` 
++	g4_gmake_version=`(gmake -v || true) 2>/dev/null` 
+ 				case $g4_gmake_version in
+ 				GNU*) 
+ 				g4_gmake=y				
+@@ -6133,7 +6133,7 @@
+ 				;;
+ 				esac				
+ 
+-	g4_make_version=`(make -v) 2>/dev/null`
++	g4_make_version=`(make -v || true) 2>/dev/null`
+ 				case $g4_make_version in
+ 				GNU*) 
+ 				g4_make=y				
