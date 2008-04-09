@@ -169,7 +169,8 @@ src_install() {
 	if use data; then
 		cd "${WORKDIR}"
 		for d in ${GEANT4_DATA}; do
-			doins -r ${d/.} || die "installing data ${d} failed"
+			local p=${d/.}
+			doins -r *${d/G4} || die "installing data ${d} failed"
 		done
 	fi
 

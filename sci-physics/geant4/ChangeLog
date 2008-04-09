@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Apr 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  geant-4.9.1_p01.ebuild:
+  fixed data install
+
 *geant-4.9.1_p01 (08 Apr 2008)
 	
   08 Apr 2008; Sébastien Fabbro <bicatali@gentoo.org>
