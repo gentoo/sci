@@ -1,6 +1,6 @@
 --- config/scripts/move.sh.SH.orig	2008-04-08 16:08:16.817366051 +0000
-+++ config/scripts/move.sh.SH	2008-04-08 19:05:44.332687325 +0000
-@@ -445,33 +445,8 @@
++++ config/scripts/move.sh.SH	2008-04-10 15:21:09.507532565 +0000
+@@ -445,39 +445,14 @@
  cd $g4install
  #echo `pwd`
  
@@ -36,3 +36,10 @@
  echo ""
  echo "Installing headers..."
  echo ""
+ cd $g4install/source
+ $g4make includes dependencies=""
+-fi
++
+ 
+ # Move libraries
+ if [ X$g4install != X$g4final_install ] ; then

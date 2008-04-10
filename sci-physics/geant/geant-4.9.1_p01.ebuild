@@ -98,7 +98,7 @@ src_compile() {
 
 	local myconf="$(g4vis_use opengl openglx)"
 	use opengl && myconf="${glconf} $(g4vis_use motif openglxm)"
-	use data && myconf="${myconf} -D g4data=${GEANT_DATA_DIR}"
+	use data && myconf="${myconf} -D g4data=${GEANT4_DATA_DIR}"
 
 	 # switch to see compiling flags
 	export CPPVERBOSE=y
@@ -183,7 +183,8 @@ src_install() {
 		dodoc ReleaseNotes/Patch${mypv}-*.txt
 
 	use examples && doins -r examples
-	# todo: g4py with python flag
+	# todo: g4py will probably need a split ebuild since it seems to
+	# rely on on geant4 existence.
 	# todo: momo with momo or java flag, and check java stuff
 }
 
