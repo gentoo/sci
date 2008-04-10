@@ -5,7 +5,7 @@
 inherit eutils python
 
 MY_PV="${PV/./v}"
-LICENSE="MODELLER"
+LICENSE="modeller"
 KEYWORDS="~amd64 ~x86"
 DESCRIPTION="MODELLER is used for homology or comparative modeling of protein three-dimensional structures"
 SRC_URI="http://salilab.org/${PN}/${MY_PV}/${PN}-${MY_PV}.tar.gz"
