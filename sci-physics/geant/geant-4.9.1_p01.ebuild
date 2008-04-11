@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v3
 # $Header: $
 
-EAPI=1
+EAPI="1"
 
 inherit eutils fortran multilib versionator
 
@@ -26,7 +26,7 @@ LICENSE="geant4"
 SLOT="4"
 KEYWORDS="~amd64 ~x86"
 IUSE="athena +data dawn debug examples gdml geant3 minimal +motif
-	+opengl openinventor +raytracerx +vrml zlib"
+	+opengl openinventor +raytracerx static +vrml zlib"
 
 DEPEND="sci-physics/clhep
 	motif? ( virtual/motif )
@@ -92,10 +92,12 @@ g4w_use() {
 }
 
 src_compile() {
-	GEANT4_DATA_DIR=/usr/share/${PN}
+
+	GEANT4_DIR=/usr/share/${PN}-${SLOT}
+	GEANT4_DATA_DIR=${GEANT4_DIR}/data
+
 	# The Configure shell script saves its options
 	# in .config/bin/*/config.sh
-
 	local myconf="$(g4vis_use opengl openglx)"
 	use opengl && myconf="${glconf} $(g4vis_use motif openglxm)"
 	use data && myconf="${myconf} -D g4data=${GEANT4_DATA_DIR}"
@@ -142,13 +144,14 @@ src_compile() {
 		-D g4lib_build_static=n \
 		|| die "Building shared geant failed"
 
-	rm -rf tmp
-
-	./Configure \
-		-deO -build \
-		-D g4lib_build_shared=n \
-		-D g4lib_build_static=y \
-		|| die "Building shared geant failed"
+	if use static; then
+		rm -rf tmp
+		./Configure \
+			-deO -build \
+			-D g4lib_build_shared=n \
+			-D g4lib_build_static=y \
+			|| die "Building shared geant failed"
+	fi
 }
 
 src_install() {
@@ -159,18 +162,23 @@ src_install() {
 	./Configure \
 		|| die "Final install failed"
 
-	insinto ${GEANT4_DATA_DIR}
+	# install env stuff
+	# todo: try to decipher and translate into a env.d file
+	insinto ${GEANT4_DIR}
 	sed -i \
-		-e "s:${S}:${GEANT4_DATA_DIR}:g" \
+		-e "s:${S}:${GEANT4_DIR}:g" \
 		-e "s:${D}:/:g" \
 		env.*sh
 	doins env.*sh || die "failed installing shell scripts"
 	doins -r config
+
+	# install data
+	insinto ${GEANT4_DATA_DIR}
 	if use data; then
 		cd "${WORKDIR}"
 		for d in ${GEANT4_DATA}; do
 			local p=${d/.}
-			doins -r *${d/G4} || die "installing data ${d} failed"
+			doins -r *${p/G4} || die "installing data ${d} failed"
 		done
 	fi
 
@@ -190,9 +198,9 @@ src_install() {
 
 pkg_postinst() {
 	elog "You can set the Geant4 environment variables"
-	elog "from ${ROOT}${GEANT4_DATA_DIR} shell scripts."
+	elog "from ${ROOT}${GEANT4_DIR} shell scripts."
 	elog "Ex: for bash"
-	elog "     source ${ROOT}${GEANT4_DATA_DIR}/env.sh"
+	elog "     source ${ROOT}${GEANT4_DIR}/env.sh"
 	elog
 	elog "Help us to improve the ebuild and dependencies in"
 	elog "http://bugs.gentoo.org/show_bug.cgi?id=212221"
