@@ -387,8 +387,8 @@ mpi_do() {
 	return ${rc}
 }
 
-mpi_dobin()		{ mpi_do "dodoc" 		$*; }
-mpi_newbin() 	{ mpi_do "newdoc" 		$*; }
+mpi_dobin()		{ mpi_do "dobin" 		$*; }
+mpi_newbin()	{ mpi_do "newbin" 		$*; }
 mpi_dodoc()		{ mpi_do "dodoc"		$*; }
 mpi_newdoc()	{ mpi_do "newdoc"		$*; }
 mpi_doexe()		{ mpi_do "doexe"		$*; }
