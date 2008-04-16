@@ -4,12 +4,15 @@
 
 EAPI="1"
 
-inherit eutils fortran multilib versionator
+inherit eutils fortran multilib versionator toolchain-funcs
 
+PV1=$(get_version_component_range 1 ${PV})
+PV2=$(get_version_component_range 2 ${PV})
+PV3=$(get_version_component_range 3 ${PV})
 MY_P=${PN}$(replace_version_separator 3 .)
 
 DESCRIPTION="CERN's detector description and simulation Tool"
-HOMEPAGE="http://geant4.cern.ch/"
+HOMEPAGE="http://www.geant4.org/"
 
 SRC_COM="http://geant4.web.cern.ch/geant4/support/source/"
 SRC_URI="${SRC_COM}/${MY_P}.tar.gz"
@@ -25,7 +28,7 @@ done
 LICENSE="geant4"
 SLOT="4"
 KEYWORDS="~amd64 ~x86"
-IUSE="athena +data dawn debug examples gdml geant3 minimal +motif
+IUSE="athena +data dawn debug examples gdml geant3 global minimal +motif
 	+opengl openinventor +raytracerx static +vrml zlib"
 
 DEPEND="sci-physics/clhep
@@ -44,163 +47,156 @@ S="${WORKDIR}/${MY_P}"
 pkg_setup() {
 	FORTRAN="gfortran g77 ifc"
 	use geant3 && fortran_pkg_setup
+	eval unset ${!G4_*}
 }
 
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
 
-	# this patch sanitize the Configure script
-	epatch "${FILESDIR}"/${P}-configure.patch
-	epatch "${FILESDIR}"/${P}-no-source.patch
-
-	# propagate user's make options
-	sed -i \
-		-e "s/g4make=gmake/g4make=\"gmake ${MAKEOPTS}\"/" \
-		Configure || die "sed Configure failed"
-
 	# propagate user's flags.
 	sed -i \
-		-e "s:\(CXXFLAGS*+=\)*-O2:\1 ${CXXFLAGS:--O2}:g" \
-		-e "s:\(FCFLAGS*+=\)*-O2:\1 ${FFLAGS:--O2}:g" \
-		-e "s:\(CCFLAGS*+=\)*-O2:\1 ${CFLAGS:--O2}:g" \
-		config/sys/Linux* || die "flag substitution failed"
+		-e "/CXXFLAGS[[:space:]]*.=[[:space:]]-O2/s:=.*:= ${CXXFLAGS}:" \
+		-e "/FCFLAGS[[:space:]]*.=[[:space:]]-O2/s:=.*:= ${FFLAGS:--O2}:" \
+		-e "/CCFLAGS[[:space:]]*.=[[:space:]]-O2/s:=.*:= ${CFLAGS}:" \
+		config/sys/Linux*gmk || die "flag substitution failed"
 
-	# libdir stuff
+	# fix forced lib directory
 	sed -i \
-		-e "s:lib/geant4:$(get_libdir)/geant:g" \
-		Configure config/scripts/move.sh.SH \
-		|| die "multilib substitution failed"
-}
-
-g4ui_use() {
-	local answer=$(use $1 && echo y || echo n)
-	echo "-D g4ui_build_${2:-$1}_session=${answer}
-		  -D g4ui_use_${2:-$1}=${answer}"
-}
-
-g4vis_use() {
-	local answer=$(use $1 && echo y || echo n)
-	echo "-D g4vis_build_${2:-$1}_driver=${answer}
-		  -D g4vis_use_${2:-$1}=${answer}"
-}
-
-g4w_use() {
-	local answer=$(use $1 && echo y || echo n)
-	echo "-D g4w_use_${2:-$1}=${answer}
-		  -D g4wlib_use_${2:-$1}=${answer}"
+		-e 's:$(G4LIB)/$(G4SYSTEM):$(G4LIB):g' \
+		config/binmake.gmk || die "sed binmake.gmk failed"
+	sed -i \
+		-e '/$(G4LIB)\/$(G4SYSTEM)/d' \
+		config/architecture.gmk || die "sed architecture.gmk failed"
 }
 
 src_compile() {
+	export GEANT4_DIR="/usr/share/${PN}${PV1}"
+	# where to put compiled libraries;
+	# we set env var G4LIB in src_install()
+	# to avoid confusing make
+	export GEANT4_LIBDIR=/usr/$(get_libdir)/${PN}${PV1}
 
-	GEANT4_DIR=/usr/share/${PN}-${SLOT}
-	GEANT4_DATA_DIR=${GEANT4_DIR}/data
+	# these should always to be set
+	[[ $(tc-getCXX) = ic*c ]] && export G4SYSTEM=Linux-icc \
+							  || export G4SYSTEM=Linux-g++
+	export G4INSTALL="${S}"
+	export G4INCLUDE="${D}/usr/include/${PN}"
+	export CLHEP_BASE_DIR=/usr
 
-	# The Configure shell script saves its options
-	# in .config/bin/*/config.sh
-	local myconf="$(g4vis_use opengl openglx)"
-	use opengl && myconf="${glconf} $(g4vis_use motif openglxm)"
-	use data && myconf="${myconf} -D g4data=${GEANT4_DATA_DIR}"
+	# parse USE; just set flags of drivers to build, G4*_USE_* vars are set
+	# later automatically for G4*_BUILD_*_DRIVER
+	use minimal             && export G4UI_NONE=y \
+							&& export G4VIS_NONE=y
 
-	 # switch to see compiling flags
+	use motif               && export G4UI_BUILD_XM_SESSION=y
+	use athena              && export G4UI_BUILD_XAW_SESSION=y
+
+	use dawn                && export G4VIS_BUILD_DAWN_DRIVER=y
+	use raytracerx          && export G4VIS_BUILD_RAYTRACERX_DRIVER=y
+	use openinventor        && export G4VIS_BUILD_OI_DRIVER=y
+	use opengl              && export G4VIS_BUILD_OPENGLX_DRIVER=y
+	use opengl && use motif && export G4VIS_BUILD_OPENGLXM_DRIVER=y
+
+	use geant3              && export G4LIB_BUILD_G3TOG4=y
+	use zlib                && export G4LIB_BUILD_ZLIB=y
+	use vrml                && export G4VIS_BUILD_VRML_DRIVER=y \
+							&& export G4VIS_BUILD_VRMLFILE_DRIVER=y
+
+	use data                && export G4DATA="${GEANT4_DIR}/data"
+	use debug               && export G4DEBUG=y || export G4OPTIMIZE=y
+
+	# switch to see compiling flags
 	export CPPVERBOSE=y
-	use debug && export G4DEBUG=y || export G4OPTIMIZE=y
-
-	# to check what they are doing and working
-	# -D d_portable \
-	# -D g4global=n \
-	# -D g4granular=y
-	# -D g4_use_granular=y
-	# -D g4make=make \
-
-	./Configure \
-		-deE -build \
-		-D g4analysis_use=n \
-		-D g4includes_flag=y \
-		-D g4include="${D}/usr/include/geant4" \
-		-D g4final_install="${D}/usr" \
-		$(g4ui_use minimal none) \
-		$(g4ui_use athena xaw) \
-		$(g4ui_use motif xm) \
-		$(g4vis_use minimal none) \
-		$(g4vis_use dawn) \
-		$(g4vis_use raytracerx) \
-		$(g4vis_use openinventor oix) \
-		$(g4vis_use vrml) \
-		$(g4vis_use vrml vrmlfile) \
-		$(g4w_use geant3 g3tog4) \
-		$(g4w_use zlib) \
-		${myconf} \
-		${EXTRA_ECONF} \
-		|| die "Configure failed"
 
 	# if shared libs are built, the script will also build static libs
 	# with pic flags
 	# avoid that by building it twice and removing temporary objects
-
-	./Configure \
-		-deO -build \
-		-D g4lib_build_shared=y \
-		-D g4lib_build_static=n \
-		|| die "Building shared geant failed"
+	cd "${S}/source/"
+	export G4LIB_BUILD_SHARED=y
+	emake || die "Building shared geant failed"
 
 	if use static; then
 		rm -rf tmp
-		./Configure \
-			-deO -build \
-			-D g4lib_build_shared=n \
-			-D g4lib_build_static=y \
-			|| die "Building shared geant failed"
+		export G4LIB_BUILD_STATIC=y ; unset G4LIB_BUILD_SHARED
+		emake || die "Building static geant failed"
+	fi
+
+	if use global; then
+		export G4LIB_USE_GRANULAR=y
+		emake global || die "Building global libraries failed"
 	fi
 }
 
+g4_create_env_scripts() {
+	# we need to change some variables to the final values since we hide these
+	# from make during the compile
+	export G4INSTALL=${GEANT4_DIR}
+	export G4LIB=${GEANT4_LIBDIR}
+	export G4INCLUDE=${G4INCLUDE/${D}/}
+	export G4WORKDIR=\${HOME}/${PN}${PV1}
+
+	local g4env=99${PN}${PV1}
+	cat <<-EOF > ${g4env}
+		LDPATH=${G4LIB}
+		CLHEP_BASE_DIR=${CLHEP_BASE_DIR}
+	EOF
+	# read env variables defined upto now
+	printenv | grep ^G4 | uniq >> ${g4env}
+
+	# define env vars for capabilities we can build into user projects
+	printenv | uniq | \
+		sed -e '/^G4/s:BUILD\(.*\)_DRIVER=1:USE\1=y:g' >> ${g4env}
+
+	doenvd ${g4env} || die "Installing environment scripts failed "
+}
+
 src_install() {
-	./Configure \
-		-install \
-		|| die "Install failed"
+	# install headers via make since we want them in a single directory
+	cd "${S}/source/"
+	emake includes || die 'Installing headers failed'
+	cd "${S}"
 
-	./Configure \
-		|| die "Final install failed"
+	# but install libraries and Geant library tool manually
+	insinto ${GEANT4_LIBDIR}
+	doins -r lib/${G4SYSTEM}/* || die
+	exeinto ${GEANT4_LIBDIR}
+	doexe lib/${G4SYSTEM}/liblist || die
 
-	# install env stuff
-	# todo: try to decipher and translate into a env.d file
+	g4_create_env_script
+
+	# configs
 	insinto ${GEANT4_DIR}
-	sed -i \
-		-e "s:${S}:${GEANT4_DIR}:g" \
-		-e "s:${D}:/:g" \
-		env.*sh
-	doins env.*sh || die "failed installing shell scripts"
-	doins -r config
+	doins -r config || die
 
 	# install data
-	insinto ${GEANT4_DATA_DIR}
 	if use data; then
-		cd "${WORKDIR}"
+		insinto ${G4DATA}
+		pushd "${WORKDIR}"
 		for d in ${GEANT4_DATA}; do
 			local p=${d/.}
 			doins -r *${p/G4} || die "installing data ${d} failed"
 		done
+		popd
 	fi
 
 	# doc and examples
 	insinto /usr/share/doc/${PF}
-	local mypv="4.$(get_version_component_range 2 ${PV})"
-	mypv="${mypv}.$(get_version_component_range 3 ${PV})"
+	local mypv="${PV1}.${PV2}.${PV3}"
 	doins ReleaseNotes/ReleaseNotes${mypv}.html
 	[[ -e ReleaseNotes/Patch${mypv}-1.txt ]] && \
 		dodoc ReleaseNotes/Patch${mypv}-*.txt
 
 	use examples && doins -r examples
-	# todo: g4py will probably need a split ebuild since it seems to
+
+	# TODO: g4py will probably need a split ebuild since it seems to
 	# rely on on geant4 existence.
-	# todo: momo with momo or java flag, and check java stuff
+	# TODO: momo with momo or java flag, and check java stuff
 }
 
 pkg_postinst() {
-	elog "You can set the Geant4 environment variables"
-	elog "from ${ROOT}${GEANT4_DIR} shell scripts."
-	elog "Ex: for bash"
-	elog "     source ${ROOT}${GEANT4_DIR}/env.sh"
+	elog "Geant4 projects are by default expected in each user's "
+	elog "If you want to change, set \$G4WORKDIR to another directory"
 	elog
 	elog "Help us to improve the ebuild and dependencies in"
 	elog "http://bugs.gentoo.org/show_bug.cgi?id=212221"

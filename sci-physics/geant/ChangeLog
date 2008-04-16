@@ -2,6 +2,12 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Apr 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  -files/geant-4.9.1_p01-configure.patch,
+  -files/geant-4.9.1_p01-no-source.patch, metadata.xml,
+  geant-4.9.1_p01.ebuild:
+  geant4: new ebuild with exports
+
   11 Apr 2008; Sébastien Fabbro <bicatali@gentoo.org>
   +geant-3.21.14-r2.ebuild, geant-4.9.1_p01.ebuild:
   Added slotted geant-3
