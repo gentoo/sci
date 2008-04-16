@@ -128,7 +128,7 @@ src_compile() {
 	fi
 }
 
-g4_create_env_scripts() {
+g4_create_env_script() {
 	# we need to change some variables to the final values since we hide these
 	# from make during the compile
 	export G4INSTALL=${GEANT4_DIR}
