@@ -146,7 +146,7 @@ g4_create_env_script() {
 
 	# define env vars for capabilities we can build into user projects
 	printenv | uniq | \
-		sed -e '/^G4/s:BUILD\(.*\)_DRIVER=1:USE\1=y:g' >> ${g4env}
+		sed -n -e '/^G4/s:BUILD\(.*\)_DRIVER:USE\1:gp' >> ${g4env}
 
 	doenvd ${g4env} || die "Installing environment scripts failed "
 }
