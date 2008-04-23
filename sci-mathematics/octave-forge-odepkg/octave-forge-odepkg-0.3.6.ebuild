@@ -4,7 +4,7 @@
 
 inherit octave-forge
 
-DESCRIPTION="Audio recording, processing and playing tools for use with octave"
+DESCRIPTION="A toolkit for Differential Equations and Initial Value Problems."
 LICENSE="GPL-2"
 HOMEPAGE="http://octave.sourceforge.net/audio/index.html"
 SRC_URI="mirror://sourceforge/octave/${OCT_PKG}.tar.gz"
