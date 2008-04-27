@@ -44,16 +44,17 @@ DOCS="AUTHORS ChangeLog FAQ NEWS Copyright
 
 pkg_setup() {
 
-	built_with_use media-libs/gd jpeg png || \
+	if use gd && ! built_with_use media-libs/gd jpeg png; then
 		ewarn "media-libs/gd was built without jpeg or png support"
+	fi
 
-	if ! built_with_use media-libs/gd truetype; then
+	if use truetype && ! built_with_use media-libs/gd truetype; then
 		eerror "media-libs/gd was built without truetype support"
 		eerror "To build plplot with truetype, you need gd with truetype"
 		die "needs gd with truetype "
 	fi
 
-	if ! built_with_use x11-libs/wxGTK X; then
+	if use wxwindows && ! built_with_use x11-libs/wxGTK X; then
 		eerror "You need to re-emerge wxGTK with the X flag enabled"
 		die "needs wxGTk with X"
 	fi
