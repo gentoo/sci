@@ -2,6 +2,10 @@
 # Copyright 2002-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sys-cluster/lam-mpi/ChangeLog,v 1.65 2008/01/31 07:07:18 dberkholz Exp $
 
+  28 Apr 2008; Justin Bronder <jsbronder@gentoo.org> ChangeLog:
+  Fix for gcc-4.3.0.  Change 'char * argv[]' to 'char **argv' in configure
+  scripts.  Thanks to Peter Alfredsen (peter.alfredsen at gmail) for the fix.
+
   29 Feb 2008; Jeff Gardner <je_fro@gentoo.org> Manifest:
   fix manifest
 

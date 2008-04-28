@@ -37,8 +37,12 @@ src_unpack() {
 	epatch "${FILESDIR}"/7.1.2-lam_prog_f77.m4.patch
 	epatch "${FILESDIR}"/7.1.2-liblam-use-extra-libs.patch
 	epatch "${FILESDIR}"/7.1.4-as-needed.patch
-	# Isn't needed yet, but is probably the right place to look.
-	# sed -i 's:^\(WRAPPER_EXTRA_LDFLAGS=.*\)":\1 -Wl,--no-as-needed":' configure.in
+
+	# gcc-4.3.0 fix.  char *argv[] -> char **argv.
+	# replaces a few more than necessary, but should be harmless.
+	for f in config/*.m4; do
+		sed -i 's:^\(int main(int argc, char\)[^{]*\([{]\?\):\1** argv) \2:g' $f
+	done
 	eautoreconf
 }
 
