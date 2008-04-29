@@ -42,7 +42,7 @@ pkg_setup() {
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	epatch "${FILESDIR}"/${PN}-maxima-5.14.0.patch
+	epatch "${FILESDIR}"/${PF}.patch
 }
 
 src_compile() {

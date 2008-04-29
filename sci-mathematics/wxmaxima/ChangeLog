@@ -1,0 +1,78 @@
+# ChangeLog for sci-mathematics/wxmaxima
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*wxmaxima-0.7.5 (29 Apr 2008)
+  29 Apr 2008; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  +wxmaxima-0.7.5.ebuild:
+  Version bump (for maxima-5.15.0).
+
+  19 Apr 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  wxmaxima-0.7.4.ebuild:
+  Fixed icon install
+
+  18 Apr 2008; Markus Meier <maekke@gentoo.org> wxmaxima-0.7.4.ebuild:
+  amd64/x86 stable, bug #215787
+
+  12 Apr 2008; nixnut <nixnut@gentoo.org> wxmaxima-0.7.4.ebuild:
+  Stable on ppc wrt bug 215787
+
+  01 Mar 2008; nixnut <nixnut@gentoo.org> wxmaxima-0.7.4.ebuild:
+  Added ~ppc wrt bug 211796
+
+  26 Feb 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  wxmaxima-0.7.3a.ebuild, wxmaxima-0.7.4.ebuild:
+  Duplicate license file (see bug #211534)
+
+*wxmaxima-0.7.4 (29 Jan 2008)
+
+  29 Jan 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  -wxmaxima-0.7.1.ebuild, +wxmaxima-0.7.4.ebuild:
+  Version bump. Thanks much to Andrey Grozin <A.G.Grozin@inp.nsk.su> for
+  taking care of it in the science overlay
+
+  22 Dec 2007; nixnut <nixnut@gentoo.org> wxmaxima-0.7.3a.ebuild:
+  Added ~ppc
+
+  08 Dec 2007; Samuli Suominen <drac@gentoo.org> wxmaxima-0.7.3a.ebuild:
+  amd64 stable wrt #201218
+
+  05 Dec 2007; Markus Meier <maekke@gentoo.org> wxmaxima-0.7.3a.ebuild:
+  x86 stable, bug #201218
+
+  04 Dec 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  wxmaxima-0.7.3a.ebuild:
+  Modernized with newer wxwigets eclass, fixed missing running dependencies
+
+  29 Sep 2007; Ryan Hill <dirtyepic@gentoo.org> wxmaxima-0.7.1.ebuild,
+  wxmaxima-0.7.3a.ebuild:
+  Lock wxGTK to 2.6.
+
+*wxmaxima-0.7.3a (13 Sep 2007)
+
+  13 Sep 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  -wxmaxima-0.7.2.ebuild, +wxmaxima-0.7.3a.ebuild:
+  Version bump. Removing wxmaxima-0.7.2 and closing bug #180252.
+
+  10 Jul 2007; Steve Arnold <nerdboy@gentoo.org> wxmaxima-0.7.1.ebuild,
+  wxmaxima-0.7.2.ebuild:
+  Updated desktop category and added desktop_database_update to pkg_post.
+  Seemed like the right thing to do...
+
+*wxmaxima-0.7.2 (18 Apr 2007)
+
+  18 Apr 2007; Sébastien Fabbro <bicatali@gentoo.org>
+  +wxmaxima-0.7.2.ebuild:
+  Version bump. Closing bug #174299.
+
+  23 Feb 2007; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml:
+  changed sci -> sci-mathematics
+
+*wxmaxima-0.7.1 (23 Feb 2007)
+
+  23 Feb 2007; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +wxmaxima-0.7.1.ebuild:
+  Initial import. Closing bug #83167. Thanks to Lucas Chiesa 
+  <lucas.chiesa@gmail.com> for his help in the gentooscience overlay, 
+  Andreas Volz <linux@brachttal.net>, and Yosef Meller <yosefm@gmail.com>
+  for their initial help.
