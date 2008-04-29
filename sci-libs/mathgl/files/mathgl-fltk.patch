@@ -1,0 +1,24 @@
+diff -U2 --recursive mathgl-1.6.2.orig/configure.ac mathgl-1.6.2/configure.ac
+--- mathgl-1.6.2.orig/configure.ac	2008-04-03 01:24:42.000000000 +0700
++++ mathgl-1.6.2/configure.ac	2008-04-30 12:35:25.000000000 +0700
+@@ -144,8 +144,8 @@
+   *) AC_MSG_ERROR(bad value ${enableval} for --enable-fltk) ;;
+ esac],[fltk=false])
+-AC_CHECK_HEADER(FL/Fl_Export.H,[(test x$all = xtrue || test x$fltk = xtrue) && FLTK_FLAGS=-DHAVE_FLTK AC_SUBST(FLTK_FLAGS)],
++AC_CHECK_HEADER(fltk-1.1/FL/Fl_Export.H,[(test x$all = xtrue || test x$fltk = xtrue) && FLTK_FLAGS="-DHAVE_FLTK -I/usr/include/fltk-1.1" AC_SUBST(FLTK_FLAGS)],
+     [(test x$all = xtrue || test x$fltk = xtrue) && echo "Please install fltk headers" && exit])
+ 
+-AC_CHECK_LIB([fltk], [main], [(test x$all = xtrue || test x$fltk = xtrue) && FLTK_LIBS="-lfltk -lfltk_images" AC_SUBST(FLTK_LIBS)],
++AC_CHECK_LIB([fltk], [main], [(test x$all = xtrue || test x$fltk = xtrue) && FLTK_LIBS="-L/usr/lib/fltk-1.1 -lfltk -lfltk_images -lXft" AC_SUBST(FLTK_LIBS)],
+     [(test x$all = xtrue || test x$fltk = xtrue) && echo "Please install fltk library" && exit])
+ AM_CONDITIONAL(USE_FLTK, (test x$all = xtrue || test x$fltk = xtrue))
+diff -U2 --recursive mathgl-1.6.2.orig/examples/Makefile.am mathgl-1.6.2/examples/Makefile.am
+--- mathgl-1.6.2.orig/examples/Makefile.am	2008-04-03 01:24:42.000000000 +0700
++++ mathgl-1.6.2/examples/Makefile.am	2008-04-30 13:01:09.000000000 +0700
+@@ -19,5 +19,5 @@
+ mgl_fltk_example_SOURCES = fltk_example.cpp
+ mgl_fltk_example_LDADD = $(top_builddir)/mgl/libmgl-fltk.la
+-mgl_fltk_example_CFLAGS = -O2
++mgl_fltk_example_CFLAGS = -I/usr/include/fltk-1.1
+ mgl_fltk_example_CPPFLAGS = $(mgl_fltk_example_CFLAGS)
+ endif
