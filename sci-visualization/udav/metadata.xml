@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>sci</herd>
+	<maintainer>
+		<email>A.G.Grozin@inp.nsk.su</email>
+		<name>Andrey Grozin</name>
+	</maintainer>
+	<longdescription>Universal Data Array Visualization</longdescription>
+</pkgmetadata>
