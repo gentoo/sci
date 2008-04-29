@@ -43,6 +43,15 @@ src_unpack() {
 	for f in config/*.m4; do
 		sed -i 's:^\(int main(int argc, char\)[^{]*\([{]\?\):\1** argv) \2:g' $f
 	done
+
+	# eautoreconf doesn't work correctly as lam-mpi uses their own 
+	# LAM_CONFIG_SUBDIR instead of AC_CONFIG_SUBDIRS.  Even better, they use
+	# variables inside of the definitions, so --trace doesn't work.
+	for f in $(find ./ -name 'configure.ac'); do
+		pushd $(dirname $f) &>/dev/null
+		eautoreconf
+		popd &>/dev/null
+	done
 	eautoreconf
 }
 
