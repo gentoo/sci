@@ -121,20 +121,13 @@ is_imp_build() { [[ ${MPI_ALL_IMPS} == *${PN}* ]]; }
 is_empi_build() { [[ ${CATEGORY} == mpi-* ]]; }
 is_empi_imp_build() { is_imp_build && is_empi_build; }
 
-is_imp() {
-	local i
-	for i in $(eselect mpi list -p); do
-		[[ ${1} == ${i} ]] && return 0
-	done
-	return 1
-}
 
 get_imp() {
 	[[ ${CATEGORY} == mpi-* ]] && echo "${CATEGORY}"
 }
 
 get_mpi_dir() {
-	if is_empi_imp_build || is_imp ${CATEGORY}; then
+	if is_empi_build; then
 		echo "/usr/$(get_libdir)/mpi/${MPI_IMP}"
 	fi
 }
