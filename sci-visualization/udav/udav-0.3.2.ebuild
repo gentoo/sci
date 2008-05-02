@@ -17,9 +17,23 @@ DEPEND="sci-libs/mathgl x11-libs/fltk"
 RESTRICT=mirror
 
 src_unpack() {
+	local FLTK_FLAGS,FLTK_LIBS,FLTK_H
+
 	unpack ${A}
 	cd "${S}"
+
+	FLTK_FLAGS=`fltk-config --cxxflags`
+	FLTK_LIBS=`fltk-config --use-images --ldflags`
+	FLTK_H=`echo ${FLTK_FLAGS} | sed -e 's:-I/usr/include/::'`
+	[ -n "${FLTK_H}" ] && FLTK_H="${FLTK_H}"/
+
 	epatch "${FILESDIR}"/${PN}-fltk.patch
+	sed -e "s:@FLTK_H@:${FLTK_H}:g" \
+		-e "s:@FLTK_LIBS@:${FLTK_LIBS}:g" \
+		-i configure.ac
+	sed -e "s:@FLTK_FLAGS@:${FLTK_FLAGS}:g" \
+		-i src/Makefile.am
+
 	eautoreconf
 }
 
