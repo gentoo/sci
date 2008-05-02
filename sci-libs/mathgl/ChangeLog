@@ -4,5 +4,6 @@
 
 *mathgl-1.6.2 (29 Apr 2008)
 29 Apr 2008; Andrey Grozin <A.G.Grozin@inp.nsk.su>
-  +metadata.xml, +mathgl-1.6.2.ebuild, +files/mathgl-fltk.patch:
+  +metadata.xml, +mathgl-1.6.2.ebuild,
+  +files/mathgl-fltk.patch, +files/mathgl-no-cp1251.patch:
   Initial import.
