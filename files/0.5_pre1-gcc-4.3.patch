@@ -1,0 +1,325 @@
+diff -ur coot-0.5-pre-1.orig/coords/Bond_lines.cc coot-0.5-pre-1/coords/Bond_lines.cc
+--- coot-0.5-pre-1.orig/coords/Bond_lines.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/coords/Bond_lines.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -19,9 +19,11 @@
+  * 02110-1301, USA
+  */
+  
++#include <cstring>
+ #include <string>
+ #include <fstream>
+ #include <vector>
++#include <stdlib.h>
+ 
+ #include "Cartesian.h"
+ #include "mmdb_manager.h"
+@@ -239,7 +241,7 @@
+ 		  int res_2 = atom_selection_2[ contact[i].id2 ]->GetSeqNum();
+ 
+ 		  // this +/- 1 residue test
+-		  if (abs(res_1 - res_2) < 2) {
++		  if (llabs(res_1 - res_2) < 2) {
+ 
+ 		     //  		  std::cout << "Adding bond " << atom_selection_1[ contact[i].id1 ]
+ 		     //  			    << " to "
+@@ -731,7 +733,7 @@
+       for (int i=0; i<ncontacts; i++) {
+ 	 std::string ch1(residue_atoms[ contact[i].id1 ]->GetChainID());
+ 	 std::string ch2(SelAtom.atom_selection[ contact[i].id2 ]->GetChainID());
+-	 if ( (abs(residue_atoms[ contact[i].id1 ]->GetSeqNum() -
++	 if ( (llabs(residue_atoms[ contact[i].id1 ]->GetSeqNum() -
+ 		   SelAtom.atom_selection[ contact[i].id2 ]->GetSeqNum()) > 1)
+ 	      || (ch1 != ch2)
+ 	      || residue_is_water_flag) {
+@@ -1913,7 +1915,7 @@
+ 	       }
+ 	    
+ 	       // this +/- 1 residue test
+-	       if (abs(res_1 - res_2) < 2) {
++	       if (llabs(res_1 - res_2) < 2) {
+ 
+ 		  std::string altloc1 = Ca_selection[ contact[i].id1 ]->altLoc;
+ 		  std::string altloc2 = Ca_selection[ contact[i].id2 ]->altLoc;
+@@ -2484,7 +2486,7 @@
+ 	       res1 = at1->GetSeqNum();
+ 	       res2 = at2->GetSeqNum();
+ 
+-	       if (abs(res1 - res2) < 2) { 
++	       if (llabs(res1 - res2) < 2) { 
+ 
+ 		  std::string segid1(at1->GetChainID());
+ 		  std::string segid2(at2->GetChainID());
+@@ -2644,7 +2646,7 @@
+ 	       res1 = at1->GetSeqNum();
+ 	       res2 = at2->GetSeqNum();
+ 
+-	       if (abs(res1 - res2) < 2) { 
++	       if (llabs(res1 - res2) < 2) { 
+ 
+ 		  std::string segid1(at1->GetChainID());
+ 		  std::string segid2(at2->GetChainID());
+@@ -2838,7 +2840,7 @@
+ 	       res1 = at1->GetSeqNum();
+ 	       res2 = at2->GetSeqNum();
+ 
+-	       if (abs(res1 - res2) < 2) { 
++	       if (llabs(res1 - res2) < 2) { 
+ 		  coot::Cartesian atom_1(at1->x, at1->y, at1->z);
+ 		  coot::Cartesian atom_2(at2->x, at2->y, at2->z);
+ 
+diff -ur coot-0.5-pre-1.orig/coords/mmdb-crystal.cc coot-0.5-pre-1/coords/mmdb-crystal.cc
+--- coot-0.5-pre-1.orig/coords/mmdb-crystal.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/coords/mmdb-crystal.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -23,6 +23,7 @@
+ // put them here so that mmdb and mmdb-extras are not exposed to
+ // clipper complexities.
+ //
++#include <cstring>
+ #include <string>
+ #include <vector>
+ #include <math.h>
+diff -ur coot-0.5-pre-1.orig/coords/mmdb-extras.cc coot-0.5-pre-1/coords/mmdb-extras.cc
+--- coot-0.5-pre-1.orig/coords/mmdb-extras.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/coords/mmdb-extras.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -19,9 +19,10 @@
+  * 02110-1301, USA
+  */
+ 
++#include <cstring>
+ #include <string>
+ #include <vector> // for Cartesian
+-
++#include <stdlib.h>
+ 
+ #include "coot-coord-utils.hh"
+ 
+diff -ur coot-0.5-pre-1.orig/cootaneer/buccaneer-prot.cpp coot-0.5-pre-1/cootaneer/buccaneer-prot.cpp
+--- coot-0.5-pre-1.orig/cootaneer/buccaneer-prot.cpp	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/cootaneer/buccaneer-prot.cpp	2008-05-03 11:45:16.000000000 -0700
+@@ -1,6 +1,8 @@
+ /*! \file buccaneer-prot.cpp buccaneer library */
+ /* (C) 2002-2006 Kevin Cowtan & University of York all rights reserved */
+ 
++#include <cstring>
++
+ #include "buccaneer-prot.h"
+ 
+ #include <clipper/clipper-contrib.h>
+diff -ur coot-0.5-pre-1.orig/cootaneer/cootaneer-sequence.cpp coot-0.5-pre-1/cootaneer/cootaneer-sequence.cpp
+--- coot-0.5-pre-1.orig/cootaneer/cootaneer-sequence.cpp	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/cootaneer/cootaneer-sequence.cpp	2008-05-03 11:45:16.000000000 -0700
+@@ -5,7 +5,7 @@
+ 
+ #include <iostream>
+ #include <fstream>
+-
++#include <cstdlib>
+ 
+ Coot_sequence::Coot_sequence( std::string filename )
+ {
+diff -ur coot-0.5-pre-1.orig/coot-surface/rgbreps.cc coot-0.5-pre-1/coot-surface/rgbreps.cc
+--- coot-0.5-pre-1.orig/coot-surface/rgbreps.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/coot-surface/rgbreps.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -42,6 +42,7 @@
+ //   Suite 330, Boston, MA 02111-1307 USA
+ 
+ 
++#include <cstdlib>
+ #include <iostream>
+ #include <fstream>
+ #include <map>
+diff -ur coot-0.5-pre-1.orig/coot-utils/coot-coord-utils.cc coot-0.5-pre-1/coot-utils/coot-coord-utils.cc
+--- coot-0.5-pre-1.orig/coot-utils/coot-coord-utils.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/coot-utils/coot-coord-utils.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -23,6 +23,7 @@
+  */
+ 
+ #include <algorithm>
++#include <cstring>
+ #include "coot-utils.hh"
+ #include "coot-coord-utils.hh"
+ #include "mmdb_tables.h"  // for Get1LetterCode()
+diff -ur coot-0.5-pre-1.orig/coot-utils/coot-shelx-ins.cc coot-0.5-pre-1/coot-utils/coot-shelx-ins.cc
+--- coot-0.5-pre-1.orig/coot-utils/coot-shelx-ins.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/coot-utils/coot-shelx-ins.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -19,6 +19,7 @@
+  */
+ 
+ 
++#include <cstring>
+ #include <string>
+ 
+ #include "mmdb_manager.h"
+diff -ur coot-0.5-pre-1.orig/db-main/db-main.cc coot-0.5-pre-1/db-main/db-main.cc
+--- coot-0.5-pre-1.orig/db-main/db-main.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/db-main/db-main.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -22,6 +22,7 @@
+ 
+ #include <sys/types.h> // for stating
+ #include <sys/stat.h>
++#include <cstring>
+ 
+ #include <algorithm>
+ 
+diff -ur coot-0.5-pre-1.orig/db-main/testdbmain.cc coot-0.5-pre-1/db-main/testdbmain.cc
+--- coot-0.5-pre-1.orig/db-main/testdbmain.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/db-main/testdbmain.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -19,6 +19,7 @@
+  * 02110-1301, USA
+  */
+ 
++#include <cstdlib>
+ 
+ #include "db-main.hh"
+ 
+diff -ur coot-0.5-pre-1.orig/db-main/train-pepflip.cc coot-0.5-pre-1/db-main/train-pepflip.cc
+--- coot-0.5-pre-1.orig/db-main/train-pepflip.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/db-main/train-pepflip.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -20,6 +20,8 @@
+  * 02110-1301, USA
+  */
+ 
++#include <cstdlib>
++
+ #include "db-main.hh"
+ 
+ class generate_fragments_t {
+diff -ur coot-0.5-pre-1.orig/geometry/protein-geometry.cc coot-0.5-pre-1/geometry/protein-geometry.cc
+--- coot-0.5-pre-1.orig/geometry/protein-geometry.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/geometry/protein-geometry.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -23,6 +23,7 @@
+ #include <iostream>
+ #include <map>
+ #include <algorithm>  // needed for sort?
++#include <cstring>
+ 
+ #include "protein-geometry.hh"
+ #include "coot-utils.hh"
+diff -ur coot-0.5-pre-1.orig/geometry/test-geometry.cc coot-0.5-pre-1/geometry/test-geometry.cc
+--- coot-0.5-pre-1.orig/geometry/test-geometry.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/geometry/test-geometry.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -22,7 +22,7 @@
+ #include <sys/types.h> // for stating
+ #include <sys/stat.h>
+ #include <unistd.h>
+-
++#include <cstdlib>
+ 
+ #include <iostream>
+ 
+diff -ur coot-0.5-pre-1.orig/high-res/globularize.cc coot-0.5-pre-1/high-res/globularize.cc
+--- coot-0.5-pre-1.orig/high-res/globularize.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/high-res/globularize.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -18,6 +18,8 @@
+  * 02110-1301, USA
+  */
+ 
++#include <cstdlib>
++
+ #ifdef __GNU_LIBRARY__
+ #include "coot-getopt.h"
+ #else
+diff -ur coot-0.5-pre-1.orig/ideal/simple-restraint.cc coot-0.5-pre-1/ideal/simple-restraint.cc
+--- coot-0.5-pre-1.orig/ideal/simple-restraint.cc	2008-05-03 11:44:24.000000000 -0700
++++ coot-0.5-pre-1/ideal/simple-restraint.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -24,9 +24,8 @@
+ // we don't want to compile anything if we don't have gsl
+ #ifdef HAVE_GSL
+ 
+-#ifdef _MSC_VER
+ #include <algorithm>
+-#endif
++#include <cstring>
+ 
+ // #include <sys/time.h>
+ #include "simple-restraint.hh"
+diff -ur coot-0.5-pre-1.orig/ligand/monomer-utils.cc coot-0.5-pre-1/ligand/monomer-utils.cc
+--- coot-0.5-pre-1.orig/ligand/monomer-utils.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/ligand/monomer-utils.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -19,6 +19,8 @@
+  * 02110-1301, USA.
+  */
+ 
++#include <cstring>
++
+ #include "monomer-utils.hh"
+ 
+ CResidue *
+diff -ur coot-0.5-pre-1.orig/ligand/test-helix-placement.cc coot-0.5-pre-1/ligand/test-helix-placement.cc
+--- coot-0.5-pre-1.orig/ligand/test-helix-placement.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/ligand/test-helix-placement.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -35,6 +35,7 @@
+ 
+ #include <iostream>
+ #include <string>
++#include <cstdlib>
+ 
+ #include "coot-map-utils.hh"
+ #include "helix-placement.hh"
+diff -ur coot-0.5-pre-1.orig/ligand/test-ligand.cc coot-0.5-pre-1/ligand/test-ligand.cc
+--- coot-0.5-pre-1.orig/ligand/test-ligand.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/ligand/test-ligand.cc	2008-05-03 11:45:35.000000000 -0700
+@@ -19,6 +19,8 @@
+  * 02110-1301, USA.
+ */
+ 
++#include <algorithm>
++
+ #include "clipper/core/rotation.h" 
+ #include "mmdb-extras.h" 
+ #include "mmdb.h" 
+diff -ur coot-0.5-pre-1.orig/mini-mol/mini-mol.cc coot-0.5-pre-1/mini-mol/mini-mol.cc
+--- coot-0.5-pre-1.orig/mini-mol/mini-mol.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/mini-mol/mini-mol.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -21,6 +21,7 @@
+ 
+ #include "mini-mol.hh"
+ #include "coot-coord-utils.hh"
++#include <string.h>
+ 
+ coot::minimol::molecule::molecule(CMMDBManager *mol) {
+    setup(mol);
+diff -ur coot-0.5-pre-1.orig/skeleton/BuildCas.cc coot-0.5-pre-1/skeleton/BuildCas.cc
+--- coot-0.5-pre-1.orig/skeleton/BuildCas.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/skeleton/BuildCas.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -25,7 +25,7 @@
+ 
+ #include "atom-utils.h"
+ #include "graphical_skel.h"
+-
++#include <string.h>
+ 
+ // #include <GL/glut.h> // for timings. 
+ 
+diff -ur coot-0.5-pre-1.orig/src/density-score-by-residue.cc coot-0.5-pre-1/src/density-score-by-residue.cc
+--- coot-0.5-pre-1.orig/src/density-score-by-residue.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/src/density-score-by-residue.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -38,6 +38,7 @@
+ #include <iostream>
+ #include <string>
+ #include <vector>
++#include <cstdlib>
+ 
+ #include "coot-coord-utils.hh"
+ #include "coot-map-utils.hh"
+diff -ur coot-0.5-pre-1.orig/src/fix-nomenclature.cc coot-0.5-pre-1/src/fix-nomenclature.cc
+--- coot-0.5-pre-1.orig/src/fix-nomenclature.cc	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/src/fix-nomenclature.cc	2008-05-03 11:45:16.000000000 -0700
+@@ -1,5 +1,6 @@
+ 
+ #include <iostream> // fixes undefined strchr, strchrr problems
++#include <cstdlib>
+ #include "coot-nomenclature.hh"
+ #include "mmdb-extras.h"
+ #include "mmdb.h"
+diff -ur coot-0.5-pre-1.orig/surface/CXXFortranFile.cpp coot-0.5-pre-1/surface/CXXFortranFile.cpp
+--- coot-0.5-pre-1.orig/surface/CXXFortranFile.cpp	2008-05-03 11:44:25.000000000 -0700
++++ coot-0.5-pre-1/surface/CXXFortranFile.cpp	2008-05-03 11:45:16.000000000 -0700
+@@ -27,6 +27,7 @@
+  *
+  */
+ 
++#include <cstring>
+ #include "CXXFortranFile.h"
+ 
+ void CXXFortranFile::init(){

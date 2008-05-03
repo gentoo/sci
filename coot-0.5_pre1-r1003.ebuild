@@ -50,6 +50,9 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 
+	# To send upstream
+	epatch "${FILESDIR}"/0.5_pre1-gcc-4.3.patch
+
 	epatch "${FILESDIR}"/${PV}-as-needed.patch
 	epatch "${FILESDIR}"/${PV}-include-ccp4mg-utils.patch
 	epatch "${FILESDIR}"/0.4.1-link-against-guile-gtk-properly.patch
