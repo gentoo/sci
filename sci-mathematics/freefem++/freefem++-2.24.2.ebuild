@@ -12,7 +12,7 @@ SRC_URI="http://www.freefem.org/ff%2B%2B/ftp/${PN}-${MY_PV}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc examples fltk mpi vim-syntax X"
 
 RDEPEND="sci-libs/fftw
