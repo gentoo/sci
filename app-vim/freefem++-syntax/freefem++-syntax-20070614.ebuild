@@ -10,7 +10,7 @@ HOMEPAGE="http://www.vim.org/scripts/script.php?script_id=1901"
 SRC_URI="http://web.tiscali.it/david_e/freefem++-syntax-20070614.tar.gz"
 
 LICENSE="vim"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 VIM_PLUGIN_HELPTEXT=\
