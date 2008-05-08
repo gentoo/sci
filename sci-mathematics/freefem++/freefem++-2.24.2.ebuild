@@ -12,14 +12,15 @@ SRC_URI="http://www.freefem.org/ff%2B%2B/ftp/${PN}-${MY_PV}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="doc examples fltk mpi X"
+KEYWORDS="~x86"
+IUSE="doc examples fltk mpi vim-syntax X"
 
 RDEPEND="sci-libs/fftw
 	virtual/cblas
 	virtual/lapack
 	sci-libs/umfpack
 	>=sci-libs/arpack-96-r2
+	vim-syntax? ( app-vim/freefem++-syntax )
 	X? (
 		x11-libs/libXpm
 		fltk? ( x11-libs/fltk )

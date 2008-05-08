@@ -1,7 +1,13 @@
 # ChangeLog for sci-mathematics/freefem++
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
-	
+
+*freefem++-2.24.2 (08 May 2008)
+
+  08 May 2008; David Radice <david.e.pi.3.14@gmail.com>
+  -freefem++-2.23.1.ebuild, +freefem++-2.24.2.ebuild:
+  Version bump and new vim-syntax USE.
+
 *freefem++-2.23.2 (08 Feb 2008)
 	
   08 Feb 2008; Sébastien Fabbro <bicatali@gentoo.org>
