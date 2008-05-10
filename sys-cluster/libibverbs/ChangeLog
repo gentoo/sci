@@ -1,6 +1,10 @@
 # ChangeLog for sys-cluster/libibverbs
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libibverbs-1.1.1 (10 May 2008)
+  10 May 2008; Bryan Green <bryan.d.green@nasa.gov>
+  +libibverbs-1.1.2.ebuild: added
 
 *libibverbs-1.1.1 (26 Nov 2007)
 
