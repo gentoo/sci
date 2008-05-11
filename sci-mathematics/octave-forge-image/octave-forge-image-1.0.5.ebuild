@@ -14,3 +14,5 @@ IUSE=""
 KEYWORDS="~amd64 ~x86"
 
 DEPEND="media-gfx/imagemagick"
+
+PATCHES="${P}-imagemagick.patch"
