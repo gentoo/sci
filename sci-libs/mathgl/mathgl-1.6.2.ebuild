@@ -29,32 +29,18 @@ DEPEND="sci-libs/gsl
 RESTRICT=mirror
 
 src_unpack() {
-	local FLTK_FLAGS,FLTK_LIBS,FLTK_H
-
 	unpack ${A}
 	cd "${S}"
 	mv ../*.vfm fonts/
 
+	epatch "${FILESDIR}"/${PN}-fltk.patch
+
 	# Remove ru_RU.cp1251
 	epatch "${FILESDIR}"/${PN}-no-cp1251.patch
 
-	if use fltk; then
-		FLTK_FLAGS=`fltk-config --cxxflags`
-		FLTK_LIBS=`fltk-config --use-images --ldflags`
-		FLTK_H=`echo ${FLTK_FLAGS} | sed -e 's:-I/usr/include/::'`
-		[ -n "${FLTK_H}" ] && FLTK_H="${FLTK_H}"/
-
-		epatch "${FILESDIR}"/${PN}-fltk.patch
-		sed -e "s:@FLTK_H@:${FLTK_H}:g" \
-			-e "s:@FLTK_FLAGS@:${FLTK_FLAGS}:g" \
-			-e "s:@FLTK_LIBS@:${FLTK_LIBS}:g" \
-			-i configure.ac
-		sed -e "s:@FLTK_FLAGS@:${FLTK_FLAGS}:g" \
-			-i examples/Makefile.am
-	fi
-
 	sed -e "s:-O2:${CPPFLAGS}:g" -i mgl/Makefile.am
 	sed -e "s:-O2:${CPPFLAGS}:g" -i examples/Makefile.am
+	sed -e "s:-O2:${CPPFLAGS}:g" -i utils/Makefile.am
 
 	eautoreconf
 }
