@@ -8,7 +8,7 @@ IUSE="fltk glut jpeg tiff hdf5 doc linguas_ru"
 HOMEPAGE="http://mathgl.sourceforge.net/"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~ppc ~x86"
 
 DOC=${PN}-$(get_version_component_range 1-2 )
 

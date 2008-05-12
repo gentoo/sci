@@ -7,7 +7,7 @@ DESCRIPTION="Universal Data Array Visualization"
 HOMEPAGE="http://udav.sourceforge.net/"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~ppc ~x86"
 
 SRC_URI="mirror://sourceforge/${PN}/${P}.tgz"
 

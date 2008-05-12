@@ -2,6 +2,9 @@
 # Copyright 2002-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+12 May 2008; Andrey Grozin <grozin@gentoo.org>:
+  ~ppc added, thanks to Francois Bissey
+
 *mathgl-1.6.2 (29 Apr 2008)
 29 Apr 2008; Andrey Grozin <A.G.Grozin@inp.nsk.su>
   +metadata.xml, +mathgl-1.6.2.ebuild,
