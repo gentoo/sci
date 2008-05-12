@@ -1,0 +1,9 @@
+--- src/OSD/OSD_Csharedmemory.c	2007-10-17 10:38:18.000000000 +0200
++++ src/OSD/OSD_Csharedmemory.c.new	2007-10-17 10:38:11.000000000 +0200
+@@ -1,5 +1,6 @@
+ #if !defined( WNT ) && !defined(__hpux) && !defined( HPUX)
+ #include <stdio.h>
++#include <stdlib.h>
+ #include <sys/types.h>
+ #include <sys/ipc.h>
+ #include <sys/shm.h>

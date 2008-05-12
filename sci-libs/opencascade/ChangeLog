@@ -1,0 +1,11 @@
+# ChangeLog for sci-misc/opencascade
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  15 Jan 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/opencascade-6.2-gcc4.patch, +files/opencascade-6.2-malloc.patch,
+  +files/env.ksh.template, +metadata.xml, +opencascade-6.2.ebuild:
+  Initial import. See bug #118656 for anything relating the building process.
+  Ebuild from Daniel Tourde <daniel.tourde@caelae.se> and Alvaro Castro
+  <alvcastro@yahoo.es>.
+
