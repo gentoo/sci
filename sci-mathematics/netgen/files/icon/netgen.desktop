@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Netgen
+Comment=3D modeling, Mesh generation.
+Exec=/usr/bin/ng
+Icon=netgen-icon
+Terminal=0
+Type=Application
+Categories=Graphics;Application;

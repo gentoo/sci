@@ -1,6 +1,6 @@
 --- togl/togl.cpp.org	2004-09-29 19:48:06.000000000 +0200
 +++ togl/togl.cpp	2006-10-13 21:39:50.000000000 +0200
-@@ -138,8 +138,36 @@
+@@ -138,8 +138,50 @@
  #  include "tkInt8.4p3.h"
  #elif TK_MAJOR_VERSION==8 && TK_MINOR_VERSION==4 && TK_RELEASE_SERIAL==4
  #  include "tkInt8.4p4.h"
@@ -34,6 +34,20 @@
 +#  include "tkInt8.4p18.h"
 +#elif TK_MAJOR_VERSION==8 && TK_MINOR_VERSION==4 && TK_RELEASE_SERIAL==19
 +#  include "tkInt8.4p19.h"
++#elif TK_MAJOR_VERSION==8 && TK_MINOR_VERSION==4 && TK_RELEASE_SERIAL==20
++#  include "tkInt8.4p20.h"
++#elif TK_MAJOR_VERSION==8 && TK_MINOR_VERSION==4 && TK_RELEASE_SERIAL==21
++#  include "tkInt8.4p21.h"
++#elif TK_MAJOR_VERSION==8 && TK_MINOR_VERSION==4 && TK_RELEASE_SERIAL==22
++#  include "tkInt8.4p22.h"
++#elif TK_MAJOR_VERSION==8 && TK_MINOR_VERSION==4 && TK_RELEASE_SERIAL==23
++#  include "tkInt8.4p23.h"
++#elif TK_MAJOR_VERSION==8 && TK_MINOR_VERSION==4 && TK_RELEASE_SERIAL==24
++#  include "tkInt8.4p24.h"
++#elif TK_MAJOR_VERSION==8 && TK_MINOR_VERSION==4 && TK_RELEASE_SERIAL==25
++#  include "tkInt8.4p25.h"
++#elif TK_MAJOR_VERSION==8 && TK_MINOR_VERSION==4 && TK_RELEASE_SERIAL==26
++#  include "tkInt8.4p26.h"
  #else
     Sorry, you will have to edit togl.c to include the right tkInt.h file
  #endif

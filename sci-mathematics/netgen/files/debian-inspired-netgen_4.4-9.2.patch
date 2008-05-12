@@ -1,0 +1,272 @@
+--- ./Makefile	2007-12-10 20:50:32.613584822 +0100
++++ ./Makefile	2007-12-10 20:52:07.118970377 +0100
+@@ -121,6 +121,7 @@
+ .PHONY : clean
+ clean:
+ 	-rm *.o ngtcltk/*.o togl/*.o lib/$(MACHINE)/lib*.a lib/$(MACHINE)/*.o ng
++	-rm ngsolve/evplapack.o ngsolve/fastmat.o
+ #
+ #
+ .PHONY : cleanapp
+--- ./libsrc/interface/Makefile	2004-07-06 13:10:58.000000000 +0000
++++ ./libsrc/interface/Makefile	2008-01-21 01:52:32.000000000 +0000
+@@ -1,4 +1,4 @@
+-src = nginterface.cpp writeuser.cpp writediffpack.cpp writeabaqus.cpp writefluent.cpp writepermas.cpp writetochnog.cpp writetecplot.cpp wuchemnitz.cpp writetochnog.cpp writefeap.cpp writeelmer.cpp  writegmsh.cpp readuser.cpp importsolution.cpp 
++src = nglib.cpp nginterface.cpp writeuser.cpp writediffpack.cpp writeabaqus.cpp writefluent.cpp writepermas.cpp writetochnog.cpp writetecplot.cpp wuchemnitz.cpp writetochnog.cpp writefeap.cpp writeelmer.cpp  writegmsh.cpp readuser.cpp importsolution.cpp 
+ #
+ lib = nginterface
+ libpath = libsrc/interface
+--- ./libsrc/makefile.inc	2006-01-04 20:35:21.000000000 +0100
++++ ./libsrc/makefile.inc	2008-02-08 10:04:40.000000000 +0100
+@@ -18,23 +18,34 @@
+ #
+ ARFLAGS = r
+ #
++LIBA=lib$(lib).so
+ LIBB=$(LIB_DIR)/lib$(lib).a
+ #
+ .PRECIOUS: .cpp .c
+-.SUFFIXES: .cpp .c .o 
++.SUFFIXES: .cpp .c .o .lo
+ #
+ .cpp.o:
+ 	$(CPLUSPLUS) $(CPLUSPLUSFLAGS1) $(CPLUSPLUSFLAGS2) $(CPLUSPLUSFLAGSLIBRARY) $<
+ .c.o:
+ 	$(CPLUSPLUS) $(CPLUSPLUSFLAGS1) $(CPLUSPLUSFLAGS2) $(CPLUSPLUSFLAGSLIBRARY) $<
++.cpp.lo:
++	$(CPLUSPLUS) $(CPLUSPLUSFLAGS1) $(CPLUSPLUSFLAGS2) $(CPLUSPLUSFLAGSLIBRARY) -fPIC -DPIC $< -o $@
++
++all: $(LIBA) $(LIBB)
++	
+ #
+ #
++$(LIBA):: $(LIB_DIR) 
+ $(LIBB):: $(LIB_DIR) 
+ #
+ # make lib from sources:
+ #
+-$(LIBB):: $(src) 
+-	$(CPLUSPLUS) $(CPLUSPLUSFLAGS1) $(CPLUSPLUSFLAGS2) $(CPLUSPLUSFLAGSLIBRARY)  $?
++$(LIBA):: $(src:%.cpp=%.lo)
++	$(CPLUSPLUS) -shared -o $(LIB_DIR)/$@.4.4 *.lo -Wl,-soname,$@.4.4
++	ln -sf $@.4.4 $(LIB_DIR)/$@.4
++	ln -sf $@.4.4 $(LIB_DIR)/$@
++
++$(LIBB):: $(src:%.cpp=%.o)
+ 	@$(AR) $(ARFLAGS) $@ *.o
+ 	-@$(RM) *.o
+ 	-@$(RANLIB) $@
+--- ./libsrc/linalg/Makefile	2006-01-04 20:35:21.000000000 +0100
++++ ./libsrc/linalg/Makefile	2008-02-08 10:00:27.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src = basemat.cpp densemat.cpp vector.cpp sparsmat.cpp polynomial.cpp
+ #
+-lib = la
++lib = netgen_linalg
+ libpath = libsrc/linalg
+ #
+ #
+--- ./libsrc/general/Makefile	2006-01-04 17:57:34.000000000 +0100
++++ ./libsrc/general/Makefile	2008-02-08 10:00:27.000000000 +0100
+@@ -5,7 +5,7 @@
+ 	spbita2d.cpp seti.cpp optmem.cpp sort.cpp mystring.cpp parthreads.cpp \
+ 	moveablemem.cpp dynamicmem.cpp ngexception.cpp
+ #	
+-lib = gen
++lib = netgen_general
+ libpath = libsrc/general
+ #
+ include ../makefile.inc
+--- ./libsrc/gprim/Makefile	2006-01-04 17:57:34.000000000 +0100
++++ ./libsrc/gprim/Makefile	2008-02-08 10:00:27.000000000 +0100
+@@ -6,7 +6,7 @@
+ 
+ # reftrans.cpp rot3d.cpp
+ #
+-lib = gprim
++lib = netgen_gprim
+ libpath = libsrc/gprim
+ #
+ #
+--- ./libsrc/csg/Makefile	2006-01-04 17:57:34.000000000 +0100
++++ ./libsrc/csg/Makefile	2008-02-08 10:00:27.000000000 +0100
+@@ -10,7 +10,7 @@
+ #
+ #  lex.yy.cpp geometry.cpp
+ # 
+-lib = csg
++lib = netgen_csg
+ libpath = libsrc/csg
+ #
+ #
+--- ./libsrc/geom2d/Makefile	2006-01-04 17:57:34.000000000 +0100
++++ ./libsrc/geom2d/Makefile	2008-02-08 10:00:27.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src =  spline2d.cpp geom2dmesh.cpp splinegeometry2.cpp genmesh2d.cpp
+ #
+-lib = geom2d
++lib = netgen_geom2d
+ libpath = libsrc/geom2d
+ #
+ #
+--- ./libsrc/stlgeom/Makefile	2006-01-04 17:57:34.000000000 +0100
++++ ./libsrc/stlgeom/Makefile	2008-02-08 10:00:27.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src = stlgeom.cpp stltopology.cpp stlgeomchart.cpp stlgeommesh.cpp meshstlsurface.cpp stlline.cpp stltool.cpp
+ #
+-lib = stlgeom
++lib = netgen_stlgeom
+ libpath = libsrc/stlgeom 
+ #
+ #
+--- ./libsrc/occ/Makefile	2006-01-04 17:57:34.000000000 +0100
++++ ./libsrc/occ/Makefile	2008-02-08 10:00:27.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src =  occgeom.cpp occmeshsurf.cpp occgenmesh.cpp
+ 
+-lib = occ
++lib = netgen_occ
+ libpath = libsrc/occ
+ #
+ #
+--- ./libsrc/meshing/Makefile	2006-01-04 17:57:34.000000000 +0100
++++ ./libsrc/meshing/Makefile	2008-02-08 10:00:27.000000000 +0100
+@@ -9,7 +9,7 @@
+ 	boundarylayer.cpp specials.cpp msghandler.cpp \
+ 	pyramidrls.cpp pyramid2rls.cpp prism2rls.cpp curvedelems.cpp curvedelems2.cpp
+ #
+-lib = mesh
++lib = netgen_meshing
+ libpath = libsrc/meshing
+ #
+ include ../makefile.inc
+--- ./libsrc/opti/Makefile	2006-01-04 17:57:34.000000000 +0100
++++ ./libsrc/opti/Makefile	2008-02-08 10:00:27.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src = bfgs.cpp linsearch.cpp linopt.cpp 
+ #
+-lib = opti
++lib = netgen_opti
+ libpath = libsrc/opti
+ #
+ #
+--- ./libsrc/visualization/Makefile	2006-01-04 20:35:21.000000000 +0100
++++ ./libsrc/visualization/Makefile	2008-02-08 10:00:27.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src = stlmeshing.cpp mvdraw.cpp vscsg.cpp vsmesh.cpp vsocc.cpp vssolution.cpp meshdoc.cpp
+ #
+-lib = vis
++lib = netgen_visualization
+ libpath = libsrc/visualization
+ #
+ #
+--- ./libsrc/interface/Makefile	2008-02-08 10:00:27.000000000 +0100
++++ ./libsrc/interface/Makefile	2008-02-08 10:00:27.000000000 +0100
+@@ -1,6 +1,6 @@
+ src = nglib.cpp nginterface.cpp writeuser.cpp writediffpack.cpp writeabaqus.cpp writefluent.cpp writepermas.cpp writetochnog.cpp writetecplot.cpp wuchemnitz.cpp writetochnog.cpp writefeap.cpp writeelmer.cpp  writegmsh.cpp readuser.cpp importsolution.cpp 
+ #
+-lib = nginterface
++lib = netgen_interface
+ libpath = libsrc/interface
+ #
+ include ../makefile.inc
+--- ./ngsolve/Makefile	2006-01-04 19:06:43.000000000 +0100
++++ ./ngsolve/Makefile	2008-02-08 10:06:15.000000000 +0100
+@@ -64,8 +64,10 @@
+ #
+ #
+ #
+-lib = ../lib/$(MACHINE)/libngsolve.a
+-lib2 = ../lib/$(MACHINE)/libngsolvebasic.a
++lib = ../lib/$(MACHINE)/libnetgen_solve.a
++slib = libnetgen_solve.so
++lib2 = ../lib/$(MACHINE)/libnetgen_solvebasic.a
++slib2 = libnetgen_solvebasic.so
+ libold = ../lib/$(MACHINE)/libngsolve_oldla.a
+ #
+ #
+@@ -74,7 +76,7 @@
+ #
+ #
+ # .PRECIOUS: .cpp .hh 
+-# .SUFFIXES: .cpp .o 
++.SUFFIXES: .cpp .o .lo
+ #
+ # .cpp.o:
+ #	$(CPLUSPLUS) -c $<
+@@ -84,22 +86,35 @@
+ #
+ # make lib from sources:
+ # 
+-goal:	$(lib) $(lib2)
++goal:	$(lib) $(lib2) ../lib/$(MACHINE)/$(slib) ../lib/$(MACHINE)/$(slib2)
+ #
+ pebblesinc = -I../../pebbles_old/libsrc/setup -I../../pebbles_old/libsrc/solver -I../../pebbles_old/libsrc/prepro -I../../pebbles_old/libsrc/parallel -I../../pebbles_old/libsrc
+ # 
++.cpp.lo:
++	$(CPLUSPLUS) -c -I. -I../libsrc -I../libsrc/include -I../libsrc/interface -Iinclude $(pebblesinc) $(CPLUSPLUSFLAGS2) -DNETGEN_ELTRANS -fPIC -DPIC $< -o $@
++
+ $(lib):: $(src)
+ 	$(CPLUSPLUS) -c -I. -I../libsrc -I../libsrc/include -I../libsrc/interface -Iinclude $(pebblesinc) $(CPLUSPLUSFLAGS2) -DNETGEN_ELTRANS $? 
+ 	$(AR) $(ARFLAGS) $@ *.o
+ 	mv *.o ../lib/$(MACHINE)
+ 	-$(RM) *.o
+ 	-@$(RANLIB) $@
+-#
++
++../lib/$(MACHINE)/$(slib):: $(src:%.cpp=%.lo)
++	$(CPLUSPLUS) -shared -o ../lib/$(MACHINE)/$(slib).4.4 $^ -Wl,-soname,$(slib).4.4
++	ln -sf $(slib).4.4 $@.4
++	ln -sf $(slib).4.4 $@
++
+ $(lib2):: $(src2) 
+ 	$(CPLUSPLUS) -c -I. -I../libsrc/interface -Iinclude $(CPLUSPLUSFLAGS2) $?
+ 	$(AR) $(ARFLAGS) $@ *.o
+ 	-$(RM) *.o
+ 	-@$(RANLIB) $@
++
++../lib/$(MACHINE)/$(slib2):: $(src2:%.cpp=%.lo)
++	$(CPLUSPLUS) -shared -o ../lib/$(MACHINE)/$(slib2).4.4 $^ -Wl,-soname,$(slib2).4.4
++	ln -sf $(slib2).4.4 $@.4
++	ln -sf $(slib2).4.4 $@
+ #
+ #
+ #
+--- ./Makefile	2006-06-05 07:49:21.000000000 +0200
++++ ./Makefile	2008-02-08 10:03:42.000000000 +0100
+@@ -14,8 +14,8 @@
+ #
+ #
+ #
+-mylib =  -lnginterface -lvis -lcsg -lstlgeom -lgeom2d -lmesh -lgprim -lopti \
+-	 -lla -lgen  -locc
++mylib =  -lnetgen_interface -lnetgen_visualization -lnetgen_csg -lnetgen_stlgeom -lnetgen_geom2d -lnetgen_meshing -lnetgen_gprim -lnetgen_opti \
++	 -lnetgen_linalg -lnetgen_general  -lnetgen_occ
+ #
+ #
+ # system libraries:
+--- ./libsrc/makefile.mach.LINUX	2006-02-01 08:46:48.000000000 +0100
++++ ./libsrc/makefile.mach.LINUX	2008-02-08 10:00:27.000000000 +0100
+@@ -36,4 +36,4 @@
+ # lapack =  -llapack  -lblas -lgmp -lg2c
+ 
+ 
+-appngs =  lib/$(MACHINE)/*.o -lngsolvebasic
+\ No newline at end of file
++appngs =  lib/$(MACHINE)/*.o -lnetgen_solvebasic
+\ No newline at end of file
+--- ./libsrc/include/mystdlib.h	2004-09-01 11:10:01.000000000 +0200
++++ ./libsrc/include/mystdlib.h	2008-03-15 22:38:05.000000000 +0100
+ #include <iomanip>
+ #include <fstream>
+ #include <sstream>
++#include <cstring>
+ 
+ #ifdef OLDCINCLUDE
+ 
