@@ -1,6 +1,10 @@
 # ChangeLog for sys-cluster/librdmacm
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*librdmacm-1.0.7 (13 May 2008)
+  13 May 2008; Bryan Green <bryan.d.green@nasa.gov>
+  +librdmacm-1.0.7.ebuild: added
 
 *librdmacm-1.0.3 (26 Nov 2007)
   27 Nov 2007; Bryan Green <bryan.d.green@nasa.gov>
