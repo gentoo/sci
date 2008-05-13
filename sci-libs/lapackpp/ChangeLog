@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/lapackpp
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  13 May 2008; Markus Dittrich <markusle@gentoo.org> lapackpp-2.5.2.ebuild:
+  Fixed recursive dohtml (see bug #221905).
 
   20 Aug 2007; Sébastien Fabbro <bicatali@gentoo.org>
   +lapackpp-2.5.2.ebuild, +metadata.xml:
