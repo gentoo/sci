@@ -1,0 +1,72 @@
+diff -U2 -r qtiplot-0.9.6.orig/qtiplot/qtiplot.pro qtiplot-0.9.6/qtiplot/qtiplot.pro
+--- qtiplot-0.9.6.orig/qtiplot/qtiplot.pro	2008-05-13 17:22:46.000000000 +0700
++++ qtiplot-0.9.6/qtiplot/qtiplot.pro	2008-05-15 12:47:15.000000000 +0700
+@@ -18,8 +18,8 @@
+ # the *.path variables defined bellow.
+ ######################################################################################
+-#CONFIG          += CustomInstall
++CONFIG          += CustomInstall
+ 
+-#CONFIG          += release
+-CONFIG          += debug
++CONFIG          += release
++#CONFIG          += debug
+ win32: CONFIG   += console
+ 
+@@ -28,10 +28,9 @@
+ #############################################################################
+ 
+-INCLUDEPATH       += ../3rdparty/muparser/include
+-INCLUDEPATH       += ../3rdparty/qwtplot3d/include
+-INCLUDEPATH       += ../3rdparty/qwt/src
++INCLUDEPATH       += /usr/include/muparser
++INCLUDEPATH       += /usr/include/qwtplot3d
++INCLUDEPATH       += /usr/include/qwt5
+ INCLUDEPATH       += ../3rdparty/liborigin
+-INCLUDEPATH       += ../3rdparty/gsl/include
+-INCLUDEPATH       += ../3rdparty/zlib123/include
++INCLUDEPATH       += /usr/include/gsl
+ 
+ ##################### 3rd PARTY LIBRARIES SECTION ###########################
+@@ -42,15 +41,16 @@
+ 
+ # statically link against libraries in 3rdparty
+-unix:LIBS         += ../3rdparty/muparser/lib/libmuparser.a
+-unix:LIBS         += ../3rdparty/qwtplot3d/lib/libqwtplot3d.a
+-unix:LIBS         += ../3rdparty/qwt/lib/libqwt.a
+-unix:LIBS         += ../3rdparty/gsl/lib/libgsl.a
+-unix:LIBS         += ../3rdparty/gsl/lib/libgslcblas.a
++#unix:LIBS         += ../3rdparty/muparser/lib/libmuparser.a
++#unix:LIBS         += ../3rdparty/qwtplot3d/lib/libqwtplot3d.a
++#unix:LIBS         += ../3rdparty/qwt/lib/libqwt.a
++#unix:LIBS         += ../3rdparty/gsl/lib/libgsl.a
++#unix:LIBS         += ../3rdparty/gsl/lib/libgslcblas.a
+ 
+ # dynamically link against dependencies if they are installed system-wide
+-#unix:LIBS         += -lmuparser
+-#unix:LIBS         += -lqwtplot3d
+-#unix:LIBS         += -lqwt
+-#unix:LIBS         += -lgsl -lgslcblas
++unix:LIBS         += -lmuparser
++unix:LIBS         += -lqwtplot3d
++unix:LIBS         += -lqwt
++unix:LIBS         += $$system(pkg-config --libs gsl)
++unix:LIBS         += -lz
+ 
+ ##################### Windows ###############################################
+@@ -141,6 +141,5 @@
+ 				../manual/qtiplot-manual-en.pdf
+ 
+-documentation.files += ../README.html \
+-                       ../gpl_licence.txt
++documentation.files += ../README.html
+ 
+ unix: man.files += ../qtiplot.1
+@@ -474,5 +473,5 @@
+   						qti_wordlist.txt \
+ 
+-  	unix: pythonconfig.path = /usr/local/qtiplot
++  	unix: pythonconfig.path = /usr/share/qtiplot
+   	win32: pythonconfig.path = $$INSTALLBASE
+   	DEFINES += PYTHON_CONFIG_PATH="\\\"$$replace(pythonconfig.path," ","\ ")\\\"
+Только в qtiplot-0.9.6/qtiplot: qtiplot.pro~

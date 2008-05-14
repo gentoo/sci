@@ -1,0 +1,32 @@
+diff -U2 -r qtiplot-0.9.6.orig/fitPlugins/fitRational0/fitRational0.pro qtiplot-0.9.6/fitPlugins/fitRational0/fitRational0.pro
+--- qtiplot-0.9.6.orig/fitPlugins/fitRational0/fitRational0.pro	2007-10-29 05:44:06.000000000 +0600
++++ qtiplot-0.9.6/fitPlugins/fitRational0/fitRational0.pro	2008-05-15 10:42:10.000000000 +0700
+@@ -13,10 +13,8 @@
+  
+ # statically link against GSL in 3rdparty
+-INCLUDEPATH += ../../3rdparty/gsl/include/
+-LIBS        += ../../3rdparty/gsl/lib/libgsl.a
+-LIBS        += ../../3rdparty/gsl/lib/libgslcblas.a
++INCLUDEPATH += /usr/include/gsl
+ 
+ #dynamically link against GSL installed system-wide
+-#unix:LIBS += -L /usr/lib$${libsuff} -lgsl -lgslcblas
++unix:LIBS += $$system(pkg-config --libs gsl)
+ 
+ target.path=/usr/lib$${libsuff}/qtiplot/plugins
+diff -U2 -r qtiplot-0.9.6.orig/fitPlugins/fitRational1/fitRational1.pro qtiplot-0.9.6/fitPlugins/fitRational1/fitRational1.pro
+--- qtiplot-0.9.6.orig/fitPlugins/fitRational1/fitRational1.pro	2007-10-29 05:44:06.000000000 +0600
++++ qtiplot-0.9.6/fitPlugins/fitRational1/fitRational1.pro	2008-05-15 10:43:01.000000000 +0700
+@@ -13,10 +13,8 @@
+  
+ # statically link against GSL in 3rdparty
+-INCLUDEPATH += ../../3rdparty/gsl/include/
+-LIBS        += ../../3rdparty/gsl/lib/libgsl.a
+-LIBS        += ../../3rdparty/gsl/lib/libgslcblas.a
++INCLUDEPATH += /usr/include/gsl
+ 
+ #dynamically link against GSL installed system-wide
+-#unix:LIBS += -L /usr/lib$${libsuff} -lgsl -lgslcblas
++unix:LIBS += $$system(pkg-config --libs gsl)
+ 
+ target.path=/usr/lib$${libsuff}/qtiplot/plugins
