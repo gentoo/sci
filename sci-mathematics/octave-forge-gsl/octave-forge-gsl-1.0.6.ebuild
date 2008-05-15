@@ -4,13 +4,13 @@
 
 inherit octave-forge
 
-DESCRIPTION="Provides functions for reading, writing, and processing images."
+DESCRIPTION="Octave bindings to the GNU Scientific Library"
 LICENSE="GPL-2"
-HOMEPAGE="http://octave.sourceforge.net/audio/index.html"
+HOMEPAGE="http://octave.sourceforge.net/gsl/index.html"
 SRC_URI="mirror://sourceforge/octave/${OCT_PKG}.tar.gz"
 SLOT="0"
+DEPEND="!bindist? ( sci-libs/gsl )
+		bindist? ( <sci-libs/gsl-1.10 )"
 
 IUSE=""
 KEYWORDS="~amd64 ~x86"
-
-DEPEND="media-gfx/imagemagick"

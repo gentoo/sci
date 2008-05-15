@@ -2,6 +2,12 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 May 2008; Markus Dittrich <markusle@gentoo.org>
+  -files/miscellaneous-1.0.3-octave_time.patch,
+  -octave-forge-miscellaneous-1.0.4.ebuild,
+  +octave-forge-miscellaneous-1.0.6.ebuild:
+  Version bump.
+
   24 Feb 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-miscellaneous-1.0.3.ebuild,
   +octave-forge-miscellaneous-1.0.5.ebuild:

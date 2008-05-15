@@ -4,12 +4,11 @@
 
 inherit octave-forge
 
-DESCRIPTION="Octave bindings to the GNU Scientific Library"
+DESCRIPTION="Package for interpolating and smoothing scattered multidimensional data using Gaussian Process."
 LICENSE="GPL-2"
-HOMEPAGE="http://octave.sourceforge.net/gsl/index.html"
+HOMEPAGE="http://octave.sourceforge.net/statistics/index.html"
 SRC_URI="mirror://sourceforge/octave/${OCT_PKG}.tar.gz"
 SLOT="0"
-DEPEND="sci-libs/gsl"
 
 IUSE=""
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~x86"

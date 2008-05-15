@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 May 2008; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-econometrics-1.0.4.ebuild,
+  +octave-forge-econometrics-1.0.6.ebuild:
+  Version bump.
+
   23 Feb 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-econometrics-1.0.3.ebuild,
   +octave-forge-econometrics-1.0.5.ebuild:

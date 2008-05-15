@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 May 2008; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-fixed-0.7.4.ebuild, +octave-forge-fixed-0.7.6.ebuild:
+  Version bump.
+
   25 Mar 2008; Markus Dittrich <markusle@gentoo.org>
   +files/octave-forge-fixed-0.7.5-make.patch,
   octave-forge-fixed-0.7.5.ebuild:

@@ -4,8 +4,7 @@
 
 inherit octave-forge
 
-DESCRIPTION="To approximate the solution of the boundary-value problem
-y''=p(x)*y' + q(x)*y + r(x), a<=x<=b, y(a)=alpha, y(b)=beta by the linear finite-diffence method."
+DESCRIPTION="Approximate the solution of boundary-value problem by the linear finite-diffence method."
 LICENSE="GPL-2"
 HOMEPAGE="http://octave.sourceforge.net/odebvp/index.html"
 SRC_URI="mirror://sourceforge/octave/${OCT_PKG}.tar.gz"
