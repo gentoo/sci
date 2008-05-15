@@ -23,7 +23,6 @@ done
 CDEPEND=">=x11-libs/qwt-5.1
 	>=x11-libs/qwtplot3d-0.2.7
 	>=dev-cpp/muParser-1.28
-	>=sci-libs/liborigin-20080225
 	!bindist? ( sci-libs/gsl )
 	bindist? ( <sci-libs/gsl-1.10 )"
 
