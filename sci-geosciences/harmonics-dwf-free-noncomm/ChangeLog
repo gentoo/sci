@@ -1,0 +1,8 @@
+# ChangeLog for sci-geosciences/harmonics-dwf-free-noncomm
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  16 May 2008; Tim Cera <timcera@earthlink.net>
+  +harmonics-dwf-free-noncomm-20071228.ebuild, +metadata.xml:
+  Initial import.
+
