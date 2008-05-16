@@ -1,0 +1,8 @@
+# ChangeLog for sci-geosciences/libtcd
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  16 May 2008; Tim Cera <timcera@earthlink.net> +libtcd-2.2.3.ebuild,
+  +metadata.xml:
+  Initial import
+
