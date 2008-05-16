@@ -1,0 +1,8 @@
+# ChangeLog for sci-geosciences/xtide
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  16 May 2008; Tim Cera <timcera@earthlink.net> +xtide-2.10.ebuild,
+  +metadata.xml:
+  Initial import.
+
