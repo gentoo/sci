@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/opencascade
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+  20 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
+  Corrected a bug in the ebuild. Now the tcl related variables should be corrected set and the values available all over the ebuild. A big thank to Dewald Pieterse <dewald.pieterse@gmail.com> for his testing and his good advices.
+
   12 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
   +opencascade-6.2-r1.ebuild
   General improvement of the ebuild, better amd64 support, removal of the wok and draw-harness flags (They had no effects). Many thanks to Dewald Pieterse and Álvaro Castro Castilla.

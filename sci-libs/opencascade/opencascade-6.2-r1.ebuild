@@ -6,10 +6,10 @@ inherit autotools eutils flag-o-matic qt3 check-reqs multilib toolchain-funcs ve
 
 DESCRIPTION="Software development platform for CAD/CAE, 3D surface/solid modeling and data exchange."
 HOMEPAGE="http://www.opencascade.org"
-SRC_URI="ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${P}.tar.bz2
+SRC_URI=" ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${P}.tar.bz2
 	 ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${PN}-tutorial-${PV}.tar.bz2
-	 java? (ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${PN}-samples-java-${PV}.tar.bz2)
-	 qt3? (ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${PN}-samples-qt-${PV}.tar.bz2)"
+	 java? ( ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${PN}-samples-java-${PV}.tar.bz2 )
+	 qt3? ( ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${PN}-samples-qt-${PV}.tar.bz2 )"
 
 # NOTES
 # The source code here is not in the same form than the one distributed on www.opencascade.org
@@ -27,7 +27,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="debug doc java opengl qt3 stlport X"
 DEPEND="java? ( virtual/jdk )
 	opengl? ( virtual/opengl
-		  virtual/glu)
+		  virtual/glu )
 	X? ( x11-libs/libXmu
 	     app-text/dgs )
 	>=dev-lang/tcl-8.4
@@ -39,15 +39,14 @@ DEPEND="java? ( virtual/jdk )
 	qt3? ( x11-libs/qt:3 )
 	stlport? ( dev-libs/STLport )"
 
-# Determine itk, itcl, tix, tk and tcl versions
+pkg_setup() {
+	# Determine itk, itcl, tix, tk and tcl versions
 	itk_version=$(grep ITK_VER /usr/include/itk.h | sed 's/^.*"\(.*\)".*/\1/')
 	itcl_version=$(grep ITCL_VER /usr/include/itcl.h | sed 's/^.*"\(.*\)".*/\1/')
 	tix_version=$(grep TIX_VER /usr/include/tix.h | sed 's/^.*"\(.*\)".*/\1/')
 	tk_version=$(grep TK_VER /usr/include/tk.h | sed 's/^.*"\(.*\)".*/\1/')
 	tcl_version=$(grep TCL_VER /usr/include/tcl.h | sed 's/^.*"\(.*\)".*/\1/')
 
-
-pkg_setup() {
 	ewarn
 	ewarn " It is important to note that OpenCascade is a very large package. "
 	ewarn " Please note that building OpenCascade takes a lot of time and "
