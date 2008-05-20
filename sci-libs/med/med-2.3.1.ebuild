@@ -10,7 +10,7 @@ SRC_URI="http://www.code-aster.org/V2/UPLOAD/DOC/Telechargement/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 DEPEND="sci-libs/hdf5"
