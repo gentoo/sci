@@ -1,0 +1,22 @@
+diff -Naur med-2.3.1/tests/f/test33.f med-2.3.1.fixed/tests/f/test33.f
+--- med-2.3.1/tests/f/test33.f	2006-02-27 05:46:24.000000000 -0600
++++ med-2.3.1.fixed/tests/f/test33.f	2008-01-03 09:38:00.000000000 -0600
+@@ -68,12 +68,12 @@
+ 	   call efexit(-1)
+ 	endif      
+ 
+-	call efnema(fid,maa,MED_CONN,MED_ARETE,MED_SEG2,MED_DESC
+-     1    ,narr,cret)   
+-	if (cret .ne. 0 ) then
+-	   print *,'Erreur acces au nombre d''arretes du premier maillage'
+-	   call efexit(-1)
+-	endif      
++C 	call efnema(fid,maa,MED_CONN,MED_ARETE,MED_SEG2,MED_DESC
++C     1    ,narr,cret)   
++C	if (cret .ne. 0 ) then
++C	   print *,'Erreur acces au nombre d''arretes du premier maillage'
++C	   call efexit(-1)
++C	endif      
+ 
+ 
+          print '(A,I1,A,A4,A,I1,A,I4)','maillage '
