@@ -166,9 +166,6 @@ src_install() {
 		dodoc AUTHORS ChangeLog COPYING INSTALL LICENCE NEWS README README.FIRST.txt
 	fi
 
-	# Install icon and .desktop for menu entry
-	doicon "${FILESDIR}"/icon/${PN}-icon.png
-	domenu "${FILESDIR}"/icon/${PN}.desktop
 }
 
 pkg_postinst() {
