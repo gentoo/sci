@@ -1,0 +1,118 @@
+Seulement dans src3.2.6/GUI_SRC_3.2.6: #configure.in.base#
+diff -abur src3.2.6_orig/GUI_SRC_3.2.6/configure.in.base src3.2.6/GUI_SRC_3.2.6/configure.in.base
+--- src3.2.6_orig/GUI_SRC_3.2.6/configure.in.base	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/GUI_SRC_3.2.6/configure.in.base	2008-03-24 16:41:34.000000000 +0100
+@@ -35,37 +35,82 @@
+ ########################################################################
+ # Check --disable-corba-gen and other --disable-* options
+ 
+-GUI_DISABLE_CORBA="no"
+-DISABLE_PYCONSOLE="no"
+-DISABLE_GLVIEWER="no"
+-DISABLE_PLOT2DVIEWER="no"
+-DISABLE_SUPERVGRAPHVIEWER="no"
+-DISABLE_OCCVIEWER="no"
+-DISABLE_VTKVIEWER="no"
+-DISABLE_SALOMEOBJECT="no"
+-
+-for option
+-do
+-  case $option in
+-      -disable-corba-gen=yes | --disable-corba-gen=yes | -disable-corba-gen | --disable-corba-gen)
+-          GUI_DISABLE_CORBA="yes";;
+-      -disable-pyConsole=yes | --disable-pyConsole=yes | -disable-pyConsole | --disable-pyConsole)
+-          DISABLE_PYCONSOLE="yes";;
+-      -disable-glViewer=yes | --disable-glViewer=yes | -disable-glViewer | --disable-glViewer)
+-          DISABLE_GLVIEWER="yes";;
+-      -disable-plot2dViewer=yes | --disable-plot2dViewer=yes | -disable-plot2dViewer | --disable-plot2dViewer)
+-          DISABLE_PLOT2DVIEWER="yes";;
+-      -disable-supervGraphViewer=yes | --disable-supervGraphViewer=yes | \
+-      -disable-supervGraphViewer | --disable-supervGraphViewer)
+-          DISABLE_SUPERVGRAPHVIEWER="yes";;
+-      -disable-occViewer=yes | --disable-occViewer=yes | -disable-occViewer | --disable-occViewer)
+-          DISABLE_OCCVIEWER="yes";;
+-      -disable-vtkViewer=yes | --disable-vtkViewer=yes | -disable-vtkViewer | --disable-vtkViewer)
+-          DISABLE_VTKVIEWER="yes";;
+-      -disable-salomeObject=yes | --disable-salomeObject=yes | -disable-salomeObject | --disable-salomeObject)
+-          DISABLE_SALOMEOBJECT="yes";;
+-  esac
+-done
++AC_ARG_ENABLE([corba-gen],
++              [--enable-corba-gen],
++              [if test x$enableval = "xyes"; then
++                 GUI_DISABLE_CORBA="no";
++               elif test x$enableval = "xno"; then
++                 GUI_DISABLE_CORBA="yes";
++               else
++                 echo "Error : unknown value : $enableval"
++		 exit 1
++               fi])
++
++AC_ARG_ENABLE([pyConsole],
++              [--enable-pyConsole],
++              [if test x$enableval = "xyes"; then
++                 DISABLE_PYCONSOLE="no";
++               elif test x$enableval = "xno"; then
++                 DISABLE_PYCONSOLE="yes";
++               else
++                 echo "Error : unknown value : $enableval"
++		 exit 1
++               fi])
++
++AC_ARG_ENABLE([glViewer],
++              [--enable-glViewer],
++              [if test x$enableval = "xyes"; then
++                 DISABLE_GLVIEWER="no";
++               elif test x$enableval = "xno"; then
++                 DISABLE_GLVIEWER="yes";
++               else
++                 echo "Error : unknown value : $enableval"
++		 exit 1
++               fi])
++
++AC_ARG_ENABLE([plot2dViewer],
++              [--enable-plot2dViewer],
++              [if test x$enableval = "xyes"; then
++                 DISABLE_PLOT2DVIEWER="no";
++               elif test x$enableval = "xno"; then
++                 DISABLE_PLOT2DVIEWER="yes";
++               else
++                 echo "Error : unknown value : $enableval"
++		 exit 1
++               fi])
++
++AC_ARG_ENABLE([supervGraphViewer],
++              [--enable-supervGraphViewer],
++              [if test x$enableval = "xyes"; then
++                 DISABLE_SUPERVGRAPHVIEWER="no";
++               elif test x$enableval = "xno"; then
++                 DISABLE_SUPERVGRAPHVIEWER="yes";
++               else
++                 echo "Error : unknown value : $enableval"
++		 exit 1
++               fi])
++
++AC_ARG_ENABLE([occViewer],
++              [--enable-occViewer],
++              [if test x$enableval = "xyes"; then
++                 DISABLE_OCCVIEWER="no";
++               elif test x$enableval = "xno"; then
++                 DISABLE_OCCVIEWER="yes";
++               else
++                 echo "Error : unknown value : $enableval"
++		 exit 1
++               fi])
++
++AC_ARG_ENABLE([salomeObject],
++              [--enable-salomeObject],
++              [if test x$enableval = "xyes"; then
++                 DISABLE_SALOMEOBJECT="no";
++               elif test x$enableval = "xno"; then
++                 DISABLE_SALOMEOBJECT="yes";
++               else
++                 echo "Error : unknown value : $enableval"
++		 exit 1
++               fi])
+ 
+ dnl
+ dnl Initialize source and build root directories

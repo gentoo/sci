@@ -1,0 +1,46 @@
+--- GUI_SRC_3.2.6/src/SALOME_PYQT/SalomePyQt/SalomePyQt_v4.sip	2007-12-21 23:04:12.000000000 +0100
++++ GUI_SRC_3.2.6/src/SALOME_PYQT/SalomePyQt/SalomePyQt_v4.sip	2007-12-21 23:05:26.000000000 +0100
+@@ -63,6 +63,43 @@
+   PT_User
+ };
+ 
++%ModuleCode
++
++enum MenuName {
++  File        = 1,
++  View        = 2,
++  Edit        = 3,
++  Preferences = 4,
++  Tools       = 5,
++  Window      = 6,
++  Help        = 7  
++};
++
++enum WindowType {
++  WT_ObjectBrowser,
++  WT_PyConsole,
++  WT_LogWindow,
++  WT_User
++};
++
++enum PrefType { 
++  PT_Space,
++  PT_Bool, 
++  PT_Color,
++  PT_String, 
++  PT_Selector, 
++  PT_DblSpin, 
++  PT_IntSpin, 
++  PT_Double, 
++  PT_Integer, 
++  PT_GroupBox, 
++  PT_Font, 
++  PT_DirList, 
++  PT_File, 
++  PT_User
++};
++%End
++
+ class QtxAction : QAction
+ {
+ %TypeHeaderCode

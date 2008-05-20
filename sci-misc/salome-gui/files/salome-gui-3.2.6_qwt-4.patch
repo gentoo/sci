@@ -1,0 +1,50 @@
+--- GUI_SRC_3.2.6/adm_local/unix/config_files/check_qwt.m4.org	2008-02-19 14:43:03.000000000 +0100
++++ GUI_SRC_3.2.6/adm_local/unix/config_files/check_qwt.m4	2008-02-19 14:46:31.000000000 +0100
+@@ -27,17 +27,17 @@
+   exits_ok=no	
+   if test "x$exits_ok" = "xno"; then
+      for d in /usr/local /usr ; do
+-        AC_CHECK_FILE(${d}/lib${LIB_LOCATION_SUFFIX}/libqwt.so,exits_ok=yes,exits_ok=no)
++        AC_CHECK_FILE(${d}/lib${LIB_LOCATION_SUFFIX}/libqwt.so.4,exits_ok=yes,exits_ok=no)
+         if test "x$exits_ok" = "xyes"; then
+            QWTHOME=$d
+-           AC_MSG_RESULT(libqwt.so detected in $d/lib)
++           AC_MSG_RESULT(libqwt.so.4 detected in $d/lib)
+         fi
+      done
+   fi
+   if test "x$exits_ok" = "xno"; then
+      for d in `echo $LD_LIBRARY_PATH | sed -e "s/:/ /g"` ; do
+-        if test -f $d/libqwt.so ; then
+-           AC_MSG_RESULT(libqwt.so detected in $d)
++        if test -f $d/libqwt.so.4 ; then
++           AC_MSG_RESULT(libqwt.so.4 detected in $d)
+            QWTHOME=$d
+            QWTHOME=`echo ${QWTHOME} | sed -e "s,[[^/]]*$,,;s,/$,,;s,^$,.,"`
+            exits_ok=yes
+--- GUI_SRC_3.2.6/adm_local/unix/config_files/check_qwt.m4_orig	2008-01-06 12:46:14.000000000 +0100
++++ GUI_SRC_3.2.6/adm_local/unix/config_files/check_qwt.m4	2008-01-06 13:16:14.000000000 +0100
+@@ -96,9 +96,9 @@
+   fi
+   if test "x$QWTHOME" = "x/usr"
+   then
+-    LIBS="$LIBS -lqwt"
++    LIBS="$LIBS -l:libqwt.so.4"
+   else
+-    LIBS="$LIBS -L$QWTHOME/lib -lqwt"
++    LIBS="$LIBS -L$QWTHOME/lib -l:libqwt.so.4"
+   fi
+ 
+   CXXFLAGS_old=$CXXFLAGS
+@@ -126,9 +126,9 @@
+     QWT_INCLUDES="-I$QWT_INCLUDES"
+     if test "x$QWTHOME" = "x/usr"
+     then
+-      QWT_LIBS=" -lqwt"
++      QWT_LIBS=" -l:libqwt.so.4"
+     else
+-      QWT_LIBS="-L$QWTHOME/lib -lqwt"
++      QWT_LIBS=" -L$QWTHOME/lib -l:libqwt.so.4"
+     fi
+ 
+     AC_SUBST(QWT_INCLUDES)
