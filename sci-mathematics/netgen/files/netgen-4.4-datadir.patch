@@ -1,0 +1,22 @@
+--- ng.tcl.orig	2008-05-08 17:44:10.000000000 +0100
++++ ng.tcl	2008-05-09 08:50:56.000000000 +0100
+@@ -7,7 +7,7 @@
+ 
+ set progname "NETGEN"
+ 
+-set ngdir ""
++set ngdir "/usr/share/netgen"
+ if { [lsearch [array names env] NETGENDIR] != -1 } {
+     set ngdir $env(NETGENDIR) 
+ }
+--- ngtcltk/ngappinit.cpp.orig	2008-05-08 17:44:10.000000000 +0100
++++ ngtcltk/ngappinit.cpp	2008-05-09 08:50:56.000000000 +0100
+@@ -77,7 +77,7 @@
+   if (getenv ("NETGENDIR") && strlen (getenv ("NETGENDIR")))
+     ngdir = getenv ("NETGENDIR");
+   else
+-    ngdir = ".";
++    ngdir = "/usr/share/netgen";
+   
+   verbose = parameters.GetDefineFlag ("V");
+ 

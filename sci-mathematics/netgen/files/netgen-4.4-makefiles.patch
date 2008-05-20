@@ -1,0 +1,390 @@
+--- libsrc/csg/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/csg/Makefile		2008-05-10 08:03:31.000000000 +0100
+@@ -10,7 +10,7 @@
+ #
+ #  lex.yy.cpp geometry.cpp
+ # 
+-lib = csg
++lib = ngcsg
+ libpath = libsrc/csg
+ #
+ #
+--- libsrc/general/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/general/Makefile		2008-05-10 08:02:56.000000000 +0100
+@@ -5,7 +5,7 @@
+ 	spbita2d.cpp seti.cpp optmem.cpp sort.cpp mystring.cpp parthreads.cpp \
+ 	moveablemem.cpp dynamicmem.cpp ngexception.cpp
+ #	
+-lib = gen
++lib = nggen
+ libpath = libsrc/general
+ #
+ include ../makefile.inc
+--- libsrc/geom2d/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/geom2d/Makefile	2008-05-10 08:03:44.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src =  spline2d.cpp geom2dmesh.cpp splinegeometry2.cpp genmesh2d.cpp
+ #
+-lib = geom2d
++lib = nggeom2d
+ libpath = libsrc/geom2d
+ #
+ #
+--- libsrc/gprim/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/gprim/Makefile	2008-05-10 08:03:16.000000000 +0100
+@@ -6,7 +6,7 @@
+ 
+ # reftrans.cpp rot3d.cpp
+ #
+-lib = gprim
++lib = nggprim
+ libpath = libsrc/gprim
+ #
+ #
+--- libsrc/interface/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/interface/Makefile		2008-05-10 08:01:54.000000000 +0100
+@@ -1,4 +1,4 @@
+-src = nginterface.cpp writeuser.cpp writediffpack.cpp writeabaqus.cpp writefluent.cpp writepermas.cpp writetochnog.cpp writetecplot.cpp wuchemnitz.cpp writetochnog.cpp writefeap.cpp writeelmer.cpp  writegmsh.cpp readuser.cpp importsolution.cpp 
++src = nglib.cpp nginterface.cpp writeuser.cpp writediffpack.cpp writeabaqus.cpp writefluent.cpp writepermas.cpp writetochnog.cpp writetecplot.cpp wuchemnitz.cpp writetochnog.cpp writefeap.cpp writeelmer.cpp  writegmsh.cpp readuser.cpp importsolution.cpp 
+ #
+ lib = nginterface
+ libpath = libsrc/interface
+--- libsrc/linalg/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/linalg/Makefile	2008-05-10 07:59:05.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src = basemat.cpp densemat.cpp vector.cpp sparsmat.cpp polynomial.cpp
+ #
+-lib = la
++lib = ngla
+ libpath = libsrc/linalg
+ #
+ #
+--- libsrc/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/Makefile		2008-05-10 09:35:09.000000000 +0100
+@@ -11,7 +11,9 @@
+ 	@ (cd csg; $(MAKE) -f Makefile)  
+ 	@ (cd geom2d; $(MAKE) -f Makefile)
+ 	@ (cd stlgeom; $(MAKE) -f Makefile)
++ifdef WITH_OCC
+ 	@ (cd occ; $(MAKE) -f Makefile)
++endif
+ 	@ (cd meshing; $(MAKE) -f Makefile)
+ 	@ (cd opti; $(MAKE) -f Makefile)
+ 	@ (cd visualization; $(MAKE) -f Makefile)
+--- libsrc/makefile.mach.LINUX.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/makefile.mach.LINUX		2008-05-10 09:32:02.000000000 +0100
+@@ -4,11 +4,8 @@
+ #
+ # CC=/opt/gcc-dev/bin/gcc 
+ # CC=/usr/local/bin/gcc
+-CC=gcc
+-CPLUSPLUS=$(CC)
+ AR=ar
+ LINK=$(CC)
+-MAKE=make
+ RM=rm
+ RANLIB=ranlib
+ #
+@@ -16,16 +12,23 @@
+ #
+ CFLAGS2 =
+ 
+-CPLUSPLUSFLAGS2 = -O2 -I/usr/include/GL3.5 -DLINUX -DOPENGL \
+-	-ftemplate-depth-99 -finline-limit=20000 \
+-	-funroll-loops  -DNGSOLVE
+-
+-LINKFLAGS2 =   -L/usr/openwin/lib -L/usr/X11R6/lib -L/usr/lib/GL3.5 -lstdc++ 
+-
++CPLUSPLUSFLAGS2 = $(CXXFLAGS) -I/usr/include/GL -D$(MACHINE) -DOPENGL -DNGSOLVE
++#	-ftemplate-depth-99 -finline-limit=20000 \
++#	-funroll-loops  -DNGSOLVE
++
++LINKFLAGS2 =
++
++ifdef WITH_OCC
++OCC_DIR=$(CASROOT)/..
++OCCINC_DIR=$(OCC_DIR)/ros/inc
++OCCLIB_DIR=$(OCC_DIR)/ros/lin/lib
++CPLUSPLUSFLAGS2 += -DOCCGEOMETRY -DOCC52 -DUSE_STL_STREAM -I$(OCCINC_DIR)
++LINKFLAGS2 += -L$(OCCLIB_DIR) -lTKIGES -lTKBRep -lTKSTEP -lTKSTL -lTKTopAlgo -lTKG3d -lTKG2d -lTKXSBase -lTKOffset -lTKFillet -lTKGeomBase -lTKGeomAlgo -lTKShHealing -lTKBO -lTKPrim -lTKernel -lTKMath -lTKBool
++endif
+ 
+ goalngs=goalngs
+ 
+ # lapack =  -llapack  -lblas -lgmp -lg2c
+ 
+ 
+-appngs =  lib/$(MACHINE)/*.o -lngsolvebasic
+\ No newline at end of file
++appngs =  lib/$(MACHINE)/*.o -lngsolvebasic
+--- libsrc/meshing/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/meshing/Makefile		2008-05-10 08:04:41.000000000 +0100
+@@ -9,7 +9,7 @@
+ 	boundarylayer.cpp specials.cpp msghandler.cpp \
+ 	pyramidrls.cpp pyramid2rls.cpp prism2rls.cpp curvedelems.cpp curvedelems2.cpp
+ #
+-lib = mesh
++lib = ngmesh
+ libpath = libsrc/meshing
+ #
+ include ../makefile.inc
+--- libsrc/occ/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/occ/Makefile		2008-05-10 08:04:28.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src =  occgeom.cpp occmeshsurf.cpp occgenmesh.cpp
+ 
+-lib = occ
++lib = ngocc
+ libpath = libsrc/occ
+ #
+ #
+--- libsrc/opti/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/opti/Makefile	2008-05-10 08:05:02.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src = bfgs.cpp linsearch.cpp linopt.cpp 
+ #
+-lib = opti
++lib = ngopti
+ libpath = libsrc/opti
+ #
+ #
+--- libsrc/stlgeom/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/stlgeom/Makefile		2008-05-10 08:04:12.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src = stlgeom.cpp stltopology.cpp stlgeomchart.cpp stlgeommesh.cpp meshstlsurface.cpp stlline.cpp stltool.cpp
+ #
+-lib = stlgeom
++lib = ngstlgeom
+ libpath = libsrc/stlgeom 
+ #
+ #
+--- libsrc/visualization/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/visualization/Makefile	2008-05-10 08:05:20.000000000 +0100
+@@ -3,7 +3,7 @@
+ #
+ src = stlmeshing.cpp mvdraw.cpp vscsg.cpp vsmesh.cpp vsocc.cpp vssolution.cpp meshdoc.cpp
+ #
+-lib = vis
++lib = ngvis
+ libpath = libsrc/visualization
+ #
+ #
+--- Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ Makefile		2008-05-10 09:33:45.000000000 +0100
+@@ -14,14 +14,14 @@
+ #
+ #
+ #
+-mylib =  -lnginterface -lvis -lcsg -lstlgeom -lgeom2d -lmesh -lgprim -lopti \
+-	 -lla -lgen  -locc
++mylib =  -lnginterface -lngvis -lngcsg -lngstlgeom -lnggeom2d -lngmesh -lnggprim -lngopti \
++	 -lngla -lnggen
+ #
+ #
+ # system libraries:
+ #
+ #
+-tcltklib = -ltix8.1.8.4 -ltk8.4  -ltcl8.4
++tcltklib = -lTix -ltk -ltcl
+ # tcltklib = -ltix4.1.8.3 -ltk8.3 -ltcl8.3
+ # tcltklib = -ltix8.2 -ltk8.3 -ltcl8.3
+ # tcltklib = /usr/lib/libtix8.1.8.3.so -ltk8.3 -ltcl8.3
+@@ -29,7 +29,7 @@
+ # tcltklib = -ltix8.2 -ltk8.4 -ltcl8.4
+ #
+ #
+-syslib = $(tcltklib) -lGL -lGLU -lX11  -lXi -lm  -ldl -lpthread $(SYSLIB2)
++syslib = $(tcltklib) -lGL -lGLU -lX11  -lXi -lm  -ldl -lpthread $(SYSLIB2) 
+ # (maybe you have to remove -ldl)
+ #
+ #
+@@ -43,12 +43,15 @@
+ # OCCINC_DIR=$(OCC_DIR)/inc
+ # OCCLIB_DIR=$(OCC_DIR)/lib
+ #
+-OCC_DIR=/opt/OpenCASCADE5.2
++OCC_DIR=$(CASROOT)/..
+ OCCINC_DIR=$(OCC_DIR)/ros/inc
+ OCCLIB_DIR=$(OCC_DIR)/ros/lin/lib
+ 
+ # add libs in makefile.mach.$(MACHINE)
+-# occlib = -L$(OCCLIB_DIR) -lTKIGES -lTKBRep -lTKSTEP -lTKSTL
++ifdef WITH_OCC
++#occlib = -L$(OCCLIB_DIR) -lTKIGES -lTKBRep -lTKSTEP -lTKSTL
++ occlib = -L$(OCCLIB_DIR) -lTKIGES -lTKBRep -lTKSTEP -lTKSTL -lTKTopAlgo -lTKG3d -lTKG2d -lTKXSBase -lTKOffset -lTKFillet -lTKGeomBase -lTKGeomAlgo -lTKShHealing -lTKBO -lTKPrim -lTKernel -lTKMath -lTKBool -lXxf86vm
++endif
+ #
+ include $(LIBSRC_DIR)/makefile.mach.$(MACHINE)
+ #
+@@ -66,7 +69,7 @@
+ CPLUSPLUSFLAGS = $(CPLUSPLUSFLAGS1) $(CPLUSPLUSFLAGS2) $(CPLUSPLUSFLAGS3)
+ #
+ .cpp.o:
+-	$(CPLUSPLUS) $(CPLUSPLUSFLAGS) $< -o $(<:.cpp=.o)
++	$(CXX) $(CPLUSPLUSFLAGS) $< -o $(<:.cpp=.o)
+ #
+ #
+ #
+--- ngcore/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ ngcore/Makefile		2008-05-10 08:33:06.000000000 +0100
+@@ -116,14 +116,15 @@
+ #
+ #
+ .cpp.o:
+-	gcc -c -O2 -w $< -o $(<:.cpp=.o) -I../libsrc/include -DNO_PARALLEL_THREADS
++	$(CXX) -c $(CXXFLAGS) -w $< -o $(<:.cpp=.o) -I../libsrc/include -DNO_PARALLEL_THREADS
++
+ #
+-$(main) : $(main).o libng.a
+-	gcc -w -o $@ $(main).o -L. -lng -lm -lpthread -lstdc++
++$(main) : $(main).o libng.a libng.so
++	$(CXX) -w -o $@ $(main).o -L. -lng -lm -lpthread -lstdc++
+ #
+ #
+ libng.a	: $(src:.cpp=.o) 
+-	ar r libng.a $(src:.cpp=.o) 
++	$(AR) r libng.a $(src:.cpp=.o)
+ #
+ clean:
+ 	-@rm -r ngcore *.o */*.o */*/*.o */*/*/*.o */*/ii_files
+--- ngsolve/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ ngsolve/Makefile		2008-05-10 08:16:10.000000000 +0100
+@@ -66,6 +66,8 @@
+ #
+ lib = ../lib/$(MACHINE)/libngsolve.a
+ lib2 = ../lib/$(MACHINE)/libngsolvebasic.a
++slib = libngsolve.so
++slib2 = libngsolvebasic.so
+ libold = ../lib/$(MACHINE)/libngsolve_oldla.a
+ #
+ #
+@@ -74,32 +76,47 @@
+ #
+ #
+ # .PRECIOUS: .cpp .hh 
+-# .SUFFIXES: .cpp .o 
++.SUFFIXES: .cpp .o .lo
+ #
+ # .cpp.o:
+ #	$(CPLUSPLUS) -c $<
+-#
+-#
++
++
+ #
+ #
+ # make lib from sources:
+ # 
+-goal:	$(lib) $(lib2)
++goal:	$(lib) $(lib2) ../lib/$(MACHINE)/$(slib) ../lib/$(MACHINE)/$(slib2)
+ #
+ pebblesinc = -I../../pebbles_old/libsrc/setup -I../../pebbles_old/libsrc/solver -I../../pebbles_old/libsrc/prepro -I../../pebbles_old/libsrc/parallel -I../../pebbles_old/libsrc
+ # 
++.cpp.lo:
++	$(CXX) -c -I. -I../libsrc -I../libsrc/include -I../libsrc/interface -Iinclude $(pebblesinc) $(CPLUSPLUSFLAGS2) -DNETGEN_ELTRANS -fPIC -DPIC $< -o $@
++
+ $(lib):: $(src)
+-	$(CPLUSPLUS) -c -I. -I../libsrc -I../libsrc/include -I../libsrc/interface -Iinclude $(pebblesinc) $(CPLUSPLUSFLAGS2) -DNETGEN_ELTRANS $? 
++	$(CXX) -c -I. -I../libsrc -I../libsrc/include -I../libsrc/interface -Iinclude $(pebblesinc) $(CPLUSPLUSFLAGS2) -DNETGEN_ELTRANS $? 
+ 	$(AR) $(ARFLAGS) $@ *.o
+ 	mv *.o ../lib/$(MACHINE)
+ 	-$(RM) *.o
+ 	-@$(RANLIB) $@
+ #
++../lib/$(MACHINE)/$(slib):: $(src:%.cpp=%.lo)
++	$(CXX) -shared -ltcl -lpthread -lm -lstdc++ -o ../lib/$(MACHINE)/$(slib).4.4 $^ -Wl,-soname,$(slib).4.4
++	ln -sf $(slib).4.4 $@.4
++	ln -sf $(slib).4.4 $@
++
++
+ $(lib2):: $(src2) 
+-	$(CPLUSPLUS) -c -I. -I../libsrc/interface -Iinclude $(CPLUSPLUSFLAGS2) $?
++	$(CXX) -c -I. -I../libsrc/interface -Iinclude $(CPLUSPLUSFLAGS2) $?
+ 	$(AR) $(ARFLAGS) $@ *.o
+ 	-$(RM) *.o
+ 	-@$(RANLIB) $@
++
++../lib/$(MACHINE)/$(slib2):: $(src2:%.cpp=%.lo)
++	$(CXX) -shared -lm -lstdc++ -o ../lib/$(MACHINE)/$(slib2).4.4 $^ -Wl,-soname,$(slib2).4.4
++	ln -sf $(slib2).4.4 $@.4
++	ln -sf $(slib2).4.4 $@
++
+ #
+ #
+ #
+--- togl/Makefile.orig	2008-05-08 17:44:10.000000000 +0100
++++ togl/Makefile	2008-05-10 08:23:29.000000000 +0100
+@@ -64,13 +64,13 @@
+ 
+ 
+ # The C compiler:
+-CC = cc
++#CC = cc
+ 
+ # Compiler options:
+-COPTS = -c -O
++COPTS = -c
+ 
+ # Shared library linker command:
+-SHLINK = cc -G
++SHLINK = $(LINK) -shared
+ 
+ # Name for the shared lib:
+ #SH_LIB = libtogl.so.1.3
+@@ -91,7 +91,7 @@
+ #### Shouldn't have to change anything beyond this point ####
+ 
+ 
+-CFLAGS = $(COPTS) $(INCLUDES) $(TK_FLAGS) -DSTEREO -D__sgi
++CFLAGS := $(CFLAGS) $(COPTS) $(INCLUDES) $(TK_FLAGS) -DSTEREO -D__sgi
+ 
+ LFLAGS = $(LIBDIRS)
+ 
+--- libsrc/makefile.inc.orig	2008-05-19 21:57:27.000000000 +0100
++++ libsrc/makefile.inc	2008-05-19 21:56:36.000000000 +0100
+@@ -18,23 +18,35 @@
+ #
+ ARFLAGS = r
+ #
++LIBA=lib$(lib).so
+ LIBB=$(LIB_DIR)/lib$(lib).a
+ #
+ .PRECIOUS: .cpp .c
+-.SUFFIXES: .cpp .c .o 
++.SUFFIXES: .cpp .c .o .lo
+ #
+ .cpp.o:
+-	$(CPLUSPLUS) $(CPLUSPLUSFLAGS1) $(CPLUSPLUSFLAGS2) $(CPLUSPLUSFLAGSLIBRARY) $<
++	$(CXX) $(CPLUSPLUSFLAGS1) $(CPLUSPLUSFLAGS2) $(CPLUSPLUSFLAGSLIBRARY) $<
+ .c.o:
+-	$(CPLUSPLUS) $(CPLUSPLUSFLAGS1) $(CPLUSPLUSFLAGS2) $(CPLUSPLUSFLAGSLIBRARY) $<
++	$(CXX) $(CPLUSPLUSFLAGS1) $(CPLUSPLUSFLAGS2) $(CPLUSPLUSFLAGSLIBRARY) $<
++
++.cpp.lo:
++	$(CXX) $(CPLUSPLUSFLAGS1) $(CPLUSPLUSFLAGS2) $(CPLUSPLUSFLAGSLIBRARY) -fPIC -DPIC $< -o $@
++
++all: $(LIBA) $(LIBB)
++	
+ #
+ #
++$(LIBA):: $(LIB_DIR) 
+ $(LIBB):: $(LIB_DIR) 
+ #
+ # make lib from sources:
+ #
+-$(LIBB):: $(src) 
+-	$(CPLUSPLUS) $(CPLUSPLUSFLAGS1) $(CPLUSPLUSFLAGS2) $(CPLUSPLUSFLAGSLIBRARY)  $?
++$(LIBA):: $(src:%.cpp=%.lo)
++	$(CXX) -shared $(CPLUSPLUSFLAGSLIBRARY) -o $(LIB_DIR)/$@.4.4 *.lo -Wl,-soname,$@.4.4
++	ln -sf $@.4.4 $(LIB_DIR)/$@.4
++	ln -sf $@.4.4 $(LIB_DIR)/$@
++
++$(LIBB):: $(src:%.cpp=%.o)
+ 	@$(AR) $(ARFLAGS) $@ *.o
+ 	-@$(RM) *.o
+ 	-@$(RANLIB) $@

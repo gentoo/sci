@@ -1,6 +1,10 @@
 # ChangeLog for sci-mathematics/netgen
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+  20 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
+  -files/debian-inspired-netgen_4.4-9.patch, -files/debian-inspired-netgen_4.4-9.2.patch, -files/icon/netgen.desktop, -files/icon/netgen-icon.png, +netgen-4.4-makefiles.patch, +netgen.png, +netgen-4.4-order.patch, +netgen-4.4-datadir.patch, +netgen-4.4-stdlib.patch, +netgen-4.4-declarations.patch, +netgen-4.4-tkversion.patch
+  Extensive rework of the ebuild and the epatches by Sébastien Fabbro <bicatali@gentoo.org>. At the moment, the OpenCascade support is broken.
+
   12 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
   +files/debian-inspired-netgen_4.4-9.patch, +files/debian-inspired-netgen_4.4-9.2.patch, +files/icon/netgen.desktop, +files/icon/netgen-icon.png +netgen-4.4-r1.ebuild:
   General improvement, better amd64 support, icon in the menu etc..

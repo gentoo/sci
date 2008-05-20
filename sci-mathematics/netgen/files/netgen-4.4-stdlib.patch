@@ -1,0 +1,115 @@
+--- ngsolve/basiclinalg/calcinverse.cpp.orig	2008-05-08 17:44:10.000000000 +0100
++++ ngsolve/basiclinalg/calcinverse.cpp	2008-05-09 08:50:56.000000000 +0100
+@@ -10,7 +10,7 @@
+   {
+     double sum = 0;
+     for (int i = 0; i < N; i++)
+-      sum += abs(m(i,i));
++      sum += std::abs(m(i,i));
+     return sum;
+   }
+   
+--- ngsolve/comp/fespace.cpp.orig	2008-05-08 17:44:10.000000000 +0100
++++ ngsolve/comp/fespace.cpp	2008-05-09 08:50:56.000000000 +0100
+@@ -10,6 +10,8 @@
+ 
+ #include <comp.hpp>
+ #include <multigrid.hpp>
++#include <cstdlib>
++
+ using namespace ngmg;
+ 
+ namespace ngcomp
+--- ngsolve/solve/shapetester.cpp.orig	2008-05-08 17:44:10.000000000 +0100
++++ ngsolve/solve/shapetester.cpp	2008-05-09 08:50:56.000000000 +0100
+@@ -1,6 +1,7 @@
+ 
+ #include <solve.hpp>
+ // #include <nginterface.h>
++#include <cstdlib>
+ 
+ 
+ namespace ngsolve
+--- libsrc/include/mystdlib.h.orig	2008-04-07 10:33:54.000000000 +0200
++++ libsrc/include/mystdlib.h	2008-04-07 10:38:23.000000000 +0200
+@@ -6,6 +6,7 @@
+ #include <iomanip>
+ #include <fstream>
+ #include <sstream>
++#include <cstring>
+ 
+ #ifdef OLDCINCLUDE
+ 
+--- ngsolve/ngstd/array.hpp.orig	2008-04-07 10:33:54.000000000 +0200
++++ ngsolve/ngstd/array.hpp	2008-04-07 10:39:49.000000000 +0200
+@@ -7,6 +7,7 @@
+ /* Date:   01. Jun. 95                                                    */
+ /**************************************************************************/
+ 
++#include <cstring>
+ 
+ /**
+    Exception thrown by array range check.
+@@ -291,7 +292,7 @@
+ 	T * p = new T[nsize];
+ 	
+ 	int mins = (nsize < this->size) ? nsize : this->size; 
+-	memcpy (p, this->data, mins * sizeof(T));
++	std::memcpy (p, this->data, mins * sizeof(T));
+ 
+ 	if (ownmem)
+ 	  delete [] this->data;
+--- ngsolve/linalg/basevector.cpp.orig	2008-04-07 10:33:55.000000000 +0200
++++ ngsolve/linalg/basevector.cpp	2008-04-07 10:39:13.000000000 +0200
+@@ -9,6 +9,7 @@
+ */
+ 
+ #include <la.hpp>
++#include <cstdlib>
+ namespace ngla
+ {
+   using namespace ngla;
+@@ -146,7 +147,7 @@
+   {
+     FlatVector<double> fv = FVDouble();
+     for (int i = 0; i < fv.Size(); i++)
+-      fv(i) = double (rand()) / RAND_MAX;
++      fv(i) = double (std::rand()) / RAND_MAX;
+   }
+   
+   
+--- ngsolve/ngstd/flags.cpp.orig	2008-04-07 10:33:55.000000000 +0200
++++ ngsolve/ngstd/flags.cpp	2008-04-07 10:38:23.000000000 +0200
+@@ -5,7 +5,8 @@
+ /**************************************************************************/
+ 
+ #include <ngstd.hpp>
+-
++#include <cstring>
++#include <cstdlib>
+ namespace ngstd
+ {
+   using namespace ngstd;
+--- ngsolve/linalg/blockjacobi.cpp.orig	2006-04-07 09:27:13.000000000 +0200
++++ ngsolve/linalg/blockjacobi.cpp	2008-04-07 10:38:23.000000000 +0200
+@@ -7,7 +7,7 @@
+ 
+ 
+ #include <la.hpp>
+-
++#include <cstdlib>
+ namespace ngla
+ {
+   using namespace ngla;
+--- ngsolve/ngstd/ngstd.hpp.orig	2008-04-07 10:38:37.000000000 +0200
++++ ngsolve/ngstd/ngstd.hpp	2008-04-07 10:38:54.000000000 +0200
+@@ -1,6 +1,9 @@
+ #ifndef FILE_NGSTD
+ #define FILE_NGSTD
+ 
++#include <cstring>
++#include <cstdlib>
++
+ /*********************************************************************/
+ /* File:   ngstd.hpp                                                 */
+ /* Author: Joachim Schoeberl                                         */

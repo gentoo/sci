@@ -1,0 +1,167 @@
+--- libsrc/linalg/densemat.hpp.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/linalg/densemat.hpp	2008-05-09 08:50:56.000000000 +0100
+@@ -14,6 +14,9 @@
+ 
+ #include <assert.h>
+ 
++class DenseMatrix;
++void CalcInverse (const DenseMatrix & m1, DenseMatrix & m2);
++
+ class DenseMatrix
+ {
+ protected:
+--- libsrc/meshing/meshtype.hpp.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/meshing/meshtype.hpp	2008-05-09 08:50:56.000000000 +0100
+@@ -955,7 +955,7 @@
+ 
+ 
+ 
+-
++  class Mesh;
+ /**
+    Identification of periodic surfaces, close surfaces, etc. 
+  */
+--- libsrc/visualization/mvdraw.hpp.orig	2008-05-08 17:44:10.000000000 +0100
++++ libsrc/visualization/mvdraw.hpp	2008-05-09 08:50:56.000000000 +0100
+@@ -250,6 +250,7 @@
+   int seltria;
+ };
+ 
++extern VisualSceneSTLMeshing vsstlmeshing;
+ 
+ 
+ 
+--- ngsolve/comp/postproc.cpp.orig	2008-05-08 17:44:10.000000000 +0100
++++ ngsolve/comp/postproc.cpp	2008-05-09 08:50:56.000000000 +0100
+@@ -9,6 +9,7 @@
+ */
+ 
+ #include <comp.hpp>
++#include <fem.hpp>
+ 
+ namespace ngcomp
+ {
+@@ -274,8 +275,8 @@
+ 	if (dimflux > 1)
+ 	  {
+ 	    FlatMatrix<SCAL> elmat(dnumsflux.Size(), lh);
+-	    dynamic_cast<const BlockBilinearFormIntegrator&> (fluxbli)
+-	      . Block() . AssembleElementMatrix (felflux, eltrans, elmat, lh);
++	    BlockBilinearFormIntegrator const& fluxbli_ref = dynamic_cast<const BlockBilinearFormIntegrator&> (fluxbli);
++	    fluxbli_ref . Block() . AssembleElementMatrix (felflux, eltrans, elmat, lh);
+ 	    CholeskyFactors<SCAL> invelmat(elmat);
+ 
+ 	    FlatVector<SCAL> hv1(dnumsflux.Size(), lh);
+--- libsrc/interface/nglib.cpp.orig	2004-07-02 21:20:09.000000000 +0000
++++ libsrc/interface/nglib.cpp	2008-04-10 17:40:26.000000000 +0000
+@@ -24,10 +24,18 @@
+ 
+ // #include <FlexLexer.h>
+ 
++#include <tcl.h>
++#include <incvis.hpp>
++
+ namespace netgen {
+   extern void MeshFromSpline2D (SplineGeometry2d & geometry,
+ 				Mesh *& mesh, 
+ 				MeshingParameters & mp);
++#include "../visualization/mvdraw.hpp"
++#include "../visualization/soldata.hpp"
++#include "../visualization/vssolution.hpp"
++  Tcl_Interp * tcl_interp;
++  VisualSceneSolution vssolution;
+ }
+ 
+ 
+--- libsrc/visualization/vssolution.cpp.orig	2004-11-10 13:22:09.000000000 +0000
++++ libsrc/visualization/vssolution.cpp	2008-04-10 17:41:56.000000000 +0000
+@@ -16,6 +16,19 @@
+   extern AutoPtr<Mesh> mesh;
+ 
+ 
++  SYMBOLTABLE<VisualScene*> & GetVisualizationScenes ()
++  {
++    static SYMBOLTABLE<VisualScene*> vss;
++    return vss;
++  }
++
++  void AddVisualizationScene (const string & name,
++			      VisualScene * vs)
++  {
++    GetVisualizationScenes().Set (name.c_str(), vs);
++  }
++
++
+   VisualSceneSolution :: SolData :: SolData ()
+     : name (0), data (0), solclass(0)
+   { ; }
+--- ngsolve/basiclinalg/expr3.hpp.orig	2008-05-08 17:44:10.000000000 +0100
++++ ngsolve/basiclinalg/expr3.hpp	2008-05-09 08:50:56.000000000 +0100
+@@ -851,6 +851,16 @@
+ /**
+    Inner product
+  */
++inline double InnerProduct ( const double& a, const double& b )
++{
++  return a * b;
++}
++
++inline Complex InnerProduct ( const Complex& a, const Complex b)
++{
++  return a * b;
++}
++
+ template <class TA, class TB>
+ inline typename TA::TSCAL
+ InnerProduct (const MatExpr<TA> & a, const MatExpr<TB> & b)
+@@ -862,15 +872,6 @@
+   return sum;
+ }
+ 
+-inline double InnerProduct (double a, double b)
+-{
+-  return a * b;
+-}
+-
+-inline Complex InnerProduct (Complex a, Complex b)
+-{
+-  return a * b;
+-}
+ 
+ 
+ /* **************************** Trace **************************** */
+@@ -889,6 +890,16 @@
+ /* **************************** L2Norm **************************** */
+ 
+ /// Euklidean norm squared
++inline double L2Norm2 (const double& v)
++{
++  return v*v;
++}
++
++inline double L2Norm2 (Complex v)
++{
++  return v.real()*v.real()+v.imag()*v.imag();
++}
++
+ template <class TA>
+ inline double L2Norm2 (const MatExpr<TA> & v)
+ {
+@@ -899,17 +910,6 @@
+   return sum;
+ }
+ 
+-
+-inline double L2Norm2 (double v)
+-{
+-  return v*v;
+-}
+-
+-inline double L2Norm2 (Complex v)
+-{
+-  return v.real()*v.real()+v.imag()*v.imag();
+-}
+-
+ template <class TA>
+ inline double L2Norm (const MatExpr<TA> & v)
+ {
