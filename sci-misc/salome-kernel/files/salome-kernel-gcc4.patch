@@ -1,0 +1,135 @@
+diff -Naur src3.2.6.orig/KERNEL_SRC_3.2.6/src/GenericObj/SALOME_GenericObj_i.cc src3.2.6/KERNEL_SRC_3.2.6/src/GenericObj/SALOME_GenericObj_i.cc
+--- src3.2.6.orig/KERNEL_SRC_3.2.6/src/GenericObj/SALOME_GenericObj_i.cc	2007-04-24 10:34:17.000000000 -0500
++++ src3.2.6/KERNEL_SRC_3.2.6/src/GenericObj/SALOME_GenericObj_i.cc	2008-01-10 15:46:15.000000000 -0600
+@@ -42,9 +42,9 @@
+ 	    "; CORBA::is_nil(thePOA) = "<<CORBA::is_nil(thePOA));
+   if(CORBA::is_nil(thePOA))
+ #ifndef WNT
+-    myPOA = PortableServer::RefCountServantBase::_default_POA();
++    myPOA = PortableServer::ServantBase::_default_POA();
+ #else
+-    myPOA = RefCountServantBase::_default_POA();
++    myPOA = ServantBase::_default_POA();
+ #endif
+   else
+     myPOA = PortableServer::POA::_duplicate(thePOA);
+diff -Naur src3.2.6.orig/KERNEL_SRC_3.2.6/src/LifeCycleCORBA_SWIG/swig_wrap.cpp src3.2.6/KERNEL_SRC_3.2.6/src/LifeCycleCORBA_SWIG/swig_wrap.cpp
+--- src3.2.6.orig/KERNEL_SRC_3.2.6/src/LifeCycleCORBA_SWIG/swig_wrap.cpp	2007-04-24 10:58:15.000000000 -0500
++++ src3.2.6/KERNEL_SRC_3.2.6/src/LifeCycleCORBA_SWIG/swig_wrap.cpp	2008-01-10 16:05:05.000000000 -0600
+@@ -3236,7 +3236,7 @@
+             param->isMPI = false;
+             PyObject *key, *value;
+             int pos = 0;
+-            while (PyDict_Next(obj1, &pos, &key, &value))
++            while (PyDict_Next(obj1, (Py_ssize_t*)&pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+                 printf("key: %s\n", keystr);
+@@ -3366,7 +3366,7 @@
+             param->isMPI = false;
+             PyObject *key, *value;
+             int pos = 0;
+-            while (PyDict_Next(obj1, &pos, &key, &value))
++            while (PyDict_Next(obj1, (Py_ssize_t*)&pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+                 printf("key: %s\n", keystr);
+@@ -3558,7 +3558,7 @@
+             param->isMPI = false;
+             PyObject *key, *value;
+             int pos = 0;
+-            while (PyDict_Next(obj1, &pos, &key, &value))
++            while (PyDict_Next(obj1, (Py_ssize_t*)&pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+                 printf("key: %s\n", keystr);
+@@ -3688,7 +3688,7 @@
+             param->isMPI = false;
+             PyObject *key, *value;
+             int pos = 0;
+-            while (PyDict_Next(obj1, &pos, &key, &value))
++            while (PyDict_Next(obj1, (Py_ssize_t*)&pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+                 printf("key: %s\n", keystr);
+@@ -3880,7 +3880,7 @@
+             param->isMPI = false;
+             PyObject *key, *value;
+             int pos = 0;
+-            while (PyDict_Next(obj1, &pos, &key, &value))
++            while (PyDict_Next(obj1, (Py_ssize_t*)&pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+                 printf("key: %s\n", keystr);
+@@ -4010,7 +4010,7 @@
+             param->isMPI = false;
+             PyObject *key, *value;
+             int pos = 0;
+-            while (PyDict_Next(obj1, &pos, &key, &value))
++            while (PyDict_Next(obj1, (Py_ssize_t*)&pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+                 printf("key: %s\n", keystr);
+@@ -4329,7 +4329,7 @@
+             param->isMPI = false;
+             PyObject *key, *value;
+             int pos = 0;
+-            while (PyDict_Next(obj1, &pos, &key, &value))
++            while (PyDict_Next(obj1, (Py_ssize_t*)&pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+                 printf("key: %s\n", keystr);
+@@ -4463,7 +4463,7 @@
+             param->isMPI = false;
+             PyObject *key, *value;
+             int pos = 0;
+-            while (PyDict_Next(obj1, &pos, &key, &value))
++            while (PyDict_Next(obj1, (Py_ssize_t*)&pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+                 printf("key: %s\n", keystr);
+diff -Naur src3.2.6.orig/KERNEL_SRC_3.2.6/src/Notification/NOTIFICATION_Consumer.cxx src3.2.6/KERNEL_SRC_3.2.6/src/Notification/NOTIFICATION_Consumer.cxx
+--- src3.2.6.orig/KERNEL_SRC_3.2.6/src/Notification/NOTIFICATION_Consumer.cxx	2007-04-24 10:34:17.000000000 -0500
++++ src3.2.6/KERNEL_SRC_3.2.6/src/Notification/NOTIFICATION_Consumer.cxx	2008-01-10 15:52:35.000000000 -0600
+@@ -93,14 +93,14 @@
+         };
+ 
+         if (status) {
+-            char*        Asender;
+-            char*        Agraph;
+-            char*        Atype;
++            const char*  Asender;
++            const char*  Agraph;
++            const char*  Atype;
+             CORBA::ULong Acounter;
+             CORBA::ULong Astamp;
+-            char*        Adate;
+-            char*        Anode;
+-            char*        Amessage;
++            const char*  Adate;
++            const char*  Anode;
++            const char*  Amessage;
+             event->filterable_data[0].value >>= Asender;
+             event->filterable_data[1].value >>= Agraph;
+             event->filterable_data[2].value >>= Atype;
+diff -Naur src3.2.6.orig/KERNEL_SRC_3.2.6/src/TestContainer/SALOME_TestComponent_i.cxx src3.2.6/KERNEL_SRC_3.2.6/src/TestContainer/SALOME_TestComponent_i.cxx
+--- src3.2.6.orig/KERNEL_SRC_3.2.6/src/TestContainer/SALOME_TestComponent_i.cxx	2007-04-24 10:34:19.000000000 -0500
++++ src3.2.6/KERNEL_SRC_3.2.6/src/TestContainer/SALOME_TestComponent_i.cxx	2008-01-10 15:56:51.000000000 -0600
+@@ -44,7 +44,7 @@
+   MESSAGE("activate object");
+   _thisObj = this ;
+   _id = _poa->activate_object(_thisObj);
+-  SCRUTE(pd_refCount);
++  //SCRUTE(pd_refCount);
+ }
+ 
+ Engines_TestComponent_i::Engines_TestComponent_i()
+@@ -60,7 +60,7 @@
+ {
+   char s[100];
+   sprintf(s, "TestComponent_i : L = %ld", (long) L);
+-  SCRUTE(pd_refCount);
++  //SCRUTE(pd_refCount);
+ 
+   return CORBA::string_dup(s);
+ }

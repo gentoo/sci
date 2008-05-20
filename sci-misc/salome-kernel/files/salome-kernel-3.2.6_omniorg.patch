@@ -1,0 +1,6 @@
+22,23c22,23
+< 	 corba?   ( dev-python/omniorbpy 
+< 	 	    net-misc/omniORB )"
+---
+> 	 corba?   ( <=dev-python/omniorbpy-2.6
+> 	 	    <=net-misc/omniORB-4.1 )"

@@ -1,0 +1,48 @@
+diff -Naur src3.2.6.orig/KERNEL_SRC_3.2.6/salome_adm/unix/config_files/check_mpich.m4 src3.2.6/KERNEL_SRC_3.2.6/salome_adm/unix/config_files/check_mpich.m4
+--- src3.2.6.orig/KERNEL_SRC_3.2.6/salome_adm/unix/config_files/check_mpich.m4	2007-04-24 16:34:20.000000000 +0100
++++ src3.2.6/KERNEL_SRC_3.2.6/salome_adm/unix/config_files/check_mpich.m4	2008-05-07 02:36:00.000000000 +0100
+@@ -26,11 +26,12 @@
+ 
+ AC_ARG_WITH(mpich,
+   [AC_HELP_STRING([--with-mpich=DIR],[root directory path of MPICH installation])],
+-  WITHMPICH="yes",WITHMPICH="no")
++  MPICHREQUESTED="yes",MPICHREQUESTED="no")
+ 
+ MPI_INCLUDES=""
+ MPI_LIBS=""
+-if test "$WITHMPICH" = yes; then
++WITHMPICH=no
++if test x"$MPICHREQUESTED" = xyes; then
+ 
+   MPIREQUESTED="yes"
+   echo
+@@ -38,9 +39,9 @@
+   echo testing mpich
+   echo ---------------------------------------------
+   echo
+-  MPICH_HOME=$withval
+ 
+-  if test "$MPICH_HOME"; then
++  if test "x$withval" != "xyes"; then
++    MPICH_HOME=$withval
+     MPI_INCLUDES="-I$MPICH_HOME/include"
+     if test "x$MPICH_HOME" = "x/usr"
+     then
+@@ -67,10 +68,16 @@
+      WITHMPI="yes"
+      mpi_ok=yes
+      MPI_LIBS="$MPI_LIBS -lmpich"
++dnl  We're doing this here because MPI_LIBS doesn't appear to be
++dnl  being used within the Makefile structure
++     LDFLAGS="$MPI_LIBS $LDFLAGS"
+   else
+      mpi_ok=no
+   fi
+-
+ fi
+ 
++AC_SUBST(WITHMPICH)
++AC_SUBST(MPI_INCLUDES)
++AC_SUBST(MPI_LIBS)
++AC_SUBST(mpi_ok)
+ ])dnl
