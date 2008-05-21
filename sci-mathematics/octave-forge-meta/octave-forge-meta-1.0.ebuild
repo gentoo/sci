@@ -12,14 +12,16 @@ KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	sci-mathematics/octave-forge-audio
+	sci-mathematics/octave-forge-bioinfo
 	sci-mathematics/octave-forge-combinatorics
-	sci-mathematics/octave-forge-signal
 	sci-mathematics/octave-forge-communications
-	sci-mathematics/octave-forge-gsl
 	sci-mathematics/octave-forge-control
+	sci-mathematics/octave-forge-data-smoothing
 	sci-mathematics/octave-forge-econometrics
+	sci-mathematics/octave-forge-financial
 	sci-mathematics/octave-forge-fixed
 	sci-mathematics/octave-forge-general
+	sci-mathematics/octave-forge-gsl
 	sci-mathematics/octave-forge-ident
 	sci-mathematics/octave-forge-image
 	sci-mathematics/octave-forge-informationtheory
@@ -38,6 +40,7 @@ RDEPEND="
 	!amd64? ( sci-mathematics/octave-forge-parallel )
 	sci-mathematics/octave-forge-physicalconstants
 	sci-mathematics/octave-forge-plot
+	sci-mathematics/octave-forge-signal
 	sci-mathematics/octave-forge-sockets
 	sci-mathematics/octave-forge-specfun
 	sci-mathematics/octave-forge-special-matrix

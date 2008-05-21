@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  21 May 2008; Markus Dittrich <markusle@gentoo.org>
+  octave-forge-meta-1.0.ebuild:
+  Added newly imported packages.
+
   26 Feb 2008; Markus Dittrich <markusle@gentoo.org>
   octave-forge-meta-1.0.ebuild:
   Added new packages octave-forge-octgpr and octave-forge-splines.
