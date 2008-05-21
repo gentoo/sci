@@ -4,14 +4,19 @@
 
 EAPI="1"
 QT4_BUILT_WITH_USE_CHECK="qt3support"
-inherit eutils multilib qt4
+inherit eutils multilib qt4 fdo-mime
 
 DESCRIPTION="Scientific Data Analysis and Visualization"
 HOMEPAGE="http://scidavis.sourceforge.net/"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="python"
+
+LANGS="de es fr ja ru sv"
+for l in ${LANGS}; do
+	IUSE="${IUSE} linguas_${l}"
+done
 
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 
@@ -37,6 +42,8 @@ RESTRICT=mirror
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
+	# scidavis does not compile with liborigin-20080225
+	# using the local source
 	epatch "${FILESDIR}"/${P}-profile.patch
 	epatch "${FILESDIR}"/${P}-fitplugins.patch
 
@@ -62,4 +69,20 @@ src_compile() {
 
 src_install() {
 	emake INSTALL_ROOT="${D}" install || die 'emake install failed'
+
+	pushd ${PN}/translations
+	insinto /usr/share/${PN}/translations
+	for l in ${LANGS}; do
+		if use linguas_${l}; then
+			doins ${PN}_${l}.qm
+		fi
+	done
+}
+
+pkg_postinst() {
+        fdo-mime_desktop_database_update
+}
+
+pkg_postrm() {
+        fdo-mime_desktop_database_update
 }
