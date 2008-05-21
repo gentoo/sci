@@ -1,0 +1,39 @@
+--- ./SUPERV_SRC_3.2.6/build_configure.org 2007-04-24 18:41:04.000000000 +0200
++++ ./SUPERV_SRC_3.2.6/build_configure     2008-01-07 12:46:59.000000000 +0100
+@@ -118,7 +118,7 @@
+
+ # make a link allowing AC_OUTPUT to find the salome_adm/.../*.in  files
+ echo "" >> configure.in_tmp1
+-echo 'ln -fs ${KERNEL_ROOT_DIR}/salome_adm ${ROOT_SRCDIR}/.' >> configure.in_tmp1
++echo 'cp -prf ${KERNEL_ROOT_DIR}/salome_adm ${ROOT_SRCDIR}/.' >> configure.in_tmp1
+
+ echo  "" >> configure.in_tmp1
+ echo "AC_OUTPUT([ \\" >> configure.in_tmp1
+--- ./SUPERV_SRC_3.2.6/adm_local/Makefile.in.org     2007-04-24 18:41:04.000000000 +0200
++++ ./SUPERV_SRC_3.2.6/adm_local/Makefile.in 2008-01-07 13:12:33.000000000 +0100
+@@ -27,12 +27,12 @@
+ all: resources
+
+ install:
+-	cp -rf @top_srcdir@/adm_local @prefix@
++#	cp -rf @top_srcdir@/adm_local @prefix@
+
+ bin:
+
+ resources :
+-	cp -rf @top_srcdir@/adm_local $(top_builddir)
++#	cp -rf @top_srcdir@/adm_local $(top_builddir)
+
+ inc:
+
+--- ./SUPERV_SRC_3.2.6/doc/salome/gui/Makefile.in.org     2007-04-24 18:41:04.000000000 +0200
++++ ./SUPERV_SRC_3.2.6/doc/salome/gui/Makefile.in 2008-01-07 13:20:04.000000000 +0100
+@@ -29,7 +29,7 @@
+ @COMMENCE@
+
+ usr_docs:
+-	cp -fr $(srcdir)/SUPERV ./
++#	cp -fr $(srcdir)/SUPERV ./
+	-find $(PWD) -name CVS -prune -exec rm -rf {} \;
+
+ docs: usr_docs

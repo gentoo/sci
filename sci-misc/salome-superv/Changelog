@@ -1,0 +1,7 @@
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+21 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
+  Initial import.
+  +salome-superv-3.2.6.ebuild, +salome-superv-3.2.6.patch
+  A major thank to Francois Dorin <f.dorin@free.fr>, Jon Hood <squinky86@gmail.com>, Dewald Pietersen <dewald.pieterse@gmail.com>, <etienne.lorriaux@gmail.com> and Richard Westwell <garlicbread@ntlworld.com> for their respective contributions and feedback. Without you guys, the Salome ebuilds would not exist today. Thanks!
+  See bug #155974 for more info
