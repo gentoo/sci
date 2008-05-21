@@ -1,0 +1,11 @@
+--- ./PYCALCULATOR_SRC_3.2.6/build_configure.org	2007-04-24 18:41:04.000000000 +0200
++++ ./PYCALCULATOR_SRC_3.2.6/build_configure	2008-02-21 10:20:34.000000000 +0100
+@@ -109,7 +109,7 @@
+ 
+ # make a link allowing AC_OUTPUT to find the salome_adm/.../*.in  files
+ echo "" >> configure.in_tmp1
+-echo 'ln -fs ${KERNEL_ROOT_DIR}/salome_adm ${ROOT_SRCDIR}/.' >> configure.in_tmp1
++echo 'cp -prf ${KERNEL_ROOT_DIR}/salome_adm ${ROOT_SRCDIR}/.' >> configure.in_tmp1
+ 
+ echo  "" >> configure.in_tmp1
+ echo "AC_OUTPUT([ \\" >> configure.in_tmp1
