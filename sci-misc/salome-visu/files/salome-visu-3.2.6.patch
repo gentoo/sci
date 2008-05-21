@@ -1,0 +1,348 @@
+Seulement dans src3.2.6: build
+Seulement dans src3.2.6/VISU_SRC_3.2.6: aclocal.m4
+Seulement dans src3.2.6/VISU_SRC_3.2.6: autom4te.cache
+Seulement dans src3.2.6/VISU_SRC_3.2.6: configure
+Seulement dans src3.2.6/VISU_SRC_3.2.6: configure.in
+Seulement dans src3.2.6/VISU_SRC_3.2.6: salome_adm
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/CONVERTOR/VISU_AppendFilter.cxx src3.2.6/VISU_SRC_3.2.6/src/CONVERTOR/VISU_AppendFilter.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/CONVERTOR/VISU_AppendFilter.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/CONVERTOR/VISU_AppendFilter.cxx	2007-11-28 17:30:04.000000000 +0100
+@@ -235,8 +235,8 @@
+ {
+   VISU::TTimerLog aTimerLog(MYDEBUG,"VISU_AppendFilter::Execute");
+   vtkUnstructuredGrid *anOutput = this->GetOutput(); 
+-  if(this->NumberOfInputs == 1){
+-    anOutput->ShallowCopy(this->Inputs[0]);
++  if(this->InputList->GetNumberOfItems() == 1){
++    anOutput->ShallowCopy(this->GetInput(0));
+     return;
+   }
+   
+@@ -247,8 +247,8 @@
+       return;
+   
+     if(IsMergingInputs()){
+-      TCellIdMerger aFunctor(this->NumberOfInputs);
+-      ForEachInput<TCellIdMerger>(this->Inputs, this->NumberOfInputs, aFunctor);
++      TCellIdMerger aFunctor(this->InputList->GetNumberOfItems());
++      ForEachInput<TCellIdMerger>((vtkDataObject**)this->InputList, this->InputList->GetNumberOfItems(), aFunctor);
+ 
+       vtkDataSetAttributes::FieldList& aFieldList = aFunctor.myFieldList;
+       TObject2InputIdMap& anObject2InputIdMap = aFunctor.myObject2InputIdMap;
+@@ -275,7 +275,7 @@
+ 	//TObjectId anObjectId = anIter->first;
+ 	const TInputCellId& anInputCellId = anIter->second;
+ 	TInputId anInputId = anInputCellId.first;
+-	if(vtkDataSet *aDataSet = (vtkDataSet *)(this->Inputs[anInputId])){
++	if(vtkDataSet *aDataSet = (vtkDataSet *)(this->GetInput(anInputId))){
+ 	  TCellId aCellId = anInputCellId.second;
+ 	  aDataSet->GetCellPoints(aCellId, anIdList);
+ 	  
+@@ -288,8 +288,8 @@
+       }
+       anIdList->Delete();
+     }else{
+-      TCellCounter aFunctor(this->NumberOfInputs);
+-      ForEachInput<TCellCounter>(this->Inputs, this->NumberOfInputs, aFunctor);
++      TCellCounter aFunctor(this->InputList->GetNumberOfItems());
++      ForEachInput<TCellCounter>((vtkDataObject**)this->InputList, this->InputList->GetNumberOfItems(), aFunctor);
+ 
+       vtkDataSetAttributes::FieldList& aFieldList = aFunctor.myFieldList;
+       vtkIdType aNbCells = aFunctor.GetNbCells();
+@@ -309,8 +309,8 @@
+       // 2.cells
+       vtkIdList *anIdList = vtkIdList::New(); 
+       anIdList->Allocate(VTK_CELL_SIZE);
+-      for(vtkIdType anInputId = 0; anInputId < this->NumberOfInputs; anInputId++) {
+-	if(vtkDataSet *aDataSet = (vtkDataSet *)(this->Inputs[anInputId])){
++      for(vtkIdType anInputId = 0; anInputId < this->InputList->GetNumberOfItems(); anInputId++) {
++	if(vtkDataSet *aDataSet = (vtkDataSet *)(this->GetInput(anInputId))){
+ 	  vtkIdType aNbCells = aDataSet->GetNumberOfCells(); 
+ 	  vtkCellData *aCellData = aDataSet->GetCellData();
+ 	  // copy cell and cell data
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/CONVERTOR: VISU_AppendFilter.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/CONVERTOR/VISU_Convertor_impl.cxx src3.2.6/VISU_SRC_3.2.6/src/CONVERTOR/VISU_Convertor_impl.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/CONVERTOR/VISU_Convertor_impl.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/CONVERTOR/VISU_Convertor_impl.cxx	2007-11-28 17:30:04.000000000 +0100
+@@ -1307,7 +1307,7 @@
+     aConnectivity->InitTraversal();
+     for(int i=0; aConnectivity->GetNextCell(npts,pts); i++)
+       aCellLocationsArray->SetValue(i,aConnectivity->GetTraversalLocation(npts));
+-    theSource->SetCells(aCellTypesArray,aCellLocationsArray,aConnectivity);
++    theSource->SetCells(aCellTypesArray,(vtkIdTypeArray*)aCellLocationsArray,aConnectivity);
+ 
+     if(MYVTKDEBUG) aConnectivity->DebugOn();
+ 
+@@ -1397,7 +1397,7 @@
+     aConnectivity->InitTraversal();
+     for(int i=0; aConnectivity->GetNextCell(npts,pts); i++)
+       aCellLocationsArray->SetValue(i,aConnectivity->GetTraversalLocation(npts));
+-    theSource->SetCells(aCellTypesArray,aCellLocationsArray,aConnectivity);
++    theSource->SetCells(aCellTypesArray,(vtkIdTypeArray*)aCellLocationsArray,aConnectivity);
+ 
+     if(MYVTKDEBUG) aConnectivity->DebugOn();
+ 
+@@ -1561,7 +1561,7 @@
+     aConnectivity->InitTraversal();
+     for(int i=0; aConnectivity->GetNextCell(npts,pts); i++)
+       aCellLocationsArray->SetValue(i,aConnectivity->GetTraversalLocation(npts));
+-    theSource->SetCells(aCellTypesArray,aCellLocationsArray,aConnectivity);
++    theSource->SetCells(aCellTypesArray,(vtkIdTypeArray*)aCellLocationsArray,aConnectivity);
+     
+     {
+       int aNbTuples = aNbCells;
+@@ -1829,7 +1829,7 @@
+       aCellLocationsArray->SetValue(i,aConnectivity->GetTraversalLocation(npts));
+     
+     const TVTKSource& aSource = theGaussSubMesh->GetSource();
+-    aSource->SetCells(aCellTypesArray,aCellLocationsArray,aConnectivity);
++    aSource->SetCells(aCellTypesArray,(vtkIdTypeArray*)aCellLocationsArray,aConnectivity);
+     aSource->SetPoints(aPoints.GetPointer());
+     
+     aCellLocationsArray->Delete();
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/CONVERTOR: VISU_Convertor_impl.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/CONVERTOR/VISU_ConvertorUtils.cxx src3.2.6/VISU_SRC_3.2.6/src/CONVERTOR/VISU_ConvertorUtils.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/CONVERTOR/VISU_ConvertorUtils.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/CONVERTOR/VISU_ConvertorUtils.cxx	2007-11-28 17:30:04.000000000 +0100
+@@ -51,7 +51,7 @@
+     vtkUnstructuredGridWriter* aWriter = vtkUnstructuredGridWriter::New();
+     //aWriter->SetFileType(VTK_BINARY);
+     aWriter->SetFileName(theFileName.c_str());
+-    aWriter->SetInput(theDataSet);
++    aWriter->SetInput((vtkDataObject*)theDataSet);
+     aWriter->Write();
+     aWriter->Delete();
+   }
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/CONVERTOR: VISU_ConvertorUtils.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/Makefile.in src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/Makefile.in
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/Makefile.in	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/Makefile.in	2007-11-28 17:30:01.000000000 +0100
+@@ -104,7 +104,7 @@
+ 	$(HDF5_INCLUDES) $(BOOST_CPPFLAGS)
+ 
+ LDFLAGS+= \
+-	$(VTK_LIBS) -lVTKViewer -lVisuConvertor \
++	$(VTK_LIBS) -lVTKViewer -lVisuConvertor -lvtkWidgets \
+ 	$(KERNEL_LDFLAGS) -lSALOMELocalTrace \
+ 	$(GUI_LDFLAGS) \
+ 	$(MED_LDFLAGS)
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/SALOME_ExtractGeometry.cxx src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/SALOME_ExtractGeometry.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/SALOME_ExtractGeometry.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/SALOME_ExtractGeometry.cxx	2007-11-28 17:30:02.000000000 +0100
+@@ -202,7 +202,7 @@
+   vtkFloatingPointType multiplier;
+   vtkPoints *newPts;
+   vtkIdList *newCellPts;
+-  vtkDataSet *input = this->GetInput();
++  vtkDataSet *input = (vtkDataSet*)(this->GetInput());
+   vtkPointData *pd = input->GetPointData();
+   vtkCellData *cd = input->GetCellData();
+   vtkUnstructuredGrid *output = this->GetOutput();
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/PIPELINE: SALOME_ExtractGeometry.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_CutPlanesPL.cxx src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_CutPlanesPL.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_CutPlanesPL.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_CutPlanesPL.cxx	2007-11-28 17:30:01.000000000 +0100
+@@ -127,7 +127,8 @@
+ VISU_CutPlanesPL
+ ::ClearAppendPolyData(vtkAppendPolyData *theAppendPolyData)
+ {
+-  int iEnd = theAppendPolyData->GetNumberOfInputs();
++  //int iEnd = theAppendPolyData->GetNumberOfInputs();
++  int iEnd = theAppendPolyData->GetUserManagedInputs();
+   for(int i = iEnd-1; i >= 0; i--)
+     theAppendPolyData->RemoveInput(theAppendPolyData->GetInput(i));
+ }
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/PIPELINE: VISU_CutPlanesPL.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_DeformedShapePL.cxx src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_DeformedShapePL.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_DeformedShapePL.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_DeformedShapePL.cxx	2007-11-28 17:30:02.000000000 +0100
+@@ -43,10 +43,10 @@
+ VISU_DeformedShapePL
+ ::~VISU_DeformedShapePL()
+ {
+-  myWarpVector->UnRegisterAllOutputs();
++  //myWarpVector->UnRegisterAllOutputs();
+   myWarpVector->Delete();
+ 
+-  myCellDataToPointData->UnRegisterAllOutputs();
++  //myCellDataToPointData->UnRegisterAllOutputs();
+   myCellDataToPointData->Delete();
+ }
+ 
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/PIPELINE: VISU_DeformedShapePL.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_GaussPointsPL.cxx src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_GaussPointsPL.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_GaussPointsPL.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_GaussPointsPL.cxx	2007-11-28 17:30:02.000000000 +0100
+@@ -311,7 +311,7 @@
+ ::GetNodeCoord(int theObjID)
+ {
+   vtkIdType anID = GetNodeVTKID(theObjID);
+-  vtkDataSet* aDataSet = myGeomFilter->GetInput();
++  vtkDataSet* aDataSet = (vtkDataSet*)(myGeomFilter->GetInput());
+   return aDataSet->GetPoint(anID);
+ }
+ 
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/PIPELINE: VISU_GaussPointsPL.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_IsoSurfacesPL.cxx src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_IsoSurfacesPL.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_IsoSurfacesPL.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_IsoSurfacesPL.cxx	2007-11-28 17:30:02.000000000 +0100
+@@ -44,10 +44,10 @@
+ VISU_IsoSurfacesPL
+ ::~VISU_IsoSurfacesPL()
+ {
+-  myContourFilter->UnRegisterAllOutputs();
++  //myContourFilter->UnRegisterAllOutputs();
+   myContourFilter->Delete();
+ 
+-  myCellDataToPointData->UnRegisterAllOutputs();
++  //myCellDataToPointData->UnRegisterAllOutputs();
+   myCellDataToPointData->Delete();
+ }
+ 
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/PIPELINE: VISU_IsoSurfacesPL.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_ScalarBarCtrl.cxx src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_ScalarBarCtrl.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_ScalarBarCtrl.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_ScalarBarCtrl.cxx	2007-11-28 17:30:01.000000000 +0100
+@@ -34,7 +34,7 @@
+ #include <vtkLookupTable.h>
+ #include <vtkTextProperty.h>
+ #include <vtkScalarBarActor.h>
+-#include <vtkIdType.h>
++//#include <vtkIdType.h>
+ 
+ #include <string.h>
+ 
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/PIPELINE: VISU_ScalarBarCtrl.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_ScalarMapOnDeformedShapePL.cxx src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_ScalarMapOnDeformedShapePL.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_ScalarMapOnDeformedShapePL.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_ScalarMapOnDeformedShapePL.cxx	2007-11-28 17:30:02.000000000 +0100
+@@ -66,7 +66,7 @@
+ VISU_ScalarMapOnDeformedShapePL
+ ::~VISU_ScalarMapOnDeformedShapePL()
+ {
+-  myDeformVectors->UnRegisterAllOutputs();
++  //  myDeformVectors->UnRegisterAllOutputs();
+   myDeformVectors->Delete();
+ 
+   myMergeFilter->UnRegisterAllOutputs();
+@@ -75,7 +75,7 @@
+   myExtractorScalars->UnRegisterAllOutputs();
+   myExtractorScalars->Delete();
+ 
+-  myCellDataToPointData->UnRegisterAllOutputs();
++  //myCellDataToPointData->UnRegisterAllOutputs();
+   myCellDataToPointData->Delete();
+ }
+ 
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/PIPELINE: VISU_ScalarMapOnDeformedShapePL.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_StreamLinesPL.cxx src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_StreamLinesPL.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/PIPELINE/VISU_StreamLinesPL.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/PIPELINE/VISU_StreamLinesPL.cxx	2007-11-28 17:30:01.000000000 +0100
+@@ -61,16 +61,16 @@
+ }
+ 
+ VISU_StreamLinesPL::~VISU_StreamLinesPL(){
+-  myPointsFilter->UnRegisterAllOutputs();
++  //myPointsFilter->UnRegisterAllOutputs();
+   myPointsFilter->Delete();
+ 
+-  myCenters->UnRegisterAllOutputs();
++  //myCenters->UnRegisterAllOutputs();
+   myCenters->Delete();
+ 
+-  myGeomFilter->UnRegisterAllOutputs();
++  //myGeomFilter->UnRegisterAllOutputs();
+   myGeomFilter->Delete();
+ 
+-  myStream->UnRegisterAllOutputs();
++  //myStream->UnRegisterAllOutputs();
+   myStream->Delete();
+ }
+ 
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/PIPELINE: VISU_StreamLinesPL.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/VISUGUI/VisuGUI_ClippingDlg.cxx src3.2.6/VISU_SRC_3.2.6/src/VISUGUI/VisuGUI_ClippingDlg.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/VISUGUI/VisuGUI_ClippingDlg.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/VISUGUI/VisuGUI_ClippingDlg.cxx	2007-11-28 17:30:04.000000000 +0100
+@@ -218,7 +218,7 @@
+   myMapper->RemoveAllInputs();
+   myMapper->Delete();
+   
+-  myPlaneSource->UnRegisterAllOutputs();
++  //myPlaneSource->UnRegisterAllOutputs();
+   myPlaneSource->Delete();
+ }
+ 
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/VISUGUI: VisuGUI_ClippingDlg.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/VISUGUI/VisuGUI_Plot3DDlg.cxx src3.2.6/VISU_SRC_3.2.6/src/VISUGUI/VisuGUI_Plot3DDlg.cxx
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/VISUGUI/VisuGUI_Plot3DDlg.cxx	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/VISUGUI/VisuGUI_Plot3DDlg.cxx	2007-11-28 17:30:04.000000000 +0100
+@@ -119,7 +119,7 @@
+   ~TPlane() {
+     myMapper->RemoveAllInputs();
+     myMapper->Delete();
+-    myPlaneSource->UnRegisterAllOutputs();
++    //    myPlaneSource->UnRegisterAllOutputs();
+     myPlaneSource->Delete();
+   };
+   // Not implemented.
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/VISUGUI: VisuGUI_Plot3DDlg.cxx~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/VISU_I/Makefile.in src3.2.6/VISU_SRC_3.2.6/src/VISU_I/Makefile.in
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/VISU_I/Makefile.in	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/VISU_I/Makefile.in	2007-11-28 17:30:03.000000000 +0100
+@@ -122,7 +122,7 @@
+ LDFLAGS  += \
+ 	$(PYTHON_LIBS) \
+ 	$(QT_MT_LIBS) \
+-	$(VTK_LIBS) \
++	$(VTK_LIBS) -lvtkWidgets \
+ 	$(QWT_LIBS) \
+ 	$(BOOST_LIBS) \
+ 	$(KERNEL_LDFLAGS) \
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/VISU_I/VISU_CutLines_i.cc src3.2.6/VISU_SRC_3.2.6/src/VISU_I/VISU_CutLines_i.cc
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/VISU_I/VISU_CutLines_i.cc	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/VISU_I/VISU_CutLines_i.cc	2007-11-28 17:30:04.000000000 +0100
+@@ -409,7 +409,8 @@
+     aTitle = aTitle.simplifyWhiteSpace();
+     aTableOfReal->SetTitle(aTitle.latin1());
+     
+-    int iLineEnd = myCutLinesPL->GetAppendPolyData()->GetNumberOfInputs();
++    //    int iLineEnd = myCutLinesPL->GetAppendPolyData()->GetNumberOfInputs();
++    int iLineEnd = myCutLinesPL->GetAppendPolyData()->GetUserManagedInputs();
+     if(MYDEBUG) MESSAGE("CutPlanes_i::BuildTableOfReal iLineEnd = "<<iLineEnd);
+     TXCont aXCont;
+     TXYMapCont aXYMapCont; 
+@@ -461,7 +462,7 @@
+ 	aXYMap[aDist] = aScalars->GetTuple1(i);
+       }
+       if(aFilter){
+-	aFilter->UnRegisterAllOutputs();
++	//	aFilter->UnRegisterAllOutputs();
+ 	aFilter->Delete();
+       }
+     }
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/VISU_I: VISU_CutLines_i.cc~
+diff -abur src3.2.6_orig/VISU_SRC_3.2.6/src/VISU_I/VISU_StreamLines_i.cc src3.2.6/VISU_SRC_3.2.6/src/VISU_I/VISU_StreamLines_i.cc
+--- src3.2.6_orig/VISU_SRC_3.2.6/src/VISU_I/VISU_StreamLines_i.cc	2007-04-24 18:41:04.000000000 +0200
++++ src3.2.6/VISU_SRC_3.2.6/src/VISU_I/VISU_StreamLines_i.cc	2007-11-28 17:30:04.000000000 +0100
+@@ -161,7 +161,7 @@
+ 
+ VISU::StreamLines_i::~StreamLines_i(){
+   if(MYDEBUG) MESSAGE("StreamLines_i::~StreamLines_i()");
+-  myAppendFilter->UnRegisterAllOutputs();
++  //myAppendFilter->UnRegisterAllOutputs();
+   myAppendFilter->Delete();
+ }
+ 
+@@ -178,8 +178,9 @@
+   vtkPointSet* aSource = NULL;
+   if(!thePrs3d->_is_nil())
+     if((aPrs3di = dynamic_cast<VISU::Prs3d_i*>(VISU::GetServant(thePrs3d).in()))){
+-      for(int i = myAppendFilter->GetNumberOfInputs()-1; i >= 0; i--)
+-	myAppendFilter->RemoveInput(myAppendFilter->GetInput(i));
++      //      for(int i = myAppendFilter->GetNumberOfInputs()-1; i >= 0; i--)
++      //	myAppendFilter->RemoveInput(myAppendFilter->GetInput(i));
++      myAppendFilter->RemoveAllInputs();
+       myAppendFilter->AddInput(aPrs3di->GetPL()->GetMapper()->GetInput());
+       aSource = myAppendFilter->GetOutput();
+     }
+Seulement dans src3.2.6/VISU_SRC_3.2.6/src/VISU_I: VISU_StreamLines_i.cc~
