@@ -121,7 +121,7 @@ src_install()
 	      datadir="${D}/${INSTALL_DIR}/share/salome" \
 	      libdir="${D}/${INSTALL_DIR}/$(get_libdir)/salome" \
 	      PYTHON_SITE_INSTALL="${D}/${INSTALL_DIR}/$(get_libdir)/python${PYVER}/site-packages/salome" \
-	      sharedpydir="${D}/${INSTALL_DIR}/usr/lib/python${PYVER}/site-packages/salome/shared_modules" install \
+	      sharedpydir="${D}/${INSTALL_DIR}/$(get_libdir)/python${PYVER}/site-packages/salome/shared_modules" install \
 	|| die "emake install failed"
 
 	if use amd64 ; then
