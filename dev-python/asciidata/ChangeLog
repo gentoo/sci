@@ -1,6 +1,10 @@
 # ChangeLog for dev-python/asciidata
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  23 May 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  -asciidata-1.0.ebuild, +asciidata-1.1.ebuild:
+  Version bump, now depend on numpy
 
 *asciidata-1.0 (15 Oct 2006)
 
