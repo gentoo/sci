@@ -3,7 +3,7 @@
 # $Header
 
 #
-# Version: 0.09 (2008-03-24)
+# Version: 0.10 (2008-05-26)
 # Authors: Markus Dittrich <markusle@gentoo.org>
 #
 # The octave-forge eclass installs and manages the split
@@ -48,7 +48,7 @@ OCT_PKG_NAME=${PN#octave-forge-}
 OCT_PKG_TARBALL="${OCT_PKG}.tar.gz"
 OCT_INSTALL_ROOT=/usr/share/octave
 OCT_INSTALL_PKG="${OCT_INSTALL_ROOT}/packages/${OCT_PKG}"
-OCT_INSTALL_PATH="${D}usr/share/octave/packages"
+OCT_INSTALL_PATH="/usr/share/octave/packages"
 OCT_BINARY=$(type -p octave)
 OCT_DATABASE="${OCT_INSTALL_ROOT}/octave_packages"
 OCT_DESC="${OCT_INSTALL_PKG}/packinfo/DESCRIPTION"
@@ -227,29 +227,14 @@ octave-forge_src_unpack() {
 	else
 		cp "${DISTDIR}/${OCT_PKG_TARBALL}" ./
 	fi
-
-
 }
 
 
 ####################################################################
-# we explicitly override src_compile to make sure nothing is
-# being done here since all compilation (if needed) is done
-# by octave's pkg manager in src_install
+# use octave's pkg add command to do the compilation 
 ####################################################################
 octave-forge_src_compile() {
-	echo "octave will now start compiling ..." 
-}
-
-####################################################################
-# install *.m and *.oct/*.mex files if present into the locations
-# where octave expects them.
-####################################################################
-octave-forge_src_install() {
 	cd "${WORKDIR}"
-
-	# create image install directory to make octave happy
-	mkdir -p "${OCT_INSTALL_PATH}"
 
 	# securely generate tmp file
 	OCT_TMP=$(mktemp /tmp/octave-install.XXXXXXXXXX) || \
@@ -258,19 +243,40 @@ octave-forge_src_install() {
 	# generate octave code to remove relevant entry from
 	# global file
 	cat >> "${OCT_TMP}" <<-EOF
-		pkg prefix "${OCT_INSTALL_PATH}" "${OCT_INSTALL_PATH}" 
+		pkg prefix "${WORKDIR}" "${WORKDIR}" 
 		pkg install -verbose -local ${OCT_PKG_TARBALL}
 	EOF
 
 	# let octave do the final setup of the database file
-	echo "Compiling ${P}. Please be patient ...." 
-	"${OCT_BINARY}" -q "${OCT_TMP}" >& /dev/null \
-		|| die "Failed to compile package"
+	einfo "Compiling ${P}. Please be patient ...." 
+	"${OCT_BINARY}" -q "${OCT_TMP}" || die "Failed to compile package"
 
 	# remove the temporary octave file
 	rm -f "${OCT_TMP}" \
 		|| die "Failed to remove temporary octave database code."
 }
+
+
+####################################################################
+# install the compiled files
+####################################################################
+octave-forge_src_install() {
+	cd "${WORKDIR}"
+	insinto ${OCT_INSTALL_PATH}
+	doins -r ${OCT_PKG} || die "Failed to install files."
+
+	# make .oct, .mex, *.so file exectutable
+	# we don't die after the finds since chmod will complain
+	# if there aren't any files to act on
+	target="${D}"${OCT_INSTALL_PATH}/${OCT_PKG}
+	find ${target} -type f -name "*.oct" -print0 \
+		| xargs -0 chmod 0755 >& /dev/null
+	find ${target} -type f -name "*.mex" -print0 \
+		| xargs -0 chmod 0755 >& /dev/null
+	find ${target} -type f -name "*.so" -print0 \
+		| xargs -0 chmod 0755 >& /dev/null
+}
+	
 
 
 ##################################################################
