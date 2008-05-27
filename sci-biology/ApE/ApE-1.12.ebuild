@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+inherit eutils 
+
 DESCRIPTION="ApE - A Plasmid Editor"
 HOMEPAGE="http://www.biology.utah.edu/jorgensen/wayned/ape/"
 SRC_URI="http://www.biology.utah.edu/jorgensen/wayned/ape/Download/ApE_linux_current.zip"
@@ -32,4 +34,8 @@ exeinto /usr/bin
 doexe ${T}/ApE
 insinto "/usr/share/${P}"
 doins -r ${WORKDIR}/ApE\ Linux/*
+make_desktop_entry ${PN} \
+		ApE \
+		/usr/share/${P}/Accessory\ Files/Icons\ and\ images/monkey_icon.gif \
+		"Application;Graphics;Science"
 }
