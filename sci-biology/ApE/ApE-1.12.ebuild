@@ -31,5 +31,5 @@ EOF
 exeinto /usr/bin
 doexe ${T}/ApE
 insinto "/usr/share/${P}"
-doins -r "${WORKDIR}/ApE\ Linux/*"
+doins -r ${WORKDIR}/ApE\ Linux/*
 }
