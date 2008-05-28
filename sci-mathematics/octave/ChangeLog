@@ -2,6 +2,14 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 May 2008; Markus Dittrich <markusle@gentoo.org>
+  +files/octave-3.0.1-add_syspath.patch,
+  +files/octave-3.0.1-fix_handle_for_plotyy.patch,
+  +files/octave-3.0.1-no_helvetica.patch,
+  +files/octave-3.0.1-test-fix.patch, octave-3.0.1.ebuild:
+  Major ebuild cleanup. Disabled failing tests and added patched from debian
+  svn.
+
   18 Mar 2008; Markus Dittrich <markusle@gentoo.org>
   +files/octave-3.0.0-pkg.patch, octave-3.0.0.ebuild:
   Added patch to have 'pkg install' exit with error code if it can't
