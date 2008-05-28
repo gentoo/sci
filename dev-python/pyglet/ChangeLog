@@ -1,0 +1,9 @@
+# ChangeLog for dev-python/pyglet
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  29 May 2008; Andrey Grozin <grozin@gentoo.org> +metadata.xml,
+  +pyglet-1.1_beta1.ebuild:
+  Initial import, thanks to Arne Babenhauserheide, Thomas Pani, Jeff
+  Kowalczyk, bug #207125
+
