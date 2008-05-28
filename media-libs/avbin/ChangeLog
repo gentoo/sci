@@ -1,0 +1,8 @@
+# ChangeLog for media-libs/avbin
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  29 May 2008; Andrey Grozin <grozin@gentoo.org> +metadata.xml,
+  +avbin-bin-3.ebuild:
+  Initial import, thanks to Thomas Pani, bug #207125
+
