@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,7 +14,7 @@ S="${WORKDIR}/ofa_kernel-${PV}"
 LICENSE="|| ( GPL-2 BSD-2 )"
 SLOT="0"
 
-KEYWORDS="~amd64"
+KEYWORDS="~x86 ~amd64"
 IUSE="memtrack hpage-patch srp ipath iser ehca rds madeye vnic cxgb3 debug"
 
 RDEPEND=""

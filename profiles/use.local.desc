@@ -47,3 +47,4 @@ sys-cluster/openib-userspace:mstflint - include mstflint package
 sys-cluster/openib-mvapich2:large-cluster - build _LARGE_CLUSTER configuration
 sys-cluster/openib-mvapich2:medium-cluster - build _MEDIUM_CLUSTER configuration
 sys-cluster/openib-mvapich2:rdma - use rdmacm
+sys-cluster/openib-mvapich2:romio - enable ROMIO support

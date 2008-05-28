@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 May 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  added ~x86 keyword, updated copyright date
+  openib-userspace-1.2.5.1.ebuild: removed
+
   03 Jan 2008; Bryan Green <bryan.d.green@nasa.gov>
   openib-userspace-1.2.5.1-r1.ebuild: removed openib-mvapich2 blocker
 

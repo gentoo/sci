@@ -5,7 +5,7 @@
 SLOT="0"
 LICENSE="|| ( GPL-2 BSD-2 )"
 
-KEYWORDS="~amd64"
+KEYWORDS="~x86 ~amd64"
 
 DESCRIPTION="a library allowing programs to use InfiniBand 'verbs' for direct access to IB hardware"
 SRC_URI="http://www.openfabrics.org/downloads/verbs/${P}.tar.gz"

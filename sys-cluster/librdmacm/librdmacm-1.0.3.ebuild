@@ -1,11 +1,11 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 SLOT="0"
 LICENSE="|| ( GPL-2 BSD-2 )"
 
-KEYWORDS="~amd64"
+KEYWORDS="~x86 ~amd64"
 
 DESCRIPTION="OpenIB userspace RDMA CM library"
 HOMEPAGE="http://www.openfabrics.org/"

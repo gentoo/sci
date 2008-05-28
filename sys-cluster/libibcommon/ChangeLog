@@ -1,6 +1,9 @@
 # ChangeLog for sys-cluster/libibcommon
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  28 May 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  added ~x86 keyword, fixed copyright date
 
 *libibcommon-1.0.5 (27 Nov 2007)
 

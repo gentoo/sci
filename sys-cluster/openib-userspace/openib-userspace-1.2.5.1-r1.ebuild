@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /CVS/groups/vistech/bgreen-overlay/sys-cluster/openib-userspace/openib-userspace-1.2.ebuild,v 1.1.1.1 2007/10/12 20:18:26 bgreen Exp $
 
@@ -7,7 +7,7 @@ inherit rpm
 LICENSE="|| ( GPL-2 BSD-2 )"
 SLOT="0"
 
-KEYWORDS="~amd64"
+KEYWORDS="~x86 ~amd64"
 
 DESCRIPTION="OpenFabrics userspace libraries and utilities.  This ebuild is an
 all-inclusive alternative to the openib metapackage and dependencies"

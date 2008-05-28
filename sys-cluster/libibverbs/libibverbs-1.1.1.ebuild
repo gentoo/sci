@@ -1,13 +1,13 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 SLOT="0"
 LICENSE="|| ( GPL-2 BSD-2 )"
 
-KEYWORDS="~amd64"
+KEYWORDS="~x86 ~amd64"
 
-DESCRIPTION="a library that allows programs to use InfiniBand 'verbs' for direct access to IB hardware from userspace"
+DESCRIPTION="a library for using InfiniBand 'verbs' for direct access to IB hardware from userspace"
 SRC_URI="http://www.openfabrics.org/downloads/${P}.tar.gz"
 HOMEPAGE="http://www.openfabrics.org/"
 

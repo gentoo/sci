@@ -1,11 +1,11 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 SLOT="0"
 LICENSE="|| ( GPL-2 BSD-2 )"
 
-KEYWORDS="~amd64"
+KEYWORDS="~x86 ~amd64"
 
 DESCRIPTION="OpenIB User MAD library functions which sit on top of the user MAD modules in the kernel.  These are used by the IB diagnostic and management tools, including OpenSM."
 
