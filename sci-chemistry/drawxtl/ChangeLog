@@ -1,0 +1,9 @@
+# ChangeLog for sci-chemistry/drawxtl
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  28 May 2008; Jeff Gardner <je_fro@gentoo.org> +drawxtl-43.ebuild,
+  +drawxtl-53.ebuild:
+  Initial import, thanks to Jan Marten Simons, Hannes Kruger, and
+  Srebrodolskite.
+
