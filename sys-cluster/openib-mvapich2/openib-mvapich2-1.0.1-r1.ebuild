@@ -67,7 +67,7 @@ pkg_setup() {
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-
+	einfo "Disabling examples"
 	# Examples are always compiled with the default 'all' target.  This
 	# causes problems when we don't build support for everything, including
 	# threads, mpe2, etc.  So we're not going to build them.
@@ -121,7 +121,7 @@ src_compile() {
 				mpi_conf_args="${mpi_conf_args} --enable-f77 --disable-f90";;
 		esac
 	else
-		mpi_conf_args="--disable-f77 --disable-f90"
+		mpi_conf_args="${mpi_conf_args} --disable-f77 --disable-f90"
 	fi
 
 	mpi_make_args="-j1"

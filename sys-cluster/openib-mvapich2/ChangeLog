@@ -2,6 +2,9 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 May 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  minor fix, added use of ${mpi_conf_args}
+
 *openib-mvapich2-1.0.1-r1 (28 May 2008)
   28 May 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
   added 1.0.1-r1 per Bug 219368
