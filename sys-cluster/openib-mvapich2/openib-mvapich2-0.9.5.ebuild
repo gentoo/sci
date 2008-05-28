@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,7 +9,7 @@
 SLOT="0"
 LICENSE="BSD"
 
-KEYWORDS="~amd64"
+KEYWORDS="~x86 ~amd64"
 
 DESCRIPTION="MVAPICH2 MPI-over-infiniband package auto-configured for OpenIB."
 

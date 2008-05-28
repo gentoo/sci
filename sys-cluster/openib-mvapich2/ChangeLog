@@ -1,6 +1,13 @@
 # ChangeLog for sys-cluster/openib-mvapich2
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*openib-mvapich2-1.0.1-r1 (28 May 2008)
+  28 May 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  added 1.0.1-r1 per Bug 219368
+  fixed copyright dates
+  +openib-mvapich2-1.0.1-r1.ebuild: added
+  +files/eselect.mpi.mvapich2: added
 
 *openib-mvapich2-1.0.1 (26 Nov 2007)
 *openib-mvapich2-1.0 (26 Nov 2007)
