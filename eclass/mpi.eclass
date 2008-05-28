@@ -89,7 +89,7 @@
 inherit multilib flag-o-matic
 
 MPI_EMPI_COMPAT="openmpi-1.2.5-r1 lam-mpi-7.1.4-r1"
-MPI_ALL_IMPS="mpich mpich2 openmpi lam-mpi"
+MPI_ALL_IMPS="mpich mpich2 openmpi lam-mpi openib-mvapich2"
 
 #TODO: doc
 mpi_pkg_deplist() {
