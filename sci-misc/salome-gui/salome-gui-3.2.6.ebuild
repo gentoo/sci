@@ -68,6 +68,11 @@ src_unpack()
 	epatch "${FILESDIR}"/${P}_qwt-4.patch
 	epatch "${FILESDIR}"/${P}_configure_in_base.patch
 
+	# Gcc 4.3 support
+	if version_is_at_least "4.3" $(gcc-version) ; then
+		epatch "${FILESDIR}"/${P}-gcc-4.3.patch
+	fi
+
 	# If vtk-5.O is used, include directory is named vtk-5.0 and not vtk
 	if has_version ">=sci-libs/vtk-5.0" ; then
 	   einfo "vtk version 5 detected"
