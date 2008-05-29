@@ -82,6 +82,10 @@ src_unpack()
 
 	# Fix for mpich2 detection, this is also used by salome-component at least
 	epatch "${FILESDIR}"/${P}-mpich2.patch
+	# Gcc 4.3 support
+	if version_is_at_least "4.1" $(gcc-version) ; then
+		epatch "${FILESDIR}"/${P}-gcc-4.3.patch
+	fi
 
 	# Correct the Salome version number
 	sed -i "s:3.2.5:3.2.6:g" configure.ac
