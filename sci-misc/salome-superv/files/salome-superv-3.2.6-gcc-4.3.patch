@@ -1,0 +1,12 @@
+diff -aur src3.2.6.old/SUPERV_SRC_3.2.6/src/SUPERVGUI/SUPERVGUI_CanvasArray.cxx src3.2.6/SUPERV_SRC_3.2.6/src/SUPERVGUI/SUPERVGUI_CanvasArray.cxx
+--- src3.2.6.old/SUPERV_SRC_3.2.6/src/SUPERVGUI/SUPERVGUI_CanvasArray.cxx	2008-05-25 19:32:49.000000000 +0200
++++ src3.2.6/SUPERV_SRC_3.2.6/src/SUPERVGUI/SUPERVGUI_CanvasArray.cxx	2008-05-26 02:57:42.000000000 +0200
+@@ -35,7 +35,7 @@
+ #include <qtooltip.h>
+ #define TEXT_MARGIN 5
+ 
+-#include <iostream.h> //for debug only
++#include <iostream> //for debug only
+ 
+ #define ADDNODES(NodesName,LevelHasDiffNT) \
+     ncols = nodes->NodesName.length(); \
