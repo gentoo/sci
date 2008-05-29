@@ -1,0 +1,11 @@
+diff -aur src3.2.6.old/COMPONENT_SRC_3.2.6/src/SyrComponent/SyrComponent_CheckOfUndefined.cxx src3.2.6/COMPONENT_SRC_3.2.6/src/SyrComponent/SyrComponent_CheckOfUndefined.cxx
+--- src3.2.6.old/COMPONENT_SRC_3.2.6/src/SyrComponent/SyrComponent_CheckOfUndefined.cxx	2008-05-25 19:32:48.000000000 +0200
++++ src3.2.6/COMPONENT_SRC_3.2.6/src/SyrComponent/SyrComponent_CheckOfUndefined.cxx	2008-05-26 02:08:55.000000000 +0200
+@@ -30,6 +30,7 @@
+ #include <fstream>
+ #include <strstream>
+ #include <string>
++#include <cstring>
+ #include <math.h>
+ 
+ using namespace std;
