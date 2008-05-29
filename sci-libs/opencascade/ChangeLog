@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/opencascade
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+  27 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
+  Corrected bugs in the way the --with-include and --with-library were handled (OpenGL, X). A big thank to Richard Westwell <garlicbread@ntlworld.com> for having discovered and corrected the issue.
+
   20 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
   Corrected a bug in the ebuild. Now the tcl related variables should be corrected set and the values available all over the ebuild. A big thank to Dewald Pieterse <dewald.pieterse@gmail.com> for his testing and his good advices.
 
@@ -15,4 +18,3 @@
   Initial import. See bug #118656 for anything relating the building process.
   Ebuild from Daniel Tourde <daniel.tourde@caelae.se> and Alvaro Castro
   <alvcastro@yahoo.es>.
-

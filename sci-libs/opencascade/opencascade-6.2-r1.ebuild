@@ -85,7 +85,7 @@ src_unpack() {
 	|| die "itk, itcl, tix, tk and tcl version tweaking failed!"
 
 	# Patches
-	if [ $(gcc-major-version) -qt "4" ] ; then
+	if [ $(gcc-major-version) > "4" ] ; then
 		elog "You have gcc4 -> GCC 4.x patch is applied"
 		epatch "${FILESDIR}"/opencascade-6.2-gcc4.patch
 	fi
@@ -109,8 +109,12 @@ src_compile() {
 	local confargs="--prefix=/opt/${P}/ros/lin --with-tcl=/usr/$(get_libdir) --with-tk=/usr/$(get_libdir)"
 
 	if use X ; then
+		confargs="${confargs} --with-dps-include=/usr/include --with-dps-library=/usr/$(get_libdir)"
+		confargs="${confargs} --with-xmu-include=/usr/include --with-xmu-library=/usr/$(get_libdir)"
 		if use !opengl; then
 			ewarn "Activate OpenGL if you want to be able to visualize geometry. Set "opengl" USE flag."
+		else
+			confargs="${confargs} --with-gl-include=/usr/include --with-gl-library=/usr/$(get_libdir)"
 		fi
 	else
 		if use opengl; then
@@ -123,8 +127,16 @@ src_compile() {
 	if use java ; then
 		local java_path
 		java_path=`java-config -O`
+		confargs="${confargs} --with-java-include=${java_path}/include/linux"
 	else
 		ewarn "Java wrapping is not going to be compiled. USE flag: "java""
+	fi
+
+# NOTES: To clearly state --with-stlport-include and --with-stlport-library cause troubles. I don't know why....
+
+	if use stlport ; then
+		confargs="${confargs} --with-stlport-libname=stlport_gcc"
+		#confargs="${confargs} --with-stlport-include=/usr/include --with-stlport-library=/usr/$(get_libdir)"
 	fi
 
 	# Compiler and linker flags
@@ -133,24 +145,10 @@ src_compile() {
 	fi
 	append-ldflags -lpthread
 
-# NOTES: To clearly state --with-stlport-include and --with-stlport-library cause troubles. I don't know why....
-# So, these are not defined in the following econf command.
-
 	econf	${confargs} \
 		$(use_with X x ) \
-		$(use_with X xmu ) \
-		$(use_with X xmu-include /usr/include) \
-		$(use_with X xmu-library /usr/$(get_libdir)) \
-		$(use_with X dps-include /usr/include) \
-		$(use_with X dps-library /usr/$(get_libdir)) \
-		$(use_with opengl gl ) \
-		$(use_with opengl gl-include /usr/include ) \
-		$(use_with opengl gl-library /usr/$(get_libdir)) \
-		$(use_enable java jcas) \
-		$(use_with   java java-include ${java_path}/include/linux) \
 		$(use_enable debug ) \
 		$(use_enable !debug production ) \
-		$(use_with stlport stlport-libname stlport_gcc) \
 	|| die "Configuration failed"
 
 	emake || die "Compilation failed"
