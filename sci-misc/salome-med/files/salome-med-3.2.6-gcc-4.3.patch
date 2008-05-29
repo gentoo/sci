@@ -1,0 +1,59 @@
+diff -aur src3.2.6.old/MED_SRC_3.2.6/src/INTERPOLATION/UseCasedTree.cxx src3.2.6/MED_SRC_3.2.6/src/INTERPOLATION/UseCasedTree.cxx
+--- src3.2.6.old/MED_SRC_3.2.6/src/INTERPOLATION/UseCasedTree.cxx	2008-05-25 19:32:53.000000000 +0200
++++ src3.2.6/MED_SRC_3.2.6/src/INTERPOLATION/UseCasedTree.cxx	2008-05-26 01:21:12.000000000 +0200
+@@ -20,7 +20,7 @@
+ #include "stdio.h"
+ #include "stdlib.h"
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "MEDMEM_InterpolationHighLevelObjects.hxx"
+ 
+diff -aur src3.2.6.old/MED_SRC_3.2.6/src/INTERPOLATION/UseCaseMapping.cxx src3.2.6/MED_SRC_3.2.6/src/INTERPOLATION/UseCaseMapping.cxx
+--- src3.2.6.old/MED_SRC_3.2.6/src/INTERPOLATION/UseCaseMapping.cxx	2008-05-25 19:32:53.000000000 +0200
++++ src3.2.6/MED_SRC_3.2.6/src/INTERPOLATION/UseCaseMapping.cxx	2008-05-26 01:33:32.000000000 +0200
+@@ -20,7 +20,7 @@
+ #include "stdio.h"
+ #include "stdlib.h"
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "MEDMEM_InterpolationHighLevelObjects.hxx"
+ 
+diff -aur src3.2.6.old/MED_SRC_3.2.6/src/INTERPOLATION/UseCaseWrapper_Maillage.cxx src3.2.6/MED_SRC_3.2.6/src/INTERPOLATION/UseCaseWrapper_Maillage.cxx
+--- src3.2.6.old/MED_SRC_3.2.6/src/INTERPOLATION/UseCaseWrapper_Maillage.cxx	2008-05-25 19:32:53.000000000 +0200
++++ src3.2.6/MED_SRC_3.2.6/src/INTERPOLATION/UseCaseWrapper_Maillage.cxx	2008-05-26 01:41:07.000000000 +0200
+@@ -20,7 +20,7 @@
+ #include "stdio.h"
+ #include "stdlib.h"
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "MEDMEM_InterpolationHighLevelObjects.hxx"
+ 
+diff -aur src3.2.6.old/MED_SRC_3.2.6/src/MEDMEM/MEDMEM_AsciiFieldDriver.hxx src3.2.6/MED_SRC_3.2.6/src/MEDMEM/MEDMEM_AsciiFieldDriver.hxx
+--- src3.2.6.old/MED_SRC_3.2.6/src/MEDMEM/MEDMEM_AsciiFieldDriver.hxx	2008-05-25 19:32:53.000000000 +0200
++++ src3.2.6/MED_SRC_3.2.6/src/MEDMEM/MEDMEM_AsciiFieldDriver.hxx	2008-05-26 00:59:23.000000000 +0200
+@@ -34,7 +34,7 @@
+ #include <iomanip>
+ #include <stdlib.h>
+ #include <string.h>
+-#include <fstream.h>
++#include <fstream>
+ 
+ #define PRECISION_IN_ASCII_FILE 10
+ #define PRECISION_IN_COMPARE 1e-10
+diff -aur src3.2.6.old/MED_SRC_3.2.6/src/MEDMEM/test_grid.cxx src3.2.6/MED_SRC_3.2.6/src/MEDMEM/test_grid.cxx
+--- src3.2.6.old/MED_SRC_3.2.6/src/MEDMEM/test_grid.cxx	2008-05-25 19:32:53.000000000 +0200
++++ src3.2.6/MED_SRC_3.2.6/src/MEDMEM/test_grid.cxx	2008-05-26 01:55:21.000000000 +0200
+@@ -18,6 +18,7 @@
+ // See http://www.salome-platform.org/ or email : webmaster.salome@opencascade.com
+ //
+ #include "MEDMEM_Grid.hxx"
++#include <memory>
+ 
+ using namespace MEDMEM;
+ using namespace MED_EN;

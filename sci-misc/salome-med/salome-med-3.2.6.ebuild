@@ -57,6 +57,11 @@ src_unpack()
 	epatch ${FILESDIR}/${P}_gcc4.patch
 	epatch ${FILESDIR}/${P}.patch
 	epatch ${FILESDIR}/${P}_environ.patch
+
+	# Gcc 4.3 support
+	if version_is_at_least "4.3" $(gcc-version) ; then
+		epatch "${FILESDIR}"/${P}-gcc-4.3.patch
+	fi
 }
 
 
