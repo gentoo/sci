@@ -32,10 +32,10 @@ RDEPEND="virtual/lapack
 		sci-libs/cxsparse )"
 
 DEPEND="${RDEPEND}
-	virtual/latex-base
-	|| ( ( dev-texlive/texlive-genericrecommended )
-		app-text/tetex 
-		app-text/ptex )
+	doc? ( virtual/latex-base
+		|| ( dev-texlive/texlive-genericrecommended 
+			app-text/tetex 
+			app-text/ptex ) )
 	dev-util/dejagnu
 	dev-util/gperf
 	dev-util/pkgconfig"
@@ -56,8 +56,6 @@ src_compile() {
 
 	econf \
 		--localstatedir=/var/state/octave \
-		--enable-rpath \
-		--enable-static \
 		--enable-shared \
 		--with-blas="$(pkg-config --libs blas)" \
 		--with-lapack="$(pkg-config --libs lapack)" \

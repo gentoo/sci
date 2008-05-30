@@ -2,6 +2,9 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 May 2008; Markus Dittrich <markusle@gentoo.org> octave-3.0.1.ebuild:
+  More cleanups.
+
   28 May 2008; Markus Dittrich <markusle@gentoo.org>
   +files/octave-3.0.1-add_syspath.patch,
   +files/octave-3.0.1-fix_handle_for_plotyy.patch,
