@@ -1,0 +1,8 @@
+# ChangeLog for sci-calculators/speedcrunch
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  02 Jun 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/speedcrunch-0.10-fix-icon-name.patch, +speedcrunch-0.10.ebuild:
+  Initial import, see bug #78113
+
