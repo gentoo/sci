@@ -1,5 +1,5 @@
 # Copyright 1999-2008 Gentoo Foundation
-# Distributed under the terms of the GNU General Public License v3
+# Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="1"
@@ -14,7 +14,7 @@ MY_P=${PN}$(replace_version_separator 3 .)
 DESCRIPTION="CERN's detector description and simulation Tool"
 HOMEPAGE="http://www.geant4.org/"
 
-SRC_COM="http://geant4.web.cern.ch/geant4/support/source/"
+SRC_COM="http://geant4.web.cern.ch/geant4/support/source"
 SRC_URI="${SRC_COM}/${MY_P}.tar.gz"
 GEANT4_DATA="G4NDL.3.12
 	G4EMLOW.5.1
@@ -47,7 +47,7 @@ S="${WORKDIR}/${MY_P}"
 pkg_setup() {
 	FORTRAN="gfortran g77 ifc"
 	use geant3 && fortran_pkg_setup
-	eval unset ${!G4_*}
+	eval unset ${!G4*}
 }
 
 src_unpack() {
@@ -68,6 +68,14 @@ src_unpack() {
 	sed -i \
 		-e '/$(G4LIB)\/$(G4SYSTEM)/d' \
 		config/architecture.gmk || die "sed architecture.gmk failed"
+	sed -i \
+		-e 's:$(G4LIB)/$(G4SYSTEM):$(G4TMP):g' \
+		config/common.gmk || die "sed common.gmk failed"
+	sed -i \
+		-e 's:$(G4LIB)/$(G4SYSTEM):$(G4TMP):g' \
+		-e 's:$(G4BIN)/$(G4SYSTEM):$(G4TMP):g' \
+		-e 's:$(G4TMP)/$(G4SYSTEM):$(G4TMP):g' \
+		source/GNUmakefile || die "sed GNUmakefile failed"
 }
 
 src_compile() {
@@ -141,27 +149,40 @@ g4_create_env_script() {
 		LDPATH=${G4LIB}
 		CLHEP_BASE_DIR=${CLHEP_BASE_DIR}
 	EOF
+
+	# detailed data file locations
+	if $(use data); then
+		export G4LEVELGAMMADATA="${G4DATA}/PhotonEvaporation2.0"
+		export G4RADIOACTIVEDATA="${G4DATA}/RadioactiveDecay3.2"
+		export G4LEDATA="${G4DATA}/G4EMLOW5.1"
+		export G4NEUTRONHPCROSSSECTIONS="${G4DATA}/G4NDL3.12"
+	fi
+
 	# read env variables defined upto now
 	printenv | grep ^G4 | uniq >> ${g4env}
-
 	# define env vars for capabilities we can build into user projects
 	printenv | uniq | \
 		sed -n -e '/^G4/s:BUILD\(.*\)_DRIVER:USE\1:gp' >> ${g4env}
-
 	doenvd ${g4env} || die "Installing environment scripts failed "
 }
 
 src_install() {
 	# install headers via make since we want them in a single directory
 	cd "${S}/source/"
+	einfo "Installing Geant4 headers"
 	emake includes || die 'Installing headers failed'
 	cd "${S}"
 
 	# but install libraries and Geant library tool manually
+	einfo "Installing Geant4 libraries"
 	insinto ${GEANT4_LIBDIR}
-	doins -r lib/${G4SYSTEM}/* || die
+	doins tmp/*.so || die
+	doins tmp/libname.map || die
+	if use static; then
+		doins tmp/*.a || die
+	fi
 	exeinto ${GEANT4_LIBDIR}
-	doexe lib/${G4SYSTEM}/liblist || die
+	doexe tmp/liblist || die
 
 	g4_create_env_script
 
@@ -171,13 +192,14 @@ src_install() {
 
 	# install data
 	if use data; then
+		einfo "Installing Geant4 data"
 		insinto ${G4DATA}
-		pushd "${WORKDIR}"
+		pushd "${WORKDIR}" > /dev/null
 		for d in ${GEANT4_DATA}; do
 			local p=${d/.}
 			doins -r *${p/G4} || die "installing data ${d} failed"
 		done
-		popd
+		popd > /dev/null
 	fi
 
 	# doc and examples
@@ -190,13 +212,13 @@ src_install() {
 	use examples && doins -r examples
 
 	# TODO: g4py will probably need a split ebuild since it seems to
-	# rely on on geant4 existence.
+	#       rely on on geant4 existence.
 	# TODO: momo with momo or java flag, and check java stuff
 }
 
 pkg_postinst() {
-	elog "Geant4 projects are by default expected in each user's "
-	elog "If you want to change, set \$G4WORKDIR to another directory"
+	elog "Geant4 projects are by default build in \$HOME/geant4."
+	elog "If you want to change, set \$G4WORKDIR to another directory."
 	elog
 	elog "Help us to improve the ebuild and dependencies in"
 	elog "http://bugs.gentoo.org/show_bug.cgi?id=212221"
