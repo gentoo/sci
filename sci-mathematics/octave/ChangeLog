@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Jun 2008; Markus Dittrich <markusle@gentoo.org>
+  +files/octave-3.0.1-chi2rnd.patch, octave-3.0.1.ebuild:
+  Added patch to fix stdout problem in chi2rnd function. Thanks much to Sven
+  Mattisson <sven.mattisson@gmail.com> for making us aware of this.
+
   29 May 2008; Markus Dittrich <markusle@gentoo.org> octave-3.0.1.ebuild:
   More cleanups.
 

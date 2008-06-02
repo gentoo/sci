@@ -50,6 +50,7 @@ src_unpack() {
 	epatch "${FILESDIR}"/${P}-add_syspath.patch
 	epatch "${FILESDIR}"/${P}-fix_handle_for_plotyy.patch
 	epatch "${FILESDIR}"/${P}-no_helvetica.patch
+	epatch "${FILESDIR}"/${P}-chi2rnd.patch
 }
 
 src_compile() {
