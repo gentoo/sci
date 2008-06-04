@@ -17,7 +17,7 @@ IUSE=""
 
 DEPEND=">=x11-libs/qt-4.2:4"
 
-LANGS="es_AR de cs en es fi fr he id it nl no pl pt ro ru sv tr pt_BR"
+LANGS="cs de es es_AR fi fr he id it nl no pl pt pt_BR ro ru sv tr"
 for lang in ${LANGS}; do
 	IUSE="${IUSE} linguas_${lang}"
 done
@@ -27,25 +27,23 @@ S="${WORKDIR}/${P}/src"
 src_unpack( ) {
 	unpack ${A}
 	epatch "${FILESDIR}"/${P}-fix-icon-name.patch
+	cd "${S}"
+	# substitute translation file with a stripped one
+	{
+		echo "set(speedcrunch_TRANSLATIONS"
+		local lang
+		for lang in ${LANGS}; do
+			use linguas_${lang} && echo "i18n/${lang}.qm"
+			use linguas_${lang} || sed -i -e "s:books/${lang}::" CMakeLists.txt
+		done
+		echo ")"
+	} > Translations.cmake
 }
 
 src_install() {
 	cmake-utils_src_install
-	# install the translation files
-	strip-linguas ${LANGS}
-	if [[ -n ${LINGUAS} ]]; then
-		einfo "Translations for the following languages will be installed:"
-		einfo "${LINGUAS}"
-		insinto /usr/share/${PN}/translations
-		for lang in ${LINGUAS}; do
-			doins i18n/${lang}.qm
-		done
-	fi
-
-	doicon resources/speedcrunch.png
-	make_desktop_entry ${PN} "SpeedCrunch"
 	cd ..
-	dodoc ChangeLog* HACKING.txt LISEZMOI PACKAGERS README TRANSLATORS
+	dodoc ChangeLog ChangeLog.floatnum HACKING.txt LISEZMOI README TRANSLATORS
 }
 
 pkg_postinst() {
