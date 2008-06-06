@@ -2,6 +2,9 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jun 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  added openib.env per bug #223955 comment #17
+
 *openib-files-1.2.5.5 (05 Jun 2008)
 
   05 Jun 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:

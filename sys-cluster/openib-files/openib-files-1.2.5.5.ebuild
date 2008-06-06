@@ -33,6 +33,7 @@ src_install() {
 	newins "${SCRIPTDIR}/90-ib.rules" 40-ib.rules
 	insinto /etc/modules.d
 	newins "${FILESDIR}/openib.modprobe.${PV}" openib
+	newenvd "${FILESDIR}/openib.env" 02openib
 	insinto /etc/infiniband
 
 	doinitd "${FILESDIR}/openib"
