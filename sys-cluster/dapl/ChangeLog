@@ -1,6 +1,11 @@
 # ChangeLog for sys-cluster/dapl
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*dapl-2.0.9 (06 Jun 2008)
+
+  06 Jun 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  added dapl-2.0.9.ebuild
 
 *dapl-1.2.2 (27 Nov 2007)
 *dapl-2.0.1 (27 Nov 2007)

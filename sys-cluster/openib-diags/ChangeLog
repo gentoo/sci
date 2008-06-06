@@ -1,6 +1,11 @@
 # ChangeLog for sys-cluster/openib-diags
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*openib-diags-1.4.0 (06 Jun 2008)
+
+  06 Jun 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  added openib-diags-1.4.0
 
 *openib-diags-1.3.2 (27 Nov 2007)
 

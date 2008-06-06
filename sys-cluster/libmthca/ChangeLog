@@ -1,6 +1,11 @@
 # ChangeLog for sys-cluster/libmthca
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libmthca-1.0.5 (06 Jun 2008)
+
+  06 Jun 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  added libmthca-1.0.5.ebuild
 
 *libmthca-1.0.4 (26 Nov 2007)
 
