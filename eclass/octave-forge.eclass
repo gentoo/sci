@@ -3,7 +3,7 @@
 # $Header
 
 #
-# Version: 0.10 (2008-05-26)
+# Version: 0.11 (2008-06-06)
 # Authors: Markus Dittrich <markusle@gentoo.org>
 #
 # The octave-forge eclass installs and manages the split
@@ -44,11 +44,10 @@ RDEPEND="${RDEPEND}
 # define global paths needed for the install
 #################################################################
 OCT_PKG=${P#octave-forge-}
-OCT_PKG_NAME=${PN#octave-forge-}
 OCT_PKG_TARBALL="${OCT_PKG}.tar.gz"
-OCT_INSTALL_ROOT=/usr/share/octave
+OCT_INSTALL_ROOT="/usr/share/octave"
 OCT_INSTALL_PKG="${OCT_INSTALL_ROOT}/packages/${OCT_PKG}"
-OCT_INSTALL_PATH="/usr/share/octave/packages"
+OCT_INSTALL_PATH="${OCT_INSTALL_ROOT}/packages"
 OCT_BINARY=$(type -p octave)
 OCT_DATABASE="${OCT_INSTALL_ROOT}/octave_packages"
 OCT_DESC="${OCT_INSTALL_PKG}/packinfo/DESCRIPTION"
@@ -57,7 +56,8 @@ S="${WORKDIR}/${OCT_PKG}"
 
 #################################################################
 # extract package description from the DESCRIPTION file into
-# an array so we can use it later to update the octave database
+# a bash array so we can use it later to update the octave 
+# database
 #################################################################
 get_description()
 {
@@ -88,10 +88,9 @@ get_description()
 
 
 ################################################################
-# this function reads the DESCRIPTION file into a bash array,
-# then uses the latter to generate a temporary octave file and
-# finally calls octave on the temporary file to update the
-# database
+# this function uses the DESCRIPTION file parsed into a bash
+# array to update the octave package database via creating
+# a temporary octave file and calling octave on it
 ################################################################
 add_pkg_to_database()
 {
@@ -141,7 +140,7 @@ add_pkg_to_database()
 	ebegin "Adding package to global octave database."
 	"${OCT_BINARY}" -q "${OCT_TMP}" >& /dev/null
 	eend $?
-	echo;
+	echo
 
 	# remove the temporary octave file
 	rm -f "${OCT_TMP}" \
@@ -151,7 +150,7 @@ add_pkg_to_database()
 
 #################################################################
 # this function removes an octave-forge package from the
-# to global package database
+# global octave package database
 #################################################################
 delete_pkg_from_database()
 {
@@ -188,10 +187,11 @@ delete_pkg_from_database()
 	ebegin "Removing from database"
 	"${OCT_BINARY}" -q "${OCT_TMP}"  >& /dev/null
 	eend $?
+	echo
 
 	# if the database file is empty we get rid of it completely
-	# otherwise octave will be confused. To do so, we simply
-	# check if there are any author fields left.
+	# otherwise octave will be confused. To check if it is empty, 
+	# we simply test if there are any author fields remaining.
 	fgrep 'author' "${OCT_DATABASE}"  >& /dev/null
 	if [[ $? == 1 ]]; then
 		ebegin "Purging empty database"
@@ -207,13 +207,15 @@ delete_pkg_from_database()
 
 
 #################################################################
-# our custom src_compile tries to do the Right Thing for each
-# of the individual octave-forge packages. Some require
-# compilation via configure/make, make only, and some simply
-# install several *.m files without any compilation at all.
+# since we use octave's package installed for compiling we need
+# to provide the raw gzipped octave-forge source tarballs. 
+# Hence, if there are no patches to apply, we simply copy the
+# tarball to ${WORKDIR}. If there are patches we unpack
+# the tarball in ${WORKDIR}, apply the patches, and repack it.
 #################################################################
 octave-forge_src_unpack() {
-	
+	cd "${WORKDIR}"
+
 	if [[ -n "${PATCHES}" ]]; then
 		unpack "${A}"
 		pushd "${S}" >& /dev/null
@@ -222,8 +224,8 @@ octave-forge_src_unpack() {
 		done
 		popd >& /dev/null
 		tar czf "${OCT_PKG_TARBALL}" "${OCT_PKG}" \
-		&& rm -fr "${OCT_PKG}" \
-		|| die "Failed to recompress the source"
+			&& rm -fr "${OCT_PKG}" \
+			|| die "Failed to recompress the source"
 	else
 		cp "${DISTDIR}/${OCT_PKG_TARBALL}" ./
 	fi
@@ -265,7 +267,7 @@ octave-forge_src_install() {
 	insinto ${OCT_INSTALL_PATH}
 	doins -r ${OCT_PKG} || die "Failed to install files."
 
-	# make .oct, .mex, *.so file exectutable
+	# make .oct, .mex, *.so files executable
 	# we don't die after the finds since chmod will complain
 	# if there aren't any files to act on
 	target="${D}"${OCT_INSTALL_PATH}/${OCT_PKG}
@@ -280,7 +282,7 @@ octave-forge_src_install() {
 
 
 ##################################################################
-# after installing add package to global octave database
+# after installation, add package to global octave database
 ##################################################################
 octave-forge_pkg_postinst() {
 	add_pkg_to_database
@@ -288,7 +290,7 @@ octave-forge_pkg_postinst() {
 
 
 ##################################################################
-# after unmerging remove package from global octave database
+# after unmerging, remove package from global octave database
 ##################################################################
 octave-forge_pkg_prerm() {
 	delete_pkg_from_database
