@@ -27,14 +27,22 @@ sys-cluster/openib:ipath - add PathScale HCA support.
 sys-cluster/openib:opensm - add OpenSM Subnet Management support.
 sys-cluster/openib-drivers:memtrack - enable momory tracking
 sys-cluster/openib-drivers:hpage-patch - apply huge pages patch
-sys-cluster/openib-drivers:srp - make CONFIG_INFINIBAND_SDP=m
-sys-cluster/openib-drivers:ipath - make CONFIG_INFINIBAND_IPATH=m
-sys-cluster/openib-drivers:iser - make CONFIG_INFINIBAND_ISER=m
-sys-cluster/openib-drivers:ehca - make CONFIG_INFINIBAND_EHCA=m
-sys-cluster/openib-drivers:rds - make CONFIG_RDS=m
-sys-cluster/openib-drivers:madeye - make CONFIG_INFINIBAND_MADEYE=m
-sys-cluster/openib-drivers:vnic - make CONFIG_INFINIBAND_VNIC=m
-sys-cluster/openib-drivers:cxgb3 - make CONFIG_INFINIBAND_CXGB3=m
+sys-cluster/openib-drivers:srp - make SRP module
+sys-cluster/openib-drivers:ipath - make IPATH module
+sys-cluster/openib-drivers:iser - make ISER module
+sys-cluster/openib-drivers:ehca - make EHCA module
+sys-cluster/openib-drivers:rds - make RDS module
+sys-cluster/openib-drivers:madeye - make MADEYE module
+sys-cluster/openib-drivers:mlx4 - make MLX4 module
+sys-cluster/openib-drivers:vnic - make VNIC module
+sys-cluster/openib-drivers:cxgb3 - make CXGB3 module
+sys-cluster/openib-files:ehca - load EHCA module
+sys-cluster/openib-files:ipath - load IPATH module
+sys-cluster/openib-files:iser - load ISER module
+sys-cluster/openib-files:mlx4 - load MLX4 module
+sys-cluster/openib-files:rds - load RDS module
+sys-cluster/openib-files:srp - load SRP module
+sys-cluster/openib-files:vnic - load VNIC module
 sys-cluster/openib-userspace:srptools - include srptools package
 sys-cluster/openib-userspace:ehca - include libehca package
 sys-cluster/openib-userspace:ipath - add PathScale HCA support
