@@ -1,8 +1,0 @@
-# ChangeLog for media-gfx/dawn
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  04 Apr 2008; Sébastien Fabbro <bicatali@gentoo.org>
-  +files/dawn-3.88a-no-interactive.patch, +dawn-3.88a.ebuild:
-  Initial import.
-
