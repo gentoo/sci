@@ -1,8 +1,0 @@
-# ChangeLog for sci-physics/clhep
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  15 Jan 2008; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
-  +clhep-2.0.3.2.ebuild:
-  Initial import
-
