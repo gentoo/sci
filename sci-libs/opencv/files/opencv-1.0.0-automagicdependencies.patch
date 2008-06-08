@@ -1,0 +1,413 @@
+--- opencv-1.0.0-orig/configure.in	2006-11-03 10:54:33.000000000 -0500
++++ opencv-1.0.0/configure.in	2008-06-07 09:49:34.000000000 -0400
+@@ -81,13 +81,14 @@
+ AC_ARG_ENABLE([debug],
+               [AS_HELP_STRING([--enable-debug],[build debug version without optimization])],
+               [debug=$enableval], 
+-              [debug=no])
++              [debug="no"])
++AM_CONDITIONAL([ENABLE_DEBUG], [test x"$enable_debug" = x"yes"])
+ 
+ # does the user want to build demo applications?
+ AC_ARG_ENABLE([apps],
+               [AS_HELP_STRING([--enable-apps],[build demo applications])],
+               [enable_apps=$enableval],
+-              [enable_apps="yes"])
++              [enable_apps="no"])
+ AM_CONDITIONAL([BUILD_APPS], [test x"$enable_apps" = x"yes"])
+ 
+ 
+@@ -101,55 +102,64 @@
+ AC_ARG_WITH([swig], 
+             [AS_HELP_STRING([--with-swig],[use swig wrapper generator])],
+             [with_swig=$withval],
+-            [with_swig=no])
++            [with_swig="no"])
++AM_CONDITIONAL([WITH_SWIG], [test x"$with_swig" = x"yes"])
+ 
+ # does the user want to compile python modules as well?
+ AC_ARG_WITH([python], 
+             [AS_HELP_STRING([--with-python],[use python for wrapping])],
+             [with_python=$withval],
+-            [with_python=yes])
++            [with_python="no"])
++AM_CONDITIONAL([WITH_PYTHON], [test x"$with_python" = x"yes"])
+ 
+ # does the user want OpenCV to use xine video libraries?
+ AC_ARG_WITH([xine],
+             [AS_HELP_STRING([--with-xine],[use xine libraries (see LICENSE)])],
+             [with_xine=$withval],
+-            [with_xine=no])
++            [with_xine="no"])
++AM_CONDITIONAL([WITH_XINE], [test x"$with_xine" = x"yes"])
+ 
+ # does the user want OpenCV to use ffmpeg video libraries?
+ AC_ARG_WITH([ffmpeg],
+             [AS_HELP_STRING([--with-ffmpeg],[use ffmpeg libraries (see LICENSE)])],
+             [with_ffmpeg=$withval],
+-            [with_ffmpeg=auto])
++            [with_ffmpeg="no"])
++AM_CONDITIONAL([WITH_XINE], [test x"$with_xine" = x"yes"])
+ 
+ # does the user want OpenCV to use libraw1394/libdc1394 for video input?
+ AC_ARG_WITH([1394libs],
+             [AS_HELP_STRING([--with-1394libs],[use libraw1394/libdc1394])],
+             [with_1394libs=$withval],
+-            [with_1394libs=auto])
++            [with_1394libs="no"])
++AM_CONDITIONAL([WITH_1394LIBS], [test x"$with_1394libs" = x"yes"])
+ 
+ # does the user want OpenCV to use the video4linux kernel module?
+ AC_ARG_WITH([v4l],
+             [AS_HELP_STRING([--with-v4l],[use video4linux])],
+             [with_v4l=$withval],
+-            [with_v4l=auto])
++            [with_v4l="no"])
++AM_CONDITIONAL([WITH_V4L], [test x"$with_v4l" = x"yes"])
+ 
+ # does the user want OpenCV to use QuickTime video libraries?
+ AC_ARG_WITH([quicktime],
+             [AS_HELP_STRING([--with-quicktime],[use QuickTime libraries])],
+             [with_quicktime=$withval],
+-            [with_quicktime=yes])
++            [with_quicktime="no"])
++AM_CONDITIONAL([WITH_QUICKTIME], [test x"$with_quicktime" = x"yes"])
+ 
+ # does the user want OpenCV to use the Carbon GUI of Mac OS X?
+ AC_ARG_WITH([carbon],
+             [AS_HELP_STRING([--with-carbon],[use Carbon windows])],
+             [with_carbon=$withval],
+-            [with_carbon=yes])
++            [with_carbon="no"])
++AM_CONDITIONAL([WITH_CARBON], [test x"$with_carbon" = x"yes"])
+ 
+ # does the user want OpenCV to use GTK+ 2.0 for the GUI?
+ AC_ARG_WITH([gtk],
+             [AS_HELP_STRING([--with-gtk],[use gtk+ 2.0 windows])],
+             [with_gtk=$withval],
+-            [with_gtk=auto])
++            [with_gtk="no"])
++AM_CONDITIONAL([WITH_GTK], [test x"$with_gtk" = x"yes"])
+ 
+ 
+ ######################################################################
+@@ -340,7 +350,7 @@
+ 
+ # if QuickTime is present, it will override everything else,
+ # (unless '--without-quicktime' was given)
+-if test x"$with_quicktime" = "xyes"; then
++if test x"$with_quicktime" = x"yes"; then
+ 
+     # check other ./configure flags
+     if test x"$with_ffmpeg" = "xyes"; then
+@@ -460,92 +470,47 @@
+ 
+ # IEEE1394 / FireWire video video i/o with libdc1394, libraw1394
+ # (can be managed by QuickTime as well)
+-if test x"$with_1394libs" = "xno"; then
++if test x"$with_1394libs" = x"no"; then
+     have_raw1394=no
+     have_dc1394=no
+     # IEEE1394LIBS=""
+-else
++fi
++if test x"$with_1394libs" = x"yes"; then
+ 
+-    # check if ./configure arguments are valid
+-    if test x"$with_1394libs" = "xauto"; then
+-       with_1394libs=yes
+-    fi
+-    if test x"$with_1394libs" = "xyes"; then
+-    
+-        SAVELIBS="$LIBS"
+-        have_raw1394=no
+-        have_dc1394=no
+-        
+-        AC_CHECK_HEADER(libraw1394/raw1394.h,
+-                        AC_CHECK_LIB(raw1394, raw1394_new_handle, 
+-                                     [
+-                                       have_raw1394=yes
+-                                       LIBS="-lm -lraw1394 $LIBS"
+-                                     ]))
+-        
+-        if test x"$have_raw1394" = "xyes"; then
+-            AC_CHECK_HEADER(libdc1394/dc1394_control.h,
+-                            AC_CHECK_LIB(dc1394_control, dc1394_camera_on, 
+-                                         [
+-                                           have_dc1394=yes
+-                                           AC_DEFINE(HAVE_DC1394,,[IEEE1394 capturing support])
+-                                           AC_EGREP_HEADER(do_extra_buffering, libdc1394/dc1394_control.h,
+-                                                           [AC_DEFINE(HAVE_DC1394_095,,[libdc1394 0.9.4 or 0.9.5])])
+-                                           IEEE1394LIBS="-lm -lraw1394 -ldc1394_control"
+-                                         ]))
+-        fi
+-        
+-        LIBS="$SAVELIBS"
+-    else
+-        # if we get here then --with-1394libs was not called with 'yes','no' or 'auto'
+-        AC_MSG_WARN([unexpected arguments for option --with-1394libs, continuing assuming 'no'])
+-        have_dc1394=no
+-    fi
++	AC_CHECK_HEADER(libraw1394/raw1394.h,, [AC_MSG_ERROR([1394 requested but header file libraw1394/raw1394.h not found])])
++	AC_CHECK_LIB(raw1394, raw1394_new_handle,, [AC_MSG_ERROR([1394 requested but 1394 libraries not found])])
++	AC_CHECK_HEADER(libdc1394/dc1394_control.h,, [AC_MSG_ERROR([1394 requested but header file libdc1394/dc1394_control.h not found])])
++	AC_CHECK_LIB(dc1394_control, dc1394_camera_on,, [AC_MSG_ERROR([1394 requested but 1394 raw libraries not found])])
++	AC_DEFINE(HAVE_DC1394,, [IEEE1394 capturing support])
++	have_raw1394=yes
++	have_dc1394=yes
++	LIBS="-lm -lraw1394 $LIBS"
++	IEEE1394LIBS="-lm -lraw1394 -ldc1394_control"
++    SAVELIBS="$LIBS"
++	LIBS="$SAVELIBS"
+ fi
+ AC_SUBST(IEEE1394LIBS)
+-AM_CONDITIONAL([BUILD_DC1394], [test x"$have_dc1394" = "xyes"])
++AM_CONDITIONAL([BUILD_DC1394], [test x"$have_dc1394" = x"yes"])
+ 
+ # Video for Linux (V4L) 
+ # we support version 1 and 2 currently
+-if test x"$with_v4l" = "xno"; then
+-    have_v4l=no
+-    have_v4l2=no
+-    have_v4l1or2=no
+-else
+-    # check if ./configure arguments are valid
+-    if test x"$with_v4l" = "xauto"; then
+-       with_v4l=yes
+-    fi
+-    if test x"$with_v4l" = "xyes"; then
+-        AC_CHECK_HEADER([linux/videodev.h],
+-                        [
+-                          AC_DEFINE(HAVE_CAMV4L,,[V4L capturing support])
+-                          have_v4l=yes
+-                          have_v4l1or2=yes
+-                        ],
+-                        [ 
+-                          have_v4l=no
+-                          have_v4l1or2=no
+-                        ])
+-        AC_CHECK_HEADER([linux/videodev2.h],
+-                        [
+-                          AC_DEFINE(HAVE_CAMV4L2,,[V4L2 capturing support])
+-                          have_v4l2=yes
+-                          have_v4l1or2=yes
+-                        ],
+-                        [ have_v4l2=no ],
+-                [[
+-                #include <asm/types.h>
+-                #include <sys/time.h>
+-                ]])
+-    else
+-        # if we get here then --with-v4l was not called with 'yes','no' or 'auto'
+-        AC_MSG_WARN([unexpected arguments for option --with-v4l, continuing assuming 'no'])
+-        have_v4l=no
+-        have_v4l2=no
+-        have_v4l1or2=no
+-    fi
++have_v4l=no
++have_v4l2=no
++have_v4l1or2=no
++if test x"$with_v4l" = x"yes"; then
++	AC_CHECK_HEADER(linux/videodev.h,, [AC_MSG_ERROR([Video4linux requested but header file linux/videodev.h not found])])
++	AC_DEFINE(HAVE_CAMV4L,,[V4L capturing support])
++	have_v4l=yes
++fi
++
++if test x"$with_v4l2" = x"yes"; then
++	AC_CHECK_HEADER(linux/videodev2.h,, [AC_MSG_ERROR([Video4linux2 requested but header file linux/videodev.h not found])])
++	AC_DEFINE(HAVE_CAMV4L2,, [V4L2 capturing support])
++	have_v4l2=yes
++fi
+ 
++if test x"$with_v4l" = x"yes" && test x"$with_v4l2" = x"yes"; then
++	have_v4l1or2=yes
+ fi
+ AM_CONDITIONAL([BUILD_V4L], [test x"$have_v4l1or2" = "xyes"])
+ 
+@@ -558,78 +523,86 @@
+ 
+ AC_SUBST(IMAGELIBS)
+ 
+-have_jpeg=no
+-AC_CHECK_HEADER(jpeglib.h,
+-                AC_CHECK_LIB(jpeg, jpeg_destroy_decompress,
+-                             [
+-                               have_jpeg=yes
+-                               AC_DEFINE(HAVE_JPEG,,[IJG JPEG codec])
+-                               IMAGELIBS="$IMAGELIBS -ljpeg"
+-                             ]))
+-
+-have_zlib=no
+-AC_CHECK_HEADER(zlib.h,
+-                AC_CHECK_LIB(z, gzopen,
+-                             [
+-                               have_zlib=yes
+-                               AC_DEFINE(HAVE_ZLIB,,[LZ77 compression/decompression library (used for PNG)])
+-                               IMAGELIBS="$IMAGELIBS -lz -lm"
+-                               LIBS="$LIBS -lz -lm"
+-                             ]))
+-
+-have_png=no
+-AC_CHECK_HEADER(png.h, 
+-                [
+-                  AC_DEFINE(HAVE_PNG_H,,[png.h needs to be included])
+-                  have_png=yes
+-                ])
+-AC_CHECK_HEADER([libpng/png.h], 
+-                [
+-                  AC_DEFINE(HAVE_LIBPNG_PNG_H,,[libpng/png.h needs to be included])
+-                  have_png=yes
+-                ])
+-if test x"$have_png" = "xyes"; then
+-    AC_CHECK_LIB(png12, png_read_image,
+-                 [
+-                   have_png=yes
+-                   AC_DEFINE(HAVE_PNG,,[PNG codec])
+-                   IMAGELIBS="-lpng12 $IMAGELIBS"
+-                   LIBS="-lpng12 $LIBS"
+-                   AC_CHECK_FUNCS(png_get_valid png_set_tRNS_to_alpha)
+-                 ],
+-                 [ have_png=no ])
+-fi
+-
+-have_tiff=no
+-AC_CHECK_HEADER(tiff.h,
+-                AC_CHECK_LIB(tiff, TIFFReadRGBAStrip,
+-                             [
+-                               have_tiff=yes
+-                               AC_DEFINE(HAVE_TIFF,,[TIFF codec])
+-                               IMAGELIBS="$IMAGELIBS -ltiff"
+-                               LIBS="$LIBS -ltiff"
+-                             ]))
+-
+-have_jasper=no
+-AC_CHECK_HEADER(jasper/jasper.h,
+-                AC_CHECK_LIB(jasper, jas_image_readcmpt,
+-                             [
+-                               have_jasper=yes
+-                               AC_DEFINE(HAVE_JASPER,,[JPEG-2000 codec])
+-                               IMAGELIBS="$IMAGELIBS -ljasper"
+-                               LIBS="$LIBS -ljasper"
+-                             ]))
+-
+-have_ilmimf=no
+-AC_CHECK_HEADER(ImfCRgbaFile.h,
+-                AC_CHECK_LIB(IlmImf, ImfInputReadPixels,
+-                             [
+-                               have_ilmimf=yes
+-                               AC_DEFINE(HAVE_ILMIMF,,[OpenEXR codec])
+-                               IMAGELIBS="$IMAGELIBS -lIlmImf -lIex -lHalf"
+-                               LIBS="$LIBS -lIlmImf -lIex -lHalf"
+-                             ],,
+-                             [ -lIex -lHalf ]))
++AC_ARG_ENABLE(jpeg,
++	[AS_HELP_STRING([--enable-jpeg], [Enable JPEG Image I/O])],
++	[enable_jpeg=$enableval],
++	[enable_jpeg=no])
++
++if test x"$enable_jpeg" = x"yes"; then
++	AC_CHECK_HEADER(jpeglib.h,, [AC_MSG_ERROR([Jpeg library requested but header jpeglib.h not found])])
++	AC_CHECK_LIB(jpeg, jpeg_destroy_compress,, [AC_MSG_ERROR([Jpeg library requested but libraries not found])])
++	IMAGELIBS="$IMAGELIBS -ljpeg"
++	AC_DEFINE(HAVE_JPEG,,[IJG JPEG codec])
++fi
++
++AC_ARG_ENABLE(zlib,
++	[AS_HELP_STRING([--enable-zlib], [Enable Zlib compression])],
++	[enable_zlib=$enableval],
++	[enable_zlib=no])
++
++if test x"$enable_zlib" = x"yes"; then
++	AC_CHECK_HEADER(zlib.h,, [AC_MSG_ERROR([Zlib library requested but header zlib.h not found])])
++	AC_CHECK_LIB(z,gzopen,, [AC_MSG_ERROR([Zlib library requested but libraries not found])])
++	AC_DEFINE(HAVE_ZLIB,,[lZ77 compression/decompression library (used for PNG)])
++	IMAGELIBS="$IMAGELIBS -lz -lm"
++	LIBS="$LIBS -lz -lm"
++fi
++
++AC_ARG_ENABLE(png,
++	[AS_HELP_STRING([--enable-png], [Enable PNG Image I/O])],
++	[enable_png=$enableval],
++	[enable_png=no])
++
++if test x"$enable_png" = x"yes"; then
++	AC_CHECK_HEADER(png.h,, [AC_MSG_ERROR([PNG requested but headers not found])])
++	AC_CHECK_LIB(png12, png_read_image,, [AC_MSG_ERROR([PNG requested but libraries not found])])
++	AC_DEFINE(HAVE_PNG,, [PNG codec])
++	AC_DEFINE(HAVE_PNG_H,, [PNG header])
++	IMAGELIBS="`libpng-config --ldflags` $IMAGELIBS"
++	LIBS="`libpng-config --ldflags` $IMAGELIBS"
++	AC_CHECK_FUNCS(png_get_valid png_set_tRNS_to_alpha)
++fi
++AM_CONDITIONAL([HAVE_PNG], [test x"$enable_png" = x"yes"])
++
++AC_ARG_ENABLE(tiff,
++	[AS_HELP_STRING([--enable-tiff], [Enable TIFF Image I/O])],
++	[enable_tiff=$enableval],
++	[enable_tiff=no])
++
++if test x"$enable_tiff" = x"yes"; then
++	AC_CHECK_HEADER(tiff.h,, [AC_MSG_ERROR([Tiff requested but header file not found])])
++	AC_CHECK_LIB(tiff, TIFFReadRGBAStrip,, [AC_MSG_ERROR([Tiff requested but libraries not found])])
++	AC_DEFINE(HAVE_TIFF,,[TIFF codec])
++	IMAGELIBS="$IMAGELIBS -ltiff"
++	LIBS="$LIBS -ltiff"
++fi
++
++AC_ARG_ENABLE(jasper,
++	[AS_HELP_STRING([--enable-jasper], [Enable Jasper])],
++	[enable_jasper=$enableval],
++	[enable_jasper=no])
++
++if test x"$enable_jasper" = x"yes"; then
++	AC_CHECK_HEADER(jasper/jasper.h,, [AC_MSG_ERROR([Jasper requested but header filejasper/jasper.h not found])])
++	AC_CHECK_LIB(jasper, jas_image_readcmpt,, [AC_MSG_ERROR([Jasper requested but libraries not found])])
++	AC_DEFINE(HAVE_JASPER,, [JPEG-2000 codec])
++	IMAGELIBS="$IMAGELIBS -ljasper"
++	LIBS="$LIBS -ljasper"
++fi
++
++
++AC_ARG_ENABLE(openexr,
++	[AS_HELP_STRING([--enable-openexr], [Enable Openexr support])],
++	[enable_openexr=$enableval],
++	[enable_openexr=no])
++
++if test x"$enable_openexr" = x"yes"; then
++	AC_CHECK_HEADER(OpenEXR/ImfCRgbaFile.h,, [AC_MSG_ERROR([Openexr requested but header file ImfCrgbaFile.h not found])])
++	AC_CHECK_LIB(IlmImf, ImfInputReadPixels,, [AC_MSG_ERROR([Openexr requested but libraries not found])])
++	AC_DEFINE(HAVE_ILMIMF,, [OpenExr codec])
++	IMAGELIBS="$IMAGELIBS -lIlmImf -lIex -lHalf"
++	LIBS="$LIBS -lIlmImf -lIex -lHalf"
++fi
+ 
+ # Restore original LIBS settings...
+ LIBS="$SAVELIBS"
+@@ -690,7 +663,7 @@
+ AM_CONDITIONAL([BUILD_PYTHON_WRAPPERS], [test x"$have_python" = "xyes"])
+ 
+ # check for swig itself
+-SWIG=""
++SWIG="no"
+ if test x"$with_swig" = "xyes"; then
+     AC_MSG_NOTICE([Checking for SWIG])
+ 
+@@ -807,12 +780,12 @@
+     Use gthread:              ${have_gthread}
+     
+     Image I/O ---------------------
+-    Use libjpeg:              ${have_jpeg}
+-    Use zlib:                 ${have_zlib}
+-    Use libpng:               ${have_png}
+-    Use libtiff:              ${have_tiff}
+-    Use libjasper:            ${have_jasper}
+-    Use libIlmImf:            ${have_ilmimf}
++    Use libjpeg:              ${enable_jpeg}
++    Use zlib:                 ${enable_zlib}
++    Use libpng:               ${enable_png}
++    Use libtiff:              ${enable_tiff}
++    Use libjasper:            ${enable_jasper}
++    Use libIlmImf:            ${enable_openexr}
+     
+     Video I/O ---------------------
+     Use QuickTime / Mac OS X: ${have_quicktime}
