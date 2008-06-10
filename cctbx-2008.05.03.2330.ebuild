@@ -28,9 +28,9 @@ src_unpack() {
 
 src_compile() {
 	python_version
-	
+
 	MAKEOPTS_EXP=${MAKEOPTS/j/j }
-	
+
 	# Get CXXFLAGS in format suitable for substitition into SConscript
 	for i in ${CXXFLAGS}; do
 		OPTS="${OPTS} \"${i}\","
@@ -92,5 +92,5 @@ src_test(){
 
 src_install(){
 	dodir /usr/share/${P}
-	cp -r cctbx_build/* ${D}/usr/share/${P}/
+	cp -r cctbx_build/* "${D}"/usr/share/${P}/
 }
