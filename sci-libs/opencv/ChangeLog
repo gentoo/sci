@@ -4,6 +4,10 @@
 
   12 Jun 2008; Thomas Anderson (gentoofan23) <gentoofan23@gmail.com>
   ChangeLog:
+  And add a missing patch, forgot to 'svn add'
+
+  12 Jun 2008; Thomas Anderson (gentoofan23) <gentoofan23@gmail.com>
+  ChangeLog:
   Fix ffmpeg linking with sws_getContext by adding -lswscale to FFMPEGLIBS,
   and fix up ffmpeg's configure checks as well
 
