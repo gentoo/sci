@@ -4,6 +4,11 @@
 
   12 Jun 2008; Thomas Anderson (gentoofan23) <gentoofan23@gmail.com>
   ChangeLog:
+  Add demos USE flag for sample opencv applications, change to a better
+  format(unified) for the cvcapffmpeg patch
+
+  12 Jun 2008; Thomas Anderson (gentoofan23) <gentoofan23@gmail.com>
+  ChangeLog:
   Fixxor AC_CONFIG_MACRO_DIR conflicts with ACLOCAL_AMFLAGS
 
   08 Jun 2008; Thomas Anderson (gentoofan23) <gentoofan23@gmail.com>

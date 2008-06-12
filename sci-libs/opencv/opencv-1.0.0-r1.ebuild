@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/${PN}library/${P}.tar.gz"
 LICENSE="v4l? ( GPL-2 ) xine? ( GPL-2 ) Intel"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="debug examples ffmpeg gtk ieee1394 jpeg jpeg2k openexr png python tiff xine v4l zlib"
+IUSE="debug demos examples ffmpeg gtk ieee1394 jpeg jpeg2k openexr png python tiff xine v4l zlib"
 
 COMMON_DEPEND="ffmpeg? ( media-video/ffmpeg )
 	gtk? ( x11-libs/gtk+:2 )
@@ -41,10 +41,11 @@ src_unpack() {
 	# remove the install-hook that runs ldconfig.
 	sed -i '/install-hook:/,/^$/d' Makefile.am
 
-	epatch "${FILESDIR}"/${P}-cvcapffmpeg.patch
 	epatch "${FILESDIR}"/${P}-fixpythonmultilib.patch
 	epatch "${FILESDIR}"/${P}-automagicdependencies.patch
 	epatch "${FILESDIR}"/${P}-havepngexrdefs.patch
+	epatch "${FILESDIR}"/${P}-addoptionalsamples.patch
+	epatch "${FILESDIR}"/${P}-cvcapffmpegundefinedsymbols.patch
 
 	eautoreconf || die "eautoreconf failed"
 }
@@ -62,8 +63,9 @@ src_compile() {
 		$(use_with ieee1394 1394libs) \
 		$(use_with v4l) \
 		$(use_with v4l v4l2) \
-		$(use_enable examples) \
+		$(use_enable examples samples) \
 		$(use_enable debug) \
+		$(use_enable demos apps) \
 		$(use_enable zlib) \
 		$(use_enable jpeg) \
 		$(use_enable png) \
