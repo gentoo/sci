@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Jun 2008; Thomas Anderson (gentoofan23) <gentoofan23@gmail.com>
+  ChangeLog:
+  Fixxor AC_CONFIG_MACRO_DIR conflicts with ACLOCAL_AMFLAGS
+
   08 Jun 2008; Thomas Anderson (gentoofan23) <gentoofan23@gmail.com>
   ChangeLog:
   Initial import, bug #70506

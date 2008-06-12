@@ -1,6 +1,14 @@
 --- opencv-1.0.0-orig/configure.in	2006-11-03 10:54:33.000000000 -0500
-+++ opencv-1.0.0/configure.in	2008-06-07 09:49:34.000000000 -0400
-@@ -81,13 +81,14 @@
++++ opencv-1.0.0/configure.in	2008-06-12 10:36:29.000000000 -0400
+@@ -20,7 +20,6 @@
+ AC_INIT([opencv],[opencv_version],[opencvlibrary-devel@lists.sourceforge.net])
+ AC_CONFIG_SRCDIR([opencv.pc.in])
+ AC_CONFIG_AUX_DIR([autotools])
+-AC_CONFIG_MACRO_DIR([autotools/aclocal])
+ 
+ # put CVS revision of this configure.in into the resulting configure script
+ AC_REVISION($Revision: 1.39 $)
+@@ -81,15 +80,22 @@
  AC_ARG_ENABLE([debug],
                [AS_HELP_STRING([--enable-debug],[build debug version without optimization])],
                [debug=$enableval], 
@@ -16,8 +24,16 @@
 +              [enable_apps="no"])
  AM_CONDITIONAL([BUILD_APPS], [test x"$enable_apps" = x"yes"])
  
++AC_ARG_ENABLE([samples],
++              [AS_HELP_STRING([--enable-samples],[install sample source code])],
++              [enable_samples=$enableval],
++              [enable_samples="no"])
++AM_CONDITIONAL([INSTALL_SAMPLES], [test x"$enable_samples" = x"yes"])
++
  
-@@ -101,55 +102,64 @@
+ # the following checks reflect the dependencies of OpenCV on other
+ # libraries that do the actual work for video I/O or windowing 
+@@ -101,55 +107,64 @@
  AC_ARG_WITH([swig], 
              [AS_HELP_STRING([--with-swig],[use swig wrapper generator])],
              [with_swig=$withval],
@@ -91,7 +107,7 @@
  
  
  ######################################################################
-@@ -340,7 +350,7 @@
+@@ -340,7 +355,7 @@
  
  # if QuickTime is present, it will override everything else,
  # (unless '--without-quicktime' was given)
@@ -100,7 +116,7 @@
  
      # check other ./configure flags
      if test x"$with_ffmpeg" = "xyes"; then
-@@ -460,92 +470,47 @@
+@@ -460,92 +475,47 @@
  
  # IEEE1394 / FireWire video video i/o with libdc1394, libraw1394
  # (can be managed by QuickTime as well)
@@ -224,7 +240,7 @@
  fi
  AM_CONDITIONAL([BUILD_V4L], [test x"$have_v4l1or2" = "xyes"])
  
-@@ -558,78 +523,86 @@
+@@ -558,78 +528,86 @@
  
  AC_SUBST(IMAGELIBS)
  
@@ -383,7 +399,7 @@
  
  # Restore original LIBS settings...
  LIBS="$SAVELIBS"
-@@ -690,7 +663,7 @@
+@@ -690,7 +668,7 @@
  AM_CONDITIONAL([BUILD_PYTHON_WRAPPERS], [test x"$have_python" = "xyes"])
  
  # check for swig itself
@@ -392,7 +408,7 @@
  if test x"$with_swig" = "xyes"; then
      AC_MSG_NOTICE([Checking for SWIG])
  
-@@ -807,12 +780,12 @@
+@@ -807,12 +785,12 @@
      Use gthread:              ${have_gthread}
      
      Image I/O ---------------------
@@ -411,3 +427,11 @@
      
      Video I/O ---------------------
      Use QuickTime / Mac OS X: ${have_quicktime}
+@@ -828,6 +806,7 @@
+ 
+ Additional build settings ============================================
+     Build demo apps           ${enable_apps}
++    Install source snippets   ${enable_samples}
+ 
+ Now run make ...
+ ])
