@@ -1,5 +1,5 @@
 --- opencv-1.0.0-orig/configure.in	2006-11-03 10:54:33.000000000 -0500
-+++ opencv-1.0.0/configure.in	2008-06-12 10:36:29.000000000 -0400
++++ opencv-1.0.0/configure.in	2008-06-12 14:25:31.000000000 -0400
 @@ -20,7 +20,6 @@
  AC_INIT([opencv],[opencv_version],[opencvlibrary-devel@lists.sourceforge.net])
  AC_CONFIG_SRCDIR([opencv.pc.in])
@@ -116,7 +116,53 @@
  
      # check other ./configure flags
      if test x"$with_ffmpeg" = "xyes"; then
-@@ -460,92 +475,47 @@
+@@ -423,129 +438,62 @@
+ AC_SUBST(XINE_LIBS)
+ AM_CONDITIONAL([BUILD_XINE], [test x"$have_xine" = "xyes"])
+ 
+-# unfortunately, xine does not feature video writing,
+-# so we have to resort to FFMPEG here
+-if test x"$with_ffmpeg" = "xno"; then
+-    have_ffmpeg=no
+-    # FFMPEGLIBS=""
+-else
+-
+-    # check if ./configure arguments are valid
+-    if test x"$with_ffmpeg" = "xauto"; then
+-       with_ffmpeg=yes
+-    fi
+-    if test x"$with_ffmpeg" = "xyes"; then
+-        AC_CHECK_HEADER(ffmpeg/avcodec.h,
+-                        AC_CHECK_LIB(avcodec, avcodec_decode_video,
+-                                     [
+-                                       AC_CHECK_LIB(avformat, av_open_input_file,
+-                                                    [
+-                                                      have_ffmpeg=yes
+-                                                      AC_DEFINE(HAVE_FFMPEG,,[FFMpeg video library])
+-                                                      FFMPEGLIBS="-lavcodec -lavformat"
+-                                                    ],
+-                                                    [ have_ffmpeg=no ],
+-                                                    [-lavcodec])
+-                                     ],
+-                                     [ have_ffmpeg=no ]),
+-                        [ have_ffmpeg=no ])
+-    else
+-        # if we get here then --with-ffmpeg was not called with 'yes','no' or 'auto'
+-        AC_MSG_WARN([unexpected arguments for option --with-ffmpeg, continuing assuming 'no'])
+-        have_ffmpeg=no
+-    fi
++if test x"$with_ffmpeg" = x"yes"; then
++        AC_CHECK_HEADER(ffmpeg/avcodec.h,, [AC_MSG_ERROR([FFmpeg requested but header file ffmpeg/avcodec.h not found])])
++        AC_CHECK_HEADER(ffmpeg/swscale.h,, [AC_MSG_ERROR([FFmpeg requested but header file ffmpeg/swscale.h not found])])
++        AC_CHECK_LIB(avcodec, avcodec_decode_video,, [AC_MSG_ERROR([FFmpeg requested but ffmpeg libraries not found])])
++        AC_CHECK_LIB(avformat, av_open_input_file,, [AC_MSG_ERROR([FFmpeg requested but ffmpeg libraries not found])])
++        AC_CHECK_LIB(swscale, sws_getContext,, [AC_MSG_ERROR([FFmpeg requested but ffmpeg libraries not found])])
++        AC_DEFINE(HAVE_FFMPEG,,[FFMpeg video library])
++        FFMPEGLIBS="-lavcodec -lavformat -lswscale"
++        have_ffmpeg=yes
+ fi
+ AC_SUBST(FFMPEGLIBS)
+ AM_CONDITIONAL([BUILD_FFMPEG], [test x"$have_ffmpeg" = "xyes"])
  
  # IEEE1394 / FireWire video video i/o with libdc1394, libraw1394
  # (can be managed by QuickTime as well)
@@ -240,7 +286,7 @@
  fi
  AM_CONDITIONAL([BUILD_V4L], [test x"$have_v4l1or2" = "xyes"])
  
-@@ -558,78 +528,86 @@
+@@ -558,78 +506,86 @@
  
  AC_SUBST(IMAGELIBS)
  
@@ -399,7 +445,7 @@
  
  # Restore original LIBS settings...
  LIBS="$SAVELIBS"
-@@ -690,7 +668,7 @@
+@@ -690,7 +646,7 @@
  AM_CONDITIONAL([BUILD_PYTHON_WRAPPERS], [test x"$have_python" = "xyes"])
  
  # check for swig itself
@@ -408,7 +454,7 @@
  if test x"$with_swig" = "xyes"; then
      AC_MSG_NOTICE([Checking for SWIG])
  
-@@ -807,12 +785,12 @@
+@@ -807,12 +763,12 @@
      Use gthread:              ${have_gthread}
      
      Image I/O ---------------------
@@ -427,7 +473,7 @@
      
      Video I/O ---------------------
      Use QuickTime / Mac OS X: ${have_quicktime}
-@@ -828,6 +806,7 @@
+@@ -828,6 +784,7 @@
  
  Additional build settings ============================================
      Build demo apps           ${enable_apps}

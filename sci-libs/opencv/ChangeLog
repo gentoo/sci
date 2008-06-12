@@ -4,6 +4,11 @@
 
   12 Jun 2008; Thomas Anderson (gentoofan23) <gentoofan23@gmail.com>
   ChangeLog:
+  Fix ffmpeg linking with sws_getContext by adding -lswscale to FFMPEGLIBS,
+  and fix up ffmpeg's configure checks as well
+
+  12 Jun 2008; Thomas Anderson (gentoofan23) <gentoofan23@gmail.com>
+  ChangeLog:
   Add demos USE flag for sample opencv applications, change to a better
   format(unified) for the cvcapffmpeg patch
 
