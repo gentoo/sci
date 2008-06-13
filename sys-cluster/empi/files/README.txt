@@ -61,7 +61,7 @@ atoms are used, but not required.
     $ eselect mpi set mpi-openmpi
     $ echo <<-EOF >> .bash_profile
 for i in $(ls ${HOME}/.env.d/*); do
-    source ${HOME}/.env.d/${i}
+    source ${i}
 done
 EOF
     $ source .bash_profile
