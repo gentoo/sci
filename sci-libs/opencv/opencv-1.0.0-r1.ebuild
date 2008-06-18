@@ -13,7 +13,7 @@ SRC_URI="mirror://sourceforge/${PN}library/${P}.tar.gz"
 ##stuff, same for v4l
 LICENSE="v4l? ( GPL-2 ) xine? ( GPL-2 ) Intel"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="debug demos examples ffmpeg gtk ieee1394 jpeg jpeg2k openexr png python tiff xine v4l zlib"
 
 COMMON_DEPEND="ffmpeg? ( media-video/ffmpeg )
@@ -31,8 +31,6 @@ COMMON_DEPEND="ffmpeg? ( media-video/ffmpeg )
 DEPEND="${COMMON_DEPEND}
 	gtk? ( dev-util/pkgconfig )"
 RDEPEND="${COMMON_DEPEND}"
-
-RESTRICT="mirror"
 
 src_unpack() {
 	unpack ${A}

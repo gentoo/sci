@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Jun 2008; Thomas Anderson (gentoofan23) <gentoofan23@gmail.com>
+  ChangeLog:
+  Remove unnecessary RESTRICT, keyword for x86 since pchrist tested it
+
   12 Jun 2008; Thomas Anderson (gentoofan23) <gentoofan23@gmail.com>
   ChangeLog:
   And add a missing patch, forgot to 'svn add'
