@@ -11,4 +11,4 @@ SRC_URI="mirror://sourceforge/octave/${OCT_PKG}.tar.gz"
 SLOT="0"
 
 IUSE=""
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
