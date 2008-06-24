@@ -100,7 +100,7 @@ add_pkg_to_database()
 	get_description
 
 	# securely generate tmp file
-	OCT_TMP=$(mktemp generate-database.XXXXXXXXXX) \
+	OCT_TMP=$(mktemp ${T}/generate-database.XXXXXXXXXX) \
 		|| die "Failed to generate temporary file."
 
 	if [ -e "${OCT_DATABASE}" ]; then
@@ -167,7 +167,7 @@ delete_pkg_from_database()
 	done
 
 	# securely generate tmp file
-	OCT_TMP=$(mktemp /tmp/generate-database.XXXXXXXXXX) || \
+	OCT_TMP=$(mktemp ${T}/generate-database.XXXXXXXXXX) || \
 		die "Failed to generate temporary file."
 
 	# generate octave code to remove relevant entry from
@@ -239,7 +239,7 @@ octave-forge_src_compile() {
 	cd "${WORKDIR}"
 
 	# securely generate tmp file
-	OCT_TMP=$(mktemp /tmp/octave-install.XXXXXXXXXX) || \
+	OCT_TMP=$(mktemp ${T}/octave-install.XXXXXXXXXX) || \
 		die "Failed to generate temporary file."
 
 	# generate octave code to remove relevant entry from
