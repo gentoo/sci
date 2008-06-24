@@ -4,7 +4,7 @@
 
 inherit eutils
 
-DESCRIPTION="Phylogenetic aligner for sequence evolution simulation"
+DESCRIPTION="DNA Assembly With Gaps: Phylogenetic aligner for sequence evolution simulation"
 HOMEPAGE="http://scit.us/projects/dawg/"
 SRC_URI="http://scit.us/projects/files/dawg/Releases/${P}-release.tar.gz"
 
