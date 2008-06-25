@@ -1,6 +1,6 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /CVS/groups/vistech/bgreen-overlay/dev-cpp/growler-math/growler-math-0.3.1.ebuild,v 1.1.1.1 2007/10/12 20:18:26 bgreen Exp $
+# $Header: $
 
 SLOT="0"
 LICENSE="NOSA"

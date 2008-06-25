@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,7 @@ LICENSE="NOSA"
 
 KEYWORDS="~amd64 ~x86"
 
-DESCRIPTION="Growler-Arch is the set growler libraries and utilities that provide a distributed object architecture and environment."
+DESCRIPTION="Growler-Arch are growler libraries and utilities."
 HOMEPAGE="http://www.nas.nasa.gov/~bgreen/growler/"
 SRC_URI="${HOMEPAGE}/downloads/growler-arch-${PV}.tar.gz"
 
