@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 inherit subversion elisp-common
@@ -48,7 +48,6 @@ src_compile() {
 }
 
 src_install() {
-	cd "${S}"
 	cat > 64aldor <<EOF
 ALDORROOT=/opt/${PN}/linux/${PV}
 PATH=/opt/${PN}/linux/${PV}/bin
