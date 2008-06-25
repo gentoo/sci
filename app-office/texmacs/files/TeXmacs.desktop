@@ -7,4 +7,4 @@ Icon=/usr/share/TeXmacs/misc/pixmaps/TeXmacs.xpm
 Name=TeXmacs
 GenericName=Scientific Word Processor
 Comment=A scientific word processing application.
-Categories=Application;Office;WordProcessor
+Categories=Application;Office;WordProcessor;
