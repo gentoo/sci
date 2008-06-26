@@ -1,0 +1,28 @@
+Software and source code Copyright (C) 1998-2000 Stanford University Written by
+Michael Eisen (eisen@genome.stanford.edu) This software is copyright under the
+following conditions: Permission to use, copy, and modify this software and its
+documentation is hereby granted to all academic and not-for-profit institutions
+without fee, provided that the above copyright notice and this permission notice
+appear in all copies of the software and related documentation. Permission to
+distribute the software or modified or extended versions thereof on a
+not-for-profit basis is explicitly granted, under the above conditions. However,
+the right to use this software by companies or other for profit organizations,
+or in conjunction with for profit activities, and the right to distribute the
+software or modified or extended versions thereof for profit are NOT granted
+except by prior arrangement and written consent of the copyright holders. For
+these purposes, downloads of the source code constitute "use" and downloads of
+this source code by for profit organizations and/or distribution to for profit
+institutions in explicitly prohibited without the prior consent of the copyright
+holders. Use of this source code constitutes an agreement not to criticize, in
+any way, the code-writing style of the author, including any statements
+regarding the extent of documentation and comments present. The software is
+provided "AS-IS" and without warranty of ank kind, express, implied or
+otherwise, including without limitation, any warranty of merchantability or
+fitness for a particular purpose. In no event shall Stanford University or the
+authors be liable for any special, incudental, indirect or consequential damages
+of any kind, or any damages whatsoever resulting from loss of use, data or
+profits, whether or not advised of the possibility of damage, and on any theory
+of liability, arising out of or in connection with the use or performance of
+this software. This code was written using Borland C++ Builder (Inprise Inc.,
+www.inprise.com) and may be subject to certain additional restrictions as a
+result.
