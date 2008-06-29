@@ -24,7 +24,7 @@ DEPEND=">=sci-libs/fftw-3.0.1
 		x11-libs/libXp
 		x11-libs/libXext
 		x11-proto/xproto
-		virtual/motif )
+		x11-libs/motif )
 	blas? ( virtual/blas )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
