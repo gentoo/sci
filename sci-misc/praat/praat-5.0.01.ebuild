@@ -19,7 +19,7 @@ DEPEND="|| ( ( x11-libs/libXmu
 		)
 		virtual/x11
 	)
-	virtual/motif"
+	x11-libs/motif"
 RDEPEND="${DEPEND}"
 KEYWORDS="~x86"
 IUSE=""
