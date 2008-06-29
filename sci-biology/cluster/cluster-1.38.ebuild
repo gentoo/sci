@@ -11,7 +11,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="X"
 
-DEPEND="X? ( x11-libs/motif )"
+DEPEND="X? ( x11-libs/openmotif )"
 RDEPEND="X? ( x11-misc/xdg-utils app-text/xpdf )"
 
 RESTRICT="fetch"
