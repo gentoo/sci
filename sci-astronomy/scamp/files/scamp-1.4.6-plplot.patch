@@ -1,0 +1,57 @@
+--- configure.ac.orig	2008-05-31 17:35:29.000000000 +0100
++++ configure.ac	2008-07-01 23:42:06.624440703 +0100
+@@ -23,7 +23,7 @@
+ sinclude(acx_atlas.m4)
+ sinclude(acx_cdsclient.m4)
+ sinclude(acx_fftw.m4)
+-sinclude(acx_plplot.m4)
++#sinclude(acx_plplot.m4)
+ sinclude(acx_prog_cc_optim.m4)
+ sinclude(acx_pthread.m4)
+ sinclude(acx_urbi_resolve_dir.m4)
+@@ -93,17 +93,9 @@
+ 
+ # Provide a special option for PlPLOT
+ AC_ARG_WITH(plplot,
+-    [AC_HELP_STRING([--with-plplot@<:@=<PLPlot dir>@:>@],
+-    [Provide an alternative path to the PLPlot library])],
+-    use_plplot="yes"
+-    if "$withval" == "no"; then
+-      use_plplot="no"
+-    fi
+-    if test "$withval" != "yes"; then
+-      plplot_dir=$withval
+-    fi,
+-    use_plplot="yes"
+-    )
++    [AC_HELP_STRING([--with-plplot],
++    [Build with the PLPlot library])])
++
+ 
+ # Provide special option for debugging
+ AC_MSG_CHECKING([for debugger mode])
+@@ -239,19 +231,14 @@
+ fi
+ 
+ ################# handle the PLPlot library (graphic plots) ##################
+-if test "$use_plplot" = "yes"; then
+-  ACX_PLPLOT(,,[use_plplot=no])
+-  if test "$use_plplot" = "no"; then
+-    AC_MSG_WARN(PLPlot library not found! Plotting deactivated.)
+-  fi
+-fi
+-
+-if test "$use_plplot" = "yes"; then
++if test x"$with_plplot" = x"yes"; then
++   PKG_PROG_PKG_CONFIG
++   PKG_CHECK_MODULES(PLPLOT, plplot)
+   AC_SUBST(PLPLOT_CFLAGS)
+   [CFLAGS="$CFLAGS $PLPLOT_CFLAGS"]
+   [LIBS="$PLPLOT_LIBS $PTHREAD_LIBS $LIBS"]
+-  fi
+-AM_CONDITIONAL(USE_PLPLOT, test $use_plplot = "yes")
++fi
++AM_CONDITIONAL(USE_PLPLOT, test x"$with_plplot" = x"yes")
+ 
+ # Special optimization options for the INTEL C compiler
+ if test $use_icc = "yes" && test $CC = "icc"; then

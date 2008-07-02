@@ -1,6 +1,11 @@
 # ChangeLog for sci-astronomy/scamp
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  02 Jul 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/scamp-1.4.6-plplot.patch, -files/scamp-atlas.patch,
+  -scamp-1.4.0.ebuild, +scamp-1.4.6.ebuild:
+  Version bump.
 
   08 Nov 2007; Sébastien Fabbro <bicatali@gentoo.org>
   +files/scamp-atlas.patch, -scamp-1.3.11.ebuild, +scamp-1.4.0.ebuild:
