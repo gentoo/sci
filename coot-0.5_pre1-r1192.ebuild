@@ -54,7 +54,6 @@ src_unpack() {
 	epatch "${FILESDIR}"/0.5_pre1-gcc-4.3.patch
 
 	epatch "${FILESDIR}"/${PV}-as-needed.patch
-	epatch "${FILESDIR}"/${PV}-include-ccp4mg-utils.patch
 	epatch "${FILESDIR}"/0.4.1-link-against-guile-gtk-properly.patch
 	epatch "${FILESDIR}"/0.4.1-fix-namespace-error.patch
 
@@ -111,11 +110,11 @@ src_compile() {
 	popd
 
 	# Parallel build's broken
-	emake -j1 || die "emake failed"
+	emake || die "emake failed"
 }
 
 src_install() {
-	emake -j1 DESTDIR="${D}" install || die "install failed"
+	emake DESTDIR="${D}" install || die "install failed"
 
 	# Install misses this
 	insinto /usr/share/coot/python
