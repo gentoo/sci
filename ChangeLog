@@ -1,0 +1,28 @@
+# ChangeLog for dev-scheme/guile-lib
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/dev-scheme/guile-lib/ChangeLog,v 1.6 2007/09/02 12:55:40 hkbst Exp $
+
+  02 Sep 2007; Marijn Schouten <hkBst@gentoo.org> guile-lib-0.1.3.ebuild:
+  add block to old g-wrap versions because of file collisions with
+  /usr/share/guile/site/srfi/srfi-3[45].scm
+
+  04 Jul 2007; Gustavo Zacarias <gustavoz@gentoo.org>
+  guile-lib-0.1.3.ebuild:
+  Keyworded ~sparc wrt #182336
+
+  24 Jun 2007; Christoph Mende <angelos@gentoo.org> guile-lib-0.1.3.ebuild:
+  Added ~amd64 wrt bug 182336
+
+  19 Jun 2007; Raúl Porcel <armin76@gentoo.org> guile-lib-0.1.3.ebuild:
+  Add ~alpha wrt #182336
+
+  18 Jun 2007; Marijn Schouten <hkBst@gentoo.org> guile-lib-0.1.3.ebuild:
+  only check use flags for recent versions of guile, thanks for patch from
+  Steve L <slong@rathaus.eclipse.co.uk>
+
+*guile-lib-0.1.3 (06 Jun 2007)
+
+  06 Jun 2007; Donnie Berkholz <dberkholz@gentoo.org>; +metadata.xml,
+  +guile-lib-0.1.3.ebuild:
+  (#169018) Add guile-lib, an accumulation place for pure-scheme Guile modules.
+
