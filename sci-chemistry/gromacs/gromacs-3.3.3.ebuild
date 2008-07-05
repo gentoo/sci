@@ -1,6 +1,7 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+EAPI="1"
 LIBTOOLIZE="true"
 inherit autotools eutils flag-o-matic fortran multilib
 
@@ -82,11 +83,6 @@ src_compile() {
 	# Static linking should try -lgcc instead of -lgcc_s.
 	# For more info:
 	# http://lists.debian.org/debian-gcc/2002/debian-gcc-200201/msg00150.html
-
-	# if we don't set C[XX]FLAGS configure will set: -O3 -finline-functions
-	# -funroll-all-loops
-#	append-flags "-O3 -finline-functions -funroll-all-loops"
-#	use x86 && append-flags "-malign-double"
 
 	# We will compile single precision by default, and suffix double-precision with _d.
 	# Sparc is the only arch I can test on that needs to use fortran.
@@ -174,34 +170,41 @@ src_compile() {
 	if ( use double-precision && use single-precision ); then
 		einfo "Building Single Precison Gromacs"
 		cd "${WORKDIR}"/"${P}"-single
-		myconf="${myconf}  --enable-float"
+		myconf="${myconf}  --enable-float --disable-double --program-suffix=''"
 		econf ${myconf} || die "Single Precision econf failed"
 		emake || die "Single Precision emake failed"
 
 		einfo "Building Double Precision Gromacs"
 		cd "${WORKDIR}"/"${P}"-double
-		myconf="${myconf} --enable-double --program-suffix=_d"
+		myconf="${myconf} --enable-double --disable-float --program-suffix=_d"
 		econf ${myconf} || die "Double Precision econf failed"
 		emake || die "Double Precision emake failed"
-	else
+
+	elif use double-precision ; then
+		einfo "Building Double Precison Gromacs"
+		cd "${WORKDIR}"/"${P}"-double
+		myconf="${myconf} --enable-double --disable-float --program-suffix=''"
+		econf ${myconf} || die "Double Precision econf failed"
+		emake || die "Double Precision emake failed"
+
+	elif use single-precision ; then
 		einfo "Building Single Precison Gromacs"
 		cd "${WORKDIR}"/"${P}"-single
-		myconf="${myconf} $(use_enable double-precision double) \
-				$(use_enable single-precision float)"
+		myconf="${myconf} --enable-float --disable-double --program-suffix=''"
 		econf ${myconf} || die "configure failed"
 		emake || die "Single Precision emake failed"
 	fi
 }
 
 src_install() {
-	if ( use single-precision ); then
+	if use single-precision ; then
 		einfo "Installing Single Precision"
 		cd "${WORKDIR}"/"${P}"-single
 		emake DESTDIR="${D}" install || die "Installing Single Precision failed"
 	fi
 
-	if ( use double-precision ) ; then
-	einfo "Installing Double Precision"
+	if use double-precision ; then
+		einfo "Installing Double Precision"
 		cd "${WORKDIR}"/"${P}"-double
 		emake DESTDIR="${D}" install || die "Installing Double Precision failed"
 	fi
