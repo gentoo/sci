@@ -87,6 +87,8 @@ src_compile() {
 	# We will compile single precision by default, and suffix double-precision with _d.
 	# Sparc is the only arch I can test on that needs to use fortran.
 	local myconf ;
+	local myconf_s ;
+	local myconf_d ;
 
 	case "${ARCH}" in
 
@@ -170,28 +172,28 @@ src_compile() {
 	if ( use double-precision && use single-precision ); then
 		einfo "Building Single Precison Gromacs"
 		cd "${WORKDIR}"/"${P}"-single
-		myconf="${myconf}  --enable-float --disable-double --program-suffix=''"
-		econf ${myconf} || die "Single Precision econf failed"
+		myconf_s="${myconf}  --enable-float --disable-double --program-suffix=''"
+		econf ${myconf_s} || die "Single Precision econf failed"
 		emake || die "Single Precision emake failed"
 
 		einfo "Building Double Precision Gromacs"
 		cd "${WORKDIR}"/"${P}"-double
-		myconf="${myconf} --enable-double --disable-float --program-suffix=_d"
-		econf ${myconf} || die "Double Precision econf failed"
+		myconf_d="${myconf} --enable-double --disable-float --program-suffix=_d"
+		econf ${myconf_d} || die "Double Precision econf failed"
 		emake || die "Double Precision emake failed"
 
 	elif use double-precision ; then
 		einfo "Building Double Precison Gromacs"
 		cd "${WORKDIR}"/"${P}"-double
-		myconf="${myconf} --enable-double --disable-float --program-suffix=''"
-		econf ${myconf} || die "Double Precision econf failed"
+		myconf_d="${myconf} --enable-double --disable-float --program-suffix=''"
+		econf ${myconf_d} || die "Double Precision econf failed"
 		emake || die "Double Precision emake failed"
 
 	elif use single-precision ; then
 		einfo "Building Single Precison Gromacs"
 		cd "${WORKDIR}"/"${P}"-single
-		myconf="${myconf} --enable-float --disable-double --program-suffix=''"
-		econf ${myconf} || die "configure failed"
+		myconf_s="${myconf} --enable-float --disable-double --program-suffix=''"
+		econf ${myconf_s} || die "configure failed"
 		emake || die "Single Precision emake failed"
 	fi
 }
