@@ -1,5 +1,8 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+  6 July 2008; Daniel Tourde <daniel.tourde@caelae.se>
+  Updated to a new gcc-4.3 patch provided by Bert K.
+
   29 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
   +salome-kernel-3.2.6-gcc-4.3.patch
   Added support to gcc-4.3. Patch provided by Bert Karwatzki <spasswolf@web.de>

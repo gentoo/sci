@@ -1,6 +1,6 @@
 diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch/Batch_BatchManager_Local.cxx src3.2.6/KERNEL_SRC_3.2.6/src/Batch/Batch_BatchManager_Local.cxx
---- src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch/Batch_BatchManager_Local.cxx	2008-05-25 19:32:46.000000000 +0200
-+++ src3.2.6/KERNEL_SRC_3.2.6/src/Batch/Batch_BatchManager_Local.cxx	2008-05-25 23:14:01.000000000 +0200
+--- src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch/Batch_BatchManager_Local.cxx	2008-06-27 00:33:32.000000000 +0200
++++ src3.2.6/KERNEL_SRC_3.2.6/src/Batch/Batch_BatchManager_Local.cxx	2008-06-27 00:34:52.000000000 +0200
 @@ -32,6 +32,7 @@
  #include <cstdlib>
  #include <sys/types.h>
@@ -9,9 +9,43 @@ diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch/Batch_BatchManager_Local.cxx s
  #include <ctime>
  #include <unistd.h>
  #include <pthread.h>
+diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch/Batch_BatchManager_PBS.cxx src3.2.6/KERNEL_SRC_3.2.6/src/Batch/Batch_BatchManager_PBS.cxx
+--- src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch/Batch_BatchManager_PBS.cxx	2008-06-27 00:33:32.000000000 +0200
++++ src3.2.6/KERNEL_SRC_3.2.6/src/Batch/Batch_BatchManager_PBS.cxx	2008-06-27 00:44:06.000000000 +0200
+@@ -34,6 +34,7 @@
+ #include <iostream>
+ #include <fstream>
+ #include <sstream>
++#include <cstdlib>
+ //#include "MEDMEM_STRING.hxx"
+ #include "Batch_BatchManager_PBS.hxx"
+ using namespace std;
+diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch/Batch_JobInfo_PBS.cxx src3.2.6/KERNEL_SRC_3.2.6/src/Batch/Batch_JobInfo_PBS.cxx
+--- src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch/Batch_JobInfo_PBS.cxx	2008-06-27 00:33:32.000000000 +0200
++++ src3.2.6/KERNEL_SRC_3.2.6/src/Batch/Batch_JobInfo_PBS.cxx	2008-06-27 00:36:07.000000000 +0200
+@@ -29,6 +29,8 @@
+ 
+ #include <cstdio>
+ #include <sstream>
++#include <cstring>
++#include <cstdlib>
+ //#include "MEDMEM_STRING.hxx"
+ #include "Batch_Parametre.hxx"
+ #include "Batch_Environnement.hxx"
+diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch/Batch_Job_PBS.cxx src3.2.6/KERNEL_SRC_3.2.6/src/Batch/Batch_Job_PBS.cxx
+--- src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch/Batch_Job_PBS.cxx	2008-06-27 00:33:32.000000000 +0200
++++ src3.2.6/KERNEL_SRC_3.2.6/src/Batch/Batch_Job_PBS.cxx	2008-06-27 00:49:11.000000000 +0200
+@@ -30,6 +30,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <unistd.h>
++#include <cstring>
+ #include "Batch_Job_PBS.hxx"
+ using namespace std;
+ 
 diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server.hxx src3.2.6/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server.hxx
---- src3.2.6.old/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server.hxx	2008-05-25 19:32:46.000000000 +0200
-+++ src3.2.6/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server.hxx	2008-05-25 22:59:09.000000000 +0200
+--- src3.2.6.old/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server.hxx	2008-06-27 00:33:32.000000000 +0200
++++ src3.2.6/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server.hxx	2008-06-27 00:34:52.000000000 +0200
 @@ -12,7 +12,8 @@
  #define SALOME_Logger_Server_include
  
@@ -32,8 +66,8 @@ diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server.hxx src3
  		std::ofstream m_outputFile; 
  #endif
 diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server_main.cxx src3.2.6/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server_main.cxx
---- src3.2.6.old/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server_main.cxx	2008-05-25 19:32:46.000000000 +0200
-+++ src3.2.6/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server_main.cxx	2008-05-25 22:06:37.000000000 +0200
+--- src3.2.6.old/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server_main.cxx	2008-06-27 00:33:32.000000000 +0200
++++ src3.2.6/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server_main.cxx	2008-06-27 00:34:52.000000000 +0200
 @@ -9,6 +9,7 @@
  //  Module : SALOME
  
@@ -43,8 +77,8 @@ diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/Logger/SALOME_Logger_Server_main.cxx
  #include <SALOMEconfig.h>
  #include <sys/types.h>
 diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/SALOMELocalTrace/LocalTraceBufferPool.cxx src3.2.6/KERNEL_SRC_3.2.6/src/SALOMELocalTrace/LocalTraceBufferPool.cxx
---- src3.2.6.old/KERNEL_SRC_3.2.6/src/SALOMELocalTrace/LocalTraceBufferPool.cxx	2008-05-25 19:32:46.000000000 +0200
-+++ src3.2.6/KERNEL_SRC_3.2.6/src/SALOMELocalTrace/LocalTraceBufferPool.cxx	2008-05-25 19:34:23.000000000 +0200
+--- src3.2.6.old/KERNEL_SRC_3.2.6/src/SALOMELocalTrace/LocalTraceBufferPool.cxx	2008-06-27 00:33:32.000000000 +0200
++++ src3.2.6/KERNEL_SRC_3.2.6/src/SALOMELocalTrace/LocalTraceBufferPool.cxx	2008-06-27 00:34:52.000000000 +0200
 @@ -27,6 +27,7 @@
  #include <iostream>
  #include <limits.h>
@@ -54,8 +88,8 @@ diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/SALOMELocalTrace/LocalTraceBufferPoo
  #ifndef WNT
  #include <dlfcn.h>
 diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/TOOLSDS/SALOMEDS_Tool.cxx src3.2.6/KERNEL_SRC_3.2.6/src/TOOLSDS/SALOMEDS_Tool.cxx
---- src3.2.6.old/KERNEL_SRC_3.2.6/src/TOOLSDS/SALOMEDS_Tool.cxx	2008-05-25 19:32:46.000000000 +0200
-+++ src3.2.6/KERNEL_SRC_3.2.6/src/TOOLSDS/SALOMEDS_Tool.cxx	2008-05-25 23:04:39.000000000 +0200
+--- src3.2.6.old/KERNEL_SRC_3.2.6/src/TOOLSDS/SALOMEDS_Tool.cxx	2008-06-27 00:33:32.000000000 +0200
++++ src3.2.6/KERNEL_SRC_3.2.6/src/TOOLSDS/SALOMEDS_Tool.cxx	2008-06-27 00:34:52.000000000 +0200
 @@ -41,8 +41,8 @@
  
  #ifndef WNT
