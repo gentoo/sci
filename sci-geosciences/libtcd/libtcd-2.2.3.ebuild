@@ -7,7 +7,7 @@ HOMEPAGE="http://www.flaterco.com/xtide/libtcd.html"
 SRC_URI="ftp://ftp.flaterco.com/xtide/${P}.tar.bz2"
 LICENSE="public-domain"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~x86 ~amd64"
 IUSE="doc"
 DEPEND=">=sci-geosciences/harmonics-dwf-free-20071228
 	non-commercial?	( >=sci-geosciences/harmonics-dwf-free-noncomm-20071228 )"
