@@ -2,6 +2,9 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jul 2008; Tim Cera <timcera@earthlink.net> +xtide-2.10-r1.ebuild:
+  Added dependencies to xtide-2.10-r1.ebuild.
+
   16 May 2008; Tim Cera <timcera@earthlink.net> +xtide-2.10.ebuild,
   +metadata.xml:
   Initial import.
