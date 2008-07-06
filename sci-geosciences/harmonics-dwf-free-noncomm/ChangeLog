@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jul 2008; Tim Cera <timcera@earthlink.net>
+  harmonics-dwf-free-noncomm-20071228.ebuild:
+  Added ~x86 per http://bugs.gentoo.org/show_bug.cgi?id=214873#c4
+
   16 May 2008; Tim Cera <timcera@earthlink.net>
   +harmonics-dwf-free-noncomm-20071228.ebuild, +metadata.xml:
   Initial import.
