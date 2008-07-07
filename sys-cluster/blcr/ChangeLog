@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  07 Jul 2008; Tim Cera <timcera@earthlink.net> blcr-0.6.5.ebuild,
+  +metadata.xml:
+  Minor repoman edits.
+
   27 Mar 2008; Justin Bronder <jsbronder@gentoo.org> ChangeLog:
   Initial import of blcr.  Thanks to kuffs (Aaron Tygart) for the ebuild.
 

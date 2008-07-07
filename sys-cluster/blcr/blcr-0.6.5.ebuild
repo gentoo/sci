@@ -23,8 +23,8 @@ pkg_setup() {
 	ewarn
 
 	linux-mod_pkg_setup
-	MODULE_NAMES="blcr(blcr::${S}/cr_module/kbuild) 
-		blcr_imports(blcr::${S}/blcr_imports/kbuild) 
+	MODULE_NAMES="blcr(blcr::${S}/cr_module/kbuild)
+		blcr_imports(blcr::${S}/blcr_imports/kbuild)
 		blcr_vmadump(blcr::${S}/vmadump4/kbuild)"
 	BUILD_TARGETS="clean all"
 	ECONF_PARAMS="--with-kernel=${KV_DIR}"
@@ -39,14 +39,14 @@ src_compile() {
 src_install() {
 	linux-mod_src_install
 	dodoc README NEWS
-	cd ${S}/util
-	emake DESTDIR=${D} install || die "binaries install failed"
-	cd ${S}/libcr
-	emake DESTDIR=${D} install || die "libcr install failed"
-	cd ${S}/man
-	emake DESTDIR=${D} install || die "man install failed"
-	cd ${S}/include
-	emake DESTDIR=${D} install || die "headers install failed"
+	cd "${S}"/util
+	emake DESTDIR="${D}" install || die "binaries install failed"
+	cd "${S}"/libcr
+	emake DESTDIR="${D}" install || die "libcr install failed"
+	cd "${S}"/man
+	emake DESTDIR="${D}" install || die "man install failed"
+	cd "${S}"/include
+	emake DESTDIR="${D}" install || die "headers install failed"
 }
 
 pkg_postinst() {
