@@ -1,0 +1,8 @@
+# ChangeLog for sci-biology/fastdnaml
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  07 Jul 2008; weaver <weaver@gentoo.org> +metadata.xml,
+  +fastdnaml-1.2.2.ebuild:
+  New ebuild, bug 114089
+
