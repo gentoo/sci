@@ -7,7 +7,7 @@ HOMEPAGE="http://www.flaterco.com/xtide/"
 SRC_URI="ftp://ftp.flaterco.com/xtide/${P}.tar.bz2"
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 DEPEND=">=sci-geosciences/libtcd-2.2.3
 	>=x11-libs/libXaw-1.0.3
