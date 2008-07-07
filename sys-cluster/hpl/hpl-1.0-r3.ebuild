@@ -1,10 +1,10 @@
-# Copyright 1999-2005 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sys-cluster/hpl/hpl-1.0-r2.ebuild,v 1.1 2005/09/01 11:59:18 pbienst Exp $
 
 inherit eutils mpi
 
-DESCRIPTION="HPL - A Portable Implementation of the High-Performance Linpack Benchmark for Distributed-Memory Computers"
+DESCRIPTION="Portable Implementation of the High-Performance Linpack Benchmark for Distributed-Memory Computers"
 HOMEPAGE="http://www.netlib.org/benchmark/hpl/"
 SRC_URI="http://www.netlib.org/benchmark/hpl/hpl.tgz"
 LICENSE="HPL"
@@ -19,7 +19,7 @@ DEPEND="$(mpi_pkg_deplist)
 src_unpack() {
 	local mpicc_path="$(get_eselect_var MPI_CC)"
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 
 	cp setup/Make.Linux_PII_FBLAS Make.gentoo_hpl_fblas_x86
 	sed -i \

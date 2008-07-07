@@ -2,6 +2,9 @@
 # Copyright 2000-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sys-cluster/hpl/ChangeLog,v 1.11 2007/04/26 06:04:44 dberkholz Exp $
 
+  07 Jul 2008; Tim Cera <timcera@earthlink.net> hpl-1.0-r3.ebuild:
+  Minor repoman edits.
+
   29 Feb 2008; Justin Bronder <jsbronder@gentoo.org> ChangeLog:
   Use mpi.eclass for empi support.  Add ~amd64
 
