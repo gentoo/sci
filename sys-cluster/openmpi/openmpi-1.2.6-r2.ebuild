@@ -13,7 +13,7 @@ SRC_URI="http://www.open-mpi.org/software/ompi/v1.2/downloads/${MY_P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="pbs fortran nocxx threads romio heterogeneous smp ipv6"
+IUSE="pbs fortran nocxx threads romio heterogeneous ipv6"
 RDEPEND="pbs? ( sys-cluster/torque )
 	$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
@@ -84,8 +84,7 @@ src_compile() {
 	mpi_conf_args="
 		${mpi_conf_args}
 		$(use_enable !nocxx mpi-cxx)
-		$(use_enable romio romio-io)
-		$(use_enable smp smp-locks)
+		$(use_enable romio io-romio)
 		$(use_enable heterogeneous)
 		$(use_with pbs tm)
 		$(use_enable ipv6)"
