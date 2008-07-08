@@ -9,7 +9,7 @@ HOMEPAGE="http://code.djangoproject.com/wiki/GeoDjango"
 SRC_URI=""
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~x86 ~amd64"
 IUSE="examples sqlite test"
 
 DEPEND="dev-python/imaging
