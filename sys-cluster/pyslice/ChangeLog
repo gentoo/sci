@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jul 2008; Tim Cera <timcera@earthlink.net> pyslice-1.6.1.ebuild:
+  Added ~x86 per https://bugs.gentoo.org/show_bug.cgi?id=138008#c4
+  Thanks Marek Miller for testing these ebuilds!
+
   07 Jul 2008; Tim Cera <timcera@earthlink.net> +pyslice-1.6.1.ebuild,
   +metadata.xml:
   sys-cluster/pyslice
