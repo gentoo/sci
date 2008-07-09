@@ -30,7 +30,7 @@ src_unpack() {
 		-e 's:^fileformatdir = $(prefix)/cluster:fileformatdir = @docdir@:' \
 		X11/Makefile.in || die "sed failed"
 
-	epatch "${FILESDIR}/${P}-helpmenu-fix.patch" || die "failed to patch helpmenu"
+#	epatch "${FILESDIR}/${P}-helpmenu-fix.patch" || die "failed to patch helpmenu"
 
 }
 
