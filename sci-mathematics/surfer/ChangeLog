@@ -1,0 +1,8 @@
+# ChangeLog for sci-mathematics/surfer
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  09 Jul 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  +surfer-0.0.158.1.ebuild:
+  Initial import. See bug #210908
+
