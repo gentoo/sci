@@ -23,6 +23,8 @@ IUSE="doc"
 DEPEND="app-arch/unzip"
 RDEPEND=""
 
+MAKEOPTS="${MAKEOPTS} -j1"
+
 # Need a Fortran 90 compiler.
 FORTRAN="gfortran ifc"
 

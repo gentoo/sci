@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Jul 2008; Tim Cera <timcera@earthlink.net> pest-11.3.ebuild:
+  Forced MAKEOPTS to include '-j1' because some compile jobs were running out
+  of order.
+
   14 May 2008; Tim Cera <timcera@earthlink.net> +pest-11.3.ebuild, +metadata.xml:
   Initial import.
 
