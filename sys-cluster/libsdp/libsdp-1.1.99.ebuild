@@ -1,21 +1,30 @@
-# Copyright 1999-2006 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+inherit rpm
 
 SLOT="0"
 LICENSE="|| ( GPL-2 BSD-2 )"
 
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 
 DESCRIPTION="OpenIB library that enables Socket Direct Protocol for unmodified applications"
 HOMEPAGE="http://www.openfabrics.org/"
-#SRC_URI="http://www.openfabrics.org/downloads/openib-userspace-${PV}.tgz"
-SRC_URI="http://mirror.gentooscience.org/openib-userspace-${PV}.tgz"
-S="${WORKDIR}/openib-userspace-${PV}/src/userspace/${PN}"
+OFED_VER="1.3.1"
+OFED_P="OFED-${OFED_VER}"
+SRC_URI="http://www.openfabrics.org/downloads/OFED/ofed-${OFED_VER}/${OFED_P}.tgz"
 
 IUSE=""
 
-DEPEND="virtual/libc"
+DEPEND=""
+RDEPEND="${DEPEND}"
+
+src_unpack() {
+	unpack ${A} || die "unpack failed"
+	rpm_unpack "${OFED_P}/SRPMS/${P}-1.ofed${OFED_VER}.src.rpm"
+	tar xzf "${P}.tar.gz"
+}
 
 src_compile() {
 	econf || die "could not configure"
@@ -24,6 +33,6 @@ src_compile() {
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
-	dodoc README COPYING ChangeLog
+	dodoc README ChangeLog
 }
 
