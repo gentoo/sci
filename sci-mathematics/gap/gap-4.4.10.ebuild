@@ -40,7 +40,7 @@ src_test() {
 src_install() {
 	dodoc README description*
 	insinto /usr/share/${PN}
-	doins -r doc grp lib pkg prim small trans tst
+	doins -r doc grp lib pkg prim small trans tst sysinfo.gap
 	source sysinfo.gap
 	exeinto /usr/libexec/${PN}
 	doexe bin/${GAParch}/gap
