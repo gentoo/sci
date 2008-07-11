@@ -1,0 +1,8 @@
+# ChangeLog for sci-physics/pythia
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  11 Jul 2008; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +pythia-6.4.18.ebuild, +pythia-8.1.08.ebuild:
+  Initial import. Ebuild submitted by Benjamin Bannier, bug #231484
+
