@@ -33,15 +33,14 @@ RDEPEND=">=sci-libs/gsl-1.3
 	dev-scheme/net-http
 	dev-scheme/goosh
 	dev-scheme/guile-www
+	>=dev-scheme/guile-lib-0.1.6
 	sci-libs/coot-data
 	sci-chemistry/reduce
 	sci-chemistry/probe
 	>=sci-libs/clipper-20070907
-	<sci-libs/mmdb-1.0.10"
-# These are still required to run autoreconf
-RDEPEND="${RDEPEND}
-	=dev-libs/glib-1.2*
-	=x11-libs/gtkglarea-1.2*"
+	<sci-libs/mmdb-1.0.10
+	dev-python/pygtk
+	>=dev-libs/gmp-4.2.2-r2"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 S="${WORKDIR}/${MY_P}"
@@ -50,9 +49,12 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 
+	# To send upstream
+	epatch "${FILESDIR}"/0.5_pre1-gcc-4.3.patch
+
 	epatch "${FILESDIR}"/${PV}-as-needed.patch
-	epatch "${FILESDIR}"/${PV}-link-against-guile-gtk-properly.patch
-	epatch "${FILESDIR}"/${PVR}-fix-namespace-error.patch
+	epatch "${FILESDIR}"/0.4.1-link-against-guile-gtk-properly.patch
+	epatch "${FILESDIR}"/0.4.1-fix-namespace-error.patch
 
 	# Link against single-precision fftw
 	sed -i \
@@ -76,8 +78,11 @@ src_unpack() {
 			-e "s~\(include.*clipper\)/~\1-2/~g" \
 			|| die "sed to find -2 slotted headers failed"
 
+	# So we don't need to depend on crazy old gtk and friends
+	cp "${FILESDIR}"/*.m4 "${S}"/macros/
+
 	cd "${S}"
-	AT_M4DIR="macros" eautoreconf
+	eautoreconf
 }
 
 src_compile() {
@@ -89,10 +94,11 @@ src_compile() {
 		--with-clipper-prefix=/usr \
 		--with-mmdb-prefix=/usr \
 		--with-ssmlib-prefix=/usr \
-		--with-guile=/usr \
+		--with-guile \
 		--with-python=/usr \
 		--with-guile-gtk \
 		--with-gtk2 \
+		--with-pygtk \
 		|| die "econf failed"
 
 	# Regenerate wrappers, otherwise at least gtk-2 build fails
@@ -107,11 +113,11 @@ src_compile() {
 	popd
 
 	# Parallel build's broken
-	emake -j1 || die "emake failed"
+	emake || die "emake failed"
 }
 
 src_install() {
-	emake -j1 DESTDIR="${D}" install || die "install failed"
+	emake DESTDIR="${D}" install || die "install failed"
 
 	# Install misses this
 	insinto /usr/share/coot/python
