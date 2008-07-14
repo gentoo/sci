@@ -1,6 +1,6 @@
 diff -ur coot-0.5-pre-1.orig/analysis/Makefile.am coot-0.5-pre-1/analysis/Makefile.am
---- coot-0.5-pre-1.orig/analysis/Makefile.am	2008-07-04 00:40:28.000000000 -0700
-+++ coot-0.5-pre-1/analysis/Makefile.am	2008-07-04 00:40:44.000000000 -0700
+--- coot-0.5-pre-1.orig/analysis/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/analysis/Makefile.am	2008-07-13 16:40:40.000000000 -0700
 @@ -9,6 +9,7 @@
  	$(MMDB_CXXFLAGS)
  
@@ -18,8 +18,8 @@ diff -ur coot-0.5-pre-1.orig/analysis/Makefile.am coot-0.5-pre-1/analysis/Makefi
  	$(top_builddir)/geometry/libcoot-geometry.la    	\
  	$(CLIPPER_LIBS) 	\
 diff -ur coot-0.5-pre-1.orig/coords/Makefile.am coot-0.5-pre-1/coords/Makefile.am
---- coot-0.5-pre-1.orig/coords/Makefile.am	2008-07-04 00:40:28.000000000 -0700
-+++ coot-0.5-pre-1/coords/Makefile.am	2008-07-04 00:40:44.000000000 -0700
+--- coot-0.5-pre-1.orig/coords/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/coords/Makefile.am	2008-07-13 16:40:40.000000000 -0700
 @@ -37,4 +37,6 @@
  libcoot_coords_la_SOURCES =  Bond_lines.cc Cartesian.cc cos-sin.cc \
  		 mmdb-extras.cc utils.cc mmdb.cc mmdb-crystal.cc \
@@ -29,8 +29,8 @@ diff -ur coot-0.5-pre-1.orig/coords/Makefile.am coot-0.5-pre-1/coords/Makefile.a
 +	$(top_builddir)/coot-utils/libcoot-shelx.la \
 +	$(top_builddir)/mini-mol/libcoot-mini-mol.la
 diff -ur coot-0.5-pre-1.orig/cootaneer/Makefile.am coot-0.5-pre-1/cootaneer/Makefile.am
---- coot-0.5-pre-1.orig/cootaneer/Makefile.am	2008-07-04 00:40:28.000000000 -0700
-+++ coot-0.5-pre-1/cootaneer/Makefile.am	2008-07-04 00:40:44.000000000 -0700
+--- coot-0.5-pre-1.orig/cootaneer/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/cootaneer/Makefile.am	2008-07-13 16:40:40.000000000 -0700
 @@ -34,6 +34,7 @@
  	buccaneer-sequence.cpp cootaneer-sequence.cpp \
  	buccaneer-lib.h buccaneer-prot.h \
@@ -40,20 +40,20 @@ diff -ur coot-0.5-pre-1.orig/cootaneer/Makefile.am coot-0.5-pre-1/cootaneer/Make
  subpkgdatadir = $(pkgdatadir)
  subpkgdata_DATA = cootaneer-llk-2.40.dat 
 diff -ur coot-0.5-pre-1.orig/coot-surface/Makefile.am coot-0.5-pre-1/coot-surface/Makefile.am
---- coot-0.5-pre-1.orig/coot-surface/Makefile.am	2008-07-04 00:40:28.000000000 -0700
-+++ coot-0.5-pre-1/coot-surface/Makefile.am	2008-07-04 00:40:44.000000000 -0700
+--- coot-0.5-pre-1.orig/coot-surface/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/coot-surface/Makefile.am	2008-07-13 16:40:40.000000000 -0700
 @@ -25,3 +25,4 @@
  
  libcoot_surface_la_SOURCES = \
  	 coot-surface.cc coot-surface.hh rgbreps.cc rgbreps.h
 +libcoot_surface_la_LIBADD = $(top_builddir)/surface/libccp4mg-surface.la
 diff -ur coot-0.5-pre-1.orig/coot-utils/Makefile.am coot-0.5-pre-1/coot-utils/Makefile.am
---- coot-0.5-pre-1.orig/coot-utils/Makefile.am	2008-07-04 00:40:29.000000000 -0700
-+++ coot-0.5-pre-1/coot-utils/Makefile.am	2008-07-04 00:40:44.000000000 -0700
-@@ -50,9 +50,11 @@
+--- coot-0.5-pre-1.orig/coot-utils/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/coot-utils/Makefile.am	2008-07-13 16:40:40.000000000 -0700
+@@ -51,9 +51,11 @@
  # for pure coordinates (mmdb) things
  libcoot_coord_utils_la_SOURCES = coot-coord-utils.cc \
- 	coot-coord-utils-nucleotides.cc
+ 	coot-coord-utils-nucleotides.cc coot-rama.cc
 +libcoot_coord_utils_la_LIBADD = $(CLIPPER_LIBS) libcoot-utils.la
  
  # shelx
@@ -62,7 +62,7 @@ diff -ur coot-0.5-pre-1.orig/coot-utils/Makefile.am coot-0.5-pre-1/coot-utils/Ma
  
  # for non-simple coordinates things
  libcoot_coord_extras_la_SOURCES = coot-coord-extras.cc coot-coord-lsq.cc
-@@ -62,21 +64,20 @@
+@@ -63,21 +65,20 @@
  
  # for map things that need mmdb, clipper, gsl and other things
  libcoot_map_heavy_la_SOURCES = coot-map-heavy.cc coot-fffear.cc
@@ -88,8 +88,8 @@ diff -ur coot-0.5-pre-1.orig/coot-utils/Makefile.am coot-0.5-pre-1/coot-utils/Ma
  
  
 diff -ur coot-0.5-pre-1.orig/geometry/Makefile.am coot-0.5-pre-1/geometry/Makefile.am
---- coot-0.5-pre-1.orig/geometry/Makefile.am	2008-07-04 00:40:28.000000000 -0700
-+++ coot-0.5-pre-1/geometry/Makefile.am	2008-07-04 00:40:44.000000000 -0700
+--- coot-0.5-pre-1.orig/geometry/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/geometry/Makefile.am	2008-07-13 16:40:40.000000000 -0700
 @@ -34,6 +34,9 @@
  libcoot_geometry_a_sources = protein-geometry.cc protein-geometry-mmdb.cc
  
@@ -116,8 +116,8 @@ diff -ur coot-0.5-pre-1.orig/geometry/Makefile.am coot-0.5-pre-1/geometry/Makefi
  
 +test_read_components_LDADD = ./libcoot-geometry.la
 diff -ur coot-0.5-pre-1.orig/high-res/Makefile.am coot-0.5-pre-1/high-res/Makefile.am
---- coot-0.5-pre-1.orig/high-res/Makefile.am	2008-07-04 00:40:28.000000000 -0700
-+++ coot-0.5-pre-1/high-res/Makefile.am	2008-07-04 00:40:44.000000000 -0700
+--- coot-0.5-pre-1.orig/high-res/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/high-res/Makefile.am	2008-07-13 16:40:40.000000000 -0700
 @@ -39,13 +39,16 @@
  
  libcoot_high_res_la_SOURCES = high-res.cc coot-atom-graph.cc residue-distortions.cc \
@@ -233,8 +233,8 @@ diff -ur coot-0.5-pre-1.orig/high-res/Makefile.am coot-0.5-pre-1/high-res/Makefi
 +	$(GSL_LIBS)
  
 diff -ur coot-0.5-pre-1.orig/ideal/Makefile.am coot-0.5-pre-1/ideal/Makefile.am
---- coot-0.5-pre-1.orig/ideal/Makefile.am	2008-07-04 00:40:28.000000000 -0700
-+++ coot-0.5-pre-1/ideal/Makefile.am	2008-07-04 00:40:44.000000000 -0700
+--- coot-0.5-pre-1.orig/ideal/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/ideal/Makefile.am	2008-07-13 16:41:14.000000000 -0700
 @@ -44,6 +44,12 @@
  AM_CXXFLAGS = $(COOT_GSL_FLAGS) $(GSL_CFLAGS)
  
@@ -246,9 +246,9 @@ diff -ur coot-0.5-pre-1.orig/ideal/Makefile.am coot-0.5-pre-1/ideal/Makefile.am
 +	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
 +	$(GSL_LIBS)
  
- noinst_PROGRAMS = test-indexing with-geometry with-map
+ noinst_PROGRAMS = test-indexing with-geometry with-map logramatest
  # bin_PROGRAMS = 
-@@ -61,33 +67,22 @@
+@@ -63,36 +69,25 @@
  with_geometry_LDADD = \
          ./libcoot-ideal.la                                \
  	$(top_builddir)/geometry/libcoot-geometry.la      \
@@ -287,13 +287,16 @@ diff -ur coot-0.5-pre-1.orig/ideal/Makefile.am coot-0.5-pre-1/ideal/Makefile.am
 -	$(top_builddir)/coot-utils/libcoot-utils.la       \
 -	$(CLIPPER_LIBS) $(MMDB_LIBS) $(GSL_LIBS)
 +	$(CLIPPER_LIBS) $(MMDB_LIBS)
+ 
+ # Why do I need all these libraries to simply link a trivial test program?
+ # Badness....
 diff -ur coot-0.5-pre-1.orig/ligand/Makefile.am coot-0.5-pre-1/ligand/Makefile.am
---- coot-0.5-pre-1.orig/ligand/Makefile.am	2008-07-04 00:40:28.000000000 -0700
-+++ coot-0.5-pre-1/ligand/Makefile.am	2008-07-04 00:41:27.000000000 -0700
-@@ -45,6 +45,16 @@
+--- coot-0.5-pre-1.orig/ligand/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/ligand/Makefile.am	2008-07-13 16:40:40.000000000 -0700
+@@ -46,6 +46,16 @@
  	chi-angles.cc helix-placement.cc rigid-body.cc ideal-rna.cc           \
  	richardson-rotamers.cc richardson-rotamer.cc rotamer.cc               \
- 	torsion-general.cc rotamer-tables.cc
+ 	torsion-general.cc rotamer-tables.cc primitive-chi-angles.cc
 +libcoot_ligand_la_LIBADD = \
 +	$(top_builddir)/ideal/libcoot-ideal.la       \
 +	$(top_builddir)/coords/libcoot-coords.la           \
@@ -307,7 +310,7 @@ diff -ur coot-0.5-pre-1.orig/ligand/Makefile.am coot-0.5-pre-1/ligand/Makefile.a
  
  AM_CXXFLAGS = \
  	-DPKGDATADIR='"$(pkgdatadir)"' \
-@@ -82,35 +92,17 @@
+@@ -83,35 +93,17 @@
  
  test_ligand_LDADD = \
  	./libcoot-ligand.la \
@@ -343,7 +346,7 @@ diff -ur coot-0.5-pre-1.orig/ligand/Makefile.am coot-0.5-pre-1/ligand/Makefile.a
  	$(top_builddir)/compat/libcoot-compat.la           \
  	$(CLIPPER_LIBS) $(MMDB_LIBS) $(GSL_LIBS)
  
-@@ -118,19 +110,10 @@
+@@ -119,19 +111,10 @@
  
  test_fffear_in_coot_LDADD = \
  	./libcoot-ligand.la \
@@ -363,7 +366,7 @@ diff -ur coot-0.5-pre-1.orig/ligand/Makefile.am coot-0.5-pre-1/ligand/Makefile.a
  	$(top_builddir)/compat/libcoot-compat.la          \
  	$(CLIPPER_LIBS) $(MMDB_LIBS) $(GSL_LIBS)
  
-@@ -142,33 +125,15 @@
+@@ -143,33 +126,15 @@
  
  findligand_real_LDADD = \
  	./libcoot-ligand.la                          \
@@ -397,7 +400,7 @@ diff -ur coot-0.5-pre-1.orig/ligand/Makefile.am coot-0.5-pre-1/ligand/Makefile.a
  	$(top_builddir)/compat/libcoot-compat.la          \
  	$(CLIPPER_LIBS) $(MMDB_LIBS) $(GSL_LIBS)
  
-@@ -189,17 +154,8 @@
+@@ -190,17 +155,8 @@
  testdunbrack_SOURCES = testdunbrack.cc
  
  testdunbrack_LDADD = ./libcoot-ligand.la \
@@ -416,8 +419,8 @@ diff -ur coot-0.5-pre-1.orig/ligand/Makefile.am coot-0.5-pre-1/ligand/Makefile.a
  
  # lib coot-coords depends on mmdb, even though Cartesian doesn't
 diff -ur coot-0.5-pre-1.orig/Makefile.am coot-0.5-pre-1/Makefile.am
---- coot-0.5-pre-1.orig/Makefile.am	2008-07-04 00:40:29.000000000 -0700
-+++ coot-0.5-pre-1/Makefile.am	2008-07-04 00:40:44.000000000 -0700
+--- coot-0.5-pre-1.orig/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/Makefile.am	2008-07-13 16:40:40.000000000 -0700
 @@ -25,10 +25,10 @@
  
  # see configure.in for po intl 
@@ -433,8 +436,8 @@ diff -ur coot-0.5-pre-1.orig/Makefile.am coot-0.5-pre-1/Makefile.am
  # po, no po today.
  
 diff -ur coot-0.5-pre-1.orig/mini-mol/Makefile.am coot-0.5-pre-1/mini-mol/Makefile.am
---- coot-0.5-pre-1.orig/mini-mol/Makefile.am	2008-07-04 00:40:28.000000000 -0700
-+++ coot-0.5-pre-1/mini-mol/Makefile.am	2008-07-04 00:40:44.000000000 -0700
+--- coot-0.5-pre-1.orig/mini-mol/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/mini-mol/Makefile.am	2008-07-13 16:40:40.000000000 -0700
 @@ -32,8 +32,9 @@
  testminimol_SOURCES = testminimol.cc
  
@@ -449,8 +452,8 @@ diff -ur coot-0.5-pre-1.orig/mini-mol/Makefile.am coot-0.5-pre-1/mini-mol/Makefi
 -	$(CLIPPER_LIBS) $(MMDB_LIBS)
 +	$(MMDB_LIBS)
 diff -ur coot-0.5-pre-1.orig/skeleton/Makefile.am coot-0.5-pre-1/skeleton/Makefile.am
---- coot-0.5-pre-1.orig/skeleton/Makefile.am	2008-07-04 00:40:28.000000000 -0700
-+++ coot-0.5-pre-1/skeleton/Makefile.am	2008-07-04 00:40:44.000000000 -0700
+--- coot-0.5-pre-1.orig/skeleton/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/skeleton/Makefile.am	2008-07-13 16:40:40.000000000 -0700
 @@ -36,7 +36,7 @@
  
  
@@ -461,8 +464,8 @@ diff -ur coot-0.5-pre-1.orig/skeleton/Makefile.am coot-0.5-pre-1/skeleton/Makefi
  # bin_PROGRAMS = ncssearch test_various test_torsion test_theta_2
  
 diff -ur coot-0.5-pre-1.orig/tw/Makefile.am coot-0.5-pre-1/tw/Makefile.am
---- coot-0.5-pre-1.orig/tw/Makefile.am	2008-07-04 00:40:28.000000000 -0700
-+++ coot-0.5-pre-1/tw/Makefile.am	2008-07-04 00:40:44.000000000 -0700
+--- coot-0.5-pre-1.orig/tw/Makefile.am	2008-07-13 16:40:27.000000000 -0700
++++ coot-0.5-pre-1/tw/Makefile.am	2008-07-13 16:40:40.000000000 -0700
 @@ -39,15 +39,15 @@
  include_HEADERS = coot-tw.hh
  
