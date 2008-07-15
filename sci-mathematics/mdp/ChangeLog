@@ -1,0 +1,8 @@
+# ChangeLog for sci-mathematics/mdp
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  15 Jul 2008; Tim Cera <timcera@earthlink.net> +mdp-2.3.ebuild,
+  +metadata.xml:
+  Initial ebuild.
+
