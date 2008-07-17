@@ -2,6 +2,9 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Jul 2008; Francois Bissey <f.r.bissey@massey.ac.nz> gdmodule-0.56.ebuild:
+  Change the position of the inherit statement to ensure proper behavior.
+
   16 Jul 2008; Francois Bissey <f.r.bissey@massey.ac.nz> ChangeLog:
   Initial import, see bug #230459
 
