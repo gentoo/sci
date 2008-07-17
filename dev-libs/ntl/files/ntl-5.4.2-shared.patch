@@ -1,0 +1,168 @@
+--- src/DoConfig.orig	2008-06-20 23:33:53.000000000 +1200
++++ src/DoConfig	2008-06-24 16:32:28.000000000 +1200
+@@ -22,11 +22,13 @@
+ 'LDFLAGS_CXX' => '$(LDFLAGS)',
+ 'LDLIBS'      => '-lm',
+ 'LDLIBS_CXX'  => '$(LDLIBS)',
++'PICFLAG'     => '-fPIC',
+ 'CPPFLAGS'    => '',
+ 'PREFIX'      => '/usr/local',
+ 'LIBDIR'      => '$(PREFIX)/lib',
+ 'INCLUDEDIR'  => '$(PREFIX)/include',
+ 'DOCDIR'      => '$(PREFIX)/doc',
++'SHMAKE'      => 'non-gld',
+ 
+ 'GMP_PREFIX'  => undef,
+ 'GMP_INCDIR'  => undef,
+--- src/mfile.orig	2008-06-20 23:34:07.000000000 +1200
++++ src/mfile	2008-06-28 22:46:39.000000000 +1200
+@@ -71,6 +71,11 @@
+ # where to install NTL
+ 
+ ###############################################################
++#	choose the appropriate shared object makefile
++###############################################################
++SHMAKE=@{SHMAKE}
++
++###############################################################
+ #
+ #  Second, if you want to use GMP (the GNU Multi-Precision library),
+ #  define the variables GMP_INCDIR, GMP_LIBDIR, GMP_LIB below.
+@@ -109,6 +114,16 @@
+ WIZARD=@{WIZARD}
+ # Set to off if you want to bypass the wizard; otherwise, set to on.
+ 
++###############################################################
++#
++# New addition for shared library building. With gcc you need to
++# choose the Position Indepent Code flag. You have a choice of 
++# -fpic better code but in rare case not available (ppc)
++# -fPIC slightly slower code but guaranted to work anywhere.
++#
++###############################################################
++
++PICFLAG=@{PICFLAG}
+ 
+ #################################################################
+ #
+@@ -141,6 +156,26 @@
+ 
+ OBJ=$(O19)
+ 
++SHOBJ=FFT.lo FacVec.lo GF2.lo GF2E.lo GF2EX.lo GF2EXFactoring.lo GF2X.lo GF2X1.lo \
++	GF2XFactoring.lo GF2XVec.lo GetTime.lo HNF.lo ctools.lo LLL.lo LLL_FP.lo \
++	LLL_QP.lo LLL_RR.lo LLL_XD.lo RR.lo WordVector.lo ZZ.lo ZZVec.lo \
++	ZZX.lo ZZX1.lo ZZXCharPoly.lo ZZXFactoring.lo ZZ_p.lo ZZ_pE.lo ZZ_pEX.lo \
++	ZZ_pEXFactoring.lo ZZ_pX.lo ZZ_pX1.lo ZZ_pXCharPoly.lo ZZ_pXFactoring.lo \
++	fileio.lo lip.lo lzz_p.lo lzz_pE.lo lzz_pEX.lo lzz_pEXFactoring.lo \
++	lzz_pX.lo lzz_pX1.lo lzz_pXCharPoly.lo lzz_pXFactoring.lo \
++	mat_GF2.lo mat_GF2E.lo mat_RR.lo mat_ZZ.lo mat_ZZ_p.lo \
++	mat_ZZ_pE.lo mat_lzz_p.lo mat_lzz_pE.lo mat_poly_ZZ.lo \
++	mat_poly_ZZ_p.lo mat_poly_lzz_p.lo pair_GF2EX_long.lo \
++	pair_GF2X_long.lo pair_ZZX_long.lo pair_ZZ_pEX_long.lo \
++	pair_ZZ_pX_long.lo pair_lzz_pEX_long.lo pair_lzz_pX_long.lo \
++	quad_float.lo tools.lo vec_GF2.lo vec_GF2E.lo vec_GF2XVec.lo \
++	vec_RR.lo vec_ZZ.lo vec_ZZVec.lo vec_ZZ_p.lo vec_ZZ_pE.lo \
++	vec_double.lo vec_long.lo vec_lzz_p.lo vec_lzz_pE.lo vec_quad_float.lo \
++	vec_vec_GF2.lo vec_vec_GF2E.lo vec_vec_RR.lo vec_vec_ZZ.lo \
++	vec_vec_ZZ_p.lo vec_vec_ZZ_pE.lo vec_vec_long.lo vec_vec_lzz_p.lo \
++	vec_vec_lzz_pE.lo vec_xdouble.lo xdouble.lo \
++	G_LLL_FP.lo G_LLL_QP.lo G_LLL_XD.lo G_LLL_RR.lo vec_ulong.lo vec_vec_ulong.lo
++
+ # library source files
+ 
+ 
+@@ -288,14 +323,15 @@
+ LINK = $(CC) $(NTL_INCLUDE) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS)
+ LINK_CXX = $(CXX) $(NTL_INCLUDE) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS_CXX)
+ 
++.SUFFIXES: .lo
+ 
+ 
+ all:
+-	make setup1
+-	make setup2
+-	make setup3
+-	make setup4
+-	make ntl.a
++	$(MAKE) setup1
++	$(MAKE) setup2
++	$(MAKE) setup3
++	$(MAKE) setup4
++	$(MAKE) ntl.a
+ 
+ 
+ # setup1 generates the file ../incluse/NTL/mach_desc.h
+@@ -336,17 +372,29 @@
+ lip.o:	lip.c g_lip_impl.h c_lip_impl.h lip_gmp_aux_impl.h
+ 	$(COMPILE) $(GMP_INCDIR) lip.c
+ 
++lip.lo:	lip.c g_lip_impl.h c_lip_impl.h lip_gmp_aux_impl.h
++	$(COMPILE) $(PICFLAG) $(GMP_INCDIR) lip.c -o lip.lo
++
+ ctools.o:	ctools.c
+ 	$(COMPILE) ctools.c
+ 
++ctools.lo:	ctools.c
++	$(COMPILE) $(PICFLAG) ctools.c -o ctools.lo
++
+ 
+ GetTime.o: GetTime.c 
+ 	$(COMPILE) GetTime.c
+ 
++GetTime.lo: GetTime.c 
++	$(COMPILE) $(PICFLAG) GetTime.c -o GetTime.lo
++
+ 
+ .c.o: 
+ 	$(COMPILE_CXX) $<
+ 
++.c.lo: 
++	$(COMPILE_CXX) $(PICFLAG) -o $@ $<
++
+ .c: 
+ 	$(LINK_CXX) -o $@ $< ntl.a  $(GMP_LIBDIR) $(GMP_LIB) $(LDLIBS_CXX) 
+ 
+@@ -358,7 +406,7 @@
+ #################################################################
+ 
+ check:
+-	make QuickTest
++	$(MAKE) QuickTest
+ 	./QuickTest
+ 	- sh RemoveProg QuickTest
+ 	sh TestScript
+@@ -413,15 +461,14 @@
+ #
+ #################################################################
+ 
+-clobber:	
++clobber: clean
+ 	- rm ntl.a mach_desc.h ../include/NTL/mach_desc.h  GetTime.c 
+ 	- rm lip_gmp_aux_impl.h ../include/NTL/gmp_aux.h
+-	- sh RemoveProg $(PROGS) MakeDesc TestGetTime gen_lip_gmp_aux gen_gmp_aux
+-	- rm *.o
+-	- rm -r small
++	- sh RemoveProg $(PROGS)
++	- rm libntl*.so*
+ 
+ clean:
+-	- rm *.o 
++	- rm *.o *.lo
+ 	- sh RemoveProg MakeDesc TestGetTime gen_lip_gmp_aux gen_gmp_aux
+ 	- rm -r small
+ 
+@@ -498,7 +545,6 @@
+ 	$(LINK_CXX) -o DispSettings DispSettings.c $(LDLIBS_CXX)
+ 
+ 
+-
+ ################################################################
+ #
+ # Notes on making a new distribution
+@@ -518,4 +564,4 @@
+ #
+ ################################################################
+ 
+-
++sinclude $(SHMAKE).mk

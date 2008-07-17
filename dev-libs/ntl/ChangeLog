@@ -1,0 +1,7 @@
+# ChangeLog for dev-libs/ntl
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  16 Jul 2008; Francois Bissey <f.r.bissey@massey.ac.nz> ChangeLog:
+  Initial import in the science overlay, see bug #221771
+
