@@ -6,9 +6,8 @@ inherit versionator
 
 DESCRIPTION="A collection of routine to handle a variety of topics"
 HOMEPAGE="http://www.neu.uni-bayreuth.de/de/Uni_Bayreuth/Fakultaeten/1_Mathematik_Physik_und_Informatik/Fachgruppe_Informatik/prof_diskrete_algorithmen/en/research/SYMMETRICA/index.html"
-SRC_URI="http://www.neu.uni-bayreuth.de/de/Uni_Bayreuth/Fakultaeten/1_Mathematik_Physik_und_Informatik/Fachgruppe_Informatik/prof_diskrete_algorithmen/en/research/SYMMETRICA/SYM2_0_tar.gz"
-
 MY_P=SYM$(replace_all_version_separators ' _')
+SRC_URI="http://www.neu.uni-bayreuth.de/de/Uni_Bayreuth/Fakultaeten/1_Mathematik_Physik_und_Informatik/Fachgruppe_Informatik/prof_diskrete_algorithmen/en/research/SYMMETRICA/${MY_P}_tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -42,3 +41,8 @@ src_install() {
 	dodoc README *.doc
 }
 
+pkg_postinst() {
+	elog "The symmetrica ebuild is still under development."
+	elog "Help us improve the ebuild in:"
+	elog "http://bugs.gentoo.org/show_bug.cgi?id=232014"
+}
