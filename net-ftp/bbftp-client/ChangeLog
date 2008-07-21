@@ -1,6 +1,9 @@
 # ChangeLog for net-ftp/bbftp-client
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  21 Jul 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
+  added ~x86
 
 *bbftp-client-3.2.0 (01 Dec 2007)
 
