@@ -1,6 +1,35 @@
 # ChangeLog for sci-chemistry/ccp4
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ccp4/ChangeLog,v 1.11 2007/04/07 08:31:50 vapier Exp $
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ccp4/ChangeLog,v 1.18 2008/06/03 02:11:18 mr_bones_ Exp $
+
+  03 Jun 2008; Michael Sterrett <mr_bones_@gentoo.org> ccp4-6.0.1-r1.ebuild,
+  ccp4-6.0.2.ebuild, ccp4-6.0.2-r1.ebuild:
+  remove reference to app-shells/csh which has been removed
+
+  14 Apr 2008; Donnie Berkholz <dberkholz@gentoo.org>; ccp4-6.0.2-r1.ebuild:
+  Install examples (Justin Lecher).
+
+  13 Apr 2008; Donnie Berkholz <dberkholz@gentoo.org>; ccp4-6.0.2-r1.ebuild:
+  Try harder to remove rasmol man pages (Justin Lecher).
+
+  08 Apr 2008; Donnie Berkholz <dberkholz@gentoo.org>; ccp4-6.0.2-r1.ebuild:
+  Remove message about sourcing setup scripts.
+
+*ccp4-6.0.2-r1 (08 Apr 2008)
+
+  08 Apr 2008; Donnie Berkholz <dberkholz@gentoo.org>;
+  +files/6.0.2-gcc-4.1.2-idate-fix.patch, +ccp4-6.0.2-r1.ebuild:
+  (#175630, #201150) Fix build. Install setup scripts into /etc/profile.d/
+  so they're sourced automatically upon login. In setup scripts, don't use
+  CLIBD before it's been set. Update to latest upstream patches. Deal with
+  non-gzip compression types.
+
+  22 Jul 2007; Donnie Berkholz <dberkholz@gentoo.org>; ccp4-6.0.1-r1.ebuild:
+  Drop virtual/x11 references.
+
+  02 Jul 2007; Piotr Jaroszyński <peper@gentoo.org> ccp4-6.0.1-r1.ebuild,
+  ccp4-6.0.2.ebuild:
+  (QA) RESTRICT clean up.
 
   07 Apr 2007; Mike Frysinger <vapier@gentoo.org> ccp4-6.0.1-r1.ebuild,
   ccp4-6.0.2.ebuild:

@@ -1,45 +1,32 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ccp4/ccp4-6.0.2.ebuild,v 1.4 2007/04/07 08:31:50 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ccp4/ccp4-6.0.2-r1.ebuild,v 1.6 2008/06/03 02:11:18 mr_bones_ Exp $
 
-inherit fortran eutils gnuconfig toolchain-funcs
+inherit fortran eutils gnuconfig toolchain-funcs autotools
 
 FORTRAN="g77 gfortran ifc"
 
 SRC="ftp://ftp.ccp4.ac.uk/ccp4"
 
-PATCH_TOT="10"
+PATCH_TOT="0"
 # Here's a little scriptlet to generate this list from the provided
 # index.patches file
 #
-# i=1; while read -a line; do [[ ${line//#} != ${line} ]] && continue; 
-# echo "PATCH${i}=( ${line[1]}"; echo "${line[0]} )"; (( i++ )); done < 
+# i=1; while read -a line; do [[ ${line//#} != ${line} ]] && continue;
+# echo "PATCH${i}=( ${line[1]}"; echo "${line[0]} )"; (( i++ )); done <
 # index.patches
-PATCH1=( src/topp_
-topp.f-r1.16.2.5-r1.16.2.6.diff )
-PATCH2=( .
-configure-r1.372.2.18-r1.372.2.19.diff )
-PATCH3=( src/scala_
-scala.f-r1.101.2.3-r1.101.2.4.diff )
-PATCH4=( ccp4i/src
-util_windows.tcl-r1.27-r1.27.2.1.diff )
-PATCH5=( src
-amore.f-r1.115-r1.116.diff )
-PATCH6=( src/bp3_
-crystal.C-r1.5-r1.6.diff )
-PATCH7=( src
-mtz2various.f-r1.124.2.3-r1.124.2.4.diff )
-PATCH8=( src
-rstats.f-r1.39-r1.40.diff )
-PATCH9=( src/refmac5_
-rharvest.fh-r1.13-r1.14.diff )
-PATCH10=( ccp4i/utils
-amore_utils.tcl-r1.14-r1.15.diff )
+#PATCH1=( src/topp_
+#topp.f-r1.16.2.5-r1.16.2.6.diff )
+#PATCH2=( .
+#configure-r1.372.2.18-r1.372.2.19.diff )
 
 DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
 RESTRICT="mirror"
-SRC_URI="${SRC}/${PV}/source/${P}-core-src.tar.gz"
+#SRC_URI="${SRC}/${PV}/source/${P}-core-src.tar.gz"
+SRC_URI="${SRC}/6.1/${P}-core-src.tar.gz"
+#	${SRC}/6.1/${P}-phaser-src.tar.gz
+#	${SRC}/6.1/${P}-balbes_db.tar.gz"
 for i in $(seq $PATCH_TOT); do
 	NAME="PATCH${i}[1]"
 	SRC_URI="${SRC_URI}
@@ -66,10 +53,14 @@ RDEPEND="X? (
 		=sci-libs/fftw-2*
 		sci-chemistry/pdb-extract
 		sci-chemistry/rasmol
-		sci-libs/mccp4
-		|| ( app-shells/tcsh app-shells/csh )
-		!app-office/sc"
+		app-shells/tcsh
+		dev-python/pyxml
+		dev-libs/libxml2
+		dev-libs/boehm-gc
+		!app-office/sc
+		!media-libs/raptor"
 DEPEND="${RDEPEND}
+		=sys-devel/automake-1.6*
 		X? (
 				x11-misc/imake
 				x11-proto/inputproto
@@ -109,13 +100,13 @@ src_unpack() {
 	ccp_patch ${FILESDIR}/${PV}-dont-make-dirs-in-configure.patch
 
 	# We already have sci-chemistry/rasmol
-	ccp_patch ${FILESDIR}/dont-build-rasmol.patch
+	# Also remember to create the bindir.
+	ccp_patch ${FILESDIR}/${PV}-dont-build-rasmol-and-make-bindir.patch
 
 	# We already have sci-chemistry/pdb-extract
 # Use configure option instead
 #	ccp_patch ${FILESDIR}/dont-build-pdb-extract.patch
 
-	ccp_patch ${FILESDIR}/create-mosflm-bindir.patch
 	ccp_patch ${FILESDIR}/make-mosflm-libdir.patch
 	ccp_patch ${FILESDIR}/make-mosflm-index-libdir.patch
 	ccp_patch ${FILESDIR}/make-mosflm-cbf-libdir.patch
@@ -130,23 +121,35 @@ src_unpack() {
 	# Don't use this when we aren't building clipper
 	# For some reason clipper check for $enableval even when --enable is passed
 	ccp_patch ${FILESDIR}/pass-clipper-enablevals.patch
-	ccp_patch ${FILESDIR}/clipper-find-mccp4-includes.patch
-
-	# Default to firefox browser, not 'netscape'
-	ccp_patch ${FILESDIR}/ccp4i-default-to-firefox.patch
-
-	# Also use -lpthread when linking blas and lapack
-	# We may need more fixing to use libcblas for the C files
-	ccp_patch ${FILESDIR}/check-blas-lapack-pthread.patch
 
 	# gerror_ gets defined twice on ppc if you're using gfortran/g95
-	ccp_patch ${FILESDIR}/${PV}-ppc-double-define-gerror.patch
+	ccp_patch ${FILESDIR}/6.0.2-ppc-double-define-gerror.patch
 
-	# Replace IDATE with UIDATE for compat with gcc 4.1.2
-	ccp_patch ${FILESDIR}/${PV}-gcc-4.1.2-idate-fix.patch
+	# csh syntax doesn't work in a bash script
+	ccp_patch ${FILESDIR}/${PV}-fix-setup-bash-incompatibility.patch
+
+	# gcc-4.3 fixes
+	ccp_patch ${FILESDIR}/${PV}-clipper-mmdbold-ggc-4.3.patch
 
 	einfo "Done." # done applying Gentoo patches
 	echo
+
+	# Rapper bundles libxml2 and boehm-gc. Don't build, use or install those.
+	pushd src/rapper 2>/dev/null
+	sed -i \
+		-e '/^AC_CONFIG_SUBDIRS(\[gc7.0 libxml2\])/d' \
+		configure.ac
+	sed -i \
+		-e '/^SUBDIRS/s:libxml2 gc7.0::g' \
+		Makefile.am
+	sed -i \
+		-e '/^rapper_LDADD/s:../gc7.0/libgc.la ../libxml2/libxml2.la:-lgc -lxml2:g' \
+		LOOP/Makefile.am
+	sed -i \
+		-e '/^INCLUDES/s:-I../gc7.0/include -I../libxml2/include:-I/usr/include/gc -I/usr/include/libxml2:g' \
+		LOOP/Makefile.am
+	eautoreconf
+	popd 2>/dev/null
 
 	gnuconfig_update
 }
@@ -229,11 +232,16 @@ src_install() {
 		-e "s~^\(setenv CCP4_MASTER.*\)${WORKDIR}~\1/usr~g" \
 		-e "s~^\(setenv CCP4.*\$CCP4_MASTER\).*~\1~g" \
 		-e "s~^\(setenv CCP4I_TOP\).*~\1 \$CCP4/$(get_libdir)/ccp4/ccp4i~g" \
-		-e "s~^\(.*setenv CINCL.*\$CCP4\).*~\1\$CCP4/share/ccp4/include~g" \
-		-e "s~^\(.*setenv CLIBD .*\$CCP4\).*~\1\$CCP4/share/ccp4/data~g" \
-		-e "s~^\(.*setenv CLIBD_MON .*\)\$CCP4.*~\1/share/ccp4/data/monomers/~g" \
-		-e "s~^\(.*setenv MOLREPLIB .*\)\$CCP4.*~\1/share/ccp4/data/monomers/~g" \
+		-e "s~^\(.*setenv CINCL.*\$CCP4\).*~\1/share/ccp4/include~g" \
+		-e "s~^\(.*setenv CLIBD .*\$CCP4\).*~\1/share/ccp4/data~g" \
+		-e "s~^\(.*setenv CLIBD_MON .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
+		-e "s~^\(.*setenv MOLREPLIB .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*setenv CCP4_BROWSER.*\).*~\1 firefox~g" \
+		${S}/include/ccp4.setup*
+
+	# Don't check for updates on every sourcing of /etc/profile
+	sed -i \
+		-e "s:\(eval python.*\):#\1:g""
 		${S}/include/ccp4.setup*
 
 	# Get rid of S instances
@@ -285,62 +293,6 @@ src_install() {
 	for LIBNAME in ${LIBNAMES}; do
 		library_dosym ${LIBNAME}
 	done
-
-#	dosym libclipper-ccp4.so.0.0.0 /usr/$(get_libdir)/libclipper-ccp4.so
-#	dosym libclipper-ccp4.so.0.0.0 /usr/$(get_libdir)/libclipper-ccp4.so.0
-#	dosym libclipper-ccp4.so.0.0.0 /usr/$(get_libdir)/libclipper-ccp4.so.0.0
-#
-#	dosym libclipper-cif.so.0.0.0 /usr/$(get_libdir)/libclipper-cif.so
-#	dosym libclipper-cif.so.0.0.0 /usr/$(get_libdir)/libclipper-cif.so.0
-#	dosym libclipper-cif.so.0.0.0 /usr/$(get_libdir)/libclipper-cif.so.0.0
-#
-#	dosym libclipper-contrib.so.0.0.0 /usr/$(get_libdir)/libclipper-contrib.so
-#	dosym libclipper-contrib.so.0.0.0 /usr/$(get_libdir)/libclipper-contrib.so.0
-#	dosym libclipper-contrib.so.0.0.0 /usr/$(get_libdir)/libclipper-contrib.so.0.0
-#
-#	dosym libclipper-core.so.0.0.0 /usr/$(get_libdir)/libclipper-core.so
-#	dosym libclipper-core.so.0.0.0 /usr/$(get_libdir)/libclipper-core.so.0
-#	dosym libclipper-core.so.0.0.0 /usr/$(get_libdir)/libclipper-core.so.0.0
-#
-#	dosym libclipper-minimol.so.0.0.0 /usr/$(get_libdir)/libclipper-minimol.so
-#	dosym libclipper-minimol.so.0.0.0 /usr/$(get_libdir)/libclipper-minimol.so.0
-#	dosym libclipper-minimol.so.0.0.0 /usr/$(get_libdir)/libclipper-minimol.so.0.0
-#
-#	dosym libclipper-mmdbold.so.0.0.0 /usr/$(get_libdir)/libclipper-mmdbold.so
-#	dosym libclipper-mmdbold.so.0.0.0 /usr/$(get_libdir)/libclipper-mmdbold.so.0
-#	dosym libclipper-mmdbold.so.0.0.0 /usr/$(get_libdir)/libclipper-mmdbold.so.0.0
-#
-#	dosym libclipper-mmdb.so.0.0.0 /usr/$(get_libdir)/libclipper-mmdb.so
-#	dosym libclipper-mmdb.so.0.0.0 /usr/$(get_libdir)/libclipper-mmdb.so.0
-#	dosym libclipper-mmdb.so.0.0.0 /usr/$(get_libdir)/libclipper-mmdb.so.0.0
-#
-#	dosym libclipper-mtz.so.1.0.0 /usr/$(get_libdir)/libclipper-mtz.so
-#	dosym libclipper-mtz.so.1.0.0 /usr/$(get_libdir)/libclipper-mtz.so.1
-#	dosym libclipper-mtz.so.1.0.0 /usr/$(get_libdir)/libclipper-mtz.so.1.0
-#
-#	dosym libclipper-phs.so.0.0.0 /usr/$(get_libdir)/libclipper-phs.so
-#	dosym libclipper-phs.so.0.0.0 /usr/$(get_libdir)/libclipper-phs.so.0
-#	dosym libclipper-phs.so.0.0.0 /usr/$(get_libdir)/libclipper-phs.so.0.0
-#
-#	dosym libjwc_c.so.0.1.1 /usr/$(get_libdir)/libjwc_c.so
-#	dosym libjwc_c.so.0.1.1 /usr/$(get_libdir)/libjwc_c.so.0
-#	dosym libjwc_c.so.0.1.1 /usr/$(get_libdir)/libjwc_c.so.0.1
-#
-#	dosym libjwc_f.so.0.1.1 /usr/$(get_libdir)/libjwc_f.so
-#	dosym libjwc_f.so.0.1.1 /usr/$(get_libdir)/libjwc_f.so.0
-#	dosym libjwc_f.so.0.1.1 /usr/$(get_libdir)/libjwc_f.so.0.1
-#
-#	dosym libssm.so.0.0.0 /usr/$(get_libdir)/libssm.so
-#	dosym libssm.so.0.0.0 /usr/$(get_libdir)/libssm.so.0
-#	dosym libssm.so.0.0.0 /usr/$(get_libdir)/libssm.so.0.0
-#
-#	dosym libxdl_viewextra.so.0.0.0 /usr/$(get_libdir)/libxdl_viewextra.so
-#	dosym libxdl_viewextra.so.0.0.0 /usr/$(get_libdir)/libxdl_viewextra.so.0
-#	dosym libxdl_viewextra.so.0.0.0 /usr/$(get_libdir)/libxdl_viewextra.so.0.0
-#
-#	dosym libxdl_view.so.2.0.0 /usr/$(get_libdir)/libxdl_view.so
-#	dosym libxdl_view.so.2.0.0 /usr/$(get_libdir)/libxdl_view.so.2
-#	dosym libxdl_view.so.2.0.0 /usr/$(get_libdir)/libxdl_view.so.2.0
 
 	# Setup scripts
 	insinto /etc/profile.d
@@ -403,7 +355,7 @@ src_install() {
 
 	for i in non-runnable runnable; do
 		docinto examples/unix/${i}
-		dodoc ${S}/examples/unix/${i}
+		dodoc ${S}/examples/unix/${i}/*
 	done
 
 	# Needed for ccp4i docs to work
@@ -411,16 +363,12 @@ src_install() {
 	dosym ../../share/doc/${PF}/html /usr/$(get_libdir)/ccp4/html
 
 	# Fix overlaps with other packages
-	rm ${D}/usr/share/man/man1/rasmol.1.*
+	rm -f ${D}/usr/share/man/man1/rasmol.1.*
 }
 
 pkg_postinst() {
 	einfo "The Web browser defaults to firefox. Change CCP4_BROWSER"
-	einfo "in /usr/share/ccp4/include/ccp4.setup* to modify this."
-
-	ewarn "Set your .bashrc or other shell login file to source"
-	ewarn "one of the ccp4.setup* files in ${ROOT}usr/share/ccp4/include."
-	ewarn "CCP4 will not work without this."
+	einfo "in /etc/profile.d/ccp4.setup* to modify this."
 }
 
 # Epatch wrapper for bulk patching
@@ -454,7 +402,7 @@ library_dosym() {
 	LIB_MINOR=${SUFFIX#*.}
 	LIB_MINOR=${SUFFIX%%.*}
 	LIB_VERSIONS="${LIB_MAJOR} ${LIB_MAJOR}.${LIB_MINOR}"
-	for LIB_SUFFIX in .${LIB_MAJOR} .${LIB_MAJOR}.${LIB_MINOR} ""; do
+	for LIB_SUFFIX in .${LIB_MAJOR} ""; do
 		einfo "Calling dosym ${LIBNAME} ${LIBDIR} ${CORE_LIBNAME} ${LIB_SUFFIX}"
 		dosym ${LIBNAME} ${LIBDIR}${CORE_LIBNAME}${LIB_SUFFIX}
 	done
