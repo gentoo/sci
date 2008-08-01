@@ -63,6 +63,7 @@ RDEPEND="X? (
 		dev-tcltk/tktreectrl
 		dev-tcltk/itcl
 		dev-tcltk/itk
+		sci-libs/ccp4-libs
 		!app-office/sc
 		!media-libs/raptor"
 DEPEND="${RDEPEND}
@@ -113,32 +114,26 @@ src_unpack() {
 # Use configure option instead
 #	ccp_patch ${FILESDIR}/dont-build-pdb-extract.patch
 
-	ccp_patch ${FILESDIR}/make-mosflm-libdir.patch
-	ccp_patch ${FILESDIR}/make-mosflm-index-libdir.patch
-	ccp_patch ${FILESDIR}/make-mosflm-cbf-libdir.patch
-	ccp_patch ${FILESDIR}/make-ipmosflm-dir.patch
-
 # Don't use these when we aren't building phaser
 #	ccp_patch ${FILESDIR}/make-phaser-bindir.patch
 #	ccp_patch ${FILESDIR}/no-phaser-ld-assume-kernel.patch
 #	# scons config.py tries to chmod python on live system
 #	ccp_patch ${FILESDIR}/dont-chmod-python-binary.patch
 
-	# Don't use this when we aren't building clipper
-	# For some reason clipper check for $enableval even when --enable is passed
-	ccp_patch ${FILESDIR}/pass-clipper-enablevals.patch
-
-	# gerror_ gets defined twice on ppc if you're using gfortran/g95
-	ccp_patch ${FILESDIR}/6.0.2-ppc-double-define-gerror.patch
-
 	# csh syntax doesn't work in a bash script
 	ccp_patch ${FILESDIR}/${PV}-fix-setup-bash-incompatibility.patch
 
-	# gcc-4.3 fixes
-	ccp_patch ${FILESDIR}/${PV}-clipper-mmdbold-ggc-4.3.patch
+	# libraries come from sci-libs/ccp4-libs
+	ccp_patch ${FILESDIR}/${PV}-dont-build-libs.patch
+
+	# mosflm has its own ebuild
+	ccp_patch ${FILESDIR}/${PV}-dont-build-mosflm.patch
 
 	einfo "Done." # done applying Gentoo patches
 	echo
+
+	# Don't build refmac binaries available from the standalone version
+	sed -i -e "/^REFMACTARGETS/s:refmac5 libcheck makecif::g" configure
 
 	# Rapper bundles libxml2 and boehm-gc. Don't build, use or install those.
 	pushd src/rapper 2>/dev/null
@@ -218,6 +213,12 @@ src_compile() {
 		--disable-phaser \
 		--tmpdir="${TMPDIR}" \
 		${GENTOO_OSNAME} || die "econf failed"
+
+	# fsplit is required for the programs
+	pushd lib/src 2>/dev/null
+	emake fsplit -j1 || die
+	popd 2>/dev/null
+
 	emake -j1 || die "emake failed"
 }
 
@@ -281,18 +282,8 @@ src_install() {
 		${D}/usr/$(get_libdir)/*.la
 
 	# Library symlinks
-	local LIBNAMES="libclipper-ccp4.so.0.0.0
-		libclipper-cif.so.0.0.0
-		libclipper-contrib.so.0.0.0
-		libclipper-core.so.0.0.0
-		libclipper-minimol.so.0.0.0
-		libclipper-mmdbold.so.0.0.0
-		libclipper-mmdb.so.0.0.0
-		libclipper-mtz.so.1.0.0
-		libclipper-phs.so.0.0.0
-		libjwc_c.so.0.1.1
+	local LIBNAMES="libjwc_c.so.0.1.1
 		libjwc_f.so.0.1.1
-		libssm.so.0.0.0
 		libxdl_viewextra.so.0.0.0
 		libxdl_view.so.2.0.0"
 
@@ -316,16 +307,6 @@ src_install() {
 	doins -r ${S}/ccp4i || die
 	exeinto /usr/$(get_libdir)/ccp4/ccp4i/bin
 	doexe ${S}/ccp4i/bin/* || die
-
-	# Data
-	insinto /usr/share/ccp4
-	doins -r ${S}/lib/data || die
-
-	# Include files
-	insinto /usr/include
-	for i in ccp4 mmdb; do
-		doins -r ${S}/include/${i} || die
-	done
 
 	# Install docs and examples
 
