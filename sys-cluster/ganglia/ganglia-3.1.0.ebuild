@@ -86,7 +86,7 @@ src_install() {
 
 pkg_preinst() {
 	local f
-	if has_version '<ganglia-3.1.0'; then
+	if has_version '<sys-cluster/ganglia-3.1.0'; then
 		elog "Previous ganglia installation detected."
 		elog "Copying conf files to /etc/ganglia from /etc."
 		elog "You may have to remove /etc/gmond.conf yourself."
