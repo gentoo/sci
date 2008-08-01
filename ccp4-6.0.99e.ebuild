@@ -57,6 +57,12 @@ RDEPEND="X? (
 		dev-python/pyxml
 		dev-libs/libxml2
 		dev-libs/boehm-gc
+		dev-tcltk/iwidgets
+		>=dev-tcltk/tdom-0.8
+		dev-tcltk/tkimg
+		dev-tcltk/tktreectrl
+		dev-tcltk/itcl
+		dev-tcltk/itk
 		!app-office/sc
 		!media-libs/raptor"
 DEPEND="${RDEPEND}
@@ -241,7 +247,7 @@ src_install() {
 
 	# Don't check for updates on every sourcing of /etc/profile
 	sed -i \
-		-e "s:\(eval python.*\):#\1:g""
+		-e "s:\(eval python.*\):#\1:g"
 		${S}/include/ccp4.setup*
 
 	# Get rid of S instances
