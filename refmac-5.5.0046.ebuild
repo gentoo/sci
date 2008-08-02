@@ -43,5 +43,6 @@ src_install() {
 	for i in refmac libcheck makecif; do
 		dobin ${i} || die
 	done
+	dosym refmac /usr/bin/refmac5 || die
 	dodoc refmac_keywords.pdf || die
 }
