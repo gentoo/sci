@@ -214,6 +214,7 @@ src_compile() {
 		--disable-pdb_extract \
 		--disable-cctbx \
 		--disable-phaser \
+		--disable-clipper \
 		--tmpdir="${TMPDIR}" \
 		${GENTOO_OSNAME} || die "econf failed"
 
@@ -235,6 +236,10 @@ src_install() {
 #	dodir /usr/include /usr/$(get_libdir) /usr/bin
 
 #	make install || die "install failed"
+
+	# if we don't make this, a ton of programs fail to install
+	mkdir "${S}"/bin || die
+
 	einstall || die "install failed"
 
 	# Fix env
@@ -242,6 +247,7 @@ src_install() {
 		-e "s~^\(setenv CCP4_MASTER.*\)${WORKDIR}~\1/usr~g" \
 		-e "s~^\(setenv CCP4.*\$CCP4_MASTER\).*~\1~g" \
 		-e "s~^\(setenv CCP4I_TOP\).*~\1 \$CCP4/$(get_libdir)/ccp4/ccp4i~g" \
+		-e "s~^\(setenv DBCCP4I_TOP\).*~\1 \$CCP4/share/ccp4/dbccp4i~g" \
 		-e "s~^\(.*setenv CINCL.*\$CCP4\).*~\1/share/ccp4/include~g" \
 		-e "s~^\(.*setenv CLIBD .*\$CCP4\).*~\1/share/ccp4/data~g" \
 		-e "s~^\(.*setenv CLIBD_MON .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
@@ -310,6 +316,18 @@ src_install() {
 	doins -r ${S}/ccp4i || die
 	exeinto /usr/$(get_libdir)/ccp4/ccp4i/bin
 	doexe ${S}/ccp4i/bin/* || die
+
+	# dbccp4i
+	insinto /usr/share/ccp4
+	doins -r ${S}/share/dbccp4i || die
+
+	# balbes
+	insinto /usr/share/ccp4
+	doins -r ${S}/share/balbes || die
+
+	# smartie -- log parsing
+	insinto /usr/share/ccp4
+	doins -r ${S}/share/smartie || die
 
 	# Install docs and examples
 
