@@ -74,7 +74,8 @@ DEPEND="${RDEPEND}
 				x11-proto/xextproto
 		)"
 PDEPEND="sci-chemistry/mosflm
-	sci-chemistry/imosflm"
+	sci-chemistry/imosflm
+	sci-chemistry/refmac"
 
 S="${WORKDIR}/${PN}-${PV}"
 
