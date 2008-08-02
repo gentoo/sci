@@ -73,6 +73,7 @@ DEPEND="${RDEPEND}
 				x11-proto/inputproto
 				x11-proto/xextproto
 		)"
+PDEPEND="sci-chemistry/mosflm"
 
 S="${WORKDIR}/${PN}-${PV}"
 
