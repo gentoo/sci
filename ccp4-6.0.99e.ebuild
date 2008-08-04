@@ -76,7 +76,8 @@ DEPEND="${RDEPEND}
 PDEPEND="sci-chemistry/mosflm
 	sci-chemistry/imosflm
 	sci-chemistry/refmac
-	sci-chemistry/xia2"
+	sci-chemistry/xia2
+	sci-libs/balbes-db"
 
 S="${WORKDIR}/${PN}-${PV}"
 
