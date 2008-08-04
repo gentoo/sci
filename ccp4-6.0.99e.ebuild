@@ -75,7 +75,8 @@ DEPEND="${RDEPEND}
 		)"
 PDEPEND="sci-chemistry/mosflm
 	sci-chemistry/imosflm
-	sci-chemistry/refmac"
+	sci-chemistry/refmac
+	sci-chemistry/xia2"
 
 S="${WORKDIR}/${PN}-${PV}"
 
