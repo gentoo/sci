@@ -77,6 +77,7 @@ PDEPEND="sci-chemistry/mosflm
 	sci-chemistry/imosflm
 	sci-chemistry/refmac
 	sci-chemistry/xia2
+	sci-chemistry/ccp4i
 	sci-libs/balbes-db"
 
 S="${WORKDIR}/${PN}-${PV}"
@@ -312,16 +313,6 @@ src_install() {
 	# Environment files, setup scripts, etc.
 	insinto /usr/share/ccp4/include
 	doins ${S}/include/* || die
-
-	# CCP4Interface - GUI
-	insinto /usr/$(get_libdir)/ccp4
-	doins -r ${S}/ccp4i || die
-	exeinto /usr/$(get_libdir)/ccp4/ccp4i/bin
-	doexe ${S}/ccp4i/bin/* || die
-
-	# dbccp4i
-	insinto /usr/share/ccp4
-	doins -r ${S}/share/dbccp4i || die
 
 	# balbes
 	insinto /usr/share/ccp4
