@@ -40,6 +40,7 @@ RDEPEND=">=sci-libs/gsl-1.3
 	>=sci-libs/clipper-20070907
 	<sci-libs/mmdb-1.0.10
 	dev-python/pygtk
+	gnome-base/librsvg
 	>=dev-libs/gmp-4.2.2-r2"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
