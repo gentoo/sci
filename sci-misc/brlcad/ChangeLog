@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/plplot
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  24 Aug 2008; Tim Cera <timcera@earthlink.net> brlcad-7.10.4.ebuild:
+  * The BDL (BSD Documentation License) was for content on their wiki. Removed
+  from software licenses. * Changed the copyright year to 2008.
 
   19 Dec 2007; Sébastien Fabbro <bicatali@gentoo.org>
   -files/brlcad-7.6.6-gentoo.diff, +files/brlcad-tcltk-man_install.patch,
