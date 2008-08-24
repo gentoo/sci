@@ -1,10 +1,9 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-DESCRIPTION="NodeMon is a distributed visualization tool for monitoring system resource utilization.  It is primarily intended for clusters and large-scale NUMA systems"
-#HOMEPAGE="http://www.nas.nasa.gov/~bgreen/nodemon/"
-#SRC_URI="${HOMEPAGE}/downloads/nodemon-${PV}.tar.gz"
+DESCRIPTION="NodeMon is a distributed visualization tool for monitoring system
+resource utilization."
 HOMEPAGE="http://nodemon.sourceforge.net/"
 SRC_URI="http://downloads.sourceforge.net/nodemon/nodemon-${PV}.tar.gz"
 
