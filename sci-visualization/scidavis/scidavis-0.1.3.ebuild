@@ -80,9 +80,9 @@ src_install() {
 }
 
 pkg_postinst() {
-        fdo-mime_desktop_database_update
+	fdo-mime_desktop_database_update
 }
 
 pkg_postrm() {
-        fdo-mime_desktop_database_update
+	fdo-mime_desktop_database_update
 }
