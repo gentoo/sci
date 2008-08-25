@@ -47,6 +47,11 @@ src_install() {
 	insinto /usr/include/${PN}
 	doins include/* || die "headers install failed"
 
+	insinto /usr/share/${PN}
+	doins -r xmldoc || die "xmldoc install failed"
+	echo PYTHIA8DATA=/usr/share/${PN}/xmldoc >> 99pythia8
+	doenvd 99pythia8
+
 	insinto /usr/share/doc/${PF}
 	dodoc GUIDELINES AUTHORS README
 	if use doc; then
