@@ -1,6 +1,6 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $ Header: $
+# $Header:  $
 
 inherit eutils toolchain-funcs versionator flag-o-matic
 
@@ -10,12 +10,12 @@ DESCRIPTION="NETGEN is an automatic 3d tetrahedral mesh generator"
 HOMEPAGE="http://www.hpfem.jku.at/netgen/"
 SRC_URI="http://www.hpfem.jku.at/cgi/download.cgi?ID=${MY_P}.tar.gz"
 
-LICENSE="LGPL"
+LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86"
 IUSE="opencascade blas lapack gmp"
 SLOT=0
 
-RDEPEND="opencascade? ( sci-misc/opencascade )
+RDEPEND="opencascade? ( sci-libs/opencascade )
 	blas? ( virtual/blas )
 	lapack? ( virtual/lapack )
 	gmp? ( dev-libs/gmp ) "
