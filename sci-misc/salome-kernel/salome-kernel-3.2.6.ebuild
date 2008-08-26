@@ -1,19 +1,18 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-
+# $Header:  $
 
 inherit autotools distutils eutils flag-o-matic toolchain-funcs versionator python multilib
 
 
 DESCRIPTION="SALOME : The Open Source Integration Platform for Numerical Simulation. KERNEL Component"
 HOMEPAGE="http://www.salome-platform.org"
-SRC_URI="salome-3.2.6.tar.gz"
+SRC_URI="http://files.opencascade.com/Salome${PV}/src${PV}.tar.gz"
 
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="doc corba opengl openpbs mpi debug X"
-RESTRICT="fetch"
 
 RDEPEND="opengl?  ( virtual/opengl )
 	 mpi?     ( sys-cluster/mpich2 )
@@ -26,7 +25,7 @@ DEPEND="${RDEPEND}
 	app-doc/doxygen
 	media-gfx/graphviz
 	dev-libs/boost
-	dev-lang/python:2.4
+	dev-lang/python
 	>=dev-python/PyQt-3.13
 	>=dev-python/sip-4.1.3
 	dev-python/numeric
@@ -46,16 +45,6 @@ MY_S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
 INSTALL_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 KERNEL_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 export OPENPBS="/usr"
-
-
-pkg_nofetch()
-{
-	einfo "You have to download manually the source code. You can download it from :"
-	einfo "   http://www.salome-platform.org/download/dl326"
-	einfo ""
-	einfo "Put the archive in the \"/usr/portage/distfile\" directory and rename it \"salome-3.2.6.tar.gz\""
-}
-
 
 src_unpack()
 {
@@ -78,7 +67,9 @@ src_unpack()
 	epatch "${FILESDIR}"/${P}-Batch_Couple.patch
 	# If Python 2.5 is planned to be used, the following patch must be applied. This, however,
 	# needs to be thoroughly tested!
-	#epatch "${FILESDIR}"/${P}-pyobject.patch
+	if version_is_at_least "2.5" "${PYVER}"; then
+		epatch "${FILESDIR}"/${P}-pyobject.patch
+	fi
 
 	# Fix for mpich2 detection, this is also used by salome-component at least
 	epatch "${FILESDIR}"/${P}-mpich2.patch
@@ -88,7 +79,7 @@ src_unpack()
 	fi
 
 	# Correct the Salome version number
-	sed -i "s:3.2.5:3.2.6:g" configure.ac
+	sed -i "s:3.2.5:${PV}:g" configure.ac
 
 	./clean_configure
 	./build_configure
@@ -142,7 +133,7 @@ src_compile()
 	      $(use_with opengl opengl /usr) \
 	      $(use_enable corba corba-gen) \
 	|| die "configuration failed"
-	
+
 	# Compilation
 	emake || die "compilation failed"
 }
@@ -171,12 +162,12 @@ src_install()
 	echo "PYTHONPATH=${INSTALL_DIR}/$(get_libdir)/python${PYVER}/site-packages/salome" >> ./90${P}
 	doenvd 90${P}
 	if use doc ; then
-		dodoc AUTHORS ChangeLog COPYING INSTALL LICENCE NEWS README README.FIRST.txt
+		dodoc AUTHORS ChangeLog INSTALL NEWS README README.FIRST.txt
 	fi
 
 	# If use omniORB as corba
 	if use corba ; then
-		sed -i 's@import CORBA@from omniORB import CORBA@' ${D}/${INSTALL_DIR}/bin/salome/runSalome.py
+		sed -i 's@import CORBA@from omniORB import CORBA@'	"${D}"/"${INSTALL_DIR}"/bin/salome/runSalome.py
 	fi
 
 	# Install icon and .desktop for menu entry
