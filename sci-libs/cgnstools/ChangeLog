@@ -1,0 +1,8 @@
+# ChangeLog for sci-libs/cgnstools
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  26 Aug 2008; Oliver Borm (boroli) <oli.borm@web.de>
+  +cgnstools-2.5.2.ebuild, +metadata.xml:
+  Ebuild for cgnstools from bug 176455
+
