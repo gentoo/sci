@@ -1,12 +1,15 @@
-# ChangeLog for app-office/texmacs
-# Copyright 2002-2008 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sci-libs/mathgl
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-12 May 2008; Andrey Grozin <grozin@gentoo.org>:
+  26 Aug 2008; Tim Cera <timcera@earthlink.net> +mathgl-1.7.ebuild:
+  Removed unneeded patches and sed commands, updated SRC_URI, added
+  append-flags for CPPFLAGS and LDFLAGS.
+
+  12 May 2008; Andrey Grozin <grozin@gentoo.org>:
   ~ppc added, thanks to Francois Bissey
 
-*mathgl-1.6.2 (29 Apr 2008)
-29 Apr 2008; Andrey Grozin <A.G.Grozin@inp.nsk.su>
+  29 Apr 2008; Andrey Grozin <A.G.Grozin@inp.nsk.su>
   +metadata.xml, +mathgl-1.6.2.ebuild,
   +files/mathgl-fltk.patch, +files/mathgl-no-cp1251.patch:
   Initial import.
