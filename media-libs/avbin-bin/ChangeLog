@@ -2,7 +2,15 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  29 May 2008; Andrey Grozin <grozin@gentoo.org> +metadata.xml,
-  +avbin-bin-3.ebuild:
+*avbin-bin-6 (26 Aug 2008)
+
+  24 Aug 2008; Andrey Grozin <grozin@gentoo.org>
+  +avbin-bin-6.ebuild, -avbin-bin-3.ebuild:
+  Version bump, for pyglet-1.1
+
+*avbin-bin-3 (29 May 2008)
+
+  29 May 2008; Andrey Grozin <grozin@gentoo.org>
+  +metadata.xml, +avbin-bin-3.ebuild:
   Initial import, thanks to Thomas Pani, bug #207125
 
