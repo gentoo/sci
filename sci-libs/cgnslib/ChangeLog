@@ -1,0 +1,8 @@
+# ChangeLog for sci-libs/cgnslib
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  26 Aug 2008; Oliver Borm (boroli) <oli.borm@web.de> +cgnslib-2.5.3.ebuild,
+  +metadata.xml:
+  Ebuild for cgnslib from bug 176455
+
