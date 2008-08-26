@@ -13,6 +13,9 @@ app-office/texmacs:netpbm - Allows TeXmacs to include images in a number of form
 sci-astronomy/scamp:plplot - Add plplot to allow diagnostic plots during processing 
 sci-biology/tgi-tools:pvm - Use sys-cluster/pvm (Parallel Virtual Machine) and build the pvmsx utility
 sci-libs/opencv:demos - Install applications that demo OpenCV library functions
+sci-libs/gmsh:cgns - Enables cgns output support
+sci-libs/gmsh:metis - Enables metis support
+sci-libs/gmsh:opencascade - Enable OpenCASCADE support
 sci-mathematics/gap:xtom - extra tables of marks
 sci-mathematics/netgen:opencascade - Enable OpenCASCADE support
 sci-misc/opencascade/opencascade:draw-harness - Enable building of draw-harness
