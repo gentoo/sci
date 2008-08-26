@@ -2,8 +2,18 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pyglet-1.1 (26 Aug 2008)
+
+  26 Aug 2008; Andrey Grozin <grozin@gentoo.org>
+  +pyglet-1.1.ebuild, -pyglet-1.1_beta1.ebuild, -pyglet-1.1_beta2.ebuild:
+  version bump
+
+*pyglet-1.1_beta2 (09 Jul 2008)
+
   09 Jul 2008; Andrey Grozin <grozin@gentoo.org> +pyglet-1.1_beta2.ebuild:
   version bump
+
+*pyglet-1.1_beta1 (29 May 2008)
 
   29 May 2008; Andrey Grozin <grozin@gentoo.org> +metadata.xml,
   +pyglet-1.1_beta1.ebuild:
