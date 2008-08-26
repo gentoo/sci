@@ -1,0 +1,12 @@
+--- gmsh-2.2.3-old/contrib/Metis/Makefile	2008-02-22 07:49:34.000000000 +0100
++++ gmsh-2.2.3/contrib/Metis/Makefile	2008-04-02 00:34:50.000000000 +0200
+@@ -90,9 +90,6 @@
+ 
+ .c${OBJEXT}:
+ 	${CC} ${CFLAGS} ${DASH}c $< ${DASH}o ${<:.c=${OBJEXT}}
+-	if [ -r ${notdir ${<:.c=${OBJEXT}}} ]; then\
+-           mv -f ${notdir ${<:.c=${OBJEXT}}} ${<:.c=${OBJEXT}};\
+-        fi
+ 
+ clean:
+ 	rm -f *.o *.obj

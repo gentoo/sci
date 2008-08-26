@@ -1,0 +1,8 @@
+# ChangeLog for sci-libs/gmsh
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  26 Aug 2008; Oliver Borm (boroli) <oli.borm@web.de> +gmsh-2.2.3.ebuild,
+  +files/gmsh-2.2.3-metis.patch, +files/gmsh-2.2.3.patch, +metadata.xml:
+  Ebuild for gmsh as reported in bug 195980.
+
