@@ -22,6 +22,8 @@ sci-misc/opencascade/opencascade:draw-harness - Enable building of draw-harness
 sci-misc/opencascade/opencascade:stlport - Build OpenCASCADE with STLPort
 sci-misc/opencascade/opencascade:wok - Enable building of WOK
 sci-misc/opennlp-tools:models - Install prebuild ME models (requires a ton of disk space)
+sci-misc/salome-kernel:corba - Enables corba support 
+sci-misc/salome-kernel:openpbs - Enables openpbs support
 sci-physics/clhep:exceptions - Build CLHEP with exception mechanism
 sci-physics/meep:hdf5 - Enable support for the Hierarchical Data Format version 5
 sci-visualization/nodemon:pbs - Adds support for PBS (Portable Batch System) queries
