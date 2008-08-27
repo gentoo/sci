@@ -18,12 +18,22 @@ sci-libs/gmsh:metis - Enables metis support
 sci-libs/gmsh:opencascade - Enable OpenCASCADE support
 sci-mathematics/gap:xtom - extra tables of marks
 sci-mathematics/netgen:opencascade - Enable OpenCASCADE support
-sci-misc/opencascade/opencascade:draw-harness - Enable building of draw-harness
-sci-misc/opencascade/opencascade:stlport - Build OpenCASCADE with STLPort
-sci-misc/opencascade/opencascade:wok - Enable building of WOK
+sci-misc/opencascade:draw-harness - Enable building of draw-harness
+sci-misc/opencascade:stlport - Build OpenCASCADE with STLPort
+sci-misc/opencascade:wok - Enable building of WOK
 sci-misc/opennlp-tools:models - Install prebuild ME models (requires a ton of disk space)
+sci-misc/salome-component:openpbs - Enables openpbs support
+sci-misc/salome-gui:corba - Enables corba support
+sci-misc/salome-gui:pyconsole - make python console module
+sci-misc/salome-gui:glviewer - make glviewer module
+sci-misc/salome-gui:plot2dviewer - make plot2dviewer module
+sci-misc/salome-gui:supervgraphviewer - make supervgraphviewer module
+sci-misc/salome-gui:occviewer - make occviewer module
+sci-misc/salome-gui:vtkviewer - make vtkviewer module
+sci-misc/salome-gui:salomeobject - make salomeobject module
 sci-misc/salome-kernel:corba - Enables corba support 
 sci-misc/salome-kernel:openpbs - Enables openpbs support
+sci-misc/salome-med:openpbs - Enables openpbs support
 sci-physics/clhep:exceptions - Build CLHEP with exception mechanism
 sci-physics/meep:hdf5 - Enable support for the Hierarchical Data Format version 5
 sci-visualization/nodemon:pbs - Adds support for PBS (Portable Batch System) queries
