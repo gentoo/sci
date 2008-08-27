@@ -5,3 +5,8 @@
   +salome-meta-3.2.6.ebuild
   A major thank to Francois Dorin <f.dorin@free.fr>, Jon Hood <squinky86@gmail.com>, Dewald Pietersen <dewald.pieterse@gmail.com>, <etienne.lorriaux@gmail.com> and Richard Westwell <garlicbread@ntlworld.com> for their respective contributions and feedback. Without you guys, the Salome ebuilds would not exist today. Thanks!
   See bug #155974 for more info
+
+  27 Aug 2008; Oliver Borm (boroli) <oli.borm@web.de>
+  salome-meta-3.2.6.ebuild, -Changelog, +metadata.xml:
+  Fixed repoman errors, removed hardcode
+
