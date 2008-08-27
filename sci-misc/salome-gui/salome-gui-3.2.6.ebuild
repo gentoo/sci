@@ -1,18 +1,17 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-
+# $Header:  $
 
 inherit autotools distutils eutils flag-o-matic toolchain-funcs versionator python multilib
 
 DESCRIPTION="SALOME : The Open Source Integration Platform for Numerical Simulation. GUI component"
 HOMEPAGE="http://www.salome-platform.org"
-SRC_URI="salome-3.2.6.tar.gz"
+SRC_URI="http://files.opencascade.com/Salome${PV}/src${PV}.tar.gz"
 
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="doc corba pyconsole glviewer plot2dviewer supervgraphviewer occviewer vtkviewer salomeobject opengl mpi debug"
-RESTRICT="fetch"
 
 RDEPEND="opengl?  ( virtual/opengl )
 	 mpi?     ( sys-cluster/mpich2 )
@@ -21,22 +20,13 @@ RDEPEND="opengl?  ( virtual/opengl )
 	 	    <=net-misc/omniORB-4.1 )"
 
 DEPEND="${RDEPEND}
-	 >=sci-misc/salome-kernel-3.2.6"
+	 >=sci-misc/salome-kernel-${PV}"
 
 MODULE_NAME="GUI"
 MY_S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
 INSTALL_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 GUI_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 export OPENPBS="/usr"
-
-
-pkg_nofetch()
-{
-	einfo "You have to download manually the source code. You can download it from :"
-	einfo "   http://www.salome-platform.org/download/dl326"
-	einfo ""
-	einfo "Put the archive in the \"/usr/portage/distfile\" directory and rename it \"salome-3.2.6.tar.gz\""
-}
 
 
 src_unpack()
@@ -59,7 +49,6 @@ src_unpack()
 			"please enable salomeobject use flag before continuing"
 		fi
 	fi
-
 
 	unpack ${A}
 	cd "${WORKDIR}/src${PV}"
@@ -168,7 +157,7 @@ src_install() {
 	insinto "${INSTALL_DIR}"
 	doins -r adm_local
 	if use doc ; then
-		dodoc AUTHORS ChangeLog COPYING INSTALL LICENCE NEWS README README.FIRST.txt
+		dodoc AUTHORS INSTALL NEWS README README.FIRST.txt
 	fi
 
 }
