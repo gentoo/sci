@@ -1,27 +1,26 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-
+# $Header:  $
 
 inherit autotools distutils eutils flag-o-matic toolchain-funcs versionator python multilib
 
 DESCRIPTION="SALOME : The Open Source Integration Platform for Numerical Simulation. SUPERV Component"
 HOMEPAGE="http://www.salome-platform.org"
-SRC_URI="salome-3.2.6.tar.gz"
+SRC_URI="http://files.opencascade.com/Salome${PV}/src${PV}.tar.gz"
 
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="doc opengl mpi debug"
-RESTRICT="fetch"
 
 RDEPEND="opengl?  ( virtual/opengl )
 	 mpi?     ( sys-cluster/mpich2 )
 	 debug?   ( dev-util/cppunit )"
 
 DEPEND="${RDEPEND}
-	>=sci-misc/salome-kernel-3.2.6
-	>=sci-misc/salome-gui-3.2.6
-	>=sci-misc/salome-component-3.2.6
+	>=sci-misc/salome-kernel-${PV}
+	>=sci-misc/salome-gui-${PV}
+	>=sci-misc/salome-component-${PV}
 	<=dev-python/omniorbpy-2.6
 	<=net-misc/omniORB-4.1"
 
@@ -32,16 +31,6 @@ MY_S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
 INSTALL_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 SUPERV_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 export OPENPBS="/usr"
-
-
-pkg_nofetch()
-{
-	einfo "You have to download manually the source code. You can download it from :"
-	einfo "   http://www.salome-platform.org/download/dl326"
-	einfo ""
-	einfo "Put the archive in the \"/usr/portage/distfile\" directory and rename it \"salome-3.2.6.tar.gz\""
-}
-
 
 src_unpack()
 {
@@ -55,7 +44,7 @@ src_unpack()
 
 	unpack ${A}
 	cd ${MY_S}
-	epatch ${FILESDIR}/${P}.patch
+	epatch "${FILESDIR}"/${P}.patch
 
 	# Gcc 4.3 support
 	if version_is_at_least "4.3" $(gcc-version) ; then
@@ -143,7 +132,7 @@ src_install()
 	insinto "${INSTALL_DIR}"
 	doins -r adm_local
 	if use doc ; then
-		dodoc INSTALL LICENCE
+		dodoc INSTALL
 	fi
 }
 
