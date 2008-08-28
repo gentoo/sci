@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/sympy
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*sympy-0.6.2 (28 Aug 2008)
+
+  28 Aug 2008; Andrey Grozin <grozin@gentoo.org>
+  +metadata.xml, +sympy-0.6.2.ebuild, +files/sympy-0.6.2-sphinx.patch:
+  Based on ebuilds from sunrize and bug #192785,
+  thanks to everybody

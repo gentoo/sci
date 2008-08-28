@@ -1,0 +1,38 @@
+diff -r -U2 sympy-0.6.2.orig/setup.py sympy-0.6.2/setup.py
+--- sympy-0.6.2.orig/setup.py	2008-08-17 22:00:26.000000000 +0700
++++ sympy-0.6.2/setup.py	2008-08-29 00:29:43.000000000 +0700
+@@ -60,5 +60,4 @@
+     ( False, 'sympy.plotting', [] ),
+     ( False, 'sympy.thirdparty', [] ),
+-    ( False, 'sympy.mpmath', [] ),
+     ( True, 'sympy.polynomials', [] ),
+     ( True, 'sympy.polynomials.fast', [] ),
+@@ -236,5 +235,4 @@
+     'sympy.integrals.tests',
+     'sympy.matrices.tests',
+-    'sympy.mpmath.tests',
+     'sympy.ntheory.tests',
+     'sympy.parsing.tests',
+@@ -256,21 +254,5 @@
+ # http://pyglet.googlecode.com/svn/trunk/setup.py
+ # (whenever we update pyglet in sympy)
+-pyglet_packages=[
+-    'pyglet',
+-    'pyglet.gl',
+-    'pyglet.font',
+-    'pyglet.image',
+-    'pyglet.image.codecs',
+-    'pyglet.media',
+-    'pyglet.media.drivers',
+-    'pyglet.media.drivers.alsa',
+-    'pyglet.media.drivers.directsound',
+-    'pyglet.media.drivers.openal',
+-    'pyglet.window',
+-    'pyglet.window.carbon',
+-    'pyglet.window.win32',
+-    'pyglet.window.xlib',
+-]
+-pyglet_packages = ["sympy.thirdparty.pyglet." + s for s in pyglet_packages]
++pyglet_packages=[]
+ 
+ setup(
