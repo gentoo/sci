@@ -2,6 +2,9 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Aug 2008; Sébastien Fabbro <bicatali@gentoo.org> pythia-6.4.18.ebuild:
+  Added additional declarations for root
+
   25 Aug 2008; Sébastien Fabbro <bicatali@gentoo.org> ++,
   -pythia-8.1.08.ebuild:
   Added installation of data files, thanks to Benjamin Bannier

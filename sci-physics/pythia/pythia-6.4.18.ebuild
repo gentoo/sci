@@ -9,7 +9,10 @@ MY_PN=${PN}${MV}
 
 DESCRIPTION="Lund Monte Carlo high-energy physics event generator"
 HOMEPAGE="http://projects.hepforge.org/pythia6/"
+
+# pythia6 from root is needed for some files to interface pythia6 with root
 SRC_URI="http://www.hepforge.org/archive/${MY_PN}/${P}.f.gz
+	ftp://root.cern.ch/root/pythia6.tar.gz
 	http://www.hepforge.org/archive/${MY_PN}/update_notes-${PV}.txt
 	doc? ( http://home.thep.lu.se/~torbjorn/pythia/lutp0613man2.pdf
 		   http://home.thep.lu.se/~torbjorn/pythia/main60.f )"
@@ -25,7 +28,7 @@ S="${WORKDIR}"
 FORTRAN="gfortran ifc g77"
 
 src_unpack() {
-	unpack ${P}.f.gz
+	unpack ${A}
 	cat > configure.ac <<-EOF
 		AC_INIT(${PN},${PV})
 		AM_INIT_AUTOMAKE
@@ -36,7 +39,9 @@ src_unpack() {
 	EOF
 	cat > Makefile.am <<-EOF
 		lib_LTLIBRARIES = lib${MY_PN}.la
-		lib${MY_PN}_la_SOURCES = ${P}.f
+		lib${MY_PN}_la_SOURCES = ${P}.f \
+			= pythia6/tpythia6_called_from_cc.F \
+			= pythia6/pythia6_common_address.c
 	EOF
 	eautoreconf
 }
