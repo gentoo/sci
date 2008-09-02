@@ -1,16 +1,16 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+inherit versionator
 
-MYPV=${PV//./}
+MYP="${PN}$(replace_all_version_separators '')"
 DOCPV=120
 
 DESCRIPTION="Template Numerical Toolkit: C++ headers for array and matrices"
 HOMEPAGE="http://math.nist.gov/tnt/"
-SRC_URI="http://math.nist.gov/tnt/${PN}_${MYPV}.zip
-	doc? ( http://math.nist.gov/tnt/${PN}_${DOCPV}doc.zip )"
+SRC_URI="http://math.nist.gov/tnt/${MYP}.zip
+	doc? ( http://math.nist.gov/tnt/${PN}${DOCPV}doc.zip )"
 
 LICENSE="public-domain"
 SLOT="0"
@@ -22,10 +22,6 @@ DEPEND="app-arch/unzip"
 RDEPEND=""
 
 S="${WORKDIR}"
-
-src_compile() {
-	einfo "Nothing to compile"
-}
 
 src_install() {
 	insinto /usr/include
