@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.20.00.ebuild,v 1.4 2008/07/29 10:43:53 bicatali Exp $
 
 EAPI=1
-inherit versionator flag-o-matic eutils toolchain-funcs qt4 fortran
+inherit versionator eutils toolchain-funcs qt4 fortran elisp-common
 
 DOC_PV=$(get_major_version)_$(get_version_component_range 2)
 ROOFIT_DOC_PV=2.07-29
@@ -21,7 +21,7 @@ SLOT="0"
 LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~hppa ~sparc ~x86"
 
-IUSE="afs cern clarens doc fftw geant4 kerberos ldap +math mysql odbc
+IUSE="afs cern clarens doc emacs fftw geant4 kerberos ldap +math mysql odbc
 	oracle postgres pythia6 pythia8 python +reflex ruby qt4 ssl xml xrootd"
 
 # libafterimage ignored, may be re-install for >=5.20
@@ -38,28 +38,29 @@ RDEPEND="sys-apps/shadow
 	media-libs/tiff
 	virtual/opengl
 	virtual/glu
-	math? ( >=sci-libs/gsl-1.8 )
 	afs? ( >=net-fs/openafs-1.4.7 )
-	mysql? ( virtual/mysql )
-	postgres? ( virtual/postgresql-server )
+	clarens? ( dev-libs/xmlrpc-c )
+	emacs? ( virtual/emacs )
+	fftw? ( sci-libs/fftw:3.0 )
+	geant4? ( sci-physics/geant:4 )
 	kerberos? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
+	math? ( >=sci-libs/gsl-1.8 )
+	mysql? ( virtual/mysql )
+	odbc? ( || ( dev-db/unixODBC dev-db/libiodbc ) )
+	oracle? ( dev-db/oracle-instantclient-basic )
+	postgres? ( virtual/postgresql-server )
+	pythia6? ( sci-physics/pythia:6 )
+	pythia8? ( sci-physics/pythia:8 )
+	python? ( dev-lang/python )
 	qt4? ( || ( ( x11-libs/qt-gui:4
 			x11-libs/qt-opengl:4
 			x11-libs/qt-qt3support:4
 			x11-libs/qt-xmlpatterns:4 )
 			=x11-libs/qt-4.3* ) )
-	fftw? ( sci-libs/fftw:3.0 )
-	pythia6? ( sci-physics/pythia:6 )
-	pythia8? ( sci-physics/pythia:8 )
-	python? ( dev-lang/python )
 	ruby? ( dev-lang/ruby )
 	ssl? ( dev-libs/openssl )
-	xml? ( dev-libs/libxml2 )
-	geant4? ( sci-physics/geant:4 )
-	odbc? ( || ( dev-db/unixODBC dev-db/libiodbc ) )
-	oracle? ( dev-db/oracle-instantclient-basic )
-	clarens? ( dev-libs/xmlrpc-c )"
+	xml? ( dev-libs/libxml2 )"
 
 DEPEND="${RDEPEND}
 	cern? ( dev-lang/cfortran )
@@ -204,6 +205,9 @@ src_compile() {
 
 	emake || die "emake failed"
 	emake cintdlls || die "emake cintdlls failed"
+	if use emacs; then
+		elisp-compile build/misc/*.el || die "elisp-compile failed"
+	fi
 }
 
 src_install() {
@@ -213,6 +217,13 @@ src_install() {
 	use python && echo "PYTHONPATH=/usr/$(get_libdir)/root" >> 99root
 	use ruby && echo "RUBYLIB=/usr/$(get_libdir)/root" >> 99root
 	doenvd 99root || die "doenvd failed"
+
+	# The build system installs Emacs support unconditionally and in the wrong
+	# directory. Remove it and call elisp-install in case of USE=emacs.
+	rm -rf "${D}"/usr/share/emacs
+	if use emacs; then
+		elisp-install ${PN} build/misc/*.{el,elc} || die "elisp-install failed"
+	fi
 
 	if use doc; then
 		einfo "Installing user's guides"

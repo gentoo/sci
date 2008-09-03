@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Sep 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  root-5.20.00-r1.ebuild:
+  Added better emacs support, thanks to ulm, bug #236462
+
   30 Aug 2008; Sébastien Fabbro <bicatali@gentoo.org>
   +files/root-5.20.00-configure.patch,
   +files/root-5.20.00-include-defines-file.patch,
