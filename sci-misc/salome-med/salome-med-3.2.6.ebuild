@@ -11,7 +11,7 @@ SRC_URI="http://files.opencascade.com/Salome${PV}/src${PV}.tar.gz"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
-IUSE="doc opengl mpi openpbs debug"
+IUSE="debug doc mpi opengl openpbs"
 
 RDEPEND="opengl?  ( virtual/opengl )
 	 mpi?     ( sys-cluster/mpich2 )
@@ -21,11 +21,7 @@ RDEPEND="opengl?  ( virtual/opengl )
 DEPEND="${RDEPEND}
 	>=sci-misc/salome-kernel-${PV}
 	>=sci-misc/salome-gui-${PV}
-	<=dev-python/omniorbpy-2.6
-	<=net-misc/omniORB-4.1
 	sci-libs/med"
-
-# Note that Corba is apparently not optional in this module
 
 MODULE_NAME="MED"
 MY_S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
@@ -33,8 +29,7 @@ INSTALL_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 MED_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 export OPENPBS="/usr"
 
-src_unpack()
-{
+src_unpack() {
 	python_version
 	distutils_python_version
 	ewarn "Python 2.4 is highly recommended for Salome..."
@@ -56,8 +51,7 @@ src_unpack()
 }
 
 
-src_compile()
-{
+src_compile() {
 	local myconf=""
 	cd "${MY_S}"
 	rm -r -f autom4te.cache
@@ -104,8 +98,7 @@ src_compile()
 }
 
 
-src_install()
-{
+src_install() {
 	cd "${MY_S}"
 
 	# Installation
