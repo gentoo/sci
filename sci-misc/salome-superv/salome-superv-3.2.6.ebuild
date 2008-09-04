@@ -40,7 +40,7 @@ src_unpack() {
 	unpack ${A}
 	cd ${MY_S}
 	epatch "${FILESDIR}"/${P}.patch
-	epatch "${FILESDIR}"/${P}-omniorb_4.1.patch
+	epatch "${FILESDIR}"/${P}_omniorb_4.1.patch
 
 	# Gcc 4.3 support
 	if version_is_at_least "4.3" $(gcc-version) ; then
