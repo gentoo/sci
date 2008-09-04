@@ -12,14 +12,16 @@ SRC_URI="http://files.opencascade.com/Salome${PV}/src${PV}.tar.gz"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
-IUSE="doc corba opengl openpbs mpi debug X"
+IUSE="debug doc mpi opengl openpbs"
 
 RDEPEND="opengl?  ( virtual/opengl )
 	 mpi?     ( sys-cluster/mpich2 )
 	 debug?   ( dev-util/cppunit )
 	 openpbs? ( sys-cluster/torque )
-	 corba?   ( <=dev-python/omniorbpy-2.6
-	 	    <=net-misc/omniORB-4.1 )"
+	 dev-python/omniorbpy
+	 net-misc/omniORB"
+
+# Note that Corba is apparently not optional in this module
 
 DEPEND="${RDEPEND}
 	app-doc/doxygen
@@ -46,8 +48,7 @@ INSTALL_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 KERNEL_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 export OPENPBS="/usr"
 
-src_unpack()
-{
+src_unpack() {
 	python_version
 	distutils_python_version
 	ewarn "Python 2.4 is highly recommended for Salome..."
@@ -65,6 +66,7 @@ src_unpack()
 	cd "${MY_S}"
 	epatch "${FILESDIR}"/${P}_openpbs.patch
 	epatch "${FILESDIR}"/${P}-Batch_Couple.patch
+	epatch "${FILESDIR}"/${P}-omniorb_4.1.patch
 	# If Python 2.5 is planned to be used, the following patch must be applied. This, however,
 	# needs to be thoroughly tested!
 	if version_is_at_least "2.5" "${PYVER}"; then
@@ -86,15 +88,10 @@ src_unpack()
 }
 
 
-src_compile()
-{
+src_compile() {
 	cd "${MY_S}"
 
 	local myconf="--with-tcl=/usr/$(get_libdir)/ --with-tk=/usr/$(get_libdir)/"
-
-	if use !X ; then
-		die "Salome functionnalities imply X support! Check your USE flags configuration."
-	fi
 
 	# Compiler and linker flags
 	if use amd64 ; then
@@ -126,12 +123,12 @@ src_compile()
 	      --libdir=${INSTALL_DIR}/$(get_libdir)/salome \
 	      --with-python-site=${INSTALL_DIR}/$(get_libdir)/python${PYVER}/site-packages/salome \
 	      --with-python-site-exec=${INSTALL_DIR}/$(get_libdir)/python${PYVER}/site-packages/salome \
+	      --enable-corba-gen \
 	      ${myconf} \
 	      $(use_enable debug ) \
 	      $(use_enable !debug production ) \
 	      $(use_with debug cppunit /usr ) \
 	      $(use_with opengl opengl /usr) \
-	      $(use_enable corba corba-gen) \
 	|| die "configuration failed"
 
 	# Compilation
@@ -139,8 +136,7 @@ src_compile()
 }
 
 
-src_install()
-{
+src_install() {
 	cd "${MY_S}"
 
 	# Installation
@@ -165,10 +161,8 @@ src_install()
 		dodoc AUTHORS ChangeLog INSTALL NEWS README README.FIRST.txt
 	fi
 
-	# If use omniORB as corba
-	if use corba ; then
-		sed -i 's@import CORBA@from omniORB import CORBA@'	"${D}"/"${INSTALL_DIR}"/bin/salome/runSalome.py
-	fi
+	# Fix an import python module problem
+	sed -i 's@import CORBA@from omniORB import CORBA@'	"${D}"/"${INSTALL_DIR}"/bin/salome/runSalome.py
 
 	# Install icon and .desktop for menu entry
 	doicon "${FILESDIR}"/${PN}.png

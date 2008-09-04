@@ -1,6 +1,6 @@
-diff -Naur src3.2.6.orig/KERNEL_SRC_3.2.6/src/Batch_SWIG/swig_wrap.cpp src3.2.6/KERNEL_SRC_3.2.6/src/Batch_SWIG/swig_wrap.cpp
---- src3.2.6.orig/KERNEL_SRC_3.2.6/src/Batch_SWIG/swig_wrap.cpp	2007-04-24 16:23:09.000000000 +0000
-+++ src3.2.6/KERNEL_SRC_3.2.6/src/Batch_SWIG/swig_wrap.cpp	2008-02-07 14:45:34.000000000 +0000
+diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch_SWIG/swig_wrap.cpp src3.2.6/KERNEL_SRC_3.2.6/src/Batch_SWIG/swig_wrap.cpp
+--- src3.2.6.old/KERNEL_SRC_3.2.6/src/Batch_SWIG/swig_wrap.cpp	2008-07-25 09:16:08.000000000 +0200
++++ src3.2.6/KERNEL_SRC_3.2.6/src/Batch_SWIG/swig_wrap.cpp	2008-09-02 22:20:24.000000000 +0200
 @@ -1174,7 +1174,7 @@
      obj = pyobj;
      if (PyCFunction_Check(obj)) {
@@ -154,3 +154,78 @@ diff -Naur src3.2.6.orig/KERNEL_SRC_3.2.6/src/Batch_SWIG/swig_wrap.cpp src3.2.6/
          while (PyDict_Next(obj2, &pos, &key, &value)) {
              std::string mk  = PyString_AsString(key);
              std::string val = PyString_AsString(value);
+diff -aur src3.2.6.old/KERNEL_SRC_3.2.6/src/LifeCycleCORBA_SWIG/swig_wrap.cpp src3.2.6/KERNEL_SRC_3.2.6/src/LifeCycleCORBA_SWIG/swig_wrap.cpp
+--- src3.2.6.old/KERNEL_SRC_3.2.6/src/LifeCycleCORBA_SWIG/swig_wrap.cpp	2008-07-25 09:16:08.000000000 +0200
++++ src3.2.6/KERNEL_SRC_3.2.6/src/LifeCycleCORBA_SWIG/swig_wrap.cpp	2008-09-02 22:40:21.000000000 +0200
+@@ -3235,7 +3235,7 @@
+             param->nb_node = 0;
+             param->isMPI = false;
+             PyObject *key, *value;
+-            int pos = 0;
++            Py_ssize_t pos = 0;
+             while (PyDict_Next(obj1, &pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+@@ -3365,7 +3365,7 @@
+             param->nb_node = 0;
+             param->isMPI = false;
+             PyObject *key, *value;
+-            int pos = 0;
++            Py_ssize_t pos = 0;
+             while (PyDict_Next(obj1, &pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+@@ -3557,7 +3557,7 @@
+             param->nb_node = 0;
+             param->isMPI = false;
+             PyObject *key, *value;
+-            int pos = 0;
++            Py_ssize_t pos = 0;
+             while (PyDict_Next(obj1, &pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+@@ -3687,7 +3687,7 @@
+             param->nb_node = 0;
+             param->isMPI = false;
+             PyObject *key, *value;
+-            int pos = 0;
++            Py_ssize_t pos = 0;
+             while (PyDict_Next(obj1, &pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+@@ -3879,7 +3879,7 @@
+             param->nb_node = 0;
+             param->isMPI = false;
+             PyObject *key, *value;
+-            int pos = 0;
++            Py_ssize_t pos = 0;
+             while (PyDict_Next(obj1, &pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+@@ -4009,7 +4009,7 @@
+             param->nb_node = 0;
+             param->isMPI = false;
+             PyObject *key, *value;
+-            int pos = 0;
++            Py_ssize_t pos = 0;
+             while (PyDict_Next(obj1, &pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+@@ -4328,7 +4328,7 @@
+             param->nb_node = 0;
+             param->isMPI = false;
+             PyObject *key, *value;
+-            int pos = 0;
++            Py_ssize_t pos = 0;
+             while (PyDict_Next(obj1, &pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
+@@ -4462,7 +4462,7 @@
+             param->nb_node = 0;
+             param->isMPI = false;
+             PyObject *key, *value;
+-            int pos = 0;
++            Py_ssize_t pos = 0;
+             while (PyDict_Next(obj1, &pos, &key, &value))
+             {
+                 char* keystr = PyString_AsString(key);
