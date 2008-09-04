@@ -1,6 +1,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Sep 2008; Oliver Borm (boroli) <oli.borm@web.de>
+  salome-component-3.2.6.ebuild:
+  removed omniorb* and med dependencies, as they are already in salome-kernel
+  and salome-med
+
   27 Aug 2008; Oliver Borm (boroli) <oli.borm@web.de>
   salome-component-3.2.6.ebuild, -Changelog, +metadata.xml:
   Removed fetch restriction, removed hardcode
