@@ -26,8 +26,7 @@ RDEPEND="opengl?  ( virtual/opengl )
 DEPEND="${RDEPEND}
 	app-doc/doxygen
 	media-gfx/graphviz
-	dev-libs/boost
-	dev-lang/python
+	<dev-libs/boost-1.35.0
 	>=dev-python/PyQt-3.13
 	>=dev-python/sip-4.1.3
 	dev-python/numeric
