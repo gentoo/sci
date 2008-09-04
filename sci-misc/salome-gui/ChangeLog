@@ -1,6 +1,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Sep 2008; Oliver Borm (boroli) <oli.borm@web.de>
+  salome-gui-3.2.6.ebuild, +files/salome-gui-3.2.6_pyobject.patch:
+  Most USE-flags doesn't seem to be optional, changed default settings; added
+  pyobject.patch
+
   27 Aug 2008; Oliver Borm (boroli) <oli.borm@web.de>
   salome-gui-3.2.6.ebuild, -Changelog, +metadata.xml:
   Removed fetch restriction, removed hardcode

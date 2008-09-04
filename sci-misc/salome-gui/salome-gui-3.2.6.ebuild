@@ -11,13 +11,11 @@ SRC_URI="http://files.opencascade.com/Salome${PV}/src${PV}.tar.gz"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
-IUSE="doc corba pyconsole glviewer plot2dviewer supervgraphviewer occviewer vtkviewer salomeobject opengl mpi debug"
+IUSE="debug doc mpi opengl vtkviewer"
 
 RDEPEND="opengl?  ( virtual/opengl )
 	 mpi?     ( sys-cluster/mpich2 )
-	 debug?   ( dev-util/cppunit )
-	 corba?   ( <=dev-python/omniorbpy-2.6
-	 	    <=net-misc/omniORB-4.1 )"
+	 debug?   ( dev-util/cppunit )"
 
 DEPEND="${RDEPEND}
 	 >=sci-misc/salome-kernel-${PV}"
@@ -29,8 +27,7 @@ GUI_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 export OPENPBS="/usr"
 
 
-src_unpack()
-{
+src_unpack() {
 	python_version
 	distutils_python_version
 	ewarn "Python 2.4 is highly recommended for Salome..."
@@ -39,23 +36,17 @@ src_unpack()
 		die "You must rebuild sci-libs/vtk with python USE flag"
 	fi
 
-	if ! use salomeobject ; then
-		if use plot2dviewer ; then
-			die "plot2dviewer use flag has been enabled, but salomeobject is disabled\n" \
-			"please enable salomeobject use flag before continuing"
-		fi
-		if use supervgraphviewer ; then
-			die "plot2dviewer use flag has been enabled, but salomeobject is disabled\n" \
-			"please enable salomeobject use flag before continuing"
-		fi
-	fi
-
 	unpack ${A}
 	cd "${WORKDIR}/src${PV}"
 	epatch "${FILESDIR}"/${P}.patch
 	epatch "${FILESDIR}"/${P}_sip-4.1.7.patch
 	epatch "${FILESDIR}"/${P}_qwt-4.patch
 	epatch "${FILESDIR}"/${P}_configure_in_base.patch
+
+	# Python 2.5 support
+	if version_is_at_least "2.5" "${PYVER}"; then
+		epatch "${FILESDIR}"/${P}_pyobject.patch
+	fi
 
 	# Gcc 4.3 support
 	if version_is_at_least "4.3" $(gcc-version) ; then
@@ -78,8 +69,7 @@ src_unpack()
 }
 
 
-src_compile()
-{
+src_compile() {
 	local myconf=""
 	cd "${MY_S}"
 
@@ -93,6 +83,9 @@ src_compile()
 	if use amd64 ; then
 		append-flags -m64
 	fi
+
+	# Quick hack to fix the patch to vtkLibs
+	append-flags -L/usr/$(get_libdir)/python${PYVER}/site-packages/vtk
 
 	# Fix a bug concerning a missing header	
 	append-flags -I${MY_S}/../KERNEL_SRC_${PV}/src/Basics/Test
@@ -112,19 +105,19 @@ src_compile()
 	      --libdir=${INSTALL_DIR}/$(get_libdir)/salome \
 	      --with-python-site=${INSTALL_DIR}/$(get_libdir)/python${PYVER}/site-packages/salome \
 	      --with-python-site-exec=${INSTALL_DIR}/$(get_libdir)/python${PYVER}/site-packages/salome \
+	      --enable-corba-gen \
+	      --enable-pyConsole \
+	      --enable-glViewer \
+	      --enable-plot2dViewer \
+	      --enable-supervGraphViewer \
+	      --enable-occViewer \
+	      --enable-salomeObject \
 	      ${myconf} \
 	      $(use_enable debug ) \
 	      $(use_enable !debug production ) \
 	      $(use_with debug cppunit /usr ) \
 	      $(use_with opengl opengl /usr) \
-	      $(use_enable salomeobject salomeObject) \
 	      $(use_enable vtkviewer vtkViewer) \
-	      $(use_enable occviewer occViewer) \
-	      $(use_enable supervgraphviewer supervGraphViewer) \
-	      $(use_enable plot2dviewer plot2dViewer) \
-	      $(use_enable glviewer glViewer) \
-	      $(use_enable pyconsole pyConsole) \
-	      $(use_enable corba corba-gen) \
 	|| die "configuration failed"
 
 	# Compilation
