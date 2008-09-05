@@ -1,6 +1,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Sep 2008; Oliver Borm (boroli) <oli.borm@web.de>
+  salome-med-3.2.6.ebuild, +files/salome-med-3.2.6_boost-1.35.patch:
+  Added patch for >=dev-libs/boost-1.35.0
+
   04 Sep 2008; Oliver Borm (boroli) <oli.borm@web.de>
   salome-med-3.2.6.ebuild:
   removed omniorb* dependencies, as they are already in salome-kernel

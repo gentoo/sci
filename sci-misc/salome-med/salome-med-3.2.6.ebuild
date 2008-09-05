@@ -44,6 +44,11 @@ src_unpack() {
 	epatch "${FILESDIR}"/${P}.patch
 	epatch "${FILESDIR}"/${P}_environ.patch
 
+	# boost 1.35.0 support
+	if has_version ">=dev-libs/boost-1.35.0" ; then
+		epatch "${FILESDIR}"/${P}_boost-1.35.patch
+	fi
+
 	# Gcc 4.3 support
 	if version_is_at_least "4.3" $(gcc-version) ; then
 		epatch "${FILESDIR}"/${P}-gcc-4.3.patch
