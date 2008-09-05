@@ -19,14 +19,14 @@ RDEPEND="opengl?  ( virtual/opengl )
 	 debug?   ( dev-util/cppunit )
 	 openpbs? ( sys-cluster/torque )
 	 dev-python/omniorbpy
-	 net-misc/omniORB"
+	 >=net-misc/omniORB-4.1.2"
 
 # Note that Corba is apparently not optional in this module
 
 DEPEND="${RDEPEND}
 	app-doc/doxygen
 	media-gfx/graphviz
-	<dev-libs/boost-1.35.0
+	dev-libs/boost
 	>=dev-python/PyQt-3.13
 	>=dev-python/sip-4.1.3
 	dev-python/numeric
@@ -66,6 +66,7 @@ src_unpack() {
 	epatch "${FILESDIR}"/${P}_openpbs.patch
 	epatch "${FILESDIR}"/${P}-Batch_Couple.patch
 	epatch "${FILESDIR}"/${P}-omniorb_4.1.patch
+
 	# If Python 2.5 is planned to be used, the following patch must be applied. This, however,
 	# needs to be thoroughly tested!
 	if version_is_at_least "2.5" "${PYVER}"; then
