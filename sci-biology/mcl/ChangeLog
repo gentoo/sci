@@ -1,0 +1,7 @@
+# ChangeLog for sci-biology/mcl
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  07 Sep 2008; weaver <weaver@gentoo.org> +metadata.xml, +mcl-08.157.ebuild:
+  New package, bug 236954
+
