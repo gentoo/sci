@@ -2,6 +2,12 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nltk-0.9.4 (11 Aug 2008)
+
+  11 Aug 2008; Flammie Pirinen <flammie@gentoo.org> +nltk-0.9.4.ebuild,
+  -nltk-0.9.ebuild, -nltk-0.9.1.ebuild:
+  Version bump. Ensure that python has tkinter.
+
 *nltk-0.9.1 (29 Jan 2008)
 
   29 Jan 2008; Flammie Pirinen <flammie@gentoo.org> +nltk-0.9.1.ebuild:

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit distutils
+inherit eutils distutils
 
 DESCRIPTION="Natural language processing tool collection"
 HOMEPAGE="http://nltk.sourceforge.net/"
@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="${DEPEND}
@@ -21,6 +21,13 @@ DEPEND="${DEPEND}
 	>=app-dicts/wordnet-2.0
 	sci-misc/pywordnet"
 RDEPEND="${DEPEND}"
+
+pkg_setup() {
+	if ! built_with_use dev-lang/python tk ; then
+		die "NLTK needs python built with USE=tk"
+	fi
+	export NLTK_DATA="${WORKDIR}/data/"
+}
 
 src_install() {
 	distutils_src_install

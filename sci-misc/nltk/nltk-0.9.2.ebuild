@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -22,10 +22,16 @@ DEPEND="${DEPEND}
 	sci-misc/pywordnet"
 RDEPEND="${DEPEND}"
 
+pkg_setup() {
+	if ! built_with_use dev-lang/python ; then
+		die "NLTK needs python built with USE=tk"
+	fi
+}
+
 src_install() {
 	distutils_src_install
 	# N.B.: if you install corpora in usr/share/nltk you do not need env. vars
-	cd ${WORKDIR}
+	cd "${WORKDIR}"
 	dodir /usr/share/nltk
 	fperms g+r data
 	insinto /usr/share/nltk/
