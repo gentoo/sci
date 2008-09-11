@@ -30,7 +30,7 @@ S="${WORKDIR}/${MY_PN}"
 src_unpack() {
 	unpack ${A}
 	# settings in makefile are a bit hacky
-	epatch "${FILESDIR}"/SFST-1.3-gcc43.patch || die "patch failed"
+	#epatch "${FILESDIR}"/SFST-1.3-gcc43.patch || die "patch failed"
 	sed -i -e "s/^CFLAGS = -O3/CFLAGS = ${CFLAGS}/g" \
 		-e "s/local//g" \
 		-e 's/strip/echo strip removed: /g' \
