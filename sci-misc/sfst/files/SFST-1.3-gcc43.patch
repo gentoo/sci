@@ -1,0 +1,37 @@
+diff -Naur SFST-1.3/src/alphabet.C SFST/src/alphabet.C
+--- SFST-1.3/src/alphabet.C	2008-09-11 10:59:11.000000000 +0000
++++ SFST/src/alphabet.C	2008-09-11 11:01:44.000000000 +0000
+@@ -10,6 +10,9 @@
+ /*                                                                 */
+ /*******************************************************************/
+ 
++#include <climits>
++#include <cstring>
++
+ #include "utf8.h"
+ #include "alphabet.h"
+ 
+diff -Naur SFST-1.3/src/alphabet.h SFST/src/alphabet.h
+--- SFST-1.3/src/alphabet.h	2008-09-11 10:59:11.000000000 +0000
++++ SFST/src/alphabet.h	2008-09-11 10:59:54.000000000 +0000
+@@ -21,6 +21,8 @@
+ 
+ #include <iostream>
+ 
++#include <cstring>
++
+ #ifndef CODE_DATA_TYPE
+ typedef unsigned short Character;  // data type of the symbol codes
+ #else
+diff -Naur SFST-1.3/src/interface.h SFST/src/interface.h
+--- SFST-1.3/src/interface.h	2008-09-11 10:59:11.000000000 +0000
++++ SFST/src/interface.h	2008-09-11 11:03:32.000000000 +0000
+@@ -82,7 +82,7 @@
+ Transducer *optional( Transducer *a );
+ Transducer *make_rule( Transducer *lc, Range *r1, Twol_Type type,
+ 		      Range *r2, Transducer *rc );
+-Transducer *freely_insert( Transducer *a, Character c, Character c );
++Transducer *freely_insert( Transducer *a, Character lc, Character uc );
+ Transducer *make_mapping( Ranges*, Ranges* );
+ Ranges *add_range( Range*, Ranges* );
+ Contexts *make_context( Transducer *l, Transducer *r );

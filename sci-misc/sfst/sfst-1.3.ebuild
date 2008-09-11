@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit elisp
+inherit eutils elisp
 
 MY_PN="SFST"
 MY_P="${MY_PN}-${PV}"
@@ -15,7 +15,7 @@ emacs? ( http://www.cis.uni-muenchen.de/~wastl/emacs/sfst.el )"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64"
 IUSE="vim-syntax emacs"
 
 DEPEND="sys-libs/readline
@@ -30,6 +30,7 @@ S="${WORKDIR}/${MY_PN}"
 src_unpack() {
 	unpack ${A}
 	# settings in makefile are a bit hacky
+	epatch "${FILESDIR}"/SFST-1.3-gcc43.patch || die "patch failed"
 	sed -i -e "s/^CFLAGS = -O3/CFLAGS = ${CFLAGS}/g" \
 		-e "s/local//g" \
 		-e 's/strip/echo strip removed: /g' \
