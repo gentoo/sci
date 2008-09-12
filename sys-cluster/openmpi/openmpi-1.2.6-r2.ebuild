@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sys-cluster/openmpi/openmpi-1.2.4.ebuild,v 1.2 2007/12/13 22:39:53 jsbronder Exp $
 
@@ -43,7 +43,7 @@ pkg_setup() {
 }
 
 src_unpack() {
-	unpack "${A}"
+	unpack ${A}
 	cd "${S}"
 
 	# Fix --as-needed problems with f77 and f90.
@@ -89,7 +89,6 @@ src_compile() {
 		$(use_with pbs tm)
 		$(use_enable ipv6)"
 	mpi_src_compile
-		
 }
 
 src_install () {
