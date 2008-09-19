@@ -19,7 +19,7 @@ RDEPEND="opengl?  ( virtual/opengl )
 	 debug?   ( dev-util/cppunit )
 	 openpbs? ( sys-cluster/torque )
 	 dev-python/omniorbpy
-	 >=net-misc/omniORB-4.1.2"
+	 net-misc/omniORB"
 
 # Note that Corba is apparently not optional in this module
 
@@ -32,7 +32,7 @@ DEPEND="${RDEPEND}
 	dev-python/numeric
 	dev-python/docutils
 	dev-lang/swig
-	x11-libs/qwt:0
+	=x11-libs/qwt-4*
 	>=x11-libs/qt-3.3.3
 	dev-lang/tk
 	dev-lang/tcl
