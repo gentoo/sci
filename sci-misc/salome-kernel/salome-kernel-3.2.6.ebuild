@@ -19,7 +19,7 @@ RDEPEND="opengl?  ( virtual/opengl )
 	 debug?   ( dev-util/cppunit )
 	 openpbs? ( sys-cluster/torque )
 	 dev-python/omniorbpy
-	 net-misc/omniORB"
+	 >=net-misc/omniORB-4.1.2"
 
 # Note that Corba is apparently not optional in this module
 

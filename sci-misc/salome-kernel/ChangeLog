@@ -1,6 +1,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Sep 2008; Oliver Borm (boroli) <oli.borm@web.de>
+  salome-kernel-3.2.6.ebuild:
+  fixed dependency
+
   19 Sep 2008; Oliver Borm (boroli) <oli.borm@web.de>
   salome-kernel-3.2.6.ebuild:
   Fixed typo in dependency
