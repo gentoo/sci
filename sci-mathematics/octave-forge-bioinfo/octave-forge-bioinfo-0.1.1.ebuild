@@ -4,15 +4,11 @@
 
 inherit octave-forge
 
-DESCRIPTION="Provides functions for reading, writing, and processing images."
+DESCRIPTION="Bioinformatics manipulation"
 LICENSE="GPL-2"
-HOMEPAGE="http://octave.sourceforge.net/audio/index.html"
+HOMEPAGE="http://octave.sourceforge.net/bioinfo/index.html"
 SRC_URI="mirror://sourceforge/octave/${OCT_PKG}.tar.gz"
 SLOT="0"
 
 IUSE=""
 KEYWORDS="~amd64 ~x86"
-
-DEPEND="media-gfx/imagemagick"
-
-PATCHES="${P}-imagemagick.patch"

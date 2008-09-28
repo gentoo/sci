@@ -4,9 +4,9 @@
 
 inherit octave-forge
 
-DESCRIPTION="Signal processing tools, including filtering, windowing and display functions."
+DESCRIPTION="Fixed point real and complex matrix toolbox."
 LICENSE="GPL-2"
-HOMEPAGE="http://octave.sourceforge.net/signal/index.html"
+HOMEPAGE="http://octave.sourceforge.net/fixed/index.html"
 SRC_URI="mirror://sourceforge/octave/${OCT_PKG}.tar.gz"
 SLOT="0"
 

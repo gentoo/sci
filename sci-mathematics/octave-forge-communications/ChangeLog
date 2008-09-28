@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Sep 2008; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-communications-1.0.5.ebuild,
+  +octave-forge-communications-1.0.8.ebuild:
+  Version bump.
+
   11 May 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-communications-1.0.4.ebuild,
   +octave-forge-communications-1.0.6.ebuild:

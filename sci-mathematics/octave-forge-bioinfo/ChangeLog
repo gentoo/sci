@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Sep 2008; Markus Dittrich <markusle@gentoo.org>
+  +octave-forge-bioinfo-0.1.1.ebuild:
+  Version bump.
+
   21 May 2008; Markus Dittrich <markusle@gentoo.org> +metadata.xml,
   +octave-forge-bioinfo-0.1.0.ebuild:
   Initial import.

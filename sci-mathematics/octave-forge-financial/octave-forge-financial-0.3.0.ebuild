@@ -4,13 +4,14 @@
 
 inherit octave-forge
 
-DESCRIPTION="Fixed point real and complex matrix toolbox."
+DESCRIPTION="Financial manipulation and plotting functions"
 LICENSE="GPL-2"
-HOMEPAGE="http://octave.sourceforge.net/fixed/index.html"
+HOMEPAGE="http://octave.sourceforge.net/financial/index.html"
 SRC_URI="mirror://sourceforge/octave/${OCT_PKG}.tar.gz"
 SLOT="0"
 
 IUSE=""
 KEYWORDS="~amd64 ~x86"
 
-PATCHES="${P}-make.patch"
+DEPEND=">=sci-mathematics/octave-forge-time-1.0.5
+		>=sci-mathematics/octave-forge-miscellaneous-1.0.6"
