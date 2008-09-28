@@ -13,7 +13,7 @@ SRC_URI="http://gentoo.j-schmitz.net/portage/distfiles/${CATEGORY}/${PN}/${P}.ta
 LICENSE="cctbx-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE=""
+IUSE="openmp threads"
 RDEPEND=""
 DEPEND="dev-util/scons"
 RESTRICT="mirror"
@@ -48,19 +48,23 @@ src_compile() {
 	# Get compiler in the right way
 	COMPILER=$(expr match "$(tc-getCC)" '.*\([a-z]cc\)')
 
-	${python} "${MY_S}/libtbx/libtbx/command_line/py_compile_all.py"
+	einfo "Precompiling python scripts"
+	${python} "${MY_S}/libtbx//command_line/py_compile_all.py"
 
-	mkdir "${S}"/cctbx_build
-	cd "${S}"/cctbx_build
+	check_use openmp threads
+
+	mkdir "${MY_B}"
+	cd "${MY_B}"
 	${python} "${MY_S}"/libtbx/configure.py \
 		--compiler=${COMPILER} \
-		--current_working_directory="${S}"/cctbx_build \
+		--current_working_directory="${MY_B}" \
 		--build=release \
+		--enable-openmp-if-possible="${USEopenmp}" \
 		mmtbx \
 		|| die "configure failed"
 # fftw3tbx rstbx smtbx mmtbx clipper
-	source setpaths_all.sh # source setpaths.csh
-	libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
+#	source setpaths_all.sh # source setpaths.csh
+#	libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
 }
 
 src_test(){
@@ -95,4 +99,18 @@ src_test(){
 src_install(){
 	dodir /usr/share/${P}
 	cp -r cctbx_build/* "${D}"/usr/share/${P}/
+}
+
+
+check_use(){
+
+	for VARI in $*; do
+		if use $1; then
+			eval USE$1="True"
+		else
+			eval USE$1="False"
+
+		fi
+	shift
+	done
 }
