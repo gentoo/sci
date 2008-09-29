@@ -72,41 +72,38 @@ src_compile() {
 	source setpaths_all.sh # source setpaths.csh
 
 	einfo "compiling ..."
-	sh libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
+#	sh libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
 }
 
 src_test(){
 	source "${MY_B}"/setpaths_all.sh
-	libtbx.python $(libtbx.show_dist_paths boost_adaptbx)/tst_rational.py && \
-	libtbx.python ${SCITBX_DIST}/run_tests.py ${MAKEOPTS_EXP} && \
-	libtbx.python ${CCTBX_DIST}/run_tests.py  ${MAKEOPTS_EXP} \
+	sh libtbx.python $(libtbx.show_dist_paths boost_adaptbx)/tst_rational.py && \
+	sh libtbx.python ${SCITBX_DIST}/run_tests.py ${MAKEOPTS_EXP} && \
+	sh libtbx.python ${CCTBX_DIST}/run_tests.py  ${MAKEOPTS_EXP} \
 	|| die "test failed"
 }
 
-#src_install() {
-#	insinto /usr/$(get_libdir)/cctbx
-#	doins -r "${MY_B}"/{lib,setpaths*}
-#	insinto /usr/include
-#	doins -r "${MY_B}"/include/*
-#	exeinto /usr/$(get_libdir)/cctbx/bin
-#	doexe "${MY_B}"/bin/*
-#
-#	sed -e "s:${MY_S}/libtbx:/usr/$(get_libdir)/cctbx:g" \
-#		-e "s:${MY_B}//usr/$(get_libdir)/cctbx:g" \
-#		-i "${MY_B}"/setpaths.sh
-#
-#	sed -e "s:${MY_S}/libtbx:/usr/$(get_libdir)/cctbx:g" \
-#		-e "s:${MY_B}//usr/$(get_libdir)/cctbx:g" \
-#		-i "${MY_B}"/setpaths.csh
-#
-#	insinto /etc/profile.d/
-#	newins "${MY_B}"/setpaths.sh 30setpaths.sh
-#	newins "${MY_B}"/setpaths.csh 30setpaths.csh
-#}
-
 src_install(){
-	dodir /usr/share/${P}
-	cp -r cctbx_build/* "${D}"/usr/share/${P}/
+	insinto /usr/$(get_libdir)/${PN}
+	doins -r cctbx_sources cctbx_build
+
+
+#	set fperms
+
+	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
+	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
+	    -e "s:prepend:append:g" \
+	    -i "${MY_B}"/setpaths.sh
+
+	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
+	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
+	    -e "s:prepend:append:g" \
+	    -i "${MY_B}"/setpaths.csh
+
+	insinto /etc/profile.d/
+	newins "${MY_B}"/setpaths.sh 30setpaths.sh
+	newins "${MY_B}"/setpaths.csh 30setpaths.csh
+
 }
 
 

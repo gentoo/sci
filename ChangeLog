@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Sep 2008; Justin Lecher <justin@j-schmitz.net>
+  cctbx-2008.09.12.0905.ebuild:
+  Nearly ready
+
 *<PACKAGE_NAME>-<PACKAGE_VERSION>-<PACKAGE_RELEASE> (DD MMM YYYY)
 
   DD MMM YYYY; YOUR_NAME <YOUR_EMAIL> changed_file1, changed_file2 :
