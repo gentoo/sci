@@ -31,6 +31,7 @@ src_compile() {
 	python_version
 
 	MAKEOPTS_EXP=${MAKEOPTS/j/j }
+	MAKEOPTS_EXP=${MAKEOPTS_EXP%-l[0-9]}
 
 	# Get CXXFLAGS in format suitable for substitition into SConscript
 	for i in ${CXXFLAGS}; do
@@ -51,7 +52,9 @@ src_compile() {
 	einfo "Precompiling python scripts"
 	${python} "${MY_S}/libtbx//command_line/py_compile_all.py"
 
-	check_use openmp threads
+	check_use openmp
+
+	use threads && USEthreads="--enable-boost-threads"
 
 	mkdir "${MY_B}"
 	cd "${MY_B}"
@@ -62,6 +65,7 @@ src_compile() {
 		--current_working_directory="${MY_B}" \
 		--build=release \
 		--enable-openmp-if-possible="${USEopenmp}" \
+		${USEthreads} --scan-boost \
                fftw3tbx rstbx smtbx mmtbx \
 		|| die "configure failed"
 #		fftw3tbx rstbx smtbx mmtbx clipper \
