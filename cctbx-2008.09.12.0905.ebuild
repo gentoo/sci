@@ -55,16 +55,20 @@ src_compile() {
 
 	mkdir "${MY_B}"
 	cd "${MY_B}"
+
+	einfo "configuring ...."
 	${python} "${MY_S}"/libtbx/configure.py \
 		--compiler=${COMPILER} \
 		--current_working_directory="${MY_B}" \
 		--build=release \
 		--enable-openmp-if-possible="${USEopenmp}" \
-		mmtbx \
+               fftw3tbx rstbx smtbx mmtbx \
 		|| die "configure failed"
-# fftw3tbx rstbx smtbx mmtbx clipper
-#	source setpaths_all.sh # source setpaths.csh
-#	libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
+#		fftw3tbx rstbx smtbx mmtbx clipper \
+	source setpaths_all.sh # source setpaths.csh
+
+	einfo "compiling ..."
+	sh libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
 }
 
 src_test(){

@@ -9,3 +9,26 @@
  
    def pickle(self):
      self.reset_dispatcher_support()
+--- cctbx_sources/libtbx/env_config.py.orig	2008-09-29 13:04:18.161039016 +0200
++++ cctbx_sources/libtbx/env_config.py	2008-09-29 13:05:02.329034554 +0200
+@@ -824,7 +824,7 @@
+       print >> f, "  exec"+cmd, '"$@"'
+       print >> f, "fi"
+     f.close()
+-    os.chmod(target_file, 0755)
++    # os.chmod(target_file, 0755)
+ 
+   def windows_dispatcher(self, command_path, dispatcher_name,
+         unique_pattern="0W6I0N6D0O2W8S5_0D0I8S1P4A3T6C4H9E4R7",
+--- cctbx_sources/libtbx/env_config.py.orig	2008-09-29 13:09:25.533038638 +0200
++++ cctbx_sources/libtbx/env_config.py	2008-09-29 13:08:51.989034593 +0200
+@@ -893,7 +893,7 @@
+     else:
+       action = self.write_bin_sh_dispatcher
+       ext = ""
+-      try: os.chmod(source_file, 0755)
+-      except OSError: pass
++      # try: os.chmod(source_file, 0755)
++      # except OSError: pass
+     target_file_ext = target_file + ext
+     remove_or_rename(target_file_ext)
