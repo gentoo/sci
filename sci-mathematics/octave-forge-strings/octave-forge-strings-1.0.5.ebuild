@@ -12,3 +12,5 @@ SLOT="0"
 
 IUSE=""
 KEYWORDS="~amd64 ~x86"
+
+DEPEND="dev-libs/libpcre"

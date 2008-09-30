@@ -4,11 +4,11 @@
 
 inherit octave-forge
 
-DESCRIPTION="Parallel execution package for cluster computers."
+DESCRIPTION="Package for interpolating and smoothing scattered multidimensional data using Gaussian Process."
 LICENSE="GPL-2"
-HOMEPAGE="http://octave.sourceforge.net/parallel/index.html"
+HOMEPAGE="http://octave.sourceforge.net/statistics/index.html"
 SRC_URI="mirror://sourceforge/octave/${OCT_PKG}.tar.gz"
 SLOT="0"
 
 IUSE=""
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"

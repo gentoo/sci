@@ -31,13 +31,13 @@ RDEPEND="
 	sci-mathematics/octave-forge-miscellaneous
 	sci-mathematics/octave-forge-nnet
 	sci-mathematics/octave-forge-octcdf
-	!amd64? ( sci-mathematics/octave-forge-octgpr )
+	sci-mathematics/octave-forge-octgpr
 	sci-mathematics/octave-forge-odebvp
 	sci-mathematics/octave-forge-odepkg
 	sci-mathematics/octave-forge-optim
 	sci-mathematics/octave-forge-optiminterp
 	sci-mathematics/octave-forge-outliers
-	!amd64? ( sci-mathematics/octave-forge-parallel )
+	sci-mathematics/octave-forge-parallel
 	sci-mathematics/octave-forge-physicalconstants
 	sci-mathematics/octave-forge-plot
 	sci-mathematics/octave-forge-signal

@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Sep 2008; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-odebvp-1.0.3.ebuild, +octave-forge-odebvp-1.0.5.ebuild:
+  Version bump.
+
   15 May 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-odebvp-1.0.2.ebuild, +octave-forge-odebvp-1.0.4.ebuild:
   Version bump.
