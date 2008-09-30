@@ -54,7 +54,8 @@ src_compile() {
 
 	check_use openmp
 
-	use threads && USEthreads="--enable-boost-threads"
+	use threads && USEthreads="--enable-boost-threads" && \
+	einfo "If using boost Threads openmp support is disabled"
 
 	mkdir "${MY_B}"
 	cd "${MY_B}"
@@ -66,13 +67,13 @@ src_compile() {
 		--build=release \
 		--enable-openmp-if-possible="${USEopenmp}" \
 		${USEthreads} --scan-boost \
-               fftw3tbx rstbx smtbx mmtbx \
+	fftw3tbx rstbx smtbx mmtbx \
 		|| die "configure failed"
 #		fftw3tbx rstbx smtbx mmtbx clipper \
 	source setpaths_all.sh # source setpaths.csh
 
 	einfo "compiling ..."
-#	sh libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
+	sh libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
 }
 
 src_test(){
@@ -84,9 +85,9 @@ src_test(){
 }
 
 src_install(){
-	insinto /usr/$(get_libdir)/${PN}
-	doins -r cctbx_sources cctbx_build
-
+#	insinto /usr/$(get_libdir)/${PN}
+#	doins -r cctbx_sources cctbx_build
+	rm -r "${D}"/cctbx_sources/scons
 
 #	set fperms
 
@@ -100,9 +101,9 @@ src_install(){
 	    -e "s:prepend:append:g" \
 	    -i "${MY_B}"/setpaths.csh
 
-	insinto /etc/profile.d/
-	newins "${MY_B}"/setpaths.sh 30setpaths.sh
-	newins "${MY_B}"/setpaths.csh 30setpaths.csh
+#	insinto /etc/profile.d/
+#	newins "${MY_B}"/setpaths.sh 30cctbx.sh
+#	newins "${MY_B}"/setpaths.csh 30cctbx.csh
 
 }
 
