@@ -55,7 +55,7 @@ src_compile() {
 	check_use openmp
 
 	use threads && USEthreads="--enable-boost-threads" && \
-	einfo "If using boost Threads openmp support is disabled"
+	ewarn "If using boost threads openmp support is disabled"
 
 	mkdir "${MY_B}"
 	cd "${MY_B}"
@@ -77,6 +77,8 @@ src_compile() {
 }
 
 src_test(){
+	adjust_exec_bits ${MY_B}
+
 	source "${MY_B}"/setpaths_all.sh
 	sh libtbx.python $(libtbx.show_dist_paths boost_adaptbx)/tst_rational.py && \
 	sh libtbx.python ${SCITBX_DIST}/run_tests.py ${MAKEOPTS_EXP} && \
@@ -85,25 +87,24 @@ src_test(){
 }
 
 src_install(){
-#	insinto /usr/$(get_libdir)/${PN}
-#	doins -r cctbx_sources cctbx_build
+	insinto /usr/$(get_libdir)/${PN}
+	doins -r cctbx_sources cctbx_build
+
 	rm -r "${D}"/cctbx_sources/scons
 
-#	set fperms
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/*sh
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/bin/*
 
+	find "${D}"//usr/$(get_libdir)/${PN}/cctbx_build/ -type f -exec \
 	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
 	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
 	    -e "s:prepend:append:g" \
-	    -i "${MY_B}"/setpaths.sh
+	    -i '{}' \; || die "Fail to correct path"
 
-	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
-	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
-	    -e "s:prepend:append:g" \
-	    -i "${MY_B}"/setpaths.csh
 
-#	insinto /etc/profile.d/
-#	newins "${MY_B}"/setpaths.sh 30cctbx.sh
-#	newins "${MY_B}"/setpaths.csh 30cctbx.csh
+	insinto /etc/profile.d/
+	newins "${MY_B}"/setpaths.sh 30cctbx.sh
+	newins "${MY_B}"/setpaths.csh 30cctbx.csh
 
 }
 
@@ -119,4 +120,11 @@ check_use(){
 		fi
 	shift
 	done
+}
+
+adjust_exec_bits(){
+
+	chmod 775 ${1}/*sh
+	chmod 775 ${1}/bin/*
+
 }
