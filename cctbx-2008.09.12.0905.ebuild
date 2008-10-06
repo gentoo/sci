@@ -89,6 +89,14 @@ src_test(){
 }
 
 src_install(){
+
+	find cctbx_build/ -type f -exec \
+	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
+	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
+	    -i '{}' \; || die "Fail to correct path"
+#    -e "s:prepend:append:g" \
+#
+
 	insinto /usr/$(get_libdir)/${PN}
 	doins -r cctbx_sources cctbx_build
 
@@ -97,13 +105,6 @@ src_install(){
 	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/*sh
 	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/bin/*
 
-	find "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/ -type f
-	find "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/ -type f -exec \
-	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
-	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
-	    -i '{}' \; || die "Fail to correct path"
-#    -e "s:prepend:append:g" \
-#
 
 	insinto /etc/profile.d/
 	newins "${MY_B}"/setpaths.sh 30cctbx.sh
