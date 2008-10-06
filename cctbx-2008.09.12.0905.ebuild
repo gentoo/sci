@@ -14,6 +14,8 @@ LICENSE="cctbx-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="openmp threads"
+
+## CNS/shelx
 RDEPEND=""
 DEPEND="dev-util/scons"
 RESTRICT="mirror"
@@ -67,22 +69,22 @@ src_compile() {
 		--build=release \
 		--enable-openmp-if-possible="${USEopenmp}" \
 		${USEthreads} --scan-boost \
-	fftw3tbx rstbx smtbx mmtbx \
+		fftw3tbx rstbx smtbx mmtbx \
 		|| die "configure failed"
 #		fftw3tbx rstbx smtbx mmtbx clipper \
 	source setpaths_all.sh # source setpaths.csh
 
-	einfo "compiling ..."
-	sh libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
+#	einfo "compiling ..."
+	libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
 }
 
 src_test(){
-	adjust_exec_bits ${MY_B}
+#	adjust_exec_bits ${MY_B}
 
 	source "${MY_B}"/setpaths_all.sh
-	sh libtbx.python $(libtbx.show_dist_paths boost_adaptbx)/tst_rational.py && \
-	sh libtbx.python ${SCITBX_DIST}/run_tests.py ${MAKEOPTS_EXP} && \
-	sh libtbx.python ${CCTBX_DIST}/run_tests.py  ${MAKEOPTS_EXP} \
+	libtbx.python $(libtbx.show_dist_paths boost_adaptbx)/tst_rational.py && \
+	libtbx.python ${SCITBX_DIST}/run_tests.py ${MAKEOPTS_EXP} && \
+	libtbx.python ${CCTBX_DIST}/run_tests.py  ${MAKEOPTS_EXP} \
 	|| die "test failed"
 }
 
@@ -95,12 +97,13 @@ src_install(){
 	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/*sh
 	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/bin/*
 
-	find "${D}"//usr/$(get_libdir)/${PN}/cctbx_build/ -type f -exec \
+	find "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/ -type f
+	find "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/ -type f -exec \
 	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
 	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
-	    -e "s:prepend:append:g" \
 	    -i '{}' \; || die "Fail to correct path"
-
+#    -e "s:prepend:append:g" \
+#
 
 	insinto /etc/profile.d/
 	newins "${MY_B}"/setpaths.sh 30cctbx.sh
