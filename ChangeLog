@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  07 Oct 2008; justin Lecher <justin@j-schmitz.net> ++,
+  +files/2008.09.12.0905-sandbox-violations-chmod.patch,
+  -cctbx-2008.09.12.0905.ebuild:
+  move cctbx-2008.09.12.0905.ebuild cctbx-2008.09.13.0905.ebuild
+
   06 Oct 2008; Justin Lecher <justin@j-schmitz.net>
   cctbx-2008.09.12.0905.ebuild:
   Probably the last fix. Fixing of path in right place

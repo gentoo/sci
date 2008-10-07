@@ -13,12 +13,16 @@ SRC_URI="http://gentoo.j-schmitz.net/portage/distfiles/${CATEGORY}/${PN}/${P}.ta
 LICENSE="cctbx-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="openmp threads"
+IUSE="minimal openmp threads"
 
-## CNS/shelx
-RDEPEND=""
-DEPEND="dev-util/scons"
-RESTRICT="mirror"
+RDEPEND="!minimal? ( ( sci-chemistry/cns )
+		x86? ( sci-chemistry/shelx )
+	 )"
+DEPEND="${RDEPEND}"
+# Is there a way to get it build by the system scons
+# dev-util/scons"
+
+RESTRICT="mirror binchecks"
 
 S="${WORKDIR}"
 MY_S="${WORKDIR}"/cctbx_sources
@@ -26,7 +30,9 @@ MY_B="${WORKDIR}"/cctbx_build
 
 src_unpack() {
 	unpack ${A}
-	epatch "${FILESDIR}"/${PV}-config.py.patch
+
+	# Wants to chmod /usr/bin/python
+	epatch "${FILESDIR}"/${PV}-sandbox-violations-chmod.patch
 }
 
 src_compile() {
@@ -51,11 +57,12 @@ src_compile() {
 	# Get compiler in the right way
 	COMPILER=$(expr match "$(tc-getCC)" '.*\([a-z]cc\)')
 
-	einfo "Precompiling python scripts"
+	# Precompiling python scripts. It is done in upstreams install script. Perhaps use python_mod_compile,
+	# but as this script works we should stick to it.
 	${python} "${MY_S}/libtbx//command_line/py_compile_all.py"
 
+	# Additional USE flag usage
 	check_use openmp
-
 	use threads && USEthreads="--enable-boost-threads" && \
 	ewarn "If using boost threads openmp support is disabled"
 
@@ -71,16 +78,13 @@ src_compile() {
 		${USEthreads} --scan-boost \
 		fftw3tbx rstbx smtbx mmtbx \
 		|| die "configure failed"
-#		fftw3tbx rstbx smtbx mmtbx clipper \
-	source setpaths_all.sh # source setpaths.csh
+	source setpaths_all.sh
 
-#	einfo "compiling ..."
+	einfo "compiling ..."
 	libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
 }
 
 src_test(){
-#	adjust_exec_bits ${MY_B}
-
 	source "${MY_B}"/setpaths_all.sh
 	libtbx.python $(libtbx.show_dist_paths boost_adaptbx)/tst_rational.py && \
 	libtbx.python ${SCITBX_DIST}/run_tests.py ${MAKEOPTS_EXP} && \
@@ -94,21 +98,25 @@ src_install(){
 	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
 	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
 	    -i '{}' \; || die "Fail to correct path"
-#    -e "s:prepend:append:g" \
-#
+
+	# This is what Bill Scott does in the fink package. Do we need this as well?
+#	-e "s:prepend:append:g" \
+
 
 	insinto /usr/$(get_libdir)/${PN}
-	doins -r cctbx_sources cctbx_build
+	doins -r cctbx_sources cctbx_build || die
 
 	rm -r "${D}"/cctbx_sources/scons
 
-	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/*sh
-	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/bin/*
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/*sh && \
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/bin/* || \
+	die
 
 
 	insinto /etc/profile.d/
-	newins "${MY_B}"/setpaths.sh 30cctbx.sh
-	newins "${MY_B}"/setpaths.csh 30cctbx.csh
+	newins "${MY_B}"/setpaths.sh 30cctbx.sh && \
+	newins "${MY_B}"/setpaths.csh 30cctbx.csh || \
+	die
 
 }
 
@@ -126,9 +134,3 @@ check_use(){
 	done
 }
 
-adjust_exec_bits(){
-
-	chmod 775 ${1}/*sh
-	chmod 775 ${1}/bin/*
-
-}
