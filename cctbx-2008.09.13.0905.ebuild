@@ -123,14 +123,13 @@ src_install(){
 
 check_use(){
 
-	for VARI in $*; do
-		if use $1; then
-			eval USE$1="True"
-		else
-			eval USE$1="False"
+	for var in $@; do
+                if use ${var}; then
+                        printf -v "USE_$var" True
+                else
+                        printf -v "USE_$var" False
 
-		fi
-	shift
-	done
+                fi
+        shift
+        done
 }
-
