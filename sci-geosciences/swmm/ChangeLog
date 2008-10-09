@@ -1,0 +1,8 @@
+# ChangeLog for sci-geosciences/swmm
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  09 Oct 2008; Tim Cera <timcera@earthlink.net> +swmm-5.0.013.ebuild,
+  +metadata.xml:
+  Initial ebuild.
+
