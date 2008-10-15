@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/spooles
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  15 Oct 2008; Oliver Borm (boroli) <oli.borm@web.de> +spooles-2.2.ebuild,
+  +files/spooles-2.2_I2Ohash-64bit.patch, +files/spooles-2.2_MPI.patch,
+  +files/spooles-2.2_MT.patch, +files/spooles-2.2_makefiles.patch,
+  +files/spooles-2.2_shared-libs.patch, +metadata.xml:
+  Reworked ebuild for bug 125772, thanks to abraxxas and pva
+
