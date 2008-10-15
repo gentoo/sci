@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/calculix-ccx
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  15 Oct 2008; Oliver Borm (boroli) <oli.borm@web.de>
+  +files/01_ccx_1.8_Makefile.patch, +files/01_ccx_1.8_lapack.patch,
+  +calculix-ccx-1.8.ebuild, +metadata.xml:
+  Reworked ebuild for bug 125773, thanks to pva
+
