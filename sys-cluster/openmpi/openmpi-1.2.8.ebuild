@@ -13,7 +13,8 @@ SRC_URI="http://www.open-mpi.org/software/ompi/v1.2/downloads/${MY_P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="pbs fortran nocxx threads romio heterogeneous ipv6"
+RESTRICT="mpi-threads? ( test )"
+IUSE="fortran heterogeneous ipv6 mpi-threads nocxx pbs romio threads"
 RDEPEND="pbs? ( sys-cluster/torque )
 	$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
@@ -21,11 +22,11 @@ DEPEND="${RDEPEND}"
 pkg_setup() {
 	MPI_ESELECT_FILE="eselect.mpi.openmpi"
 	mpi_pkg_setup
-	if use threads; then
+	if use mpi-threads; then
 		ewarn
-		ewarn "WARNING: use of threads is still disabled by default in"
-		ewarn "upstream builds."
-		ewarn "You may stop now and set USE=-threads"
+		ewarn "WARNING: use of MPI_THREAD_MULTIPLE is still disabled by"
+		ewarn "default and officially unsupported by upstream."
+		ewarn "You may stop now and set USE=-mpi-threads"
 		ewarn
 		epause 5
 	fi
@@ -49,6 +50,13 @@ src_unpack() {
 	# Fix --as-needed problems with f77 and f90.
 	sed -i 's:^libs=:libs=-Wl,--no-as-needed :' \
 		ompi/tools/wrappers/mpif{77,90}-wrapper-data.txt.in
+
+	# Necessary for scalibility, see
+	# http://www.open-mpi.org/community/lists/users/2008/09/6514.php
+	if use threads; then
+		echo 'oob_tcp_listen_mode = listen_thread' \
+			>> opal/etc/openmpi-mca-params.conf
+	fi
 }
 
 src_compile() {
@@ -58,11 +66,10 @@ src_compile() {
 		--enable-orterun-prefix-by-default
 		--without-slurm"
 
-	if use threads; then
+	if use mpi-threads; then
 		mpi_conf_args="${mpi_conf_args}
 			--enable-mpi-threads
-			--with-progress-threads
-			--with-threads=posix"
+			--with-progress-threads"
 	fi
 
 	if use fortran; then
