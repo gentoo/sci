@@ -1,0 +1,83 @@
+diff -Naur -Naur OpenFst/fst/bin/main.cc OpenFst-nu/fst/bin/main.cc
+--- OpenFst/fst/bin/main.cc	2008-03-17 17:42:00.000000000 +0200
++++ OpenFst-nu/fst/bin/main.cc	2008-10-20 16:30:36.000000000 +0300
+@@ -18,6 +18,8 @@
+ // Classes and functions for registering and invoking Fst main
+ // functions that support multiple and extensible arc types.
+ 
++#include <cstring>
++#include <climits>
+ #include <iostream>
+ 
+ #include "fst/bin/main.h"
+diff -Naur -Naur OpenFst/fst/bin/Makefile OpenFst-nu/fst/bin/Makefile
+--- OpenFst/fst/bin/Makefile	2008-03-17 17:42:00.000000000 +0200
++++ OpenFst-nu/fst/bin/Makefile	2008-10-20 16:31:12.000000000 +0300
+@@ -15,7 +15,7 @@
+ FSTLIBMAIN=libfstmain.$(LIBTYPE)
+ LIBS=-lfstmain -lfst -lm -lpthread -ldl
+ CC=g++
+-OPT=-O2
++OPT=-O2 -fPIC
+ CFLAGS=-I../.. $(OPT) -DFST_DL
+ LDLFLAGS=-Wl,-L$(LIBDIR),-L$(BINDIR)
+ LDRFLAGS=-Wl,-rpath,$(LIBDIR),-rpath,$(BINDIR) # empty on macosx
+diff -Naur -Naur OpenFst/fst/lib/compat.h OpenFst-nu/fst/lib/compat.h
+--- OpenFst/fst/lib/compat.h	2008-03-17 17:41:56.000000000 +0200
++++ OpenFst-nu/fst/lib/compat.h	2008-10-20 16:25:49.000000000 +0300
+@@ -27,7 +27,7 @@
+ #include <map>
+ #include <string>
+ #include <vector>
+-
++#include <cstring>
+ #include <ext/hash_map>
+ #include <fcntl.h>
+ #include <pthread.h>
+diff -Naur -Naur OpenFst/fst/lib/Makefile OpenFst-nu/fst/lib/Makefile
+--- OpenFst/fst/lib/Makefile	2008-03-17 17:41:56.000000000 +0200
++++ OpenFst-nu/fst/lib/Makefile	2008-10-20 16:23:05.000000000 +0300
+@@ -2,7 +2,7 @@
+ SRCS=fst.cc properties.cc symbol-table.cc compat.cc
+ OBJS=fst.o properties.o symbol-table.o compat.o
+ CC=g++
+-OPT=-O2
++OPT=-fPIC -O2
+ CFLAGS=$(OPT) -I../.. -DFST_DL
+ LIBTYPE=so # "dylib" on macosx
+ SOFLAGS=-shared  # "-dynamiclib -flat_namespace -undefined suppress" on macosx
+diff -Naur -Naur OpenFst/fst/lib/randgen.h OpenFst-nu/fst/lib/randgen.h
+--- OpenFst/fst/lib/randgen.h	2008-03-17 17:41:56.000000000 +0200
++++ OpenFst-nu/fst/lib/randgen.h	2008-10-20 16:44:33.000000000 +0300
+@@ -23,6 +23,7 @@
+ #include <cmath>
+ #include <cstdlib>
+ #include <ctime>
++#include <climits>
+ 
+ #include "fst/lib/mutable-fst.h"
+ 
+diff -Naur -Naur OpenFst/fst/lib/symbol-table.cc OpenFst-nu/fst/lib/symbol-table.cc
+--- OpenFst/fst/lib/symbol-table.cc	2008-03-17 17:41:56.000000000 +0200
++++ OpenFst-nu/fst/lib/symbol-table.cc	2008-10-20 16:21:16.000000000 +0300
+@@ -17,6 +17,8 @@
+ // \file
+ // Classes to provide symbol-to-integer and integer-to-symbol mappings.
+ 
++#include <cstring>
++
+ #include "fst/lib/symbol-table.h"
+ #include "fst/lib/util.h"
+ 
+diff -Naur -Naur OpenFst/fst/lib/vector-fst.h OpenFst-nu/fst/lib/vector-fst.h
+--- OpenFst/fst/lib/vector-fst.h	2008-03-17 17:41:56.000000000 +0200
++++ OpenFst-nu/fst/lib/vector-fst.h	2008-10-20 16:21:25.000000000 +0300
+@@ -21,6 +21,8 @@
+ #ifndef FST_LIB_VECTOR_FST_H__
+ #define FST_LIB_VECTOR_FST_H__
+ 
++#include <cstring>
++
+ #include "fst/lib/mutable-fst.h"
+ #include "fst/lib/test-properties.h"
+ 
