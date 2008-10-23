@@ -2,6 +2,9 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Oct 2008; Tim Cera <timcera@earthlink.net> +mdp-2.4.ebuild:
+  Bumped to version 2.4, updated DEPEND.
+
   16 Jul 2008; Tim Cera <timcera@earthlink.net> mdp-2.3.ebuild:
   Added ~x86 per http://bugs.gentoo.org/show_bug.cgi?id=146976
 
