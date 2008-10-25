@@ -1,0 +1,12 @@
+diff -aur src3.2.6.old/SMESH_SRC_3.2.6/src/StdMeshers/StdMeshers_Propagation.cxx src3.2.6/SMESH_SRC_3.2.6/src/StdMeshers/StdMeshers_Propagation.cxx
+--- src3.2.6.old/SMESH_SRC_3.2.6/src/StdMeshers/StdMeshers_Propagation.cxx	2008-07-25 09:16:09.000000000 +0200
++++ src3.2.6/SMESH_SRC_3.2.6/src/StdMeshers/StdMeshers_Propagation.cxx	2008-07-25 13:09:01.000000000 +0200
+@@ -92,7 +92,7 @@
+ /*!
+  * \brief Return an edge from which hypotheses are propagated from
+  */
+-TopoDS_Edge StdMeshers_Propagation::GetPropagationSource(SMESH_Mesh& theMesh,
++inline TopoDS_Edge StdMeshers_Propagation::GetPropagationSource(SMESH_Mesh& theMesh,
+                                                          const TopoDS_Shape& theEdge)
+ {
+   return PropagationMgr::GetSource(theMesh.GetSubMeshContaining( theEdge ));

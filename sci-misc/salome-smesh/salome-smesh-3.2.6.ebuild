@@ -31,7 +31,6 @@ export OPENPBS="/usr"
 src_unpack() {
 	python_version
 	distutils_python_version
-	ewarn "Python 2.4 is highly recommended for Salome..."
 
 	if ! built_with_use sci-libs/vtk python ; then
 		die "You must rebuild sci-libs/vtk with python USE flag"
@@ -46,6 +45,21 @@ src_unpack() {
 	if version_is_at_least "4.3" $(gcc-version) ; then
 		epatch "${FILESDIR}"/${P}-gcc-4.3.patch
 	fi
+	
+	# If vtk-5.O is used, include directory is named vtk-5.0 and not vtk
+	if has_version ">=sci-libs/vtk-5.0" && has_version "<=sci-libs/vtk-5.2" ; then
+		append-flags -I/usr/include/vtk-5.0
+	fi
+	# If vtk-5.2 is used, include directory is named vtk-5.2 and not vtk
+	if has_version ">=sci-libs/vtk-5.2" ; then
+	   append-flags -I/usr/include/vtk-5.2
+	   epatch "${FILESDIR}"/${P}-vtk-5.2.patch
+	fi
+
+	# fix relocation error
+	if use amd64 ; then
+		epatch "${FILESDIR}"/${P}-amd64-relocation-error.patch
+	fi
 }
 
 
@@ -54,14 +68,6 @@ src_compile() {
 	cd "${MY_S}"
 	rm -r -f autom4te.cache
 	./build_configure
-
-	# If vtk-5.O is used, include directory is named vtk-5.0 and not vtk
-	if has_version ">=sci-libs/vtk-5.0" ; then
-		einfo "vtk version 5 detected"
-		append-flags -I/usr/include/vtk-5.0
-	else
-		einfo "vtk version 4 or prior detected"
-	fi
 
 	# CXXFLAGS are slightly modified to allow the compilation of
 	# salome-visu with OpenCascade and gcc-4.1.x
