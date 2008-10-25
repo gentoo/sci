@@ -54,12 +54,15 @@ diff -aburN src3.2.6_orig/GUI_SRC_3.2.6/adm_local/unix/config_files/check_sip.m4
 diff -aburN src3.2.6_orig/GUI_SRC_3.2.6/src/SALOME_PYQT/SalomePyQt/Makefile.in src3.2.6/GUI_SRC_3.2.6/src/SALOME_PYQT/SalomePyQt/Makefile.in
 --- ./GUI_SRC_3.2.6/src/SALOME_PYQT/SalomePyQt/Makefile.in.org	2007-11-25 19:13:29.000000000 +0100
 +++ ./GUI_SRC_3.2.6/src/SALOME_PYQT/SalomePyQt/Makefile.in	2007-11-25 19:14:50.000000000 +0100
-@@ -41,6 +41,9 @@
+@@ -41,6 +41,12 @@
  ifeq ($(QT_VERS),Qt_3_3_7)
  QT_VERS = Qt_3_3_0
  endif
 +ifeq ($(QT_VERS),Qt_3_3_8)
 +QT_VERS = Qt_3_3_0
++endif
++ifeq ($(QT_VERS),Qt_3_3_8b)
++QT_VERS = Qt_3_3_6
 +endif
  
  # Sip flags
@@ -67,12 +70,16 @@ diff -aburN src3.2.6_orig/GUI_SRC_3.2.6/src/SALOME_PYQT/SalomePyQt/Makefile.in s
 diff -aburN src3.2.6_orig/GUI_SRC_3.2.6/src/SALOME_PYQT/SALOME_PYQT_GUI/Makefile.in src3.2.6/GUI_SRC_3.2.6/src/SALOME_PYQT/SALOME_PYQT_GUI/Makefile.in
 --- ./GUI_SRC_3.2.6/src/SALOME_PYQT/SALOME_PYQT_GUI/Makefile.in.org	2007-11-25 19:13:29.000000000 +0100
 +++ ./GUI_SRC_3.2.6/src/SALOME_PYQT/SALOME_PYQT_GUI/Makefile.in	2007-11-25 19:14:21.000000000 +0100
-@@ -44,6 +44,10 @@
+@@ -44,6 +44,14 @@
  QT_VERS = Qt_3_3_0
  endif
  
 +ifeq ($(QT_VERS),Qt_3_3_8)
 +QT_VERS = Qt_3_3_0
++endif
++
++ifeq ($(QT_VERS),Qt_3_3_8b)
++QT_VERS = Qt_3_3_6
 +endif
 +
  # Sip flags

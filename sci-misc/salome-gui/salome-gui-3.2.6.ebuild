@@ -30,7 +30,6 @@ export OPENPBS="/usr"
 src_unpack() {
 	python_version
 	distutils_python_version
-	ewarn "Python 2.4 is highly recommended for Salome..."
 
 	if ! built_with_use sci-libs/vtk python ; then
 		die "You must rebuild sci-libs/vtk with python USE flag"
@@ -54,12 +53,14 @@ src_unpack() {
 	fi
 
 	# If vtk-5.O is used, include directory is named vtk-5.0 and not vtk
-	if has_version ">=sci-libs/vtk-5.0" ; then
-	   einfo "vtk version 5 detected"
+	if has_version ">=sci-libs/vtk-5.0" && has_version "<sci-libs/vtk-5.2" ; then
 	   append-flags -I/usr/include/vtk-5.0
-	   epatch "${FILESDIR}"/salome-gui-vtk-5.0.patch
-	else
-	   einfo "vtk version 4 or prior detected";
+	   epatch "${FILESDIR}"/${P}-vtk-5.0.patch
+	fi
+	# If vtk-5.2 is used, include directory is named vtk-5.2 and not vtk
+	if has_version ">=sci-libs/vtk-5.2" ; then
+	   append-flags -I/usr/include/vtk-5.2
+	   epatch "${FILESDIR}"/${P}-vtk-5.2.patch
 	fi
 
 	cd "${MY_S}"
