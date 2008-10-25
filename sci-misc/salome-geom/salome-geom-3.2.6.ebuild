@@ -30,7 +30,6 @@ export OPENPBS="/usr"
 src_unpack() {
 	python_version
 	distutils_python_version
-	ewarn "Python 2.4 is highly recommended for Salome..."
 
 	if ! built_with_use sci-libs/vtk python ; then
 		die "You must rebuild sci-libs/vtk with python USE flag"
@@ -39,6 +38,19 @@ src_unpack() {
 	unpack ${A}
 	cd "${MY_S}"
 	epatch "${FILESDIR}"/${P}.patch
+
+	# If vtk-5.O is used, include directory is named vtk-5.0 and not vtk
+	if has_version ">=sci-libs/vtk-5.0" && has_version "<sci-libs/vtk-5.2" ; then
+		einfo "vtk version 5 detected"
+		append-flags -I/usr/include/vtk-5.0
+	fi
+	# If vtk-5.2 is used, include directory is named vtk-5.2 and not vtk
+	if has_version ">=sci-libs/vtk-5.2" ; then
+		einfo "vtk version 5 detected"
+		append-flags -I/usr/include/vtk-5.2
+		epatch "${FILESDIR}"/${P}-vtk-5.2.patch
+	fi
+
 }
 
 
@@ -47,14 +59,6 @@ src_compile() {
 	cd "${MY_S}"
 	rm -r -f autom4te.cache
 	./build_configure
-
-	# If vtk-5.O is used, include directory is named vtk-5.0 and not vtk
-	if has_version ">=sci-libs/vtk-5.0" ; then
-		einfo "vtk version 5 detected"
-		append-flags -I/usr/include/vtk-5.0
-	else
-		einfo "vtk version 4 or prior detected"
-	fi
 
 	# CXXFLAGS are slightly modified to allow the compilation of
 	# salome-geom with OpenCascade and gcc-4.1.x

@@ -1,0 +1,78 @@
+diff -aur src3.2.6.old/GEOM_SRC_3.2.6/src/OBJECT/GEOM_OCCReader.cxx src3.2.6/GEOM_SRC_3.2.6/src/OBJECT/GEOM_OCCReader.cxx
+--- src3.2.6.old/GEOM_SRC_3.2.6/src/OBJECT/GEOM_OCCReader.cxx	2008-07-25 09:16:09.000000000 +0200
++++ src3.2.6/GEOM_SRC_3.2.6/src/OBJECT/GEOM_OCCReader.cxx	2008-10-16 22:11:49.000000000 +0200
+@@ -88,7 +88,7 @@
+ static Standard_Real HatcherConfusion2d   = 1.e-8 ;
+ static Standard_Real HatcherConfusion3d   = 1.e-8 ;
+ 
+-static Standard_Integer lastVTKpoint = 0;
++static vtkIdType lastVTKpoint = 0;
+ static Standard_Integer PlotCount = 0;
+ static Standard_Real IsoRatio = 1.001;
+ static Standard_Integer MaxPlotCount = 5; 
+@@ -483,9 +483,9 @@
+ {
+   float coord[3];
+   coord[0] = P.X(); coord[1] = P.Y(); coord[2] = P.Z();
+-  Standard_Integer NewVTKpoint =  Pts->InsertNextPoint(coord);
++  vtkIdType NewVTKpoint =  Pts->InsertNextPoint(coord);
+ 
+-  int pts[2];
++  vtkIdType pts[2];
+   pts[0] = lastVTKpoint;
+   pts[1] = NewVTKpoint;
+ 
+@@ -751,7 +751,7 @@
+     aP2 = theNodesP(nbnodes);
+ 
+     float coord[3];
+-    int pts[2];
++    vtkIdType pts[2];
+ 
+     for(int j=1;j<nbnodes;j++) {
+       gp_Pnt pt1 = theNodesP(j);
+@@ -783,7 +783,7 @@
+     aP2 = theNodesPoly(nbnodes);
+ 
+     float coord[3];
+-    int pts[2];
++    vtkIdType pts[2];
+     
+     for(int j=1;j<nbnodes;j++) {
+       Standard_Integer id1 = Nodesidx(j);
+@@ -854,12 +854,12 @@
+     float coord[3];
+     coord[0] = xo; coord[1] = yo; coord[2] = zo;
+ 
+-    int ptLoc = Pts->InsertNextPoint(coord);
+-    int ptFirst = 0;
+-    int ptPrev = 0;
+-    int ptCur = 0;
++    vtkIdType ptLoc = Pts->InsertNextPoint(coord);
++    vtkIdType ptFirst = 0;
++    vtkIdType ptPrev = 0;
++    vtkIdType ptCur = 0;
+ 
+-    int pts[2];
++    vtkIdType pts[2];
+ 
+     int NbPoints = 15;
+     for (int i = 1; i <= NbPoints; i++, ptPrev = ptCur)
+@@ -947,7 +947,7 @@
+   
+   gp_Pnt P = BRep_Tool::Pnt( aVertex );
+   float delta = 1, coord[3];
+-  int pts[2];
++  vtkIdType pts[2];
+   // insert pt
+   ZERO_COORD; coord[0] = +delta;
+   pts[0] = Pts->InsertNextPoint(coord);
+@@ -1026,7 +1026,7 @@
+       Standard_Integer N1,N2,N3;
+       Triangles(i).Get(N1,N2,N3);
+ 	
+-      int pts[3];
++      vtkIdType pts[3];
+       pts[0] = N1-1; pts[1] = N2-1; pts[2] = N3-1;
+       Cells->InsertNextCell(3,pts);
+ 
