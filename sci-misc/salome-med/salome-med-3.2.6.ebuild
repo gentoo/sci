@@ -32,8 +32,7 @@ export OPENPBS="/usr"
 src_unpack() {
 	python_version
 	distutils_python_version
-	ewarn "Python 2.4 is highly recommended for Salome..."
-
+	
 	if ! built_with_use sci-libs/vtk python ; then
 		die "You must rebuild sci-libs/vtk with python USE flag"
 	fi
@@ -43,6 +42,7 @@ src_unpack() {
 	epatch "${FILESDIR}"/${P}_gcc4.patch
 	epatch "${FILESDIR}"/${P}.patch
 	epatch "${FILESDIR}"/${P}_environ.patch
+	epatch "${FILESDIR}"/${P}-hdf5-1.6.7.patch
 
 	# boost 1.35.0 support
 	if has_version ">=dev-libs/boost-1.35.0" ; then
