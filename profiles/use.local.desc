@@ -33,7 +33,6 @@ sci-misc/salome-gui:supervgraphviewer - make supervgraphviewer module
 sci-misc/salome-gui:occviewer - make occviewer module
 sci-misc/salome-gui:vtkviewer - make vtkviewer module
 sci-misc/salome-gui:salomeobject - make salomeobject module
-sci-misc/salome-kernel:corba - Enables corba support 
 sci-misc/salome-kernel:openpbs - Enables openpbs support
 sci-misc/salome-med:openpbs - Enables openpbs support
 sci-physics/clhep:exceptions - Build CLHEP with exception mechanism
