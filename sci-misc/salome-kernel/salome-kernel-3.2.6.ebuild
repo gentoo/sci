@@ -15,11 +15,14 @@ SLOT="0"
 IUSE="debug doc mpi opengl openpbs"
 
 RDEPEND="opengl?  ( virtual/opengl )
-	 mpi?     ( sys-cluster/mpich2 )
-	 debug?   ( dev-util/cppunit )
-	 openpbs? ( sys-cluster/torque )
-	 dev-python/omniorbpy
-	 >=net-misc/omniORB-4.1.2"
+	mpi?     ( sys-cluster/mpich2 )
+	debug?   ( dev-util/cppunit )
+	openpbs? ( sys-cluster/torque )
+	dev-python/omniorbpy
+	>=net-misc/omniORB-4.1.2
+	x11-libs/qwt:0
+	>=sci-libs/vtk-5.0.0
+	>=sci-libs/opencascade-6.2"
 
 # Note that Corba is apparently not optional in this module
 
@@ -32,14 +35,10 @@ DEPEND="${RDEPEND}
 	dev-python/numeric
 	dev-python/docutils
 	dev-lang/swig
-	=x11-libs/qwt-4*
 	>=x11-libs/qt-3.3.3
 	dev-lang/tk
 	dev-lang/tcl
-	sci-libs/hdf5
-	>=sci-libs/vtk-5.0.0
-	>=sci-libs/opencascade-6.2"
-
+	sci-libs/hdf5"
 
 MODULE_NAME="KERNEL"
 MY_S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
