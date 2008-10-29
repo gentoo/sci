@@ -12,14 +12,15 @@ SRC_URI="http://www.freefem.org/ff%2B%2B/ftp/${PN}-${MY_PV}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="doc examples fltk mpi X"
+KEYWORDS="~amd64"
+IUSE="doc examples fltk mpi vim-syntax X"
 
 RDEPEND="sci-libs/fftw
 	virtual/cblas
 	virtual/lapack
 	sci-libs/umfpack
 	>=sci-libs/arpack-96-r2
+	vim-syntax? ( app-vim/freefem++-syntax )
 	X? (
 		x11-libs/libXpm
 		fltk? ( x11-libs/fltk )
@@ -37,14 +38,17 @@ src_unpack() {
 	cd "${S}"
 	# acoptim.m4 forced -O2 removal
 	epatch "${FILESDIR}"/${PN}-acoptim.patch
+	# build an X11 version even if there is not an X11R6 directory
+	epatch "${FILESDIR}"/${PN}-no-x11r6-dir.patch
+	# fix building with gcc-4.3 (thanks to Dominik 'Rathann' Mierzejewsk)
+	epatch "${FILESDIR}"/${PN}-gcc43.patch
+
 	eautoreconf
 }
 
 src_compile() {
 	local myconf
 
-	# Tested using mpich2, upstream built freefem++ with mpich and lam-mpi.
-	# So it should work, at least with this three MPI implementations.
 	if use mpi; then
 		if has_version sys-cluster/mpich2 ; then
 			myconf="${myconf} --with-mpi=mpicxx"
@@ -76,13 +80,15 @@ src_compile() {
 }
 
 src_test() {
-	# This may depend on the used MPI implementation. It is needed
-	# with mpich2, but should not be needed with lam-mpi or mpich
-	# (if the system is configured correctly).
-	ewarn "Please check that your MPI root ring is on before running"
-	ewarn "the test phase. Failing to start it before that phase may"
-	ewarn "result in a failing emerge."
-	epause
+	if use mpi; then
+		# This may depend on the used MPI implementation. It is needed
+		# with mpich2, but should not be needed with lam-mpi or mpich
+		# (if the system is configured correctly).
+		ewarn "Please check that your MPI root ring is on before running"
+		ewarn "the test phase. Failing to start it before that phase may"
+		ewarn "result in a failing emerge."
+		epause
+	fi
 	emake -j1 check || die "check test failed"
 }
 
