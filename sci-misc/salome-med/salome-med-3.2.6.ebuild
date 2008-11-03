@@ -14,14 +14,14 @@ SLOT="0"
 IUSE="debug doc mpi opengl openpbs"
 
 RDEPEND="opengl?  ( virtual/opengl )
-	 mpi?     ( sys-cluster/mpich2 )
-	 debug?   ( dev-util/cppunit )
-	 openpbs? ( sys-cluster/torque )"
-
-DEPEND="${RDEPEND}
+	mpi?     ( sys-cluster/mpich2 )
+	debug?   ( dev-util/cppunit )
+	openpbs? ( sys-cluster/torque )
 	>=sci-misc/salome-kernel-${PV}
 	>=sci-misc/salome-gui-${PV}
 	sci-libs/med"
+
+DEPEND="${RDEPEND}"
 
 MODULE_NAME="MED"
 MY_S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
@@ -32,7 +32,7 @@ export OPENPBS="/usr"
 src_unpack() {
 	python_version
 	distutils_python_version
-	
+
 	if ! built_with_use sci-libs/vtk python ; then
 		die "You must rebuild sci-libs/vtk with python USE flag"
 	fi
