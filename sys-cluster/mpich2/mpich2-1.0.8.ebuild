@@ -55,6 +55,15 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 
+	# A lot of these patches touch Makefile.in and configure files.
+	# While it would be nice to regenerate everything, mpich2 uses
+	# simplemake instead of automake, so we're doing this for now
+	# and hoping for a receptive upstream.
+
+	# #220877
+	sed -i 's/-fpic/-fPIC/g' \
+		$(grep -lr -e '-fpic' ${S}/) || die "failed to change -fpic to -fPIC"
+
 	# Put python files in site-packages where they belong.
 	# This isn't the prettiest little patch, but it does
 	# move python files out of /usr/bin/
