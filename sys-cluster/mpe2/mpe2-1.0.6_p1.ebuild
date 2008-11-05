@@ -41,7 +41,13 @@ pkg_setup() {
 	local i
 
 	mpi_pkg_setup
-	MPE_IMP=$(mpi_built_with)
+	if [ -n "${MPI_IMP}" ]; then
+		MPE_IMP=$(mpi_built_with)
+	else
+		# Hack until mpi.eclass is fixed to store ${PN}
+		has_version "sys-cluster/openmpi" && MPE_IMP="openmpi"
+		has_version "sys-cluster/mpich2" && MPE_IMP="mpich2"
+	fi
 
 	if use fortran ; then
 		FORTRAN="g77 gfortran ifort ifc"
