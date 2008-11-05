@@ -1,0 +1,97 @@
+diff -urN mpich2-1.0.8/src/pm/mpd/Makefile.in mpich2-1.0.8_p/src/pm/mpd/Makefile.in
+--- mpich2-1.0.8/src/pm/mpd/Makefile.in	2008-11-01 16:55:07.409787116 -0400
++++ mpich2-1.0.8_p/src/pm/mpd/Makefile.in	2008-11-04 20:37:19.510506041 -0500
+@@ -78,7 +78,7 @@
+ 	$(C_LINK) -o mpdroot ${mpdroot_OBJECTS} $(LIBS)
+ 
+ mpdroot.o: ${srcdir}/mpdroot.c ${srcdir}/mpdroot.h mpdconf.h
+-	${C_COMPILE} -c  $< 
++	${C_COMPILE} -DSYSCONFDIR=\"@sysconfdir@\" -c  $< 
+ 
+ # The following lines provide the right libraries for all example programs
+ .c:
+@@ -136,7 +136,10 @@
+ 	fi
+ 	-@for cmd in ${PYTHON_SOURCE} ; do \
+ 	    if [ ! -s $(srcdir)/$$cmd.py ] ; then continue ; fi ; \
+-	    sed -e 's#/usr/bin/env python.*#/usr/bin/env ${PYTHON}#' ${srcdir}/$$cmd.py > $(DESTDIR)${bindir}/temp$$cmd.py ; \
++	    sed \
++			-e 's#/usr/bin/env python.*#/usr/bin/env ${PYTHON}#' \
++			-e 's,/etc/mpd.conf,@sysconfdir@/mpd.conf,g' \
++			${srcdir}/$$cmd.py > $(DESTDIR)${bindir}/temp$$cmd.py ; \
+ 	    ${INSTALL} -m 755 $(DESTDIR)${bindir}/temp$$cmd.py $(DESTDIR)${PYTHONDIR}/$$cmd.py; \
+ 	    ( rm -f $(DESTDIR)${bindir}/temp$$cmd.py >/dev/null 2>&1 || exit 0 ) ; \
+ 	done
+@@ -218,7 +221,7 @@
+ 
+ mpich2-mpdroot.o: ${srcdir}/mpdroot.c ${srcdir}/mpdroot.h mpdconf.h
+ 	${INSTALL} -m 644 ${srcdir}/mpdroot.c mpich2-mpdroot.c
+-	${C_COMPILE} -c mpich2-mpdroot.c
++	${C_COMPILE} -DSYSCONFDIR=\"@sysconfdir@\" -c mpich2-mpdroot.c
+ 	rm -f mpich2-mpdroot.c
+ 
+ # A special alternate installation target when using multiple process managers
+@@ -238,7 +241,10 @@
+ 	fi
+ 	for cmd in ${PYTHON_SOURCE} ; do \
+ 	    if [ ! -s $(srcdir)/$$cmd.py ] ; then continue ; fi ; \
+-	    sed -e 's#/usr/bin/env python.*#/usr/bin/env ${PYTHON}#' ${srcdir}/$$cmd.py > $(DESTDIR)${bindir}/temp$$cmd.py ; \
++	    sed \
++			-e 's#/usr/bin/env python.*#/usr/bin/env ${PYTHON}#' \
++			-e 's,/etc/mpd.conf,@sysconfdir@/mpd.conf,g' \
++			${srcdir}/$$cmd.py > $(DESTDIR)${bindir}/temp$$cmd.py ; \
+ 	    ${INSTALL} -m 755 $(DESTDIR)${bindir}/temp$$cmd.py $(DESTDIR)${PYTHONDIR}/$$cmd.py; \
+ 	    ( rm -f $(DESTDIR)${bindir}/temp$$cmd.py >/dev/null 2>&1 || exit 0 ) ; \
+ 	done
+diff -urN mpich2-1.0.8/src/pm/mpd/mpdlib.py mpich2-1.0.8_p/src/pm/mpd/mpdlib.py
+--- mpich2-1.0.8/src/pm/mpd/mpdlib.py	2007-11-08 18:47:44.000000000 -0500
++++ mpich2-1.0.8_p/src/pm/mpd/mpdlib.py	2008-11-04 20:40:36.812894529 -0500
+@@ -1341,11 +1341,11 @@
+             if os.environ.has_key(k):
+                 self[('env',k)] = os.environ[k]
+     def get_parms_from_rcfile(self,parmsToOverride,errIfMissingFile=0):
+-        if os.environ.has_key('MPD_CONF_FILE'):
++        if os.environ.has_key('MPD_CONF_FILE') and os.access(os.environ['MPD_CONF_FILE'], os.R_OK):
+             parmsRCFilename = os.environ['MPD_CONF_FILE']
+         elif hasattr(os,'getuid')  and  os.getuid() == 0:    # if ROOT
+             parmsRCFilename = os.path.abspath('/etc/mpd.conf')
+-        elif os.environ.has_key('HOME'):
++        elif os.environ.has_key('HOME') and os.access(os.path.join(os.environ['HOME'],'.mpd.conf'), os.R_OK):
+             parmsRCFilename = os.path.join(os.environ['HOME'],'.mpd.conf')
+         elif os.environ.has_key('HOMEPATH'):    # e.g. win32
+             parmsRCFilename = os.path.join(os.environ['HOMEPATH'],'.mpd.conf')
+diff -urN mpich2-1.0.8/src/pm/mpd/mpdroot.c mpich2-1.0.8_p/src/pm/mpd/mpdroot.c
+--- mpich2-1.0.8/src/pm/mpd/mpdroot.c	2007-11-02 18:50:19.000000000 -0400
++++ mpich2-1.0.8_p/src/pm/mpd/mpdroot.c	2008-11-04 20:37:46.472191105 -0500
+@@ -19,6 +19,8 @@
+     struct passwd *pwent;
+     char input_line[NAME_LEN+1], secretword[NAME_LEN+1];
+     FILE *conf_file;
++    char *envvar = NULL;
++    char mpdconf_path[PATH_MAX];
+ 
+     if ((pwent = getpwuid(getuid())) == NULL)    /* for real id */
+     {
+@@ -26,10 +28,20 @@
+         exit(-1);
+     }
+ 
+-    conf_file = fopen("/etc/mpd.conf","r");
++    envvar = getenv("MPD_CONF_FILE");
++    if ( envvar && access( envvar, R_OK ) == 0 )
++        strncpy( mpdconf_path, envvar, PATH_MAX );
++    else
++    {
++        snprintf( mpdconf_path, PATH_MAX, "%s/.mpd.conf", pwent->pw_dir );
++        if ( access( mpdconf_path, R_OK ) != 0 )
++            snprintf( mpdconf_path, PATH_MAX, "%s/mpd.conf", SYSCONFDIR );
++    }
++    conf_file = fopen( mpdconf_path, "r");
++
+     if (conf_file == NULL)
+     {
+-        printf("%s: open failed for root's mpd conf file",argv[0]);
++        printf("%s: open failed for root's mpd conf file\n",argv[0]);
+         exit(-1);
+     }
+     secretword[0] = '\0';
