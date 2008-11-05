@@ -1,0 +1,12 @@
+# ChangeLog for dev-python/h5py
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  05 Nov 2008; Tim Cera <timcera@earthlink.net> +h5py-0.3.1.ebuild,
+  +metadata.xml:
+  Added license info.
+
+  04 Nov 2008; Tim Cera <timcera@earthlink.net> +h5py-0.3.1.ebuild,
+  +metadata.xml:
+  Initial ebuild.
+
