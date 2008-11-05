@@ -86,19 +86,35 @@
 # mpi_do_make_install:   Same as above but for installing.
 
 
+# Variables:
+# MPI_ESELECT_FILE:  	Name of the eselect file in ${FILESDIR}
+# MPI_NOEMPI_BLOCKERS: 	String of packages we should block against if not using
+# 						empi.  See mpich2 and mpd.
+# MPI_EMPI_COMPAT:		String of all base implementations that this package
+# 						works with.  See __MPI_EMPI_COMPAT, this is a list of
+# 						[><=]${PN}-${PVR} put into DEPEND with ||.
+
 inherit multilib flag-o-matic
 
-MPI_EMPI_COMPAT="openmpi-1.2.5-r1 lam-mpi-7.1.4-r1 openib-mvapich2-1.0.1-r1"
+__MPI_EMPI_COMPAT="
+	>=openmpi-1.2.5-r1
+	>=lam-mpi-7.1.4-r1
+	>=openib-mvapich2-1.0.1-r1
+	>=mpich2-1.0.8"
 MPI_ALL_IMPS="mpich mpich2 openmpi lam-mpi openib-mvapich2"
 
+MPI_EMPI_COMPAT="${MPI_EMPI_COMPAT:-${__MPI_EMPI_COMPAT}}"
 #TODO: doc
 mpi_pkg_deplist() {
 	local i ver
 	if [ -z "$(get_imp)" ]; then
 		ver="virtual/mpi"
+		for i in ${MPI_NOEMPI_BLOCKERS}; do
+			ver="${ver} !${i}"
+		done
 	else
 		for i in ${MPI_EMPI_COMPAT}; do
-			ver="${ver} >=${CATEGORY}/${i}"
+			ver="${ver} ${CATEGORY}/${i}"
 		done
 		ver="|| (${ver} ) app-admin/eselect-mpi"
 	fi
@@ -110,6 +126,9 @@ mpi_imp_deplist() {
 	if ! is_empi_imp_build; then
 		for i in ${MPI_ALL_IMPS}; do
 			[ "${i}" != "${PN}" ] && ver="${ver} !sys-cluster/${i}"
+		done
+		for i in ${MPI_NOEMPI_BLOCKERS}; do
+			ver="${ver} !${i}"
 		done
 	else
 		ver="app-admin/eselect-mpi"
