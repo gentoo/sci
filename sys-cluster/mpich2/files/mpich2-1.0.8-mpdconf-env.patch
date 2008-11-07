@@ -62,29 +62,40 @@ diff -urN mpich2-1.0.8/src/pm/mpd/mpdlib.py mpich2-1.0.8_p/src/pm/mpd/mpdlib.py
              parmsRCFilename = os.path.join(os.environ['HOMEPATH'],'.mpd.conf')
 diff -urN mpich2-1.0.8/src/pm/mpd/mpdroot.c mpich2-1.0.8_p/src/pm/mpd/mpdroot.c
 --- mpich2-1.0.8/src/pm/mpd/mpdroot.c	2007-11-02 18:50:19.000000000 -0400
-+++ mpich2-1.0.8_p/src/pm/mpd/mpdroot.c	2008-11-04 20:37:46.472191105 -0500
-@@ -19,6 +19,8 @@
++++ mpich2-1.0.8_p/src/pm/mpd/mpdroot.c	2008-11-07 13:45:10.560017904 -0500
+@@ -19,6 +19,7 @@
      struct passwd *pwent;
      char input_line[NAME_LEN+1], secretword[NAME_LEN+1];
      FILE *conf_file;
-+    char *envvar = NULL;
-+    char mpdconf_path[PATH_MAX];
++    char *mpdconf_path = NULL;
  
      if ((pwent = getpwuid(getuid())) == NULL)    /* for real id */
      {
-@@ -26,10 +28,20 @@
+@@ -26,10 +27,32 @@
          exit(-1);
      }
  
 -    conf_file = fopen("/etc/mpd.conf","r");
-+    envvar = getenv("MPD_CONF_FILE");
-+    if ( envvar && access( envvar, R_OK ) == 0 )
-+        strncpy( mpdconf_path, envvar, PATH_MAX );
-+    else
-+    {
-+        snprintf( mpdconf_path, PATH_MAX, "%s/.mpd.conf", pwent->pw_dir );
++    /*
++     * We look for a readable mpd.conf in the following order.
++     * - MPD_CONF_FILE set in environment
++     * - .mpd.conf in the user's home directory
++     * - The system wide default in SYSCONFDIR/mpd.conf
++     */
++    mpdconf_path = getenv("MPD_CONF_FILE");
++    if ( ! (mpdconf_path && access( mpdconf_path, R_OK ) == 0) ){
++        /* By far, the largest we'll need */
++        size_t mpdconf_path_len = strlen(pwent->pw_dir) \
++            + strlen(SYSCONFDIR) + strlen("/.mpd.conf");
++
++        mpdconf_path = (char*) malloc( sizeof(char) * mpdconf_path_len ); 
++        if ( ! mpdconf_path ){
++            fprintf( stderr, "%s:  Failed to allocate a buffer for path to mpd.conf\n", argv[0]);
++            exit(-1);
++        }
++        snprintf( mpdconf_path, mpdconf_path_len-1, "%s/.mpd.conf", pwent->pw_dir );
 +        if ( access( mpdconf_path, R_OK ) != 0 )
-+            snprintf( mpdconf_path, PATH_MAX, "%s/mpd.conf", SYSCONFDIR );
++            snprintf( mpdconf_path, mpdconf_path_len-1, "%s/mpd.conf", SYSCONFDIR );
 +    }
 +    conf_file = fopen( mpdconf_path, "r");
 +
