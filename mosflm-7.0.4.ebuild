@@ -27,6 +27,7 @@ src_compile() {
 	F77=$(tc-getF77)
 
 	emake \
+		-j1 \
 		MOSHOME=`pwd` \
 		DPS=`pwd` \
 		FC=$(tc-getFC) \
