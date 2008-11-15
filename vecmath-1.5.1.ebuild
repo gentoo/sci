@@ -17,7 +17,7 @@ HOMEPAGE="https://vecmath.dev.java.net/"
 
 SRC_URI="http://dev.gentoo.org/~ali_bush/distfiles/${P}.tar.bz2
 		test? ( http://dev.gentoo.org/~ali_bush/distfiles/${PN}-test-${PV}.tar.bz2 )"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 SLOT="0"
 LICENSE="|| ( sun-jrl sun-jdl )"
 IUSE=""

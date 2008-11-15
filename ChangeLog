@@ -2,6 +2,9 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Nov 2008; Vlastimil Babka <caster@gentoo.org> vecmath-1.5.1.ebuild:
+  Add ~x86.
+
   11 Mar 2008; Alistair Bush <ali_bush@gentoo.org> +vecmath-1.5.1.ebuild:
   Bump to vecmath-1.5.1
 
