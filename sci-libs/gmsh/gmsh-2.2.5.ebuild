@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
-inherit eutils
+inherit eutils multilib
 
 DESCRIPTION="A three-dimensional finite element mesh generator with built-in pre- and post-processing facilities."
 HOMEPAGE="http://www.geuz.org/gmsh/"
@@ -28,12 +28,18 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 	epatch "${FILESDIR}"/${P}.patch
-	epatch "${FILESDIR}"/${P}-metis.patch
+
+	if built_with_use sci-libs/cgnslib hdf5; then
+		epatch "${FILESDIR}"/${P}_hdf5.patch
+	fi
 }
 
 src_compile() {
 	local myconf=""
 	use opencascade && myconf="${myconf} --with-occ-prefix=$CASROOT/lin"
+
+	# As for now, the MED integration doesnot compile
+	myconf="${myconf} --disable-med"
 
 	econf ${myconf} \
 		$(use_enable X gui) \
