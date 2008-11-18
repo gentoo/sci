@@ -29,7 +29,7 @@ src_unpack() {
 	cd "${S}"
 	epatch "${FILESDIR}"/${P}.patch
 
-	if built_with_use sci-libs/cgnslib hdf5; then
+	if use cgns && built_with_use sci-libs/cgnslib hdf5; then
 		epatch "${FILESDIR}"/${P}_hdf5.patch
 	fi
 }
