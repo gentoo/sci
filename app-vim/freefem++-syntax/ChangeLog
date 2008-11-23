@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Nov 2008; David Radice <david.e.pi.3.14@gmail.com>
+  +freefem++-syntax-20081108.ebuild:
+  Version bump.
+
 *freefem++-syntax-20070614 (08 May 2008)
 
   08 May 2008; David Radice <david.e.pi.3.14@gmail.com>
