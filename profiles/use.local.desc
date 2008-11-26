@@ -15,6 +15,7 @@ sci-biology/tgi-tools:pvm - Use sys-cluster/pvm (Parallel Virtual Machine) and b
 sci-libs/calculix-ccx:arpack - Add sparse eigen value support via sci-libs/arpack
 sci-libs/calculix-ccx:spooles - Provides an improved solver via sci-libs/spooles
 sci-libs/opencv:demos - Install applications that demo OpenCV library functions
+sci-libs/gmsh:chaco - Enables chaco partitioner support
 sci-libs/gmsh:cgns - Enables cgns output support
 sci-libs/gmsh:metis - Enables metis support
 sci-libs/gmsh:opencascade - Enable OpenCASCADE support
