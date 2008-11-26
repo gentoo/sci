@@ -132,6 +132,10 @@ src_compile() {
 		--disable-mpe
 		$(use_enable romio)
 		$(use_enable !nocxx cxx)"
+	# Oh, the irony, we can't parallel make.
+	# http://www.mcs.anl.gov/research/projects/mpich2/support/index.php?s=faqs#parmake
+	# https://trac.mcs.anl.gov/projects/mpich2/ticket/297
+	mpi_make_args="-j1"
 	mpi_src_compile
 }
 
