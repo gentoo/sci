@@ -11,7 +11,7 @@ SRC_URI="http://www.geuz.org/gmsh/src/${P}-source.tgz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cgns doc examples jpeg metis opencascade png zlib X"
+IUSE="chaco cgns doc examples jpeg metis opencascade png zlib X"
 
 RDEPEND="sci-libs/gsl
 	x11-libs/fltk
@@ -29,6 +29,7 @@ src_unpack() {
 	cd "${S}"
 	epatch "${FILESDIR}"/${P}.patch
 
+	epatch "${FILESDIR}"/${P}_metis.patch
 	if use cgns && built_with_use sci-libs/cgnslib hdf5; then
 		epatch "${FILESDIR}"/${P}_hdf5.patch
 	fi
@@ -48,6 +49,7 @@ src_compile() {
 		$(use_enable metis) \
 		$(use_enable opencascade occ) \
 		$(use_enable png) \
+		$(use_enable chaco) \
 		$(use_enable zlib)
 
 	emake -j1 || die "emake failed"

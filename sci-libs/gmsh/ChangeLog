@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Nov 2008; Oliver Borm (boroli) <oli.borm@web.de> gmsh-2.2.5.ebuild,
+  +files/gmsh-2.2.5_metis.patch, metadata.xml:
+  Fixed metis compilation problem and added chaco USE-flag
+
   18 Nov 2008; Oliver Borm (boroli) <oli.borm@web.de> gmsh-2.2.5.ebuild:
   Improved typo
 
