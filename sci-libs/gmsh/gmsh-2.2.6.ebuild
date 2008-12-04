@@ -29,7 +29,6 @@ src_unpack() {
 	cd "${S}"
 	epatch "${FILESDIR}"/${P}.patch
 
-	epatch "${FILESDIR}"/${P}_metis.patch
 	if use cgns && built_with_use sci-libs/cgnslib hdf5; then
 		epatch "${FILESDIR}"/${P}_hdf5.patch
 	fi
