@@ -13,7 +13,6 @@ app-office/texmacs:netpbm - Allows TeXmacs to include images in a number of form
 sci-astronomy/scamp:plplot - Add plplot to allow diagnostic plots during processing 
 sci-biology/tgi-tools:pvm - Use sys-cluster/pvm (Parallel Virtual Machine) and build the pvmsx utility
 sci-libs/calculix-ccx:arpack - Add sparse eigen value support via sci-libs/arpack
-sci-libs/calculix-ccx:spooles - Provides an improved solver via sci-libs/spooles
 sci-libs/opencv:demos - Install applications that demo OpenCV library functions
 sci-libs/gmsh:chaco - Enables chaco partitioner support
 sci-libs/gmsh:cgns - Enables cgns output support
