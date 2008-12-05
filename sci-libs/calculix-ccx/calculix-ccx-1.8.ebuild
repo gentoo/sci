@@ -15,21 +15,15 @@ SRC_URI="http://www.dhondt.de/${MY_P}.src.tar.bz2
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="arpack doc examples lapack spooles threads"
+IUSE="arpack doc examples lapack threads"
 
 DEPEND="arpack? ( >=sci-libs/arpack-96 )
 	doc? ( virtual/ghostscript )
 	lapack? ( virtual/lapack )
-	spooles? ( >=sci-libs/spooles-2.2 )
+	>=sci-libs/spooles-2.2
 	virtual/blas"
 
 S=${WORKDIR}/CalculiX
-
-pkg_setup() {
-	if use spooles && use !threads; then
-		die "ERROR: the threads USE flag requires spooles"
-	fi
-}
 
 src_unpack() {
 	unpack ${A}
@@ -43,13 +37,11 @@ src_compile () {
 
 	export BLAS=`pkg-config --libs blas`
 
-	if use spooles; then
-		export SPOOLESINC="-I/usr/include/spooles -DSPOOLES"
-		export SPOOLESLIB="-lspooles"
-		if use threads; then
-			export USE_MT="-DUSE_MT"
-			export SPOOLESLIB="-lspooles -lpthread"
-		fi
+	export SPOOLESINC="-I/usr/include/spooles -DSPOOLES"
+	export SPOOLESLIB="-lspooles"
+	if use threads; then
+		export USE_MT="-DUSE_MT"
+		export SPOOLESLIB="-lspooles -lpthread"
 	fi
 
 	if use arpack; then

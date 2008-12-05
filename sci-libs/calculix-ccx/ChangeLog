@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Dec 2008; Oliver Borm (boroli) <oli.borm@web.de>
+  calculix-ccx-1.8.ebuild, metadata.xml:
+  Removed spooles USE-flag, spooles is no longer optional
+
   15 Oct 2008; Oliver Borm (boroli) <oli.borm@web.de>
   +files/01_ccx_1.8_Makefile.patch, +files/01_ccx_1.8_lapack.patch,
   +calculix-ccx-1.8.ebuild, +metadata.xml:
