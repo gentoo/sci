@@ -2,6 +2,11 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Dec 2008; David Radice <david.e.pi.3.14@gmail.com>
+  +files/freefem++-P1-fix.patch, +freefem++-2.24.2-r2.ebuild:
+  Install needed headers with the examples. Backport a fix for the second
+  derivative of P1 FE.
+
   29 Oct 2008; David Radice <david.e.pi.3.14@gmail.com>
   +files/freefem++-gcc43.patch, -freefem++-2.23.2.ebuild,
   +files/freefem++-no-x11r6-dir.patch, +freefem++-2.24.2-r1.ebuild:
