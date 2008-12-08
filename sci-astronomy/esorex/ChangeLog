@@ -2,6 +2,10 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Dec 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  +esorex-3.6.12.ebuild:
+  Version bump
+
   02 Jun 2008; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml,
   +esorex-3.6.8.ebuild:
   Version bump
