@@ -8,4 +8,9 @@
     random forest, bump hunting, a multi-class learner and others.
     It is used mostly in High Energy Physics.
   </longdescription>
+  <use>
+    <flag name='root'>Add <pkg>sci-physics/root</pkg> graphics and i/o
+    support</flag>
+  </use>
+
 </pkgmetadata>

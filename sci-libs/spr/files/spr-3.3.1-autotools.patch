@@ -1,6 +1,6 @@
 diff -Nur SPR-3.3.1.orig/configure.ac SPR-3.3.1/configure.ac
---- SPR-3.3.1.orig/configure.ac	2008-08-11 22:11:07.000000000 +0100
-+++ SPR-3.3.1/configure.ac	2008-12-12 17:28:54.562084262 +0000
+--- SPR-3.3.1.orig/configure.ac	2008-12-12 18:04:35.368439834 +0000
++++ SPR-3.3.1/configure.ac	2008-12-12 18:04:38.116323616 +0000
 @@ -114,7 +114,7 @@
      AC_SUBST([ROOTLIBS])
  fi
@@ -21,15 +21,36 @@ diff -Nur SPR-3.3.1.orig/configure.ac SPR-3.3.1/configure.ac
  AC_CONFIG_FILES(Makefile)
  AC_CONFIG_FILES(math/Makefile)
  AC_CONFIG_FILES(src/Makefile)
+diff -Nur SPR-3.3.1.orig/data/Makefile.am SPR-3.3.1/data/Makefile.am
+--- SPR-3.3.1.orig/data/Makefile.am	2008-12-12 18:04:35.416440392 +0000
++++ SPR-3.3.1/data/Makefile.am	2008-12-12 18:34:35.723458729 +0000
+@@ -1,4 +1,5 @@
+-dist_data_DATA = \
++
++pkgdata_DATA = \
+ discrete_square.pat          gausscorr_uniform_2d_train.pat \
+ gauss2_uniform_2d_train.pat  trainRoot.pat \
+ gauss2_uniform_2d_valid.pat  triangle_square_00_train.pat \
+@@ -9,4 +10,4 @@
+ lambda-test.pat              cmc.data \
+ gauss2_uniform_2d_train_root.pat  mlp_root.pat \
+ tmva_root.pat                cleveland.data \
+-samplematrixindicator.cfg
+\ No newline at end of file
++samplematrixindicator.cfg
 diff -Nur SPR-3.3.1.orig/src/Makefile.am SPR-3.3.1/src/Makefile.am
---- SPR-3.3.1.orig/src/Makefile.am	2008-08-11 18:26:00.000000000 +0100
-+++ SPR-3.3.1/src/Makefile.am	2008-12-12 17:47:25.244039219 +0000
-@@ -53,14 +53,14 @@
+--- SPR-3.3.1.orig/src/Makefile.am	2008-12-12 18:04:35.372441231 +0000
++++ SPR-3.3.1/src/Makefile.am	2008-12-12 18:44:45.930690186 +0000
+@@ -51,16 +51,16 @@
+ 
+ libSPR_la_SOURCES += $(TMP_ROOT_FILES)
  libSPR_la_CPPFLAGS += $(ROOTCPPFLAGS)
- libSPR_la_CXXFLAGS = $(CXXFLAGS) $(AM_CXXFLAGS) $(ROOTCXXFLAGS)
- libSPR_la_LDFLAGS = $(ROOTLDFLAGS) -lstdc++
+-libSPR_la_CXXFLAGS = $(CXXFLAGS) $(AM_CXXFLAGS) $(ROOTCXXFLAGS)
+-libSPR_la_LDFLAGS = $(ROOTLDFLAGS) -lstdc++
 -libSPR_la_LIBADD = $(top_srcdir)/math/libSPRmath.la
-+libSPR_la_LIBADD = $(top_builddir)/math/libSPRmath.la  $(ROOTLIBS)
++libSPR_la_CXXFLAGS = $(ROOTCXXFLAGS)
++libSPR_la_LDFLAGS = $(ROOTLDFLAGS)
++libSPR_la_LIBADD = $(top_builddir)/math/libSPRmath.la  -lstdc++ $(ROOTLIBS)
  
  #####################################################################
  
