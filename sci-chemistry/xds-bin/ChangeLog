@@ -1,0 +1,13 @@
+# ChangeLog for sci-chemistry/xds-bin
+# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  14 Dec 2008; Justin Lecher (jlec) <jlec@j-schmitz.net> ++, metadata.xml,
+  -xds-bin-20080910.ebuild:
+  Version bump to 20081214
+
+  20 Nov 2008; justin Lecher <justin@j-schmitz.net> ++,
+  -xds-bin-20071206.ebuild, -xds-bin-20080602.ebuild,
+  -xds-bin-20080714.ebuild:
+  version fixed xds-bin-20080910.ebuild
+
