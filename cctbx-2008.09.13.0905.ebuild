@@ -28,18 +28,21 @@ S="${WORKDIR}"
 MY_S="${WORKDIR}"/cctbx_sources
 MY_B="${WORKDIR}"/cctbx_build
 
+MYCONF="${MY_S}/libtbx/configure.py"
+
 src_unpack() {
 	unpack ${A}
 
 	# Wants to chmod /usr/bin/python
 	epatch "${FILESDIR}"/${PV}-sandbox-violations-chmod.patch
+	rm -rv "${MY_S}/clipper"
 }
 
 src_compile() {
 	python_version
 
 	MAKEOPTS_EXP=${MAKEOPTS/j/j }
-	MAKEOPTS_EXP=${MAKEOPTS_EXP%-l[0-9]}
+	MAKEOPTS_EXP=${MAKEOPTS_EXP%-l[0-9]*}
 
 	# Get CXXFLAGS in format suitable for substitition into SConscript
 	for i in ${CXXFLAGS}; do
@@ -56,6 +59,7 @@ src_compile() {
 
 	# Get compiler in the right way
 	COMPILER=$(expr match "$(tc-getCC)" '.*\([a-z]cc\)')
+	MYCONF="${MYCONF} --compiler=${COMPILER}"
 
 	# Precompiling python scripts. It is done in upstreams install script. Perhaps use python_mod_compile,
 	# but as this script works we should stick to it.
@@ -63,24 +67,30 @@ src_compile() {
 
 	# Additional USE flag usage
 	check_use openmp
+	MYCONF="${MYCONF} --enable-openmp-if-possible=${USE_openmp}"
 	use threads && USEthreads="--enable-boost-threads" && \
 	ewarn "If using boost threads openmp support is disabled"
+	MYCONF="${MYCONF} ${USE_threads} --scan-boost"
 
-	mkdir "${MY_B}"
+	mkdir "${MY_B}" && MYCONF="${MYCONF} --current_working_directory=${MY_B}"
 	cd "${MY_B}"
 
-	einfo "configuring ...."
-	${python} "${MY_S}"/libtbx/configure.py \
-		--compiler=${COMPILER} \
-		--current_working_directory="${MY_B}" \
-		--build=release \
-		--enable-openmp-if-possible="${USEopenmp}" \
-		${USEthreads} --scan-boost \
-		fftw3tbx rstbx smtbx mmtbx \
+	MYCONF="${MYCONF} --build=release fftw3tbx rstbx smtbx mmtbx"
+	einfo "configuring with ${python} ${MYCONF}"
+#	${python} "${MY_S}"/libtbx/configure.py \
+#		--compiler=${COMPILER} \
+#		--current_working_directory="${MY_B}" \
+#		--build=release \
+#		--enable-openmp-if-possible="${USE_openmp}" \
+#		${USE_threads} --scan-boost \
+#		fftw3tbx rstbx smtbx mmtbx \
+
+	${python} ${MYCONF} \
 		|| die "configure failed"
+
 	source setpaths_all.sh
 
-	einfo "compiling ..."
+	einfo "compiling with libtbx.scons ${MAKEOPTS_EXP}"
 	libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
 }
 
