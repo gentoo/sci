@@ -1,0 +1,11 @@
+--- Makefile.in.orig	2000-07-26 19:24:58.000000000 -0400
++++ Makefile.in	2002-11-23 02:20:43.000000000 -0500
+@@ -617,7 +617,7 @@
+ 	$(INSTALL_DATA) ./gtk/config.scm  $(gtkmoduledir)/config.scm
+ 	$(INSTALL_DATA) $(srcdir)/gtk/event-repl.scm $(gtkmoduledir)/event-repl.scm
+ .c.x:
+-	guile-snarf $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $< >$<.tmp && mv $<.tmp $@
++	guile-snarf $< $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) >$<.tmp && mv $<.tmp $@
+ 
+ gtk-glue.c: $(gtkdefs) $(gdkdefs) build-guile-gtk
+ 	$(BUILD) -I $(srcdir) glue $(gtkdefs) >tmpt && mv tmpt $@
