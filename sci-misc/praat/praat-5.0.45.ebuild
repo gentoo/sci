@@ -4,6 +4,7 @@
 
 inherit versionator
 # FIXME: for versions with last part < 10 pad with zeroes
+# e.g 4 => 4000, 5.1 => 5100, 5.2.7 => 5207.
 MY_PV=$(delete_all_version_separators)
 
 DESCRIPTION="Speech analysis and synthesis"
@@ -21,7 +22,7 @@ DEPEND="|| ( ( x11-libs/libXmu
 	)
 	x11-libs/openmotif"
 RDEPEND="${DEPEND}"
-KEYWORDS="~x86"
+KEYWORDS="~amd64"
 IUSE=""
 LICENSE="GPL-2"
 SLOT="0"
@@ -30,6 +31,7 @@ S="${WORKDIR}/sources_${MY_PV}"
 
 src_compile() {
 	# TODO: following line should be updated for non-linux etc. builds
+	# (Flammie does not have testing equipment)
 	cp "${S}/makefiles/makefile.defs.linux.dynamic" "${S}/makefile.defs"
 	emake || die "emake failed"
 }

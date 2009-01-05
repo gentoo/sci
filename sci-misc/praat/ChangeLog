@@ -2,6 +2,11 @@
 # Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*praat-5.0.45 (05 Jan 2009)
+
+  05 Jan 2009; Flammie Pirinen <flammie@gentoo.org> +praat-5.0.45.ebuild:
+  Version bump.
+
 *praat-5.0.38 (09 Nov 2008)
 
   09 Nov 2008; Flammie Pirinen <flammie@gentoo.org> +praat-5.0.38.ebuild:
