@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,10 +8,7 @@ inherit autotools eutils flag-o-matic qt3 check-reqs multilib toolchain-funcs ve
 
 DESCRIPTION="Software development platform for CAD/CAE, 3D surface/solid modeling and data exchange."
 HOMEPAGE="http://www.opencascade.org"
-SRC_URI=" ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${P}.tar.bz2
-	 ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${PN}-tutorial-${PV}.tar.bz2
-	 java? ( ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${PN}-samples-java-${PV}.tar.bz2 )
-	 qt3? ( ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${PN}-samples-qt-${PV}.tar.bz2 )"
+SRC_URI="ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${P}.tar.bz2"
 
 # NOTES
 # The source code here is not in the same form than the one distributed on www.opencascade.org
@@ -31,7 +28,7 @@ DEPEND="java? ( virtual/jdk )
 	opengl? ( virtual/opengl
 		  virtual/glu )
 	X? ( x11-libs/libXmu
-	     app-text/dgs )
+		 app-text/dgs )
 	>=dev-lang/tcl-8.4
 	>=dev-lang/tk-8.4
 	>=dev-tcltk/itcl-3.2
@@ -40,6 +37,10 @@ DEPEND="java? ( virtual/jdk )
 	amd64? ( >=dev-tcltk/tix-8.4.2 )
 	qt3? ( x11-libs/qt:3 )
 	stlport? ( dev-libs/STLport )"
+
+MY_S=${WORKDIR}/OpenCASCADE6.3.0
+INSTALL_DIR="/opt/${P}/ros/lin"
+
 
 pkg_setup() {
 	# Determine itk, itcl, tix, tk and tcl versions
@@ -67,32 +68,25 @@ src_unpack() {
 	unpack ${A}
 
 	# Substitute with our ready-made env.ksh script
-	cp -f "${FILESDIR}"/env.ksh.template "${S}"/ros/env.ksh
+	cp -f "${FILESDIR}"/env.ksh.template ${MY_S}/ros/env.ksh
 
 	# Feed environment variables used by Opencascade compilation
-	cd "${S}"/ros
+	cd ${MY_S}/ros
 	sed -i \
-	    -e "s:VAR_CASROOT:${S}/ros:g" \
-	    -e 's:VAR_SYS_BIN:/usr/bin:g' \
-	    -e "s:VAR_SYS_LIB:/usr/$(get_libdir):g" env.ksh \
+		-e "s:VAR_CASROOT:${MY_S}/ros:g" \
+		-e 's:VAR_SYS_BIN:/usr/bin:g' \
+		-e "s:VAR_SYS_LIB:/usr/$(get_libdir):g" env.ksh \
 	|| die "Environment variables feed in env.ksh failed!"
 
 	# Tweak itk, itcl, tix, tk and tcl versions
 	sed -i \
-	    -e "s:VAR_ITK:itk${itk_version}:g" \
-	    -e "s:VAR_ITCL:itcl${itcl_version}:g" \
-	    -e "s:VAR_TIX:tix${tix_version}:g" \
-	    -e "s:VAR_TK:tk${tk_version}:g" \
-	    -e "s:VAR_TCL:tcl${tcl_version}:g" env.ksh \
+		-e "s:VAR_ITK:itk${itk_version}:g" \
+		-e "s:VAR_ITCL:itcl${itcl_version}:g" \
+		-e "s:VAR_TIX:tix${tix_version}:g" \
+		-e "s:VAR_TK:tk${tk_version}:g" \
+		-e "s:VAR_TCL:tcl${tcl_version}:g" env.ksh \
 	|| die "itk, itcl, tix, tk and tcl version tweaking failed!"
 
-	# Patches
-	if [ $(gcc-major-version) > "4" ] ; then
-		elog "You have gcc4 -> GCC 4.x patch is applied"
-		epatch "${FILESDIR}"/opencascade-6.2-gcc4.patch
-	fi
-	elog "Stdlib malloc patch is applied"
-	epatch "${FILESDIR}"/opencascade-6.2-malloc.patch
 	chmod u+x configure
 
 	# Autotools version update
@@ -105,10 +99,10 @@ src_unpack() {
 }
 
 src_compile() {
-	cd "${S}"/ros
+	cd ${MY_S}/ros
 
 	# Add the configure options
-	local confargs="--prefix=/opt/${P}/ros/lin --with-tcl=/usr/$(get_libdir) --with-tk=/usr/$(get_libdir)"
+	local confargs="--prefix=${INSTALL_DIR} --with-tcl=/usr/$(get_libdir) --with-tk=/usr/$(get_libdir)"
 
 	if use X ; then
 		confargs="${confargs} --with-dps-include=/usr/include --with-dps-library=/usr/$(get_libdir)"
@@ -158,15 +152,16 @@ src_compile() {
 
 
 src_install() {
-	cd "${S}"/ros
+	cd ${MY_S}/ros
 	rm *~
-	emake install DESTDIR="${D}" || die "Installation failed"
+	emake prefix="${D}/${INSTALL_DIR}" install \
+	|| die "Installation failed"
 
 	# Symlinks for keeping original OpenCascade folder structure and
 	# add a link lib to lib64 in ros/Linux if we are on amd64
 	dosym /opt/${P}/ros/lin /opt/${P}/ros/Linux
 	if use amd64 ; then
-		dosym /opt/${P}/ros/lin/lib64 /opt/${P}/ros/lin/lib
+		dosym ${INSTALL_DIR}/lib64 ${INSTALL_DIR}/lib
 	fi
 
 	# Tweak the environment variables script
@@ -176,24 +171,24 @@ src_install() {
 	# Build the env.d environment variables
 	cp "${FILESDIR}"/env.ksh.template 50${PN}
 	sed -i \
-	    -e 's:export ::g' \
-	    -e "s:VAR_CASROOT:/opt/${P}/ros:g" \
-	    -e '1,2d' \
-	    -e '4,14d' \
-	    -e "s:ros/Linux/lib/:ros/Linux/$(get_libdir)/:g" ./50${PN} \
+		-e 's:export ::g' \
+		-e "s:VAR_CASROOT:/opt/${P}/ros:g" \
+		-e '1,2d' \
+		-e '4,14d' \
+		-e "s:ros/Linux/lib/:ros/Linux/$(get_libdir)/:g" ./50${PN} \
 	|| die "Creation of the /etc/env.d/50opencascade failed!"
 	sed -i "2i\PATH=/opt/${P}/ros/Linux/bin/\nLDPATH=/opt/${P}/ros/Linux/$(get_libdir)" ./50${PN} \
 	|| die "Creation of the /etc/env.d/50opencascade failed!"
 
 	# Update both env.d and script with the libraries variables
 	sed -i \
-	    -e 's:VAR_SYS_BIN:/usr/bin:g' \
-	    -e "s:VAR_SYS_LIB:/usr/$(get_libdir):g" \
-	    -e "s:VAR_ITK:itk${itk_version}:g" \
-	    -e "s:VAR_ITCL:itcl${itcl_version}:g" \
-	    -e "s:VAR_TIX:tix${tix_version}:g" \
-	    -e "s:VAR_TK:tk${tk_version}:g" \
-	    -e "s:VAR_TCL:tcl${tcl_version}:g" env.ksh 50${PN} \
+		-e 's:VAR_SYS_BIN:/usr/bin:g' \
+		-e "s:VAR_SYS_LIB:/usr/$(get_libdir):g" \
+		-e "s:VAR_ITK:itk${itk_version}:g" \
+		-e "s:VAR_ITCL:itcl${itcl_version}:g" \
+		-e "s:VAR_TIX:tix${tix_version}:g" \
+		-e "s:VAR_TK:tk${tk_version}:g" \
+		-e "s:VAR_TCL:tcl${tcl_version}:g" env.ksh 50${PN} \
 	|| die "Tweaking of the Tcl/Tk libraries location in env.ksh and 50opencascade failed!"
 
 	# Install the env.d variables file
@@ -201,13 +196,13 @@ src_install() {
 	rm 50${PN} env.csh
 
 	# Clean before copying everything
-	cd "${S}"/ros
+	cd ${MY_S}/ros
 	emake clean || die "emake clean failed"
 
 	# Install folders
-	cd "${S}"
+	cd ${MY_S}
 	insinto /opt/${P}
-	doins -r data ros tools wok
+	doins -r data ros
 	insinto /opt/${P}/samples
 	doins -r samples/tutorial
 	if use java ; then
@@ -221,8 +216,8 @@ src_install() {
 
 	# Install the documentation
 	if use doc ; then
-		cd "${S}"/doc
-		dodoc *.pdf ../LICENSE || die "dodoc failed"
+		cd ${MY_S}/doc
+		dodoc -r Overview  ReferenceDocumentation ../LICENSE || die "dodoc failed"
 	fi
 }
 
