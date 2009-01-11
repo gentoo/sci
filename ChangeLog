@@ -1,5 +1,5 @@
 # ChangeLog for x11-libs/guile-gtk
-# Copyright 2002-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 2002-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/x11-libs/guile-gtk/ChangeLog,v 1.31 2007/10/14 10:33:07 hkbst Exp $
 
   20 Dec 2008; Justin Lecher (jlec) <jlec@j-schmitz.net>
