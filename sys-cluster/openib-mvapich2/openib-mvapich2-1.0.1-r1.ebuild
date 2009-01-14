@@ -60,7 +60,6 @@ pkg_setup() {
 			die "unsupported architecture: ${ARCH}"
 			;;
 	esac
-	mpi_pkg_setup
 	use fortran && fortran_pkg_setup
 }
 
@@ -75,8 +74,7 @@ src_unpack() {
 }
 
 src_compile() {
-	mpi_conf_args="
-		--with-device=osu_ch3:mrail
+	local c="--with-device=osu_ch3:mrail
 		--with-rdma=gen2
 		--with-pm=mpd
 		$(use_enable romio)
@@ -103,28 +101,26 @@ src_compile() {
 	append-flags "-DONE_SIDED -D${MVAPICH_HCA_TYPE} ${vcluster}"
 	append-flags "-DMPID_USE_SEQUENCE_NUMBERS -DUSE_MPD_RING"
 
-	use debug && mpi_conf_args="${mpi_conf_args} --enable-g=all --enable-debuginfo"
+	use debug && c="${c} --enable-g=all --enable-debuginfo"
 
 	if use threads; then
-		mpi_conf_args="${mpi_conf_args} --enable-threads=multiple --with-thread-package=pthreads"
+		c="${c} --enable-threads=multiple --with-thread-package=pthreads"
 		append-flags "-pthread"
 	else
-		mpi_conf_args="${mpi_conf_args} --with-thread-package=none"
+		c="${c} --with-thread-package=none"
 	fi
 
 	# enable f90 support for appropriate compilers
 	if use fortran; then
 		case "${FORTRANC}" in
 			gfortran|ifc|ifort|f95)
-				mpi_conf_args="${mpi_conf_args} --enable-f77 --enable-f90";;
+				c="${c} --enable-f77 --enable-f90";;
 			g77|f77|f2c)
-				mpi_conf_args="${mpi_conf_args} --enable-f77 --disable-f90";;
+				c="${c} --enable-f77 --disable-f90";;
 		esac
 	else
-		mpi_conf_args="${mpi_conf_args} --disable-f77 --disable-f90"
+		c="${c} --disable-f77 --disable-f90"
 	fi
-
-	mpi_make_args="-j1"
 
 	sed -i \
 		-e 's/ ${exec_prefix}/ ${DESTDIR}${exec_prefix}/' \
@@ -133,13 +129,20 @@ src_compile() {
 	sed -i '/bindir/s/ ${bindir}/ ${DESTDIR}${bindir}/' ${S/-beta2/}/src/pm/mpd/Makefile.in
 	cd ${S/-beta2/}
 
-	mpi_src_compile
+	! mpi_classed && c="${c} --sysconfdir=/etc/${PN}"
+	econf $(mpi_econf_args)	${c}
+
+	# http://www.mcs.anl.gov/research/projects/mpich2/support/index.php?s=faqs#parmake
+	# https://trac.mcs.anl.gov/projects/mpich2/ticket/297
+	emake -j1 || die
+
 }
 
 src_install() {
-	mpi_src_install
+	emake  DESTDIR="${D}"|| die
 	mpi_dodoc CHANGES_MPICH2 COPYRIGHT COPYRIGHT_MVAPICH2 LICENSE.TXT \
 		README* RELEASE_NOTES*
+	mpi_imp_add_eselect
 }
 
 pkg_postinst() {

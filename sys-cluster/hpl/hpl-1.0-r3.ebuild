@@ -17,7 +17,7 @@ DEPEND="$(mpi_pkg_deplist)
 	virtual/lapack"
 
 src_unpack() {
-	local mpicc_path="$(get_eselect_var MPI_CC)"
+	local mpicc_path="$(mpi_pkg_cc)"
 	unpack ${A}
 	cd "${S}"
 
@@ -31,18 +31,17 @@ src_unpack() {
 		-e "/^LINKER\>/s,= .*,= ${mpicc_path}," \
 		-e "/^CC\>/s,= .*,= ${mpicc_path}," \
 		Make.gentoo_hpl_fblas_x86
-
 }
 
 src_compile() {
 	# do NOT use emake here
-	mpi_make_cmd="make"
-	mpi_make_args="arch=gentoo_hpl_fblas_x86"
-	HOME=${WORKDIR} mpi_do_make || die
+	mpi_pkg_set_env
+	HOME=${WORKDIR} make arch=gentoo_hpl_fblas_x86 || die 
+	mpi_pkg_restore_env
 }
 
 src_install() {
-	local d=$(get_mpi_dir)
+	local d=$(mpi_root)
 	mpi_dobin bin/gentoo_hpl_fblas_x86/xhpl || die "Failed to install bins"
 	mpi_dolib.a lib/gentoo_hpl_fblas_x86/libhpl.a || die "Failed to install lib"
 	mpi_dodoc INSTALL BUGS COPYRIGHT HISTORY README TUNING \
@@ -52,7 +51,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	einfo "Remember to copy $(get_mpi_dir)/usr/share/doc/${PF}/HPL.dat to your working directory first!"
+	einfo "Remember to copy $(mpi_root)usr/share/doc/${PF}/HPL.dat to your working directory first!"
 	einfo "For mpich, run linpack by executing this in your working directory"
 	einfo "\"mpirun -np 4 /usr/bin/xhpl\""
 	einfo "where -np specifies the number of processes."

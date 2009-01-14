@@ -21,7 +21,7 @@ DEPEND="${RDEPEND}"
 
 pkg_setup() {
 	MPI_ESELECT_FILE="eselect.mpi.openmpi"
-	mpi_pkg_setup
+	
 	if use mpi-threads; then
 		ewarn
 		ewarn "WARNING: use of MPI_THREAD_MULTIPLE is still disabled by"
@@ -60,52 +60,56 @@ src_unpack() {
 }
 
 src_compile() {
-	mpi_conf_args="
+	local c="
 		--without-xgrid
 		--enable-pretty-print-stacktrace
 		--enable-orterun-prefix-by-default
 		--without-slurm"
 
 	if use mpi-threads; then
-		mpi_conf_args="${mpi_conf_args}
+		c="${c}
 			--enable-mpi-threads
 			--with-progress-threads"
 	fi
 
 	if use fortran; then
 		if [[ "${FORTRANC}" = "g77" ]]; then
-			mpi_conf_args="${mpi_conf_args} --disable-mpi-f90"
+			c="${c} --disable-mpi-f90"
 		elif [[ "${FORTRANC}" = "gfortran" ]]; then
 			# Because that's just a pain in the butt.
-			mpi_conf_args="${mpi_conf_args} --with-wrapper-fflags=-I/usr/include"
+			c="${c} --with-wrapper-fflags=-I/usr/include"
 		elif [[ "${FORTRANC}" = if* ]]; then
 			# Enabled here as gfortran compile times are huge with this enabled.
-			mpi_conf_args="${mpi_conf_args} --with-mpi-f90-size=medium"
+			c="${c} --with-mpi-f90-size=medium"
 		fi
 	else
-		mpi_conf_args="${mpi_conf_args}
+		c="${c}
 			--disable-mpi-f90
 			--disable-mpi-f77"
 	fi
 
-	mpi_conf_args="
-		${mpi_conf_args}
-		$(use_enable !nocxx mpi-cxx)
-		$(use_enable romio io-romio)
-		$(use_enable heterogeneous)
-		$(use_with pbs tm)
-		$(use_enable ipv6)"
-	mpi_src_compile
+	econf $(mpi_econf_args) ${c} \
+		$(use_enable !nocxx mpi-cxx) \
+		$(use_enable romio io-romio) \
+		$(use_enable heterogeneous) \
+		$(use_with pbs tm) \
+		$(use_enable ipv6) \
+		|| die
+	emake || die	
 }
 
 src_install () {
-	mpi_src_install
+	emake DESTDIR="${D}" install || die
+	echo
+	echo
+	echo
 	mpi_dodoc README AUTHORS NEWS VERSION
+	mpi_imp_add_eselect
 }
 
 src_test() {
 	# Doesn't work with the default src_test as the dry run (-n) fails.
 	cd "${S}"
-	mpi_do_make -j1 check || die "emake check failed"
+	emake -j1 check || die "emake check failed"
 }
 

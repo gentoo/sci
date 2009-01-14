@@ -23,7 +23,7 @@ KEYWORDS="~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 LICENSE="lam-mpi"
 
 src_unpack() {
-	local docdir=${D}$(get_mpi_dir)/usr/share/doc/${PF}
+	local docdir=${D}$(mpi_root)/usr/share/doc/${PF}
 	unpack ${A}
 
 	cd "${S}"
@@ -67,14 +67,15 @@ pkg_setup() {
 	einfo
 	
 	# fortran_pkg_setup should -not- be run here.
-	mpi_pkg_setup
 }
 
 src_compile() {
+	local c
+
 	if use crypt; then
-		mpi_conf_args="${mpi_conf_args} --with-rsh=ssh"
+		c="${c} --with-rsh=ssh"
 	else
-		mpi_conf_args="${mpi_conf_args} --with-rsh=rsh"
+		c="${c} --with-rsh=rsh"
 	fi
 
 	if ! use pbs; then
@@ -95,36 +96,35 @@ src_compile() {
 		fortran_pkg_setup
 		# this is NOT in pkg_setup as it is NOT needed for RDEPEND right away it
 		# can be installed after merging from binary, and still have things fine
-		mpi_conf_args="${mpi_conf_args} --with-fc=${FORTRANC}"
+		c="${c} --with-fc=${FORTRANC}"
 	else
-		mpi_conf_args="${mpi_conf_args} --without-fc"
+		c="${c} --without-fc"
 	fi
 
-	mpi_conf_args="
-		$(use_with xmpi trillium) 
-		--enable-shared
-		--with-threads=posix
-		$(use_with romio)
-		${mpi_conf_args}"
-	mpi_src_compile
+	econf $(mpi_econf_args) ${c} \
+		$(use_with xmpi trillium)  \
+		--enable-shared \
+		--with-threads=posix \
+		$(use_with romio) || die
+	emake || die
 }
 
 src_install () {
-	mpi_src_install
+	emake DESTDIR="${D}" install || die
 
 	# There are a bunch more tex docs we could make and install too,
 	# but they are replicated in the pdfs!
 	mpi_dodoc README HISTORY VERSION
 	mpi_dodoc "${S}"/doc/{user,install}.pdf
 
-	# It's your fault if you install lam-mpi multiple times and keep this
-	# flag turned on, there's -a lot- of examples.
 	if use examples; then
 		cd "${S}"/examples
 		mpi_dodir /usr/share/${P}/examples
 		find -name README -or -iregex '.*\.[chf][c]?$' >"${T}"/testlist
 		while read p; do
-			treecopy $p "${D}"/$(get_mpi_dir)/usr/share/${P}/examples ;
+			treecopy $p "${D}"/$(mpi_root)/usr/share/${P}/examples ;
 		done < "${T}"/testlist
 	fi
+
+	mpi_imp_add_eselect
 }

@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 IUSE="nocxx debug doc fortran pvfs2 threads romio mpi-threads"
 
-MPI_NOEMPI_BLOCKERS="media-sound/mpd"
+MPI_UNCLASSED_BLOCKERS="media-sound/mpd"
 
 COMMON_DEPEND="dev-lang/perl
 	>=dev-lang/python-2.3
@@ -30,7 +30,6 @@ RDEPEND="${COMMON_DEPEND}
 
 pkg_setup() {
 	MPI_ESELECT_FILE="eselect.mpi.mpich2"
-	mpi_pkg_setup
 
 	if [ -n "${MPICH_CONFIGURE_OPTS}" ]; then
 	    elog "User-specified configure options are ${MPICH_CONFIGURE_OPTS}."
@@ -46,6 +45,12 @@ pkg_setup() {
 
 	if use mpi-threads && ! use threads; then
 		die "USE=mpi-threads requires USE=threads"
+	fi
+
+	if mpi_classed; then
+		MPD_CONF_FILE_DIR=/etc/$(mpi_class)
+	else
+		MPD_CONF_FILE_DIR=/etc/${PN}
 	fi
 
 	python_version
@@ -90,33 +95,33 @@ src_unpack() {
 }
 
 src_compile() {
-	local mpi_conf_args="${MPICH_CONFIGURE_OPTS} --enable-sharedlibs=gcc"
+	local c="${MPICH_CONFIGURE_OPTS} --enable-sharedlibs=gcc"
 	local romio_conf
 
 	# The configure statements can be somewhat confusing, as they
 	# don't all show up in the top level configure, however, they
 	# are picked up in the children directories.
 
-	use debug && mpi_conf_args="${mpi_conf_args} --enable-g=all --enable-debuginfo"
+	use debug && c="${c} --enable-g=all --enable-debuginfo"
 
 	if use threads ; then
-	    mpi_conf_args="${mpi_conf_args} --with-thread-package=pthreads"
+	    c="${c} --with-thread-package=pthreads"
 	else
-	    mpi_conf_args="${mpi_conf_args} --with-thread-package=none"
+	    c="${c} --with-thread-package=none"
 	fi
 
 	# enable f90 support for appropriate compilers
 	case "${FORTRANC}" in
 	    gfortran|if*)
-			mpi_conf_args="${mpi_conf_args} --enable-f77 --enable-f90";;
+			c="${c} --enable-f77 --enable-f90";;
 	    g77)
-			mpi_conf_args="${mpi_conf_args} --enable-f77 --disable-f90";;
+			c="${c} --enable-f77 --disable-f90";;
 	esac
 
 	if use mpi-threads; then
-		mpi_conf_args="${mpi_conf_args} --enable-threads=multiple"
+		c="${c} --enable-threads=multiple"
 	else
-		mpi_conf_args="${mpi_conf_args} --enable-threads=single"
+		c="${c} --enable-threads=single"
 	fi
 
 	if use pvfs2; then
@@ -124,19 +129,17 @@ src_compile() {
 	    romio_conf="--with-file-system=pvfs2+nfs+ufs --with-pvfs2=/usr"
 	fi
 
-	mpi_conf_args="
-		${mpi_conf_args}
-		${romio_conf}
-		--sysconfdir=/etc/${PN}
-		--with-pm=mpd:gforker
-		--disable-mpe
-		$(use_enable romio)
-		$(use_enable !nocxx cxx)"
-	# Oh, the irony, we can't parallel make.
+	! mpi_classed && c="${c} --sysconfdir=/etc/${PN}"
+	econf $(mpi_econf_args) ${c} ${romio_conf} \
+		--with-pm=mpd:gforker \
+		--disable-mpe \
+		$(use_enable romio) \
+		$(use_enable !nocxx cxx) \
+		|| die
+	# Oh, the irony.
 	# http://www.mcs.anl.gov/research/projects/mpich2/support/index.php?s=faqs#parmake
 	# https://trac.mcs.anl.gov/projects/mpich2/ticket/297
-	mpi_make_args="-j1"
-	mpi_src_compile
+	emake -j1 || die
 }
 
 src_test() {
@@ -161,12 +164,13 @@ src_test() {
 }
 
 src_install() {
-	local d=$(get_mpi_dir)
-	dodir /etc/"${PN}"
-	insinto /etc/"${PN}"
-	doins "${FILESDIR}"/mpd.conf || die
+	local d=$(mpi_root)
 
-	mpi_src_install
+	emake DESTDIR="${D}" install || die	
+
+	dodir ${MPD_CONF_FILE_DIR}
+	insinto ${MPD_CONF_FILE_DIR}
+	doins "${FILESDIR}"/mpd.conf || die
 
 	mpi_dodir /usr/share/doc/${PF}
 	mpi_dodoc COPYRIGHT README README.romio README.testing \
@@ -180,15 +184,26 @@ src_install() {
 		mv "${D}"/${d}/usr/share/doc/www*/* "${D}"/${d}/usr/share/doc/${PF}/www/
 	fi
 
-	newenvd "${FILESDIR}"/${PN}.envd 25mpich2
+	#TODO: Need to handle python path here if mpi_classed?
+	cp "${FILESDIR}"/${PN}.envd "${T}"/
+	sed -i "s,@MPD_CONF_FILE_DIR@,${MPD_CONF_FILE_DIR}," \
+		"${T}"/${PN}.envd
+
+	if mpi_classed; then
+		newenvd "${T}"/${PN}.envd 25mpich2-$(mpi_class)
+	else
+		newenvd "${FILESDIR}"/${PN}.envd 25mpich2
+	fi
+
+	mpi_imp_add_eselect
 }
 
 pkg_postinst() {
 	# Here so we can play with ebuild commands as a normal user
-	chown root:root "${ROOT}"etc/${PN}/mpd.conf
-	chmod 600 "${ROOT}"etc/${PN}/mpd.conf
+	chown root:root "${ROOT}"${MPD_CONF_FILE_DIR}/mpd.conf
+	chmod 600 "${ROOT}"${MPD_CONF_FILE_DIR}/mpd.conf
 
-	python_mod_optimize $(get_mpi_dir)/usr/$(get_libdir)/python${PYVER}/site-packages/${PN}
+	python_mod_optimize $(mpi_root)/usr/$(get_libdir)/python${PYVER}/site-packages/${PN}
 	elog ""
 	elog "MPE2 has been removed from this ebuild and now stands alone"
 	elog "as sys-cluster/mpe2."
@@ -196,6 +211,6 @@ pkg_postinst() {
 }
 
 pkg_postrm() {
-	python_mod_cleanup $(get_mpi_dir)/usr/$(get_libdir)/python${PYVER}/site-packages/${PN}
+	python_mod_cleanup $(mpi_root)/usr/$(get_libdir)/python${PYVER}/site-packages/${PN}
 }
 
