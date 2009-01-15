@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>tex</herd>
+<longdescription lang="en">
+  The LaTeX equation editor Ekee produces images interactively from
+  LaTeX expressions. Drag and drop in several common formats (PNG, SVG,
+  PDF, EPS) to other applications is supported. Ekee was formerly
+  called Eqe.
+</longdescription>
+</pkgmetadata>
