@@ -3,14 +3,14 @@
 # $Header: $
 inherit versionator elisp-common
 
-DESCRIPTION="GAP - Groups, Algorithms, Programming - a system for computational discrete algebra"
+DESCRIPTION="System for computational discrete algebra"
 HOMEPAGE="http://www.gap-system.org/"
 SLOT="0"
 IUSE="emacs vim-syntax xtom"
 LICENSE="GPL-2"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 
-XTOM_VERSION=1r1p2
+XTOM_VERSION=1r1p4
 
 PV1=$(get_version_component_range 1-2 )
 PV2=$(get_version_component_range 3 )
@@ -29,8 +29,8 @@ RESTRICT=mirror
 S="${WORKDIR}"/${PN}${PV1}
 
 src_compile() {
-	econf || die "econf failed"
-	emake CFLAGS="${CFLAGS}" || die "emake failed"
+	econf
+	emake CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" compile || die "emake failed"
 }
 
 src_test() {

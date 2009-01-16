@@ -3,16 +3,17 @@
 <pkgmetadata>
 <herd>sci</herd>
 <maintainer>
-<email>A.G.Grozin@inp.nsk.su</email>
-<name>Andrey Grozin</name>
+  <email>A.G.Grozin@inp.nsk.su</email>
+  <name>Andrey Grozin</name>
 </maintainer>
 <longdescription lang="en">
-GAP is a system for computational discrete algebra, with particular emphasis
-on Computational Group Theory. GAP provides a  programming language,
-a library of thousands of functions implementing algebraic algorithms
-written in the GAP language as well as large data libraries of
-algebraic objects. GAP is used in research and teaching for studying groups
-and their representations, rings, vector spaces, algebras, combinatorial
-structures, and more. 
+  Groups, Algorithms, Programming is a system for computational
+  discrete algebra, with particular emphasis on Computational Group
+  Theory. GAP provides a  programming language, a library of thousands
+  of functions implementing algebraic algorithms written in the GAP
+  language as well as large data libraries of algebraic objects. GAP
+  is used in research and teaching for studying groups and their
+  representations, rings, vector spaces, algebras, combinatorial
+  structures, and more.
 </longdescription>
 </pkgmetadata>
