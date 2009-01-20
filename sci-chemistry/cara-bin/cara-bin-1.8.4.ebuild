@@ -1,8 +1,6 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-
-#inherit eutils
 
 MY_PN="${PN%%-bin}"
 MY_P="${MY_PN}_${PV}"
