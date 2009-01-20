@@ -1,8 +1,8 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-DESCRIPTION="GTK-GAMESS is a graphical frontend for GAMESS, a General Atomic and Molecular Electronic Structure System"
+DESCRIPTION="GTK-GAMESS is a graphical frontend for GAMESS"
 HOMEPAGE="http://sourceforge.net/projects/gtk-gamess/"
 
 SRC_URI="mirror://sourceforge/gtk-gamess/${P}.tar.gz"
@@ -10,7 +10,7 @@ LICENSE="GPL-2"
 
 SLOT="0"
 
-KEYWORDS="~amd64 x86"
+KEYWORDS="~amd64 ~x86"
 
 IUSE=""
 

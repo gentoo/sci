@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/gtk-gamess
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  20 Jan 2009; Alexey Shvetsov <alexxy@gentoo.org> gtk-gamess-2.00.ebuild:
+  Fix keywords and header
 
   08 Oct 2007; Jeff Gardner <je_fro@gentoo.org> ChangeLog:
   Adding ~amd64. For amd64 users, manually installing gamess
