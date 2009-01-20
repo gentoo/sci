@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 inherit eutils autotools fdo-mime
@@ -7,12 +7,13 @@ DESCRIPTION="Universal Data Array Visualization"
 HOMEPAGE="http://udav.sourceforge.net/"
 LICENSE="GPL-2"
 SLOT="0"
+IUSE=""
 KEYWORDS="~ppc ~x86"
-
 SRC_URI="mirror://sourceforge/${PN}/${P}.tgz"
 
-DEPEND="sci-libs/mathgl x11-libs/fltk"
-
+DEPEND="sci-libs/mathgl
+		x11-libs/fltk"
+RDEPEND="${DEPEND}"
 #### Remove the following line when moving this ebuild to the main tree!
 RESTRICT=mirror
 
