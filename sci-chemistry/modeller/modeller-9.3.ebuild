@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,7 +9,7 @@ LICENSE="modeller"
 KEYWORDS="~amd64 ~x86"
 DESCRIPTION="MODELLER is used for homology or comparative modeling of protein three-dimensional structures"
 SRC_URI="http://salilab.org/${PN}/${MY_PV}/${PN}-${MY_PV}.tar.gz"
-HOMEPAGE="http://salilab.org/${PN}/"
+HOMEPAGE="http://salilab.org/modeller/"
 IUSE=""
 RESTRICT="mirror"
 SLOT="0"
