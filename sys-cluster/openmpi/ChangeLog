@@ -1,0 +1,9 @@
+# ChangeLog for sys-cluster/openmpi
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*openmpi-1.3 (20 Jan 2009)
+
+  20 Jan 2009; Alexey Shvetsov <alexxy@gentoo.org> +openmpi-1.3.ebuild:
+  Version bump
+

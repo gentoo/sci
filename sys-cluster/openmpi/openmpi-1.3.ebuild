@@ -9,12 +9,12 @@ S=${WORKDIR}/${MY_P}
 
 DESCRIPTION="A high-performance message passing library (MPI)"
 HOMEPAGE="http://www.open-mpi.org"
-SRC_URI="http://www.open-mpi.org/software/ompi/v1.2/downloads/${MY_P}.tar.bz2"
+SRC_URI="http://www.open-mpi.org/software/ompi/v1.3/downloads/${MY_P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 RESTRICT="mpi-threads? ( test )"
-IUSE="fortran heterogeneous ipv6 mpi-threads nocxx pbs romio threads"
+IUSE="fortran heterogeneous ipv6 mpi-threads nocxx pbs romio smp threads"
 RDEPEND="pbs? ( sys-cluster/torque )
 	$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
@@ -92,9 +92,10 @@ src_compile() {
 		$(use_enable !nocxx mpi-cxx) \
 		$(use_enable romio io-romio) \
 		$(use_enable heterogeneous) \
+		$(use_enable smp smp-locks) \
 		$(use_with pbs tm) \
 		$(use_enable ipv6) \
-		|| die
+			|| die
 	emake || die
 }
 
