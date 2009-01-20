@@ -61,7 +61,7 @@ src_unpack() {
 	sed -e "s:\$\$libdir:\$\$temp_libdir:" \
 	-i src/tools/Makefile.am \
 	|| die "sed tools/Makefile.am failed"
-
+	_elibtoolize
 	eautoreconf
 
 	cd "${WORKDIR}"
@@ -154,6 +154,13 @@ src_compile() {
 		myconf="${myconf} $(use_with lapack external-lapack)"
 	fi
 
+	# by default gromacs builds as static since 4.0.3
+	if use static; then
+		myconf="${myconf} --enable-all-static"
+	else
+		myconf="${myconf} --enable-shared"
+	fi
+
 	myconf="--datadir=/usr/share \
 			--bindir=/usr/bin \
 			--libdir=/usr/$(get_libdir) \
@@ -162,7 +169,6 @@ src_compile() {
 			$(use_enable mpi) \
 			$(use_with X x) \
 			$(use_with xml) \
-			$(use_enable static all-static) \
 			${myconf}"
 
 	if ( use double-precision && use single-precision ); then
