@@ -4,6 +4,8 @@
 
 EAPI="1"
 
+LIBTOOLIZE="true"
+
 inherit autotools eutils flag-o-matic fortran multilib
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
@@ -61,7 +63,7 @@ src_unpack() {
 	sed -e "s:\$\$libdir:\$\$temp_libdir:" \
 	-i src/tools/Makefile.am \
 	|| die "sed tools/Makefile.am failed"
-	_elibtoolize
+
 	eautoreconf
 
 	cd "${WORKDIR}"
