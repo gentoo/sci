@@ -12,7 +12,7 @@ depend() {
     after net    # ip net seems to be needed to perform management.
 }
 
-prog=/usr/bin/opensm
+prog=/usr/sbin/opensm
 
 start() {
     ebegin "Starting OpenSM Infiniband Subnet Manager"
