@@ -4,8 +4,6 @@
 
 EAPI="2"
 
-inherit openib
-
 DESCRIPTION="Meta package OFED"
 SRC_URI=""
 KEYWORDS="~amd64 ~x86"
@@ -28,6 +26,3 @@ DEPEND=">=sys-cluster/libibcm-1.0.4
 	opensm? ( >=sys-cluster/openib-osm-3.2.5_p20081207 )"
 RDEPEND="${DEPEND}"
 
-src_unpack() {
-	einfo "Nothing to unpack"
-}
