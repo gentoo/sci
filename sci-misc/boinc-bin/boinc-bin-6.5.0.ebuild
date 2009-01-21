@@ -2,6 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+#
+# Don't forget to keep things in files dir in sync with normal boinc package!
+#
+
 EAPI="2"
 
 inherit eutils
