@@ -10,10 +10,8 @@ OFED_SUFFIX="1.ofed1.4"
 inherit openib
 
 DESCRIPTION="OpenIB userspace RDMA CM library"
-
-IUSE=""
 KEYWORDS="~x86 ~amd64"
-
+IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}
 	!sys-cluster/openib-userspace"
