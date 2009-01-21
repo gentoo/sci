@@ -29,6 +29,15 @@ case ${OFED_VER} in
 		;;
 esac
 
+case ${PN} in
+	openib-osm)
+		MY_PN="opensm"
+		;;
+	openib-diags)
+		MY_PN="infiniband-diags"
+		;;
+esac
+
 case ${PV} in
 	*p*)
 		MY_PV="${PV/p/}"
@@ -38,11 +47,13 @@ case ${PV} in
 		;;
 esac
 
+S="${WORKDIR}/${MY_PN}-${MY_PV}"
+
 # @FUNCTION: openib_src_unpack
 # @DESCRIPTION:
 # This function will unpack OFED packages
 openib_src_unpack() {
 	unpack ${A}
-	rpm_unpack "OFED-${OFED_VER}/SRPMS/${PN}-${MY_PV}-${OFED_SUFFIX}.src.rpm"
-	unpack ./${PN}-${MY_PV}.tar.gz
+	rpm_unpack "OFED-${OFED_VER}/SRPMS/${MY_PN}-${MY_PV}-${OFED_SUFFIX}.src.rpm"
+	unpack ./${MY_PN}-${MY_PV}.tar.gz
 }
