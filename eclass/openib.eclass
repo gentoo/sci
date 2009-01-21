@@ -29,11 +29,20 @@ case ${OFED_VER} in
 		;;
 esac
 
+case ${PV} in
+	*p*)
+		MY_PV="${PV/p/}"
+		;;
+	*)
+		MY_PV="${PV}"
+		;;
+esac
+
 # @FUNCTION: openib_src_unpack
 # @DESCRIPTION:
 # This function will unpack OFED packages
 openib_src_unpack() {
 	unpack ${A}
-	rpm_unpack "OFED-${OFED_VER}/SRPMS/${P}-${OFED_SUFFIX}.src.rpm"
-	unpack ./${P}.tar.gz
+	rpm_unpack "OFED-${OFED_VER}/SRPMS/${PN}-${MY_PV}-${OFED_SUFFIX}.src.rpm"
+	unpack ./${PN}-${MY_PV}.tar.gz
 }
