@@ -59,6 +59,8 @@ attach() {
 		svc_start
 	fi
 	ebegin "Attaching to project"
+		# we have to work in runtime directory
+		cd ${RUNTIMEDIR}
 		# boinc cmd does not return 1 when it fails currently
 		boinc_cmd --project_attach ${url} ${key} &> /dev/null
 	eend $?
