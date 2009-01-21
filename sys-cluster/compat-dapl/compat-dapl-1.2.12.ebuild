@@ -13,8 +13,8 @@ DESCRIPTION="OpenIB - Direct Access Provider Library compatibility layer with 1.
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-RDEPEND="sys-cluster/libibverbs
-		sys-cluster/librdmacm"
+RDEPEND=">=sys-cluster/libibverbs-1.1.2
+		>=sys-cluster/librdmacm-1.0.8"
 DEPEND="${RDEPEND}"
 
 src_install() {
