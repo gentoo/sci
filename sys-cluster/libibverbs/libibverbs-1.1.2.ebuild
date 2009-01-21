@@ -9,8 +9,6 @@ OFED_SUFFIX="1.ofed1.4"
 
 inherit openib
 
-KEYWORDS="~x86 ~amd64"
-
 DESCRIPTION="A library allowing programs to use InfiniBand 'verbs' for direct access to IB hardware"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
