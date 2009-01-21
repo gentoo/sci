@@ -1,0 +1,80 @@
+#!/sbin/runscript
+
+opts="${opts} attach"
+
+depend() {
+	use dns
+	need net
+}
+
+start() {
+	ebegin "Starting BOINC"
+	if [ ! -d ${RUNTIMEDIR} ]; then
+		einfo "Directory ${RUNTIMEDIR} not existing, creating now."
+		/bin/mkdir ${RUNTIMEDIR}
+		/bin/chown ${USER}:${GROUP} ${RUNTIMEDIR}
+		if [ ! -d ${RUNTIMEDIR} ]; then
+			eerror "Directory ${RUNTIMEDIR} could not be created!"
+			return 1
+		fi
+	fi
+
+	cd ${RUNTIMEDIR}
+
+	if [ ! -f lockfile ]; then
+		einfo "File ${RUNTIMEDIR}/lockfile does not exist, assuming first run."
+		einfo "You need to setup an account on the BOINC project homepage beforehand! Go to http://boinc.berkeley.edu/ and locate your project."
+		einfo "Then either run /etc/init.d/boinc attach or connect with a gui client and attach to a project with that."
+	fi
+
+	# if the log file doesn't exist, create it with root privs, then change ownership to boinc
+	if [ ! -f ${LOGFILE} ]; then
+		touch ${LOGFILE}
+		chown ${USER}:${GROUP} ${LOGFILE}
+	else
+		mv ${LOGFILE} ${LOGFILE}.old
+		touch ${LOGFILE}
+		chown ${USER}:${GROUP} ${LOGFILE}
+	fi
+
+	if [ ${ALLOW_REMOTE_RPC} = "yes" ]; then
+		ARGS="${ARGS} -allow_remote_gui_rpc"
+	fi
+
+	setsid start-stop-daemon --quiet --start  --chdir ${RUNTIMEDIR} \
+		--exec ${BOINCBIN} --chuid ${USER}:${GROUP} \
+		--nicelevel ${NICELEVEL} -- ${ARGS} > ${LOGFILE} 2>&1 &
+
+	eend $?
+}
+
+attach() {
+	printf "    Enter the Project URL: "
+	read url
+	printf "    Enter your Account Key: "
+	read key
+
+	RC_QUIET_STDOUT="yes" svc_status
+	if [ $? == 1 ]; then
+		svc_start
+	fi
+	ebegin "Attaching to project"
+		# boinc cmd does not return 1 when it fails currently
+		boinc_cmd --project_attach ${url} ${key} &> /dev/null
+	eend $?
+
+	sleep 10
+	tail ${LOGFILE}
+}
+
+stop() {
+	ebegin "Stopping BOINC"
+	start-stop-daemon --stop --quiet --exec ${BOINCBIN}
+	eend $?
+}
+
+restart() {
+	svc_stop
+	sleep 6
+	svc_start
+}
