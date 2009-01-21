@@ -9,7 +9,7 @@ OFED_SUFFIX="1.ofed1.4"
 
 inherit openib
 
-DESCRIPTION="OpenIB library that provides low layer IB functions for use by the IB diagnostic and management programs. These include MAD, SA, SMP, and other basic IB functions."
+DESCRIPTION="OpenIB library that provides low layer IB functions for use by the IB diagnostic and management programs."
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
@@ -20,4 +20,3 @@ RDEPEND="${DEPEND}"
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 }
-
