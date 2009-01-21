@@ -9,8 +9,6 @@ OFED_SUFFIX="1.ofed1.4"
 
 inherit openib
 
-KEYWORDS="~x86 ~amd64"
-
 DESCRIPTION="OpenIB library that provides common utility functions for the IB diagnostic and management tools"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
