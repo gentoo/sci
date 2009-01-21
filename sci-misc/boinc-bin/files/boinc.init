@@ -41,11 +41,31 @@ start() {
 		ARGS="${ARGS} -allow_remote_gui_rpc"
 	fi
 
-	setsid start-stop-daemon --quiet --start  --chdir ${RUNTIMEDIR} \
-		--exec ${BOINCBIN} --chuid ${USER}:${GROUP} \
-		--nicelevel ${NICELEVEL} -- ${ARGS} > ${LOGFILE} 2>&1 &
+	if [ "${SCHED_PARAM}" -a -x /usr/bin/chrt ]; then
+		CHRT="/usr/bin/chrt ${SCHED_PARAM}"
+	else
+		CHRT=""
+	fi
 
-	eend $?
+	${CHRT} start-stop-daemon \
+		--quiet --start --chdir ${RUNTIMEDIR} \
+		--exec ${BOINCBIN} --chuid ${USER}:${GROUP} \
+		--background --stdout ${LOGFILE} --stderr ${LOGFILE} \
+		--nicelevel ${NICELEVEL} -- ${ARGS}
+
+	RESULT=$?
+
+	if [ "${CPU_SHARE}" -a -d /sys/kernel/uids ]; then
+		BUID=`id -u ${USER}`
+		# It might take a moment for start-stop-daemon to chuid
+		[ -d /sys/kernel/uids/${BUID} ] || sleep 1	       
+		[ -d /sys/kernel/uids/${BUID} ] || sleep 2
+		if [ -w /sys/kernel/uids/${BUID}/cpu_share ]; then
+			echo ${CPU_SHARE} > /sys/kernel/uids/${BUID}/cpu_share
+		fi							      
+	fi	  
+
+	eend ${RESULT}
 }
 
 attach() {
