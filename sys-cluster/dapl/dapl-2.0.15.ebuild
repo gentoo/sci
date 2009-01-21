@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="1"
+
 OFED_VER="1.4"
 OFED_SUFFIX="1"
 
@@ -9,7 +11,7 @@ inherit openib
 
 DESCRIPTION="OpenIB - Direct Access Provider Library"
 KEYWORDS="~x86 ~amd64"
-IUSE=""
+IUSE="+compat"
 
 RDEPEND="sys-cluster/libibverbs
 		sys-cluster/librdmacm"
@@ -19,4 +21,3 @@ src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 	dodoc README AUTHORS
 }
-
