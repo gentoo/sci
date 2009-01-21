@@ -40,12 +40,9 @@ start() {
 	if [ ${ALLOW_REMOTE_RPC} = "yes" ]; then
 		ARGS="${ARGS} -allow_remote_gui_rpc"
 	fi
-
-	if [ "${SCHED_PARAM}" -a -x /usr/bin/chrt ]; then
-		CHRT="/usr/bin/chrt ${SCHED_PARAM}"
-	else
-		CHRT=""
-	fi
+	
+	# sys-apps/util-linux
+	CHRT="/usr/bin/chrt ${SCHED_PARAM}"
 
 	${CHRT} start-stop-daemon \
 		--quiet --start --chdir ${RUNTIMEDIR} \

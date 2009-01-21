@@ -26,23 +26,24 @@ IUSE="X"
 
 RDEPEND="
 	!sci-misc/boinc
-	sys-libs/zlib
-	>=net-misc/curl-7.15.5
 	>=dev-libs/openssl-0.9.7
+	>=net-misc/curl-7.15.5
+	sys-apps/util-linux
+	sys-libs/zlib
 	X? ( x11-libs/wxGTK:2.8 )
 	"
-DEPEND="
+DEPEND="${RDEPEND}
 	app-misc/ca-certificates
 	X? (
+		media-libs/freeglut
+		media-libs/jpeg
+		media-libs/mesa
+		x11-libs/libX11
 		x11-libs/libXmu
 		x11-libs/libXt
-		x11-libs/libX11
 		x11-proto/xproto
-		media-libs/freeglut
-		media-libs/mesa
-		media-libs/jpeg
 	)
-	${RDEPEND}"
+	"
 
 S="${WORKDIR}"/BOINC
 
