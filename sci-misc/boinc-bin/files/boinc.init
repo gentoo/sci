@@ -71,12 +71,11 @@ attach() {
 
 stop() {
 	ebegin "Stopping BOINC"
-	start-stop-daemon --stop --quiet --exec ${BOINCBIN}
+	start-stop-daemon --stop --retry 3 --quiet --exec ${BOINCBIN}
 	eend $?
 }
 
 restart() {
 	svc_stop
-	sleep 6
 	svc_start
 }
