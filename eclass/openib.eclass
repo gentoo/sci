@@ -13,7 +13,7 @@ SLOT="0"
 
 inherit rpm eutils
 
-case in ${OFED_VER}
+case ${OFED_VER} in
 	1.4*)
 		SRC_URI="http://www.openfabrics.org/downloads/OFED/ofed-1.4/OFED-1.4.tgz"
 		;;
