@@ -55,6 +55,15 @@ case ${PV} in
 		;;
 esac
 
+case ${MY_PN} in
+	ofa_kernel)
+		EXT="tgz"
+		;;
+	*)
+		EXT="tar.gz"
+		;;
+esac
+
 S="${WORKDIR}/${MY_PN}-${MY_PV}"
 
 # @FUNCTION: openib_src_unpack
@@ -63,5 +72,5 @@ S="${WORKDIR}/${MY_PN}-${MY_PV}"
 openib_src_unpack() {
 	unpack ${A}
 	rpm_unpack "OFED-${OFED_VER}/SRPMS/${MY_PN}-${MY_PV}-${OFED_SUFFIX}.src.rpm"
-	unpack ./${MY_PN}-${MY_PV}.tar.gz
+	unpack ./${MY_PN}-${MY_PV}.${EXT}
 }
