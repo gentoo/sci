@@ -25,11 +25,8 @@ src_install() {
 	newinitd "${FILESDIR}/opensm.init.d" opensm
 	insinto /etc/logrotate.d
 	newins "${S}/scripts/opensm.logrotate" opensm
-	insinto /etc/opensm
-	doins "${S}/scripts/opensm.conf"
-	dosbin "${S}/scripts/sldd.sh"
 	# we dont nee this int script
-	rm ${T}/etc/init.d/opensmd || die "Dropping of upstream initscript failed"
+	rm ${D}/etc/init.d/opensmd || die "Dropping of upstream initscript failed"
 }
 
 pkg_postinst() {
