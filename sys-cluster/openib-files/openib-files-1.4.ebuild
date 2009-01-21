@@ -17,8 +17,15 @@ IUSE="srp ipath iser ehca mlx4 rds vnic"
 DEPEND=""
 RDEPEND="${DEPEND}"
 
-src_install() {
+src_configure() {
+	einfo "Nothing to configure"
+}
 
+src_compile() {
+	einfo "Nothing to compile"
+}
+
+src_install() {
 	insinto /etc/udev/rules.d
 	newins "${SCRIPTDIR}/90-ib.rules" 40-ib.rules
 	insinto /etc/modules.d
