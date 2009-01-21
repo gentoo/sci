@@ -33,3 +33,4 @@
 # Alexey Shvetsov <alexxy@gento.org> (21 Jan 2009)
 # Mask for testing
 =sys-cluster/dapl-2.0.15
+=sys-cluster/compat-dapl-1.2.12
