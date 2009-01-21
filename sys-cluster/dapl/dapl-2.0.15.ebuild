@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="1"
+EAPI="2"
 
 OFED_VER="1.4"
 OFED_SUFFIX="1"
@@ -14,7 +14,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="+compat"
 
 DEPEND=">=sys-cluster/libibverbs-1.1.2
-		sys-cluster/librdmacm"
+		>=sys-cluster/librdmacm-1.0.8"
 RDEPEND="${DEPEND}
 		compat? ( >=sys-cluster/compat-dapl-1.2.12 )"
 
