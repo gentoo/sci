@@ -67,7 +67,7 @@ src_unpack() {
 
 	# #220877
 	sed -i 's/-fpic/-fPIC/g' \
-		$(grep -lr -e '-fpic' ${S}/) || die "failed to change -fpic to -fPIC"
+		$(grep -lr -e '-fpic' "${S}"/) || die "failed to change -fpic to -fPIC"
 
 	# Put python files in site-packages where they belong.
 	# This isn't the prettiest little patch, but it does
@@ -87,6 +87,9 @@ src_unpack() {
 		-e "s,\$(bindir)/,${S}/bin/,g" \
 		-e "s,@MPIEXEC@,${S}/bin/mpiexec,g" \
 		$(find ./test/ -name 'Makefile.in') || die
+
+	# 254167, I'm pretty sure they meant srcdir in the path to remove files.
+	sed -i 's:scrdir:srcdir:g' "${S}"/src/pm/mpd/Makefile.in || die
 
 	if ! use romio; then
 		# These tests in errhan/ rely on MPI::File ...which is in romio
@@ -131,6 +134,7 @@ src_compile() {
 
 	! mpi_classed && c="${c} --sysconfdir=/etc/${PN}"
 	econf $(mpi_econf_args) ${c} ${romio_conf} \
+		--docdir=$(mpi_root)/usr/share/doc/${PF}
 		--with-pm=mpd:gforker \
 		--disable-mpe \
 		$(use_enable romio) \
@@ -166,7 +170,7 @@ src_test() {
 src_install() {
 	local d=$(mpi_root)
 
-	emake DESTDIR="${D}" install || die	
+	emake DESTDIR="${D}" install || die
 
 	dodir ${MPD_CONF_FILE_DIR}
 	insinto ${MPD_CONF_FILE_DIR}
