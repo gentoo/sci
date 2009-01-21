@@ -36,6 +36,12 @@ case ${PN} in
 	openib-diags)
 		MY_PN="infiniband-diags"
 		;;
+	openib-files)
+		MY_PN="ofa_kernel"
+		;;
+	openib-perf)
+		MY_PN="perftest"
+		;;
 esac
 
 case ${PV} in
