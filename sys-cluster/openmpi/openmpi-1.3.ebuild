@@ -14,7 +14,7 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 RESTRICT="mpi-threads? ( test )"
-IUSE="fortran heterogeneous ipv6 mpi-threads nocxx pbs romio smp threads"
+IUSE="fortran heterogeneous ipv6 mpi-threads nocxx pbs romio threads"
 RDEPEND="pbs? ( sys-cluster/torque )
 	$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
@@ -92,7 +92,6 @@ src_compile() {
 		$(use_enable !nocxx mpi-cxx) \
 		$(use_enable romio io-romio) \
 		$(use_enable heterogeneous) \
-		$(use_enable smp smp-locks) \
 		$(use_with pbs tm) \
 		$(use_enable ipv6) \
 			|| die
