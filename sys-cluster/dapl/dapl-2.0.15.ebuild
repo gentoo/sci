@@ -11,12 +11,12 @@ inherit openib
 
 DESCRIPTION="OpenIB - Direct Access Provider Library"
 KEYWORDS="~x86 ~amd64"
-IUSE="+compat"
+IUSE=""
 
 DEPEND=">=sys-cluster/libibverbs-1.1.2
 		>=sys-cluster/librdmacm-1.0.8"
 RDEPEND="${DEPEND}
-		compat? ( >=sys-cluster/compat-dapl-1.2.12 )"
+		!sys-cluster/openib-userspace"
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
