@@ -5,7 +5,7 @@
 EAPI="2"
 
 OFED_VER="1.4"
-OFED_SUFF=""
+OFED_SUFFIX=""
 
 inherit openib
 
@@ -22,7 +22,5 @@ RDEPEND="${DEPEND}
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 	dodoc README AUTHORS ChangeLog
-	docinto examples
-	dodoc examples/*.[ch]
 }
 
