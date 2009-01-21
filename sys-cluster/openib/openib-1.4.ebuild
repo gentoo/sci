@@ -4,8 +4,11 @@
 
 EAPI="2"
 
+HOMEPAGE="http://www.openfabrics.org/"
 DESCRIPTION="Meta package OFED"
 SRC_URI=""
+SLOT="0"
+LICENSE="|| ( GPL-2 BSD-2 )"
 KEYWORDS="~amd64 ~x86"
 IUSE="ipath +opensm +dapl mthca ehca mlx4 nes"
 
