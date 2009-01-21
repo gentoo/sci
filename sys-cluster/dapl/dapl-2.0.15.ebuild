@@ -13,9 +13,10 @@ DESCRIPTION="OpenIB - Direct Access Provider Library"
 KEYWORDS="~x86 ~amd64"
 IUSE="+compat"
 
-RDEPEND="sys-cluster/libibverbs
+DEPEND="sys-cluster/libibverbs
 		sys-cluster/librdmacm"
-DEPEND="${RDEPEND}"
+RDEPEND="${DEPEND}
+		compat? ( >=sys-cluster/compat-dapl-2.1.12 )"
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
