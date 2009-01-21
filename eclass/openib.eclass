@@ -7,13 +7,13 @@
 # Purpose:  Simplify working with OFED packages
 #
 
+inherit base eutils rpm
+
 EXPORT_FUNCTIONS src_unpack
 
 HOMEPAGE="http://www.openfabrics.org/"
 LICENSE="|| ( GPL-2 BSD-2 )"
 SLOT="0"
-
-inherit rpm eutils
 
 # @ECLASS-VARIABLE: OFED_VER
 # @DESCRIPTION:
