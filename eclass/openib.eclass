@@ -34,6 +34,6 @@ esac
 # This function will unpack OFED packages
 openib_src_unpack() {
 	unpack ${A}
-	rpm_unpack "OFED-${OFED_VER}/SRPMS/${P}-${OFED_SUFFIX}.rpm"
+	rpm_unpack "OFED-${OFED_VER}/SRPMS/${P}-${OFED_SUFFIX}.src.rpm"
 	unpack ./${P}.tar.gz
 }
