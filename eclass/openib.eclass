@@ -42,6 +42,8 @@ case ${PN} in
 	openib-perf)
 		MY_PN="perftest"
 		;;
+	*)
+		MY_PN="${PN}"
 esac
 
 case ${PV} in
