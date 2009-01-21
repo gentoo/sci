@@ -28,3 +28,6 @@ DEPEND=">=sys-cluster/libibcm-1.0.4
 	opensm? ( >=sys-cluster/openib-osm-3.2.5_p20081207 )"
 RDEPEND="${DEPEND}"
 
+src_unpack() {
+	einfo "Nothing to unpack"
+}
