@@ -28,6 +28,8 @@ src_install() {
 	insinto /etc/opensm
 	doins "${S}/scripts/opensm.conf"
 	dosbin "${S}/scripts/sldd.sh"
+	# we dont nee this int script
+	rm ${T}/etc/init.d/opensmd || die "Dropping of upstream initscript failed"
 }
 
 pkg_postinst() {
