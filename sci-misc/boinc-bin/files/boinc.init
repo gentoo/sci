@@ -64,7 +64,7 @@ start() {
 
 	RESULT=$?
 
-	if [[ "${CPU_SHARE}" -a -d /sys/kernel/uids ]]; then
+	if [ "${CPU_SHARE}" -a -d /sys/kernel/uids ]; then
 		BUID=`id -u ${USER}`
 		# It might take a moment for start-stop-daemon to chuid
 		[[ -d /sys/kernel/uids/${BUID} ]] || sleep 5 # 5 was working always here
