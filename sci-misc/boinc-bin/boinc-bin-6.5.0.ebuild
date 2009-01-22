@@ -80,19 +80,17 @@ src_install() {
 	fi
 	# use correct path in scripts
 	sed -i \
-		-e "s:${S}:/var/lib/${MY_PN}:g" \
-		-e "s:./${MY_PN}:/opt/${MY_PN}/${MY_PN}:g" \
-		run_client || die "sed run_client failed"
-	sed -i \
-		-e "s:${S}:/var/lib/${MY_PN}:g" \
+		-e "s:${S}:/opt/${MY_PN}/:g" \
 		-e "s:./${MY_PN}mgr:/opt/${MY_PN}/${MY_PN}mgr:g" \
 		run_manager || die "sed run_manager failed"
 	# install binaries
 	exeopts -m0755
 	exeinto /opt/${MY_PN}
 
-	doexe "${S}"/{${MY_PN},${MY_PN}cmd,${MY_PN}mgr,run_client,run_manager}
-	fowners 0:${MY_PN} /opt/${MY_PN}/{${MY_PN},${MY_PN}cmd,${MY_PN}mgr,run_client,run_manager}
+	doexe "${S}"/{${MY_PN},${MY_PN}cmd,${MY_PN}mgr,run_manager}
+	fowners 0:${MY_PN} /opt/${MY_PN}/{${MY_PN},${MY_PN}cmd,${MY_PN}mgr,run_manager}
+	# symlink the important ones to the /opt/bin/
+	dosym /opt/${MY_PN}/run_manager /opt/bin/boinc
 	# locale
 	mkdir -p "${D}"/opt/${MY_PN}/locale
 	insopts -m0644
@@ -101,9 +99,6 @@ src_install() {
 	for LNG in ${LINGUAS}; do
 		doins -r "${LNG}"
 	done
-	dosym /opt/${MY_PN}/locale /var/lib/${MY_PN}/locale
-	cd "${S}"
-	dosym /etc/ssl/certs/ca-certificates.crt /var/lib/${MY_PN}/ca-bundle.crt
 }
 
 pkg_preinst() {
@@ -114,16 +109,19 @@ pkg_preinst() {
 pkg_postinst() {
 	echo
 	elog "You are using the binary distributed version."
-	elog "The manager can be found at /opt/${MY_PN}/run_manager"
-	echo
+	elog "The manager can be found at /opt/bin/${MY_PN}"
+	elog
 	elog "You need to attach to a project to do anything useful with ${MY_PN}."
 	elog "You can do this by running /etc/init.d/${MY_PN} attach"
-	elog "${MY_PN} The howto for configuration is located at:"
+	elog "The howto for configuration is located at:"
 	elog "http://${MY_PN}.berkeley.edu/anonymous_platform.php"
-	echo
+	elog
 	# Add warning about the new password for the client, bug 121896.
-	elog "If you need to use the graphical client the password is in"
+	elog "If you need to use the graphical client the password is in:"
 	elog "/var/lib/${MY_PN}/gui_rpc_auth.cfg"
-	elog "You should change this to something more memorable (can be blank)."
-	echo
+	elog "Where /var/lib/ is default RUNTIMEDIR, that can be changed in:"
+	elog "/etc/conf.d/${MY_PN}"
+	elog "You should change this to something more memorable (can be even blank)."
+	elog
+	elog "Remember to launch init script before using manager. Or changing the password."
 }

@@ -3,39 +3,50 @@
 opts="${opts} attach"
 
 depend() {
-	use dns
-	need net
+	# we can use dns and net, but we can also in most cases live without them
+	use dns net
+}
+
+create_work_directory() {
+	if [[ ! -d $RUNTIMEDIR ]]; then
+		einfo "Directory $RUNTIMEDIR not existing, creating now."
+		mkdir $RUNTIMEDIR
+		chown ${USER}:${GROUP} $RUNTIMEDIR
+		if [[ ! -d $RUNTIMEDIR ]]; then
+			eeror "Directory $RUNTIMEDIR could not be created!"
+			return 1
+		fi
+	fi
+}
+
+generate_logs() {
+	if [[ ! -f $LOGFILE ]]; then
+		einfo "No $LOGFILE around. Creating new..."
+		einfo "For good log rotation is great tool app-admin/logrotate"
+		touch ${LOGFILE}
+		chown ${USER}:${GROUP} ${LOGFILE}
+	fi
 }
 
 start() {
 	ebegin "Starting BOINC"
-	if [ ! -d ${RUNTIMEDIR} ]; then
-		einfo "Directory ${RUNTIMEDIR} not existing, creating now."
-		/bin/mkdir ${RUNTIMEDIR}
-		/bin/chown ${USER}:${GROUP} ${RUNTIMEDIR}
-		if [ ! -d ${RUNTIMEDIR} ]; then
-			eerror "Directory ${RUNTIMEDIR} could not be created!"
-			return 1
-		fi
-	fi
+
+	create_work_directory
 
 	cd ${RUNTIMEDIR}
 
 	if [ ! -f lockfile ]; then
 		einfo "File ${RUNTIMEDIR}/lockfile does not exist, assuming first run."
-		einfo "You need to setup an account on the BOINC project homepage beforehand! Go to http://boinc.berkeley.edu/ and locate your project."
-		einfo "Then either run /etc/init.d/boinc attach or connect with a gui client and attach to a project with that."
+		einfo "You need to setup an account on the BOINC project homepage beforehand!"
+		einfo "Go to http://boinc.berkeley.edu/ and locate your project."
+		einfo "Then either run /etc/init.d/boinc attach or connect with a gui client"
+		einfo "and attach to a project with that."
+		echo
+		ewarn "Note that for attaching to some project you need your network up and running."
+		ewarn "network is needed only for jobs fetching afterwards"
 	fi
 
-	# if the log file doesn't exist, create it with root privs, then change ownership to boinc
-	if [ ! -f ${LOGFILE} ]; then
-		touch ${LOGFILE}
-		chown ${USER}:${GROUP} ${LOGFILE}
-	else
-		mv ${LOGFILE} ${LOGFILE}.old
-		touch ${LOGFILE}
-		chown ${USER}:${GROUP} ${LOGFILE}
-	fi
+	generate_logs
 
 	if [ ${ALLOW_REMOTE_RPC} = "yes" ]; then
 		ARGS="${ARGS} -allow_remote_gui_rpc"
@@ -49,14 +60,14 @@ start() {
 		--exec ${BOINCBIN} --chuid ${USER}:${GROUP} \
 		--background --stdout ${LOGFILE} --stderr ${LOGFILE} \
 		--nicelevel ${NICELEVEL} -- ${ARGS}
+	# FIXME: no logs here?
 
 	RESULT=$?
 
 	if [ "${CPU_SHARE}" -a -d /sys/kernel/uids ]; then
 		BUID=`id -u ${USER}`
 		# It might take a moment for start-stop-daemon to chuid
-		[ -d /sys/kernel/uids/${BUID} ] || sleep 1	       
-		[ -d /sys/kernel/uids/${BUID} ] || sleep 2
+		[ -d /sys/kernel/uids/${BUID} ] || sleep 5 # 5 was working always here
 		if [ -w /sys/kernel/uids/${BUID}/cpu_share ]; then
 			echo ${CPU_SHARE} > /sys/kernel/uids/${BUID}/cpu_share
 		fi							      
@@ -72,23 +83,23 @@ attach() {
 	read key
 
 	RC_QUIET_STDOUT="yes" svc_status
-	if [ $? == 1 ]; then
+	if [[ $? = 1 ]]; then
 		svc_start
 	fi
 	ebegin "Attaching to project"
 		# we have to work in runtime directory
-		cd ${RUNTIMEDIR}
-		# boinc cmd does not return 1 when it fails currently
-		boinc_cmd --project_attach ${url} ${key} &> /dev/null
+		cd $RUNTIMEDIR
+		# boinc does not return 1 when it fails currently
+		$BOINCBIN --attach_project $url $key &> /dev/null
 	eend $?
 
 	sleep 10
-	tail ${LOGFILE}
+	tail $LOGFILE
 }
 
 stop() {
 	ebegin "Stopping BOINC"
-	start-stop-daemon --stop --retry 3 --quiet --exec ${BOINCBIN}
+	start-stop-daemon --stop --retry 3 --quiet --exec $BOINCBIN
 	eend $?
 }
 
