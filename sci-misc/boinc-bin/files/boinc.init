@@ -16,6 +16,7 @@ create_work_directory() {
 			eeror "Directory $RUNTIMEDIR could not be created!"
 			return 1
 		fi
+		ln -s /etc/ssl/certs/ca-certificates.crt $RUNTIMEDIR/ca-bundle.crt
 	fi
 }
 
@@ -48,7 +49,7 @@ start() {
 
 	generate_logs
 
-	if [ ${ALLOW_REMOTE_RPC} = "yes" ]; then
+	if [[ ${ALLOW_REMOTE_RPC} = "yes" ]]; then
 		ARGS="${ARGS} -allow_remote_gui_rpc"
 	fi
 	
@@ -60,15 +61,14 @@ start() {
 		--exec ${BOINCBIN} --chuid ${USER}:${GROUP} \
 		--background --stdout ${LOGFILE} --stderr ${LOGFILE} \
 		--nicelevel ${NICELEVEL} -- ${ARGS}
-	# FIXME: no logs here?
 
 	RESULT=$?
 
-	if [ "${CPU_SHARE}" -a -d /sys/kernel/uids ]; then
+	if [[ "${CPU_SHARE}" -a -d /sys/kernel/uids ]]; then
 		BUID=`id -u ${USER}`
 		# It might take a moment for start-stop-daemon to chuid
-		[ -d /sys/kernel/uids/${BUID} ] || sleep 5 # 5 was working always here
-		if [ -w /sys/kernel/uids/${BUID}/cpu_share ]; then
+		[[ -d /sys/kernel/uids/${BUID} ]] || sleep 5 # 5 was working always here
+		if [[ -w /sys/kernel/uids/${BUID}/cpu_share ]]; then
 			echo ${CPU_SHARE} > /sys/kernel/uids/${BUID}/cpu_share
 		fi							      
 	fi	  

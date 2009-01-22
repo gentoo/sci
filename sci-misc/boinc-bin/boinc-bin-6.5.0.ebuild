@@ -56,27 +56,21 @@ done
 src_unpack() {
 	local target
 	use x86 && target="i686" || target="x86_64"
-	cp "${DISTDIR}"/${MY_PN}_${PV}_${target}-pc-linux-gnu.sh "${WORKDIR}"
+	cp "${DISTDIR}"/${MY_PN}_${PV}_${target}-pc-linux-gnu.sh "${WORKDIR}" \
+		|| die "failed to prepare binary"
 	cd "${WORKDIR}"
-	sh ${MY_PN}_${PV}_${target}-pc-linux-gnu.sh
-	# patch up certificates
-	mkdir "${S}"/curl/
-	ln -s /etc/ssl/certs/ca-certificates.crt "${S}"/curl/ca-bundle.crt
+	sh ${MY_PN}_${PV}_${target}-pc-linux-gnu.sh &> /dev/null # annoying messages
 }
 
 src_install() {
-	dodir /var/lib/${MY_PN}
 	newinitd "${FILESDIR}"/${MY_PN}.init ${MY_PN}
 	newconfd "${FILESDIR}"/${MY_PN}.conf ${MY_PN}
-	# fix ${PN}.conf file for binary package
-	sed -i \
-		-e "s:/usr/bin/${MY_PN}_client:/opt/${MY_PN}/${MY_PN}:g" \
-		"${D}"/etc/conf.d/${MY_PN} || die "sed failed"
+	# fancy X stuff
 	if use X; then
 		# icon
 		newicon "${S}"/${MY_PN}mgr.48x48.png ${MY_PN}.png
 		# desktop
-		make_desktop_entry /opt/${MY_PN}/run_manager "${MY_PN}" ${MY_PN} "Education;Science" /var/lib/${MY_PN}
+		make_desktop_entry /opt/bin/boinc "${MY_PN}" ${MY_PN} "Education;Science" /var/lib/${MY_PN}
 	fi
 	# use correct path in scripts
 	sed -i \
@@ -86,19 +80,19 @@ src_install() {
 	# install binaries
 	exeopts -m0755
 	exeinto /opt/${MY_PN}
-
 	doexe "${S}"/{${MY_PN},${MY_PN}cmd,${MY_PN}mgr,run_manager}
 	fowners 0:${MY_PN} /opt/${MY_PN}/{${MY_PN},${MY_PN}cmd,${MY_PN}mgr,run_manager}
 	# symlink the important ones to the /opt/bin/
 	dosym /opt/${MY_PN}/run_manager /opt/bin/boinc
 	# locale
-	mkdir -p "${D}"/opt/${MY_PN}/locale
 	insopts -m0644
 	insinto /opt/${MY_PN}/locale
 	cd "${S}"/locale/
 	for LNG in ${LINGUAS}; do
 		doins -r "${LNG}"
 	done
+	# certificates
+	dosym /etc/ssl/certs/ca-certificates.crt /opt/${MY_PN}/ca-bundle.crt
 }
 
 pkg_preinst() {
