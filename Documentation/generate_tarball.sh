@@ -10,7 +10,7 @@ help() {
 	echo
 	echo "For correct usage set VERSION argument"
 	echo "Example:"
-	echo "./script -v 6.1.1"
+	echo "$0 -v 6.1.1"
 	exit 0
 }
 ###############################################################################
@@ -33,13 +33,13 @@ fi
 ###############################################################################
 SVN_URI="http://boinc.berkeley.edu/svn/tags/boinc_core_release_${VERSION//./_}"
 PACKAGE="boinc-${VERSION}"
-BUNDLE_PREFIX="${HOME}"/"${PACKAGE}"
-LOG="${BUNDLE_PREFIX}"/linux.log
+BUNDLE_PREFIX="boinc-dist"
+LOG=linux.log
 ###############################################################################
 # prepare enviroment
 ###############################################################################
-mkdir -p "${BUNDLE_PREFIX}"
-rm -rf "${BUNDLE_PREFIX}"/* # CLEANUP
+mkdir ${BUNDLE_PREFIX} -p
+rm -rf $PACKAGE/"${BUNDLE_PREFIX}"/* # CLEANUP
 cd "${BUNDLE_PREFIX}"
 touch "${LOG}"
 echo "" > "${LOG}"	# LOG CLEANUP
@@ -54,27 +54,37 @@ svn export ${SVN_URI} ${PACKAGE} >> "${LOG}"
 ###############################################################################
 echo "<Cleaning up data we fetched>"
 echo "<******************************>"
-# define release
-sed -i '/#define\ BOINC_PRERELEASE\ 1/ c\//#define\ BOINC_PRERELEASE\ 0' \
-	${PACKAGE}/version.h.in >> "${LOG}"
-# remove windows stuff (we create tarball for gentoo)
-rm -rf ${PACKAGE}/client/os2 ${PACKAGE}/client/win
-rm -rf ${PACKAGE}/clientgui/mac ${PACKAGE}/clientgui/msw
-rm -rf ${PACKAGE}/clientlib/
-rm -rf ${PACKAGE}/lib/mac/
-rm -rf ${PACKAGE}/mac_build/
-rm -rf ${PACKAGE}/mac_installer/
-rm -rf ${PACKAGE}/openssl/
-rm -rf ${PACKAGE}/win_build/
-rm -rf ${PACKAGE}/zlib/
-rm -rf ${PACKAGE}/RSAEuro/
-rm -rf ${PACKAGE}/stripchart/
-rm -rf ${PACKAGE}/html/
-# fixup build system
+# we create tarball for linux so cleanup mess
+# bundled zlib library
+rm -rf $PACKAGE/zlib/
+# bundled zip libs
+rm -rf $PACKAGE/zip/zip/
+rm -rf $PACKAGE/zip/unzip/
+# bundled openssl stuff
+rm -rf $PACKAGE/openssl/
+# smash html
+rm -rf $PACKAGE/html/
+# bundled curl
+rm -rf $PACKAGE/curl/
+# other platforms stuff
+rm -rf $PACKAGE/win_build/
+rm -rf $PACKAGE/mac_{installer,build}/
+rm -rf $PACKAGE/clientgui/{mac,msw}/
+rm -rf $PACKAGE/client/{os2,win}/
+rm -rf $PACKAGE/lib/mac/
+# we never ever will do documentation stuff
+rm -rf $PACKAGE/doc/
+
+# fix search for unwanted stuff
 sed -i \
 	-e "s:win_build::g" \
 	-e "s:doc::g" \
-	${PACKAGE}/Makefile.am
+	$PACKAGE/Makefile.am
+# reconfigure
+# somebody who likes autotools will have to do this :D i have no clue there
+#pushd "$PACKAGE"/
+#AT_M4DIR="m4" autoconf && autoheader && automake
+#popd
 ###############################################################################
 # create tbz
 ###############################################################################
