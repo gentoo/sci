@@ -26,14 +26,12 @@ IUSE="X"
 
 RDEPEND="
 	!sci-misc/boinc
-	>=dev-libs/openssl-0.9.7
-	>=net-misc/curl-7.15.5
+	app-misc/ca-certificates
+	dev-libs/openssl
+	net-misc/curl
 	sys-apps/util-linux
 	sys-libs/zlib
-	X? ( x11-libs/wxGTK:2.8 )
-	"
-DEPEND="${RDEPEND}
-	app-misc/ca-certificates
+	cuda? ( dev-util/nvidia-cuda-toolkit )
 	X? (
 		media-libs/freeglut
 		media-libs/jpeg
@@ -41,6 +39,7 @@ DEPEND="${RDEPEND}
 		x11-libs/libX11
 		x11-libs/libXmu
 		x11-libs/libXt
+		x11-libs/wxGTK:2.8
 		x11-proto/xproto
 	)
 	"
@@ -93,6 +92,8 @@ src_install() {
 	done
 	# certificates
 	dosym /etc/ssl/certs/ca-certificates.crt /opt/${MY_PN}/ca-bundle.crt
+	# cuda
+	use cuda && /opt/cuda/lib/libcudart.so /opt/${MY_PN}/libcudart.so
 }
 
 pkg_preinst() {

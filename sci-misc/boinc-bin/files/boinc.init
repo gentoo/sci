@@ -24,8 +24,15 @@ generate_logs() {
 	if [[ ! -f $LOGFILE ]]; then
 		einfo "No $LOGFILE around. Creating new..."
 		einfo "For good log rotation is great tool app-admin/logrotate"
-		touch ${LOGFILE}
-		chown ${USER}:${GROUP} ${LOGFILE}
+		touch $LOGFILE
+		chown ${USER}:${GROUP} $LOGFILE
+	fi
+}
+
+cuda_check() {
+	if [[ -f /opt/boinc/libcudart.so ]]; then
+		# user wanted cuda so lets enable it
+		ln -s /opt/cuda/lib/libcudart.so $WORKDIR/libcudart.so
 	fi
 }
 
@@ -34,10 +41,10 @@ start() {
 
 	create_work_directory
 
-	cd ${RUNTIMEDIR}
+	cd $RUNTIMEDIR
 
-	if [ ! -f lockfile ]; then
-		einfo "File ${RUNTIMEDIR}/lockfile does not exist, assuming first run."
+	if [[ ! -f lockfile ]]; then
+		einfo "File $RUNTIMEDIR/lockfile does not exist, assuming first run."
 		einfo "You need to setup an account on the BOINC project homepage beforehand!"
 		einfo "Go to http://boinc.berkeley.edu/ and locate your project."
 		einfo "Then either run /etc/init.d/boinc attach or connect with a gui client"
@@ -73,7 +80,7 @@ start() {
 		fi							      
 	fi	  
 
-	eend ${RESULT}
+	eend $RESULT
 }
 
 attach() {
