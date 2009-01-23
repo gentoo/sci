@@ -101,7 +101,11 @@ src_install() {
 
 pkg_preinst() {
 	enewgroup ${MY_PN}
-	enewuser ${MY_PN} -1 -1 /var/lib/${MY_PN} ${MY_PN}
+	if use cuda; then
+		enewuser ${MY_PN} -1 -1 /var/lib/${MY_PN} "${MY_PN},video"
+	else
+		enewuser ${MY_PN} -1 -1 /var/lib/${MY_PN} "${MY_PN}"
+	fi
 }
 
 pkg_postinst() {
