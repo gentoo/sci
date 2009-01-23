@@ -31,7 +31,10 @@ RDEPEND="
 	net-misc/curl
 	sys-apps/util-linux
 	sys-libs/zlib
-	cuda? ( dev-util/nvidia-cuda-toolkit )
+	cuda? (
+		dev-util/nvidia-cuda-toolkit
+		>=x11-drivers/nvidia-drivers-180.22
+	)
 	X? (
 		media-libs/freeglut
 		media-libs/jpeg
