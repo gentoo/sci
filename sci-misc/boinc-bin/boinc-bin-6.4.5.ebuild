@@ -42,7 +42,7 @@ RDEPEND="
 		x11-libs/libX11
 		x11-libs/libXmu
 		x11-libs/libXt
-		x11-libs/wxGTK:2.8
+		x11-libs/wxGTK:2.8[X,unicode,opengl]
 		x11-proto/xproto
 	)
 	"
