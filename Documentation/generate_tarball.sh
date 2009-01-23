@@ -58,8 +58,7 @@ echo "<******************************>"
 # bundled zlib library
 rm -rf $PACKAGE/zlib/
 # bundled zip libs
-rm -rf $PACKAGE/zip/zip/
-rm -rf $PACKAGE/zip/unzip/
+rm -rf $PACKAGE/zip/
 # bundled openssl stuff
 rm -rf $PACKAGE/openssl/
 # smash html
@@ -79,12 +78,21 @@ rm -rf $PACKAGE/doc/
 sed -i \
 	-e "s:win_build::g" \
 	-e "s:doc::g" \
-	$PACKAGE/Makefile.am
+	-e "s:zip::g" \
+	"$PACKAGE"/Makefile.am
+sed -i \
+	-e "s:zip/unzip/Makefile::g" \
+	-e "s:zip/zip/Makefile::g" \
+    -e "s:zip/Makefile::g" \
+    -e "s:doc/manpages/Makefile::g" \
+    -e "s:doc/Makefile::g" \
+    -e "sXclient/win/boinc_path_config.py:py/Boinc/boinc_path_config.py.inXXg" \
+    "$PACKAGE"/configure.ac
 # reconfigure
 # somebody who likes autotools will have to do this :D i have no clue there
-#pushd "$PACKAGE"/
-#AT_M4DIR="m4" autoconf && autoheader && automake
-#popd
+pushd "$PACKAGE"/
+./_autosetup
+popd
 ###############################################################################
 # create tbz
 ###############################################################################
