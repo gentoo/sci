@@ -32,7 +32,7 @@ RDEPEND="
 	sys-apps/util-linux
 	sys-libs/zlib
 	cuda? (
-		dev-util/nvidia-cuda-toolkit
+		>=dev-util/nvidia-cuda-toolkit-2.1
 		>=x11-drivers/nvidia-drivers-180.22
 	)
 	X? (
@@ -96,7 +96,7 @@ src_install() {
 	# certificates
 	dosym /etc/ssl/certs/ca-certificates.crt /opt/${MY_PN}/ca-bundle.crt
 	# cuda
-	use cuda && /opt/cuda/lib/libcudart.so /opt/${MY_PN}/libcudart.so
+	use cuda && dosym /opt/cuda/lib/libcudart.so /opt/${MY_PN}/libcudart.so
 }
 
 pkg_preinst() {
