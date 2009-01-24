@@ -3,7 +3,7 @@
 # $Header: $
 
 #
-# Don't forget to keep things in files dir in sync with normal boinc package!
+# Don't forget to keep things in sync with normal boinc package!
 #
 
 EAPI="2"
