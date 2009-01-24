@@ -22,7 +22,7 @@ SRC_URI="
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE="X"
+IUSE="X cuda"
 
 RDEPEND="
 	!sci-misc/boinc
@@ -38,12 +38,7 @@ RDEPEND="
 	X? (
 		media-libs/freeglut
 		media-libs/jpeg
-		media-libs/mesa
-		x11-libs/libX11
-		x11-libs/libXmu
-		x11-libs/libXt
-		x11-libs/wxGTK:2.8[X,unicode,opengl]
-		x11-proto/xproto
+		x11-libs/wxGTK:2.8[X,opengl]
 	)
 	"
 
