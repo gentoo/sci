@@ -1,0 +1,25 @@
+--- configure.in.orig   2008-08-05
++++ configure.in    2008-08-05
+@@ -2188,7 +2188,9 @@
+ # 1.5) because it has support for a lot more things than older
+ # versions of libtool (which are generally installed by default).
+ 
+-AC_LIBLTDL_CONVENIENCE(share/libltdl)
++LT_INIT
++LT_CONFIG_LTDL_DIR(share/libltdl)
++AC_WITH_LTDL
+ AC_SUBST(LTDLINCL)
+ AC_SUBST(LIBLTDL)
+ AC_LIBTOOL_DLOPEN
+--- config/lam_get_libtool_linker_flags.m4 2009-01-25 18:36:24.711775913 +0000
++++ config/lam_get_libtool_linker_flags.m4  2009-01-25 18:44:34.313772215 +0000
+@@ -94,6 +94,8 @@
+     -L${libdir}) ;;
+     -L${prefix}/lib) ;;
+     -L${exec_prefix}/lib) ;;
++    libtool:) ;;
++    link:) ;;
+     -l*)
+    extra_libs="$extra_libs [$]1"
+         LAM_LOG_MSG([added to EXTRA_LIBS: [$]1])
+

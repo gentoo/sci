@@ -37,6 +37,7 @@ src_unpack() {
 	epatch "${FILESDIR}"/7.1.2-lam_prog_f77.m4.patch
 	epatch "${FILESDIR}"/7.1.2-liblam-use-extra-libs.patch
 	epatch "${FILESDIR}"/7.1.4-as-needed.patch
+	epatch "${FILESDIR}"/${PN}-7.1.4-libtool.patch
 
 	# gcc-4.3.0 fix.  char *argv[] -> char **argv.
 	# replaces a few more than necessary, but should be harmless.
@@ -110,6 +111,7 @@ src_compile() {
 }
 
 src_install () {
+	local d=${D}$(mpi_root)
 	emake DESTDIR="${D}" install || die
 
 	# There are a bunch more tex docs we could make and install too,
@@ -117,12 +119,19 @@ src_install () {
 	mpi_dodoc README HISTORY VERSION
 	mpi_dodoc "${S}"/doc/{user,install}.pdf
 
+	# With USE=xmpi /usr/bin/sweep is installed.  However it's just
+	# a bash script to call bfctl -R and it causes file collisions
+	# with media-sound/sweep.  Hence, we remove it, see man bfcfl.
+	if ! mpi_classed && [ -f "${d}"/usr/bin/sweep ]; then
+		rm -f "${d}"/usr/bin/sweep || die
+	fi
+
 	if use examples; then
 		cd "${S}"/examples
 		mpi_dodir /usr/share/${P}/examples
 		find -name README -or -iregex '.*\.[chf][c]?$' >"${T}"/testlist
 		while read p; do
-			treecopy $p "${D}"/$(mpi_root)/usr/share/${P}/examples ;
+			treecopy $p "${d}"/usr/share/${P}/examples ;
 		done < "${T}"/testlist
 	fi
 
