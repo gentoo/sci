@@ -1,0 +1,53 @@
+# ChangeLog for sci-chemistry/pdb-extract
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  26 Jan 2009; justin Lecher (jlec) <jlec@j-schmitz.net>
+  +sci-chemistry/pdb-extract/files/pdb-extract-3.004-Makefile.patch,
+  +sci-chemistry/pdb-extract/files/pdb-extract-3.004-env.patch,
+  +sci-chemistry/pdb-extract/files/pdb-extract-3.004-gcc-4.3.patch,
+  +sci-chemistry/pdb-extract/files/respect-cflags-and-fix-install.patch,
+  +sci-chemistry/pdb-extract/metadata.xml:
+  bump to 3.004 
+  See bug 249933 Thanks to jlec
+
+  02 Jul 2008; Donnie Berkholz <dberkholz@gentoo.org>;
+  pdb-extract-1.700.ebuild:
+  die on failure to install files.
+
+  08 Apr 2008; Donnie Berkholz <dberkholz@gentoo.org>;
+  pdb-extract-1.700.ebuild:
+  Keyword ~amd64, fix quoting.
+
+  15 Mar 2007; Danny van Dyk <kugelfang@gentoo.org>
+  pdb-extract-1.700.ebuild:
+  QA: Removed illegal use of ${ROOT}. Bug #168043
+
+  26 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>;
+  pdb-extract-1.700.ebuild:
+  Stable on x86/ppc.
+
+  20 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  (#148281) Change herd to sci-chemistry from sci.
+
+  05 Aug 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Remove myself as maintainer, anyone feel free to work on this, although I'll
+  continue to do so as well.
+
+  07 Jul 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Update to my new email address.
+
+  26 Apr 2006; Donnie Berkholz <dberkholz@gentoo.org>;
+  pdb-extract-1.700.ebuild:
+  Keyword ~ppc.
+
+  24 Apr 2006; Donnie Berkholz <dberkholz@gentoo.org>; ChangeLog:
+  Keyword ~ppc.
+
+*pdb-extract-1.700 (20 Dec 2005)
+
+  20 Dec 2005; Donnie Berkholz <dberkholz@gentoo.org>;
+  +files/respect-cflags-and-fix-install.patch, +metadata.xml,
+  +pdb-extract-1.700.ebuild:
+  Extract lots of information from Protein Data Bank files.
+
