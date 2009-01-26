@@ -1,0 +1,10 @@
+--- ccpnmr/ccpnmr2.0/python/ccpnmr/c/linkSharedObjs	2008-10-17 17:33:50.000000000 +0200
++++ ccpnmr/ccpnmr2.0/python/ccpnmr/c/linkSharedObjs.new	2008-12-24 11:56:52.548906283 +0100
+@@ -9,6 +9,7 @@
+ ln -s ../../../c/ccpnmr/analysis/WinPeakList.so WinPeakList.so
+ ln -s ../../../c/ccpnmr/clouds/AtomCoord.so .
+ ln -s ../../../c/ccpnmr/clouds/AtomCoordList.so .
++ln -s ../../../c/ccpnmr/clouds/CloudUtil.so .
+ ln -s ../../../c/ccpnmr/clouds/DistConstraint.so .
+ ln -s ../../../c/ccpnmr/clouds/DistConstraintList.so .
+ ln -s ../../../c/ccpnmr/clouds/DistForce.so .

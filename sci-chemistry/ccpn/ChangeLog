@@ -1,0 +1,12 @@
+# ChangeLog for sci-chemistry/ccpn
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  26 Jan 2009; justin Lecher (jlec) <jlec@j-schmitz.net> +licenses/AZARA,
+  +sci-chemistry/azara/files/help-makefile.patch,
+  +sci-chemistry/azara/metadata.xml,
+  +sci-chemistry/ccpn/files/missing-link.patch,
+  +sci-chemistry/ccpn/metadata.xml:
+  intial commit into sci overlay
+  bug 210617
+

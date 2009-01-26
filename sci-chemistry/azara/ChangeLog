@@ -1,0 +1,7 @@
+# ChangeLog for sci-chemistry/azara
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  24 Dec 2008; Justin Lecher (jlec) <jlec@j-schmitz.net> +metadata.xml:
+  Setup sci-chemistry/azara
+  bug 256404

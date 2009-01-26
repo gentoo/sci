@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>maintainer-wanted</herd>
+<maintainer>
+  <email>jlec@j-schmitz.net</email>
+</maintainer>
+<use>
+  <flag name='numpy'>Include optional numpy support for automated assignment</flag>
+</use>
+</pkgmetadata>
