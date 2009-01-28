@@ -30,8 +30,8 @@ generate_logs() {
 }
 
 cuda_check() {
-	if [[ -f /opt/boinc/libcudart.so ]]; then
-		# user wanted cuda so lets enable it
+	if [[ -f /opt/cuda/lib/libcudart.so ]]; then
+		# symlink wont harm :]
 		ln -s /opt/cuda/lib/libcudart.so $WORKDIR/libcudart.so
 	fi
 }
