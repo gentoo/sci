@@ -34,21 +34,26 @@ RDEPEND="
 		>=virtual/mysql-5.0
 		dev-python/mysql-python
 	)
-	"
+"
 DEPEND="${RDEPEND}
+	sys-devel/gettext
 	server? ( virtual/imap-c-client )
 	X? (
 		media-libs/freeglut
 		media-libs/jpeg
 		x11-libs/wxGTK:2.8[X,opengl]
 	)
-	"
+"
 
-LANGS="ar be bg ca cs da de el en_US es eu fi fr hr hu it ja lt lv nb nl pl pt
-pt_BR ro ru sk sl sv_SE tr uk zh_CN zh_TW"
-for LNG in ${LANGS}; do
-	IUSE="${IUSE} linguas_${LNG}"
-done
+src_prepare() {
+	# use system ssl certificates
+	mkdir "${S}"/curl
+	cp /etc/ssl/certs/ca-certificates.crt "${S}"/curl/ca-bundle.crt
+	# copy icons to correct location
+	cp "${S}"/sea/*.png "${S}"/clientgui/res/
+	# fix stripping
+	## TODO
+}
 
 src_configure() {
 	local wxconf=""
@@ -92,39 +97,40 @@ src_compile() {
 }
 
 src_install() {
-	# TODO: no time to test now.
 	emake DESTDIR="${D}" install || die "make install failed"
 	mkdir -p "${D}"/var/lib/boinc/
-	# certificates
-	dosym /etc/ssl/certs/ca-certificates.crt /opt/${MY_PN}/ca-bundle.crt
-	# cuda
-	use cuda && dosym /opt/cuda/lib/libcudart.so /opt/${MY_PN}/libcudart.so
+	if use X; then
+		newicon "${S}"/sea/${PN}mgr.48x48.png ${PN}.png
+		make_desktop_entry /usr/bin/boinc_gui "${PN}" ${PN} "Education;Science" /var/lib/${PN}
+	fi
+	# cleanup cruft
+	rm "${D}"/usr/bin/ca-bundle.crt
 }
 
 pkg_preinst() {
-	enewgroup ${MY_PN}
+	enewgroup ${PN}
 	if use cuda; then
-		enewuser ${MY_PN} -1 -1 /var/lib/${MY_PN} "${MY_PN},video"
+		enewuser ${PN} -1 -1 /var/lib/${PN} "${PN},video"
 	else
-		enewuser ${MY_PN} -1 -1 /var/lib/${MY_PN} "${MY_PN}"
+		enewuser ${PN} -1 -1 /var/lib/${PN} "${PN}"
 	fi
 }
 
 pkg_postinst() {
 	echo
 	elog "You are using the source compiled version."
-	elog "The manager can be found at /opt/bin/${MY_PN}"
+	elog "The manager can be found at /usr/bin/${PN}_gui"
 	elog
-	elog "You need to attach to a project to do anything useful with ${MY_PN}."
-	elog "You can do this by running /etc/init.d/${MY_PN} attach"
+	elog "You need to attach to a project to do anything useful with ${PN}."
+	elog "You can do this by running /etc/init.d/${PN} attach"
 	elog "The howto for configuration is located at:"
-	elog "http://${MY_PN}.berkeley.edu/anonymous_platform.php"
+	elog "http://${PN}.berkeley.edu/anonymous_platform.php"
 	elog
 	# Add warning about the new password for the client, bug 121896.
 	elog "If you need to use the graphical client the password is in:"
-	elog "/var/lib/${MY_PN}/gui_rpc_auth.cfg"
+	elog "/var/lib/${PN}/gui_rpc_auth.cfg"
 	elog "Where /var/lib/ is default RUNTIMEDIR, that can be changed in:"
-	elog "/etc/conf.d/${MY_PN}"
+	elog "/etc/conf.d/${PN}"
 	elog "You should change this to something more memorable (can be even blank)."
 	elog
 	elog "Remember to launch init script before using manager. Or changing the password."
