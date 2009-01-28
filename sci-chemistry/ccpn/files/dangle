@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export CCPNMR_TOP_DIR=GENTOO_SITEDIR
+export PYTHONPATH=.:${CCPNMR_TOP_DIR}/ccpn/python
+export LD_LIBRARY_PATH=/usr/LIBDIR
+export TCL_LIBRARY=/usr/LIBDIR/tcl8.4
+export TK_LIBRARY=/usr/LIBDIR/tk8.4
+/usr/bin/python2.5 -O ${CCPNMR_TOP_DIR}/ccpn/python/cambridge/dangle/DangleGui.py $1 $2 $3 $4 $5 $6
