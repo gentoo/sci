@@ -105,6 +105,7 @@ src_install() {
 	fi
 	# cleanup cruft
 	rm "${D}"/usr/bin/ca-bundle.crt
+	rm -rf "${D}"/etc/
 }
 
 pkg_preinst() {
