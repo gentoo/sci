@@ -99,13 +99,18 @@ src_compile() {
 src_install() {
 	emake DESTDIR="${D}" install || die "make install failed"
 	mkdir -p "${D}"/var/lib/boinc/
+
 	if use X; then
 		newicon "${S}"/sea/${PN}mgr.48x48.png ${PN}.png
 		make_desktop_entry /usr/bin/boinc_gui "${PN}" ${PN} "Education;Science" /var/lib/${PN}
 	fi
+
 	# cleanup cruft
 	rm "${D}"/usr/bin/ca-bundle.crt
 	rm -rf "${D}"/etc/
+
+	newinitd "${FILESDIR}"/${PN}.init ${PN}
+	newconfd "${FILESDIR}"/${PN}.conf ${PN}
 }
 
 pkg_preinst() {
