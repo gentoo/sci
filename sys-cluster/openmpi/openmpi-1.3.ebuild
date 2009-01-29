@@ -88,6 +88,10 @@ src_compile() {
 			--disable-mpi-f77"
 	fi
 
+	# 256529 Vampir Trace doesn't build on sparc.
+	# http://www.open-mpi.org/faq/?category=vampirtrace
+	use sparc && c="${c} --enable-contrib-no-build=vt"
+
 	econf $(mpi_econf_args) ${c} \
 		$(use_enable !nocxx mpi-cxx) \
 		$(use_enable romio io-romio) \

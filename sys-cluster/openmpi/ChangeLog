@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Jan 2009; Justin Bronder <jsbronder@gentoo.org>
+  sys-cluster/openmpi/openmpi-1.3.ebuild:
+  Don't build Vampir Trace on sparc, #256529.
+
 *openmpi-1.3 (20 Jan 2009)
 
   20 Jan 2009; Alexey Shvetsov <alexxy@gentoo.org> +openmpi-1.3.ebuild:
