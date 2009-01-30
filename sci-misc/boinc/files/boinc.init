@@ -32,7 +32,7 @@ generate_logs() {
 cuda_check() {
 	if [[ -f /opt/cuda/lib/libcudart.so ]]; then
 		# symlink wont harm :]
-		ln -s /opt/cuda/lib/libcudart.so $RUNTIMEDIR/libcudart.so
+		ln -snf /opt/cuda/lib/libcudart.so $RUNTIMEDIR/libcudart.so
 	fi
 }
 
@@ -40,6 +40,7 @@ start() {
 	ebegin "Starting BOINC"
 
 	create_work_directory
+	cuda_check
 
 	cd $RUNTIMEDIR
 
