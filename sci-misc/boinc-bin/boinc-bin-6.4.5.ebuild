@@ -95,7 +95,7 @@ src_install() {
 	use cuda && dosym /opt/cuda/lib/libcudart.so /opt/${MY_PN}/libcudart.so
 }
 
-pkg_preinst() {
+pkg_setup() {
 	enewgroup ${MY_PN}
 	if use cuda; then
 		enewuser ${MY_PN} -1 -1 /var/lib/${MY_PN} "${MY_PN},video"
