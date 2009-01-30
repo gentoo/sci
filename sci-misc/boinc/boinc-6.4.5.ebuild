@@ -142,4 +142,9 @@ pkg_postinst() {
 	elog "You should change this to something more memorable (can be even blank)."
 	elog
 	elog "Remember to launch init script before using manager. Or changing the password."
+	if use cuda; then
+		elog "To be able to use CUDA you should add boinc user to video group"
+		elog "to do so run as root:"
+		elog "gpasswd -a boinc video"
+	fi
 }
