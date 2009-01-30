@@ -98,7 +98,9 @@ src_compile() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die "make install failed"
-	mkdir -p "${D}"/var/lib/boinc/
+
+	dodir /var/lib/${PN}/
+	keepdir /var/lib/${PN}/
 
 	if use X; then
 		newicon "${S}"/sea/${PN}mgr.48x48.png ${PN}.png
@@ -113,7 +115,7 @@ src_install() {
 	newconfd "${FILESDIR}"/${PN}.conf ${PN}
 }
 
-pkg_preinst() {
+pkg_setup() {
 	enewgroup ${PN}
 	if use cuda; then
 		enewuser ${PN} -1 -1 /var/lib/${PN} "${PN},video"
