@@ -1,24 +1,20 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit python distutils
+inherit distutils
 
-DESCRIPTION="python extensions for gd"
+DESCRIPTION="Python extensions for gd"
 HOMEPAGE="http://newcenturycomputers.net/projects/gdmodule.html"
 SRC_URI="http://newcenturycomputers.net/projects/download.cgi/${P}.tar.gz"
-
-#### Remove the following line when moving this ebuild to the main tree!
-RESTRICT="mirror"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~x86 ~ppc ~amd64 ~ppc64"
+IUSE=""
 DEPEND="virtual/python
 	media-libs/gd"
 RDEPEND="${DEPEND}"
-
-PYTHON_MODNAME="gdmodule"
 
 src_unpack() {
 	unpack ${A}
