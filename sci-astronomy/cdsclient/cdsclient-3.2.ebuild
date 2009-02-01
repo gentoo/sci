@@ -1,8 +1,8 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit multilib
+inherit eutils
 
 DESCRIPTION="Collection of scripts to access the CDS databases"
 HOMEPAGE="http://cdsweb.u-strasbg.fr/doc/cdsclient.html"
@@ -13,8 +13,6 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 DEPEND=""
 RDEPEND="app-shells/tcsh"
-
-RESTRICT="strip"
 
 src_unpack() {
 	unpack ${A}
@@ -30,7 +28,7 @@ src_unpack() {
 
 src_compile() {
 	econf || die "econf failed"
-	emake C_OPT="${CFLAGS}" || die "emake failed"
+	emake C_OPT="${CFLAGS}" STRIP=touch || die "emake failed"
 }
 
 
