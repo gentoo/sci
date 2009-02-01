@@ -34,3 +34,10 @@ src_install() {
 		doins -r examples || die
 	fi
 }
+
+pkg_postinst() {
+	distutils_pkg_postinst
+	elog "The ${PN} ebuild is still under development."
+	elog "Help us improve the ebuild in:"
+	elog "http://bugs.gentoo.org/show_bug.cgi?id=207125"
+}
