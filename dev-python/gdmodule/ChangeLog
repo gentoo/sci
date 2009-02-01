@@ -3,7 +3,7 @@
 # $Header: $
 
   01 Feb 2009; Sébastien Fabbro <bicatali@gentoo.org>
-  dev-python/gdmodule/metadata.xml, dev-python/pyglet/metadata.xml:
+  dev-python/gdmodule/metadata.xml, dev-python/pyglet/gdmodule-0.56.ebuild:
   Clean up
 
   17 Jul 2008; Francois Bissey <f.r.bissey@massey.ac.nz> gdmodule-0.56.ebuild:
