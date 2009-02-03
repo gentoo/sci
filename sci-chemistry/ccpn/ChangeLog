@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Feb 2009; justin Lecher (jlec) <jlec@j-schmitz.net>
+  sci-chemistry/ccpn/ccpn-2.0.5.ebuild,
+  sci-chemistry/ccpn/ccpn-2.0.6.ebuild:
+  removed numpy USE flag as it is not used in the ebuild. I will put it back
+  once the automagic dep of numpy is removed
+
   28 Jan 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +sci-chemistry/ccpn/files/analysis, +sci-chemistry/ccpn/files/dangle,
   +sci-chemistry/ccpn/files/dataShifter,
