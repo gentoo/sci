@@ -1,0 +1,23 @@
+# Platform
+BINTYPE="linux9"
+
+# NMRPipe
+NMRBASE="/opt/nmrpipe"
+NMRTXT="${NMRBASE}/nmrtxt"
+MANPATH="${NMRBASE}/man"
+PATH="${NMRBASE}/bin"
+# Auxiliary NMRPipe scripts
+# PATH="${PATH}:${NMRBASE}/com"
+
+# Dynamo
+DYNAMO_DIR="${NMRBASE}/dynamo"
+DYNAMO_PARAMS="${DYNAMO_DIR}/params"
+SURF_DIR="${DYNAMO_DIR}/surface"
+PATH="${PATH}:${DYNAMO_DIR}/tcl"
+DYNAMO_KEY="2002084"
+
+# PDBH
+PDBH_BASE="${NMRBASE}/pdb"
+PDBH_DIR="${PDBH_BASE}/pdbH"
+PDBH_LIST="${PDBH_BASE}/pdbH.list"
+PDBH_TAB="${PDBH_BASE}/resolution.tab"
