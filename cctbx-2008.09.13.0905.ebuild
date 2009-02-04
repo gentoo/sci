@@ -19,7 +19,7 @@ RDEPEND="!minimal? ( ( sci-chemistry/cns )
 		x86? ( sci-chemistry/shelx )
 	 )"
 DEPEND="${RDEPEND}"
-# Is there a way to get it build by the system scons
+# Is there a way to get it build by the system scons?
 # dev-util/scons"
 
 RESTRICT="mirror binchecks"
@@ -116,10 +116,11 @@ src_install(){
 	insinto /usr/$(get_libdir)/${PN}
 	doins -r cctbx_sources cctbx_build || die
 
-	rm -r "${D}"/cctbx_sources/scons
+	rm -r "${D}"/usr/$(get_libdir)/${PN}/cctbx_sources/scons || die "failed to remove uneeded scons"
 
-	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/*sh && \
-	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/bin/* || \
+	# using chmod as fperm only can manage one argumnet at a time
+	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/*sh && \
+	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/bin/* || \
 	die
 
 
