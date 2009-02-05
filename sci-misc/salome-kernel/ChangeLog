@@ -1,6 +1,10 @@
 # ChangeLog for sci-misc/salome-kernel
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  05 Feb 2009; Thomas Anderson <gentoofan23@gentoo.org>
+  sci-misc/salome-kernel/salome-kernel-3.2.6.ebuild:
+  [QA]: We need EAPI=1 for SLOT dependencies
 
   27 Oct 2008; Oliver Borm (boroli) <oli.borm@web.de>
   salome-kernel-3.2.6.ebuild, metadata.xml:
