@@ -22,7 +22,7 @@ DEPEND="${RDEPEND}"
 # Is there a way to get it build by the system scons?
 # dev-util/scons"
 
-RESTRICT="mirror binchecks"
+#RESTRICT="mirror binchecks strip"
 
 S="${WORKDIR}"
 MY_S="${WORKDIR}"/cctbx_sources
@@ -57,13 +57,23 @@ src_compile() {
 		-e "s:\"-O3\", \"-ffast-math\":${OPTS}:g" \
 		${MY_S}/libtbx/SConscript
 
+	# Get LDFLAGS in format suitable for substitition into SConscript
+	for i in ${LDFLAGS}; do
+		OPTSLD="${OPTSLD} \"${i}\","
+	done
+
+	# Fix LDFLAGS which should be as-needed ready
+	sed -i \
+		-e "s:\"-shared\":${OPTSLD} \"-shared\":g" \
+		${MY_S}/libtbx/SConscript
+
 	# Get compiler in the right way
 	COMPILER=$(expr match "$(tc-getCC)" '.*\([a-z]cc\)')
 	MYCONF="${MYCONF} --compiler=${COMPILER}"
 
 	# Precompiling python scripts. It is done in upstreams install script. Perhaps use python_mod_compile,
 	# but as this script works we should stick to it.
-	${python} "${MY_S}/libtbx//command_line/py_compile_all.py"
+	${python} "${MY_S}/libtbx/command_line/py_compile_all.py"
 
 	# Additional USE flag usage
 	check_use openmp
@@ -104,23 +114,43 @@ src_test(){
 
 src_install(){
 
+	# This is what Bill Scott does in the fink package. Do we need this as well?
+#	-e "s:prepend:append:g" \
+
 	find cctbx_build/ -type f -exec \
 	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
 	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
 	    -i '{}' \; || die "Fail to correct path"
 
-	# This is what Bill Scott does in the fink package. Do we need this as well?
-#	-e "s:prepend:append:g" \
-
 
 	insinto /usr/$(get_libdir)/${PN}
 	doins -r cctbx_sources cctbx_build || die
 
-	rm -r "${D}"/usr/$(get_libdir)/${PN}/cctbx_sources/scons || die "failed to remove uneeded scons"
+	ebegin "removing unnessary files"
+		rm -r "${D}"/usr/$(get_libdir)/${PN}/cctbx_sources/scons || die "failed to remove uneeded scons"
+		find "${D}" -type f -name "*.o" -exec rm -f '{}' \; || die "failed to remove uneeded *.o"
+	eend
 
 	# using chmod as fperm only can manage one argumnet at a time
-	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/*sh && \
-	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/bin/* || \
+#	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/*sh && \
+#	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/array_family/* && \
+#	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/serialization/* && \
+#	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/error/* && \
+#	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/fftpack/timing/* && \
+#	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/lbfgs/* && \
+#	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/lbfgs/dev/* && \
+#	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/chiltbx/handle_test && \
+#	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/bin/* || \
+#	die
+
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/*sh && \
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/scitbx/array_family/* && \
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/scitbx/serialization/* && \
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/scitbx/error/* && \
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/scitbx/fftpack/timing/* && \
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/scitbx/lbfgs/* && \
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/chiltbx/handle_test && \
+	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/bin/* || \
 	die
 
 
@@ -135,12 +165,12 @@ src_install(){
 check_use(){
 
 	for var in $@; do
-                if use ${var}; then
-                        printf -v "USE_$var" True
-                else
-                        printf -v "USE_$var" False
+	if use ${var}; then
+	printf -v "USE_$var" True
+	else
+	printf -v "USE_$var" False
 
-                fi
-        shift
-        done
+	fi
+	shift
+	done
 }
