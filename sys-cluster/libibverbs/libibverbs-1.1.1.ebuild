@@ -17,11 +17,6 @@ DEPEND="sys-fs/sysfsutils"
 RDEPEND="${DEPEND}
 	!sys-cluster/openib-userspace"
 
-src_compile() {
-	econf || die "could not configure"
-	emake || die "emake failed"
-}
-
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 	dodoc README AUTHORS ChangeLog
