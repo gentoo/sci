@@ -1,6 +1,10 @@
 # ChangeLog for dev-python/asciidata
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  05 Feb 2009; Thomas Anderson <gentoofan23@gentoo.org>
+  asciidata-1.1.ebuild:
+  [QA]: Add test to IUSE
 
   23 May 2008; Sébastien Fabbro <bicatali@gentoo.org>
   -asciidata-1.0.ebuild, +asciidata-1.1.ebuild:

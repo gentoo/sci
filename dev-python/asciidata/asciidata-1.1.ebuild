@@ -11,7 +11,7 @@ HOMEPAGE="http://www.stecf.org/software/astroasciidata/index.html"
 
 RDEPEND="dev-python/numpy"
 DEPEND="test? ( dev-python/numpy )"
-IUSE="doc"
+IUSE="doc test"
 SLOT="0"
 
 KEYWORDS="~amd64 ~x86"
