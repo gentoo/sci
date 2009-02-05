@@ -10,7 +10,7 @@ SRC_URI=""
 SLOT="0"
 LICENSE="|| ( GPL-2 BSD-2 )"
 KEYWORDS="~amd64 ~x86"
-IUSE="ipath +opensm +dapl mthca ehca mlx4 nes"
+IUSE="+dapl diags ehca ipath mlx4 mthca nes +opensm"
 
 DEPEND=">=sys-cluster/libibcm-1.0.4
 	>=sys-cluster/libibcommon-1.1.2_p20081020
