@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pkgmetadata>
+<herd>sci-chemistry</herd>
+<maintainer>
+  <email>jlec@j-schmitz.net</email>
+</maintainer>
+<use>
+  <flag name='apbs'>Pymol supprt for sci-chemistry/apbs</flag>
+  <flag name='shaders'>Enable shaders support for Pymol</flag>
+</use>
+</pkgmetadata>
