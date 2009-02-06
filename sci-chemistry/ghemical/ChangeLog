@@ -1,0 +1,18 @@
+# ChangeLog for sci-chemistry/ghemical
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ghemical-2.98 (06 Feb 2009)
+*ghemical-2.95 (06 Feb 2009)
+
+  06 Feb 2009; Reinis Danne <rei4dan@gmail.com>
+  +files/ghemical-2.95-g_threads-246414.patch,
+  +files/ghemical-2.95-import_export-212689.patch,
+  +files/ghemical-2.95-libf2c_config_test-232292.patch,
+  +files/ghemical-2.98-import_export-212689.patch,
+  +files/ghemical-2.98-libf2c_config_test-232292.patch,
+  +files/ghemical-gcc43.patch, +metadata.xml, +ghemical-2.95.ebuild,
+  +ghemical-2.98.ebuild:
+  Added patches from #212689, #232292 and #246414 to ebuilds for
+  ghemical-2.95 and 2.98.
+

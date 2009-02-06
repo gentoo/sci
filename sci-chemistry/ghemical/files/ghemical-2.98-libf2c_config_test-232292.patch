@@ -1,0 +1,13 @@
+--- configure.ac.orig	2008-07-17 22:34:51.000000000 -0400
++++ configure.ac	2008-07-17 22:35:56.000000000 -0400
+@@ -83,6 +83,9 @@
+ 
+ AC_CHECK_LIB(X11,XOpenDisplay,,[AC_MSG_ERROR([X11 library missing])])
+ 
++## Need libf2c for MOPAC
++AC_CHECK_LIB(f2c,i_len)
++
+ ## are the rest necessary???
+ 
+ AC_CHECK_LIB(Xmu,XmuDrawLogo)
+

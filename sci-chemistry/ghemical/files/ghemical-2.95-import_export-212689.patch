@@ -1,0 +1,54 @@
+--- src/project.cpp	2007-08-16 11:20:00.000000000 +0200
++++ src/project.cpp	2008-11-10 21:39:15.000000000 +0200
+@@ -307,6 +307,12 @@
+ 	ifstream ifile;
+ 	ostringstream intermed;
+ 	file_trans translator;
++
++	// Store the current locale and switch to "C"
++	
++	static char my_num_locale[32] = "C";
++	strcpy(my_num_locale, setlocale(LC_NUMERIC, NULL));
++	setlocale(LC_NUMERIC, "C");
+ 	
+ 	if (index == 0)		// Automatic detection
+ 	{
+@@ -328,7 +334,13 @@
+ 	}
+ 	
+ 	istringstream interInput(intermed.str());
+-	return ReadGPR((* this), interInput, false);
++	bool retval = ReadGPR((* this), interInput, false);
++
++	// Change back to the original locale
++	
++	setlocale(LC_NUMERIC, my_num_locale);
++
++	return retval;
+ }
+ 
+ bool project::ExportFile(const char * filename, int index)
+@@ -337,6 +349,12 @@
+ 	stringstream intermed;
+ 	file_trans translator;
+ 	
++	// Store the current locale and switch to "C"
++	
++	static char my_num_locale[32] = "C";
++	strcpy(my_num_locale, setlocale(LC_NUMERIC, NULL));
++	setlocale(LC_NUMERIC, "C");
++
+ 	WriteGPR_v100((* this), intermed);		// this is for openbabel-1.100.2
+ 	istringstream interInput(intermed.str());
+ 	
+@@ -359,6 +377,10 @@
+ 		ofile.close();
+ 	}
+ 	
++	// Change back to the original locale
++	
++	setlocale(LC_NUMERIC, my_num_locale);
++
+ 	return true;
+ }
+ 
