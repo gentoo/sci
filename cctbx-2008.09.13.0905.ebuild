@@ -28,7 +28,18 @@ S="${WORKDIR}"
 MY_S="${WORKDIR}"/cctbx_sources
 MY_B="${WORKDIR}"/cctbx_build
 
-MYCONF="${MY_S}/libtbx/configure.py"
+pkg_setup() {
+
+	# Thanks Donnie for the code!
+	if use openmp; then
+	if [[ gcc-major-version < 4 ]] \
+	|| ( [[ gcc-major-version < 4 ]] && [[ gcc-minor-version < 2 ]] ); then
+	local msg="Sorry, you need gcc 4.2 or newer to use OpenMP."
+	eerror "$msg"
+	die "$msg"
+	fi
+	fi
+}
 
 src_unpack() {
 	unpack ${A}
@@ -40,6 +51,13 @@ src_unpack() {
 
 src_compile() {
 	python_version
+
+	local MYCONF
+	local MAKEOPTS_EXP
+	local OPTS
+	local OPTSLD
+
+	MYCONF="${MY_S}/libtbx/configure.py"
 
 	MAKEOPTS_EXP=${MAKEOPTS/j/j }
 	MAKEOPTS_EXP=${MAKEOPTS_EXP%-l[0-9]*}
