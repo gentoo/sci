@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci-chemistry</herd>
+<longdescription>
+BKChem is a free (as in free software) chemical drawing program. It was conceived and written by Beda Kosata. It has all basic chemical structure drawing tools and templates, it supports text an simple vector graphics. There is file import (basic CML1 and CML2, Molfiles and subset of SMILES) and export (graphics files, basic CML1 and CML2, Molfiles and SMILES). It is written in Python and supports user written plugins and batch scripts.
+</longdescription>
+<use>
+  <flag name='cairo'>Add support for Cairo graphics library using <pkg>dev-python/pycairo</pkg></flag>
+</use>
+</pkgmetadata>
