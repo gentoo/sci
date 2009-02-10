@@ -88,8 +88,13 @@ sed -i \
     -e "s:doc/Makefile::g" \
     -e "sXclient/win/boinc_path_config.py:py/Boinc/boinc_path_config.py.inXXg" \
     "$PACKAGE"/configure.ac
-# reconfigure
-# somebody who likes autotools will have to do this :D i have no clue there
+# fix the server build
+sed -i \
+	-e "s:samples/example_app::g" \
+	"$PACKAGE"/Makefile.am
+sed -i \
+	-e "s:sched apps tools samples/example_app:sched apps tools:g" \
+	"$PACKAGE"/Makefile.in
 pushd "$PACKAGE"/
 ./_autosetup
 popd
