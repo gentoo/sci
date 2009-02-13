@@ -23,7 +23,8 @@ DEPEND="${RDEPEND}"
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	epatch "${FILESDIR}/${P}-ming.patch" || die "Failed to apply ${P}-ming.patch"
+	epatch "${FILESDIR}/${P}-ming.patch" 
+	epatch "${FILESDIR}/${P}-gcc43.patch"
 }
 
 src_compile() {
