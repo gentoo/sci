@@ -1,0 +1,11 @@
+--- configure.ac.orig	2008-05-13 19:27:34.000000000 +0300
++++ configure.ac	2008-11-14 21:41:44.000000000 +0200
+@@ -39,7 +39,7 @@
+     [AC_SUBST([LIBMING], ["-lming"]) AC_DEFINE([HAVE_LIBMING])],
+     [if test "x$with_ming" != xyes; then
+         AC_MSG_FAILURE([--with-ming was given, but test for ming failed])
+-    fi], -lpng)])
++    fi], -lpng -lgif)])
+ 
+ WXCONFIG=wx-config
+ AC_ARG_WITH(wx-config,
