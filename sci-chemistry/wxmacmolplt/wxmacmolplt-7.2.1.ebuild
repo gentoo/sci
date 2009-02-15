@@ -2,7 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+EAPI="2"
+
+inherit base eutils
 
 DESCRIPTION="Chemical 3D graphics program with GAMESS input builder"
 HOMEPAGE="http://www.scl.ameslab.gov/~brett/MacMolPlt/"
@@ -20,20 +22,16 @@ RDEPEND="x11-libs/wxGTK
 
 DEPEND="${RDEPEND}"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-	epatch "${FILESDIR}/${P}-ming.patch" 
-	epatch "${FILESDIR}/${P}-gcc43.patch"
-}
+PATCHES=(	"${FILESDIR}"/${P}-ming.patch
+			"${FILESDIR}"/${P}-gcc43.patch
+		)
 
-src_compile() {
-	econf $(use_with ming) || die "configure failed"
-	emake || die "make failed"
+src_configure() {
+	LIBS="-lGLU" econf $(use_with ming)
 }
 
 src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	doicon resources/${PN}.png
-	make_desktop_entry ${PN} wxMacMolPlt ${PN}.png Education
+	make_desktop_entry ${PN} wxMacMolPlt ${PN}.png Science
 }
