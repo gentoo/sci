@@ -30,3 +30,9 @@ src_install() {
 	dodoc changelog AUTHORS README TODO copyright
 	make_deskop_entry ekee Ekee
 }
+
+pkg_postinst() {
+	elog "${CATEGORY}/${PN} is in development / testing phase."
+	elog "Report bugs or improvements at:"
+	elog "http://bugs.gentoo.org/"
+}

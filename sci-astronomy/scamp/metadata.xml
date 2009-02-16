@@ -7,4 +7,7 @@
   and stores them in header files. These headers files can be read by SWarp to
   coadd images.
 </longdescription>
+<use>
+  <flag name="plplot">Build with <pkg>sci-libs/plplot</pkg> to allow diagnostic plots during processing</flag>
+</use>
 </pkgmetadata>

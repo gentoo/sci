@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -11,7 +11,7 @@ HOMEPAGE="http://www.stecf.org/software/astroasciidata/index.html"
 
 RDEPEND="dev-python/numpy"
 DEPEND="test? ( dev-python/numpy )"
-IUSE="doc test"
+IUSE="doc"
 SLOT="0"
 
 KEYWORDS="~amd64 ~x86"
