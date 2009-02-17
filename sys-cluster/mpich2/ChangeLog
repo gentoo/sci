@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Feb 2009; Justin Bronder <jsbronder@gentoo.org>
+  sys-cluster/mpich2/mpich2-1.0.8.ebuild:
+  Missing line continuation, #259209.
+
   12 Feb 2009; Justin Bronder <jsbronder@gentoo.org>
   +sys-cluster/mpich2/files/mpich2-1.0.8-pkgconfig.patch:
   Fix the mpich2 pkgconfig file, #257921. Mark patchses to be sent upstream.
