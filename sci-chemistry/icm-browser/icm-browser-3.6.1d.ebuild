@@ -18,10 +18,9 @@ DEPEND="!sci-chemistry/icm
 				app-emulation/emul-linux-x86-xlibs
 				)
 		x86? (	
-				 virtual/libstdc++-3.3
-
+				virtual/libstdc++
 				)"
-RDEPEND=">=sys-libs/glibc-2.2.5"
+RDEPEND="$DEPEND"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 RESTRICT="fetch"
