@@ -21,7 +21,6 @@ S="${WORKDIR}"
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	epatch "${FILESDIR}"/${PV}-gcc-4.3.patch
 	epatch "${FILESDIR}"/${PV}-allow-dynamic-linking.patch
 }
 
