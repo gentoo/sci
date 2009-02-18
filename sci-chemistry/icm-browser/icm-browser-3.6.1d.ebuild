@@ -17,7 +17,7 @@ DEPEND="!sci-chemistry/icm
 				app-emulation/emul-linux-x86-compat
 				app-emulation/emul-linux-x86-xlibs
 				)
-		x86? (	
+		x86? (
 				virtual/libstdc++
 				)"
 RDEPEND="$DEPEND"
@@ -50,7 +50,7 @@ src_install () {
 	dosym "${instdir}/txdoc"  /opt/bin/txdoc || die
 	dosym "${instdir}/lmhostid"  /opt/bin/lmhostid || die
 	# make desktop entry
-	doicon ${FILESDIR}/${PN}.png
+	doicon "${FILESDIR}"/${PN}.png
 	make_desktop_entry "icmbrowserpro -g" "ICM Browser" ${PN}.png Chemistry
 }
 
