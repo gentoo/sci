@@ -12,7 +12,8 @@ HOMEPAGE="http://molsoft.com"
 LICENSE="MolSoft"
 
 SLOT=0
-DEPEND="x11-drivers/nvidia-drivers"
+DEPEND="!sci-chemistry/icm-browser
+		x11-drivers/nvidia-drivers"
 RDEPEND=">=sys-libs/glibc-2.2.5
 	virtual/libstdc++"
 KEYWORDS="~amd64 ~x86"
