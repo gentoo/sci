@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org>
+  icm-browser-3.6.1d.ebuild:
+  Update deps
+
 *icm-browser-3.6.1d (18 Feb 2009)
 
   18 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> +files/90icm-browser,

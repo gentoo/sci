@@ -8,14 +8,20 @@ MY_PV=$(replace_version_separator 2 '-' )
 MY_P="$PN-${MY_PV}"
 DESCRIPTION="MolSoft LCC ICM Browser"
 SRC_URI="${MY_P}.i386.rpm"
-HOMEPAGE="http://molsoft.com"
+HOMEPAGE="http://www.molsoft.com/icm_browser.html"
 LICENSE="MolSoft"
 
 SLOT=0
 DEPEND="!sci-chemistry/icm
-		x11-drivers/nvidia-drivers"
-RDEPEND=">=sys-libs/glibc-2.2.5
-	virtual/libstdc++"
+		amd64? (
+				app-emulation/emul-linux-x86-compat
+				app-emulation/emul-linux-x86-xlibs
+				)
+		x86? (	
+				 virtual/libstdc++-3.3
+
+				)"
+RDEPEND=">=sys-libs/glibc-2.2.5"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 RESTRICT="fetch"
