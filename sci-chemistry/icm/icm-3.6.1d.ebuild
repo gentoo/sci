@@ -44,6 +44,9 @@ src_install () {
 	dosym "${instdir}/icm"  /opt/bin/icm || die
 	dosym "${instdir}/txdoc"  /opt/bin/txdoc || die
 	dosym "${instdir}/lmhostid"  /opt/bin/lmhostid || die
+	# make desktop entry
+	doicon ${FILESDIR}/${PN}.png
+	make_desktop_entry "icm -g" "ICM Pro" ${PN}.png Chemistry
 }
 
 pkg_postinst () {
