@@ -12,13 +12,21 @@ HOMEPAGE="http://molsoft.com"
 LICENSE="MolSoft"
 
 SLOT=0
+
 DEPEND="!sci-chemistry/icm-browser
-		x11-drivers/nvidia-drivers"
-RDEPEND=">=sys-libs/glibc-2.2.5
-	virtual/libstdc++"
+		amd64? (
+				app-emulation/emul-linux-x86-compat
+				app-emulation/emul-linux-x86-xlibs
+				)
+		x86? (
+				virtual/libstdc++
+				)"
+RDEPEND="$DEPEND"
+
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 RESTRICT="fetch"
+
 S="${WORKDIR}/usr/${MY_P}"
 
 pkg_nofetch() {

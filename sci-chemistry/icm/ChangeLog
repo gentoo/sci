@@ -3,6 +3,9 @@
 # $Header: $
 
   18 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> icm-3.6.1d.ebuild:
+  Update deps
+
+  18 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> icm-3.6.1d.ebuild:
   Add block to icm-browser
 
   18 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> +files/icm.png,
