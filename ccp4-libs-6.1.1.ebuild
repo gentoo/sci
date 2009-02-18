@@ -1,6 +1,6 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ccp4/ccp4-6.0.2-r1.ebuild,v 1.6 2008/06/03 02:11:18 mr_bones_ Exp $
+# $Header: $
 
 inherit fortran eutils gnuconfig toolchain-funcs
 
@@ -23,8 +23,7 @@ PATCH_TOT="0"
 DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
 RESTRICT="mirror"
-#SRC_URI="${SRC}/${PV}/source/${P/-libs}-core-src.tar.gz"
-SRC_URI="${SRC}/6.1/${P/-libs}-core-src.tar.gz"
+SRC_URI="${SRC}/${PV}/${P/-libs}-core-src.tar.gz"
 for i in $(seq $PATCH_TOT); do
 	NAME="PATCH${i}[1]"
 	SRC_URI="${SRC_URI}
@@ -78,9 +77,6 @@ src_unpack() {
 
 	# gerror_ gets defined twice on ppc if you're using gfortran/g95
 	ccp_patch ${FILESDIR}/6.0.2-ppc-double-define-gerror.patch
-
-	# csh syntax doesn't work in a bash script
-	ccp_patch ${FILESDIR}/${PV}-fix-setup-bash-incompatibility.patch
 
 	# gcc-4.3 fixes
 	ccp_patch ${FILESDIR}/${PV}-clipper-mmdbold-ggc-4.3.patch
