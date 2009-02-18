@@ -8,7 +8,7 @@ MY_PV=$(replace_version_separator 2 '-' )
 MY_P="$PN-${MY_PV}"
 DESCRIPTION="MolSoft LCC ICM Pro"
 SRC_URI="${MY_P}.i386.rpm"
-HOMEPAGE="http://molsoft.com"
+HOMEPAGE="http://www.molsoft.com/icm_pro.html"
 LICENSE="MolSoft"
 
 SLOT=0
