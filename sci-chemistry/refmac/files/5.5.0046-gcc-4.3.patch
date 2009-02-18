@@ -1,0 +1,21 @@
+--- bridge.cpp.orig	2008-08-01 22:07:58.000000000 -0700
++++ bridge.cpp	2008-08-01 22:19:20.000000000 -0700
+@@ -6,6 +6,7 @@
+ #include <iomanip>
+ #include <math.h>
+ #include <string>
++#include <cstdlib>
+ 
+ 
+ typedef double Type;
+--- tabfunc.h.orig	2008-08-01 22:09:15.000000000 -0700
++++ tabfunc.h	2008-08-01 22:09:56.000000000 -0700
+@@ -4,6 +4,8 @@
+ #include <math.h>
+ #include <fstream>
+ #include <iostream>
++#include <cstring>
++#include <cstdlib>
+ 
+ 
+ using namespace std;
