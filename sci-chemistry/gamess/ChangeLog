@@ -1,0 +1,187 @@
+# ChangeLog for sci-chemistry/gamess
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/gamess/ChangeLog,v 1.29 2008/10/12 14:50:30 markusle Exp $
+
+*gamess-20090112.1 (19 Feb 2009)
+
+  19 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/gamess-20090112.1.gentoo.patch, +metadata.xml,
+  +gamess-20090112.1.ebuild:
+  Version bump
+
+  12 Oct 2008; Markus Dittrich <markusle@gentoo.org>
+  files/gamess-20080411.1.gentoo.patch:
+  Made slight change to rungms script to allow parallel runs via
+  environmental variables (see bug #241394). Thanks much to Alexey 
+  Shvetsov <alexxyum@gmail.com> for the suggestion.
+
+  29 Jun 2008; Torsten Veller <tove@gentoo.org> gamess-20070324.1.ebuild,
+  gamess-20070324.3.ebuild, gamess-20070324.6.ebuild,
+  gamess-20080411.1.ebuild:
+  Add missing die: || "..." -> || die "..."
+
+  11 May 2008; Christian Faulhammer <opfer@gentoo.org>
+  gamess-20070324.1.ebuild:
+  revert stable KEYWORDS because the tarball is restricted and old ones won't
+  be available from upstream. Requested by markusle by mail
+
+  10 May 2008; Markus Dittrich <markusle@gentoo.org>
+  +gamess-20070324.1.ebuild:
+  Re-added accidentally removed stable version.
+
+*gamess-20080411.1 (08 May 2008)
+
+  08 May 2008; Markus Dittrich <markusle@gentoo.org>
+  -files/gamess-20060907.4.gentoo.patch,
+  -files/gamess-20070324.1.gentoo.patch,
+  +files/gamess-20080411.1.gentoo.patch, -gamess-20060907.4.ebuild,
+  -gamess-20070324.1.ebuild, +gamess-20080411.1.ebuild:
+  Version bump (fixes bug #220855).
+
+*gamess-20070324.6 (18 Mar 2008)
+
+  18 Mar 2008; Markus Dittrich <markusle@gentoo.org>
+  +gamess-20070324.6.ebuild:
+  Version bump.
+
+*gamess-20070324.3 (27 Oct 2007)
+
+  27 Oct 2007; Markus Dittrich <markusle@gentoo.org>
+  +files/gamess-20070324.3.gentoo.patch, +gamess-20070324.3.ebuild:
+  Version bump and keyworded gamess for amd64. 
+  An external blas library is now mandatory.
+
+  19 Aug 2007; Markus Dittrich <markusle@gentoo.org>
+  gamess-20070324.1.ebuild:
+  Fixed bad RDEPEND.
+
+  03 Jul 2007; Christian Faulhammer <opfer@gentoo.org>
+  gamess-20070324.1.ebuild:
+  stable x86, bug 183881
+
+*gamess-20070324.1 (17 Apr 2007)
+
+  17 Apr 2007; Markus Dittrich <markusle@gentoo.org>
+  -files/gamess-glibc-2.4-gentoo.patch, -files/comp-lked-20060222.2.patch,
+  -files/rungms-runall-20060222.2.patch,
+  -files/gamess-20060222.5.gentoo.patch,
+  +files/gamess-20070324.1.gentoo.patch, -files/ddi-use-ssh-gentoo.patch,
+  +gamess-20070324.1.ebuild:
+  Version bump and cleaned up unused patches.
+
+  07 Jan 2007; Danny van Dyk <kugelfang@gentoo.org>
+  -gamess-20060222.2.ebuild, -gamess-20060222.5.ebuild:
+  QA: Removed unused versions.
+
+*gamess-20060907.4 (14 Dec 2006)
+
+  14 Dec 2006; Markus Dittrich <markusle@gentoo.org>
+  +files/gamess-20060907.4.gentoo.patch, +gamess-20060907.4.ebuild:
+  Version bump. This version includes the NEO code.
+
+*gamess-20060222.5 (26 Sep 2006)
+
+  26 Sep 2006; Markus Dittrich <markusle@gentoo.org>
+  +files/gamess-20060222.5.gentoo.patch, -files/comp-gentoo.patch,
+  -files/compall-gentoo.patch, -files/compddi-gentoo.patch,
+  -files/lked-gentoo.patch, -files/runall-gentoo.1.patch,
+  -files/rungms-gentoo.1.patch, -gamess-05272005.5.ebuild,
+  +gamess-20060222.5.ebuild:
+  Version bump (see bug #149118). Also removed one old ebuild and 
+  its accompanying files.
+
+  20 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  (#148281) Change herd to sci-chemistry from sci.
+
+  30 Jun 2006; Markus Dittrich <markusle@gentoo.org>
+  gamess-20060222.2.ebuild:
+  Changed the ebuild to provide the test scripts used to validate 
+  the gamess test runs. This fixes bug #138516.
+
+  23 Jun 2006; Markus Dittrich <markusle@gentoo.org>
+  gamess-20060222.2.ebuild:
+  Disable linking against external blas when compiling with ifc and
+  print out a warning.
+
+  23 May 2006; Markus Dittrich <markusle@gentoo.org>
+  gamess-20060222.2.ebuild:
+  Removed ifc use flag and replaced it with fortran.eclass logic.
+
+  14 May 2006; Donnie Berkholz <spyderous@gentoo.org>;
+  gamess-05272005.5.ebuild, gamess-20060222.2.ebuild:
+  Convert leading spaces to tabs.
+
+  14 May 2006; Donnie Berkholz <spyderous@gentoo.org>;
+  gamess-20060222.2.ebuild:
+  Keyword ~ppc. Also make sure to strip -malign-double on non-x86 systems.
+
+  28 Mar 2006; Markus Dittrich <markusle@gentoo.org>
+  +files/gamess-glibc-2.4-gentoo.patch, gamess-20060222.2.ebuild:
+  Added patch to fix missing CLK_TCK with glibc-2.4. Thanks to
+  Jaroslaw Kalinowski <jak137@o2.pl> for pointing this out. This 
+  fixes bug #127784.
+
+*gamess-20060222.2 (22 Mar 2006)
+
+  22 Mar 2006; Markus Dittrich <markusle@gentoo.org>
+  +files/comp-lked-20060222.2.patch, +files/rungms-runall-20060222.2.patch,
+  -files/comp-gentoo.1.patch, -files/runall-gentoo.patch,
+  -files/rungms-gentoo.patch, -gamess-05272005.3.ebuild,
+  -gamess-05272005.3-r1.ebuild, -gamess-05272005.3-r2.ebuild,
+  +gamess-20060222.2.ebuild:
+  Version bump and changed the ebuild naming convention to start with 
+  the year since otherwise portage can't properly keep track of 
+  updates. Also removed obsolete ebuilds/patches. gcc-4.1 currently
+  generates bad binaries even with very conservative compile flags.
+
+  08 Feb 2006; Markus Dittrich <markusle@gentoo.org>
+  gamess-05272005.5.ebuild:
+  Made ebuild ready to compile and run properly using gfortran.
+
+  23 Jan 2006; Markus Dittrich <markusle@gentoo.org>
+  files/digest-gamess-05272005.5, Manifest:
+  Fixed improper digest. This resolves bug #119994.
+
+*gamess-05272005.5 (20 Jan 2006)
+
+  20 Jan 2006; Markus Dittrich <markusle@gentoo.org>
+  +gamess-05272005.5.ebuild:
+  Bump to latest revision 27 JUN 2005 (R5).
+
+*gamess-05272005.3-r2 (07 Dec 2005)
+
+  07 Dec 2005; Markus Dittrich <markusle@gentoo.org>
+  +files/comp-gentoo.1.patch, +gamess-05272005.3-r2.ebuild:
+  This revision has the TDHF code enabled, which should now work properly with
+  the patched g77 (see bug #114367).
+
+*gamess-05272005.3-r1 (04 Dec 2005)
+
+  04 Dec 2005; Markus Dittrich <markusle@gentoo.org>
+  +files/runall-gentoo.1.patch, +files/rungms-gentoo.1.patch,
+  +gamess-05272005.3-r1.ebuild:
+  This new revision installs the rungms wrapper into /usr/bin to avoid that
+  users have to copy it manually and to play well with WebMO.
+
+*gamess-05272005.3 (03 Dec 2005)
+
+  03 Dec 2005; Markus Dittrich <markusle@gentoo.org>
+  files/rungms-gentoo.patch, -gamess-05272005.ebuild,
+  +gamess-05272005.3.ebuild:
+  Bumped GAMESS to most recent version and changed ebuild naming to properly
+  reflect the revision number; this fixes bug #114278. Removed old ebuild.
+
+  08 Nov 2005; Markus Dittrich <markusle@gentoo.org> ChangeLog:
+  marked gamess-05272005.ebuild as ~x86
+
+*gamess-05272005 (20 Sep 2005)
+
+  20 Sep 2005; Olivier Fisette <ribosome@gentoo.org>
+  +files/comp-gentoo.patch, +files/compall-gentoo.patch,
+  +files/compddi-gentoo.patch, +files/ddi-use-ssh-gentoo.patch,
+  +files/lked-gentoo.patch, +files/runall-gentoo.patch,
+  +files/rungms-gentoo.patch, +metadata.xml, +gamess-05272005.ebuild:
+  Initial import (fixes bug #105901). Package masked to allow for some
+  testing. Many thanks to Markus Dittrich <markusle@gmail.com> for his ebuild
+  and patches.
+
