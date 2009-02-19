@@ -1,0 +1,7 @@
+# ChangeLog for sci-biology/mreps
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  04 Feb 2009; weaver <weaver@gentoo.org> ChangeLog:
+  New package sci-biology/mreps, bug 257676
+
