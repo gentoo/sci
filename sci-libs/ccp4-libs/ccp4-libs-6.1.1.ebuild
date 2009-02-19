@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -36,22 +36,23 @@ IUSE=""
 RDEPEND="virtual/lapack
 		virtual/blas
 		=sci-libs/fftw-2*
-		app-shells/tcsh"
+		app-shells/tcsh
+	 !<sci-chemistry/ccp4-6.0.99"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${P/-libs}"
 
 src_unpack() {
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 
 	einfo "Applying upstream patches ..."
 	for patch in $(seq $PATCH_TOT); do
 		base="PATCH${patch}"
 		dir=$(eval echo \${${base}[0]})
 		p=$(eval echo \${${base}[1]})
-		pushd ${dir} >& /dev/null
-		ccp_patch ${DISTDIR}/${p}
+		pushd "${dir}" >& /dev/null
+		ccp_patch "${DISTDIR}/${p}"
 		popd >& /dev/null
 	done
 	einfo "Done."
@@ -62,24 +63,24 @@ src_unpack() {
 	# --bindir and --libdir instead of straight copying after build
 
 	# it attempts to install some libraries during the build
-	#ccp_patch ${FILESDIR}/${P}-install-libs-at-install-time.patch
+	#ccp_patch "${FILESDIR}"/${P}-install-libs-at-install-time.patch
 	# hklview/ipdisp.exe/xdlmapman/ipmosflm can't find libxdl_view
 	# without this patch when --libdir is set
 	# Rotgen still needs more patching to find it
-	#ccp_patch ${FILESDIR}/add-xdl-libdir.patch
+	#ccp_patch "${FILESDIR}"/add-xdl-libdir.patch
 
 	# it tries to create libdir, bindir etc on live system in configure
-	ccp_patch ${FILESDIR}/${PV}-dont-make-dirs-in-configure.patch
+	ccp_patch "${FILESDIR}"/${PV}-dont-make-dirs-in-configure.patch
 
 	# Don't use this when we aren't building clipper
 	# For some reason clipper check for $enableval even when --enable is passed
-	ccp_patch ${FILESDIR}/pass-clipper-enablevals.patch
+	ccp_patch "${FILESDIR}"/pass-clipper-enablevals.patch
 
 	# gerror_ gets defined twice on ppc if you're using gfortran/g95
-	ccp_patch ${FILESDIR}/6.0.2-ppc-double-define-gerror.patch
+	ccp_patch "${FILESDIR}"/6.0.2-ppc-double-define-gerror.patch
 
 	# gcc-4.3 fixes
-	ccp_patch ${FILESDIR}/${PV}-clipper-mmdbold-ggc-4.3.patch
+	ccp_patch "${FILESDIR}"/${PV}-clipper-mmdbold-ggc-4.3.patch
 
 	einfo "Done." # done applying Gentoo patches
 	echo
@@ -110,21 +111,21 @@ src_compile() {
 	# Sets up env
 	ln -s \
 		ccp4.setup-bash \
-		${S}/include/ccp4.setup
+		"${S}"/include/ccp4.setup
 
 	# We agree to the license by emerging this, set in LICENSE
 	sed -i \
 		-e "s~^\(^agreed=\).*~\1yes~g" \
-		${S}/configure
+		"${S}"/configure
 
 	# Fix up variables -- need to reset CCP4_MASTER at install-time
 	sed -i \
-		-e "s~^\(setenv CCP4_MASTER.*\)/.*~\1${WORKDIR}~g" \
+		-e "s~^\(setenv CCP4_MASTER.*\)/.*~\1"${WORKDIR}"~g" \
 		-e "s~^\(setenv CCP4I_TCLTK.*\)/usr/local/bin~\1/usr/bin~g" \
-		${S}/include/ccp4.setup*
+		"${S}"/include/ccp4.setup*
 
 	# Set up variables for build
-	source ${S}/include/ccp4.setup
+	source "${S}"/include/ccp4.setup
 
 	export CC=$(tc-getCC)
 	export CXX=$(tc-getCXX)
@@ -148,7 +149,7 @@ src_compile() {
 
 src_install() {
 	# Set up variables for build
-	source ${S}/include/ccp4.setup
+	source "${S}"/include/ccp4.setup
 
 # Only needed when using --bindir and --libdir
 	# Needed to avoid errors. Originally tried to make lib and bin
@@ -161,12 +162,12 @@ src_install() {
 	# Get rid of S instances
 	# Also the main clipper library is built as libclipper-core, not libclipper
 	sed -i \
-		-e "s:${S}:$usr:g" \
+		-e "s:"${S}":$usr:g" \
 		-e "s:lclipper :lclipper-core :g" \
-		${S}/bin/clipper-config
+		"${S}"/bin/clipper-config
 
 	# Libs
-	for file in ${S}/lib/*; do
+	for file in "${S}"/lib/*; do
 		if [[ -d ${file} ]]; then
 			continue
 		elif [[ -x ${file} ]]; then
@@ -180,7 +181,7 @@ src_install() {
 	# Fix libdir in all *.la files
 	sed -i \
 		-e "s:^\(libdir=\).*:\1\'/usr/$(get_libdir)\':g" \
-		${D}/usr/$(get_libdir)/*.la
+		"${D}"/usr/$(get_libdir)/*.la
 
 	# Library symlinks
 	local LIBNAMES="libclipper-ccp4.so.0.0.0
@@ -200,12 +201,12 @@ src_install() {
 
 	# Data
 	insinto /usr/share/ccp4
-	doins -r ${S}/lib/data || die
+	doins -r "${S}"/lib/data || die
 
 	# Include files
 	insinto /usr/include
 	for i in ccp4 mmdb; do
-		doins -r ${S}/include/${i} || die
+		doins -r "${S}"/include/${i} || die
 	done
 
 	# Fix wrongly installed HTML pages from clipper
