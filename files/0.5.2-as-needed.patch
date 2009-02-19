@@ -87,20 +87,20 @@ diff -ur coot-0.5-pre-1.orig/coot-utils/Makefile.am coot-0.5-pre-1/coot-utils/Ma
 +	$(MMDB_LIBS)
  
  
-diff -ur coot-0.5-pre-1.orig/geometry/Makefile.am coot-0.5-pre-1/geometry/Makefile.am
---- coot-0.5-pre-1.orig/geometry/Makefile.am	2008-07-13 16:40:27.000000000 -0700
-+++ coot-0.5-pre-1/geometry/Makefile.am	2008-07-13 16:40:40.000000000 -0700
-@@ -34,6 +34,9 @@
- libcoot_geometry_a_sources = protein-geometry.cc protein-geometry-mmdb.cc
+--- coot-0.5/geometry/Makefile.am	2008-09-08 15:22:01.000000000 +0200
++++ coot-0.5/geometry/Makefile.am.new	2008-11-20 12:01:08.000000000 +0100
+@@ -35,6 +35,10 @@
  
- libcoot_geometry_la_SOURCES = $(libcoot_geometry_a_sources)
+ libcoot_geometry_la_SOURCES = protein-geometry.cc protein-geometry-mmdb.cc 
+ 
 +libcoot_geometry_la_LIBADD = \
-+	$(top_builddir)/coot-utils/libcoot-utils.la \
-+	$(CLIPPER_LIBS) $(MMDB_LIBS)
- 
++      $(top_builddir)/coot-utils/libcoot-utils.la \
++      $(CLIPPER_LIBS) $(MMDB_LIBS)
++
  # libcoot_geometry_la_CXXFLAGS = -g -O1
  
-@@ -43,12 +46,6 @@
+ noinst_PROGRAMS = test-geometry test-read-components
+@@ -43,12 +47,6 @@
  
  test_read_components_SOURCES = test-read-components.cc test-read-components.hh
  
@@ -108,13 +108,14 @@ diff -ur coot-0.5-pre-1.orig/geometry/Makefile.am coot-0.5-pre-1/geometry/Makefi
 -        $(top_builddir)/coot-utils/libcoot-utils.la \
 -	$(CLIPPER_LIBS) $(MMDB_LIBS)
 -
--test_read_components_LDADD = \
--	$(top_builddir)/geometry/libcoot-geometry.la  \
+-test_read_components_LDADD =  \
+-	./libcoot-geometry.la \
 -        $(top_builddir)/coot-utils/libcoot-utils.la   \
 -	$(CLIPPER_LIBS) $(MMDB_LIBS)
 +test_geometry_LDADD = ./libcoot-geometry.la
  
 +test_read_components_LDADD = ./libcoot-geometry.la
+
 diff -ur coot-0.5-pre-1.orig/high-res/Makefile.am coot-0.5-pre-1/high-res/Makefile.am
 --- coot-0.5-pre-1.orig/high-res/Makefile.am	2008-07-13 16:40:27.000000000 -0700
 +++ coot-0.5-pre-1/high-res/Makefile.am	2008-07-13 16:40:40.000000000 -0700

@@ -6,7 +6,7 @@ diff -ur coot-0.4-pre-1.orig/macros/guile-gtk.m4 coot-0.4-pre-1/macros/guile-gtk
     # Let's use that here.  Perhaps there is a better (set by gtk macro?) variable?
     if test $coot_gtk2 = TRUE ; then
 -	GUILE_GTK_LIBS=$guile_gtk_prefix/lib/libguilegtk-2.0.la
-+	GUILE_GTK_LIBS="-L$guile_gtk_prefix/lib -lguilegtk-2.0"
++	GUILE_GTK_LIBS="-L$guile_gtk_prefix/lib -lguilegtk-2.1"
     else 
 -	GUILE_GTK_LIBS=$guile_gtk_prefix/lib/libguilegtk-1.2.la
 +	GUILE_GTK_LIBS="-L$guile_gtk_prefix/lib -lguilegtk-1.2"
