@@ -141,7 +141,7 @@ src_compile() {
 
 	! mpi_classed && c="${c} --sysconfdir=/etc/${PN}"
 	econf $(mpi_econf_args) ${c} ${romio_conf} \
-		--docdir=$(mpi_root)/usr/share/doc/${PF}
+		--docdir=$(mpi_root)/usr/share/doc/${PF} \
 		--with-pm=mpd:gforker \
 		--disable-mpe \
 		$(use_enable romio) \
