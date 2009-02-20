@@ -16,6 +16,9 @@ RDEPEND=">=dev-tcltk/itcl-3.3
 	>=dev-tcltk/iwidgets-4
 	>=dev-tcltk/tkimg-1.3
 	>=dev-tcltk/tdom-0.8
+	dev-tcltk/tablelist
+	dev-tcltk/anigif
+	dev-tcltk/combobox
 	>=dev-tcltk/tktreectrl-2.1
 	>=sci-chemistry/mosflm-7.0.4
 	=dev-lang/tcl-8.4*"
@@ -25,16 +28,8 @@ src_compile(){ :; }
 
 src_install(){
 	insinto /usr/$(get_libdir)/${PN}
-	doins -r "${S}"/{lib,src,bitmaps}
+	doins -r "${S}"/{src,bitmaps}
 	fperms 775 /usr/$(get_libdir)/${PN}/src/imosflm
 
 	make_wrapper imosflm /usr/$(get_libdir)/${PN}/src/imosflm
-}
-
-pkg_postinst() {
-	einfo "Please make ebuilds for the bundled libraries:"
-	einfo "  Tablelist: http://www.nemethi.de/"
-	einfo "  Combobox: http://www1.clearlight.com/~oakley/tcl/combobox/index.html"
-	einfo "  Anigif: http://cardtable.sourceforge.net/tcltk/"
-	einfo "  filelist-bindings: (Comes with tktreectrl)"
 }
