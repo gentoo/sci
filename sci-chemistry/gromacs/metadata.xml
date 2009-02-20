@@ -6,5 +6,6 @@
   <flag name='double-precision'>More precise calculations at the expense of
     speed</flag>
   <flag name='single-precision'>Single precision version of gromacs</flag>
+  <flag name='gmxmopac7'>Support for QM/MM with mopac7</flag>
 </use>
 </pkgmetadata>
