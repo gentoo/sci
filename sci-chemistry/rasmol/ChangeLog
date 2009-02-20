@@ -2,9 +2,15 @@
 # Copyright 2002-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> ChangeLog:
+  checkin to sci overlay
+
+*rasmol-2.7.4.2 (24 Sep 2008) 
+
   24 Sep 2008; justin Lecher <justin@j-schmitz.net> rasmol-2.7.4.2.ebuild,
-  +rasmol-2.7.4.2-r1.ebuild:
+  +rasmol-2.7.4.2.ebuild:
   Version posted in b.g.o.
+  Now uses gtk
 
   22 Jul 2007; Donnie Berkholz <dberkholz@gentoo.org>;
   rasmol-2.7.2.1.1-r1.ebuild:
