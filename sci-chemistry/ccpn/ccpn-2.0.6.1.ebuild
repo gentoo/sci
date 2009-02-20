@@ -11,7 +11,7 @@ MY_PN="${PN}mr"
 
 SLOT="0"
 LICENSE="|| ( CCPN LGPL-2.1 )"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 DESCRIPTION="The Collaborative Computing Project for NMR"
 SRC_URI="http://www.bio.cam.ac.uk/ccpn/download/${MY_PN}/analysis${PV}.tar.gz"
 HOMEPAGE="http://www.ccpn.ac.uk/ccpn"
