@@ -1,0 +1,7 @@
+# ChangeLog for sci-chemistry/mrbump
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  25 Sep 2008; justin Lecher <justin@j-schmitz.net> +mrbump-0.4.4.ebuild:
+  Setup sci-chemistry/mrbump
+
