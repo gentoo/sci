@@ -158,7 +158,7 @@ src_configure() {
 	fi
 	if use gmxmopac7; then
 		export LIBS="${LIBS} -lgmxmopac7"
-		myconf="${myconf} $(use_with mopac7 qmmm-mopac)"
+		myconf="${myconf} $(use_with gmxmopac7 qmmm-mopac)"
 	fi
 	# by default gromacs builds as static since 4.0.3
 	if use static; then
