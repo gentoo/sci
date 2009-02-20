@@ -1,6 +1,11 @@
 # ChangeLog for sci-misc/praat
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*praat-5.1.00 (05 Jan 2009)
+
+  20 Feb 2009; Flammie Pirinen <flammie@gentoo.org> +praat-5.1.00.ebuild:
+  Version bump.
 
 *praat-5.0.45 (05 Jan 2009)
 

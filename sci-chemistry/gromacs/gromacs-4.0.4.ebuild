@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/gromacs/gromacs-4.0.2.ebuild,v 1.1 2009/01/04 01:04:00 je_fro Exp $
 
-EAPI="1"
+EAPI="2"
 
 LIBTOOLIZE="true"
 
@@ -15,7 +15,7 @@ SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86"
-IUSE="3dnow X altivec blas double-precision gsl lapack mpi +single-precision sse sse2 static xml"
+IUSE="3dnow X altivec blas double-precision gsl lapack gmxmopac7 mpi +single-precision sse sse2 static xml"
 
 # mopac7 qm/mm is broken until we can get files from
 # http://md.chem.rug.nl/~groenhof/qmmm.html
@@ -32,6 +32,7 @@ DEPEND=">=sci-libs/fftw-3.0.1
 	blas? ( virtual/blas )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
+	gmxmopac7? ( sci-chemistry/mopac7[gmxmopac7=] )
 	mpi? ( virtual/mpi )
 	xml? ( dev-libs/libxml2 )"
 
@@ -74,7 +75,7 @@ src_unpack() {
 	fi
 }
 
-src_compile() {
+src_configure() {
 
 	# static should work but something's broken.
 	# gcc spec file may be screwed up.
@@ -155,7 +156,10 @@ src_compile() {
 		export LIBS="${LIBS} -llapack"
 		myconf="${myconf} $(use_with lapack external-lapack)"
 	fi
-
+	if use gmxmopac7; then
+		export LIBS="${LIBS} -lgmxmopac7"
+		myconf="${myconf} $(use_with gmxmopac7 qmmm-mopac)"
+	fi
 	# by default gromacs builds as static since 4.0.3
 	if use static; then
 		myconf="${myconf} --enable-all-static"
@@ -174,30 +178,48 @@ src_compile() {
 			${myconf}"
 
 	if ( use double-precision && use single-precision ); then
-		einfo "Building Single Precison Gromacs"
+		einfo "Configuring Single Precison Gromacs"
 		cd "${WORKDIR}"/"${P}"-single
 		myconf_s="${myconf}  --enable-float --disable-double --program-suffix=''"
 		econf ${myconf_s} || die "Single Precision econf failed"
+
+		einfo "Configuring Double Precision Gromacs"
+		cd "${WORKDIR}"/"${P}"-double
+		myconf_d="${myconf} --enable-double --disable-float --program-suffix=_d"
+		econf ${myconf_d} || die "Double Precision econf failed"
+
+	elif use double-precision ; then
+		einfo "Configuring Double Precison Gromacs"
+		cd "${WORKDIR}"/"${P}"-double
+		myconf_d="${myconf} --enable-double --disable-float --program-suffix=''"
+		econf ${myconf_d} || die "Double Precision econf failed"
+
+	elif use single-precision ; then
+		einfo "Configuring Single Precison Gromacs"
+		cd "${WORKDIR}"/"${P}"-single
+		myconf_s="${myconf} --enable-float --disable-double --program-suffix=''"
+		econf ${myconf_s} || die "configure failed"
+	fi
+}
+
+src_compile() {
+	if ( use double-precision && use single-precision ); then
+		einfo "Building Single Precison Gromacs"
+		cd "${WORKDIR}"/"${P}"-single
 		emake || die "Single Precision emake failed"
 
 		einfo "Building Double Precision Gromacs"
 		cd "${WORKDIR}"/"${P}"-double
-		myconf_d="${myconf} --enable-double --disable-float --program-suffix=_d"
-		econf ${myconf_d} || die "Double Precision econf failed"
 		emake || die "Double Precision emake failed"
 
 	elif use double-precision ; then
 		einfo "Building Double Precison Gromacs"
 		cd "${WORKDIR}"/"${P}"-double
-		myconf_d="${myconf} --enable-double --disable-float --program-suffix=''"
-		econf ${myconf_d} || die "Double Precision econf failed"
 		emake || die "Double Precision emake failed"
 
 	elif use single-precision ; then
 		einfo "Building Single Precison Gromacs"
 		cd "${WORKDIR}"/"${P}"-single
-		myconf_s="${myconf} --enable-float --disable-double --program-suffix=''"
-		econf ${myconf_s} || die "configure failed"
 		emake || die "Single Precision emake failed"
 	fi
 }

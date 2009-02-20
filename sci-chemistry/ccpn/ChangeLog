@@ -2,6 +2,21 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -sci-chemistry/ccpn/ccpn-2.0.5.ebuild,
+  -sci-chemistry/ccpn/ccpn-2.0.6.ebuild:
+  removed old version as they use hardcoded things and latest is okey
+
+  20 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> files/analysis,
+  files/dangle, files/dataShifter, files/formatConverter, files/pipe2azara,
+  ccpn-2.0.6.1.ebuild:
+  Make tk verion not hardcodded
+
+  20 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> files/analysis,
+  files/dangle, files/dataShifter, files/formatConverter, files/pipe2azara,
+  ccpn-2.0.6.1.ebuild:
+  Make python not hardcoded; add ~amd64 keywords
+
   13 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +sci-chemistry/ccpn/ccpn-2.0.6.1.ebuild:
   updated verion to 2.0.6.1 

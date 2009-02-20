@@ -3,6 +3,6 @@
 export CCPNMR_TOP_DIR=GENTOO_SITEDIR
 export PYTHONPATH=.:${CCPNMR_TOP_DIR}/ccpn/python
 export LD_LIBRARY_PATH=/usr/LIBDIR
-export TCL_LIBRARY=/usr/LIBDIR/tcl8.4
-export TK_LIBRARY=/usr/LIBDIR/tk8.4
-/usr/bin/python2.5 -O ${CCPNMR_TOP_DIR}/ccpn/python/ccp/format/spectra/params/NmrPipeData.py $1 $2 $3 $4 $5 $6
+export TCL_LIBRARY=/usr/LIBDIR/tclTKVER
+export TK_LIBRARY=/usr/LIBDIR/tkTKVER
+/usr/bin/python -O ${CCPNMR_TOP_DIR}/ccpn/python/ccp/format/spectra/params/NmrPipeData.py $1 $2 $3 $4 $5 $6

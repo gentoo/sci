@@ -11,7 +11,7 @@ MY_PN="${PN}mr"
 
 SLOT="0"
 LICENSE="|| ( CCPN LGPL-2.1 )"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 DESCRIPTION="The Collaborative Computing Project for NMR"
 SRC_URI="http://www.bio.cam.ac.uk/ccpn/download/${MY_PN}/analysis${PV}.tar.gz"
 HOMEPAGE="http://www.ccpn.ac.uk/ccpn"
@@ -112,14 +112,17 @@ src_install() {
 	local GENTOO_SITEDIR
 	local LIBDIR
 	local FILES
+	local TKVER
 
 	IN_PATH=$(python_get_sitedir)/${PN}
 	GENTOO_SITEDIR=$(python_get_sitedir)
 	LIBDIR=$(get_libdir)
+	TKVER=$(best_version dev-lang/tk | cut -d- -f3 | cut -d. -f1,2)
 
 	for wrapper in analysis dangle dataShifter formatConverter pipe2azara; do
 		sed -e "s:GENTOO_SITEDIR:${GENTOO_SITEDIR}:g" \
 		    -e "s:LIBDIR:${LIBDIR}:g" \
+			-e "s:TKVER:${TKVER}:g" \
 		    "${FILESDIR}"/${wrapper} > "${T}"/${wrapper} || die "Fail fix ${wrapper}"
 		dobin "${T}"/${wrapper} || die "Failed to install ${wrapper}"
 	done

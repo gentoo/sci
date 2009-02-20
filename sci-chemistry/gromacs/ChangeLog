@@ -2,6 +2,21 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*gromacs-4.0.4 (20 Feb 2009)
+
+  20 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> -gromacs-4.0.3-r1.ebuild,
+  +gromacs-4.0.4.ebuild:
+  Version bump\!
+
+  20 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> gromacs-4.0.3-r1.ebuild:
+  Fix typo
+
+*gromacs-4.0.3-r1 (20 Feb 2009)
+
+  20 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> +gromacs-4.0.3-r1.ebuild,
+  -gromacs-4.0.3.ebuild:
+  Add support for qm/mm with mopac7 for gromacs
+
 *gromacs-4.0.3 (20 Jan 2009)
 
   20 Jan 2009; Alexey Shvetsov <alexxy@gentoo.org> -gromacs-3.3.3.ebuild,

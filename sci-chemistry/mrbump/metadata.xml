@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>markusle@gentoo.org</email>
-		<name>Markus Dittrich</name>
-	</maintainer>
 	<herd>sci-chemistry</herd>
+	<maintainer>
+		<email>jlec@j-schmitz.net</email>
+		<name>Justin Lecher (jlec)</name>
+	</maintainer>
 </pkgmetadata>
+
