@@ -5,6 +5,11 @@
   20 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> files/analysis,
   files/dangle, files/dataShifter, files/formatConverter, files/pipe2azara,
   ccpn-2.0.6.1.ebuild:
+  Make tk verion not hardcodded
+
+  20 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> files/analysis,
+  files/dangle, files/dataShifter, files/formatConverter, files/pipe2azara,
+  ccpn-2.0.6.1.ebuild:
   Make python not hardcoded; add ~amd64 keywords
 
   13 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
