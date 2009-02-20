@@ -2,7 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit fortran toolchain-funcs versionator
+EAPI="2"
+
+inherit fortran toolchain-funcs versionator eutils
 
 MY_PV="$(delete_all_version_separators)"
 MY_P="${PN}${MY_PV}"
@@ -13,15 +15,24 @@ LICENSE=""
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-RDEPEND="sci-chemistry/ccp4"
+RDEPEND="sci-libs/ccp4-libs"
 DEPEND="${RDEPEND}
-	app-shells/tcsh"
+	app-shells/tcsh
+	media-libs/jpeg"
+# brocken with that
+#	sci-libs/cbflib
+
 S="${WORKDIR}/${MY_P}"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+src_prepare() {
+# See DEPEND
+#	sed -e "s:../cbf/lib/libcbf.a:/usr/$(get_libdir)/libcbf.a:g" \
+	sed -e "s:../jpg/libjpeg.a:/usr/$(get_libdir)/libjpeg.a:g" \
+		-i ${PN}/Makefile || die
+
+	epatch "${FILESDIR}/${PV}"-Makefile.patch
 }
+
 
 src_compile() {
 	F77=$(tc-getF77)
@@ -39,6 +50,7 @@ src_compile() {
 		CC=$(tc-getCC) \
 		FFLAGS="${FFLAGS:- -O2}" \
 		CFLAGS="${CFLAGS}" \
+		LFLAGS="${LDFLAGS}" \
 		|| die "emake failed"
 }
 
