@@ -1,0 +1,10 @@
+# ChangeLog for dev-tcltk/anigif
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*anigif-1.1 (20 Feb 2009)
+
+  20 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +metadata.xml,
+  +anigif-1.1.ebuild:
+  Added to sci-overlay
+
