@@ -1,0 +1,95 @@
+# ChangeLog for sci-chemistry/mopac7
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/mopac7/ChangeLog,v 1.19 2009/01/18 18:24:26 je_fro Exp $
+
+*mopac7-1.14-r2 (20 Feb 2009)
+
+  20 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> +metadata.xml,
+  +mopac7-1.14-r2.ebuild:
+  Add support for makeing gmxmopac7 lib
+
+  18 Jan 2009; Jeff Gardner <je_fro@gentoo.org> ChangeLog:
+  Fix for bug #254491. Big Thanks to Permjacov E. A. and Rene Meier. Also
+  removing mopac7-1.14.ebuild because of repoman warning: Upstream parallel
+  compilation bug (ebuild calls emake -j1 on line: 55)
+
+  28 Nov 2008; Patrick Lauer <patrick@gentoo.org> mopac7-1.14.ebuild:
+  Adding econf call so it can actually work. No idea how this got through,
+  sorry.
+
+*mopac7-1.14 (27 Nov 2008)
+
+  27 Nov 2008; Patrick Lauer <patrick@gentoo.org> +mopac7-1.14.ebuild:
+  Bump to 1.14 with ok from dberkholz
+
+*mopac7-1.13-r1 (13 Jul 2008)
+
+  13 Jul 2008; Jeff Gardner <je_fro@gentoo.org> +mopac7-1.13-r1.ebuild:
+  Fix to use gfortran
+
+*mopac7-1.13 (08 Jul 2008)
+
+  08 Jul 2008; Donnie Berkholz <dberkholz@gentoo.org>; +mopac7-1.13.ebuild:
+  Bump. Pull in newer libf2c so configure doesn't fail.
+
+  07 Jan 2007; Danny van Dyk <kugelfang@gentoo.org> -mopac7-1.00-r1.ebuild,
+  -mopac7-1.10.ebuild:
+  QA: Removed unused versions.
+
+  14 Dec 2006; Jeff Gardner <je_fro@gentoo.org> ChangeLog:
+  Fix for autotools wrt bug 152425
+
+  24 Nov 2006; Steve Dibb <beandog@gentoo.org> mopac7-1.00-r1.ebuild,
+  mopac7-1.10.ebuild, mopac7-1.10-r1.ebuild:
+  Add ~amd64, bug 133268
+
+  20 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  (#148281) Change herd to sci-chemistry from sci.
+
+  05 Aug 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Remove myself as maintainer, anyone feel free to work on this, although I'll
+  continue to do so as well.
+
+  09 Jul 2006; Donnie Berkholz <dberkholz@gentoo.org>;
+  mopac7-1.10-r1.ebuild:
+  x86/ppc stable.
+
+  07 Jul 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Update to my new email address.
+
+*mopac7-1.10-r1 (13 May 2006)
+
+  13 May 2006; Donnie Berkholz <dberkholz@gentoo.org>;
+  +mopac7-1.10-r1.ebuild:
+  Fix parallel build. Remove the really ugly LDFLAGS hack, it's no longer
+  needed. Cleaner installation of executable and wrapper.
+
+*mopac7-1.10 (06 Dec 2005)
+
+  06 Dec 2005; Donnie Berkholz <dberkholz@gentoo.org>; -mopac7-1.00.ebuild,
+  +mopac7-1.10.ebuild:
+  New version. GCC-4 and 64-bit fixes, as well as new libmopac7.h
+
+  06 Aug 2005; David Holm <dholm@gentoo.org> mopac7-1.00-r1.ebuild:
+  Added to ~ppc.
+
+*mopac7-1.00-r1 (05 Aug 2005)
+
+  05 Aug 2005; Donnie Berkholz <dberkholz@gentoo.org>;
+  +mopac7-1.00-r1.ebuild:
+  (#101288) Fix run_mopac7 shell script, courtesy of Mathias Weigt
+  <m.weigt@uni-bonn.de>.
+
+  10 Jul 2005; Donnie Berkholz <dberkholz@gentoo.org>; mopac7-1.00.ebuild:
+  (#98457) Parallel build broken.
+
+  10 Jul 2005; Donnie Berkholz <dberkholz@gentoo.org>; mopac7-1.00.ebuild:
+  Fix f2c dep to libf2c.
+
+*mopac7-1.00 (08 Jul 2005)
+
+  08 Jul 2005; Donnie Berkholz <dberkholz@gentoo.org>; +metadata.xml,
+  +mopac7-1.00.ebuild:
+  Initial commit, ebuild by me. This will be useful for the new ghemical. It's
+  a quite solid semi-empirical package.
+
