@@ -30,3 +30,7 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher <jlec@j-schmitz.net> (20 Feb 2009)
+# Masked until all deps are writen
+
+=sci-chemistry/imosflm-1.0.0
