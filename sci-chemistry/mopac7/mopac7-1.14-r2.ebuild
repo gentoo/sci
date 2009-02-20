@@ -64,7 +64,7 @@ src_install() {
 		cd "${S}"/fortran
 		rm -f *.o
 		rm -f moldat.f deriv.f mopac7*.f
-		$(tc-getFC) ${FFLAGS} -std=legacy -fno-automatic -c *.f
+		$(tc-getFC) ${FFLAGS} -fPIC -std=legacy -fno-automatic -c *.f
 		ar rcv libgmxmopac7.a *.o
 		ranlib libgmxmopac7.a
 		dolib.a ${S}/fortran/libgmxmopac7.a

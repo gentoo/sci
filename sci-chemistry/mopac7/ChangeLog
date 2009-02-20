@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/mopac7/ChangeLog,v 1.19 2009/01/18 18:24:26 je_fro Exp $
 
+  20 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> mopac7-1.14-r2.ebuild:
+  Make libgmxmopac7.a -fpic library
+
 *mopac7-1.14-r2 (20 Feb 2009)
 
   20 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> +metadata.xml,
