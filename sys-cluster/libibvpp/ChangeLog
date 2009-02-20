@@ -1,6 +1,10 @@
 # ChangeLog for sys_cluster/libibvpp
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  05 Feb 2009; Thomas Anderson <gentoofan23@gentoo.org>
+  sys-cluster/libibvpp/libibvpp-0.1.ebuild:
+  [QA]: Remove redundant src_compile, fix SRC_URI for new location
 
 *libibvpp-0.1 (28 May 2008)
 

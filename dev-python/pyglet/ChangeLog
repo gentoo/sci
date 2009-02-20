@@ -1,6 +1,12 @@
 # ChangeLog for dev-python/pyglet
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*pyglet-1.1.2 (01 Feb 2009)
+
+  01 Feb 2009; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +pyglet-1.1.2.ebuild, -pyglet-1.1.ebuild, -pyglet-1.1.1.ebuild
+  Version bump. Thanks Thomas Pani for his updates.
 
 *pyglet-1.1 (26 Aug 2008)
 

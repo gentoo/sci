@@ -1,0 +1,89 @@
+# ChangeLog for sci-chemistry/nmrpipe
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  03 Feb 2009; justin Lecher (jlec) <jlec@j-schmitz.net>
+  +x11-libs/xview/files/lseek2.diff,
+  +x11-libs/xview/files/CAN-2005-0076.patch, +licenses/XVIEW,
+  +sci-chemistry/nmrpipe/files/env-nmrpipe,
+  +sci-chemistry/nmrpipe/metadata.xml, +x11-libs/xview/files/lseek.diff,
+  +x11-libs/xview/metadata.xml:
+  added to sci overlay
+
+*nmrpipe-9.27.2007.222.14.56 (03 Jun 2008)
+
+  03 Jun 2008; Jeff Gardner <je_fro@gentoo.org>
+  -nmrpipe-2.5.2006.184.15.37.ebuild, +nmrpipe-9.27.2007.222.14.56.ebuild:
+  New version, removed old as it's no longer available. Thanks to toto.
+
+  28 Nov 2007; Jeff Gardner <je_fro@gentoo.org>
+  nmrpipe-2.5.2006.184.15.37.ebuild:
+  Fixing manifest and adding sed call as suggested by justin in bug 200389.
+
+  22 Jul 2007; Donnie Berkholz <dberkholz@gentoo.org>;
+  nmrpipe-2.5.2006.184.15.37.ebuild:
+  Drop virtual/x11 references.
+
+  18 Jul 2007; Jeff Gardner <je_fro@gentoo.org> metadata.xml:
+  Add myself as maintainer in metadata.xml
+
+  17 Jul 2007; Jeff Gardner <je_fro@gentoo.org>
+  files/digest-nmrpipe-2.5.2006.184.15.37, ChangeLog, Manifest:
+  Updating Manifest with latest nmrpipe files.
+
+*nmrpipe-2.5.2006.184.15.37 (18 Oct 2006)
+
+  18 Oct 2006; Olivier Fisette <ribosome@gentoo.org>
+  -nmrpipe-2.3.2005.167.14.44.ebuild, +nmrpipe-2.5.2006.184.15.37.ebuild:
+  New upstream version (fixes bug #151627, thanks to Stephen Floor
+  <snf@extrospective.net> for reporting.) Removing old version to avoid digest
+  mismatches.
+
+  20 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  (#148281) Change herd to sci-chemistry from sci.
+
+  05 Feb 2006; Olivier Fisette <ribosome@gentoo.org>
+  nmrpipe-2.3.2005.167.14.44.ebuild:
+  Ported to modular X.
+
+  30 Jan 2006; Robin H. Johnson <robbat2@gentoo.org> Manifest:
+  Manifest fix.
+
+  29 Jan 2006; Marcus D. Hanwell <cryos@gentoo.org>
+  nmrpipe-2.3.2005.167.14.44.ebuild:
+  Dependency update: media-gfx/gnuplot -> sci-visualization/gnuplot.
+
+*nmrpipe-2.3.2005.167.14.44 (18 Oct 2005)
+
+  18 Oct 2005; Olivier Fisette <ribosome@gentoo.org>
+  -files/nmrpipe-20050616-env, +files/env-nmrpipe,
+  +nmrpipe-2.3.2005.167.14.44.ebuild, -nmrpipe-20050616-r1.ebuild:
+  New version. Removing obsolete version.
+
+*nmrpipe-20050616-r1 (31 Aug 2005)
+
+  31 Aug 2005; Olivier Fisette <ribosome@gentoo.org>
+  -nmrpipe-20050616.ebuild, +nmrpipe-20050616-r1.ebuild:
+  Ebuild clean-up. Removed useless installation log files.
+
+*nmrpipe-20050616 (22 Jul 2005)
+
+  22 Jul 2005; Olivier Fisette <ribosome@gentoo.org>
+  files/nmrpipe-20050415-env, -nmrpipe-20050415-r1.ebuild,
+  +nmrpipe-20050616.ebuild:
+  New version. Removing the older version since the archives are no longer
+  available.
+
+*nmrpipe-20050415-r1 (20 Jul 2005)
+
+  20 Jul 2005; Olivier Fisette <ribosome@gentoo.org>
+  files/nmrpipe-20050415-env, -nmrpipe-20050415.ebuild,
+  +nmrpipe-20050415-r1.ebuild:
+  Fixed a few potential problems, including bug #99685. Thanks to Katia
+  Lecours <klecours@rsvs.ulaval.ca> for reporting.
+
+*nmrpipe-20050415 (24 May 2005)
+
+  24 May 2005; Olivier Fisette <ribosome@gentoo.org>
+  +files/nmrpipe-20050415-env, +metadata.xml, +nmrpipe-20050415.ebuild:
+  Initial import.

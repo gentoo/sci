@@ -1,6 +1,11 @@
 # ChangeLog for sci-electronics/player
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  01 Feb 2009; <elias@pipping.org>
+  sci-mathematics/octave-forge-octcdf/metadata.xml,
+  sci-mathematics/octave-forge-specfun/metadata.xml:
+  add SLOT
 
 *player-2.0.4 (23 Nov 2007)
 	

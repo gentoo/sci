@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci</herd>
-	<maintainer>
-		<email>grozin@gentoo.org</email>
-		<name>Andrey Grozin</name>
-	</maintainer>
-	<longdescription>A cross-platform windowing and multimedia library for Python</longdescription>
+  <herd>sci</herd>
+  <maintainer>
+    <email>grozin@gentoo.org</email>
+    <name>Andrey Grozin</name>
+  </maintainer>
+  <longdescription lang="en">
+    This library provides an object-oriented programming interface
+    for developing games and other visually-rich applications with Python.
+    pyglet has virtually no external dependencies. For most applications
+    and game requirements, pyglet needs nothing else besides Python,
+    simplifying distribution and installation. It also handles
+    multiple windows and fully aware of multi-monitor setups.
+    pyglet might be seen as an alternative to PyGame.
+  </longdescription>
 </pkgmetadata>

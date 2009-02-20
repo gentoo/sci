@@ -2,8 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
+EAPI="1"
 inherit autotools distutils eutils flag-o-matic toolchain-funcs versionator python multilib
-
 
 DESCRIPTION="SALOME : The Open Source Integration Platform for Numerical Simulation. KERNEL Component"
 HOMEPAGE="http://www.salome-platform.org"

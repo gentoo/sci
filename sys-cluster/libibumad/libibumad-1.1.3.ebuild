@@ -17,11 +17,6 @@ IUSE=""
 RDEPEND="sys-cluster/libibcommon"
 DEPEND="${RDEPEND}"
 
-src_compile() {
-	econf || die "could not configure"
-	emake || die "emake failed"
-}
-
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 }

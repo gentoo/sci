@@ -5,7 +5,9 @@
 <maintainer>
   <email>jlec@j-schmitz.net</email>
 </maintainer>
+<!--
 <use>
   <flag name='numpy'>Include optional numpy support for automated assignment</flag>
 </use>
+-->
 </pkgmetadata>

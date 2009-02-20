@@ -1,8 +1,8 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=1
+EAPI=2
 inherit eutils autotools
 
 DESCRIPTION="Computes astrometric and photometric solutions for astronomical images"
@@ -22,9 +22,7 @@ RDEPEND="sci-astronomy/cdsclient
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+src_prepare() {
 	# gentoo uses cblas instead of ptcblas
 	sed -i \
 		-e 's/ptcblas/cblas/g' \
@@ -34,7 +32,7 @@ src_unpack() {
 	eautoreconf
 }
 
-src_compile() {
+src_configure() {
 	#local myatlas="-L/usr/$(get_libdir)/blas/atlas"
 	#if use threads && \
 	#	[ -f /usr/$(get_libdir)/blas/threaded-atlas/libcblas.a ]; then
@@ -43,16 +41,20 @@ src_compile() {
 	econf \
 		--with-atlas="/usr/$(get_libdir)/lapack/atlas" \
 		$(use_with plplot) \
-		$(use_enable threads) \
-		|| die "econf failed"
-	emake || die "emake failed"
+		$(use_enable threads)
 }
 
 src_install () {
 	emake DESTDIR="${D}" install || die "emake install failed"
-	dodoc AUTHORS ChangeLog HISTORY README THANKS BUGS || die
+	dodoc AUTHORS ChangeLog HISTORY README THANKS BUGS
 	if use doc; then
 		insinto /usr/share/doc/${PF}
 		doins doc/*.pdf || die "pdf doc install failed"
 	fi
+}
+
+pkg_postinst() {
+	elog "${CATEGORY}/${PN} is in development / testing phase."
+	elog "Report bugs or improvements at:"
+	elog "http://bugs.gentoo.org/"
 }

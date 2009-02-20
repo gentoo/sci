@@ -9,17 +9,12 @@ KEYWORDS="~amd64 ~x86"
 
 DESCRIPTION="libibvpp is a C++ wrapper around libibverbs, which is part of OpenIB."
 HOMEPAGE="http://opensource.arc.nasa.gov/software/libibvpp/"
-SRC_URI="http://opensource.arc.nasa.gov/static/downloads/libibvpp-${PV}.tar.gz"
+SRC_URI="http://opensource.arc.nasa.gov/static/opensource/downloads/${P}.tar.gz"
 
 IUSE=""
 
 DEPEND="|| ( sys-cluster/libibverbs sys-cluster/openib-userspace )"
 RDEPEND="${DEPEND}"
-
-src_compile() {
-	econf || die "could not configure"
-	emake || die "emake failed"
-}
 
 src_install() {
 	emake DESTDIR="${D}" install || die "install failed"

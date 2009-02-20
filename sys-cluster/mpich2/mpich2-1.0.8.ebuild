@@ -75,9 +75,11 @@ src_unpack() {
 	epatch "${FILESDIR}"/${P}-site-packages-py.patch
 
 	# Respect the env var MPD_CONF_FILE
+	# TODO:  Send upstream
 	epatch "${FILESDIR}"/${P}-mpdconf-env.patch
 
 	# Fix gforker instal-alt
+	# TODO:  Send upstream
 	epatch "${FILESDIR}"/${P}-gforker-install-alt-fix.patch
 
 	# We need f90 to include the directory with mods, and to
@@ -89,7 +91,12 @@ src_unpack() {
 		$(find ./test/ -name 'Makefile.in') || die
 
 	# 254167, I'm pretty sure they meant srcdir in the path to remove files.
+	# TODO:  Send upstream
 	sed -i 's:scrdir:srcdir:g' "${S}"/src/pm/mpd/Makefile.in || die
+
+	# #257821, fix the pkgconfig file.
+	# TODO:  Send upstream
+	epatch "${FILESDIR}"/${P}-pkgconfig.patch
 
 	if ! use romio; then
 		# These tests in errhan/ rely on MPI::File ...which is in romio
@@ -134,7 +141,7 @@ src_compile() {
 
 	! mpi_classed && c="${c} --sysconfdir=/etc/${PN}"
 	econf $(mpi_econf_args) ${c} ${romio_conf} \
-		--docdir=$(mpi_root)/usr/share/doc/${PF}
+		--docdir=$(mpi_root)/usr/share/doc/${PF} \
 		--with-pm=mpd:gforker \
 		--disable-mpe \
 		$(use_enable romio) \

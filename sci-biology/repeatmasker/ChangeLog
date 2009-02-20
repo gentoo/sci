@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/repeatmasker
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  19 Feb 2009; weaver <weaver@gentoo.org> ChangeLog:
+  Version bump
 
   08 Jul 2008; weaver <weaver@gentoo.org> +repeatmasker-3.2.5.ebuild:
   Version bump

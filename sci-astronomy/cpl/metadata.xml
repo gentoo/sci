@@ -14,4 +14,9 @@
   way to make the library portable and flexible, as well as minimising
   external dependencies.
 </longdescription>
+<use>
+  <flag name='gasgano'>
+    Enable support for <pkg>sci-astronomy/gasgano</pkg> file organizer
+  </flag>
+</use>
 </pkgmetadata>

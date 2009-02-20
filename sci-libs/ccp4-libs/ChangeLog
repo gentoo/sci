@@ -1,0 +1,15 @@
+# ChangeLog for sci-libs/ccp4-libs
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*sci-libs/ccp4-libs-6.1.1
+ 
+  18 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -sci-libs/ccp4-libs/files/6.0.99e-clipper-mmdbold-ggc-4.3.patch,
+  -sci-libs/ccp4-libs/files/6.0.99e-fix-setup-bash-incompatibility.patch,
+  +sci-libs/ccp4-libs/files/6.1.1-dont-make-dirs-in-configure.patch,
+  +sci-libs/ccp4-libs/files/6.1.1-clipper-mmdbold-ggc-4.3.patch,
+  -sci-libs/ccp4-libs/files/6.0.99e-dont-make-dirs-in-configure.patch,
+  +sci-libs/ccp4-libs/files/6.1.1-fix-setup-bash-incompatibility.patch:
+  bumped to revision 6.1.1
+  fix-setup-bash-incompatibility.patch now done by upstream

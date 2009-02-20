@@ -1,0 +1,17 @@
+# ChangeLog for sci-chemistry/wxmacmolplt
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  15 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org> wxmacmolplt-7.2.1.ebuild:
+  Fix compilation on some systems
+
+  13 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/wxmacmolplt-7.2.1-gcc43.patch, wxmacmolplt-7.2.1.ebuild:
+  Add patch for gcc 4.3
+
+*wxmacmolplt-7.2.1 (13 Feb 2009)
+
+  13 Feb 2009; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/wxmacmolplt-7.2.1-ming.patch, +wxmacmolplt-7.2.1.ebuild:
+  Add wxmacmolplt initialy bug #197131
+

@@ -51,5 +51,8 @@ src_test() {
 src_install() {
 	emake DESTDIR="${D}" install || die "Install failed"
 
+	insinto /usr/include/${PN}
+	doins {almost,config}.h || die "failed to install missing headers"
+
 	dodoc README NEWS TODO ChangeLog AUTHORS
 }

@@ -20,7 +20,7 @@ DEPEND="${RDEPEND}
 	X? ( x11-libs/libX11 )"
 
 src_unpack() {
-	unpack "${A}"
+	unpack ${A}
 	cd "${S}"
 
 	echo "" > ENVIRONMENT
@@ -41,7 +41,7 @@ src_compile() {
 
 	emake -j1 CC=$(tc-getCC) \
 		CFLAGS="${CFLAGS}" \
-		LDFLAGS="${LDFLAGS}" \
+		LFLAGS="${LDFLAGS}" \
 		MATH_LIB="-lm" \
 		X11_INCLUDE_DIR="-I/usr/X11R6/include" \
 		MOTIF_INCLUDE_DIR="-I/usr/include" \

@@ -1,0 +1,9 @@
+# ChangeLog for app-office/ekee
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ekee-2.0.2 (15 Jan 2009)
+
+  29 May 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  +metadata.xml, +ekee-2.0.2.ebuild
+  Initial import, initial ebuild submitted by XXX  bug #
