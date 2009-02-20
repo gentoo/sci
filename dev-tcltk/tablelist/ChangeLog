@@ -1,0 +1,10 @@
+# ChangeLog for dev-tcltk/tablelist
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*tablelist-4.10 (20 Feb 2009)
+
+  20 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +metadata.xml,
+  +tablelist-4.10.ebuild:
+  Added to sci-overlay
+
