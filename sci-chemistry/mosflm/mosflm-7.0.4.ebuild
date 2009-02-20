@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -11,7 +11,7 @@ MY_P="${PN}${MY_PV}"
 DESCRIPTION="A program for integrating single crystal diffraction data from area detectors"
 HOMEPAGE="http://www.mrc-lmb.cam.ac.uk/harry/mosflm/"
 SRC_URI="${HOMEPAGE}ver${MY_PV}/build-it-yourself/${MY_P}.tgz"
-LICENSE=""
+LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
