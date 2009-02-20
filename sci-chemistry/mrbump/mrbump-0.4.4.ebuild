@@ -2,8 +2,6 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-#CCP4=${D}
-
 DESCRIPTION="An automated scheme for Molecular Replacement"
 HOMEPAGE="http://www.ccp4.ac.uk/MrBUMP"
 SRC_URI="${HOMEPAGE}/release/${P}.tar.gz"
@@ -44,12 +42,8 @@ src_install(){
 	doins -r ccp4i/MrBUMP/{help,scripts,tasks,templates} || \
 	die "failed to install interface"
 
-	insinto /usr
-	doins -r share || die "failed to instal mrbump data"
-
-	fperms 755 /usr/share/mrbump/bin/{mrbump,pydbviewer}
-	dosym ../usr/share/mrbump/bin/mrbump /usr/bin
-	dosym ../usr/share/mrbump/bin/pydbviewer /usr/bin
+	insinto /usr/share/${PN}
+	doins -r share/{data,include} || die "failed to instal mrbump data"
 
 	dodoc README.txt
 	dohtml html/mrbump_doc.html
