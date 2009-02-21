@@ -27,7 +27,7 @@ PATCHES=(	"${FILESDIR}"/${P}-ming.patch
 		)
 
 src_configure() {
-	econf $(use_with flash ming)
+	LIBS="-lGLU" econf $(use_with flash ming)
 }
 
 src_install() {
