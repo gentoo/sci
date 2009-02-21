@@ -15,10 +15,10 @@ LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
 
-IUSE="ming"
+IUSE="flash"
 
-RDEPEND="x11-libs/wxGTK
-		ming? ( media-libs/ming )"
+RDEPEND="x11-libs/wxGTK[opengl]
+		flash? ( media-libs/ming )"
 
 DEPEND="${RDEPEND}"
 
@@ -27,11 +27,11 @@ PATCHES=(	"${FILESDIR}"/${P}-ming.patch
 		)
 
 src_configure() {
-	LIBS="-lGLU" econf $(use_with ming)
+	econf $(use_with flash ming)
 }
 
 src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	doicon resources/${PN}.png
-	make_desktop_entry ${PN} wxMacMolPlt ${PN}.png Science
+	make_desktop_entry ${PN} wxMacMolPlt ${PN}.png "Science;Education"
 }
