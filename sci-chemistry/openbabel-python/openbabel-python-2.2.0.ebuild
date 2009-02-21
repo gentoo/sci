@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=2
+
 inherit eutils
 
 DESCRIPTION="Python bindings for OpenBabel (including Pybel)"
@@ -17,33 +19,21 @@ RDEPEND="~sci-chemistry/openbabel-2.2.0
 	dev-lang/python"
 
 DEPEND="${RDEPEND}
-	swig? ( >=dev-lang/swig-1.3.29 )"
+	swig? ( >=dev-lang/swig-1.3.29[python] )"
 
 src_unpack() {
 	unpack ${A}
 	S="${WORKDIR}/openbabel-${PV}"
 	cd "${S}"
 
-	local myconf=""
-	if use swig ; then
-		if ! built_with_use dev-lang/swig python ; then
-			echo
-			eerror "To be able to build openbabel-python with swig use"
-			eerror "dev-lang/swig has to be merged with python enabled."
-			eerror "Please, re-emerge dev-lang/swig with USE=\"python\"."
-			die "dev-lang/swig has been built without python support"
-		else
-			myconf="--enable-maintainer-mode"
-		fi
-	fi
 	econf \
-		${myconf} \
+		$(use_enable swig maintainer-mode) \
 		--enable-static \
-		|| die "econf failed"
+			|| die "econf failed"
 	S="${S}/scripts"
 	cd "${S}"
 	if use swig ; then
-		emake python/openbabel_python.cpp \
+		emake -W openbabel-python.i python/openbabel_python.cpp \
 			|| die "Failed to make SWIG python bindings"
 	fi
 	S="${S}/python"
