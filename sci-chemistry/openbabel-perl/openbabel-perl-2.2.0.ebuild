@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=2
+
 inherit eutils perl-module
 
 DESCRIPTION="Perl bindings for OpenBabel"
@@ -17,33 +19,22 @@ RDEPEND="~sci-chemistry/openbabel-2.2.0
 	dev-lang/perl"
 
 DEPEND="${RDEPEND}
-	swig? ( >=dev-lang/swig-1.3.29 )"
+	swig? ( >=dev-lang/swig-1.3.29[perl] )"
 
 src_unpack() {
 	unpack ${A}
 	S="${WORKDIR}/openbabel-${PV}"
 	cd "${S}"
 
-	local myconf=""
-	if use swig ; then
-		if ! built_with_use dev-lang/swig perl ; then
-			echo
-			eerror "To be able to build openbabel-perl with swig use"
-			eerror "dev-lang/swig has to be merged with perl enabled."
-			eerror "Please, re-emerge dev-lang/swig with USE=\"perl\"."
-			die "dev-lang/swig has been built without perl support"
-		else
-			myconf="--enable-maintainer-mode"
-		fi
-	fi
 	econf \
-		${myconf} \
+		$(use_enable swig maintainer-mode) \
 		--enable-static \
-		|| die "econf failed"
+			|| die "econf failed"
 	S="${S}/scripts"
 	cd "${S}"
 	if use swig ; then
-		emake perl/openbabel_perl.cpp || die "Failed to make SWIG perl bindings"
+		emake -W openbabel-perl.i perl/openbabel_perl.cpp \
+			|| die "Failed to make SWIG perl bindings"
 	fi
 	S="${S}/perl"
 	cd "${S}"
