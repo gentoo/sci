@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*bkchem-0.12.6 (21 Feb 2009)
+
+  21 Feb 2009; <reinis@gentoo.org> +bkchem-0.12.6.ebuild:
+  Version bump to 0.12.6
+
 *bkchem-0.12.5 (07 Feb 2009)
 
   07 Feb 2009; Reinis Danne <rei4dan@gmail.com> +metadata.xml,
