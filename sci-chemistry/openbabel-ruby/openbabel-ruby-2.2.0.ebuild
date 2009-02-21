@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=2
+
 inherit eutils
 
 DESCRIPTION="Ruby bindings for OpenBabel"
@@ -17,33 +19,22 @@ RDEPEND="~sci-chemistry/openbabel-2.2.0
 	dev-lang/ruby"
 
 DEPEND="${RDEPEND}
-	swig? ( >=dev-lang/swig-1.3.29 )"
+	swig? ( >=dev-lang/swig-1.3.29[ruby] )"
 
 src_unpack() {
 	unpack ${A}
 	S="${WORKDIR}/openbabel-${PV}"
 	cd "${S}"
 
-	local myconf=""
-	if use swig ; then
-		if ! built_with_use dev-lang/swig ruby ; then
-			echo
-			eerror "To be able to build openbabel-ruby with swig use"
-			eerror "dev-lang/swig has to be merged with ruby enabled."
-			eerror "Please, re-emerge dev-lang/swig with USE=\"ruby\"."
-			die "dev-lang/swig has been built without ruby support"
-		else
-			myconf="--enable-maintainer-mode"
-		fi
-	fi
 	econf \
-		${myconf} \
+		$(use_enable swig maintainer-mode) \
 		--enable-static \
-		|| die "econf failed"
+			|| die "econf failed"
 	S="${S}/scripts"
 	cd "${S}"
 	if use swig ; then
-		emake ruby/openbabel_ruby.cpp || die "Failed to make SWIG ruby bindings"
+		emake -W openbabel-ruby.i ruby/openbabel_ruby.cpp \
+			|| die "Failed to make SWIG ruby bindings"
 	fi
 	S="${S}/ruby"
 	cd "${S}"
