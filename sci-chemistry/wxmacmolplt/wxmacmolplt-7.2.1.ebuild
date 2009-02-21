@@ -17,10 +17,10 @@ SLOT="0"
 
 IUSE="flash"
 
-RDEPEND="x11-libs/wxGTK[opengl]
+DEPEND="x11-libs/wxGTK[opengl]
 		flash? ( media-libs/ming )"
 
-DEPEND="${RDEPEND}"
+RDEPEND="${DEPEND}"
 
 PATCHES=(	"${FILESDIR}"/${P}-ming.patch
 			"${FILESDIR}"/${P}-gcc43.patch
