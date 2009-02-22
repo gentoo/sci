@@ -92,6 +92,9 @@ src_compile() {
 	# http://www.open-mpi.org/faq/?category=vampirtrace
 	use sparc && c="${c} --enable-contrib-no-build=vt"
 
+	# Push Vampir Trace includes to a subdir.
+	c="${c} --with-contrib-vt-flags=\"--includedir=/usr/include/vt\""
+
 	econf $(mpi_econf_args) ${c} \
 		$(use_enable !nocxx mpi-cxx) \
 		$(use_enable romio io-romio) \
