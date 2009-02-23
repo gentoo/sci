@@ -1,0 +1,13 @@
+# ChangeLog for sci-chemistry/openbabel-python
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  21 Feb 2009; <reinis@gentoo.org> openbabel-python-2.2.0.ebuild:
+  sci-chemistry/openbabel-python: Use EAPI=2, fix swig use
+
+*openbabel-python-2.2.0 (10 Feb 2009)
+
+  10 Feb 2009; Reinis Danne <rei4dan@gmail.com> +metadata.xml,
+  +openbabel-python-2.2.0.ebuild:
+  New package sci-chemistry/openbabel-python, #212212
+

@@ -65,6 +65,8 @@ src_unpack() {
 	-i src/tools/Makefile.am \
 	|| die "sed tools/Makefile.am failed"
 
+	append-ldflags -Wl,--no-as-needed
+
 	eautoreconf
 
 	cd "${WORKDIR}"

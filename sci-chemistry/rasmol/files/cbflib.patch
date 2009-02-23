@@ -1,0 +1,41 @@
+--- src/Imakefile.orig	2008-09-18 17:11:31.000000000 +0200
++++ src/Imakefile	2008-09-18 17:13:03.000000000 +0200
+@@ -155,7 +155,7 @@
+ 
+ 
+ DEFINES = $(GTKCFLAGS) $(GUIDEF) -DRASMOLDIR=\"$(RASMOLDIR)\" $(DEPTHDEF) $(LOCALEDEF) \
+-          -D_USE_RASMOL_H_ $(GUIOPTION) -I$(CBFLIBDIR)/include
++          -D_USE_RASMOL_H_ $(GUIOPTION) -I/usr/include/cbflib
+ 
+ SRCS = rasmol.c rasmol.h molecule.c molecule.h abstree.c abstree.h \
+        cmndline.c cmndline.h command.c command.h tokens.h transfor.c \
+@@ -178,7 +178,7 @@
+ # LDLIBS = -lm -lXi -lXextSam $(XLIB)
+ 
+ LDLIBS = -lm -lXi $(XLIB) $(EXTRA_LIBRARIES) $(XFORMSLIB) $(GTKLIBS) \
+-			-L$(CBFLIBDIR)/lib -lcbf
++			-L/usr/lib -lcbf
+ 
+ 
+ 
+@@ -241,7 +241,8 @@
+ 		(cd $(CBFLIBDIR); make lib/libcbf.a)
+ 		  
+ 
+-$(OBJS):  $(CBFLIBDIR)/lib/libcbf.a
++$(OBJS):  
++#$(OBJS):  $(CBFLIBDIR)/lib/libcbf.a
+ 
+ gtkwin.c: gtkui.h
+ 
+--- src/Makefile.in.orig	2008-09-18 17:10:15.000000000 +0200
++++ src/Makefile.in	2008-09-18 17:11:19.000000000 +0200
+@@ -165,7 +165,7 @@
+ 
+ all:		postdownload rasmol rastxt
+ 
+-rasmol:		postdownload $(X11OBJS) $(CBFLIBDIR)/lib/libcbf.a
++rasmol:		postdownload $(X11OBJS)
+ 		$(CC) -o rasmol $(LFLAGS) $(X11OBJS) $(X11LIBS)
+ 		chmod 755 rasmol
+ 

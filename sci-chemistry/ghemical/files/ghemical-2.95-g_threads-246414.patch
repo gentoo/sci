@@ -1,0 +1,26 @@
+--- src/gtk_main.cpp.orig	2007-05-23 14:21:19.000000000 +0300
++++ src/gtk_main.cpp	2008-11-11 17:53:02.000000000 +0200
+@@ -33,6 +33,13 @@
+ 
+ int main(int argc, char ** argv)
+ {
++#ifdef ENABLE_THREADS
++
++    g_thread_init(NULL);
++	gdk_threads_init();
++
++#endif	// ENABLE_THREADS
++
+ 	GError * error = NULL;
+ 	
+ 	GOptionContext * option_context = g_option_context_new("- a GTK2 molecular modelling program");
+@@ -46,9 +53,6 @@
+ 	
+ #ifdef ENABLE_THREADS
+ 	
+-	g_thread_init(NULL);
+-	gdk_threads_init();
+-	
+ 	gdk_threads_enter();
+ 	
+ #endif	// ENABLE_THREADS

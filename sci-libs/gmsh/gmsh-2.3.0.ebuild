@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -61,10 +61,10 @@ src_compile() {
 
 src_install() {
 	einstall || die "could not install"
-	dodoc README doc/CREDITS
+	dodoc README doc/CREDITS.txt
 
 	if use doc ; then
-		dodoc doc/{FAQ,README.*} doc/texinfo/*.pdf
+		dodoc doc/{FAQ.txt,README.*} doc/texinfo/*.pdf
 	fi
 
 	if use examples ; then
