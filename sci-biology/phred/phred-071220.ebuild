@@ -24,7 +24,7 @@ pkg_nofetch() {
 }
 
 src_compile() {
-	sed -i -e '/LXFLAGS= -DX86_GCC_LINUX/ s/^#//' -e 's/CFLAGS=/CFLAGS += /' Makefile
+	sed -i -e 's/CFLAGS=/CFLAGS += /' Makefile
 	emake daev || die
 	emake || die
 }
