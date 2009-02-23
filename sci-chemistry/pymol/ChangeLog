@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pymol-1.2_beta4 (23 Feb 2009)
+
+  23 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/pymol-1.2_beta4-data-path.patch,
+  +files/pymol-1.2_beta4-shaders.patch, +pymol-1.2_beta4.ebuild:
+  bumped to beta4 @ revision 3615
+
   20 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +sci-chemistry/pymol/files/pymol-1.2_beta3-data-path.patch,
   +sci-chemistry/pymol/files/pymol-1.2_beta3-shaders.patch:
