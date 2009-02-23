@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/gmsh
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  23 Feb 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  Version bump.
 
   04 Dec 2008; Oliver Borm (boroli) <oli.borm@web.de> -gmsh-2.2.5.ebuild,
   -files/gmsh-2.2.5_hdf5.patch, -files/gmsh-2.2.5_metis.patch,
