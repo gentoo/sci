@@ -1,0 +1,23 @@
+--- gmsh-2.3.0/configure.orig	2009-02-22 15:11:19.000000000 +0100
++++ gmsh-2.3.0/configure	2009-02-22 15:11:55.000000000 +0100
+@@ -5012,7 +5012,7 @@
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lcgns  $LIBS"
++LIBS="-lcgns -lhdf5 $LIBS"
+ cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -5072,9 +5072,9 @@
+ 
+     BO="${BO} Cgns"
+     if test "x${CGNS_PREFIX}" = "x"; then
+-      GMSH_LIBS="${GMSH_LIBS} -lcgns"
++      GMSH_LIBS="${GMSH_LIBS} -lcgns -lhdf5"
+     else
+-      GMSH_LIBS="${GMSH_LIBS} -L${CGNS_PREFIX}/lib -lcgns"
++      GMSH_LIBS="${GMSH_LIBS} -L${CGNS_PREFIX}/lib -lcgns -lhdf5 "
+       FLAGS="${FLAGS} -I${CGNS_PREFIX}/include"
+     fi
+   fi
