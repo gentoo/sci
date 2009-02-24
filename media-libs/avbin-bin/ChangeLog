@@ -1,6 +1,13 @@
 # ChangeLog for media-libs/avbin
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*avbin-bin-7 (24 Feb 2009)
+
+  24 Feb 2009; Andrey Grozin <grozin@gentoo.org>
+  -media-libs/avbin-bin/avbin-bin-6.ebuild,
+  +media-libs/avbin-bin/avbin-bin-7.ebuild:
+  Version bump
 
 *avbin-bin-6 (26 Aug 2008)
 
