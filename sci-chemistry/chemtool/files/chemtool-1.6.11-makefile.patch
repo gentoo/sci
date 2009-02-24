@@ -1,0 +1,12 @@
+diff -Naur chemtool-1.6.11/Makefile.in chemtool-1.6.11.new/Makefile.in
+--- chemtool-1.6.11/Makefile.in	2007-08-26 07:53:59.000000000 -0400
++++ chemtool-1.6.11.new/Makefile.in	2008-04-26 08:52:33.000000000 -0400
+@@ -230,7 +230,7 @@
+ AM_CPPFLAGS = -I. -I$(srcdir) @GTK_CFLAGS@
+ 
+ # Link time dependencies.
+-LDADD = @LIBINTL@ @GTK_LIBS@
++LDADD = @LIBINTL@ @GTK_LIBS@ @EMFLIBS@
+ 
+ # Additional files to be distributed.
+ EXTRA_DIST = autogen.sh autoclean.sh

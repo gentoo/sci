@@ -1,0 +1,15 @@
+# ChangeLog for sci-chemistry/chemtool
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*chemtool-1.6.9-r1 (24 Feb 2009)
+*chemtool-1.6.11 (24 Feb 2009)
+*chemtool-1.6.10 (24 Feb 2009)
+
+  24 Feb 2009; Reinis Danne <rei4dan@gmail.com>
+  +chemtool-1.6.9-r1.ebuild.orig, +chemtool-1.6.10.ebuild.orig,
+  +files/chemtool-1.6.11-makefile.patch, +metadata.xml,
+  +chemtool-1.6.10.ebuild, +chemtool-1.6.11.ebuild,
+  +chemtool-1.6.9-r1.ebuild:
+  Make menu entry, update header, bug #219528
+
