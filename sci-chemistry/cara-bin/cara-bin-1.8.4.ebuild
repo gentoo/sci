@@ -5,30 +5,34 @@
 MY_PN="${PN%%-bin}"
 MY_P="${MY_PN}_${PV}"
 
-DESCRIPTION="CARA is the application for the analysis of NMR spectra and computer aided resonance assignment"
+DESCRIPTION="An application for the analysis of NMR spectra and Computer Aided Resonance Assignment"
 SRC_URI="http://www.cara.nmr-software.org/downloads/${MY_P}_linux.gz
 		 ftp://ftp.mol.biol.ethz.ch/software/${MY_PN}/Start1.2.cara"
 HOMEPAGE="www.nmr.ch"
 RESTRICT="mirror"
 LICENSE="CARA"
 SLOT="0"
-KEYWORDS="-* ~x86"
+KEYWORDS="-* ~amd64 ~x86"
 IUSE=""
-RDEPEND="x11-libs/libXext
-		 x11-libs/libX11
-		 media-libs/fontconfig
-		 x11-libs/libSM
-		 x11-libs/libICE
-		 media-libs/freetype
-		 x11-libs/libXrender
-		 x11-libs/libXrandr
-		 x11-libs/libXcursor
-		 x11-libs/libXi
-		 x11-libs/libXau
-		 x11-libs/libXdmcp
-		 sys-libs/zlib
-		 dev-libs/expat
-		 x11-libs/libXfixes"
+RDEPEND="x86? ( sys-libs/libstdc++-v3
+		x11-libs/libXext
+		x11-libs/libX11
+		media-libs/fontconfig
+		x11-libs/libSM
+		x11-libs/libICE
+		media-libs/freetype
+		x11-libs/libXrender
+		x11-libs/libXrandr
+		x11-libs/libXcursor
+		x11-libs/libXi
+		x11-libs/libXau
+		x11-libs/libXdmcp
+		sys-libs/zlib
+		dev-libs/expat
+		x11-libs/libXfixes )
+	amd64? ( app-emulation/emul-linux-x86-compat
+		 app-emulation/emul-linux-x86-baselibs
+		 app-emulation/emul-linux-x86-xlibs )"
 DEPEND=""
 
 src_unpack(){
