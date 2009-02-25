@@ -13,9 +13,7 @@ LICENSE="free-noncomm"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE="smp X"
-RDEPEND="X? ( x11-libs/libXdmcp
-			  x11-libs/libXau
-			  x11-libs/libX11 )"
+RDEPEND="X? ( sci-visualization/xds-viewer )"
 DEPEND=""
 
 pkg_nofetch(){
@@ -37,9 +35,6 @@ src_install() {
 	else
 		rm "${D}"/opt/${PN}/*par
 	fi
-	if ! use X; then
-		rm "${D}"/opt/${PN}/VIEW
-	fi
 	dohtml -r XDS_html_doc/*
 	dodoc XDS_html_doc/html_doc/INPUT_templates/*
 
@@ -50,6 +45,6 @@ src_install() {
 }
 
 pkg_postinst() {
-	elog "This package will expire on December 31, 2008"
+	elog "This package will expire on December 31, 2009"
 }
 
