@@ -10,5 +10,5 @@
   +files/chemtool-1.6.11-makefile.patch, +metadata.xml,
   +chemtool-1.6.10.ebuild, +chemtool-1.6.11.ebuild,
   +chemtool-1.6.9-r1.ebuild:
-  Make menu entry, update header, bug #219528
+  Make menu entry (thanks Chris Mayo), update header, bug #219528
 
