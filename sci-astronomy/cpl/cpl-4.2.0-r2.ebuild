@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=2
+JAVA_PKG_OPT_USE=gasgano
 inherit java-pkg-opt-2
 
 DESCRIPTION="ESO common pipeline library for astronomical data reduction"
@@ -19,6 +20,7 @@ RDEPEND="=sci-libs/cfitsio-2.510*
 	sci-astronomy/wcslib
 	gasgano? ( sci-astronomy/gasgano )"
 DEPEND="${RDEPEND}
+	doc? ( app-doc/doxygen )
 	gasgano? ( >=virtual/jdk-1.5 )"
 
 src_configure() {
@@ -31,7 +33,12 @@ src_configure() {
 		--with-wcs="/usr" \
 		${myconf}
 }
-
+src_compile() {
+	emake || die "emake failed"
+	if use doc; then
+		doxygen Doxyfile || die
+	fi
+}
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc README AUTHORS NEWS TODO BUGS ChangeLog
