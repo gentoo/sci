@@ -1,7 +1,0 @@
-# ChangeLog for sci-biology/phred
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  20 Feb 2009; weaver <weaver@gentoo.org> ChangeLog:
-  New package, ebuild written by me, thanks to Martin Mokrejs
-
