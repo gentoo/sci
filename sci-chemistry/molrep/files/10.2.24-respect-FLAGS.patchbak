@@ -1,0 +1,48 @@
+--- src/makefile	2009-02-27 16:51:46.492890717 +0100
++++ src/makefile.new	2009-02-27 16:52:18.295619642 +0100
+@@ -19,31 +19,31 @@
+ # -----------------------------
+ 
+ molrep.o: molrep.f 
+-	$(MR_FORT) -c molrep.f 
++	$(MR_FORT) $(FFLAGS) -c molrep.f molrep_version.fh
+ molrep1.o: molrep1.f 
+-	$(MR_FORT) -c molrep1.f 
++	$(MR_FORT) $(FFLAGS) -c molrep1.f mr_crd_com.fh
+ molrep2.o: molrep2.f 
+-	$(MR_FORT) -c molrep2.f 
++	$(MR_FORT) $(FFLAGS) -c molrep2.f mr_crd_com.fh
+ molrep3.o: molrep3.f 
+-	$(MR_FORT) -c molrep3.f 
++	$(MR_FORT) $(FFLAGS) -c molrep3.f mr_crd_com.fh
+ molrep_prog.o: molrep_prog.f 
+-	$(MR_FORT) -c molrep_prog.f 
++	$(MR_FORT) $(FFLAGS) -c molrep_prog.f mr_crd_com.fh mr_crd2_com.fh
+ molrep_prog1.o: molrep_prog1.f 
+-	$(MR_FORT) -c molrep_prog1.f 
++	$(MR_FORT) $(FFLAGS) -c molrep_prog1.f mr_crd_com.fh
+ molrep_prog2.o: molrep_prog2.f 
+-	$(MR_FORT) -c molrep_prog2.f 
++	$(MR_FORT) $(FFLAGS) -c molrep_prog2.f mr_crd_com.fh
+ molrep_subr.o: molrep_subr.f  
+-	$(MR_FORT) -c molrep_subr.f 
++	$(MR_FORT) $(FFLAGS) -c molrep_subr.f mr_crd_com.fh mr_crd2_com.fh
+ molrep_sym.o: molrep_sym.f  
+-	$(MR_FORT) -c molrep_sym.f 
++	$(MR_FORT) $(FFLAGS) -c molrep_sym_ccp4.f 
+ main_molrep_mtz.o: main_molrep_mtz.f molrep_version.fh molrep_keywords.fh 
+-	$(MR_FORT) -c main_molrep_mtz.f 
++	$(MR_FORT) $(FFLAGS) -c main_molrep_mtz.f 
+ molrep_unix.o: molrep_unix.f 
+-	$(MR_FORT) -c molrep_unix.f 
++	$(MR_FORT) $(FFLAGS) -c molrep_unix_ccp4.f 
+ molrep_dummy.o: molrep_dummy.f 
+-	$(MR_FORT) -c molrep_dummy.f 
++	$(MR_FORT) $(FFLAGS) -c molrep_dummy.f 
+ 
+ molrep: $(OBJS)
+-	$(MR_FORT) -o $(BIN)/molrep $(OBJSL) $(MR_LIBRARY)
++	$(MR_FORT) $(FFLAGS) $(LDFLAGS) -o $(BIN)/molrep $(OBJSL) $(MR_LIBRARY)
+ 
+ # --------------------------------
+
