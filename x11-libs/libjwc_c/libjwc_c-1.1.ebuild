@@ -19,4 +19,5 @@ DEPEND="${RDEPEND}"
 
 src_install() {
 	emake DESTDIR="${D}" install || die
+	dodoc README NEWS
 }

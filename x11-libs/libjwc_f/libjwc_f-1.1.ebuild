@@ -27,4 +27,6 @@ src_prepare() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die
+	dodoc NEWS README
+	dohtml doc/*
 }
