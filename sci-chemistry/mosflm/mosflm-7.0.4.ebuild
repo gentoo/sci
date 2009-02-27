@@ -15,9 +15,9 @@ LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-RDEPEND="sci-libs/ccp4-libs
-	>=sci-chemistry/ccp4-6.1[X]"
+RDEPEND="sci-libs/ccp4-libs"
 DEPEND="${RDEPEND}
+	x11-libs/libxdl_view
 	app-shells/tcsh
 	media-libs/jpeg"
 # Needs older version as current, perhaps we can fix that next release
