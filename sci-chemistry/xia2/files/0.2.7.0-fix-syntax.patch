@@ -1,0 +1,55 @@
+--- xia2-0.2.7.0.orig/Applications/xia2find.py	2008-08-03 21:17:23.000000000 -0700
++++ xia2-0.2.7.0/Applications/xia2find.py	2008-08-03 21:17:39.000000000 -0700
+@@ -38,7 +38,7 @@
+ from Experts.FindImages import image2template_directory
+ 
+ known_image_extensions = ['img', 'mccd', 'mar2300', 'mar1200', 'mar3450',
+-                          'osc', 'cbf', 'mar2000']]
++                          'osc', 'cbf', 'mar2000']
+ known_sweeps = { }
+ 
+ def is_image_name(file):
+--- xia2-0.2.7.0.orig/Experts/DRStrategyExpert.py	2008-08-03 21:17:23.000000000 -0700
++++ xia2-0.2.7.0/Experts/DRStrategyExpert.py	2008-08-03 21:22:37.000000000 -0700
+@@ -48,24 +48,24 @@
+     'default':{
+     'score':1,
+     'pipeline':{
+-    'indexer':'labelit', 'integrater':'xds', 'scaler':'xds-hybrid'}
++    'indexer':'labelit', 'integrater':'xds', 'scaler':'xds-hybrid'},
+     'depends-on':['labelit.screen', 'xds', 'xscale', 'scala', 'combat',
+                   'pointless-1.1.0.4']},
+     'default':{
+     'score':2,
+     'pipeline':{
+-    'indexer':'labelit', 'integrater':'mosflm', 'scaler':'mosflm'}
++    'indexer':'labelit', 'integrater':'mosflm', 'scaler':'mosflm'},
+     'depends-on':['labelit.screen', 'mosflm', 'scala', 'reindex',
+                   'pointless-1.1.0.4']},
+     'mosaic':{
+     'score':1,
+     'pipeline':{
+-    'indexer':'labelit', 'integrater':'xds', 'scaler':'xds-hybrid'}
++    'indexer':'labelit', 'integrater':'xds', 'scaler':'xds-hybrid'},
+     'depends-on':['labelit.screen', 'xds', 'xscale', 'scala', 'combat',
+                   'pointless-1.1.0.4']},
+     'mosaic':{
+     'score':2,
+     'pipeline':{
+-    'indexer':'xds', 'integrater':'xds', 'scaler':'xds'}
++    'indexer':'xds', 'integrater':'xds', 'scaler':'xds'},
+     'depends-on':['xds', 'xscale']}
+     }
+--- xia2core-0.2.7.0.orig/Python/Examples/CCP4/Cad.py	2008-08-03 21:40:37.000000000 -0700
++++ xia2core-0.2.7.0/Python/Examples/CCP4/Cad.py	2008-08-03 21:45:24.000000000 -0700
+@@ -49,8 +49,8 @@
+             self.add_command_line(hklin)
+ 
+             self.set_task('Rewriting reflections %s => %s' % 
+-                      `   (os.path.split(hklin)[-1],
+-                       `   os.path.split(self.getHklout())[-1]))
++                         (os.path.split(hklin)[-1], 
++                          os.path.split(self.getHklout())[-1]))
+ 
+             self.start()
+ 
