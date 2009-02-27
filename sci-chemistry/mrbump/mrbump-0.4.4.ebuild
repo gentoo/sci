@@ -39,11 +39,13 @@ src_compile(){
 src_install(){
 
 	insinto "${CCP4I_TOP}"
-	doins -r ccp4i/MrBUMP/{help,scripts,tasks,templates} || \
+	doins -r ccp4i/{MrBUMP-ccp4i.tar.gz,MrBUMP/{help,scripts,tasks,templates}} || \
 	die "failed to install interface"
 
 	insinto /usr/share/${PN}
-	doins -r share/{data,include} || die "failed to instal mrbump data"
+	doins -r share/${PN}/{data,include} || die "failed to install mrbump data"
+
+	dobin share/${PN}/bin/* || die "failed to install binaries"
 
 	dodoc README.txt
 	dohtml html/mrbump_doc.html

@@ -15,11 +15,12 @@ LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-RDEPEND="sci-libs/ccp4-libs"
+RDEPEND="sci-libs/ccp4-libs
+	>=sci-chemistry/ccp4-6.1[X]"
 DEPEND="${RDEPEND}
 	app-shells/tcsh
 	media-libs/jpeg"
-# brocken with that
+# Needs older version as current, perhaps we can fix that next release
 #	sci-libs/cbflib
 
 S="${WORKDIR}/${MY_P}"
