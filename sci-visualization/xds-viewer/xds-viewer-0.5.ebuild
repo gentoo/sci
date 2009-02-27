@@ -16,9 +16,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 IUSE=""
-RDEPEND="sci-chemistry/xds-bin"
-DEPEND="${RDEPEND}
-	>=dev-util/cmake-2.6
-	x11-libs/qt-gui
+RDEPEND="x11-libs/qt-gui
 	dev-libs/glib:2
 	media-libs/libpng"
+DEPEND=">=dev-util/cmake-2.6"
+PDEPEND="sci-chemistry/xds-bin"
