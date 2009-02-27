@@ -8,7 +8,7 @@ inherit cmake-utils
 
 DESCRIPTION="Viewing X-ray diffraction and control images in the context of data processing by the XDS"
 HOMEPAGE="http://xds-viewer.sourceforge.net/"
-SRC_URI="mirror:/sourceforge/${PN}/${P}.tar.gz"
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 
