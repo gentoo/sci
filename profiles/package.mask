@@ -30,3 +30,7 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher (jlec)
+# jlec@j-schmitz.net
+# still not ready
+=sci-chemistry/ccp4-6.1.1
