@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*bkchem-0.13.0-r1 (28 Feb 2009)
+
+  28 Feb 2009; Reinis Danne <rei4dan@gmail.com>
+  +files/bkchem-0.13.0-oasa_import.patch, +files/bkchem-0.13.0-setup.patch,
+  +bkchem-0.13.0-r1.ebuild:
+  Split out OASA library (now in sci-libs/oasa)
+
 *bkchem-0.13.0 (23 Feb 2009)
 
   23 Feb 2009; Reinis Danne <rei4dan@gmail.com> +bkchem-0.13.0.ebuild:

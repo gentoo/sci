@@ -1,0 +1,35 @@
+--- bkchem/paper.py.orig	2009-02-28 16:07:23.000000000 +0200
++++ bkchem/paper.py	2009-02-28 16:07:55.000000000 +0200
+@@ -27,8 +27,8 @@
+ import classes
+ import arrow
+ from molecule import molecule
+-from oasa.oasa.transform import transform 
+-from oasa.oasa.transform3d import transform3d
++from oasa.transform import transform 
++from oasa.transform3d import transform3d
+ import misc
+ from temp_manager import template_manager
+ import string
+--- bkchem/temp_manager.py.orig	2009-02-28 16:14:53.000000000 +0200
++++ bkchem/temp_manager.py	2009-02-28 16:15:33.000000000 +0200
+@@ -24,7 +24,7 @@
+ """template manager resides here"""
+ 
+ import math
+-from oasa.oasa.transform import transform
++from oasa.transform import transform
+ from molecule import molecule
+ import xml.dom.minidom as dom
+ from warnings import warn
+--- bkchem/plugins/gtml.py.orig	2009-02-28 16:32:22.000000000 +0200
++++ bkchem/plugins/gtml.py	2009-02-28 16:32:36.000000000 +0200
+@@ -26,7 +26,7 @@
+ from bond import bond
+ from classes import plus, arrow
+ from reaction import reaction
+-from oasa.oasa.transform import transform
++from oasa.transform import transform
+ 
+ import math
+ import xml.sax
