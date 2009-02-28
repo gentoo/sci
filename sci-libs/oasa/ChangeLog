@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/oasa
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*oasa-0.13.0 (28 Feb 2009)
+
+  28 Feb 2009; Reinis Danne <rei4dan@gmail.com> +metadata.xml,
+  +oasa-0.13.0.ebuild:
+  New package sci-libs/oasa (split from BKChem).
+
