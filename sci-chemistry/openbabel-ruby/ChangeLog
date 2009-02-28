@@ -2,7 +2,7 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  21 Feb 2009; <reinis@gentoo.org> openbabel-ruby-2.2.0.ebuild:
+  21 Feb 2009; Reinis Danne <rei4dan@gmail.com> openbabel-ruby-2.2.0.ebuild:
   sci-chemistry/openbabel-ruby: Use EAPI=2, fix swig use
 
 *openbabel-ruby-2.2.0 (10 Feb 2009)
