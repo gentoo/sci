@@ -10,13 +10,15 @@ DESCRIPTION="Python bindings for OpenBabel (including Pybel)"
 HOMEPAGE="http://openbabel.sourceforge.net/"
 SRC_URI="mirror://sourceforge/openbabel/openbabel-${PV}.tar.gz"
 
-KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~amd64"
 SLOT="0"
 LICENSE="GPL-2"
 IUSE="swig"
 
 RDEPEND="~sci-chemistry/openbabel-2.2.0
-	dev-lang/python"
+	dev-lang/python
+	dev-python/imaging
+	sci-libs/oasa"
 
 DEPEND="${RDEPEND}
 	swig? ( >=dev-lang/swig-1.3.29[python] )"
@@ -51,10 +53,3 @@ src_install() {
 	dodoc README
 }
 
-pkg_postinst() {
-	echo
-	elog "To be able to fully use Pybel you might need to install additional"
-	elog "libraries:"
-	elog "OASA - part of BKChem package"
-	elog "PIL  - dev-python/imaging"
-}
