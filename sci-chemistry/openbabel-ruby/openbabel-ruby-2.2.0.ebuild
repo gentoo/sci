@@ -10,7 +10,7 @@ DESCRIPTION="Ruby bindings for OpenBabel"
 HOMEPAGE="http://openbabel.sourceforge.net/"
 SRC_URI="mirror://sourceforge/openbabel/openbabel-${PV}.tar.gz"
 
-KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~amd64"
 SLOT="0"
 LICENSE="GPL-2"
 IUSE="swig"
