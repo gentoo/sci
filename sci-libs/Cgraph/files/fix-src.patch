@@ -1,0 +1,42 @@
+diff -uarN source/cgaxes.h source.new/cgaxes.h
+--- source/cgaxes.h	1996-09-02 21:20:34.000000000 +0200
++++ source.new/cgaxes.h	2009-03-01 18:53:22.000000000 +0100
+@@ -10,7 +10,7 @@
+     float cgxticks,cgyticks;	/* tick spacing for linear graphs	*/
+     double cgldecy,cgldecx; 	/* the upper end of the lowest decade of */
+ 				/*   a log graph */
+-    double cgudecy,cgudecx; 	/* the lower end of the highest decade 
++    double cgudecy,cgudecx; 	/* the lower end of the highest decade */
+ 				/*  of a log graph */
+     int cgxtix,cgytix;	   	/* used for logarithmic tick marks	*/
+     int cgprecision=	4;  	/* max # digits on screen graphs	*/
+diff -uarN source/gfont.c source.new/gfont.c
+--- source/gfont.c	1998-08-31 19:27:43.000000000 +0200
++++ source.new/gfont.c	2009-03-01 18:46:27.000000000 +0100
+@@ -5,7 +5,7 @@
+ /*	   9-09-87  starting					  */
+ /******************************************************************/
+ 
+-/*	Modified on 5/13/92 to work on NeXt's
++/*	Modified on 5/13/92 to work on NeXt's */
+ 
+ 
+ #include <string.h>								  
+diff -uarN source/grset.c source.new/grset.c
+--- source/grset.c	1996-09-02 21:20:30.000000000 +0200
++++ source.new/grset.c	2009-03-01 18:46:07.000000000 +0100
+@@ -14,10 +14,10 @@
+ 
+ int cg_reset(void)
+ {
+-    lw_aorigin(-cgxorig,-cgyorig); /* Go to the bottom left corner of the page */
+-    lw_linewidth(1.0);
+-    lw_gray(0.0);
+-    lw_dash(0,0.);
++    cg_aorigin(-cgxorig,-cgyorig); /* Go to the bottom left corner of the page */
++    cg_linewidth(1.0);
++    cg_gray(0.0);
++    cg_dash(0,0.);
+     return(0);
+ }
+ 

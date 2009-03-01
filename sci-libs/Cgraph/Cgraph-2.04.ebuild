@@ -22,8 +22,8 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}/${PN}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/as-needed.patch
 	epatch "${FILESDIR}"/Makefile.patch
+	epatch "${FILESDIR}"/fix-src.patch
 }
 
 src_compile() {
@@ -42,4 +42,7 @@ src_install() {
 		DESTDIR="${D}" \
 		LIB_DIR=/usr/$(get_libdir) \
 	install || die "install failed"
+	dolib.so libcgraph.so.0.0.0
+	dosym libcgraph.so.0.0.0 /usr/$(get_libdir)/libcgraph.so.0
+	dosym libcgraph.so.0.0.0 /usr/$(get_libdir)/libcgraph.so
 }
