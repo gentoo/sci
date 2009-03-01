@@ -29,11 +29,11 @@
 -	ranlib -s $(LIB_DIR)/$(LIB_FILE)
 -	cp cgraph.h $(INCLUDE_DIR)
 +	mkdir -p $(DESTDIR)/$(LIB_DIR)/
-+	mkdir -p $(DESTDIR)/$(INCLUDE_DIR)/
++	mkdir -p $(DESTDIR)/$(INCLUDE_DIR)/cgraph/
 +	cp $(LIB_FILE) $(DESTDIR)/$(LIB_DIR)/
 +	cp $(LIB_FILE_SO) $(DESTDIR)/$(LIB_DIR)/
 +	ranlib $(DESTDIR)/$(LIB_DIR)/$(LIB_FILE)
-+	cp cgraph.h $(DESTDIR)/$(INCLUDE_DIR)/
++	cp cgraph.h $(DESTDIR)/$(INCLUDE_DIR)/cgraph/
  
  # For NeXT
  $(LIB_FILE):  $(OBJS) Makefile
@@ -41,7 +41,7 @@
  	ar r $(LIB_FILE) $(OBJS)
 -	ranlib -s $(LIB_FILE)
 +	ranlib $(LIB_FILE)
-+	$(CC) $(CCFLAGS) $(LDFLAGS) -shared -o $(LIB_FILE_SO) $(OBJS)
++	$(CC) $(CCFLAGS) $(LDFLAGS) -shared -Wl,-soname,$(LIB_FILE_SO) -o $(LIB_FILE_SO) $(OBJS)
  
  # For Unix
  #$(LIB_FILE):  $(OBJS) Makefile

@@ -16,7 +16,18 @@ KEYWORDS="~amd64 ~x86"
 IUSE="X"
 RDEPEND="X? ( sci-libs/pgplot )
 	 sci-libs/gsl
-	 "
+	 sci-libs/Cgraph"
 DEPEND="${RDEPEND}"
 
+S="${WORKDIR}/${PN}"
 
+src_compile() {
+	rm -rvf cgraph-2.04 gsl-1.4
+	cd chooch-5.0.2
+	econf \
+		$(use_with X x) \
+		--with-gsl-prefix="/usr" \
+		--with-cgraph-prefix="/usr"
+
+	emake -j1|| die
+}
