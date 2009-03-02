@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils flag-o-matic toolchain-funcs versionator
+inherit eutils flag-o-matic toolchain-funcs
 
 MY_P="CBFlib_${PV}"
 
@@ -31,37 +31,23 @@ src_unpack(){
 
 	cp Makefile_LINUX Makefile
 
-#	if [[ "$(gcc-major-version)$(gcc-minor-version)" -ge 42 ]] && ( use x86 || use amd64 ) ; then
-	if version_is_at_least "4.2" "$(gcc-version)" && ( use x86 || use amd64 ) ; then
-	sed -e "330,375s:^CFLAGS.*$:CFLAGS  = ${CFLAGS} -ansi -D_POSIX_SOURCE:g" \
-	    -e "330,375s:^F90FLAGS.*$:F90FLAGS = ${FFLAGS} -fno-range-check:g" \
-	    -i Makefile
-	else
-	sed -e "330,375s:^F90LDFLAGS.*$:F90LDFLAGS = -bind_at_load:g" \
-	    -i Makefile
-	fi
-
-	append-flags -fno-strength-reduce
-
-	sed -e "1,50s:^CFLAGS.*$:CFLAGS  = ${CFLAGS}:g" \
-	    -i getopt-1.1.4_cbf/Makefile
-
-	epatch "${FILESDIR}"/HOMEDIR.patch
-
-	if use test; then
-		epatch "${FILESDIR}"/bzip-test.patch
-	fi
+	epatch "${FILESDIR}"/Makefile.patch
 }
 
 src_compile(){
+	append-fflags -fno-range-check
+
 	emake -j1 \
 	CC="$(tc-getCC)" \
-	LDFLAGS=${LDFLAGS} \
-	all
+	C++="$(tc-getCXX)" \
+	F90C="$(tc-getFC)" \
+	F90FLAGS="${FFLAGS}" \
+	LDFLAGS="${LDFLAGS}" all || \
+	die "make failed"
 }
 
 src_test(){
-	emake -j1 tests
+	emake -j1 tests || die "test failed"
 }
 
 src_install() {
