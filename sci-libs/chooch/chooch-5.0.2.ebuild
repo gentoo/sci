@@ -1,8 +1,8 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# inherit
+# inherit autotools
 
 DESCRIPTION="a program that will automatically determine values of the anomalous scattering factors"
 HOMEPAGE="http://www.gwyndafevans.co.uk/id2.html"
@@ -16,13 +16,15 @@ KEYWORDS="~amd64 ~x86"
 IUSE="X"
 RDEPEND="X? ( sci-libs/pgplot )
 	 sci-libs/gsl
-	 sci-libs/Cgraph"
+	 sci-libs/Cgraph
+	 virtual/blas
+	 virtual/cblas"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${PN}"
 
 src_compile() {
-	rm -rvf cgraph-2.04 gsl-1.4
+	rm -rf cgraph-2.04 gsl-1.4
 	cd chooch-5.0.2
 	econf \
 		$(use_with X x) \
