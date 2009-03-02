@@ -38,6 +38,7 @@ RDEPEND=">=sci-libs/gsl-1.3
 	sci-chemistry/refmac
 	sci-chemistry/probe
 	sci-libs/ccp4-libs
+	sci-libs/clipper
 	dev-python/pygtk
 	gnome-base/librsvg
 	>=dev-libs/gmp-4.2.2-r2"
