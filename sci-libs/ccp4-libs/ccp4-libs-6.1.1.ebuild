@@ -82,6 +82,9 @@ src_unpack() {
 	# gcc-4.3 fixes
 	ccp_patch "${FILESDIR}"/${PV}-clipper-mmdbold-ggc-4.3.patch
 
+	# link fixes
+	ccp_patch "${FILESDIR}"/${PV}-link-proberly.patch
+
 	einfo "Done." # done applying Gentoo patches
 	echo
 
@@ -134,7 +137,8 @@ src_compile() {
 	# Default to -O2 if FFLAGS is unset
 	export FC=${FORTRANC}
 	export FOPTIM=${FFLAGS:- -O2}
-
+#	export SHARE_LIB="ld -shared -soname libmmdb.so --whole-archive -o libmmdb.so libmmdb.a ../libccif.a; \
+#			  ld -shared -soname libccp4c.so --whole-archive -o libccp4c.so libccp4c.a ../libccif.a"
 	# Can't use econf, configure rejects unknown options like --prefix
 	./configure \
 		--onlylibs \
