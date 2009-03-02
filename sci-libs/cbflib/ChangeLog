@@ -2,14 +2,6 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*cbflib-0.7.9-r1 (02 Mar 2009)
-
-  02 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
-  -files/HOMEDIR.patch, +files/Makefile.patch, -files/bzip-test.patch,
-  +cbflib-0.7.9-r1.ebuild, -cbflib-0.7.9.ebuild:
-  total cleanup of ebuild
-  Permissions of include fixed
-
   20 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> ChangeLog:
   Initial add
 
