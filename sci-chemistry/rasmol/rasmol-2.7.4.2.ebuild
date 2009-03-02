@@ -20,7 +20,8 @@ IUSE="gtk"
 RDEPEND="x11-libs/libXext
 	x11-libs/libXi
 	sci-libs/cbflib
-	gtk? ( x11-libs/gtk+:2 )"
+	gtk? ( x11-libs/gtk+:2
+		x11-libs/vte )"
 DEPEND="${RDEPEND}
 	x11-proto/inputproto
 	x11-proto/xextproto
@@ -56,7 +57,7 @@ src_install () {
 	insinto /usr/${libdir}/${PN}
 	doins doc/rasmol.hlp || die
 	dobin src/rasmol || die
-	dodoc INSTALL PROJECTS README TODO doc/*.{ps,pdf}.gz doc/rasmol.txt.gz
+	dodoc INSTALL PROJECTS *txt doc/*.{ps,pdf}.gz doc/rasmol.txt.gz
 	doman doc/rasmol.1
 	insinto /usr/${libdir}/${PN}/databases
 	doins data/*

@@ -2,6 +2,10 @@
 # Copyright 2002-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  rasmol-2.7.4.2.ebuild:
+  x11-libs/vte as dep added
+
   20 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> ChangeLog:
   checkin to sci overlay
 
