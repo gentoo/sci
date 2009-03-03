@@ -136,6 +136,11 @@ src_unpack() {
 	# libraries come from sci-libs/ccp4-libs
 	ccp_patch "${FILESDIR}"/${PV}-dont-build-libs.patch
 
+	# coreutils installs a binary called truncate
+	ccp_patch "${FILESDIR}"/${PV}-rename-truncate.patch
+	mv ./doc/truncate.doc ./doc/ftruncate.doc || die
+	mv ./html/truncate.html ./html/ftruncate.html || die
+
 	# mosflm has its own ebuild
 #	ccp_patch "${FILESDIR}"/${PV}-dont-build-mosflm.patch
 
@@ -231,6 +236,20 @@ src_compile() {
 	emake fsplit -j1 || die
 	popd 2>/dev/null
 
+	# We do this manually, since disabling the clipper libraries also
+	# disables the clipper programs
+	pushd src/clipper_progs 2>/dev/null
+	econf \
+		--prefix="${S}" \
+		--with-ccp4="${S}" \
+		--with-clipper=/usr \
+		--with-fftw=/usr \
+		--with-mmdb=/usr \
+		CXX=$(tc-getCXX) \
+		|| die
+	emake || die
+	popd 2>/dev/null
+
 	emake -j1 || die "emake failed"
 }
 
@@ -247,6 +266,12 @@ src_install() {
 
 	# if we don't make this, a ton of programs fail to install
 	mkdir "${S}"/bin || die
+
+	# We do this manually, since disabling the clipper libraries also
+	# disables the clipper programs
+	pushd "${S}"/src/clipper_progs 2>/dev/null
+	emake install || die
+	popd 2>/dev/null
 
 	einstall || die "install failed"
 
@@ -291,21 +316,6 @@ src_install() {
 			insinto /usr/$(get_libdir)
 			doins ${file} || die
 		fi
-	done
-
-	# Fix libdir in all *.la files
-	sed -i \
-		-e "s:^\(libdir=\).*:\1\'/usr/$(get_libdir)\':g" \
-		"${D}"/usr/$(get_libdir)/*.la
-
-	# Library symlinks
-	local LIBNAMES="libjwc_c.so.0.1.1
-			libjwc_f.so.0.1.1
-			libxdl_viewextra.so.0.0.0
-			libxdl_view.so.2.0.0"
-
-	for LIBNAME in ${LIBNAMES}; do
-		library_dosym ${LIBNAME}
 	done
 
 	# Setup scripts
@@ -381,36 +391,4 @@ pkg_postinst() {
 # Epatch wrapper for bulk patching
 ccp_patch() {
 	EPATCH_SINGLE_MSG="  ${1##*/} ..." epatch ${1}
-}
-
-# Links libname.so, libname.so.major and libname.so.major.minor
-# to libname.so.major.minor.micro
-library_dosym() {
-	local LIBNAME LIBDIR SUFFIX CORE_LIBNAME LIB_MAJOR LIB_MINOR LIB_VERSIONS
-
-	LIBNAME=${1}
-	LIBDIR=${2:-/usr/$(get_libdir)}
-
-	# Tag / on the end of libdir if needed
-	if [[ ${LIBDIR:$((${#LIBDIR}-1)):1} != "/" ]]; then
-		LIBDIR="${LIBDIR}/"
-	fi
-
-	if [[ "${LIBNAME}" != *.so.* ]]; then
-		msg="library_dosym() requires a shared, versioned library as an argument"
-		eerror "$msg"
-		die "$msg"
-	fi
-
-	SUFFIX=${LIBNAME##*so.}
-	CORE_LIBNAME=${LIBNAME%.so.*}
-	CORE_LIBNAME="${CORE_LIBNAME}.so"
-	LIB_MAJOR=${SUFFIX%%.*}
-	LIB_MINOR=${SUFFIX#*.}
-	LIB_MINOR=${SUFFIX%%.*}
-	LIB_VERSIONS="${LIB_MAJOR} ${LIB_MAJOR}.${LIB_MINOR}"
-	for LIB_SUFFIX in .${LIB_MAJOR} ""; do
-		einfo "Calling dosym ${LIBNAME} ${LIBDIR} ${CORE_LIBNAME} ${LIB_SUFFIX}"
-		dosym ${LIBNAME} ${LIBDIR}${CORE_LIBNAME}${LIB_SUFFIX}
-	done
 }

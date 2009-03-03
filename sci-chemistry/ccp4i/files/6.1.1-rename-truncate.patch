@@ -1,0 +1,22 @@
+--- ./ccp4i/templates/truncate.com.orig	2009-03-02 23:31:04.000000000 -0800
++++ ./ccp4i/templates/truncate.com	2009-03-02 23:31:08.000000000 -0800
+@@ -11,7 +11,7 @@
+ $SYMMETRY symmetry $SPACE_GROUP
+ $CELL cell $CELL_1 $CELL_2 $CELL_3 $CELL_4 $CELL_5 $CELL_6
+ 
+-1 truncate
++1 ftruncate
+  - { [StringSame $APPLY_TRUNCATE "WILSON" ] } YES | NO
+ {[IfSet $ANOMALOUS]} anomalous 
+  - $ANOMALOUS YES | NO
+--- ./ccp4i/scripts/truncate.script.orig	2009-03-02 23:39:04.000000000 -0800
++++ ./ccp4i/scripts/truncate.script	2009-03-02 23:39:41.000000000 -0800
+@@ -45,7 +45,7 @@
+ 
+   CreateComScript truncate truncate_script
+ 
+-  set cmd "[BinPath truncate] HKLIN \"$HKLIN\""
++  set cmd "[BinPath ftruncate] HKLIN \"$HKLIN\""
+   if { ![StringSame $INPUT_DATA AMPLITUDES] } {
+     append cmd " HKLOUT \"$HKL_TRUNCATE\""
+   }

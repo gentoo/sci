@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit multilib
+inherit eutils multilib
 
 SRC="ftp://ftp.ccp4.ac.uk/ccp4"
 
@@ -22,6 +22,12 @@ RDEPEND=">=dev-lang/tk-8.3
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${MY_P}"
+
+src_unpack() {
+	unpack ${A}
+	cd "${S}"
+	epatch "${FILESDIR}"/${PV}-rename-truncate.patch
+}
 
 src_compile() {
 	:
