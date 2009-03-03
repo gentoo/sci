@@ -20,7 +20,10 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 
-	epatch "${FILESDIR}"/${PV}-as-needed.patch
+	# ccp4 provides these, and more.
+	sed -i -e "s:examples::g" "${S}"/Makefile.am
+
+	epatch "${FILESDIR}"/20081201-as-needed.patch
 
 	AT_M4DIR="config" eautoreconf
 }
