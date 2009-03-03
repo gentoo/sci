@@ -41,12 +41,12 @@ IUSE="X"
 # as do many scripts. app-office/sc can't rename its because that's the name
 # of the package.
 RDEPEND="X? (
-		x11-libs/libX11
-		x11-libs/libXt
-		x11-libs/libXaw
-		x11-libs/libxdl_view
-		x11-libs/libjwc_c
-		x11-libs/libjwc_f
+			x11-libs/libX11
+			x11-libs/libXt
+			x11-libs/libXaw
+			x11-libs/libxdl_view
+			x11-libs/libjwc_c
+			x11-libs/libjwc_f
 		)
 		>=dev-lang/tk-8.3
 		>=dev-tcltk/blt-2.4
