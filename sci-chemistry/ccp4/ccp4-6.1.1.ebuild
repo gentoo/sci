@@ -285,6 +285,7 @@ src_install() {
 		-e "s~^\(.*setenv CLIBD .*\$CCP4\).*~\1/share/ccp4/data~g" \
 		-e "s~^\(.*setenv CLIBD_MON .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*setenv MOLREPLIB .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
+		-e "s~^\(.*setenv PYTHONPATH .*\)\$CCP4.*~\1\$CCP4/share/ccp4/python~g" \
 		-e "s~^\(.*setenv CCP4_BROWSER.*\).*~\1 firefox~g" \
 		"${S}"/include/ccp4.setup* || die
 
