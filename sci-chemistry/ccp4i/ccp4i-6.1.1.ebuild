@@ -26,7 +26,14 @@ S="${WORKDIR}/${MY_P}"
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
+
+	# conflicts w/ coreutils
 	epatch "${FILESDIR}"/${PV}-rename-truncate.patch
+
+	sed -i \
+		-e "s:share smartie:share ccp4 smartie:g" \
+		"${S}"/etc/configure.def.dist \
+		"${S}"/ccp4i/imosflm/src/processingwizard.tcl
 }
 
 src_compile() {
