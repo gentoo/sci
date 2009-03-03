@@ -96,9 +96,10 @@ src_compile() {
 	# Additional USE flag usage
 	check_use openmp
 	MYCONF="${MYCONF} --enable-openmp-if-possible=${USE_openmp}"
-	use threads && USEthreads="--enable-boost-threads" && \
+#	use threads && USEthreads="--enable-boost-threads" && \
+	use threads && \
 	ewarn "If using boost threads openmp support is disabled"
-	MYCONF="${MYCONF} ${USE_threads} --scan-boost"
+	MYCONF="${MYCONF} $(use_enable threads boost-threads) --scan-boost"
 
 	mkdir "${MY_B}" && MYCONF="${MYCONF} --current_working_directory=${MY_B}"
 	cd "${MY_B}"
