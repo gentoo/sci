@@ -4,7 +4,7 @@
 
 inherit toolchain-funcs
 
-DESCRIPTION="A Modular, Open-Source whole genome assembler"
+DESCRIPTION="Distance Based OTU and Richness Determination"
 HOMEPAGE="http://schloss.micro.umass.edu/software/dotur.html"
 SRC_URI="http://schloss.micro.umass.edu/software/${PN}/${P}.tgz"
 
