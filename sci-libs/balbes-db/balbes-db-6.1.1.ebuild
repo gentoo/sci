@@ -28,17 +28,5 @@ src_install() {
 	dodir /usr/share/ccp4/balbes/BALBES_0.0.1
 	# We don't want to wait around to copy all this, or suck up double
 	# the disk space
-	rm -rf "${S}"/share/balbes/BALBES_0.0.1/{bin,bin_py/*.pyc}
 	mv "${S}"/share/balbes/BALBES_0.0.1/* "${D}"/usr/share/ccp4/balbes/BALBES_0.0.1/ || die
-	fperms 664 /usr/share/ccp4/balbes/BALBES_0.0.1/bin_py/* || die
-	dosym ../share/ccp4/balbes/BALBES_0.0.1/bin_py/balbes /usr/bin/balbes || die
 }
-
-pkg_postinst() {
-	python_mod_optimize /usr/share/ccp4/balbes/BALBES_0.0.1/bin_py
-}
-
-pkg_postrm() {
-	python_mod_cleanup /usr/share/ccp4/balbes/BALBES_0.0.1/bin_py
-}
-
