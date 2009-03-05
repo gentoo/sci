@@ -55,6 +55,7 @@ RDEPEND="X? (
 		=sci-libs/fftw-2*
 		sci-chemistry/pdb-extract
 		sci-chemistry/rasmol
+		sci-libs/clipper
 		app-shells/tcsh
 		dev-python/pyxml
 		dev-libs/libxml2
