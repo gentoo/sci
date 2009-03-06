@@ -6,4 +6,9 @@
 		<name>Andrey Kislyuk</name>
 	</maintainer>
 	<herd>sci-biology</herd>
+	<use>
+		<flag name='webcheck'>
+			add support for online update checking every time the program starts
+		</flag>
+	</use>
 </pkgmetadata>

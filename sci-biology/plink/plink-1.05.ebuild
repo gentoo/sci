@@ -2,13 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="1"
+
 DESCRIPTION="Whole genome association analysis toolset"
 HOMEPAGE="http://pngu.mgh.harvard.edu/~purcell/plink/"
 SRC_URI="http://pngu.mgh.harvard.edu/~purcell/plink/dist/${P}-src.zip"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE=""
+IUSE="-webcheck"
 KEYWORDS="~x86 ~amd64"
 
 DEPEND="app-arch/unzip"
@@ -23,6 +25,7 @@ S="${WORKDIR}/${P}-src"
 src_unpack() {
 	unpack ${A}
 	sed -i '/CXXFLAGS =/ s/^/#/' "${S}/Makefile" || die
+	use webcheck || sed -i '/WITH_WEBCHECK =/ s/^/#/' "${S}/Makefile" || die
 }
 
 src_install() {
