@@ -24,7 +24,7 @@ S="${WORKDIR}/${P}-src"
 
 src_unpack() {
 	unpack ${A}
-	sed -i '/CXXFLAGS =/ s/^/#/' "${S}/Makefile" || die
+	sed -i -e '/CXXFLAGS =/ s/^/#/' -e 's/-static//' "${S}/Makefile" || die
 	use webcheck || sed -i '/WITH_WEBCHECK =/ s/^/#/' "${S}/Makefile" || die
 }
 
