@@ -131,7 +131,7 @@ src_compile() {
 	# Fix linking
 	export SHARE_LIB="ld -shared -soname libmmdb.so --whole-archive -o libmmdb.so libmmdb.a ../libccif.a; \
 			  ld -shared -soname libccp4c.so --whole-archive -o libccp4c.so libccp4c.a ../libccif.a; \
-			  ld -shared -soname libccp4f.so --whole-archive -o libccp4f.so libccp4f.a libmmdb.a libccp4c.a ../libccif.a -lstdc++ $(gcc-config -X | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}')"
+			  ld -shared -soname libccp4f.so --whole-archive -o libccp4f.so libccp4f.a libmmdb.a libccp4c.a ../libccif.a -lstdc++ $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}')"
 
 	# Can't use econf, configure rejects unknown options like --prefix
 	./configure \
