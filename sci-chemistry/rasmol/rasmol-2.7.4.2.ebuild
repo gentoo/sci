@@ -20,7 +20,8 @@ IUSE="gtk"
 RDEPEND="x11-libs/libXext
 	x11-libs/libXi
 	sci-libs/cbflib
-	gtk? ( x11-libs/gtk+:2 )"
+	gtk? ( x11-libs/gtk+:2
+		x11-libs/vte )"
 DEPEND="${RDEPEND}
 	x11-proto/inputproto
 	x11-proto/xextproto
