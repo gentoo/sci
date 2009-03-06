@@ -142,6 +142,8 @@ src_install(){
 	ebegin "removing unnessary files"
 		rm -r "${D}"/usr/$(get_libdir)/${PN}/cctbx_sources/scons || die "failed to remove uneeded scons"
 		find "${D}" -type f -name "*.o" -exec rm -f '{}' \; || die "failed to remove uneeded *.o"
+		find "${D}" -type f -name "*.c" -exec rm -f '{}' \; || die "failed to remove uneeded *.c"
+		find "${D}" -type f -name "*.cpp" -exec rm -f '{}' \; || die "failed to remove uneeded *.cpp"
 		find "${D}" -type f -name "*.pyc" -exec rm -f '{}' \; || die "failed to remove uneeded *.pyc"
 	eend
 
