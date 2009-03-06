@@ -10,8 +10,6 @@ MY_PV="${PV//./_}"
 
 DESCRIPTION="Computational Crystallography Toolbox"
 HOMEPAGE="http://cctbx.sourceforge.net/"
-#SRC_URI="mirror://gentoo/cctbx_bundle-${PV}.tar.gz"
-#SRC_URI="http://gentoo.j-schmitz.net/portage/distfiles/${CATEGORY}/${PN}/${P}.tar.gz"
 SRC_URI="http://cci.lbl.gov/cctbx_build/results/${MY_PV}/${PN}_bundle.tar.gz -> ${P}.tar.gz"
 LICENSE="cctbx-2.0"
 SLOT="0"
@@ -24,8 +22,6 @@ RDEPEND="!minimal? ( ( sci-chemistry/cns )
 DEPEND="${RDEPEND}"
 # Is there a way to get it build by the system scons?
 # dev-util/scons"
-
-#RESTRICT="mirror binchecks strip"
 
 S="${WORKDIR}"
 MY_S="${WORKDIR}"/cctbx_sources
@@ -43,9 +39,7 @@ pkg_setup() {
 	fi
 }
 
-src_unpack() {
-	unpack ${A}
-
+src_prepare() {
 	# Wants to chmod /usr/bin/python
 	epatch "${FILESDIR}"/${PV}-sandbox-violations-chmod.patch
 
@@ -101,6 +95,7 @@ src_compile() {
 	MYCONF="${MYCONF} --enable-openmp-if-possible=${USE_openmp}"
 	use threads && USEthreads="--enable-boost-threads" && \
 	ewarn "If using boost threads openmp support is disabled"
+
 	MYCONF="${MYCONF} ${USE_threads} --scan-boost"
 
 	mkdir "${MY_B}" && MYCONF="${MYCONF} --current_working_directory=${MY_B}"
@@ -108,13 +103,6 @@ src_compile() {
 
 	MYCONF="${MYCONF} --build=release fftw3tbx rstbx smtbx mmtbx"
 	einfo "configuring with ${python} ${MYCONF}"
-#	${python} "${MY_S}"/libtbx/configure.py \
-#		--compiler=${COMPILER} \
-#		--current_working_directory="${MY_B}" \
-#		--build=release \
-#		--enable-openmp-if-possible="${USE_openmp}" \
-#		${USE_threads} --scan-boost \
-#		fftw3tbx rstbx smtbx mmtbx \
 
 	${python} ${MYCONF} \
 		|| die "configure failed"
@@ -153,15 +141,7 @@ src_install(){
 		find "${D}" -type f -name "*.pyc" -exec rm -f '{}' \; || die "failed to remove uneeded *.pyc"
 	eend
 
-#	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/*.sh && \
-#	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/*.csh && \
-#	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/scitbx/array_family/* && \
-#	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/scitbx/serialization/* && \
-#	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/scitbx/error/* && \
-#	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/scitbx/fftpack/timing/* && \
-#	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/scitbx/lbfgs/* && \
-#	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/chiltbx/handle_test && \
-#	fperms 775 /usr/$(get_libdir)/${PN}/cctbx_build/bin/* || \
+# fperms cannot handle wildcards
 	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/*sh && \
 	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/array_family/* && \
 	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/serialization/* && \
@@ -178,6 +158,11 @@ src_install(){
 	newins "${MY_B}"/setpaths.csh 30cctbx.csh || \
 	die
 
+	cat >> "${T}"/30cctbx <<- EOF
+	LDPATH="/usr/$(get_libdir)/${PN}/cctbx_build/lib"
+	EOF
+
+	doenvd "${T}"/30cctbx || die
 }
 
 pkg_postinst () {

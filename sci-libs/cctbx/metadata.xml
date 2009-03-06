@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>no-herd</herd>
+	<herd>sci-chemistry</herd>
 	<maintainer>
-	  <email>justin@j-schmitz.net</email>
+	  <email>jlec@j-schmitz.net</email>
+	  <name>Justin Lecher (jlec)</name>
 	</maintainer>
 	<longdescription>Computational Crystallography Toolbox</longdescription>
 	<use>
