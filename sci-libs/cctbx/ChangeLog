@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  cctbx-2009.02.15.2320.ebuild:
+  fixed dev-util/scons dep
+
   06 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> metadata.xml,
   cctbx-2009.02.15.2320.ebuild:
   version bump to 2009.02.15.2320

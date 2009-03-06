@@ -19,9 +19,8 @@ IUSE="minimal openmp threads"
 RDEPEND="!minimal? ( ( sci-chemistry/cns )
 		x86? ( sci-chemistry/shelx )
 	 )"
-DEPEND="${RDEPEND}"
-# Is there a way to get it build by the system scons?
-# dev-util/scons"
+DEPEND="${RDEPEND}
+	>=dev-util/scons-1.2"
 
 S="${WORKDIR}"
 MY_S="${WORKDIR}"/cctbx_sources
@@ -43,7 +42,7 @@ src_prepare() {
 	# Wants to chmod /usr/bin/python
 	epatch "${FILESDIR}"/${PV}-sandbox-violations-chmod.patch
 
-	rm -rf "${MY_S}/clipper"
+	rm -rf "${MY_S}/{clipper,scons}"
 }
 
 src_compile() {
