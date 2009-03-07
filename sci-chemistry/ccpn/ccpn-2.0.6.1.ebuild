@@ -75,7 +75,7 @@ src_compile() {
 		LDFLAGS="${LDFLAGGS}" \
 		MALLOC_FLAG= \
 		FPIC_FLAG="-fPIC" \
-		SHARED_FLAGS="-shared" \
+		SHARED_FLAGS="${LDFLAGS} -shared" \
 		MATH_LIB="-lm" \
 		X11_DIR="/usr" \
 		X11_LIB="-lX11 -lXext" \
