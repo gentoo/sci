@@ -41,3 +41,7 @@
 =sci-libs/chooch-5.0.2
 
 
+# Justin Lecher (jlec) (06 Feb 09)
+# jlec@j-schmitz.net
+# still not ready
+=sci-chemistry/phaser-2.1.4
