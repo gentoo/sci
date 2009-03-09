@@ -2,26 +2,21 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 inherit eutils
 
 DESCRIPTION="X-ray Detector Software for processing single-crystal monochromatic diffraction data."
-SRC_URI="XDS-linux_ifc_Intel+AMD-${PV}.tar.gz
-		 XDS_html_doc-${PV}.tar.gz"
-HOMEPAGE="http://www.mpimf-heidelberg.mpg.de/~kabsch/xds/"
-RESTRICT="fetch"
+HOMEPAGE="http://xds.mpimf-heidelberg.mpg.de/"
+SRC_URI="ftp://ftp.mpimf-heidelberg.mpg.de/pub/kabsch/XDS-linux_ifc_Intel+AMD.tar.gz -> XDS-linux_ifc_Intel+AMD-${PV}.tar.gz
+	 ftp://ftp.mpimf-heidelberg.mpg.de/pub/kabsch/XDS_html_doc.tar.gz -> XDS_html_doc-${PV}.tar.gz"
+RESTRICT=""
 LICENSE="free-noncomm"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE="smp X"
 RDEPEND="X? ( sci-visualization/xds-viewer )"
 DEPEND=""
-
-pkg_nofetch(){
-	ewarn "Fetch XDS-linux_ifc_Intel+AMD.tar.gz and XDS_html_doc.tar.gz"
-	ewarn "from ${HOMEPAGE}html_doc/downloading.html"
-	ewarn "rename it to $A and"
-	ewarn "place it in $DISTDIR"
-}
 
 src_install() {
 	exeinto /opt/${PN}
