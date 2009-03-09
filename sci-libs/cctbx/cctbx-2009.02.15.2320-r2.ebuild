@@ -29,12 +29,12 @@ MY_B="${WORKDIR}"/cctbx_build
 pkg_setup() {
 	if use openmp &&
 	[[ $(tc-getCC)$ == *gcc* ]] &&
-	( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] ||
-	! built_with_use sys-devel/gcc openmp )
+		( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] ||
+		! built_with_use sys-devel/gcc openmp )
 	then
-	ewarn "You are using gcc and OpenMP is only available with gcc >= 4.2 "
-	ewarn "If you want to build fftw with OpenMP, abort now,"
-	ewarn "and switch CC to an OpenMP capable compiler"
+		ewarn "You are using gcc and OpenMP is only available with gcc >= 4.2 "
+		ewarn "If you want to build fftw with OpenMP, abort now,"
+		ewarn "and switch CC to an OpenMP capable compiler"
 	fi
 }
 
@@ -42,7 +42,7 @@ src_prepare() {
 	# Wants to chmod /usr/bin/python
 	epatch "${FILESDIR}"/${PV}-sandbox-violations-chmod.patch
 
-	rm -rf "${MY_S}/clipper" "${MY_S}/scons" # "${MY_S}/boost"
+	rm -rf "${MY_S}/clipper" "${MY_S}/scons"  # "${MY_S}/boost"
 
 	mkdir -p "${MY_S}"/scons/src/ "${MY_S}/boost"
 
@@ -127,54 +127,54 @@ src_test(){
 
 src_install(){
 
+	local COMMAND_DIR
+
 	# This is what Bill Scott does in the fink package. Do we need this as well?
 #	-e "s:prepend:append:g" \
 
 	find cctbx_build/ -type f -exec \
-	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
-	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
+	sed -e "s:${MY_S}:$(python_get_sitedir)/${PN}:g" \
+	    -e "s:${MY_B}:/usr/:g"  \
 	    -i '{}' \; || die "Fail to correct path"
 
+	insinto $(python_get_sitedir)/${PN}
+	doins "${MY_B}"/*.{csh,sh}
 
-	insinto /usr/$(get_libdir)/${PN}
-	doins -r cctbx_sources cctbx_build || die
+	cd ${MY_S}
+	for i in $(find . -name "*.py" -exec dirname '{}' \;|sort|uniq); do
+		insinto $(python_get_sitedir)/${PN}/"${i}"
+		doins "${i}"/*.py
+	done
 
-	ebegin "removing unnessary files"
-		rm -r "${D}"/usr/$(get_libdir)/${PN}/cctbx_sources/scons || die "failed to remove uneeded scons"
-		find "${D}" -type f -name "*.o" -exec rm -f '{}' \; || die "failed to remove uneeded *.o"
-		find "${D}" -type f -name "*.pyc" -exec rm -f '{}' \; || die "failed to remove uneeded *.pyc"
-	eend
+	cd "${S}"
 
-# fperms cannot handle wildcards
-	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/*sh && \
-	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/array_family/* && \
-	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/serialization/* && \
-	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/error/* && \
-	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/fftpack/timing/* && \
-	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/lbfgs/* && \
-	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/chiltbx/handle_test && \
-	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/bin/* || \
-	die
+	dobin cctbx_build/bin/*
+
+	insinto /usr/include
+	doins -r cctbx_build/include/*
+
+	insinto /usr/include/tntbx
+	doins cctbx_sources/tntbx/include/*.h
+
+	insinto /usr/include/
+	doins -r cctbx_sources/cbflib_adaptbx/include/
+
+	rm cctbx_build/lib/libboost_python.so
+	dolib.so cctbx_build/lib/*
 
 
-	insinto /etc/profile.d/
-	newins "${MY_B}"/setpaths.sh 30cctbx.sh && \
-	newins "${MY_B}"/setpaths.csh 30cctbx.csh || \
-	die
-
-	cat >> "${T}"/30cctbx <<- EOF
-	LDPATH="/usr/$(get_libdir)/${PN}/cctbx_build/lib"
-	EOF
-
-	doenvd "${T}"/30cctbx || die
+#	insinto /etc/profile.d/
+#	newins "${MY_B}"/setpaths.sh 30cctbx.sh && \
+#	newins "${MY_B}"/setpaths.csh 30cctbx.csh || \
+#	die
 }
 
 pkg_postinst () {
-	python_mod_optimize /usr/$(get_libdir)/${PN}/cctbx_sources
+	python_mod_optimize $(python_get_sitedir)/${PN}
 }
 
 pkg_postrm () {
-	python_mod_cleanup /usr/$(get_libdir)/${PN}/cctbx_sources
+	python_mod_cleanup $(python_get_sitedir)/${PN}
 }
 
 
@@ -190,4 +190,3 @@ check_use() {
 	shift
 	done
 }
-

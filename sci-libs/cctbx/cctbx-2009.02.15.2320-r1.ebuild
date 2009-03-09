@@ -27,14 +27,14 @@ MY_S="${WORKDIR}"/cctbx_sources
 MY_B="${WORKDIR}"/cctbx_build
 
 pkg_setup() {
-	# Thanks Donnie for the code!
-	if use openmp; then
-		if [[ gcc-major-version < 4 ]] \
-			|| ( [[ gcc-major-version < 4 ]] && [[ gcc-minor-version < 2 ]] ); then
-			local msg="Sorry, you need gcc 4.2 or newer to use OpenMP."
-			eerror "$msg"
-			die "$msg"
-		fi
+	if use openmp &&
+	[[ $(tc-getCC)$ == *gcc* ]] &&
+	( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] ||
+	! built_with_use sys-devel/gcc openmp )
+	then
+	ewarn "You are using gcc and OpenMP is only available with gcc >= 4.2 "
+	ewarn "If you want to build fftw with OpenMP, abort now,"
+	ewarn "and switch CC to an OpenMP capable compiler"
 	fi
 }
 
