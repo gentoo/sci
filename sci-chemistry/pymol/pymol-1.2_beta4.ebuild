@@ -2,7 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-NEED_PYTHON=2.4
+EAPI="2"
+
 PYTHON_MODNAME="chempy pmg_tk pymol"
 APBS_PATCH="070604-r3550"
 
@@ -21,6 +22,7 @@ KEYWORDS="~amd64 ~x86"
 DEPEND="dev-python/pmw
 		dev-python/numpy
 		dev-lang/tk
+		>=dev-lang/python-2.4[tk]
 		media-libs/libpng
 		sys-libs/zlib
 		virtual/glut
@@ -32,7 +34,6 @@ DEPEND="dev-python/pmw
 RDEPEND="${DEPEND}"
 
 pkg_setup(){
-	python_tkinter_exists
 	python_version
 }
 

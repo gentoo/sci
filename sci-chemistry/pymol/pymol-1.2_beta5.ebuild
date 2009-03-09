@@ -2,13 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-NEED_PYTHON=2.4
+EAPI="2"
+
 PYTHON_MODNAME="chempy pmg_tk pymol"
 APBS_PATCH="070604-r3550"
 
 inherit distutils subversion
 
-ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol@3580"
+ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol@3621"
 
 DESCRIPTION="A Python-extensible molecular graphics system."
 HOMEPAGE="http://pymol.sourceforge.net/"
@@ -21,6 +22,7 @@ KEYWORDS="~amd64 ~x86"
 DEPEND="dev-python/pmw
 		dev-python/numpy
 		dev-lang/tk
+		>=dev-lang/python-2.4[tk]
 		media-libs/libpng
 		sys-libs/zlib
 		virtual/glut
@@ -32,7 +34,6 @@ DEPEND="dev-python/pmw
 RDEPEND="${DEPEND}"
 
 pkg_setup(){
-	python_tkinter_exists
 	python_version
 }
 

@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pymol-1.2_beta5 (09 Mar 2009)
+
+  09 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -pymol-1.2_beta2.ebuild, pymol-1.2_beta3.ebuild, pymol-1.2_beta4.ebuild,
+  +pymol-1.2_beta5.ebuild:
+  version bump to 1.2 beta 5
+
 *pymol-1.2_beta4 (23 Feb 2009)
 
   23 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
