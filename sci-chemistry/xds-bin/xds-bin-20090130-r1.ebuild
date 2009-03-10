@@ -31,7 +31,8 @@ src_install() {
 		rm "${D}"/opt/${PN}/*par
 	fi
 	dohtml -r XDS_html_doc/*
-	dodoc XDS_html_doc/html_doc/INPUT_templates/*
+	insinto /usr/share/${PN}/INPUT_templates
+	doins XDS_html_doc/html_doc/INPUT_templates/*
 
 	cat >> "${T}"/20xds <<- EOF
 	PATH="/opt/${PN}/"
