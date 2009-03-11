@@ -21,3 +21,6 @@ RDEPEND="x11-libs/qt-gui
 	media-libs/libpng"
 DEPEND=">=dev-util/cmake-2.6"
 PDEPEND="sci-chemistry/xds-bin"
+
+DOCS="README"
+HTML_DOCS="src/doc/*"
