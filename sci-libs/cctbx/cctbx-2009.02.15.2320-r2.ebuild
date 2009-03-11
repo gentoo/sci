@@ -146,6 +146,9 @@ src_install(){
 		doins "${i}"/*.py
 	done
 
+	insinto $(python_get_sitedir)/${PN}/libtbx/command_line/
+	doins libtbx/command_line/*.sh
+
 	cd "${S}"
 
 	dobin cctbx_build/bin/*
