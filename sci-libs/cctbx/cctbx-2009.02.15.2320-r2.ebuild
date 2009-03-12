@@ -127,26 +127,28 @@ src_test(){
 
 src_install(){
 
-	local COMMAND_DIR
+	local INST_DIR
+
+	INST_DIR="/usr/${PN}"
 
 	# This is what Bill Scott does in the fink package. Do we need this as well?
 #	-e "s:prepend:append:g" \
 
 	find cctbx_build/ -type f -exec \
-	sed -e "s:${MY_S}:$(python_get_sitedir)/${PN}:g" \
+	sed -e "s:${MY_S}:${INST_DIR}:g" \
 	    -e "s:${MY_B}:/usr/:g"  \
 	    -i '{}' \; || die "Fail to correct path"
 
-	insinto $(python_get_sitedir)/${PN}
+	insinto "${INST_DIR}"
 	doins "${MY_B}"/*.{csh,sh}
 
 	cd ${MY_S}
 	for i in $(find . -name "*.py" -exec dirname '{}' \;|sort|uniq); do
-		insinto $(python_get_sitedir)/${PN}/"${i}"
+		insinto "${INST_DIR}/${i}"
 		doins "${i}"/*.py
 	done
 
-	insinto $(python_get_sitedir)/${PN}/libtbx/command_line/
+	insinto "${INST_DIR}"/libtbx/command_line/
 	doins libtbx/command_line/*.sh
 
 	cd "${S}"
@@ -165,7 +167,6 @@ src_install(){
 	rm cctbx_build/lib/libboost_python.so
 	dolib.so cctbx_build/lib/*
 
-
 #	insinto /etc/profile.d/
 #	newins "${MY_B}"/setpaths.sh 30cctbx.sh && \
 #	newins "${MY_B}"/setpaths.csh 30cctbx.csh || \
@@ -173,13 +174,12 @@ src_install(){
 }
 
 pkg_postinst () {
-	python_mod_optimize $(python_get_sitedir)/${PN}
+	python_mod_optimize ${INST_DIR}
 }
 
 pkg_postrm () {
-	python_mod_cleanup $(python_get_sitedir)/${PN}
+	python_mod_cleanup ${INST_DIR}
 }
-
 
 check_use() {
 

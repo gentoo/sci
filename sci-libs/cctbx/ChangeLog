@@ -4,7 +4,7 @@
 
 *cctbx-2009.02.15.2320-r2 (09 Mar 2009)
 
-  09 Mar 2009;  <>  cctbx-2009.02.15.2320-r2.ebuild
+  09 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> cctbx-2009.02.15.2320-r2.ebuild
   fixed openmp gcc check in all ebuilds
   Try to get everything where it should be
 
