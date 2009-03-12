@@ -32,6 +32,8 @@ src_unpack() {
 	# conflicts w/ coreutils
 	epatch "${FILESDIR}"/${PV}-rename-truncate.patch
 
+	epatch "${FILESDIR}"/${PV}-rename-rapper.patch
+
 	sed -i \
 		-e "s:share smartie:share ccp4 smartie:g" \
 		"${S}"/etc/configure.def.dist \
