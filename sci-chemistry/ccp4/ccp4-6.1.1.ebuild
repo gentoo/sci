@@ -142,6 +142,11 @@ src_unpack() {
 	mv ./doc/truncate.doc ./doc/ftruncate.doc || die
 	mv ./html/truncate.html ./html/ftruncate.html || die
 
+	# conflicts with media-libs/raptor
+	ccp_patch "${FILESDIR}"/${PV}-rename-rapper.patch
+	mv ./doc/rapper.doc ./doc/rappermc.doc || die
+	mv ./html/rapper.html ./html/rappermc.html || die
+
 	# mosflm has its own ebuild
 #	ccp_patch "${FILESDIR}"/${PV}-dont-build-mosflm.patch
 
@@ -160,7 +165,7 @@ src_unpack() {
 		-e '/^SUBDIRS/s:libxml2 gc7.0::g' \
 		Makefile.am
 	sed -i \
-		-e '/^rapper_LDADD/s:../gc7.0/libgc.la ../libxml2/libxml2.la:-lgc -lxml2:g' \
+		-e '/^rappermc_LDADD/s:../gc7.0/libgc.la ../libxml2/libxml2.la:-lgc -lxml2:g' \
 		LOOP/Makefile.am
 	sed -i \
 		-e '/^INCLUDES/s:-I../gc7.0/include -I../libxml2/include:-I/usr/include/gc -I/usr/include/libxml2:g' \
