@@ -19,6 +19,7 @@ RDEPEND=">=dev-python/pyxml-0.8.4
 	 sci-chemistry/refmac"
 DEPEND="${RDEPEND}"
 S="${WORKDIR}/${MY_P}"
+RESTRICT="binchecks strip"
 
 src_compile() {
 	:
