@@ -21,26 +21,19 @@ RDEPEND="~sci-chemistry/openbabel-${PV}
 DEPEND="${RDEPEND}
 	swig? ( >=dev-lang/swig-1.3.38 )"
 
-src_unpack() {
-	unpack ${A}
-	S="${WORKDIR}/openbabel-${PV}"
-	cd "${S}"
+S="${WORKDIR}/openbabel-${PV}"
 
+src_compile() {
 	econf \
 		$(use_enable swig maintainer-mode) \
 		--enable-static \
 			|| die "econf failed"
-	S="${S}/scripts"
-	cd "${S}"
 	if use swig ; then
+		cd "${S}/scripts"
 		emake -W openbabel-python.i python/openbabel_python.cpp \
 			|| die "Failed to make SWIG python bindings"
 	fi
-	S="${S}/python"
-	cd "${S}"
-}
-
-src_compile() {
+	cd "${S}/scripts/python"
 	python ./setup.py build || die "python setup build failed"
 }
 

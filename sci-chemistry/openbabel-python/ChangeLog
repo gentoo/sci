@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Mar 2009; Marcus D. Hanwell <cryos@gentoo.org>
+  sci-chemistry/openbabel-python/openbabel-python-2.2.1.ebuild:
+  Made some changes to the ebuild, do not configure in the src_unpack phase.
+
 *openbabel-python-2.2.1 (03 Mar 2009)
 
   03 Mar 2009; Reinis Danne <rei4dan@gmail.com>
