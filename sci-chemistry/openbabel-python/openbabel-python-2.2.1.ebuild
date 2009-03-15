@@ -33,7 +33,8 @@ src_compile() {
 		emake -W openbabel-python.i python/openbabel_python.cpp \
 			|| die "Failed to make SWIG python bindings"
 	fi
-	cd "${S}/scripts/python"
+	S="${S}/scripts/python"
+	cd "${S}"
 	python ./setup.py build || die "python setup build failed"
 }
 
