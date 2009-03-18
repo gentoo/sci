@@ -18,12 +18,12 @@ SLOT="0"
 IUSE="arpack blas fetk mpi python tk doc"
 KEYWORDS="~x86 ~amd64"
 
-DEPEND="blas? ( virtual/blas )
+DEPEND="dev-libs/maloc[mpi=]
+	blas? ( virtual/blas )
 	python? ( dev-lang/python )
 	sys-libs/readline
 	arpack? ( sci-libs/arpack )
-	mpi? ( virtual/mpi
-		dev-libs/maloc[mpi=] )
+	mpi? ( virtual/mpi )
 	fetk? ( dev-libs/punc )
 	tk? ( dev-lang/tk )"
 RDEPEND="${DEPEND}"
