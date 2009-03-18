@@ -78,6 +78,9 @@ src_install() {
 	PYMOL_SCRIPTS="/usr/share/pymol/scripts"
 	EOF
 
+	use apbs && \
+	echo "APBS_PSIZE=$(python_get_sitedir)/pdb2pqr/src/psize.py" >> "${T}"/20pymol
+
 	doenvd "${T}"/20pymol || die "Failed to install env.d file."
 
 	# Make our own wrapper

@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  pymol-1.2_beta3.ebuild, pymol-1.2_beta4.ebuild, pymol-1.2_beta5.ebuild:
+  fix of missing APBS_PSIZE
+
 *pymol-1.2_beta5 (09 Mar 2009)
 
   09 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
