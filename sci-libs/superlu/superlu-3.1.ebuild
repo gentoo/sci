@@ -8,7 +8,7 @@ MY_PN=SuperLU
 
 DESCRIPTION="Sparse LU factorization library"
 HOMEPAGE="http://crd.lbl.gov/~xiaoye/SuperLU/"
-SRC_URI="http://crd.lbl.gov/~xiaoye/SuperLU/${PN}_${PV}.tar.gz"
+SRC_URI="${HOMEPAGE}/${PN}_${PV}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -28,14 +28,14 @@ src_unpack() {
 	cd "${S}"
 	epatch "${FILESDIR}"/${P}-autotools.patch
 	epatch "${FILESDIR}"/${PN}-examples.patch
-	epatch "${FILESDIR}"/${PN}-makeinc.patch
+	epatch "${FILESDIR}"/${P}-makeinc.patch
 	eautoreconf
 }
 
 src_compile() {
 	econf \
-		--with-blas="$(pkg-config --libs blas)" \
-		|| die "econf failed"
+		--with-blas="$(pkg-config --libs blas)"
+
 	emake || die "emake failed"
 }
 
