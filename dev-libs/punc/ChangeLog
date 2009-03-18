@@ -1,0 +1,10 @@
+# ChangeLog for dev-libs/punc
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*punc-0.2_p1 (18 Mar 2009)
+
+  18 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +metadata.xml,
+  +punc-0.2_p1.ebuild:
+  Initial setup
+
