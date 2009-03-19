@@ -39,6 +39,6 @@ src_configure() {
 src_install() {
 	dolib.a "${PN}".a || die "install failed"
 	dodoc CHANGES docs/* || die "no docs"
-	insinto /usr/include/${PN}
+	insinto /usr/include/${PN}R3
 	doins include/* || die "no includes"
 }
