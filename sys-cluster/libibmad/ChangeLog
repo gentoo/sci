@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Mar 2009; Alexey Shvetsov <alexxy@gentoo.org> -libibmad-1.1.2.ebuild,
+  -libibmad-1.2.0.ebuild:
+  Drop old versions
+
   05 Feb 2009; Thomas Anderson <gentoofan23@gentoo.org>
   sys-cluster/libibmad/libibmad-1.1.2.ebuild,
   sys-cluster/libibmad/libibmad-1.2.0.ebuild:
