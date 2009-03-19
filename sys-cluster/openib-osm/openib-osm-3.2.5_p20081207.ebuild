@@ -23,7 +23,7 @@ src_configure() {
 	econf \
 		--enable-perf-mgr \
 		--enable-default-event-plugin \
-		--with-osmv=umad
+		--with-osmv="openib"
 }
 
 src_install() {
