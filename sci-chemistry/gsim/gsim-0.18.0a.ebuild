@@ -38,6 +38,6 @@ src_compile() {
 src_install() {
 	dobin ${PN} || die "no ${PN}"
 	insinto /usr/share/${PN}
-	doins images/*
+	doins images/* || "no images"
 	dodoc README_GSIM.{pdf,odt} || die "nodocs"
 }
