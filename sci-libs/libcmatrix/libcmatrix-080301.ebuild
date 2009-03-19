@@ -12,7 +12,7 @@ DESCRIPTION="lite version of pNMRsim"
 HOMEPAGE="http://www.dur.ac.uk/paul.hodgkinson/pNMRsim/"
 SRC_URI="${HOMEPAGE}/${MY_P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="as-is"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="atlas threads"
