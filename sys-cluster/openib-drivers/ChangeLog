@@ -1,6 +1,10 @@
 # ChangeLog for sys-cluster/openib-drivers
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  19 Mar 2009; Alexey Shvetsov <alexxy@gentoo.org>
+  -openib-drivers-1.2.ebuild:
+  Drop old versions
 
 *openib-drivers-1.2.5.5 (05 Jun 2008)
 
