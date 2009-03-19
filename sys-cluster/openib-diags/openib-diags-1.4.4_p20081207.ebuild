@@ -19,6 +19,8 @@ DEPEND=">=sys-cluster/libibcommon-1.1.2_p20081020
 		>=sys-cluster/openib-osm-3.2.5_p20081207"
 RDEPEND="${DEPEND}"
 
+PATCHES=( "${FILESDIR}/${P}-remove-osmv.patch" )
+
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 }
