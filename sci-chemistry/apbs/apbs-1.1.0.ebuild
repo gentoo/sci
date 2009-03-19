@@ -15,7 +15,7 @@ HOMEPAGE="http://apbs.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
 SLOT="0"
-IUSE="arpack blas fetk mpi python tk doc"
+IUSE="arpack blas fetk mpi python doc"
 KEYWORDS="~x86 ~amd64"
 
 DEPEND="dev-libs/maloc[mpi=]
@@ -24,8 +24,7 @@ DEPEND="dev-libs/maloc[mpi=]
 	sys-libs/readline
 	arpack? ( sci-libs/arpack )
 	mpi? ( virtual/mpi )
-	fetk? ( dev-libs/punc )
-	tk? ( dev-lang/tk )"
+	fetk? ( dev-libs/punc )"
 RDEPEND="${DEPEND}"
 
 FORTRAN="g77 gfortran ifc"
@@ -68,7 +67,6 @@ src_configure() {
 	fi || die "Failed to select proper mpi implementation"
 
 	econf $(use_enable python) \
-		$(use_enable tk tinker) \
 		--disable-maloc-rebuild \
 		${myconf} || die "configure failed"
 }
