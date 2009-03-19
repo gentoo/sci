@@ -15,7 +15,7 @@ HOMEPAGE="http://apbs.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
 SLOT="0"
-IUSE="arpack blas fetk mpi python doc"
+IUSE="arpack blas doc fetk mpi python tinker"
 KEYWORDS="~x86 ~amd64"
 
 DEPEND="dev-libs/maloc[mpi=]
@@ -24,16 +24,11 @@ DEPEND="dev-libs/maloc[mpi=]
 	sys-libs/readline
 	arpack? ( sci-libs/arpack )
 	mpi? ( virtual/mpi )
-	fetk? ( dev-libs/punc )"
+	fetk? ( dev-libs/punc )
+	tinker? ( sci-chemistry/tinker )"
 RDEPEND="${DEPEND}"
 
 FORTRAN="g77 gfortran ifc"
-
-pkg_setup() {
-	# It is important that you use the same compiler to compile
-	# APBS that you used when compiling MPI.
-	use mpi || fortran_pkg_setup
-}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-install-fix.patch
@@ -67,6 +62,7 @@ src_configure() {
 	fi || die "Failed to select proper mpi implementation"
 
 	econf $(use_enable python) \
+		$(use_enable tinker) \
 		--disable-maloc-rebuild \
 		${myconf} || die "configure failed"
 }

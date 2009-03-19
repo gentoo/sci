@@ -7,5 +7,6 @@
 <use>
   <flag name='fetk'>Include support for Finite Element ToolKit</flag>
   <flag name='arpack'>Include support for arpack libs</flag>
+  <flag name='tinker'>Include support for  TINKER is a molecular modeling package that includes force fields for handing large molecules and large systems</flag>
 </use>
 </pkgmetadata>
