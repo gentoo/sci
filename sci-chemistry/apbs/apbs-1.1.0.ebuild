@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils fortran autotools
+inherit eutils fortran autotools python
 
 MY_P="${P}-source"
 S="${WORKDIR}"/"${MY_P}"
@@ -31,12 +31,18 @@ RDEPEND="${DEPEND}"
 FORTRAN="g77 gfortran ifc"
 
 src_prepare() {
+	python_version
+
 	epatch "${FILESDIR}"/${P}-install-fix.patch
+	epatch "${FILESDIR}"/${P}-automagic.patch
 	epatch "${FILESDIR}"/${P}-LDFLAGS.patch
 	epatch "${FILESDIR}"/${P}-vgrid-maloc.patch
 	sed "s:GENTOO_PKG_NAME:${P}:g" \
 	-i Makefile.am || die "Cannot correct package name"
 	eautoreconf
+
+	find "${S}" -type f -name "*.py" \
+		-exec sed -e "s|/usr/bin/env python|${python}|g" -i '{}' \;
 }
 
 src_configure() {
@@ -77,7 +83,7 @@ src_test() {
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install || die "make install failed"
 	dodoc AUTHORS INSTALL README NEWS ChangeLog \
 		|| die "Failed to install docs"
 }
