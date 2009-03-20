@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/msms
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*msms-1.5.4 (20 Mar 2009)
+
+  20 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +metadata.xml,
+  +msms-1.5.4.ebuild:
+  Initial checkin 
+  bug 209161
+
