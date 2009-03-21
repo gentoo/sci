@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/mdtools
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mdtools-1997m (21 Mar 2009)
+
+  21 Mar 2009; justin Lecher (jlec) <jlec@j-schmitz.net> +metadata.xml,
+  +mdtools-1997m.ebuild:
+  initial checkin
+
