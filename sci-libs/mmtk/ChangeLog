@@ -1,0 +1,27 @@
+# ChangeLog for sci-libs/mmtk
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-libs/mmtk/ChangeLog,v 1.5 2006/10/17 03:49:02 dberkholz Exp $
+
+  21 Mar 2009; justin Lecher (jlec) <jlec@j-schmitz.net> mmtk-2.5.24.ebuild:
+  Version bump from tree and ~amd64 added
+
+  17 Oct 2006; Donnie Berkholz <dberkholz@gentoo.org>; mmtk-2.4.6.ebuild:
+  Homepage update.
+
+  26 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Change herd to sci-chemistry from sci.
+
+  05 Aug 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Remove myself as maintainer, anyone feel free to work on this, although I'll
+  continue to do so as well.
+
+  07 Jul 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Update to my new email address.
+
+*mmtk-2.4.6 (13 Jun 2006)
+
+  13 Jun 2006; Donnie Berkholz <dberkholz@gentoo.org>; +metadata.xml,
+  +mmtk-2.4.6.ebuild:
+  Add the Molecular Modeling ToolKit for Python. Copied from the
+  scientificpython ebuild, with deps and global variables changed.
+
