@@ -22,3 +22,11 @@ DEPEND="${RDEPEND}"
 src_prepare() {
 	epatch "${FILESDIR}"/${PV}-Makefile.patch
 }
+
+src_install() {
+	insinto /usr/include/
+	doins tr.h || die
+	dobin trdemo{1,2} || die
+	dodoc README || die
+	dohtml tr.htm || die
+}
