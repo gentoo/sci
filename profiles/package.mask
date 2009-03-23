@@ -49,4 +49,9 @@
 # Justin Lecher (jlec) (09 Mar 09)
 # jlec@j-schmitz.net
 # total rewrite of src_install
+=sci-libs/cctbx-2009.02.15.2320-r2
 
+# Justin Lecher (jlec) (23 Mar 09)
+# jlec@j-schmitz.net
+# still some issues
+=sci-chemistry/ambertools-1.2
