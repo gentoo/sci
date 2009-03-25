@@ -2,8 +2,6 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
-
 inherit toolchain-funcs eutils
 
 DESCRIPTION="f2c'ed version of LAPACK"
@@ -15,12 +13,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="virtual/blas
-	>=dev-libs/libf2c-20081126"
+RDEPEND=">=dev-libs/libf2c-20081126"
 DEPEND="${RDEPEND}"
 S="${WORKDIR}"/CLAPACK-${PV}
 
-src_prepare() {
+src_unpack() {
+	unpack ${P}.tgz
+	cd "${S}"
 	epatch "${FILESDIR}"/${PV}-Makefile.patch
 
 	sed \
@@ -28,15 +27,19 @@ src_prepare() {
 		-e "s:^CFLAGS.*$:CFLAGS = ${CFLAGS}:g" \
 		-e "s:^LOADER.*$:LOADER = $(tc-getCC):g" \
 		-e "s:^LOADOPTS.*$:LOADOPTS = ${LDFLAGS}:g" \
-		-e "s:^BLASLIB.*$:BLASLIB = /usr/$(get_libdir)/libblas.a $(pkg-config --libs blas):g" \
 		-e "s:^F2CLIB.*$:F2CLIB = /usr/$(get_libdir)/libf2c.a:g" \
+		-e "s:LAPACKLIB.*$:LAPACKLIB = libclapack.a:g" \
 	make.inc.example > make.inc
+
+	sed \
+		-e 's:"f2c.h":<f2c.h>:g' \
+	-i SRC/*.c
 }
 
 src_compile() {
-	emake lapacklib || die "compile failed"
+	emake lapacklib blaslib || die "compile failed"
 }
 
 src_install() {
-	newlib.a lapack_LINUX.a libclapack.a
+	dolib.a lib${PN}.a || die
 }
