@@ -15,7 +15,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="virtual/blas"
+RDEPEND="virtual/blas
+	>=dev-libs/libf2c-20081126"
 DEPEND="${RDEPEND}"
 S="${WORKDIR}"/CLAPACK-${PV}
 
