@@ -13,7 +13,7 @@ SRC_URI="http://gentoo.j-schmitz.net/portage/distfiles/ALL/${P}.zip"
 
 LICENSE="libf2c"
 SLOT="0"
-KEYWORDS="alpha amd64 ppc ppc64 sparc x86 ~x86-fbsd"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="virtual/libc"
