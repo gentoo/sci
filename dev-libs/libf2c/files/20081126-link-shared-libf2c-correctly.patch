@@ -1,0 +1,11 @@
+--- makefile.u	2009-03-25 14:26:06.000000000 +0100
++++ makefile.u.new	2009-03-25 14:26:47.000000000 +0100
+@@ -88,7 +88,7 @@
+ ## arrange for $DYLD_LIBRARY_PATH to include the directory containing libf2c.so.
+ 
+ libf2c.so: $(OFILES)
+-	$(CC) -shared -o libf2c.so $(OFILES)
++	$(CC) -shared -Wl,-soname,libf2c.so.2 -lm -o libf2c.so.2 $(OFILES)
+ 
+ ### If your system lacks ranlib, you don't need it; see README.
+ 

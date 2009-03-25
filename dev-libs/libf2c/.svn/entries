@@ -1,0 +1,28 @@
+9
+
+dir
+0
+svn+ssh://svn.j-schmitz.net/svn/portage-overlay/ebuilds/dev-libs/libf2c
+svn+ssh://svn.j-schmitz.net/svn/portage-overlay
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+848b6a78-a7b0-4e08-a36b-699b422dbac5
+
