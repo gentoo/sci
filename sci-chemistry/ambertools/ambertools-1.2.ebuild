@@ -18,8 +18,16 @@ KEYWORDS="~amd64 ~x86"
 IUSE="mpi openmp scalapack X"
 RESTRICT="fetch"
 
-RDEPEND=""
-DEPEND="${RDEPEND}"
+RDEPEND="virtual/cblas
+	sci-libs/clapack
+	sci-libs/cifparse-obj
+	sci-chemistry/mopac7
+	sci-libs/netcdf
+	sci-chemistry/reduce"
+DEPEND="${RDEPEND}
+	dev-util/byacc
+	dev-libs/libf2c
+	sys-devel/ucpp"
 S="${WORKDIR}"/amber10
 
 pkg_nofetch() {
@@ -41,14 +49,18 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PV}-configure_at.patch
-	epatch "${FILESDIR}"/${PV}-Makefile_at.patch
+	epatch "${FILESDIR}"/${PV}-configure_at.patch \
+		"${FILESDIR}"/${PV}-Makefile_at.patch 
+#		"${FILESDIR}"/${PV}-Makefile_at-f2c.patch 
+#		"${FILESDIR}"/${PV}-f2c.patch
+	cd src && rm -rf byacc c9x-complex carpack cblas cifparse clapack mopac6 netcdf reduce ucpp-1.3
+# f2c
 }
 
 src_configure() {
 	cd src
 	sed -e "s:\\\\\$(LIBDIR)/arpack.a:/usr/$(get_libdir)/libarpack.a:g" \
-		-e "s:\\\\\$(LIBDIR)/lapack.a:/usr/$(get_libdir)/liblapack.a:g" \
+		-e "s:\\\\\$(LIBDIR)/lapack.a:/usr/$(get_libdir)/libclapack.a:g" \
 		-e "s:\\\\\$(LIBDIR)/blas.a:/usr/$(get_libdir)/libcblas.a:g" \
 		-e "s:\\\\\$(LIBDIR)/f2c.a:/usr/$(get_libdir)/libf2c.a:g" \
 		-e "s:CFLAGS=:CFLAGS=${CFLAGS} -DBINTRAJ :g" \

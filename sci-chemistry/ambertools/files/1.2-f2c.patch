@@ -1,0 +1,36 @@
+diff -arNu src/nab.orig/dmcsrch.c src/nab/dmcsrch.c
+--- src/nab.orig/dmcsrch.c	2009-03-24 22:35:01.000000000 +0100
++++ src/nab/dmcsrch.c	2009-03-24 22:35:05.000000000 +0100
+@@ -3,7 +3,7 @@
+ 	-lf2c -lm   (in that order)
+ */
+ 
+-#include "../f2c/f2c.h"
++#include <f2c.h>
+ 
+ /*     Original version from Jorge Nocedal, slightly modified */
+ /*     by Istvan Kolossvary to link to libXMIN. See CIK comments. */
+diff -arNu src/nab.orig/ms.c src/nab/ms.c
+--- src/nab.orig/ms.c	2009-03-24 22:35:01.000000000 +0100
++++ src/nab/ms.c	2009-03-24 22:35:09.000000000 +0100
+@@ -3,7 +3,7 @@
+ 	-lf2c -lm   (in that order)
+ */
+ 
+-#include "../f2c/f2c.h"
++#include <f2c.h>
+ 
+ /* Common Block Declarations */
+ 
+diff -arNu src/nab.orig/nmode.c src/nab/nmode.c
+--- src/nab.orig/nmode.c	2009-03-24 22:35:01.000000000 +0100
++++ src/nab/nmode.c	2009-03-24 22:35:04.000000000 +0100
+@@ -7,7 +7,7 @@
+ #else
+ #  include <complex.h>
+ #endif
+-#include "../f2c/f2c.h"
++#include <f2c.h>
+ 
+ #include "nab.h"
+ #include "memutil.h"

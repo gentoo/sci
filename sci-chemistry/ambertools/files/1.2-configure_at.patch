@@ -23,7 +23,7 @@
  
  LEX=   $lex
 -YACC=  \$(BINDIR)/yacc
-+YACC=  /usr/bin/yacc
++YACC=  /usr/bin/byacc
  AR=    ar rv
  M4=    $m4
  RANLIB=$ranlib
