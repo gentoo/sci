@@ -67,8 +67,7 @@ RDEPEND="X? (
 		dev-tcltk/itcl
 		dev-tcltk/itk
 		sci-libs/ccp4-libs
-		!app-office/sc
-		!media-libs/raptor"
+		!app-office/sc"
 DEPEND="${RDEPEND}
 		=sys-devel/automake-1.6*
 		X? (
