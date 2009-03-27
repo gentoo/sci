@@ -30,16 +30,10 @@
 
 #--- END OF EXAMPLES ---
 
-# Justin Lecher (jlec)
-# jlec@j-schmitz.net
-# still not ready
-=sci-chemistry/ccp4-6.1.1
-
 # Justin Lecher (jlec) (02 Feb 09)
 # jlec@j-schmitz.net
 # automagic deps not fixed
 =sci-libs/chooch-5.0.2
-
 
 # Justin Lecher (jlec) (06 Mar 09)
 # jlec@j-schmitz.net
