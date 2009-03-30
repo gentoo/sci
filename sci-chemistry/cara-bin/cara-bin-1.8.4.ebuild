@@ -13,7 +13,7 @@ RESTRICT="mirror"
 LICENSE="CARA"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE=""
+IUSE="lua"
 RDEPEND="x86? ( sys-libs/libstdc++-v3
 		x11-libs/libXext
 		x11-libs/libX11
@@ -32,7 +32,8 @@ RDEPEND="x86? ( sys-libs/libstdc++-v3
 		x11-libs/libXfixes )
 	amd64? ( app-emulation/emul-linux-x86-compat
 		 app-emulation/emul-linux-x86-baselibs
-		 app-emulation/emul-linux-x86-xlibs )"
+		 app-emulation/emul-linux-x86-xlibs )
+	lua? ( dev-lang/lua )"
 DEPEND=""
 
 src_unpack(){
