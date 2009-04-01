@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit python eutils fortran mpi
+inherit eutils fortran mpi
 
 DESCRIPTION="MPICH2 - A portable MPI implementation"
 HOMEPAGE="http://www-unix.mcs.anl.gov/mpi/mpich2"
@@ -52,8 +52,6 @@ pkg_setup() {
 	else
 		MPD_CONF_FILE_DIR=/etc/${PN}
 	fi
-
-	python_version
 }
 
 src_unpack() {
@@ -68,11 +66,6 @@ src_unpack() {
 	# #220877
 	sed -i 's/-fpic/-fPIC/g' \
 		$(grep -lr -e '-fpic' "${S}"/) || die "failed to change -fpic to -fPIC"
-
-	# Put python files in site-packages where they belong.
-	# This isn't the prettiest little patch, but it does
-	# move python files out of /usr/bin/
-	epatch "${FILESDIR}"/${P}-site-packages-py.patch
 
 	# Respect the env var MPD_CONF_FILE
 	# TODO:  Send upstream
@@ -195,15 +188,15 @@ src_install() {
 		mv "${D}"/${d}/usr/share/doc/www*/* "${D}"/${d}/usr/share/doc/${PF}/www/
 	fi
 
-	#TODO: Need to handle python path here if mpi_classed?
 	cp "${FILESDIR}"/${PN}.envd "${T}"/
 	sed -i "s,@MPD_CONF_FILE_DIR@,${MPD_CONF_FILE_DIR}," \
-		"${T}"/${PN}.envd
+		"${T}"/${PN}.envd || die
 
 	if mpi_classed; then
+		# TODO:  This breaks down with more than one mpich2 installed.
 		newenvd "${T}"/${PN}.envd 25mpich2-$(mpi_class)
 	else
-		newenvd "${FILESDIR}"/${PN}.envd 25mpich2
+		newenvd "${T}"/${PN}.envd 25mpich2
 	fi
 
 	mpi_imp_add_eselect
@@ -214,14 +207,8 @@ pkg_postinst() {
 	chown root:root "${ROOT}"${MPD_CONF_FILE_DIR}/mpd.conf
 	chmod 600 "${ROOT}"${MPD_CONF_FILE_DIR}/mpd.conf
 
-	python_mod_optimize $(mpi_root)/usr/$(get_libdir)/python${PYVER}/site-packages/${PN}
 	elog ""
 	elog "MPE2 has been removed from this ebuild and now stands alone"
 	elog "as sys-cluster/mpe2."
 	elog ""
 }
-
-pkg_postrm() {
-	python_mod_cleanup $(mpi_root)/usr/$(get_libdir)/python${PYVER}/site-packages/${PN}
-}
-
