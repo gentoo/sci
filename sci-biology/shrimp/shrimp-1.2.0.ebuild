@@ -12,7 +12,7 @@ DESCRIPTION="SHort Read Mapping Package"
 HOMEPAGE="http://compbio.cs.toronto.edu/shrimp/"
 SRC_URI="http://compbio.cs.toronto.edu/shrimp/releases/SHRiMP_${MY_PV}.src.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="as-is"
 SLOT="0"
 IUSE=""
 KEYWORDS="~amd64 ~x86"
