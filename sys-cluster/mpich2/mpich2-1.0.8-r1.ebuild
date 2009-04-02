@@ -188,17 +188,6 @@ src_install() {
 		mv "${D}"/${d}/usr/share/doc/www*/* "${D}"/${d}/usr/share/doc/${PF}/www/
 	fi
 
-	cp "${FILESDIR}"/${PN}.envd "${T}"/
-	sed -i "s,@MPD_CONF_FILE_DIR@,${MPD_CONF_FILE_DIR}," \
-		"${T}"/${PN}.envd || die
-
-	if mpi_classed; then
-		# TODO:  This breaks down with more than one mpich2 installed.
-		newenvd "${T}"/${PN}.envd 25mpich2-$(mpi_class)
-	else
-		newenvd "${T}"/${PN}.envd 25mpich2
-	fi
-
 	mpi_imp_add_eselect
 }
 

@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Apr 2009; Justin Bronder <jsbronder@gentoo.org>
+  -sys-cluster/mpich2/files/mpich2.envd:
+  Remove envd file, no longer necessary.
+
   01 Apr 2009; Justin Bronder <jsbronder@gentoo.org>
   sys-cluster/mpich2/files/mpich2-1.0.8-mpdconf-env.patch,
   -sys-cluster/mpich2/files/mpich2-1.0.8-site-packages-py.patch:
