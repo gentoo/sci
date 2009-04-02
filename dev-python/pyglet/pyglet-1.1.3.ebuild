@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=2
 NEED_PYTHON=2.4
 
 inherit distutils
@@ -33,11 +33,4 @@ src_install() {
 	if use examples; then
 		doins -r examples || die
 	fi
-}
-
-pkg_postinst() {
-	distutils_pkg_postinst
-	elog "The ${PN} ebuild is still under development."
-	elog "Help us improve the ebuild in:"
-	elog "http://bugs.gentoo.org/show_bug.cgi?id=207125"
 }
