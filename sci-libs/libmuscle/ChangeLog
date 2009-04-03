@@ -1,0 +1,7 @@
+# ChangeLog for sci-libs/libmuscle
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  03 Apr 2009; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
+  New package sci-libs/libmuscle, ebuild written by me
+
