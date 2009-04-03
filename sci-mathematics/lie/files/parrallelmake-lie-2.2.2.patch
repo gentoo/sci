@@ -1,0 +1,11 @@
+--- Makefile.orig	2009-02-24 12:17:54.000000000 +1300
++++ Makefile	2009-02-24 12:18:10.000000000 +1300
+@@ -131,7 +131,7 @@
+ learnind: util/learnind.c
+ 	$(MAKE) -C util ../learnind
+ 
+-INFO.a: progs/maxsub progs/maxsub0 progs/eqrank
++INFO.a: Lie.exe progs/maxsub progs/maxsub0 progs/eqrank
+ 	rm -f INFO.a
+ 	./Lie.exe < progs/maxsub
+ 
