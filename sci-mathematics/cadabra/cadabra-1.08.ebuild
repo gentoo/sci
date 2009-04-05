@@ -4,6 +4,7 @@
 
 inherit eutils flag-o-matic
 
+EAPI=2
 DESCRIPTION="Field-theory motivated computer algebra system"
 HOMEPAGE="http://www.aei.mpg.de/~peekas/cadabra"
 SRC_URI="http://www.aei.mpg.de/~peekas/cadabra/${P}.tar.gz"
@@ -26,7 +27,11 @@ RDEPEND="${DEPEND}
 	virtual/latex-base
 	dev-tex/mh"
 
-#filter-ldflags -Wl,--as-needed
+src_prepare() {
+#	fix src/makefile.in
+	epatch "${FILESDIR}/${P}-as-needed.patch"
+}
+
 
 src_compile() {
 	local myconf=""
@@ -65,7 +70,7 @@ src_install() {
 
 pkg_postinst() {
 	/usr/sbin/texmf-update
-	elog "This version of the ntl ebuild is still under development."
+	elog "This version of the cadabra ebuild is still under development."
 	elog "Help us improve the ebuild in:"
 	elog "http://bugs.gentoo.org/show_bug.cgi?id= 194393"
 }

@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Apr 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  +sci-mathematics/cadabra/files/cadabra-1.08-as-needed.patch:
+  added a patch for --as-needed
+
   03 Apr 2009; Francois Bissey <f.r.bissey@massey.ac.nz> ChangeLog:
   Initial import for the science overlay
 
