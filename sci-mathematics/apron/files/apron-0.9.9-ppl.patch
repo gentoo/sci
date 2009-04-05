@@ -1,0 +1,318 @@
+diff -Naur apron-0.9.9-orig/ppl/README apron-0.9.9-patch/ppl/README
+--- apron-0.9.9-orig/ppl/README	2007-11-29 15:34:47.000000000 +0000
++++ apron-0.9.9-patch/ppl/README	2009-03-22 01:50:01.000000000 +0000
+@@ -2,7 +2,7 @@
+ #
+ # APRON Library / Parma Polyhedra Library
+ #
+-# Copyright (C) Antoine Mine' 2006
++# Copyright (C) Antoine Mine' 2006-2009
+ 
+ # This file is part of the APRON Library, released under GPL license.
+ # Please read the COPYING file packaged in the distribution
+@@ -13,7 +13,7 @@
+ Requirements:
+ - APRON
+ - ITV
+-- PPL library version 0.9, with GMP support
++- PPL library version 0.9 or 0.10, with GMP support
+ - GMPXX (normally installed with GMP)
+ - for apron_ppl_test: NewPolka APRON module
+ 
+@@ -21,19 +21,15 @@
+ will automatically build and install this module.
+ 
+ 
+-IMPORTANT
+-
+-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-
+-   PPL 0.9 misses Grid_Generator::coefficient and must be patched
+-
+-   please apply ppl.patch against PPL 0.9 as follows:
+-
++9/2/2009 changes
++- the wrapper has been updated to compile PPL version 0.10
++- it should still compile with version 0.9 of PPL provided that you apply
++the provided patch
+    1. go to the directoy containing the ppl-0.9 directory
+    2. type 'patch -p0 <PREFIX/apron/ppl/ppl.patch'
+    and then compile ppl
+-
+-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
++- you can also compile with version 0.10 of PPL _without applying any patch_
++- calls to depreciated _and_minimize functions have been removed
+ 
+ 
+ What is provided:
+@@ -51,8 +47,7 @@
+ - Polyhedra and grids are experimental but tested
+ - semantics of assign and subst on grids with integer variables is not
+   fully aggreed upon and may change
+-- no support for other domains in PPL (BD_Shape, Powerset)
+-- only PPL 0.9 was tested, other PPL version might not work
++- no support for other domains in PPL (BD_Shape, Octagonal_Shape, Powerset)
+ - not implemented: fprintfdiff, (de)serialize_raw
+ - precision could be improved for:
+   . sat_lincons
+diff -Naur apron-0.9.9-orig/ppl/ppl_grid.cc apron-0.9.9-patch/ppl/ppl_grid.cc
+--- apron-0.9.9-orig/ppl/ppl_grid.cc	2008-06-05 15:26:58.000000000 +0000
++++ apron-0.9.9-patch/ppl/ppl_grid.cc	2009-03-22 01:50:01.000000000 +0000
+@@ -17,8 +17,8 @@
+ #include <assert.h>
+ #include "ap_generic.h"
+ #include "ap_ppl.h"
+-#include "ppl_grid.hh"
+ #include "ppl_user.hh"
++#include "ppl_grid.hh"
+ 
+ #include <ppl.hh>
+ using namespace std;
+@@ -60,13 +60,18 @@
+ void PPL_Grid::reduce() 
+ {
+   for (size_t i=0;i<intdim;i++)
+-    p->add_congruence_and_minimize((Variable(i) %=0) / 1);
++    p->add_congruence((Variable(i) %=0) / 1);
+ }
+ 
+ void PPL_Grid::forget_dim(size_t dim)
+ {
+-  if (intdim>dim) p->add_generator_and_minimize(Grid_Generator::parameter(Variable(dim)));
+-  else p->add_generator_and_minimize(Grid_Generator::line(Variable(dim)));
++#ifndef PPL_0_9
++  if (intdim>dim) p->add_grid_generator(Grid_Generator::parameter(Variable(dim)));
++  else p->add_grid_generator(Grid_Generator::grid_line(Variable(dim)));
++#else
++  if (intdim>dim) p->add_generator(Grid_Generator::parameter(Variable(dim)));
++  else p->add_generator(Grid_Generator::line(Variable(dim)));
++#endif
+ }
+ 
+ PPL_Grid::~PPL_Grid() { delete p; }
+@@ -221,7 +226,11 @@
+     ((PPL_Grid*)a)->reduce();
+     /* the calls force in-place minimisation */
+     (void)a->p->minimized_congruences();
++#ifndef PPL_0_9
++    (void)a->p->minimized_grid_generators();
++#else
+     (void)a->p->minimized_generators();
++#endif
+   }
+   CATCH_WITH_VOID(AP_FUNID_MINIMIZE);
+ }
+@@ -235,7 +244,11 @@
+     ((PPL_Grid*)a)->reduce();
+     /* the calls force in-place minimisation */
+     (void)a->p->minimized_congruences();
++#ifndef PPL_0_9
++    (void)a->p->minimized_grid_generators();
++#else
+     (void)a->p->minimized_generators();
++#endif
+   }
+   CATCH_WITH_VOID(AP_FUNID_CANONICALIZE);
+ }
+@@ -244,6 +257,14 @@
+ { 
+   man->result.flag_exact = man->result.flag_best = true;
+   try {
++    ((PPL_Grid*)a)->reduce();
++    /* the calls force in-place minimisation */
++    (void)a->p->minimized_congruences();
++#ifndef PPL_0_9
++    (void)a->p->minimized_grid_generators();
++#else
++    (void)a->p->minimized_generators();
++#endif
+     return a->p->total_memory_in_bytes(); 
+   }
+   CATCH_WITH_VAL(AP_FUNID_HASH,0);
+@@ -305,7 +326,11 @@
+     ap_lincons0_array_clear(&ar);
+     /* dump generators */
+     fprintf(stream,"generators: ");
++#ifndef PPL_0_9
++    ap_generator0_array_t ar2 = ap_ppl_to_generator_array(a->p->grid_generators());
++#else
+     ap_generator0_array_t ar2 = ap_ppl_to_generator_array(a->p->generators());
++#endif
+     ap_generator0_array_fprint(stream,&ar2,NULL);
+     ap_generator0_array_clear(&ar2);
+   }
+@@ -371,7 +396,7 @@
+     Congruence_System c;
+     if (!ap_ppl_of_box(c,tinterval,intdim,realdim))
+       man->result.flag_exact = man->result.flag_best = false;
+-    r->p->add_recycled_congruences_and_minimize(c);
++    r->p->add_recycled_congruences(c);
+     return r;
+   }
+   CATCH_WITH_DIM(AP_FUNID_OF_BOX,intdim,realdim);
+@@ -520,7 +545,11 @@
+ {
+   man->result.flag_exact = man->result.flag_best = true;
+   try {
++#ifndef PPL_0_9
++    Grid_Generator g = Grid_Generator::grid_line(Variable(dim));
++#else
+     Grid_Generator g = Grid_Generator::line(Variable(dim));
++#endif
+     return a->p->relation_with(g) == Poly_Gen_Relation::subsumes();
+   }
+   CATCH_WITH_VAL(AP_FUNID_IS_DIMENSION_UNCONSTRAINED,false);
+@@ -671,7 +700,11 @@
+ {
+   man->result.flag_exact = man->result.flag_best = true;
+   try {
++#ifndef PPL_0_9
++    return ap_ppl_to_generator_array(a->p->grid_generators());
++#else
+     return ap_ppl_to_generator_array(a->p->generators());
++#endif
+   }
+   CATCH_WITH_VAL(AP_FUNID_TO_GENERATOR_ARRAY,ap_ppl_generator_universe(a->p->space_dimension()));
+ }
+@@ -706,7 +739,11 @@
+   try {
+     PPL_Grid* r = destructive ? a1 : new PPL_Grid(*a1);
+     /* TODO: should we use join_assign_if_exact? */
++#ifndef PPL_0_9
++    r->p->upper_bound_assign(*a2->p);
++#else
+     r->p->join_assign(*a2->p);
++#endif
+     return r; 
+   }
+   CATCH_WITH_GRID(AP_FUNID_JOIN,a1);
+@@ -738,7 +775,11 @@
+     PPL_Grid* r = new PPL_Grid(*tab[0]);
+     for (size_t i=1;i<size;i++)
+       /* TODO: should we use join_assign_if_exact? */
++#ifndef PPL_0_9
++      r->p->upper_bound_assign(*tab[i]->p);
++#else
+       r->p->join_assign(*tab[i]->p);
++#endif
+   return r;
+   }
+   CATCH_WITH_GRID(AP_FUNID_JOIN_ARRAY,tab[0]);
+@@ -757,7 +798,7 @@
+     Congruence_System c;
+     if (!ap_ppl_of_lincons_array(intern->itv,c,array))
+       man->result.flag_exact = man->result.flag_best = false;
+-    r->p->add_recycled_congruences_and_minimize(c);
++    r->p->add_recycled_congruences(c);
+     return r;
+   }
+   CATCH_WITH_GRID(AP_FUNID_MEET_LINCONS_ARRAY,a);
+@@ -790,7 +831,11 @@
+       Grid_Generator_System c;
+       if (!ap_ppl_of_generator_array(intern->itv,c,array))
+ 	man->result.flag_exact = man->result.flag_best = false;
+-      r->p->add_recycled_generators_and_minimize(c);
++#ifndef PPL_0_9
++      r->p->add_recycled_grid_generators(c);
++#else
++      r->p->add_recycled_generators(c);
++#endif
+       r->reduce();
+     }
+     return r;
+@@ -949,7 +994,7 @@
+ 	r->forget_dim(tdim[i]);
+       if (project) {
+ 	for (size_t i=0;i<size;i++)
+-	  r->p->add_constraint_and_minimize(Variable(tdim[i])==0);
++	  r->p->add_constraint(Variable(tdim[i])==0);
+       }
+       else {
+ 	r->reduce();
+diff -Naur apron-0.9.9-orig/ppl/ppl_poly.cc apron-0.9.9-patch/ppl/ppl_poly.cc
+--- apron-0.9.9-orig/ppl/ppl_poly.cc	2008-06-05 15:24:40.000000000 +0000
++++ apron-0.9.9-patch/ppl/ppl_poly.cc	2009-03-22 01:50:01.000000000 +0000
+@@ -17,10 +17,9 @@
+ #include <assert.h>
+ #include "ap_generic.h"
+ #include "ap_linearize.h"
+-
+ #include "ap_ppl.h"
+-#include "ppl_poly.hh"
+ #include "ppl_user.hh"
++#include "ppl_poly.hh"
+ 
+ #include <ppl.hh>
+ using namespace std;
+@@ -237,6 +236,8 @@
+ {
+   man->result.flag_exact = man->result.flag_best = true;
+   try {
++    (void)a->p->minimized_constraints();
++    (void)a->p->minimized_generators();    
+     return a->p->total_memory_in_bytes();
+   }
+   CATCH_WITH_VAL(AP_FUNID_HASH,0);
+diff -Naur apron-0.9.9-orig/ppl/ppl_user.cc apron-0.9.9-patch/ppl/ppl_user.cc
+--- apron-0.9.9-orig/ppl/ppl_user.cc	2008-01-22 14:20:38.000000000 +0000
++++ apron-0.9.9-patch/ppl/ppl_user.cc	2009-03-22 01:50:01.000000000 +0000
+@@ -83,7 +83,11 @@
+   ap_linexpr0_t* e;
+   int i, n = c.space_dimension();
+   /* special, inconsistent case */
++#ifndef PPL_0_9
++  if (c.is_inconsistent())
++#else
+   if (c.is_trivial_false())
++#endif
+     return ap_lincons0_make_unsat();
+   /* other cases */
+   e = ap_linexpr0_alloc(AP_LINEXPR_DENSE,n);
+@@ -629,9 +633,15 @@
+   }
+   ap_ppl_of_linexpr(intern,l,den,c->linexpr0,1);
+   switch (c->gentyp) {
++#ifndef PPL_0_9
++  case AP_GEN_VERTEX:  r = Grid_Generator::grid_point(l,den);     return true;
++  case AP_GEN_RAY:     r = Grid_Generator::grid_line(l);          return false;
++  case AP_GEN_LINE:    r = Grid_Generator::grid_line(l);          return true;
++#else
+   case AP_GEN_VERTEX:  r = Grid_Generator::point(l,den);     return true;
+   case AP_GEN_RAY:     r = Grid_Generator::line(l);          return false;
+   case AP_GEN_LINE:    r = Grid_Generator::line(l);          return true;
++#endif
+   case AP_GEN_RAYMOD:  r = Grid_Generator::parameter(l,den); return false;
+   case AP_GEN_LINEMOD: r = Grid_Generator::parameter(l,den); return true;
+   default:
+@@ -647,7 +657,11 @@
+ {
+   bool exact = true;
+   size_t i;
++#ifndef PPL_0_9
++  Grid_Generator c = Grid_Generator::grid_point();
++#else
+   Grid_Generator c = Grid_Generator::point();
++#endif
+   r.clear();
+   for (i=0;i<a->size;i++) {
+     if (ap_ppl_ap_generator0_select(&a->p[i])){
+diff -Naur apron-0.9.9-orig/ppl/ppl_user.hh apron-0.9.9-patch/ppl/ppl_user.hh
+--- apron-0.9.9-orig/ppl/ppl_user.hh	2007-11-29 15:38:54.000000000 +0000
++++ apron-0.9.9-patch/ppl/ppl_user.hh	2009-03-22 01:50:01.000000000 +0000
+@@ -34,6 +34,16 @@
+ using namespace std;
+ using namespace Parma_Polyhedra_Library;
+ */
++
++#ifndef PPL_VERSION_MAJOR 
++#error "no version information"
++#endif
++
++#if (PPL_VERSION_MAJOR==0) && (PPL_VERSION_MINOR <= 9)
++#define PPL_0_9
++#endif
++
++
+ /* ********************************************************************** */
+ /* Types and exceptions */
+ /* ********************************************************************** */
