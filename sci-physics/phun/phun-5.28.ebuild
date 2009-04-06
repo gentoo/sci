@@ -2,6 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=2
 inherit versionator eutils
 
 MY_P="Phun_beta_$(get_major_version)_$(get_after_major_version)_linux"
@@ -16,19 +17,18 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RESTRICT="mirror strip"
-
+DEPEND=""
 RDEPEND="virtual/opengl
 	dev-libs/libzip
 	media-libs/sdl-image
-	amd64? ( >=sys-devel/gcc-4.2 =media-libs/glew-1.5* )
-	x86? ( =media-libs/glew-1.3* )
+	=media-libs/glew-1.5*
 	dev-libs/boost"
 
 S="${WORKDIR}/Phun"
 PHUN_DIR=/opt/Phun
 
 src_prepare() {
-	rm -rf LICENSE* lib || die
+	rm -rf LICENSE* lib phun || die
 }
 
 src_install() {
@@ -37,6 +37,6 @@ src_install() {
 	exeinto ${PHUN_DIR}
 	doexe phun.bin
 	make_wrapper ${PN} "./phun.bin" ${PHUN_DIR} ${PHUN_DIR}
-	make_desktop_entry ${PN} "Phun Physics Sandbox"	\
+	make_desktop_entry /opt/Phun/phun "Phun Physics Sandbox"	\
 		"${PHUN_DIR}/data/textures/logos/icon.bmp"
 }
