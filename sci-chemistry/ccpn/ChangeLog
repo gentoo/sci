@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccpn-2.0.7 (07 Apr 2009)
+
+  07 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +ccpn-2.0.7.ebuild:
+  version bump
+
   07 Mar 2009; justin Lecher (jlec) <jlec@j-schmitz.net>
   ccpn-2.0.6.1.ebuild:
   LDFLAGS are now respected
