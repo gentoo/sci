@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/symmetrica
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Apr 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  sci-libs/symmetrica/symmetrica-2.0.ebuild:
+  cleaned the ebuild by porting it to EAPI2
 
   18 Jul 2008; Francois Bissey <f.r.bissey@massey.ac.nz> symmetrica-2.0.ebuild:
   Added a pkg_postinst section directing to the symmetrica bug

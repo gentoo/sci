@@ -1,13 +1,16 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 inherit versionator
 
+EAPI=2
 DESCRIPTION="A collection of routine to handle a variety of topics"
 HOMEPAGE="http://www.neu.uni-bayreuth.de/de/Uni_Bayreuth/Fakultaeten/1_Mathematik_Physik_und_Informatik/Fachgruppe_Informatik/prof_diskrete_algorithmen/en/research/SYMMETRICA/index.html"
+MY_P=SYM$(replace_all_version_separators '_')
+SRC_URI="http://www.neu.uni-bayreuth.de/de/Uni_Bayreuth/Fakultaeten/1_Mathematik_Physik_und_Informatik/Fachgruppe_Informatik/prof_diskrete_algorithmen/en/research/SYMMETRICA/${MY_P}_tar.gz -> ${MY_P}.tar.gz"
+
 MY_P=SYM$(replace_all_version_separators ' _')
-SRC_URI="http://www.neu.uni-bayreuth.de/de/Uni_Bayreuth/Fakultaeten/1_Mathematik_Physik_und_Informatik/Fachgruppe_Informatik/prof_diskrete_algorithmen/en/research/SYMMETRICA/${MY_P}_tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -22,11 +25,7 @@ DEPEND=""
 
 S="${WORKDIR}"
 
-src_unpack() {
-	cd "${S}"
-#	unpack ${A} actually doesn't work with this archive. Not sure why.
-	tar xfz "${DISTDIR}/${MY_P}_tar.gz"
-
+src_prepare() {
 #	symmetrica by itself is just a bunch of files and a few headers
 #	plus documentation that you can use as you wish in your programs.
 #	For sage and ease of use we make it into a library with the following
@@ -41,8 +40,3 @@ src_install() {
 	dodoc README *.doc
 }
 
-pkg_postinst() {
-	elog "The symmetrica ebuild is still under development."
-	elog "Help us improve the ebuild in:"
-	elog "http://bugs.gentoo.org/show_bug.cgi?id=232014"
-}
