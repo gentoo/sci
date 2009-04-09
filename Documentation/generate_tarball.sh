@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ## $Id: export-tarball 8916 2005-11-23 18:09:55Z korpela $
-## Modified by scarabeus 2008-10-23
+## Modified by jlec 2009-04-09
 ###############################################################################
 # functions
 ###############################################################################
@@ -58,7 +58,7 @@ echo "<******************************>"
 # bundled zlib library
 rm -rf $PACKAGE/zlib/
 # bundled zip libs
-rm -rf $PACKAGE/zip/
+rm -rf $PACKAGE/zip/{zip,unzip}
 # bundled openssl stuff
 rm -rf $PACKAGE/openssl/
 # smash html
@@ -78,11 +78,8 @@ rm -rf $PACKAGE/doc/
 sed -i \
 	-e "s:win_build::g" \
 	-e "s:doc::g" \
-	-e "s:zip::g" \
 	"$PACKAGE"/Makefile.am
 sed -i \
-	-e "s:zip/unzip/Makefile::g" \
-	-e "s:zip/zip/Makefile::g" \
     -e "s:zip/Makefile::g" \
     -e "s:doc/manpages/Makefile::g" \
     -e "s:doc/Makefile::g" \
