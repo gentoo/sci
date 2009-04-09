@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/rosetta-fragments
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*rosetta-fragments-3.0 (09 Apr 2009)
+
+  09 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/3.0-chemshift.patch, +files/3.0-nnmake.patch, +metadata.xml,
+  +rosetta-fragments-3.0.ebuild:
+  Initial checkin to sci
+
