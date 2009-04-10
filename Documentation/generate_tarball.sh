@@ -80,7 +80,8 @@ sed -i \
 	-e "s:doc::g" \
 	"$PACKAGE"/Makefile.am
 sed -i \
-    -e "s:zip/Makefile::g" \
+    -e "s:zip/unzip/Makefile::g" \
+    -e "s:zip/zip/Makefile::g" \
     -e "s:doc/manpages/Makefile::g" \
     -e "s:doc/Makefile::g" \
     -e "sXclient/win/boinc_path_config.py:py/Boinc/boinc_path_config.py.inXXg" \
