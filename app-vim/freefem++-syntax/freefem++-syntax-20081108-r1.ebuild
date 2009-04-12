@@ -7,10 +7,10 @@ inherit vim-plugin
 DESCRIPTION="vim plugin: syntax highlighting for freefem++ script files"
 HOMEPAGE="http://www.vim.org/scripts/script.php?script_id=1901"
 # This is a workaround to make the ebuild work on an overlay:
-SRC_URI="http://web.tiscali.it/david_e/freefem++-syntax-20070614.tar.gz"
+SRC_URI="http://omploader.org/vMWlraw/freefem++-syntax-20081108.tar.gz"
 
 LICENSE="vim"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE=""
 
 VIM_PLUGIN_HELPTEXT=\
