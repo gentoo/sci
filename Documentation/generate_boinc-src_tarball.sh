@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ## $Id: export-tarball 8916 2005-11-23 18:09:55Z korpela $
-## Modified by jlec 2009-04-09
+## Modified by jlec 2009-04-13
 ###############################################################################
 # functions
 ###############################################################################
@@ -76,16 +76,31 @@ rm -rf $PACKAGE/doc/
 
 # fix search for unwanted stuff
 sed -i \
+	-e '/^.\/unzip/d' \
+	-e '/^.\/zip/d' \
+	-e '/^SUBDIRS/d' \
+	-e "s:-I\$(top_srcdir)/zip/zip::g" \
+	-e "s:-I\$(top_srcdir)/zlib::g" \
+	-e "s:-I\$(top_srcdir)/zip/unzip::g" \
+	-e 's:\\::g' \
+	"$PACKAGE"/zip/Makefile.am
+echo 'libboinc_zip_a_LIBADD = $(libdir)/libunzip.a $(libdir)/libzip.a' >> \
+	"$PACKAGE"/zip/Makefile.am
+sed -i \
+	-e 's:"./zip/zip.h":<zip.h>:g' \
+	-e 's:"./unzip/unzip.h":<unzip.h>:g' \
+	"$PACKAGE"/zip/*.cpp
+sed -i \
 	-e "s:win_build::g" \
 	-e "s:doc::g" \
 	"$PACKAGE"/Makefile.am
 sed -i \
-    -e "s:zip/unzip/Makefile::g" \
-    -e "s:zip/zip/Makefile::g" \
-    -e "s:doc/manpages/Makefile::g" \
-    -e "s:doc/Makefile::g" \
-    -e "sXclient/win/boinc_path_config.py:py/Boinc/boinc_path_config.py.inXXg" \
-    "$PACKAGE"/configure.ac
+	-e "s:zip/unzip/Makefile::g" \
+	-e "s:zip/zip/Makefile::g" \
+	-e "s:doc/manpages/Makefile::g" \
+	-e "s:doc/Makefile::g" \
+	-e "sXclient/win/boinc_path_config.py:py/Boinc/boinc_path_config.py.inXXg" \
+	"$PACKAGE"/configure.ac
 # fix the server build
 sed -i \
 	-e "s:samples/example_app::g" \
