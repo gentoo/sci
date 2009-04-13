@@ -1,0 +1,82 @@
+--- src/SConscript.src	2009-02-03 22:44:31.000000000 +0100
++++ src/SConscript.src.new	2009-04-07 16:25:30.000000000 +0200
+@@ -85,7 +85,7 @@
+ 
+ # Transform the modified settings into SCons Environment variables.
+ # Gives priority to project settings over global settings.
+-env = build.environment.Copy()
++env = build.environment.Clone()
+ env.Prepend(**actual.symbols())
+ 
+ 
+--- tools/build/setup.py	2009-02-03 22:44:32.000000000 +0100
++++ tools/build/setup.py.new	2009-04-07 16:43:42.000000000 +0200
+@@ -42,21 +42,21 @@
+     # Read in the options from the .settings files (1st pass)
+     # This has to be done in two passes, because some legal values
+     # (version numbers) are dependent on the other values
+-    options.AddOptions(
++    options.AddVariables(
+         # Options for the build.  Modifiable on the command-line.
+-        EnumOption("cxx", "Select the C++ compiler to build with",
++        EnumVariable("cxx", "Select the C++ compiler to build with",
+                    defaults.cxx, supported.cxx),
+-        EnumOption("os", "Select the operating system to build for",
++        EnumVariable("os", "Select the operating system to build for",
+                    defaults.os, supported.os),
+-        EnumOption("arch", "Select the processor architecture to build for",
++        EnumVariable("arch", "Select the processor architecture to build for",
+                    defaults.arch, supported.arch),
+-        EnumOption("mode", "Select the optimization mode",
++        EnumVariable("mode", "Select the optimization mode",
+                    defaults.mode, supported.mode),
+-        ListOption("cat", "Select the build category",
++        ListVariable("cat", "Select the build category",
+                    defaults.cat, supported.cat),
+-        ListOption("extras", "Select any extras",
++        ListVariable("extras", "Select any extras",
+                    defaults.extras, supported.extras),
+-        ListOption("log", "Log debugging output",
++        ListVariable("log", "Log debugging output",
+                    defaults.log, supported.log),
+     )
+ 
+--- tools/build/setup.py	2009-04-07 16:44:26.000000000 +0200
++++ tools/build/setup.py.new	2009-04-07 16:46:45.000000000 +0200
+@@ -37,7 +37,7 @@
+ 
+     # Incorporate options in site and user options
+     option_files = [ "%s.options" % (name) for name in ("site", "user") ]
+-    options = Options(option_files)
++    options = Variables(option_files)
+ 
+     # Read in the options from the .settings files (1st pass)
+     # This has to be done in two passes, because some legal values
+@@ -68,12 +68,12 @@
+     cxx  = env["cxx"]
+     os   = env["os"]
+     arch = env["arch"]
+-    options.AddOptions(
+-        EnumOption("cxx_ver", "Select the C++ compiler version",
++    options.AddVariables(
++        EnumVariable("cxx_ver", "Select the C++ compiler version",
+                    defaults.cxx_ver, supported.cxx[cxx]),
+-        EnumOption("os_ver", "Select the operating system version",
++        EnumVariable("os_ver", "Select the operating system version",
+                    defaults.os_ver, supported.os[os]),
+-        EnumOption("arch_size", "Select the architecture bit-size",
++        EnumVariable("arch_size", "Select the architecture bit-size",
+                    defaults.arch_size, supported.arch[arch]),
+         )
+ 
+--- src/SConscript.apps	2009-02-03 22:44:31.000000000 +0100
++++ src/SConscript.apps.new	2009-04-07 16:48:06.000000000 +0200
+@@ -92,7 +92,7 @@
+ 
+ # Transform the modified settings into SCons Environment variables.
+ # Gives priority to project settings over global settings.
+-env = build.environment.Copy()
++env = build.environment.Clone()
+ env.Prepend(**actual.symbols())
+ if "static" not in build.options.extras:
+   env["RPATH"] = build.toplevel + "/build/src/" + build.platform

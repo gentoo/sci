@@ -1,0 +1,11 @@
+--- tools/build/options.settings	2009-02-03 22:44:32.000000000 +0100
++++ tools/build/options.settings.new	2009-04-07 18:12:00.000000000 +0200
+@@ -76,7 +76,7 @@
+         # Build so that valgrind can follow the memory use.
+         # Valgrind normally works fine with most executables but not
+         # with static builds, which we are doing.
+-        "valgrind",
++        "shared",
+ 
+         # Build using static linking.
+         "static",

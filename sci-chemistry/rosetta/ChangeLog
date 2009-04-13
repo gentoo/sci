@@ -1,0 +1,17 @@
+# ChangeLog for sci-chemistry/rosetta
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*rosetta-3.0 (13 Apr 2009)
+*rosetta-3.0-r1 (13 Apr 2009)
+
+  13 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/3.0-boinc.patch, +files/3.0-fix-scons-warnings.patch,
+  +files/3.0-fix-valgrind.patch, +files/3.0-platform.patch,
+  +files/3.0-user-settings.patch, +files/3.0-zlib.patch, +metadata.xml,
+  +rosetta-3.0-r1.ebuild, +rosetta-3.0.ebuild:
+  Added to sci
+  Thanks to Hugo Mildenberger for intial ebuild 
+  BOINC support is broken because current version of libboinc_zip.a sucks (TEXTREL, not
+     compiled w/ fPIC)
+

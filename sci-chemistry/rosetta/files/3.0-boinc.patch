@@ -1,0 +1,53 @@
+--- src/protocols/boinc/boinc_shmem.hh	2009-02-03 22:47:07.000000000 +0100
++++ src/protocols/boinc/boinc_shmem.hh.new	2009-04-09 14:59:15.000000000 +0200
+@@ -18,7 +18,7 @@
+ #include <core/types.hh>
+ 
+ #ifdef BOINC
+-#include "boinc_api.h"
++#include "boinc/boinc_api.h"
+ #endif
+ 
+ namespace protocols {
+--- src/protocols/boinc/boinc.hh	2009-02-03 22:47:07.000000000 +0100
++++ src/protocols/boinc/boinc.hh.new	2009-04-09 15:00:57.000000000 +0200
+@@ -20,11 +20,11 @@
+ #include <boinc_win.h>
+ #include <str_util.h>
+ #endif
+-#include <boinc_api.h>
+-#include <diagnostics.h>
+-#include <error_numbers.h>
++#include <boinc/boinc_api.h>
++#include <boinc/diagnostics.h>
++#include <boinc/error_numbers.h>
+ #ifdef BOINC_GRAPHICS
+-#include <graphics2.h>
+-#include <util.h>
+-#include <shmem.h>
++#include <boinc/graphics2.h>
++#include <boinc/util.h>
++#include <boinc/shmem.h>
+ 
+--- src/utility/exit.cc	2009-02-03 22:47:28.000000000 +0100
++++ src/utility/exit.cc.new	2009-04-09 16:23:18.000000000 +0200
+@@ -23,7 +23,7 @@
+ // Boinc headers
+ #ifdef BOINC
+ #include <utility/io/izstream.hh>
+-#include <boinc_api.h>
++#include <boinc/boinc_api.h>
+ #include <string>
+ #endif
+ 
+--- src/utility/boinc/boinc_util.cc	2009-02-03 22:47:30.000000000 +0100
++++ src/utility/boinc/boinc_util.cc.new	2009-04-09 16:25:16.000000000 +0200
+@@ -20,7 +20,7 @@
+ //#ifdef _WIN32
+ //#include <boinc_win.h>
+ //#endif
+-#include <boinc_api.h>
++#include <boinc/boinc_api.h>
+ 
+ // C++ headers
+ #include <iostream>
