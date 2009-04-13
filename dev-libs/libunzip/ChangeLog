@@ -1,0 +1,13 @@
+# ChangeLog for dev-libs/libunzip
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*libunzip-5.52 (13 Apr 2009)
+
+  13 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/libunzip-5.52-CVE-2008-0888.patch,
+  +files/libunzip-5.52-Makefile.patch,
+  +files/libunzip-5.52-no-exec-stack.patch, +metadata.xml,
+  +libunzip-5.52.ebuild:
+  Initial checkin to sci
+
