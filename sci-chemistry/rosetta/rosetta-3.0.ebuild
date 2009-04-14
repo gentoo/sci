@@ -15,7 +15,7 @@ SRC_URI="${MY_P}.tgz"
 LICENSE="|| ( rosetta-academic rosetta-commercial )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="boost X mpi debug doc"
+IUSE="boost X mpi debug"
 RESTRICT="fetch"
 
 RDEPEND="mpi? ( virtual/mpi )
@@ -65,7 +65,6 @@ src_prepare() {
 
 src_configure() {
 	local myextras=""
-	local mymode=""
 	local mycxx=""
 
 	use boost && EXTRAS=$(my_list_append "${EXTRAS}" "boost")
@@ -78,25 +77,20 @@ src_configure() {
 	test -n "${EXTRAS}" && myextras="extras=${EXTRAS}"
 
 	if use debug; then
-		mymode="debug"
+		MODE="debug"
 	else
-		mymode="release"
+		MODE="release"
 	fi
 
 	MAKEOPTS=$(my_filter_option "${MAKEOPTS}" "--load-average[=0-9.]*")
 	MAKEOPTS=$(my_filter_option "${MAKEOPTS}" "-l[0-9.]*")
 
-	MYCONF="${MAKEOPTS} mode=${mymode} ${myextras} ${mycxx}"
+	MYCONF="${MAKEOPTS} mode=${MODE} ${myextras} ${mycxx}"
 }
 
 src_compile() {
 	einfo "running 'scons bin cat=src ${MYCONF}' ..."
 	scons bin cat=src ${MYCONF} || die "scons bin cat=src ${MYCONF} failed"
-
-	if use doc; then
-		einfo "running 'scons ${MYCONF} cat=doc' ..."
-		scons ${MYCONF} cat=doc || die "scons failed to build documentation"
-	fi
 }
 
 src_install() {
@@ -105,12 +99,8 @@ src_install() {
 	use amd64 && BIT="64"
 	use x86 && BIT="32"
 
-	dolib.so build/src/release/linux/2.6/${BIT}/x86/${COMPILER}/${EXTRAS//,/-}/*.so || \
+	dolib.so build/src/${MODE}/linux/2.6/${BIT}/x86/${COMPILER}/${EXTRAS//,/-}/*.so || \
 	die "failed to install libs"
-
-	if use doc; then
-	   dohtml build/doc/rosetta++/docs/* || die "could not install docs"
-	fi
 
 	cd bin
 	for BIN in *; do
