@@ -1,0 +1,89 @@
+--- src/java/demo/org/flexdock/demos/AllDemos.java	2007-01-11 15:52:00.000000000 +0100
++++ src/java/demo/org/flexdock/demos/AllDemos.java	2007-12-22 16:20:09.000000000 +0100
+@@ -33,7 +33,6 @@
+             "org.flexdock.demos.raw.border.BorderDemo",
+             "org.flexdock.demos.raw.CompoundDemo",
+             "org.flexdock.demos.raw.elegant.ElegantDemo",
+-            "org.flexdock.demos.raw.jmf.JMFDemo",
+             "org.flexdock.demos.raw.SimpleDemo",
+             "org.flexdock.demos.raw.SplitPaneDemo",
+             "org.flexdock.demos.raw.TabbedPaneDemo",
+--- src/java/drag/org/flexdock/docking/drag/outline/xlib/XlibRubberBand.java	2008-08-12 14:53:19.000000000 +0200
++++ src/java/drag/org/flexdock/docking/drag/outline/xlib/XlibRubberBand.java	2008-08-12 16:30:51.000000000 +0200
+@@ -36,7 +36,8 @@
+ 	
+ 	private static void prime() {
+ 	    List keys = OsInfo.getInstance().getPrefixLibraryKeys();
+-	    
++	    System.setProperty("java.library.path",  System.getProperty("java.library.path") + ":/usr/lib/jni/");
++
+ 	    // we're going to cycle through various levels of os+arch accuracy
+ 	    // until we're able to load a native library that matches the current
+ 	    // system.
+@@ -46,7 +47,7 @@
+ 	        String resource = NATIVE_RESOURCE_PATH + NATIVE_RESOURCE_START + key + NATIVE_RESOURCE_END;
+ 	        
+ 	        try {
+-	            ResourceManager.loadLibrary(lib, resource);
++	            System.loadLibrary(lib);
+ 	            // if the library was successfully loaded, then we don't 
+ 	            // need to do anything else.
+ 	            return;
+--- build.xml	2008-08-12 14:53:19.000000000 +0200
++++ build.xml	2008-08-12 17:07:02.000000000 +0200
+@@ -118,7 +118,7 @@
+       <condition property="os.unixWithXlib">
+          <and>
+             <os family="unix"/>
+-            <available file="/usr/X11R6/include/X11/Xlib.h"/>
++            <available file="/usr/include/X11/Xlib.h"/>
+          </and>
+       </condition>
+    </target>
+@@ -145,7 +145,7 @@
+          <src path="${java.src.drag}"/>
+          <src path="${java.src.perspective}"/>
+       </javac>
+-      <javac classpathref="javac.classpath.demo" srcdir="${java.src.demo}" destdir="${bin.dir.demo}" debug="true" source="1.4"/>
++      <javac classpathref="javac.classpath.demo" srcdir="${java.src.demo}" destdir="${bin.dir.demo}" excludes="org/flexdock/demos/raw/jmf//**" debug="true" source="1.4"/>
+       <javac classpathref="javac.classpath.test" srcdir="${java.src.test}" destdir="${bin.dir.test}" debug="true" source="1.4"/>
+    </target>
+ 
+#@@ -176,10 +176,10 @@
+#       <path id="sdk.include.dirset">
+#          <dirset dir="${sdk.include}"/>
+#       </path>
+#-      <pathconvert property="sdk.include.gcc.args.temp"
+#+<!--      <pathconvert property="sdk.include.gcc.args.temp"
+#                    refid="sdk.include.dirset"
+#-                   pathsep='" "-I'/>
+#-      <property name="sdk.include.gcc.args" value='"-I${sdk.include.gcc.args.temp}"'/>
+#+                   pathsep='" "-I'/>-->
+#+      <property name="sdk.include.gcc.args" value='"-I/usr/lib/jvm/java-gcj/include/"' />
+#    </target>
+# 
+# 
+@@ -291,11 +291,12 @@
+ 
+       <exec executable="gcc" failonerror="true">
+          <arg value="-lX11"/>
+-         <arg value="-L/usr/X11R6/lib"/>
+-         <arg value="-I/usr/X11R6/include"/>
++         <arg value="-L/usr/lib"/>
++	 <arg value="-I/usr/include/X11"/>
+          <arg value="-o"/>
+          <arg value="${so.dir}/libRubberBand${library.key}.so"/>
+          <arg value="-shared"/>
++         <arg value="-fPIC"/>
+          <arg value="${c.dir}/RubberBand.c"/>
+          <arg line='${sdk.include.gcc.args}'/> <!-- potentially multiple include dirs -->
+       </exec>
+@@ -313,7 +314,7 @@
+          <isset property="generic.jar"/>
+       </condition>
+       <property name="jar.suffix" value=""/>
+-      <property name="jar.excludes" value=""/>
++      <property name="jar.excludes" value="**/*.so"/>
+ 
+ 
+       <!-- after this method is called, other targets can use these props -->

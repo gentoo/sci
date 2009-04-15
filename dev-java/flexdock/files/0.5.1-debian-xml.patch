@@ -1,0 +1,110 @@
+
+--- flexdock-0.5.1-dfsg1.orig/build.xml	2008-08-12 14:53:19.000000000 +0200
++++ flexdock-0.5.1-dfsg1/build.xml	2008-08-12 17:07:02.000000000 +0200
+@@ -118,7 +118,7 @@
+       <condition property="os.unixWithXlib">
+          <and>
+             <os family="unix"/>
+-            <available file="/usr/X11R6/include/X11/Xlib.h"/>
++            <available file="/usr/include/X11/Xlib.h"/>
+          </and>
+       </condition>
+    </target>
+@@ -145,7 +145,7 @@
+          <src path="${java.src.drag}"/>
+          <src path="${java.src.perspective}"/>
+       </javac>
+-      <javac classpathref="javac.classpath.demo" srcdir="${java.src.demo}" destdir="${bin.dir.demo}" debug="true" source="1.4"/>
++      <javac classpathref="javac.classpath.demo" srcdir="${java.src.demo}" destdir="${bin.dir.demo}" excludes="org/flexdock/demos/raw/jmf//**" debug="true" source="1.4"/>
+       <javac classpathref="javac.classpath.test" srcdir="${java.src.test}" destdir="${bin.dir.test}" debug="true" source="1.4"/>
+    </target>
+ 
+@@ -176,10 +176,10 @@
+       <path id="sdk.include.dirset">
+          <dirset dir="${sdk.include}"/>
+       </path>
+-      <pathconvert property="sdk.include.gcc.args.temp"
++<!--      <pathconvert property="sdk.include.gcc.args.temp"
+                    refid="sdk.include.dirset"
+-                   pathsep='" "-I'/>
+-      <property name="sdk.include.gcc.args" value='"-I${sdk.include.gcc.args.temp}"'/>
++                   pathsep='" "-I'/>-->
++      <property name="sdk.include.gcc.args" value='"-I/usr/lib/jvm/java-gcj/include/"' />
+    </target>
+ 
+ 
+@@ -291,11 +291,12 @@
+ 
+       <exec executable="gcc" failonerror="true">
+          <arg value="-lX11"/>
+-         <arg value="-L/usr/X11R6/lib"/>
+-         <arg value="-I/usr/X11R6/include"/>
++         <arg value="-L/usr/lib"/>
++	 <arg value="-I/usr/include/X11"/>
+          <arg value="-o"/>
+          <arg value="${so.dir}/libRubberBand${library.key}.so"/>
+          <arg value="-shared"/>
++         <arg value="-fPIC"/>
+          <arg value="${c.dir}/RubberBand.c"/>
+          <arg line='${sdk.include.gcc.args}'/> <!-- potentially multiple include dirs -->
+       </exec>
+@@ -313,7 +314,7 @@
+          <isset property="generic.jar"/>
+       </condition>
+       <property name="jar.suffix" value=""/>
+-      <property name="jar.excludes" value=""/>
++      <property name="jar.excludes" value="**/*.so"/>
+ 
+ 
+       <!-- after this method is called, other targets can use these props -->
+#@@ -334,7 +335,7 @@
+#               I believe this BUG is the cause: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4490798 -->
+#          <manifest>
+#             <!-- matches core jar name -->
+#-            <attribute name="Class-Path" value="${dist.jar.name} lib/commons-logging-1.1.jar lib/jmf/lib/jmf.jar lib/looks-2.1.1.jar"/> 
+#+            <attribute name="Class-Path" value="${dist.jar.name} commons-logging.jar looks.jar skinlf.jar"/> 
+#             <attribute name="Main-Class" value="org.flexdock.demos.AllDemos"/>
+#          </manifest>
+#       </jar>
+@@ -557,7 +558,6 @@
+             <filter token="VERSION" value="${version}"/>
+             <filter token="DEMO_JAR_NAME" value="${dist.demo.jar.name}"/>
+             <filter token="FRAMEWORK_JAR_NAME" value="${dist.jar.name}"/>
+-            <filter token="JMF_JAR_NAME" value="jmf.jar"/>
+             <filter token="APACHE_LOGGING" value="commons-logging-1.1.jar"/>
+             <filter token="LOOKS" value="looks-2.1.1.jar"/>
+             <filter token="SKIN_LF" value="skinlf.jar"/>
+@@ -570,9 +570,6 @@
+           jarname="${build.dir}/${dist.demo.jar.name}"
+           sjarname="${bin.dir.webstart}/${dist.demo.jar.name}"/>
+       <mysignjar
+-          jarname="${build.dir}/lib/jmf/lib/jmf.jar"
+-          sjarname="${bin.dir.webstart}/jmf.jar"/>
+-      <mysignjar
+           jarname="${build.dir}/lib/commons-logging-1.1.jar"
+           sjarname="${bin.dir.webstart}/commons-logging-1.1.jar"/>
+     <mysignjar
+
+
+--- flexdock-0.5.1-dfsg1.orig/src/java/drag/org/flexdock/docking/drag/outline/xlib/XlibRubberBand.java	2008-08-12 14:53:19.000000000 +0200
++++ flexdock-0.5.1-dfsg1/src/java/drag/org/flexdock/docking/drag/outline/xlib/XlibRubberBand.java	2008-08-12 16:30:51.000000000 +0200
+@@ -36,7 +36,8 @@
+ 	
+ 	private static void prime() {
+ 	    List keys = OsInfo.getInstance().getPrefixLibraryKeys();
+-	    
++	    System.setProperty("java.library.path",  System.getProperty("java.library.path") + ":/usr/lib/jni/");
++
+ 	    // we're going to cycle through various levels of os+arch accuracy
+ 	    // until we're able to load a native library that matches the current
+ 	    // system.
+@@ -46,7 +47,7 @@
+ 	        String resource = NATIVE_RESOURCE_PATH + NATIVE_RESOURCE_START + key + NATIVE_RESOURCE_END;
+ 	        
+ 	        try {
+-	            ResourceManager.loadLibrary(lib, resource);
++	            System.loadLibrary(lib);
+ 	            // if the library was successfully loaded, then we don't 
+ 	            // need to do anything else.
+ 	            return;
+

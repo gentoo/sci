@@ -1,0 +1,23 @@
+--- build.xml.old	2009-04-16 01:03:15.000000000 +1200
++++ build.xml	2009-04-16 01:03:54.000000000 +1200
+@@ -68,7 +68,9 @@
+    </path>
+ 
+    <path id="rt.classpath">
+-      <pathelement location="${bin.dir}"/>
++	   <pathelement location="${bin.dir}"/>
++	   <fileset dir="${lib.dir}" includes="skinlf*.jar" />
++	   <fileset dir="${lib.dir}" includes="commons-logging*.jar" />
+    </path>
+    <path id="rt.classpath.demo">
+       <pathelement location="${bin.dir.demo}"/>
+@@ -295,7 +297,8 @@
+          <arg value="-I/usr/X11R6/include"/>
+          <arg value="-o"/>
+          <arg value="${so.dir}/libRubberBand${library.key}.so"/>
+-         <arg value="-shared"/>
++	 <arg value="-shared"/>
++	 <arg value="-fPIC"/>
+          <arg value="${c.dir}/RubberBand.c"/>
+          <arg line='${sdk.include.gcc.args}'/> <!-- potentially multiple include dirs -->
+       </exec>
