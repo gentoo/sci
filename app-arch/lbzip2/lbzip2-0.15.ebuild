@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit toolchain-funcs eutils
+inherit toolchain-funcs eutils flag-o-matic
 
 DESCRIPTION="Pthreads-based parallel bzip2/bunzip2 filter, passable to GNU tar"
 HOMEPAGE="http://freshmeat.net/projects/lbzip2"
@@ -26,6 +26,7 @@ src_unpack() {
 }
 
 src_compile() {
+	append-lfs-flags
 	emake CC=$(tc-getCC) || die "emake failed"
 }
 
@@ -42,6 +43,6 @@ src_install() {
 	dobin ${PN} || die "Installation of ${PN} failed"
 	dodoc ChangeLog README || die "no docs"
 	doman ${PN}.1 || die "no man"
-	insinto"/usr/share/${PN}"
-	doins corr-perf.sh malloc_trace.pl test.sh lfs.sh || die
+	insinto "/usr/share/${PN}"
+	doins corr-perf.sh malloc_trace.pl || die
 }
