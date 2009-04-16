@@ -31,11 +31,14 @@ src_compile() {
 }
 
 src_test() {
-	[ -t 0 ] || return
-	rm -rf "${T}/scratch" "${T}/results" "${T}/rnd"
-	hexdump -n 10485760 /dev/urandom > "${T}/rnd"
-	emake -j1 SHELL=/bin/dash PATH="${S}:${PATH}" TESTFILE="${T}/rnd" check \
-		|| die "make check failed"
+	if [ -t 0 ] || return; then
+		rm -rf "${T}/scratch" "${T}/results" "${T}/rnd"
+		hexdump -n 10485760 /dev/urandom > "${T}/rnd"
+		emake -j1 SHELL=/bin/dash PATH="${S}:${PATH}" TESTFILE="${T}/rnd" check \
+			|| die "make check failed"
+	else
+		ewarn "make check must be run attached to a terminal"
+	fi
 }
 
 
