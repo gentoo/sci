@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/zarja
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*zarja-1.1.1 (16 Apr 2009)
+
+  16 Apr 2009; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +zarja-1.1.1.ebuild:
+  Initial import to science overlay - bug #254832 - Thanks Hynek Lavička
+
