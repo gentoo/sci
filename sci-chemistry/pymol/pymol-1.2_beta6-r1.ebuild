@@ -9,7 +9,7 @@ APBS_PATCH="070604-r3550"
 
 inherit distutils subversion
 
-ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol@3689"
+ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol@3704"
 
 DESCRIPTION="A Python-extensible molecular graphics system."
 HOMEPAGE="http://pymol.sourceforge.net/"
@@ -19,9 +19,8 @@ IUSE="apbs shaders"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-DEPEND="dev-python/pmw
+RDEPEND="dev-python/pmw
 		dev-python/numpy
-		dev-lang/tk
 		>=dev-lang/python-2.4[tk]
 		media-libs/libpng
 		sys-libs/zlib
@@ -30,50 +29,40 @@ DEPEND="dev-python/pmw
 				sci-chemistry/apbs
 				sci-chemistry/pdb2pqr
 		)"
-
-RDEPEND="${DEPEND}"
+DEPEND="${RDEPEND}"
 
 pkg_setup(){
 	python_version
 }
 
-src_unpack() {
-	subversion_src_unpack
-
+src_prepare() {
 	epatch "${FILESDIR}"/${PF}-data-path.patch || die
 
 	# Turn off splash screen.  Please do make a project contribution
 	# if you are able though.
-	[[ -z "$WANT_NOSPLASH" ]] && epatch "${FILESDIR}"/nosplash-gentoo.patch ||die
+	[[ -z "$WANT_NOSPLASH" ]] && epatch "${FILESDIR}"/nosplash-gentoo.patch
 
 	# Respect CFLAGS
 	sed -i \
 		-e "s:\(ext_comp_args=\).*:\1[]:g" \
 		"${S}"/setup.py
 
-	if use shaders; then
-		epatch "${FILESDIR}"/${PF}-shaders.patch || die
-	fi
+	use shaders && epatch "${FILESDIR}"/${PF}-shaders.patch
 
 	if use apbs; then
 		epatch "${FILESDIR}"/apbs-${APBS_PATCH}.patch.bz2
-		sed "s:LIBANDPYTHON:$(get_libdir)/python${PYVER}:g" \
+		sed "s:LIBANDPYTHON:$(python_get_libdir):g" \
 			-i modules/pmg_tk/startup/apbs_tools.py || die
 	fi
 }
 
 src_install() {
 	distutils_src_install
-	cd "${S}"
-
-	#The following three lines probably do not do their jobs and should be
-	#changed
-	PYTHONPATH="${D}$(python_get_sitedir)" ${python} setup2.py
 
 	# These environment variables should not go in the wrapper script, or else
 	# it will be impossible to use the PyMOL libraries from Python.
 	cat >> "${T}"/20pymol <<- EOF
-	PYMOL_PATH=$(python_get_sitedir)/pymol
+	PYMOL_PATH=$(python_get_sitedir)/${PN}
 	PYMOL_DATA="/usr/share/pymol/data"
 	PYMOL_SCRIPTS="/usr/share/pymol/scripts"
 	EOF
@@ -83,26 +72,24 @@ src_install() {
 
 	doenvd "${T}"/20pymol || die "Failed to install env.d file."
 
-	# Make our own wrapper
 	cat >> "${T}"/pymol <<- EOF
 	#!/bin/sh
 	${python} -O \${PYMOL_PATH}/__init__.py \$*
 	EOF
 
+	dobin "${T}"/pymol || die "Failed to install wrapper."
+
+	insinto /usr/share/pymol
+	doins -r test data scripts || die "no shared data"
+
+	insinto /usr/share/pymol/examples
+	doins -r examples || die "Failed to install docs."
+
+	dodoc DEVELOPERS README || die "Failed to install docs."
+
 	if ! use apbs; then
 		rm "${D}"$(python_get_sitedir)/pmg_tk/startup/apbs_tools.py
 	fi
-
-	exeinto /usr/bin
-	doexe "${T}"/pymol || die "Failed to install wrapper."
-	dodoc DEVELOPERS || die "Failed to install docs."
-
-	mv examples "${D}"/usr/share/doc/${PF}/ || die "Failed moving docs."
-
-	dodir /usr/share/pymol
-	mv test "${D}"/usr/share/pymol/ || die "Failed moving test files."
-	mv data "${D}"/usr/share/pymol/ || die "Failed moving data files."
-	mv scripts "${D}"/usr/share/pymol/ || die "Failed moving scripts."
 }
 
 pkg_postinst(){
