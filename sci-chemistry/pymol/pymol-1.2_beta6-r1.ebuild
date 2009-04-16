@@ -36,7 +36,7 @@ pkg_setup(){
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PF}-data-path.patch || die
+	epatch "${FILESDIR}"/${P}-data-path.patch || die
 
 	# Turn off splash screen.  Please do make a project contribution
 	# if you are able though.
@@ -47,7 +47,7 @@ src_prepare() {
 		-e "s:\(ext_comp_args=\).*:\1[]:g" \
 		"${S}"/setup.py
 
-	use shaders && epatch "${FILESDIR}"/${PF}-shaders.patch
+	use shaders && epatch "${FILESDIR}"/${P}-shaders.patch
 
 	if use apbs; then
 		epatch "${FILESDIR}"/apbs-${APBS_PATCH}.patch.bz2
@@ -62,9 +62,9 @@ src_install() {
 	# These environment variables should not go in the wrapper script, or else
 	# it will be impossible to use the PyMOL libraries from Python.
 	cat >> "${T}"/20pymol <<- EOF
-	PYMOL_PATH=$(python_get_sitedir)/${PN}
-	PYMOL_DATA="/usr/share/pymol/data"
-	PYMOL_SCRIPTS="/usr/share/pymol/scripts"
+		PYMOL_PATH=$(python_get_sitedir)/${PN}
+		PYMOL_DATA="/usr/share/pymol/data"
+		PYMOL_SCRIPTS="/usr/share/pymol/scripts"
 	EOF
 
 	use apbs && \
