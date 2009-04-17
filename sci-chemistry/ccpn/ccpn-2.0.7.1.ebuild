@@ -17,10 +17,10 @@ SRC_URI="http://www.bio.cam.ac.uk/ccpn/download/${MY_PN}/analysis${PV}.tar.gz"
 HOMEPAGE="http://www.ccpn.ac.uk/ccpn"
 IUSE="doc opengl"
 RESTRICT="mirror"
-RDEPEND="${DEPEND}"
-DEPEND="virtual/glut
+RDEPEND="virtual/glut
 	 dev-tcltk/tix
 	 dev-python/numpy"
+DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${MY_PN}
 
@@ -31,8 +31,6 @@ pkg_setup() {
 
 src_unpack() {
 	unpack ${A}
-
-#	epatch "${FILESDIR}"/missing-link.patch
 
 	echo "" > "${S}"/ccpnmr2.0/c/environment.txt || die "failed to kill environment.txt"
 }
@@ -45,12 +43,11 @@ src_compile() {
 	tk_ver="$(best_version dev-lang/tk | cut -d- -f3 | cut -d. -f1,2)"
 
 	if use opengl; then
-
-	if has_version media-libs/freeglut; then
-		GLUT_NEED_INIT="-DNEED_GLUT_INIT"
-	else
-		GLUT_NEED_INIT=""
-	fi
+		if has_version media-libs/freeglut; then
+			GLUT_NEED_INIT="-DNEED_GLUT_INIT"
+		else
+			GLUT_NEED_INIT=""
+		fi
 
 		IGNORE_GL_FLAG=""
 		GL_FLAG="-DUSE_GL_FALSE"
@@ -108,21 +105,21 @@ src_compile() {
 
 src_install() {
 
-	local IN_PATH
-	local GENTOO_SITEDIR
-	local LIBDIR
-	local FILES
-	local TKVER
+	local in_path
+	local gentoo_sitedir
+	local libdir
+	local files
+	local tkver
 
-	IN_PATH=$(python_get_sitedir)/${PN}
-	GENTOO_SITEDIR=$(python_get_sitedir)
-	LIBDIR=$(get_libdir)
-	TKVER=$(best_version dev-lang/tk | cut -d- -f3 | cut -d. -f1,2)
+	in_path=$(python_get_sitedir)/${PN}
+	gentoo_sitedir=$(python_get_sitedir)
+	libdir=$(get_libdir)
+	tkver=$(best_version dev-lang/tk | cut -d- -f3 | cut -d. -f1,2)
 
 	for wrapper in analysis dangle dataShifter formatConverter pipe2azara; do
-		sed -e "s:GENTOO_SITEDIR:${GENTOO_SITEDIR}:g" \
-		    -e "s:LIBDIR:${LIBDIR}:g" \
-			-e "s:TKVER:${TKVER}:g" \
+		sed -e "s:gentoo_sitedir:${gentoo_sitedir}:g" \
+		    -e "s:libdir:${libdir}:g" \
+			-e "s:tkver:${tkver}:g" \
 		    "${FILESDIR}"/${wrapper} > "${T}"/${wrapper} || die "Fail fix ${wrapper}"
 		dobin "${T}"/${wrapper} || die "Failed to install ${wrapper}"
 	done
@@ -133,7 +130,7 @@ src_install() {
 	find . -name doc -exec rm -rf '{}' \; 2> /dev/null
 	eend
 
-	insinto ${IN_PATH}
+	insinto ${in_path}
 
 	ebegin "Installing main files"
 	doins -r ccpnmr2.0/{data,model,python} || die "main files installation failed"
@@ -141,7 +138,7 @@ src_install() {
 
 	einfo "Adjusting permissions"
 
-	FILES="ccpnmr/c/ContourFile.so
+	files="ccpnmr/c/ContourFile.so
 		ccpnmr/c/ContourLevels.so
 		ccpnmr/c/ContourStyle.so
 		ccpnmr/c/PeakList.so
@@ -171,7 +168,7 @@ src_install() {
 		memops/c/StoreHandler.so
 		memops/c/TkHandler.so"
 
-	for FILE in ${FILES}; do
-		fperms 755 ${IN_PATH}/python/${FILE}
+	for FILE in ${files}; do
+		fperms 755 ${in_path}/python/${FILE}
 	done
 }

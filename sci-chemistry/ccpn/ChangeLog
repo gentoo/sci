@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccpn-2.0.7.1 (17 Apr 2009)
+
+  17 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> files/analysis,
+  files/dangle, files/dataShifter, files/formatConverter, files/pipe2azara,
+  +ccpn-2.0.7.1.ebuild, -ccpn-2.0.7.ebuild:
+  version which fixes the 1D bug
+
 *ccpn-2.0.7 (07 Apr 2009)
 
   07 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +ccpn-2.0.7.ebuild:
