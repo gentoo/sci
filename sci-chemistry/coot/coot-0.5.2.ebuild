@@ -16,7 +16,7 @@ if [[ ${MY_PV} = *pre* ]]; then
 else
 	SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/${MY_P}.tar.gz"
 fi
-LICENSE="GPL-2"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
