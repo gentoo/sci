@@ -30,7 +30,7 @@ src_unpack() {
 }
 
 src_install() {
-	einstall DESTDIR="${D}" || die
+	emake DESTDIR="${D}" install || die
 	use doc && dodoc "${S}"/manual/*
 	dodoc README
 }

@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Apr 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  cadabra-1.08.ebuild:
+  cleaning of the ebuild
+
   05 Apr 2009; François Bissey <f.r.bissey@massey.ac.nz>
   +sci-mathematics/cadabra/files/cadabra-1.08-as-needed.patch:
   added a patch for --as-needed

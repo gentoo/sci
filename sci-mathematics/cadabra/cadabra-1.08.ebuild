@@ -32,40 +32,39 @@ src_prepare() {
 	epatch "${FILESDIR}/${P}-as-needed.patch"
 }
 
-
 src_compile() {
-	local myconf=""
 
-	myconf="${myconf} `use enable X gui`"
-
-	econf ${myconf} || die
-	emake || die
+	econf $(use_enable X gui)
+	emake
 
 	if ( use doc )
 	then
 		cd "${S}/doc"
-		make
+		emake
 		cd doxygen/latex
-		make pdf
+		emake pdf
 	fi
 }
 
 src_install() {
-	einstall DESTDIR="${D}" DEVDESTDIR="${D}" || die
+	emake DESTDIR="${D}" DEVDESTDIR="${D}" install || die "install died"
 
-	dodoc AUTHORS ChangeLog INSTALL
-
-	use examples &&	cp -R "${S}/examples" "${D}/usr/share/doc/${PF}"
+	dodoc AUTHORS ChangeLog INSTALL || die
 
 	if ( use doc )
 		then
 		cd "${S}/doc/doxygen"
 		dohtml html/*
-		cp latex/*.pdf "${D}/usr/share/doc/${PF}"
+		dodoc latex/*.pdf
+	fi
+
+	if ( use examples )
+	then
+		docinto examples
+		dodoc "${S}/examples/*"
 	fi
 
 	rm -rf "${D}/usr/share/TeXmacs"
-
 }
 
 pkg_postinst() {
