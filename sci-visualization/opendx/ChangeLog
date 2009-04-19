@@ -2,6 +2,14 @@
 # Copyright 2000-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-visualization/opendx/ChangeLog,v 1.15 2008/09/14 11:25:38 spock Exp $
 
+  19 Apr 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  +files/opendx-4.4.4-dx-errno.patch,
+  +files/opendx-4.4.4-gcc43-fedora.patch, +files/opendx-4.4.4-open.patch,
+  -files/dx-errno.patch, -files/dx-gcc43-fedora.patch, -files/dx-open.patch,
+  opendx-4.4.4-r1.ebuild:
+  rename patches to something nicer. some cleaning of the ebuild structure.
+  introduce the smp keyword and simplify greatly the associated logic.
+
 *opendx-4.4.4-r1 (17 Apr 2009)
 
   17 Apr 2009; François Bissey <f.r.bissey@massey.ac.nz>

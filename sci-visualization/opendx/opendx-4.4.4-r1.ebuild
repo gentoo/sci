@@ -6,28 +6,19 @@
 # Set SMP="yes" to force enable of SMP compilation.
 # Otherwise it will be autodetected from /usr/src/linux.
 
-inherit eutils flag-o-matic linux-info autotools
+inherit eutils flag-o-matic autotools
 
 EAPI=2
 DESCRIPTION="A 3D data visualization tool"
 HOMEPAGE="http://www.opendx.org/"
 SRC_URI="http://opendx.sdsc.edu/source/${P/open}.tar.gz"
 
-#	There are a few jar files that can be added to enhance JX.
-#	These are java40.jar from the Netscape libraries
-#	(we've provided them in the OpenDX.org lib area) nscosmop211.jar
-#	from the Cosmo Player libs.
-#	http://opendx.npaci.edu/libs/
-#SRC_URI="${SRC_URI}
-#	http://opendx.npaci.edu/libs/netscape-java40.tar.gz
-#	http://opendx.npaci.edu/libs/cosmoplayer-jar.tar.gz"
-
 LICENSE="IPL-1"
 SLOT="0"
-# Should work on x86, ppc, alpha at least
+
 KEYWORDS="~amd64 ~ppc ~x86"
 
-IUSE="hdf cdf netcdf tiff imagemagick szip" # java doc"
+IUSE="hdf cdf netcdf tiff imagemagick szip smp"
 
 DEPEND="x11-libs/libXmu
 	x11-libs/libXi
@@ -43,58 +34,24 @@ DEPEND="x11-libs/libXmu
 
 RDEPEND="${DEPEND}"
 # waiting on bug #36349 for media-libs/jasper in imagemagick
-# java support gives some trouble - deprecated api and other unresolved symbols
-#		java? ( virtual/jdk
-#				dev-java/java-config )"
 
 S="${WORKDIR}/${P/open}"
 
-smp() {
-	has "$1" "${SMP}"
-}
-
-smp_check() {
-	linux_chkconfig_present SMP
-}
-
-pkg_setup() {
-	linux-info_pkg_setup
-}
-
 src_prepare() {
 
-	epatch "${FILESDIR}"/${PN}-4.3.2-sys.h.patch || die "Failed to apply sys.h patch."
+	epatch "${FILESDIR}/${PN}-4.3.2-sys.h.patch"
 	epatch "${FILESDIR}/${PN}-compressed-man.patch"
-	epatch "${FILESDIR}/dx-gcc43-fedora.patch"
-	epatch "${FILESDIR}/dx-errno.patch"
+	epatch "${FILESDIR}/${P}-gcc43-fedora.patch"
+	epatch "${FILESDIR}/${P}-dx-errno.patch"
 	epatch "${FILESDIR}/${P}-libtool.patch"
 	epatch "${FILESDIR}/${P}-concurrent-make-fix.patch"
-	epatch "${FILESDIR}/dx-open.patch"
+	epatch "${FILESDIR}/${P}-open.patch"
 
-	eautoreconf || die "Failed running eautoreconf."
+	eautoreconf
 }
 
-src_compile() {
-
-	local myconf="--with-x \
-		--host=${CHOST}"
-
-	# Check for SMP
-	# This needs to be done for /usr/src/linux, NOT the running kernel
-	# Allow override using smp().
-	if smp no
-	then
-		myconf="${myconf} --disable-smp-linux"
-		einfo "Disabling SMP capabilities"
-	elif smp yes || smp_check
-	then
-		myconf="${myconf} --enable-smp-linux"
-		einfo "Enabling SMP capabilities"
-	else
-		myconf="${myconf} --disable-smp-linux"
-		einfo "Disabling SMP capabilities"
-	fi
-
+src_configure() {
+	# check flag filtering
 	# with gcc 3.3.2 I had an infinite loop on src/exec/libdx/zclipQ.c
 	append-flags -fno-strength-reduce
 
@@ -108,30 +65,37 @@ src_compile() {
 
 	local morelibs=""
 	use szip && morelibs="-lsz"
-	# use java && myconf="${myconf} JNIPATH=$(java-config -O)/include:$(java-config -O)/include/linux"
 	econf LIBS="${morelibs}" \
-		`use_with cdf` \
-		`use_with netcdf` \
-		`use_with hdf` \
-		`use_with tiff` \
-		`use_with imagemagick magick` \
-		${myconf} || die
+		"--with-x" \
+		$(use_with cdf) \
+		$(use_with netcdf) \
+		$(use_with hdf) \
+		$(use_with tiff) \
+		$(use_with imagemagick magick) \
+		$(use_enable smp smp-linux)
 
-	#		`use_with java javadx`
-	# This is broken
-	#	`use_enable doc installhtml`
+	ARCH="${GENTOOARCH}"
+#	javadx is currently broken. we may try to fix it someday.
+}
+
+src_compile() {
+	local GENTOOARCH="${ARCH}"
+	unset ARCH
 
 	emake || die
 	ARCH="${GENTOOARCH}"
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die
-
-	echo "MANPATH=/usr/dx/man" > 50opendx
-	doenvd 50opendx
+	emake DESTDIR="${D}" install || die
 
 	# inform revdep-rebuild about binary locations
 	insinto /etc/revdep-rebuild
 	doins "${FILESDIR}"/20-${PN}-revdep
+}
+
+pkg_postinst() {
+	elog "This version of the opendx ebuild is still under development."
+	elog "suggestions, comments and offer of help welcome"
+	elog "post a message in gentoo-science or pop up on irc on #gentoo-science"
 }
