@@ -15,7 +15,7 @@ IUSE="doc"
 
 RDEPEND="virtual/blas
 	virtual/lapack"
-DEPEND="${DEPEND}
+DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	doc? ( app-doc/doxygen[latex] )"
 
