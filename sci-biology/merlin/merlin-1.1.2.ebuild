@@ -16,9 +16,16 @@ IUSE=""
 KEYWORDS="~amd64 ~x86"
 
 src_prepare() {
-	sed -i -e 's/CXX=g++/CXX='$(tc-getCXX)'/' -e 's/CFLAGS=/CFLAGS+=/' "${S}/Makefile" || die
+	sed -i -e 's/CXX=g++/CXX='$(tc-getCXX)'/' -e 's/CFLAGS=/CFLAGS+= /' "${S}/Makefile" || die
+}
+
+src_compile() {
+	emake INSTALLDIR="${S}/bin" install || die
 }
 
 src_install() {
-	make install INSTALLDIR="${D}usr/bin" || die
+	dobin "${S}"/bin/* || die
+	insinto /usr/share/${PN}
+	doins -r examples || die
+	dodoc README
 }
