@@ -1,0 +1,79 @@
+# ChangeLog for sci-chemistry/pdb2pqr
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/pdb2pqr/ChangeLog,v 1.16 2009/03/03 02:50:01 darkside Exp $
+
+*pdb2pqr-1.4.0 (22 Apr 2009)
+
+  22 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/pdb2pqr-1.4.0-automagic.patch, +files/pdb2pqr-propka-gentoo.patch,
+  +files/pdb2pqr-1.4.0-install.patch, +files/pdb2pqr-1.4.0-ldflags.patch,
+  +files/pdb2pqr-gcc4-gentoo.patch, +metadata.xml, +pdb2pqr-1.4.0-r1.ebuild,
+  +pdb2pqr-1.4.0.ebuild:
+  version bump to 1.4.0 but opal support is missing
+
+*pdb2pqr-1.4.0-r1 (22 Apr 2009)
+
+  22 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>  pdb2pqr-1.4.0-r1.ebuild
+  # INSERT ENTRY HERE
+
+  03 Mar 2009; Jeremy Olexa <darkside@gentoo.org> pdb2pqr-1.3.0.ebuild:
+  amd64 stable, bug 245874
+
+  07 Feb 2009; Christian Faulhammer <fauli@gentoo.org> pdb2pqr-1.3.0.ebuild:
+  stable x86, bug 245874
+
+  11 Oct 2008; Markus Dittrich <markusle@gentoo.org> pdb2pqr-1.1.2.ebuild:
+  Added numpy dependency to stable ebuild as well (see bug #241178).
+
+  11 Oct 2008; Markus Dittrich <markusle@gentoo.org>
+  +files/pdb2pqr-1.3.0-ldflags.patch, pdb2pqr-1.3.0.ebuild:
+  Added missing numpy dependency and fixed LDFLAGS issue (see bug #241178).
+
+  19 Jun 2008; Markus Dittrich <markusle@gentoo.org>
+  +files/pdb2pqr-1.3.0-gcc4.3.patch, pdb2pqr-1.3.0.ebuild:
+  Added patch to allow compilation with gcc-4.3 (bug #228121).
+
+*pdb2pqr-1.3.0 (06 Feb 2008)
+
+  06 Feb 2008; Markus Dittrich <markusle@gentoo.org> +pdb2pqr-1.3.0.ebuild:
+  Version bump (see bug #209007).
+
+*pdb2pqr-1.2.1 (03 Apr 2007)
+
+  03 Apr 2007; Jeff Gardner <je_fro@gentoo.org> +pdb2pqr-1.2.1.ebuild:
+  Version bump.
+
+  06 Feb 2007; Simon Stelling <blubb@gentoo.org> pdb2pqr-1.1.2.ebuild:
+  stable on amd64; bug 162012
+
+  17 Jan 2007; Christian Faulhammer <opfer@gentoo.org> pdb2pqr-1.1.2.ebuild:
+  stable x86, bug #162012
+
+  07 Jan 2007; Danny van Dyk <kugelfang@gentoo.org> -pdb2pqr-1.0.2.ebuild:
+  QA: Removed unused versions.
+
+  17 Oct 2006; Jeff Gardner <je_fro@gentoo.org> pdb2pqr-1.1.2.ebuild:
+  Keyworded ~amd64
+
+  20 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  (#148281) Change herd to sci-chemistry from sci.
+
+  01 Jul 2006; Markus Dittrich <markusle@gentoo.org>
+  +files/pdb2pqr-1.1.2-fpic-gentoo.patch, pdb2pqr-1.1.2.ebuild:
+  Replaced global appending of -fPIC to CFLAGS/FFLAGS by a local patch
+  to Makefile.in.
+
+*pdb2pqr-1.1.2 (01 Jul 2006)
+
+  01 Jul 2006; Markus Dittrich <markusle@gentoo.org>
+  +files/pdb2pqr-1.1.2-gcc4-gentoo.patch, +pdb2pqr-1.1.2.ebuild:
+  Version bump. Thanks much to je_fro <je_fro@yahoo.com> for
+  his ebuild. This fixes bug #138534.
+
+*pdb2pqr-1.0.2 (21 Mar 2006)
+
+  21 Mar 2006; Markus Dittrich <markusle@gentoo.org>
+  +files/pdb2pqr-gcc4-gentoo.patch, +files/pdb2pqr-propka-gentoo.patch, +metadata.xml, +pdb2pqr-1.0.2.ebuild:
+  Initial import (fixes bug #124791). Many thanks to je_fro 
+  <je_fro@yahoo.com> for his ebuild.
+
