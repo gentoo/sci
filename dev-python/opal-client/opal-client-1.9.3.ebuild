@@ -24,7 +24,7 @@ S="${WORKDIR}"/${MY_P}
 src_install() {
 	/usr/bin/wsdl2py  wsdl/opal.wsdl || die
 
-	insinto $(python_get_sitedir)/${PN}
+	insinto $(python_get_sitedir)
 	doins AppService_*.py || die
 	dodoc README CHANGELOG etc/* *Client.py || die
 	dohtml docs/* || die
