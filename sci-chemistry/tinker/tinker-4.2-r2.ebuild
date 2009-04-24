@@ -12,7 +12,7 @@ SRC_URI="ftp://dasher.wustl.edu/pub/tinker.tar.gz"
 IUSE="X"
 LICENSE="Tinker"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 # RDEPEND="dev-java/j3d-core"
 S="${WORKDIR}"/tinker/source
 
