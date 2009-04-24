@@ -25,7 +25,9 @@ DEPEND="dev-libs/maloc[mpi=]
 	arpack? ( sci-libs/arpack )
 	mpi? ( virtual/mpi )
 	fetk? ( dev-libs/punc )
-	tinker? ( sci-chemistry/tinker )"
+	tinker? ( sci-chemistry/tinker )
+	dev-python/zsi
+	dev-python/opal-client"
 RDEPEND="${DEPEND}"
 
 FORTRAN="g77 gfortran ifc"
@@ -33,8 +35,8 @@ FORTRAN="g77 gfortran ifc"
 src_prepare() {
 	python_version
 
-	epatch "${FILESDIR}"/${P}-install-fix.patch
-	epatch "${FILESDIR}"/${P}-automagic.patch
+	epatch "${FILESDIR}"/${PF}-install-fix.patch
+	epatch "${FILESDIR}"/${P}-contrib.patch
 	epatch "${FILESDIR}"/${P}-LDFLAGS.patch
 	epatch "${FILESDIR}"/${P}-vgrid-maloc.patch
 	sed "s:GENTOO_PKG_NAME:${P}:g" \

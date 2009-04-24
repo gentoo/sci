@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*apbs-1.1.0-r1 (24 Apr 2009)
+
+  24 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>  apbs-1.1.0-r1.ebuild
+  # INSERT ENTRY HERE
+
   22 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> apbs-1.1.0.ebuild:
   adopted things to changed upstream tarball
 

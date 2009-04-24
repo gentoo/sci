@@ -25,34 +25,6 @@
  
  test:
  	cd examples; make test
---- contrib/opal/ZSI/Makefile.am	2009-03-05 21:30:09.000000000 +0100
-+++ contrib/opal/ZSI/Makefile.am.new	2009-03-18 12:31:29.000000000 +0100
-@@ -15,6 +15,6 @@
- export PYTHONPATH:=	${SITEPKGS}
- 
- install-data-local:
--	-mkdir -p ${SITEPKGS}
--	${py_path} setup.py install --prefix=${prefix}
-+	-mkdir -p $(DESTDIR)${SITEPKGS}
-+	${py_path} setup.py install --prefix=$(DESTDIR)${prefix}
- 	
-
---- contrib/opal/Makefile.am	2009-03-05 21:30:09.000000000 +0100
-+++ contrib/opal/Makefile.am.new	2009-03-18 12:53:40.000000000 +0100
-@@ -14,9 +14,9 @@
- SUBDIRS = $(always_built_SUBDIRS) .
- 
- install-data-local:
--	-cp ${top_apbsdir}/contrib/opal/opal-py-1.9.3/wsdl/*.py ${SITEPKGS}
--	-cp ${top_apbsdir}/contrib/opal/ApbsClientHelp ${SITEPKGS}
--	-cp -R ${top_apbsdir}/contrib/opal/ZSI/ZSI ${SITEPKGS}
-+	-cp ${top_apbsdir}/contrib/opal/opal-py-1.9.3/wsdl/*.py $(DESTDIR)${SITEPKGS}
-+	-cp ${top_apbsdir}/contrib/opal/ApbsClientHelp $(DESTDIR)${SITEPKGS}
-+	-cp -R ${top_apbsdir}/contrib/opal/ZSI/ZSI $(DESTDIR)${SITEPKGS}
- 
- 	
- 	
-
 --- bin/Makefile.am	2009-03-05 21:30:49.000000000 +0100
 +++ bin/Makefile.am.new	2009-03-18 13:04:00.000000000 +0100
 @@ -30,6 +30,6 @@
