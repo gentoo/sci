@@ -85,7 +85,7 @@ src_test() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "make install failed"
+	emake -j1 DESTDIR="${D}" install || die "make install failed"
 	dodoc AUTHORS INSTALL README NEWS ChangeLog \
 		|| die "Failed to install docs"
 	use doc || rm -rf "${D}"/usr/share/${P}/doc
