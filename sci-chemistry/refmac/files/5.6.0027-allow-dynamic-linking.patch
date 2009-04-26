@@ -1,0 +1,37 @@
+--- makefile_refmac.inc1	2009-02-23 22:54:53.000000000 +0100
++++ makefile_refmac.inc1.new	2009-04-26 13:07:13.301394474 +0200
+@@ -68,9 +68,7 @@
+ bridge.o                    \
+ i0.o                        \
+ i1.o                        \
+-chbevl.o                    \
+-$(LLIBCIF)                  \
+-$(LLIBLAPACK)
++chbevl.o                    
+ #$(LLIBCCP)                  \
+ #crt0.o                      \
+ #heavy.o                     \
+@@ -102,9 +100,7 @@
+ iheap_sort.o                \
+ linalgebra.o                \
+ math_refmac.o               \
+-subnumrec.o                 \
+-$(LLIBLAPACK)               \
+-$(LLIBCCP)
++subnumrec.o                 
+ 
+ #--------------------------------------------------------------------------------
+ 
+@@ -115,10 +111,10 @@
+ all:	refmac libcheck 
+ 
+ refmac:	$(SUBR)
+-	$(FC) $(FFLAGS) -o refmac${VERSION}   ${SUBR} $(LLIBOTHERS) $(LLIBCCP)
++	$(FC) $(FFLAGS) $(LDFLAGS) -o refmac${VERSION}   ${SUBR} $(LLIBOTHERS) $(LLIBCCP) $(LLIBCIF) $(LLIBLAPACK)
+ 
+ libcheck:	$(SUBL)
+-	$(FC) $(FFLAGS) -o libcheck${VERSION} $(SUBL)
++	$(FC) $(FFLAGS) $(LDFLAGS) -o libcheck${VERSION} $(SUBL) $(LLIBCIF) $(LLIBLAPACK)
+ 
+ clean:
+ 	/bin/rm *.o

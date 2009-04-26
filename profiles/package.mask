@@ -44,3 +44,8 @@
 # jlec@j-schmitz.net
 # total rewrite of src_install
 =sci-libs/cctbx-2009.02.15.2320-r2
+
+# Justin Lecher (jlec) (26 Apr 2009)
+# jlec@j-schmitz.net
+# experimental versions
+=sci-chemistry/refmac-5.6*
