@@ -179,7 +179,7 @@ src_install() {
 	# Data
 	insinto /usr/share/ccp4
 	doins -r "${S}"/lib/data/{*.PARM,*.prt,*.lib,*.dic,*.idl,*.cif,*.resource,*.york,*.hist,fraglib,reference_structures} || die
-	dodoc"${S}"/lib/data/*.doc
+	dodoc "${S}"/lib/data/*.doc
 	newdoc "${S}"/lib/data/README DATA-README
 
 	# Include files
