@@ -5,7 +5,7 @@
 inherit eutils
 
 DESCRIPTION="A new GUI for the Mosflm crystallographic data processing tool"
-HOMEPAGE="http://www.mrc-lmb.cam.ac.uk/harry/${PN}/"
+HOMEPAGE="http://www.mrc-lmb.cam.ac.uk/harry/imosflm"
 SRC_URI="${HOMEPAGE}/downloads/${P}.tar.gz"
 LICENSE="ccp4"
 SLOT="0"
