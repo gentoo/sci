@@ -34,3 +34,16 @@ src_compile() {
 		MR_LIBRARY="-lccp4f -lccp4c -lmmdb -lccif -L/usr/lib64 -llapack -lstdc++ -lm" \
 	|| die
 }
+
+src_test() {
+	cd molrep_check && \
+		em.bat && \
+		mr.bat || \
+		die "test failed"
+}
+
+src_install() {
+	dobin bin/${PN} || die
+
+	dodoc readme doc/${PN}.rtf || die
+}
