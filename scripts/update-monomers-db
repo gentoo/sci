@@ -1,0 +1,43 @@
+#!/bin/bash
+
+DATE=$(date "+%Y%m%d")
+CHANGE_ENTRY="automatic bump"
+MIRROR=
+
+# Find the Documentation dir from sci overlay
+
+if [[ -f $(basename $0) ]]; then
+	REPO_DOC=$(pwd)
+else
+	REPO_DOC=$(dirname $0)
+fi
+
+
+cd /tmp;
+
+wget http://www.ysbl.york.ac.uk/~garib/refmac/data/refmac_dictionary.tar.gz
+
+SHA_NEW=$(sha256sum refmac_dictionary.tar.gz)
+SHA_OLD=$(sed -n -e '/^DIST monomer/p ${REPO_DOC}/../sci-libs/monomer-db/Manifest | \
+	tail -n 1 | awk '{print $9}')
+
+if [[ ${SHA_OLD} == ${SHA_NEW} ]]; then
+	echo "Nothing to update"
+else
+	echo "bumping to monomer-db-${DATE} ..."
+	$(bump_package)
+fi
+
+
+bump_package() {
+	mv refmac_dictionary.tar.gz monomer-db-${DATE}.tar.gz
+	scp monomer-db-${DATE}.tar.gz ${MIRROR}
+
+	cd ${REPO_DOC}/../sci-libs/monomer-db/
+	git mv monomer-db*ebuild monomer-db-${DATE}.ebuild
+	echangelog '${CHANGE_ENTRY}'
+	repoman -d -v fix
+	git add .
+	git ci -m "${CHANGE_ENTRY}"
+}
+
