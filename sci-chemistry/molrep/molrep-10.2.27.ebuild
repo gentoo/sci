@@ -36,9 +36,14 @@ src_compile() {
 }
 
 src_test() {
+	ewarn "Can take a long, long time ..."
+	ewarn "Go, take a coffee, lunch, go to sleep and have breakfast ..."
 	cd molrep_check && \
-		em.bat && \
-		mr.bat || \
+		sed 's:\.\.:\.:g' -i em.bat && \
+		mkdir out && \
+		mkdir scr && \
+		MR_TEST="${S}/bin" bash em.bat && \
+		MR_TEST="${S}/bin" bash mr.bat || \
 		die "test failed"
 }
 
