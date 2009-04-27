@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/zsi/ChangeLog,v 1.10 2009/03/13 16:26:36 tcunha Exp $
 
+  27 Apr 2009; Alexey Shvetsov <alexxy@gentoo.org> zsi-2.1.0_alpha1.ebuild:
+  add block to apbs
+
   21 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> ChangeLog:
   version bump
 

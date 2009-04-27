@@ -17,14 +17,14 @@ SLOT="0"
 LICENSE="PYTHON"
 IUSE="examples doc twisted"
 
-DEPEND=">=dev-python/pyxml-0.8.3
+DEPEND="!<=sci-chemistry/apbs-1.1.0
+		>=dev-python/pyxml-0.8.3
 		>=dev-python/setuptools-0.6_rc3
 		twisted? (
 			>=dev-python/twisted-2.0
 			>=dev-python/twisted-web-0.5.0
 			>=dev-lang/python-2.4 )"
 
-#S="${WORKDIR}/${MY_P}"
 PYTHON_MODNAME=${MY_PN}
 
 src_unpack() {
