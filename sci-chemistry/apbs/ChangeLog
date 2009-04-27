@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*apbs-1.1.0-r1 (27 Apr 2009)
+
+  27 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +apbs-1.1.0-r1.ebuild, -apbs-1.1.0.ebuild:
+  needed version bump because of collosion with ZSI
+
   24 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> apbs-1.1.0.ebuild:
   removed bundled opal and ZSI
 
