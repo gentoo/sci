@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  imosflm-1.0.0.ebuild:
+  fixed HOMEPAGE
+
   20 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   imosflm-1.0.0.ebuild:
   Intial addition 

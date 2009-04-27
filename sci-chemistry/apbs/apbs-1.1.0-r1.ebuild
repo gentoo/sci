@@ -35,7 +35,7 @@ FORTRAN="g77 gfortran ifc"
 src_prepare() {
 	python_version
 
-	epatch "${FILESDIR}"/${PF}-install-fix.patch
+	epatch "${FILESDIR}"/${P}-install-fix.patch
 	epatch "${FILESDIR}"/${P}-contrib.patch
 	epatch "${FILESDIR}"/${P}-LDFLAGS.patch
 	epatch "${FILESDIR}"/${P}-vgrid-maloc.patch
