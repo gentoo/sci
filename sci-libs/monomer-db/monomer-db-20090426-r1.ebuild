@@ -21,7 +21,7 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}"/dic
 
 src_install() {
-	insinto /usr/share/ccp4/
+	insinto /usr/share/ccp4/monomers/
 	for i in {a..z} {1..9} *list *.cif *.txt; do
 		doins -r ${i} || die
 	done
