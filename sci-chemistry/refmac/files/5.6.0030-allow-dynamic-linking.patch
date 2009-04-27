@@ -31,7 +31,7 @@
  
  libcheck:	$(SUBL)
 -	$(FC) $(FFLAGS) -o libcheck${VERSION} $(SUBL)
-+	$(FC) $(FFLAGS) $(LDFLAGS) -o libcheck${VERSION} $(SUBL) $(LLIBCIF) $(LLIBLAPACK)
++	$(FC) $(FFLAGS) $(LDFLAGS) -o libcheck${VERSION} $(SUBL) $(LLIBCIF) $(LLIBLAPACK) $(LLIBCCP)
  
  clean:
  	/bin/rm *.o
