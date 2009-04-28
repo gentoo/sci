@@ -49,3 +49,9 @@
 # jlec@j-schmitz.net
 # experimental versions
 =sci-chemistry/refmac-5.6*
+
+# Justin Lecher (jlec) (28 Apr 2009)
+# jlec@j-schmitz.net
+# test for compatibility to tcl/tk-8.5
+=sci-chemistry/imosflm-1.0.0-r1
+
