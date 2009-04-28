@@ -21,7 +21,7 @@ src_install() {
 	# Coot looks in the wrong spot for the monomer library
 	# Listens to ccp4's CCP4_LIB rather than CLIBD_MON
 	cat >> "${T}"/coot <<- EOF
-	COOT_REFMAC_LIB_DIR="/usr/share/ccp4/monomers/"
+	COOT_REFMAC_LIB_DIR="/usr/share/ccp4/"
 	COOT_REF_STRUCTS="/usr/share/coot/reference-structures/"
 	EOF
 

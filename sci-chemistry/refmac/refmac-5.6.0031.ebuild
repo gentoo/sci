@@ -6,7 +6,7 @@ inherit eutils fortran toolchain-funcs
 
 DESCRIPTION="Macromolecular crystallographic refinement program"
 HOMEPAGE="http://www.ysbl.york.ac.uk/~garib/refmac/"
-SRC_URI="${HOMEPAGE}data/refmac_stable/refmac_${PV}.tar.gz"
+SRC_URI="${HOMEPAGE}data/refmac_experimental/${PN}_source_v${PV}.tar.gz"
 LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -14,7 +14,7 @@ IUSE=""
 RESTRICT="mirror"
 RDEPEND="virtual/lapack
 	virtual/blas
-	sci-libs/ccp4-libs"
+	>=sci-libs/ccp4-libs-6.1.1-r1"
 DEPEND="${RDEPEND}"
 S="${WORKDIR}"
 
@@ -39,9 +39,9 @@ src_compile() {
 }
 
 src_install() {
-	for i in refmac libcheck makecif; do
+	for i in refmac libcheck; do
 		dobin ${i} || die
 	done
 	dosym refmac /usr/bin/refmac5 || die
-	dodoc refmac_keywords.pdf || die
+#	dodoc refmac_keywords.pdf || die
 }
