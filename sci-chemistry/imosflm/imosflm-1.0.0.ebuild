@@ -21,7 +21,7 @@ RDEPEND=">=dev-tcltk/itcl-3.3
 	dev-tcltk/combobox
 	>=dev-tcltk/tktreectrl-2.1
 	>=sci-chemistry/mosflm-7.0.4
-	=dev-lang/tcl-8.4*"
+	dev-lang/tcl"
 DEPEND=""
 
 src_compile(){ :; }
@@ -32,4 +32,9 @@ src_install(){
 	fperms 775 /usr/$(get_libdir)/${PN}/src/imosflm
 
 	make_wrapper imosflm /usr/$(get_libdir)/${PN}/src/imosflm
+}
+
+pkg_postinst() {
+	einfo "If you have problems running the package with tcl/tk-8.5"
+	einfo "please upgrade dev-tcltk/itcl and dev-tcltk/itk to latest"
 }
