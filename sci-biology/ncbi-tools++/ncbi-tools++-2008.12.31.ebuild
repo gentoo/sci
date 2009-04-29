@@ -1,8 +1,10 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-biology/amos/amos-2.0.8.ebuild,v 1.2 2009/03/15 17:58:50 maekke Exp $
+# $Header: $
 
-EAPI=2
+EAPI="2"
+
+inherit multilib
 
 MY_P="ncbi_cxx--Dec_31_2008"
 
@@ -41,7 +43,7 @@ S="${WORKDIR}/${MY_P}"
 src_configure() {
 	# econf fails
 	"${S}"/configure --without-debug --with-bin-release --prefix="${D}"/usr \
-		--libdir="${D}"/usr/lib64 \
+		--libdir="${D}"/usr/$(get_libdir) \
 		--with-z="/usr" \
 		--with-bz2="/usr" \
 		--with-pcre="/usr" \
