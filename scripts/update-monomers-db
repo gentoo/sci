@@ -30,14 +30,16 @@ fi
 
 
 bump_package() {
-	mv refmac_dictionary.tar.gz monomer-db-${DATE}.tar.gz
-	scp monomer-db-${DATE}.tar.gz ${MIRROR}
+	mv refmac_dictionary.tar.gz /home/jlec/science-dist/monomer-db-${DATE}.tar.gz
+#	scp monomer-db-${DATE}.tar.gz ${MIRROR}
 
 	cd ${REPO_DOC}/../sci-libs/monomer-db/
 	git mv monomer-db*ebuild monomer-db-${DATE}.ebuild
 	echangelog '${CHANGE_ENTRY}'
-	repoman -d -v fix
+	DISTDIR="/tmp" repoman -d -v fix
 	git add .
 	git ci -m "${CHANGE_ENTRY}"
+
+	rm /tmp/monomer-db*
 }
 
