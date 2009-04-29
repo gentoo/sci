@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*coot-data-2-r2 (29 Apr 2009)
+
+  29 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -coot-data-2-r1.ebuild, +coot-data-2-r2.ebuild:
+  Fixed Path of data dir
+
 *coot-data-2-r1 (28 Apr 2009)
 
   28 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
