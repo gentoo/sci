@@ -177,7 +177,7 @@ src_install() {
 		"${D}"/usr/$(get_libdir)/*.la
 
 	# Data
-	insinto /usr/share/ccp4
+	insinto /usr/share/ccp4/data/
 	doins -r "${S}"/lib/data/{*.PARM,*.prt,*.lib,*.dic,*.idl,*.cif,*.resource,*.york,*.hist,fraglib,reference_structures} || die
 	dodoc "${S}"/lib/data/*.doc
 	newdoc "${S}"/lib/data/README DATA-README
