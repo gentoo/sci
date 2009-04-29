@@ -16,7 +16,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=">=dev-python/zsi-2.1.0_alpha1"
+RDEPEND=">=dev-python/zsi-2.1.0_alpha1
+	!=sci-chemistry/apbs-1.1.0"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${MY_P}
