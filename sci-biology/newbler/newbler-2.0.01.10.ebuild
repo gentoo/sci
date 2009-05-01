@@ -8,7 +8,7 @@ DESCRIPTION="Roche 454 pyrosequencing assembler"
 HOMEPAGE="http://www.454.com/products-solutions/analysis-tools/index.asp"
 SRC_URI="offInstrumentApps_2.0.01.10-64.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="newbler"
 SLOT="0"
 IUSE=""
 KEYWORDS="~amd64"
