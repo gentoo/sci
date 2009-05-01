@@ -1,7 +1,0 @@
-# ChangeLog for sci-biology/exonerate
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  18 Jan 2008; Jeff Gardner <je_fro@gentoo.org> +exonerate-1.4.0.ebuild:
-  Initial import thanks to dawe on bug #206521
-
