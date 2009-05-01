@@ -8,7 +8,8 @@ DESCRIPTION="blast db"
 HOMEPAGE="ftp://ftp.ncbi.nih.gov/blast/db/"
 SRC_URI="${HOMEPAGE}/nr.00.tar.gz
 	${HOMEPAGE}/nr.01.tar.gz
-	${HOMEPAGE}/nr.02.tar.gz"
+	${HOMEPAGE}/nr.02.tar.gz
+	${HOMEPAGE}/nr.03.tar.gz"
 
 LICENSE="public-domain"
 
@@ -19,8 +20,8 @@ IUSE=""
 RESTRICT="binchecks strip"
 
 pkg_setup() {
-	CHECKREQS_DISK_VAR="8000"
-	CHECKREQS_DISK_USR="6200"
+	CHECKREQS_DISK_VAR="8500"
+	CHECKREQS_DISK_USR="6700"
 	check_reqs
 }
 

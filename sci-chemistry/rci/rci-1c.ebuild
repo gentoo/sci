@@ -13,7 +13,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="sci-visualization/gnuplot"
+RDEPEND="sci-visualization/gnuplot
+	dev-python/numpy"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/RCI
@@ -25,6 +26,7 @@ src_test() {
 }
 
 src_install() {
+	sed -i '1i #!/usr/bin/env python' rci_v_1c.py
 	newbin rci_v_1c.py ${PN} || die
 	dodoc README
 }
