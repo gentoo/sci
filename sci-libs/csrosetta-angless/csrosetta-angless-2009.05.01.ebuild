@@ -18,6 +18,8 @@ S="${WORKDIR}"
 
 src_install() {
 	insinto /usr/share/csrosetta/
+	ebegin "Installing files ..."
 	doins -r ANGLESS || die
+	eend
 }
 
