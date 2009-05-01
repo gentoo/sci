@@ -13,10 +13,18 @@ DESCRIPTION="OpenSM - InfiniBand Subnet Manager and Administration for OpenIB"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=">=sys-cluster/libibmad-1.2.3_p20081118"
+DEPEND=">=sys-cluster/libibmad-1.2.3_p20081118
+		>=sys-cluster/libibumad-1.2.3_p20081118"
 RDEPEND="$DEPEND
 		 sys-cluster/openib-files
 		 net-misc/iputils"
+
+src_configure() {
+	econf \
+		--enable-perf-mgr \
+		--enable-default-event-plugin \
+		--with-osmv="openib"
+}
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"

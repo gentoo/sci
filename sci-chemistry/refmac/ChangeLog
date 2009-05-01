@@ -2,6 +2,37 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*refmac-5.6.0031 (28 Apr 2009)
+*refmac-5.5.0091 (28 Apr 2009)
+
+  28 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -files/5.5.0088-allow-dynamic-linking.patch,
+  -files/5.5.0089-allow-dynamic-linking.patch,
+  -files/5.6.0030-allow-dynamic-linking.patch,
+  +files/5.6.0031-allow-dynamic-linking.patch, -refmac-5.5.0088.ebuild,
+  -refmac-5.5.0089.ebuild, +refmac-5.5.0091.ebuild, -refmac-5.6.0030.ebuild,
+  +refmac-5.6.0031.ebuild:
+  version bumps to latest and clean up of old versions
+
+*refmac-5.6.0027 (26 Apr 2009)
+
+  26 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/5.6.0027-allow-dynamic-linking.patch, +refmac-5.6.0027.ebuild:
+  experimental versions added
+
+*refmac-5.5.0090 (14 Apr 2009)
+
+  14 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/5.5.0090-allow-dynamic-linking.patch, +refmac-5.5.0090.ebuild:
+  version bump fixes prossible segf
+
+*refmac-5.5.0089 (13 Mar 2009)
+
+  13 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -refmac-5.5.0046.ebuild, -refmac-5.5.0085.ebuild, +refmac-5.5.0089.ebuild:
+  bumped to 5.5.0089
+  cleaned up old versions
+
 *refmac-5.5.0088 (26 Feb 2009)
 
   26 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

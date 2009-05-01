@@ -1,0 +1,12 @@
+diff -ur libxdl_view-4.2.orig/Makefile.am libxdl_view-4.2/Makefile.am
+--- libxdl_view-4.2.orig/Makefile.am	2009-03-02 22:13:10.000000000 -0800
++++ libxdl_view-4.2/Makefile.am	2009-03-02 22:14:11.000000000 -0800
+@@ -18,7 +18,7 @@
+ 
+ ## The initial value of this was a mistake!
+ ## See the libtool doc.
+-libxdl_view_la_LDFLAGS = -version-info 2:0:0
++libxdl_view_la_LDFLAGS = -version-info 2:0:0 -lX11 -lXt
+ libxdl_viewextra_la_LDFLAGS = -version-info 0:0:0
+ 
+ EXTRA_DIST = doc/xdl_view_icon.gif doc/xdl_view_top.gif			 \

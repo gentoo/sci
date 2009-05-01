@@ -2,6 +2,12 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Apr 2009; David Radice <david.e.pi.3.14@gmail.com>
+  +freefem++-syntax-20081108-r1.ebuild, -freefem++-syntax-20070614.ebuild:
+  Moved download location to omploader.
+
+*freefem++-syntax-20081108 (23 Nov 2008)
+
   23 Nov 2008; David Radice <david.e.pi.3.14@gmail.com>
   +freefem++-syntax-20081108.ebuild:
   Version bump.

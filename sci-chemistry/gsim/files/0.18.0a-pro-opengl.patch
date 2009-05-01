@@ -1,0 +1,29 @@
+--- gsim.pro	2009-03-19 18:01:46.000000000 +0100
++++ gsim.pro.new	2009-03-19 18:49:02.000000000 +0100
+@@ -6,7 +6,7 @@
+ #win32: CONFIG +=console
+ 
+ #Uncomment next line if you want to use OpenGL
+-#CONFIG+=use_opengl
++CONFIG+=use_opengl
+ 
+ #Uncomment next line if you want to use EMF output
+ #EMF output requires libEMF or Wine on X11 systems and MAC(?)
+@@ -16,12 +16,12 @@
+ #CONFIG+=use_script
+ 
+ # Change directories locations for libcmatrix, MinUIT and muParser libraries
+-unix:INCLUDEPATH += /home/vnmr1/libcmatrixR3/include \
+-		    /home/vnmr1/Minuit2/include \
+-		    /home/vnmr1/muparser/include
++unix:INCLUDEPATH += /usr/include/libcmatrixR3/ \
++		    /usr/include/Minuit2 \
++		    /usr/include
+ win32:INCLUDEPATH += "C:\gsim\libcmatrixR3\include" "C:\gsim\Minuit2\include" "C:\gsim\muparser\include"
+ 
+-unix:LIBS += -lcmatrix -L/home/vnmr1/libcmatrixR3  -lMinuit2Base -L/home/vnmr1/Minuit2/lib -L/home/vnmr1/muparser/lib -lmuparser
++unix:LIBS += -lcmatrix  -lMinuit2 -lmuparser -lcblas
+ win32:LIBS += -lcmatrix -L"C:\gsim\libcmatrixR3" -lMinuit2Base -L"C:\gsim\Minuit2\lib" -L"C:\gsim\muparser\lib" -lmuparser
+ 
+ #Change directories location for libEMF (if used)
+

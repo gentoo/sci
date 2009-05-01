@@ -1,0 +1,41 @@
+#!/bin/bash
+
+DATE=$(date "+%Y%m%d")
+CHANGE_ENTRY="automatic bump"
+
+# Find the Documentation dir from sci overlay
+
+if [[ -f $(basename $0) ]]; then
+	REPO_DOC=$(pwd)
+else
+	REPO_DOC=$(dirname $0)
+fi
+
+
+cd /tmp;
+wget http://www.ncbi.nlm.nih.gov/blast/docs/update_blastdb.pl >& /dev/null
+
+# Ask for which database
+
+echo "Which db should be updated ?"
+echo ""
+perl -w update_blastdb.pl --passiv --showall
+echo ""
+read DB
+
+
+# Fetch the database and rename it
+
+perl -w update_blastdb.pl --passiv ${DB}
+
+for mydb in ${DB}*; do
+	mv ${mydb} ${mydb#.tar.gz}-${DATE}.tar.gz
+done
+
+cd ${REPO_DOC}/../sci-libs/blast-db-${DB};
+git mv blast-db-${DB}*ebuild blast-db-${DB}-${DATE}.ebuild
+git add .
+echangelog "${CHANGE_ENTRY}"
+reapoman -d -v fix
+git add .
+

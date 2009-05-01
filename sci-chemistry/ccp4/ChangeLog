@@ -1,6 +1,12 @@
 # ChangeLog for sci-chemistry/ccp4
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ccp4/ChangeLog,v 1.18 2008/06/03 02:11:18 mr_bones_ Exp $
+
+  27 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> ccp4-6.1.1.ebuild:
+  removed !media-libs/raptor as collision is fixed
+
+  12 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> ChangeLog:
+  rapper conflict with media-libs/raptor resolved
 
   03 Jun 2008; Michael Sterrett <mr_bones_@gentoo.org> ccp4-6.0.1-r1.ebuild,
   ccp4-6.0.2.ebuild, ccp4-6.0.2-r1.ebuild:

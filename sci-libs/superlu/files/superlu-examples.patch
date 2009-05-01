@@ -1,6 +1,6 @@
 --- EXAMPLE/Makefile.orig	2008-01-31 17:16:16.008471873 +0000
 +++ EXAMPLE/Makefile	2008-01-31 17:20:16.581889615 +0000
-@@ -1,4 +1,9 @@
+@@ -19,4 +19,9 @@
 -include ../make.inc
 +SUPERLULIB   = -lsuperlu
 +BLASLIB      = $(BLAS_LIBS)
@@ -11,12 +11,3 @@
  
  #######################################################################
  #  This makefile creates the example programs for the linear equation
-@@ -33,7 +38,7 @@
- #######################################################################
- 
- HEADER   = ../SRC
--LIBS	= ../$(SUPERLULIB) $(BLASLIB) -lm
-+LIBS	= $(SUPERLULIB) $(BLASLIB) -lm
- 
- SLINEXM		= slinsol.o
- SLINEXM1	= slinsol1.o

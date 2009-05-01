@@ -1,0 +1,10 @@
+# ChangeLog for dev-tcltk/togl
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*togl-2.0 (20 Mar 2009)
+
+  20 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +metadata.xml,
+  +togl-2.0.ebuild:
+  Initial checkin
+

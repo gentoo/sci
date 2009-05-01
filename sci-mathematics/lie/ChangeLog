@@ -1,0 +1,10 @@
+# ChangeLog for sci-mathematics/lie
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  19 Apr 2009; François Bissey <f.r.bissey@massey.ac.nz> lie-2.2.2.ebuild:
+  cleaning of the ebuild.
+
+  03 Apr 2009; Francois Bissey <f.r.bissey@massey.ac.nz> ChangeLog:
+  Initial import for the science overlay.
+

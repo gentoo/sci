@@ -12,7 +12,7 @@ LICENSE="PDB"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
 IUSE=""
-RDEPEND=""
+RDEPEND="!<app-text/html-xml-utils-5.3"
 DEPEND="${RDEPEND}
 	>=sci-libs/cifparse-obj-7.025"
 

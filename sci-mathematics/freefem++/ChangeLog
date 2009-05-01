@@ -1,6 +1,11 @@
 # ChangeLog for sci-mathematics/freefem++
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  12 Apr 2009; David Radice <david.e.pi.3.14@gmail.com>
+  +files/freefem++-texlive2008.patch, +freefem++-2.24.2-r3.ebuild,
+  -freefem++-2.24.2-r1.ebuild, -freefem++-2.24.2.ebuild:
+  Fixed building the documentation with >=app-text/texlive-2008.
 
   06 Dec 2008; David Radice <david.e.pi.3.14@gmail.com>
   +files/freefem++-P1-fix.patch, +freefem++-2.24.2-r2.ebuild:

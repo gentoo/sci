@@ -9,11 +9,8 @@
 # We keep here only the new USE flags introduced by packages in the overlay.
 # Ultimately, they will be merged into the main tree.
 
-app-office/texmacs:netpbm - Allows TeXmacs to include images in a number of formats
-sci-astronomy/scamp:plplot - Add plplot to allow diagnostic plots during processing 
 sci-biology/tgi-tools:pvm - Use sys-cluster/pvm (Parallel Virtual Machine) and build the pvmsx utility
 sci-libs/calculix-ccx:arpack - Add sparse eigen value support via sci-libs/arpack
-sci-libs/opencv:demos - Install applications that demo OpenCV library functions
 sci-libs/gmsh:chaco - Enables chaco partitioner support
 sci-libs/gmsh:cgns - Enables cgns output support
 sci-libs/gmsh:metis - Enables metis support
@@ -35,10 +32,7 @@ sci-misc/salome-gui:vtkviewer - make vtkviewer module
 sci-misc/salome-gui:salomeobject - make salomeobject module
 sci-misc/salome-kernel:openpbs - Enables openpbs support
 sci-misc/salome-med:openpbs - Enables openpbs support
-sci-physics/clhep:exceptions - Build CLHEP with exception mechanism
-sci-physics/meep:hdf5 - Enable support for the Hierarchical Data Format version 5
 sci-visualization/nodemon:pbs - Adds support for PBS (Portable Batch System) queries
-sci-visualization/fityk:gnuplot - Add gnuplot support, useful for command line
 sys-cluster/openib:dapl - add DAPL (Direct Access Provider Library) support.
 sys-cluster/openib:ipath - add PathScale HCA support.
 sys-cluster/openib:opensm - add OpenSM Subnet Management support.

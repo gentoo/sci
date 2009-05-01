@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/modglue
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  08 Apr 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  sci-libs/modglue/modglue-1.13.ebuild:
+  put the correct homepage for modglue
+
+  03 Apr 2009; Francois Bissey <f.r.bissey@massey.ac.nz> ChangeLog:
+  Initial import for the science overlay
+

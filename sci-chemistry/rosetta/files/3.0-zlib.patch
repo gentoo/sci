@@ -1,0 +1,12 @@
+--- src/utility/io/zipstream.hpp	2009-02-03 22:47:27.000000000 +0100
++++ src/utility/io/zipstream.hpp.new	2009-04-07 19:57:09.000000000 +0200
+@@ -36,8 +36,7 @@
+ 
+ 
+ // Zlib headers
+-#include <zlib/zlib.h>
+-#include <zlib/zutil.h>
++#include <zlib.h>
+ 
+ // C++ headers
+ #include <algorithm>

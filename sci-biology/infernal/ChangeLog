@@ -1,0 +1,7 @@
+# ChangeLog for sci-biology/infernal
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  08 Mar 2009; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
+  New package, ebuild written by me
+

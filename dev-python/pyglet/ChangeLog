@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pyglet-1.1.3 (02 Apr 2009)
+
+  02 Apr 2009; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml,
+  +pyglet-1.1.3.ebuild:
+  Version bump
+
 *pyglet-1.1.2 (01 Feb 2009)
 
   01 Feb 2009; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,

@@ -1,0 +1,90 @@
+diff -ru frama-c-Lithium-20081201/Makefile.in frama-c-states_hook/Makefile.in
+--- frama-c-Lithium-20081201/Makefile.in	2008-12-16 10:29:49.000000000 +0100
++++ frama-c-states_hook/Makefile.in	2009-01-17 18:44:46.000000000 +0100
+@@ -857,6 +857,7 @@
+ 	src/memory_state/memzone_type.cmo \
+ 	src/memory_state/widen_type.cmo \
+ 	src/memory_state/relations_type.cmo \
++	src/memory_state/state_set.cmo \
+ 	src/logic/why_output.cmo
+ 
+ ACMX = $(ACMO:.cmo=.cmx)
+@@ -1023,7 +1024,7 @@
+ PLUGIN_ENABLE:=@ENABLE_VALUE@
+ PLUGIN_NAME:=Value
+ PLUGIN_DIR:=src/value
+-PLUGIN_CMO:= state_set kf_state eval kinstr register
++PLUGIN_CMO:= kf_state eval kinstr register
+ PLUGIN_GUI_CMO:=register_gui
+ PLUGIN_HAS_MLI:=yes
+ PLUGIN_GUI_HAS_MLI:=yes
+diff -ru frama-c-Lithium-20081201/src/kernel/db.ml frama-c-states_hook/src/kernel/db.ml
+--- frama-c-Lithium-20081201/src/kernel/db.ml	2008-12-16 10:29:48.000000000 +0100
++++ frama-c-states_hook/src/kernel/db.ml	2009-01-17 18:22:38.000000000 +0100
+@@ -257,6 +257,12 @@
+ 	 type t = (kernel_function * kinstr) list * state InstrHashtbl.t
+        end)
+ 
++  module Record_Value_Superposition_Callbacks =
++    Hook.Build
++      (struct
++	 type t = (kernel_function * kinstr) list * State_set.t InstrHashtbl.t
++       end)
++
+   module Call_Value_Callbacks =
+     Hook.Build
+       (struct type t = state * (Db_types.kernel_function * kinstr) list end)
+diff -ru frama-c-Lithium-20081201/src/kernel/db.mli frama-c-states_hook/src/kernel/db.mli
+--- frama-c-Lithium-20081201/src/kernel/db.mli	2008-12-16 10:29:48.000000000 +0100
++++ frama-c-states_hook/src/kernel/db.mli	2009-01-17 18:23:57.000000000 +0100
+@@ -248,6 +248,9 @@
+   module Record_Value_Callbacks:
+     Hook.S with type param = (kernel_function * kinstr) list 
+     * state Cilutil.InstrHashtbl.t
++  module Record_Value_Superposition_Callbacks:
++    Hook.S with type param = (kernel_function * kinstr) list 
++    * State_set.t Cilutil.InstrHashtbl.t
+ 
+   (** Actions to perform at each treatment of a "call" statement. 
+       @plugin development guide *)
+diff -ru frama-c-Lithium-20081201/src/value/eval.ml frama-c-states_hook/src/value/eval.ml
+--- frama-c-Lithium-20081201/src/value/eval.ml	2008-12-16 10:29:49.000000000 +0100
++++ frama-c-states_hook/src/value/eval.ml	2009-01-17 18:21:06.000000000 +0100
+@@ -2526,8 +2526,26 @@
+     (*Format.printf "Done Merging current@.";*)
+ 
+     if not degenerate &&
+-      not (Db.Value.Record_Value_Callbacks.is_empty ())
++      ((not (Db.Value.Record_Value_Callbacks.is_empty ())) || 
++      (not (Db.Value.Record_Value_Superposition_Callbacks.is_empty ())))
+     then begin
++    	let stack_for_callbacks = for_callbacks_stack () in
++
++	if not (Db.Value.Record_Value_Callbacks.is_empty ())
++	then begin
++	let current_superpositions = InstrHashtbl.create 17 in
++	InstrHashtbl.iter
++	  (fun k record ->
++	    InstrHashtbl.add current_superpositions k record.superposition)
++	  current_table;
++
++(* 	Format.printf "[values] now calling Record_Value_Superposition callbacks@."; *)
++	Db.Value.Record_Value_Superposition_Callbacks.apply
++	  (stack_for_callbacks, current_superpositions);
++
++        end ;
++	if not (Db.Value.Record_Value_Callbacks.is_empty ())
++	then begin
+ (* 	Format.printf "[values] now calling Record_Value callbacks@."; *)
+ 
+ 	let current_states = InstrHashtbl.create 17 in
+@@ -2537,7 +2555,8 @@
+ 	  current_table;
+ 
+ 	Db.Value.Record_Value_Callbacks.apply
+-	  ((for_callbacks_stack ()), current_states);
++	  (stack_for_callbacks, current_states);
++         end	  
+       end;
+     InstrHashtbl.clear current_table;
+ 

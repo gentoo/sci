@@ -2,6 +2,36 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pymol-1.2_beta6-r1 (16 Apr 2009)
+
+  16 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -files/pymol-1.2_beta5-data-path.patch,
+  -files/pymol-1.2_beta5-shaders.patch,
+  -files/pymol-1.2_beta6-data-path.patch,
+  +files/pymol-1.2_beta6-r1-data-path.patch,
+  +files/pymol-1.2_beta6-r1-shaders.patch,
+  -files/pymol-1.2_beta6-shaders.patch, -pymol-1.2_beta5.ebuild,
+  +pymol-1.2_beta6-r1.ebuild, -pymol-1.2_beta6.ebuild:
+  QA on the ebuild resulting in 1.2_beta6-r1
+
+*pymol-1.2_beta6 (12 Apr 2009)
+
+  12 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/pymol-1.2_beta6-data-path.patch,
+  +files/pymol-1.2_beta6-shaders.patch, +pymol-1.2_beta6.ebuild:
+  version bump to beta 6
+
+  18 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  pymol-1.2_beta3.ebuild, pymol-1.2_beta4.ebuild, pymol-1.2_beta5.ebuild:
+  fix of missing APBS_PSIZE
+
+*pymol-1.2_beta5 (09 Mar 2009)
+
+  09 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -pymol-1.2_beta2.ebuild, pymol-1.2_beta3.ebuild, pymol-1.2_beta4.ebuild,
+  +pymol-1.2_beta5.ebuild:
+  version bump to 1.2 beta 5
+
 *pymol-1.2_beta4 (23 Feb 2009)
 
   23 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

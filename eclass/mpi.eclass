@@ -92,7 +92,7 @@ mpi_econf_args() {
 # @CODE
 
 _mpi_do() {
-	local rc prefix
+	local rc prefix d
 	local cmd=${1}
 	local ran=1
 	local slash=/

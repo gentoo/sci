@@ -1,0 +1,206 @@
+diff -Naur frama-c-Lithium-20081201-orig/src/ai/base.ml frama-c-Lithium-20081201-patch/src/ai/base.ml
+--- frama-c-Lithium-20081201-orig/src/ai/base.ml	2008-12-16 10:29:48.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/ai/base.ml	2009-02-16 14:43:59.000000000 +0100
+@@ -188,6 +188,11 @@
+       assert (Int.eq size Int.zero);
+       Unknown (Int.zero, Bit_utils.max_bit_address ())
+ 
++let get_varinfo t =
++  match t with
++  | Var (t,_) | Initialized_Var (t,_) -> t
++  | _ -> assert false
++
+ let create_varinfo varinfo =
+   assert (not varinfo.vlogic);
+   Var (varinfo,validity_from_type varinfo)
+diff -Naur frama-c-Lithium-20081201-orig/src/ai/base.mli frama-c-Lithium-20081201-patch/src/ai/base.mli
+--- frama-c-Lithium-20081201-orig/src/ai/base.mli	2008-12-16 10:29:48.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/ai/base.mli	2009-02-16 14:43:59.000000000 +0100
+@@ -55,6 +55,7 @@
+ val is_local: t -> Cil_types.fundec -> bool
+ val is_hidden_variable : t -> bool
+ val validity_from_type : Cil_types.varinfo -> validity 
++val get_varinfo : t -> Cil_types.varinfo
+ val create_varinfo : Cil_types.varinfo -> t
+ val create_logic :  Cil_types.varinfo -> validity -> t
+ val create_initialized :  Cil_types.varinfo -> validity -> t
+diff -Naur frama-c-Lithium-20081201-orig/src/from/register.ml frama-c-Lithium-20081201-patch/src/from/register.ml
+--- frama-c-Lithium-20081201-orig/src/from/register.ml	2008-12-16 10:29:48.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/from/register.ml	2009-02-16 14:43:55.000000000 +0100
+@@ -572,7 +572,7 @@
+     Db.Value.is_reachable (Values_To_Use.get_state (Kstmt stmt))
+ 
+   (* Remove all local variables and formals from table *)
+-  let externalize return fundec state =
++  let externalize return fundec state strip =
+     let deps_return = (match return.skind with
+                          | Return (Some (Lval v),_) ->
+                              let deps, looking_for =
+@@ -596,9 +596,10 @@
+                              Lmap_bitwise.From_Model.LOffset.empty
+                          | _ -> assert false)
+     in
+-    let deps_table = Lmap_bitwise.From_Model.filter_base
++    let deps_table = if strip then Lmap_bitwise.From_Model.filter_base
+       (fun v -> not (Base.is_formal_or_local v fundec))
+       state.deps_table
++      else state.deps_table
+     in
+     { deps_return = deps_return;
+       Function_Froms.deps_table = deps_table }
+@@ -617,7 +618,7 @@
+     else Dataflow.GUnreachable
+ end
+ 
+-let compute_using_cfg kf = match kf.fundec with
++let compute_using_cfg kf ksid = match kf.fundec with
+   | Declaration _ -> assert false
+   | Definition (f,_) ->
+       try
+@@ -656,6 +657,10 @@
+               Format.printf "[from] stack with %s\n@\n" (get_name g))
+               call_stack;*)
+ 
++            let sid,strip = match ksid with
++                              None -> ret_id.sid,true
++                            | Some id -> id,false
++            in
+             let last_from =
+               try
+ 		if Db.Value.is_reachable (Values_To_Use.get_state (Kstmt ret_id))
+@@ -663,7 +668,8 @@
+                   Computer.externalize
+                   ret_id
+                   f
+-                  (Computer.StmtStartData.find ret_id.sid)
++                  (Computer.StmtStartData.find sid)
++                  strip
+ 		else
+ 		  raise Not_found
+               with Not_found -> begin
+@@ -806,7 +812,7 @@
+ 
+   let result = match kf.fundec with
+     | Definition _ ->
+-        compute_using_cfg kf
++        compute_using_cfg kf None
+     | Declaration _ ->
+         compute_using_prototype kf
+   in
+@@ -846,7 +852,8 @@
+ let () =
+   force_compute := From2.compute;
+   Db.From.compute := (fun kf -> ignore (Functionwise_From_to_use.memo kf));
+-  Db.From.get := Functionwise_From_to_use.memo
++  Db.From.get := Functionwise_From_to_use.memo;
++  Db.From.compute_using_cfg := From2.compute_using_cfg
+ 
+ let () = Db.From.pretty :=
+   (fun fmt v ->
+diff -Naur frama-c-Lithium-20081201-orig/src/kernel/db.ml frama-c-Lithium-20081201-patch/src/kernel/db.ml
+--- frama-c-Lithium-20081201-orig/src/kernel/db.ml	2009-02-14 00:10:32.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/kernel/db.ml	2009-02-16 14:43:55.000000000 +0100
+@@ -437,6 +437,7 @@
+   let is_computed = mk_fun "From.is_computed"
+   let pretty = mk_fun "From.pretty"
+   let get = mk_fun "From.get"
++  let compute_using_cfg = mk_fun "From.compute_using_cfg"
+   let self = ref Project.Computation.dummy
+ 
+   let display = mk_fun "From.display"
+diff -Naur frama-c-Lithium-20081201-orig/src/kernel/db.mli frama-c-Lithium-20081201-patch/src/kernel/db.mli
+--- frama-c-Lithium-20081201-orig/src/kernel/db.mli	2009-02-14 00:10:32.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/kernel/db.mli	2009-02-16 14:43:55.000000000 +0100
+@@ -299,6 +299,7 @@
+ 	@return true iff the analysis has been performed *)
+  
+   val get : (kernel_function -> Function_Froms.t) p_ref
++  val compute_using_cfg : (kernel_function -> int option -> Function_Froms.t) p_ref
+   val access : (Locations.Zone.t -> from_model -> Locations.Zone.t) p_ref
+   val find_deps_no_transitivity : (kinstr -> exp -> Locations.Zone.t) p_ref
+   val self: Project.Computation.t p_ref
+diff -Naur frama-c-Lithium-20081201-orig/src/memory_state/lmap_bitwise.ml frama-c-Lithium-20081201-patch/src/memory_state/lmap_bitwise.ml
+--- frama-c-Lithium-20081201-orig/src/memory_state/lmap_bitwise.ml	2008-12-16 10:29:49.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/memory_state/lmap_bitwise.ml	2009-02-16 14:43:57.000000000 +0100
+@@ -67,6 +67,7 @@
+   val find_base: t -> Zone.t -> LOffset.t
+   exception Cannot_fold
+   val fold : (Zone.t -> bool * y -> 'a -> 'a) -> t -> 'a -> 'a
++  val fold_base : (Base.t -> LOffset.t -> 'a -> 'a) -> t -> 'a -> 'a
+   val map2 : ((bool * y) option -> (bool * y) option -> bool * y)
+       -> t -> t -> t
+   val copy_paste : f:(bool * y -> bool * y) -> location -> location -> t -> t
+@@ -142,6 +143,11 @@
+ 	    m
+ 	    acc
+ 
++ let fold_base f m acc=
++    match m with
++    | Top -> raise Cannot_fold
++    | Map m -> LBase.fold f m acc
++
+   let pretty fmt m =
+     match m with
+       Top -> Format.fprintf fmt "@[<v>FROMTOP@]"
+diff -Naur frama-c-Lithium-20081201-orig/src/memory_state/lmap_bitwise.mli frama-c-Lithium-20081201-patch/src/memory_state/lmap_bitwise.mli
+--- frama-c-Lithium-20081201-orig/src/memory_state/lmap_bitwise.mli	2008-12-16 10:29:49.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/memory_state/lmap_bitwise.mli	2009-02-16 14:43:57.000000000 +0100
+@@ -66,7 +66,7 @@
+   val map_and_merge : (y -> y) -> t -> t -> t
+     (** [map_and_merge f m1 m2] maps [f] on values in [m1] and [add_exact]
+ 	all elements of the mapped [m1] to [m2] *)
+-    
++
+   val filter_base : (Base.t -> bool) -> t -> t
+   val find : t -> Zone.t -> y
+   val find_base: t -> Zone.t -> LOffset.t
+@@ -77,6 +77,7 @@
+ 	associates to a zone a boolean representing the possibility that the
+ 	zone was not modified, and a value of type y. May raise
+ 	[Cannot_fold]. *)
++  val fold_base : (Base.t -> LOffset.t -> 'a -> 'a) -> t -> 'a -> 'a
+ 
+   val map2 : ((bool * y) option -> (bool * y) option -> bool * y)
+     -> t -> t -> t
+diff -Naur frama-c-Lithium-20081201-orig/src/memory_state/offsetmap.ml frama-c-Lithium-20081201-patch/src/memory_state/offsetmap.ml
+--- frama-c-Lithium-20081201-orig/src/memory_state/offsetmap.ml	2008-12-16 10:29:49.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/memory_state/offsetmap.ml	2009-02-16 14:44:02.000000000 +0100
+@@ -122,6 +122,8 @@
+ 
+   val iter_contents : (y -> unit) -> t -> Int.t -> unit
+     (** Iter on the contents of offsetmap of given size *)
++
++  val fold : (Int.t * Int.t -> Int.t * Int.t * y -> 'a -> 'a) -> t -> 'a -> 'a
+   end
+ 
+ 
+@@ -1399,6 +1401,8 @@
+       Int_Interv.check_coverage itv concerned_intervals;
+      with Is_not_included -> f V.top);
+     List.iter (fun (_,(_,_,b)) -> f b) concerned_intervals
++
++  let fold f m = Int_Interv_Map.fold f m
+         
+ end
+ 
+@@ -1674,6 +1678,8 @@
+ 
+   let iter_contents f o size = 
+     M.iter_contents f o.v size
++ 
++  let fold f v = M.fold f v.v
+ 
+ end
+ 
+diff -Naur frama-c-Lithium-20081201-orig/src/memory_state/offsetmap.mli frama-c-Lithium-20081201-patch/src/memory_state/offsetmap.mli
+--- frama-c-Lithium-20081201-orig/src/memory_state/offsetmap.mli	2008-12-16 10:29:49.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/memory_state/offsetmap.mli	2009-02-16 14:44:02.000000000 +0100
+@@ -124,6 +124,8 @@
+ 
+   val iter_contents : (y -> unit) -> t -> Int.t -> unit
+     (** Iter on the contents of offsetmap of given size *)
++
++  val fold : (Int.t * Int.t -> Int.t * Int.t * y -> 'a -> 'a) -> t -> 'a -> 'a
+ end
+ 
+ module Make(V : Lattice_With_Isotropy.S):

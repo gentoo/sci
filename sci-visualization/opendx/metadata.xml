@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<use>
+  <flag name='cdf'>Add support for <pkg>sci-libs/cdf</pkg> data exchange
+    format</flag>
+  <flag name='hdf'>Add support for the Hierarchical Data Format
+    (<pkg>sci-libs/hdf</pkg>)</flag>
+</use>
+</pkgmetadata>

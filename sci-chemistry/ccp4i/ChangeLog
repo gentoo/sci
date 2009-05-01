@@ -2,6 +2,22 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccp4i-6.1.1-r2 (27 Mar 2009)
+
+  27 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/6.1.1-refmac.tcl.patch, +ccp4i-6.1.1-r2.ebuild:
+  latest refmac5.tcl update included
+
+  12 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/6.1.1-rename-rapper.patch, ccp4i-6.1.1-r1.ebuild:
+  rapper conflict with media-libs/raptor resolved
+
+*ccp4i-6.1.1-r1 (05 Mar 2009)
+
+  05 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +ccp4i-6.1.1-r1.ebuild:
+  first patch set included
+
 *ccp4i-6.1.1 (20 Feb 2009)
 
   20 Feb 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

@@ -2,6 +2,16 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  xds-bin-20090130-r1.ebuild:
+  don't compress input templates
+
+*xds-bin-20090130-r1 (09 Mar 2009)
+
+  09 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +xds-bin-20090130-r1.ebuild, -xds-bin-20090130.ebuild:
+  make use of EAPI="2" redirecting feature
+
 *xds-bin-20090130 (25 Feb 2009)
 
   25 Feb 2009; justin Lecher (jlec) <jlec@j-schmitz.net>

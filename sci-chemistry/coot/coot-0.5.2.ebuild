@@ -16,9 +16,9 @@ if [[ ${MY_PV} = *pre* ]]; then
 else
 	SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/${MY_P}.tar.gz"
 fi
-LICENSE="GPL-2"
+LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 RDEPEND=">=sci-libs/gsl-1.3
 	>=x11-libs/gtk+-2.2
@@ -37,7 +37,8 @@ RDEPEND=">=sci-libs/gsl-1.3
 	sci-chemistry/reduce
 	sci-chemistry/refmac
 	sci-chemistry/probe
-	sci-libs/ccp4-libs
+	>=sci-libs/ccp4-libs-6.1
+	>=sci-libs/clipper-20090210
 	dev-python/pygtk
 	gnome-base/librsvg
 	>=dev-libs/gmp-4.2.2-r2"

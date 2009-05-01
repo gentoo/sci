@@ -5,4 +5,8 @@
 <maintainer>
   <email>jlec@j-schmitz.net</email>
 </maintainer>
+<use>
+  <flag name='lua'>Enable Lua scripting support</flag>
+</use>
+
 </pkgmetadata>

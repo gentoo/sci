@@ -30,7 +30,22 @@
 
 #--- END OF EXAMPLES ---
 
-# Justin Lecher (jlec)
+# Justin Lecher (jlec) (02 Feb 09)
+# jlec@j-schmitz.net
+# automagic deps not fixed
+=sci-libs/chooch-5.0.2
+
+# Justin Lecher (jlec) (06 Mar 09)
 # jlec@j-schmitz.net
 # still not ready
-=sci-chemistry/ccp4-6.1.1
+=sci-chemistry/phaser-2.1.4
+
+# Justin Lecher (jlec) (09 Mar 09)
+# jlec@j-schmitz.net
+# total rewrite of src_install
+=sci-libs/cctbx-2009.02.15.2320-r2
+
+# Justin Lecher (jlec) (26 Apr 2009)
+# jlec@j-schmitz.net
+# experimental versions
+=sci-chemistry/refmac-5.6*

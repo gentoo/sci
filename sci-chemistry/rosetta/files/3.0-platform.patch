@@ -1,0 +1,11 @@
+--- ./tools/build/setup_platforms.py	2009-02-03 22:44:32.000000000 +0100
++++ ./tools/build/setup_platforms.py.new	2009-04-07 16:16:44.000000000 +0200
+@@ -274,7 +274,7 @@
+     """
+     # Note that these are very different values, and need processing
+     if globals().has_key("platform"):
+-        return platform.processor() or _uname()[4]
++        return platform.machine() or _uname()[4]
+     else:
+         return _uname()[4]
+ 

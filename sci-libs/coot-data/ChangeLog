@@ -1,0 +1,54 @@
+# ChangeLog for sci-libs/coot-data
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*coot-data-2-r3 (30 Apr 2009)
+
+  30 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -coot-data-2-r2.ebuild, +coot-data-2-r3.ebuild:
+  Another fix of datadir Path
+
+*coot-data-2-r2 (29 Apr 2009)
+
+  29 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -coot-data-2-r1.ebuild, +coot-data-2-r2.ebuild:
+  Fixed Path of data dir
+
+*coot-data-2-r1 (28 Apr 2009)
+
+  28 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +coot-data-2-r1.ebuild, -coot-data-2.ebuild:
+  fixed COOT_REFMAC_LIB_DIR
+
+*coot-data-2 (27 Apr 2009)
+
+  27 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +metadata.xml,
+  +coot-data-2.ebuild:
+  adopted to the excisting of sci-libs/monomer-db
+
+  23 Feb 2009; Jeremy Olexa <darkside@gentoo.org> coot-data-1.ebuild:
+  add ~amd64, bug 259603
+
+  15 Mar 2007; Danny van Dyk <kugelfang@gentoo.org> coot-data-1.ebuild:
+  QA: Removed illegal use of ${ROOT}. Bug #168043
+
+  26 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>; coot-data-1.ebuild:
+  Stable on x86/ppc.
+
+  26 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Change herd to sci-chemistry from sci.
+
+  05 Aug 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Remove myself as maintainer, anyone feel free to work on this, although I'll
+  continue to do so as well.
+
+  07 Jul 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Update to my new email address.
+
+*coot-data-1 (16 Jun 2006)
+
+  16 Jun 2006; Donnie Berkholz <dberkholz@gentoo.org>; +metadata.xml,
+  +coot-data-1.ebuild:
+  Add rarely-changing data for sci-chemistry/coot, so we don't reinstall it on
+  every Coot upgrade.
+

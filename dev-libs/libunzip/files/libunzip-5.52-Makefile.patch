@@ -1,0 +1,31 @@
+--- unix/Makefile	2005-02-26 20:58:34.000000000 +0100
++++ unix/Makefile.new	2009-04-12 19:49:56.000000000 +0200
+@@ -45,6 +45,7 @@
+ CC = cc#	try using "gcc" target rather than changing this (CC and LD
+ LD = $(CC)#	must match, else "unresolved symbol:  ___main" is possible)
+ AS = as
++RANLIB =
+ LOC = $(LOCAL_UNZIP)
+ AF = $(LOC)
+ CF = -O -I. -DUNIX $(LOC)
+@@ -810,14 +810,14 @@
+ #
+ linux_shlib:	unix_make
+ #	$(MAKE) objsdll CC=gcc CF="-O3 -Wall -I. -fPIC -DDLL $(LOC)"
+-	$(MAKE) objsdll CC=gcc CF="-O3 -Wall -I. -fPIC -DDLL -DASM_CRC $(LOC)"\
+-	 AS=gcc AF="-fPIC -Di386 $(AF)" CRC32=crc_gcc
+-	ln -sf crc_gcc.pic.o crc32.pic.o
+-	gcc -shared -Wl,-soname,libunzip.so.0 -o libunzip.so.0.4 $(OBJSDLL)
++	$(MAKE) objsdll CC=gcc CF="-O3 -Wall -I. -fPIC -DDLL -DUNIX $(LOC)"
++	$(LD) $(LDFLAGS) -shared -Wl,-soname,libunzip.so.0 -o libunzip.so.0.4 $(OBJSDLL)
++	$(AR) $(ARFLAGS) libunzip.a $(OBJSDLL)
++	$(RANLIB) libunzip.a
+ 	ln -sf libunzip.so.0.4 libunzip.so.0
+ 	ln -sf libunzip.so.0 libunzip.so
+-	gcc -c -O unzipstb.c
+-	gcc -o unzip_shlib unzipstb.o -L. -lunzip
++	$(CC) $(CFLAGS) -c unzipstb.c
++	$(LD) $(LDFLAGS) -o unzip_shlib unzipstb.o -L. -lunzip
+ 
+ # Linux ELF shared library, as above, but using inflate() from zlib (libz.so)
+ # instead of the original UnZip version.  (libz was libgz prior to 0.94)
