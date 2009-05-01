@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/rci
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*rci-1c (01 May 2009)
+
+  01 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +rci-1c.ebuild,
+  +metadata.xml:
+  initial setup
+
