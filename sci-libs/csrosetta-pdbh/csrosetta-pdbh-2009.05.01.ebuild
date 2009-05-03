@@ -4,7 +4,7 @@
 
 SRC_BASE="http://spin.niddk.nih.gov/bax/software/CSROSETTA/"
 
-DESCRIPTION="Chemical-Shift-ROSETTA -- ANGLESS DB"
+DESCRIPTION="Chemical-Shift-ROSETTA -- PDBH DB"
 HOMEPAGE="http://spin.niddk.nih.gov/bax/software/CSROSETTA/index.html"
 SRC_URI="${SRC_BASE}/PDBH.tar.Z"
 
