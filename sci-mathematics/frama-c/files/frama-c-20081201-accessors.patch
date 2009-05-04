@@ -1,0 +1,111 @@
+diff -Naur frama-c-Lithium-20081201-orig/src/ai/base.ml frama-c-Lithium-20081201-patch/src/ai/base.ml
+--- frama-c-Lithium-20081201-orig/src/ai/base.ml	2008-12-16 10:29:48.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/ai/base.ml	2009-02-16 14:43:59.000000000 +0100
+@@ -188,6 +188,11 @@
+       assert (Int.eq size Int.zero);
+       Unknown (Int.zero, Bit_utils.max_bit_address ())
+ 
++let get_varinfo t =
++  match t with
++  | Var (t,_) | Initialized_Var (t,_) -> t
++  | _ -> assert false
++
+ let create_varinfo varinfo =
+   assert (not varinfo.vlogic);
+   Var (varinfo,validity_from_type varinfo)
+diff -Naur frama-c-Lithium-20081201-orig/src/ai/base.mli frama-c-Lithium-20081201-patch/src/ai/base.mli
+--- frama-c-Lithium-20081201-orig/src/ai/base.mli	2008-12-16 10:29:48.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/ai/base.mli	2009-02-16 14:43:59.000000000 +0100
+@@ -55,6 +55,7 @@
+ val is_local: t -> Cil_types.fundec -> bool
+ val is_hidden_variable : t -> bool
+ val validity_from_type : Cil_types.varinfo -> validity 
++val get_varinfo : t -> Cil_types.varinfo
+ val create_varinfo : Cil_types.varinfo -> t
+ val create_logic :  Cil_types.varinfo -> validity -> t
+ val create_initialized :  Cil_types.varinfo -> validity -> t
+diff -Naur frama-c-Lithium-20081201-orig/src/memory_state/lmap_bitwise.ml frama-c-Lithium-20081201-patch/src/memory_state/lmap_bitwise.ml
+--- frama-c-Lithium-20081201-orig/src/memory_state/lmap_bitwise.ml	2008-12-16 10:29:49.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/memory_state/lmap_bitwise.ml	2009-02-16 14:43:57.000000000 +0100
+@@ -67,6 +67,7 @@
+   val find_base: t -> Zone.t -> LOffset.t
+   exception Cannot_fold
+   val fold : (Zone.t -> bool * y -> 'a -> 'a) -> t -> 'a -> 'a
++  val fold_base : (Base.t -> LOffset.t -> 'a -> 'a) -> t -> 'a -> 'a
+   val map2 : ((bool * y) option -> (bool * y) option -> bool * y)
+       -> t -> t -> t
+   val copy_paste : f:(bool * y -> bool * y) -> location -> location -> t -> t
+@@ -142,6 +143,11 @@
+ 	    m
+ 	    acc
+ 
++ let fold_base f m acc=
++    match m with
++    | Top -> raise Cannot_fold
++    | Map m -> LBase.fold f m acc
++
+   let pretty fmt m =
+     match m with
+       Top -> Format.fprintf fmt "@[<v>FROMTOP@]"
+diff -Naur frama-c-Lithium-20081201-orig/src/memory_state/lmap_bitwise.mli frama-c-Lithium-20081201-patch/src/memory_state/lmap_bitwise.mli
+--- frama-c-Lithium-20081201-orig/src/memory_state/lmap_bitwise.mli	2008-12-16 10:29:49.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/memory_state/lmap_bitwise.mli	2009-02-16 14:43:57.000000000 +0100
+@@ -66,7 +66,7 @@
+   val map_and_merge : (y -> y) -> t -> t -> t
+     (** [map_and_merge f m1 m2] maps [f] on values in [m1] and [add_exact]
+ 	all elements of the mapped [m1] to [m2] *)
+-    
++
+   val filter_base : (Base.t -> bool) -> t -> t
+   val find : t -> Zone.t -> y
+   val find_base: t -> Zone.t -> LOffset.t
+@@ -77,6 +77,7 @@
+ 	associates to a zone a boolean representing the possibility that the
+ 	zone was not modified, and a value of type y. May raise
+ 	[Cannot_fold]. *)
++  val fold_base : (Base.t -> LOffset.t -> 'a -> 'a) -> t -> 'a -> 'a
+ 
+   val map2 : ((bool * y) option -> (bool * y) option -> bool * y)
+     -> t -> t -> t
+diff -Naur frama-c-Lithium-20081201-orig/src/memory_state/offsetmap.ml frama-c-Lithium-20081201-patch/src/memory_state/offsetmap.ml
+--- frama-c-Lithium-20081201-orig/src/memory_state/offsetmap.ml	2008-12-16 10:29:49.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/memory_state/offsetmap.ml	2009-02-16 14:44:02.000000000 +0100
+@@ -122,6 +122,8 @@
+ 
+   val iter_contents : (y -> unit) -> t -> Int.t -> unit
+     (** Iter on the contents of offsetmap of given size *)
++
++  val fold : (Int.t * Int.t -> Int.t * Int.t * y -> 'a -> 'a) -> t -> 'a -> 'a
+   end
+ 
+ 
+@@ -1399,6 +1401,8 @@
+       Int_Interv.check_coverage itv concerned_intervals;
+      with Is_not_included -> f V.top);
+     List.iter (fun (_,(_,_,b)) -> f b) concerned_intervals
++
++  let fold f m = Int_Interv_Map.fold f m
+         
+ end
+ 
+@@ -1674,6 +1678,8 @@
+ 
+   let iter_contents f o size = 
+     M.iter_contents f o.v size
++ 
++  let fold f v = M.fold f v.v
+ 
+ end
+ 
+diff -Naur frama-c-Lithium-20081201-orig/src/memory_state/offsetmap.mli frama-c-Lithium-20081201-patch/src/memory_state/offsetmap.mli
+--- frama-c-Lithium-20081201-orig/src/memory_state/offsetmap.mli	2008-12-16 10:29:49.000000000 +0100
++++ frama-c-Lithium-20081201-patch/src/memory_state/offsetmap.mli	2009-02-16 14:44:02.000000000 +0100
+@@ -124,6 +124,8 @@
+ 
+   val iter_contents : (y -> unit) -> t -> Int.t -> unit
+     (** Iter on the contents of offsetmap of given size *)
++
++  val fold : (Int.t * Int.t -> Int.t * Int.t * y -> 'a -> 'a) -> t -> 'a -> 'a
+ end
+ 
+ module Make(V : Lattice_With_Isotropy.S):
