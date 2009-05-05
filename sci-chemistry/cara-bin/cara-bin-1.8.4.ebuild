@@ -47,9 +47,10 @@ src_install() {
 	dosym cara_1.8.4_linux /opt/cara/cara
 	dodoc Start1.2.cara
 
-	cat>>"${T}"/20cara<<-EOF
+	cat >>"${T}"/20cara<<- EOF
 	PATH="/opt/cara/"
 	EOF
+
 	doenvd "${T}"/20cara
 }
 
