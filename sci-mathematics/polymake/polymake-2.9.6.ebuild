@@ -22,7 +22,7 @@ dev-libs/libxslt
 dev-perl/XML-LibXSLT
 dev-perl/XML-Writer
 dev-perl/Term-ReadLine-Gnu
-virtual/jre"
+virtual/jdk"
 
 src_compile(){
 	# Fixing makefile
