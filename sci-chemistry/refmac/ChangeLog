@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*refmac-5.6.0033 (05 May 2009)
+
+  05 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/5.6.0033-allow-dynamic-linking.patch, +refmac-5.6.0033.ebuild:
+  refmac experimantel version bump
+
 *refmac-5.6.0031 (28 Apr 2009)
 *refmac-5.5.0091 (28 Apr 2009)
 
