@@ -29,7 +29,7 @@ KEYWORDS="~x86 ~amd64"
 # sys-process/time is needed to run the checks
 DEPEND="sys-libs/gdbm
 	dev-libs/gmp
-	>=dev-libs/ntl-5.4.1
+	>=dev-libs/ntl-5.4.1[gmp]
 	>=dev-libs/boehm-gc-7.0
 	>=sci-mathematics/pari-2.3.4[gmp]
 	virtual/blas
@@ -68,6 +68,10 @@ src_compile() {
 	cd "${S}/Macaulay2/packages/Macaulay2Doc"
 	sed "/^ *SourceCode => applicationDirectory.*$/d" -i doc13.m2
 	cd "${S}"
+
+	if ! use emacs; then
+	tags="ctags"
+	fi
 
 	CXXFLAGS="${CXXFLAGS} -Wno-deprecated"
 	append-ldflags "-L${WORKDIR}/$(get_libdir)"
