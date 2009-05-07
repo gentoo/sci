@@ -49,3 +49,9 @@
 # jlec@j-schmitz.net
 # experimental versions
 =sci-chemistry/refmac-5.6*
+
+# Justin Lecher (jlec) (07 May 2009)
+# jlec@j-schmitz.net
+# not finished
+=sci-chemistry/direx-0.2*
+
