@@ -10,7 +10,7 @@ MY_P="${MY_PN}-${PV}"
 DESCRIPTION="Web Services for Python"
 HOMEPAGE="http://pywebsvcs.sourceforge.net/zsi.html"
 #SRC_URI="mirror://sourceforge/pywebsvcs/${MY_P}.tar.gz"
-SRC_URI="http://dev.gentooexperimental/~jlec/science-dist/${P}.tar.bz2"
+SRC_URI="http://dev.gentooexperimental.org/~jlec/science-dist/${P}.tar.bz2"
 
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
