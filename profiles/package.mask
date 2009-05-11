@@ -33,7 +33,7 @@
 # Justin Lecher (jlec) (11 May 09)
 # jlec@j-schmitz.net
 # work in progress 
-=almost/almost-1.0.3-r1.ebuild
+=almost/almost-1.0.3-r1
 
 # Justin Lecher (jlec) (02 Feb 09)
 # jlec@j-schmitz.net
