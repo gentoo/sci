@@ -1,6 +1,14 @@
 # ChangeLog for sci-visualization/opendx
-# Copyright 2000-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-visualization/opendx/ChangeLog,v 1.15 2008/09/14 11:25:38 spock Exp $
+
+*opendx-4.4.4-r2 (11 May 2009)
+
+  11 May 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  opendx-4.4.4-r1.ebuild, +opendx-4.4.4-r2.ebuild,
+  +files/opendx-4.4.4-install.patch, +files/opendx-4.4.4-xdg.patch:
+  small clean up in opendx-4.4.4-r1, in r2 new layout for the installation
+  and replaced call to netscape/lynx etc... with xdg-open
 
   19 Apr 2009; François Bissey <f.r.bissey@massey.ac.nz>
   +files/opendx-4.4.4-dx-errno.patch,

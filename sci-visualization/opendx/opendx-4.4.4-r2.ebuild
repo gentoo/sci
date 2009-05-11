@@ -2,13 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# Set SMP="no" to force disable of SMP compilation.
-# Set SMP="yes" to force enable of SMP compilation.
-# Otherwise it will be autodetected from /usr/src/linux.
-
 EAPI=2
 
-inherit eutils flag-o-matic autotools
+inherit eutils flag-o-matic autotools multilib
 
 DESCRIPTION="A 3D data visualization tool"
 HOMEPAGE="http://www.opendx.org/"
@@ -41,7 +37,8 @@ S="${WORKDIR}/${P/open}"
 src_prepare() {
 
 	epatch "${FILESDIR}/${PN}-4.3.2-sys.h.patch"
-	epatch "${FILESDIR}/${PN}-compressed-man.patch"
+	epatch "${FILESDIR}/${P}-install.patch"
+	epatch "${FILESDIR}/${P}-xdg.patch"
 	epatch "${FILESDIR}/${P}-gcc43-fedora.patch"
 	epatch "${FILESDIR}/${P}-dx-errno.patch"
 	epatch "${FILESDIR}/${P}-libtool.patch"
@@ -67,7 +64,9 @@ src_configure() {
 	local morelibs=""
 	use szip && morelibs="-lsz"
 	econf LIBS="${morelibs}" \
+		"--libdir=/usr/$(get_libdir)" \
 		"--with-x" \
+		"--without-javadx" \
 		$(use_with cdf) \
 		$(use_with netcdf) \
 		$(use_with hdf) \
@@ -90,9 +89,8 @@ src_compile() {
 src_install() {
 	emake DESTDIR="${D}" install || die
 
-	# inform revdep-rebuild about binary locations
-	insinto /etc/revdep-rebuild
-	doins "${FILESDIR}"/20-${PN}-revdep
+	newicon "src/uipp/ui/icon50.xpm" "${PN}.xpm"
+	make_desktop_entry dx "openDX" "${PN}.xpm" "DataVisualization;Education;Science;"
 }
 
 pkg_postinst() {
