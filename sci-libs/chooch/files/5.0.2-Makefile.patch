@@ -1,0 +1,45 @@
+--- Makefile	2004-10-13 15:17:38.000000000 +0200
++++ Makefile.new	2009-05-12 21:24:48.000000000 +0200
+@@ -21,21 +21,21 @@
+ #INCLUDE   = /users/opd14/Gwyndaf/include
+ GSLDIR = /usr/local/lib
+ CGRAPHDIR = /usr/local/lib
+-BINDIR    = /home/ge73/bin
++BINDIR    = /usr/bin
+ INCLUDE   = /usr/local/pgplot
+ #PGPLOTDIR = /home/sci/software/misc/pgplot
+ X11LIBDIR  = /usr/X11R6/lib
+ ######################################
+ #
+ CGRAPH = -lcgraph
+-LIBS = -lgsl -lgslcblas -lX11
++LIBS = -lgsl -lgslcblas -lX11 -L/usr/GENTOO_LIBDIR $(PGLIBS) $(CGRAPH) -lm -ldl -lpthread
+ PGLIBS =  -lcpgplot -lpgplot
+-EXE    = chooch-5.0.2.$(ARCH)
+-EXEPG    = chooch-5.0.2-pg.$(ARCH)
++EXE    = chooch
++EXEPG    = chooch-pg
+ #
+ # How to compile and link
+ #
+-include Makefile.$(ARCH)
++#include Makefile.$(ARCH)
+ #
+ # Basic definitions
+ #
+@@ -51,13 +51,13 @@
+ #
+ #
+ chooch : clean ${OBJECTS} Makefile
+-	$(CC) -o ${EXE} ${OBJECTS} $(LDFLAGS)
++	$(CC) $(LDFLAGS) -o ${EXE} ${OBJECTS} $(LIBS)
+ 
+ chooch-pg : 
+ 	make chooch-with-pgplot "CFLAGS = $(CFLAGS) -DPGPLOT"
+ 
+ chooch-with-pgplot : clean ${OBJECTS} Makefile
+-	$(FC) -v $(CFLAGS) -o ${EXEPG} ${OBJECTS} $(LDFLAGS)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o ${EXEPG} ${OBJECTS} $(LIBS)
+ #
+ all: chooch chooch-pg
+ #

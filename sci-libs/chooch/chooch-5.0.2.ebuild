@@ -2,34 +2,49 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# inherit autotools
+EAPI="2"
+
+inherit eutils multilib toolchain-funcs
 
 DESCRIPTION="a program that will automatically determine values of the anomalous scattering factors"
 HOMEPAGE="http://www.gwyndafevans.co.uk/id2.html"
-SRC_URI="ftp://ftp.ccp4.ac.uk/chooch/5.0.2/packed/chooch-5.0.2.tar.gz"
-
-LICENSE="ccp4"
+SRC_URI="ftp://ftp.ccp4.ac.uk/${PN}/${PV}/packed/${P}.tar.gz"
 
 SLOT="0"
+LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
+IUSE="examples"
 
-IUSE="X"
-RDEPEND="X? ( sci-libs/pgplot )
-	 sci-libs/gsl
-	 sci-libs/Cgraph
-	 virtual/blas
-	 virtual/cblas"
+RDEPEND="sci-libs/gsl
+	sci-libs/Cgraph
+	virtual/blas
+	virtual/cblas
+	sci-libs/pgplot"
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/${PN}"
+S="${WORKDIR}"/${PN}/${P}
+
+src_prepare() {
+	epatch "${FILESDIR}"/${PV}-Makefile.patch
+	sed "s:GENTOO_LIBDIR:$(get_libdir):g" -i Makefile
+}
+
+src_configure() {
+# configure is broken
+:
+}
 
 src_compile() {
-	rm -rf cgraph-2.04 gsl-1.4
-	cd chooch-5.0.2
-	econf \
-		$(use_with X x) \
-		--with-gsl-prefix="/usr" \
-		--with-cgraph-prefix="/usr"
+	emake -j1 \
+		CC=$(tc-getCC) \
+		all || die
+}
 
-	emake -j1|| die
+src_install() {
+	dobin ${PN} ${PN}-pg || die "no bins installed"
+	dodoc doc/${PN}.pdf || die "nothing to read"
+	doman man/${PN}.1 || die
+
+	insinto /usr/share/${PN}
+	use exmaples && doins -r examples
 }
