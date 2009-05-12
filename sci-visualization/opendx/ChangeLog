@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-visualization/opendx/ChangeLog,v 1.15 2008/09/14 11:25:38 spock Exp $
 
+  12 May 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  files/opendx-4.4.4-concurrent-make-fix.patch:
+  make sure the concurent make fix _always_ works.
+
 *opendx-4.4.4-r2 (11 May 2009)
 
   11 May 2009; François Bissey <f.r.bissey@massey.ac.nz>
