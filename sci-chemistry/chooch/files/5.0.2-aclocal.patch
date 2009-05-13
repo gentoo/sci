@@ -1,0 +1,11 @@
+--- pgplot.m4	2004-10-18 13:13:21.000000000 +0200
++++ pgplot.m4.new	2009-05-13 11:52:43.000000000 +0200
+@@ -15,7 +15,7 @@
+ 
+ if test "x$pgplot_prefix" != x ; then
+   PGPLOT_CFLAGS="-I$pgplot_prefix/include"
+-  PGPLOT_LIBS="-L$pgplot_prefix/lib -lpgplot"
++  PGPLOT_LIBS="-L$pgplot_prefix/lib -lpgplot -lcpgplot"
+ fi
+ 
+ AC_MSG_CHECKING([for libpgplot])

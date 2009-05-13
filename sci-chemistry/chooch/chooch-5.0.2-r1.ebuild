@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils multilib toolchain-funcs
+inherit eutils multilib toolchain-funcs autotools
 
 DESCRIPTION="a program that will automatically determine values of the anomalous scattering factors"
 HOMEPAGE="http://www.gwyndafevans.co.uk/id2.html"
@@ -25,26 +25,31 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}"/${PN}/${P}
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PV}-Makefile.patch
-	sed "s:GENTOO_LIBDIR:$(get_libdir):g" -i Makefile
+	epatch "${FILESDIR}"/${PV}-Makefile.am.patch
+	epatch "${FILESDIR}"/${PV}-aclocal.patch
+	AT_M4DIR="${S}" eautoreconf
 }
 
 src_configure() {
-# configure is broken
-:
+	econf \
+		--with-pgplot-prefix="/usr" \
+		--with-cgraph-prefix="/usr" \
+		--with-gsl-prefix="/usr" \
+		--disable-gsltest || \
+		die
 }
 
 src_compile() {
-	emake -j1 \
-		CC=$(tc-getCC) \
+	emake \
 		all || die
 }
 
 src_install() {
-	dobin ${PN} ${PN}-pg || die "no bins installed"
+	emake DESTDIR="${D}" install || die "installation failed"
 	dodoc doc/${PN}.pdf || die "nothing to read"
-	doman man/${PN}.1 || die
 
-	insinto /usr/share/${PN}
-	use exmaples && doins -r examples
+	if	use examples; then
+		insinto /usr/share/${PN}
+		doins -r examples
+	fi
 }

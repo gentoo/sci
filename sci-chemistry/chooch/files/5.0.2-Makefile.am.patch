@@ -1,0 +1,30 @@
+--- Makefile.am	2004-10-20 14:47:12.000000000 +0200
++++ Makefile.am.new	2009-05-13 12:14:09.000000000 +0200
+@@ -1,4 +1,4 @@
+-bin_PROGRAMS = chooch
++bin_PROGRAMS = chooch chooch-pg
+ 
+ chooch_SOURCES = main.c      fluread.c printbanner.c minmax.c  spline.c \
+         mucal.c     fdprime.c smooth.c      fits.c    normalize.c \
+@@ -12,4 +12,8 @@
+ 
+ chooch_LDADD = $(GSL_LIBS) $(PGPLOT_LIBS) $(CGRAPH_LIBS)
+ 
++chooch_pg_CFLAGS = -DPGPLOT $(GSL_CFLAGS) $(PGPLOT_CFLAGS) $(CGRAPH_CFLAGS)
++
++chooch_pg_LDADD = $(GSL_LIBS) $(PGPLOT_LIBS) $(CGRAPH_LIBS)
++
+ man_MANS = man/chooch.1
+--- Makefile.am	2009-05-13 12:16:05.000000000 +0200
++++ Makefile.am.new	2009-05-13 12:18:33.000000000 +0200
+@@ -1,5 +1,10 @@
+ bin_PROGRAMS = chooch chooch-pg
+ 
++chooch_pg_SOURCES = main.c      fluread.c printbanner.c minmax.c  spline.c \
++        mucal.c     fdprime.c smooth.c      fits.c    normalize.c \
++        checks.c    usage.c   integrate.c   psplot.c  selwavel.c \
++        copyright.c toplot.c  license.c
++
+ chooch_SOURCES = main.c      fluread.c printbanner.c minmax.c  spline.c \
+         mucal.c     fdprime.c smooth.c      fits.c    normalize.c \
+         checks.c    usage.c   integrate.c   psplot.c  selwavel.c \
