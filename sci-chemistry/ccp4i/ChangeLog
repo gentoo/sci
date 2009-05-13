@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  ccp4i-6.1.1-r2.ebuild:
+  some QAs fixes
+
 *ccp4i-6.1.1-r2 (27 Mar 2009)
 
   27 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

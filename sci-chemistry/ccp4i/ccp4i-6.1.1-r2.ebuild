@@ -4,23 +4,26 @@
 
 inherit eutils multilib
 
-SRC="ftp://ftp.ccp4.ac.uk/ccp4"
-
-MY_PN="ccp4"
+MY_PN="${PN%i}"
 MY_P="${MY_PN}-${PV}"
 PATCHDATE="04_03_09"
+SRC="ftp://ftp.ccp4.ac.uk/ccp4"
+
 DESCRIPTION="Protein X-ray crystallography toolkit, graphical interface"
 HOMEPAGE="http://www.ccp4.ac.uk/"
-RESTRICT="mirror"
 SRC_URI="${SRC}/${PV}/${MY_P}-core-src.tar.gz
 	${SRC}/${PV}/updates/${MY_P}-src-patch-${PATCHDATE}.tar.gz"
-LICENSE="ccp4"
+
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+LICENSE="ccp4"
 IUSE=""
+
+RESTRICT="mirror"
+
 RDEPEND=">=dev-lang/tk-8.3
-	 >=dev-tcltk/blt-2.4
-	 app-shells/tcsh"
+	>=dev-tcltk/blt-2.4
+	app-shells/tcsh"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${MY_P}"
