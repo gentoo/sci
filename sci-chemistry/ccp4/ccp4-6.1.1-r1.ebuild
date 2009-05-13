@@ -8,6 +8,9 @@ FORTRAN="g77 gfortran ifc"
 
 SRC="ftp://ftp.ccp4.ac.uk/ccp4"
 
+UPDATE="04_03_09"
+PATCHDATE="090511"
+
 PATCH_TOT="0"
 # Here's a little scriptlet to generate this list from the provided
 # index.patches file
@@ -24,9 +27,10 @@ DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
 RESTRICT="mirror"
 #SRC_URI="${SRC}/${PV}/source/${P}-core-src.tar.gz"
-SRC_URI="${SRC}/6.1.1/${P}-core-src.tar.gz"
-#	${SRC}/6.1/${P}-phaser-src.tar.gz
-#	${SRC}/6.1/${P}-balbes_db.tar.gz"
+SRC_URI="${SRC}/6.1.1/${P}-core-src.tar.gz
+	${SRC}/${PV}/updates/${P}-src-patch-${UPDATE}.tar.gz
+	http://dev.gentooexperimental.org/~jlec/science-dist/${PV}-${PATCHDATE}-updates.patch.bz2"
+#	${SRC}/6.1/${P}-phaser-src.tar.gz"
 for i in $(seq $PATCH_TOT); do
 	NAME="PATCH${i}[1]"
 	SRC_URI="${SRC_URI}
@@ -100,6 +104,8 @@ src_unpack() {
 	done
 	einfo "Done."
 	echo
+
+	epatch "${WORKDIR}"/${PV}-${PATCHDATE}-updates.patch
 
 	einfo "Applying Gentoo patches ..."
 	# These two only needed when attempting to install outside build dir via
