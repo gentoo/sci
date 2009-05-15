@@ -8,14 +8,21 @@ inherit toolchain-funcs flag-o-matic
 
 DESCRIPTION="The protein secondary structure standard"
 HOMEPAGE="http://swift.cmbi.ru.nl/gv/dssp/"
-SRC_URI="ftp://ftp.cmbi.ru.nl/pub/molbio/software/dsspcmbi.tar.gz"
+#SRC_URI="ftp://ftp.cmbi.ru.nl/pub/molbio/software/dsspcmbi.tar.gz"
+SRC_URI="${P}cmbi.tar.gz"
 
 LICENSE="free-noncomm"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
+RESTRICT="fetch"
 
 S=${WORKDIR}/${PN}
+
+pkg_nofetch() {
+	elog "Download ftp://ftp.cmbi.ru.nl/pub/molbio/software/dsspcmbi.tar.gz --"
+	elog "Rename it to ${SRC_URI} and place it in ${DISTDIR}"
+}
 
 src_prepare() {
 	cp "${FILESDIR}"/Makefile .
