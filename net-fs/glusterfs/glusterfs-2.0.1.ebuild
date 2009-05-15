@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 inherit autotools apache-module elisp-common eutils multilib versionator
 
 DESCRIPTION="GlusterFS is a powerful network/cluster filesystem"
@@ -29,9 +31,7 @@ APACHE2_MOD_DEFINE="GLUSTERFS"
 APACHE2_DOCFILES="README.txt"
 want_apache2_2
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+src_prepare() {
 
 	epatch "${FILESDIR}/${P}-gentoo.patch"
 	epatch "${FILESDIR}/${P}-parallel-make.patch"
@@ -53,15 +53,14 @@ src_unpack() {
 	eautoreconf
 }
 
-src_compile() {
+src_configure() {
 	econf \
 		$(use_enable berkdb bdb) \
 		$(use_enable fuse fuse-client) \
 		$(use_enable apache2 mod_glusterfs) \
 		$(use_enable static) \
 		--localstatedir=/var ||die
-#		$(use_enable infiniband ibverbs) \
-	emake || die
+		$(use_enable infiniband ibverbs) \
 	# use apache2 && apache-module_src_compile
 	if use emacs ; then
 		elisp-compile extras/glusterfs-mode.el || die "elisp-compile failed"
@@ -91,6 +90,7 @@ src_install() {
 	newinitd "${FILESDIR}/${P}.initd" glusterfsd || die "newinitd failed"
 
 	keepdir /var/log/${PN} || die "keepdir failed"
+	keepdir /var/lib/${PN} || die "keepdir failed"
 }
 
 pkg_postinst() {
