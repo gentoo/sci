@@ -58,8 +58,8 @@ src_configure() {
 		$(use_enable fuse fuse-client) \
 		$(use_enable apache2 mod_glusterfs) \
 		$(use_enable static) \
-		--localstatedir=/var ||die
 		$(use_enable infiniband ibverbs) \
+		--localstatedir=/var ||die
 	# use apache2 && apache-module_src_compile
 	if use emacs ; then
 		elisp-compile extras/glusterfs-mode.el || die "elisp-compile failed"
