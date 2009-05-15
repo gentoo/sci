@@ -11,7 +11,8 @@ start() {
 	start-stop-daemon --start --exec /usr/sbin/glusterfsd -- \
 		--volfile=/etc/glusterfs/${SVCNAME}.vol \
 		--pid-file=/var/run/${SVCNAME}.pid \
-		--log-file=/var/log/glusterfs/${SVCNAME}.log
+		--log-file=/var/log/glusterfs/${SVCNAME}.log \
+		${GLUSTERFSD_MOUNTPOINT}
 	eend $?
 }
 

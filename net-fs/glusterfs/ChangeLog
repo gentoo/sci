@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 May 2009; Alexey Shvetsov <alexxy@gentoo.org> glusterfs-2.0.1.ebuild,
+  -files/glusterfs-2.0.1.initd, +files/glusterfs.confd,
+  +files/glusterfs.initd:
+  add mounting facility support for initscript in case of using nufa
+
 *glusterfs-2.0.1 (15 May 2009)
 
   15 May 2009; Alexey Shvetsov <alexxy@gentoo.org>
