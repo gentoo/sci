@@ -91,7 +91,7 @@ src_install() {
 	dodoc AUTHORS ChangeLog NEWS README THANKS || die "dodoc failed"
 
 	newinitd "${FILESDIR}/${PN}.initd" glusterfsd || die "newinitd failed"
-	newconfd "${FILESDIR}/${PN}.initd" glusterfsd || die "newconfd failed"
+	newconfd "${FILESDIR}/${PN}.confd" glusterfsd || die "newconfd failed"
 
 	keepdir /var/log/${PN} || die "keepdir failed"
 	keepdir /var/lib/${PN} || die "keepdir failed"
