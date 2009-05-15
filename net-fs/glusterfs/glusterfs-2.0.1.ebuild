@@ -13,8 +13,7 @@ SRC_URI="http://ftp.gluster.com/pub/gluster/${PN}/$(get_version_component_range 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="berkdb doc emacs examples fuse static vim-syntax"
-#IUSE="berkdb doc emacs examples fuse infiniband static vim-syntax"
+IUSE="berkdb doc emacs examples fuse infiniband static vim-syntax"
 
 DEPEND="berkdb? ( >=sys-libs/db-4.6.21 )
 	emacs? ( virtual/emacs )
