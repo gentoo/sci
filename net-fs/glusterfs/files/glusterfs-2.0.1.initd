@@ -1,0 +1,22 @@
+#!/sbin/runscript
+# Copyright 1999-2009 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+depend() {
+	use net dns
+}
+
+start() {
+	ebegin "Starting ${SVCNAME}"
+	start-stop-daemon --start --exec /usr/sbin/glusterfsd -- \
+		--volfile=/etc/glusterfs/${SVCNAME}.vol \
+		--pid-file=/var/run/${SVCNAME}.pid \
+		--log-file=/var/log/glusterfs/${SVCNAME}.log
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping ${SVCNAME}"
+	start-stop-daemon --stop --pidfile /var/run/${SVCNAME}.pid
+	eend $?
+}

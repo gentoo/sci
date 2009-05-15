@@ -1,0 +1,22 @@
+diff --git a/configure.ac b/configure.ac
+index aee4dd0..cc49f88 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -259,7 +259,7 @@ fi
+ 
+ if test "x$BUILD_MOD_GLUSTERFS" = "xyes"; then
+    HTTPD_BIN_DIR=`$APXS -q SBINDIR`
+-   MOD_GLUSTERFS_HTTPD_VERSION=`$HTTPD_BIN_DIR/httpd -V | head -1 | awk "{print $3}" | sed 's/[[^0-9.]]//g' |        sed 's/\(.*\..*\)\..*/\1/'`
++   MOD_GLUSTERFS_HTTPD_VERSION=`$HTTPD_BIN_DIR/apache2 -V | head -n 1 | awk "{print $3}" | sed 's/[[^0-9.]]//g' |        sed 's/\(.*\..*\)\..*/\1/'`
+ fi
+ 
+ if test "x$with_apxspath" != "x"; then
+@@ -278,7 +278,7 @@ fi
+ 
+ if test "x$APACHE_MANUAL" = "xyes"; then
+    HTTPD_BIN_DIR=`$APXS_MANUAL -q SBINDIR`
+-   MOD_GLUSTERFS_HTTPD_VERSION=`$HTTPD_MANUAL -V | head -1 | awk "{print $3}" | sed 's/[[^0-9.]]//g' | sed 's/\(.*\..*\)\..*/\1/'`
++   MOD_GLUSTERFS_HTTPD_VERSION=`$HTTPD_MANUAL -V | head -n 1 | awk "{print $3}" | sed 's/[[^0-9.]]//g' | sed 's/\(.*\..*\)\..*/\1/'`
+    APXS=$APXS_MANUAL
+ fi
+ 

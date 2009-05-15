@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>cluster</herd>
+	<maintainer>
+		<email>alexxy@gentoo.org</email>
+		<name>Alexey Shvetsov</name>
+	</maintainer>
+	<longdescription lang='en'>
+		GlusterFS is a cluster file-system capable of scaling to several peta-bytes. It aggregates various storage bricks over Infiniband RDMA or TCP/IP interconnect into one large parallel network file system. GlusterFS is based on a stackable user space design without compromising performance.
+	</longdescription>
+	<use>
+		<flag name='fuse'>Add FUSE mount helper</flag>
+		<flag name='infiniband'>Add infiniband transport support via IB Verbs</flag>
+	</use>
+</pkgmetadata>
