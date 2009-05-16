@@ -1,0 +1,7 @@
+# ChangeLog for sys-cluster/scalasca
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  16 May 2009; Christoph Junghans <kleiner_otti@gmx.de> ChangeLog:
+  Initial commit. Ebuild written by me. Fixes bug #268165
+

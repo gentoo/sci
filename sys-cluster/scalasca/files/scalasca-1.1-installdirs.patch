@@ -1,0 +1,51 @@
+diff -Naur scalasca-1.1.orig/mf/common.defs scalasca-1.1/mf/common.defs
+--- scalasca-1.1.orig/mf/common.defs	2009-04-21 20:43:55.000000000 +0200
++++ scalasca-1.1/mf/common.defs	2009-04-23 20:03:36.000000000 +0200
+@@ -1,10 +1,11 @@
+ MKDIR = $(TOPDIR)/utils/build/mkinstalldirs
+ INSTALL = $(TOPDIR)/utils/build/install-sh
+ 
+-BINDIR = ${PREFIX}/bin$(DSUF)
+-LIBDIR = ${PREFIX}/lib$(DSUF)
+-INCDIR = ${PREFIX}/include$(DSUF)
+-DOCDIR = ${PREFIX}/doc
++BINDIR = ${DESTDIR}/${PREFIX}/bin$(DSUF)
++LIBDIR = ${DESTDIR}/${PREFIX}/lib$(DSUF)
++INCDIR = ${DESTDIR}/${PREFIX}/include$(DSUF)
++DOCDIR = ${DESTDIR}/${PREFIX}/share/doc/${PF}
++EXPDIR = ${DESTDIR}/${PREFIX}/share/doc/${PF}/examples
+ 
+ OMPTRGT = opari
+ 
+diff -Naur scalasca-1.1.orig/utils/build/RealMakefile scalasca-1.1/utils/build/RealMakefile
+--- scalasca-1.1.orig/utils/build/RealMakefile	2009-04-21 20:43:55.000000000 +0200
++++ scalasca-1.1/utils/build/RealMakefile	2009-04-23 20:09:22.000000000 +0200
+@@ -224,20 +224,20 @@
+ 
+ install-examples:
+ 	@echo "++++++++++ EXAMPLES +++++++++++++++++++++++++++"
+-	$(MKDIR) -m 755 ${PREFIX}/example
++	$(MKDIR) -m 755 ${EXPDIR}
+ 	@list='example/*'; for p in $$list; do \
+-		echo "$(INSTALL) -c -m 644 $$p ${PREFIX}/example" ; \
+-		eval "$(INSTALL) -c -m 644 $$p ${PREFIX}/example" ; \
++		echo "$(INSTALL) -c -m 644 $$p ${EXPDIR}" ; \
++		eval "$(INSTALL) -c -m 644 $$p ${EXPDIR}" ; \
+ 	done
+-	@rm -f ${PREFIX}/example/EXAMPLE.tgz
++	@rm -f ${EXPDIR}/EXAMPLE.tgz
+ 	@if test -f ../Makefile.defs.be; then \
+-		$(INSTALL) -c -m 644 ../Makefile.defs.be ${PREFIX}/example/Makefile.defs; \
++		$(INSTALL) -c -m 644 ../Makefile.defs.be ${EXPDIR}/Makefile.defs; \
+ 	else \
+-		sed -e 's/DEFAULTPREC/PREC/' ../Makefile.defs > ${PREFIX}/example/Makefile.defs; \
+-		chmod 644 ${PREFIX}/example/Makefile.defs; \
++		sed -e 's/DEFAULTPREC/PREC/' ../Makefile.defs > ${EXPDIR}/Makefile.defs; \
++		chmod 644 ${EXPDIR}/Makefile.defs; \
+ 	fi
+ 	gunzip -dc example/EXAMPLE.tgz | \
+-		( cd ${PREFIX}/example; tar xpvf - )
++		( cd ${EXPDIR}; tar xpvf - )
+ 
+ install-config:
+ 	$(MKDIR) -m 755 ${DOCDIR}
