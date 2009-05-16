@@ -1,0 +1,7 @@
+# ChangeLog for sci-physics/espresso
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  16 May 2009; Christoph Junghans <kleiner_otti@gmx.de> ChangeLog:
+  Initial commit. Ebuild written by me. bug #266648
+
