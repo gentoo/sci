@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*togl-2.0-r1 (17 May 2009)
+
+  17 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> -togl-2.0.ebuild,
+  +togl-2.0-r1.ebuild:
+  reviewed and fixed
+
 *togl-2.0 (20 Mar 2009)
 
   20 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +metadata.xml,
