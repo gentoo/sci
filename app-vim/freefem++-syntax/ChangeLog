@@ -1,6 +1,10 @@
 # ChangeLog for app-vim/freefem++-syntax
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  17 May 2009; David Radice <david.e.pi.3.14@gmail.com>
+  -freefem++-syntax-20081108.ebuild:
+  Cleanup.
 
   12 Apr 2009; David Radice <david.e.pi.3.14@gmail.com>
   +freefem++-syntax-20081108-r1.ebuild, -freefem++-syntax-20070614.ebuild:
