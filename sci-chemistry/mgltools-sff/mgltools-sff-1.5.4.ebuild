@@ -24,6 +24,5 @@ S="${WORKDIR}"/${MY_P}
 src_unpack() {
 	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
 	tar xzpf mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
-#	find "${S}" -name CVS -type d -exec rm -rf '{}' \;
 }
 
