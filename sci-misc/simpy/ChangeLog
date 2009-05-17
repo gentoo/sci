@@ -1,6 +1,12 @@
 # ChangeLog for sci-misc/simpy
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*simpy-2.0.1 (17 May 2009)
+
+  17 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +simpy-2.0.1.ebuild:
+  version bump
 
   24 Aug 2008; Tim Cera <timcera@earthlink.net> +simpy-1.9.1.ebuild:
   Initial ebuild.
