@@ -1,0 +1,11 @@
+# ChangeLog for sci-chemistry/mgltools-geomutils
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mgltools-geomutils-1.5.4 (17 May 2009)
+
+  17 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/1.5.4-gcc4.3.patch, +mgltools-geomutils-1.5.4.ebuild,
+  +metadata.xml:
+  Initial checkin
+

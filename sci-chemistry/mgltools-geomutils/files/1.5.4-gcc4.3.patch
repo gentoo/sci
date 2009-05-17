@@ -1,0 +1,9 @@
+--- geomutils-1.5.4/src/geomAlgorithms/objfile.cpp	2007-06-26 01:04:34.000000000 +0200
++++ geomutils-1.5.4/src/geomAlgorithms/objfile.cpp.new	2009-05-17 20:30:43.597472969 +0200
+@@ -1,5 +1,6 @@
+ #include <assert.h>
+ #include <fstream>
++#include <cstring>
+ 
+ #include "objfile.h"
+ 
