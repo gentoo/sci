@@ -5,7 +5,6 @@
 inherit distutils
 
 MY_P="${P/mgltools-}"
-#MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="mgltools plugin -- stride"
 HOMEPAGE="http://mgltools.scripps.edu/"
