@@ -15,7 +15,7 @@ SRC_URI="http://www.fz-juelich.de/jsc/datapool/scalasca/${P}.tar.gz"
 LICENSE="scalasca"
 SLOT="0"
 KEYWORDS="~x86"
-IUSE="doc examples fortran mpi openmp"
+IUSE="doc examples fortran mpi openmp wxwindows"
 
 DEPEND="mpi? ( virtual/mpi )
 	x11-libs/qt-core:4
@@ -27,6 +27,7 @@ FORTRAN="g77 gfortran ifc"
 
 pkg_setup() {
 	use fortran && fortran_pkg_setup
+	use wxwindows && wxwidgets_pkg_setup
 }
 
 src_prepare() {
@@ -36,6 +37,11 @@ src_prepare() {
 			-exec sed -i "s/${file}/s${file}/g" {} \;
 		find . -type f -name ${file} -execdir mv {} s${file} \;
 	done
+
+	sed -e "s:CFLAGS   =.*:CFLAGS   = ${CFLAGS}:" \
+	    -e "s:CXXFLAGS =.*:CXXFLAGS = ${CXXFLAGS}:" \
+		-i mf/Makefile.defs.linux-gomp mf/Makefile.defs.linux-gnu \
+		|| die "sed CFLAGS,CXXFLAGS failed"
 
 	epatch "${FILESDIR}"/scalasca-1.1-installdirs.patch
 }

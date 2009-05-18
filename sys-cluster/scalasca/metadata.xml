@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>cluster</herd>
+<herd>hp-cluster</herd>
+<maintainer>
+<email>kleiner_otti@gmx.de</email>
+<name>Christoph Junghans</name>
+</maintainer>
 </pkgmetadata>

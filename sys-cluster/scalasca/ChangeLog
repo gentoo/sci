@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 May 2009; Christoph Junghans <kleiner_otti@gmx.de> ChangeLog:
+  added wxwindows USE flags, fixed C{XX}FLAGS
+
   17 May 2009; Christoph Junghans <kleiner_otti@gmx.de> ChangeLog:
   Fixed a bug, when calling "scalasca -h"
 
