@@ -15,6 +15,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
+S="${WORKDIR}"/${PN}_source_${PV}
+
 for plug in ${PLUGINS}; do
 	PLUG_DEP="${PLUG_DEP} =sci-chemistry/mgltools-${plug}-${PV}"
 done
