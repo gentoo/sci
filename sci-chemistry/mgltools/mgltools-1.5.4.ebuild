@@ -2,12 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# inherit
-
 PLUGINS="autodocktools bhtree cmolkit dejavu geomutils gle mglutil molkit networkeditor opengltk pmv
 	pyautodock pybabel pyglf qslimlib scenario sff stride support symserv utpackages viewer-framework
 	vision visionlib volume WebServices"
-
 
 DESCRIPTION="Software to visualization and analysis of molecular structures"
 HOMEPAGE="http://mgltools.scripps.edu/"
@@ -23,10 +20,13 @@ for plug in ${PLUGINS}; do
 done
 
 RDEPEND="${PLUG_DEP}
-	sci-libs/mslib
+	sci-libs/msms
 	>=dev-python/pmw-1.3
 	dev-python/imaging
 	dev-python/numpy"
 DEPEND="${RDEPEND}"
 
-
+src_install() {
+	insinto /usr/share/${PN}
+	doins -r Data || die
+}
