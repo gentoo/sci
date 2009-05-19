@@ -37,14 +37,3 @@ src_unpack() {
 	epatch "${FILESDIR}"/${PV}-gcc4.3.patch
 }
 
-src_install() {
-	mglpath="$(python_get_sitedir)/MGLToolsPckgs/"
-# Needs this otherwise double ${D}
-	mglpath_lib="/usr/$(get_libdir)/python${PYVER}/site-packages/MGLToolsPckgs/"
-
-	distutils_src_install \
-		--install-purelib="${mglpath_lib}" \
-		--install-platlib="${mglpath_lib}" \
-		--install-lib="${mglpath_lib}" \
-		--install-scripts="${mglpath}"
-}
