@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 SLOT="0"
 IUSE="doc examples opal"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 RDEPEND="dev-lang/python
 	dev-python/numpy
@@ -26,6 +26,7 @@ src_unpack() {
 	epatch "${FILESDIR}"/${P}-ldflags.patch
 	epatch "${FILESDIR}"/${P}-automagic.patch
 	epatch "${FILESDIR}"/${P}-install.patch
+	epatch "${FILESDIR}"/${P}-gcc44.patch
 
 	sed '50,200s:CWD:DESTDIR:g' -i Makefile.am
 
