@@ -8,7 +8,7 @@ MY_P="${P/mgltools-}"
 MGL_EXTRALIBS="/usr/$(get_libdir)"
 MGL_EXTRAINCLUDE="/usr/include"
 
-DESCRIPTION="mgltools plugin -- pyglf"
+DESCRIPTION="mgltools plugin -- opengltk"
 HOMEPAGE="http://mgltools.scripps.edu"
 SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
 
@@ -30,7 +30,23 @@ S="${WORKDIR}"/${MY_P}
 src_unpack() {
 	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
 	tar xzpf mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
-	rm -rvf ${MY_P}/Togl
+
+	find "${S}" -name CVS -type d -exec rm -rf '{}' \; >& /dev/null
+	find "${S}" -name LICENSE -type f -exec rm -f '{}' \; >& /dev/null
+
+	sed  \
+		-e 's:^.*CVS:#&1:g' \
+		-e 's:^.*LICENSE:#&1:g' \
+		-i "${S}"/MANIFEST.in
 
 	sed 's:build_togl=1:build_togl=0:g' -i ${MY_P}/setup.py
+}
+
+src_install() {
+	mglpath="$(python_get_sitedir)/MGLToolsPckgs/"
+
+	distutils_src_install \
+		--install-purelib="${mglpath}" \
+		--install-platlib="${mglpath}" \
+		--install-scripts="${mglpath}"
 }
