@@ -44,5 +44,8 @@ src_install() {
 		--install-platlib="${mglpath}" \
 		--install-scripts="${mglpath}"
 
+	sed '1s:^.*$:#!/bin/python:g' -i Vision/bin/runVision || die
+	dobin Vision/bin/runVision || die
+
 	dohtml Vision/FAQ.html
 }
