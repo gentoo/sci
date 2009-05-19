@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/zsi/ChangeLog,v 1.10 2009/03/13 16:26:36 tcunha Exp $
 
+*zsi-2.1_alpha1 (19 May 2009)
+
+  19 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +zsi-2.1_alpha1.ebuild, -zsi-2.1.0_alpha1.ebuild:
+  upstream released the alpha
+
   29 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   zsi-2.1.0_alpha1.ebuild:
   Change SRC_URI to new mirror

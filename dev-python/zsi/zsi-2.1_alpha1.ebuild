@@ -5,12 +5,11 @@
 inherit distutils
 
 MY_PN="ZSI"
-MY_P="${MY_PN}-${PV}"
+MY_P="${MY_PN}-${PV/_alpha/-a}"
 
 DESCRIPTION="Web Services for Python"
 HOMEPAGE="http://pywebsvcs.sourceforge.net/zsi.html"
-#SRC_URI="mirror://sourceforge/pywebsvcs/${MY_P}.tar.gz"
-SRC_URI="http://dev.gentooexperimental.org/~jlec/science-dist/${P}.tar.bz2"
+SRC_URI="mirror://sourceforge/pywebsvcs/${MY_P}.tar.gz"
 
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
@@ -26,6 +25,8 @@ DEPEND="!<=sci-chemistry/apbs-1.1.0
 			>=dev-lang/python-2.4 )"
 
 PYTHON_MODNAME=${MY_PN}
+
+S="${WORKDIR}"/${MY_P}
 
 src_unpack() {
 	unpack ${A}
