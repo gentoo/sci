@@ -2,11 +2,6 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*togl-1.7 (19 May 2009)
-
-  19 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +togl-1.7.ebuild:
-  need older version API change
-
 *togl-2.0-r1 (17 May 2009)
 
   17 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> -togl-2.0.ebuild,
