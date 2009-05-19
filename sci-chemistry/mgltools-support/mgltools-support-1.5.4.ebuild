@@ -25,5 +25,27 @@ src_unpack() {
 	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
 	tar xzpf mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
 
-	find . -name CVS -type d -exec rm -rf '{}' \;
+	find "${S}" -name CVS -type d -exec rm -rf '{}' \; >& /dev/null
+	find "${S}" -name LICENSE -type f -exec rm -f '{}' \; >& /dev/null
+
+	sed  \
+		-e 's:^.*CVS:#&1:g' \
+		-e 's:^.*LICENSE:#&1:g' \
+		-i "${S}"/MANIFEST.in
+
+	sed \
+		-e "1s:^.*$:mglroot = \'$(python_get_sitedir)/MGLToolsPckgs/\':g" \
+		-i Support-1.5.4/Support/sitecustomize.py
+}
+
+src_install() {
+	mglpath="$(python_get_sitedir)/MGLToolsPckgs/"
+
+	distutils_src_install \
+		--install-purelib="${mglpath}" \
+		--install-platlib="${mglpath}" \
+		--install-scripts="${mglpath}"
+
+	insinto $(python_get_sitedir)
+	doins Support/sitecustomize.py
 }
