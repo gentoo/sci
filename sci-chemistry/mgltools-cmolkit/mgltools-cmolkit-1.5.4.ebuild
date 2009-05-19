@@ -34,12 +34,3 @@ src_unpack() {
 		-e 's:^.*LICENSE:#&1:g' \
 		-i "${S}"/MANIFEST.in
 }
-
-src_install() {
-	mglpath="$(python_get_sitedir)/MGLToolsPckgs/"
-
-	distutils_src_install \
-		--install-purelib="${mglpath}" \
-		--install-platlib="${mglpath}" \
-		--install-scripts="${mglpath}"
-}
