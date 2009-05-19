@@ -6,7 +6,8 @@ inherit multilib
 
 DESCRIPTION="Image rotation package"
 HOMEPAGE="http://cardtable.sourceforge.net/tcltk/"
-SRC_URI="${HOMEPAGE}/img_rotate.zip"
+#SRC_URI="${HOMEPAGE}/img_rotate.zip"
+SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/${P}.zip"
 
 LICENSE="as-is"
 
@@ -15,7 +16,8 @@ KEYWORDS="~amd64 ~x86"
 
 IUSE=""
 RDEPEND="dev-lang/tcl"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	app-arch/unzip"
 
 S="${WORKDIR}"
 
