@@ -20,14 +20,15 @@ IUSE=""
 RDEPEND="dev-lang/tk
 	virtual/glu
 	virtual/opengl
-	dev-python/numpy
-	dev-tcltk/togl"
+	dev-python/numpy"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
 S="${WORKDIR}"/${MY_P}
 
 src_unpack() {
+	tcl_ver="$(best_version dev-lang/tcl | cut -d- -f3 | cut -d. -f1,2)"
+
 	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
 	tar xzpf mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
 
@@ -39,6 +40,5 @@ src_unpack() {
 		-e 's:^.*LICENSE:#&1:g' \
 		-i "${S}"/MANIFEST.in
 
-	sed 's:build_togl=1:build_togl=0:g' -i ${MY_P}/setup.py
+	sed "s:8.4:${tcl_ver}:g" -i ${MY_P}/setup.py
 }
-
