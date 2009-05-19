@@ -39,12 +39,7 @@ src_unpack() {
 }
 
 src_install() {
-	mglpath="$(python_get_sitedir)/MGLToolsPckgs/"
-
-	distutils_src_install \
-		--install-purelib="${mglpath}" \
-		--install-platlib="${mglpath}" \
-		--install-scripts="${mglpath}"
+	distutils_src_install
 
 	insinto $(python_get_sitedir)
 	doins Support/sitecustomize.py
