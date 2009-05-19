@@ -10,7 +10,7 @@ HOMEPAGE="http://www.ysbl.york.ac.uk/~cowtan/clipper/clipper.html"
 SRC_URI="http://www.ysbl.york.ac.uk/~cowtan/clipper/clipper-2.1-${PV:2:${#PV}}-ac.tar.gz"
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~x86 ~ppc ~amd64"
 IUSE=""
 RDEPEND="sci-libs/ccp4-libs"
 DEPEND="${RDEPEND}"
@@ -51,5 +51,10 @@ src_compile() {
 }
 
 src_install() {
+	sed \
+		-e 's:@MCCP4_CXXFLAGS@::g' \
+		-e 's:@CCTBX_LIBS@::g' \
+		-i clipper-config
+
 	emake DESTDIR="${D}" install || die
 }
