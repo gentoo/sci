@@ -30,11 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Justin Lecher (jlec) (17 May 09)
-# jlec@j-schmitz.net
-# mask for testing
-=sci-chemistry/mgltools-1.5.4
-
 # Justin Lecher (jlec) (11 May 09)
 # jlec@j-schmitz.net
 # work in progress 
