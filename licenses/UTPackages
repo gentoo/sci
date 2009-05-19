@@ -1,0 +1,115 @@
+TERMS AND CONDITIONS FOR COPYING,
+DISTRIBUTION AND MODIFICATION
+1. This software is the copyright of
+THE UNIVERSITY OF TEXAS AT AUSTIN, 2005.
+
+2. The software is available under multiple licenses.
+
+3. For non commercial educational and non commercial academic use,
+the software including source code, interface definitions and compile
+scripts are freely available. Any distribution of code, library
+or executables which contains any modules from this software should
+contain, conspicously and appropriately, on each copy, this copyright
+and license notice and should be freely distributed.
+
+4. If you wish to incorporate parts of the Library into other free programs
+whose distribution conditions are incompatible with these, write to the
+author to ask for permission. For software which is copyrighted by the
+Free Software Foundation, write to the Free Software Foundation.
+
+5. For any other purpose, including commercial purposes,
+please contact The University of  Texas at Austin for a different license.
+
+6. Credits:
+
+This software has been developed at the Computational and
+Visualization center under
+
+    Dr Chandrajit Bajaj,
+    Computational Applied Mathematics Chair in Visualization,
+    Professor of Computer Sciences,
+    Director of Center for Computational Visualization,
+    Department of Computer Sciences &
+    The Institute of Computational Engineering and Sciences,
+     Center for Computational Visualization,
+    201 East 24th Street, ACES 2.324A,
+    1 University Station, C0200,
+    Austin, TX 78712-0027.
+
+We request that you agree to acknowledge the use of the software that
+results in any published work, including scientific papers, films and
+videotapes by citing the references listed below
+
+For UTblur:
+
+C. Bajaj, V. Siddavanahalli
+Fast Feature Adaptive Surfaces and Derivatives Computation for
+Volumetric Particle Data
+ICES and CS technical reports, The University of Texas at Austin, 2005.
+
+For UTisocontour:
+
+C. Bajaj, V. Pascucci, D. Schikore
+Accelerated IsoContouring of Scalar Fields
+Data Visualization Techniques, edited by C. Bajaj, John Wiley and Sons (1998).
+
+C. Bajaj, V. Pascucci, D. Schikore
+Fast Isocontouring for Improved Interactivity
+Proceedings: ACM Siggraph/IEEE Symposium on Volume Visualization,
+ACM Press, (1996), San Francisco, CA. Pages: 39-46 99
+
+For UTmesh:
+
+Y. Zhang, C. Bajaj
+Adaptive and Quality Quadrilateral/Hexahedral Meshing from
+Volumetric Data Computer Methods in Applied Mechanics
+and Engineering (CMAME), in press, 2005.
+
+Y. Zhang, C. Bajaj, B-S. Sohn
+3D Finite Element Meshing from Imaging Data
+The special issue of Computer Methods in Applied Mechanics and
+Engineering (CMAME) on Unstructured
+Mesh Generation, 194(48-49):5083-5106, 2005.
+
+For UTsdf:
+
+C. Bajaj, V. Siddavanahalli
+An Adaptive Grid Based Method for Computing Molecular Surfaces
+and Properties ICES and CS Technical Reports,
+The University of Texas at Austin, 2005.
+
+For UTvolrend:
+
+C. Bajaj, Z. Yu, M. Auer
+Volumetric Feature Extraction and Visualization of Tomographic
+Molecular Imaging. Journal of Structural Biology,
+Volume 144, Issues 1-2, October 2003, Pages 132-143
+
+For UTmolderivatives:
+
+C. Bajaj, V. Siddavanahalli
+Fast Feature Adaptive Surfaces and Derivatives Computation for Volumetric
+Particle Data ICES and CS Technical Reports,
+The University of Texas at Austin, 2005.
+
+7. No warranty
+
+7a. Because the library is licensed free of charge, there is no warranty
+for the library, to the extent permitted by applicable law. except when
+otherwise stated in writing the copyright holders and/or other parties
+provide the library "as is" without warranty of any kind, either
+expressed or implied, including, but not limited to, the implied warranties
+of merchantability and fitness for a particular purpose. the entire risk as
+to the quality and performance of the library is with you. should the library
+prove defective, you assume the cost of all necessary servicing,
+repair or correction.
+
+7b. In no event unless required by applicable law or agreed to in writing
+will any copyright holder, or any other party who may modify and/or
+redistribute the library as permitted above, be liable to you for damages,
+including any general, special, incidental or consequential damages
+arising out of the use or inability to use the library (including but
+not limited to loss of data or data being rendered inaccurate or
+losses sustained by you or third parties or a failure of the
+library to operate with any other software), even if such holder
+or other party has been advised of the possibility of such damages.
