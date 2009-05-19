@@ -42,11 +42,3 @@ src_unpack() {
 	sed 's:build_togl=1:build_togl=0:g' -i ${MY_P}/setup.py
 }
 
-src_install() {
-	mglpath="$(python_get_sitedir)/MGLToolsPckgs/"
-
-	distutils_src_install \
-		--install-purelib="${mglpath}" \
-		--install-platlib="${mglpath}" \
-		--install-scripts="${mglpath}"
-}
