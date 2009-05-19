@@ -37,13 +37,8 @@ src_unpack() {
 }
 
 src_install() {
-	mglpath="$(python_get_sitedir)/MGLToolsPckgs/"
+	distutils_src_install
 
-	distutils_src_install \
-		--install-purelib="${mglpath}" \
-		--install-platlib="${mglpath}" \
-		--install-scripts="${mglpath}"
-
-	sed '1s:^.*$:#!/bin/python:g' -i AutoDockTools/bin/runAdt || die
+	sed '1s:^.*$:#!/usr/bin/python:g' -i AutoDockTools/bin/runAdt || die
 	dobin AutoDockTools/bin/runAdt || die
 }
