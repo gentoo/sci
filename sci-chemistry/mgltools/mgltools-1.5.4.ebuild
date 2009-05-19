@@ -4,7 +4,7 @@
 
 PLUGINS="autodocktools bhtree cmolkit dejavu geomutils gle mglutil molkit networkeditor opengltk pmv
 	pyautodock pybabel pyglf qslimlib scenario sff stride support symserv utpackages viewer-framework
-	vision visionlib volume WebServices"
+	vision visionlib volume webservices"
 
 DESCRIPTION="Software to visualization and analysis of molecular structures"
 HOMEPAGE="http://mgltools.scripps.edu/"
@@ -22,6 +22,7 @@ for plug in ${PLUGINS}; do
 done
 
 RDEPEND="${PLUG_DEP}
+	dev-lang/tk
 	sci-libs/msms
 	>=dev-python/pmw-1.3
 	dev-python/imaging
