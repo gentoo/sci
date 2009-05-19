@@ -26,7 +26,7 @@ src_unpack() {
 	tar xzpf mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
 
 	find "${S}" -name CVS -type d -exec rm -rf '{}' \; >& /dev/null
-	find "${S}" -name LICENSE -type d -exec rm -rf '{}' \; >& /dev/null
+	find "${S}" -name LICENSE -type f -exec rm -f '{}' \; >& /dev/null
 
 	sed  \
 		-e 's:^.*CVS:#&1:g' \
