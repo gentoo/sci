@@ -23,7 +23,8 @@ src_unpack() {
 	# ccp4 provides these, and more.
 	sed -i -e "s:examples::g" "${S}"/Makefile.am
 
-	epatch "${FILESDIR}"/20081201-as-needed.patch
+	epatch "${FILESDIR}"/20081201-as-needed.patch \
+		"${FILESDIR}"/20081201-typo.patch
 
 	AT_M4DIR="config" eautoreconf
 }
@@ -51,10 +52,5 @@ src_compile() {
 }
 
 src_install() {
-	sed \
-		-e 's:@MCCP4_CXXFLAGS@::g' \
-		-e 's:@CCTBX_LIBS@::g' \
-		-i clipper-config
-
 	emake DESTDIR="${D}" install || die
 }
