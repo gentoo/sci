@@ -30,6 +30,12 @@
 
 #--- END OF EXAMPLES ---
 
+# Christoph Junghans (ottxor) (11 May 09)
+# kleiner_otti@gmx.de
+# live cvs ebuild, deps changing constantly
+# report to bug #232363
+=sci-chemistry/gnuplot-4.3.9999
+
 # Justin Lecher (jlec) (11 May 09)
 # jlec@j-schmitz.net
 # work in progress 
