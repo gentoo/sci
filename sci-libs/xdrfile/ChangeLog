@@ -1,0 +1,7 @@
+# ChangeLog for sci-libs/xdrfile
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  21 May 2009; Christoph Junghans <kleiner_otti@gmx.de> ChangeLog:
+  Initial commit. (Bug #270685)
+
