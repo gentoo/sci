@@ -2,6 +2,15 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  21 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  fix python >2.4 incompatibility
+
+*ccpn-2.0.7.1-r1 (21 May 2009)
+
+  21 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -ccpn-2.0.6.1.ebuild, -ccpn-2.0.7.1.ebuild, +ccpn-2.0.7.1-r1.ebuild:
+  added missing dependency
+
 *ccpn-2.0.7.1 (17 Apr 2009)
 
   17 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> files/analysis,
