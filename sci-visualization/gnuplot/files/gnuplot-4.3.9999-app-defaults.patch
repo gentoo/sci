@@ -1,0 +1,51 @@
+http://bugs.gentoo.org/219323
+Don't store resource files in deprecated location
+Reported upstream: http://sourceforge.net/tracker/index.php?func=detail&aid=1953742&group_id=2055&atid=102055
+
+--- gnuplot-orig/configure.in	2008-03-04 19:36:53.000000000 +0100
++++ gnuplot/configure.in	2008-04-26 11:44:59.000000000 +0200
+@@ -1026,6 +1026,10 @@
+ fi
+ AC_SUBST(LISPDIR)
+ 
++dnl Location of application defaults
++AC_ARG_VAR(appdefaultdir,[Directory for application defaults])
++test -z "$appdefaultdir" && appdefaultdir='${sysconfdir}/X11/app-defaults'
++
+ dnl Substitute variables
+ AC_SUBST(PACKAGE)
+ AC_SUBST(VERSION_MAJOR)
+--- gnuplot-orig/share/Makefile.am	2008-03-05 04:38:59.000000000 +0100
++++ gnuplot/share/Makefile.am	2008-04-26 11:44:59.000000000 +0200
+@@ -5,8 +5,6 @@
+ 
+ SUBDIRS = LaTeX
+ 
+-appdefaultdir = $(libdir)/X11/app-defaults
+-
+ APPDEFAULTFILES = Gnuplot
+ 
+ appdefault_DATA = $(APPDEFAULTFILES)
+--- gnuplot-orig/src/Makefile.am	2007-08-26 19:50:20.000000000 +0200
++++ gnuplot/src/Makefile.am	2008-04-26 11:44:59.000000000 +0200
+@@ -31,7 +31,7 @@
+ transform = @program_transform_name@
+ GNUPLOT_X11 = `echo gnuplot_x11 | sed '$(transform)'`$(EXEEXT)
+ 
+-AM_CPPFLAGS = -I../term -I$(top_srcdir)/term -DBINDIR=\"$(bindir)\" -DX11_DRIVER_DIR=\"$(X11_DRIVER_DIR)\" -DGNUPLOT_PS_DIR=\"$(GNUPLOT_PS_DIR)\" -DGNUPLOT_JS_DIR=\"$(GNUPLOT_JS_DIR)\"  -DCONTACT=\"$(EMAIL)\" -DHELPFILE=\"$(HELPFILE)\" -DGNUPLOT_X11=\"$(GNUPLOT_X11)\"
++AM_CPPFLAGS = -I../term -I$(top_srcdir)/term -DBINDIR=\"$(bindir)\" -DX11_DRIVER_DIR=\"$(X11_DRIVER_DIR)\" -DGNUPLOT_PS_DIR=\"$(GNUPLOT_PS_DIR)\" -DGNUPLOT_JS_DIR=\"$(GNUPLOT_JS_DIR)\"  -DCONTACT=\"$(EMAIL)\" -DHELPFILE=\"$(HELPFILE)\" -DGNUPLOT_X11=\"$(GNUPLOT_X11)\" -DAppDefDir=\"$(appdefaultdir)\"
+ 
+ gnuplot_SOURCES = alloc.c alloc.h ansichek.h axis.c axis.h binary.c \
+ breaders.c breaders.h bitmap.c bitmap.h color.c color.h command.c \
+--- gnuplot-orig/src/gplt_x11.c	2007-12-10 00:55:27.000000000 +0100
++++ gnuplot/src/gplt_x11.c	2008-04-26 11:45:18.000000000 +0200
+@@ -4851,7 +4851,9 @@
+ */
+ #define On(v) ( !strncasecmp(v, "on", 2) || !strncasecmp(v, "true", 4) )
+ 
++#ifndef AppDefDir
+ #define AppDefDir "/usr/lib/X11/app-defaults"
++#endif
+ #ifndef MAXHOSTNAMELEN
+ #define MAXHOSTNAMELEN 64
+ #endif
