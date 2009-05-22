@@ -35,6 +35,8 @@
 # upstream doesn't provide tarball anymore
 # bump will follow soon
 =sci-chemistry/nmrpipe-9.27.2007.222.14.56
+# testing
+=sci-chemisty/nmrpipe-9.27.2009.120.14.28
 
 # Christoph Junghans (ottxor) (11 May 09)
 # kleiner_otti@gmx.de
