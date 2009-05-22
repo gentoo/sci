@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/pdb2pqr/ChangeLog,v 1.16 2009/03/03 02:50:01 darkside Exp $
 
+  22 May 2009; Alexey Shvetsov <alexxy@gentoo.org> pdb2pqr-1.4.0.ebuild,
+  pdb2pqr-1.4.0-r1.ebuild:
+  Drop accidently added keywords and add gcc-4.4 patch
+
   19 May 2009; Alexey Shvetsov <alexxy@gentoo.org> pdb2pqr-1.4.0-r1.ebuild,
   +files/pdb2pqr-1.4.0-gcc44.patch:
   Add ~amd64 keyword and gcc-4.4 patch

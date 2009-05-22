@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 SLOT="0"
 IUSE="doc examples opal"
-KEYWORDS="~amd64"
+KEYWORDS=""
 
 RDEPEND="dev-lang/python
 	dev-python/numpy
@@ -85,7 +85,6 @@ src_install() {
 	dodoc ChangeLog NEWS README AUTHORS || \
 		die "Failed to install docs"
 
-die
 	INPATH="$(python_get_sitedir)/${PN}"
 
 	insinto "${INPATH}"
