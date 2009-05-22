@@ -30,6 +30,12 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher (jlec) (11 May 09)
+# jlec@j-schmitz.net
+# upstream doesn't provide tarball anymore
+# bump will follow soon
+=sci-chemistry/nmrpipe-9.27.2007.222.14.56
+
 # Christoph Junghans (ottxor) (11 May 09)
 # kleiner_otti@gmx.de
 # live cvs ebuild, deps changing constantly
