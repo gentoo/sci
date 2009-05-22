@@ -17,11 +17,10 @@ HOMEPAGE="http://spin.niddk.nih.gov/bax/software/NMRPipe/"
 # redefine the location of the libraries, which is done by sourcing an
 # initialisation script. NMRPipe users are used to this, and this ebuild
 # also prints a notice to this effect.
-SRC_URI="${PN}.linux9.tar.Z
-	dyn.tar.Z
-	mfr.tar.Z
-	pdbH.tar.Z
-	valpha.tar
+SRC_URI="NMRPipeX.tZ
+	valpha_all.tar
+	talos.tZ
+	dyn.tZ
 	acme.tar.Z
 	binval.com
 	install.com"
@@ -40,13 +39,13 @@ RESTRICT="fetch"
 DEPEND="app-shells/tcsh"
 
 RDEPEND="${DEPEND}
-	dev-lang/tcl
 	dev-lang/tk
 	dev-tcltk/blt
 	sys-libs/libtermcap-compat
 	sys-libs/ncurses
 	x11-libs/xview
-	x11-libs/libX11"
+	x11-libs/libX11
+	app-editors/nedit"
 
 S="${WORKDIR}"
 NMRBASE="/opt/${PN}"
@@ -68,8 +67,7 @@ pkg_nofetch() {
 src_unpack() {
 	# The installation script will unpack the package. We just provide symlinks
 	# to the archive files, ...
-	for i in ${PN}.linux9.tar.Z dyn.tar.Z mfr.tar.Z \
-			pdbH.tar.Z valpha.tar acme.tar.Z; do
+	for i in valpha_all.tar talos.tZ NMRPipeX.tZ dyn.tZ acme.tar.Z; do
 		ln -s "${DISTDIR}"/${i} ${i}
 	done
 	# ... copy the installation scripts ...
@@ -80,14 +78,15 @@ src_unpack() {
 
 src_compile() {
 	# Unset DISPLAY to avoid the interactive graphical test.
-	DISPLAY="" ./install.com "${S}" || die
+	DISPLAY="" ./install.com +type linux9 +dest "${S}"/NMR || die
 	# Remove the symlinks for the archives and the installation scripts.
 	for i in ${A}; do
 		rm ${i} || die "Failed to remove archive symlinks."
 	done
 	# Remove some of the bundled applications and libraries; they are
 	# provided by Gentoo instead.
-	rm -r nmrbin.linux9/{0.0,lib,*timestamp,xv,gnuplot*,rasmol*} \
+	rm -r nmrbin.linux9/{lib/{libBLT24.so,libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
+		nmrbin.{linux,mac,sgi6x,sol,winxp} nmruser format \
 		|| die "Failed to remove unnecessary libraries."
 	# Remove the initialisation script generated during the installation.
 	# It contains incorrect hardcoded paths; only the "nmrInit.com" script
@@ -110,10 +109,12 @@ src_compile() {
 src_install() {
 	newenvd "${FILESDIR}"/env-${PN} 40${PN} || die "Failed to install env file."
 	insinto ${NMRBASE}
+# Which brainiack wrote this!?
 	insopts -m0755
 	doins -r * || die "Failed to install application."
 	dosym ${NMRBASE}/nmrbin.linux9 ${NMRBASE}/bin || die \
 		"Failed to symlink binaries."
+#	fperms 775 ${NMRBASE}/nmrbin.linux9/* com/*
 }
 
 pkg_postinst() {
