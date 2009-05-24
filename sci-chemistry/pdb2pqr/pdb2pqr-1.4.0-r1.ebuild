@@ -72,6 +72,7 @@ src_install() {
 		doins -r examples || die
 	fi
 
+	INPATH="$(python_get_sitedir)/${PN}"
 
 	# generate pdb2pqr wrapper
 	cat >> "${T}"/${PN} <<-EOF
@@ -84,8 +85,6 @@ src_install() {
 
 	dodoc ChangeLog NEWS README AUTHORS || \
 		die "Failed to install docs"
-
-	INPATH="$(python_get_sitedir)/${PN}"
 
 	insinto "${INPATH}"
 	doins __init__.py || \
