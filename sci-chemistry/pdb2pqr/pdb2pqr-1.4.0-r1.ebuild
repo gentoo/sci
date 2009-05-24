@@ -11,7 +11,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 SLOT="0"
 IUSE="doc examples opal"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="dev-lang/python
 	dev-python/numpy
@@ -113,11 +113,11 @@ src_install() {
 		die "Failed to install propka."
 
 	insinto "${INPATH}"/pdb2pka
-	doins pdb2pka/*.{py,so,DAT,h}
+	doins pdb2pka/*.{py,so,DAT,h} || \
 		die "Failed to install pdb2pka."
 
 	insinto "${INPATH}"/pdb2pka/
-	doins pdb2pka/*.{py,so,DAT,h}
+	doins pdb2pka/*.{py,so,DAT,h} || \
 		die "Failed to install pdb2pka."
 
 
