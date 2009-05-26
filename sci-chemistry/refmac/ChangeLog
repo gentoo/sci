@@ -2,6 +2,16 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*refmac-5.5.0094 (26 May 2009)
+
+  26 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -files/5.5.0093-allow-dynamic-linking.patch, -refmac-5.5.0093.ebuild,
+  +files/5.5.0094-allow-dynamic-linking.patch, +refmac-5.5.0094.ebuild:
+  A problem related with TLS has been fixed. The problem was that not in all
+  cycle TLS contributions were added to B values and that could make
+  refinement unstable.
+
+
 *refmac-5.5.0093 (22 May 2009)
 
   22 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
