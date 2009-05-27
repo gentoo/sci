@@ -9,7 +9,7 @@ inherit distutils
 
 # This number identifies each release on the CRU website.
 # Can't figure out how to avoid hardcoding it.
-NUMBER="2259"
+NUMBER="2469"
 IUSE=""
 DESCRIPTION="Molecular Modeling ToolKit for Python"
 SRC_URI="http://sourcesup.cru.fr/frs/download.php/${NUMBER}/${MY_P}.tar.gz"
