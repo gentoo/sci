@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=2
+
 MY_P=${P/mmtk/MMTK}
 S=${WORKDIR}/${MY_P}
 
@@ -18,8 +20,14 @@ SLOT="0"
 LICENSE="CeCILL-C"
 KEYWORDS="~amd64 ~x86"
 
-RDEPEND="dev-python/scientificpython"
+RDEPEND=">=dev-python/scientificpython-2.6"
 DEPEND="${RDEPEND}"
+
+src_prepare() {
+	sed -i -e "/ext_package/d" \
+		"${S}"/setup.py \
+		|| die
+}
 
 src_install() {
 	distutils_src_install
