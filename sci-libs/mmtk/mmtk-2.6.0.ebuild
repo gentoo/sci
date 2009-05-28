@@ -4,8 +4,10 @@
 
 EAPI=2
 
-MY_P=${P/mmtk/MMTK}
+MY_PN=${PN/mmtk/MMTK}
+MY_P=${MY_PN}-${PV}
 S=${WORKDIR}/${MY_P}
+PYTHON_MODNAME=${MY_PN}
 
 inherit distutils
 
