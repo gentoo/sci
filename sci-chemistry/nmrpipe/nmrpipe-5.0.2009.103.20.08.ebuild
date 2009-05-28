@@ -107,14 +107,14 @@ src_compile() {
 }
 
 src_install() {
-	newenvd "${FILESDIR}"/env-${PN} 40${PN} || die "Failed to install env file."
+	newenvd "${FILESDIR}"/env-${PN}-new 40${PN} || die "Failed to install env file."
 	insinto ${NMRBASE}
 # Which brainiack wrote this!?
-	insopts -m0755
+#	insopts -m0755
 	doins -r * || die "Failed to install application."
 	dosym ${NMRBASE}/nmrbin.linux9 ${NMRBASE}/bin || die \
 		"Failed to symlink binaries."
-#	fperms 775 ${NMRBASE}/nmrbin.linux9/* com/*
+	fperms 775 ${NMRBASE}/nmrbin.linux9/* com/*
 }
 
 pkg_postinst() {

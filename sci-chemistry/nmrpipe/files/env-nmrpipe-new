@@ -1,14 +1,12 @@
 # Platform
 BINTYPE="linux9"
-PATH="/opt/nmrpipe/bin:/opt/nmrpipe/dynamo/tcl"
-
+PATH="/opt/nmrpipe/com:/opt/nmrpipe/bin:/opt/nmrpipe/dynamo/tcl"
 
 # NMRPipe
 NMRBASE="/opt/nmrpipe"
-NMRTXT="/opt/nrpipe/nmrtxt"
+NMRTXT="/opt/nmrpipe/nmrtxt"
 MANPATH="/opt/nmrpipe/man"
 # Auxiliary NMRPipe scripts
-# PATH="${PATH}:/opt/nmrpipe/com"
 
 # Dynamo
 DYNAMO_DIR="/opt/nmrpipe/dynamo"
