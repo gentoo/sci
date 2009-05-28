@@ -76,9 +76,11 @@ src_unpack() {
 	chmod +x binval.com install.com
 }
 
-src_compile() {
+src_install() {
 	# Unset DISPLAY to avoid the interactive graphical test.
 	DISPLAY="" ./install.com +type linux9 +dest "${S}"/NMR || die
+
+
 	# Remove the symlinks for the archives and the installation scripts.
 	for i in ${A}; do
 		rm ${i} || die "Failed to remove archive symlinks."
@@ -92,21 +94,18 @@ src_compile() {
 	# It contains incorrect hardcoded paths; only the "nmrInit.com" script
 	# should be used.
 	rm com/nmrInit.linux9.com || die "Failed to remove broken init script."
-	# Make the precompiled Linux binaries executable.
-	chmod +x nmrbin.linux9/* || die "Failed to make programs executable."
+	# Remove installation log files.
+	rm README_NMRPIPE_USERS *.log || die "Failed to remove installation log."
+	# Remove unused binaries
+	rm talos/bin/TALOS.{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
+
 	# Set the correct path to NMRPipe in the auxiliary scripts.
-	cd com
-	for i in *; do
+	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc -type f); do
 		sed -e "s%/u/delaglio%${NMRBASE}%" -i ${i} || die \
 			"Failed patching scripts."
 	done
-	sed -i "s:${WORKDIR}:${NMRBASE}:g" font.com
-	# Remove installation log files.
-	cd "${S}"
-	rm *.log || die "Failed to remove installation log."
-}
+	sed -i "s:${WORKDIR}:${NMRBASE}:g" com/font.com
 
-src_install() {
 	newenvd "${FILESDIR}"/env-${PN}-new 40${PN} || die "Failed to install env file."
 	insinto ${NMRBASE}
 # Which brainiack wrote this!?
@@ -114,7 +113,7 @@ src_install() {
 	doins -r * || die "Failed to install application."
 	dosym ${NMRBASE}/nmrbin.linux9 ${NMRBASE}/bin || die \
 		"Failed to symlink binaries."
-	fperms 775 ${NMRBASE}/nmrbin.linux9/* com/*
+	fperms 775 ${NMRBASE}/{nmrbin.linux9,com,dynamo/tcl}/*
 }
 
 pkg_postinst() {
