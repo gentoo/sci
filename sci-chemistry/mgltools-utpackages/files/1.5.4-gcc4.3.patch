@@ -1,5 +1,5 @@
 --- UTpackages-1.5.4/UTisocontourDIST/src/queue.h	2004-06-16 21:46:53.000000000 +0200
-+++ UTpackages-1.5.4/UTisocontourDIST/src/queue.h.new	2009-05-17 22:14:48.357473079 +0200
++++ UTpackages-1.5.4/UTisocontourDIST/src/queue.h.new	2009-05-28 21:40:02.000000000 +0200
 @@ -17,7 +17,7 @@
  #define __QUEUE_H
  
@@ -9,24 +9,3 @@
  
  //@ManMemo: A templated FIFO queue
  /*@Doc: Implementation of a FIFO queue based on a circular array.
---- UTpackages-1.5.4/UTmeshDIST/src/LBIE_Mesher.cpp	2005-01-28 19:45:31.000000000 +0100
-+++ UTpackages-1.5.4/UTmeshDIST/src/LBIE_Mesher.cpp.new	2009-05-17 23:07:34.309524071 +0200
-@@ -1,6 +1,8 @@
- #include <iostream>
- 
- #include <math.h>
-+#include <cstring>
-+#include <cstdlib>
- 
- #include "LBIE_Mesher.h"
- #include "octree.h"
---- ./UTpackages-1.5.4/UTmeshDIST/src/mydrawer.cpp	2005-02-16 21:10:53.000000000 +0100
-+++ ./UTpackages-1.5.4/UTmeshDIST/src/mydrawer.cpp.new	2009-05-17 23:08:06.469452138 +0200
-@@ -1,5 +1,7 @@
- #include <iostream>
- #include <math.h>
-+#include <cstring>
-+#include <cstdlib>
- 
- #include "mydrawer.h"
- #include "geoframe.h"
