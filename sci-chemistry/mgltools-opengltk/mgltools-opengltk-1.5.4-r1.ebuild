@@ -10,7 +10,8 @@ MGL_EXTRAINCLUDE="/usr/include"
 
 DESCRIPTION="mgltools plugin -- opengltk"
 HOMEPAGE="http://mgltools.scripps.edu"
-SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
+#SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
+SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/mgltools_source_${PV}.tar.gz"
 
 LICENSE="MGLTOOLS"
 SLOT="0"
