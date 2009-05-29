@@ -2,6 +2,14 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*refmac-5.5.0095 (29 May 2009)
+
+  29 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -refmac-5.5.0094.ebuild, +refmac-5.5.0095.ebuild:
+  A bug related with cubic space group has been fixed. In some cases cubic
+  space refinement would not work because the maximum indices were
+  determined incorrectly.
+
 *refmac-5.5.0094 (26 May 2009)
 
   26 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
