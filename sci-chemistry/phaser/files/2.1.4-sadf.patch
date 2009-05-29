@@ -1,0 +1,64 @@
+--- ccp4-6.1.1/src/phaser/source/phaser/src/RefineSADf.cc	2009-02-05 19:03:10.000000000 +0100
++++ ccp4-6.1.1/src/phaser/source/phaser/src/RefineSADf.cc.new	2008-07-14 15:25:47.000000000 +0200
+@@ -161,7 +161,8 @@
+     if (atoms_extra[a].REJECTED) PHASER_ASSERT(atoms[a].occupancy == 0);
+   }
+ 
+-  cctbx::xray::fast_gradients<dFloatType> fast_gradients(
++  typedef cctbx::xray::fast_gradients<dFloatType> fast_gradients_t;
++  fast_gradients_t fast_gradients(
+       cctbxUC,
+       atoms.const_ref(),
+       scattering_type_registry,
+@@ -206,9 +205,9 @@
+     sc.flags.set_tan_u_iso(false);
+   }
+ 
+-  af::const_ref<dCmplxType, cctbx::maptbx::c_grid_padded_p1<3> > gradmap_const_ref(
+-    gradmap_fft_ref.begin(),
+-    cctbx::maptbx::c_grid_padded_p1<3>(cfft.n(), cfft.n()));
++  typedef fast_gradients_t::accessor_type fgat;
++  af::const_ref<dCmplxType, fgat>
++    gradmap_const_ref(gradmap_fft_ref.begin(), fgat(cfft.n(), cfft.n()));
+   bool sampled_density_must_be_positive(true);
+   fast_gradients.sampling(
+       atoms.const_ref(),
+--- ccp4-6.1.1/src/phaser/source/phaser/io/Errors.cc      2007-11-14 15:46:41.000000000 +0100
++++ ccp4-6.1.1/src/phaser/source/phaser/io/Errors.cc.new      2007-11-14 15:46:41.000000000 +0100
+@@ -1,6 +1,7 @@
+ //(c) 2000-2007 Cambridge University Technical Services Ltd
+ //All rights reserved
+ #include <phaser/io/Errors.h>
++#include <cstdio>
+ 
+ namespace phaser {
+ 
+@@ -20,7 +21,7 @@
+     sfile.erase(sfile.begin(),sfile.begin()+i+1);
+     std::string::size_type j = sfile.rfind("\\"); //microsoft file separator
+     sfile.erase(sfile.begin(),sfile.begin()+j+1);
+-    sprintf(buf, "%ld", line);
++    std::sprintf(buf, "%ld", line);
+     msg_ =   std::string("Program") + s + " error in source file "
+               + sfile + " (line " + buf + ")\n";
+     if (msg.size()) msg_ += "*** "+ msg + " ***";
+--- ccp4-6.1.1/src/phaser/source/phaser/SConscript        2008-06-19 11:57:30.000000000 +0200
++++ ccp4-6.1.1/src/phaser/source/phaser/SConscript.new        2008-06-19 11:57:30.000000000 +0200
+@@ -12,13 +12,15 @@
+ 
+ cxxflags = env_etc.cxxflags_base
+ print "Compiling distributed version of phaser"
++ccp4io_lib = getattr(env_etc, "ccp4io_lib", "cmtz")
++  # XXX backward compatibility 2008-09-10
+ env_etc.phaser_common_libs = [
+   "phaserrun",
+   "phasersrc",
+   "phaserio",
+   "phaserkey",
+   "phaserlib",
+-  "cmtz",
++  ccp4io_lib,
+   "cctbx",
+ ]
+ env_etc.phaser_common_includes = [
+
