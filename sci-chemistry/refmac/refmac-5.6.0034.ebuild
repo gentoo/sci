@@ -2,11 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils fortran toolchain-funcs
+inherit eutils fortran toolchain-funcs versionator
+
+MY_PV="$(get_version_component_range 1-2)"
 
 DESCRIPTION="Macromolecular crystallographic refinement program"
 HOMEPAGE="http://www.ysbl.york.ac.uk/~garib/refmac/"
-SRC_URI="${HOMEPAGE}data/refmac_experimental/${PN}_source_v${PV}.tar.gz"
+#SRC_URI="${HOMEPAGE}data/refmac_experimental/${PN}_source_v${PV}.tar.gz"
+SRC_URI="${HOMEPAGE}data/refmac_experimental/${PN}${MY_PV}_source_v${PV}.tar.gz"
 LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
