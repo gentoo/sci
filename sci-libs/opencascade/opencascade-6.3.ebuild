@@ -114,7 +114,10 @@ src_compile() {
 		fi
 	else
 		if use opengl; then
-			die "OpenGL imply X support! Add "X" USE flag."
+			einfo "OpenGL imply X support! "
+			confargs="${confargs} --with-dps-include=/usr/include --with-dps-library=/usr/$(get_libdir)"
+			confargs="${confargs} --with-xmu-include=/usr/include --with-xmu-library=/usr/$(get_libdir)"
+			confargs="${confargs} --with-gl-include=/usr/include --with-gl-library=/usr/$(get_libdir)"
 		else
 			ewarn "Activate X and OpenGL if you want to be able to visualize geometry. Set "X" and "opengl" USE flags."
 		fi
