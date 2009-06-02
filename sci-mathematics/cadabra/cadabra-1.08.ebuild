@@ -2,9 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=2
+
 inherit eutils flag-o-matic
 
-EAPI=2
 DESCRIPTION="Field-theory motivated computer algebra system"
 HOMEPAGE="http://www.aei.mpg.de/~peekas/cadabra"
 SRC_URI="http://www.aei.mpg.de/~peekas/cadabra/${P}.tar.gz"

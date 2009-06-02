@@ -2,9 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=2
+
 inherit eutils
 
-EAPI=2
 DESCRIPTION="C++ library for handling of multiple co-processes"
 HOMEPAGE="http://www.aei.mpg.de/~peekas/modglue/"
 SRC_URI="http://www.aei.mpg.de/~peekas/cadabra/${P}.tar.gz"
