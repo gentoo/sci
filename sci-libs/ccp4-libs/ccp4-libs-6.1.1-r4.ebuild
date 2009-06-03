@@ -89,6 +89,10 @@ src_unpack() {
 	einfo "Done." # done applying Gentoo patches
 	echo
 
+	# glibc-2.10 getline fix
+	ls -l lib/src/fsplit.c
+	sed -e "s:getline:${PN/-libs}getline:g" -i lib/src/fsplit.c || die
+
 	gnuconfig_update
 }
 
