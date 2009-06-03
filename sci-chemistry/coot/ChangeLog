@@ -2,6 +2,15 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*coot-0.6_pre1-r2037 (03 Jun 2009)
+*coot-0.6_pre1-r2026 (03 Jun 2009)
+
+  03 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/0.6_pre1-as-needed.patch, +coot-0.6_pre1-r2037.ebuild,
+  +files/0.6_pre1-gtk.patch, +coot-0.6_pre1-r2026.ebuild,
+  +files/0.6_pre1-gcc-4.3.patch:
+  Added prerelease
+
   17 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> coot-0.5.2.ebuild:
   fixed the license 
   correct one is GPL-3 since 0.4-pre1
