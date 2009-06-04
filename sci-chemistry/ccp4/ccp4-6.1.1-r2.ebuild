@@ -159,7 +159,7 @@ src_unpack() {
 	echo
 
 	# glibc-2.10 getline fix
-	sed -e "s:getline:${PN}_getline:g" -i lib/src/fsplit.c
+	sed -e "s:getline:${PN}getline:g" -i lib/src/fsplit.c
 
 	# Don't build refmac binaries available from the standalone version
 	sed -i -e "/^REFMACTARGETS/s:refmac5 libcheck makecif molrep::g" configure
