@@ -1,6 +1,13 @@
 # ChangeLog for sci-chemistry/rasmol
-# Copyright 2002-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*rasmol-2.7.4.2-r1 (04 Jun 2009)
+
+  04 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +rasmol-2.7.4.2-r1.ebuild:
+  cleanup and QA
+  respecting LDFLAGS now
 
   02 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   rasmol-2.7.4.2.ebuild:
