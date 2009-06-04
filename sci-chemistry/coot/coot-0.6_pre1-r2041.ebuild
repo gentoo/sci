@@ -52,13 +52,9 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 
-	# To send upstream
-	epatch "${FILESDIR}"/${PV}-gcc-4.3.patch
-
 	epatch "${FILESDIR}"/${PV}-as-needed.patch
 	epatch "${FILESDIR}"/link-against-guile-gtk-properly.patch
 	epatch "${FILESDIR}"/fix-namespace-error.patch
-	epatch "${FILESDIR}"/${PV}-gtk.patch
 
 	# Link against single-precision fftw
 	sed -i \
