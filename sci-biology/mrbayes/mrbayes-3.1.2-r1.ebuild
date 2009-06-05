@@ -20,8 +20,8 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 	sed -e "s:OPTFLAGS ?= -O3:CFLAGS = ${CFLAGS}:" \
-		-e "s:CC = gcc:CC ?= $(tc-getCC):" \
-		-e "s:CC = mpicc:CC ?= $(mpi_pkg_cc):" \
+		-e "s:CC = gcc:CC = $(tc-getCC):" \
+		-e "s:CC = mpicc:CC = $(mpi_pkg_cc):" \
 		-e "s:LDFLAGS =:LDFLAGS ?=:" \
 		-i Makefile || die "Patching CC/CFLAGS."
 	if use mpi; then
