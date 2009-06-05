@@ -59,6 +59,8 @@ PATCHES=(
 	)
 
 src_prepare() {
+	base_src_prepare
+
 	# Link against single-precision fftw
 	sed -i \
 		-e "s:lfftw:lsfftw:g" \
