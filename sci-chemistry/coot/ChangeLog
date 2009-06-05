@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*coot-0.6_pre1-r2042 (05 Jun 2009)
+
+  05 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +coot-0.6_pre1-r2042.ebuild:
+  version including numerous QA fixes
+
 *coot-0.6_pre1-r2041 (04 Jun 2009)
 
   04 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
