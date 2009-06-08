@@ -6,9 +6,17 @@ EAPI="2"
 
 inherit eutils
 
+if use x86; then
+	MY_P="XDS-IA32_Linux_x86"
+elif use amd64; then
+	MY_P="XDS-INTEL64_Linux_x86_64"
+fi
+
 DESCRIPTION="X-ray Detector Software for processing single-crystal monochromatic diffraction data."
 HOMEPAGE="http://xds.mpimf-heidelberg.mpg.de/"
-SRC_URI="ftp://ftp.mpimf-heidelberg.mpg.de/pub/kabsch/XDS-linux_ifc_Intel+AMD.tar.gz -> XDS-linux_ifc_Intel+AMD-${PV}.tar.gz
+SRC_URI="
+	x86? ( ftp://ftp.mpimf-heidelberg.mpg.de/pub/kabsch/${MY_P}.tar.gz -> ${MY_P}-${PV}.tar.gz )
+	amd64? ( ftp://ftp.mpimf-heidelberg.mpg.de/pub/kabsch/${MY_P}.tar.gz -> ${MY_P}-${PV}.tar.gz )
 	 ftp://ftp.mpimf-heidelberg.mpg.de/pub/kabsch/XDS_html_doc.tar.gz -> XDS_html_doc-${PV}.tar.gz"
 RESTRICT=""
 LICENSE="free-noncomm"
@@ -17,10 +25,11 @@ KEYWORDS="-* ~amd64 ~x86"
 IUSE="smp X"
 RDEPEND="X? ( sci-visualization/xds-viewer )"
 DEPEND=""
+S=${WORKDIR}/${MY_P}
 
 src_install() {
 	exeinto /opt/${PN}
-	doexe XDS-linux_ifc_Intel+AMD/*
+	doexe *
 	if use smp; then
 		rm "${D}"/opt/${PN}/{xds,mintegrate,mcolspot,xscale}
 		dosym xds_par /opt/${PN}/xds
@@ -30,9 +39,9 @@ src_install() {
 	else
 		rm "${D}"/opt/${PN}/*par
 	fi
-	dohtml -r XDS_html_doc/*
+	dohtml -r "${WORKDIR}"/XDS_html_doc/*
 	insinto /usr/share/${PN}/INPUT_templates
-	doins XDS_html_doc/html_doc/INPUT_templates/*
+	doins "${WORKDIR}"/XDS_html_doc/html_doc/INPUT_templates/*
 
 	cat >> "${T}"/20xds <<- EOF
 	PATH="/opt/${PN}/"
@@ -43,4 +52,3 @@ src_install() {
 pkg_postinst() {
 	elog "This package will expire on December 31, 2009"
 }
-
