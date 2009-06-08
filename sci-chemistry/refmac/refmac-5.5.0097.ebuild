@@ -44,5 +44,5 @@ src_install() {
 		dobin ${i} || die
 	done
 	dosym refmac /usr/bin/refmac5 || die
-	dodoc refmac_keywords.pdf || die
+	dodoc refmac_keywords.pdf bugs_and_features.pdf || die
 }
