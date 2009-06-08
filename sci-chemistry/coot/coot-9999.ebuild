@@ -25,7 +25,7 @@ SRC_URI=""
 
 SLOT="0"
 LICENSE="GPL-3"
-KEYWORDS="-*"
+KEYWORDS=""
 IUSE=""
 
 RDEPEND="x11-libs/gtkglext
