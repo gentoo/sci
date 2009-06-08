@@ -473,3 +473,13 @@ diff -ur skeleton/Makefile.am skeleton/Makefile.am
  
  # po, no po today.
  
+--- coot-utils/Makefile.am.orig	2009-06-07 17:40:00.000000000 -0700
++++ coot-utils/Makefile.am	2009-06-07 17:39:07.000000000 -0700
+@@ -63,6 +63,7 @@
+ 
+ # for (map) things that need to link mmdb and clipper:
+ libcoot_map_utils_la_SOURCES = coot-map-utils.cc peak-search.cc trim.cc xmap-stats.cc
++libcoot_map_utils_la_LIBADD = $(CLIPPER_LIBS)
+ 
+ # for map things that need mmdb, clipper, gsl and other things
+ libcoot_map_heavy_la_SOURCES = coot-map-heavy.cc coot-fffear.cc
