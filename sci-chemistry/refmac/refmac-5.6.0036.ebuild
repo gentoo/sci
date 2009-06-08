@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit base fortran toolchain-funcs versionator
+inherit fortran base toolchain-funcs versionator
 
 MY_PV="$(get_version_component_range 1-2)"
 
