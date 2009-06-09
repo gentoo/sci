@@ -30,6 +30,11 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher (jlec) (09 Jun 09)
+# jlec@j-schmitz.net
+# work in progress
+=sci-chemistry/pointless-1.3.9
+
 # Justin Lecher (jlec) (08 Jun 09)
 # jlec@j-schmitz.net
 # mask live ebuilds
