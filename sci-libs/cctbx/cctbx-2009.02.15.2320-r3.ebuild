@@ -42,7 +42,7 @@ src_prepare() {
 	# Wants to chmod /usr/bin/python
 	epatch "${FILESDIR}"/${PV}-sandbox-violations-chmod.patch
 
-	rm -rf "${MY_S}/clipper" "${MY_S}/scons" # "${MY_S}/boost"
+	rm -rf "${MY_S}/scons" # "${MY_S}/boost"
 
 	mkdir -p "${MY_S}"/scons/src/ "${MY_S}/boost"
 
@@ -81,9 +81,11 @@ src_compile() {
 		OPTSLD="${OPTSLD} \"${i}\","
 	done
 
+	OPTSLD=${OPTSLD%,}
+
 	# Fix LDFLAGS which should be as-needed ready
 	sed -i \
-		-e "s:\"-shared\":${OPTSLD} \"-shared\":g" \
+		-e "s:\"-shared\":\"-shared\", ${OPTSLD}:g" \
 		${MY_S}/libtbx/SConscript
 
 	# Get compiler in the right way
@@ -105,7 +107,7 @@ src_compile() {
 	mkdir "${MY_B}" && MYCONF="${MYCONF} --current_working_directory=${MY_B}"
 	cd "${MY_B}"
 
-	MYCONF="${MYCONF} --build=release fftw3tbx rstbx smtbx mmtbx"
+	MYCONF="${MYCONF} --build=release fftw3tbx rstbx smtbx mmtbx clipper"
 	einfo "configuring with ${python} ${MYCONF}"
 
 	${python} ${MYCONF} \
@@ -130,7 +132,7 @@ src_install(){
 	# This is what Bill Scott does in the fink package. Do we need this as well?
 #	-e "s:prepend:append:g" \
 
-	find cctbx_build/ -type f -exec \
+	find cctbx_build/ -type f \( -name "*.py" -o -name "*sh" \) -exec \
 	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
 	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
 	    -i '{}' \; || die "Fail to correct path"
@@ -138,6 +140,7 @@ src_install(){
 
 	ebegin "removing unnessary files"
 		rm -r "${S}"/cctbx_sources/scons || die "failed to remove uneeded scons"
+		find "${S}" -type f -name "*conftest*" -exec rm -f '{}' \; || die "failed to remove uneeded *.o"
 		find "${S}" -type f -name "*.o" -exec rm -f '{}' \; || die "failed to remove uneeded *.o"
 		find "${S}" -type f -name "*.c" -exec rm -f '{}' \; || die "failed to remove uneeded *.c"
 		find "${S}" -type f -name "*.cpp" -exec rm -f '{}' \; || die "failed to remove uneeded *.cpp"
@@ -149,6 +152,7 @@ src_install(){
 
 # fperms cannot handle wildcards
 	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/*sh && \
+	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/lib/* && \
 	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/array_family/* && \
 	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/serialization/* && \
 	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/scitbx/error/* && \
