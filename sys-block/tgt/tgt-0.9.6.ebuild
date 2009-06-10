@@ -19,6 +19,11 @@ RDEPEND="rdma? (
 				)"
 DEPEND="${RDEPEND}"
 
+src_unpack() {
+	unpack ${A}
+	epatch "${FILESDIR}/${P}-docinstall.patch"
+}
+
 src_compile() {
 	local myconf
 	use ibmvio && myconf="${myconf} IBMVIO=1"
@@ -29,7 +34,6 @@ src_compile() {
 }
 
 src_install() {
-	dodir "${D}//usr/share/doc/tgt"
 	emake -C usr/ install DESTDIR="${D}" || die "install failed"
 	doinitd "${FILESDIR}/tgtd"
 	dodoc doc/README.* doc/targets.conf.example doc/tmf.txt
