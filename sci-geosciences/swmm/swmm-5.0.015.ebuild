@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ DESCRIPTION="Storm Water Management Model - SWMM, hydrology, hydraulics, and
 water quality model."
 HOMEPAGE="http://www.epa.gov/ednnrmrl/models/swmm/index.htm"
 SRC_URI="http://www.epa.gov/ednnrmrl/models/swmm/epaswmm5_engine.zip
-	doc? ( http://www.epa.gov/ednnrmrl/models/swmm/epaswmm5_manual.pdf
+	doc? ( http://www.epa.gov/ednnrmrl/models/swmm/epaswmm5_user_manual.pdf
 	       http://www.epa.gov/ednnrmrl/models/swmm/epaswmm5_updates.txt )"
 
 LICENSE="public-domain"
@@ -36,6 +36,7 @@ src_compile(){
 	# 'sed' command has to accomodate DOS formatted file.
 	sed -i \
 	    -e 's;^#define DLL.*$;;' \
+	    -e 's;^//#define CLE;#define CLE;' \
 		swmm5.c
 	emake || die "compile failed"
 }
