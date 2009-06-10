@@ -10,7 +10,7 @@ SRC_URI="ftp://ftp.mrc-lmb.cam.ac.uk/pub/pre/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="ccp4"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="sci-chemistry/ccp4
@@ -33,12 +33,14 @@ src_compile() {
 		CCTBX_sources=/usr/$(get_libdir)/cctbx/cctbx_sources \
 		CCTBX_VERSION=2009 \
 		ICCP4=-I/usr/include/ccp4 \
-		LCCP4="-L/usr/$(get_libdir) -lgfortran -lccp4f -lccp4c -lm" \
 		ICLPR="-I/usr/include -I/usr/$(get_libdir)/cctbx/cctbx_sources -I/usr/$(get_libdir)/cctbx/cctbx_build/include" \
 		LTBX="-L/usr/$(get_libdir)/cctbx/cctbx_build/lib -lcctbx" \
 		|| die
+#		LCCP4=" $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}') -L/usr/$(get_libdir) -lgfortran -lgfortranbegin -lccp4c -lccp4f -lm" \
+#		LCCP4="-L/usr/$(get_libdir) -lccp4c -lccp4f -lm" \
 }
 
 src_install() {
 	dobin pointless othercell || die
 }
+
