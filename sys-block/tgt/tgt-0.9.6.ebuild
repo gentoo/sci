@@ -29,7 +29,8 @@ src_compile() {
 }
 
 src_install() {
-	emake -C usr/ -j1 install DESTDIR="${D}" || die "install failed"
+	dodir "${D}//usr/share/doc/tgt"
+	emake -C usr/ install DESTDIR="${D}" || die "install failed"
 	doinitd "${FILESDIR}/tgtd"
 	dodoc doc/README.* doc/targets.conf.example doc/tmf.txt
 }
