@@ -13,7 +13,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="ibmvio rdma fcp fcoe"
 
-RDEPEND="rdma? (
+RDEPEND="dev-perl/config-general
+		rdma? (
 				sys-cluster/libibverbs
 				sys-cluster/librdmacm
 				)"
