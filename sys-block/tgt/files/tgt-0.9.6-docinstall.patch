@@ -1,5 +1,5 @@
---- usr/Makefile.orig	2009-06-10 16:31:02.000000000 +0400
-+++ usr/Makefile	2009-06-10 16:31:32.000000000 +0400
+--- tgt-0.9.6/usr/Makefile.orig	2009-06-10 16:31:02.000000000 +0400
++++ tgt-0.9.6/usr/Makefile	2009-06-10 16:31:32.000000000 +0400
 @@ -104,7 +104,7 @@
  	install -d -m 755 $(DESTDIR)$(mandir)/man8
  	install -m 644 $(MANPAGES) $(DESTDIR)$(mandir)/man8
