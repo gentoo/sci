@@ -39,7 +39,7 @@ done
 LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="X"
+IUSE="X examples"
 # app-office/sc overlaps sc binary and man page
 # We can't rename ours since the automated ccp4i interface expects it there,
 # as do many scripts. app-office/sc can't rename its because that's the name
@@ -372,23 +372,24 @@ src_install() {
 	dohtml "${D}"/usr/html/*
 	rm -rf "${D}"/usr/html
 
-	for i in data rnase toxd; do
-		docinto examples/${i}
-		dodoc "${S}"/examples/${i}/*
-	done
+	if use examples; then
+		for i in data rnase toxd; do
+			docinto examples/${i}
+			dodoc "${S}"/examples/${i}/*
+		done
 
-	docinto examples/tutorial
-	dohtml -r "${S}"/examples/tutorial/html examples/tutorial/tut.css
-	for i in data results; do
-		docinto examples/tutorial/${i}
-		dodoc "${S}"/examples/tutorial/${i}/*
-	done
+		docinto examples/tutorial
+		dohtml -r "${S}"/examples/tutorial/html examples/tutorial/tut.css
+		for i in data results; do
+			docinto examples/tutorial/${i}
+			dodoc "${S}"/examples/tutorial/${i}/*
+		done
 
-	for i in non-runnable runnable; do
-		docinto examples/unix/${i}
-		dodoc "${S}"/examples/unix/${i}/*
-	done
-
+		for i in non-runnable runnable; do
+			docinto examples/unix/${i}
+			dodoc "${S}"/examples/unix/${i}/*
+		done
+	fi
 	# Needed for ccp4i docs to work
 	dosym ../../share/doc/${PF}/examples /usr/$(get_libdir)/ccp4/examples
 	dosym ../../share/doc/${PF}/html /usr/$(get_libdir)/ccp4/html

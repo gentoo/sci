@@ -1,6 +1,10 @@
 # ChangeLog for sci-chemistry/ccp4
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ccp4/ChangeLog,v 1.18 2008/06/03 02:11:18 mr_bones_ Exp $
+# $Header: $
+
+  11 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  ccp4-6.1.1-r2.ebuild:
+  examples are now optional vie USE="examples"
 
 *ccp4-6.1.1-r2 (03 Jun 2009)
 
