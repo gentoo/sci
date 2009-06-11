@@ -90,7 +90,6 @@ src_unpack() {
 	echo
 
 	# glibc-2.10 getline fix
-	ls -l lib/src/fsplit.c
 	sed -e "s:getline:${PN/-libs}getline:g" -i lib/src/fsplit.c || die
 	ccp_patch "${FILESDIR}"/${PV}-glibc2.10.patch
 
