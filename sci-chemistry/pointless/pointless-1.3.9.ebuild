@@ -14,6 +14,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="sci-chemistry/ccp4
+	>=sci-libs/ccp4-libs-6.1.1-r5
 	sci-libs/cctbx"
 DEPEND="${RDEPEND}"
 
