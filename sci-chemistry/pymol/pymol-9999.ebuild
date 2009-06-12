@@ -17,7 +17,7 @@ HOMEPAGE="http://pymol.sourceforge.net/"
 LICENSE="PSF-2.2"
 IUSE="apbs shaders"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="dev-python/pmw
 		dev-python/numpy
