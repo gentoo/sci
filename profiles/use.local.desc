@@ -10,9 +10,10 @@
 # Ultimately, they will be merged into the main tree.
 
 sci-biology/tgi-tools:pvm - Use sys-cluster/pvm (Parallel Virtual Machine) and build the pvmsx utility
+sci-geosciences/libtcd:non-commercial - Install tide constituent database that is free for non-commercial use only
 sci-libs/calculix-ccx:arpack - Add sparse eigen value support via sci-libs/arpack
-sci-libs/gmsh:chaco - Enables chaco partitioner support
 sci-libs/gmsh:cgns - Enables cgns output support
+sci-libs/gmsh:chaco - Enables chaco partitioner support
 sci-libs/gmsh:metis - Enables metis support
 sci-libs/gmsh:opencascade - Enable OpenCASCADE support
 sci-mathematics/gap:xtom - extra tables of marks
@@ -23,30 +24,27 @@ sci-misc/opencascade:wok - Enable building of WOK
 sci-misc/opennlp-tools:models - Install prebuild ME models (requires a ton of disk space)
 sci-misc/salome-component:openpbs - Enables openpbs support
 sci-misc/salome-gui:corba - Enables corba support
-sci-misc/salome-gui:pyconsole - make python console module
 sci-misc/salome-gui:glviewer - make glviewer module
-sci-misc/salome-gui:plot2dviewer - make plot2dviewer module
-sci-misc/salome-gui:supervgraphviewer - make supervgraphviewer module
 sci-misc/salome-gui:occviewer - make occviewer module
-sci-misc/salome-gui:vtkviewer - make vtkviewer module
+sci-misc/salome-gui:plot2dviewer - make plot2dviewer module
+sci-misc/salome-gui:pyconsole - make python console module
 sci-misc/salome-gui:salomeobject - make salomeobject module
+sci-misc/salome-gui:supervgraphviewer - make supervgraphviewer module
+sci-misc/salome-gui:vtkviewer - make vtkviewer module
 sci-misc/salome-kernel:openpbs - Enables openpbs support
 sci-misc/salome-med:openpbs - Enables openpbs support
 sci-visualization/nodemon:pbs - Adds support for PBS (Portable Batch System) queries
-sys-cluster/openib:dapl - add DAPL (Direct Access Provider Library) support.
-sys-cluster/openib:ipath - add PathScale HCA support.
-sys-cluster/openib:opensm - add OpenSM Subnet Management support.
-sys-cluster/openib-drivers:memtrack - enable momory tracking
+sys-cluster/openib-drivers:cxgb3 - make CXGB3 module
+sys-cluster/openib-drivers:ehca - make EHCA module
 sys-cluster/openib-drivers:hpage-patch - apply huge pages patch
-sys-cluster/openib-drivers:srp - make SRP module
 sys-cluster/openib-drivers:ipath - make IPATH module
 sys-cluster/openib-drivers:iser - make ISER module
-sys-cluster/openib-drivers:ehca - make EHCA module
-sys-cluster/openib-drivers:rds - make RDS module
 sys-cluster/openib-drivers:madeye - make MADEYE module
+sys-cluster/openib-drivers:memtrack - enable momory tracking
 sys-cluster/openib-drivers:mlx4 - make MLX4 module
+sys-cluster/openib-drivers:rds - make RDS module
+sys-cluster/openib-drivers:srp - make SRP module
 sys-cluster/openib-drivers:vnic - make VNIC module
-sys-cluster/openib-drivers:cxgb3 - make CXGB3 module
 sys-cluster/openib-files:ehca - load EHCA module
 sys-cluster/openib-files:ipath - load IPATH module
 sys-cluster/openib-files:iser - load ISER module
@@ -54,16 +52,19 @@ sys-cluster/openib-files:mlx4 - load MLX4 module
 sys-cluster/openib-files:rds - load RDS module
 sys-cluster/openib-files:srp - load SRP module
 sys-cluster/openib-files:vnic - load VNIC module
-sys-cluster/openib-userspace:srptools - include srptools package
-sys-cluster/openib-userspace:ehca - include libehca package
-sys-cluster/openib-userspace:ipath - add PathScale HCA support
-sys-cluster/openib-userspace:cxgb3 - include libcxgb3 package
-sys-cluster/openib-userspace:opensm - add OpenSM Subnet Management support.
-sys-cluster/openib-userspace:dapl - add DAPL (Direct Access Provider Library) support
-sys-cluster/openib-userspace:qlvnictools - include qlvnictools package
-sys-cluster/openib-userspace:tvflash - include tvflash package
-sys-cluster/openib-userspace:mstflint - include mstflint package
 sys-cluster/openib-mvapich2:large-cluster - build _LARGE_CLUSTER configuration
 sys-cluster/openib-mvapich2:medium-cluster - build _MEDIUM_CLUSTER configuration
 sys-cluster/openib-mvapich2:rdma - use rdmacm
 sys-cluster/openib-mvapich2:romio - enable ROMIO support
+sys-cluster/openib-userspace:cxgb3 - include libcxgb3 package
+sys-cluster/openib-userspace:dapl - add DAPL (Direct Access Provider Library) support
+sys-cluster/openib-userspace:ehca - include libehca package
+sys-cluster/openib-userspace:ipath - add PathScale HCA support
+sys-cluster/openib-userspace:mstflint - include mstflint package
+sys-cluster/openib-userspace:opensm - add OpenSM Subnet Management support.
+sys-cluster/openib-userspace:qlvnictools - include qlvnictools package
+sys-cluster/openib-userspace:srptools - include srptools package
+sys-cluster/openib-userspace:tvflash - include tvflash package
+sys-cluster/openib:dapl - add DAPL (Direct Access Provider Library) support.
+sys-cluster/openib:ipath - add PathScale HCA support.
+sys-cluster/openib:opensm - add OpenSM Subnet Management support.
