@@ -9,7 +9,7 @@ LICENSE="public-domain"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
-DEPEND=">=sci-geosciences/libtcd-2.2.3"
+DEPEND=">=sci-geosciences/libtcd-2.2.4"
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${PN}
