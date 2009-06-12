@@ -37,8 +37,8 @@ src_unpack(){
 		einfo "moving state_set.ml* from value/ to memory_state/ ..."
 		mv src/value/state_set.ml* src/memory_state/ || die
 		epatch "${FILESDIR}/${P}-states_hook.patch"
-		epatch "${FILESDIR}/frama-c-20081201-stmt_deps.patch"
-		epatch "${FILESDIR}/frama-c-20081201-accessors.patch"
+		epatch "${FILESDIR}/${P}-stmt_deps.patch"
+		epatch "${FILESDIR}/${P}-accessors.patch"
 	fi
 
 	sed -i why/Makefile.in \
