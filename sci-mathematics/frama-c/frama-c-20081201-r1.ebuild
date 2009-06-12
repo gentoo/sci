@@ -61,7 +61,9 @@ src_compile() {
 	fi
 
 	econf ${myconf} || die "econf failed"
-	#Makfile need a fix to enable parallel building for the 'depend' rule
+	
+	#Dependencies can not be processed in parallel,
+	#this is the intended behavior.
 	emake -j1 depend || die "emake depend failed"
 	emake all top DESTDIR="/" || die "emake failed"
 }
