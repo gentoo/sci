@@ -1,6 +1,12 @@
 # ChangeLog for sci-geosciences/harmonics-dwf-free
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*harmonics-dwf-free-20081228 (12 Jun 2009)
+
+  12 Jun 2009; Tim Cera <timcera@earthlink.net>
+  +harmonics-dwf-free-20081228.ebuild:
+  sci-geosciences/harmonics-dwf-free: Version bump to 20081228.
 
   16 May 2008; Tim Cera <timcera@earthlink.net>
   +harmonics-dwf-free-20071228.ebuild, +metadata.xml:
