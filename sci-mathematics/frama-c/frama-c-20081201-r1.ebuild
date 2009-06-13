@@ -37,8 +37,8 @@ src_unpack(){
 		einfo "moving state_set.ml* from value/ to memory_state/ ..."
 		mv src/value/state_set.ml* src/memory_state/ || die
 		epatch "${FILESDIR}/${P}-states_hook.patch"
-		epatch "${FILESDIR}/frama-c-20081201-stmt_deps.patch"
-		epatch "${FILESDIR}/frama-c-20081201-accessors.patch"
+		epatch "${FILESDIR}/${P}-stmt_deps.patch"
+		epatch "${FILESDIR}/${P}-accessors.patch"
 	fi
 
 	sed -i why/Makefile.in \
@@ -61,7 +61,9 @@ src_compile() {
 	fi
 
 	econf ${myconf} || die "econf failed"
-	#Makfile need a fix to enable parallel building for the 'depend' rule
+	
+	#Dependencies can not be processed in parallel,
+	#this is the intended behavior.
 	emake -j1 depend || die "emake depend failed"
 	emake all top DESTDIR="/" || die "emake failed"
 }

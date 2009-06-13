@@ -2,6 +2,16 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cctbx-2009.02.15.2320-r3 (09 Jun 2009)
+
+  09 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -cctbx-2009.02.15.2320-r1.ebuild, +cctbx-2009.02.15.2320-r3.ebuild:
+  fixed bad bug which breaks the libs
+
+  08 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  cctbx-2009.02.15.2320-r1.ebuild:
+  Hopefully fixed problem with installation
+
   29 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   -cctbx-2009.02.15.2320.ebuild:
   old version removed

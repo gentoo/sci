@@ -1,6 +1,17 @@
 # ChangeLog for sci-chemistry/ccp4
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ccp4/ChangeLog,v 1.18 2008/06/03 02:11:18 mr_bones_ Exp $
+# $Header: $
+
+*ccp4-6.1.1-r3 (11 Jun 2009)
+
+  11 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/6.1.1-nomolref.patch, +ccp4-6.1.1-r3.ebuild:
+  We don't wat to install molref, because it is not provided as source and
+  linked against icc
+
+  11 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  ccp4-6.1.1-r2.ebuild:
+  examples are now optional vie USE="examples"
 
 *ccp4-6.1.1-r2 (03 Jun 2009)
 

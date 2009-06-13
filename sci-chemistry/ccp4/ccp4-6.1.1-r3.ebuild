@@ -152,6 +152,9 @@ src_unpack() {
 	mv ./doc/rapper.doc ./doc/rappermc.doc || die
 	mv ./html/rapper.html ./html/rappermc.html || die
 
+	# molref is provided as binary and dynamically linked against icc
+	ccp_patch "${FILESDIR}"/${PV}-nomolref.patch
+
 	# mosflm has its own ebuild
 #	ccp_patch "${FILESDIR}"/${PV}-dont-build-mosflm.patch
 
@@ -306,7 +309,7 @@ src_install() {
 	# Don't check for updates on every sourcing of /etc/profile
 	sed -i \
 		-e "s:\(eval python.*\):#\1:g"
-		"${S}"/include/ccp4.setup*
+		"${S}"/include/ccp4.setup* || die
 
 	# Get rid of S instances
 	# Also the main clipper library is built as libclipper-core, not libclipper

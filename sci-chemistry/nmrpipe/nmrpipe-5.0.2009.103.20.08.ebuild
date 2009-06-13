@@ -87,7 +87,8 @@ src_install() {
 	done
 	# Remove some of the bundled applications and libraries; they are
 	# provided by Gentoo instead.
-	rm -r nmrbin.linux9/{lib/{libBLT24.so,libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
+#	rm -r nmrbin.linux9/{lib/{libBLT24.so,libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
+	rm -r nmrbin.linux9/{lib/{libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
 		nmrbin.{linux,mac,sgi6x,sol,winxp} nmruser format \
 		|| die "Failed to remove unnecessary libraries."
 	# Remove the initialisation script generated during the installation.
@@ -111,9 +112,9 @@ src_install() {
 # Which brainiack wrote this!?
 #	insopts -m0755
 	doins -r * || die "Failed to install application."
-	dosym ${NMRBASE}/nmrbin.linux9 ${NMRBASE}/bin || die \
+	dosym nmrbin.linux9 ${NMRBASE}/bin || die \
 		"Failed to symlink binaries."
-	fperms 775 ${NMRBASE}/{nmrbin.linux9,com,dynamo/tcl}/*
+	fperms 775 ${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/*
 }
 
 pkg_postinst() {
