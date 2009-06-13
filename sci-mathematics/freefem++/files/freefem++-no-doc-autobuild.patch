@@ -1,0 +1,46 @@
+diff -urN freefem++-3.3.old/DOC/Makefile.am freefem++-3.3.new/DOC/Makefile.am
+--- freefem++-3.3.old/DOC/Makefile.am	2009-06-08 15:00:09.000000000 +0200
++++ freefem++-3.3.new/DOC/Makefile.am	2009-06-08 15:08:15.000000000 +0200
+@@ -1,4 +1,3 @@
+-dist_pkgdata_DATA=$(DOCPDF)
+ documentation: $(DOCPDF) 
+ docps:  $(DOCPS) $(DOCPSGZ) 
+ docpdf: $(DOCPDF) 
+@@ -117,4 +116,4 @@
+ 
+ 
+ # do not delete the copy figure to long to created 
+-.PRECIOUS: $(CPFIGS_PDF) $(CPFIGS_EPS)
+\ No newline at end of file
++.PRECIOUS: $(CPFIGS_PDF) $(CPFIGS_EPS)
+diff -urN freefem++-3.3.old/Makefile.am freefem++-3.3.new/Makefile.am
+--- freefem++-3.3.old/Makefile.am	2009-06-08 15:00:08.000000000 +0200
++++ freefem++-3.3.new/Makefile.am	2009-06-08 15:01:22.000000000 +0200
+@@ -25,16 +25,6 @@
+ 
+ FF_MAC_PREFIX=FreeFem++v$(VERSION)$(ADD_PACKAGE_NAME)
+ 
+-FF_EXAMPLES_FILES = COPYRIGHT HISTORY HISTORY_BEFORE_2005 README BUGS TODO INSTALL INSTALL-MacOSX INNOVATION \
+-mode-mi-edp.zip \
+-examples++-tutorial/aile.msh examples++-tutorial/xyf \
+-examples++-3d/dodecaedre01.mesh  \
+-examples++-load/load.link \
+-./examples++-mpi/regtests.sh ./examples++-other/speedtest.sh  \
+-./download/fftw/Makefile ./download/fftw/Makefile.am \
+-examples++/*.edp 
+-
+-
+ # Creates a file named "ChangeLog" containing the chronology of all
+ # modifications to the source files. Needs "cvs2cl" to be installed.
+ 
+@@ -146,10 +136,6 @@
+ 
+ # Native MacOS packaging
+ # ----------------------
+-install-exec-local:: 
+-	$(mkinstalldirs) -m 755 $(DESTDIR)$(pkgdatadir)/$(VERSION)
+-	tar cvf - $(FF_EXAMPLES_FILES)| (cd $(DESTDIR)$(pkgdatadir)/$(VERSION); tar xvf -)
+-
+ ListFiles-natives: .FORCE 
+ #	echo COPYRIGHT HISTORY HISTORY_BEFORE_2005 README BUGS TODO INSTALL INSTALL-MacOSX INNOVATION >$@	
+ #	echo mode-mi-edp.zip >> $@
