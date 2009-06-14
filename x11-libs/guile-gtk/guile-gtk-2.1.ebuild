@@ -29,6 +29,11 @@ src_test() {
 	Xemake check || die "tests failed"
 }
 
+src_unpack() {
+	unpack ${A}
+	epatch "${FILESDIR}/guile-gtk-2.1-g-object-ref.diff"
+}
+
 src_install() {
 	make DESTDIR="${D}" install
 	dodoc README AUTHORS ChangeLog NEWS TODO
