@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-visualization/opendx/ChangeLog,v 1.15 2008/09/14 11:25:38 spock Exp $
 
+  14 Jun 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  opendx-4.4.4-r2.ebuild, +files/opendx-4.4.4-szip.patch:
+  Patch configure.ac to make szip a proper configure option
+
   12 May 2009; François Bissey <f.r.bissey@massey.ac.nz>
   files/opendx-4.4.4-concurrent-make-fix.patch:
   make sure the concurent make fix _always_ works.

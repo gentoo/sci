@@ -44,6 +44,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${P}-libtool.patch"
 	epatch "${FILESDIR}/${P}-concurrent-make-fix.patch"
 	epatch "${FILESDIR}/${P}-open.patch"
+	epatch "${FILESDIR}/${P}-szip.patch"
 
 	eautoreconf
 }
@@ -61,12 +62,11 @@ src_configure() {
 	local GENTOOARCH="${ARCH}"
 	unset ARCH
 
-	local morelibs=""
-	use szip && morelibs="-lsz"
-	econf LIBS="${morelibs}" \
+	econf \
 		"--libdir=/usr/$(get_libdir)" \
 		"--with-x" \
 		"--without-javadx" \
+		$(use_with szip szlib) \
 		$(use_with cdf) \
 		$(use_with netcdf) \
 		$(use_with hdf) \
