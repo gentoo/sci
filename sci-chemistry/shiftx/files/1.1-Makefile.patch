@@ -1,0 +1,22 @@
+--- Makefile	2004-08-03 20:33:20.000000000 +0200
++++ Makefile.new	2009-06-14 10:49:40.000000000 +0200
+@@ -6,8 +6,8 @@
+ # E-Mail:   anip@redpoll.pharmacy.ualberta.ca
+ #
+ #CC=gcc -Xcpluscomm -cckr
+-CC=/usr/bin/gcc
+-CFLAGS=-O3
++#CC=/usr/bin/gcc
++#CFLAGS=-O3
+ SYSLIB=
+ INCLUDES=-I/usr/include
+ LIBS=$(SYSLIB) -lm 
+@@ -25,7 +25,7 @@
+ all: shiftx
+ 
+ shiftx:	$(OBJS)
+-	$(CC) $(OBJS) $(CFLAGS) $(LIBS) -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LIBS) -o $@
+ 
+ Main.o:		Main.c main.h states.h nn.h ssbond.h residue.h hetatm.h cs.h \
+                 phipsi.h torison.h hydrogens.h rings.h es.h proline.h hbond.h \
