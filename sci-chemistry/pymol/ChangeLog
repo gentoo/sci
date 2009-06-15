@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pymol-1.2_beta7 (15 Jun 2009)
+
+  15 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +pymol-1.2_beta7.ebuild, +files/pymol-1.2_beta7-data-path.patch,
+  +files/pymol-1.2_beta7-shaders.patch:
+  version bump
+
   10 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> pymol-9999.ebuild:
   rekeyword the live ebuild
 
