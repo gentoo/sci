@@ -14,7 +14,7 @@ LICENSE="CARA"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE="lua"
-RDEPEND="x86? ( sys-libs/libstdc++-v3
+RDEPEND="x86? ( virtual/libstdc++
 		x11-libs/libXext
 		x11-libs/libX11
 		media-libs/fontconfig
