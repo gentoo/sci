@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/scikits_timeseries
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*scikits_timeseries-0.91.1 (17 Jun 2009)
+
+  17 Jun 2009; Tim Cera <timcera@earthlink.net>
+  +scikits_timeseries-0.91.1.ebuild, +metadata.xml:
+  sci-libs/scikits_timeseries-0.91.1.ebuild: Initial ebuild.
+
