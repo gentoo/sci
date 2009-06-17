@@ -7,10 +7,6 @@
 <name>Tim Cera</name>
 </maintainer>
 <longdescription lang="en">
-TAPPY is a tidal analysis package. It breaks down a record of water levels into
-the component sine waves. It is written in Python and uses the least squares
-optimization and other functions in SciPy. The focus is to make the most
-accurate analysis possible. TAPPY only determines the constituents that are
-calculatable according to the length of the time series.
+Provides Python classes and functions for manipulating, reporting, and plotting time series of various frequencies.
 </longdescription>
 </pkgmetadata>
