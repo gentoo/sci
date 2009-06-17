@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,9 +7,9 @@ HOMEPAGE="http://www.flaterco.com/xtide/"
 SRC_URI="ftp://ftp.flaterco.com/xtide/${P}.tar.bz2"
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64"
 IUSE=""
-DEPEND=">=sci-geosciences/libtcd-2.2.3
+DEPEND=">=sci-geosciences/libtcd-2.2.4
 	>=x11-libs/libXaw-1.0.3
 	>=x11-libs/libXpm-3.5.6
 	>=media-libs/libpng-1.2.25
