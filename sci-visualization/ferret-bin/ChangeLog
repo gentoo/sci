@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Jun 2009; Tim Cera <timcera@earthlink.net> ferret-bin-6.1.ebuild:
+  Fixed RDEPEND.
+
 *ferret-bin-6.1 (15 Jun 2009)
 
   15 Jun 2009; Tim Cera <timcera@earthlink.net> +files/99ferret,
