@@ -5,7 +5,7 @@
 EAPI="2"
 
 PYTHON_MODNAME="chempy pmg_tk pymol"
-APBS_PATCH="070604-r3550"
+APBS_PATCH="090618"
 
 inherit distutils subversion
 
@@ -50,7 +50,7 @@ src_prepare() {
 	use shaders && epatch "${FILESDIR}"/${P}-shaders.patch
 
 	if use apbs; then
-		epatch "${FILESDIR}"/apbs-${APBS_PATCH}.patch.bz2
+		bzcat "${FILESDIR}"/apbs_tool.py.${APBS_PATCH}.bz2 > ${P}/modules/pmg_tk/startup/apbs_tools.py
 		sed "s:LIBANDPYTHON:$(python_get_libdir):g" \
 			-i modules/pmg_tk/startup/apbs_tools.py || die
 	fi

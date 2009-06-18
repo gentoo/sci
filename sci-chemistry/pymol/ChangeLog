@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> pymol-9999.ebuild,
+  +files/apbs_tools.py.090618.bz2:
+  apbs patch update -- Donnie told me to make it easy for the maintainer
+
 *pymol-1.2_beta7 (15 Jun 2009)
 
   15 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
