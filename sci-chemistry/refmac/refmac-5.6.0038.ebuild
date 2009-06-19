@@ -19,7 +19,8 @@ IUSE=""
 RESTRICT="mirror"
 RDEPEND="virtual/lapack
 	virtual/blas
-	>=sci-libs/ccp4-libs-6.1.1-r1"
+	>=sci-libs/ccp4-libs-6.1.1-r1
+	>=sci-libs/monomer-db-5.13"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"
