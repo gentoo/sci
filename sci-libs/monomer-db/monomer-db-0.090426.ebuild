@@ -6,6 +6,7 @@
 
 DESCRIPTION="Monomer library used for macromolecular structure building and refinement."
 HOMEPAGE="www.ccp4.ac.uk"
+# http://www.ysbl.york.ac.uk/~garib/refmac/data/refmac_dictionary.tar.gz
 SRC_URI="http://dev.gentooexperimental.org/~jlec/science-dist/${P}.tar.gz"
 
 LICENSE="ccp4"
