@@ -30,6 +30,11 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher (jlec) (18 Jun 09)
+# jlec@j-schmitz.net
+# to be clarified if it is working as excpected
+>=sci-libs/monomer-db-5.13
+
 # Justin Lecher (jlec) (09 Jun 09)
 # jlec@j-schmitz.net
 # work in progress
