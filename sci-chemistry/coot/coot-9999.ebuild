@@ -25,7 +25,7 @@ SRC_URI=""
 
 SLOT="0"
 LICENSE="GPL-3"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="x11-libs/gtkglext
@@ -42,7 +42,7 @@ RDEPEND="x11-libs/gtkglext
 	dev-scheme/guile-www
 	>=dev-scheme/guile-lib-0.1.6
 	>=sci-libs/gsl-1.3
-	sci-libs/coot-data
+	>=sci-libs/coot-data-2
 	sci-chemistry/reduce
 	sci-chemistry/refmac
 	sci-chemistry/probe
