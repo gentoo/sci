@@ -6,7 +6,7 @@ inherit distutils
 
 DESCRIPTION="A simple Python interface to HDF5 files."
 HOMEPAGE="http://h5py.alfven.org/"
-SRC_URI="http://h5py.googlecode.com/files/${P}-1.6.tar.gz"
+SRC_URI="http://h5py.googlecode.com/files/${P}.tar.gz"
 
 LICENSE="h5py hdf5 pytables"
 SLOT="0"
