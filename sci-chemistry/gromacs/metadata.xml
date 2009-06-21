@@ -3,9 +3,12 @@
 <pkgmetadata>
 <herd>sci-chemistry</herd>
 <use>
-  <flag name='double-precision'>More precise calculations at the expense of
-    speed</flag>
+  <flag name='dmalloc'>Enable use of Debug Malloc</flag>
+  <flag name='double-precision'>More precise calculations at the expense of speed</flag>
+  <flag name='fkernels'>Enable building of Fortran Kernels for platforms
+	  that dont have assembly loops</flag>
   <flag name='single-precision'>Single precision version of gromacs</flag>
   <flag name='gmxmopac7'>Support for QM/MM with mopac7</flag>
+  <flag name='zsh-completion'>Enable zsh completion support</flag>
 </use>
 </pkgmetadata>

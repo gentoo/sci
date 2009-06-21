@@ -2,6 +2,15 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*gromacs-9999 (21 Jun 2009)
+*gromacs-4.0.9999 (21 Jun 2009)
+*gromacs-3.3.9999 (21 Jun 2009)
+
+  21 Jun 2009; Christoph Junghans <kleiner_otti@gmx.de>
+  +gromacs-3.3.9999.ebuild, +files/gromacs-4.0.4-configure-gfortran.patch,
+  +gromacs-4.0.9999.ebuild, +gromacs-9999.ebuild, metadata.xml:
+  added live ebuilds for old, stable, experimental branch
+
   21 Jun 2009; Christoph Junghans <kleiner_otti@gmx.de>
   gromacs-4.0.4.ebuild:
   Fixed some repoman errors
