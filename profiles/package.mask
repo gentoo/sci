@@ -30,6 +30,13 @@
 
 #--- END OF EXAMPLES ---
 
+# Christoph Junghans (ottxor) (11 May 09)
+# kleiner_otti@gmx.de
+# mask live ebuilds
+=sci-chemistry/gromacs-3.3.9999
+=sci-chemistry/gromacs-4.0.9999
+=sci-chemistry/gromacs-9999
+
 # Justin Lecher (jlec) (18 Jun 09)
 # jlec@j-schmitz.net
 # to be clarified if it is working as excpected
