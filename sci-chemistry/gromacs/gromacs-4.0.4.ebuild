@@ -14,7 +14,7 @@ SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="3dnow X altivec blas double-precision gsl lapack gmxmopac7 mpi +single-precision sse sse2 static xml"
 
 # mopac7 qm/mm is broken until we can get files from
@@ -40,10 +40,8 @@ RDEPEND="${DEPEND}"
 
 FORTRAN="g77 gfortran ifc"
 
-src_unpack() {
+src_prepare() {
 
-	unpack ${A}
-	cd "${S}"
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
 		|| die "Failed to fixup demo script."
