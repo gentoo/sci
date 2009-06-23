@@ -36,7 +36,5 @@ src_install() {
 
 	dobin bmrb2talos.com talos2dyana.com talos2xplor.com talos+ rama+ || die
 
-
-
 	dodoc README
 }
