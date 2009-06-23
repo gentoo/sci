@@ -26,7 +26,7 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}"
 
 PATCHES=(
-	"${FILESDIR}"/${PV}-allow-dynamic-linking.patch
+	"${FILESDIR}"/$(get_version_component_range 1-2 ${PV})-allow-dynamic-linking.patch
 )
 
 src_compile() {

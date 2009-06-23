@@ -2,6 +2,24 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*refmac-5.6.0039 (23 Jun 2009)
+
+  23 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -refmac-5.6.0038.ebuild, +refmac-5.6.0039.ebuild:
+  experimental version bump and changed to MAJOR.MINOR versioned patches
+
+*refmac-5.5.0099 (23 Jun 2009)
+
+  23 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +refmac-5.5.0099.ebuild:
+  In cases of twin if the program first decided that there are many twin
+  operators (e.g. four) and later removed some of these operators (e.g. the
+  number of remaining twin domains is two) then highest resolution was not
+  always correct. It was related with the fact the the resolution the
+  program works with is the highest resolution after applying all twin
+  operators. If twin is not merohedral then this resolution may be different
+  from actual resolution of the data. This bug has now been fixed.
+
 *refmac-5.5.0098 (22 Jun 2009)
 
   22 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
