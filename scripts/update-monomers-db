@@ -13,21 +13,6 @@ else
 fi
 
 
-cd /tmp;
-
-wget http://www.ysbl.york.ac.uk/~garib/refmac/data/refmac_dictionary.tar.gz
-
-SHA_NEW=$(sha256sum refmac_dictionary.tar.gz)
-SHA_OLD=$(sed -n -e '/^DIST monomer/p ${REPO_DOC}/../sci-libs/monomer-db/Manifest | \
-	tail -n 1 | awk '{print $9}')
-
-if [[ ${SHA_OLD} == ${SHA_NEW} ]]; then
-	echo "Nothing to update"
-else
-	echo "bumping to monomer-db-${DATE} ..."
-	$(bump_package)
-fi
-
 
 bump_package() {
 	mv refmac_dictionary.tar.gz /home/jlec/science-dist/monomer-db-${DATE}.tar.gz
@@ -43,3 +28,20 @@ bump_package() {
 	rm /tmp/monomer-db*
 }
 
+
+cd /tmp;
+
+wget http://www.ysbl.york.ac.uk/~garib/refmac/data/refmac_dictionary.tar.gz
+
+SHA_NEW=$(sha256sum refmac_dictionary.tar.gz)
+SHA_OLD=$(sed -n -e '/^DIST monomer/p' ${REPO_DOC}/../sci-libs/monomer-db/Manifest | \
+	tail -n 1 | awk '{print $9}')
+
+if [[ ${SHA_OLD} == ${SHA_NEW} ]]; then
+	echo "Nothing to update"
+else
+	echo "bumping to monomer-db-${DATE} ..."
+	$(bump_package)
+fi
+
+rm -f /tmp/refmac_dictionary.tar.gz
