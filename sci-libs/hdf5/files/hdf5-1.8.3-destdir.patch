@@ -1,0 +1,39 @@
+--- hdf5-1.8.3.orig/config/examples.am	2009-04-15 19:10:01.037732972 +0100
++++ hdf5-1.8.3/config/examples.am	2009-04-16 15:02:45.983768491 +0100
+@@ -51,7 +51,7 @@
+ 
+ # How to create EXAMPLEDIR if it doesn't already exist
+ $(EXAMPLEDIR):
+-	-$(top_srcdir)/bin/mkdirs $@
++	-$(top_srcdir)/bin/mkdirs $(DESTDIR)$@
+ 
+ # Install and uninstall rules.  We install the source files, not the
+ # example programs themselves.
+@@ -63,13 +63,13 @@
+ install-examples: $(EXAMPLEDIR) $(INSTALL_FILES)
+ 	@for f in X $(INSTALL_FILES); do                                     \
+ 	  if test $$f != X; then                                             \
+-	    (set -x; $(INSTALL) $(srcdir)/$$f $(EXAMPLEDIR)/. || exit 1);\
++	    (set -x; $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(EXAMPLEDIR)/. || exit 1);\
+ 	  fi;                                                                \
+ 	done
+ 
+ uninstall-examples:
+-	@if test -n "$(INSTALL_FILES)" -a -d $(EXAMPLEDIR); then                                 \
+-	  set -x; cd $(EXAMPLEDIR) && $(RM) $(INSTALL_FILES);              \
++	@if test -n "$(INSTALL_FILES)" -a -d $(DESTDIR)$(EXAMPLEDIR); then                                 \
++	  set -x; cd $(DESTDIR)$(EXAMPLEDIR) && $(RM) $(INSTALL_FILES);              \
+         fi
+ 
+ installcheck-local:
+--- hdf5-1.8.3.orig/config/commence.am	2009-04-15 19:10:01.037732972 +0100
++++ hdf5-1.8.3/config/commence.am	2009-04-16 15:40:53.810412317 +0100
+@@ -42,8 +42,6 @@
+ LIBH5F_HL=$(top_builddir)/hl/fortran/src/libhdf5hl_fortran.la
+ LIBH5CPP_HL=$(top_builddir)/hl/c++/src/libhdf5_hl_cpp.la
+ 
+-# Install directories that automake doesn't know about
+-docdir = $(exec_prefix)/doc
+ 
+ # Scripts used to build examples
+ # If only shared libraries have been installed, have h5cc build examples with

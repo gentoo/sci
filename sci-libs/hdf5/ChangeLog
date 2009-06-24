@@ -1,0 +1,13 @@
+# ChangeLog for sci-libs/hdf5
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*hdf5-1.8.3 (24 Jun 2009)
+
+  24 Jun 2009; Sébastien Fabbro <bicatali@gentoo.org> +hdf5-1.8.3.ebuild,
+  +files/hdf5-1.8.3-as-needed.patch, +files/hdf5-1.8.3-autotools.patch,
+  +files/hdf5-1.8.3-destdir.patch, +files/hdf5-1.8.3-gnutools.patch,
+  +files/hdf5-1.8.3-includes.patch, +files/hdf5-1.8.3-noreturn.patch,
+  +files/hdf5-1.8.3-signal.patch, +metadata.xml:
+  Version bump. Many fixes and cleanups, rewrote ebuild from scratch
+

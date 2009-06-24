@@ -1,0 +1,11 @@
+--- hdf5-1.8.3.orig/configure.in	2009-04-15 19:10:01.345757835 +0100
++++ hdf5-1.8.3/configure.in	2009-04-15 19:14:24.166542751 +0100
+@@ -355,7 +355,7 @@
+   dnl --------------------------------------------------------------------
+   dnl Check for a Fortran 9X compiler and how to include modules.
+   dnl 
+-  AC_PROG_FC([f90 pgf90 slf90 f95 g95 xlf95 efc ifort ftn],)
++  AC_PROG_FC([gfortran f90 pgf90 slf90 f95 g95 xlf95 efc ifort ftn],)
+   AC_F9X_MODS
+ 
+   dnl It seems that libtool (as of Libtool 1.5.14) is trying to

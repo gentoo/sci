@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<longdescription>
+  HDF5 is a file format and library for storing scientific data. HDF5
+  was designed and implemented to address the deficiencies of HDF4.x. It
+  has a more powerful and flexible data model, supports files larger
+  than 2 GB, and supports parallel I/O.
+</longdescription>
+<use>
+  <flag name='f90'>Override Fortran for externel compilers</flag>
+  <flag name='hlapi'>Enable support for high-level library</flag>
+  <flag name='tools'>Install support and test tools</flag>
+</use>
+</pkgmetadata>
