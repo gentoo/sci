@@ -13,7 +13,7 @@ LICENSE="NCSA-HDF"
 SLOT="0"
 KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86 ~sparc"
 
-IUSE="cxx examples fortran mpi szip threads zlib"
+IUSE="cxx examples fortran mpi ssl szip threads zlib"
 
 #RDEPEND="mpi? ( virtual/mpi[romio] )
 RDEPEND="mpi? ( virtual/mpi )
