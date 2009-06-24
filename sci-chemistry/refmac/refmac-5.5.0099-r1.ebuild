@@ -7,7 +7,7 @@ inherit fortran base toolchain-funcs versionator
 DESCRIPTION="Macromolecular crystallographic refinement program"
 HOMEPAGE="http://www.ysbl.york.ac.uk/~garib/refmac/"
 SRC_URI="${HOMEPAGE}data/refmac_stable/refmac_${PV}.tar.gz
-	http://dev.gentooexperimental.org/~jlec/distfiles/test-framework.tar.gz"
+	test? ( http://dev.gentooexperimental.org/~jlec/distfiles/test-framework.tar.gz )"
 
 SLOT="0"
 LICENSE="ccp4"
