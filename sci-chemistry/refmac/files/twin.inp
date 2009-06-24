@@ -1,0 +1,5 @@
+twin
+make hydr no
+labin IP=IMEAN SIGIP=SIGIMEAN FREE=FreeR_flag
+labout FC=FC PHIC=PHIC
+END
