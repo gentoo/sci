@@ -80,8 +80,10 @@ src_prepare() {
 	cp "${FILESDIR}"/*.m4 "${S}"/macros/
 
 	cat >> src/svn-revision.cc <<- EOF
+	extern "C" {
 	int svn_revision() {
-	   return ${ESVN_WC_REVISION};
+		return  ${ESVN_WC_REVISION};
+	}
 	}
 
 	EOF
