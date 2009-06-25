@@ -2,6 +2,22 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pymol-1.2_beta8 (25 Jun 2009)
+
+  25 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -pymol-1.2_beta6-r1.ebuild, -pymol-1.2_beta7.ebuild,
+  +pymol-1.2_beta8.ebuild, -files/pymol-1.2_beta6-data-path.patch,
+  -files/pymol-1.2_beta6-shaders.patch,
+  -files/pymol-1.2_beta7-data-path.patch,
+  -files/pymol-1.2_beta7-shaders.patch,
+  +files/pymol-1.2_beta8-data-path.patch,
+  -files/apbs_tools.py.090618.bz2,
+  +files/pymol-1.2_beta8-shaders.patch, pymol-9999.ebuild:
+  version bump
+  define WANT_SPLASH if you want to have to upstream splash (stll waiting
+  for project contributions
+  apbs_tools patch is hosted now
+
   18 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> pymol-9999.ebuild,
   +files/apbs_tools.py.090618.bz2:
   apbs patch update -- Donnie told me to make it easy for the maintainer

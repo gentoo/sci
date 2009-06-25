@@ -5,14 +5,16 @@
 EAPI="2"
 
 PYTHON_MODNAME="chempy pmg_tk pymol"
-APBS_PATCH="070604-r3550"
+APBS_PATCH="090618"
+REV="3761"
 
 inherit distutils subversion
 
-ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol@3704"
+ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol@${REV}"
 
 DESCRIPTION="A Python-extensible molecular graphics system."
 HOMEPAGE="http://pymol.sourceforge.net/"
+SRC_URI="apbs? ( http://dev.gentooexperimental.org/~jlec/distfiles/apbs_tools.py.${APBS_PATCH}.bz2 )"
 
 LICENSE="PSF-2.2"
 IUSE="apbs shaders"
@@ -35,12 +37,17 @@ pkg_setup(){
 	python_version
 }
 
+src_unpack() {
+	unpack ${A}
+	subversion_src_unpack
+}
+
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-data-path.patch || die
 
 	# Turn off splash screen.  Please do make a project contribution
 	# if you are able though.
-	[[ -z "$WANT_NOSPLASH" ]] && epatch "${FILESDIR}"/nosplash-gentoo.patch
+	[[ -z "$WANT_SPLASH" ]] && epatch "${FILESDIR}"/nosplash-gentoo.patch
 
 	# Respect CFLAGS
 	sed -i \
@@ -50,7 +57,7 @@ src_prepare() {
 	use shaders && epatch "${FILESDIR}"/${P}-shaders.patch
 
 	if use apbs; then
-		epatch "${FILESDIR}"/apbs-${APBS_PATCH}.patch.bz2
+		cp -f "${WORKDIR}"/apbs_tools.py.${APBS_PATCH} modules/pmg_tk/startup/apbs_tools.py || die
 		sed "s:LIBANDPYTHON:$(python_get_libdir):g" \
 			-i modules/pmg_tk/startup/apbs_tools.py || die
 	fi
