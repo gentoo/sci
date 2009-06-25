@@ -2,30 +2,34 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils fortran toolchain-funcs versionator
+inherit fortran base toolchain-funcs versionator
 
 MY_PV="$(get_version_component_range 1-2)"
 
 DESCRIPTION="Macromolecular crystallographic refinement program"
 HOMEPAGE="http://www.ysbl.york.ac.uk/~garib/refmac/"
 #SRC_URI="${HOMEPAGE}data/refmac_experimental/${PN}_source_v${PV}.tar.gz"
-SRC_URI="${HOMEPAGE}data/refmac_experimental/${PN}${MY_PV}_source_v${PV}.tar.gz"
-LICENSE="ccp4"
+SRC_URI="${HOMEPAGE}data/refmac_experimental/${PN}${MY_PV}_source_v${PV}.tar.gz
+	test? ( http://dev.gentooexperimental.org/~jlec/distfiles/test-framework.tar.gz )"
+
+
 SLOT="0"
+LICENSE="ccp4"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="test"
+
 RESTRICT="mirror"
 RDEPEND="virtual/lapack
 	virtual/blas
-	>=sci-libs/ccp4-libs-6.1.1-r1"
+	>=sci-libs/ccp4-libs-6.1.1-r1
+	>=sci-libs/monomer-db-5.13"
 DEPEND="${RDEPEND}"
+
 S="${WORKDIR}"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-	epatch "${FILESDIR}"/${PV}-allow-dynamic-linking.patch
-}
+PATCHES=(
+	"${FILESDIR}"/$(get_version_component_range 1-2 ${PV})-allow-dynamic-linking.patch
+)
 
 src_compile() {
 	emake \
@@ -41,6 +45,15 @@ src_compile() {
 		|| die
 }
 
+src_test() {
+	einfo "Staring tests ..."
+	export PATH="${S}:${PATH}"
+	export CCP4_TEST="${WORKDIR}"/test-framework
+	cd ${CCP4_TEST}
+	sed 's:refmac5:refmac:g' -i refmac5/test_refmac5.py
+	python refmac5/test_refmac5.py || die "damn"
+}
+
 src_install() {
 	for i in refmac libcheck; do
 		dobin ${i} || die
@@ -48,3 +61,4 @@ src_install() {
 	dosym refmac /usr/bin/refmac5 || die
 #	dodoc refmac_keywords.pdf || die
 }
+

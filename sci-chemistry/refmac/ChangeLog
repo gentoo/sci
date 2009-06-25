@@ -2,6 +2,15 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*refmac-5.6.0041 (25 Jun 2009)
+
+  25 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  refmac-5.5.0098-r1.ebuild, refmac-5.5.0099-r1.ebuild,
+  -refmac-5.6.0033.ebuild, -refmac-5.6.0039.ebuild, -refmac-5.6.0040.ebuild,
+  +refmac-5.6.0041.ebuild:
+  version bump of unstable
+  refmac-5.5.0099-r1 does not clearly run all tests -- bug or bad testcase?
+
 *refmac-5.5.0099-r1 (24 Jun 2009)
 *refmac-5.5.0098-r1 (24 Jun 2009)
 

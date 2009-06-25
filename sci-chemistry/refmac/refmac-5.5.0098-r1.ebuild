@@ -12,7 +12,7 @@ SRC_URI="${HOMEPAGE}data/refmac_stable/refmac_${PV}.tar.gz
 SLOT="0"
 LICENSE="ccp4"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="test"
 RESTRICT="mirror"
 
 RDEPEND="virtual/lapack
