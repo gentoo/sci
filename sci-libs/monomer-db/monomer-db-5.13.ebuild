@@ -20,13 +20,13 @@ RDEPEND="!<sci-chemistry/ccp4-6.1
 	!<sci-libs/ccp4-libs-6.1.1-r1"
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}"/dic
+S="${WORKDIR}"/monomers
 
 src_install() {
 	insinto /usr/share/ccp4/data/monomers/
-	for i in {a..z} {1..9} *list *.cif *.txt; do
+	for i in {a..z} {0..9} *list *.cif *.txt; do
 		doins -r ${i} || die
 	done
-	dodoc *.txt || die
+	dodoc *.txt *.ps || die
 	dohtml *.html || die
 }
