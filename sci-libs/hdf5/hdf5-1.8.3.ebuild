@@ -13,14 +13,15 @@ LICENSE="NCSA-HDF"
 SLOT="0"
 KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86 ~sparc"
 
-IUSE="cxx examples fortran mpi ssl szip threads zlib"
+IUSE="cxx examples fortran mpi szip threads zlib"
 
 #RDEPEND="mpi? ( virtual/mpi[romio] )
 RDEPEND="mpi? ( virtual/mpi )
-	szip? ( sci-libs/szip )
+	szip? ( >=sci-libs/szip-2.1 )
 	zlib? ( sys-libs/zlib )"
 
-DEPEND="${DEPEND}
+DEPEND="${RDEPEND}
+	>=sys-devel/libtool-2.2
 	sys-process/time"
 
 pkg_setup() {
@@ -40,6 +41,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/${P}-noreturn.patch
 	epatch "${FILESDIR}"/${P}-destdir.patch
 	epatch "${FILESDIR}"/${P}-signal.patch
+
 	# gentoo examples directory
 	sed -i \
 		-e 's:$(docdir)/hdf5:$(docdir):' \
@@ -82,6 +84,7 @@ src_install() {
 			|| die "emake install examples failed"
 	fi
 }
+
 pkg_postinst() {
 	elog "This is still an experimental version of hdf5-1.8.x"
 	elog "Please report any bugs, suggestions and patches at:"

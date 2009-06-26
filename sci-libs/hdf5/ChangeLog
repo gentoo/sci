@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Jun 2009; Sébastien Fabbro <bicatali@gentoo.org> hdf5-1.8.3.ebuild:
+  Added dependency on libtool-2 and szip-2
+
 *hdf5-1.8.3 (24 Jun 2009)
 
   24 Jun 2009; Sébastien Fabbro <bicatali@gentoo.org> +hdf5-1.8.3.ebuild,
