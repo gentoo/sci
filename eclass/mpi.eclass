@@ -9,7 +9,10 @@ inherit multilib
 #	Justin Bronder <jsbronder@gentoo.org>
 # @BLURB:  Common functions for mpi-pkg.eclass and mpi-imp.eclass
 
-# History:  (Is there a standard for this?)
+# History:  
+# 	2009-06-26 (jsbronder):  Add ability to require common use flags.
+#		Remove dep on eselect-mpi (it's in sys-cluster/empi)
+#		Use virtual/$class to get imp dep in mpi_pkg_deplist.
 # 	2008-11-20 (jsbronder):  Initial rewrite from old mpi.eclass
 
 
@@ -18,7 +21,7 @@ inherit multilib
 #####################
 
 # All known mpi implementations
-__MPI_ALL_IMPLEMENTATION_PNS="mpich mpich2 openmpi lam-mpi openib-mvapich2"
+__MPI_ALL_IMPLEMENTATION_PNS="mpich2 openmpi lam-mpi openib-mvapich2"
 # All mpi implentations that can be classed.
 __MPI_ALL_CLASSABLE_PNS="openmpi mpich2 lam-mpi"
 
@@ -188,8 +191,7 @@ mpi_dosym()     { _mpi_do "dosym"        $*; }
 # @FUNCTION: mpi_imp_deplist
 # @USAGE:
 # @RETURNS: Returns a deplist that handles the blocking between mpi
-# implementations, the dep on eselect-mpi if a classed build, and any blockers
-# as specified in MPI_UNCLASSED_BLOCKERS
+# implementations, and any blockers as specified in MPI_UNCLASSED_BLOCKERS
 mpi_imp_deplist() {
 	local c="sys-cluster"
 	local pn ver
@@ -199,9 +201,7 @@ mpi_imp_deplist() {
 	for pn in ${__MPI_ALL_IMPLEMENTATION_PNS}; do
 		ver="${ver} !${c}/${pn}"
 	done
-	if mpi_classed; then
-		ver="${ver} >=app-admin/eselect-mpi-0.0.5"
-	else
+	if ! mpi_classed; then
 		for pn in ${MPI_UNCLASSED_BLOCKERS}; do
 			ver="${ver} !${MPI_UNCLASSED_BLOCKERS}"
 		done
@@ -233,26 +233,68 @@ mpi_imp_add_eselect() {
 # with.  Default is the list of all mpi implementations
 MPI_PKG_NEED_IMPS="${MPI_PKG_NEED_IMPS:-${__MPI_ALL_CLASSABLE_PNS}}"
 
+
+# @ECLASS-VARIABLE: MPI_PKG_USE_CXX
+# @DESCRIPTION: Require a mpi implementation with c++ enabled.
+# This feature requires EAPI 2 style use dependencies
+MPI_PKG_USE_CXX="${MPI_PKG_USE_CXX:-0}"
+
+# @ECLASS-VARIABLE: MPI_PKG_USE_FC
+# @DESCRIPTION: Require a mpi implementation with fortran enabled.
+# This feature requires EAPI 2 style use dependencies
+MPI_PKG_USE_FC="${MPI_PKG_USE_FC:-0}"
+
+
+
 # @FUNCTION: mpi_pkg_deplist
 # @USAGE:
 # @RETURN: Returns a deplist comprised of valid implementations and any blockers
 # depending on if this package is building with mpi class support.
 mpi_pkg_deplist() {
-	local c="sys-cluster"
-	local pn ver
+	local pn pn2 ver usedeps invalid_imps inval
 
-	mpi_classed && c="${CATEGORY}"
-	ver="|| ("
-	for pn in ${MPI_PKG_NEED_IMPS}; do
-		ver="${ver} ${c}/${pn}"
-	done
-	ver="${ver} )"
+	case "${EAPI}" in
+		2)
+			[[ ${MPI_PKG_USE_CXX} -ne 0 ]] \
+				&& usedeps="cxx"
+			[[ ${MPI_PKG_USE_FC} -ne 0 ]] \
+				&& usedeps="${use_deps},fortran"
+			;;
+		*)
+			;;
+	esac
+
+	if mpi_classed; then
+		ver="virtual/$(mpi_class)"
+	else
+		ver="virtual/mpi"
+	fi
+
+	if [ -n "${usedeps}" ]; then
+		ver="${ver}[${usedeps}]"
+	fi
 
 	if ! mpi_classed && [ -n "${MPI_UNCLASSED_BLOCKERS}" ]; then
 		for pn in ${MPI_UNCLASSED_BLOCKERS}; do
 			ver="${ver} !${pn}"
 		done
 	fi
+
+	for pn in ${__MPI_ALL_IMPLEMENTATION_PNS}; do
+		inval=1
+		for pn2 in ${MPI_PKG_NEED_IMPS}; do
+			if [ "${pn}" == "${pn2}" ]; then
+				inval=0
+				break;
+			fi
+		done
+		[[ ${inval} -eq 1 ]] \
+			&& invalid_imps="${invalid_imps} ${pn}"
+	done
+
+	for pn in ${inval_imps}; do
+		ver="${ver} !${c}/${pn}"
+	done
 	echo "${ver}"
 }
 
