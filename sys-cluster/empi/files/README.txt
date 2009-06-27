@@ -29,7 +29,7 @@ succeeded.
 
 
 = Definitions =
-Implementation:  Fake category name used by empi.  Must be
+Class:  Fake category name used by empi.  Must be
     prefixed with mpi-
 Base Implementation:  Actual mpi-implementation package that will
     provide all mpi functionality to the above.
@@ -37,13 +37,13 @@ Base Implementation:  Actual mpi-implementation package that will
 
 = Instructions =
 
-The following creates an implementation called "mpi-openmpi"
+The following creates a class called "mpi-openmpi"
 using sys-cluster/openmpi as the base implementation.  We also
 set some USE flags and make sure to unmask the appropriate
 version of sys-cluster/openmpi.  Long options and full package
 atoms are used, but not required.
 
-1.) Sync the overlay located at rsync://cold-front.ath.cx/mpi
+1.) Sync the science overlay.
 
 2.) Emerge empi
 
@@ -52,10 +52,10 @@ atoms are used, but not required.
     # echo ">=sys-cluster/openmpi-1.2.5-r1" >> /etc/portage/package.keywords
 
 4.) Create the implementation.
-    # empi --create --implementation mpi-openmpi =sys-cluster/openmpi-1.2.5-r1
+    # empi --create --class mpi-openmpi =sys-cluster/openmpi-1.2.5-r1
 
 5.) Add packages.
-    # empi --add --implementation mpi-openmpi hpl mpi-examples
+    # empi --add --class mpi-openmpi hpl mpi-examples
 
 6.) Setup your user.
     $ eselect mpi set mpi-openmpi
@@ -73,3 +73,4 @@ EOF
 = Links =
 http://dev.gentoo.org/~vapier/CROSS-COMPILE-HOWTO
 http://archives.gentoo.org/gentoo-cluster/msg_f29032b0d85f7f47d9e52940e9322d91.xml
+http://dev.gentoo.org/~jsbronder/empi.xml
