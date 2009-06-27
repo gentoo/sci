@@ -19,7 +19,7 @@ RDEPEND="${DEPEND}
 src_install() {
 	newexe "${FILESDIR}"/${P} ${PN} || die
 	dodoc "${FILESDIR}"/README.txt || die
-	dodoc "${FILESDIR}"/ChangeLog || die
+	dodoc "${FILESDIR}"/ChangeLog-${PV} || die
 
 	insinto /usr/share/eselect/modules
 	newins "${FILESDIR}"/eselect.mpi-${PV} mpi.eselect || die
