@@ -37,7 +37,7 @@ pkg_setup(){
 }
 
 src_unpack() {
-	unpack ${A}
+	use apbs && unpack ${A}
 	subversion_src_unpack
 }
 
@@ -46,7 +46,7 @@ src_prepare() {
 
 	# Turn off splash screen.  Please do make a project contribution
 	# if you are able though.
-	[[ -z "$WANT_SPLASH" ]] && epatch "${FILESDIR}"/nosplash-gentoo.patch
+	[[ -n ${WANT_SPLASH} ]] || epatch "${FILESDIR}"/nosplash-gentoo.patch
 
 	# Respect CFLAGS
 	sed -i \
