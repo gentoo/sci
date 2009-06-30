@@ -17,8 +17,7 @@ RDEPEND="${DEPEND}
 	!app-admin/eselect-mpi"
 
 src_install() {
-	exeinto /usr/bin
-	newexe "${FILESDIR}"/${P} ${PN} || die
+	newbin "${FILESDIR}"/${P} ${PN} || die
 	dodoc "${FILESDIR}"/README.txt || die
 	dodoc "${FILESDIR}"/ChangeLog-${PV} || die
 
