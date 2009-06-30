@@ -18,7 +18,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE=""
 DEPEND="virtual/python
 	>=dev-lang/python-2.4
-	>=dev-python/numpy-0.9.8"
+	( >=dev-python/numpy-1.1 ) || ( >=sci-libs/scipy-0.5.2 )"
 RDEPEND="${DEPEND}"
 
 src_test() {

@@ -1,6 +1,12 @@
 # ChangeLog for sci-mathematics/mdp
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*mdp-2.5 (30 Jun 2009)
+
+  30 Jun 2009; Tim Cera <timcera@earthlink.net> -mdp-2.3.ebuild,
+  +mdp-2.5.ebuild:
+  Version bump. Fixed DEPEND and RDEPEND.
 
   23 Oct 2008; Tim Cera <timcera@earthlink.net> +mdp-2.4.ebuild:
   Bumped to version 2.4, updated DEPEND.
