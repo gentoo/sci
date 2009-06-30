@@ -26,8 +26,12 @@ S="${WORKDIR}"
 
 PATCHES=(
 	"${FILESDIR}"/$(get_version_component_range 1-2 ${PV})-allow-dynamic-linking.patch
-	"${FILESDIR}"/test.log.patch
 	)
+
+src_prepare() {
+	base_src_prepare
+	use test && epatch "${FILESDIR}"/test.log.patch
+}
 
 src_compile() {
 	emake \
