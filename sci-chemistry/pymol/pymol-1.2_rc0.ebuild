@@ -6,10 +6,11 @@ EAPI="2"
 
 PYTHON_MODNAME="chempy pmg_tk pymol"
 APBS_PATCH="090618"
+REV="3790"
 
 inherit distutils subversion
 
-ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
+ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol@${REV}"
 
 DESCRIPTION="A Python-extensible molecular graphics system."
 HOMEPAGE="http://pymol.sourceforge.net/"

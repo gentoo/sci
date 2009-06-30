@@ -2,6 +2,16 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pymol-1.2_rc0 (30 Jun 2009)
+
+  30 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +pymol-1.2_rc0.ebuild, +files/pymol-1.2_rc0-data-path.patch,
+  +files/pymol-1.2_rc0-shaders.patch:
+  version bump to rc 0
+
+  29 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> pymol-9999.ebuild:
+  fix src_unpack, thanks to Rene Meier for pointing on that
+
 *pymol-1.2_beta8 (25 Jun 2009)
 
   25 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

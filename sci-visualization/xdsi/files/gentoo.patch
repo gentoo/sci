@@ -1,0 +1,33 @@
+--- xdsi	2009-06-25 14:05:48.000000000 +0200
++++ xdsi.new	2009-06-29 13:54:52.000000000 +0200
+@@ -21,8 +21,8 @@
+ # These are the only two things you may change#
+ 
+ 
+-set Templates "/mydir/templates"
+-set initial "/mydir/SLS-2009"
++set Templates "/usr/share/xdsi/templates"
++set initial "/"
+ 
+ 
+ 
+@@ -122,7 +122,7 @@
+ }
+ 
+ 
+-CheckExecutables "kpdf gnuplot xds_par xdsstat xdsviewer convert pointless"
++CheckExecutables "xpdf gnuplot xds_par xdsstat xds-viewer convert pointless"
+ 
+ wm resizable . 0 0
+ 
+--- xdsi	2009-06-25 14:05:48.000000000 +0200
++++ xdsi.new	2009-06-29 14:22:57.000000000 +0200
+@@ -3063,7 +3063,7 @@
+ event add <<Change>> <B1-ButtonRelease> <FocusOut> <Leave> <Expose>
+ #bind .plots.dummy.plot  <<Change>> {puts $Plot}
+ if {$path != "/var/tmp" } {
+-    button .view.button -text Open  -command {exec xdsviewer $View &}
++    button .view.button -text Open  -command {exec xds-viewer $View &}
+ } else {
+     button .view.button -text "Sorry, no pics" -command { }
+ }
