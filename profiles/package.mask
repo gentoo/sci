@@ -30,6 +30,11 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher (jlec) (18 Jun 09)
+# jlec@j-schmitz.net
+# Upcoming release. Upstream still not ready
+=sci-chemistry/ccp4-6.1.2
+
 # Christoph Junghans (ottxor) (11 May 09)
 # kleiner_otti@gmx.de
 # mask live ebuilds
@@ -39,7 +44,7 @@
 
 # Justin Lecher (jlec) (18 Jun 09)
 # jlec@j-schmitz.net
-# to be clarified if it is working as excpected
+# Just working with the masked experimental version
 >=sci-libs/monomer-db-5.13
 
 # Justin Lecher (jlec) (09 Jun 09)
