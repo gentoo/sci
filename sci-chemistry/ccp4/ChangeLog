@@ -2,6 +2,25 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccp4-6.1.1-r4 (01 Jul 2009)
+
+  01 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -ccp4-6.1.1-r2.ebuild, +ccp4-6.1.1-r4.ebuild:
+  first patch from upstram -- ctruncate
+  removed old version
+
+*ccp4-6.1.2 (01 Jul 2009)
+
+  01 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/6.1.2-clipper-mmdbold-ggc-4.3.patch,
+  +files/6.1.2-dont-build-double-and-make-bindir.patch,
+  +files/6.1.2-dont-build-libs.patch,
+  +files/6.1.2-dont-make-dirs-in-configure.patch,
+  +files/6.1.2-fix-setup-bash-incompatibility.patch,
+  +files/6.1.2-nomolref.patch, +files/6.1.2-rename-rapper.patch,
+  +ccp4-6.1.2.ebuild, +files/6.1.2-rename-truncate.patch:
+  new upstream release
+
 *ccp4-6.1.1-r3 (11 Jun 2009)
 
   11 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

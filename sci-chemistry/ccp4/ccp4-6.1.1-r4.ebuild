@@ -11,17 +11,15 @@ SRC="ftp://ftp.ccp4.ac.uk/ccp4"
 UPDATE="04_03_09"
 PATCHDATE="090511"
 
-PATCH_TOT="0"
+PATCH_TOT="1"
 # Here's a little scriptlet to generate this list from the provided
 # index.patches file
 #
 # i=1; while read -a line; do [[ ${line//#} != ${line} ]] && continue;
 # echo "PATCH${i}=( ${line[1]}"; echo "${line[0]} )"; (( i++ )); done <
 # index.patches
-#PATCH1=( src/topp_
-#topp.f-r1.16.2.5-r1.16.2.6.diff )
-#PATCH2=( .
-#configure-r1.372.2.18-r1.372.2.19.diff )
+PATCH1=( src/clipper_progs/src/
+ctruncate.cpp-r1.13.2.5-r1.13.2.7.diff )
 
 DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
@@ -30,7 +28,6 @@ RESTRICT="mirror"
 SRC_URI="${SRC}/6.1.1/${P}-core-src.tar.gz
 	${SRC}/${PV}/updates/${P}-src-patch-${UPDATE}.tar.gz
 	http://dev.gentooexperimental.org/~jlec/science-dist/${PV}-${PATCHDATE}-updates.patch.bz2"
-#	${SRC}/6.1/${P}-phaser-src.tar.gz"
 for i in $(seq $PATCH_TOT); do
 	NAME="PATCH${i}[1]"
 	SRC_URI="${SRC_URI}
@@ -151,6 +148,9 @@ src_unpack() {
 	ccp_patch "${FILESDIR}"/${PV}-rename-rapper.patch
 	mv ./doc/rapper.doc ./doc/rappermc.doc || die
 	mv ./html/rapper.html ./html/rappermc.html || die
+
+	# molref is provided as binary and dynamically linked against icc
+	ccp_patch "${FILESDIR}"/${PV}-nomolref.patch
 
 	# mosflm has its own ebuild
 #	ccp_patch "${FILESDIR}"/${PV}-dont-build-mosflm.patch
@@ -306,7 +306,7 @@ src_install() {
 	# Don't check for updates on every sourcing of /etc/profile
 	sed -i \
 		-e "s:\(eval python.*\):#\1:g"
-		"${S}"/include/ccp4.setup*
+		"${S}"/include/ccp4.setup* || die
 
 	# Get rid of S instances
 	# Also the main clipper library is built as libclipper-core, not libclipper
