@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,9 +17,9 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 DEPEND="virtual/python
-	>=dev-lang/python-2.4
+	>=dev-lang/python-2.4"
+RDEPEND="${DEPEND}
 	( >=dev-python/numpy-1.1 ) || ( >=sci-libs/scipy-0.5.2 )"
-RDEPEND="${DEPEND}"
 
 src_test() {
 	PYTHONPATH="${S}/src" "${python}" -c "import mdp;mdp.test()" || die "tests failed"
