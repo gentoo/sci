@@ -13,8 +13,11 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
-DEPEND="virtual/python
+
+SHARED_DEPEND="virtual/python
 	>=dev-lang/python-2.4"
-RDEPEND="${DEPEND}
+DEPEND="${SHARED_DEPEND}
+	dev-python/setuptools"
+RDEPEND="${SHARED_DEPEND}
 	>=sci-libs/scipy-0.3.2"
 
