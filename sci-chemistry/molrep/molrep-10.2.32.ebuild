@@ -32,7 +32,7 @@ src_compile() {
 		MR_FORT=$(tc-getFC) \
 		FFLAGS="${FFLAGS}" \
 		LDFLAGS="${LDFLAGS}" \
-		MR_LIBRARY="-lccp4f -lccp4c -lmmdb -lccif -L/usr/$(get_libdir) -llapack -lstdc++ -lm" \
+		MR_LIBRARY="-L/usr/$(get_libdir) -lccp4f -lccp4c -lmmdb -lccif -llapack -lstdc++ -lm" \
 	|| die
 }
 
