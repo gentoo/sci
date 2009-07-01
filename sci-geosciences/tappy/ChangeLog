@@ -1,6 +1,11 @@
 # ChangeLog for sci-geosciences/tappy
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*tappy-0.8.2 (01 Jul 2009)
+
+  01 Jul 2009; Tim Cera <timcera@earthlink.net> +tappy-0.8.2.ebuild:
+  sci-geosciences/tappy: Version bump. Fixed DEPEND and RDEPEND.
 
   16 Nov 2008; Tim Cera <timcera@earthlink.net> -tappy-0.8.0.ebuild,
   +tappy-0.8.1.ebuild:
