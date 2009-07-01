@@ -1,6 +1,11 @@
 # ChangeLog for sys-cluster/pyslice
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*pyslice-1.6.4 (01 Jul 2009)
+
+  01 Jul 2009; Tim Cera <timcera@earthlink.net> +pyslice-1.6.4.ebuild:
+  Version bump. Fixed DEPEND and RDEPEND. Updated copyright.
 
   08 Jul 2008; Tim Cera <timcera@earthlink.net> pyslice-1.6.1.ebuild:
   Added ~x86 per https://bugs.gentoo.org/show_bug.cgi?id=138008#c4
