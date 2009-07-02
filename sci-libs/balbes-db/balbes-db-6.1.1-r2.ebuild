@@ -15,8 +15,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 RDEPEND=">=dev-python/pyxml-0.8.4
-	 >=sci-chemistry/ccp4-6.1
-	 sci-chemistry/refmac"
+	>=sci-chemistry/ccp4-6.1
+	sci-chemistry/refmac
+	sci-libs/monomer-db"
 DEPEND="${RDEPEND}"
 S="${WORKDIR}/${MY_P}"
 RESTRICT="binchecks strip"
@@ -26,8 +27,10 @@ src_compile() {
 }
 
 src_install() {
-	dodir /usr/share/ccp4/balbes/BALBES_0.0.1
+	dodir /usr/share/balbes/BALBES_0.0.1
+	rm -rf share/balbes/BALBES_0.0.1/dic
 	# We don't want to wait around to copy all this, or suck up double
 	# the disk space
-	mv "${S}"/share/balbes/BALBES_0.0.1/* "${D}"/usr/share/ccp4/balbes/BALBES_0.0.1/ || die
+	mv "${S}"/share/balbes/BALBES_0.0.1/* "${D}"/usr/share/balbes/BALBES_0.0.1/ || die
+	dosym ../../../ccp4/data/monomers /usr/share/balbes/BALBES_0.0.1/dic
 }

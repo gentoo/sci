@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*balbes-db-6.1.1-r2 (02 Jul 2009)
+
+  02 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -balbes-db-6.1.1.ebuild, -balbes-db-6.1.1-r1.ebuild,
+  +balbes-db-6.1.1-r2.ebuild:
+  balbes-db was installed in wrong place
+
 *balbes-db-6.1.1-r1 (30 Apr 2009)
 
   30 Apr 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>  balbes-db-6.1.1-r1.ebuild
