@@ -230,6 +230,7 @@ src_compile() {
 	# Default to -O2 if FFLAGS is unset
 	export FC=${FORTRANC}
 	export FOPTIM=${FFLAGS:- -O2}
+	export BINSORT_SCR="${T}"
 
 	# Can't use econf, configure rejects unknown options like --prefix
 	./configure \
