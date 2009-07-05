@@ -2,34 +2,44 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils python
+FORTRANC="g77 gfortran ifc"
+
+inherit eutils python fortran
 
 DESCRIPTION="An automated data reduction system for crystallography"
 HOMEPAGE="http://www.ccp4.ac.uk/xia/"
 SRC_URI="${HOMEPAGE}/${P}.tar.bz2"
+
 LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-RDEPEND=">=sci-chemistry/ccp4-6.1"
+
+RDEPEND=">=sci-chemistry/ccp4-6.1
+	sci-chemistry/pointless
+	sci-chemistry/mosflm"
 DEPEND="${RDEPEND}"
 
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	rm -rf ${P}/binaries || die
 	find . -name '*.bat' | xargs rm || die
-	sed -i \
-		-e "s:/path/to/xiahome:/usr/share/ccp4/XIAROOT:g" \
-		setup.*
+
 	epatch "${FILESDIR}"/${PV}-fix-syntax.patch
 }
 
 src_compile() {
-	:
+	cd "${S}"/${P}/binaries/src
+	cp "${FILESDIR}"/Makefile.chef Makefile
+	emake  \
+		FC="${FORTRANC}" || die
 }
 
 src_install() {
+	dobin ${P}/binaries/src/{doser,chef,mat2symop,symop2mat} || die
+
+	rm -rf ${P}/binaries ${PN}core-${PV}/Test || die
+
 	insinto /usr/share/ccp4/XIAROOT/
 	doins -r * || die
 
@@ -38,7 +48,16 @@ src_install() {
 	chmod 755 "${D}"/usr/share/ccp4/XIAROOT/${P}/Applications/* || die
 	chmod 644 "${D}"/usr/share/ccp4/XIAROOT/${P}/Applications/*.py || die
 
-	# probably we need so set some ENV --> XIAROOT
+	cat >> "${T}"/23XIA <<- EOF
+	XIA2_HOME=/usr/share/ccp4/XIAROOT
+
+	XIA2CORE_ROOT=/usr/share/ccp4/XIAROOT/xia2core-${PV}
+	XIA2_ROOT=/usr/share/ccp4/XIAROOT/xia2-${PV}
+
+	PATH=/usr/share/ccp4/XIAROOT/xia2-${PV}/Applications
+	EOF
+
+	doenvd "${T}"/23XIA
 }
 
 pkg_postinst() {
