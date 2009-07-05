@@ -17,7 +17,8 @@ IUSE=""
 
 RDEPEND=">=sci-chemistry/ccp4-6.1.1-r5
 	sci-chemistry/pointless
-	sci-chemistry/mosflm"
+	sci-chemistry/mosflm
+	>=sci-libs/ccp4-libs-6.1.1-r7"
 DEPEND="${RDEPEND}"
 
 src_unpack() {
