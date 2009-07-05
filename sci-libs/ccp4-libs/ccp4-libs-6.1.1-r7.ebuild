@@ -188,7 +188,7 @@ src_install() {
 
 	# Bins
 	dobin bin/{automask,diff2jpeg,diffdump,printpeaks} || die
-	newbin bin/superpose{,-ccp4} || die
+	newbin bin/superpose superpose-ccp4 || die
 
 	# Fix libdir in all *.la files
 	sed -i \
