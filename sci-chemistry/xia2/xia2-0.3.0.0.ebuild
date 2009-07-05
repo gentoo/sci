@@ -10,7 +10,7 @@ DESCRIPTION="An automated data reduction system for crystallography"
 HOMEPAGE="http://www.ccp4.ac.uk/xia/"
 SRC_URI="${HOMEPAGE}/${P}.tar.bz2"
 
-LICENSE="ccp4"
+LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
