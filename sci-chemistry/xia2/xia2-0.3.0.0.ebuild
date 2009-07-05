@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=">=sci-chemistry/ccp4-6.1
+RDEPEND=">=sci-chemistry/ccp4-6.1.1-r5
 	sci-chemistry/pointless
 	sci-chemistry/mosflm"
 DEPEND="${RDEPEND}"
