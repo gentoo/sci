@@ -142,6 +142,7 @@ src_compile() {
 	# Default to -O2 if FFLAGS is unset
 	export FC=${FORTRANC}
 	export FOPTIM=${FFLAGS:- -O2}
+	export CCP4_SCR="${T}"
 
 	# Fix linking
 	export SHARE_LIB="ld -shared -soname libmmdb.so --whole-archive -o libmmdb.so libmmdb.a ../libccif.a $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}'); \
