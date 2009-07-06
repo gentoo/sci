@@ -2,10 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# inherit
-
-DESCRIPTION="Program that predicts protein flexibility by calculating the"
-HOMEPAGE="Random Coil Index from backbone chemical shiftshttp://redpoll.pharmacy.ualberta.ca/download/rci/"
+DESCRIPTION="Predicts protein flexibility by calculating the Random Coil Index from backbone CS"
+HOMEPAGE="http://redpoll.pharmacy.ualberta.ca/download/rci/"
 SRC_URI="http://dev.gentooexperimental.org/~jlec/science-dist/${P}.tar.gz"
 
 LICENSE="as-is"
