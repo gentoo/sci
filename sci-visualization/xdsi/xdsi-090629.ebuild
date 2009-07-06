@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 RDEPEND="sci-chemistry/xds-bin[smp]
-	sci-chemistry/xdsstat
+	sci-chemistry/xdsstat-bin
 	sci-visualization/xds-viewer
 	sci-visualization/gnuplot
 	sci-chemistry/pointless
