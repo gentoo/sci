@@ -29,7 +29,8 @@ RESTRICT="mirror"
 
 RDEPEND=">=dev-lang/tk-8.3
 	>=dev-tcltk/blt-2.4
-	app-shells/tcsh"
+	app-shells/tcsh
+	media-gfx/graphviz"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${MY_P}"
