@@ -27,6 +27,7 @@ src_unpack() {
 	find . -name '*.bat' | xargs rm || die
 
 	epatch "${FILESDIR}"/${PV}-fix-syntax.patch
+	epatch "${FILESDIR}"/${PV}-pointless.patch
 }
 
 src_compile() {
