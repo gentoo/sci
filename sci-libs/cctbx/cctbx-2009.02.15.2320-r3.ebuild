@@ -16,9 +16,8 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="minimal openmp threads"
 
-RDEPEND="!minimal? ( ( sci-chemistry/cns )
-		x86? ( sci-chemistry/shelx )
-	 )"
+RDEPEND="!minimal? ( sci-chemistry/cns
+	sci-chemistry/shelx )"
 DEPEND="${RDEPEND}
 	>=dev-util/scons-1.2"
 
@@ -29,12 +28,12 @@ MY_B="${WORKDIR}"/cctbx_build
 pkg_setup() {
 	if use openmp &&
 	[[ $(tc-getCC)$ == *gcc* ]] &&
-	( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] ||
-	! built_with_use sys-devel/gcc openmp )
+		( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] ||
+		! built_with_use sys-devel/gcc openmp )
 	then
-	ewarn "You are using gcc and OpenMP is only available with gcc >= 4.2 "
-	ewarn "If you want to build fftw with OpenMP, abort now,"
-	ewarn "and switch CC to an OpenMP capable compiler"
+		ewarn "You are using gcc and OpenMP is only available with gcc >= 4.2 "
+		ewarn "If you want to build fftw with OpenMP, abort now,"
+		ewarn "and switch CC to an OpenMP capable compiler"
 	fi
 }
 
@@ -42,7 +41,7 @@ src_prepare() {
 	# Wants to chmod /usr/bin/python
 	epatch "${FILESDIR}"/${PV}-sandbox-violations-chmod.patch
 
-	rm -rf "${MY_S}/scons" # "${MY_S}/boost"
+	rm -rf "${MY_S}/scons" # "${MY_S}/boost" ## needs boost 1.39
 
 	mkdir -p "${MY_S}"/scons/src/ "${MY_S}/boost"
 
