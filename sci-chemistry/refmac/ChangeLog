@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*refmac-5.5.0102 (07 Jul 2009)
+
+  07 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +refmac-5.5.0102.ebuild:
+  version bump
+  test fixed
+
 *refmac-5.5.0101 (30 Jun 2009)
 
   30 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
