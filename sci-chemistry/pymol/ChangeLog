@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  pymol-1.2_beta8.ebuild, pymol-1.2_rc0.ebuild, pymol-9999.ebuild:
+  We do not use the autotools based buildsystem
+
 *pymol-1.2_rc0 (30 Jun 2009)
 
   30 Jun 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

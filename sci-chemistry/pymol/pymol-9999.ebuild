@@ -62,6 +62,10 @@ src_prepare() {
 	fi
 }
 
+src_configure() {
+	:
+}
+
 src_install() {
 	distutils_src_install
 
