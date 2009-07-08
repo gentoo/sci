@@ -1,6 +1,16 @@
 # ChangeLog for sci-chemistry/drawxtl
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*drawxtl-54 (08 Jul 2009)
+*drawxtl-44 (08 Jul 2009)
+
+  08 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/44-ldflags.patch, +drawxtl-44.ebuild, +files/54-ldflags.patch,
+  +drawxtl-54.ebuild:
+  version bump
+  moved to EAPI=2
+  Some QA
 
   25 Jun 2008; Tim Cera <timcera@earthlink.net> +metadata.xml:
   Added metadata.xml.
