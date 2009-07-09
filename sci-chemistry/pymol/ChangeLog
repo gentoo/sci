@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pymol-9999-r1 (09 Jul 2009)
+
+  09 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +pymol-9999-r1.ebuild, metadata.xml:
+  added vmd and numpy support
+
 *pymol-1.2_rc1 (09 Jul 2009)
 
   09 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
