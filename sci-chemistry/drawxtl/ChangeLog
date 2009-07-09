@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> drawxtl-44.ebuild:
+  upstream ships objects -> make clean
+
 *drawxtl-54 (08 Jul 2009)
 *drawxtl-44 (08 Jul 2009)
 

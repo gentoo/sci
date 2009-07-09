@@ -58,6 +58,7 @@ src_compile() {
 	# that missing exe dir is required by the Makefile
 	mkdir exe || die "mkdir failed"
 	cd source/${MY_P}
+	make clean || die
 	emake \
 		CXX=$(tc-getCXX) \
 		CC=$(tc-getCC) \
