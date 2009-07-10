@@ -27,6 +27,7 @@ RDEPEND="dev-python/pmw
 		media-libs/libpng
 		sys-libs/zlib
 		virtual/glut
+		media-video/mpeg-tools
 		apbs? ( dev-libs/maloc
 				sci-chemistry/apbs
 				sci-chemistry/pdb2pqr
