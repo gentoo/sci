@@ -6,7 +6,7 @@ inherit distutils
 
 DESCRIPTION="A simple Python interface to HDF5 files."
 HOMEPAGE="http://h5py.alfven.org/"
-SRC_URI="http://h5py.googlecode.com/files/${P}-1.6.tar.gz"
+SRC_URI="http://h5py.googlecode.com/files/${P}.tar.gz"
 
 LICENSE="h5py hdf5 pytables"
 SLOT="0"
@@ -14,7 +14,10 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=sci-libs/hdf5-1.6.7
-	>=dev-lang/python-2.4"
+	dev-python/numpy"
 RDEPEND="${DEPEND}"
 
 
+src_test() {
+	"${python}" setup.py test || die "test failed"
+}
