@@ -141,12 +141,17 @@ _mpi_do() {
 			[ -d "${D}"usr/share/${cmd} ] && mv "${D}"usr/share/${cmd}{,-orig}
 			[ ! -d "${D}"${mdir}usr/share/${cmd} ] \
 				&& install -d "${D}"${mdir}usr/share/${cmd}
+			[ ! -d "${D}"usr/share ] \
+				&& install -d "${D}"usr/share
 
 			ln -snf ../../${mdir}usr/share/${cmd} ${D}usr/share/${cmd}
 			${prefix}${cmd} $*
 			rc=$?
 			rm "${D}"usr/share/${cmd}
-			[ -d "${D}"usr/share/${cmd}-orig ] && mv "${D}"usr/share/${cmd}{-orig,}
+			[ -d "${D}"usr/share/${cmd}-orig ] \
+				&& mv "${D}"usr/share/${cmd}{-orig,}
+			[ "$(find "${D}"usr/share/)" == "${D}usr/share/" ] \
+				&& rmdir "${D}usr/share"
 			;;
 		dir)
 			dodir "${@/#${slash}/${mdir}${slash}}"; rc=$?;;
