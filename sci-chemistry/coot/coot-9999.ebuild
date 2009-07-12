@@ -47,7 +47,7 @@ RDEPEND="x11-libs/gtkglext
 	sci-chemistry/refmac
 	sci-chemistry/probe
 	>=sci-libs/ccp4-libs-6.1
-	>=sci-libs/clipper-20090210
+	>=sci-libs/clipper-20090520
 	>=dev-libs/gmp-4.2.2-r2"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
