@@ -1,10 +1,10 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="2"
 
-inherit cmake-utils eutils qt4 autotools
+inherit cmake-utils eutils qt4
 
 DESCRIPTION="Quantum GIS (QGIS) is a Geographic Information System (GIS)"
 HOMEPAGE="http://www.qgis.org/"

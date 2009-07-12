@@ -1,10 +1,10 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="2"
 
-inherit cmake-utils eutils qt4 autotools
+inherit cmake-utils eutils qt4
 
 DESCRIPTION="Quantum GIS (QGIS) is a Geographic Information System (GIS)"
 HOMEPAGE="http://www.qgis.org/"
@@ -14,16 +14,19 @@ SRC_URI="http://download.osgeo.org/qgis/src/${PN}_${PV}.tar.gz
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug gps grass gsl postgres python samples"
+IUSE="debug gps grass gsl postgres python sqlite samples"
 
-DEPEND=">=sci-libs/gdal-1.3.1
+DEPEND="dev-util/cmake
+		sys-devel/bison
+		sys-devel/flex
+		>=sci-libs/gdal-1.3.1
 		x11-libs/qt-core:4[qt3support]
 		x11-libs/qt-gui:4
 		x11-libs/qt-svg:4
 		x11-libs/qt-sql:4
-		dev-db/sqlite:3
 		>=sci-libs/geos-3.0.0
 		sci-libs/proj
+		sqlite? ( dev-db/sqlite:3 )
 		postgres? ( >=virtual/postgresql-base-8
 				dev-db/postgis )
 		grass? ( >=sci-geosciences/grass-6.0.1
@@ -33,9 +36,6 @@ DEPEND=">=sci-libs/gdal-1.3.1
 		gsl? ( sci-libs/gsl )"
 
 RDEPEND="${DEPEND}
-		dev-util/cmake
-		sys-devel/bison
-		sys-devel/flex
 		python? ( dev-lang/python
 			dev-python/PyQt4
 			dev-python/sip )
@@ -48,7 +48,8 @@ src_configure() {
 		$(cmake-utils_use_with grass GRASS) \
 		$(cmake-utils_use_with gps EXPAT) \
 		$(cmake-utils_use_with gsl GSL) \
-		$(cmake-utils_use_with python BINDINGS)"
+		$(cmake-utils_use_with python BINDINGS) \
+		$(cmake-utils_use_with sqlite SPATIALITE)"
 
 	if use grass; then
 		GRASS_ENVD="/etc/env.d/99grass /etc/env.d/99grass-6 /etc/env.d/99grass-cvs";
