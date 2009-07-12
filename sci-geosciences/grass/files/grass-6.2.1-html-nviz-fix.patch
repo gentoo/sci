@@ -1,0 +1,22 @@
+--- tools/build_html_index.sh.orig	2006-11-20 08:02:23.000000000 -0800
++++ tools/build_html_index.sh	2007-08-22 17:49:12.000000000 -0700
+@@ -127,12 +127,16 @@
+ 
+ ################
+ 
+-#copy over CSS:
++#copy over CSS and GRASS logo:
+ cp -f grassdocs.css $HTMLDIR/
+-cp -f grassdocs.css $HTMLDIR/nviz/
+-#copy over GRASS logo:
+ cp -f grass.smlogo.gif $HTMLDIR/
++if ! test -d $HTMLDIR/nviz
++then
++    mkdir $HTMLDIR/nviz
++fi
++cp -f grassdocs.css $HTMLDIR/nviz/
+ cp -f grass.smlogo.gif $HTMLDIR/nviz/
++
+ #copy over GEM docs:
+ mkdir -p $HTMLDIR/gem
+ cp -f $GEMDIR/docs/GEM-Manual/*.html $HTMLDIR/gem/

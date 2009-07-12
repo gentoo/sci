@@ -1,0 +1,30 @@
+--- qgis_0.11.0.orig/CMakeLists.txt	2008-04-17 05:35:32.000000000 -0700
++++ qgis_0.11.0/CMakeLists.txt	2008-05-07 02:25:40.966876737 -0700
+@@ -44,6 +44,12 @@
+   SET (POSTGRESQL_PREFIX "" CACHE PATH "Path to POSTGRESQL base directory")
+ ENDIF (WITH_POSTGRESQL)
+ 
++# try to configure and build the GPS importer plugin by default
++SET (WITH_EXPAT TRUE CACHE BOOL "Determines whether GPS import plugin should be built")
++
++# try to configure and build the GNU Scientific Library for the Georeferencer
++SET (WITH_GSL TRUE CACHE BOOL "Determines whether the GNU Scientific library is used")
++
+ # try to configure and build python bindings by default
+ SET (WITH_BINDINGS TRUE CACHE BOOL "Determines whether python bindings should be built")
+ IF (WITH_BINDINGS)
+@@ -107,8 +113,12 @@
+ IF (WITH_POSTGRESQL)
+   FIND_PACKAGE(Postgres) # PostgreSQL provider, SPIT plugin
+ ENDIF (WITH_POSTGRESQL)
+-FIND_PACKAGE(Expat)    # GPS importer plugin
+-FIND_PACKAGE(GSL)      # Georeferencer
++IF (WITH_EXPAT)
++  FIND_PACKAGE(Expat)    # GPS importer plugin
++ENDIF (WITH_EXPAT)
++IF (WITH_GSL)
++  FIND_PACKAGE(GSL)      # Georeferencer
++ENDIF (WITH_GSL)
+ IF (WITH_GRASS)
+   FIND_PACKAGE(GRASS)    # GRASS plugin
+ ENDIF (WITH_GRASS)

@@ -1,0 +1,39 @@
+--- tools/build_html_index.sh.orig	2006-12-29 11:55:46.000000000 -0800
++++ tools/build_html_index.sh	2006-12-29 11:58:10.000000000 -0800
+@@ -129,10 +129,12 @@
+ 
+ #copy over CSS:
+ cp -f grassdocs.css $HTMLDIR/
+-cp -f grassdocs.css $HTMLDIR/nviz/
++# patch for no opengl 
++#cp -f grassdocs.css $HTMLDIR/nviz/
+ #copy over GRASS logo:
+ cp -f grass.smlogo.gif $HTMLDIR/
+-cp -f grass.smlogo.gif $HTMLDIR/nviz/
++# patch for no opengl
++#cp -f grass.smlogo.gif $HTMLDIR/nviz/
+ #copy over GEM docs:
+ mkdir -p $HTMLDIR/gem
+ cp -f $GEMDIR/docs/GEM-Manual/*.html $HTMLDIR/gem/
+@@ -161,7 +163,8 @@
+ echo "<tr><td>&nbsp;&nbsp;r.*  </td><td>raster commands</td></tr>" >> $FULLINDEX
+ echo "<tr><td>&nbsp;&nbsp;r3.* </td><td>raster3D commands</td></tr>" >> $FULLINDEX
+ echo "<tr><td>&nbsp;&nbsp;v.*  </td><td>vector commands</td></tr>" >> $FULLINDEX
+-echo "<tr><td>&nbsp;&nbsp;nviz </td><td>visualization command</td></tr>" >> $FULLINDEX
++# patch for no opengl
++#echo "<tr><td>&nbsp;&nbsp;nviz </td><td>visualization command</td></tr>" >> $FULLINDEX
+ echo "</table>" >> $FULLINDEX
+ echo "<p>" >> $FULLINDEX
+ 
+@@ -240,9 +243,10 @@
+   echo "<li><a href=\"$MODCLASS.html\">$MODCLASS commands</a></li>" >> $FILENAME
+ done
+ 
++# patch for no opengl (no nviz)
+ #extra stuff for 'nviz' and 'xganim' and GUIs:
+ echo "<li><a href=\"gis.m.html\">gis.m</a> and <a href=\"d.m.html\">d.m</a> GIS managers</li>" >> $FILENAME
+-echo "<li><a href=\"nviz.html\">nviz</a> visualization and animation tool</li>" >> $FILENAME
++#echo "<li><a href=\"nviz.html\">nviz</a> visualization and animation tool</li>" >> $FILENAME
+ echo "<li><a href=\"xganim.html\">xganim</a> tool  for animating a raster map series</li>" >> $FILENAME
+ 	      
+ echo "</ul>" >> $FILENAME

@@ -1,0 +1,11 @@
+--- GDALmake.opt.in.orig	2006-05-21 14:59:21.000000000 -0700
++++ GDALmake.opt.in	2006-05-21 15:13:22.000000000 -0700
+@@ -54,7 +54,7 @@
+ exec_prefix	=	@exec_prefix@
+ INST_PREFIX	=	@exec_prefix@
+ INST_INCLUDE	=	@includedir@
+-INST_DATA 	=	@datadir@
++INST_DATA 	=	@datadir@/gdal
+ INST_LIB	=	@libdir@
+ INST_BIN	=	@bindir@
+ INST_PYMOD      =       @pymoddir@

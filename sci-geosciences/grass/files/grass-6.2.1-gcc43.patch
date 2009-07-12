@@ -1,0 +1,11 @@
+diff -aur grass-6.2.3.orig/raster/r.terraflow/IOStream/include/ami_stream.h grass-6.2.3/raster/r.terraflow/IOStream/include/ami_stream.h
+--- grass-6.2.3.orig/raster/r.terraflow/IOStream/include/ami_stream.h	2004-11-09 14:29:58.000000000 +0100
++++ grass-6.2.3/raster/r.terraflow/IOStream/include/ami_stream.h	2008-03-21 01:03:36.000000000 +0100
+@@ -51,6 +51,7 @@
+ #include <fcntl.h>
+ #include <errno.h>
+ #include <unistd.h>
++#include <cstring>
+ 
+ #include <iostream>
+ using namespace std;
