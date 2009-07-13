@@ -11,9 +11,7 @@ SRC_URI="http://download.osgeo.org/gdal/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="MIT"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86"
-# need to get these arches updated on several libs first
-#KEYWORDS="~alpha ~hppa"
+KEYWORDS="~ppc ~x86"
 
 IUSE="curl debug doc ecwj2k fits geos gif gml hdf hdf5 jpeg jpeg2k mysql \
 netcdf odbc png ogdi perl postgres python ruby sqlite threads"
@@ -94,7 +92,7 @@ src_compile() {
 	local use_conf=""
 
 	pkg_conf="${pkg_conf} --enable-shared=yes --with-pic \
-		--with-libgrass=no --without-libtool"
+		--with-libgrass=no --with-grass=no --without-libtool"
 
 	use_conf="$(use_with jpeg) $(use_with png) $(use_with mysql) \
 	    $(use_with postgres pg) $(use_with python) $(use_with ruby) \

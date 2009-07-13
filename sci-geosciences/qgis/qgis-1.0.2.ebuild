@@ -13,10 +13,10 @@ SRC_URI="http://download.osgeo.org/qgis/src/${PN}_${PV}.tar.gz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~ppc ~x86"
 IUSE="debug gps grass gsl postgres python samples"
 
-DEPEND=">=sci-libs/gdal-1.3.1
+DEPEND=">=sci-libs/gdal-1.6.1
 		x11-libs/qt-core:4[qt3support]
 		x11-libs/qt-gui:4
 		x11-libs/qt-svg:4
