@@ -21,7 +21,7 @@ IUSE="examples"
 DEPEND="virtual/opengl
 	virtual/glut
 	virtual/glu
-	>=x11-libs/fltk-1.1.6[opengl]"
+	x11-libs/fltk:1.1[opengl]"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_PN}"

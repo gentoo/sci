@@ -22,7 +22,7 @@ DEPEND="opengl? (
 		virtual/opengl
 		virtual/glut
 		)
-	fltk? ( >=x11-libs/fltk-1.1.6[opengl?] )"
+	fltk? ( x11-libs/fltk:1.1[opengl?] )"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_PN}"
