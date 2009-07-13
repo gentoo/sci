@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccpn-2.0.7.1-r2 (13 Jul 2009)
+
+  13 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +ccpn-2.0.7.1-r2.ebuild:
+  ssl in python needed for icinq
+  EAPI=2
+
   21 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   fix python >2.4 incompatibility
 
