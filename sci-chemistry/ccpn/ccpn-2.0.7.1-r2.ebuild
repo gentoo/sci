@@ -35,6 +35,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	distutils_src_prepare
 	echo "" > "${S}"/ccpnmr2.0/c/environment.txt || die "failed to kill environment.txt"
 }
 
@@ -133,7 +134,7 @@ src_install() {
 	eend
 
 	if [[ ${PYVER} > 2.4 ]]; then
-		for i in ccpnmr2.0/pythonpython/memops/format/compatibility/{Converters,part2/Converters2}.py; do
+		for i in ccpnmr2.0/python/memops/format/compatibility/{Converters,part2/Converters2}.py; do
 			sed \
 				-e 's:#from __future__:from __future__:g' \
 				-i ${i}

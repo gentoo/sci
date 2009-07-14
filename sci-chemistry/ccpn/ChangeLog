@@ -2,6 +2,16 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -ccpn-2.0.7.1-r1.ebuild, ccpn-2.0.7.1-r2.ebuild,
+  -files/missing-link.patch:
+  QA typo fixed and old patch removed
+
+  14 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -ccpn-2.0.7.1-r1.ebuild, ccpn-2.0.7.1-r2.ebuild,
+  -files/missing-link.patch:
+  removed old version and patches
+
 *ccpn-2.0.7.1-r2 (13 Jul 2009)
 
   13 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
