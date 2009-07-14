@@ -255,6 +255,7 @@ src_compile() {
 		--disable-cctbx \
 		--disable-phaser \
 		--disable-clipper \
+		--disable-mosflm \
 		--disable-mrbump \
 		--tmpdir="${TMPDIR}" \
 		${GENTOO_OSNAME} || die "econf failed"
@@ -278,7 +279,7 @@ src_compile() {
 	emake || die
 	popd 2>/dev/null
 
-	emake -j1 || die "emake failed"
+	emake || die "emake failed"
 }
 
 src_install() {
