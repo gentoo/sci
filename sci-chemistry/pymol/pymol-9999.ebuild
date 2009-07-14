@@ -7,7 +7,7 @@ EAPI="2"
 PYTHON_MODNAME="chempy pmg_tk pymol"
 APBS_PATCH="090618"
 
-inherit distutils subversion
+inherit distutils subversion flag-o-matic
 
 ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
 
@@ -16,7 +16,7 @@ HOMEPAGE="http://pymol.sourceforge.net/"
 SRC_URI="apbs? ( http://dev.gentooexperimental.org/~jlec/distfiles/apbs_tools.py.${APBS_PATCH}.bz2 )"
 
 LICENSE="PSF-2.2"
-IUSE="apbs shaders"
+IUSE="apbs numpy shaders vmd"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
@@ -54,13 +54,28 @@ src_prepare() {
 		-e "s:\(ext_comp_args=\).*:\1[]:g" \
 		"${S}"/setup.py
 
-	use shaders && epatch "${FILESDIR}"/${P}-shaders.patch
+	use shaders && \
+		sed \
+			-e '/PYMOL_OPENGL_SHADERS/s:^#::g' \
+			-i setup.py
 
 	if use apbs; then
 		cp -f "${WORKDIR}"/apbs_tools.py.${APBS_PATCH} modules/pmg_tk/startup/apbs_tools.py || die
 		sed "s:LIBANDPYTHON:$(python_get_libdir):g" \
 			-i modules/pmg_tk/startup/apbs_tools.py || die
 	fi
+
+	use vmd && \
+		sed \
+			-e 's:\] + 0 \* \[:] + 1 * [:g' \
+			-e '/contrib\/uiuc\/plugins/s:^#::g' \
+			-e '/PYMOL_VMD_PLUGINS/s:^#::g' \
+			-i setup.py
+
+	use numpy && \
+		sed \
+			-e '/PYMOL_NUMPY/s:^#::g' \
+			-i setup.py
 }
 
 src_configure() {

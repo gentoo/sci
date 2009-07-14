@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> pymol-9999.ebuild,
+  -pymol-9999-r1.ebuild:
+  live ebuilds are live ebuilds and do not have revisions
+
   10 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   pymol-1.2_rc0.ebuild, pymol-1.2_rc1.ebuild, pymol-9999.ebuild,
   pymol-9999-r1.ebuild:
