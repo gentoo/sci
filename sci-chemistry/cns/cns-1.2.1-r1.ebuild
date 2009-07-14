@@ -14,7 +14,7 @@ DESCRIPTION="Crystallography and NMR System"
 HOMEPAGE="http://cns.csb.yale.edu/"
 SRC_URI="!openmp? ( ${MY_P}_all.tar.gz )
 	openmp? ( ${MY_P}_all-mp.tar.gz )
-	aria? ( aria2.2_p2.tar.gz )"
+	aria? ( aria2.2.tar.gz )"
 
 SLOT="0"
 LICENSE="cns"
