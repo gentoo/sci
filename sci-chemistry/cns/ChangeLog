@@ -1,0 +1,85 @@
+# ChangeLog for sci-chemistry/cns
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*cns-1.2.1-r1 (14 Jul 2009)
+
+  14 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/1.2.1-allow-gcc-openmp.patch, +cns-1.2.1-r1.ebuild,
+  +files/1.2.1-aria.patch, +files/1.2.1-gentoo.patch,
+  +files/1.2-allow-unknown-architectures.patch, +files/cns_solve_env_sh,
+  +metadata.xml:
+  Added support for sci-chemistry/aria
+  EAPI=2
+  Some rearangements in ebuild mainly to make it more clear
+  fixes for bug 247579 and 276308
+  LDFLAGS are respected now
+  fixed runtime error on amd64
+
+  07 Jul 2009; Diego E. Pettenò <flameeyes@gentoo.org> cns-1.2.1.ebuild:
+  Use elog for fetch error.
+
+  29 May 2009; Donnie Berkholz <dberkholz@gentoo.org>; cns-1.2.1.ebuild:
+  Stable on amd64.
+
+  17 Oct 2008; Markus Meier <maekke@gentoo.org> metadata.xml:
+  openmp USE-flag is global now
+
+  20 Aug 2008; Donnie Berkholz <dberkholz@gentoo.org>; cns-1.2.1.ebuild:
+  Only append -fopenmp to FFLAGS, not all compiler flags.
+
+*cns-1.2.1 (03 Aug 2008)
+
+  03 Aug 2008; Donnie Berkholz <dberkholz@gentoo.org>;
+  +files/1.2.1-allow-gcc-openmp.patch, +files/cns_solve_env_sh,
+  metadata.xml, +cns-1.2.1.ebuild:
+  Bump. Keyword ~amd64; add OpenMP support for parallel refinement;
+  (#209805) Fix a number of environment variables and cns_ functions to work
+  properly.
+
+  03 Jun 2008; Michael Sterrett <mr_bones_@gentoo.org> cns-1.1.ebuild,
+  cns-1.2.ebuild, cns-1.2-r1.ebuild:
+  remove reference to app-shells/csh which has been removed
+
+  10 Jan 2008; Donnie Berkholz <dberkholz@gentoo.org>;
+  +files/1.2-allow-unknown-architectures.patch, cns-1.2-r1.ebuild:
+  Add a patch to make CNS compile on unknown architecture/OS combinations, of
+  which ppc is one.
+
+*cns-1.2-r1 (07 Dec 2007)
+
+  07 Dec 2007; Donnie Berkholz <dberkholz@gentoo.org>; +cns-1.2-r1.ebuild:
+  Fix non-g77 build; make cns_web work; install the environment script to
+  /etc/profile.d/ so people don't need to manually source it; also install the
+  (hidden) bash/sh-compatible script; don't pass LDFLAGS because gfortran
+  doesn't deal with them properly.
+
+*cns-1.2 (22 Jun 2007)
+
+  22 Jun 2007; Donnie Berkholz <dberkholz@gentoo.org>; cns-1.1.ebuild,
+  +cns-1.2.ebuild:
+  (#162740) Bump.
+
+  15 Mar 2007; Danny van Dyk <kugelfang@gentoo.org> cns-1.1.ebuild:
+  QA: Removed illegal use of ${ROOT}. Bug #168043
+
+  20 Sep 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  (#148281) Change herd to sci-chemistry from sci.
+
+  05 Aug 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Remove myself as maintainer, anyone feel free to work on this, although I'll
+  continue to do so as well.
+
+  09 Jul 2006; Donnie Berkholz <dberkholz@gentoo.org>; cns-1.1.ebuild:
+  x86/ppc stable.
+
+  07 Jul 2006; Donnie Berkholz <spyderous@gentoo.org>; metadata.xml:
+  Update to my new email address.
+
+*cns-1.1 (10 Jun 2006)
+
+  10 Jun 2006; Donnie Berkholz <dberkholz@gentoo.org>;
+  +files/1.1-time-length-10.patch, +metadata.xml, +cns-1.1.ebuild:
+  Add CNS, an important package in X-ray crystallography and nuclear magnetic
+  resonance (NMR).
+
