@@ -1,0 +1,67 @@
+diff -arNu -uraN clipper-2.1/clipper/ccp4/Makefile.am clipper-2.1.new/clipper/ccp4/Makefile.am
+--- clipper-2.1/clipper/ccp4/Makefile.am	2009-05-22 12:25:04.000000000 +0200
++++ clipper-2.1.new/clipper/ccp4/Makefile.am	2009-07-11 00:08:55.000000000 +0200
+@@ -23,4 +23,4 @@
+ 
+ libclipper_ccp4_la_LDFLAGS = -version-info @CLIPPER_LT_VERSION@
+ 
+-
++libclipper_ccp4_la_LIBADD = $(CCP4_LIBS)
+diff -arNu -uraN clipper-2.1/clipper/cif/Makefile.am clipper-2.1.new/clipper/cif/Makefile.am
+--- clipper-2.1/clipper/cif/Makefile.am	2009-05-22 12:25:05.000000000 +0200
++++ clipper-2.1.new/clipper/cif/Makefile.am	2009-07-11 00:11:27.000000000 +0200
+@@ -17,4 +17,4 @@
+ 
+ libclipper_cif_la_LDFLAGS = -version-info @CLIPPER_LT_VERSION@
+ 
+-
++libclipper_cif_la_LIBADD = $(MMDB_LIBS)
+diff -arNu -uraN clipper-2.1/clipper/core/Makefile.am clipper-2.1.new/clipper/core/Makefile.am
+--- clipper-2.1/clipper/core/Makefile.am	2009-05-22 12:25:07.000000000 +0200
++++ clipper-2.1.new/clipper/core/Makefile.am	2009-07-11 00:12:57.000000000 +0200
+@@ -95,4 +95,4 @@
+ 
+ libclipper_core_la_LDFLAGS = -version-info @CLIPPER_LT_VERSION@
+ 
+-
++libclipper_core_la_LIBADD = $(FFTW_LIBS) -lpthread
+diff -arNu -uraN clipper-2.1/clipper/Makefile.am clipper-2.1.new/clipper/Makefile.am
+--- clipper-2.1/clipper/Makefile.am	2009-05-22 12:25:03.000000000 +0200
++++ clipper-2.1.new/clipper/Makefile.am	2009-07-11 00:12:01.000000000 +0200
+@@ -4,7 +4,7 @@
+ 
+ 
+ SUBDIRS = \
+-     ${CLIPPER_CCP4_DIR} ${CLIPPER_CIF_DIR} ${CLIPPER_CNS_DIR} contrib core ${CLIPPER_MINIMOL_DIR} ${CLIPPER_MMDB_DIR} ${CLIPPER_PHS_DIR}
++     ${CLIPPER_MMDB_DIR} ${CLIPPER_CCP4_DIR} ${CLIPPER_CIF_DIR} ${CLIPPER_CNS_DIR} contrib core ${CLIPPER_MINIMOL_DIR} ${CLIPPER_PHS_DIR}
+ 
+ INCLUDES=${FFTW_CXXFLAGS}
+ 
+diff -arNu -uraN clipper-2.1/clipper/minimol/Makefile.am clipper-2.1.new/clipper/minimol/Makefile.am
+--- clipper-2.1/clipper/minimol/Makefile.am	2009-05-22 12:25:04.000000000 +0200
++++ clipper-2.1.new/clipper/minimol/Makefile.am	2009-07-11 00:09:52.000000000 +0200
+@@ -27,4 +27,4 @@
+ 
+ libclipper_minimol_la_LDFLAGS = -version-info @CLIPPER_LT_VERSION@
+ 
+-
++libclipper_minimol_la_LIBADD = $(top_builddir)/clipper/mmdb/libclipper-mmdb.la
+diff -arNu -uraN clipper-2.1/clipper/mmdb/Makefile.am clipper-2.1.new/clipper/mmdb/Makefile.am
+--- clipper-2.1/clipper/mmdb/Makefile.am	2009-05-22 12:25:05.000000000 +0200
++++ clipper-2.1.new/clipper/mmdb/Makefile.am	2009-07-11 00:12:19.000000000 +0200
+@@ -17,4 +17,4 @@
+ 
+ libclipper_mmdb_la_LDFLAGS = -version-info @CLIPPER_LT_VERSION@
+ 
+-
++libclipper_mmdb_la_LIBADD = $(MMDB_LIBS)
+diff -arNu -uraN clipper-2.1/examples/Makefile.am clipper-2.1.new/examples/Makefile.am
+--- clipper-2.1/examples/Makefile.am	2009-05-22 12:25:08.000000000 +0200
++++ clipper-2.1.new/examples/Makefile.am	2009-07-11 00:13:24.000000000 +0200
+@@ -40,5 +40,4 @@
+       $(top_builddir)/clipper/minimol/libclipper-minimol.la \
+       $(top_builddir)/clipper/mmdb/libclipper-mmdb.la \
+-      $(top_builddir)/clipper/core/libclipper-core.la \
+-      -lpthread
++      $(top_builddir)/clipper/core/libclipper-core.la
+

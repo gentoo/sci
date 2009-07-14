@@ -23,8 +23,8 @@ src_unpack() {
 	# ccp4 provides these, and more.
 	sed -i -e "s:examples::g" "${S}"/Makefile.am
 
-	epatch "${FILESDIR}"/as-needed.patch \
-		"${FILESDIR}"/${PV}-missing-var.patch
+	epatch "${FILESDIR}"/20081201-as-needed.patch \
+		"${FILESDIR}"/${PV}-typo.patch
 
 	AT_M4DIR="config" eautoreconf
 }
