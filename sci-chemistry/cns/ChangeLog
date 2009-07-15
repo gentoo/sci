@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  cns-1.2.1-r1.ebuild, files/cns_solve_env_sh:
+  Upstream only supplies openmp enabled version
+
 *cns-1.2.1-r1 (14 Jul 2009)
 
   14 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

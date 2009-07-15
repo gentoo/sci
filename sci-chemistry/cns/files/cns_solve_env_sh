@@ -16,7 +16,7 @@
 # CHANGE THE NEXT LINE TO POINT TO THE LOCATION OF THE CNSsolve DIRECTORY
 
 	CNS_SOLVE=_CNSsolve_location_
-	
+
 #
 # ==========================================================================
 #
@@ -43,6 +43,9 @@ else
   export CNS_ARCH; CNS_ARCH='unknown'
 fi
 #
+# system variables (this is needed for openmp)
+#
+ulimit -s unlimited
 # ==========================================================================
 #
 # general environmental variables
