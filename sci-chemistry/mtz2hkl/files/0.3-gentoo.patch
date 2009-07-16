@@ -1,0 +1,24 @@
+--- Makefile	2009-07-16 13:40:43.000000000 +0200
++++ Makefile.new	2009-07-16 22:09:28.000000000 +0200
+@@ -1,9 +1,9 @@
+ CXX=g++
+ TARGET=mtz2hkl
+ GPP4=/usr/local/crystallography/libs/gpp4-1.0.4
+-INCL=-I${GPP4}/include/gpp4
+-CFLAGS=-O3 -fPIC
+-LIBS=-L${GPP4}/lib -lgpp4
++INCL=-I/usr/include/cpp4
++CFLAGS+=-fPIC
++LIBS=-lccp4c
+ 
+ LDFLAGS=-static
+ 
+@@ -16,7 +16,7 @@
+ 		utils.o
+ 		
+ all:	${OBJS}
+-		${CXX} ${CFLAG} ${OBJS} ${LIBS} ${LDFLAGS} -o ${TARGET}
++		${CXX} ${CFLAGS} ${LDFLAGS} -o ${TARGET} ${OBJS} ${LIBS}
+ 		
+ %.o:	%.cpp %.h defines.h
+ 		${CXX} ${CFLAGS} ${INCL} -c $<
