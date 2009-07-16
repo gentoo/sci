@@ -1,0 +1,26 @@
+--- Makefile	2007-11-19 09:20:45.000000000 +0100
++++ Makefile.new	2009-07-16 22:42:22.000000000 +0200
+@@ -1,11 +1,11 @@
+ CC      = gcc
+ CXX     = g++
+ CFLAGS  = -g
+-COPT    = -O2
++COPT    = 
+ DEFS    = 
+ CCP4    = /usr/local/crystallography/libs/gpp4-1.0.4
+-LDFLAGS = -static -L${CCP4}/lib -lgpp4
+-INCL    = -I${CCP4}/include/gpp4
++LIBS = -lccp4c
++INCL    = -I/usr/include/cpp4
+ TARGET  = mtz2sca
+ OBJS    = label.o \
+ 	  mtzin.o \
+@@ -17,7 +17,7 @@
+ 	  mtz2sca.o
+ 	  
+ all:	$(OBJS) defines.h
+-	$(CXX) $(CFLAGS) $(DEFS) $(INCL) $(OBJS)  -o $(TARGET) $(LDFLAGS)
++	$(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(DEFS) $(INCL) $(OBJS) $(LIBS)
+ 
+ %.o:	%.cpp defines.h
+ 	$(CXX) -c $(INCL) $(DEFS) $(CFLAGS) $(COPT) $<
