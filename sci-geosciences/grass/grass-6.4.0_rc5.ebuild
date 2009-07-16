@@ -39,7 +39,8 @@ RDEPEND=">=sys-libs/zlib-1.1.4
 	opengl? ( virtual/opengl )
 	motif? ( x11-libs/openmotif )
 	png? ( >=media-libs/libpng-1.2.2 )
-	postgres? ( >=dev-db/postgresql-base-8.3 )
+	postgres? ( virtual/postgresql-base
+			dev-db/postgis )
 	python? ( dev-lang/python )
 	readline? ( sys-libs/readline )
 	sqlite? ( dev-db/sqlite )
