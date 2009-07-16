@@ -4,8 +4,8 @@
 
 inherit base toolchain-funcs
 
-DESCRIPTION="Intended to facilitate the transition from refmac5 refinement to shelxh or shelxl refinement"
-HOMEPAGE="http://shelx.uni-ac.gwdg.de/~tg/mtz2x/mtz2hkl/mtz2hkl.php"
+DESCRIPTION="Converts CCP4 mtz-files containing anomalous data to Scalepack format"
+HOMEPAGE="http://shelx.uni-ac.gwdg.de/~tg/mtz2x/mtz2sca"
 SRC_URI="http://shelx.uni-ac.gwdg.de/~tg/mtz2x/${PN}/binaries/${PV}/${PN}_v${PV}.tar.gz"
 
 LICENSE="GPL-3"
