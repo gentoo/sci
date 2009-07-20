@@ -17,7 +17,6 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P1}.tar.gz
 		${BASE_TEST_URI}/${MY_P2}_Data_Files_Input.tar.gz
 		${BASE_TEST_URI}/${MY_P2}_Data_Files_Output.tar.gz
 	)"
-#http://www.bernstein-plus-sons.com/software/${MY_P}.tar.gz
 
 LICENSE="GPL-2"
 SLOT="0"

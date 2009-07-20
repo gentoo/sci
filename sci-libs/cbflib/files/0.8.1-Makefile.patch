@@ -138,7 +138,7 @@ Makefile > Makefile.new
 -	$(CC) $(CFLAGS) $(INCLUDES) $(WARNINGS) \
 -		      $(EXAMPLES)/makecbf.c  -L$(LIB) \
 -		  -lcbf -lm -limg -o $@
-+$(BIN)/makecbf: $(SOLIB)/libcbf.so $(EXAMPLES)/makecbf.c $(LIB)/libimg.a
++$(BIN)/makecbf: $(SOLIB)/libcbf.so $(EXAMPLES)/makecbf.c $(SOLIB)/libimg.so
 +	$(CC) $(CFLAGS) $(SOCFLAGS) $(LDFLAGS) $(SOLDFLAGS) -o $@ $(INCLUDES) $(WARNINGS) \
 +		      $(EXAMPLES)/makecbf.c  -L$(SOLIB) \
 +		  -lcbf -lm -limg
@@ -172,7 +172,7 @@ Makefile > Makefile.new
  # img2cif example program
  #
 -$(BIN)/img2cif: $(LIB)/libcbf.a $(EXAMPLES)/img2cif.c $(LIB)/libimg.a \
-+$(BIN)/img2cif: $(SOLIB)/libcbf.so $(EXAMPLES)/img2cif.c $(LIB)/libimg.a \
++$(BIN)/img2cif: $(SOLIB)/libcbf.so $(EXAMPLES)/img2cif.c $(SOLIB)/libimg.so \
  					$(GOPTLIB) 	$(GOTPINC)
 -	$(CC) $(CFLAGS) $(INCLUDES) $(WARNINGS) \
 -		      $(EXAMPLES)/img2cif.c $(GOPTLIB) -L$(LIB) \
@@ -185,7 +185,7 @@ Makefile > Makefile.new
  # cif2cbf example program
  #
 -$(BIN)/cif2cbf: $(LIB)/libcbf.a $(EXAMPLES)/cif2cbf.c $(LIB)/libimg.a \
-+$(BIN)/cif2cbf: $(SOLIB)/libcbf.so $(EXAMPLES)/cif2cbf.c $(LIB)/libimg.a \
++$(BIN)/cif2cbf: $(SOLIB)/libcbf.so $(EXAMPLES)/cif2cbf.c $(SOLIB)/libimg.so \
  					$(GOPTLIB)	$(GOPTINC)
 -	$(CC) $(CFLAGS) $(INCLUDES) $(WARNINGS) \
 -		      $(EXAMPLES)/cif2cbf.c $(GOPTLIB) -L$(LIB) \
