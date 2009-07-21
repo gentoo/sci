@@ -2,7 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
-inherit eutils multilib
+EAPI="2"
+
+inherit eutils multilib flag-o-matic
 
 DESCRIPTION="A three-dimensional finite element mesh generator with built-in pre- and post-processing facilities."
 HOMEPAGE="http://www.geuz.org/gmsh/"
@@ -14,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="chaco cgns doc examples jpeg metis opencascade png zlib X"
 
 RDEPEND="sci-libs/gsl
-	x11-libs/fltk
+	x11-libs/fltk:1.1
 	cgns? ( sci-libs/cgnslib )
 	jpeg? ( media-libs/jpeg )
 	opencascade? ( sci-libs/opencascade )
@@ -24,22 +26,21 @@ RDEPEND="sci-libs/gsl
 DEPEND="${RDEPEND}
 	doc? ( virtual/latex-base )"
 
-src_unpack() {
-	unpack ${A}
+src_prepare() {
 	cd "${S}"
 	epatch "${FILESDIR}"/${P}.patch
-
-	if use cgns && built_with_use sci-libs/cgnslib hdf5; then
-		epatch "${FILESDIR}"/${P}_hdf5.patch
-	fi
 }
 
-src_compile() {
+src_configure() {
 	local myconf=""
 	use opencascade && myconf="${myconf} --with-occ-prefix=$CASROOT/lin"
 
-	# As for now, the MED integration doesnot compile
+	# As for now, the MED integration does not compile
 	myconf="${myconf} --disable-med"
+
+	# I'm not sure if this is neede, but it seems to help in some circumstances
+	# see http://bugs.gentoo.org/show_bug.cgi?id=195980#c18
+	append-ldflags -ldl
 
 	econf ${myconf} \
 		$(use_enable X gui) \
@@ -50,7 +51,9 @@ src_compile() {
 		$(use_enable png) \
 		$(use_enable chaco) \
 		$(use_enable zlib)
+}
 
+src_compile() {
 	emake -j1 || die "emake failed"
 
 	if use doc ; then

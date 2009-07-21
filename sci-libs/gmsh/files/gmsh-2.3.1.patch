@@ -1,5 +1,5 @@
---- gmsh-2.3.0/configure.orig	2009-02-22 15:06:28.000000000 +0100
-+++ gmsh-2.3.0/configure	2009-02-22 15:08:41.000000000 +0100
+--- gmsh-2.3.1/configure.orig	2009-02-22 15:06:28.000000000 +0100
++++ gmsh-2.3.1/configure	2009-02-22 15:08:41.000000000 +0100
 @@ -3714,7 +3714,7 @@
  
    GMSH_DIRS="Common Geo Mesh Post Plugin Numeric Parser Graphics Fltk"
