@@ -6,7 +6,7 @@ EAPI=2
 NEED_PYTHON=2.4
 inherit distutils
 
-WCS_V=4.3
+WCS_V=4.3.3
 MYP="${P}-${WCS_V}"
 
 DESCRIPTION="Python routines for handling the FITS World Coordinate System"
@@ -14,7 +14,7 @@ HOMEPAGE="https://www.stsci.edu/trac/ssb/astrolib/"
 SRC_URI="http://stsdas.stsci.edu/astrolib/${MYP}.tar.gz"
 
 DEPEND="dev-python/pyfits"
-# FIX: wcslib is shipped
+# FIX: remove shipped wcslib to use system one
 RDEPEND="${DEPEND}"
 
 IUSE=""
