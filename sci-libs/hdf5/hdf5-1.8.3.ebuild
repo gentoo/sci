@@ -15,8 +15,7 @@ KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86 ~sparc"
 
 IUSE="cxx examples fortran mpi szip threads zlib"
 
-#RDEPEND="mpi? ( virtual/mpi[romio] )
-RDEPEND="mpi? ( virtual/mpi )
+RDEPEND="mpi? ( virtual/mpi[romio] )
 	szip? ( >=sci-libs/szip-2.1 )
 	zlib? ( sys-libs/zlib )"
 
