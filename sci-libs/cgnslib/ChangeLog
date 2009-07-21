@@ -3,6 +3,9 @@
 # $Header: $
 
   21 Jul 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  Installs ADF.h even without hdf5 USE-flag
+
+  21 Jul 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Added patches from debian, changed to EAPI=2
 
   26 Aug 2008; Oliver Borm (boroli) <oli.borm@web.de> +cgnslib-2.5.3.ebuild,

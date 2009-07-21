@@ -1,6 +1,6 @@
 --- cgnslib_2.5.orig/Makefile.in	2008-01-19 04:45:16.000000000 +0100
 +++ cgnslib_2.5/Makefile.in	2008-10-16 00:31:07.000000000 +0200
-@@ -75,15 +75,17 @@
+@@ -75,15 +75,18 @@
  	-$(RM) config.log config.status Makefile
  
  install : $(CGNSLIB)
@@ -12,6 +12,7 @@
 +	$(INSTALL_DATA) -D cgnslib_f.h $(DESTDIR)/$(INCLUDEDIR)/cgnslib_f.h
 +	$(INSTALL_DATA) -D cgnswin_f.h $(DESTDIR)/$(INCLUDEDIR)/cgnswin_f.h
 +	$(INSTALL_DATA) -D cgns_header.h $(DESTDIR)/$(INCLUDEDIR)/cgns_header.h
++	$(INSTALL_DATA) -D adf/ADF.h $(DESTDIR)/$(INCLUDEDIR)/adf/ADF.h
 +	$(INSTALL_DATA) -D $(CGNSLIB) $(DESTDIR)/$(LIBDIR)/$(INSTLIB).2.0.0
 +	(cd $(DESTDIR)/$(LIBDIR)/; ln -s $(INSTLIB).2.0.0 $(INSTLIB); ln -s $(INSTLIB).2.0.0 $(INSTLIB).2)
  

@@ -1,9 +1,10 @@
 --- cgnslib_2.5.orig/Makefile.in	2008-01-19 04:45:16.000000000 +0100
 +++ cgnslib_2.5/Makefile.in	2008-10-16 00:31:07.000000000 +0200
-@@ -79,6 +79,10 @@
+@@ -79,7 +79,10 @@
 	$(INSTALL_DATA) -D cgnslib_f.h $(DESTDIR)/$(INCLUDEDIR)/cgnslib_f.h
 	$(INSTALL_DATA) -D cgnswin_f.h $(DESTDIR)/$(INCLUDEDIR)/cgnswin_f.h
 	$(INSTALL_DATA) -D cgns_header.h $(DESTDIR)/$(INCLUDEDIR)/cgns_header.h
+-	$(INSTALL_DATA) -D adf/ADF.h $(DESTDIR)/$(INCLUDEDIR)/adf/ADF.h
 +	$(INSTALL_DATA) -D adfh/ADF.h $(DESTDIR)/$(INCLUDEDIR)/adfh/ADF.h
 +	$(INSTALL_DATA) -D adfh/ADFH.h $(DESTDIR)/$(INCLUDEDIR)/adfh/ADFH.h
 +	$(INSTALL_DATA) -D $(OBJDIR)/adf2hdf$(EXE) $(DESTDIR)/usr/bin/adf2hdf$(EXE)
