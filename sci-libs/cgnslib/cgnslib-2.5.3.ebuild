@@ -46,4 +46,5 @@ src_configure() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
+	fperms 755 /usr/bin/{hdf2adf,adf2hdf}
 }

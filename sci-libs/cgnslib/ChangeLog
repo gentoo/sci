@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Jul 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  executable rights for adf2hdf/hdf2adf
+
   21 Jul 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Installs ADF.h even without hdf5 USE-flag
 
