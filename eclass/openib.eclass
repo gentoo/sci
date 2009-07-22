@@ -27,8 +27,8 @@ case ${OFED_VER} in
 	1.4)
 		SRC_URI="http://www.openfabrics.org/downloads/OFED/ofed-1.4/OFED-1.4.tgz"
 		;;
-	1.4.1-rc2)
-		SRC_URI="http://www.openfabrics.org/downloads/OFED/ofed-1.4.1/OFED-1.4.1-rc2.tgz"
+	1.4.1)
+		SRC_URI="http://www.openfabrics.org/downloads/OFED/ofed-1.4.1/OFED-1.4.1.tgz"
 		;;
 esac
 
