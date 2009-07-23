@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cpl-5.0.1 (23 Jul 2009)
+
+  23 Jul 2009; Sébastien Fabbro <bicatali@gentoo.org> +cpl-5.0.1.ebuild:
+  Version bump
+
 *cpl-4.2.0-r2 (26 Feb 2009)
 
   26 Feb 2009; Sébastien Fabbro <bicatali@gentoo.org> -cpl-4.2.0-r1.ebuild,
