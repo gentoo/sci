@@ -8,7 +8,7 @@ DESCRIPTION="Collection of python tools for astronomy"
 HOMEPAGE="http://www.astro.rug.nl/software/kapteyn"
 SRC_URI="${HOMEPAGE}/${P}.tar.gz"
 
-LICENSE=""
+LICENSE="BSD"
 SLOT="0"
 
 KEYWORDS="~amd64 ~x86"
