@@ -2,6 +2,16 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 July 2009; David Radice <david.e.pi.3.14@gmail.com>
+  +freefem++-3.4.ebuild, +files/freefem++-3.4-mortar-DN-4.patch,
+  +files/freefem++-3.4-no-doc-autobuild.patch, -freefem++-3.2.ebuild,
+  -files/freefem++-lamboot.patch, -files/freefem++-make-clean.patch,
+  -files/freefem++-opengl-automagic.patch:
+  Version bump, fix dependencies for document building, cleanup
+  old files for freefem++-3.2.
+
+*freefem++-3.4 (24 July 2009)
+
   13 June 2009; David Radice <david.e.pi.3.14@gmail.com>
   +freefem++-3.3.ebuild, +files/freefem++-no-doc-autobuild.patch:
   Version bump, now FHS compliant.
