@@ -37,6 +37,13 @@ RDEPEND="sci-libs/fftw
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	doc? (
+		|| (
+			(
+				dev-texlive/texlive-latexrecommended
+				dev-texlive/texlive-latexextra
+			)
+			app-text/ptex
+			)
 		virtual/latex-base
 		media-gfx/imagemagick
 		)"
@@ -46,16 +53,13 @@ S="${WORKDIR}/${PN}-${MY_PV}"
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-	# fix opengl automagic dependency
-	epatch "${FILESDIR}"/${PN}-opengl-automagic.patch
 	# acoptim.m4 forced -O2 removal
 	epatch "${FILESDIR}"/${PN}-acoptim.patch
-	# build an X11 version even if there is not an X11R6 directory
-	epatch "${FILESDIR}"/${PN}-no-x11r6-dir.patch
-	# fix make clean
-	epatch "${FILESDIR}"/${PN}-make-clean.patch
-	# do not run lamboot on systems with other MPI implementations
-	epatch "${FILESDIR}"/${PN}-lamboot.patch
+	# do not try to do a forced "manual" installation of
+	# examples and documentation
+	epatch "${FILESDIR}"/${P}-no-doc-autobuild.patch
+	# Fix mortar-DN-4 in testsuite
+	epatch "${FILESDIR}"/${P}-mortar-DN-4.patch
 
 	eautoreconf
 }
@@ -103,6 +107,32 @@ src_test() {
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 
+	# Fixing freefem++.pref
+	dodir /etc
+	cat > "${D}"/etc/freefem++.pref <<EOF
+loadpath += "./"
+loadpath += "/usr/lib/${PN}"
+EOF
+	rm "${D}"/usr/lib/ff++/${MY_PV}/etc/freefem++.pref
+	rmdir "${D}"/usr/lib/ff++/${MY_PV}/etc
+
+	# Move the libraries to the right location
+	dodir /usr/lib/${PN}
+	mv "${D}"/usr/lib/ff++/${MY_PV}/lib/* "${D}"/usr/lib/${PN}
+	rmdir "${D}"/usr/lib/ff++/${MY_PV}/lib
+
+	# Move the headers to the right location
+	dodir /usr/include/${PN}
+	mv "${D}"/usr/lib/ff++/${MY_PV}/include/* "${D}"/usr/include/${PN}
+	rmdir "${D}"/usr/lib/ff++/${MY_PV}/include
+
+	# Remove empty directory tree
+	rmdir "${D}"/usr/lib/ff++/${MY_PV}/idp
+	rmdir "${D}"/usr/lib/ff++/${MY_PV}
+	rmdir "${D}"/usr/lib/ff++
+
+	dodoc AUTHORS INNOVATION HISTORY* README
+
 	insinto /usr/share/doc/${PF}
 	if use doc; then
 		doins DOC/freefem++doc.pdf || die
@@ -121,7 +151,6 @@ src_install() {
 		einfo "in the user folder. For example to run the tutorial examples"
 		einfo "it's better to copy the entire examples++-tutorial folder into"
 		einfo "the user directory."
-		doins regtests.sh
 
 		rm -f examples*/Makefile*
 		doins -r examples*
