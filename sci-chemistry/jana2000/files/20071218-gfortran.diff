@@ -1,0 +1,63 @@
+--- Makefile	2007-11-15 11:29:30.000000000 +0100
++++ Makefile.gfortran	2009-07-21 00:12:38.000000000 +0200
+@@ -463,28 +463,28 @@
+ #   ## The command calling Fortran compiler (without options)
+ #   ## gfortran is a successor of g77. It is part of gcc starting
+ #   ## from version 4
+-# FCOM = gfortran
++ FCOM = gfortran
+ #   ## Fortran compiler options
+-# FOPTS = -O2 $(WARN)
++ FOPTS = $(CFLAGS) $(WARN)
+ #   ## path to the C include files
+-# INCLUDE =
++ INCLUDE =
+ #   ## C compiler options
+-# COPTS = -O2 $(WARN) $(INCLUDE)
++ COPTS = $(CFLAGS) $(WARN) $(INCLUDE)
+ #   ## libraries to link
+-# LINKLIBS = -L/usr/X11/lib -L/usr/X11R5/lib -L/usr/X11R6/lib \
+-#            -L/usr/X11R6/lib64 -lX11
++ LINKLIBS = -L/usr/X11/lib -L/usr/X11R5/lib -L/usr/X11R6/lib \
++            -L/usr/X11R6/lib64 -lX11
+ #   ## RANLIB is not used, but cannot be empty
+-# RANLIB = echo
++ RANLIB = echo
+ #   ## Fortran compiler adds underscore to each module
+-# UNDERSCORES = define
++ UNDERSCORES = define
+ #   ## Fortran compiler changes the source code to lowercase
+-# LOWER_CASE = define
++ LOWER_CASE = define
+ #
+-# FORCE =              # please don't change this setting
+-# PREPARE = prepare    # please don't change this setting
+-# PROG = jana2000      # please don't change this setting
+-# CN11= a#             # please don't change this setting
+-# INFO = LINUX - gfortran compiler # please don't change this setting
++ FORCE =              # please don't change this setting
++ PREPARE = prepare    # please don't change this setting
++ PROG = jana2000      # please don't change this setting
++ CN11= a#             # please don't change this setting
++ INFO = LINUX - gfortran compiler # please don't change this setting
+ # 
+ ## ******** end of editable section ********
+ 
+@@ -814,7 +814,7 @@
+            cp $(SPECIDIR)/MainUnit.c .; \
+            $(CCOM) $(COPTS) -c MainUnit.c
+ MAKEEXE =  $(EXESPOL); \
+-           $(FCOM) $(FOPTS) -o $$NAME MainUnit.o $$NAME.o $(LIBS) $(LINKLIBS); \
++           $(FCOM) $(FOPTS) $(LDFLAGS) -o $$NAME MainUnit.o $$NAME.o $(LIBS) $(LINKLIBS); \
+            $(RMFILES); \
+            chmod 755 $$NAME
+ MAKEJ2000 =  echo ' '; \
+@@ -837,7 +837,7 @@
+            ($(WRITE_FHEAD)) > $(FHEAD); \
+            cp $(SPECIDIR)/MainUnit.c $(SPECIDIR)/*.h $(FGPATH)/*.h .; \
+            $(CCOM) $(COPTS) -c MainUnit.c; \
+-           $(FCOM) $(FOPTS) -o $$NAME MainUnit.o $(OBJLIST) \
++           $(FCOM) $(FOPTS) $(LDFLAGS) -o $$NAME MainUnit.o $(OBJLIST) \
+              $(LIBS) $(LINKLIBS); \
+            $(RMFILES); \
+            chmod 755 $$NAME; echo ' '
