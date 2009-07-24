@@ -18,7 +18,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="memtrack hpage-patch srp ipath iser ehca mlx4 rds madeye vnic cxgb3 debug"
 
 RDEPEND=""
-PDEPEND="=sys-cluster/openib-files-${PV}"
+PDEPEND="=sys-infiniband/openib-files-${PV}"
 DEPEND="${RDEPEND}
 	virtual/linux-sources"
 

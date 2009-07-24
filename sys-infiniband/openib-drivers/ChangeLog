@@ -1,6 +1,9 @@
-# ChangeLog for sys-cluster/openib-drivers
+# ChangeLog for sys-infiniband/openib-drivers
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  23 Jul 2009; Bryan Green <bryan.d.green@nasa.gov>
+  openib-drivers-1.2.5.5.ebuild: changed sys-cluster to sys-infiniband
 
   19 Mar 2009; Alexey Shvetsov <alexxy@gentoo.org>
   -openib-drivers-1.2.ebuild:
