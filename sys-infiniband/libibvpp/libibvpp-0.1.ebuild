@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,7 +13,7 @@ SRC_URI="http://opensource.arc.nasa.gov/static/opensource/downloads/${P}.tar.gz"
 
 IUSE=""
 
-DEPEND="|| ( sys-cluster/libibverbs sys-cluster/openib-userspace )"
+DEPEND="|| ( sys-infiniband/libibverbs sys-infiniband/openib-userspace )"
 RDEPEND="${DEPEND}"
 
 src_install() {
