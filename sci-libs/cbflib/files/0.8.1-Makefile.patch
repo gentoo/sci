@@ -55,7 +55,7 @@ Makefile > Makefile.new
  	$(CC) $(CFLAGS) $(SOCFLAGS) $(INCLUDES) $(WARNINGS) -c $(SOURCE)
 -	$(CC) -o $@ *.o $(SOLDFLAGS)
 -	rm *.o
-+	$(CC) $(LDFLAGS) $(SOCFLAGS) $(SOLDFLAGS) -o $@ *.o
++	$(CC) $(LDFLAGS) $(SOCFLAGS) $(SOLDFLAGS) -o $@ *.o -lgfortran
  
  #
  # IMG library
