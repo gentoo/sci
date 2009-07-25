@@ -1,0 +1,19 @@
+--- Makefile	2009-07-08 03:46:28.000000000 +0200
++++ Makefile.new	2009-07-25 11:37:02.000000000 +0200
+@@ -112,11 +112,11 @@
+ 
+ COMPILE_COMMAND        =  $(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(INCLUDES) $(WARNINGS) -c
+ CPPCOMPILE_COMMAND     =  $(LIBTOOL) --mode=compile $(CXX) $(CFLAGS) $(INCLUDES) $(WARNINGS) -c
+-LIBRARY_LINK_COMMAND   =  $(LIBTOOL) --mode=link  $(CC) -version-info $(VERSION) -release $(RELEASE) -no-undefined -rpath $(INSTALL_PREFIX)/lib
+-BUILD_COMMAND_LOCAL    =  $(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(INCLUDES)
+-CPPBUILD_COMMAND_LOCAL =  $(LIBTOOL) --mode=link $(CXX) -no-undefined $(CFLAGS) $(INCLUDES)
+-BUILD_COMMAND_DYNAMIC  =  $(LIBTOOL) --mode=link $(CC) -no-undefined $(CFLAGS) -shared -I$(INSTALL_PREFIX)/include
+-BUILD_COMMAND_STATIC   =  $(LIBTOOL) --mode=link $(CC) $(CFLAGS) -static-libtool-libs -I$(INSTALL_PREFIX)/include
++LIBRARY_LINK_COMMAND   =  $(LIBTOOL) --mode=link  $(CC) -version-info $(VERSION) -release $(RELEASE) -no-undefined $(LDFLAGS)
++BUILD_COMMAND_LOCAL    =  $(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES)
++CPPBUILD_COMMAND_LOCAL =  $(LIBTOOL) --mode=link $(CXX) -no-undefined $(CFLAGS) $(LDFLAGS) $(INCLUDES)
++BUILD_COMMAND_DYNAMIC  =  $(LIBTOOL) --mode=link $(CC) -no-undefined $(CFLAGS) $(LDFLAGS) -shared -I/usr/include
++BUILD_COMMAND_STATIC   =  $(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) -static-libtool-libs -I/usr/include
+ INSTALL_COMMAND        =  $(LIBTOOL) --mode=install cp
+ INSTALL_FINISH_COMMAND =  $(LIBTOOL) --mode=finish
+ 
