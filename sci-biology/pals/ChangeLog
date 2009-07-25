@@ -1,7 +1,0 @@
-# ChangeLog for sci-biology/pals
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  18 Feb 2009; weaver <weaver@gentoo.org> ChangeLog:
-  New package sci-biology/pals, ebuild written by me
-
