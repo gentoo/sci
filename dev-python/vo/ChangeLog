@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/vo
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*vo-0.3.1 (21 Jul 2009)
+
+  21 Jul 2009; Sébastien Fabbro <bicatali@gentoo.org> +vo-0.3.1.ebuild,
+  +files/vo-0.3.1-docs.patch, +metadata.xml:
+  Initial import
+

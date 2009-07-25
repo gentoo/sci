@@ -27,7 +27,7 @@ DEPEND="dev-util/cmake
 		>=sci-libs/geos-3.0.0
 		sci-libs/proj
 		sqlite? ( dev-db/sqlite:3 )
-		postgres? ( >=virtual/postgresql-base-8
+		postgres? ( virtual/postgresql-base
 				dev-db/postgis )
 		grass? ( >=sci-geosciences/grass-6.0.1
 			   sci-libs/gdal-grass )

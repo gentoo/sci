@@ -1,0 +1,20 @@
+--- gmsh-2.3.1/configure.orig	2009-02-22 15:06:28.000000000 +0100
++++ gmsh-2.3.1/configure	2009-02-22 15:08:41.000000000 +0100
+@@ -3714,7 +3714,7 @@
+ 
+   GMSH_DIRS="Common Geo Mesh Post Plugin Numeric Parser Graphics Fltk"
+   GMSH_LIBS="-Llib -lGmshFltk -lGmshCommon -lGmshMesh -lGmshGeo -lGmshPost -lGmshPlugin"
+-  GMSH_LIBS="${GMSH_LIBS} -lGmshCommon -lGmshGraphics -lGmshParser -lGmshNumeric"
++  GMSH_LIBS="${GMSH_LIBS} -lGmshCommon -lGmshGraphics -lGmshParser -lGmshNumeric ${LDFLAGS}"
+   cat >>confdefs.h <<\_ACEOF
+ #define HAVE_FLTK 1
+ _ACEOF
+@@ -4884,7 +4884,7 @@
+       GMSH_LIBS="${GMSH_LIBS} ${OCC_LIBS}"
+     else
+       GMSH_LIBS="${GMSH_LIBS} -L${OCC_PREFIX}/lib ${OCC_LIBS}"
+-      FLAGS="${FLAGS} -I${OCC_PREFIX}/inc"
++      FLAGS="${FLAGS} -DHAVE_WOK_CONFIG_H -DFREEBSD -D${ARCH} -I${OCC_PREFIX}/../inc"
+     fi
+   fi
+ fi

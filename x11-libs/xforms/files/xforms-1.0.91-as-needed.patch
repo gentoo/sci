@@ -1,0 +1,10 @@
+--- lib/Makefile.am	2008-09-16 16:42:53.000000000 +0200
++++ lib/Makefile.am.new	2009-07-20 23:00:34.000000000 +0200
+@@ -20,6 +20,7 @@
+ lib_LTLIBRARIES = libforms.la
+ 
+ libforms_la_LDFLAGS = -version-info @SO_VERSION@
++libforms_la_LIBADD = ${XPM_LIB}
+ 
+ libforms_la_SOURCES = \
+ 	align.c \

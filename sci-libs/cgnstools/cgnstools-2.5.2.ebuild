@@ -1,72 +1,54 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit versionator multilib
+EAPI="2"
+
+inherit eutils versionator multilib
 
 MY_P="${PN}-$(replace_all_version_separators '-')"
-MY_LIB_PN="cgnslib_"
-MY_LIB_P="${MY_LIB_PN}$(replace_version_separator 2 '-')"
-MY_LIB_SHORT_P="${MY_LIB_PN}$(get_version_component_range 1-2 ${PV})"
 
 DESCRIPTION="The CFD General Notation System (CGNS) tools."
 HOMEPAGE="http://www.cgns.org/"
-SRC_URI="mirror://sourceforge/cgns/${MY_P}.tar.gz
-	mirror://sourceforge/cgns/${MY_LIB_P}.tar.gz"
+SRC_URI="mirror://sourceforge/cgns/${MY_P}.tar.gz"
 
 LICENSE="ZLIB"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="fortran tcl tk hdf5 szip zlib X"
+IUSE="hdf5 tcl tk X"
 
-RDEPEND="sci-libs/cgnslib
+DEPEND="hdf5? ( sci-libs/cgnslib[hdf5] )
+	!hdf5? ( sci-libs/cgnslib[-hdf5] )
 	tcl? ( dev-lang/tcl )
 	tk? ( dev-lang/tk )"
 
-DEPEND="${RDEPEND}"
+RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/"${PN}"
 
-src_compile() {
-	sed -i -e "s| g77 | gfortran |" \
-	-e 's|-Wl,-rpath,$cgnsdir/\\$(SYSTEM)|-Wl,-soname,libcgns.so|' \
-	-e 's|-Wl,-R,$cgnsdir/\\$(SYSTEM)|-Wl,-soname,libcgns.so|' "${WORKDIR}"/"${MY_LIB_SHORT_P}"/configure
+src_prepare() {
+	cd "${S}"
+	epatch "${FILESDIR}"/${P}.patch
+}
 
-	local myconf
-	use amd64 && myconf="${myconf} --enable-64bit"
-	myconf="${myconf} --enable-gcc"
-	myconf_lib="${myconf} --enable-lfs --enable-shared"
-
-	cd "${WORKDIR}/${MY_LIB_SHORT_P}"
-	econf \
-		$(use_with fortran) \
-		$(use_with hdf5) \
-		$(use_with zlib) \
-		$(use_with szip) \
-		${myconf_lib}
-
+src_configure() {
 	cd "${S}"
 
-	sed -i -e "s|@STRIP@|true|" \
-	-e "s|\\\$(EXE_INSTALL_DIR)/cgnswish|\\\$(EXE_INSTALL_DIR)|" "${S}"/make.defs.in
-
-	sed -i -e "s|CGNSLIB=\\\\\\$\\\(CGNSDIR\\\)/lib/\\\\\\$\\\(LIBCGNS\\\)|CGNSLIB=/usr/$(get_libdir)/libcgns.so|" \
-	-e "s|CGNSLIB=\\\\\\$\\\(CGNSDIR\\\)/\\\\\\$\\\(LIBCGNS\\\)|CGNSLIB=/usr/$(get_libdir)/libcgns.so|" \
-	-e "s|CGNSLIB=\\\$adfhdir/\\\\\\$\\\(SYSTEM\\\)/libcgns.\\\\\\$\\\(A\\\)|CGNSLIB=/usr/$(get_libdir)/libcgns.so|" \
-	-e "s|/unix/|/../|" \
-	-e "s|BIN_INSTALL_DIR/\\\$SYSTEM|BIN_INSTALL_DIR|" "${S}"/configure
-
-	myconf="${myconf} --with-cgns=${WORKDIR}/${MY_LIB_SHORT_P} --bindir=${D}/usr/bin --datadir=${D}/usr/share/${PN}"
+	local myconf
+	myconf="${myconf} --enable-gcc --enable-64bit --with-cgns=/usr/include --bindir=${D}/usr/bin --datadir=${D}/usr/share/${PN}"
+	use hdf5 && myconf="${myconf} --with-adfh=/usr/include/adfh"
 
 	if use tcl ; then
 		TCLVER="$(echo 'puts [info tclversion]' | $(type -P tclsh))"
 		myconf="${myconf} $(use_with tcl tcl /usr/$(get_libdir)/tcl${TCLVER})"
+		sed -i -e "s|TKLIBS = |TKLIBS = -ltcl${TCLVER} |" make.defs.in
 	fi
 
 	if use tk ; then
 		# no, there's no tkversion, and type -P wish requires running X
 		TKVER="$(echo 'puts [info tclversion]' | $(type -P tclsh))"
 		myconf="${myconf} $(use_with tk tk /usr/$(get_libdir)/tk${TKVER})"
+		sed -i -e "s|TKLIBS = |TKLIBS = -ltk${TKVER} |" make.defs.in
 	fi
 
 	econf \
@@ -74,11 +56,9 @@ src_compile() {
 		${myconf} \
 		|| die "econf failed"
 
-	emake || die "emake tools failed"
+	sed -i -e "s|${D}||" cgconfig
 }
 
 src_install() {
-	sed -i -e "s|${D}||" "${S}"/cgconfig
-
 	emake DESTDIR="${D}" install || die "install failed"
 }

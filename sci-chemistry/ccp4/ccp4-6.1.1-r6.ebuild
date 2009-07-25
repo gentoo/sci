@@ -279,7 +279,7 @@ src_compile() {
 	emake || die
 	popd 2>/dev/null
 
-	emake || die "emake failed"
+	emake -j1 || die "emake failed"
 }
 
 src_install() {

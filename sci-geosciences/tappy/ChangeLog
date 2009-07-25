@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*tappy-0.8.3 (18 Jul 2009)
+
+  18 Jul 2009; Tim Cera <timcera@earthlink.net> +tappy-0.8.3.ebuild:
+  Version bump.
+
 *tappy-0.8.2 (01 Jul 2009)
 
   01 Jul 2009; Tim Cera <timcera@earthlink.net> +tappy-0.8.2.ebuild:

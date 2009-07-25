@@ -1,0 +1,67 @@
+--- Imakefile	2009-07-20 16:08:43.000000000 +0200
++++ Imakefile.new	2009-07-25 14:07:08.000000000 +0200
+@@ -276,17 +276,10 @@
+ 
+ #ifndef USE_XFORMSLIB
+ DEFINES = $(GTKCFLAGS) $(GUIDEF) -DRASMOLDIR=\"$(RASMOLDIR)\" $(DEPTHDEF) $(LOCALEDEF) \
+-          -D_USE_RASMOL_H_ $(GUIOPTION) -I$(CBFLIB_INCLUDE_DIR) \
+-          -I$(CQRLIB_INCLUDE_DIR) \
+-          -I$(CVECTOR_INCLUDE_DIR) \
+-          -I$(NEARTREE_INCLUDE_DIR)
++          -D_USE_RASMOL_H_ $(GUIOPTION) -I/usr/include -I/usr/include/cbflib
+ #else
+ DEFINES = $(GTKCFLAGS) $(GUIDEF) -DRASMOLDIR=\"$(RASMOLDIR)\" $(DEPTHDEF) $(LOCALEDEF) \
+-	-D_USE_RASMOL_H_ $(GUIOPTION) -I$(CBFLIB_INCLUDE_DIR) \
+-	-I$(CQRLIB_INCLUDE_DIR) \
+-	-I$(CVECTOR_INCLUDE_DIR) \
+-	-I$(NEARTREE_INCLUDE_DIR) \
+-  	-I$(XFORMSLIB_INCLUDE_DIR)
++	-D_USE_RASMOL_H_ $(GUIOPTION) -I/usr/include -I/usr/include/cbflib
+ #endif
+ 
+ 
+@@ -312,11 +305,11 @@
+ # Additional RS6000 AIX MITSHM Library
+ # LDLIBS = -lm -lXi -lXextSam $(XLIB)
+ 
+-LDLIBS = -lm -lXi $(XLIB) $(EXTRA_LIBRARIES) $(XFORMSLIB) $(GTKLIBS) \
+-			$(CBFLIB_LDLIB) \
+-			$(CQRLIB_LDLIB) \
+-			$(CVECTOR_LDLIB) \
+-			$(NEARTREE_LDLIB) $(XFORMSLIB_LDLIB)
++LDLIBS = -lm -lXi $(XLIB) $(EXTRA_LIBRARIES) -lforms $(GTKLIBS) \
++			-lcbf \
++			-lCQRlib \
++			-lCVector \
++			-lCNearTree -lforms -lgfortran
+ 
+ 
+ #
+@@ -420,11 +413,11 @@
+ $(NEARTREE_DIR)/CNearTree.c: $(NEARTREE_DIR)
+ #endif		  
+ 
+-$(OBJS):  $(EXTPKGDIR) $(CBFLIB_OBJDEP) \
+-			$(CQRLIB_OBJDEP) \
+-			$(CVECTOR_OBJDEP) \
+-			$(NEARTREE_OBJDEP) \
+-			$(XFORMSLIB_OBJDEP)
++# $(OBJS):  $(EXTPKGDIR) $(CBFLIB_OBJDEP) \
++#			$(CQRLIB_OBJDEP) \
++#			$(CVECTOR_OBJDEP) \
++#			$(NEARTREE_OBJDEP) \
++#			$(XFORMSLIB_OBJDEP)
+ 
+ 
+ gtkwin.c: gtkui.h
+--- Makefile.in	2009-07-14 18:39:18.000000000 +0200
++++ Makefile.in.new	2009-07-25 14:08:11.000000000 +0200
+@@ -165,7 +165,7 @@
+ 
+ all:		postdownload rasmol rastxt
+ 
+-rasmol:		postdownload $(X11OBJS) $(CBFLIBDIR)/lib/libcbf.a
++rasmol:		postdownload $(X11OBJS) 
+ 		$(CC) -o rasmol $(LFLAGS) $(X11OBJS) $(X11LIBS)
+ 		chmod 755 rasmol
+ 

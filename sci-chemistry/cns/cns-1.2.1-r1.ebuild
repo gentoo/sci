@@ -12,8 +12,7 @@ MY_P="${MY_PN}_${MY_PV}"
 
 DESCRIPTION="Crystallography and NMR System"
 HOMEPAGE="http://cns.csb.yale.edu/"
-SRC_URI="!openmp? ( ${MY_P}_all.tar.gz )
-	openmp? ( ${MY_P}_all-mp.tar.gz )
+SRC_URI="${MY_P}_all-mp.tar.gz
 	aria? ( aria2.2.tar.gz )"
 
 SLOT="0"
@@ -42,14 +41,12 @@ pkg_nofetch() {
 pkg_setup() {
 	fortran_pkg_setup
 
-	if use openmp &&
-		[[ $(tc-getCC)$ == *gcc* ]] &&
+	if [[ $(tc-getCC)$ == *gcc* ]] &&
 		( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] ||
 		! built_with_use sys-devel/gcc openmp )
 	then
 		ewarn "You are using gcc and OpenMP is only available with gcc >= 4.2 "
-		ewarn "If you want to build ${PN} with OpenMP, abort now,"
-		ewarn "and switch CC to an OpenMP capable compiler"
+		ewarn "Switch CC to an OpenMP capable compiler"
 	fi
 }
 
@@ -66,17 +63,12 @@ src_prepare() {
 	fi
 	cd "${S}"
 
-	if use openmp; then
-		append-fflags -fopenmp
+	append-fflags -fopenmp
 
-		# the code uses Intel-compiler-specific directives
-		epatch "${FILESDIR}"/${PV}-allow-gcc-openmp.patch
+	# the code uses Intel-compiler-specific directives
+	epatch "${FILESDIR}"/${PV}-allow-gcc-openmp.patch
 
-		OMPLIB="-lgomp"
-	else
-		# Someone already did the same in the openmp version, apparently
-		epatch "${FILESDIR}"/1.2-allow-unknown-architectures.patch
-	fi
+	OMPLIB="-lgomp"
 
 	use amd64 && \
 		append-cflags "-DINTEGER='long long int'" && \
@@ -201,12 +193,9 @@ src_install() {
 }
 
 pkg_info() {
-	if use openmp; then
 		elog "Set OMP_NUM_THREADS to the number of threads you want."
 		elog "If you get segfaults on large structures, set the GOMP_STACKSIZE"
-		elog "variable if using gcc (16384 should be good). Also run"
-		elog "ulimit -s 16384."
-	fi
+		elog "variable if using gcc (16384 should be good)."
 }
 
 pkg_postinst() {

@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cadabra-1.14 (19 Jul 2009)
+
+  19 Jul 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  -cadabra-1.08.ebuild, +cadabra-1.14.ebuild:
+  Update to 1.14 and anforce gmp built with cxx
+
   19 Apr 2009; François Bissey <f.r.bissey@massey.ac.nz>
   cadabra-1.08.ebuild:
   cleaning of the ebuild

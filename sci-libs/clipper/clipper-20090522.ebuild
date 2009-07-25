@@ -12,7 +12,8 @@ LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~x86 ~ppc ~amd64"
 IUSE=""
-RDEPEND="sci-libs/ccp4-libs"
+RDEPEND="sci-libs/ccp4-libs
+	sci-libs/fftw"
 DEPEND="${RDEPEND}"
 S=${WORKDIR}/clipper-2.1
 

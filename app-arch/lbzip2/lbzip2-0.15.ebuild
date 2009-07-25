@@ -11,7 +11,7 @@ SRC_URI="http://lacos.web.elte.hu/pub/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="test"
 
 RDEPEND=""
 DEPEND="test? ( app-shells/dash

@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/atpy
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*atpy-0.9.0 (21 Jul 2009)
+
+  21 Jul 2009; Sébastien Fabbro <bicatali@gentoo.org> +atpy-0.9.0.ebuild,
+  +metadata.xml:
+  Initial import
+
