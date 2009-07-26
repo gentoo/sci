@@ -4,7 +4,7 @@
 
 inherit fortran toolchain-funcs
 
-FORTRAN="g77 gfortran ifc"
+FORTRAN="gfortran ifc"
 
 DESCRIPTION="Molecular modeling package that includes force fields, such as AMBER and CHARMM."
 HOMEPAGE="http://dasher.wustl.edu/tinker/"
@@ -27,17 +27,17 @@ src_compile() {
 	if [[ ${FORTRANC} == "ifc" ]]; then
 		cp ../linux/intel/* .
 	else
-		cp ../linux/gnu/* .
+		cp ../linux/gfortran/* .
 	fi
 
 	cp ../make/* .
 
 	# Prep build scripts
-	sed -i -e "s:g77:${FORTRANC} ${LDFLAGS}:g" ${LINK}
+	sed -i -e "s:gfortran:${FORTRANC} ${LDFLAGS}:g" ${LINK}
 
 	# Default to -O2 if FFLAGS is unset
-	sed -i -e "s:-O3 -ffast-math:${FFLAGS:- -O2}:" ${COMPILE}
-	sed -i -e "s:g77:${FORTRANC}:g" ${COMPILE}
+	sed -i -e "s:-O:${FFLAGS:- -O2}:" ${COMPILE}
+	sed -i -e "s:gfortran:${FORTRANC}:g" ${COMPILE}
 
 	einfo "Compiling ..."
 	${COMPILE} || die "compile failed"
@@ -52,7 +52,7 @@ src_install() {
 
 	dodoc \
 		"${WORKDIR}"/tinker/doc/*.txt \
-		"${WORKDIR}"/tinker/doc/release-4.2 \
+		"${WORKDIR}"/tinker/doc/release-${PV} \
 		"${WORKDIR}"/tinker/doc/*.pdf
 
 	dolib.a libtinker.a
