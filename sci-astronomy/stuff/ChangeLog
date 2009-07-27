@@ -1,0 +1,10 @@
+# ChangeLog for sci-astronomy/stuff
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*stuff-1.19 (27 Jul 2009)
+
+  27 Jul 2009; Sébastien Fabbro <bicatali@gentoo.org> +stuff-1.19.ebuild,
+  +files/stuff-configure.patch, +metadata.xml:
+  Initial import
+
