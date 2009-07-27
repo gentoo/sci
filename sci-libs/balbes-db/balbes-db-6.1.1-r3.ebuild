@@ -32,5 +32,9 @@ src_install() {
 	# We don't want to wait around to copy all this, or suck up double
 	# the disk space
 	mv "${S}"/share/balbes/BALBES_0.0.1/* "${D}"/usr/share/balbes/BALBES_0.0.1/ || die
+	# db files should be executable
+	find "${D}"/usr/share/balbes/BALBES_0.0.1/ \
+		-type f \
+		-exec chmod 664 '{}' \;
 	dosym ../../../ccp4/data/monomers /usr/share/balbes/BALBES_0.0.1/dic
 }

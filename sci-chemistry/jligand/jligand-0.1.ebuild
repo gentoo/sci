@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit java-pkg-2 java-ant-2
+inherit java-pkg-2 java-ant-2 multilib
 
 MY_PN="JLigand"
 
@@ -24,10 +24,18 @@ DEPEND=">=virtual/jdk-1.5"
 
 S="${WORKDIR}"/${MY_PN}
 
+EANT_EXTRA_ARGS="-Dfile.encoding=ISO-8859-1"
+
 src_install() {
 	java-pkg_dojar dist/${MY_PN}.jar
 	java-pkg_dolauncher ${PN} \
 		--main uk.ac.york.ysbl.JLigand \
 		--jar ${MY_PN}.jar \
-		--pkg_args "/usr/share/jligand /usr/share/ccp4/data/monomers /usr/bin/libcheck /usr/bin/refmac"
+		--pkg_args "/usr/$(get_libdir)/${PN} ${CLIBD_MON} /usr/bin/libcheck /usr/bin/refmac"
+
+	insinto /usr/$(get_libdir)/${PN}
+	doins -r src/{images,resources} || die
+	fperms 775 /usr/$(get_libdir)/${PN}/resources/runLibcheck.csh || die
+	fperms 775 /usr/$(get_libdir)/${PN}/resources/runRefmac.csh || die
 }
+

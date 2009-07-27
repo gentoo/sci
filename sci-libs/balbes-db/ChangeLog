@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*balbes-db-6.1.1-r3 (27 Jul 2009)
+
+  27 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -balbes-db-6.1.1-r2.ebuild, +balbes-db-6.1.1-r3.ebuild:
+  We do not want db files to be executable
+
 *balbes-db-6.1.1-r2 (02 Jul 2009)
 
   02 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
