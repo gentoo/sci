@@ -2,6 +2,14 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccp4-libs-6.1.2 (29 Jul 2009)
+
+  29 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +ccp4-libs-6.1.2.ebuild, +ccp4-libs-6.1.2.ebuild.save,
+  +files/6.1.2-dont-make-dirs-in-configure.patch,
+  +files/6.1.2-glibc2.10.patch, +files/6.1.2-link-proberly.patch:
+  Still not released 6.1.2
+
 *ccp4-libs-6.1.1-r7 (05 Jul 2009)
 
   05 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
