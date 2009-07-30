@@ -21,11 +21,11 @@ S="${WORKDIR}/mvapich2-${PV/_/-}"
 IUSE="threads debug medium-cluster large-cluster rdma"
 
 RDEPEND="
-	|| ( ( sys-cluster/libibverbs
-	       sys-cluster/libibumad
-		   sys-cluster/libibmad
-	       rdma? ( sys-cluster/librdmacm ) )
-	     sys-cluster/openib-userspace )"
+	|| ( ( sys-infiniband/libibverbs
+	       sys-infiniband/libibumad
+		   sys-infiniband/libibmad
+	       rdma? ( sys-infiniband/librdmacm ) )
+	     sys-infiniband/openib-userspace )"
 DEPEND="${RDEPEND}"
 
 pkg_setup() {

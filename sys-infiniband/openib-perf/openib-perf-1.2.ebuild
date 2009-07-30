@@ -13,8 +13,8 @@ DESCRIPTION="OpenIB uverbs micro-benchmarks"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=">=sys-cluster/libibverbs-1.1.2
-		>=sys-cluster/librdmacm-1.0.8"
+DEPEND=">=sys-infiniband/libibverbs-1.1.2
+		>=sys-infiniband/librdmacm-1.0.8"
 
 src_compile() {
 	emake || die "emake failed"

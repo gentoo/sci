@@ -13,8 +13,8 @@ DESCRIPTION="OpenIB library that provides low layer IB functions for use by the 
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=">=sys-cluster/libibcommon-1.1.2_p20081020
-		>=sys-cluster/libibumad-1.2.3_p20081118"
+DEPEND=">=sys-infiniband/libibcommon-1.1.2_p20081020
+		>=sys-infiniband/libibumad-1.2.3_p20081118"
 RDEPEND="${DEPEND}"
 
 src_install() {

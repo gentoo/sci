@@ -13,9 +13,9 @@ DESCRIPTION="OpenIB userspace driver for Mellanox InfiniBand HCAs"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=">=sys-cluster/libibverbs-1.1.2"
+DEPEND=">=sys-infiniband/libibverbs-1.1.2"
 RDEPEND="${DEPEND}
-	!sys-cluster/openib-userspace"
+	!sys-infiniband/openib-userspace"
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"

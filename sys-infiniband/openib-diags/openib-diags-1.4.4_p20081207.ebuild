@@ -13,10 +13,10 @@ DESCRIPTION="OpenIB diagnostic programs and scripts needed to diagnose an IB sub
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=">=sys-cluster/libibcommon-1.1.2_p20081020
-		>=sys-cluster/libibumad-1.2.3_p20081118
-		>=sys-cluster/libibmad-1.2.3_p20081118
-		>=sys-cluster/openib-osm-3.2.5_p20081207"
+DEPEND=">=sys-infiniband/libibcommon-1.1.2_p20081020
+		>=sys-infiniband/libibumad-1.2.3_p20081118
+		>=sys-infiniband/libibmad-1.2.3_p20081118
+		>=sys-infiniband/openib-osm-3.2.5_p20081207"
 RDEPEND="${DEPEND}"
 
 PATCHES=( "${FILESDIR}/${P}-remove-osmv.patch" )

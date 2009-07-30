@@ -13,10 +13,10 @@ DESCRIPTION="OpenIB - Direct Access Provider Library"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=">=sys-cluster/libibverbs-1.1.2
-		>=sys-cluster/librdmacm-1.0.8"
+DEPEND=">=sys-infiniband/libibverbs-1.1.2
+		>=sys-infiniband/librdmacm-1.0.8"
 RDEPEND="${DEPEND}
-		!sys-cluster/openib-userspace"
+		!sys-infiniband/openib-userspace"
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"

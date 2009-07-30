@@ -20,7 +20,7 @@ IUSE="memtrack hpage-patch srp ipath iser ehca rds madeye vnic cxgb3 debug"
 RDEPEND=""
 DEPEND="${RDEPEND}
 	virtual/linux-sources
-	!sys-cluster/openib-files"
+	!sys-infiniband/openib-files"
 
 pkg_setup() {
 
