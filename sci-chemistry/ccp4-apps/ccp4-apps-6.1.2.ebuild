@@ -76,7 +76,7 @@ SCIAPPS="sci-chemistry/pdb-extract
 	sci-chemistry/rasmol"
 
 
-DEPEND="X? ( ${X11DEPS} )
+RDEPEND="X? ( ${X11DEPS} )
 	${TKDEPS}
 	${SCILIBS}
 	${SCIAPPS}
