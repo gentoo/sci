@@ -2,6 +2,23 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pymol-1.2.1 (31 Jul 2009)
+*pymol-1.2.0 (31 Jul 2009)
+
+  31 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -pymol-1.2_rc0.ebuild, -pymol-1.2_rc1.ebuild, 
+  -files/1.2_beta8-nosplash-gentoo.patch, -pymol-1.2_beta8.ebuild, 
+  -pymol-1.2_rc0.ebuild, -pymol-1.2_rc1.ebuild,
+  -files/pymol-1.2_beta8-data-path.patch,
+  +files/pymol-1.2.0-data-path.patch, -files/pymol-1.2_beta8-shaders.patch,
+  -files/pymol-1.2_rc1-data-path.patch, +pymol-1.2.0.ebuild,
+  +files/pymol-1.2.0-shaders.patch, -files/pymol-1.2_rc0-data-path.patch,
+  -files/pymol-1.2_rc1-shaders.patch, +pymol-1.2.1.ebuild,
+  +files/pymol-1.2.1-data-path.patch, -files/pymol-1.2_rc0-shaders.patch,
+  +files/pymol-1.2.1-shaders.patch, -files/apbs-070604-r3550.patch.bz2:
+  mv to correct versions
+  cleanup old uneeded versions
+
   17 Jul 2009; Jeff Gardner <je_fro@gentoo.org> ChangeLog:
   Fix up patch to apply to rc1
 
