@@ -9,16 +9,16 @@ inherit multilib base
 MY_PN="${PN%i}"
 MY_P="${MY_PN}-${PV}"
 
-UPDATE="04_03_09"
-PATCHDATE="090511"
+#UPDATE="04_03_09"
+#PATCHDATE="090511"
 
 SRC="ftp://ftp.ccp4.ac.uk/ccp4"
 
-DESCRIPTION="Protein X-ray crystallography toolkit, graphical interface"
+DESCRIPTION="Protein X-ray crystallography toolkit -- graphical interface"
 HOMEPAGE="http://www.ccp4.ac.uk/"
 SRC_URI="${SRC}/${PV}/${MY_P}-core-src.tar.gz"
-#	${SRC}/${PV}/updates/${MY_P}-src-patch-${UPDATE}.tar.gz
-#	http://dev.gentooexperimental.org/~jlec/science-dist/${PV}-${PATCHDATE}-updates.patch.bz2"
+[[ -n ${UPDATE} ]] && SRC_URI="${SRC_URI} ${SRC}/${PV}/updates/${P}-src-patch-${UPDATE}.tar.gz"
+[[ -n ${PATCHDATE} ]] && SRC_URI="${SRC_URI} http://dev.gentooexperimental.org/~jlec/science-dist/${PV}-${PATCHDATE}-updates.patch.bz2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -48,6 +48,8 @@ src_prepare() {
 	sed -i \
 		-e "s:share smartie:share ccp4 smartie:g" \
 		"${S}"/ccp4i/imosflm/src/processingwizard.tcl
+
+	[[ ! -z ${PATCHDATE} ]] && epatch "${WORKDIR}"/${PV}-${PATCHDATE}-updates.patch
 }
 
 src_configure() {
