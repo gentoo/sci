@@ -1,0 +1,12 @@
+# ChangeLog for sci-chemistry/scala
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*scala-3.3.15 (31 Jul 2009)
+
+  31 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +scala-3.3.15.ebuild, +files/Makefile.am, +files/configure.ac,
+  +metadata.xml:
+  Initial addition
+  scala will be dropped from ccp4-apps package
+
