@@ -9,7 +9,7 @@ DESCRIPTION="Tool for automatic generation of astronomical catalogs"
 HOMEPAGE="http://astromatic.iap.fr/software/sktuff/"
 SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/stuff/${P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="CeCILL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="threads"
