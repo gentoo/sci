@@ -19,11 +19,11 @@ S="${WORKDIR}/mvapich2-${PV/_/-}"
 IUSE="debug medium-cluster large-cluster rdma romio threads fortran"
 
 RDEPEND="
-	|| ( ( sys-cluster/libibverbs
-			sys-cluster/libibumad
-			sys-cluster/libibmad
-			rdma? ( sys-cluster/librdmacm ) )
-			sys-cluster/openib-userspace )
+	|| ( ( sys-infiniband/libibverbs
+			sys-infiniband/libibumad
+			sys-infiniband/libibmad
+			rdma? ( sys-infiniband/librdmacm ) )
+			sys-infiniband/openib-userspace )
 	$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
 

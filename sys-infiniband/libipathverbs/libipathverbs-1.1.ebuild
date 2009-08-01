@@ -13,7 +13,7 @@ DESCRIPTION="OpenIB userspace driver for the PathScale InfiniBand HCAs"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=">=sys-cluster/libibverbs-1.1.2"
+DEPEND=">=sys-infiniband/libibverbs-1.1.2"
 RDEPEND="${DEPEND}"
 
 src_install() {

@@ -15,7 +15,7 @@ DESCRIPTION="OpenIB Userspace CM library"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-RDEPEND=">=sys-cluster/libibverbs-1.1.2"
+RDEPEND=">=sys-infiniband/libibverbs-1.1.2"
 DEPEND="${RDEPEND}"
 
 src_install() {

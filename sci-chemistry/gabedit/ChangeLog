@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/gabedit
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*gabedit-2.2.3 (28 Jul 2009)
+
+  28 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +gabedit-2.2.3.ebuild, +metadata.xml:
+  version bump
+

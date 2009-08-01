@@ -13,10 +13,10 @@ DESCRIPTION="OpenSM - InfiniBand Subnet Manager and Administration for OpenIB"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=">=sys-cluster/libibmad-1.2.3_p20081118
-		>=sys-cluster/libibumad-1.2.3_p20081118"
+DEPEND=">=sys-infiniband/libibmad-1.2.3_p20081118
+		>=sys-infiniband/libibumad-1.2.3_p20081118"
 RDEPEND="$DEPEND
-		 sys-cluster/openib-files
+		 sys-infiniband/openib-files
 		 net-misc/iputils"
 
 src_configure() {

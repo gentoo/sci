@@ -15,7 +15,7 @@ IUSE=""
 
 DEPEND="sys-fs/sysfsutils"
 RDEPEND="${DEPEND}
-	!sys-cluster/openib-userspace"
+	!sys-infiniband/openib-userspace"
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"

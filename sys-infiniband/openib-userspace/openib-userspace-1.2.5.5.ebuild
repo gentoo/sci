@@ -22,24 +22,24 @@ OSM="${S}/src/userspace/management/osm"
 IUSE="ehca ipath cxgb3 opensm dapl srptools qlvnictools tvflash mstflint"
 
 DEPEND=""
-PDEPEND="=sys-cluster/openib-files-${PV}"
+PDEPEND="=sys-infiniband/openib-files-${PV}"
 RDEPEND="${DEPEND}
-		 !sys-cluster/libibverbs
-		 !sys-cluster/libmthca
-		 !sys-cluster/libipathverbs
-		 !sys-cluster/librdmacm
-		 !sys-cluster/libsdp
-		 !sys-cluster/dapl
-		 !sys-cluster/libehca
-		 !sys-cluster/libibcm
-		 !sys-cluster/libibcommon
-		 !sys-cluster/libibmad
-		 !sys-cluster/libibumad
-		 !sys-cluster/openib-diags
-		 !sys-cluster/openib-osm
-		 !sys-cluster/openib-perf
-		 !sys-cluster/openib-srptools
-		 !sys-cluster/openib"
+		 !sys-infiniband/libibverbs
+		 !sys-infiniband/libmthca
+		 !sys-infiniband/libipathverbs
+		 !sys-infiniband/librdmacm
+		 !sys-infiniband/libsdp
+		 !sys-infiniband/dapl
+		 !sys-infiniband/libehca
+		 !sys-infiniband/libibcm
+		 !sys-infiniband/libibcommon
+		 !sys-infiniband/libibmad
+		 !sys-infiniband/libibumad
+		 !sys-infiniband/openib-diags
+		 !sys-infiniband/openib-osm
+		 !sys-infiniband/openib-perf
+		 !sys-infiniband/openib-srptools
+		 !sys-infiniband/openib"
 
 src_unpack() {
 	unpack ${A} || die "unpack failed"

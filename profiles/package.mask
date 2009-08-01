@@ -30,6 +30,26 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher (jlec) (31 Jul 09)
+# jlec@j-schmitz.net
+# to be excluded from ccp4 -- file collision
+=sci-chemistry/scala-3.3.15
+
+# Justin Lecher (jlec) (31 Jul 09)
+# jlec@j-schmitz.net
+# Upcoming release. Upstream still not ready
+=sci-chemistry/ccp4-apps-6.1.2
+
+# Justin Lecher (jlec) (29 Jul 09)
+# jlec@j-schmitz.net
+# Upcoming release. Upstream still not ready
+=sci-chemistry/ccp4i-6.1.2
+
+# Justin Lecher (jlec) (28 Jul 09)
+# jlec@j-schmitz.net
+# Upcoming release. Upstream still not ready
+=sci-libs/ccp4-libs-6.1.2
+
 # Justin Lecher (jlec) (18 Jun 09)
 # jlec@j-schmitz.net
 # Upcoming release. Upstream still not ready

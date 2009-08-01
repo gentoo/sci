@@ -16,7 +16,7 @@ DESCRIPTION="OpenIB - IBM eServer eHCA Infiniband device driver for Linux on POW
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=">=sys-cluster/libibverbs-1.1.2"
+DEPEND=">=sys-infiniband/libibverbs-1.1.2"
 RDEPEND="${DEPEND}"
 
 src_install() {
