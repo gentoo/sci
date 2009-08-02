@@ -19,7 +19,7 @@ SRC_URI="apbs? ( http://dev.gentooexperimental.org/~jlec/distfiles/apbs_tools.py
 LICENSE="PSF-2.2"
 IUSE="apbs shaders"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 RDEPEND="dev-python/pmw
 		dev-python/numpy
