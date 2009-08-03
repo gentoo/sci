@@ -4,8 +4,8 @@
  
  # these live in subdirectories and have more than one dependency:
  OTHERS = rsps anglen secstr proclean pplot gfac2pdb tplot mplot probplot rmsdev nb \
--         scala dm dmmulti stereo mapmask maprot ncsmask chef \
-+         dm dmmulti stereo mapmask maprot ncsmask chef \
+-         scala dm dmmulti stereo mapmask maprot ncsmask \
++         dm dmmulti stereo mapmask maprot ncsmask \
           sftools tlsanl tlsextract topp toplist dyndom sc combat mlphare fffear ffjoin \
           anisoanl $(REFMACTARGETS) dtrek2scala crunch2 pmf doser mat2symop symop2mat 
  

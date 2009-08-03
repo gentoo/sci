@@ -94,7 +94,7 @@ DEPEND="${RDEPEND}
 		x11-proto/xextproto
 	)"
 
-S="${WORKDIR}/${PN/-apps}-${PV}"
+S="${WORKDIR}/${MY_P}"
 
 src_unpack() {
 	unpack ${A}
@@ -137,7 +137,10 @@ src_unpack() {
 	mv ./html/rapper.html ./html/rappermc.html || die
 
 	# molref is provided as binary and dynamically linked against icc
-	ccp_patch "${FILESDIR}"/${PV}-nomolref.patch
+	ccp_patch "${FILESDIR}"/${PV}-dont-build-molref.patch
+
+	# no xia
+	ccp_patch "${FILESDIR}"/${PV}-dont-build-xia.patch
 
 	# We build scala ourself
 	ccp_patch "${FILESDIR}"/${PV}-dont-build-scala.patch
@@ -217,6 +220,7 @@ src_compile() {
 	# Default to -O2 if FFLAGS is unset
 	export FC=${FORTRANC}
 	export FOPTIM=${FFLAGS:- -O2}
+	export BINSORT_SCR="${T}"
 
 	# Can't use econf, configure rejects unknown options like --prefix
 	./configure \
@@ -228,6 +232,7 @@ src_compile() {
 		--disable-cctbx \
 		--disable-phaser \
 		--disable-clipper \
+		--disable-mosflm \
 		--disable-mrbump \
 		--tmpdir="${TMPDIR}" \
 		${GENTOO_OSNAME} || die "econf failed"
@@ -377,3 +382,4 @@ pkg_postinst() {
 ccp_patch() {
 	EPATCH_SINGLE_MSG="  ${1##*/} ..." epatch ${1}
 }
+
