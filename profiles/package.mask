@@ -30,6 +30,21 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher (jlec) (1 Aug 09)
+# jlec@j-schmitz.net
+# ccp4-6.1.2 dep
+=sci-libs/balbes-db-6.1.2
+
+# Justin Lecher (jlec) (1 Aug 09)
+# jlec@j-schmitz.net
+# ccp4-6.1.2 dep
+=sci-chemistry/pointless-1.3.13
+
+# Justin Lecher (jlec) (1 Aug 09)
+# jlec@j-schmitz.net
+# ccp4-6.1.2 dep
+=sci-chemistry/xia2-0.3.0.0-r2
+
 # Justin Lecher (jlec) (31 Jul 09)
 # jlec@j-schmitz.net
 # to be excluded from ccp4 -- file collision
