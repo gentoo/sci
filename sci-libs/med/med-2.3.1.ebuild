@@ -6,7 +6,8 @@ inherit eutils
 
 DESCRIPTION="Modeling and Exchange of Data library"
 HOMEPAGE="http://www.code-aster.org/outils/med/"
-SRC_URI="http://www.code-aster.org/V2/UPLOAD/DOC/Telechargement/${P}.tar.gz"
+SRC_URI="ftp://ftp.freebsd.org/pub/FreeBSD/distfiles/${P}.tar.gz"
+# SRC_URI="http://www.code-aster.org/V2/UPLOAD/DOC/Telechargement/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
