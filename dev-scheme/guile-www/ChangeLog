@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-scheme/guile-www/ChangeLog,v 1.5 2008/07/12 12:24:56 hkbst Exp $
 
+*guile-www-2.26 (03 Aug 2009)
+
+  03 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -guile-www-2.24.ebuild, +guile-www-2.26.ebuild:
+  bump to latest
+
 *guile-www-2.24 (26 May 2009)
 
   26 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
