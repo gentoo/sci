@@ -94,7 +94,7 @@ PDEPEND="sci-chemistry/mosflm
 	 sci-chemistry/ccp4i
 	 sci-libs/balbes-db"
 
-S="${WORKDIR}/${PN}-${PV}"
+S="${WORKDIR}/${P}"
 
 src_unpack() {
 	unpack ${A}
@@ -423,3 +423,4 @@ pkg_postinst() {
 ccp_patch() {
 	EPATCH_SINGLE_MSG="  ${1##*/} ..." epatch ${1}
 }
+
