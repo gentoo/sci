@@ -29,9 +29,9 @@ DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
 RESTRICT="mirror"
 SRC_URI="${SRC}/${PV}/${MY_P}-core-src.tar.gz"
-# plain files which were copied over
+# patch tarball from upstream
 	[[ -n ${UPDATE} ]] && SRC_URI="${SRC_URI} ${SRC}/${PV}/updates/${P}-src-patch-${UPDATE}.tar.gz"
-# real patches
+# patches created by us
 	[[ -n ${PATCHDATE} ]] && SRC_URI="${SRC_URI} http://dev.gentooexperimental.org/~jlec/science-dist/${PV}-${PATCHDATE}-updates.patch.bz2"
 
 for i in $(seq $PATCH_TOT); do
@@ -84,7 +84,8 @@ RDEPEND="X? ( ${X11DEPS} )
 	dev-python/pyxml
 	dev-libs/libxml2
 	dev-libs/boehm-gc
-	!app-office/sc"
+	!app-office/sc
+	!<sci-chemistry/ccp4-6.1.2"
 DEPEND="${RDEPEND}
 	=sys-devel/automake-1.6*
 	X? (
@@ -93,7 +94,7 @@ DEPEND="${RDEPEND}
 		x11-proto/xextproto
 	)"
 
-S="${WORKDIR}/${PN}-${PV}"
+S="${WORKDIR}/${PN/-apps}-${PV}"
 
 src_unpack() {
 	unpack ${A}
@@ -140,6 +141,9 @@ src_unpack() {
 
 	# We build scala ourself
 	ccp_patch "${FILESDIR}"/${PV}-dont-build-scala.patch
+
+	# gcc-4.3.3
+	ccp_patch "${FILESDIR}"/${PV}-gcc4.4.patch
 
 	einfo "Done." # done applying Gentoo patches
 	echo
@@ -303,10 +307,11 @@ src_install() {
 
 	# Setup scripts
 	insinto /etc/profile.d
-	newins "${S}"/include/ccp4.setup-bash ccp4.setup.sh || die
-	newins "${S}"/include/ccp4.setup-dist ccp4.setup.csh || die
-	rm -f "${S}"/include/ccp4.setup-bash
-	rm -f "${S}"/include/ccp4.setup-dist
+#	newins "${S}"/include/ccp4.setup-bash ccp4.setup.bash || die
+	newins "${S}"/include/ccp4.setup-csh ccp4.setup.csh || die
+#	newins "${S}"/include/ccp4.setup-zsh ccp4.setup.zsh || die
+	newins "${S}"/include/ccp4.setup-sh ccp4.setup.sh || die
+	rm -f "${S}"/include/ccp4.setup*
 
 	# Environment files, setup scripts, etc.
 	insinto /usr/share/ccp4/include

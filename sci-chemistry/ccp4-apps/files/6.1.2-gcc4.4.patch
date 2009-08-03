@@ -1,0 +1,31 @@
+--- src/clipper_progs/src/ctruncate_utils.cpp	2008-04-22 10:46:51.000000000 +0200
++++ src/clipper_progs/src/ctruncate_utils.cpp.new	2009-08-02 23:13:47.000000000 +0200
+@@ -13,6 +13,7 @@
+ #include <iostream>
+ #include <vector>
+ #include <math.h>
++#include <cstdio>
+ 
+ 
+ int bisect(double (*f)(double), double x1, double x2, double &xmid)
+--- src/clipper_progs/src/cphasematch.cpp	2008-07-14 15:03:11.000000000 +0200
++++ src/clipper_progs/src/cphasematch.cpp.new	2009-08-03 19:58:42.000000000 +0200
+@@ -4,6 +4,7 @@
+ #include <clipper/clipper.h>
+ #include <clipper/clipper-contrib.h>
+ #include <clipper/clipper-ccp4.h>
++#include <cstdio>
+ 
+ 
+ int main( int argc, char** argv )
+--- src/clipper_progs/src/csigmaa.cpp	2006-07-28 11:54:59.000000000 +0200
++++ src/clipper_progs/src/csigmaa.cpp.new	2009-08-03 20:08:34.000000000 +0200
+@@ -4,7 +4,7 @@
+ #include <clipper/clipper.h>
+ #include <clipper/clipper-contrib.h>
+ #include <clipper/clipper-ccp4.h>
+-
++#include <cstdio>
+ 
+ int main( int argc, char** argv )
+ {

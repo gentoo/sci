@@ -1,6 +1,11 @@
-# ChangeLog for sci-chemistry/ccp4
+# ChangeLog for sci-chemistry/ccp4-apps
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  files/6.1.2-dont-build-libs.patch, ccp4-apps-6.1.2.ebuild,
+  +files/6.1.2-gcc4.4.patch:
+  transmission ccp4 --> ccp4-apps and ccp4 as meta package
 
 *ccp4-6.1.1-r6 (07 Jul 2009)
 

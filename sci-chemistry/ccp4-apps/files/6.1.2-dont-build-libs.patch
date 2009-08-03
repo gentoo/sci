@@ -1,20 +1,20 @@
---- ./Makefile.in.orig	2008-08-01 10:27:23.000000000 -0700
-+++ ./Makefile.in	2008-08-01 14:30:22.000000000 -0700
-@@ -3,7 +3,7 @@
- # $Header: /nfs/ccpdisk/xtal/CVSROOT/ccp4/Makefile.in,v 1.57 2008/04/09 10:41:58 fr45 Exp $
+--- Makefile.in	2009-06-19 15:13:29.000000000 +0200
++++ Makefile.in.new	2009-08-02 23:06:41.000000000 +0200
+@@ -2,7 +2,7 @@
+ # $Header: /nfs/ccpdisk/xtal/CVSROOT/ccp4/Makefile.in,v 1.60.2.1 2009/06/19 13:13:29 ccb Exp $
  
  SHELL = /bin/sh
--DIRS = $(fftwdir) $(clipperdir) $(diffimdir) $(lapackdir) $(ccifdir) lib/src $(ssmdir) src lib/data unsupported/src x-windows share $(prereleasedir)
-+DIRS = src lib/data unsupported/src x-windows share $(prereleasedir)
+-DIRS = $(fftwdir) $(clipperdir) $(diffimdir) $(lapackdir) $(ccifdir) lib/src $(ssmdir) src lib/data unsupported/src x-windows share ccp4i $(prereleasedir)
++DIRS = src lib/data unsupported/src x-windows share ccp4i $(prereleasedir)
  # this is for the benefit of makes that don't pass variable values in
  # recursive invocations, so that you can override these values on the
  # command line at the top level
-@@ -67,19 +67,19 @@
+@@ -69,19 +69,19 @@
  	$(MAKE) -i $(MFLAGS) $(MVARS) install; else true; fi ; \
  	$(MAKE) install
  
 -srcdir :  FORCE libdir
-+srcdir :  FORCE
++srcdir :  FORCE 
  	if test -d src; then cd src; $(MAKE) $(MFLAGS) $(MVARS); else true; fi
  
  supported : srcdir
