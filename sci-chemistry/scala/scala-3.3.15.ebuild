@@ -28,6 +28,6 @@ src_prepare() {
 
 src_install() {
 	dobin ${PN} || die
-	dodoc ${PN}.txt || die
+	dodoc ${PN}.doc || die
 	dohtml ${PN}.html || die
 }
