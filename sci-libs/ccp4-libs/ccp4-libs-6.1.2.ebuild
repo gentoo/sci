@@ -29,18 +29,22 @@ DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
 RESTRICT="mirror"
 SRC_URI="${SRC}/${PV}/${MY_P}-core-src.tar.gz"
-#	${SRC}/${PV}/updates/${MY_P}-src-patch-${UPDATE}.tar.gz
-#	http://dev.gentooexperimental.org/~jlec/science-dist/${PV}-${PATCHDATE}-updates.patch.bz2"
+# patch tarball from upstream
+	[[ -n ${UPDATE} ]] && SRC_URI="${SRC_URI} ${SRC}/${PV}/updates/${P}-src-patch-${UPDATE}.tar.gz"
+# patches created by us
+	[[ -n ${PATCHDATE} ]] && SRC_URI="${SRC_URI} http://dev.gentooexperimental.org/~jlec/science-dist/${PV}-${PATCHDATE}-updates.patch.bz2"
 
 for i in $(seq $PATCH_TOT); do
 	NAME="PATCH${i}[1]"
 	SRC_URI="${SRC_URI}
 		${SRC}/${PV}/patches/${!NAME}"
 done
+
 LICENSE="ccp4"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
+
 RDEPEND="virtual/lapack
 	virtual/blas
 	=sci-libs/fftw-2*
@@ -49,7 +53,7 @@ RDEPEND="virtual/lapack
 	sci-libs/monomer-db"
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/${P/-libs}"
+S="${WORKDIR}/${MY_P}"
 
 src_unpack() {
 	unpack ${A}
@@ -67,7 +71,7 @@ src_unpack() {
 	einfo "Done."
 	echo
 
-#	epatch "${WORKDIR}"/${PV}-${PATCHDATE}-updates.patch
+	[[ -n ${PATCHDATE} ]] && epatch "${WORKDIR}"/${PV}-${PATCHDATE}-updates.patch
 
 	einfo "Applying Gentoo patches ..."
 	# These two only needed when attempting to install outside build dir via
@@ -88,10 +92,6 @@ src_unpack() {
 
 	einfo "Done." # done applying Gentoo patches
 	echo
-
-	# glibc-2.10 getline fix
-#	sed -e "s:getline:${PN/-libs}getline:g" -i lib/src/fsplit.c || die
-#	ccp_patch "${FILESDIR}"/${PV}-glibc2.10.patch
 
 	gnuconfig_update
 }
@@ -148,13 +148,9 @@ src_compile() {
 
 	# Fix linking
 	export SHARE_LIB="\
-		$(tc-getCC) ${userldflags} -shared -Wl,-soname,libmmdb.so -o libmmdb.so \${MMDBOBJS} $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}'); \
-		$(tc-getCC) ${userldflags} -shared -Wl,-soname,libccp4c.so -o libccp4c.so \${CORELIBOBJS} \${CGENERALOBJS} \${CUCOBJS} \${CMTZOBJS} \${CMAPOBJS} \${CSYMOBJS} -lm $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}'); \
-		${FORTRANC} ${userldflags} -shared -Wl,-soname,libccp4f.so -o libccp4f.so \${FORTRANLOBJS} \${FINTERFACEOBJS} -lstdc++ -lgfortran $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}')"
-#	export SHARE_LIB="\
-#		ld -shared -soname libmmdb.so -o libmmdb.so \${MMDBOBJS} $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}'); \
-#		ld -shared -soname libccp4c.so -o libccp4c.so \${CORELIBOBJS} \${CGENERALOBJS} \${CUCOBJS} \${CMTZOBJS} \${CMAPOBJS} \${CSYMOBJS} -lm $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}'); \
-#		ld -shared -soname libccp4f.so -o libccp4f.so \${FORTRANLOBJS} \${FINTERFACEOBJS} -lstdc++ -lgfortran $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}')"
+		$(tc-getCC) ${userldflags} -shared -Wl,-soname,libmmdb.so -o libmmdb.so \${MMDBOBJS} $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}') -lm -lstdc++ && \
+		$(tc-getCC) ${userldflags} -shared -Wl,-soname,libccp4c.so -o libccp4c.so \${CORELIBOBJS} \${CGENERALOBJS} \${CUCOBJS} \${CMTZOBJS} \${CMAPOBJS} \${CSYMOBJS} -L.. -lccif $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}') -lm && \
+		${FORTRANC} ${userldflags} -shared -Wl,-soname,libccp4f.so -o libccp4f.so \${FORTRANLOBJS} \${FINTERFACEOBJS} -L.. -lccif -L. -lccp4c -lmmdb $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}') -lstdc++ -lgfortran -lm"
 
 	# Can't use econf, configure rejects unknown options like --prefix
 	./configure \
