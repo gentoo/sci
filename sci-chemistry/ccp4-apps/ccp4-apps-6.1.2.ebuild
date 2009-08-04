@@ -75,7 +75,6 @@ SCILIBS="sci-libs/ccp4-libs
 SCIAPPS="sci-chemistry/pdb-extract
 	sci-chemistry/rasmol"
 
-
 RDEPEND="X? ( ${X11DEPS} )
 	${TKDEPS}
 	${SCILIBS}
@@ -380,9 +379,7 @@ pkg_postinst() {
 	einfo "in /etc/profile.d/ccp4.setup* to modify this."
 }
 
-
 # Epatch wrapper for bulk patching
 ccp_patch() {
 	EPATCH_SINGLE_MSG="  ${1##*/} ..." epatch ${1}
 }
-
