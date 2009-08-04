@@ -80,7 +80,6 @@ src_install() {
 	# Unset DISPLAY to avoid the interactive graphical test.
 	DISPLAY="" ./install.com +type linux9 +dest "${S}"/NMR || die
 
-
 	# Remove the symlinks for the archives and the installation scripts.
 	for i in ${A}; do
 		rm ${i} || die "Failed to remove archive symlinks."
