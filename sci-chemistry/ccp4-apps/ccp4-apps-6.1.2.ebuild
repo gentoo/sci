@@ -145,6 +145,9 @@ src_unpack() {
 	# We build scala ourself
 	ccp_patch "${FILESDIR}"/${PV}-dont-build-scala.patch
 
+	# We build scala ourself
+	ccp_patch "${FILESDIR}"/${PV}-dont-build-imosflm.patch
+
 	# gcc-4.3.3
 	ccp_patch "${FILESDIR}"/${PV}-gcc4.4.patch
 
