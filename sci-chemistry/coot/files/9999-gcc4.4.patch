@@ -1,0 +1,10 @@
+--- coot-utils/coot-utils.cc	2009-08-06 00:02:51.000000000 +0200
++++ coot-utils/coot-utils.cc.new	2009-08-06 00:06:13.000000000 +0200
+@@ -25,6 +25,7 @@
+ 
+ #include <stdexcept> // for string_to_int.
+ #include <sstream>   // ditto.
++#include <cstdio>
+ 
+ #include "coot-sysdep.h"
+ #if defined _MSC_VER

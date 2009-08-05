@@ -54,6 +54,7 @@ S="${WORKDIR}/${MY_S2_P}"
 
 PATCHES=(
 	"${FILESDIR}"/${PV}-as-needed.patch
+	"${FILESDIR}"/${PV}-gcc4.4.patch
 	"${FILESDIR}"/link-against-guile-gtk-properly.patch
 	"${FILESDIR}"/fix-namespace-error.patch
 	)

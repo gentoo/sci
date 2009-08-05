@@ -52,6 +52,7 @@ src_unpack() {
 
 	# To send upstream
 	epatch "${FILESDIR}"/${PV}-gcc-4.3.patch
+	epatch "${FILESDIR}"/${PV}-gcc-4.4.patch
 
 	epatch "${FILESDIR}"/${PV}-as-needed.patch
 	epatch "${FILESDIR}"/link-against-guile-gtk-properly.patch
@@ -101,7 +102,6 @@ src_compile() {
 		--with-gtk2 \
 		--with-pygtk \
 		|| die "econf failed"
-
 
 	# Regenerate wrappers, otherwise at least gtk-2 build fails
 	pushd src
