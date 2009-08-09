@@ -90,6 +90,8 @@ src_unpack() {
 	# gerror_ gets defined twice on ppc if you're using gfortran/g95
 	ccp_patch "${FILESDIR}"/6.0.2-ppc-double-define-gerror.patch
 
+	ccp_patch "${FILESDIR}"/${PV}-ccif-shared.patch
+
 	einfo "Done." # done applying Gentoo patches
 	echo
 
