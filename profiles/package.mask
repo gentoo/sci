@@ -32,6 +32,11 @@
 
 # Justin Lecher (jlec) (1 Aug 09)
 # jlec@j-schmitz.net
+# mask live ebuild
+=sci-chemistry/burrow-owl-9999_pre15
+
+# Justin Lecher (jlec) (1 Aug 09)
+# jlec@j-schmitz.net
 # ccp4-6.1.2 dep
 =sci-libs/balbes-db-6.1.2
 
