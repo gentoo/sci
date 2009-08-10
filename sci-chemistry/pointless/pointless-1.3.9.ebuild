@@ -44,4 +44,3 @@ src_compile() {
 src_install() {
 	dobin pointless othercell || die
 }
-
