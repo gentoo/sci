@@ -19,8 +19,10 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=">=app-crypt/mit-krb5-1.6.3-r6"
-RDEPEND="${DEPEND}"
+DEPEND=""
+RDEPEND="${DEPEND}
+	>=app-crypt/mit-krb5-1.6.3-r6
+	x11-base/xorg-server"
 
 BASEDIR="/opt/ferret-bin"
 
