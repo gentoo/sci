@@ -34,7 +34,7 @@ DEPEND="${RDEPEND}
 	dev-util/indent
 	dev-util/pkgconfig"
 
-EBZR_PATCHES="${PV}-no-doc.patch ${PV}-include.patch"
+EBZR_PATCHES="${PV}-no-doc.patch"
 
 src_unpack() {
 	if [[ ${PV} = 9999* ]]; then
@@ -48,7 +48,7 @@ src_unpack() {
 src_compile() {
 	econf || die
 	emake -j1 || die
-	}
+}
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"

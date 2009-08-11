@@ -1,0 +1,10 @@
+--- Errors.cpp	2009-07-28 11:24:49.000000000 +0200
++++ Errors.cpp.new	2009-08-03 21:32:12.000000000 +0200
+@@ -2,6 +2,7 @@
+ //(c) 2000-2005 Cambridge University Technical Services Ltd
+ //All rights reserved
+ #include "Errors.hh"
++#include <cstdio>
+ 
+ namespace phaser_io {
+ 
