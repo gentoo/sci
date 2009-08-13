@@ -1,0 +1,26 @@
+--- lib/src/Makefile.in	2009-06-18 15:44:08.000000000 +0200
++++ lib/src/Makefile.in.new	2009-08-11 11:58:25.000000000 +0200
+@@ -176,7 +176,7 @@
+ 
+ ##### Makefile targets ######
+ 
+-all:  fsplit $(LMMDB) $(LC) $(LF) $(SCRIPT_MODULES)
++all:  fsplit $(LC) $(LF) $(SCRIPT_MODULES)
+ # maybe create shared library
+ 	$(SHARE_LIB)
+ 
+--- lib/src/Makefile.in	2009-06-18 15:44:08.000000000 +0200
++++ lib/src/Makefile.in.new	2009-08-11 12:17:53.000000000 +0200
+@@ -716,11 +716,9 @@
+ 	  rm -f $(DESTDIR)$(includedir)/mmdb/$$f; \
+ 	done
+ 
+-install : all install-ccp4HEADERS install-mmdbHEADERS
+-	$(INSTALL_DATA) `pwd`/$(LMMDB) $(libdir)/$(LMMDB)
++install : all install-ccp4HEADERS
+ 	$(INSTALL_DATA) `pwd`/$(LC) $(libdir)/$(LC)
+ 	$(INSTALL_DATA) `pwd`/$(LF) $(libdir)/$(LF)
+-	$(RANLIB) $(libdir)/$(LMMDB)
+ 	$(RANLIB) $(libdir)/$(LC)
+ 	$(RANLIB) $(libdir)/$(LF)
+ 	$(SHARE_INST)
