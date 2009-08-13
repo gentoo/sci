@@ -48,6 +48,7 @@ IUSE=""
 RDEPEND="virtual/lapack
 	virtual/blas
 	=sci-libs/fftw-2*
+	sci-libs/mmdb
 	app-shells/tcsh
 	!<sci-chemistry/ccp4-6.0.99
 	sci-libs/monomer-db"
