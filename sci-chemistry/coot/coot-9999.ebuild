@@ -59,7 +59,6 @@ PATCHES=(
 	"${FILESDIR}"/${PV}-as-needed.patch
 	"${FILESDIR}"/link-against-guile-gtk-properly.patch
 	"${FILESDIR}"/fix-namespace-error.patch
-	"${FILESDIR}"/${PV}-gcc4.4.patch
 	)
 
 src_prepare() {
