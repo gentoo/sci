@@ -35,6 +35,10 @@ src_prepare() {
 	    -e "s:CXXFLAGS =.*:CXXFLAGS = ${CXXFLAGS}:" \
 		-i mf/Makefile.defs.linux-gomp mf/Makefile.defs.linux-gnu \
 		|| die "sed CFLAGS,CXXFLAGS failed"
+
+	sed -e "s:DOCDIR =.*:DOCDIR = \${PREFIX}/share/doc/${PF}:" \
+	    -i mf/common.defs \
+		|| die "sed DOCDIR failed"
 }
 
 src_configure() {
@@ -55,10 +59,8 @@ src_install() {
 	#no DESTDIR support
 	emake install PREFIX="${D}"/usr || die "Installing failed"
 
-	#dodoc will compress, better than mv
+	#examples are always installed in /usr
 	cd "${D}"/usr
-	dodoc -r doc/*
-	rm -rf doc
 	docinto example
 	dodoc -r example/*
 	rm -rf example
