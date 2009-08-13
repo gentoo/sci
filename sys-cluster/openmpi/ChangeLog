@@ -2,6 +2,15 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openmpi-1.3.3 (13 Aug 2009)
+
+  13 Aug 2009; Justin Bronder <jsbronder@gentoo.org> -openmpi-1.3.2.ebuild,
+  +openmpi-1.3.3.ebuild, metadata.xml:
+  Sync openmpi-1.3.3 with portage.
+
+  Bump EAPI. Add the vt use flag for VampirTrace. Add blocker against
+  dev-libs/libotf when vt is enabled #265710.
+
   13 Jun 2009; Justin Bronder <jsbronder@gentoo.org> -openmpi-1.2.8.ebuild,
   -openmpi-1.2.9.ebuild, -openmpi-1.3.ebuild, -openmpi-1.3.1.ebuild:
   Remove old openmpi versions.

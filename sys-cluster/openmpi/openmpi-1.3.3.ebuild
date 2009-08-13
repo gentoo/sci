@@ -15,8 +15,9 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
 RESTRICT="mpi-threads? ( test )"
-IUSE="+cxx fortran heterogeneous ipv6 mpi-threads pbs romio threads"
+IUSE="+cxx fortran heterogeneous ipv6 mpi-threads pbs romio threads vt"
 RDEPEND="pbs? ( sys-cluster/torque )
+	vt? ( !dev-libs/libotf )
 	$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
 
@@ -86,9 +87,7 @@ src_configure() {
 			--disable-mpi-f77"
 	fi
 
-	# Push Vampir Trace includes to a subdir.
-	c="${c} --with-contrib-vt-flags=\"--includedir=$(mpi_root)usr/include/vt\""
-
+	! use vt && c="${c} --enable-contrib-no-build=vt"
 	econf $(mpi_econf_args) ${c} \
 		$(use_enable cxx mpi-cxx) \
 		$(use_enable romio io-romio) \
