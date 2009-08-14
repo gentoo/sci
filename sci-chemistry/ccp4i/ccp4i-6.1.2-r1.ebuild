@@ -61,6 +61,12 @@ src_compile() {
 }
 
 src_install() {
+	# rm imosflm stuff
+	rm -rf "${S}"/ccp4i/{bin/imosflm,imoslfm}
+
+	# Is your name Gates?
+	rm -rf "${S}"/ccp4i/etc/WINDOWS
+
 	# CCP4Interface - GUI
 	insinto /usr/$(get_libdir)/ccp4
 	doins -r "${S}"/ccp4i || die

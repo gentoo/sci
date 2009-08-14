@@ -34,7 +34,6 @@ src_prepare() {
 	epatch "${FILESDIR}/${PV}"-Makefile.patch
 }
 
-
 src_compile() {
 	F77=$(tc-getF77)
 

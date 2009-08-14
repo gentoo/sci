@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccp4i-6.1.2-r1 (14 Aug 2009)
+
+  14 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -ccp4i-6.1.2.ebuild, +ccp4i-6.1.2-r1.ebuild:
+  some fixes to remove imosflm
+
 *ccp4i-6.1.2 (29 Jul 2009)
 
   29 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

@@ -6,95 +6,93 @@ inherit fortran eutils gnuconfig toolchain-funcs autotools
 
 FORTRAN="g77 gfortran ifc"
 
+MY_P="${PN/-apps}-${PV}"
+
 SRC="ftp://ftp.ccp4.ac.uk/ccp4"
 
-UPDATE="04_03_09"
-PATCHDATE="090511"
+#UPDATE="04_03_09"
+#PATCHDATE="090511"
 
-PATCH_TOT="1"
+PATCH_TOT="0"
 # Here's a little scriptlet to generate this list from the provided
 # index.patches file
 #
 # i=1; while read -a line; do [[ ${line//#} != ${line} ]] && continue;
 # echo "PATCH${i}=( ${line[1]}"; echo "${line[0]} )"; (( i++ )); done <
 # index.patches
-PATCH1=( src/clipper_progs/src/
-ctruncate.cpp-r1.13.2.5-r1.13.2.7.diff )
+#PATCH1=( src/topp_
+#topp.f-r1.16.2.5-r1.16.2.6.diff )
+#PATCH2=( .
+#configure-r1.372.2.18-r1.372.2.19.diff )
 
 DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
 RESTRICT="mirror"
-#SRC_URI="${SRC}/${PV}/source/${P}-core-src.tar.gz"
-SRC_URI="${SRC}/6.1.1/${P}-core-src.tar.gz
-	${SRC}/${PV}/updates/${P}-src-patch-${UPDATE}.tar.gz
-	http://dev.gentooexperimental.org/~jlec/science-dist/${PV}-${PATCHDATE}-updates.patch.bz2"
+SRC_URI="${SRC}/${PV}/${MY_P}-core-src.tar.gz"
+# patch tarball from upstream
+	[[ -n ${UPDATE} ]] && SRC_URI="${SRC_URI} ${SRC}/${PV}/updates/${P}-src-patch-${UPDATE}.tar.gz"
+# patches created by us
+	[[ -n ${PATCHDATE} ]] && SRC_URI="${SRC_URI} http://dev.gentooexperimental.org/~jlec/science-dist/${PV}-${PATCHDATE}-updates.patch.bz2"
+
 for i in $(seq $PATCH_TOT); do
 	NAME="PATCH${i}[1]"
 	SRC_URI="${SRC_URI}
 		${SRC}/${PV}/patches/${!NAME}"
 done
+
 LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="X examples"
+
 # app-office/sc overlaps sc binary and man page
 # We can't rename ours since the automated ccp4i interface expects it there,
 # as do many scripts. app-office/sc can't rename its because that's the name
 # of the package.
-
-SCILIB_DEP="virtual/lapack
-		virtual/blas
-		sci-libs/ccp4-libs
-		=sci-libs/fftw-2*
-		sci-libs/clipper"
-
-SCI_DEP="sci-chemistry/pdb-extract
-		sci-chemistry/rasmol"
-
-XLIB_DEP="x11-libs/libX11
+X11DEPS="x11-libs/libX11
 	x11-libs/libXt
 	x11-libs/libXaw
 	x11-libs/libxdl_view
 	x11-libs/libjwc_c
-	x11-libs/libjwc_f
-	>=dev-lang/tk-8.3
+	x11-libs/libjwc_f"
+
+TKDEPS=">=dev-lang/tk-8.3
 	>=dev-tcltk/blt-2.4
+	dev-tcltk/iwidgets
+	>=dev-tcltk/tdom-0.8
 	dev-tcltk/tkimg
 	dev-tcltk/tktreectrl
 	dev-tcltk/itcl
-	dev-tcltk/itk
-	dev-tcltk/iwidgets"
+	dev-tcltk/itk"
 
-COMMON="app-shells/tcsh
-	dev-lang/tcl
+SCILIBS="sci-libs/ccp4-libs
+	virtual/lapack
+	virtual/blas
+	=sci-libs/fftw-2*
+	sci-libs/clipper"
+
+SCIAPPS="sci-chemistry/pdb-extract
+	sci-chemistry/rasmol"
+
+RDEPEND="X? ( ${X11DEPS} )
+	${TKDEPS}
+	${SCILIBS}
+	${SCIAPPS}
+	app-shells/tcsh
 	dev-python/pyxml
 	dev-libs/libxml2
 	dev-libs/boehm-gc
-	>=dev-tcltk/tdom-0.8
-	!app-office/sc"
-
-RDEPEND="${SCILIB_DEP}
-	${SCI_DEP}
-	${COMMON}
-	X? ( ${XLIB_DEP} )"
-
+	!app-office/sc
+	!<sci-chemistry/ccp4-6.1.2"
 DEPEND="${RDEPEND}
-		=sys-devel/automake-1.6*
-		X? (
-				x11-misc/imake
-				x11-proto/inputproto
-				x11-proto/xextproto
-		)"
+	=sys-devel/automake-1.6*
+	X? (
+		x11-misc/imake
+		x11-proto/inputproto
+		x11-proto/xextproto
+	)"
 
-PDEPEND="sci-chemistry/mosflm
-	 sci-chemistry/imosflm
-	 sci-chemistry/molrep
-	 sci-chemistry/refmac
-	 sci-chemistry/xia2
-	 sci-chemistry/ccp4i
-	 sci-libs/balbes-db"
-
-S="${WORKDIR}/${P}"
+S="${WORKDIR}/${MY_P}"
 
 src_unpack() {
 	unpack ${A}
@@ -112,18 +110,9 @@ src_unpack() {
 	einfo "Done."
 	echo
 
-	epatch "${WORKDIR}"/${PV}-${PATCHDATE}-updates.patch
+	[[ -n ${PATCHDATE} ]] && epatch "${WORKDIR}"/${PV}-${PATCHDATE}-updates.patch
 
 	einfo "Applying Gentoo patches ..."
-	# These two only needed when attempting to install outside build dir via
-	# --bindir and --libdir instead of straight copying after build
-
-	# it attempts to install some libraries during the build
-	#ccp_patch "${FILESDIR}"/${P}-install-libs-at-install-time.patch
-	# hklview/ipdisp.exe/xdlmapman/ipmosflm can't find libxdl_view
-	# without this patch when --libdir is set
-	# Rotgen still needs more patching to find it
-	#ccp_patch "${FILESDIR}"/add-xdl-libdir.patch
 
 	# it tries to create libdir, bindir etc on live system in configure
 	ccp_patch "${FILESDIR}"/${PV}-dont-make-dirs-in-configure.patch
@@ -131,20 +120,6 @@ src_unpack() {
 	# We already have sci-chemistry/rasmol
 	# Also remember to create the bindir.
 	ccp_patch "${FILESDIR}"/${PV}-dont-build-double-and-make-bindir.patch
-
-	# We already have sci-chemistry/pdb-extract
-# Use configure option instead
-#	ccp_patch "${FILESDIR}"/dont-build-pdb-extract.patch
-
-# Don't use these when we aren't building phaser
-#	ccp_patch "${FILESDIR}"/make-phaser-bindir.patch
-#	ccp_patch "${FILESDIR}"/no-phaser-ld-assume-kernel.patch
-#	# scons config.py tries to chmod python on live system
-#	ccp_patch "${FILESDIR}"/dont-chmod-python-binary.patch
-
-# Upstream fixed it
-	# csh syntax doesn't work in a bash script
-#	ccp_patch "${FILESDIR}"/${PV}-fix-setup-bash-incompatibility.patch
 
 	# libraries come from sci-libs/ccp4-libs
 	ccp_patch "${FILESDIR}"/${PV}-dont-build-libs.patch
@@ -160,19 +135,22 @@ src_unpack() {
 	mv ./html/rapper.html ./html/rappermc.html || die
 
 	# molref is provided as binary and dynamically linked against icc
-	ccp_patch "${FILESDIR}"/${PV}-nomolref.patch
-
-	# mosflm has its own ebuild
-#	ccp_patch "${FILESDIR}"/${PV}-dont-build-mosflm.patch
+	ccp_patch "${FILESDIR}"/${PV}-dont-build-molref.patch
 
 	# no xia
-	ccp_patch "${FILESDIR}"/${PV}-noxia.patch
+	ccp_patch "${FILESDIR}"/${PV}-dont-build-xia.patch
+
+	# We build scala ourself
+	ccp_patch "${FILESDIR}"/${PV}-dont-build-scala.patch
+
+	# We build scala ourself
+	ccp_patch "${FILESDIR}"/${PV}-dont-build-imosflm.patch
+
+	# gcc-4.3.3
+	ccp_patch "${FILESDIR}"/${PV}-gcc4.4.patch
 
 	einfo "Done." # done applying Gentoo patches
 	echo
-
-	# glibc-2.10 getline fix
-	sed -e "s:getline:${PN}getline:g" -i lib/src/fsplit.c
 
 	# Don't build refmac binaries available from the standalone version
 	sed -i -e "/^REFMACTARGETS/s:refmac5 libcheck makecif molrep::g" configure
@@ -230,7 +208,9 @@ src_compile() {
 	# Fix up variables -- need to reset CCP4_MASTER at install-time
 	sed -i \
 		-e "s~^\(setenv CCP4_MASTER.*\)/.*~\1${WORKDIR}~g" \
+		-e "s~^\(export CCP4_MASTER.*\)/.*~\1${WORKDIR}~g" \
 		-e "s~^\(setenv CCP4I_TCLTK.*\)/usr/local/bin~\1/usr/bin~g" \
+		-e "s~^\(export CCP4I_TCLTK.*\)/usr/local/bin~\1/usr/bin~g" \
 		"${S}"/include/ccp4.setup*
 
 	# Set up variables for build
@@ -286,11 +266,6 @@ src_install() {
 	# Set up variables for build
 	source "${S}"/include/ccp4.setup
 
-# Only needed when using --bindir and --libdir
-	# Needed to avoid errors. Originally tried to make lib and bin
-	# in configure script, now patched out by dont-make-dirs-in-configure.patch
-#	dodir /usr/include /usr/$(get_libdir) /usr/bin
-
 #	make install || die "install failed"
 
 	# if we don't make this, a ton of programs fail to install
@@ -315,23 +290,21 @@ src_install() {
 		-e "s~^\(.*setenv CLIBD_MON .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*setenv MOLREPLIB .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*setenv PYTHONPATH .*\)\$CCP4.*~\1\$CCP4/share/ccp4/python~g" \
-		-e "s~^\(.*setenv CCP4_BROWSER.*\).*~\1 firefox~g" \
+		-e "s~^\(export CCP4_MASTER.*\)${WORKDIR}~\1/usr~g" \
+		-e "s~^\(export CCP4.*\$CCP4_MASTER\).*~\1~g" \
+		-e "s~^\(export CCP4I_TOP\).*~\1=\$CCP4/$(get_libdir)/ccp4/ccp4i~g" \
+		-e "s~^\(export DBCCP4I_TOP\).*~\1=\$CCP4/share/ccp4/dbccp4i~g" \
+		-e "s~^\(.*export CINCL.*\$CCP4\).*~\1/share/ccp4/include~g" \
+		-e "s~^\(.*export CLIBD .*\$CCP4\).*~\1/share/ccp4/data~g" \
+		-e "s~^\(.*export CLIBD_MON .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
+		-e "s~^\(.*export MOLREPLIB .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
+		-e "s~^\(.*export PYTHONPATH .*\)\$CCP4.*~\1\$CCP4/share/ccp4/python~g" \
 		"${S}"/include/ccp4.setup* || die
 
 	# Don't check for updates on every sourcing of /etc/profile
 	sed -i \
 		-e "s:\(eval python.*\):#\1:g"
 		"${S}"/include/ccp4.setup* || die
-
-	# Get rid of S instances
-	# Also the main clipper library is built as libclipper-core, not libclipper
-#	sed -i \
-#		-e "s:${S}:$usr:g" \
-#		-e "s:lclipper :lclipper-core :g" \
-#		"${S}"/bin/clipper-config || die
-#	sed -i \
-#		-e "s:${S}:usr:g" \
-#		"${S}"/$(get_libdir)/cctbx/cctbx_build/setpaths*
 
 	# Bins
 	dobin "${S}"/bin/* || die
@@ -350,18 +323,15 @@ src_install() {
 
 	# Setup scripts
 	insinto /etc/profile.d
-	newins "${S}"/include/ccp4.setup-bash ccp4.setup.sh || die
-	newins "${S}"/include/ccp4.setup-dist ccp4.setup.csh || die
-	rm -f "${S}"/include/ccp4.setup-bash
-	rm -f "${S}"/include/ccp4.setup-dist
+#	newins "${S}"/include/ccp4.setup-bash ccp4.setup.bash || die
+	newins "${S}"/include/ccp4.setup-csh ccp4.setup.csh || die
+#	newins "${S}"/include/ccp4.setup-zsh ccp4.setup.zsh || die
+	newins "${S}"/include/ccp4.setup-sh ccp4.setup.sh || die
+	rm -f "${S}"/include/ccp4.setup*
 
 	# Environment files, setup scripts, etc.
 	insinto /usr/share/ccp4/include
 	doins "${S}"/include/* || die
-
-	# balbes
-#	insinto /usr/share/ccp4
-#	doins -r "${S}"/share/balbes || die
 
 	# smartie -- log parsing
 	insinto /usr/share/ccp4
