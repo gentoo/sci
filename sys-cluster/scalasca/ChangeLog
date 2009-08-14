@@ -2,6 +2,16 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Aug 2009; Christoph Junghans <kleiner_otti@gmx.de> scalasca-1.2.ebuild:
+  DOCDIR fix
+
+*scalasca-1.2 (13 Aug 2009)
+
+  13 Aug 2009; Christoph Junghans <kleiner_otti@gmx.de>
+  -scalasca-1.1.ebuild, -files/scalasca-1.1-installdirs.patch,
+  +scalasca-1.2.ebuild:
+  version bump to 1.2
+
   18 May 2009; Christoph Junghans <kleiner_otti@gmx.de> ChangeLog:
   added wxwindows USE flags, fixed C{XX}FLAGS
 

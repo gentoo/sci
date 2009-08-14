@@ -48,6 +48,7 @@ IUSE=""
 RDEPEND="virtual/lapack
 	virtual/blas
 	=sci-libs/fftw-2*
+	sci-libs/mmdb
 	app-shells/tcsh
 	!<sci-chemistry/ccp4-6.0.99
 	sci-libs/monomer-db"
@@ -90,7 +91,11 @@ src_unpack() {
 	# gerror_ gets defined twice on ppc if you're using gfortran/g95
 	ccp_patch "${FILESDIR}"/6.0.2-ppc-double-define-gerror.patch
 
+	# make creation of libccif.so smooth
 	ccp_patch "${FILESDIR}"/${PV}-ccif-shared.patch
+
+	# lets try to build libmmdb seperatly
+	ccp_patch "${FILESDIR}"/${PV}-dont-build-mmdb.patch
 
 	einfo "Done." # done applying Gentoo patches
 	echo
@@ -149,8 +154,8 @@ src_compile() {
 #	export CCP4_SCR="${T}"
 
 	# Fix linking
+#	$(tc-getCC) ${userldflags} -shared -Wl,-soname,libmmdb.so -o libmmdb.so \${MMDBOBJS} $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}') -lm -lstdc++ && \
 	export SHARE_LIB="\
-		$(tc-getCC) ${userldflags} -shared -Wl,-soname,libmmdb.so -o libmmdb.so \${MMDBOBJS} $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}') -lm -lstdc++ && \
 		$(tc-getCC) ${userldflags} -shared -Wl,-soname,libccp4c.so -o libccp4c.so \${CORELIBOBJS} \${CGENERALOBJS} \${CUCOBJS} \${CMTZOBJS} \${CMAPOBJS} \${CSYMOBJS} -L.. -lccif $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}') -lm && \
 		${FORTRANC} ${userldflags} -shared -Wl,-soname,libccp4f.so -o libccp4f.so \${FORTRANLOBJS} \${FINTERFACEOBJS} -L.. -lccif -L. -lccp4c -lmmdb $(gcc-config -L | awk -F: '{for(i=1; i<=NF; i++) printf " -L%s", $i}') -lstdc++ -lgfortran -lm"
 
@@ -208,7 +213,8 @@ src_install() {
 
 	# Include files
 	insinto /usr/include
-	for i in ccp4 mmdb; do
+#	for i in ccp4 mmdb; do
+	for i in ccp4; do
 		doins -r "${S}"/include/${i} || die
 	done
 }

@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> coot-9999.ebuild:
+  gcc 4.4 compatibily fixed upstream
+
   05 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   -coot-0.6_pre1-r2041.ebuild, coot-0.6_pre1-r2042.ebuild,
   +files/0.5.2-gcc-4.4.patch, +files/0.6_pre1-gcc4.4.patch,
