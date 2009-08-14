@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  ccp4-apps-6.1.2.ebuild:
+  balbes-db dep is handled by sci-chemistry/ccp4 now
+
   03 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   files/6.1.2-dont-build-libs.patch, ccp4-apps-6.1.2.ebuild,
   +files/6.1.2-gcc4.4.patch:

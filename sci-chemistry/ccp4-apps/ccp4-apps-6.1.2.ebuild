@@ -69,8 +69,7 @@ SCILIBS="sci-libs/ccp4-libs
 	virtual/lapack
 	virtual/blas
 	=sci-libs/fftw-2*
-	sci-libs/clipper
-	sci-libs/balbes-db"
+	sci-libs/clipper"
 
 SCIAPPS="sci-chemistry/pdb-extract
 	sci-chemistry/rasmol"
