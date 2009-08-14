@@ -290,17 +290,15 @@ src_install() {
 		-e "s~^\(.*setenv CLIBD_MON .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*setenv MOLREPLIB .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*setenv PYTHONPATH .*\)\$CCP4.*~\1\$CCP4/share/ccp4/python~g" \
-		-e "s~^\(.*setenv CCP4_BROWSER.*\).*~\1 firefox~g" \
 		-e "s~^\(export CCP4_MASTER.*\)${WORKDIR}~\1/usr~g" \
 		-e "s~^\(export CCP4.*\$CCP4_MASTER\).*~\1~g" \
-		-e "s~^\(export CCP4I_TOP\).*~\1 \$CCP4/$(get_libdir)/ccp4/ccp4i~g" \
-		-e "s~^\(export DBCCP4I_TOP\).*~\1 \$CCP4/share/ccp4/dbccp4i~g" \
+		-e "s~^\(export CCP4I_TOP\).*~\1=\$CCP4/$(get_libdir)/ccp4/ccp4i~g" \
+		-e "s~^\(export DBCCP4I_TOP\).*~\1=\$CCP4/share/ccp4/dbccp4i~g" \
 		-e "s~^\(.*export CINCL.*\$CCP4\).*~\1/share/ccp4/include~g" \
 		-e "s~^\(.*export CLIBD .*\$CCP4\).*~\1/share/ccp4/data~g" \
 		-e "s~^\(.*export CLIBD_MON .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*export MOLREPLIB .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*export PYTHONPATH .*\)\$CCP4.*~\1\$CCP4/share/ccp4/python~g" \
-		-e "s~^\(.*export CCP4_BROWSER.*\).*~\1 firefox~g" \
 		"${S}"/include/ccp4.setup* || die
 
 	# Don't check for updates on every sourcing of /etc/profile
