@@ -15,7 +15,7 @@ ESVN_REPO_URI="http://svn.osgeo.org/qgis/trunk/qgis"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~ppc ~x86"
+KEYWORDS=""
 IUSE="debug gps grass gsl postgres python sqlite samples"
 
 DEPEND="dev-util/cmake
