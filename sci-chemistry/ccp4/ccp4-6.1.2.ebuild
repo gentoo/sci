@@ -11,7 +11,7 @@ SRC_URI=""
 LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="X"
+IUSE="X +db"
 
 RDEPEND="sci-chemistry/ccp4-apps[X?]
 	X? ( sci-chemistry/ccp4i
@@ -22,5 +22,6 @@ RDEPEND="sci-chemistry/ccp4-apps[X?]
 	sci-chemistry/pdb-extract
 	sci-chemistry/refmac
 	sci-chemistry/scala
-	sci-chemistry/xia2"
+	sci-chemistry/xia2
+	db? ( sci-libs/balbes-db )"
 DEPEND=""

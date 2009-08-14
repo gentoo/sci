@@ -36,7 +36,7 @@ done
 LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="X examples"
+IUSE="X db examples"
 # app-office/sc overlaps sc binary and man page
 # We can't rename ours since the automated ccp4i interface expects it there,
 # as do many scripts. app-office/sc can't rename its because that's the name
@@ -87,12 +87,12 @@ DEPEND="${RDEPEND}
 		)"
 
 PDEPEND="sci-chemistry/mosflm
-	 sci-chemistry/imosflm
-	 sci-chemistry/molrep
-	 sci-chemistry/refmac
-	 sci-chemistry/xia2
-	 sci-chemistry/ccp4i
-	 sci-libs/balbes-db"
+	sci-chemistry/imosflm
+	sci-chemistry/molrep
+	sci-chemistry/refmac
+	sci-chemistry/xia2
+	sci-chemistry/ccp4i
+	db? ( sci-libs/balbes-db )"
 
 S="${WORKDIR}/${P}"
 

@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccp4-6.1.1-r7 (14 Aug 2009)
+
+  14 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +ccp4-6.1.1-r7.ebuild:
+  make balbes-db optionall as requested by Donnie
+
 *ccp4-6.1.1-r6 (07 Jul 2009)
 
   03 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
