@@ -13,7 +13,7 @@ SRC_URI="http://download.osgeo.org/qgis/src/${PN}_${PV}.tar.gz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~ppc ~x86"
+KEYWORDS="~amd64 ~ppc ~x86"
 IUSE="debug gps grass gsl postgres python sqlite samples"
 
 DEPEND="dev-util/cmake
