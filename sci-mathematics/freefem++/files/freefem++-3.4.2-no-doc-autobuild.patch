@@ -1,0 +1,30 @@
+diff -urN freefem++-3.4.old/DOC/Makefile.am freefem++-3.4.new/DOC/Makefile.am
+--- freefem++-3.4.old/DOC/Makefile.am	2009-07-15 17:19:57.000000000 +0200
++++ freefem++-3.4.new/DOC/Makefile.am	2009-07-15 17:20:22.000000000 +0200
+@@ -1,4 +1,4 @@
+-dist_pkgdata_DATA=$(DOCPDF)
++all:
+ documentation: $(DOCPDF) 
+ docps:  $(DOCPS) $(DOCPSGZ) 
+ docpdf: $(DOCPDF) 
+@@ -117,4 +117,4 @@
+ 
+ 
+ # do not delete the copy figure to long to created 
+-.PRECIOUS: $(CPFIGS_PDF) $(CPFIGS_EPS)
+\ No newline at end of file
++.PRECIOUS: $(CPFIGS_PDF) $(CPFIGS_EPS)
+diff -urN freefem++-3.4.old/Makefile.am freefem++-3.4.new/Makefile.am
+--- freefem++-3.4.old/Makefile.am	2009-07-15 17:19:57.000000000 +0200
++++ freefem++-3.4.new/Makefile.am	2009-07-15 17:55:42.000000000 +0200
+@@ -147,10 +147,6 @@
+ 
+ # Native MacOS packaging
+ # ----------------------
+-install-exec-local:: 
+-	$(mkinstalldirs) -m 755 $(DESTDIR)$(pkgdatadir)/$(VERSION)
+-	tar cvf - $(FF_EXAMPLES_FILES)| (cd $(DESTDIR)$(pkgdatadir)/$(VERSION); tar xvf -)
+-
+ ListFiles-natives: .FORCE 
+ #	echo COPYRIGHT HISTORY HISTORY_BEFORE_2005 README BUGS TODO INSTALL INSTALL-MacOSX INNOVATION >$@	
+ #	echo mode-mi-edp.zip >> $@
