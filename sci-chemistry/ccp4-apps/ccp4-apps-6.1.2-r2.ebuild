@@ -299,6 +299,7 @@ src_install() {
 		-e "s~^\(.*export CLIBD_MON .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*export MOLREPLIB .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*export PYTHONPATH .*\)\$CCP4.*~\1\$CCP4/share/ccp4/python~g" \
+		-e "/IMOSFLM_VERSION/d" \
 		"${S}"/include/ccp4.setup* || die
 
 	# Don't check for updates on every sourcing of /etc/profile
