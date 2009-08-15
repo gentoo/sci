@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> ccp4-6.1.2.ebuild,
+  metadata.xml:
+  USE db renamed to balbesdb as suggested by Donnie and Afrever
+
 *ccp4-6.1.1-r7 (14 Aug 2009)
 
   14 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
