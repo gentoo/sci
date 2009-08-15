@@ -37,18 +37,22 @@ PATCHES=(
 src_compile() {
 	cd c
 
-	einfo "$(tc-getCC) ${CFLAGS} -DUSE_TCL_STUBS -DTK_USE_STUBS tkImageLoadDLL.c -o -c tkImageLoad.c"
-	$(tc-getCC) -c ${CFLAGS} -fPIC -DUSE_TCL_STUBS -DTK_USE_STUBS tkImageLoad.c -o tkImageLoad.o || die
+	objs="tkImageLoadDLL.o tkImageLoad.o"
+	libs="-ltclstub -ltkstub"
+	config="-fPIC -DUSE_TCL_STUBS -DTK_USE_STUBS"
+	ldextra="-shared"
 
-	einfo "$(tc-getCC) -c ${CFLAGS} -DUSE_TCL_STUBS -DTK_USE_STUBS tkImageLoadDLL.c -o tkImageLoadDLL.o"
-	$(tc-getCC) -c ${CFLAGS} -fPIC -DUSE_TCL_STUBS -DTK_USE_STUBS tkImageLoadDLL.c -o tkImageLoadDLL.o || die
+	for file in ${objs}; do
+		einfo "$(tc-getCC) -c ${CFLAGS} ${config} ${file/.o/.c} -o ${file}"
+		$(tc-getCC) -c ${CFLAGS} ${config} ${file/.o/.c} -o ${file}
+	done
 
-	einfo "$(tc-getCC) ${LDFLAGS} -o tkImageLoad.so tkImageLoad.o -ltclstub -ltkstub -ltk -ltcl"
-	$(tc-getCC) ${LDFLAGS} -shared -o tkImageLoad.so tkImageLoad.o tkImageLoadDLL.o -ltclstub -ltkstub || die
+	einfo "$(tc-getCC) ${LDFLAGS} ${ldextra} ${objs} -o tkImageLoad.so ${libs}"
+	$(tc-getCC) ${LDFLAGS} ${ldextra} ${objs} -o tkImageLoad.so ${libs}
 }
 
 src_install(){
-	rm -rvf lib/{*.so,anigif,combobox}
+	rm -rf lib/{*.so,anigif,combobox}
 
 	insinto /usr/$(get_libdir)/${PN}
 	doins -r "${S}"/{src,bitmaps,lib}
