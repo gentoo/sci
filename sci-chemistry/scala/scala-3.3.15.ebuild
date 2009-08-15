@@ -18,7 +18,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="sci-libs/ccp4-libs
-	virtual/lapack"
+	virtual/lapack
+	!!<sci-chemistry/ccp4-6.1.2"
 DEPEND="${RDEPEND}"
 
 src_prepare() {
