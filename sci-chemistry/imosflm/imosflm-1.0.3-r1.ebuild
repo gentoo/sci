@@ -60,5 +60,11 @@ src_install(){
 
 	dolib.so c/tkImageLoad.so
 
+	cat >> "${T}"/23imosflm <<- EOF
+	IMOSFLM_VERSION="${PV}"
+	EOF
+
+	doenvd "${T}"/23imosflm
+
 	make_wrapper imosflm /usr/$(get_libdir)/${PN}/src/imosflm
 }
