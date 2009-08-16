@@ -12,7 +12,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 IUSE="X perl"
-RDEPEND="sci-chemistry/ccp4
+RDEPEND="sci-chemistry/ccp4-apps
 	|| ( 	sci-biology/mafft
 		sci-biology/clustalw_2
 		sci-biology/probcons
@@ -24,17 +24,10 @@ RDEPEND="sci-chemistry/ccp4
 DEPEND="${RDEPEND}"
 
 src_unpack(){
-
 	unpack ${A}
 	cd "${S}"
 	unpack ./"${PN}".tar.gz
 }
-
-src_compile(){
-	einfo "Nothing to compile"
-}
-
-
 
 src_install(){
 
