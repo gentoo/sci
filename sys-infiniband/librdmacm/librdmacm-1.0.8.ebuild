@@ -12,7 +12,7 @@ inherit openib
 DESCRIPTION="OpenIB userspace RDMA CM library"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
-DEPEND=""
+DEPEND="sys-infiniband/libibverbs"
 RDEPEND="${DEPEND}
 	!sys-infiniband/openib-userspace"
 
