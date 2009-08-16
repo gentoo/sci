@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccp4-apps-6.1.2-r4 (16 Aug 2009)
+
+  16 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -ccp4-apps-6.1.2-r2.ebuild, +ccp4-apps-6.1.2-r4.ebuild:
+  Do not install files which come with mrbump
+  fixes for variables
+
 *ccp4-apps-6.1.2-r2 (15 Aug 2009)
 
   15 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

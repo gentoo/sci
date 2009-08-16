@@ -224,6 +224,8 @@ src_compile() {
 	export FC=${FORTRANC}
 	export FOPTIM=${FFLAGS:- -O2}
 	export BINSORT_SCR="${T}"
+	export CCP4_MASTER="${WORKDIR}"
+	export CCP4I_TCLTK="/usr/bin"
 
 	# Can't use econf, configure rejects unknown options like --prefix
 	./configure \
@@ -295,10 +297,10 @@ src_install() {
 		-e "s~^\(export CCP4I_TOP\).*~\1=\$CCP4/$(get_libdir)/ccp4/ccp4i~g" \
 		-e "s~^\(export DBCCP4I_TOP\).*~\1=\$CCP4/share/ccp4/dbccp4i~g" \
 		-e "s~^\(.*export CINCL.*\$CCP4\).*~\1/share/ccp4/include~g" \
-		-e "s~^\(.*export CLIBD .*\$CCP4\).*~\1/share/ccp4/data~g" \
-		-e "s~^\(.*export CLIBD_MON .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
-		-e "s~^\(.*export MOLREPLIB .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
-		-e "s~^\(.*export PYTHONPATH .*\)\$CCP4.*~\1\$CCP4/share/ccp4/python~g" \
+		-e "s~^\(.*export CLIBD.*\$CCP4\).*~\1/share/ccp4/data~g" \
+		-e "s~^\(.*export CLIBD_MON.*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
+		-e "s~^\(.*export MOLREPLIB.*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
+		-e "s~^\(.*export PYTHONPATH.*\)\$CCP4.*~\1\$CCP4/share/ccp4/python~g" \
 		-e "/IMOSFLM_VERSION/d" \
 		"${S}"/include/ccp4.setup* || die
 
@@ -306,6 +308,9 @@ src_install() {
 	sed -i \
 		-e "s:\(eval python.*\):#\1:g"
 		"${S}"/include/ccp4.setup* || die
+
+	# Collision with sci-chemistry/mrbump
+	rm -f "${S}"/bin/{mrbump,pydbviewer} || die
 
 	# Bins
 	dobin "${S}"/bin/* || die
@@ -382,6 +387,13 @@ src_install() {
 
 	# Fix overlaps with other packages
 	rm -f "${D}"/usr/share/man/man1/rasmol.1* "${D}"/usr/lib/font84.dat || die
+
+	cat >> "${T}"/baubles <<- EOF
+	#!/bin/bash
+	exec python \${CCP4}/share/ccp4/smartie/baubles.py
+	EOF
+
+	dobin "${T}"/baubles || die
 }
 
 pkg_postinst() {
