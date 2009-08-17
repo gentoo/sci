@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 IUSE="X perl"
-RDEPEND="sci-chemistry/ccp4-apps[X?]
+RDEPEND=">=sci-chemistry/ccp4-apps-6.1.2-r4[X?]
 	|| ( 	sci-biology/mafft
 		sci-biology/clustalw:2
 		sci-biology/probcons
