@@ -4,7 +4,9 @@
 
 EAPI="2"
 
-inherit autotools
+inherit autotools eutils
+
+PATCH="612"
 
 DESCRIPTION="additional c library for ccp4"
 HOMEPAGE="http://www.ccp4.ac.uk/main.html"
@@ -16,6 +18,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 src_prepare() {
+	epatch "${FILESDIR}"/${PATCH}-gentoo.patch
 	rm missing || die
 	eautoreconf
 }
