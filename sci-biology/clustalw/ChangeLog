@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/clustalw/ChangeLog,v 1.16 2009/04/28 23:57:43 weaver Exp $
 
+*clustalw-1.83-r3 (17 Aug 2009)
+
+  17 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +clustalw-1.83-r3.ebuild, -clustalw-2.0.11.ebuild:
+  wrong ebuild added to overlay
+
   17 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +files/1.83-as-needed.patch, +clustalw-2.0.11.ebuild, +metadata.xml:
   fixes for bug 281734
