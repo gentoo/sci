@@ -4,9 +4,11 @@
 
 EAPI="2"
 
-inherit fortran autotools
+inherit autotools eutils fortran
 
 FORTRAN="g77 gfortran ifc"
+
+PATCH="612"
 
 DESCRIPTION="additional c library for ccp4"
 HOMEPAGE="http://www.ccp4.ac.uk/main.html"
@@ -22,6 +24,7 @@ RDEPEND=""
 DEPEND="${RDEPEND}"
 
 src_prepare() {
+	epatch "${FILESDIR}"/${PATCH}-gentoo.patch
 	eautoreconf
 }
 
