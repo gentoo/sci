@@ -67,6 +67,9 @@ src_install() {
 	# Is your name Gates?
 	rm -rf "${S}"/ccp4i/etc/WINDOWS
 
+	# This is installed by mrbump
+	rm -rf "${S}"/ccp4i/{tasks/{dbviewer.tcl,mrbump.*},templates/mrbump.com,scripts/mrbump.script}
+
 	# CCP4Interface - GUI
 	insinto /usr/$(get_libdir)/ccp4
 	doins -r "${S}"/ccp4i || die
