@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit fortran eutils gnuconfig toolchain-funcs autotools
+inherit fortran eutils flag-o-matic gnuconfig toolchain-funcs autotools
 
 FORTRAN="g77 gfortran ifc"
 
@@ -149,6 +149,9 @@ src_unpack() {
 	# gcc-4.3.3
 	ccp_patch "${FILESDIR}"/${PV}-gcc4.4.patch
 
+	# don't configure what is not build
+	ccp_patch "${FILESDIR}"/${PV}-dont-configure.patch
+
 	einfo "Done." # done applying Gentoo patches
 	echo
 
@@ -178,6 +181,9 @@ src_unpack() {
 src_compile() {
 	# Build system is broken if we set LDFLAGS
 	unset LDFLAGS
+
+	# These are broken with ./src/procheck/ps.f
+	filter-flags "-floop-*"
 
 	# GENTOO_OSNAME can be one of:
 	# irix irix64 sunos sunos64 aix hpux osf1 linux freebsd
@@ -236,6 +242,7 @@ src_compile() {
 		--disable-pdb_extract \
 		--disable-cctbx \
 		--disable-phaser \
+		--disable-diffractionImg \
 		--disable-clipper \
 		--disable-mosflm \
 		--disable-mrbump \
@@ -291,7 +298,7 @@ src_install() {
 		-e "s~^\(.*setenv CLIBD .*\$CCP4\).*~\1/share/ccp4/data~g" \
 		-e "s~^\(.*setenv CLIBD_MON .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*setenv MOLREPLIB .*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
-		-e "s~^\(.*setenv PYTHONPATH .*\)\$CCP4.*~\1\$CCP4/share/ccp4/python~g" \
+		-e "s~^\(.*setenv PYTHONPATH .*\)\${CCP4}.*~\1\${CCP4}/share/ccp4/python~g" \
 		-e "s~^\(export CCP4_MASTER.*\)${WORKDIR}~\1/usr~g" \
 		-e "s~^\(export CCP4.*\$CCP4_MASTER\).*~\1~g" \
 		-e "s~^\(export CCP4I_TOP\).*~\1=\$CCP4/$(get_libdir)/ccp4/ccp4i~g" \
@@ -300,9 +307,11 @@ src_install() {
 		-e "s~^\(.*export CLIBD.*\$CCP4\).*~\1/share/ccp4/data~g" \
 		-e "s~^\(.*export CLIBD_MON.*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
 		-e "s~^\(.*export MOLREPLIB.*\)\$CCP4.*~\1\$CCP4/share/ccp4/data/monomers/~g" \
-		-e "s~^\(.*export PYTHONPATH.*\)\$CCP4.*~\1\$CCP4/share/ccp4/python~g" \
+		-e "s~^\(.*export PYTHONPATH.*\)\${CCP4}.*~\1\${CCP4}/share/ccp4/python~g" \
 		-e "/IMOSFLM_VERSION/d" \
 		"${S}"/include/ccp4.setup* || die
+
+#		-e "s~\$CCP4/share/XIAROOT/setup.sh~\$CCP4/share/ccp4/XIAROOT/setup.sh~g" \
 
 	# Don't check for updates on every sourcing of /etc/profile
 	sed -i \
