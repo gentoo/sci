@@ -1,0 +1,244 @@
+diff -Nu ccp4-6.1.2/x-windows/libjwc/libjwc_c/configure.in libjwc_c-1.1/configure.in
+--- ccp4-6.1.2/x-windows/libjwc/libjwc_c/configure.in	2008-10-27 17:30:56.000000000 +0100
++++ libjwc_c-1.1/configure.in	1999-10-22 18:41:57.000000000 +0200
+@@ -1,6 +1,3 @@
+-dnl   Copyright 1996-1999, CLRC Daresbury Laboratory.
+-dnl   For licence conditions, see the file COPYING in the distribution.
+-
+ dnl Process this file with autoconf to produce a configure script.
+ AC_INIT(kdm.c)
+ 
+@@ -10,8 +7,9 @@
+ 
+ AC_CANONICAL_SYSTEM
+ 
+-AM_INIT_AUTOMAKE([libjwc], 1.1)
+-AM_MAINTAINER_MODE
++AM_INIT_AUTOMAKE([libjwc_c], 1.1)
++
++dnl AM_MAINTAINER_MODE
+ 
+ case ${with_gcc} in
+   "yes" ) CC="gcc" GCC=yes ;;
+@@ -21,20 +19,13 @@
+ 
+ AC_PROG_CC
+ if test "$ac_cv_prog_CC" = gcc; then
+-  # assume using gcc implies g77 too
+   AC_DEFINE(__G77__)
+ fi
+-AC_PROG_LIBTOOL
++AC_PROG_RANLIB
+ AC_PROG_INSTALL
+ 
+-AC_PATH_X
+-
+-# Ensure POSIXism is available.
+-AC_DEFINE(_POSIX_SOURCE)
+-
+-AC_CHECK_HEADERS(stdlib.h unistd.h string.h)
+-
+-AC_CHECK_HEADERS(prl.h unq.h)
++AC_HEADER_STDC
++AC_CHECK_HEADERS(unistd.h stdlib.h string.h)
+ 
+ case "$target" in
+   # Define __STDC__=1 to avoid warnings from maths functions.  Also get
+@@ -48,12 +39,12 @@
+     if test "$CC" = cc; then
+       case "$CFLAGS" in
+       *-64* ) ;;   # assume they meant it
+-      *-o32* | *-32* ) ;;   # presumably OK
+-      *-n32* ) ;;
+-      * ) CFLAGS="$CFLAGS -n32"
++      *-o32* | *-32*) ;;   # presumably OK
++      * ) CFLAGS="$CFLAGS -32"
++	  LDFLAGS="$LDFLAGS -32"
+       AC_MSG_WARN([
+ 
+-*** Using compiler flag -n32 for probable compatibility with
++*** Using compiler flag -o32 for probable compatibility with
+ *** the CCP4 library.  You should check this, and re-run configure
+ *** specifying an appropriate value of CFLAGS if necessary.
+ *** See the INSTALL file for how to do so.
+@@ -73,13 +64,6 @@
+ esac
+ 
+ dnl Do this _after_ setting compiler flags, specifically for Irix ABI.
+-
+-ac_cpp="$ac_cpp -I."
+-ac_compile="$ac_compile -I."
+-
+-
+ AM_PROG_LIBTOOL
+ 
+-AM_CONDITIONAL(DEBUG, test "$ac_cv_enable_debug" = yes)
+-
+ AC_OUTPUT(Makefile)
+diff -Nu ccp4-6.1.2/x-windows/libjwc/libjwc_c/dml_systyp.h libjwc_c-1.1/dml_systyp.h
+--- ccp4-6.1.2/x-windows/libjwc/libjwc_c/dml_systyp.h	2005-01-24 17:33:26.000000000 +0100
++++ libjwc_c-1.1/dml_systyp.h	1999-09-08 18:28:38.000000000 +0200
+@@ -15,7 +15,7 @@
+ 
+ /* Define Link name mapping type:
+ 
+-   LINKTYP = 1     Sun, Convex fx2800-alliant AIX ...
++   LINKTYP = 1     Sun, Convex fx2800-alliant ...
+ 
+                    xdlf_name  called as   xdlf_name_
+ 
+@@ -23,7 +23,7 @@
+ 
+                    xdlf_name  called as  XDLF_NAME
+ 
+-   LINKTYP = 3     Vax, hpux, ...
++   LINKTYP = 3     Vax, hpux, AIX ...
+ 
+                    xdlf_name  called as  xdlf_name
+ */
+@@ -75,8 +75,8 @@
+ #  define LINKTYP 3
+ #endif
+ 
+-#if defined(AIX) || defined (_AIX) || defined (___AIX)
+-#  define LINKTYP 1
++#if defined(AIX) || defined (_AIX)
++#  define LINKTYP 3
+ #endif
+ 
+ #ifdef __G77__
+diff -Nu ccp4-6.1.2/x-windows/libjwc/libjwc_c/fft_1d_systyp.h libjwc_c-1.1/fft_1d_systyp.h
+--- ccp4-6.1.2/x-windows/libjwc/libjwc_c/fft_1d_systyp.h	2005-01-24 17:33:26.000000000 +0100
++++ libjwc_c-1.1/fft_1d_systyp.h	1999-09-08 16:18:59.000000000 +0200
+@@ -18,7 +18,7 @@
+ 
+ /* Define Link name mapping type:
+ 
+-   LINKTYP = 1     Sun, Convex fx2800-alliant AIX ...
++   LINKTYP = 1     Sun, Convex fx2800-alliant ...
+ 
+                    xdlf_name  called as   xdlf_name_
+ 
+@@ -26,7 +26,7 @@
+ 
+                    xdlf_name  called as  XDLF_NAME
+ 
+-   LINKTYP = 3     Vax, hpux, ...
++   LINKTYP = 3     Vax, hpux, AIX ...
+ 
+                    xdlf_name  called as  xdlf_name
+ */
+@@ -78,8 +78,8 @@
+ #  define LINKTYP 3
+ #endif
+ 
+-#if defined(AIX) || defined (_AIX) || defined (___AIX)
+-#  define LINKTYP 1
++#if defined(AIX) || defined (_AIX)
++#  define LINKTYP 3
+ #endif
+ 
+ #ifdef __G77__
+diff -Nu ccp4-6.1.2/x-windows/libjwc/libjwc_c/imglib.c libjwc_c-1.1/imglib.c
+--- ccp4-6.1.2/x-windows/libjwc/libjwc_c/imglib.c	2004-06-03 14:24:05.000000000 +0200
++++ libjwc_c-1.1/imglib.c	1999-08-17 15:58:11.000000000 +0200
+@@ -4259,7 +4259,7 @@
+ {
+ 
+ /* Note: In this routine the first local axis is called 'x' and the
+-         second local axis is called 'y' */
++         second logal axi is called 'y' */
+ 
+    int mxcent;                  /* Current max no. of elements in active 
+                                    spots array */
+@@ -4469,7 +4469,6 @@
+ 
+ /* skipping condition */
+ 
+-               iymid = (actspots[j].iyend+actspots[j].iybeg)/2;
+                itmp = abs(iymid-actspots[j].iycent);
+                if (abs((actspots[j].iyend+actspots[j].iybeg) -(iel+ibl))>
+                    abs((actspots[j].iyend-actspots[j].iybeg) +(iel-ibl))&&
+diff -Nu ccp4-6.1.2/x-windows/libjwc/libjwc_c/imglib_systyp.h libjwc_c-1.1/imglib_systyp.h
+--- ccp4-6.1.2/x-windows/libjwc/libjwc_c/imglib_systyp.h	2005-01-24 17:33:26.000000000 +0100
++++ libjwc_c-1.1/imglib_systyp.h	1999-09-08 18:27:49.000000000 +0200
+@@ -75,7 +75,7 @@
+ #  define LINKTYP 3
+ #endif
+ 
+-#if defined(AIX) || defined (_AIX) || defined (___AIX)
++#if defined(AIX) || defined (_AIX)
+ #  define LINKTYP 3
+ #endif
+ 
+diff -Nu ccp4-6.1.2/x-windows/libjwc/libjwc_c/kdm_systyp.h libjwc_c-1.1/kdm_systyp.h
+--- ccp4-6.1.2/x-windows/libjwc/libjwc_c/kdm_systyp.h	2005-01-24 17:34:22.000000000 +0100
++++ libjwc_c-1.1/kdm_systyp.h	1999-09-08 18:29:39.000000000 +0200
+@@ -75,7 +75,7 @@
+ #  define LINKTYP 3
+ #endif
+ 
+-#if defined(AIX) || defined (_AIX) || defined (___AIX)
++#if defined(AIX) || defined (_AIX)
+ #  define LINKTYP 3
+ #endif
+ 
+diff -Nu ccp4-6.1.2/x-windows/libjwc/libjwc_c/lirl_systyp.h libjwc_c-1.1/lirl_systyp.h
+--- ccp4-6.1.2/x-windows/libjwc/libjwc_c/lirl_systyp.h	2005-01-24 17:43:02.000000000 +0100
++++ libjwc_c-1.1/lirl_systyp.h	1999-09-08 18:29:55.000000000 +0200
+@@ -75,7 +75,7 @@
+ #  define LINKTYP 3
+ #endif
+ 
+-#if defined(AIX) || defined (_AIX) || defined (___AIX)
++#if defined(AIX) || defined (_AIX)
+ #  define LINKTYP 3
+ #endif
+ 
+diff -Nu ccp4-6.1.2/x-windows/libjwc/libjwc_c/Makefile.am libjwc_c-1.1/Makefile.am
+--- ccp4-6.1.2/x-windows/libjwc/libjwc_c/Makefile.am	2003-03-07 16:40:14.000000000 +0100
++++ libjwc_c-1.1/Makefile.am	1999-08-17 13:37:37.000000000 +0200
+@@ -6,7 +6,3 @@
+ 	prl.h prl_systyp.h rdm.h rdm_systyp.h unq.h unq_systyp.h
+ 
+ libjwc_c_la_LDFLAGS = -version-info 1:1:1
+-
+-if DEBUG
+-AM_CFLAGS = -g -DDEBUG
+-endif
+diff -Nu ccp4-6.1.2/x-windows/libjwc/libjwc_c/prl_systyp.h libjwc_c-1.1/prl_systyp.h
+--- ccp4-6.1.2/x-windows/libjwc/libjwc_c/prl_systyp.h	2005-01-24 17:34:23.000000000 +0100
++++ libjwc_c-1.1/prl_systyp.h	1999-09-08 18:30:24.000000000 +0200
+@@ -75,7 +75,7 @@
+ #  define LINKTYP 3
+ #endif
+ 
+-#if defined(AIX) || defined (_AIX) || defined (___AIX)
++#if defined(AIX) || defined (_AIX)
+ #  define LINKTYP 3
+ #endif
+ 
+diff -Nu ccp4-6.1.2/x-windows/libjwc/libjwc_c/rdm_systyp.h libjwc_c-1.1/rdm_systyp.h
+--- ccp4-6.1.2/x-windows/libjwc/libjwc_c/rdm_systyp.h	2005-01-24 17:34:23.000000000 +0100
++++ libjwc_c-1.1/rdm_systyp.h	1999-09-08 18:30:39.000000000 +0200
+@@ -75,7 +75,7 @@
+ #  define LINKTYP 3
+ #endif
+ 
+-#if defined(AIX) || defined (_AIX) || defined (___AIX)
++#if defined(AIX) || defined (_AIX)
+ #  define LINKTYP 3
+ #endif
+ 
+diff -Nu ccp4-6.1.2/x-windows/libjwc/libjwc_c/unq_systyp.h libjwc_c-1.1/unq_systyp.h
+--- ccp4-6.1.2/x-windows/libjwc/libjwc_c/unq_systyp.h	2005-01-24 17:34:23.000000000 +0100
++++ libjwc_c-1.1/unq_systyp.h	1999-09-08 18:30:52.000000000 +0200
+@@ -75,7 +75,7 @@
+ #  define LINKTYP 3
+ #endif
+ 
+-#if defined(AIX) || defined (_AIX) || defined (___AIX)
++#if defined(AIX) || defined (_AIX)
+ #  define LINKTYP 3
+ #endif
+ 
