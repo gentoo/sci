@@ -15,8 +15,8 @@ IUSE="ibmvio rdma fcp fcoe"
 
 RDEPEND="dev-perl/config-general
 		rdma? (
-				sys-cluster/libibverbs
-				sys-cluster/librdmacm
+				sys-infiniband/libibverbs
+				sys-infiniband/librdmacm
 				)"
 DEPEND="${RDEPEND}"
 
