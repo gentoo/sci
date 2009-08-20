@@ -47,6 +47,7 @@ case ${PN} in
 		;;
 	rds-tools)
 		MY_PV="${PV}-${OFED_SUFFIX}"
+		MY_PN="${PN}"
 		;;
 	*)
 		MY_PN="${PN}"
