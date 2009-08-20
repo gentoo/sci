@@ -19,7 +19,9 @@ RDEPEND="$DEPEND
 		 sys-infiniband/openib-files
 		 net-misc/iputils"
 
-PATCHES=( "${FILESDIR}/${P}-fix.patch" )
+src_prepare() {
+	epatch "${FILESDIR}/${P}-fix.patch"
+}
 
 src_configure() {
 	econf \
