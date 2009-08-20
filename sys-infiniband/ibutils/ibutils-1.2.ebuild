@@ -13,7 +13,8 @@ DESCRIPTION="OpenIB userspace tools"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=">=sys-infiniband/libibverbs-1.1.2"
+DEPEND=">=sys-infiniband/libibverbs-1.1.2
+		>=dev-lang/tk-8.4"
 RDEPEND="${DEPEND}
 		!sys-infiniband/openib-userspace"
 
