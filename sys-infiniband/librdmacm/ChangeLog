@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*librdmacm-1.0.8-r1 (20 Aug 2009)
+
+  20 Aug 2009; Alexey Shvetsov <alexxy@gentoo.org>
+  +librdmacm-1.0.8-r1.ebuild:
+  Version Bump
+
   16 Aug 2009; Alexey Shvetsov <alexxy@gentoo.org> librdmacm-1.0.8.ebuild:
   Add libibverbs to depend
 

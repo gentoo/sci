@@ -4,19 +4,19 @@
 
 EAPI="2"
 
-OFED_VER="1.4"
-OFED_SUFFIX="1.ofed1.4"
+OFED_VER="1.4.1"
+OFED_SUFFIX="1.ofed1.4.1"
 
 inherit openib
 
-DESCRIPTION="OpenIB userspace driver for the PathScale InfiniBand HCAs"
+DESCRIPTION="OpenIB library that provides low layer IB functions for use by the IB diagnostic and management programs."
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=">=sys-infiniband/libibverbs-1.1.2"
+DEPEND=">=sys-infiniband/libibcommon-1.1.2_p20090314
+		>=sys-infiniband/libibumad-1.2.3_p20090314"
 RDEPEND="${DEPEND}"
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
-	dodoc README AUTHOR
 }

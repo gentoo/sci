@@ -1,6 +1,12 @@
-# ChangeLog for sys-cluster/libibverbs
+# ChangeLog for sys-infiniband/libibverbs
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libibverbs-1.1.2-r1 (20 Aug 2009)
+
+  20 Aug 2009; Alexey Shvetsov <alexxy@gentoo.org> libibverbs-1.1.2.ebuild,
+  +libibverbs-1.1.2-r1.ebuild:
+  Version Bump
 
   19 Mar 2009; Alexey Shvetsov <alexxy@gentoo.org> -libibverbs-1.0.3.ebuild,
   -libibverbs-1.1.1.ebuild:

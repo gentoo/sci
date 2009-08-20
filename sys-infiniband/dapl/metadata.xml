@@ -8,6 +8,5 @@ user space.  It is the user space component of DAPL,  the Direct Access Provider
 Library for RDMA transports.  See http://www.datcollaborative.org/
 </longdescription>
 <use>
-	<flag name="compat">Enable compatibility with dapl 1.x</flag>
 </use>
 </pkgmetadata>

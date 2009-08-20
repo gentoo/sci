@@ -9,7 +9,6 @@ OFED_SUFFIX="1.ofed1.4"
 
 inherit openib
 
-
 KEYWORDS="~amd64 ~x86"
 
 DESCRIPTION="OpenIB - IBM eServer eHCA Infiniband device driver for Linux on POWER"
@@ -23,4 +22,3 @@ src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 	dodoc README INSTALL
 }
-

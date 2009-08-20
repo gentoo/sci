@@ -4,19 +4,21 @@
 
 EAPI="2"
 
-OFED_VER="1.4"
-OFED_SUFFIX="1.ofed1.4"
+OFED_VER="1.4.1"
+OFED_SUFFIX="1.ofed1.4.1"
 
 inherit openib
 
-DESCRIPTION="OpenIB library that provides common utility functions for the IB diagnostic and management tools"
+KEYWORDS="~x86 ~amd64"
+
+DESCRIPTION="OpenIB Userspace CM library"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}
-	!sys-infiniband/openib-userspace"
+RDEPEND=">=sys-infiniband/libibverbs-1.1.2"
+DEPEND="${RDEPEND}"
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
+	dodoc README AUTHORS ChangeLog
 }

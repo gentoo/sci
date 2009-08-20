@@ -1,6 +1,11 @@
-# ChangeLog for sys-cluster/openib
+# ChangeLog for sys-infiniband/openib
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*openib-1.4.1 (20 Aug 2009)
+
+  20 Aug 2009; Alexey Shvetsov <alexxy@gentoo.org> +openib-1.4.1.ebuild:
+  Version Bump
 
   05 Feb 2009; Thomas Anderson <gentoofan23@gentoo.org>
   sys-cluster/openib/openib-1.4.ebuild:

@@ -1,6 +1,12 @@
-# ChangeLog for sys-cluster/libehca
+# ChangeLog for sys-infiniband/libehca
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libehca-1.2.1-r1 (20 Aug 2009)
+
+  20 Aug 2009; Alexey Shvetsov <alexxy@gentoo.org> libehca-1.2.1.ebuild,
+  +libehca-1.2.1-r1.ebuild:
+  Version Bump
 
   19 Mar 2009; Alexey Shvetsov <alexxy@gentoo.org> -libehca-1.2.ebuild:
   Drop old versions

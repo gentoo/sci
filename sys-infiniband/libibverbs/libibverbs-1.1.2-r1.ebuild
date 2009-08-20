@@ -4,8 +4,8 @@
 
 EAPI="2"
 
-OFED_VER="1.4"
-OFED_SUFFIX="1.ofed1.4"
+OFED_VER="1.4.1"
+OFED_SUFFIX="1.ofed1.4.1"
 
 inherit openib
 
@@ -15,7 +15,7 @@ IUSE=""
 
 DEPEND="sys-fs/sysfsutils"
 RDEPEND="${DEPEND}
-	!sys-infiniband/openib-userspace"
+		!sys-infiniband/openib-userspace"
 
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
