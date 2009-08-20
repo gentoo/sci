@@ -45,6 +45,9 @@ case ${PN} in
 	openib-perf)
 		MY_PN="perftest"
 		;;
+	rds-tools)
+		MY_PV="${PV}-${OFED_SUFFIX}"
+		;;
 	*)
 		MY_PN="${PN}"
 esac
