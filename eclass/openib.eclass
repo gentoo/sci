@@ -68,15 +68,6 @@ case ${MY_PN} in
 		;;
 esac
 
-case ${MY_PN} in
-	rds-tools)
-		MY_PV="${PV}-${OFED_SUFFIX}"
-		;;
-	*)
-		;;
-esac
-
-
 S="${WORKDIR}/${MY_PN}-${MY_PV}"
 
 # @FUNCTION: openib_src_unpack
@@ -85,5 +76,12 @@ S="${WORKDIR}/${MY_PN}-${MY_PV}"
 openib_src_unpack() {
 	unpack ${A}
 	rpm_unpack "OFED-${OFED_VER}/SRPMS/${MY_PN}-${MY_PV}-${OFED_SUFFIX}.src.rpm"
+	case ${MY_PN} in
+		rds-tools)
+			MY_PV="${PV}-${OFED_SUFFIX}"
+			;;
+		*)
+			;;
+	esac
 	unpack ./${MY_PN}-${MY_PV}.${EXT}
 }
