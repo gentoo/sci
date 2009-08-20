@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 DESCRIPTION="An automated scheme for Molecular Replacement"
 HOMEPAGE="http://www.ccp4.ac.uk/MrBUMP"
 SRC_URI="${HOMEPAGE}/release/${P}.tar.gz"
@@ -12,9 +14,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 IUSE="X perl"
-RDEPEND="sci-chemistry/ccp4
+RDEPEND=">=sci-chemistry/ccp4-apps-6.1.2-r4[X?]
 	|| ( 	sci-biology/mafft
-		sci-biology/clustalw_2
+		sci-biology/clustalw:2
 		sci-biology/probcons
 		sci-biology/t-coffee )
 	sci-biology/fasta
@@ -24,20 +26,12 @@ RDEPEND="sci-chemistry/ccp4
 DEPEND="${RDEPEND}"
 
 src_unpack(){
-
 	unpack ${A}
 	cd "${S}"
 	unpack ./"${PN}".tar.gz
 }
 
-src_compile(){
-	einfo "Nothing to compile"
-}
-
-
-
 src_install(){
-
 	insinto "${CCP4I_TOP}"
 	doins -r ccp4i/{MrBUMP-ccp4i.tar.gz,MrBUMP/{help,scripts,tasks,templates}} || \
 	die "failed to install interface"

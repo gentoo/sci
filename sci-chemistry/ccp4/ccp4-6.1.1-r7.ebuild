@@ -36,7 +36,7 @@ done
 LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="X balbesdb examples"
+IUSE="X balbes-db examples"
 # app-office/sc overlaps sc binary and man page
 # We can't rename ours since the automated ccp4i interface expects it there,
 # as do many scripts. app-office/sc can't rename its because that's the name

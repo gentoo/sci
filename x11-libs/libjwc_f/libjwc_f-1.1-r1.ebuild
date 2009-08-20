@@ -2,7 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# inherit
+EAPI="2"
+
+inherit autotools eutils fortran
+
+FORTRAN="g77 gfortran ifc"
+
+PATCH="612"
 
 DESCRIPTION="additional c library for ccp4"
 HOMEPAGE="http://www.ccp4.ac.uk/main.html"
@@ -17,7 +23,13 @@ IUSE=""
 RDEPEND=""
 DEPEND="${RDEPEND}"
 
+src_prepare() {
+	epatch "${FILESDIR}"/${PATCH}-gentoo.patch
+	eautoreconf
+}
+
 src_install() {
 	emake DESTDIR="${D}" install || die
-	dodoc README NEWS
+	dodoc NEWS README
+	dohtml doc/*
 }

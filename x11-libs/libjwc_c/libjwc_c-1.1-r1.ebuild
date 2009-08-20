@@ -4,29 +4,26 @@
 
 EAPI="2"
 
-inherit fortran autotools
+inherit autotools eutils
 
-FORTRAN="g77 gfortran ifc"
+PATCH="612"
 
 DESCRIPTION="additional c library for ccp4"
 HOMEPAGE="http://www.ccp4.ac.uk/main.html"
 SRC_URI="ftp://ftp.ccp4.ac.uk/jwc/${P}.tar.gz"
 
-LICENSE="GPL-2"
-
 SLOT="0"
+LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
-
 IUSE=""
-RDEPEND=""
-DEPEND="${RDEPEND}"
 
 src_prepare() {
+	epatch "${FILESDIR}"/${PATCH}-gentoo.patch
+	rm missing || die
 	eautoreconf
 }
 
 src_install() {
 	emake DESTDIR="${D}" install || die
-	dodoc NEWS README
-	dohtml doc/*
+	dodoc README NEWS
 }

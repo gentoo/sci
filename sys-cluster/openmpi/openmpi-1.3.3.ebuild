@@ -17,7 +17,10 @@ KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
 RESTRICT="mpi-threads? ( test )"
 IUSE="+cxx fortran heterogeneous ipv6 mpi-threads pbs romio threads vt"
 RDEPEND="pbs? ( sys-cluster/torque )
-	vt? ( !dev-libs/libotf )
+	vt? (
+		!dev-libs/libotf
+		!app-text/lcdf-typetools
+	)
 	$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
 
@@ -74,9 +77,6 @@ src_configure() {
 	if use fortran; then
 		if [[ "${FORTRANC}" = "g77" ]]; then
 			c="${c} --disable-mpi-f90"
-		elif [[ "${FORTRANC}" = "gfortran" ]]; then
-			# Because that's just a pain in the butt.
-			c="${c} --with-wrapper-fflags=-I/usr/include"
 		elif [[ "${FORTRANC}" = if* ]]; then
 			# Enabled here as gfortran compile times are huge with this enabled.
 			c="${c} --with-mpi-f90-size=medium"

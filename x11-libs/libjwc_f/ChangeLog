@@ -1,6 +1,12 @@
-# ChangeLog for x11-libs/libjwc_c
+# ChangeLog for x11-libs/libjwc_f
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libjwc_f-1.1-r1 (17 Aug 2009)
+
+  17 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/612-gentoo.patch, -libjwc_f-1.1.ebuild, +libjwc_f-1.1-r1.ebuild:
+  add patch untill 6.1.2
 
 *libjwc_f-1.1 (27 Feb 2009)
 
