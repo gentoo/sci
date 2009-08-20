@@ -17,6 +17,8 @@ DEPEND=">=sys-infiniband/libibverbs-1.1.2"
 RDEPEND="${DEPEND}
 		!sys-infiniband/openib-userspace"
 
+S="${WORKDIR}/${P}-${OFED_SUFFIX}"
+
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 	dodoc README AUTHORS ChangeLog
