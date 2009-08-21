@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cbflib-0.8.1-r2 (21 Aug 2009)
+
+  21 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -cbflib-0.8.1-r1.ebuild, +cbflib-0.8.1-r2.ebuild:
+  upstream changed the tarbal and fixed an runtime bug
+
 *cbflib-0.8.1-r1 (25 Jul 2009)
 
   25 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
