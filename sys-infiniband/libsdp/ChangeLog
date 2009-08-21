@@ -1,6 +1,11 @@
-# ChangeLog for sys-cluster/libsdp
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sys-infiniband/libsdp
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libsdp-1.1.99-r1 (20 Aug 2009)
+
+  20 Aug 2009; Alexey Shvetsov <alexxy@gentoo.org> +libsdp-1.1.99-r1.ebuild:
+  Version Bump
 
   09 Jul 2008; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
   removed libsdp-1.1.ebuild

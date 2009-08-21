@@ -3,6 +3,6 @@
 <pkgmetadata>
 <herd>sci-chemistry</herd>
 <use>
-	<flag name='db'>install the additional balbes-sb</flag>
+	<flag name='balbes-db'>install the additional balbes-sb</flag>
 </use>
 </pkgmetadata>

@@ -20,4 +20,3 @@ src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 	dodoc README AUTHOR
 }
-

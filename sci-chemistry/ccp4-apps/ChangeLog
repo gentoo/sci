@@ -2,6 +2,26 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccp4-apps-6.1.2-r5 (17 Aug 2009)
+
+  17 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -ccp4-apps-6.1.2-r4.ebuild, +ccp4-apps-6.1.2-r5.ebuild:
+  Hopefully last path fix: PYTHONPATH
+  Could out all configure we don't need
+
+*ccp4-apps-6.1.2-r4 (16 Aug 2009)
+
+  16 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -ccp4-apps-6.1.2-r2.ebuild, +ccp4-apps-6.1.2-r4.ebuild:
+  Do not install files which come with mrbump
+  fixes for variables
+
+*ccp4-apps-6.1.2-r2 (15 Aug 2009)
+
+  15 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -ccp4-apps-6.1.2-r1.ebuild, +ccp4-apps-6.1.2-r2.ebuild:
+  IMOSFLM_VERSION is set by sci-chemistry/imosflm
+
 *ccp4-apps-6.1.2-r1 (14 Aug 2009)
 
   14 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
