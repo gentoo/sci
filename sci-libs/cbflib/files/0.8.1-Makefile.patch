@@ -55,7 +55,7 @@ Makefile > Makefile.new
  	$(CC) $(CFLAGS) $(SOCFLAGS) $(INCLUDES) $(WARNINGS) -c $(SOURCE)
 -	$(CC) -o $@ *.o $(SOLDFLAGS)
 -	rm *.o
-+	$(CC) $(LDFLAGS) $(SOCFLAGS) $(SOLDFLAGS) -o $@ *.o -lgfortran
++	$(CC) $(LDFLAGS) -Wl,-soname,libcbf.so.0.8 $(SOCFLAGS) $(SOLDFLAGS) -o $@ *.o -lgfortran
  
  #
  # IMG library
@@ -72,7 +72,7 @@ Makefile > Makefile.new
  	$(CC) $(CFLAGS) $(SOCFLAGS) $(INCLUDES) $(WARNINGS) -c $(EXAMPLES)/img.c
 -	$(CC) -o $@ *.o $(SOLDFLAGS)
 -	rm *.o
-+	$(CC) $(LDFLAGS) $(SOLDFLAGS) -o $@ *.o
++	$(CC) $(LDFLAGS) -Wl,-soname,libimg.so.0.8 $(SOLDFLAGS) -o $@ *.o
  
  #
  # CBF and IMG libraries
@@ -90,7 +90,7 @@ Makefile > Makefile.new
  	$(F90C) $(F90FLAGS) $(SOCFLAGS) $(INCLUDES) $(WARNINGS) -c $(F90SOURCE)
 -	$(F90C) -o $@ *.o $(SOLDFLAGS)
 -	rm *.o
-+	$(F90C) $(LDFLAGS) $(SOLDFLAGS) -o $@ *.o
++	$(F90C) $(LDFLAGS) -Wl,-soname,libcbf.so.0.8 $(SOLDFLAGS) -o $@ *.o
  else
  	echo "Define F90C to build $(SOLIB)/libfcb.so"
  endif
@@ -101,7 +101,7 @@ Makefile > Makefile.new
 -	$(CC) $(CFLAGS) $(SOCFLAGS) $(INCLUDES) $(WARNINGS) $(JAVAINCLUDES) -c $(SRC)/cbf_wrap.c
 -	$(CC) -o $@ *.o $(SOLDFLAGS) -L$(SOLIB) -lcbf
 +	$(CC) $(CFLAGS) $(SOCFLAGS) $(LDFLAGS) $(SOLDFLAGS) -o $@ $(SOCFLAGS) $(INCLUDES) $(WARNINGS) $(JAVAINCLUDES) -c $(SRC)/cbf_wrap.c
-+	$(CC) $(LDFLAGS) $(SOLDFLAGS) -o $@ *.o -L$(SOLIB) -lcbf
++	$(CC) $(LDFLAGS) -Wl,-soname,libcbf_wrap.so.0.8 $(SOLDFLAGS) -o $@ *.o -L$(SOLIB) -lcbf
  
  #
  # F90SOURCE

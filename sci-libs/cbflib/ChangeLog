@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cbflib-0.8.1-r3 (22 Aug 2009)
+
+  22 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  files/0.8.1-Makefile.patch, -cbflib-0.8.1-r2.ebuild,
+  +cbflib-0.8.1-r3.ebuild:
+  QA rpath and soname fixed
+
 *cbflib-0.8.1-r2 (21 Aug 2009)
 
   21 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
