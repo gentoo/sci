@@ -67,4 +67,3 @@ src_install() {
 	dolib.a lib/libfcb.a || die
 	dolib.so solib/* || die
 }
-
