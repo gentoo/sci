@@ -48,6 +48,7 @@ src_prepare(){
 		-e "s:^F90C.*$:F90C = $(tc-getFC):" \
 		-e "s:^F90FLAGS.*$:F90FLAGS = ${FFLAGS} -fPIC:" \
 		-e "s:^DOWNLOAD.*$:LDFLAGS = ${LDFLAGS} -fPIC:" \
+		-e "s:^SOLDFLAGS.*$:SOLDFLAGS = -shared:g" \
 		-i Makefile || \
 		die "make failed"
 }
