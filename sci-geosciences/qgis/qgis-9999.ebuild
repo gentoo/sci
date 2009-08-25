@@ -38,7 +38,7 @@ DEPEND="dev-util/cmake
 		gsl? ( sci-libs/gsl )"
 
 RDEPEND="${DEPEND}
-		python? ( dev-lang/python
+		python? ( dev-lang/python[sqlite]
 			dev-python/PyQt4
 			dev-python/sip )
 		gps? ( sci-geosciences/gpsbabel )"

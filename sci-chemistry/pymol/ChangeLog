@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pymol-1.2.1-r1 (24 Aug 2009)
+
+  24 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +pymol-1.2.1-r1.ebuild:
+  testing fix for bug 282503
+
 *pymol-1.2.1 (31 Jul 2009)
 *pymol-1.2.0 (31 Jul 2009)
 
