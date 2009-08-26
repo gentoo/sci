@@ -24,9 +24,11 @@ start()
 	    echo "Could not start tgtd (is tgtd already running?)"
 	    exit 1
 	fi
+	# We need to wait for 1 second before do anything with tgtd
+	sleep 1
 	# Put tgtd into "offline" state until all the targets are configured.
 	# We don't want initiators to (re)connect and fail the connection
-	# if it's not ready.
+	# if it's not ready
 	tgtadm --op update --mode sys --name State -v offline
 	# Configure the targets.
 	tgt-admin --update ALL -c $TGTD_CONFIG
