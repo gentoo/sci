@@ -1,6 +1,11 @@
 # ChangeLog for sci-mathematics/pest
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*pest-11.11 (26 Aug 2009)
+
+  26 Aug 2009; Tim Cera <timcera@earthlink.net> +pest-11.11.ebuild:
+  Version bump to 11.11. New web site and SRC_URI.
 
   09 Jul 2008; Tim Cera <timcera@earthlink.net> pest-11.3.ebuild:
   Forced MAKEOPTS to include '-j1' because some compile jobs were running out
