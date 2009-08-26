@@ -28,7 +28,8 @@ KEYWORDS="~x86 ~amd64"
 # sys-process/time is needed to run the checks
 DEPEND="sys-libs/gdbm
 	dev-libs/gmp
-	>=dev-libs/ntl-5.4.1[gmp]
+	|| ( >=dev-libs/ntl-5.4.1[gmp,-gf2x]
+		 >=dev-libs/ntl-5.4.2 )
 	>=dev-libs/boehm-gc-7.0
 	>=sci-mathematics/pari-2.3.4[gmp]
 	virtual/blas
@@ -60,11 +61,7 @@ src_prepare () {
 	cd "${S}/Macaulay2/packages/Macaulay2Doc"
 	sed "/^ *SourceCode => applicationDirectory.*$/d" -i doc13.m2
 
-	# This might help if ntl is built with gf2x support
-	# Currently we run into --as-needed problems then.
 	cd "${S}"
-	sed 's/"-lntl"/"-lntl" "-lgf2x -lntl"/' -i "${S}/configure.ac"
-
 	eautoreconf
 }
 
@@ -72,13 +69,11 @@ src_configure (){
 
 	# Recommended in bug #268064 Possibly unecessary since
 	# its a local problem of original reporter.
-
 	if ! use emacs; then
 		tags="ctags"
 	fi
 
-	# --as-needed should be possible:
-	append-ldflags "-L${WORKDIR}/$(get_libdir) -Wl,--no-as-needed"
+	append-ldflags "-L${WORKDIR}/$(get_libdir)"
 	CPPFLAGS="-I/usr/include/gc -I${WORKDIR}/include" \
 		./configure --prefix="${D}/usr" --disable-encap \
 		|| die "failed to configure Macaulay"
