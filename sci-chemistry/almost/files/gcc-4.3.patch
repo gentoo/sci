@@ -58,3 +58,13 @@
  
  
  ZObj * FactoryTrampolin::bind(ZObj * o){ 
+--- ./src/lib/modules/shx/shxmalloc.cpp	2008-05-07 17:06:49.000000000 +0200
++++ ./src/lib/modules/shx/shxmalloc.cpp.new	2009-08-22 21:31:55.000000000 +0200
+@@ -15,6 +15,7 @@
+  ***************************************************************************/
+ 
+ #include <vector>
++#include <cstdlib>
+ 
+ using namespace std;
+ 
