@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 inherit flag-o-matic linux-info
 
 DESCRIPTION="Linux SCSI target framework (tgt)"
@@ -20,17 +22,15 @@ RDEPEND="dev-perl/config-general
 				)"
 DEPEND="${RDEPEND}"
 
-src_unpack() {
-	unpack ${A}
-	epatch "${FILESDIR}/${P}-docinstall.patch"
-}
-
-src_compile() {
+src_configure() {
 	local myconf
 	use ibmvio && myconf="${myconf} IBMVIO=1"
 	use rdma && myconf="${myconf} ISCSI_RDMA=1"
 	use fcp && 	myconf="${myconf} FCP=1"
 	use fcoe && myconf="${myconf} FCOE=1"
+}
+
+src_compile() {
 	emake -C usr/ KERNELSRC="${KERNEL_DIR}" ISCSI=1 ${myconf}
 }
 
