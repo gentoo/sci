@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Aug 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  Version bump
+
   21 Jul 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Links now directly against libcgns; Changed to EAPI=2
 
