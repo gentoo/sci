@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="fortran hdf5 szip zlib"
 
-DEPEND="hdf5? ( sci-libs/hdf5 )
+DEPEND="hdf5? ( <sci-libs/hdf5-1.8 )
 	zlib? ( sys-libs/zlib )
 	szip? ( sci-libs/szip )"
 
