@@ -11,15 +11,11 @@ HOMEPAGE="http://neurovision.berkeley.edu/software/A_Cgraph.html"
 SRC_URI="http://neurovision.berkeley.edu/software/${PN}${PV}.tar.gz"
 
 LICENSE="GPL-2"
-
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-
 IUSE=""
-RDEPEND=""
-DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/${PN}"
+S="${WORKDIR}"/${PN}/source
 
 src_prepare() {
 	epatch "${FILESDIR}"/Makefile.patch
@@ -28,7 +24,6 @@ src_prepare() {
 
 src_compile() {
 	use amd64 && append-flags -fPIC && append-ldflags -fPIC
-	cd source
 	emake \
 		CC=$(tc-getCC) \
 		CCFLAGS="${CFLAGS}" || \
@@ -36,13 +31,13 @@ src_compile() {
 }
 
 src_install() {
-	dodoc docs/*
-	cd source
 	emake \
 		DESTDIR="${D}" \
 		LIB_DIR=/usr/$(get_libdir) \
-	install || die "install failed"
-	dolib.so libcgraph.so.0.0.0
-	dosym libcgraph.so.0.0.0 /usr/$(get_libdir)/libcgraph.so.0
-	dosym libcgraph.so.0.0.0 /usr/$(get_libdir)/libcgraph.so
+		install || die "install failed"
+	dolib.so libcgraph.so.0.0.0 || die
+	dosym libcgraph.so.0.0.0 /usr/$(get_libdir)/libcgraph.so.0 || die
+	dosym libcgraph.so.0.0.0 /usr/$(get_libdir)/libcgraph.so || die
+
+	dodoc ../docs/*
 }

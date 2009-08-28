@@ -2,8 +2,6 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# inherit
-
 MY_PN="refmac_dictionary"
 
 DESCRIPTION="Monomer library used for macromolecular structure building and refinement."
@@ -14,11 +12,14 @@ SLOT="0"
 LICENSE="ccp4"
 KEYWORDS="~amd64 ~ppc ~x86"
 IUSE=""
-RESTRICT="binchecks strip"
 
-RDEPEND="!<sci-chemistry/ccp4-6.1
-	!<sci-libs/ccp4-libs-6.1.1-r1"
+RDEPEND="
+	!<sci-chemistry/ccp4-6.1
+	!<sci-libs/ccp4-libs-6.1.1-r1
+"
 DEPEND="${RDEPEND}"
+
+RESTRICT="binchecks strip"
 
 S="${WORKDIR}"/monomers
 

@@ -23,9 +23,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
-RDEPEND=""
-DEPEND="${RDEPEND}"
 RESTRICT="mirror"
+
 S="${WORKDIR}/${MY_P1}"
 
 PATCHES=(

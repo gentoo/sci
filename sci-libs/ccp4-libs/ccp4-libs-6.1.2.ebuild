@@ -27,7 +27,6 @@ PATCH_TOT="0"
 
 DESCRIPTION="Protein X-ray crystallography toolkit"
 HOMEPAGE="http://www.ccp4.ac.uk/"
-RESTRICT="mirror"
 SRC_URI="${SRC}/${PV}/${MY_P}-core-src.tar.gz"
 # patch tarball from upstream
 	[[ -n ${UPDATE} ]] && SRC_URI="${SRC_URI} ${SRC}/${PV}/updates/${P}-src-patch-${UPDATE}.tar.gz"
@@ -45,14 +44,17 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="virtual/lapack
-	virtual/blas
-	=sci-libs/fftw-2*
-	sci-libs/mmdb
+RDEPEND="
 	app-shells/tcsh
 	!<sci-chemistry/ccp4-6.0.99
-	sci-libs/monomer-db"
+	=sci-libs/fftw-2*
+	sci-libs/mmdb
+	sci-libs/monomer-db
+	virtual/lapack
+	virtual/blas"
 DEPEND="${RDEPEND}"
+
+RESTRICT="mirror"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -75,16 +77,6 @@ src_unpack() {
 	[[ -n ${PATCHDATE} ]] && epatch "${WORKDIR}"/${PV}-${PATCHDATE}-updates.patch
 
 	einfo "Applying Gentoo patches ..."
-	# These two only needed when attempting to install outside build dir via
-	# --bindir and --libdir instead of straight copying after build
-
-	# it attempts to install some libraries during the build
-	#ccp_patch "${FILESDIR}"/${P}-install-libs-at-install-time.patch
-	# hklview/ipdisp.exe/xdlmapman/ipmosflm can't find libxdl_view
-	# without this patch when --libdir is set
-	# Rotgen still needs more patching to find it
-	#ccp_patch "${FILESDIR}"/add-xdl-libdir.patch
-
 	# it tries to create libdir, bindir etc on live system in configure
 	ccp_patch "${FILESDIR}"/${PV}-dont-make-dirs-in-configure.patch
 
@@ -176,12 +168,6 @@ src_install() {
 	# Set up variables for build
 	source "${S}"/include/ccp4.setup
 
-# Only needed when using --bindir and --libdir
-	# Needed to avoid errors. Originally tried to make lib and bin
-	# in configure script, now patched out by dont-make-dirs-in-configure.patch
-#	dodir /usr/include /usr/$(get_libdir) /usr/bin
-
-#	make install || die "install failed"
 	einstall || die "install failed"
 
 	# Libs
@@ -213,7 +199,6 @@ src_install() {
 
 	# Include files
 	insinto /usr/include
-#	for i in ccp4 mmdb; do
 	for i in ccp4; do
 		doins -r "${S}"/include/${i} || die
 	done

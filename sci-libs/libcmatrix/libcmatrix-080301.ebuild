@@ -17,8 +17,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="atlas threads"
 
-RDEPEND="sci-libs/minuit
-	atlas? ( sci-libs/blas-atlas )"
+RDEPEND="
+	sci-libs/minuit
+	atlas? ( sci-libs/blas-atlas )
+"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${PN}R3
@@ -33,12 +35,13 @@ src_configure() {
 		--with-minuit \
 		$(use_with atlas) \
 		$(use_with threads)
-
 }
 
 src_install() {
 	dolib.a "${PN}".a || die "install failed"
-	dodoc CHANGES docs/* || die "no docs"
+
 	insinto /usr/include/${PN}R3
 	doins include/* || die "no includes"
+
+	dodoc CHANGES docs/* || die "no docs"
 }

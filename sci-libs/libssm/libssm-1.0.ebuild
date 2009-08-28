@@ -2,8 +2,6 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# inherit
-
 MY_PN="${PN#lib}"
 MY_P="${MY_PN}-${PV}"
 
@@ -12,13 +10,9 @@ HOMEPAGE="http://www.bioxray.dk/~mok/ssm.php"
 SRC_URI="ftp://ftp.bioxray.au.dk/pub/mok/src/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
-
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-
 IUSE=""
-RDEPEND=""
-DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${MY_P}"
 

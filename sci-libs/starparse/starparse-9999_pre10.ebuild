@@ -2,18 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-if [[ ${PV} = 9999* ]]; then
-	EBZR_REPO_URI="http://oregonstate.edu/~benisong/software/projects/starparse/releases/1.0"
-	EBZR_BOOTSTRAP="eautoreconf"
-	BZR="bzr"
-else
-	SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
-fi
+EBZR_REPO_URI="http://oregonstate.edu/~benisong/software/projects/starparse/releases/1.0"
+EBZR_BOOTSTRAP="eautoreconf"
 
-inherit autotools ${BZR}
+inherit autotools bzr
 
 DESCRIPTION="Library for parsing NMR star files (peak-list format) and CIF files"
 HOMEPAGE="http://burrow-owl.sourceforge.net/"
+#SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"

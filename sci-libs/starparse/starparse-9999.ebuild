@@ -10,10 +10,12 @@ inherit autotools bzr
 DESCRIPTION="Library for parsing NMR star files (peak-list format) and CIF files"
 HOMEPAGE="http://burrow-owl.sourceforge.net/"
 #SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="guile"
+
 RDEPEND="guile? ( dev-scheme/guile )"
 DEPEND="${RDEPEND}"
 

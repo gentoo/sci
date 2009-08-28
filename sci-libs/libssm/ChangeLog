@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> libssm-1.0.ebuild:
+  QA
+
 *libssm-1.0 (16 Mar 2009)
 
   16 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +metadata.xml,

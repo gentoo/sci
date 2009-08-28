@@ -12,13 +12,17 @@ DESCRIPTION="Object-oriented libraries for the organisation of crystallographic 
 HOMEPAGE="http://www.ysbl.york.ac.uk/~cowtan/clipper/clipper.html"
 # Transform 4-digit year to 2 digits
 SRC_URI="http://www.ysbl.york.ac.uk/~cowtan/clipper/clipper-2.1-${PV:2:${#PV}}-ac.tar.gz"
+
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~x86 ~ppc ~amd64"
-IUSE=""
-RDEPEND="sci-libs/ccp4-libs
+IUSE="debug"
+
+RDEPEND="
+	sci-libs/ccp4-libs
 	sci-libs/fftw"
 DEPEND="${RDEPEND}"
+
 S=${WORKDIR}/clipper-2.1
 
 PATCHES=(
@@ -41,17 +45,16 @@ src_configure() {
 	append-flags -fno-strict-aliasing
 
 	econf \
-		--enable-contrib \
-		--enable-phs \
-		--enable-mmdb \
-		--with-mmdb=/usr \
-		--enable-minimol \
-		--enable-cif \
 		--enable-ccp4 \
+		--enable-cif \
 		--enable-cns \
+		--enable-contrib \
+		--enable-minimol \
+		--enable-mmdb \
+		--enable-phs \
+		--with-mmdb=/usr \
+		$(use_enable debug) \
 		|| die
-	# We don't have a cctbx ebuild yet
-	#		--enable-cctbx \
 }
 
 src_test() {
@@ -61,6 +64,6 @@ src_test() {
 }
 
 src_install() {
-	base_src_install all
-	dodoc README ChangeLog NEWS
+	base_src_install
+	dodoc README ChangeLog NEWS || die
 }

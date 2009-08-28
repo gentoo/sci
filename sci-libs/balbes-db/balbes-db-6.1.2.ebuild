@@ -16,7 +16,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=">=dev-python/pyxml-0.8.4
+RDEPEND="
+	>=dev-python/pyxml-0.8.4
 	sci-libs/monomer-db"
 DEPEND="${RDEPEND}"
 RESTRICT="binchecks strip"
