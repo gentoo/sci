@@ -1,0 +1,225 @@
+License Agreement for SmartSVN
+
+These English license agreement is a translation of the German license agreement (see the second part of this document). Valid for all legal relationships is only the German license agreement, the English version is just given for your convenience.
+1 Subject of the Contract
+
+The license terms of syntevo GmbH (hereinafter called "licensor") are applied for the concession of the rights of use for the entire or partly use of the object code of the software SmartSVN (hereinafter called "SOFTWARE") to contractors, juristic persons under public law or official fund assets in terms of §310 in conjunction with §14 BGB [Civil Code] (hereinafter called "licensee"). Herewith the inclusion of the licensee's own terms and conditions is contradicted, unless their validity has explicitly been agreed to.
+2 Scope of the Rights of Use
+
+2.1 The following terms are valid for the assignment and use of the SOFTWARE for an unlimited period of time including any documentation and the license file (a file that is custom-made for each individual granting of a license, the file being necessary for the operation of the SOFTWARE).
+
+2.2 They are not valid for additional services such as installation, integration, parameterization and customization of the SOFTWARE to the licensee's requirements.
+3 Rights of Use
+
+3.1 The SOFTWARE is partly copyrighted in favour of the licensor and partly in favour of other holders of rights.
+
+3.2 The SOFTWARE must not be used if its use may result in injuries of life, body, health of human beings or injuries of animals or ecological damages (e.g. no use for atomic reactors, weapons and medical appliances).
+
+3.3 The SOFTWARE is handed over to the licensee for its intended use. The scope of the intended use as well as the kind and scope of the rights of use result from the assignment contract and said license terms. They especially depend on the fact if the licensee gets a
+
+    * SOFTWARE Foundation License
+    * SOFTWARE Professional License
+    * SOFTWARE Enterprise License.
+
+3.3.1 SOFTWARE Foundation License
+
+If a SOFTWARE Foundation License is agreed upon with the licensee, the licensor grants the licensee the non-exclusive, non-transferable right, which is terminable according to the terms of clause 5 or permanent, to have the SOFTWARE used within the range of functions which was technically released for the SOFTWARE Foundation version
+
+    * on a random number of single-user computers or on a central server or via terminal server clients
+    * simultaneously by a random number of users,
+
+that means to have the SOFTWARE saved, loaded, displayed and run permanently or temporarily.
+3.3.2 SOFTWARE Professional License
+
+If a SOFTWARE Professional License is agreed upon with the licensee, the licensor grants the licensee the non-exclusive, non-transferable right, which is terminable according to the terms of clause 5 or permanent, to have the SOFTWARE used
+
+    * on a central server or via terminal server clients or as an in situ installation on single-user computers
+    * by the agreed-upon number of all users nameable on demand, that means to have the SOFTWARE saved, loaded, displayed and run permanently or temporarily. Every user known by name can only be replaced by another user known by name when the "operating range" of the first user is changed and said first user does not use the SOFTWARE any more. At no time must the number of the users known by name exceed the number of the acquired licenses (example: If the licensee has bought the SOFTWARE for five users whose names he can indicate on demand, only these five users may use the SOFTWARE. This is true independently of the number of the respective installations and of the fact if they are done on a central server or via terminal server clients or as a local installation on single-user computers).
+
+3.3.3 SOFTWARE Enterprise License
+
+3.3.3.1  If a SOFTWARE Enterprise License is agreed upon with the licensee, the licensor grants the licensee the non-exclusive, non-transferable right, which is terminable according to the terms of clause 5 or permanent and limited to the locations of the agreed-upon branches or to the workplace of an employee licensed according to clause 3.2.3.4, to have the SOFTWARE used
+
+    * on a central server or via terminal server clients or as an in situ installation on single-user computers
+    * at the agreed-upon locations of the licensee by the agreed-upon number of the nameable employees, that means to have the SOFTWARE saved, loaded, displayed and run permanently or temporarily.
+
+3.3.3.2 A "location" as defined by these software license terms means all independent or dependent branches of the licensee's enterprise being situated within a radius of 10km.
+
+3.3.3.3 Employees of an agreed-upon location as defined by these license terms are exclusively employees working dependently (no independently working persons such as consultants and freelancers) of a branch affiliated to the location who spend more than 50% of their total working time for the respective branch.
+
+3.3.3.4 Employees are allowed to use the SOFTWARE at the agreed-upon location or at their work place at home or at the licensee's customer to fulfill their duties towards the licensee.
+
+3.4 The licensee undertakes to take care that the intended use of the SOFTWARE is assured by appropriate technical and organizational measures.
+
+3.5 The licensee is obliged to back up the data orderly and regularly (especially with respect to working copies and repositories).
+
+3.6 The licensee is entitled to produce one backup from the SOFTWARE.
+
+3.7 The licensee is not entitled to translate, process, arrange the SOFTWARE differently or adapt or alter it and to copy the achieved results.
+
+3.8 The licensee is not entitled to distribute the SOFTWARE. This comprises any form of sublicensing, especially selling, letting, leasing or lending. Passing on the license file, a text file showing name and address of the licensee as well as an electronic signature which allows the technical exploitation of the SOFTWARE is also considered to be a form of distribution.
+
+3.9 The licensee is not entitled to make the SOFTWARE publicly accessible in such a way that it is accessible to the public at any place and at any time.
+
+3.10 The licensee undertakes not to decompile the SOFTWARE.
+4 Demo
+
+4.1 If the SOFTWARE is handed over only for test purposes, the licensor grants the licensee the non-exclusive, non-transferable right, limited to the test period of thirty-one (31) days, to have a non-registered copy of the SOFTWARE (demo) used on a random number of single-user computers or on a central server or via terminal server clients by a random number of users simultaneously for test purposes only, that means not productively, which again means to have the SOFTWARE saved, loaded, displayed and run permanently or temporarily.
+
+4.2 The demo of the SOFTWARE includes a function that terminates the use of the SOFTWARE after the expiration of the test period. After the payment of the agreed-upon license fee and the agreement to said license terms within the agreed-upon scope, this function is deactivated and the licensee gets the agreed-upon rights of use according to these license terms. Bypassing this technical protective function results in an immediate loss of all conceded rights of use. In this case a termination according to clause 5 is no longer applicable.
+5 Liability
+
+5.1 When the SOFTWARE is handed over cost-free or for test purposes, the licensor is only liable in case that malice or gross negligence are blamed on him.
+
+5.2 The licensee's rights on indemnification due to a certain lack are excluded, if, for example, he has known the lack at the conclusion of the contract, especially when there had been a test phase before that date. If the licensee has not known of a lack due to gross negligence, he can only claim rights with respect to that lack if the licensor had fraudulently concealed the lack or had taken over a guarantee for the quality of that object.
+
+5.3 In case of data loss the licensor is only liable for the effort that would have been necessary for the recovery of the data, provided that the data backup was properly executed by the licensee.
+
+5.4 For the rest, kind and scope of liability are fixed in the respective sales contracts.
+6 Cancellation of the Rights of Use
+
+6.1 If the licensee culpably and seriously violates the agreed-upon rights of use or intellectual property rights of the entitled person, the licensor can cancel the rights to use the respective SOFTWARE. In this case the fee will not be refunded.
+
+6.2 In case of cancellation the licensee is obliged to destroy the original of the SOFTWARE affected by the cancellation including any documentation and all copies or to return them to the licensor. If demanded by the licensor, the licensee will deliver a statement certifying the destruction.
+
+6.3 The other legal provisions remain untouched.
+7 Reference
+
+7.1 The licensee grants the licensor the right to make the licensee's company name and/or logo publicly available on the licensor's website for referencing purposes (reference list).
+
+7.2 The licensee does not have a right to request the inclusion into the licensor's reference list.
+
+7.3 The licensee always can request in written form to be removed from the licensor's reference list. The licensee's entry will be removed in an adequate period of time after receiving the removal request.
+8 Language
+
+In case of a translation of these provisions only the German version will be valid.
+9 Applicable Law and Place of Jurisdiction
+
+9.1 The law of the Federal Republic of Germany is applicable for all legal relationships of the parties excluding the laws on the international sale of goods.
+
+9.2 If the licensee is a merchant, a juristic person under public law or a person having special property under public law, the exclusive place of jurisdiction for all disputes from this contract will be the licensor's place of business. The same is applicable for the case when the licensee does not have a domestic place of general jurisdiction in Germany or the licensor's residence or habitual abode are not known at the time of filing an action. The licensor's capacity to apply to the court of a different place of jurisdiction remains untouched.
+10 Integration
+
+10.1 The following third parties have rights on the following parts of the SOFTWARE:
+
+    * SVNKit API, Copyright (c) 2004-2008 TMate Software, all rights reserved (http://svnkit.com/). The corresponding license agreement can be found at http://svnkit.com/licensing/index.html or in the file licenses/SVNKIT-LICENSE within the installation directory of SmartSVN.
+    * JIDE Docking and JIDE Common Framework, Copyright (c) 2002-2008 JIDE Software, Inc, all rights reserved (http://www.jidesoft.com). The corresponding license agreement can be found at http://www.jidesoft.com/purchase/SLA.htm or in the file licenses/JIDE-LICENSE.html within the installation directory of SmartSVN.
+    * Trilead SSH API, Copyright (c) 2007 Trilead AG (http://www.trilead.com). All rights reserved. The corresponding license agreement can be found at http://www.trilead.com/Products/Trilead_SSH_for_Java/license/ or in the file licenses/TRILEAD-LICENSE within the installation directory of SmartSVN.
+    * Quaqua Look and Feel, Copyright 2008 by Werner Randelshofer (http://www.randelshofer.ch) The corresponding license agreement can be found at http://www.randelshofer.ch/quaqua/license.html or in the file licenses/QUAQUA-LICENSE.html within the installation directory of SmartSVN.
+    * JNA, copyright 2008 by Timothy Wall and Wayne Meissner (https://jna.dev.java.net) The corresponding license agreement can be found at http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html or in the file licenses/JNA-LICENSE within the installation directory of SmartSVN.
+    * JMySpell, copyright 2007 by DreamTangerine (dreamtangerine@hotmail.com) The corresponding license agreement can be found at http://javahispano.net/projects/jmyspell/ or in the file licenses/JMYSPELL-LICENSE within the installation directory of SmartSVN.
+    * JGoodies Looks, copyright 2007 by Karsten Lentzsch (https://looks.dev.java.net) The corresponding license agreement can be found at https://looks.dev.java.net/ or in the file licenses/JGOODIES-LICENSE within the installation directory of SmartSVN.
+
+The licensee is obliged to abide by these third parties license terms. Consequently they are part of this license agreement.
+Software-Lizenzbedingungen
+1 Gegenstand des Vertrages
+
+Diese Lizenzbedingungen der syntevo GmbH, (nachfolgend "Lizenzgeber"), gelten für die Einräumung von Nutzungsrechten für die vollständige oder teilweise Nutzung des Objektcodes der Software SmartSVN (nachfolgend "SOFTWARE") an Unternehmer, juristische Personen des öffentlichen Rechts oder öffentlich rechtliche Sondervermögen im Sinne von §310 i.V.m. §14 BGB (nachfolgend als "Lizenznehmer" bezeichnet). Hiermit wird der Einbeziehung von eigenen Bedingungen des Lizenznehmers widersprochen, es sei denn ihrer Geltung wurde ausdrücklich zugestimmt.
+2 Umfang des Nutzungsrechte
+
+2.1 Die nachstehenden Bedingungen gelten für die zeitlich unbefristete Überlassung und Nutzung der SOFTWARE einschließlich der dazu gehörenden Dokumentation und der Lizenzdatei (einer für jede Lizenzierung individuellen Datei, die zum Betrieb der SOFTWARE notwendig ist).
+
+2.2 Sie gelten nicht für zusätzliche Leistungen wie Installation, Integration, Parametrisierung und Anpassung der SOFTWARE an Bedürfnisse des Lizenznehmers.
+3 Nutzungsrechte
+
+3.1 Die SOFTWARE ist teilweise urheberrechtlich zugunsten des Lizenzgebers und teilweise zugunsten anderer Rechteinhaber geschützt.
+
+3.2 Die SOFTWARE darf nicht genutzt werden, wenn durch die Nutzung bei Personen eine Verletzung von Leben, Körper, Gesundheit, bzw. Tier- oder Umweltschäden verursacht werden können (z.B. keine Nutzung für Atomreaktoren, Waffen und medizinische Geräte).
+
+3.3 Die SOFTWARE wird dem Lizenznehmer zur bestimmungsgemäßen Nutzung überlassen. Der Umfang der bestimmungsgemäßen Nutzung sowie Art und Umfang der Nutzungsrechte ergeben sich aus dem Überlassungsvertrag und diesen Lizenzbedingungen. Diese sind insbesondere davon abhängig, ob der Lizenznehmer eine
+
+    * SOFTWARE-Foundation Lizenz
+    * SOFTWARE-Professional Lizenz
+    * SOFTWARE-Enterprise Lizenz
+
+erhält.
+3.3.1 SOFTWARE-Foundation Lizenz
+
+Wird mit dem Lizenznehmer eine SOFTWARE-Foundation Lizenz vereinbart, räumt der Lizenzgeber dem Lizenznehmer unter den Bedingungen der Ziffer 5 kündbar und ansonsten dauerhaft das nicht ausschließliche, nicht übertragbare Recht ein, die SOFTWARE in dem für die SOFTWARE-Foundation Version technisch freigegebenem Funktionsumfang
+
+    * auf einer beliebigen Zahl von Einzelcomputer oder auf einem zentralen Server oder über Terminalserverclients
+    * von einer beliebigen Zahl von Nutzern gleichzeitig nutzen zu lassen,
+
+das heißt, insbesondere dauerhaft oder temporär zu speichern und zu laden, anzuzeigen und ablaufen zu lassen.
+3.3.2 SOFTWARE-Professional Lizenz
+
+Wird mit dem Lizenznehmer eine SOFTWARE-Professional Lizenz vereinbart, räumt der Lizenzgeber dem Lizenznehmer unter den Bedingungen der Ziffer 5 kündbar und ansonsten dauerhaft das nicht ausschließliche, nicht übertragbare Recht ein, die SOFTWARE
+
+    * auf einem zentralen Server oder über Terminalserverclients oder als lokale Installation auf Einzelplatzrechnern
+    * von der vereinbarten Anzahl von auf Anfrage nennbaren Nutzer insgesamt nutzen zu lassen, das heißt insbesondere dauerhaft oder temporär zu speichern und zu laden, sie anzuzeigen und ablaufen zu lassen. Jeder namentlich nennbare Nutzer kann nur durch einen anderen namentlich nennbare Nutzer ersetzt werden, wenn sich der "Arbeitsbereich" des ursprünglichen Nutzers ändert und dieser die SOFTWARE nicht mehr nutzt. Die Anzahl der namentlich nennbaren Nutzer darf die Anzahl der erworbenen Lizenzen zu keinem Zeitpunkt übersteigen. (Beispiel: Wenn der Lizenznehmer die SOFTWARE für fünf Nutzer erworben hat, deren Namen er auf Anfrage mitteilen kann, dürfen auch nur diese fünf Nutzer die SOFTWARE nutzen. Dies gilt unabhängig von der Anzahl der jeweiligen Installationen und davon, ob diese auf einem zentralen Server oder über Terminalserverclients oder als lokale Installation auf Einzelplatzrechnern erfolgen.)
+
+3.3.3 SOFTWARE-Enterprise Lizenz
+
+3.3.3.1 Wird mit dem Lizenznehmer eine SOFTWARE-Enterprise Lizenz vereinbart, räumt der Lizenzgeber dem Lizenznehmer unter den Bedingungen der Ziffer 5 kündbar und ansonsten dauerhaft das nicht ausschließliche, nicht übertragbare, örtlich auf die Standorte der vereinbarten Niederlassungen oder auf den gemäß Ziffer 3.2.3.4 zugelassenen Arbeitsplatz eines Mitarbeiters beschränkte Recht ein, die SOFTWARE
+
+    * auf einem zentralen Server oder über Terminalserverclients oder als lokale Installation auf Einzelplatzrechnern
+    * an den vereinbarten Standorten des Lizenznehmers von der vereinbarten Anzahl der nennbaren Mitarbeiter nutzen zu lassen, das heißt insbesondere dauerhaft oder temporär zu speichern und zu laden, sie anzuzeigen und ablaufen zu lassen.
+
+3.3.3.2 Ein Standort im Sinne dieser Softwarelizenzbedingungen ist die Menge aller selbständigen oder unselbständigen Niederlassungen des Unternehmens des Lizenznehmers, die innerhalb eines 10km Radius liegen.
+
+3.3.3.3 Als Mitarbeiter eines vereinbarten Standortes im Sinne dieser Lizenzbedingungen gelten ausschließlich abhängig beschäftigte Mitarbeiter (nicht selbstständig beschäftigte, wie Berater und Freelancer) einer dem Standort zugehörenden Niederlassung, die mehr als 50% ihrer Arbeitszeit für die jeweilige Niederlassung arbeiten.
+
+3.3.3.4 Mitarbeiter dürfen die SOFTWARE am vereinbarten Standort oder an ihrem Heimarbeitsplatz oder beim Kunden des Lizenznehmers zur Wahrnehmung ihrer arbeitsvertraglichen Pflichten gegenüber dem Lizenznehmer nutzen.
+
+3.4 Der Lizenznehmer verpflichtet sich, durch angemessene technische und organisatorische Maßnahmen dafür zu sorgen, dass die bestimmungsgemäße Nutzung der SOFTWARE sichergestellt ist.
+
+3.5 Der Lizenznehmer ist zur ordnungsgemäßen und regelmäßigen Datensicherung verpflichtet (insbesondere der Working Copies und der Repositories).
+
+3.6 Der Lizenznehmer ist berechtigt, von der SOFTWARE eine Kopie zu Sicherungszwecken herzustellen.
+
+3.7 Der Lizenznehmer ist nicht berechtigt, die SOFTWARE zu übersetzen, zu bearbeiten, zu arrangieren oder auf andere Weise umzuarbeiten oder zu verändern sowie die erzielten Ergebnisse zu vervielfältigen.
+
+3.8 Der Lizenznehmer ist nicht berechtigt, die SOFTWARE zu verbreiten. Hierzu gehört jede Form der Unterlizenzierung, insbesondere Veräußerung. Vermietung, Leasing, oder Leihe. Als Verbreitung gilt auch die Weitergabe der Lizenzdatei, einer Textdatei mit Namen, Adresse des Lizenznehmers sowie einer elektronischen Unterschrift, die die Nutzung der SOFTWARE technisch ermöglicht.
+
+3.9 Der Lizenznehmer ist nicht berechtigt, die SOFTWARE in der Weise öffentlich zugänglich zu machen, dass sie Mitgliedern der Öffentlichkeit von Orten und zu Zeiten ihrer Wahl zugänglich ist.
+
+3.10 Der Lizenznehmer verpflichtet sich, die SOFTWARE nicht zu dekompilieren.
+4 Demoversion
+
+4.1 Erfolgt die Überlassung der SOFTWARE nur für Testzwecke, räumt der Lizenzgeber dem Lizenznehmer das nicht ausschließliche, nicht übertragbare, zeitlich auf den Testzeitraum von einunddreißig (31) Tagen beschränkte Recht ein, eine nicht registrierte Kopie der SOFTWARE (Demoversion) auf einer beliebigen Zahl von Einzelcomputer oder auf einem zentralen Server oder über Terminalserverclients von einer beliebigen Zahl von Nutzern gleichzeitig nur für Testzwecke, das heißt nicht produktiv, nutzen zu lassen, das heißt, insbesondere dauerhaft oder temporär zu speichern und zu laden, anzuzeigen und ablaufen zu lassen.
+
+4.2 Die Demoversion der SOFTWARE enthält eine Funktion, die die Nutzungsmöglichkeit der SOFTWARE nach Ablauf des Testzeitraums beendet. Nach Zahlung der vereinbarten Lizenzvergütung und Zustimmung zu diesen Lizenzbedingungen im vereinbarten Umfang, wird diese Funktion deaktiviert und der Lizenznehmer erhält die vereinbarten Nutzungsrechte gemäß diesen Lizenzbestimmungen. Die Umgehung dieser technischen Schutzfunktion führt zur sofortigen Verwirkung alle eingeräumten Nutzungsrechte. Einer Kündigung gemäß Ziffer 5 bedarf es in diesem Fall nicht mehr.
+5 Haftung
+
+5.1 Wird die SOFTWARE kostenfrei oder zu Testzwecken überlassen, haftet der Lizenzgeber nur, soweit ihm Vorsatz oder grobe Fahrlässigkeit zur Last fällt.
+
+5.2 Die Rechte des Lizenznehmers wegen eines Mangels sind ausgeschlossen, wenn er bei Vertragsschluss den z.B. Mangel, insbesondere aufgrund einer vor Vertragsschluss erfolgten Testphase kennt. Ist dem Lizenznehmer ein Mangel infolge grober Fahrlässigkeit unbekannt geblieben, kann er Rechte wegen dieses Mangels nur geltend machen, wenn der Lizenzgeber den Mangel arglistig verschwiegen oder eine Garantie für die Beschaffenheit der Sache übernommen hat.
+
+5.3 Bei Verlust von Daten haftet der Lizenzgeber nur für denjenigen Aufwand, der bei ordnungsgemäßer Datensicherung durch den Lizenznehmer für die Wiederherstellung der Daten erforderlich gewesen wäre.
+
+5.4 Ansonsten ergibt sich Art und Umfang der Haftung aus den jeweiligen Kaufverträgen.
+6 Kündigung der Nutzungsrechte
+
+6.1 Verletzt der Lizenznehmer schuldhaft und schwerwiegend die vereinbarten Nutzungsrechte oder Schutzrechte des Rechtsinhabers, kann der Lizenzgeber die Nutzungsrechte an der betroffenen SOFTWARE kündigen. Eine Erstattung der Vergütung erfolgt in diesem Fall nicht.
+
+6.2 Im Falle der Kündigung ist der Lizenznehmer verpflichtet, das Original der von der Kündigung betroffenen SOFTWARE einschließlich der Dokumentation und alle Kopien zu löschen oder an den Lizenzgeber zurückzugeben. Auf Verlangen des Lizenzgebers gibt der Lizenznehmer über die Löschung eine Erklärung ab.
+
+6.3 Die sonstigen gesetzlichen Regelungen bleiben unberührt.
+7 Referenz
+
+7.1 Der Lizenznehmer räumt dem Lizenzgeber das Recht ein, den Firmennamen und das Firmenlogo des Lizenznehmers ausschließlich zu Referenzzwecken auf der Website des Lizenzgebers öffentlich verfügbar zu machen.
+
+7.2 Ein Recht zur Aufnahme in diese Referenzliste des Lizenzgebers besteht nicht.
+
+7.3 Der Lizenznehmer kann jederzeit in Schriftform verlangen, den Eintrag auf der Website des Lizenzgebers zu löschen. Die Löschung erfolgt in angemessener Frist nach Erhalt der Löschungsaufforderung.
+8 Sprache
+
+Im Fall der Übersetzung dieser Bestimmung gilt ausschließlich die deutsche Fassung.
+9 Anwendbares Recht und Gerichtstand
+
+9.1 Für sämtliche Rechtsbeziehungen der Parteien gilt das Recht der Bundesrepublik Deutschland unter Ausschluss der Gesetze über den internationalen Kauf beweglicher Waren.
+
+9.2 Ist der Lizenznehmer Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen, ist ausschließlicher Gerichtsstand für alle Streitigkeiten aus diesem Vertrag der Geschäftssitz des Lizenzgebers. Dasselbe gilt, wenn der Lizenznehmer keinen allgemeinen Gerichtsstand in Deutschland hat oder ein Wohnsitz oder ein gewöhnlicher Aufenthalt im Zeitpunkt der Klageerhebung nicht bekannt sind. Die Befugnis des Lizenzgebers, auch das Gericht an einem anderen gesetzlichen Gerichtsstand anzurufen bleibt hiervon unberührt.
+10 Integration
+
+10.1 An den folgenden Teile der SOFTWARE bestehen Rechte der im folgenden aufgeführten Dritten:
+
+    * SVNKit API, Copyright (c) 2004-2008 TMate Software, all rights reserved (http://svnkit.com/). Die entsprechende Lizenzvereinbarung kann unter http://svnkit.com/licensing/index.html oder in der Datei licenses/SVNKIT-LICENSE im Installationsverzeichnis von SmartSVN eingesehen werden.
+    * JIDE Docking and JIDE Common Framework, Copyright (c) 2002-2008 JIDE Software, Inc, all rights reserved (http://www.jidesoft.com). Die entsprechende Lizenzvereinbarung kann unter http://www.jidesoft.com/purchase/SLA.htm oder in der Datei licenses/JIDE-LICENSE.html im Installationsverzeichnis von SmartSVN eingesehen werden.
+    * Trilead SSH API, Copyright (c) 2007 Trilead AG (http://www.trilead.com). All rights reserved. Die entsprechende Lizenzvereinbarung kann unter http://www.trilead.com/Products/Trilead_SSH_for_Java/License/ oder in der Datei licenses/TRILEAD-LICENSE im Installationsverzeichnis von SmartSVN eingesehen werden.
+    * Quaqua Look and Feel, Copyright 2008 by Werner Randelshofer (http://www.randelshofer.ch) Die entsprechende Lizenzvereinbarung kann unter http://www.randelshofer.ch/quaqua/license.html oder in der Datei licenses/QUAQUA-LICENSE.html im Installationsverzeichnis von SmartSVN eingesehen werden.
+    * JNA, copyright 2008 by Timothy Wall and Wayne Meissner (https://jna.dev.java.net) Die entsprechende Lizenzvereinbarung kann unter http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html oder in der Datei licenses/JNA-LICENSE im Installationsverzeichnis von SmartSVN eingesehen werden.
+    * JMySpell, copyright 2007 by DreamTangerine (dreamtangerine@hotmail.com) Die entsprechende Lizenzvereinbarung kann unter http://javahispano.net/projects/jmyspell/ oder in der Datei licenses/JMYSPELL-LICENSE im Installationsverzeichnis von SmartSVN eingesehen werden.
+    * JGoodies Looks, copyright 2007 by Karsten Lentzsch (https://looks.dev.java.net) Die entsprechende Lizenzvereinbarung kann unter https://looks.dev.java.net/ oder in der Datei licenses/JGOODIES-LICENSE im Installationsverzeichnis von SmartSVN eingesehen werden.
+
+Der Lizenznehmer verpflichtet sich, die o.a. Lizenzbestimmungen einzuhalten. Sie stellen somit einen Teil dieser Lizenzbestimmungen dar. 
