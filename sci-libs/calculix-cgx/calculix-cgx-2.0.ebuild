@@ -1,6 +1,8 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=2
 
 inherit eutils
 
@@ -18,39 +20,33 @@ IUSE="doc examples"
 
 DEPEND="doc? ( virtual/ghostscript )
 	>=virtual/glut-1.0"
+RDEPEND=${DEPEND}
 
-S=${WORKDIR}/CalculiX
+S=${WORKDIR}/CalculiX/${MY_P}/src/
 
-src_unpack() {
-	unpack ${A}
-
+src_prepare() {
 	epatch "${FILESDIR}"/01_${MY_P}_Makefile.patch
 }
 
-src_compile () {
+src_configure () {
 	if built_with_use media-libs/mesa nptl; then
 		export PTHREAD="-lpthread"
 	else
 		export PTHREAD=""
 	fi
-
-	cd ${MY_P}/src/
-	emake || die "emake failed"
 }
 
 src_install () {
-	cd ${MY_P}/src/
-	dobin cgx || die "dobin failed"
+	dobin cgx
 
 	if use doc; then
-		insinto /usr/share/doc/${PF}
 		cd "${WORKDIR}"
 		ps2pdf ${MY_P}.ps ${MY_P}.pdf
-		doins ${MY_P}.pdf
+		dodoc ${MY_P}.pdf
 	fi
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
-		doins -r "${S}"/${MY_P}/examples/*
+		doins -r "${S}"/../examples/*
 	fi
 }

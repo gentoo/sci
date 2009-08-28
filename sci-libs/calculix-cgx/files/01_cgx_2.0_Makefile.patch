@@ -1,24 +1,18 @@
-diff -uhr CalculiX/cgx_1.8/src/Makefile CalculiX.mine/cgx_1.8/src/Makefile
---- CalculiX/cgx_1.8/src/Makefile	2008-07-26 18:13:29.000000000 -0400
-+++ CalculiX.mine/cgx_1.8/src/Makefile	2008-08-06 08:55:08.000000000 -0400
-@@ -1,4 +1,4 @@
--CFLAGS = -O2 -Wall \
-+CFLAGS = -O3 -Wall \
-   -I./ \
-   -I/usr/include \
-   -I/usr/include/GL \
-@@ -7,7 +7,7 @@
+--- CalculiX/cgx_2.0/src/Makefile.orig	2009-08-28 10:24:52.000000000 +0200
++++ CalculiX/cgx_2.0/src/Makefile	2009-08-28 10:26:39.000000000 +0200
+@@ -7,8 +7,8 @@
+   -I/usr/X11/include 
  
  LFLAGS = \
--  -L/usr/lib -lGL -lGLU \
+-  -L/usr/lib64 -lGL -lGLU \
+-  -L/usr/X11R6/lib64 -lX11 -lXext -lXi -lXmu -lXt -lSM -lICE \
 +  -L/usr/lib -lGL -lGLU -lglut \
--  -L/usr/X11/lib -lX11 -lXext -lXi -lXmu -lXt -lSM -lICE \
-+  -L/usr/X11/lib $(PTHREAD) -lX11 -lXext -lXi -lXmu -lXt -lSM -lICE \
++  -L/usr/X11R6/lib $(PTHREAD) -lX11 -lXext -lXi -lXmu -lXt -lSM -lICE \
    -lm 
  
- # -L/usr/X11/lib64 -lpthread -lX11 -lXext -lXi -lXmu -lXt -lSM -lICE \
-@@ -122,42 +122,6 @@
-  writefbd.c \
+ # on 32bit systems change lib64 to lib
+@@ -126,42 +126,6 @@
+  writebp.c \
   contact.c \
   makeTriFromElems.c \
 - ../../glut-3.5/src/layerutil.c \
