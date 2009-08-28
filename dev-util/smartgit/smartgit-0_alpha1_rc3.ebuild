@@ -21,7 +21,7 @@ S="${WORKDIR}"/smartgit-M1-build-3/
 
 pkg_nofetch(){
 	einfo "Please download ${MY_P}.tar.gz from:"
-	einfo "${HOMEPAGE}download.html?file=smartsvn/${MY_P}.tar.gz"
+	einfo "http://www.syntevo.com/smartgit/early-access.html"
 	einfo "and move/copy to ${DISTDIR}"
 }
 
