@@ -1,6 +1,8 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=2
 
 inherit eutils
 
@@ -22,17 +24,16 @@ DEPEND="arpack? ( >=sci-libs/arpack-96 )
 	lapack? ( virtual/lapack )
 	>=sci-libs/spooles-2.2
 	virtual/blas"
+RDEPEND=${DEPEND}
 
-S=${WORKDIR}/CalculiX
+S=${WORKDIR}/CalculiX/${MY_P}/src
 
-src_unpack() {
-	unpack ${A}
-
+src_prepare() {
 	epatch "${FILESDIR}"/01_${MY_P}_Makefile.patch
 	use lapack && epatch "${FILESDIR}"/01_${MY_P}_lapack.patch
 }
 
-src_compile () {
+src_configure() {
 	use lapack && export LAPACK=`pkg-config --libs lapack`
 
 	export BLAS=`pkg-config --libs blas`
@@ -48,25 +49,20 @@ src_compile () {
 		export ARPACK="-DARPACK"
 		export ARPACKLIB="-larpack"
 	fi
-
-	cd ${MY_P}/src
-	emake || die "emake failed"
 }
 
 src_install () {
-	cd ${MY_P}/src
-	dobin ${MY_P} || die "dobin failed"
+	dobin ${MY_P}
 	dosym ${MY_P} /usr/bin/ccx
 
 	if use doc; then
-		insinto /usr/share/doc/${PF}
-		cd "${S}/${MY_P}/doc"
+		cd "${S}/../doc"
 		ps2pdf ${MY_P}.ps ${MY_P}.pdf
-		doins ${MY_P}.pdf
+		dodoc ${MY_P}.pdf
 	fi
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
-		doins -r "${S}"/${MY_P}/test/*
+		doins -r "${S}"/../test/*
 	fi
 }

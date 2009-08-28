@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/calculix-ccx
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  28 Aug 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  Version bump.
 
   05 Dec 2008; Oliver Borm (boroli) <oli.borm@web.de>
   calculix-ccx-1.8.ebuild, metadata.xml:
