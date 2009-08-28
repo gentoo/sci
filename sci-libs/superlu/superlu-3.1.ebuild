@@ -2,7 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils autotools
+EAPI="2"
+
+inherit autotools eutils toolchain-funcs
 
 MY_PN=SuperLU
 
@@ -13,7 +15,6 @@ SRC_URI="${HOMEPAGE}/${PN}_${PV}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-
 IUSE="doc examples test"
 
 RDEPEND="virtual/blas"
@@ -23,28 +24,27 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${MY_PN}_${PV}"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+src_prepare() {
 	epatch "${FILESDIR}"/${P}-autotools.patch
 	epatch "${FILESDIR}"/${PN}-examples.patch
 	epatch "${FILESDIR}"/${P}-makeinc.patch
 	eautoreconf
 }
 
-src_compile() {
+src_configure() {
 	econf \
 		--with-blas="$(pkg-config --libs blas)"
-
-	emake || die "emake failed"
 }
 
 src_test() {
 	cd TESTING/MATGEN
-	emake || die "emake matrix generation failed"
+	emake \
+		CC=$(tc-getCC) \
+		|| die "emake matrix generation failed"
 	cd ..
 	emake \
-		SUPERLULIB=SRC/.libs/libsuperlu.a \
+		CC=$(tc-getCC) \
+		SUPERLULIB=../SRC/.libs/libsuperlu.a \
 		BLASLIB="$(pkg-config --libs blas)" \
 		|| die "emake test failed"
 }
