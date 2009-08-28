@@ -41,7 +41,6 @@ src_test() {
 	fi
 }
 
-
 src_install() {
 	dobin ${PN} || die "Installation of ${PN} failed"
 	dodoc ChangeLog README || die "no docs"
