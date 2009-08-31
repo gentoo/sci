@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  31 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  files/7.0.5-Makefile.patch, mosflm-7.0.5.ebuild,
+  +files/7.0.5-parallel.patch:
+  parallel patch
+
 *mosflm-7.0.5 (14 Aug 2009)
 
   14 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
