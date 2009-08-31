@@ -57,6 +57,7 @@ S="${WORKDIR}"
 
 PATCHES=(
 	"${FILESDIR}"/${PV}-as-needed.patch
+	"${FILESDIR}"/${PV}-check.patch
 	"${FILESDIR}"/link-against-guile-gtk-properly.patch
 	"${FILESDIR}"/fix-namespace-error.patch
 	)
@@ -123,6 +124,9 @@ src_compile() {
 	emake || die "emake failed"
 }
 
+src_test() {
+	emake check || die
+}
 src_install() {
 	base_src_install
 
