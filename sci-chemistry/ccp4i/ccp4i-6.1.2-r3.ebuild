@@ -40,6 +40,7 @@ PATCHES=(
 	"${FILESDIR}"/${PV}-rename-rapper.patch
 	"${FILESDIR}"/${PV}-rename-superpose.patch
 	"${FILESDIR}"/${PV}-fix-baubles.patch
+	"${FILESDIR}"/${PV}-crank_shelxd.tcl.patch
 	)
 
 src_prepare() {
@@ -64,8 +65,7 @@ src_install() {
 	# rm imosflm stuff
 	rm -rf "${S}"/ccp4i/{bin/imosflm,imoslfm}
 
-	# Is your name Gates?
-	rm -rf "${S}"/ccp4i/etc/WINDOWS
+	rm -rf "${S}"/ccp4i/{bin,etc}/{UNIX,WINDOWS}
 
 	# This is installed by mrbump
 	rm -rf "${S}"/ccp4i/{tasks/{dbviewer.tcl,mrbump.*},templates/mrbump.com,scripts/mrbump.script}

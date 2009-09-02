@@ -2,6 +2,16 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccp4i-6.1.2-r3 (02 Sep 2009)
+
+  02 Sep 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/6.1.2-crank_shelxd.tcl.patch, -ccp4i-6.1.1-r1.ebuild,
+  -ccp4i-6.1.1-r3.ebuild, -ccp4i-6.1.1-r4.ebuild, -ccp4i-6.1.2-r2.ebuild,
+  +ccp4i-6.1.2-r3.ebuild:
+  added crank_shelxd.tcl.patch
+  QA rmoved WINDOWS and UNIX binary dirs
+  cleaned up old versions
+
 *ccp4i-6.1.2-r2 (17 Aug 2009)
 
   17 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
