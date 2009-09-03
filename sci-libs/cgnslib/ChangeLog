@@ -3,6 +3,9 @@
 # $Header: $
 
   03 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  Needs now >=sci-libs/hdf5-1.8
+
+  03 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Corrected checksums, as upstream changed tarball.
 
   27 Aug 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
