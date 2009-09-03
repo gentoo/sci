@@ -3,6 +3,9 @@
 # $Header: $
 
   03 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  Reintroduced cgnslib-2.5.3, as it needs <sci-libs/hdf5-1.8
+
+  03 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Needs now >=sci-libs/hdf5-1.8
 
   03 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
