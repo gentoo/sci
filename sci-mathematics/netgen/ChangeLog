@@ -3,6 +3,9 @@
 # $Header: $
 
   03 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  fixed netgen.desktop
+
+  03 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Version bump
 
   26 Aug 2008; Oliver Borm (boroli) <oli.borm@web.de> netgen-4.4.ebuild,
