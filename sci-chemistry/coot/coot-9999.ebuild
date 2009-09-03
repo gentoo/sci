@@ -125,7 +125,27 @@ src_compile() {
 }
 
 src_test() {
-	emake check || die
+	cp "${S}"/src/coot.py python
+	export COOT_PYTHON_DIR=${S}/python
+	export PYTHONPATH=$COOT_PYTHON_DIR
+	export PYTHONHOME=/usr
+
+	cat << EOF > command-line-greg.scm
+   (use-modules (ice-9 greg))
+         (set! greg-tools (list "greg-tests"))
+         (set! greg-debug #t)
+         (set! greg-verbose 5)
+         (let ((r (greg-test-run)))
+            (if r
+	        (coot-real-exit 0)
+	        (coot-real-exit 1)))
+EOF
+
+
+	${S}/src/coot-real --no-graphics --script command-line-greg.scm
+
+
+#	emake check || die
 }
 src_install() {
 	base_src_install
