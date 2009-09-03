@@ -6,7 +6,7 @@ inherit java-utils-2
 
 DESCRIPTION="SmartGIT"
 HOMEPAGE="http://www.syntevo.com/smartgit"
-SRC_URI="${PN}-generic-M1-build-3.tar.gz"
+SRC_URI="${PN}-generic-1-M2.tar.gz"
 
 SLOT="0"
 LICENSE="smartgit"
@@ -17,7 +17,7 @@ RESTRICT="fetch"
 
 RDEPEND=">=virtual/jre-1.4.1"
 
-S="${WORKDIR}"/smartgit-M1-build-3/
+S="${WORKDIR}"/smartgit-1-M2/
 
 pkg_nofetch(){
 	einfo "Please download ${MY_P}.tar.gz from:"
@@ -37,7 +37,7 @@ src_install() {
 	for X in 32 64 128
 	do
 		insinto /usr/share/icons/hicolor/${X}x${X}/apps
-		newins "${S}/bin/${PN}-${X}x${X}.png" "${PN}.png" || die "cannot install needed files"
+		newins "${S}/bin/icon-${X}.png" "${PN}.png" || die "cannot install needed files"
 	done
 
 	make_desktop_entry "${PN}" "SmartGIT" ${PN}.png "Development;RevisionControl"
