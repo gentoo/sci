@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+# Versioning is output of nmrpipe -help
+
 DESCRIPTION="Spectral visualisation, analysis and Fourier processing"
 # The specific terms of this license are printed automatically on startup
 # by some NMRPipe applications. The user also has to accept them before
@@ -32,12 +34,9 @@ IUSE=""
 # says he will gladly provide precompiled executables for other platforms
 # if there are such requests.
 KEYWORDS="-* ~x86"
-
-# The maintainer absolutely wants to control redistribution.
 RESTRICT="fetch"
 
 DEPEND="app-shells/tcsh"
-
 RDEPEND="${DEPEND}
 	dev-lang/tk
 	dev-tcltk/blt
