@@ -1,6 +1,9 @@
 # ChangeLog for sci-mathematics/netgen
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  Version bump
 
   26 Aug 2008; Oliver Borm (boroli) <oli.borm@web.de> netgen-4.4.ebuild,
   netgen-4.4-r1.ebuild:
