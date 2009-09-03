@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>sci-geosciences</herd>
+	<maintainer>
+		<email>premek@vohnout.cz</email>
+		<name>Premysl Vohnout</name>
+	</maintainer>
+	<use>
+		<flag name="grass">Compile support for grass</flag>
+		<flag name="samples">Install example data</flag>
+	</use>
+</pkgmetadata>
+

@@ -14,17 +14,17 @@ SRC_URI="http://download.osgeo.org/qgis/src/${PN}_${PV}.tar.gz
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="debug gps grass gsl postgres python samples"
+IUSE="debug gps grass gsl postgres python sqlite samples"
 
 RDEPEND=">=sci-libs/gdal-1.6.1
 		x11-libs/qt-core:4[qt3support]
 		x11-libs/qt-gui:4
 		x11-libs/qt-svg:4
 		x11-libs/qt-sql:4
-		dev-db/sqlite:3
-		sci-libs/geos
+		>=sci-libs/geos-3.0.0
 		sci-libs/proj
-		postgres? ( >=virtual/postgresql-base-8 )
+		sqlite? ( dev-db/sqlite:3 )
+		postgres? ( virtual/postgresql-base	)
 		grass? ( >=sci-geosciences/grass-6.0.1
 			   sci-libs/gdal-grass )
 		gps? ( dev-libs/expat
@@ -44,7 +44,8 @@ src_configure() {
 		$(cmake-utils_use_with grass GRASS) \
 		$(cmake-utils_use_with gps EXPAT) \
 		$(cmake-utils_use_with gsl GSL) \
-		$(cmake-utils_use_with python BINDINGS)"
+		$(cmake-utils_use_with python BINDINGS) \
+		$(cmake-utils_use_with sqlite SPATIALITE)"
 
 	if use grass; then
 		GRASS_ENVD="/etc/env.d/99grass /etc/env.d/99grass-6 /etc/env.d/99grass-cvs";

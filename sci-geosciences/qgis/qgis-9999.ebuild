@@ -12,16 +12,12 @@ SRC_URI="samples? ( http://download.osgeo.org/qgis/data/qgis_sample_data.tar.gz 
 
 ESVN_REPO_URI="http://svn.osgeo.org/qgis/trunk/qgis"
 
-
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
 IUSE="debug gps grass gsl postgres python sqlite samples"
 
-DEPEND="dev-util/cmake
-		sys-devel/bison
-		sys-devel/flex
-		>=sci-libs/gdal-1.6.1
+RDEPEND=">=sci-libs/gdal-1.6.1
 		x11-libs/qt-core:4[qt3support]
 		x11-libs/qt-gui:4
 		x11-libs/qt-svg:4
@@ -29,19 +25,18 @@ DEPEND="dev-util/cmake
 		>=sci-libs/geos-3.0.0
 		sci-libs/proj
 		sqlite? ( dev-db/sqlite:3 )
-		postgres? ( virtual/postgresql-base
-				dev-db/postgis )
+		postgres? ( virtual/postgresql-base )
 		grass? ( >=sci-geosciences/grass-6.0.1
 			   sci-libs/gdal-grass )
 		gps? ( dev-libs/expat
 			sci-geosciences/gpsbabel )
-		gsl? ( sci-libs/gsl )"
-
-RDEPEND="${DEPEND}
+		gsl? ( sci-libs/gsl )
 		python? ( dev-lang/python[sqlite]
 			dev-python/PyQt4
 			dev-python/sip )
 		gps? ( sci-geosciences/gpsbabel )"
+
+DEPEND="${RDEPEND}"
 
 src_configure() {
 	local mycmakeargs
@@ -85,4 +80,3 @@ pkg_postinst() {
 		einfo "/usr/share/doc/${PF}/sample_data/"
 	fi
 }
-
