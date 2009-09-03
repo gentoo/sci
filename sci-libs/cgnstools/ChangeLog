@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  Corrected checksums, as upstream changed tarball.
+
   27 Aug 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Version bump
 
