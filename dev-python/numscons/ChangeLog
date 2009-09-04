@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/numscons
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*numscons-0.10.1 (04 Sep 2009)
+
+  04 Sep 2009; Sébastien Fabbro <bicatali@gentoo.org>
+  +numscons-0.10.1.ebuild, +metadata.xml:
+  Initial import
+
