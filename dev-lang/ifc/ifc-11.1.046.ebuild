@@ -34,8 +34,9 @@ RDEPEND="~virtual/libstdc++-3.3
 DESTINATION="${ROOT}opt/intel/Compiler/${RELEASE}/${BUILD}"
 
 pkg_setup() {
-	CHECKREQS_MEMORY=512
-	CHECKREQS_DISK_BUILD=1024
+	CHECKREQS_MEMORY=1024
+	CHECKREQS_DISK_BUILD=1536
+	use idb && use mkl && CHECKREQS_DISK_BUILD=2048
 	check_reqs
 	IARCH=ia32
 	use amd64 && IARCH=intel64
@@ -61,14 +62,14 @@ src_unpack() {
 }
 
 src_prepare() {
-	# from the PURGE_UB804_FNP in pset/install_cc.sh
+	# from the PURGE_UB804_FNP in pset/install_fc.sh
 	# rm -f "${DESTINATION}"/lib/*/*libFNP.so || die
 
 	# extract the tag function from the original install
 	sed -n \
 		-e "s|find \$DESTINATION|find ${S}${DESTINATION}|g" \
 		-e '/^UNTAG_CFG_FILES[[:space:]]*(/,/^}/p' \
-		pset/install_cc.sh > tag.sh || die
+		pset/install_fc.sh > tag.sh || die
 	# fix world writeable files
 	use mkl && chmod 644 \
 		"${S}${DESTINATION}"/mkl/tools/{environment,builder}/* \
