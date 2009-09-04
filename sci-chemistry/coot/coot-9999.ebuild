@@ -57,7 +57,6 @@ S="${WORKDIR}"
 
 PATCHES=(
 	"${FILESDIR}"/${PV}-as-needed.patch
-	"${FILESDIR}"/${PV}-check.patch
 	"${FILESDIR}"/link-against-guile-gtk-properly.patch
 	"${FILESDIR}"/fix-namespace-error.patch
 	)
@@ -125,6 +124,8 @@ src_compile() {
 }
 
 src_test() {
+	emake check || die
+
 	cp "${S}"/src/coot.py python
 	export COOT_PYTHON_DIR=${S}/python
 	export PYTHONPATH=$COOT_PYTHON_DIR
@@ -145,7 +146,6 @@ EOF
 	${S}/src/coot-real --no-graphics --script command-line-greg.scm
 
 
-#	emake check || die
 }
 src_install() {
 	base_src_install
