@@ -16,7 +16,7 @@ IUSE="opencascade jpeg -mpi -ffmpeg"
 SLOT="0"
 
 DEPEND="dev-tcltk/tix
-	=dev-tcltk/togl-1.7*
+	dev-tcltk/togl:1.7
 	virtual/opengl
 	x11-libs/libXmu
 	opencascade? ( sci-libs/opencascade )
@@ -27,19 +27,22 @@ RDEPEND="${DEPEND}"
 # Note, MPI has not be tested.
 
 src_configure() {
-	OCCV=$(qatom `best_version sci-libs/opencascade` | cut -d ' ' -f 3)
-	OCC_PATH="/opt/opencascade-${OCCV}/ros"
-
 	# This is not the most clever way to deal with these flags
 	# but --disable-xxx does not seem to work correcly, so...
 	local myconf=""
 
-	use opencascade && myconf="${myconf} --enable-occ --with-occ=${OCC_PATH}"
+	if use opencascade; then
+		OCCV=$(qatom `best_version sci-libs/opencascade` | cut -d ' ' -f 3)
+		OCC_PATH="/opt/opencascade-${OCCV}/ros"
+		myconf="${myconf} --enable-occ --with-occ=${OCC_PATH}"
+		append-ldflags -L${OCC_PATH}/lin/$(get_libdir)
+	fi
+
 	use mpi && myconf="${myconf} --enable-parallel"
 	use ffmpeg && myconf="${myconf} --enable-ffmpeg"
 	use jpeg && myconf="${myconf} --enable-jpeglib"
 
-	append-ldflags -L${OCC_PATH}/lin/$(get_libdir)
+	append-flags -I/usr/include/togl-1.7
 
 	econf \
 		${myconf}
