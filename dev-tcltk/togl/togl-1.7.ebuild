@@ -14,7 +14,7 @@ HOMEPAGE="http://togl.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
 LICENSE="BSD"
-SLOT="0"
+SLOT="1.7"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug +threads"
 
@@ -34,7 +34,7 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "failed to install"
 	dolib.so *.so
-	rm -rf "${D}"/usr/$(get_libdir)/${MY_PN}${PV}
+	insinto /usr/include/${PN}-${SLOT}
+	doins togl*.h
 }
