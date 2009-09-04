@@ -1,0 +1,10 @@
+# ChangeLog for dev-lang/ifc
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ifc-11.1.046 (04 Sep 2009)
+
+  04 Sep 2009; Sébastien Fabbro <bicatali@gentoo.org> +ifc-11.1.046.ebuild,
+  +metadata.xml:
+  Version bump. Complete rewrite, now a compiler suite with mkl and debugger
+
