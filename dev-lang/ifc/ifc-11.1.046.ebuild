@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=2
 
 inherit rpm versionator check-reqs
 
@@ -28,10 +28,9 @@ RESTRICT="mirror strip binchecks"
 
 DEPEND=""
 RDEPEND="~virtual/libstdc++-3.3
-	amd64? ( app-emulation/emul-linux-x86-compat )
-	idb? ( >=virtual/jre-1.5 )"
+	amd64? ( app-emulation/emul-linux-x86-compat )"
 
-DESTINATION="${ROOT}opt/intel/Compiler/${RELEASE}/${BUILD}"
+DESTINATION="opt/intel/Compiler/${RELEASE}/${BUILD}"
 
 pkg_setup() {
 	CHECKREQS_MEMORY=1024
@@ -54,7 +53,6 @@ src_unpack() {
 		use idb && built_with_use dev-lang/icc idb && rm -f rpm/*idb*.rpm
 		use mkl && built_with_use dev-lang/icc mkl && rm -f rpm/*mkl*.rpm
 	fi
-	cd "${S}"
 	for x in rpm/intel*.rpm; do
 		einfo "Extracting $(basename ${x})..."
 		rpm_unpack ${x} || die "rpm_unpack ${x} failed"
@@ -67,13 +65,14 @@ src_prepare() {
 
 	# extract the tag function from the original install
 	sed -n \
-		-e "s|find \$DESTINATION|find ${S}${DESTINATION}|g" \
+		-e "s|find \$DESTINATION|find ${DESTINATION}|g" \
+		-e "s|@\$DESTINATION|@${ROOT}${DESTINATION}|g" \
 		-e '/^UNTAG_CFG_FILES[[:space:]]*(/,/^}/p' \
 		pset/install_fc.sh > tag.sh || die
 	# fix world writeable files
-	use mkl && chmod 644 \
-		"${S}${DESTINATION}"/mkl/tools/{environment,builder}/* \
-		"${S}${DESTINATION}"/mkl/tools/plugins/*/*
+	[ -d ${DESTINATION}/mkl ]  && chmod 644 \
+		${DESTINATION}/mkl/tools/{environment,builder}/* \
+		${DESTINATION}/mkl/tools/plugins/*/*
 }
 
 src_install() {
@@ -85,38 +84,20 @@ src_install() {
 	einfo "Copying files"
 	dodir "${DESTINATION}"
 	cp -pPR \
-		"${S}/${DESTINATION}"/* \
-		"${D}/${DESTINATION}"/ \
+		${DESTINATION}/* \
+		"${D}"/${DESTINATION}/ \
 		|| die "Copying ${PN} failed"
 
 	cat > 05ifc <<-EOF
-		PATH=${DESTINATION}/bin/${IARCH}
-		LDPATH=${DESTINATION}/lib/${IARCH}
-		NLSPATH="${DESTINATION}/lib/locale/en_US/%N"
-		MANPATH=${DESTINATION}/man/en_US
+		PATH="${ROOT}${DESTINATION}/bin/${IARCH}
+		LDPATH=${ROOT}{DESTINATION}/lib/${IARCH}
+		NLSPATH="${ROOT}${DESTINATION}/lib/locale/en_US/%N"
+		MANPATH=${ROOT}${DESTINATION}/man/en_US
 	EOF
 	doenvd 05ifc || die "doenvd 05ifc failed"
-	if use idb; then
-		cat > 06idb <<-EOF
-			NLSPATH=${DESTINATION}/idb/${IARCH}/locale/%l_%t/%N
-		EOF
-		doenvd 06idb || die "doenvd 06idb failed"
+	[ -d ${DESTINATION}/idb ] && \
 		dosym ../../common/com.intel.debugger.help_1.0.0 \
-			${DESTINATION}/idb/gui/${IARCH}/plugins
-	fi
-	if use mkl; then
-		cat > 35mkl <<-EOF
-			MKLROOT=${DESTINATION}/mkl
-			LDPATH=\${MKLROOT}/lib/${IARCH}
-			LIB=\${MKLROOT}/lib
-			LIBRARY_PATH=\${MKLROOT}/lib/${IARCH}
-			MANPATH=\${MKLROOT}/man/en_US
-			CPATH=\${MKLROOT}/include
-			FPATH=\${MKLROOT}/include
-			NLSPATH=\${MKLROOT}/lib/${IARCH}/locale/%l_%t/%N
-		EOF
-		doenvd 35mkl || die "doenvd 35mkl failed"
-	fi
+		${DESTINATION}/idb/gui/${IARCH}/plugins
 }
 
 pkg_postinst() {
