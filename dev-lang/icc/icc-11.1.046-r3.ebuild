@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=2
 
 inherit rpm versionator check-reqs
 
@@ -21,7 +21,7 @@ SRC_URI="amd64? ( ${SRC_COM}_intel64.tgz )
 
 LICENSE="Intel-SDP"
 SLOT="0"
-IUSE="idb ipp mkl"
+IUSE="+idb ipp mkl"
 KEYWORDS="~amd64 ~ia64 ~x86"
 
 RESTRICT="mirror strip binchecks"
@@ -92,10 +92,11 @@ src_install() {
 		|| die "Copying ${PN} failed"
 
 	cat > 05icc <<-EOF
-		PATH="${ROOT}${DESTINATION}/bin/${IARCH}
-		LDPATH=${ROOT}{DESTINATION}/lib/${IARCH}
+		PATH="${ROOT}"${DESTINATION}/bin/${IARCH}
+		LDPATH=${ROOT}"${DESTINATION}/lib/${IARCH}
+		LIBRARY_PATH=${ROOT}"${DESTINATION}/lib/${IARCH}
 		NLSPATH="${ROOT}${DESTINATION}/lib/locale/en_US/%N"
-		MANPATH=${ROOT}${DESTINATION}/man/en_US
+		MANPATH=${ROOT}"${DESTINATION}/man/en_US
 	EOF
 	doenvd 05icc || die "doenvd 05icc failed"
 	[ -d ${DESTINATION}/idb ] && \
