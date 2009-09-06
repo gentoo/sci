@@ -92,11 +92,11 @@ src_install() {
 		|| die "Copying ${PN} failed"
 
 	cat > 05icc <<-EOF
-		PATH="${ROOT}"${DESTINATION}/bin/${IARCH}
-		LDPATH=${ROOT}"${DESTINATION}/lib/${IARCH}
-		LIBRARY_PATH=${ROOT}"${DESTINATION}/lib/${IARCH}
+		PATH="${ROOT}${DESTINATION}/bin/${IARCH}"
+		LDPATH="${ROOT}${DESTINATION}/lib/${IARCH}"
+		LIBRARY_PATH="${ROOT}${DESTINATION}/lib/${IARCH}"
 		NLSPATH="${ROOT}${DESTINATION}/lib/locale/en_US/%N"
-		MANPATH=${ROOT}"${DESTINATION}/man/en_US
+		MANPATH="${ROOT}${DESTINATION}/man/en_US"
 	EOF
 	doenvd 05icc || die "doenvd 05icc failed"
 	[ -d ${DESTINATION}/idb ] && \
