@@ -1,0 +1,11 @@
+diff -dur pvs-sbcl-4.2.ORIG/BDD/mu_interface.c pvs-sbcl-4.2/BDD/mu_interface.c
+--- pvs-sbcl-4.2.ORIG/BDD/mu_interface.c	2007-08-27 01:03:57.000000000 -0600
++++ pvs-sbcl-4.2/BDD/mu_interface.c	2008-08-08 15:19:58.000000000 -0600
+@@ -107,7 +107,6 @@
+ void yywarning (const char *format, ...) { fputs ("", stderr); } 
+ HASHTAB *var_table;              /* primary variable names */
+ FILE *bdd_output_stream;
+-static const char *bdd_output_strings ;
+ 
+ /* setting flags */
+ int set_mu_warnings           (int flag) {warnings = flag; return 0;}

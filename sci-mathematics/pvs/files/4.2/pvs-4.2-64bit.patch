@@ -1,6 +1,6 @@
-diff -Naur pvs4.2-orig/BDD/bdd/ex/test.pl pvs4.2-bddp/BDD/bdd/ex/test.pl
---- pvs4.2-orig/BDD/bdd/ex/test.pl	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/ex/test.pl	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/ex/test.pl pvs-sbcl-4.2/BDD/bdd/ex/test.pl
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/ex/test.pl	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/ex/test.pl	2008-08-08 15:23:15.000000000 -0600
 @@ -8,11 +8,11 @@
  
  (y implies x) and (y equiv a or not a) -> (x equiv y) .
@@ -16,9 +16,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/ex/test.pl pvs4.2-bddp/BDD/bdd/ex/test.pl
  
  /* Portrait in the casket */
  G :-
-diff -Naur pvs4.2-orig/BDD/bdd/src/appl.c pvs4.2-bddp/BDD/bdd/src/appl.c
---- pvs4.2-orig/BDD/bdd/src/appl.c	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/appl.c	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/appl.c pvs-sbcl-4.2/BDD/bdd/src/appl.c
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/appl.c	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/appl.c	2008-08-08 15:23:15.000000000 -0600
 @@ -105,7 +105,7 @@
    int flag;
  
@@ -67,9 +67,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/appl.c pvs4.2-bddp/BDD/bdd/src/appl.c
  }
  
  BDDPTR make_definition (int id_index, BDDPTR function)
-diff -Naur pvs4.2-orig/BDD/bdd/src/bdd.c pvs4.2-bddp/BDD/bdd/src/bdd.c
---- pvs4.2-orig/BDD/bdd/src/bdd.c	2007-09-05 00:04:00.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/bdd.c	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd.c pvs-sbcl-4.2/BDD/bdd/src/bdd.c
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd.c	2007-09-04 18:04:00.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/bdd.c	2008-08-08 15:23:15.000000000 -0600
 @@ -214,13 +214,13 @@
     falls apart. This is tested in bdd_alloc().
  */
@@ -147,9 +147,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/bdd.c pvs4.2-bddp/BDD/bdd/src/bdd.c
  }
  
  void bdd_print_node (FILE *fp, BDDPTR v)
-diff -Naur pvs4.2-orig/BDD/bdd/src/bdd_fns.c pvs4.2-bddp/BDD/bdd/src/bdd_fns.c
---- pvs4.2-orig/BDD/bdd/src/bdd_fns.c	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/bdd_fns.c	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd_fns.c pvs-sbcl-4.2/BDD/bdd/src/bdd_fns.c
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd_fns.c	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/bdd_fns.c	2008-08-08 15:23:15.000000000 -0600
 @@ -833,7 +833,7 @@
  
  static int rank_less_or_equal (void *a, void *b)
@@ -180,9 +180,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/bdd_fns.c pvs4.2-bddp/BDD/bdd/src/bdd_fns.c
  
  /* Looks up BDD f in sop_cache and when a sum-of-cubes list is present
     for it returns a full copy of the list (list elements are BDD cubes
-diff -Naur pvs4.2-orig/BDD/bdd/src/bdd.h pvs4.2-bddp/BDD/bdd/src/bdd.h
---- pvs4.2-orig/BDD/bdd/src/bdd.h	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/bdd.h	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd.h pvs-sbcl-4.2/BDD/bdd/src/bdd.h
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd.h	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/bdd.h	2008-08-08 15:23:15.000000000 -0600
 @@ -31,7 +31,7 @@
  /* IMPORTANT NOTICE!!!
  
@@ -291,9 +291,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/bdd.h pvs4.2-bddp/BDD/bdd/src/bdd.h
    BDDPTR then_link;		/* child for variable = 1 */
    BDDPTR else_link;		/* child for variable = 0 */
    BDDPTR next;			/* chaining in unique table */
-diff -Naur pvs4.2-orig/BDD/bdd/src/bdd_list.h pvs4.2-bddp/BDD/bdd/src/bdd_list.h
---- pvs4.2-orig/BDD/bdd/src/bdd_list.h	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/bdd_list.h	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd_list.h pvs-sbcl-4.2/BDD/bdd/src/bdd_list.h
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd_list.h	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/bdd_list.h	2008-08-08 15:23:15.000000000 -0600
 @@ -27,8 +27,8 @@
  #define BDD_LIST_END_FOR_EACH_ELEM	END_FOR_EACH_LIST_ELEM
  #define BDD_ELEM_CALLOC			CALLOC_LIST_ELEM
@@ -305,9 +305,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/bdd_list.h pvs4.2-bddp/BDD/bdd/src/bdd_list.h
  #define BDD_LIST_FIRST			LIST_FIRST
  #define BDD_LIST_NEXT			LIST_NEXT
  #define BDD_LIST_LAST			LIST_LAST
-diff -Naur pvs4.2-orig/BDD/bdd/src/bdd_quant.c pvs4.2-bddp/BDD/bdd/src/bdd_quant.c
---- pvs4.2-orig/BDD/bdd/src/bdd_quant.c	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/bdd_quant.c	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd_quant.c pvs-sbcl-4.2/BDD/bdd/src/bdd_quant.c
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd_quant.c	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/bdd_quant.c	2008-08-08 15:23:15.000000000 -0600
 @@ -777,14 +777,15 @@
  /* Using muliplicative method in hashing. Constant A according Knuth:
     A = (PHI - 1) * 2^32, with PHI = golden ratio = (1 + sqrt(5))/2
@@ -327,9 +327,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/bdd_quant.c pvs4.2-bddp/BDD/bdd/src/bdd_quant
  
  static BDDPTR bdd_lookup_and_smooth_cache (BDDPTR f, BDDPTR g)
  {
-diff -Naur pvs4.2-orig/BDD/bdd/src/bdd_vfns.c pvs4.2-bddp/BDD/bdd/src/bdd_vfns.c
---- pvs4.2-orig/BDD/bdd/src/bdd_vfns.c	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/bdd_vfns.c	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd_vfns.c pvs-sbcl-4.2/BDD/bdd/src/bdd_vfns.c
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd_vfns.c	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/bdd_vfns.c	2008-08-08 15:23:15.000000000 -0600
 @@ -40,7 +40,7 @@
      BDDPTR *F;
  
@@ -339,9 +339,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/bdd_vfns.c pvs4.2-bddp/BDD/bdd/src/bdd_vfns.c
      return F+1;
    }
    return NULL;
-diff -Naur pvs4.2-orig/BDD/bdd/src/bdd_vfns.h pvs4.2-bddp/BDD/bdd/src/bdd_vfns.h
---- pvs4.2-orig/BDD/bdd/src/bdd_vfns.h	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/bdd_vfns.h	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd_vfns.h pvs-sbcl-4.2/BDD/bdd/src/bdd_vfns.h
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/bdd_vfns.h	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/bdd_vfns.h	2008-08-08 15:23:15.000000000 -0600
 @@ -10,7 +10,7 @@
   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  */
@@ -351,9 +351,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/bdd_vfns.h pvs4.2-bddp/BDD/bdd/src/bdd_vfns.h
  
  extern BDDPTR *MakeBDDVec		(int size);
  extern   void  FreeBDDVec		(BDDPTR *F);
-diff -Naur pvs4.2-orig/BDD/bdd/src/ChangeLog pvs4.2-bddp/BDD/bdd/src/ChangeLog
---- pvs4.2-orig/BDD/bdd/src/ChangeLog	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/ChangeLog	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/ChangeLog pvs-sbcl-4.2/BDD/bdd/src/ChangeLog
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/ChangeLog	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/ChangeLog	2008-08-08 15:23:15.000000000 -0600
 @@ -1,3 +1,17 @@
 +2008-08-06  Jerry James  <loganjerry@gmail.com>
 +
@@ -372,9 +372,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/ChangeLog pvs4.2-bddp/BDD/bdd/src/ChangeLog
  Thu Apr 16 10:25:56 1998  Geert Janssen  <geert@cobra.ics.ele.tue.nl>
  
  	* bdd_quant.c (bdd_lookup_and_smooth_cache): also using
-diff -Naur pvs4.2-orig/BDD/bdd/src/main.c pvs4.2-bddp/BDD/bdd/src/main.c
---- pvs4.2-orig/BDD/bdd/src/main.c	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/main.c	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/main.c pvs-sbcl-4.2/BDD/bdd/src/main.c
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/main.c	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/main.c	2008-08-08 15:23:15.000000000 -0600
 @@ -309,7 +309,7 @@
  
    var_table = make_hashtab (3);
@@ -384,9 +384,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/main.c pvs4.2-bddp/BDD/bdd/src/main.c
  
    aux_table = make_hashtab (0);
  
-diff -Naur pvs4.2-orig/BDD/bdd/src/Makefile pvs4.2-bddp/BDD/bdd/src/Makefile
---- pvs4.2-orig/BDD/bdd/src/Makefile	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/Makefile	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/Makefile pvs-sbcl-4.2/BDD/bdd/src/Makefile
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/Makefile	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/Makefile	2008-08-08 15:23:15.000000000 -0600
 @@ -11,9 +11,9 @@
  # specify appropriate C compiler flags here:
  #CFLAGS=  -Aa -D_POSIX_SOURCE $(INCLUDES)
@@ -439,9 +439,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/Makefile pvs4.2-bddp/BDD/bdd/src/Makefile
  	$(CC) -c ${CFLAGS} -w lex.yy.c
  
  clean : 
-diff -Naur pvs4.2-orig/BDD/bdd/src/template.c pvs4.2-bddp/BDD/bdd/src/template.c
---- pvs4.2-orig/BDD/bdd/src/template.c	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/template.c	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/template.c pvs-sbcl-4.2/BDD/bdd/src/template.c
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/template.c	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/template.c	2008-08-08 15:23:15.000000000 -0600
 @@ -51,7 +51,7 @@
  int main (int argc, char *argv[])
  {
@@ -457,9 +457,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/template.c pvs4.2-bddp/BDD/bdd/src/template.c
    bdd_print_stats (stdout);
 +  return EXIT_SUCCESS;
  }
-diff -Naur pvs4.2-orig/BDD/bdd/src/yacc.y pvs4.2-bddp/BDD/bdd/src/yacc.y
---- pvs4.2-orig/BDD/bdd/src/yacc.y	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/src/yacc.y	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/src/yacc.y pvs-sbcl-4.2/BDD/bdd/src/yacc.y
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/src/yacc.y	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/src/yacc.y	2008-08-08 15:23:15.000000000 -0600
 @@ -99,6 +99,7 @@
  extern void action (BDDPTR *F);
  extern void parse_complete (void);
@@ -468,9 +468,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/src/yacc.y pvs4.2-bddp/BDD/bdd/src/yacc.y
  void yyerror (char *format, ...);
  void yywarning (char *format, ...);
  
-diff -Naur pvs4.2-orig/BDD/bdd/utils/alloc.c pvs4.2-bddp/BDD/bdd/utils/alloc.c
---- pvs4.2-orig/BDD/bdd/utils/alloc.c	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/utils/alloc.c	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/utils/alloc.c pvs-sbcl-4.2/BDD/bdd/utils/alloc.c
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/utils/alloc.c	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/utils/alloc.c	2008-08-08 15:23:15.000000000 -0600
 @@ -101,10 +101,7 @@
  {
    long nr_bytes = nr_elems * bytes_per_elem;
@@ -483,9 +483,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/utils/alloc.c pvs4.2-bddp/BDD/bdd/utils/alloc.c
  }
  
  #if COMMENT
-diff -Naur pvs4.2-orig/BDD/bdd/utils/alloc.h pvs4.2-bddp/BDD/bdd/utils/alloc.h
---- pvs4.2-orig/BDD/bdd/utils/alloc.h	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/utils/alloc.h	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/utils/alloc.h pvs-sbcl-4.2/BDD/bdd/utils/alloc.h
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/utils/alloc.h	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/utils/alloc.h	2008-08-08 15:23:15.000000000 -0600
 @@ -29,7 +29,7 @@
  		     const char* fn, long ln);
  
@@ -495,9 +495,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/utils/alloc.h pvs4.2-bddp/BDD/bdd/utils/alloc.h
  #endif
  
  /* Allocates n consecutive bytes, returns pointer of type. */
-diff -Naur pvs4.2-orig/BDD/bdd/utils/general.h pvs4.2-bddp/BDD/bdd/utils/general.h
---- pvs4.2-orig/BDD/bdd/utils/general.h	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/utils/general.h	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/utils/general.h pvs-sbcl-4.2/BDD/bdd/utils/general.h
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/utils/general.h	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/utils/general.h	2008-08-08 15:23:15.000000000 -0600
 @@ -30,6 +30,13 @@
  /* Number of bits in a Nat: */
  #define NAT_BIT			32
@@ -528,9 +528,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/utils/general.h pvs4.2-bddp/BDD/bdd/utils/general
  typedef unsigned char		Byte;
  typedef unsigned char		TinyNat;
  typedef unsigned short int	SmallNat;
-diff -Naur pvs4.2-orig/BDD/bdd/utils/hash.c pvs4.2-bddp/BDD/bdd/utils/hash.c
---- pvs4.2-orig/BDD/bdd/utils/hash.c	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/utils/hash.c	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/utils/hash.c pvs-sbcl-4.2/BDD/bdd/utils/hash.c
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/utils/hash.c	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/utils/hash.c	2008-08-08 15:23:15.000000000 -0600
 @@ -290,7 +290,7 @@
    for (i = 0; i < /*old*/ old_size; i++, entryp++)
      if (*entryp) {
@@ -576,9 +576,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/utils/hash.c pvs4.2-bddp/BDD/bdd/utils/hash.c
    }
    print_hashtab (hashtab);
    print_hashtab (hashtab2);
-diff -Naur pvs4.2-orig/BDD/bdd/utils/hash.h pvs4.2-bddp/BDD/bdd/utils/hash.h
---- pvs4.2-orig/BDD/bdd/utils/hash.h	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/utils/hash.h	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/utils/hash.h pvs-sbcl-4.2/BDD/bdd/utils/hash.h
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/utils/hash.h	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/utils/hash.h	2008-08-08 15:23:15.000000000 -0600
 @@ -40,7 +40,7 @@
  */
  #define ALLOW_REHASH
@@ -601,9 +601,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/utils/hash.h pvs4.2-bddp/BDD/bdd/utils/hash.h
  
  /* Symbols for values returned by do_insert in lookup (). */
  #define ALREADY_PRESENT		0
-diff -Naur pvs4.2-orig/BDD/bdd/utils/list.c pvs4.2-bddp/BDD/bdd/utils/list.c
---- pvs4.2-orig/BDD/bdd/utils/list.c	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/utils/list.c	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/utils/list.c pvs-sbcl-4.2/BDD/bdd/utils/list.c
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/utils/list.c	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/utils/list.c	2008-08-08 15:23:15.000000000 -0600
 @@ -462,8 +462,15 @@
    q = LIST_FIRST(list2);
  
@@ -622,9 +622,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/utils/list.c pvs4.2-bddp/BDD/bdd/utils/list.c
  
      if (!comp) {		/* ==> p = q */
        if (remove_duplicates) {
-diff -Naur pvs4.2-orig/BDD/bdd/utils/Makefile pvs4.2-bddp/BDD/bdd/utils/Makefile
---- pvs4.2-orig/BDD/bdd/utils/Makefile	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/bdd/utils/Makefile	2009-03-24 18:49:23.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/bdd/utils/Makefile pvs-sbcl-4.2/BDD/bdd/utils/Makefile
+--- pvs-sbcl-4.2.ORIG/BDD/bdd/utils/Makefile	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd/utils/Makefile	2008-08-08 15:23:15.000000000 -0600
 @@ -26,7 +26,7 @@
  double.o : double.c double.h
  list.o : list.c list.h alloc.h
@@ -634,25 +634,9 @@ diff -Naur pvs4.2-orig/BDD/bdd/utils/Makefile pvs4.2-bddp/BDD/bdd/utils/Makefile
  
  dag.o : dag.c dag.h dag_customize.h general.h
  tree.o : tree.c tree.h tree_customize.h general.h
-diff -Naur pvs4.2-orig/BDD/ix86-MacOSX/Makefile pvs4.2-bddp/BDD/ix86-MacOSX/Makefile
---- pvs4.2-orig/BDD/ix86-MacOSX/Makefile	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/ix86-MacOSX/Makefile	2009-03-24 18:49:24.000000000 +0000
-@@ -2,8 +2,11 @@
- MU = ../mu/src
- UTILS = ../bdd/utils
- INCLUDES = -I/usr/include -I$(BDD) -I$(UTILS) -I$(MU)
-+# MACOSX_DEPLOYMENT_TARGET and -weak_library are needed so that dylibs work
-+# for both leopard and tiger
-+MACOSX_DEPLOYMENT_TARGET=10.2
- LD = ld
--LDFLAGS = -bundle /usr/lib/bundle1.o -flat_namespace -undefined suppress -L./
-+LDFLAGS = -bundle /usr/lib/bundle1.o -flat_namespace -undefined suppress -L./ -weak_library /usr/lib/libSystem.B.dylib
- CC = cc
- CFLAGS = -dynamic -DNDEBUG $(INCLUDES)
- XCFLAGS = -O
-diff -Naur pvs4.2-orig/BDD/mu/src/lex.l pvs4.2-bddp/BDD/mu/src/lex.l
---- pvs4.2-orig/BDD/mu/src/lex.l	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/mu/src/lex.l	2009-03-24 18:49:24.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/mu/src/lex.l pvs-sbcl-4.2/BDD/mu/src/lex.l
+--- pvs-sbcl-4.2.ORIG/BDD/mu/src/lex.l	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/mu/src/lex.l	2008-08-08 15:23:15.000000000 -0600
 @@ -229,7 +229,7 @@
  /* unimportant white space or new_line */	}
  
@@ -662,9 +646,9 @@ diff -Naur pvs4.2-orig/BDD/mu/src/lex.l pvs4.2-bddp/BDD/mu/src/lex.l
  
  %%
  
-diff -Naur pvs4.2-orig/BDD/mu/src/Makefile pvs4.2-bddp/BDD/mu/src/Makefile
---- pvs4.2-orig/BDD/mu/src/Makefile	2007-07-02 20:07:41.000000000 +0000
-+++ pvs4.2-bddp/BDD/mu/src/Makefile	2009-03-24 18:49:24.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/mu/src/Makefile pvs-sbcl-4.2/BDD/mu/src/Makefile
+--- pvs-sbcl-4.2.ORIG/BDD/mu/src/Makefile	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/mu/src/Makefile	2008-08-08 15:23:15.000000000 -0600
 @@ -1,8 +1,8 @@
  # Copyright (c) 1992-1995 G. Janssen
  
@@ -685,9 +669,9 @@ diff -Naur pvs4.2-orig/BDD/mu/src/Makefile pvs4.2-bddp/BDD/mu/src/Makefile
  lex.yy.o : lex.yy.c y.tab.h mu.h
  	$(CC) ${CFLAGS} -w -c lex.yy.c
  
-diff -Naur pvs4.2-orig/BDD/mu/src/mu.c pvs4.2-bddp/BDD/mu/src/mu.c
---- pvs4.2-orig/BDD/mu/src/mu.c	2007-09-06 18:49:37.000000000 +0000
-+++ pvs4.2-bddp/BDD/mu/src/mu.c	2009-03-24 18:49:24.000000000 +0000
+diff -dur pvs-sbcl-4.2.ORIG/BDD/mu/src/mu.c pvs-sbcl-4.2/BDD/mu/src/mu.c
+--- pvs-sbcl-4.2.ORIG/BDD/mu/src/mu.c	2007-09-06 12:49:37.000000000 -0600
++++ pvs-sbcl-4.2/BDD/mu/src/mu.c	2008-08-08 15:23:15.000000000 -0600
 @@ -450,7 +450,7 @@
  /* Used in print_list. */
  static void print_var (FILE *fp, void *bdd_idx)

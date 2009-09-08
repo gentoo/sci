@@ -1,0 +1,3335 @@
+diff -durN pvs-sbcl-4.2.ORIG/BDD/bdd-allegro.lisp pvs-sbcl-4.2/BDD/bdd-allegro.lisp
+--- pvs-sbcl-4.2.ORIG/BDD/bdd-allegro.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd-allegro.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -39,6 +39,13 @@
+ 
+ ;;; #define NULL_LIST ((LIST) 0)
+ 
++;;; int null_list_p (LIST x)
++(ff:def-foreign-call (null_list_p "bdd___null_list_p")
++    ((x :unsigned-int integer))
++  #+(version>= 6) :strings-convert #+(version>= 6) nil
++  :arg-checking nil
++  :call-direct t
++  :returning :unsigned-int)
+ ;;; void *elem_contents (LIST_ELEM_PTR x)
+ (ff:def-foreign-call (elem_contents "bdd___elem_contents")
+     ((x :unsigned-int integer))
+diff -durN pvs-sbcl-4.2.ORIG/BDD/bdd-cmu.lisp pvs-sbcl-4.2/BDD/bdd-cmu.lisp
+--- pvs-sbcl-4.2.ORIG/BDD/bdd-cmu.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd-cmu.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -39,6 +39,11 @@
+ 
+ ;;; #define NULL_LIST ((LIST) 0)
+ 
++;;; int null_list_p (LIST x)
++(alien:def-alien-routine ("bdd___null_list_p" null_list_p)
++			 unsigned-int
++  (x unsigned-int))
++    
+ ;;; void *elem_contents (LIST_ELEM_PTR x)
+ (alien:def-alien-routine ("bdd___elem_contents" elem_contents)
+ 			 unsigned-int
+diff -durN pvs-sbcl-4.2.ORIG/BDD/bdd-ld-table pvs-sbcl-4.2/BDD/bdd-ld-table
+--- pvs-sbcl-4.2.ORIG/BDD/bdd-ld-table	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd-ld-table	2008-11-04 20:52:16.000000000 -0700
+@@ -4,6 +4,7 @@
+ bdd___bdd_poslit_p = bdd_poslit_p ;
+ bdd___bdd_neglit_p = bdd_neglit_p ;
+ bdd___bdd_equal_p = bdd_equal_p ;
++bdd___null_list_p = null_list_p ;
+ bdd___elem_contents = elem_contents ;
+ bdd___list_first = list_first ;
+ bdd___list_last = list_last ;
+diff -durN pvs-sbcl-4.2.ORIG/BDD/bdd.lisp pvs-sbcl-4.2/BDD/bdd.lisp
+--- pvs-sbcl-4.2.ORIG/BDD/bdd.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -19,6 +19,7 @@
+ 
+ (in-package :pvs)
+ 
++(defmacro null-list? (list) `(= (null_list_p ,list) 1))
+ (defmacro bdd-void? (bdd) `(= (bdd_void_p ,bdd) 1))
+ (defmacro bdd-1? (bdd) `(= (bdd_1_p ,bdd) 1))
+ (defmacro bdd-0? (bdd) `(= (bdd_0_p ,bdd) 1))
+@@ -369,12 +370,12 @@
+ 	    (pushnew (cons op name) (cdr entry) :test #'eql :key #'cdr))))))
+ 
+ (defun translate-from-bdd-list (bddlist)
+-  (let ((bdds (unless (zerop bddlist)
++  (let ((bdds (unless (null-list? bddlist)
+ 		(translate-from-bdd-list* (list_first bddlist)))))
+     (mapcar #'translate-bdd-cube bdds)))
+ 
+ (defun translate-from-bdd-list* (bddlist &optional result)
+-  (if (zerop bddlist)
++  (if (null-list? bddlist)
+       (nreverse result)
+       (translate-from-bdd-list*
+        (list_next bddlist)
+diff -durN pvs-sbcl-4.2.ORIG/BDD/bdd-sbcl.lisp pvs-sbcl-4.2/BDD/bdd-sbcl.lisp
+--- pvs-sbcl-4.2.ORIG/BDD/bdd-sbcl.lisp	1969-12-31 17:00:00.000000000 -0700
++++ pvs-sbcl-4.2/BDD/bdd-sbcl.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -0,0 +1,555 @@
++;; --------------------------------------------------------------------
++;; PVS
++;; Copyright (C) 2006, SRI International.  All Rights Reserved.
++
++;; This program is free software; you can redistribute it and/or
++;; modify it under the terms of the GNU General Public License
++;; as published by the Free Software Foundation; either version 2
++;; of the License, or (at your option) any later version.
++
++;; This program is distributed in the hope that it will be useful,
++;; but WITHOUT ANY WARRANTY; without even the implied warranty of
++;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++;; GNU General Public License for more details.
++
++;; You should have received a copy of the GNU General Public License
++;; along with this program; if not, write to the Free Software
++;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
++;; --------------------------------------------------------------------
++
++(in-package :pvs)
++
++;; SO - We load this from pvs-init (in src/pvs.lisp), as it requires mu.so,
++;; but if mu.so is loaded at save-lisp time, it doesn't work (at least I
++;; can't get it to).
++
++;;; List accessors
++;;; Lists in the BDD package involve two structures.
++
++;;; A LIST is a structure with slots for a first element pointer, a last
++;;; element pointer, the size, and user-defined info.
++
++;;; A LIST_ELEM is a structure with slots for the contents and the next
++;;; element.
++
++;;; #define NULL_LIST ((LIST) 0)
++
++;;; int null_list_p (LIST x)
++(sb-alien:define-alien-routine ("bdd___null_list_p" null_list_p)
++			       (integer 32)
++  (x (* t)))
++
++;;; void *elem_contents (LIST_ELEM_PTR x)
++(sb-alien:define-alien-routine ("bdd___elem_contents" elem_contents)
++			       (* t)
++  (x (* t)))
++
++;;; LIST_ELEM_PTR list_first (LIST x)
++(sb-alien:define-alien-routine ("bdd___list_first" list_first)
++			       (* t)
++  (x (* t)))
++
++;;; LIST_ELEM_PTR list_last (LIST x)
++(sb-alien:define-alien-routine ("bdd___list_last" list_last)
++			       (* t)
++  (x (* t)))
++
++;;; int list_info (LIST x)
++(sb-alien:define-alien-routine ("bdd___list_info" list_info)
++			       (integer 32)
++  (x (* t)))
++
++;;; LIST_ELEM_PTR list_next (LIST_ELEM_PTR x)
++(sb-alien:define-alien-routine ("bdd___list_next" list_next)
++			       (* t)
++  (x (* t)))
++
++;;; This pretty much follows the bdd.doc sections.
++
++;;; User settable program parameters
++;;; --------------------------------
++;;; int bdd_do_gc;	            /* default 1 */
++
++(sb-alien:define-alien-variable "bdd_do_gc" (integer 32))
++
++;;; set_bdd_do_gc (int flag)
++(declaim (inline set_bdd_do_gc))
++(defun set_bdd_do_gc (flag)
++  (setf bdd-do-gc flag))
++
++;;; int bdd_do_dynamic_ordering;/* default 1 */
++(sb-alien:define-alien-variable "bdd_do_dynamic_ordering" (integer 32))
++
++;;; set_bdd_do_dynamic_ordering (int flag)
++(declaim (inline set_bdd_do_dynamic_ordering))
++(defun set_bdd_do_dynamic_ordering (flag)
++  (setf bdd-do-dynamic-ordering flag))
++
++;;; int bdd_verbose;            /* default 0 */
++(sb-alien:define-alien-variable "bdd_verbose" (integer 32))
++
++;;; set_bdd_verbose (int flag)
++(declaim (inline set_bdd_verbose))
++(defun set_bdd_verbose (flag)
++  (setf bdd-verbose flag))
++
++;;; int bdd_use_neg_edges;      /* default 1*/
++(sb-alien:define-alien-variable "bdd_use_neg_edges" (integer 32))
++
++;;; set_bdd_use_neg_edges (int flag)
++(declaim (inline set_bdd_use_neg_edges))
++(defun set_bdd_use_neg_edges (flag)
++  (setf bdd-use-neg-edges flag))
++
++;;; int bdd_use_inv_edges;  /* default 1; 0 when bdd_do_dynamic_ordering = 1 */
++(sb-alien:define-alien-variable "bdd_use_inv_edges" (integer 32))
++
++;;; set_bdd_use_inv_edges (int flag)
++(declaim (inline set_bdd_use_inv_edges))
++(defun set_bdd_use_inv_edges (flag)
++  (setf bdd-use-inv-edges flag))
++
++;;; int bdd_sizeof_user_data;   /* default 0 */
++;;; int BDD_COMPUTED_TABLE_SIZE;/* default DEFAULT_BDD_COMPUTED_TABLE_SIZE */
++;;; int BDD_HASHTAB_SIZE;	    /* default DEFAULT_BDD_HASHTAB_SIZE */
++;;; int BDD_NR_RANKS;	    /* default DEFAULT_BDD_NR_RANKS */
++;;; int BDD_LOAD_FACTOR;        /* default DEFAULT_BDD_LOAD_FACTOR */
++
++
++;;; C preprocessor macros:
++;;; ----------------------
++
++;;; Access to fields of BDD struct:
++
++;;; BDD_VARID (F)
++;;; bdd_varid (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_varid" bdd_varid)
++			       (sb-alien:unsigned 32)
++  (f (* t)))
++
++;;; BDD_THEN (F)
++;;; BDD_ELSE (F)
++;;; BDD_REFCOUNT (F)
++;;; BDD_FLAG (F)
++;;; BDD_MARK (F)
++
++
++;;; Test on terminal nodes:
++;;; -----------------------
++
++;;; BDD_VOID_P (f)
++;;; int bdd_void_p (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_void_p" bdd_void_p)
++			       (integer 32)
++  (f (* t)))
++
++;;; BDD_1_P (f)
++;;; bdd_1_p (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_1_p" bdd_1_p)
++			       (integer 32)
++  (f (* t)))
++
++;;; BDD_0_P (f)
++;;; bdd_0_p (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_0_p" bdd_0_p)
++			       (integer 32)
++  (f (* t)))
++
++;;; BDD_X_P (f)
++;;; bdd_x_p (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_x_p" bdd_x_p)
++			       (integer 32)
++  (f (* t)))
++
++;;; BDD_CONST_P (f)
++;;; int bdd_const_p (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_const_p" bdd_const_p)
++			       (integer 32)
++  (f (* t)))
++
++;;; BDD_TERM_P (f)
++;;; bdd_term_p (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_term_p" bdd_term_p)
++			       (integer 32)
++  (f (* t)))
++
++;;; BDD_LIT_P (f)
++;;; bdd_lit_p (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_lit_p" bdd_lit_p)
++			       (integer 32)
++  (f (* t)))
++
++;;; BDD_POSLIT_P (f)
++;;; int bdd_poslit_p (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_poslit_p" bdd_poslit_p)
++			       (integer 32)
++  (f (* t)))
++
++;;; BDD_NEGLIT_P (f)
++;;; int bdd_neglit_p (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_neglit_p" bdd_neglit_p)
++			       (integer 32)
++  (f (* t)))
++
++;;; BDD_COFACTOR_POS (f)
++;;; BDDPTR bdd_cofactor_pos_ (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_cofactor_pos_" bdd_cofactor_pos_)
++			       (* t)
++  (f (* t)))
++
++;;; BDD_COFACTOR_NEG (f)
++;;; BDDPTR bdd_cofactor_neg_ (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_cofactor_neg_" bdd_cofactor_neg_)
++			       (* t)
++  (f (* t)))
++
++;;; void bdd_reset_marks (BDDPTR f)
++;;; void bdd_traverse_pre (register BDDPTR v, void (*pre_action)(BDDPTR))
++;;; void bdd_traverse_post (register BDDPTR v, void (*post_action)(BDDPTR))
++
++;;; int bdd_size (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_size" bdd_size)
++			       (integer 32)
++  (f (* t)))
++
++;;; int bdd_size_vec (BDDPTR *f_vec, int size)
++;;; int bdd_size_ceil (BDDPTR f, int ceiling)
++
++;;; void bdd_init (void)
++(sb-alien:define-alien-routine ("bdd___bdd_init" bdd_init)
++			       sb-alien:void)
++
++;;; void bdd_free (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_free" bdd_free)
++			       sb-alien:void
++  (f (* t)))
++
++;;; int bdd_gc (void)
++(sb-alien:define-alien-routine ("bdd___bdd_gc" bdd_gc)
++			       (integer 32))
++
++;;; BDDPTR bdd_ite (BDDPTR F, BDDPTR G, BDDPTR H)
++(sb-alien:define-alien-routine ("bdd___bdd_ite" bdd_ite)
++			       (* t)
++  (f (* t))
++  (g (* t))
++  (h (* t)))
++
++;;; BDDPTR bdd_ite_const (BDDPTR F, BDDPTR G, BDDPTR H)
++(sb-alien:define-alien-routine ("bdd___bdd_ite_const" bdd_ite_const)
++			       (* t)
++  (f (* t))
++  (g (* t))
++  (h (* t)))
++
++;;; void bdd_cofactors (BDDPTR f, BDDPTR *vp, BDDPTR *Tp, BDDPTR *Ep)
++;;; BDDPTR bdd_invert_input_top (BDDPTR f)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_invert_input_top" bdd_invert_input_top)
++			       (* t)
++  (f (* t)))
++
++;;; BDDPTR bdd_create_var (int v)
++(sb-alien:define-alien-routine ("bdd___bdd_create_var" bdd_create_var)
++			       (* t)
++  (v (integer 32)))
++
++;;; BDDPTR bdd_create_var_first	(void)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_create_var_first" bdd_create_var_first)
++			       (* t))
++
++;;; BDDPTR bdd_create_var_before (BDDPTR v)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_create_var_before" bdd_create_var_before)
++			       (* t)
++  (v (* t)))
++
++;;; BDDPTR bdd_create_var_after	(BDDPTR v)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_create_var_after" bdd_create_var_after)
++			       (* t)
++  (v (* t)))
++
++;;; BDDPTR bdd_create_var_last (void)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_create_var_last" bdd_create_var_last)
++			       (* t))
++
++;;; void bdd_print (FILE *fp, BDDPTR f, char *s)
++(sb-alien:define-alien-routine ("bdd___bdd_print" bdd_print)
++			       sb-alien:void
++  (fp (* t))
++  (f (* t))
++  (s sb-alien:c-string))
++
++;;; void bdd_print_stats (FILE *fp)
++;;; void bdd_quit (void)
++(sb-alien:define-alien-routine ("bdd___bdd_quit" bdd_quit)
++			       sb-alien:void)
++
++;;; int bdd_memsize (void)
++;;; int bdd_memsize_limit (void)
++;;; void bdd_set_memsize_limit_and_handler (int limit, void (*handler) (void))
++;;; int bdd_nodes_alive (void)
++(sb-alien:define-alien-routine ("bdd___bdd_nodes_alive" bdd_nodes_alive)
++			       (integer 32))
++
++;;; int bdd_nodes_allocated (void)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_nodes_allocated" bdd_nodes_allocated)
++			       (integer 32))
++
++;;; int bdd_nr_occurs_var (int id)
++;;; int bdd_compl_p (BDDPTR f, BDDPTR g)
++;;; int bdd_equal_p (BDDPTR F, BDDPTR G)
++(sb-alien:define-alien-routine ("bdd___bdd_equal_p" bdd_equal_p)
++			       (integer 32)
++  (f (* t))
++  (g (* t)))
++
++;;; int bdd_implies_taut (BDDPTR F, BDDPTR G)
++;;; BDDPTR bdd_not (BDDPTR F)
++(sb-alien:define-alien-routine ("bdd___bdd_not" bdd_not)
++			       (* t)
++  (f (* t)))
++
++;;; BDDPTR bdd_and (BDDPTR F, BDDPTR G)
++(sb-alien:define-alien-routine ("bdd___bdd_and" bdd_and)
++			       (* t)
++  (f (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_greater	(BDDPTR F, BDDPTR G)
++(sb-alien:define-alien-routine ("bdd___bdd_greater" bdd_greater)
++			       (* t)
++  (f (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_less (BDDPTR F, BDDPTR G)
++(sb-alien:define-alien-routine ("bdd___bdd_less" bdd_less)
++			       (* t)
++  (f (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_xor (BDDPTR F, BDDPTR G)
++(sb-alien:define-alien-routine ("bdd___bdd_xor" bdd_xor)
++			       (* t)
++  (f (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_or (BDDPTR F, BDDPTR G)
++(sb-alien:define-alien-routine ("bdd___bdd_or" bdd_or)
++			       (* t)
++  (f (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_nor (BDDPTR F, BDDPTR G)
++(sb-alien:define-alien-routine ("bdd___bdd_nor" bdd_nor)
++			       (* t)
++  (f (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_equiv (BDDPTR F, BDDPTR G)
++(sb-alien:define-alien-routine ("bdd___bdd_equiv" bdd_equiv)
++			       (* t)
++  (f (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_xnor (BDDPTR F, BDDPTR G) /* equivalent to bdd_equiv */
++(sb-alien:define-alien-routine ("bdd___bdd_xnor" bdd_xnor)
++			       (* t)
++  (f (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_implied (BDDPTR F, BDDPTR G)
++(sb-alien:define-alien-routine ("bdd___bdd_implied" bdd_implied)
++			       (* t)
++  (f (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_implies (BDDPTR F, BDDPTR G)
++(sb-alien:define-alien-routine ("bdd___bdd_implies" bdd_implies)
++			       (* t)
++  (f (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_nand (BDDPTR F, BDDPTR G)
++(sb-alien:define-alien-routine ("bdd___bdd_nand" bdd_nand)
++			       (* t)
++  (f (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_0 (void)
++(sb-alien:define-alien-routine ("bdd___bdd_0" bdd_0)
++			       (* t))
++
++;;; BDDPTR bdd_1 (void)
++(sb-alien:define-alien-routine ("bdd___bdd_1" bdd_1)
++			       (* t))
++
++;;; BDDPTR bdd_X (void)
++(sb-alien:define-alien-routine ("bdd___bdd_X" bdd_X)
++			       (* t))
++
++;;; BDDPTR bdd_assign (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_assign" bdd_assign)
++			       (* t)
++  (f (* t)))
++
++;;; BDDPTR bdd_top_var (BDDPTR f)
++;;; int bdd_top_var_rank (BDDPTR f)
++;;; BDDPTR bdd_then (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_then" bdd_then)
++			       (* t)
++  (f (* t)))
++
++;;; BDDPTR bdd_else (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_else" bdd_else)
++			       (* t)
++  (f (* t)))
++
++;;; BDDPTR bdd_apply (BDDPTR (*f)(BDDPTR,BDDPTR),BDDPTR a,BDDPTR b)
++(sb-alien:define-alien-routine ("bdd___bdd_apply" bdd_apply)
++			       (* t)
++  (f (* t))
++  (a (* t))
++  (b (* t)))
++
++;;; BDDPTR bdd_constrain (BDDPTR f, BDDPTR c)
++(sb-alien:define-alien-routine ("bdd___bdd_constrain" bdd_constrain)
++			       (* t)
++  (f (* t))
++  (c (* t)))
++
++;;; BDDPTR bdd_top_var (BDDPTR f)
++(sb-alien:define-alien-routine ("bdd___bdd_top_var" bdd_top_var)
++			       (* t)
++  (f (* t)))
++
++;;; BDD_LIST bdd_sum_of_cubes (BDDPTR f, int irredundant)
++(sb-alien:define-alien-routine ("bdd___bdd_sum_of_cubes" bdd_sum_of_cubes)
++			       (* t)
++  (f (* t))
++  (irredundant (integer 32)))
++
++(sb-alien:define-alien-variable ("bdd_interrupted" bdd_interrupted) (integer 32))
++
++;;; The following were obtained by looking through mu.c and collecting
++;;; functions not mentioned above.
++
++;;; int bdd_reorder_var (int var_id, int target_var_id)
++(sb-alien:define-alien-routine ("bdd___bdd_reorder_var" bdd_reorder_var)
++			       (integer 32)
++  (var_id (integer 32))
++  (target_var (integer 32)))
++
++;;; BDDPTR bdd_and_smooth (BDDPTR f, BDDPTR g, BDD_LIST vars)
++(sb-alien:define-alien-routine ("bdd___bdd_and_smooth" bdd_and_smooth)
++			       (* t)
++  (f (* t))
++  (g (* t))
++  (vars (* t)))
++
++;;; BDD_LIST bdd_rank_order_vars (BDD_LIST vars)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_rank_order_vars" bdd_rank_order_vars)
++			       (* t)
++  (vars (* t)))
++
++;;; BDDPTR bdd_quantify (int existential, BDDPTR f, BDD_LIST vars)
++(sb-alien:define-alien-routine ("bdd___bdd_quantify" bdd_quantify)
++			       (* t)
++  (existential (integer 32))
++  (f (* t))
++  (vars (* t)))
++
++;;; BDDPTR bdd_subst_par (BDDPTR *f_vec, BDD_LIST vars, BDDPTR g)
++(sb-alien:define-alien-routine ("bdd___bdd_subst_par" bdd_subst_par)
++			       (* t)
++  (f_vec (array (* t)))
++  (vars (* t))
++  (g (* t)))
++
++;;; BDDPTR bdd_subst_par_list (BDD_LIST f_list, BDD_LIST vars, BDDPTR g)
++(sb-alien:define-alien-routine ("bdd___bdd_subst_par_list" bdd_subst_par_list)
++			       (* t)
++  (f_list (* t))
++  (vars (* t))
++  (g (* t)))
++
++;;; void bdd_free_vec (BDDPTR *f_vec, int size)
++(sb-alien:define-alien-routine ("bdd___bdd_free_vec" bdd_free_vec)
++			       sb-alien:void
++  (f_vec (array (* t)))
++  (size (integer 32)))
++
++;;; const char *bdd_get_output_string (int idx)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_get_output_string" bdd_get_output_string)
++			       sb-alien:c-string
++  (idx (integer 32)))
++
++;;; void bdd_set_output_string (int idx, const char *str)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_set_output_string" bdd_set_output_string)
++			       sb-alien:void
++  (idx (integer 32))
++  (str sb-alien:c-string))
++
++;;; void bdd_print_as_sum_of_cubes (FILE *fp, BDDPTR f, int irredundant)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_print_as_sum_of_cubes" bdd_print_as_sum_of_cubes)
++			       sb-alien:void
++  (fp (* t))
++  (f (* t))
++  (irredundant (integer 32)))
++
++;;; BDDPTR bdd_diff (BDDPTR f, BDD_LIST vars)
++(sb-alien:define-alien-routine ("bdd___bdd_diff" bdd_diff)
++			       (* t)
++  (f (* t))
++  (vars (* t)))
++
++;;; BDDPTR bdd_one_of_vec (BDDPTR *vec, int size)
++(sb-alien:define-alien-routine ("bdd___bdd_one_of_vec" bdd_one_of_vec)
++			       (* t)
++  (vec (array (* t)))
++  (size (integer 32)))
++
++;;; BDDPTR bdd_none_of_vec (BDDPTR *args, int size)
++(sb-alien:define-alien-routine ("bdd___bdd_none_of_vec" bdd_none_of_vec)
++			       (* t)
++  (args (array (* t)))
++  (size (integer 32)))
++
++;;; BDDPTR bdd_subst (BDDPTR f, int var, BDDPTR g)
++(sb-alien:define-alien-routine ("bdd___bdd_subst" bdd_subst)
++			       (* t)
++  (f (* t))
++  (var (integer 32))
++  (g (* t)))
++
++;;; BDD_LIST bdd_sum_of_cubes_as_list (BDDPTR f)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_sum_of_cubes_as_list" bdd_sum_of_cubes_as_list)
++			       (* t)
++  (f (* t)))
++
++;;; int bdd_traverse_cube (BDDPTR cube,
++;;;                        void (*action) (int index, int neg, int first))
++(sb-alien:define-alien-routine ("bdd___bdd_traverse_cube" bdd_traverse_cube)
++			       (integer 32)
++  (cube (* t))
++  (action (* t)))
++
++;;; BDD_LIST bdd_support_as_list_of_vars (BDDPTR f)
++(sb-alien:define-alien-routine
++ ("bdd___bdd_support_as_list_of_vars" bdd_support_as_list_of_vars)
++			       (* t)
++  (f (* t)))
++
++(defun bdd-interrupted? ()
++  (not (zerop bdd_interrupted)))
++
++(bdd_init)
+diff -durN pvs-sbcl-4.2.ORIG/BDD/bdd_table.c pvs-sbcl-4.2/BDD/bdd_table.c
+--- pvs-sbcl-4.2.ORIG/BDD/bdd_table.c	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/BDD/bdd_table.c	2008-11-04 20:52:16.000000000 -0700
+@@ -8,6 +8,8 @@
+ 
+ int bdd___bdd_equal_p (BDDPTR F, BDDPTR G) {return bdd_equal_p (F, G);}
+ 
++int bdd___null_list_p (LIST x) {return null_list_p (x);}
++
+ void bdd___elem_contents (LIST_ELEM_PTR x) {elem_contents (x);}
+ 
+ LIST_ELEM_PTR bdd___list_first (LIST x) {
+diff -durN pvs-sbcl-4.2.ORIG/BDD/ix86_64-Linux/Makefile pvs-sbcl-4.2/BDD/ix86_64-Linux/Makefile
+--- pvs-sbcl-4.2.ORIG/BDD/ix86_64-Linux/Makefile	1969-12-31 17:00:00.000000000 -0700
++++ pvs-sbcl-4.2/BDD/ix86_64-Linux/Makefile	2008-11-04 20:52:16.000000000 -0700
+@@ -0,0 +1,48 @@
++BDD = ../bdd/src
++MU = ../mu/src
++UTILS = ../bdd/utils
++INCLUDES = -I/usr/include -I$(BDD) -I$(UTILS) -I$(MU)
++LD = gcc
++LDFLAGS = -shared -L./
++CC = gcc
++CFLAGS = -D_POSIX_SOURCE -DSYSV $(INCLUDES) -DLINUX -DLINUX_REDHAT5 -DSIGNALS_LINUX 
++XCFLAGS = -O
++SHELL = /bin/sh
++VPATH = ..:../bdd/utils:../bdd/src:../mu/src
++
++muobj = bdd_interface.o bdd.o bdd_factor.o bdd_quant.o bdd_fns.o bdd_vfns.o \
++        appl.o mu_interface.o mu.o
++
++utilobj = double.o list.o hash.o alloc.o
++
++.SUFFIXES:
++.SUFFIXES: .c .o
++.c.o : ; $(CC) $(XCFLAGS) ${CFLAGS} -c $< -o $@
++
++all : mu.so
++
++mu.so : ${muobj} libutils.a ../bdd-ld-table ../mu-ld-table 
++	$(LD) ../bdd-ld-table ../mu-ld-table $(LDFLAGS) -o  mu.so  ${muobj} -lutils  -lm -lbsd
++
++libutils.a : ${utilobj}
++	ar r libutils.a ${utilobj}
++	ranlib libutils.a
++
++bdd_interface.o : bdd_interface.c bdd_fns.h
++bdd_factor.o : bdd_factor.c bdd_factor.h
++bdd.o : bdd.c bdd.h bdd_extern.h
++bdd_fns.o : bdd_fns.c bdd_fns.h bdd.h bdd_extern.h
++bdd_quant.o : bdd_quant.c bdd_fns.h bdd.h bdd_extern.h
++bdd_vfns.o : bdd_vfns.c bdd_vfns.h bdd_fns.h bdd.h bdd_extern.h
++
++mu_interface.o : mu_interface.c mu.h
++mu.o : mu.c mu.h
++
++double.o : double.c double.h
++list.o : list.c list.h alloc.h
++hash.o : hash.c hash.h alloc.h
++alloc.o : alloc.c
++
++clean : 
++	rm -f *.o *.a *.so
++
+diff -durN pvs-sbcl-4.2.ORIG/BDD/mu-sbcl.lisp pvs-sbcl-4.2/BDD/mu-sbcl.lisp
+--- pvs-sbcl-4.2.ORIG/BDD/mu-sbcl.lisp	1969-12-31 17:00:00.000000000 -0700
++++ pvs-sbcl-4.2/BDD/mu-sbcl.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -0,0 +1,248 @@
++;; --------------------------------------------------------------------
++;; PVS
++;; Copyright (C) 2006, SRI International.  All Rights Reserved.
++
++;; This program is free software; you can redistribute it and/or
++;; modify it under the terms of the GNU General Public License
++;; as published by the Free Software Foundation; either version 2
++;; of the License, or (at your option) any later version.
++
++;; This program is distributed in the hope that it will be useful,
++;; but WITHOUT ANY WARRANTY; without even the implied warranty of
++;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++;; GNU General Public License for more details.
++
++;; You should have received a copy of the GNU General Public License
++;; along with this program; if not, write to the Free Software
++;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
++;; --------------------------------------------------------------------
++(in-package :pvs)
++
++
++;;;;;;;;;;;;;;;;;
++;;;  Formula  ;;;
++;;;;;;;;;;;;;;;;;
++
++;;; Formula mu_mk_false_formula (void)
++(sb-alien:define-alien-routine ("mu___mu_mk_false_formula" mu_mk_false_formula)
++			       (* t))
++
++;;; Formula mu_mk_true_formula (void)
++(sb-alien:define-alien-routine ("mu___mu_mk_true_formula" mu_mk_true_formula)
++			       (* t))
++
++;;; Formula mu_mk_bool_var (char *name)
++(sb-alien:define-alien-routine ("mu___mu_mk_bool_var" mu_mk_bool_var)
++			       (* t)
++  (name sb-alien:c-string))
++
++;;; int mu_check_bool_var (char *name)
++(sb-alien:define-alien-routine ("mu___mu_check_bool_var" mu_check_bool_var)
++			       (integer 32)
++  (var sb-alien:c-string))
++
++;;; Formula mu_check_mk_bool_var (char *name)
++(sb-alien:define-alien-routine
++ ("mu___mu_check_mk_bool_var" mu_check_mk_bool_var)
++			       (* t)
++  (name sb-alien:c-string))
++
++;;; Formula mu_mk_ite_formula (Formula cond, Formula then_part, Formula else_part)
++(sb-alien:define-alien-routine ("mu___mu_mk_ite_formula" mu_mk_ite_formula)
++			       (* t)
++  (cnd (* t))
++  (then_part (* t))
++  (else_part (* t)))
++
++;;; Formula mu_mk_curry_application (Term R, LIST subs)
++(sb-alien:define-alien-routine
++ ("mu___mu_mk_curry_application" mu_mk_curry_application)
++			       (* t)
++  (R (* t))
++  (subs (* t)))
++
++;;; Formula mu_mk_application (Term R, LIST subs, int curried)
++(sb-alien:define-alien-routine ("mu___mu_mk_application" mu_mk_application)
++			       (* t)
++  (R (* t))
++  (subs (* t))
++  (curried (integer 32)))
++
++;;; Formula mu_mk_forall (LIST listvars, Formula fml)
++(sb-alien:define-alien-routine ("mu___mu_mk_forall" mu_mk_forall)
++			       (* t)
++  (listvars (* t))
++  (fml (* t)))
++
++;;; Formula mu_mk_exists (LIST listvars, Formula fml)
++(sb-alien:define-alien-routine ("mu___mu_mk_exists" mu_mk_exists)
++			       (* t)
++  (listvars (* t))
++  (fml (* t)))
++
++;;; Formula mu_mk_implies_formula (Formula fml1, Formula fml2)
++(sb-alien:define-alien-routine
++ ("mu___mu_mk_implies_formula" mu_mk_implies_formula)
++			       (* t)
++  (fml1 (* t))
++  (fml2 (* t)))
++
++;;; Formula mu_mk_equiv_formula (Formula fml1, Formula fml2)
++(sb-alien:define-alien-routine ("mu___mu_mk_equiv_formula" mu_mk_equiv_formula)
++			       (* t)
++  (fml1 (* t))
++  (fml2 (* t)))
++
++;;; Formula mu_mk_or_formula (Formula fml1, Formula fml2)
++(sb-alien:define-alien-routine ("mu___mu_mk_or_formula" mu_mk_or_formula)
++			       (* t)
++  (fml1 (* t))
++  (fml2 (* t)))
++
++;;; Formula mu_mk_and_formula (Formula fml1, Formula fml2)
++(sb-alien:define-alien-routine ("mu___mu_mk_and_formula" mu_mk_and_formula)
++			       (* t)
++  (fml1 (* t))
++  (fml2 (* t)))
++
++;;; Formula mu_mk_not_formula (Formula fml)
++(sb-alien:define-alien-routine ("mu___mu_mk_not_formula" mu_mk_not_formula)
++			       (* t)
++  (fml (* t)))
++
++;;; Formula mu_mk_cofactor (Formula fml1, Formula fml2)
++(sb-alien:define-alien-routine ("mu___mu_mk_cofactor" mu_mk_cofactor)
++			       (* t)
++  (fml1 (* t))
++  (fml2 (* t)))
++
++;;;;;;;;;;;;;;;
++;;;  Term   ;;;
++;;;;;;;;;;;;;;;
++;;; Term mu_mk_abstraction (LIST vars, Formula f1)
++(sb-alien:define-alien-routine ("mu___mu_mk_abstraction" mu_mk_abstraction)
++			       (* t)
++  (vars (* t))
++  (f1 (* t)))
++;;; Term mu_mk_l_fixed_point (int relvar, Term fml1)
++(sb-alien:define-alien-routine ("mu___mu_mk_l_fixed_point" mu_mk_l_fixed_point)
++			       (* t)
++  (relvar (integer 32))
++  (fml1 (* t)))
++;;; Term mu_mk_g_fixed_point (int relvar, Term fml1)
++(sb-alien:define-alien-routine ("mu___mu_mk_g_fixed_point" mu_mk_g_fixed_point)
++			       (* t)
++  (relvar (integer 32))
++  (fml1 (* t)))
++;;; Term mu_mk_reach (Term Next, Term S0, Term Inv)
++(sb-alien:define-alien-routine ("mu___mu_mk_reach" mu_mk_reach)
++			       (* t)
++  (Next (* t))
++  (S0 (* t))
++  (Inv (* t)))
++;;; Term mu_mk_rel_var_dcl (char *name)
++(sb-alien:define-alien-routine ("mu___mu_mk_rel_var_dcl" mu_mk_rel_var_dcl)
++			       (* t)
++  (name sb-alien:c-string))
++;;; Term mu_mk_rel_var_ (char *name)
++(sb-alien:define-alien-routine ("mu___mu_mk_rel_var_" mu_mk_rel_var_)
++			       (* t)
++  (name sb-alien:c-string))
++;;; Term mu_mk_true_term (void)
++(sb-alien:define-alien-routine ("mu___mu_mk_true_term" mu_mk_true_term)
++			       (* t))
++;;; Term mu_mk_false_term (void)
++(sb-alien:define-alien-routine ("mu___mu_mk_false_term" mu_mk_false_term)
++			       (* t))
++;;; Term mu_mk_not_term (Term fml1)
++(sb-alien:define-alien-routine ("mu___mu_mk_not_term" mu_mk_not_term)
++			       (* t)
++  (fml1 (* t)))
++;;; Term mu_mk_and_term (Term fml1, Term fml2)
++(sb-alien:define-alien-routine ("mu___mu_mk_and_term" mu_mk_and_term)
++			       (* t)
++  (fml1 (* t))
++  (fml2 (* t)))
++;;; Term mu_mk_or_term (Term fml1, Term fml2)
++(sb-alien:define-alien-routine ("mu___mu_mk_or_term" mu_mk_or_term)
++			       (* t)
++  (fml1 (* t))
++  (fml2 (* t)))
++;;; Term mu_mk_equiv_term (Term fml1, Term fml2)
++(sb-alien:define-alien-routine ("mu___mu_mk_equiv_term" mu_mk_equiv_term)
++			       (* t)
++  (fml1 (* t))
++  (fml2 (* t)))
++;;; Term mu_mk_implies_term (Term fml1, Term fml2)
++(sb-alien:define-alien-routine ("mu___mu_mk_implies_term" mu_mk_implies_term)
++			       (* t)
++  (fml1 (* t))
++  (fml2 (* t)))
++;;; const char *get_mu_bool_var_name (int bdd_idx)
++(sb-alien:define-alien-routine
++ ("mu___get_mu_bool_var_name" get_mu_bool_var_name)
++			       sb-alien:c-string
++  (bdd_idx (integer 32)))
++
++;;;;;;;;;;;;;;;;;;;
++;;;  Lists      ;;;
++;;;;;;;;;;;;;;;;;;;
++
++;;; LIST append_cont (void *p, LIST list)
++(sb-alien:define-alien-routine ("mu___append_cont" append_cont)
++			       (* t)
++  (p (* t))
++  (list (* t)))
++;;; LIST empty_list (void)
++(sb-alien:define-alien-routine ("mu___empty_list" empty_list)
++			       (* t))
++
++;;;
++;;; Flags
++
++;;; int set_mu_warnings (int flag)
++(sb-alien:define-alien-routine ("mu___set_mu_warnings" set_mu_warnings)
++			       (integer 32)
++  (flag (integer 32)))
++;;; int set_mu_simplify_frontier (int flag)
++(sb-alien:define-alien-routine
++ ("mu___set_mu_simplify_frontier" set_mu_simplify_frontier)
++			       (integer 32)
++  (flag (integer 32)))
++;;; int set_mu_verbose (int flag)
++(sb-alien:define-alien-routine ("mu___set_mu_verbose" set_mu_verbose)
++			       (integer 32)
++  (flag (integer 32)))
++
++;;
++;;
++;; GC management: not needed, "modelcheck_formula" takes care of it.
++;;
++
++;;;;;;;;;;;;;;;;;;;
++;;;  print      ;;;
++;;;;;;;;;;;;;;;;;;;
++
++;;; void pvs_mu_print_formula (Formula fml)
++(sb-alien:define-alien-routine
++ ("mu___pvs_mu_print_formula" pvs_mu_print_formula)
++			       sb-alien:void
++  (fml (* t)))
++;;; void pvs_mu_print_term (Term t)
++(sb-alien:define-alien-routine ("mu___pvs_mu_print_term" pvs_mu_print_term)
++			       sb-alien:void
++  (term (* t)))
++
++;;;;;;;;;;;;;;;;;;;;;;;;;
++;;; Main function   ;;;;;
++;;;;;;;;;;;;;;;;;;;;;;;;;
++
++;;; void mu_init (void)
++(sb-alien:define-alien-routine ("mu___mu_init" mu_init)
++			       sb-alien:void)
++(sb-alien:define-alien-routine ("mu___mu_quit" mu_quit)
++			       sb-alien:void)
++;;; BDDPTR mu___modelcheck_formula (Formula fml)
++(sb-alien:define-alien-routine ("mu___modelcheck_formula" modelcheck_formula)
++			       (* t)
++  (fml (* t)))
+diff -durN pvs-sbcl-4.2.ORIG/bin/make-dist pvs-sbcl-4.2/bin/make-dist
+--- pvs-sbcl-4.2.ORIG/bin/make-dist	2008-07-19 15:49:18.000000000 -0600
++++ pvs-sbcl-4.2/bin/make-dist	2008-11-04 20:52:16.000000000 -0700
+@@ -91,16 +91,18 @@
+   src/groundeval/*.lisp \
+   src/utils/*.lisp \
+   src/utils/ix86-Linux/Makefile src/utils/ix86-MacOSX/Makefile \
++  src/utils/ix86_64-Linux/Makefile \
+   src/utils/powerpc-MacOSX/Makefile \
+   src/utils/sun4-SunOS5/Makefile \
+   BDD/bdd-ld-table BDD/mu-ld-table \
+   BDD/*.c \
+   BDD/*.lisp \
+-  BDD/ix86-Linux/Makefile BDD/sun4-SunOS5/Makefile \
++  BDD/ix86-Linux/Makefile BDD/ix86_64-Linux/Makefile BDD/sun4-SunOS5/Makefile \
+   BDD/ix86-MacOSX/Makefile BDD/powerpc-MacOSX/Makefile \
+   BDD/bdd BDD/mu \
+   src/WS1S/README src/WS1S/ws1s-ld-table \
+   src/WS1S/*.c src/WS1S/mona-1.4 \
++  src/WS1S/ix86_64-Linux/Makefile
+   src/WS1S/ix86-Linux/Makefile src/WS1S/sun4-SunOS5/Makefile \
+   src/WS1S/ix86-MacOSX/Makefile src/WS1S/powerpc-MacOSX/Makefile \
+   doc/pvs.bib doc/makebnf.sty doc/pvstex.tex doc/release-notes \
+@@ -155,7 +157,7 @@
+ # echo "pvs-libraries.tgz not created - need to typecheck finite_sets and bitvectors"
+ # fi
+ 
+-for platform in ix86-Linux ix86-MacOSX powerpc-MacOSX \
++for platform in ix86-Linux ix86_64-Linux ix86-MacOSX powerpc-MacOSX \
+                 sun4-SunOS5
+   do
+   for subdir in runtime devel
+@@ -199,5 +201,22 @@
+     else
+      echo "CMU Lisp ${subdir} not available for ${platform}"
+    fi
++   if [ -e bin/${platform}/${subdir}/pvs-sbclisp -a "$subdir" = "runtime" ]
++    then
++     echo Creating pvs-${version}-${platform}-sbclisp${kind}.tgz
++     tar ${TARFLAGS} -f pvs-${version}-${platform}-sbclisp${kind}.tgz \
++	  ${pvssystemfiles} \
++	  bin/${platform}/b64 bin/relocate \
++	  bin/pvs-platform bin/tar-b64-mail \
++	  bin/${platform}/${subdir}/mu.* \
++	  bin/${platform}/${subdir}/file_utils.* \
++	  bin/${platform}/${subdir}/ws1s.* \
++	  bin/${platform}/${subdir}/*-sbcl.* \
++	  bin/${platform}/${subdir}/lisp \
++	  bin/${platform}/${subdir}/pvs-sbclisp*
++     ls -l pvs-${version}-${platform}-sbclisp${kind}.tgz
++    else
++     echo "SBCL ${subdir} not available for ${platform}"
++   fi
+    done
+   done
+diff -durN pvs-sbcl-4.2.ORIG/bin/pvs-platform pvs-sbcl-4.2/bin/pvs-platform
+--- pvs-sbcl-4.2.ORIG/bin/pvs-platform	2007-07-16 00:28:06.000000000 -0600
++++ pvs-sbcl-4.2/bin/pvs-platform	2008-11-04 20:52:16.000000000 -0700
+@@ -33,7 +33,10 @@
+ 	 esac
+ 	 os=SunOS
+          os_version=`uname -r | cut -d"." -f1`;;
+-  Linux) arch=ix86
++  Linux) case `uname -m` in
++	   x86_64) arch=ix86_64;;
++	   x86*)   arch=ix86;;
++	 esac
+ 	 os=Linux;;
+   AIX) arch=powerpc-ibm
+        os=AIX
+diff -durN pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-ilisp.el pvs-sbcl-4.2/emacs/emacs-src/pvs-ilisp.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-ilisp.el	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/pvs-ilisp.el	2008-11-04 20:52:16.000000000 -0700
+@@ -111,6 +111,7 @@
+   (case (intern (getenv "PVSLISP"))
+     (allegro (pvsallegro "pvs" nil))
+     (cmulisp (pvscmulisp "pvs" nil))
++    (sbclisp (pvssbclisp "pvs" nil))
+     (t (error "Unknown lisp - %s" (getenv "PVSLISP"))))
+   (save-excursion
+     (set-buffer (ilisp-buffer))
+@@ -164,7 +165,7 @@
+   (setq ilisp-binary-extension (pvs-cmulisp-binary-extension))
+   (setq ilisp-init-binary-extension ilisp-binary-extension)
+   (setq ilisp-load-inits nil)
+-  (setq ilisp-program (format "%s -qq" (pvs-program)))
++  (setq ilisp-program (format "%s -quiet -noinit" (pvs-program)))
+   (setq comint-prompt-regexp
+ 	"^\\([0-9]+\\]+\\|\\*\\|[-a-zA-Z0-9]*\\[[0-9]+\\]:\\) \\|Rule\\? \\|<GndEval> \\|<PVSio> \\|(Y or N)\\|(Yes or No)\\|Please enter")
+   (setq comint-interrupt-regexp  "^Interrupted at")
+@@ -173,6 +174,24 @@
+ 	"^\\([0-9]+\\]+\\|\\*\\|[-a-zA-Z0-9]*\\[[0-9]+\\]:\\) ")
+   (setq pvs-gc-end-regexp ";;; Finished GC"))
+ 
++(defdialect pvssbclisp "pvs-sbclisp"
++  cmulisp
++  (pvs-comint-init)
++  ;;(setq comint-send-newline nil)
++  (setq ilisp-binary-extension (pvs-sbclisp-binary-extension))
++  (setq ilisp-init-binary-extension ilisp-binary-extension)
++  (setq ilisp-load-inits nil)
++  (setq ilisp-program (format "%s --noinform --no-userinit" (pvs-program)))
++  (setq ilisp-reset ":abort")
++  (setq comint-prompt-regexp
++	"^\\([0-9]+\\]+\\|\\*\\|[-a-zA-Z0-9]*\\[[0-9]+\\]:\\) \\|Rule\\? \\|<GndEval> \\|<PVSio> \\|(Y or N)\\|(Yes or No)\\|Please enter")
++  (setq comint-interrupt-regexp  "^  Interactive interrupt at")
++  (setq comint-continue ":continue")
++  (setq ilisp-error-regexp "^restarts (invokable by number or by possibly-abbreviated name):$")
++  (setq pvs-top-regexp
++	"^\\([0-9]+\\]+\\|\\*\\|[-a-zA-Z0-9]*\\[[0-9]+\\]:\\) ")
++  (setq pvs-gc-end-regexp ";;; Finished GC"))
++
+ (defun pvs-allegro-binary-extension ()
+   (let ((machine (getenv "PVSARCH")))
+     (cond ((string-equal machine "sun4") ; Sun/Solaris
+@@ -193,6 +212,18 @@
+ 	   "ppcf")
+ 	  (t (error "Machine architecture %s not recognized" machine)))))
+ 
++(defun pvs-sbclisp-binary-extension ()
++  (let ((machine (getenv "PVSARCH")))
++    (cond ((string-equal machine "sun4") ; Sun/Solaris
++	   "sparcs")
++	  ((string-equal machine "ix86") ; Intel/Linux
++	   "x86s")
++	  ((string-equal machine "ix86_64") ; Intel/Linux
++	   "x8664s")
++	  ((string-equal machine "powerpc") ; Mac
++	   "ppcs")
++	  (t (error "Machine architecture %s not recognized" machine)))))
++
+ (defun pvs-comint-init ()
+   (setq ilisp-motd nil)
+   (setq pvs-fix-error comint-fix-error)
+diff -durN pvs-sbcl-4.2.ORIG/ess/box-defs.lisp pvs-sbcl-4.2/ess/box-defs.lisp
+--- pvs-sbcl-4.2.ORIG/ess/box-defs.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/box-defs.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -15,8 +15,8 @@
+ ;;;			Frank Pfenning (fp@cs.cmu.edu)			;;;
+ ;;; ******************************************************************* ;;;
+ 
+-(in-package :tools #+sbcl (:use :common-lisp :ergolisp))
+-#-sbcl (use-package :ergolisp)
++(in-package :tools)
++(use-package :ergolisp)
+ 
+ (export '(*plain-readtable*))
+ 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/ab-term/rel/af-dependency.lisp pvs-sbcl-4.2/ess/lang/ab-term/rel/af-dependency.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/ab-term/rel/af-dependency.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/ab-term/rel/af-dependency.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -24,7 +24,7 @@
+ ;;;     07-17-86         rln    Initial development and release
+ ;;;     07-22-87         rln    Reimplementation
+ 
+-(in-package 'analysis-facility)
++(in-package :analysis-facility)
+ (use-package '("AF-RUNTIME-LIB"))
+ 
+ ;;; The variable *CODE* accumulates the code descriptors generated by SCHEDULE.
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/ab-term/rel/af-runtime.lisp pvs-sbcl-4.2/ess/lang/ab-term/rel/af-runtime.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/ab-term/rel/af-runtime.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/ab-term/rel/af-runtime.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -25,7 +25,12 @@
+ ;;;     07-22-87	rln	Initial development release.
+ ;;;
+ 
+-(in-package "AF-RUNTIME-LIB" :nicknames '(abrt afrt)) 
++(eval-when (compile load eval)
++  (unless (find-package "AF-RUNTIME-LIB")
++    (make-package "AF-RUNTIME-LIB"
++		  :nicknames '("ABRT" "AFRT")
++		  :use '("COMMON-LISP"))))
++(in-package "AF-RUNTIME-LIB") 
+ 
+ (export '(opcase argcase rt-delta-error rt-term-argn rt-term-args
+ 	  rt-symbol rt-ite rt-opt rt-function rt-ast
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/ab-term/rel/af-structs.lisp pvs-sbcl-4.2/ess/lang/ab-term/rel/af-structs.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/ab-term/rel/af-structs.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/ab-term/rel/af-structs.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -23,7 +23,7 @@
+ ;;;
+ ;;;     07-22-87         rln    Initial development and release.
+ 
+-(in-package 'analysis-facility)
++(in-package :analysis-facility)
+ 
+ ;;; A DP-EVAL structure describes an attribute which is defined by an expression.
+ ;;; An expression always defines exactly one attribute.
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/ab-term/rel/af-top.lisp pvs-sbcl-4.2/ess/lang/ab-term/rel/af-top.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/ab-term/rel/af-top.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/ab-term/rel/af-top.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -29,7 +29,7 @@
+ ;;;     07-22-87     rln     Initial development release.
+ 
+ 
+-(in-package 'analysis-facility :nicknames '(ab af))
++(in-package :analysis-facility)
+ 
+ (export '(ab ab-make help))
+ 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/access-par.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/access-par.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/access-par.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/access-par.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -21,7 +21,7 @@
+ ;;; Revised Scott Dietzen, Mon Oct 13 15:32:09 1986
+ 
+ 
+-(in-package 'syntax-box)  (use-package :ergolisp)
++(in-package :syntax-box)  (use-package :ergolisp)
+ 
+ 
+ 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/aux-funs.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/aux-funs.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/aux-funs.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/aux-funs.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -17,7 +17,7 @@
+ ;;; Scott Dietzen, Mon Oct 13 16:05:43 1986
+ 
+ 
+-(in-package 'syntax-box)  (use-package :ergolisp)
++(in-package :syntax-box)  (use-package :ergolisp)
+ 
+ 
+ (defparameter *sb-package* (find-package :sb))
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/collapse.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/collapse.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/collapse.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/collapse.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -16,7 +16,7 @@
+ 
+ ;;;;    Basic Function: Collapse fragments into lisp functions
+ 
+-(in-package 'syntax-box)  (use-package :ergolisp)
++(in-package :syntax-box)  (use-package :ergolisp)
+ 
+ 
+ ; The purpose of collapse is to take the fragments produced by process-grammar
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/flatten.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/flatten.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/flatten.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/flatten.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -17,7 +17,7 @@
+ 
+ ;;;;    Basic Function: Flatten Patterns
+ 
+-(in-package 'syntax-box)  (use-package :ergolisp)
++(in-package :syntax-box)  (use-package :ergolisp)
+ 
+ 
+ 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/inter-phase.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/inter-phase.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/inter-phase.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/inter-phase.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -16,8 +16,8 @@
+ 
+ ;;; Intermediate Phase.
+ 
+-(in-package 'syntax-box)  (use-package :ergolisp)
+-(use-package '(sb-runtime))
++(in-package :syntax-box)  (use-package :ergolisp)
++(use-package :sb-runtime)
+ 
+ ;;; Understanding of the internal grammar term structure is essential to
+ ;;; understanding this code (see documentation in access.lisp). @@@
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/lexer-gen.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/lexer-gen.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/lexer-gen.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/lexer-gen.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -31,7 +31,7 @@
+ ;;;	   (Routines check-comment-char(s)-with-op(S))
+ 
+ 
+-(in-package 'syntax-box)   (use-package :ergolisp)
++(in-package :syntax-box)   (use-package :ergolisp)
+ 
+ 
+ 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/look-ahead.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/look-ahead.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/look-ahead.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/look-ahead.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -9,9 +9,9 @@
+ ;;; ******************************************************************* ;;;
+ 
+ 
+-(in-package 'syntax-box)  (use-package :ergolisp)
++(in-package :syntax-box)  (use-package :ergolisp)
+ 
+-(use-package '(sb-runtime))
++(use-package :sb-runtime)
+ 
+ 
+ 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/new-rt-format.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/new-rt-format.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/new-rt-format.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/new-rt-format.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -13,7 +13,7 @@
+ 
+ ;;; Scott Dietzen, Wed Aug 26 17:16:29 1987
+ 
+-(in-package 'sb-runtime)  (use-package :ergolisp)
++(in-package :sb-runtime)  (use-package :ergolisp)
+ 
+ (export '(
+ 	  format-uterm 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/old-rt-format.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/old-rt-format.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/old-rt-format.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/old-rt-format.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -13,7 +13,7 @@
+ 
+ ;;; Scott Dietzen, Wed Aug 26 17:16:29 1987
+ 
+-(in-package 'sb-runtime)  (use-package :ergolisp)
++(in-package :sb-runtime)  (use-package :ergolisp)
+ 
+ (export '(
+ 	  format-uterm 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/old-rt-unp-structs.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/old-rt-unp-structs.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/old-rt-unp-structs.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/old-rt-unp-structs.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -13,7 +13,7 @@
+ 
+ ;;; Scott Dietzen, Wed Aug 26 17:16:29 1987
+ 
+-(in-package 'sb-runtime)  (use-package :ergolisp)
++(in-package :sb-runtime)  (use-package :ergolisp)
+ 
+ (export '(token-p make-token token-kind token-subkind 
+ 	  token-value token-str-value 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/rt-lex.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/rt-lex.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/rt-lex.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/rt-lex.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -40,7 +40,7 @@
+ 	  ))
+ 
+ 
+-(defconstant possible-single-char-operators
++(defconstant-if-unbound possible-single-char-operators
+   '(#\(  #\)  #\[  #\]  #\{  #\}  #\<  #\>  #\,  #\;  #\|  #\^  #\#  #\~  #\/
+     #\!  #\@  #\$  #\&  #\_  #\-  #\?  #\%  #\'  #\:  #\*  #\+  #\`  #\=  #\\))
+ 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/rt-term.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/rt-term.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/rt-term.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/rt-term.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -19,7 +19,7 @@
+ 
+ 
+ 
+-(in-package "SB-RUNTIME" :nicknames '("RT-SB" "RTSB" "SB-RT" "SBRT"))
++(in-package "SB-RUNTIME")
+ (use-package :ergolisp)
+ 
+ (use-package '("TERM" "OCC" "OPER")) 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/rt-unparse.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/rt-unparse.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/rt-unparse.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/rt-unparse.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -117,17 +117,17 @@
+ 
+ ;;; Just so we don't repeatedly cons identical tokens.
+ 
+-(defconstant ellipsis-token
++(defconstant-if-unbound ellipsis-token
+   (make-token :kind :lt :subkind :string :value "#"))
+-(defconstant cr-token
++(defconstant-if-unbound cr-token
+   (make-token :kind :whitespace :subkind :cr))
+-(defconstant unindent-token
++(defconstant-if-unbound unindent-token
+   (make-token :kind :whitespace :subkind :unindent))
+-(defconstant tab-left-token
++(defconstant-if-unbound tab-left-token
+   (make-token :kind :whitespace :subkind :tab-left))
+-(defconstant tab-right-token
++(defconstant-if-unbound tab-right-token
+   (make-token :kind :whitespace :subkind :tab-right))
+-(defconstant untab-token
++(defconstant-if-unbound untab-token
+   (make-token :kind :whitespace :subkind :untab))
+ 
+ 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/rt-unp-attr.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/rt-unp-attr.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/rt-unp-attr.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/rt-unp-attr.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -13,7 +13,7 @@
+ 
+ ;;; Scott Dietzen, Tue Oct  6 15:32:22 1987
+ 
+-(in-package 'sb-runtime)  (use-package :ergolisp)
++(in-package "SB-RUNTIME")  (use-package :ergolisp)
+ 
+ 
+ ;;; The following is a hack to avoid the problems inherent in the circularity
+@@ -42,38 +42,6 @@
+ 
+ 
+ 
+-(defun memo-uterm (term unp-function &key (top-level? nil))
+-  (if (or *disable-caching*
+-	  (and *disable-nested-caching*
+-	       (null top-level?)))
+-      (funcall unp-function term)
+-      (newattr::get-gsyn theuterm
+-			 term
+-			 (list unp-function
+-			       *unparse-style*
+-			       *no-escapes*
+-			       *sb-print-depth*
+-			       *sb-print-length*
+-			       *formatting-off*))))
+-
+-
+-(defun memo-aw (uterm width indent-unit-width fontwidth fontheight)
+-  (if *disable-caching*
+-      (let* ((aw (make-aw :uterm uterm
+-			  :indent-unit-width indent-unit-width)))
+-	(format-aw uterm aw width))
+-      (newattr::get-gsyn theaw
+-			 (uterm-term uterm)
+-			 (list uterm
+-			       width
+-			       indent-unit-width
+-			       fontwidth
+-			       fontheight))))
+-
+-
+-
+-
+-
+ (newattr::defgcon uterm-args)
+ (newattr::defgsyn theuterm uterm-args)
+ 
+@@ -105,3 +73,33 @@
+ 			:indent-unit-width indent-unit-width)))
+       (format-aw uterm aw width))))
+ 
++
++
++
++(defun memo-uterm (term unp-function &key (top-level? nil))
++  (if (or *disable-caching*
++	  (and *disable-nested-caching*
++	       (null top-level?)))
++      (funcall unp-function term)
++      (newattr::get-gsyn theuterm
++			 term
++			 (list unp-function
++			       *unparse-style*
++			       *no-escapes*
++			       *sb-print-depth*
++			       *sb-print-length*
++			       *formatting-off*))))
++
++
++(defun memo-aw (uterm width indent-unit-width fontwidth fontheight)
++  (if *disable-caching*
++      (let* ((aw (make-aw :uterm uterm
++			  :indent-unit-width indent-unit-width)))
++	(format-aw uterm aw width))
++      (newattr::get-gsyn theaw
++			 (uterm-term uterm)
++			 (list uterm
++			       width
++			       indent-unit-width
++			       fontwidth
++			       fontheight))))
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/rt-unp-structs.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/rt-unp-structs.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/rt-unp-structs.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/rt-unp-structs.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -13,7 +13,7 @@
+ 
+ ;;; Scott Dietzen, Wed Aug 26 17:16:29 1987
+ 
+-(in-package 'sb-runtime)  (use-package :ergolisp)
++(in-package "SB-RUNTIME")  (use-package :ergolisp)
+ 
+ (export '(token-p make-token token-kind token-subkind 
+ 	  token-value token-str-value 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/sbrt-lang-def.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/sbrt-lang-def.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/sbrt-lang-def.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/sbrt-lang-def.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -2,7 +2,9 @@
+ ;;; package SB-RUNTIME is seen.  fp, Mon Jan  2 11:07:17 1989.
+ #-gcl
+ (defpackage :sb-runtime
+-  #+sbcl (:use :common-lisp :ergolisp :oper :occ :term :sort :lang))
++  #+sbcl (:nicknames "RT-SB" "RTSB" "SB-RT" "SBRT")
++  #+sbcl (:use :common-lisp :ergolisp :oper :occ :term :sort :lang)
++  #+sbcl (:shadowing-import-from :sb-int memq))
+ (in-package :sb-runtime)
+ #-sbcl (use-package :ergolisp)
+ #-sbcl (use-package '(:oper :occ :term :sort :lang))
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/top.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/top.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/top.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/top.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -25,7 +25,7 @@
+ ;;;    Added calls to preprocessing phase. 
+ 
+ 
+-(in-package 'syntax-box)  (use-package :ergolisp)
++(in-package :syntax-box)  (use-package :ergolisp)
+ 
+ (export '(sb sb-make))
+ 
+diff -durN pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/unp-code-revise.lisp pvs-sbcl-4.2/ess/lang/sb-term/rel/unp-code-revise.lisp
+--- pvs-sbcl-4.2.ORIG/ess/lang/sb-term/rel/unp-code-revise.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/lang/sb-term/rel/unp-code-revise.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -14,7 +14,7 @@
+ ;;; This code modifies unparser generator code.
+ ;;; Scott Dietzen, Wed Nov 11 15:38:39 1987
+ 
+-(in-package 'SB)   (use-package :ergolisp)
++(in-package :SB)   (use-package :ergolisp)
+ 
+ 
+ (defun unp-code-revision (routines)
+diff -durN pvs-sbcl-4.2.ORIG/ess/sys/ergolisp/rel/dlambda.lisp pvs-sbcl-4.2/ess/sys/ergolisp/rel/dlambda.lisp
+--- pvs-sbcl-4.2.ORIG/ess/sys/ergolisp/rel/dlambda.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/sys/ergolisp/rel/dlambda.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -26,7 +26,7 @@
+   ;; This is a macro so that setf will work for declare-constructor
+   `(gethash ,constr *constructors-table* :no-info))
+ 
+-(defconstant *reserved-constrs* '(:as)
++(defconstant-if-unbound *reserved-constrs* '(:as)
+   "List of symbols that may not be used as constructors.")
+ 
+ (defmacro defreconstr (constr argcnt &key equal)
+diff -durN pvs-sbcl-4.2.ORIG/ess/sys/tools/rel/box-system.lisp pvs-sbcl-4.2/ess/sys/tools/rel/box-system.lisp
+--- pvs-sbcl-4.2.ORIG/ess/sys/tools/rel/box-system.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/sys/tools/rel/box-system.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -190,15 +190,11 @@
+   (when lisp-compiler
+     (when boot
+       (load source-file))
+-    (if readtable
+-	(let ((*readtable* readtable))
+-	  (compile-file source-file :output-file compiled-file
+-	     #+(or lucid allegro) :messages #+(or lucid allegro) messages
+-	     #+(or cmu sbcl) :progress #+(or cmu sbcl) messages
+-	     ))
++    (let ((*readtable* (if readtable readtable *readtable*))
++	  #+sbcl (*compiler-progress* messages))
+ 	(compile-file source-file :output-file compiled-file
+ 	     #+(or lucid allegro) :messages #+(or lucid allegro) messages
+-	     #+(or cmu sbcl) :progress #+(or cmu sbcl) messages
++	     #+cmu :progress #+cmu messages
+ 	     ))
+     )
+   ;;  #+kcl (rename-file (merge-pathnames ".o" source-file) compiled-file)
+@@ -249,6 +245,8 @@
+ 	    (multiple-value-bind (junk1 junk2 result junk4)
+ 		(run-program "cc" :arguments arguments)
+ 	      result)
++	    #+sbcl
++	    (sb-ext:process-exit-code (sb-ext:run-program "cc" arguments))
+ 	    #+allegro
+ 	    (excl:run-shell-command
+ 	     (format nil "cc ~{ ~a~}" arguments))))
+@@ -390,8 +388,8 @@
+ ;;; all source files are .lisp, so we need only one set.
+ ;;; Recommend not changing the source extension. -fp
+ 
+-(defconstant *lisp-source-extension* "lisp")
+-(defconstant *lisp-compiled-extension*
++(defconstant-if-unbound *lisp-source-extension* "lisp")
++(defconstant-if-unbound *lisp-compiled-extension*
+   #+(and allegro sparc) "fasl"		; Sun4
+   #+(and allegro rios) "rfasl"		; PowerPC/RS6000
+   #+(and allegro hpux) "hfasl"		; HP 9000
+@@ -421,14 +419,14 @@
+ for this implementation of Lisp in the file sys/tools/rel/box-system.lisp.
+ Right now it is assumed to be \"bin\".")
+ 
+-(defconstant *lisp-source-suffix-string*
++(defconstant-if-unbound *lisp-source-suffix-string*
+   (concatenate 'string "." *lisp-source-extension*))
+ 
+-(defconstant *lisp-compiled-suffix-string*
++(defconstant-if-unbound *lisp-compiled-suffix-string*
+   (concatenate 'string "." *lisp-compiled-extension*))
+ 
+-(defconstant *lisp-source-extension-pathname*
++(defconstant-if-unbound *lisp-source-extension-pathname*
+   (make-pathname :type *lisp-source-extension*))
+ 
+-(defconstant *lisp-compiled-extension-pathname*
++(defconstant-if-unbound *lisp-compiled-extension-pathname*
+   (make-pathname :type *lisp-compiled-extension*))
+diff -durN pvs-sbcl-4.2.ORIG/ess/sys/tools/rel/print-utils.lisp pvs-sbcl-4.2/ess/sys/tools/rel/print-utils.lisp
+--- pvs-sbcl-4.2.ORIG/ess/sys/tools/rel/print-utils.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/sys/tools/rel/print-utils.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -8,6 +8,7 @@
+ (defpackage :print-utils #+sbcl (:use :common-lisp :ergolisp))
+ (in-package :print-utils) #-sbcl (use-package :ergolisp)
+ 
++#-sbcl
+ (export '(lisp::print-struct lisp::writing-readably)
+ 	:lisp)
+ (export '(print-struct writing-readably))
+diff -durN pvs-sbcl-4.2.ORIG/ess/sys/tools/rel/regression-test.lisp pvs-sbcl-4.2/ess/sys/tools/rel/regression-test.lisp
+--- pvs-sbcl-4.2.ORIG/ess/sys/tools/rel/regression-test.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/sys/tools/rel/regression-test.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -19,8 +19,8 @@
+ (defvar *regression-testing-p* nil)
+ 
+ (defun regression-test (&key (name "Anonymous test")
+-			     form (form-predicate #'identity) script endp)
+-  (declare (special name script endp))
++			     form (form-predicate #'identity) script donep)
++  (declare (special name script donep))
+   (let ((*regression-testing-p* t))
+     (catch 'script-ended
+       (let ((formval (if (functionp form) (funcall form) (eval form))))
+@@ -43,13 +43,13 @@
+   (cadr (car script)))
+ 
+ (defun move-script ()
+-  (declare (special name script endp))
++  (declare (special name script donep))
+   (when (null script)
+-    (if endp
++    (if donep
+ 	(throw 'script-ended nil)
+ 	(error "Regression test ~s fell off of end of script." name)))
+   (pop script)
+-  (when (and (null script) endp) (throw 'script-ended nil))
++  (when (and (null script) donep) (throw 'script-ended nil))
+   (values))
+ 
+ (defmacro regression-test-only (key &body body)
+@@ -164,7 +164,7 @@
+  :name "Regressible-error should succeed."
+  :form '(regressible-error :test "Error message ~s." 'foo)
+  :script '((:test "Error message FOO."))
+- :endp t)
++ :donep t)
+ 
+ #+regression
+ (regression-test
+diff -durN pvs-sbcl-4.2.ORIG/ess/term/language/rel/languages.lisp pvs-sbcl-4.2/ess/term/language/rel/languages.lisp
+--- pvs-sbcl-4.2.ORIG/ess/term/language/rel/languages.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/term/language/rel/languages.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -85,18 +85,18 @@
+ 
+ 
+ 
+-(defconstant standard-use-packages
++(defconstant-if-unbound standard-use-packages
+   '("ERGOLISP" "OPER" "OCC" "TERM" "SORT" "SB-RUNTIME" "LANG" "NEWATTR")
+   "The standard packages used by SB output files.")
+ 
+-(defconstant standard-use-languages
++(defconstant-if-unbound standard-use-languages
+   '("LEXICAL-TERMINALS")
+   "The standard languages used by SB output files.")
+ 
+ 
+-(defconstant gen-src-file-ext "lisp")
++(defconstant-if-unbound gen-src-file-ext "lisp")
+ 
+-(defconstant per-gen-src-file-ext
++(defconstant-if-unbound per-gen-src-file-ext
+   (concatenate 'string "." gen-src-file-ext))
+ 
+ 
+diff -durN pvs-sbcl-4.2.ORIG/ess/term/trep/rel/attr-prims.lisp pvs-sbcl-4.2/ess/term/trep/rel/attr-prims.lisp
+--- pvs-sbcl-4.2.ORIG/ess/term/trep/rel/attr-prims.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/term/trep/rel/attr-prims.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -19,7 +19,11 @@
+ ;;; features from the terms, so it is the default method for storing
+ ;;; attributes.
+ 
+-(in-package "TERM" :nicknames '("GTERM")) (use-package :ergolisp)
++(eval-when (compile load eval)
++  (unless (find-package "TERM")
++    (make-package "TERM" :nicknames '("GTERM")
++			 :use '(:cl-user :common-lisp :ergolisp))))
++(in-package "TERM")
+ 
+ (export '(attr-clear-one attr-clear-all))
+ 
+diff -durN pvs-sbcl-4.2.ORIG/ess/term/trep/rel/gterm.lisp pvs-sbcl-4.2/ess/term/trep/rel/gterm.lisp
+--- pvs-sbcl-4.2.ORIG/ess/term/trep/rel/gterm.lisp	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/ess/term/trep/rel/gterm.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -29,7 +29,11 @@
+ ;;; instead of a real operator.
+ ;;; 
+ 
+-(in-package :term :nicknames '(:gterm)) (use-package :ergolisp)
++(eval-when (compile load eval)
++  (unless (find-package "TERM")
++    (make-package "TERM" :nicknames '("GTERM")
++                         :use '(:cl-user :common-lisp :ergolisp))))
++(in-package "TERM")
+ 
+ (export '(term  termp mk-term ds-term term-op term-args
+ 		term-attr set-term-attr))
+diff -durN pvs-sbcl-4.2.ORIG/Makefile.in pvs-sbcl-4.2/Makefile.in
+--- pvs-sbcl-4.2.ORIG/Makefile.in	2008-07-20 02:58:09.000000000 -0600
++++ pvs-sbcl-4.2/Makefile.in	2008-11-04 20:52:16.000000000 -0700
+@@ -90,18 +90,18 @@
+ endif
+ endif
+ 
+-# ifneq ($(SBCL_HOME),)
+-# # Check that the given SBCL_HOME works
+-# SBCLISPEXE = $(SBCL_HOME)/bin/lisp
+-# ifeq ($(shell if [ -x "$(SBCLISPEXE)" ]; then echo OK; fi),OK)
+-# SBCLVERSION = $(shell $(SBCL_HOME)/bin/lisp -batch -eval '(progn (format t "~a" (lisp-implementation-version)) (terpri) (quit))')
+-# $(warning "SBCL Version $(SBCLVERSION)")
+-# sbcl-devel += $(bindir)/devel/$(SYSTEM)-sbclisp
+-# sbcl-rt += $(bindir)/runtime/$(SYSTEM)-sbclisp
+-# else
+-# $(error "$(SBCLISPEXE) is not executable")
+-# endif
+-# endif
++ifneq ($(SBCLISP_HOME),)
++# Check that the given SBCLISP_HOME works
++SBCLISPEXE = $(SBCLISP_HOME)/bin/sbcl
++ifeq ($(shell if [ -x "$(SBCLISPEXE)" ]; then echo OK; fi),OK)
++SBCLVERSION = $(shell $(SBCLISPEXE) --version)
++$(warning "$(SBCLVERSION)")
++sbcl-devel += $(bindir)/devel/$(SYSTEM)-sbclisp
++sbcl-rt += $(bindir)/runtime/$(SYSTEM)-sbclisp
++else
++$(error "$(SBCLISPEXE) is not executable")
++endif
++endif
+ 
+ 
+ LOAD-FOREIGN-EXTENSION=so
+@@ -342,6 +342,7 @@
+ 	  src/tex-support.lisp \
+           src/raw-api.lisp
+ 
++sbcllisp += src/utils/file-utils-sbcl.lisp
+ cmulisp += src/utils/file-utils-cmu.lisp
+ allegrolisp += src/utils/file-utils.lisp
+ 
+@@ -372,6 +373,7 @@
+ 
+ bddlisp = BDD/bdd.lisp BDD/mu.lisp
+ allegrolisp += BDD/bdd-allegro.lisp BDD/mu-allegro.lisp
++sbcllisp += BDD/bdd-sbcl.lisp BDD/mu-sbcl.lisp
+ cmulisp += BDD/bdd-cmu.lisp BDD/mu-cmu.lisp
+ 
+ PVSiolisp = src/PVSio/pvs-lib.lisp src/PVSio/defattach.lisp \
+@@ -423,6 +425,7 @@
+ groundevallisp := $(patsubst %,$(PVSPATH)%,$(groundevallisp))
+ inst-by-unif-lisp := $(patsubst %,$(PVSPATH)%,$(inst-by-unif-lisp))
+ allegrolisp := $(patsubst %,$(PVSPATH)%,$(allegrolisp))
++sbcllisp := $(patsubst %,$(PVSPATH)%,$(sbcllisp))
+ cmulisp := $(patsubst %,$(PVSPATH)%,$(cmulisp))
+ endif
+ 
+@@ -437,16 +440,16 @@
+ .PHONY : all devel runtime parser emacs prelude-files-and-regions etags
+ 
+ ifneq ($(buildcmds),)
+-ifeq ($(CMULISP_HOME)$(ALLEGRO_HOME),)
+-$(error "Must set CMULISP_HOME or ALLEGRO_HOME")
++ifeq ($(SBCLISP_HOME)$(CMULISP_HOME)$(ALLEGRO_HOME),)
++$(error "Must set SBCLISP_HOME, CMULISP_HOME, or ALLEGRO_HOME")
+ endif
+ endif
+ 
+ all : devel runtime prelude-files-and-regions $(emacs-elc) etags
+ 
+-devel : $(allegro-devel) $(cmulisp-devel)
++devel : $(allegro-devel) $(sbcl-devel) $(cmulisp-devel)
+ 
+-runtime : $(allegro-rt) $(cmulisp-rt)
++runtime : $(allegro-rt) $(sbcl-rt) $(cmulisp-rt)
+ 
+ parser : pvs-parser-out
+ 
+@@ -454,8 +457,8 @@
+ 
+ etags : $(PVSPATH)TAGS
+ 
+-$(PVSPATH)TAGS : $(lisp-files) $(allegrolisp) $(cmulisp) $(pvs-emacs-src)
+-	$(ETAGS) $(lisp-files) $(allegrolisp) $(cmulisp) $(pvs-emacs-src)
++$(PVSPATH)TAGS : $(lisp-files) $(allegrolisp) $(sbcllisp) $(cmulisp) $(pvs-emacs-src)
++	$(ETAGS) $(lisp-files) $(allegrolisp) $(sbcllisp) $(cmulisp) $(pvs-emacs-src)
+ 
+ fileutils = \
+    $(PVSPATH)src/utils/$(PLATFORM)/file_utils.$(LOAD-FOREIGN-EXTENSION) \
+@@ -472,6 +475,56 @@
+ # Here are the rules for building the PVS grammar, pvs-methods file, and
+ # devel and runtime images.
+ 
++ifneq ($(SBCLISP_HOME),)
++
++ifeq ($(ALLEGRO_HOME),) # Build these with Allegro, if available
++$(PVSPATH)src/pvs-lexer.lisp : $(pvs-parser-in)
++	@echo "******* Creating parser"
++	$(SBCLISPEXE) --load src/make-pvs-parser
++
++$(PVSPATH)src/pvs-methods.lisp : $(PVSPATH)src/make-pvs-methods.lisp \
++	$(PVSPATH)src/defcl.lisp \
++	$(PVSPATH)src/classes-expr.lisp \
++	$(PVSPATH)src/classes-decl.lisp
++	@echo "******* Creating pvs-methods.lisp"
++	$(SBCLISPEXE) --eval "(defvar *pvs-path* \"$(PVSPATH)\")" \
++		   --load src/make-pvs-methods.lisp
++endif
++
++$(sbcl-devel) $(sbcl-rt) : $(image-deps) \
++             $(pvs-make-files) $(ess) $(ff-files) \
++             $(lisp-files) $(sbcllisp) \
++             $(PVSPATH)lib/prelude.pvs $(PVSPATH)lib/prelude.prf
++	$(MKDIR) -p $(subst $(SYSTEM)-sbclisp,,$@)
++	@echo "******* Compiling PVS files in Steel Bank Common Lisp (SBCL)"
++	$(SBCLISPEXE) --eval '(require :sb-posix)' \
++		      --eval '(require :sb-md5)' \
++		      --eval '(load "pvs.system" :verbose t)' \
++		      --eval "(let ((*load-pvs-prelude* nil)) \
++				(mk:operate-on-system :pvs :compile))" \
++		      --eval '(quit)'
++	cp $(PVSPATH)src/utils/$(PLATFORM)/b64 $(bindir)
++	@echo "******* Building PVS image $@"
++	$(SBCLISPEXE) --eval '(require :sb-posix)' \
++		      --eval '(require :sb-md5)' \
++		      --eval '(load "pvs.system" :verbose t)' \
++		      --eval "(unwind-protect \
++				  (mk:operate-on-system :pvs :compile) \
++				(save-lisp-and-die \"$@.core\" \
++				    :toplevel (function startup-pvs) \
++			       ))"
++	-rm $(PVSPATH)BDD/$(PLATFORM)/bdd-sbcl.*
++	cp $(SBCLISPEXE) $(subst $(SYSTEM)-sbclisp,,$@)
++	cp $(PVSPATH)BDD/$(PLATFORM)/mu.$(LOAD-FOREIGN-EXTENSION) $(subst $(SYSTEM)-sbclisp,,$@)
++	cp $(PVSPATH)BDD/bdd-sbcl.lisp $(PVSPATH)BDD/mu-sbcl.lisp $(subst $(SYSTEM)-sbclisp,,$@)
++	cp $(PVSPATH)src/WS1S/$(PLATFORM)/ws1s.$(LOAD-FOREIGN-EXTENSION) $(subst $(SYSTEM)-sbclisp,,$@)
++	cp $(PVSPATH)src/WS1S/lisp/dfa-foreign-sbcl.lisp $(subst $(SYSTEM)-sbclisp,,$@)
++	cp $(PVSPATH)src/utils/$(PLATFORM)/b64 $(bindir)
++	echo "#!/bin/sh" > $@
++	echo "sbcl --core \`dirname \$$0\`/\`basename \$$0\`.core \$$*" >> $@
++	chmod a+x $@
++endif
++
+ ifneq ($(CMULISP_HOME),)
+ 
+ ifeq ($(ALLEGRO_HOME),) # Build these with Allegro, if available
+@@ -617,7 +670,7 @@
+ 
+ faslexts = fasl,rfasl,hfasl,lfasl,mfasl,nfasl,sbin,obin,rbin,mbin,x86f,ppcf,sparcf,x8664s,x86s,ppcs,sparcs,clfasl,wfasl,err
+ 
+-platforms = ix86-Linux,ix86-MacOSX,powerpc-MacOSX,powerpc-MacOSX,sun4-SunOS5
++platforms = ix86-Linux,ix86_64-Linux,ix86-MacOSX,powerpc-MacOSX,powerpc-MacOSX,sun4-SunOS5
+ # HT: Need to put a comma in a variable, because a literal 
+ # comma cannot appear in a makefile function argument.
+ comma:= ,
+diff -durN pvs-sbcl-4.2.ORIG/pvs-config.lisp pvs-sbcl-4.2/pvs-config.lisp
+--- pvs-sbcl-4.2.ORIG/pvs-config.lisp	2008-07-20 02:40:19.000000000 -0600
++++ pvs-sbcl-4.2/pvs-config.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -99,7 +99,7 @@
+ 
+ #+sbcl
+ (defun bye (&optional (exit-status 0))
+-  (sb-unix:unix-exit exit-status))
++  (quit :unix-status exit-status))
+ 
+ (defun pvs-version-and-quit ()
+   (format t "PVS Version ~a" (eval (find-symbol (string :*pvs-version*) :pvs)))
+diff -durN pvs-sbcl-4.2.ORIG/pvs.in pvs-sbcl-4.2/pvs.in
+--- pvs-sbcl-4.2.ORIG/pvs.in	2008-07-20 02:48:14.000000000 -0600
++++ pvs-sbcl-4.2/pvs.in	2008-11-04 20:52:16.000000000 -0700
+@@ -11,7 +11,7 @@
+ #   -version | --version prints the PVS version
+ #   -emacs emacsref        emacs, xemacs, alias, or pathname
+ #   -load-after efile      loads emacs file name after PVS emacs files
+-#   -lisp name             lisp image name - allegro or cmulisp
++#   -lisp name             lisp image name - allegro, cmulisp, or sbclisp
+ #   -runtime               use the runtime image (devel is default, if there)
+ #   -decision-procedures   set the default decision procedures (ics or shostak)
+ #   -force-decision-procedures  forces the decision procedures to be used
+@@ -42,10 +42,10 @@
+ #   PVSVERBOSE    - corresponds to the -v argument
+ #
+ # The following environment variables are used by PVS, and are set below:
+-#   PVSPATH     pvs system path - this should not normally be set by the user  
+-#   PVSARCH	sun4 or ix86
++#   PVSPATH     pvs system path - this should not normally be set by the user
++#   PVSARCH	sun4, ix86, ix86_64, or powerpc
+ #
+-# The PVS binary paths are appended to the front of the PATH variable 
++# The PVS binary paths are appended to the front of the PATH variable
+ # --------------------------------------------------------------------
+ # PVS
+ # Copyright (C) 2006, SRI International.  All Rights Reserved.
+@@ -98,7 +98,8 @@
+        case $2 in
+ 	 allegro) PVSLISP=allegro;;
+ 	 cmulisp) PVSLISP=cmulisp;;
+-	 *) echo "Only allegro and cmulisp are currently available"
++	 sbclisp) PVSLISP=sbclisp;;
++	 *) echo "Only allegro, cmulisp, and sbclisp are currently available"
+ 	    exit 1;;
+        esac
+        shift;;
+@@ -170,7 +171,7 @@
+   -version | --version show the PVS version number
+   -emacs emacsref    emacs, xemacs, alias, or pathname
+   -load-after efile  loads emacs file after PVS emacs files
+-  -lisp name         lisp image name (allegro or cmulisp)
++  -lisp name         lisp image name (allegro, cmulisp, or sbclisp)
+   -runtime           use the runtime image
+   -decision-procedures  set default decision procedures (ics or shostak)
+   -force-decision-procedures  forces the decision procedures (ics or shostak)
+@@ -198,13 +199,17 @@
+ case $opsys in
+   SunOS) majvers=`uname -r | cut -d"." -f1`
+ 	 if [ $majvers = 4 ]
+-	    then echo "PVS 3.3 only runs under Mac OS X, Linux, FreeBSD, or Solaris"; exit 1
++	    then echo "PVS 4.2 only runs under Mac OS X, Linux, FreeBSD, or Solaris"; exit 1
+ 	 fi
+ 	 PVSARCH=sun4;;
+   Linux) # If Linux, we need to determine the Redhat version to use.
+ 	 opsys=Linux
+ 	 majvers=
+-	 PVSARCH=ix86
++	 case `uname -m` in
++	   x86)    PVSARCH=ix86    ;;
++	   x86_64) PVSARCH=ix86_64 ;;
++	   *) echo "PVS 4.2 only runs on Intel Linux"; exit 1
++	 esac
+ 	 # Allegro does not work with Linux's New Posix Thread Library (NPTL)
+ 	 # used in newer Red Hat kernels and 2.6 kernels.  This will force
+ 	 # the old thread-implementation.
+@@ -215,7 +220,11 @@
+ 	 ;;
+   FreeBSD) opsys=Linux
+ 	   majvers=
+-	   PVSARCH=ix86
++	   case `uname -m` in
++	     x86)    PVSARCH=ix86    ;;
++	     x86_64) PVSARCH=ix86_64 ;;
++	     *) echo "PVS 4.2 only runs on Intel Linux"; exit 1
++	   esac
+ 	   # Allegro does not work with Linux's New Posix Thread Library (NPTL)
+ 	   # used in newer Red Hat kernels and 2.6 kernels.  This will force
+ 	   # the old thread-implementation.
+@@ -233,13 +242,13 @@
+           #majvers=`uname -r | cut -d"." -f1`
+ 	  majvers=
+ 	  ;;
+-  *) echo "PVS 3.3 only runs under Solaris, Linux, FreeBSD (linux-enabled), or Mac (Darwin 7.4)"; exit 1
++  *) echo "PVS 4.2 only runs under Solaris, Linux, FreeBSD (linux-enabled), or Mac (Darwin 7.4)"; exit 1
+ esac
+ 
+ binpath=$PVSPATH/bin/$PVSARCH-$opsys${majvers}
+ 
+-if [ -n "$PVSLISP" -a "$PVSLISP" != "allegro" -a "$PVSLISP" != "cmulisp" ]
+-  then echo "ERROR: PVSLISP must be unset, or set to 'allegro' or 'cmulisp'"
++if [ -n "$PVSLISP" -a "$PVSLISP" != "allegro" -a "$PVSLISP" != "cmulisp" -a "$PVSLISP" != "sbclisp" ]
++  then echo "ERROR: PVSLISP must be unset, or set to 'allegro', 'cmulisp', or 'sbclisp'"
+        exit 1
+ fi
+ 
+@@ -252,6 +261,10 @@
+         then PVSLISP=cmulisp
+         elif [ -x $binpath/runtime/pvs-cmulisp ]
+         then PVSLISP=cmulisp
++	elif [ -x $binpath/devel/pvs-sbclisp ]
++	then PVSLISP=sbclisp
++	elif [ -x $binpath/runtime/pvs-sbclisp ]
++	then PVSLISP=sbclisp
+         else echo "No executable available in $binpath"
+              exit 1
+         fi
+@@ -292,6 +305,16 @@
+ 	    do flags="$flags -load $lf"; done
+ 	fi
+ 	;;
++    sbclisp)
++	noinit="--noinform --no-userinit"
++	evalflag="--eval"
++	if [ -n "$lisploadfiles" ]
++	  then
++	    flags="$flags --eval (pvs::pvs-init)"
++	    for lf in $lisploadfiles
++	    do flags="$flags --load $lf"; done
++	fi
++	;;
+ esac
+ 
+ PVSPATCHLEVEL=${PVSPATCHLEVEL:-2}
+diff -durN pvs-sbcl-4.2.ORIG/pvsio.in pvs-sbcl-4.2/pvsio.in
+--- pvs-sbcl-4.2.ORIG/pvsio.in	2007-11-09 13:39:43.000000000 -0700
++++ pvs-sbcl-4.2/pvsio.in	2008-11-04 20:52:16.000000000 -0700
+@@ -22,7 +22,7 @@
+   -T|--timing              print timing information for each evaluation
+   -v|--version             print PVSio version
+   -V|--verbose             print typechecking information
+-  -l|--lisp                PVS lisp version [allegro,cmulisp]
++  -l|--lisp                PVS lisp version [allegro,cmulisp,sbclisp]
+   <file>@<theory>:<main>   load <theory> from <file>.pvs, evaluate <main>, 
+                            and exit 
+ 
+@@ -42,7 +42,8 @@
+ 	  case $2 in
+ 	      allegro) PVSLISP='-lisp allegro';;
+ 	      cmulisp) PVSLISP='-lisp cmulisp';;
+-	      *) echo "Only allegro and cmulisp are currently available"
++	      sbclisp) PVSLISP='-lisp sbclisp';;
++	      *) echo "Only allegro, cmulisp, and sbclisp are currently available"
+ 		  exit 1;;
+ 	  esac
+ 	  shift;;
+diff -durN pvs-sbcl-4.2.ORIG/pvs.system pvs-sbcl-4.2/pvs.system
+--- pvs-sbcl-4.2.ORIG/pvs.system	2007-09-19 23:19:31.000000000 -0600
++++ pvs-sbcl-4.2/pvs.system	2008-11-04 20:52:16.000000000 -0700
+@@ -25,6 +25,16 @@
+ ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ ;; --------------------------------------------------------------------
+ 
++(in-package :common-lisp)
++
++(#-(or cmu sbcl) progn
++ #+cmu ext:without-package-locks
++ #+sbcl sb-ext:without-package-locks
++ (defmacro defconstant-if-unbound (name value &optional doc)
++   `(defconstant ,name (if (boundp ',name) (symbol-value ',name) ,value)
++		       ,@(when doc (list doc))))
++ (export 'defconstant-if-unbound))
++
+ (in-package :cl-user)
+ 
+ #+allegro
+@@ -46,9 +56,11 @@
+ #+sbcl
+ (defun startup-pvs ()
+   (in-package :pvs)
+-  ;; Can't directly call (pvs::pvs-init)
+-  (apply (find-symbol (string :pvs-init) :pvs) nil)
+-  )
++  ;; Turn off compiler warnings
++  (handler-bind ((sb-ext:compiler-note #'muffle-warning))
++    ;; Can't directly call (pvs::pvs-init)
++    (apply (find-symbol (string :pvs-init) :pvs) nil)
++    (sb-impl::toplevel-init)))
+ 
+ #+allegro
+ (eval-when (eval load)
+@@ -59,12 +71,17 @@
+ 	excl:*enclose-printer-errors* nil
+ 	*print-pretty* t))
+ 
++#+sbcl
++(eval-when (eval load)
++  (setq *compile-verbose* nil)
++  (setq *compile-print* nil))
++
+ (eval-when (eval load)
+   ;; This sets *pvs-path* and sets *pvs-binary-type*
+   (load "pvs-config.lisp")
+   #+allegro (chdir *pvs-path*))
+ 
+-(defpackage :ilisp)
++(defpackage :ilisp (:nicknames :ILISP) (:use :common-lisp #+:CMU :conditions))
+ (defpackage :bvec)
+ 
+ (unless (find-package :make)
+@@ -181,7 +198,11 @@
+ 		    (load (format nil "~a/src/xp" *pvs-path*))
+ 		    #+gcl
+ 		    (load (format nil "~a/src/xp-code" *pvs-path*))
+-		    (apply (find-symbol :install :xp) :package :pvs nil))
++		    #-sbcl
++		    (apply (find-symbol :install :xp) :package :pvs nil)
++		    #+sbcl
++		    (apply (find-symbol "INSTALL" (find-package :xp))
++			   :package :pvs nil))
+ 		  #-(or cmu sbcl)
+ 		  (load (format nil "~a/ess/dist-ess.lisp" *pvs-path*))
+ 		  #-gcl
+@@ -215,6 +236,7 @@
+ 		  (let* ((platform #+(and sun4 sunos4) "sun4-SunOS4"
+ 				   #+(and sun4 (not sunos4)) "sun4-SunOS5"
+ 				   #+(and x86 (not macosx)) "ix86-Linux"
++				   #+(and x86-64 (not macosx)) "ix86_64-Linux"
+ 				   #+(and macosx powerpc) "powerpc-MacOSX"
+ 				   #+(and macosx x86) "ix86-MacOSX")
+ 			 (utilpath (concatenate 'string
+@@ -281,7 +303,9 @@
+      :components ((:file "hashfn")
+ 		  #+allegro
+ 		  (:file "file-utils")
+-		  #+(or cmu sbcl)
++		  #+sbcl
++		  (:file "file-utils-sbcl")
++		  #+cmu
+ 		  (:file "file-utils-cmu")))
+    (:module language
+      :source-pathname "src/"
+diff -durN pvs-sbcl-4.2.ORIG/src/abstraction/abstract.lisp pvs-sbcl-4.2/src/abstraction/abstract.lisp
+--- pvs-sbcl-4.2.ORIG/src/abstraction/abstract.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/abstraction/abstract.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -27,7 +27,7 @@
+ ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ ;; --------------------------------------------------------------------
+ 
+-(in-package 'pvs)
++(in-package :pvs)
+ 
+ 
+ (defvar *abs-cache+* nil)
+diff -durN pvs-sbcl-4.2.ORIG/src/classes-decl.lisp pvs-sbcl-4.2/src/classes-decl.lisp
+--- pvs-sbcl-4.2.ORIG/src/classes-decl.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/classes-decl.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -141,7 +141,7 @@
+ 	  type-name type-name? type-value types update-expr using-hash
+ 	  var-decl visible?))
+ #+(or cmu sbcl)
+-(ext:without-package-locks
++(#-sbcl ext:without-package-locks #+sbcl sb-ext:without-package-locks
+  (defgeneric class (x))
+  (defgeneric (setf class) (x y))
+  (defgeneric keyword (x))
+@@ -338,6 +338,9 @@
+ ;;; unparser.  The type is set by the typechecker to the canonical value
+ ;;; of the declared-type.
+ 
++(
++ #-sbcl progn
++ #+sbcl sb-ext:without-package-locks
+ (defcl declaration (syntax)
+   (newline-comment :restore-as nil)
+   (id :type (or symbol number) :parse t :restore-as nil)
+@@ -353,6 +356,7 @@
+   (semi :parse t :restore-as nil)
+   (tcc-form :fetch-as nil :ignore t)
+   (typecheck-time :restore-as nil))
++)
+ 
+ ;;; declared-type-string keeps the string of the declared type for
+ ;;; creating the pvs context - see create-declaration-entry
+diff -durN pvs-sbcl-4.2.ORIG/src/classes-expr.lisp pvs-sbcl-4.2/src/classes-expr.lisp
+--- pvs-sbcl-4.2.ORIG/src/classes-expr.lisp	2007-10-10 18:11:41.000000000 -0600
++++ pvs-sbcl-4.2/src/classes-expr.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -35,7 +35,7 @@
+ 	  propositional-application))
+ 
+ #+(or cmu sbcl)
+-(ext:without-package-locks
++(#-sbcl ext:without-package-locks #+sbcl sb-ext:without-package-locks
+  (defgeneric type (x))
+  (defgeneric (setf type) (x y))
+  (defgeneric number (x))
+@@ -45,7 +45,7 @@
+ 
+ #+(or cmu sbcl)
+ ;; This is actually defined in utils, but convenient to add here
+-(ext:without-package-locks
++(#-sbcl ext:without-package-locks #+sbcl sb-ext:without-package-locks
+  (defgeneric condition (x)))
+ 
+ ;;; Provide a class on which to hang syntactic information
+@@ -172,8 +172,13 @@
+ ;; When an extraction-expr is used as a conversion
+ (defcl extraction-conversion (extraction-application))
+ 
++#-sbcl
+ (defcl number-expr (expr)
+   (number :type integer :parse t :restore-as nil))
++#+sbcl
++(sb-ext:without-package-locks
++  (defcl number-expr (expr)
++    (number :type integer :parse t :restore-as nil)))
+ 
+ ;; This is for integers of the form xxx.000, where the fractional part is
+ ;; all zeros.  We keep it as a number expr, but store the number of zeros so
+@@ -529,10 +534,17 @@
+ ;;; resolution.  The inclusions are the predicates which will become
+ ;;; TCCs if that particular resolution is chosen.
+ 
++#-sbcl
+ (defcl resolution ()
+   (declaration :restore-as nil)
+   module-instance
+   type)
++#+sbcl
++(sb-ext:without-package-locks
++  (defcl resolution ()
++    (declaration :restore-as nil)
++    module-instance
++    type))
+ 
+ ;(defcl judgement-resolution (resolution)
+ ;  judgement-type
+diff -durN pvs-sbcl-4.2.ORIG/src/context.lisp pvs-sbcl-4.2/src/context.lisp
+--- pvs-sbcl-4.2.ORIG/src/context.lisp	2008-05-11 14:34:50.000000000 -0600
++++ pvs-sbcl-4.2/src/context.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -402,8 +402,9 @@
+ 	      subdir))
+ 	(multiple-value-bind (result err)
+ 	    (ignore-lisp-errors #+allegro (excl:make-directory subdir)
+-			   #+(or cmu sbcl)
+-			   (unix:unix-mkdir (namestring subdir) #o777))
++			   #+cmu (unix:unix-mkdir (namestring subdir) #o777)
++			   #+sbcl
++			   (sb-unix:unix-mkdir (namestring subdir) #o777))
+ 	  (cond (result (pvs-message "Created directory ~a" subdir)
+ 			t)
+ 		(t (pvs-message "Error creating ~a: ~a" subdir err)
+@@ -534,7 +535,7 @@
+ 
+ #+(or cmu sbcl)
+ (defun md5-file (file)
+-  (let ((digest (md5:md5sum-file file))
++  (let ((digest (#+cmu md5:md5sum-file #+sbcl sb-md5:md5sum-file file))
+ 	(sum 0))
+     (loop for x across digest
+ 	  do (setq sum (+ (* sum 256) x)))
+diff -durN pvs-sbcl-4.2.ORIG/src/datatype.lisp pvs-sbcl-4.2/src/datatype.lisp
+--- pvs-sbcl-4.2.ORIG/src/datatype.lisp	2008-05-11 14:36:59.000000000 -0600
++++ pvs-sbcl-4.2/src/datatype.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -203,7 +203,8 @@
+ 	 (checksum-ok? (and adt-ce
+ 			    file-exists?
+ 			    (equal #+allegro (excl:md5-file adt-path)
+-				   #-allegro (md5:md5sum-file adt-path) 
++				   #+sbcl (sb-md5:md5sum-file adt-path)
++				   #-(or allegro sbcl) (md5:md5sum-file adt-path) 
+ 				   (ce-md5sum adt-ce)))))
+     (unless (and file-exists?
+ 		 ce
+diff -durN pvs-sbcl-4.2.ORIG/src/defcl.lisp pvs-sbcl-4.2/src/defcl.lisp
+--- pvs-sbcl-4.2.ORIG/src/defcl.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/defcl.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -51,11 +51,13 @@
+ (defmacro defcl (name classes &rest args)
+   (setf args (mapcar #'(lambda (a) (if (consp a) a (list a))) args))
+   `(progn ,@(mapcar #'(lambda (a)
+-			#+allegro `(declaim (ftype (function
++			#+(or allegro sbcl)
++				  `(declaim (ftype (function
+ 						    (t)
+ 						    ,(cadr (member :type a)))
+ 						   ,(car a)))
+-			#-allegro `(proclaim '(function ,(car a) (t)
++			#-(or allegro sbcl)
++				  `(proclaim '(function ,(car a) (t)
+ 					       ,(cadr (member :type a)))))
+ 		    (remove-if-not #'(lambda (a) (member :type a))
+ 		      args))
+diff -durN pvs-sbcl-4.2.ORIG/src/defsystem.lisp pvs-sbcl-4.2/src/defsystem.lisp
+--- pvs-sbcl-4.2.ORIG/src/defsystem.lisp	2007-07-06 13:08:53.000000000 -0600
++++ pvs-sbcl-4.2/src/defsystem.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -4796,7 +4796,7 @@
+   :loader #+:lucid #'load-foreign-files
+           #+:allegro #'load
+           #+(or :cmu :scl) #'alien:load-foreign
+-          #+:sbcl #'sb-alien:load-foreign
++          #+:sbcl #'sb-alien:load-shared-object
+ 	  #+(and :lispworks :unix (not :linux) (not :macosx)) #'link-load:read-foreign-modules
+ 	  #+(and :lispworks :unix (or :linux :macosx)) #'fli:register-module
+ 	  #+(and :lispworks :win32) #'fli:register-module
+diff -durN pvs-sbcl-4.2.ORIG/src/globals.lisp pvs-sbcl-4.2/src/globals.lisp
+--- pvs-sbcl-4.2.ORIG/src/globals.lisp	2008-07-17 12:12:19.000000000 -0600
++++ pvs-sbcl-4.2/src/globals.lisp	2008-11-04 20:54:30.000000000 -0700
+@@ -346,7 +346,9 @@
+       (pprint-indent :block 0)
+       (loop (pprint-exit-if-list-exhausted)
+ 	    (write (pprint-pop) :stream stream :escape nil :pretty nil
+-		   :pprint-dispatch nil)
++		   :pprint-dispatch #-sbcl nil
++		   #+sbcl (sb-pretty::make-pprint-dispatch-table)
++		   )
+ 	    (pprint-exit-if-list-exhausted)
+ 	    (pprint-newline :mandatory stream)))))
+ 
+@@ -385,6 +387,7 @@
+ 
+ (defvar *use-default-dp?* nil)
+ (defvar *prover-print-lines* nil)
++#-sbcl
+ (defvar *print-lines* nil)
+ 
+ (defvar *substit-dont-simplify* nil)
+diff -durN pvs-sbcl-4.2.ORIG/src/groundeval/ground-expr.lisp pvs-sbcl-4.2/src/groundeval/ground-expr.lisp
+--- pvs-sbcl-4.2.ORIG/src/groundeval/ground-expr.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/groundeval/ground-expr.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -29,7 +29,7 @@
+ ;               --  no free variables
+ ;
+ 
+-(in-package 'pvs)
++(in-package :pvs)
+ 
+ (defun ground-expr? (expr)
+   (assert (type expr))
+diff -durN pvs-sbcl-4.2.ORIG/src/groundeval/pvs2clean.lisp pvs-sbcl-4.2/src/groundeval/pvs2clean.lisp
+--- pvs-sbcl-4.2.ORIG/src/groundeval/pvs2clean.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/groundeval/pvs2clean.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -138,7 +138,7 @@
+ 
+ (defmethod pvs2clean* ((expr projection-application) bindings livevars)
+   (let* ((ll (length (exprs expr)))
+-	 (dummy (gentemp 'ddd))
++	 (dummy (gentemp "DDD"))
+ 	 (match-list (pvs2clean_tuple (matchlist (index expr) ll dummy)))
+ 	 (expr-list (pvs2clean* expr bindings livevars)))
+     `(let ,match-list = ,expr-list in ,dummy)))
+diff -durN pvs-sbcl-4.2.ORIG/src/groundeval/pvseval-update.lisp pvs-sbcl-4.2/src/groundeval/pvseval-update.lisp
+--- pvs-sbcl-4.2.ORIG/src/groundeval/pvseval-update.lisp	2007-12-01 16:04:01.000000000 -0700
++++ pvs-sbcl-4.2/src/groundeval/pvseval-update.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -47,7 +47,7 @@
+   (if (special-variable-p id) 
+       (let ((lid (gethash id *lisp-id-hash*)))
+ 	(or lid
+-	    (let ((new-lid (intern (gensym (string id)))))
++	    (let ((new-lid (intern (symbol-name (gensym (string id))))))
+ 	      (setf (gethash id *lisp-id-hash*) new-lid)
+ 	      new-lid)))
+       id))
+@@ -1779,7 +1779,7 @@
+ 			      :if-exists
+ 			      (if supersede? :supersede :append)
+ 			      :if-does-not-exist :create)
+-	(when supersede? (format output "(in-package 'PVS)~%"))
++	(when supersede? (format output "(in-package :pvs)~%"))
+ 	(print-lisp-defns-to-output (get-theory theory) output))
+       (print-lisp-defns-to-output (get-theory theory) nil)))
+ 
+diff -durN pvs-sbcl-4.2.ORIG/src/groundeval/static-update.lisp pvs-sbcl-4.2/src/groundeval/static-update.lisp
+--- pvs-sbcl-4.2.ORIG/src/groundeval/static-update.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/groundeval/static-update.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -42,7 +42,7 @@
+ ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ ;; --------------------------------------------------------------------
+ 
+-(in-package 'pvs)
++(in-package :pvs)
+ 
+ (defmethod updateable? ((texpr tupletype))
+   (updateable? (types texpr)))
+diff -durN pvs-sbcl-4.2.ORIG/src/ground-prover/prglobals.lisp pvs-sbcl-4.2/src/ground-prover/prglobals.lisp
+--- pvs-sbcl-4.2.ORIG/src/ground-prover/prglobals.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/ground-prover/prglobals.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -46,7 +46,7 @@
+ (defconstant  true 'true  )
+ (defconstant  false 'false )
+ 
+-(defconstant  primtypealist
++(defconstant-if-unbound  primtypealist
+     '((true .  bool)
+       (false . bool)
+       (and . bool)
+@@ -139,16 +139,16 @@
+ 
+ ;;; the following special declarations are rather offensive:
+ 
+-(proclaim '(special const sum u s eq lit var coef product ineqpot  ))
++(proclaim '(special const sum u s #-sbcl eq lit var coef product ineqpot  ))
+ 
+ 
+ ;;; the following (til end-of-file) are taken from prpp:
+ 
+-(defconstant *infixlist*	;temporary list of infixes	
++(defconstant-if-unbound *infixlist*	;temporary list of infixes	
+    '(equal nequal lessp greaterp lesseq lesseqp greatereq greatereqp
+ 	   PLUS MINUS TIMES DIVIDE DIFFERENCE) )
+ 
+-(defconstant precedence-alist 					
++(defconstant-if-unbound precedence-alist 					
+   '((iff 1)
+     (implies 2)
+     (or 3)
+diff -durN pvs-sbcl-4.2.ORIG/src/ground-prover/prmacros.lisp pvs-sbcl-4.2/src/ground-prover/prmacros.lisp
+--- pvs-sbcl-4.2.ORIG/src/ground-prover/prmacros.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/ground-prover/prmacros.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -55,21 +55,21 @@
+ (defun prerr (&rest args)
+   (apply #'error args))
+ 
+-(defconstant *truecons* '(true))
++(defconstant-if-unbound *truecons* '(true))
+ 
+-(defconstant *eqarithrels* '(greatereqp lesseqp))
++(defconstant-if-unbound *eqarithrels* '(greatereqp lesseqp))
+ 
+ (defconstant *ifops* nil ;;'(if if*)
+   )
+ 
+-(defconstant *boolconstants* '(false true))
++(defconstant-if-unbound *boolconstants* '(false true))
+ 
+-(defconstant *arithrels* '(lessp lesseqp greaterp greatereqp))
++(defconstant-if-unbound *arithrels* '(lessp lesseqp greaterp greatereqp))
+ 
+-(defconstant *arithops* '(PLUS TIMES DIFFERENCE MINUS))
++(defconstant-if-unbound *arithops* '(PLUS TIMES DIFFERENCE MINUS))
+ 
+-(defconstant *boolops* '(and or implies not ;;if
+-			     iff))
++(defconstant-if-unbound *boolops* '(and or implies not ;;if
++				    iff))
+ 
+ (defmacro singleton? (obj)
+   `(and (consp ,obj) (null (cdr ,obj))))
+diff -durN pvs-sbcl-4.2.ORIG/src/interface/pvs-emacs.lisp pvs-sbcl-4.2/src/interface/pvs-emacs.lisp
+--- pvs-sbcl-4.2.ORIG/src/interface/pvs-emacs.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/interface/pvs-emacs.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -66,11 +66,15 @@
+ 		   *noninteractive-timeout*
+ 		   ,(not (and (listp form)
+ 			      (memq (car form) *prover-invoking-commands*))))
+-	      #-(or multiprocessing mp) nil
++	      #-(or multiprocessing mp sbcl) nil
+ 	      #+(or multiprocessing mp)
+ 	      (mp:with-timeout (*noninteractive-timeout*
+ 				(format t "Timed out!"))
+ 			       ,form)
++	      #+sbcl
++	      (sb-ext:with-timeout *noninteractive-timeout*
++		(handler-case ,form
++		  (sb-ext:timeout () (format t "Timed out!"))))
+ 	      ,form))
+ 	(string (error)
+ 		(with-output-to-string (string)
+@@ -94,7 +98,7 @@
+ ;;; This replaces ilisp-restore in pvs-init
+ (defun pvs-ilisp-restore ()
+   "Restore the old result history."
+-  (declare (special / // + ++ * **))
++  #-sbcl (declare (special / // + ++ * **))
+   (setq // (pop *old-result*)
+ 	** (first //)
+ 	/  (pop *old-result*)
+@@ -105,7 +109,7 @@
+   nil)
+ 
+ (defun pvs-ilisp-save ()
+-  (declare (special / // /// + ++ +++))
++  #-sbcl (declare (special / // /// + ++ +++))
+   (unless *old-result*
+     (setq *old-result* (list /// // +++ ++))))
+ 
+@@ -546,7 +550,8 @@
+ 	 (t   (cons (char string pos) result))))
+       (coerce (nreverse result) 'string)))
+ 
+-(#+(or cmu sbcl) ext:without-package-locks
++(#+cmu ext:without-package-locks
++ #+sbcl sb-ext:without-package-locks
+  #-(or cmu sbcl) progn
+ (defun parse-error (obj message &rest args)
+   ;;(assert (or *in-checker* *current-file*))
+@@ -606,7 +611,8 @@
+ (defvar *type-error-argument* nil)
+ (defvar *skip-all-conversion-checks* nil)
+ 
+-(#+(or cmu sbcl) ext:without-package-locks
++(#+cmu ext:without-package-locks
++ #+sbcl sb-ext:without-package-locks
+  #-(or cmu sbcl) progn
+ (defun type-error (obj message &rest args)
+   (let ((errmsg (type-error-for-conversion obj message args)))
+diff -durN pvs-sbcl-4.2.ORIG/src/linked-hash-table.lisp pvs-sbcl-4.2/src/linked-hash-table.lisp
+--- pvs-sbcl-4.2.ORIG/src/linked-hash-table.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/linked-hash-table.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -51,7 +51,7 @@
+    (if (memq test '(eq eql equal equalp))
+        (make-hash-table :test test :size size :rehash-size rehash-size
+ 			:rehash-threshold rehash-threshold
+-			:weak-p weak-keys)
++			#-sbcl :weak-p #+sbcl :weakness weak-keys)
+        (make-pvs-hash-table
+ 	:strong-eq? (eq test 'strong-tc-eq)
+ 	:weak-p weak-keys
+@@ -77,6 +77,8 @@
+       :weak-keys (excl:hash-table-weak-keys ht))
+      #-allegro
+      (let* ((test (hash-table-test ht))
++	    (weakp #+sbcl (sb-ext:hash-table-weakness ht)
++		   #-sbcl (lisp::hash-table-weak-p ht))
+ 	    (newht
+ 	     (if (memq test '(eq eql equal equalp))
+ 		 (make-hash-table
+@@ -84,13 +86,14 @@
+ 		  :size size
+ 		  :rehash-size rehash-size
+ 		  :rehash-threshold rehash-threshold
+-		  :weak-p (lisp::hash-table-weak-p ht))
++		  #-sbcl :weak-p #+sbcl :weakness weakp)
+ 		 (make-pvs-hash-table :strong-eq? (eq test 'strong-tc-eq)
+-				      :weak-keys? (lisp::hash-table-weak-p ht)
++				      :weak-keys? weakp
+ 				      :size size
+ 				      :rehash-size rehash-size
+ 				      :rehash-threshold rehash-threshold
+-				      :table (lisp::hash-table-table ht)))))
++				      :table #-sbcl (lisp::hash-table-table ht)
++					     #+sbcl (sb-impl::hash-table-table ht)))))
+        (declare (inline maphash))
+        (maphash #'(lambda (x y) (setf (gethash x newht) y))
+ 		ht)
+diff -durN pvs-sbcl-4.2.ORIG/src/make-pvs-methods.lisp pvs-sbcl-4.2/src/make-pvs-methods.lisp
+--- pvs-sbcl-4.2.ORIG/src/make-pvs-methods.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/make-pvs-methods.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -33,8 +33,11 @@
+   ;; This sets *pvs-path* and sets *pvs-binary-type*
+   (load "pvs-config.lisp"))
+ 
+-(defpackage pvs (:use #+lucid :lucid-common-lisp :lisp
+-		      #-(or gcl cmu sbcl) :clos #+(or gcl cmu sbcl) :pcl))
++(defpackage pvs (:use #+lucid :lucid-common-lisp #-sbcl :lisp #+sbcl :cl
++		      #-(or gcl cmu sbcl) :clos #+(or gcl cmu) :pcl
++		      #+sbcl :sb-pcl)
++	 #+sbcl (:shadowing-import-from :sb-int memq)
++	 #+sbcl (:export memq))
+ 
+ (in-package :pvs)
+ (import '(cl-user:*pvs-path*))
+diff -durN pvs-sbcl-4.2.ORIG/src/metering.lisp pvs-sbcl-4.2/src/metering.lisp
+--- pvs-sbcl-4.2.ORIG/src/metering.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/metering.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -288,7 +288,7 @@
+ ;;; to seconds.
+ 
+ (progn
+-  #-(or cmu allegro)
++  #-(or sbcl cmu allegro)
+   (eval-when (compile eval)
+     (warn
+      "You may want to supply implementation-specific get-time functions."))
+@@ -302,6 +302,12 @@
+ ;;; The get-cons macro is called to find the total number of bytes
+ ;;; consed since the beginning of time.
+ 
++#+sbcl
++(defmacro get-cons ()
++  "The get-cons macro is called to find the total number of bytes
++   consed since the beginning of time."
++  '(sb-ext:get-bytes-consed))
++
+ #+:cmu
+ (defmacro get-cons ()
+   "The get-cons macro is called to find the total number of bytes
+@@ -312,7 +318,7 @@
+ #+:lcl3.0
+ (defmacro get-cons () `(gc-size))
+ 
+-#-(or :cmu :lcl3.0)
++#-(or sbcl :cmu :lcl3.0)
+ (progn
+   (eval-when (compile eval)
+     (warn "No consing will be reported unless a get-cons function is ~
+@@ -326,6 +332,12 @@
+ ;;; arguments.  The function Required-Arguments returns two values: the first
+ ;;; is the number of required arguments, and the second is T iff there are any
+ ;;; non-required arguments (e.g. &optional, &rest, &key).
++#+sbcl
++(defun required-arguments (name)
++  (multiple-value-bind (min max)
++      (sb-kernel:fun-type-nargs (sb-kernel:ctype-of (symbol-function name)))
++    (values (or min 0) (or (null max) (> max min)))))
++
+ #+cmu
+ (progn
+   #-new-compiler
+@@ -387,7 +399,7 @@
+ 
+ 
+ 
+-#-(or :cmu :lcl3.0 (and :allegro (not :coral)))
++#-(or sbcl :cmu :lcl3.0 (and :allegro (not :coral)))
+ (progn
+  (eval-when (compile eval)
+    (warn
+diff -durN pvs-sbcl-4.2.ORIG/src/pp-html.lisp pvs-sbcl-4.2/src/pp-html.lisp
+--- pvs-sbcl-4.2.ORIG/src/pp-html.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/pp-html.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -611,7 +611,8 @@
+ 		     (when (eq ans :auto)
+ 		       (setq *force-dirs* t)))))
+ 	     #+allegro (excl:make-directory dir)
+-	     #+(or cmu sbcl) (unix:unix-mkdir dir #o777)
++	     #+cmu (unix:unix-mkdir dir #o777)
++	     #+sbcl (sb-unix:unix-mkdir dir #o777)
+ 	     (pvs-message "Directory ~a created" dir))
+ 	    (t (html-pvs-error "Directory ~a not created" dir))))))
+ 
+diff -durN pvs-sbcl-4.2.ORIG/src/prover/checker-macros.lisp pvs-sbcl-4.2/src/prover/checker-macros.lisp
+--- pvs-sbcl-4.2.ORIG/src/prover/checker-macros.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/prover/checker-macros.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -55,7 +55,7 @@
+ (defvar *printproofstate* nil)
+ (defvar *in-checker* nil)
+ (defvar *in-apply* nil)
+-(defvar *please-interrupt* nil)
++(defvar *please-interrupt* #-sbcl nil #+sbcl t)
+ (defvar *assert-bindings* nil)
+ (defvar *modsubst* nil)
+ (defvar *proving-tcc* nil)
+@@ -143,9 +143,11 @@
+ (defvar *module-context*)
+ ;;(defvar *current-theory*)
+ (defvar *ps* nil)
+-(defvar * '*)
+-(defvar + '+)
+-(defvar - '-)
++(#+sbcl sb-ext:without-package-locks
++ #-sbcl progn
++  (defvar * '*)
++  (defvar + '+)
++  (defvar - '-))
+ (defvar *macro-names* nil)
+ (defvar *subst-type-hash* ;;used in assert-sformnums
+   ;;(make-pvs-hash-table)
+@@ -177,14 +179,22 @@
+ (defmacro with-interrupts-deferred (&body form)
+   `(let ((excl::*without-interrupts* t)) ,@form))
+ 
+-#+(or cmu sbcl)
++#+cmu
+ (defmacro with-interrupts-allowed (&body form)
+   `(system:with-interrupts ,@form))
+ 
+-#+(or cmu sbcl)
++#+cmu
+ (defmacro with-interrupts-deferred (&body form)
+   `(system:without-interrupts ,@form))
+ 
++#+sbcl
++(defmacro with-interrupts-allowed (&body form)
++  `(sb-sys:with-interrupts ,@form))
++
++#+sbcl
++(defmacro with-interrupts-deferred (&body form)
++  `(sb-sys:without-interrupts ,@form))
++
+ 
+ 
+ ;;; KCL does not really have the equivalent to the following - punt for now.
+diff -durN pvs-sbcl-4.2.ORIG/src/prover/eproofcheck.lisp pvs-sbcl-4.2/src/prover/eproofcheck.lisp
+--- pvs-sbcl-4.2.ORIG/src/prover/eproofcheck.lisp	2008-01-14 04:12:56.000000000 -0700
++++ pvs-sbcl-4.2/src/prover/eproofcheck.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -210,9 +210,15 @@
+ 	  (and *noninteractive*
+ 	       *noninteractive-timeout*))
+       (let ((timeout (or *proof-timeout* *noninteractive-timeout*)))
++	#-sbcl
+ 	(mp:with-timeout (timeout (pvs-message "Interrupted: ~a sec timeout"
+ 				    timeout))
+-			 (call-next-method)))
++			 (call-next-method))
++	#+sbcl
++	(sb-ext:with-timeout timeout
++	  (handler-case (call-next-method)
++	    (sb-ext:timeout ()
++	      (pvs-message "Interrupted: ~a sec timeout" timeout)))))
+       (call-next-method)))
+ 
+ (defmethod prove-decl ((decl formula-decl) &key strategy context)
+diff -durN pvs-sbcl-4.2.ORIG/src/prover/rules.lisp pvs-sbcl-4.2/src/prover/rules.lisp
+--- pvs-sbcl-4.2.ORIG/src/prover/rules.lisp	2008-01-15 21:53:29.000000000 -0700
++++ pvs-sbcl-4.2/src/prover/rules.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -334,9 +334,15 @@
+ 		   (init-time (get-internal-run-time))
+ 		   (result (let ((*in-apply* ps))
+ 			     (if timeout
++				 #-sbcl
+ 				 (mp:with-timeout (timeout nil)
+ 						  (prove* newps)
+ 						  newps)
++				 #+sbcl
++				 (sb-ext:with-timeout timeout
++				   (handler-case
++				     (progn (prove* newps) newps)
++				     (sb-ext:timeout () nil)))
+ 				 (prove* newps))))
+ 		   (end-time (/ (- (get-internal-run-time) init-time)
+ 				internal-time-units-per-second)))
+diff -durN pvs-sbcl-4.2.ORIG/src/prover/translate-to-yices.lisp pvs-sbcl-4.2/src/prover/translate-to-yices.lisp
+--- pvs-sbcl-4.2.ORIG/src/prover/translate-to-yices.lisp	2007-09-07 14:02:37.000000000 -0600
++++ pvs-sbcl-4.2/src/prover/translate-to-yices.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -910,6 +910,13 @@
+ 		     :input "//dev//null"
+ 		     :output out
+ 		     :error-output :output)
++		    #+sbcl
++		    (sb-ext:run-program
++		     (format nil "~a ~a" *yices-call* (namestring file))
++		     nil
++		     :input "//dev//null"
++		     :output out
++		     :error out)
+ 		    #+cmu
+ 		    (extensions:run-program
+ 		     (format nil "~a ~a" *yices-call* (namestring file))
+diff -durN pvs-sbcl-4.2.ORIG/src/pvs.lisp pvs-sbcl-4.2/src/pvs.lisp
+--- pvs-sbcl-4.2.ORIG/src/pvs.lisp	2008-07-19 14:29:49.000000000 -0600
++++ pvs-sbcl-4.2/src/pvs.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -102,19 +102,21 @@
+   (let ((exepath (car (make::split-string
+ 		       (environment-variable "LD_LIBRARY_PATH") :item #\:))))
+     (pushnew exepath *pvs-directories*)
+-    (ext:load-foreign (format nil "~a/mu.~a" exepath
++    (#+cmu ext:load-foreign #+sbcl sb-alien:load-shared-object
++		      (format nil "~a/mu.~a" exepath
+ 			      #+darwin "dylib"
+ 			      #-darwin "so"))
+-    (ext:load-foreign (format nil "~a/ws1s.~a" exepath
++    (#+cmu ext:load-foreign #+sbcl sb-alien:load-shared-object
++		      (format nil "~a/ws1s.~a" exepath
+ 			      #+darwin "dylib"
+ 			      #-darwin "so"))
+     ;; Have no idea what is going on here, but if you leave this out,
+     ;; bdd-cmu gives a compile error.
+-    (fmakunbound 'bdd_cofactor_neg_)
+-    (lf "bdd-cmu")
+-    (lf "mu-cmu")
++    #+cmu (fmakunbound 'bdd_cofactor_neg_)
++    #+cmu (lf "bdd-cmu") #+sbcl (lf "bdd-sbcl")
++    #+cmu (lf "mu-cmu") #+sbcl (lf "mu-sbcl")
+     (bdd_init)
+-    (lf "dfa-foreign-cmu"))
++    #+cmu (lf "dfa-foreign-cmu") #+sbcl (lf "dfa-foreign-sbcl"))
+   (setq *started-with-minus-q*
+ 	(or dont-load-user-lisp
+ 	    (let ((mq (environment-variable "PVSMINUSQ")))
+diff -durN pvs-sbcl-4.2.ORIG/src/restore-theories.lisp pvs-sbcl-4.2/src/restore-theories.lisp
+--- pvs-sbcl-4.2.ORIG/src/restore-theories.lisp	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/src/restore-theories.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -27,7 +27,7 @@
+ ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ ;; --------------------------------------------------------------------
+ 
+-(in-package 'pvs)
++(in-package :pvs)
+ 
+ ;;; Restores the state of the system from information provided in the
+ ;;; context.  The context has the form
+diff -durN pvs-sbcl-4.2.ORIG/src/store-object.lisp pvs-sbcl-4.2/src/store-object.lisp
+--- pvs-sbcl-4.2.ORIG/src/store-object.lisp	2007-10-13 15:30:22.000000000 -0600
++++ pvs-sbcl-4.2/src/store-object.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -301,8 +301,8 @@
+       (ensure-vector-size *store-object-store* *store-object-store-size* size)
+       (with-open-file (f file :direction :input
+ 			 :element-type '(unsigned-byte 32))
+-	(lisp:read-sequence *store-object-store* f
+-			    :start 0 :end size))
++	(cl:read-sequence *store-object-store* f
++			  :start 0 :end size))
+       (when reverse-endian
+ 	(dotimes (i size)
+ 	  (setf (object-store i)
+diff -durN pvs-sbcl-4.2.ORIG/src/utils/file-utils-sbcl.lisp pvs-sbcl-4.2/src/utils/file-utils-sbcl.lisp
+--- pvs-sbcl-4.2.ORIG/src/utils/file-utils-sbcl.lisp	1969-12-31 17:00:00.000000000 -0700
++++ pvs-sbcl-4.2/src/utils/file-utils-sbcl.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -0,0 +1,66 @@
++;; --------------------------------------------------------------------
++;; PVS
++;; Copyright (C) 2008, SRI International.  All Rights Reserved.
++
++;; This program is free software; you can redistribute it and/or
++;; modify it under the terms of the GNU General Public License
++;; as published by the Free Software Foundation; either version 2
++;; of the License, or (at your option) any later version.
++
++;; This program is distributed in the hope that it will be useful,
++;; but WITHOUT ANY WARRANTY; without even the implied warranty of
++;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++;; GNU General Public License for more details.
++
++;; You should have received a copy of the GNU General Public License
++;; along with this program; if not, write to the Free Software
++;; Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA
++;; 02110-1301, USA.
++;; --------------------------------------------------------------------
++
++(in-package :pvs)
++(require :sb-posix)
++(export '(file-exists-p directory-p read-permission? write-permission?
++			file-write-time get-file-info))
++
++(defun remove-backslashes (string)
++  (declare (type string string))
++  (sb-impl::remove-backslashes string 0 (length string)))
++
++(defun file-exists-p (file)
++  (handler-case
++      (zerop
++       (sb-posix:access
++	(remove-backslashes (namestring (merge-pathnames file)))
++	sb-posix:f-ok))
++    (sb-posix:syscall-error () nil)))
++
++(defun directory-p (dir)
++  (handler-case
++      (let ((filestring (namestring (merge-pathnames dir))))
++	(when (sb-posix:s-isdir (sb-posix:stat-mode (sb-posix:stat filestring)))
++	  ;; Needs to end with a slash!!!
++	  (pathname (if (char= (char filestring (1- (length filestring))) #\/)
++			filestring
++		      (concatenate 'string filestring "/")))))
++    (sb-posix:syscall-error () nil)))
++
++(defun read-permission? (file)
++  (handler-case (zerop (sb-posix:access file sb-posix:r-ok))
++    (sb-posix:syscall-error () nil)))
++
++(defun write-permission? (file)
++  (handler-case (zerop (sb-posix:access file sb-posix:w-ok))
++    (sb-posix:syscall-error () nil)))
++
++(defconstant u1970 (encode-universal-time 0 0 0 1 1 1970 0))
++
++(defun file-write-time (file)
++  (handler-case (+ u1970 (sb-posix:stat-mtime (sb-posix:stat file)))
++    (sb-posix:syscall-error () nil)))
++
++(defun get-file-info (file)
++  (handler-case
++      (let ((stat (sb-posix:stat file)))
++	(list (sb-posix:stat-dev stat) (sb-posix:stat-ino stat)))
++    (sb-posix:syscall-error () nil)))
+diff -durN pvs-sbcl-4.2.ORIG/src/utils/hashfn.lisp pvs-sbcl-4.2/src/utils/hashfn.lisp
+--- pvs-sbcl-4.2.ORIG/src/utils/hashfn.lisp	2007-10-10 18:14:03.000000000 -0600
++++ pvs-sbcl-4.2/src/utils/hashfn.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -56,7 +56,7 @@
+ ;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ ;; --------------------------------------------------------------------
+ 
+-(in-package 'pvs)
++(in-package :pvs)
+ 
+ ;(declaim (function pvs-sxhash* (T list) (integer 0 65535)))
+ 
+@@ -64,7 +64,7 @@
+ ;(defun tc-eq (x y &optional bindings)
+ ;  (tc-eq* x y bindings))
+ 
+-(defconstant pvs-sxhash-byte (byte #+allegro 24 #-allegro 29 0))
++(defconstant-if-unbound pvs-sxhash-byte (byte #+allegro 24 #-allegro 29 0))
+ 
+ (defconstant pvs-max-hashnum (1- (expt 2 #+allegro 24 #-allegro 29)))
+ 
+@@ -104,7 +104,7 @@
+   (declare (ignore bindings))
+   (the positive-fixnum (sxhash x)))
+ 
+-(defconstant nil-sxhash (sxhash nil))
++(defconstant-if-unbound nil-sxhash (sxhash nil))
+ 
+ (defmethod pvs-sxhash* ((x null) bindings)
+   (declare (ignore bindings))
+diff -durN pvs-sbcl-4.2.ORIG/src/utils/ix86_64-Linux/Makefile pvs-sbcl-4.2/src/utils/ix86_64-Linux/Makefile
+--- pvs-sbcl-4.2.ORIG/src/utils/ix86_64-Linux/Makefile	1969-12-31 17:00:00.000000000 -0700
++++ pvs-sbcl-4.2/src/utils/ix86_64-Linux/Makefile	2008-11-04 20:52:16.000000000 -0700
+@@ -0,0 +1,23 @@
++LD = gcc
++LDFLAGS = -shared -L./
++CC=gcc
++CFLAGS=-fPIC
++WFLAGS=-Wall
++VPATH=..
++
++obj=file_utils.o
++
++.SUFFIXES:
++.SUFFIXES: .c .o
++.c.o : ; $(CC) $(XCFLAGS) ${WFLAGS} ${CFLAGS} -c $< -o $@
++
++all : file_utils.so b64
++
++file_utils.so: ${obj}
++	$(LD) ../utils-ld-table $(LDFLAGS) -o file_utils.so ${obj} -lc
++
++b64: ../b64.c
++	$(CC) -o ./b64 ../b64.c
++
++clean :
++	rm -f *.o *.a *.so b64
+diff -durN pvs-sbcl-4.2.ORIG/src/utils.lisp pvs-sbcl-4.2/src/utils.lisp
+--- pvs-sbcl-4.2.ORIG/src/utils.lisp	2008-07-17 04:35:11.000000000 -0600
++++ pvs-sbcl-4.2/src/utils.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -137,11 +137,12 @@
+   (let* ((test (hash-table-test ht))
+ 	 (size (hash-table-count ht))
+ 	 (weak? #+allegro (excl:hash-table-weak-keys ht)
+-		#+(or cmu sbcl) (lisp::hash-table-weak-p ht))
++		#+cmu     (lisp::hash-table-weak-p ht)
++		#+sbcl    (sb-ext:hash-table-weakness ht))
+ 	 (new-ht (if (memq test '(eq eql equal equalp))
+ 		     (make-hash-table
+ 		      :test test :size size
+-		      #+allegro :weak-keys #+(or cmu sbcl) :weak-p weak?)
++		      #+allegro :weak-keys #+cmu :weak-p #+sbcl :weakness weak?)
+ 		     (make-pvs-hash-table :strong-eq? (eq test 'strong-tc-eq)
+ 					  :size size
+ 					  :weak-keys? weak?))))
+@@ -279,7 +280,8 @@
+        #+(and allegro (version>= 6) (not (version>= 7)))
+        (excl::variable-special-p obj nil)
+        #+(and allegro (not (version>= 6))) (clos::variable-special-p obj nil)
+-       #+(or cmu sbcl) (eq (extensions:info variable kind obj) :special)
++       #+cmu (eq (extensions:info variable kind obj) :special)
++       #+sbcl (sb-walker:var-globally-special-p obj)
+        #+harlequin-common-lisp (system:declared-special-p obj)
+        #-(or lucid kcl allegro harlequin-common-lisp cmu sbcl)
+        (error "Need to handle special variables for this version of lisp")
+@@ -310,14 +312,22 @@
+ 			 (namestring (working-directory))))
+   nil)
+ 
+-#+(or gcl cmu sbcl)
++#+(or gcl cmu)
+ (defun working-directory ()
+   (pathname (nth-value 1 (unix:unix-current-directory))))
+ 
+-#+(or gcl cmu sbcl)
++#+(or gcl cmu)
+ (defun set-working-directory (dir)
+   (unix:unix-chdir (namestring dir)))
+ 
++#+sbcl
++(defun working-directory ()
++  (make-pathname :directory (sb-posix:getcwd)))
++
++#+sbcl
++(defun set-working-directory (dir)
++  (sb-posix:chdir dir))
++
+ #+allegro
+ (defun working-directory ()
+   (excl:current-directory))
+@@ -334,10 +344,14 @@
+ (defun environment-variable (string)
+   (sys:getenv string))
+ 
+-#+(or cmu sbcl)
++#+cmu
+ (defun environment-variable (string)
+   (tools:getenv string))
+ 
++#+sbcl
++(defun environment-variable (string)
++  (sb-posix:getenv string))
++
+ #+harlequin-common-lisp
+ (defun environment-variable (string)
+   ;; This didn't work before
+@@ -370,13 +384,20 @@
+    :show-cmd nil
+    :output-stream (open "/dev/null" :direction :output
+ 			  :if-exists :append)))
+-#+(or cmu sbcl)
++#+cmu
+ (defun chmod (prot file)
+   (extensions:run-program
+    "chmod"
+    (list prot (namestring file))
+    :output nil :error nil :wait nil))
+ 
++#+sbcl
++(defun chmod (prot file)
++  (sb-ext:run-program
++   "chmod"
++   (list prot (namestring file))
++   :output nil :error nil :wait nil))
++
+ #+gcl
+ (defun chmod (prot file)
+   (system (format nil "chmod ~a ~a" prot (namestring file))))
+@@ -605,11 +626,12 @@
+ 
+ (defun shortpath (directory)
+   (or (gethash directory *shortpath-directories*)
+-      (let* ((dirlist (pathname-directory
++      (let* ((realdir (namestring (truename directory)))
++	     (dirlist (pathname-directory
+ 		       (directory-p
+-			(#+allegro excl:pathname-resolve-symbolic-links
+-				   #+(or cmu sbcl) unix:unix-resolve-links
+-			 (namestring (truename directory))))))
++			#+allegro (excl:pathname-resolve-symbolic-links realdir)
++			#+cmu (unix:unix-resolve-links realdir)
++			#-(or allegro cmu) realdir)))
+ 	     (file-info (get-file-info directory))
+ 	     (result (if (eq (car dirlist) :absolute)
+ 			 (shortpath* (reverse (cdr dirlist)) file-info)
+@@ -2915,10 +2937,14 @@
+ (defun direct-superclasses (class)
+   (slot-value class 'pcl:class-direct-superclasses))
+ 
+-#+(or cmu sbcl)
++#+cmu
+ (defun direct-superclasses (class)
+   (class-direct-superclasses class))
+ 
++#+sbcl
++(defun direct-superclasses (class)
++  (sb-mop:class-direct-superclasses class))
++
+ (defun types-of (obj)
+   (let ((types nil))
+     (labels ((tof (type)
+@@ -3225,7 +3251,7 @@
+   (when (compiled-function-p #'pvs-gc-after-hook)
+     (setf excl:*gc-after-hook* #'pvs-gc-after-hook)))
+ 
+-#+(or cmu sbcl)
++#+cmu
+ (eval-when (load)
+   (setf extensions:*gc-verbose* nil))
+ 
+@@ -4022,7 +4048,8 @@
+     (every #'(lambda (slot)
+ 	       (let ((name (slot-value slot
+ 				       '#+allegro excl::name
+-				       #+(or cmu sbcl) pcl::name)))
++				       #+cmu pcl::name
++				       #+sbcl sb-pcl::name)))
+ 		 (equals (slot-value x name) (slot-value y name))))
+ 	   slots)))
+ 
+@@ -4059,8 +4086,12 @@
+   #-(or allegro cmu sbcl)
+   (error "Need a hash-table for tc-eq for this lisp"))
+ 
+-#+(or cmu sbcl)
++#+cmu
+ (extensions:define-hash-table-test 'tc-eq-test #'tc-eq #'pvs-sxhash)
+-#+(or cmu sbcl)
++#+cmu
+ (extensions:define-hash-table-test 'strong-tc-eq-test
+ 				   #'strong-tc-eq #'pvs-sxhash)
++#+sbcl
++(sb-int:define-hash-table-test 'tc-eq-test #'tc-eq #'pvs-sxhash)
++#+sbcl
++(sb-int:define-hash-table-test 'strong-tc-eq-test #'strong-tc-eq #'pvs-sxhash)
+diff -durN pvs-sbcl-4.2.ORIG/src/WS1S/ix86_64-Linux/Makefile pvs-sbcl-4.2/src/WS1S/ix86_64-Linux/Makefile
+--- pvs-sbcl-4.2.ORIG/src/WS1S/ix86_64-Linux/Makefile	1969-12-31 17:00:00.000000000 -0700
++++ pvs-sbcl-4.2/src/WS1S/ix86_64-Linux/Makefile	2008-11-04 20:52:16.000000000 -0700
+@@ -0,0 +1,64 @@
++ifneq (,)
++This makefile requires GNU Make.
++endif
++
++BDD = ../mona/BDD
++DFA = ../mona/DFA
++UTILS = ../mona/Mem
++INCLUDES = -I$(BDD) -I$(DFA) -I$(UTILS)
++LD = gcc
++LDFLAGS = -shared -L./
++CC = gcc
++CFLAGS += -D_POSIX_SOURCE -DSYSV $(INCLUDES)
++XCFLAGS = -O
++SHELL = /bin/sh
++VPATH = ..:../mona/BDD:../mona/DFA:../mona/Mem
++
++obj  = analyze.o prefix.o product.o \
++       quotient.o basic.o external.o \
++       makebasic.o minimize.o printdfa.o \
++       project.o dfa.o \
++       bdd.o bdd_double.o bdd_external.o \
++       bdd_manager.o hash.o bdd_dump.o \
++       bdd_trace.o bdd_cache.o \
++       dlmalloc.o mem.o \
++       ws1s_extended_interface.o 
++
++.SUFFIXES:
++.SUFFIXES: .c .o
++.c.o : ; $(CC) $(XCFLAGS) ${CFLAGS} -c $< -o $@
++
++all : ws1s.so
++
++ws1s_extended_interface.o : ../ws1s_extended_interface.c
++	$(CC) $(XCFLAGS) ${CFLAGS} -c $< -o $@
++
++ws1s.so : ${obj}
++	$(LD) ../ws1s-ld-table $(LDFLAGS) -o ws1s.so ${obj}
++
++bdd.o: bdd.c bdd.h bdd_internal.h
++bdd_double.o: bdd_double.c bdd.h bdd_internal.h
++bdd_external.o: bdd_external.c bdd_external.h mem.h
++bdd_manager.o: bdd_manager.c bdd.h bdd_internal.h
++hash.o: hash.c mem.h hash.h
++bdd_dump.o: bdd_dump.c bdd_dump.h
++bdd_trace.o: bdd_trace.c bdd.h bdd_internal.h
++bdd_cache.o: bdd_cache.c bdd.h bdd_internal.h
++
++analyze.o: analyze.c dfa.h mem.h
++prefix.o: prefix.c dfa.h mem.h
++product.o: product.c dfa.h bdd.h hash.h mem.h
++quotient.o: quotient.c dfa.h hash.h mem.h
++basic.o: basic.c dfa.h mem.h
++external.o: external.c dfa.h bdd_external.h mem.h
++makebasic.o: makebasic.c dfa.h bdd_internal.h
++minimize.o: minimize.c dfa.h hash.h mem.h
++printdfa.o: printdfa.c dfa.h mem.h
++project.o: project.c dfa.h hash.h mem.h
++dfa.o: dfa.c dfa.h bdd.h hash.h mem.h
++
++dlmalloc.o: dlmalloc.c dlmalloc.h
++mem.o: mem.c dlmalloc.h
++
++clean : 
++	rm -f *.o *.a *.so
+diff -durN pvs-sbcl-4.2.ORIG/src/WS1S/lisp/dfa-foreign-sbcl.lisp pvs-sbcl-4.2/src/WS1S/lisp/dfa-foreign-sbcl.lisp
+--- pvs-sbcl-4.2.ORIG/src/WS1S/lisp/dfa-foreign-sbcl.lisp	1969-12-31 17:00:00.000000000 -0700
++++ pvs-sbcl-4.2/src/WS1S/lisp/dfa-foreign-sbcl.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -0,0 +1,275 @@
++;; --------------------------------------------------------------------
++;; PVS
++;; Copyright (C) 2006, SRI International.  All Rights Reserved.
++
++;; This program is free software; you can redistribute it and/or
++;; modify it under the terms of the GNU General Public License
++;; as published by the Free Software Foundation; either version 2
++;; of the License, or (at your option) any later version.
++
++;; This program is distributed in the hope that it will be useful,
++;; but WITHOUT ANY WARRANTY; without even the implied warranty of
++;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++;; GNU General Public License for more details.
++
++;; You should have received a copy of the GNU General Public License
++;; along with this program; if not, write to the Free Software
++;; Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
++;; --------------------------------------------------------------------
++
++(in-package :pvs)
++
++;; Structure of a DFA in foreign space
++(sb-alien:define-alien-type nil
++  (sb-alien:struct mona-dfa
++   (bddm (* t))              ; Manager of BDD nodes
++   (ns   (integer 32))       ; Number of states
++   (q    (* t))              ; Transition array
++   (s    (integer 32))       ; Start State
++   (f    (* (integer 32))))) ; State Status Array
++
++;; Predefined basic automata
++
++(sb-alien:define-alien-routine ("ws1s___dfaTrue" mona-true)     ; true
++  (* (sb-alien:struct mona-dfa)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaFalse" mona-false)   ; false
++  (* (sb-alien:struct mona-dfa)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaConst" mona-const)   ; p_i = n
++  (* (sb-alien:struct mona-dfa))
++  (n (integer 32)) (i (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaLess" mona-less)     ; p_i < p_j
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaLesseq" mona-lesseq) ; p_i <= p_j
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaPlus1" mona-plus1)   ;  p_i = p_j + n
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)) (n (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaMinus1" mona-minus1) ;  p_i = p_i - p_j
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaEq1" mona-eq1)       ; p_i = p_j
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaEq2" mona-eq2)       ; P_i = P_j
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaPlus2" mona-plus2)   ; P_i = P_j + 1
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaMinus2" mona-minus2) ; P_i = P_j - 1
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaPlusModulo1" mona-plusmodulo1) ;  p_i = p_j + 1 % p_k
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)) (k (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaMinusModulo1" mona-minusmodulo1) ;  p_i = p_j - 1 % p_k
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)) (k (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaEmpty" mona-empty)   ; P_i = empty
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaIn" mona-in) ; p_i in P_j  recognizes <X,X>(<0,X>+)<1,1>(<X,X>*)
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaSubset" mona-subset) ; P_i sub P_j
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaUnion" mona-union)   ; P_i = P_j union P_k
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)) (k (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaInter" mona-intersection) ; P_i = P_j inter P_k
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)) (k (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaSetminus" mona-difference) ; P_i = P_j \ P_k
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)) (k (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaMax" mona-max)       ;  p_i = max(P_j)
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaMin" mona-min)       ;  p_i = min(P_j)
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (j (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaBoolvar" mona-boolvar) ; b_i
++  (* (sb-alien:struct mona-dfa))
++  (b (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaPresbConst" mona-presburger-const) ; P_i = pconst(n)
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)) (n (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaSingleton" mona-singleton) ; singleton(P_i)
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaFirstOrder" mona-first-order) ; recognizes 0*1+
++  (* (sb-alien:struct mona-dfa))
++  (i (integer 32)))
++
++
++;; Automaton operations
++
++(sb-alien:define-alien-routine ("ws1s___dfaFree" mona-free!)
++  sb-alien:void
++  (a (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaNegation" mona-negation!)
++  sb-alien:void
++  (a (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaRestrict" mona-restrict!)
++  sb-alien:void
++  (a (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaUnrestrict" mona-unrestrict!)
++  sb-alien:void
++  (a (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaCopy" mona-copy)
++  (* (sb-alien:struct mona-dfa))
++  (a (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaProduct" mona-product)
++  (* (sb-alien:struct mona-dfa))
++  (a1 (* (sb-alien:struct mona-dfa)))
++  (a2 (* (sb-alien:struct mona-dfa)))
++  (mode (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaPrefixClose" mona-prefix-close!)
++  sb-alien:void
++  (a (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaConjunction" mona-conjunction)
++  (* (sb-alien:struct mona-dfa))
++  (a1 (* (sb-alien:struct mona-dfa))) (a2 (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaDisjunction" mona-disjunction)
++  (* (sb-alien:struct mona-dfa))
++  (a1 (* (sb-alien:struct mona-dfa))) (a2 (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaImplication" mona-implication)
++  (* (sb-alien:struct mona-dfa))
++  (a1 (* (sb-alien:struct mona-dfa))) (a2 (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaIff" mona-iff)
++  (* (sb-alien:struct mona-dfa))
++  (a1 (* (sb-alien:struct mona-dfa))) (a2 (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaStatus" mona-status)
++  (integer 32)
++  (a (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaProject" mona-project)
++				; projects away track var_index from a and
++				; determinizes the resulting automaton
++  (* (sb-alien:struct mona-dfa))
++  (a (* (sb-alien:struct mona-dfa))) (index (sb-alien:unsigned 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaRightQuotient" mona-right-quotient!)
++  sb-alien:void
++  (a (* (sb-alien:struct mona-dfa))) (index (sb-alien:unsigned 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaMinimize" mona-minimize) ; Minimization
++  (* (sb-alien:struct mona-dfa))
++  (a (* (sb-alien:struct mona-dfa))))
++
++
++;; Analysis and printing
++
++(sb-alien:define-alien-routine ("ws1s___dfaMakeExample" mona-make-example)
++  sb-alien:c-string
++  (a (* (sb-alien:struct mona-dfa)))
++  (kind (integer 32))
++  (num (integer 32))
++  (indices (array (sb-alien:unsigned 32))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaAnalyze" mona-analyze)
++  sb-alien:void
++  (a (* (sb-alien:struct mona-dfa)))
++  (num (integer 32))
++  (names (array sb-alien:c-string))
++  (indices (array sb-alien:unsigned))
++  (orders (array sb-alien:char))
++  (treestyle (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaPrintVitals" mona-print-vitals)
++  sb-alien:void
++  (a (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaPrint" mona-print)
++  sb-alien:void
++  (a (* (sb-alien:struct mona-dfa)))
++  (num (integer 32))
++  (names (array sb-alien:c-string))
++  (indices (array (sb-alien:unsigned 32))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaPrintGraphviz" mona-print-graphviz)
++  sb-alien:void
++  (a (* (sb-alien:struct mona-dfa)))
++  (num (integer 32))
++  (indices (array (sb-alien:unsigned 32))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaPrintVerbose" mona-print-verbose)
++  sb-alien:void
++  (a (* (sb-alien:struct mona-dfa))))
++
++(sb-alien:define-alien-routine ("ws1s___bdd_size" bdd-size)
++  (sb-alien:unsigned 32)
++  (bbdm (* t)))
++
++
++;; Constructing Automata Explicitly
++
++(sb-alien:define-alien-routine ("ws1s___dfaSetup" mona-setup)
++  sb-alien:void
++  (s (integer 32))
++  (len (integer 32))
++  (indices (array (integer 32))))
++
++(sb-alien:define-alien-routine ("ws1s___dfaAllocExceptions" mona-alloc-exceptions)
++  sb-alien:void
++  (n (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaStoreException" mona-store-exception)
++  sb-alien:void
++  (s (integer 32)) (path sb-alien:c-string))
++
++(sb-alien:define-alien-routine ("ws1s___dfaStoreState" mona-store-state)
++  sb-alien:void
++  (s (integer 32)))
++
++(sb-alien:define-alien-routine ("ws1s___dfaBuild" mona-build)
++  (* (sb-alien:struct mona-dfa))
++  (statuses (array sb-alien:char)))
++
++;; Exporting
++
++(sb-alien:define-alien-routine ("ws1s___dfaExport" mona-export)
++  (integer 32)
++  (a (* (sb-alien:struct mona-dfa)))
++  (filename sb-alien:c-string)
++  (num (integer 32))
++  (names (array sb-alien:c-string))
++  (orders (array sb-alien:char)))
+diff -durN pvs-sbcl-4.2.ORIG/src/WS1S/lisp/symtab.lisp pvs-sbcl-4.2/src/WS1S/lisp/symtab.lisp
+--- pvs-sbcl-4.2.ORIG/src/WS1S/lisp/symtab.lisp	2007-07-02 14:07:39.000000000 -0600
++++ pvs-sbcl-4.2/src/WS1S/lisp/symtab.lisp	2008-11-04 20:52:16.000000000 -0700
+@@ -81,7 +81,7 @@
+   (let* ((free (symtab-freevars symtab))
+ 	 (size (length free))
+ 	 (offsets (make-array size :element-type 'fixnum))
+-	 (fvars   (make-array size :element-type 'string))
++	 (fvars   (make-array size :element-type 'string :initial-element ""))
+ 	 (types   (make-string size))
+ 	 (i       0))
+     (mapc  #'(lambda (bndng)

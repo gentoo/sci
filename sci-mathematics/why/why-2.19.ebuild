@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: Exp $
 
+inherit autotools eutils
+
 DESCRIPTION="Why is a software verification platform."
 HOMEPAGE="http://why.lri.fr/"
 SRC_URI="http://why.lri.fr/download/${P}.tar.gz"
@@ -10,7 +12,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 
-IUSE="apron coq doc gappa gtk pff pvs"
+IUSE="apron coq doc examples gappa gtk pff pvs"
 
 RDEPEND="apron? ( sci-mathematics/apron )
 	coq? ( sci-mathematics/coq )
@@ -20,22 +22,25 @@ RDEPEND="apron? ( sci-mathematics/apron )
 
 DEPEND="${RDEPEND}
 	>=dev-lang/ocaml-3.09
-	gtk? ( >=dev-ml/lablgtk-2.6 )"
+	>=dev-ml/ocamlgraph-1.1
+	gtk? ( >=dev-ml/lablgtk-2.12 )"
 
 src_unpack() {
 	unpack ${A}
 	cd ${S}
-	
-	sed -i Makefile.in \
-		-e "s/\$(COQLIB)/\$(DESTDIR)\/\$(COQLIB)/g" \
-		-e "s/-w \$(DESTDIR)\/\$(COQLIB)/-w \$(COQLIB)/g" \
-		-e "s/\$(PVSLIB)\/why/\$(DESTDIR)\$(PVSLIB)\/why/g"
+
+	epatch "${FILESDIR}/${P}-sandbox.patch"
+
+	mv jc/jc_ast.mli jc/jc_ast.ml
+	mv jc/jc_env.mli jc/jc_env.ml
+	epatch "${FILESDIR}/${P}-jessie_lib.patch"
+
+	eautoreconf
 }
 
 src_compile(){
 	econf $(use_enable apron) || die "econf failed"
-	#Makfile need a fix to enable parallel building
-	emake -j1 DESTDIR="/" || die "emake failed"
+	emake DESTDIR="/" || die "emake failed"
 }
 
 src_install(){
@@ -45,6 +50,11 @@ src_install(){
 
 	if use doc; then
 		dodoc doc/manual.ps
+	fi
+
+	if use examples; then
+		insinto /usr/share/doc/${PF}
+		doins -r examples examples-c
 	fi
 }
 

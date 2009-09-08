@@ -1,0 +1,152 @@
+diff -Naur ocamlgraph-1.1-orig/Makefile.in ocamlgraph-1.1-ptch/Makefile.in
+--- ocamlgraph-1.1-orig/Makefile.in	2009-06-23 13:05:21.000000000 +0000
++++ ocamlgraph-1.1-ptch/Makefile.in	2009-07-20 17:31:08.000000000 +0000
+@@ -143,10 +143,13 @@
+ 
+ viewer: $(VIEWER_DIR)/viewgraph.byte $(VIEWER_DIR)/viewgraph.$(OCAMLBEST)
+ 
++ifeq (@LABLGNOMECANVAS@,yes)
+ VIEWER_CMO=viewGraph viewGraph_select viewGraph_utils viewGraph_test
+ VIEWER_CMO:=$(patsubst %,$(VIEWER_DIR)/%.cmo, $(VIEWER_CMO))
++endif
+ VIEWER_CMX=$(VIEWER_CMO:.cmo=.cmx)
+ VIEWER_CMI=$(VIEWER_CMO:.cmo=.cmi)
++VIEWER_O=$(VIEWER_CMO:.cmo=.o)
+ 
+ VIEWER_INCLUDES= @INCLUDEGTK2@ -I $(VIEWER_DIR) $(INCLUDES) -I .
+ 
+@@ -240,49 +243,38 @@
+ 
+ DESTDIR	=
+ 
+-install: install-$(OCAMLBEST) install-byte
+-ifeq (@LABLGNOMECANVAS@,yes)
+-ifeq ($(OCAMLBEST),byte)
+-	cp -f $(BINDIR)/graph-editor.byte $(BINDIR)/graph-editor$(EXE)
+-	cp -f $(BINDIR)/graph-viewer.byte $(BINDIR)/graph-viewer$(EXE)
++ifdef OCAMLFIND
++install-findlib: META install-bin
++	mkdir -p $(DESTDIR)/$(OCAMLLIB)
++ifeq ($(OCAMLBEST),opt)
++	$(OCAMLFIND) install -destdir $(DESTDIR)/$(OCAMLLIB) ocamlgraph META $(SRCDIR)/*.mli view_graph/*.mli view_graph/viewGraph_test.ml \
++		graph$(LIBEXT) graph.cmx graph.o graph.cmo graph.cmi $(CMA) $(CMXA) \
++		$(VIEWER_CMX) $(VIEWER_CMO) $(VIEWER_CMI) $(VIEWER_O)
+ else
+-	cp -f $(BINDIR)/graph-editor.opt $(BINDIR)/graph-editor$(EXE)
+-	cp -f $(BINDIR)/graph-viewer.opt $(BINDIR)/graph-viewer$(EXE)
++	$(OCAMLFIND) install -destdir $(DESTDIR)/$(OCAMLLIB) ocamlgraph META $(SRCDIR)/*.mli view_graph/*.mli \
++		graph.cmo graph.cmi $(CMA) view_graph/viewGraph_test.ml \
++		$(VIEWER_CMO) $(VIEWER_CMI)
+ endif
+ endif
+ 
+-install-byte: 
+-	cp -f graph.cmo graph.cmi $(CMA) "$(DESTDIR)$(OCAMLLIB)"
+-ifeq (@LABLGNOMECANVAS@,yes)
+-	cp -f $(ED_DIR)/editor.byte $(BINDIR)/graph-editor.byte
+-	cp -f $(VIEWER_CMO) "$(DESTDIR)$(OCAMLLIB)"
+-	cp -f $(VIEWER_DIR)/viewgraph.byte $(BINDIR)/graph-viewer.byte
+-endif
+-
+-install-opt: install-byte
+-	cp -f graph$(LIBEXT) graph.cmx $(CMXA) "$(DESTDIR)$(OCAMLLIB)"
+-ifeq (@LABLGNOMECANVAS@,yes)
+-	cp -f $(ED_DIR)/editor.opt $(BINDIR)/graph-editor.opt
+-	cp -f $(VIEWER_CMX) "$(DESTDIR)$(OCAMLLIB)"
+-	cp -f $(VIEWER_DIR)/viewgraph.opt $(BINDIR)/graph-viewer.opt
+-endif
++META: META.in Makefile
++	sed -e s/VERSION/$(VERSION)/ -e s/CMA/$(CMA)/ -e s/CMXA/$(CMXA)/ \
++		$@.in > $@
+ 
+-install-findlib: META
+-ifdef OCAMLFIND
++install-bin:
+ ifeq (@LABLGNOMECANVAS@,yes)
+-	$(OCAMLFIND) install ocamlgraph META $(SRCDIR)/*.mli \
+-		graph$(LIBEXT) graph.cmx graph.cmo graph.cmi $(CMA) $(CMXA) \
+-		$(VIEWER_CMX) $(VIEWER_CMO)
++	mkdir -p $(DESTDIR)/$(BINDIR)
++	cp -f $(ED_DIR)/editor.byte $(DESTDIR)/$(BINDIR)/ocamlgraph-editor.byte
++	cp -f $(VIEWER_DIR)/viewgraph.byte $(DESTDIR)/$(BINDIR)/ocamlgraph-viewer.byte
++ifeq ($(OCAMLBEST),opt)
++	cp -f $(ED_DIR)/editor.opt $(DESTDIR)/$(BINDIR)/ocamlgraph-editor$(EXE)
++	cp -f $(VIEWER_DIR)/viewgraph.opt $(DESTDIR)/$(BINDIR)/ocamlgraph-viewer$(EXE)
+ else
+-	$(OCAMLFIND) install ocamlgraph META $(SRCDIR)/*.mli \
+-		graph$(LIBEXT) graph.cmx graph.cmo graph.cmi $(CMA) $(CMXA)
++	mv -f $(DESTDIR)/$(BINDIR)/ocamlgraph-editor.byte $(DESTDIR)/$(BINDIR)/ocamlgraph-editor$(EXE)
++	mv -f $(DESTDIR)/$(BINDIR)/ocamlgraph-viewer.byte $(DESTDIR)/$(BINDIR)/ocamlgraph-viewer$(EXE)
+ endif
+ endif
+ 
+-META: META.in Makefile
+-	sed -e s/VERSION/$(VERSION)/ -e s/CMA/$(CMA)/ -e s/CMXA/$(CMXA)/ \
+-		$@.in > $@
+-
+ # documentation
+ ###############
+ 
+@@ -298,7 +290,7 @@
+ 	mkdir -p doc
+ 	rm -f doc/*
+ 	$(OCAMLDOC) -d doc -html $(INCLUDES) $(DOC_SRC)
+-	$(MAKE) -C $(VIEWER_DIR) doc
++	#$(MAKE) -C $(VIEWER_DIR) doc
+ 
+ # literate programming
+ $(NAME).tex: $(DOC_SRC)
+@@ -336,7 +328,7 @@
+ 
+ export: source export-doc export-web export-delaunay
+ 
+-source: 
++source: svn-clean
+ 	mkdir -p export
+ 	cd export; rm -rf $(EXPORTDIR)
+ 	mkdir -p export/$(EXPORTDIR)/bin
+@@ -345,10 +337,10 @@
+ 	cp export/$(TAR).gz $(FTP)
+ 	cp README FAQ CREDITS COPYING LICENSE CHANGES $(EXAMPLES) $(FTP)
+ 
+-# Build and install the .tar.gz requiered by Frama-C
++# Build and install the .tar.gz required by Frama-C
+ framac: EXPORTDIR=ocamlgraph
+ framac: FTP=$$HOME/frama-c
+-framac:
++framac: svn-clean
+ 	mkdir -p export
+ 	cd export; rm -rf $(EXPORTDIR)
+ 	mkdir -p export/$(EXPORTDIR)/bin
+@@ -441,20 +433,22 @@
+ #######
+ 
+ clean:
+-	rm -f *~
++	-$(RM) *~
+ 	for d in $(SRCDIR) $(LIBDIR) $(ED_DIR) $(VIEWER_DIR) tests examples; \
+ 	do \
+-	  rm -f $$d/*.cm[iox] $$d/*$(OBJEXT) $$d/*~; \
++	  $(RM) $$d/*.cm[iox] $$d/*$(OBJEXT) $$d/*~; \
+ 	done
+-	rm -f $(GENERATED) $(SRCDIR)/dot_parser.output
+-	rm -f graph.*a graph.cm* graph.o graph$(LIBEXT) 
+-	rm -f $(ED_DIR)/editor.byte $(ED_DIR)/editor.opt
+-	rm -f $(VIEWER_DIR)/viewgraph.byte $(VIEWER_DIR)/viewgraph.opt
+-	rm -f *.haux *.aux *.log $(NAME).tex $(NAME).dvi $(DOCFILES)
+-	rm -f $(EXAMPLESBIN)
++	-$(RM) $(GENERATED) $(SRCDIR)/dot_parser.output
++	-$(RM) graph.*a graph.cm* graph.o graph$(LIBEXT) 
++	-$(RM) $(ED_DIR)/editor.byte $(ED_DIR)/editor.opt
++	-$(RM) $(VIEWER_DIR)/viewgraph.byte $(VIEWER_DIR)/viewgraph.opt
++	-$(RM) *.haux *.aux *.log $(NAME).tex $(NAME).dvi $(DOCFILES)
++	-$(RM) $(EXAMPLESBIN)
+ 
+ dist-clean distclean:: clean
+-	rm -f Makefile config.cache config.log config.status *.byte *.opt
++	-$(RM) Makefile config.cache config.log config.status *.byte *.opt
++	-$(RM) src/version.ml 
++	-$(RM) .depend
+ 
+ svnclean svn-clean:: dist-clean
+ 	rm -f config.* configure configure.lineno

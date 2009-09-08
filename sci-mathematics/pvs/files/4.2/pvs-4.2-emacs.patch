@@ -1,0 +1,455 @@
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/completer.el pvs-sbcl-4.2/emacs/emacs-src/ilisp/completer.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/completer.el	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/ilisp/completer.el	2008-10-04 11:09:39.000000000 -0600
+@@ -181,8 +181,8 @@
+ 	     (not (memq +ilisp-emacs-version-id+
+ 			'(xemacs lucid-19 lucid-19-new)))
+ 	     )
+-	(setq quit-flag nil
+-	      unread-command-char 7))))
++	(setq quit-flag nil)
++	(push 7 unread-command-events))))
+ 
+ ;;;
+ (defun completer-deleter (regexp choices &optional keep)
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/ilisp-acl.el pvs-sbcl-4.2/emacs/emacs-src/ilisp/ilisp-acl.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/ilisp-acl.el	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/ilisp/ilisp-acl.el	2008-10-04 11:09:39.000000000 -0600
+@@ -22,10 +22,10 @@
+ (defun allegro-check-prompt (old new)
+   "Compare the break level printed at the beginning of the prompt."
+   (let* ((old-level (if (and old (eq 1 (string-match "[0-9]+" old)))
+- 			(string-to-int (substring old 1))
++ 			(string-to-number (substring old 1))
+  			0))
+  	 (new-level (if (eq 1 (string-match "[0-9]+" new))
+- 			(string-to-int (substring new 1))
++ 			(string-to-number (substring new 1))
+  			0)))
+     (<= new-level old-level)))
+  
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/ilisp-chs.el pvs-sbcl-4.2/emacs/emacs-src/ilisp/ilisp-chs.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/ilisp-chs.el	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/ilisp/ilisp-chs.el	2008-10-04 11:09:39.000000000 -0600
+@@ -40,7 +40,7 @@
+ 		      (string-match "Break" old)
+ 		      (string-match "[0-9]+" old)))
+ 	 (old-level (if was-in
+- 			(string-to-int
++ 			(string-to-number
+ 			 (substring old (match-beginning 0)
+ 				    (match-end 0)))
+ 		      0))
+@@ -48,7 +48,7 @@
+ 		 (string-match "Break" new)
+ 		 (string-match "[0-9]+" new)))
+ 	 (new-level (if is-in
+- 			(string-to-int
++ 			(string-to-number
+ 			 (substring new (match-beginning 0)
+ 				    (match-end 0)))
+ 		      0)))
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/ilisp-def.el pvs-sbcl-4.2/emacs/emacs-src/ilisp/ilisp-def.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/ilisp-def.el	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/ilisp/ilisp-def.el	2008-10-04 11:09:39.000000000 -0600
+@@ -43,8 +43,8 @@
+ ;;;
+ (defmacro deflocal (variable default &optional documentation)
+   "Define an ilisp local variable."
+-  (` (progn (lisp-deflocal '(, variable))
+-	    (defvar (, variable) (, default) (, documentation)))))
++  `(progn (lisp-deflocal ',variable)
++	    (defvar ,variable ,default ,documentation)))
+ 
+ ;;;%%Simple customization
+ 
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/ilisp-dia.el pvs-sbcl-4.2/emacs/emacs-src/ilisp/ilisp-dia.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/ilisp-dia.el	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/ilisp/ilisp-dia.el	2008-10-04 11:09:39.000000000 -0600
+@@ -120,27 +120,26 @@
+ 	(hook (read (format "%s-hook" dialect)))
+ 	(program (read (format "%s-program" dialect)))
+ 	(dialects (format "%s" dialect)))
+-    (`
+-     (progn
+-       (defvar (, hook) nil (, (format "*Inferior %s hook." full-name)))
+-       (defvar (, program) nil
+-	 (, (format "*Inferior %s default program." full-name)))
+-       (defun (, setup) (buffer)
+-	 (, (format "Set up for interacting with %s." full-name))
+-	 (, (read (format "(setup-%s buffer)" parent)))
+-	 (,@ body)
+-	 (setq ilisp-program (or (, program) ilisp-program)
+-	       ilisp-dialect (cons '(, dialect) ilisp-dialect))
+-	 (run-hooks '(, (read (format "%s-hook" dialect)))))
+-       (defun (, dialect) (&optional buffer program)
+-	 (, (format "Create an inferior %s.  With prefix, prompt for buffer and program."
+-		   full-name))
++    `(progn
++       (defvar ,hook nil ,(format "*Inferior %s hook." full-name))
++       (defvar ,program nil
++	 ,(format "*Inferior %s default program." full-name))
++       (defun ,setup (buffer)
++	 ,(format "Set up for interacting with %s." full-name)
++	 ,(read (format "(setup-%s buffer)" parent))
++	 ,@body
++	 (setq ilisp-program (or ,program ilisp-program)
++	       ilisp-dialect (cons ',dialect ilisp-dialect))
++	 (run-hooks ',(read (format "%s-hook" dialect))))
++       (defun ,dialect (&optional buffer program)
++	 ,(format "Create an inferior %s.  With prefix, prompt for buffer and program."
++		   full-name)
+ 	 (interactive (list nil nil))
+-	 (ilisp-start-dialect (or buffer (, dialects)) 
+-			      program 
+-			      '(, setup))
+-	 (setq (, program) ilisp-program))
+-       (lisp-add-dialect (, dialects))))))
++	 (ilisp-start-dialect (or buffer ,dialects)
++			      program
++			      ',setup)
++	 (setq ,program ilisp-program))
++       (lisp-add-dialect ,dialects))))
+ 
+ ;;;%%ilisp
+ (defun setup-ilisp (buffer)
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/ilisp-snd.el pvs-sbcl-4.2/emacs/emacs-src/ilisp/ilisp-snd.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/ilisp/ilisp-snd.el	2007-07-02 14:07:40.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/ilisp/ilisp-snd.el	2008-10-04 11:09:39.000000000 -0600
+@@ -409,16 +409,16 @@
+ 	    (comint-send 
+ 	     (ilisp-process) binary
+ 	     t nil 'binary nil 
+-	     (` (lambda (error wait message output last)
++	     `(lambda (error wait message output last)
+ 		  (if (or error
+ 			  (not (string-match "\"[^\"]*\"" output)))
+ 		      (progn
+ 			(lisp-display-output output)
+ 			(abort-commands-lisp "No binary"))
+-		      (setq (, var)
++		      (setq ,var
+ 			    (substring output
+ 				       (1+ (match-beginning 0))
+-				       (1- (match-end 0))))))))))))
++				       (1- (match-end 0)))))))))))
+ 
+ ;;;
+ (defun ilisp-done-init ()
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-cmds.el pvs-sbcl-4.2/emacs/emacs-src/pvs-cmds.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-cmds.el	2008-02-20 03:35:41.000000000 -0700
++++ pvs-sbcl-4.2/emacs/emacs-src/pvs-cmds.el	2008-10-04 11:09:39.000000000 -0600
+@@ -478,7 +478,7 @@
+ 		(goto-char (point-min))
+ 		(pop-to-buffer pbuf)
+ 		(pvs-mode))
+-	      (error "%s is not in the prelude."))))))
++	      (error "%s is not in the prelude." fname))))))
+ 
+ (defun get-prelude-file-and-region (theoryname)
+   (let ((freg nil)
+@@ -768,7 +768,7 @@
+ 			"Name of root file (CR for this one): ")
+ 		       (list (y-or-n-p "Include libraries? "))
+ 		       (list (read-from-minibuffer
+-			      (format "Mail to: " pvs-last-email-address)
++			      (format "Mail to: ")
+ 			      pvs-last-email-address))
+ 		       (list (read-string "CC: "))
+ 		       (list (read-string "Subject: "))))
+@@ -787,9 +787,9 @@
+   (let* ((lkeymap (copy-keymap (current-local-map)))
+ 	 (file-string (pvs-dump-files-string pvs-file libraries-p)))
+     (define-key lkeymap "\C-c\C-c"
+-      (` (lambda ()
+-	   (interactive)
+-	   (pvs-mail-send-and-exit (, to) (, subject) (, file-string)))))
++      `(lambda ()
++	 (interactive)
++	 (pvs-mail-send-and-exit ,to ,subject ,file-string)))
+     (use-local-map lkeymap)))
+ 
+ (defun pvs-mail-send-and-exit (to subject file-string)
+@@ -1435,8 +1435,8 @@
+ 
+ (defun pvs-major-version-number ()
+   (if *pvs-version-information*
+-      (string-to-int (car *pvs-version-information*))
+-      (string-to-int (pvs-send-and-wait "*pvs-version*" nil nil))))
++      (string-to-number (car *pvs-version-information*))
++      (string-to-number (pvs-send-and-wait "*pvs-version*" nil nil))))
+ 
+ ;;; Replay
+ 
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-ilisp.el pvs-sbcl-4.2/emacs/emacs-src/pvs-ilisp.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-ilisp.el	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/pvs-ilisp.el	2008-10-04 11:09:39.000000000 -0600
+@@ -736,7 +736,7 @@
+ 
+ (defun resize-info-buffer ()
+   (unless (one-window-p t)
+-    (let* ((maxsize (/ (screen-height) 2))
++    (let* ((maxsize (/ (frame-height) 2))
+ 	   (cursize (1- (window-height)))
+ 	   (lines (real-number-of-lines))
+ 	   (size (min maxsize lines)))
+@@ -1108,11 +1108,6 @@
+ 	     (show-entry))
+ 	    (t (error "Unknown display type %s" type))))))	   
+ 
+-(defun pvs-locate (out)
+-  (apply 'display-file-at-location
+-	 (parse-pvs-message out)))
+-
+-
+ (defun pvs-locate (output)
+   (let* ((message (parse-pvs-message output))
+ 	 (dir (car message))
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-load.el pvs-sbcl-4.2/emacs/emacs-src/pvs-load.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-load.el	2008-07-07 02:03:45.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/pvs-load.el	2008-10-04 11:09:39.000000000 -0600
+@@ -238,7 +238,7 @@
+     (insert "\n\nPlease check our website periodically for news of later versions")
+     (insert "\nat http://pvs.csl.sri.com/")
+     (insert "\n\n" (cadr (cdddr vers)) "\n" (cadr (cddddr vers)))
+-    (insert-string "
++    (insert "
+    ----------
+    Bug reports and suggestions for improvement should be sent to
+    pvs-bugs@csl.sri.com
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-prover.el pvs-sbcl-4.2/emacs/emacs-src/pvs-prover.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-prover.el	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/pvs-prover.el	2008-10-04 11:09:39.000000000 -0600
+@@ -1043,7 +1043,7 @@
+       (if (> indent 0)
+ 	  (while (and (>= (point) start)
+ 		      (progn (beginning-of-line)
+-			     (insert-string indstr)
++			     (insert indstr)
+ 			     (= (forward-line -1) 0))))))
+     (when crs (insert "\n\n"))))
+ 
+@@ -1084,7 +1084,7 @@
+   (pvs-bury-output)
+   (let ((file (current-pvs-file)))
+     (when (buffer-modified-p (get-file-buffer file))
+-      (error "~a is not parsed" file))
++      (error "%s is not parsed" file))
+     (when (pvs-send-and-wait (format "(lisp (modify-declaration-at \"%s\" %d))"
+ 				 file (current-line-number))
+ 			     nil nil 'bool)
+@@ -1192,7 +1192,7 @@
+ 		    nil)
+ 		   ((and (stringp depth)
+ 			 (string-match "^[ \t]*[0-9]+[ \t]*$" depth))
+-		    (string-to-int depth))
++		    (string-to-number depth))
+ 		   (t (error "set-rewrite-depth: %s is not a number or nil"
+ 			     depth)))))
+     (pvs-send (format "(setq *rewrite-print-depth* %s)" dep))))
+@@ -1221,7 +1221,7 @@
+ 		    nil)
+ 		   ((and (stringp length)
+ 			 (string-match "^[ \t]*[0-9]+[ \t]*$" length))
+-		    (string-to-int length))
++		    (string-to-number length))
+ 		   (t (error "set-rewrite-length: %s is not an integer or nil"
+ 			     length)))))
+     (pvs-send (format "(setq *rewrite-print-length* %s)" len))))
+@@ -1242,7 +1242,7 @@
+ 		    nil)
+ 		   ((and (stringp depth)
+ 			 (string-match "^[ \t]*[0-9]+[ \t]*$" depth))
+-		    (string-to-int depth))
++		    (string-to-number depth))
+ 		   (t (error "set-print-depth: %s is not an integer" depth)))))
+     (pvs-send (format "(setq *prover-print-depth* %s)"
+ 		  (when (plusp dep) dep)))))
+@@ -1264,7 +1264,7 @@
+ 		    nil)
+ 		   ((and (stringp length)
+ 			 (string-match "^[ \t]*[0-9]+[ \t]*$" length))
+-		    (string-to-int length))
++		    (string-to-number length))
+ 		   (t (error "set-print-length: %s is not an integer"
+ 			     length)))))
+     (pvs-send (format "(setq *prover-print-length* %s)"
+@@ -1285,7 +1285,7 @@
+ 		    nil)
+ 		   ((and (stringp lines)
+ 			 (string-match "^[ \t]*[0-9]+[ \t]*$" lines))
+-		    (string-to-int lines))
++		    (string-to-number lines))
+ 		   (t (error "set-print-lines: %s is not an integer" lines)))))
+     (pvs-send (format "(setq *prover-print-lines* %s)"
+ 		  (when (plusp dep) dep)))))
+@@ -2153,7 +2153,7 @@
+ 		  1)
+ 		 ((and (stringp num)
+ 		       (string-match "^[ \t]*[0-9]+[ \t]*$" num))
+-		  (string-to-int num))
++		  (string-to-number num))
+ 		 (t (error "set-proof-backup-number: %s is not an integer"
+ 			   num)))))
+     (pvs-send (format "(setq *number-of-proof-backups* %s)" n))))
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-prover-helps.el pvs-sbcl-4.2/emacs/emacs-src/pvs-prover-helps.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-prover-helps.el	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/pvs-prover-helps.el	2008-10-04 11:09:39.000000000 -0600
+@@ -244,7 +244,7 @@
+ 	  (setq ept (point))
+ 	  (setq def2arw (buffer-substring bpt ept)))
+       (setq def2arw (read-from-minibuffer "Auto-rewrite: ")))
+-    (end-of-buffer)
++    (goto-char (point-max))
+     (insert "(auto-rewrite " ?\" def2arw ?\" ")")
+     (return-ilisp)))
+ 
+@@ -372,7 +372,7 @@
+ 		    (setq fnum (buffer-substring bpt ept)))
+ 		  (setq fnum (read-from-minibuffer
+ 			      "in formula [CR for default]# " ""))))
+-	  (end-of-buffer)
++	  (goto-char (point-max))
+ 	  (insert "(expand " ?\" def2expand ?\" " " fnum ")")
+ 	  (return-ilisp)))))
+ 
+@@ -701,7 +701,7 @@
+       (setq expr (buffer-substring start end))
+       (if (not (y-or-n-p (concat "Typepred for " expr)))
+ 	  (error "typepred aborted.")))
+-    (end-of-buffer)
++    (goto-char (point-max))
+     (insert "(typepred " ?\" expr ?\" ")")
+     (return-ilisp)))
+ 
+@@ -767,7 +767,7 @@
+ 	    (if editprfwin
+ 		(set-window-point editprfwin (point))))
+ 	  (setq cmd (buffer-substring beg end))))
+-      (end-of-buffer)
++      (goto-char (point-max))
+       (insert cmd)
+       (return-ilisp)
+       (hilit-next-prover-command)
+@@ -820,10 +820,10 @@
+ 	  (pvs-prover-goto-prev-step t))
+ 	(hilit-next-prover-command)
+ 	(switch-to-buffer pvsbuf)
+-	(end-of-buffer)
++	(goto-char (point-max))
+ 	(switch-to-buffer editprfbuf)
+ 	(pop-to-buffer pvsbuf)
+-	(end-of-buffer))))
++	(goto-char (point-max)))))
+ 
+ 
+ ;;; pvs-prover-goto-next-step puts the cursor at the beginning of the next
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-tcl.el pvs-sbcl-4.2/emacs/emacs-src/pvs-tcl.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-tcl.el	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/pvs-tcl.el	2008-10-04 11:09:39.000000000 -0600
+@@ -94,7 +94,7 @@
+ 		"PVS Error"))
+ 	      (t (comint-display-output
+ 		  (format "PVS was developed and tested for %s versions %s,\nbut you are using version %s.\nThis is unlikely to cause problems, as it is a later release."
+-		      program-name expected version program-name)
++		      program-name expected version)
+ 		  "PVS Warning"))))))
+ 
+ (defun pvs-parse-version-numbers (vnum)
+diff -dur pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-utils.el pvs-sbcl-4.2/emacs/emacs-src/pvs-utils.el
+--- pvs-sbcl-4.2.ORIG/emacs/emacs-src/pvs-utils.el	2008-07-17 22:39:20.000000000 -0600
++++ pvs-sbcl-4.2/emacs/emacs-src/pvs-utils.el	2008-10-04 11:09:39.000000000 -0600
+@@ -238,7 +238,7 @@
+ 		nil nil 'list)))
+     (when fandp
+       (cond ((not (file-exists-p (car fandp)))
+-	     (error "Theory ~a was in ~a which no longer exists"
++	     (error "Theory %s was in %s which no longer exists"
+ 		    theoryname (car fandp)))
+ 	    ((or (null (cdr fandp))
+ 		 (buffer-modified-p (find-file-noselect (car fandp))))
+@@ -990,13 +990,6 @@
+ 	      (error "Must specify a theory name")
+ 	      (list theory))))))
+ 
+-(defun remove-duplicates (list)
+-  (let ((nlist nil))
+-    (dolist (e list)
+-      (unless (member-equal e nlist)
+-	(push e nlist)))
+-    (nreverse nlist)))
+-
+ (defun current-theory ()
+   (let ((file (current-pvs-file t)))
+     (if file
+@@ -1235,13 +1228,6 @@
+   (or (car (get cmd 'abbreviations))
+       cmd))
+ 
+-(defun remove-if (pred list)
+-  (let ((nlist nil))
+-    (dolist (e list)
+-      (unless (funcall pred e)
+-	(push e nlist)))
+-    (nreverse nlist)))
+-
+ (defun add-final-newline ()
+   (save-excursion
+     (unless (equal (char-after (1- (point-max))) ?\n)
+@@ -1355,9 +1341,14 @@
+ (setq pvs-reserved-words-regexp
+   "\\bassuming\\b\\|\\baxiom\\b\\|\\baccept\\b\\|\\bchanges\\b\\|\\ball\\b\\|\\band\\b\\|\\barray\\b\\|\\bbegin\\b\\|\\bby\\b\\|\\bcase\\b\\|\\bdeclare\\b\\|\\bdefinition\\b\\|\\belse\\b\\|\\belsif\\b\\|\\bendif\\b\\|\\bendassuming\\b\\|\\bendcase\\b\\|\\bend\\b\\|\\bexists\\b\\|\\bexporting\\b\\|\\bexit\\b\\|\\bforall\\b\\|\\bfunction\\b\\|\\bformula\\b\\|\\bfrom\\b\\|\\bif\\b\\|\\biff\\b\\|\\bimplies\\b\\|\\bimporting\\b\\|\\bin\\b\\|\\bis\\b\\|\\blambda\\b\\|\\blemma\\b\\|\\bloop\\b\\|\\bmapping\\b\\|\\bmeasure\\b\\|\\bmodule\\b\\|\\bnot\\b\\|\\bnothing\\b\\|\\bof\\b\\|\\bonto\\b\\|\\bobligation\\b\\|\\bopspec\\b\\|\\bor\\b\\|\\bproof\\b\\|\\bprove\\b\\|\\brecursive\\b\\|\\bresult\\b\\|\\btheorem\\b\\|\\btheory\\b\\|\\busing\\b\\|\\bvar\\b\\|\\bvariable\\b\\|\\brecord\\b\\|\\bverify\\b\\|\\bwhere\\b\\|\\bthen\\b\\|\\btype\\b\\|\\bwhen\\b\\|\\bwhile\\b\\|\\bwith\\b\\|\\blet\\b\\|\\bsetvariable\\b\\|\\[#\\|#\\]\\|[(]#\\|#[)]")
+ 
++(defmacro pvs-find-face (name)
++  (if (featurep 'xemacs)
++      `(find-face ,name)
++    `(facep ,name)))
++
+ (defun highlight-pvs ()
+   (interactive)
+-  (unless (internal-find-face 'pvs-keyword)
++  (unless (pvs-find-face 'pvs-keyword)
+     (make-face 'pvs-keyword)
+     (set-face-foreground 'pvs-keyword "Blue")
+     (set-face-font 'pvs-keyword "*courier-bold-r-normal--12*"))
+@@ -1575,7 +1566,7 @@
+ (defvar pvs-unexpected-output nil)
+ 
+ (defmacro pvs-validate (file directory &rest body)
+-  (` (let* ((logfile (concat default-directory (, file))))
++  `(let* ((logfile (concat default-directory ,file)))
+        (pvs-backup-logfile logfile)
+        (let ((logbuf (find-file-noselect logfile t)))
+ 	 (unwind-protect
+@@ -1592,9 +1583,9 @@
+ 		     (default-directory default-directory))
+ 		 (pvs-message (pvs-version-string))
+ 		 (let ((pvs-disable-messages nil))
+-		   (change-context (, directory)))
++		   (change-context ,directory))
+ 		 (condition-case err
+-		     (progn (,@ body))
++		     (progn ,@body)
+ 		   (error (pvs-message "ERROR: Emacs: %s %s"
+ 			    (car err) (cdr err)))))
+ 	       (pvs-wait-for-it)
+@@ -1659,7 +1650,7 @@
+ 		     (pvs-message "NO BASELINE - using this run to create baseline.log")
+ 		     (copy-file (buffer-file-name) "baseline.log"))))
+ 	   (fset 'pvs-handler 'pvs-handler-orig)
+-	   (fset 'ask-user-about-lock 'ask-user-about-lock-orig))))))
++	   (fset 'ask-user-about-lock 'ask-user-about-lock-orig)))))
+ 
+ 
+ ;;; This function provides the most basic form of test, removing bin
+diff -dur pvs-sbcl-4.2.ORIG/emacs/go-pvs.el pvs-sbcl-4.2/emacs/go-pvs.el
+--- pvs-sbcl-4.2.ORIG/emacs/go-pvs.el	2007-07-02 14:07:41.000000000 -0600
++++ pvs-sbcl-4.2/emacs/go-pvs.el	2008-10-04 11:10:16.000000000 -0600
+@@ -24,6 +24,7 @@
+ ;; --------------------------------------------------------------------
+ 
+ (setq debug-on-error t)
++(setq inhibit-startup-screen t)
+ 
+ (defconst pvs-emacs-system
+   (cond ((or (string-match "XEmacs 21" (emacs-version))

@@ -1,0 +1,48 @@
+diff -dur pvs-sbcl-4.2.ORIG/doc/language/language.tex pvs-sbcl-4.2/doc/language/language.tex
+--- pvs-sbcl-4.2.ORIG/doc/language/language.tex	2007-07-02 14:07:42.000000000 -0600
++++ pvs-sbcl-4.2/doc/language/language.tex	2009-01-23 16:01:41.000000000 -0700
+@@ -6,7 +6,7 @@
+ \usepackage{makeidx}
+ \usepackage{relsize}
+ \usepackage{boxedminipage}
+-\usepackage{fancyheadings}
++\usepackage{fancyhdr}
+ %\usepackage{../../pvs}
+ \usepackage{url}
+ \usepackage{../makebnf}
+diff -dur pvs-sbcl-4.2.ORIG/doc/prover/prover.tex pvs-sbcl-4.2/doc/prover/prover.tex
+--- pvs-sbcl-4.2.ORIG/doc/prover/prover.tex	2007-07-02 14:07:42.000000000 -0600
++++ pvs-sbcl-4.2/doc/prover/prover.tex	2009-01-23 16:01:41.000000000 -0700
+@@ -1,7 +1,7 @@
+ % Document Type: LaTeX
+ % Master File: prover.tex
+ \documentclass[12pt,twoside]{book}
+-\usepackage{relsize,alltt,makeidx,url,boxedminipage,fancyheadings,tabularx}
++\usepackage{relsize,alltt,makeidx,url,boxedminipage,fancyhdr,tabularx}
+ %\usepackage{../../pvs}
+ \usepackage{../makebnf}
+ \usepackage[chapter]{tocbibind}
+diff -dur pvs-sbcl-4.2.ORIG/doc/user-guide/Makefile.in pvs-sbcl-4.2/doc/user-guide/Makefile.in
+--- pvs-sbcl-4.2.ORIG/doc/user-guide/Makefile.in	2007-07-02 14:07:42.000000000 -0600
++++ pvs-sbcl-4.2/doc/user-guide/Makefile.in	2009-01-23 16:01:50.000000000 -0700
+@@ -24,7 +24,7 @@
+ 	pdflatex $<
+ 
+ sum-nosub.tex sum-sub.tex sum-tccs.tex : sum.pvs sum.el
+-	@PVSPATH@/pvs -batch -q -l sum.el -f kill-process
++	@PVSPATH@/pvs -batch -q -l sum.el
+ 
+ .PHONY: clean
+ clean :
+diff -dur pvs-sbcl-4.2.ORIG/doc/user-guide/user-guide.tex pvs-sbcl-4.2/doc/user-guide/user-guide.tex
+--- pvs-sbcl-4.2.ORIG/doc/user-guide/user-guide.tex	2007-07-02 14:07:42.000000000 -0600
++++ pvs-sbcl-4.2/doc/user-guide/user-guide.tex	2009-01-23 16:01:41.000000000 -0700
+@@ -7,7 +7,7 @@
+ %\usepackage{showidx}	% use for index debugging
+ \usepackage{relsize}
+ \usepackage{boxedminipage}
+-\usepackage{fancyheadings}
++\usepackage{fancyhdr}
+ \usepackage{graphicx}
+ \usepackage{../../pvs}
+ \usepackage{url}

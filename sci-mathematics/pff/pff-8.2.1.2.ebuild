@@ -4,7 +4,7 @@
 
 DESCRIPTION="Library for reasoning about floating point numbers in coq."
 HOMEPAGE="http://lipforge.ens-lyon.fr/www/pff/"
-SRC_URI="http://lipforge.ens-lyon.fr/frs/download.php/147/Float${PV/#????/}-${PV/%????/}.tgz"
+SRC_URI="http://lipforge.ens-lyon.fr/frs/download.php/147/Float${PV/%????/}-${PV/#????/}.tgz"
 
 LICENSE="LGPL-2"
 SLOT="0"

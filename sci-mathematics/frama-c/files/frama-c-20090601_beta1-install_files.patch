@@ -1,0 +1,12 @@
+diff -Naur frama-c-Beryllium-20090601-beta1-orig/Makefile.in frama-c-Beryllium-20090601-beta1-ptch/Makefile.in
+--- frama-c-Beryllium-20090601-beta1-orig/Makefile.in	2009-06-23 11:24:39.000000000 +0000
++++ frama-c-Beryllium-20090601-beta1-ptch/Makefile.in	2009-09-04 15:29:11.000000000 +0000
+@@ -1483,7 +1483,7 @@
+ 	$(MKDIR) $(FRAMAC_LIBDIR)
+ # 	line below does not work if INCLUDES contains twice the same directory
+ #       Do not attempt to copy gui interfaces if gui is disabled
+-	$(CP) $(foreach d,$(filter-out $(FILTER_INTERFACE_DIRS),$(INCLUDES:-I%=%)), $(d)/*.cmi) $(FRAMAC_LIBDIR)
++	$(CP) $(wildcard $(foreach d,$(filter-out $(FILTER_INTERFACE_DIRS),$(INCLUDES:-I%=%)), $(d)/*.cmi)) $(FRAMAC_LIBDIR)
+ 
+ install-gui:
+ 	$(PRINT_CP) gui API

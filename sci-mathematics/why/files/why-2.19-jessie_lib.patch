@@ -1,0 +1,43 @@
+diff -Naur why-2.19-orig/Makefile.in why-2.19-ptch/Makefile.in
+--- why-2.19-orig/Makefile.in	2009-06-23 12:09:43.000000000 +0000
++++ why-2.19-ptch/Makefile.in	2009-09-04 16:11:28.000000000 +0000
+@@ -147,8 +147,10 @@
+ 
+ ifeq ($(OCAMLBEST),opt)
+ JCLIB=jc/jc.cmo jc/jc.cmx
++JCLD=jc/jc.cmi jc/jc.o
+ else
+ JCLIB=jc/jc.cmo
++JCLD=jc/jc.cmi
+ endif
+ 
+ all: $(BINARY) $(WHYCONFIG) check $(CADUCEUS) $(JESSIE) $(KRAKATOA) coq-@COQ@ pvs-@PVS@ $(TOOLS) gwhy-@LABLGTK2@ $(JCLIB) $(REGTEST)
+@@ -276,15 +278,15 @@
+ 
+ # jessie
+ JCCML_EXPORT = src/lib.ml src/rc.ml src/loc.ml src/pp.ml src/option_misc.ml \
+-	jc/jc_type_var.ml jc/output.ml \
++	jc/jc_type_var.ml jc/jc_env.ml jc/output.ml \
+ 	jc/jc_common_options.ml jc/jc_stdlib.ml \
+-	jc/jc_envset.ml jc/jc_region.ml jc/jc_fenv.ml \
++	jc/jc_envset.ml jc/jc_region.ml jc/jc_ast.ml jc/jc_fenv.ml \
+ 	jc/jc_constructors.ml \
+ 	jc/jc_pervasives.ml jc/jc_iterators.ml \
+ 	jc/jc_output_misc.ml jc/jc_poutput.ml jc/jc_output.ml jc/jc_noutput.ml
+ JCCMO_EXPORT = $(JCCML_EXPORT:.ml=.cmo)
+ JCCMX_EXPORT = $(JCCML_EXPORT:.ml=.cmx)
+-JCCMI_EXPORT = jc/jc_ast.cmi jc/jc_env.cmi $(JCCML_EXPORT:.ml=.cmi)
++JCCMI_EXPORT = $(JCCML_EXPORT:.ml=.cmi)
+ 
+ JCCMO = src/version.cmo \
+ 	@ATPCMO@ $(JCCMO_EXPORT) \
+@@ -744,7 +746,8 @@
+ 	mkdir -p $(LIBDIR)/why/why
+ 	cp -f $(PRELUDE) $(LIBDIR)/why/why
+ 	mkdir -p $(LIBDIR)/caduceus/why
+-#	??? cp -f $(JCLIB) $(JCCMI_EXPORT) $(LIBDIR)
++	mkdir -p $(LIBDIR)/ocaml/jessie
++	cp -f $(JCLIB) $(JCLD) $(JCCMI_EXPORT) $(LIBDIR)/ocaml/jessie
+ 	cp -f lib/why/caduceus.why $(LIBDIR)/caduceus/why
+ 	cp -f lib/why/caduceus_arith.why $(LIBDIR)/caduceus/why
+ 	mkdir -p $(LIBDIR)/caduceus/coq

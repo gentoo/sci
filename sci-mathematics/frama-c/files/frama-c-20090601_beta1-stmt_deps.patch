@@ -1,16 +1,16 @@
-diff -Naur frama-c-Lithium-20081201-orig/src/from/register.ml frama-c-Lithium-20081201-patch/src/from/register.ml
---- frama-c-Lithium-20081201-orig/src/from/register.ml	2008-12-16 10:29:48.000000000 +0100
-+++ frama-c-Lithium-20081201-patch/src/from/register.ml	2009-02-16 14:43:55.000000000 +0100
-@@ -572,7 +572,7 @@
+diff -Naur frama-c-Beryllium-20090601-beta1-orig/src/from/from_register.ml frama-c-Beryllium-20090601-beta1-ptch/src/from/from_register.ml
+--- frama-c-Beryllium-20090601-beta1-orig/src/from/from_register.ml	2009-06-12 09:12:22.000000000 +0000
++++ frama-c-Beryllium-20090601-beta1-ptch/src/from/from_register.ml	2009-07-12 03:33:40.000000000 +0000
+@@ -554,7 +554,7 @@
      Db.Value.is_reachable (Values_To_Use.get_state (Kstmt stmt))
  
    (* Remove all local variables and formals from table *)
 -  let externalize return fundec state =
 +  let externalize return fundec state strip =
      let deps_return = (match return.skind with
-                          | Return (Some (Lval v),_) ->
-                              let deps, looking_for =
-@@ -596,9 +596,10 @@
+                          | Return (Some ({enode = Lval v}),_) ->
+                              let deps, target =
+@@ -578,9 +578,10 @@
                               Lmap_bitwise.From_Model.LOffset.empty
                           | _ -> assert false)
      in
@@ -22,8 +22,8 @@ diff -Naur frama-c-Lithium-20081201-orig/src/from/register.ml frama-c-Lithium-20
      in
      { deps_return = deps_return;
        Function_Froms.deps_table = deps_table }
-@@ -617,7 +618,7 @@
-     else Dataflow.GUnreachable
+@@ -611,7 +612,7 @@
+           in { d with deps_table = deps_table }
  end
  
 -let compute_using_cfg kf = match kf.fundec with
@@ -31,7 +31,7 @@ diff -Naur frama-c-Lithium-20081201-orig/src/from/register.ml frama-c-Lithium-20
    | Declaration _ -> assert false
    | Definition (f,_) ->
        try
-@@ -656,6 +657,10 @@
+@@ -659,6 +660,10 @@
                Format.printf "[from] stack with %s\n@\n" (get_name g))
                call_stack;*)
  
@@ -42,7 +42,7 @@ diff -Naur frama-c-Lithium-20081201-orig/src/from/register.ml frama-c-Lithium-20
              let last_from =
                try
  		if Db.Value.is_reachable (Values_To_Use.get_state (Kstmt ret_id))
-@@ -663,7 +668,8 @@
+@@ -666,7 +671,8 @@
                    Computer.externalize
                    ret_id
                    f
@@ -52,7 +52,7 @@ diff -Naur frama-c-Lithium-20081201-orig/src/from/register.ml frama-c-Lithium-20
  		else
  		  raise Not_found
                with Not_found -> begin
-@@ -806,7 +812,7 @@
+@@ -809,7 +815,7 @@
  
    let result = match kf.fundec with
      | Definition _ ->
@@ -61,7 +61,7 @@ diff -Naur frama-c-Lithium-20081201-orig/src/from/register.ml frama-c-Lithium-20
      | Declaration _ ->
          compute_using_prototype kf
    in
-@@ -846,7 +852,8 @@
+@@ -849,7 +855,8 @@
  let () =
    force_compute := From2.compute;
    Db.From.compute := (fun kf -> ignore (Functionwise_From_to_use.memo kf));
@@ -71,25 +71,25 @@ diff -Naur frama-c-Lithium-20081201-orig/src/from/register.ml frama-c-Lithium-20
  
  let () = Db.From.pretty :=
    (fun fmt v ->
-diff -Naur frama-c-Lithium-20081201-orig/src/kernel/db.ml frama-c-Lithium-20081201-patch/src/kernel/db.ml
---- frama-c-Lithium-20081201-orig/src/kernel/db.ml	2009-02-14 00:10:32.000000000 +0100
-+++ frama-c-Lithium-20081201-patch/src/kernel/db.ml	2009-02-16 14:43:55.000000000 +0100
-@@ -437,6 +437,7 @@
+diff -Naur frama-c-Beryllium-20090601-beta1-orig/src/kernel/db.ml frama-c-Beryllium-20090601-beta1-ptch/src/kernel/db.ml
+--- frama-c-Beryllium-20090601-beta1-orig/src/kernel/db.ml	2009-06-23 09:08:08.000000000 +0000
++++ frama-c-Beryllium-20090601-beta1-ptch/src/kernel/db.ml	2009-07-12 03:33:40.000000000 +0000
+@@ -443,6 +443,7 @@
    let is_computed = mk_fun "From.is_computed"
    let pretty = mk_fun "From.pretty"
    let get = mk_fun "From.get"
 +  let compute_using_cfg = mk_fun "From.compute_using_cfg"
    let self = ref Project.Computation.dummy
- 
    let display = mk_fun "From.display"
-diff -Naur frama-c-Lithium-20081201-orig/src/kernel/db.mli frama-c-Lithium-20081201-patch/src/kernel/db.mli
---- frama-c-Lithium-20081201-orig/src/kernel/db.mli	2009-02-14 00:10:32.000000000 +0100
-+++ frama-c-Lithium-20081201-patch/src/kernel/db.mli	2009-02-16 14:43:55.000000000 +0100
-@@ -299,6 +299,7 @@
+   module Callwise = struct
+diff -Naur frama-c-Beryllium-20090601-beta1-orig/src/kernel/db.mli frama-c-Beryllium-20090601-beta1-ptch/src/kernel/db.mli
+--- frama-c-Beryllium-20090601-beta1-orig/src/kernel/db.mli	2009-06-23 13:53:48.000000000 +0000
++++ frama-c-Beryllium-20090601-beta1-ptch/src/kernel/db.mli	2009-07-12 03:35:29.000000000 +0000
+@@ -330,6 +330,7 @@
  	@return true iff the analysis has been performed *)
-  
-   val get : (kernel_function -> Function_Froms.t) p_ref
-+  val compute_using_cfg : (kernel_function -> int option -> Function_Froms.t) p_ref
-   val access : (Locations.Zone.t -> from_model -> Locations.Zone.t) p_ref
-   val find_deps_no_transitivity : (kinstr -> exp -> Locations.Zone.t) p_ref
-   val self: Project.Computation.t p_ref
+ 
+   val get : (kernel_function -> Function_Froms.t) ref
++  val compute_using_cfg : (kernel_function -> int option -> Function_Froms.t) ref
+   val access : (Locations.Zone.t -> from_model -> Locations.Zone.t) ref
+   val find_deps_no_transitivity : (kinstr -> exp -> Locations.Zone.t) ref
+   val self: Project.Computation.t ref
