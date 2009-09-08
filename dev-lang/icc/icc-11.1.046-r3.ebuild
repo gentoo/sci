@@ -105,9 +105,8 @@ src_install() {
 }
 
 pkg_postinst() {
-	env-update && source "${ROOT}"etc/profile
 	elog "Make sure you have recieved the an Intel license."
 	elog "To receive a non-commercial license, you need to register at:"
 	elog "http://software.intel.com/en-us/articles/non-commercial-software-development/"
-	elog "Install the license file into ${ROOT}/opt/intel/licenses."
+	elog "Install the license file into ${ROOT}opt/intel/licenses."
 }
