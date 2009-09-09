@@ -6,7 +6,7 @@ inherit java-utils-2
 
 DESCRIPTION="SmartGIT"
 HOMEPAGE="http://www.syntevo.com/smartgit"
-SRC_URI="${PN}-generic-1-M2.tar.gz"
+SRC_URI="${PN}-generic-1-M2-b2.tar.gz"
 
 SLOT="0"
 LICENSE="smartgit"
@@ -17,7 +17,7 @@ RESTRICT="fetch"
 
 RDEPEND=">=virtual/jre-1.4.1"
 
-S="${WORKDIR}"/smartgit-1-M2/
+S="${WORKDIR}"/smartgit-1-M2-b2/
 
 pkg_nofetch(){
 	einfo "Please download ${MY_P}.tar.gz from:"
