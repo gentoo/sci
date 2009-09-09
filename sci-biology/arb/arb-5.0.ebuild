@@ -11,7 +11,7 @@ HOMEPAGE="http://www.arb-home.de/"
 SRC_URI="http://download.arb-home.de/release/arb_${PV}/arbsrc.tgz -> ${P}.tgz"
 MY_TAG=6182
 
-LICENSE="GPL-2"
+LICENSE="arb"
 SLOT="0"
 IUSE="+opengl"
 KEYWORDS="~amd64 ~x86"
