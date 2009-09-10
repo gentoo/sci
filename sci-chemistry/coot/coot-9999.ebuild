@@ -21,36 +21,46 @@ HOMEPAGE="http://www.ysbl.york.ac.uk/~emsley/coot/"
 #else
 #	SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/${MY_P}.tar.gz"
 #fi
-SRC_URI=""
+SRC_URI="test? ( http://www.biop.ox.ac.uk/coot/devel/greg-data.tar.gz )"
 
 SLOT="0"
 LICENSE="GPL-3"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="test"
 
-RDEPEND="x11-libs/gtkglext
-	virtual/glut
-	dev-lang/python
-	>=x11-libs/gtk+-2.2
-	gnome-base/libgnomecanvas
-	dev-python/pygtk
-	gnome-base/librsvg
-	=x11-libs/guile-gtk-2.1
-	dev-scheme/guile-gui
-	dev-scheme/net-http
-	dev-scheme/goosh
-	dev-scheme/guile-www
-	>=dev-scheme/guile-lib-0.1.6
-	>=sci-libs/gsl-1.3
-	>=sci-libs/coot-data-2
-	sci-chemistry/reduce
-	sci-chemistry/refmac
-	sci-chemistry/probe
+SCIDEPS="
 	>=sci-libs/ccp4-libs-6.1
 	>=sci-libs/clipper-20090520
+	>=sci-libs/coot-data-2
+	>=sci-libs/gsl-1.3
+	sci-chemistry/reduce
+	sci-chemistry/refmac
+	sci-chemistry/probe"
+
+XDEPS="
+	gnome-base/libgnomecanvas
+	gnome-base/librsvg
+	virtual/glut
+	>=x11-libs/gtk+-2.2
+	x11-libs/gtkglext"
+
+SCHEMEDEPS="
+	dev-scheme/net-http
+	dev-scheme/goosh
+	dev-scheme/guile-gui
+	>=dev-scheme/guile-lib-0.1.6
+	dev-scheme/guile-www
+	=x11-libs/guile-gtk-2.1"
+
+RDEPEND="
+	${SCIDPES}
+	${XDEPS}
+	${SCHEMEDEPS}
+	dev-python/pygtk
 	>=dev-libs/gmp-4.2.2-r2"
 DEPEND="${RDEPEND}
-	dev-lang/swig"
+	dev-lang/swig
+	test? ( dev-scheme/greg )"
 
 #S="${WORKDIR}/${MY_P}"
 S="${WORKDIR}"
@@ -60,6 +70,11 @@ PATCHES=(
 	"${FILESDIR}"/link-against-guile-gtk-properly.patch
 	"${FILESDIR}"/fix-namespace-error.patch
 	)
+
+src_unpack() {
+	subversion_src_unpack
+	unpack ${A}
+}
 
 src_prepare() {
 	base_src_prepare
@@ -100,6 +115,7 @@ src_configure() {
 		--with-clipper-prefix=/usr \
 		--with-mmdb-prefix=/usr \
 		--with-ssmlib-prefix=/usr \
+		--with-gtkgl-prefix=/usr \
 		--with-guile \
 		--with-python=/usr \
 		--with-guile-gtk \
@@ -124,28 +140,49 @@ src_compile() {
 }
 
 src_test() {
-	emake check || die
+#	emake check || die
 
-	cp "${S}"/src/coot.py python
-	export COOT_PYTHON_DIR=${S}/python
-	export PYTHONPATH=$COOT_PYTHON_DIR
+	cp "${S}"/src/coot.py python/
+	export SYMINFO="/usr/share/ccp4/data/syminfo.lib"
+	export COOT_STANDARD_RESIDUES="${S}/standard-residues.pdb"
+	export COOT_REFMAC_LIB_DIR="/usr/share/ccp4/"
+	export COOT_SCHEME_DIR="${S}/scheme/"
+	export COOT_REF_STRUCTS="/usr/share/coot/reference-structures/"
+	export COOT_RESOURCES_FILE="${S}/cootrc"
+	export COOT_PIXMAPS_DIR="${S}/pixmaps"
+	export COOT_DATA_DIR="${S}"
+	export GUILE_LOAD_PATH="$GUILE_LOAD_PATH:/usr/share/guile/gtk:/usr/share/guile/gui:/usr/share/guile/gtk-2.0:/usr/share/guile/site/www/:/usr/share/guile/site/:/usr/share/guile/1.8/ice-9/"
+#	export LD_LIBRARY_PATH
+#	export LD_LIBRARYN32_PATH
+
+	export COOT_PYTHON_DIR="${S}/python"
+	export PYTHONPATH="${COOT_PYTHON_DIR}:${PYTHONPATH}"
 	export PYTHONHOME=/usr
 
-	cat << EOF > command-line-greg.scm
-   (use-modules (ice-9 greg))
-         (set! greg-tools (list "greg-tests"))
-         (set! greg-debug #t)
-         (set! greg-verbose 5)
-         (let ((r (greg-test-run)))
-            (if r
-	        (coot-real-exit 0)
-	        (coot-real-exit 1)))
-EOF
+	export TESTROOT="${S}"
 
+	cat > command-line-greg.scm <<- EOF
+	(use-modules (ice-9 greg))
+		(set! greg-tools (list "greg-tests"))
+			(set! greg-debug #t)
+			(set! greg-verbose 5)
+			(let ((r (greg-test-run)))
+				(if r
+				(coot-real-exit 0)
+				(coot-real-exit 1)))
+	EOF
 
-	${S}/src/coot-real --no-graphics --script command-line-greg.scm
+	oldhome="${HOME}"
+	export HOME="${S}"
 
+#	sed \
+#		-e "s:HOME:TESTROOT:g" \
+#		-i greg-tests/begin.grg \
+#		|| die
 
+	"${S}"/src/coot-real --no-graphics --script command-line-greg.scm || die
+
+	export HOME="${oldhome}"
 }
 src_install() {
 	base_src_install
