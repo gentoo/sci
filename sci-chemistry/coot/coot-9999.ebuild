@@ -73,7 +73,7 @@ PATCHES=(
 
 src_unpack() {
 	subversion_src_unpack
-	unpack ${A}
+	use test && unpack ${A}
 }
 
 src_prepare() {
