@@ -53,7 +53,7 @@ SCHEMEDEPS="
 	=x11-libs/guile-gtk-2.1"
 
 RDEPEND="
-	${SCIDPES}
+	${SCIDEPS}
 	${XDEPS}
 	${SCHEMEDEPS}
 	dev-python/pygtk
