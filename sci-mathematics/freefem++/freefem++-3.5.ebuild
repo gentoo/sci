@@ -57,9 +57,7 @@ src_unpack() {
 	epatch "${FILESDIR}"/${PN}-acoptim.patch
 	# do not try to do a forced "manual" installation of
 	# examples and documentation
-	epatch "${FILESDIR}"/${P}-no-doc-autobuild.patch
-	# Fix mortar-DN-4 in testsuite
-	epatch "${FILESDIR}"/${P}-mortar-DN-4.patch
+	epatch "${FILESDIR}"/${PN}-no-doc-autobuild.patch
 
 	eautoreconf
 }

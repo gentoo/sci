@@ -2,6 +2,16 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 September 2009; David Radice <david.e.pi.3.14@gmail.com>
+  +freefem++-3.5.ebuild, -freefem++-2.24.2-r3.ebuild, -freefem++-3.3.ebuild,
+  -freefem++-3.4.ebuild, -files/freefem++-3.4-mortar-DN-4.patch,
+  -files/freefem++-3.4-no-doc-autobuild.patch, -files/freefem++-P1-fix.patch,
+  -files/freefem++-gcc43.patch, -files/freefem++-no-x11r6-dir.patch,
+  -files/freefem++-texlive2008.patch:
+  Version bump and cleanup.
+
+*freefem++-3.5 (11 September 2009)
+
   15 August 2009; David Radice <david.e.pi.3.14@gmail.com>
   +freefem++-3.4.2.ebuild, +files/freefem++-3.4.2-no-doc-autobuild.patch:
   Version bump.
