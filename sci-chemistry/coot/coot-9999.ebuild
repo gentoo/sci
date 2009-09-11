@@ -67,6 +67,7 @@ S="${WORKDIR}"
 
 PATCHES=(
 	"${FILESDIR}"/${PV}-as-needed.patch
+	"${FILESDIR}"/${PV}-test-rama.patch
 	"${FILESDIR}"/link-against-guile-gtk-properly.patch
 	"${FILESDIR}"/fix-namespace-error.patch
 	)

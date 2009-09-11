@@ -1,0 +1,18 @@
+Index: ligand/test-ligand.cc
+===================================================================
+--- ligand/test-ligand.cc	(revision 2293)
++++ ligand/test-ligand.cc	(working copy)
+@@ -324,9 +324,11 @@
+ 
+ void rotamer_tables() {
+ 
+-   std::string dir = "../../coot/rama-data";
++   std::string tables_dir = COOT_DATA_DIR;
++   tables_dir += "/rama-data";
++
+    coot::rotamer_probability_tables tables;
+-   tables.fill_tables(dir);
++   tables.fill_tables(tables_dir);
+ 
+ }
+ 
