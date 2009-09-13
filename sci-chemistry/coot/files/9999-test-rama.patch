@@ -1,18 +1,62 @@
-Index: ligand/test-ligand.cc
+#Index: ligand/test-ligand.cc
+#===================================================================
+#--- ligand/test-ligand.cc	(revision 2297)
+#+++ ligand/test-ligand.cc	(working copy)
+#@@ -324,10 +324,16 @@
+# 
+# void rotamer_tables() {
+# 
+#-   std::string dir = "../../coot/rama-data";
+#+   std::string tables_dir = PKGDATADIR;
+#+   // For binary installers, they use the environment variable:
+#+   char *env = getenv("COOT_DATA_DIR");
+#+   if (env)
+#+      tables_dir = std::string(env);
+#+
+#+   tables_dir += "/rama-data";
+#+
+#    coot::rotamer_probability_tables tables;
+#-   tables.fill_tables(dir);
+#-
+#+   tables.fill_tables(tables_dir);
+# }
+# 
+# int main(int argc, char **argv) {
+#Index: src/graphics-info.h
+#===================================================================
+#--- src/graphics-info.h	(revision 2297)
+#+++ src/graphics-info.h	(working copy)
+#@@ -798,12 +798,11 @@
+#       // guess we shall rather use COOT_DATA_DIR and only as fallback PKGDATADIR?!
+#       // maybe only for windows!?
+#       std::string tables_dir = PKGDATADIR;
+#-#ifdef WINDOWS_MINGW
+#+
+#       char *data_dir = getenv("COOT_DATA_DIR");
+#-      if (data_dir) {
+#-	tables_dir = data_dir;
+#-      }
+#-#endif // MINGW
+#+      if (data_dir)
+#+         tables_dir = data_dir;
+#+
+#       tables_dir += "/rama-data";
+#       rot_prob_tables.set_tables_dir(tables_dir);
+# 
+Index: src/graphics-info.h
 ===================================================================
---- ligand/test-ligand.cc	(revision 2293)
-+++ ligand/test-ligand.cc	(working copy)
-@@ -324,9 +324,11 @@
- 
- void rotamer_tables() {
- 
--   std::string dir = "../../coot/rama-data";
-+   std::string tables_dir = COOT_DATA_DIR;
-+   tables_dir += "/rama-data";
-+
-    coot::rotamer_probability_tables tables;
--   tables.fill_tables(dir);
-+   tables.fill_tables(tables_dir);
- 
- }
+--- src/graphics-info.h	(revision 2296)
++++ src/graphics-info.h	(working copy)
+@@ -798,12 +798,10 @@
+       // guess we shall rather use COOT_DATA_DIR and only as fallback PKGDATADIR?!
+       // maybe only for windows!?
+       std::string tables_dir = PKGDATADIR;
+-#ifdef WINDOWS_MINGW
+       char *data_dir = getenv("COOT_DATA_DIR");
+       if (data_dir) {
+ 	tables_dir = data_dir;
+       }
+-#endif // MINGW
+       tables_dir += "/rama-data";
+       rot_prob_tables.set_tables_dir(tables_dir);
  
