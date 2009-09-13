@@ -12,7 +12,7 @@ MY_S_P=${MY_S2_P}-${PR/r/revision-}
 MY_PV=${PV}
 MY_P=${PN}-${MY_PV}
 
-ESVN_REPO_URI="http://coot.googlecode.com/svn/trunk@2296"
+ESVN_REPO_URI="http://coot.googlecode.com/svn/trunk"
 
 DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, completion and validation"
 HOMEPAGE="http://www.ysbl.york.ac.uk/~emsley/coot/"
@@ -147,21 +147,15 @@ src_test() {
 
 	mkdir "${T}"/coot_test
 
-#	export SYMINFO="/usr/share/ccp4/data/syminfo.lib"
 	export COOT_STANDARD_RESIDUES="${S}/standard-residues.pdb"
-#	export COOT_REFMAC_LIB_DIR="/usr/share/coot/lib/"
 	export COOT_SCHEME_DIR="${S}/scheme/"
-#	export COOT_REF_STRUCTS="/usr/share/coot/reference-structures/"
 	export COOT_RESOURCES_FILE="${S}/cootrc"
 	export COOT_PIXMAPS_DIR="${S}/pixmaps"
 	export COOT_DATA_DIR="${S}"
-#	export GUILE_LOAD_PATH="$GUILE_LOAD_PATH:/usr/share/guile/gtk:/usr/share/guile/gui:/usr/share/guile/gtk-2.0:/usr/share/guile/site/www/:/usr/share/guile/site/:/usr/share/guile/1.8/ice-9/"
 	export COOT_PYTHON_DIR="${S}/python"
 	export PYTHONPATH="${COOT_PYTHON_DIR}:${PYTHONPATH}"
-#	export PYTHONPATH="${COOT_PYTHON_DIR}"
 	export PYTHONHOME=/usr
 	export CCP4_SCR="${T}"/coot_test
-#	export BINSORT_SCR="${T}"/coot_test
 
 	export TESTROOT="${S}"
 
@@ -176,31 +170,21 @@ src_test() {
 				(coot-real-exit 1)))
 	EOF
 
-	oldhome="${HOME}"
-	export HOME="${S}"
-
-#	sed \
-#		-e "s:HOME:TESTROOT:g" \
-#		-i greg-tests/begin.grg \
-#		|| die
+	sed \
+		-e "s:HOME:TESTROOT:g" \
+		-i greg-tests/begin.grg \
+		|| die
 
 	einfo "Running test with following paths ..."
-#	einfo "SYMINFO	$SYMINFO"
 	einfo "COOT_STANDARD_RESIDUES $COOT_STANDARD_RESIDUES"
-#	einfo "COOT_REFMAC_LIB_DIR $COOT_REFMAC_LIB_DIR"
 	einfo "COOT_SCHEME_DIR $COOT_SCHEME_DIR"
-#	einfo "COOT_REF_STRUCTS $COOT_REF_STRUCTS"
 	einfo "COOT_RESOURCES_FILE $COOT_RESOURCES_FILE"
 	einfo "COOT_PIXMAPS_DIR $COOT_PIXMAPS_DIR"
 	einfo "COOT_DATA_DIR $COOT_DATA_DIR"
-#	einfo "GUILE_LOAD_PATH $GUILE_LOAD_PATH"
 	einfo "COOT_PYTHON_DIR $COOT_PYTHON_DIR"
 	einfo "PYTHONPATH $PYTHONPATH"
 	einfo "PYTHONHOME $PYTHONHOME"
 	einfo "CCP4_SCR ${CCP4_SCR}"
-#	einfo "BINSORT_SCR ${BINSORT_SCR}"
 
 	"${S}"/src/coot-real --no-graphics --script command-line-greg.scm || die
-
-	export HOME="${oldhome}"
 }
