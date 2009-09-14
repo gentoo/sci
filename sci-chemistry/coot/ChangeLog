@@ -4,7 +4,7 @@
 
   13 Sep 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   files/9999-test-rama.patch, coot-9999.ebuild:
-  src_test is working now
+  src_test is working now (rev. 2296)
 
   11 Sep 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +files/9999-test-rama.patch, coot-9999.ebuild:
