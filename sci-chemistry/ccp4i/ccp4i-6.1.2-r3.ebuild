@@ -65,7 +65,7 @@ src_install() {
 	# rm imosflm stuff
 	rm -rf "${S}"/ccp4i/{bin/imosflm,imoslfm}
 
-	rm -rf "${S}"/ccp4i/{bin,etc}/{UNIX,WINDOWS}
+	rm -rf "${S}"/ccp4i/{bin,etc}/WINDOWS
 
 	# This is installed by mrbump
 	rm -rf "${S}"/ccp4i/{tasks/{dbviewer.tcl,mrbump.*},templates/mrbump.com,scripts/mrbump.script}
