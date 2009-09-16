@@ -15,12 +15,7 @@ MY_P=${PN}-${MY_PV}
 ESVN_REPO_URI="http://coot.googlecode.com/svn/trunk"
 
 DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, completion and validation"
-HOMEPAGE="http://www.ysbl.york.ac.uk/~emsley/coot/"
-#if [[ ${MY_PV} = *pre* ]]; then
-#	SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/pre-release/${MY_S_P}.tar.gz"
-#else
-#	SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/${MY_P}.tar.gz"
-#fi
+HOMEPAGE="http://www.biop.ox.ac.uk/coot/"
 SRC_URI="test? ( http://www.biop.ox.ac.uk/coot/devel/greg-data.tar.gz )"
 
 SLOT="0"
