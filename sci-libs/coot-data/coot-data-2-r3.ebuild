@@ -3,7 +3,7 @@
 # $Header: $
 
 DESCRIPTION="Data for the Crystallographic Object-Oriented Toolkit"
-HOMEPAGE="http://www.ysbl.york.ac.uk/~emsley/coot/"
+HOMEPAGE="http://www.biop.ox.ac.uk/coot/"
 SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/extras/reference-structures.tar.gz"
 
 LICENSE="GPL-3"
