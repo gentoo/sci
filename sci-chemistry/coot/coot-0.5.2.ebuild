@@ -10,11 +10,11 @@ MY_PV=${PV}
 MY_P=${PN}-${MY_PV}
 
 DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, completion and validation"
-HOMEPAGE="http://www.ysbl.york.ac.uk/~emsley/coot/"
+HOMEPAGE="http://www.biop.ox.ac.uk/coot/"
 if [[ ${MY_PV} = *pre* ]]; then
-	SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/pre-release/${MY_S_P}.tar.gz"
+	SRC_URI="http://www.biop.ox.ac.uk/coot/software/source/pre-releases/${MY_S_P}.tar.gz"
 else
-	SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/${MY_P}.tar.gz"
+	SRC_URI="http://www.biop.ox.ac.uk/coot/software/source/releases/${MY_P}.tar.gz"
 fi
 LICENSE="GPL-3"
 SLOT="0"

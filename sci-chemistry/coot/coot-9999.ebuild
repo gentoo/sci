@@ -15,12 +15,7 @@ MY_P=${PN}-${MY_PV}
 ESVN_REPO_URI="http://coot.googlecode.com/svn/trunk"
 
 DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, completion and validation"
-HOMEPAGE="http://www.ysbl.york.ac.uk/~emsley/coot/"
-#if [[ ${MY_PV} = *pre* ]]; then
-#	SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/pre-release/${MY_S_P}.tar.gz"
-#else
-#	SRC_URI="http://www.ysbl.york.ac.uk/~emsley/software/${MY_P}.tar.gz"
-#fi
+HOMEPAGE="http://www.biop.ox.ac.uk/coot/"
 SRC_URI="test? ( http://www.biop.ox.ac.uk/coot/devel/greg-data.tar.gz )"
 
 SLOT="0"
@@ -67,6 +62,7 @@ S="${WORKDIR}"
 
 PATCHES=(
 	"${FILESDIR}"/${PV}-as-needed.patch
+	"${FILESDIR}"/${PV}-test-rama.patch
 	"${FILESDIR}"/link-against-guile-gtk-properly.patch
 	"${FILESDIR}"/fix-namespace-error.patch
 	)
@@ -137,27 +133,24 @@ src_compile() {
 	popd
 
 	emake || die "emake failed"
+
+	cp "${S}"/src/coot.py python/
 }
 
 src_test() {
 #	emake check || die
 
-	cp "${S}"/src/coot.py python/
-	export SYMINFO="/usr/share/ccp4/data/syminfo.lib"
+	mkdir "${T}"/coot_test
+
 	export COOT_STANDARD_RESIDUES="${S}/standard-residues.pdb"
-	export COOT_REFMAC_LIB_DIR="/usr/share/ccp4/"
 	export COOT_SCHEME_DIR="${S}/scheme/"
-	export COOT_REF_STRUCTS="/usr/share/coot/reference-structures/"
 	export COOT_RESOURCES_FILE="${S}/cootrc"
 	export COOT_PIXMAPS_DIR="${S}/pixmaps"
 	export COOT_DATA_DIR="${S}"
-	export GUILE_LOAD_PATH="$GUILE_LOAD_PATH:/usr/share/guile/gtk:/usr/share/guile/gui:/usr/share/guile/gtk-2.0:/usr/share/guile/site/www/:/usr/share/guile/site/:/usr/share/guile/1.8/ice-9/"
-#	export LD_LIBRARY_PATH
-#	export LD_LIBRARYN32_PATH
-
 	export COOT_PYTHON_DIR="${S}/python"
 	export PYTHONPATH="${COOT_PYTHON_DIR}:${PYTHONPATH}"
 	export PYTHONHOME=/usr
+	export CCP4_SCR="${T}"/coot_test
 
 	export TESTROOT="${S}"
 
@@ -172,22 +165,21 @@ src_test() {
 				(coot-real-exit 1)))
 	EOF
 
-	oldhome="${HOME}"
-	export HOME="${S}"
+	sed \
+		-e "s:HOME:TESTROOT:g" \
+		-i greg-tests/begin.grg \
+		|| die
 
-#	sed \
-#		-e "s:HOME:TESTROOT:g" \
-#		-i greg-tests/begin.grg \
-#		|| die
+	einfo "Running test with following paths ..."
+	einfo "COOT_STANDARD_RESIDUES $COOT_STANDARD_RESIDUES"
+	einfo "COOT_SCHEME_DIR $COOT_SCHEME_DIR"
+	einfo "COOT_RESOURCES_FILE $COOT_RESOURCES_FILE"
+	einfo "COOT_PIXMAPS_DIR $COOT_PIXMAPS_DIR"
+	einfo "COOT_DATA_DIR $COOT_DATA_DIR"
+	einfo "COOT_PYTHON_DIR $COOT_PYTHON_DIR"
+	einfo "PYTHONPATH $PYTHONPATH"
+	einfo "PYTHONHOME $PYTHONHOME"
+	einfo "CCP4_SCR ${CCP4_SCR}"
 
 	"${S}"/src/coot-real --no-graphics --script command-line-greg.scm || die
-
-	export HOME="${oldhome}"
-}
-src_install() {
-	base_src_install
-
-	# Install misses this
-	insinto /usr/share/coot/python
-	doins "${S}"/src/coot.py
 }

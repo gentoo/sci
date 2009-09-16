@@ -2,6 +2,25 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*coot-0.6_pre1-r2312 (16 Sep 2009)
+
+  16 Sep 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  files/0.6_pre1-as-needed.patch, -coot-0.6_pre1-r2042.ebuild,
+  files/0.6_pre1-gcc4.4.patch, +coot-0.6_pre1-r2312.ebuild,
+  +files/0.6_pre1-test-rama.patch, coot-0.5.2.ebuild, coot-9999.ebuild:
+  HOMEPAGE corrected bug 285068
+  bumped prerelease to r2312 which will be the version of the second
+  prerelease
+  Included src_test in prerelease
+
+  13 Sep 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  files/9999-test-rama.patch, coot-9999.ebuild:
+  src_test is working now (rev. 2296)
+
+  11 Sep 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/9999-test-rama.patch, coot-9999.ebuild:
+  added patch to correct rama-data dir location for src_test
+
   10 Sep 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   files/9999-as-needed.patch, coot-9999.ebuild:
   src_test is functional now in 9999

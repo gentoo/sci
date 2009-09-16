@@ -2,6 +2,14 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ferret-bin-6.2 (16 Sep 2009)
+
+  16 Sep 2009; Tim Cera <timcera@earthlink.net> files/99ferret,
+  +ferret-bin-6.2.ebuild:
+  Version bump to 6.2. Requested upstream to change download names and 
+  they did it! Makes version 6.2 much simpler. Changed the 99ferret 
+  environment file to actually work.
+
   17 Jun 2009; Tim Cera <timcera@earthlink.net> ferret-bin-6.1.ebuild:
   Fixed RDEPEND.
 
