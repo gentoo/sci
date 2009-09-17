@@ -87,6 +87,10 @@ src_unpack() {
 		-e "s:VAR_TCL:tcl${tcl_version}:g" env.ksh \
 	|| die "itk, itcl, tix, tk and tcl version tweaking failed!"
 
+#	epatch "${FILESDIR}"/${P}-Makefile.am.patch
+	epatch "${FILESDIR}"/${P}-fixed-DESTDIR.patch
+	epatch "${FILESDIR}"/${P}-missing-mode.patch
+
 	chmod u+x configure
 
 	# Autotools version update
@@ -102,7 +106,7 @@ src_compile() {
 	cd ${MY_S}/ros
 
 	# Add the configure options
-	local confargs="--prefix=${INSTALL_DIR} --with-tcl=/usr/$(get_libdir) --with-tk=/usr/$(get_libdir)"
+	local confargs="--prefix=${INSTALL_DIR} --exec-prefix=${INSTALL_DIR} --with-tcl=/usr/$(get_libdir) --with-tk=/usr/$(get_libdir)"
 
 	if use X ; then
 		confargs="${confargs} --with-dps-include=/usr/include --with-dps-library=/usr/$(get_libdir)"
@@ -114,10 +118,7 @@ src_compile() {
 		fi
 	else
 		if use opengl; then
-			einfo "OpenGL imply X support! "
-			confargs="${confargs} --with-dps-include=/usr/include --with-dps-library=/usr/$(get_libdir)"
-			confargs="${confargs} --with-xmu-include=/usr/include --with-xmu-library=/usr/$(get_libdir)"
-			confargs="${confargs} --with-gl-include=/usr/include --with-gl-library=/usr/$(get_libdir)"
+			die "OpenGL imply X support! Add "X" USE flag."
 		else
 			ewarn "Activate X and OpenGL if you want to be able to visualize geometry. Set "X" and "opengl" USE flags."
 		fi
@@ -157,8 +158,7 @@ src_compile() {
 src_install() {
 	cd ${MY_S}/ros
 	rm *~
-	emake prefix="${D}/${INSTALL_DIR}" install \
-	|| die "Installation failed"
+	emake DESTDIR="${D}" install || die "Installation failed"
 
 	# Symlinks for keeping original OpenCascade folder structure and
 	# add a link lib to lib64 in ros/Linux if we are on amd64
@@ -166,6 +166,9 @@ src_install() {
 	if use amd64 ; then
 		dosym ${INSTALL_DIR}/lib64 ${INSTALL_DIR}/lib
 	fi
+
+	#symlink for config.h
+	dosym /opt/${P}/ros/config.h /opt/${P}/ros/inc/config.h
 
 	# Tweak the environment variables script
 	cp "${FILESDIR}"/env.ksh.template env.ksh
@@ -220,7 +223,7 @@ src_install() {
 	# Install the documentation
 	if use doc ; then
 		cd ${MY_S}/doc
-		dodoc -r Overview  ReferenceDocumentation ../LICENSE || die "dodoc failed"
+		dodoc Overview  ReferenceDocumentation ../LICENSE || die "dodoc failed"
 	fi
 }
 
