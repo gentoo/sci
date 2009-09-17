@@ -1,0 +1,16 @@
+http://bugs.gentoo.org/show_bug.cgi?id=126388
+http://lists.gnu.org/archive/html/automake/2006-03/msg00037.html
+automake-1.9.6 fails to ignore dnl ... include() statements and dies horribly
+
+diff -urN dgs-0.5.10.orig/path_dps.m4 dgs-0.5.10/path_dps.m4
+--- dgs-0.5.10.orig/path_dps.m4	2006-03-23 00:32:59.000000000 -0800
++++ dgs-0.5.10/path_dps.m4	2006-03-23 00:33:50.000000000 -0800
+@@ -169,7 +169,7 @@
+ dnl * If you use automake and  if you didn't install path_dps.m4
+ dnl   [1] Create a file named acinclude.m4 at the root directory of your package.
+ dnl   [2] Put follwoing codes in the acinclude.m4
+-dnl       include(path_dps.m4)
++dnl       CODE CENSORED, AUTOMAKE 1.9.6 BUG
+ dnl   [3] Add path_dps.m4 to EXTRA_DIST in the Makefile.am at the directory .
+ dnl   [4] Invoke the follwoing commands at the directory:
+ dnl       automake; aclocal -I .; autoconf 
