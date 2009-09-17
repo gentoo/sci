@@ -1,0 +1,20 @@
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*med-2.3.4 (17 Sep 2009)
+
+  17 Sep 2009; Etienne Lorriaux <etienne.lorriaux@gmail.com>
+  +med-2.3.4.ebuild, +files/med-2.3.4-gcc-4.3.patch, -Changelog:
+
+
+  Version bump needed by >=sci-libs/gmsh-2.2.*
+  Added fortran eclass for fortran compiler choice
+
+
+  20 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
+  Added x86 in the KEYWORDS list
+
+  20 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
+  +med-2.3.1.ebuild, +med-2.3.1-test.patch, +med-2.3.1-med_int_type.patch
+  Initial import. Ebuild created by Rogier Eggers <rogiereggers@hotmail.com>, Jon Hood <squinky86@gmail.com> and Richard Westwell <garlicbread@ntlworld.com>
+  See bug #130502 for anything relating the building process.
