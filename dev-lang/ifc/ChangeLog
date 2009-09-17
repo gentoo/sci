@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Sep 2009; Sébastien Fabbro <bicatali@gentoo.org> ifc-11.1.046.ebuild:
+  Added ROOTPATH in the env file, and change env file to 05icfc since this
+  is the same as ifc
+
   05 Sep 2009; Sébastien Fabbro <bicatali@gentoo.org> ifc-11.1.046.ebuild:
   Fixed collision files with other Intel packages
 

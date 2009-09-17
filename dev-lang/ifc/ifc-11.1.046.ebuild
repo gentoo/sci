@@ -88,14 +88,18 @@ src_install() {
 		"${D}"/${DESTINATION}/ \
 		|| die "Copying ${PN} failed"
 
-	cat > 05ifc <<-EOF
-		PATH="${ROOT}${DESTINATION}/bin/${IARCH}"
-		LDPATH="${ROOT}${DESTINATION}/lib/${IARCH}"
-		LIBRARY_PATH="${ROOT}${DESTINATION}/lib/${IARCH}"
-		NLSPATH="${ROOT}${DESTINATION}/lib/locale/en_US/%N"
-		MANPATH="${ROOT}${DESTINATION}/man/en_US"
-	EOF
-	doenvd 05ifc || die "doenvd 05ifc failed"
+	if ! has_version "~dev-lang/icc-${PV}"; then
+		cat > 05icfc <<-EOF
+			PATH="${ROOT}${DESTINATION}/bin/${IARCH}"
+			ROOTPATH="${ROOT}${DESTINATION}/bin/${IARCH}"
+			LDPATH="${ROOT}${DESTINATION}/lib/${IARCH}"
+			LIBRARY_PATH="${ROOT}${DESTINATION}/lib/${IARCH}"
+			NLSPATH="${ROOT}${DESTINATION}/lib/locale/en_US/%N"
+			MANPATH="${ROOT}${DESTINATION}/man/en_US"
+		EOF
+		doenvd 05icfc || die "doenvd 05icfc failed"
+	fi
+
 	[ -d ${DESTINATION}/idb ] && \
 		dosym ../../common/com.intel.debugger.help_1.0.0 \
 		${DESTINATION}/idb/gui/${IARCH}/plugins
