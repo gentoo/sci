@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,6 @@ inherit eutils
 DESCRIPTION="Modeling and Exchange of Data library"
 HOMEPAGE="http://www.code-aster.org/outils/med/"
 SRC_URI="ftp://ftp.freebsd.org/pub/FreeBSD/distfiles/${P}.tar.gz"
-# SRC_URI="http://www.code-aster.org/V2/UPLOAD/DOC/Telechargement/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
@@ -19,9 +18,9 @@ RDEPEND="${DEPEND}"
 
 src_unpack() {
 	unpack ${A}
-	cd ${S}
-	epatch ${FILESDIR}/${P}-test.patch
-	epatch ${FILESDIR}/${P}-med_int_type.patch
+	cd "${S}"
+	epatch "${FILESDIR}"/"${P}"-test.patch
+	epatch "${FILESDIR}"/"${P}"-med_int_type.patch
 }
 
 src_compile() {
@@ -35,5 +34,5 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR=${D} install
+	make DESTDIR="${D}" install
 }

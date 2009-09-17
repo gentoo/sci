@@ -19,8 +19,8 @@ RDEPEND="${DEPEND}"
 
 src_unpack() {
 	unpack ${A}
-	cd ${S}
-	epatch ${FILESDIR}/${P}-gcc-4.3.patch
+	cd "${S}"
+	epatch "${FILESDIR}"/"${P}"-gcc-4.3.patch
 }
 
 src_compile() {
@@ -33,5 +33,5 @@ src_compile() {
 }
 
 src_install() {
-	make DESTDIR=${D} install
+	make DESTDIR="${D}" install
 }

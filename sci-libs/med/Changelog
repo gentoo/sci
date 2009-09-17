@@ -1,9 +1,0 @@
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-  20 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
-  Added x86 in the KEYWORDS list
-
-  20 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
-  +med-2.3.1.ebuild, +med-2.3.1-test.patch, +med-2.3.1-med_int_type.patch
-  Initial import. Ebuild created by Rogier Eggers <rogiereggers@hotmail.com>, Jon Hood <squinky86@gmail.com> and Richard Westwell <garlicbread@ntlworld.com>
-  See bug #130502 for anything relating the building process.
