@@ -13,15 +13,18 @@ SRC_URI="http://www.geuz.org/gmsh/src/${P}-source.tgz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="chaco cgns doc examples jpeg metis opencascade png zlib X"
+IUSE="blas chaco cgns doc examples fftw jpeg med metis minimal mpi opencascade png zlib X"
 
-RDEPEND="sci-libs/gsl
-	x11-libs/fltk:1.1
+RDEPEND="x11-libs/fltk:1.1
+	blas? ( virtual/blas virtual/lapack )
 	cgns? ( sci-libs/cgnslib )
 	jpeg? ( media-libs/jpeg )
+	med? ( >=sci-libs/med-2.3.4 )
 	opencascade? ( sci-libs/opencascade )
 	png? ( media-libs/libpng )
-	zlib? ( sys-libs/zlib )"
+	zlib? ( sys-libs/zlib )
+	fftw? ( sci-libs/fftw:3.0 )
+	mpi? ( sys-cluster/openmpi[cxx] )"
 
 DEPEND="${RDEPEND}
 	doc? ( virtual/latex-base )"
@@ -33,20 +36,30 @@ src_prepare() {
 
 src_configure() {
 	local myconf=""
-	use opencascade && myconf="${myconf} --with-occ-prefix=$CASROOT/lin"
+	use opencascade && myconf="${myconf} --with-occ-prefix=$CASROOT/lin
+		--with-occ-mesh-constraints-prefix=${CASROOT}"
 
-	# As for now, the MED integration does not compile
-	myconf="${myconf} --disable-med"
+	if use minimal ; then
+		ewarn "minimal USE flag disables most of features"
+	fi
 
-	# I'm not sure if this is neede, but it seems to help in some circumstances
+	if use fftw && use !blas ; then
+		die "You MUST compile with the blas USE flag to use the fftw dependency"
+		myconf="${myconf} --with-fftw3-prefix=/usr"
+	fi
+
+	# I'm not sure if this is needed, but it seems to help in some circumstances
 	# see http://bugs.gentoo.org/show_bug.cgi?id=195980#c18
-	append-ldflags -ldl
+	append-ldflags -ldl -lmpi
 
 	econf ${myconf} \
 		$(use_enable X gui) \
 		$(use_enable cgns) \
 		$(use_enable jpeg) \
+		$(use_enable minimal) \
+		$(use_enable med) \
 		$(use_enable metis) \
+		$(use_enable mpi) \
 		$(use_enable opencascade occ) \
 		$(use_enable png) \
 		$(use_enable chaco) \
