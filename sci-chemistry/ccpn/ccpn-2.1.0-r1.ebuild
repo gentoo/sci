@@ -3,11 +3,11 @@
 # $Header: $
 
 NEED_PYTHON=2.5
-PYTHON_MODNAME="ccpn"
+PYTHON_MODNAME="${PN}"
 PYTHON_USE_WITH="ssl tk"
 EAPI="2"
 
-inherit portability python toolchain-funcs versionator
+inherit distutils portability python toolchain-funcs versionator
 
 MY_PN="${PN}mr"
 
@@ -65,7 +65,6 @@ src_prepare() {
 
 	sed \
 		-e "s:^\(CC = \).*:\1$(tc-getCC):g" \
-		-e "s:^\(MAKE =.*\):\1 ${MAKEOPTS}:g" \
 		-e "s:^\(OPT_FLAG = \).*:\1${CFLAGS}:g" \
 		-e "s:^\(LINK_FLAGS =.*\):\1 ${LDFLAGS}:g" \
 		-e "s:^\(IGNORE_GL_FLAG = \).*:\1${IGNORE_GL_FLAG}:g" \
@@ -162,9 +161,3 @@ src_install() {
 		fperms 755 ${in_path}/python/${FILE}
 	done
 }
-
-pkg_postrm() {
-	python_pkg_postrm
-	rm -rf $(python_get_sitedir)/${PN}
-}
-
