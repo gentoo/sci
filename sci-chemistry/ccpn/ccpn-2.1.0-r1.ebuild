@@ -27,7 +27,6 @@ RDEPEND="
 	dev-tcltk/tix
 	virtual/glut"
 DEPEND="${RDEPEND}"
-
 RESTRICT="mirror"
 
 S="${WORKDIR}"/${MY_PN}/${MY_PN}$(get_version_component_range 1-2 ${PV})
