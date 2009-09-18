@@ -7,7 +7,7 @@ PYTHON_MODNAME="ccpn"
 PYTHON_USE_WITH="ssl tk"
 EAPI="2"
 
-inherit python toolchain-funcs portability distutils eutils
+inherit eutils distutils multilib portability python toolchain-funcs versionator
 
 MY_PN="${PN}mr"
 
@@ -21,27 +21,22 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc opengl"
 
 RDEPEND="
-	virtual/glut
+	dev-lang/tk
 	dev-python/elementtree
+	dev-python/numpy
 	dev-tcltk/tix
-	dev-python/numpy"
+	virtual/glut"
 DEPEND="${RDEPEND}"
 
 RESTRICT="mirror"
 
-S="${WORKDIR}"/${MY_PN}
+S="${WORKDIR}"/${MY_PN}/${MY_PN}$(get_version_component_range 1-2 ${PV})
 
 pkg_setup() {
 	python_version
 }
 
 src_prepare() {
-	distutils_src_prepare
-	echo "" > "${S}"/ccpnmr2.1/c/environment.txt || die "failed to kill environment.txt"
-}
-
-src_compile() {
-
 	local tk_ver
 	local myconf
 
@@ -49,68 +44,59 @@ src_compile() {
 
 	if use opengl; then
 		if has_version media-libs/freeglut; then
-			GLUT_NEED_INIT="-DNEED_GLUT_INIT"
+			ccpnadd GLUT_NEED_INIT = -DNEED_GLUT_INIT
 		else
-			GLUT_NEED_INIT=""
+			ccpnadd GLUT_NEED_INIT =
 		fi
 
-		IGNORE_GL_FLAG=""
-		GL_FLAG="-DUSE_GL_FALSE"
-		GLUT_NOT_IN_GL=""
-		GLUT_FLAG="\$(GLUT_NEED_INIT) \$(GLUT_NOT_IN_GL)"
-		GL_DIR="/usr"
-		GL_LIB="-lglut -lGLU -lGL"
-		GL_INCLUDE_FLAGS="-I\$(GL_DIR)/include"
-		GL_LIB_FLAGS="-L\$(GL_DIR)/$(get_libdir)"
+		ccpnadd IGNORE_GL_FLAG =
+		ccpnadd GL_FLAG = -DUSE_GL_FALSE
+		ccpnadd GLUT_NOT_IN_GL =
+		ccpnadd GL_DIR = /usr
+		ccpnadd GL_LIB = -lglut -lGLU -lGL
+		ccpnadd GL_INCLUDE_FLAGS = -I\$\(GL_DIR\)/include
+		ccpnadd GL_LIB_FLAGS = -L\$\(GL_DIR\)/$(get_libdir)
 
 	else
-		IGNORE_GL_FLAG="-DIGNORE_GL"
-		GL_FLAG="-DUSE_GL_FALSE"
-		GLUT_NOT_IN_GL=""
-		GLUT_FLAG="\$(GLUT_NEED_INIT) \$(GLUT_NOT_IN_GL)"
+		ccpnadd IGNORE_GL_FLAG = -DIGNORE_GL
+		ccpnadd GL_FLAG = -DUSE_GL_FALSE
+		ccpnadd GLUT_NOT_IN_GL =
 	fi
+	ccpnadd GLUT_FLAG = \$\(GLUT_NEED_INIT\) \$\(GLUT_NOT_IN_GL\)
+	ccpnadd CC = $(tc-getCC)
+	ccpnadd LINK_FLAGS = ${LDFLAGS} -fPIC
+	ccpnadd MALLOC_FLAG =
+	ccpnadd FPIC_FLAG = -fPIC
+	ccpnadd SHARED_FLAGS = -shared
+	ccpnadd MATH_LIB = -lm
+	ccpnadd X11_DIR = /usr
+	ccpnadd X11_LIB = -lX11 -lXext
+	ccpnadd X11_INCLUDE_FLAGS = -I\$\(X11_DIR\)/include
+	ccpnadd X11_LIB_FLAGS = -L\$\(X11_DIR\)/lib
+	ccpnadd TCL_DIR = /usr
+	ccpnadd TCL_LIB = -ltcl${tk_ver}
+	ccpnadd TCL_INCLUDE_FLAGS = -I\$\(TCL_DIR\)/include
+	ccpnadd TCL_LIB_FLAGS = -L\$\(TCL_DIR\)/$(get_libdir)
+	ccpnadd TK_DIR = /usr
+	ccpnadd TK_LIB = -ltk${tk_ver}
+	ccpnadd TK_INCLUDE_FLAGS = -I\$\(TK_DIR\)/include
+	ccpnadd TK_LIB_FLAGS = -L\$\(TK_DIR\)/$(get_libdir)
+	ccpnadd PYTHON_DIR = /usr
+	ccpnadd PYTHON_INCLUDE_FLAGS = -I\$\(PYTHON_DIR\)/include/python${PYVER}
+	ccpnadd CC_FLAGS = ${CFLAGS} \$\(MALLOC_FLAG\) \$\(FPIC_FLAG\)
+	ccpnadd LINK = $(tc-getCC)
+	ccpnadd MAKE = make
+	ccpnadd CO_NAME = -c \$\<
+	ccpnadd OUT_NAME = -o \$@
+	ccpnadd OBJ_SUFFIX = o
+	ccpnadd DYLIB_SUFFIX = so
+	ccpnadd RM = rm -f
+	ccpnadd LINK_LIBRARIES = sh linkSharedObjs
+}
 
-	cd ccpnmr2.1/c
-
+src_compile() {
 	emake \
-		CC="$(tc-getCC)" \
-		LINK_FLAGS="${LDFLAGS} -fPIC" \
-		MALLOC_FLAG= \
-		FPIC_FLAG="-fPIC" \
-		SHARED_FLAGS="\${LINK_FLAGS} -shared" \
-		MATH_LIB="-lm" \
-		X11_DIR="/usr" \
-		X11_LIB="-lX11 -lXext" \
-		X11_INCLUDE_FLAGS="-I\$(X11_DIR)/include" \
-		X11_LIB_FLAGS="-L\$(X11_DIR)/lib" \
-		TCL_DIR="/usr" \
-		TCL_LIB="-ltcl${tk_ver}" \
-		TCL_INCLUDE_FLAGS="-I\$(TCL_DIR)/include" \
-		TCL_LIB_FLAGS="-L\$(TCL_DIR)/$(get_libdir)" \
-		TK_DIR="/usr" \
-		TK_LIB="-ltk${tk_ver}" \
-		TK_INCLUDE_FLAGS="-I\$(TK_DIR)/include" \
-		TK_LIB_FLAGS="-L\$(TK_DIR)/$(get_libdir)" \
-		PYTHON_DIR="/usr" \
-		PYTHON_INCLUDE_FLAGS="-I\$(PYTHON_DIR)/include/python${PYVER}" \
-		CC_FLAGS="${CFLAGS} \$(MALLOC_FLAG) \$(FPIC_FLAG)" \
-		GLUT_NEED_INIT="${GLUT_NEED_INIT}" \
-		IGNORE_GL_FLAG="${IGNORE_GL_FLAG}" \
-		GL_FLAG="${GL_FLAG}" \
-		GLUT_NOT_IN_GL="${GLUT_NOT_IN_GL}" \
-		GLUT_FLAG="${GLUT_FLAG}" \
-		GL_DIR="${GL_DIR}" \
-		GL_LIB="${GL_LIB}" \
-		GL_INCLUDE_FLAGS="${GL_INCLUDE_FLAGS}" \
-		GL_LIB_FLAGS="${GL_LIB_FLAGS}" \
-		LINK="$(tc-getCC)" \
-		MAKE="make" \
-		CO_NAME="-c \$<" \
-		OUT_NAME="-o \$@" \
-		OBJ_SUFFIX="o" \
-		DYLIB_SUFFIX="so" \
-		RM="rm -f" \
-		LINK_LIBRARIES="sh linkSharedObjs" \
+		-C c \
 		all links || \
 		die "failed to compile"
 }
@@ -142,23 +128,22 @@ src_install() {
 	find . -name doc -exec rm -rf '{}' \; 2> /dev/null
 	eend
 
-	if [[ ${PYVER} > 2.4 ]]; then
-		for i in ccpnmr2.1/python/memops/format/compatibility/{Converters,part2/Converters2}.py; do
-			sed \
-				-e 's:#from __future__:from __future__:g' \
-				-i ${i}
-		done
-	fi
+	for i in ccpnmr2.1/python/memops/format/compatibility/{Converters,part2/Converters2}.py; do
+		sed \
+			-e 's:#from __future__:from __future__:g' \
+			-i ${i}
+	done
 
 	insinto ${in_path}
 
 	ebegin "Installing main files"
-	doins -r ccpnmr2.1/{data,model,python} || die "main files installation failed"
+	doins -r {data,model,python} || die "main files installation failed"
 	eend
 
 	einfo "Adjusting permissions"
 
-	files="ccpnmr/c/ContourFile.so
+	files="
+		ccpnmr/c/ContourFile.so
 		ccpnmr/c/ContourLevels.so
 		ccpnmr/c/ContourStyle.so
 		ccpnmr/c/PeakList.so
@@ -191,4 +176,8 @@ src_install() {
 	for FILE in ${files}; do
 		fperms 755 ${in_path}/python/${FILE}
 	done
+}
+
+ccpnadd() {
+	echo $@ >> "${S}"/c/environment.txt
 }
