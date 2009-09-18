@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-NEED_PYTHON=2.4
+NEED_PYTHON=2.5
 PYTHON_MODNAME="ccpn"
 PYTHON_USE_WITH="ssl tk"
 EAPI="2"
 
-inherit python toolchain-funcs portability distutils eutils
+inherit portability python toolchain-funcs versionator
 
 MY_PN="${PN}mr"
 
@@ -18,29 +18,25 @@ HOMEPAGE="http://www.ccpn.ac.uk/ccpn"
 SLOT="0"
 LICENSE="|| ( CCPN LGPL-2.1 )"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc opengl"
+IUSE="doc +opengl"
 
-RDEPEND="virtual/glut
+RDEPEND="
+	dev-lang/tk
 	dev-python/elementtree
+	dev-python/numpy
 	dev-tcltk/tix
-	dev-python/numpy"
+	virtual/glut"
 DEPEND="${RDEPEND}"
 
 RESTRICT="mirror"
 
-S="${WORKDIR}"/${MY_PN}
+S="${WORKDIR}"/${MY_PN}/${MY_PN}$(get_version_component_range 1-2 ${PV})
 
 pkg_setup() {
 	python_version
 }
 
 src_prepare() {
-	distutils_src_prepare
-	echo "" > "${S}"/ccpnmr2.0/c/environment.txt || die "failed to kill environment.txt"
-}
-
-src_compile() {
-
 	local tk_ver
 	local myconf
 
@@ -55,8 +51,6 @@ src_compile() {
 
 		IGNORE_GL_FLAG=""
 		GL_FLAG="-DUSE_GL_FALSE"
-		GLUT_NOT_IN_GL=""
-		GLUT_FLAG="\$(GLUT_NEED_INIT) \$(GLUT_NOT_IN_GL)"
 		GL_DIR="/usr"
 		GL_LIB="-lglut -lGLU -lGL"
 		GL_INCLUDE_FLAGS="-I\$(GL_DIR)/include"
@@ -65,43 +59,30 @@ src_compile() {
 	else
 		IGNORE_GL_FLAG="-DIGNORE_GL"
 		GL_FLAG="-DUSE_GL_FALSE"
+	fi
 		GLUT_NOT_IN_GL=""
 		GLUT_FLAG="\$(GLUT_NEED_INIT) \$(GLUT_NOT_IN_GL)"
-	fi
 
-	cd ccpnmr2.0/c
+	sed \
+		-e "s:^\(CC = \).*:\1$(tc-getCC):g" \
+		-e "s:^\(MAKE =.*\):\1 ${MAKEOPTS}:g" \
+		-e "s:^\(OPT_FLAG = \).*:\1${CFLAGS}:g" \
+		-e "s:^\(LINK_FLAGS =.*\):\1 ${LDFLAGS}:g" \
+		-e "s:^\(IGNORE_GL_FLAG = \).*:\1${IGNORE_GL_FLAG}:g" \
+		-e "s:^\(GL_FLAG = \).*:\1${GL_FLAG}:g" \
+		-e "s:^\(GLUT_NEED_INIT = \).*:\1${GLUT_NEED_INIT}:g" \
+		-e "s:^\(GLUT_NOT_IN_GL = \).*:\1:g" \
+		-e "s:^\(X11_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
+		-e "s:^\(TCL_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
+		-e "s:^\(TK_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
+		-e "s:^\(PYTHON_INCLUDE_FLAGS = \).*:\1-I\$(PYTHON_DIR)/include/python${PYVER}:g" \
+		-e "s:^\(GL_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
+		c/environment_default.txt > c/environment.txt
+}
 
+src_compile() {
 	emake \
-		CC="$(tc-getCC)" \
-		LDFLAGS="${LDFLAGGS}" \
-		MALLOC_FLAG= \
-		FPIC_FLAG="-fPIC" \
-		SHARED_FLAGS="${LDFLAGS} -shared" \
-		MATH_LIB="-lm" \
-		X11_DIR="/usr" \
-		X11_LIB="-lX11 -lXext" \
-		X11_INCLUDE_FLAGS="-I\$(X11_DIR)/include" \
-		X11_LIB_FLAGS="-L\$(X11_DIR)/lib" \
-		TCL_DIR="/usr" \
-		TCL_LIB="-ltcl${tk_ver}" \
-		TCL_INCLUDE_FLAGS="-I\$(TCL_DIR)/include" \
-		TCL_LIB_FLAGS="-L\$(TCL_DIR)/$(get_libdir)" \
-		TK_DIR="/usr" \
-		TK_LIB="-ltk${tk_ver}" \
-		TK_INCLUDE_FLAGS="-I\$(TK_DIR)/include" \
-		TK_LIB_FLAGS="-L\$(TK_DIR)/$(get_libdir)" \
-		PYTHON_DIR="/usr" \
-		PYTHON_INCLUDE_FLAGS="-I\$(PYTHON_DIR)/include/python${PYVER}" \
-		CFLAGS="${CFLAGS} \$(MALLOC_FLAG) \$(FPIC_FLAG)" \
-		GLUT_NEED_INIT="${GLUT_NEED_INIT}" \
-		IGNORE_GL_FLAG="${IGNORE_GL_FLAG}" \
-		GL_FLAG="${GL_FLAG}" \
-		GLUT_NOT_IN_GL="${GLUT_NOT_IN_GL}" \
-		GLUT_FLAG="${GLUT_FLAG}" \
-		GL_DIR="${GL_DIR}" \
-		GL_LIB="${GL_LIB}" \
-		GL_INCLUDE_FLAGS="${GL_INCLUDE_FLAGS}" \
-		GL_LIB_FLAGS="${GL_LIB_FLAGS}" \
+		-C c \
 		all links || \
 		die "failed to compile"
 }
@@ -119,7 +100,7 @@ src_install() {
 	libdir=$(get_libdir)
 	tkver=$(best_version dev-lang/tk | cut -d- -f3 | cut -d. -f1,2)
 
-	for wrapper in analysis dangle dataShifter formatConverter pipe2azara; do
+	for wrapper in analysis dangle dataShifter eci formatConverter pipe2azara; do
 		sed -e "s:gentoo_sitedir:${gentoo_sitedir}:g" \
 		    -e "s:libdir:${libdir}:g" \
 			-e "s:tkver:${tkver}:g" \
@@ -133,18 +114,16 @@ src_install() {
 	find . -name doc -exec rm -rf '{}' \; 2> /dev/null
 	eend
 
-	if [[ ${PYVER} > 2.4 ]]; then
-		for i in ccpnmr2.0/python/memops/format/compatibility/{Converters,part2/Converters2}.py; do
-			sed \
-				-e 's:#from __future__:from __future__:g' \
-				-i ${i}
-		done
-	fi
+	for i in python/memops/format/compatibility/{Converters,part2/Converters2}.py; do
+		sed \
+			-e 's:#from __future__:from __future__:g' \
+			-i ${i}
+	done
 
 	insinto ${in_path}
 
 	ebegin "Installing main files"
-	doins -r ccpnmr2.0/{data,model,python} || die "main files installation failed"
+	doins -r data model python || die "main files installation failed"
 	eend
 
 	einfo "Adjusting permissions"
@@ -185,6 +164,7 @@ src_install() {
 }
 
 pkg_postrm() {
-	distutils_pkg_postrm
+	python_pkg_postrm
 	rm -rf $(python_get_sitedir)/${PN}
 }
+

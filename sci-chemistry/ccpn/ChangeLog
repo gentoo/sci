@@ -2,6 +2,16 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccpn-2.1.0-r1 (18 Sep 2009)
+
+  18 Sep 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  ccpn-2.0.7.1-r2.ebuild, +ccpn-2.1.0-r1.ebuild, +files/eci:
+  version bump
+  rewriten way of setting the env for compilation
+  USE opengl by default
+  distutils removed
+  pkg_postrm removes now all updates files from system
+
   14 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   -ccpn-2.0.7.1-r1.ebuild, ccpn-2.0.7.1-r2.ebuild,
   -files/missing-link.patch:
