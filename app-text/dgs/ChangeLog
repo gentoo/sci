@@ -2,6 +2,20 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/app-text/dgs/ChangeLog,v 1.30 2008/03/18 13:24:47 flameeyes Exp $
 
+*dgs-0.5.10-r2 (19 Sep 2009)
+
+  19 Sep 2009; Etienne Lorriaux <etienne.lorriaux@gmail.com>
+  -dgs-0.5.10-r1.ebuild, +dgs-0.5.10-r2.ebuild,
+  +files/dgs-fix-as-needed.patch:
+  Fix --as-needed LDFLAG + modifs thanks to Olivier Huber
+
+  deleted: dgs-0.5.10-r1.ebuild
+
+  new file: dgs-0.5.10-r2.ebuild
+
+  new file: files/dgs-fix-as-needed.patch
+
+
   17 Sep 2009; Etienne Lorriaux <etienne.lorriaux@gmail.com>
   +files/0.5.10-workaround-include-in-comments.patch, +dgs-0.5.10-r1.ebuild,
   +files/dgs-0.5.10-gcc-3.4.diff, +files/dgs-0.5.10-gs-time_.h-gentoo.diff,
