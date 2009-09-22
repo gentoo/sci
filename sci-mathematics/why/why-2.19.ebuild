@@ -29,17 +29,23 @@ src_unpack() {
 	unpack ${A}
 	cd ${S}
 
-	epatch "${FILESDIR}/${P}-sandbox.patch"
+	epatch "${FILESDIR}/${P}-makefile_sandbox.patch"
 
 	mv jc/jc_ast.mli jc/jc_ast.ml
 	mv jc/jc_env.mli jc/jc_env.ml
 	epatch "${FILESDIR}/${P}-jessie_lib.patch"
 
+	#to build with apron-0.9.10
+	sed -i configure.in \
+		-e "s/oct_caml/octMPQ_caml/g" \
+		-e "s/box_caml/boxMPQ_caml/g" \
+		-e "s/polka_caml/polkaMPQ_caml/g"
+
 	eautoreconf
 }
 
 src_compile(){
-	econf $(use_enable apron) || die "econf failed"
+	econf $(use_enable apron) PATH="/usr/bin:$PATH" || die "econf failed"
 	emake DESTDIR="/" || die "emake failed"
 }
 
