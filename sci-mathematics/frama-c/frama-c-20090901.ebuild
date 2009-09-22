@@ -39,7 +39,6 @@ src_unpack(){
 	epatch "${FILESDIR}/${P}-varinfo_accessor.patch"
 	epatch "${FILESDIR}/${P}-why_link.patch"
 	epatch "${FILESDIR}/${P}-ocamlgraph_link.patch"
-	epatch "${FILESDIR}/${P}-weak_dynlink.patch"
 
 	eautoreconf
 }

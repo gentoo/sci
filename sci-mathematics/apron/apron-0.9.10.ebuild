@@ -16,7 +16,8 @@ IUSE="cxx doc ocaml ppl"
 RDEPEND="dev-libs/gmp
 		dev-libs/mpfr
 		ocaml? ( >=dev-lang/ocaml-3.09
-				dev-ml/camlidl )
+				dev-ml/camlidl 
+				dev-ml/mlgmpidl )
 		ppl? ( dev-libs/ppl )"
 DEPEND="${RDEPEND}
 		doc? ( app-text/texlive
