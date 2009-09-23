@@ -15,12 +15,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="ibmvio rdma fcp fcoe"
 
-RDEPEND="dev-perl/config-general
+DEPEND="dev-perl/config-general
 		rdma? (
 				sys-infiniband/libibverbs
 				sys-infiniband/librdmacm
 				)"
-DEPEND="${RDEPEND}"
+RDEPEND="${DEPEND}
+		sys-apps/sg3_utils"
 
 src_configure() {
 	local myconf
