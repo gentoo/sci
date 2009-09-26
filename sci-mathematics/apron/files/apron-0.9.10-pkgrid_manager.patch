@@ -1,0 +1,12 @@
+diff -Naur apron-0.9.10-orig/apronxx/apxx_ppl_product_inline.hh apron-0.9.10-ptch/apronxx/apxx_ppl_product_inline.hh
+--- apron-0.9.10-orig/apronxx/apxx_ppl_product_inline.hh	2007-10-10 12:42:07.000000000 +0000
++++ apron-0.9.10-ptch/apronxx/apxx_ppl_product_inline.hh	2009-09-22 21:05:56.000000000 +0000
+@@ -14,7 +14,7 @@
+ */
+ 
+ inline pkgrid_manager::pkgrid_manager(bool strict) 
+-  : manager(ap_pkgrid_manager_alloc(strict))
++  : manager(ap_pkgrid_manager_alloc(NULL, NULL))
+ {}
+ 
+ inline manager& pkgrid_manager::operator=(const manager& m)

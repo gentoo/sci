@@ -2,6 +2,14 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mpich2-1.1.1_p1 (17 Sep 2009)
+
+  17 Sep 2009; Justin Bronder <jsbronder@gentoo.org>
+  +files/0001-MPD_CONF_FILE-should-be-readable.patch,
+  +files/0002-mpd_conf_file-search-order.patch,
+  +files/0003-Fix-pkgconfig-for-mpich2-ch3.patch, +mpich2-1.1.1_p1.ebuild:
+  Bump mpich2-1.1.1_p1
+
   02 Apr 2009; Justin Bronder <jsbronder@gentoo.org>
   -sys-cluster/mpich2/files/mpich2.envd:
   Remove envd file, no longer necessary.

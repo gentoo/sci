@@ -1,6 +1,24 @@
 # ChangeLog for sci-libs/opencascade
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*opencascade-6.3-r1 (17 Sep 2009)
+
+  17 Sep 2009; Etienne Lorriaux <etienne.lorriaux@gmail.com>
+  -opencascade-6.3.ebuild, +opencascade-6.3-r1.ebuild,
+  +files/opencascade-6.3-fixed-DESTDIR.patch,
+  +files/opencascade-6.3-missing-mode.patch:
+  Replaced the broken opencascade-6.3 by opencascade-6.3-r1
+
+  new file: files/opencascade-6.3-fixed-DESTDIR.patch
+
+  deleted: opencascade-6.3.ebuild
+
+  new file: files/opencascade-6.3-missing-mode.patch
+
+  new file: opencascade-6.3-r1.ebuild
+
+
   05 January 2009; Daniel Tourde <daniel.tourde@caelae.se>
   Added EAPI=1 in opencascade-6.2-r1.ebuild
   +opencascade-6.3.ebuild

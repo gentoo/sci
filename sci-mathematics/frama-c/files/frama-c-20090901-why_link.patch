@@ -1,0 +1,55 @@
+From: Mehdi Dogguy <mehdi@debian.org>
+Date: Wed, 9 Sep 2009 16:51:55 +0200
+Subject: [PATCH] Make Jessie plugin use Jc from Why 2.19
+
+---
+ src/jessie/interp.ml |   14 ++++++--------
+ 1 files changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/src/jessie/interp.ml b/src/jessie/interp.ml
+index c3057db..84ae55d 100644
+--- a/src/jessie/interp.ml
++++ b/src/jessie/interp.ml
+@@ -2060,8 +2060,8 @@ let global vardefs g =
+     | GCompTag(compinfo,pos) when compinfo.cstruct -> (* struct type *)
+         let field fi =
+           let this =
+-            default_field_modifiers, 
+-            ctype ?bitsize:fi.fsize_in_bits fi.ftype,
++            false,
++            (ctype ?bitsize:fi.fsize_in_bits fi.ftype:Jc_ast.ptype),
+             fi.fname, fi.fsize_in_bits
+           in
+           let padding_size =
+@@ -2069,8 +2069,8 @@ let global vardefs g =
+           in
+           if padding_size = 0 then [this] else
+             let padding =
+-              default_field_modifiers, 
+-              type_of_padding, unique_name "padding", fi.fpadding_in_bits
++              false,
++              (type_of_padding:Jc_ast.ptype), unique_name "padding", fi.fpadding_in_bits
+             in
+             [this;padding]
+         in
+@@ -2131,8 +2131,8 @@ let global vardefs g =
+         in
+         let padding =
+           if union_size = 0 then [] else
+-            [default_field_modifiers, 
+-             type_of_padding, unique_name "padding", Some union_size]
++            [false, 
++             (type_of_padding:Jc_ast.ptype), unique_name "padding", Some union_size]
+         in
+         let union_tag = JCDtag(compinfo.cname,[],None,padding,[]) in
+         let fields = List.map field compinfo.cfields in
+@@ -2397,8 +2397,6 @@ let pragma = function
+ 		  [Jc_output.JCfloat_model Jc_env.FMstrict]
+               | "full" -> float_model := `Full;
+ 		  [Jc_output.JCfloat_model Jc_env.FMfull]
+-              | "multirounding" -> float_model := `Multirounding;
+-		  [Jc_output.JCfloat_model Jc_env.FMmultirounding]
+               | s ->
+                   Jessie_options.warning ~current:true
+                     "pragma %s: identifier %s is not a valid value (ignored)." 
+-- 

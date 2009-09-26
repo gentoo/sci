@@ -1,0 +1,11 @@
+--- DPS/lib/dpstk/Makefile.in~	2000-06-16 05:54:36.000000000 +0200
++++ DPS/lib/dpstk/Makefile.in	2009-09-17 22:18:34.417953240 +0200
+@@ -96,7 +96,7 @@
+ libdpstk_la_SOURCES =  	$(dps_sources) 	XDPSshare.c 	XDPSpreview.c 	XDPSuserpath.c 	FontSBI.h 	dpsXcommonI.h
+ 
+ 
+-libdpstk_la_LIBADD = $(X_PRE_LIBS) -lX11 -lXt $(X_LIBS) $(X_EXTRA_LIBS)
++libdpstk_la_LIBADD = $(X_PRE_LIBS) -lX11 -lm -lXt $(X_LIBS) $(X_EXTRA_LIBS)
+ libdpstk_la_LDFLAGS = -version-info $(LT_VERSION)
+ 
+ libdpstkXm_la_SOURCES =  	ColorSB.c 	DPSScrollW.c

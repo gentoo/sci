@@ -57,12 +57,10 @@ DEPEND="${RDEPEND}
 	dev-lang/swig
 	test? ( dev-scheme/greg )"
 
-#S="${WORKDIR}/${MY_P}"
 S="${WORKDIR}"
 
 PATCHES=(
 	"${FILESDIR}"/${PV}-as-needed.patch
-	"${FILESDIR}"/${PV}-test-rama.patch
 	"${FILESDIR}"/link-against-guile-gtk-properly.patch
 	"${FILESDIR}"/fix-namespace-error.patch
 	)
@@ -152,7 +150,7 @@ src_test() {
 	export PYTHONHOME=/usr
 	export CCP4_SCR="${T}"/coot_test
 
-	export TESTROOT="${S}"
+	export COOT_TEST_DATA_DIR="${S}"/data/greg-data
 
 	cat > command-line-greg.scm <<- EOF
 	(use-modules (ice-9 greg))
@@ -164,11 +162,6 @@ src_test() {
 				(coot-real-exit 0)
 				(coot-real-exit 1)))
 	EOF
-
-	sed \
-		-e "s:HOME:TESTROOT:g" \
-		-i greg-tests/begin.grg \
-		|| die
 
 	einfo "Running test with following paths ..."
 	einfo "COOT_STANDARD_RESIDUES $COOT_STANDARD_RESIDUES"

@@ -1,0 +1,35 @@
+--- configure	2009-04-30 12:17:25.000000000 +0200
++++ configure.new	2009-06-17 00:22:55.000000000 +0200
+@@ -3909,8 +3909,8 @@
+ fi
+ 
+ 
+-make -C external gmp
+-make -C external cdd
++# make -C external gmp
++# make -C external cdd
+ 
+ 
+ { echo "$as_me:$LINENO: checking for main in -lsoplex" >&5
+--- Makefile.in	2009-04-30 14:23:14.000000000 +0200
++++ Makefile.in.new	2009-06-17 00:57:15.000000000 +0200
+@@ -56,7 +56,7 @@
+ ETAGS = etags
+ CTAGS = ctags
+ DIST_SUBDIRS = $(SUBDIRS)
+-DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
++DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS)
+ distdir = $(PACKAGE)-$(VERSION)
+ top_distdir = $(distdir)
+ am__remove_distdir = \
+@@ -157,8 +157,8 @@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ SUBDIRS = wrap-gmp-gmpxx lib-src-reg lib-src src-reg src examples
+-EXTRA_DIST = external/Makefile external/gmp-4.3.0.tar.gz \
+-	external/cddlib-0.94b-TOPCOM.tar.gz
++# EXTRA_DIST = external/Makefile external/gmp-4.3.0.tar.gz \
++#	external/cddlib-0.94b-TOPCOM.tar.gz
+ all: all-recursive
+ 
+ .SUFFIXES:

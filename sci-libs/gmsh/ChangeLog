@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  Reworked ebuild from Etienne Lorriaux
+
   21 Jul 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Version bump and dep. fixes (thanks to  Etienne Lorriaux); Changed to EAPI=2
 

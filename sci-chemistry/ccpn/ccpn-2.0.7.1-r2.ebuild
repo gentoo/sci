@@ -183,3 +183,8 @@ src_install() {
 		fperms 755 ${in_path}/python/${FILE}
 	done
 }
+
+pkg_postrm() {
+	distutils_pkg_postrm
+	rm -rf $(python_get_sitedir)/${PN}
+}
