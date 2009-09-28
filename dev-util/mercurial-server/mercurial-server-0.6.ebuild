@@ -7,7 +7,7 @@ EAPI="2"
 inherit eutils
 
 DESCRIPTION="Mercurial authentication and authorization tools"
-HOMEPAGE="http://hg.opensource.lshift.net/mercurial-server/"
+HOMEPAGE="http://www.lshift.net/mercurial-server.html"
 SRC_URI="http://hg.opensource.lshift.net/mercurial-server/archive/release_${PV}.tar.gz"
 
 LICENSE="GPL-2"
