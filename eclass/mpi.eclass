@@ -210,6 +210,8 @@ mpi_imp_deplist() {
 		for pn in ${MPI_UNCLASSED_BLOCKERS}; do
 			ver="${ver} !${MPI_UNCLASSED_BLOCKERS}"
 		done
+	else
+		ver="${ver} sys-cluster/empi"
 	fi
 	echo "${ver}"
 }
@@ -270,7 +272,7 @@ mpi_pkg_deplist() {
 	esac
 
 	if mpi_classed; then
-		ver="virtual/$(mpi_class)"
+		ver="virtual/$(mpi_class) sys-cluster/empi"
 	else
 		ver="virtual/mpi"
 	fi
