@@ -13,8 +13,7 @@ SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE=""
 DEPEND="app-admin/eselect"
-RDEPEND="${DEPEND}
-	!app-admin/eselect-mpi"
+RDEPEND="${DEPEND}"
 
 src_install() {
 	newbin "${FILESDIR}"/${P} ${PN} || die
