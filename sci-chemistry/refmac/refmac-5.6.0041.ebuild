@@ -12,7 +12,6 @@ HOMEPAGE="http://www.ysbl.york.ac.uk/~garib/refmac/"
 SRC_URI="${HOMEPAGE}data/refmac_experimental/${PN}${MY_PV}_source_v${PV}.tar.gz
 	test? ( http://dev.gentooexperimental.org/~jlec/distfiles/test-framework.tar.gz )"
 
-
 SLOT="0"
 LICENSE="ccp4"
 KEYWORDS="~amd64 ~x86"
@@ -61,4 +60,3 @@ src_install() {
 	dosym refmac /usr/bin/refmac5 || die
 #	dodoc refmac_keywords.pdf || die
 }
-
