@@ -3,6 +3,9 @@
 # $Header: $
 
   01 Oct 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  new release, as the libTogl location has changed
+
+  01 Oct 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Changed opencascade path to $CASROOT; removed old 4.4er versions
 
   18 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:

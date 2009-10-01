@@ -29,7 +29,7 @@ RDEPEND="${DEPEND}"
 src_configure() {
 	# This is not the most clever way to deal with these flags
 	# but --disable-xxx does not seem to work correcly, so...
-	local myconf=""
+	local myconf="--with-togl=/usr/$(get_libdir)/Togl1.7"
 
 	if use opencascade; then
 		myconf="${myconf} --enable-occ --with-occ=$CASROOT"
@@ -57,7 +57,7 @@ src_configure() {
 src_install() {
 	local NETGENDIR="/usr/share/netgen"
 
-	echo -e "NETGENDIR=${NETGENDIR}" > ./99netgen
+	echo -e "NETGENDIR=${NETGENDIR} \nLDPATH=/usr/$(get_libdir)/Togl1.7" > ./99netgen
 	doenvd 99netgen
 
 	emake DESTDIR="${D}" install || die "make install failed"
