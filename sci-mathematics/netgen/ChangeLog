@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  01 Oct 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
+  Changed opencascade path to $CASROOT; removed old 4.4er versions
+
   18 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Version bump
 
@@ -20,14 +23,14 @@
 
   20 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
   -files/debian-inspired-netgen_4.4-9.patch, -files/debian-inspired-netgen_4.4-9.2.patch, -files/icon/netgen.desktop, -files/icon/netgen-icon.png, +netgen-4.4-makefiles.patch, +netgen.png, +netgen-4.4-order.patch, +netgen-4.4-datadir.patch, +netgen-4.4-stdlib.patch, +netgen-4.4-declarations.patch, +netgen-4.4-tkversion.patch
-  Extensive rework of the ebuild and the epatches by Sébastien Fabbro <bicatali@gentoo.org>. At the moment, the OpenCascade support is broken.
+  Extensive rework of the ebuild and the epatches by SÃÂ©bastien Fabbro <bicatali@gentoo.org>. At the moment, the OpenCascade support is broken.
 
   12 May 2008; Daniel Tourde <daniel.tourde@caelae.se>
   +files/debian-inspired-netgen_4.4-9.patch, +files/debian-inspired-netgen_4.4-9.2.patch, +files/icon/netgen.desktop, +files/icon/netgen-icon.png +netgen-4.4-r1.ebuild:
   General improvement, better amd64 support, icon in the menu etc..
-  Many thanks to Richard Westwell <garlicbread@ntlworld.com> and Sébastien Fabbro <bicatali@gentoo.org> for their inputs and their modifications.
+  Many thanks to Richard Westwell <garlicbread@ntlworld.com> and SÃÂ©bastien Fabbro <bicatali@gentoo.org> for their inputs and their modifications.
 
-  15 Jan 2008; Sébastien Fabbro <bicatali@gentoo.org>
+  15 Jan 2008; SÃÂ©bastien Fabbro <bicatali@gentoo.org>
   +files/debian-netgen_4.4-7.patch, +files/densemat.patch,
   +files/meshtype.patch, +files/togl_tk.patch, +metadata.xml,
   +netgen-4.4.ebuild:

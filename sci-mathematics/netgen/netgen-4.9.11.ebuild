@@ -32,10 +32,8 @@ src_configure() {
 	local myconf=""
 
 	if use opencascade; then
-		OCCV=$(qatom `best_version sci-libs/opencascade` | cut -d ' ' -f 3)
-		OCC_PATH="/opt/opencascade-${OCCV}/ros"
-		myconf="${myconf} --enable-occ --with-occ=${OCC_PATH}"
-		append-ldflags -L${OCC_PATH}/lin/$(get_libdir)
+		myconf="${myconf} --enable-occ --with-occ=$CASROOT"
+		append-ldflags -L$CASROOT/lin/$(get_libdir)
 	fi
 
 	use mpi && myconf="${myconf} --enable-parallel"
@@ -50,7 +48,7 @@ src_configure() {
 	# This would be the more elegant way:
 # 	econf \
 # 		$(use_enable opencascade occ) \
-# 		$(use_with opencascade "occ=/opt/opencascade-6.2/ros/inc") \
+# 		$(use_with opencascade "occ=$CASROOT") \
 # 		$(use_enable mpi parallel) \
 # 		$(use_enable ffmpeg) \
 # 		$(use_enable jpeg jpeglib)
