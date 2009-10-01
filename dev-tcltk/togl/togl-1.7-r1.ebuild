@@ -4,10 +4,7 @@
 
 EAPI="2"
 
-inherit multilib
-
-MY_PN="Togl"
-MY_P="${MY_PN}-${PV}"
+MY_P="Togl-${PV}"
 
 DESCRIPTION="A Tk widget for OpenGL rendering"
 HOMEPAGE="http://togl.sourceforge.net/"
@@ -22,6 +19,7 @@ RDEPEND="dev-lang/tk
 	virtual/opengl"
 DEPEND="${RDEPEND}"
 
+# tests directory is missing
 RESTRICT="test"
 
 S=${WORKDIR}/${MY_P}
@@ -34,7 +32,8 @@ src_configure() {
 }
 
 src_install() {
-	dolib.so *.so
+	emake DESTDIR="${D}" install || die "failed to install"
+	rm "${D}"/usr/include/*
 	insinto /usr/include/${PN}-${SLOT}
 	doins togl*.h
 }
