@@ -2,6 +2,24 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/1.2.2/nosplash-gentoo.patch, -pymol-1.2.0.ebuild,
+  -files/pymol-1.2.0-data-path.patch, -files/pymol-1.2.0-shaders.patch,
+  -files/pymol-1.2.1-data-path.patch, -files/pymol-1.2.1-shaders.patch,
+  +pymol-1.2.2.ebuild, +files/1.2.2/pymol-1.2.2-data-path.patch,
+  +files/pymol-1.2.2-data-path.patch,
+  +files/1.2.2/pymol-1.2.2-shaders.patch, +files/pymol-1.2.2-shaders.patch:
+  clean up old stuff
+
+*pymol-1.2.2 (02 Oct 2009)
+
+  02 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/1.2.2/nosplash-gentoo.patch, +pymol-1.2.2.ebuild,
+  +files/1.2.2/pymol-1.2.2-data-path.patch,
+  +files/pymol-1.2.2-data-path.patch,
+  +files/1.2.2/pymol-1.2.2-shaders.patch, +files/pymol-1.2.2-shaders.patch:
+  version bump
+
 *pymol-1.2.1-r1 (24 Aug 2009)
 
   24 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

@@ -4,24 +4,23 @@
 
 EAPI="2"
 
+inherit distutils #subversion
+
 PYTHON_MODNAME="chempy pmg_tk pymol"
 APBS_PATCH="090618"
-REV="3790"
-
-inherit distutils subversion
-
-ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol@${REV}"
+REV="3859"
 
 DESCRIPTION="A Python-extensible molecular graphics system."
 HOMEPAGE="http://pymol.sourceforge.net/"
-SRC_URI="apbs? ( http://dev.gentooexperimental.org/~jlec/distfiles/apbs_tools.py.${APBS_PATCH}.bz2 )"
+SRC_URI="apbs? ( mirror://gentoo/apbs_tools.py.${APBS_PATCH}.bz2 )
+	http://pymol.svn.sourceforge.net/viewvc/pymol/trunk/pymol.tar.gz?view=tar&pathrev=${REV} -> ${P}.tar.gz"
 
 LICENSE="PSF-2.2"
-IUSE="apbs shaders"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+IUSE="apbs shaders"
 
-RDEPEND="dev-python/pmw
+DEPEND="dev-python/pmw
 		dev-python/numpy
 		>=dev-lang/python-2.4[tk]
 		media-libs/libpng
@@ -29,38 +28,39 @@ RDEPEND="dev-python/pmw
 		virtual/glut
 		media-video/mpeg-tools
 		apbs? ( dev-libs/maloc
-				sci-chemistry/apbs
-				sci-chemistry/pdb2pqr
+			sci-chemistry/apbs
+			sci-chemistry/pdb2pqr
 		)"
-DEPEND="${RDEPEND}"
+RDEPEND="${DEPEND}"
+
+S="${WORKDIR}"/${PN}
 
 pkg_setup(){
 	python_version
 }
 
-src_unpack() {
-	use apbs && unpack ${A}
-	subversion_src_unpack
-}
-
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-data-path.patch || die
+	epatch "${FILESDIR}"/${PV}/${P}-data-path.patch \
+		|| die "Failed to apply data-path.patch"
 
 	# Turn off splash screen.  Please do make a project contribution
 	# if you are able though.
-	[[ -n ${WANT_SPLASH} ]] || epatch "${FILESDIR}"/nosplash-gentoo.patch
+	[[ -n ${WANT_SPLASH} ]] || epatch "${FILESDIR}"/${PV}/nosplash-gentoo.patch
 
 	# Respect CFLAGS
 	sed -i \
 		-e "s:\(ext_comp_args=\).*:\1[]:g" \
-		"${S}"/setup.py
+		"${S}"/setup.py || die "Failed running sed on setup.py"
 
-	use shaders && epatch "${FILESDIR}"/${P}-shaders.patch
+	use shaders && epatch "${FILESDIR}"/${PV}/${P}-shaders.patch
 
 	if use apbs; then
-		cp -f "${WORKDIR}"/apbs_tools.py.${APBS_PATCH} modules/pmg_tk/startup/apbs_tools.py || die
+		cp -f "${WORKDIR}"/apbs_tools.py.${APBS_PATCH} modules/pmg_tk/startup/apbs_tools.py \
+			|| die "Failed to copy apbs_tools.py"
+
 		sed "s:LIBANDPYTHON:$(python_get_libdir):g" \
-			-i modules/pmg_tk/startup/apbs_tools.py || die
+			-i modules/pmg_tk/startup/apbs_tools.py \
+				|| die "Failed running sed on apbs_tools.py"
 	fi
 }
 
@@ -79,8 +79,9 @@ src_install() {
 		PYMOL_SCRIPTS="/usr/share/pymol/scripts"
 	EOF
 
-	use apbs && \
-	echo "APBS_PSIZE=$(python_get_sitedir)/pdb2pqr/src/psize.py" >> "${T}"/20pymol
+	if use apbs; then
+		echo "APBS_PSIZE=$(python_get_sitedir)/pdb2pqr/src/psize.py" >> "${T}"/20pymol
+	fi
 
 	doenvd "${T}"/20pymol || die "Failed to install env.d file."
 
