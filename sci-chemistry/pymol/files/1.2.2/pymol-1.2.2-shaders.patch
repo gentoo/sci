@@ -1,10 +1,11 @@
---- pymol-1.2_rc1/setup.py.old  2009-07-17 00:05:10.339203020 -0500
-+++ pymol-1.2_rc1/setup.py      2009-07-17 00:09:03.375274561 -0500
-@@ -138,6 +138,7 @@
-                 ("_PYMOL_INLINE",None),
+--- setup.py.old	2009-10-03 01:01:22.444881137 -0500
++++ setup.py	2009-10-03 01:01:41.580752440 -0500
+@@ -139,7 +139,7 @@
                  ("_PYMOL_FREETYPE",None),
                  ("_PYMOL_LIBPNG",None),
-+                ("_PYMOL_OPENGL_SHADERS",None),
+ # OpenGL shaders
+-#               ("_PYMOL_OPENGL_SHADERS",None),
++               ("_PYMOL_OPENGL_SHADERS",None),
  # Numeric Python support                    
  #                ("_PYMOL_NUMPY",None),
- # VMD plugin support   
+ # VMD plugin support           

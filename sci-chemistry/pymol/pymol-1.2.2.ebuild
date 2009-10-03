@@ -40,6 +40,7 @@ pkg_setup(){
 }
 
 src_prepare() {
+cd "${S}" && pwd
 	epatch "${FILESDIR}"/${PV}/${P}-data-path.patch \
 		|| die "Failed to apply data-path.patch"
 
