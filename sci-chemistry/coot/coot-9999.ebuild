@@ -60,7 +60,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}"
 
 PATCHES=(
-	"${FILESDIR}"/${PV}-as-needed.patch
+	"${FILESDIR}"/${PV}-rappermc.patch
 	"${FILESDIR}"/link-against-guile-gtk-properly.patch
 	"${FILESDIR}"/fix-namespace-error.patch
 	)
@@ -78,12 +78,6 @@ src_prepare() {
 		-e "s:lfftw:lsfftw:g" \
 		-e "s:lrfftw:lsrfftw:g" \
 		"${S}"/macros/clipper.m4
-
-	# Fix where it looks for some binaries
-	sed -i \
-		-e "s:/y/people/emsley/coot/Linux/bin/probe.2.11.050121.linux.RH9:/usr/bin/probe:g" \
-		-e "s:/y/people/emsley/coot/Linux/bin/reduce.2.21.030604:/usr/bin/reduce:g" \
-		"${S}"/scheme/group-settings.scm
 
 	# So we don't need to depend on crazy old gtk and friends
 	cp "${FILESDIR}"/*.m4 "${S}"/macros/
@@ -119,20 +113,20 @@ src_configure() {
 }
 
 src_compile() {
-	# Regenerate wrappers, otherwise at least gtk-2 build fails
-	pushd src
-	rm -f coot_wrap_python.cc coot_wrap_python_pre.cc \
-		&& emake coot_wrap_python.cc \
-		|| die "failed to regenerate python wrapper"
-
-	rm -f coot_wrap_guile.cc coot_wrap_guile_pre.cc \
-		&& emake coot_wrap_guile.cc \
-		||die "failed to regenerate guile wrapper"
-	popd
-
+#	# Regenerate wrappers, otherwise at least gtk-2 build fails
+#	pushd src
+#	rm -f coot_wrap_python.cc coot_wrap_python_pre.cc \
+#		&& emake coot_wrap_python.cc \
+#		|| die "failed to regenerate python wrapper"
+#
+#	rm -f coot_wrap_guile.cc coot_wrap_guile_pre.cc \
+#		&& emake coot_wrap_guile.cc \
+#		||die "failed to regenerate guile wrapper"
+#	popd
+#
 	emake || die "emake failed"
 
-	cp "${S}"/src/coot.py python/
+	cp "${S}"/src/coot.py python/ || die
 }
 
 src_test() {

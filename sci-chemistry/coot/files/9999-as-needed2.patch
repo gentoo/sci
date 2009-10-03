@@ -1,0 +1,481 @@
+Index: mini-mol/Makefile.am
+===================================================================
+--- mini-mol/Makefile.am	(revision 2293)
++++ mini-mol/Makefile.am	(working copy)
+@@ -35,8 +35,9 @@
+ testminimol_SOURCES = testminimol.cc
+ 
+ libcoot_mini_mol_la_SOURCES =  mini-mol.cc mini-mol-utils.cc atom-quads.cc
++libcoot_mini_mol_la_LIBADD = \
++	$(top_builddir)/coot-utils/libcoot-coord-utils.la \
++	$(CLIPPER_LIBS)
+ 
+ testminimol_LDADD = libcoot-mini-mol.la \
+-	$(top_builddir)/coot-utils/libcoot-coord-utils.la \
+-	$(top_builddir)/coot-utils/libcoot-utils.la \
+-	$(CLIPPER_LIBS) $(MMDB_LIBS)
++	$(MMDB_LIBS)
+Index: coords/Makefile.am
+===================================================================
+--- coords/Makefile.am	(revision 2293)
++++ coords/Makefile.am	(working copy)
+@@ -40,3 +40,7 @@
+ 		 mmdb-extras.cc utils.cc mmdb.cc mmdb-crystal.cc \
+ 		 Bond_lines_ext.cc coot-close.cc
+ 
++libcoot_coords_la_LIBADD = \
++	$(top_builddir)/coot-utils/libcoot-shelx.la \
++	$(top_builddir)/mini-mol/libcoot-mini-mol.la
++
+Index: ligand/Makefile.am
+===================================================================
+--- ligand/Makefile.am	(revision 2293)
++++ ligand/Makefile.am	(working copy)
+@@ -49,6 +49,17 @@
+ 	torsion-general.cc rotamer-tables.cc primitive-chi-angles.cc dipole.cc\
+         base-pairing.cc backrub-rotamer.cc
+ 
++libcoot_ligand_la_LIBADD = \
++	$(top_builddir)/ideal/libcoot-ideal.la       \
++	$(top_builddir)/coords/libcoot-coords.la           \
++	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
++	$(top_builddir)/coot-utils/libcoot-map-utils.la    \
++	$(top_builddir)/db-main/libcoot-db-main.la         \
++	$(top_builddir)/coot-utils/libcoot-shelx.la        \
++	$(top_builddir)/geometry/libcoot-geometry.la       \
++	$(top_builddir)/coot-utils/libcoot-coord-utils.la  \
++	$(top_builddir)/ccp4mg-utils/libccp4mg-utils.la
++
+ AM_CXXFLAGS = \
+ 	-DPKGDATADIR='"$(pkgdatadir)"' \
+ 	$(COOT_WINDOWS_CFLAGS)
+@@ -68,7 +79,6 @@
+ 
+ test_random_LDADD = \
+ 	./libcoot-ligand.la \
+-	$(top_builddir)/ideal/libcoot-ideal.la       \
+ 	$(top_builddir)/coords/libcoot-coords.la           \
+ 	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+ 	$(top_builddir)/coot-utils/libcoot-map-utils.la    \
+@@ -85,31 +95,14 @@
+ 
+ test_ligand_LDADD = \
+ 	./libcoot-ligand.la \
+-	$(top_builddir)/ideal/libcoot-ideal.la       \
+ 	$(top_builddir)/mini-mol/libcoot-mini-mol.la \
+-	$(top_builddir)/coords/libcoot-coords.la           \
+-	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+-	$(top_builddir)/coot-utils/libcoot-map-utils.la    \
+-	$(top_builddir)/db-main/libcoot-db-main.la         \
+-	$(top_builddir)/coot-utils/libcoot-shelx.la        \
+-	$(top_builddir)/geometry/libcoot-geometry.la       \
+-	$(top_builddir)/coot-utils/libcoot-coord-utils.la  \
+ 	$(top_builddir)/coot-utils/libcoot-utils.la        \
+ 	$(top_builddir)/mini-mol/libcoot-mini-mol.la       \
+-	$(top_builddir)/ccp4mg-utils/libccp4mg-utils.la    \
+ 	$(top_builddir)/compat/libcoot-compat.la           \
+ 	$(CLIPPER_LIBS) $(MMDB_LIBS) $(GSL_LIBS)
+ 
+ test_helix_placement_LDADD = \
+ 	./libcoot-ligand.la \
+-	$(top_builddir)/ideal/libcoot-ideal.la       \
+-	$(top_builddir)/coords/libcoot-coords.la           \
+-	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+-	$(top_builddir)/coot-utils/libcoot-map-utils.la    \
+-	$(top_builddir)/coot-utils/libcoot-shelx.la        \
+-	$(top_builddir)/geometry/libcoot-geometry.la       \
+-	$(top_builddir)/db-main/libcoot-db-main.la         \
+-	$(top_builddir)/coot-utils/libcoot-coord-utils.la  \
+ 	$(top_builddir)/coot-utils/libcoot-utils.la        \
+ 	$(top_builddir)/mini-mol/libcoot-mini-mol.la       \
+ 	$(top_builddir)/ccp4mg-utils/libccp4mg-utils.la    \
+@@ -120,18 +113,9 @@
+ 
+ test_fffear_in_coot_LDADD = \
+ 	./libcoot-ligand.la \
+-	$(top_builddir)/ideal/libcoot-ideal.la            \
+-	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+-	$(top_builddir)/coords/libcoot-coords.la          \
+-	$(top_builddir)/coot-utils/libcoot-shelx.la       \
+-	$(top_builddir)/geometry/libcoot-geometry.la      \
+ 	$(top_builddir)/coot-utils/libcoot-map-heavy.la   \
+-	$(top_builddir)/db-main/libcoot-db-main.la        \
+-	$(top_builddir)/coot-utils/libcoot-map-utils.la   \
+-	$(top_builddir)/coot-utils/libcoot-coord-utils.la \
+ 	$(top_builddir)/coot-utils/libcoot-utils.la       \
+ 	$(top_builddir)/mini-mol/libcoot-mini-mol.la      \
+-	$(top_builddir)/ccp4mg-utils/libccp4mg-utils.la   \
+ 	$(top_builddir)/compat/libcoot-compat.la          \
+ 	$(CLIPPER_LIBS) $(MMDB_LIBS) $(GSL_LIBS)
+ 
+@@ -143,23 +127,13 @@
+ 
+ findligand_real_LDADD = \
+ 	./libcoot-ligand.la                                \
+-	$(top_builddir)/ideal/libcoot-ideal.la             \
+-	$(top_builddir)/geometry/libcoot-geometry.la       \
+-	$(top_builddir)/coords/libcoot-coords.la           \
+-	$(top_builddir)/db-main/libcoot-db-main.la         \
+-	$(top_builddir)/ccp4mg-utils/libccp4mg-utils.la    \
+-	$(top_builddir)/coot-utils/libcoot-map-utils.la    \
+-	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+-	$(top_builddir)/coot-utils/libcoot-coord-utils.la  \
+ 	$(top_builddir)/coot-utils/libcoot-utils.la        \
+-	$(top_builddir)/coot-utils/libcoot-shelx.la        \
+ 	$(top_builddir)/mini-mol/libcoot-mini-mol.la       \
+ 	$(top_builddir)/compat/libcoot-compat.la           \
+ 	$(CLIPPER_LIBS) $(MMDB_LIBS) $(GSL_LIBS)
+ 
+ findwaters_real_LDADD = \
+ 	./libcoot-ligand.la                                \
+-	$(top_builddir)/ideal/libcoot-ideal.la             \
+ 	$(top_builddir)/geometry/libcoot-geometry.la       \
+ 	$(top_builddir)/coords/libcoot-coords.la           \
+ 	$(top_builddir)/ccp4mg-utils/libccp4mg-utils.la    \
+@@ -190,16 +164,7 @@
+ testdunbrack_SOURCES = testdunbrack.cc
+ 
+ testdunbrack_LDADD = ./libcoot-ligand.la \
+-	$(top_builddir)/ideal/libcoot-ideal.la       \
+-	$(top_builddir)/geometry/libcoot-geometry.la \
+-	$(top_builddir)/coords/libcoot-coords.la           \
+-	$(top_builddir)/ccp4mg-utils/libccp4mg-utils.la    \
+-	$(top_builddir)/coot-utils/libcoot-map-utils.la   \
+-	$(top_builddir)/db-main/libcoot-db-main.la         \
+-	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+-	$(top_builddir)/coot-utils/libcoot-coord-utils.la  \
+ 	$(top_builddir)/coot-utils/libcoot-utils.la        \
+-	$(top_builddir)/coot-utils/libcoot-shelx.la       \
+ 	$(top_builddir)/mini-mol/libcoot-mini-mol.la \
+         $(CLIPPER_LIBS) $(MMDB_LIBS) $(GSL_LIBS)
+ 
+Index: analysis/Makefile.am
+===================================================================
+--- analysis/Makefile.am	(revision 2293)
++++ analysis/Makefile.am	(working copy)
+@@ -9,6 +9,7 @@
+ 	$(MMDB_CXXFLAGS)
+ 
+ libcoot_analysis_la_SOURCES = bfkurt.cc
++libcoot_analysis_la_LIBADD = $(top_builddir)/coot-utils/libcoot-coord-utils.la
+ 
+ bin_PROGRAMS = bfactan
+ 
+@@ -16,7 +17,6 @@
+ 
+ bfactan_LDADD = \
+ 	libcoot-analysis.la 					\
+-	$(top_builddir)/coot-utils/libcoot-coord-utils.la 	\
+ 	$(top_builddir)/coot-utils/libcoot-utils.la 		\
+ 	$(top_builddir)/geometry/libcoot-geometry.la    	\
+ 	$(CLIPPER_LIBS) 	\
+Index: skeleton/Makefile.am
+===================================================================
+--- skeleton/Makefile.am	(revision 2293)
++++ skeleton/Makefile.am	(working copy)
+@@ -39,8 +39,8 @@
+ 
+ 
+ libcoot_skeleton_la_SOURCES = $(libskeleton_a_sources)
++libcoot_skeleton_la_LIBADD = ../atom-utils/libcoot-atomutils.la
+ 
+-
+ # bin_PROGRAMS = ncssearch test_various test_torsion test_theta_2
+ 
+ # ncssearch_SOURCES = ncs-search.cc ncs-search.h
+Index: coot-surface/Makefile.am
+===================================================================
+--- coot-surface/Makefile.am	(revision 2293)
++++ coot-surface/Makefile.am	(working copy)
+@@ -25,3 +25,4 @@
+ 
+ libcoot_surface_la_SOURCES = \
+ 	 coot-surface.cc coot-surface.hh rgbreps.cc rgbreps.h
++libcoot_surface_la_LIBADD = $(top_builddir)/surface/libccp4mg-surface.la
+Index: high-res/Makefile.am
+===================================================================
+--- high-res/Makefile.am	(revision 2293)
++++ high-res/Makefile.am	(working copy)
+@@ -39,13 +39,16 @@
+ 
+ libcoot_high_res_la_SOURCES = high-res.cc coot-atom-graph.cc residue-distortions.cc \
+ 	sequence-assignment.cc
++libcoot_high_res_la_LIBADD = \
++	$(top_builddir)/ligand/libcoot-ligand.la \
++	$(top_builddir)/coot-utils/libcoot-map-utils.la   \
++	$(CLIPPER_LIBS) $(MMDB_LIBS)
+ 
+ check_PROGRAMS = testatomgraph tracehighres testseqalign testseqassignment globularize_protein
+ 
+ testatomgraph_SOURCES = test-atom-graph.cc
+ 
+ testatomgraph_LDADD =  libcoot-high-res.la                \
+-	$(top_builddir)/ligand/libcoot-ligand.la          \
+ 	$(top_builddir)/db-main/libcoot-db-main.la        \
+ 	$(top_builddir)/ideal/libcoot-ideal.la            \
+ 	$(top_builddir)/geometry/libcoot-geometry.la      \
+@@ -53,71 +56,60 @@
+ 	$(top_builddir)/mini-mol/libcoot-mini-mol.la      \
+ 	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+ 	$(top_builddir)/coot-utils/libcoot-coord-utils.la \
+-	$(top_builddir)/coot-utils/libcoot-map-utils.la   \
+ 	$(top_builddir)/coot-utils/libcoot-shelx.la       \
+ 	$(top_builddir)/coot-utils/libcoot-utils.la       \
+ 	$(top_builddir)/ccp4mg-utils/libccp4mg-utils.la   \
+ 	$(top_builddir)/compat/libcoot-compat.la          \
+-	$(GSL_LIBS)			                  \
+-	$(CLIPPER_LIBS)
++	$(GSL_LIBS)
+ 
+ testseqassignment_SOURCES = testseqassignment.cc
+ testseqassignment_LDADD = libcoot-high-res.la             \
+-	$(top_builddir)/ligand/libcoot-ligand.la          \
+ 	$(top_builddir)/db-main/libcoot-db-main.la        \
+ 	$(top_builddir)/ideal/libcoot-ideal.la            \
+ 	$(top_builddir)/geometry/libcoot-geometry.la      \
+ 	$(top_builddir)/coords/libcoot-coords.la          \
+ 	$(top_builddir)/mini-mol/libcoot-mini-mol.la      \
+ 	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+-	$(top_builddir)/coot-utils/libcoot-map-utils.la   \
+ 	$(top_builddir)/coot-utils/libcoot-coord-utils.la \
+ 	$(top_builddir)/coot-utils/libcoot-shelx.la       \
+ 	$(top_builddir)/coot-utils/libcoot-utils.la       \
+ 	$(top_builddir)/compat/libcoot-compat.la          \
+ 	$(top_builddir)/ccp4mg-utils/libccp4mg-utils.la   \
+-	$(GSL_LIBS)				          \
+-	$(CLIPPER_LIBS)
++	$(GSL_LIBS)
+ 
+ # tracehighres_LDFLAGS = -static 
+ tracehighres_SOURCES = trace-high-res.cc
+ tracehighres_LDADD = libcoot-high-res.la                  \
+-	$(top_builddir)/ligand/libcoot-ligand.la          \
+ 	$(top_builddir)/ideal/libcoot-ideal.la            \
+ 	$(top_builddir)/db-main/libcoot-db-main.la        \
+ 	$(top_builddir)/geometry/libcoot-geometry.la      \
+ 	$(top_builddir)/coords/libcoot-coords.la          \
+ 	$(top_builddir)/mini-mol/libcoot-mini-mol.la      \
+ 	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+-	$(top_builddir)/coot-utils/libcoot-map-utils.la   \
+ 	$(top_builddir)/coot-utils/libcoot-coord-utils.la \
+ 	$(top_builddir)/coot-utils/libcoot-shelx.la       \
+ 	$(top_builddir)/coot-utils/libcoot-utils.la       \
+ 	$(top_builddir)/compat/libcoot-compat.la          \
+ 	$(top_builddir)/ccp4mg-utils/libccp4mg-utils.la   \
+-	$(GSL_LIBS)				          \
+-	$(CLIPPER_LIBS)
++	$(GSL_LIBS)
+ 
+ 
+ testseqalign_SOURCES = testseqalign.cc
+ 
+ # why do we need to link with all this (junk)?
+ testseqalign_LDADD = libcoot-high-res.la                  \
+-	$(top_builddir)/ligand/libcoot-ligand.la          \
+ 	$(top_builddir)/ideal/libcoot-ideal.la            \
+ 	$(top_builddir)/db-main/libcoot-db-main.la        \
+ 	$(top_builddir)/geometry/libcoot-geometry.la      \
+ 	$(top_builddir)/coords/libcoot-coords.la          \
+ 	$(top_builddir)/mini-mol/libcoot-mini-mol.la      \
+ 	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+-	$(top_builddir)/coot-utils/libcoot-map-utils.la   \
+ 	$(top_builddir)/coot-utils/libcoot-coord-utils.la \
+ 	$(top_builddir)/coot-utils/libcoot-shelx.la       \
+ 	$(top_builddir)/coot-utils/libcoot-utils.la       \
+ 	$(top_builddir)/ccp4mg-utils/libccp4mg-utils.la   \
+ 	$(top_builddir)/compat/libcoot-compat.la          \
+-	$(GSL_LIBS)				          \
+-	$(CLIPPER_LIBS)
++	$(GSL_LIBS)
+ 
+ 
+ globularize_protein_SOURCES = globularize.cc
+Index: cootaneer/Makefile.am
+===================================================================
+--- cootaneer/Makefile.am	(revision 2293)
++++ cootaneer/Makefile.am	(working copy)
+@@ -34,6 +34,7 @@
+ 	buccaneer-sequence.cpp cootaneer-sequence.cpp \
+ 	buccaneer-lib.h buccaneer-prot.h \
+ 	buccaneer-sequence.h cootaneer-sequence.h
++libcootaneer_la_LIBADD = $(CLIPPER_LIBS)
+ 
+ subpkgdatadir = $(pkgdatadir)
+ subpkgdata_DATA = cootaneer-llk-2.40.dat 
+Index: geometry/Makefile.am
+===================================================================
+--- geometry/Makefile.am	(revision 2293)
++++ geometry/Makefile.am	(working copy)
+@@ -35,6 +35,9 @@
+ #	-DHAVE_SYS_STDTYPES_H
+ 
+ libcoot_geometry_la_SOURCES = protein-geometry.cc protein-geometry-mmdb.cc 
++libcoot_geometry_la_LIBADD = \
++	$(top_builddir)/coot-utils/libcoot-utils.la \
++	$(CLIPPER_LIBS) $(MMDB_LIBS)
+ 
+ # libcoot_geometry_la_CXXFLAGS = -g -O1
+ 
+@@ -44,12 +47,7 @@
+ 
+ test_read_components_SOURCES = test-read-components.cc test-read-components.hh
+ 
+-test_geometry_LDADD = ./libcoot-geometry.la         \
+-        $(top_builddir)/coot-utils/libcoot-utils.la \
+-	$(CLIPPER_LIBS) $(MMDB_LIBS)
++test_geometry_LDADD = ./libcoot-geometry.la
++ 
++test_read_components_LDADD = ./libcoot-geometry.la
+ 
+-test_read_components_LDADD =  \
+-	./libcoot-geometry.la \
+-        $(top_builddir)/coot-utils/libcoot-utils.la   \
+-	$(CLIPPER_LIBS) $(MMDB_LIBS)
+-
+Index: ideal/Makefile.am
+===================================================================
+--- ideal/Makefile.am	(revision 2293)
++++ ideal/Makefile.am	(working copy)
+@@ -54,6 +54,12 @@
+ 
+ 
+ libcoot_ideal_la_SOURCES = simple-restraint.cc  pepflip.cc regularize-minimol.cc lograma.cpp
++libcoot_ideal_la_LIBADD = \
++	$(top_builddir)/coot-utils/libcoot-utils.la       \
++	$(top_builddir)/mini-mol/libcoot-mini-mol.la       \
++	$(top_builddir)/coot-utils/libcoot-shelx.la       \
++	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
++	$(GSL_LIBS)
+ 
+ 
+ noinst_PROGRAMS = test-indexing with-geometry with-map logramatest
+@@ -75,12 +81,8 @@
+         ./libcoot-ideal.la                                \
+ 	$(top_builddir)/geometry/libcoot-geometry.la      \
+ 	$(top_builddir)/coords/libcoot-coords.la          \
+-	$(top_builddir)/coot-utils/libcoot-shelx.la       \
+-	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+ 	$(top_builddir)/coot-utils/libcoot-coord-utils.la \
+-	$(top_builddir)/coot-utils/libcoot-utils.la       \
+-	$(top_builddir)/mini-mol/libcoot-mini-mol.la      \
+-	$(CLIPPER_LIBS) $(MMDB_LIBS) $(GSL_LIBS)
++	$(CLIPPER_LIBS) $(MMDB_LIBS)
+ 
+ # add libcoot-map-utils for  the debugging density_around_point function
+ with_map_LDADD =  \
+@@ -88,22 +90,16 @@
+ 	$(top_builddir)/geometry/libcoot-geometry.la       \
+ 	$(top_builddir)/coords/libcoot-coords.la           \
+ 	$(top_builddir)/coot-utils/libcoot-map-utils.la   \
+-	$(top_builddir)/coot-utils/libcoot-shelx.la        \
+-	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+ 	$(top_builddir)/coot-utils/libcoot-coord-utils.la  \
+ 	$(top_builddir)/coot-utils/libcoot-utils.la        \
+-        $(top_builddir)/compat/libcoot-compat.la           \
+-	$(top_builddir)/mini-mol/libcoot-mini-mol.la       \
+-	$(CLIPPER_LIBS) $(MMDB_LIBS) $(GSL_LIBS)
++	$(top_builddir)/compat/libcoot-compat.la           \
++	$(CLIPPER_LIBS) $(MMDB_LIBS)
+ 
+ test_indexing_LDADD = \
+         ./libcoot-ideal.la                                \
+ 	$(top_builddir)/geometry/libcoot-geometry.la      \
+-	$(top_builddir)/mini-mol/libcoot-mini-mol.la      \
+-	$(top_builddir)/coot-utils/libcoot-coord-extras.la \
+ 	$(top_builddir)/coot-utils/libcoot-coord-utils.la \
+-	$(top_builddir)/coot-utils/libcoot-utils.la       \
+-	$(CLIPPER_LIBS) $(MMDB_LIBS) $(GSL_LIBS)
++	$(CLIPPER_LIBS) $(MMDB_LIBS)
+ 
+ # Why do I need all these libraries to simply link a trivial test program?
+ # Badness....
+Index: tw/Makefile.am
+===================================================================
+--- tw/Makefile.am	(revision 2293)
++++ tw/Makefile.am	(working copy)
+@@ -39,14 +39,15 @@
+ include_HEADERS = coot-tw.hh
+ 
+ libcoot_tw_la_SOURCES = tw.cc
++libcoot_tw_la_LIBADD = \
++	$(GTKCANVAS_LIBS) \
++	@GTK_LIBS@
+ 
+ noinst_PROGRAMS = coot-tiddly
+ 
+ coot_tiddly_SOURCES = tiddly.cc
+ 
+-coot_tiddly_LDADD = libcoot-tw.la \
+-	$(GTKCANVAS_LIBS) \
+-	@GTK_LIBS@
++coot_tiddly_LDADD = libcoot-tw.la
+ 
+ 
+ # cootsound_LDADD = -L/sw/lib -lvorbisfile -logg -lao
+Index: coot-utils/Makefile.am
+===================================================================
+--- coot-utils/Makefile.am	(revision 2293)
++++ coot-utils/Makefile.am	(working copy)
+@@ -49,6 +49,7 @@
+ # for simple things:
+ libcoot_utils_la_SOURCES = coot-utils.cc coot-fasta.cc atomic-numbers.cc \
+ 	gdk-keysyms.cc
++libcoot_coord_utils_la_LIBADD = $(CLIPPER_LIBS) libcoot-utils.la
+ 
+ # for pure coordinates (mmdb) things
+ libcoot_coord_utils_la_SOURCES = coot-coord-utils.cc \
+@@ -56,6 +57,7 @@
+ 
+ # shelx
+ libcoot_shelx_la_SOURCES = coot-shelx-ins.cc
++libcoot_shelx_la_LIBADD = $(MMDB_LIBS) libcoot-coord-utils.la
+ 
+ # for non-simple coordinates things
+ libcoot_coord_extras_la_SOURCES = coot-coord-extras.cc coot-coord-lsq.cc \
+@@ -63,24 +65,23 @@
+ 
+ # for (map) things that need to link mmdb and clipper:
+ libcoot_map_utils_la_SOURCES = coot-map-utils.cc peak-search.cc trim.cc xmap-stats.cc
++libcoot_map_utils_la_LIBADD = $(CLIPPER_LIBS)
+ 
+ # for map things that need mmdb, clipper, gsl and other things
+ libcoot_map_heavy_la_SOURCES = coot-map-heavy.cc coot-fffear.cc
++libcoot_map_heavy_la_LIBADD = $(GSL_LIBS)
+ 
+ noinst_PROGRAMS = testshelxreader testcootutils
+ 
+ testshelxreader_SOURCES = test-shelx-reader.cc
+ testshelxreader_LDADD = \
+ 	./libcoot-shelx.la \
+-	./libcoot-coord-utils.la \
+ 	./libcoot-utils.la \
+-	$(CLIPPER_LIBS) $(MMDB_LIBS)
++	$(MMDB_LIBS)
+ 
+ testcootutils_SOURCES = test-utils.cc
+ testcootutils_LDADD = \
+ 	./libcoot-shelx.la \
+-	./libcoot-coord-utils.la \
+ 	./libcoot-utils.la \
+-	$(CLIPPER_LIBS) $(MMDB_LIBS)
++  $(MMDB_LIBS)
+ 
+-
+Index: Makefile.am
+===================================================================
+--- Makefile.am	(revision 2293)
++++ Makefile.am	(working copy)
+@@ -25,10 +25,10 @@
+ 
+ # see configure.in for po intl 
+ SUBDIRS = auxil scheme python macros compat coot-utils surface coot-surface \
+-	skeleton ccp4mg-utils density-contour coords angles \
+-	mini-mol db-main  geometry  \
++	atom-utils skeleton ccp4mg-utils density-contour mini-mol coords angles \
++	db-main geometry  \
+ 	ideal ligand high-res build greg-tests python-tests \
+-	analysis sequence-view tw atom-utils cootaneer src rama-data doc 
++	analysis sequence-view tw cootaneer src rama-data doc 
+ 
+ # po, no po today.
+ 
