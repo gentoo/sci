@@ -1,6 +1,12 @@
-# ChangeLog for sci-mathematics/octave-forge-audio
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sci-mathematics/octave-forge-bioinfo
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*octave-forge-bioinfo-0.1.2 (03 Oct 2009)
+
+  03 Oct 2009; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-bioinfo-0.1.0.ebuild, +octave-forge-bioinfo-0.1.2.ebuild:
+  Version bump.
 
   28 Sep 2008; Markus Dittrich <markusle@gentoo.org>
   +octave-forge-bioinfo-0.1.1.ebuild:

@@ -1,6 +1,13 @@
 # ChangeLog for sci-mathematics/octave-forge-combinatorics
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*octave-forge-combinatorics-1.0.9 (03 Oct 2009)
+
+  03 Oct 2009; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-combinatorics-1.0.6.ebuild,
+  +octave-forge-combinatorics-1.0.9.ebuild:
+  Version bump.
 
   28 Sep 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-combinatorics-1.0.5.ebuild,

@@ -1,6 +1,12 @@
 # ChangeLog for sci-mathematics/octave-forge-specfun
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*octave-forge-specfun-1.0.8 (03 Oct 2009)
+
+  03 Oct 2009; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-specfun-1.0.6.ebuild, +octave-forge-specfun-1.0.8.ebuild:
+  Version bump.
 
   30 Sep 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-specfun-1.0.5.ebuild, +octave-forge-specfun-1.0.7.ebuild:
