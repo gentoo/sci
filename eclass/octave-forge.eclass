@@ -219,7 +219,7 @@ octave-forge_src_unpack() {
 	if [[ -n "${PATCHES}" ]]; then
 		unpack "${A}"
 		pushd "${S}" >& /dev/null
-		for patch in "${PATCHES}"; do
+		for patch in "${PATCHES[@]}"; do
 			epatch "${FILESDIR}/${patch}"
 		done
 		popd >& /dev/null
