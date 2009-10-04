@@ -1,6 +1,13 @@
 # ChangeLog for sci-mathematics/octave-forge-statistics
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*octave-forge-statistics-1.0.9 (04 Oct 2009)
+
+  04 Oct 2009; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-statistics-1.0.6.ebuild,
+  +octave-forge-statistics-1.0.9.ebuild:
+  Version bump.
 
   30 Sep 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-statistics-1.0.5.ebuild,

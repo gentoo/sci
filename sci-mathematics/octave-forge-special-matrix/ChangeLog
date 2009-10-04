@@ -1,6 +1,13 @@
 # ChangeLog for sci-mathematics/octave-forge-special-matrix
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*octave-forge-special-matrix-1.0.7 (04 Oct 2009)
+
+  04 Oct 2009; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-special-matrix-1.0.5.ebuild,
+  +octave-forge-special-matrix-1.0.7.ebuild:
+  Version bump.
 
   30 Sep 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-special-matrix-1.0.4.ebuild,
