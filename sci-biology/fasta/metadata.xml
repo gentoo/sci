@@ -8,5 +8,8 @@
 	</maintainer>
 	<longdescription lang="en">
 	</longdescription>
+	<use>
+		<flag name='icc'>Use intel compiler instead of gcc</flag>
+	</use>
 </pkgmetadata>
 
