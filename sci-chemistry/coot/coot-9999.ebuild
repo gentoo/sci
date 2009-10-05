@@ -108,8 +108,7 @@ src_configure() {
 		--with-python=/usr \
 		--with-guile-gtk \
 		--with-gtk2 \
-		--with-pygtk \
-		|| die "econf failed"
+		--with-pygtk
 }
 
 src_compile() {
