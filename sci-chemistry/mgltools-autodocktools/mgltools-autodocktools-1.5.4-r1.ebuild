@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 inherit distutils
 
 MY_P="AutoDockTools-${PV}"
@@ -16,7 +18,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="sci-chemistry/mgltools-support"
+RDEPEND="
+	sci-chemistry/mgltools-support
+	dev-lang/python[tk]"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
@@ -27,7 +31,9 @@ DOCS="AutoDockTools/RELNOTES"
 src_unpack() {
 	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
 	tar xzpf mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
+}
 
+src_prepare() {
 	find "${S}" -name CVS -type d -exec rm -rf '{}' \; >& /dev/null
 	find "${S}" -name LICENSE -type f -exec rm -f '{}' \; >& /dev/null
 
