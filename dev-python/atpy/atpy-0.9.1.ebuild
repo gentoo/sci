@@ -15,7 +15,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MYP}.tar.gz"
 RDEPEND=">=dev-python/numpy-1.3
 	fits? ( >=dev-python/pyfits-2.1 )
 	mysql? ( dev-python/mysql-python )
-	postgres? ( dev-python/pygresql )
+	postgres? ( dev-db/pygresql )
 	sqlite? ( dev-python/pysqlite )
 	votable? ( >=dev-python/vo-0.3 )"
 
