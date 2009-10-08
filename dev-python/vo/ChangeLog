@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*vo-0.4 (08 Oct 2009)
+
+  08 Oct 2009; Sébastien Fabbro <bicatali@gentoo.org> -vo-0.3.1.ebuild,
+  +vo-0.4.ebuild:
+  Version bump
+
 *vo-0.3.1 (21 Jul 2009)
 
   21 Jul 2009; Sébastien Fabbro <bicatali@gentoo.org> +vo-0.3.1.ebuild,

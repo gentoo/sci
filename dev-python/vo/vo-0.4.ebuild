@@ -20,7 +20,7 @@ LICENSE="AURA"
 RESTRICT=test
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-docs.patch
+	epatch "${FILESDIR}"/${PN}-0.3.1-docs.patch
 }
 
 src_compile() {
