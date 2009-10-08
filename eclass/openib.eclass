@@ -69,7 +69,7 @@ S="${WORKDIR}/${MY_PN}-${MY_PV}"
 # This function will unpack OFED packages
 openib_src_unpack() {
 	unpack ${A}
-	rpm_unpack "OFED-${OFED_VER}/SRPMS/${MY_PN}-${MY_PV}-${OFED_SUFFIX}.src.rpm"
+	rpm_unpack "./OFED-${OFED_VER}/SRPMS/${MY_PN}-${MY_PV}-${OFED_SUFFIX}.src.rpm"
 	case ${MY_PN} in
 		rds-tools)
 			MY_PV="${PV}-${OFED_SUFFIX}"
