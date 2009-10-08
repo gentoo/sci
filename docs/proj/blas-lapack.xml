@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE guide SYSTEM "/dtd/guide.dtd">
+<!-- $Header: /var/cvsroot/gentoo/xml/htdocs/proj/en/science/blas-lapack.xml,v 1.3 2007/12/27 19:35:25 bicatali Exp $ -->
+
+<guide link="/proj/en/science/blas-lapack.xml">
+<title>Using multiple versions of BLAS and LAPACK with Gentoo/Linux</title>
+
+<author title="Author">
+  <mail link="bicatali@gentoo.org">Sébastien Fabbro</mail>
+</author>
+<author title="Author">
+  <mail link="markusle@gentoo.org">Markus Dittrich</mail>
+</author>
+<author title="Editor">
+  <mail link="nightmorph@gentoo.org">Joshua Saddler</mail>
+</author>
+
+<abstract>
+This guide explains the use of the different implementations of the BLAS
+and LAPACK libraries that are available via Portage.
+</abstract>
+
+<!-- The content of this document is licensed under the CC-BY-SA license -->
+<!-- See http://creativecommons.org/licenses/by-sa/2.5 -->
+<license/>
+
+<version>1.0</version>
+<date>2007-10-22</date>
+
+<chapter>
+<title>Introduction</title>
+<section>
+<body>
+
+<p>
+The Basic Linear Algebra Subroutines (BLAS) and Linear Algebra PACKage (LAPACK)
+are well designed linear algebra software libraries developed by the
+High Performance Computing (HPC) community. BLAS
+implements dense matrix and vectors products, while LAPACK provides routines for 
+solving systems of linear equations. Both are widely used in
+many scientific applications and it is, therefore, important to 
+have efficient implementations available.
+</p>
+
+<p>
+Originally written in FORTRAN 77, a number of additional language
+wrappers have been developed for languages like C, C++, FORTRAN 95, and others.
+The following legacy libraries are available via the reference ebuilds:
+</p>
+
+<ul>
+  <li>
+    <uri link="http://netlib.org/blas">BLAS</uri>: FORTRAN 77 implementation of
+    BLAS
+  </li>
+  <li>
+    <uri link="http://netlib.org/blas">CBLAS</uri>: C implementation of BLAS
+  </li>
+  <li>
+    <uri link="http://netlib.org/lapack">LAPACK</uri>: FORTRAN 77 implementation
+    of LAPACK
+  </li>
+</ul>
+
+<p>
+In addition, Gentoo provides a number of optimized BLAS and LAPACK implementations
+that will be described below. Different implementations are bundled together with
+Gentoo's <c>eselect</c> system and the widely used <c>pkg-config</c> tool.
+</p>
+
+<p> It is important to note that if you require, e.g., a well performing 
+BLAS implementation, simply emerging X over Y often is not enough. Rather, you will have
+to carefully benchmark your applications since performance may depend 
+on many factors,
+such as hardware or network.
+If you are simply looking for a well performing and well tested
+implementation, the reference ebuilds will likely be your best choice.
+</p>
+
+
+</body>
+</section>
+</chapter>
+
+<chapter>
+<title>For Users</title>
+<section>
+<title>Installing</title>
+<body>
+
+<p>
+If best possible performance is not of paramount importance for you 
+and you simply
+need BLAS and/or LAPACK, just emerge the virtual packages:
+</p>
+
+<pre caption="Installing">
+# <i>emerge blas cblas lapack</i>
+</pre>
+
+<p>
+These will install the reference legacy	packages from
+<uri>http://netlib.org</uri>. They are well tested, easy to debug
+implementations. They should satisfy most users; if they're all you need, you're
+done reading.
+</p>
+
+<p>
+However, if:
+</p>
+
+<ul>
+  <li>BLAS/LAPACK are critical for the speed of your applications</li>
+  <li>you absolutely need to build the fastest computer</li>
+  <li>you want to help Gentoo sci project to improve their packages</li>
+</ul>
+
+<p>
+... then read on, and be sure to file bugs both to Gentoo and upstream.
+</p>
+
+<p>
+There is a number of optimized implementations of these libraries in the Portage
+tree:
+</p>
+
+<ul>
+  <li>
+   <uri link="http://math-atlas.sourceforge.net">ATLAS</uri>: Automatically
+   Tuned Linear Algebra Software is an open-source package that empirically
+   tunes the library to the machine it is being compiled on. It provides BLAS
+   (FORTRAN 77 and C), and LAPACK implementations on various architectures.
+  </li>
+  <li>
+   <uri
+   link="http://www.tacc.utexas.edu/resources/software/software.php">GotoBLAS</uri>:
+   Goto BLAS provide open-source, free for academic use, hand-coded
+   machine language, processor optimized versions of the FORTRAN 77 BLAS
+   routines. Claims to be the fastest BLAS.
+  </li>
+  <li>
+    <uri link="http://developer.amd.com/acml.jsp">ACML</uri>: AMD Core Math
+    Library is a closed-source but free package containing BLAS (FORTRAN 77
+    only) and LAPACK for x86 and amd64 architectures, but also other math tools
+    such as statistical libraries and FFTs.
+  </li>
+  <li>
+    <uri link="http://developer.intel.com/software/products/mkl/">MKL</uri>:
+    Intel® Math Kernel Library is a closed-source but free package for
+    non-commercial use containing BLAS (FORTRAN 77 and C), LAPACK optimized for
+    Intel® based architectures: x86, amd64 and ia64.
+  </li>
+</ul>
+
+<p>
+Usually performance gain is noticeable mainly with BLAS, since LAPACK routines
+depend on BLAS kernels.
+</p>
+
+</body>
+</section>
+<section>
+<title>Compiling and linking with installed libraries</title>
+<body>
+
+<p>
+We took great care to make sure that each package provides consistent pkg-config files.
+Hence, compiling and linking with BLAS/LAPACK should be simple and straightforward:
+</p>
+
+<pre caption="Compiling and linking BLAS/LAPACK">
+# <i>pkg-config --libs blas</i>    <comment>(To link with FORTRAN 77 BLAS library)</comment>
+# <i>pkg-config --cflags cblas</i> <comment>(To compile against C BLAS library)</comment>
+# <i>pkg-config --libs cblas</i>   <comment>(To link with C BLAS library)</comment>
+# <i>pkg-config --libs lapack</i>  <comment>(To link with FORTRAN 77 LAPACK library)</comment>
+</pre>
+
+<p>
+<c>pkg-config</c> files are available for whichever implementation you select with <c>eselect</c>.
+More information on using <c>pkg-config</c> can be obtained with <c>man pkg-config</c>. 
+</p>
+
+</body>
+</section>
+<section>
+<title>Choosing libraries</title>
+<body>
+
+<p>
+You can easily switch BLAS, CBLAS and LAPACK implementations with
+<c>eselect</c>. At this point, you probably have <c>eselect-blas</c>,
+<c>eselect-cblas</c> and <c>eselect-lapack</c> installed. If you do not,
+install them now! Using eselect, you can view which implementations of CBLAS
+are available.
+</p>
+
+<pre caption="Viewing available implementations">
+# <i>eselect cblas list</i>
+Installed CBLAS for library directory lib64
+[1]   atlas
+[2]   atlas-threads
+[3]   gsl
+[4]   mkl-threads *
+[5]   reference
+</pre>
+
+<p>
+The implementation marked with an asterisk (*) is the currently
+selected implementation. To switch implementations, run:
+</p>
+
+<pre caption="Switching to the ATLAS implementation of LAPACK">
+# <i>eselect lapack set atlas</i>
+</pre>
+
+<p>
+To learn more about the <c>eselect</c> tool, visit the 
+<uri link="http://www.gentoo.org/proj/en/eselect/user-guide.xml">eselect guide</uri>
+</p>
+
+<p>
+When selecting blas, cblas or lapack profiles try to avoid mixing
+different implementations since we don't have any mechanism to enforce
+reasonable profiles. However, here is a list of well performing
+profile combinations that have been used successfully in the past:
+</p>
+<ul>
+  <li> Most CPUs:
+    <ul>
+      <li>blas,cblas: atlas (or atlas-threads with multi-processor)</li>
+      <li>lapack:atlas</li>
+    </ul>
+  </li>
+  <li> Most CPUs:
+    <ul>
+      <li>blas: goto </li>
+      <li>cblas,lapack: reference</li>
+    </ul>
+  </li>
+  <li> AMD based CPUs:
+    <ul>
+      <li>blas,lapack: acml-gfortran (or acml-gfortran-openmp with
+	multi-processors) </li>
+      <li>cblas: reference</li>
+    </ul>
+  </li>
+  <li> Intel based CPUs:
+    <ul>
+      <li>blas,cblas,lapack: mkl-threads</li>
+    </ul>
+  </li>
+</ul>
+
+</body>
+</section>
+
+<section>
+<title>Choosing a compiler</title>
+<body>
+
+<p>
+Most of the libraries can compile with both the GNU compiler collection and the
+Intel® compilers on the x86, amd64 and ia64 architectures. By default, you are
+probably using <c>gcc</c>. You can also compile the <c>*-reference</c> packages
+with <c>ifort</c> and <c>icc</c>. To do this, you need to define the F77
+environment variable and don't forget the FFLAGS.
+</p>
+
+<pre caption="Using non-GCC compilers">
+# <i>F77=ifort FFLAGS="-O2 -mp" emerge blas-reference</i>
+</pre>
+
+<p>
+Depending on your hardware, a small performance gain can be noticed thanks to
+vectorization. The <c>-mp</c> flag maintains floating-point precision, since by
+default ifort is pretty aggressive on floating point arithmetic, and we are
+actually compiling a math package. Try <c>man ifort</c> to see additional flags
+to fit your hardware.
+</p>
+
+<p>
+Some of the implementations let you specify the Intel® C compiler as
+well. Please beware that not all libraries compile with all
+combinations.  You should receive an error during the emerge in case you have
+chosen an incompatible combination.
+</p>
+
+<p>
+As usual for Gentoo, there are many combinations of USE flags and
+compilers with which you could compile a package. Unfortunately
+switching compilers between BLAS and LAPACK might not be always
+compatible. For example: 
+</p>
+
+<pre caption="Incompatible combinations">
+# <i>F77=ifort FFLAGS="-O2 -mp" USE="openmp" emerge =acml-3.6.0-r1</i>
+# <i>eselect blas set acml-ifort-openmp</i>
+# <i>F77=gfortran FFLAGS="-O2" emerge lapack-reference</i>
+</pre>
+
+<p>
+This will most likely break things or not even compile.
+</p>
+
+<p>
+Try to be consistent in your choice. Stay with the GCC most of the time will
+avoid you some trouble, unless you want to use the MKL, in which case the Intel®
+C and FORTRAN compilers make a good combination.
+</p>
+
+</body>
+</section>
+<section>
+<title>Documentation</title>
+<body>
+
+<p>
+If you need BLAS or LAPACK to develop your own programs, the documentation
+becomes pretty handy. Setting the USE="doc" flag for the corresponding BLAS or
+LAPACK package will install man pages and quick reference sheets from the
+<c>app-doc/blas-docs</c> and <c>app-doc/lapack-docs</c> packages. They are
+standard and valid for all implementations. For optimized packages, the
+USE="doc" flags will usually install extra doc in PDF or HTML format.
+</p>
+
+</body>
+</section>
+</chapter>
+
+<chapter>
+<title>For Developers</title>
+<section>
+<title>Providing new implementations</title>
+<body>
+
+<p>
+The Portage tree contains many ebuilds that depend on the BLAS/CBLAS/LAPACK
+libraries. As there is more than one possible implementation, the Gentoo
+Scientific Project reorganized all the packages to provide <c>virtual/blas</c>,
+<c>virtual/cblas</c>, and <c>virtual/lapack</c>. All ebuilds using BLAS should
+depend on this virtual package, unless it is explicitly known to break with
+different BLAS implementations.
+</p>
+
+<p>
+To work with Gentoo's configuration tools
+<c>app-admin/eselect-{blas,cblas,lapack}</c>, and the virtual, every ebuild that
+installs a BLAS implementation must fulfill following requirements:
+</p>
+
+<ol>
+  <li>
+    The ebuild must install an eselect file for each profile it provides. The
+    libraries should link to the ones in <path>/usr/$(get_libdir)</path>
+    directories and the include files in <path>/usr/include</path>:
+    <ul>
+      <li>
+	<path>libblas.so[.0]</path> - Shared object for FORTRAN BLAS
+	applications
+      </li>
+      <li>
+        <path>libblas.a</path> - Static library for FORTRAN BLAS applications
+      </li>
+      <li>
+        <path>libcblas.so[.0]</path> - Shared object for C/C++ CBLAS applications
+      </li>
+      <li>
+        <path>libcblas.a</path> - Static library for C/C++ CBLAS applications
+      </li>
+      <li><path>cblas.h</path> - Include header for C/C++ applications</li>
+      <li>
+        <path>liblapack.so[.0]</path> - Shared object for FORTRAN LAPACK
+	applications
+      </li>
+      <li>
+        <path>liblapack.a</path> - Static library for FORTRAN LAPACK applications
+      </li>
+    </ul>
+  </li>
+  <li>
+    The ebuild must install a <path>blas.pc</path>, <path>cblas.pc</path> and/or
+    <path>lapack.pc</path> pkg-config file and therefore RDEPEND on
+    <c>dev-util/pkgconfig</c>.  They should also be included in the eselect
+    files, and link to the <path>/usr/$(get_libdir)/pkgconfig</path> directory:
+    <ul>
+      <li><path>blas.pc</path> - BLAS pkg-config file</li>
+      <li><path>cblas.pc</path> - CBLAS pkg-config file</li>
+      <li><path>lapack.pc</path> - LAPACK pkg-config file</li>
+    </ul>
+  </li>
+  <li>Be included in the virtual package as a possible provider:
+    <ul>
+      <li><c>virtual/blas</c> - BLAS virtual package</li>
+      <li><c>virtual/cblas</c> - CBLAS virtual package</li>
+      <li><c>virtual/lapack</c> - LAPACK virtual package</li>
+    </ul>
+  </li>
+</ol>
+ 
+<p>
+The easiest way of understanding all this is probably getting inspiration from
+one of the available packages.  Currently the Portage tree provide the following
+virtuals:
+</p>
+
+<table>
+<tr>
+  <th>Package name</th>
+  <th>virtual/blas</th>
+  <th>virtual/cblas</th>
+  <th>virtual/lapack</th>
+</tr>
+<tr>
+  <ti><c>sci-libs/acml</c></ti>
+  <ti>*</ti>
+  <ti></ti>
+  <ti>*</ti>
+</tr>
+<tr>
+  <ti><c>sci-libs/blas-atlas</c></ti>
+  <ti>*</ti>
+  <ti>*</ti>
+  <ti></ti>
+</tr>
+<tr>
+  <ti><c>sci-libs/blas-goto</c></ti>
+  <ti>*</ti>
+  <ti></ti>
+  <ti></ti>
+</tr>
+<tr>
+  <ti><c>sci-libs/blas-reference</c></ti>
+  <ti>*</ti>
+  <ti></ti>
+  <ti></ti>
+</tr>
+<tr>
+  <ti><c>sci-libs/cblas-reference</c></ti>
+  <ti></ti>
+  <ti>*</ti>
+  <ti></ti>
+</tr>
+<tr>
+  <ti><c>sci-libs/gsl</c></ti>
+  <ti></ti>
+  <ti>*</ti>
+  <ti></ti>
+</tr>
+<tr>
+  <ti><c>sci-libs/lapack-atlas</c></ti>
+  <ti></ti>
+  <ti></ti>
+  <ti>*</ti>
+</tr>
+<tr>
+  <ti><c>sci-libs/lapack-reference</c></ti>
+  <ti></ti>
+  <ti></ti>
+  <ti>*</ti>
+</tr>
+<tr>
+  <ti><c>sci-libs/mkl</c></ti>
+  <ti>*</ti>
+  <ti>*</ti>
+  <ti>*</ti>
+</tr>
+</table>
+
+</body>
+</section>
+<section>
+<title>Packages with BLAS/LAPACK dependencies</title>
+<body>
+
+<p>
+Simply use <c>virtual/{blas,cblas,lapack}</c> as a [R]DEPEND. To build some
+packages, you might need to use the pkg-config tool. If you are lucky, the
+package uses autotools together with common BLAS and LAPACK M4 macros.In this
+case, the configuration step becomes simple. For example:
+</p>
+
+<pre caption="Sample package configuration">
+<keyword>econf</keyword> --with-blas="<var>$(pkg-config --libs blas)</var>"
+</pre>
+
+<impo>
+Don't forget to add <c>dev-util/pkgconfig</c> in DEPEND.
+</impo>
+
+</body>
+</section>
+</chapter>
+
+<chapter>
+<title>In the near future</title>
+<section>
+<body>
+
+<p>
+We plan to include more standard BLAS, LAPACK libraries: BLAS 95, LAPACK 95,
+Sparse BLAS, ScaLAPACK. If you feel inclined to write an ebuild for these, you
+are more than welcomed to file it on our <uri
+link="http://bugs.gentoo.org">Bugzilla</uri>.
+</p>
+
+</body>
+</section>
+</chapter>
+</guide>

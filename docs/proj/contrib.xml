@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE guide SYSTEM "/dtd/guide.dtd">
+<guide link="/doc/en/" lang="en">
+
+  <title>Contributing to the Scientific Project</title>
+
+  <author title="Author">
+    <mail link="bicatali@gentoo.org">Sébastien Fabbro</mail>
+    <!-- others add your name here -->
+  </author>
+
+  <abstract>
+    This document provides information on how one can get involved and 
+    help out with the Gentoo Scientific Project
+  </abstract>
+
+  <!-- The content of this document is licensed under the CC-BY-SA license -->
+  <!-- See http://creativecommons.org/licenses/by-sa/2.5 -->
+  <license/>
+
+  <version>0.1</version>
+  <date>2009-01-21</date>
+
+  <chapter>
+    <title>Overview</title>
+    <section>
+      <body>
+        <p>
+          This document aims to provide information on how one can get
+          involved and help out with the Gentoo Scientific Project.
+	  Scientific packages are very diverse and many of us want our
+          pet application in the main tree for easy installation. Due to
+          the small size of our team, we can not implement all of
+          them, so we really appreciate any contribution.
+        </p>
+	<p>
+	  There are few obvious areas where one can help as we
+	  describe below. The Scientific Project tends to set strong
+	  requirements on testing, especially on core packages.
+	  Comments, thoughts, and feedback is greatly welcomed!
+	</p>
+      </body>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Bugs</title>
+    <section>
+      <title>Reporting</title>
+      <body>
+        <p>
+          All good software has bugs. They are too many combinations of
+          compilers, USE flags and versions to test them all. So if
+          you find the time to report them, we would love to hear
+          about it. We have the standard bugzilla system for
+          this. Don't be afraid of all these fields to fill in, it's
+          not that bad!
+        </p>
+      </body>
+    </section>
+    <section>
+      <title>Resolving</title>
+      <body>
+        <p>
+	  The Scientific Team in Gentoo has always had a high number of
+	  bugs. Fortunately, many of them are new packages. Any help in resolving
+	  issues, improving submitted ebuilds is greatly appreciated.
+        </p>
+        <p>
+	  <uri link="http://tinyurl.com/2qxmvu">Bugs for the Scientific Team.</uri>
+	  <uri link="http://tinyurl.com/2nm6ag">Bugs for the Biology Team.</uri>
+	  <uri link="http://tinyurl.com/368f2d">Bugs for the Chemistry Team.</uri>
+	  <uri link="http://tinyurl.com/2lknlo">Bugs for the Electronics Team.</uri>
+	  <uri link="http://tinyurl.com/2pcntk">Bugs for the Mathematics Team.</uri>
+	  <uri link="http://tinyurl.com/3789aa">Bugs for the Physics Team.</uri>
+        </p>
+      </body>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Writing ebuilds</title>
+    <section>
+      <body>
+        <p>
+	  You don't see your application in the main tree or in the
+	  overlays and you don't want to wait for someone else to
+	  create the ebuilds? The most obvious solution is to develop
+	  your own ebuilds. If you do so, it's always nice to share
+	  them. You can post them to our bugzilla system and then one
+	  of our devs will comment out. The <uri link="http://overlays.gentoo.org/proj/sunrise">sunrise
+	  overlay</uri> allows you more directly to commit your
+	  ebuilds if you don't want to wait for science access.
+	</p>
+      </body>
+    </section>
+  </chapter>
+
+  <chapter>
+    <title>Communication</title>
+    <section>
+      <title>Mailing List</title>
+      <body>
+        <p>
+          Join our
+          <uri link="http://www.gentoo.org/main/en/lists.xml"> gentoo-science mailing list
+          </uri> and asking/answering questions. 
+        </p>
+      </body>
+    </section>
+    <section>
+      <title>IRC</title>
+      <body>
+        <p>
+          Meet some of us in #gentoo-science. It is a fairly quiet
+          channel, but slowly growing and we are responsive. We can
+          answer your questions, help you developing your ebuilds,
+          share ideas, etc...
+        </p>
+      </body>
+    </section>
+      <title>Direct emails</title>
+      <body>
+        <p>
+	  If you feel your questions are more private and don't need
+	  to be known from the rest of the world, you can always
+	  directly send an email to our developers
+	  listed <uri link="http://www.gentoo.org/main/en/proj/science/index.xml">here</uri>
+	  and the listed sub-projects. If you want to mail all of us, send a mail to the herd.
+        </p>
+      </body>
+  </chapter>
+
+  <chapter>
+    <title>Writing Documentation</title>
+      <body>
+	<section>
+          <p>
+	    You may not be interested in fixing ebuilds and testing
+	    packages, but want to share your knowledge about some
+	    software, configuration or tips and tricks. The best way to
+	    do this is to write some documentation. You can even write
+	    official Gentoo documentation such as our
+	    <uri link="http://www.gentoo.org/main/en/proj/science/blas-lapack.xml">blas/lapack
+	      guide</uri>.
+	  </p>
+	</section>
+      </body>
+  </chapter>
+
+  <chapter>
+    <title>Seriously getting involved</title>
+    <section>
+      <body>
+        <p>
+          If you would like to join our team of volunteers and become
+          an official Gentoo Developer, show activity in anywhere you
+          can: bugzilla, overlays, mailing lists, irc, forums,...
+	  Please refer to
+	  <uri link="http://www.gentoo.org/proj/en/devrel/handbook/handbook.xml?part=1&amp;chap=2">
+	  Becoming a Developer</uri> in the
+	  <uri link="http://www.gentoo.org/proj/en/devrel/handbook/handbook.xml">
+	  Gentoo Developer Handbook</uri>.
+        </p>
+	<p> 
+	  Benefits are huge :-) :
+          <dl>
+            <dd>
+              <ul>
+		<li>Receive a warm welcome from us</li>
+		<li>Impress your geek friends</li>
+		<!--<li>Loose your social life, but</li>-->
+		<li>Get a free beer first time we meet in person!</li>
+              </ul>
+            </dd>
+          </dl>	  
+	</p>
+
+      </body>
+    </section>
+  </chapter>
+</guide>
