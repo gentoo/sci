@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/lwpr
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*lwpr-1.2.2 (09 Oct 2009)
+
+  09 Oct 2009; Sébastien Fabbro <bicatali@gentoo.org> +lwpr-1.2.2.ebuild,
+  +files/lwpr-1.2.2-setup.py.patch, +metadata.xml:
+  Initial import, ebuild based on bug #288032, initially submitted by
+  Florent Teichteil
+
