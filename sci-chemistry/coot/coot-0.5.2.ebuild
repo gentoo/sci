@@ -100,8 +100,7 @@ src_compile() {
 		--with-python=/usr \
 		--with-guile-gtk \
 		--with-gtk2 \
-		--with-pygtk \
-		|| die "econf failed"
+		--with-pygtk
 
 	# Regenerate wrappers, otherwise at least gtk-2 build fails
 	pushd src

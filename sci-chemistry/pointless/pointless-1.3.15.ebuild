@@ -6,7 +6,8 @@ inherit base toolchain-funcs multilib
 
 DESCRIPTION="Scores crystallographic Laue and space groups"
 HOMEPAGE="ftp://ftp.mrc-lmb.cam.ac.uk/pub/pre/pointless.html"
-SRC_URI="ftp://ftp.mrc-lmb.cam.ac.uk/pub/pre/${P}.tar.gz"
+#SRC_URI="ftp://ftp.mrc-lmb.cam.ac.uk/pub/pre/${P}.tar.gz"
+SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="ccp4"

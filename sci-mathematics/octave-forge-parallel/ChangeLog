@@ -1,6 +1,14 @@
 # ChangeLog for sci-mathematics/octave-forge-parallel
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*octave-forge-parallel-2.0.0 (04 Oct 2009)
+
+  04 Oct 2009; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-parallel-1.0.6.ebuild, +octave-forge-parallel-2.0.0.ebuild
+  +files/octave-forge-parallel-2.0.0-octave-3.2.patch
+  +files/octave-forge-parallel-2.0.0-description.patch:
+  Version bump.
 
   30 Sep 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-parallel-1.0.5.ebuild, +octave-forge-parallel-1.0.7.ebuild:

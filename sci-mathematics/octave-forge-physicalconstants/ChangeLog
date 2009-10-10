@@ -1,6 +1,13 @@
 # ChangeLog for sci-mathematics/octave-forge-physicalconstants
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*octave-forge-physicalconstants-0.1.7 (04 Oct 2009)
+
+  04 Oct 2009; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-physicalconstants-0.1.5.ebuild,
+  +octave-forge-physicalconstants-0.1.7.ebuild:
+  Version bump.
 
   30 Sep 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-physicalconstants-0.1.4.ebuild,

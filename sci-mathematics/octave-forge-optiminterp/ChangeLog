@@ -1,6 +1,13 @@
 # ChangeLog for sci-mathematics/octave-forge-optiminterp
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*octave-forge-optiminterp-0.3.2 (04 Oct 2009)
+
+  04 Oct 2009; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-optiminterp-0.2.7.ebuild,
+  +octave-forge-optiminterp-0.3.2.ebuild:
+  Version bump.
 
   30 Sep 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-optiminterp-0.2.6.ebuild,

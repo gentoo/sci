@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*molrep-10.2.34 (02 Oct 2009)
+
+  02 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/10.2.34-respect-FLAGS.patch, +molrep-10.2.34.ebuild:
+  version bump
+
 *molrep-10.2.33 (29 Jul 2009)
 
   29 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

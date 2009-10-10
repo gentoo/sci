@@ -1,0 +1,40 @@
+--- src/autogrid/Makefile.am	2007-05-17 22:53:30.000000000 +0200
++++ src/autogrid/Makefile.am.new	2009-10-07 19:48:52.000000000 +0200
+@@ -78,9 +78,9 @@
+             util.h \
+             version.h
+ 
+-AM_CFLAGS = -Wall -O3 # All warnings, Agressive optimization
++#AM_CFLAGS = -Wall -O3 # All warnings, Agressive optimization
+ 
+-AM_CXXFLAGS = -Wall -O3 # All warnings, Agressive optimization
++#AM_CXXFLAGS = -Wall -O3 # All warnings, Agressive optimization
+ 
+ AM_CPPFLAGS = -I$(srcdir)/../autodock-4.0.1
+ 
+--- src/autodock/Makefile.am	2007-05-12 06:51:41.000000000 +0200
++++ src/autodock/Makefile.am.new	2009-10-07 19:48:01.000000000 +0200
+@@ -244,7 +244,7 @@
+ 		writePDBQT.h
+ 
+ 
+-AM_CXXFLAGS = -Wall -O3 # All warnings, Agressive optimization
++#AM_CXXFLAGS = -Wall -O3 # All warnings, Agressive optimization
+ #AM_CXXFLAGS = -Wall -O3 -ftree-vectorize # All warnings, Agressive optimization + GCC vectorization # MacOSX only?
+ 
+ AM_CPPFLAGS = -DNOSQRT \
+--- src/autogrid/Makefile.am	2009-10-07 19:58:04.000000000 +0200
++++ src/autogrid/Makefile.am.new	2009-10-07 20:00:17.000000000 +0200
+@@ -84,10 +84,10 @@
+ 
+ AM_CPPFLAGS = -I$(srcdir)/../autodock-4.0.1
+ 
+-autogrid4_CFLAGS = -Wall -O3 # All warnings, Agressive optimization
++autogrid4_CFLAGS = # All warnings, Agressive optimization
+ # autogrid4_CFLAGS = -Wall -O3 -ftree-vectorize # All warnings, Agressive optimization, GCC vectorization in Mac OS X
+ 
+-autogrid4_CXXFLAGS = -Wall -O3 # All warnings, Agressive optimization
++autogrid4_CXXFLAGS = # All warnings, Agressive optimization
+ # autogrid4_CXXFLAGS = -Wall -O3 -ftree-vectorize # All warnings, Agressive optimization, GCC vectorization in Mac OS X
+ 
+ 
