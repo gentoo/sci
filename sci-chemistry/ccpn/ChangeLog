@@ -2,6 +2,15 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -ccpn-2.1.0-r2.ebuild, -ccpn-2.1.0-r3.ebuild:
+  removed old versions and merge leftovers
+
+*ccpn-2.1.1 (13 Oct 2009)
+
+  13 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +ccpn-2.1.1.ebuild:
+  version bump
+
 *ccpn-2.1.0-r4 (12 Oct 2009)
 
   12 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
