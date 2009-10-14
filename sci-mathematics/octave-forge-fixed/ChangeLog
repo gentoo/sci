@@ -1,6 +1,13 @@
 # ChangeLog for sci-mathematics/octave-forge-fixed
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*octave-forge-fixed-0.7.10 (03 Oct 2009)
+
+  03 Oct 2009; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-fixed-0.7.6.ebuild, +octave-forge-fixed-0.7.10.ebuild
+  +files/octave-forge-fixed-0.7.10-array.patch:
+  Version bump.
 
   28 Sep 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-fixed-0.7.5.ebuild, +octave-forge-fixed-0.7.8.ebuild:

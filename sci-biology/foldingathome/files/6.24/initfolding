@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cd /opt/foldingathome
+/opt/foldingathome/fah6 -configonly
+/bin/chown -R foldingathome:nogroup /opt/foldingathome
+

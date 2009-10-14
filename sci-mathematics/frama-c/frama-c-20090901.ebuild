@@ -36,7 +36,7 @@ src_unpack(){
 	cd "${S}"
 
 	touch config_file
-	epatch "${FILESDIR}/${P}-varinfo_accessor.patch"
+	epatch "${FILESDIR}/${P}-varinfo_export.patch"
 	epatch "${FILESDIR}/${P}-why_link.patch"
 	epatch "${FILESDIR}/${P}-ocamlgraph_link.patch"
 

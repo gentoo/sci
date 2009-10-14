@@ -1,6 +1,12 @@
-# ChangeLog for sci-mathematics/octave-forge-time
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sci-mathematics/octave-forge-octgpr
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*octave-forge-octgpr-1.1.5 (04 Oct 2009)
+
+  04 Oct 2009; Markus Dittrich <markusle@gentoo.org>
+  -octave-forge-octgpr-1.1.3.ebuild, +octave-forge-octgpr-1.1.5.ebuild:
+  Version bump.
 
   30 Sep 2008; Markus Dittrich <markusle@gentoo.org>
   -octave-forge-octgpr-1.1.1.ebuild, +octave-forge-octgpr-1.1.4.ebuild:

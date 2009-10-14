@@ -1,6 +1,11 @@
 # ChangeLog for sci-mathematics/octave-epstk
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  12 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  octave-epstk-2.1.ebuild:
+  fix for bug 288586, thanks Juergen Rose for reporting
+  Some QA, rest is commented in the ebuild
 
 *octave-epstk-2.1 (14 Apr 2006)
 

@@ -17,7 +17,7 @@
   <flag name="fits">
     Enable support for reading and FITS with <pkg>dev-python/pyfits</pkg>.
   </flag>
-  <flag name="fits">
+  <flag name="votable">
     Enable support for reading and VOTABLE with <pkg>dev-python/vo</pkg>.
   </flag>
 </use>

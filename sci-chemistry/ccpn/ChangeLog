@@ -2,6 +2,24 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccpn-2.1.0-r4 (12 Oct 2009)
+
+  12 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +ccpn-2.1.0-r4.ebuild:
+  daily update of python things
+
+*ccpn-2.1.0-r3 (11 Oct 2009)
+
+  11 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +ccpn-2.1.0-r3.ebuild:
+  Upstream update from 11/10/09 included
+
+*ccpn-2.1.0-r2 (09 Oct 2009)
+
+  09 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +ccpn-2.1.0-r2.ebuild:
+  Started to include upstreams online patching into releases
+
 *ccpn-2.1.0-r1 (18 Sep 2009)
 
   18 Sep 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

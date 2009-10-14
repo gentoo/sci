@@ -127,7 +127,6 @@ src_test(){
 }
 
 src_install(){
-
 	# This is what Bill Scott does in the fink package. Do we need this as well?
 #	-e "s:prepend:append:g" \
 
@@ -135,7 +134,6 @@ src_install(){
 	sed -e "s:${MY_S}:/usr/$(get_libdir)/cctbx/cctbx_sources:g" \
 	    -e "s:${MY_B}:/usr/$(get_libdir)/cctbx/cctbx_build:g"  \
 	    -i '{}' \; || die "Fail to correct path"
-
 
 	ebegin "removing unnessary files"
 		rm -r "${S}"/cctbx_sources/scons || die "failed to remove uneeded scons"
@@ -161,7 +159,6 @@ src_install(){
 	chmod 775 "${D}"/usr/$(get_libdir)/${PN}/cctbx_build/bin/* || \
 	die
 
-
 	insinto /etc/profile.d/
 	newins "${MY_B}"/setpaths.sh 30cctbx.sh && \
 	newins "${MY_B}"/setpaths.csh 30cctbx.csh || \
@@ -182,17 +179,13 @@ pkg_postrm () {
 	python_mod_cleanup /usr/$(get_libdir)/${PN}/cctbx_sources
 }
 
-
 check_use() {
-
 	for var in $@; do
-	if use ${var}; then
-	printf -v "USE_$var" True
-	else
-	printf -v "USE_$var" False
-
-	fi
+		if use ${var}; then
+			printf -v "USE_$var" True
+		else
+			printf -v "USE_$var" False
+		fi
 	shift
 	done
 }
-

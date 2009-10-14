@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ferret-bin-6.3 (04 Oct 2009)
+
+  04 Oct 2009; Tim Cera <timcera@earthlink.net> +ferret-bin-6.3.ebuild:
+  Version bump to 6.3.
+
 *ferret-bin-6.2 (16 Sep 2009)
 
   16 Sep 2009; Tim Cera <timcera@earthlink.net> files/99ferret,
