@@ -19,7 +19,8 @@ RESTRICT="mirror"
 
 RDEPEND="virtual/lapack
 	virtual/blas
-	sci-libs/ccp4-libs"
+	sci-libs/ccp4-libs
+	sci-libs/mmdb"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"
