@@ -39,7 +39,7 @@ pkg_setup() {
 
 src_prepare() {
 	# Wants to chmod /usr/bin/python
-	epatch "${FILESDIR}"/${PV}-sandbox-violations-chmod.patch
+#	epatch "${FILESDIR}"/${PV}-sandbox-violations-chmod.patch
 
 	rm -rf "${MY_S}/scons" # "${MY_S}/boost" ## needs boost 1.39
 

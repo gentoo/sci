@@ -126,7 +126,6 @@ src_test(){
 }
 
 src_install(){
-
 	local INST_DIR
 
 	INST_DIR="/usr/${PN}"
@@ -182,14 +181,12 @@ pkg_postrm () {
 }
 
 check_use() {
-
 	for var in $@; do
-	if use ${var}; then
-	printf -v "USE_$var" True
-	else
-	printf -v "USE_$var" False
-
-	fi
-	shift
+		if use ${var}; then
+			printf -v "USE_$var" True
+		else
+			printf -v "USE_$var" False
+		fi
+		shift
 	done
 }

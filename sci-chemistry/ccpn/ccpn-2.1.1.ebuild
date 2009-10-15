@@ -5,7 +5,7 @@
 NEED_PYTHON=2.5
 PYTHON_MODNAME="${PN}"
 PYTHON_USE_WITH="ssl tk"
-PATCHSET="091011"
+#PATCHSET="091011"
 EAPI="2"
 
 inherit distutils portability python toolchain-funcs versionator
@@ -14,8 +14,8 @@ MY_PN="${PN}mr"
 
 DESCRIPTION="The Collaborative Computing Project for NMR"
 SRC_URI="
-	http://www.bio.cam.ac.uk/ccpn/download/${MY_PN}/analysis${PV}.tar.gz
-	http://dev.gentooexperimental.org/~jlec/distfiles/update-${PATCHSET}.patch.bz2"
+	http://www.bio.cam.ac.uk/ccpn/download/${MY_PN}/analysis${PV}.tar.gz"
+#	http://dev.gentooexperimental.org/~jlec/distfiles/update-${PATCHSET}.patch.bz2"
 HOMEPAGE="http://www.ccpn.ac.uk/ccpn"
 
 SLOT="0"
@@ -39,7 +39,8 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${WORKDIR}"/update-${PATCHSET}.patch
+	[[ -n ${PATCHSET} ]] && \
+		epatch "${WORKDIR}"/update-${PATCHSET}.patch
 
 	local tk_ver
 	local myconf

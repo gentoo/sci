@@ -39,7 +39,8 @@ fi
 
 src_compile() {
 	einfo "Using $CC_ALT compiler"
-	make -f Makefile.linux${ALT} CC="${CC_ALT} ${CFLAGS}" all
+#	cd src
+	make -f make/Makefile.linux${ALT} CC="${CC_ALT} ${CFLAGS}" all
 }
 
 src_install() {

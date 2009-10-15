@@ -12,32 +12,21 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
+DEPEND=""
+RDEPEND=""
+
+MAKEOPTS="${MAKEOPTS} -j1"
 
 pkg_setup() {
-	# Kbuild.include:try_run appears to cause problems with
-	# the sandbox for this package
-	ewarn
-	ewarn "This package is known to have issues with the sandbox"
-	ewarn "If you experience problems, please re-emerge with:"
-	ewarn "FEATURES=\"-sandbox -usersandbox\""
-	ewarn
-
 	linux-mod_pkg_setup
 	MODULE_NAMES="blcr(blcr::${S}/cr_module/kbuild)
-		blcr_imports(blcr::${S}/blcr_imports/kbuild)
-		blcr_vmadump(blcr::${S}/vmadump4/kbuild)"
+		blcr_imports(blcr::${S}/blcr_imports/kbuild)"
 	BUILD_TARGETS="clean all"
 	ECONF_PARAMS="--with-kernel=${KV_DIR}"
 }
 
 
-src_compile() {
-	linux-mod_src_compile
-	emake util || die "emake failed"
-}
-
 src_install() {
-	linux-mod_src_install
 	dodoc README NEWS
 	cd "${S}"/util
 	emake DESTDIR="${D}" install || die "binaries install failed"
@@ -47,7 +36,9 @@ src_install() {
 	emake DESTDIR="${D}" install || die "man install failed"
 	cd "${S}"/include
 	emake DESTDIR="${D}" install || die "headers install failed"
+	linux-mod_src_install
 }
+
 
 pkg_postinst() {
 	linux-mod_pkg_postinst

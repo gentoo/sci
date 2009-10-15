@@ -5,7 +5,7 @@
 NEED_PYTHON=2.5
 PYTHON_MODNAME="${PN}"
 PYTHON_USE_WITH="ssl tk"
-PATCHSET="091009"
+PATCHSET="091012"
 EAPI="2"
 
 inherit distutils portability python toolchain-funcs versionator

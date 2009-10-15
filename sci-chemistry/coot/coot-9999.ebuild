@@ -52,7 +52,8 @@ RDEPEND="
 	${XDEPS}
 	${SCHEMEDEPS}
 	dev-python/pygtk
-	>=dev-libs/gmp-4.2.2-r2"
+	>=dev-libs/gmp-4.2.2-r2
+	>=net-misc/curl-7.19.6"
 DEPEND="${RDEPEND}
 	dev-lang/swig
 	test? ( dev-scheme/greg )"
