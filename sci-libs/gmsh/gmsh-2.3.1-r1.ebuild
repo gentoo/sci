@@ -36,12 +36,9 @@ src_prepare() {
 
 src_configure() {
 	local myconf=""
-	use opencascade && myconf="${myconf} --with-occ-prefix=$CASROOT/lin
-		--with-occ-mesh-constraints-prefix=${CASROOT}"
+	use opencascade && myconf="${myconf} --with-occ-prefix=$CASROOT/lin"
 
-	if use minimal ; then
-		ewarn "minimal USE flag disables most of features"
-	fi
+	use minimal && ewarn "minimal USE flag disables most of features"
 
 	if use fftw && use !blas ; then
 		die "You MUST compile with the blas USE flag to use the fftw dependency"
@@ -67,7 +64,7 @@ src_configure() {
 }
 
 src_compile() {
-	emake -j1 || die "emake failed"
+	emake || die "emake failed"
 
 	if use doc ; then
 		cd doc/texinfo
@@ -77,10 +74,9 @@ src_compile() {
 
 src_install() {
 	einstall || die "could not install"
-	dodoc README doc/CREDITS.txt
 
 	if use doc ; then
-		dodoc doc/{FAQ.txt,README.*} doc/texinfo/*.pdf
+		dodoc README doc/{FAQ.txt,README.*,CREDITS.txt} doc/texinfo/*.pdf
 	fi
 
 	if use examples ; then
