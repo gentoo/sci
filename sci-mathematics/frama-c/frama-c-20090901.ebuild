@@ -13,7 +13,7 @@ LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 
-IUSE="apron coq doc gappa gtk pff pvs +why"
+IUSE="apron coq doc gappa gtk pff +why"
 RESTRICT="strip"
 
 RDEPEND="sci-mathematics/ltl2ba
@@ -21,7 +21,6 @@ RDEPEND="sci-mathematics/ltl2ba
         coq? ( sci-mathematics/coq )
         gappa? ( sci-mathematics/gappalib-coq )
         pff? ( sci-mathematics/pff )
-        pvs? ( sci-mathematics/pvs )
 		why? ( sci-mathematics/why )"
 
 DEPEND="${RDEPEND}
