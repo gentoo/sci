@@ -1007,7 +1007,7 @@ diff -durN pvs-sbcl-4.2.ORIG/bin/pvs-platform pvs-sbcl-4.2/bin/pvs-platform
 -  Linux) arch=ix86
 +  Linux) case `uname -m` in
 +	   x86_64) arch=ix86_64;;
-+	   x86*)   arch=ix86;;
++	   *86*)   arch=ix86;;
 +	 esac
  	 os=Linux;;
    AIX) arch=powerpc-ibm
