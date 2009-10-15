@@ -1,0 +1,22 @@
+diff -aur med-2.3.5.old/tools/medimport/include/MAJ_21_22.h med-2.3.5/tools/medimport/include/MAJ_21_22.h
+--- med-2.3.5.old/tools/medimport/include/MAJ_21_22.h	2009-09-13 17:05:38.000000000 +0200
++++ med-2.3.5/tools/medimport/include/MAJ_21_22.h	2009-09-13 17:18:20.000000000 +0200
+@@ -22,6 +22,7 @@
+ #ifdef __cplusplus
+ 
+ #include "MEDerreur.hxx"
++#include <cstring>
+ 
+ #endif
+ 
+diff -aur med-2.3.5.old/tools/medimport/include/MAJ_231_232.h med-2.3.5/tools/medimport/include/MAJ_231_232.h
+--- med-2.3.5.old/tools/medimport/include/MAJ_231_232.h	2009-09-13 17:05:38.000000000 +0200
++++ med-2.3.5/tools/medimport/include/MAJ_231_232.h	2009-09-13 17:23:10.000000000 +0200
+@@ -22,6 +22,7 @@
+ 
+ #ifdef __cplusplus
+ # include "MEDerreur.hxx"
++#include <cstring>
+ #endif
+ 
+ extern void MAJ_231_232_champs(med_idt fid);
