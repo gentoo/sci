@@ -17,11 +17,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="fortran hdf5 szip zlib"
 
-DEPEND="hdf5? ( <sci-libs/hdf5-1.8 )
+RDEPEND="hdf5? ( <sci-libs/hdf5-1.8 )
 	zlib? ( sys-libs/zlib )
 	szip? ( sci-libs/szip )"
 
-RDEPEND="${DEPEND}"
+DEPEND="${RDEPEND}"
 
 MY_S="${PN}_$(get_version_component_range 1-2)"
 S=${WORKDIR}/${MY_S}
