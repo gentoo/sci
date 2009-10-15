@@ -1,7 +1,7 @@
-Index: /data/svn-src/coot/trunk/python/a_rapper_gui.py
+Index: python/a_rapper_gui.py
 ===================================================================
---- /data/svn-src/coot/trunk/python/a_rapper_gui.py	(revision 2398)
-+++ /data/svn-src/coot/trunk/python/a_rapper_gui.py	(working copy)
+--- python/a_rapper_gui.py	(revision 2425)
++++ python/a_rapper_gui.py	(working copy)
 @@ -20,8 +20,8 @@
      home_dir = os.getenv('COOT_HOME')
  else:
