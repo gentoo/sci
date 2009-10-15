@@ -37,6 +37,7 @@ src_unpack() {
 
 	#to build with apron-0.9.10
 	sed -i configure.in \
+		-e "s/pvs/sri-pvs/g" \
 		-e "s/oct_caml/octMPQ_caml/g" \
 		-e "s/box_caml/boxMPQ_caml/g" \
 		-e "s/polka_caml/polkaMPQ_caml/g"
