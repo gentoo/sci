@@ -18,6 +18,11 @@ DEPEND=">=sys-infiniband/libibverbs-1.1.2
 RDEPEND="${DEPEND}
 		!sys-infiniband/openib-userspace"
 
+PATCHES=(
+			"${FILESDIR}/${P}-autotools.patch"
+			"${FILESDIR}/${P}-glib-2.10.patch"
+		)
+
 src_install() {
 	make DESTDIR="${D}" install || die "install failed"
 	dodoc README AUTHORS ChangeLog
