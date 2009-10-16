@@ -43,6 +43,9 @@ src_unpack() {
 		-e "s/OUTPUT_DIRECTORY       = \/.*/OUTPUT_DIRECTORY       = .\//g" \
 		-e "s/STRIP_FROM_PATH        = \/.*/STRIP_FROM_PATH        = .\//g"
 
+	#fix ppl install for 32 platforms
+	sed -i ppl/Makefile -e "s/libap_ppl_caml\*\./libap_ppl\*\./g"
+
 	if [[ "$(gcc-major-version)" == "4" ]]; then
 		sed -i -e "s/# HAS_LONG_DOUBLE = 1/HAS_LONG_DOUBLE = 1/g" Makefile.config
 	fi
