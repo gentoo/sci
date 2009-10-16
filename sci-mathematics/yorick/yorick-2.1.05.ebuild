@@ -1,47 +1,52 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=2
 inherit eutils versionator elisp-common
 
-DESCRIPTION="A language for scientific computing and rapid prototyping"
-HOMEPAGE="http://yorick.sourceforge.net/ http://www.maumae.net/yorick/"
+DESCRIPTION="Language for scientific computing and rapid prototyping"
+HOMEPAGE="http://yorick.sourceforge.net/"
 IUSE="emacs"
 SLOT="0"
 LICENSE="BSD"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 SRC_URI="mirror://sourceforge/yorick/${P}.tgz"
 DEPEND="x11-proto/xproto
 	x11-libs/libX11
 	x11-libs/libXau
 	x11-libs/libXdmcp
 	emacs? ( virtual/emacs )"
+RDEPEND="${DEPEND}"
+
 S="${WORKDIR}/${PN}-$(get_version_component_range 1-2 )"
 
-#### Remove the following line when moving this ebuild to the main tree!
-RESTRICT=mirror
-
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+src_prepare() {
 	epatch "${FILESDIR}"/${P}.patch
 }
 
+src_configure() {
+	echo
+}
+
 src_compile() {
-	make prefix=/usr ysite
+	# makefiles are not robust. (not interested in fixing)
+	make prefix=/usr ysite Y_HOME=/usr/$(get_libdir)/yorick
 	make config
-	emake
+	emake -j1 || die "emake failed"
 }
 
 src_install() {
 	emake INSTALL_ROOT="${D}" \
 		Y_BINDIR="${D}"/usr/bin \
-		Y_DOCDIR="${D}"/usr/share/doc/${P} \
+		Y_DOCDIR="${D}"/usr/share/doc/${PF} \
 		Y_INCDIR="${D}"/usr/include/${PN} \
-		install
+		install || die "emake install failed"
+
 	if use emacs; then
 		mv emacs/yorick-auto.el emacs/64yorick-gentoo.el
-		elisp-site-file-install emacs/yorick.el
-		elisp-site-file-install emacs/64yorick-gentoo.el
+		elisp-install ${PN} emacs/yorick.el || die
+		elisp-site-file-install emacs/64yorick-gentoo.el || die
 	fi
 }
 

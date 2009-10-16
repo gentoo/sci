@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Oct 2009; Sébastien Fabbro <bicatali@gentoo.org>
+  -yorick-1.5.22.ebuild, yorick-2.1.05.ebuild:
+  Cleaning and much QA, tested on amd64
+
   05 Feb 2009; Thomas Anderson <gentoofan23@gentoo.org>
   sci-mathematics/yorick/yorick-1.5.22.ebuild:
   [QA]: change RESTRICT=nomirror to RESTRICT=mirror
