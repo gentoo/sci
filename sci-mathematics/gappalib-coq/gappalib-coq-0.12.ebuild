@@ -3,8 +3,8 @@
 # $Header: Exp $
 
 DESCRIPTION="This library allows the certificates Gappa generates to be imported by the Coq."
-HOMEPAGE="http://lipforge.ens-lyon.fr/www/gappa/"
-SRC_URI="http://lipforge.ens-lyon.fr/frs/download.php/151/${P}.tar.gz"
+HOMEPAGE="http://gappa.gforge.inria.fr/"
+SRC_URI="http://lipforge.ens-lyon.fr/frs/download.php/160/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
