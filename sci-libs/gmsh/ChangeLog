@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Oct 2009; Etienne Lorriaux <etienne.lorriaux@gmail.com>
+  gmsh-9999.ebuild:
+  Removed keywords for gmsh-9999
+
 *gmsh-9999 (15 Oct 2009)
 *gmsh-2.4.2 (15 Oct 2009)
 
