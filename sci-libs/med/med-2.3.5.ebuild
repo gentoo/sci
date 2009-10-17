@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc examples"
 
-DEPEND="sci-libs/hdf5"
+DEPEND=">=sci-libs/hdf5-1.6.4"
 RDEPEND="${DEPEND}"
 
 src_unpack() {
