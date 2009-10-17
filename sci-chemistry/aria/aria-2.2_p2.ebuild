@@ -18,11 +18,10 @@ SRC_URI="http://aria.pasteur.fr/archives/${MY_P}.tar.gz"
 SLOT="0"
 LICENSE="cns"
 KEYWORDS="~amd64 ~x86"
-IUSE="examples +numpy"
+IUSE="examples"
 
 RDEPEND="sci-chemistry/cns[aria,openmp]
-	numpy? ( dev-python/numpy )
-	!numpy? ( dev-python/numeric )
+	dev-python/numpy
 	>=dev-python/scientificpython-2.7.3
 	>=dev-lang/tk-8.3
 	>=dev-tcltk/tix-8.1.4
@@ -36,16 +35,12 @@ S="${WORKDIR}/${PN}2.2"
 
 PATCHES=(
 	"${FILESDIR}"/sa_ls_cool2.patch
+	"${FILESDIR}"/${PV}-numpy.patch
 	)
 
 pkg_nofetch(){
 	einfo "Go to ${HOMEPAGE}, download ${A}"
 	einfo "and place it in ${DISTDIR}"
-}
-
-src_prepare() {
-	base_src_prepare
-	use numpy && epatch "${FILESDIR}"/${PV}-numpy.patch
 }
 
 src_test(){

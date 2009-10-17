@@ -5,8 +5,4 @@
 <maintainer>
   <email>sci@gentoo.org</email>
 </maintainer>
-<use>
-	<flag name='numpy'>Uses numpy in favour of numeric</flag>
-</use>
-
 </pkgmetadata>
