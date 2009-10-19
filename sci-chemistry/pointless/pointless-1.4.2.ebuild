@@ -2,12 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit base toolchain-funcs multilib
+inherit toolchain-funcs multilib
 
 DESCRIPTION="Scores crystallographic Laue and space groups"
 HOMEPAGE="ftp://ftp.mrc-lmb.cam.ac.uk/pub/pre/pointless.html"
-#SRC_URI="ftp://ftp.mrc-lmb.cam.ac.uk/pub/pre/${P}.tar.gz"
-SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/${P}.tar.gz
+SRC_URI="ftp://ftp.mrc-lmb.cam.ac.uk/pub/pre/${P}.tar.gz
 	test? ( http://dev.gentooexperimental.org/~jlec/distfiles/test-framework.tar.gz )"
 
 SLOT="0"
@@ -15,7 +14,8 @@ LICENSE="ccp4"
 KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
-RDEPEND="sci-chemistry/ccp4-apps
+RDEPEND="
+	sci-chemistry/ccp4-apps
 	>=sci-libs/ccp4-libs-6.1.1-r5
 	sci-libs/cctbx"
 DEPEND="${RDEPEND}"
@@ -27,8 +27,6 @@ PATCHES=(
 	)
 
 src_compile() {
-	# Fails to link against my libcctbx
-	# Tried stealing autotools from ccp4 but that breaks differently with a weird boost error.
 	emake  \
 		-f Makefile.make \
 		CC=$(tc-getCC) \
