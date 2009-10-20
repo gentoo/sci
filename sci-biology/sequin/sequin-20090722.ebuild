@@ -4,6 +4,8 @@
 
 EAPI=2
 
+inherit eutils
+
 DESCRIPTION="A tool to facilitate submission of data to the GenBank, EMBL, and DDBJ sequence databases"
 HOMEPAGE="http://www.ncbi.nlm.nih.gov/Sequin/"
 SRC_URI="amd64? ( ftp://ftp.ncbi.nih.gov/sequin/old/${PV}/sequin.linux-x86_64.tar.gz -> ${P}-x86_64.tar.gz )
@@ -15,7 +17,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="x11-libs/libXmu
+	x11-libs/libXp"
 
 S="${WORKDIR}"
 
@@ -24,5 +27,6 @@ src_install() {
 	doins -r * || die
 	exeinto /opt/${PN}
 	doexe sequin || die
-	dosym /opt/${PN}/sequin /usr/bin/sequin
+	dosym /opt/${PN}/sequin /usr/bin/sequin || die
+	make_desktop_entry sequin Sequin || die
 }
