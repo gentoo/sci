@@ -4,11 +4,13 @@
 
 EAPI="2"
 
-inherit cmake-utils flag-o-matic toolchain-funcs
+inherit cmake-utils flag-o-matic subversion toolchain-funcs
 
 DESCRIPTION="A three-dimensional finite element mesh generator with built-in pre- and post-processing facilities."
 HOMEPAGE="http://www.geuz.org/gmsh/"
-SRC_URI="http://www.geuz.org/gmsh/src/${PN}-nightly-source.tgz"
+ESVN_REPO_URI="https://geuz.org/svn/gmsh/trunk"
+ESVN_USER="gmsh"
+ESVN_PASSWORD="gmsh"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -27,17 +29,13 @@ RDEPEND="X? ( x11-libs/fltk:1.1 )
 
 DEPEND="${RDEPEND}
 		dev-util/cmake
+		dev-util/subversion
 		doc? ( virtual/latex-base )"
 
 pkg_setup() {
 	ewarn "Put the F77 variable in env files to select your fortran compiler"
 	ewarn "example for gfortran:"
 	ewarn "echo \"F77=gfortran\" >> /etc/portage/env/sci-libs/gmsh"
-}
-
-src_unpack() {
-	unpack ${A}
-	mv ${PN}-*-source ${P}
 }
 
 src_configure() {
