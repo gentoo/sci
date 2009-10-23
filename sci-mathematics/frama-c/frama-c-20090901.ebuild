@@ -1,6 +1,8 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
+
+EAPI="2"
 
 inherit autotools eutils
 
@@ -12,29 +14,25 @@ SRC_URI="http://www.frama-c.cea.fr/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
-
 IUSE="apron coq doc gappa gtk pff +why"
 RESTRICT="strip"
 
-RDEPEND="sci-mathematics/ltl2ba
+DEPEND=">=dev-lang/ocaml-3.10.2
+        >=dev-ml/ocamlgraph-1.2
+		gtk? ( >=dev-ml/lablgtk-2.12 )
+		sci-mathematics/ltl2ba
 		apron? ( sci-mathematics/apron )
         coq? ( sci-mathematics/coq )
         gappa? ( sci-mathematics/gappalib-coq )
         pff? ( sci-mathematics/pff )
 		why? ( sci-mathematics/why )"
-
-DEPEND="${RDEPEND}
-		>=dev-lang/ocaml-3.10.2
-		>=dev-ml/ocamlgraph-1.1
-		gtk? ( >=dev-ml/lablgtk-2.12 )"
+RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
 
-src_unpack(){
-	unpack ${A}
-	cd "${S}"
-
+src_prepare(){
 	touch config_file
+
 	epatch "${FILESDIR}/${P}-varinfo_export.patch"
 	epatch "${FILESDIR}/${P}-why_link.patch"
 	epatch "${FILESDIR}/${P}-ocamlgraph_link.patch"
@@ -42,7 +40,7 @@ src_unpack(){
 	eautoreconf
 }
 
-src_compile() {
+src_configure() {
 	if use gtk; then
 		myconf="--enable-gui"
 	else
@@ -50,7 +48,9 @@ src_compile() {
 	fi
 
 	econf ${myconf} --with-whydir=no || die "econf failed"
+}
 
+src_compile() {
 	# dependencies can not be processed in parallel,
 	# this is the intended behavior.
 	emake -j1 depend || die "emake depend failed"

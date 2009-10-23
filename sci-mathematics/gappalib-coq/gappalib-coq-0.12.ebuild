@@ -1,6 +1,8 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
+
+EAPI="2"
 
 DESCRIPTION="This library allows the certificates Gappa generates to be imported by the Coq."
 HOMEPAGE="http://gappa.gforge.inria.fr/"
@@ -9,24 +11,18 @@ SRC_URI="http://lipforge.ens-lyon.fr/frs/download.php/160/${P}.tar.gz"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
-
 IUSE=""
 
-RDEPEND="sci-mathematics/gappa
+DEPEND="sci-mathematics/gappa
 		sci-mathematics/coq"
+RDEPEND="${DEPEND}"
 
-DEPEND="${RDEPEND}"
-
-src_unpack(){
-	unpack ${A}
-	cd ${S}
-
+src_prepare(){
 	sed -i configure -e "s/if test \"\$libdir\" = '\${exec_prefix}\/lib';/ \
 		if test \"\$libdir\" = '\${exec_prefix}\/lib' -o "\$libdir" = \"\${prefix}\/lib64\";/g"
 }
 
 src_compile(){
-	econf || die "econf failed"
 	emake DESTDIR="/" || die "emake failed"
 }
 

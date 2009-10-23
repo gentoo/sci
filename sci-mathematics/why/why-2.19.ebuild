@@ -1,6 +1,8 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
+
+EAPI="2"
 
 inherit autotools eutils
 
@@ -11,24 +13,19 @@ SRC_URI="http://why.lri.fr/download/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
-
 IUSE="apron coq doc examples gappa gtk pff pvs"
 
-RDEPEND="apron? ( sci-mathematics/apron )
-	coq? ( sci-mathematics/coq )
-	gappa? ( sci-mathematics/gappalib-coq )
-	pff? ( sci-mathematics/pff )
-	pvs? ( sci-mathematics/pvs )"
+DEPEND=">=dev-lang/ocaml-3.09
+		>=dev-ml/ocamlgraph-1.2
+		gtk? ( >=dev-ml/lablgtk-2.12 )
+		apron? ( sci-mathematics/apron )
+		coq? ( sci-mathematics/coq )
+		gappa? ( sci-mathematics/gappalib-coq )
+		pff? ( sci-mathematics/pff )
+		pvs? ( sci-mathematics/pvs )"
+RDEPEND="${DEPEND}"
 
-DEPEND="${RDEPEND}
-	>=dev-lang/ocaml-3.09
-	>=dev-ml/ocamlgraph-1.1
-	gtk? ( >=dev-ml/lablgtk-2.12 )"
-
-src_unpack() {
-	unpack ${A}
-	cd ${S}
-
+src_prepare() {
 	epatch "${FILESDIR}/${P}-makefile_sandbox.patch"
 
 	mv jc/jc_ast.mli jc/jc_ast.ml
@@ -45,8 +42,11 @@ src_unpack() {
 	eautoreconf
 }
 
-src_compile(){
+src_configure() {
 	econf $(use_enable apron) PATH="/usr/bin:$PATH" || die "econf failed"
+}
+
+src_compile(){
 	emake DESTDIR="/" || die "emake failed"
 }
 
