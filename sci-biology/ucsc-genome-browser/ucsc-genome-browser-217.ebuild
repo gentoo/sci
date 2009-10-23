@@ -13,7 +13,7 @@ SRC_URI="http://hgdownload.cse.ucsc.edu/admin/jksrc.v${PV}.zip"
 LICENSE="blat"
 # webapp ebuilds do not set SLOT
 KEYWORDS="~amd64 ~x86"
-IUSE="-server"
+IUSE="server"
 
 DEPEND="app-arch/unzip
 	virtual/mysql
