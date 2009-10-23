@@ -1,0 +1,7 @@
+# ChangeLog for sci-biology/ucsc-genome-browser
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  23 Oct 2009; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
+  New package, bug 155780. Ebuild written by me and dawe <daweonline@gmail.com>
+
