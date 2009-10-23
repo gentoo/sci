@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*linsmith-0.99.12 (23 Oct 2009)
+
+  23 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/0.99.12-configure.in.patch, +linsmith-0.99.12.ebuild:
+  Version bump
+
 *linsmith-0.99.11 (23 Oct 2009)
 
   23 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
