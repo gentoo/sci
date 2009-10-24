@@ -4,7 +4,7 @@
 
 inherit eutils toolchain-funcs
 
-DESCRIPTION="The APRON library is dedicated to the static analysis of the numerical variables of a program by Abstract Interpretation"
+DESCRIPTION="APRON is a library dedicated to the static analysis of the numerical variables of a program by Abstract Interpretation"
 HOMEPAGE="http://apron.cri.ensmp.fr/library/"
 SRC_URI="http://apron.cri.ensmp.fr/library/${P}.tgz"
 
@@ -13,16 +13,16 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE="cxx doc ocaml ppl"
 
-RDEPEND="dev-libs/gmp
-		dev-libs/mpfr
-		ocaml? ( >=dev-lang/ocaml-3.09
+DEPEND="ocaml? ( >=dev-lang/ocaml-3.09
 				dev-ml/camlidl 
 				dev-ml/mlgmpidl )
-		ppl? ( dev-libs/ppl )"
-DEPEND="${RDEPEND}
+		dev-libs/gmp
+		dev-libs/mpfr
+		ppl? ( dev-libs/ppl )
 		doc? ( app-text/texlive
 				app-text/ghostscript-gpl 
 				cxx? ( app-doc/doxygen ) )"
+RDEPEND="${DEPEND}"
 
 src_unpack() {
 	unpack ${A}

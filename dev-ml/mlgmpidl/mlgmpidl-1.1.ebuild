@@ -1,10 +1,12 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
+
+EAPI="2"
 
 inherit eutils toolchain-funcs
 
-DESCRIPTION="MLGMPIDL is a package offering an interface to the GMP and MPFR libraries for OCaml version 3.07 or higher."
+DESCRIPTION="MLGMPIDL is an OCaml interface to the GMP and MPFR libraries"
 HOMEPAGE="http://www.inrialpes.fr/pop-art/people/bjeannet/mlxxxidl-forge/mlgmpidl/"
 SRC_URI="http://gforge.inria.fr/frs/download.php/20228/${PN}-${PV}.tgz"
 
@@ -13,13 +15,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE="doc +mpfr"
 
-RDEPEND="dev-libs/gmp
+RDEPEND=">=dev-lang/ocaml-3.09
+		dev-ml/camlidl
+		dev-libs/gmp
 		mpfr? ( dev-libs/mpfr )
-		>=dev-lang/ocaml-3.09
-		dev-ml/camlidl"
-DEPEND="${RDEPEND}
 		doc? ( app-text/texlive
 				app-text/ghostscript-gpl )"
+RDEPEND="${DEPEND}"
 
 src_unpack() {
 	unpack ${A}

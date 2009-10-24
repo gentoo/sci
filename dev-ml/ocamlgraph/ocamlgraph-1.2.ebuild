@@ -1,10 +1,10 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
-
-inherit eutils autotools
+# $Header: $
 
 EAPI="2"
+
+inherit eutils autotools
 
 DESCRIPTION="A graph library for Objective Caml"
 HOMEPAGE="http://ocamlgraph.lri.fr/"
@@ -13,17 +13,13 @@ SRC_URI="http://ocamlgraph.lri.fr/download/${P}.tar.gz"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
-
-RDEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]"
-
-DEPEND="${RDEPEND}
-    	gtk? ( >=dev-ml/lablgtk-2.6 )"
-
 IUSE="doc examples gtk +ocamlopt"
 
-src_unpack() {
-	unpack ${A}
-	cd ${S}
+DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
+    	gtk? ( >=dev-ml/lablgtk-2.6 )"
+RDEPEND="${DEPEND}"
+
+src_prepare() {
 	epatch "${FILESDIR}/${P}-makefile.patch"
 	eautoreconf
 }
