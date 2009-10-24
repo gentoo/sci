@@ -23,11 +23,9 @@ RDEPEND=">=dev-lang/ocaml-3.09
 				app-text/ghostscript-gpl )"
 RDEPEND="${DEPEND}"
 
-src_unpack() {
-	unpack ${A}
-	mv ${PN} ${PN}-${PV}
-	cd ${S}
+S="${WORKDIR}/${PN}"
 
+src_prepare() {
 	rm -R html mlgmpidl.pdf
 	mv Makefile.config.model Makefile.config
 	sed -i Makefile.config \

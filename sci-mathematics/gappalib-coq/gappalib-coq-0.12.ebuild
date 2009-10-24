@@ -23,7 +23,6 @@ src_prepare(){
 }
 
 src_compile(){
-	econf || die "econf failed"
 	emake DESTDIR="/" || die "emake failed"
 }
 

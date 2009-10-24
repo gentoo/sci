@@ -1,6 +1,8 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
+
+EAPI="2"
 
 inherit eutils toolchain-funcs
 
@@ -24,10 +26,7 @@ DEPEND="ocaml? ( >=dev-lang/ocaml-3.09
 				cxx? ( app-doc/doxygen ) )"
 RDEPEND="${DEPEND}"
 
-src_unpack() {
-	unpack ${A}
-	cd ${S}
-
+src_prepare() {
 	mv Makefile.config.model Makefile.config
 
 	#fix compile process

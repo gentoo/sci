@@ -40,7 +40,7 @@ src_prepare(){
 	eautoreconf
 }
 
-src_compile() {
+src_configure() {
 	if use gtk; then
 		myconf="--enable-gui"
 	else
@@ -48,7 +48,9 @@ src_compile() {
 	fi
 
 	econf ${myconf} --with-whydir=no || die "econf failed"
+}
 
+src_compile() {
 	# dependencies can not be processed in parallel,
 	# this is the intended behavior.
 	emake -j1 depend || die "emake depend failed"

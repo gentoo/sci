@@ -42,8 +42,11 @@ src_prepare() {
 	eautoreconf
 }
 
-src_compile(){
+src_configure() {
 	econf $(use_enable apron) PATH="/usr/bin:$PATH" || die "econf failed"
+}
+
+src_compile(){
 	emake DESTDIR="/" || die "emake failed"
 }
 

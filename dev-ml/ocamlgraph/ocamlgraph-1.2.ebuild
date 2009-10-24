@@ -25,7 +25,6 @@ src_prepare() {
 }
 
 src_compile() {
-	econf || die "econf failed"
 	emake DESTDIR="/" -j1 || die "emake failed"
 
 	if use doc; then
