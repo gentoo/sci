@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE="doc +mpfr"
 
-RDEPEND=">=dev-lang/ocaml-3.09
+DEPEND=">=dev-lang/ocaml-3.09
 		dev-ml/camlidl
 		dev-libs/gmp
 		mpfr? ( dev-libs/mpfr )
