@@ -4,6 +4,8 @@
 
 # Versioning is output of nmrpipe -help
 
+inherit eutils
+
 DESCRIPTION="Spectral visualisation, analysis and Fourier processing"
 # The specific terms of this license are printed automatically on startup
 # by some NMRPipe applications. The user also has to accept them before
@@ -60,7 +62,6 @@ pkg_nofetch() {
 	einfo
 	einfo "Place the downloaded files in your distfiles directory:"
 	einfo "\t${DISTDIR}"
-	echo
 }
 
 src_unpack() {
@@ -73,11 +74,38 @@ src_unpack() {
 	cp "${DISTDIR}"/{binval.com,install.com} .
 	# ... and make the installation scripts executable.
 	chmod +x binval.com install.com
+
+	# Unset DISPLAY to avoid the interactive graphical test.
+	# This just unpacks the stuff
+	DISPLAY="" ./install.com +type linux9 +dest "${S}"/NMR || die
+
+	epatch "${FILESDIR}"/${PV}-lib.patch
+
+	mv -v nmrbin.linux9/nmr{W,w}ish || die
 }
 
 src_install() {
-	# Unset DISPLAY to avoid the interactive graphical test.
-	DISPLAY="" ./install.com +type linux9 +dest "${S}"/NMR || die
+	cat >> ${T}/nmrWish <<- EOF
+	#!/bin/csh -f
+	setenv NMRBIN \${NMRBASE}/bin/
+	setenv NMRLIB \${NMRBIN}/lib
+	setenv AUXLIB \${NMRBIN}/openwin/lib
+	setenv TCLPATH \${NMRBASE}/com
+	setenv TCL_LIBRARY \${NMRBASE}/nmrtcl/tcl8.4
+   setenv TK_LIBRARY \${NMRBASE}/nmrtcl/tk8.4
+   setenv BLT_LIBRARY \${NMRBASE}/nmrtcl/blt2.4
+   setenv NMRPIPE_TCL_LIB \${NMRBASE}/nmrtcl/tcl8.4
+   setenv NMRPIPE_TK_LIB \${NMRBASE}/nmrtcl/tk8.4
+   setenv NMRPIPE_BLT_LIB \${NMRBASE}/nmrtcl/blt2.4
+
+	if (!(\$?LD_LIBRARY_PATH)) then
+		setenv LD_LIBRARY_PATH \${NMRLIB}:\${AUXLIB}
+	else
+		setenv LD_LIBRARY_PATH \${NMRLIB}:\${LD_LIBRARY_PATH}:\${AUXLIB}
+	endif
+
+	nmrwish \$*
+	EOF
 
 	# Remove the symlinks for the archives and the installation scripts.
 	for i in ${A}; do
@@ -86,9 +114,11 @@ src_install() {
 	# Remove some of the bundled applications and libraries; they are
 	# provided by Gentoo instead.
 #	rm -r nmrbin.linux9/{lib/{libBLT24.so,libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
-	rm -r nmrbin.linux9/{lib/{libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
+	rm -r nmrbin.linux9/{lib/*.timestamp,*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
 		nmrbin.{linux,mac,sgi6x,sol,winxp} nmruser format \
 		|| die "Failed to remove unnecessary libraries."
+	# As long as xview is not fixed for amd64 we do this
+	use amd64 || rm nmrbin.linux9/lib/{libxview.so*,libolgx.so*}
 	# Remove the initialisation script generated during the installation.
 	# It contains incorrect hardcoded paths; only the "nmrInit.com" script
 	# should be used.
@@ -103,20 +133,25 @@ src_install() {
 		sed -e "s%/u/delaglio%${NMRBASE}%" -i ${i} || die \
 			"Failed patching scripts."
 	done
-	sed -i "s:${WORKDIR}:${NMRBASE}:g" com/font.com
+	sed -i "s:${WORKDIR}:${NMRBASE}:g" com/font.com || die
 
 	newenvd "${FILESDIR}"/env-${PN}-new 40${PN} || die "Failed to install env file."
+
 	insinto ${NMRBASE}
-# Which brainiack wrote this!?
-#	insopts -m0755
 	doins -r * || die "Failed to install application."
+
 	dosym nmrbin.linux9 ${NMRBASE}/bin || die \
 		"Failed to symlink binaries."
-	fperms 775 ${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/*
+
+	# fperms does not chmod nmrwish
+#	fperms -v 775 ${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
+	chmod -c 775 ${D}/${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
+
+	exeinto ${NMRBASE}/nmrbin.linux9
+	doexe ${T}/nmrWish || die
 }
 
 pkg_postinst() {
-	echo
 	ewarn "Before using NMRPipe applications, users must source the following"
 	ewarn "csh script, which will set the necessary environment variables:"
 	ewarn "\t${NMRBASE}/com/nmrInit.com"
@@ -127,5 +162,4 @@ pkg_postinst() {
 	ewarn
 	ewarn "Using Dynamo does not require running an additional initialisation"
 	ewarn "script. The necessary environment variables should already be set."
-	echo
 }

@@ -1,0 +1,36 @@
+--- nmrbin.linux9/nmrDraw	2009-10-07 23:33:21.000000000 +0200
++++ nmrbin.linux9/nmrDraw.new	2009-10-24 16:29:03.000000000 +0200
+@@ -2,6 +2,17 @@
+ 
+ setenv EXTRASMENU $NMRTXT/dot.text_extras_menu
+ 
++setenv NMRBIN ${NMRBASE}/bin/
++setenv NMRLIB ${NMRBIN}/lib
++setenv AUXLIB ${NMRBIN}/openwin/lib
++
++if (!($?LD_LIBRARY_PATH)) then
++   setenv LD_LIBRARY_PATH ${NMRLIB}:${AUXLIB}
++else
++   setenv LD_LIBRARY_PATH ${NMRLIB}:${LD_LIBRARY_PATH}:${AUXLIB}
++endif
++
++
+ if ($DISPLAY == "") then
+    echo Warning: DISPLAY environment variable is not set.
+    exit 1
+--- nmrbin.linux9/xNotify	2009-10-07 23:33:21.000000000 +0200
++++ nmrbin.linux9/xNotify.new	2009-10-24 16:29:42.000000000 +0200
+@@ -1,2 +1,13 @@
+ #!/bin/csh -f
++
++setenv NMRBIN ${NMRBASE}/bin
++setenv NMRLIB ${NMRBIN}/lib
++setenv AUXLIB ${NMRBIN}/openwin/lib
++
++if (!($?LD_LIBRARY_PATH)) then
++   setenv LD_LIBRARY_PATH ${NMRLIB}:${AUXLIB}
++else
++   setenv LD_LIBRARY_PATH ${NMRLIB}:${LD_LIBRARY_PATH}:${AUXLIB}
++endif
++
+ xnotify.exe -Wfsdb $*
