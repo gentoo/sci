@@ -49,5 +49,5 @@ src_install() {
 	newman doc/nc.man neditc.1 || die
 
 	dodoc README ReleaseNotes ChangeLog \
-		doc/{nedit.doc,NEdit.ad,faq.txt}
+		doc/{nedit.doc,NEdit.ad,faq.txt} || die
 }
