@@ -2,6 +2,14 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/tinker/ChangeLog,v 1.10 2008/11/06 23:53:23 dberkholz Exp $
 
+*tinker-5.0_p090814 (25 Oct 2009)
+
+  25 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> -tinker-5.0.ebuild,
+  +tinker-5.0_p090814.ebuild:
+  version bump
+  fixes bug 290459
+  Thanks Ivan Fedyanin for providing an updated ebuild
+
 *tinker-5.0 (26 Jul 2009)
 
   26 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
