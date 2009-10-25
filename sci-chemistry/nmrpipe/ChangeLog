@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nmrpipe-5.0.2009.280.17.19 (25 Oct 2009)
+
+  25 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -nmrpipe-5.0.2009.244.15.09.ebuild, +nmrpipe-5.0.2009.280.17.19.ebuild:
+  version bump
+
   25 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   nmrpipe-5.0.2009.244.15.09.ebuild:
   fixed problems with tcl libs -- nmrWish is running again
