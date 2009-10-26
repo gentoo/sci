@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit toolchain-funcs eutils flag-o-matic versionator
+EAPI="2"
 
-MY_P="${PN}-$(delete_version_separator 2)"
+inherit eutils flag-o-matic toolchain-funcs
 
 DESCRIPTION="Pthreads-based parallel bzip2/bunzip2 filter, passable to GNU tar"
 HOMEPAGE="http://lacos.hu/"
-SRC_URI="http://lacos.web.elte.hu/pub/${PN}/${MY_P}.tar.gz"
+SRC_URI="http://lacos.web.elte.hu/pub/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -16,14 +16,15 @@ KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 RDEPEND=""
-DEPEND="test? ( app-shells/dash
-		sys-process/time )"
+DEPEND="
+	test? (
+		app-shells/dash
+		sys-process/time
+	)"
 
 S=${WORKDIR}/${PN}
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+src_prepare() {
 	epatch "${FILESDIR}"/${PV}-Makefile.patch
 }
 
