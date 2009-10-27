@@ -1,0 +1,29 @@
+# ChangeLog for sci-biology/stride
+# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-biology/stride/ChangeLog,v 1.6 2007/09/20 14:35:18 coldwind Exp $
+
+  20 Sep 2007; Santiago M. Mola <coldwind@gentoo.org>
+  stride-20011129.ebuild:
+  Change sed separator to :, now it doesn't fail if CC contains a path.
+
+  22 May 2007; Olivier Fisette <ribosome@gentoo.org> stride-20011129.ebuild:
+  Updated home page.
+
+  03 Dec 2006; Steve Dibb <beandog@gentoo.org> stride-20011129.ebuild:
+  Add ~amd64, bug 147983
+
+  01 Oct 2006; Donnie Berkholz <dberkholz@gentoo.org>; metadata.xml:
+  Transfer to sci-biology herd from sci.
+
+  28 Jul 2006; Donnie Berkholz <dberkholz@gentoo.org>;
+  stride-20011129.ebuild:
+  Keyword ~ppc.
+
+*stride-20011129 (23 Jul 2006)
+
+  23 Jul 2006; Markus Dittrich <markusle@gentoo.org> +metadata.xml,
+  +stride-20011129.ebuild:
+  Initial import. Many thanks go the the author Dmitrij Frishman
+  <d.frishman@wzw.tum.de> for allowing us to distribute the source
+  and for an updated version of the code.
+
