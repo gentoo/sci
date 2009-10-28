@@ -15,6 +15,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
+RDEPEND="dev-lang/tcl"
+DEPEND=""
+
 S="${WORKDIR}"
 
 src_prepare() {
@@ -30,10 +33,10 @@ src_install() {
 	doins -r tab rama.{dat,gif} || die
 
 	exeinto /opt/${PN}/bin
-	newexe bin/TALOS+.linux TALOS+
-	doexe rama+.tcl
+	newexe bin/TALOS+.linux TALOS+ || die
+	doexe rama+.tcl || die
 
 	dobin bmrb2talos.com talos2dyana.com talos2xplor.com talos+ rama+ || die
 
-	dodoc README
+	dodoc README || die
 }

@@ -4,22 +4,12 @@
 
 # Versioning is output of nmrpipe -help
 
+inherit eutils
+
 DESCRIPTION="Spectral visualisation, analysis and Fourier processing"
-# The specific terms of this license are printed automatically on startup
-# by some NMRPipe applications. The user also has to accept them before
-# downloading the package.
-LICENSE="as-is"
 HOMEPAGE="http://spin.niddk.nih.gov/bax/software/NMRPipe/"
-# The NMRPipe installation script which we are not allowed to modify
-# requires all the following to be present for a complete installation.
-# Many of the bundled applications and libraries are afterwards deleted
-# (by this ebuild). The Gentoo provided applications and libraries are
-# used instead. The notable exception is the Tcl/Tk libraries; NMRPipe
-# requires a modified version of these. Unfortunately, this requires to
-# redefine the location of the libraries, which is done by sourcing an
-# initialisation script. NMRPipe users are used to this, and this ebuild
-# also prints a notice to this effect.
-SRC_URI="NMRPipeX.tZ
+SRC_URI="
+	NMRPipeX.tZ
 	valpha_all.tar
 	talos.tZ
 	dyn.tZ
@@ -28,23 +18,29 @@ SRC_URI="NMRPipeX.tZ
 	install.com"
 
 SLOT="0"
-IUSE=""
+LICENSE="as-is"
 # Right now, precompiled executables are only available for Linux on the
 # x86 architecture. The maintainer chose to keep the sources closed, but
 # says he will gladly provide precompiled executables for other platforms
 # if there are such requests.
-KEYWORDS="-* ~x86"
+KEYWORDS="-* ~amd64 ~x86"
+IUSE=""
+
 RESTRICT="fetch"
 
 DEPEND="app-shells/tcsh"
 RDEPEND="${DEPEND}
+	app-editors/nedit
 	dev-lang/tk
 	dev-tcltk/blt
 	sys-libs/libtermcap-compat
 	sys-libs/ncurses
-	x11-libs/xview
 	x11-libs/libX11
-	app-editors/nedit"
+	amd64? (
+		app-emulation/emul-linux-x86-baselibs
+		app-emulation/emul-linux-x86-xlibs
+	)
+	x86? ( x11-libs/xview )"
 
 S="${WORKDIR}"
 NMRBASE="/opt/${PN}"
@@ -60,7 +56,6 @@ pkg_nofetch() {
 	einfo
 	einfo "Place the downloaded files in your distfiles directory:"
 	einfo "\t${DISTDIR}"
-	echo
 }
 
 src_unpack() {
@@ -73,22 +68,50 @@ src_unpack() {
 	cp "${DISTDIR}"/{binval.com,install.com} .
 	# ... and make the installation scripts executable.
 	chmod +x binval.com install.com
+
+	# Unset DISPLAY to avoid the interactive graphical test.
+	# This just unpacks the stuff
+	DISPLAY="" ./install.com +type linux9 +dest "${S}"/NMR || die
+
+	epatch "${FILESDIR}"/${PV}-lib.patch
+
+	mv -v nmrbin.linux9/nmr{W,w}ish || die
 }
 
 src_install() {
-	# Unset DISPLAY to avoid the interactive graphical test.
-	DISPLAY="" ./install.com +type linux9 +dest "${S}"/NMR || die
+	cat >> "${T}"/nmrWish <<- EOF
+	#!/bin/csh -f
+	setenv NMRBIN \${NMRBASE}/bin/
+	setenv NMRLIB \${NMRBIN}/lib
+	setenv AUXLIB \${NMRBIN}/openwin/lib
+	setenv TCLPATH \${NMRBASE}/com
+	setenv TCL_LIBRARY \${NMRBASE}/nmrtcl/tcl8.4
+	setenv TK_LIBRARY \${NMRBASE}/nmrtcl/tk8.4
+	setenv BLT_LIBRARY \${NMRBASE}/nmrtcl/blt2.4
+	setenv NMRPIPE_TCL_LIB \${NMRBASE}/nmrtcl/tcl8.4
+	setenv NMRPIPE_TK_LIB \${NMRBASE}/nmrtcl/tk8.4
+	setenv NMRPIPE_BLT_LIB \${NMRBASE}/nmrtcl/blt2.4
+
+	if (!(\$?LD_LIBRARY_PATH)) then
+		setenv LD_LIBRARY_PATH \${NMRLIB}:\${AUXLIB}
+	else
+		setenv LD_LIBRARY_PATH \${NMRLIB}:\${LD_LIBRARY_PATH}:\${AUXLIB}
+	endif
+
+	nmrwish \$*
+	EOF
 
 	# Remove the symlinks for the archives and the installation scripts.
 	for i in ${A}; do
 		rm ${i} || die "Failed to remove archive symlinks."
 	done
-	# Remove some of the bundled applications and libraries; they are
-	# provided by Gentoo instead.
+	# Remove some of the bundled applications and libraries; they are provided by Gentoo instead.
 #	rm -r nmrbin.linux9/{lib/{libBLT24.so,libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
-	rm -r nmrbin.linux9/{lib/{libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
+	rm -r nmrbin.linux9/{lib/*.timestamp,*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
 		nmrbin.{linux,mac,sgi6x,sol,winxp} nmruser format \
 		|| die "Failed to remove unnecessary libraries."
+	# As long as xview is not fixed for amd64 we do this
+	use amd64 || rm nmrbin.linux9/lib/{libxview.so*,libolgx.so*}
 	# Remove the initialisation script generated during the installation.
 	# It contains incorrect hardcoded paths; only the "nmrInit.com" script
 	# should be used.
@@ -103,29 +126,33 @@ src_install() {
 		sed -e "s%/u/delaglio%${NMRBASE}%" -i ${i} || die \
 			"Failed patching scripts."
 	done
-	sed -i "s:${WORKDIR}:${NMRBASE}:g" com/font.com
+	sed -i "s:${WORKDIR}:${NMRBASE}:g" com/font.com || die
 
 	newenvd "${FILESDIR}"/env-${PN}-new 40${PN} || die "Failed to install env file."
+
 	insinto ${NMRBASE}
-# Which brainiack wrote this!?
-#	insopts -m0755
 	doins -r * || die "Failed to install application."
+
 	dosym nmrbin.linux9 ${NMRBASE}/bin || die \
 		"Failed to symlink binaries."
-	fperms 775 ${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/*
+
+	# fperms does not chmod nmrwish
+#	fperms -v 775 ${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
+	chmod -c 775 "${D}"/${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
+
+	exeinto ${NMRBASE}/nmrbin.linux9
+	doexe "${T}"/nmrWish || die
 }
 
-pkg_postinst() {
-	echo
-	ewarn "Before using NMRPipe applications, users must source the following"
-	ewarn "csh script, which will set the necessary environment variables:"
-	ewarn "\t${NMRBASE}/com/nmrInit.com"
-	ewarn
-	ewarn "Be aware that this script redefines the locations of the Tcl"
-	ewarn "libraries. This could break other non-NMRPipe Tcl applications"
-	ewarn "run in the same session."
-	ewarn
-	ewarn "Using Dynamo does not require running an additional initialisation"
-	ewarn "script. The necessary environment variables should already be set."
-	echo
-}
+#pkg_postinst() {
+#	ewarn "Before using NMRPipe applications, users must source the following"
+#	ewarn "csh script, which will set the necessary environment variables:"
+#	ewarn "\t${NMRBASE}/com/nmrInit.com"
+#	ewarn
+#	ewarn "Be aware that this script redefines the locations of the Tcl"
+#	ewarn "libraries. This could break other non-NMRPipe Tcl applications"
+#	ewarn "run in the same session."
+#	ewarn
+#	ewarn "Using Dynamo does not require running an additional initialisation"
+#	ewarn "script. The necessary environment variables should already be set."
+#}

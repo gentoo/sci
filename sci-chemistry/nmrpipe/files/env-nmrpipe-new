@@ -19,3 +19,5 @@ PDBH_BASE="/opt/nmrpipe/pdb"
 PDBH_DIR="/opt/nmrpipe/pdb/pdbH"
 PDBH_LIST="/opt/nmrpipe/pdb/pdbH.list"
 PDBH_TAB="/opt/nmrpipe/pdb/resolution.tab"
+
+TCLPATH="/opt/nmrpipe/com"

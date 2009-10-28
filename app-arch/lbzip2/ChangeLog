@@ -2,6 +2,14 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*lbzip2-0.16 (26 Oct 2009)
+
+  26 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/0.16-Makefile.patch, -lbzip2-0.16_rc1.ebuild,
+  -files/0.16_rc1-Makefile.patch, +lbzip2-0.16.ebuild:
+  version Bump
+  EAPI="2"
+
 *lbzip2-0.16_rc1 (21 Oct 2009)
 
   21 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
