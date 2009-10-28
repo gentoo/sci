@@ -26,6 +26,7 @@ MY_S="${WORKDIR}"/cctbx_sources
 MY_B="${WORKDIR}"/cctbx_build
 
 pkg_setup() {
+	python_version
 	if use openmp &&
 	[[ $(tc-getCC)$ == *gcc* ]] &&
 		( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] ||
@@ -163,6 +164,10 @@ src_install(){
 	newins "${MY_B}"/setpaths.sh 30cctbx.sh && \
 	newins "${MY_B}"/setpaths.csh 30cctbx.csh || \
 	die
+
+	sed \
+		-e "s:python${PYVER}:python:g"\
+		-i "${MY_B}"/setpaths* || die
 
 	cat >> "${T}"/30cctbx <<- EOF
 	LDPATH="/usr/$(get_libdir)/${PN}/cctbx_build/lib"
