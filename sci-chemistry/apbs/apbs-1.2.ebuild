@@ -39,8 +39,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-install-fix.patch \
 		"${FILESDIR}"/${P}-contrib.patch \
 		"${FILESDIR}"/${P}-LDFLAGS.patch \
-		"${FILESDIR}"/${P}-vgrid-maloc.patch \
-		"${FILESDIR}"/${PV}-openmp.patch
+		"${FILESDIR}"/${P}-vgrid-maloc.patch
 
 	sed \
 		-e "s:GENTOO_PKG_NAME:${P}:g" \
@@ -58,6 +57,7 @@ src_configure() {
 	use blas && myconf="${myconf} --with-blas=-lblas"
 	use fetk && myconf="${myconf} $(use_enable fetk) --with-fetk-include=/usr/include --with-fetk-library=/usr/$(get_libdir)"
 
+	# The configure is somehow borked, but does the same as the following lines
 	if use openmp; then
 		append-flags -fopenmp
 	else
