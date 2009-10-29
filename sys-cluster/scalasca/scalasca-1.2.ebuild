@@ -19,6 +19,7 @@ IUSE="doc examples fortran mpi openmp wxwidgets"
 
 DEPEND="mpi? ( virtual/mpi )
 	x11-libs/qt-core:4
+	x11-libs/qt-gui:4
 	wxwidgets? ( x11-libs/wxGTK:2.6 )"
 
 RDEPEND="${DEPEND}"

@@ -1,0 +1,26 @@
+diff --git a/ccp4-6.1.2/lib/DiffractionImage/Rigaku/RaxisImage.h b/ccp4-6.1.2/lib/DiffractionImage/Rigaku/RaxisImage.h
+index e02b72b..41de8ef 100755
+--- a/ccp4-6.1.2/lib/DiffractionImage/Rigaku/RaxisImage.h
++++ b/ccp4-6.1.2/lib/DiffractionImage/Rigaku/RaxisImage.h
+@@ -216,7 +216,7 @@ unsigned short Swap(unsigned short Value);
+    // This routine swaps the long <VAR>Value</VAR> so that the endianness 
+    // of <VAR>Value</VAR> is reversed and then returns the swapped value.
+    // This routine assumes that the size of a long is 4 bytes.
+-long Swap(long Value);
++int32_t Swap(int32_t Value);
+ 
+    // This routine swaps the float <VAR>Value</VAR> so that the endianness 
+    // of <VAR>Value</VAR> is reversed and then returns the swapped value.
+diff --git a/ccp4-6.1.2/lib/DiffractionImage/Rigaku/ReadRAXISImages.cpp b/ccp4-6.1.2/lib/DiffractionImage/Rigaku/ReadRAXISImages.cpp
+index 882d93d..0ff12a3 100755
+--- a/ccp4-6.1.2/lib/DiffractionImage/Rigaku/ReadRAXISImages.cpp
++++ b/ccp4-6.1.2/lib/DiffractionImage/Rigaku/ReadRAXISImages.cpp
+@@ -153,7 +153,7 @@ unsigned short Swap(const unsigned short Value)
+ 
+ /****************************************************************************
+  ****************************************************************************/
+-long Swap(const long Value)
++int32_t Swap(const int32_t Value)
+ {
+    long swap = Value;
+    char *p = reinterpret_cast<char *>(&swap);
