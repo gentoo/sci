@@ -24,16 +24,14 @@ DEPEND="hdf5? ( sci-libs/cgnslib[hdf5] )
 
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}"/"${PN}"
+S=${WORKDIR}/${PN}
 
 src_prepare() {
-	cd "${S}"
 	epatch "${FILESDIR}"/${P}.patch
+	epatch "${FILESDIR}"/${P}_cgns_to_vtk2D.patch
 }
 
 src_configure() {
-	cd "${S}"
-
 	local myconf
 	myconf="${myconf} --enable-gcc --enable-64bit --with-cgns=/usr/include --bindir=${D}/usr/bin --datadir=${D}/usr/share/${PN}"
 	use hdf5 && myconf="${myconf} --with-adfh=/usr/include/adfh"
