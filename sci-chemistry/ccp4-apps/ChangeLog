@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccp4-apps-6.1.2-r6 (30 Oct 2009)
+
+  30 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/6.1.2-pythonpath.patch, +ccp4-apps-6.1.2-r6.ebuild:
+  PYTONPATH patch added -- thanks Donnie for pointing this out
+
 *ccp4-apps-6.1.2-r5 (17 Aug 2009)
 
   17 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
