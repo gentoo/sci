@@ -2,6 +2,14 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccp4i-6.1.2-r5 (02 Nov 2009)
+
+  02 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/6.1.2-fix-f2mtz.patch, +ccp4i-6.1.2-r5.ebuild:
+  f2mtz fix
+  upstream #4061
+  b.g.o. 289379
+
 *ccp4i-6.1.2-r4 (29 Sep 2009)
 
   29 Sep 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
