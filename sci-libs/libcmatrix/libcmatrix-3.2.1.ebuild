@@ -41,7 +41,7 @@ src_configure() {
 }
 
 src_install() {
-	dolib.a "${PN}".a || die "install failed"
+	dolib.a lib/"${PN}".a || die "install failed"
 
 	insinto /usr/include/${PN}R3
 	doins include/* || die "no includes"
