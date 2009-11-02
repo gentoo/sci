@@ -127,7 +127,7 @@ src_compile() {
 	if use java ; then
 		local java_path
 		java_path=`java-config -O`
-		confargs="${confargs} --with-java-include=${java_path}/include/linux"
+		confargs="${confargs} --with-java-include=${java_path}/include"
 	else
 		ewarn "Java wrapping is not going to be compiled. USE flag: "java""
 	fi
