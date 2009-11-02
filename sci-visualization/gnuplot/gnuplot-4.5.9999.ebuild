@@ -18,11 +18,11 @@ ECVS_CVS_OPTIONS="-dP"
 LICENSE="gnuplot"
 SLOT="0"
 KEYWORDS="~x86"
-IUSE="cairo doc emacs gd ggi latex lua pdf plotutils readline svga wxwindows X xemacs"
-RESTRICT="wxwindows? ( test )"
+IUSE="cairo doc emacs gd ggi latex lua pdf plotutils qt4 readline svga wxwidgets X xemacs"
+RESTRICT="wxwidgets? ( test )"
 
 RDEPEND="
-	xemacs? ( virtual/xemacs app-xemacs/texinfo app-xemacs/xemacs-base )
+	xemacs? ( app-editors/xemacs app-xemacs/texinfo app-xemacs/xemacs-base )
 	emacs? ( virtual/emacs !app-emacs/gnuplot-mode )
 	pdf? ( media-libs/pdflib )
 	lua? ( >=dev-lang/lua-5.1 )
@@ -38,13 +38,16 @@ RDEPEND="
 	svga? ( media-libs/svgalib )
 	readline? ( >=sys-libs/readline-4.2 )
 	plotutils? ( media-libs/plotutils )
-	wxwindows? ( x11-libs/wxGTK:2.8
+	wxwidgets? ( x11-libs/wxGTK:2.8
 		>=x11-libs/cairo-0.9
 		>=x11-libs/pango-1.10.3
 		>=x11-libs/gtk+-2.8 )
 	cairo? ( >=x11-libs/cairo-0.9
 		>=x11-libs/pango-1.10.3
-		>=x11-libs/gtk+-2.8 )"
+		>=x11-libs/gtk+-2.8 )
+	qt4? ( >=x11-libs/qt-core-4.5
+		>=x11-libs/qt-gui-4.5
+		>=x11-libs/qt-svg-4.5 )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
@@ -53,7 +56,7 @@ E_SITEFILE="50${PN}-gentoo.el"
 TEXMF="/usr/share/texmf-site"
 
 pkg_setup() {
-	use wxwindows && wxwidgets_pkg_setup
+	use wxwidgets && wxwidgets_pkg_setup
 }
 
 src_prepare() {
@@ -84,16 +87,17 @@ src_configure() {
 			die "sed disable of LateX failed"
 	fi
 
-	local myconf="--with-gihdir=/usr/share/${PN}/gih"
+	local myconf="--with-gihdir=/usr/share/${PN}/gih --enable-thin-splines"
 
 	myconf="${myconf} $(use_with X x)"
 	myconf="${myconf} $(use_with svga linux-vga)"
 	myconf="${myconf} $(use_with gd)"
-	myconf="${myconf} $(use_enable wxwindows wxwidgets)"
+	myconf="${myconf} $(use_enable wxwidgets)"
 	myconf="${myconf} $(use_with plotutils plot /usr/$(get_libdir))"
 	myconf="${myconf} $(use_with pdf pdf /usr/$(get_libdir))"
 	myconf="${myconf} $(use_with lua)"
 	myconf="${myconf} $(use_with doc tutorial)"
+	myconf="${myconf} $(use_enable qt4 qt)"
 
 	use ggi \
 		&& myconf="${myconf} --with-ggi=/usr/$(get_libdir)
@@ -161,13 +165,6 @@ src_install () {
 				die "econf xemacs failed"
 		emake DESTDIR="${D}" install || die "lisp install for xemacs failed"
 		cd ..
-	fi
-
-	if use latex && use lua; then
-		# install style file in an (additional) place where TeX can find it
-		insinto "${TEXMF}/tex/latex/${PN}"
-		doins term/lua/gnuplot-lua-tikz.sty || \
-			die "doins of gnuplot-lua-tikz.sty failed"
 	fi
 
 	dodoc BUGS ChangeLog FAQ NEWS PATCHLEVEL PGPKEYS PORTING README* \
