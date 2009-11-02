@@ -10,7 +10,8 @@ MY_P="${PN}${PV}_lite"
 
 DESCRIPTION="lite version of pNMRsim"
 HOMEPAGE="http://www.dur.ac.uk/paul.hodgkinson/pNMRsim/"
-SRC_URI="${HOMEPAGE}/${MY_P}.tar.gz"
+#SRC_URI="${HOMEPAGE}/${MY_P}.tar.gz"
+SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/${P}.tar.gz"
 
 LICENSE="as-is"
 SLOT="0"
@@ -26,7 +27,9 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}"/${PN}R3
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PV}-minuit2.patch
+	epatch \
+		"${FILESDIR}"/${PV}-minuit2.patch \
+		"${FILESDIR}"/${PV}-gcc4.4.patch
 	eautoreconf
 }
 
