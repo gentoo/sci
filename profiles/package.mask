@@ -61,11 +61,11 @@
 # testing
 =sci-chemisty/nmrpipe-9.27.2009.120.14.28
 
-# Christoph Junghans (ottxor) (11 May 09)
+# Christoph Junghans (ottxor) (02 Nov 09)
 # kleiner_otti@gmx.de
 # live cvs ebuild, deps changing constantly
 # report to bug #232363
-=sci-visualization/gnuplot-4.3.9999
+=sci-visualization/gnuplot-4.5.9999
 
 # Justin Lecher (jlec) (11 May 09)
 # jlec@j-schmitz.net
