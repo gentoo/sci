@@ -4,11 +4,11 @@
 
 EAPI=2
 
-inherit eutils flag-o-matic
+inherit eutils
 
 DESCRIPTION="Field-theory motivated computer algebra system"
-HOMEPAGE="http://www.aei.mpg.de/~peekas/cadabra"
-SRC_URI="http://www.aei.mpg.de/~peekas/cadabra/${P}.tar.gz"
+HOMEPAGE="http://cadabra.phi-sci.com"
+SRC_URI="http://cadabra.phi-sci.com/${P}.tar.gz"
 #### Remove the following line when moving this ebuild to the main tree!
 RESTRICT="mirror"
 
@@ -23,14 +23,18 @@ DEPEND="sci-libs/modglue
 	dev-libs/libpcre
 	X? ( >=x11-libs/gtk+-2.0
 	    >=dev-cpp/gtkmm-2.4
-	    app-text/dvipng )"
+	    app-text/dvipng )
+	doc? ( || ( app-text/texlive-core dev-tex/pdftex ) )"
 RDEPEND="${DEPEND}
 	virtual/latex-base
 	dev-tex/mh"
 
+src_configure(){
+	econf $(use_enable X gui)
+}
+
 src_compile() {
 
-	econf $(use_enable X gui)
 	emake
 
 	if ( use doc )
