@@ -1,6 +1,18 @@
---- Makefile.orig	2009-02-24 12:17:54.000000000 +1300
-+++ Makefile	2009-02-24 12:18:10.000000000 +1300
-@@ -131,7 +131,7 @@
+--- Makefile.orig	2000-04-07 19:46:28.000000000 +1200
++++ Makefile	2009-11-03 22:31:29.000000000 +1300
+@@ -82,9 +82,9 @@
+ # been set to the most recent one of object files in the respective
+ # subdirectories, whence taking that dummy file as dependency suffices.
+ 
+-date.o: date.c $(objects) box/.last_compiled static/.last_compiled
++date.o: date.c $(objects) math_functions binding_functions box/.last_compiled static/.last_compiled
+ 	$(CC) -ansi -c date.c
+-gapdate.o: date.c $(GAP_objects) box/.last_compiled static/.last_compiled
++gapdate.o: date.c $(GAP_objects) math_functions binding_functions box/.last_compiled static/.last_compiled
+ 	$(CC) -ansi -c -o gapdate.o date.c
+ 
+ Lie.exe: date.o
+@@ -115,7 +115,7 @@
  learnind: util/learnind.c
  	$(MAKE) -C util ../learnind
  
