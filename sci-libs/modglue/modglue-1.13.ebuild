@@ -21,6 +21,8 @@ RDEPEND="${DEPEND}"
 src_prepare() {
 #	fix src/makefile.in
 	epatch "${FILESDIR}/${P}-makefile.in.patch"
+#	gcc4.4 fix
+	epatch "${FILESDIR}/${P}-gcc4.4.patch"
 }
 
 src_install() {
