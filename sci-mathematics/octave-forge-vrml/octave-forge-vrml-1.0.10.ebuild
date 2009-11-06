@@ -17,3 +17,5 @@ DEPEND="media-gfx/freewrl
 		sci-mathematics/octave-forge-miscellaneous
 		sci-mathematics/octave-forge-struct
 		sci-mathematics/octave-forge-statistics"
+
+PATCHES=("${P}"-sprintf-fix.patch)
