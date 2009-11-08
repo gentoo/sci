@@ -39,6 +39,11 @@ pkg_setup() {
 }
 
 src_prepare() {
+	python_version
+
+	local opts
+	local optsld
+
 	# Wants to chmod /usr/bin/python
 #	epatch "${FILESDIR}"/${PV}-sandbox-violations-chmod.patch
 
@@ -48,49 +53,42 @@ src_prepare() {
 
 	ln -sf /usr/$(get_libdir)/scons-1.2.0 "${MY_S}"/scons/src/engine || die
 #	ln -sf /usr/include/boost "${MY_S}/boost/"
-}
-
-src_compile() {
-	python_version
-
-	local MYCONF
-	local MAKEOPTS_EXP
-	local OPTS
-	local OPTSLD
-
-	MYCONF="${MY_S}/libtbx/configure.py"
-
-	MAKEOPTS_EXP=${MAKEOPTS/j/j }
-	MAKEOPTS_EXP=${MAKEOPTS_EXP%-l[0-9]*}
 
 	# Get CXXFLAGS in format suitable for substitition into SConscript
 	for i in ${CXXFLAGS}; do
-		OPTS="${OPTS} \"${i}\","
+		opts="${opts} \"${i}\","
 	done
 
 	# Strip off the last comma
-	OPTS=${OPTS%,}
+	opts=${opts%,}
 
 	# Fix CXXFLAGS
 	sed -i \
-		-e "s:\"-O3\", \"-ffast-math\":${OPTS}:g" \
+		-e "s:\"-O3\", \"-ffast-math\":${opts}:g" \
 		${MY_S}/libtbx/SConscript
 
 	# Get LDFLAGS in format suitable for substitition into SConscript
 	for i in ${LDFLAGS}; do
-		OPTSLD="${OPTSLD} \"${i}\","
+		optsld="${optsld} \"${i}\","
 	done
 
-	OPTSLD=${OPTSLD%,}
+	optsld=${optsld%,}
 
 	# Fix LDFLAGS which should be as-needed ready
 	sed -i \
-		-e "s:\"-shared\":\"-shared\", ${OPTSLD}:g" \
+		-e "s:\"-shared\":\"-shared\", ${optsld}:g" \
 		${MY_S}/libtbx/SConscript
+}
+
+src_configure() {
+	local compiler
+	local myconf
+
+	myconf="${MY_S}/libtbx/configure.py"
 
 	# Get compiler in the right way
-	COMPILER=$(expr match "$(tc-getCC)" '.*\([a-z]cc\)')
-	MYCONF="${MYCONF} --compiler=${COMPILER}"
+	compiler=$(expr match "$(tc-getCC)" '.*\([a-z]cc\)')
+	myconf="${myconf} --compiler=${compiler}"
 
 	# Precompiling python scripts. It is done in upstreams install script. Perhaps use python_mod_compile,
 	# but as this script works we should stick to it.
@@ -98,25 +96,35 @@ src_compile() {
 
 	# Additional USE flag usage
 	check_use openmp
-	MYCONF="${MYCONF} --enable-openmp-if-possible=${USE_openmp}"
+	myconf="${myconf} --enable-openmp-if-possible=${USE_openmp}"
+
 	use threads && USEthreads="--enable-boost-threads" && \
-	ewarn "If using boost threads openmp support is disabled"
+		ewarn "If using boost threads openmp support is disabled"
 
-	MYCONF="${MYCONF} ${USE_threads} --scan-boost"
+	myconf="${myconf} ${USE_threads} --scan-boost"
 
-	mkdir "${MY_B}" && MYCONF="${MYCONF} --current_working_directory=${MY_B}"
+	mkdir "${MY_B}" && myconf="${myconf} --current_working_directory=${MY_B}"
 	cd "${MY_B}"
 
-	MYCONF="${MYCONF} --build=release fftw3tbx rstbx smtbx mmtbx clipper"
-	einfo "configuring with ${python} ${MYCONF}"
+	myconf="${myconf} --build=release fftw3tbx rstbx smtbx mmtbx clipper"
+	einfo "configuring with ${python} ${myconf}"
 
-	${python} ${MYCONF} \
+	${python} ${myconf} \
 		|| die "configure failed"
+}
+
+src_compile() {
+	local makeopts_exp
+
+	cd "${MY_B}"
+
+	makeopts_exp=${MAKEOPTS/j/j }
+	makeopts_exp=${makeopts_exp%-l[0-9]*}
 
 	source setpaths_all.sh
 
-	einfo "compiling with libtbx.scons ${MAKEOPTS_EXP}"
-	libtbx.scons ${MAKEOPTS_EXP} .|| die "make failed"
+	einfo "compiling with libtbx.scons ${makeopts_exp}"
+	libtbx.scons ${makeopts_exp} .|| die "make failed"
 }
 
 src_test(){
