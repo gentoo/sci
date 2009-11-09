@@ -6,7 +6,7 @@ inherit toolchain-funcs eutils
 
 DESCRIPTION="f2c'ed version of LAPACK"
 HOMEPAGE="http://www.netlib.org/clapack/"
-SRC_URI="http://gentoo.j-schmitz.net/portage/distfiles/ALL/clapack-3.1.1.1.tgz"
+SRC_URI="http://www.netlib.org/clapack/clapack-3.1.1.1.tgz"
 
 LICENSE="BSD"
 SLOT="0"
