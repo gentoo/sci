@@ -5,6 +5,7 @@
   09 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   clapack-3.1.1.1.ebuild:
   fixed SRC_URI to upstreams
+  fixes bug 292556, thanks Niklas Johansson for reporting
 
 *clapack-3.1.1.1 (25 Mar 2009)
 
