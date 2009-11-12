@@ -49,7 +49,7 @@ pkg_nofetch() {
 	einfo "Please visit:"
 	einfo "\t${HOMEPAGE}"
 	einfo
-	einfo "Contact the package maintainer, then download the following files:"
+	einfo "Contact the author, then download the following files:"
 	for i in ${A}; do
 		einfo "\t${i}"
 	done
