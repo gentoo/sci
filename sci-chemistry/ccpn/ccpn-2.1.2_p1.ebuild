@@ -13,7 +13,7 @@ inherit distutils portability python toolchain-funcs versionator
 MY_PN="${PN}mr"
 
 DESCRIPTION="The Collaborative Computing Project for NMR"
-SRC_URI="http://www.bio.cam.ac.uk/ccpn/download/${MY_PN}/analysis${PV}.tar.gz"
+SRC_URI="http://www.bio.cam.ac.uk/ccpn/download/${MY_PN}/analysis${PV/p/}.tar.gz"
 [[ -n ${PATCHSET} ]] && SRC_URI="${SRC_URI}	http://dev.gentooexperimental.org/~jlec/distfiles/update-${PATCHSET}.patch.bz2"
 HOMEPAGE="http://www.ccpn.ac.uk/ccpn"
 
