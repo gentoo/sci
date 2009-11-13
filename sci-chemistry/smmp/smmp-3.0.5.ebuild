@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils toolchain-funcs
+inherit eutils python toolchain-funcs
 
 MY_PN="SMMP"
 MY_P="${MY_PN}-${PV}"
