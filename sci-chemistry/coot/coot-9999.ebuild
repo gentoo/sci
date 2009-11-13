@@ -41,7 +41,6 @@ XDEPS="
 
 SCHEMEDEPS="
 	dev-scheme/net-http
-	dev-scheme/goosh
 	dev-scheme/guile-gui
 	>=dev-scheme/guile-lib-0.1.6
 	dev-scheme/guile-www
