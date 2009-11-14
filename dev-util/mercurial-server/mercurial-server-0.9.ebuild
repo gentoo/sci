@@ -8,17 +8,22 @@ inherit eutils
 
 DESCRIPTION="Mercurial authentication and authorization tools"
 HOMEPAGE="http://www.lshift.net/mercurial-server.html"
-SRC_URI="http://hg.opensource.lshift.net/mercurial-server/archive/release_${PV}.tar.gz"
+SRC_URI="http://dev.lshift.net/paul/mercurial-server/mercurial-server_${PV}.orig.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
 
-DEPEND="dev-util/mercurial"
-RDEPEND="${DEPEND}"
+DEPEND="dev-util/mercurial
+	dev-lang/python
+	app-text/docbook-xsl-stylesheets
+	dev-libs/libxslt"
 
-S="${WORKDIR}/${PN}-release_${PV}"
+RDEPEND="dev-util/mercurial
+	dev-lang/python"
+
+S="${WORKDIR}/${PN}_${PV}.orig"
 
 pkg_setup() {
 	enewgroup hg
@@ -26,22 +31,18 @@ pkg_setup() {
 	chmod 700 /home/hg
 }
 
-src_install () {
-	#no distutils support yet
-	./install --root="${D}" --prefix=/usr || die "install failed"
-
-	#Move doc
-	cd "${D}"/usr/share/doc
-	dodoc -r "${PN}"/*
-	rm -rf "${PN}"
-
-	#purge is an extension now
-	echo -e "\n[extensions]\npurge =\n" >> "${D}"/etc/mercurial-server/remote-hgrc
-
-	#NOTE to prefix guys you may have to:
-	#-change getEtcPath function in paths.py
-	#-disable creation of user hg
+src_prepare() {
+	epatch "${FILESDIR}/${PF}-docbook-path.patch"
 }
+
+src_compile() {
+	emake XSL=/usr/share/sgml/docbook/xsl-stylesheets || die "emake failed"
+}
+
+src_install() {
+	emake installfiles PREFIX=/usr/share DOCDIR="/usr/share/doc/${PF}" DESTDIR="${D}"
+}
+
 
 pkg_postinst() {
 	#skip the comments if there is already a hgadmin repo
