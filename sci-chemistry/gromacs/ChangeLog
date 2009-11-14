@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*gromacs-4.0.5-r1 (14 Nov 2009)
+
+  14 Nov 2009; Christoph Junghans <kleiner_otti@gmx.de>
+  +files/gromacs-4.0.4-sparc-cyclecounter.patch, +gromacs-4.0.5-r1.ebuild,
+  +files/gromacs-4.0.5-path-overflow.patch:
+  fixes bug #284431
+
 *gromacs-9999 (21 Jun 2009)
 *gromacs-4.0.9999 (21 Jun 2009)
 *gromacs-3.3.9999 (21 Jun 2009)
