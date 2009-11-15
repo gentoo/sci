@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/omniorbpy
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*omniorbpy-3.4 (15 Nov 2009)
+
+  15 Nov 2009; Oliver Borm (boroli) <oli.borm@web.de> +omniorbpy-3.4.ebuild:
+  Copied last version from portage; fixed file collision from bug 247851;
+  changed to EAPI=2
+
