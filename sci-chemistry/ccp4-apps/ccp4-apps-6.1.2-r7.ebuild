@@ -158,7 +158,9 @@ src_prepare() {
 	ccp_patch "${FILESDIR}"/${PV}-pythonpath.patch
 
 	# Update things for oasis 4 usage
-	use oasis4 && epatch "${WORKDIR}"/${PV}-oasis4.0.patch
+	use oasis4 \
+		&& epatch "${WORKDIR}"/${PV}-oasis4.0.patch \
+		&& sed 's: oasis : :g' -i src/Makefile.in
 
 	einfo "Done." # done applying Gentoo patches
 	echo
