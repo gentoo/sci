@@ -1,0 +1,8 @@
+# ChangeLog for sci-mathematics/Macaulay2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+	16 Nov 2009; Thomas Kahle <tom111@gmx.de> +mpir-1.2.1.ebuild
+	+mpir-1.3.0_rc3.ebuild +metadata.xml +ChangeLog
+
+	Intial import (Bug #293383)
