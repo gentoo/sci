@@ -8,7 +8,7 @@ inherit eutils python
 
 DESCRIPTION="An automated data reduction system for crystallography"
 HOMEPAGE="http://www.xia2.org/xia/"
-SRC_URI="${HOMEPAGE}/${P}.tar.bz2"
+SRC_URI="http://www.ccp4.ac.uk/${PN}/${P}.tar.bz2"
 
 LICENSE="BSD"
 SLOT="0"
