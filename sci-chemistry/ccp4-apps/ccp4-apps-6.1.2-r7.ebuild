@@ -32,7 +32,7 @@ HOMEPAGE="http://www.ccp4.ac.uk/"
 RESTRICT="mirror"
 SRC_URI="
 	${SRC}/${PV}/${MY_P}-core-src.tar.gz
-	oasis4? ( http://dev.gentooexperimental.org/~jlec/distfiles/${PV}-oasis4.0.patch.bz2 )"
+	http://dev.gentooexperimental.org/~jlec/distfiles/${PV}-oasis4.0.patch.bz2"
 # patch tarball from upstream
 	[[ -n ${UPDATE} ]] && SRC_URI="${SRC_URI} ${SRC}/${PV}/updates/${P}-src-patch-${UPDATE}.tar.gz"
 # patches created by us
@@ -47,7 +47,7 @@ done
 LICENSE="ccp4"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="examples oasis4 X"
+IUSE="examples X"
 
 X11DEPS="
 	x11-libs/libX11
@@ -77,7 +77,7 @@ SCILIBS="
 SCIAPPS="
 	sci-chemistry/pdb-extract
 	sci-chemistry/rasmol
-	oasis4? ( sci-chemistry/oasis )"
+	sci-chemistry/oasis"
 
 RDEPEND="X? ( ${X11DEPS} )
 	${TKDEPS}
@@ -158,9 +158,8 @@ src_prepare() {
 	ccp_patch "${FILESDIR}"/${PV}-pythonpath.patch
 
 	# Update things for oasis 4 usage
-	use oasis4 \
-		&& epatch "${WORKDIR}"/${PV}-oasis4.0.patch \
-		&& sed 's: oasis : :g' -i src/Makefile.in
+	epatch "${WORKDIR}"/${PV}-oasis4.0.patch
+	sed 's: oasis : :g' -i src/Makefile.in || die
 
 	einfo "Done." # done applying Gentoo patches
 	echo
