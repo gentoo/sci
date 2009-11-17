@@ -1,0 +1,13 @@
+# ChangeLog for sys-cluster/condor
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*condor-7.2.4 (17 Nov 2009)
+
+  17 Nov 2009; Sébastien Fabbro <bicatali@gentoo.org> +condor-7.2.4.ebuild,
+  +files/chkconfig_off.patch, +files/condor.confd, +files/condor.initd,
+  +files/condor_config.generic.patch, +files/condor_config.local,
+  +files/log_lock_run.patch, +files/no_basename.patch,
+  +files/no_rpmdb_query.patch, +files/stdsoap2.h.patch.patch, +metadata.xml:
+  Initial import
+

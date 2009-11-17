@@ -1,0 +1,13 @@
+diff --git a/src/condor_daemon_core.V6/stdsoap2.h.patch b/src/condor_daemon_core.V6/stdsoap2.h.patch
+index a0fe3ed..c84abe7 100644
+--- a/src/condor_daemon_core.V6/stdsoap2.h.patch
++++ b/src/condor_daemon_core.V6/stdsoap2.h.patch
+@@ -47,7 +47,7 @@
+ @@ -418,8 +427,8 @@
+  #endif
+  
+- #if defined(__cplusplus) && !defined(WITH_LEAN)
++ #if defined(__cplusplus) && !defined(WITH_LEAN) && !defined(WITH_COMPAT)
+ -# include <string>
+ -# include <iostream>
+ +# include <string.h>
