@@ -19,7 +19,7 @@ IUSE="examples"
 
 RDEPEND="
 	sci-chemistry/arp-warp-bin
-	sci-chemistry/ccp4[oasis4]
+	sci-chemistry/ccp4
 	sci-chemistry/pymol
 	sci-chemistry/solve-resolve-bin
 	sci-visualization/gnuplot"
