@@ -18,14 +18,14 @@ DESCRIPTION="Protein X-ray crystallography toolkit -- graphical interface"
 HOMEPAGE="http://www.ccp4.ac.uk/"
 SRC_URI="
 	${SRC}/${PV}/${MY_P}-core-src.tar.gz
-	oasis4? ( http://dev.gentooexperimental.org/~jlec/distfiles/${PV}-oasis4.0.patch.bz2 )"
+	http://dev.gentooexperimental.org/~jlec/distfiles/${PV}-oasis4.0.patch.bz2"
 [[ -n ${UPDATE} ]] && SRC_URI="${SRC_URI} ${SRC}/${PV}/updates/${P}-src-patch-${UPDATE}.tar.gz"
 [[ -n ${PATCHDATE} ]] && SRC_URI="${SRC_URI} http://dev.gentooexperimental.org/~jlec/science-dist/${PV}-${PATCHDATE}-updates.patch.bz2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 LICENSE="ccp4"
-IUSE="oasis4"
+IUSE=""
 
 RESTRICT="mirror"
 
@@ -56,7 +56,7 @@ src_prepare() {
 
 	[[ ! -z ${PATCHDATE} ]] && epatch "${WORKDIR}"/${PV}-${PATCHDATE}-updates.patch
 
-	use oasis4 && epatch "${WORKDIR}"/${PV}-oasis4.0.patch
+	epatch "${WORKDIR}"/${PV}-oasis4.0.patch
 }
 
 src_configure() {
