@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/solve-resolve-bin
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*solve-resolve-bin-2.13 (15 Nov 2009)
+
+  15 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +solve-resolve-bin-2.13.ebuild, +metadata.xml:
+  imported from dberkholz overlay
+

@@ -4,5 +4,6 @@
 <herd>sci-chemistry</herd>
 <use>
 	<flag name='balbes-db'>install the additional balbes-sb</flag>
+	<flag name='oasis4'>Update to oasis v4</flag>
 </use>
 </pkgmetadata>
