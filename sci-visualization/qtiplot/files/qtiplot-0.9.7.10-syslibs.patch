@@ -1,0 +1,183 @@
+diff -Nur qtiplot-0.9.7.7.orig/3rdparty/qwtplot3d/qwtplot3d.pri qtiplot-0.9.7.7/3rdparty/qwtplot3d/qwtplot3d.pri
+--- qtiplot-0.9.7.7.orig/3rdparty/qwtplot3d/qwtplot3d.pri	2009-09-18 18:16:33.000000000 +0100
++++ qtiplot-0.9.7.7/3rdparty/qwtplot3d/qwtplot3d.pri	2009-09-18 19:29:12.000000000 +0100
+@@ -57,11 +57,11 @@
+            ../3rdparty/qwtplot3d/include/qwt3d_multiplot.h
+ 
+ # gl2ps support
+-HEADERS += ../3rdparty/qwtplot3d/3rdparty/gl2ps/gl2ps.h \
+-         ../3rdparty/qwtplot3d/include/qwt3d_io_gl2ps.h
++HEADERS += ../3rdparty/qwtplot3d/include/qwt3d_io_gl2ps.h
+ 
+-SOURCES += ../3rdparty/qwtplot3d/src/qwt3d_io_gl2ps.cpp \
+-         ../3rdparty/qwtplot3d/3rdparty/gl2ps/gl2ps.c
++SOURCES += ../3rdparty/qwtplot3d/src/qwt3d_io_gl2ps.cpp
++
++unix:LIBS+=-lgl2ps
+ 
+ # zlib support for gl2ps
+ zlib {
+diff -Nur qtiplot-0.9.7.7.orig/3rdparty/qwtplot3d/qwtplot3d.pro qtiplot-0.9.7.7/3rdparty/qwtplot3d/qwtplot3d.pro
+--- qtiplot-0.9.7.7.orig/3rdparty/qwtplot3d/qwtplot3d.pro	2009-09-18 18:16:33.000000000 +0100
++++ qtiplot-0.9.7.7/3rdparty/qwtplot3d/qwtplot3d.pro	2009-09-18 19:29:12.000000000 +0100
+@@ -82,11 +82,10 @@
+            include/qwt3d_multiplot.h
+ 
+ # gl2ps support
+-HEADERS+=3rdparty/gl2ps/gl2ps.h \
+-         include/qwt3d_io_gl2ps.h
++HEADERS+=include/qwt3d_io_gl2ps.h
+          
+-SOURCES+=src/qwt3d_io_gl2ps.cpp \
+-         3rdparty/gl2ps/gl2ps.c
++SOURCES+=src/qwt3d_io_gl2ps.cpp
++unix:LIBS+=-lgl2ps
+ 
+ # zlib support for gl2ps
+ zlib {
+diff -Nur qtiplot-0.9.7.7.orig/fitPlugins/explin/explin.pro qtiplot-0.9.7.7/fitPlugins/explin/explin.pro
+--- qtiplot-0.9.7.7.orig/fitPlugins/explin/explin.pro	2009-09-18 18:16:33.000000000 +0100
++++ qtiplot-0.9.7.7/fitPlugins/explin/explin.pro	2009-09-18 19:29:12.000000000 +0100
+@@ -12,9 +12,8 @@
+ DESTDIR           = ../
+  
+ # statically link against GSL in 3rdparty
+-INCLUDEPATH += ../../3rdparty/gsl/include/
+-LIBS        += ../../3rdparty/gsl/lib/libgsl.a
+-LIBS        += ../../3rdparty/gsl/lib/libgslcblas.a
++INCLUDEPATH += $$system(pkg-config --cflags gsl)
++LIBS        += $$system(pkg-config --libs gsl)
+ 
+ #dynamically link against GSL installed system-wide
+ #unix:LIBS += -L /usr/lib$${libsuff} -lgsl -lgslcblas
+diff -Nur qtiplot-0.9.7.7.orig/fitPlugins/exp_saturation/exp_saturation.pro qtiplot-0.9.7.7/fitPlugins/exp_saturation/exp_saturation.pro
+--- qtiplot-0.9.7.7.orig/fitPlugins/exp_saturation/exp_saturation.pro	2009-09-18 18:16:33.000000000 +0100
++++ qtiplot-0.9.7.7/fitPlugins/exp_saturation/exp_saturation.pro	2009-09-18 19:29:12.000000000 +0100
+@@ -12,9 +12,9 @@
+ DESTDIR           = ../
+  
+ # statically link against GSL in 3rdparty
+-INCLUDEPATH += ../../3rdparty/gsl/include/
+-LIBS        += ../../3rdparty/gsl/lib/libgsl.a
+-LIBS        += ../../3rdparty/gsl/lib/libgslcblas.a
++INCLUDEPATH += $$system(pkg-config --cflags gsl)
++LIBS        += $$system(pkg-config --libs gsl)
++
+ 
+ #dynamically link against GSL installed system-wide
+ #unix:LIBS += -L /usr/lib$${libsuff} -lgsl -lgslcblas
+diff -Nur qtiplot-0.9.7.7.orig/fitPlugins/fitPlugins.pro qtiplot-0.9.7.7/fitPlugins/fitPlugins.pro
+--- qtiplot-0.9.7.7.orig/fitPlugins/fitPlugins.pro	2009-09-18 18:16:33.000000000 +0100
++++ qtiplot-0.9.7.7/fitPlugins/fitPlugins.pro	2009-09-18 19:29:12.000000000 +0100
+@@ -4,3 +4,4 @@
+ 	    exp_saturation \
+ 	    fitRational0 \
+           fitRational1 
++
+diff -Nur qtiplot-0.9.7.7.orig/fitPlugins/fitRational0/fitRational0.pro qtiplot-0.9.7.7/fitPlugins/fitRational0/fitRational0.pro
+--- qtiplot-0.9.7.7.orig/fitPlugins/fitRational0/fitRational0.pro	2009-09-18 18:16:33.000000000 +0100
++++ qtiplot-0.9.7.7/fitPlugins/fitRational0/fitRational0.pro	2009-09-18 19:29:12.000000000 +0100
+@@ -12,9 +12,9 @@
+ DESTDIR           = ../
+  
+ # statically link against GSL in 3rdparty
+-INCLUDEPATH += ../../3rdparty/gsl/include/
+-LIBS        += ../../3rdparty/gsl/lib/libgsl.a
+-LIBS        += ../../3rdparty/gsl/lib/libgslcblas.a
++INCLUDEPATH += $$system(pkg-config --cflags gsl)
++LIBS        += $$system(pkg-config --libs gsl)
++
+ 
+ #dynamically link against GSL installed system-wide
+ #unix:LIBS += -L /usr/lib$${libsuff} -lgsl -lgslcblas
+diff -Nur qtiplot-0.9.7.7.orig/fitPlugins/fitRational1/fitRational1.pro qtiplot-0.9.7.7/fitPlugins/fitRational1/fitRational1.pro
+--- qtiplot-0.9.7.7.orig/fitPlugins/fitRational1/fitRational1.pro	2009-09-18 18:16:33.000000000 +0100
++++ qtiplot-0.9.7.7/fitPlugins/fitRational1/fitRational1.pro	2009-09-18 19:29:12.000000000 +0100
+@@ -12,9 +12,8 @@
+ DESTDIR           = ../
+  
+ # statically link against GSL in 3rdparty
+-INCLUDEPATH += ../../3rdparty/gsl/include/
+-LIBS        += ../../3rdparty/gsl/lib/libgsl.a
+-LIBS        += ../../3rdparty/gsl/lib/libgslcblas.a
++INCLUDEPATH += $$system(pkg-config --cflags gsl)
++LIBS        += $$system(pkg-config --libs gsl)
+ 
+ #dynamically link against GSL installed system-wide
+ #unix:LIBS += -L /usr/lib$${libsuff} -lgsl -lgslcblas
+diff -Nur qtiplot-0.9.7.7.orig/qtiplot/qtiplot.pro qtiplot-0.9.7.7/qtiplot/qtiplot.pro
+--- qtiplot-0.9.7.7.orig/qtiplot/qtiplot.pro	2009-09-18 18:16:33.000000000 +0100
++++ qtiplot-0.9.7.7/qtiplot/qtiplot.pro	2009-09-18 19:31:47.000000000 +0100
+@@ -21,7 +21,7 @@
+ #CONFIG          += HAVE_EMF
+ 
+ # Uncomment the following line if you want to perform a custom installation using the *.path variables defined bellow.
+-#CONFIG          += CustomInstall
++CONFIG          += CustomInstall
+ 
+ CONFIG          += release
+ #CONFIG          += debug
+@@ -31,13 +31,13 @@
+ #!!! Warning: You must modify these paths according to your computer settings
+ #############################################################################
+ 
+-INCLUDEPATH       += ../3rdparty/muparser/include
++INCLUDEPATH       += $$system(pkg-config --cflags muparser)
+ INCLUDEPATH       += ../3rdparty/qwtplot3d/include
+-INCLUDEPATH       += ../3rdparty/qwt/src
+-INCLUDEPATH       += ../3rdparty/liborigin
+-INCLUDEPATH       += ../3rdparty/gsl/include
+ INCLUDEPATH       += ../3rdparty/zlib
+-INCLUDEPATH       += ../3rdparty/boost_1_36_0
++INCLUDEPATH       += /usr/include/qwt5
++INCLUDEPATH       += /usr/include/liborigin2
++INCLUDEPATH       += $$system(pkg-config --cflags gsl)
++INCLUDEPATH       += /usr/include/boost
+ 
+ ##################### 3rd PARTY LIBRARIES SECTION ###########################
+ #!!! Warning: You must modify these paths according to your computer settings
+@@ -46,12 +46,10 @@
+ ##################### Linux (Mac OS X) ######################################
+ 
+ # statically link against libraries in 3rdparty
+-unix:LIBS         += ../3rdparty/muparser/lib/libmuparser.a
+-unix:LIBS         += ../3rdparty/qwt/lib/libqwt.a
+-unix:LIBS         += ../3rdparty/gsl/lib/libgsl.a
+-unix:LIBS         += ../3rdparty/gsl/lib/libgslcblas.a
+-unix:LIBS         += ../3rdparty/boost_1_36_0/lib/libboost_date_time-gcc43-mt-1_36.a
+-unix:LIBS         += ../3rdparty/boost_1_36_0/lib/libboost_thread-gcc43-mt-1_36.a
++unix:LIBS         += $$system(pkg-config --libs muparser)
++unix:LIBS         += $$system(pkg-config --libs gsl)
++unix:LIBS         += -lqwt -lz -lorigin2
++unix:LIBS         += -lboost_date_time -lboost_thread
+ 
+ # dynamically link against dependencies if they are installed system-wide
+ #unix:LIBS         += -lmuparser
+@@ -213,8 +211,6 @@
+ 
+ contains(CONFIG, HAVE_LIBPNG){
+ 	DEFINES += GL2PS_HAVE_LIBPNG
+-	INCLUDEPATH += ../3rdparty/libpng/
+-	LIBS        += ../3rdparty/libpng/libpng.a
+ }
+ 
+ ###############################################################
+diff -Nur qtiplot-0.9.7.7.orig/qtiplot/src/origin/origin.pri qtiplot-0.9.7.7/qtiplot/src/origin/origin.pri
+--- qtiplot-0.9.7.7.orig/qtiplot/src/origin/origin.pri	2009-09-18 18:16:33.000000000 +0100
++++ qtiplot-0.9.7.7/qtiplot/src/origin/origin.pri	2009-09-18 19:29:12.000000000 +0100
+@@ -4,14 +4,6 @@
+ INCLUDEPATH += src/origin/
+ 
+ HEADERS += src/origin/importOPJ.h
+-HEADERS += ../3rdparty/liborigin/OriginObj.h
+-HEADERS += ../3rdparty/liborigin/OriginFile.h
+-HEADERS += ../3rdparty/liborigin/OriginParser.h
+-HEADERS += ../3rdparty/liborigin/OriginDefaultParser.h
+-HEADERS += ../3rdparty/liborigin/Origin750Parser.h
+ 
+ SOURCES += src/origin/importOPJ.cpp
+-SOURCES += ../3rdparty/liborigin/OriginFile.cpp
+-SOURCES += ../3rdparty/liborigin/OriginParser.cpp
+-SOURCES += ../3rdparty/liborigin/OriginDefaultParser.cpp
+-SOURCES += ../3rdparty/liborigin/Origin750Parser.cpp
++
