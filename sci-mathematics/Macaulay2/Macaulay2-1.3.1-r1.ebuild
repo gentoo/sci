@@ -6,13 +6,7 @@ EAPI="2"
 
 inherit autotools elisp-common eutils flag-o-matic subversion
 
-# For the time being Upstream does not provide source tarballs,
-# but realease branches in their svn
-
-# Todolist:
-# Ebuild for gfan
-# factory, libfac
-# .m2 files patchen
+# Currently upstream has no tarballs, only svn.
 
 ESVN_REPO_URI="svn://macaulay2.math.uiuc.edu/Macaulay2/release-branches/1.3.1"
 
@@ -104,12 +98,6 @@ src_test() {
 src_install () {
 
 	make install || die "install failed"
-
-	# nothing useful in here, get rid of it
-	# NOTE: Macaulay installs into lib even on amd64 hence don't
-	# replace lib with $(get_libdir) below!
-	rm -fr "${D}"/usr/lib \
-		|| die "failed to remove empty /usr/lib"
 
 	use emacs && elisp-site-file-install "${FILESDIR}/${SITEFILE}"
 }
