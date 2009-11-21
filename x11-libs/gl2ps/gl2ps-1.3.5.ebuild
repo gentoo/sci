@@ -1,37 +1,44 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-libs/gl2ps/gl2ps-1.3.3.ebuild,v 1.1 2009/04/07 18:41:50 bicatali Exp $
+# $Header: $
 
-EAPI=2
-inherit eutils toolchain-funcs
+EAPI="2"
+
+inherit cmake-utils eutils
 
 DESCRIPTION="OpenGL to PostScript printing library"
 HOMEPAGE="http://www.geuz.org/gl2ps/"
 SRC_URI="http://geuz.org/${PN}/src/${P}.tgz"
 LICENSE="LGPL-2"
 SLOT="0"
-IUSE="doc"
+IUSE="+png +zlib"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 
-RDEPEND="virtual/glut"
+RDEPEND="
+	virtual/glut
+	png? ( media-libs/libpng )
+	zlib? ( sys-libs/zlib )"
 DEPEND="${RDEPEND}"
 
-src_compile() {
-	$(tc-getCC) ${CFLAGS} -fPIC -c gl2ps.c -o gl2ps.o \
-		|| die "compiling gl2ps failed"
-	$(tc-getCC) -shared ${LDFLAGS} -Wl,-soname,libgl2ps.so.1 \
-		gl2ps.o -o libgl2ps.so.1 -lm -lGL -lGLU -lglut \
-		|| die "linking libgl2ps failed"
+S="${WORKDIR}"/${P}-source
+
+src_prepare() {
+	epatch "${FILESDIR}"/${PV}-CMakeLists.patch
+
+	sed \
+		-e "s:GENTOOLIB:$(get_libdir):g" \
+		-i CMakeLists.txt
 }
 
-src_install () {
-	dolib.so libgl2ps.so.1 || die
-	dosym libgl2ps.so.1 /usr/$(get_libdir)/libgl2ps.so
-	insinto /usr/include
-	doins gl2ps.h || die
-	dodoc TODO
-	insinto /usr/share/doc/${PF}
-	if use doc; then
-		doins gl2psTest* *.pdf || die
-	fi
+src_configure() {
+	mycmakeargs="${mycmakeargs}
+		$(cmake-utils_use_has png PNG)
+		$(cmake-utils_use_has zlib ZLIB)"
+
+	cmake-utils_src_configure
+}
+
+src_install() {
+	cmake-utils_src_install
+	prepalldocs || die
 }
