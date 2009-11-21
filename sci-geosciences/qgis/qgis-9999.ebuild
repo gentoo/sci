@@ -35,11 +35,6 @@ DEPEND="${RDEPEND}
 	sys-devel/bison
 	sys-devel/flex"
 
-src_prepare() {
-	# patch to wor with all versions of sip, taken from upstream trunk
-	epatch "${FILESDIR}"/${P}-sip.patch
-}
-
 src_configure() {
 	local mycmakeargs
 	mycmakeargs="${mycmakeargs}
