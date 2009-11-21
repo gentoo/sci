@@ -17,7 +17,8 @@ IUSE=""
 
 RDEPEND="
 	x11-libs/qt-gui
-	media-libs/libpng"
+	media-libs/libpng
+	media-libs/libemf"
 DEPEND="${RDEPEND}
 	app-arch/unzip"
 
