@@ -18,7 +18,6 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_configure() {
-	# A hack for amd64
 	unset ABI
 
 	econf $(use_enable !nocxx cxx) \
