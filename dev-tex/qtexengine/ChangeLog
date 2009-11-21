@@ -1,0 +1,10 @@
+# ChangeLog for dev-tex/qtexengine
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*qtexengine-0.2 (21 Nov 2009)
+
+  21 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/0.2-interpolate.patch, +qtexengine-0.2.ebuild, +metadata.xml:
+  Initial ebuild is written by me
+
