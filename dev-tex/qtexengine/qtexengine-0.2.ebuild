@@ -17,7 +17,7 @@ KEYWORDS="~amd64 ~x86"
 LICENSE="GPL-3"
 IUSE=""
 
-RDEPEND=""
+RDEPEND="x11-libs/qt-gui"
 DEPEND="${RDEPEND}
 	app-arch/unzip"
 
@@ -25,6 +25,7 @@ S="${WORKDIR}"/${MY_PN}
 
 PATCHES=(
 	"${FILESDIR}/${PV}-interpolate.patch"
+	"${FILESDIR}/${PV}-dynlib.patch"
 	)
 
 src_compile() {
@@ -33,7 +34,7 @@ src_compile() {
 }
 
 src_install() {
-	dolib.a lib${MY_PN}.a || die
+	dolib.so lib${MY_PN}.so* || die
 	insinto /usr/include
 	doins src/${MY_PN}.h || die
 	dodoc CHANGES.txt || die
