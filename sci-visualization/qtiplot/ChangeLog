@@ -2,6 +2,17 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-visualization/qtiplot/ChangeLog,v 1.46 2009/09/18 18:40:01 bicatali Exp $
 
+  21 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  qtiplot-0.9.7.10.ebuild, +files/qtiplot-0.9.7.10-build.conf.patch,
+  +files/qtiplot-0.9.7.10-dont-install-qwt.patch,
+  files/qtiplot-0.9.7.10-gcc44.patch, +files/qtiplot-0.9.7.10-gl2ps.patch,
+  +files/qtiplot-0.9.7.10-qtiplot.pro.patch,
+  files/qtiplot-0.9.7.10-sip.patch, files/qtiplot-0.9.7.10-syslibs.patch,
+  +qtiplot-0.9.7.10.ebuild~:
+  Version Bump
+  Using bundled qwt as upstream uses 0.5.3 which is still current svn HEAD
+  emf is broken
+
 *qtiplot-0.9.7.7-r1 (18 Sep 2009)
 
   18 Sep 2009; Sébastien Fabbro <bicatali@gentoo.org>

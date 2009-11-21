@@ -1,0 +1,117 @@
+diff --git a/build.conf.example b/build.conf.example
+index 9e0c532..4f8906f 100755
+--- a/build.conf.example
++++ b/build.conf.example
+@@ -7,30 +7,29 @@ isEmpty( QTI_ROOT ) {
+ ##########################################################
+ 
+ # Global include path which is always added at the end of the INCLUDEPATH
+-SYS_INCLUDEPATH = /opt/local/include
++SYS_INCLUDEPATH = /usr/include
+ # Global lib path and libs which is ls always added at the end of LIBS
+-SYS_LIBS = -L/opt/local/lib
++SYS_LIBS = -L/usr/GENTOOLIB
+ 
+ ##########################################################
+ ## muParser (http://muparser.sourceforge.net/)
+ ##########################################################
+ 
+ # include path. leave it blank to use SYS_INCLUDE
+-MUPARSER_INCLUDEPATH = $$QTI_ROOT/3rdparty/muparser/include
++MUPARSER_INCLUDEPATH = $$system(pkg-config --cflags muparser)
+ # link statically against a copy in 3rdparty/
+-MUPARSER_LIBS = $$QTI_ROOT/3rdparty/muparser/lib/libmuparser.a
++#MUPARSER_LIBS = $$QTI_ROOT/3rdparty/muparser/lib/libmuparser.a
+ # or dynamically against a system-wide installation
+-#MUPARSER_LIBS = -lmuparser
++MUPARSER_LIBS = $$system(pkg-config --libs muparser)
+ 
+ ##########################################################
+ ## GNU Sientific Library (http://www.gnu.org/software/gsl/) 
+ ##########################################################
+ 
+ # include path. leave it blank to use SYS_INCLUDE
+-GSL_INCLUDEPATH = $$QTI_ROOT/3rdparty/gsl/include
++GSL_INCLUDEPATH = $$system(pkg-config --cflags gsl)
+ # link statically against a copy in 3rdparty/
+-GSL_LIBS = $$QTI_ROOT/3rdparty/gsl/lib/libgsl.a \
+-           $$QTI_ROOT/3rdparty/gsl/lib/libgslcblas.a
++GSL_LIBS = $$system(pkg-config --libs gsl)
+ # or dynamically against a system-wide installation
+ #GSL_LIBS = -lgsl -lgslcblas
+ 
+@@ -39,14 +38,14 @@ GSL_LIBS = $$QTI_ROOT/3rdparty/gsl/lib/libgsl.a \
+ ##########################################################
+ 
+ # include path. leave it blank to use SYS_INCLUDE
+-BOOST_INCLUDEPATH = $$QTI_ROOT/3rdparty/boost
++BOOST_INCLUDEPATH = /usr/include/boost
+ # link statically against a copy in 3rdparty/
+-unix: BOOST_LIBS = $$QTI_ROOT/3rdparty/boost/lib/libboost_date_time-gcc43-mt-1_38.a \
+-				   $$QTI_ROOT/3rdparty/boost/lib/libboost_thread-gcc43-mt-1_38.a
+-win32:BOOST_LIBS = $$QTI_ROOT/3rdparty/boost/lib/libboost_date_time-mgw34-mt.lib \
+-				   $$QTI_ROOT/3rdparty/boost/lib/libboost_thread-mgw34-mt.lib
++#unix: BOOST_LIBS = $$QTI_ROOT/3rdparty/boost/lib/libboost_date_time-gcc43-mt-1_38.a \
++#				   $$QTI_ROOT/3rdparty/boost/lib/libboost_thread-gcc43-mt-1_38.a
++#win32:BOOST_LIBS = $$QTI_ROOT/3rdparty/boost/lib/libboost_date_time-mgw34-mt.lib \
++#				   $$QTI_ROOT/3rdparty/boost/lib/libboost_thread-mgw34-mt.lib
+ # or dynamically against a system-wide installation
+-#BOOST_LIBS = -lboost_date_time-mt -lboost_thread-mt
++BOOST_LIBS = -lboost_date_time-mt -lboost_thread-mt
+ 
+ ##########################################################
+ ## QWT - use local copy till upstream catches up
+@@ -55,19 +54,21 @@ win32:BOOST_LIBS = $$QTI_ROOT/3rdparty/boost/lib/libboost_date_time-mgw34-mt.lib
+ 
+ # include path. 
+ QWT_INCLUDEPATH = $$QTI_ROOT/3rdparty/qwt/src
++#QWT_INCLUDEPATH = /usr/include/qwt5
+ # link locally against a copy in 3rdparty/
+ QWT_LIBS = $$QTI_ROOT/3rdparty/qwt/lib/libqwt.a
++#QWT_LIBS = -lqwt
+ 
+ ##########################################################
+ ## libpng - optional. you don't have to set these variables
+ ##########################################################
+ 
+ # include path. leave it blank to use SYS_INCLUDE
+-LIBPNG_INCLUDEPATH = $$QTI_ROOT/3rdparty/libpng/
++LIBPNG_INCLUDEPATH = /usr/libpng/
+ # link statically against a copy in 3rdparty/
+-LIBPNG_LIBS = $$QTI_ROOT/3rdparty/libpng/libpng.a
++#LIBPNG_LIBS = $$QTI_ROOT/3rdparty/libpng/libpng.a
+ # or dynamically against a system-wide installation
+-#LIBPNG_LIBS = -lpng
++LIBPNG_LIBS = $$system(pkg-config --libs libpng)
+ 
+ ##########################################################
+ ## EmfEngine - optional. you don't have to set these variables
+@@ -75,9 +76,17 @@ LIBPNG_LIBS = $$QTI_ROOT/3rdparty/libpng/libpng.a
+ ##########################################################
+ 
+ # include path. 
+-EMF_ENGINE_INCLUDEPATH = $$QTI_ROOT/3rdparty/EmfEngine/src
++EMF_ENGINE_INCLUDEPATH = /usr/include/libEMF
+ # link locally against a copy in 3rdparty/
+-EMF_ENGINE_LIBS = $$QTI_ROOT/3rdparty/EmfEngine/libEmfEngine.a
++EMF_ENGINE_LIBS = -lEMF
++
++############################################################
++##  liborigin
++############################################################
++
++LIB_ORIGIN_INCLUDEPATH = /usr/include/liborigin2
++
++LIB_ORIGIN_LIBS = -lorigin2
+ 
+ ############################################################
+ ##  Target specific configuration: configure Qtiplot itself
+@@ -101,7 +110,7 @@ contains( TARGET, qtiplot ) {
+   #DEFINES         += QTIPLOT_SUPPORT
+ 
+   # Uncomment the following line if you want to perform a custom installation using the *.path variables defined in ./qtiplot.pro.
+-  #CONFIG          += CustomInstall
++  CONFIG          += CustomInstall
+ 
+   CONFIG          += release
+   #CONFIG          += debug
