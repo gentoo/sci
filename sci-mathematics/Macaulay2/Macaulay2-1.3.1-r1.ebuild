@@ -36,7 +36,7 @@ DEPEND="sys-libs/gdbm
 	>=sci-mathematics/normaliz-2.2
 	sci-mathematics/gfan
 	>=dev-libs/mpfr-2.4.1
-	=dev-libs/mpir-1.2.1[-nocxx]
+	<dev-libs/mpir-1.3[-nocxx]
 	sys-libs/gdbm
 	virtual/blas
 	virtual/lapack
