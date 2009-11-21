@@ -23,9 +23,7 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}"/${MY_PN}
 
-src_prepare() {
-	epatch "${FILESDIR}"/${PV}-interpolate.patch
-}
+PATCHES=""${FILESDIR}"/${PV}-interpolate.patch"
 
 src_compile() {
 	eqmake4 QTeXEngine.pro
