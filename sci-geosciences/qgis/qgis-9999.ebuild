@@ -40,8 +40,8 @@ src_configure() {
 	mycmakeargs="${mycmakeargs}
 		-D BUILD_SHARED_LIBS:BOOL=ON
 		-D BINDINGS_GLOBAL_INSTALL:BOOL=ON
-		-D QGIS_LIB_SUBDIR=/usr/$(get_libdir)
-		-D QGIS_PLUGIN_SUBDIR=/usr/$(get_libdir)/qgis
+		-D QGIS_LIB_SUBDIR=$(get_libdir)
+		-D QGIS_PLUGIN_SUBDIR=$(get_libdir)/qgis
 		$(cmake-utils_use_with postgres POSTGRESQL)
 		$(cmake-utils_use_with grass GRASS)
 		$(cmake-utils_use_with gps EXPAT)
