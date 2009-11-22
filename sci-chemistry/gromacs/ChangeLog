@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Nov 2009; Christoph Junghans <kleiner_otti@gmx.de>
+  gromacs-4.0.5-r1.ebuild:
+  build mpi and non-mpi libs, enable gsl by default
+
 *gromacs-4.0.5-r1 (14 Nov 2009)
 
   14 Nov 2009; Christoph Junghans <kleiner_otti@gmx.de>
