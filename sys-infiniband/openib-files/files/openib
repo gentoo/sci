@@ -8,7 +8,7 @@
 #  Distributed under the terms of the GNU General Public License v2
 
 depend() {
-    after coldplug hotplug
+    after hotplug
     before net         # init openib before starting any ipoib interfaces
 }
 
@@ -80,7 +80,7 @@ is_module()
 {
     local RC
 
-    /sbin/lsmod | grep -w "$1" > /dev/null 2>&1
+    /bin/lsmod | grep -w "$1" > /dev/null 2>&1
     RC=$?
 
     return $RC
