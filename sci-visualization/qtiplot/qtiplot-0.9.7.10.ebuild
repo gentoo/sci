@@ -32,7 +32,8 @@ CDEPEND="
 	>=sci-libs/liborigin-20090406:2
 	!bindist? ( sci-libs/gsl )
 	bindist? ( <sci-libs/gsl-1.10 )
-	dev-libs/boost"
+	dev-libs/boost
+	dev-tex/qtexengine"
 # Still not working
 #	media-libs/libemf
 #	media-libs/emfengine"
