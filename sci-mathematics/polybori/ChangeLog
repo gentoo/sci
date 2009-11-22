@@ -1,0 +1,10 @@
+# ChangeLog for sci-mathematics/polybori
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*polybori-0.6.3 (22 Nov 2009)
+
+  22 Nov 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  +polybori-0.6.3.ebuild, +files/PyPolyBoRi.py, +metadata.xml:
+  Initial import in the overlay
+

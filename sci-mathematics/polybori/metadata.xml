@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>sci</herd>
+	<longdescription>PolyBoRi is a C++ library, which provides high-level data types for Boolean polynomials and monomials, exponent vectors, as well as for the underlying polynomial rings and subsets of the powerset of the Boolean variables. It also include a python interface on top of it.</longdescription>
+	<use>
+	<flag name='sage'>Replace the standard python interface by sage's python interface for easy integration in sage.</flag>
+	</use>
+</pkgmetadata>
