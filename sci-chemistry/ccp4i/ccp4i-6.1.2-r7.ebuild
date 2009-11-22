@@ -69,7 +69,7 @@ src_compile() {
 
 src_install() {
 	# rm imosflm stuff
-	rm -rf "${S}"/ccp4i/{bin/imosflm,imoslfm}
+	rm -rf "${S}"/ccp4i/{bin/imosflm,imosflm}
 
 	rm -rf "${S}"/ccp4i/{bin,etc}/WINDOWS
 
