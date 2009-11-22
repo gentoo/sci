@@ -28,8 +28,8 @@ src_compile() {
 src_install() {
 	insinto /etc/udev/rules.d
 	newins "${SCRIPTDIR}/90-ib.rules" 40-ib.rules
-	insinto /etc/modules.d
-	newins "${FILESDIR}/openib.modprobe.${PV}" openib
+	insinto /etc/modprobe.d
+	newins "${FILESDIR}/openib.modprobe" openib.conf
 	newenvd "${FILESDIR}/openib.env" 02openib
 	insinto /etc/infiniband
 
