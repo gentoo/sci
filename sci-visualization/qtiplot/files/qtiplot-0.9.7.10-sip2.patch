@@ -1,0 +1,27 @@
+--- trunk/qtiplot/src/scripting/scripting.pri	2009/10/21 21:30:09	1434
++++ trunk/qtiplot/src/scripting/scripting.pri	2009/10/22 13:39:34	1435
+@@ -80,7 +80,6 @@
+              $${SIP_DIR}/sipqtiPythonScript.cpp\
+              $${SIP_DIR}/sipqtiPythonScripting.cpp\
+              $${SIP_DIR}/sipqtiFolder.cpp\
+-             $${SIP_DIR}/sipqtiQList.cpp\
+              $${SIP_DIR}/sipqtiFit.cpp \
+              $${SIP_DIR}/sipqtiExponentialFit.cpp \
+              $${SIP_DIR}/sipqtiTwoExpFit.cpp \
+@@ -104,5 +103,15 @@
+ 			 $${SIP_DIR}/sipqtiFFT.cpp \
+ 			 $${SIP_DIR}/sipqtiCorrelation.cpp \
+ 			 $${SIP_DIR}/sipqtiConvolution.cpp \
+-			 $${SIP_DIR}/sipqtiDeconvolution.cpp
++			 $${SIP_DIR}/sipqtiDeconvolution.cpp \
++
++exists(../../$${SIP_DIR}/sipqtiQList.cpp) {
++  # SIP < 4.9
++  SOURCES += $${SIP_DIR}/sipqtiQList.cpp
++} else {
++  SOURCES += \
++			 $${SIP_DIR}/sipqtiQList0101Folder.cpp\
++			 $${SIP_DIR}/sipqtiQList0101Graph.cpp\
++			 $${SIP_DIR}/sipqtiQList0101MdiSubWindow.cpp\
++}
+ }

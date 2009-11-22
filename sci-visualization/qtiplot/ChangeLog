@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-visualization/qtiplot/ChangeLog,v 1.46 2009/09/18 18:40:01 bicatali Exp $
 
+  22 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  files/qtiplot-0.9.7.10-sip.patch, +files/qtiplot-0.9.7.10-sip2.patch:
+  Fixed sip patch to work with <sip-4.9
+
   21 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   qtiplot-0.9.7.10.ebuild, +files/qtiplot-0.9.7.10-build.conf.patch,
   +files/qtiplot-0.9.7.10-dont-install-qwt.patch,
