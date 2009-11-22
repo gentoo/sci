@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*balbes-db-6.1.2-r1 (22 Nov 2009)
+
+  22 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +balbes-db-6.1.2-r1.ebuild:
+  set env BALBES_ROOT
+
   26 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   balbes-db-6.1.2.ebuild:
   QA
