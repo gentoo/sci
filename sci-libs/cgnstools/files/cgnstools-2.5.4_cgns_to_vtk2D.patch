@@ -1,0 +1,49 @@
+--- cgnstools-2.5.4.orig/utilities/cgns_to_vtk.c	2007-09-05 18:24:50.000000000 +0200
++++ cgnstools-2.5.4/utilities/cgns_to_vtk.c	2009-10-30 19:44:58.000000000 +0100
+@@ -197,7 +197,7 @@
+ 
+ static int get_nodes (int nz, ZoneType_t zonetype, int *sizes)
+ {
+-    int i, j, n, ncoords;
++    int i, j, n, ncoords, ii, jj;
+     int rind[6], rng[2][3];
+     DataType_t datatype;
+     float *xyz;
+@@ -248,6 +248,14 @@
+     strcpy (coordtype, "   ");
+     xyz = (float *) malloc (nnodes * sizeof(float));
+     nodes = (Node *) malloc (nnodes * sizeof(Node));
++
++    // make sure the array is initialized with 0.0 (important for 2D meshes)
++    for(jj= 0; jj < nnodes; jj++){
++        for(ii= 0; ii < 3; ii++){
++                nodes[jj][ii] = 0.0;
++                }
++        }
++
+     if (xyz == NULL || nodes == NULL)
+         FATAL ("malloc failed for nodes");
+ 
+@@ -980,7 +988,7 @@
+         FATAL (NULL);
+     printf ("  using base %d - %s\n", cgnsbase, name);
+     fflush (stdout);
+-    if (PhyDim != 3 /*|| (CellDim != 1 && CellDim != 3)*/)
++    if (PhyDim != 3 && CellDim != 2)
+         FATAL ("cell and/or physical dimension invalid");
+ 
+     if (cg_nzones (cgnsfn, cgnsbase, &nzones))
+@@ -1043,8 +1051,12 @@
+         fprintf (fp, "%s\n", ascii ? "ASCII" : "BINARY");
+         if (zonetype == Structured) {
+             fprintf (fp, "DATASET STRUCTURED_GRID\n");
++            int dim3 = sizes[2];
++            if ( CellDim == 2 ) {
++                dim3 = 1;
++            }
+             fprintf (fp, "DIMENSIONS %d %d %d\n",
+-                sizes[0], sizes[1], sizes[2]);
++                sizes[0], sizes[1], dim3);
+         }
+         else
+             fprintf (fp, "DATASET UNSTRUCTURED_GRID\n");

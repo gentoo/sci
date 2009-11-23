@@ -1,0 +1,15 @@
+diff -Naur vrml-1.0.10/inst/vrml_DirectionalLight.m vrml-1.0.10.new/inst/vrml_DirectionalLight.m
+--- vrml-1.0.10/inst/vrml_DirectionalLight.m	2009-06-07 06:45:55.000000000 -0400
++++ vrml-1.0.10.new/inst/vrml_DirectionalLight.m	2009-11-05 22:57:13.453374208 -0500
+@@ -41,9 +41,8 @@
+       error (sprintf ("vrml_PointLight : unknown field '%s'",key));
+     end
+ 
+-    body = [body,\
+-	    sprintf ("   %-20s   %s\n",key, 
+-		     sprintf (getfield (tpl,key), val))];
++    ins = sprintf ("   %-20s   %s\n",key, sprintf (getfield (tpl,key), val));
++    body = [body, inst]
+   end
+ end
+ s = sprintf ("DirectionalLight { \n%s}\n", body);

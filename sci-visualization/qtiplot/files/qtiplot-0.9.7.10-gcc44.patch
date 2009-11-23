@@ -1,0 +1,9 @@
+diff --git a/3rdparty/qwtplot3d/src/qwt3d_function.cpp b/3rdparty/qwtplot3d/src/qwt3d_function.cpp
+index 3271aea..559127b 100755
+--- a/3rdparty/qwtplot3d/src/qwt3d_function.cpp
++++ b/3rdparty/qwtplot3d/src/qwt3d_function.cpp
+@@ -1,3 +1,4 @@
++#include <cstdio>
+ #include "qwt3d_surfaceplot.h"
+ #include "qwt3d_function.h"
+ 

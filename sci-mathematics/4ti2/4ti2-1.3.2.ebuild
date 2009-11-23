@@ -10,7 +10,7 @@ SRC_URI="http://4ti2.de/version_1.3.2/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 DEPEND="sci-mathematics/glpk[gmp]
 dev-libs/gmp[-nocxx]"

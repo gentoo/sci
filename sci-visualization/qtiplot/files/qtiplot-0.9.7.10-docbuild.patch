@@ -1,0 +1,38 @@
+--- manual/docbook-en/index.docbook.orig	2009-04-14 11:03:31.000000000 +0100
++++ manual/docbook-en/index.docbook	2009-04-14 10:58:41.000000000 +0100
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN" "/usr/share/xml/docbook/schema/dtd/4.4/docbookx.dtd" [
++<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "/usr/share/sgml/docbook/xml-dtd-4.2/docbookx.dtd" [
+ 
+   <!ENTITY appname "QtiPlot">
+   <!ENTITY kappname "&appname;">
+--- manual/Makefile.orig	2009-04-14 11:03:31.000000000 +0100
++++ manual/Makefile	2009-04-14 10:44:59.000000000 +0100
+@@ -1,3 +1,2 @@
+-html-pdf:
+-	docbook2html -d qtiplot.dsl docbook-en/index.docbook -e no-valid
+-	dblatex -o qtiplot-manual-en.pdf -c dblatex.conf -p dblatex-param.xsl docbook-en/index.docbook
++all:
++	docbook2html -d qtiplot.dsl docbook-en/index.docbook -e no-valid -l /usr/share/sgml/xml.dcl
+--- manual/qtiplot.dsl.orig	2009-04-14 11:03:31.000000000 +0100
++++ manual/qtiplot.dsl	2009-04-14 10:50:29.000000000 +0100
+@@ -6,7 +6,7 @@
+ <!DOCTYPE style-sheet PUBLIC "-//James Clark//DTD DSSSL Style Sheet//EN" [
+ 
+ <!-- Path to main Docbook->html stylesheet. You have to adapt this to your installation. -->
+-<!ENTITY docbook-html-stylesheet SYSTEM "/usr/share/sgml/docbook/stylesheet/dsssl/modular/html/docbook.dsl" CDATA DSSSL>
++<!ENTITY docbook-html-stylesheet SYSTEM "/usr/share/sgml/stylesheets/dsssl/docbook/html/docbook.dsl" CDATA DSSSL>
+ 
+ <!-- Stylesheet function library for creating Windows HTML help and Qt Assistant profiles. -->
+ <!ENTITY docbook-help-stylesheet SYSTEM "./help.dsl" CDATA DSSSL>
+diff -Nur manual.orig/qtiplot_html.xsl manual/qtiplot_html.xsl
+--- manual/qtiplot_html.xsl.orig	2009-04-14 11:03:31.000000000 +0100
++++ manual/qtiplot_html.xsl	2009-04-14 10:51:53.000000000 +0100
+@@ -1,5 +1,5 @@
+ <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version='1.0'>
+-<xsl:import href="file:////usr/share/xml/docbook/stylesheet/nwalsh/html/chunk.xsl"/>
++<xsl:import href="file:////usr/share/sgml/docbook/xsl-stylesheets/html/chunk.xsl"/>
+ 
+ 	<!-- html.stylesheet
+ 	The html.stylesheet parameter is either empty, indicating that no 

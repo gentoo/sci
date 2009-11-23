@@ -1,0 +1,77 @@
+Add special version identification and Gentoo contact information,
+in order to fulfil provisions 2 through 4 of the gnuplot licence.
+
+--- src/plot.c	31 Oct 2009 03:22:37 -0000	1.105
++++ src/plot.c	2 Nov 2009 20:08:59 -0000
+@@ -374,9 +374,11 @@
+ 		    "  -h, --help\n"
+ 		    "  -p  --persist\n"
+ 		    "  -e  \"command1; command2; ...\"\n"
+-		    "gnuplot %s patchlevel %s\n"
+-		    "Report bugs to %s\n",
+-		    gnuplot_version, gnuplot_patchlevel, bug_email);
++		    "gnuplot %s patchlevel %s (Gentoo revision %s)\n"
++		    "Report bugs to <%s>\n"
++		    "or to <%s>\n",
++		    gnuplot_version, gnuplot_patchlevel, gentoo_revision,
++		    gentoo_bugtracker, bug_email);
+ 	    return 0;
+ 
+ 	} else if (!strncmp(argv[i], "-persist", 2) || !strcmp(argv[i], "--persist")) {
+--- src/show.c	31 Oct 2009 21:58:47 -0000	1.228
++++ src/show.c	2 Nov 2009 20:09:00 -0000
+@@ -1015,7 +1015,7 @@
+ 
+     fprintf(fp, "%s\n\
+ %s\t%s\n\
+-%s\tVersion %s patchlevel %s\n\
++%s\tVersion %s patchlevel %s (Gentoo revision %s)\n\
+ %s\tlast modified %s\n\
+ %s\tSystem: %s %s\n\
+ %s\n\
+@@ -1027,11 +1027,12 @@
+ %s\tgnuplot home:     http://www.gnuplot.info\n\
+ %s\tgnuplot FAQ:      FAQ.pdf and %s\n\
+ %s\treport bugs:      http://sf.net/projects/gnuplot/support\n\
++%s\tgentoo bugs:      %s\n\
+ %s\tmailing list:     %s\n\
+ %s\n",
+ 	    p,			/* empty line */
+ 	    p, PROGRAM,
+-	    p, gnuplot_version, gnuplot_patchlevel,
++	    p, gnuplot_version, gnuplot_patchlevel, gentoo_revision,
+ 	    p, gnuplot_date,
+ 	    p, os_name, os_rel,
+ 	    p,			/* empty line */
+@@ -1043,6 +1044,7 @@
+ 	    p,			/* empty line */
+ 	    p, faq_location,	/* FAQ */
+ 	    p,			/* empty line */
++	    p, gentoo_bugtracker,
+ 	    p, help_email,	/* mailing list */
+ 	    p);			/* empty line */
+ 
+--- src/version.c	18 Oct 2009 21:10:06 -0000	1.93
++++ src/version.c	2 Nov 2009 20:09:00 -0000
+@@ -46,6 +46,9 @@
+ 
+ const char faq_location[] = FAQ_LOCATION;
+ 
++const char gentoo_revision[] = GENTOO_REVISION;
++const char gentoo_bugtracker[] = "http://bugs.gentoo.org/";
++
+ char *compile_options = (void *)0;	/* Will be loaded at runtime */
+ 
+ /* #define RELEASE_VERSION 1 */
+--- src/version.h	5 Aug 2006 21:33:15 -0000	1.5
++++ src/version.h	2 Nov 2009 20:09:00 -0000
+@@ -47,6 +47,9 @@
+ extern const char bug_email[];
+ extern const char help_email[];
+ 
++extern const char gentoo_revision[];
++extern const char gentoo_bugtracker[];
++
+ extern char os_name[];
+ extern char os_rel[];
+ 

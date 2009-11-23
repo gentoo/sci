@@ -1,0 +1,11 @@
+--- condor-7.2.1/src/configure.ac	2009-02-24 07:06:37.000000000 -0600
++++ condor-7.2.1mf/src/configure.ac	2009-02-24 07:05:46.000000000 -0600
+@@ -262,7 +262,7 @@
+ 	;;
+      # Handle post-FC releases more robustly
+      * )
+-        _cv_linux_distro=`$RPMQUERY -q --queryformat "F%{VERSION}" fedora-release`
++        _cv_linux_distro=F`cat /etc/fedora-release|$PERL -ne '/.* (.*) \((.*)\)/;print $1;'`
+ 	;;
+     esac
+   elif test -f "/etc/redhat-release" ; then

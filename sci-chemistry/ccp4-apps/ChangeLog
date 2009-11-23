@@ -2,6 +2,23 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  ccp4-apps-6.1.2-r7.ebuild, metadata.xml:
+  oasis4 USE removed again
+
+*ccp4-apps-6.1.2-r7 (15 Nov 2009)
+
+  15 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +ccp4-apps-6.1.2-r7.ebuild, metadata.xml:
+  added oasis4 support
+  EAPI="2"
+
+*ccp4-apps-6.1.2-r6 (30 Oct 2009)
+
+  30 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/6.1.2-pythonpath.patch, +ccp4-apps-6.1.2-r6.ebuild:
+  PYTONPATH patch added -- thanks Donnie for pointing this out
+
 *ccp4-apps-6.1.2-r5 (17 Aug 2009)
 
   17 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

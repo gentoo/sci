@@ -1,0 +1,62 @@
+diff -Naurp frama-c-Beryllium-20090901-orig/src/value/eval.ml frama-c-Beryllium-20090901-ptch/src/value/eval.ml
+--- frama-c-Beryllium-20090901-orig/src/value/eval.ml	2009-08-31 15:38:54.000000000 +0000
++++ frama-c-Beryllium-20090901-ptch/src/value/eval.ml	2009-11-23 23:44:25.000000000 +0000
+@@ -4315,13 +4315,20 @@ let compute_with_initial_state kf initia
+     | Definition (f,_) ->
+         let initial_state = check_precondition kf initial_state in
+         let initial_state =
+-	  List.fold_left
+-	    (fun acc local ->
+-               Relations_type.Model.add_binding_unspecified
+-                 acc
+-                 (Locations.loc_of_varinfo local))
+-	    initial_state
+-	    f.slocals
++	  if Parameters.Dynamic.Bool.get "-init-locals-defined"
++	  then
++	    List.fold_right
++	      initialize_var_using_type
++              f.slocals
++              initial_state
++	  else
++	    List.fold_left
++	      (fun acc local ->
++                 Relations_type.Model.add_binding_unspecified
++                   acc
++                   (Locations.loc_of_varinfo local))
++	      initial_state
++	      f.slocals
+         in
+ 	compute_using_cfg kf (ref (State_set.singleton initial_state))
+ 
+diff -Naurp frama-c-Beryllium-20090901-orig/src/value/value_parameters.ml frama-c-Beryllium-20090901-ptch/src/value/value_parameters.ml
+--- frama-c-Beryllium-20090901-orig/src/value/value_parameters.ml	2009-08-31 15:38:54.000000000 +0000
++++ frama-c-Beryllium-20090901-ptch/src/value/value_parameters.ml	2009-11-23 23:43:18.000000000 +0000
+@@ -136,6 +136,15 @@ module PropagateTop =
+ let () = add_dependency PropagateTop.self
+ 
+ let () = Plugin.set_group precision_tuning
++module InitLocalsDefined =
++  False
++    (struct
++       let option_name = "-init-locals-defined"
++       let descr = "init local variables defined like initialized extern globals"
++     end)
++let () = add_dependency InitLocalsDefined.self
++
++let () = Plugin.set_group precision_tuning
+ module WideningLevel =
+   Int
+     (struct
+diff -Naurp frama-c-Beryllium-20090901-orig/src/value/value_parameters.mli frama-c-Beryllium-20090901-ptch/src/value/value_parameters.mli
+--- frama-c-Beryllium-20090901-orig/src/value/value_parameters.mli	2009-08-31 15:38:54.000000000 +0000
++++ frama-c-Beryllium-20090901-ptch/src/value/value_parameters.mli	2009-11-23 23:43:04.000000000 +0000
+@@ -29,6 +29,8 @@ module WarnUnspecifiedOrder: Plugin.BOOL
+ 
+ module PropagateTop: Plugin.BOOL
+ 
++module InitLocalsDefined: Plugin.BOOL
++
+ module AutomaticContextMaxDepth: Plugin.INT
+ module AutomaticContextMaxWidth: Plugin.INT
+ 

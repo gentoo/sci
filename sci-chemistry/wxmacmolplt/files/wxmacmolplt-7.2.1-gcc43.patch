@@ -1,9 +1,0 @@
---- wxmacmolplt-7.2.1/src/Geometries.cpp.orig	2009-02-13 14:06:06.000000000 +0300
-+++ wxmacmolplt-7.2.1/src/Geometries.cpp	2009-02-13 14:06:54.000000000 +0300
-@@ -1,5 +1,6 @@
- #include <iomanip>
- #include <iostream>
-+#include <stdlib.h>
- 
- #include "Geometries.h"
- #include "Globals.h"

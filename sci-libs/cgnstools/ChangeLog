@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cgnstools-2.5.4-r1 (30 Oct 2009)
+
+  30 Oct 2009; Oliver Borm (boroli) <oli.borm@web.de>
+  -cgnstools-2.5.4.ebuild, +cgnstools-2.5.4-r1.ebuild,
+  +files/cgnstools-2.5.4_cgns_to_vtk2D.patch:
+  Fixed problems with 2D meshes and cgns_to_vtk
+
   03 Sep 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Corrected checksums, as upstream changed tarball.
 

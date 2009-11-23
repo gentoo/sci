@@ -1,0 +1,12 @@
+diff -Naur gromacs-4.0.4-orig/include/gmx_cyclecounter.h gromacs-4.0.4/include/gmx_cyclecounter.h
+--- gromacs-4.0.4-orig/include/gmx_cyclecounter.h	2009-05-09 18:46:02.000000000 +0200
++++ gromacs-4.0.4/include/gmx_cyclecounter.h	2009-05-09 18:56:50.000000000 +0200
+@@ -408,7 +408,7 @@
+ static __inline__ gmx_cycles_t gmx_cycles_read(void)
+ { 
+     /* gcc inline assembly on sparc v9 */
+-    ticks ret;
++    unsigned long ret;
+     __asm__("rd %%tick, %0" : "=r" (ret));
+     return ret;  
+ }

@@ -1,0 +1,29 @@
+diff --git a/qtiplot/src/scripting/scripting.pri b/qtiplot/src/scripting/scripting.pri
+index b8667e3..e4027da 100755
+--- a/qtiplot/src/scripting/scripting.pri
++++ b/qtiplot/src/scripting/scripting.pri
+@@ -80,7 +80,6 @@ contains(SCRIPTING_LANGS, Python) {
+              $${SIP_DIR}/sipqtiPythonScript.cpp\
+              $${SIP_DIR}/sipqtiPythonScripting.cpp\
+              $${SIP_DIR}/sipqtiFolder.cpp\
+-             $${SIP_DIR}/sipqtiQList.cpp\
+              $${SIP_DIR}/sipqtiFit.cpp \
+              $${SIP_DIR}/sipqtiExponentialFit.cpp \
+              $${SIP_DIR}/sipqtiTwoExpFit.cpp \
+@@ -105,4 +104,16 @@ contains(SCRIPTING_LANGS, Python) {
+ 			 $${SIP_DIR}/sipqtiCorrelation.cpp \
+ 			 $${SIP_DIR}/sipqtiConvolution.cpp \
+ 			 $${SIP_DIR}/sipqtiDeconvolution.cpp \
++
++SIPVERSION = $$system( sip -V | cut -b 1-3 )
++
++equals( SIPVERSION, 4.8 ) {
++  # SIP < 4.9
++  SOURCES += $${SIP_DIR}/sipqtiQList.cpp
++} else {
++  SOURCES += \
++         $${SIP_DIR}/sipqtiQList0101Folder.cpp\
++         $${SIP_DIR}/sipqtiQList0101Graph.cpp\
++         $${SIP_DIR}/sipqtiQList0101MdiSubWindow.cpp\
++}
+ }

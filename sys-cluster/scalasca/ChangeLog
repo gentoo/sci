@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Oct 2009; Christoph Junghans <kleiner_otti@gmx.de> scalasca-1.2.ebuild:
+  missing dep bug #290560
+
   13 Aug 2009; Christoph Junghans <kleiner_otti@gmx.de> scalasca-1.2.ebuild:
   DOCDIR fix
 

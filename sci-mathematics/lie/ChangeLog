@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Nov 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  files/parrallelmake-lie-2.2.2.patch:
+  bump the parrallel-make patch to care for some more possible breakages
+
   19 Apr 2009; François Bissey <f.r.bissey@massey.ac.nz> lie-2.2.2.ebuild:
   cleaning of the ebuild.
 

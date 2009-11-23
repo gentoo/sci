@@ -2,6 +2,30 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccpn-2.1.2_p1-r2 (23 Nov 2009)
+
+  23 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -ccpn-2.1.2_p1-r1.ebuild, +ccpn-2.1.2_p1-r2.ebuild:
+  Bad mistake in stting compile options --> leads to opengl crashes
+
+*ccpn-2.1.2_p1-r1 (14 Nov 2009)
+
+  14 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +ccpn-2.1.2_p1-r1.ebuild:
+  fixes correct installation doc help
+  fixes correct usage of opengl
+
+*ccpn-2.1.2_p1 (13 Nov 2009)
+
+  13 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> -ccpn-2.1.2.ebuild,
+  +ccpn-2.1.2_p1.ebuild:
+  version bump, Upstream corrected typos
+
+*ccpn-2.1.2 (12 Nov 2009)
+
+  12 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +ccpn-2.1.2.ebuild:
+  Version Bump
+
 *ccpn-2.1.1-r1 (25 Oct 2009)
 
   25 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

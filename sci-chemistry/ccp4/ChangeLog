@@ -2,6 +2,17 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  ccp4-6.1.2-r1.ebuild:
+  oasis4 USE removed again
+
+*ccp4-6.1.2-r1 (15 Nov 2009)
+
+  15 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +ccp4-6.1.2-r1.ebuild:
+  added oasis-4 support
+  EAPI="2"
+
   16 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> ccp4-6.1.2.ebuild:
   sci-chemistry/mrbump dependency added
 

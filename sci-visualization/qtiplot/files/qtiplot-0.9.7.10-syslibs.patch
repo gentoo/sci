@@ -1,0 +1,59 @@
+diff --git a/3rdparty/qwtplot3d/qwtplot3d.pri b/3rdparty/qwtplot3d/qwtplot3d.pri
+index 1b41edd..0f04abc 100755
+--- a/3rdparty/qwtplot3d/qwtplot3d.pri
++++ b/3rdparty/qwtplot3d/qwtplot3d.pri
+@@ -57,11 +57,11 @@ HEADERS += ../3rdparty/qwtplot3d/include/qwt3d_color.h \
+            ../3rdparty/qwtplot3d/include/qwt3d_multiplot.h
+ 
+ # gl2ps support
+-HEADERS += ../3rdparty/qwtplot3d/3rdparty/gl2ps/gl2ps.h \
+-         ../3rdparty/qwtplot3d/include/qwt3d_io_gl2ps.h
++HEADERS += ../3rdparty/qwtplot3d/include/qwt3d_io_gl2ps.h
+ 
+-SOURCES += ../3rdparty/qwtplot3d/src/qwt3d_io_gl2ps.cpp \
+-         ../3rdparty/qwtplot3d/3rdparty/gl2ps/gl2ps.c
++SOURCES += ../3rdparty/qwtplot3d/src/qwt3d_io_gl2ps.cpp
++
++LIBS+=-lgl2ps
+ 
+ # zlib support for gl2ps
+ zlib {
+diff --git a/3rdparty/qwtplot3d/qwtplot3d.pro b/3rdparty/qwtplot3d/qwtplot3d.pro
+index 7153400..f3e2fa2 100755
+--- a/3rdparty/qwtplot3d/qwtplot3d.pro
++++ b/3rdparty/qwtplot3d/qwtplot3d.pro
+@@ -82,11 +82,11 @@ HEADERS += include/qwt3d_surfaceplot.h \
+            include/qwt3d_multiplot.h
+ 
+ # gl2ps support
+-HEADERS+=3rdparty/gl2ps/gl2ps.h \
+-         include/qwt3d_io_gl2ps.h
++HEADERS+=include/qwt3d_io_gl2ps.h
+          
+-SOURCES+=src/qwt3d_io_gl2ps.cpp \
+-         3rdparty/gl2ps/gl2ps.c
++SOURCES+=src/qwt3d_io_gl2ps.cpp
++
++LIBS+=-lgl2ps
+ 
+ # zlib support for gl2ps
+ zlib {
+diff --git a/qtiplot/src/origin/origin.pri b/qtiplot/src/origin/origin.pri
+index 0747c29..2d9c822 100755
+--- a/qtiplot/src/origin/origin.pri
++++ b/qtiplot/src/origin/origin.pri
+@@ -4,14 +4,5 @@
+ INCLUDEPATH += src/origin/
+ 
+ HEADERS += src/origin/importOPJ.h
+-HEADERS += ../3rdparty/liborigin/OriginObj.h
+-HEADERS += ../3rdparty/liborigin/OriginFile.h
+-HEADERS += ../3rdparty/liborigin/OriginParser.h
+-HEADERS += ../3rdparty/liborigin/OriginDefaultParser.h
+-HEADERS += ../3rdparty/liborigin/Origin750Parser.h
+ 
+ SOURCES += src/origin/importOPJ.cpp
+-SOURCES += ../3rdparty/liborigin/OriginFile.cpp
+-SOURCES += ../3rdparty/liborigin/OriginParser.cpp
+-SOURCES += ../3rdparty/liborigin/OriginDefaultParser.cpp
+-SOURCES += ../3rdparty/liborigin/Origin750Parser.cpp

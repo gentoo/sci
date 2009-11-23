@@ -1,0 +1,81 @@
+diff --git a/Makefile b/Makefile
+index adf6cda..5104567 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,15 +3,15 @@
+ #.SILENT:
+ 
+ %_p.o : %_p.f
+-	$(MPIF90) $(F_FLAGS) $<
++	$(FC) $(CFLAGS) -c $<
+ 	
+ .SUFFIXES:	.o .f
+ .f.o:
+-	$(F90) $(F_FLAGS) $<
++	$(FC) $(CFLAGS) -c $<
+ 
+ .SUFFIXES:	.o .f90
+ .f90.o:
+-	$(F90) $(F_FLAGS) $<
++	$(FC) $(CFLAGS) -c $<
+ 
+ # ==================================== Variables for compiling and linking
+ # L_FLAGS=-g
+@@ -87,11 +87,11 @@ anneal canon  outpdb  minim  regul contacts interhbond hbond
+ # ============================================== Linking
+ 
+ $(PROG):	$(OBJ) $(SOBJ) main.o
+-	$(F90) -o $(PROG) $(L_FLAGS) main.o $(OBJ) $(SOBJ)
++	$(FC) $(LDFLAGS) $(CFLAGS) -o $(PROG) main.o $(OBJ) $(SOBJ)
+ 
+ # Build parallel version of SMMP.
+ parallel: $(OBJ) $(POBJ) main_p.o 
+-	$(MPIF90) -o $(PROG) $(L_FLAGS) main_p.o $(OBJ) $(POBJ)
++	$(FC) $(LDFLAGS) $(CFLAGS) -o $(PROG) main_p.o $(OBJ) $(POBJ)
+ 
+ # Cross compile for BlueGene/P 
+ bgl: BGL_L_FLAGS = -L$(BGLSYS)/lib -lmpich.rts -lfmpich.rts -lmsglayer.rts -lrts.rts -ldevices.rts -qextname=flush
+diff --git a/EXAMPLES/Makefile b/EXAMPLES/Makefile
+index e30d086..1ccf590 100644
+--- a/EXAMPLES/Makefile
++++ b/EXAMPLES/Makefile
+@@ -2,15 +2,15 @@
+ 
+ #.SILENT:
+ %_p.o : %_p.f
+-	$(MPIF90) $(F_FLAGS) $<
++	$(FC) $(CFLAGS) -c $<
+ 
+ .SUFFIXES:	.o .f
+ .f.o:
+-	$(F90) $(F_FLAGS) $<
++	$(FC) $(CFLAGS) -c $<
+ 
+ .SUFFIXES:	.o .f90
+ .f90.o:
+-	$(F90) $(F_FLAGS) $<
++	$(FC) $(CFLAGS) -c $<
+ 
+ # ==================================== Variables for compiling and linking
+ # L_FLAGS=-O0 -g
+@@ -59,16 +59,16 @@ MCOBJ = ../canon.o ../metropolis.o ../rgyr.o
+ all: minimization annealing multicanonical regularization parallel_tempering_s # rootmeansquaredev
+ 
+ minimization:	$(BASEOBJ) $(ENOBJ) minimization.o 
+-	$(F90) -o minimization $(L_FLAGS) $(BASEOBJ) $(ENOBJ) minimization.o
++	$(F90) $(LDFLAGS) -o minimization $(BASEOBJ) $(ENOBJ) minimization.o
+ 
+ annealing:	$(BASEOBJ) $(MCOBJS) $(ENOBJ) annealing.o
+-	$(F90) -o annealing $(L_FLAGS) $(BASEOBJ) $(MCOBJ) $(ENOBJ) ../anneal.o ../zimmer.o annealing.o
++	$(F90) $(LDFLAGS) -o annealing $(BASEOBJ) $(MCOBJ) $(ENOBJ) ../anneal.o ../zimmer.o annealing.o
+ 
+ multicanonical:	$(BASEOBJ) $(MCOBJS) $(ENOBJ) multicanonical.o ../mulcan_par_mod.o 
+-	$(F90) -o multicanonical $(L_FLAGS) $(BASEOBJ) $(MCOBJ) $(ENOBJ) multicanonical.o ../mulcan_par_mod.o
++	$(F90) $(LDFLAGS) -o multicanonical $(BASEOBJ) $(MCOBJ) $(ENOBJ) multicanonical.o ../mulcan_par_mod.o
+ 
+ regularization:	$(BASEOBJ) $(ENOBJ) regularization.o 
+-	$(F90) -o regularization $(L_FLAGS) $(BASEOBJ) $(ENOBJ) regularization.o
++	$(F90) $(LDFLAGS) -o regularization $(BASEOBJ) $(ENOBJ) regularization.o
+ 
+ # rootmeansquaredev:	$(BASEOBJ) $(ENOBJ) rootmeansquaredev.o
+ #	$(F90) -o rootmeansquaredev $(L_FLAGS) $(BASEOBJ) $(ENOBJ) rootmeansquaredev.o

@@ -2,6 +2,18 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  files/0.3.0.6-fix-syntax.patch:
+  added missing fixes to syntax patch
+
+*xia2-0.3.0.6 (14 Nov 2009)
+
+  14 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/0.3.0.6-fix-syntax.patch, +xia2-0.3.0.6.ebuild:
+  version bump
+  HOMEPAGE changed
+  sci-libs/cctbx as RDEPEND
+
   03 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +xia2-0.3.0.0-r2.ebuild:
   bump for ccp4-6.1.2

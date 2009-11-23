@@ -1,0 +1,48 @@
+diff -rupN 1.3.1/Macaulay2/packages/FourTiTwo.m2 1.3.1-pathspatched/Macaulay2/packages/FourTiTwo.m2
+--- 1.3.1/Macaulay2/packages/FourTiTwo.m2	2009-11-12 18:40:50.000000000 +0100
++++ 1.3.1-pathspatched/Macaulay2/packages/FourTiTwo.m2	2009-11-16 11:41:01.000000000 +0100
+@@ -47,7 +47,7 @@ export {
+ 
+ path'4ti2 = (options FourTiTwo).Configuration#"path"
+ -- NOTE: the absolute path should be put into the .init file for 4ti2 inside the .Macaulay2 directory.
+-if path'4ti2 == "" then path'4ti2 = prefixDirectory | currentLayout#"programs"
++if path'4ti2 == "" then path'4ti2 = "/usr/bin/"
+ 
+ getFilename = () -> (
+      filename := temporaryFileName();
+diff -rupN 1.3.1/Macaulay2/packages/gfanInterface.m2 1.3.1-pathspatched/Macaulay2/packages/gfanInterface.m2
+--- 1.3.1/Macaulay2/packages/gfanInterface.m2	2009-11-12 18:40:50.000000000 +0100
++++ 1.3.1-pathspatched/Macaulay2/packages/gfanInterface.m2	2009-11-16 11:41:17.000000000 +0100
+@@ -26,7 +26,7 @@ export {
+      }
+ 
+ gfan'path = gfanInterface#Options#Configuration#"path"
+-if gfan'path == "" then gfan'path = prefixDirectory | currentLayout#"programs"
++if gfan'path == "" then gfan'path = "/usr/bin/"
+ 
+ fig2dev'path = gfanInterface#Options#Configuration#"fig2devpath"
+ 
+diff -rupN 1.3.1/Macaulay2/packages/Normaliz.m2 1.3.1-pathspatched/Macaulay2/packages/Normaliz.m2
+--- 1.3.1/Macaulay2/packages/Normaliz.m2	2009-11-12 18:40:50.000000000 +0100
++++ 1.3.1-pathspatched/Macaulay2/packages/Normaliz.m2	2009-11-16 11:42:01.000000000 +0100
+@@ -30,7 +30,7 @@ export{setNmzExecPath, getNmzExecPath,
+ 
+ 
+ -- initialising some values
+-nmzExecPath=prefixDirectory|currentLayout#"programs";
++nmzExecPath="/usr/bin/";
+ nmzDataPath="";
+ nmzFilename="";
+ nmzUserCalled=true;  -- wether the user calls a method
+diff -rupN 1.3.1/Macaulay2/packages/StatePolytope.m2 1.3.1-pathspatched/Macaulay2/packages/StatePolytope.m2
+--- 1.3.1/Macaulay2/packages/StatePolytope.m2	2009-11-12 18:40:50.000000000 +0100
++++ 1.3.1-pathspatched/Macaulay2/packages/StatePolytope.m2	2009-11-16 11:41:13.000000000 +0100
+@@ -31,7 +31,7 @@ export { 
+ 
+ 
+ gfanCommand = (options StatePolytope)#Configuration#"gfan command"
+-if gfanCommand === "gfan" then gfanCommand = prefixDirectory | currentLayout#"programs" | gfanCommand
++if gfanCommand === "gfan" then gfanCommand = "/usr/bin/" | gfanCommand
+ gfanCommand = "!" | gfanCommand
+ 
+ --The next two functions print out the ring and the ideal in the format required by gfan

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci-mathematics</herd>
+<longdescription lang='en'>
+  GNU Octave is a high-level language, primarily intended for
+  numerical computations. It provides a convenient command line interface for
+  solving linear and nonlinear problems numerically, and for performing
+  other numerical experiments using a language that is mostly compatible
+  with Matlab. It may also be used as a batch-oriented language. Octave
+  has extensive tools for solving common numerical linear algebra
+  problems, finding the roots of nonlinear equations, integrating
+  ordinary functions, manipulating polynomials, and integrating ordinary
+  differential and differential-algebraic equations. It is easily
+  extensible and customizable via user-defined functions written in
+  Octave's own language, or using dynamically loaded modules written in
+  C++, C, Fortran, or other languages.
+</longdescription>
+<use>
+  <flag name='sparse'>Enable enhanced support for sparse matrix algebra</flag>
+</use>
+</pkgmetadata>

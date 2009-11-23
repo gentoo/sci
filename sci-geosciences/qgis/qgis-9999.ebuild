@@ -4,48 +4,49 @@
 
 EAPI="2"
 
-inherit cmake-utils eutils qt4 subversion
+inherit cmake-utils eutils subversion
 
-DESCRIPTION="Quantum GIS (QGIS) is a Geographic Information System (GIS)"
+DESCRIPTION="User friendly Geographic Information System"
 HOMEPAGE="http://www.qgis.org/"
-SRC_URI="samples? ( http://download.osgeo.org/qgis/data/qgis_sample_data.tar.gz )"
+SRC_URI="examples? ( http://download.osgeo.org/qgis/data/qgis_sample_data.tar.gz )"
 
 ESVN_REPO_URI="http://svn.osgeo.org/qgis/trunk/qgis"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="debug gps grass gsl postgres python sqlite samples"
+IUSE="examples gps grass gsl postgres python sqlite"
 
 RDEPEND=">=sci-libs/gdal-1.6.1
-		x11-libs/qt-core:4[qt3support]
-		x11-libs/qt-gui:4
-		x11-libs/qt-svg:4
-		x11-libs/qt-sql:4
-		>=sci-libs/geos-3.0.0
-		sci-libs/proj
-		sqlite? ( dev-db/sqlite:3 )
-		postgres? ( virtual/postgresql-base )
-		grass? ( >=sci-geosciences/grass-6.0.1
-			   sci-libs/gdal-grass )
-		gps? ( dev-libs/expat
-			sci-geosciences/gpsbabel )
-		gsl? ( sci-libs/gsl )
-		python? ( dev-lang/python[sqlite]
-			dev-python/PyQt4
-			dev-python/sip )
-		gps? ( sci-geosciences/gpsbabel )"
+	x11-libs/qt-core:4[qt3support]
+	x11-libs/qt-gui:4
+	x11-libs/qt-svg:4
+	x11-libs/qt-sql:4
+	sci-libs/geos
+	sci-libs/proj
+	gps? ( dev-libs/expat sci-geosciences/gpsbabel )
+	grass? ( >=sci-geosciences/grass-6 sci-geosciences/gdal-grass )
+	gsl? ( sci-libs/gsl )
+	postgres? ( >=virtual/postgresql-base-8 dev-db/postgis )
+	python? ( dev-python/PyQt4[sql,svg] )
+	sqlite? ( dev-db/sqlite:3 )"
 
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	sys-devel/bison
+	sys-devel/flex"
 
 src_configure() {
 	local mycmakeargs
-	mycmakeargs="${mycmakeargs} -DBUILD_SHARED_LIBS:BOOL=ON \
-		$(cmake-utils_use_with postgres POSTGRESQL) \
-		$(cmake-utils_use_with grass GRASS) \
-		$(cmake-utils_use_with gps EXPAT) \
-		$(cmake-utils_use_with gsl GSL) \
-		$(cmake-utils_use_with python BINDINGS) \
+	mycmakeargs="${mycmakeargs}
+		-D BUILD_SHARED_LIBS:BOOL=ON
+		-D BINDINGS_GLOBAL_INSTALL:BOOL=ON
+		-D QGIS_LIB_SUBDIR=$(get_libdir)
+		-D QGIS_PLUGIN_SUBDIR=$(get_libdir)/qgis
+		$(cmake-utils_use_with postgres POSTGRESQL)
+		$(cmake-utils_use_with grass GRASS)
+		$(cmake-utils_use_with gps EXPAT)
+		$(cmake-utils_use_with gsl GSL)
+		$(cmake-utils_use_with python BINDINGS)
 		$(cmake-utils_use_with sqlite SPATIALITE)"
 
 	if use grass; then
@@ -57,26 +58,18 @@ src_configure() {
 		done
 		mycmakeargs="${mycmakeargs} -DGRASS_PREFIX=${GRASSPATH}"
 	fi
-
 	cmake-utils_src_configure
 }
 
 src_install() {
 	cmake-utils_src_install
+	dodoc AUTHORS BUGS ChangeLog README SPONSORS CONTRIBUTORS
 
 	newicon images/icons/qgis-icon.png qgis.png
-	make_desktop_entry qgis Qgis qgis.png 'Science;Geoscience'
+	make_desktop_entry qgis "Quantum GIS " qgis.png
 
-	if use samples; then
-		cd "${WORKDIR}"
-		insinto /usr/share/doc/${PF}/sample_data
-		doins qgis_sample_data/* || die "Unable to install sample data"
-	fi
-}
-
-pkg_postinst() {
-	if use samples; then
-		einfo "You can find sample data to use with qgis in"
-		einfo "/usr/share/doc/${PF}/sample_data/"
+	if use examples; then
+		insinto /usr/share/doc/${PF}/examples
+		doins "${WORKDIR}"/qgis_sample_data/* || die "Unable to install examples"
 	fi
 }

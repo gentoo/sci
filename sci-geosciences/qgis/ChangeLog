@@ -1,0 +1,8 @@
+# ChangeLog for sci-geosciences/qgis
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  21 Nov 2009; Sébastien Fabbro <bicatali@gentoo.org> -qgis-1.0.2.ebuild,
+  -qgis-1.1.0.ebuild, -qgis-1.2.0.ebuild, qgis-9999.ebuild, metadata.xml:
+  Removed old and adapated svn qgis in sync with portage tree one
+

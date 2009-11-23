@@ -1,0 +1,2 @@
+CONDOR_CENTRAL_MANAGER=canfarpool.canfar.vpn
+CONDOR_OPT=""

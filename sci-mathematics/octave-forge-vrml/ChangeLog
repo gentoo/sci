@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Nov 2009; Markus Dittrich <markusle@gentoo.org>
+  octave-forge-vrml-1.0.10.ebuild,
+  +files/octave-forge-vrml-1.0.10-sprintf-fix.patch:
+  Fixed sprintf bug (fixes #290373).
+
 *octave-forge-vrml-1.0.10 (04 Oct 2009)
 
   04 Oct 2009; Markus Dittrich <markusle@gentoo.org>

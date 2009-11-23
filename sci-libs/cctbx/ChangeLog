@@ -2,6 +2,19 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cctbx-2009.11.01.0123-r1 (08 Nov 2009)
+*cctbx-2009.11.01.0123 (08 Nov 2009)
+
+  08 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  cctbx-2009.09.28.1034.ebuild, +cctbx-2009.11.01.0123.ebuild,
+  +cctbx-2009.11.01.0123-r1.ebuild, +files/fix-scons.patch:
+  version bump which fixes boost <-> python-2.6.2 issues
+  QA review
+
+  28 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  cctbx-2009.09.28.1034.ebuild:
+  fix for bug 289032
+
 *cctbx-2009.09.28.1034 (11 Oct 2009)
 
   11 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

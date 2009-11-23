@@ -1,0 +1,44 @@
+diff --git a/qtiplot/qtiplot.pro b/qtiplot/qtiplot.pro
+index 1021776..37ed5de 100755
+--- a/qtiplot/qtiplot.pro
++++ b/qtiplot/qtiplot.pro
+@@ -10,21 +10,24 @@ QTI_ROOT = ..
+ 
+ # local copy included
+ INCLUDEPATH       += ../3rdparty/qwtplot3d/include
+-INCLUDEPATH       += ../3rdparty/liborigin
+ INCLUDEPATH       += ../3rdparty/zlib
+-INCLUDEPATH 	  += ../3rdparty/QTeXEngine/src
++INCLUDEPATH 	   += /usr/include
+ 
+ # configurable
+ INCLUDEPATH       += $$MUPARSER_INCLUDEPATH
+ INCLUDEPATH       += $$QWT_INCLUDEPATH
+ INCLUDEPATH       += $$GSL_INCLUDEPATH
+ INCLUDEPATH       += $$BOOST_INCLUDEPATH
++INCLUDEPATH       += $$LIB_ORIGIN_INCLUDEPATH
+ 
+ # configurable libs
+ LIBS         += $$MUPARSER_LIBS
+ LIBS         += $$QWT_LIBS
+ LIBS         += $$GSL_LIBS
+ LIBS         += $$BOOST_LIBS
++LIBS         += $$LIB_ORIGIN_LIBS
++LIBS         += -lQTeXEngine
++LIBS         += -lgl2ps
+ 
+ #############################################################################
+ ###################### BASIC PROJECT PROPERTIES #############################
+@@ -140,10 +143,8 @@ include(src/scripting/scripting.pri)
+ ##################### TeX export: QTeXEngine ##################
+ ###############################################################
+ 
+-INCLUDEPATH += ../3rdparty/QTeXEngine/src
+-HEADERS 	+= ../3rdparty/QTeXEngine/src/QTeXEngine.h
+-SOURCES     += ../3rdparty/QTeXEngine/src/QTeXPaintEngine.cpp
+-SOURCES     += ../3rdparty/QTeXEngine/src/QTeXPaintDevice.cpp
++INCLUDEPATH += /usr/include
++HEADERS 	+= /usr/include/QTeXEngine.h
+ 
+ ###############################################################
+ ##################### Scripting: PYTHON + SIP + PyQT ##########

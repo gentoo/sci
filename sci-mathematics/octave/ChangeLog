@@ -1,0 +1,11 @@
+# ChangeLog for sci-mathematics/octave
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*octave-3.2.3-r1 (24 Nov 2009)
+
+  24 Nov 2009; Sébastien Fabbro <bicatali@gentoo.org>
+  +octave-3.2.3-r1.ebuild, +metadata.xml:
+  Experimental octave ebuild. Added graphicsmagick, fltk, opengl, and
+  qrupdate support. Some cosmetics
+
