@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-mathematics/octave/octave-2.1.73-r1.ebuild,v 1.2 2006/11/03 15:44:39 markusle Exp $
 
+NEED_OCTAVE=3.2
+
 inherit octave-forge
 
 DESCRIPTION="Additional linear algebra code, including general SVD and matrix functions."
