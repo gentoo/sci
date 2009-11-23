@@ -64,18 +64,18 @@ src_prepare() {
 	GLUT_FLAG="\$(GLUT_NEED_INIT) \$(GLUT_NOT_IN_GL)"
 
 	sed \
-		-e "s:^\(CC = \).*:\1$(tc-getCC):g" \
-		-e "s:^\(OPT_FLAG = \).*:\1${CFLAGS}:g" \
+		-e "s:^\(CC =\).*:\1 $(tc-getCC):g" \
+		-e "s:^\(OPT_FLAG =\).*:\1 ${CFLAGS}:g" \
 		-e "s:^\(LINK_FLAGS =.*\):\1 ${LDFLAGS}:g" \
-		-e "s:^\(IGNORE_GL_FLAG = \).*:\1${IGNORE_GL_FLAG}:g" \
-		-e "s:^\(GL_FLAG = \).*:\1${GL_FLAG}:g" \
-		-e "s:^\(GLUT_NEED_INIT = \).*:\1${GLUT_NEED_INIT}:g" \
-		-e "s:^\(GLUT_NOT_IN_GL = \).*:\1:g" \
-		-e "s:^\(X11_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
-		-e "s:^\(TCL_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
-		-e "s:^\(TK_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
-		-e "s:^\(PYTHON_INCLUDE_FLAGS = \).*:\1-I\$(PYTHON_DIR)/include/python${PYVER}:g" \
-		-e "s:^\(GL_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
+		-e "s:^\(IGNORE_GL_FLAG =\).*:\1 ${IGNORE_GL_FLAG}:g" \
+		-e "s:^\(GL_FLAG =\).*:\1 ${GL_FLAG}:g" \
+		-e "s:^\(GLUT_NEED_INIT =\).*:\1 ${GLUT_NEED_INIT}:g" \
+		-e "s:^\(GLUT_NOT_IN_GL =\).*:\1:g" \
+		-e "s:^\(X11_LIB_FLAGS =\).*:\1 -L/usr/$(get_libdir):g" \
+		-e "s:^\(TCL_LIB_FLAGS =\).*:\1 -L/usr/$(get_libdir):g" \
+		-e "s:^\(TK_LIB_FLAGS =\).*:\1 -L/usr/$(get_libdir):g" \
+		-e "s:^\(PYTHON_INCLUDE_FLAGS =\).*:\1 -I\$(PYTHON_DIR)/include/python${PYVER}:g" \
+		-e "s:^\(GL_LIB_FLAGS =\).*:\1 -L/usr/$(get_libdir):g" \
 		c/environment_default.txt > c/environment.txt
 }
 
