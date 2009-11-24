@@ -28,7 +28,7 @@ RDEPEND=">=sci-libs/gdal-1.6.1
 	grass? ( >=sci-geosciences/grass-6 sci-geosciences/gdal-grass )
 	gsl? ( sci-libs/gsl )
 	postgres? ( >=virtual/postgresql-base-8 dev-db/postgis )
-	python? ( dev-python/PyQt4[sql,svg] )
+	python? ( dev-lang/python[sqlite] dev-python/PyQt4[sql,svg] )
 	sqlite? ( dev-db/sqlite:3 )"
 
 DEPEND="${RDEPEND}
