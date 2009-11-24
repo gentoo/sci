@@ -2,6 +2,18 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mpich2-1.2.1 (24 Nov 2009)
+
+  24 Nov 2009; Justin Bronder <jsbronder@gentoo.org>
+  +files/0003-Fix-pkgconfig-for-mpich2-ch3-v1.2.1.patch,
+  +mpich2-1.2.1.ebuild, metadata.xml:
+  Bump mpich2-1.2.1
+
+  - Update pkgconfig patch.
+  - Note patch status with upstream.
+  - Add Pavan as the upstream contact per his request.
+  - Remove fpic sed, handled by build system.
+
 *mpich2-1.1.1_p1 (17 Sep 2009)
 
   17 Sep 2009; Justin Bronder <jsbronder@gentoo.org>
