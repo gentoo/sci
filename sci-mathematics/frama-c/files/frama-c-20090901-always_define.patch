@@ -1,6 +1,15 @@
 diff -Naurp frama-c-Beryllium-20090901-orig/src/value/eval.ml frama-c-Beryllium-20090901-ptch/src/value/eval.ml
 --- frama-c-Beryllium-20090901-orig/src/value/eval.ml	2009-08-31 15:38:54.000000000 +0000
-+++ frama-c-Beryllium-20090901-ptch/src/value/eval.ml	2009-11-23 23:44:25.000000000 +0000
++++ frama-c-Beryllium-20090901-ptch/src/value/eval.ml	2009-11-24 12:20:27.000000000 +0000
+@@ -2031,7 +2031,7 @@ let initial_state_only_globals () =
+ 		  isCompleteType varinfo.vtype*)
+            -> (* Default to zero init thanks to ANSI p126 6.7.8.10 *)
+              (* eval_init (Var varinfo, NoOffset) (makeZeroInit varinfo.vtype)*)
+-             if varinfo.vstorage = Extern then
++             if varinfo.vstorage = Extern or Parameters.Dynamic.Bool.get "-always-define-globals" then
+                (* Must not initialize when the storage is extern. *)
+                state := initialize_var_using_type varinfo !state
+              else complete_init 0 varinfo.vtype [] (Var varinfo,NoOffset)
 @@ -4315,13 +4315,20 @@ let compute_with_initial_state kf initia
      | Definition (f,_) ->
          let initial_state = check_precondition kf initial_state in
@@ -12,7 +21,7 @@ diff -Naurp frama-c-Beryllium-20090901-orig/src/value/eval.ml frama-c-Beryllium-
 -                 (Locations.loc_of_varinfo local))
 -	    initial_state
 -	    f.slocals
-+	  if Parameters.Dynamic.Bool.get "-init-locals-defined"
++	  if Parameters.Dynamic.Bool.get "-always-define-locals"
 +	  then
 +	    List.fold_right
 +	      initialize_var_using_type
@@ -31,18 +40,27 @@ diff -Naurp frama-c-Beryllium-20090901-orig/src/value/eval.ml frama-c-Beryllium-
  
 diff -Naurp frama-c-Beryllium-20090901-orig/src/value/value_parameters.ml frama-c-Beryllium-20090901-ptch/src/value/value_parameters.ml
 --- frama-c-Beryllium-20090901-orig/src/value/value_parameters.ml	2009-08-31 15:38:54.000000000 +0000
-+++ frama-c-Beryllium-20090901-ptch/src/value/value_parameters.ml	2009-11-23 23:43:18.000000000 +0000
-@@ -136,6 +136,15 @@ module PropagateTop =
++++ frama-c-Beryllium-20090901-ptch/src/value/value_parameters.ml	2009-11-24 12:10:31.000000000 +0000
+@@ -136,6 +136,24 @@ module PropagateTop =
  let () = add_dependency PropagateTop.self
  
  let () = Plugin.set_group precision_tuning
-+module InitLocalsDefined =
++module AlwaysDefineLocals =
 +  False
 +    (struct
-+       let option_name = "-init-locals-defined"
-+       let descr = "init local variables defined like initialized extern globals"
++       let option_name = "-always-define-locals"
++       let descr = "init undefined local variables like extern globals"
 +     end)
-+let () = add_dependency InitLocalsDefined.self
++let () = add_dependency AlwaysDefineLocals.self
++
++let () = Plugin.set_group precision_tuning
++module AlwaysDefineGlobals =
++  False
++    (struct
++       let option_name = "-always-define-globals"
++       let descr = "init undefined global variables like extern globals"
++     end)
++let () = add_dependency AlwaysDefineGlobals.self
 +
 +let () = Plugin.set_group precision_tuning
  module WideningLevel =
@@ -50,12 +68,13 @@ diff -Naurp frama-c-Beryllium-20090901-orig/src/value/value_parameters.ml frama-
      (struct
 diff -Naurp frama-c-Beryllium-20090901-orig/src/value/value_parameters.mli frama-c-Beryllium-20090901-ptch/src/value/value_parameters.mli
 --- frama-c-Beryllium-20090901-orig/src/value/value_parameters.mli	2009-08-31 15:38:54.000000000 +0000
-+++ frama-c-Beryllium-20090901-ptch/src/value/value_parameters.mli	2009-11-23 23:43:04.000000000 +0000
-@@ -29,6 +29,8 @@ module WarnUnspecifiedOrder: Plugin.BOOL
++++ frama-c-Beryllium-20090901-ptch/src/value/value_parameters.mli	2009-11-24 12:08:29.000000000 +0000
+@@ -29,6 +29,9 @@ module WarnUnspecifiedOrder: Plugin.BOOL
  
  module PropagateTop: Plugin.BOOL
  
-+module InitLocalsDefined: Plugin.BOOL
++module AlwaysDefineLocals: Plugin.BOOL
++module AlwaysDefineGlobals: Plugin.BOOL
 +
  module AutomaticContextMaxDepth: Plugin.INT
  module AutomaticContextMaxWidth: Plugin.INT
