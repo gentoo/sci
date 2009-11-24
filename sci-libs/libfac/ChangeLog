@@ -1,0 +1,9 @@
+# ChangeLog for sci-mathematics/Macaulay2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+	24 Nov 2009; Thomas Kahle <tom111@gmx.de> +libfac-3.1.0.ebuild
+	+ChangeLog +metadata.xml
+
+	Initial upload
+	Bug #294473
