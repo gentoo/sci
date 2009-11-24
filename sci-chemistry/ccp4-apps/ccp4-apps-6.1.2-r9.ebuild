@@ -46,7 +46,7 @@ done
 
 LICENSE="ccp4"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+#KEYWORDS="~amd64 ~x86"
 IUSE="examples X"
 
 X11DEPS="
