@@ -232,7 +232,7 @@ src_configure() {
 		"${S}"/include/ccp4.setup*
 
 	# Set up variables for build
-	source "${S}"/include/ccp4.setup
+	source "${S}"/include/ccp4.setup-bash
 
 	export CC=$(tc-getCC)
 	export CXX=$(tc-getCXX)
@@ -354,10 +354,6 @@ src_install() {
 			doins ${file} || die
 		fi
 	done
-
-	sed \
-		-e 's:test "LD_LIBRARY_PATH":test "$LD_LIBRARY_PATH":g' \
-		-i "${S}"/include/ccp4.setup-sh || die
 
 	# Setup scripts
 	insinto /etc/profile.d
