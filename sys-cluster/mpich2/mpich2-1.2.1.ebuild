@@ -7,7 +7,7 @@ inherit eutils fortran mpi
 
 MY_PV=${PV/_/}
 DESCRIPTION="MPICH2 - A portable MPI implementation"
-HOMEPAGE="http://www-unix.mcs.anl.gov/mpi/mpich2"
+HOMEPAGE="http://www.mcs.anl.gov/research/projects/mpich2/index.php"
 SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY_PV}/${PN}-${MY_PV}.tar.gz"
 
 LICENSE="as-is"
