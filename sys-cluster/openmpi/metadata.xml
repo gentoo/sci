@@ -12,5 +12,7 @@
 		<flag name='romio'>Build the ROMIO MPI-IO component</flag>
 		<flag name='mpi-threads'>Enable MPI_THREAD_MULTIPLE</flag>
 		<flag name='vt'>Enable bundled VampirTrace support</flag>
+		<flag name='infiniband'>Enable infiniband support</flag>
+		<flag name='dapl'>Enable dapl support</flag>
 	</use>
 </pkgmetadata>

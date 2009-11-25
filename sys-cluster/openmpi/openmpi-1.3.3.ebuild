@@ -15,13 +15,15 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
 RESTRICT="mpi-threads? ( test )"
-IUSE="+cxx fortran heterogeneous ipv6 mpi-threads pbs romio threads vt"
+IUSE="+cxx dapl fortran heterogeneous ipv6 infiniband mpi-threads pbs romio threads vt"
 RDEPEND="pbs? ( sys-cluster/torque )
-	vt? (
-		!dev-libs/libotf
-		!app-text/lcdf-typetools
-	)
-	$(mpi_imp_deplist)"
+		vt? (
+			!dev-libs/libotf
+			!app-text/lcdf-typetools
+		)
+		dapl? ( sys-infiniband/dapl )
+		infiniband? ( sys-infiniband/libibverbs )
+		$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
 
 pkg_setup() {
@@ -93,7 +95,9 @@ src_configure() {
 		$(use_enable romio io-romio) \
 		$(use_enable heterogeneous) \
 		$(use_with pbs tm) \
-		$(use_enable ipv6)
+		$(use_enable ipv6) \
+		$(use_with infiniband openib) \
+		$(use_with dapl udapl)
 }
 
 src_install () {
