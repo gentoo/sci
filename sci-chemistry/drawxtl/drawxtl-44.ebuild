@@ -11,7 +11,7 @@ MY_P=${MY_PN}${PV}
 
 DESCRIPTION="This software can be used to produce crystal structure drawings from structural data"
 HOMEPAGE="http://www.lwfinger.net/drawxtl/"
-SRC_URI="http://home.att.net/~larry.finger/${PN}/${MY_P}.tar.gz"
+SRC_URI="http://www.lwfinger.com/drawxtl/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="4"
