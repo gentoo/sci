@@ -46,7 +46,7 @@ done
 
 LICENSE="ccp4"
 SLOT="0"
-#KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="examples X"
 
 X11DEPS="
@@ -232,7 +232,7 @@ src_configure() {
 		"${S}"/include/ccp4.setup*
 
 	# Set up variables for build
-	source "${S}"/include/ccp4.setup-bash
+	source "${S}"/include/ccp4.setup
 
 	export CC=$(tc-getCC)
 	export CXX=$(tc-getCXX)
@@ -355,12 +355,16 @@ src_install() {
 		fi
 	done
 
+	sed \
+		-e 's:test "LD_LIBRARY_PATH":test "$LD_LIBRARY_PATH":g' \
+		-i "${S}"/include/ccp4.setup-sh || die
+
 	# Setup scripts
 	insinto /etc/profile.d
 #	newins "${S}"/include/ccp4.setup-bash ccp4.setup.bash || die
-	newins "${S}"/include/ccp4.setup-csh ccp4.setup.csh || die
+	newins "${S}"/include/ccp4.setup-csh 40ccp4.setup.csh || die
 #	newins "${S}"/include/ccp4.setup-zsh ccp4.setup.zsh || die
-	newins "${S}"/include/ccp4.setup-sh ccp4.setup.sh || die
+	newins "${S}"/include/ccp4.setup-sh 40ccp4.setup.sh || die
 	rm -f "${S}"/include/ccp4.setup*
 
 	# Environment files, setup scripts, etc.
