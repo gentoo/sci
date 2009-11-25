@@ -1,0 +1,19 @@
+# ChangeLog for sci-chemistry/arp-warp-bin
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/arp-warp-bin/ChangeLog,v 1.1 2008/08/04 00:11:54 dberkholz Exp $
+
+*arp-warp-bin-7.0.1-r2 (25 Nov 2009)
+
+  25 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/7.0.1-setup.patch, +arp-warp-bin-7.0.1-r2.ebuild,
+  +files/7.0.1-source-ccp4-if-needed.patch, +metadata.xml:
+  Fixed instruction when python is bumped
+
+*arp-warp-bin-7.0.1-r1 (04 Aug 2008)
+
+  04 Aug 2008; Donnie Berkholz <dberkholz@gentoo.org>;
+  +files/7.0.1-setup.patch, +files/7.0.1-source-ccp4-if-needed.patch,
+  +metadata.xml, +arp-warp-bin-7.0.1-r1.ebuild:
+  (#212054) New package: ARP/wARP is a software for improvement and
+  interpretation of crystallographic electron density maps.
+
