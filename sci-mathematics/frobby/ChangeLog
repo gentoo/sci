@@ -1,0 +1,8 @@
+# ChangeLog for sci-mathematics/Macaulay2
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+	25 Nov 2009; Thomas Kahle <tom111@gmx.de> +frobby-0.8.2.ebuild
+	+metadata.xml +ChangeLog +files/patch-0.8.2 +files/frobby-0.8.2-doc.patch
+
+	Intial import (Bug #294503)
