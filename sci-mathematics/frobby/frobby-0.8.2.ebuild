@@ -44,6 +44,9 @@ src_install() {
 	dolib.a bin/libfrobby.a
 	insinto /usr/include
 	doins src/frobby.h
+	dodir /usr/include/frobby
+	insinto /usr/include/frobby
+	doins src/stdinc.h
 	if use doc; then
 		dodoc bin/manual.pdf
 		dodoc bin/manual.pdf
