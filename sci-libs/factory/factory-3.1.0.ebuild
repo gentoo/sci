@@ -23,15 +23,15 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/factory"
 
 src_unpack() {
-	unpack "${A}"
+	unpack ${A}
 	cd "${S}"
+	# If I move this patch to src_prepare and remove src_unpack it
+	# does not get applied. Why ?
 	epatch "${FILESDIR}"/patch-3.1.0b || die "patching failed"
 	eautoreconf
 }
 
 src_compile() {
-	cd "${S}"
-
 	econf --prefix="${D}/usr" \
 		$(use_with singular Singular) ||  die "econf failed"
 
@@ -41,7 +41,6 @@ src_compile() {
 }
 
 src_install() {
-	cd "${S}"
 	# Another race condition when creating dirs with -j3
 	emake -j1 install || die "Install failed"
 }

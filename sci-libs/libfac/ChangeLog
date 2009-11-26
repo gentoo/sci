@@ -2,6 +2,9 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+	26 Nov 2009; Thomas Kahle <tom111@gmx.de>
+	QA Fixes
+
 	24 Nov 2009; Thomas Kahle <tom111@gmx.de> +libfac-3.1.0.ebuild
 	+ChangeLog +metadata.xml
 

@@ -2,8 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils autotools
-DESCRIPTION="libfac is an extension of Singular-factor to finite fields"
+EAPI=2
+
+inherit eutils
+DESCRIPTION="libfac is an extension of Singular-factory to finite fields"
 
 HOMEPAGE="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/"
 
@@ -23,8 +25,6 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/libfac"
 
 src_compile() {
-	cd "${S}"
-
 	econf --prefix="${D}/usr" \
 		$(use_with singular Singular) ||  die "econf failed"
 
@@ -32,6 +32,5 @@ src_compile() {
 }
 
 src_install() {
-	cd "${S}"
 	emake install || die "Install failed"
 }
