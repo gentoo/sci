@@ -48,8 +48,7 @@ SITEFILE=70Macaulay2-gentoo.el
 
 S="${WORKDIR}/Macaulay2-1.3.1-r9872"
 
-src_unpack() {
-	unpack "${A}"
+src_prepare() {
 	# Patching .m2 files to look for external programs in
 	# /usr/bin
 	cd "${S}"

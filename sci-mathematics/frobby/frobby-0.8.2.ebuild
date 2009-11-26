@@ -20,8 +20,7 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/frobby_v0.8.2"
 
-src_unpack() {
-	unpack "${A}"
+src_prepare() {
 	cd "${S}"
 	# Fixing latex call in doc creation
 	epatch "${FILESDIR}/frobby-0.8.2-doc.patch"
@@ -39,7 +38,6 @@ src_compile() {
 }
 
 src_install() {
-	cd "${S}"
 	dobin bin/frobby
 	dolib.a bin/libfrobby.a
 	insinto /usr/include
