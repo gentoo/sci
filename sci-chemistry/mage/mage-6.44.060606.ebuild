@@ -34,5 +34,5 @@ src_compile() {
 }
 
 src_install() {
-	dobin ${S}/mage || die "dobin failed"
+	dobin "${S}"/mage || die "dobin failed"
 }
