@@ -1,8 +1,8 @@
 diff --git a/Makefile.linux b/Makefile.linux
-index 65a021a..95e3f75 100755
+index 65a021a..3daacd8 100755
 --- a/Makefile.linux
 +++ b/Makefile.linux
-@@ -1,14 +1,14 @@
+@@ -1,15 +1,15 @@
  #
 -CFLAGS = -I/usr/X11R6/include  
 +CFLAGS += -I/usr/X11R6/include  
@@ -16,10 +16,12 @@ index 65a021a..95e3f75 100755
  
  ifeq ($(MAKECMDGOALS),nogui)
 -CFLAGS = -D NOGUI -I/usr/X11R6/include
+-LIBS = -L/usr/lib -L/usr/X11R6/lib -lXmu -lXt -lSM -lICE -lXext -lX11
 +CFLAGS += -D NOGUI -I/usr/X11R6/include
- LIBS = -L/usr/lib -L/usr/X11R6/lib -lXmu -lXt -lSM -lICE -lXext -lX11
++LIBS = -L/usr/GENTOOLIBDIR -L/usr/X11R6/lib -lXmu -lXt -lSM -lICE -lXext -lX11
  endif
  
+ FIN =  -lm -pthread #for RH9.0, ok for RH7.3 & RH8.0
 @@ -26,13 +26,13 @@ OBJS = PKINANGL.o PKINCRTL.o PKINCSBS.o PKINCSUB.o PKINCOUT.o PKINMENU.o PKINROT
  # Commands specific to clients created by this Makefile 
  

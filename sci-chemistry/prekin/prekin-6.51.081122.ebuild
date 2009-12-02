@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit toolchain-funcs eutils
+inherit toolchain-funcs eutils multilib
 
 MY_P="${PN}.${PV}"
 
@@ -15,7 +15,7 @@ SRC_URI="http://kinemage.biochem.duke.edu/downloads/software/prekin/${MY_P}.src.
 LICENSE="richardson"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="X"
+IUSE="gui"
 
 RDEPEND="x11-libs/openmotif"
 DEPEND="${RDEPEND}"
@@ -26,13 +26,14 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PV}-Makefile.patch
 	sed  \
 		-e 's:cc:$(CC):g' \
+		-e "s:GENTOOLIBDIR:$(get_libdir):g" \
 		"${S}"/Makefile.linux > Makefile
 }
 
 src_compile() {
 	local mytarget
 
-	if use X; then
+	if use gui; then
 		mytarget="${PN}"
 	else
 		mytarget="nogui"
@@ -40,10 +41,9 @@ src_compile() {
 
 	emake \
 		CC="$(tc-getCC)" \
-		CFLAGS="${CFLAGS}" \
 		${mytarget} || die "make failed"
 }
 
 src_install() {
-	dobin ${S}/prekin || die "dobin failed"
+	dobin "${S}"/prekin || die "dobin failed"
 }
