@@ -1,0 +1,39 @@
+diff --git a/Makefile.linux b/Makefile.linux
+index 65a021a..95e3f75 100755
+--- a/Makefile.linux
++++ b/Makefile.linux
+@@ -1,14 +1,14 @@
+ #
+-CFLAGS = -I/usr/X11R6/include  
++CFLAGS += -I/usr/X11R6/include  
+ 
+ ifeq ($(MAKECMDGOALS),debug)
+ CFLAGS = -g -I/usr/X11R6/include  
+ endif
+ 
+-LIBS = -L/usr/lib -L/usr/X11R6/lib -lXmu -lXm -lXt -lSM -lICE -lXext -lX11
++LIBS = -L/usr/GENTOOLIBDIR -L/usr/X11R6/lib -lXmu -lXm -lXt -lSM -lICE -lXext -lX11
+ 
+ ifeq ($(MAKECMDGOALS),nogui)
+-CFLAGS = -D NOGUI -I/usr/X11R6/include
++CFLAGS += -D NOGUI -I/usr/X11R6/include
+ LIBS = -L/usr/lib -L/usr/X11R6/lib -lXmu -lXt -lSM -lICE -lXext -lX11
+ endif
+ 
+@@ -26,13 +26,13 @@ OBJS = PKINANGL.o PKINCRTL.o PKINCSBS.o PKINCSUB.o PKINCOUT.o PKINMENU.o PKINROT
+ # Commands specific to clients created by this Makefile 
+ 
+ prekin: $(OBJS)
+-	cc -o prekin $(CFLAGS) $(OBJS) -L/usr/X11R6/lib $(LIBS) -ldl $(FIN)
++	cc -o prekin $(CFLAGS) $(LDFLAGS) $(OBJS) -L/usr/X11R6/lib $(LIBS) -ldl $(FIN)
+ 
+ debug: $(OBJS)
+-	cc -o prekin $(CFLAGS) $(OBJS) -L/usr/X11R6/lib $(LIBS) -ldl $(FIN)
++	cc -o prekin $(CFLAGS) $(LDFLAGS) $(OBJS) -L/usr/X11R6/lib $(LIBS) -ldl $(FIN)
+ 
+ nogui: $(OBJS)
+-	cc -o prekin $(CFLAGS) $(OBJS) -L/usr/X11R6/lib $(LIBS) -ldl $(FIN)
++	cc -o prekin $(CFLAGS) $(LDFLAGS) $(OBJS) -L/usr/X11R6/lib $(LIBS) -ldl $(FIN)
+ 
+ clean:
+ 	rm *.o
