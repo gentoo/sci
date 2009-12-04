@@ -252,6 +252,11 @@ MPI_PKG_USE_CXX="${MPI_PKG_USE_CXX:-0}"
 MPI_PKG_USE_FC="${MPI_PKG_USE_FC:-0}"
 
 
+# @ECLASS-VARIABLE: MPI_PKG_USE_ROMIO
+# @DESCRIPTION: Require a mpi implementation with romio enabled.
+# This feature requires EAPI 2 style use dependencies
+MPI_PKG_USE_ROMIO="${MPI_PKG_USE_ROMIO:-0}"
+
 
 # @FUNCTION: mpi_pkg_deplist
 # @USAGE:
@@ -263,22 +268,24 @@ mpi_pkg_deplist() {
 	case "${EAPI}" in
 		2)
 			[[ ${MPI_PKG_USE_CXX} -ne 0 ]] \
-				&& usedeps="cxx"
+				&& usedeps=",cxx"
 			[[ ${MPI_PKG_USE_FC} -ne 0 ]] \
 				&& usedeps="${use_deps},fortran"
+			[[ ${MPI_PKG_USE_ROMIO} -ne 0 ]] \
+				&& usedeps="${use_deps},romio"
 			;;
 		*)
 			;;
 	esac
 
 	if mpi_classed; then
-		ver="virtual/$(mpi_class) sys-cluster/empi"
+		ver="sys-cluster/empi virtual/$(mpi_class)"
 	else
 		ver="virtual/mpi"
 	fi
 
 	if [ -n "${usedeps}" ]; then
-		ver="${ver}[${usedeps}]"
+		ver="${ver}[${usedeps:1}]"
 	fi
 
 	if ! mpi_classed && [ -n "${MPI_UNCLASSED_BLOCKERS}" ]; then
