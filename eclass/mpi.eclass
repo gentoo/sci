@@ -355,6 +355,17 @@ mpi_pkg_cxx() { _mpi_pkg_compiler "MPI_CXX" "cxx c++"; }
 mpi_pkg_f77() { _mpi_pkg_compiler "MPI_F77" "f77";     }
 mpi_pkg_fc()  { _mpi_pkg_compiler "MPI_FC"  "f90 fc";  }
 
+
+# @FUNCTION:  mpi_pkg_set_ld_library_path
+# @USAGE:
+# @DESCRIPTION:  Adds the correct path(s) to the end of LD_LIBRARY_PATH.  Does
+# nothing if the build is unclassed.
+mpi_pkg_set_ld_library_path() { 
+	if mpi_classed; then
+		export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:$(_get_eselect_var LD_LIBRARY_PATH)"
+	fi
+}
+
 # If classed, we can ask eselect-mpi.  Otherwise we'll look for some common
 # executable names in ${ROOT}usr/bin.
 _mpi_pkg_compiler() {
@@ -389,7 +400,7 @@ mpi_pkg_set_env() {
 		export F77=$(mpi_pkg_f77)
 		export FC=$(mpi_pkg_fc)
 		export PKG_CONFIG_PATH="$(mpi_root)$(get_libdir)/pkgconfig:${PKG_CONFIG_PATH}"
-		export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:$(_get_eselect_var LD_LIBRARY_PATH)"
+		mpi_pkg_set_ld_library_path
 	fi
 }
 
