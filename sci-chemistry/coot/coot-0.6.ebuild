@@ -12,15 +12,12 @@ MY_S_P=${MY_S2_P}-${PR/r/revision-}
 MY_PV=${PV}
 MY_P=${PN}-${MY_PV}
 
+ESVN_REPO_URI="http://coot.googlecode.com/svn/trunk"
+
 DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, completion and validation"
 HOMEPAGE="http://www.biop.ox.ac.uk/coot/"
-if [[ ${MY_PV} = *pre* ]]; then
-	SRC_URI="http://www.biop.ox.ac.uk/coot/software/source/pre-releases/${MY_S_P}.tar.gz"
-else
-	SRC_URI="http://www.biop.ox.ac.uk/coot/software/source/releases/${MY_P}.tar.gz"
-fi
 SRC_URI="
-	${SRC_URI}
+	http://www.biop.ox.ac.uk/coot/software/source/releases/${MY_P}.tar.gz
 	test? ( http://www.biop.ox.ac.uk/coot/devel/greg-data.tar.gz  )"
 
 SLOT="0"
@@ -46,7 +43,6 @@ XDEPS="
 
 SCHEMEDEPS="
 	dev-scheme/net-http
-	dev-scheme/goosh
 	dev-scheme/guile-gui
 	>=dev-scheme/guile-lib-0.1.6
 	dev-scheme/guile-www
@@ -57,7 +53,8 @@ RDEPEND="
 	${XDEPS}
 	${SCHEMEDEPS}
 	dev-python/pygtk
-	>=dev-libs/gmp-4.2.2-r2"
+	>=dev-libs/gmp-4.2.2-r2
+	>=net-misc/curl-7.19.6"
 DEPEND="${RDEPEND}
 	dev-lang/swig
 	test? ( dev-scheme/greg )"
@@ -66,8 +63,6 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MY_S2_P}"
 
 PATCHES=(
-	"${FILESDIR}"/${PV}-as-needed.patch
-	"${FILESDIR}"/${PV}-test-rama.patch
 	"${FILESDIR}"/link-against-guile-gtk-properly.patch
 	"${FILESDIR}"/fix-namespace-error.patch
 	)
@@ -80,12 +75,6 @@ src_prepare() {
 		-e "s:lfftw:lsfftw:g" \
 		-e "s:lrfftw:lsrfftw:g" \
 		"${S}"/macros/clipper.m4
-
-	# Fix where it looks for some binaries
-	sed -i \
-		-e "s:/y/people/emsley/coot/Linux/bin/probe.2.11.050121.linux.RH9:/usr/bin/probe:g" \
-		-e "s:/y/people/emsley/coot/Linux/bin/reduce.2.21.030604:/usr/bin/reduce:g" \
-		"${S}"/scheme/group-settings.scm
 
 	# So we don't need to depend on crazy old gtk and friends
 	cp "${FILESDIR}"/*.m4 "${S}"/macros/
@@ -111,26 +100,13 @@ src_configure() {
 }
 
 src_compile() {
-	# Regenerate wrappers, otherwise at least gtk-2 build fails
-	pushd src
-	rm -f coot_wrap_python.cc coot_wrap_python_pre.cc \
-		&& emake coot_wrap_python.cc \
-		|| die "failed to regenerate python wrapper"
-
-	rm -f coot_wrap_guile.cc coot_wrap_guile_pre.cc \
-		&& emake coot_wrap_guile.cc \
-		||die "failed to regenerate guile wrapper"
-	popd
-
 	emake || die "emake failed"
 
-	cp "${S}"/src/coot.py python/
+	cp "${S}"/src/coot_gtk2.py python/coot.py || die
 }
 
 src_test() {
 #	emake check || die
-
-	ln -sf ../data "${S}"/data
 
 	mkdir "${T}"/coot_test
 
@@ -144,7 +120,7 @@ src_test() {
 	export PYTHONHOME=/usr
 	export CCP4_SCR="${T}"/coot_test
 
-	export TESTROOT="${S}"
+	export COOT_TEST_DATA_DIR="${WORKDIR}"/data/greg-data
 
 	cat > command-line-greg.scm <<- EOF
 	(use-modules (ice-9 greg))
@@ -156,11 +132,6 @@ src_test() {
 				(coot-real-exit 0)
 				(coot-real-exit 1)))
 	EOF
-
-	sed \
-		-e "s:HOME:TESTROOT:g" \
-		-i greg-tests/begin.grg \
-		|| die
 
 	einfo "Running test with following paths ..."
 	einfo "COOT_STANDARD_RESIDUES $COOT_STANDARD_RESIDUES"
