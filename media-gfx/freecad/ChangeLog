@@ -1,9 +1,0 @@
-# ChangeLog for media-gfx/freecad
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*freecad-0.9.2646 (04 Dec 2009)
-
-  04 Dec 2009; root +freecad-0.9.2646.ebuild, +metadata.xml:
-  Initial import of freecad
-
