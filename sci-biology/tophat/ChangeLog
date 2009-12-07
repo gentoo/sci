@@ -1,7 +1,0 @@
-# ChangeLog for sci-biology/tophat
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  16 Sep 2009; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
-  New package, thanks to Philippe Veber for the ebuild
-
