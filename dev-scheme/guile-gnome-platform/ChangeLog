@@ -7,7 +7,7 @@
   07 Dec 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +files/2.16.1-guile-gnome-platform_conflicting_types.patch,
   +guile-gnome-platform-2.16.1-r1.ebuild, +metadata.xml:
-  Patch for compilation with x11-libs/gtk+-2.18.3, thanks Andreas K. Huettel
+  Patch for compilation with x11-libs/gtk+-2.18.3, thanks  Rafael G. Martins
   for bringing the patch
 
   17 Jul 2009; Marijn Schouten <hkBst@gentoo.org>
