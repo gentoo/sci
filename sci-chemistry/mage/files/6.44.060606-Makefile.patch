@@ -1,0 +1,29 @@
+diff --git a/Makefile b/Makefile
+index 62a2033..1722ba5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -11,7 +11,7 @@
+ #  and static compile fails for RH 7.2 and 7.3
+ #
+ ifeq ($(MAKECMDGOALS),dynamic)
+-CFLAGS = -I/usr/X11R6/include    #for RH7.3
++CFLAGS += -I/usr/X11R6/include    #for RH7.3
+ # CFLAGS = -I/usr/X11R6/LessTif/Motif1.2/include/ #for RH7.1
+ else  #for RH8.0
+ CFLAGS = -D_STATIC_
+@@ -80,13 +80,13 @@ static: $(OBJS) dlstubs.o
+ 	$(CC) -static -o mage $(OBJS) dlstubs.o $(LIBS) $(FIN)
+ 
+ dynamic: $(OBJS)
+-	$(CC) -o mage $(OBJS) -L/usr/X11R6/lib $(LIBS) -ldl $(FIN)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o mage $(OBJS) -L/usr/X11R6/lib $(LIBS) -ldl $(FIN)
+ #	$(CC) -o mage $(OBJS) -L/usr/X11R6/LessTif/Motif1.2/lib $(LIBS) -ldl $(FIN)
+ # where RH7.1 needed explicit LessTif and could compile static
+ # RH7.3 fails static in all tried cases, but has Xm libraries implicit
+ 
+ debug: $(OBJS)
+-	$(CC) -o mage $(OBJS) -L/usr/X11R6/lib $(LIBS) -ldl $(FIN)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o mage $(OBJS) -L/usr/X11R6/lib $(LIBS) -ldl $(FIN)
+ 
+ debugs: $(OBJS) dlstubs.o
+ 	$(CC) -static -o mage $(OBJS) dlstubs.o $(LIBS) $(FIN)

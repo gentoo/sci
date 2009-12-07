@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pointless-1.4.5 (24 Nov 2009)
+
+  24 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +pointless-1.4.5.ebuild:
+  version bump
+
 *pointless-1.4.2 (19 Oct 2009)
 
   19 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>

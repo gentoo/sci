@@ -15,6 +15,8 @@ KEYWORDS="~x86 ~amd64"
 DEPEND="dev-libs/gmp[-nocxx]
 		sci-libs/cddlib"
 
+IUSE=""
+
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/gfan0.4plus/"

@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -23,6 +23,7 @@ dev-perl/XML-LibXSLT
 dev-perl/XML-Writer
 dev-perl/Term-ReadLine-Gnu
 virtual/jdk"
+RDEPEND="${DEPEND}"
 
 src_compile(){
 	# Fixing makefile
@@ -39,13 +40,13 @@ src_compile(){
 	OFLAG=`get-flag -O`
 
 	# Now inject our answers
-	cd ${S}/build.`uname -i`
+	cd "${S}/build.`uname -i`"
 	sed -i 's,InstallTop=.*$,InstallTop=/usr/share/polymake,' conf.make
 	sed -i 's,InstallArch=.*$,InstallArch=/usr/lib/polymake,' conf.make
 	sed -i 's,InstallBin=.*$,InstallBin=/usr/bin,' conf.make
 	sed -i 's,InstallDoc=.*$,InstallDoc=/usr/share/doc/${PF},' conf.make
 	sed -i "s,CXXOPT=.*$,CXXOPT=${OFLAG}," conf.make
-	cd ${S}
+	cd "${S}"
 	# The makefile respects CXXFLAGS and friends from the environment
 
 	einfo "During compile this package uses up to"

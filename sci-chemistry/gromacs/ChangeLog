@@ -2,6 +2,14 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Nov 2009; Christoph Junghans <kleiner_otti@gmx.de>
+  files/gromacs-4.0.5-docdir.patch:
+  docdir -> htmldir
+
+  30 Nov 2009; Christoph Junghans <kleiner_otti@gmx.de>
+  gromacs-4.0.5-r1.ebuild, +files/gromacs-4.0.5-docdir.patch:
+  htmldoc was installed in the wrong path
+
   22 Nov 2009; Christoph Junghans <kleiner_otti@gmx.de>
   gromacs-4.0.5-r1.ebuild:
   build mpi and non-mpi libs, enable gsl by default

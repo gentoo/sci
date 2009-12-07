@@ -6,6 +6,11 @@
 		<email>jsbronder@gentoo.org</email>
 		<name>Justin Bronder</name>
 	</maintainer>
+	<maintainer>
+		<email>balaji@mcs.anl.gov</email>
+		<name>Pavan Balaji</name>
+		<description>Upstream Contact</description>
+	</maintainer>
 	<use>
 		<flag name='mpi-threads'>Enable MPI_THREAD_MULTIPLE</flag>
 		<flag name='pvfs2'>Build pvfs2 filesystem support into ROMIO</flag>

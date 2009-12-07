@@ -36,7 +36,7 @@ src_prepare(){
 	epatch "${FILESDIR}/${P}-varinfo_export.patch"
 	epatch "${FILESDIR}/${P}-why_link.patch"
 	epatch "${FILESDIR}/${P}-ocamlgraph_link.patch"
-	epatch "${FILESDIR}/${P}-init_locals_defined.patch"
+	epatch "${FILESDIR}/${P}-always_init.patch"
 
 	eautoreconf
 }

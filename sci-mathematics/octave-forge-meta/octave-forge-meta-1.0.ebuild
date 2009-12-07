@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-mathematics/octave/octave-2.1.73-r1.ebuild,v 1.2 2006/11/03 15:44:39 markusle Exp $
 
@@ -50,5 +50,6 @@ RDEPEND="
 	sci-mathematics/octave-forge-struct
 	sci-mathematics/octave-forge-symbolic
 	sci-mathematics/octave-forge-time
+	sci-mathematics/octave-forge-video
 	!amd64? ( sci-mathematics/octave-forge-vrml )
 	sci-mathematics/octave-forge-zenity"

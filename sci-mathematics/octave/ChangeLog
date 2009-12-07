@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Nov 2009; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/octave-3.2.0_as_needed.patch,
+  +files/octave-3.2.0_parallel_make.patch:
+  Added patches
+
 *octave-3.2.3-r1 (24 Nov 2009)
 
   24 Nov 2009; Sébastien Fabbro <bicatali@gentoo.org>

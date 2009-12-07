@@ -40,6 +40,7 @@ src_prepare() {
 
 	epatch "${FILESDIR}/${PN}-4.0.4-sparc-cyclecounter.patch"
 	epatch "${FILESDIR}/${P}-path-overflow.patch"
+	epatch "${FILESDIR}/${P}-docdir.patch"
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
 		|| die "Failed to fixup demo script."
@@ -158,8 +159,8 @@ src_configure() {
 	if use mpi ; then
 		elog "You have enabled mpi, only mdrun will make use of mpi, that is why"
 		elog "we configure/compile gromacs twice (with and without mpi) and only"
-		elog "install mdrun with mpi support. In addtion you will get libgmx,"
-		elog "libgmxana and libmd with and without mpi support."
+		elog "install mdrun with mpi support. In addtion you will get libgmx and"
+		elog "libmd with and without mpi support."
 	fi
 
 	myconfdouble="${myconf} --enable-double --program-suffix='${suffixdouble}'"
