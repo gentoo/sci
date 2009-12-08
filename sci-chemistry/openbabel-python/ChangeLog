@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Dec 2009; Reinis Danne <rei4dan@gmail.com>
+  openbabel-python-2.2.2.ebuild:
+  Add blocker on openbabel[python], #288199
+
 *openbabel-python-2.2.2 (19 Jul 2009)
 
   19 Jul 2009; Reinis Danne <rei4dan@gmail.com>
