@@ -51,7 +51,8 @@ src_compile() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" \
+	emake -j1 \
+		DESTDIR="${D}" \
 		guilegnomedir=/usr/share/guile/site \
 		guilegnomelibdir=/usr/$(get_libdir) \
 		install || die "emake install failed."
