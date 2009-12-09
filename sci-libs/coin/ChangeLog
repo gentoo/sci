@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/coin
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*coin-3.1.2 (08 Dec 2009)
+
+  08 Dec 2009; <roelof@gentoo.org> +coin-3.1.2.ebuild, +metadata.xml:
+  Version bump of Coin to 3.1.2
+

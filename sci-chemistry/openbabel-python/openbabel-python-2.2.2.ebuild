@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 inherit eutils
 
 DESCRIPTION="Python bindings for OpenBabel (including Pybel)"
@@ -19,6 +21,7 @@ RDEPEND="~sci-chemistry/openbabel-${PV}
 	sci-libs/oasa"
 
 DEPEND="${RDEPEND}
+	!~sci-chemistry/openbabel-${PV}[python]
 	swig? ( >=dev-lang/swig-1.3.39 )"
 
 S="${WORKDIR}/openbabel-${PV}"
