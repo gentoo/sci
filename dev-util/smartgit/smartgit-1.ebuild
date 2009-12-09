@@ -17,7 +17,7 @@ RESTRICT="fetch"
 
 RDEPEND=">=virtual/jre-1.4.1"
 
-S="${WORKDIR}"/smartgit-1-M6/
+S="${WORKDIR}"/smartgit-1-M6
 
 pkg_nofetch(){
 	einfo "Please download ${MY_P}.tar.gz from:"
