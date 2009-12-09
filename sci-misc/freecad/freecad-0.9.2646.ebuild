@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/free-cad/${MY_P}-2.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="dev-lang/python
