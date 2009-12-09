@@ -95,7 +95,7 @@ src_configure() {
 		$(use_enable heterogeneous) \
 		$(use_with pbs tm) \
 		$(use_enable ipv6) \
-		$(use_with infiniband openib) 
+		$(use_with infiniband openib)
 }
 
 src_install () {
@@ -109,4 +109,3 @@ src_test() {
 	cd "${S}"
 	emake -j1 check || die "emake check failed"
 }
-
