@@ -6,7 +6,7 @@ EAPI="2"
 
 inherit eutils
 
-MY_P=Coin"-${PV}"
+MY_P=${P/c/C}
 S="${WORKDIR}/${MY_P}"
 
 DESCRIPTION="A high-level 3D graphics toolkit, fully compatible with SGI Open Inventor 2.1"
