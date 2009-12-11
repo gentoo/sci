@@ -67,9 +67,11 @@ src_unpack() {
 	# simplemake instead of automake, so we're doing this for now
 	# and hoping for a receptive upstream.
 
-	# 0001 and 0003 are in upstream repos.  0003 has been submitted.
+	# Upstream trunk, r5843
 	epatch "${FILESDIR}"/0001-MPD_CONF_FILE-should-be-readable.patch
+	# Upstream trunk, r5844
 	epatch "${FILESDIR}"/0002-mpd_conf_file-search-order.patch
+	# Upstream trunk, r5845
 	epatch "${FILESDIR}"/0003-Fix-pkgconfig-for-mpich2-ch3-v1.2.1.patch
 
 	# We need f90 to include the directory with mods, and to

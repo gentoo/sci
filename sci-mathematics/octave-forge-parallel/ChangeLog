@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Dec 2009; Markus Dittrich <markusle@gentoo.org>
+  octave-forge-parallel-2.0.0.ebuild,
+  +files/octave-forge-parallel-2.0.0-extern.patch:
+  Added patch to fix incorrectly declared variable (#293905).
+
 *octave-forge-parallel-2.0.0 (04 Oct 2009)
 
   04 Oct 2009; Markus Dittrich <markusle@gentoo.org>

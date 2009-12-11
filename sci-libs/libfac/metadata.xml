@@ -7,6 +7,6 @@
 <name>Thomas Kahle</name>
 </maintainer>
 <longdescription lang="en">
-libfac is an extension of Singular-factory
+libfac is an extension of Singular-factory to finite fields
 </longdescription>
 </pkgmetadata>

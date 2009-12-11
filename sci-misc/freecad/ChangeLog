@@ -1,0 +1,19 @@
+# ChangeLog for sci-misc/freecad
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+ 05 Dec 2009; <r.wobben@hotmail.com> +freecad-0.9.2646.ebuild, 
++metadata.xml:
+  Change builder from root to Roelof Wobben
+
+  09 Dec 2009; <roelof@gentoo.org> freecad-0.9.2646.ebuild:
+  Added ~x86. Thanks to Derk W. te Bokkel
+
+  09 Dec 2009; <roelof@gentoo.org> freecad-0.9.2646.ebuild:
+  Added ~x86 thanks to Derk W te Bokkel
+
+*freecad-0.9.2646 (04 Dec 2009)
+
+  04 Dec 2009; root +freecad-0.9.2646.ebuild, +metadata.xml:
+  Initial import of freecad
+

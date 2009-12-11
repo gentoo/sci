@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils
+inherit eutils multilib
 
 DESCRIPTION="An automated scheme for Molecular Replacement"
 HOMEPAGE="http://www.ccp4.ac.uk/MrBUMP"
@@ -31,11 +31,14 @@ src_unpack(){
 	unpack ${A}
 	cd "${S}"
 	unpack ./"${PN}".tar.gz
+}
+
+src_prepare() {
 	epatch "${FILESDIR}"/${PV}-superpose.patch
 }
 
 src_install(){
-	insinto "${CCP4I_TOP}"
+	insinto /usr/$(get_libdir)/ccp4/ccp4i
 	doins -r ccp4i/{MrBUMP-ccp4i.tar.gz,MrBUMP/{help,scripts,tasks,templates}} || \
 	die "failed to install interface"
 

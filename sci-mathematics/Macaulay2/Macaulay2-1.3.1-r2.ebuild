@@ -26,8 +26,8 @@ DEPEND="sys-libs/gdbm
 	>=sci-mathematics/pari-2.3.4[gmp]
 	>=sys-libs/readline-6.0
 	dev-libs/libxml2
-	>=sci-libs/factory-3.1.0
-	>=sci-libs/libfac-3.1.0
+	>=sci-libs/factory-3.1.0[-singular]
+	>=sci-libs/libfac-3.1.0[-singular]
 	sci-mathematics/frobby
 	sci-mathematics/4ti2
 	sci-mathematics/normaliz
@@ -48,8 +48,7 @@ SITEFILE=70Macaulay2-gentoo.el
 
 S="${WORKDIR}/Macaulay2-1.3.1-r9872"
 
-src_unpack() {
-	unpack "${A}"
+src_prepare() {
 	# Patching .m2 files to look for external programs in
 	# /usr/bin
 	cd "${S}"

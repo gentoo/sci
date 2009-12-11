@@ -2,7 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit autotools base
+EAPI="2"
+
+inherit base
 
 DESCRIPTION="Visualize multidimensional nuclear magnetic resonance (NMR) spectra"
 HOMEPAGE="http://burrow-owl.sourceforge.net/"
@@ -14,10 +16,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
-RDEPEND="=x11-libs/gtk+-2*
+RDEPEND="
 	dev-scheme/guile-gnome-platform
 	>=dev-scheme/guile-cairo-1.4
-	sci-libs/starparse"
+	>=sci-libs/starparse-1.0
+	x11-libs/gtk+:2"
 DEPEND="${RDEPEND}
 	dev-util/indent
 	dev-util/pkgconfig"
@@ -27,7 +30,7 @@ PATCHES=(
 	)
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
+	base_src_install
 	if use examples; then
 		pushd "${WORKDIR}"/burrow-demos
 		docinto demonstration

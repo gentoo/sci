@@ -55,8 +55,6 @@ src_unpack() {
 	# Patching .m2 files to look for external programs in
 	# /usr/bin
 	cd "${S}"
-	epatch "${FILESDIR}/paths-of-dependencies.patch"
-
 	mkdir "${S}/BUILD/tarfiles"
 	# Put sourcfile in the right location:
 	cp "${DISTDIR}/frobby_v0.8.2.tar.gz" "${S}/BUILD/tarfiles/" \
@@ -65,10 +63,14 @@ src_unpack() {
 		|| die "copy failed"
 	cp "${DISTDIR}/libfac-3-1-0.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
+}
 
+src_prepare() {
 	# Remove the external programs from built list,
 	# configure does not check for them
 	cd "${S}"
+	epatch "${FILESDIR}/paths-of-dependencies.patch"
+
 	sed "s/4ti2 gfan normaliz//" -i configure.ac
 	eautoreconf
 

@@ -167,7 +167,7 @@ src_install () {
 		cd ..
 	fi
 
-	dodoc BUGS ChangeLog FAQ NEWS PATCHLEVEL PGPKEYS PORTING README* \
+	dodoc BUGS ChangeLog NEWS PATCHLEVEL PGPKEYS PORTING README* \
 		TODO VERSION
 	use lua && newdoc term/lua/README README-lua
 

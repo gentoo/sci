@@ -2,6 +2,10 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Nov 2009; Christoph Junghans <kleiner_otti@gmx.de>
+  gnuplot-4.5.9999.ebuild, files/gnuplot-4.5.9999-gentoo-version.patch:
+  updated gentoo-version patch (bug #294467
+
 *gnuplot-4.5.9999 (02 Nov 2009)
 
   02 Nov 2009; Christoph Junghans <kleiner_otti@gmx.de>

@@ -13,7 +13,7 @@ HOMEPAGE="http://burrow-owl.sourceforge.net/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="guile"
 
 RDEPEND="guile? ( dev-scheme/guile )"
