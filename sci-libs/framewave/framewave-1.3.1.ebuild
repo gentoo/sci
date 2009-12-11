@@ -12,8 +12,11 @@ SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
+
+RDEPEND=""
+DEPEND="dev-util/scons"
 
 S="${WORKDIR}/${MY_P}"
 
