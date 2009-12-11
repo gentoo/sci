@@ -14,4 +14,5 @@ IUSE=""
 KEYWORDS="~amd64 ~x86"
 
 PATCHES=("octave-forge-parallel-2.0.0-octave-3.2.patch"
-		"octave-forge-parallel-2.0.0-description.patch")
+		"octave-forge-parallel-2.0.0-description.patch"
+		"octave-forge-parallel-2.0.0-extern.patch")
