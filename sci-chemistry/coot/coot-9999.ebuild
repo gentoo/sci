@@ -52,7 +52,8 @@ RDEPEND="
 	${SCHEMEDEPS}
 	dev-python/pygtk
 	>=dev-libs/gmp-4.2.2-r2
-	>=net-misc/curl-7.19.6"
+	>=net-misc/curl-7.19.6
+	net-dns/libidn"
 DEPEND="${RDEPEND}
 	dev-lang/swig
 	test? ( dev-scheme/greg )"
@@ -77,10 +78,10 @@ src_prepare() {
 	sed -i \
 		-e "s:lfftw:lsfftw:g" \
 		-e "s:lrfftw:lsrfftw:g" \
-		"${S}"/macros/clipper.m4
+		"${S}"/macros/clipper.m4 || die
 
 	# So we don't need to depend on crazy old gtk and friends
-	cp "${FILESDIR}"/*.m4 "${S}"/macros/
+	cp "${FILESDIR}"/{glib,gtk}.m4 "${S}"/macros/
 
 	cat >> src/svn-revision.cc <<- EOF
 	extern "C" {
