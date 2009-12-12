@@ -1,9 +1,0 @@
-# ChangeLog for sci-libs/soqt
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*soqt-1.4.2_alpha4181 (11 Dec 2009)
-
-  11 Dec 2009; <roelof@gentoo.org> +soqt-1.4.2_alpha4181.ebuild:
-  Version bump to version 4.1.2 revision 4181
-
