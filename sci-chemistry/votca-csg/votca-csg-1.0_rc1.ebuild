@@ -6,7 +6,7 @@ EAPI="2"
 
 inherit autotools bash-completion
 
-DESCRIPTION="Votca tools library"
+DESCRIPTION="Votca coarse-graining engine"
 HOMEPAGE="http://www.votca.org"
 SRC_URI="http://www.votca.org/downloads/votca-csg-1.0_rc1.tar.gz"
 
@@ -20,9 +20,11 @@ DEPEND="sci-libs/fftw:3.0
 	sci-libs/gsl
 	>=dev-libs/boost-1.33.1
 	sci-libs/votca-tools
-	>=sci-chemistry/gromacs-4.0.5-r1"
+	>=sci-chemistry/gromacs-4.0.5-r1
+	dev-lang/perl
+	app-shells/bash"
 
-RDEPEND=">=sci-chemistry/gromacs-4.0.5-r1"
+RDEPEND="${DEPEND}"
 
 pkg_setup() {
 	export CPPFLAGS="${CPPFLAGS} -I/usr/include/gromacs"
