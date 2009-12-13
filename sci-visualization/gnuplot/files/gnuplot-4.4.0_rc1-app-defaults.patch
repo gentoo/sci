@@ -1,0 +1,55 @@
+http://bugs.gentoo.org/219323
+Don't store resource files in deprecated location
+Reported upstream: http://sourceforge.net/tracker/index.php?func=detail&aid=1953742&group_id=2055&atid=102055
+
+diff -Naur gnuplot-4.4.0-rc1.orig/configure.in gnuplot-4.4.0-rc1/configure.in
+--- gnuplot-4.4.0-rc1.orig/configure.in	2009-12-13 14:16:41.000000000 +0100
++++ gnuplot-4.4.0-rc1/configure.in	2009-12-13 14:17:36.000000000 +0100
+@@ -1024,6 +1024,10 @@
+ fi
+ AC_SUBST(LISPDIR)
+ 
++dnl Location of application defaults
++AC_ARG_VAR(appdefaultdir,[Directory for application defaults])
++test -z "$appdefaultdir" && appdefaultdir='${sysconfdir}/X11/app-defaults'
++
+ dnl Substitute variables
+ AC_SUBST(PACKAGE)
+ AC_SUBST(VERSION_MAJOR)
+diff -Naur gnuplot-4.4.0-rc1.orig/share/Makefile.am gnuplot-4.4.0-rc1/share/Makefile.am
+--- gnuplot-4.4.0-rc1.orig/share/Makefile.am	2009-12-13 14:16:41.000000000 +0100
++++ gnuplot-4.4.0-rc1/share/Makefile.am	2009-12-13 14:17:36.000000000 +0100
+@@ -5,8 +5,6 @@
+ 
+ SUBDIRS = LaTeX
+ 
+-appdefaultdir = $(libdir)/X11/app-defaults
+-
+ APPDEFAULTFILES = Gnuplot
+ 
+ appdefault_DATA = $(APPDEFAULTFILES)
+diff -Naur gnuplot-4.4.0-rc1.orig/src/Makefile.am gnuplot-4.4.0-rc1/src/Makefile.am
+--- gnuplot-4.4.0-rc1.orig/src/Makefile.am	2009-12-13 14:16:41.000000000 +0100
++++ gnuplot-4.4.0-rc1/src/Makefile.am	2009-12-13 14:20:42.000000000 +0100
+@@ -31,7 +31,7 @@
+ transform = @program_transform_name@
+ GNUPLOT_X11 = `echo gnuplot_x11 | sed '$(transform)'`$(EXEEXT)
+ 
+-AM_CPPFLAGS = -I../term -I$(top_srcdir)/term -DBINDIR=\"$(bindir)\" -DX11_DRIVER_DIR=\"$(X11_DRIVER_DIR)\" -DGNUPLOT_PS_DIR=\"$(GNUPLOT_PS_DIR)\" -DGNUPLOT_JS_DIR=\"$(GNUPLOT_JS_DIR)\"  -DCONTACT=\"$(EMAIL)\" -DHELPFILE=\"$(HELPFILE)\" -DGNUPLOT_X11=\"$(GNUPLOT_X11)\"
++AM_CPPFLAGS = -I../term -I$(top_srcdir)/term -DBINDIR=\"$(bindir)\" -DX11_DRIVER_DIR=\"$(X11_DRIVER_DIR)\" -DGNUPLOT_PS_DIR=\"$(GNUPLOT_PS_DIR)\" -DGNUPLOT_JS_DIR=\"$(GNUPLOT_JS_DIR)\"  -DCONTACT=\"$(EMAIL)\" -DHELPFILE=\"$(HELPFILE)\" -DGNUPLOT_X11=\"$(GNUPLOT_X11)\" -DAppDefDir=\"$(appdefaultdir)\"
+ 
+ gnuplot_SOURCES = alloc.c alloc.h ansichek.h axis.c axis.h binary.c \
+ breaders.c breaders.h bitmap.c bitmap.h color.c color.h command.c \
+diff -Naur gnuplot-4.4.0-rc1.orig/src/gplt_x11.c gnuplot-4.4.0-rc1/src/gplt_x11.c
+--- gnuplot-4.4.0-rc1.orig/src/gplt_x11.c	2009-12-13 14:16:41.000000000 +0100
++++ gnuplot-4.4.0-rc1/src/gplt_x11.c	2009-12-13 14:17:36.000000000 +0100
+@@ -4852,7 +4852,9 @@
+ */
+ #define On(v) ( !strncasecmp(v, "on", 2) || !strncasecmp(v, "true", 4) )
+ 
++#ifndef AppDefDir
+ #define AppDefDir "/usr/lib/X11/app-defaults"
++#endif
+ #ifndef MAXHOSTNAMELEN
+ #define MAXHOSTNAMELEN 64
+ #endif
