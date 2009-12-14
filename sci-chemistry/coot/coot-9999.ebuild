@@ -62,8 +62,6 @@ S="${WORKDIR}"
 
 PATCHES=(
 	"${FILESDIR}"/${PV}-rappermc.patch
-	"${FILESDIR}"/link-against-guile-gtk-properly.patch
-	"${FILESDIR}"/fix-namespace-error.patch
 	)
 
 src_unpack() {
@@ -79,9 +77,6 @@ src_prepare() {
 		-e "s:lfftw:lsfftw:g" \
 		-e "s:lrfftw:lsrfftw:g" \
 		"${S}"/macros/clipper.m4 || die
-
-	# So we don't need to depend on crazy old gtk and friends
-	cp "${FILESDIR}"/{glib,gtk}.m4 "${S}"/macros/
 
 	cat >> src/svn-revision.cc <<- EOF
 	extern "C" {
@@ -113,25 +108,12 @@ src_configure() {
 }
 
 src_compile() {
-#	# Regenerate wrappers, otherwise at least gtk-2 build fails
-#	pushd src
-#	rm -f coot_wrap_python.cc coot_wrap_python_pre.cc \
-#		&& emake coot_wrap_python.cc \
-#		|| die "failed to regenerate python wrapper"
-#
-#	rm -f coot_wrap_guile.cc coot_wrap_guile_pre.cc \
-#		&& emake coot_wrap_guile.cc \
-#		||die "failed to regenerate guile wrapper"
-#	popd
-#
 	emake || die "emake failed"
 
 	cp "${S}"/src/coot.py python/ || die
 }
 
 src_test() {
-#	emake check || die
-
 	mkdir "${T}"/coot_test
 
 	export COOT_STANDARD_RESIDUES="${S}/standard-residues.pdb"
