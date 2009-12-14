@@ -1,8 +1,8 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-mathematics/octave/octave-2.1.73-r1.ebuild,v 1.2 2006/11/03 15:44:39 markusle Exp $
+# $Header: $
 
-DESCRIPTION="Octave forge meta package to pull in all separate octave-forge packages."
+DESCRIPTION="Octave forge meta package to pull in all separate octave-forge packages"
 LICENSE="GPL-2"
 HOMEPAGE="http://octave.sourceforge.net"
 SLOT="0"
@@ -11,6 +11,7 @@ IUSE=""
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
+	|| ( <sci-mathematics/octave-3.2 sci-mathematics/octave-forge-quaternion )
 	sci-mathematics/octave-forge-audio
 	sci-mathematics/octave-forge-bioinfo
 	sci-mathematics/octave-forge-combinatorics
