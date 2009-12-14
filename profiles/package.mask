@@ -30,6 +30,11 @@
 
 #--- END OF EXAMPLES ---
 
+# Oliver Borm (boroli) (14 Dec 09)
+# oli.borm@web.de
+# mask as this ebuild is experimental
+>=sci-visualization/paraview-3.6.1-r2
+
 # Justin Lecher (jlec) (1 Aug 09)
 # jlec@j-schmitz.net
 # mask live ebuild
