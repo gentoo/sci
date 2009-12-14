@@ -8,7 +8,8 @@ inherit autotools bash-completion
 
 DESCRIPTION="Votca coarse-graining engine"
 HOMEPAGE="http://www.votca.org"
-SRC_URI="http://www.votca.org/downloads/votca-csg-1.0_rc1.tar.gz"
+SRC_URI="http://votca.googlecode.com/files/votca-csg-1.0_rc1.tar.gz
+	http://www.votca.org/downloads/votca-csg-1.0_rc1.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
