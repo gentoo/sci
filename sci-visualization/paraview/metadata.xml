@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>sci</herd>
+	<maintainer>
+		<email>markusle@gentoo.org</email>
+		<name>Markus Dittrich</name>
+	</maintainer>
+	<use>
+		<flag name='plugins'>Build and install additional plugins</flag>
+		<flag name='cg'>Use nvidia's cg shaders in the shipped vtk</flag>
+		<flag name='gl2ps'>Enable the usage of x11-libs/gl2ps in the shipped vtk</flag>
+		<flag name='streaming'>Build and install the StreamingParaView application and its associated plugin</flag>
+		<flag name='overview'>Build and install the experimental OverView application and its complusory plugins</flag>
+	</use>
+</pkgmetadata>
