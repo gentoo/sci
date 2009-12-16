@@ -8,8 +8,8 @@ inherit autotools
 
 DESCRIPTION="Votca tools library"
 HOMEPAGE="http://www.votca.org"
-SRC_URI="http://votca.googlecode.com/files/votca-tools-1.0_rc1.tar.gz
-	http://www.votca.org/downloads/votca-tools-1.0_rc1.tar.gz"
+SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz
+	http://www.votca.org/downloads/${PF}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -21,7 +21,7 @@ DEPEND="sci-libs/fftw:3.0
 	sci-libs/gsl
 	>=dev-libs/boost-1.33.1"
 
-RDEPEND=""
+RDEPEND="${DEPEND}"
 
 src_prepare() {
 	eautoreconf || die "eautoreconf failed"
@@ -37,5 +37,5 @@ src_compile() {
 
 src_install() {
 	emake install DESTDIR="${D}" || die "emake install failed"
-	#dodoc NOTICE
+	dodoc NOTICE
 }
