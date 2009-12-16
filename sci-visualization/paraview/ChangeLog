@@ -2,6 +2,13 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-visualization/paraview/ChangeLog,v 1.43 2009/11/24 04:05:41 markusle Exp $
 
+  16 Dec 2009; François Bissey <f.r.bissey@massey.ac.nz>
+  paraview-3.6.1-r2.ebuild, +files/paraview-3.6.1-VTK-cg-path.patch,
+  metadata.xml:
+  Added a patch for nvidia-cg-toolkit detection, cmake-utils eclass use
+  update, flag sorting improvement and cleaning, OverView install 
+  tweaks.
+
 *paraview-3.6.1-r2 (14 Dec 2009)
 
   14 Dec 2009; François Bissey <f.r.bissey@massey.ac.nz>
