@@ -22,13 +22,13 @@ RDEPEND="dev-lang/python
 	x11-libs/qt-gui:4
 	x11-libs/qt-svg:4
 	x11-libs/qt-webkit:4
-	media-libs/coin
+	=media-libs/coin-3.1.2
 	sci-libs/gts
 	sys-libs/zlib
 	dev-libs/boost
 	dev-python/PyQt4
 	dev-libs/xerces-c
-	media-libs/SoQt[qt4]"
+	=media-libs/SoQt-1.4.2_alpha4181"
 
 DEPEND="${RDEPEND}
 	dev-lang/swig"
@@ -45,3 +45,4 @@ src_install () {
 	emake  DESTDIR="${D}" install || die "install failed"
 	dodoc README.Linux ChangeLog.txt
 }
+
