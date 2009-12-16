@@ -8,8 +8,8 @@ inherit autotools bash-completion
 
 DESCRIPTION="Votca coarse-graining engine"
 HOMEPAGE="http://www.votca.org"
-SRC_URI="http://votca.googlecode.com/files/votca-csg-1.0_rc1.tar.gz
-	http://www.votca.org/downloads/votca-csg-1.0_rc1.tar.gz"
+SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz
+	http://www.votca.org/downloads/${PF}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -45,7 +45,7 @@ src_compile() {
 
 src_install() {
 	emake install DESTDIR="${D}" || die "emake install failed"
-	dodoc README
+	dodoc README NOTICE
 
 	sed -n -e '/^CSG\(BIN\|SHARE\)/p' "${D}"/usr/bin/CSGRC.bash > "${T}/80votca-csg"
 	doenvd "${T}/80votca-csg"
