@@ -2,6 +2,11 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*polymake-2.9.7 (16 Dec 2009)
+
+  16 Dec 2009; Thomas Kahle <tom@gentoo.org> +polymake-2.9.7.ebuild:
+  sci-mathematics/polymake revbump
+
   26 Nov 2009; Thomas Kahle <tom111@gmx.de>
   QA fixes
 
