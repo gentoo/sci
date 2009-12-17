@@ -4,18 +4,26 @@
 
 EAPI=2
 
-inherit eutils
+inherit eutils versionator autotools
 
-DESCRIPTION="MPIR is an open source multiprecision integer library derived from version 4.2.1 of gmp"
+DESCRIPTION="MPIR is a library for arbitrary precision integer arithmetic derived from version 4.2.1 of gmp"
 HOMEPAGE="http://www.mpir.org/"
-SRC_URI="http://www.mpir.org/${P}.tar.gz"
+SRC_URI="http://www.mpir.org/${PN}-$(replace_version_separator 3 -).tar.gz"
+RESTRICT="mirror"
+S="${WORKDIR}/${PN}-$(get_version_component_range 1-3)"
+
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="nocxx"
-DEPEND=""
 
-RDEPEND="${DEPEND}"
+DEPEND="dev-lang/yasm"
+RDEPEND=""
+
+src_prepare(){
+	epatch "${FILESDIR}/${P}-yasm.patch"
+	eautoreconf
+}
 
 src_configure() {
 	unset ABI
@@ -26,4 +34,5 @@ src_configure() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
+	dodoc ChangeLog README NEWS
 }
