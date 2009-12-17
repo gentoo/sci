@@ -2,11 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit java-utils-2
+inherit java-utils-2 versionator
+
+MY_PV="$(replace_all_version_separators _)"
 
 DESCRIPTION="SmartGIT"
 HOMEPAGE="http://www.syntevo.com/smartgit"
-SRC_URI="${PN}-generic-1.tar.gz"
+SRC_URI="${PN}-generic-${MY_PV}.tar.gz"
 
 SLOT="0"
 LICENSE="smartgit"
@@ -17,7 +19,7 @@ RESTRICT="fetch"
 
 RDEPEND=">=virtual/jre-1.4.1"
 
-S="${WORKDIR}"/smartgit-1
+S="${WORKDIR}"/smartgit-${MY_PV}
 
 pkg_nofetch(){
 	einfo "Please download ${MY_P}.tar.gz from:"
