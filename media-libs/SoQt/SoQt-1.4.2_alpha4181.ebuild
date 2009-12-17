@@ -23,7 +23,6 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	doc? ( app-doc/doxygen )"
 
-
 src_configure() {
 	append-ldflags $(no-as-needed)
 	econf --with-coin --disable-html-help $(use_enable doc html) htmldir=/usr/share/doc/${PF}/html
@@ -33,4 +32,3 @@ src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 	dodoc AUTHORS NEWS README* || die "dodoc failed"
 }
-
