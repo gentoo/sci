@@ -5,7 +5,7 @@
 NEED_PYTHON=2.5
 PYTHON_MODNAME="${PN}"
 PYTHON_USE_WITH="ssl tk"
-#PATCHSET="091011"
+PATCHSET="091220"
 EAPI="2"
 
 inherit distutils portability python toolchain-funcs versionator
@@ -13,22 +13,21 @@ inherit distutils portability python toolchain-funcs versionator
 MY_PN="${PN}mr"
 
 DESCRIPTION="The Collaborative Computing Project for NMR"
-SRC_URI="
-	http://www.bio.cam.ac.uk/ccpn/download/${MY_PN}/analysis${PV}.tar.gz"
-#	http://dev.gentooexperimental.org/~jlec/distfiles/update-${PATCHSET}.patch.bz2"
+SRC_URI="http://www.bio.cam.ac.uk/ccpn/download/${MY_PN}/analysis${PV/p/}.tar.gz"
+[[ -n ${PATCHSET} ]] && SRC_URI="${SRC_URI}	http://dev.gentooexperimental.org/~jlec/distfiles/update-${PATCHSET}.patch.bz2"
 HOMEPAGE="http://www.ccpn.ac.uk/ccpn"
 
 SLOT="0"
 LICENSE="|| ( CCPN LGPL-2.1 )"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc +opengl"
+IUSE="+opengl"
 
 RDEPEND="
 	dev-lang/tk
 	dev-python/elementtree
 	dev-python/numpy
 	dev-tcltk/tix
-	virtual/glut"
+	opengl? ( virtual/glut )"
 DEPEND="${RDEPEND}"
 RESTRICT="mirror"
 
@@ -48,12 +47,7 @@ src_prepare() {
 	tk_ver="$(best_version dev-lang/tk | cut -d- -f3 | cut -d. -f1,2)"
 
 	if use opengl; then
-		if has_version media-libs/freeglut; then
-			GLUT_NEED_INIT="-DNEED_GLUT_INIT"
-		else
-			GLUT_NEED_INIT=""
-		fi
-
+		GLUT_NEED_INIT="-DNEED_GLUT_INIT"
 		IGNORE_GL_FLAG=""
 		GL_FLAG="-DUSE_GL_FALSE"
 		GL_DIR="/usr"
@@ -65,22 +59,23 @@ src_prepare() {
 		IGNORE_GL_FLAG="-DIGNORE_GL"
 		GL_FLAG="-DUSE_GL_FALSE"
 	fi
-		GLUT_NOT_IN_GL=""
-		GLUT_FLAG="\$(GLUT_NEED_INIT) \$(GLUT_NOT_IN_GL)"
+
+	GLUT_NOT_IN_GL=""
+	GLUT_FLAG="\$(GLUT_NEED_INIT) \$(GLUT_NOT_IN_GL)"
 
 	sed \
-		-e "s:^\(CC = \).*:\1$(tc-getCC):g" \
-		-e "s:^\(OPT_FLAG = \).*:\1${CFLAGS}:g" \
+		-e "s:^\(CC =\).*:\1 $(tc-getCC):g" \
+		-e "s:^\(OPT_FLAG =\).*:\1 ${CFLAGS}:g" \
 		-e "s:^\(LINK_FLAGS =.*\):\1 ${LDFLAGS}:g" \
-		-e "s:^\(IGNORE_GL_FLAG = \).*:\1${IGNORE_GL_FLAG}:g" \
-		-e "s:^\(GL_FLAG = \).*:\1${GL_FLAG}:g" \
-		-e "s:^\(GLUT_NEED_INIT = \).*:\1${GLUT_NEED_INIT}:g" \
-		-e "s:^\(GLUT_NOT_IN_GL = \).*:\1:g" \
-		-e "s:^\(X11_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
-		-e "s:^\(TCL_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
-		-e "s:^\(TK_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
-		-e "s:^\(PYTHON_INCLUDE_FLAGS = \).*:\1-I\$(PYTHON_DIR)/include/python${PYVER}:g" \
-		-e "s:^\(GL_LIB_FLAGS = \).*:\1-L/usr/$(get_libdir):g" \
+		-e "s:^\(IGNORE_GL_FLAG =\).*:\1 ${IGNORE_GL_FLAG}:g" \
+		-e "s:^\(GL_FLAG =\).*:\1 ${GL_FLAG}:g" \
+		-e "s:^\(GLUT_NEED_INIT =\).*:\1 ${GLUT_NEED_INIT}:g" \
+		-e "s:^\(GLUT_NOT_IN_GL =\).*:\1:g" \
+		-e "s:^\(X11_LIB_FLAGS =\).*:\1 -L/usr/$(get_libdir):g" \
+		-e "s:^\(TCL_LIB_FLAGS =\).*:\1 -L/usr/$(get_libdir):g" \
+		-e "s:^\(TK_LIB_FLAGS =\).*:\1 -L/usr/$(get_libdir):g" \
+		-e "s:^\(PYTHON_INCLUDE_FLAGS =\).*:\1 -I\$(PYTHON_DIR)/include/python${PYVER}:g" \
+		-e "s:^\(GL_LIB_FLAGS =\).*:\1 -L/usr/$(get_libdir):g" \
 		c/environment_default.txt > c/environment.txt
 }
 
@@ -112,12 +107,6 @@ src_install() {
 		dobin "${T}"/${wrapper} || die "Failed to install ${wrapper}"
 	done
 
-	use doc && treecopy $(find . -name doc) "${D}"usr/share/doc/${PF}/html/
-
-	ebegin "Removing unneeded docs"
-	find . -name doc -exec rm -rf '{}' \; 2> /dev/null
-	eend
-
 	for i in python/memops/format/compatibility/{Converters,part2/Converters2}.py; do
 		sed \
 			-e 's:#from __future__:from __future__:g' \
@@ -126,9 +115,14 @@ src_install() {
 
 	insinto ${in_path}
 
+	dodir ${in_path}/c
+
 	ebegin "Installing main files"
 	doins -r data model python || die "main files installation failed"
 	eend
+
+	dohtml -r doc/* || die
+	dosym ../../../../share/doc/${PF}/html ${in_path}/doc || die
 
 	einfo "Adjusting permissions"
 
