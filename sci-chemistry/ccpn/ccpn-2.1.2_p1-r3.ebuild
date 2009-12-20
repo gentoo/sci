@@ -119,6 +119,9 @@ src_install() {
 	doins -r data model python || die "main files installation failed"
 	eend
 
+	dohtml -r doc/* || die
+	dosym ../../../../share/doc/${PF}/html ${in_path}/doc || die
+
 	einfo "Adjusting permissions"
 
 	files="ccpnmr/c/ContourFile.so
