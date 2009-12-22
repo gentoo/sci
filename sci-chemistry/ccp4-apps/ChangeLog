@@ -2,6 +2,21 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccp4-apps-6.1.3 (22 Dec 2009)
+
+  22 Dec 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +files/6.1.3-clipper-mmdbold-ggc-4.3.patch,
+  +files/6.1.3-dont-build-double-and-make-bindir.patch,
+  +files/6.1.3-dont-build-imosflm.patch, +files/6.1.3-dont-build-libs.patch,
+  +files/6.1.3-dont-build-molref.patch, +files/6.1.3-dont-build-scala.patch,
+  +files/6.1.3-dont-build-xia.patch, +files/6.1.3-dont-configure.patch,
+  +files/6.1.3-dont-make-dirs-in-configure.patch,
+  +files/6.1.3-fix-setup-bash-incompatibility.patch,
+  +files/6.1.3-pisa.patch, +files/6.1.3-pythonpath.patch,
+  +files/6.1.3-rename-rapper.patch, +files/6.1.3-rename-truncate.patch,
+  +files/6.1.3-setup.patch, +ccp4-apps-6.1.3.ebuild:
+  Version bump
+
 *ccp4-apps-6.1.2-r8 (22 Nov 2009)
 
   22 Nov 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
