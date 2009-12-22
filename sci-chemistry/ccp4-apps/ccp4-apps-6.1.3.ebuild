@@ -166,7 +166,7 @@ src_prepare() {
 	echo
 
 	# Don't build refmac binaries available from the standalone version
-	sed -i -e "/^REFMACTARGETS/s:refmac5 libcheck makecif molrep::g" configure
+	sed -i -e "/^REFMACTARGETS/s:refmac5 libcheck makecif molrep sfcheck::g" configure
 
 	# Rapper bundles libxml2 and boehm-gc. Don't build, use or install those.
 	pushd src/rapper 2>/dev/null

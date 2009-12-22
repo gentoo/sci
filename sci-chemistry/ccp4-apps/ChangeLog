@@ -16,6 +16,7 @@
   +files/6.1.3-rename-rapper.patch, +files/6.1.3-rename-truncate.patch,
   +files/6.1.3-setup.patch, +ccp4-apps-6.1.3.ebuild:
   Version bump
+  don't build sfcheck and depend on it
 
 *ccp4-apps-6.1.2-r8 (22 Nov 2009)
 
