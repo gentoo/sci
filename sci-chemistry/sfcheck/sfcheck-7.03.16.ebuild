@@ -18,7 +18,7 @@ IUSE=""
 
 RDEPEND="sci-libs/ccp4-libs"
 DEPEND="${RDEPEND}
-	!<sci-chmistry/ccp4-apps-6.1.3"
+	!!<sci-chmistry/ccp4-apps-6.1.3"
 
 S="${WORKDIR}"/${PN}
 
