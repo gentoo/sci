@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*xds-bin-20091228 (28 Dec 2009)
+
+  28 Dec 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -xds-bin-20090327.ebuild, +xds-bin-20091228.ebuild:
+  Version bump
+
   10 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   xds-bin-20090130-r1.ebuild:
   don't compress input templates
