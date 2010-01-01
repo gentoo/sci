@@ -1,12 +1,16 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="2"
 
-inherit distutils #subversion
-
+SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 PYTHON_MODNAME="chempy pmg_tk pymol"
+PYTHON_USE_WITH="tk"
+
+inherit distutils
+
 APBS_PATCH="090618"
 REV="3859"
 
@@ -20,17 +24,19 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="apbs shaders"
 
-DEPEND="dev-python/pmw
-		dev-python/numpy
-		>=dev-lang/python-2.4[tk]
-		media-libs/libpng
-		sys-libs/zlib
-		virtual/glut
-		media-video/mpeg-tools
-		apbs? ( dev-libs/maloc
-			sci-chemistry/apbs
-			sci-chemistry/pdb2pqr
-		)"
+DEPEND="
+	dev-python/numpy
+	dev-python/pmw
+	media-libs/libpng
+	media-libs/freetype:2
+	media-video/mpeg-tools
+	sys-libs/zlib
+	virtual/glut
+	apbs? (
+		dev-libs/maloc
+		sci-chemistry/apbs
+		sci-chemistry/pdb2pqr
+	)"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/${PN}
@@ -40,13 +46,12 @@ pkg_setup(){
 }
 
 src_prepare() {
-cd "${S}" && pwd
 	epatch "${FILESDIR}"/${PV}/${P}-data-path.patch \
 		|| die "Failed to apply data-path.patch"
 
 	# Turn off splash screen.  Please do make a project contribution
-	# if you are able though.
-	[[ -n ${WANT_SPLASH} ]] || epatch "${FILESDIR}"/${PV}/nosplash-gentoo.patch
+	# if you are able though. # 299020
+	epatch "${FILESDIR}"/${PV}/nosplash-gentoo.patch
 
 	# Respect CFLAGS
 	sed -i \
@@ -103,15 +108,5 @@ src_install() {
 
 	if ! use apbs; then
 		rm "${D}"$(python_get_sitedir)/pmg_tk/startup/apbs_tools.py
-	fi
-}
-
-pkg_postinst(){
-	distutils_pkg_postinst
-
-	# The apbs ebuild was just corrected and not bumped #213616
-	if use apbs; then
-		[ -e /usr/share/apbs-0.5* ] && \
-		ewarn "You need to reemerge sci-chemistry/apbs!"
 	fi
 }

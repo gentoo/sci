@@ -1,6 +1,17 @@
 # ChangeLog for sci-chemistry/pymol
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  30 Dec 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +pymol-0.99_rc10.ebuild, +files/pymol-0.99_rc10-data-path.patch,
+  -pymol-1.2.1-r1.ebuild, pymol-1.2.2.ebuild:
+  some QA reworking, fixes bug 299019 & 299020
+
+*pymol-0.99_rc10 (30 Dec 2009)
+
+  30 Dec 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +pymol-0.99_rc10.ebuild, +pymol-0.99_rc10-data-path.patch:
+  import old version as dep of sci-chemistry/pynmr
 
   02 Oct 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +files/1.2.2/nosplash-gentoo.patch, -pymol-1.2.0.ebuild,
