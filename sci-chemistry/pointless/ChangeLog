@@ -1,6 +1,13 @@
 # ChangeLog for sci-chemistry/pointless
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*pointless-1.4.7 (01 Jan 2010)
+
+  01 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  -pointless-1.4.5.ebuild, +pointless-1.4.7.ebuild:
+  Version Bump
+  PREFIX whitelist ready
 
 *pointless-1.4.6 (19 Dec 2009)
 
