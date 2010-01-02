@@ -5,6 +5,7 @@
   02 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
   talos+-1.2009.1013.14.ebuild:
   PREFIX ready
+  depending on sci-chemistry/rasmol
 
 *talos+-1.2009.1013.14 (25 Oct 2009)
 

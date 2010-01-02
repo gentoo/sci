@@ -15,7 +15,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="dev-lang/tcl"
+RDEPEND="
+	dev-lang/tcl
+	sci-chemistry/rasmol"
 DEPEND=""
 
 S="${WORKDIR}"
