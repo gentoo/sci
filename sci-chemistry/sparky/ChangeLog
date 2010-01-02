@@ -3,6 +3,10 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/sparky/ChangeLog,v 1.13 2009/09/18 14:50:12 betelgeuse Exp $
 
   02 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  sparky-3.115.ebuild:
+  Fixed usage of python.eclass
+
+  02 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
   +files/3.115-ldflags.patch, sparky-3.115.ebuild, +files/3.115-paths.patch,
   +files/3.115-wrapper.patch, -files/fix-install.patch:
   Version bump

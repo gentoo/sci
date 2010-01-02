@@ -5,8 +5,6 @@
 EAPI="2"
 
 PYTHON_USE_WITH="tk"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
 
 inherit eutils flag-o-matic multilib python toolchain-funcs
 
@@ -91,9 +89,10 @@ src_install() {
 }
 
 pkg_postinst() {
-	python_mod_optimize sparky
+	python_need_rebuild
+	python_mod_optimize $(python_get_sitedir)/${PN}
 }
 
 pkg_postrm() {
-	python_mod_cleanup sparky
+	python_mod_cleanup $(python_get_sitedir)/${PN}
 }
