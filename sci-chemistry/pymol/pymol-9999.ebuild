@@ -4,6 +4,7 @@
 
 EAPI="2"
 
+PYTHON_WITH_USE="tk"
 PYTHON_MODNAME="chempy pmg_tk pymol"
 APBS_PATCH="090618"
 
@@ -20,16 +21,18 @@ IUSE="apbs numpy shaders vmd"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-RDEPEND="dev-python/pmw
+RDEPEND="
 		dev-python/numpy
-		>=dev-lang/python-2.4[tk]
+		dev-python/pmw
+		media-libs/freetype:2
 		media-libs/libpng
+		media-video/mpeg-tools
 		sys-libs/zlib
 		virtual/glut
-		media-video/mpeg-tools
-		apbs? ( dev-libs/maloc
-				sci-chemistry/apbs
-				sci-chemistry/pdb2pqr
+		apbs? (
+			dev-libs/maloc
+			sci-chemistry/apbs
+			sci-chemistry/pdb2pqr
 		)"
 DEPEND="${RDEPEND}"
 
@@ -46,8 +49,8 @@ src_prepare() {
 	epatch "${FILESDIR}"/${P}-data-path.patch || die
 
 	# Turn off splash screen.  Please do make a project contribution
-	# if you are able though.
-	[[ -n ${WANT_SPLASH} ]] || epatch "${FILESDIR}"/nosplash-gentoo.patch
+	# if you are able though. #299020
+	epatch "${FILESDIR}"/nosplash-gentoo.patch
 
 	# Respect CFLAGS
 	sed -i \
@@ -115,15 +118,5 @@ src_install() {
 
 	if ! use apbs; then
 		rm "${D}"$(python_get_sitedir)/pmg_tk/startup/apbs_tools.py
-	fi
-}
-
-pkg_postinst(){
-	distutils_pkg_postinst
-
-	# The apbs ebuild was just corrected and not bumped #213616
-	if use apbs; then
-		[ -e /usr/share/apbs-0.5* ] && \
-		ewarn "You need to reemerge sci-chemistry/apbs!"
 	fi
 }
