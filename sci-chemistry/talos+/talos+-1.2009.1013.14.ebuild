@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -26,7 +26,7 @@ src_prepare() {
 
 src_install() {
 	sed \
-		-e "s:DIR_HERE:/opt/${PN}/:g" \
+		-e "s:DIR_HERE:${EPREFIX}/opt/${PN}/:g" \
 		-i *+
 
 	insinto /opt/${PN}/
