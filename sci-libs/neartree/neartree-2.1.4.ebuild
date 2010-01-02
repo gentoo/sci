@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -34,6 +34,7 @@ src_prepare() {
 	base_src_prepare
 	sed \
 		-e "s:GENTOOLIBDIR:$(get_libdir):g" \
+		-e "s:/usr:${EPREFIX}/usr:g" \
 		-i Makefile
 }
 
