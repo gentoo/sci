@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,7 +13,7 @@ SRC_URI="http://lacos.web.elte.hu/pub/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="test"
+IUSE="symlink test"
 
 RDEPEND=""
 DEPEND="
@@ -50,4 +50,9 @@ src_install() {
 	doman ${PN}.1 || die "no man"
 	insinto "/usr/share/${PN}"
 	doins corr-perf.sh malloc_trace.pl || die
+
+	if use symlink; then
+		dosym /usr/bin/${PN} /usr/bin/gzip || die
+		dosym /usr/bin/un${PN} /usr/bin/gunzip || die
+	fi
 }
