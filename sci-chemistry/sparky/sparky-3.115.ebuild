@@ -1,77 +1,99 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/sparky/sparky-3.113.ebuild,v 1.4 2009/09/18 14:50:12 betelgeuse Exp $
+# $Header: $
 
 EAPI="2"
 
-inherit eutils toolchain-funcs multilib python
+PYTHON_USE_WITH="tk"
+SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
+
+inherit eutils flag-o-matic multilib python toolchain-funcs
 
 DESCRIPTION="Graphical NMR assignment and integration program for proteins, nucleic acids, and other polymers"
 HOMEPAGE="http://www.cgl.ucsf.edu/home/sparky/"
 SRC_URI="http://www.cgl.ucsf.edu/home/sparky/distrib-${PV}/${PN}-source-${PV}.tar.gz"
+
 LICENSE="sparky"
 SLOT="0"
-# Note: this package will probably require significant work for lib{32,64},
-# including parts of the patch.
-KEYWORDS="~ppc ~x86"
-IUSE=""
+KEYWORDS="~amd64 ~x86"
+IUSE="examples"
+
+RDEPEND="app-shells/tcsh"
+DEPEND="${RDEPEND}"
+
 RESTRICT="mirror"
-RDEPEND="dev-lang/python:2.4[tk]
-	=dev-lang/tk-8.4*
-	app-shells/tcsh"
-DEPEND="${RDEPEND}
-	>=app-shells/bash-3
-	net-misc/rsync"
+
 S="${WORKDIR}/${PN}"
 
 pkg_setup() {
-	# Install for specific pythons instead of whatever's newest.
-	python="/usr/bin/python2.4"
 	python_version
-
-	arguments=( SPARKY="${S}" \
-		SPARKY_INSTALL_MAC="" \
-		SPARKY_INSTALL="${D}/usr" \
-		PYTHON_PREFIX="${ROOT}usr" \
-		PYTHON_VERSION="${PYVER}" \
-		TK_PREFIX="${ROOT}usr" \
-		TCLTK_VERSION="8.4" \
-		CXX="$(tc-getCXX)" \
-		CC="$(tc-getCC)" \
-		INSTALL="rsync -avz" \
-		INSTALLDIR="rsync -avz" )
-
-	# It would be nice to get the docs versioned, but not critical
-	#	DOCDIR="\$(SPARKY_INSTALL)/share/doc/${PN}" \
-	# To get libdir working properly, we need to get makefiles respecting this
-	#	PYDIR="\$(SPARKY_INSTALL)/$(get_libdir)/python\$(PYTHON_VERSION)/site-packages" \
+	TKVER=$(best_version dev-lang/tk | cut -d- -f3 | cut -d. -f1,2)
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/fix-install.patch
+	epatch "${FILESDIR}"/${PV}-ldflags.patch
+	epatch "${FILESDIR}"/${PV}-wrapper.patch
+	epatch "${FILESDIR}"/${PV}-paths.patch
 
 	sed -i \
-		-e "s:^\(set PYTHON[[:space:]]*=\).*:\1 /usr/bin/python${PYVER}:g" \
-		-e "s:^\(setenv TCLTK_LIB[[:space:]]*\).*:\1 /usr/$(get_libdir):g" \
+		-e "s:^\(set PYTHON =\).*:\1 ${EPREFIX}/usr/bin/python${PYVER}:g" \
+		-e "s:^\(setenv SPARKY_INSTALL[[:space:]]*\).*:\1 ${EPREFIX}/usr/$(get_libdir)/${PN}:g" \
+		-e "s:tcl8.4:tcl${TKVER}:g" \
+		-e "s:tk8.4:tk${TKVER}:g" \
+		-e "s:^\(setenv TCLTK_LIB[[:space:]]*\).*:\1 ${EPREFIX}/usr/$(get_libdir):g" \
 		"${S}"/bin/sparky
 }
 
 src_compile() {
-	emake "${arguments[@]}" || die "make failed"
+	append-flags -fPIC
+
+	emake \
+		SPARKY="${S}" \
+		PYTHON_VERSION="${PYVER}" \
+		PYTHON_PREFIX="${EPREFIX}/usr" \
+		PYTHON_LIB="${EPREFIX}$(python_get_libdir)" \
+		PYTHON_INC="${EPREFIX}$(python_get_includedir)" \
+		TK_PREFIX="${EPREFIX}/usr" \
+		TCLTK_VERSION="${TKVER}" \
+		TKLIBS="-L${EPREFIX}/usr/$(get_libdir)/ -ltk${TKVER} -ltcl${TKVER} -lX11" \
+		CXX="$(tc-getCXX)" \
+		CC="$(tc-getCC)" \
+		|| die "make failed"
 }
 
 src_install() {
-	emake "${arguments[@]}" install || die "install failed"
-	# Make internal help work
-	dosym ../../share/doc/sparky/manual /usr/lib/sparky/manual
-	# It returns a weird threading error message without this
-	dosym ../python${PYVER}/site-packages /usr/lib/sparky/python
+	# The symlinks are needed to avoid hacking the complete code to fix the locations
+
+	dobin c++/{{bruk,matrix,peaks,pipe,vnmr}2ucsf,ucsfdata,sparky-no-python} bin/${PN} || die
+
+	insinto /usr/share/${PN}/
+	doins lib/{print-prolog.ps,Sparky} || die
+	dosym ../../share/${PN}/print-prolog.ps /usr/$(get_libdir)/${PN}/
+	dosym ../../share/${PN}/Sparky /usr/$(get_libdir)/${PN}/
+
+	dohtml -r manual/* || die
+	dosym ../../share/doc/${PF}/html /usr/$(get_libdir)/${PN}/manual
+
+	insinto $(python_get_sitedir)/${PN}
+	doins python/*.py c++/{spy.so,_tkinter.so} || die
+	fperms 755 $(python_get_sitedir)/${PN}/{spy.so,_tkinter.so} || die
+	dosym ../python${PYVER}/site-packages /usr/$(get_libdir)/${PN}/python
+
+	if use examples; then
+		insinto /usr/share/doc/${PF}/
+		doins -r example || die
+		dosym ../../share/doc/${PF}/example /usr/$(get_libdir)/${PN}/example
+	fi
+
+	dodoc README || die
+	newdoc python/README README.python || die
 }
 
 pkg_postinst() {
-	python_mod_optimize /usr/lib/python${PYVER}/site-packages/sparky
+	python_mod_optimize sparky
 }
 
 pkg_postrm() {
-	python_mod_cleanup /usr/lib/python${PYVER}/site-packages/sparky
+	python_mod_cleanup sparky
 }
