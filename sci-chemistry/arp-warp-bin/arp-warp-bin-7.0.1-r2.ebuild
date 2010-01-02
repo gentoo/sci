@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,7 +14,7 @@ SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE=""
 RDEPEND="app-shells/tcsh
-	 >=sci-chemistry/ccp4-6
+	 >=sci-chemistry/ccp4-6.1.2-r9
 	 sys-apps/gawk
 	 >=dev-lang/python-2.4"
 DEPEND=""
