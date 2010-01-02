@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,7 +18,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="x11-libs/libXext
+RDEPEND="
+	x11-libs/libXext
 	x11-libs/libXi
 	x11-libs/gtk+:2
 	x11-libs/vte
@@ -44,6 +45,8 @@ src_prepare() {
 
 	mv Imakefile_base Imakefile
 	epatch "${FILESDIR}"/${PV}-bundled-lib.patch
+
+	sed "s:EPREFIX:${EPREFIX}:g" -i Imakefile
 
 	xmkmf -DGTKWIN ${myconf}|| die "xmkmf failed with ${myconf}"
 

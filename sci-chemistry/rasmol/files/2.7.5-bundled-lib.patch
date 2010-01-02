@@ -8,7 +8,7 @@
 -          -I$(CQRLIB_INCLUDE_DIR) \
 -          -I$(CVECTOR_INCLUDE_DIR) \
 -          -I$(NEARTREE_INCLUDE_DIR)
-+          -D_USE_RASMOL_H_ $(GUIOPTION) -I/usr/include -I/usr/include/cbflib
++          -D_USE_RASMOL_H_ $(GUIOPTION) -IEPREFIX/usr/include -IEPREFIX/usr/include/cbflib
  #else
  DEFINES = $(GTKCFLAGS) $(GUIDEF) -DRASMOLDIR=\"$(RASMOLDIR)\" $(DEPTHDEF) $(LOCALEDEF) \
 -	-D_USE_RASMOL_H_ $(GUIOPTION) -I$(CBFLIB_INCLUDE_DIR) \
@@ -16,7 +16,7 @@
 -	-I$(CVECTOR_INCLUDE_DIR) \
 -	-I$(NEARTREE_INCLUDE_DIR) \
 -  	-I$(XFORMSLIB_INCLUDE_DIR)
-+	-D_USE_RASMOL_H_ $(GUIOPTION) -I/usr/include -I/usr/include/cbflib
++	-D_USE_RASMOL_H_ $(GUIOPTION) -IEPREFIX/usr/include -IEPREFIX/usr/include/cbflib
  #endif
  
  
