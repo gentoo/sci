@@ -1,6 +1,8 @@
---- makefile_refmac.inc1	2009-02-23 22:54:53.000000000 +0100
-+++ makefile_refmac.inc1.new	2009-04-26 13:07:13.301394474 +0200
-@@ -68,9 +68,7 @@
+diff --git a/makefile_refmac.inc1 b/makefile_refmac.inc1
+index 79d408e..e66c887 100644
+--- a/makefile_refmac.inc1
++++ b/makefile_refmac.inc1
+@@ -73,9 +73,7 @@ messy_pdb.o                 \
  bridge.o                    \
  i0.o                        \
  i1.o                        \
@@ -11,7 +13,7 @@
  #$(LLIBCCP)                  \
  #crt0.o                      \
  #heavy.o                     \
-@@ -102,9 +100,7 @@
+@@ -107,9 +105,7 @@ cell_symm_subrs.o           \
  iheap_sort.o                \
  linalgebra.o                \
  math_refmac.o               \
@@ -22,16 +24,16 @@
  
  #--------------------------------------------------------------------------------
  
-@@ -115,10 +111,10 @@
- all:	refmac libcheck 
+@@ -138,10 +134,10 @@ hkon_secder_tch: hkon_secder_tch.f ncs_simil.f90
+ 	$(FC) $(FFLAGS) -c ncs_simil.f90 hkon_secder_tch.f
  
  refmac:	$(SUBR)
--	$(FC) $(FFLAGS) -o refmac${VERSION}   ${SUBR} $(LLIBOTHERS) $(LLIBCCP)
+-	$(FC) $(FFLAGS) -pg -o refmac${VERSION}   ${SUBR} $(LLIBOTHERS) $(LLIBCCP)
 +	$(FC) $(FFLAGS) $(LDFLAGS) -o refmac${VERSION}   ${SUBR} $(LLIBOTHERS) $(LLIBCCP) $(LLIBCIF) $(LLIBLAPACK)
  
  libcheck:	$(SUBL)
 -	$(FC) $(FFLAGS) -o libcheck${VERSION} $(SUBL)
-+	$(FC) $(FFLAGS) $(LDFLAGS) -o libcheck${VERSION} $(SUBL) $(LLIBCIF) $(LLIBLAPACK) $(LLIBCCP)
++	$(FC) $(FFLAGS) $(LDFLAGS) -o libcheck${VERSION} $(SUBL) $(LLIBLAPACK) $(LLIBCCP)
  
  clean:
  	/bin/rm *.o
