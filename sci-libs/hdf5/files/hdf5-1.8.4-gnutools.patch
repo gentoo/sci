@@ -1,0 +1,65 @@
+--- hdf5-1.8.4.orig/src/Makefile.am	2009-11-10 22:12:02.000000000 +0100
++++ hdf5-1.8.4/src/Makefile.am	2009-12-03 13:13:36.902083292 +0100
+@@ -26,14 +26,52 @@
+ # Use -g to force no optimization since many compilers (e.g., Intel) takes
+ # a long time to compile it with any optimization on.  H5detect is used
+ # to generate H5Tinit.c once. So, optimization is not critical.
++# -O0 is required for >= gcc4.3
+ noinst_PROGRAMS = H5detect
+-H5detect_CFLAGS = -g $(AM_CFLAGS)
++H5detect_CFLAGS = -g -O0
++
++# Automake doesn't have a way to build with no optimization
++# See http://sources.redhat.com/ml/automake/2002-08/msg00082.html
++# This is the automake-produced rule with $(CFLAGS) removed
++H5detect_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
++	--mode=link $(CCLD) $(H5detect_CFLAGS) $(AM_LDFLAGS) \
++	$(LDFLAGS) -o $@
++
++H5detect-H5detect.o: H5detect.c
++@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(H5detect_CFLAGS) -MT H5detect-H5detect.o -MD -MP -MF $(DEPDIR)/H5detect-H5detect.Tpo -c -o H5detect-H5detect.o `test -f 'H5detect.c' || echo '$(srcdir)/'`H5detect.c
++@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/H5detect-H5detect.Tpo $(DEPDIR)/H5detect-H5detect.Po
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='H5detect.c' object='H5detect-H5detect.o' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(H5detect_CFLAGS) -c -o H5detect-H5detect.o `test -f 'H5detect.c' || echo '$(srcdir)/'`H5detect.c
++
++H5detect-H5detect.obj: H5detect.c
++@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(H5detect_CFLAGS) -MT H5detect-H5detect.obj -MD -MP -MF $(DEPDIR)/H5detect-H5detect.Tpo -c -o H5detect-H5detect.obj `if test -f 'H5detect.c'; then $(CYGPATH_W) 'H5detect.c'; else $(CYGPATH_W) '$(srcdir)/H5detect.c'; fi`
++@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/H5detect-H5detect.Tpo $(DEPDIR)/H5detect-H5detect.Po
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='H5detect.c' object='H5detect-H5detect.obj' libtool=no @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(H5detect_CFLAGS) -c -o H5detect-H5detect.obj `if test -f 'H5detect.c'; then $(CYGPATH_W) 'H5detect.c'; else $(CYGPATH_W) '$(srcdir)/H5detect.c'; fi`
++
++noinst_LTLIBRARIES = libH5Tconv.la
++libH5Tconv_la_SOURCES = H5Tconv.c
++libH5Tconv_la_CFLAGS =  -g -O0
++libH5Tconv_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
++	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(libH5Tconv_la_CFLAGS) \
++	$(AM_LDFLAGS) $(LDFLAGS) -o $@
++
++libH5Tconv_la-H5Tconv.lo: H5Tconv.c
++@am__fastdepCC_TRUE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libH5Tconv_la_CFLAGS) -MT libH5Tconv_la-H5Tconv.lo -MD -MP -MF $(DEPDIR)/libH5Tconv_la-H5Tconv.Tpo -c -o libH5Tconv_la-H5Tconv.lo `test -f 'H5Tconv.c' || echo '$(srcdir)/'`H5Tconv.c
++@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/libH5Tconv_la-H5Tconv.Tpo $(DEPDIR)/libH5Tconv_la-H5Tconv.Plo
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='H5Tconv.c' object='libH5Tconv_la-H5Tconv.lo' libtool=yes @AMDEPBACKSLASH@
++@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
++@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libH5Tconv_la_CFLAGS) -c -o libH5Tconv_la-H5Tconv.lo `test -f 'H5Tconv.c' || echo '$(srcdir)/'`H5Tconv.c
++
+ 
+ # Our main target, the HDF5 library
+ lib_LTLIBRARIES=libhdf5.la
+ 
+ # Add libtool numbers to the HDF5 library (from config/lt_vers.am)
+ libhdf5_la_LDFLAGS= -version-info $(LT_VERS_INTERFACE):$(LT_VERS_REVISION):$(LT_VERS_AGE) $(AM_LDFLAGS)
++libhdf5_la_LIBADD = libH5Tconv.la
+ 
+ # H5Tinit.c is a generated file, and should be cleaned.
+ MOSTLYCLEANFILES=H5Tinit.c
+@@ -89,7 +127,7 @@
+         H5S.c H5Sall.c H5Sdbg.c H5Shyper.c H5Smpio.c H5Snone.c H5Spoint.c \
+         H5Sselect.c H5Stest.c H5SL.c H5SM.c H5SMbtree2.c \
+         H5SMcache.c H5SMtest.c H5ST.c \
+-        H5T.c H5Tarray.c H5Tbit.c H5Tcommit.c H5Tcompound.c H5Tconv.c \
++        H5T.c H5Tarray.c H5Tbit.c H5Tcommit.c H5Tcompound.c \
+         H5Tcset.c H5Tdbg.c H5Tdeprec.c H5Tenum.c H5Tfields.c \
+         H5Tfixed.c \
+         H5Tfloat.c H5Tinit.c H5Tnative.c H5Toffset.c H5Toh.c \

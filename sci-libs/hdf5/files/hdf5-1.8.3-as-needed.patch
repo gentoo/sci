@@ -1,0 +1,41 @@
+--- hdf5-1.8.3.orig/fortran/src/Makefile.am	2009-04-15 19:10:01.053733251 +0100
++++ hdf5-1.8.3/fortran/src/Makefile.am	2009-04-15 19:12:49.874557795 +0100
+@@ -66,6 +66,8 @@
+          H5If.c H5Lf.c H5Of.c H5Pf.c H5Rf.c H5Sf.c H5Tf.c H5Zf.c        \
+          $(PARALLEL_COND_SRC)
+ 
++libhdf5_fortran_la_LIBADD = $(top_builddir)/src/libhdf5.la
++
+ # h5fc is generated during configure.
+ # Remove it only when distclean.
+ DISTCLEANFILES=h5fc
+--- hdf5-1.8.3.orig/hl/fortran/src/Makefile.am	2009-04-15 19:10:01.245748616 +0100
++++ hdf5-1.8.3/hl/fortran/src/Makefile.am	2009-04-15 19:30:56.042226227 +0100
+@@ -43,6 +43,7 @@
+ 
+ libhdf5hl_fortran_la_SOURCES=H5LTfc.c  H5IMfc.c H5IMcc.c H5TBfc.c H5LTff.f90  \
+                 H5IMff.f90 H5TBff.f90
++libhdf5hl_fortran_la_LIBADD=$(top_builddir)/hl/src/libhdf5_hl.la
+ 
+ # Fortran module files can have different extensions and different names
+ # (e.g., different capitalizations) on different platforms.  Write rules
+--- hdf5-1.8.3.orig/hl/c++/src/Makefile.am	2009-04-15 19:10:01.249750013 +0100
++++ hdf5-1.8.3/hl/c++/src/Makefile.am	2009-04-15 20:16:08.812068687 +0100
+@@ -35,6 +35,7 @@
+ # Source files for the library
+ # At the moment, only the H5PT Packet Table has a C++ API.
+ libhdf5_hl_cpp_la_SOURCES=H5PacketTable.cpp
++libhdf5_hl_cpp_la_LIBADD=$(top_builddir)/hl/src/libhdf5_hl.la
+ 
+ # Public headers
+ include_HEADERS=H5PacketTable.h
+--- hdf5-1.8.3.orig/hl/src/Makefile.am	2009-05-13 17:03:11.000000000 +0200
++++ hdf5-1.8.3/hl/src/Makefile.am	2009-09-10 19:22:57.489698969 +0200
+@@ -31,6 +31,7 @@
+ libhdf5_hl_la_LDFLAGS= -version-info $(LT_VERS_INTERFACE):$(LT_VERS_REVISION):$(LT_VERS_AGE)
+ 
+ libhdf5_hl_la_SOURCES=H5DS.c H5IM.c H5LT.c H5LTanalyze.c H5LTparse.c H5PT.c H5TB.c
++libhdf5_hl_la_LIBADD=$(top_builddir)/src/libhdf5.la
+ 
+ # Public header files (to be installed)
+ include_HEADERS=hdf5_hl.h H5IMpublic.h H5LTpublic.h H5TBpublic.h H5DSpublic.h H5PTpublic.h
