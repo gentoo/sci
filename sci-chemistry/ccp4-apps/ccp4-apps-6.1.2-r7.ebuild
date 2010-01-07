@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -87,7 +87,8 @@ RDEPEND="X? ( ${X11DEPS} )
 	dev-libs/libxml2
 	dev-libs/boehm-gc
 	!app-office/sc
-	!<sci-chemistry/ccp4-6.1.2"
+	!<sci-chemistry/ccp4-6.1.2
+	!sci-chemistry/sfcheck"
 DEPEND="${RDEPEND}
 	=sys-devel/automake-1.6*
 	X? (
