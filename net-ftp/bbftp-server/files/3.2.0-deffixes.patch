@@ -1,0 +1,77 @@
+--- includes/common.h	2010-01-07 12:07:45.623549385 -0800
++++ includes/common.h.new	2010-01-07 12:10:54.585550305 -0800
+@@ -31,6 +31,18 @@
+ 
+ *****************************************************************************/
+ 
++/* add includes for missing definitions - bgreen 01/07/2010 */
++#include <stddef.h>  /* for definition of NULL */
++#ifdef HAVE_STDLIB_H
++#include <stdlib.h>  /* for free(), exit(), etc. */
++#endif
++#ifdef HAVE_STRING_H
++#include <string.h>
++#endif
++#ifdef HAVE_STDIO_H
++#include <stdio.h>
++#endif
++
+ /* COMPRESSION and NOCOMPRESSION :
+ **		Often used in routine call (more readable than 0 or 1)
+ */
+--- bbftpd/signals_routines.c	2004-06-30 10:38:52.000000000 -0700
++++ bbftpd/signals_routines.c.new	2010-01-07 12:15:34.049612507 -0800
+@@ -41,6 +41,12 @@
+ #if HAVE_STRING_H
+ # include <string.h>
+ #endif
++#if HAVE_STDIO_H
++# include <stdio.h>
++#endif
++#if HAVE_STDLIB_H
++#include <stdlib.h>
++#endif
+ 
+ #include <daemon.h>
+ #include <daemon_proto.h>
+--- bbftpd/bbftpd_signals.c	2005-03-29 04:55:55.000000000 -0800
++++ bbftpd/bbftpd_signals.c.new	2010-01-07 12:18:41.923611939 -0800
+@@ -54,6 +54,12 @@
+ #if HAVE_STRING_H
+ # include <string.h>
+ #endif
++#if HAVE_STDIO_H
++# include <stdio.h>
++#endif
++#if HAVE_STDLIB_H
++#include <stdlib.h>
++#endif
+ 
+ #include <daemon.h>
+ #include <daemon_proto.h>
+--- bbftpd/bbftpd_utils.c	2003-03-11 04:34:36.000000000 -0800
++++ bbftpd/bbftpd_utils.c.new	2010-01-07 12:22:38.237550132 -0800
+@@ -31,6 +31,8 @@
+             
+ *****************************************************************************/
+ #include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
+ 
+ extern char *curfilename ;
+ extern char *realfilename ;
+--- bbftpd/signals_routines.c	2004-06-30 10:38:52.000000000 -0700
++++ bbftpd/signals_routines.c.new	2010-01-07 12:24:12.840550139 -0800
+@@ -41,6 +41,12 @@
+ #if HAVE_STRING_H
+ # include <string.h>
+ #endif
++#if HAVE_STDIO_H
++# include <stdio.h>
++#endif
++#if HAVE_STDLIB_H
++# include <stdlib.h>
++#endif
+ 
+ #include <daemon.h>
+ #include <daemon_proto.h>

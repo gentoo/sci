@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,6 +15,10 @@ IUSE="ssl pam"
 
 DEPEND="ssl? ( dev-libs/openssl )"
 RDEPEND="${DEPEND}"
+
+src_prepare() {
+	epatch "${FILESDIR}"/${PV}-deffixes.patch
+}
 
 src_compile() {
 	sed -i -e '/@INSTALL@\|mkdir/s:${\(prefix\|mandir\|bindir\)}:${DESTDIR}${\1}:' -e '/\/etc/d' Makefile.in

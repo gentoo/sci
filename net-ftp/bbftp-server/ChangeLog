@@ -1,6 +1,10 @@
 # ChangeLog for net-ftp/bbftp-server
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  07 Jan 2010; Bryan D. Green <bgreen@gentoo.org>
+  +files/3.2.0-deffixes.patch, bbftp-server-3.2.0.ebuild:
+  added patch to fix missing definitions
 
 *bbftp-server-3.2.0 (01 Dec 2007)
 
