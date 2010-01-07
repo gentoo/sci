@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+inherit eutils
+
 DESCRIPTION="bbFTP is a file transfer software. It implements its own transfer protocol, which is optimized for large files (larger than 2GB) and secure as it does not read the password in a file and encrypts the connection information."
 
 HOMEPAGE="http://doc.in2p3.fr/bbftp/"
@@ -16,7 +18,9 @@ IUSE="ssl pam"
 DEPEND="ssl? ( dev-libs/openssl )"
 RDEPEND="${DEPEND}"
 
-src_prepare() {
+src_unpack() {
+	unpack ${A}
+	cd "${WORKDIR}/${P}"
 	epatch "${FILESDIR}"/${PV}-deffixes.patch
 }
 
@@ -25,7 +29,7 @@ src_compile() {
 	econf $(use_with ssl) $(use_with pam) --with-gzip \
 		--without-rfio \
 		--without-afs || die "configure failed"
-	emake
+	emake || die "compile failed"
 }
 
 src_install() {
