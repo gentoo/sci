@@ -8,23 +8,22 @@ inherit cmake-utils eutils subversion
 
 DESCRIPTION="User friendly Geographic Information System"
 HOMEPAGE="http://www.qgis.org/"
-ESVN_REPO_URI="http://svn.osgeo.org/qgis/trunk/qgis"
+ESVN_REPO_URI="http://svn.osgeo.org/qgis/branches/Release-1_4_0"
 SRC_URI="examples? ( http://download.osgeo.org/qgis/data/qgis_sample_data.tar.gz )"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="examples grass gsl postgres python sqlite"
+IUSE="examples gps grass gsl postgres python sqlite"
 
-RDEPEND="dev-libs/expat
-	>=sci-libs/gdal-1.6.1
-	sci-libs/geos
-	sci-libs/proj
+RDEPEND=">=sci-libs/gdal-1.6.1
 	x11-libs/qt-core:4[qt3support]
 	x11-libs/qt-gui:4
 	x11-libs/qt-svg:4
 	x11-libs/qt-sql:4
-	x11-libs/qwt
+	sci-libs/geos
+	sci-libs/proj
+	gps? ( dev-libs/expat sci-geosciences/gpsbabel )
 	grass? ( >=sci-geosciences/grass-6 sci-geosciences/gdal-grass )
 	gsl? ( sci-libs/gsl )
 	postgres? ( >=virtual/postgresql-base-8 )
@@ -40,7 +39,6 @@ src_configure() {
 	mycmakeargs+=(
 		"-DBUILD_SHARED_LIBS:BOOL=ON"
 		"-DBINDINGS_GLOBAL_INSTALL:BOOL=ON"
-		"-DQWT_INCLUDE_DIR=/usr/include/qwt5"
 		"-DQGIS_LIB_SUBDIR=$(get_libdir)"
 		"-DQGIS_PLUGIN_SUBDIR=$(get_libdir)/qgis"
 		$(cmake-utils_use_with postgres POSTGRESQL)
