@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,7 +17,7 @@ IUSE=""
 
 RESTRICT="fetch"
 
-RDEPEND=">=virtual/jre-1.4.1"
+RDEPEND="virtual/jre"
 
 S="${WORKDIR}"/smartgit-${MY_PV}
 
