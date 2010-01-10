@@ -6,4 +6,7 @@
 		<email>kleiner_otti@gmx.de</email>
 		<name>Christoph Junghans</name>
 	</maintainer>
+	<use>
+		<flag name='multislot'>Allow for SLOTs to include multiple versions</flag>
+	</use>
 </pkgmetadata>

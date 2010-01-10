@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,12 +15,16 @@ HOMEPAGE="http://www.gnuplot.info/"
 SRC_URI="mirror://sourceforge/gnuplot/${MY_P}.tar.gz"
 
 LICENSE="gnuplot"
-SLOT="0"
+GP_VERSION="${PV:0:3}"
+use multislot && SLOT="${PV:0:3}" || SLOT="0"
 KEYWORDS="~x86"
-IUSE="cairo doc emacs gd ggi latex lua pdf plotutils readline svga wxwidgets X xemacs"
+IUSE="cairo doc emacs +gd ggi latex lua multislot pdf plotutils readline svga wxwidgets X xemacs"
 RESTRICT="wxwidgets? ( test )"
 
 RDEPEND="
+	multislot? ( !!<=sci-visualization/gnuplot-4.2.6
+		!!sci-visualization/gnuplot[-mutlislot]
+		app-admin/eselect-gnuplot )
 	xemacs? ( app-editors/xemacs app-xemacs/texinfo app-xemacs/xemacs-base )
 	emacs? ( virtual/emacs !app-emacs/gnuplot-mode )
 	pdf? ( media-libs/pdflib )
@@ -37,7 +41,7 @@ RDEPEND="
 	svga? ( media-libs/svgalib )
 	readline? ( >=sys-libs/readline-4.2 )
 	plotutils? ( media-libs/plotutils )
-	wxwidgets? ( x11-libs/wxGTK:2.8
+	wxwidgets? ( x11-libs/wxGTK:2.8[X]
 		>=x11-libs/cairo-0.9
 		>=x11-libs/pango-1.10.3
 		>=x11-libs/gtk+-2.8 )
@@ -52,14 +56,14 @@ E_SITEFILE="50${PN}-gentoo.el"
 TEXMF="/usr/share/texmf-site"
 
 pkg_setup() {
+	use wxwidgets && need-wxwidgets unicode
 	use wxwidgets && wxwidgets_pkg_setup
 }
 
 src_prepare() {
-	local i
 	epatch "${FILESDIR}"/${PN}-4.2.2-disable_texi_generation.patch #194216
 	epatch "${FILESDIR}"/${PF}-app-defaults.patch #219323
-	epatch "${FILESDIR}"/${PN}-4.2.3-disable-texhash.patch #201871
+	epatch "${FILESDIR}"/${PF}-disable-texhash.patch #201871
 	# Add Gentoo version identification since the licence requires it
 	epatch "${FILESDIR}"/${PF}-gentoo-version.patch
 
@@ -67,9 +71,9 @@ src_prepare() {
 }
 
 src_configure() {
-	# See bug #156427, kpsexpand is part of texlive-core
+	# See bug #156427.
 	if use latex ; then
-		sed -i -e "s:\`kpsexpand.*\`:${TEXMF}/tex/latex/${PN}:" \
+		sed -i -e "s:\`kpsexpand.*\`:${TEXMF}/tex/latex/${PN}/${GP_VERSION}:" \
 			share/LaTeX/Makefile.in || die "sed kpsexpand removed failed"
 	else
 		sed -i \
@@ -77,7 +81,7 @@ src_configure() {
 			die "sed disable of LateX failed"
 	fi
 
-	local myconf="--with-gihdir=/usr/share/${PN}/gih --enable-thin-splines"
+	local myconf="--enable-thin-splines"
 
 	myconf="${myconf} $(use_with X x)"
 	myconf="${myconf} $(use_with svga linux-vga)"
@@ -94,10 +98,11 @@ src_configure() {
 		|| myconf="${myconf} --without-ggi"
 
 	use readline \
-		&& myconf="${myconf} --with-readline=gnu --enable-history-file" \
+		&& myconf="${myconf} --with-readline=gnu" \
 		|| myconf="${myconf} --with-readline=builtin"
 
 	myconf="${myconf} --without-lisp-files"
+	use multislot && myconf="${myconf} --program-suffix='-${GP_VERSION}'"
 
 	TEMACS=no
 	use xemacs && TEMACS=xemacs
@@ -105,6 +110,7 @@ src_configure() {
 
 	CFLAGS="${CFLAGS} -DGENTOO_REVISION=\\\"${PR}\\\"" \
 	EMACS=${TEMACS} \
+	appdefaultdir=/etc/X11/app-defaults/${PN}/${GP_VERSION} \
 		econf ${myconf} || die "econf failed"
 }
 
@@ -119,7 +125,9 @@ src_compile() {
 
 	emake || die "emake failed"
 
-	if use doc ; then
+	if use doc; then
+		# Avoid sandbox violation in epstopdf/ghostscript
+		addpredict /var/cache/fontconfig
 		cd docs
 		emake pdf || die "emake pdf failed"
 		cd ../tutorial
@@ -159,10 +167,12 @@ src_install () {
 	dodoc BUGS ChangeLog NEWS PATCHLEVEL PGPKEYS PORTING README* \
 		TODO VERSION
 	use lua && newdoc term/lua/README README-lua
+	newdoc term/PostScript/README README-ps
+	newdoc term/js/README README-js
 
 	if use doc; then
 		# Demo files
-		insinto /usr/share/${PN}/demo
+		insinto /usr/share/${PN}/${GP_VERSION}/demo
 		doins demo/*
 		# Manual
 		insinto /usr/share/doc/${PF}/manual
@@ -177,23 +187,38 @@ src_install () {
 
 	if ! use X; then
 		# see bug 194527
-		rm -rf "${D}/usr/$(get_libdir)/X11"
+		rm -rf "${D}/etc/X11"
 	fi
+	use multislot && \
+	  mv "${D}/usr/share/info/gnuplot.info" "${D}/usr/share/info/gnuplot-${GP_VERSION}.info"
 }
 
 pkg_postinst() {
+	use multislot && eselect gnuplot update --if-unset --no-texupdate
 	use emacs && elisp-site-regen
 	use latex && texmf-update
 
-	if use svga ; then
+	if use svga; then
 		einfo "In order to enable ordinary users to use SVGA console graphics"
 		einfo "gnuplot needs to be set up as setuid root.  Please note that"
 		einfo "this is usually considered to be a security hazard."
 		einfo "As root, manually \"chmod u+s /usr/bin/gnuplot\"."
 	fi
+	if use gd; then
+		echo
+		einfo "For font support in png/jpeg/gif output, you may have to"
+		einfo "set the GDFONTPATH and GNUPLOT_DEFAULT_GDFONT environment"
+		einfo "variables. See the FAQ file in /usr/share/doc/${PF}/"
+		einfo "for more information."
+	fi
 }
 
 pkg_postrm() {
+	#in the case that we uninstall the last multislot version 
+	if use multislot; then
+		#rm symlinks
+		has_version sci-visualization/gnuplot || eselect gnuplot update	--no-texupdate
+	fi
 	use emacs && elisp-site-regen
 	use latex && texmf-update
 }

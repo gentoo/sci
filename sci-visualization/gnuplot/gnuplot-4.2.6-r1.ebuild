@@ -6,21 +6,20 @@ EAPI=2
 
 WX_GTK_VER="2.8"
 
-inherit autotools elisp-common eutils multilib wxwidgets cvs
+inherit autotools elisp-common eutils multilib wxwidgets
+
+MY_P="${P/_/-}"
 
 DESCRIPTION="Command-line driven interactive plotting program"
 HOMEPAGE="http://www.gnuplot.info/"
-
-ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot"
-ECVS_MODULE="gnuplot"
-ECVS_USER="anonymous"
-ECVS_CVS_OPTIONS="-dP"
+SRC_URI="mirror://sourceforge/gnuplot/${MY_P}.tar.gz
+	mirror://gentoo/${PN}-4.2.5-lua-term.patch.bz2"
 
 LICENSE="gnuplot"
 GP_VERSION="${PV:0:3}"
 use multislot && SLOT="${PV:0:3}" || SLOT="0"
 KEYWORDS="~x86"
-IUSE="cairo doc emacs +gd ggi latex lua multislot pdf plotutils qt4 readline svga wxwidgets X xemacs"
+IUSE="doc emacs +gd ggi latex lua multislot pdf plotutils readline svga wxwidgets X xemacs"
 RESTRICT="wxwidgets? ( test )"
 
 RDEPEND="
@@ -33,9 +32,8 @@ RDEPEND="
 	lua? ( >=dev-lang/lua-5.1 )
 	ggi? ( media-libs/libggi )
 	gd? ( >=media-libs/gd-2[png] )
-	doc? ( dev-tex/picins
-		virtual/latex-base
-		virtual/ghostscript )
+	doc? ( virtual/latex-base
+		app-text/ghostscript-gpl )
 	latex? ( virtual/latex-base
 		lua? ( dev-tex/pgf
 			>=dev-texlive/texlive-latexrecommended-2008-r2 ) )
@@ -46,17 +44,11 @@ RDEPEND="
 	wxwidgets? ( x11-libs/wxGTK:2.8[X]
 		>=x11-libs/cairo-0.9
 		>=x11-libs/pango-1.10.3
-		>=x11-libs/gtk+-2.8 )
-	cairo? ( >=x11-libs/cairo-0.9
-		>=x11-libs/pango-1.10.3
-		>=x11-libs/gtk+-2.8 )
-	qt4? ( >=x11-libs/qt-core-4.5
-		>=x11-libs/qt-gui-4.5
-		>=x11-libs/qt-svg-4.5 )"
+		>=x11-libs/gtk+-2.8 )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
-S="${WORKDIR}/${ECVS_MODULE}"
+S="${WORKDIR}/${MY_P}"
 E_SITEFILE="50${PN}-gentoo.el"
 TEXMF="/usr/share/texmf-site"
 
@@ -66,19 +58,14 @@ pkg_setup() {
 }
 
 src_prepare() {
-	local i
 	epatch "${FILESDIR}"/${PN}-4.2.2-disable_texi_generation.patch #194216
-	epatch "${FILESDIR}"/${PF}-app-defaults.patch #219323
-	epatch "${FILESDIR}"/${PN}-4.4.0_rc1-disable-texhash.patch #201871
+	epatch "${FILESDIR}"/${PN}-4.2.3-app-defaults.patch #219323
+	epatch "${FILESDIR}"/${PN}-4.2.3-disable-texhash.patch #201871
+	epatch "${WORKDIR}"/${PN}-4.2.5-lua-term.patch #233475
+	epatch "${FILESDIR}"/${PN}-4.2.5-configure-pkgconfig.patch #233475 c9
 	# Add Gentoo version identification since the licence requires it
-	epatch "${FILESDIR}"/${PF}-gentoo-version.patch
+	epatch "${FILESDIR}"/${PN}-gentoo-version.patch
 
-	for i in config demo m4 term tutorial; do
-		cd $i
-		emake -f Makefile.am.in Makefile.am || \
-		  die "make -f Makefile.am.in Makefile.am in $i failed"
-		cd ..
-	done
 	eautoreconf
 }
 
@@ -93,8 +80,6 @@ src_configure() {
 			die "sed disable of LateX failed"
 	fi
 
-	local myconf="--enable-thin-splines"
-
 	myconf="${myconf} $(use_with X x)"
 	myconf="${myconf} $(use_with svga linux-vga)"
 	myconf="${myconf} $(use_with gd)"
@@ -103,7 +88,6 @@ src_configure() {
 	myconf="${myconf} $(use_with pdf pdf /usr/$(get_libdir))"
 	myconf="${myconf} $(use_with lua)"
 	myconf="${myconf} $(use_with doc tutorial)"
-	myconf="${myconf} $(use_enable qt4 qt)"
 
 	use ggi \
 		&& myconf="${myconf} --with-ggi=/usr/$(get_libdir)
@@ -177,11 +161,16 @@ src_install () {
 		cd ..
 	fi
 
-	dodoc BUGS ChangeLog NEWS PATCHLEVEL PGPKEYS PORTING README* \
+	if use latex && use lua; then
+		# install style file in an (additional) place where TeX can find it
+		insinto "${TEXMF}/tex/latex/${PN}/${GP_VERSION}"
+		doins term/lua/gnuplot-lua-tikz.sty || die
+	fi
+
+	dodoc BUGS ChangeLog FAQ NEWS PATCHLEVEL PGPKEYS PORTING README* \
 		TODO VERSION
 	use lua && newdoc term/lua/README README-lua
 	newdoc term/PostScript/README README-ps
-	newdoc term/js/README README-js
 
 	if use doc; then
 		# Demo files
