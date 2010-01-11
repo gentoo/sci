@@ -20,7 +20,6 @@ S="${WORKDIR}"/${MY_P}
 
 src_install() {
 	dobin bin/runmars* || die
-	rm bin/runmars*
 
 	exeinto /opt/${PN}/bin
 	doexe bin/{${PN},calcJC-S2} || die
