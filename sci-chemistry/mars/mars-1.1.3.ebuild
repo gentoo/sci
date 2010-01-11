@@ -22,9 +22,9 @@ src_install() {
 	dobin bin/runmars* || die
 
 	exeinto /opt/${PN}/
-	doexe bin/{${PN},calcJC-S2,runmars*} || die
+	doexe bin/{${PN},calcJC-S2,runmars*,*.awk} || die
 	insinto /opt/${PN}/
-	doins bin/*.{tab,awk,txt} || die
+	doins bin/*.{tab,txt} || die
 	if use examples; then
 		insinto /usr/share/${PN}/
 		doins -r example || die
