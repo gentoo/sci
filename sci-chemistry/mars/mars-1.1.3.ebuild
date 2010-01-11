@@ -23,16 +23,18 @@ src_install() {
 	rm bin/runmars*
 
 	exeinto /opt/${PN}/bin
-	doexe bin/* || die
+	doexe bin/{${PN},calcJC-S2} || die
+	insinto /opt/${PN}/bin
+	doins bin/*.{tab,awk,txt} || die
 	if use examples; then
 		insinto /opt/${PN}
-		doins example || die
+		doins -r example || die
 	fi
 
 	dohtml -r html/* || die
 
 	cat >> "${T}"/23mars <<- EOF
-	MARSHOME="${PREFIX}/opt/${PN}
+	MARSHOME="${PREFIX}/opt/${PN}"
 	EOF
 
 	doenvd "${T}"/23mars || die
