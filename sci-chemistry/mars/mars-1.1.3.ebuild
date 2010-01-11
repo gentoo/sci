@@ -33,7 +33,7 @@ src_install() {
 	dohtml -r html/* || die
 
 	cat >> "${T}"/23mars <<- EOF
-	MARSHOME="${PREFIX}/opt/${PN}"
+	MARSHOME="${EPREFIX}/opt/${PN}"
 	EOF
 
 	doenvd "${T}"/23mars || die
