@@ -21,12 +21,12 @@ S="${WORKDIR}"/${MY_P}
 src_install() {
 	dobin bin/runmars* || die
 
-	exeinto /opt/${PN}/bin
+	exeinto /opt/${PN}/
 	doexe bin/{${PN},calcJC-S2,runmars*} || die
-	insinto /opt/${PN}/bin
+	insinto /opt/${PN}/
 	doins bin/*.{tab,awk,txt} || die
 	if use examples; then
-		insinto /opt/${PN}
+		insinto /usr/share/${PN}/
 		doins -r example || die
 	fi
 
