@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net> mars-1.1.3.ebuild:
+  RDEPEND on sci-biology/psipred
+
 *mars-1.1.3 (11 Jan 2010)
 
   11 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net> +mars-1.1.3.ebuild,

@@ -13,8 +13,8 @@ KEYWORDS="~amd64 ~x86"
 LICENSE="as-is"
 IUSE="examples"
 
-RDEPEND=""
-DEPEND="${RDEPEND}"
+RDEPEND="sci-biology/psipred"
+DEPEND=""
 
 S="${WORKDIR}"/${MY_P}
 
