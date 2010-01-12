@@ -4,7 +4,7 @@
 
   12 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
   psipred-2.6.1.ebuild:
-  adopted to new blast-db
+  DEPEND: blast-db -> ncbi-tools++
 
 *psipred-2.6.1 (09 Apr 2009)
 

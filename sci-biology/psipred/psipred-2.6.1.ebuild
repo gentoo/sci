@@ -18,8 +18,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	>=sci-biology/blast-db-0.2
-	sci-biology/ncbi-tools"
+	sci-biology/ncbi-tools
+	sci-biology/ncbi-tools++"
 
 S="${WORKDIR}"
 
