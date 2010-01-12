@@ -5,7 +5,7 @@
  
  # Where the NCBI programs have been installed
 -set ncbidir = /usr/local/bin
-+set ncbidir = /usr/bin
++set ncbidir = EPREFIX/usr/bin
  
  # Where the PSIPRED V2 programs have been installed
 -set execdir = ./bin
@@ -13,7 +13,7 @@
  
  # Where the PSIPRED V2 data files have been installed
 -set datadir = ./data
-+set datadir = /usr/share/psipred/data
++set datadir = EPREFIX/usr/share/psipred/data
  
  set basename = $1:r
  set rootname = $basename:t
@@ -24,11 +24,11 @@
  
  # Where the PSIPRED V2 programs have been installed
 -set execdir = ./bin
-+set execdir = /usr/bin
++set execdir = EPREFIX/usr/bin
  
  # Where the PSIPRED V2 data files have been installed
 -set datadir = ./data
-+set datadir = /usr/share/psipred/data
++set datadir = EPREFIX/usr/share/psipred/data
  
  set basename = $1:r
  set rootname = $basename:t

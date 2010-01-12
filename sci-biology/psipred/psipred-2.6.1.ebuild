@@ -25,7 +25,11 @@ S="${WORKDIR}"
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PV}-Makefile.patch
-	epatch "${FILESDIR}"/${PV}-path.patch
+	sed \
+		-e "s:EPREFIX:${EPREFIX}:g" \
+		"${FILESDIR}"/${PV}-path.patch \
+		> "${T}"/${PV}-path.patch
+	epatch "${T}"/${PV}-path.patch
 }
 
 src_compile() {
