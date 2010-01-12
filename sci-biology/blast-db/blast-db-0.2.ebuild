@@ -14,7 +14,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="dev-lang/perl"
+RDEPEND="
+	dev-lang/perl
+	virtual/perl-Getopt-Long
+	virtual/perl-libnet
+	virtual/perl-PodParser"
 
 RESTRICT="binchecks strip"
 
