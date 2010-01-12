@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# Versioning is output of nmrpipe -help
+# Versioning is output of nmrPipe -help
 
 inherit eutils
 
@@ -43,7 +43,7 @@ RDEPEND="${DEPEND}
 	x86? ( x11-libs/xview )"
 
 S="${WORKDIR}"
-NMRBASE="/opt/${PN}"
+NMRBASE="${EPREFIX}/opt/${PN}"
 
 pkg_nofetch() {
 	einfo "Please visit:"
@@ -71,7 +71,7 @@ src_unpack() {
 
 	# Unset DISPLAY to avoid the interactive graphical test.
 	# This just unpacks the stuff
-	DISPLAY="" ./install.com +type linux9 +dest "${S}"/NMR || die
+	env DISPLAY="" csh ./install.com +type linux9 +dest "${S}"/NMR || die
 
 	epatch "${FILESDIR}"/${PV}-lib.patch
 
@@ -79,6 +79,7 @@ src_unpack() {
 }
 
 src_install() {
+	use prefix || ED="${D}"
 	cat >> "${T}"/nmrWish <<- EOF
 	#!/bin/csh -f
 	setenv NMRBIN \${NMRBASE}/bin/
@@ -128,7 +129,11 @@ src_install() {
 	done
 	sed -i "s:${WORKDIR}:${NMRBASE}:g" com/font.com || die
 
-	newenvd "${FILESDIR}"/env-${PN}-new 40${PN} || die "Failed to install env file."
+	sed \
+		-e "s:/opt/nmrpipe:${EPREFIX}/opt/nmrpipe:g" \
+		"${FILESDIR}"/env-${PN}-new \
+		> env-${PN}-new
+	newenvd env-${PN}-new 40${PN} || die "Failed to install env file."
 
 	insinto ${NMRBASE}
 	doins -r * || die "Failed to install application."
@@ -138,7 +143,7 @@ src_install() {
 
 	# fperms does not chmod nmrwish
 #	fperms -v 775 ${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
-	chmod -c 775 "${D}"/${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
+	chmod -c 775 "${ED}"/${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
 
 	exeinto ${NMRBASE}/nmrbin.linux9
 	doexe "${T}"/nmrWish || die
