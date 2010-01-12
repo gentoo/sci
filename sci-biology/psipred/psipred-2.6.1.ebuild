@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="sci-biology/blast-db
+RDEPEND="
+	>=sci-biology/blast-db-0.2
 	sci-biology/ncbi-tools"
 
 S="${WORKDIR}"
@@ -37,4 +38,10 @@ src_install() {
 	insinto /usr/share/${PN}
 	doins -r data || die "failed to install data"
 	dodoc README || die "nothing to read"
+}
+
+pkg_postinst() {
+	einfo "We are not installing the blast db anymore."
+	einfo "Please use the update_blastdb.pl in order to"
+	einfo "maintain your own local blastdb"
 }
