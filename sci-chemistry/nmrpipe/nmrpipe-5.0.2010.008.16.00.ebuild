@@ -43,7 +43,8 @@ RDEPEND="${DEPEND}
 	x86? ( x11-libs/xview )"
 
 S="${WORKDIR}"
-NMRBASE="${EPREFIX}/opt/${PN}"
+NMRBASE="/opt/${PN}"
+ENMRBASE="${EPREFIX}/${NMRBASE}"
 
 pkg_nofetch() {
 	einfo "Please visit:"
@@ -124,10 +125,10 @@ src_install() {
 
 	# Set the correct path to NMRPipe in the auxiliary scripts.
 	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc -type f); do
-		sed -e "s%/u/delaglio%${NMRBASE}%" -i ${i} || die \
+		sed -e "s%/u/delaglio%${ENMRBASE}%" -i ${i} || die \
 			"Failed patching scripts."
 	done
-	sed -i "s:${WORKDIR}:${NMRBASE}:g" com/font.com || die
+	sed -i "s:${WORKDIR}:${ENMRBASE}:g" com/font.com || die
 
 	sed \
 		-e "s:/opt/nmrpipe:${EPREFIX}/opt/nmrpipe:g" \
