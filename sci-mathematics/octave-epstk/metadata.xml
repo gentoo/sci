@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
-  <maintainer>
-    <email>lucas.chiesa@gmail.com</email>
-    <name>Lucas Chiesa</name>
-  </maintainer>
+<herd>sci-mathematics</herd>
+<longdescription lang='en'>
+  The octave-epstk package provides, via a set of .m functions, a
+  toolkit to create powerful encapsulated postscript (.eps) graphs. Most 2D
+  scientific graphics functions are written. The generated .eps-files are very
+  small and can be imported into other documents without loss of quality.
+</longdescription>
 </pkgmetadata>
