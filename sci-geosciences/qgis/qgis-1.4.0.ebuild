@@ -4,16 +4,17 @@
 
 EAPI="2"
 
-inherit cmake-utils eutils subversion
+inherit cmake-utils eutils
 
 DESCRIPTION="User friendly Geographic Information System"
 HOMEPAGE="http://www.qgis.org/"
-ESVN_REPO_URI="http://svn.osgeo.org/qgis/branches/Release-1_4_0"
-SRC_URI="examples? ( http://download.osgeo.org/qgis/data/qgis_sample_data.tar.gz )"
+
+SRC_URI="http://download.osgeo.org/${PN}/src/${PN}_${PV}.tar.gz
+	examples? ( http://download.osgeo.org/qgis/data/qgis_sample_data.tar.gz )"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="examples gps grass gsl postgres python sqlite"
 
 RDEPEND=">=sci-libs/gdal-1.6.1
