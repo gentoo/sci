@@ -1,6 +1,11 @@
 # ChangeLog for sys-cluster/openmpi
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*openmpi-1.4.1 (15 Jan 2010)
+
+  15 Jan 2010; Justin Bronder <jsbronder@gentoo.org> +openmpi-1.4.1.ebuild:
+  Bump sys-cluster/openmpi-1.4.1
 
 *openmpi-1.4 (09 Dec 2009)
 
