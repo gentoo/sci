@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/dssp2pdb
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*dssp2pdb-0.03 (15 Jan 2010)
+
+  15 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +dssp2pdb-0.03.ebuild, +metadata.xml:
+  Initial commit
+
