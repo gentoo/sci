@@ -32,6 +32,6 @@ src_compile() {
 
 src_install() {
 	dolib.a ${PN}.a || die
-	insinto /usr/include
+	insinto /usr/include/${PN}
 	doins *.h || die
 }
