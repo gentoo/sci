@@ -5,7 +5,7 @@
 EAPI="2"
 
 PYTHON_USE_WITH="ssl tk"
-PATCHSET="091220"
+PATCHSET="100116"
 
 inherit eutils portability python toolchain-funcs versionator
 

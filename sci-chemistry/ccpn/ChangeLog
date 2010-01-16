@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccpn-2.1.2_p1-r6 (16 Jan 2010)
+
+  16 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  ccpn-2.1.2_p1-r5.ebuild, +ccpn-2.1.2_p1-r6.ebuild:
+  Todays patch added
+
 *ccpn-2.1.2_p1-r5 (02 Jan 2010)
 
   02 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
