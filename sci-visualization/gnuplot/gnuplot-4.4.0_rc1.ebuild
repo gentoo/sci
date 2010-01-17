@@ -33,7 +33,7 @@ RDEPEND="
 	gd? ( >=media-libs/gd-2[png] )
 	doc? ( dev-tex/picins
 		virtual/latex-base
-		virtual/ghostscript )
+		app-text/ghostscript-gpl )
 	latex? ( virtual/latex-base
 		lua? ( dev-tex/pgf
 			>=dev-texlive/texlive-latexrecommended-2008-r2 ) )
@@ -189,8 +189,13 @@ src_install () {
 		# see bug 194527
 		rm -rf "${D}/etc/X11"
 	fi
-	use multislot && \
-	  mv "${D}/usr/share/info/gnuplot.info" "${D}/usr/share/info/gnuplot-${GP_VERSION}.info"
+
+	#suffix is not working in all Makefile
+	if use multislot; then
+		mv "${D}/usr/share/info/gnuplot.info" "${D}/usr/share/info/gnuplot-${GP_VERSION}.info"
+		#remove in rc2
+		mv "${D}/usr/libexec/gnuplot/4.4/gnuplot-tikz.lua-4.4" "${D}/usr/libexec/gnuplot/4.4/gnuplot-tikz.lua"
+	fi
 }
 
 pkg_postinst() {

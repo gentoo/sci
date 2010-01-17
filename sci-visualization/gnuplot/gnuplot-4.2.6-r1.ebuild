@@ -191,8 +191,13 @@ src_install () {
 		# see bug 194527
 		rm -rf "${D}/etc/X11"
 	fi
-	use multislot && \
-	  mv "${D}/usr/share/info/gnuplot.info" "${D}/usr/share/info/gnuplot-${GP_VERSION}.info"
+
+	#suffix is not working in all Makefile
+	if use multislot; then
+		mv "${D}/usr/share/info/gnuplot.info" "${D}/usr/share/info/gnuplot-${GP_VERSION}.info"
+		mv "${D}/usr/libexec/gnuplot/4.2/gnuplot.lua-4.2" "${D}/usr/libexec/gnuplot/4.2/gnuplot.lua"
+		mv "${D}/usr/libexec/gnuplot/4.2/gnuplot_x11-4.2" "${D}/usr/libexec/gnuplot/4.2/gnuplot_x11"
+	fi
 }
 
 pkg_postinst() {

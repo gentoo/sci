@@ -35,7 +35,7 @@ RDEPEND="
 	gd? ( >=media-libs/gd-2[png] )
 	doc? ( dev-tex/picins
 		virtual/latex-base
-		virtual/ghostscript )
+		app-text/ghostscript-gpl )
 	latex? ( virtual/latex-base
 		lua? ( dev-tex/pgf
 			>=dev-texlive/texlive-latexrecommended-2008-r2 ) )
