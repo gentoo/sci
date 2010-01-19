@@ -69,6 +69,10 @@ src_configure() {
 		--enable-orterun-prefix-by-default
 		--without-slurm"
 
+	# Workaround for #288147 which also caused packages like hdf5 to fail.
+	# http://www.open-mpi.org/community/lists/users/2009/12/11419.php
+	c="${c} --includedir=$(mpi_root)usr/include/${PN}"
+
 	if use mpi-threads; then
 		c="${c}
 			--enable-mpi-threads

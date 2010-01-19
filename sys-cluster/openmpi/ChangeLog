@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Jan 2010; Justin Bronder <jsbronder@gentoo.org> openmpi-1.4.1.ebuild:
+  Move include files into a subdirectory
+
 *openmpi-1.4.1 (15 Jan 2010)
 
   15 Jan 2010; Justin Bronder <jsbronder@gentoo.org> +openmpi-1.4.1.ebuild:
