@@ -1,6 +1,12 @@
 # ChangeLog for sci-libs/scikits_timeseries
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*scikits_timeseries-0.91.3 (20 Jan 2010)
+
+  20 Jan 2010; Tim Cera <timcera@earthlink.net>
+  -scikits_timeseries-0.91.1.ebuild, +scikits_timeseries-0.91.3.ebuild:
+  Version bump. Copyright fix. Added correct licenses.
 
   17 Jun 2009; Tim Cera <timcera@earthlink.net>
   scikits_timeseries-0.91.1.ebuild, metadata.xml:
