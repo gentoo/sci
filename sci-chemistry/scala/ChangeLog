@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scala-3.3.17 (21 Jan 2010)
+
+  21 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +scala-3.3.17.ebuild:
+  sci-chemistry/scala -- Version bump
+
 *scala-3.3.16 (12 Jan 2010)
 
   12 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
