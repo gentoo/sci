@@ -1,0 +1,274 @@
+# Copyright 1999-2005 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Id: $
+
+DESCRIPTION="Manage MPI classes"
+MAINTAINER="jsbronder@gentoo.org"
+SVN_DATE='$Date: $'
+VERSION="0.0.2"
+
+inherit path-manipulation config
+
+# The basic idea is we want to allow every use to select their own mpi
+# implementation they want, and a ${HOME}/.env.d/mpi file is created for them.
+#   A user then is -required- to source the env file.  This sets PATH, MANPATH,
+# and LD_LIBRARY_PATH.  I'm sure I'm forgetting something here.
+# Calling unset only wipes out the env file, replacing it with what we
+# previously added stripped out.
+
+# If you can think of a better way to do this, while still allowing user's
+# freedom, please let me know.
+
+# List the valid mpi classes currently installed.
+find_classes() {
+	local classes
+	for f in ${ROOT}/etc/env.d/mpi/*; do
+		[[ -f ${f} ]] || continue
+		f=$(basename ${f})
+		[[ "${f#mpi-}" == "${f}" ]] && continue
+		classes=(${classes[@]} ${f})
+	done
+	echo ${classes[@]}
+}
+
+# User's current environment has the class configured in it.
+is_in_use() { [ "${ESELECT_MPI_IMP}" == "${1}" ]; }
+
+# User's env file is ready for sourcing for this class
+is_enabled() {
+	[ "$(var_from_user_envd ESELECT_MPI_IMP)" == "${1}" ]
+}
+
+var_from_user_envd(){
+	[ ! -f ${user_ev_sh} ] && return 0
+	echo "$(source ${user_ev_sh}; echo ${!1})"
+}
+
+# Is this a valid class?
+is_class() {
+	local classes=$(find_classes)
+	for i in ${classes[@]}; do
+		[[ "${i}" == "${1}" ]] && return 0
+	done
+	return 1
+}
+
+init() {
+	local d
+	[[ ${UID} -eq 0 ]] && HOME="${ROOT}/root"
+	d="$(canonicalise "${ROOT}/${HOME}")"
+	d="${d}/.env.d/"
+	user_ev_sh="${d}mpi.sh"; 
+	user_ev_csh="${d}mpi.csh"; 
+	
+	if [[ ! -d "${d}" ]]; then
+		mkdir "${d}" || die -q "Failed to create ${d}."
+	elif [[ ! -w "${d}" ]]; then
+		die -q "You do not have permission to mkdir ${d}."
+	fi
+	[[ -f "${user_ev_sh}" && ! -w "${user_ev_sh}" \
+		&& -f "${user_ev_csh}" && ! -w "${user_ev_csh}" ]] \
+		&& die -q "You do not have permission to write to ${user_ev_sh} or ${user_ev_csh}."
+}
+
+global_env() {
+	local d=$(canonicalise "${ROOT}/etc/env.d/mpi/${1}")
+	[ -z "${d}" ] && die "Cannot find global env file for ${1}"
+	ev=${d}
+}
+
+### list action ###
+
+describe_list() {  echo "List available classs"; }
+describe_list_parameters() { echo "[-p]"; }
+
+do_list() {
+	classes=( $(find_classes) )
+	init
+	if [[ ${@} == *-p* ]]; then
+		echo "${classes[@]}"
+	else
+		write_list_start "Available MPI classs:"
+		if [[ -n "${classes[@]}" ]]; then
+			for (( i=0; i<${#classes[@]}; i++ )); do
+				if is_in_use ${classes[$i]} && is_enabled ${classes[$i]}; then
+					write_kv_list_entry "${classes[$i]}" "Enabled, In Use"
+				elif is_in_use ${classes[$i]}; then
+					write_kv_list_entry "${classes[$i]}" "In Use"
+				elif is_enabled ${classes[$i]}; then
+					write_kv_list_entry "${classes[$i]}" "Enabled"
+				else
+					write_kv_list_entry "${classes[$i]}" "--"
+				fi
+			done
+		else
+			write_kv_list_entry "(none found)" ""
+		fi
+	fi
+	return 0
+}
+
+
+### set action ###
+
+describe_set() {
+	echo "Select a MPI class."
+}
+
+describe_set_parameters() {
+	echo "<target>"
+}
+
+do_set() {
+	local binpath lld manpath current_imp
+
+	init
+	current_imp="$(var_from_user_envd ESELECT_MPI_IMP)"
+	global_env ${1}
+
+	[[ -z ${1} ]] && die -q "You didnt specifiy any class for use."
+	[[ ${#@} -ne 1 ]] && die -q "You may only select exactly one class."
+	! is_class ${1} && die -q "${1} is not an class."
+	if is_enabled ${1}; then
+		echo "${1} implemention is currently in use.  This is a no-op."
+		return
+	elif [ -n "${current_imp}" ]; then
+		echo "Cannot select ${1} when ${current_imp} is in use."
+		return 1
+	fi
+	
+   binpath="$(load_config ${ev} PATH)"
+   lld="$(load_config ${ev} LD_LIBRARY_PATH)"
+   manpath="$(load_config ${ev} MANPATH)"
+
+cat <<-EOF >${user_ev_sh}
+bpl=\`expr "\${PATH}" : ".*${binpath}:"\`
+mpl=\`expr "\${MANPATH}" : ".*${manpath}:"\`
+llpl=\`expr "\${LD_LIBRARY_PATH}" : ".*${lld}:"\`
+
+if [ \${bpl} -eq 0 ]; then
+	export PATH="${binpath}:\${PATH}"
+fi
+
+if [ \${mpl} -eq 0 ]; then
+	export MANPATH="${manpath}:\${MANPATH}"
+fi
+
+if [ \${llpl} -eq 0 ]; then
+	export LD_LIBRARY_PATH="${lld}:\${LD_LIBRARY_PATH}"
+fi
+export ESELECT_MPI_IMP="${1}"
+EOF
+
+cat <<-EOF >${user_ev_csh}
+set bpl=\`expr "\${PATH}" : ".*${binpath}:"\`
+set mpl=\`expr "\${MANPATH}" : ".*${manpath}:"\`
+set llpl=\`expr "\${LD_LIBRARY_PATH}" : ".*${lld}:"\`
+
+if ( \$bpl == 0 ) \
+	setenv PATH "${binpath}:\${PATH}"
+
+if ( \$mpl == 0 ) \
+	setenv MANPATH "${manpath}:\${MANPATH}"
+
+if ( \$llpl  == 0 ) \
+	setenv LD_LIBRARY_PATH "${lld}:\${LD_LIBRARY_PATH}"
+
+setenv ESELECT_MPI_IMP "${1}"
+EOF
+
+	echo "Remember to source /etc/profile or /etc/csh.login"
+}
+
+
+### unset action ###
+describe_unset() {
+	echo "Restore MPI-less environment."
+}
+
+do_unset() {
+   	local lld current_imp
+   	init
+
+	current_imp="$(var_from_user_envd ESELECT_MPI_IMP)"
+
+	if [ -z "${current_imp}" ]; then
+		echo "No implemention currently in use.  This is a no-op."
+		return
+	fi
+	
+	global_env "${ESELECT_MPI_IMP}"
+	lld="$(load_config ${ev} LD_LIBRARY_PATH)"
+
+   # PATH and MANPATH are reset in /etc/profile.
+cat <<-EOF > ${user_ev_sh}
+unset ESELECT_MPI_IMP
+l=\`expr "\${LD_LIBRARY_PATH}:" : ".*${lld}:"\`
+l=\$(( \${l} + 1 ))
+
+if [ \${l} -gt 1 ]; then
+	export LD_LIBRARY_PATH="\`expr substr \${LD_LIBRARY_PATH} \${l} 1024\`"
+fi
+EOF
+
+cat <<-EOF > ${user_ev_csh}
+unsetenv ESELECT_MPI_IMP
+set l=\`expr "\${LD_LIBRARY_PATH}:" : ".*${lld}:"\`
+@ l = ( \${l} + 1 )
+
+if ( \${l} > 1 ) \
+	setenv LD_LIBRARY_PATH "\`expr substr \${LD_LIBRARY_PATH} \${l} 1024\`"
+EOF
+
+   echo "Remember to source /etc/profile or /etc/csh.login"
+}
+
+### add action (from skel pretty much)
+describe_add() {
+	echo "Add a new mpi class"
+}
+
+describe_add_parameters() {
+	echo "<file>"
+}
+
+do_add() {
+	local class
+	[[ ${#@} -ne 1 ]] \
+		&& die -q "Bad arguments, use:  mpi add /some/full/path/<class>.eselect"
+
+	# If $D is set, we're adding from portage so we want to respect sandbox.
+	# Otherwise, respect the ROOT variable.
+	local PREFIX=${D:-${ROOT}/}
+
+	# Create directory if necessary
+	if [[ ! -e ${PREFIX}/etc/env.d/mpi/ ]]; then
+		mkdir -p ${PREFIX}/etc/env.d/mpi/
+	else
+		if [[ ! -d ${PREFIX}/etc/env.d/mpi/ ]]; then
+			die -q "${PREFIX}/etc/env.d/mpi/ exists but isn't a directory!"
+		fi
+	fi
+
+	class=$(basename ${1}); class=${class%.eselect}
+	if ! cp ${1} ${PREFIX}/etc/env.d/mpi/${class}; then
+		die -q "Installing ${1} as ${PREFIX}/etc/env.d/mpi/${class} failed!"
+	fi
+}
+
+
+### printvar action ###
+describe_printvar() { echo "Print variables stored in global env.d file."; }
+describe_printvar_parameters() { echo "<class> <variable>"; }
+
+do_printvar() {
+	if [[ ${#@} -ne 2 ]] \
+		|| ! is_class ${1}; then
+		die -q "Specify exactly 1 class and 1 variable."
+	fi
+	global_env ${1}
+	echo "$(load_config ${ev} ${2})"
+}
+
+# vim: ft=eselect:noet
+

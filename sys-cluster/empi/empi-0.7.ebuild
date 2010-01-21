@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,7 +10,7 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 DEPEND="app-admin/eselect"
 RDEPEND="${DEPEND}"
@@ -23,6 +23,6 @@ src_install() {
 	insinto /usr/share/eselect/modules
 	newins "${FILESDIR}"/eselect.mpi-${PV} mpi.eselect || die
 	exeinto /etc/profile.d
-	doexe "${FILESDIR}"/mpi.csh || die
-	doexe "${FILESDIR}"/mpi.sh || die
+	doexe "${FILESDIR}"/mpi.sh
+	doexe "${FILESDIR}"/mpi.csh
 }
