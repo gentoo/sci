@@ -7,6 +7,9 @@ EAPI="2"
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
 
+EGIT_REPO_URI="git://git.gromacs.org/gromacs"
+EGIT_BRANCH="master"
+
 inherit autotools bash-completion eutils flag-o-matic fortran git multilib
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
@@ -34,9 +37,6 @@ DEPEND="app-shells/tcsh
 RDEPEND="${DEPEND}"
 
 RESTRICT="test"
-
-EGIT_REPO_URI="git://git.gromacs.org/gromacs"
-EGIT_BRANCH="master"
 
 src_prepare() {
 
