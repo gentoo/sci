@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,7 @@ EAPI="2"
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
 
-inherit autotools bash-completion eutils fortran git multilib
+inherit autotools bash-completion eutils flag-o-matic fortran git multilib
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -17,10 +17,12 @@ SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86"
-IUSE="X blas dmalloc doc -double-precision +fftw fkernels gsl lapack mpi +single-precision static test +xml zsh-completion"
+IUSE="X blas dmalloc doc -double-precision +fftw fkernels +gsl lapack mpi +single-precision static test +xml zsh-completion"
 
 DEPEND="app-shells/tcsh
-	X? ( x11-libs/libX11 )
+	X? ( x11-libs/libX11
+		x11-libs/libSM
+		x11-libs/libICE )
 	dmalloc? ( dev-libs/dmalloc )
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
@@ -34,8 +36,11 @@ RDEPEND="${DEPEND}"
 RESTRICT="test"
 
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
+EGIT_BRANCH="master"
 
 src_prepare() {
+
+	epatch "${FILESDIR}/${PN}-4.0.9999-docdir.patch"
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
 		|| die "Failed to fixup demo script."
@@ -59,23 +64,25 @@ src_prepare() {
 
 	use fkernels && epatch "${FILESDIR}/${PN}-4.0.4-configure-gfortran.patch"
 
+	append-ldflags -Wl,--no-as-needed
 	eautoreconf
 
-	cd "${WORKDIR}"
-
-	use test && mv gmxtest "${P}"
-	mv "${P}" "${P}-single"
-	if ( use double-precision ) ; then
-		einfo "Moving sources for Multiprecision Build"
-		cp -prP "${P}-single" "${P}-double"
-	fi
+	GMX_DIRS=""
+	use single-precision && GMX_DIRS+=" single"
+	use double-precision && GMX_DIRS+=" double"
+	for x in ${GMX_DIRS}; do
+		mkdir "${S}-${x}" || die
+		use test && cp -r "${WORKDIR}"/gmxtest "${S}-${x}"
+		use mpi || continue
+		mkdir "${S}-${x}_mpi" || die
+	done
 }
 
 src_configure() {
-	local myconf ;
-	local myconf_s ;
-	local myconf_d ;
-	local suffix_d ;
+	local myconf
+	local myconfsingle
+	local myconfdouble
+	local suffixdouble
 
 	#leave all assembly options enabled mdrun is smart enough to deside itself
 	#there so no gentoo on bluegene!
@@ -89,9 +96,12 @@ src_configure() {
 	fi
 
 	if [[ $(gcc-version) == "4.1" ]]; then
-		ewarn "gcc 4.1 is not supported by gromacs"
-		ewarn "please run test suite"
+		eerror "gcc 4.1 is not supported by gromacs"
+		eerror "please run test suite"
+		die
 	fi
+
+	#note for gentoo-PREFIX on apple: use --enable-apple-64bit
 
 	#fortran will gone in gromacs 4.1 anyway
 	#note for gentoo-PREFIX on aix, fortran (xlf) is still much faster
@@ -116,6 +126,13 @@ src_configure() {
 		myconf="${myconf} $(use_with lapack external-lapack)"
 	fi
 
+	# by default its better to have dynamicaly linked binaries
+	if use static; then
+		myconf="${myconf} $(use_enable static all-static)"
+	else
+		myconf="${myconf} --enable-shared"
+	fi
+
 	myconf="--datadir=/usr/share \
 			--bindir=/usr/bin \
 			--libdir=/usr/$(get_libdir) \
@@ -123,24 +140,22 @@ src_configure() {
 			$(use_with dmalloc) \
 			$(use_with fftw fft fftw3) \
 			$(use_with gsl) \
-			$(use_enable mpi) \
 			$(use_with X x) \
 			$(use_with xml) \
-			$(use_enable static all-static) \
 			${myconf}"
 
-	#if we build both double is suffixed
+	#if we build single and double - double is suffixed
 	if ( use double-precision && use single-precision ); then
-		suffix_d="_d"
+		suffixdouble="_d"
 	else
-		suffix_d=""
+		suffixdouble=""
 	fi
 
 	if use double-precision ; then
 		#from gromacs manual
 		elog
 		elog "For most simulations single precision is accurate enough. In some"
-		elog "cases double precision is required	to get reasonable results:"
+		elog "cases double precision is required to get reasonable results:"
 		elog
 		elog "-normal mode analysis, for the conjugate gradient or l-bfgs minimization"
 		elog " and the calculation and diagonalization of the Hessian "
@@ -148,60 +163,57 @@ src_configure() {
 		elog "-energy conservation: this can only be done without temperature coupling and"
 		elog " without cutoffs"
 		elog
-		einfo "Configuring Double Precison Gromacs"
-		cd "${WORKDIR}"/"${P}"-double
-		myconf_d="${myconf} --enable-double --program-suffix='${suffix_d}'"
-		econf ${myconf_d} || die "Double Precision econf failed"
 	fi
 
-	if use single-precision ; then
-		einfo "Configuring Single Precison Gromacs"
-		cd "${WORKDIR}"/"${P}"-single
-		myconf_s="${myconf} --enable-float --program-suffix=''"
-		econf ${myconf_s} || die "configure failed"
+	if use mpi ; then
+		elog "You have enabled mpi, only mdrun will make use of mpi, that is why"
+		elog "we configure/compile gromacs twice (with and without mpi) and only"
+		elog "install mdrun with mpi support. In addtion you will get libgmx and"
+		elog "libmd with and without mpi support."
 	fi
+
+	myconfdouble="${myconf} --enable-double --program-suffix='${suffixdouble}'"
+	myconfsingle="${myconf} --enable-float --program-suffix=''"
+	for x in ${GMX_DIRS}; do
+		einfo "Configuring for ${x} precision"
+		cd "${S}-${x}"
+		local p=myconf${x}
+		ECONF_SOURCE="${S}" econf ${!p} --disable-mpi
+		use mpi || continue
+		cd "${S}-${x}_mpi"
+		ECONF_SOURCE="${S}" econf ${!p} --enable-mpi
+	done
 }
 
 src_compile() {
-	if use double-precision ; then
-		einfo "Building Double Precison Gromacs"
-		cd "${WORKDIR}"/"${P}"-double
-		emake || die "Double Precision emake failed"
-	fi
-
-	if use single-precision ; then
-		einfo "Building Single Precison Gromacs"
-		cd "${WORKDIR}"/"${P}"-single
-		emake || die "Single Precision emake failed"
-	fi
+	for x in ${GMX_DIRS}; do
+		cd "${S}-${x}"
+		einfo "Compiling for ${x} precision"
+		emake || die "emake for ${x} precision failed"
+		use mpi || continue
+		cd "${S}-${x}_mpi"
+		emake mdrun || die "emake mdrun for ${x} precision failed"
+	done
 }
 
 src_test() {
-	if use single-precision ; then
-		export PATH="${WORKDIR}/${P}-single/src/kernel:${WORKDIR}/${P}-single/src/tools:$PATH"
-		cd "${WORKDIR}"/"${P}"-single
-		emake -j1 tests || die "Single Precision test failed"
-	fi
-
-	if use double-precision ; then
-		export PATH="${WORKDIR}/${P}-double/src/kernel:${WORKDIR}/${P}-double/src/tools:$PATH"
-		cd "${WORKDIR}"/"${P}"-double
-		emake -j1 tests || die "Double Precision test failed"
-	fi
+	for x in ${GMX_DIRS}; do
+		local oldpath="${PATH}"
+		export PATH="${S}-${x}/src/kernel:${S}-{x}/src/tools:${PATH}"
+		cd "${S}-${x}"
+		emake -j1 tests || die "${x} Precision test failed"
+		export PATH="${oldpath}"
+	done
 }
 
 src_install() {
-	if use single-precision ; then
-		einfo "Installing Single Precision"
-		cd "${WORKDIR}"/"${P}"-single
-		emake DESTDIR="${D}" install || die "Installing Single Precision failed"
-	fi
-
-	if use double-precision ; then
-		einfo "Installing Double Precision"
-		cd "${WORKDIR}"/"${P}"-double
-		emake DESTDIR="${D}" install || die "Installing Double Precision failed"
-	fi
+	for x in ${GMX_DIRS}; do
+		cd "${S}-${x}"
+		emake DESTDIR="${D}" install || die "emake install for ${x} failed"
+		use mpi || continue
+		cd "${S}-${x}_mpi"
+		emake DESTDIR="${D}" install-mdrun || die "emake install-mdrun for ${x} failed"
+	done
 
 	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${D}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
 	doenvd "${T}/80gromacs"
@@ -214,6 +226,7 @@ src_install() {
 	fi
 	rm -r "${D}"/usr/bin/completion.*
 
+	cd "${S}"
 	dodoc AUTHORS INSTALL README
 	use doc && dodoc "${DISTDIR}"/manual-4.0.pdf
 }
@@ -222,12 +235,12 @@ pkg_postinst() {
 	env-update && source /etc/profile
 	elog
 	elog "Please read and cite:"
-	elog "Gromacs 4, J. Chem. Theory Comput. 4, 435 \(2008\). "
+	elog "Gromacs 4, J. Chem. Theory Comput. 4, 435 (2008). "
 	elog "http://dx.doi.org/10.1021/ct700301q"
 	elog
 	bash-completion_pkg_postinst
 	elog
 	elog $(luck)
-	elog "For more Gromacs cool quotes \(gcq\)  add luck to your .bashrc"
+	elog "For more Gromacs cool quotes (gcq) add luck to your .bashrc"
 	elog
 }
