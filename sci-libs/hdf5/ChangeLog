@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/hdf5
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*hdf5-1.8.4-r2 (19 Jan 2010)
+
+  19 Jan 2010; Justin Bronder <jsbronder@gentoo.org> -hdf5-1.8.4-r1.ebuild,
+  +hdf5-1.8.4-r2.ebuild:
+  revbump to avoid conflicts with portage tree.
+
