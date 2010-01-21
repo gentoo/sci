@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  21 Jan 2010; Justin Bronder <jsbronder@gentoo.org> -files/ChangeLog-0.6,
+  -files/empi-0.6:
+  cleanup
+
   21 Jan 2010; Justin Bronder <jsbronder@gentoo.org> empi-0.7.ebuild:
   Stable x86 and amd64
 
