@@ -1,0 +1,10 @@
+--- build.xml.orig	2010-01-22 17:46:35.000000000 +0000
++++ build.xml	2010-01-22 17:49:07.000000000 +0000
+@@ -113,6 +113,7 @@
+       <src>
+         <pathelement location="src/main/java"/>
+       </src>
++      <exclude name="**/FreeHep*" />
+       <classpath refid="libs-build-classpath"/>
+     </javac>
+     <copy todir="${build.output}">

@@ -1,0 +1,113 @@
+--- configure.in.orig	2010-01-22 08:30:29.000000000 +0000
++++ configure.in	2010-01-22 08:32:18.000000000 +0000
+@@ -177,7 +177,7 @@
+   *)
+     if test -n "$withval" ; then
+         z_lib="`echo $withval |cut -f2 -d, -s`"
+-	ZLIB=$z_lib"/libz."$LLEXT
++	ZLIB="-L$z_lib -lz"
+ 	HAVE_ZLIB="yes"
+     else
+       ZLIB=""
+@@ -211,7 +211,7 @@
+   *)
+     if test -n "$withval" ; then
+         jpeg_lib="`echo $withval |cut -f2 -d, -s`"
+-	JPEGLIB=$jpeg_lib"/libjpeg."$LLEXT
++	JPEGLIB="-L$jpeg_lib -ljpeg"
+     	#AC_MSG_RESULT([jpeg found: $JPEGLIB]);
+ 	HAVE_JPEG="yes"
+     else
+@@ -246,7 +246,7 @@
+   *)
+ 	if test -n "$withval" ; then
+ 	    sz_lib="`echo $withval |cut -f2 -d, -s`"
+-		SZLIB=$sz_lib"/libsz."$LLEXT
++		SZLIB="-L$sz_lib -lsz"
+ 		#AC_MSG_RESULT([szlib found: $SZLIB]);
+ 		HAVE_SZIP="yes"
+ 	else
+@@ -302,7 +302,7 @@
+ 	;;
+ esac
+ if test -n "$HDF4LIB"; then
+-	LIBS="$HDF4LIB/libdf.$LLEXT $HDF4LIB/libmfhdf.$LLEXT $LIBS"
++	LIBS="-L$HDF4LIB -ldf -lmfhdf $LIBS"
+ 	HAVE_HDF4="yes"
+ fi
+ AC_MSG_RESULT([$HAVE_HDF4])
+@@ -363,7 +363,7 @@
+   *)
+ 	if test -n "$withval" ; then
+ 	    hdf5_lib="`echo $withval |cut -f2 -d, -s`"
+-		HDF5LIB=$hdf5_lib"/libhdf.$LLEXT"
++		HDF5LIB="-L$hdf5_lib -lhdf"
+ 	    hdf5_inc="`echo $withval |cut -f1 -d,`"
+ 	    if test -n "$hdf5_inc"; then
+ 	      HDF5INC="$hdf5_inc"
+@@ -380,7 +380,7 @@
+ 	;;
+ esac
+ if test -n "$HDF5LIB"; then
+-	LIBS="$HDF5LIB/libhdf5.$LLEXT $LIBS"
++	LIBS="-L$HDF5LIB -lhdf5 $LIBS"
+ 	HAVE_HDF5="yes"
+ fi
+ AC_MSG_RESULT([$HAVE_HDF5])
+@@ -626,6 +626,7 @@
+ AC_CACHE_CHECK("JH45 install directory",ac_cv_lib_JH45INST,JH45INST_FOUND=0)
+ fi
+ if test $JH45INST_FOUND -eq 1; then
++        mkdir -p $JH45INST
+ 	if test -z "$JH45INST" ; then
+ 		JH45INST=$ac_cv_lib_JH45INST;
+ 	fi
+@@ -633,7 +634,7 @@
+ 		JH45INST_FOUND=0
+ 	fi
+ 	if test \( ! -w "$JH45INST" \); then
+-		AC_MSG_ERROR( [ $JAVINST : not writable ])
++		AC_MSG_ERROR( [ $JH45INST : not writable ])
+ 		JH45INST_FOUND=0
+ 	fi
+ fi
+--- native/hdflib/Makefile.in.orig	2010-01-22 08:40:36.000000000 +0000
++++ native/hdflib/Makefile.in	2010-01-22 09:01:17.000000000 +0000
+@@ -37,7 +37,7 @@
+ CFLAGS = $(DEFS) -I. -I$(JAVAINC1) -I$(JAVAINC2) -I$(HDFINC)
+ 
+ # Be sure to add -lbsd if compiling in a SYSV environment
+-LIBS =  $(HDFLIB)/libmfhdf.$(LLEXT) $(HDFLIB)/libdf.$(LLEXT) $(SZLIB) $(ZLIB) $(JPEGLIB) -lm
++LIBS =  -L$(HDFLIB) -lmfhdf -ldf $(SZLIB) $(ZLIB) $(JPEGLIB) -lm
+ 
+ # Macro def: object filename used
+ OBJECTS =  hdfstructsutil.o \
+@@ -56,7 +56,7 @@
+ 
+ libjhdf: $(OBJECTS) 
+ 	-mkdir -p $(LIBDIR);
+-	$(LD) $(LDOPT) -o $(LIBDIR)/libjhdf.$(JSLEXT) $(LDOPT2) $(OBJECTS) $(LIBS)
++	$(LD) $(LDOPT) $(LDFLAGS) -o $(LIBDIR)/libjhdf.$(JSLEXT) $(LDOPT2) $(OBJECTS) $(LIBS)
+ 
+ clean:
+ 	$(RM) -f *.o so_locations $(LIBDIR)/libjhdf.$(JSLEXT)
+--- native/hdf5lib/Makefile.in.orig	2010-01-22 08:40:59.000000000 +0000
++++ native/hdf5lib/Makefile.in	2010-01-22 09:01:40.000000000 +0000
+@@ -33,7 +33,7 @@
+ 
+ CFLAGS = -DH5_USE_16_API -D_FILE_OFFSET_BITS=64 $(DEFS) -I. -I$(HDF5INC) -I$(JAVAINC1) -I$(JAVAINC2)
+ 
+-LIBS =  $(HDF5LIB)/libhdf5.$(LLEXT) $(ZLIB) $(SZLIB) -lm
++LIBS =  -L$(HDF5LIB) -lhdf5 $(ZLIB) $(SZLIB) -lm
+ 
+ # Macro def: object filename used
+ OBJECTS =  exceptionImp.o h5Constants.o h5Imp.o h5aImp.o h5dImp.o h5fImp.o h5gImp.o h5iImp.o h5pImp.o h5rImp.o h5sImp.o h5tImp.o nativeData.o h5util.o h5zImp.o
+@@ -45,7 +45,7 @@
+ 
+ libjhdf5: $(OBJECTS)
+ 	-mkdir -p $(LIBDIR);
+-	$(LD) $(LDOPT) -o $(LIBDIR)/libjhdf5.$(JSLEXT) $(LDOPT2) $(OBJECTS) $(LIBS)
++	$(LD) $(LDOPT) $(LDFLAGS) -o $(LIBDIR)/libjhdf5.$(JSLEXT) $(LDOPT2) $(OBJECTS) $(LIBS)
+ 
+ clean:
+ 	$(RM) -f *.o so_locations $(LIBDIR)/libjhdf5.$(JSLEXT)
