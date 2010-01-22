@@ -30,6 +30,10 @@
 
 #--- END OF EXAMPLES ---
 
+# Sébastien Fabbro <bicatali@gentoo.org> (22 Jan 2010)
+# mask as this ebuild is experimental
+>=sci-visualization/scilab-5
+
 # Oliver Borm (boroli) (14 Dec 09)
 # oli.borm@web.de
 # mask as this ebuild is experimental
