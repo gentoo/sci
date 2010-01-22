@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-mathematics/octave/octave-3.2.3.ebuild,v 1.1 2009/11/04 11:26:39 markusle Exp $
 
@@ -12,7 +12,7 @@ SRC_URI="ftp://ftp.gnu.org/pub/gnu/${PN}/${P}.tar.bz2"
 
 SLOT="0"
 IUSE="curl doc emacs fltk fftw hdf5 opengl readline sparse xemacs zlib"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
 
 RDEPEND="dev-libs/libpcre
 	media-gfx/graphicsmagick[cxx]
@@ -22,6 +22,7 @@ RDEPEND="dev-libs/libpcre
 	sci-visualization/gnuplot
 	sys-libs/ncurses
 	virtual/lapack
+	x11-libs/libX11
 	curl? ( net-misc/curl )
 	fltk? ( x11-libs/fltk[opengl] )
 	fftw? ( sci-libs/fftw:3.0 )
@@ -75,7 +76,6 @@ src_configure() {
 
 src_compile() {
 	emake || die "emake failed"
-
 	if use xemacs; then
 		cd "${S}/emacs"
 		xemacs-elisp-comp *.el
