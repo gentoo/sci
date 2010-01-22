@@ -1,0 +1,7 @@
+# ChangeLog for dev-java/jlatexmath
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  22 Jan 2010; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml:
+  Initial import. Ebuild submitted by Guillaume Horel, bug #301048
+
