@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=2
+JAVA_PKG_IUSE="source"
 inherit eutils java-pkg-2 java-ant-2
 
 DESCRIPTION="Core module of MathML rendering solution."
@@ -12,6 +13,7 @@ SRC_URI="mirror://sourceforge/jeuclid/jeuclid-parent-${PV}-src.zip"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+IUSE=""
 
 COMMON_DEPEND="dev-java/ant-core
 	dev-java/batik:1.7
