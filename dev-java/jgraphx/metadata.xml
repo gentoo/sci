@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<longdescription lang="en">
+  JGraph X is based on the mxGraph architecture, a re-designed core
+  based on JGraph experience.
+  Overall, JGraph X provides more features that JGraph, with a far
+  smaller code size and complexity. Redesigning the codebase from
+  scratch now means implementing common feature extensions are easier
+  and require less coding. A number of new loosely coupled
+  application-centric features have been added, making prototyping
+  even faster, without their usage restricting application
+  flexibility.
+</longdescription>
+</pkgmetadata>
