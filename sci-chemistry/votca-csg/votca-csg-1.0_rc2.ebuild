@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,7 +13,7 @@ SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 DEPEND="sci-libs/fftw:3.0
@@ -21,7 +21,7 @@ DEPEND="sci-libs/fftw:3.0
 	sci-libs/gsl
 	>=dev-libs/boost-1.33.1
 	sci-libs/votca-tools
-	>=sci-chemistry/gromacs-4.0.5-r1
+	=sci-chemistry/gromacs-4.0*
 	dev-lang/perl
 	app-shells/bash"
 
