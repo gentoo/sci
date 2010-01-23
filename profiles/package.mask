@@ -51,6 +51,12 @@
 =sci-chemistry/gromacs-4.0.9999
 =sci-chemistry/gromacs-9999
 
+# Christoph Junghans (ottxor) (23 Jan 10)
+# kleiner_otti@gmx.de
+# mask live ebuilds
+=sci-libs/votca-tools-9999
+=sci-chemistry/votca-csg-9999
+
 # Justin Lecher (jlec) (18 Jun 09)
 # jlec@j-schmitz.net
 # Just working with the masked experimental version
