@@ -66,18 +66,16 @@ pkg_setup() {
 }
 
 src_prepare() {
-	local i
+	local dir
 	epatch "${FILESDIR}"/${PN}-4.2.2-disable_texi_generation.patch #194216
 	epatch "${FILESDIR}"/${PF}-app-defaults.patch #219323
 	epatch "${FILESDIR}"/${PN}-4.4.0_rc1-disable-texhash.patch #201871
 	# Add Gentoo version identification since the licence requires it
 	epatch "${FILESDIR}"/${PF}-gentoo-version.patch
 
-	for i in config demo m4 term tutorial; do
-		cd $i
-		emake -f Makefile.am.in Makefile.am || \
-		  die "make -f Makefile.am.in Makefile.am in $i failed"
-		cd ..
+	for dir in config demo m4 term tutorial; do
+		emake -C "$dir" -f Makefile.am.in Makefile.am || \
+		  die "make -f Makefile.am.in Makefile.am in $dir failed"
 	done
 	eautoreconf
 }
@@ -87,14 +85,11 @@ src_configure() {
 	if use latex ; then
 		sed -i -e "s:\`kpsexpand.*\`:${TEXMF}/tex/latex/${PN}/${GP_VERSION}:" \
 			share/LaTeX/Makefile.in || die "sed kpsexpand removed failed"
-	else
-		sed -i \
-			-e '/^SUBDIRS/ s/LaTeX//' share/Makefile.in || \
-			die "sed disable of LateX failed"
 	fi
 
 	local myconf="--enable-thin-splines"
 
+	myconf="${myconf} $(use_with latex)"
 	myconf="${myconf} $(use_with X x)"
 	myconf="${myconf} $(use_with svga linux-vga)"
 	myconf="${myconf} $(use_with gd)"
@@ -198,10 +193,6 @@ src_install () {
 		doins docs/psdoc/{*.doc,*.tex,*.ps,*.gpi,README}
 	fi
 
-	if ! use X; then
-		# see bug 194527
-		rm -rf "${D}/etc/X11"
-	fi
 	use multislot && \
 	  mv "${D}/usr/share/info/gnuplot.info" "${D}/usr/share/info/gnuplot-${GP_VERSION}.info"
 }
