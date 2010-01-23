@@ -64,7 +64,7 @@ src_prepare() {
 
 	use fkernels && epatch "${FILESDIR}/${PN}-4.0.4-configure-gfortran.patch"
 
-	append-ldflags -Wl,--no-as-needed
+	filter-ldflags -Wl,--as-needed
 	eautoreconf
 
 	GMX_DIRS=""

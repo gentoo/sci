@@ -10,7 +10,7 @@ TEST_PV="4.0.4"
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="release-4-0-patches"
 
-inherit autotools bash-completion eutils flag-o-matic fortran git multilib
+inherit autotools bash-completion eutils fortran git multilib
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -64,7 +64,6 @@ src_prepare() {
 
 	use fkernels && epatch "${FILESDIR}/${PN}-4.0.4-configure-gfortran.patch"
 
-	append-ldflags -Wl,--no-as-needed
 	eautoreconf
 
 	GMX_DIRS=""
