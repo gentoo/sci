@@ -41,6 +41,7 @@ RESTRICT="test"
 src_prepare() {
 
 	epatch "${FILESDIR}/${PN}-4.0.9999-docdir.patch"
+	epatch "${FILESDIR}/${PN}-4.0.9999-ccache.patch"
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
 		|| die "Failed to fixup demo script."
@@ -62,7 +63,7 @@ src_prepare() {
 	-i src/tools/Makefile.am \
 	|| die "sed tools/Makefile.am failed"
 
-	use fkernels && epatch "${FILESDIR}/${PN}-4.0.4-configure-gfortran.patch"
+	use fkernels && epatch "${FILESDIR}/${PN}-4.0.9999-configure-gfortran.patch"
 
 	filter-ldflags -Wl,--as-needed
 	eautoreconf

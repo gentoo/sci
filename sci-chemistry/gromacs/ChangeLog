@@ -2,6 +2,14 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*gromacs-4.0.7-r1 (24 Jan 2010)
+
+  24 Jan 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  -files/gromacs-4.0.4-configure-gfortran.patch, +gromacs-4.0.7-r1.ebuild,
+  gromacs-4.0.9999.ebuild, +files/gromacs-4.0.9999-ccache.patch,
+  +files/gromacs-4.0.9999-configure-gfortran.patch, gromacs-9999.ebuild:
+  Fixes bug #302048
+
   23 Jan 2010; Christoph Junghans <kleiner_otti@gmx.de>
   gromacs-4.0.9999.ebuild, gromacs-9999.ebuild:
   fixed --as-needed confusion
