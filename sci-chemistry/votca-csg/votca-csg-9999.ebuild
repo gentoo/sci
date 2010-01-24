@@ -20,6 +20,7 @@ DEPEND="sci-libs/fftw:3.0
 	sci-libs/gsl
 	>=dev-libs/boost-1.33.1
 	sci-libs/votca-tools
+	!<=sci-chemistry/gromacs-4.0.5[mpi]
 	=sci-chemistry/gromacs-4.0*
 	dev-lang/perl
 	app-shells/bash"

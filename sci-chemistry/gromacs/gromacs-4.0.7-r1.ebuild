@@ -1,20 +1,18 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/gromacs/gromacs-4.0.7.ebuild,v 1.2 2009/12/08 15:08:23 alexxy Exp $
 
 EAPI="2"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
 
-EGIT_REPO_URI="git://git.gromacs.org/gromacs"
-EGIT_BRANCH="release-4-0-patches"
-
-inherit autotools bash-completion eutils fortran git multilib
+inherit autotools bash-completion eutils fortran multilib
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
-SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
+SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
+		test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-4.0.pdf )"
 
 LICENSE="GPL-2"
@@ -40,8 +38,8 @@ RESTRICT="test"
 
 src_prepare() {
 
-	epatch "${FILESDIR}/${P}-docdir.patch"
-	epatch "${FILESDIR}/${P}-ccache.patch"
+	epatch "${FILESDIR}/${PN}-4.0.9999-docdir.patch"
+	epatch "${FILESDIR}/${PN}-4.0.9999-ccache.patch"
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
 		|| die "Failed to fixup demo script."
@@ -63,10 +61,9 @@ src_prepare() {
 	-i src/tools/Makefile.am \
 	|| die "sed tools/Makefile.am failed"
 
-	use fkernels && epatch "${FILESDIR}/${P}-configure-gfortran.patch"
+	use fkernels && epatch "${FILESDIR}/${PN}-4.0.9999-configure-gfortran.patch"
 
 	eautoreconf
-
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" single"
 	use double-precision && GMX_DIRS+=" double"
