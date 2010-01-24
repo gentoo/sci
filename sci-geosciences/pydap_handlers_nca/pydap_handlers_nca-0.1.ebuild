@@ -20,7 +20,7 @@ IUSE=""
 DEPEND=">=dev-python/setuptools-0.6_rc3"
 RDEPEND=">=sci-geosciences/pydap-3.0_rc8
 	>=dev-python/pupynere-1.0.8
-	>=dev-python/arrayterator-1.0.1"
+	>=dev-python/configobj-4.6.0"
 
 S="$WORKDIR/$MY_P"
 
