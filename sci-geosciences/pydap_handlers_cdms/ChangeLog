@@ -1,0 +1,10 @@
+# ChangeLog for sci-geosciences/pydap_handlers_cdms
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pydap_handlers_cdms-0.1.1 (24 Jan 2010)
+
+  24 Jan 2010; Tim Cera <timcera@earthlink.net>
+  +pydap_handlers_cdms-0.1.1.ebuild, +metadata.xml:
+  Initial ebuild.
+
