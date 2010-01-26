@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,7 +9,7 @@ SRC_URI="ftp://ftp.flaterco.com/xtide/${P}.tar.bz2"
 LICENSE="public-domain"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="doc"
+IUSE="doc non-commercial"
 
 DEPEND=">=sci-geosciences/harmonics-dwf-free-20081228
 	non-commercial?	( >=sci-geosciences/harmonics-dwf-free-noncomm-20081228 )"

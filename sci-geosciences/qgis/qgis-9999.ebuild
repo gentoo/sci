@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,7 +14,7 @@ SRC_URI="examples? ( http://download.osgeo.org/qgis/data/qgis_sample_data.tar.gz
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="examples grass gsl postgres python sqlite"
+IUSE="examples gps grass gsl postgres python sqlite"
 
 RDEPEND="dev-libs/expat
 	>=sci-libs/gdal-1.6.1
@@ -24,7 +24,7 @@ RDEPEND="dev-libs/expat
 	x11-libs/qt-gui:4
 	x11-libs/qt-svg:4
 	x11-libs/qt-sql:4
-	x11-libs/qwt
+	gps? ( x11-libs/qwt )
 	grass? ( >=sci-geosciences/grass-6 sci-geosciences/gdal-grass )
 	gsl? ( sci-libs/gsl )
 	postgres? ( >=virtual/postgresql-base-8 )
@@ -45,7 +45,7 @@ src_configure() {
 		"-DQGIS_PLUGIN_SUBDIR=$(get_libdir)/qgis"
 		$(cmake-utils_use_with postgres POSTGRESQL)
 		$(cmake-utils_use_with grass)
-		$(cmake-utils_use_with gps EXPAT)
+		$(cmake-utils_use_with gps QWT)
 		$(cmake-utils_use_with gsl)
 		$(cmake-utils_use_with python BINDINGS)
 		$(cmake-utils_use_with sqlite SPATIALITE)

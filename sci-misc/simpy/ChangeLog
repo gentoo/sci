@@ -1,6 +1,9 @@
 # ChangeLog for sci-misc/simpy
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  26 Jan 2010; Tim Cera <timcera@earthlink.net> -simpy-1.9.1.ebuild:
+  Deleted old ebuild.
 
 *simpy-2.0.1 (17 May 2009)
 
