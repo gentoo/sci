@@ -1,6 +1,13 @@
 # ChangeLog for sci-mathematics/pest
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*pest-12.0 (26 Jan 2010)
+
+  26 Jan 2010; Tim Cera <timcera@earthlink.net> -pest-11.3.ebuild,
+  -pest-11.11.ebuild, +pest-12.0.ebuild:
+  Version bump. Better upstream naming convention for the download. 
+  Removed old ebuilds that wouldn't work.
 
 *pest-11.11 (26 Aug 2009)
 

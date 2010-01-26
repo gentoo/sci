@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,13 +6,10 @@ inherit fortran versionator
 
 DESCRIPTION="Model-independent Parameter ESTimation for model calibration and
 predictive uncertainty analysis."
-HOMEPAGE="http://www.sspa.com/Pest"
-SRC_URI="http://www.sspa.com/Pest/download/unixpest.zip
-	doc? ( http://www.sspa.com/Pest/download/pestman.pdf )
-	doc? ( http://www.sspa.com/Pest/download/addendum.pdf )"
-
-# PEST uses '_' between versions
-MY_PV=$(replace_all_version_separators '_')
+HOMEPAGE="http://www.pesthomepage.org"
+SRC_URI="http://www.pesthomepage.org/files/${P}.tar.zip
+	doc? ( http://www.pesthomepage.org/files/pestman.pdf
+	       http://www.pesthomepage.org/files/addendum.pdf )"
 
 # License is poorly specified on the SSPA web site.  It only says that
 # Pest is freeware.
@@ -32,8 +29,8 @@ S="${WORKDIR}/${PN}"
 
 src_unpack() {
 	mkdir "${S}" && cd "${S}"
-	unpack unixpest.zip
-	unpack ./"${PN}${MY_PV}.tar"
+	unpack "${P}.tar.zip"
+	unpack ./"${PN}$(get_major_version).tar"
 
 	# I decided it was cleaner to make all edits with sed, rather than a patch.
 	sed -i \
@@ -52,7 +49,7 @@ src_unpack() {
 
 src_compile() {
 	emake cppp || die "cppp emake failed"
-	for mfile in pest.mak ppest.mak pestutl1.mak pestutl2.mak pestutl3.mak pestutl4.mak pestutl5.mak sensan.mak mpest.mak
+	for mfile in pest.mak ppest.mak pestutl1.mak pestutl2.mak pestutl3.mak pestutl4.mak pestutl5.mak pestutl6.mak sensan.mak mpest.mak
 		do
 			emake -f ${mfile} all || die "${mfile} emake failed"
 			emake clean || die "emake clean failed"
