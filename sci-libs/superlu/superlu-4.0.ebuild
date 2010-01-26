@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -27,7 +27,6 @@ S="${WORKDIR}/${MY_PN}_${PV}"
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-autotools.patch
 	epatch "${FILESDIR}"/${PN}-examples.patch
-	epatch "${FILESDIR}"/${P}-makeinc.patch
 	eautoreconf
 }
 
@@ -39,12 +38,24 @@ src_configure() {
 src_test() {
 	cd TESTING/MATGEN
 	emake \
-		CC=$(tc-getCC) \
+		FORTRAN="$(tc-getFC)" \
+		LOADER="$(tc-getCC)" \
+		CFLAGS="${CFLAGS}" \
+		FFLAGS="${FFLAGS}" \
+		LOADOPTS="${LDFLAGS}" \
+		SUPERLULIB="../SRC/.libs/libsuperlu.a" \
+		BLASLIB="$(pkg-config --libs blas)" \
+		CC="$(tc-getCC)" \
 		|| die "emake matrix generation failed"
 	cd ..
 	emake \
-		CC=$(tc-getCC) \
-		SUPERLULIB=../SRC/.libs/libsuperlu.a \
+		CC="$(tc-getCC)" \
+		FORTRAN="$(tc-getFC)" \
+		LOADER="$(tc-getCC)" \
+		CFLAGS="${CFLAGS}" \
+		FFLAGS="${FFLAGS}" \
+		LOADOPTS="${LDFLAGS}" \
+		SUPERLULIB="../SRC/.libs/libsuperlu.so" \
 		BLASLIB="$(pkg-config --libs blas)" \
 		|| die "emake test failed"
 }
