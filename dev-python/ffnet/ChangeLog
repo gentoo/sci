@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/ffnet
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ffnet-0.6.2 (26 Jan 2010)
+
+  26 Jan 2010; Sébastien Fabbro <bicatali@gentoo.org> +ffnet-0.6.2.ebuild,
+  +metadata.xml:
+  Import. Ebuild submitted by Marek Wojciechowski bug #158038
+
