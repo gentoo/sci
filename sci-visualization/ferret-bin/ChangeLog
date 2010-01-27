@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Jan 2010; Tim Cera <timcera@earthlink.net> ferret-bin-6.4.ebuild:
+  Modified ebuild to handle x86/amd64 and now installs the correct files 
+  for the correct architecture.
+
 *ferret-bin-6.4 (27 Jan 2010)
 
   27 Jan 2010; Tim Cera <timcera@earthlink.net> files/99ferret,

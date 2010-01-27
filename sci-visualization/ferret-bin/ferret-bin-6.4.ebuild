@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 MY_PV=${PV/\./}
 
 MY_FER_ENV="fer_environment.v${MY_PV}.tar.gz"
@@ -10,10 +12,10 @@ MY_FER_EXE="fer_executables.v${MY_PV}.tar.gz"
 DESCRIPTION="Ferret is an interactive computer visualization and analysis environment"
 HOMEPAGE="http://ferret.pmel.noaa.gov/Ferret/"
 SRC_URI="ftp://ftp.pmel.noaa.gov/ferret/pub/data/fer_dsets.tar.gz
-	x86? ( ftp://ftp.pmel.noaa.gov/ferret/pub/linux_32/${MY_FER_ENV}
-	       ftp://ftp.pmel.noaa.gov/ferret/pub/linux_32/${MY_FER_EXE} )
-	amd64? ( ftp://ftp.pmel.noaa.gov/ferret/pub/x86_64-linux/${MY_FER_ENV}
-	         ftp://ftp.pmel.noaa.gov/ferret/pub/x86_64-linux/${MY_FER_EXE} )"
+	x86? ( ftp://ftp.pmel.noaa.gov/ferret/pub/linux_32/${MY_FER_ENV} -> x86${MY_FER_ENV}
+	       ftp://ftp.pmel.noaa.gov/ferret/pub/linux_32/${MY_FER_EXE} -> x86${MY_FER_EXE} )
+	amd64? ( ftp://ftp.pmel.noaa.gov/ferret/pub/x86_64-linux/${MY_FER_ENV} -> amd64${MY_FER_ENV}
+	         ftp://ftp.pmel.noaa.gov/ferret/pub/x86_64-linux/${MY_FER_EXE} -> amd64${MY_FER_EXE} )"
 
 LICENSE="PMEL-FERRET"
 SLOT="0"
@@ -32,9 +34,11 @@ BASEDIR="/opt/ferret-bin"
 src_unpack() {
 	mkdir "${S}"
 	cd "${S}"
-	unpack "${MY_FER_ENV}"
+	use x86 && unpack "x86${MY_FER_ENV}"
+	use amd64 && unpack "amd64${MY_FER_ENV}"
 	cd "${S}"/bin
-	unpack "${MY_FER_EXE}"
+	use x86 && unpack "x86${MY_FER_EXE}"
+	use amd64 && unpack "amd64${MY_FER_EXE}"
 	cd "${S}"
 	mkdir data
 	cd data
