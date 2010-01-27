@@ -1,23 +1,26 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-geosciences/grass/grass-6.3.0.ebuild,v 1.7 2009/06/08 04:51:04 nerdboy Exp $
+# $Header: $
 
-inherit eutils distutils fdo-mime versionator wxwidgets flag-o-matic
+EAPI="2"
+
+inherit eutils distutils fdo-mime versionator wxwidgets
 
 MY_PV=$(get_version_component_range 1-2 ${PV})
 MY_PVM=$(delete_all_version_separators ${MY_PV})
 MY_PM=${PN}${MY_PVM}
+MY_P=${PN}-$(get_version_component_range 1-3 ${PV})RC5
 
-DESCRIPTION="An open-source GIS with raster and vector functionality, as well as 3D vizualization."
+DESCRIPTION="A free GIS with raster and vector functionality, as well as 3D vizualization."
 HOMEPAGE="http://grass.osgeo.org//"
-SRC_URI="http://download.osgeo.org/grass/${MY_PM}/source/${P/_rc/RC}.tar.gz"
+SRC_URI="http://grass.osgeo.org/${MY_PM}/source/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="6"
-KEYWORDS="~ppc ~x86"
+KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86"
 
 IUSE="ffmpeg fftw gmath jpeg largefile motif mysql nls odbc opengl png \
-postgres python readline sqlite tiff truetype wxwidgets X"
+postgres python readline sqlite tiff truetype wxwindows X"
 
 RESTRICT="strip"
 
@@ -39,14 +42,16 @@ RDEPEND=">=sys-libs/zlib-1.1.4
 	opengl? ( virtual/opengl )
 	motif? ( x11-libs/openmotif )
 	png? ( >=media-libs/libpng-1.2.2 )
-	postgres? ( virtual/postgresql-base
-			dev-db/postgis )
+	postgres? ( || (
+		>=virtual/postgresql-base-8.0
+		>=virtual/postgresql-server-8.0 )
+	)
 	python? ( dev-lang/python )
 	readline? ( sys-libs/readline )
 	sqlite? ( dev-db/sqlite )
 	tiff? ( >=media-libs/tiff-3.5.7 )
 	truetype? ( >=media-libs/freetype-2.0 )
-	wxwidgets? (
+	wxwindows? (
 		>=dev-python/wxpython-2.8.1.1
 		>=dev-lang/python-2.4
 	)
@@ -67,18 +72,20 @@ RDEPEND=">=sys-libs/zlib-1.1.4
 DEPEND="${RDEPEND}
 	>=sys-devel/flex-2.5.4a
 	>=sys-devel/bison-1.35
-	wxwidgets? ( >=dev-lang/swig-1.3.31 )
+	wxwindows? ( >=dev-lang/swig-1.3.31 )
 	X? (
 		x11-proto/xproto
 		x11-proto/xextproto
 	)"
+
+S=${WORKDIR}/${MY_P}
 
 pkg_setup() {
 	local myblas
 	elog ""
 	elog "This version enables the experimental wxpython interface, which"
 	elog "you may want to try.  If the legacy GUI seems a little wonky in"
-	elog "this version, just enable the wxwidgets USE flag and rebuild"
+	elog "this version, just enable the wxwindows USE flag and rebuild"
 	elog "grass to use it."
 	elog ""
 	if use gmath; then
@@ -104,23 +111,14 @@ pkg_setup() {
 	fi
 }
 
-S=${WORKDIR}/${P/_rc/RC}
-
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-
+src_prepare() {
 	epatch rpm/fedora/grass-readline.patch
-	# fix the fortify_source and buffer issues (see bug #261283)
-	#epatch "${FILESDIR}"/${P}-o_creat.patch
-	# and update for gcc 4.4 C++ changes (see bug #270916)
-	#epatch "${FILESDIR}"/${P}-gcc44.patch
 
 	sed -i -e "s:buff\[12:buff\[16:g" general/g.parser/main.c \
 	    || die "sed failed"
 
 	if ! use opengl; then
-	    epatch "${FILESDIR}"/${P}-html-nonviz.patch
+	    epatch "${FILESDIR}"/${PN}-6.4.0-html-nonviz.patch
 	fi
 
 	# patch missing math functions (yes, this is still needed)
@@ -128,10 +126,11 @@ src_unpack() {
 	echo "MATHLIB=-lm" >> include/Make/Rules.make
 }
 
-src_compile() {
+src_configure() {
 	local myconf
-	# wxwidgets needs python (see bug #237495)
-	use wxwidgets && distutils_python_version
+	addpredict /var/cache/fontconfig
+	# wxwindows needs python (see bug #237495)
+	use wxwindows && distutils_python_version
 
 	myconf="--prefix=/usr --with-cxx --enable-shared \
 		--with-gdal=$(type -P gdal-config) --with-curses --with-proj \
@@ -150,16 +149,12 @@ src_compile() {
 	    myconf="${myconf} --with-tcltk --with-x \
 	        --with-tcltk-includes=/usr/include \
 		--with-tcltk-libs=${TCL_LIBDIR}"
-	    if use wxwidgets; then
+	    if use wxwindows; then
 		WX_GTK_VER=2.8
 		need-wxwidgets unicode
-		# The following lib should be there, based on the above and the
-		# wxpython dependency (in theory).  I still need a good way to
-		# query for the location...
-		LIBGDI="/usr/$(get_libdir)/python${PYVER}/site-packages/wx-${WX_GTK_VER}-gtk2-unicode/wx/_gdi_.so"
 		myconf="${myconf} --with-python --with-wxwidgets=${WX_CONFIG}"
 	    else
-		# USE=python must be enabled above if wxwidgets is enabled
+		# USE=python must be enabled above if wxwindows is enabled
 		myconf="${myconf} $(use_with python) --without-wxwidgets"
 	    fi
 	else
@@ -170,26 +165,6 @@ src_compile() {
 	    myconf="${myconf} --with-opengl --with-opengl-libs=/usr/$(get_libdir)/opengl/xorg-x11/lib"
 	else
 	    myconf="${myconf} --without-opengl"
-	fi
-
-	# Should handle either older or latest without intervention;
-	# this won't work forever, but it should be okay for a while...
-	if use ffmpeg; then
-	    myconf="${myconf} --with-ffmpeg \
-	        --with-ffmpeg-libs=/usr/$(get_libdir)"
-	    if has_version ">=media-video/ffmpeg-0.4.9_p20080326" ; then
-		# we need to pass different include dirs so we use append-cppflags here.
-		append-cppflags -I/usr/include/libswscale \
-				-I/usr/include/libavcodec \
-				-I/usr/include/libavdevice \
-				-I/usr/include/libavfilter \
-				-I/usr/include/libavformat \
-				-I/usr/include/libavutil
-	    else
-		myconf="${myconf} --with-ffmpeg-includes=/usr/include/ffmpeg"
-	    fi
-	else
-		myconf="${myconf} --without-ffmpeg"
 	fi
 
 	if use truetype; then
@@ -211,7 +186,15 @@ src_compile() {
 		myconf="${myconf} --without-sqlite"
 	fi
 
-	econf ${myconf} --with-libs=/usr/$(get_libdir) \
+	# Old ffmpeg is gone, but new is a pita with all those include dirs,
+	# thus, a rather funky configure...
+	if use ffmpeg; then
+	    ffmlib_conf="--with-ffmpeg --with-ffmpeg-libs=/usr/$(get_libdir)"
+	else
+		myconf="${myconf} --without-ffmpeg"
+	fi
+
+	myconf="${myconf} --with-libs=/usr/$(get_libdir) \
 		$(use_enable amd64 64bit) \
 		$(use_with fftw) \
 		$(use_with gmath blas) \
@@ -224,19 +207,23 @@ src_compile() {
 		$(use_with png) \
 		$(use_with postgres) \
 		$(use_with readline) \
-		$(use_with tiff) || die "configure failed!"
+		$(use_with tiff)"
 
-	if use wxwidgets; then
-	    # can't use die here since we need to hack the vdigit build
-	    emake -j1
-	    ln -sf "${LIBGDI}" dist.${CHOST}/lib/libgdi.so \
-		|| die "making libgdi link failed"
-	    cd gui/wxpython/vdigit
-	    # now we're OK
-	    make default -j1 || die "make vdigit failed!"
+	if use ffmpeg; then
+		"${S}"/configure ${myconf} ${ffmlib_conf} \
+			--with-ffmpeg-includes="/usr/include/libavcodec \
+			/usr/include/libavdevice /usr/include/libavfilter \
+			/usr/include/libavformat /usr/include/libavutil \
+			/usr/include/libpostproc /usr/include/libswscale" \
+			|| die "ffmpeg configure failed!"
 	else
-	    emake -j1 || die "make failed!"
+		"${S}"/configure ${myconf} || die "configure failed!"
 	fi
+}
+
+src_compile() {
+	# looks like we no longer need the vdigit symlink build hack
+	emake -j1 || die "make failed!"
 }
 
 src_install() {
@@ -244,11 +231,6 @@ src_install() {
 	make install UNIX_BIN="${D}"usr/bin BINDIR="${D}"usr/bin \
 	    PREFIX="${D}"usr INST_DIR="${D}"usr/${MY_PM} \
 	    || die "make install failed!"
-
-	if use wxwidgets; then
-	    ln -sf "${LIBGDI}" "${D}"usr/${MY_PM}/lib/libgdi.so \
-		|| die "failed to find wx library"
-	fi
 
 	# get rid of DESTDIR in script path
 	sed -i -e "s@${D}@/@" "${D}"usr/bin/${MY_PM}
@@ -279,7 +261,7 @@ pkg_postrm() {
 
 generate_files() {
 	local GUI="-gui"
-	use wxwidgets && GUI="-wxpython"
+	use wxwindows && GUI="-wxpython"
 
 	cat <<-EOF > 99grass-6
 	GRASS_LD_LIBRARY_PATH="/usr/${MY_PM}/lib"
@@ -294,11 +276,11 @@ generate_files() {
 	Version=1.0
 	Name=Grass ${PV}
 	Type=Application
-	Comment=GRASS Open Source GIS, derived from the original US Army Corps of Engineers project.
+	Comment=GRASS (Geographic Resources Analysis Support System), the original GIS.
 	Exec=${TERM} -T Grass -e /usr/bin/${MY_PM} ${GUI}
 	Path=
 	Icon=grass_icon.png
 	Categories=Science;Education;
-	Terminal=true
+	Terminal=false
 	EOF
 }
