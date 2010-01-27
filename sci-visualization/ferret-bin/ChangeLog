@@ -1,6 +1,12 @@
 # ChangeLog for sci-visualization/ferret-bin
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*ferret-bin-6.4 (27 Jan 2010)
+
+  27 Jan 2010; Tim Cera <timcera@earthlink.net> files/99ferret,
+  +ferret-bin-6.4.ebuild:
+  Version bump and added an environment variable to /etc/env.d/99ferret.
 
 *ferret-bin-6.3 (04 Oct 2009)
 
