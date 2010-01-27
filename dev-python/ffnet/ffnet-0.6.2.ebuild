@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit distutils flag-o-matic
+inherit distutils flag-o-matic toolchain-funcs
 
 DESCRIPTION="Feed-forward neural network for python"
-HOMEPAGE="http://ffnet.soureceforge.net"
+HOMEPAGE="http://ffnet.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 SLOT="0"
