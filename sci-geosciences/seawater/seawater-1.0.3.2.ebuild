@@ -10,7 +10,7 @@ DESCRIPTION="Python version of the SEAWATER 3.2 MATLAB toolkit for calculating t
 HOMEPAGE="http://ocefpaf.tiddlyspot.com/"
 SRC_URI="http://pypi.python.org/packages/source/${PN:0:1}/${PN}/${MY_P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
