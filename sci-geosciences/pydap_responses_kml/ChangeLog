@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Jan 2010; Tim Cera <timcera@earthlink.net>
+  pydap_responses_kml-0.4.3.ebuild:
+  Corrected license.
+
 *pydap_responses_kml-0.4.3 (24 Jan 2010)
 
   24 Jan 2010; Tim Cera <timcera@earthlink.net>

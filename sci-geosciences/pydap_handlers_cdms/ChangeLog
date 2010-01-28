@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Jan 2010; Tim Cera <timcera@earthlink.net>
+  pydap_handlers_cdms-0.1.1.ebuild:
+  Corrected license.
+
 *pydap_handlers_cdms-0.1.1 (24 Jan 2010)
 
   24 Jan 2010; Tim Cera <timcera@earthlink.net>
