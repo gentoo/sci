@@ -19,7 +19,7 @@ ECVS_CVS_OPTIONS="-dP"
 LICENSE="gnuplot"
 GP_VERSION="${PV:0:3}"
 use multislot && SLOT="${PV:0:3}" || SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="cairo doc emacs +gd ggi latex lua multislot pdf plotutils qt4 readline svga wxwidgets X xemacs"
 RESTRICT="wxwidgets? ( test )"
 
