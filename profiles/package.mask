@@ -65,16 +65,9 @@
 # Justin Lecher (jlec) (08 Jun 09)
 # jlec@j-schmitz.net
 # mask live ebuilds
+=sci-chemistry/pymol-apbs-plugin-9999
 =sci-chemistry/coot-9999
 =sci-chemistry/pymol-9999
-
-# Justin Lecher (jlec) (11 May 09)
-# jlec@j-schmitz.net
-# upstream doesn't provide tarball anymore
-# bump will follow soon
-=sci-chemistry/nmrpipe-9.27.2007.222.14.56
-# testing
-=sci-chemisty/nmrpipe-9.27.2009.120.14.28
 
 # Christoph Junghans (ottxor) (02 Nov 09)
 # kleiner_otti@gmx.de
@@ -91,11 +84,6 @@
 # jlec@j-schmitz.net
 # still not ready
 =sci-chemistry/phaser-2.1.4
-
-# Justin Lecher (jlec) (09 Mar 09)
-# jlec@j-schmitz.net
-# total rewrite of src_install
-=sci-libs/cctbx-2009.02.15.2320-r2
 
 # Justin Lecher (jlec) (26 Apr 2009)
 # jlec@j-schmitz.net

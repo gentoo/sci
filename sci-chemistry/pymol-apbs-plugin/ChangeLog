@@ -1,0 +1,12 @@
+# ChangeLog for sci-chemistry/pymol-apbs-plugin
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pymol-apbs-plugin-9999 (28 Jan 2010)
+*pymol-apbs-plugin-0_p11 (28 Jan 2010)
+
+  28 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +pymol-apbs-plugin-0_p11.ebuild, +pymol-apbs-plugin-9999.ebuild,
+  +metadata.xml:
+  Initial addition by me
+
