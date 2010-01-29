@@ -29,8 +29,10 @@ src_unpack() {
 
 src_install() {
 	sed \
-		-e "s:^APBS_PSIZE_LOCATION.*:APBS_PSIZE_LOCATION = \"$(python_get_sitedir)/pdb2pqr/src/psize.py\":g" \
-		-e "s:^APBS_PDB2PQR_LOCATION.*:APBS_PDB2PQR_LOCATION = \"$(python_get_sitedir)/pdb2pqr/pdb2pqr.py\":g" \
+		-e "s:^APBS_BINARY_LOCATION.*:APBS_BINARY_LOCATION = \"${EPREFIX}/usr/bin/apbs\":g" \
+		-e "s:^APBS_PSIZE_LOCATION.*:APBS_PSIZE_LOCATION = \"$(python_get_sitedir)/pdb2pqr/src/\":g" \
+		-e "s:^APBS_PDB2PQR_LOCATION.*:APBS_PDB2PQR_LOCATION = \"$(python_get_sitedir)/pdb2pqr/\":g" \
+		-e "s:^TEMPORARY_FILE_DIR.*:TEMPORARY_FILE_DIR = \"./\":g" \
 		-i ${P}.py
 
 	insinto $(python_get_sitedir)/pmg_tk/startup/
