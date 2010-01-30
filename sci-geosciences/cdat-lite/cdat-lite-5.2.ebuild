@@ -20,11 +20,9 @@ RDEPEND=">=dev-lang/python-2.5
 	>=sci-libs/netcdf-4.0.1
 	>=sci-libs/hdf5-1.6.4"
 
-
 src_compile()(
 	find "${S}" -type l -exec rm '{}' \;
 	distutils_src_compile
 )
 
 S="${WORKDIR}/${MY_P}"
-
