@@ -46,7 +46,6 @@ src_unpack() {
 		 makefile
 }
 
-
 src_compile() {
 	emake cppp || die "cppp emake failed"
 	for mfile in pest.mak ppest.mak pestutl1.mak pestutl2.mak pestutl3.mak pestutl4.mak pestutl5.mak pestutl6.mak sensan.mak mpest.mak
