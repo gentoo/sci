@@ -25,7 +25,6 @@ pkg_setup() {
 	ECONF_PARAMS="--with-kernel=${KV_DIR}"
 }
 
-
 src_install() {
 	dodoc README NEWS
 	cd "${S}"/util
@@ -38,7 +37,6 @@ src_install() {
 	emake DESTDIR="${D}" install || die "headers install failed"
 	linux-mod_src_install
 }
-
 
 pkg_postinst() {
 	linux-mod_pkg_postinst
