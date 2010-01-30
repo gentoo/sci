@@ -17,4 +17,3 @@ RDEPEND="virtual/python
 	>=dev-lang/python-2.4"
 DEPEND="${RDEPEND}
 	dev-python/setuptools"
-
