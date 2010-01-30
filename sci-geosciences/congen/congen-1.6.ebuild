@@ -12,7 +12,6 @@ IUSE=""
 DEPEND=">=sci-geosciences/libtcd-2.2.3"
 RDEPEND="${DEPEND}"
 
-
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 }
