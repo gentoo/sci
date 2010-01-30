@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -32,7 +32,6 @@ src_unpack() {
 	unpack ./source*.ZIP
 }
 
-
 src_compile(){
 	# 'sed' command has to accomodate DOS formatted file.
 	sed -i \
@@ -42,7 +41,6 @@ src_compile(){
 	emake || die "compile failed"
 }
 
-
 src_install(){
 	# Don't like the version number in the name.
 	mv swmm5 swmm
@@ -51,4 +49,3 @@ src_install(){
 		dodoc Roadmap.txt
 	fi
 }
-
