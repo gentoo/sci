@@ -28,7 +28,7 @@ index 79d408e..e66c887 100644
  	$(FC) $(FFLAGS) -c ncs_simil.f90 hkon_secder_tch.f
  
  refmac:	$(SUBR)
--	$(FC) $(FFLAGS) -pg -o refmac${VERSION}   ${SUBR} $(LLIBOTHERS) $(LLIBCCP)
+-	$(FC) $(FFLAGS) -o refmac${VERSION}   ${SUBR} $(LLIBOTHERS) $(LLIBCCP)
 +	$(FC) $(FFLAGS) $(LDFLAGS) -o refmac${VERSION}   ${SUBR} $(LLIBOTHERS) $(LLIBCCP) $(LLIBCIF) $(LLIBLAPACK)
  
  libcheck:	$(SUBL)
