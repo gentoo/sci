@@ -62,6 +62,10 @@ src_test() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
+
+	insinto /usr/include/${PN}
+	doins SRC/*.h || die
+
 	dodoc README
 	use doc && newdoc INSTALL/ug.ps userguide.ps
 	if use examples; then

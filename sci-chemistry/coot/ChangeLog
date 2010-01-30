@@ -1,6 +1,13 @@
 # ChangeLog for sci-chemistry/coot
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*coot-0.6.1 (30 Jan 2010)
+
+  30 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net> coot-0.6.ebuild,
+  +coot-0.6.1.ebuild, coot-9999.ebuild, +files/fix-namespace-error.patch,
+  +files/glib.m4, +files/gtk.m4:
+  Version bump
 
   14 Dec 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   -files/0.5.2-as-needed.patch, -files/0.6_pre1-gcc4.4.patch,

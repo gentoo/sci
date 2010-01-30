@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -35,6 +35,7 @@ SCIDEPS="
 XDEPS="
 	gnome-base/libgnomecanvas
 	gnome-base/librsvg
+	media-libs/libpng
 	virtual/glut
 	>=x11-libs/gtk+-2.2
 	x11-libs/gtkglext"
