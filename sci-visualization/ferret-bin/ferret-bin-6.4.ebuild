@@ -30,7 +30,6 @@ RDEPEND="${DEPEND}
 
 BASEDIR="/opt/ferret-bin"
 
-
 src_unpack() {
 	mkdir "${S}"
 	cd "${S}"
@@ -45,7 +44,6 @@ src_unpack() {
 	unpack "fer_dsets.tar.gz"
 }
 
-
 src_install() {
 	mkdir -p ext_func/libs
 	mv bin/*.so ext_func/libs
@@ -56,13 +54,10 @@ src_install() {
 	doenvd "${FILESDIR}"/99ferret
 }
 
-
 pkg_postinst() {
 	env-update
 }
 
-
 pkg_postrm() {
 	env-update
 }
-
