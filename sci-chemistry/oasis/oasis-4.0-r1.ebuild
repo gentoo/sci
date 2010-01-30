@@ -18,7 +18,7 @@ LICENSE="ccp4 oasis"
 IUSE="examples"
 
 RDEPEND="
-	sci-chemistry/ccp4
+	sci-chemistry/ccp4-apps
 	sci-chemistry/pymol
 	sci-chemistry/solve-resolve-bin
 	sci-libs/ccp4-libs
