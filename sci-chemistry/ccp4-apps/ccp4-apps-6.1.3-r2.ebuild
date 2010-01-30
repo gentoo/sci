@@ -158,6 +158,9 @@ src_prepare() {
 	# Set python paths correctly
 	ccp_patch "${FILESDIR}"/${PV}-pisa.patch
 
+	# Set python paths correctly
+	ccp_patch "${FILESDIR}"/${PV}-clipper-template.patch
+
 	# Update things for oasis 4 usage
 	epatch "${WORKDIR}"/${PV}-oasis4.0.patch
 	sed 's: oasis : :g' -i src/Makefile.in || die
