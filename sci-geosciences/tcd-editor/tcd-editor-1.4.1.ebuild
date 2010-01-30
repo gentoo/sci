@@ -20,14 +20,12 @@ DEPEND=">=sci-geosciences/libtcd-2.2.3
 	=x11-libs/qt-3*"
 RDEPEND="${DEPEND}"
 
-
 src_compile() {
 	sed -i \
 		"s;\(#include <qlistbox.h>\);&1\n#include <qmetaobject.h>;" map.h
 	MOC="/usr/qt/3/bin/moc" econf || die "econf failed"
 	emake || die "emake failed"
 }
-
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
