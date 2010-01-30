@@ -36,7 +36,8 @@ TACHYON_MAKE_TARGET=
 pkg_setup() {
 	if use threads ; then
 		if use opengl ; then
-			TACHYON_MAKE_TARGET=linux-thr-ogl
+			use x86 && TACHYON_MAKE_TARGET=linux-thr-ogl
+			use amd64 && TACHYON_MAKE_TARGET=linux-64-thr-ogl
 
 			if use mpi ; then
 				eerror "tachyon does not support MPI with OpenGL and threads"
