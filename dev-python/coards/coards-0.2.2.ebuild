@@ -16,4 +16,3 @@ IUSE=""
 DEPEND=">=dev-python/setuptools-0.6_rc3"
 RDEPEND="virtual/python
 	>=dev-lang/python-2.3"
-
