@@ -46,13 +46,14 @@ src_compile() {
 
 src_install() {
 	emake install DESTDIR="${D}" || die "emake install failed"
-	dodoc README NOTICE
+	dodoc README NOTICE CHANGELOG
 
 	sed -n -e '/^CSG\(BIN\|SHARE\)/p' "${D}"/usr/bin/CSGRC.bash > "${T}/80votca-csg"
 	doenvd "${T}/80votca-csg"
-	sed -n '/^_csgopt/,$p' "${D}"/usr/bin/CSGRC.bash > "${T}"/completion.bash
-	dobashcompletion "${T}"/completion.bash ${PN}
 	rm -f "${D}"/usr/bin/CSGRC*
+
+	dobashcompletion "${D}"/usr/share/votca/completion.bash ${PN}
+	rm -f "${D}"/usr/share/votca/completion.bash
 }
 
 pkg_postinst() {
