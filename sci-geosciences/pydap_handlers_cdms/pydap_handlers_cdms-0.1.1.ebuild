@@ -12,7 +12,7 @@ HOMEPAGE="http://pydap.org/handlers.html#cdms"
 
 SRC_URI="http://pypi.python.org/packages/source/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="pydap"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
