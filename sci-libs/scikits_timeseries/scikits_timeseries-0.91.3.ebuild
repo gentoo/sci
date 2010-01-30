@@ -26,4 +26,3 @@ RDEPEND=">=dev-lang/python-2.4
 	>=dev-python/pytables-2.0"
 
 S="${WORKDIR}/${MY_P}"
-
