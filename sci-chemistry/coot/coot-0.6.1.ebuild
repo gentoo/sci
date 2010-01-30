@@ -18,11 +18,12 @@ DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, comple
 HOMEPAGE="http://www.biop.ox.ac.uk/coot/"
 SRC_URI="
 	http://www.biop.ox.ac.uk/coot/software/source/releases/${MY_P}.tar.gz
-	test? ( http://www.biop.ox.ac.uk/coot/devel/greg-data.tar.gz  )"
+	test? ( http://dev.gentooexperimental.org/~jlec/distfiles/greg-data-${PV}.tar.gz  )"
 
 SLOT="0"
 LICENSE="GPL-3"
-KEYWORDS="~amd64 ~x86"
+#KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="test"
 
 SCIDEPS="
@@ -37,6 +38,7 @@ SCIDEPS="
 XDEPS="
 	gnome-base/libgnomecanvas
 	gnome-base/librsvg
+	media-libs/libpng
 	virtual/glut
 	>=x11-libs/gtk+-2.2
 	x11-libs/gtkglext"
@@ -60,7 +62,12 @@ DEPEND="${RDEPEND}
 	test? ( dev-scheme/greg )"
 
 #S="${WORKDIR}/${MY_P}"
-S="${WORKDIR}/${MY_S2_P}"
+#S="${WORKDIR}/${MY_S2_P}"
+
+PATCHES=(
+#	"${FILESDIR}"/link-against-guile-gtk-properly.patch
+#	"${FILESDIR}"/fix-namespace-error.patch
+	)
 
 src_prepare() {
 	base_src_prepare
@@ -72,7 +79,7 @@ src_prepare() {
 		"${S}"/macros/clipper.m4
 
 	# So we don't need to depend on crazy old gtk and friends
-	cp "${FILESDIR}"/*.m4 "${S}"/macros/
+#	cp "${FILESDIR}"/*.m4 "${S}"/macros/
 
 	eautoreconf
 }
