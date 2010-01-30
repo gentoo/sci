@@ -23,4 +23,3 @@ RDEPEND=">=sci-geosciences/pydap-3.0_rc8
 	>=dev-python/arrayterator-1.0.1"
 
 S="$WORKDIR/$MY_P"
-

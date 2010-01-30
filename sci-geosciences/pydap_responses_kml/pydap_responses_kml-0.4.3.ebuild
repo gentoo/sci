@@ -21,4 +21,3 @@ DEPEND=">=dev-python/setuptools-0.6_rc3"
 RDEPEND=">=sci-geosciences/pydap-3.0_rc8"
 
 S="$WORKDIR/$MY_P"
-

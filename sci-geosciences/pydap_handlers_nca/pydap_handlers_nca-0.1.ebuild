@@ -23,4 +23,3 @@ RDEPEND=">=sci-geosciences/pydap-3.0_rc8
 	>=dev-python/configobj-4.6.0"
 
 S="$WORKDIR/$MY_P"
-
