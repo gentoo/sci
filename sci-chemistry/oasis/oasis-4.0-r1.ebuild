@@ -1,10 +1,10 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="2"
 
-inherit eutils toolchain-funcs
+inherit eutils multilib toolchain-funcs
 
 MY_P="${PN}${PV}_Linux"
 
@@ -18,14 +18,13 @@ LICENSE="ccp4 oasis"
 IUSE="examples"
 
 RDEPEND="
-	sci-chemistry/arp-warp-bin
-	sci-chemistry/ccp4
+	sci-chemistry/ccp4-apps
 	sci-chemistry/pymol
 	sci-chemistry/solve-resolve-bin
-	sci-visualization/gnuplot"
-DEPEND="
 	sci-libs/ccp4-libs
-	sci-libs/mmdb"
+	sci-libs/mmdb
+	sci-visualization/gnuplot"
+DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${MY_P}
 
@@ -61,4 +60,8 @@ src_install() {
 	EOF
 
 	doenvd "${T}"/25oasis
+}
+
+pkg_postinst() {
+	elog "For full functionality you need to emerge sci-chemistry/arp-warp-bin"
 }
