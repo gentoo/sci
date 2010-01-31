@@ -15,5 +15,3 @@ IUSE=""
 
 DEPEND=">=dev-python/setuptools-0.6_rc3"
 RDEPEND="virtual/python"
-
-S="$WORKDIR/$MY_P"
