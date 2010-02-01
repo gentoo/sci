@@ -20,7 +20,7 @@ SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86"
-IUSE="X blas dmalloc doc -double-precision +fftw fkernels +gsl lapack mpi +single-precision static test +xml zsh-completion"
+IUSE="X blas dmalloc doc -double-precision +fftw fkernels +gsl lapack mpi +single-precision static test threads +xml zsh-completion"
 
 DEPEND="app-shells/tcsh
 	X? ( x11-libs/libX11
@@ -40,33 +40,24 @@ RESTRICT="test"
 
 src_prepare() {
 
+	( use single-precision || use double-precision ) || \
+		die "Nothing to compile, enable single-precision and/or double-precision"
+
+	use threads && use mpi && \
+		die "threads and mpi do not work together (now)"
+
 	epatch "${FILESDIR}/${PN}-4.0.9999-docdir.patch"
 	epatch "${FILESDIR}/${PN}-4.0.9999-ccache.patch"
+	epatch "${FILESDIR}/${P}-install-mdrun.patch"
+
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
 		|| die "Failed to fixup demo script."
 
-	# Fix a sandbox violation that occurs when re-emerging with mpi.
-	sed "/libdir=\"\$(libdir)\"/ a\	temp_libdir=\"${D}usr/$( get_libdir )\" ; \\\\" \
-	-i src/tools/Makefile.am \
-	|| die "sed tools/Makefile.am failed"
-
-	sed -e "s:\$\$libdir:\$temp_libdir:" \
-	-i src/tools/Makefile.am \
-	|| die "sed tools/Makefile.am failed"
-
-	sed "/libdir=\"\$(libdir)\"/ a\ temp_libdir=\"${D}usr/$( get_libdir )\" ; \\\\" \
-	-i src/tools/Makefile.am \
-	|| die "sed tools/Makefile.am failed"
-
-	sed -e "s:\$\$libdir:\$\$temp_libdir:" \
-	-i src/tools/Makefile.am \
-	|| die "sed tools/Makefile.am failed"
-
 	use fkernels && epatch "${FILESDIR}/${PN}-4.0.9999-configure-gfortran.patch"
 
-	filter-ldflags -Wl,--as-needed
 	eautoreconf
+	filter-ldflags -Wl,--as-needed
 
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" single"
@@ -143,6 +134,7 @@ src_configure() {
 			$(use_with gsl) \
 			$(use_with X x) \
 			$(use_with xml) \
+			$(use_enable threads) \
 			${myconf}"
 
 	#if we build single and double - double is suffixed
