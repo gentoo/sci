@@ -4,7 +4,6 @@
 
 EAPI="2"
 
-PYTHON_WITH_USE="tk"
 PYTHON_MODNAME="chempy pmg_tk pymol"
 APBS_PATCH="090618"
 
@@ -14,14 +13,14 @@ ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
 
 DESCRIPTION="A Python-extensible molecular graphics system."
 HOMEPAGE="http://pymol.sourceforge.net/"
-SRC_URI="apbs? ( http://dev.gentooexperimental.org/~jlec/distfiles/apbs_tools.py.${APBS_PATCH}.bz2 )"
+SRC_URI=""
 
 LICENSE="PSF-2.2"
 IUSE="apbs numpy shaders vmd"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-RDEPEND="
+RDEPEND="dev-lang/python[tk]
 		dev-python/numpy
 		dev-python/pmw
 		media-libs/freetype:2
@@ -30,6 +29,7 @@ RDEPEND="
 		sys-libs/zlib
 		virtual/glut
 		apbs? (
+			sci-chemistry/pymol-apbs-plugin
 			dev-libs/maloc
 			sci-chemistry/apbs
 			sci-chemistry/pdb2pqr
@@ -38,11 +38,6 @@ DEPEND="${RDEPEND}"
 
 pkg_setup(){
 	python_version
-}
-
-src_unpack() {
-	use apbs && unpack ${A}
-	subversion_src_unpack
 }
 
 src_prepare() {
@@ -61,12 +56,6 @@ src_prepare() {
 		sed \
 			-e '/PYMOL_OPENGL_SHADERS/s:^#::g' \
 			-i setup.py
-
-	if use apbs; then
-		cp -f "${WORKDIR}"/apbs_tools.py.${APBS_PATCH} modules/pmg_tk/startup/apbs_tools.py || die
-		sed "s:LIBANDPYTHON:$(python_get_libdir):g" \
-			-i modules/pmg_tk/startup/apbs_tools.py || die
-	fi
 
 	use vmd && \
 		sed \
@@ -96,9 +85,6 @@ src_install() {
 		PYMOL_SCRIPTS="/usr/share/pymol/scripts"
 	EOF
 
-	use apbs && \
-	echo "APBS_PSIZE=$(python_get_sitedir)/pdb2pqr/src/psize.py" >> "${T}"/20pymol
-
 	doenvd "${T}"/20pymol || die "Failed to install env.d file."
 
 	cat >> "${T}"/pymol <<- EOF
@@ -116,7 +102,5 @@ src_install() {
 
 	dodoc DEVELOPERS README || die "Failed to install docs."
 
-	if ! use apbs; then
-		rm "${D}"$(python_get_sitedir)/pmg_tk/startup/apbs_tools.py
-	fi
+	rm "${D}"$(python_get_sitedir)/pmg_tk/startup/apbs_tools.py
 }
