@@ -8,12 +8,12 @@ MY_PV="$(delete_all_version_separators ${PV})"
 
 DESCRIPTION="A new GUI for the Mosflm crystallographic data processing tool"
 HOMEPAGE="http://www.mrc-lmb.cam.ac.uk/harry/imosflm"
-#SRC_URI="${HOMEPAGE}/ver${MY_PV}/downloads/${P}.zip"
-SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/${P}.zip"
+SRC_URI="${HOMEPAGE}/ver${MY_PV}/downloads/${P}.zip"
+#SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/${P}.zip"
 
 LICENSE="ccp4"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND=">=dev-tcltk/itcl-3.3

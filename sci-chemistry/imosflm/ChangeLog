@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*imosflm-1.0.4-r1 (02 Feb 2010)
+
+  02 Feb 2010; Justin Lecher (jlec) <jlec@gentoo.org> -imosflm-1.0.4.ebuild,
+  +imosflm-1.0.4-r1.ebuild:
+  upstream released proper tarball
+
 *imosflm-1.0.4 (30 Jan 2010)
 
   30 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
