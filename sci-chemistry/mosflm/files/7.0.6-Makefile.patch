@@ -5,8 +5,9 @@
  JPGLIBS = jpg/libjpeg.a
  
 -all:	$(DPSLIBS) $(CBFLIBS) $(JPGLIBS)
-+all:	$(DPSLIBS) $(CBFLIBS)
- 	cd mosflm ; make
+-	cd mosflm ; make
++all:	dpslibs cbflibs
++	+make -C mosflm
  
  ##########################################################################
 
