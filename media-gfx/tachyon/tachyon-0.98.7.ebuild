@@ -36,19 +36,13 @@ TACHYON_MAKE_TARGET=
 pkg_setup() {
 	if use threads ; then
 		if use opengl ; then
-			use x86 && TACHYON_MAKE_TARGET=linux-thr-ogl
-			use amd64 && TACHYON_MAKE_TARGET=linux-64-thr-ogl
-
+			TACHYON_MAKE_TARGET=linux-thr-ogl
 			if use mpi ; then
 				eerror "tachyon does not support MPI with OpenGL and threads"
 				die
 			fi
 		elif use mpi ; then
-			TACHYON_MAKE_TARGET=linux-lam-thr
-		elif use amd64 ; then
-			TACHYON_MAKE_TARGET=linux-64-thr
-		elif use ia64 ; then
-			TACHYON_MAKE_TARGET=linux-ia64-thr
+			TACHYON_MAKE_TARGET=linux-mpi-thr
 		else
 			TACHYON_MAKE_TARGET=linux-thr
 		fi
@@ -60,21 +54,7 @@ pkg_setup() {
 
 			eerror "OpenGL is only available with USE=threads!"
 		elif use mpi ; then
-			if use amd64 ; then
-				TACHYON_MAKE_TARGET=linux-lam-64
-			else
-				TACHYON_MAKE_TARGET=linux-lam
-			fi
-
-			# TODO: Support for linux-mpi, linux-mpi-64 ?
-		elif use amd64 ; then
-			TACHYON_MAKE_TARGET=linux-64
-		elif use ppc ; then
-			TACHYON_MAKE_TARGET=linux-ppc
-		elif use alpha ; then
-			TACHYON_MAKE_TARGET=linux-alpha
-		elif use ia64 ; then
-			TACHYON_MAKE_TARGET=linux-ia64
+				TACHYON_MAKE_TARGET=linux-mpi
 		else
 			TACHYON_MAKE_TARGET=linux
 		fi
@@ -107,7 +87,14 @@ src_prepare() {
 
 	if use mpi ; then
 		sed -i "s:MPIDIR=:MPIDIR=/usr:g" Make-config || die "sed failed"
+		sed -i "s:linux-lam:linux-mpi:g" Make-config || die "sed failed"
 	fi
+	sed -i \
+		-e "s:-m32:${CFLAGS}:g" \
+		-e "s:-m64:${CFLAGS}:g" \
+		-e "s:-O3::g;s:-g::g;s:-pg::g" \
+		-e "s:-ffast-math::g" \
+		-e "s:-fomit-frame-pointer::g" Make-arch || die "sed failed"
 }
 
 src_compile() {
