@@ -13,9 +13,9 @@ SRC_URI="http://www.hdfgroup.org/ftp/HDF5/hdf-java/src/${P}-src.tar"
 LICENSE="NCSA-HDF"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="hdf"
+IUSE="hdf mpi"
 
-CDEPEND=">=sci-libs/hdf5-1.8[szip]
+CDEPEND=">=sci-libs/hdf5-1.8[szip,mpi=]
 	hdf? ( sci-libs/hdf )
 	>=media-libs/jpeg-7
 	sys-libs/zlib"
@@ -33,6 +33,7 @@ src_prepare() {
 		native/hdf5lib/h5Constants.c || die
 	epatch "${FILESDIR}"/${P}-shared.patch
 	eautoreconf
+	use mpi && export CC=mpicc
 }
 
 src_configure() {
