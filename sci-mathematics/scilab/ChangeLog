@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scilab-5.2.0-r1 (04 Feb 2010)
+
+  04 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org> -scilab-5.2.0.ebuild,
+  +scilab-5.2.0-r1.ebuild, +files/scilab-5.2.0-no-redef-exp10.patch:
+  MPI goodness for the hdf5 option, and added a patch to avoid libc
+  redefinitions. A bit of cleanup
+
   22 Jan 2010; Sébastien Fabbro <bicatali@gentoo.org> +scilab-5.2.0.ebuild,
   +metadata.xml:
   Import of new scilab-5.2. Thanks Guillaume Horel for his work, bug #237572

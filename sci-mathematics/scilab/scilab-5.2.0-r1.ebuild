@@ -1,17 +1,17 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-mathematics/scilab/scilab-4.1.2-r1.ebuild,v 1.3 2008/11/15 18:41:11 dertobi123 Exp $
+# $Header: $
 
 EAPI=2
 inherit eutils autotools java-pkg-2
 
-DESCRIPTION="Scientific software package for numerical computations (Matlab lookalike)"
+DESCRIPTION="Scientific software package for numerical computations"
 LICENSE="CeCILL-2"
 SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz"
 HOMEPAGE="http://www.scilab.org/"
 
 SLOT="0"
-IUSE="tk scicos +umfpack +gui fftw +gui doc +matio hdf5"
+IUSE="doc fftw +gui hdf5 +matio mpi scicos tk +umfpack"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="virtual/lapack
@@ -29,10 +29,11 @@ RDEPEND="virtual/lapack
 		dev-java/jgoodies-looks
 		dev-java/skinlf
 		dev-java/jrosetta
-		dev-java/javahelp )
+		dev-java/javahelp
+		hdf5? ( dev-java/hdf-java[mpi=] ) )
 	fftw? ( sci-libs/fftw:3.0 )
 	matio? ( sci-libs/matio )
-	hdf5? ( dev-java/hdf-java )"
+	hdf5? ( sci-libs/hdf5[mpi=] )"
 
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
@@ -43,6 +44,8 @@ DEPEND="${RDEPEND}
 		app-text/docbook-xsl-stylesheets )"
 
 src_prepare() {
+	# avoid redefinition of exp10
+	epatch "${FILESDIR}"/${P}-no-redef-exp10.patch
 	#add the correct java directories to the config file
 	sed \
 		-i "/^.DEFAULT_JAR_DIR/{s|=.*|=\"$(echo $(ls -d /usr/share/*/lib))\"|}" \
@@ -51,24 +54,30 @@ src_prepare() {
 	sed -i "s|-L\$SCI_SRCDIR/bin/|-L\$SCI_SRCDIR/bin/ \
 		-L$(java-config -i gluegen) \
 		-L$(java-config -i hdf-java) \
-		-L$(java-config -i jogl)|" configure.ac || die
-	eautoreconf
+		-L$(java-config -i jogl)|" \
+		configure.ac || die
 	sed -i \
 		-e "/<\/librarypaths>/i\<path value=\"$(java-config -i gluegen)\"\/>" \
 		-e "/<\/librarypaths>/i\<path value=\"$(java-config -i jogl)\"\/>" \
 		-e "/<\/librarypaths>/i\<path value=\"$(java-config -i hdf-java)\"\/>" \
 		etc/librarypath.xml || die
+	eautoreconf
 	java-pkg-2_src_prepare
 }
 
 src_configure() {
 	local myopts
 	use doc && myopts="--with-docbook=/usr/share/sgml/docbook/xsl-stylesheets"
-
 	export JAVA_HOME=$(java-config -O)
 	export BLAS_LIBS="$(pkg-config --libs blas)"
 	export LAPACK_LIBS="$(pkg-config --libs lapack)"
-
+	# mpi is only used for hdf5 i/o
+	if use mpi && use hdf5; then
+		export CC=mpicc
+		export CXX=mpicxx
+		export FC=mpif90
+		export F77=mpif77
+	fi
 	econf \
 		--disable-rpath \
 		--without-pvm \
@@ -101,8 +110,7 @@ src_install() {
 
 	#install icon
 	newicon icons/scilab.xpm scilab.xpm
-
-	make_desktop_entry ${PN} "Scilab" ${PN} "Education;Math"
+	make_desktop_entry ${PN} "Scilab" ${PN}
 }
 
 pkg_postinst() {
