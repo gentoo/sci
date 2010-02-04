@@ -60,6 +60,9 @@ src_prepare() {
 		echo 'oob_tcp_listen_mode = listen_thread' \
 			>> opal/etc/openmpi-mca-params.conf
 	fi
+
+	# https://svn.open-mpi.org/trac/ompi/ticket/2201
+	epatch "${FILESDIR}"/${P}-r22513.patch
 }
 
 src_configure() {
@@ -68,10 +71,6 @@ src_configure() {
 		--enable-pretty-print-stacktrace
 		--enable-orterun-prefix-by-default
 		--without-slurm"
-
-	# Workaround for #288147 which also caused packages like hdf5 to fail.
-	# http://www.open-mpi.org/community/lists/users/2009/12/11419.php
-	c="${c} --includedir=$(mpi_root)usr/include/${PN}"
 
 	if use mpi-threads; then
 		c="${c}
