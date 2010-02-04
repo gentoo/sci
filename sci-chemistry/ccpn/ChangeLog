@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccpn-2.1.2.1_p100204 (04 Feb 2010)
+
+  04 Feb 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +ccpn-2.1.2.1_p100204.ebuild:
+  100204 python patches added
+
 *ccpn-2.1.2.1_p100129 (29 Jan 2010)
 
   29 Jan 2010; Justin Lecher (jlec) <jlec@j-schmitz.net>
