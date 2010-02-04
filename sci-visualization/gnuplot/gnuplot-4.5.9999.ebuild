@@ -69,7 +69,6 @@ src_prepare() {
 	local dir
 	epatch "${FILESDIR}"/${PN}-4.2.2-disable_texi_generation.patch #194216
 	epatch "${FILESDIR}"/${PF}-app-defaults.patch #219323
-	epatch "${FILESDIR}"/${PN}-4.4.0_rc1-disable-texhash.patch #201871
 	# Add Gentoo version identification since the licence requires it
 	epatch "${FILESDIR}"/${PF}-gentoo-version.patch
 
@@ -81,12 +80,6 @@ src_prepare() {
 }
 
 src_configure() {
-	# See bug #156427.
-	if use latex ; then
-		sed -i -e "s:\`kpsexpand.*\`:${TEXMF}/tex/latex/${PN}/${GP_VERSION}:" \
-			share/LaTeX/Makefile.in || die "sed kpsexpand removed failed"
-	fi
-
 	local myconf="--enable-thin-splines"
 
 	myconf="${myconf} $(use_with latex)"
@@ -99,6 +92,8 @@ src_configure() {
 	myconf="${myconf} $(use_with lua)"
 	myconf="${myconf} $(use_with doc tutorial)"
 	myconf="${myconf} $(use_enable qt4 qt)"
+
+	use latex && myconf="${myconf} --with-texdir=${TEXMF}/${PN}/${GP_VERSION}"
 
 	use ggi \
 		&& myconf="${myconf} --with-ggi=/usr/$(get_libdir)
