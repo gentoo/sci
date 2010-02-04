@@ -47,7 +47,7 @@ src_configure() {
 	econf \
 		--prefix="${BRLCAD_DIR}" \
 		--datadir="/usr/share/${PN}" \
-		--mandir="/usr/share/man" \
+		--mandir="${BRLCAR_DIR}/man" \
 		--disable-almost-everything \
 		--disable-regex-build \
 		--disable-png-build \
