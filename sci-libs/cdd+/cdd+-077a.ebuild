@@ -5,7 +5,7 @@
 EAPI=2
 
 inherit eutils
-DESCRIPTION="This is a sample skeleton ebuild file"
+DESCRIPTION="Another implementation of the double description method"
 HOMEPAGE="http://www.ifor.math.ethz.ch/~fukuda/cdd_home/"
 SRC_URI="ftp://ftp.ifor.math.ethz.ch/pub/fukuda/cdd/${P}.tar.gz"
 

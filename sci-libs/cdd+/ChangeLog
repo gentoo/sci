@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Feb 2010; Thomas Kahle <tom111@gmx.de> cdd+-077a.ebuild:
+  Fixed wrong description
+
   19 Jan 2010; Thomas Kahle <tom@gentoo.org> +ChangeLog +Manifest
   +cdd+-077a.ebuild +files/makefile.patch +files/cdd+-077a.patch
   metadata.xml:
