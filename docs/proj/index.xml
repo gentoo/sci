@@ -36,9 +36,8 @@
 
 
   <!-- Staff -->	
-  <dev role="my role in the science project" description="what i do mainly">dev-name</dev>
-  <dev role="my role in the science project" description="what i do mainly">dev-name</dev>
-  <dev role="my role in the science project" description="what i do mainly">dev-name</dev>
+  <dev role="member" description="General package maintainer">bicatali</dev>
+  <dev role="my role in the science project" description="what i do mainly">dev-username</dev>
 
   <!-- Subprojects 
   <subproject ref="/proj/en/science/astronomy/index.xml" />
