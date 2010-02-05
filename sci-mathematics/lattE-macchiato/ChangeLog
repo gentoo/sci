@@ -1,0 +1,11 @@
+# ChangeLog for sci-mathematics/lattE-macchiato
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*lattE-macchiato-0.9.3 (05 Feb 2010)
+
+  05 Feb 2010; Thomas Kahle <tom111@gmx.de> +lattE-macchiato-0.9.3.ebuild,
+  +files/buildpackages.patch, +metadata.xml:
+  Initial upload of lattE-macchiato
+  Bug 303653
+
