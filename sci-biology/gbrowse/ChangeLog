@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/generic-genome-browser
-# Copyright 2000-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 2000-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/generic-genome-browser/ChangeLog,v 1.10 2007/07/29 17:07:38 phreak Exp $
+
+  05 Feb 2010; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
+  Version bump
 
   11 Oct 2009; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
   Version bump, rewrite and rename to gbrowse

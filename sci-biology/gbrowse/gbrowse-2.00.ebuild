@@ -19,7 +19,7 @@ IUSE="-minimal" # lwp moby scf
 
 S="${WORKDIR}/${MY_P}"
 
-# TODO: dev-perl/MOBY, dev-perl/Bio-SCF
+# TODO: dev-perl/MOBY, dev-perl/Bio-SCF, dev-perl/Safe-World (not compatible w/perl-5.10)
 DEPEND=">=dev-lang/perl-5.8.8
 	>=sci-biology/bioperl-1.6
 	>=dev-perl/GD-2.07
@@ -44,7 +44,6 @@ RDEPEND="${DEPEND}
 		dev-perl/GD-SVG
 		dev-perl/Net-OpenID-Consumer
 		virtual/perl-DB_File
-		dev-perl/Safe-World
 		dev-perl/DB_File-Lock
 	)"
 
