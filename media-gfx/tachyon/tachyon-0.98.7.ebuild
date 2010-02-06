@@ -90,9 +90,9 @@ src_prepare() {
 		sed -i "s:linux-lam:linux-mpi:g" Make-config || die "sed failed"
 	fi
 	sed -i \
+		-e "s:-O3::g;s:-g::g;s:-pg::g" \
 		-e "s:-m32:${CFLAGS}:g" \
 		-e "s:-m64:${CFLAGS}:g" \
-		-e "s:-O3::g;s:-g::g;s:-pg::g" \
 		-e "s:-ffast-math::g" \
 		-e "s:-fomit-frame-pointer::g" Make-arch || die "sed failed"
 }

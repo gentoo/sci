@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Feb 2010; Alexey Shvetsov <alexxy@gentoo.org> tachyon-0.98.7.ebuild:
+  Fix sed line sequence
+
   02 Feb 2010; Alexey Shvetsov <alexxy@gentoo.org> tachyon-0.98.7.ebuild:
   Now tachyon compiles with gentoo cflags
 
