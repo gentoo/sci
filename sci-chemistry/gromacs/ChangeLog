@@ -3,6 +3,10 @@
 # $Header: $
 
   06 Feb 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  -gromacs-4.0.7-r1.ebuild, -files/gromacs-4.0.9999-docdir.patch:
+  InCvs
+
+  06 Feb 2010; Christoph Junghans <kleiner_otti@gmx.de>
   gromacs-4.0.9999.ebuild, gromacs-9999.ebuild:
   docdir patch went upstream
 
