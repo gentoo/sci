@@ -14,7 +14,7 @@ RESTRICT="mirror"
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="nocxx cpudetection"
+IUSE="+cxx cpudetection"
 
 # Beware: cpudetection aka fat binaries only works on x86/amd64
 # When we enable more cpus we will have to carefully filter.
@@ -23,8 +23,8 @@ DEPEND="dev-lang/yasm"
 RDEPEND=""
 
 src_prepare(){
-	epatch "${FILESDIR}/${P}-yasm.patch"
-	epatch "${FILESDIR}/${P}-ABI-multilib.patch"
+	epatch "${FILESDIR}/${PN}-1.3.0-yasm.patch"
+	epatch "${FILESDIR}/${PN}-1.3.0-ABI-multilib.patch"
 	# FIXME: In the same way there was QA regarding executable stacks
 	#        with GMP we have some here as well. We cannot apply the
 	#        GMP solution as yasm is used, at least on x64/amd64.
@@ -36,7 +36,7 @@ src_configure() {
 # beware that cpudetection aka fat binaries is x86/amd64 only.
 # It will need to be filtered when extended to other archs
 	econf \
-		$(use_enable !nocxx cxx) \
+		$(use_enable cxx) \
 		$(use_enable cpudetection fat) \
 		|| "econf failed"
 }
