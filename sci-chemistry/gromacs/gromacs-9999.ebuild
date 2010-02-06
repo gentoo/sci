@@ -46,7 +46,6 @@ src_prepare() {
 	use threads && use mpi && \
 		die "threads and mpi do not work together (now)"
 
-	epatch "${FILESDIR}/${PN}-4.0.9999-docdir.patch"
 	epatch "${FILESDIR}/${PN}-4.0.9999-ccache.patch"
 	epatch "${FILESDIR}/${P}-install-mdrun.patch"
 

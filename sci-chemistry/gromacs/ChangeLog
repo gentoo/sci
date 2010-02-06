@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Feb 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  gromacs-4.0.9999.ebuild, gromacs-9999.ebuild:
+  docdir patch went upstream
+
   01 Feb 2010; Christoph Junghans <kleiner_otti@gmx.de> gromacs-9999.ebuild,
   +files/gromacs-9999-install-mdrun.patch:
   update live ebuild

@@ -40,7 +40,6 @@ RESTRICT="test"
 
 src_prepare() {
 
-	epatch "${FILESDIR}/${P}-docdir.patch"
 	epatch "${FILESDIR}/${P}-ccache.patch"
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
