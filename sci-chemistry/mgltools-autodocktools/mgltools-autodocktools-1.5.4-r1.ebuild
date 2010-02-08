@@ -19,9 +19,18 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
+	sci-chemistry/mgltools-dejavu
+	sci-chemistry/mgltools-geomutils
 	sci-chemistry/mgltools-mglutil
+	sci-chemistry/mgltools-molkit
+	sci-chemistry/mgltools-opengltk
+	sci-chemistry/mgltools-pmv
+	sci-chemistry/mgltools-pybabel
+	sci-chemistry/mgltools-pyglf
 	sci-chemistry/mgltools-support
-	dev-lang/python[tk]"
+	sci-chemistry/mgltools-viewer-framework
+	dev-lang/python[tk]
+	dev-python/imaging[tk]"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
