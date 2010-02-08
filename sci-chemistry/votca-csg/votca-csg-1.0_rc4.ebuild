@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit autotools bash-completion
+inherit autotools bash-completion flag-o-matic
 
 DESCRIPTION="Votca coarse-graining engine"
 HOMEPAGE="http://www.votca.org"
@@ -30,6 +30,7 @@ RDEPEND="${DEPEND}"
 
 pkg_setup() {
 	export CPPFLAGS="${CPPFLAGS} -I/usr/include/gromacs"
+	filter-ldflags -Wl,--as-needed
 }
 
 src_prepare() {
