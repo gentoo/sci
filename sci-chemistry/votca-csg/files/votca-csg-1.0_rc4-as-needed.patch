@@ -1,0 +1,19 @@
+# HG changeset patch
+# User Christoph Junghans <christoph.junghans@googlemail.com>
+# Date 1265667093 -3600
+# Node ID dbc4ed16a325ec46c159241b3e31ceb945461fc4
+# Parent  4aeb6d3c7affadee6bec0ff5f6031ec838f2768c
+libcsg: make --as-needed work
+
+diff -r 4aeb6d3c7aff -r dbc4ed16a325 src/libcsg/Makefile.am
+--- a/src/libcsg/Makefile.am	Mon Feb 08 18:39:44 2010 +0100
++++ b/src/libcsg/Makefile.am	Mon Feb 08 23:11:33 2010 +0100
+@@ -15,6 +15,8 @@
+     modules/io/gmxtrajectoryreader.cc  modules/io/growriter.cc          modules/io/pdbtopologyreader.cc \
+     modules/io/gmxtrajectorywriter.cc  modules/io/pdbwriter.cc
+ 
++libvotca_csg_la_LIBADD = ${LIBS_VOTCA_TOOLS} $(LIBS_XML) $(LIBS_GMX)
++
+ CLEANFILES = *~ hgstamp
+ #DISTCLEANFILES =
+ 
