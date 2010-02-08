@@ -67,8 +67,6 @@ pkg_setup() {
 
 src_prepare() {
 	local dir
-	epatch "${FILESDIR}"/${PN}-4.2.2-disable_texi_generation.patch #194216
-	epatch "${FILESDIR}"/${PF}-app-defaults.patch #219323
 	# Add Gentoo version identification since the licence requires it
 	epatch "${FILESDIR}"/${PF}-gentoo-version.patch
 
@@ -107,13 +105,9 @@ src_configure() {
 	myconf="${myconf} --without-lisp-files"
 	use multislot && myconf="${myconf} --program-suffix='-${GP_VERSION}'"
 
-	TEMACS=no
-	use xemacs && TEMACS=xemacs
-	use emacs && TEMACS=emacs
-
+	#we do the (x)emacs econf in src_install, also solves bug #194216
+	EMACS=no \
 	CFLAGS="${CFLAGS} -DGENTOO_REVISION=\\\"${PR}\\\"" \
-	EMACS=${TEMACS} \
-	appdefaultdir=/etc/X11/app-defaults/${PN}/${GP_VERSION} \
 		econf ${myconf} || die "econf failed"
 }
 

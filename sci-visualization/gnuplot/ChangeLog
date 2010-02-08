@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Feb 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  gnuplot-4.5.9999.ebuild, -files/gnuplot-4.5.9999-app-defaults.patch:
+  app-defaults.patch went upstream
+
   04 Feb 2010; Christoph Junghans <kleiner_otti@gmx.de>
   -files/gnuplot-4.2.5-colorbox_accounting.patch, gnuplot-4.5.9999.ebuild:
   some bugfixes went upstream
