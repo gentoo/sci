@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Feb 2010; Christoph Junghans <kleiner_otti@gmx.de> gromacs-9999.ebuild,
+  +files/gromacs-9999-as-needed.patch:
+  added as-needed fix
+
   06 Feb 2010; Christoph Junghans <kleiner_otti@gmx.de>
   -gromacs-4.0.7-r1.ebuild, -files/gromacs-4.0.9999-docdir.patch:
   InCvs

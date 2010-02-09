@@ -10,7 +10,7 @@ TEST_PV="4.0.4"
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="master"
 
-inherit autotools bash-completion eutils flag-o-matic fortran git multilib
+inherit autotools bash-completion eutils fortran git multilib
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -48,6 +48,7 @@ src_prepare() {
 
 	epatch "${FILESDIR}/${PN}-4.0.9999-ccache.patch"
 	epatch "${FILESDIR}/${P}-install-mdrun.patch"
+	epatch "${FILESDIR}/${P}-as-needed.patch"
 
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
@@ -56,7 +57,6 @@ src_prepare() {
 	use fkernels && epatch "${FILESDIR}/${PN}-4.0.9999-configure-gfortran.patch"
 
 	eautoreconf
-	filter-ldflags -Wl,--as-needed
 
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" single"
