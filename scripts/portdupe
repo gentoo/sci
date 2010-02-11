@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# Copyright 2006 David Shakaryan <omp@gentoo.org>
+# Distributed under the terms of the GNU General Public License v2
+
+PORTDIR="$(portageq envvar PORTDIR)"
+
+# If an argument is present, use it as the overlay directory.
+if [ $1 ]; then
+	cd ${1}
+fi
+
+# Checking, displaying, etc.
+for PACKAGE in */*; do
+	if [[ -d ${PORTDIR}/${PACKAGE} ]] && [[ $(basename ${PACKAGE}) != "CVS" ]] && grep -q $(dirname ${PACKAGE}) ${PORTDIR}/profiles/categories; then
+		# Reset versions from last package checked.
+		PORTPACK_VERS=""
+		OVERPACK_VERS=""
+		# Find just package name excluding category.
+		PACKAGE_BASE="`basename ${PACKAGE}`"
+		# Find versions of package in portage.
+		for PORTPACK in `ls ${PORTDIR}/${PACKAGE}/*.ebuild | sed -e 's/.ebuild//'`; do
+			PORTPACK_VER="`basename ${PORTPACK} | sed s/${PACKAGE_BASE}-//`"
+			PORTPACK_VERS="${PORTPACK_VERS} ${PORTPACK_VER}"
+		done
+		# Find versions of package in overlay.
+		for OVERPACK in `ls ${PACKAGE}/*.ebuild | sed -e 's/.ebuild//'`; do
+			OVERPACK_VER="`basename ${OVERPACK} | sed s/${PACKAGE_BASE}-//`"
+			OVERPACK_VERS="${OVERPACK_VERS} ${OVERPACK_VER}"
+		done
+		# Output info with colors.
+		echo -e "\e[1;33m${PACKAGE}\e[0m"
+		echo -e "  \e[1;35mPortage:\e[0m${PORTPACK_VERS}"
+		echo -e "  \e[1;35mOverlay:\e[0m${OVERPACK_VERS}"
+	fi
+done
