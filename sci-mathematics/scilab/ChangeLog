@@ -12,22 +12,18 @@
   +files/adddemo.diff, +files/buildDocPT_BR.diff, +files/jhdf2.6.diff,
   +files/librarypath.diff, +files/missingaddchapter.diff,
   +files/modelicac-not-available.diff, +files/s390javadetection.diff:
-  Added (blindly) a whold bunch of Debian patches, and a few fixes suggested
-  in bug #237572
+  Added (blindly) a whole bunch of Debian patches, and a few fixes suggested
+  in bug #237572. Also removed mpi flag in favor of checking hdf5 against mpi.
 
 *scilab-5.2.0-r1 (04 Feb 2010)
 
   04 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org> -scilab-5.2.0.ebuild,
   +scilab-5.2.0-r1.ebuild, +files/scilab-5.2.0-no-redef-exp10.patch:
   MPI goodness for the hdf5 option, and added a patch to avoid libc
-  redefinitions. A bit of cleanup
-
-  22 Jan 2010; Sébastien Fabbro <bicatali@gentoo.org> +scilab-5.2.0.ebuild,
-  +metadata.xml:
-  Import of new scilab-5.2. Thanks Guillaume Horel for his work, bug #237572
+  redefinitions. A bit of cleanup.
 
 *scilab-5.2.0 (22 Jan 2010)
 
   22 Jan 2010; Sébastien Fabbro <bicatali@gentoo.org> +scilab-5.2.0.ebuild:
-  Import of new scilab-5.2. Thanks Guillaume Horel for his work, bug #237572
-
+  Import of new scilab-5.2. Thanks Guillaume Horel for his work, bug
+  #237572. Thanks also Sylvestre Ledru for his patches and upstream support.
