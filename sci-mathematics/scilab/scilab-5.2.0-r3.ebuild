@@ -11,12 +11,12 @@ SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz"
 HOMEPAGE="http://www.scilab.org/"
 
 SLOT="0"
-IUSE="doc fftw +gui hdf5 +matio scicos tk +umfpack"
+IUSE="doc fftw +gui hdf5 +matio nls tk +umfpack xcos"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="virtual/lapack
 	tk? ( dev-lang/tk )
-	scicos? ( dev-lang/ocaml )
+	xcos? ( dev-lang/ocaml )
 	umfpack? ( sci-libs/umfpack )
 	gui? ( >=virtual/jre-1.5
 		dev-java/commons-logging
@@ -38,9 +38,9 @@ RDEPEND="virtual/lapack
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	doc? (
-		~dev-java/batik-1.7
-		dev-java/fop
 		~dev-java/saxon-6.5.5
+		dev-java/fop
+		dev-java/batik
 		app-text/docbook-xsl-stylesheets )"
 
 pkg_setup() {
@@ -49,16 +49,24 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# fix jeuclid detection
-	epatch "${FILESDIR}"/${P}-jeuclid-detect.patch
-	# Increases java heap to 512M when available
-	check_reqs_conditional && epatch "${FILESDIR}"/${P}-java-heap.patch
 	# avoid redefinition of exp10
 	epatch "${FILESDIR}"/${P}-no-redef-exp10.patch
-	# debian patches
+	# Increases java heap to 512M when available, when building docs
+	check_reqs_conditional && epatch "${FILESDIR}"/${P}-java-heap.patch
+	# fix detection of various java packages for docs
+	epatch "${FILESDIR}"/${P}-disable-build-help-failed.patch
+	# fix for hdf-java-2.6
+	epatch "${FILESDIR}"/${P}-hdf-java-2.6.patch
+	# fix for jgraphx
+	epatch "${FILESDIR}"/${P}-jgraphx.patch
+	# fix SCILIB path
+	epatch "${FILESDIR}"/${P}-scilib-fix.patch
+
+	# apply blindly some debian patches
 	for i in "${FILESDIR}"/*.diff; do
 		epatch ${i}
 	done
+
 	# add the correct java directories to the config file
 	sed \
 		-i "/^.DEFAULT_JAR_DIR/{s|=.*|=\"$(echo $(ls -d /usr/share/*/lib))\"|}" \
@@ -94,16 +102,17 @@ src_configure() {
 	econf \
 		--disable-rpath \
 		--without-pvm \
-		$(use_with scicos) \
-		$(use_with tk) \
+		$(use_enable doc build-help) \
+		$(use_enable nls) \
+		$(use_enable nls build-localization) \
 		$(use_with fftw) \
 		$(use_with gui)\
 		$(use_with gui javasci)\
-		$(use_with matio) \
-		$(use_with scicos) \
-		$(use_with umfpack) \
-		$(use_enable doc build-help) \
 		$(use_with hdf5) \
+		$(use_with matio) \
+		$(use_with umfpack) \
+		$(use_with tk) \
+		$(use_with xcos scicos) \
 		${myopts}
 }
 

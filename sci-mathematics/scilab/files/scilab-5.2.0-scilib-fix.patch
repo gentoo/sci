@@ -1,0 +1,11 @@
+--- bin/scilab.orig	2009-12-16 08:24:36.000000000 +0100
++++ bin/scilab	2010-02-11 01:14:14.718781674 +0100
+@@ -508,7 +508,7 @@
+ #fi
+ #export PVM_ARCH
+ 
+-SCILIB=$SCI/bin:$SCI/lib/scilab/:$SCI/lib64/scilab/
++SCILIB=$SCI/bin:$SCI/lib/scilab/:$SCI/lib64/scilab/:/usr/lib64/scilab
+ LD_LIBRARY_PATH=$SCILIB${LD_LIBRARY_PATH+:$LD_LIBRARY_PATH}
+ 
+ case $OS in

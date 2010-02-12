@@ -2,6 +2,19 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scilab-5.2.0-r3 (12 Feb 2010)
+
+  12 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  -files/jgraphx-1.2.0.diff, -scilab-5.2.0-r2.ebuild,
+  +scilab-5.2.0-r3.ebuild,
+  +files/scilab-5.2.0-disable-build-help-failed.patch,
+  +files/scilab-5.2.0-hdf-java-2.6.patch, +files/scilab-5.2.0-jgraphx.patch,
+  -files/jhdf2.6.diff, -files/scilab-5.2.0-jeuclid-detect.patch,
+  +files/scilab-5.2.0-scilib-fix.patch, -files/librarypath.diff,
+  metadata.xml:
+  Added more patches for doc building, a first very basic localization
+  implementation
+
 *scilab-5.2.0-r2 (12 Feb 2010)
 
   12 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org>

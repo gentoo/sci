@@ -14,6 +14,7 @@
   <flag name="umfpack">Adds support for sparse solving
   with <pkg>sci-libs/umfpack</pkg></flag>
   <flag name='matio'>Enable support for MATLAB file through <pkg>sci-libs/matio</pkg></flag>
-  <flag name='scicos'>Enable building of block diagram simulator Scicos</flag>
+  <flag name='xcos'>Enable building hybrid dynamic systems modeler and
+  simulator Xcos</flag>
 </use>
 </pkgmetadata>
