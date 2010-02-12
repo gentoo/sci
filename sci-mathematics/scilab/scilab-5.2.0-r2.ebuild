@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-inherit eutils autotools java-pkg-2
+inherit eutils autotools java-pkg-2 check-reqs
 
 DESCRIPTION="Scientific software package for numerical computations"
 LICENSE="CeCILL-2"
@@ -11,7 +11,7 @@ SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz"
 HOMEPAGE="http://www.scilab.org/"
 
 SLOT="0"
-IUSE="doc fftw +gui hdf5 +matio mpi scicos tk +umfpack"
+IUSE="doc fftw +gui hdf5 +matio scicos tk +umfpack"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="virtual/lapack
@@ -30,10 +30,10 @@ RDEPEND="virtual/lapack
 		dev-java/skinlf
 		dev-java/jrosetta
 		dev-java/javahelp
-		hdf5? ( dev-java/hdf-java[mpi=] ) )
+		hdf5? ( dev-java/hdf-java ) )
 	fftw? ( sci-libs/fftw:3.0 )
 	matio? ( sci-libs/matio )
-	hdf5? ( sci-libs/hdf5[mpi=] )"
+	hdf5? ( sci-libs/hdf5 )"
 
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
@@ -43,10 +43,23 @@ DEPEND="${RDEPEND}
 		~dev-java/saxon-6.5.5
 		app-text/docbook-xsl-stylesheets )"
 
+pkg_setup() {
+	CHECKREQS_MEMORY="512"
+	java-pkg-2_pkg_setup
+}
+
 src_prepare() {
+	# fix jeuclid detection
+	epatch "${FILESDIR}"/${P}-jeuclid-detect.patch
+	# Increases java heap to 512M when available
+	check_reqs_conditional && epatch "${FILESDIR}"/${P}-java-heap.patch
 	# avoid redefinition of exp10
 	epatch "${FILESDIR}"/${P}-no-redef-exp10.patch
-	#add the correct java directories to the config file
+	# debian patches
+	for i in "${FILESDIR}"/*.diff; do
+		epatch ${i}
+	done
+	# add the correct java directories to the config file
 	sed \
 		-i "/^.DEFAULT_JAR_DIR/{s|=.*|=\"$(echo $(ls -d /usr/share/*/lib))\"|}" \
 		m4/java.m4 || die
@@ -72,7 +85,7 @@ src_configure() {
 	export BLAS_LIBS="$(pkg-config --libs blas)"
 	export LAPACK_LIBS="$(pkg-config --libs lapack)"
 	# mpi is only used for hdf5 i/o
-	if use mpi && use hdf5; then
+	if use hdf5 && has_version sci-libs/hdf5[mpi]; then
 		export CC=mpicc
 		export CXX=mpicxx
 		export FC=mpif90

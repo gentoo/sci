@@ -1,0 +1,36 @@
+diff -ur scilab-5.1.1.orig/modules/scicos/macros/scicos_scicos/build_block.sci scilab-5.1.1/modules/scicos/macros/scicos_scicos/build_block.sci
+--- scilab-5.1.1.orig/modules/scicos/macros/scicos_scicos/build_block.sci	2009-04-14 09:31:05.000000000 +0200
++++ scilab-5.1.1/modules/scicos/macros/scicos_scicos/build_block.sci	2009-04-30 11:28:37.000000000 +0200
+@@ -72,7 +72,7 @@
+       //++ Check that modelica compiler is available
+       //++ Otherwise, give some feedback and quit
+       if ~with_modelica_compiler() then
+-        messagebox(sprintf(gettext("%s: Error: Modelica compiler (MODELICAC) is unavailable."), "build_block"),"modal","error");
++        messagebox(sprintf(gettext("%s: Error: Modelica compiler (MODELICAC) is unavailable.")+" This is probably due to the non support of ocamlopt on your architecture.", "build_block"),"modal","error");
+         ok = %f
+       end
+ 
+diff -ur scilab-5.1.1.orig/modules/scicos/macros/scicos_scicos/MODCOM.sci scilab-5.1.1/modules/scicos/macros/scicos_scicos/MODCOM.sci
+--- scilab-5.1.1.orig/modules/scicos/macros/scicos_scicos/MODCOM.sci	2009-04-14 09:31:05.000000000 +0200
++++ scilab-5.1.1/modules/scicos/macros/scicos_scicos/MODCOM.sci	2009-04-30 11:28:37.000000000 +0200
+@@ -80,7 +80,7 @@
+       //++ Check that modelica compiler is available
+       //++ Otherwise, give some feedback and quit
+       if ~with_modelica_compiler() then
+-        messagebox(sprintf(gettext("%s: Error: Modelica compiler (MODELICAC) is unavailable."), "MODCOM"),"modal","error");
++        messagebox(sprintf(gettext("%s: Error: Modelica compiler (MODELICAC) is unavailable.")+" This is probably due to the non support of ocamlopt on your architecture.", "MODCOM"),"modal","error");
+         ok = %f
+         break
+       end
+diff -ur scilab-5.1.1.orig/modules/scicos/macros/scicos_scicos/genmoc.sci scilab-5.1.1/modules/scicos/macros/scicos_scicos/genmoc.sci
+--- scilab-5.1.1.orig/modules/scicos/macros/scicos_scicos/genmoc.sci	2009-11-09 15:53:03.000000000 +0100
++++ scilab-5.1.1/modules/scicos/macros/scicos_scicos/genmoc.sci	2009-11-09 15:53:37.000000000 +0100
+@@ -29,7 +29,7 @@
+   //++ Check that modelica compiler is available
+   //++ Otherwise, give some feedback and quit
+   if ~with_modelica_compiler() then
+-    error(sprintf(gettext("%s: Error: Modelica compiler (MODELICAC) is unavailable."), "genmoc"))
++	error(sprintf(gettext("%s: Error: Modelica compiler (MODELICAC) is unavailable.\n")+" This is probably due to the non support of ocamlopt on your architecture.", "genmoc"))
+     return
+   end
+ 

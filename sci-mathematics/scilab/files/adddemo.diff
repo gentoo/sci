@@ -1,0 +1,23 @@
+diff -Nur scilab-5.1.1.orig/modules/core/macros/add_demo.sci scilab-5.1.1/modules/core/macros/add_demo.sci
+--- scilab-5.1.1.orig/modules/core/macros/add_demo.sci	2009-04-14 09:30:44.000000000 +0200
++++ scilab-5.1.1/modules/core/macros/add_demo.sci	2009-04-14 17:54:41.000000000 +0200
+@@ -17,9 +17,7 @@
+   
+   path=pathconvert(path,%f,%t);
+   
+-  if fileinfo(path)==[] then
+-    error(msprintf(gettext("%s: The file %s does not exist.\n"),"add_demo",path));
+-  end
++  if fileinfo(path) <> [] then
+   
+   if isdir(path) then 
+     error(msprintf(gettext("%s: Wrong input argument #%d: Path to a scilab script file expected.\n"),"add_demo",2));
+@@ -33,7 +31,7 @@
+     k1=find(demolist(k,2)==path)
+     if k1==[] then demolist=[demolist;demotitle+" ("+string(size(k,"*"))+")",path],end
+   end
+-  
++  end
+   clear demolist
+   
+ endfunction

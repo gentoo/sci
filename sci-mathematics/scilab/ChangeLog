@@ -2,6 +2,19 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scilab-5.2.0-r2 (12 Feb 2010)
+
+  12 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/jgraphx-1.2.0.diff, -scilab-5.2.0-r1.ebuild,
+  +scilab-5.2.0-r2.ebuild, +files/scilab-5.2.0-java-heap.patch,
+  +files/scilab-5.2.0-jeuclid-detect.patch,
+  +files/ImplicitPointerConversions.diff, +files/addchapter.diff,
+  +files/adddemo.diff, +files/buildDocPT_BR.diff, +files/jhdf2.6.diff,
+  +files/librarypath.diff, +files/missingaddchapter.diff,
+  +files/modelicac-not-available.diff, +files/s390javadetection.diff:
+  Added (blindly) a whold bunch of Debian patches, and a few fixes suggested
+  in bug #237572
+
 *scilab-5.2.0-r1 (04 Feb 2010)
 
   04 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org> -scilab-5.2.0.ebuild,

@@ -1,0 +1,14 @@
+Index: scilab-5.2.0/Makefile.am
+===================================================================
+--- scilab-5.2.0.orig/Makefile.am	2010-02-03 16:08:18.000000000 +0100
++++ scilab-5.2.0/Makefile.am	2010-02-03 16:09:33.000000000 +0100
+@@ -151,6 +151,9 @@
+ 		echo "-- Building documentation (French) --"; \
+ 		echo "SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e \"xmltojar([],[],'fr_FR');exit;\""; \
+ 		SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e "xmltojar([],[],'fr_FR');exit;"; \
++		echo "-- Building documentation (portugues do Brasil) --"; \
++		echo "SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e \"xmltojar([],[],'pt_BR');exit;\""; \
++		SCI_DISABLE_TK=1 SCI_JAVA_ENABLE_HEADLESS=1 DOCBOOK_ROOT=$(DOCBOOK_ROOT) $(top_builddir)/bin/scilab-adv-cli -nb -nouserstartup -e "xmltojar([],[],'pt_BR');exit;"; \
+ 	else \
+ 		echo "Cannot find Scilab-adv-cli binary"; \
+ 	fi
