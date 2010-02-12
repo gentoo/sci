@@ -5,6 +5,13 @@
 
 CONDOR_USER=condor
 
+node_configure() {
+    condor_configure \
+	--type=execute \
+	--central-manager=${CONDOR_CENTRAL_MANAGER} \
+	--owner=${CONDOR_USER}
+}
+
 depend() {
     need net
     use logger
@@ -12,7 +19,7 @@ depend() {
 
 start() {
     ebegin "Starting condor"
-    condor_configure --type=execute --central-manager=${CONDOR_CENTRAL_MANAGER} --owner ${CONDOR_USER}
+    node_configure
     pid=$(start-stop-daemon --start --quiet --user ${CONDOR_USER} \
 	--pidfile /var/run/condor.pid \
 	--exec /usr/sbin/condor_master -- ${CONDOR_OPTS})
