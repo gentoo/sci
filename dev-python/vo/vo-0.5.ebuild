@@ -1,9 +1,9 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=2
-inherit eutils distutils
+inherit distutils
 
 DESCRIPTION="Python module to read VOTABLE into a Numpy recarray"
 HOMEPAGE="https://www.stsci.edu/trac/ssb/astrolib/"
@@ -16,12 +16,6 @@ IUSE="doc"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 LICENSE="AURA"
-# buggy test
-RESTRICT=test
-
-src_prepare() {
-	epatch "${FILESDIR}"/${PN}-0.3.1-docs.patch
-}
 
 src_compile() {
 	distutils_src_compile

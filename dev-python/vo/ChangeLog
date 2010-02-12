@@ -1,6 +1,12 @@
 # ChangeLog for dev-python/vo
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*vo-0.5 (12 Feb 2010)
+
+  12 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org> -vo-0.4.ebuild,
+  +vo-0.5.ebuild:
+  Bump
 
 *vo-0.4 (08 Oct 2009)
 
