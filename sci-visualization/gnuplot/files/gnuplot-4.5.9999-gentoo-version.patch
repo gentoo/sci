@@ -1,89 +1,78 @@
-Add special version identification and Gentoo contact information,
-in order to fulfil provisions 2 through 4 of the gnuplot licence.
-
---- docs/gnuplot.doc	26 Nov 2009 17:23:45 -0000	1.590
-+++ docs/gnuplot.doc	28 Nov 2009 12:06:11 -0000
-@@ -204,6 +204,8 @@
+Index: configure.in
+===================================================================
+RCS file: /cvsroot/gnuplot/gnuplot/configure.in,v
+retrieving revision 1.262
+diff -u -r1.262 configure.in
+--- configure.in	7 Feb 2010 23:18:14 -0000	1.262
++++ configure.in	14 Feb 2010 14:06:49 -0000
+@@ -16,6 +16,7 @@
  
-  Bug reports and code contributions should be uploaded to the trackers at
-            http://sourceforge.net/projects/gnuplot/support
-+ and
-+           http://bugs.gentoo.org/
-  Please check previous bug reports if the bug you want to report has not been
-  already fixed in a newer version of gnuplot.
+ VERSION_MAJOR="`cat $srcdir/VERSION`"
+ PATCHLEVEL="`cat $srcdir/PATCHLEVEL`"
++AC_DEFINE_UNQUOTED([PATCHLEVEL],["$PATCHLEVEL"],[Gnuplot patchlevel])
  
---- docs/gnuplot.texi	18 Oct 2009 21:31:13 -0000	1.125
-+++ docs/gnuplot.texi	28 Nov 2009 12:06:18 -0000
-@@ -330,6 +330,11 @@
-       http://sourceforge.net/projects/gnuplot
+ dnl configure.in body
  
- @end example
-+and
-+@example
-+      http://bugs.gentoo.org/
-+
-+@end example
+@@ -1145,6 +1146,8 @@
+ AC_CHECK_PROGS(LRELEASE, lrelease-qt4 lrelease, no)
+ AM_CONDITIONAL(HAVE_LRELEASE, test "${LRELEASE}" != no)
  
- The list of those interested in beta-test versions is:
- @example
---- src/plot.c	31 Oct 2009 03:22:37 -0000	1.105
-+++ src/plot.c	28 Nov 2009 12:06:18 -0000
-@@ -374,9 +374,11 @@
- 		    "  -h, --help\n"
++AC_ARG_VAR(DIST_CONTACT,[Contact address for modified and binary distributed gnuplot versions])
++AM_CONDITIONAL(IS_DIST_RELEASE, test -n "${DIST_CONTACT}")
+ 
+ dnl build lisp files
+ if test "$with_lisp_files" != no; then
+Index: src/plot.c
+===================================================================
+RCS file: /cvsroot/gnuplot/gnuplot/src/plot.c,v
+retrieving revision 1.107
+diff -u -r1.107 plot.c
+--- src/plot.c	6 Jan 2010 17:29:03 -0000	1.107
++++ src/plot.c	14 Feb 2010 14:06:49 -0000
+@@ -375,7 +375,12 @@
  		    "  -p  --persist\n"
  		    "  -e  \"command1; command2; ...\"\n"
--		    "gnuplot %s patchlevel %s\n"
--		    "Report bugs to %s\n",
--		    gnuplot_version, gnuplot_patchlevel, bug_email);
-+		    "gnuplot %s patchlevel %s (Gentoo revision %s)\n"
-+		    "Report bugs to <%s>\n"
-+		    "or to <%s>\n",
-+		    gnuplot_version, gnuplot_patchlevel, gentoo_revision,
-+		    gentoo_bugtracker, bug_email);
+ 		    "gnuplot %s patchlevel %s\n"
++#ifdef DIST_CONTACT
++		    "Report bugs to "DIST_CONTACT"\n"
++		    "            or %s\n",
++#else
+ 		    "Report bugs to %s\n",
++#endif
+ 		    gnuplot_version, gnuplot_patchlevel, bug_email);
  	    return 0;
  
- 	} else if (!strncmp(argv[i], "-persist", 2) || !strcmp(argv[i], "--persist")) {
---- src/show.c	16 Nov 2009 10:29:37 -0000	1.229
-+++ src/show.c	28 Nov 2009 12:06:19 -0000
-@@ -1017,7 +1017,7 @@
-     strcpy(fmt, "\
- %s\n\
- %s\t%s\n\
--%s\tVersion %s patchlevel %s\n\
-+%s\tVersion %s patchlevel %s (Gentoo revision %s)\n\
- %s\tlast modified %s\n\
- %s\tSystem: %s %s\n\
- %s\n\
-@@ -1038,7 +1038,7 @@
-     fprintf(fp, fmt,
- 	    p,			/* empty line */
- 	    p, PROGRAM,
--	    p, gnuplot_version, gnuplot_patchlevel,
-+	    p, gnuplot_version, gnuplot_patchlevel, gentoo_revision,
- 	    p, gnuplot_date,
- 	    p, os_name, os_rel,
- 	    p,			/* empty line */
---- src/version.c	5 Nov 2009 19:19:38 -0000	1.94
-+++ src/version.c	28 Nov 2009 12:06:19 -0000
-@@ -46,6 +46,9 @@
+Index: src/Makefile.am
+===================================================================
+RCS file: /cvsroot/gnuplot/gnuplot/src/Makefile.am,v
+retrieving revision 1.77
+diff -u -r1.77 Makefile.am
+--- src/Makefile.am	7 Feb 2010 23:18:14 -0000	1.77
++++ src/Makefile.am	14 Feb 2010 14:06:49 -0000
+@@ -36,6 +36,10 @@
  
- const char faq_location[] = FAQ_LOCATION;
+ AM_CPPFLAGS = -I../term -I$(top_srcdir)/term -DBINDIR=\"$(bindir)\" -DX11_DRIVER_DIR=\"$(X11_DRIVER_DIR)\" -DGNUPLOT_PS_DIR=\"$(GNUPLOT_PS_DIR)\" -DGNUPLOT_JS_DIR=\"$(GNUPLOT_JS_DIR)\" -DGNUPLOT_LUA_DIR=\"$(GNUPLOT_LUA_DIR)\"  -DCONTACT=\"$(EMAIL)\" -DHELPFILE=\"$(HELPFILE)\" -DGNUPLOT_X11=\"$(GNUPLOT_X11)\" -DXAPPLRESDIR=\"$(XAPPLRESDIR)\"
  
-+const char gentoo_revision[] = GENTOO_REVISION;
-+const char gentoo_bugtracker[] = "http://bugs.gentoo.org/";
++if IS_DIST_RELEASE
++AM_CPPFLAGS += -DDIST_CONTACT="\"$(DIST_CONTACT)\""
++endif
 +
- char *compile_options = (void *)0;	/* Will be loaded at runtime */
+ gnuplot_SOURCES = alloc.c alloc.h ansichek.h axis.c axis.h binary.c \
+ breaders.c breaders.h bitmap.c bitmap.h color.c color.h command.c \
+ command.h contour.c contour.h datafile.c datafile.h dynarray.c dynarray.h \
+Index: src/version.c
+===================================================================
+RCS file: /cvsroot/gnuplot/gnuplot/src/version.c,v
+retrieving revision 1.96
+diff -u -r1.96 version.c
+--- src/version.c	3 Feb 2010 10:00:46 -0000	1.96
++++ src/version.c	14 Feb 2010 14:06:49 -0000
+@@ -40,7 +40,7 @@
  
- /* #define RELEASE_VERSION 1 */
---- src/version.h	5 Aug 2006 21:33:15 -0000	1.5
-+++ src/version.h	28 Nov 2009 12:06:19 -0000
-@@ -47,6 +47,9 @@
- extern const char bug_email[];
- extern const char help_email[];
  
-+extern const char gentoo_revision[];
-+extern const char gentoo_bugtracker[];
-+
- extern char os_name[];
- extern char os_rel[];
+ const char gnuplot_version[] = "4.5";
+-const char gnuplot_patchlevel[] = "0";
++const char gnuplot_patchlevel[] = PATCHLEVEL;
+ const char gnuplot_date[] = "February 2010";
+ const char gnuplot_copyright[] = "Copyright (C) 1986-1993, 1998, 2004, 2007-2010";
  

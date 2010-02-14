@@ -74,6 +74,9 @@ src_prepare() {
 		emake -C "$dir" -f Makefile.am.in Makefile.am || \
 		  die "make -f Makefile.am.in Makefile.am in $dir failed"
 	done
+
+	sed -i "s/$/ (Gentoo revision ${PR})/" PATCHLEVEL
+
 	eautoreconf
 }
 
@@ -107,7 +110,7 @@ src_configure() {
 
 	#we do the (x)emacs econf in src_install, also solves bug #194216
 	EMACS=no \
-	CFLAGS="${CFLAGS} -DGENTOO_REVISION=\\\"${PR}\\\"" \
+	DIST_CONTACT="<http://bugs.gentoo.org>" \
 		econf ${myconf} || die "econf failed"
 }
 
