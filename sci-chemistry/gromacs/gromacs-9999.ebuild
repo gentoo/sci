@@ -44,8 +44,6 @@ src_prepare() {
 		die "Nothing to compile, enable single-precision and/or double-precision"
 
 	epatch "${FILESDIR}/${PN}-4.0.9999-ccache.patch"
-	epatch "${FILESDIR}/${P}-install-mdrun.patch"
-	epatch "${FILESDIR}/${P}-as-needed.patch"
 	epatch "${FILESDIR}/${P}-dirent.patch"
 
 	# Fix typos in a couple of files.
