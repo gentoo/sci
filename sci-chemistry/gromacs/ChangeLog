@@ -3,6 +3,10 @@
 # $Header: $
 
   18 Feb 2010; Alexey Shvetsov <alexxy@gentoo.org> gromacs-9999.ebuild,
+  -files/gromacs-9999-dirent.patch:
+  Dropped unneded patches. They all were applied to git master
+
+  18 Feb 2010; Alexey Shvetsov <alexxy@gentoo.org> gromacs-9999.ebuild,
   -files/gromacs-9999-as-needed.patch,
   -files/gromacs-9999-install-mdrun.patch:
   Dropped unneded patches. They all were applied to git master
