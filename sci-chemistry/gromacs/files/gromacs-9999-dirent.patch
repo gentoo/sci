@@ -1,0 +1,28 @@
+From 81b43d199d1a34ef80ade47db86618626e50d225 Mon Sep 17 00:00:00 2001
+From: Alexey Shvetsov <alexxy@omrb.pnpi.spb.ru>
+Date: Thu, 18 Feb 2010 15:04:31 +0300
+Subject: [PATCH] Fix detection of dirent.h
+
+---
+ configure.ac |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 7dec0e9..d5744a8 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -648,6 +648,11 @@ Selections still work, but the default groups can differ from
+ those obtained with regular expressions enabled.
+ Consider installing the regular expression library from GNU libc.])])
+ 
++#######################################################################
++# Check for dirent.h
++#######################################################################
++AC_CHECK_HEADERS([dirent.h],,AC_DEFINE([HAVE_DIRENT_H]))
++
+ #####
+ # Checks for additional and/or optional functions or libraries.
+ #AC_FUNC_MALLOC
+-- 
+1.7.0
+

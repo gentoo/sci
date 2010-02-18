@@ -46,6 +46,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-4.0.9999-ccache.patch"
 	epatch "${FILESDIR}/${P}-install-mdrun.patch"
 	epatch "${FILESDIR}/${P}-as-needed.patch"
+	epatch "${FILESDIR}/${P}-dirent.patch"
 
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
