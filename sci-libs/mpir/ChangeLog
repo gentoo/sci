@@ -1,6 +1,14 @@
-# ChangeLog for dev-libs/mpir
+# ChangeLog for sci-libs/mpir
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*mpir-1.2.2 (19 Feb 2010)
+
+  19 Feb 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  +mpir-1.2.2.ebuild, +files/mpir-1.2.2-yasm.patch,
+  +files/mpir-1.3.0-ABI-multilib.patch, +files/mpir-1.3.0-yasm.patch,
+  +mpir-1.3.1.ebuild, +metadata.xml:
+  move from dev-libs to sci-libs
 
 *mpir-1.3.1 (06 Feb 2010)
 
