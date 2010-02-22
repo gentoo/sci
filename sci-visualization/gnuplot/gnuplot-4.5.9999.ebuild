@@ -6,7 +6,7 @@ EAPI=2
 
 WX_GTK_VER="2.8"
 
-inherit autotools elisp-common eutils multilib wxwidgets cvs
+inherit autotools elisp-common multilib wxwidgets cvs
 
 DESCRIPTION="Command-line driven interactive plotting program"
 HOMEPAGE="http://www.gnuplot.info/"
@@ -67,14 +67,12 @@ pkg_setup() {
 
 src_prepare() {
 	local dir
-	# Add Gentoo version identification since the licence requires it
-	epatch "${FILESDIR}"/${PF}-gentoo-version.patch
-
 	for dir in config demo m4 term tutorial; do
 		emake -C "$dir" -f Makefile.am.in Makefile.am || \
 		  die "make -f Makefile.am.in Makefile.am in $dir failed"
 	done
 
+	# Add Gentoo version identification since the licence requires it
 	sed -i "s/$/ (Gentoo revision ${PR})/" PATCHLEVEL
 
 	eautoreconf
