@@ -28,4 +28,3 @@ src_test() {
 	einfo "make test can take a few hours on moderately modern systems"
 	make test || die "check failed"
 }
-
