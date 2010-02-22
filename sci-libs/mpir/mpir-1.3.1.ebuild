@@ -16,10 +16,8 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="+cxx cpudetection"
 
-# Beware: cpudetection aka fat binaries only works on x86/amd64
-# When we enable more cpus we will have to carefully filter.
-
-DEPEND="dev-lang/yasm"
+DEPEND="x86? ( dev-lang/yasm )
+	amd64? ( dev-lang/yasm )"
 RDEPEND=""
 
 src_prepare(){
@@ -27,14 +25,14 @@ src_prepare(){
 	epatch "${FILESDIR}/${PN}-1.3.0-ABI-multilib.patch"
 	# FIXME: In the same way there was QA regarding executable stacks
 	#        with GMP we have some here as well. We cannot apply the
-	#        GMP solution as yasm is used, at least on x64/amd64.
+	#        GMP solution as yasm is used, at least on x86/amd64.
 	#        Furthermore we are able to patch config.ac.
 	eautoreconf
 }
 
 src_configure() {
 # beware that cpudetection aka fat binaries is x86/amd64 only.
-# It will need to be filtered when extended to other archs
+# Place mpir in profiles/arch/$arch/package.use.mask when making it available on $arch.
 	econf \
 		$(use_enable cxx) \
 		$(use_enable cpudetection fat) \
@@ -50,5 +48,5 @@ pkg_postinst() {
 	elog "The mpir ebuild is still under development."
 	elog "Help us improve the ebuild in:"
 	elog "http://bugs.gentoo.org/show_bug.cgi?id=293383"
-	elog "This ebuild is known to have an executable atack problem"
+	elog "This ebuild is known to have an executable stack problem"
 }
