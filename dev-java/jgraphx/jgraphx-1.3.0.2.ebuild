@@ -9,7 +9,8 @@ inherit java-pkg-2 java-ant-2 versionator
 MY_PV=$(replace_all_version_separators '_')
 
 DESCRIPTION="Open-source graph component for Java"
-SRC_URI="http://guillaume.horel.free.fr/${PN}-${MY_PV}.zip"
+SRC_URI="http://www.jgraph.com/downloads/jgraphx/archive/?dir=&download=${PN}-${MY_PV}.zip\
+		-> ${P}.zip"
 HOMEPAGE="http://www.jgraph.com"
 IUSE="doc examples source"
 DEPEND=">=virtual/jdk-1.5
@@ -35,7 +36,7 @@ EANT_DOC_TARGET="doc"
 src_install() {
 	java-pkg_dojar lib/${PN}.jar
 
-	use doc && java-pkg_dojavadoc docs
+	use doc && java-pkg_dojavadoc docs/api
 	use source && java-pkg_dosrc src/org
 	use examples && java-pkg_doexamples examples
 }
