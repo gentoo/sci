@@ -24,7 +24,7 @@ RDEPEND="virtual/lapack
 		dev-java/gluegen
 		dev-java/jeuclid-core
 		dev-java/jlatexmath
-		dev-java/jgraphx
+		>=dev-java/jgraphx-1.2.0.7
 		dev-java/jogl
 		dev-java/jgoodies-looks
 		dev-java/skinlf
@@ -50,18 +50,19 @@ pkg_setup() {
 
 src_prepare() {
 	# avoid redefinition of exp10
-	epatch "${FILESDIR}"/${PN}-5.2.0-no-redef-exp10.patch
+	epatch "${FILESDIR}"/${P}-no-redef-exp10.patch
 	# Increases java heap to 512M when available, when building docs
-	check_reqs_conditional && epatch "${FILESDIR}"/${PN}-5.2.0-java-heap.patch
+	check_reqs_conditional && epatch "${FILESDIR}"/${P}-java-heap.patch
 	# fix for hdf-java-2.6
-	epatch "${FILESDIR}"/${PN}-5.2.0-hdf-java-2.6.patch
-	# fix SCILIB path
-	epatch "${FILESDIR}"/${PN}-5.2.0-scilib-fix.patch
+	epatch "${FILESDIR}"/${P}-hdf-java-2.6.patch
+	# fix for jgraphx
+	epatch "${FILESDIR}"/${P}-scilib-fix.patch
+	epatch "${FILESDIR}"/${P}-nojavacheckversion.patch
 
 	# apply blindly some debian patches
-	for i in "${FILESDIR}"/*.diff; do
-		epatch ${i}
-	done
+	#for i in "${FILESDIR}"/*.diff; do
+	#	epatch ${i}
+	#done
 
 	# add the correct java directories to the config file
 	sed \
