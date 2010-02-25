@@ -1,0 +1,40 @@
+commit 82bc3daabc423d8fa472308ace64979587c80f92
+Author: Sylvestre Ledru <sylvestre.ledru@scilab.org>
+Date:   Fri Feb 19 12:08:35 2010 +0100
+
+    Support of Linux sparc64 (debian)
+
+diff --git a/scilab/m4/java.m4 b/scilab/m4/java.m4
+index 9b75699..469019b 100644
+--- a/scilab/m4/java.m4
++++ b/scilab/m4/java.m4
+@@ -433,7 +433,7 @@ AC_DEFUN([AC_JAVA_JNI_LIBS], [
+ 		# Solaris 10 x86
+           machine=i386
+           ;;
+-		sun*)
++		sun*|sparc64)
+        # Sun
+           machine=sparc
+           ;;
+--- a/scilab/bin/scilab	2010-02-19 23:59:34.000000000 +0100
++++ b/scilab/bin/scilab	2010-02-20 00:00:23.000000000 +0100
+@@ -374,6 +374,9 @@
+ 					"alpha")  
+ 						proc="alpha"
+ 						;;
++					"sparc64")
++						proc="sparc"
++						;;
+ 					*)
+ 						echo "Could not find the Java configuration for the model <${MODEL}>. Please contact us."
+ 						;;
+@@ -392,7 +395,7 @@
+ 						proc="i386"
+ 						;;
+ 				# check for the 64 bits syntax
+-					"sparc")
++					"sparc"|"sparc64")
+ 						proc="sparc"
+ 						;;
+ 					*)
