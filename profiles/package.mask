@@ -30,14 +30,9 @@
 
 #--- END OF EXAMPLES ---
 
-# Sébastien Fabbro <bicatali@gentoo.org> (22 Jan 2010)
-# mask as this ebuild is experimental
->=sci-visualization/scilab-5
-
-# Oliver Borm (boroli) (14 Dec 09)
-# oli.borm@web.de
-# mask as this ebuild is experimental
-=sci-visualization/paraview-3.6.1-r2
+# Sébastien Fabbro <bicatali@gentoo.org> (26 Feb 2010)
+# mask because scilab-5.2.1 does not work with it.
+>=dev-java/jgrapx-1.3
 
 # Justin Lecher (jlec) (1 Aug 09)
 # jlec@j-schmitz.net
