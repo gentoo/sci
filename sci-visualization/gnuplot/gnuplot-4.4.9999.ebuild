@@ -13,14 +13,15 @@ HOMEPAGE="http://www.gnuplot.info/"
 
 ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot"
 ECVS_MODULE="gnuplot"
+ECVS_BRANCH="branch-4-4-stable"
 ECVS_USER="anonymous"
 ECVS_CVS_OPTIONS="-dP"
 
 LICENSE="gnuplot"
 GP_VERSION="${PV:0:3}"
 use multislot && SLOT="${PV:0:3}" || SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="cairo doc emacs +gd ggi latex lua multislot pdf plotutils qt4 readline svga wxwidgets X xemacs"
+KEYWORDS="~x86"
+IUSE="cairo doc emacs +gd ggi latex lua multislot pdf plotutils readline svga wxwidgets X xemacs"
 RESTRICT="wxwidgets? ( test )"
 
 RDEPEND="
@@ -49,10 +50,7 @@ RDEPEND="
 		>=x11-libs/gtk+-2.8 )
 	cairo? ( >=x11-libs/cairo-0.9
 		>=x11-libs/pango-1.10.3
-		>=x11-libs/gtk+-2.8 )
-	qt4? ( >=x11-libs/qt-core-4.5
-		>=x11-libs/qt-gui-4.5
-		>=x11-libs/qt-svg-4.5 )"
+		>=x11-libs/gtk+-2.8 )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
@@ -90,7 +88,6 @@ src_configure() {
 	myconf="${myconf} $(use_with pdf pdf /usr/$(get_libdir))"
 	myconf="${myconf} $(use_with lua)"
 	myconf="${myconf} $(use_with doc tutorial)"
-	myconf="${myconf} $(use_enable qt4 qt)"
 
 	use latex && myconf="${myconf} --with-texdir=${TEXMF}/${PN}/${GP_VERSION}"
 

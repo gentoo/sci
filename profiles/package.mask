@@ -73,6 +73,7 @@
 # kleiner_otti@gmx.de
 # live cvs ebuild, deps changing constantly
 # report to bug #232363
+=sci-visualization/gnuplot-4.4.9999
 =sci-visualization/gnuplot-4.5.9999
 
 # Justin Lecher (jlec) (11 May 09)

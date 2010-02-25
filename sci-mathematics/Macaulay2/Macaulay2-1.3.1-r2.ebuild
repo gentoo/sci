@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -19,7 +19,6 @@ SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="~x86 ~amd64"
 
-# mpir 1.3.0_rc3 does not work!
 DEPEND="sys-libs/gdbm
 	>=dev-libs/ntl-5.5.2
 	>=dev-libs/boehm-gc-7.1
@@ -33,8 +32,7 @@ DEPEND="sys-libs/gdbm
 	sci-mathematics/normaliz
 	sci-mathematics/gfan
 	>=dev-libs/mpfr-2.4.1
-	>=dev-libs/mpir-1.2.1[-nocxx]
-	<dev-libs/mpir-1.3[-nocxx]
+	>=sci-libs/mpir-1.3.1[cxx]
 	sys-libs/gdbm
 	virtual/blas
 	virtual/lapack

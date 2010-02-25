@@ -2,6 +2,14 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scilab-5.2.1 (25 Feb 2010)
+
+  25 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  -scilab-5.2.0-r3.ebuild, +scilab-5.2.1.ebuild,
+  -files/ImplicitPointerConversions.diff, +files/full_support.diff,
+  +files/renesas-sh.diff, +files/sparc64.diff:
+  Version bump
+
 *scilab-5.2.0-r3 (12 Feb 2010)
 
   12 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org>

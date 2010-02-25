@@ -20,7 +20,7 @@ SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86"
-IUSE="X blas dmalloc doc -double-precision +fftw fkernels +gsl lapack mpi +single-precision static test threads +xml zsh-completion"
+IUSE="X blas dmalloc doc -double-precision +fftw fkernels +gsl lapack mpi +single-precision static test +threads +xml zsh-completion"
 
 DEPEND="app-shells/tcsh
 	X? ( x11-libs/libX11
@@ -43,12 +43,7 @@ src_prepare() {
 	( use single-precision || use double-precision ) || \
 		die "Nothing to compile, enable single-precision and/or double-precision"
 
-	use threads && use mpi && \
-		die "threads and mpi do not work together (now)"
-
 	epatch "${FILESDIR}/${PN}-4.0.9999-ccache.patch"
-	epatch "${FILESDIR}/${P}-install-mdrun.patch"
-	epatch "${FILESDIR}/${P}-as-needed.patch"
 
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \

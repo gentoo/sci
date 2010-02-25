@@ -2,6 +2,15 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Feb 2010; Alexey Shvetsov <alexxy@gentoo.org> gromacs-9999.ebuild,
+  -files/gromacs-9999-dirent.patch:
+  Dropped unneded patches. They all were applied to git master
+
+  18 Feb 2010; Alexey Shvetsov <alexxy@gentoo.org> gromacs-9999.ebuild,
+  -files/gromacs-9999-as-needed.patch,
+  -files/gromacs-9999-install-mdrun.patch:
+  Dropped unneded patches. They all were applied to git master
+
   09 Feb 2010; Christoph Junghans <kleiner_otti@gmx.de> gromacs-9999.ebuild,
   +files/gromacs-9999-as-needed.patch:
   added as-needed fix

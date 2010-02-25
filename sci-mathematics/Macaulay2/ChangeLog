@@ -1,5 +1,5 @@
 # ChangeLog for sci-mathematics/Macaulay2
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
 	26 Nov 2009; Thomas Kahle <tom111@gmx.de>
@@ -19,6 +19,15 @@
 	16 Nov 2009; Thomas Kahle <tom111@gmx.de> +Macaulay2-1.3.1.ebuild
 
 	Version bump
+
+  19 Feb 2010; Thomas Kahle <tom111@gmx.de> -Macaulay2-1.2-r3.ebuild,
+  -Macaulay2-1.3.1-r1.ebuild, Macaulay2-1.3.1-r2.ebuild,
+  -files/patch-3.1.0b:
+  Removed old versions, dependency on sci-libs/mpir updated
+
+  19 Feb 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  Macaulay2-1.3.1-r1.ebuild, Macaulay2-1.3.1-r2.ebuild:
+  change the dependencies from dev-libs/mpir to sci-libs/mpir as agreed.
 
   26 Aug 2009; Thomas Kahle <tom111@gmx.de>
 
