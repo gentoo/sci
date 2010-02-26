@@ -269,7 +269,7 @@ src_install() {
 		cat "${D}"/usr/share/gromacs/top/FF.dat \
 			"${D}"/usr/share/gromacs/top/FF.dat.new \
 			| tail -n+2 > "${D}"/usr/share/gromacs/top/FF.dat.new2
-		wc -l "${D}"/usr/share/gromacs/top/FF.dat.new2 > \
+		cat "${D}"/usr/share/gromacs/top/FF.dat.new2 | wc -l > \
 			"${D}"/usr/share/gromacs/top/FF.dat
 		cat "${D}"/usr/share/gromacs/top/FF.dat.new2 >> \
 			"${D}"/usr/share/gromacs/top/FF.dat
