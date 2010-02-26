@@ -258,7 +258,7 @@ src_install() {
 		# actualy add records to FF.dat
 		cat >>"${D}"/usr/share/gromacs/top/FF.dat.new <<-EOF
 			ffamber94   AMBER94 Cornell protein/nucleic forcefield
-			ffamber96   AMBER94 Kollman protein/nucleic forcefield
+			ffamber96   AMBER96 Kollman protein/nucleic forcefield
 			ffamberGS   AMBER-GS Garcia &  Sanbonmatsu forcefield
 			ffamberGSs  AMBER-GSs Nymeyer &  Garcia forcefield
 			ffamber99   AMBER99 Wang protein/nucleic acid forcefield
