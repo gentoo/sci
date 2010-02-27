@@ -14,7 +14,7 @@ HOMEPAGE="http://www.gromacs.org/"
 SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
 		test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-4.0.pdf )
-		ffamber? ( http://chemistry.csulb.edu/ffamber/ffamber_v4.0-doc.tar.gz )"
+		ffamber? ( http://ffamber.cnsm.csulb.edu/ffamber_v4.0-doc.tar.gz )"
 
 LICENSE="GPL-2"
 SLOT="0"
