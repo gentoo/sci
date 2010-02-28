@@ -2,18 +2,17 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI="3"
 
-inherit eutils
+inherit eutils toolchain-funcs
+
 DESCRIPTION="Another implementation of the double description method"
 HOMEPAGE="http://www.ifor.math.ethz.ch/~fukuda/cdd_home/"
 SRC_URI="ftp://ftp.ifor.math.ethz.ch/pub/fukuda/cdd/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-
 KEYWORDS="~x86 ~amd64"
-
 IUSE=""
 
 DEPEND="dev-libs/gmp"
@@ -25,11 +24,17 @@ src_prepare() {
 }
 
 src_compile() {
-	emake all || die "emake failed"
+	export LDFLAGS="${LDFLAGS}"
+	export CFLAGS="${CFLAGS}"
+	emake \
+		CC="$(tc-getCC)" \
+		LIBDIR="${EPREFIX}/usr/$(get_libdir)" \
+		GMPLIBDIR="${EPREFIX}/usr/$(get_libdir)" \
+		GMPINCLUDE="${EPREFIX}/usr/include" \
+		all || die
+
 }
 
 src_install() {
-	dobin cddf+
-	dobin cddr+
-	dolib cddio.o
+	dobin cddr+ cddf+ || die
 }
