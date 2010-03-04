@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="Frobby is a software system and project for computations with monomial ideals"
 HOMEPAGE="http://www.broune.com/frobby/"
-SRC_URI="http://www.broune.com/frobby/frobby_v0.8.2.tar.gz"
+SRC_URI="http://www.broune.com/frobby/frobby_v${PV}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
@@ -16,16 +16,15 @@ IUSE="doc"
 
 DEPEND="dev-libs/gmp[-nocxx]
 		doc? ( virtual/latex-base )"
-RDEPEND="${DEPEND}"
+RDEPEND="dev-libs/gmp[-nocxx]"
 
-S="${WORKDIR}/frobby_v0.8.2"
+S="${WORKDIR}/frobby_v${PV}"
 
 src_prepare() {
-	cd "${S}"
 	# Fixing latex call in doc creation
-	epatch "${FILESDIR}/frobby-0.8.2-doc.patch"
+	epatch "${FILESDIR}/frobby-${PV}-doc.patch"
 	# Patches contributed by Dan Grayson
-	epatch "${FILESDIR}/patch-0.8.2"
+	epatch "${FILESDIR}/patch-${PV}"
 	# No Stripping and respecting Cflags
 	epatch "${FILESDIR}/respect-cflags-and-no-strip.patch"
 }
