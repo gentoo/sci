@@ -20,6 +20,9 @@
 
 	Version bump
 
+  04 Mar 2010; Thomas Kahle <tom111@gmx.de> Macaulay2-1.3.1-r3.ebuild:
+  QA/Ebuild improvements
+
 *Macaulay2-1.3.1-r3 (25 Feb 2010)
 
   25 Feb 2010; Thomas Kahle <tom111@gmx.de> -Macaulay2-1.3.1-r2.ebuild,

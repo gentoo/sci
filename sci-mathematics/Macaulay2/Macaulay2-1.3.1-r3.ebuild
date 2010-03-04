@@ -9,7 +9,7 @@ inherit autotools elisp-common eutils flag-o-matic
 IUSE="emacs"
 
 DESCRIPTION="research tool for commutative algebra and algebraic geometry"
-SRC_URI="http://www.math.uiuc.edu/Macaulay2/Downloads/SourceCode/Macaulay2-1.3.1-r10737.bz2 -> ${P}.tar.bz2"
+SRC_URI="http://www.math.uiuc.edu/Macaulay2/Downloads/SourceCode/Macaulay2-${PV}-r10737.bz2 -> ${P}.tar.bz2"
 
 #	mirror://gentoo/${P}-src.tar.bz2
 
@@ -44,12 +44,11 @@ RDEPEND="${DEPEND}"
 
 SITEFILE=70Macaulay2-gentoo.el
 
-S="${WORKDIR}/Macaulay2-1.3.1-r10737"
+S="${WORKDIR}/Macaulay2-${PV}-r10737"
 
 src_prepare() {
 	# Patching .m2 files to look for external programs in
 	# /usr/bin
-	cd "${S}"
 	epatch "${FILESDIR}/paths-of-dependencies.patch"
 
 	eautoreconf
@@ -75,12 +74,12 @@ src_compile() {
 }
 
 src_test() {
-	make check || die "tests failed"
+	emake check || die "tests failed"
 }
 
 src_install () {
 
-	make install || die "install failed"
+	emake install || die "install failed"
 
 	use emacs && elisp-site-file-install "${FILESDIR}/${SITEFILE}"
 }
