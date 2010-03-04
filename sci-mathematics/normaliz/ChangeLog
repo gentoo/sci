@@ -1,8 +1,13 @@
-# ChangeLog for sci-mathematics/Macaulay2
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sci-mathematics/normaliz
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-	4 Sep 2009; Thomas Kahle <tom111@gmx.de> +normaliz-2.2.ebuild
-	+metadata.xml +ChangeLog
+  04 Mar 2010; Thomas Kahle <tom111@gmx.de> normaliz-2.2.ebuild:
+  QA/ebuild improvements
 
-	Intial import (Bug #283676)
+  4 Sep 2009; Thomas Kahle <tom111@gmx.de> +normaliz-2.2.ebuild
+  +metadata.xml +ChangeLog
+
+  Intial import (Bug #283676)
+
+

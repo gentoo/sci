@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,17 +20,12 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/Normaliz2.2Linux/source"
 
 src_prepare () {
-	sed -i "s/-O3/${CXXFLAGS}/" Makefile
-}
-
-src_compile() {
-	emake || die "emake failed"
+	sed -i "s/-O3/${CXXFLAGS}/" Makefile || die "sed on Makefile failed"
 }
 
 src_install() {
-	dobin norm32 norm64 normbig
+	dobin norm32 norm64 normbig || die "install failed"
 	if use doc; then
-		cd "${S}/../doc"
-		dodoc "Normaliz2.2Documentation.pdf"
+		dodoc "../doc/Normaliz2.2Documentation.pdf" || die "install failed"
 	fi
 }
