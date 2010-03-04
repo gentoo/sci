@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="gfan computes Groebner fans and tropical varities"
 HOMEPAGE="http://www.math.tu-berlin.de/~jensen/software/gfan/gfan.html"
-SRC_URI="http://www.math.tu-berlin.de/~jensen/software/gfan/gfan0.4plus.tar.gz"
+SRC_URI="http://www.math.tu-berlin.de/~jensen/software/gfan/gfan${PV}plus.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
@@ -19,7 +19,7 @@ IUSE=""
 
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/gfan0.4plus/"
+S="${WORKDIR}/gfan${PV}plus/"
 
 src_prepare () {
 	sed -i "s/-O2/${CXXFLAGS}/" Makefile

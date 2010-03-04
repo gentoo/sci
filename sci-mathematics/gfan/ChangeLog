@@ -1,11 +1,15 @@
-# ChangeLog for <CATEGORY>/<PACKAGE_NAME>
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sci-mathematics/gfan
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-	26 Nov 2009; Thomas Kahle <tom111@gmx.de>
-	QA Fixes
+  04 Mar 2010; Thomas Kahle <tom111@gmx.de> gfan-0.4.ebuild:
+  QA/ebuild improvements
 
-	16 Nov 2009; Thomas Kahle <tom111@gmx.de> +ChangeLog +metadata.xml
-	+gfan-0.4.ebuild
+  26 Nov 2009; Thomas Kahle <tom111@gmx.de>
+  QA Fixes
 
-	Initial import (Bug #293381).
+  16 Nov 2009; Thomas Kahle <tom111@gmx.de> +ChangeLog +metadata.xml
+  +gfan-0.4.ebuild
+  Initial import (Bug #293381).
+
+
