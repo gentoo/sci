@@ -1,6 +1,9 @@
-# ChangeLog for sci-mathematics/Macaulay2
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sci-mathematics/4ti2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  04 Mar 2010; Thomas Kahle <tom111@gmx.de> 4ti2-1.3.2.ebuild:
+  QA/ebuild improvements
 
   20 Nov 2009; Thomas Kahle <tom111@gmx.de> 4ti2-1.3.2.ebuild
 	keyworded ~amd64
