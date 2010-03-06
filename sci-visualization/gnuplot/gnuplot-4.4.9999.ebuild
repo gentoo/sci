@@ -19,15 +19,12 @@ ECVS_CVS_OPTIONS="-dP"
 
 LICENSE="gnuplot"
 GP_VERSION="${PV:0:3}"
-use multislot && SLOT="${PV:0:3}" || SLOT="0"
+SLOT="0"
 KEYWORDS="~x86"
-IUSE="cairo doc emacs +gd ggi latex lua multislot pdf plotutils readline svga wxwidgets X xemacs"
+IUSE="cairo doc emacs +gd ggi latex lua pdf plotutils readline svga wxwidgets X xemacs"
 RESTRICT="wxwidgets? ( test )"
 
 RDEPEND="
-	multislot? ( !!<=sci-visualization/gnuplot-4.2.6
-		!!sci-visualization/gnuplot[-mutlislot]
-		app-admin/eselect-gnuplot )
 	xemacs? ( app-editors/xemacs app-xemacs/texinfo app-xemacs/xemacs-base )
 	emacs? ( virtual/emacs !app-emacs/gnuplot-mode )
 	pdf? ( media-libs/pdflib )
@@ -101,7 +98,6 @@ src_configure() {
 		|| myconf="${myconf} --with-readline=builtin"
 
 	myconf="${myconf} --without-lisp-files"
-	use multislot && myconf="${myconf} --program-suffix='-${GP_VERSION}'"
 
 	#we do the (x)emacs econf in src_install, also solves bug #194216
 	EMACS=no \
@@ -179,13 +175,9 @@ src_install () {
 		insinto /usr/share/doc/${PF}/psdoc
 		doins docs/psdoc/{*.doc,*.tex,*.ps,*.gpi,README}
 	fi
-
-	use multislot && \
-	  mv "${D}/usr/share/info/gnuplot.info" "${D}/usr/share/info/gnuplot-${GP_VERSION}.info"
 }
 
 pkg_postinst() {
-	use multislot && eselect gnuplot update --if-unset --no-texupdate
 	use emacs && elisp-site-regen
 	use latex && texmf-update
 
@@ -205,11 +197,6 @@ pkg_postinst() {
 }
 
 pkg_postrm() {
-	#in the case that we uninstall the last multislot version 
-	if use multislot; then
-		#rm symlinks
-		has_version sci-visualization/gnuplot || eselect gnuplot update	--no-texupdate
-	fi
 	use emacs && elisp-site-regen
 	use latex && texmf-update
 }

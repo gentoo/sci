@@ -16,15 +16,12 @@ SRC_URI="mirror://sourceforge/gnuplot/${MY_P}.tar.gz"
 
 LICENSE="gnuplot"
 GP_VERSION="${PV:0:3}"
-use multislot && SLOT="${PV:0:3}" || SLOT="0"
+SLOT="0"
 KEYWORDS="~x86"
-IUSE="cairo doc emacs +gd ggi latex lua multislot pdf plotutils readline svga wxwidgets X xemacs"
+IUSE="cairo doc emacs +gd ggi latex lua pdf plotutils readline svga wxwidgets X xemacs"
 RESTRICT="wxwidgets? ( test )"
 
 RDEPEND="
-	multislot? ( !!<=sci-visualization/gnuplot-4.2.6
-		!!sci-visualization/gnuplot[-mutlislot]
-		app-admin/eselect-gnuplot )
 	xemacs? ( app-editors/xemacs app-xemacs/texinfo app-xemacs/xemacs-base )
 	emacs? ( virtual/emacs !app-emacs/gnuplot-mode )
 	pdf? ( media-libs/pdflib )
@@ -102,7 +99,6 @@ src_configure() {
 		|| myconf="${myconf} --with-readline=builtin"
 
 	myconf="${myconf} --without-lisp-files"
-	use multislot && myconf="${myconf} --program-suffix='-${GP_VERSION}'"
 
 	TEMACS=no
 	use xemacs && TEMACS=xemacs
@@ -189,17 +185,9 @@ src_install () {
 		# see bug 194527
 		rm -rf "${D}/etc/X11"
 	fi
-
-	#suffix is not working in all Makefile
-	if use multislot; then
-		mv "${D}/usr/share/info/gnuplot.info" "${D}/usr/share/info/gnuplot-${GP_VERSION}.info"
-		#remove in rc2
-		mv "${D}/usr/libexec/gnuplot/4.4/gnuplot-tikz.lua-4.4" "${D}/usr/libexec/gnuplot/4.4/gnuplot-tikz.lua"
-	fi
 }
 
 pkg_postinst() {
-	use multislot && eselect gnuplot update --if-unset --no-texupdate
 	use emacs && elisp-site-regen
 	use latex && texmf-update
 
@@ -219,11 +207,6 @@ pkg_postinst() {
 }
 
 pkg_postrm() {
-	#in the case that we uninstall the last multislot version 
-	if use multislot; then
-		#rm symlinks
-		has_version sci-visualization/gnuplot || eselect gnuplot update	--no-texupdate
-	fi
 	use emacs && elisp-site-regen
 	use latex && texmf-update
 }

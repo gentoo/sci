@@ -3,6 +3,14 @@
 # $Header: $
 
   06 Mar 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  -files/gnuplot-4.2.3-app-defaults.patch,
+  -files/gnuplot-4.2.3-disable-texhash.patch,
+  -files/gnuplot-4.2.5-configure-pkgconfig.patch, -gnuplot-4.2.6-r1.ebuild,
+  gnuplot-4.4.0_rc1.ebuild, gnuplot-4.4.9999.ebuild,
+  gnuplot-4.5.9999.ebuild, -files/gnuplot-gentoo-version.patch:
+  dropped multislot use flag
+
+  06 Mar 2010; Christoph Junghans <kleiner_otti@gmx.de>
   gnuplot-4.5.9999.ebuild:
   checkout right branch
 
