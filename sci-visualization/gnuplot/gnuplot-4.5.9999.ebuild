@@ -13,6 +13,7 @@ HOMEPAGE="http://www.gnuplot.info/"
 
 ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot"
 ECVS_MODULE="gnuplot"
+ECVS_BRANCH="HEAD"
 ECVS_USER="anonymous"
 ECVS_CVS_OPTIONS="-dP"
 
