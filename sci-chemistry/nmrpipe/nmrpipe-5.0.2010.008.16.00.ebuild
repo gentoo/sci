@@ -33,7 +33,6 @@ RDEPEND="${DEPEND}
 	app-editors/nedit
 	dev-lang/tk
 	dev-tcltk/blt
-	sys-libs/libtermcap-compat
 	sys-libs/ncurses
 	x11-libs/libX11
 	amd64? (
