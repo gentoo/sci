@@ -1,0 +1,44 @@
+diff -urN flexdock-0.5.1-orig/build.xml flexdock-0.5.1/build.xml
+--- flexdock-0.5.1-orig/build.xml	2010-02-22 21:35:43.000000000 -0500
++++ flexdock-0.5.1/build.xml	2010-02-22 21:39:17.000000000 -0500
+@@ -69,6 +69,7 @@
+ 
+    <path id="rt.classpath">
+       <pathelement location="${bin.dir}"/>
++      <pathelement location="${lib.dir}/commons-logging.jar"/>
+    </path>
+    <path id="rt.classpath.demo">
+       <pathelement location="${bin.dir.demo}"/>
+@@ -118,7 +119,7 @@
+       <condition property="os.unixWithXlib">
+          <and>
+             <os family="unix"/>
+-            <available file="/usr/X11R6/include/X11/Xlib.h"/>
++            <available file="/usr/include/X11/Xlib.h"/>
+          </and>
+       </condition>
+    </target>
+@@ -291,11 +292,12 @@
+ 
+       <exec executable="gcc" failonerror="true">
+          <arg value="-lX11"/>
+-         <arg value="-L/usr/X11R6/lib"/>
+-         <arg value="-I/usr/X11R6/include"/>
++         <arg value="-L/usr/lib"/>
++         <arg value="-I/usr/include/X11"/>
+          <arg value="-o"/>
+          <arg value="${so.dir}/libRubberBand${library.key}.so"/>
+          <arg value="-shared"/>
++         <arg value="-fPIC"/>
+          <arg value="${c.dir}/RubberBand.c"/>
+          <arg line='${sdk.include.gcc.args}'/> <!-- potentially multiple include dirs -->
+       </exec>
+@@ -313,7 +315,7 @@
+          <isset property="generic.jar"/>
+       </condition>
+       <property name="jar.suffix" value=""/>
+-      <property name="jar.excludes" value=""/>
++      <property name="jar.excludes" value="**/*.so"/>
+ 
+ 
+       <!-- after this method is called, other targets can use these props -->

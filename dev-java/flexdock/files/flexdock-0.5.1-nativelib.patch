@@ -1,0 +1,21 @@
+diff -urN flexdock-0.5.1-orig/src/java/drag/org/flexdock/docking/drag/outline/xlib/XlibRubberBand.java flexdock-0.5.1/src/java/drag/org/flexdock/docking/drag/outline/xlib/XlibRubberBand.java
+--- flexdock-0.5.1-orig/src/java/drag/org/flexdock/docking/drag/outline/xlib/XlibRubberBand.java	2010-02-22 21:35:42.000000000 -0500
++++ flexdock-0.5.1/src/java/drag/org/flexdock/docking/drag/outline/xlib/XlibRubberBand.java	2010-02-24 23:31:55.000000000 -0500
+@@ -17,7 +17,7 @@
+  *
+  */
+ public class XlibRubberBand extends RubberBand {
+-    private static final String NATIVE_RESOURCE_PATH = "org/flexdock/docking/drag/outline/xlib/";
++    private static final String NATIVE_RESOURCE_PATH = "/usr/lib/flexdock/";
+     private static final String NATIVE_RESOURCE = "libRubberBand.so";
+     private static final String NATIVE_RESOURCE_START = "libRubberBand";
+     private static final String NATIVE_RESOURCE_END = ".so";
+@@ -46,7 +46,7 @@
+ 	        String resource = NATIVE_RESOURCE_PATH + NATIVE_RESOURCE_START + key + NATIVE_RESOURCE_END;
+ 	        
+ 	        try {
+-	            ResourceManager.loadLibrary(lib, resource);
++	            System.load(resource);
+ 	            // if the library was successfully loaded, then we don't 
+ 	            // need to do anything else.
+ 	            return;
