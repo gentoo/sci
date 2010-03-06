@@ -15,12 +15,12 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND="dev-util/mercurial
+DEPEND="dev-vcs/mercurial
 	dev-lang/python
 	app-text/docbook-xsl-stylesheets
 	dev-libs/libxslt"
 
-RDEPEND="dev-util/mercurial
+RDEPEND="dev-vcs/mercurial
 	dev-lang/python"
 
 S="${WORKDIR}/${PN}_${PV}.orig"
@@ -38,7 +38,6 @@ src_compile() {
 src_install() {
 	emake installfiles PREFIX=/usr/share DOCDIR="/usr/share/doc/${PF}" DESTDIR="${D}"
 }
-
 
 pkg_postinst() {
 	#skip the comments if there is already a hgadmin repo
