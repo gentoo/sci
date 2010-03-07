@@ -1,0 +1,11 @@
+# ChangeLog for sci-chemistry/nmrview
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*nmrview-5.2.2-r3 (14 Aug 2009)
+
+  14 Aug 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +nmrview-5.2.2-r3.ebuild, +files/README.Gentoo, +files/nmrview.sh,
+  +files/nmrview.sh-r1, +metadata.xml:
+  imported from attic into my overlay
+
