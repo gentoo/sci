@@ -12,7 +12,7 @@ HOMEPAGE="www.nmr.gu.se/~mdd/"
 SRC_URI="http://www.nmr.gu.se/~mdd/Downloads/${MY_P}_${REL}.tgz"
 
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="mddnmr"
 IUSE=""
 
