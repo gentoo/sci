@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Mar 2010; Justin Bronder <jsbronder@gentoo.org> mpich2-1.2.1_p1.ebuild:
+  Add hydra pm. #309353
+
 *mpich2-1.2.1_p1 (03 Mar 2010)
 
   03 Mar 2010; Justin Bronder <jsbronder@gentoo.org>
