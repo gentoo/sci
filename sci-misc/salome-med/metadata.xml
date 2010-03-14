@@ -3,6 +3,7 @@
 <pkgmetadata>
 	<herd>sci</herd>
 	<use>
-		<flag name='openpbs'>Enable support for <pkg>sys-cluster/torque</pkg></flag>
+		<flag name='metis'>Add support for metis</flag>
+		<flag name='scotch'>Add support for scotch</flag>
 	</use>
 </pkgmetadata>

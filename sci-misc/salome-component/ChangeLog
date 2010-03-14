@@ -1,5 +1,14 @@
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*salome-component-5.1.3 (14 Mar 2010)
+
+  14 Mar 2010; Etienne Lorriaux <etienne.lorriaux@gmail.com>
+  -salome-component-3.2.6.ebuild,
+  -files/salome-component-3.2.6-gcc-4.3.patch,
+  -files/salome-component-3.2.6.patch, +salome-component-5.1.3.ebuild,
+  +files/salome-component-5.1.3-mpi.patch, metadata.xml:
+  Version bump 5.1.3 + removed broken 3.2.6
 
   04 Sep 2008; Oliver Borm (boroli) <oli.borm@web.de>
   salome-component-3.2.6.ebuild:
