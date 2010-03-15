@@ -1,29 +1,19 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="1"
+EAPI=2
 
-inherit autotools eutils flag-o-matic qt3 check-reqs multilib toolchain-funcs versionator
+inherit autotools eutils flag-o-matic check-reqs java-pkg-opt-2 multilib toolchain-funcs versionator
 
 DESCRIPTION="Software development platform for CAD/CAE, 3D surface/solid modeling and data exchange."
 HOMEPAGE="http://www.opencascade.org"
-SRC_URI="ftp://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/thierry/${P}.tar.bz2"
-
-# NOTES
-# The source code here is not in the same form than the one distributed on www.opencascade.org
-# The source available on www.opencascade.org requires a Java installation procedure that does not
-# always work on Gentoo. The source code can however be extracted 'by hand' using
-# 'java -cp ./Linux/setup.jar'
-# and removing 'by hand' all the existing Linux binaries. The source code extracted using this
-# method is currently available on the FreeBSD ftp server.
-# It could be possible to download the Salome binary for linux (500Mb...) and to extract the source from there.
-
+SRC_URI="http://files.opencascade.com/OCC_${PV}_release/OpenCASCADE_src.tgz"
 
 LICENSE="Open-CASCADE-Technology-Public-License"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
-IUSE="debug doc java opengl qt3 stlport X"
+KEYWORDS="~amd64 ~x86"
+IUSE="debug doc java opengl stlport X"
 DEPEND="java? ( virtual/jdk )
 	opengl? ( virtual/opengl
 		  virtual/glu )
@@ -35,12 +25,11 @@ DEPEND="java? ( virtual/jdk )
 	>=dev-tcltk/itk-3.2
 	x86? ( >=dev-tcltk/tix-8.1 )
 	amd64? ( >=dev-tcltk/tix-8.4.2 )
-	qt3? ( x11-libs/qt:3 )
 	stlport? ( dev-libs/STLport )"
+RDEPEND=${DEPEND}
 
-MY_S=${WORKDIR}/OpenCASCADE6.3.0
-INSTALL_DIR="/opt/${P}/ros/lin"
-
+S=${WORKDIR}/OpenCASCADE${PV}.0/ros
+INSTALL_DIR=/opt/${P}/ros/lin
 
 pkg_setup() {
 	# Determine itk, itcl, tix, tk and tcl versions
@@ -63,17 +52,13 @@ pkg_setup() {
 	check_reqs
 }
 
-
-src_unpack() {
-	unpack ${A}
-
+src_prepare() {
 	# Substitute with our ready-made env.ksh script
-	cp -f "${FILESDIR}"/env.ksh.template ${MY_S}/ros/env.ksh
+	cp -f "${FILESDIR}"/env.ksh.template "${S}"/env.ksh || die "Cannot copy env.ksh.template"
 
 	# Feed environment variables used by Opencascade compilation
-	cd ${MY_S}/ros
 	sed -i \
-		-e "s:VAR_CASROOT:${MY_S}/ros:g" \
+		-e "s:VAR_CASROOT:${S}:g" \
 		-e 's:VAR_SYS_BIN:/usr/bin:g' \
 		-e "s:VAR_SYS_LIB:/usr/$(get_libdir):g" env.ksh \
 	|| die "Environment variables feed in env.ksh failed!"
@@ -87,7 +72,7 @@ src_unpack() {
 		-e "s:VAR_TCL:tcl${tcl_version}:g" env.ksh \
 	|| die "itk, itcl, tix, tk and tcl version tweaking failed!"
 
-#	epatch "${FILESDIR}"/${P}-Makefile.am.patch
+	# epatch "${FILESDIR}"/${P}-Makefile.am.patch
 	epatch "${FILESDIR}"/${P}-fixed-DESTDIR.patch
 	epatch "${FILESDIR}"/${P}-missing-mode.patch
 
@@ -102,9 +87,7 @@ src_unpack() {
 	eautoconf || die "eautoconf failed"
 }
 
-src_compile() {
-	cd ${MY_S}/ros
-
+src_configure() {
 	# Add the configure options
 	local confargs="--prefix=${INSTALL_DIR} --exec-prefix=${INSTALL_DIR} --with-tcl=/usr/$(get_libdir) --with-tk=/usr/$(get_libdir)"
 
@@ -132,8 +115,7 @@ src_compile() {
 		ewarn "Java wrapping is not going to be compiled. USE flag: "java""
 	fi
 
-# NOTES: To clearly state --with-stlport-include and --with-stlport-library cause troubles. I don't know why....
-
+	# NOTES: To clearly state --with-stlport-include and --with-stlport-library cause troubles. I don't know why....
 	if use stlport ; then
 		confargs="${confargs} --with-stlport-libname=stlport_gcc"
 		#confargs="${confargs} --with-stlport-include=/usr/include --with-stlport-library=/usr/$(get_libdir)"
@@ -150,21 +132,19 @@ src_compile() {
 		$(use_enable debug ) \
 		$(use_enable !debug production ) \
 	|| die "Configuration failed"
-
-	emake || die "Compilation failed"
 }
 
-
 src_install() {
-	cd ${MY_S}/ros
 	rm *~
 	emake DESTDIR="${D}" install || die "Installation failed"
 
 	# Symlinks for keeping original OpenCascade folder structure and
 	# add a link lib to lib64 in ros/Linux if we are on amd64
-	dosym /opt/${P}/ros/lin /opt/${P}/ros/Linux
+	dosym lin /opt/${P}/ros/Linux
+
 	if use amd64 ; then
-		dosym ${INSTALL_DIR}/lib64 ${INSTALL_DIR}/lib
+		mv "${D}""${INSTALL_DIR}"/lib "${D}""${INSTALL_DIR}"/lib64
+		dosym lib64 "${INSTALL_DIR}"/lib
 	fi
 
 	#symlink for config.h
@@ -202,11 +182,10 @@ src_install() {
 	rm 50${PN} env.csh
 
 	# Clean before copying everything
-	cd ${MY_S}/ros
 	emake clean || die "emake clean failed"
 
 	# Install folders
-	cd ${MY_S}
+	cd "${S}"/../
 	insinto /opt/${P}
 	doins -r data ros
 	insinto /opt/${P}/samples
@@ -215,15 +194,12 @@ src_install() {
 		insinto /opt/${P}/samples/standard
 		doins -r samples/standard/java
 	fi
-	if use qt3 ; then
-		insinto /opt/${P}/samples/standard
-		doins -r samples/standard/qt
-	fi
 
 	# Install the documentation
 	if use doc ; then
-		cd ${MY_S}/doc
-		dodoc Overview  ReferenceDocumentation ../LICENSE || die "dodoc failed"
+		cd "${S}"/../doc
+		insinto /usr/share/doc/${PF}
+		doins -r {Overview,ReferenceDocumentation} || die "dodoc failed"
 	fi
 }
 
