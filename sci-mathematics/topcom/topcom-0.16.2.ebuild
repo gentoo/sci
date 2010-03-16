@@ -11,7 +11,7 @@ SRC_URI="http://www.uni-bayreuth.de/departments/wirtschaftsmathematik/rambau/Sof
 	doc? ( http://www.rambau.wm.uni-bayreuth.de/TOPCOM/TOPCOM-manual.html )"
 HOMEPAGE="http://www.rambau.wm.uni-bayreuth.de/TOPCOM/"
 
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 SLOT="0"
 LICENSE="GPL-2"
 IUSE="doc examples"
@@ -22,26 +22,27 @@ DEPEND=">=dev-libs/gmp-4.1-r1
 S="${WORKDIR}"/TOPCOM-${PV}
 
 # src_unpack () {
-## TODO: GMP und CDD nicht entpacken.
+## TODO: Don't unpack GMP und CDD at all.
 #	unpack ${A} || die "unpack failed"
-## um zu testen, ob GMP und CDD wirklich nicht verwendet werden:
+#   The following can be used in tests whether
+#   internal copies are used or not
 #	cd "${S}"
 #	rm -r external
 # }
 
 src_prepare () {
-## Patch:  GMP und CDD nicht compilieren
+## Patch:  Don't compile GMP and CDD
 	epatch "${FILESDIR}"/${PN}-${PV}-no-external.diff
 
 ## Remove all references to directory ../external
 	sed -e 's#../external/lib#/usr/lib#g' -i src/Makefile.in || \
-	        die "sed failed on src/Makefile.in"
+			die "sed failed on src/Makefile.in"
 	sed -e 's#../external/lib#/usr/lib#g' -e 's#../external/include#/usr/include#g' -i src-reg/Makefile.in || \
-	        die "sed failed on src-reg/Makefile.in"
+			die "sed failed on src-reg/Makefile.in"
 
 ## Replace csh by bash:
-        sed -e "s#csh #${SHELL} #g" -i configure || \
-	        die "sed failed on configure"      
+		sed -e "s#csh #${SHELL} #g" -i configure || \
+			die "sed failed on configure"
 }
 
 src_install () {
