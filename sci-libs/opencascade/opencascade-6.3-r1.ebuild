@@ -13,12 +13,12 @@ SRC_URI="http://files.opencascade.com/OCC_${PV}_release/OpenCASCADE_src.tgz"
 LICENSE="Open-CASCADE-Technology-Public-License"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc java opengl stlport X"
+IUSE="debug doc examples java opengl stlport X"
 DEPEND="java? ( virtual/jdk )
 	opengl? ( virtual/opengl
-		  virtual/glu )
+		virtual/glu )
 	X? ( x11-libs/libXmu
-		 app-text/dgs )
+		app-text/dgs )
 	>=dev-lang/tcl-8.4
 	>=dev-lang/tk-8.4
 	>=dev-tcltk/itcl-3.2
@@ -29,7 +29,7 @@ DEPEND="java? ( virtual/jdk )
 RDEPEND=${DEPEND}
 
 S=${WORKDIR}/OpenCASCADE${PV}.0/ros
-INSTALL_DIR=/opt/${P}/ros/lin
+INSTALL_DIR=/opt/${P}/ros
 
 pkg_setup() {
 	# Determine itk, itcl, tix, tk and tcl versions
@@ -89,7 +89,7 @@ src_prepare() {
 
 src_configure() {
 	# Add the configure options
-	local confargs="--prefix=${INSTALL_DIR} --exec-prefix=${INSTALL_DIR} --with-tcl=/usr/$(get_libdir) --with-tk=/usr/$(get_libdir)"
+	local confargs="--prefix=${INSTALL_DIR}/lin --exec-prefix=${INSTALL_DIR}/lin --with-tcl=/usr/$(get_libdir) --with-tk=/usr/$(get_libdir)"
 
 	if use X ; then
 		confargs="${confargs} --with-dps-include=/usr/include --with-dps-library=/usr/$(get_libdir)"
@@ -140,30 +140,30 @@ src_install() {
 
 	# Symlinks for keeping original OpenCascade folder structure and
 	# add a link lib to lib64 in ros/Linux if we are on amd64
-	dosym lin /opt/${P}/ros/Linux
+	dosym lin ${INSTALL_DIR}/Linux
 
 	if use amd64 ; then
-		mv "${D}""${INSTALL_DIR}"/lib "${D}""${INSTALL_DIR}"/lib64
-		dosym lib64 "${INSTALL_DIR}"/lib
+		mv "${D}""${INSTALL_DIR}"/lin/lib "${D}""${INSTALL_DIR}"/lin/lib64
+		dosym lib64 ${INSTALL_DIR}/lin/lib
 	fi
 
 	#symlink for config.h
-	dosym /opt/${P}/ros/config.h /opt/${P}/ros/inc/config.h
+	dosym ${INSTALL_DIR}/config.h ${INSTALL_DIR}/inc/config.h
 
 	# Tweak the environment variables script
 	cp "${FILESDIR}"/env.ksh.template env.ksh
-	sed -i "s:VAR_CASROOT:/opt/${P}/ros:g" env.ksh
+	sed -i "s:VAR_CASROOT:${INSTALL_DIR}:g" env.ksh
 
 	# Build the env.d environment variables
 	cp "${FILESDIR}"/env.ksh.template 50${PN}
 	sed -i \
 		-e 's:export ::g' \
-		-e "s:VAR_CASROOT:/opt/${P}/ros:g" \
+		-e "s:VAR_CASROOT:${INSTALL_DIR}:g" \
 		-e '1,2d' \
 		-e '4,14d' \
 		-e "s:ros/Linux/lib/:ros/Linux/$(get_libdir)/:g" ./50${PN} \
 	|| die "Creation of the /etc/env.d/50opencascade failed!"
-	sed -i "2i\PATH=/opt/${P}/ros/Linux/bin/\nLDPATH=/opt/${P}/ros/Linux/$(get_libdir)" ./50${PN} \
+	sed -i "2i\PATH=${INSTALL_DIR}/Linux/bin/\nLDPATH=${INSTALL_DIR}/Linux/$(get_libdir)" ./50${PN} \
 	|| die "Creation of the /etc/env.d/50opencascade failed!"
 
 	# Update both env.d and script with the libraries variables
@@ -186,17 +186,26 @@ src_install() {
 
 	# Install folders
 	cd "${S}"/../
-	insinto /opt/${P}
-	doins -r data ros
-	insinto /opt/${P}/samples
-	doins -r samples/tutorial
-	if use java ; then
-		insinto /opt/${P}/samples/standard
-		doins -r samples/standard/java
+
+	## why is this needed?
+	insinto ${INSTALL_DIR}/../
+	doins -r ros
+
+	if use examples; then
+		insinto /usr/share/doc/${PF}/examples
+		doins -r data
+
+		insinto /usr/share/doc/${PF}/examples/samples
+		doins -r samples/tutorial
+
+		if use java ; then
+			insinto /usr/share/doc/${PF}/examples/samples/standard
+			doins -r samples/standard/java
+		fi
 	fi
 
 	# Install the documentation
-	if use doc ; then
+	if use doc; then
 		cd "${S}"/../doc
 		insinto /usr/share/doc/${PF}
 		doins -r {Overview,ReferenceDocumentation} || die "dodoc failed"
