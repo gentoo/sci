@@ -17,7 +17,7 @@ HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
 
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 
 DEPEND="sys-libs/gdbm
 	>=dev-libs/ntl-5.5.2
@@ -51,6 +51,9 @@ src_prepare() {
 	# /usr/bin
 	epatch "${FILESDIR}/paths-of-dependencies.patch"
 
+	# Fixing make warnings about unavailable jobserver:
+	sed -i "s/\$(MAKE)/+ \$(MAKE)/g" "${S}"/distributions/Makefile.in
+
 	eautoreconf
 }
 
@@ -71,7 +74,7 @@ src_configure (){
 }
 
 src_compile() {
-	# Parallel build not yet supported
+	# Parallel build not supported yet
 	emake -j1 || die "failed to build Macaulay"
 
 	if use emacs; then
@@ -85,8 +88,8 @@ src_test() {
 }
 
 src_install () {
-
-	emake install || die "install failed"
+	# Parallel install not supported yet
+	emake -j1 install || die "install failed"
 
 	# Remove emacs files and install them in the
 	# correct place if use emacs
