@@ -63,7 +63,9 @@ src_configure (){
 	fi
 
 	CPPFLAGS="-I/usr/include/frobby" \
-		./configure --prefix="${D}/usr" --disable-encap \
+		./configure --prefix="${D}/usr" \
+		--disable-encap \
+		--disable-strip \
 		--with-unbuilt-programs="4ti2 gfan normaliz" \
 		|| die "failed to configure Macaulay"
 }
@@ -71,6 +73,11 @@ src_configure (){
 src_compile() {
 	# Parallel build not yet supported
 	emake -j1 || die "failed to build Macaulay"
+
+	if use emacs; then
+		cd "${S}/Macaulay2/emacs"
+		elisp-compile *.el || die "elisp-compile failed"
+	fi
 }
 
 src_test() {
@@ -81,7 +88,15 @@ src_install () {
 
 	emake install || die "install failed"
 
-	use emacs && elisp-site-file-install "${FILESDIR}/${SITEFILE}"
+	# Remove emacs files and install them in the
+	# correct place if use emacs
+
+	rm -rf "${D}"/usr/share/emacs/site-lisp
+	if use emacs; then
+		cd "${S}/Macaulay2/emacs"
+		elisp-install ${PN} *.elc *.el || die "elisp-install failed"
+		elisp-site-file-install "${FILESDIR}/${SITEFILE}"
+	fi
 }
 
 pkg_postinst() {
