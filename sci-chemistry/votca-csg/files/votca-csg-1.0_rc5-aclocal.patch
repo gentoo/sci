@@ -1,0 +1,16 @@
+# HG changeset patch
+# User Christoph Junghans <christoph.junghans@googlemail.com>
+# Date 1268816012 -3600
+# Node ID d214cdf38b3fa756c7f8ef0a789e28c1dec99cf3
+# Parent  ae3aa78730aa7eef81f74c18b6a17e0a8ba95973
+added ACLOCAL_AMFLAGS back to Makefile.am
+
+diff -r ae3aa78730aa -r d214cdf38b3f Makefile.am
+--- a/Makefile.am	Tue Mar 16 15:56:56 2010 +0100
++++ b/Makefile.am	Wed Mar 17 09:53:32 2010 +0100
+@@ -1,3 +1,5 @@
++ACLOCAL_AMFLAGS = -I config
++
+ SUBDIRS = src include share scripts 
+ 
+ EXTRA_DIST = CHANGELOG NOTICE LICENSE
