@@ -14,12 +14,14 @@ SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="-boost static"
+IUSE="-boost static +single-precision double-precision"
 
 RDEPEND="dev-libs/expat
-	boost? ( >=dev-libs/boost-1.33.1 )
-	=sci-libs/votca-tools-${PV}
-	>sci-chemistry/gromacs-4.0.5
+	boost? ( >=dev-libs/boost-1.33.1
+		=sci-libs/votca-tools-${PV}[boost] )
+	!boost? ( =sci-libs/votca-tools-${PV}[-boost] )
+	single-precision? ( >sci-chemistry/gromacs-4.0.5[single-precision] )
+	double-precision? ( >sci-chemistry/gromacs-4.0.5[double-precision] )
 	dev-lang/perl
 	app-shells/bash"
 
@@ -28,12 +30,25 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	epatch "${FILESDIR}"/"${PF}"-aclocal.patch
+	epatch "${FILESDIR}"/"${PF}"-libgmx.patch
 
 	eautoreconf || die "eautoreconf failed"
 }
 
 src_configure() {
 	local myconf="--disable-la-files"
+
+	if use single-precision && use double-precision; then
+		ewarn "${PN} has only support for single-precision OR double-precision"
+		ewarn "using double-precision"
+		myconf="${myconf} --with-libgmx=libgmx_d"
+	elif use single-precision; then
+		myconf="${myconf} --with-libgmx=libgmx"
+	elif use doube-precision; then
+		myconf="${myconf} --with-libgmx=libgmx_d"
+	else
+		die "Nothing to compile, enable single-precision and/or double-precision"
+	fi
 
 	myconf="${myconf} $(use_with boost)"
 	myconf="${myconf} $(use_enable static all-static)"

@@ -2,6 +2,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Mar 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  votca-csg-1.0_rc5.ebuild, +files/votca-csg-1.0_rc5-libgmx.patch,
+  metadata.xml:
+  added support for gmx double-precision
+
 *votca-csg-1.0_rc5 (17 Mar 2010)
 
   17 Mar 2010; Christoph Junghans <kleiner_otti@gmx.de>
