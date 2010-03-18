@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*opencascade-6.3-r2 (18 Mar 2010)
+
+  18 Mar 2010; Oliver Borm (boroli) <oli.borm@web.de>
+  +opencascade-6.3-r2.ebuild:
+  New version with additional USE-flag source; Changed the paths in
+  50opencascade a lttle bit
+
   16 Mar 2010; Oliver Borm (boroli) <oli.borm@web.de>
   opencascade-6.3-r1.ebuild:
   Changed all installation paths to ${INSTALL_DIR}; Added examples USE-flag
