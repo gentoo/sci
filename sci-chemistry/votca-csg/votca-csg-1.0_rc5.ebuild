@@ -31,6 +31,7 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	epatch "${FILESDIR}"/"${PF}"-aclocal.patch
 	epatch "${FILESDIR}"/"${PF}"-libgmx.patch
+	epatch "${FILESDIR}"/"${PF}"-gcc-4.4.patch
 
 	eautoreconf || die "eautoreconf failed"
 }
