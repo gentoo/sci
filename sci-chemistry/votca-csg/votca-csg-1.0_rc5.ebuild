@@ -45,7 +45,7 @@ src_configure() {
 		myconf="${myconf} --with-libgmx=libgmx_d"
 	elif use single-precision; then
 		myconf="${myconf} --with-libgmx=libgmx"
-	elif use doube-precision; then
+	elif use double-precision; then
 		myconf="${myconf} --with-libgmx=libgmx_d"
 	else
 		die "Nothing to compile, enable single-precision and/or double-precision"
