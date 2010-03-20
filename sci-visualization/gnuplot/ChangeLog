@@ -2,6 +2,14 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Mar 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  -files/gnuplot-4.2.2-disable_texi_generation.patch,
+  -gnuplot-4.4.0_rc1.ebuild, -files/gnuplot-4.4.0_rc1-app-defaults.patch,
+  -files/gnuplot-4.4.0_rc1-disable-texhash.patch,
+  -files/gnuplot-4.4.0_rc1-gentoo-version.patch, gnuplot-4.4.9999.ebuild,
+  gnuplot-4.5.9999.ebuild, metadata.xml:
+  Sync with tree and clean up
+
   06 Mar 2010; Christoph Junghans <kleiner_otti@gmx.de>
   -files/gnuplot-4.2.3-app-defaults.patch,
   -files/gnuplot-4.2.3-disable-texhash.patch,
