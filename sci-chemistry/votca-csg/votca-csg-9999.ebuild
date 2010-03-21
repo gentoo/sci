@@ -12,12 +12,15 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="-boost doc static +single-precision double-precision"
+IUSE="-boost dev doc static +single-precision double-precision"
+use dev && PROPERTIES="interactive"
 
 RDEPEND="dev-libs/expat
 	boost? ( >=dev-libs/boost-1.33.1
 		=sci-libs/votca-tools-${PV}[boost] )
 	!boost? ( =sci-libs/votca-tools-${PV}[-boost] )
+	dev? ( =sci-libs/votca-tools-${PV}[dev] )
+	!dev? ( =sci-libs/votca-tools-${PV}[-dev] )
 	single-precision? ( >sci-chemistry/gromacs-4.0.5[single-precision] )
 	double-precision? ( >sci-chemistry/gromacs-4.0.5[double-precision] )
 	dev-lang/perl
@@ -27,9 +30,10 @@ RDEPEND="dev-libs/expat
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
-EHG_REPO_URI="https://csg.votca.googlecode.com/hg/"
+use dev && EHG_REPO_URI="http://dev.votca.org/votca/csg" \
+	|| EHG_REPO_URI="https://csg.votca.googlecode.com/hg"
 
-S="${WORKDIR}/hg"
+S="${WORKDIR}/${EHG_REPO_URI##*/}"
 
 src_prepare() {
 	local dir

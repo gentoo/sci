@@ -3,6 +3,10 @@
 # $Header: $
 
   20 Mar 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  votca-csg-9999.ebuild, metadata.xml:
+  added dev use flag
+
+  20 Mar 2010; Christoph Junghans <kleiner_otti@gmx.de>
   votca-csg-9999.ebuild:
   update ebuild
 
