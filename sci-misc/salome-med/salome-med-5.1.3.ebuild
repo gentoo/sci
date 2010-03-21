@@ -42,9 +42,8 @@ INSTALL_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 MED_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 export OPENPBS="/usr"
 
-PYVER=$(python_get_version)
-
 pkg_setup() {
+	PYVER=$(python_get_version)
 	[[ ${PYVER} > 2.4 ]] && \
 		ewarn "Python 2.4 is highly recommended for Salome..."
 }

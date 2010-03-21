@@ -44,9 +44,8 @@ MY_S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
 INSTALL_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 GUI_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 
-PYVER=$(python_get_version)
-
 pkg_setup() {
+	PYVER=$(python_get_version)
 	[[ ${PYVER} > 2.4 ]] && \
 		ewarn "Python 2.4 is highly recommended for Salome..."
 }
