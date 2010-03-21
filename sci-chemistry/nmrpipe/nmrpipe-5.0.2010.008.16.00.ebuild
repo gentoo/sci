@@ -74,7 +74,9 @@ src_unpack() {
 	# Unset DISPLAY to avoid the interactive graphical test.
 	# This just unpacks the stuff
 	env DISPLAY="" csh ./install.com +type linux9 +dest "${S}"/NMR || die
+}
 
+src_prepare() {
 	epatch "${FILESDIR}"/${PV}-lib.patch
 
 	mv -v nmrbin.linux9/nmr{W,w}ish || die
