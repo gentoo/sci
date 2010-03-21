@@ -81,7 +81,6 @@ src_unpack() {
 }
 
 src_install() {
-	use prefix || ED="${D}"
 	cat >> "${T}"/nmrWish <<- EOF
 	#!/bin/csh -f
 	setenv NMRBIN \${NMRBASE}/bin/
