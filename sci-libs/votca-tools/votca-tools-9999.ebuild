@@ -12,7 +12,8 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="-boost doc"
+IUSE="-boost -dev doc"
+use dev && PROPERTIES="interactive"
 
 RDEPEND="sci-libs/fftw:3.0
 	dev-libs/expat
@@ -23,9 +24,10 @@ RDEPEND="sci-libs/fftw:3.0
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
-EHG_REPO_URI="https://tools.votca.googlecode.com/hg/"
+use dev && EHG_REPO_URI="http://dev.votca.org/votca/tools" \
+	|| EHG_REPO_URI="https://tools.votca.googlecode.com/hg"
 
-S="${WORKDIR}/hg"
+S="${WORKDIR}/${EHG_REPO_URI##*/}"
 
 src_prepare() {
 	eautoreconf || die "eautoreconf failed"

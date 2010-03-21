@@ -8,5 +8,6 @@
 	</maintainer>
 <use>
 	<flag name='boost'>Compile against external boost headers (dev-libs/boost)</flag>
+	<flag name='dev'>Use devel repository - sign up at devs@votca.org</flag>
 </use>
 </pkgmetadata>
