@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*hdf-java-2.6.1 (24 Mar 2010)
+
+  24 Mar 2010; Sébastien Fabbro <bicatali@gentoo.org> -hdf-java-2.6.ebuild,
+  +hdf-java-2.6.1.ebuild, +files/hdf-java-2.6.1-shared.patch,
+  -files/hdf-java-2.6-shared.patch:
+  Version bump
+
   12 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org> hdf-java-2.6.ebuild:
   Removed mpi use flag in favor of checking if hdf5 was built with mpi, see
   bug #302621
