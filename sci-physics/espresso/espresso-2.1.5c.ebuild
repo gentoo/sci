@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,23 +8,24 @@ inherit autotools savedconfig
 
 DESCRIPTION="Extensible Simulation Package for Research on Soft matter"
 HOMEPAGE="http://www.espresso.mpg.de"
-SRC_URI="http://espressowiki.mpip-mainz.mpg.de/wiki/uploads/4/43/Espresso-2.1.2j.tar.gz"
+SRC_URI="http://espressowiki.mpip-mainz.mpg.de/wiki/uploads/e/e6/Espresso-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86"
-IUSE="X doc examples fftw mpi packages test tk"
+KEYWORDS="~x86 ~amd64"
+IUSE="X doc examples fftw mpi packages test -tk"
 
-DEPEND="dev-lang/tcl
+RDEPEND="dev-lang/tcl
 	X? ( x11-libs/libX11 )
-	doc? ( app-doc/doxygen
-		virtual/tex-base
-		virtual/latex-base )
 	fftw? ( sci-libs/fftw:3.0 )
 	mpi? ( virtual/mpi )
 	tk? ( >=dev-lang/tk-8.4.18-r1 )"
 
-RDEPEND="${DEPEND}"
+DEPEND="${DEPEND}
+	doc? ( app-doc/doxygen
+		virtual/latex-base )"
+
+S="${WORKDIR}/${PN}-${PV:0:5}"
 
 src_prepare() {
 	AT_M4DIR="config" eautoreconf
@@ -32,9 +33,7 @@ src_prepare() {
 }
 
 src_configure() {
-	#disable processor-optimization, we have make.conf
 	econf \
-		--disable-processor-optimization \
 		$(use_with fftw) \
 		$(use_with mpi) \
 		$(use_with tk) \
@@ -43,7 +42,9 @@ src_configure() {
 
 src_compile() {
 	emake || die "emake failed"
-	use doc && emake doc || die "emake doc failed"
+	if use doc; then
+		emake doc || die "emake doc failed"
+	fi
 }
 
 src_install() {
@@ -79,27 +80,15 @@ src_install() {
 		insinto /usr/share/${PN}/packages
 		doins -r packages/*
 	fi
-
-	echo "ESPRESSO_SOURCE=/usr/bin" > "${T}/80${PN}"
-	echo "ESPRESSO_SCRIPTS=/usr/share/espresso/scripts" >> "${T}/80${PN}"
-	doenvd "${T}/80${PN}"
-
-	cd "${D}"
-	#remove Espresso_wrapper
-	rm -f usr/bin/Espresso
-	#install Espresso directly
-	newbin usr/libexec/Espresso_bin Espresso
-	rm -f usr/libexec/Espresso_bin
 }
 
 pkg_postinst() {
-	env-update && source /etc/profile
 	elog
 	elog Please read and cite:
 	elog ESPResSo, Comput. Phys. Commun. 174\(9\) ,704, 2006.
 	elog http://dx.doi.org/10.1016/j.cpc.2005.10.005
 	elog
-	elog If you need more features change
+	elog If you need more features, change
 	elog /etc/portage/savedconfig/${CATEGORY}/"${PF}"
 	elog and reemerge with USE=savedconfig
 	elog
