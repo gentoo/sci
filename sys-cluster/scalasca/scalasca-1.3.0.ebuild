@@ -1,12 +1,10 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="2"
 
-WX_GTK_VER="2.6"
-
-inherit eutils fortran wxwidgets
+inherit eutils fortran
 
 DESCRIPTION="Scalable Performance Analysis of Large-Scale Applications"
 HOMEPAGE="http://www.fz-juelich.de/jsc/scalasca/"
@@ -15,12 +13,11 @@ SRC_URI="http://www.fz-juelich.de/jsc/datapool/scalasca/${P}.tar.gz"
 LICENSE="scalasca"
 SLOT="0"
 KEYWORDS="~x86"
-IUSE="doc examples fortran mpi openmp wxwidgets"
+IUSE="examples fortran mpi openmp"
 
 DEPEND="mpi? ( virtual/mpi )
 	x11-libs/qt-core:4
-	x11-libs/qt-gui:4
-	wxwidgets? ( x11-libs/wxGTK:2.6 )"
+	x11-libs/qt-gui:4"
 
 RDEPEND="${DEPEND}"
 
@@ -28,7 +25,6 @@ FORTRAN="g77 gfortran ifc"
 
 pkg_setup() {
 	use fortran && fortran_pkg_setup
-	use wxwidgets && wxwidgets_pkg_setup
 }
 
 src_prepare() {
@@ -62,8 +58,9 @@ src_install() {
 
 	#examples are always installed in /usr
 	cd "${D}"/usr
-	docinto example
-	dodoc -r example/*
+	if use examples; then
+		insinto "/usr/share/${PN}"
+		doins -r example
+	fi
 	rm -rf example
 }
-
