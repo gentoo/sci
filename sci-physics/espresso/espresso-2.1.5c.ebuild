@@ -21,7 +21,7 @@ RDEPEND="dev-lang/tcl
 	mpi? ( virtual/mpi )
 	tk? ( >=dev-lang/tk-8.4.18-r1 )"
 
-DEPEND="${DEPEND}
+DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen
 		virtual/latex-base )"
 
