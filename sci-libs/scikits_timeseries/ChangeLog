@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Mar 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  scikits_timeseries-0.91.3.ebuild, metadata.xml:
+  Adding x86, cleaning up and removed unused doc flag
+
 *scikits_timeseries-0.91.3 (20 Jan 2010)
 
   20 Jan 2010; Tim Cera <timcera@earthlink.net>
