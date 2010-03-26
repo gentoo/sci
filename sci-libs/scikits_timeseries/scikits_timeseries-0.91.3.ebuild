@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/pytseries/${MY_P}.tar.gz
 LICENSE="BSD eGenixPublic-1.0 eGenixPublic-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="doc"
 
 DEPEND="dev-python/setuptools"
 RDEPEND="sci-libs/scipy
@@ -22,3 +22,11 @@ RDEPEND="sci-libs/scipy
 	dev-python/pytables"
 
 S="${WORKDIR}/${MY_P}"
+
+src_install() {
+	distutils_src_install
+	if use doc; then
+		insinto /usr/share/doc/${PF}
+		doins -r "${WORKDIR}/html" || die
+	fi
+}
