@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<longdescription lang="en">
+  Statsmodels is a python package that provides a complement to scipy
+  for statistical computations including descriptive statistics and
+  estimation of statistical models.
+
+  scikits.statsmodels provides classes and functions for the estimation
+  of several categories of statistical models. These currently include
+  linear regression models, OLS, GLS, WLS and GLS with AR(p) errors,
+  generalized linear models for six distribution families, M-estimators for robust
+  linear models, and regression with discrete dependent variables,
+  Logit, Probit, MNLogit, Poisson, based on maximum likelihood estimators.
+  An extensive list of result statistics are avalable for each  estimation
+  problem.
+</longdescription>
+</pkgmetadata>
