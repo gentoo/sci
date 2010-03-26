@@ -4,6 +4,10 @@
 
   26 Mar 2010; Sébastien Fabbro <bicatali@gentoo.org>
   scikits_timeseries-0.91.3.ebuild:
+  Added test suite
+
+  26 Mar 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  scikits_timeseries-0.91.3.ebuild:
   Now really installing docs
 
   26 Mar 2010; Sébastien Fabbro <bicatali@gentoo.org>

@@ -2,6 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+SUPPORT_PYTHON_ABIS="1"
+
 inherit distutils
 
 MY_P="${P/scikits_/scikits.}"
@@ -16,12 +19,22 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-DEPEND="dev-python/setuptools"
+DEPEND="dev-python/setuptools
+	dev-python/numpy
+	doc? ( dev-python/sphinx )"
 RDEPEND="sci-libs/scipy
 	dev-python/matplotlib
 	dev-python/pytables"
 
+RESTRICT_PYTHON_ABIS="3.*"
 S="${WORKDIR}/${MY_P}"
+
+src_test() {
+	testing() {
+		PYTHONPATH="$(ls -d build-${PYTHON_ABI}/lib*)" "$(PYTHON)" setup.py build -b "build-${PYTHON_ABI}" test
+	}
+	python_execute_function testing
+}
 
 src_install() {
 	distutils_src_install
