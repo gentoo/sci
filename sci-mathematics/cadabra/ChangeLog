@@ -1,6 +1,13 @@
 # ChangeLog for sci-mathematics/cadabra
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*cadabra-1.21 (28 Mar 2010)
+
+  28 Mar 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  -files/cadabra-1.08-as-needed.patch, +cadabra-1.21.ebuild,
+  +files/cadabra-1.21-no-stripping.patch:
+  bump to version 1.21, remove old files.
 
 *cadabra-1.16 (03 Nov 2009)
 
