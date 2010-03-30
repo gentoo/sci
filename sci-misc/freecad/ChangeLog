@@ -1,10 +1,13 @@
 # ChangeLog for sci-misc/freecad
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
  05 Dec 2009; <r.wobben@hotmail.com> +freecad-0.9.2646.ebuild, 
 +metadata.xml:
   Change builder from root to Roelof Wobben
+
+  30 Mar 2010; Justin Lecher <jlec@gentoo.org> freecad-0.9.2646.ebuild:
+  Changed DEPEND of media-libs/SoQt from 1.4.2_alpha4181 to 1.4.2_alpha1841
 
   16 Dec 2009; <roelof@gentoo.org> freecad-0.9.2646.ebuild:
   Repairing some depencies

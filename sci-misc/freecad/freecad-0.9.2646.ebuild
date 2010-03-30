@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -28,7 +28,7 @@ RDEPEND="dev-lang/python
 	dev-libs/boost
 	dev-python/PyQt4
 	dev-libs/xerces-c
-	=media-libs/SoQt-1.4.2_alpha4181"
+	=media-libs/SoQt-1.4.2_alpha1841"
 
 DEPEND="${RDEPEND}
 	dev-lang/swig"
@@ -43,6 +43,5 @@ src_configure () {
 
 src_install () {
 	emake  DESTDIR="${D}" install || die "install failed"
-	dodoc README.Linux ChangeLog.txt
+	dodoc README.Linux ChangeLog.txt || die
 }
-
