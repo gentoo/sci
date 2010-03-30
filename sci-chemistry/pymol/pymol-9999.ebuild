@@ -1,13 +1,13 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/pymol/pymol-1.2.3-r1.ebuild,v 1.3 2010/03/23 13:54:53 fauli Exp $
 
-EAPI="2"
+EAPI="3"
 
-PYTHON_MODNAME="chempy pmg_tk pymol"
-APBS_PATCH="090618"
+SUPPORT_PYTHON_ABIS="1"
+PYTHON_USE_WITH="tk"
 
-inherit distutils subversion flag-o-matic
+inherit eutils distutils prefix subversion
 
 ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
 
@@ -16,11 +16,11 @@ HOMEPAGE="http://pymol.sourceforge.net/"
 SRC_URI=""
 
 LICENSE="PSF-2.2"
-IUSE="apbs numpy shaders vmd"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~ppc x86 ~amd64-linux ~x86-linux"
+IUSE="apbs numpy shaders vmd"
 
-RDEPEND="dev-lang/python[tk]
+DEPEND="
 		dev-python/numpy
 		dev-python/pmw
 		media-libs/freetype:2
@@ -29,19 +29,20 @@ RDEPEND="dev-lang/python[tk]
 		sys-libs/zlib
 		virtual/glut
 		apbs? (
-			sci-chemistry/pymol-apbs-plugin
 			dev-libs/maloc
 			sci-chemistry/apbs
 			sci-chemistry/pdb2pqr
+			sci-chemistry/pymol-apbs-plugin
 		)"
-DEPEND="${RDEPEND}"
+RDEPEND="${DEPEND}"
+RESTRICT_PYTHON_ABIS="3.* 2.4"
 
-pkg_setup(){
-	python_version
-}
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-data-path.patch || die
+	epatch "${FILESDIR}"/1.2.2-data-path.patch
+
+	epatch "${FILESDIR}"/1.2.2-prefix.patch && \
+	eprefixify setup.py
 
 	# Turn off splash screen.  Please do make a project contribution
 	# if you are able though. #299020
@@ -50,7 +51,7 @@ src_prepare() {
 	# Respect CFLAGS
 	sed -i \
 		-e "s:\(ext_comp_args=\).*:\1[]:g" \
-		"${S}"/setup.py
+		"${S}"/setup.py || die "Failed running sed on setup.py"
 
 	use shaders && \
 		sed \
@@ -80,16 +81,16 @@ src_install() {
 	# These environment variables should not go in the wrapper script, or else
 	# it will be impossible to use the PyMOL libraries from Python.
 	cat >> "${T}"/20pymol <<- EOF
-		PYMOL_PATH=$(python_get_sitedir)/${PN}
-		PYMOL_DATA="/usr/share/pymol/data"
-		PYMOL_SCRIPTS="/usr/share/pymol/scripts"
+		PYMOL_PATH="${EPREFIX}/$(python_get_sitedir -f)/${PN}"
+		PYMOL_DATA="${EPREFIX}/usr/share/pymol/data"
+		PYMOL_SCRIPTS="${EPREFIX}/usr/share/pymol/scripts"
 	EOF
 
 	doenvd "${T}"/20pymol || die "Failed to install env.d file."
 
 	cat >> "${T}"/pymol <<- EOF
 	#!/bin/sh
-	${python} -O \${PYMOL_PATH}/__init__.py \$*
+	$(PYTHON -f) -O \${PYMOL_PATH}/__init__.py \$*
 	EOF
 
 	dobin "${T}"/pymol || die "Failed to install wrapper."
@@ -102,5 +103,5 @@ src_install() {
 
 	dodoc DEVELOPERS README || die "Failed to install docs."
 
-	rm "${D}"$(python_get_sitedir)/pmg_tk/startup/apbs_tools.py
+#	rm "${D}"$(python_get_sitedir)/pmg_tk/startup/apbs_tools.py
 }
