@@ -5,11 +5,11 @@
 EAPI=2
 PYTHON_DEPEND="2:2.4"
 
-inherit distutils eutils
+inherit eutils flag-o-matic python
 
 DESCRIPTION="SALOME : The Open Source Integration Platform for Numerical Simulation. VISU Component"
 HOMEPAGE="http://www.salome-platform.org"
-SRC_URI="http://www.stasyan.com/devel/distfiles/src${PV}.tar.gz"
+SRC_URI="http://files.opencascade.com/Salome/Salome${PV}/src${PV}.tar.gz"
 
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
@@ -38,19 +38,16 @@ DEPEND="${RDEPEND}
 		>=dev-python/docutils-0.4"
 
 MODULE_NAME="VISU"
-MY_S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
+S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
 INSTALL_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 VISU_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 
 pkg_setup() {
-	PYVER=$(python_get_version)
-	[[ ${PYVER} > 2.4 ]] && \
+	[[ $(python_get_version) > 2.4 ]] && \
 		ewarn "Python 2.4 is highly recommended for Salome..."
 }
 
 src_prepare() {
-	cd "${MY_S}"
-
 	rm -r -f autom4te.cache
 	./build_configure
 }
@@ -62,15 +59,15 @@ src_configure() {
 	has_version ">=sci-libs/vtk-5.2" && vtk_suffix="-5.2"
 	has_version ">=sci-libs/vtk-5.4" && vtk_suffix="-5.4"
 
-	cd "${MY_S}"
+	use amd64 && append-flags -DHAVE_F77INT64
 
 	econf --prefix=${INSTALL_DIR} \
 	      --datadir=${INSTALL_DIR}/share/salome \
 	      --docdir=${INSTALL_DIR}/doc/salome \
 	      --infodir=${INSTALL_DIR}/share/info \
 	      --libdir=${INSTALL_DIR}/$(get_libdir)/salome \
-	      --with-python-site=${INSTALL_DIR}/$(get_libdir)/python${PYVER}/site-packages/salome \
-	      --with-python-site-exec=${INSTALL_DIR}/$(get_libdir)/python${PYVER}/site-packages/salome \
+	      --with-python-site=${INSTALL_DIR}/$(get_libdir)/python$(python_get_version)/site-packages/salome \
+	      --with-python-site-exec=${INSTALL_DIR}/$(get_libdir)/python$(python_get_version)/site-packages/salome \
 		  --with-vtk=${VTKHOME} \
 		  --with-vtk-version=${vtk_suffix} \
 		  --with-qt="/usr" \
@@ -81,15 +78,7 @@ src_configure() {
 	|| die "econf failed"
 }
 
-src_compile() {
-	cd "${MY_S}"
-
-	emake || die "emake failed"
-}
-
 src_install() {
-	cd "${MY_S}"
-
 	emake DESTDIR="${D}" install || die "emake install failed"
 
 	use amd64 && dosym ${INSTALL_DIR}/lib64 ${INSTALL_DIR}/lib
@@ -97,7 +86,7 @@ src_install() {
 	echo "${MODULE_NAME}_ROOT_DIR=${INSTALL_DIR}" > ./90${P}
 	echo "LDPATH=${INSTALL_DIR}/$(get_libdir)/salome" >> ./90${P}
 	echo "PATH=${INSTALL_DIR}/bin/salome" >> ./90${P}
-	echo "PYTHONPATH=${INSTALL_DIR}/$(get_libdir)/python${PYVER}/site-packages/salome" >> ./90${P}
+	echo "PYTHONPATH=${INSTALL_DIR}/$(get_libdir)/python$(python_get_version)/site-packages/salome" >> ./90${P}
 	doenvd 90${P}
 	rm adm_local/Makefile
 	insinto "${INSTALL_DIR}"

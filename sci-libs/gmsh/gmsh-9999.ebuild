@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -15,17 +15,18 @@ ESVN_PASSWORD="gmsh"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="blas chaco cgns doc examples jpeg med metis mpi opencascade png zlib X"
+IUSE="blas chaco cgns doc examples jpeg med metis mpi opencascade png taucs zlib X"
 
 RDEPEND="X? ( x11-libs/fltk:1.1 )
 		blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 		cgns? ( sci-libs/cgnslib )
 		jpeg? ( media-libs/jpeg )
 		med? ( >=sci-libs/med-2.3.4 )
+		mpi? ( sys-cluster/openmpi[cxx] )
 		opencascade? ( sci-libs/opencascade )
 		png? ( media-libs/libpng )
 		zlib? ( sys-libs/zlib )
-		mpi? ( sys-cluster/openmpi[cxx] )"
+		taucs? ( sci-libs/taucs )"
 
 DEPEND="${RDEPEND}
 		dev-util/cmake
@@ -36,6 +37,9 @@ pkg_setup() {
 	ewarn "Put the F77 variable in env files to select your fortran compiler"
 	ewarn "example for gfortran:"
 	ewarn "echo \"F77=gfortran\" >> /etc/portage/env/sci-libs/gmsh"
+
+	use taucs && ! use metis && \
+		die "taucs USE flag requires metis USE flag to be enabled"
 }
 
 src_configure() {
@@ -52,6 +56,7 @@ src_configure() {
 								$(cmake-utils_use_enable X GRAPHICS)
 								$(cmake-utils_use_enable med MED)
 								$(cmake-utils_use_enable metis METIS)
+								$(cmake-utils_use_enable taucs TAUCS)
 								$(cmake-utils_use_enable opencascade OCC)"
 
 #    I'm not sure if this is needed, but it seems to help in some circumstances

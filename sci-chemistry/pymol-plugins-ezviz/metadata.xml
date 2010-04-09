@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pkgmetadata>
+<herd>sci-chemistry</herd>
+<maintainer>
+	<email>jlec@gentoo.org</email>
+</maintainer>
+<longdescription>
+	EZ-Viz was developed as an assistance tool for the difficult to 
+	understand user interface of PyMOL. The standard interface is 
+	very complex takes a long time to learn, especially for students 
+	unfamiliar with the chemistry and busy researchers with little 
+	time to learn the commands necessary to use the PyMOL software 
+	to its full extent. EZ-Viz allows for users to navigate through 
+	PyMOL using a series of clickable buttons and tabs to complete 
+	all functions of the PyMol software without ever having to type 
+	a single command.
+</longdescription>
+</pkgmetadata>
