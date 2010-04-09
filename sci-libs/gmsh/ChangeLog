@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/gmsh
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  09 Apr 2010; Etienne Lorriaux <etienne.lorriaux@gmail.com>
+  gmsh-9999.ebuild:
+  added sci-libs/taucs support
 
   21 Oct 2009; Etienne Lorriaux <etienne.lorriaux@gmail.com>
   gmsh-9999.ebuild:
