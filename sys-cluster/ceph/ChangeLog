@@ -1,0 +1,10 @@
+# ChangeLog for sys-cluster/ceph
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header$
+
+*ceph-0.19.1 (12 Apr 2010)
+
+  12 Apr 2010; Alexey Shvetsov <alexxy@gentoo.org> -ceph-0.19.ebuild,
+  +ceph-0.19.1.ebuild:
+  Version bump
+
