@@ -2,7 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit distutils
+EAPI="2"
+PYTHON_DEPEND="2:2.4"
+
+inherit python distutils
 
 DESCRIPTION="Fast numerical array expression evaluator for Python and NumPy."
 HOMEPAGE="http://code.google.com/p/numexpr/"
@@ -12,8 +15,7 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
+
 DEPEND=">=dev-python/setuptools-0.6_rc3
 	>=dev-util/scons-1.2.0-r1"
-RDEPEND="virtual/python
-	>=dev-lang/python-2.3
-	>=dev-python/numpy-1.3.1"
+RDEPEND=">=dev-python/numpy-1.3.1"
