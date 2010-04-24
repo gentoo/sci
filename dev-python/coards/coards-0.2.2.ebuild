@@ -2,7 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit distutils
+EAPI="2"
+PYTHON_DEPEND="2:2.4"
+
+inherit python distutils
 
 DESCRIPTION="This module converts between a given COARDS time specification and
 a Python datetime object"
@@ -13,6 +16,6 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
+
 DEPEND=">=dev-python/setuptools-0.6_rc3"
-RDEPEND="virtual/python
-	>=dev-lang/python-2.3"
+RDEPEND=""
