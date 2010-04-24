@@ -2,7 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit distutils
+EAPI="2"
+PYTHON_DEPEND="2:2.5"
+
+inherit python distutils
 
 MY_P=${P/-/_}
 
@@ -15,10 +18,11 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="dev-python/setuptools"
-RDEPEND=">=dev-lang/python-2.5
-	>=sci-libs/netcdf-4.0.1
+COMMON_DEPEND=">=sci-libs/netcdf-4.0.1
 	>=sci-libs/hdf5-1.6.4"
+DEPEND="${COMMON_DEPEND}
+	dev-python/setuptools"
+RDEPEND="${COMMON_DEPEND}"
 
 src_compile()(
 	find "${S}" -type l -exec rm '{}' \;
