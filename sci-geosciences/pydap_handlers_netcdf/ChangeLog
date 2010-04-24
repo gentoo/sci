@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Apr 2010; Tim Cera <timcera@earthlink.net>
+  pydap_handlers_netcdf-0.4.8.ebuild:
+  Updated to latest python ebuild standards.
+
   28 Jan 2010; Tim Cera <timcera@earthlink.net>
   pydap_handlers_netcdf-0.4.8.ebuild:
   Corrected license.

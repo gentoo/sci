@@ -2,16 +2,17 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit distutils
+EAPI="2"
+PYTHON_DEPEND="2:2.4"
+
+inherit python distutils
 
 MY_PN=${PN/pydap/Pydap}
-
 MY_P=${P/pydap/Pydap}
 MY_P=${MY_P/_rc/.rc.}
 
 DESCRIPTION="Data Access Protocol client and server."
 HOMEPAGE="http://pydap.org"
-
 SRC_URI="http://pypi.python.org/packages/source/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
 LICENSE="pydap"
@@ -20,8 +21,7 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-python/setuptools-0.6_rc3"
-RDEPEND="virtual/python
-	>=dev-python/numpy-1.2.1
+RDEPEND=">=dev-python/numpy-1.2.1
 	>=dev-python/httplib2-0.4.0
 	>=dev-python/genshi-0.5.1
 	>=dev-python/paste-1.7.2
@@ -32,21 +32,3 @@ RDEPEND="virtual/python
 	>=dev-python/cheetah-2.0_rc6"
 
 S="$WORKDIR/$MY_P"
-
-# From the requires.txt file in the egg.
-#	numpy
-#	httplib2>=0.4.0
-#	Genshi
-#	Paste
-#	PasteScript
-#	PasteDeploy
-#
-#	[test]
-#	nose
-#	wsgi_intercept
-#
-#	[docs]
-#	Paver
-#	Sphinx
-#	Pygments
-#	coards

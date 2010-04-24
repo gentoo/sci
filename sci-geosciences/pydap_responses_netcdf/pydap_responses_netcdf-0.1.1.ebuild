@@ -2,7 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit distutils
+EAPI="2"
+PYTHON_DEPEND="2:2.4"
+
+inherit python distutils
 
 MY_PN=${PN//_/.}
 MY_P=${P//_/.}
