@@ -11,7 +11,7 @@ DESCRIPTION="general purpose python library for professional astronomers/astroph
 HOMEPAGE="https://launchpad.net/astropysics"
 SRC_URI=""
 
-LICENSE="as-is"
+LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="doc"
