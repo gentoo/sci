@@ -26,12 +26,14 @@ pkg_setup() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-docs.patch
+	epatch "${FILESDIR}"/${P}-assertion_fix.patch
 	epatch "${FILESDIR}"/${P}-expat.patch
+	use test && epatch "${FILESDIR}"/${P}-skiptests.patch
 }
 
 #FIX ME: docs are no longer built (missing stsci_sphinxext )
 
 src_test() {
 	cd test
-	PYTHONPATH=$(dir -d ../build/lib.*) "$(PYTHON)" test.py || die
+	PYTHONPATH=$(dir -d ../build/lib.*) nosetests -v || die
 }

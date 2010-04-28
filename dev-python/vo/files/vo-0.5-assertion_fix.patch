@@ -1,0 +1,90 @@
+--- vo/tree.py
++++ vo/tree.py
+@@ -295,7 +295,7 @@
+         """)
+ 
+     def _set_content_role(self, content_role):
+-        assert (content_role in (None, 'query', 'hints', 'doc', 'location'),
++        assert (content_role in (None, 'query', 'hints', 'doc', 'location')), (
+                 "content-role attribute invalid.")
+         self._content_role = content_role
+     def _del_content_role(self): self._content_role = None
+@@ -363,7 +363,7 @@
+         """)
+ 
+     def _set_name(self, name):
+-        assert (name is not None,
++        assert (name is not None), (
+                 "'name' attribute required for 'INFO' elements")
+         xmlutil.check_token(name, 'name', self._config, self._pos)
+         self._name = name
+@@ -374,7 +374,7 @@
+         """)
+ 
+     def _set_value(self, value):
+-        assert (value is not None,
++        assert (value is not None), (
+                 "'value' attribute required for 'INFO' elements")
+         check_string(value, 'value', self._config, self._pos)
+         self._value = value
+@@ -562,17 +562,17 @@
+             for start, tag, data, pos in iterator:
+                 if start:
+                     if tag == 'MIN':
+-                        assert ('value' in data,
++                        assert ('value' in data),(
+                                 'MIN must have value attribute')
+                         self.min = self._field.converter.parse(data['value'])[0]
+                         self.min_inclusive = data.get('inclusive', 'yes')
+                     elif tag == 'MAX':
+-                        assert ('value' in data,
++                        assert ('value' in data),(
+                                 'MAX must have value attribute')
+                         self.max = self._field.converter.parse(data['value'])[0]
+                         self.max_inclusive = data.get('inclusive', 'yes')
+                     elif tag == 'OPTION':
+-                        assert ('value' in data,
++                        assert ('value' in data),(
+                                 'OPTION must have value attribute')
+                         xmlutil.check_token(data.get('name'), 'name', config, pos)
+                         self.options.append(
+@@ -771,10 +771,10 @@
+         """)
+ 
+     def _set_datatype(self, datatype):
+-        assert (datatype is not None,
++        assert (datatype is not None),(
+                 "'datatype' attribute required for '%s' elements" %
+                 self._element_name)
+-        assert (datatype in converters.converter_mapping,
++        assert (datatype in converters.converter_mapping),(
+                 "Invalid datatype attribute '%s'" % datatype)
+         self._datatype = datatype
+     datatype = property(
+@@ -793,7 +793,7 @@
+         """)
+ 
+     def _set_precision(self, precision):
+-        assert (precision is None or re.match("^[FE]?[0-9]+$", precision),
++        assert (precision is None or re.match("^[FE]?[0-9]+$", precision)), (
+                 "precision '%s' is invalid" % precision)
+         self._precision = precision
+     def _del_precision(self): self._precision = None
+@@ -873,7 +873,7 @@
+ 
+     def _set_arraysize(self, arraysize):
+         assert (arraysize is None or
+-                re.match("^([0-9]+x)*[0-9]*[*]?(s\W)?$", arraysize),
++                re.match("^([0-9]+x)*[0-9]*[*]?(s\W)?$", arraysize)), (
+                 'arraysize attribute is invalid')
+         self._arraysize = arraysize
+     def _del_arraysize(self): self._arraysize = None
+@@ -1053,7 +1053,7 @@
+     def _set_system(self, system):
+         assert (system in ('eq_FK4', 'eq_FK5', 'ICRS', 'ecl_FK4', 'ecl_FK5',
+                            'galactic', 'supergalactic', 'xy', 'barycentric',
+-                           'geo_app'),
++                           'geo_app')),(
+                 "Invalid system attribute '%s'" % system)
+         self._system = system
+     def _del_system(self): self._system = None
