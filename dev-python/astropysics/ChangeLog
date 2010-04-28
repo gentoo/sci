@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/astropysics
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*astropysics-9999 (28 Apr 2010)
+
+  28 Apr 2010; Kacper Kowalik <xarthisius.kk@gmail.com> +astropysics-9999.ebuild,
+  +metadata.xml:
+  Initial import wrt bug 317655. Ebuild was written by me
+

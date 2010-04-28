@@ -1,14 +1,5 @@
---- doc/Makefile.orig	2009-07-21 21:23:57.000000000 +0100
-+++ doc/Makefile	2009-07-21 21:37:35.000000000 +0100
-@@ -2,7 +2,7 @@
- #
- 
- # You can set these variables from the command line.
--SPHINXOPTS    =
-+SPHINXOPTS    =  
- SPHINXBUILD   = sphinx-build
- PAPER         =
- 
+--- doc/Makefile
++++ doc/Makefile
 @@ -20,6 +20,7 @@
  	@echo "  json      to make JSON files"
  	@echo "  htmlhelp  to make HTML files and a HTML help project"
@@ -28,14 +19,3 @@
  changes:
  	mkdir -p build/changes build/doctrees
  	$(SPHINXBUILD) -b changes $(ALLSPHINXOPTS) build/changes
---- doc/source/sphinxext/inheritance_diagram.py.orig	2009-07-21 21:23:12.000000000 +0100
-+++ doc/source/sphinxext/inheritance_diagram.py	2009-07-21 21:23:33.000000000 +0100
-@@ -41,7 +41,7 @@
- 
- from docutils.nodes import Body, Element
- from docutils.writers.html4css1 import HTMLTranslator
--from sphinx.latexwriter import LaTeXTranslator
-+from sphinx.writers.latex import LaTeXTranslator
- from docutils.parsers.rst import directives
- from sphinx.roles import xfileref_role
- 
