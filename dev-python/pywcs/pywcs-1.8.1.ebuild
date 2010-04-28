@@ -3,6 +3,8 @@
 # $Header: $
 
 EAPI=3
+SUPPORT_PYTHON_ABIS="1"
+
 inherit distutils eutils
 
 WCS_V=4.4.4
@@ -12,14 +14,18 @@ DESCRIPTION="Python routines for handling the FITS World Coordinate System"
 HOMEPAGE="https://www.stsci.edu/trac/ssb/astrolib/"
 SRC_URI="http://stsdas.stsci.edu/astrolib/${MYP}.tar.gz"
 
-DEPEND="dev-python/pyfits
-	>=sci-astronomy/wcslib-4.4.4"
-RDEPEND="${DEPEND}"
+COMMON_DEPEND=">=sci-astronomy/wcslib-4.4.4"
+DEPEND="${COMMON_DEPEND}
+	  dev-util/pkgconfig"
+RDEPEND="${COMMON_DEPEND}
+	  dev-python/pyfits"
 
 IUSE=""
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 LICENSE="AURA"
+
+RESTRICT_PYTHON_ABIS="3.*"
 
 S=${WORKDIR}/${MYP}
 
@@ -31,5 +37,8 @@ src_prepare(){
 
 src_test() {
 	# FIX: does not work, needs fits files
-	PYTHONPATH=$(dir -d build/lib*) "${python}" test/test.py || die
+	testing() {
+		PYTHONPATH="$(ls -d build-${PYTHON_ABI}/lib.*)" "$(PYTHON)" test/test.py
+	}
+	python_execute_function testing
 }
