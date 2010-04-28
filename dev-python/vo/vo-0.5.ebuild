@@ -3,38 +3,35 @@
 # $Header: $
 
 EAPI=2
-inherit distutils
+PYTHON_DEPEND="2:2.6"
+
+inherit distutils eutils
 
 DESCRIPTION="Python module to read VOTABLE into a Numpy recarray"
 HOMEPAGE="https://www.stsci.edu/trac/ssb/astrolib/"
 SRC_URI="http://stsdas.stsci.edu/astrolib/${P}.tar.gz"
 
-DEPEND="doc? ( >=dev-python/sphinx-0.6 )"
-RDEPEND=""
-
-IUSE="doc"
+IUSE="test"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 LICENSE="AURA"
 
-src_compile() {
-	distutils_src_compile
-	if use doc; then
-		cd doc
-		PYTHONPATH=$(dir -d ../build/lib*) emake html pdf || die
-	fi
+DEPEND="${RDEPEND}
+	test? ( dev-python/nose )"
+RDEPEND="dev-libs/expat"
+
+pkg_setup() {
+	python_set_active_version 2
 }
+
+src_prepare() {
+	epatch "${FILESDIR}"/${P}-docs.patch
+	epatch "${FILESDIR}"/${P}-expat.patch
+}
+
+#FIX ME: docs are no longer built (missing stsci_sphinxext )
 
 src_test() {
 	cd test
-	PYTHONPATH=$(dir -d ../build/lib*) "${python}" test.py || die
-}
-
-src_install() {
-	distutils_src_install
-	if use doc; then
-		cd doc/build
-		insinto /usr/share/doc/${PF}
-		doins -r html latex/*.pdf || die
-	fi
+	PYTHONPATH=$(dir -d ../build/lib.*) "$(PYTHON)" test.py || die
 }

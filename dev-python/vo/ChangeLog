@@ -2,6 +2,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Apr 2010; Xarthisius <xarth@gentoo.org> -files/vo-0.3.1-docs.patch,
+  vo-0.5.ebuild, +files/vo-0.5-docs.patch, +files/vo-0.5-expat.patch:
+  Removing doc USE flags, since they're no longer building, adding missing
+  test dependencies, using new style for Python.
+
 *vo-0.5 (12 Feb 2010)
 
   12 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org> -vo-0.4.ebuild,
