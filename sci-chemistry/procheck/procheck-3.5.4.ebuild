@@ -1,24 +1,32 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit fortran toolchain-funcs versionator
+EAPI="3"
 
-MY_PV="$(get_version_component_range 1-2 ${PV})"
-MY_PV="$(replace_all_version_separators _ ${MY_PV})"
+inherit eutils fortran toolchain-funcs versionator
+
 DESCRIPTION="Checks the stereochemical quality of a protein structure"
 HOMEPAGE="http://www.biochem.ucl.ac.uk/~roman/procheck/procheck.html"
-SRC_URI="ftp://ftp.biochem.ucl.ac.uk/pub/${PN}/tar${MY_PV}/procheck.tar.Z
-	ftp://ftp.biochem.ucl.ac.uk/pub/${PN}/tar${MY_PV}/manual.tar.Z"
+SRC_URI="
+	http://www.ebi.ac.uk/systems-srv/mp/file-exchange/${PN}.tar.gz?fno=2874 -> ${P}.tar.gz
+	http://www.ebi.ac.uk/systems-srv/mp/file-exchange/manual.tar.gz?fno=2568 -> ${P}-manual.tar.gz"
+
 LICENSE="procheck"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="doc"
+
 RDEPEND="app-shells/tcsh"
 DEPEND="${RDEPEND}"
+
 S="${WORKDIR}/${PN}"
 
 FORTRAN="gfortran g77"
+
+src_prepare() {
+	epatch "${FILESDIR}"/${PV}-ldflags.patch
+}
 
 src_compile() {
 	emake \
@@ -56,14 +64,16 @@ src_install() {
 	newins resdefs.dat resdefs.data || die
 
 	cat <<- EOF >> "${T}"/30${PN}
-	prodir="${ROOT}usr/$(get_libdir)/${PN}/"
+	prodir="${EPREFIX}/usr/$(get_libdir)/${PN}/"
 	EOF
 
 
 	insinto /etx/profile.d/
-	doins "${T}"/30${PN}
+	doins "${T}"/30${PN} || die
 
-	pushd "${WORKDIR}"
-	dohtml -A prm,txt -r manual/*
-	popd
+	if use doc; then
+		pushd "${WORKDIR}"
+			dohtml -A prm,txt -r manual/* || die
+		popd
+	fi
 }
