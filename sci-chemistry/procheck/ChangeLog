@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Apr 2010; Justin Lecher <jlec@gentoo.org> procheck-3.5.4.ebuild:
+  keyword ~amd64-linux ~x86-linux
+
   29 Apr 2010; Justin Lecher <jlec@gentoo.org> +files/3.5.4-ldflags.patch,
   procheck-3.5.4.ebuild:
   Fixing SRC_URI and LDFLAGS
