@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -53,11 +53,14 @@ S="${WORKDIR}/${PN}-${MY_PV}"
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
+
 	# acoptim.m4 forced -O2 removal
 	epatch "${FILESDIR}"/${PN}-acoptim.patch
 	# do not try to do a forced "manual" installation of
 	# examples and documentation
-	epatch "${FILESDIR}"/${P}-no-doc-autobuild.patch
+	epatch "${FILESDIR}"/${PN}-no-doc-autobuild.patch
+	# Honor FHS
+	epatch "${FILESDIR}"/${PN}-path.patch
 
 	eautoreconf
 }
@@ -104,30 +107,6 @@ src_test() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
-
-	# Fixing freefem++.pref
-	dodir /etc
-	cat > "${D}"/etc/freefem++.pref <<EOF
-loadpath += "./"
-loadpath += "/usr/lib/${PN}"
-EOF
-	rm "${D}"/usr/lib/ff++/${MY_PV}/etc/freefem++.pref
-	rmdir "${D}"/usr/lib/ff++/${MY_PV}/etc
-
-	# Move the libraries to the right location
-	dodir /usr/lib/${PN}
-	mv "${D}"/usr/lib/ff++/${MY_PV}/lib/* "${D}"/usr/lib/${PN}
-	rmdir "${D}"/usr/lib/ff++/${MY_PV}/lib
-
-	# Move the headers to the right location
-	dodir /usr/include/${PN}
-	mv "${D}"/usr/lib/ff++/${MY_PV}/include/* "${D}"/usr/include/${PN}
-	rmdir "${D}"/usr/lib/ff++/${MY_PV}/include
-
-	# Remove empty directory tree
-	rmdir "${D}"/usr/lib/ff++/${MY_PV}/idp
-	rmdir "${D}"/usr/lib/ff++/${MY_PV}
-	rmdir "${D}"/usr/lib/ff++
 
 	dodoc AUTHORS INNOVATION HISTORY* README
 

@@ -1,0 +1,105 @@
+diff -up freefem++-3.8/configure.ac.r freefem++-3.8/configure.ac
+--- freefem++-3.8/configure.ac.r	2010-02-04 14:48:19.000000000 +0100
++++ freefem++-3.8/configure.ac	2010-02-25 22:53:52.000000000 +0100
+@@ -353,7 +355,7 @@ AC_DEFINE_UNQUOTED(VersionFreeFempp,$ff_
+ # date is only useful for config-version.h
+ 
+ test "$prefix" = NONE && prefix="$ac_default_prefix"
+-ff_prefix_dir="${prefix}/lib/ff++/$VERSION"   
++ff_prefix_dir="${libdir}/freefem++"
+ AC_MSG_CHECKING(prefix dir freefem++  )
+ AC_MSG_RESULT($ff_prefix_dir)	 
+ 
+@@ -1250,7 +1252,7 @@ then
+ 		AC_CHECK_LIB(umfpack,umf_i_malloc,
+ 			ff_umfpack_libs=" -lumfpack $ff_umfpack_libs"
+ 			ff_umfpack_ok=yes,,$ff_umfpack_libs)
+-		if test "$ff_umfpack_ok" != yes -o "$ff_umfpack_header" != yes ; then
++		if test "$ff_umfpack_ok" = yes -a "$ff_umfpack_header" != yes ; then
+ 			AC_MSG_WARN([		Sorry we find UMFPACK lib but not the include umfpack.h file])
+ 		fi
+ 	fi	
+diff -up freefem++-3.8/examples++-3d/Makefile.am.r freefem++-3.8/examples++-3d/Makefile.am
+--- freefem++-3.8/examples++-3d/Makefile.am.r	2009-11-10 20:28:06.000000000 +0100
++++ freefem++-3.8/examples++-3d/Makefile.am	2010-02-25 22:41:45.000000000 +0100
+@@ -31,8 +31,8 @@ freefem++.pref:
+ 	echo loadpath += \"./\" >>freefem++.pref
+ 
+ install-exec-local:: 
+-	$(mkinstalldirs) -m 755 $(DESTDIR)$(ff_prefix_dir)/idp
+-	$(INSTALL)  -m 555  $(LIST_IDP)  $(DESTDIR)$(ff_prefix_dir)/idp
++	$(mkinstalldirs) -m 755 $(DESTDIR)$(datadir)/freefem++/idp
++	$(INSTALL)  -m 555  $(LIST_IDP)  $(DESTDIR)$(datadir)/freefem++/idp
+ 
+ 
+ 
+diff -up freefem++-3.8/examples++-load/load.link.in.r freefem++-3.8/examples++-load/load.link.in
+--- freefem++-3.8/examples++-load/load.link.in.r	2009-12-04 15:53:45.000000000 +0100
++++ freefem++-3.8/examples++-load/load.link.in	2010-02-25 22:41:45.000000000 +0100
+@@ -26,8 +26,8 @@ if [ -z "$INCFF" ] ; then
+ 	INCFF="-Iinclude"
+     elif [ -f "FFAPPLI_INC/ff++.hpp" ] ; then 
+ 	INCFF="-IFFAPPLI_INC" 
+-    elif [ -f '@ff_prefix_dir@/include/ff++.hpp' ] ; then 
+-	INCFF='-I@ff_prefix_dir@/include' 
++    elif [ -f '@includedir@/freefem++/ff++.hpp' ] ; then
++	INCFF='-I@includedir@/freefem++'
+     else
+ 	ff=`which freefem++.exe`;
+ 	ffinc=`dirname "$ff"`/examples++-load/include
+diff -up freefem++-3.8/examples++-load/Makefile.am.r freefem++-3.8/examples++-load/Makefile.am
+--- freefem++-3.8/examples++-load/Makefile.am.r	2010-01-28 20:38:21.000000000 +0100
++++ freefem++-3.8/examples++-load/Makefile.am	2010-02-25 23:13:32.000000000 +0100
+@@ -95,7 +95,7 @@ all.edp: 
+ regtests.edp: regtests.m4 ../regtests.m4
+ 	m4 -DASSERT regtests.m4 > regtests.edp
+ 
+-$(LIST_COMPILE):ff-c++ include Makefile 
++$(LIST_COMPILE) $(LIST_COMPILE_PKG):ff-c++ include Makefile 
+ 
+ clean-local:
+ 	-rm *.o  load.link WHERE_LIBRARY-download ff-get-dep ff-c++ ff-pkg-download \
+@@ -121,19 +121,19 @@ WHERE_LIBRARY-download:ff-pkg-download 
+ freefem++.pref:
+ 	echo loadpath = \"./\" >freefem++.pref
+ install-exec-local:: load_compile
+-	$(mkinstalldirs) -m 755 $(DESTDIR)$(ff_prefix_dir)/lib
+-	$(mkinstalldirs) -m 755 $(DESTDIR)$(ff_prefix_dir)/include
+-	$(mkinstalldirs) -m 755 $(DESTDIR)$(ff_prefix_dir)/etc
+-	$(INSTALL_DATA)  include/* $(DESTDIR)$(ff_prefix_dir)/include
+-	$(INSTALL)  -m 555 $(LIST_COMPILE) $(DESTDIR)$(ff_prefix_dir)/lib
+-	echo loadpath += \"./\"  >$(DESTDIR)$(ff_prefix_dir)/etc/freefem++.pref
+-	echo loadpath += \"$(ff_prefix_dir)/lib\"  >>$(DESTDIR)$(ff_prefix_dir)/etc/freefem++.pref
+-	echo includepath += \"$(ff_prefix_dir)/idp\"  >>$(DESTDIR)$(ff_prefix_dir)/etc/freefem++.pref
++	$(mkinstalldirs) -m 755 $(DESTDIR)$(libdir)/freefem++
++	$(mkinstalldirs) -m 755 $(DESTDIR)$(includedir)/freefem++
++	$(mkinstalldirs) -m 755 $(DESTDIR)$(sysconfdir)
++	$(INSTALL_DATA)  include/* $(DESTDIR)$(includedir)/freefem++
++	$(INSTALL)  -m 555 $(LIST_COMPILE) $(DESTDIR)$(libdir)/freefem++
++	echo loadpath += \"./\"  >$(DESTDIR)$(sysconfdir)/freefem++.pref
++	echo loadpath += \"$(libdir)/freefem++\"  >>$(DESTDIR)$(sysconfdir)/freefem++.pref
++	echo includepath += \"$(datadir)/freefem++/idp\"  >>$(DESTDIR)$(sysconfdir)/freefem++.pref
+ 	$(INSTALL_SCRIPT) ff-c++  $(DESTDIR)${bindir}
+ 	$(INSTALL_SCRIPT) ff-pkg-download  $(DESTDIR)${bindir}
+ 	$(INSTALL_SCRIPT) ff-get-dep  $(DESTDIR)${bindir}
+ 	-for i in $(LIST_COMPILE_PKG); do \
+-	 if [ -f $$i ] ; then 	$(INSTALL)  -m 555 $$i $(DESTDIR)$(ff_prefix_dir)/lib; fi; done
++	 if [ -f $$i ] ; then 	$(INSTALL)  -m 555 $$i $(DESTDIR)$(libdir)/freefem++; fi; done
+ 
+ 
+ 
+diff -up freefem++-3.8/src/lglib/Makefile.am.r freefem++-3.8/src/lglib/Makefile.am
+--- freefem++-3.8/src/lglib/Makefile.am.r	2010-01-10 22:47:14.000000000 +0100
++++ freefem++-3.8/src/lglib/Makefile.am	2010-02-25 22:41:45.000000000 +0100
+@@ -9,9 +9,9 @@ INCLUDES=-I../fflib -I../bamglib -I../Gr
+ BUILT_SOURCES=lg.tab.hpp lg.tab.cpp
+ 
+ lg.tab.hpp  lg.tab.cpp: lg.ypp
+-	-rm lg.tab.hpp  lg.tab.cpp lg.tab.cpp.h
++	-rm -f lg.tab.hpp  lg.tab.cpp lg.tab.cpp.h
+ 	bison -dtv -p lg  $< -o lg.tab.cpp
+-	-mv lg.tab.cpp.h  lg.tab.hpp # pour un  pb entre des versions de bison 
++	-mv -f lg.tab.cpp.h  lg.tab.hpp # pour un  pb entre des versions de bison 
+ libfreefem++.dylib: lg.tab.o ../fflib/libff.a
+ 	g++ -bundle lg.tab.o  ../fflib/libff.a $(UMFPACKLIB) $(ARPACKLIB) $(BLASLIB) $(LIBS) -o libfreefem++.dylib
+ EXTRA_DIST=lg.ypp
