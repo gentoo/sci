@@ -6,7 +6,7 @@
 
 EAPI="3"
 
-inherit eutils
+inherit eutils prefix
 
 DESCRIPTION="Spectral visualisation, analysis and Fourier processing"
 HOMEPAGE="http://spin.niddk.nih.gov/bax/software/NMRPipe/"
