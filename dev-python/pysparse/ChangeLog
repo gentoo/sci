@@ -1,0 +1,11 @@
+# ChangeLog for dev-python/pysparse
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pysparse-1.1 (11 May 2010)
+
+  11 May 2010; Sébastien Fabbro <bicatali@gentoo.org> +pysparse-1.1.ebuild,
+  +files/pysparse-1.1-setup.patch, +files/pysparse-1.1-superlu3.patch,
+  +metadata.xml:
+  Initial import
+
