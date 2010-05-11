@@ -1,6 +1,8 @@
---- modules/pymol/invocation.py	2009-06-25 17:26:27.000000000 +0200
-+++ modules/pymol/invocation.py.new	2009-06-25 17:41:57.000000000 +0200
-@@ -395,6 +395,4 @@
+Index: modules/pymol/invocation.py
+===================================================================
+--- modules/pymol/invocation.py	(revision 3908)
++++ modules/pymol/invocation.py	(working copy)
+@@ -398,6 +398,4 @@
          if loaded_something and (options.after_load_script!=""):
              options.deferred.append(options.after_load_script)
          options.deferred.extend(final_actions)

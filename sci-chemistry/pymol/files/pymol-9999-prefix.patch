@@ -1,0 +1,31 @@
+diff --git a/setup.py b/setup.py
+index 197f827..b39c129 100644
+--- a/setup.py
++++ b/setup.py
+@@ -112,7 +112,7 @@ elif sys.platform=='darwin':
+                     ]
+         ext_comp_args=[]
+         ext_link_args=[
+-	               "-L/usr/X11R6/lib", "-lGL", "-lXxf86vm",
++	               "-L@GENTOO_PORTAGE_EPREFIX@/usr/lib", "-lGL", "-lXxf86vm",
+                    "-L"+EXT+"/lib", "-lpng", "-lglut", "-lfreetype"
+                    ]
+ #============================================================================
+@@ -120,7 +120,7 @@ else: # linux or other unix
+     inc_dirs=["ov/src",
+               "layer0","layer1","layer2",
+               "layer3","layer4","layer5",
+-              "/usr/include/freetype2",
++              "@GENTOO_PORTAGE_EPREFIX@/usr/include/freetype2",
+ #                 "/users/warren/ext/include",
+ # VMD plugin support
+ #              "contrib/uiuc/plugins/include",
+@@ -131,7 +131,7 @@ else: # linux or other unix
+           ]	
+     pyogl_libs = ["GL","GLU","glut"]
+     lib_dirs=[
+-        "/usr/X11R6/lib",
++        "@GENTOO_PORTAGE_EPREFIX@/usr/lib",
+ #        "/users/warren/pymol/ext/lib"
+         ]
+     def_macros=[("_PYMOL_MODULE",None),

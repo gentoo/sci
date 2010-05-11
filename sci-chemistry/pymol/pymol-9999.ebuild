@@ -17,7 +17,7 @@ SRC_URI=""
 
 LICENSE="PSF-2.2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
 IUSE="apbs numpy shaders vmd"
 
 DEPEND="
@@ -37,11 +37,10 @@ DEPEND="
 RDEPEND="${DEPEND}"
 RESTRICT_PYTHON_ABIS="3.* 2.4"
 
-
 src_prepare() {
-	epatch "${FILESDIR}"/1.2.2-data-path.patch
+	epatch "${FILESDIR}"/${P}-data-path.patch
 
-	epatch "${FILESDIR}"/1.2.2-prefix.patch && \
+	epatch "${FILESDIR}"/${P}-prefix.patch && \
 	eprefixify setup.py
 
 	# Turn off splash screen.  Please do make a project contribution
@@ -60,15 +59,20 @@ src_prepare() {
 
 	use vmd && \
 		sed \
-			-e 's:\] + 0 \* \[:] + 1 * [:g' \
-			-e '/contrib\/uiuc\/plugins/s:^#::g' \
-			-e '/PYMOL_VMD_PLUGINS/s:^#::g' \
+			-e '/PYMOL_VMD/s:^#::g' \
+			-e 's:    ] + 0 * [:    ] + 1 * [:g' \
 			-i setup.py
 
 	use numpy && \
 		sed \
 			-e '/PYMOL_NUMPY/s:^#::g' \
 			-i setup.py
+
+	rm ./modules/pmg_tk/startup/apbs_tools.py || die
+
+	# python 3.* fix
+	# sed '452,465d' -i setup.py
+	distutils_src_prepare
 }
 
 src_configure() {

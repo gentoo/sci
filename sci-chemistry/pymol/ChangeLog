@@ -2,6 +2,17 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 May 2010; Justin Lecher <jlec@gentoo.org>
+  -files/1.2.1/nosplash-gentoo.patch,
+  -files/1.2.1/pymol-1.2.1-data-path.patch,
+  -files/1.2.1/pymol-1.2.1-shaders.patch,
+  -files/1.2.2/pymol-1.2.2-data-path.patch,
+  -files/pymol-1.2.2-data-path.patch, -files/1.2.2/nosplash-gentoo.patch,
+  -files/1.2.2/pymol-1.2.2-shaders.patch, -files/pymol-1.2.2-shaders.patch,
+  pymol-9999.ebuild, +files/pymol-9999-prefix.patch,
+  files/nosplash-gentoo.patch:
+  HAED fixes
+
   30 Mar 2010; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
   Importet tree changes
 

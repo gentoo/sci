@@ -1,9 +1,0 @@
---- modules/pymol/invocation.py	2009-06-25 17:26:27.000000000 +0200
-+++ modules/pymol/invocation.py.new	2009-06-25 17:41:57.000000000 +0200
-@@ -395,6 +395,4 @@
-         if loaded_something and (options.after_load_script!=""):
-             options.deferred.append(options.after_load_script)
-         options.deferred.extend(final_actions)
--        if options.show_splash and not options.no_gui and not restricted:
--            options.deferred.insert(0,"_do__ cmd.splash(1)")
-         
