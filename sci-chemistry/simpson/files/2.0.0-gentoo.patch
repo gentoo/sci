@@ -1,0 +1,761 @@
+diff --git a/Makefile.am b/Makefile.am
+index b4cee2c..ee97cc6 100755
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,6 +1,6 @@
+ EXTRA_DIST = autogen.sh div.m4
+ 
+-SUBDIRS = f2c $(SUBDIR_ADD) simpson cryst
++SUBDIRS = $(SUBDIR_ADD) simpson cryst
+ 
+ bindist: bindistdir
+ 	-chmod -R a+r $(BINDISTDIR)
+diff --git a/config.h.in b/config.h.in
+index b1e9a27..d078f0b 100644
+--- a/config.h.in
++++ b/config.h.in
+@@ -24,6 +24,12 @@
+ /* Disable networking */
+ #undef DISABLE_NETWORK
+ 
++/* #undef ENABLE_MINUIT */
++#undef ENABLE_MINUIT
++
++/* #undef ENABLE_SIMMOL */
++#undef ENABLE_SIMMOL
++
+ /* Compile with Tk support */
+ #undef ENABLE_TK
+ 
+@@ -33,6 +39,12 @@
+ /* Define to 1 if you don't have `vprintf' but do have `_doprnt.' */
+ #undef HAVE_DOPRNT
+ 
++/* #undef HAVE_F_EXIT */
++#undef HAVE_F_EXIT
++
++/* #undef HAVE_GETLINE */
++#undef HAVE_GETLINE
++
+ /* Define to 1 if you have the <inttypes.h> header file. */
+ #undef HAVE_INTTYPES_H
+ 
+@@ -66,6 +78,9 @@
+ /* Define to 1 if you have the <memory.h> header file. */
+ #undef HAVE_MEMORY_H
+ 
++/* #undef HAVE_POW_DI */
++#undef HAVE_POW_DI
++
+ /* Define to 1 if you have the <stdint.h> header file. */
+ #undef HAVE_STDINT_H
+ 
+@@ -105,9 +120,15 @@
+ /* Define to the address where bug reports for this package should be sent. */
+ #undef PACKAGE_BUGREPORT
+ 
++/* #undef PACKAGE_DATA_DIR */
++#undef PACKAGE_DATA_DIR
++
+ /* Define to the full name of this package. */
+ #undef PACKAGE_NAME
+ 
++/* #undef PACKAGE_SOURCE_DIR */
++#undef PACKAGE_SOURCE_DIR
++
+ /* Define to the full name and version of this package. */
+ #undef PACKAGE_STRING
+ 
+@@ -120,15 +141,27 @@
+ /* Make the code multithreaded */
+ #undef PARALLEL
+ 
++/* #undef PIVOT_PHASE */
++#undef PIVOT_PHASE
++
+ /* Define as the return type of signal handlers (`int' or `void'). */
+ #undef RETSIGTYPE
+ 
+-/* Enable serverlogging */
++/* #undef REVERSEBYTES */
++#undef REVERSEBYTES
++
++/* #undef SECURE_SERVER */
++#undef SECURE_SERVER
++
++/* #undef SERVER_LOGGING */
+ #undef SERVER_LOGGING
+ 
+ /* Define to 1 if you have the ANSI C header files. */
+ #undef STDC_HEADERS
+ 
++/* #undef USEPORT64 */
++#undef USEPORT64
++
+ /* Version number of package */
+ #undef VERSION
+ 
+diff --git a/configure.in b/configure.in
+index dfc3817..a86da05 100755
+--- a/configure.in
++++ b/configure.in
+@@ -1,7 +1,7 @@
+ dnl Process this file with autoconf to produce a configure script.
+ AC_INIT(configure.in,minuit/minuit/minuit/d506cm.inc)
+ AM_INIT_AUTOMAKE(simpson,2.0.0)
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADER(config.h)
+ 
+ builtin(include,div.m4)
+ dnl Checks for host-type.
+@@ -10,7 +10,7 @@ BINDISTDIR=simpson-$VERSION-$host
+ AC_SUBST(BINDISTDIR)
+ 
+ dnl Checks for programs.
+-AC_ISC_POSIX
++AC_SEARCH_LIBS([strerror],[cposix])
+ AC_PROG_CC
+ AC_PROG_CXX
+ AM_PROG_LIBTOOL
+@@ -21,7 +21,7 @@ AC_HEADER_STDC
+ AC_PROG_LIBTOOL
+ AC_PROG_INSTALL
+ AC_PROG_LN_S
+-AC_PROG_RANLIB
++#AC_PROG_RANLIB
+ AC_CHECK_PROGS(TAR, gtar tar)
+ AC_CHECK_PROGS(F77, g77 f77)
+ 
+@@ -30,17 +30,17 @@ AC_CHECK_LIB(m, sqrt)
+ AC_CHECK_LIB(g2c, log, have_g2c=1, have_g2c=0)
+ if test "$have_g2c" = 1; then
+   LIBG2C=-lg2c
+-  AC_CHECK_LIB(g2c, pow_di, AC_DEFINE(HAVE_POW_DI))
++  AC_CHECK_LIB(g2c, pow_di, AC_DEFINE([HAVE_POW_DI],,[#undef HAVE_POW_DI]))
+ fi
+ AC_CHECK_LIB(f2c, log, have_f2c=1, have_f2c=0)
+ if test "$have_f2c" = 1; then
+   LIBG2C=-lf2c
+-  AC_CHECK_LIB(f2c, pow_di, AC_DEFINE(HAVE_POW_DI))
++  AC_CHECK_LIB(f2c, pow_di, AC_DEFINE([HAVE_POW_DI],,[#undef HAVE_POW_DI]))
+ fi
+ AC_CHECK_LIB(gfortran, log, have_gfortran=1, have_gfortran=0)
+ if test "$have_gfortran" = 1; then
+   LIBG2C=-lgfortran
+-  AC_CHECK_LIB(gfortran, pow_di, AC_DEFINE(HAVE_POW_DI))
++  AC_CHECK_LIB(gfortran, pow_di, AC_DEFINE([HAVE_POW_DI],,[#undef HAVE_POW_DI]))
+ fi
+ AC_SUBST(LIBG2C)
+ AC_CHECK_LIB(g2c, main)
+@@ -61,14 +61,14 @@ AC_SUBST(LIB_SOCKET)
+ 
+ 
+ LIBLAPACK=""
+-AC_CHECK_LIB(lapack, zgeev, have_lapack=1, have_lapack=0)
++AC_CHECK_LIB(lapack, zgeev_, have_lapack=1, have_lapack=0)
+ if test "$have_lapack" = 1; then
+   LIBLAPACK=-llapack
+ fi
+ AC_SUBST(LIBLAPACK)
+ 
+ LIBBLAS=
+-AC_CHECK_LIB(blas, cscal, have_blas=1, have_blas=0)
++AC_CHECK_LIB(blas, cscal_, have_blas=1, have_blas=0)
+ if test "$have_blas" = 1; then
+   LIBBLAS=-lblas
+ fi
+@@ -85,7 +85,7 @@ if test "$have_fexit" = 0; then
+   AC_CHECK_LIB(gfortran, f_exit, have_fexit=1, have_fexit=0)
+ fi
+ if test "$have_fexit" = 1; then
+-  AC_DEFINE(HAVE_F_EXIT)
++  AC_DEFINE(HAVE_F_EXIT,,[#undef HAVE_F_EXIT])
+ fi
+ 
+ AC_CHECK_LIB(g2c, pow_di, have_powdi=1, have_powdi=0)
+@@ -96,11 +96,11 @@ if test "$have_powdi" = 0; then
+   AC_CHECK_LIB(gfortran, pow_di, have_powdi=1, have_powdi=0)
+ fi
+ if test "$have_fexit" = 1; then
+-  AC_DEFINE(HAVE_F_EXIT)
++  AC_DEFINE([HAVE_F_EXIT],,[#undef HAVE_F_EXIT])
+ fi
+ 
+ dnl Checks for header files.
+-#AC_STDC_HEADERS
++#AC_HEADER_STDC
+ #AC_CHECK_HEADERS(malloc.h)
+          
+ dnl Checks for typedefs, structures, and compiler characteristics.
+@@ -113,7 +113,7 @@ dnl Checks for library functions.
+ AC_TYPE_SIGNAL
+ AC_FUNC_VPRINTF
+ AC_CHECK_FUNCS(strstr strtod strtol)
+-AC_CHECK_FUNC(getline, AC_DEFINE(HAVE_GETLINE))                                 
++AC_CHECK_FUNC(getline, AC_DEFINE([HAVE_GETLINE],,[#undef HAVE_GETLINE]))                                 
+ 
+ dnl Use -Wall if we have gcc.
+ changequote(,)dnl
+@@ -124,7 +124,13 @@ if test "x$GCC" = "xyes"; then
+   esac
+ fi
+ changequote([,])dnl
+-AC_CYGWIN
++
++AC_CANONICAL_HOST
++case $host_os in
++  *cygwin* ) CYGWIN=yes;;
++	 * ) CYGWIN=no;;
++esac
++
+ AC_OBJEXT
+ AC_EXEEXT
+ 
+@@ -133,14 +139,14 @@ SC_PATH_TCLCONFIG
+ SC_LOAD_TCLCONFIG
+ SC_PUBLIC_TCL_HEADERS
+ 
+-AC_ARG_WITH(tklib, [  --with-tklib            Build with Tk support], enable_tk="no", enable_tk="yes")
++AC_ARG_ENABLE([tklib], AS_HELP_STRING([--enable-tklib],[Build with Tk support]))
+ 
+-if test x$enable_tk = xyes; then  
++AS_IF([test "x$enable_tklib" = "xyes"], [
+   AC_DEFINE([ENABLE_TK], 1, [Compile with Tk support])
+   SC_PATH_TKCONFIG
+   SC_LOAD_TKCONFIG
+   SC_PUBLIC_TK_HEADERS
+-fi
++])
+ 
+ SUBDIR_ADD=""
+ 
+@@ -186,51 +192,42 @@ fi
+ AC_ARG_ENABLE(serverlog, [  --enable-serverlog      Enable server logging], enable_serverlog="yes", enable_serverlog="no")
+ 
+ if test x"${enable_serverlog}" = xyes; then
+-  AC_DEFINE([SERVER_LOGGING], 1, [Enable serverlogging])
++  AC_DEFINE([SERVER_LOGGING], 1, [#undef SERVER_LOGGING])
+ fi
+ 
+ 
+-AC_ARG_ENABLE(parallel, [  --enable-parallel       Create multithreaded code], enable_parallel="yes", enable_parallel="no")
++AC_ARG_ENABLE([parallel], AS_HELP_STRING([--enable-parallel],[Create multithreaded code]))
+ 
+-if test x"${enable_parallel}" = xyes; then
++AS_IF([test "x$enable_parallel" = "xyes"], [
+   AC_DEFINE([PARALLEL], 1, [Make the code multithreaded])
+-fi
++])
+ 
+ 
+ 
+ 
+-AC_ARG_WITH(simplot,[  --without-simplot       Do not compile the SIMPLOT program], simplot="no", simplot="yes")
++AC_ARG_ENABLE([simplot], AS_HELP_STRING([--enable-simplot],[Do not compile the SIMPLOT program]))
+ 
+-if test x$simplot = xyes; then
++AS_IF([test "x$enable_simplot" = "xyes"], [
+ 
+-    AM_PATH_GTK(1.2.0, ,
+-      if test x"${ac_cv_cygwin}" = x"yes" ; then
+-      AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?
+-      
+-   Optionally use './configure --without-simplot' and compile simplot
+-   manually with the makefile 'simplot/Makefile.win32' configured properly.
+-   )
+-      else
+-      AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?)
+-      fi
+-    )
++	PKG_PROG_PKG_CONFIG
++	PKG_CHECK_MODULES([GTK], [gtk+])
+     dnl Set PACKAGE_DATA_DIR in config.h.
+     if test "x${datadir}" = 'x${prefix}/share'; then
+       if test "x${prefix}" = "xNONE"; then
+-        AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${ac_default_prefix}/share/${PACKAGE}")
++        AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${ac_default_prefix}/share/${PACKAGE}",[#undef PACKAGE_DATA_DIR])
+       else
+-        AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${prefix}/share/${PACKAGE}")
++        AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${prefix}/share/${PACKAGE}",[#undef PACKAGE_DATA_DIR])
+       fi
+     else
+-      AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${datadir}/${PACKAGE}")
++      AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${datadir}/${PACKAGE}",[#undef PACKAGE_DATA_DIR])
+     fi
+ 
+     dnl Set PACKAGE_SOURCE_DIR in config.h.
+     packagesrcdir=`cd $srcdir && pwd`
+-    AC_DEFINE_UNQUOTED(PACKAGE_SOURCE_DIR, "${packagesrcdir}")
++    AC_DEFINE_UNQUOTED(PACKAGE_SOURCE_DIR, "${packagesrcdir}",[#undef PACKAGE_SOURCE_DIR])
+ 
+     SUBDIR_ADD="${SUBDIR_ADD} simplot"
+-fi
++])
+ 
+ if test -z "$TARGET"; then
+   test -f ./config.guess && TARGET=`sh ./config.guess` 2>/dev/null
+@@ -241,17 +238,26 @@ else
+ your target specification; this may cause problems later on...)
+ fi
+ 
+-case $TARGET in
++AC_CANONICAL_HOST
++case $host in
+ mips-dec-*)	REVERSEBYTES="yes";;
+ i386-*)		REVERSEBYTES="yes";;
+ i486-*)		REVERSEBYTES="yes";;
+ i586-*)		REVERSEBYTES="yes";;
+ i686-*)		REVERSEBYTES="yes";;
++x86_64-*)	REVERSEBYTES="yes"; USEPORT64="yes";;
+ *)		REVERSEBYTES="no";;
+ esac
++
++echo "host is $host"
+ echo "Reverse byte order...$REVERSEBYTES"
++
+ if test x$REVERSEBYTES = xyes; then
+-  AC_DEFINE_UNQUOTED(REVERSEBYTES, 1)
++  AC_DEFINE_UNQUOTED([REVERSEBYTES], 1,[#undef REVERSEBYTES])
++fi
++# if building on 64bits architecture then change the default port to 3264
++if test x$USEPORT64 = xyes; then
++  AC_DEFINE([USEPORT64], 1,[#undef USEPORT64])
+ fi
+ 
+ 
+@@ -268,7 +274,7 @@ if test x$minuit = xyes; then
+       AC_MSG_WARN(You must have a Fortran compiler to compile minuit) 
+     fi
+     SUBDIR_ADD="${SUBDIR_ADD} minuit"
+-    AC_DEFINE_UNQUOTED(ENABLE_MINUIT, 1)
++    AC_DEFINE_UNQUOTED([ENABLE_MINUIT], 1, [#undef ENABLE_MINUIT ])
+     MINUIT_LIB="../minuit/minuit/code/libminuit.a"
+ fi
+ 
+@@ -276,19 +282,20 @@ AC_ARG_WITH(simmol,   [  --without-simmol         Build with simmol], enable_sim
+ 
+ if test x$enable_simmol = xyes; then
+   SUBDIR_ADD="${SUBDIR_ADD} simmol"
+-  AC_DEFINE_UNQUOTED(ENABLE_SIMMOL,1)
++  AC_DEFINE_UNQUOTED(ENABLE_SIMMOL,1,[#undef ENABLE_SIMMOL])
+ fi
++AM_CONDITIONAL([ENABLE_SIMBIO], [test x$enable_simmol = xyes])
+ 
+ AC_ARG_WITH(secureserver,   [  --without-secureserver  Do not overrule dangerous tcl-commands], secure="no", secure="yes")
+ 
+ if test x$secure = xyes; then
+-    AC_DEFINE_UNQUOTED(SECURE_SERVER, 1)
++    AC_DEFINE_UNQUOTED(SECURE_SERVER, 1,[#undef SECURE_SERVER])
+ fi
+ 
+ AC_ARG_WITH(pivotphasing,   [  --with-pivotphasing     Enable vnmr pivot phasing], pivot="yes", pivot="no")
+ 
+ if test x$pivot = xyes; then
+-    AC_DEFINE_UNQUOTED(PIVOT_PHASE, 1)
++    AC_DEFINE_UNQUOTED(PIVOT_PHASE, 1,[#undef PIVOT_PHASE])
+ fi
+ 
+ AC_SUBST(SUBDIR_ADD)
+@@ -296,9 +303,8 @@ AC_SUBST(MINUIT_LIB)
+ AC_SUBST(GD_LIB)
+ AC_SUBST(BUILDLIBSIMPSON)
+ 
+-AC_OUTPUT([Makefile 
++AC_CONFIG_FILES([Makefile 
+ 	   cryst/Makefile
+-	   f2c/Makefile
+ 	   simpson/Makefile
+ 	   simplot/Makefile
+ 	   simmol/Makefile
+@@ -309,5 +315,6 @@ AC_OUTPUT([Makefile
+ 	   gd1.4/Makefile
+ 	   vnmrtools/Makefile
+ 	   ])
++AC_OUTPUT
+ 
+ 
+diff --git a/simmol/Makefile.am b/simmol/Makefile.am
+index 4d61920..632feba 100644
+--- a/simmol/Makefile.am
++++ b/simmol/Makefile.am
+@@ -1,7 +1,7 @@
+ INCLUDES = $(TCL_INCLUDES) -I../minuit
+ LIBS = $(TCL_LIBS)
+-CFLAGS=-g -O2 -Wall -DNO_CONST
+-CXXFLAGS=-g -O0 -Wall -DNO_CONST
++AM_CFLAGS=-g -O2 -Wall -DNO_CONST
++AM_CXXFLAGS=-g -O0 -Wall -DNO_CONST
+ bin_PROGRAMS = simmol
+ noinst_LIBRARIES = libsimmol.a
+ 
+diff --git a/simmol/backbone.cc b/simmol/backbone.cc
+index 88261e0..c3cf714 100644
+--- a/simmol/backbone.cc
++++ b/simmol/backbone.cc
+@@ -23,10 +23,10 @@
+ #include <fstream>
+ #include <math.h>
+ #include <stdlib.h>
+-#include <fstream.h>
+ #include <ctype.h>
+ #include "euler.h"
+ #include "molecule.h"
++using namespace std;
+ 
+ /* The distances in atomtype.h must be multiplied with 0.004
+    to be converted to Aangstroems */
+diff --git a/simmol/commands.cc b/simmol/commands.cc
+index 8650e1e..d6d3a18 100644
+--- a/simmol/commands.cc
++++ b/simmol/commands.cc
+@@ -31,6 +31,7 @@
+ #include "descriptor.h"
+ #include "vector3.h"
+ #include "molecule.h"
++using namespace std;
+ 
+ 
+ int tclMload(ClientData data,Tcl_Interp* interp,int argc, char *argv[])
+diff --git a/simmol/complx.h b/simmol/complx.h
+index 631ab10..09a5450 100644
+--- a/simmol/complx.h
++++ b/simmol/complx.h
+@@ -24,7 +24,8 @@
+ #define __COMPLX_H
+ 
+ #include <math.h>
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ 
+ #ifdef DEFINE_MATHCONST
+ #define M_E             2.7182818284590452354
+diff --git a/simmol/descriptor.cc b/simmol/descriptor.cc
+index 468be77..8e315b4 100644
+--- a/simmol/descriptor.cc
++++ b/simmol/descriptor.cc
+@@ -21,9 +21,10 @@
+     Descriptor is the internal list of allocated molecules.
+ */
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <stdlib.h>
+ #include "descriptor.h"
++using namespace std;
+ 
+ Descriptor desc;
+ 
+diff --git a/simmol/elements.cc b/simmol/elements.cc
+index 817212f..ca321ba 100644
+--- a/simmol/elements.cc
++++ b/simmol/elements.cc
+@@ -19,7 +19,7 @@
+     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA  
+ */
+ #include <iomanip>
+-#include <iostream.h>
++#include <iostream>
+ #include <math.h>
+ #include <ctype.h>
+ #include <stdlib.h>
+@@ -29,6 +29,7 @@
+ #include "elements.h"
+ #include "tensors.h"
+ #include "jcouplings.h"
++using namespace std;
+ 
+ 
+ int Atom::getsecondary_structuretype()
+@@ -94,7 +95,7 @@ Atom::Atom(const vector<double>& p) : plane(0)
+ 
+ ostream& operator << (ostream& out, const Atom& atom)
+ {
+-  char *p;
++  const char *p;
+   static int atomno = 1;
+   int flags;
+   
+diff --git a/simmol/geomview.cc b/simmol/geomview.cc
+index e0e8eef..831d316 100644
+--- a/simmol/geomview.cc
++++ b/simmol/geomview.cc
+@@ -20,12 +20,13 @@
+     
+ */
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <stdlib.h>
+ #include <math.h>
+ #include <ctype.h>
+ #include "euler.h"
+ #include "geomview.h"
++using namespace std;
+ 
+ const char *Geomview_begin = 
+ "(backcolor \"World\" 1.000000 1.000000 1.000000)\n"
+diff --git a/simmol/geomview.h b/simmol/geomview.h
+index a08d65a..8f78659 100644
+--- a/simmol/geomview.h
++++ b/simmol/geomview.h
+@@ -34,8 +34,9 @@
+ #include "container.h"
+ #endif
+ 
+-#include <iostream.h>
+-#include <fstream.h>
++#include <iostream>
++#include <fstream>
++using namespace std;
+ 
+ /* Writes a OOGL object to a file
+ 
+diff --git a/simmol/libsimmol.cc b/simmol/libsimmol.cc
+index e11bd90..84cf942 100644
+--- a/simmol/libsimmol.cc
++++ b/simmol/libsimmol.cc
+@@ -20,12 +20,13 @@
+     
+ */
+ 
+-#include <iostream.h> 
++#include "config.h"
++#include <iostream> 
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <tcl.h>
+-#include "config.h"
++using namespace std;
+ 
+ extern void RegisterCommands_commands(Tcl_Interp* interp);
+ extern void RegisterCommands_primitives(Tcl_Interp* interp);
+diff --git a/simmol/main.cc b/simmol/main.cc
+index 0e0c615..f7f724f 100644
+--- a/simmol/main.cc
++++ b/simmol/main.cc
+@@ -20,12 +20,13 @@
+     
+ */
+ 
+-#include <iostream.h> 
++#include "config.h"
++#include <iostream> 
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <tcl.h>
+-#include "config.h"
++using namespace std;
+ 
+ extern void RegisterCommands_commands(Tcl_Interp* interp);
+ extern void RegisterCommands_primitives(Tcl_Interp* interp);
+diff --git a/simmol/make.cc b/simmol/make.cc
+index 3e94d66..c3c4bd2 100644
+--- a/simmol/make.cc
++++ b/simmol/make.cc
+@@ -19,12 +19,11 @@
+     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ 
+-#include <iomanip.h>
++#include <iomanip>
+ #include <strstream>
+ #include <fstream>
+ #include <math.h>
+ #include <stdlib.h>
+-#include <fstream.h>
+ #include <ctype.h>
+ #include <tcl.h>
+ #include <string.h>
+@@ -35,6 +34,7 @@
+ #include "tensors.h"
+ #include "jcouplings.h"
+ 
++using namespace std;
+ 
+ #define Cos(a) cos((a)*M_PI/360.0)
+ #define Sin(a) sin((a)*M_PI/360.0)
+diff --git a/simmol/matrix.h b/simmol/matrix.h
+index a997a61..a58fc56 100644
+--- a/simmol/matrix.h
++++ b/simmol/matrix.h
+@@ -23,8 +23,10 @@
+ #ifndef __MATRIX_H	 
+ #define __MATRIX_H
+ 
+-#include <iostream.h>
++#include <iostream>
++#include <stdlib.h>
+ #include <memory.h>
++using namespace std;
+ 
+ 
+ template <class T> class matrix {
+diff --git a/simmol/molecule.cc b/simmol/molecule.cc
+index 0500162..c75ad52 100644
+--- a/simmol/molecule.cc
++++ b/simmol/molecule.cc
+@@ -19,12 +19,11 @@
+     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ 
+-#include <iomanip.h>
++#include <iomanip>
+ #include <strstream>
+ #include <fstream>
+ #include <math.h>
+ #include <stdlib.h>
+-#include <fstream.h>
+ #include <ctype.h>
+ #include <tcl.h>
+ #include <string.h>
+@@ -34,6 +33,7 @@
+ #include "descriptor.h"
+ #include "tensors.h"
+ #include "jcouplings.h"
++using namespace std;
+ 
+ 
+ #define Cos(a) cos((a)*M_PI/360.0)
+diff --git a/simmol/primitives.cc b/simmol/primitives.cc
+index 195af7f..df876a5 100644
+--- a/simmol/primitives.cc
++++ b/simmol/primitives.cc
+@@ -28,6 +28,7 @@
+ #include "vector3.h"
+ #include "euler.h"
+ #include "matrix.h"
++using namespace std;
+ 
+ #define TYPE_FLOAT  3
+ #define TYPE_VECTOR 1
+diff --git a/simmol/spinsys.cc b/simmol/spinsys.cc
+index f811b24..06b4c75 100644
+--- a/simmol/spinsys.cc
++++ b/simmol/spinsys.cc
+@@ -24,12 +24,13 @@
+ */
+ 
+ #include <stdlib.h>
+-#include <iostream.h>
+-#include <iomanip.h>
++#include <iostream>
++#include <iomanip>
+ #include <string.h>
+ #include <stdio.h>
+ #include <assert.h>
+ #include "spinsys.h"
++using namespace std;
+ 
+ Hash::Hash(int _nlist=101) : nlist(_nlist), curr(0), nnames(0)
+ { 
+diff --git a/simmol/spinsys.h b/simmol/spinsys.h
+index d863af0..4dcea0a 100644
+--- a/simmol/spinsys.h
++++ b/simmol/spinsys.h
+@@ -26,8 +26,9 @@
+ #ifndef __SPINSYS_H
+ #define __SPINSYS_H
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <stdio.h>
++using namespace std;
+ 
+ #include "atomtype.h"
+ const int MAX_NUC_LEN = 16;
+diff --git a/simmol/vector3.cc b/simmol/vector3.cc
+index f13c5ea..0376e90 100644
+--- a/simmol/vector3.cc
++++ b/simmol/vector3.cc
+@@ -20,10 +20,11 @@
+     
+ */
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include <stdlib.h>
+ #include <math.h>
+ #include "vector3.h"
++using namespace std;
+ 
+ double norm(const vector<double>& v)
+ {
+diff --git a/simplot/Makefile.am b/simplot/Makefile.am
+index a36f260..4b34100 100644
+--- a/simplot/Makefile.am
++++ b/simplot/Makefile.am
+@@ -1,6 +1,6 @@
+ INCLUDES = @GTK_CFLAGS@ -I../simpson
+ 
+-CFLAGS=@CFLAGS_STATIC@ @CFLAGS@
++AM_CFLAGS=@CFLAGS_STATIC@ @CFLAGS@
+ LIBS=@LIBS@ @LIBS_STATIC@ $(BZLIB)
+ 
+ EXTRA_DIST = simplot.glade Makefile.win32 Makefile.osx
+diff --git a/simpson/Makefile.am b/simpson/Makefile.am
+index b19a781..c4caed9 100644
+--- a/simpson/Makefile.am
++++ b/simpson/Makefile.am
+@@ -1,8 +1,8 @@
+-INCLUDES = -I../f2c $(TCL_INCLUDES) -I../minuit
++INCLUDES = -I${incudedir}/f2c $(TCL_INCLUDES) -I../minuit
+ TCLSRC=csafit.tcl ftools.tcl main.tcl misc.tcl simpson.tcl rfshapes.tcl
+ simbio_TCLSRC=csafit.tcl ftools.tcl misc.tcl simpson.tcl rfshapes.tcl simbio_main.tcl
+ 
+-CFLAGS=@CFLAGS@ -DNO_CONST
++AM_CFLAGS=@CFLAGS@ -DNO_CONST
+ LIBS=@LIBS@ $(LIB_SOCKET) $(LIBLAPACK) $(LIBBLAS)
+ 
+ EXTRA_LTLIBRARIES=libsimpson.la
+@@ -52,18 +52,18 @@ simbio_SOURCES = cm.h defs.h ham.h matrix.h sim.h cryst.h tclcmd.h \
+   atom.h rfshapes.h rfshapes.c OCroutines.h OCroutines.c rfprof.c
+ 
+ simpson_LDADD =  $(GD_LIB) $(LIBG2C) \
+-  ../f2c/libf2c.a  $(TCL_LIB_SPEC) $(MINUIT_LIB) -lm
++  -lf2c  $(TCL_LIB_SPEC) $(MINUIT_LIB) -lm
+ 
+ simbio_LIBS = @LIBS@ @LIBS_STATIC@
+ simbio_LDADD =  $(GD_LIB) \
+-  ../f2c/libf2c.a  $(TCL_LIB_SPEC) $(MINUIT_LIB) \
++  -lf2c  $(TCL_LIB_SPEC) $(MINUIT_LIB) \
+   ../simmol/libsimmol.a -lm $(TK_LIB_SPEC) $(OPENGL_LIB) $(LIBG2C) 
+ 
+ libsimpson_la_SOURCES = $(simpson_SOURCES) 
+ libsimpson_la_CFLAGS = -DLIBSIMPSON
+ libsimpson_la_LDFLAGS = -release $(VERSION)
+-libsimpson_la_LIBADD = ../gd1.4/libgd.a \
+-  ../f2c/libf2c.a ../minuit/minuit/code/libminuit.a
++libsimpson_la_LIBADD = $(GD_LIB) \
++  -lf2c -lminuit
+ 
+ simdps_SOURCES = simdps.c simdpstcl.c
+ simdps_LDADD = $(TCL_LIB_SPEC) -lm
+diff --git a/simpson/simpson.c b/simpson/simpson.c
+index e613806..c9975d9 100644
+--- a/simpson/simpson.c
++++ b/simpson/simpson.c
+@@ -85,7 +85,11 @@ void putbits(char *bits,int e)
+ 
+ #ifndef DISABLE_NETWORK
+ 
++#ifdef USEPORT64
++#define DEFAULT_PORT 3264
++#else
+ #define DEFAULT_PORT 3265
++#endif
+ #define SIMPSON_ID 15273
+ 
+ #ifndef STDIN_FILENO
+diff --git a/vnmrtools/Makefile.am b/vnmrtools/Makefile.am
+index 79bb7c5..61084aa 100644
+--- a/vnmrtools/Makefile.am
++++ b/vnmrtools/Makefile.am
+@@ -1,4 +1,4 @@
+-EXTRA_DIST = README.vnmrtools create2d create2dph rt2d rt2dph savefid savespe
++EXTRA_DIST = create2d create2dph rt2d rt2dph savefid savespe
+ LIBS= @LIBS@ -lm
+ bin_SCRIPTS = create2d create2dph rt2d rt2dph savefid savespe README.vnmrtools
+ 
