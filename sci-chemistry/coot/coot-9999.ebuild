@@ -2,9 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="3"
 
-inherit autotools base versionator subversion
+PYTHON_DEPEND="2"
+
+inherit autotools base versionator python subversion
 
 MY_S2_PV=$(replace_version_separator 2 - ${PV})
 MY_S2_P=${PN}-${MY_S2_PV/pre1/pre-1}
@@ -28,6 +30,7 @@ SCIDEPS="
 	>=sci-libs/clipper-20090520
 	>=sci-libs/coot-data-2
 	>=sci-libs/gsl-1.3
+	sci-libs/mmdb
 	sci-chemistry/reduce
 	sci-chemistry/refmac
 	sci-chemistry/probe"
@@ -61,9 +64,9 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}"
 
-PATCHES=(
-	"${FILESDIR}"/${PV}-rappermc.patch
-	)
+pkg_setup() {
+	python_set_active_version 2
+}
 
 src_unpack() {
 	subversion_src_unpack
@@ -77,7 +80,7 @@ src_prepare() {
 	sed -i \
 		-e "s:lfftw:lsfftw:g" \
 		-e "s:lrfftw:lsrfftw:g" \
-		"${S}"/macros/clipper.m4 || die
+		"${S}"/macros/clipper.m4
 
 	cat >> src/svn-revision.cc <<- EOF
 	extern "C" {
@@ -96,13 +99,13 @@ src_configure() {
 	# Yes, this is broken behavior.
 	econf \
 		--includedir='${prefix}/include/coot' \
-		--with-gtkcanvas-prefix=/usr \
-		--with-clipper-prefix=/usr \
-		--with-mmdb-prefix=/usr \
-		--with-ssmlib-prefix=/usr \
-		--with-gtkgl-prefix=/usr \
+		--with-gtkcanvas-prefix="${EPREFIX}"/usr \
+		--with-clipper-prefix="${EPREFIX}"/usr \
+		--with-mmdb-prefix="${EPREFIX}"/usr \
+		--with-ssmlib-prefix="${EPREFIX}"/usr \
+		--with-gtkgl-prefix="${EPREFIX}"/usr \
 		--with-guile \
-		--with-python=/usr \
+		--with-python="${EPREFIX}"/usr \
 		--with-guile-gtk \
 		--with-gtk2 \
 		--with-pygtk
@@ -110,8 +113,8 @@ src_configure() {
 
 src_compile() {
 	emake || die "emake failed"
-
-	cp "${S}"/src/coot.py python/ || die
+	python_convert_shebangs $(python_get_version) src/coot_gtk2.py
+	cp "${S}"/src/coot_gtk2.py python/coot.py || die
 }
 
 src_test() {
@@ -124,8 +127,9 @@ src_test() {
 	export COOT_DATA_DIR="${S}"
 	export COOT_PYTHON_DIR="${S}/python"
 	export PYTHONPATH="${COOT_PYTHON_DIR}:${PYTHONPATH}"
-	export PYTHONHOME=/usr
+	export PYTHONHOME="${EPREFIX}"/usr
 	export CCP4_SCR="${T}"/coot_test
+	export CLIBD_MON="${EPREFIX}/usr/share/ccp4/data/monomers/"
 
 	export COOT_TEST_DATA_DIR="${S}"/data/greg-data
 
@@ -150,6 +154,7 @@ src_test() {
 	einfo "PYTHONPATH $PYTHONPATH"
 	einfo "PYTHONHOME $PYTHONHOME"
 	einfo "CCP4_SCR ${CCP4_SCR}"
+	einfo "CLIBD_MON ${CLIBD_MON}"
 
 	"${S}"/src/coot-real --no-graphics --script command-line-greg.scm || die
 }
