@@ -1,0 +1,84 @@
+--- cgnstools-2.5.4.orig/utilities/tecplot_to_cgns.c
++++ cgnstools-2.5.4/utilities/tecplot_to_cgns.c
+@@ -60,11 +60,11 @@
+     }
+ }
+ 
+-/*---------- getline ------------------------------------------------
++/*---------- getlineCGNS ------------------------------------------------
+  * get next non-blank line
+  *-------------------------------------------------------------------*/
+ 
+-static char *getline (FILE *fp)
++static char *getlineCGNS (FILE *fp)
+ {
+     char *p;
+ 
+@@ -285,7 +285,7 @@
+         cgnsImportBase (basename);
+ 
+     nz = 0;
+-    p = getline (fp);
++    p = getlineCGNS (fp);
+ 
+     while (p != NULL) {
+ 
+@@ -295,14 +295,14 @@
+             for (p += 9; *p && isspace(*p); p++)
+                 ;
+             if (*p++ != '=') {
+-                p = getline (fp);
++                p = getlineCGNS (fp);
+                 continue;
+             }
+             nvar = 0;
+             xloc = yloc = zloc = -1;
+             while (1) {
+                 if ((s = getvar (&p)) == NULL) {
+-                    p = getline (fp);
++                    p = getlineCGNS (fp);
+                     if (p == NULL || (s = getvar (&p)) == NULL) break;
+                 }
+                 if (0 == strcasecmp ("x", s))
+@@ -337,7 +337,7 @@
+                         cgnsImportFatal ("end of file while reading zone");
+                     ungetc (n, fp);
+                     if (!isalpha (n)) break;
+-                    p = getline (fp);
++                    p = getlineCGNS (fp);
+                     continue;
+                 }
+                 switch (n) {
+@@ -389,7 +389,7 @@
+             if (nn == -1) {
+                 if (ni < 2 || nj < 2 || nk < 2) {
+                     printf("missing I, J and K - skipping zone\n");
+-                    p = getline(fp);
++                    p = getlineCGNS(fp);
+                     continue;
+                 }
+                 nn = ni * nj * nk;
+@@ -400,12 +400,12 @@
+                 if (nn < 3 || ne < 1 || et < 0) {
+                     printf("%d nodes, %d %s elements - skipping zone\n",
+                         nn, ne, elemname);
+-                    p = getline(fp);
++                    p = getlineCGNS(fp);
+                     continue;
+                 }
+                 if (et < 2) {
+                     printf ("%s elements - skipping zone\n", elemname);
+-                    p = getline (fp);
++                    p = getlineCGNS (fp);
+                     continue;
+                 }
+             }
+@@ -478,7 +478,7 @@
+             cgnsImportWrite ();
+         }
+ 
+-        p = getline (fp);
++        p = getlineCGNS (fp);
+     }
+ 
+     fclose (fp);
