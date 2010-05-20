@@ -1,21 +1,6 @@
-diff -U 3 -H -d -r -N -- mpir-1.2.2.orig/Makefile.am mpir-1.2.2/Makefile.am
---- mpir-1.2.2.orig/Makefile.am	2009-12-17 21:04:02.000000000 +0100
-+++ mpir-1.2.2/Makefile.am	2009-12-17 21:05:27.000000000 +0100
-@@ -97,10 +97,6 @@
- 
- SUBDIRS = tests
- 
--if BUILD_YASM
--SUBDIRS += yasm
--endif
--
- SUBDIRS += mpn mpz mpq mpf printf scanf cxx mpbsd demos tune doc bench
- 
- EXTRA_DIST = configfsf.guess configfsf.sub .gdbinit INSTALL.autoconf
-diff -U 3 -H -d -r -N -- mpir-1.2.2.orig/configure.in mpir-1.2.2/configure.in
---- mpir-1.2.2.orig/configure.in	2009-12-17 21:04:02.000000000 +0100
-+++ mpir-1.2.2/configure.in	2009-12-17 21:05:00.000000000 +0100
-@@ -1586,8 +1586,6 @@
+--- configure.in.orig	2010-05-20 22:50:45.883576257 +1200
++++ configure.in	2010-05-20 22:51:52.405575089 +1200
+@@ -1596,8 +1596,6 @@
      ;;
  esac
  
@@ -24,7 +9,7 @@ diff -U 3 -H -d -r -N -- mpir-1.2.2.orig/configure.in mpir-1.2.2/configure.in
  CFLAGS_or_unset=${CFLAGS-'(unset)'}
  CPPFLAGS_or_unset=${CPPFLAGS-'(unset)'}
  
-@@ -1985,7 +1983,7 @@
+@@ -1995,7 +1993,7 @@
  GMP_CHECK_LIBM_FOR_BUILD
  
  
@@ -33,7 +18,7 @@ diff -U 3 -H -d -r -N -- mpir-1.2.2.orig/configure.in mpir-1.2.2/configure.in
  
  # How to assemble, used with CFLAGS etc, see mpn/Makeasm.am.
  # Using the compiler is a lot easier than figuring out how to invoke the
-@@ -3346,9 +3344,6 @@
+@@ -3373,9 +3371,6 @@
  # FIXME: Upcoming version of autoconf/automake don't like broken lines.
  #        Right now automake isn't accepting the new AC_CONFIG_FILES scheme.
  
@@ -43,12 +28,24 @@ diff -U 3 -H -d -r -N -- mpir-1.2.2.orig/configure.in mpir-1.2.2/configure.in
  if test $enable_fat = yes; then
  YASM_MAC_INC=yasm_mac.inc.fat
  else
-diff -U 3 -H -d -r -N -- mpir-1.2.2.orig/mpn/Makeasm.am mpir-1.2.2/mpn/Makeasm.am
---- mpir-1.2.2.orig/mpn/Makeasm.am	2009-12-17 21:04:01.000000000 +0100
-+++ mpir-1.2.2/mpn/Makeasm.am	2009-12-17 21:06:39.000000000 +0100
+--- mpn/Makeasm.am.orig	2010-05-20 22:52:23.080577062 +1200
++++ mpn/Makeasm.am	2010-05-20 22:53:17.802576960 +1200
 @@ -111,4 +111,4 @@
  #  .as assembler, assembled with Yasm
  
  .as.lo:
 -	$(LIBTOOL) --mode=compile --tag=CC $(top_srcdir)/strip_fPIC.sh $(top_builddir)$(MPIR_AS) -I $(top_builddir) $(OBJECT_FORMAT) $(GSYM_FLAG) -o $@ `test -f '$<' || echo '$(srcdir)/'`$<
 +	$(LIBTOOL) --mode=compile --tag=CC $(top_srcdir)/strip_fPIC.sh $(MPIR_AS) -I $(top_builddir) $(OBJECT_FORMAT) $(GSYM_FLAG) -o $@ `test -f '$<' || echo '$(srcdir)/'`$<
+--- Makefile.am.orig	2010-05-20 22:57:02.288576440 +1200
++++ Makefile.am	2010-05-20 22:57:14.616576831 +1200
+@@ -93,10 +93,6 @@
+ 
+ SUBDIRS = tests
+ 
+-if BUILD_YASM
+-SUBDIRS += yasm
+-endif
+-
+ SUBDIRS += mpn mpz mpq mpf printf scanf cxx demos tune doc
+ 
+ EXTRA_DIST = configfsf.guess configfsf.sub .gdbinit INSTALL.autoconf

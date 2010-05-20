@@ -2,6 +2,14 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mpir-2.0.0 (20 May 2010)
+
+  20 May 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  -files/mpir-1.2.2-yasm.patch, +mpir-2.0.0.ebuild,
+  +files/mpir-2.0.0-yasm.patch:
+  Version bump to 2.0.0, executable stacks removed on some CPU. Remove
+  lonely patch.
+
   22 Feb 2010; François Bissey <f.r.bissey@massey.ac.nz>
   -mpir-1.2.2.ebuild, mpir-1.3.1.ebuild:
   Make the dependency on yasm on x86/amd64 olnly. This will allow testing on
