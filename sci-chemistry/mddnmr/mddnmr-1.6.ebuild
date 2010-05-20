@@ -8,7 +8,7 @@ REL="06March09"
 MY_P="${PN}${PV}"
 
 DESCRIPTION="Program for processing of non-uniformly sampled (NUS) multidimensional NMR spectra"
-HOMEPAGE="www.nmr.gu.se/~mdd/"
+HOMEPAGE="http://www.nmr.gu.se/~mdd/"
 SRC_URI="http://www.nmr.gu.se/~mdd/Downloads/${MY_P}_${REL}.tgz"
 
 SLOT="0"
