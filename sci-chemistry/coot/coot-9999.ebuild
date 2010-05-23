@@ -68,6 +68,10 @@ pkg_setup() {
 	python_set_active_version 2
 }
 
+PATCHES=(
+	"${FILESDIR}"/${PV}-linking.patch
+	)
+
 src_unpack() {
 	subversion_src_unpack
 	use test && unpack ${A}
