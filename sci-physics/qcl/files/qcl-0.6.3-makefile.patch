@@ -1,0 +1,22 @@
+--- Makefile.orig	2010-05-26 18:06:39.000000000 +0100
++++ Makefile	2010-05-26 18:17:08.000000000 +0100
+@@ -32,7 +32,7 @@
+ 
+ #DEBUG = -g -pg -DQCL_DEBUG -DQC_DEBUG
+ #DEBUG = -g -DQCL_DEBUG -DQC_DEBUG
+-DEBUG = -O2 -g -DQCL_DEBUG -DQC_DEBUG
++DEBUG = -DQCL_DEBUG -DQC_DEBUG
+ #DEBUG = -O2
+ 
+ # Plotting support 
+@@ -73,8 +73,8 @@
+ 
+ #CXX = g++
+ #CPP = $(CC) -E
+-CXXFLAGS = -c $(ARCHOPT) -Wall $(DEBUG) $(PLOPT) $(RLOPT) $(IRQOPT) -I$(QCDIR) -DDEF_INCLUDE_PATH="\"$(QCLDIR)\""
+-LDFLAGS = $(ARCHOPT) -L$(QCDIR) $(DEBUG) $(PLLIB) -lm -lfl -lqc $(RLLIB) 
++CXXFLAGS += -c $(PLOPT) $(DEBUG) $(RLOPT) $(IRQOPT) -I$(QCDIR) -DDEF_INCLUDE_PATH="\"$(QCLDIR)\""
++LDFLAGS += -L$(QCDIR) $(PLLIB) -lm -lfl -lqc $(RLLIB) 
+ 
+ FILESCC = $(wildcard *.cc)
+ FILESH = $(wildcard *.h)
