@@ -9,7 +9,7 @@ inherit java-pkg-2 java-ant-2 versionator
 MY_PV=$(replace_all_version_separators '_')
 
 DESCRIPTION="Open-source graph component for Java"
-SRC_URI="http://www.jgraph.com/downloads/jgraphx/archive/?dir=&download=${PN}-${MY_PV}.zip\
+SRC_URI="http://www.jgraph.com/downloads/jgraphx/archive/${PN}-${MY_PV}.zip\
 		-> ${P}.zip"
 HOMEPAGE="http://www.jgraph.com"
 IUSE="doc examples source"
