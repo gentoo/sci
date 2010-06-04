@@ -1,6 +1,12 @@
 # ChangeLog for sci-biology/foldingathome
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/foldingathome/ChangeLog,v 1.27 2008/11/30 19:46:50 je_fro Exp $
+
+*foldingathome-6.29 (04 Jun 2010)
+
+  04 Jun 2010; Alexey Shvetsov <alexxy@gentoo.org>
+  -foldingathome-6.24.ebuild, +foldingathome-6.29.ebuild:
+  version bump
 
 *foldingathome-6.24 (04 Oct 2009)
 

@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/foldingathome/foldingathome-6.24beta.ebuild,v 1.0 2009/05/10 splat Exp $
 
@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="Folding@Home is a distributed computing project for protein folding."
 HOMEPAGE="http://folding.stanford.edu/FAQ-SMP.html"
-SRC_URI="http://www.stanford.edu/group/pandegroup/folding/release/FAH6.24beta-Linux.tgz"
+SRC_URI="http://www.stanford.edu/group/pandegroup/folding/release/FAH${PV}-Linux.tgz"
 
 LICENSE="folding-at-home"
 SLOT="0"
