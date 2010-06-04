@@ -25,10 +25,10 @@ S="${WORKDIR}"
 
 src_install() {
 	exeinto ${I}
-	newexe "${FILESDIR}"/${PV}/initfolding initfolding
+	newexe "${FILESDIR}"/initfolding initfolding
 	doexe fah6 mpiexec
-	newconfd "${FILESDIR}"/${PV}/folding-conf.d foldingathome
-	newinitd "${FILESDIR}"/${PV}/fah-init foldingathome
+	newconfd "${FILESDIR}"/folding-conf.d foldingathome
+	newinitd "${FILESDIR}"/fah-init foldingathome
 }
 
 pkg_preinst() {
