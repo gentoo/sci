@@ -35,6 +35,7 @@ RDEPEND="${DEPEND}
 	app-editors/nedit
 	dev-lang/tk
 	dev-tcltk/blt
+	!sci-chemistry/talos+
 	sys-libs/ncurses
 	x11-libs/libX11
 	amd64? (
@@ -151,16 +152,3 @@ src_install() {
 	exeinto ${NMRBASE}/nmrbin.linux9
 	doexe "${T}"/nmrWish || die
 }
-
-#pkg_postinst() {
-#	ewarn "Before using NMRPipe applications, users must source the following"
-#	ewarn "csh script, which will set the necessary environment variables:"
-#	ewarn "\t${NMRBASE}/com/nmrInit.com"
-#	ewarn
-#	ewarn "Be aware that this script redefines the locations of the Tcl"
-#	ewarn "libraries. This could break other non-NMRPipe Tcl applications"
-#	ewarn "run in the same session."
-#	ewarn
-#	ewarn "Using Dynamo does not require running an additional initialisation"
-#	ewarn "script. The necessary environment variables should already be set."
-#}
