@@ -124,10 +124,10 @@ src_install() {
 	# Remove installation log files.
 	rm README_NMRPIPE_USERS *.log || die "Failed to remove installation log."
 	# Remove unused binaries
-	rm talos/bin/TALOS.{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
+	rm talos*/bin/TALOS.{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
 
 	# Set the correct path to NMRPipe in the auxiliary scripts.
-	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc -type f); do
+	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc talosplus/com -type f); do
 		sed -e "s%/u/delaglio%${ENMRBASE}%" -i ${i} || die \
 			"Failed patching scripts."
 	done
@@ -147,7 +147,7 @@ src_install() {
 
 	# fperms does not chmod nmrwish
 #	fperms -v 775 ${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
-	chmod -c 775 "${ED}"/${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
+	chmod -c 775 "${ED}"/${NMRBASE}/{talos*/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
 
 	exeinto ${NMRBASE}/nmrbin.linux9
 	doexe "${T}"/nmrWish || die

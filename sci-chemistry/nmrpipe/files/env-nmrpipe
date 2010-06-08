@@ -9,6 +9,9 @@ PATH="${NMRBASE}/bin"
 # Auxiliary NMRPipe scripts
 # PATH="${PATH}:${NMRBASE}/com"
 
+TALOS_DIR="${NMRBASE}/talos"
+TALOSP_DIR="${NMRBASE}/talosplus"
+
 # Dynamo
 DYNAMO_DIR="${NMRBASE}/dynamo"
 DYNAMO_PARAMS="${DYNAMO_DIR}/params"
@@ -21,3 +24,4 @@ PDBH_BASE="${NMRBASE}/pdb"
 PDBH_DIR="${PDBH_BASE}/pdbH"
 PDBH_LIST="${PDBH_BASE}/pdbH.list"
 PDBH_TAB="${PDBH_BASE}/resolution.tab"
+
