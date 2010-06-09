@@ -1,12 +1,15 @@
 # Platform
 BINTYPE="linux9"
+NMRBINTYPE="linux9"
 PATH="/opt/nmrpipe/com:/opt/nmrpipe/bin:/opt/nmrpipe/dynamo/tcl"
 
 # NMRPipe
 NMRBASE="/opt/nmrpipe"
 NMRTXT="/opt/nmrpipe/nmrtxt"
 MANPATH="/opt/nmrpipe/man"
-# Auxiliary NMRPipe scripts
+
+TALOS_DIR="/opt/nmrpipe/talos"
+TALOSP_DIR="/opt/nmrpipe/talosplus"
 
 # Dynamo
 DYNAMO_DIR="/opt/nmrpipe/dynamo"
