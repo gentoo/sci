@@ -85,3 +85,9 @@
 # jlec@j-schmitz.net
 # experimental versions
 =sci-chemistry/refmac-5.6*
+
+# Francois Bissey (kiwifb) (12 Jun 2010)
+# f.r.bissey@massey.ac.nz
+# mask paraview-3.8.0 as there are no stable versions in the tree
+# Avoid accidental upgrade
+=sci-visualization/paraview-3.8.0
