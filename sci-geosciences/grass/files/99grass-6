@@ -1,3 +1,0 @@
-GRASS_LD_LIBRARY_PATH="/usr/grass60/lib"
-LDPATH="/usr/grass60/lib"
-CONFIG_PROTECT="/usr/grass60/etc"
