@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>no-herd</herd>
+<maintainer><email>mail@akhuettel.de</email></maintainer>
+        <use>
+                <flag name='schematics'>Use sci-electronics/geda for schematics editing</flag>
+                <flag name='waveform'>Use sci-electronics/gwave for waveform display</flag>
+	</use>
+</pkgmetadata>

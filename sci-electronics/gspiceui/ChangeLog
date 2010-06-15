@@ -1,0 +1,29 @@
+# ChangeLog for sci-electronics/gspiceui
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*gspiceui-0.9.98 (15 Jun 2010)
+
+  15 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
+  +gspiceui-0.9.98.ebuild, +metadata.xml:
+  Moved to sci overlay.
+
+  06 Dec 2009; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
+  -gspiceui-0.9.65.ebuild, +gspiceui-0.9.98.ebuild, metadata.xml:
+  Version bump, plus conversion to EAPI 2 and more improvements. Thanks to
+  Rafael G. Martins.
+
+  19 Nov 2008; Thomas Beierlein (TomJBE) <tb@forth-ev.de>
+  -gspiceui-0.8.90.ebuild, +gspiceui-0.9.65.ebuild:
+  Version bump. changed SRC_URI to sourceforge
+
+  13 Jan 2008; Jakub Moc <jakub@gentoo.org> gspiceui-0.8.90.ebuild:
+  Fix wxGTK handling
+
+  05 Apr 2007; Jakub Moc <jakub@gentoo.org> gspiceui-0.8.90.ebuild:
+  Fix desktop entry
+
+  21 Dec 2006; Markus Ullmann <jokey@gentoo.org> +gspiceui-0.8.90.ebuild,
+  +metadata.xml:
+  Import for bug #74201
+
