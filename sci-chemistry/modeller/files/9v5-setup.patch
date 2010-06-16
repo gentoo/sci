@@ -1,0 +1,12 @@
+diff -Nu -Nu -uarN modeller-9v3.orig/src/swig/setup.py modeller-9v3/src/swig/setup.py
+--- modeller-9v4.orig/src/swig/setup.py	2008-04-15 12:57:50.000000000 +0200
++++ modeller-9v4/src/swig/setup.py	2008-04-15 12:57:59.000000000 +0200
+@@ -19,7 +19,7 @@
+                 include_dirs=['../include', '../include/%s' % exetype] + \
+                              glib['include_dirs'],
+                 libraries=['modeller'] + glib['libraries'],
+-                library_dirs=['../../lib/%s' % exetype] + glib['library_dirs'])
++                library_dirs=['../../lib/%s' % exetype])
+ 
+ setup(name='Modeller',
+       description='Protein structure modeling by satisfaction of ' \

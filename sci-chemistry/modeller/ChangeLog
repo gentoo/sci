@@ -1,6 +1,13 @@
 # ChangeLog for sci-chemistry/modeller
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*modeller-9.8 (16 Jun 2010)
+
+  16 Jun 2010; Justin Lecher <jlec@gentoo.org> +files/9v5-setup.patch,
+  -modeller-9.3.ebuild, -modeller-9.4.ebuild, -modeller-9.5.ebuild,
+  +modeller-9.8.ebuild:
+  Version Bump, Prefixify, keyworeded for ~-linux
 
   10 Apr 2008; Jeff Gardner <je_fro@gentoo.org> ChangeLog:
   Fixing license thanks to Justin Schmitz.
