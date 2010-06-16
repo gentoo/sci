@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ -z "$http_proxy" ]; then
-	java -jar /usr/share/josm/lib/josm.jar
-else
-	proxy_port=`echo $http_proxy|sed -e 's/.*://g'`
-	proxy_host=`echo $http_proxy|sed -e 's!\(.*://\)\?\(.*\):.*!\2!g'`
-	java -Dhttp.proxyHost=$proxy_host -Dhttp.proxyPort=$proxy_port -jar /usr/share/josm/lib/josm.jar
-fi
