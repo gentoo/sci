@@ -1,9 +1,0 @@
---- INSTALL/Makefile	2008-09-03 21:29:25.000000000 +0200
-+++ INSTALL/Makefile.new	2009-03-25 14:30:19.000000000 +0100
-@@ -1,5 +1,4 @@
- include ../make.inc
--F2CLIB       = ../F2CLIBS/libf2c.a
- 
- .SUFFIXES : .o .c 
- all:  testlsame testslamch testdlamch testsecond testdsecnd testieee testversion 
-
