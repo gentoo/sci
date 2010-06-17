@@ -16,6 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
+	dev-libs/popt
 	dev-scheme/guile
 	sci-libs/gsl"
 DEPEND="${DEPEND}"
