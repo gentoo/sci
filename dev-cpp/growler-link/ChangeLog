@@ -1,6 +1,10 @@
 # ChangeLog for dev-cpp/growler-link
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  17 Jun 2010; Justin Lecher <jlec@gentoo.org> +files/0.3.7-gcc4.patch,
+  growler-link-0.3.7.ebuild:
+  Fix for compilation with gcc4.4, #271017
 
   31 Oct 2007; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
   removed CRs from DESCRIPTION

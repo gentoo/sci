@@ -1,0 +1,36 @@
+diff --git a/lib/buffer.cxx b/lib/buffer.cxx
+index 7b9eda3..12b87ad 100644
+--- a/lib/buffer.cxx
++++ b/lib/buffer.cxx
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <cstdio>
++#include <cstring>
+ #include <memory>
+ #include <stdexcept>
+ #include <lib/unistd.h>
+diff --git a/lib/daemon.cxx b/lib/daemon.cxx
+index f289783..78d4883 100644
+--- a/lib/daemon.cxx
++++ b/lib/daemon.cxx
+@@ -18,6 +18,7 @@
+ #include <sys/stat.h>
+ #include <sys/wait.h>
+ #include <pwd.h>
++#include <cstdio>
+ 
+ #if GR_HAVE_FCNTL_H
+ #include <fcntl.h>
+diff --git a/lib/serialize.h b/lib/serialize.h
+index 8fa68f8..0e08c81 100644
+--- a/lib/serialize.h
++++ b/lib/serialize.h
+@@ -23,6 +23,7 @@
+ #include <streambuf>
+ #include <string>
+ #include <cassert>
++#include <cstdio>
+ 
+ namespace lib {
+ 
