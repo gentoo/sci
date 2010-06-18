@@ -15,7 +15,7 @@ DESCRIPTION="A package for managing hierarchical datasets built on top of the HD
 HOMEPAGE="http://www.pytables.org/"
 SRC_URI="http://www.pytables.org/download/preliminary/${MY_P}/tables-${MY_PV}.tar.gz"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 LICENSE="BSD"
 IUSE="doc examples"
 

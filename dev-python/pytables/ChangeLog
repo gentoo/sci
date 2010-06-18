@@ -4,6 +4,10 @@
 
   18 Jun 2010; Kacper Kowalik <xarthisius@gentoo.org>
   pytables-2.2_rc2.ebuild:
+  Adding dropped ~x86 keyword
+
+  18 Jun 2010; Kacper Kowalik <xarthisius@gentoo.org>
+  pytables-2.2_rc2.ebuild:
   Bump to EAPI=2, temporarily drop ~ppc, ~x86.
 
 *pytables-2.2_rc2 (18 Jun 2010)
