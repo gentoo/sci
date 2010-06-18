@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header$
 
-EAPI="1"
+EAPI=2
 PYTHON_DEPEND="2:2.4"
 SUPPORT_PYTHON_ABIS="1"
 
@@ -15,7 +15,7 @@ DESCRIPTION="A package for managing hierarchical datasets built on top of the HD
 HOMEPAGE="http://www.pytables.org/"
 SRC_URI="http://www.pytables.org/download/preliminary/${MY_P}/tables-${MY_PV}.tar.gz"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64"
 LICENSE="BSD"
 IUSE="doc examples"
 

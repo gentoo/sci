@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/pytables/ChangeLog,v 1.35 2010/02/12 04:10:58 bicatali Exp $
 
+  18 Jun 2010; Kacper Kowalik <xarthisius@gentoo.org>
+  pytables-2.2_rc2.ebuild:
+  Bump to EAPI=2, temporarily drop ~ppc, ~x86.
+
 *pytables-2.2_rc2 (18 Jun 2010)
 
   18 Jun 2010; Kacper Kowalik <xarthisius@gentoo.org>
