@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Jun 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  paraview-3.8.0.ebuild, +files/paraview-3.8.0-h5part.patch:
+  Added a fix for mpi in h5part - hopefully.
+
 *paraview-3.8.0 (11 Jun 2010)
 
   11 Jun 2010; François Bissey <f.r.bissey@massey.ac.nz>
