@@ -1,16 +1,14 @@
 #!/sbin/runscript
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 CONDOR_USER=condor
 
-node_configure() {
-    condor_configure \
-	--type=execute \
-	--central-manager=${CONDOR_CENTRAL_MANAGER} \
-	--owner=${CONDOR_USER}
-}
+CONDOR_CONFIG_LOCAL=$(condor_config_val LOCAL_CONFIG_FILE)
+CONDOR_MASTER=$(condor_config_val MASTER)
+CONDOR_RUN=$(condor_config_val RUN)
+CONDOR_LOCK=$(condor_config_val LOCK)
 
 depend() {
     need net
@@ -19,20 +17,24 @@ depend() {
 
 start() {
     ebegin "Starting condor"
-    node_configure
+    # delete current condor host, replace it with central manager
+    sed -i \
+	-e '/CONDOR_HOST/d/' \
+	-e "\$aCONDOR_HOST=${CONDOR_CENTRAL_MANAGER}" \
+	${CONDOR_CONFIG_LOCAL}
+
     pid=$(start-stop-daemon --start --quiet --user ${CONDOR_USER} \
-	--pidfile /var/run/condor.pid \
-	--exec /usr/sbin/condor_master -- ${CONDOR_OPTS})
+	--pidfile ${CONDOR_RUN}/condor.pid \
+	--exec ${CONDOR_MASTER} -- ${CONDOR_OPTS})
     retval=$?
-    echo ${CONDOR_PID} > /var/run/condor.pid
     eend ${retval}
 }
 
 stop() {
     ebegin "Stopping condor"
     start-stop-daemon --stop --quiet \
-	--pidfile /var/run/condor.pid \
-	--exec /usr/sbin/condor_master
+	--pidfile ${CONDOR_RUN}/condor.pid \
+	--exec ${CONDOR_MASTER}
     retval=$?
     [ ${retval} -eq 0 ] && rm -f /var/lock/subsys/condor
     eend ${retval}
