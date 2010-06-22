@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,6 +13,7 @@ SRC_URI="mirror://sourceforge/jwordnet/${MY_P}_src.zip
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~x86"
+IUSE=""
 
 COMMON_DEP="dev-java/commons-logging"
 DEPEND=">=virtual/jdk-1.4
@@ -44,4 +45,3 @@ src_install() {
 		jwnl_properties.dtd jwnl_properties.xsd map_properties.xml
 	dodoc changes.txt
 }
-
