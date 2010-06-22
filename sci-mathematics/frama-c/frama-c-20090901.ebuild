@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,14 +18,14 @@ IUSE="apron coq doc gappa gtk pff +why"
 RESTRICT="strip"
 
 DEPEND=">=dev-lang/ocaml-3.10.2
-        >=dev-ml/ocamlgraph-1.2
+	>=dev-ml/ocamlgraph-1.2
 		gtk? ( >=dev-ml/lablgtk-2.12 )
 		sci-mathematics/ltl2ba
 		apron? ( sci-mathematics/apron )
-        coq? ( sci-mathematics/coq )
-        gappa? ( sci-mathematics/gappalib-coq )
-        pff? ( sci-mathematics/pff )
-		why? ( sci-mathematics/why )"
+	coq? ( sci-mathematics/coq )
+	gappa? ( sci-mathematics/gappalib-coq )
+	pff? ( sci-mathematics/pff )
+	why? ( sci-mathematics/why )"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
@@ -63,7 +63,6 @@ src_install(){
 	dodoc Changelog doc/README
 
 	if use doc; then
-		dodoc doc/manuals/* 
+		dodoc doc/manuals/*
 	fi
 }
-
