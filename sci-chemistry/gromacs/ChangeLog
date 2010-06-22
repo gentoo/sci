@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*gromacs-4.0.7-r3 (22 Jun 2010)
+
+  22 Jun 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  +gromacs-4.0.7-r3.ebuild, +files/gromacs-4.0.7to2010-06-08.patch.gz:
+  added patches from stable branch
+
 *gromacs-4.0.7-r2 (26 Feb 2010)
 
   26 Feb 2010; Alexey Shvetsov <alexxy@gentoo.org> +gromacs-4.0.7-r2.ebuild:
