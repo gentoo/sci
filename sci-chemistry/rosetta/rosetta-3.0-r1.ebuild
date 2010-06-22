@@ -1,9 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 # boinc support is BROKEN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 
 EAPI="2"
 
@@ -17,7 +16,7 @@ SRC_URI="${MY_P}.tgz"
 
 LICENSE="|| ( rosetta-academic rosetta-commercial )"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS=""
 IUSE="boinc boost X mpi debug doc"
 RESTRICT="fetch"
 
@@ -147,5 +146,3 @@ my_list_append() {
 	echo "${old_value}${new_value}"
 	return 0;
 }
-
-
