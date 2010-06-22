@@ -30,9 +30,9 @@ src_compile(){
 src_install() {
 	mkdir -p "${D}"/usr/include
 	cp simclist.h "${D}"/usr/include/
-	cd ${CMAKE_BUILD_DIR}
+	cd "${CMAKE_BUILD_DIR}"
 	dolib libsimclist.so
-	cd ${S}
+	cd "${S}"
 	if use doc; then
 		dohtml -r doc/html/*
 	fi
@@ -41,4 +41,3 @@ src_install() {
 		dodoc examples/*
 	fi
 }
-
