@@ -15,6 +15,7 @@ HOMEPAGE="http://www.math.ucdavis.edu/~mkoeppe/latte/"
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="~x86 ~amd64"
+IUSE=""
 
 DEPEND="dev-libs/gmp[-nocxx]
 	>=dev-libs/ntl-5.4.2
@@ -31,7 +32,6 @@ S="${WORKDIR}/latte-for-tea-too-1.2-mk-0.9.3"
 # and based on a version that was not even released.
 
 src_prepare() {
-	cd "${S}"
 	epatch "${FILESDIR}/buildpackages.patch"
 
 	eautoreconf
@@ -46,4 +46,3 @@ src_install() {
 	# ... and get rid of minimize which is provided by 4ti2:
 	rm "${D}"/usr/bin/minimize || die "Removing minimize failed"
 }
-
