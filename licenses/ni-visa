@@ -1,0 +1,318 @@
+NATIONAL INSTRUMENTS SOFTWARE LICENSE AGREEMENT (LINUX DRIVER SOFTWARE)
+
+
+INSTALLATION NOTICE: THIS IS A CONTRACT. BEFORE YOU DOWNLOAD THE SOFTWARE AND/OR
+COMPLETE THE INSTALLATION PROCESS, CAREFULLY READ THIS AGREEMENT. BY DOWNLOADING
+THE SOFTWARE AND/OR ENTERING 'y' TO COMPLETE THE INSTALLATION PROCESS, YOU
+CONSENT TO THE TERMS OF THIS AGREEMENT AND YOU AGREE TO BE BOUND BY THIS
+AGREEMENT. IF YOU DO NOT WISH TO BECOME A PARTY TO THIS AGREEMENT AND BE BOUND
+BY ALL OF ITS TERMS AND CONDITIONS, ENTER 'n' OR 'q' TO CANCEL THE INSTALLATION
+PROCESS, DO NOT INSTALL OR USE THE SOFTWARE, AND RETURN THE SOFTWARE (INCLUDING,
+IF APPLICABLE, ALL ACCOMPANYING WRITTEN MATERIALS, ALONG WITH THEIR CONTAINERS)
+WITHIN THIRTY (30) DAYS OF RECEIPT OF THE SOFTWARE TO THE PLACE YOU OBTAINED
+THEM. ALL RETURNS SHALL BE SUBJECT TO NI'S THEN CURRENT RETURN POLICY.
+
+
+1. Definitions. As used in this Agreement, the following terms have the
+following meanings:
+
+A. "You." Means you the individual using the SOFTWARE as well as your employer
+if you are using the SOFTWARE within the scope of your employment.
+
+B. "NI." Means (i) National Instruments Corporation, a company organized under
+the laws of the State of Delaware, U.S.A., if the SOFTWARE is manufactured in
+the U.S.A.; (ii) National Instruments Ireland Resources Ltd., a company
+organized under the laws of the Republic of Ireland, if the SOFTWARE is
+manufactured in the Republic of Ireland; and (iii) National Instruments Europe
+Kft, a limited liability company organized under the laws of Hungary, if the
+SOFTWARE is manufactured in Hungary. If you are not sure where the SOFTWARE is
+manufactured, please contact National Instruments Corporation, 11500 N. Mopac
+Expressway, Austin, Texas, U.S.A. 78759-3504 (Attention: Legal Department).
+
+C. "Software." Means all files (including, but not limited to, libraries,
+modules, and programs) provided with this Agreement and which are being
+installed or otherwise used. SOFTWARE includes all Upgrades that may be provided
+by NI in its discretion.
+
+D. "Upgrade." Means any supplemental or replacement code for computer software
+you have previously licensed from NI.
+
+
+2. Grant of License. In consideration of payment of the applicable fees to NI,
+NI is willing to provide you with a limited, non-exclusive right to use the
+SOFTWARE, but only pursuant to the terms and conditions of this Agreement. The
+SOFTWARE is in "use" when loaded into temporary memory (i.e., RAM) or installed
+into permanent memory (e.g., hard disk, CD-ROM, network storage device, or other
+storage device). Floating, concurrent, or shared use is not permitted under this
+Agreement (i.e., allocating an individual license or one seat of a volume
+license to non-simultaneous use of the SOFTWARE (in whole or part) on multiple
+machines). The specific use rights granted you are as follows:
+
+You may install and use the SOFTWARE on as many computers in your workplace as
+you desire; provided, however, that you separately install the SOFTWARE (using
+the accompanying installer) on each such machine.
+
+Notes. The following applies:
+
+Source Code Component. One component of the SOFTWARE, the Kernel Abstraction
+Layer ("KAL"), is provided to you in source code form. All other components of
+the SOFTWARE are provided to you in object code form. You understand that you
+must configure and compile the KAL for use under this Agreement. This
+configuration and compilation process, however, will be completed on your behalf
+by the installer.
+
+
+3. Restrictions. You may not: (i) for those components of the SOFTWARE
+provided in object code form, reverse engineer, decompile, or disassemble the
+SOFTWARE (except to the extent such foregoing restriction is expressly
+prohibited by applicable law); (ii) sub-license, lease, or rent the SOFTWARE (in
+whole or part); (iii) (other than as expressly permitted under this Agreement)
+distribute in whole or part, modify, or create derivatives of the SOFTWARE; and
+(iv) directly or indirectly, export, re-export, download, or ship the SOFTWARE
+(in whole or part) in violation of the laws and regulations of the U.S.A. and
+the laws and regulations of the applicable jurisdiction in which you use or are
+downloading the SOFTWARE. Under no circumstance is "floating" or shared use
+permitted under this Agreement. Nothing in this Agreement, however, is intended
+to prevent you from creating your own driver interface software for use with
+other NI software and third party hardware; provided, however, that in doing so
+you do not modify or use (in whole or part) any of the SOFTWARE.
+
+
+4. Transfer. The license rights granted hereunder are non-transferable. Except
+for the installation rights granted above, you may not distribute or otherwise
+provide the SOFTWARE to any third party.
+
+
+5. Upgrades. If the SOFTWARE is an Upgrade, you may only use the SOFTWARE if
+you have (at the time you receive the Upgrade) a valid license to use the
+pre-existing SOFTWARE. Further, the license agreement accompanying the Upgrade
+applies to your use of the Upgrade. While you may continue to use the
+pre-existing SOFTWARE, you may only use it on the same machine upon which the
+Upgrade is used and the license that accompanied the pre-existing SOFTWARE will
+continue to apply to your use of the pre-existing SOFTWARE.
+
+
+6. Copyright; No Other Licenses. The SOFTWARE is owned by NI or its suppliers
+and is protected by applicable copyright laws and international treaty
+provisions. Therefore, you must treat the SOFTWARE like any other copyrighted
+material. You may, however, copy the SOFTWARE solely for backup or archival
+purposes. All rights not expressly granted to you in this Agreement are reserved
+to NI. Further, and without limiting the foregoing, no license or any right of
+any kind (whether by express license, implied license, the doctrine of
+exhaustion, or otherwise) is granted under any NI patents (whether identified
+herein or not) or other intellectual property right of NI with respect to any
+other product(s) of NI or of any third party, including without limitation, the
+right to use any of these other products.
+
+
+7. Patent and Trademark Notice. For patents covering National Instruments
+products, refer to the appropriate location: Help>>Patents in your software, the
+patents.txt file on your CD, or ni.com/patents. ComponentWorks, CVI, FieldPoint,
+IMAQ, Lookout, LabVIEW, LabWindows/CVI, Measurement Studio, NI-488.2, NI-CAN,
+NI-DAQ, NI-FBUS, NI-VISA, NI-VXI and TestStand are the trademarks of National
+Instruments Corporation. DIAdem and DASYLab are the trademarks of National
+Instruments Ireland Resources Ltd. Further, all other product and company names
+used herein are (or may be) trademarks or trade names of their respective
+companies.
+
+
+8. Limited Warranty. NI warrants, for your benefit alone, that for a period of
+ninety (90) days from the date the SOFTWARE is shipped to you (i) the SOFTWARE
+will (when used with the applicable NI hardware) perform substantially in
+accordance with the accompanying written materials, and (ii) the medium on which
+the SOFTWARE is recorded will be free from defects in materials and workmanship
+under normal use and service. Any replacement SOFTWARE will be warranted for the
+remainder of the original warranty period or thirty (30) days, whichever is
+longer. Some states/jurisdictions do not allow limitations on duration of an
+express or implied warranty, so the above or any other limitation provided
+herein may not apply to you. In such event, such warranties are limited to the
+minimum warranty period allowed by applicable law. You must obtain a Return
+Material Authorization number from NI before returning the SOFTWARE under
+warranty to NI and you agree to pay expenses for shipment to and from NI. The
+Limited Warranty is void if failure of the SOFTWARE has resulted from accident,
+abuse, misapplication, improper calibration by you, third party products (i.e.,
+hardware or software) used by you which are not intended by National Instruments
+for use with the SOFTWARE, utilization of an improper hardware or software key
+(if applicable), or unauthorized maintenance of the SOFTWARE.
+
+
+9. Customer Remedies. NI's sole obligation (and your sole remedy) with respect
+to the foregoing Limited Warranty shall be to, at NI's option, return the fees
+paid or repair/replace the SOFTWARE, provided that NI receives written notice of
+applicable defects during the warranty period. You may not bring an action to
+enforce your remedies under the foregoing Limited Warranty more than one (1)
+year after the accrual of such cause of action.
+
+
+10. No Other Warranties. EXCEPT AS EXPRESSLY SET FORTH ABOVE, THE SOFTWARE IS
+PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, AND NO OTHER WARRANTIES, EITHER
+EXPRESSED OR IMPLIED ARE MADE WITH RESPECT TO THE SOFTWARE, INCLUDING BUT NOT
+LIMITED TO ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, TITLE OR NON-INFRINGEMENT, OR ANY OTHER WARRANTIES THAT MAY ARISE FROM
+USAGE OF TRADE OR COURSE OF DEALING. NI DOES NOT WARRANT, GUARANTEE, OR MAKE ANY
+REPRESENTATIONS REGARDING THE USE OF OR THE RESULTS OF THE USE OF THE SOFTWARE
+IN TERMS OF CORRECTNESS, ACCURACY, RELIABILITY, OR OTHERWISE AND DOES NOT
+WARRANT THAT THE OPERATION OF THE SOFTWARE WILL BE UNINTERRUPTED OR ERROR FREE.
+NI EXPRESSLY DISCLAIMS ANY WARRANTIES NOT STATED HEREIN.
+
+
+11. Intellectual Property Liability. NI shall, at its own expense, defend any
+claim resulting from your use of the SOFTWARE as authorized by your license to
+the extent that such claim alleges that the SOFTWARE infringes any patent,
+copyright, or trademark protected by the laws of the U.S.A., Canada, Mexico,
+Japan, Australia, Switzerland, Norway, or the European Union, provided that such
+claim does not arise from your use of the SOFTWARE in combination with equipment
+or devices not made by NI, or from any modification of the SOFTWARE not made by
+NI, and further provided that you notify NI in writing immediately upon your
+obtaining notice of such impending claim and your full cooperation with NI in
+preparing a defense. If you provide to NI the authority, assistance, and
+information NI needs to defend or settle such claim, NI shall pay any final
+award of damages or settlement with respect to such claim and any expense you
+incur at NI's written request, but NI shall not be liable for a settlement made
+without its prior written consent. If the SOFTWARE is held to be infringing of
+the rights stated above and the use thereof is enjoined or if NI believes the
+SOFTWARE may be held to infringe a third party's intellectual property rights,
+NI shall, at its option, either (i) procure for you the right to use the
+SOFTWARE, (ii) replace or modify the SOFTWARE with other software which does not
+infringe, or (iii) receive your return of the SOFTWARE and refund to you the
+license fee payment(s) made by you to NI. The foregoing states your sole remedy
+for, and NI's entire liability and responsibility for, infringement of any
+patent, trademark, copyright, or other intellectual property right relating to
+the SOFTWARE. THIS LIMITED INDEMNITY IS IN LIEU OF ANY OTHER STATUTORY OR
+IMPLIED WARRANTY AGAINST INFRINGEMENT. THE FOREGOING INDEMNIFICATION OBLIGATIONS
+SHALL NOT APPLY TO ANY THIRD PARTY PRODUCTS INCORPORATED IN OR OTHERWISE
+PROVIDED WITH THE NI PRODUCTS, AND YOU AGREE TO LOOK TO THE APPLICABLE THIRD
+PARTY MANUFACTURER WITH RESPECT TO ANY CLAIMS FOR INFRINGEMENT INVOLVING THIRD
+PARTY PRODUCTS.
+
+
+12. Limitation On Liability. The entire liability of NI and its licensors,
+distributors, and suppliers (including its and their directors, officers,
+employees, and agents) is set forth above. To the maximum extent permitted by
+applicable law, in no event shall NI and its licensors, distributors, and
+suppliers (including its and their directors, officers, employees, and agents)
+be liable for any damages, including, but not limited to, any special, direct,
+indirect, incidental, exemplary, or consequential damages, expenses, lost
+profits, lost savings, business interruption, lost business information, or any
+other damages arising out of the use or inability to use the SOFTWARE, any
+technical support services relating to the SOFTWARE, or related hardware even if
+NI or its licensors, distributors, and suppliers has been advised of the
+possibility of such damages. You acknowledge that the applicable fees and prices
+reflect this allocation of risk. Because some states/jurisdictions do not allow
+the exclusion or limitation of liability for consequential or incidental
+damages, the above limitation may not apply. If the foregoing limitation of
+liability is not enforceable because the SOFTWARE, the services, or the hardware
+is determined by a court of competent jurisdiction in a final, non-appealable
+judgment to be defective and to have directly caused bodily injury, death, or
+property damage, in no event shall NI's liability for property damage exceed
+$500 (U.S.).
+
+
+13. Warning. (1) NI PRODUCTS ARE NOT DESIGNED WITH COMPONENTS AND TESTING FOR
+A LEVEL OF RELIABILITY SUITABLE FOR USE IN OR IN CONNECTION WITH SURGICAL
+IMPLANTS OR AS CRITICAL COMPONENTS IN ANY LIFE SUPPORT SYSTEMS WHOSE FAILURE TO
+PERFORM CAN REASONABLY BE EXPECTED TO CAUSE SIGNIFICANT INJURY TO A HUMAN. (2)
+IN ANY APPLICATION, INCLUDING THE ABOVE, RELIABILITY OF OPERATION OF THE
+SOFTWARE PRODUCTS CAN BE IMPAIRED BY ADVERSE FACTORS, INCLUDING BUT NOT LIMITED
+TO FLUCTUATIONS IN ELECTRICAL POWER SUPPLY, COMPUTER HARDWARE MALFUNCTIONS,
+COMPUTER OPERATING SYSTEM SOFTWARE FITNESS, FITNESS OF COMPILERS AND DEVELOPMENT
+SOFTWARE USED TO DEVELOP AN APPLICATION, INSTALLATION ERRORS, SOFTWARE AND
+HARDWARE COMPATIBILITY PROBLEMS, MALFUNCTIONS OR FAILURES OF ELECTRONIC
+MONITORING OR CONTROL DEVICES, TRANSIENT FAILURES OF ELECTRONIC SYSTEMS
+(HARDWARE AND/OR SOFTWARE), UNANTICIPATED USES OR MISUSES, OR ERRORS ON THE PART
+OF THE USER OR APPLICATIONS DESIGNER (ADVERSE FACTORS SUCH AS THESE ARE
+HEREAFTER COLLECTIVELY TERMED "SYSTEM FAILURES"). ANY APPLICATION WHERE A SYSTEM
+FAILURE WOULD CREATE A RISK OF HARM TO PROPERTY OR PERSONS (INCLUDING THE RISK
+OF BODILY INJURY AND DEATH) SHOULD NOT BE RELIANT SOLELY UPON ONE FORM OF
+ELECTRONIC SYSTEM DUE TO THE RISK OF SYSTEM FAILURE. TO AVOID DAMAGE, INJURY, OR
+DEATH, THE USER OR APPLICATION DESIGNER MUST TAKE REASONABLY PRUDENT STEPS TO
+PROTECT AGAINST SYSTEM FAILURES, INCLUDING BUT NOT LIMITED TO BACK-UP OR SHUT
+DOWN MECHANISMS. BECAUSE EACH END-USER SYSTEM IS CUSTOMIZED AND DIFFERS FROM
+NI'S TESTING PLATFORMS AND BECAUSE A USER OR APPLICATION DESIGNER MAY USE NI
+PRODUCTS IN COMBINATION WITH OTHER PRODUCTS IN A MANNER NOT EVALUATED OR
+CONTEMPLATED BY NI, THE USER OR APPLICATION DESIGNER IS ULTIMATELY RESPONSIBLE
+FOR VERIFYING AND VALIDATING THE SUITABILITY OF NI PRODUCTS WHENEVER NI PRODUCTS
+ARE INCORPORATED IN A SYSTEM OR APPLICATION, INCLUDING, WITHOUT LIMITATION, THE
+APPROPRIATE DESIGN, PROCESS, AND SAFETY LEVEL OF SUCH SYSTEM OR APPLICATION.
+
+
+14. U.S. Government Restricted Rights. If you are an agency, department, or
+other entity of the United States Government ("Government"), the use,
+duplication, reproduction, release, modification, disclosure, or transfer of the
+SOFTWARE, or any related documentation of any kind, including technical data or
+manuals, is restricted in accordance with Federal Acquisition Regulation 12.212
+(as amended or supplanted) for civilian agencies and Defense Federal Acquisition
+Regulation Supplement 227.7202 (as amended or supplanted) for military agencies.
+The SOFTWARE is commercial computer software and the related documentation is
+commercial computer software documentation. The use of the SOFTWARE and related
+documentation is further restricted in accordance with the terms of this
+Agreement, or any modification hereto. The Contractor/Manufacturer is National
+Instruments Corporation, 11500 North Mopac Expressway, Austin, Texas, U.S.A.,
+78759-3504.
+
+
+15. Compliance. You agree to make all applicable records available for review
+by NI during your normal business hours so as to permit NI (upon reasonable
+notice to you) to verify your compliance with the terms and conditions of this
+Agreement. Further, if you are a business or other entity, you agree that upon
+the request of NI or NI's authorized representative, you will promptly document
+and certify in writing to NI that your and your employees' use of the SOFTWARE
+complies with the terms and conditions of this Agreement. NI may (upon written
+notice) inspect your use of the SOFTWARE during your normal business hours to
+ensure your compliance with this Agreement. If the results of any such
+inspection indicate the underpayment by you of applicable fees due and payable
+to NI, you shall: (i) immediately pay such amounts to NI and (ii) reimburse NI
+for the cost of such inspection.
+
+
+16. Termination. This Agreement shall automatically terminate upon failure by
+you to comply with its terms. Upon termination of this Agreement, regardless of
+the reason, you must destroy all copies of the SOFTWARE.
+
+
+17. General.
+
+A. If the SOFTWARE is manufactured in the U.S.A., (i) this Agreement is
+governed by the laws of the State of Texas, U.S.A., exclusive of any provisions
+of the United Nations Convention on the International Sale of Goods, and without
+regard to principles of conflicts of law and (ii) the non-exclusive venue for
+all actions under this Agreement shall be in the courts located in Travis
+County, Texas, U.S.A. and the parties agree to submit to the jurisdiction of
+such courts.
+
+B. If the SOFTWARE is manufactured in the Republic of Ireland or the SOFTWARE
+is DIAdem, DIAdem Clip, DIAdem Insight, or DASYLab, (i) this Agreement is
+governed by the laws of the Republic of Ireland, exclusive of any provisions of
+the United Nations Convention on the International Sale of Goods, and without
+regard to principles of conflicts of law and (ii) the non-exclusive venue for
+all actions under this Agreement shall be in the courts located in Dublin, the
+Republic of Ireland and the parties agree to submit to the jurisdiction of such
+courts.
+
+C. If the SOFTWARE is manufactured in Hungary, (i) this Agreement is governed
+by the laws of Hungary, exclusive of any provisions of the United Nations
+Convention on the International Sale of Goods, and without regard to principles
+of conflicts of law and (ii) the non-exclusive venue for all actions under this
+Agreement shall be in the courts located in Hungary and the parties agree to
+submit to the jurisdiction of such courts.
+
+D. This Agreement constitutes the complete agreement between you and NI
+regarding the SOFTWARE and it supersedes any oral or written proposals, prior
+agreements, purchase orders, or any other communication between you and NI
+relating to the subject matter of this Agreement.
+
+E. If any action is brought by either party to this Agreement against the
+other regarding the subject matter hereof, the prevailing party shall be
+entitled to recover, in addition to any relief granted, reasonable attorney fees
+and court costs. If any provision of this Agreement is held invalid, the
+offending clause will be modified so as to be enforceable and, as modified,
+shall be fully enforced, and the remainder of this Agreement will continue in
+full force and effect. If you are downloading the SOFTWARE, you represent and
+warrant that you are not located in or under the control of any country which
+the export laws and regulations of such country or of the United States prohibit
+the exportation of the SOFTWARE to.
+
+
+(c) 2004-2005 National Instruments Corporation. All Rights Reserved.
+371460B-01
+March 2005
