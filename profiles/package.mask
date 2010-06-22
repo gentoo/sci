@@ -31,7 +31,7 @@
 #--- END OF EXAMPLES ---
 
 # Justin Lecher (jlec) (1 Aug 09)
-# jlec@j-schmitz.net
+# jlec@gentoo.org
 # mask live ebuild
 =sci-chemistry/burrow-owl-9999_pre15
 
@@ -49,7 +49,7 @@
 =sci-chemistry/votca-csg-9999
 
 # Justin Lecher (jlec) (08 Jun 09)
-# jlec@j-schmitz.net
+# jlec@gentoo.org
 # mask live ebuilds
 =sci-chemistry/pymol-apbs-plugin-9999
 =sci-chemistry/coot-9999
@@ -63,7 +63,7 @@
 =sci-visualization/gnuplot-4.5.9999
 
 # Justin Lecher (jlec) (11 May 09)
-# jlec@j-schmitz.net
+# jlec@gentoo.org
 # work in progress 
 =sci-chemistry/almost-1.0.3-r1
 

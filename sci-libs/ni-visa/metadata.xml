@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>maintainer-wanted</herd>
+	<herd>no-herd</herd>
 	<maintainer>
-		<email>jlec@gentoo.org</email>
-		<name>Justin Lecher</name>
+		<email>mail@akhuettel.de</email>
 	</maintainer>
 </pkgmetadata>
-

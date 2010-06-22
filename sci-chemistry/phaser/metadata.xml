@@ -18,7 +18,7 @@ not relevant for general metadata.xml files.
 <pkgmetadata>
 <herd>no-herd</herd>
 <maintainer>
-  <email>jlec@j-schmitz.net</email>
+  <email>jlec@gentoo.org</email>
 <!--  <description>coding for fun</description> -->
 </maintainer>
 <!-- <longdescription>Long description of the package</longdescription> -->

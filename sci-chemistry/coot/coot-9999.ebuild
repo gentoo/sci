@@ -69,7 +69,6 @@ pkg_setup() {
 }
 
 PATCHES=(
-	"${FILESDIR}"/${PV}-linking.patch
 	)
 
 src_unpack() {
