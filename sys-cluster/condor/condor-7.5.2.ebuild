@@ -51,7 +51,7 @@ src_prepare() {
 	epatch ./condor_config.generic.rpm.patch
 	# the base local file is in /etc, then the condor local file is updated and should reside in /var/lib
 	sed -i \
-		-e 's/\(LOCAL_CONFIG_FILE.*=\).*/\1/var/lib/condor/condor_config.local' \
+		-e 's:\(LOCAL_CONFIG_FILE.*=\).*:\1 /var/lib/condor/condor_config.local:' \
 		condor_config.generic || die
 }
 
