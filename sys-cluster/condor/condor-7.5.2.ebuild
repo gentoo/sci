@@ -133,8 +133,9 @@ src_install() {
 	insinto /etc/condor
 	newins etc/examples/condor_config.generic condor_config || die
 	newins etc/examples/condor_config.local.generic condor_config.local || die
+	insinto /var/lib/condor/
+	newins etc/examples/condor_config.local.generic
 
-	dodir /var/lib/condor
 	dodir /var/log/condor
 	dodir /var/run/condor
 	dodir /var/lock/condor
@@ -142,7 +143,7 @@ src_install() {
 	fperms 750 /var/lib/condor /var/log/condor
 	fperms 755 /var/run/condor
 	fperms 0775 /var/lock/condor
-	fowners condor:condor /var/lib/condor /var/log/condor /var/run/condor
+	fowners condor:condor /var/lib/condor /var/log/condor /var/run/condor /var/lib/condor/condor_config.local
 
 	newconfd "${FILESDIR}"/condor.confd condor || die
 	newinitd "${FILESDIR}"/condor.initd condor || die

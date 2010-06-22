@@ -18,8 +18,8 @@ depend() {
 setup_central_manager() {
     # delete current condor host, replace it with central manager
     sed -e '/CONDOR_HOST/d' \
-	-e "\$aCONDOR_HOST=${CONDOR_CENTRAL_MANAGER}" \
 	/etc/condor/condor_config.local > ${CONDOR_CONFIG_LOCAL}
+    echo "CONDOR_HOST=${CONDOR_CENTRAL_MANAGER}" >> ${CONDOR_CONFIG_LOCAL}	
     chown ${CONDOR_USER}:${CONDOR_USER} ${CONDOR_CONFIG_LOCAL}
 }
 
