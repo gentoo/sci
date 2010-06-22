@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE="doc examples gtk +ocamlopt"
 
 DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
-    	gtk? ( >=dev-ml/lablgtk-2.6 )"
+	gtk? ( >=dev-ml/lablgtk-2.6 )"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
@@ -34,7 +34,7 @@ src_compile() {
 
 src_install() {
 	emake install install-findlib DESTDIR="${D}" || die "emake install failed"
-	dodoc CHANGES COPYING CREDITS FAQ README
+	dodoc CHANGES CREDITS FAQ README
 
 	if use doc; then
 		dohtml doc/*
@@ -45,4 +45,3 @@ src_install() {
 		doins -r examples
 	fi
 }
-
