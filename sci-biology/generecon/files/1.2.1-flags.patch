@@ -1,0 +1,30 @@
+diff --git a/Makefile.am b/Makefile.am
+index 37df12b..4ff621e 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,10 +1,10 @@
+ 
+-CXXFLAGS =
++#CXXFLAGS =
+ AM_CXXFLAGS =
+-CXXFLAGS += -Wall
+-AM_CXXFLAGS += -Wall
++#CXXFLAGS += -Wall
++#AM_CXXFLAGS += -Wall
+ 
+-LDFLAGS = -Wl,-rpath,/usr/local/lib
++#LDFLAGS = -Wl,-rpath,/usr/local/lib
+ 
+ # for testing
+ #CXXFLAGS += -g -O -lefence
+@@ -14,8 +14,8 @@ LDFLAGS = -Wl,-rpath,/usr/local/lib
+ #AM_CXXFLAGS += -O3 -g -pg
+ 
+ # for production
+-CXXFLAGS    += -O3 -fexpensive-optimizations
+-AM_CXXFLAGS += -O3 -fexpensive-optimizations
++#CXXFLAGS    += -O3 -fexpensive-optimizations
++#AM_CXXFLAGS += -O3 -fexpensive-optimizations
+ 
+ #CXXFLAGS    += -O3 -fexpensive-optimizations -DNDEBUG
+ #AM_CXXFLAGS += -O3 -fexpensive-optimizations -DNDEBUG

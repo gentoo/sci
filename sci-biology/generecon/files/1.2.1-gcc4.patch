@@ -1,0 +1,368 @@
+diff --git a/affected_unaffected_genotype_cluster_test.cc b/affected_unaffected_genotype_cluster_test.cc
+index 646af06..4e5fbde 100644
+--- a/affected_unaffected_genotype_cluster_test.cc
++++ b/affected_unaffected_genotype_cluster_test.cc
+@@ -32,6 +32,7 @@
+ # include "random_tree_builder.hh"
+ #endif
+ 
++#include <cstring>
+ 
+ void test_tree(const CoalescentTree &tree,
+ 	       const Haplotype &h0, const Haplotype &h1,
+diff --git a/affected_unaffected_genotype_set_test.cc b/affected_unaffected_genotype_set_test.cc
+index 07fa122..5f333f5 100644
+--- a/affected_unaffected_genotype_set_test.cc
++++ b/affected_unaffected_genotype_set_test.cc
+@@ -19,6 +19,8 @@
+ # include "region.hh"
+ #endif
+ 
++#include <cstring>
++
+ int main(int argc, const char *argv[])
+ {
+     HANDLE_TEST_OPTIONS;
+diff --git a/affected_unaffected_haplotype_cluster_test.cc b/affected_unaffected_haplotype_cluster_test.cc
+index 145e05f..b5dddaa 100644
+--- a/affected_unaffected_haplotype_cluster_test.cc
++++ b/affected_unaffected_haplotype_cluster_test.cc
+@@ -32,6 +32,7 @@
+ # include "random_tree_builder.hh"
+ #endif
+ 
++#include <cstring>
+ 
+ void test_tree(const CoalescentTree &tree,
+ 	       const Haplotype &h0, const Haplotype &h1,
+diff --git a/affected_unaffected_haplotype_set_test.cc b/affected_unaffected_haplotype_set_test.cc
+index fda6173..8489c54 100644
+--- a/affected_unaffected_haplotype_set_test.cc
++++ b/affected_unaffected_haplotype_set_test.cc
+@@ -19,6 +19,8 @@
+ # include "region.hh"
+ #endif
+ 
++#include <cstring>
++
+ int main(int argc, const char *argv[])
+ {
+     HANDLE_TEST_OPTIONS;
+diff --git a/au_random_tree_builder_test.cc b/au_random_tree_builder_test.cc
+index a2d4daa..d6689e0 100644
+--- a/au_random_tree_builder_test.cc
++++ b/au_random_tree_builder_test.cc
+@@ -30,6 +30,7 @@
+ # include "test_random.hh"
+ #endif
+ 
++#include <cstring>
+ 
+ void test_tree(const CoalescentTree *tree,
+ 	       const Haplotype &h0, const Haplotype &h1,
+diff --git a/change_selector_test.cc b/change_selector_test.cc
+index 5f655d1..9004bef 100644
+--- a/change_selector_test.cc
++++ b/change_selector_test.cc
+@@ -23,6 +23,8 @@
+ # include "change.hh"
+ #endif
+ 
++#include <cstring>
++
+ // dummy class for testing
+ struct DummyChange : public Change {
+     DummyChange() : Change("Dummy change") {}
+diff --git a/coalescent_tree.cc b/coalescent_tree.cc
+index eb937e5..9e54a2b 100644
+--- a/coalescent_tree.cc
++++ b/coalescent_tree.cc
+@@ -7,6 +7,7 @@
+ 
+ #include "coalescent_tree.hh"
+ 
++#include <algorithm>
+ 
+ /** \file
+  * \brief Implementation of the coalescent tree.
+diff --git a/coalescent_tree_test.cc b/coalescent_tree_test.cc
+index 20059e9..2971ead 100644
+--- a/coalescent_tree_test.cc
++++ b/coalescent_tree_test.cc
+@@ -30,6 +30,8 @@
+ # define CMATH_INCLUDED
+ #endif
+ 
++#include <cstring>
++
+ namespace {
+ 
+     CoalescentTree *test_tree(HaplotypePool &pool)
+diff --git a/distance_matrix_test.cc b/distance_matrix_test.cc
+index e2e8435..9d367ee 100644
+--- a/distance_matrix_test.cc
++++ b/distance_matrix_test.cc
+@@ -15,6 +15,8 @@
+ # include "haplotype_pool.hh"
+ #endif
+ 
++#include <cstring>
++
+ namespace {
+     int distance(const Haplotype &h1, const Haplotype &h2)
+     {
+diff --git a/distance_tree_builder_test.cc b/distance_tree_builder_test.cc
+index e252c3e..3f589f4 100644
+--- a/distance_tree_builder_test.cc
++++ b/distance_tree_builder_test.cc
+@@ -15,6 +15,8 @@
+ # include "test_random.hh"
+ #endif
+ 
++#include <cstring>
++
+ int main(int argc, const char *argv[])
+ {
+     HANDLE_TEST_OPTIONS;
+diff --git a/filter_iterator_test.cc b/filter_iterator_test.cc
+index bf5097b..e74a29f 100644
+--- a/filter_iterator_test.cc
++++ b/filter_iterator_test.cc
+@@ -21,6 +21,8 @@
+ # define FUNCTIONAL_INCLUDED
+ #endif
+ 
++#include <cstring>
++
+ namespace {
+   struct even : public std::unary_function<int,bool> {
+     bool operator () (int i) const { return i % 2 == 0; }
+diff --git a/genotype_pool_test.cc b/genotype_pool_test.cc
+index e62a03f..9a2badb 100644
+--- a/genotype_pool_test.cc
++++ b/genotype_pool_test.cc
+@@ -22,6 +22,8 @@
+ # include "genotype.hh"
+ #endif
+ 
++#include <cstring>
++
+ int main(int argc, const char *argv[])
+ {
+     HANDLE_TEST_OPTIONS;
+diff --git a/genotype_test.cc b/genotype_test.cc
+index 3d704e4..64b3343 100644
+--- a/genotype_test.cc
++++ b/genotype_test.cc
+@@ -22,6 +22,8 @@
+ # include "haplotype.hh"
+ #endif
+ 
++#include <cstring>
++
+ int main(int argc, const char *argv[])
+ {
+     HANDLE_TEST_OPTIONS;
+diff --git a/guile_sampler.cc b/guile_sampler.cc
+index b0d19f1..ffbec86 100644
+--- a/guile_sampler.cc
++++ b/guile_sampler.cc
+@@ -26,6 +26,7 @@
+ # define CASSERT_INCLUDED
+ #endif
+ 
++#include <memory>
+ 
+ /** \file
+  * \brief Implementation of the guile sampler wrapper.
+diff --git a/haplotype.cc b/haplotype.cc
+index a38541f..7810642 100644
+--- a/haplotype.cc
++++ b/haplotype.cc
+@@ -12,6 +12,8 @@
+ # define SSTREAM_INCLUDED
+ #endif
+ 
++#include <algorithm>
++
+ /** \file
+  * \brief Implementation of haplotype functionality.
+  */
+diff --git a/haplotype_pool.cc b/haplotype_pool.cc
+index ceef1b9..42c6125 100644
+--- a/haplotype_pool.cc
++++ b/haplotype_pool.cc
+@@ -7,6 +7,8 @@
+ 
+ #include "haplotype_pool.hh"
+ 
++#include <algorithm>
++
+ /** \file
+  * \brief Implementation of haplotype pool functionality.
+  */
+diff --git a/haplotype_pool_test.cc b/haplotype_pool_test.cc
+index a774809..4527d23 100644
+--- a/haplotype_pool_test.cc
++++ b/haplotype_pool_test.cc
+@@ -19,6 +19,8 @@
+ # include "region.hh"
+ #endif
+ 
++#include <cstring>
++
+ int main(int argc, const char *argv[])
+ {
+     HANDLE_TEST_OPTIONS;
+diff --git a/haplotype_test.cc b/haplotype_test.cc
+index 134a601..b7f5b63 100644
+--- a/haplotype_test.cc
++++ b/haplotype_test.cc
+@@ -19,6 +19,8 @@
+ # include "region.hh"
+ #endif
+ 
++#include <cstring>
++
+ int main(int argc, const char *argv[])
+ {
+     HANDLE_TEST_OPTIONS;
+diff --git a/marker_test.cc b/marker_test.cc
+index ff34d7c..317385d 100644
+--- a/marker_test.cc
++++ b/marker_test.cc
+@@ -13,6 +13,7 @@
+ #include "testing.hh"
+ 
+ #include <cmath>
++#include <cstring>
+ 
+ int main(int argc, const char *argv[])
+ {
+diff --git a/markov_region_test.cc b/markov_region_test.cc
+index 58e0278..db0f9ba 100644
+--- a/markov_region_test.cc
++++ b/markov_region_test.cc
+@@ -11,7 +11,7 @@
+ 
+ #include "region.hh"
+ #include "testing.hh"
+-
++#include <cstring>
+ int main(int argc, const char *argv[])
+ {
+     HANDLE_TEST_OPTIONS;
+diff --git a/qtl_haplotype_pool_test.cc b/qtl_haplotype_pool_test.cc
+index 72f763d..8c058af 100644
+--- a/qtl_haplotype_pool_test.cc
++++ b/qtl_haplotype_pool_test.cc
+@@ -19,6 +19,8 @@
+ # include "region.hh"
+ #endif
+ 
++#include <cstring>
++
+ int main(int argc, const char *argv[])
+ {
+     HANDLE_TEST_OPTIONS;
+diff --git a/random_set_test.cc b/random_set_test.cc
+index 7eae435..b7a3451 100644
+--- a/random_set_test.cc
++++ b/random_set_test.cc
+@@ -15,6 +15,8 @@
+ # include "test_random.hh"
+ #endif
+ 
++#include <cstring>
++
+ int main(int argc, const char *argv[])
+ {
+     HANDLE_TEST_OPTIONS;
+diff --git a/random_tree_builder_test.cc b/random_tree_builder_test.cc
+index e8c5957..7c95519 100644
+--- a/random_tree_builder_test.cc
++++ b/random_tree_builder_test.cc
+@@ -28,6 +28,7 @@
+ # include "test_random.hh"
+ #endif
+ 
++#include <cstring>
+ 
+ void test_tree(const CoalescentTree *tree,
+ 	       const Haplotype &h0, const Haplotype &h1,
+diff --git a/region.cc b/region.cc
+index df22885..94bce6f 100644
+--- a/region.cc
++++ b/region.cc
+@@ -22,6 +22,8 @@
+ # define CMATH_INCLUDED
+ #endif
+ 
++#include <algorithm>
++
+ 
+ /** \file
+  * \brief Implementation of region functionality.
+diff --git a/region_test.cc b/region_test.cc
+index 25f6cf0..e21084f 100644
+--- a/region_test.cc
++++ b/region_test.cc
+@@ -11,6 +11,7 @@
+ 
+ #include "region.hh"
+ #include "testing.hh"
++#include <cstring>
+ 
+ int main(int argc, const char *argv[])
+ {
+diff --git a/selection_if_test.cc b/selection_if_test.cc
+index a9a6377..0fb8052 100644
+--- a/selection_if_test.cc
++++ b/selection_if_test.cc
+@@ -24,6 +24,8 @@
+ # define VECTOR_INCLUDED
+ #endif
+ 
++#include <cstring>
++
+ namespace {
+   struct even : public std::unary_function<int,bool> {
+     bool operator () (int i) const { return i % 2 == 0; }
+diff --git a/selection_test.cc b/selection_test.cc
+index 3bf673a..579931c 100644
+--- a/selection_test.cc
++++ b/selection_test.cc
+@@ -28,6 +28,8 @@
+ # define LIST_INCLUDED
+ #endif
+ 
++#include <cstring>
++
+ int main(int argc, const char *argv[])
+ {
+     HANDLE_TEST_OPTIONS;
+diff --git a/testing.hh b/testing.hh
+index fbdcd87..c86dbc6 100644
+--- a/testing.hh
++++ b/testing.hh
+@@ -23,6 +23,8 @@
+ # define CSTDLIB_INCLUDED
+ #endif
+ 
++#include <cstring>
++
+ /// \brief Verboseness flag for running tests.
+ ///
+ /// If set, the test will report the failed tests, otherwise it will
+diff --git a/tree_builder.hh b/tree_builder.hh
+index 4b0ec01..c0bdc5a 100644
+--- a/tree_builder.hh
++++ b/tree_builder.hh
+@@ -34,6 +34,7 @@
+ # include "meta_programming.hh"
+ #endif
+ 
++#include <limits>
+ 
+ /**
+  * \brief Abstract class for tree builders.

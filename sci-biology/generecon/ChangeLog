@@ -1,6 +1,11 @@
 # ChangeLog for sci-biology/generecon
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  17 Jun 2010; Justin Lecher <jlec@gentoo.org> +files/1.2.1-flags.patch,
+  generecon-1.2.1-r1.ebuild, +files/1.2.1-gcc4.patch:
+  Fixing compilation with gcc4, repecting CXXFLAGS/LDFLAGS, reMANIFEST,
+  added missing dep on dev-libs/popt
 
 *generecon-1.2.1 (19 Apr 2006)
 

@@ -1,37 +1,35 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+EAPI="3"
 
-DESCRIPTION="Generecon performs linkage disequilibrium gene mapping based on coalescent theory using Bayesian Markov Chain Monte Carlo methods."
+inherit autotools eutils
+
+DESCRIPTION="Disequilibrium gene mapping based on coalescent theory using Bayesian Markov Chain MC methods"
 HOMEPAGE="http://www.daimi.au.dk/~mailund/GeneRecon/"
 SRC_URI="http://www.daimi.au.dk/~mailund/GeneRecon/download/${P}.tar.gz"
+
 SLOT="0"
-
-# License of the package.  This must match the name of file(s) in
-# /usr/portage/licenses/.  For complex license combination see the developer
-# docs on gentoo.org for details.
 LICENSE="GPL-2"
+KEYWORDS="~amd64 ~x86"
+IUSE=""
 
-KEYWORDS="x86"
+RDEPEND="
+	dev-libs/popt
+	dev-scheme/guile
+	sci-libs/gsl"
+DEPEND="${DEPEND}"
 
-DEPEND="dev-scheme/guile
-        sci-libs/gsl"
-
-src_unpack() {
-	unpack ${A}
-	sed 's|#PF#|'${PF}'|g' ${FILESDIR}/${PN}-docfiles.patch > ${PN}-docfiles.patch
+src_prepare() {
+	sed 's|#PF#|'${PF}'|g' "${FILESDIR}"/${PN}-docfiles.patch > ${PN}-docfiles.patch
 
 	epatch ${PN}-docfiles.patch
-
-	cd ${S}
-	pwd
-	einfo "Regenerating autotools files..."
-	aclocal || die "aclocal failed"
-	automake || die "automake failed"
+	epatch "${FILESDIR}"/${PV}-gcc4.patch
+	epatch "${FILESDIR}"/${PV}-flags.patch
+	eautoreconf
 }
 
 src_install() {
-	make DESTDIR=${D} install  || die "make install failed"
+	emake DESTDIR="${D}" install  || die "make install failed"
 }

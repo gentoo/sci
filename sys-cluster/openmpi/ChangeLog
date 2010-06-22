@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openmpi-1.4.1-r1 (18 Jun 2010)
+
+  18 Jun 2010; Justin Bronder <jsbronder@gentoo.org> -openmpi-1.4.1.ebuild,
+  +openmpi-1.4.1-r1.ebuild:
+  Rename 1.4.1 as 1.4.1-r1 so users can easily get stable version from main
+  tree.
+
   03 Feb 2010; Justin Bronder <jsbronder@gentoo.org> openmpi-1.4.1.ebuild,
   +files/openmpi-1.4.1-r22513.patch:
   Add upstream fix for wrapper flag ordering

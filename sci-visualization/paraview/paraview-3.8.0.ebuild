@@ -70,6 +70,8 @@ src_prepare() {
 	epatch "${FILESDIR}"/${P}-pointsprite-example.patch
 	# Install properly pointspritedemo without duplicate DESTDIR
 	epatch "${FILESDIR}"/${P}-pointsprite-example-install.patch
+	# mpi + hdf5 fix
+	epatch "${FILESDIR}"/${P}-h5part.patch
 
 	# prevent the installation of duplicates of QT libraries.
 	sed -i "s:SET(_install_qt_libs ON):SET(_install_qt_libs OFF):g" \

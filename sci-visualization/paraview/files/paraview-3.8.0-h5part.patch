@@ -1,0 +1,12 @@
+diff -Naur ParaView3/Plugins/H5PartReader/H5Part/src/H5PartTypes.h ParaView3.new/Plugins/H5PartReader/H5Part/src/H5PartTypes.h
+--- ParaView3/Plugins/H5PartReader/H5Part/src/H5PartTypes.h	2009-10-01 15:19:59.000000000 -0400
++++ ParaView3.new/Plugins/H5PartReader/H5Part/src/H5PartTypes.h	2010-01-30 09:40:22.000000000 -0500
+@@ -17,7 +17,7 @@
+ #endif
+  ;
+ 
+-#ifndef H5PART_HAS_MPI
++#if !defined(H5PART_HAS_MPI) && !defined(MPI_BOTTOM)
+ typedef int  MPI_Comm;
+ #endif
+ 
