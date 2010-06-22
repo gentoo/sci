@@ -5,6 +5,7 @@
 EAPI="3"
 
 SUPPORT_PYTHON_ABIS="1"
+PYTHON_DEPEND="2:2.6"
 PYTHON_USE_WITH="tk"
 
 inherit eutils distutils prefix subversion
@@ -35,7 +36,7 @@ DEPEND="
 			sci-chemistry/pymol-apbs-plugin
 		)"
 RDEPEND="${DEPEND}"
-RESTRICT_PYTHON_ABIS="3.* 2.4"
+RESTRICT_PYTHON_ABIS="3.* 2.4 2.5"
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-data-path.patch
@@ -52,16 +53,9 @@ src_prepare() {
 		-e "s:\(ext_comp_args=\).*:\1[]:g" \
 		"${S}"/setup.py || die "Failed running sed on setup.py"
 
-	use shaders && \
-		sed \
-			-e '/PYMOL_OPENGL_SHADERS/s:^#::g' \
-			-i setup.py
+	use shaders && epatch "${FILESDIR}"/${PN}-1.2.2-shaders.patch
 
-	use vmd && \
-		sed \
-			-e '/PYMOL_VMD/s:^#::g' \
-			-e 's:    ] + 0 * [:    ] + 1 * [:g' \
-			-i setup.py
+	use vmd && epatch "${FILESDIR}"/1.3.0-vmd.patch
 
 	use numpy && \
 		sed \
@@ -106,6 +100,4 @@ src_install() {
 	doins -r examples || die "Failed to install docs."
 
 	dodoc DEVELOPERS README || die "Failed to install docs."
-
-#	rm "${D}"$(python_get_sitedir)/pmg_tk/startup/apbs_tools.py
 }
