@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Jun 2010; Sébastien Fabbro <bicatali@gentoo.org> condor-7.5.2.ebuild,
+  files/condor.initd:
+  More initd fixes, now local config will reside in /var/lib
+
 *condor-7.5.2 (21 Jun 2010)
 
   21 Jun 2010; Sébastien Fabbro <bicatali@gentoo.org> -condor-7.4.1.ebuild,

@@ -15,23 +15,46 @@ depend() {
     use logger
 }
 
+setup_central_manager() {
+    # delete current condor host, replace it with central manager
+    sed -e '/CONDOR_HOST/d' \
+	-e "\$aCONDOR_HOST=${CONDOR_CENTRAL_MANAGER}" \
+	/etc/condor/condor_config.local > ${CONDOR_CONFIG_LOCAL}
+    chown ${CONDOR_USER}:${CONDOR_USER} ${CONDOR_CONFIG_LOCAL}
+}
+
+# set up condor ccb if only private networking is available (assumes ifconfig)
+setup_ccb() {
+    /sbin/ifconfig | grep "inet addr" | egrep -v "addr:127.|addr:192.|addr:172.|addr:10." > /dev/null
+    retval=$?
+    if [ ${retval} -ne 0 ]; then # all addresses are local
+	echo \
+	    "$(/sbin/ifconfig | grep "inet addr" | grep -v 127. | awk '{print $2}' | sed s/addr://)" \
+	    "$(hostname)" \
+	    "# Added for Condor CCB" \
+	    >> /etc/hosts
+    fi
+}
+
+cleanup_ccb() {
+    sed -i '/# Added for Condor CCB/d' /etc/hosts
+}
+
 start() {
     ebegin "Starting condor"
-    # delete current condor host, replace it with central manager
-    sed -i \
-	-e '/CONDOR_HOST/d/' \
-	-e "\$aCONDOR_HOST=${CONDOR_CENTRAL_MANAGER}" \
-	${CONDOR_CONFIG_LOCAL}
-
-    pid=$(start-stop-daemon --start --quiet --user ${CONDOR_USER} \
+    setup_central_manager
+    setup_ccb
+    start-stop-daemon --start --quiet --user ${CONDOR_USER} \
 	--pidfile ${CONDOR_RUN}/condor.pid \
-	--exec ${CONDOR_MASTER} -- ${CONDOR_OPTS})
+	--exec ${CONDOR_MASTER} -- ${CONDOR_OPTS}
     retval=$?
+    [ $retval -eq 0 ] && touch /var/lock/subsys/condor
     eend ${retval}
 }
 
 stop() {
     ebegin "Stopping condor"
+    cleanup_ccb
     start-stop-daemon --stop --quiet \
 	--pidfile ${CONDOR_RUN}/condor.pid \
 	--exec ${CONDOR_MASTER}
