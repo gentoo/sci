@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>last-hope</herd>
+	<herd>sci</herd>
 	<maintainer>
-		<email>jlec@j-schmitz.net</email>
-		<name>Justin Lecher (jlec)</name>
+		<email>jlec@gentoo.org</email>
+		<name>Justin Lecher</name>
 	</maintainer>
-	<maintainer>
-		<email>johann@j-schmitz.net</email>
-		<name>Johann Schmitz</name>
-	</maintainer>
-<!--
-	<use>
-		<flag name=''></flag>
-	</use>
--->
 </pkgmetadata>
 
