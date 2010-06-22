@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -19,4 +19,3 @@ RDEPEND=">=dev-cpp/growler-link-0.3.7
 		 >=dev-cpp/growler-arch-0.3.7.1"
 
 DEPEND="${RDEPEND}"
-
