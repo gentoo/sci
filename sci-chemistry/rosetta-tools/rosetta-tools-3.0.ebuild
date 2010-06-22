@@ -24,5 +24,3 @@ src_install() {
 		newbin ${x} ${x%.pl} || die "failed to install ${x}"
 	done
 }
-
-
