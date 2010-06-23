@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -33,4 +33,3 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc README NEWS AUTHORS NOSA ChangeLog
 }
-
