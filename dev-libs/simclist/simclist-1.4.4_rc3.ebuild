@@ -18,7 +18,7 @@ IUSE="doc examples"
 S="${WORKDIR}/${P/_/}"
 
 DEPEND="doc? ( app-doc/doxygen )"
-RDEPEND="${DEPEND}"
+RDEPEND=""
 
 src_compile(){
 	cmake-utils_src_compile
