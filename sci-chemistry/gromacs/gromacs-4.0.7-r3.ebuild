@@ -224,7 +224,7 @@ src_install() {
 
 	dobashcompletion "${ED}"/usr/bin/completion.bash ${PN}
 	if use zsh-completion ; then
-		insinto "${EPREFIX}"/usr/share/zsh/site-functions
+		insinto /usr/share/zsh/site-functions
 		newins "${ED}"/usr/bin/completion.zsh _${PN}
 	fi
 	rm -r "${ED}"/usr/bin/completion.*
@@ -236,32 +236,32 @@ src_install() {
 	if use ffamber; then
 		use doc && dodoc "${WORKDIR}/ffamber_v4.0/README/pdfs/*.pdf"
 		# prepare vdwradii.dat
-		cat >>"${D}"/usr/share/gromacs/top/vdwradii.dat <<-EOF
+		cat >>"${ED}"/usr/share/gromacs/top/vdwradii.dat <<-EOF
 			SOL  MW    0
 			SOL  LP    0
 		EOF
 		# regenerate aminoacids.dat
 		cat "${WORKDIR}"/ffamber_v4.0/aminoacids*.dat \
-		"${D}"/usr/share/gromacs/top/aminoacids.dat \
+		"${ED}"/usr/share/gromacs/top/aminoacids.dat \
 		| awk '{print $1}' | sort -u | tail -n+4 | wc -l \
-		>> "${D}"/usr/share/gromacs/top/aminoacids.dat.new
+		>> "${ED}"/usr/share/gromacs/top/aminoacids.dat.new
 		cat "${WORKDIR}"/ffamber_v4.0/aminoacids*.dat \
-		"${D}"/usr/share/gromacs/top/aminoacids.dat \
+		"${ED}"/usr/share/gromacs/top/aminoacids.dat \
 		| awk '{print $1}' | sort -u | tail -n+4 \
-		>> "${D}"/usr/share/gromacs/top/aminoacids.dat.new
-		mv -f "${D}"/usr/share/gromacs/top/aminoacids.dat.new \
-		"${D}"/usr/share/gromacs/top/aminoacids.dat
+		>> "${ED}"/usr/share/gromacs/top/aminoacids.dat.new
+		mv -f "${ED}"/usr/share/gromacs/top/aminoacids.dat.new \
+		"${ED}"/usr/share/gromacs/top/aminoacids.dat
 		# copy ff files
 		for x in ffamber94 ffamber96 ffamber99 ffamber99p ffamber99sb \
 				ffamberGS ffamberGSs ffamber03 ; do
 			einfo "Adding ${x} to gromacs"
-			cp "${WORKDIR}"/ffamber_v4.0/${x}/* "${D}"/usr/share/gromacs/top
+			cp "${WORKDIR}"/ffamber_v4.0/${x}/* "${ED}"/usr/share/gromacs/top
 		done
 		# copy suplementary files
-		cp "${WORKDIR}"/ffamber_v4.0/*.gro "${D}"/usr/share/gromacs/top
-		cp "${WORKDIR}"/ffamber_v4.0/*.itp "${D}"/usr/share/gromacs/top
+		cp "${WORKDIR}"/ffamber_v4.0/*.gro "${ED}"/usr/share/gromacs/top
+		cp "${WORKDIR}"/ffamber_v4.0/*.itp "${ED}"/usr/share/gromacs/top
 		# actualy add records to FF.dat
-		cat >>"${D}"/usr/share/gromacs/top/FF.dat.new <<-EOF
+		cat >>"${ED}"/usr/share/gromacs/top/FF.dat.new <<-EOF
 			ffamber94   AMBER94 Cornell protein/nucleic forcefield
 			ffamber96   AMBER96 Kollman protein/nucleic forcefield
 			ffamberGS   AMBER-GS Garcia &  Sanbonmatsu forcefield
@@ -271,14 +271,14 @@ src_install() {
 			ffamber99sb AMBER99sb Hornak protein/nucleic forcefield
 			ffamber03   AMBER03 Duan protein/nucleic forcefield
 		EOF
-		cat "${D}"/usr/share/gromacs/top/FF.dat \
-			"${D}"/usr/share/gromacs/top/FF.dat.new \
-			| tail -n+2 > "${D}"/usr/share/gromacs/top/FF.dat.new2
-		cat "${D}"/usr/share/gromacs/top/FF.dat.new2 | wc -l > \
-			"${D}"/usr/share/gromacs/top/FF.dat
-		cat "${D}"/usr/share/gromacs/top/FF.dat.new2 >> \
-			"${D}"/usr/share/gromacs/top/FF.dat
-		rm -f "${D}"/usr/share/gromacs/top/FF.dat.new*
+		cat "${ED}"/usr/share/gromacs/top/FF.dat \
+			"${ED}"/usr/share/gromacs/top/FF.dat.new \
+			| tail -n+2 > "${ED}"/usr/share/gromacs/top/FF.dat.new2
+		cat "${ED}"/usr/share/gromacs/top/FF.dat.new2 | wc -l > \
+			"${ED}"/usr/share/gromacs/top/FF.dat
+		cat "${ED}"/usr/share/gromacs/top/FF.dat.new2 >> \
+			"${ED}"/usr/share/gromacs/top/FF.dat
+		rm -f "${ED}"/usr/share/gromacs/top/FF.dat.new*
 	fi
 }
 
