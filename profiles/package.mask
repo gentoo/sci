@@ -72,3 +72,9 @@
 # mask paraview-3.8.0 as there are no stable versions in the tree
 # Avoid accidental upgrade
 =sci-visualization/paraview-3.8.0
+
+# Andreas K. Huettel (dilfridge) (23 Jun 2010)
+# mask dev-lang/aldor for removal in 30d since there is no source available anymore
+# (was a svn checkout, but the server is dead)
+=dev-lang/aldor-1.1.0
+
