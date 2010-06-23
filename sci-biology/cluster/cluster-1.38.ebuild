@@ -1,7 +1,9 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-inherit autotools
+
+# needs bump badly
+
 SRC_URI="${P}.tar.gz"
 
 DESCRIPTION="Clustering software for microarray analysis"
@@ -17,11 +19,11 @@ RDEPEND="X? ( x11-misc/xdg-utils app-text/xpdf )"
 RESTRICT="fetch"
 
 pkg_nofetch() {
-        einfo "Please obtain ${P}.tar.gz from ${HOMEPAGE} and place it in ${DISTDIR}"
+	einfo "Please obtain ${P}.tar.gz from ${HOMEPAGE} and place it in ${DISTDIR}"
 }
 
 src_unpack() {
-	unpack "${A}"
+	unpack ${A}
 	cd "${S}"
 	sed -i \
 		-e 's:^docdir = $(prefix)/cluster/doc:docdir = @docdir@:' \
@@ -35,7 +37,6 @@ src_unpack() {
 }
 
 src_compile() {
-
 	econf $(use_with X x) \
 		--docdir="/usr/share/doc/${P}" \
 		--htmldir="/usr/share/doc/${P}/html" \
@@ -45,13 +46,11 @@ src_compile() {
 }
 
 src_install() {
-	cd ${S}
 	emake DESTDIR="${D}" install || die "Install failed"
 
-	dodoc README COPYING AUTHORS ChangeLog NEWS TODO || die "failed to install docs"
+	dodoc README AUTHORS ChangeLog NEWS TODO || die "failed to install docs"
 	insinto /usr/share/doc/${P}/examples
 	doins example/example.c example/README || die "failed to install docs"
 	insinto /usr/share/doc/${P}
 	doins doc/cluster.pdf || die "failed to install docs"
-
 }
