@@ -36,4 +36,3 @@ src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
 	dodoc README NEWS AUTHORS NOSA ChangeLog || die
 }
-
