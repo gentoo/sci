@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-text/dgs/dgs-0.5.10-r1.ebuild,v 1.38 2008/03/18 13:24:47 flameeyes Exp $
 
+# Upstream is dead.
+
 EAPI=2
 
 WANT_AUTOCONF="2.1"
@@ -9,7 +11,7 @@ WANT_AUTOCONF="2.1"
 inherit eutils autotools
 
 DESCRIPTION="A Ghostscript based Display Postscript (DPS) server"
-HOMEPAGE="http://www.gyve.org/dgs/"
+HOMEPAGE="http://www.gnustep.org/developers/DGS.html"
 SRC_URI="ftp://ftp.gnustep.org/pub/gnustep/old/dgs/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"

@@ -4,6 +4,10 @@
 
   23 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   dgs-0.5.10-r2.ebuild:
+  Added note: upstream is dead
+
+  23 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
+  dgs-0.5.10-r2.ebuild:
   QA fixes
 
 *dgs-0.5.10-r2 (19 Sep 2009)
