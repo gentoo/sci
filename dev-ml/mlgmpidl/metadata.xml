@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<maintainer>
+  <email>sci@gentoo.org</email>
+</maintainer>
+<use>
+  <flag name="mpfr">add support for mpfr, the library for multiple-precision floating-point computations with exact rounding</flag>
+</use>
+</pkgmetadata>
