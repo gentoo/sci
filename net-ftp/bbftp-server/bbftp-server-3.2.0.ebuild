@@ -4,7 +4,7 @@
 
 inherit eutils
 
-DESCRIPTION="bbFTP is a file transfer software. It implements its own transfer protocol, which is optimized for large files (larger than 2GB) and secure as it does not read the password in a file and encrypts the connection information."
+DESCRIPTION="Secure file transfer software with its own transfer protocol optimized for files larger than 2GB"
 
 HOMEPAGE="http://doc.in2p3.fr/bbftp/"
 SRC_URI="http://doc.in2p3.fr/bbftp/dist/${P}.tar.gz"
@@ -44,4 +44,3 @@ src_install() {
 		newins "${T}/bbftp.pam" bbftp
 	fi
 }
-
