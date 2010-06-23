@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -33,7 +33,7 @@ src_install() {
 	dobin clover
 	dodir "/usr/share/${PN}"
 	insinto "/usr/share/${PN}"
-	doins ${DISTDIR}/jaspar2005core || die
+	doins "${DISTDIR}/jaspar2005core" || die
 }
 
 pkg_postinst() {
