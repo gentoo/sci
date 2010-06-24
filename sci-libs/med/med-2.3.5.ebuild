@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -46,7 +46,6 @@ src_install() {
 	rm -R "${D}"/usr/share/doc/*
 	rm -R "${D}"/usr/bin/testc
 	rm -R "${D}"/usr/bin/testf
-
 
 	if use doc
 	then
