@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,7 +20,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="arpack doc examples lapack threads"
 
 DEPEND="arpack? ( >=sci-libs/arpack-96 )
-	doc? ( virtual/ghostscript )
+	doc? ( app-text/ghostscript-gpl )
 	lapack? ( virtual/lapack )
 	>=sci-libs/spooles-2.2
 	virtual/blas"
