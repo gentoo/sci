@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/gromacs/gromacs-4.0.5.ebuild,v 1.1 2009/05/14 16:17:39 alexxy Exp $
 
@@ -35,4 +35,3 @@ src_install() {
 	emake DESTDIR="${D}" install || die "Installing Single Precision failed"
 	dodoc AUTHORS INSTALL README NEWS
 }
-
