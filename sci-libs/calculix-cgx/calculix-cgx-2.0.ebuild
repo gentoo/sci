@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,9 +16,10 @@ SRC_URI="http://www.dhondt.de/${MY_P}.all.tar.bz2
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc examples"
+IUSE="doc examples nptl"
 
-DEPEND="doc? ( virtual/ghostscript )
+DEPEND="doc? ( app-text/ghostscript-gpl )
+	media-libs/mesa[nptl=]
 	>=virtual/glut-1.0"
 RDEPEND=${DEPEND}
 
@@ -29,7 +30,7 @@ src_prepare() {
 }
 
 src_configure () {
-	if built_with_use media-libs/mesa nptl; then
+	if use nptl; then
 		export PTHREAD="-lpthread"
 	else
 		export PTHREAD=""
