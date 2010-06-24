@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -25,7 +25,6 @@ src_unpack(){
 	eautoreconf
 }
 
-
 src_install() {
 	emake DESTDIR="${D}" install || die "Install failed"
 	dodoc README
@@ -36,4 +35,3 @@ pkg_postinst() {
 	elog "Help us improve the ebuild in:"
 	elog "http://bugs.gentoo.org/show_bug.cgi?id=230423"
 }
-
