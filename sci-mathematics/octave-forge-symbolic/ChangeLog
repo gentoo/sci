@@ -1,6 +1,10 @@
 # ChangeLog for sci-mathematics/octave-forge-symbolic
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  24 Jun 2010; Justin Lecher <jlec@gentoo.org>
+  octave-forge-symbolic-1.0.7.ebuild, octave-forge-symbolic-1.0.9.ebuild:
+  Fixed octave dep, #285236
 
 *octave-forge-symbolic-1.0.9 (04 Oct 2009)
 
