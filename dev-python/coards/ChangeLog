@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jun 2010; Justin Lecher <jlec@gentoo.org> coards-0.2.2.ebuild:
+  Fix PYTHON ABI Stuff
+
   24 Apr 2010; Tim Cera <timcera@earthlink.net> coards-0.2.2.ebuild:
   Updated to latest style for Python ebuilds.
 

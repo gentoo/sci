@@ -3,15 +3,16 @@
 # $Header: $
 
 EAPI="2"
+
 PYTHON_DEPEND="2:2.4"
+SUPPORT_PYTHON_ABIS="1"
 
-inherit python distutils
+inherit distutils
 
-DESCRIPTION="This module converts between a given COARDS time specification and
-a Python datetime object"
+DESCRIPTION="Converts COARDS between time specification and a Python datetime object"
 HOMEPAGE="http://dealmeida.net/"
-
 SRC_URI="http://cheeseshop.python.org/packages/source/${PN:0:1}/${PN}/${P}.tar.gz"
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
