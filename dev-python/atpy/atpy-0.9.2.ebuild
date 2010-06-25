@@ -2,9 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI="2"
+
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
+
 inherit distutils
 
+#DISTUTILS_SRC_TEST="test/test.py"
 MYPN=ATpy
 MYP="${MYPN}-${PV}"
 
@@ -19,6 +24,8 @@ RDEPEND=">=dev-python/numpy-1.3
 	sqlite? ( dev-python/pysqlite )
 	votable? ( >=dev-python/vo-0.3 )"
 
+RESTRICT_PYTHON_ABIS="2.[45]"
+
 DEPEND=">=dev-python/numpy-1.3"
 
 IUSE="+fits mysql postgres sqlite +votable"
@@ -28,6 +35,3 @@ LICENSE="GPL-3"
 
 S="${WORKDIR}/${MYP}"
 
-src_test() {
-	PYTHONPATH=$(dir -d build/lib*) "${python}" test/test.py || die
-}
