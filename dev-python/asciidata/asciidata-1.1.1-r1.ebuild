@@ -27,7 +27,7 @@ DEPEND="${RDEPEND}"
 RESTRICT_PYTHON_ABIS="3.*"
 
 src_test() {
-	PYTHONPATH="$(ls -d build-${PYTHON_ABI}/lib.*)" distutils_src_test
+	distutils_src_test
 }
 
 src_install() {
