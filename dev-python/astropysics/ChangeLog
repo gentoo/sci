@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jun 2010; Justin Lecher <jlec@gentoo.org> astropysics-9999.ebuild:
+  Fix PYTHON ABI Stuff
+
   28 Apr 2010; Kacper Kowalik <xarthisius.kk@gmail.com>
   astropysics-9999.ebuild:
   Adding proper license

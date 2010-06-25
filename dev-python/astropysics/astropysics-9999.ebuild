@@ -3,6 +3,8 @@
 # $Header: $
 
 EAPI="3"
+
+PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
 
 inherit bzr distutils
@@ -26,6 +28,7 @@ RDEPEND="dev-python/chaco
 	sci-astronomy/sextractor
 	sci-visualization/mayavi
 	sci-libs/scipy"
+
 RESTRICT_PYTHON_ABIS="3.*"
 
 src_compile() {
@@ -33,7 +36,6 @@ src_compile() {
 	if use doc; then
 		cd docs
 		emake html || die
-		cd ..
 	fi
 }
 
