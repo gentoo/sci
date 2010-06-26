@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Jun 2010; Justin Lecher <jlec@gentoo.org> vo-0.5.ebuild:
+  Python ABI fixes
+
   28 Apr 2010; Kacper Kowalik <xarthisius.kk@gmail.com> vo-0.5.ebuild,
   +files/vo-0.5-assertion_fix.patch, +files/vo-0.5-skiptests.patch:
   Skipping failing tests, fixing assertion.
