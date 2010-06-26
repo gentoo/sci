@@ -1,6 +1,11 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI="3"
+
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
 
 inherit python
 
@@ -16,17 +21,34 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=">=dev-python/zsi-2.1_alpha1
+RDEPEND="
+	>=dev-python/zsi-2.1_alpha1
 	!=sci-chemistry/apbs-1.1.0"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${MY_P}
 
-src_install() {
-	/usr/bin/wsdl2py  wsdl/opal.wsdl || die
+src_prepare() {
+	python_copy_sources
+}
 
-	insinto $(python_get_sitedir)
-	doins AppService_*.py || die
+src_install() {
+		"${EPREFIX}"/usr/bin/wsdl2py  wsdl/opal.wsdl || die
+
+	installation() {
+		insinto $(python_get_sitedir)
+		doins AppService_*.py || die
+	}
+	python_execute_function -s installation
+
 	dodoc README CHANGELOG etc/* *Client.py || die
 	dohtml docs/* || die
+}
+
+pkg_postinst() {
+	python_mod_optimize $(python_get_sitedir)
+}
+
+pkg_postrm() {
+	python_mod_cleanup $(python_get_sitedir)
 }
