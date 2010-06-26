@@ -2,6 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="3"
+
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
+
 inherit distutils flag-o-matic toolchain-funcs
 
 DESCRIPTION="Feed-forward neural network for python"
@@ -13,11 +18,15 @@ KEYWORDS="~x86 ~amd64"
 LICENSE="GPL-2"
 IUSE="examples graphviz matplotlib"
 
-DEPEND="dev-python/networkx
+DEPEND="
+	dev-python/networkx
 	dev-python/numpy
 	sci-libs/scipy
 	matplotlib? ( dev-python/matplotlib )
 	graphviz? ( dev-python/pygraphviz )"
+RDEPEND="${DEPEND}"
+
+RESTRICT_PYTHON_ABIS="3.*"
 
 pkg_setup() {
 	[[ -z ${FC}  ]] && export FC=$(tc-getFC)
@@ -34,7 +43,7 @@ src_compile() {
 
 src_install() {
 	distutils_src_install
-	dodoc README
+	dodoc README || die
 	if use examples; then
 		insinto /usr/share/doc/${PF}
 		doins -r examples || die
