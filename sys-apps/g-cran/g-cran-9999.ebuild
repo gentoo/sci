@@ -1,0 +1,22 @@
+# Copyright 1999-2010 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=3
+
+inherit distutils git
+
+DESCRIPTION="CRAN-style packages installer helper for package managers"
+HOMEPAGE="http://git.overlays.gentoo.org/gitweb/?p=proj/g-cran.git;a=summary"
+SRC_URI=""
+EGIT_BRANCH="master"
+EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/g-cran.git"
+
+LICENSE="GPL-2"
+SLOT="0"
+KEYWORDS=""
+IUSE=""
+
+DEPEND="dev-lang/python
+	dev-lang/R"
+RDEPEND="${DEPEND}"

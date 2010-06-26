@@ -1,0 +1,7 @@
+# ChangeLog for sys-apps/g-cran
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*g-cran-9999 (26 06 2010)
+  26 06 2010; Auke Booij (tulcod) <auke@tulcod.com> ChangeLog:
+  Initial import
