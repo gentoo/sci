@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/pytables/ChangeLog,v 1.35 2010/02/12 04:10:58 bicatali Exp $
 
+  26 Jun 2010; Justin Lecher <jlec@gentoo.org> pytables-2.2_rc2.ebuild:
+  Python ABI fixes
+
   18 Jun 2010; Kacper Kowalik <xarthisius@gentoo.org>
   pytables-2.2_rc2.ebuild:
   Adding dropped ~x86 keyword
