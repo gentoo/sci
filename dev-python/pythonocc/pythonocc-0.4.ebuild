@@ -4,6 +4,9 @@
 
 EAPI=2
 
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
+
 inherit distutils
 
 MY_PN=pythonOCC
@@ -21,5 +24,7 @@ IUSE=""
 RDEPEND="sci-libs/opencascade"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
+
+RESTRICT_PYTHON_ABIS="3.*"
 
 S=${WORKDIR}/${MY_P}/src
