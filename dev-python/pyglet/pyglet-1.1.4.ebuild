@@ -1,9 +1,11 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=2
-NEED_PYTHON=2.4
+
+PYTHON_DEPEND="2:2.5"
+SUPPORT_PYTHON_ABIS="1"
 
 inherit distutils
 
@@ -16,12 +18,15 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="alsa doc examples ffmpeg gtk +openal"
 
-RDEPEND="virtual/opengl
-	|| ( dev-python/ctypes >=dev-lang/python-2.5 )
-	alsa? ( media-libs/alsa-lib[alisp,midi] )
+RDEPEND="
+	virtual/opengl
+	alsa? ( media-libs/alsa-lib[alisp] )
 	ffmpeg? ( media-libs/avbin-bin )
 	gtk? ( x11-libs/gtk+:2 )
 	openal? ( media-libs/openal )"
+DEPEND="${REDEPEND}"
+
+RESTRICT_PYTHON_ABIS="3.*"
 
 src_install() {
 	DOCS="NOTICE"
