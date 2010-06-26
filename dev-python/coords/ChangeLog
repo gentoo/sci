@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Jun 2010; Justin Lecher <jlec@gentoo.org> coords-0.37.ebuild:
+  Python ABI fixes
+
 *coords-0.37 (26 Apr 2010)
 
   26 Apr 2010; Kacper Kowalik <xarthisius.kk@gmail.com> +coords-0.37.ebuild,
