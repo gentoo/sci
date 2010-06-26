@@ -1,6 +1,9 @@
 # ChangeLog for dev-python/gdmodule
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  26 Jun 2010; Justin Lecher <jlec@gentoo.org> gdmodule-0.56.ebuild:
+  Python ABI fixes
 
   01 Feb 2009; Sébastien Fabbro <bicatali@gentoo.org>
   dev-python/gdmodule/metadata.xml, dev-python/pyglet/gdmodule-0.56.ebuild:
