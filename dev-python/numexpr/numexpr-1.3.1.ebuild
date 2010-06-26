@@ -3,10 +3,11 @@
 # $Header: $
 
 EAPI=2
-PYTHON_DEPEND="2:2.4"
+
+PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
 
-inherit python distutils
+inherit distutils
 
 DESCRIPTION="Fast numerical array expression evaluator for Python and NumPy."
 HOMEPAGE="http://code.google.com/p/numexpr/"
@@ -17,7 +18,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=">=dev-python/setuptools-0.6_rc3
+DEPEND="
+	>=dev-python/setuptools-0.6_rc3
 	>=dev-util/scons-1.2.0-r1"
 RDEPEND=">=dev-python/numpy-1.3.1"
 
