@@ -1,10 +1,12 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="2"
 
-inherit fortran versionator multilib
+inherit fortran toolchain-funcs versionator
+
+FORTRAN="ifc gfortran"
 
 MY_P="${PN}_$(replace_version_separator 2 '-')"
 
@@ -17,13 +19,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="fortran hdf5 szip zlib"
 
-RDEPEND="hdf5? ( >=sci-libs/hdf5-1.8 )
+RDEPEND="
+	hdf5? ( >=sci-libs/hdf5-1.8 )
 	zlib? ( sys-libs/zlib )
 	szip? ( sci-libs/szip )"
-
 DEPEND="${RDEPEND}"
 
 MY_S="${PN}_$(get_version_component_range 1-2)"
+
 S=${WORKDIR}/${MY_S}
 
 src_prepare() {
@@ -32,7 +35,11 @@ src_prepare() {
 }
 
 src_configure() {
-	local myconf="--enable-gcc --enable-lfs --enable-shared=all --enable-64bit"
+	local myconf
+	myconf="${myconf} --enable-gcc --enable-lfs --enable-shared=all"
+	use amd64 && myconf="${myconf} --enable-64bit"
+
+	tc-export CC
 
 	econf \
 		${myconf} \

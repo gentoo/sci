@@ -33,7 +33,7 @@
      else
        CFGFLAGS="-fPIC $CFGFLAGS"
 -      AR="\$(CC) -shared $SYSCFLAGS -Wl,-rpath,$cgnsdir/\$(SYSTEM)"
-+      AR="\$(CC) -shared $SYSCFLAGS -Wl,-soname,libcgns.so.2"
++      AR="\$(CC) -shared $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2"
        LIBEXT=so
      fi
    fi
@@ -44,7 +44,7 @@
      else
        CFGFLAGS="-fPIC $CFGFLAGS"
 -      AR="\$(CC) -shared $SYSCFLAGS -Wl,-rpath,$cgnsdir/\$(SYSTEM)"
-+      AR="\$(CC) -shared $SYSCFLAGS -Wl,-soname,libcgns.so.2"
++      AR="\$(CC) -shared $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2"
        LIBEXT=so
      fi
    fi
