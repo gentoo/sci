@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Jun 2010; Justin Lecher <jlec@gentoo.org>
+  mercurial-server-1.0.1.ebuild:
+  Python ABI fixes
+
   11 Mar 2010; Christoph Junghans <kleiner_otti@gmx.de>
   mercurial-server-1.0.1.ebuild:
   fixed bug #286695#c8 (tnx to Domen Kozar)
