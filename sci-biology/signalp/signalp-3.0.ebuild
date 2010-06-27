@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/amos/amos-2.0.8.ebuild,v 1.1 2008/08/26 16:33:07 weaver Exp $
 
@@ -25,8 +25,7 @@ pkg_nofetch() {
 	einfo "\"${SRC_URI}\", then place it in ${DISTDIR}"
 }
 
-src_unpack() {
-	unpack ${A}
+src_prepare() {
 	sed -i -e '/SIGNALP=/ s/\/usr//' \
 		-e '/TMPDIR=/ s/$SIGNALP//' "${S}/signalp" || die
 	sed -i 's/nawk/gawk/' "${S}"/bin/* || die
