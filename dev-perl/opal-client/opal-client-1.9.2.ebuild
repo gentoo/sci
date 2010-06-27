@@ -1,8 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit python perl-module
+inherit perl-module
 
 MY_PN="${PN/client/perl}"
 MY_P="${MY_PN}-${PV}"
@@ -16,7 +16,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="dev-perl/SOAP-Lite
+RDEPEND="
+	dev-perl/SOAP-Lite
 	dev-lang/perl
 	dev-python/opal-client"
 DEPEND="${RDEPEND}"
@@ -25,7 +26,7 @@ S="${WORKDIR}"/${MY_P}
 
 src_install() {
 	insinto ${SITE_LIB}
-	doins *.pm
+	doins *.pm || die
 	dodoc README etc/* pdb2pqrclient.pl || die
 	dohtml docs/* || die
 }
