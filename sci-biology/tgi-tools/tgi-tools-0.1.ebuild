@@ -1,4 +1,4 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -29,12 +29,12 @@ src_unpack() {
 }
 
 src_compile() {
-	sed -i 's/use Mailer;/#use Mailer;/' ${S}/seqclean/seqclean
-	sed -i 's/-V\t\tverbose/-V\t\tverbose\\/' ${S}/zmsort/zmsort.cpp
+	sed -i 's/use Mailer;/#use Mailer;/' "${S}"/seqclean/seqclean
+	sed -i 's/-V\t\tverbose/-V\t\tverbose\\/' "${S}"/zmsort/zmsort.cpp
 	# TODO: fix error in nrcl
 	for i in cdbfasta mdust psx sclust tclust trimpoly zmsort $(use pvm && echo pvmsx); do
-		sed -i 's/CFLAGS[ ]*=/CFLAGS :=/; s/-D_REENTRANT/-D_REENTRANT \${CFLAGS}/; s/CFLAGS[ ]*:=[ ]*-O2$//' ${S}/${i}/Makefile
-		cd ${S}/${i} || die "cd ${i} failed"
+		sed -i 's/CFLAGS[ ]*=/CFLAGS :=/; s/-D_REENTRANT/-D_REENTRANT \${CFLAGS}/; s/CFLAGS[ ]*:=[ ]*-O2$//' "${S}"/${i}/Makefile
+		cd "${S}"/${i} || die "cd ${i} failed"
 		emake || die "emake failed in ${i}"
 	done
 }

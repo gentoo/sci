@@ -2,4 +2,7 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <herd>maintainer-wanted</herd>
+<use>
+<flag name="pvm">Build the parallel multi-FASTA file processing tool using PVM</flag>
+</use>
 </pkgmetadata>

@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/tgi-tools
-# Copyright 1999-2007 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  27 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
+  tgi-tools-0.1.ebuild, metadata.xml:
+  QA fixes
 
   27 Apr 2007; Andrey Kislyuk <weaver@horizon.ath.cx> +tgi-tools-0.1.ebuild:
   Mass import from sunrise
