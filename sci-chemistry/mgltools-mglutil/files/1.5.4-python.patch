@@ -1,0 +1,13 @@
+diff --git a/mglutil/math/Tests/test_matToAxis.py b/mglutil/math/Tests/test_matToAxis.py
+index 25befa4..acf75f3 100644
+--- a/mglutil/math/Tests/test_matToAxis.py
++++ b/mglutil/math/Tests/test_matToAxis.py
+@@ -33,7 +33,7 @@ def rotateObject():
+     for i in range(len(m1)):
+         if fabs(m1[i]-m2[i]) > 1e-4:
+             bSame = False
+-    assert (bSame, True)
++    assert bSame, True
+ 
+ 
+ def test_rotateObject():
