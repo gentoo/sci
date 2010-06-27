@@ -78,3 +78,7 @@
 # (was a svn checkout, but the server is dead)
 =dev-lang/aldor-1.1.0
 
+# Andreas K. Huettel (dilfridge) (27 Jun 2010)
+# mask for removal in 30d since there is no source anymore
+# (fetch restricted, and the ftp server does not respond; no hint of program at HOMEPAGE)
+sci-biology/newbler
