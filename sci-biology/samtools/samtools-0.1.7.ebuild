@@ -6,7 +6,6 @@ EAPI="2"
 
 MY_P="${P}a"
 
-
 DESCRIPTION="SAM (Sequence Alignment/Map), a format for storing large nucleotide sequence alignments"
 HOMEPAGE="http://${PN}.sourceforge.net/"
 #SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
