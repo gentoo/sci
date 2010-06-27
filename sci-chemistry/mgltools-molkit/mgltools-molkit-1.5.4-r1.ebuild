@@ -47,7 +47,6 @@ src_prepare() {
 	distutils_src_prepare
 }
 
-
 pkg_postinst() {
 	python_mod_optimize ${MY_PN}
 }
