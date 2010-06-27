@@ -16,7 +16,8 @@ KEYWORDS="~amd64"
 IUSE="fuse"
 
 DEPEND="dev-libs/boost
-		dev-libs/libedit"
+		dev-libs/libedit
+		fuse? ( sys-fs/fuse )"
 RDEPEND="sys-fs/btrfs-progs"
 
 src_prepare() {

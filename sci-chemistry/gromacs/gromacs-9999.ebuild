@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="3"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
@@ -119,10 +119,10 @@ src_configure() {
 		myconf="${myconf} --enable-shared"
 	fi
 
-	myconf="--datadir=/usr/share \
-			--bindir=/usr/bin \
-			--libdir=/usr/$(get_libdir) \
-			--docdir=/usr/share/doc/"${PF}" \
+	myconf="--datadir=${EPREFIX}/usr/share \
+			--bindir=${EPREFIX}/usr/bin \
+			--libdir=${EPREFIX}/usr/$(get_libdir) \
+			--docdir=${EPREFIX}/usr/share/doc/"${PF}" \
 			$(use_with dmalloc) \
 			$(use_with fftw fft fftw3) \
 			$(use_with gsl) \
@@ -196,22 +196,22 @@ src_test() {
 src_install() {
 	for x in ${GMX_DIRS}; do
 		cd "${S}-${x}"
-		emake DESTDIR="${D}" install || die "emake install for ${x} failed"
+		emake DESTDIR="${ED}" install || die "emake install for ${x} failed"
 		use mpi || continue
 		cd "${S}-${x}_mpi"
-		emake DESTDIR="${D}" install-mdrun || die "emake install-mdrun for ${x} failed"
+		emake DESTDIR="${ED}" install-mdrun || die "emake install-mdrun for ${x} failed"
 	done
 
-	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${D}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
+	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
 	doenvd "${T}/80gromacs"
-	rm -f "${D}"/usr/bin/GMXRC*
+	rm -f "${ED}"/usr/bin/GMXRC*
 
-	dobashcompletion "${D}"/usr/bin/completion.bash ${PN}
+	dobashcompletion "${ED}"/usr/bin/completion.bash ${PN}
 	if use zsh-completion ; then
-		insinto /usr/share/zsh/site-functions
-		newins "${D}"/usr/bin/completion.zsh _${PN}
+		insinto ${EPREFIX}/usr/share/zsh/site-functions
+		newins "${ED}"/usr/bin/completion.zsh _${PN}
 	fi
-	rm -r "${D}"/usr/bin/completion.*
+	rm -r "${ED}"/usr/bin/completion.*
 
 	cd "${S}"
 	dodoc AUTHORS INSTALL README
@@ -227,7 +227,7 @@ pkg_postinst() {
 	elog
 	bash-completion_pkg_postinst
 	elog
-	elog $(luck)
+	elog $(g_luck)
 	elog "For more Gromacs cool quotes (gcq) add luck to your .bashrc"
 	elog
 }
