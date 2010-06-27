@@ -1,0 +1,12 @@
+diff --git a/src/bhtree.c b/src/bhtree.c
+index 1db701a..cb16afb 100644
+--- a/src/bhtree.c
++++ b/src/bhtree.c
+@@ -38,6 +38,7 @@
+ */
+ #include <stdio.h>
+ #include <math.h>
++#include <stdlib.h>
+ #include "bhtree.h"
+ 
+ /* Barnes - Hut Trees ? */
