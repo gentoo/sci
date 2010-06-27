@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/mrbayes/mrbayes-3.1.2.ebuild,v 1.7 2008/06/11 18:10:48 ken69267 Exp $
 
@@ -41,7 +41,7 @@ src_compile() {
 	mpi_pkg_set_env
 	emake || die
 }
-	
+
 src_install() {
 	mpi_dobin mb || die "Installation failed."
 }
