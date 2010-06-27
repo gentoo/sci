@@ -1,12 +1,19 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="3"
+
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
+DISTUTILS_USE_SEPARATE_SOURCE_DIRECTORIES="true"
+
 inherit distutils
 
-MY_P="${P/mgltools-s/S}"
+MY_PN="Support"
+MY_P="${MY_PN}-${PV}"
 
-DESCRIPTION="mgltools plugin -- support"
+DESCRIPTION="mgltools plugin -- Support"
 HOMEPAGE="http://mgltools.scripps.edu"
 #SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
 SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/mgltools_source_${PV}.tar.gz"
@@ -20,12 +27,15 @@ RDEPEND=""
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
+RESTRICT_PYTHON_ABIS="3.*"
 S="${WORKDIR}"/${MY_P}
 
 src_unpack() {
 	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
 	tar xzpf mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
+}
 
+src_prepare() {
 	find "${S}" -name CVS -type d -exec rm -rf '{}' \; >& /dev/null
 	find "${S}" -name LICENSE -type f -exec rm -f '{}' \; >& /dev/null
 
@@ -34,14 +44,13 @@ src_unpack() {
 		-e 's:^.*LICENSE:#&1:g' \
 		-i "${S}"/MANIFEST.in
 
-	sed \
-		-e "1s:^.*$:mglroot = \'$(python_get_sitedir)/MGLToolsPckgs/\':g" \
-		-i Support-1.5.4/Support/sitecustomize.py
+	distutils_src_prepare
 }
 
-src_install() {
-	distutils_src_install
+pkg_postinst() {
+	python_mod_optimize ${MY_PN}
+}
 
-	insinto $(python_get_sitedir)
-	doins Support/sitecustomize.py
+pkg_postrm() {
+	python_mod_cleanup ${MY_PN}
 }
