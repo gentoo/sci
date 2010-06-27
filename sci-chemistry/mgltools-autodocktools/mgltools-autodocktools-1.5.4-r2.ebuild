@@ -65,3 +65,11 @@ src_install() {
 	sed '1s:^.*$:#!/usr/bin/python:g' -i AutoDockTools/bin/runAdt || die
 	dobin AutoDockTools/bin/runAdt || die
 }
+
+pkg_postinst() {
+	python_mod_optimize AutoDockTools
+}
+
+pkg_postrm() {
+	python_mod_cleanup AutoDockTools
+}
