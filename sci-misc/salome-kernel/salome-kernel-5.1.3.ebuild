@@ -45,13 +45,14 @@ pkg_setup() {
 	#Warn about mpi use flag for hdf5
 	has_version "sci-libs/hdf5[mpi]" &&
 		ewarn "mpi use flag enabled for sci-libs/hdf5, this may cause the build to fail for salome-kernel"
+	python_set_active_version 2
 }
 
 src_prepare() {
 	use amd64 && epatch "${FILESDIR}"/${P}-lib_location.patch
 	[[ $(python_get_version) == 2.6 ]] && \
 		epatch "${FILESDIR}"/${P}-python-2.6.patch
-	
+
 	has_version "sys-cluster/openmpi" && \
 		epatch "${FILESDIR}"/${P}-openmpi.patch
 
