@@ -4,7 +4,9 @@
 
 EAPI="2"
 
-inherit cmake-utils eutils subversion
+PYTHON_USE_WITH="sqlite"
+PYTHON_DEPEND="python? 2"
+inherit python cmake-utils eutils subversion
 
 DESCRIPTION="User friendly Geographic Information System"
 HOMEPAGE="http://www.qgis.org/"
@@ -16,28 +18,39 @@ SLOT="0"
 KEYWORDS=""
 IUSE="examples gps grass gsl postgres python sqlite"
 
-RDEPEND="dev-libs/expat
-	>=sci-libs/gdal-1.6.1
-	sci-libs/geos
-	sci-libs/proj
+RDEPEND=">=sci-libs/gdal-1.6.1
 	x11-libs/qt-core:4[qt3support]
 	x11-libs/qt-gui:4
 	x11-libs/qt-svg:4
 	x11-libs/qt-sql:4
-	gps? ( x11-libs/qwt )
-	grass? ( >=sci-geosciences/grass-6 sci-geosciences/gdal-grass )
+	x11-libs/qt-webkit:4
+	sci-libs/geos
+	sci-libs/proj
+	gps? (
+		dev-libs/expat
+		sci-geosciences/gpsbabel
+	)
+	grass? (
+		>=sci-geosciences/grass-6.4.0_rc6
+	)
 	gsl? ( sci-libs/gsl )
-	postgres? ( >=virtual/postgresql-base-8 )
-	python? ( dev-lang/python[sqlite] dev-python/PyQt4[sql,svg] )
+	postgres? ( >=dev-db/postgresql-base-8 )
+	python? ( dev-python/PyQt4[sql,svg] )
 	sqlite? ( dev-db/sqlite:3 )"
 
 DEPEND="${RDEPEND}
 	sys-devel/bison
 	sys-devel/flex"
 
+pkg_setup() {
+	python_set_active_version 2
+	python_pkg_setup
+}
+
 src_configure() {
 	local mycmakeargs
 	mycmakeargs+=(
+		"-DQGIS_MANUAL_SUBDIR=/share/man/"
 		"-DBUILD_SHARED_LIBS:BOOL=ON"
 		"-DBINDINGS_GLOBAL_INSTALL:BOOL=ON"
 		"-DQWT_INCLUDE_DIR=/usr/include/qwt5"
@@ -67,14 +80,14 @@ src_configure() {
 
 src_install() {
 	cmake-utils_src_install
-	dodoc AUTHORS BUGS ChangeLog README SPONSORS CONTRIBUTORS
+	dodoc AUTHORS BUGS ChangeLog README SPONSORS CONTRIBUTORS || die
 
-	newicon images/icons/qgis-icon.png qgis.png
+	newicon images/icons/qgis-icon.png qgis.png || die
 	make_desktop_entry qgis "Quantum GIS " qgis.png
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
-		doins "${WORKDIR}"/qgis_sample_data/* || die "Unable to install examples"
+		doins -r "${WORKDIR}"/qgis_sample_data/* || die "Unable to install examples"
 	fi
 }
 
