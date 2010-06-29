@@ -3,7 +3,10 @@
 # $Header: $
 
 EAPI="2"
+
+PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils
 
@@ -22,7 +25,6 @@ RDEPEND="dev-python/numpy"
 DEPEND="${RDEPEND}
 	app-arch/unzip
 	dev-python/setuptools"
-RESTRICT_PYTHON_ABIS="3.*"
 
 S="${WORKDIR}/${MY_P}"
 
