@@ -11,10 +11,10 @@
    -lm 
  
  # on 32bit systems change lib64 to lib
-@@ -126,42 +126,6 @@
-  writebp.c \
-  contact.c \
-  makeTriFromElems.c \
+@@ -18,41 +18,6 @@
+ include Makefile.inc
+ 
+ SUTIL = \
 - ../../glut-3.5/src/layerutil.c \
 - ../../glut-3.5/src/glut_dials.c \
 - ../../glut-3.5/src/glut_ext.c \
@@ -24,7 +24,6 @@
 - ../../glut-3.5/src/glut_space.c \
 - ../../glut-3.5/src/glut_shapes.c \
 - ../../glut-3.5/src/glut_tablet.c \
-- ../../glut-3.5/src/glut_vidresize.c \
 - ../../glut-3.5/src/glut_warp.c \
 - ../../glut-3.5/src/glut_8x13.c \
 - ../../glut-3.5/src/glut_9x15.c \

@@ -18,10 +18,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc examples nptl"
 
-DEPEND="doc? ( app-text/ghostscript-gpl )
-	media-libs/mesa[nptl=]
+RDEPEND="media-libs/mesa[nptl=]
 	>=virtual/glut-1.0"
-RDEPEND=${DEPEND}
+DEPEND="${RDEPEND}
+	doc? ( app-text/ghostscript-gpl )"
 
 S=${WORKDIR}/CalculiX/${MY_P}/src/
 
