@@ -3,7 +3,10 @@
 # $Header: $
 
 EAPI="2"
+
+PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils
 
@@ -22,7 +25,6 @@ RDEPEND="sci-libs/scipy"
 DEPEND="dev-python/numpy
 	dev-python/setuptools
 	doc? ( dev-python/sphinx )"
-RESTRICT_PYTHON_ABIS="3.*"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -33,6 +35,7 @@ src_prepare() {
 		-e '/statsmodels\/examples/d' \
 		setup.py || die
 	mv scikits/statsmodels/{docs,examples} .
+	distutils_src_prepare
 }
 
 src_compile() {
