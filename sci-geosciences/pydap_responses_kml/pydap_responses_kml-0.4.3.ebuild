@@ -3,16 +3,18 @@
 # $Header: $
 
 EAPI="2"
-PYTHON_DEPEND="2:2.4"
 
-inherit python distutils
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
+
+inherit distutils
 
 MY_PN=${PN//_/.}
 MY_P=${P//_/.}
 
 DESCRIPTION="NetCDF response for Pydap Data Access Protocol server."
 HOMEPAGE="http://pydap.org"
-
 SRC_URI="http://pypi.python.org/packages/source/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
 LICENSE="pydap"
