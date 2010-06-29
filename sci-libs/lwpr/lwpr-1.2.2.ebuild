@@ -1,9 +1,14 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
-inherit eutils distutils
+EAPI="3"
+
+PYTHON_DEPEND="python? 2"
+SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
+
+inherit distutils eutils
 
 DESCRIPTION="The Locally Weighted Projection Regression Library"
 HOMEPAGE="http://www.ipab.inf.ed.ac.uk/slmc/software/lwpr/"
@@ -20,7 +25,10 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-setup.py.patch
+	if use python; then
+		epatch "${FILESDIR}"/${P}-setup.py.patch
+		use python && distutils_src_prepare
+	fi
 }
 
 src_configure() {
@@ -46,7 +54,7 @@ src_test() {
 		cd python
 		LD_LIBRARY_PATH=../src/.libs \
 			PYTHONPATH=$(dir -d build/lib*) \
-			"${python}" test.py || die "python test failed"
+			"$(PYTHON)" test.py || die "python test failed"
 	fi
 }
 
@@ -54,7 +62,7 @@ src_install() {
 	emake DESTDIR="${D}" \
 		mexflags="-DMATLAB -I../include -L./.libs -llwproctave" \
 		install || die "emake install failed"
-	dodoc README.TXT
+	dodoc README.TXT || die
 	if use doc; then
 		insinto /usr/share/doc/${PF}
 		doins doc/lwpr_doc.pdf
