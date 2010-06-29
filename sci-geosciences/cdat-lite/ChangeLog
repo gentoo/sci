@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Jun 2010; Justin Lecher <jlec@gentoo.org> +files/5.2-impl-dec.patch,
+  cdat-lite-5.2.ebuild, +files/5.2-shared-lib.patch:
+  Python ABI fixes, implicit declaration fixes
+
   24 Apr 2010; Tim Cera <timcera@earthlink.net> cdat-lite-5.2.ebuild:
   Updated to latest style for Python ebuilds.
 

@@ -3,13 +3,15 @@
 # $Header: $
 
 EAPI="2"
-PYTHON_DEPEND="2:2.5"
 
-inherit python distutils
+PYTHON_DEPEND="2:2.5"
+SUPPORT_PYTHON_ABIS="1"
+
+inherit distutils eutils toolchain-funcs
 
 MY_P=${P/-/_}
 
-DESCRIPTION="CDAT-Lite is a large suite of open source tools for the management and analysis of climate data."
+DESCRIPTION="Large suite of open source tools for the management and analysis of climate data"
 HOMEPAGE="http://proj.badc.rl.ac.uk/ndg/wiki/CdatLite"
 SRC_URI="http://ndg.nerc.ac.uk/dist/${MY_P}.tar.gz"
 
@@ -22,11 +24,21 @@ COMMON_DEPEND=">=sci-libs/netcdf-4.0.1
 	>=sci-libs/hdf5-1.6.4"
 DEPEND="${COMMON_DEPEND}
 	dev-python/setuptools"
-RDEPEND="${COMMON_DEPEND}"
+RDEPEND="${COMMON_DEPEND}
+	!sci-biology/ncbi-tools"
 
-src_compile()(
-	find "${S}" -type l -exec rm '{}' \;
-	distutils_src_compile
-)
+RESTRICT_PYTHON_ABIS="3.*"
 
 S="${WORKDIR}/${MY_P}"
+
+src_prepare() {
+	epatch "${FILESDIR}"/${PV}-shared-lib.patch
+	epatch "${FILESDIR}"/${PV}-impl-dec.patch
+	find "${S}" -type l -exec rm '{}' \;
+	distutils_src_prepare
+}
+
+src_compile()(
+	tc-export CC
+	distutils_src_compile
+)
