@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pyquante-1.6.3-r1 (29 Jun 2010)
+
+  29 Jun 2010; Justin Lecher <jlec@gentoo.org> -pyquante-1.6.3.ebuild,
+  +pyquante-1.6.3-r1.ebuild:
+  Python ABI fixes
+
 *pyquante-1.6.3 (13 Jan 2010)
 
   13 Jan 2010; Alexey Shvetsov <alexxy@gentoo.org> +pyquante-1.6.3.ebuild,
