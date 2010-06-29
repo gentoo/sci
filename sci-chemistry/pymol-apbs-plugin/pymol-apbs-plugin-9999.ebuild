@@ -2,7 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="3"
+
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
 
 inherit python subversion
 
@@ -13,32 +16,41 @@ HOMEPAGE="http://sourceforge.net/projects/pymolapbsplugin/"
 ESVN_REPO_URI="https://pymolapbsplugin.svn.sourceforge.net/svnroot/pymolapbsplugin/trunk/"
 
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
 LICENSE="pymol"
 IUSE=""
 
 RDEPEND="
 	sci-chemistry/apbs
 	sci-chemistry/pdb2pqr
-	sci-chemistry/pymol[-apbs]"
+	!<sci-chemistry/pymol-1.2.2-r1"
 DEPEND="${RDEPEND}"
+RESTRICT_PYTHON_ABIS="3.*"
+
+src_unpack() {
+	subversion_src_unpack
+	python_copy_sources
+}
 
 src_install() {
-	sed \
-		-e "s:^APBS_BINARY_LOCATION.*:APBS_BINARY_LOCATION = \"${EPREFIX}/usr/bin/apbs\":g" \
-		-e "s:^APBS_PSIZE_LOCATION.*:APBS_PSIZE_LOCATION = \"$(python_get_sitedir)/pdb2pqr/src/\":g" \
-		-e "s:^APBS_PDB2PQR_LOCATION.*:APBS_PDB2PQR_LOCATION = \"$(python_get_sitedir)/pdb2pqr/\":g" \
-		-e "s:^TEMPORARY_FILE_DIR.*:TEMPORARY_FILE_DIR = \"./\":g" \
-		-i src/apbsplugin.py
+	installation() {
+		sed \
+			-e "s:^APBS_BINARY_LOCATION.*:APBS_BINARY_LOCATION = \"${EPREFIX}/usr/bin/apbs\":g" \
+			-e "s:^APBS_PSIZE_LOCATION.*:APBS_PSIZE_LOCATION = \"${EPREFIX}/$(python_get_sitedir)/pdb2pqr/src/\":g" \
+			-e "s:^APBS_PDB2PQR_LOCATION.*:APBS_PDB2PQR_LOCATION = \"${EPREFIX}/$(python_get_sitedir)/pdb2pqr/\":g" \
+			-e "s:^TEMPORARY_FILE_DIR.*:TEMPORARY_FILE_DIR = \"./\":g" \
+			-i src/apbsplugin.py
 
-	insinto $(python_get_sitedir)/pmg_tk/startup/
-	newins src/apbsplugin.py apbs_tools.py || die
+		insinto $(python_get_sitedir)/pmg_tk/startup/
+		newins src/apbsplugin.py apbs_tools.py || die
+	}
+	python_execute_function -s installation
 }
 
 pkg_postinst() {
-	python_mod_optimize $(python_get_sitedir)/pmg_tk/startup/apbs_tools.py
+	python_mod_optimize pmg_tk/startup/apbs_tools.py
 }
 
 pkg_postrm() {
-	python_mod_cleanup $(python_get_sitedir)/pmg_tk/startup/apbs_tools.py
+	python_mod_cleanup pmg_tk/startup/apbs_tools.py
 }
