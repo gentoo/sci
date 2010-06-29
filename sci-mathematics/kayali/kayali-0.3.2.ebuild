@@ -1,8 +1,12 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+EAPI="3"
+
+PYTHON_DEPEND="2"
+
+inherit eutils python
 
 DESCRIPTION="Qt front-end for Computer Algebra System mainly maxima"
 HOMEPAGE="http://kayali.sourceforge.net/"
@@ -13,6 +17,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
+
 DEPEND=""
 RDEPEND="sci-mathematics/maxima
 	>=dev-python/PyQt4-4.1
@@ -26,23 +31,29 @@ RESTRICT="test"
 
 S=${WORKDIR}/${PN}
 
+pkg_setup() {
+	python_set_active_version 2
+}
+
 src_compile() {
 	einfo "Nothing to compile"
 }
 
 src_install() {
-	INSTALL_DIR=/usr/share/${PN}
-	echo "#! /bin/sh" > kayali
-	echo "cd ${INSTALL_DIR}" >> kayali
-	echo "exec python -OOt kayali.py $@" >> kayali
-	exeinto /usr/bin
-	doexe kayali
-	dodir ${INSTALL_DIR}
+	INSTALL_DIR="${EPREFIX}"/usr/share/${PN}
+	cat >> "${T}"/kayali <<- EOF
+	#!${EPREFIX}/bin/sh
+	cd ${INSTALL_DIR}
+	exec $(PYTHON) -OOt kayali.py $@
+	EOF
+	dobin "${T}"/kayali || die
 	insinto ${INSTALL_DIR}
-	doins *.py *.txt *.in* maximab.bat maxima.g
-	doins -r engines icons pdf qt4gui *uic
-	doins icons
+	doins *.py *.txt *.in* maximab.bat maxima.g || die
+	doins -r engines icons pdf qt4gui *uic || die
+	doins icons || die
 	make_desktop_entry kayali kayali kayali.svg
-	use doc && dohtml html
-	dodoc README
+	if use doc; then
+		dohtml html/* || die
+	fi
+	dodoc README || die
 }

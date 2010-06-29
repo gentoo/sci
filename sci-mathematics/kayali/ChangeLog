@@ -1,6 +1,9 @@
 # ChangeLog for sci-mathematics/kayali
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  29 Jun 2010; Justin Lecher <jlec@gentoo.org> kayali-0.3.2.ebuild:
+  Python ABI fixes
 
   19 Jun 2008; Sébastien Fabbro <bicatali@gentoo.org> kayali-0.3.2.ebuild:
   Version bump
