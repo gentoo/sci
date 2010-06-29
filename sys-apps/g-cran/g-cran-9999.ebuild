@@ -4,6 +4,10 @@
 
 EAPI=3
 
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
+
 inherit distutils git
 
 DESCRIPTION="CRAN-style packages installer helper for package managers"
@@ -17,6 +21,5 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="dev-lang/python
-	dev-lang/R"
+DEPEND="dev-lang/R"
 RDEPEND="${DEPEND}"
