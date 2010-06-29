@@ -19,12 +19,12 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="arpack doc examples lapack threads"
 
-DEPEND="arpack? ( >=sci-libs/arpack-96 )
-	doc? ( app-text/ghostscript-gpl )
+RDEPEND="arpack? ( >=sci-libs/arpack-96 )
 	lapack? ( virtual/lapack )
 	>=sci-libs/spooles-2.2
 	virtual/blas"
-RDEPEND=${DEPEND}
+DEPEND="${RDEPEND}
+	doc? ( app-text/ghostscript-gpl )"
 
 S=${WORKDIR}/CalculiX/${MY_P}/src
 
