@@ -17,8 +17,8 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="debug doc mpi"
 
-RDEPEND="mpi? || ( sys-cluster/openmpi[cxx]
-		 				 sys-cluster/mpich2[cxx] )
+RDEPEND="mpi? ( || ( sys-cluster/openmpi[cxx]
+		 				 sys-cluster/mpich2[cxx] ) )
 		 debug?   ( dev-util/cppunit )
 		 >=sci-misc/salome-kernel-${PV}
 		 >=sci-misc/salome-gui-${PV}
