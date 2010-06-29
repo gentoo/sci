@@ -45,6 +45,7 @@ VISU_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 pkg_setup() {
 	[[ $(python_get_version) > 2.4 ]] && \
 		ewarn "Python 2.4 is highly recommended for Salome..."
+	python_set_active_version 2
 }
 
 src_prepare() {
