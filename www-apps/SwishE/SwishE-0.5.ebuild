@@ -21,5 +21,3 @@ IUSE=""
 
 RDEPEND=">=www-apps/swish-e-2.4"
 DEPEND="${RDEPEND}"
-
-
