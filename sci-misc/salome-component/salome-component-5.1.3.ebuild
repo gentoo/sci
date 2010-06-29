@@ -3,6 +3,7 @@
 # $Header:  $
 
 EAPI=2
+
 PYTHON_DEPEND="2:2.4"
 
 inherit eutils flag-o-matic python
@@ -16,8 +17,8 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="debug doc mpi"
 
-RDEPEND="mpi?     ( || ( sys-cluster/openmpi[cxx]
-		 				 sys-cluster/mpich2[cxx]  ) )
+RDEPEND="mpi? || ( sys-cluster/openmpi[cxx]
+		 				 sys-cluster/mpich2[cxx] )
 		 debug?   ( dev-util/cppunit )
 		 >=sci-misc/salome-kernel-${PV}
 		 >=sci-misc/salome-gui-${PV}
@@ -28,7 +29,6 @@ RDEPEND="mpi?     ( || ( sys-cluster/openmpi[cxx]
 		 >=x11-libs/qwt-5.2
 		 >=dev-python/PyQt4-4.4.3
 		 >=sci-libs/opencascade-6.3"
-
 DEPEND="${RDEPEND}
 		>=app-doc/doxygen-1.5.6
 		media-gfx/graphviz
@@ -45,6 +45,7 @@ COMPONENT_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 pkg_setup() {
 	[[ $(python_get_version) > 2.4 ]] && \
 		ewarn "Python 2.4 is highly recommended for Salome..."
+	python_set_active_version 2
 }
 
 src_prepare() {
