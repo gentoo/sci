@@ -22,4 +22,3 @@ DEPEND=">=app-dicts/wordnet-2.0"
 RDEPEND="${DEPEND}"
 
 DOCS=docs/*
-
