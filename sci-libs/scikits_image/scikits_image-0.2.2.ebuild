@@ -3,7 +3,10 @@
 # $Header: $
 
 EAPI="2"
+
+PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils
 
@@ -22,7 +25,6 @@ RDEPEND="dev-python/numpy"
 DEPEND="${RDEPEND}
 	dev-python/setuptools
 	doc? ( dev-python/sphinx )"
-RESTRICT_PYTHON_ABIS="3.*"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -42,7 +44,7 @@ src_test() {
 
 src_install() {
 	distutils_src_install
-	dodoc *.txt
+	dodoc *.txt || die
 	insinto /usr/share/doc/${PF}
 	if use doc; then
 		doins -r build/sphinx/html || die
