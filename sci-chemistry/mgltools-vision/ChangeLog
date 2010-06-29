@@ -1,6 +1,12 @@
 # ChangeLog for sci-chemistry/mgltools-vision
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*mgltools-vision-1.5.4-r1 (29 Jun 2010)
+
+  29 Jun 2010; Justin Lecher <jlec@gentoo.org>
+  -mgltools-vision-1.5.4.ebuild, +mgltools-vision-1.5.4-r1.ebuild:
+  Python ABI fixes
 
 *mgltools-vision-1.5.4 (17 May 2009)
 

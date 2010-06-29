@@ -1,12 +1,17 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="3"
+
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
 inherit distutils
 
-MY_P="Vision-${PV}"
+MY_PN="Vision"
+MY_P="${MY_PN}-${PV}"
 
-DESCRIPTION="mgltools plugin -- vision"
+DESCRIPTION="mgltools plugin -- Vision"
 HOMEPAGE="http://mgltools.scripps.edu"
 #SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
 SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/mgltools_source_${PV}.tar.gz"
@@ -20,6 +25,7 @@ RDEPEND=""
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
+RESTRICT_PYTHON_ABIS="3.*"
 S="${WORKDIR}"/${MY_P}
 
 DOCS="Vision/FAQ.txt"
@@ -27,7 +33,9 @@ DOCS="Vision/FAQ.txt"
 src_unpack() {
 	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
 	tar xzpf mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
+}
 
+src_prepare() {
 	find "${S}" -name CVS -type d -exec rm -rf '{}' \; >& /dev/null
 	find "${S}" -name LICENSE -type f -exec rm -f '{}' \; >& /dev/null
 
@@ -35,13 +43,22 @@ src_unpack() {
 		-e 's:^.*CVS:#&1:g' \
 		-e 's:^.*LICENSE:#&1:g' \
 		-i "${S}"/MANIFEST.in
+	distutils_src_prepare
 }
 
 src_install() {
 	distutils_src_install
 
-	sed '1s:^.*$:#!/usr/bin/python:g' -i Vision/bin/runVision || die
+	sed '1s:^.*$:#!/usr/bin/python2:g' -i Vision/bin/runVision || die
 	dobin Vision/bin/runVision || die
 
 	dohtml Vision/FAQ.html
+}
+
+pkg_postinst() {
+	python_mod_optimize ${MY_PN}
+}
+
+pkg_postrm() {
+	python_mod_cleanup ${MY_PN}
 }
