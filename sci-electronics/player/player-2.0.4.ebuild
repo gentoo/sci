@@ -1,8 +1,10 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+PYTHON_DEPEND="2"
+
+inherit eutils python
 
 DESCRIPTION="A network server for robot control"
 HOMEPAGE="http://playerstage.sourceforge.net/index.php?src=player"
@@ -36,9 +38,8 @@ RDEPEND="media-libs/jpeg
 	openssl? ( dev-libs/openssl )
 	imagemagick? ( media-gfx/imagemagick )
 	gsl? ( sci-libs/gsl )
-	python? ( dev-lang/python )
 	ieee1394? ( sys-libs/libraw1394 media-libs/libdc1394 )
-	java? ( virtual/jdk dev-lang/python )
+	java? ( virtual/jdk )
 	gtk? ( x11-libs/gtk+ )
 	gnome? ( >=gnome-base/libgnomecanvas-2.0 )
 	boost? ( dev-libs/boost )
@@ -50,6 +51,9 @@ DEPEND="${RDEPEND}
 	java? ( dev-lang/swig )
 	doc? ( app-doc/doxygen )"
 
+pkg_setup () {
+	python_set_active_version 2
+}
 
 src_compile() {
 	local drivers driver nodep_drivers
@@ -89,15 +93,15 @@ src_compile() {
 		$(use_enable gtk rtkgui) \
 		$(use_enable test tests) \
 		--with-playercc \
-		${drivers} || die "econf failed"
+		${drivers}
 
 	# Parallel make will fail
 	emake -j1 || die "emake failed"
 
 	if use doc; then
-		pushd doc
+		pushd doc > /dev/null
 		emake doc || die "emake doc failed"
-		popd
+		popd > /dev/null
 	fi
 }
 
@@ -106,7 +110,7 @@ src_install() {
 
 	if use doc; then
 		cd doc
-		emake DESTDIR="${D}" "doc-install" || die "emake doc-install failed"
+		emake DESTDIR="${D}" doc-install || die "emake doc-install failed"
 		cd ..
 	fi
 
