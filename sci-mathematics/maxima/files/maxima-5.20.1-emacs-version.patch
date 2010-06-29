@@ -1,0 +1,12 @@
+http://bugs.gentoo.org/307349
+
+--- maxima-5.20.1-orig/interfaces/emacs/emaxima/maxima.el
++++ maxima-5.20.1/interfaces/emacs/emaxima/maxima.el
+@@ -2109,6 +2109,7 @@
+ ;;; The next functions are from comint.el in cvs emacs
+ (if (and
+      (not maxima-running-xemacs)
++     (<= emacs-major-version 21)
+      (or
+       (< emacs-major-version 21)
+       (< emacs-minor-version 3)))

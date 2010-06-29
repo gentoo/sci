@@ -1,0 +1,80 @@
+diff -u -r maxima-5.20.1/lisp-utils/defsystem.lisp maxima-5.20.1-patched/lisp-utils/defsystem.lisp
+--- maxima-5.20.1/lisp-utils/defsystem.lisp	2009-05-13 10:01:40.000000000 +0200
++++ maxima-5.20.1-patched/lisp-utils/defsystem.lisp	2010-04-04 16:22:53.000000000 +0200
+@@ -871,6 +871,8 @@
+       :cormanlisp
+       :scl
+       :abcl
++      :ccl
++      :ecl
+       (and allegro-version>= (version>= 4 1)))
+ (eval-when #-(or :lucid)
+            (:compile-toplevel :load-toplevel :execute)
+@@ -993,10 +995,10 @@
+ 
+ #+abcl (defpackage make (:use "COMMON-LISP") (:nicknames "MK"))
+ 
+-#+(or clisp cormanlisp ecl (and gcl defpackage) sbcl)
++#+(or clisp cormanlisp ecl (and gcl defpackage) sbcl ccl)
+ (defpackage "MAKE" (:use "COMMON-LISP") (:nicknames "MK"))
+ 
+-#-(or :sbcl :cltl2 :lispworks :ecl :scl :abcl)
++#-(or :sbcl :cltl2 :lispworks :ecl :scl :abcl :ccl)
+ (in-package :make :nicknames '("MK"))
+ 
+ ;;; For CLtL2 compatible lisps...
+@@ -1052,7 +1054,7 @@
+ (eval-when (compile load eval)
+   (in-package :make))
+ 
+-#+(or ecl abcl)
++#+(or ecl abcl ccl)
+ (in-package :make)
+ 
+ ;;; *** Marco Antoniotti <marcoxa@icsi.berkeley.edu> 19970105
+@@ -4127,9 +4129,9 @@
+ (unless *old-require*
+   (setf *old-require*
+ 	(symbol-function
+-	 #-(or (and :excl :allegro-v4.0) :mcl :sbcl :scl :lispworks :abcl) 'lisp:require
++	 #-(or (and :excl :allegro-v4.0) :ecl :mcl :sbcl :scl :lispworks :abcl  :openmcl) 'lisp:require
+ 	 #+(and :excl :allegro-v4.0) 'cltl1:require
+-	 #+(or :sbcl :scl) 'cl:require
++	 #+(or :ecl :sbcl :scl) 'cl:require
+ 	 #+(or :lispworks3.1 :abcl) 'common-lisp::require
+ 	 #+(and :lispworks (not :lispworks3.1)) 'system::require
+ 	 #+:openmcl 'cl:require
+@@ -4139,9 +4141,9 @@
+   (unless *dont-redefine-require*
+     (let (#+(or :mcl (and :CCL (not :lispworks)))
+ 	  (ccl:*warn-if-redefine-kernel* nil))
+-      #-(or (and allegro-version>= (version>= 4 1)) :lispworks)
++      #-(or :ecl (and allegro-version>= (version>= 4 1)) :lispworks)
+       (setf (symbol-function
+-	     #-(or (and :excl :allegro-v4.0) :mcl :sbcl :scl :lispworks :abcl) 'lisp:require
++	     #-(or (and :excl :allegro-v4.0) :mcl :sbcl :scl :lispworks :abcl :openmcl) 'lisp:require
+ 	     #+(and :excl :allegro-v4.0) 'cltl1:require
+ 	     #+(or :lispworks3.1 :abcl) 'common-lisp::require
+ 	     #+(or :sbcl :scl) 'cl:require
+@@ -4150,6 +4152,12 @@
+ 	     #+(and :mcl (not :openmcl)) 'ccl:require
+ 	     )
+ 	    (symbol-function 'new-require))
++      #+:ecl
++      (progn
++        (ext:package-lock "CL" nil)
++        (setf (symbol-function 'lisp:require)
++              (symbol-function 'new-require))
++        (ext:package-lock "CL" t))
+       #+:lispworks
+       (let ((warn-packs system::*packages-for-warn-on-redefinition*))
+ 	(declare (special system::*packages-for-warn-on-redefinition*))
+diff -u -r maxima-5.20.1/src/ecl-port.lisp maxima-5.20.1-patched/src/ecl-port.lisp
+--- maxima-5.20.1/src/ecl-port.lisp	2008-08-10 21:18:07.000000000 +0200
++++ maxima-5.20.1-patched/src/ecl-port.lisp	2010-04-04 16:23:02.000000000 +0200
+@@ -21,3 +21,5 @@
+ 
+ (si::trap-fpe 'floating-point-underflow nil)
+ 
++(ext:package-lock "CL" nil)
++

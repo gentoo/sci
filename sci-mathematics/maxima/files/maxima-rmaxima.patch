@@ -1,0 +1,19 @@
+--- src/Makefile.am.orig	2010-02-01 21:58:17.353941395 +1300
++++ src/Makefile.am	2010-02-01 22:09:12.859975783 +1300
+@@ -3,8 +3,16 @@
+ if WIN32
+ bin_SCRIPTS = maxima maxima-command.ico maxima.bat set_lang.vbs
+ else
++if CLISP
++bin_SCRIPTS = maxima
++else
++if GCL
++bin_SCRIPTS = maxima
++else
+ bin_SCRIPTS = maxima rmaxima
+ endif
++endif
++endif
+ 
+ LOADDEFSYSTEM = (load "$(top_srcdir)/lisp-utils/defsystem.lisp")
+ LOADMAKEPROCLAIM = (load "$(top_srcdir)/lisp-utils/make-proclaim.lisp")
