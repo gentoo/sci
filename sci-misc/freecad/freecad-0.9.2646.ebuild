@@ -2,9 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="3"
 
-inherit multilib
+PYTHON_DEPEND="2"
+
+inherit multilib python
 
 MY_P="FreeCAD-${PV}"
 
@@ -17,7 +19,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="dev-lang/python
+RDEPEND="
 	sci-libs/opencascade
 	x11-libs/qt-gui:4
 	x11-libs/qt-svg:4
@@ -29,16 +31,20 @@ RDEPEND="dev-lang/python
 	dev-python/PyQt4
 	dev-libs/xerces-c
 	=media-libs/SoQt-1.4.2_alpha1841"
-
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
 S="${WORKDIR}/${MY_P}"
 
+pkg_setup() {
+	python_set_active_version 2
+}
+
 src_configure () {
-	 econf --with-qt4-include=/usr/include/qt4 \
-		--with-qt4-bin=/usr/bin \
-		--with-qt4-lib=/usr/$(get_libdir)/qt4
+	 econf \
+		--with-qt4-include="${EPREFIX}"/usr/include/qt4 \
+		--with-qt4-bin="${EPREFIX}"//usr/bin \
+		--with-qt4-lib="${EPREFIX}"//usr/$(get_libdir)/qt4
 }
 
 src_install () {

@@ -6,6 +6,9 @@
 +metadata.xml:
   Change builder from root to Roelof Wobben
 
+  29 Jun 2010; Justin Lecher <jlec@gentoo.org> freecad-0.9.2646.ebuild:
+  Python ABI fixes
+
   30 Mar 2010; Justin Lecher <jlec@gentoo.org> freecad-0.9.2646.ebuild:
   Changed DEPEND of media-libs/SoQt from 1.4.2_alpha4181 to 1.4.2_alpha1841
 
