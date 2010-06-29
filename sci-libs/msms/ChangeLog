@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*msms-1.5.4-r1 (29 Jun 2010)
+
+  29 Jun 2010; Justin Lecher <jlec@gentoo.org> -msms-1.5.4.ebuild,
+  +msms-1.5.4-r1.ebuild:
+  Python ABI fixes
+
   24 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   msms-1.5.4.ebuild:
   QA fixes
