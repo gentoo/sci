@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Jun 2010; Justin Lecher <jlec@gentoo.org> seawater-1.0.3.ebuild:
+  Python ABI fixes
+
 *seawater-1.0.3 (31 Jan 2010)
 
   31 Jan 2010; Tim Cera <timcera@earthlink.net> +seawater-1.0.3.ebuild,
