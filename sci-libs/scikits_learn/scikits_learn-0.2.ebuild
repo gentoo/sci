@@ -3,7 +3,10 @@
 # $Header: $
 
 EAPI="2"
+
+PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils
 
@@ -26,7 +29,6 @@ DEPEND="${RDEPEND}
 	dev-python/setuptools
 	doc? ( dev-python/sphinx )
 	test? ( sci-libs/scikits_optimization )"
-RESTRICT_PYTHON_ABIS="3.*"
 
 S="${WORKDIR}/${MY_P}"
 
