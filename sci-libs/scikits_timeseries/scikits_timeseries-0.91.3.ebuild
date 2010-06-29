@@ -3,7 +3,10 @@
 # $Header: $
 
 EAPI="2"
+
+PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils
 
@@ -26,7 +29,6 @@ RDEPEND="sci-libs/scipy
 	dev-python/matplotlib
 	dev-python/pytables"
 
-RESTRICT_PYTHON_ABIS="3.*"
 S="${WORKDIR}/${MY_P}"
 
 src_test() {
