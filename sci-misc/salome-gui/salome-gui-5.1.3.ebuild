@@ -3,6 +3,7 @@
 # $Header:  $
 
 EAPI=2
+
 PYTHON_DEPEND="2:2.4"
 
 inherit eutils flag-o-matic python
@@ -47,6 +48,7 @@ GUI_ROOT_DIR="/opt/salome-${PV}/${MODULE_NAME}"
 pkg_setup() {
 	[[ $(python_get_version) > 2.4 ]] && \
 		ewarn "Python 2.4 is highly recommended for Salome..."
+	python_set_active_version 2
 }
 
 src_prepare() {
