@@ -38,19 +38,18 @@ src_unpack() {
 }
 
 src_install() {
-	python_version
 
 	distutils_src_install
 	cd "${S}"
 
 #The following three lines probably do not do their jobs and should be
 #changed
-	PYTHONPATH="${D}/usr/$(get_libdir)/site-packages" ${python} setup2.py
+	PYTHONPATH="${D}/usr/$(get_libdir)/site-packages" $(PYTHON) setup2.py
 
 # These environment variables should not go in the wrapper script, or else
 # it will be impossible to use the PyMOL libraries from Python.
 		cat >> "${T}"/20pymol << EOF
-		PYMOL_PATH=/usr/$(get_libdir)/python${PYVER}/site-packages/pymol
+		PYMOL_PATH=$(python_get_sitedir)/pymol
 		PYMOL_DATA="/usr/share/pymol/data"
 		PYMOL_SCRIPTS="/usr/share/pymol/scripts"
 EOF
@@ -58,10 +57,10 @@ EOF
 	doenvd "${T}"/20pymol || die "Failed to install env.d file."
 
 # Make our own wrapper
-		cat >> "${T}"/pymol << EOF
-#!/bin/sh
-		${python} \${PYMOL_PATH}/__init__.py \$*
-EOF
+		cat >> "${T}"/pymol <<- EOF
+		#!/bin/sh
+		$(PYTHON) \${PYMOL_PATH}/__init__.py \$*
+		EOF
 
 		exeinto /usr/bin
 		doexe "${T}"/pymol || die "Failed to install wrapper."

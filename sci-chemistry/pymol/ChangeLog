@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Jun 2010; Justin Lecher <jlec@gentoo.org> pymol-0.99_rc10.ebuild:
+  Python ABI fixes
+
   22 Jun 2010; Justin Lecher <jlec@gentoo.org> +files/1.3.0-vmd.patch,
   +files/pymol-1.2.2-shaders.patch, pymol-9999.ebuild:
   Imported changes from tree
