@@ -1,12 +1,21 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI="3"
+
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
+PYTHON_USE_WITH="tk"
+RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_MODNAME="yaml nltk_contrib nltk"
 
 inherit eutils distutils
 
 DESCRIPTION="Natural language processing tool collection"
-HOMEPAGE="http://nltk.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz
+HOMEPAGE="http://www.nltk.org/"
+SRC_URI="
+	mirror://sourceforge/${PN}/${P}.tar.gz
 	mirror://sourceforge/${PN}/${PN}-data-${PV}.zip"
 
 LICENSE="GPL-2"
@@ -22,20 +31,11 @@ DEPEND="${DEPEND}
 	sci-misc/pywordnet"
 RDEPEND="${DEPEND}"
 
-pkg_setup() {
-	if ! built_with_use dev-lang/python tk ; then
-		die "NLTK needs python built with USE=tk"
-	fi
-	export NLTK_DATA="${WORKDIR}/data/"
-}
+NLTK_DATA="${WORKDIR}/data/"
 
 src_install() {
 	distutils_src_install
-	# N.B.: if you install corpora in usr/share/nltk you do not need env. vars
-	cd "${WORKDIR}"
-	dodir /usr/share/nltk
-	fperms g+r data
-	insinto /usr/share/nltk/
-	doins -r data
+	insinto /usr/share/nltk/data
+	doins -r "${WORKDIR}"/${PN}_data/* || die
 }
 
