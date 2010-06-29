@@ -1,6 +1,9 @@
 # ChangeLog for www-apps/SwishE
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  29 Jun 2010; Justin Lecher <jlec@gentoo.org> SwishE-0.5.ebuild:
+  Python ABI fixes
 
 *SwishE-0.5 (23 Mar 2009)
 
