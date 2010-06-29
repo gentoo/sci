@@ -1,8 +1,11 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="2"
+
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
 
 inherit eutils python toolchain-funcs
 
@@ -21,6 +24,8 @@ IUSE="doc mpi test"
 RDEPEND="mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
+
+RESTRICT_PYTHON_ABIS="3.*"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -51,7 +56,18 @@ src_test() {
 
 src_install() {
 	dobin ${PN} || die
-	insinto $(python_get_sitedir)/${PN}
-	doins *.py || die
+	installation() {
+		insinto $(python_get_sitedir)/${PN}
+		doins *.py || die
+	}
+	python_execute_function installation
 	dodoc README || die
+}
+
+pkg_postinst() {
+	python_mod_optimize ${PN}
+}
+
+pkg_postrm() {
+	python_mod_cleanup ${PN}
 }
