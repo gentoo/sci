@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Jun 2010; Justin Lecher <jlec@gentoo.org> -pymol-0.99_rc10.ebuild:
+  Clean ancient version
+
   29 Jun 2010; Justin Lecher <jlec@gentoo.org> pymol-0.99_rc10.ebuild:
   Python ABI fixes
 
