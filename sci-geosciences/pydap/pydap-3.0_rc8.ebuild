@@ -3,9 +3,12 @@
 # $Header: $
 
 EAPI="2"
-PYTHON_DEPEND="2:2.4"
 
-inherit python distutils
+PYTHON_DEPEND="2"
+SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
+
+inherit distutils
 
 MY_PN=${PN/pydap/Pydap}
 MY_P=${P/pydap/Pydap}
