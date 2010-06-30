@@ -1,6 +1,11 @@
 # ChangeLog for sci-electronics/gsmc
-# Copyright 1999-2005 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*gsmc-1.1 (30 Jun 2010)
+
+  30 Jun 2010; Thomas Beierlein <tomjbe@gentoo.org> +gsmc-1.1.ebuild:
+  Version bump
 
   23 Oct 2005; Lucas Chiesa <lucas.chiesa@gmail.com> gsmc-1.0.ebuild:
   Changed ${PN}-${PV} to ${P}. It now depends on >=x11-libs/gkt+-2.6.8.
