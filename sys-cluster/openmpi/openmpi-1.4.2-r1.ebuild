@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sys-cluster/openmpi/openmpi-1.2.4.ebuild,v 1.2 2007/12/13 22:39:53 jsbronder Exp $
 
-EAPI=2
+EAPI=3
 inherit eutils multilib flag-o-matic toolchain-funcs fortran mpi
 
 MY_P=${P/-mpi}
@@ -60,9 +60,6 @@ src_prepare() {
 		echo 'oob_tcp_listen_mode = listen_thread' \
 			>> opal/etc/openmpi-mca-params.conf
 	fi
-
-	# https://svn.open-mpi.org/trac/ompi/ticket/2201
-	epatch "${FILESDIR}"/${P}-r22513.patch
 }
 
 src_configure() {
