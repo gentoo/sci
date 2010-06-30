@@ -8,7 +8,7 @@ inherit distutils mercurial
 
 DESCRIPTION="A tool that generates and installs ebuilds for Octave-Forge"
 HOMEPAGE="http://g-octave.rafaelmartins.eng.br/"
-EHG_REPO_URI="http://hg.rafaelmartins.eng.br/g-octave/"
+EHG_REPO_URI="http://g-octave.rafaelmartins.eng.br/hg/"
 
 LICENSE="GPL-2"
 SLOT="0"
