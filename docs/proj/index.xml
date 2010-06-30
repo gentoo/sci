@@ -37,10 +37,11 @@
 
   <!-- Staff -->	
   <dev role="member" description="General package maintainer">bicatali</dev>
-  <dev role="member" description="General package maintainer">je_fro</dev>
   <dev role="contributor" description="Ebuild development, general bug fixing, electronics and physics">dilfridge</dev>
+  <dev role="member" description="General package maintainer">je_fro</dev>
   <dev role="contributor" description="Ebuild development (sage), general bug fixing and keep opendx running">kiwifb</dev>
   <dev role="member" description="General package maintainer, g-octave developer">rafaelmartins</dev>
+  <dev role="member" description="General package maintainer">xarthisius</dev>
   <dev role="my role in the science project" description="what i do mainly">dev-username</dev>
 
   <!-- Subprojects 
