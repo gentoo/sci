@@ -1,0 +1,31 @@
+# ChangeLog for app-portage/g-octave
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  05 Jun 2010; Rafael Goncalves Martins <rafael@rafaelmartins.eng.br> :
+  Manifest fix.
+
+*g-octave-0.1 (05 Jun 2010)
+
+  05 Jun 2010; Rafael Goncalves Martins <rafael@rafaelmartins.eng.br>
+  -g-octave-0.1_rc3.ebuild, +g-octave-0.1.ebuild:
+  Version bump.
+
+  30 May 2010; Rafael Goncalves Martins <rafael@rafaelmartins.eng.br>
+  g-octave-9999.ebuild:
+  Added src_test()
+
+*g-octave-0.1_rc3 (03 Feb 2010)
+
+  03 Feb 2010; Rafael Goncalves Martins <rafael@rafaelmartins.eng.br>
+  g-octave-9999.ebuild, +g-octave-0.1_rc3.ebuild, -g-octave-0.1_rc2.ebuild:
+  Version bump. Cleanup. Changed urls of the live ebuild.
+
+*g-octave-0.1_rc2 (24 Jan 2010)
+
+*g-octave-9999 (24 Jan 2010)
+
+  24 Jan 2010; Rafael Goncalves Martins <rafael@rafaelmartins.eng.br>
+  +g-octave-0.1_rc2.ebuild, +g-octave-9999.ebuild:
+  Initial import.
+
