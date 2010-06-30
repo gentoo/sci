@@ -1,5 +1,6 @@
 app-admin
 app-office
+app-portage
 app-vim
 dev-cpp
 dev-lang
@@ -21,6 +22,5 @@ sci-mathematics
 sci-misc
 sci-physics
 sci-visualization
-sys-apps
 sys-cluster
 sys-infiniband

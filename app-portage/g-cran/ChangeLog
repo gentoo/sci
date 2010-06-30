@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Jun 2010; Auke Booij(tulcod) <auke@tulcod.com> g-cran:
+  Moving package from sys-apps to app-portage
+
   29 Jun 2010; Justin Lecher <jlec@gentoo.org> g-cran-9999.ebuild:
   Python ABI fixes
 
