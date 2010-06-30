@@ -1,6 +1,14 @@
 # ChangeLog for sci-mathematics/octave-forge-image
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*octave-forge-image-1.0.13 (30 Jun 2010)
+
+  30 Jun 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  -files/octave-forge-image-1.0.6-imagemagick.patch,
+  -octave-forge-image-1.0.8.ebuild, -octave-forge-image-1.0.10.ebuild,
+  +octave-forge-image-1.0.13.ebuild:
+  Bump
 
 *octave-forge-image-1.0.10 (03 Oct 2009)
 
