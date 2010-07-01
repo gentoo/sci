@@ -1,0 +1,11 @@
+# ChangeLog for sci-electronics/xnec2c
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*xnec2c-1.3 (01 Jul 2010)
+
+  01 Jul 2010; Thomas Beierlein <tomjbe@gentoo.org> +xnec2c-1.3.ebuild,
+  +metadata.xml:
+  New ebuild for Xnec2c. Based on the work of Dominique Michel
+  <dominique.michel@vtxnet.ch> in bug #138770
+
