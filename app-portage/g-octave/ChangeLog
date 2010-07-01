@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  01 Jul 2010; Rafael Goncalves Martins <rafael@rafaelmartins.eng.br>
+  -g-octave-0.1.ebuild, g-octave-9999.ebuild, metadata.xml:
+  Live ebuild updated. Removed old version (0.1)
+
 *g-octave-0.2_rc1 (30 Jun 2010)
 
   30 Jun 2010; Rafael Goncalves Martins <rafael@rafaelmartins.eng.br>
