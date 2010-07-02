@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*simclist-1.4.4_rc4 (24 Jul 2010)
+
+  24 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  -simclist-1.4.4_rc3.ebuild,+simclist-1.4.4_rc4.ebuild:
+  version bump
+  
   23 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   simclist-1.4.4_rc3.ebuild:
   QA fixes
