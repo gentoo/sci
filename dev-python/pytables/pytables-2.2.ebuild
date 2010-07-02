@@ -7,14 +7,11 @@ EAPI=2
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
 
-inherit distutils versionator
-
-MY_PV=$(delete_version_separator 2)
-MY_P=${PN}-${MY_PV}
+inherit distutils eutils
 
 DESCRIPTION="A package for managing hierarchical datasets built on top of the HDF5 library."
 HOMEPAGE="http://www.pytables.org/"
-SRC_URI="http://www.pytables.org/download/preliminary/${MY_P}/tables-${MY_PV}.tar.gz"
+SRC_URI="http://www.pytables.org/download/stable/tables-${PV}.tar.gz"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -32,9 +29,13 @@ RDEPEND="${DEPEND}"
 
 RESTRICT_PYTHON_ABIS="3.*"
 
-S=${WORKDIR}/tables-${MY_PV}
+S=${WORKDIR}/tables-${PV}
 
 DOCS="ANNOUNCE.txt MIGRATING_TO_2.x.txt RELEASE_NOTES.txt THANKS"
+
+src_prepare() {
+	epatch "${FILESDIR}"/${PV}-failingtests.patch
+}
 
 src_install() {
 	distutils_src_install
