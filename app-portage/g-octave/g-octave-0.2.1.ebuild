@@ -6,7 +6,7 @@ EAPI="2"
 
 inherit distutils
 
-MY_PV="1278015626"
+MY_PV="1278111487"
 INFO_REV="1"
 #PATCHES_REV="1"
 
