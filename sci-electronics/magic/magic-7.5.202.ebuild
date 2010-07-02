@@ -4,7 +4,7 @@
 
 EAPI=2
 
-inherit multilib
+inherit multilib eutils autotools
 
 DESCRIPTION="The VLSI design CAD tool."
 HOMEPAGE="http://www.opencircuitdesign.com/magic/index.html"
@@ -25,6 +25,10 @@ DEPEND="${RDEPEND}
 	app-shells/tcsh"
 
 src_prepare() {
+	epatch "${FILESDIR}/${PN}-ldflags.patch"
+	cd scripts
+	eautoreconf
+	cd ..
 	sed -i -e "s: -pg : :" tcltk/Makefile || die "tcltk patch failed"
 }
 
@@ -43,10 +47,15 @@ src_install() {
 
 	dodoc README README.Tcl TODO || die
 
-	# Move docs from LIBDIR to DATADIR and add symlink.
+	# Move docs from libdir to docdir and add symlink.
 	mv "${D}/usr/$(get_libdir)/magic/doc"/* "${D}/usr/share/doc/${PF}/" || die
 	rmdir "${D}/usr/$(get_libdir)/magic/doc" || die
 	dosym "/usr/share/doc/${PF}" "/usr/$(get_libdir)/magic/doc" || die
+
+	# Move tutorial from libdir to datadir and add symlink.
+	dodir /usr/share/${PN} || die
+	mv "${D}/usr/$(get_libdir)/magic/tutorial" "${D}/usr/share/${PN}/" || die
+	dosym "/usr/share/${PN}/tutorial" "/usr/$(get_libdir)/magic/tutorial" || die
 
 	# Install latest MOSIS tech files
 	cp -pPR "${WORKDIR}"/2002a "${D}"/usr/$(get_libdir)/magic/sys/current || die
