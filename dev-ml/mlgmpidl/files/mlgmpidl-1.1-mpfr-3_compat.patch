@@ -1,0 +1,20 @@
+diff -Naurp mlgmpidl/gmp_caml.h mlgmpidl2/gmp_caml.h
+--- mlgmpidl/gmp_caml.h	2007-07-11 13:29:31.000000000 +0000
++++ mlgmpidl2/gmp_caml.h	2010-07-03 16:09:33.000000000 +0000
+@@ -14,6 +14,16 @@
+ #if defined(HAS_MPFR)
+ #if HAS_MPFR!=0
+ #include "mpfr.h"
++#ifndef GMP_RND_MAX
++#define GMP_RND_MAX (MPFR_RNDNA - 1)
++#define mpfr_random(x)	\
++	{\
++		gmp_randstate_t s;\
++		gmp_randinit_default(s);\
++		mpfr_urandomb(x,s);\
++		gmp_randclear(s);\
++	}
++#endif
+ #endif
+ #endif
+ #include "caml/mlvalues.h"

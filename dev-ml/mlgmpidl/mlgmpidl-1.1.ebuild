@@ -36,6 +36,8 @@ src_prepare() {
 	if use !mpfr; then
 		sed -i -e "s/HAS_MPFR=1/#HAS_MPFR=0/g" Makefile.config
 	fi
+
+	epatch "${FILESDIR}/${P}-mpfr-3_compat.patch"
 }
 
 src_compile() {
