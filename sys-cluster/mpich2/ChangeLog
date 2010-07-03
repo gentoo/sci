@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Jul 2010; Justin Bronder <jsbronder@gentoo.org>
+  mpich2-1.2.1_p1-r1.ebuild:
+  Remove debug code
+
 *mpich2-1.2.1_p1-r1 (03 Jul 2010)
 
   03 Jul 2010; Justin Bronder <jsbronder@gentoo.org>

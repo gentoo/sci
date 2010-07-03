@@ -188,7 +188,6 @@ src_install() {
 	MPD_PYTHON_MODULES=""
 	for f in "${d}"usr/bin/*.py; do
 		MPD_PYTHON_MODULES="${MPD_PYTHON_MODULES} ${f##${d}usr/bin}"
-		elog "${f##${d}}"
 	done
 }
 
