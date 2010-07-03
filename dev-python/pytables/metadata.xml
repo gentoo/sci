@@ -2,6 +2,7 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <herd>python</herd>
+<herd>sci</herd>
 <longdescription lang='en'>
   PyTables is a hierarchical database package designed to efficently
   manage very large amounts of data. PyTables is built on top of the

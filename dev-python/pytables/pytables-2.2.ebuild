@@ -33,10 +33,6 @@ S=${WORKDIR}/tables-${PV}
 
 DOCS="ANNOUNCE.txt MIGRATING_TO_2.x.txt RELEASE_NOTES.txt THANKS"
 
-src_prepare() {
-	epatch "${FILESDIR}"/${PV}-failingtests.patch
-}
-
 src_install() {
 	distutils_src_install
 
