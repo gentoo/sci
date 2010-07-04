@@ -20,7 +20,7 @@ SRC_URI="
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 DEPEND="${DEPEND}
@@ -38,4 +38,3 @@ src_install() {
 	insinto /usr/share/nltk/data
 	doins -r "${WORKDIR}"/${PN}_data/* || die
 }
-
