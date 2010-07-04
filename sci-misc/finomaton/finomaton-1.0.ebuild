@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,8 +18,8 @@ IUSE="examples"
 
 # script only
 DEPEND=""
-# tetex for metapost
-RDEPEND="app-text/tetex
+# tex for metapost
+RDEPEND="dev-texlive/texlive-metapost
 	>=dev-lang/tcl-8.3
 	>=dev-lang/tk-8.3"
 
