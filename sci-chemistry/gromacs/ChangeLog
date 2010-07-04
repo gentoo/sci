@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Jul 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  gromacs-4.0.9999.ebuild, gromacs-9999.ebuild:
+  Fixes for Bug #326331
+
   28 Jun 2010; Christoph Junghans <kleiner_otti@gmx.de>
   gromacs-4.0.9999.ebuild, +files/gromacs-4.0.9999-docdir.patch:
   docdir patch is still not in 4.0 branch

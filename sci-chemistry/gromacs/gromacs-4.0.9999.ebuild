@@ -10,17 +10,19 @@ TEST_PV="4.0.4"
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="release-4-0-patches"
 
-inherit autotools bash-completion eutils fortran git multilib
+inherit autotools bash-completion eutils fortran git multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
-		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-4.0.pdf )"
+		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-4.0.pdf )
+		ffamber? ( http://ffamber.cnsm.csulb.edu/ffamber_v4.0-doc.tar.gz )"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86"
-IUSE="X blas dmalloc doc -double-precision +fftw fkernels +gsl lapack mpi +single-precision static test +xml zsh-completion"
+KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+IUSE="X blas dmalloc doc -double-precision ffamber +fftw fkernels +gsl lapack
+mpi +single-precision static static-libs test +xml zsh-completion"
 
 DEPEND="app-shells/tcsh
 	X? ( x11-libs/libX11
@@ -38,10 +40,23 @@ RDEPEND="${DEPEND}"
 
 RESTRICT="test"
 
+QA_EXECSTACK="usr/lib/libgmx.so.*
+	usr/lib/libgmx_d.so.*"
+
+use static && QA_EXECSTACK="$QA_EXECSTACK usr/bin/*"
+
 src_prepare() {
 
+	( use single-precision || use double-precision ) || \
+		die "Nothing to compile, enable single-precision and/or double-precision"
+
+	if use static; then
+		use X && die "You cannot compile a static version with X support, disable X or static"
+		use xml && die "You cannot compile a static version with xml support
+		(see bug #306479), disable xml or static"
+	fi
+
 	epatch "${FILESDIR}/${P}-docdir.patch"
-	epatch "${FILESDIR}/${P}-ccache.patch"
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
 		|| die "Failed to fixup demo script."
@@ -63,10 +78,7 @@ src_prepare() {
 	-i src/tools/Makefile.am \
 	|| die "sed tools/Makefile.am failed"
 
-	use fkernels && epatch "${FILESDIR}/${P}-configure-gfortran.patch"
-
 	eautoreconf
-
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" single"
 	use double-precision && GMX_DIRS+=" double"
@@ -112,6 +124,7 @@ src_configure() {
 		myconf="${myconf} --enable-fortran" && fortran_pkg_setup
 	else
 		myconf="${myconf} --disable-fortran"
+		FORTRANC="true"
 	fi
 
 	# if we need external blas
@@ -128,15 +141,16 @@ src_configure() {
 
 	# by default its better to have dynamicaly linked binaries
 	if use static; then
-		myconf="${myconf} $(use_enable static all-static)"
+		#gmx build static libs by default
+		myconf="${myconf} --disable-shared $(use_enable static all-static)"
 	else
-		myconf="${myconf} --enable-shared"
+		myconf="${myconf} --disable-all-static --enable-shared $(use_enable static-libs static)"
 	fi
 
-	myconf="--datadir=${EPREFIX}/usr/share \
-			--bindir=${EPREFIX}/usr/bin \
-			--libdir=${EPREFIX}/usr/$(get_libdir) \
-			--docdir=${EPREFIX}/usr/share/doc/"${PF}" \
+	myconf="--datadir="${EPREFIX}"/usr/share \
+			--bindir="${EPREFIX}"/usr/bin \
+			--libdir="${EPREFIX}"/usr/$(get_libdir) \
+			--docdir="${EPREFIX}"/usr/share/doc/"${PF}" \
 			$(use_with dmalloc) \
 			$(use_with fftw fft fftw3) \
 			$(use_with gsl) \
@@ -178,10 +192,10 @@ src_configure() {
 		einfo "Configuring for ${x} precision"
 		cd "${S}-${x}"
 		local p=myconf${x}
-		ECONF_SOURCE="${S}" econf ${!p} --disable-mpi
+		ECONF_SOURCE="${S}" econf ${!p} --disable-mpi CC="$(tc-getCC)" F77="${FORTRANC}"
 		use mpi || continue
 		cd "${S}-${x}_mpi"
-		ECONF_SOURCE="${S}" econf ${!p} --enable-mpi
+		ECONF_SOURCE="${S}" econf ${!p} --enable-mpi CC="$(tc-getCC)" F77="${FORTRANC}"
 	done
 }
 
@@ -221,14 +235,61 @@ src_install() {
 
 	dobashcompletion "${ED}"/usr/bin/completion.bash ${PN}
 	if use zsh-completion ; then
-		insinto ${EPREFIX}/usr/share/zsh/site-functions
+		insinto /usr/share/zsh/site-functions
 		newins "${ED}"/usr/bin/completion.zsh _${PN}
 	fi
-	rm -r "${ED}"/usr/bin/completion.*
+	rm -f "${ED}"/usr/bin/completion.*
 
 	cd "${S}"
 	dodoc AUTHORS INSTALL README
-	use doc && dodoc "${DISTDIR}"/manual-4.0.pdf
+	use doc && dodoc "${DISTDIR}/manual-4.0.pdf"
+	if use ffamber; then
+		use doc && dodoc "${WORKDIR}/ffamber_v4.0/README/pdfs/*.pdf"
+		# prepare vdwradii.dat
+		cat >>"${ED}"/usr/share/gromacs/top/vdwradii.dat <<-EOF
+			SOL  MW    0
+			SOL  LP    0
+		EOF
+		# regenerate aminoacids.dat
+		cat "${WORKDIR}"/ffamber_v4.0/aminoacids*.dat \
+		"${ED}"/usr/share/gromacs/top/aminoacids.dat \
+		| awk '{print $1}' | sort -u | tail -n+4 | wc -l \
+		>> "${ED}"/usr/share/gromacs/top/aminoacids.dat.new
+		cat "${WORKDIR}"/ffamber_v4.0/aminoacids*.dat \
+		"${ED}"/usr/share/gromacs/top/aminoacids.dat \
+		| awk '{print $1}' | sort -u | tail -n+4 \
+		>> "${ED}"/usr/share/gromacs/top/aminoacids.dat.new
+		mv -f "${ED}"/usr/share/gromacs/top/aminoacids.dat.new \
+		"${ED}"/usr/share/gromacs/top/aminoacids.dat
+		# copy ff files
+		for x in ffamber94 ffamber96 ffamber99 ffamber99p ffamber99sb \
+				ffamberGS ffamberGSs ffamber03 ; do
+			einfo "Adding ${x} to gromacs"
+			cp "${WORKDIR}"/ffamber_v4.0/${x}/* "${ED}"/usr/share/gromacs/top
+		done
+		# copy suplementary files
+		cp "${WORKDIR}"/ffamber_v4.0/*.gro "${ED}"/usr/share/gromacs/top
+		cp "${WORKDIR}"/ffamber_v4.0/*.itp "${ED}"/usr/share/gromacs/top
+		# actualy add records to FF.dat
+		cat >>"${ED}"/usr/share/gromacs/top/FF.dat.new <<-EOF
+			ffamber94   AMBER94 Cornell protein/nucleic forcefield
+			ffamber96   AMBER96 Kollman protein/nucleic forcefield
+			ffamberGS   AMBER-GS Garcia &  Sanbonmatsu forcefield
+			ffamberGSs  AMBER-GSs Nymeyer &  Garcia forcefield
+			ffamber99   AMBER99 Wang protein/nucleic acid forcefield
+			ffamber99p  AMBER99p protein/nucleic forcefield
+			ffamber99sb AMBER99sb Hornak protein/nucleic forcefield
+			ffamber03   AMBER03 Duan protein/nucleic forcefield
+		EOF
+		cat "${ED}"/usr/share/gromacs/top/FF.dat \
+			"${ED}"/usr/share/gromacs/top/FF.dat.new \
+			| tail -n+2 > "${ED}"/usr/share/gromacs/top/FF.dat.new2
+		cat "${ED}"/usr/share/gromacs/top/FF.dat.new2 | wc -l > \
+			"${ED}"/usr/share/gromacs/top/FF.dat
+		cat "${ED}"/usr/share/gromacs/top/FF.dat.new2 >> \
+			"${ED}"/usr/share/gromacs/top/FF.dat
+		rm -f "${ED}"/usr/share/gromacs/top/FF.dat.new*
+	fi
 }
 
 pkg_postinst() {
