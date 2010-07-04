@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,7 @@ inherit java-pkg-2
 
 MY_PV=2006-05-21
 MY_P=postagger-${MY_PV}
-DESCRIPTION="Stanford’s log linear POS taggers"
+DESCRIPTION="Stanfords log linear POS taggers"
 HOMEPAGE="http://nlp.stanford.edu/software/tagger.shtml"
 
 SRC_URI="http://nlp.stanford.edu/software/${MY_P}.tar.gz"
