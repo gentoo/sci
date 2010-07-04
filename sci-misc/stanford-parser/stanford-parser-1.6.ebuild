@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,7 @@ inherit eutils java-pkg-2 java-ant-2
 
 MY_PV=2007-08-19
 MY_P=${PN}-${MY_PV}
-DESCRIPTION="Stanford’s statistical natural language parsers"
+DESCRIPTION="Stanfords statistical natural language parsers"
 HOMEPAGE="http://www-nlp.stanford.edu/software/"
 SRC_URI="http://www-nlp.stanford.edu/software/${MY_P}.tar.gz"
 LICENSE="GPL-2"
