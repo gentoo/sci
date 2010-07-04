@@ -15,4 +15,7 @@
 	<maintainer>
 		<email>sci@gentoo.org</email>
 	</maintainer>
+	<use>
+		<flag name="ppl">Enable optional interface to the Parma Polyhedra Library</flag>
+	</use>
 </pkgmetadata>
