@@ -6,7 +6,7 @@ EAPI="2"
 
 DESCRIPTION="A tool to help verifying and proving properties on floating-point or fixed-point arithmetic."
 HOMEPAGE="http://gappa.gforge.inria.fr/"
-SRC_URI="http://gforge.inria.fr/frs/download.php/23429/${P}.tar.gz"
+SRC_URI="http://gforge.inria.fr/frs/download.php/26856/${P}.tar.gz"
 
 LICENSE="CeCILL GPL-2"
 SLOT="0"

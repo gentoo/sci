@@ -3,6 +3,10 @@
 # $Header: $
 
   04 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  +gappa-0.13.0.ebuild, -gappa-0.12.1.ebuild:
+  Version bump
+  
+  04 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
   +metadata.xml, +ChangeLog:
   QA fixes
 
