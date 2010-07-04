@@ -1,0 +1,37 @@
+diff -Naurp ocamlgraph-1.5-orig/Makefile.in ocamlgraph-1.5-ptch/Makefile.in
+--- ocamlgraph-1.5-orig/Makefile.in	2010-04-29 06:40:53.000000000 +0000
++++ ocamlgraph-1.5-ptch/Makefile.in	2010-07-04 15:44:05.000000000 +0000
+@@ -16,7 +16,6 @@
+ ##########################################################################
+ 
+ # Where to install the binaries
+-DESTDIR	=
+ prefix	=@prefix@
+ exec_prefix=@exec_prefix@
+ datarootdir=@datarootdir@
+@@ -293,11 +292,13 @@ install: install-$(OCAMLBEST) install-by
+ 	mkdir -p $(BINDIR)
+ ifeq (@LABLGNOMECANVAS@,yes)
+ ifeq ($(OCAMLBEST),byte)
+-	cp -f $(BINDIR)/graph-editor.byte $(BINDIR)/graph-editor$(EXE)
+-	cp -f $(BINDIR)/graph-viewer.byte $(BINDIR)/graph-viewer$(EXE)
++	mv $(BINDIR)/graph-editor.byte $(BINDIR)/ocamlgraph-editor$(EXE)
++	mv $(BINDIR)/graph-viewer.byte $(BINDIR)/ocamlgraph-viewer$(EXE)
+ else
+-	cp -f $(BINDIR)/graph-editor.opt $(BINDIR)/graph-editor$(EXE)
+-	cp -f $(BINDIR)/graph-viewer.opt $(BINDIR)/graph-viewer$(EXE)
++	mv $(BINDIR)/graph-editor.opt $(BINDIR)/ocamlgraph-editor$(EXE)
++	mv $(BINDIR)/graph-viewer.opt $(BINDIR)/ocamlgraph-viewer$(EXE)
++	mv $(BINDIR)/graph-editor.byte $(BINDIR)/ocamlgraph-editor.byte
++	mv $(BINDIR)/graph-viewer.byte $(BINDIR)/ocamlgraph-viewer.byte
+ endif
+ endif
+ 
+@@ -305,6 +306,7 @@ install-byte:
+ 	mkdir -p $(INSTALL_LIBDIR)
+ 	cp -f graph.cmo graph.cmi $(CMA) $(INSTALL_LIBDIR)
+ 	cp -f $(SRCDIR)/*.mli $(INSTALL_LIBDIR)
++	cp -f META $(SRCDIR)/*.mli $(INSTALL_LIBDIR)
+ ifeq (@LABLGNOMECANVAS@,yes)
+ 	mkdir -p $(BINDIR)
+ 	cp -f $(ED_DIR)/editor.byte $(BINDIR)/graph-editor.byte
