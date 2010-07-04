@@ -17,6 +17,7 @@ LICENSE="LPPL-1.3c"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
+RDEPEND=">=dev-tex/natbib-8.31a"
 DEPEND="app-arch/unzip"
 
 IUSE=""
