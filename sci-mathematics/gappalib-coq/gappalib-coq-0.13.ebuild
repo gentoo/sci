@@ -6,7 +6,7 @@ EAPI="2"
 
 DESCRIPTION="This library allows the certificates Gappa generates to be imported by the Coq."
 HOMEPAGE="http://gappa.gforge.inria.fr/"
-SRC_URI="http://lipforge.ens-lyon.fr/frs/download.php/160/${P}.tar.gz"
+SRC_URI="http://gforge.inria.fr/frs/download.php/24390/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
