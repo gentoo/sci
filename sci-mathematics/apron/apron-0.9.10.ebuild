@@ -33,8 +33,8 @@ src_prepare() {
 	sed -i Makefile.config \
 		-e "s/FLAGS = \\\/FLAGS += \\\/g" \
 		-e "s/-O3 -DNDEBUG/-DNDEBUG/g" \
-		-e "s/APRON_PREFIX = \/usr/APRON_PREFIX = \${DESTDIR}\/usr/g" \
-		-e "s/MLGMPIDL_PREFIX = \/usr\/local/MLGMPIDL_PREFIX = \${DESTDIR}\/usr/g"
+		-e "s/APRON_PREFIX =.*/APRON_PREFIX = \${DESTDIR}\/usr/g" \
+		-e "s/MLGMPIDL_PREFIX =.*/MLGMPIDL_PREFIX = \${DESTDIR}\/usr/g"
 	
 	#fix doc building process
 	sed -i Makefile -e "s/; make html/; make/g"
@@ -59,16 +59,14 @@ src_prepare() {
 	else
 		die "USE flag 'cxx' needs USE flag 'ppl' set"
 	fi
-
-	epatch "${FILESDIR}/${P}-pkgrid_manager.patch"
 }
 
 src_compile() {
 	#damn crappy Makefile
 	emake || emake || die "emake failed"
 
-	if use doc; then
-		emake doc || "emake doc failed"
+	if use doc && use cxx; then
+		emake -C apronxx doc || "emake doc failed"
 	fi
 }
 

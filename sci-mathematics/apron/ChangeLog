@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  -files/apron-0.9.10-pkgrid_manager.patch, apron-0.9.10.ebuild:
+  building process fixed for the latest sources
+
   03 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
   +metadata.xml, +ChangeLog:
   QA fixes
