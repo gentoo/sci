@@ -1,8 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: Exp $
+# $Header: $
 
-DESCRIPTION="Fast LTL to Büchi Automata Translation"
+DESCRIPTION="Fast LTL to Buechi Automata Translation"
 HOMEPAGE="http://www.lsv.ens-cachan.fr/~gastin/${PN}/"
 SRC_URI="http://www.lsv.ens-cachan.fr/~gastin/${PN}/${P}.tar.gz"
 
@@ -26,4 +26,3 @@ src_install() {
 	dobin ltl2ba || die "dobin failed"
 	dodoc README
 }
-
