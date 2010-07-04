@@ -3,6 +3,11 @@
 # $Header: $
 
   04 Jul 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  gromacs-4.0.9999.ebuild, -files/gromacs-4.0.9999-ccache.patch,
+  -files/gromacs-4.0.9999-configure-gfortran.patch, gromacs-9999.ebuild:
+  make it compile without fortran again
+
+  04 Jul 2010; Christoph Junghans <kleiner_otti@gmx.de>
   gromacs-4.0.9999.ebuild, gromacs-9999.ebuild:
   Fixes for Bug #326331
 

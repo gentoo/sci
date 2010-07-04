@@ -45,6 +45,15 @@ QA_EXECSTACK="usr/lib/libgmx.so.*
 
 use static && QA_EXECSTACK="$QA_EXECSTACK usr/bin/*"
 
+pkg_setup() {
+	if use fkernels; then
+		FORTRAN="g77 gfortran ifc"
+		fortran_pkg_setup
+	else
+		FORTRANC=""
+	fi
+}
+
 src_prepare() {
 
 	( use single-precision || use double-precision ) || \
@@ -98,11 +107,9 @@ src_configure() {
 	if use fkernels; then
 		ewarn "Fortran kernels are usually not faster than C kernels and assembly"
 		ewarn "I hope, you know what are you doing..."
-		FORTRAN="g77 gfortran ifc"
-		myconf="${myconf} --enable-fortran" && fortran_pkg_setup
+		myconf="${myconf} --enable-fortran"
 	else
 		myconf="${myconf} --disable-fortran"
-		FORTRANC="true"
 	fi
 
 	# if we need external blas
