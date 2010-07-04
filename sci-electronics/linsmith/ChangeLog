@@ -1,6 +1,9 @@
 # ChangeLog for sci-electronics/linsmith
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  04 Jul 2010; Thomas Beierlein <tomjbe@gentoo.org> metadata.xml:
+  Dropped Lucas from maintainership on his request. Taking it over
 
 *linsmith-0.99.12 (23 Oct 2009)
 
