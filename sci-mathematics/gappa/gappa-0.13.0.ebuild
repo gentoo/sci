@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,18 +8,18 @@ DESCRIPTION="A tool to help verifying and proving properties on floating-point o
 HOMEPAGE="http://gappa.gforge.inria.fr/"
 SRC_URI="http://gforge.inria.fr/frs/download.php/26856/${P}.tar.gz"
 
-LICENSE="CeCILL GPL-2"
+LICENSE="|| ( CeCILL-2.0 GPL-2 )"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE="doc"
 
-DEPEND="dev-libs/gmp
-        dev-libs/mpfr
-        dev-libs/boost
+RDEPEND="dev-libs/gmp
+	dev-libs/mpfr
+	dev-libs/boost"
+DEPEND="${RDEPEND}
 		doc? ( app-text/texlive
-				app-text/ghostscript-gpl 
+				app-text/ghostscript-gpl
 				app-doc/doxygen )"
-RDEPEND="${DEPEND}"
 
 src_prepare() {
 	sed -i doc/doxygen/Doxyfile \
@@ -34,7 +34,7 @@ src_compile(){
 	if use doc; then
 		cd doc/doxygen
 		doxygen Doxyfile || die "doxygen failed"
-		cd ${S}
+		cd "${S}"
 		emake -C doc/doxygen/latex || die "emake doc failed"
 	fi
 }
@@ -48,4 +48,3 @@ src_install(){
 		dodoc ./gappa.pdf
 	fi
 }
-
