@@ -4,11 +4,11 @@
 
 EAPI="2"
 
-inherit distutils mercurial
+inherit distutils git
 
 DESCRIPTION="A tool that generates and installs ebuilds for Octave-Forge"
 HOMEPAGE="http://g-octave.rafaelmartins.eng.br/"
-EHG_REPO_URI="http://g-octave.rafaelmartins.eng.br/hg/"
+EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/g-octave.git"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -22,7 +22,7 @@ RDEPEND="${CDEPEND}
 	svn? ( dev-python/pysvn )
 	|| ( >=sys-apps/portage-2.1.7[-python3] <sys-apps/portage-2.1.7 )"
 
-S="${WORKDIR}/hg"
+S="${WORKDIR}/${PN}"
 
 PYTHON_MODNAME="g_octave"
 
