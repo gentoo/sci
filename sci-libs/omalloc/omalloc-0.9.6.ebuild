@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils elisp-common autotools versionator
+inherit eutils versionator toolchain-funcs
 
 Sing_PV=$(replace_all_version_separators -)
 Sing_DIR=$(get_version_component_range 1-3 ${MY_PV})
@@ -20,32 +20,22 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
 IUSE=""
 
-RDEPEND=""
-
-DEPEND="${RDEPEND}"
-
-S="${WORKDIR}"/Singular-3-1-1/omalloc
+S=${WORKDIR}/Singular-3-1-1/omalloc
 
 # Until tarballs are mirrored:
 RESTRICT="mirror"
+
+pkg_setup() {
+	tc-export CC CXX
+}
 
 src_prepare (){
 	epatch "${FILESDIR}"/parallel-build.patch
 }
 
-src_configure() {
-	# Taking care of ${CC} and friends.
-	tc-export CC CPP CXX
-	econf --prefix="${D}"/usr
-}
-
-src_compile () {
-	emake || die "make failed"
-}
-
 src_install () {
-	emake DESTDIR="$D" install || die "install failed"
+	emake DESTDIR="${D}" install || die "install failed"
 	# dolib.a *.a
 	# insinto /usr/include
 	# doins omalloc.h omalloc.c mylimits.h
-	}
+}
