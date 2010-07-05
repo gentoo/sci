@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/omalloc
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*omalloc-0.9.6 (05 Jul 2010)
+
+  05 Jul 2010; Thomas Kahle <tom111@gmx.de> +omalloc-0.9.6.ebuild,
+  +files/parallel-build.patch, +metadata.xml:
+  new package: sci-libs/omalloc
+  new dependency of sci-mathematics/singular
+

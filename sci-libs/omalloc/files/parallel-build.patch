@@ -1,0 +1,25 @@
+--- Makefile.in.org	2010-07-05 12:00:56.000000000 +0200
++++ Makefile.in	2010-07-05 12:05:02.000000000 +0200
+@@ -83,7 +83,8 @@
+ omAllocSystem.h        omFindExec.h           omStats.h		\
+ omBin.h                omDefaultConfig.h      omStructs.h	\
+ omBinPage.h            omInline.h             omGetBackTrace.h  \
+-omReturn.h	       omRet2Info.h	      omAllocFunc.h		
++omReturn.h	       omRet2Info.h	      omAllocFunc.h     \
++omTables.h
+ 
+ OBJS := $(CSOURCES:.c=.o)  $(GSOURCES:.c=.o)
+ OBJS_NDEBUG := $(CSOURCES:.c=.o_ndebug) $(GSOURCES:.c=.o_ndebug)
+@@ -130,10 +131,10 @@
+ omalloc.h: $(HEADERS)
+ 	./makeheader om_Alloc.h $@
+ 
+-omalloc.o: omalloc.c
++omalloc.o: omalloc.c omalloc.h
+ 	${CC} ${CFLAGS} ${CPPFLAGS} ${DEFS} -DOM_NDEBUG -c $< -o $@
+ 
+-omalloc_debug.o: omalloc_debug.c
++omalloc_debug.o: omalloc_debug.c omalloc.h
+ 	${CC} ${CFLAGS} ${CPPFLAGS} ${DEFS} -c $< -o $@
+ 
+ omTables.inc: omTables
