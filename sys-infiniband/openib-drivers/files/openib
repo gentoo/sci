@@ -110,7 +110,7 @@ is_module()
 {
     local RC
 
-    /sbin/lsmod | grep -w "$1" > /dev/null 2>&1
+    /bin/lsmod | grep -w "$1" > /dev/null 2>&1
     RC=$?
 
     return $RC
@@ -200,7 +200,7 @@ get_debug_info()
 
     echo >> $DEBUG_INFO
     echo "############# LSMOD ##############" >> $DEBUG_INFO
-    /sbin/lsmod >> $DEBUG_INFO
+    /bin/lsmod >> $DEBUG_INFO
     
     echo >> $DEBUG_INFO
     echo "############# DMESG ##############" >> $DEBUG_INFO                                                            
