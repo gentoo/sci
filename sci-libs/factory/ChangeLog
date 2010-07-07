@@ -1,12 +1,17 @@
-# ChangeLog for sci-mathematics/Macaulay2
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sci-libs/factory
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-	26 Nov 2009; Thomas Kahle <tom111@gmx.de>
-	QA Fixes
+*factory-3.1.1 (07 Jul 2010)
 
-	24 Nov 2009; Thomas Kahle <tom111@gmx.de> +factory-3.1.0.ebuild
-	+ChangeLog +metadata.xml
+  07 Jul 2010; Thomas Kahle <tom111@gmx.de> +factory-3.1.1.ebuild:
+  Bump to 3.1.1
 
-	Initial upload
-	Bug #294475
+  26 Nov 2009; Thomas Kahle <tom111@gmx.de>
+  QA Fixes
+
+  24 Nov 2009; Thomas Kahle <tom111@gmx.de> +factory-3.1.0.ebuild
+  +ChangeLog +metadata.xml
+
+  Initial upload
+  Bug #294475
