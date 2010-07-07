@@ -2,6 +2,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*libfac-3.1.1 (07 Jul 2010)
+
+  07 Jul 2010; Thomas Kahle <tom111@gmx.de> +libfac-3.1.1.ebuild:
+  Bump to 3.1.1
+
   15 Mar 2010; Thomas Kahle <tom111@gmx.de> libfac-3.1.0.ebuild:
   SRC_URI updated according to upstreams changes
 
