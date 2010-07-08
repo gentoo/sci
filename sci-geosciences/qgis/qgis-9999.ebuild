@@ -29,6 +29,7 @@ RDEPEND=">=sci-libs/gdal-1.6.1
 	gps? (
 		dev-libs/expat
 		sci-geosciences/gpsbabel
+		x11-libs/qwt
 	)
 	grass? (
 		>=sci-geosciences/grass-6.4.0_rc6
@@ -53,28 +54,18 @@ src_configure() {
 		"-DQGIS_MANUAL_SUBDIR=/share/man/"
 		"-DBUILD_SHARED_LIBS:BOOL=ON"
 		"-DBINDINGS_GLOBAL_INSTALL:BOOL=ON"
-		"-DQWT_INCLUDE_DIR=/usr/include/qwt5"
 		"-DQGIS_LIB_SUBDIR=$(get_libdir)"
 		"-DQGIS_PLUGIN_SUBDIR=$(get_libdir)/qgis"
+		"-DWITH_INTERNAL_SPATIALITE:BOOL=OFF"
 		$(cmake-utils_use_with postgres POSTGRESQL)
 		$(cmake-utils_use_with grass)
-		$(cmake-utils_use_with gps QWT)
+		$(cmake-utils_use_with gps EXPAT QWT)
 		$(cmake-utils_use_with gsl)
 		$(cmake-utils_use_with python BINDINGS)
 		$(cmake-utils_use_with sqlite SPATIALITE)
 	)
+	use grass && mycmakeargs+=( "-DGRASS_PREFIX=/usr/" )
 
-	if use grass; then
-		GRASS_ENVD="/etc/env.d/99grass /etc/env.d/99grass-6 /etc/env.d/99grass-cvs";
-		for file in ${GRASS_ENVD}; do
-			if test -r ${file}; then
-				GRASSPATH=$(sed -n 's/LDPATH="\(.*\)\/lib"$/\1/p' ${file});
-			fi
-		done
-		mycmakeargs+=(
-			"-DGRASS_PREFIX=${GRASSPATH}"
-		)
-	fi
 	cmake-utils_src_configure
 }
 
