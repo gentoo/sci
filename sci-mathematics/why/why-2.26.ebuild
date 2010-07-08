@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,24 +13,22 @@ SRC_URI="http://why.lri.fr/download/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
-IUSE="apron coq doc examples gappa gtk pff pvs"
+IUSE="apron coq doc examples gappa jessie gtk pff"
 
 DEPEND=">=dev-lang/ocaml-3.09
 		>=dev-ml/ocamlgraph-1.2
-		gtk? ( >=dev-ml/lablgtk-2.12 )
+		gtk? ( >=dev-ml/lablgtk-2.14 )
 		apron? ( sci-mathematics/apron )
 		coq? ( sci-mathematics/coq )
 		gappa? ( sci-mathematics/gappalib-coq )
 		pff? ( sci-mathematics/pff )
-		pvs? ( sci-mathematics/pvs )"
+		jessie? ( >=sci-mathematics/frama-c-20100401 )"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-makefile_sandbox.patch"
-
-	mv jc/jc_ast.mli jc/jc_ast.ml
-	mv jc/jc_env.mli jc/jc_env.ml
-	epatch "${FILESDIR}/${P}-jessie_lib.patch"
+	sed -i Makefile.in \
+		-e "s/DESTDIR =.*//g" \
+		-e "s/@COQLIB@/\$(DESTDIR)\/@COQLIB@/g"
 
 	#to build with apron-0.9.10
 	sed -i configure.in \
@@ -47,11 +45,11 @@ src_configure() {
 }
 
 src_compile(){
-	emake DESTDIR="/" || die "emake failed"
+	emake -j1 DESTDIR="/" || die "emake failed"
 }
 
 src_install(){
-	emake install DESTDIR="${D}" || die "emake install failed"
+	DESTDIR="${D}" emake install || die "emake install failed"
 	dodoc CHANGES COPYING README Version
 	doman doc/why.1
 

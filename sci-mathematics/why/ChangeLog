@@ -1,0 +1,12 @@
+# ChangeLog for sci-mathematics/why
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  08 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  -why-2.19.ebuild, +why-2.26.ebuild:
+  Version Bump
+
+  08 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  +ChangeLog, +metadata.xml:
+  QA fixes
+
