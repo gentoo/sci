@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jul 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  astropysics-9999.ebuild, metadata.xml:
+  Added ~x86, fixed url
+
   25 Jun 2010; Justin Lecher <jlec@gentoo.org> astropysics-9999.ebuild:
   Fix PYTHON ABI Stuff
 

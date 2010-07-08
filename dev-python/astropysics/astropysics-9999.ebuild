@@ -9,13 +9,13 @@ SUPPORT_PYTHON_ABIS="1"
 
 inherit bzr distutils
 
-DESCRIPTION="general purpose python library for professional astronomers/astrophysicists"
-HOMEPAGE="https://launchpad.net/astropysics"
+DESCRIPTION="General purpose python library for professional astronomers/astrophysicists"
+HOMEPAGE="http://packages.python.org/Astropysics/"
 SRC_URI=""
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
 EBZR_REPO_URI="lp:astropysics"

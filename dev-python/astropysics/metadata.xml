@@ -3,9 +3,9 @@
 <pkgmetadata>
 <herd>sci</herd>
 <longdescription lang="en">
-Astropysics leverages a variety of tools already developed for python to simplify 
-quick-and-dirty calculations and streamline really hard ones. When paired with 
-an interactive environment, it aims to be a full-featured replacement for IDL 
-with idlutils/astron or similar.
+  Astropysics leverages a variety of tools already developed for python to simplify 
+  quick-and-dirty calculations and streamline really hard ones. When paired with 
+  an interactive environment, it aims to be a full-featured replacement for IDL 
+  with idlutils/astron or similar.
 </longdescription>
 </pkgmetadata>
