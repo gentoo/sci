@@ -3,6 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-mathematics/singular/singular-3.1.1.ebuild,v 1.2 2010/04/28 14:55:16 bicatali Exp $
 
 EAPI="2"
+WANT_AUTOCONF="2.1" # Upstream ticket 240 -> wontfix
 
 inherit eutils elisp-common autotools multilib versionator
 
@@ -19,7 +20,7 @@ SRC_URI="${SRC_COM}-${MY_PV}.tar.gz ${SRC_COM}-${MY_PV_SHARE}-share.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="boost doc emacs examples"
+IUSE="boost doc emacs examples readline"
 
 RDEPEND="dev-libs/gmp
 	>=dev-libs/ntl-5.5.1
@@ -27,45 +28,33 @@ RDEPEND="dev-libs/gmp
 
 DEPEND="${RDEPEND}
 	dev-lang/perl
-	boost? ( dev-libs/boost )"
+	boost? ( dev-libs/boost )
+	readline? ( sys-libs/readline )"
 
 S="${WORKDIR}"/${MY_PN}-${MY_DIR}
 SITEFILE=60${PN}-gentoo.el
 
+pkg_setup() {
+	tc-export CC CPP CXX
+}
+
 src_prepare () {
 	epatch "${FILESDIR}"/${PN}-3.1.0-gentoo.patch
 	epatch "${FILESDIR}"/${PN}-3.1.0-emacs-22.patch
-	epatch "${FILESDIR}"/${PN}-3.1.0-glibc-2.10.patch
+	# I don't see a need for the following patch, looks like cruft from
+	# older versions to me. The shipped code is fine !
+#	epatch "${FILESDIR}"/${PN}-3.1.0-glibc-2.10.patch
 	epatch "${FILESDIR}"/${PN}-3.0.4.4-nostrip.patch
-
-	sed -i \
-		-e "s:PFSUBST:${PF}:" \
-		kernel/feResource.cc || die "sed failed on feResource.cc"
 
 	sed -i \
 		-e '/CXXFLAGS/ s/--no-exceptions//g' \
 		"${S}"/Singular/configure.in || die
-
-	# Replace direct compiler calls
-	sed -i -e "s:c++:$(tc-getCXX):g" \
-		"${S}"/IntegerProgramming/Makefile.in
-
-	sed -i -e "s:gcc:$(tc-getCC):g" "${S}"/kernel/Makefile.in
-	sed -i -e "s:gcc:$(tc-getCC):g" "${S}"/omalloc/Makefile.in
-	sed -i -e "s:gcc:$(tc-getCC):g" "${S}"/Singular/Makefile.in
-
-	sed -i -e "s:g++:$(tc-getCXX):g" "${S}"/kernel/Makefile.in
-	sed -i -e "s:g++:$(tc-getCXX):g" "${S}"/omalloc/Makefile.in
-	sed -i -e "s:g++:$(tc-getCXX):g" "${S}"/Singular/Makefile.in
 
 	cd "${S}"/Singular || die "failed to cd into Singular/"
 	eautoconf
 }
 
 src_configure() {
-
-	# Taking care of ${CC} and friends.
-	tc-export CC CPP CXX
 
 	econf \
 		--prefix="${S}" \
@@ -79,7 +68,8 @@ src_configure() {
 		--enable-IntegerProgramming \
 		--enable-Singular \
 		$(use_with boost Boost) \
-		$(use_enable emacs)
+		$(use_enable emacs) \
+		$(use_with readline)
 }
 
 src_compile() {
