@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  frama-c-20100401.ebuild:
+  Version bump
+
   22 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   frama-c-20090901.ebuild, +metadata.xml:
   QA fixes

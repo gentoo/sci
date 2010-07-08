@@ -1,7 +1,7 @@
-diff -Naurp frama-c-Beryllium-20090901-orig/src/value/eval.ml frama-c-Beryllium-20090901-ptch/src/value/eval.ml
---- frama-c-Beryllium-20090901-orig/src/value/eval.ml	2009-08-31 15:38:54.000000000 +0000
-+++ frama-c-Beryllium-20090901-ptch/src/value/eval.ml	2009-11-26 02:04:43.000000000 +0000
-@@ -1688,7 +1688,7 @@ let make_well size hidden_base state loc
+diff -Naurp frama-c-Boron-20100401-orig/src/value/eval.ml frama-c-Boron-20100401/src/value/eval.ml
+--- frama-c-Boron-20100401/src/value/eval.ml	2010-04-13 11:52:01.000000000 +0000
++++ frama-c-Boron-20100401/src/value/eval.ml	2010-07-04 20:28:33.000000000 +0000
+@@ -1854,7 +1854,7 @@ let make_well size hidden_base state loc
  
  (** [initialize_var_using_type varinfo state] uses the type of [varinfo]
      to create an initial value in [state]. *)
@@ -10,7 +10,7 @@ diff -Naurp frama-c-Beryllium-20090901-orig/src/value/eval.ml frama-c-Beryllium-
    CurrentLoc.set varinfo.vdecl;
    let rec add_offsetmap depth v name_desc name typ offset_orig typ_orig state =
      let typ = Cil.unrollType typ in
-@@ -1739,7 +1739,10 @@ let initialize_var_using_type varinfo st
+@@ -1905,7 +1905,10 @@ let initialize_var_using_type varinfo st
  	    (Cvalue_type.V.top_leaf_origin ())
        | TPtr (typ, _) as full_typ
  	  when depth <= Value_parameters.AutomaticContextMaxDepth.get () ->
@@ -22,7 +22,7 @@ diff -Naurp frama-c-Beryllium-20090901-orig/src/value/eval.ml frama-c-Beryllium-
  
            if not (isVoidType typ) && not (isFunctionType typ) then
              let i = match findAttribute "arraylen" attr with
-@@ -1806,7 +1809,7 @@ let initialize_var_using_type varinfo st
+@@ -1973,7 +1976,7 @@ let initialize_var_using_type varinfo st
  		 else
  		   Base.Unknown (Int.zero,Bit_utils.max_bit_address ()))
              in
@@ -31,7 +31,7 @@ diff -Naurp frama-c-Beryllium-20090901-orig/src/value/eval.ml frama-c-Beryllium-
  
        | TArray (typ, len, _, _) ->
            begin try
-@@ -1926,6 +1929,12 @@ let initialize_var_using_type varinfo st
+@@ -2093,6 +2096,12 @@ let initialize_var_using_type varinfo st
      (Base.create_varinfo varinfo)
      varinfo.vname varinfo.vname varinfo.vtype NoOffset varinfo.vtype state
  
@@ -41,10 +41,10 @@ diff -Naurp frama-c-Beryllium-20090901-orig/src/value/eval.ml frama-c-Beryllium-
 +let initialize_var_using_type varinfo state =
 +  initialize_all_var_using_type false varinfo state
 +
- let initial_state_only_globals () =
-   Value_parameters.feedback "Computing globals values";
-   let state = ref Relations_type.Model.empty in
-@@ -2034,6 +2043,8 @@ let initial_state_only_globals () =
+ let initial_state_only_globals =
+   let module S =
+     Computation.OptionRef
+@@ -2216,6 +2225,8 @@ function () ->
               if varinfo.vstorage = Extern then
                 (* Must not initialize when the storage is extern. *)
                 state := initialize_var_using_type varinfo !state
@@ -53,9 +53,9 @@ diff -Naurp frama-c-Beryllium-20090901-orig/src/value/eval.ml frama-c-Beryllium-
               else complete_init 0 varinfo.vtype [] (Var varinfo,NoOffset)
  	       (*       | None ->
                 (* Cannot initialize with a default when type is incomplete. *)
-@@ -4315,13 +4326,20 @@ let compute_with_initial_state kf initia
+@@ -4765,13 +4776,20 @@ let compute_with_initial_state kf initia
+     | Declaration _ -> assert false
      | Definition (f,_) ->
-         let initial_state = check_precondition kf initial_state in
          let initial_state =
 -	  List.fold_left
 -	    (fun acc local ->
@@ -79,12 +79,12 @@ diff -Naurp frama-c-Beryllium-20090901-orig/src/value/eval.ml frama-c-Beryllium-
 +              initial_state
 +              f.slocals
          in
- 	compute_using_cfg kf (ref (State_set.singleton initial_state))
- 
-diff -Naurp frama-c-Beryllium-20090901-orig/src/value/value_parameters.ml frama-c-Beryllium-20090901-ptch/src/value/value_parameters.ml
---- frama-c-Beryllium-20090901-orig/src/value/value_parameters.ml	2009-08-31 15:38:54.000000000 +0000
-+++ frama-c-Beryllium-20090901-ptch/src/value/value_parameters.ml	2009-11-26 02:05:49.000000000 +0000
-@@ -136,6 +136,24 @@ module PropagateTop =
+         let initial_state = check_fct_preconditions kf initial_state in
+ 	compute_using_cfg kf initial_state
+diff -Naurp frama-c-Boron-20100401-orig/src/value/value_parameters.ml frama-c-Boron-20100401/src/value/value_parameters.ml
+--- frama-c-Boron-20100401-orig/src/value/value_parameters.ml	2010-04-13 11:52:01.000000000 +0000
++++ frama-c-Boron-20100401/src/value/value_parameters.ml	2010-07-04 20:27:15.000000000 +0000
+@@ -161,6 +161,24 @@ module PropagateTop =
  let () = add_dependency PropagateTop.self
  
  let () = Plugin.set_group precision_tuning
@@ -109,10 +109,10 @@ diff -Naurp frama-c-Beryllium-20090901-orig/src/value/value_parameters.ml frama-
  module WideningLevel =
    Int
      (struct
-diff -Naurp frama-c-Beryllium-20090901-orig/src/value/value_parameters.mli frama-c-Beryllium-20090901-ptch/src/value/value_parameters.mli
---- frama-c-Beryllium-20090901-orig/src/value/value_parameters.mli	2009-08-31 15:38:54.000000000 +0000
-+++ frama-c-Beryllium-20090901-ptch/src/value/value_parameters.mli	2009-11-26 02:04:43.000000000 +0000
-@@ -29,6 +29,9 @@ module WarnUnspecifiedOrder: Plugin.BOOL
+diff -Naurp frama-c-Boron-20100401-orig/src/value/value_parameters.mli frama-c-Boron-20100401/src/value/value_parameters.mli
+--- frama-c-Boron-20100401-orig/src/value/value_parameters.mli	2010-04-13 11:52:01.000000000 +0000
++++ frama-c-Boron-20100401/src/value/value_parameters.mli	2010-07-04 20:27:15.000000000 +0000
+@@ -27,6 +27,9 @@ module ForceValues: Plugin.BOOL
  
  module PropagateTop: Plugin.BOOL
  

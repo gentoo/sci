@@ -8,36 +8,34 @@ inherit autotools eutils
 
 DESCRIPTION="Frama-C is a suite of tools dedicated to the analysis of the source code of software written in C."
 HOMEPAGE="http://www.frama-c.cea.fr/"
-NAME="Beryllium"
-SRC_URI="http://www.frama-c.cea.fr/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
+NAME="Boron"
+SRC_URI="http://www.frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
-IUSE="apron coq doc gappa gtk pff +why"
+IUSE="apron doc gtk +why"
 RESTRICT="strip"
 
 DEPEND=">=dev-lang/ocaml-3.10.2
-	>=dev-ml/ocamlgraph-1.2
-		gtk? ( >=dev-ml/lablgtk-2.12 )
+		>=dev-ml/ocamlgraph-1.4
+		gtk? ( >=x11-libs/gtksourceview-2.8
+			>=gnome-base/libgnomecanvas-2.26
+			>=dev-ml/lablgtk-2.14 )
 		sci-mathematics/ltl2ba
-		apron? ( sci-mathematics/apron )
-	coq? ( sci-mathematics/coq )
-	gappa? ( sci-mathematics/gappalib-coq )
-	pff? ( sci-mathematics/pff )
-	why? ( sci-mathematics/why )"
+		apron? ( sci-mathematics/apron )"
 RDEPEND="${DEPEND}"
+PDEPEND="why? ( >=sci-mathematics/why-2.26 )"
 
 S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
 
 src_prepare(){
-	touch config_file
-
-	epatch "${FILESDIR}/${P}-varinfo_export.patch"
-	epatch "${FILESDIR}/${P}-why_link.patch"
-	epatch "${FILESDIR}/${P}-ocamlgraph_link.patch"
+	epatch "${FILESDIR}/${P}-plugin_install.patch"
 	epatch "${FILESDIR}/${P}-always_init.patch"
 
+	touch config_file
+	sed -i configure.in \
+		-e "s:1.4):1.5):g"
 	eautoreconf
 }
 
@@ -48,7 +46,7 @@ src_configure() {
 		myconf="--disable-gui"
 	fi
 
-	econf ${myconf} --with-whydir=no || die "econf failed"
+	econf ${myconf} || die "econf failed"
 }
 
 src_compile() {
