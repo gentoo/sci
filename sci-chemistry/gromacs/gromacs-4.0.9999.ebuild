@@ -230,10 +230,10 @@ src_test() {
 src_install() {
 	for x in ${GMX_DIRS}; do
 		cd "${S}-${x}"
-		emake DESTDIR="${ED}" install || die "emake install for ${x} failed"
+		emake DESTDIR="${D}" install || die "emake install for ${x} failed"
 		use mpi || continue
 		cd "${S}-${x}_mpi"
-		emake DESTDIR="${ED}" install-mdrun || die "emake install-mdrun for ${x} failed"
+		emake DESTDIR="${D}" install-mdrun || die "emake install-mdrun for ${x} failed"
 	done
 
 	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
