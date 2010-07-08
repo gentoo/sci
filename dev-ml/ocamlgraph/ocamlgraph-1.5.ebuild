@@ -16,8 +16,7 @@ KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE="doc examples gtk +ocamlopt"
 
 DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
-		gtk? ( >=dev-ml/lablgtk-2.12
-			   >=gnome-base/libgnomecanvas-2.26 )"
+		gtk? ( >=dev-ml/lablgtk-2.12[gnomecanvas,ocamlopt?] )"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
