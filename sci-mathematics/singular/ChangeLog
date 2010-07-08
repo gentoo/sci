@@ -3,6 +3,9 @@
 # $Header: $
 
   08 Jul 2010; Thomas Kahle <tom111@gmx.de> singular-3.1.1.2.ebuild:
+  QA and even better readline support
+
+  08 Jul 2010; Thomas Kahle <tom111@gmx.de> singular-3.1.1.2.ebuild:
   Fixed readline support
 
 *singular-3.1.1.2 (04 Jul 2010)

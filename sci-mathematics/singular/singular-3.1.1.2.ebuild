@@ -41,50 +41,20 @@ pkg_setup() {
 src_prepare () {
 	epatch "${FILESDIR}"/${PN}-3.1.0-gentoo.patch
 	epatch "${FILESDIR}"/${PN}-3.1.0-emacs-22.patch
-	epatch "${FILESDIR}"/${PN}-3.1.0-glibc-2.10.patch
+	# I don't see a need for the following patch, looks like cruft from
+	# older versions to me. The shipped code is fine !
+#	epatch "${FILESDIR}"/${PN}-3.1.0-glibc-2.10.patch
 	epatch "${FILESDIR}"/${PN}-3.0.4.4-nostrip.patch
-
-	sed -i \
-		-e "s:PFSUBST:${PF}:" \
-		kernel/feResource.cc || die "sed failed on feResource.cc"
 
 	sed -i \
 		-e '/CXXFLAGS/ s/--no-exceptions//g' \
 		"${S}"/Singular/configure.in || die
-
-	# Replace direct compiler calls
-# 	sed -i -e "s:c++:$(tc-getCXX):g" \
-# 		"${S}"/IntegerProgramming/Makefile.in
-#
-# 	sed -i -e "s:gcc:$(tc-getCC):g" "${S}"/kernel/Makefile.in
-# 	sed -i -e "s:gcc:$(tc-getCC):g" "${S}"/omalloc/Makefile.in
-# 	sed -i -e "s:gcc:$(tc-getCC):g" "${S}"/Singular/Makefile.in
-#
-# 	sed -i -e "s:g++:$(tc-getCXX):g" "${S}"/kernel/Makefile.in
-# 	sed -i -e "s:g++:$(tc-getCXX):g" "${S}"/omalloc/Makefile.in
-# 	sed -i -e "s:g++:$(tc-getCXX):g" "${S}"/Singular/Makefile.in
-
-#	eautoconf
-#
-#	cd "${S}"/factory || die "failed to cd into factory/"
-#	eautoconf
-#
-#	cd "${S}"/libfac || die "failed to cd into libfac/"
-#	eautoconf
-#
-#	cd "${S}"/omalloc || die "failed to cd into omalloc/"
-#	eautoconf
 
 	cd "${S}"/Singular || die "failed to cd into Singular/"
 	eautoconf
 }
 
 src_configure() {
-
-	# We have to tell that we want readline statically linked,
-	# otherwise won't work. Todo: Why?
-	READLINE_CONF="--without-readline"
-	use readline && READLINE_CONF="--with-readline=static"
 
 	econf \
 		--prefix="${S}" \
@@ -99,7 +69,7 @@ src_configure() {
 		--enable-Singular \
 		$(use_with boost Boost) \
 		$(use_enable emacs) \
-		"${READLINE_CONF}"
+		$(use_with readline)
 }
 
 src_compile() {
