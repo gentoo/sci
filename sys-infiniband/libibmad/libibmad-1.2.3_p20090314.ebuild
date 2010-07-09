@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,7 +9,7 @@ OFED_SUFFIX="1.ofed1.4.1"
 
 inherit openib
 
-DESCRIPTION="OpenIB library that provides low layer IB functions for use by the IB diagnostic and management programs."
+DESCRIPTION="OpenIB library providing low layer IB functions for use by the IB diagnostic/management programs"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
