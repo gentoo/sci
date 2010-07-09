@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI="3"
 
 inherit eutils autotools
 
@@ -21,7 +21,7 @@ DEPEND="x86? ( dev-lang/yasm )
 RDEPEND=""
 
 src_prepare(){
-	epatch "${FILESDIR}/${P}-yasm.patch"
+	epatch "${FILESDIR}/${PN}-2.0.0-yasm.patch"
 	epatch "${FILESDIR}/${PN}-1.3.0-ABI-multilib.patch"
 	# FIXME: In the same way there was QA regarding executable stacks
 	#        with GMP we have some here as well. We cannot apply the
@@ -74,5 +74,5 @@ pkg_postinst() {
 	elog "The mpir ebuild is still under development."
 	elog "Help us improve the ebuild in:"
 	elog "http://bugs.gentoo.org/show_bug.cgi?id=293383"
-	elog "This ebuild is known to have an executable stack problem"
+	elog "This ebuild is known to have an executable stack problem on some CPUs"
 }
