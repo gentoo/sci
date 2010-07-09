@@ -1,0 +1,33 @@
+diff -Naur VTK/Utilities/DICOMParser/DICOMAppHelper.cxx VTK.new/Utilities/DICOMParser/DICOMAppHelper.cxx
+--- VTK/Utilities/DICOMParser/DICOMAppHelper.cxx	2007-05-03 13:12:13.000000000 -0400
++++ VTK.new/Utilities/DICOMParser/DICOMAppHelper.cxx	2008-05-24 13:44:18.000000000 -0400
+@@ -34,6 +34,7 @@
+ #include <string>
+ #include <math.h>
+ #include <algorithm>
++#include <cstring>
+ #if defined(__BORLANDC__)
+ #include <mem.h> // for memcpy
+ #endif
+diff -Naur VTK/Utilities/DICOMParser/DICOMFile.cxx VTK.new/Utilities/DICOMParser/DICOMFile.cxx
+--- VTK/Utilities/DICOMParser/DICOMFile.cxx	2005-07-26 16:02:22.000000000 -0400
++++ VTK.new/Utilities/DICOMParser/DICOMFile.cxx	2008-05-24 13:44:18.000000000 -0400
+@@ -24,6 +24,7 @@
+ 
+ #include <stdio.h>
+ #include <string>
++#include <cstring>
+ 
+ #include "DICOMConfig.h"
+ #include "DICOMFile.h"
+diff -Naur VTK/Utilities/DICOMParser/DICOMParser.cxx VTK.new/Utilities/DICOMParser/DICOMParser.cxx
+--- VTK/Utilities/DICOMParser/DICOMParser.cxx	2006-03-24 10:59:50.000000000 -0500
++++ VTK.new/Utilities/DICOMParser/DICOMParser.cxx	2008-05-24 13:44:19.000000000 -0400
+@@ -37,6 +37,7 @@
+ #endif
+ 
+ #include <string>
++#include <cstring>
+ 
+ #include "DICOMConfig.h"
+ #include "DICOMParser.h"
