@@ -6,7 +6,7 @@ EAPI="2"
 
 inherit autotools
 
-DESCRIPTION="Ceph is an open source distributed file system capable of managing many petabytes of storage with ease."
+DESCRIPTION="Open source distributed file system capable of managing many petabytes of storage with ease."
 HOMEPAGE="http://ceph.newdream.net/"
 SRC_URI="http://ceph.newdream.net/download/${P}.tar.gz"
 
