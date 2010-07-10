@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 Jul 2010; Thomas Beierlein <tomjbe@gentoo.org> xnec2c-1.3.ebuild,
+  +files/xnec2c-1.3-filename.patch:
+  Fixed handling of long path and filenames
+
 *xnec2c-1.3 (01 Jul 2010)
 
   01 Jul 2010; Thomas Beierlein <tomjbe@gentoo.org> +xnec2c-1.3.ebuild,

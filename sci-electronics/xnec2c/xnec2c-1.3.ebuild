@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit autotools
+inherit autotools eutils
 
 DESCRIPTION="A GTK+ graphical interactive version of nec2c."
 HOMEPAGE="http://5b4az.chronos.org.uk/pages/nec2.html"
@@ -23,6 +23,9 @@ DEPEND="${RDEPEND}
 	sys-devel/gettext"
 
 src_prepare() {
+	# fix handling of long path and filenames
+	epatch "${FILESDIR}"/${P}-filename.patch
+
 	glib-gettextize --force --copy || die
 	eautoreconf
 }
