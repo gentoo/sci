@@ -1,6 +1,10 @@
-# ChangeLog for sys-cluster/openib-srptools
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sys-infiniband/openib-srptools
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  10 Jul 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
+  openib-srptools-1.1.ebuild:
+  Silenced repoman.
 
 *openib-srptools-1.1 (26 Oct 2006)
 
