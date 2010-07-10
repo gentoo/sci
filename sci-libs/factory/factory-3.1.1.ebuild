@@ -2,37 +2,43 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils autotools versionator
+EAPI=2
+
+inherit eutils versionator
 
 MY_PV=$(replace_all_version_separators '-')
 
-DESCRIPTION="factory is a C++ library for representing multivariate polynomials"
+DESCRIPTION="C++ library for representing multivariate polynomials"
 HOMEPAGE="http://www.mathematik.uni-kl.de/pub/Math/Singular/Factory"
 SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/${PN}-${MY_PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 
 IUSE="singular"
 
 DEPEND="dev-libs/gmp
 		>=dev-libs/ntl-5.4.1"
-
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${PN}"
+S=${WORKDIR}/${PN}
 
 RESTRICT="mirror"
 
-src_compile() {
-	econf --prefix="${D}/usr" \
-		$(use_with singular Singular) ||  die "econf failed"
+pkg_setup () {
+	tc-export CC CPP CXX
+}
 
-	emake all || die "make failed"
+src_prepare () {
+	epatch "${FILESDIR}"/${P}-gentoo.diff
+}
+
+src_configure () {
+	econf $(use_with singular Singular)
 }
 
 src_install() {
-	# Needs -j1 because of race conditions during directory creation
-	emake -j1 install || die "Install failed"
+	emake DESTDIR="${D}" install || die
+	dodoc README NEWS || die
 }
