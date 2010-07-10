@@ -67,7 +67,6 @@ src_install() {
 	prodir="${EPREFIX}/usr/$(get_libdir)/${PN}/"
 	EOF
 
-
 	insinto /etx/profile.d/
 	doins "${T}"/30${PN} || die
 
