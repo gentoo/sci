@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -26,11 +26,14 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/openbabel-${PV}"
 
-src_compile() {
+src_configure() {
 	econf \
 		$(use_enable swig maintainer-mode) \
 		--enable-static \
 			|| die "econf failed"
+}
+
+src_compile() {
 	if use swig ; then
 		cd "${S}/scripts"
 		emake -W openbabel-python.i python/openbabel_python.cpp \
@@ -47,4 +50,3 @@ src_install() {
 	dohtml *.html
 	dodoc README
 }
-
