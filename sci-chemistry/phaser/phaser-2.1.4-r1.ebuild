@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -74,7 +74,6 @@ src_compile() {
 	cd    build
 	ln -sf "${S}/lib/cctbx/cctbx_sources/scons"  scons
 	ln -sf "${S}/lib/cctbx/cctbx_sources/libtbx" libtbx
-
 
 	# It is difficult to rely on sci-libs/cctbx for the cctbx
 	# dependency, because upstream releases new versions quite
