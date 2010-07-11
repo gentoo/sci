@@ -12,7 +12,7 @@ SRC_URI="http://why.lri.fr/download/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~sparc ~x86"
+KEYWORDS="~amd64 ~ppc ~x86"
 IUSE="apron coq doc examples gappa jessie gtk pff"
 
 DEPEND=">=dev-lang/ocaml-3.09
@@ -50,7 +50,7 @@ src_compile(){
 
 src_install(){
 	DESTDIR="${D}" emake install || die "emake install failed"
-	dodoc CHANGES COPYING README Version
+	dodoc CHANGES README Version
 	doman doc/why.1
 
 	if use doc; then
@@ -62,4 +62,3 @@ src_install(){
 		doins -r examples examples-c
 	fi
 }
-

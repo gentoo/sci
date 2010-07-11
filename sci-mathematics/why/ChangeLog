@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Jul 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
+  why-2.26.ebuild:
+  Silenced repoman; dropped ~sparc since dependencies cannot be fulfilled.
+
   08 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
   -why-2.19.ebuild, +why-2.26.ebuild:
   Version Bump
