@@ -1,36 +1,41 @@
---- cgnslib_2.5.orig/Makefile.in	2008-01-19 04:45:16.000000000 +0100
-+++ cgnslib_2.5/Makefile.in	2008-10-16 00:31:07.000000000 +0200
+diff -r -u cgnslib_2.5.orig/Makefile.in cgnslib_2.5/Makefile.in
+--- cgnslib_2.5.orig/Makefile.in	2010-07-11 20:14:10.704202181 +0200
++++ cgnslib_2.5/Makefile.in	2010-07-11 20:14:46.953228379 +0200
 @@ -79,7 +79,10 @@
-	$(INSTALL_DATA) -D cgnslib_f.h $(DESTDIR)/$(INCLUDEDIR)/cgnslib_f.h
-	$(INSTALL_DATA) -D cgnswin_f.h $(DESTDIR)/$(INCLUDEDIR)/cgnswin_f.h
-	$(INSTALL_DATA) -D cgns_header.h $(DESTDIR)/$(INCLUDEDIR)/cgns_header.h
+ 	$(INSTALL_DATA) -D cgnslib_f.h $(DESTDIR)/$(INCLUDEDIR)/cgnslib_f.h
+ 	$(INSTALL_DATA) -D cgnswin_f.h $(DESTDIR)/$(INCLUDEDIR)/cgnswin_f.h
+ 	$(INSTALL_DATA) -D cgns_header.h $(DESTDIR)/$(INCLUDEDIR)/cgns_header.h
 -	$(INSTALL_DATA) -D adf/ADF.h $(DESTDIR)/$(INCLUDEDIR)/adf/ADF.h
 +	$(INSTALL_DATA) -D adfh/ADF.h $(DESTDIR)/$(INCLUDEDIR)/adfh/ADF.h
 +	$(INSTALL_DATA) -D adfh/ADFH.h $(DESTDIR)/$(INCLUDEDIR)/adfh/ADFH.h
 +	$(INSTALL_DATA) -D $(OBJDIR)/adf2hdf$(EXE) $(DESTDIR)/usr/bin/adf2hdf$(EXE)
 +	$(INSTALL_DATA) -D $(OBJDIR)/hdf2adf$(EXE) $(DESTDIR)/usr/bin/hdf2adf$(EXE)
-	$(INSTALL_DATA) -D $(CGNSLIB) $(DESTDIR)/$(LIBDIR)/$(INSTLIB).2.0.0
-	(cd $(DESTDIR)/$(LIBDIR)/; ln -s $(INSTLIB).2.0.0 $(INSTLIB); ln -s $(INSTLIB).2.0.0 $(INSTLIB).2)
+ 	$(INSTALL_DATA) -D $(CGNSLIB) $(DESTDIR)/$(LIBDIR)/$(INSTLIB).2.0.0
+ 	(cd $(DESTDIR)/$(LIBDIR)/; ln -s $(INSTLIB).2.0.0 $(INSTLIB); ln -s $(INSTLIB).2.0.0 $(INSTLIB).2)
  
---- cgnslib_2.5.orig/configure.in	2008-01-19 04:45:16.000000000 +0100
-+++ cgnslib_2.5/configure.in	2008-10-15 22:58:22.000000000 +0200
-@@ -423,7 +423,7 @@
-       shared=no
-     else
-       CFGFLAGS="-fPIC $CFGFLAGS"
--      AR="\$(CC) -shared $SYSCFLAGS -Wl,-soname,libcgns.so.2"
-+      AR="\$(CC) -shared $SYSCFLAGS -Wl,-soname,libcgns.so.2 -lhdf5"
-       LIBEXT=so
-     fi
-   fi
---- cgnslib_2.5.orig/configure	2008-01-19 04:45:16.000000000 +0100
-+++ cgnslib_2.5/configure	2008-10-15 23:11:41.000000000 +0200
+diff -r -u cgnslib_2.5.orig/configure cgnslib_2.5/configure
+--- cgnslib_2.5.orig/configure	2010-07-11 20:14:10.706421871 +0200
++++ cgnslib_2.5/configure	2010-07-11 20:18:45.710202057 +0200
 @@ -2048,7 +2048,7 @@
        shared=no
      else
        CFGFLAGS="-fPIC $CFGFLAGS"
--      AR="\$(CC) -shared $SYSCFLAGS -Wl,-soname,libcgns.so.2"
-+      AR="\$(CC) -shared $SYSCFLAGS -Wl,-soname,libcgns.so.2 -lhdf5"
+-      AR="\$(CC) -shared $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2"
++      AR="\$(CC) -shared $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2 -lhdf5"
        LIBEXT=so
      fi
    fi
+diff -r -u cgnslib_2.5.orig/configure.in cgnslib_2.5/configure.in
+--- cgnslib_2.5.orig/configure.in	2010-07-11 20:14:10.704202181 +0200
++++ cgnslib_2.5/configure.in	2010-07-11 20:17:42.076202247 +0200
+@@ -423,7 +423,7 @@
+       shared=no
+     else
+       CFGFLAGS="-fPIC $CFGFLAGS"
+-      AR="\$(CC) -shared $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2"
++      AR="\$(CC) -shared $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2 -lhdf5"
+       LIBEXT=so
+     fi
+   fi
+Nur in cgnslib_2.5: configure.in.orig.
+Nur in cgnslib_2.5: configure.orig.

@@ -3,6 +3,10 @@
 # $Header: $
 
   11 Jul 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
+  files/cgnslib-2.5.3_hdf5.patch, files/cgnslib-2.5.4_hdf5.patch:
+  Made the hdf5 patches apply again.
+
+  11 Jul 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   cgnslib-2.5.3.ebuild:
   Removed hdf5 functionality since the required libraries are not available
   anymore.
