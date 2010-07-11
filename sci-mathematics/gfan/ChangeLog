@@ -2,14 +2,17 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Jul 2010; Kacper Kowalik <xarthisius@gentoo.org> gfan-0.4.ebuild,
+  +files/gfan-0.4-gcc45.patch:
+  Respect CXX, LDFLAGS, fix build with GCC-4.5
+
   04 Mar 2010; Thomas Kahle <tom111@gmx.de> gfan-0.4.ebuild:
   QA/ebuild improvements
 
-  26 Nov 2009; Thomas Kahle <tom111@gmx.de>
+  26 Nov 2009; Thomas Kahle <tom111@gmx.de> gfan-0.4.ebuild:
   QA Fixes
 
   16 Nov 2009; Thomas Kahle <tom111@gmx.de> +ChangeLog +metadata.xml
-  +gfan-0.4.ebuild
+  +gfan-0.4.ebuild:
   Initial import (Bug #293381).
-
 

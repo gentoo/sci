@@ -1,0 +1,11 @@
+--- linalg.cpp
++++ linalg.cpp
+@@ -525,7 +525,7 @@
+ }
+ 
+ 
+-FieldMatrix::FieldMatrix FieldMatrix::solver()const
++FieldMatrix FieldMatrix::solver()const
+ {
+   FieldMatrix ret=combineOnTop(*this,theField.zHomomorphism(-1)*identity(theField,getWidth())).transposed();
+ 
