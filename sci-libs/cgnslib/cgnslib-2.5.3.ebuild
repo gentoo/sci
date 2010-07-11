@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,10 +15,9 @@ SRC_URI="mirror://sourceforge/cgns/${MY_P}.tar.gz"
 LICENSE="ZLIB"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="fortran hdf5 szip zlib"
+IUSE="fortran szip zlib"
 
-RDEPEND="hdf5? ( <sci-libs/hdf5-1.8 )
-	zlib? ( sys-libs/zlib )
+RDEPEND="zlib? ( sys-libs/zlib )
 	szip? ( sci-libs/szip )"
 
 DEPEND="${RDEPEND}"
@@ -28,7 +27,6 @@ S=${WORKDIR}/${MY_S}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}.patch
-	use hdf5 && epatch "${FILESDIR}"/${P}_hdf5.patch
 }
 
 src_configure() {
@@ -37,12 +35,11 @@ src_configure() {
 	econf \
 		${myconf} \
 		$(use_with fortran) \
-		$(use_with hdf5) \
+		--without-hdf5 \
 		$(use_with zlib) \
 		$(use_with szip)
 }
 
 src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
-	use hdf5 && fperms 755 /usr/bin/{hdf2adf,adf2hdf}
 }
