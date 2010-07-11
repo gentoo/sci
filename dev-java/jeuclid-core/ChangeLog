@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Jul 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de> ChangeLog:
+  Masked for removal since dependencies cannot be fulfilled.
+
   22 Jan 2010; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml:
   Initial import. Ebuild initially submitted by Jiri Tyr, bug #224995
 

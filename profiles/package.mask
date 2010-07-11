@@ -97,3 +97,7 @@ sci-biology/newbler
 # Andreas K. Huettel (dilfridge) (11 Jul 2010)
 # mask for removal since dependencies cannot be fulfilled (dev-java/vecmath)
 sci-biology/jalview
+
+# Andreas K. Huettel (dilfridge) (11 Jul 2010)
+# mask for removal since dependencies cannot be fulfilled (dev-java/jcip-annotations)
+dev-java/jeuclid-core
