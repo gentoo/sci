@@ -1,5 +1,3 @@
-Make shared libs, fix install paths
-
 --- GNUmakefile.in
 +++ GNUmakefile.in
 @@ -43,7 +43,10 @@
@@ -43,9 +41,15 @@ Make shared libs, fix install paths
  memmandep :=	$(memmansrc:.cc=.d)
  memmandep :=	$(memmandep:.c=.d)
  
-@@ -430,12 +435,10 @@
+@@ -426,16 +431,14 @@
+ #
+ 
+ # how to create library objets
+-%.o: %.cc config.h
++%.o: %.cc config.h factoryconf.h
  	$(CXX) -c $< $(LIBCXXFLAGS) -o $@
- %.o: %.c config.h
+-%.o: %.c config.h
++%.o: %.c config.h factoryconf.h
  	$(CC) -c $< $(LIBCFLAGS) -o $@
 -# the debug version:
 -%.og: %.cc config.h
@@ -53,9 +57,9 @@ Make shared libs, fix install paths
 -# the profiling version:
 -%.op: %.cc config.h
 -	$(CXX) -O -pg -c $< $(LIBCGGFLAGS) -o $@
-+%.o_pic: %.cc config.h
++%.o_pic: %.cc config.h factoryconf.h
 +	$(CXX) -c $< $(LIBCXXFLAGS) -fPIC -o $@
-+%.o_pic: %.c config.h
++%.o_pic: %.c config.h factoryconf.h
 +	$(CC) -c $< $(LIBCFLAGS) -fPIC -o $@
  
  # how to create dependency files.  To avoid broken dependency files
@@ -84,14 +88,14 @@ Make shared libs, fix install paths
 -		$(AR) $(ARFLAGS) $@ $^
 -		$(RANLIB) $@
 +$(libfactory_sover): $(factoryobj_pic)
-+		$(CXX) -shared -Wl,-soname,$(libfactory_so).3 $(LDFLAGS) -o $@ $^
++		$(CXX) -shared -Wl,-soname,$(libfactory_so).3 $(LDFLAGS) -o $@ $^ $(LIBS)
  
  libcfmem.a:	$(memmanobj)
  		$(AR) $(ARFLAGS) $@ $^
  		$(RANLIB) $@
  
 +$(libcfmem_sover): $(memmanobj_pic)
-+		$(CXX) -shared -Wl,-soname,$(libcfmem_so).3 $(LDFLAGS) -o $@ $^
++		$(CXX) -shared -Wl,-soname,$(libcfmem_so).3 $(LDFLAGS) -o $@ $^ $(LIBS)
 +
  ftmpl_inst.o:	ftmpl_inst.cc factoryconf.h factory.h \
  		$(addprefix templates/,$(templatesrc)) \
