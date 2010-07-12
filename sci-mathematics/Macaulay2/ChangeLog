@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*Macaulay2-1.3.1-r4 (12 Jul 2010)
+
+  12 Jul 2010; Thomas Kahle <tom111@gmx.de> +Macaulay2-1.3.1-r4.ebuild,
+  +files/respect-CFLAGS.patch, metadata.xml:
+  Revision: Drop external libfac/factory, respect CFLAGS, QA, optimization
+  USE-flag
+
   17 Mar 2010; Thomas Kahle <tom111@gmx.de> Macaulay2-1.3.1-r3.ebuild:
   Fixing QA issues
 
