@@ -6,7 +6,7 @@ EAPI=2
 inherit eutils autotools
 
 DESCRIPTION="Tool for automatic generation of astronomical catalogs"
-HOMEPAGE="http://astromatic.iap.fr/software/sktuff/"
+HOMEPAGE="http://astromatic.iap.fr/software/stuff/"
 SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/stuff/${P}.tar.gz"
 
 LICENSE="CeCILL-2"
