@@ -20,7 +20,7 @@ SRC_URI="${SRC_COM}-${MY_PV}.tar.gz ${SRC_COM}-${MY_PV_SHARE}-share.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="boost doc emacs examples readline"
+IUSE="boost doc emacs examples libsingular +readline"
 
 RDEPEND="dev-libs/gmp
 	>=dev-libs/ntl-5.5.1
@@ -29,7 +29,9 @@ RDEPEND="dev-libs/gmp
 DEPEND="${RDEPEND}
 	dev-lang/perl
 	boost? ( dev-libs/boost )
-	readline? ( sys-libs/readline )"
+	readline? ( sys-libs/readline )
+	test? ( dev-util/cmake
+			dev-util/cppunit )"
 
 S="${WORKDIR}"/${MY_PN}-${MY_DIR}
 SITEFILE=60${PN}-gentoo.el
@@ -74,10 +76,20 @@ src_configure() {
 
 src_compile() {
 	emake -j1 || die "emake failed"
+
+	if use libsingular ; then
+		emake -j1 libsingular
+	fi
+
 	if use emacs; then
 		cd "${WORKDIR}"/${MY_PN}/${MY_DIR}/emacs/
 		elisp-compile *.el || die "elisp-compile failed"
 	fi
+}
+
+src_test() {
+	# Tests fail to link -lsingular, I don't understand why
+	emake -j1 test || die "tests failed"
 }
 
 src_install () {
@@ -96,6 +108,11 @@ src_install () {
 	cd "${WORKDIR}"/${MY_PN}/${MY_DIR}
 	insinto /usr/share/${PN}
 	doins -r LIB  || die "failed to install lib files"
+	if use libsingular; then
+		insinto /usr/include
+		doins "${S}"/Singular/libsingular.h
+		dolib.so "${S}"/Singular/libsingular.so
+	fi
 	if use examples; then
 		insinto /usr/share/doc/${PF}
 		doins -r examples || die "failed to install examples"

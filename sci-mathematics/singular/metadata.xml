@@ -5,5 +5,8 @@
 <use>
   <flag name='boost'>Compile against external boost headers
     (<pkg>dev-libs/boost</pkg>)</flag>
+  <flag name='libsingular'>Build and install the singular </flag>
+  <flag name='readline'>Provide command line completion features of
+  sys-libs/readline(<pkg>sys-libs/readline</pkg>)</flag>
 </use>
 </pkgmetadata>
