@@ -1,0 +1,133 @@
+--- Makefile.in
++++ Makefile.in
+@@ -8,7 +8,8 @@
+ 
+ SHELL		= /bin/sh
+ VERSION 	= @VERSION@
+-
++LIBOMALLOC_SO	= libomalloc.so
++LIBOMALLOC_SOVER= libomalloc.so.$(VERSION)
+ ##
+ ## various paths
+ ##
+@@ -83,9 +84,11 @@
+ omAllocSystem.h        omFindExec.h           omStats.h		\
+ omBin.h                omDefaultConfig.h      omStructs.h	\
+ omBinPage.h            omInline.h             omGetBackTrace.h  \
+-omReturn.h	       omRet2Info.h	      omAllocFunc.h		
++omReturn.h	       omRet2Info.h	      omAllocFunc.h	\
++omTables.h
+ 
+ OBJS := $(CSOURCES:.c=.o)  $(GSOURCES:.c=.o)
++OBJS_SHARED := $(CSOURCES:.c=.o_pic)  $(GSOURCES:.c=.o_pic)
+ OBJS_NDEBUG := $(CSOURCES:.c=.o_ndebug) $(GSOURCES:.c=.o_ndebug)
+ 
+ SOURCES=${CSOURCES} omGetPageSize.h omMallocSystem.h gmalloc.c dlmalloc.h dlmalloc.c \
+@@ -103,6 +106,9 @@
+ %.o: %.c omConfig.h omlimits.h omTables.h omalloc.h omTables.inc
+ 	${CC} ${CFLAGS} ${CPPFLAGS} ${DEFS} -c $<
+ 
++%.o_pic: %.c omConfig.h omlimits.h mylimits.h omTables.h omalloc.h omTables.inc
++	${CC} ${CFLAGS} ${CPPFLAGS} ${DEFS} -fPIC -c $< -o $@
++
+ %.o_ndebug: %.c omConfig.h omlimits.h mylimits.h omTables.h omalloc.h omTables.inc
+ 	${CC} ${CFLAGS} ${CPPFLAGS} ${DEFS} -DOM_NDEBUG -c $< -o $@
+ 
+@@ -113,9 +119,12 @@
+ %.aso: %.aso.o
+ 	./$< > $@
+ 
+-all:	libomalloc.a libomalloc_ndebug.a omalloc.h omalloc.o omalloc_debug.o
++all: lib omalloc.h omalloc.o omalloc_debug.o
++
++lib: libomalloc.a $(LIBOMALLOC_SOVER)
+ 
+-lib: libomalloc.a
++$(LIBOMALLOC_SOVER): $(OBJS_SHARED) Makefile omConfig.h omlimits.h mylimits.h
++	$(CC) -shared -Wl,-soname,$(LIBOMALLOC_SO).0 $(LDFLAGS) -o $@ $(OBJS_SHARED)
+ 
+ libomalloc.a: $(OBJS) Makefile omConfig.h omlimits.h mylimits.h
+ 	rm -f $@
+@@ -130,10 +139,10 @@
+ omalloc.h: $(HEADERS)
+ 	./makeheader om_Alloc.h $@
+ 
+-omalloc.o: omalloc.c
++omalloc.o: omalloc.c omalloc.h
+ 	${CC} ${CFLAGS} ${CPPFLAGS} ${DEFS} -DOM_NDEBUG -c $< -o $@
+ 
+-omalloc_debug.o: omalloc_debug.c
++omalloc_debug.o: omalloc_debug.c omalloc.h
+ 	${CC} ${CFLAGS} ${CPPFLAGS} ${DEFS} -c $< -o $@
+ 
+ omTables.inc: omTables
+@@ -190,37 +199,32 @@
+ install-nolns: install
+ 
+ install-libsingular:
+-	$(MKINSTALLDIRS) $(includedir)/singular
+-	$(INSTALL) omalloc.h $(includedir)/singular
++	$(INSTALL) -D omalloc.h $(DESTDIR)$(includedir)/singular
+ 
+ install: all
+-	$(MKINSTALLDIRS) $(libdir)
+-	$(MKINSTALLDIRS) $(includedir)
+-	$(INSTALL_DATA) libomalloc.a $(libdir)
+-	$(RANLIB) $(libdir)/libomalloc.a
+-	$(INSTALL_DATA) libomalloc_ndebug.a $(libdir)
+-	$(RANLIB) $(libdir)/libomalloc_ndebug.a
+-	$(INSTALL_DATA) omalloc.o $(libdir)
+-	$(INSTALL_DATA) omalloc_debug.o $(libdir)
+-	$(INSTALL_DATA) omalloc.h $(includedir)
+-	$(INSTALL_DATA) omalloc.c $(includedir)
+-	$(INSTALL_DATA) omlimits.h $(includedir)
+-	$(INSTALL_DATA) mylimits.h $(includedir)
++	$(INSTALL_DATA) -D $(LIBOMALLOC_SOVER) $(DESTDIR)$(libdir)/$(LIBOMALLOC_SOVER)
++	$(LN_S) $(LIBOMALLOC_SOVER) $(DESTDIR)$(libdir)/$(LIBOMALLOC_SO)
++	$(LN_S) $(LIBOMALLOC_SOVER) $(DESTDIR)$(libdir)/$(LIBOMALLOC_SO).0
++	$(INSTALL_DATA) -D libomalloc.a $(DESTDIR)$(libdir)/libomalloc.a
++	$(RANLIB) $(DESTDIR)$(libdir)/libomalloc.a
++	$(INSTALL_DATA) omalloc.o $(DESTDIR)$(libdir)/omalloc.o
++	$(INSTALL_DATA) -D omalloc.h $(DESTDIR)$(includedir)/omalloc.h
++	$(INSTALL_DATA) omalloc.c $(DESTDIR)$(includedir)/omalloc.c
++	$(INSTALL_DATA) omlimits.h $(DESTDIR)$(includedir)/omlimits.h
++	$(INSTALL_DATA) mylimits.h $(DESTDIR)$(includedir)/mylimits.h
+ 
+ install_all: install libomalloc_p.a
+-	$(INSTALL_DATA) libomalloc_p.a $(libdir)
+-	$(RANLIB) $(libdir)/libomalloc_p.a
++	$(INSTALL_DATA) -D libomalloc_p.a $(DESTDIR)$(libdir)/libomalloc_p.a
++	$(RANLIB) $(DESTDIR)$(libdir)/libomalloc_p.a
+ 
+-install_min: libomalloc_ndebug.a omalloc.o
+-	$(MKINSTALLDIRS) $(libdir)
+-	$(MKINSTALLDIRS) $(includedir)
+-	$(INSTALL_DATA) libomalloc_ndebug.a $(libdir)
+-	$(RANLIB) $(libdir)/libomalloc_ndebug.a
+-	$(INSTALL_DATA) omalloc.o $(libdir)
+-	$(INSTALL_DATA) omalloc.h $(includedir)
+-	$(INSTALL_DATA) omalloc.c $(includedir)
+-	$(INSTALL_DATA) omlimits.h $(includedir)
+-	$(INSTALL_DATA) mylimits.h $(includedir)
++install_min: omalloc.o
++	$(INSTALL_DATA) -D libomalloc.a $(DESTDIR)$(libdir)/libomalloc.a
++	$(RANLIB) $(DESTDIR)$(libdir)/libomalloc.a
++	$(INSTALL_DATA) omalloc.o $(DESTDIR)$(libdir)/omalloc.o
++	$(INSTALL_DATA) -D omalloc.h $(DESTDIR)$(includedir)/omalloc.h
++	$(INSTALL_DATA) omalloc.c $(DESTDIR)$(includedir)/omalloc.c
++	$(INSTALL_DATA) omlimits.h $(DESTDIR)$(includedir)/omlimits.h
++	$(INSTALL_DATA) mylimits.h $(DESTDIR)$(includedir)/mylimits.h
+ 
+ uninstall:
+ 	rm -f $(includedir)/omalloc.h $(includedir)/omalloc.c
+@@ -266,9 +270,8 @@
+ ## check
+ ##
+ 
+-check: omtTest omtTest_ndebug
++check: omtTest
+ 	./omtTest
+-	./omtTest_ndebug
+ 
+ ##
+ ## Below here is stuff for developpers

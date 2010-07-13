@@ -12,13 +12,13 @@ MY_PV_SHARE=${MY_PV}
 
 DESCRIPTION="omalloc is the memory management of the Singular algebra system"
 HOMEPAGE="http://www.singular.uni-kl.de/"
-SRC_COM="http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/3-1-1/3-1-1-2"
+SRC_COM="http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/3-1-1"
 SRC_URI="${SRC_COM}/Singular-3-1-1-2.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE=""
+IUSE="debug"
 
 S=${WORKDIR}/Singular-3-1-1/omalloc
 
@@ -30,12 +30,20 @@ pkg_setup() {
 }
 
 src_prepare (){
-	epatch "${FILESDIR}"/parallel-build.patch
+	epatch "${FILESDIR}"/${P}-gentoo.diff
+}
+
+src_configure() {
+	econf \
+		$(use_with debug)
+}
+
+src_test () {
+	if use debug; then
+		emake check || die
+	fi
 }
 
 src_install () {
-	emake DESTDIR="${D}" install || die "install failed"
-	# dolib.a *.a
-	# insinto /usr/include
-	# doins omalloc.h omalloc.c mylimits.h
+	emake DESTDIR="${D}" install || die
 }
