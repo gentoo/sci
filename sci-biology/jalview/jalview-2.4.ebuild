@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/beast-mcmc/beast-mcmc-1.5.1.ebuild,v 1.1 2009/10/02 21:47:11 weaver Exp $
 
@@ -36,6 +36,8 @@ RDEPEND=">=virtual/jre-1.5
 	dev-java/sun-jaf
 	dev-java/sun-javamail
 	${COMMON_DEPS}"
+
+# Note: dev-java/vecmath is in the java overlay.
 
 S="${WORKDIR}/${PN}"
 

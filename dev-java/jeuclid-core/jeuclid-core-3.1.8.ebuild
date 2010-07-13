@@ -22,6 +22,8 @@ COMMON_DEPEND="dev-java/ant-core
 	dev-java/xml-commons-external:1.3
 	dev-java/xmlgraphics-commons:1.3"
 
+# note: dev-java/jcip-annotations is in the java overlay
+
 RDEPEND=">=virtual/jre-1.5
 	${COMMON_DEPEND}"
 
