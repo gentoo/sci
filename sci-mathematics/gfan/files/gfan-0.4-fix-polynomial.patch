@@ -1,0 +1,14 @@
+--- polynomial.cpp.orig	2010-02-07 08:21:23.494221736 +0000
++++ polynomial.cpp	2010-02-07 08:26:55.077158315 +0000
+@@ -463,10 +463,8 @@
+   if(isMarked())
+     {
+ 	  IntegerVector v=m;
+-	  if(m.size()+1==newRing.getNumberOfVariables())
++	  if(m.size()==newRing.getNumberOfVariables())
+ 	  {
+-	  v.grow(m.size()+1);
+-	  v[m.size()]=degree-v.sum();
+ 	  ret.mark(Monomial(newRing,v));
+ 	  }
+ 	  //      assert(m.size()==newRing.getNumberOfVariables());
