@@ -13,10 +13,10 @@ INFO_REV="1"
 DESCRIPTION="A tool that generates and installs ebuilds for Octave-Forge"
 HOMEPAGE="http://g-octave.rafaelmartins.eng.br/"
 
-SRC_URI="http://g-octave.rafaelmartins.eng.br/distfiles/releases/${P}.tar.gz
-	http://g-octave.rafaelmartins.eng.br/distfiles/db/octave-forge-${MY_PV}.db.tar.gz
-	http://g-octave.rafaelmartins.eng.br/distfiles/db/info-${MY_PV}-${INFO_REV}.json"
-	#http://g-octave.rafaelmartins.eng.br/distfiles/db/patches-${MY_PV}-${PATCHES_REV}.tar.gz"
+SRC_URI="http://soc.dev.gentoo.org/~rafaelmartins/g-octave/releases/${P}.tar.gz
+	http://soc.dev.gentoo.org/~rafaelmartins/g-octave/db/octave-forge-${MY_PV}.db.tar.gz
+	http://soc.dev.gentoo.org/~rafaelmartins/g-octave/db/info-${MY_PV}-${INFO_REV}.json"
+	#http://soc.dev.gentoo.org/~rafaelmartins/g-octave/db/patches-${MY_PV}-${PATCHES_REV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -61,6 +61,8 @@ pkg_postinst() {
 	elog 'To be able to use g-octave with the shipped package database, please'
 	elog 'edit your configuration file, clean your db directory and run:'
 	elog "    emerge --config =${PF}"
+	elog
+	elog 'Please install the package manager that you want to use before run g-octave'
 	elog
 }
 
