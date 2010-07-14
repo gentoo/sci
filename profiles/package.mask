@@ -30,11 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Rafael Goncalves Martins (rafaelmartins) (6 Jul 10)
-# rafael@rafaelmartins.eng.br
-# mask broken version
-=app-portage/g-octave-0.2.1
-
 # Justin Lecher (jlec) (1 Aug 09)
 # jlec@gentoo.org
 # mask live ebuild
