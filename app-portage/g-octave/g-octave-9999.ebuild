@@ -4,6 +4,9 @@
 
 EAPI="2"
 
+SUPPORT_PYTHON_ABIS="1"
+PYTHON_DEPEND="*:2.6"
+
 inherit distutils git
 
 DESCRIPTION="A tool that generates and installs ebuilds for Octave-Forge"
@@ -15,24 +18,21 @@ SLOT="0"
 KEYWORDS=""
 IUSE="svn test"
 
-CDEPEND="( >=dev-lang/python-2.6 <dev-lang/python-3 )"
-DEPEND="${CDEPEND}
-	>=dev-python/docutils-0.6"
-RDEPEND="${CDEPEND}
-	svn? ( dev-python/pysvn )
-	|| ( >=sys-apps/portage-2.1.7[-python3] <sys-apps/portage-2.1.7 )"
+DEPEND=">=dev-python/docutils-0.6"
+RDEPEND="sys-apps/portage
+	svn? ( dev-python/pysvn )"
 
 S="${WORKDIR}/${PN}"
 
 PYTHON_MODNAME="g_octave"
 
 src_prepare() {
-	distutils_src_prepare
 	if ! use svn; then
 		rm -rf g_octave/svn/ || die 'failed to remove the Subversion stuff.'
 		sed -i -e '/g_octave.svn/d' -e '/pysvn/d' setup.py \
 			|| die 'failed to remove the SVN stuff from setup.py'
 	fi
+	distutils_src_prepare
 }
 
 src_install() {
@@ -42,5 +42,9 @@ src_install() {
 }
 
 src_test() {
-	PYTHONPATH=. scripts/run_tests.py || die "test failed."
+	testing() {
+		PYTHONPATH="build-${PYTHON_ABI}/lib" "$(PYTHON)" \
+			scripts/run_tests.py || die 'test failed.'
+	}
+	python_execute_function testing
 }
