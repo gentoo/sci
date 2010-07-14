@@ -5,7 +5,7 @@
 EAPI="2"
 WANT_AUTOCONF="2.1" # Upstream ticket 240 -> wontfix
 
-inherit eutils elisp-common autotools multilib versionator
+inherit autotools eutils elisp-common flag-o-matic multilib versionator
 
 MY_PN=Singular
 MY_PV=$(replace_all_version_separators -)
@@ -37,6 +37,8 @@ S="${WORKDIR}"/${MY_PN}-${MY_DIR}
 SITEFILE=60${PN}-gentoo.el
 
 pkg_setup() {
+	append-flags "-fPIC"
+	append-ldflags "-fPIC"
 	tc-export CC CPP CXX
 }
 
@@ -47,10 +49,16 @@ src_prepare () {
 	# older versions to me. The shipped code is fine !
 #	epatch "${FILESDIR}"/${PN}-3.1.0-glibc-2.10.patch
 	epatch "${FILESDIR}"/${PN}-3.0.4.4-nostrip.patch
+	epatch "${FILESDIR}"/${PN}-${PV}-soname.patch
 
 	sed -i \
-		-e '/CXXFLAGS/ s/--no-exceptions//g' \
+		-e "/CXXFLAGS/ s/--no-exceptions//g" \
 		"${S}"/Singular/configure.in || die
+
+	SOSUFFIX=$(get_version_component_range 1-3)
+	sed -i \
+		-e "s:SO_SUFFIX = so:SO_SUFFIX = so.${SOSUFFIX}:" \
+		"${S}"/Singular/Makefile.in || die
 
 	cd "${S}"/Singular || die "failed to cd into Singular/"
 	eautoconf
@@ -105,9 +113,12 @@ src_install () {
 		|| die "failed to create symbolic link"
 
 	if use libsingular; then
+		cd "${S}"/Singular
 		insinto /usr/include
-		doins "${S}"/Singular/libsingular.h
-		dolib.so "${S}"/Singular/libsingular.so
+		doins libsingular.h
+		dolib.so libsingular.so."${SOSUFFIX}"
+		dosym libsingular.so."${SOSUFFIX}" /usr/lib/libsingular.so \
+			|| die "failed to create symlink"
 	fi
 
 	# stuff from the share tar ball
