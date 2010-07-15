@@ -18,7 +18,7 @@ EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/g-cran.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 DEPEND="dev-lang/R"
