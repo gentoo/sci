@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/asciitable
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*asciitable-0.2.5 (15 Jul 2010)
+
+  15 Jul 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  +asciitable-0.2.5.ebuild, +metadata.xml:
+  Initial import
+
