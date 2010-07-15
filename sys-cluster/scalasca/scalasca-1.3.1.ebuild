@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="3"
 
 inherit eutils fortran
 
@@ -30,6 +30,7 @@ pkg_setup() {
 src_prepare() {
 	sed -e "s:CFLAGS   =.*:CFLAGS   = ${CFLAGS}:" \
 	    -e "s:CXXFLAGS =.*:CXXFLAGS = ${CXXFLAGS}:" \
+	    -e "s:SZLIB_OPTFLAGS =.*:SZLIB_OPTFLAGS =:" \
 		-i mf/Makefile.defs.linux-gomp mf/Makefile.defs.linux-gnu \
 		|| die "sed CFLAGS,CXXFLAGS failed"
 
@@ -44,7 +45,7 @@ src_configure() {
 	use openmp || myconf="${myconf} --disable-omp"
 	use mpi || myconf="${myconf} --disable-mpi"
 
-	./configure --prefix=/usr ${myconf} --compiler=gnu || die "configure failed"
+	./configure --prefix="${EPREFIX}"/usr ${myconf} --compiler=gnu || die "configure failed"
 }
 
 src_compile() {
@@ -54,10 +55,10 @@ src_compile() {
 
 src_install() {
 	#no DESTDIR support
-	emake install PREFIX="${D}"/usr || die "Installing failed"
+	emake install PREFIX="${D}"/"${EPREFIX}"/usr || die "Installing failed"
 
 	#examples are always installed in /usr
-	cd "${D}"/usr
+	cd "${D}"/"${EPREFIX}"/usr
 	if use examples; then
 		insinto "/usr/share/${PN}"
 		doins -r example
