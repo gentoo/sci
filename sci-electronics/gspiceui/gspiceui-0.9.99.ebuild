@@ -36,23 +36,25 @@ src_prepare() {
 
 	# Adjusting the doc path at src/main/HelpTasks.cpp
 	sed -i \
-		-e "s:/share/gspiceui/html/gSpiceUI.html:/share/doc/${P}/html/gSpiceUI.html:" \
+		-e "s:/share/gspiceui/html/gSpiceUI.html:/share/doc/${PF}/html/gSpiceUI.html:" \
 		src/main/HelpTasks.cpp \
 		|| die "Patching src/main/HelpTasks.cpp failed"
 }
 
 src_install() {
 	dobin bin/gspiceui || die
-	dodoc ChangeLog || die
+	dodoc ChangeLog ToDo || die
 	doman gspiceui.1 || die
 	newicon src/icons/gspiceui-48x48.xpm gspiceui.xpm || die
 
 	dohtml html/*.html html/*.jpeg || die
 
-	# installing examples
+	# installing examples and according model and symbol files
 	if use examples ; then
-		insinto /usr/share/doc/${P}/sch
+		insinto /usr/share/doc/${PF}/sch
 		doins -r sch/* || die
+		insinto /usr/share/doc/${PF}/lib
+		doins -r lib/* || die
 	fi
 
 	make_desktop_entry gspiceui "GNU Spice GUI" gspiceui.xpm "Electronics"
@@ -60,8 +62,9 @@ src_install() {
 
 pkg_postinst() {
 	if use examples ; then
-		elog "If you want to use the examples, copy then from"
-		elog "/usr/share/doc/${P}/sch to your home to be able"
-		elog "to generate the netlists as an normal user."
+		elog "If you want to use the examples, copy from"
+		elog "/usr/share/doc/${PF} the sch and lib directory"
+		elog "side by side to your home directory to be able"
+		elog "to generate the netlists as normal user."
 	fi
 }
