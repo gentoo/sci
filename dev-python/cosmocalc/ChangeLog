@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/cosmocalc
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*cosmocalc-0.1.2 (16 Jul 2010)
+
+  16 Jul 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  +cosmocalc-0.1.2.ebuild, +metadata.xml:
+  Initial import
+
