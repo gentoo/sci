@@ -19,7 +19,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MYP}.tar.gz"
 IUSE=""
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-LICENSE="BSD"
+LICENSE="GPL-3"
 
 DEPEND="dev-python/numpy"
 RDEPEND="${DEPEND}"
