@@ -1,11 +1,11 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-mathematics/singular/singular-3.1.1.ebuild,v 1.2 2010/04/28 14:55:16 bicatali Exp $
+# $Header: $
 
-EAPI="2"
+EAPI="3"
 WANT_AUTOCONF="2.1" # Upstream ticket 240 -> wontfix
 
-inherit eutils elisp-common autotools multilib versionator
+inherit autotools eutils elisp-common flag-o-matic multilib versionator
 
 MY_PN=Singular
 MY_PV=$(replace_all_version_separators -)
@@ -16,6 +16,8 @@ DESCRIPTION="Computer algebra system for polynomial computations"
 HOMEPAGE="http://www.singular.uni-kl.de/"
 SRC_COM="http://www.mathematik.uni-kl.de/ftp/pub/Math/${MY_PN}/SOURCES/${MY_DIR}/${MY_PN}"
 SRC_URI="${SRC_COM}-${MY_PV}.tar.gz ${SRC_COM}-${MY_PV_SHARE}-share.tar.gz"
+
+RESTRICT="mirror"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -37,6 +39,8 @@ S="${WORKDIR}"/${MY_PN}-${MY_DIR}
 SITEFILE=60${PN}-gentoo.el
 
 pkg_setup() {
+	append-flags "-fPIC"
+	append-ldflags "-fPIC"
 	tc-export CC CPP CXX
 }
 
@@ -47,10 +51,16 @@ src_prepare () {
 	# older versions to me. The shipped code is fine !
 #	epatch "${FILESDIR}"/${PN}-3.1.0-glibc-2.10.patch
 	epatch "${FILESDIR}"/${PN}-3.0.4.4-nostrip.patch
+	epatch "${FILESDIR}"/${PN}-3.1.1.3-soname.patch
 
 	sed -i \
-		-e '/CXXFLAGS/ s/--no-exceptions//g' \
+		-e "/CXXFLAGS/ s/--no-exceptions//g" \
 		"${S}"/Singular/configure.in || die
+
+	SOSUFFIX=$(get_version_component_range 1-3)
+	sed -i \
+		-e "s:SO_SUFFIX = so:SO_SUFFIX = so.${SOSUFFIX}:" \
+		"${S}"/Singular/Makefile.in || die
 
 	cd "${S}"/Singular || die "failed to cd into Singular/"
 	eautoconf
@@ -71,14 +81,14 @@ src_configure() {
 		--enable-Singular \
 		$(use_with boost Boost) \
 		$(use_enable emacs) \
-		$(use_with readline)
+		$(use_with readline) || die "configure failed"
 }
 
 src_compile() {
 	emake -j1 || die "emake failed"
 
-	if use libsingular ; then
-		emake -j1 libsingular
+	if (use libsingular || use test ) ; then
+		emake -j1 libsingular || die "emake libsingular failed"
 	fi
 
 	if use emacs; then
@@ -88,7 +98,7 @@ src_compile() {
 }
 
 src_test() {
-	# Tests fail to link -lsingular, I don't understand why
+	# Tests fail to link -lsingular, upstream ticket #243
 	emake -j1 test || die "tests failed"
 }
 
@@ -104,15 +114,19 @@ src_install () {
 	dosym ${MY_PN}-${MY_DIR} /usr/bin/${MY_PN} \
 		|| die "failed to create symbolic link"
 
+	if use libsingular; then
+		cd "${S}"/Singular
+		insinto /usr/include
+		doins libsingular.h
+		dolib.so libsingular.so."${SOSUFFIX}"
+		dosym libsingular.so."${SOSUFFIX}" /usr/$(get_libdir)/libsingular.so \
+			|| die "failed to create symlink"
+	fi
+
 	# stuff from the share tar ball
 	cd "${WORKDIR}"/${MY_PN}/${MY_DIR}
 	insinto /usr/share/${PN}
 	doins -r LIB  || die "failed to install lib files"
-	if use libsingular; then
-		insinto /usr/include
-		doins "${S}"/Singular/libsingular.h
-		dolib.so "${S}"/Singular/libsingular.so
-	fi
 	if use examples; then
 		insinto /usr/share/doc/${PF}
 		doins -r examples || die "failed to install examples"
