@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<longdescription lang="en">
+  The inference package is a collection of Python modules implementing
+  a variety of methods targeting the statistical inference
+  problems—and the statistical modeling style—of the physical
+  sciences. The target discipline is astronomy, and the choice of
+  problems and methods most directly targets the needs of astronomers,
+  but many tools here may be of use to other physical scientists. 
+</longdescription>
+</pkgmetadata>
