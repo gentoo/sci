@@ -16,7 +16,7 @@ DESCRIPTION="Python module to read IDL .sav files"
 HOMEPAGE="http://idlsave.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${MYP}.tar.gz"
 
-IUSE="doc examples"
+IUSE=""
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 LICENSE="BSD"
@@ -29,4 +29,3 @@ RESTRICT_PYTHON_ABIS="3.*"
 S="${WORKDIR}/${MYP}"
 
 DOCS="CHANGES"
-
