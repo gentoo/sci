@@ -6,12 +6,12 @@ EAPI="2"
 
 PYTHON_USE_WITH="sqlite"
 PYTHON_DEPEND="python? 2"
-inherit python cmake-utils subversion
+inherit python cmake-utils eutils
 
 DESCRIPTION="User friendly Geographic Information System"
 HOMEPAGE="http://www.qgis.org/"
-ESVN_REPO_URI="http://svn.osgeo.org/qgis/trunk/qgis"
-SRC_URI="examples? ( http://download.osgeo.org/qgis/data/qgis_sample_data.tar.gz )"
+SRC_URI="http://download.osgeo.org/${PN}/src/${PN}_${PV}.tar.gz
+	examples? ( http://download.osgeo.org/qgis/data/qgis_sample_data.tar.gz )"
 
 LICENSE="GPL-2"
 SLOT="0"
