@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*vo-0.6 (21 Jul 2010)
+
+  21 Jul 2010; Sébastien Fabbro <bicatali@gentoo.org> +vo-0.6.ebuild,
+  +files/vo-0.6-expat.patch:
+  Version bump
+
   26 Jun 2010; Justin Lecher <jlec@gentoo.org> vo-0.5.ebuild:
   Python ABI fixes
 
