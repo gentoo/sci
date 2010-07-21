@@ -15,7 +15,7 @@ SRC_URI="http://download.osgeo.org/${PN}/src/${PN}_${PV}.tar.gz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="examples gps grass gsl postgres python sqlite"
 
 RDEPEND=">=sci-libs/gdal-1.6.1
