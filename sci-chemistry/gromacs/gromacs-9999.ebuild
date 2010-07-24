@@ -15,13 +15,12 @@ inherit autotools bash-completion eutils fortran git multilib toolchain-funcs
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
-		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-4.0.pdf )
-		ffamber? ( http://ffamber.cnsm.csulb.edu/ffamber_v4.0-doc.tar.gz )"
+		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-4.0.pdf )"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="X blas dmalloc doc -double-precision ffamber +fftw fkernels +gsl lapack
+IUSE="X blas dmalloc doc -double-precision +fftw fkernels +gsl lapack
 mpi +single-precision static static-libs test +threads +xml zsh-completion"
 
 DEPEND="app-shells/tcsh
@@ -233,53 +232,6 @@ src_install() {
 	cd "${S}"
 	dodoc AUTHORS INSTALL README
 	use doc && dodoc "${DISTDIR}/manual-4.0.pdf"
-	if use ffamber; then
-		use doc && dodoc "${WORKDIR}/ffamber_v4.0/README/pdfs/*.pdf"
-		# prepare vdwradii.dat
-		cat >>"${ED}"/usr/share/gromacs/top/vdwradii.dat <<-EOF
-			SOL  MW    0
-			SOL  LP    0
-		EOF
-		# regenerate aminoacids.dat
-		cat "${WORKDIR}"/ffamber_v4.0/aminoacids*.dat \
-		"${ED}"/usr/share/gromacs/top/aminoacids.dat \
-		| awk '{print $1}' | sort -u | tail -n+4 | wc -l \
-		>> "${ED}"/usr/share/gromacs/top/aminoacids.dat.new
-		cat "${WORKDIR}"/ffamber_v4.0/aminoacids*.dat \
-		"${ED}"/usr/share/gromacs/top/aminoacids.dat \
-		| awk '{print $1}' | sort -u | tail -n+4 \
-		>> "${ED}"/usr/share/gromacs/top/aminoacids.dat.new
-		mv -f "${ED}"/usr/share/gromacs/top/aminoacids.dat.new \
-		"${ED}"/usr/share/gromacs/top/aminoacids.dat
-		# copy ff files
-		for x in ffamber94 ffamber96 ffamber99 ffamber99p ffamber99sb \
-				ffamberGS ffamberGSs ffamber03 ; do
-			einfo "Adding ${x} to gromacs"
-			cp "${WORKDIR}"/ffamber_v4.0/${x}/* "${ED}"/usr/share/gromacs/top
-		done
-		# copy suplementary files
-		cp "${WORKDIR}"/ffamber_v4.0/*.gro "${ED}"/usr/share/gromacs/top
-		cp "${WORKDIR}"/ffamber_v4.0/*.itp "${ED}"/usr/share/gromacs/top
-		# actualy add records to FF.dat
-		cat >>"${ED}"/usr/share/gromacs/top/FF.dat.new <<-EOF
-			ffamber94   AMBER94 Cornell protein/nucleic forcefield
-			ffamber96   AMBER96 Kollman protein/nucleic forcefield
-			ffamberGS   AMBER-GS Garcia &  Sanbonmatsu forcefield
-			ffamberGSs  AMBER-GSs Nymeyer &  Garcia forcefield
-			ffamber99   AMBER99 Wang protein/nucleic acid forcefield
-			ffamber99p  AMBER99p protein/nucleic forcefield
-			ffamber99sb AMBER99sb Hornak protein/nucleic forcefield
-			ffamber03   AMBER03 Duan protein/nucleic forcefield
-		EOF
-		cat "${ED}"/usr/share/gromacs/top/FF.dat \
-			"${ED}"/usr/share/gromacs/top/FF.dat.new \
-			| tail -n+2 > "${ED}"/usr/share/gromacs/top/FF.dat.new2
-		cat "${ED}"/usr/share/gromacs/top/FF.dat.new2 | wc -l > \
-			"${ED}"/usr/share/gromacs/top/FF.dat
-		cat "${ED}"/usr/share/gromacs/top/FF.dat.new2 >> \
-			"${ED}"/usr/share/gromacs/top/FF.dat
-		rm -f "${ED}"/usr/share/gromacs/top/FF.dat.new*
-	fi
 }
 
 pkg_postinst() {
