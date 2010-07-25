@@ -65,27 +65,9 @@ src_prepare() {
 		(see bug #306479), disable xml or static"
 	fi
 
-	epatch "${FILESDIR}/${P}-docdir.patch"
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
 		|| die "Failed to fixup demo script."
-
-	# Fix a sandbox violation that occurs when re-emerging with mpi.
-	sed "/libdir=\"\$(libdir)\"/ a\	temp_libdir=\"${ED}usr/$( get_libdir )\" ; \\\\" \
-	-i src/tools/Makefile.am \
-	|| die "sed tools/Makefile.am failed"
-
-	sed -e "s:\$\$libdir:\$temp_libdir:" \
-	-i src/tools/Makefile.am \
-	|| die "sed tools/Makefile.am failed"
-
-	sed "/libdir=\"\$(libdir)\"/ a\ temp_libdir=\"${ED}usr/$( get_libdir )\" ; \\\\" \
-	-i src/tools/Makefile.am \
-	|| die "sed tools/Makefile.am failed"
-
-	sed -e "s:\$\$libdir:\$\$temp_libdir:" \
-	-i src/tools/Makefile.am \
-	|| die "sed tools/Makefile.am failed"
 
 	eautoreconf
 	GMX_DIRS=""
@@ -249,7 +231,12 @@ src_install() {
 
 	cd "${S}"
 	dodoc AUTHORS INSTALL README
-	use doc && dodoc "${DISTDIR}/manual-4.0.pdf"
+	if use doc; then
+		dodoc "${DISTDIR}/manual-4.0.pdf"
+		dohtml -r "${ED}usr/share/gromacs/html/"
+	fi
+	rm -rf "${ED}usr/share/gromacs/html/"
+
 	if use ffamber; then
 		use doc && dodoc "${WORKDIR}/ffamber_v4.0/README/pdfs/*.pdf"
 		# prepare vdwradii.dat

@@ -231,7 +231,11 @@ src_install() {
 
 	cd "${S}"
 	dodoc AUTHORS INSTALL README
-	use doc && dodoc "${DISTDIR}/manual-4.0.pdf"
+	if use doc; then
+		dodoc "${DISTDIR}/manual-4.0.pdf"
+		dohtml -r "${ED}usr/share/gromacs/html/"
+	fi
+	rm -rf "${ED}usr/share/gromacs/html/"
 }
 
 pkg_postinst() {
