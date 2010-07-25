@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="3"
 
-inherit autotools savedconfig
+inherit autotools eutils savedconfig
 
 DESCRIPTION="Extensible Simulation Package for Research on Soft matter"
 HOMEPAGE="http://www.espresso.mpg.de"
-SRC_URI="http://espressowiki.mpip-mainz.mpg.de/wiki/uploads/e/e6/Espresso-${PV}.tar.gz"
+SRC_URI="http://espressowiki.mpip-mainz.mpg.de/wiki/uploads/6/67/Espresso-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -28,12 +28,15 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${PN}-${PV:0:5}"
 
 src_prepare() {
-	AT_M4DIR="config" eautoreconf
+	epatch "${FILESDIR}/${PF}-autotools.patch"
+	ln -s Makefile-am.am Makefile.am
+	eautoreconf
 	restore_config myconfig.h
 }
 
 src_configure() {
 	econf \
+		--disable-processor-optimization \
 		$(use_with fftw) \
 		$(use_with mpi) \
 		$(use_with tk) \
@@ -69,7 +72,7 @@ src_install() {
 
 	if use examples; then
 		insinto /usr/share/${PN}/examples
-		doins samples/*
+		doins -r samples/*
 		#the testsuite are also good examples
 		rm testsuite/Makefile* testsuite/test.sh.in
 		insinto /usr/share/${PN}/testsuite
@@ -84,13 +87,13 @@ src_install() {
 
 pkg_postinst() {
 	elog
-	elog Please read and cite:
-	elog ESPResSo, Comput. Phys. Commun. 174\(9\) ,704, 2006.
-	elog http://dx.doi.org/10.1016/j.cpc.2005.10.005
+	elog "Please read and cite:"
+	elog "ESPResSo, Comput. Phys. Commun. 174(9) ,704, 2006."
+	elog "http://dx.doi.org/10.1016/j.cpc.2005.10.005"
 	elog
-	elog If you need more features, change
-	elog /etc/portage/savedconfig/${CATEGORY}/"${PF}"
-	elog and reemerge with USE=savedconfig
+	elog "If you need more features, change"
+	elog "/etc/portage/savedconfig/${CATEGORY}/${PF}"
+	elog "and reemerge with USE=savedconfig"
 	elog
 	elog "For a full feature list see:"
 	elog "/usr/share/${PN}/myconfig-sample.h"

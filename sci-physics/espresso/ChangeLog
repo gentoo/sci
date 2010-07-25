@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*espresso-2.2.0 (25 Jul 2010)
+
+  25 Jul 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  -espresso-2.1.5c.ebuild, +espresso-2.2.0.ebuild,
+  +files/espresso-2.2.0-autotools.patch:
+  Version bump
+
 *espresso-2.1.5c (24 Mar 2010)
 
   24 Mar 2010; Christoph Junghans <kleiner_otti@gmx.de>
