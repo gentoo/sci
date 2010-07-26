@@ -69,7 +69,11 @@ src_prepare () {
 src_configure() {
 
 	econf \
-		--prefix="${S}" \
+		--prefix="${S}"/build \
+		--exec-prefix="${S}"/build \
+		--bindir="${S}"/build/bin \
+		--libdir="${S}"/build/lib \
+		--libexecdir="${S}"/build/lib \
 		--disable-debug \
 		--disable-doc \
 		--disable-NTL \
@@ -105,7 +109,7 @@ src_test() {
 src_install () {
 	dodoc README
 	# execs and libraries
-	cd "${S}"/*-Linux
+	cd "${S}"/build/bin
 	dobin ${MY_PN}* gen_test change_cost solve_IP toric_ideal LLL \
 		|| die "failed to install binaries"
 	insinto /usr/$(get_libdir)/${PN}
@@ -115,16 +119,17 @@ src_install () {
 		|| die "failed to create symbolic link"
 
 	if use libsingular; then
-		cd "${S}"/Singular
-		insinto /usr/include
-		doins libsingular.h
-		dodir /usr/include/"${PN}"
-		insinto /usr/include/"${PN}"
-		doins subexpr.h tok.h grammar.h ipid.h \
-			ipshell.h lists.h attrib.h
+		cd "${S}"
+		emake -j1 install-libsingular || die "failed to put libsingular in the right location"
+		cd "${S}"/build/lib
 		dolib.so libsingular.so."${SOSUFFIX}"
 		dosym libsingular.so."${SOSUFFIX}" /usr/$(get_libdir)/libsingular.so \
 			|| die "failed to create symlink"
+		insinto /usr/include
+		cd "${S}"/build/include
+		doins libsingular.h mylimits.h
+		insinto /usr/include/singular
+		doins singular/*
 	fi
 
 	# stuff from the share tar ball

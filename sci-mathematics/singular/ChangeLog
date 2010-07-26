@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Jul 2010; Thomas Kahle <tom111@gmx.de> singular-3.1.1.4.ebuild:
+  libsingular fixes from sage-overlay. Kudos to kiwifb
+
   24 Jul 2010; Thomas Kahle <tom111@gmx.de> singular-3.1.1.4.ebuild:
   Headers for libsingular get installed. Upstream changed tarball *doh*
   Thanks to François Bissey
