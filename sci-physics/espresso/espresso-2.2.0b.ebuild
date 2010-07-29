@@ -4,11 +4,11 @@
 
 EAPI="3"
 
-inherit autotools eutils savedconfig
+inherit autotools savedconfig
 
 DESCRIPTION="Extensible Simulation Package for Research on Soft matter"
 HOMEPAGE="http://www.espresso.mpg.de"
-SRC_URI="http://espressowiki.mpip-mainz.mpg.de/wiki/uploads/6/67/Espresso-${PV}.tar.gz"
+SRC_URI="http://espressowiki.mpip-mainz.mpg.de/wiki/uploads/f/f3/Espresso-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -25,10 +25,9 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen
 		virtual/latex-base )"
 
-S="${WORKDIR}/${PN}-${PV:0:5}"
+#S="${WORKDIR}/${PN}-${PV:0:5}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${PF}-autotools.patch"
 	ln -s Makefile-am.am Makefile.am
 	eautoreconf
 	restore_config myconfig.h
