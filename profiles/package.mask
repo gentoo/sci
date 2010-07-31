@@ -35,11 +35,11 @@
 # mask live ebuild
 =sci-chemistry/burrow-owl-9999_pre15
 
-# Christoph Junghans (ottxor) (11 May 09)
+# Christoph Junghans (ottxor) (31 Jul 10)
 # kleiner_otti@gmx.de
 # mask live ebuilds
-=sci-chemistry/gromacs-3.3.9999
 =sci-chemistry/gromacs-4.0.9999
+=sci-chemistry/gromacs-4.5.9999
 =sci-chemistry/gromacs-9999
 
 # Christoph Junghans (ottxor) (23 Jan 10)
