@@ -8,7 +8,7 @@ LIBTOOLIZE="true"
 TEST_PV="4.0.4"
 
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
-EGIT_BRANCH="master"
+EGIT_BRANCH="release-4-5-patches"
 
 inherit autotools bash-completion eutils fortran git multilib toolchain-funcs
 
