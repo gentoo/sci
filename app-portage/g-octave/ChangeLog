@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  01 Aug 2010; Rafael Goncalves Martins <rafael@rafaelmartins.eng.br>
+  g-octave-9999.ebuild:
+  Removed the svn dependency from the live ebuild
+
   14 Jul 2010; Rafael Goncalves Martins <rafael@rafaelmartins.eng.br>
   g-octave-9999.ebuild:
   Updated the live ebuild to work with py3k.

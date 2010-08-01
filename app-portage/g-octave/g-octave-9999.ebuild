@@ -10,30 +10,20 @@ PYTHON_DEPEND="*:2.6"
 inherit distutils git
 
 DESCRIPTION="A tool that generates and installs ebuilds for Octave-Forge"
-HOMEPAGE="http://g-octave.rafaelmartins.eng.br/"
+HOMEPAGE="http://www.g-octave.org/"
 EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/g-octave.git"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="svn test"
+IUSE="test"
 
 DEPEND=">=dev-python/docutils-0.6"
-RDEPEND="sys-apps/portage
-	svn? ( dev-python/pysvn )"
+RDEPEND="sys-apps/portage"
 
 S="${WORKDIR}/${PN}"
 
 PYTHON_MODNAME="g_octave"
-
-src_prepare() {
-	if ! use svn; then
-		rm -rf g_octave/svn/ || die 'failed to remove the Subversion stuff.'
-		sed -i -e '/g_octave.svn/d' -e '/pysvn/d' setup.py \
-			|| die 'failed to remove the SVN stuff from setup.py'
-	fi
-	distutils_src_prepare
-}
 
 src_install() {
 	distutils_src_install
