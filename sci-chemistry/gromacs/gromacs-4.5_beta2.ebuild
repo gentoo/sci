@@ -6,6 +6,7 @@ EAPI="3"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
+MANUAL_PV="4.5-beta1"
 
 inherit autotools bash-completion eutils fortran multilib toolchain-funcs
 
@@ -13,7 +14,7 @@ DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
 SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P//_/-}.tar.gz
 		test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
-		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-4.0.pdf )"
+		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf )"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -239,7 +240,7 @@ src_install() {
 	cd "${S}"
 	dodoc AUTHORS INSTALL README
 	if use doc; then
-		dodoc "${DISTDIR}/manual-4.0.pdf"
+		dodoc "${DISTDIR}/manual-${MANUAL_PV}.pdf"
 		dohtml -r "${ED}usr/share/gromacs/html/"
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"
