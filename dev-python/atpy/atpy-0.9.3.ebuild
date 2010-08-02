@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-PYTHON_DEPEND="2"
+PYTHON_DEPEND="2:2.6"
 SUPPORT_PYTHON_ABIS="1"
 
 inherit distutils
@@ -24,7 +24,7 @@ RDEPEND=">=dev-python/numpy-1.3
 	sqlite? ( dev-python/pysqlite )
 	votable? ( >=dev-python/vo-0.3 )"
 
-RESTRICT_PYTHON_ABIS="2.[45]"
+RESTRICT_PYTHON_ABIS="2.[45] 3.*"
 
 DEPEND=">=dev-python/numpy-1.3"
 
@@ -33,5 +33,4 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 LICENSE="GPL-3"
 
-S="${WORKDIR}/${MYP}"
-
+S=${WORKDIR}/${MYP}
