@@ -16,19 +16,31 @@ EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/g-octave.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="test"
+IUSE="doc test"
 
-DEPEND=">=dev-python/docutils-0.6"
+DEPEND=">=dev-python/docutils-0.6
+	doc? ( >=dev-python/sphinx-1.0 )"
 RDEPEND="sys-apps/portage"
 
 S="${WORKDIR}/${PN}"
 
 PYTHON_MODNAME="g_octave"
 
+src_compile() {
+	distutils_src_compile
+	if use doc; then
+		emake -C docs html
+	fi
+}
+
 src_install() {
 	distutils_src_install
 	dohtml ${PN}.html
 	doman ${PN}.1
+	if use doc; then
+		mv docs/_build/{html,sphinx}
+		dohtml -r docs/_build/sphinx
+	fi
 }
 
 src_test() {
