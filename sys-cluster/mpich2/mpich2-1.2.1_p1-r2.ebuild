@@ -62,6 +62,8 @@ src_prepare() {
 	epatch "${FILESDIR}"/0002-mpd_conf_file-search-order.patch
 	# Upstream trunk, r5845
 	epatch "${FILESDIR}"/0003-Fix-pkgconfig-for-mpich2-ch3-v1.2.1.patch
+	# Upstream trunk, r6848
+	epatch "${FILESDIR}"/mpich2-1.2.1-fix-missing-libs.patch
 
 	# We need f90 to include the directory with mods, and to
 	# fix hardcoded paths for src_test()

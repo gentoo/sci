@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mpich2-1.2.1_p1-r2 (05 Aug 2010)
+
+  05 Aug 2010; Justin Bronder <jsbronder@gentoo.org>
+  -mpich2-1.2.1_p1-r1.ebuild, +mpich2-1.2.1_p1-r2.ebuild,
+  +files/mpich2-1.2.1-fix-missing-libs.patch:
+  Fix #313045, add missing libs during linking
+
   05 Aug 2010; Justin Bronder <jsbronder@gentoo.org>
   -mpich2-1.1.1_p1.ebuild, -mpich2-1.2.1.ebuild, -mpich2-1.2.1_p1.ebuild:
   cleanup
