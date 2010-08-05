@@ -189,34 +189,23 @@ src_install() {
 	# See #316937
 	MPD_PYTHON_MODULES=""
 	for f in "${d}"usr/bin/*.py; do
-		MPD_PYTHON_MODULES="${MPD_PYTHON_MODULES} ${f##${d}usr/bin}"
+		MPD_PYTHON_MODULES="${MPD_PYTHON_MODULES} ${f##${d}}"
 	done
 }
 
 pkg_postinst() {
-	local f
-	local d=$(mpi_root)
-
 	# Here so we can play with ebuild commands as a normal user
 	chown root:root "${ROOT}"${MPD_CONF_FILE_DIR}/mpd.conf
 	chmod 600 "${ROOT}"${MPD_CONF_FILE_DIR}/mpd.conf
-
-	for f in ${MPD_PYTHON_MODULES}; do
-		python_mod_optimize ${d}/usr/bin/${f}
-	done
 
 	elog ""
 	elog "MPE2 has been removed from this ebuild and now stands alone"
 	elog "as sys-cluster/mpe2."
 	elog ""
-
+	
+	python_mod_optimize ${MPD_PYTHON_MODULES}
 }
 
 pkg_postrm() {
-	local f
-	local d=$(mpi_root)
-
-	for f in ${MPD_PYTHON_MODULES}; do
-		python_mod_cleanup ${d}/usr/bin/${f}
-	done
+	python_mod_cleanup ${MPD_PYTHON_MODULES}
 }
