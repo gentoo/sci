@@ -16,7 +16,7 @@ MY_P=${MY_P/_rc/.rc.}
 
 DESCRIPTION="Data Access Protocol client and server."
 HOMEPAGE="http://pydap.org"
-SRC_URI="http://pypi.python.org/packages/source/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
+SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
 LICENSE="pydap"
 SLOT="0"
@@ -29,9 +29,6 @@ RDEPEND=">=dev-python/numpy-1.2.1
 	>=dev-python/genshi-0.5.1
 	>=dev-python/paste-1.7.2
 	>=dev-python/pastescript-1.7.2
-	>=dev-python/pastedeploy-1.3.3
-	>=dev-python/coards-0.2.2
-	>=dev-python/arrayterator-1.0.1
-	>=dev-python/cheetah-2.0_rc6"
+	>=dev-python/pastedeploy-1.3.3"
 
 S="$WORKDIR/$MY_P"
