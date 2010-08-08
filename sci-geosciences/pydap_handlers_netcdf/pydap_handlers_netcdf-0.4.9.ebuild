@@ -13,7 +13,7 @@ MY_P=${P//_/.}
 DESCRIPTION="NetCDF handler for Pydap Data Access Protocol server."
 HOMEPAGE="http://pydap.org"
 
-SRC_URI="http://pypi.python.org/packages/source/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
+SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
 LICENSE="pydap"
 SLOT="0"
