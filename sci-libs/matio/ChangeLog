@@ -1,6 +1,13 @@
 # ChangeLog for sci-libs/matio
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*matio-1.3.4 (10 Aug 2010)
+
+  10 Aug 2010; Sébastien Fabbro <bicatali@gentoo.org> -matio-1.3.3.ebuild,
+  -files/matio-1.3.3-makefile.patch, +matio-1.3.4.ebuild,
+  +files/matio-1.3.4-autotools.patch:
+  Version bump. Ebuild modernisation. Disabling doc generation (bug #330237)
 
 *matio-1.3.3 (22 Jan 2009)
 
