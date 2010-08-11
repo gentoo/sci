@@ -30,7 +30,6 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PV}-gentoo.patch
 	epatch "${FILESDIR}"/${PV}-type.patch
 	eprefixify Makefile
-#	eautoreconf
 }
 
 src_compile() {
@@ -40,16 +39,6 @@ src_compile() {
 		|| die
 }
 
-#src_configure(){
-# Broken
-#		$(use_enable threads parallel) \
-#	econf \
-#		--disable-parallel \
-#		$(use_enable tk tklib) \
-#		$(use_enable gtk simplot)
-#}
-
 src_install() {
-	emake DESTDIR="${D}" install || die
-	dodoc vnmrtools/README.vnmrtools NEWS README TODO AUTHORS || die
+	dobin ${PN} || die
 }
