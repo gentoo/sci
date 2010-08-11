@@ -71,7 +71,7 @@ src_prepare() {
 		use xml && die "You cannot compile a static version with xml support
 		(see bug #306479), disable xml or static"
 	fi
-
+	epatch_user
 	eautoreconf
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" single"
