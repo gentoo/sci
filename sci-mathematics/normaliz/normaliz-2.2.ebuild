@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="Normaliz is a tool for computations in affine monoids and more"
 HOMEPAGE="http://www.mathematik.uni-osnabrueck.de/normaliz/"
-SRC_URI="http://www.mathematik.uni-osnabrueck.de/normaliz/Normaliz2.2Linux32.zip"
+SRC_URI="http://www.mathematik.uni-osnabrueck.de/normaliz/Normaliz2.2/Normaliz2.2Linux32.zip"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"

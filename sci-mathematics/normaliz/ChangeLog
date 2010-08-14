@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Aug 2010; Christopher Schwan <cschwan@students.uni-mainz.de>
+  normaliz-2.2.ebuild:
+  Fixed SRC_URI - url has moved because upstream has released 2.5
+
   04 Mar 2010; Thomas Kahle <tom111@gmx.de> normaliz-2.2.ebuild:
   QA/ebuild improvements
 
