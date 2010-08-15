@@ -1,8 +1,10 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+EAPI="3"
+
+inherit eutils toolchain-funcs
 
 DESCRIPTION="A Computer algebra package for Lie group computations"
 HOMEPAGE="http://young.sp2mi.univ-poitiers.fr/~marc/LiE"
@@ -22,15 +24,17 @@ RDEPEND="sys-libs/readline"
 
 S="${WORKDIR}/LiE"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+src_prepare() {
 	epatch "${FILESDIR}/${P}-make.patch"
 	epatch "${FILESDIR}/parrallelmake-${P}.patch"
 }
 
+src_compile() {
+	emake CC=$(tc-getCC) || die "failed to compile"
+}
+
 src_install() {
-	emake DESTDIR="${D}" install || die
+	emake DESTDIR="${ED}" install || die
 	use doc && dodoc "${S}"/manual/*
 	dodoc README
 }

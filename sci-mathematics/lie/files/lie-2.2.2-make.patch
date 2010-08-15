@@ -95,7 +95,7 @@ diff -u -r -P --new-file --exclude=CVS lie-2.2.2/Makefile lie-2.2.2-1/Makefile
  
  Lie.exe: date.o
 -	$(CC) -o Lie.exe $(objects) date.o static/*.o box/*.o -lreadline
-+	$(CC) -o Lie.exe $(objects) date.o static/*.o box/*.o -lreadline -lncurses 
++	$(CC) -o Lie.exe $(LDFLAGS) $(objects) date.o static/*.o box/*.o -lreadline -lncurses
  	chmod g+w Lie.exe
  Liegap.exe: gapdate.o
  	$(CC) -o Liegap.exe $(GAP_objects) gapdate.o static/*.o box/*.o
