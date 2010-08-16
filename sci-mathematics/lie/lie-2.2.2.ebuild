@@ -19,8 +19,10 @@ SLOT="0"
 KEYWORDS="~x86"
 IUSE="doc"
 DEPEND="sys-devel/bison
-	sys-libs/readline"
-RDEPEND="sys-libs/readline"
+	sys-libs/readline
+	sys-libs/ncurses"
+RDEPEND="sys-libs/readline
+	sys-libs/ncurses"
 
 S="${WORKDIR}/LiE"
 
