@@ -9,7 +9,7 @@ PYTHON_DEPEND="2:2.6"
 inherit distutils eutils
 
 DESCRIPTION="Python module to read VOTABLE into a Numpy recarray"
-HOMEPAGE="https://www.stsci.edu/trac/ssb/astrolib/"
+HOMEPAGE="https://trac6.assembla.com/astrolib/wiki http://www.scipy.org/AstroLib"
 SRC_URI="http://stsdas.stsci.edu/astrolib/${P}.tar.gz"
 
 IUSE="test"

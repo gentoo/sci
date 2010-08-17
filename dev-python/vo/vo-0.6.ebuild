@@ -11,7 +11,7 @@ DISTUTILS_SRC_TEST="nosetests"
 inherit distutils eutils
 
 DESCRIPTION="Python module to read VOTABLE into a Numpy recarray"
-HOMEPAGE="https://www.stsci.edu/trac/ssb/astrolib/"
+HOMEPAGE="https://trac6.assembla.com/astrolib/wiki http://www.scipy.org/AstroLib"
 SRC_URI="http://stsdas.stsci.edu/astrolib/${P}.tar.gz"
 
 IUSE="examples"

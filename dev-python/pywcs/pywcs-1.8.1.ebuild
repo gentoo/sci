@@ -13,7 +13,7 @@ WCS_V=4.4.4
 MYP="${P}-${WCS_V}"
 
 DESCRIPTION="Python routines for handling the FITS World Coordinate System"
-HOMEPAGE="https://www.stsci.edu/trac/ssb/astrolib/"
+HOMEPAGE="https://trac6.assembla.com/astrolib/wiki http://www.scipy.org/AstroLib"
 SRC_URI="http://stsdas.stsci.edu/astrolib/${MYP}.tar.gz"
 
 IUSE=""
