@@ -1,6 +1,6 @@
---- defsetup.py.orig	2010-04-24 11:27:55.655012084 +0200
-+++ defsetup.py	2010-04-24 12:00:52.393014990 +0200
-@@ -38,70 +38,26 @@
+--- defsetup.py.orig	2010-07-21 16:01:17.000000000 +0200
++++ defsetup.py	2010-08-17 17:20:16.761079432 +0200
+@@ -38,71 +38,26 @@
  
  ######################################################################
  # WCSLIB
@@ -8,6 +8,7 @@
 -WCSLIB = "wcslib-%s" % WCSVERSION # Path to wcslib
 -WCSLIBC = join(WCSLIB, "C") # Path to wcslib source files
 -WCSFILES = [ # List of wcslib files to compile
+-    'flexed/wcsbth.c',
 -    'flexed/wcspih.c',
 -    'flexed/wcsulex.c',
 -    'flexed/wcsutrn.c',
@@ -55,12 +56,12 @@
 -            raise ValueError()
 +def pkgconfig(*packages, **kw):
 +    flag_map = {'-I': 'include_dirs', '-L': 'library_dirs', '-l': 'libraries'}
-+    arg = "--libs --cflags --modversion %s" % ' '.join(packages)
++    arg = "--libs --cflags --modversion %s" % ' '.join(packages) 
 +    for token in Popen(["pkg-config "+ arg],stdout=PIPE, shell=True).communicate()[0].split():
-+	if(match("[0-9]",token)):
-+	   kw.setdefault("version",[]).append(token)
-+	else:
-+	   kw.setdefault(flag_map.get(token[:2]), []).append(token[2:])
++       if(match("[0-9]",token)):
++          kw.setdefault("version",[]).append(token)
++       else:
++          kw.setdefault(flag_map.get(token[:2]), []).append(token[2:])
 +    return kw
  
 -    except ValueError:
@@ -84,7 +85,7 @@
  
  ######################################################################
  # GENERATE DOCSTRINGS IN C
-@@ -190,7 +146,8 @@
+@@ -191,7 +146,8 @@
  
  ######################################################################
  # DISTUTILS SETUP
@@ -94,7 +95,7 @@
  define_macros = [('ECHO', None),
                   ('WCSTRIG_MACRO', None),
                   ('PYWCS_BUILD', None),
-@@ -233,13 +190,8 @@
+@@ -234,13 +190,8 @@
  
  PYWCS_EXTENSIONS = [
      Extension('pywcs._pywcs',
@@ -110,11 +111,11 @@
                define_macros=define_macros,
                undef_macros=undef_macros,
                extra_compile_args=extra_compile_args,
-@@ -259,7 +211,6 @@
+@@ -260,7 +211,6 @@
      'ext_modules' :                     PYWCS_EXTENSIONS,
      'data_files' : [
                      ( 'pywcs/include', ['src/*.h']),
 -                    ( 'pywcs/include/wcslib', [ WCSLIBC + '/*.h'] ),
                      ],
+     'package_dir' : {pkg[0]: 'lib', pkg[1]: 'test'},
  }
- 
