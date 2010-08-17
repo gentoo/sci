@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/fgsl
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*fgsl-0.9.3 (17 Aug 2010)
+
+  17 Aug 2010; Kacper Kowalik <xarthisius@gentoo.org> +fgsl-0.9.3.ebuild,
+  +files/fgsl-0.9.3-sharedlibs.patch, +metadata.xml:
+  Initial import. Ebuild written by me.
+
