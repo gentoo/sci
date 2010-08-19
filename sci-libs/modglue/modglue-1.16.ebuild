@@ -1,28 +1,28 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI="3"
 
 inherit eutils
 
 DESCRIPTION="C++ library for handling of multiple co-processes"
-HOMEPAGE="http://www.aei.mpg.de/~peekas/modglue/"
-SRC_URI="http://www.aei.mpg.de/~peekas/cadabra/${P}.tar.gz"
+HOMEPAGE="http://cadabra.phi-sci.com"
+SRC_URI="http://cadabra.phi-sci.com/${P}.tar.gz"
+RESTRICT="mirror"
 
 LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~x86"
 IUSE="doc"
-DEPEND="( >=dev-libs/libsigc++-2.0 )"
-RDEPEND="${DEPEND}"
+DEPEND="dev-util/pkgconfig
+	>=dev-libs/libsigc++-2.0"
+RDEPEND=">=dev-libs/libsigc++-2.0"
 
 src_prepare() {
-#	fix src/makefile.in
-	epatch "${FILESDIR}/${P}-makefile.in.patch"
-#	gcc4.4 fix
-	epatch "${FILESDIR}/${P}-gcc4.4.patch"
+	# Respect LDFLAGS
+	epatch "${FILESDIR}"/${P}-ldflags.patch
 }
 
 src_install() {
