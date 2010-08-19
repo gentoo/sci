@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI="3"
 
 inherit eutils
 
@@ -22,7 +22,8 @@ DEPEND="sci-libs/modglue
 	dev-libs/gmp[-nocxx]
 	dev-libs/libpcre
 	X? ( >=x11-libs/gtk+-2.0
-	    >=dev-cpp/gtkmm-2.4
+		>=dev-cpp/gtkmm-2.4
+		dev-cpp/pangomm
 	    app-text/dvipng )
 	doc? ( || ( app-text/texlive-core dev-tex/pdftex ) )"
 RDEPEND="${DEPEND}
@@ -31,7 +32,7 @@ RDEPEND="${DEPEND}
 
 src_prepare(){
 	# deal with pre-stripping - note that upstream do not provide any makefile.am
-	epatch "${FILESDIR}/${P}-no-stripping.patch"
+	epatch "${FILESDIR}/${PN}-1.21-no-stripping.patch"
 }
 
 src_configure(){
