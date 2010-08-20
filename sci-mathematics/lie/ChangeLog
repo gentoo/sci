@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Aug 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  files/lie-2.2.2-make.patch:
+  Edit the patch to put lie help system files under /usr/share/lie.
+
   16 Aug 2010; François Bissey <f.r.bissey@massey.ac.nz> lie-2.2.2.ebuild,
   files/parrallelmake-lie-2.2.2.patch:
   Fix double compilation issues.
