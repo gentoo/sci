@@ -14,7 +14,7 @@ RESTRICT="mirror"
 LICENSE="GPL-2"
 
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE="doc"
 DEPEND="dev-util/pkgconfig
 	>=dev-libs/libsigc++-2.0"
@@ -23,6 +23,12 @@ RDEPEND=">=dev-libs/libsigc++-2.0"
 src_prepare() {
 	# Respect LDFLAGS
 	epatch "${FILESDIR}"/${P}-ldflags.patch
+	# take care of the lib/lib64 problem. Without this modglue installs
+	# stuff in /usr/usr/lib64 on 64bits systems.
+	# FIXME: there has to be a better way to handle this!
+	if use amd64 ; then
+		epatch "${FILESDIR}"/${P}-lib64.patch
+	fi
 }
 
 src_install() {

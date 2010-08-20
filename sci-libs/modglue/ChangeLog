@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Aug 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  modglue-1.16.ebuild, +files/modglue-1.16-lib64.patch:
+  Keyword ~amd64 and apply a band aid patch for it.
+
 *modglue-1.16 (19 Aug 2010)
 
   19 Aug 2010; François Bissey <f.r.bissey@massey.ac.nz>
