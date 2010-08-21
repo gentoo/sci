@@ -23,6 +23,8 @@ RDEPEND=">=dev-libs/libsigc++-2.0"
 src_prepare() {
 	# Respect LDFLAGS
 	epatch "${FILESDIR}"/${P}-ldflags.patch
+	# fix parallel make. test are made at the same time as the library??
+	epatch "${FILESDIR}"/${P}-parallelmake.patch
 	# take care of the lib/lib64 problem. Without this modglue installs
 	# stuff in /usr/usr/lib64 on 64bits systems.
 	# FIXME: there has to be a better way to handle this!
