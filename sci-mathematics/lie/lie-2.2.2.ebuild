@@ -16,7 +16,7 @@ LICENSE="LGPL-2.1"
 ##### See http://packages.debian.org/changelogs/pool/main/l/lie/lie_2.2.2+dfsg-1/lie.copyright
 
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE="doc"
 DEPEND="sys-devel/bison
 	sys-libs/readline
