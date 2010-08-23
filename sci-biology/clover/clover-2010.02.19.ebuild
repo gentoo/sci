@@ -13,7 +13,7 @@ SRC_URI="http://zlab.bu.edu/~mfrith/downloads/${PN}-${MY_PV}.tar.gz http://zlab.
 LICENSE="as-is"
 SLOT="0"
 IUSE=""
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 
 DEPEND=""
 RDEPEND=""
