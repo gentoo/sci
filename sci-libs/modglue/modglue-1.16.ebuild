@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit eutils
+inherit eutils autotools-utils
 
 DESCRIPTION="C++ library for handling of multiple co-processes"
 HOMEPAGE="http://cadabra.phi-sci.com"
@@ -20,6 +20,8 @@ DEPEND="dev-util/pkgconfig
 	>=dev-libs/libsigc++-2.0"
 RDEPEND=">=dev-libs/libsigc++-2.0"
 
+AUTOTOOLS_IN_SOURCE_BUILD=1
+
 src_prepare() {
 	# Respect LDFLAGS
 	epatch "${FILESDIR}"/${P}-ldflags.patch
@@ -27,10 +29,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/${P}-parallelmake.patch
 	# take care of the lib/lib64 problem. Without this modglue installs
 	# stuff in /usr/usr/lib64 on 64bits systems.
-	# FIXME: there has to be a better way to handle this!
-	if use amd64 ; then
-		epatch "${FILESDIR}"/${P}-lib64.patch
-	fi
+	epatch "${FILESDIR}"/${P}-lib64.patch
 }
 
 src_install() {

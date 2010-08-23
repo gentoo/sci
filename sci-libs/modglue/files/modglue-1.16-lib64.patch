@@ -1,6 +1,16 @@
---- Makefile.in.orig	2010-08-21 11:42:11.136031650 +1200
-+++ Makefile.in	2010-08-21 11:42:33.120031666 +1200
-@@ -17,8 +17,8 @@
+--- Makefile.in.orig	2010-03-04 10:34:54.000000000 +1300
++++ Makefile.in	2010-08-23 23:21:34.931886424 +1200
+@@ -3,6 +3,9 @@
+ 
+ .PHONY: all install library static examples uninstall clean distclean
+ 
++prefix = @prefix@
++exec_prefix = @exec_prefix@
++
+ all: library 
+ #examples
+ 
+@@ -17,8 +20,8 @@
  
  install:
  	( cd src && $(MAKE) install );
@@ -11,18 +21,27 @@
  	@INSTALL@ -d -m 755 ${DESTDIR}@prefix@/share/man/man1
  	@INSTALL@ man/man1/prompt.1 ${DESTDIR}@prefix@/share/man/man1
  	@INSTALL@ man/man1/ptywrap.1 ${DESTDIR}@prefix@/share/man/man1
---- src/Makefile.in.orig	2010-08-21 11:48:11.528032354 +1200
-+++ src/Makefile.in	2010-08-21 11:49:48.687031644 +1200
-@@ -18,7 +18,7 @@
- LPHASE = ${LIBTOOL} --tag=CXX --mode=link @CXX@ -version-info ${LTRELEASE} @LDFLAGS@ -rpath @prefix@/@libdir@ @LIBS@
- MPHASE = ${LIBTOOL} --tag=CXX --mode=link @CXX@ @LDFLAGS@
+--- src/Makefile.in.orig	2010-03-04 10:34:54.000000000 +1300
++++ src/Makefile.in	2010-08-23 23:21:41.165883457 +1200
+@@ -1,6 +1,8 @@
+ 
+ 
+ MACTEST= @MAC_OS_X@
++prefix = @prefix@
++exec_prefix = @exec_prefix@
+ 
+ ifeq ($(strip $(MACTEST)),)
+ LIBTOOL = libtool
+@@ -18,7 +20,7 @@
+ LPHASE = ${LIBTOOL} --tag=CXX --mode=link @CXX@ -version-info ${LTRELEASE} -rpath @prefix@/@libdir@ @LIBS@
+ MPHASE = ${LIBTOOL} --tag=CXX --mode=link @CXX@
  IPHASE = ${LIBTOOL} --mode=install @INSTALL@
 -FPHASE = ${LIBTOOL} --mode=finish @prefix@/@libdir@
 +FPHASE = ${LIBTOOL} --mode=finish @libdir@
  
  TIMESTAMP = -D"DATETIME=\"`date | sed -e 's/  / /'`\"" -DHOSTNAME=\"`hostname`\"
  
-@@ -98,13 +98,13 @@
+@@ -98,13 +100,13 @@
  
  install: library tools
  	@INSTALL@ -m 755 -d ${DESTDIR}@prefix@
