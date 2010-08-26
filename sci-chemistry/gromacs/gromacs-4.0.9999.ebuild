@@ -68,7 +68,7 @@ src_prepare() {
 	# Fix typos in a couple of files.
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
 		|| die "Failed to fixup demo script."
-	
+
 	epatch_user
 	eautoreconf
 	GMX_DIRS=""
