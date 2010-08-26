@@ -41,6 +41,7 @@
 =sci-chemistry/gromacs-4.0.9999
 =sci-chemistry/gromacs-4.5.9999
 =sci-chemistry/gromacs-9999
+=app-doc/gromacs-manual-9999
 
 # Christoph Junghans (ottxor) (23 Jan 10)
 # kleiner_otti@gmx.de
