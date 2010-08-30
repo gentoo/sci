@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/mgltools
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  30 Aug 2010; Justin Lecher <jlec@gentoo.org> mgltools-1.5.4.ebuild:
+  Fixed SRC_URI
 
   19 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
   mgltools-1.5.4.ebuild:
