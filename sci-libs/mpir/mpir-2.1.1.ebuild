@@ -4,25 +4,32 @@
 
 EAPI="3"
 
-inherit eutils autotools
+inherit autotools-utils
 
 DESCRIPTION="MPIR is a library for arbitrary precision integer arithmetic derived from version 4.2.1 of gmp"
 HOMEPAGE="http://www.mpir.org/"
 SRC_URI="http://www.mpir.org/${P}.tar.gz"
-RESTRICT="mirror"
 
 LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64 ~ppc"
-IUSE="+cxx cpudetection"
+IUSE="+cxx cpudetection static-libs"
+
+RESTRICT="mirror"
 
 DEPEND="x86? ( dev-lang/yasm )
 	amd64? ( dev-lang/yasm )"
 RDEPEND=""
 
-src_prepare(){
-	epatch "${FILESDIR}/${PN}-2.0.0-yasm.patch"
-	epatch "${FILESDIR}/${PN}-1.3.0-ABI-multilib.patch"
+DOCS=( ChangeLog README NEWS )
+PATCHES=(
+	"${FILESDIR}"/${PN}-2.0.0-yasm.patch
+	"${FILESDIR}"/${PN}-1.3.0-ABI-multilib.patch
+)
+
+src_prepare() {
+	autotools-utils_src_prepare
+
 	# FIXME: In the same way there was QA regarding executable stacks
 	#        with GMP we have some here as well. We cannot apply the
 	#        GMP solution as yasm is used, at least on x86/amd64.
@@ -32,8 +39,9 @@ src_prepare(){
 
 	# TODO: report this to upstream
 	# TODO: apply patch for all files ?
-	# TODO: why does the as-style patch work (does mpir really use yasm ??)
+	# TODO: why does the as-style patch work (does mpir still use yasm ??)
 	for i in $(find . -type f -name '*.asm') ; do
+		# TODO: why does this not work without the following echo ???
 		echo $i >/dev/null
 		cat >> $i <<-EOF
 			#if defined(__linux__) && defined(__ELF__)
@@ -57,17 +65,14 @@ src_prepare(){
 }
 
 src_configure() {
-# beware that cpudetection aka fat binaries is x86/amd64 only.
-# Place mpir in profiles/arch/$arch/package.use.mask when making it available on $arch.
-	econf \
+	# beware that cpudetection aka fat binaries is x86/amd64 only.
+	# Place mpir in profiles/arch/$arch/package.use.mask when making it available on $arch.
+	myeconfargs=(
 		$(use_enable cxx) \
-		$(use_enable cpudetection fat) \
-		|| "econf failed"
-}
+		$(use_enable cpudetection fat)
+	)
 
-src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
-	dodoc ChangeLog README NEWS
+	autotools-utils_src_configure
 }
 
 pkg_postinst() {
