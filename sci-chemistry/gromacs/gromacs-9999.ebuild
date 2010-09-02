@@ -6,7 +6,6 @@ EAPI="3"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
-MANUAL_PV="4.5-beta1"
 
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="master"
@@ -15,8 +14,7 @@ inherit autotools bash-completion eutils fortran git multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
-SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
-		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf )"
+SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -197,6 +195,11 @@ src_compile() {
 		cd "${S}-${x}"
 		einfo "Compiling for ${x} precision"
 		emake || die "emake for ${x} precision failed"
+		if use doc && [ -z "$OPTDIR" ]; then
+			cd src/contrib
+			emake options || die "emake options failed"
+			OPTDIR="${PWD}"
+		fi
 		use mpi || continue
 		cd "${S}-${x}_mpi"
 		emake mdrun || die "emake mdrun for ${x} precision failed"
@@ -238,10 +241,16 @@ src_install() {
 		|| die "Failed to fixup demo script."
 
 	cd "${S}"
-	dodoc AUTHORS INSTALL README
+	dodoc AUTHORS INSTALL* README*
 	if use doc; then
-		dodoc "${DISTDIR}/manual-${MANUAL_PV}.pdf"
 		dohtml -r "${ED}usr/share/gromacs/html/"
+		insinto /usr/share/gromacs
+		doins "admin/programs.txt"
+		ls -1 "${ED}"/usr/bin | sed -e '/_d$/d' > "${T}"/programs.list
+		doins "${T}"/programs.list
+		cd "${OPTDIR}" || die "cd "${OPTDIR}" failed"
+		../../libtool --mode=install cp options "${ED}"/usr/bin/g_options \
+			|| die "install of g_options failed"
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"
 }
@@ -258,4 +267,7 @@ pkg_postinst() {
 	elog $(g_luck)
 	elog "For more Gromacs cool quotes (gcq) add luck to your .bashrc"
 	elog
+	if use doc; then
+		elog "Live Gromacs manual is available from app-doc/gromacs-manual"
+	fi
 }

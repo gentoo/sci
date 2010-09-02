@@ -2,6 +2,14 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pysparse-1.1.1 (20 Jul 2010)
+
+  20 Jul 2010; Justin Lecher <jlec@gentoo.org> pysparse-1.1.ebuild,
+  +pysparse-1.1.1.ebuild, +files/pysparse-1.1.1-setup.patch,
+  +files/pysparse-1.1.1-superlu3.patch:
+  Version bump, fixed umfpack version to <=5.4.0, reported by Philippe
+  BAUCOUR
+
   26 Jun 2010; Justin Lecher <jlec@gentoo.org> pysparse-1.1.ebuild:
   Python ABI fixes
 

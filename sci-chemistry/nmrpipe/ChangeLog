@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nmrpipe-5.0.2010.190.16.49 (12 Jul 2010)
+
+  12 Jul 2010; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-5.0.2010.176.15.02.ebuild, +nmrpipe-5.0.2010.190.16.49.ebuild:
+  Version BUmp
+
 *nmrpipe-5.0.2010.176.15.02 (28 Jun 2010)
 
   28 Jun 2010; Justin Lecher <jlec@gentoo.org>
