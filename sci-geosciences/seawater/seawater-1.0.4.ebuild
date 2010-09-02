@@ -11,7 +11,7 @@ inherit distutils
 
 DESCRIPTION="Python version of the SEAWATER 3.2 MATLAB toolkit for calculating the properties of sea water."
 HOMEPAGE="http://ocefpaf.tiddlyspot.com/#python-seawater"
-SRC_URI="http://pypi.python.org/packages/source/${PN:0:1}/${PN}/${P}.tar.bz2"
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.bz2"
 
 LICENSE="MIT"
 SLOT="0"
