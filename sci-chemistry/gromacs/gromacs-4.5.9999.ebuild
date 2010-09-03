@@ -6,7 +6,7 @@ EAPI="3"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
-MANUAL_PV="4.5-beta1"
+MANUAL_PV="4.5-beta2"
 
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="release-4-5-patches"

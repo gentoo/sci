@@ -6,13 +6,13 @@ EAPI="3"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
-MANUAL_PV="4.5-beta1"
+MANUAL_PV="4.5-beta2"
 
 inherit autotools bash-completion eutils fortran multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
-SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P//_/-}.tar.gz
+SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
 		test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf )"
 
@@ -40,8 +40,6 @@ RESTRICT="test"
 
 QA_EXECSTACK="usr/lib/libgmx.so.*
 	usr/lib/libgmx_d.so.*"
-
-S="${WORKDIR}/${P//_/-}"
 
 use static && QA_EXECSTACK="$QA_EXECSTACK usr/bin/*"
 
