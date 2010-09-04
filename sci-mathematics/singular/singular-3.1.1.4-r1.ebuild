@@ -134,12 +134,15 @@ src_install () {
 			-i singular/clapconv.h singular/fglm.h singular/mod2.h || die
 		sed -e "s:cf_gmp.h:singular/cf_gmp.h:" \
 			-i singular/si_gmp.h factory.h || die
-		sed -e ":factoryconf.h:singular/factoryconf.h:" \
+		sed -e "s:factoryconf.h:singular/factoryconf.h:" \
+			-e "s:templates:singular/templates:g" \
 			-i factory.h || die
 		doins libsingular.h mylimits.h
 		insinto /usr/include/singular
 		doins singular/*
 		doins factory.h factoryconf.h cf_gmp.h
+		insinto /usr/include/singular/templates
+		doins templates/*
 	fi
 
 	# stuff from the share tar ball
