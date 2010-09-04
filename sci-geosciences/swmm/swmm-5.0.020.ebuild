@@ -6,7 +6,7 @@ inherit eutils versionator
 
 MY_PV=$(delete_all_version_separators)
 
-MY_SRC="swmm${MY_PV}engine.zip"
+MY_SRC="swmm${MY_PV}_engine.zip"
 
 DESCRIPTION="Storm Water Management Model - SWMM, hydrology, hydraulics, and water quality model."
 HOMEPAGE="http://www.epa.gov/ednnrmrl/models/swmm/index.htm"
