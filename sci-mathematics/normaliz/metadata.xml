@@ -6,6 +6,10 @@
   <email>tom111@gmx.de</email>
   <name>Thomas Kahle</name>
 </maintainer>
+<use>
+  <flag name="extras"> Install the java-gui and Macaulay2/Singular packages.</flag>
+  <flag name="optimization">Accept upstream's choices for -O option, i.e. -O3 almost everywhere.</flag>
+</use>
 <longdescription lang="en">
 Normaliz is a (command line) tool for computations in affine monoids, vector configurations, lattice polytopes, and
 rational cones.
