@@ -13,7 +13,7 @@ SRC_URI="http://www-user.tu-chemnitz.de/~mpip/software/${P//_}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE=""
+IUSE="static-libs"
 
 RDEPEND="=sci-libs/fftw-3.3*[mpi]
 	virtual/mpi"
@@ -32,7 +32,10 @@ src_prepare() {
 }
 
 src_configure() {
-	econf || die "econf failed"
+	local myconf
+	myconf="$(use_enable static-libs static)"
+
+	econf ${myconf} || die "econf failed"
 }
 
 src_compile() {
