@@ -15,7 +15,7 @@ RDEPEND="${DEPEND}"
 LICENSE="GPL-2"
 SLOT="3.0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos"
-IUSE="altivec doc fortran mpi openmp sse sse2 threads"
+IUSE="altivec doc fortran mpi openmp sse sse2 static-libs threads"
 
 S="${WORKDIR}/${P//_}"
 
@@ -64,6 +64,7 @@ src_configure() {
 	replace-flags -Os -O2
 
 	local myconfcommon="--enable-shared
+		$(use_enable static-libs static)
 		$(use_enable fortran)
 		$(use_enable mpi)
 		${FFTW_THREADS}"
