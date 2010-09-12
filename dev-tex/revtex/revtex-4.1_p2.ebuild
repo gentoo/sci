@@ -6,12 +6,12 @@ EAPI=2
 
 inherit versionator latex-package
 
-MY_P="${PN}$(replace_version_separator 1 -)"
+MY_P="${PN}$(version_format_string '$1-$2')"
 
 DESCRIPTION="LaTeX2e macros for journals of the American Physical Society and the American Institute of Physics"
 HOMEPAGE="http://authors.aps.org/revtex4/"
 
-SRC_URI="http://authors.aps.org/revtex4/${MY_P}.zip"
+SRC_URI="http://authors.aps.org/revtex4/${MY_P}.zip -> ${P}.zip"
 
 LICENSE="LPPL-1.3c"
 SLOT="0"
