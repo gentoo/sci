@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/nfft
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*nfft-3.1.3 (12 Sep 2010)
+
+  12 Sep 2010; Christoph Junghans <kleiner_otti@gmx.de> +nfft-3.1.3.ebuild,
+  +files/nfft-3.1.3-install.patch,
+  +files/nfft-3.1.3-remove-maintainer-mode.patch, +metadata.xml:
+  Initial commit
+
