@@ -139,6 +139,9 @@ src_install() {
 		> env-${PN}-new
 	newenvd env-${PN}-new 40${PN} || die "Failed to install env file."
 
+	# Some scripts are on the wrong place
+	cp -vf nmrtxt/*.com com/
+
 	insinto ${NMRBASE}
 	doins -r * || die "Failed to install application."
 
