@@ -2,6 +2,18 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Sep 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  singular-3.1.1.4-r1.ebuild:
+  Add missing factory templates.
+
+*singular-3.1.1.4-r1 (04 Sep 2010)
+
+  04 Sep 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  +singular-3.1.1.4-r1.ebuild, +files/singular-3.1.1.4-parrallelmake.patch:
+  Import all my fixes from sage-on-gentoo: parallel make should now work.
+  libsingular install its own copy of the factory 
+  headers without colliding with the factory ebuild.
+
   26 Jul 2010; Thomas Kahle <tom111@gmx.de> singular-3.1.1.4.ebuild:
   libsingular fixes from sage-overlay. Kudos to kiwifb
 

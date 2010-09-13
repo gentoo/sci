@@ -1,0 +1,11 @@
+--- pluginclude/wrap_bracket_dialog.hpp.orig	2008-09-30 10:45:56.000000000 +0200
++++ pluginclude/wrap_bracket_dialog.hpp	2008-09-30 10:46:07.000000000 +0200
+@@ -10,7 +10,7 @@
+ #if SIZEOF_INT_P == 8
+ #define WRAP_BRACKET_SIZE_USER_DATA_MENU long int
+ #else
+-#define WRAP_BRACKET_SIZE_USER_DATA_MENU unsigned int
++#define WRAP_BRACKET_SIZE_USER_DATA_MENU unsigned long
+ #endif
+ 
+ 

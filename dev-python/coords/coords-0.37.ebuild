@@ -10,7 +10,7 @@ SUPPORT_PYTHON_ABIS="1"
 inherit distutils
 
 DESCRIPTION="managing astronomical coordinate systems"
-HOMEPAGE="https://www.stsci.edu/trac/ssb/astrolib/wiki"
+HOMEPAGE="https://trac6.assembla.com/astrolib/wiki http://www.scipy.org/AstroLib"
 SRC_URI="http://stsdas.stsci.edu/astrolib/${P}.tar.gz"
 
 LICENSE="AURA"

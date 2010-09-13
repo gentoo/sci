@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Jul 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  paraview-3.8.0.ebuild:
+  Correct SRC_URI.
+
   11 Jul 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   metadata.xml:
   Silenced repoman.

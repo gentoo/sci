@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/fftw
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*fftw-3.3_alpha1 (12 Sep 2010)
+
+  12 Sep 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  +fftw-3.3_alpha1.ebuild, +metadata.xml:
+  Added alpha version to test mpi interface
+

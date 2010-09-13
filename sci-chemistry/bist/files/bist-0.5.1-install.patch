@@ -1,0 +1,80 @@
+diff -r -u bist-0.5.1.orig/Makefile.in bist-0.5.1/Makefile.in
+--- bist-0.5.1.orig/Makefile.in	2009-04-04 12:04:44.000000000 +0200
++++ bist-0.5.1/Makefile.in	2009-09-23 23:59:37.000000000 +0200
+@@ -16,12 +16,7 @@
+ 
+ SRC_DIR =./src/
+ INC_DIR=./include/
+-LIB_DIR=@LIB_DIR_CONFIG_PATH@
+-LIB_DIR_DEBIAN=@LIB_DIR_CONFIG@
+-
+-ifneq ($(strip ${exec_prefix}),)
+-LIB_DIR=${LIB_DIR_DEBIAN}
+-endif
++LIB_DIR=@libdir@
+ 
+ 
+ 
+@@ -186,33 +181,29 @@
+ 	rm -f *.o
+ 	rm -f plugin/*.so
+ install:
+-	install -D -o root -g root -m 0755 -s $(ELF) $(prefix)/bin/$(ELF)
+-	install -D -o root -g root -m 0644  bist.png $(prefix)/share/pixmap/bist.png
+-	install -D -o root -g root -m 0644  bist.desktop $(prefix)/share/applications/bist.desktop
++	install -D -o root -g root -m 0755 -s $(ELF) $(DESTDIR)/$(prefix)/bin/$(ELF)
++	install -D -o root -g root -m 0644  bist.png $(DESTDIR)/$(prefix)/share/pixmaps/bist.png
++	install -D -o root -g root -m 0644  bist.desktop $(DESTDIR)/$(prefix)/share/applications/bist.desktop
+ 	find rings -type d -exec install -D -o root \
+-	 -g root -m 0755 -d $(prefix)/share/$(ELF)-$(VERSION)/\{\} \;
++	 -g root -m 0755 -d $(DESTDIR)/$(prefix)/share/$(ELF)-$(VERSION)/\{\} \;
+ 	find rings ! -type d -exec install -D -o root -g root \
+-	-m 0644 \{\} $(prefix)/share/$(ELF)-$(VERSION)/\{\} \;
+-	install -D -o root -g root -m 0755 -d   $(prefix)/share/doc/$(ELF)-$(VERSION)
+-	install -D -o root -g root -m 0644 doc/*.*  $(prefix)/share/doc/$(ELF)-$(VERSION)/
+-	install -D -o root -g root -m 0644 TODO  $(prefix)/share/doc/$(ELF)-$(VERSION)/
+-	install -D -o root -g root -m 0644 BUGS  $(prefix)/share/doc/$(ELF)-$(VERSION)/
+-	install -D -o root -g root -m 0644 README  $(prefix)/share/doc/$(ELF)-$(VERSION)/
+-	./mkinstalldirs $(LIB_DIR)/$(ELF)-$(VERSION)/plugin
+-	install -D -o root -g root -m 0644 plugin/*.so $(LIB_DIR)/$(ELF)-$(VERSION)/plugin/
+-	./mkinstalldirs $(prefix)/share/locale/$(ELF)-$(VERSION)
+-	cp -R po/* $(prefix)/share/locale/$(ELF)-$(VERSION)/
+-	./mkinstalldirs $(prefix)/share/man/man1/
++	-m 0644 \{\} $(DESTDIR)/$(prefix)/share/$(ELF)-$(VERSION)/\{\} \;
++	install -D -o root -g root -m 0755 -d   $(DESTDIR)/$(prefix)/share/doc/$(ELF)-$(VERSION)
++	install -D -o root -g root -m 0644 doc/*.*  $(DESTDIR)/$(prefix)/share/doc/$(ELF)-$(VERSION)/
++	install -D -o root -g root -m 0644 TODO  $(DESTDIR)/$(prefix)/share/doc/$(ELF)-$(VERSION)/
++	install -D -o root -g root -m 0644 BUGS  $(DESTDIR)/$(prefix)/share/doc/$(ELF)-$(VERSION)/
++	install -D -o root -g root -m 0644 README  $(DESTDIR)/$(prefix)/share/doc/$(ELF)-$(VERSION)/
++	./mkinstalldirs $(DESTDIR)/$(LIB_DIR)/$(ELF)-$(VERSION)/plugin
++	install -D -o root -g root -m 0644 plugin/*.so $(DESTDIR)/$(LIB_DIR)/$(ELF)-$(VERSION)/plugin/
++	./mkinstalldirs $(DESTDIR)/$(prefix)/share/locale
++	find po -name "*.po" -exec rm -v \{\} \;
++	rm -v po/LINGUAS po/bist.pot
++	cp -R po/* $(DESTDIR)/$(prefix)/share/locale/
++	./mkinstalldirs $(DESTDIR)/$(prefix)/share/man/man1/
+ 	gzip -c --best ./doc/man/$(ELF).1 > ./doc/man/$(ELF).1.gz
+-	install -D -o root -g root -m 0644 ./doc/man/$(ELF).1.gz $(prefix)/share/man/man1/
++	install -D -o root -g root -m 0644 ./doc/man/$(ELF).1.gz $(DESTDIR)/$(prefix)/share/man/man1/
+ 	rm -f ./doc/man/$(ELF).1.gz
+ 
+-uninstall:
+-	rm -Rf $(prefix)/bin/$(ELF)-$(VERSION)
+-	rm -Rf $(prefix)/share/$(ELF)-$(VERSION)
+-	rm -Rf $(prefix)/share/doc/$(ELF)-$(VERSION)
+-	rm -Rf $(LIB_DIR)/$(ELF)-$(VERSION)/
+-	rm -f $(prefix)/share/man/man1/$(ELF).1.gz
+ dist: distclean
+ 	./rmcvs.py
+ 	cd .. ; tar -c $(ELF) | gzip --best >  $(TARNAME)-$(VERSION).tar.gz
+diff -r -u bist-0.5.1.orig/include/config_path.h.in bist-0.5.1/include/config_path.h.in
+--- bist-0.5.1.orig/include/config_path.h.in	2009-04-04 12:04:42.000000000 +0200
++++ bist-0.5.1/include/config_path.h.in	2009-09-23 23:29:35.000000000 +0200
+@@ -12,6 +12,6 @@
+ #define VERSION             "@VERSION@"
+ 
+ #define PLUGIN_PATH_HOME    "/.bist/plugin/"
+-#define PLUGIN_PATH_SHARED  "@LIB_DIR_CONFIG_PATH@/@ELF@-@VERSION@/plugin/"
++#define PLUGIN_PATH_SHARED  "@libdir@/@ELF@-@VERSION@/plugin/"
+ 
+ #define ELF_ABS_PATH          "@prefix@/bin/@ELF@"

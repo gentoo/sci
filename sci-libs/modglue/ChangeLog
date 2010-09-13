@@ -1,6 +1,26 @@
 # ChangeLog for sci-libs/modglue
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  23 Aug 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  modglue-1.16.ebuild, files/modglue-1.16-lib64.patch:
+  Properly fix the lib/lib64 troubles.
+
+  21 Aug 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  modglue-1.16.ebuild, +files/modglue-1.16-parallelmake.patch:
+  Fix parallel make.
+
+  20 Aug 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  modglue-1.16.ebuild, +files/modglue-1.16-lib64.patch:
+  Keyword ~amd64 and apply a band aid patch for it.
+
+*modglue-1.16 (19 Aug 2010)
+
+  19 Aug 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  -modglue-1.13.ebuild, -files/modglue-1.13-gcc4.4.patch,
+  -files/modglue-1.13-makefile.in.patch, +modglue-1.16.ebuild,
+  +files/modglue-1.16-ldflags.patch:
+  Bump modglue to 1.16 - now respect LDFLAGS
 
   03 Nov 2009; François Bissey <f.r.bissey@massey.ac.nz>
   modglue-1.13.ebuild, +files/modglue-1.13-gcc4.4.patch:

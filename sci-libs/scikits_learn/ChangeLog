@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scikits_learn-0.4 (05 Aug 2010)
+
+  05 Aug 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  -scikits_learn-0.2.ebuild, +scikits_learn-0.4.ebuild:
+  Version bump. Now depend on system libsvm
+
   29 Jun 2010; Justin Lecher <jlec@gentoo.org> scikits_learn-0.2.ebuild:
   Python ABI fixes
 

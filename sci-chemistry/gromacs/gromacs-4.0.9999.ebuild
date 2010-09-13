@@ -69,6 +69,7 @@ src_prepare() {
 	sed -e "s:+0f:-f:" -i share/tutor/gmxdemo/demo \
 		|| die "Failed to fixup demo script."
 
+	epatch_user
 	eautoreconf
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" single"

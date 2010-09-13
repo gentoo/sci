@@ -1,0 +1,110 @@
+diff --git a/OCroutines.c b/OCroutines.c
+index eef6849..60ef56c 100644
+--- a/OCroutines.c
++++ b/OCroutines.c
+@@ -11,6 +11,7 @@
+ #include "iodata.h"
+ #include "tclutil.h"
+ #include "B0inhom.h"
++#include "defs_blas_lapack.h"
+ 
+ /* global variable holding all OC parameters */
+ OCoptPars OCpar;
+diff --git a/contour.c b/contour.c
+index ec5a223..87ae8ee 100644
+--- a/contour.c
++++ b/contour.c
+@@ -242,7 +242,8 @@ DEFINE_CMD(FContour)
+   double lowcolor[3], highcolor[3], xmin, xmax, ymin, ymax;
+   double *levels, x1, y1, x2, y2, cl, r1, r2, fmax;
+   double *xpos, *ypos, **z, iratio, jratio, nlowcolor[3], nhighcolor[3];
+-  char outputfile[256], **av;
++  char outputfile[256];
++  const char **av;
+   FILE *file;
+   FD *fdp;
+   Point *p, **pp;
+diff --git a/ftools.c b/ftools.c
+index 682e475..3c150d6 100644
+--- a/ftools.c
++++ b/ftools.c
+@@ -1434,7 +1434,8 @@ int tclFRms(ClientData data,Tcl_Interp* interp,int argc, char *argv[])
+   double2 *vec,*vec2;
+   double v1,v2;
+   int part;
+-  char **par,**par2,*range;
++  char *range;
++  const char **par,**par2;
+   int i,i1,i2,npar,npar2;
+   double sumrms,sumint;
+ 
+diff --git a/ham.c b/ham.c
+index 5be9dd1..5d36bdc 100644
+--- a/ham.c
++++ b/ham.c
+@@ -34,6 +34,7 @@
+ #include "cm_new.h"
+ #include "ham.h"
+ #include "defs.h"
++#include "defs_blas_lapack.h"
+ 
+ /*
+   Allocation strategy:
+diff --git a/matrix_new.c b/matrix_new.c
+index c0aaad2..2f3f370 100644
+--- a/matrix_new.c
++++ b/matrix_new.c
+@@ -24,6 +24,7 @@
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <string.h>
+ #include "complx.h"
+ #include "matrix_new.h"
+ 
+diff --git a/new_direct.c b/new_direct.c
+index 24502f2..cc5fd68 100644
+--- a/new_direct.c
++++ b/new_direct.c
+@@ -1,4 +1,5 @@
+ #include "new_direct.h"
++#include "defs_blas_lapack.h"
+ 
+ /* make visible global variable pulse */
+ extern Pulse* puls;
+diff --git a/pulse.c b/pulse.c
+index f40787c..335d225 100644
+--- a/pulse.c
++++ b/pulse.c
+@@ -43,6 +43,7 @@
+ #include "OCroutines.h"
+ #include "B0inhom.h"
+ #include "relax.h"
++#include "defs_blas_lapack.h"
+ 
+ /*
+   tpropstart_usec : the time when the propagator was reset last time
+diff --git a/wigner.c b/wigner.c
+index bacf4b8..1644aaf 100644
+--- a/wigner.c
++++ b/wigner.c
+@@ -27,6 +27,7 @@
+ #include <math.h>
+ #include "complx.h"
+ #include <stdio.h>
++#include <stdlib.h>
+ #include "defs.h"
+ #include "matrix_new.h"
+ //#include "defs_blas_lapack.h"
+diff --git a/zte.c b/zte.c
+index 77dcb87..6025fa4 100644
+--- a/zte.c
++++ b/zte.c
+@@ -2,6 +2,7 @@
+ #include <stdlib.h>
+ #include "cm_new.h"
+ #include "pulse.h"
++#include "tclutil.h"
+ 
+ typedef struct _ZTEstruct {
+    mv_complx *rho0, *sigma;

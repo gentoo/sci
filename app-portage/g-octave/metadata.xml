@@ -14,11 +14,5 @@
 		handle patches to the packages automatically. The command line interface
 		tries to be very similar to the interface of the emerge tool.
 	</longdescription>
-	<use>
-		<flag name="svn">
-			Adds support to the installation of packages from the octave-forge
-			SVN repository.
-		</flag>
-	</use>
 </pkgmetadata>
 

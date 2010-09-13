@@ -14,8 +14,7 @@ inherit autotools bash-completion eutils fortran git multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
-SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
-		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-4.0.pdf )"
+SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -58,12 +57,19 @@ src_prepare() {
 	( use single-precision || use double-precision ) || \
 		die "Nothing to compile, enable single-precision and/or double-precision"
 
+	if use mpi && use threads; then
+		elog "mdrun uses only threads OR mpi, and gromacs favours the"
+		elog "use of mpi over threads, so a mpi-version of mdrun will"
+		elog "be compiled. If you want to run mdrun on shared memory"
+		elog "machines only, you can safely disable mpi"
+	fi
+
 	if use static; then
 		use X && die "You cannot compile a static version with X support, disable X or static"
 		use xml && die "You cannot compile a static version with xml support
 		(see bug #306479), disable xml or static"
 	fi
-
+	epatch_user
 	eautoreconf
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" single"
@@ -189,6 +195,11 @@ src_compile() {
 		cd "${S}-${x}"
 		einfo "Compiling for ${x} precision"
 		emake || die "emake for ${x} precision failed"
+		if use doc && [ -z "$OPTDIR" ]; then
+			cd src/contrib
+			emake options || die "emake options failed"
+			OPTDIR="${PWD}"
+		fi
 		use mpi || continue
 		cd "${S}-${x}_mpi"
 		emake mdrun || die "emake mdrun for ${x} precision failed"
@@ -230,10 +241,16 @@ src_install() {
 		|| die "Failed to fixup demo script."
 
 	cd "${S}"
-	dodoc AUTHORS INSTALL README
+	dodoc AUTHORS INSTALL* README*
 	if use doc; then
-		dodoc "${DISTDIR}/manual-4.0.pdf"
 		dohtml -r "${ED}usr/share/gromacs/html/"
+		insinto /usr/share/gromacs
+		doins "admin/programs.txt"
+		ls -1 "${ED}"/usr/bin | sed -e '/_d$/d' > "${T}"/programs.list
+		doins "${T}"/programs.list
+		cd "${OPTDIR}" || die "cd "${OPTDIR}" failed"
+		../../libtool --mode=install cp options "${ED}"/usr/bin/g_options \
+			|| die "install of g_options failed"
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"
 }
@@ -250,4 +267,7 @@ pkg_postinst() {
 	elog $(g_luck)
 	elog "For more Gromacs cool quotes (gcq) add luck to your .bashrc"
 	elog
+	if use doc; then
+		elog "Live Gromacs manual is available from app-doc/gromacs-manual"
+	fi
 }

@@ -1,0 +1,27 @@
+--- Makefile.orig	2010-05-01 23:35:17.000000000 +0200
++++ Makefile	2010-08-17 10:15:38.117694977 +0200
+@@ -14,7 +14,23 @@
+ 	@cd tests; $(MAKE) clean; $(MAKE) -j 8 run
+ 
+ 
+-lib : libfgsl_$(F90).a 
++ifeq ($(STATIC_LIBS),)
++lib : libfgsl.so.0.0.0
++else
++lib : libfgsl_$(F90).a libfgsl.so.0.0.0
++endif
++
++libfgsl.so.0.0.0: fgsl.lo fgsl_utils.lo
++	$(F90) -shared $(LDFLAGS) -Wl,-soname,libfgsl.so.0 -o $@ $^ $(GSL_LIB)
++
++fgsl.lo : fgsl.f90 api/*.finc interface/*.finc
++	$(F90) -fPIC $(FFLAGS) $(DEBUG) -c  fgsl.f90 -o $@
++
++%.lo: %.f90
++	$(F90) -fPIC $(FFLAGS) $(DEBUG) -c -o $@ $^
++
++%.lo: %.c
++	$(CC) -fPIC -c $(GSL_INC) $(CFLAGS) $(CDEBUG) -o $@ $^
+ 
+ libfgsl_$(F90).a : fgsl.o fgsl_utils.o
+ 	ar $(ARFLAGS) libfgsl_$(F90).a $^

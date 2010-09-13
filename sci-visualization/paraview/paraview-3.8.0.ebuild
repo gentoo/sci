@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-visualization/paraview/paraview-3.6.2.ebuild,v 1.8 2010/05/21 10:47:15 arfrever Exp $
+# $Header: $
 
 EAPI="2"
 
@@ -14,7 +14,8 @@ MY_P="ParaView-${PV}"
 
 DESCRIPTION="ParaView is a powerful scientific data visualization application"
 HOMEPAGE="http://www.paraview.org"
-SRC_URI="mirror://gentoo/${MY_P}.tar.gz"
+SRC_URI="http://www.paraview.org/files/v3.8/${MY_P}.tar.gz"
+RESTRICT="mirror"
 
 LICENSE="paraview GPL-2"
 KEYWORDS="~x86 ~amd64"
