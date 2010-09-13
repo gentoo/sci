@@ -1,6 +1,9 @@
 # ChangeLog for sys-cluster/hpl
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  13 Sep 2010; Justin Bronder <jsbronder@gentoo.org> hpl-2.0.ebuild:
+  Respect LDFLAGS #336969.
 
   13 Jun 2009; Justin Bronder <jsbronder@gentoo.org> -hpl-1.0-r3.ebuild:
   Remove old sys-cluster/hpl version.
