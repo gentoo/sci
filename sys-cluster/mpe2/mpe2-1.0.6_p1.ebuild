@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -27,7 +27,6 @@ RDEPEND="!minimal? ( >=virtual/jre-1.4 )
 
 S="${WORKDIR}"/${MY_P}
 MPE_IMP=""
-
 
 # README:
 # This ebuild is created to handle building with both mpich2 and openmpi.
@@ -74,6 +73,9 @@ src_unpack() {
 
 	# Don't assume path contains ./
 	sed -i 's,\($MPERUN\) $pgm,\1 ./$pgm,' sbin/mpetestexeclog.in
+
+	epatch "${FILESDIR}"/slog2sdk-trace_rlog-makefile-fixes.patch
+	epatch "${FILESDIR}"/slog2sdk-trace_sample-makefile-fixes.patch
 }
 
 src_compile() {
