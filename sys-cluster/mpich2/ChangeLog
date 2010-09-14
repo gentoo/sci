@@ -4,6 +4,12 @@
 
   14 Sep 2010; Justin Bronder <jsbronder@gentoo.org>
   mpich2-1.2.1_p1-r2.ebuild:
+  Disable support for gforker as it breaks debug builds and is being
+  abandonded upstream, see
+  http://trac.mcs.anl.gov/projects/mpich2/ticket/898.
+
+  14 Sep 2010; Justin Bronder <jsbronder@gentoo.org>
+  mpich2-1.2.1_p1-r2.ebuild:
   Due to pvfs2 upstream continuously lagging behind the kernel the useflag
   is being dropped. If necessary, this functionality can be added back by
   adding "--with-file-system=pvfs2+nfs+ufs --with-pvfs2=/usr" to the mpich2
