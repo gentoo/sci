@@ -196,7 +196,7 @@ pkg_postinst() {
 	elog "MPE2 has been removed from this ebuild and now stands alone"
 	elog "as sys-cluster/mpe2."
 	elog ""
-	
+
 	python_mod_optimize ${MPD_PYTHON_MODULES}
 }
 
