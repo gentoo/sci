@@ -88,7 +88,7 @@ src_configure(){
 		myconf="${myconf} --with-debugging=0"
 	fi
 
-	python "${S}"/config/configure.py "${myconf}" \
+	python "${S}"/config/configure.py ${myconf} \
 		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" LDFLAGS="${LDFLAGS}" \
 		--with-windows-graphics=0 --with-matlab=0 --with-python=0 \
 		--with-clanguage="${mylang}" --with-single-library=1 \
