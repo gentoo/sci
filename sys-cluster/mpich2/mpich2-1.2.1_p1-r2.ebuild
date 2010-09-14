@@ -15,13 +15,12 @@ SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY
 LICENSE="as-is"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
-IUSE="+cxx debug doc fortran pvfs2 threads romio mpi-threads"
+IUSE="+cxx debug doc fortran threads romio mpi-threads"
 
 MPI_UNCLASSED_BLOCKERS="media-sound/mpd"
 
 COMMON_DEPEND="dev-libs/libaio
 	romio? ( net-fs/nfs-utils )
-	pvfs2? ( >=sys-cluster/pvfs2-2.7.0 )
 	$(mpi_imp_deplist)"
 
 DEPEND="${COMMON_DEPEND}
@@ -116,11 +115,6 @@ src_configure() {
 	    g77)
 			c="${c} --enable-f77 --disable-f90";;
 	esac
-
-	if use pvfs2; then
-		# nfs and ufs are default.
-	    romio_conf="--with-file-system=pvfs2+nfs+ufs --with-pvfs2=/usr"
-	fi
 
 	! mpi_classed && c="${c} --sysconfdir=/etc/${PN}"
 	econf $(mpi_econf_args) ${c} ${romio_conf} \
