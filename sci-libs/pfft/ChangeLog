@@ -2,6 +2,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Sep 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  pfft-1.0_alpha1.ebuild, files/pfft-1.0alpha1-Makefile.am,
+  files/pfft-1.0alpha1-configure.ac, +files/pfft-1.0alpha1-libpfft.pc.in:
+  added --disable-la-files option
+
 *pfft-1.0_alpha1 (12 Sep 2010)
 
   12 Sep 2010; Christoph Junghans <kleiner_otti@gmx.de>
