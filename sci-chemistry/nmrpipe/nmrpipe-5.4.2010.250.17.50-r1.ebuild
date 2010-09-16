@@ -85,7 +85,7 @@ src_prepare() {
 
 src_install() {
 	cat >> "${T}"/nmrWish <<- EOF
-	#!/bin/csh -f
+	#!${EPREFIX}/bin/csh -f
 	setenv NMRBIN \${NMRBASE}/bin/
 	setenv NMRLIB \${NMRBIN}/lib
 	setenv AUXLIB \${NMRBIN}/openwin/lib
@@ -124,7 +124,7 @@ src_install() {
 	# Remove installation log files.
 	rm README_NMRPIPE_USERS *.log || die "Failed to remove installation log."
 	# Remove unused binaries
-	rm talos*/bin/TALOS.{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
+	rm talos*/bin/TALOS+.{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
 
 	# Set the correct path to NMRPipe in the auxiliary scripts.
 	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc talosplus/com -type f); do
@@ -142,6 +142,15 @@ src_install() {
 	# Some scripts are on the wrong place
 	cp -vf nmrtxt/*.com com/
 
+	sed \
+		-e "s:!/bin:!${EPREFIX}/bin:g" \
+		-e "s:!/usr/bin:!${EPREFIX}/usr/bin:g" \
+		-e "s:!/usr/local/bin:!${EPREFIX}/usr/bin:g" \
+		-e "s: /bin: ${EPREFIX}/bin:g" \
+		-e "s: /usr/bin: ${EPREFIX}/usr/bin:g" \
+		-e "s: /usr/local/bin: ${EPREFIX}/usr/bin:g" \
+		-i {com/,nmrtxt/*.com,nmrtxt/nt/*.com,dynamo/tcl/,talos*/com/,dynamo/tcl/}* || die
+
 	insinto ${NMRBASE}
 	doins -r * || die "Failed to install application."
 
@@ -150,7 +159,7 @@ src_install() {
 
 	# fperms does not chmod nmrwish
 #	fperms -v 775 ${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
-	chmod -c 775 "${ED}"/${NMRBASE}/{talos*/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
+	chmod -c 775 "${ED}"/${NMRBASE}/{talos*/bin/,nmrbin.linux9/,com/,dynamo/tcl/,nmrtxt/*.com,talos*/com/}* || die
 
 	exeinto ${NMRBASE}/nmrbin.linux9
 	doexe "${T}"/nmrWish || die
