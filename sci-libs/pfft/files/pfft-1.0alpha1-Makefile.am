@@ -15,3 +15,12 @@ noinst_HEADERS = ipfft.h
 noinst_PROGRAMS = simple_test sample_ghost
 
 LDADD = libpfft.la
+
+install-exec-hook:
+if NO_LA_FILES
+	rm -f $(DESTDIR)$(libdir)/libpfft.la
+endif
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libpfft.pc
+

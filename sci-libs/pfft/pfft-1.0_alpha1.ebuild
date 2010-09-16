@@ -24,7 +24,7 @@ S="${WORKDIR}/${P//_}"
 
 src_prepare() {
 	local i
-	for i in Makefile.am configure.ac; do
+	for i in Makefile.am configure.ac libpfft.pc.in; do
 		cp "${FILESDIR}"/"${PF//_}"-"${i}" "${i}" || die "cp of ${i} failed"
 	done
 
@@ -32,10 +32,7 @@ src_prepare() {
 }
 
 src_configure() {
-	local myconf
-	myconf="$(use_enable static-libs static)"
-
-	econf ${myconf} || die "econf failed"
+	econf --disable-la-files "$(use_enable static-libs static)" || die "econf failed"
 }
 
 src_compile() {

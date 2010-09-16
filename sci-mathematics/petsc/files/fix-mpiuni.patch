@@ -1,0 +1,12 @@
+--- include/mpiuni/mpi.h	2009-12-16 16:56:33.000000000 +0100
++++ include/mpiuni/mpi.h	2009-12-16 16:57:43.000000000 +0100
+@@ -627,8 +627,7 @@
+      MPI_SUCCESS)
+ #define MPI_Comm_rank(comm,rank) \
+      (MPIUNI_TMP = (void*)(MPIUNI_INTPTR) (comm),\
+-     *(rank)=0,\
+-     MPI_SUCCESS)
++     *(rank)=0)
+ #define MPI_Comm_compare(comm1,comm2,result) \
+      (MPIUNI_TMP = (void*)(MPIUNI_INTPTR) (comm1),\
+      MPIUNI_TMP = (void*)(MPIUNI_INTPTR) (comm2),\

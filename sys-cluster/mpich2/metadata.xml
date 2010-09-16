@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>hp-cluster</herd>
+	<herd>cluster</herd>
 	<maintainer>
 		<email>jsbronder@gentoo.org</email>
 		<name>Justin Bronder</name>
@@ -13,7 +13,6 @@
 	</maintainer>
 	<use>
 		<flag name='mpi-threads'>Enable MPI_THREAD_MULTIPLE</flag>
-		<flag name='pvfs2'>Build pvfs2 filesystem support into ROMIO</flag>
 		<flag name='romio'>Build the ROMIO MPI-IO component</flag>
 	</use>
 </pkgmetadata>
