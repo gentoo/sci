@@ -29,7 +29,7 @@ DEPEND="sys-libs/gdbm
 	dev-libs/libxml2
 	sci-mathematics/frobby
 	sci-mathematics/4ti2
-	sci-mathematics/normaliz
+	<sci-mathematics/normaliz-2.5
 	sci-mathematics/gfan
 	>=dev-libs/mpfr-2.4.1
 	>=sci-libs/mpir-1.3.1[cxx]

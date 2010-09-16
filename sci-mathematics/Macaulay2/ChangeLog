@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2010; Thomas Kahle <tom111@gmx.de> Macaulay2-1.3.1-r4.ebuild:
+  Dep of normalized adjusted, won't work with latest version.
+
 *Macaulay2-1.3.1-r4 (12 Jul 2010)
 
   12 Jul 2010; Thomas Kahle <tom111@gmx.de> +Macaulay2-1.3.1-r4.ebuild,
