@@ -1,0 +1,30 @@
+--- factory/GNUmakefile.in.orig	2010-09-17 23:35:08.323938489 +1200
++++ factory/GNUmakefile.in	2010-09-17 23:36:40.487937818 +1200
+@@ -483,7 +483,9 @@
+ #
+ all:		$(alltargets)
+ 
+-cf:		factoryconf.h factory.h $(libfactory) libsingcf_g.a
++headers: factoryconf.h factory.h
++
++cf:		headers $(libfactory) libsingcf_g.a
+ 
+ mem:		libcfmem.a
+ 
+@@ -491,12 +493,12 @@
+ # - explicit targets.
+ #
+ $(basefactorysrc:.cc=.o):      factory.h
+-$(libfactory):	$(factoryobj)
+-		$(AR) $(ARFLAGS) $@ $^
++$(libfactory):	headers $(factoryobj)
++		$(AR) $(ARFLAGS) $@ $(factoryobj)
+ 		$(RANLIB) $@
+ 
+-libsingcf_g.a:	$(factorygobj)
+-		$(AR) $(ARFLAGS) $@ $^
++libsingcf_g.a:	headers $(factorygobj)
++		$(AR) $(ARFLAGS) $@ $(factorygobj)
+ 		$(RANLIB) $@
+ 
+ libsingcf_p.a:	$(factorypobj)

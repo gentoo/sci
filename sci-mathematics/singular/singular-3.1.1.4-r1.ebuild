@@ -53,6 +53,7 @@ src_prepare () {
 	epatch "${FILESDIR}"/${PN}-3.0.4.4-nostrip.patch
 	epatch "${FILESDIR}"/${PN}-3.1.1.3-soname.patch
 	epatch "${FILESDIR}"/${P}-parrallelmake.patch
+	epatch "${FILESDIR}"/${P}-parrallelmake-2.patch
 
 	sed -i \
 		-e "/CXXFLAGS/ s/--no-exceptions//g" \
@@ -75,15 +76,17 @@ src_configure() {
 		--bindir="${S}"/build/bin \
 		--libdir="${S}"/build/lib \
 		--libexecdir="${S}"/build/lib \
+		--with-apint=gmp \
+		--with-gmp="${EPREFIX}"/usr \
+		--disable-NTL \
 		--disable-debug \
 		--disable-doc \
-		--disable-NTL \
-		--disable-gmp \
 		--without-MP \
 		--enable-factory \
 		--enable-libfac \
 		--enable-IntegerProgramming \
 		--enable-Singular \
+		--with-malloc=system \
 		$(use_with boost Boost) \
 		$(use_enable emacs) \
 		$(use_with readline) || die "configure failed"
@@ -189,7 +192,6 @@ pkg_postinst() {
 		einfo "the one offered by the factory ebuild you should include sngular/factory.h rather"
 		einfo "than just factory.h."
 	fi
-
 	use emacs && elisp-site-regen
 }
 
