@@ -39,7 +39,7 @@ XDEPS="
 	gnome-base/libgnomecanvas
 	gnome-base/librsvg
 	media-libs/libpng
-	virtual/glut
+	media-libs/freeglut
 	>=x11-libs/gtk+-2.2
 	x11-libs/gtkglext"
 
