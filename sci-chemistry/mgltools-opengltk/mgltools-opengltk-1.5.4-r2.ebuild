@@ -25,7 +25,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="dev-lang/tk
-	virtual/glu
+	virtual/opengl
 	virtual/opengl
 	dev-python/numpy"
 DEPEND="${RDEPEND}
