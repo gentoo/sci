@@ -22,7 +22,7 @@ RDEPEND=">=x11-libs/gtk+-2.6.8
 	>=x11-libs/pango-1.8.1-r1
 	>=media-libs/libpng-1.2
 	virtual/opengl
-	virtual/glu
+	virtual/opengl
 "
 DEPEND="${RDEPEND}
 	sys-apps/sed
