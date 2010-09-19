@@ -1,6 +1,11 @@
 # ChangeLog for sci-mathematics/freefem++
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  19 Sep 2010; Justin Lecher <jlec@gentoo.org> freefem++-3.5.ebuild,
+  freefem++-3.8.ebuild:
+  virtual/glut -> media-libs/freeglut & virtual/glu -> virtual/opengl
+  Correction
 
   2 May 2010; David Radice <david.e.pi.3.14@gmail.com>
   +freefem++-3.8.ebuild, +files/freefem++-path.patch, -freefem++-3.4.2.ebuild:

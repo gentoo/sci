@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -22,7 +22,7 @@ RDEPEND="sci-libs/fftw
 	>=sci-libs/arpack-96-r2
 	mpi? ( $(mpi_pkg_deplist) )
 	opengl? (
-		virtual/glut
+		media-libs/freeglut
 		virtual/opengl
 		)
 	vim-syntax? ( app-vim/freefem++-syntax )
