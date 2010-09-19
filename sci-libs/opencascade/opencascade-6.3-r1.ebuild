@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="debug doc examples java opengl stlport X"
 DEPEND="java? ( virtual/jdk )
 	opengl? ( virtual/opengl
-		virtual/glu )
+		virtual/opengl )
 	X? ( x11-libs/libXmu
 		app-text/dgs )
 	>=dev-lang/tcl-8.4
