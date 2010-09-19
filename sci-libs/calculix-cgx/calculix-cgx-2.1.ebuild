@@ -19,7 +19,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc examples nptl"
 
 RDEPEND="media-libs/mesa[nptl=]
-	>=virtual/glut-1.0"
+	>=media-libs/freeglut-1.0"
 DEPEND="${RDEPEND}
 	doc? ( app-text/ghostscript-gpl )"
 
