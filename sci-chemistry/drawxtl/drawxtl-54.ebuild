@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -19,8 +19,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
 DEPEND="virtual/opengl
-	virtual/glut
-	virtual/glu
+	media-libs/freeglut
+	virtual/opengl
 	x11-libs/fltk:1.1[opengl]"
 RDEPEND="${DEPEND}"
 
