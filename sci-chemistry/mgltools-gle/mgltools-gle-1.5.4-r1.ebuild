@@ -21,7 +21,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="virtual/glu"
+RDEPEND="virtual/opengl"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 

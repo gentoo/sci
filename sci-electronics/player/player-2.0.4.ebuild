@@ -34,7 +34,7 @@ IUSE="ieee1394 sphinx2 wifi v4l test
 
 RDEPEND="media-libs/jpeg
 	opengl? ( virtual/opengl )
-	glut? ( virtual/glut )
+	glut? ( media-libs/freeglut )
 	openssl? ( dev-libs/openssl )
 	imagemagick? ( media-gfx/imagemagick )
 	gsl? ( sci-libs/gsl )

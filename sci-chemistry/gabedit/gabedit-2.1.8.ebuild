@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,7 +21,7 @@ RDEPEND=">=x11-libs/gtk+-2.4
 	x11-libs/gtkglarea
 	x11-libs/gl2ps
 	virtual/opengl
-	virtual/glu"
+	virtual/opengl"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 S=${WORKDIR}/${MY_P}

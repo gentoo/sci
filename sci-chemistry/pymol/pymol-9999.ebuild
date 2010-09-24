@@ -28,7 +28,7 @@ DEPEND="
 		media-libs/libpng
 		media-video/mpeg-tools
 		sys-libs/zlib
-		virtual/glut
+		media-libs/freeglut
 		apbs? (
 			dev-libs/maloc
 			sci-chemistry/apbs

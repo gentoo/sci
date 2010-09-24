@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Sep 2010; Justin Lecher <jlec@gentoo.org> mgltools-gle-1.5.4-r1.ebuild:
+  virtual/glut -> media-libs/freeglut & virtual/glu -> virtual/opengl
+  Correction
+
 *mgltools-gle-1.5.4-r1 (27 Jun 2010)
 
   27 Jun 2010; Justin Lecher <jlec@gentoo.org> -mgltools-gle-1.5.4.ebuild,

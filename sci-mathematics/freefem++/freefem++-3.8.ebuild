@@ -22,7 +22,7 @@ RDEPEND="sci-libs/fftw
 	>=sci-libs/arpack-96-r2
 	mpi? ( $(mpi_pkg_deplist) )
 	opengl? (
-		virtual/glut
+		media-libs/freeglut
 		virtual/opengl
 		)
 	vim-syntax? ( app-vim/freefem++-syntax )

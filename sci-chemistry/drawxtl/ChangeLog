@@ -1,6 +1,11 @@
 # ChangeLog for sci-chemistry/drawxtl
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  19 Sep 2010; Justin Lecher <jlec@gentoo.org> drawxtl-44.ebuild,
+  drawxtl-54.ebuild:
+  virtual/glut -> media-libs/freeglut & virtual/glu -> virtual/opengl
+  Correction
 
   13 Jul 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> drawxtl-44.ebuild,
   drawxtl-54.ebuild:

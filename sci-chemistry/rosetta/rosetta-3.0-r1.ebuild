@@ -27,7 +27,7 @@ RDEPEND="mpi? ( virtual/mpi )
 DEPEND="${RDEPEND}
 	>=dev-util/scons-0.96.1
 	doc? ( app-doc/doxygen )
-	X? ( virtual/glut )"
+	X? ( media-libs/freeglut )"
 
 MYCONF=""
 

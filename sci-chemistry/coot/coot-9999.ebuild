@@ -39,7 +39,7 @@ XDEPS="
 	gnome-base/libgnomecanvas
 	gnome-base/librsvg
 	media-libs/libpng
-	virtual/glut
+	media-libs/freeglut
 	>=x11-libs/gtk+-2.2
 	x11-libs/gtkglext"
 
@@ -81,14 +81,14 @@ src_prepare() {
 
 	# Link against single-precision fftw
 	sed -i \
-		-e "s:lfftw:lsfftw:g" \
-		-e "s:lrfftw:lsrfftw:g" \
+		-e "s:\}fftw:}sfftw:g" \
+		-e "s:\}rfftw:}srfftw:g" \
 		"${S}"/macros/clipper.m4
 
 	cat >> src/svn-revision.cc <<- EOF
 	extern "C" {
 	int svn_revision() {
-		return  ${ESVN_WC_REVISION};
+		return  ${ESVN_WC_REVISION:-0};
 	}
 	}
 
