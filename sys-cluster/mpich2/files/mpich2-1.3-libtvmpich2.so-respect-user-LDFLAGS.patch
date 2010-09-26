@@ -1,0 +1,25 @@
+From e51d6ec114dafc10a7eeeeb04c1dfdc7a7b7514c Mon Sep 17 00:00:00 2001
+From: Justin Bronder <jsbronder@gmail.com>
+Date: Sat, 25 Sep 2010 12:04:35 -0400
+Subject: [PATCH] debugger:  make libtvmpich2.so respect user LDFLAGS
+
+---
+ src/mpi/debugger/Makefile.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/mpi/debugger/Makefile.in b/src/mpi/debugger/Makefile.in
+index 834079f..8723e6f 100644
+--- a/src/mpi/debugger/Makefile.in
++++ b/src/mpi/debugger/Makefile.in
+@@ -172,7 +172,7 @@ SOURCEFILES     = $(SOURCES)
+ # There is no static debugger interface library
+ # Force a custom target
+ ./libtvmpich2.@SHLIB_EXT@: ./libtvmpich2.la
+-	(cd . && $(CREATESHLIB) -libtype=@DBG_SHLIB_TYPE@ --mode=link -cc="@CC_SHL_DBG@" -clink="@C_LINK_SHL_DBG@" -o libtvmpich2.la  -rpath $(libdir) )
++	(cd . && $(CREATESHLIB) -libtype=@DBG_SHLIB_TYPE@ --mode=link -cc="@CC_SHL_DBG@" -clink="@C_LINK_SHL_DBG@" -o libtvmpich2.la  -rpath $(libdir) -ldflags "$(LDFLAGS)" )
+ 
+ #
+ # We need to make sure that dbginit is compiled with -g, so
+-- 
+1.7.2.2
+
