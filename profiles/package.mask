@@ -30,6 +30,10 @@
 
 #--- END OF EXAMPLES ---
 
+# Andreas K. Huettel (dilfridge) (26 Sep 10)
+# mask axiom temporarily because of bug 338762, pending a better solution
+=sci-mathematics/axiom-201005
+
 # Justin Lecher (jlec) (1 Aug 09)
 # jlec@gentoo.org
 # mask live ebuild
