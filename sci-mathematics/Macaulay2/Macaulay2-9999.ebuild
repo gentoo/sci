@@ -64,11 +64,12 @@ src_prepare() {
 # 		epatch "${FILESDIR}"/respect-CFLAGS.patch
 # 	fi
 
-	# The Posets-Package refers to a non-existent Graphs package.
-	# We dump it for now.
-	rm "${S}"/Macaulay2/packages/Posets.m2
-	sed -i "/  Posets/d" "${S}"/configure.ac
-	sed -i "/Posets/d" "${S}"/Macaulay2/packages/Macaulay2Doc/changes.m2
+## fixed in trunk as of 09/28/10
+# 	# The Posets-Package refers to a non-existent Graphs package.
+# 	# We dump it for now.
+# 	rm "${S}"/Macaulay2/packages/Posets.m2
+# 	sed -i "/  Posets/d" "${S}"/configure.ac
+# 	sed -i "/Posets/d" "${S}"/Macaulay2/packages/Macaulay2Doc/changes.m2
 
 	# Fixing make warnings about unavailable jobserver:
 	sed -i "s/\$(MAKE)/+ \$(MAKE)/g" "${S}"/distributions/Makefile.in
