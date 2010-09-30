@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<longdescription lang="en">
+  LaTeXmath library provides a set of Java classes for displaying
+  (complex) mathematical formulas as part of a Java application with
+  LateX style. This package installs the plugin for dev-java/fop.
+</longdescription>
+</pkgmetadata>
