@@ -2,6 +2,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*jlatexmath-0.9.3 (30 Sep 2010)
+
+  30 Sep 2010; Thomas Kahle <tom111@gmx.de> +jlatexmath-0.9.3.ebuild:
+  Bump due to Dmitry S. Kulyabov in bug 301048
+
   22 Jan 2010; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml:
   Initial import. Ebuild submitted by Guillaume Horel, bug #301048
 
