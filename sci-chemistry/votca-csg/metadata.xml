@@ -7,9 +7,6 @@
 		<name>Christoph Junghans</name>
 	</maintainer>
 <use>
-	<flag name='boost'>Compile against external boost headers (dev-libs/boost)</flag>
-	<flag name='single-precision'>Compile against single precision version of gromacs libgmx</flag>
-	<flag name='double-precision'>Compile against double precision version of gromacs libgmx</flag>
-	<flag name='dev'>Use devel repository - sign up at devs@votca.org</flag>
+	<flag name='gromacs'>Add support for gromacs file formats (sci-chemistry/gromacs)</flag>
 </use>
 </pkgmetadata>
