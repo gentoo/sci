@@ -10,6 +10,7 @@
 # Ultimately, they will be merged into the main tree.
 
 sci-biology/tgi-tools:pvm - Use sys-cluster/pvm (Parallel Virtual Machine) and build the pvmsx utility
+sci-chemistry/votca-csg:gromacs - Add support for gromacs file formats (sci-chemistry/gromacs)
 sci-geosciences/libtcd:non-commercial - Install tide constituent database that is free for non-commercial use only
 sci-libs/calculix-ccx:arpack - Add sparse eigen value support via sci-libs/arpack
 sci-libs/factory:singular - Add support for sci-mathematics/Singular
@@ -18,6 +19,7 @@ sci-libs/gmsh:chaco - Enables chaco partitioner support
 sci-libs/gmsh:metis - Enables metis support
 sci-libs/gmsh:opencascade - Enable OpenCASCADE support
 sci-libs/libfac:singular - Add support for sci-mathematics/Singular
+sci-libs/votca-tools:boost - Compile against external boost headers (dev-libs/boost)
 sci-mathematics/gap:xtom - extra tables of marks
 sci-mathematics/netgen:opencascade - Enable OpenCASCADE support
 sci-misc/opencascade:draw-harness - Enable building of draw-harness
