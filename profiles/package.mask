@@ -44,6 +44,11 @@
 # mask live ebuild
 =sci-chemistry/burrow-owl-9999_pre15
 
+# Christoph Junghans (ottxor) (03 Oct 10)
+# kleiner_otti@gmx.de
+# masked for testing
+=sci-libs/openmm-2.0
+
 # Christoph Junghans (ottxor) (31 Jul 10)
 # kleiner_otti@gmx.de
 # mask live ebuilds
