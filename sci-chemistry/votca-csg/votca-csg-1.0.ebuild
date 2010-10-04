@@ -33,6 +33,10 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
 src_prepare() {
+	#from bootstrap.sh
+	[ -z "${PV##*9999}" ] && \
+		emake -C share/scripts/inverse -f Makefile.am.in Makefile.am
+
 	eautoreconf || die "eautoreconf failed"
 }
 

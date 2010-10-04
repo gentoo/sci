@@ -1,0 +1,133 @@
+This legal document has to accompany all official or custom UNIO files. It may not be
+removed or modified. This document pertains to all use of the software package
+worldwide. This document supersedes all previous licenses or distribution policies.
+Contract for license of software
+between
+
+ETH Zurich
+Represented by Kurt Wüthrich
+(licensor)
+
+and
+
+the licensee
+
+1. Definition of the Software
+UNIO is a software package for automated NMR data analysis. It provides the
+functionalities of the four existing algorithms: MATCH, for automated backbone
+assignment, ASCAN, for automated side-chain assignment, ATNOS, for automated
+peak picking and NOE identification in 2D homonuclear and 3D heteronuclear-
+resolved NOESY spectra, and CANDID, for automated NOE assignment of NOESY
+cross peaks in conjunction with protein three-dimensional structure calculation.
+Details are to learn from the following publications:
+Herrmann, T., Güntert, P. & Wüthrich, K.
+"Protein NMR structure determination with automated NOE-identification in the NOESY spectra using the new
+software ATNOS."
+J. Biomol. NMR 2002 Nov; 24(3): 171-189.
+Herrmann, T., Güntert, P. & Wüthrich, K.
+"Protein NMR structure determination with automated NOE assignment using the new software CANDID and the
+torsion angle dynamics algorithm DYANA."
+J. Mol. Biol. 2002 May; 319(1): 209-227.
+Volk, J.; Herrmann, T.; Wüthrich, K.
+“Automated sequence-specific protein NMR assignment using the memetic algorithm MATCH.”
+J. Biomol.NMR. 2008, 41, 127-138.
+Fiorito, F.; Damberger, F.F.; Herrmann, T.; Wüthrich, K.
+“Automated amino acid side-chain assignment of proteins using 13C- and 15N resolved 3D [1H, 1H]-NOESY.”
+J. Biomol. NMR 2008, 42, 23-33.
+This Software is composed of 3 types of files: executable (binary) files, configuration
+files and documentation files. Not included is the source code.
+(together “Software”)
+2. License of ETH Zurich
+ETH Zurich hereby grants a single, non-exclusive, world-wide, royalty-free license to
+use Software subject to all the terms and conditions of this Contract to the licensee.
+3. The scope of the license
+a. Use
+The Software may be used exclusively for research purposes in academic
+institutions. The licensee retains all rights to results from such use.
+Only the use for non-commercial purposes is allowed. Prohibited is for example:
+i. selling, licensing or renting the Software to third parties for a fee, payment of
+money or other compensation
+ii.
+using the Software to provide services or products to others for which the
+licensee is compensated in any manner (by payment of money or otherwise),
+including providing support or maintenance for the Software
+iii.
+using the Software to develop a similar application on any platform for
+commercial distribution.
+b. Reproduction
+Reproduction is prohibited except for the provisions of the applicable law (article 21
+URG [Bundesgesetz über das Urheberrecht, SR 231.1]).
+c. Modification
+Neither modification, combination with other commercial applications or other
+preparation of derivative works of the Software, nor reverse engeneering,
+decompilation, disassembly or other reduction of any portion of the Software is
+permitted except for the provisions of the applicable law (article 21 URG
+[Bundesgesetz über das Urheberrecht, SR 231.1]).
+d. Distribution
+Assignment to a third party is prohibited.
+4. Obligations of licensee
+a. Use
+Any report or publication of results obtained by the Software has to be acknowledged
+by citing the following four publications:
+Herrmann, T., Güntert, P. & Wüthrich, K.
+"Protein NMR structure determination with automated NOE-identification in the NOESY spectra using the new
+software ATNOS."
+J. Biomol. NMR 2002 Nov; 24(3): 171-189.
+Herrmann, T., Güntert, P. & Wüthrich, K.
+"Protein NMR structure determination with automated NOE assignment using the new software CANDID and the
+torsion angle dynamics algorithm DYANA."
+J. Mol. Biol. 2002 May; 319(1): 209-227.
+Volk, J.; Herrmann, T.; Wüthrich, K.
+“Automated sequence-specific protein NMR assignment using the memetic algorithm MATCH.”
+J. Biomol.NMR. 2008, 41, 127-138.
+Fiorito, F.; Damberger, F.F.; Herrmann, T.; Wüthrich, K.
+“Automated amino acid side-chain assignment of proteins using 13C- and 15N resolved 3D [1H, 1H]-NOESY.”
+J. Biomol. NMR 2008, 42, 23-33.
+b. Modification
+Reports of modifications or derivative works are to be made to ETH Zurich, and are
+to be made available on request.
+5. Intellectual property and other rights
+Ownership and intellectual property rights in and to the Software shall remain in ETH
+Zurich. ETH Zurich reserves the right to withdraw distribution privileges from any group,
+individual, or organization for any reason.
+6. Maintenance, support, upgrades or new releases
+ETH Zurich doesn’t have any obligation of maintenance, support, upgrades or new
+releases and disclaims all costs associated with serving, repair or correction.
+7. Warranty
+The Software is provided “as is”. ETH Zurich does not make any warranty of any
+kind. Disclaimed warranties include for example:
+i. warranty of merchantability, satisfactory quality and fitness for a particular
+purpose
+ii.
+warranty of accuracy of results, of the quality and performance of the Software
+iii.
+warranty of noninfringement of the intellectual property rights of third parties.
+8. Liability
+ETH Zurich disclaims all liabilities. ETH Zurich shall not have any liability for any
+direct or indirect damage except for the provisions of the applicable law (article 100
+OR [Schweizerisches Obligationenrecht]).
+9. Termination
+This Contract may be terminated by ETH Zurich at any time. On termination all
+copies of the Software has to be destroyed.
+10. Severability
+If any provisions of this Contract will become invalid or unenforceable, such invalidity
+or enforceability shall not affect the other provisions of Contract which shall remain in
+full force and effect provided that the basic intent of the parties is preserved. The
+parties will in good faith negotiate substitute provisions to replace invalid or
+unenforceable provisions which reflect the orginal intentions of the parties as closely
+as possible and maintain the economic balance between the parties.
+11. Applicable law
+This Contract as well as any and all matters arising out of it shall exclusively be
+governed by and interpreted in accordance with the laws of Switzerland, excluding its
+principles of conflict of laws.
+12. Jurisdiction
+If any dispute, controversy or difference arises between the Parties hereto in
+connection with or out of this Contract, the parties hereto shall first attempt to settle it
+amicably.
+Should settlement not be achieved, the Courts of Zurich-City shall have exclusive
+jurisdiction.
+By using this software you indicate your acceptance.
+For commercial use of the Software please contact torsten.herrmann@ens-lyon.fr.
+In case of any problems, comments, questions, please contact the UNIO authors
+using the E-mail address torsten.herrmann@ens-lyon.fr
+
