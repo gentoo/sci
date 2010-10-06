@@ -45,12 +45,12 @@ src_configure(){
 	if use mpi; then
 		myconf="${myconf} --with-cc=/usr/bin/mpicc"
 		myconf="${myconf} --with-cxx=/usr/bin/mpicxx"
-		myconf="${myconf} --with-fc=/usr/bin/mpif77"
+		use fortran && myconf="${myconf} --with-fc=/usr/bin/mpif77"
 		myconf="${myconf} --with-mpi=1 --with-mpi-compilers=1"
 	else
 		myconf="${myconf} --with-cc=$(tc-getCC)"
 		myconf="${myconf} --with-cxx=$(tc-getCXX)"
-		myconf="${myconf} --with-fc=$(tc-getF77)"
+		use fortran && myconf="${myconf} --with-fc=$(tc-getF77)"
 		myconf="${myconf} --with-mpi=0"
 	fi
 
