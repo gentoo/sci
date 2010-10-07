@@ -7,7 +7,7 @@ Index: surface/Makefile.am
  	CXXSphereFlatTriangle.h
  
 -libccp4mg_surface_la_LIBADD = $(CLIPPER_LIBS) $(MMDB_LIBS)
-+libccp4mg_surface_la_LIBADD = $(CLIPPER_LIBS) $(MMDB_LIBS) -lgomp
++libccp4mg_surface_la_LIBADD = $(CLIPPER_LIBS) $(MMDB_LIBS) $(OPENMP_CFLAGS)
  
  
  # CXXAtom.h CXXAtom.cpp
