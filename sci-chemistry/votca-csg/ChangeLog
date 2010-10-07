@@ -2,6 +2,19 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Oct 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  +votca-csg-9999.ebuild:
+  added live ebuild
+
+*votca-csg-1.0 (02 Oct 2010)
+
+  02 Oct 2010; Christoph Junghans <kleiner_otti@gmx.de>
+  -votca-csg-1.0_rc5.ebuild, +votca-csg-1.0.ebuild,
+  -files/votca-csg-1.0_rc5-aclocal.patch,
+  -files/votca-csg-1.0_rc5-gcc-4.4.patch,
+  -files/votca-csg-1.0_rc5-libgmx.patch:
+  Version bump
+
   20 Mar 2010; Christoph Junghans <kleiner_otti@gmx.de>
   votca-csg-9999.ebuild, metadata.xml:
   added dev use flag

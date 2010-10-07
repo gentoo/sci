@@ -1,0 +1,13 @@
+Index: surface/Makefile.am
+===================================================================
+--- surface/Makefile.am	(revision 3183)
++++ surface/Makefile.am	(working copy)
+@@ -48,7 +48,7 @@
+ 	CXXUtils.h \
+ 	CXXSphereFlatTriangle.h
+ 
+-libccp4mg_surface_la_LIBADD = $(CLIPPER_LIBS) $(MMDB_LIBS)
++libccp4mg_surface_la_LIBADD = $(CLIPPER_LIBS) $(MMDB_LIBS) $(OPENMP_CFLAGS)
+ 
+ 
+ # CXXAtom.h CXXAtom.cpp

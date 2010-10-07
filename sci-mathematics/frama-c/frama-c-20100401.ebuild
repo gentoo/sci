@@ -13,15 +13,15 @@ SRC_URI="http://www.frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="apron doc gtk +why"
+KEYWORDS="~amd64 ~ppc ~sparc ~x86"
+IUSE="apron doc gtk ocamlopt +why"
 RESTRICT="strip"
 
-DEPEND=">=dev-lang/ocaml-3.10.2
-		>=dev-ml/ocamlgraph-1.4
+DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
+		>=dev-ml/ocamlgraph-1.4[gtk? ocamlopt?]
 		gtk? ( >=x11-libs/gtksourceview-2.8
 			>=gnome-base/libgnomecanvas-2.26
-			>=dev-ml/lablgtk-2.14 )
+			>=dev-ml/lablgtk-2.14[sourceview gnomecanvas ocamlopt?] )
 		sci-mathematics/ltl2ba
 		apron? ( sci-mathematics/apron )"
 RDEPEND="${DEPEND}"

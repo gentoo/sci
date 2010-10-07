@@ -17,11 +17,15 @@ IUSE=""
 # runtime paths as well, thereby, breaking axiom
 RESTRICT="strip"
 
+# Seems to need a working version of pstricks package these days Bummer: <gmp-5 is needed for the
+# interal gcl, otherwise axiom will try to build an internal copy of gmp-4 which fails.
 DEPEND="virtual/latex-base
 	app-text/dvipdfm
+	dev-texlive/texlive-pstricks
 	x11-libs/libXaw
 	sys-apps/debianutils
-	sys-process/procps"
+	sys-process/procps
+	<dev-libs/gmp-5.0"
 
 S="${WORKDIR}"/${PN}
 

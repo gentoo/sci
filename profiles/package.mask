@@ -30,10 +30,24 @@
 
 #--- END OF EXAMPLES ---
 
+
+# Sebastien Fabbro (29 Sep 2010)
+# alpha software
+>=sci-libs/fftw-3.3_alpha1
+
+# Andreas K. Huettel (dilfridge) (26 Sep 10)
+# mask axiom temporarily because of bug 338762, pending a better solution
+=sci-mathematics/axiom-201005
+
 # Justin Lecher (jlec) (1 Aug 09)
 # jlec@gentoo.org
 # mask live ebuild
 =sci-chemistry/burrow-owl-9999_pre15
+
+# Christoph Junghans (ottxor) (03 Oct 10)
+# kleiner_otti@gmx.de
+# masked for testing
+=sci-libs/openmm-2.0
 
 # Christoph Junghans (ottxor) (31 Jul 10)
 # kleiner_otti@gmx.de

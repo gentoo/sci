@@ -2,6 +2,15 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nmrpipe-5.5.2010.277.15.30 (07 Oct 2010)
+
+  07 Oct 2010; Justin Lecher <jlec@gentoo.org>
+  -files/5.4.2010.250.17.50-lib.patch,
+  -nmrpipe-5.4.2010.250.17.50-r1.ebuild,
+  +files/5.5.2010.277.15.30-lib.patch, +nmrpipe-5.5.2010.277.15.30.ebuild,
+  files/env-nmrpipe-new, metadata.xml:
+  Version Bump
+
 *nmrpipe-5.4.2010.250.17.50-r1 (13 Sep 2010)
 
   13 Sep 2010; Justin Lecher <jlec@gentoo.org>

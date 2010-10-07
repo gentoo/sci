@@ -14,8 +14,7 @@ DESCRIPTION="research tool for commutative algebra and algebraic geometry"
 SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
 SRC_URI="${SRC_BASE}/OtherSourceCode/1.3/factory-3-1-1.tar.gz
 		 ${SRC_BASE}/OtherSourceCode/1.3/libfac-3-1-1.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Extra/gc-7.2alpha5-2010-09-03.tar.gz
-		 ${SRC_BASE}/OtherSourceCode/1.4/lrslib-042c.tar.gz"
+		 http://www.math.uiuc.edu/Macaulay2/Extra/gc-7.2alpha5-2010-09-03.tar.gz"
 
 HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
 
@@ -36,6 +35,7 @@ DEPEND="sys-libs/gdbm
 	>=dev-libs/mpfr-3.0.0
 	>=sci-libs/mpir-2.1.1[cxx]
 	sci-libs/cddlib
+	sci-libs/lrslib
 	virtual/blas
 	virtual/lapack
 	dev-util/ctags
@@ -64,18 +64,21 @@ src_prepare() {
 # 		epatch "${FILESDIR}"/respect-CFLAGS.patch
 # 	fi
 
-	# The Posets-Package refers to a non-existent Graphs package.
-	# We dump it for now.
-	rm "${S}"/Macaulay2/packages/Posets.m2
-	sed -i "/  Posets/d" "${S}"/configure.ac
-	sed -i "/Posets/d" "${S}"/Macaulay2/packages/Macaulay2Doc/changes.m2
+## fixed in trunk as of 09/28/10
+# 	# The Posets-Package refers to a non-existent Graphs package.
+# 	# We dump it for now.
+# 	rm "${S}"/Macaulay2/packages/Posets.m2
+# 	sed -i "/  Posets/d" "${S}"/configure.ac
+# 	sed -i "/Posets/d" "${S}"/Macaulay2/packages/Macaulay2Doc/changes.m2
 
 	# Fixing make warnings about unavailable jobserver:
 	sed -i "s/\$(MAKE)/+ \$(MAKE)/g" "${S}"/distributions/Makefile.in
 
-	# Factory and libfac are statically linked libraries which (in this flavor)
+	# Factory, and libfac are statically linked libraries which (in this flavor)
 	# are not used by any other program. We build them internally and don't install them
 	# Permission was granted to tomka by bicatali on IRC.
+	# Macaulay 2 in this version insists on a snapshot of boehm-gc that is not available elsewhere
+	# We will let it build its internal version for now.
 	mkdir "${S}/BUILD/tarfiles" || die "Creation of directory failed"
 	cp "${DISTDIR}/factory-3-1-1.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
@@ -83,9 +86,6 @@ src_prepare() {
 		|| die "copy failed"
 	cp "${DISTDIR}/gc-7.2alpha5-2010-09-03.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
-	cp "${DISTDIR}/lrslib-042c.tar.gz" "${S}/BUILD/tarfiles/" \
-		|| die "copy failed"
-
 
 	eautoreconf
 }
@@ -104,7 +104,7 @@ src_configure (){
 		--disable-strip \
 		$(use_enable optimization optimize) \
 		--enable-build-libraries="factory libfac" \
-		--with-unbuilt-programs="4ti2 gfan normaliz nauty cddplus" \
+		--with-unbuilt-programs="4ti2 gfan normaliz nauty cddplus lrslib" \
 		|| die "failed to configure Macaulay"
 }
 

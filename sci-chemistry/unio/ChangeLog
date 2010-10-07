@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/unio
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*unio-2.0.1 (02 Oct 2010)
+
+  02 Oct 2010; Justin Lecher <jlec@gentoo.org> +unio-2.0.1.ebuild,
+  +metadata.xml:
+  New addition
+
