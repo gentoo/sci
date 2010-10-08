@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="3"
 
 inherit autotools eutils
 
@@ -18,10 +18,10 @@ IUSE="apron doc gtk ocamlopt +why"
 RESTRICT="strip"
 
 DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
-		>=dev-ml/ocamlgraph-1.4[gtk? ocamlopt?]
+		>=dev-ml/ocamlgraph-1.4[gtk?,ocamlopt?]
 		gtk? ( >=x11-libs/gtksourceview-2.8
 			>=gnome-base/libgnomecanvas-2.26
-			>=dev-ml/lablgtk-2.14[sourceview gnomecanvas ocamlopt?] )
+			>=dev-ml/lablgtk-2.14[sourceview,gnomecanvas,ocamlopt?] )
 		sci-mathematics/ltl2ba
 		apron? ( sci-mathematics/apron )"
 RDEPEND="${DEPEND}"
