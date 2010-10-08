@@ -68,7 +68,7 @@ pkg_setup() {
 	python_set_active_version 2
 }
 
-PATCHES=(
+PATCHES=( "${FILESDIR}"/${PV}-openmp.patch
 	)
 
 src_unpack() {

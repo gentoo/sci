@@ -44,6 +44,6 @@ src_compile() {
 }
 
 src_install() {
-	docinto /usr/share/doc/gromacs-${PV}
-	newdoc gromacs.pdf manual-${PV}.pdf
+	insinto /usr/share/doc/gromacs-${PV}
+	newins gromacs.pdf manual-${PV}.pdf
 }
