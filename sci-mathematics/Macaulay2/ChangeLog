@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*Macaulay2-1.4_pre (10 Oct 2010)
+
+  10 Oct 2010; Thomas Kahle <tom111@gmx.de>
+  +files/1.4_pre-paths-of-external-programs.patch,
+  +Macaulay2-1.4_pre.ebuild:
+  SVN from 1.4 branch added
+
   29 Sep 2010; Thomas Kahle <tom111@gmx.de> Macaulay2-9999.ebuild:
   Live ebuild: Upstream fixed a bug.
 
