@@ -1,0 +1,26 @@
+#!/sbin/runscript
+
+opts="reload"
+bin=/usr/lib/ceph/ceph_init.sh
+
+depend() {
+	after net
+}
+
+start() {
+	ebegin "Initializing local Ceph node"
+	$bin "${CEPH_COMMON[@]}" "${CEPH_START[@]}"
+	eend 0
+}
+
+reload() {
+	ebegin "Reloading ceph configuration"
+	$bin "${CEPH_COMMON[@]}" "${CEPH_RELOAD[@]}"
+	eend 0
+}
+
+stop() {
+	ebegin "Stopping local Ceph node"
+	$bin "${CEPH_COMMON[@]}" "${CEPH_STOP[@]}"
+	eend 0
+}
