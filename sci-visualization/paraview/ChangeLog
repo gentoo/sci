@@ -2,6 +2,14 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Oct 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  paraview-3.8.0.ebuild:
+  Move to qt4-r2 eclass
+
+  12 Oct 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  paraview-3.8.0.ebuild:
+  fix conditional boost dependency problem.
+
   30 Jul 2010; François Bissey <f.r.bissey@massey.ac.nz>
   paraview-3.8.0.ebuild:
   Correct SRC_URI.
