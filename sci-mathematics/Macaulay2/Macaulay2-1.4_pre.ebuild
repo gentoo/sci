@@ -10,10 +10,12 @@ IUSE="emacs optimization"
 
 ESVN_REPO_URI="svn://svn.macaulay2.com/Macaulay2/release-branches/1.4"
 
+FACTORYVER="3-1-1"
+
 DESCRIPTION="research tool for commutative algebra and algebraic geometry"
 SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
-SRC_URI="${SRC_BASE}/OtherSourceCode/1.3/factory-3-1-1.tar.gz
-		 ${SRC_BASE}/OtherSourceCode/1.3/libfac-3-1-1.tar.gz
+SRC_URI="${SRC_BASE}/OtherSourceCode/1.4/factory-${FACTORYVER}.tar.gz
+		 ${SRC_BASE}/OtherSourceCode/1.4/libfac-${FACTORYVER}.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Extra/gc-7.2alpha5-2010-09-03.tar.gz"
 
 HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
@@ -63,13 +65,6 @@ src_prepare() {
 # 	if ! use optimization ; then
 # 		epatch "${FILESDIR}"/respect-CFLAGS.patch
 # 	fi
-
-## fixed in trunk as of 09/28/10
-# 	# The Posets-Package refers to a non-existent Graphs package.
-# 	# We dump it for now.
-# 	rm "${S}"/Macaulay2/packages/Posets.m2
-# 	sed -i "/  Posets/d" "${S}"/configure.ac
-# 	sed -i "/Posets/d" "${S}"/Macaulay2/packages/Macaulay2Doc/changes.m2
 
 	# Fixing make warnings about unavailable jobserver:
 	sed -i "s/\$(MAKE)/+ \$(MAKE)/g" "${S}"/distributions/Makefile.in
