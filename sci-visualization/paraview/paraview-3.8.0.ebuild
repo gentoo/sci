@@ -6,7 +6,7 @@ EAPI="2"
 
 PYTHON_DEPEND="python? 2:2.6"
 
-inherit distutils eutils flag-o-matic toolchain-funcs versionator python qt4 cmake-utils
+inherit distutils eutils flag-o-matic toolchain-funcs versionator python qt4-r2 cmake-utils
 
 MAIN_PV=$(get_major_version)
 MAJOR_PV=$(get_version_component_range 1-2)
@@ -47,7 +47,6 @@ RDEPEND="sci-libs/hdf5[mpi=]
 	x11-libs/libXmu"
 
 DEPEND="${RDEPEND}
-		boost? (  >=dev-libs/boost-1.40.0 )
 		doc? ( app-doc/doxygen )
 		>=dev-util/cmake-2.6.4"
 

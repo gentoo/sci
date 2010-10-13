@@ -6,11 +6,11 @@ inherit eutils multilib flag-o-matic
 
 DESCRIPTION="Axiom is a general purpose Computer Algebra system"
 HOMEPAGE="http://axiom.axiom-developer.org/"
-SRC_URI="http://www.axiom-developer.org/axiom-website/downloads/${PN}-july2010-src.tgz"
+SRC_URI="http://www.axiom-developer.org/axiom-website/downloads/${PN}-sept2010-src.tgz"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 # NOTE: Do not strip since this seems to remove some crucial
@@ -25,7 +25,7 @@ DEPEND="virtual/latex-base
 	x11-libs/libXaw
 	sys-apps/debianutils
 	sys-process/procps
-	<dev-libs/gmp-5.0"
+	dev-libs/gmp"
 
 S="${WORKDIR}"/${PN}
 
@@ -86,6 +86,10 @@ src_compile() {
 	# fix libXpm.a location
 	sed -e "s:X11R6/lib:$(get_libdir):g" -i Makefile.pamphlet \
 		|| die "Failed to fix libXpm lib paths"
+
+	# This will fix the internal gmp. This package will stay unkeyworded until this is resolved
+	# upstream.
+	unset ABI
 
 	# Let the fun begin...
 	AXIOM="${S}"/mnt/linux emake -j1 || die "emake failed"

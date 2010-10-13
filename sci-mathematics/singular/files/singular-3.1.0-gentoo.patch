@@ -1,12 +1,11 @@
-diff -Naur Singular-3-1-0/kernel/feResource.cc Singular-3-1-0.new/kernel/feResource.cc
---- Singular-3-1-0/kernel/feResource.cc	2009-06-04 04:11:42.000000000 -0400
-+++ Singular-3-1-0.new/kernel/feResource.cc	2009-08-23 19:05:00.000000000 -0400
+--- kernel/feResource.cc.orig	2010-04-30 10:20:14.000000000 +0000
++++ kernel/feResource.cc	2010-10-11 09:19:01.431179334 +0000
 @@ -41,7 +41,7 @@
  #define SINGULAR_DEFAULT_DIR "/usr/local/Singular/"S_VERSION1
  #endif
  #else // ! defined(MAKE_DISTRIBUTION)
 -#define SINGULAR_DEFAULT_DIR S_ROOT_DIR
-+#define SINGULAR_DEFAULT_DIR "/usr"
++#define SINGULAR_DEFAULT_DIR "@GENTOO_PORTAGE_EPREFIX@/usr"
  #endif // defined(MAKE_DISTRIBUTION)
  
  /*****************************************************************
@@ -64,9 +63,8 @@ diff -Naur Singular-3-1-0/kernel/feResource.cc Singular-3-1-0.new/kernel/feResou
  #endif
    {NULL, 0, feResUndef, NULL, NULL, NULL}, // must be the last record
  };
-diff -Naur Singular-3-1-0/kernel/mod_raw.cc Singular-3-1-0.new/kernel/mod_raw.cc
---- Singular-3-1-0/kernel/mod_raw.cc	2009-06-04 06:18:12.000000000 -0400
-+++ Singular-3-1-0.new/kernel/mod_raw.cc	2009-08-23 19:04:22.000000000 -0400
+--- kernel/mod_raw.cc.orig	2009-11-02 10:12:22.000000000 +0000
++++ kernel/mod_raw.cc	2010-10-11 09:19:01.432179264 +0000
 @@ -109,11 +109,11 @@
  void* dynl_open_binary_warn(const char* binary_name, const char* msg)
  {

@@ -80,7 +80,7 @@ src_unpack() {
 src_prepare() {
 	epatch "${FILESDIR}"/${PV}-lib.patch
 
-	mv -v nmrbin.linux9/nmr{W,w}ish || die
+	mv nmrbin.linux9/nmr{W,w}ish || die
 }
 
 src_install() {
@@ -124,7 +124,7 @@ src_install() {
 	# Remove installation log files.
 	rm README_NMRPIPE_USERS *.log || die "Failed to remove installation log."
 	# Remove unused binaries
-	rm talos*/bin/TALOS+.{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
+	rm talos*/bin/TALOS*.{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
 
 	# Set the correct path to NMRPipe in the auxiliary scripts.
 	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc talosplus/com -type f); do
@@ -140,7 +140,8 @@ src_install() {
 	newenvd env-${PN}-new 40${PN} || die "Failed to install env file."
 
 	# Some scripts are on the wrong place
-	cp -vf nmrtxt/*.com com/
+	cp -f nmrtxt/*.com com/
+	rm com/fid.com || die
 
 	sed \
 		-e "s:!/bin:!${EPREFIX}/bin:g" \
@@ -149,6 +150,7 @@ src_install() {
 		-e "s: /bin: ${EPREFIX}/bin:g" \
 		-e "s: /usr/bin: ${EPREFIX}/usr/bin:g" \
 		-e "s: /usr/local/bin: ${EPREFIX}/usr/bin:g" \
+		-i $(find "${S}" \( -name *.tcl -o -name *.com -o -name *.ksh \) ) \
 		-i {com/,nmrtxt/*.com,nmrtxt/nt/*.com,dynamo/tcl/,talos*/com/,dynamo/tcl/}* \
 			nmrbin.linux9/{nmrDraw,xNotify} || die
 

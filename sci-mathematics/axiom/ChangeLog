@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-mathematics/axiom/ChangeLog,v 1.22 2008/08/30 13:17:33 markusle Exp $
 
+*axiom-201009 (11 Oct 2010)
+
+  11 Oct 2010; Thomas Kahle <tom111@gmx.de> -axiom-201005.ebuild,
+  +axiom-201009.ebuild:
+  Removed broken 201005, bumped to 201009. No keywords because of bug
+  336789.
+
   25 Sep 2010; Thomas Kahle <tom111@gmx.de> axiom-201005.ebuild:
   gmp dependency adjusted per bug 336789
 
