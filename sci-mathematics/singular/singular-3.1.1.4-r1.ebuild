@@ -5,7 +5,7 @@
 EAPI="3"
 WANT_AUTOCONF="2.1" # Upstream ticket 240 -> wontfix
 
-inherit autotools eutils elisp-common flag-o-matic multilib versionator
+inherit autotools eutils elisp-common flag-o-matic multilib prefix versionator
 
 MY_PN=Singular
 MY_PV=$(replace_all_version_separators -)
@@ -21,7 +21,7 @@ RESTRICT="mirror"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux"
 IUSE="boost doc emacs examples libsingular +readline"
 
 RDEPEND="dev-libs/gmp
@@ -53,6 +53,8 @@ src_prepare () {
 	epatch "${FILESDIR}"/${PN}-3.0.4.4-nostrip.patch
 	epatch "${FILESDIR}"/${PN}-3.1.1.3-soname.patch
 	epatch "${FILESDIR}"/${P}-parrallelmake.patch
+
+	eprefixify kernel/feResource.cc
 
 	sed -i \
 		-e "/CXXFLAGS/ s/--no-exceptions//g" \
