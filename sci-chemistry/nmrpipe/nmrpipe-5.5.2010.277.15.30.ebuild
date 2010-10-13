@@ -151,7 +151,8 @@ src_install() {
 		-e "s: /usr/bin: ${EPREFIX}/usr/bin:g" \
 		-e "s: /usr/local/bin: ${EPREFIX}/usr/bin:g" \
 		-i $(find "${S}" \( -name *.tcl -o -name *.com -o -name *.ksh \) ) \
-		-i {com/,nmrtxt/*.com,nmrtxt/nt/*.com,dynamo/tcl/,talos*/com/,dynamo/tcl/}* || die
+		-i {com/,nmrtxt/*.com,nmrtxt/nt/*.com,dynamo/tcl/,talos*/com/,dynamo/tcl/}* \
+			nmrbin.linux9/{nmrDraw,xNotify} || die
 
 	insinto ${NMRBASE}
 	doins -r * || die "Failed to install application."
