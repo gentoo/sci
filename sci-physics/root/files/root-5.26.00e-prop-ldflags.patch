@@ -1,0 +1,12 @@
+diff -Nur root.orig/config/Makefile.in root/config/Makefile.in
+--- root.orig/config/Makefile.in	2010-10-13 23:43:25.000000000 +0100
++++ root/config/Makefile.in	2010-10-13 23:48:57.000000000 +0100
+@@ -9,7 +9,7 @@
+ 
+ EXTRA_CFLAGS   := -Iinclude @cflags@
+ EXTRA_CXXFLAGS := -Iinclude @cflags@
+-EXTRA_LDFLAGS  := @ldflags@
++EXTRA_LDFLAGS  := @ldflags@ $(LDFLAGS)
+ WINRTDEBUG     := @winrtdebug@
+ ENABLEPCH      := @enable_pch@
+ NOSTUBS        := @no_stubs@
