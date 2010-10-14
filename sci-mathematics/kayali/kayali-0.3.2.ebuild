@@ -50,7 +50,6 @@ src_install() {
 	insinto ${INSTALL_DIR}
 	doins *.py *.txt *.in* maximab.bat maxima.g || die
 	doins -r engines icons pdf qt4gui *uic || die
-	doins icons || die
 	make_desktop_entry kayali kayali kayali.svg
 	if use doc; then
 		dohtml html/* || die
