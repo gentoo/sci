@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Oct 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  kayali-0.3.2.ebuild:
+  Remove non-working doins
+
   29 Jun 2010; Justin Lecher <jlec@gentoo.org> kayali-0.3.2.ebuild:
   Python ABI fixes
 
