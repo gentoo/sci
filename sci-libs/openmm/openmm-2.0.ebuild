@@ -63,4 +63,15 @@ src_install() {
 	rm -rf "${ED}"/usr/examples/VisualStudio2005
 	insinto /usr/share/doc/${PF}/examples
 	doins "${ED}"/usr/examples/*
+
+	echo "OPENMM_PLUGIN_DIR=/usr/lib/plugins" > "${T}/80${PN}"
+	doenvd "${T}/80${PN}"
+}
+
+pkg_postinst() {
+	env-update
+}
+
+pkg_postrm() {
+	env-update
 }
