@@ -6,7 +6,7 @@ EAPI="3"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
-MANUAL_PV="4.5-beta2"
+MANUAL_PV="4.5"
 
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="release-4-5-patches"
@@ -16,7 +16,8 @@ inherit autotools bash-completion eutils fortran git multilib toolchain-funcs
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
-		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf )"
+		doc? (
+		http://www.gromacs.org/@api/deki/files/126/=gromacs_manual-${MANUAL_PV}.pdf -> gromacs-manual-${MANUAL_PV}.pdf )"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -94,6 +95,9 @@ src_configure() {
 	#there so no gentoo on bluegene!
 	myconf="${myconf} --disable-bluegene"
 
+	#we have pkg-config files
+	myconf="${myconf} --disable-la-files"
+
 	#from gromacs configure
 	if ! use fftw; then
 		ewarn "WARNING: The built-in FFTPACK routines are slow."
@@ -112,6 +116,7 @@ src_configure() {
 	#fortran will gone in gromacs 4.1 anyway
 	#note for gentoo-PREFIX on aix, fortran (xlf) is still much faster
 	if use fkernels; then
+		use threads && die "You cannot compile fortran kernel with threads"
 		ewarn "Fortran kernels are usually not faster than C kernels and assembly"
 		ewarn "I hope, you know what are you doing..."
 		myconf="${myconf} --enable-fortran"
@@ -238,9 +243,9 @@ src_install() {
 		|| die "Failed to fixup demo script."
 
 	cd "${S}"
-	dodoc AUTHORS INSTALL README
+	dodoc AUTHORS INSTALL* README*
 	if use doc; then
-		dodoc "${DISTDIR}/manual-${MANUAL_PV}.pdf"
+		newdoc "${DISTDIR}/gromacs-manual-${MANUAL_PV}.pdf" "manual-${MANUAL_PV}.pdf"
 		dohtml -r "${ED}usr/share/gromacs/html/"
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"

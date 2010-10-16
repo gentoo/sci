@@ -218,6 +218,8 @@ src_install() {
 		cd "${S}-${x}_mpi"
 		emake DESTDIR="${D}" install-mdrun || die "emake install-mdrun for ${x} failed"
 	done
+	#we have pkg-config files
+	rm "${ED}"/usr/$(get_libdir)/*.la
 
 	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
 	doenvd "${T}/80gromacs"

@@ -92,6 +92,9 @@ src_configure() {
 	#there so no gentoo on bluegene!
 	myconf="${myconf} --disable-bluegene"
 
+	#we have pkg-config files
+	myconf="${myconf} --disable-la-files"
+
 	#from gromacs configure
 	if ! use fftw; then
 		ewarn "WARNING: The built-in FFTPACK routines are slow."
@@ -110,6 +113,7 @@ src_configure() {
 	#fortran will gone in gromacs 4.1 anyway
 	#note for gentoo-PREFIX on aix, fortran (xlf) is still much faster
 	if use fkernels; then
+		use threads && die "You cannot compile fortran kernel with threads"
 		ewarn "Fortran kernels are usually not faster than C kernels and assembly"
 		ewarn "I hope, you know what are you doing..."
 		myconf="${myconf} --enable-fortran"
