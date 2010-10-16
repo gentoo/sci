@@ -104,6 +104,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	epatch "${FILESDIR}"/${P}-make-3.82.patch
 	epatch "${FILESDIR}"/${P}-prop-ldflags.patch
 	epatch "${FILESDIR}"/${P}-xrootd-prop-flags.patch
 	epatch "${FILESDIR}"/${P}-configure-paths.patch
