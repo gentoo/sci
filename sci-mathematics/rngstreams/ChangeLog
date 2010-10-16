@@ -1,0 +1,10 @@
+# ChangeLog for sci-mathematics/rngstreams
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*rngstreams-1.0.1 (16 Oct 2010)
+
+  16 Oct 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  +rngstreams-1.0.1.ebuild, +metadata.xml:
+  Initial import
+
