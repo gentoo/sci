@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Oct 2010; Kacper Kowalik <xarthisius@gentoo.org>
+  singular-3.1.1.4.ebuild, singular-3.1.1.4-r1.ebuild:
+  backport fix for bug 341357
+
   13 Oct 2010; Christopher Schwan <cschwan@students.uni-mainz.de>
   files/singular-3.1.0-gentoo.patch, singular-3.1.1.4-r1.ebuild:
   Added ~x86-linux keyword and patch for Prefix
