@@ -13,7 +13,7 @@ DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
 SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
 		test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
-		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-4.0.pdf )
+		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-4.0.pdf -> gromacs-manual-4.0.pdf )
 		ffamber? ( http://ffamber.cnsm.csulb.edu/ffamber_v4.0-doc.tar.gz )"
 
 LICENSE="GPL-2"
@@ -237,7 +237,7 @@ src_install() {
 	cd "${S}"
 	dodoc AUTHORS INSTALL README
 	if use doc; then
-		dodoc "${DISTDIR}/manual-4.0.pdf"
+		newdoc "${DISTDIR}/gromacs-manual-4.0.pdf" "manual-4.0.pdf"
 		dohtml -r "${ED}usr/share/gromacs/html/"
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"
