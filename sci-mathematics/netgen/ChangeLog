@@ -1,6 +1,11 @@
 # ChangeLog for sci-mathematics/netgen
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*netgen-4.9.13 (19 Oct 2010)
+
+  19 Oct 2010; Oliver Borm (boroli) <oli.borm@web.de> +netgen-4.9.13.ebuild:
+  sci-mathematics/netgen: Version bump
 
   01 Oct 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   new release, as the libTogl location has changed
