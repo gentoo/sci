@@ -13,37 +13,42 @@ MY_P="${MY_PN}Src${MY_PV}"
 DESCRIPTION="GUI for computational chemistry packages"
 HOMEPAGE="http://gabedit.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/GabeditDevloppment/${MY_PN}${MY_PV}/${MY_P}.tar.gz"
-#/gabedit/GabeditDevloppment/Gabedit223/GabeditSrc223.tar.gz?use_mirror=dfn
-#/gabedit/GabeditDevloppment/Gabedit223/Gabedit223Src.tar.gz
-LICENSE="MIT"
+
+LICENSE="as-is"
 SLOT="0"
-KEYWORDS="~amd64"
-IUSE=""
+KEYWORDS="~amd64 ~x86"
+IUSE="openmp"
+
 RDEPEND=">=x11-libs/gtk+-2.4
-	x11-libs/gtkglarea
+	x11-libs/gtkglext
 	x11-libs/gl2ps
 	virtual/opengl
-	virtual/opengl"
+	virtual/glu"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
+
 S=${WORKDIR}/${MY_P}
 
+pkg_setup() {
+	tc-export CC
+}
+
 src_prepare() {
-	sed -i \
-		-e "/GTK_DISABLE_DEPRECATED/s:define:undef:g" \
-		"${S}/Config.h" \
-		|| die
+	sed -e "/GTK_DISABLE_DEPRECATED/s:define:undef:g" \
+		-i "${S}/Config.h" || die
+	cp "${FILESDIR}"/CONFIG.Gentoo "${S}"/CONFIG
+
+	if use openmp && tc-has-openmp; then
+		cat <<- EOF >> "${S}/CONFIG"
+			OMPLIB=-L/usr/$(get_libdir) -lgomp
+			OMPCFLAGS=-DENABLE_OMP -fopenmp
+		EOF
+	fi
+	echo "COMMONCFLAGS = ${CFLAGS} -DENABLE_DEPRECATED \$(OMPCFLAGS)" >> CONFIG
 }
 
 src_compile() {
-	emake \
-		CC=$(tc-getCC) \
-		COMMONCFLAGS="${CFLAGS}" \
-		OGLLIB="-lGL -lGLU -lgtkgl-2.0 -lgl2ps" \
-		OGLCFLAGS= \
-		external_gtkglarea=1 \
-		external_gl2ps=1 \
-		|| die
+	emake external_gl2ps=1 || die
 }
 
 src_install() {
