@@ -9,7 +9,7 @@ inherit toolchain-funcs base
 MY_PN="DRAWxtl"
 MY_P=${MY_PN}${PV}
 
-DESCRIPTION="This software can be used to produce crystal structure drawings from structural data"
+DESCRIPTION="Crystal structure drawings from structural data"
 HOMEPAGE="http://www.lwfinger.net/drawxtl/"
 SRC_URI="http://www.lwfinger.com/drawxtl/${MY_P}.tar.gz"
 
@@ -28,50 +28,31 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${MY_PN}"
 
 PATCHES=(
-	"${FILESDIR}"/${PV}-ldflags.patch
+	"${FILESDIR}"/${PV}-gentoo.patch
 	)
 
 src_prepare() {
 	base_src_prepare
 	cd "${S}"/source
-	sed \
-		-e 's:-g::g' \
-		-e 's:-O2:${CFLAGS} `fltk-config --cxxflags`:g' \
-		-e 's:-lfltk\b:`fltk-config --ldflags`:g' \
-		-e 's:-lXinerama::g' \
-		-e 's:^.SILENT::' \
-		-i DRAWshell${PV}/Makefile || die "sed failed"
-	sed \
-		-e 's:-g -O :${CFLAGS} :g' \
-		-e 's:/usr/local/include:/usr/include:g' \
-		-e 's:/usr/local/lib:/usr/lib:g' \
-		-e 's:^.SILENT::' \
-		-i ${MY_P}/Makefile || die "sed failed"
-
 	if ! use opengl; then
 		sed -i -e 's:define OPENGL 1:undef OPENGL:' ${MY_P}/drawxtl.h || die "sed failed"
 		sed -i -e 's:$(GLUTlopt)::g' ${MY_P}/Makefile || die "sed failed"
 	fi
+
+	tc-export CC
+	tc-export CXX
 }
 
 src_compile() {
 	# that missing exe dir is required by the Makefile
 	mkdir exe || die "mkdir failed"
 	cd source/${MY_P}
-	make clean || die
-	emake \
-		CXX=$(tc-getCXX) \
-		CC=$(tc-getCC) \
-		LINKopt="${LDFLAGS}" \
-		|| die "Build of ${MY_PN} failed"
+	emake clean || die
+	emake || die "Build of ${MY_PN} failed"
 
 	if use fltk; then
 		cd "${S}"/source/DRAWshell${PV}
-		emake \
-		CXX=$(tc-getCXX) \
-		CC=$(tc-getCC) \
-		LINKopt="${LDFLAGS}" \
-		|| die "Build of DRAWshell failed"
+		emake || die "Build of DRAWshell failed"
 	fi
 }
 

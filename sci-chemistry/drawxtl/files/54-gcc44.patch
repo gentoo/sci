@@ -1,0 +1,11 @@
+-- source/DRAWxtl54/CrystalView.cxx.orig	2010-01-05 11:10:54.000000000 -0700
++++ source/DRAWxtl54/CrystalView.cxx	2010-01-05 11:11:07.000000000 -0700
+@@ -995,7 +995,7 @@
+             if (strlen(newfile) > 80) {
+ // remove path component from filename if the full name plus import instruction 
+ // would exceed our maximum input line length of 100 bytes
+-                char *start = strrchr(newfile,'/');
++                const char *start = strrchr(newfile,'/');
+                 if (!start) {
+                     start = strrchr(newfile,'\\');   // look for the other Windows folder marker
+                     if (!start) {
