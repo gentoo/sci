@@ -14,7 +14,7 @@ SRC_URI="http://www.frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
-IUSE="apron doc gtk ocamlopt +why"
+IUSE="apron doc gtk +ocamlopt +why"
 RESTRICT="strip"
 
 DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
