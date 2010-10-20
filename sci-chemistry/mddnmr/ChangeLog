@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Oct 2010; Justin Lecher <jlec@gentoo.org> mddnmr-1.6.ebuild:
+  Version Bump
+
   20 May 2010; Justin Lecher <jlec@gentoo.org> mddnmr-1.6.ebuild:
   Fixed HOMEPAGE
 

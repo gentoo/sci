@@ -2,14 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# inherit
+EAPI="3"
 
-REL="06March09"
+REL="27Jan10"
 MY_P="${PN}${PV}"
 
 DESCRIPTION="Program for processing of non-uniformly sampled (NUS) multidimensional NMR spectra"
 HOMEPAGE="http://www.nmr.gu.se/~mdd/"
-SRC_URI="http://www.nmr.gu.se/~mdd/Downloads/${MY_P}_${REL}.tgz"
+SRC_URI="http://pc8.nmr.gu.se/~mdd/Downloads/arch/${MY_P}_${REL}.tgz"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
