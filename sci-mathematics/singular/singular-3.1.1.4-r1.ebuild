@@ -131,6 +131,9 @@ src_install () {
 		dolib.so libsingular.so."${SOSUFFIX}"
 		dosym libsingular.so."${SOSUFFIX}" /usr/$(get_libdir)/libsingular.so \
 			|| die "failed to create symlink"
+		dosym libsingular.so."${SOSUFFIX}" \
+			/usr/$(get_libdir)/libsingular.so."$(get_major_version)" \
+			|| die "failed to create symbolic link"
 		insinto /usr/include
 		cd "${S}"/build/include
 		# Move factory.h and cf_gmp.h in the singular folder so we don't either
