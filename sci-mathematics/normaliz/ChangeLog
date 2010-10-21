@@ -2,6 +2,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*normaliz-2.5-r1 (20 Oct 2010)
+
+  20 Oct 2010; Thomas Kahle <tomka@gentoo.org> +normaliz-2.5-r1.ebuild:
+  QA, non-working gui removed.
+
 *normaliz-2.5 (05 Sep 2010)
 
   05 Sep 2010; Thomas Kahle <tom111@gmx.de> +normaliz-2.5.ebuild,
