@@ -230,7 +230,7 @@ src_install() {
 	done
 
 	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
-	use vmd && echo "VMD_PLUGIN_PATH=${EPREFIX}/usr/lib/vmd/plugins/*/molfile/" >> "${T}/80gromacs"
+	use vmd && echo "VMD_PLUGIN_PATH=${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/" >> "${T}/80gromacs"
 
 	doenvd "${T}/80gromacs"
 	rm -f "${ED}"/usr/bin/GMXRC*
