@@ -1,14 +1,14 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=3
 
 inherit cmake-utils
 
 MY_P="${P/m/M}-Source"
 
-DESCRIPTION="A drawing tool for 2D molecular structures."
+DESCRIPTION="A drawing tool for 2D molecular structures"
 HOMEPAGE="http://molsketch.sourceforge.net/"
 SRC_URI="mirror://sourceforge/molsketch/${MY_P}.tar.gz"
 
@@ -26,7 +26,7 @@ RDEPEND="${DEPEND}"
 S=${WORKDIR}/${MY_P}
 
 src_configure() {
-   local mycmakeargs="
-	  -DOPENBABEL2_INCLUDE_DIR=/usr/include/openbabel-2.0"
-   cmake-utils_src_configure
+	local mycmakeargs="
+	  -DOPENBABEL2_INCLUDE_DIR=${EPREFIX}/usr/include/openbabel-2.0"
+	cmake-utils_src_configure
 }

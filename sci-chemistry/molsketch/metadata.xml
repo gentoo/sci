@@ -6,6 +6,8 @@
     <email>sci@gentoo.org</email>
   </maintainer>
   <longdescription lang="en">
-    Molsketch is a 2D molecular editing tool. Its goal is to help you draw molecules quick and easily. Of course you're creation can be exported afterwards in high quality in a number of vector and bitmap formats. 
+    Molsketch is a 2D molecular editing tool. Its goal is to help you draw
+    molecules quick and easily. Of course your creation can be exported 
+    afterwards in high quality in a number of vector and bitmap formats. 
   </longdescription>
 </pkgmetadata>
