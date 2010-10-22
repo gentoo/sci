@@ -42,45 +42,53 @@ src_configure(){
 	export PETSC_DIR="${S}" || die
 	export PETSC_ARCH="linux-gnu-${mylang}-${myopt}" || die
 
+	myconf[10]="--with-blas-lapack-lib=$(pkg-config --libs lapack)"
+	myconf[11]="CFLAGS=${CFLAGS}"
+	myconf[12]="CXXFLAGS=${CXXFLAGS}"
+	myconf[13]="LDFLAGS=${LDFLAGS}"
+	myconf[14]="--with-windows-graphics=0"
+	myconf[15]="--with-matlab=0"
+	myconf[16]="--with-python=0"
+	myconf[17]="--with-clanguage=${mylang}"
+	myconf[18]="--with-single-library=1"
+	myconf[19]="--with-petsc-arch=${PETSC_ARCH}"
+	myconf[20]="--with-precision=double"
+
 	if use mpi; then
-		myconf="${myconf} --with-cc=/usr/bin/mpicc"
-		myconf="${myconf} --with-cxx=/usr/bin/mpicxx"
-		use fortran && myconf="${myconf} --with-fc=/usr/bin/mpif77"
-		myconf="${myconf} --with-mpi=1 --with-mpi-compilers=1"
+		myconf[30]="--with-cc=/usr/bin/mpicc"
+		myconf[31]="--with-cxx=/usr/bin/mpicxx"
+		use fortran && myconf[32]="--with-fc=/usr/bin/mpif77"
+		myconf[33]="--with-mpi=1"
+		myconf[34]="--with-mpi-compilers=1"
 	else
-		myconf="${myconf} --with-cc=$(tc-getCC)"
-		myconf="${myconf} --with-cxx=$(tc-getCXX)"
-		use fortran && myconf="${myconf} --with-fc=$(tc-getF77)"
-		myconf="${myconf} --with-mpi=0"
+		myconf[30]="--with-cc=$(tc-getCC)"
+		myconf[31]="--with-cxx=$(tc-getCXX)"
+		use fortran && myconf[32]="--with-fc=$(tc-getF77)"
+		myconf[33]="--with-mpi=0"
 	fi
 
 	use X \
-		&& myconf="${myconf} --with-X=1" \
-		|| myconf="${myconf} --with-X=0"
+		&& myconf[40]="--with-X=1" \
+		|| myconf[40]="--with-X=0"
 	use static-libs \
-		&& myconf="${myconf} --with-shared=0" \
-		|| myconf="${myconf} --with-shared=1"
+		&& myconf[41]="--with-shared=0" \
+		|| myconf[41]="--with-shared=1"
 	use amd64 \
-		&& myconf="${myconf} --with-64-bit-indices=1" \
-		|| myconf="${myconf} --with-64-bit-indices=0"
+		&& myconf[42]="--with-64-bit-indices=1" \
+		|| myconf[42]="--with-64-bit-indices=0"
 	use fortran \
-		&& myconf="${myconf} --with-fortran=1" \
-		|| myconf="${myconf} --with-fortran=0"
+		&& myconf[43]="--with-fortran=1" \
+		|| myconf[43]="--with-fortran=0"
 
 	if use debug; then
 		strip-flags
 		filter-flags -O*
-		myconf="${myconf} --with-debugging=1"
+		myconf[44]="--with-debugging=1"
 	else
-		myconf="${myconf} --with-debugging=0"
+		myconf[44]="--with-debugging=0"
 	fi
 
-	python "${S}"/config/configure.py ${myconf} \
-		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" LDFLAGS="${LDFLAGS}" \
-		--with-windows-graphics=0 --with-matlab=0 --with-python=0 \
-		--with-clanguage="${mylang}" --with-single-library=1 \
-		--with-petsc-arch="${PETSC_ARCH}" --with-precision=double \
-		--with-blas-lapack-lib="$(pkg-config --libs lapack)" \
+	python "${S}/config/configure.py" "${myconf[@]}" \
 		|| die "PETSc configuration failed"
 }
 
