@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Oct 2010; Justin Lecher <jlec@gentoo.org> dssp2pdb-0.03.ebuild:
+  Keyworded for ~-linux prefix
+
   26 Jul 2010; Justin Lecher <jlec@gentoo.org> dssp2pdb-0.03.ebuild:
   Keyworded for *-linux prefix
 
