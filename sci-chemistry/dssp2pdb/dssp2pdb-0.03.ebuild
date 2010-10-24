@@ -7,7 +7,7 @@ HOMEPAGE="http://structure.usc.edu/dssp2pdb/"
 SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/${P}.tar"
 
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 LICENSE="GPL-2"
 IUSE=""
 
