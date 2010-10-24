@@ -34,8 +34,9 @@ DEPEND="sys-libs/gdbm
 	sci-mathematics/gfan
 	>=dev-libs/mpfr-3.0.0
 	>=sci-libs/mpir-2.1.1[cxx]
+	sci-libs/cdd+
 	sci-libs/cddlib
-	sci-libs/lrslib
+	sci-libs/lrslib[gmp]
 	virtual/blas
 	virtual/lapack
 	dev-util/ctags

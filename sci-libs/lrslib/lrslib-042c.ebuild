@@ -36,9 +36,12 @@ src_compile () {
 }
 
 src_install() {
-	dobin lrs redund redund1 nash setupnash setupnash2 buffer 2nash
-	# Prevent clash with cddlib:
-	newbin fourier lrsfourier
+	dobin lrs redund redund1 buffer
+	if use x86; then
+		dobin nash setupnash setupnash2 2nash
+		# Prevent clash with cddlib:
+		newbin fourier lrsfourier
+	fi
 	use gmp && dobin glrs gnash gredund gfourier
 	dodoc readme
 	dohtml lrslib.html

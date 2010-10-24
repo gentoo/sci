@@ -24,7 +24,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="doc +gromacs static-libs"
 
 RDEPEND="=sci-libs/votca-tools-${PV}
-	>sci-chemistry/gromacs-4.0.7-r1
+	>=sci-chemistry/gromacs-4.0.7-r5
 	dev-lang/perl
 	app-shells/bash
 	doc? ( >=app-text/txt2tags-2.5 )"

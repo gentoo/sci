@@ -55,6 +55,7 @@ src_prepare () {
 
 	sed -i \
 		-e "/CXXFLAGS/ s/--no-exceptions//g" \
+		-e "s/SLDFLAGS=-shared/SLDFLAGS=\"$(raw-ldflags) -shared\"/" \
 		"${S}"/Singular/configure.in || die
 
 	SOSUFFIX=$(get_version_component_range 1-3)

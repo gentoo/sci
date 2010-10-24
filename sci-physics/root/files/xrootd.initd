@@ -1,0 +1,26 @@
+#!/sbin/runscript
+# Copyright 1999-2010 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/files/xrootd.initd,v 1.2 2009/01/20 18:04:09 bicatali Exp $
+
+depend() {
+    need net
+    use logger dns
+    provide root-file-server
+}
+
+start() {
+    ebegin "Starting extended ROOTD file server"
+    start-stop-daemon --start --quiet --user ${XROOTD_USER} \
+	--make-pidfile --pidfile /var/run/xrootd.pid \
+	--exec /usr/bin/xrootd --background -- ${XROOTD_OPTS}
+    eend $?
+}
+
+stop() {
+    ebegin "Stopping extended ROOTD file server"
+    start-stop-daemon --stop --quiet \
+	--pidfile /var/run/xrootd.pid \
+	--exec /usr/bin/xrootd
+    eend $?
+}

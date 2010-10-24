@@ -37,7 +37,8 @@ DEPEND="sys-libs/gdbm
 	>=dev-libs/mpfr-3.0.0
 	>=sci-libs/mpir-2.1.1[cxx]
 	sci-libs/cddlib
-	sci-libs/lrslib
+	sci-libs/cdd+
+	sci-libs/lrslib[gmp]
 	virtual/blas
 	virtual/lapack
 	dev-util/ctags

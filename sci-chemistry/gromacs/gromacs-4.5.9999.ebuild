@@ -6,7 +6,7 @@ EAPI="3"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
-MANUAL_PV="4.5-beta2"
+MANUAL_PV="4.5"
 
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="release-4-5-patches"
@@ -16,13 +16,14 @@ inherit autotools bash-completion eutils fortran git multilib toolchain-funcs
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
-		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf )"
+		doc? (
+		http://www.gromacs.org/@api/deki/files/126/=gromacs_manual-${MANUAL_PV}.pdf -> gromacs-manual-${MANUAL_PV}.pdf )"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X blas dmalloc doc -double-precision +fftw fkernels +gsl lapack
-mpi +single-precision static static-libs test +threads +xml zsh-completion"
+mpi +single-precision static static-libs test +threads vmd +xml zsh-completion"
 
 DEPEND="app-shells/tcsh
 	X? ( x11-libs/libX11
@@ -34,6 +35,7 @@ DEPEND="app-shells/tcsh
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
+	vmd? ( sci-chemistry/vmd )
 	xml? ( dev-libs/libxml2 )"
 
 RDEPEND="${DEPEND}"
@@ -94,6 +96,9 @@ src_configure() {
 	#there so no gentoo on bluegene!
 	myconf="${myconf} --disable-bluegene"
 
+	#we have pkg-config files
+	myconf="${myconf} --disable-la-files"
+
 	#from gromacs configure
 	if ! use fftw; then
 		ewarn "WARNING: The built-in FFTPACK routines are slow."
@@ -112,6 +117,7 @@ src_configure() {
 	#fortran will gone in gromacs 4.1 anyway
 	#note for gentoo-PREFIX on aix, fortran (xlf) is still much faster
 	if use fkernels; then
+		use threads && die "You cannot compile fortran kernel with threads"
 		ewarn "Fortran kernels are usually not faster than C kernels and assembly"
 		ewarn "I hope, you know what are you doing..."
 		myconf="${myconf} --enable-fortran"
@@ -147,6 +153,7 @@ src_configure() {
 			$(use_with fftw fft fftw3) \
 			$(use_with gsl) \
 			$(use_with X x) \
+			$(use_with vmd dlopen) \
 			$(use_with xml) \
 			$(use_enable threads) \
 			${myconf}"
@@ -223,6 +230,8 @@ src_install() {
 	done
 
 	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
+	use vmd && echo "VMD_PLUGIN_PATH=${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/" >> "${T}/80gromacs"
+
 	doenvd "${T}/80gromacs"
 	rm -f "${ED}"/usr/bin/GMXRC*
 
@@ -238,9 +247,9 @@ src_install() {
 		|| die "Failed to fixup demo script."
 
 	cd "${S}"
-	dodoc AUTHORS INSTALL README
+	dodoc AUTHORS INSTALL* README*
 	if use doc; then
-		dodoc "${DISTDIR}/manual-${MANUAL_PV}.pdf"
+		newdoc "${DISTDIR}/gromacs-manual-${MANUAL_PV}.pdf" "manual-${MANUAL_PV}.pdf"
 		dohtml -r "${ED}usr/share/gromacs/html/"
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"

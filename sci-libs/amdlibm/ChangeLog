@@ -1,0 +1,8 @@
+# ChangeLog for sci-libs/amdlibm
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*amdlibm (15 October 2010)
+
+  15 October 2010; Sebastien Fabbro <bicatali@gentoo.org>
+  +metadata.xml, +amdlibm-2.1.ebuild:  Initial import.

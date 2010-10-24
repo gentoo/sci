@@ -1,0 +1,73 @@
+diff --git a/source/DRAWxtl54/Makefile b/source/DRAWxtl54/Makefile
+index c6eea1e..d541630 100644
+--- a/source/DRAWxtl54/Makefile
++++ b/source/DRAWxtl54/Makefile
+@@ -37,19 +37,18 @@ ifeq ($(OS),Linux)
+   endif
+ 
+ # compiler name:
+-  CXX             = g++
++  CXX             ?= g++
+ 
+ # flags for C++ compiler:
+-  OPTIM           = -g -Wall -Wunused  -fno-exceptions
+ # work around a bug in freeglut 2.4 - comment this line if using a different GLut
+-  GLUT		  = -DFREEGLUT24
+-  CXXFLAGS        = $(OPTIM)  -I/usr/X11R6/include $(GLUT)
++  GLUT		  = -DFREEGLUT26
++ FLTKFLAGS        = -I/usr/X11R6/include $(GLUT) `fltk-config --cxxflags`
+ 
+ # libraries to link with:
+-  GLDLIBS  =  -L/usr/X11R6/lib  -lglut -lGLU -lGL -lXinerama -lXft -lpthread -lm  -lXext -lX11  -lXpm \
++  GLDLIBS  =  -L/usr/X11R6/lib  -lglut -lGLU -lGL -lXft -lpthread -lm  -lXext -lX11  -lXpm
+ 
+ #       -lXi -lgdkglext-x11-1.0a  # Fedora Core 2 needs these libraries
+-  LINKFLTKGL  = $(libdir)libfltk.a $(libdir)libfltk_gl.a
++  LINKFLTKGL  = `fltk-config --ldflags` -lfltk_gl
+ 
+ # The extension to use for executables...
+   EXEEXT          =
+@@ -148,16 +147,6 @@ endif
+ #
+ ##################################################################################
+ 
+-ifeq ($(OPTIM),error)
+-  OPTIM=-O
+-  CXX=cc
+-  CXXFLAGS=$(OPTIM)
+-  GLDLIBS=-lfltk_gl -lfltk -lglut -lGLU -lGL
+-endif
+-
+-# Be quiet when building...
+-.SILENT:
+-
+ # Build commands and filename extensions...
+ .SUFFIXES:	.rc .cxx .h .o $(EXEEXT)
+ 
+@@ -167,7 +156,7 @@ endif
+ 
+ .cxx.o:
+ 	echo Compiling $< ...
+-	$(CXX) -I$(includedir) $(CXXFLAGS) -c $<
++	$(CXX) $(CXXFLAGS) $(FLTKFLAGS) -c $<
+ 
+ CPPFILES =\
+ 	CrystalView.cxx \
+@@ -208,7 +197,7 @@ clean:
+ .deps:  $(CPPFILES)
+ 	echo "Building dependencies..."
+ 	echo >.deps
+-	for i in $(CPPFILES); do gcc -MM $(PREINC) $$i >>.deps; done
++	for i in $(CPPFILES); do $(CXX) -MM $(PREINC) $$i >>.deps; done
+ 
+ -include .deps
+ 
+@@ -217,7 +206,7 @@ clean:
+ $(TARGET) : .deps $(OBJFILES) 
+ 	echo Linking $@...
+ 	mkdir -p ../../exe
+-	$(CXX) $(CXXFLAGS) -o $@ $(OBJFILES) \
++	$(CXX) $(LDFLAGS) $(CXXFLAGS) $(FLTKFLAGS) -o $@ $(OBJFILES) \
+ 		$(LINKFLTKGL) $(GLDLIBS) 
+ 	$(POSTLINK) $@
+ 

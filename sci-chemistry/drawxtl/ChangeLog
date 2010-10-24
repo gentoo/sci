@@ -2,6 +2,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Oct 2010; Justin Lecher <jlec@gentoo.org> +files/44-gentoo.patch,
+  drawxtl-44.ebuild, -files/44-ldflags.patch, drawxtl-54.ebuild,
+  +files/54-gcc44.patch, +files/54-gentoo.patch:
+  Cleanup and gcc44 patch added, thanks Joel Berendzen 
+
   19 Sep 2010; Justin Lecher <jlec@gentoo.org> drawxtl-44.ebuild,
   drawxtl-54.ebuild:
   virtual/glut -> media-libs/freeglut & virtual/glu -> virtual/opengl
