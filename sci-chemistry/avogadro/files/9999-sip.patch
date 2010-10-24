@@ -1,0 +1,39 @@
+diff --git a/cmake/modules/PythonDeps.cmake b/cmake/modules/PythonDeps.cmake
+index bbb2dd9..5ca112f 100644
+--- a/cmake/modules/PythonDeps.cmake
++++ b/cmake/modules/PythonDeps.cmake
+@@ -58,12 +58,14 @@ else(Boost_PYTHON_FOUND AND PYTHONLIBS_FOUND AND NUMPY_FOUND)
+   message(STATUS "[5/5] SIP Module")
+   if (EXISTS ${PYTHON_INCLUDE_PATH}/sip.h)
+     message(STATUS "Found sip.h header...")
+-    find_file(SIP_EXECUTABLE sip)
+-    execute_process(COMMAND "${SIP_EXECUTABLE}" -V OUTPUT_VARIABLE SIP_VERSION)
+-    if ("${SIP_VERSION}" VERSION_GREATER "4.8")
++    execute_process(COMMAND sip -V OUTPUT_VARIABLE SIP_VERSION)
++    if (NOT ${SIP_VERSION} VERSION_LESS "4.11")
++      message(STATUS "using sip version 4.11 or above...")
++      add_definitions( -DSIP_4_11 -DSIP_4_8 )
++    elseif (NOT ${SIP_VERSION} VERSION_LESS "4.8")
+       message(STATUS "using sip version 4.8 or above...")
+       add_definitions( -DSIP_4_8 )
+-    endif ("${SIP_VERSION}" VERSION_GREATER "4.8")
++    endif (NOT ${SIP_VERSION} VERSION_LESS "4.11")
+   else (EXISTS ${PYTHON_INCLUDE_PATH}/sip.h)
+     message(STATUS "sip.h header NOT found - Python support disabled")
+   #  message(STATUS "debian/ubuntu: install the python-sip4-dev package.")
+diff --git a/libavogadro/src/python/sip.cpp b/libavogadro/src/python/sip.cpp
+index 7b265e9..5853256 100644
+--- a/libavogadro/src/python/sip.cpp
++++ b/libavogadro/src/python/sip.cpp
+@@ -204,7 +204,11 @@ struct QClass_converters
+     sipWrapper *wrapper = reinterpret_cast<sipWrapper*>(obj_ptr);
+ #endif
+     // return the C++ pointer
++#ifdef SIP_4_11
++    return sip_API->api_get_address(wrapper);
++#else
+     return wrapper->u.cppPtr;
++#endif
+   }
+     
+   QClass_converters()
