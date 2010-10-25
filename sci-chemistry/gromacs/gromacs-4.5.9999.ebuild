@@ -23,7 +23,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X blas dmalloc doc -double-precision +fftw fkernels +gsl lapack
-mpi +single-precision static static-libs test +threads vmd +xml zsh-completion"
+mpi +single-precision static static-libs test +threads +xml zsh-completion"
 
 DEPEND="app-shells/tcsh
 	X? ( x11-libs/libX11
@@ -35,7 +35,6 @@ DEPEND="app-shells/tcsh
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
-	vmd? ( sci-chemistry/vmd )
 	xml? ( dev-libs/libxml2 )"
 
 RDEPEND="${DEPEND}"
@@ -153,7 +152,6 @@ src_configure() {
 			$(use_with fftw fft fftw3) \
 			$(use_with gsl) \
 			$(use_with X x) \
-			$(use_with vmd dlopen) \
 			$(use_with xml) \
 			$(use_enable threads) \
 			${myconf}"
@@ -230,7 +228,7 @@ src_install() {
 	done
 
 	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
-	use vmd && echo "VMD_PLUGIN_PATH=${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/" >> "${T}/80gromacs"
+	echo "VMD_PLUGIN_PATH=${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/" >> "${T}/80gromacs"
 
 	doenvd "${T}/80gromacs"
 	rm -f "${ED}"/usr/bin/GMXRC*
@@ -266,5 +264,7 @@ pkg_postinst() {
 	elog
 	elog $(g_luck)
 	elog "For more Gromacs cool quotes (gcq) add luck to your .bashrc"
+	elog
+	elog "Gromacs can use sci-chemistry/vmd to read additional file formats"
 	elog
 }

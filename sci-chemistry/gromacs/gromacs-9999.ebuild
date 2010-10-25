@@ -230,6 +230,8 @@ src_install() {
 	done
 
 	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
+	echo "VMD_PLUGIN_PATH=${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/" >> "${T}/80gromacs"
+
 	doenvd "${T}/80gromacs"
 	rm -f "${ED}"/usr/bin/GMXRC*
 
@@ -270,6 +272,8 @@ pkg_postinst() {
 	elog
 	elog $(g_luck)
 	elog "For more Gromacs cool quotes (gcq) add luck to your .bashrc"
+	elog
+	elog "Gromacs can use sci-chemistry/vmd to read additional file formats"
 	elog
 	if use doc; then
 		elog "Live Gromacs manual is available from app-doc/gromacs-manual"
