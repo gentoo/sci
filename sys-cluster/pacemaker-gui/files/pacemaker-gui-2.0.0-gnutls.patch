@@ -1,0 +1,46 @@
+--- configure.in	2010-06-28 17:52:56.949797667 +0000
++++ configure.in	2010-06-28 17:54:51.839826869 +0000
+@@ -1490,8 +1490,6 @@
+    LCRSODIR="$libdir"
+ fi
+ 
+-PKG_FEATURES="$PKG_FEATURES$STACKS"
+-
+ AC_MSG_CHECKING(for supported stacks)
+ if test x"$STACKS" = x; then
+    AC_MSG_FAILURE(You must choose at least one cluster stack to support)
+@@ -1973,7 +1971,9 @@
+ 	GNUTLSLIBS="`$LIBGNUTLS_CONFIG --libs`";
+ 	AC_MSG_RESULT($GNUTLSLIBS)
+ else
+-	AC_CHECK_LIB(gnutls, gnutls_init)
++	PKG_CHECK_MODULES(GNUTLS, [gnutls])
++	GNUTLSHEAD=$GNUTLS_CFLAGS
++	GNUTLSLIBS=$GNUTLS_LIBS
+ fi
+ AC_SUBST(GNUTLSHEAD)
+ AC_SUBST(GNUTLSLIBS)
+
+--- lib/mgmt/Makefile.am	2010-03-26 11:05:47.000000000 +0000
++++ lib/mgmt/Makefile.am	2010-06-28 17:56:38.339798756 +0000
+@@ -35,8 +35,7 @@
+ 
+ lib_LTLIBRARIES = libhbmgmttls.la libhbmgmtclient.la libhbmgmtcommon.la
+ libhbmgmttls_la_SOURCES = mgmt_tls_lib.c
+-libhbmgmttls_la_LIBADD  = $(COMMONLIBS)
+-libhbmgmttls_la_LDFLAGS = $(GNUTLSLIBS)
++libhbmgmttls_la_LIBADD  = $(COMMONLIBS) $(GNUTLSLIBS)
+ libhbmgmttls_la_CFLAGS = $(INCLUDES) $(GNUTLSHEAD)
+ 
+ libhbmgmtclient_la_SOURCES = mgmt_client_lib.c
+@@ -50,8 +49,8 @@
+ guilib_LTLIBRARIES = _pymgmt.la
+ _pymgmt_la_SOURCES = pymgmt_wrap.c mgmt_client_lib.c mgmt_tls_lib.c mgmt_common_lib.c
+ _pymgmt_la_CFLAGS = @PYTHON_INCLUDES@ -I$(top_builddir)/include -w
+-_pymgmt_la_LDFLAGS = -module $(GNUTLSLIBS)
+-_pymgmt_la_LIBADD = $(top_builddir)/replace/libreplace.la
++_pymgmt_la_LDFLAGS = -module 
++_pymgmt_la_LIBADD = $(top_builddir)/replace/libreplace.la $(GNUTLSLIBS)
+ 
+ guilib_DATA = pymgmt.py
+ 

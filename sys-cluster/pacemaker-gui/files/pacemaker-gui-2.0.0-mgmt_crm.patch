@@ -1,0 +1,20 @@
+--- a/mgmt/daemon/mgmt_crm.c	2010-06-28 17:48:35.209806899 +0000
++++ b/mgmt/daemon/mgmt_crm.c	2010-06-28 17:50:16.779798538 +0000
+@@ -1304,7 +1304,7 @@
+ 	} else {
+ 		buffer = crm_concat("fail-count", argv[2], '-');
+ 		delete_attr(cib_conn, cib_sync_call, XML_CIB_TAG_STATUS, dest_node, NULL, NULL,
+-				NULL, buffer, NULL, FALSE);
++				NULL, buffer, FALSE);
+ 		crm_free(dest_node);
+ 		crm_free(buffer);
+ 		mgmt_log(LOG_INFO, "Delete fail-count for %s from %s", argv[2], argv[1]);
+@@ -1313,7 +1313,7 @@
+ 	sleep(2); /* wait for the refresh */
+ 	now_s = crm_itoa(now);
+ 	update_attr(cib_conn, cib_sync_call,
+-		    XML_CIB_TAG_CRMCONFIG, NULL, NULL, NULL, NULL, "last-lrm-refresh", now_s, FALSE);
++		    XML_CIB_TAG_CRMCONFIG, NULL, NULL, NULL, "last-lrm-refresh", now_s, FALSE);
+ 	crm_free(now_s);
+ 
+ 	crmd_channel->ops->destroy(crmd_channel);
