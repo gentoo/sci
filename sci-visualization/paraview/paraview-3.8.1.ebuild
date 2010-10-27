@@ -26,7 +26,7 @@ RDEPEND="sci-libs/hdf5[mpi=]
 	gui? ( x11-libs/qt-gui:4
 			x11-libs/qt-qt3support:4
 			x11-libs/qt-opengl:4
-			x11-libs/qt-assistant:4
+			|| ( >=x11-libs/qt-assistant-4.7.0:4[compat] <x11-libs/qt-assistant-4.7.0:4 )
 			x11-libs/qt-sql:4 )
 	adaptive? ( x11-libs/qt-gui:4
 			x11-libs/qt-qt3support:4
@@ -59,19 +59,19 @@ pkg_setup() {
 
 src_prepare() {
 	# gcc header fix
-	epatch "${FILESDIR}"/${P}-xdmf-cstring.patch
+	epatch "${FILESDIR}"/${PN}-3.8.0-xdmf-cstring.patch
 	# disable automatic byte compiling that act directly on the live system
-	epatch "${FILESDIR}"/${P}-xdmf-bc.patch
+	epatch "${FILESDIR}"/${PN}-3.8.0-xdmf-bc.patch
 	# respect lib64
 	# http://paraview.org/gitweb?p=ParaView.git;a=commitdiff;h=07ba5364f3ab16d33e7ae7c67f64c4b25e2de11f
-	epatch "${FILESDIR}"/${P}-installpath.patch
+#	epatch "${FILESDIR}"/${P}-installpath.patch
 	# pointsprite example was always built
 	# http://paraview.org/gitweb?p=ParaView.git;a=commitdiff;h=c9af0d884532cbe472993d19a2ef6327aa9be5d8
-	epatch "${FILESDIR}"/${P}-pointsprite-example.patch
+#	epatch "${FILESDIR}"/${P}-pointsprite-example.patch
 	# Install properly pointspritedemo without duplicate DESTDIR
-	epatch "${FILESDIR}"/${P}-pointsprite-example-install.patch
+	epatch "${FILESDIR}"/${PN}-3.8.0-pointsprite-example-install.patch
 	# mpi + hdf5 fix
-	epatch "${FILESDIR}"/${P}-h5part.patch
+	epatch "${FILESDIR}"/${PN}-3.8.0-h5part.patch
 
 	# prevent the installation of duplicates of QT libraries.
 	sed -i "s:SET(_install_qt_libs ON):SET(_install_qt_libs OFF):g" \
@@ -85,6 +85,10 @@ src_prepare() {
 	cd VTK
 	epatch "${FILESDIR}"/vtk-5.6.0-cg-path.patch
 	epatch "${FILESDIR}"/vtk-5.6.0-libpng14.patch
+	# Fix sure buffer overflow on some processors as reported by Flameyes in #338819
+	sed -e "s:CHIPNAME_STRING_LENGTH    (48 + 1):CHIPNAME_STRING_LENGTH    (79 + 1):" \
+		-i Utilities/kwsys/SystemInformation.cxx \
+		|| die "Failed to fix SystemInformation.cxx buffer overflow"
 }
 
 src_configure() {

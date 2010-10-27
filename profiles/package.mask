@@ -78,11 +78,11 @@
 # work in progress 
 =sci-chemistry/almost-1.0.3-r1
 
-# Francois Bissey (kiwifb) (12 Jun 2010)
+# Francois Bissey (kiwifb) (27 Oct 2010)
 # f.r.bissey@massey.ac.nz
-# mask paraview-3.8.0 as there are no stable versions in the tree
+# mask paraview-3.8.1 as there are no stable versions in the tree
 # Avoid accidental upgrade
-=sci-visualization/paraview-3.8.0
+=sci-visualization/paraview-3.8.1
 
 # Andreas K. Huettel (dilfridge) (23 Jun 2010)
 # mask dev-lang/aldor for removal in 30d since there is no source available anymore
