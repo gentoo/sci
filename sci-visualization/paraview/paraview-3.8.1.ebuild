@@ -73,10 +73,6 @@ src_prepare() {
 	# mpi + hdf5 fix
 	epatch "${FILESDIR}"/${PN}-3.8.0-h5part.patch
 
-	# prevent the installation of duplicates of QT libraries.
-	sed -i "s:SET(_install_qt_libs ON):SET(_install_qt_libs OFF):g" \
-		Applications/ParaView/CMakeLists.txt || die "sed failed"
-
 	if use amd64; then
 		sed -i "s:/usr/lib:/usr/lib64:g" \
 			Utilities/Xdmf2/libsrc/CMakeLists.txt || die "sed failed"
@@ -115,7 +111,8 @@ src_configure() {
 	  -DVTK_USE_OFFSCREEN=TRUE
 	  -DCMAKE_USE_PTHREADS=ON
 	  -DBUILD_TESTING=OFF
-	  -DVTK_USE_FFMPEG_ENCODER=OFF)
+	  -DVTK_USE_FFMPEG_ENCODER=OFF
+	  -DPARAVIEW_INSTALL_THIRD_PARTY_LIBRARIES=OFF)
 
 	# use flag triggered options
 	mycmakeargs+=(
