@@ -1,6 +1,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*salome-visu-5.1.4 (27 Oct 2010)
+
+  27 Oct 2010; Thomas Kahle <tomka@gentoo.org> +salome-visu-5.1.4.ebuild:
+  Bump to 5.1.4, ebuild by Michael Riss in bug 330303
+
   29 Jun 2010; Justin Lecher <jlec@gentoo.org> salome-visu-5.1.3.ebuild:
   Python ABI fixes
 
