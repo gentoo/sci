@@ -1,6 +1,6 @@
-diff -Nur unuran-1.7.1.orig/configure.ac unuran-1.7.1/configure.ac
---- unuran-1.7.1.orig/configure.ac	2010-10-16 18:38:08.000000000 +0100
-+++ unuran-1.7.1/configure.ac	2010-10-16 19:10:23.000000000 +0100
+diff -Nur unuran-1.8.0.orig/configure.ac unuran-1.8.0/configure.ac
+--- unuran-1.8.0.orig/configure.ac	2010-10-16 18:38:08.000000000 +0100
++++ unuran-1.8.0/configure.ac	2010-10-16 19:10:23.000000000 +0100
 @@ -62,10 +62,6 @@
  dnl libm: the standard math library
  AC_CHECK_LIB([m], [sqrt])
@@ -22,9 +22,9 @@ diff -Nur unuran-1.7.1.orig/configure.ac unuran-1.7.1/configure.ac
  	           [Define to 1 if you want to use experimental code])], 
  	[])
  AM_CONDITIONAL(ENABLE_EXPERIMENTAL, test x$enable_experimental = xyes)
-diff -Nur unuran-1.7.1.orig/tests/Makefile.am unuran-1.7.1/tests/Makefile.am
---- unuran-1.7.1.orig/tests/Makefile.am	2010-10-16 18:38:08.000000000 +0100
-+++ unuran-1.7.1/tests/Makefile.am	2010-10-16 19:14:33.000000000 +0100
+diff -Nur unuran-1.8.0.orig/tests/Makefile.am unuran-1.8.0/tests/Makefile.am
+--- unuran-1.8.0.orig/tests/Makefile.am	2010-10-16 18:38:08.000000000 +0100
++++ unuran-1.8.0/tests/Makefile.am	2010-10-16 19:14:33.000000000 +0100
 @@ -9,7 +9,7 @@
   -I$(top_srcdir)/src \
   -I$(top_srcdir)/src/tests

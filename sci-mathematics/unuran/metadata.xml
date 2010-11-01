@@ -11,6 +11,6 @@
 </longdescription>
 <use>
   <flag name="rngstreams">Use <pkg>sci-mathematics/rngstreams</pkg> library</flag>
-  <flag name="rngstreams">Use <pkg>sci-mathematics/prng</pkg> library</flag>
+  <flag name="prng">Use <pkg>sci-mathematics/prng</pkg> library</flag>
 </use>
 </pkgmetadata>
