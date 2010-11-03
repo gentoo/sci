@@ -2,6 +2,22 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
 
+*ceph-0.22.2 (03 Nov 2010)
+
+  03 Nov 2010; Kacper Kowalik <xarthisius@gentoo.org> -ceph-0.22-r1.ebuild,
+  +ceph-0.22.2.ebuild, +files/ceph-0.22.2-asneeded.patch,
+  -files/ceph-0.22-asneeded.patch:
+  Version bump. Thanks to Marcin Mirosław <bug@mejor.pl> for the report.
+  Drop old.
+
+*ceph-0.22-r1 (03 Nov 2010)
+
+  03 Nov 2010; Kacper Kowalik <xarthisius@gentoo.org> -ceph-0.22.ebuild,
+  +ceph-0.22-r1.ebuild, +files/ceph-0.22-asneeded.patch, metadata.xml:
+  Fix build with as-needed, simplify deps, add new use flags for debug and
+  libatomic-ops, remove logrotate flag, don't build static libs, general
+  cleanup. Drop old
+
 *ceph-0.22 (16 Oct 2010)
 
   16 Oct 2010; Alexey Shvetsov <alexxy@gentoo.org> -ceph-0.21.3.ebuild,
