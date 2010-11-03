@@ -5,29 +5,33 @@
 EAPI="3"
 WANT_AUTOCONF="2.1" # Upstream ticket 240 -> wontfix
 
-inherit autotools eutils elisp-common flag-o-matic multilib versionator
+inherit autotools eutils elisp-common flag-o-matic multilib prefix versionator
 
 MY_PN=Singular
 MY_PV=$(replace_all_version_separators -)
 MY_DIR=$(get_version_component_range 1-3 ${MY_PV})
-MY_PV_SHARE=${MY_PV}
+MY_SHARE_DIR="3-1-1"
+MY_PV_SHARE="${MY_SHARE_DIR}-4a"  # What an awesome filenaming scheme...
 
 DESCRIPTION="Computer algebra system for polynomial computations"
 HOMEPAGE="http://www.singular.uni-kl.de/"
-SRC_COM="http://www.mathematik.uni-kl.de/ftp/pub/Math/${MY_PN}/SOURCES/${MY_DIR}/${MY_PN}"
-SRC_URI="${SRC_COM}-${MY_PV}.tar.gz ${SRC_COM}-${MY_PV_SHARE}-share.tar.gz"
+SRC_COM="http://www.mathematik.uni-kl.de/ftp/pub/Math/${MY_PN}/SOURCES/"
+# Share stuff did not see a new version:
+SRC_URI="${SRC_COM}${MY_DIR}/${MY_PN}-${MY_PV}.tar.gz
+		 ${SRC_OM}${MY_SHARE_DIR}/Singular-${MY_PV_SHARE}-share.tar.gz"
 
 RESTRICT="mirror"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux"
 IUSE="boost doc emacs examples libsingular +readline"
 
 RDEPEND="dev-libs/gmp
 	>=dev-libs/ntl-5.5.1
 	emacs? ( >=virtual/emacs-22 )"
 
+# factory is now built with cmake and singular is an autotools/cmake hybrid
 DEPEND="${RDEPEND}
 	dev-lang/perl
 	boost? ( dev-libs/boost )
@@ -47,15 +51,17 @@ pkg_setup() {
 src_prepare () {
 	epatch "${FILESDIR}"/${PN}-3.1.0-gentoo.patch
 	epatch "${FILESDIR}"/${PN}-3.1.0-emacs-22.patch
-	# I don't see a need for the following patch, looks like cruft from
-	# older versions to me. The shipped code is fine !
-#	epatch "${FILESDIR}"/${PN}-3.1.0-glibc-2.10.patch
 	epatch "${FILESDIR}"/${PN}-3.0.4.4-nostrip.patch
 	epatch "${FILESDIR}"/${PN}-3.1.1.3-soname.patch
 
+	# This file has a trailing whitespace breaking stuff
+	sed -i 's/[ \t]*$//' "${S}"/omalloc/Makefile.in || die
+
+	eprefixify kernel/feResource.cc
+
 	sed -i \
+		-e "s/SLDFLAGS=-shared/SLDFLAGS=\"$(ldflags) -shared\"/" \
 		-e "/CXXFLAGS/ s/--no-exceptions//g" \
-		-e "s/SLDFLAGS=-shared/SLDFLAGS=\"$(raw-ldflags) -shared\"/" \
 		"${S}"/Singular/configure.in || die
 
 	SOSUFFIX=$(get_version_component_range 1-3)
@@ -75,10 +81,12 @@ src_configure() {
 		--bindir="${S}"/build/bin \
 		--libdir="${S}"/build/lib \
 		--libexecdir="${S}"/build/lib \
+		--includedir="${S}"/build/include \
+		--with-apint=gmp \
+		--with-gmp="${EPREFIX}"/usr \
+		--disable-NTL \
 		--disable-debug \
 		--disable-doc \
-		--disable-NTL \
-		--disable-gmp \
 		--without-MP \
 		--enable-factory \
 		--enable-libfac \
@@ -90,21 +98,21 @@ src_configure() {
 }
 
 src_compile() {
-	emake -j1 || die "emake failed"
+	emake || die "emake failed"
 
 	if (use libsingular || use test ) ; then
-		emake -j1 libsingular || die "emake libsingular failed"
+		emake libsingular || die "emake libsingular failed"
 	fi
 
 	if use emacs; then
-		cd "${WORKDIR}"/${MY_PN}/${MY_DIR}/emacs/
+		cd "${WORKDIR}"/${MY_PN}/${MY_SHARE_DIR}/emacs/
 		elisp-compile *.el || die "elisp-compile failed"
 	fi
 }
 
 src_test() {
 	# Tests fail to link -lsingular, upstream ticket #243
-	emake -j1 test || die "tests failed"
+	emake test || die "tests failed"
 }
 
 src_install () {
@@ -121,20 +129,32 @@ src_install () {
 
 	if use libsingular; then
 		cd "${S}"
-		emake -j1 install-libsingular || die "failed to put libsingular in the right location"
+		emake install-libsingular || die "failed to put libsingular in the right location"
 		cd "${S}"/build/lib
 		dolib.so libsingular.so."${SOSUFFIX}"
 		dosym libsingular.so."${SOSUFFIX}" /usr/$(get_libdir)/libsingular.so \
 			|| die "failed to create symlink"
 		insinto /usr/include
 		cd "${S}"/build/include
+		# Move factory.h and cf_gmp.h in the singular folder so we don't either
+		# collide with factory or need it to use libsingular.
+		sed -e "s:factory.h:singular/factory.h:" \
+			-i singular/clapconv.h singular/fglm.h singular/mod2.h || die
+		sed -e "s:cf_gmp.h:singular/cf_gmp.h:" \
+			-i singular/si_gmp.h factory.h || die
+		sed -e "s:factoryconf.h:singular/factoryconf.h:" \
+			-e "s:templates:singular/templates:g" \
+			-i factory.h || die
 		doins libsingular.h mylimits.h
 		insinto /usr/include/singular
 		doins singular/*
+		doins factory.h factoryconf.h cf_gmp.h
+		insinto /usr/include/singular/templates
+		doins templates/*
 	fi
 
 	# stuff from the share tar ball
-	cd "${WORKDIR}"/${MY_PN}/${MY_DIR}
+	cd "${WORKDIR}"/${MY_PN}/${MY_SHARE_DIR}
 	insinto /usr/share/${PN}
 	doins -r LIB  || die "failed to install lib files"
 	if use examples; then
@@ -169,6 +189,14 @@ pkg_postinst() {
 		echo
 	fi
 
+	if use libsingular ; then
+		einfo "libsingular include the functionality included by libfactory (factory ebuild)"
+		einfo "To avoid file collisions with factory and the need of factory to use libsingular"
+		einfo "We have moved the factory headers shipped by singular in /usr/include/singular."
+		einfo "If you want to use the factory functionality offered by libsingular rather than"
+		einfo "the one offered by the factory ebuild you should include sngular/factory.h rather"
+		einfo "than just factory.h."
+	fi
 	use emacs && elisp-site-regen
 }
 
