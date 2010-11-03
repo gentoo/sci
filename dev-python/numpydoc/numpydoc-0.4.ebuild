@@ -5,6 +5,7 @@
 EAPI=2
 PYTHON_DEPEND="2:2.5"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils
 
@@ -15,7 +16,7 @@ SRC_URI="http://pypi.python.org/packages/source/n/${PN}/${P}.tar.gz"
 
 LICENSE="PYTHON BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 DEPEND="test? ( >=dev-python/sphinx-0.5 )"
