@@ -10,8 +10,8 @@ Fix build with as-needed
  
  AC_CHECK_HEADERS([sys/xattr.h arpa/inet.h netdb.h netinet/in.h sys/file.h sys/ioctl.h sys/mount.h sys/param.h sys/socket.h sys/statvfs.h sys/time.h sys/vfs.h syslog.h utime.h])
  
---- ceph-0.22/src/Makefile.am
-+++ ceph-0.22/src/Makefile.am
+--- ceph-0.22.2/src/Makefile.am
++++ ceph-0.22.2/src/Makefile.am
 @@ -10,37 +10,37 @@
  
  # monitor
@@ -120,15 +120,14 @@ Fix build with as-needed
  lib_LTLIBRARIES += libcrush.la
  
  # libceph
-@@ -141,14 +142,14 @@
- 	${libcommon_a_SOURCES} \
+@@ -142,17 +143,17 @@
  	${libosdc_a_SOURCES}
  libceph_la_CFLAGS = ${AM_CFLAGS}
  libceph_la_CXXFLAGS= ${AM_CXXFLAGS}
 -libceph_la_LIBADD = libcrush.la
 -libceph_la_LDFLAGS = -version-info 1:0:0 -export-symbols-regex '^ceph_.*' -lpthread -lssl
 +libceph_la_LIBADD = libcrush.la -lpthread $(OPENSSL_LIBS)
-+libceph_la_LDFLAGS = -version-info 1:0:0 -export-symbols-regex '^ceph_.*' 
++libceph_la_LDFLAGS = -version-info 1:0:0 -export-symbols-regex '^ceph_.*'
  lib_LTLIBRARIES += libceph.la
  
  if WITH_DEBUG
@@ -136,22 +135,25 @@ Fix build with as-needed
 -testceph_LDADD = libceph.la libcrush.la -lpthread -lm -lcrypto
 +testceph_LDADD = libceph.la libcrush.la -lpthread -lm $(OPENSSL_LIBS)
  bin_PROGRAMS += testceph
- endif
  
-@@ -160,9 +160,9 @@
- 	${libcommon_a_SOURCES}
+ testtimers_SOURCES = test/TestTimers.cc
+-testtimers_LDADD = libceph.la libcrush.la -lpthread -lm -lcrypto
++testtimers_LDADD = libceph.la libcrush.la -lpthread -lm $(OPENSSL_LIBS)
+ bin_PROGRAMS += testtimers
+ 
+ endif
+@@ -166,8 +167,8 @@
  librados_la_SOURCES = ${librados_SOURCES}
  librados_la_CFLAGS = ${AM_CFLAGS}
--librados_la_CXXFLAGS = ${AM_CXXFLAGS}
+ librados_la_CXXFLAGS = ${AM_CXXFLAGS}
 -librados_la_LIBADD = libcrush.la
 -librados_la_LDFLAGS = -version-info 1:0:0 -export-symbols-regex '^rados_.*' -lpthread
-+librados_la_CXXFLAGS = ${AM_CXXFLAGS} 
 +librados_la_LIBADD = libcrush.la -lpthread $(OPENSSL_LIBS)
 +librados_la_LDFLAGS = -version-info 1:0:0 -export-symbols-regex '^rados_.*'
  lib_LTLIBRARIES += librados.la
  
  librados_a_SOURCES = ${librados_SOURCES}
-@@ -170,21 +170,21 @@
+@@ -175,21 +176,21 @@
  librados_a_CXXFLAGS = ${AM_CXXFLAGS}
  
  rados_SOURCES = rados.cc
@@ -178,7 +180,7 @@ Fix build with as-needed
  bin_PROGRAMS += radosacl rbd
  
  if WITH_RADOSGW
-@@ -201,19 +201,19 @@
+@@ -206,19 +207,19 @@
  # lib_LTLIBRARIES += libradosgw.a
  
  radosgw_SOURCES = rgw/rgw_main.cc
@@ -202,7 +204,7 @@ Fix build with as-needed
  bin_PROGRAMS += testkeys
  endif
  
-@@ -221,7 +221,7 @@
+@@ -226,7 +227,7 @@
  ## rados object classes
  
  #libcls_crypto.so: cls_crypto.cc
@@ -211,7 +213,17 @@ Fix build with as-needed
  #BUILT_SOURCES += libcls_crypto.so
  
  #libcls_acl.so: cls_acl.cc
-@@ -271,8 +271,8 @@
+@@ -237,7 +238,8 @@
+ libcls_rbd_la_SOURCES = cls_rbd.cc
+ libcls_rbd_la_CFLAGS = ${AM_CFLAGS}
+ libcls_rbd_la_CXXFLAGS= ${AM_CXXFLAGS}
+-libcls_rbd_la_LDFLAGS = -version-info 1:0:0 -export-symbols-regex '.*__cls_.*' -lpthread
++libcls_rbd_la_LIBADD = -lpthread
++libcls_rbd_la_LDFLAGS = -version-info 1:0:0 -export-symbols-regex '.*__cls_.*'
+ 
+ radoslibdir = $(libdir)/rados-classes
+ radoslib_LTLIBRARIES = libcls_rbd.la
+@@ -276,12 +278,12 @@
  LDADD =
  
  
@@ -222,12 +234,8 @@ Fix build with as-needed
  AM_LDFLAGS =
  
  if WITH_LIBATOMIC
-@@ -294,7 +294,7 @@
+-AM_LDFLAGS += -latomic_ops
++LDADD += -latomic_ops
+ endif
  
- 
- # work around old versions of automake that don't define $docdir
--docdir = ${datadir}/doc/ceph
-+# docdir = ${datadir}/doc/ceph
- 
- install-data-local:
- 	$(install_sh_SCRIPT) -m 0755 cclass $(DESTDIR)$(bindir)/cclass
+ noinst_LIBRARIES = \

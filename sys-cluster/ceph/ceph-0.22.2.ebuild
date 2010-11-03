@@ -30,6 +30,7 @@ src_prepare() {
 	sed -e 's:invoke-rc\.d.*:/etc/init.d/ceph reload >/dev/null:' \
 		-i src/logrotate.conf || die
 	epatch "${FILESDIR}"/${P}-asneeded.patch
+	sed -i "/^docdir =/d" src/Makefile.am || die #fix doc path
 	eautoreconf
 }
 
