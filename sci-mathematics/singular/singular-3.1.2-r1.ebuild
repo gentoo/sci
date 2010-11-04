@@ -25,13 +25,12 @@ RESTRICT="mirror"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux"
-IUSE="boost doc emacs examples libsingular +readline"
+IUSE="boost doc emacs examples +readline"
 
 RDEPEND="dev-libs/gmp
 	>=dev-libs/ntl-5.5.1
 	emacs? ( >=virtual/emacs-22 )"
 
-# factory is now built with cmake and singular is an autotools/cmake hybrid
 DEPEND="${RDEPEND}
 	dev-lang/perl
 	boost? ( dev-libs/boost )
@@ -52,19 +51,17 @@ src_prepare () {
 	epatch "${FILESDIR}"/${PN}-3.1.0-gentoo.patch
 	epatch "${FILESDIR}"/${PN}-3.1.0-emacs-22.patch
 	epatch "${FILESDIR}"/${PN}-3.0.4.4-nostrip.patch
-	epatch "${FILESDIR}"/${PN}-3.1.1.3-soname.patch
 
 	# This file has a trailing whitespace breaking stuff
+	# It's fixed in upstream cvs, remove with next version!
 	sed -i 's/[ \t]*$//' "${S}"/omalloc/Makefile.in || die
 
 	eprefixify kernel/feResource.cc
 
 	sed -i \
 		-e "/CXXFLAGS/ s/--no-exceptions//g" \
+		-e "s/SLDFLAGS=-shared/SLDFLAGS=\"$(raw-ldflags) -shared\"/" \
 		"${S}"/Singular/configure.in || die
-
-# This bit will fix some ldflags problems but break compile of libsingular
-#		-e "s/SLDFLAGS=-shared/SLDFLAGS=\"$(raw-ldflags) -shared\"/" \
 
 	SOSUFFIX=$(get_version_component_range 1-3)
 	sed -i \
@@ -102,10 +99,6 @@ src_configure() {
 src_compile() {
 	emake || die "emake failed"
 
-	if (use libsingular || use test ) ; then
-		emake libsingular || die "emake libsingular failed"
-	fi
-
 	if use emacs; then
 		cd "${WORKDIR}"/${MY_PN}/${MY_SHARE_DIR}/emacs/
 		elisp-compile *.el || die "elisp-compile failed"
@@ -128,48 +121,6 @@ src_install () {
 
 	dosym ${MY_PN}-${MY_DIR} /usr/bin/${MY_PN} \
 		|| die "failed to create symbolic link"
-
-	if use libsingular; then
-		cd "${S}"
-		emake install-libsingular || die "failed to put libsingular in the right location"
-		cd "${S}"/build/lib
-		dolib.so libsingular.so."${SOSUFFIX}"
-		dosym libsingular.so."${SOSUFFIX}" /usr/$(get_libdir)/libsingular.so \
-			|| die "failed to create symlink"
-		insinto /usr/include
-		cd "${S}"/build/include
-		# Move factory.h and cf_gmp.h in the singular folder so we don't either
-		# collide with factory or need it to use libsingular.
-		sed -e "s:factory/factory.h:singular/factory.h:" \
-			-i singular/clapconv.h singular/fglm.h singular/mod2.h || die
-		sed -e "s:factory/cf_gmp.h:singular/cf_gmp.h:" \
-			-i singular/si_gmp.h factory.h || die
-		sed -e "s:factory/factoryconf.h:singular/factoryconf.h:" \
-			-e "s:factory/templates:singular/templates:g" \
-			-i templates/ftmpl_array.h factory.h || die
-		# clean up libsingular.h mess
-		sed -e "s:Singular/singular:singular:g" \
-			-e "s:kernel:singular:g" \
-			-e "s:omalloc/:singular/:" \
-			-i libsingular.h \
-			singular/structs.h \
-			singular/polys.h \
-			singular/longalg.h \
-			singular/febase.h \
-			singular/clapsing.h \
-			singular/kutil.h \
-			singular/subexpr.h \
-			singular/ipid.h \
-			singular/longrat.h \
-			singular/tok.h \
-			singular/ipshell.h || die
-		doins libsingular.h mylimits.h
-		insinto /usr/include/singular
-		doins singular/*
-		doins factory.h factoryconf.h cf_gmp.h
-		insinto /usr/include/singular/templates
-		doins templates/*
-	fi
 
 	# stuff from the share tar ball
 	cd "${WORKDIR}"/${MY_PN}/${MY_SHARE_DIR}
@@ -207,14 +158,6 @@ pkg_postinst() {
 		echo
 	fi
 
-	if use libsingular ; then
-		einfo "libsingular include the functionality included by libfactory (factory ebuild)"
-		einfo "To avoid file collisions with factory and the need of factory to use libsingular"
-		einfo "We have moved the factory headers shipped by singular in /usr/include/singular."
-		einfo "If you want to use the factory functionality offered by libsingular rather than"
-		einfo "the one offered by the factory ebuild you should include sngular/factory.h rather"
-		einfo "than just factory.h."
-	fi
 	use emacs && elisp-site-regen
 }
 

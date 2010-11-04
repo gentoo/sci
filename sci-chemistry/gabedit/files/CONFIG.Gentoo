@@ -8,3 +8,6 @@ RM   = rm -f
 MAKE = make
 WIN32LIB   =
 
+#DRAWGEOMGL= 
+DRAWGEOMGL=-DDRAWGEOMGL
+
