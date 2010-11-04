@@ -4,6 +4,10 @@
 
   04 Nov 2010; François Bissey <f.r.bissey@massey.ac.nz>
   singular-3.1.2.ebuild:
+  more headers fix
+
+  04 Nov 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  singular-3.1.2.ebuild:
   Fix libsingular headers.
 
 *singular-3.1.2-r1 (04 Nov 2010)

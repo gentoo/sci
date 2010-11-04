@@ -142,16 +142,27 @@ src_install () {
 		# collide with factory or need it to use libsingular.
 		sed -e "s:factory/factory.h:singular/factory.h:" \
 			-i singular/clapconv.h singular/fglm.h singular/mod2.h || die
-		sed -e "s:cf_gmp.h:singular/cf_gmp.h:" \
+		sed -e "s:factory/cf_gmp.h:singular/cf_gmp.h:" \
 			-i singular/si_gmp.h factory.h || die
 		sed -e "s:factory/factoryconf.h:singular/factoryconf.h:" \
 			-e "s:factory/templates:singular/templates:g" \
-			-i factory.h || die
+			-i templates/ftmpl_array.h factory.h || die
 		# clean up libsingular.h mess
 		sed -e "s:Singular/singular:singular:g" \
 			-e "s:kernel:singular:g" \
-			-e "s:omalloc/omalloc.h:singular/omalloc.h:" \
-			-i libsingular.h || die
+			-e "s:omalloc/:singular/:" \
+			-i libsingular.h \
+			singular/structs.h \
+			singular/polys.h \
+			singular/longalg.h \
+			singular/febase.h \
+			singular/clapsing.h \
+			singular/kutil.h \
+			singular/subexpr.h \
+			singular/ipid.h \
+			singular/longrat.h \
+			singular/tok.h \
+			singular/ipshell.h || die
 		doins libsingular.h mylimits.h
 		insinto /usr/include/singular
 		doins singular/*
