@@ -140,16 +140,21 @@ src_install () {
 		cd "${S}"/build/include
 		# Move factory.h and cf_gmp.h in the singular folder so we don't either
 		# collide with factory or need it to use libsingular.
-		sed -e "s:factory.h:singular/factory.h:" \
+		sed -e "s:factory/factory.h:singular/factory.h:" \
 			-i singular/clapconv.h singular/fglm.h singular/mod2.h || die
 		sed -e "s:cf_gmp.h:singular/cf_gmp.h:" \
 			-i singular/si_gmp.h factory.h || die
-		sed -e "s:factoryconf.h:singular/factoryconf.h:" \
-			-e "s:templates:singular/templates:g" \
+		sed -e "s:factory/factoryconf.h:singular/factoryconf.h:" \
+			-e "s:factory/templates:singular/templates:g" \
 			-i factory.h || die
+		# clean up libsingular.h mess
+		sed -e "s:Singular/singular:singular:g" \
+			-e "s:kernel:singular:g" \
+			-e "s:omalloc/omalloc.h:singular/omalloc.h:" \
+			-i libsingular.h || die
 		doins libsingular.h mylimits.h
 		insinto /usr/include/singular
-		doins -r singular/*
+		doins singular/*
 		doins factory.h factoryconf.h cf_gmp.h
 		insinto /usr/include/singular/templates
 		doins templates/*
