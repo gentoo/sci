@@ -18,7 +18,7 @@ HOMEPAGE="http://www.singular.uni-kl.de/"
 SRC_COM="http://www.mathematik.uni-kl.de/ftp/pub/Math/${MY_PN}/SOURCES/"
 # Share stuff did not see a new version:
 SRC_URI="${SRC_COM}${MY_DIR}/${MY_PN}-${MY_PV}.tar.gz
-		 ${SRC_OM}${MY_SHARE_DIR}/Singular-${MY_PV_SHARE}-share.tar.gz"
+		 ${SRC_COM}${MY_SHARE_DIR}/Singular-${MY_PV_SHARE}-share.tar.gz"
 
 RESTRICT="mirror"
 

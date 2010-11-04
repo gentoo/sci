@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Nov 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  singular-3.1.2.ebuild:
+  fix typo in SRC_URI
+
 *singular-3.1.2 (03 Nov 2010)
 
   03 Nov 2010; Thomas Kahle <tomka@gentoo.org>
