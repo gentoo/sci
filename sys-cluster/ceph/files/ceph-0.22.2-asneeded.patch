@@ -1,5 +1,7 @@
 Fix build with as-needed
 
+http://tracker.newdream.net/issues/544
+
 --- ceph-0.22/configure.ac
 +++ ceph-0.22/configure.ac
 @@ -160,6 +160,7 @@
