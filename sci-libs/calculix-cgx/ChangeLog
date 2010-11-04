@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*calculix-cgx-2.2 (29 Oct 2010)
+
+  29 Oct 2010; Oliver Borm (boroli) <oli.borm@web.de>
+  -files/01_cgx_2.1_Makefile.patch, -calculix-cgx-2.1.ebuild,
+  +files/01_cgx_2.2_Makefile.patch, +calculix-cgx-2.2.ebuild:
+  Version bump.
+
   19 Sep 2010; Justin Lecher <jlec@gentoo.org> calculix-cgx-2.1.ebuild:
   virtual/glut -> media-libs/freeglut & virtual/glu -> virtual/opengl
   Correction

@@ -2,6 +2,14 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*salome-med-5.1.4 (27 Oct 2010)
+
+  27 Oct 2010; Thomas Kahle <tomka@gentoo.org> +salome-med-5.1.4.ebuild,
+  +files/salome-med-5.1.4-check_metis.patch,
+  +files/salome-med-5.1.4-check_scotch.patch,
+  +files/salome-med-5.1.4-gcc.patch, +files/salome-med-5.1.4-scotch.patch:
+  Bump to 5.1.4, ebuild by Michael Riss in bug 330303
+
   29 Jun 2010; Justin Lecher <jlec@gentoo.org> salome-med-5.1.3.ebuild:
   Python ABI fixes
 

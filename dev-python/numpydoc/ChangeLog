@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Nov 2010; Kacper Kowalik <xarthisius@gentoo.org> numpydoc-0.4.ebuild:
+  Add ~x86, restrict python-3.*. Thanks to W. Trevor King <wking@drexel.edu>
+  for the report.
+
 *numpydoc-0.4 (02 Oct 2010)
 
   02 Oct 2010; Sébastien Fabbro <bicatali@gentoo.org>

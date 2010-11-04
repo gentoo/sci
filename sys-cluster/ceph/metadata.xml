@@ -7,7 +7,7 @@ Ceph is a distributed network file system designed to provide excellent performa
 </longdescription>
 <use>
 	<flag name='fuse'>Build fuse client</flag>
-	<flag name='logrotate'>Add logrotate support</flag>
+	<flag name='libatomic'>Use libatomic instead of builtin atomic operations</flag>
 	<flag name='radosgw'>Add radosgw support</flag>
 </use>
 </pkgmetadata>

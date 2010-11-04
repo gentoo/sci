@@ -2,6 +2,32 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Nov 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  singular-3.1.2.ebuild:
+  more headers fix
+
+  04 Nov 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  singular-3.1.2.ebuild:
+  Fix libsingular headers.
+
+*singular-3.1.2-r1 (04 Nov 2010)
+
+  04 Nov 2010; Thomas Kahle <tomka@gentoo.org> singular-3.1.2.ebuild,
+  +singular-3.1.2-r1.ebuild:
+  -r1 drops USE=libsingular, will move to a separate ebuild. Smaller fixes
+  to -r0
+
+  03 Nov 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  singular-3.1.2.ebuild:
+  fix typo in SRC_URI
+
+*singular-3.1.2 (03 Nov 2010)
+
+  03 Nov 2010; Thomas Kahle <tomka@gentoo.org>
+  -files/singular-3.1.0-glibc-2.10.patch, -singular-3.1.1.4.ebuild,
+  +singular-3.1.2.ebuild:
+  Bump to 3.1.2, removed old version
+
   17 Oct 2010; Kacper Kowalik <xarthisius@gentoo.org>
   singular-3.1.1.4.ebuild, singular-3.1.1.4-r1.ebuild:
   backport fix for bug 341357
@@ -28,7 +54,7 @@
   04 Sep 2010; François Bissey <f.r.bissey@massey.ac.nz>
   +singular-3.1.1.4-r1.ebuild, +files/singular-3.1.1.4-parrallelmake.patch:
   Import all my fixes from sage-on-gentoo: parallel make should now work.
-  libsingular install its own copy of the factory 
+  libsingular install its own copy of the factory
   headers without colliding with the factory ebuild.
 
   26 Jul 2010; Thomas Kahle <tom111@gmx.de> singular-3.1.1.4.ebuild:

@@ -31,8 +31,9 @@ S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
 
 src_prepare(){
 	epatch "${FILESDIR}/${P}-plugin_install.patch"
-	epatch "${FILESDIR}/${P}-always_init.patch"
 
+	rm share/libc/test.c
+	
 	touch config_file
 	sed -i configure.in \
 		-e "s:1.4):1.5):g"
