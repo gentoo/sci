@@ -1,0 +1,14 @@
+Title: octave-forge packages removed from science overlay
+Author: Rafael G. Martins <rafaelmartins@gentoo.org>
+Content-Type: text/plain
+Posted: 2010-11-04
+Revision: 2
+News-Item-Format: 1.0
+Display-If-Installed: sci-mathematics/octave
+
+The octave-forge packages were removed from the science overlay.
+You will need to use app-portage/g-octave to install the equivalent
+packages to octave-forge using your Gentoo package manager.
+
+g-octave project page: http://www.g-octave.org/
+g-octave documentation: http://doc.g-octave.org/latest/
