@@ -58,7 +58,7 @@ src_install() {
 
 	cat >> "${T}/${PN}" <<- EOF
 	#!/bin/bash
-	cd /opt/${PN}
+	cd "${EPREFIX}/opt/${PN}"
 	exec Unio10/Linux/Unio10 \$@
 	EOF
 
