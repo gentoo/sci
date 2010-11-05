@@ -2,7 +2,7 @@ Title: octave-forge packages removed from science overlay
 Author: Rafael G. Martins <rafaelmartins@gentoo.org>
 Content-Type: text/plain
 Posted: 2010-11-04
-Revision: 1
+Revision: 2
 News-Item-Format: 1.0
 Display-If-Installed: sci-mathematics/octave
 
