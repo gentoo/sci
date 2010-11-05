@@ -27,6 +27,16 @@ DEPEND=""
 S="${WORKDIR}/UNIO_10"
 RESTRICT="fetch"
 
+QA_DT_HASH="
+	opt/unio/Unio10/Linux/Externals/revzip.so
+	opt/unio/Unio10/Linux/Unio10
+	opt/unio/UnioAlgorithms/unio-2.0.1/src/unio/unioexe.*"
+QA_TEXTRELS="opt/unio/Unio10/Linux/Externals/revzip.so"
+QA_PRESTRIPPED="
+	opt/unio/Unio10/Linux/Externals/revzip.so
+	opt/unio/Unio10/Linux/Unio10"
+QA_EXECSTACK="opt/unio/UnioAlgorithms/unio-2.0.1/src/unio/unioexe.*"
+
 pkg_nofetch() {
 	einfo "Please visit ${HOMEPAGE}"
 	einfo "and fetch ${A}"
@@ -46,5 +56,11 @@ src_install() {
 	doins -r Unio10 UnioAlgorithms UnioDocumentations || die
 	fperms 755 /opt/${PN}/Unio10/Linux/Unio10 /opt/${PN}/Unio10/Linux/Externals/revzip.so || die
 
-	dosym ../${PN}/Unio10/Linux/Unio10 /opt/bin/unio || die
+	cat >> "${T}/${PN}" <<- EOF
+	#!/bin/bash
+	cd /opt/${PN}
+	exec Unio10/Linux/Unio10 \$@
+	EOF
+
+	dobin "${T}/${PN}" || die
 }
