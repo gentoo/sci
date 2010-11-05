@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Nov 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  singular-3.1.2.ebuild:
+  I think I got the headers sorted now.
+
   04 Nov 2010; François Bissey <f.r.bissey@massey.ac.nz>
   singular-3.1.2.ebuild:
   more headers fix

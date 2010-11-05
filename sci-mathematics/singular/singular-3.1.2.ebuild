@@ -146,23 +146,17 @@ src_install () {
 			-i singular/si_gmp.h factory.h || die
 		sed -e "s:factory/factoryconf.h:singular/factoryconf.h:" \
 			-e "s:factory/templates:singular/templates:g" \
-			-i templates/ftmpl_array.h factory.h || die
+			-i templates/*.h factory.h || die
 		# clean up libsingular.h mess
 		sed -e "s:Singular/singular:singular:g" \
 			-e "s:kernel:singular:g" \
-			-e "s:omalloc/:singular/:" \
+			-e "s:omalloc/omalloc:singular/omalloc:" \
+			-e "s:omalloc/mylimits:mylimits:" \
 			-i libsingular.h \
-			singular/structs.h \
-			singular/polys.h \
-			singular/longalg.h \
-			singular/febase.h \
-			singular/clapsing.h \
-			singular/kutil.h \
-			singular/subexpr.h \
-			singular/ipid.h \
-			singular/longrat.h \
-			singular/tok.h \
-			singular/ipshell.h || die
+			singular/*.h \
+			singular/*.cc \
+			|| die
+		sed -e "s:Singular/:singular/:" -i singular/*.h || die
 		doins libsingular.h mylimits.h
 		insinto /usr/include/singular
 		doins singular/*
