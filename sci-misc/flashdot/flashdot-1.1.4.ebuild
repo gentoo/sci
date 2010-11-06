@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=2
 
-inherit subversion eutils
+inherit subversion
 
 DESCRIPTION="Generator for psychophysical experiments"
 HOMEPAGE="http://www.flashdot.info/"
@@ -16,12 +16,11 @@ SLOT="0"
 
 IUSE="+ocamlopt"
 
-RDEPEND="!ocamlopt? ( >=dev-lang/ocaml-3.08 )"
-
-DEPEND="ocamlopt? ( >=dev-lang/ocaml-3.08[ocamlopt] )
+DEPEND=">=dev-lang/ocaml-3.10[ocamlopt?]
 	dev-ml/ocamlsdl
 	dev-ml/ocamlgsl
 	x11-apps/xdpyinfo"
+RDEPEND="${DEPEND}"
 
 MAKEOPTS="-j1 VERSION=${PV}"
 use ocamlopt || MAKEOPTS="${MAKEOPTS} TARGETS=flashdot_bytecode BYTECODENAME=flashdot"
