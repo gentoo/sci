@@ -44,7 +44,7 @@ RDEPEND="
 	dev-libs/expat
 	dev-libs/libxml2
 	media-libs/freetype
-	media-libs/jpeg
+	virtual/jpeg
 	media-libs/libpng
 	media-libs/mesa
 	media-libs/tiff
