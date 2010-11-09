@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Nov 2010; Justin Lecher <jlec@gentoo.org> unio-2.0.1-r1.ebuild:
+  Missing files are executable now
+
   05 Nov 2010; Justin Lecher <jlec@gentoo.org> unio-2.0.1-r1.ebuild:
   Prefix fix
 
