@@ -48,7 +48,7 @@ SCHEMEDEPS="
 	dev-scheme/guile-gui
 	>=dev-scheme/guile-lib-0.1.6
 	dev-scheme/guile-www
-	=x11-libs/guile-gtk-2.1"
+	>=x11-libs/guile-gtk-2.1"
 
 RDEPEND="
 	${SCIDEPS}
