@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
-<pkgmetadata>
-	<herd>sci</herd>
-	<longdescription>The C-library  cddlib is a C implementation of the Double Description Method of Motzkin et al. for generating all vertices (i.e. extreme points) and extreme rays of a general convex polyhedron in R^d given by a system of linear inequalities: P = { x=(x1, ..., xd)^T :  b - A  x  >= 0 }, where  A  is a given m x d real matrix, b is a given m-vector and 0 is the m-vector of all zeros.</longdescription>
-</pkgmetadata>

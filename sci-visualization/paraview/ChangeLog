@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Nov 2010; François Bissey <f.r.bissey@massey.ac.nz>
+  paraview-3.8.0.ebuild, paraview-3.8.1.ebuild:
+  migrate to virtual/jpeg
+
   29 Oct 2010; François Bissey <f.r.bissey@massey.ac.nz>
   +paraview-3.8.0.ebuild:
   Restore paraview-3.8.0 while working on several issues with 3.8.1

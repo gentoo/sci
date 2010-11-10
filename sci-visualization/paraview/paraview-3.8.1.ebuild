@@ -36,7 +36,7 @@ RDEPEND="sci-libs/hdf5[mpi=]
 	coprocessing? ( plugins? ( x11-libs/qt-gui:4 ) )
 	dev-libs/libxml2
 	media-libs/libpng
-	media-libs/jpeg
+	virtual/jpeg
 	media-libs/tiff
 	dev-libs/expat
 	sys-libs/zlib
