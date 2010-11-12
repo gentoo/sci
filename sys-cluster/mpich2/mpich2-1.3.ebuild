@@ -3,9 +3,7 @@
 # $Header: $
 
 EAPI=2
-PYTHON_DEPEND="2"
-
-inherit eutils fortran python mpi
+inherit eutils fortran mpi
 
 MY_PV=${PV/_/}
 DESCRIPTION="MPICH2 - A portable MPI implementation"
@@ -14,12 +12,11 @@ SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY
 
 LICENSE="as-is"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="+cxx debug doc fortran threads romio mpi-threads"
 
-MPI_UNCLASSED_BLOCKERS="media-sound/mpd"
-
 COMMON_DEPEND="dev-libs/libaio
+	sys-apps/hwloc
 	romio? ( net-fs/nfs-utils )
 	$(mpi_imp_deplist)"
 
@@ -32,9 +29,6 @@ RDEPEND="${COMMON_DEPEND}"
 S="${WORKDIR}"/${PN}-${MY_PV}
 
 pkg_setup() {
-	python_set_active_version 2
-	python_pkg_setup
-
 	MPI_ESELECT_FILE="eselect.mpi.mpich2"
 
 	if use fortran ; then
@@ -55,8 +49,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/mpich2-1.3-libtvmpich2.so-respect-user-LDFLAGS.patch
-
 	# We need f90 to include the directory with mods, and to
 	# fix hardcoded paths for src_test()
 	# Submitted upstream.
@@ -112,8 +104,9 @@ src_configure() {
 	! mpi_classed && c="${c} --sysconfdir=/etc/${PN}"
 	econf $(mpi_econf_args) ${c} ${romio_conf} \
 		--docdir=$(mpi_root)/usr/share/doc/${PF} \
-		--with-pm=mpd:hydra \
+		--with-pm=hydra \
 		--disable-mpe \
+		--with-hwloc-prefix=/usr \
 		$(use_enable romio) \
 		$(use_enable cxx) \
 		|| die
@@ -129,11 +122,6 @@ src_compile() {
 src_test() {
 	local rc
 
-	cp "${FILESDIR}"/mpd.conf "${T}"/mpd.conf || die
-	chmod 600 "${T}"/mpd.conf
-	export MPD_CONF_FILE="${T}/mpd.conf"
-	"${S}"/bin/mpd --daemon --pid="${T}"/mpd.pid
-
 	make \
 		CC="${S}"/bin/mpicc \
 		CXX="${S}"/bin/mpicxx \
@@ -143,7 +131,6 @@ src_test() {
 		testing
 	rc=$?
 
-	"${S}"/bin/mpdallexit || kill $(<"${T}"/mpd.pid)
 	return ${rc}
 }
 
@@ -153,13 +140,9 @@ src_install() {
 
 	emake DESTDIR="${D}" install || die
 
-	dodir ${MPD_CONF_FILE_DIR}
-	insinto ${MPD_CONF_FILE_DIR}
-	doins "${FILESDIR}"/mpd.conf || die
-
 	mpi_dodir /usr/share/doc/${PF}
 	mpi_dodoc COPYRIGHT README CHANGES RELEASE_NOTES || die
-	mpi_newdoc src/pm/mpd/README README.mpd || die
+	mpi_newdoc src/pm/hydra/README README.hydra || die
 	if use romio; then
 		mpi_newdoc src/mpi/romio/README README.romio || die
 	fi
@@ -169,27 +152,4 @@ src_install() {
 	fi
 
 	mpi_imp_add_eselect
-
-	# See #316937
-	MPD_PYTHON_MODULES=""
-	for f in "${d}"usr/bin/*.py; do
-		MPD_PYTHON_MODULES="${MPD_PYTHON_MODULES} ${f##${D}}"
-	done
-}
-
-pkg_postinst() {
-	# Here so we can play with ebuild commands as a normal user
-	chown root:root "${ROOT}"${MPD_CONF_FILE_DIR}/mpd.conf
-	chmod 600 "${ROOT}"${MPD_CONF_FILE_DIR}/mpd.conf
-
-	elog ""
-	elog "MPE2 has been removed from this ebuild and now stands alone"
-	elog "as sys-cluster/mpe2."
-	elog ""
-
-	python_mod_optimize ${MPD_PYTHON_MODULES}
-}
-
-pkg_postrm() {
-	python_mod_cleanup ${MPD_PYTHON_MODULES}
 }
