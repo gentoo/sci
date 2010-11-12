@@ -4,9 +4,12 @@
 
 EAPI="3"
 
-SUPPORT_PYTHON_ABIS="1"
 PYTHON_DEPEND="2:2.6"
+SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="2.4 2.5 3.*"
 PYTHON_USE_WITH="tk"
+PYTHON_MODNAME="${PN} chempy pmg_tk pmg_wx"
+
 
 inherit eutils distutils prefix subversion
 
@@ -36,7 +39,6 @@ DEPEND="
 			sci-chemistry/pymol-apbs-plugin
 		)"
 RDEPEND="${DEPEND}"
-RESTRICT_PYTHON_ABIS="3.* 2.4 2.5"
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-data-path.patch
