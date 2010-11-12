@@ -1,0 +1,20 @@
+http://code.google.com/p/asmjit/issues/detail?id=22
+
+--- CMakeLists.txt
++++ CMakeLists.txt
+@@ -78,6 +78,7 @@
+ 
+ # Build AsmJit test executables?
+ If(ASMJIT_BUILD_TEST)
++  Enable_Testing()
+   Set(ASMJIT_TEST_FILES
+     testcorecpu
+     testcoresize
+@@ -105,6 +106,7 @@
+   ForEach(file ${ASMJIT_TEST_FILES})
+     Add_Executable(${file} Test/${file}.cpp)
+     Target_Link_Libraries(${file} AsmJit)
++    Add_Test(${file} ${EXECUTABLE_OUTPUT_PATH}/${file} ${file})
+   EndForEach(file)
+ EndIf(ASMJIT_BUILD_TEST)
+ 

@@ -1,0 +1,10 @@
+# ChangeLog for dev-libs/asmjit
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*asmjit-1.0_beta_p2 (12 Nov 2010)
+
+  12 Nov 2010; Kacper Kowalik <xarthisius@gentoo.org>
+  +asmjit-1.0_beta_p2.ebuild, +files/asmjit-test.patch, +metadata.xml:
+  Initial import wrt bug 345183
+
