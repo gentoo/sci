@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
+  hypre-2.6.0b.ebuild:
+  removed python use flag without effect
+
 *hypre-2.6.0b (13 Nov 2010)
 
   13 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>

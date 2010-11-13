@@ -14,7 +14,7 @@ SRC_URI="http://sourceforge.net/projects/charon-suite/files/thirdparty/${P}.tar.
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="fortran lapack mpi debug python static-libs"
+IUSE="fortran lapack mpi debug static-libs"
 
 RDEPEND="
 	virtual/mpi
@@ -32,7 +32,7 @@ src_configure() {
 		|| myconf[0]="--enable-shared"
 	myconf[1]="$(use_enable debug)"
 	myconf[2]="$(use_enable fortran)"
-	myconf[3]="$(use_enable python)"
+	myconf[3]="--disable-python"
 	myconf[4]="--disable-java"
 	myconf[5]="$(use_with mpi MPI)"
 	myconf[6]="$(use_with lapack blas)"
