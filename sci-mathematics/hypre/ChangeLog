@@ -1,0 +1,11 @@
+# ChangeLog for sci-mathematics/hypre
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*hypre-2.6.0b (13 Nov 2010)
+
+  13 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
+  +hypre-2.6.0b.ebuild, +metadata.xml:
+  new ebuild: hypre parallel high performance preconditioner for linear
+  systems
+
