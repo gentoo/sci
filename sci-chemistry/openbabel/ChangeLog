@@ -3,6 +3,10 @@
 # $Header: $
 
   14 Nov 2010; Reinis Danne <rei4dan@gmail.com> openbabel-2.3.0.ebuild,
+  +files/openbabel-2.3.0-test_lib_path.patch:
+  Fix library path for tests.
+
+  14 Nov 2010; Reinis Danne <rei4dan@gmail.com> openbabel-2.3.0.ebuild,
   metadata.xml:
   Use system libinchi, add gui USE-flag and build tests only if requerd.
 

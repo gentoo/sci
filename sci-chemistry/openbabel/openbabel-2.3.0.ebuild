@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit cmake-utils
+inherit cmake-utils eutils
 
 DESCRIPTION="Interconverts file formats used in molecular modeling"
 HOMEPAGE="http://openbabel.sourceforge.net/"
@@ -27,6 +27,8 @@ DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.4.8"
 
 src_configure() {
+	epatch "${FILESDIR}/${P}-test_lib_path.patch" \
+		|| die "Failed to apply ${P}-test_lib_path.patch"
 	local mycmakeargs=""
 	mycmakeargs="${mycmakearg}
 		-DOPENBABEL_USE_SYSTEM_INCHI=ON
