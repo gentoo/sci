@@ -2,6 +2,20 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
+  -hypre-2.4.0b-r1.ebuild, -files/hypre-2.4.0b-soname.patch,
+  hypre-2.6.0b.ebuild, +files/hypre-2.6.0b-makefile.patch:
+  removed non-working 2.4 tree
+  fixed mpi and lapack dependencies
+  fixed linking (introducing ${P}-makefile.patch)
+
+*hypre-2.4.0b-r1 (14 Nov 2010)
+
+  14 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
+  -hypre-2.4.0b.ebuild, +hypre-2.4.0b-r1.ebuild,
+  files/hypre-2.4.0b-soname.patch:
+  first try to rework ebuild (fix undefined references) - not yet working
+
   13 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
   +hypre-2.4.0b.ebuild, +files/hypre-2.4.0b-soname.patch:
   added hypre version 2.4 since e.g. petsc does not work with recent 2.6
