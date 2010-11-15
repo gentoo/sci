@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*petsc-3.1_p5-r1 (14 Nov 2010)
+
+  14 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
+  +petsc-3.1_p5-r1.ebuild:
+  try to add hypre support (but hypre ebuilds still need some refactoring)
+  yet buggy (configuring fails due to undefined references)
+
   22 Oct 2010; Jens-Malte Gottfried <jmgottfried@web.de>
   petsc-3.1_p5.ebuild:
   use an array to pass configure options more comfortably and

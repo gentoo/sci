@@ -4,22 +4,48 @@
 
 EAPI="3"
 
-inherit cmake-utils
+inherit cmake-utils eutils
 
 DESCRIPTION="Interconverts file formats used in molecular modeling"
 HOMEPAGE="http://openbabel.sourceforge.net/"
 SRC_URI="mirror://sourceforge/openbabel/${P}.tar.gz"
 
-KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64"
 SLOT="0"
 LICENSE="GPL-2"
-IUSE=""
+IUSE="doc gui"
 
 RDEPEND="
 	>=dev-libs/libxml2-2.6.5
+	>=sci-chemistry/inchi-1.03
+	gui? ( x11-libs/wxGTK )
 	!sci-chemistry/babel
 	dev-cpp/eigen:2
 	sys-libs/zlib"
 
 DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.4.8"
+
+src_configure() {
+	epatch "${FILESDIR}/${P}-test_lib_path.patch" \
+		|| die "Failed to apply ${P}-test_lib_path.patch"
+	local mycmakeargs=""
+	mycmakeargs="${mycmakearg}
+		-DOPENBABEL_USE_SYSTEM_INCHI=ON
+		$(cmake-utils_use gui BUILD_GUI)
+		$(cmake-utils_use_enable test TESTS)"
+
+	cmake-utils_src_configure
+}
+
+src_install() {
+	dodoc AUTHORS ChangeLog NEWS README THANKS || die
+	dodoc doc/{*.inc,README*,*.inc,*.mol2} || die
+	dohtml doc/{*.html,*.png} || die
+	if use doc ; then
+		insinto /usr/share/doc/${PF}/API/html
+		doins doc/API/html/* || die
+	fi
+
+	cmake-utils_src_install
+}
