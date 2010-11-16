@@ -2,6 +2,19 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ferret-bin-6.6.4 (16 Nov 2010)
+
+  16 Nov 2010; Tim Cera <timcera@earthlink.net> -ferret-bin-6.4.ebuild,
+  -ferret-bin-6.5.ebuild, +ferret-bin-6.6.4.ebuild:
+  Version bump.
+
+*ferret-bin-6.6.2 (10 Aug 2010)
+
+  10 Aug 2010; Tim Cera <timcera@earthlink.net> -ferret-bin-6.4.ebuild,
+  +ferret-bin-6.6.2.ebuild:
+  Version bump. Ferret now requires libcurl.so.3, where only libcurl.so.4 is
+  available so added symlink.
+
 *ferret-bin-6.5 (09 Apr 2010)
 
   09 Apr 2010; Tim Cera <timcera@earthlink.net> +ferret-bin-6.5.ebuild:

@@ -4,7 +4,9 @@
 
 EAPI="2"
 
-MY_PV=${PV/\./}
+inherit versionator eutils
+
+MY_PV=$(delete_all_version_separators "${PV}" )
 
 MY_FER_ENV="fer_environment.v${MY_PV}.tar.gz"
 MY_FER_EXE="fer_executables.v${MY_PV}.tar.gz"
@@ -12,10 +14,10 @@ MY_FER_EXE="fer_executables.v${MY_PV}.tar.gz"
 DESCRIPTION="Ferret is an interactive computer visualization and analysis environment"
 HOMEPAGE="http://ferret.pmel.noaa.gov/Ferret/"
 SRC_URI="ftp://ftp.pmel.noaa.gov/ferret/pub/data/fer_dsets.tar.gz
-	x86? ( ftp://ftp.pmel.noaa.gov/ferret/pub/linux_32/${MY_FER_ENV} -> x86${MY_FER_ENV}
-	       ftp://ftp.pmel.noaa.gov/ferret/pub/linux_32/${MY_FER_EXE} -> x86${MY_FER_EXE} )
-	amd64? ( ftp://ftp.pmel.noaa.gov/ferret/pub/x86_64-linux/${MY_FER_ENV} -> amd64${MY_FER_ENV}
-	         ftp://ftp.pmel.noaa.gov/ferret/pub/x86_64-linux/${MY_FER_EXE} -> amd64${MY_FER_EXE} )"
+	x86? ( ftp://ftp.pmel.noaa.gov/ferret/pub/linux_32_nc4/${MY_FER_ENV} -> x86${MY_FER_ENV}
+	       ftp://ftp.pmel.noaa.gov/ferret/pub/linux_32_nc4/${MY_FER_EXE} -> x86${MY_FER_EXE} )
+	amd64? ( ftp://ftp.pmel.noaa.gov/ferret/pub/x86_64-linux_nc4/${MY_FER_ENV} -> amd64${MY_FER_ENV}
+	         ftp://ftp.pmel.noaa.gov/ferret/pub/x86_64-linux_nc4/${MY_FER_EXE} -> amd64${MY_FER_EXE} )"
 
 LICENSE="PMEL-FERRET"
 SLOT="0"
