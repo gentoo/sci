@@ -2,12 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 inherit fortran versionator
+
+MY_P="${P/-/}"
 
 DESCRIPTION="Model-independent Parameter ESTimation for model calibration and
 predictive uncertainty analysis."
 HOMEPAGE="http://www.pesthomepage.org"
-SRC_URI="http://www.pesthomepage.org/files/${P}.tar.zip
+SRC_URI="http://www.pesthomepage.org/getfiles.php?file=${MY_P}.tar.zip -> ${P}.tar.zip
 	doc? ( http://www.pesthomepage.org/files/pestman.pdf
 	       http://www.pesthomepage.org/files/addendum.pdf )"
 
@@ -30,8 +34,10 @@ S="${WORKDIR}/${PN}"
 src_unpack() {
 	mkdir "${S}" && cd "${S}"
 	unpack "${P}.tar.zip"
-	unpack ./"${PN}$(get_major_version).tar"
+	unpack ./"${MY_P}.tar"
+}
 
+src_prepare() {
 	# I decided it was cleaner to make all edits with sed, rather than a patch.
 	sed -i \
 		-e "s;^F90=.*;F90=${FORTRANC};" \
