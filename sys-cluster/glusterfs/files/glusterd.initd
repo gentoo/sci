@@ -7,6 +7,7 @@ PIDFILE=/var/run/glusterd.pid
 
 depend() {
 	need net
+	before netmount
 }
 
 start() {
@@ -20,5 +21,16 @@ start() {
 stop() {
 	ebegin "Stopping glusterd"
 	start-stop-daemon --stop -q --pidfile "${PIDFILE}"
+	eindent
+
+	einfo "Unmounting GlusterFS filesystems"
+	umount -t fuse.glusterfs -a
+
+	einfo "Killing remaining GlusterFS processes"
+	for PID in $(find /var/lib/glusterd/ -type f -name "*.pid" -exec cat {} \;); do
+		kill "${PID}"
+	done
+
+	eoutdent
 	eend $?
 }
