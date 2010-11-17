@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Nov 2010; Tim Cera <timcera@earthlink.net> pest-12.1.ebuild:
+  Fixed come code for some of the utility programs.
+
 *pest-12.1 (16 Nov 2010)
 
   16 Nov 2010; Tim Cera <timcera@earthlink.net> -pest-12.0.ebuild,

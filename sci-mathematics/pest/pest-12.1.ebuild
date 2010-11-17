@@ -50,6 +50,12 @@ src_prepare() {
 		-e "s;^INSTALLDIR=.*;INSTALLDIR=${D}/usr/bin;" \
 		-e 's;^install :;install :\n\tinstall -d $(INSTALLDIR);' \
 		 makefile
+
+	# These changes are just for 12.1 - should go away
+	sed -i \
+	    -e 's/\(.*jco2jco .*jco2jco.*\)/\1 openun.o/' \
+	    -e 's/\(.*jcochek .*jcochek.o.*\)/\1 openun.o/' pestutl1.mak
+	sed -i -e '/.*integer.*ies2ipar.*$/ d' cmaes_p.F sceua_p.F
 }
 
 src_compile() {
