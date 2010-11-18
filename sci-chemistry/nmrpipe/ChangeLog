@@ -3,6 +3,10 @@
 # $Header: $
 
   18 Nov 2010; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-5.5.2010.277.15.30.ebuild:
+  Reomove more ifles
+
+  18 Nov 2010; Justin Lecher <jlec@gentoo.org>
   files/5.5.2010.277.15.30-lib.patch, nmrpipe-5.5.2010.277.15.30.ebuild,
   files/env-nmrpipe-new, metadata.xml:
   Force removal of files

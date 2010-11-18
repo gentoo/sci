@@ -141,7 +141,7 @@ src_install() {
 
 	# Some scripts are on the wrong place
 	cp -f nmrtxt/*.com com/
-	rm -f com/{nmrproc,fid}.com || die
+	rm -f {acme,com}/{nmrproc,fid}.com || die
 
 	sed \
 		-e "s:!/bin:!${EPREFIX}/bin:g" \
