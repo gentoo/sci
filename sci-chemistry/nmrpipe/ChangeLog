@@ -2,6 +2,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Nov 2010; Justin Lecher <jlec@gentoo.org>
+  files/5.5.2010.277.15.30-lib.patch, nmrpipe-5.5.2010.277.15.30.ebuild,
+  files/env-nmrpipe-new, metadata.xml:
+  Force removal of files
+
   08 Nov 2010; Justin Lecher <jlec@gentoo.org>
   nmrpipe-5.5.2010.277.15.30.ebuild:
   remove nmrproc.com as well

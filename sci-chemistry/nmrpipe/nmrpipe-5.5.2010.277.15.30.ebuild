@@ -108,11 +108,11 @@ src_install() {
 
 	# Remove the symlinks for the archives and the installation scripts.
 	for i in ${A} valpha_hn.tar valpha_time.tar; do
-		rm ${i} || die "Failed to remove archive symlinks."
+		rm -f ${i} || die "Failed to remove archive symlinks."
 	done
 	# Remove some of the bundled applications and libraries; they are provided by Gentoo instead.
 #	rm -r nmrbin.linux9/{lib/{libBLT24.so,libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
-	rm -r nmrbin.linux9/{lib/*.timestamp,*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
+	rm -rf nmrbin.linux9/{lib/*.timestamp,*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
 		nmrbin.{linux,mac,sgi6x,sol,winxp} nmruser format \
 		|| die "Failed to remove unnecessary libraries."
 	# As long as xview is not fixed for amd64 we do this
@@ -120,11 +120,11 @@ src_install() {
 	# Remove the initialisation script generated during the installation.
 	# It contains incorrect hardcoded paths; only the "nmrInit.com" script
 	# should be used.
-	rm com/nmrInit.linux9.com || die "Failed to remove broken init script."
+	rm -f com/nmrInit.linux9.com || die "Failed to remove broken init script."
 	# Remove installation log files.
-	rm README_NMRPIPE_USERS *.log || die "Failed to remove installation log."
+	rm -f README_NMRPIPE_USERS *.log || die "Failed to remove installation log."
 	# Remove unused binaries
-	rm talos*/bin/TALOS*.{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
+	rm -f talos*/bin/TALOS*.{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
 
 	# Set the correct path to NMRPipe in the auxiliary scripts.
 	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc talosplus/com -type f); do
@@ -141,7 +141,7 @@ src_install() {
 
 	# Some scripts are on the wrong place
 	cp -f nmrtxt/*.com com/
-	rm com/{nmrproc,fid}.com || die
+	rm -f com/{nmrproc,fid}.com || die
 
 	sed \
 		-e "s:!/bin:!${EPREFIX}/bin:g" \
