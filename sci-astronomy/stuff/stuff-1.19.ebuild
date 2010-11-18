@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,9 +7,9 @@ inherit eutils autotools
 
 DESCRIPTION="Tool for automatic generation of astronomical catalogs"
 HOMEPAGE="http://astromatic.iap.fr/software/stuff/"
-SRC_URI="ftp://ftp.iap.fr/pub/from_users/bertin/stuff/${P}.tar.gz"
+SRC_URI="http://www.astromatic.net/download/${PN}/${P}.tar.gz"
 
-LICENSE="CeCILL-2"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="threads"
