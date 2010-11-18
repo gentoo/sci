@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<longdescription lang="en">
+  In EyE (Enhance Your Extraction) an artificial neural network
+  connected to pixels of a moving window (retina) is trained to
+  associate these input stimuli to the corresponding response in one
+  or several output image(s). The resulting filter can be loaded in
+  SExtractor to operate complex, wildly non-linear filters on
+  astronomical images. Typical applications of EyE include adaptive
+  filtering, feature detection and cosmetic corrections.
+</longdescription>
+</pkgmetadata>
