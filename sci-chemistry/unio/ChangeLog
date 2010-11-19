@@ -3,6 +3,9 @@
 # $Header: $
 
   19 Nov 2010; Justin Lecher <jlec@gentoo.org> unio-2.0.1-r1.ebuild:
+  QA on quoting
+
+  19 Nov 2010; Justin Lecher <jlec@gentoo.org> unio-2.0.1-r1.ebuild:
   fperms sucks, because it could not handle wildcards
 
   09 Nov 2010; Justin Lecher <jlec@gentoo.org> unio-2.0.1-r1.ebuild:

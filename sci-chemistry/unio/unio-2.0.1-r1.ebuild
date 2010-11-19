@@ -58,8 +58,8 @@ src_install() {
 		/opt/${PN}/Unio10/Linux/Unio10 \
 		/opt/${PN}/Unio10/Linux/Externals/revzip.so || die
 	chmod 755 \
-		${ED}/opt/${PN}/UnioAlgorithms/${P}/bin/* \
-		${ED}/opt/${PN}/UnioAlgorithms/${P}/src/${PN}/* || die
+		"${ED}"/opt/${PN}/UnioAlgorithms/${P}/bin/* \
+		"${ED}"/opt/${PN}/UnioAlgorithms/${P}/src/${PN}/* || die
 
 	cat >> "${T}/${PN}" <<- EOF
 	#!/bin/bash
