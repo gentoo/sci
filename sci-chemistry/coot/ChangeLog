@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Nov 2010; Justin Lecher <jlec@gentoo.org> +files/9999-goocanvas.patch,
+  coot-9999.ebuild:
+  Better goocanvas detection
+
   19 Nov 2010; Justin Lecher <jlec@gentoo.org> coot-9999.ebuild:
   Added x11-libs/goocanvas as DEPS
 

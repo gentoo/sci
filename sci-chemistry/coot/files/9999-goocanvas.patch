@@ -1,0 +1,35 @@
+Index: trunk/macros/goo-canvas.m4
+===================================================================
+--- trunk/macros/goo-canvas.m4	(revision 3249)
++++ trunk/macros/goo-canvas.m4	(working copy)
+@@ -28,15 +28,15 @@
+   # GCC c++ does not.
+   #
+   GOOCANVAS_LDOPTS="$goocanvas_prefix/lib/libgoocanvas.la"
++
++  # PKG_CHECK_MODULES has a AC_MSG itself
++  AC_MSG_CHECKING([for Goocanvas])
++
+ else
+-  # the compiler looks in the "standard" places for GOOCANVAS.  
+-  GOOCANVAS_CFLAGS="-I/usr/include/goocanvas-1.0"
+-  GOOCANVAS_LDOPTS="libgoocanvas.la"
++  PKG_CHECK_MODULES(GOOCANVAS, goocanvas)
+ fi
+ 
+-AC_MSG_CHECKING([for Goocanvas])
+-
+-LIBS="$saved_LIBS $GOOCANVAS_LDOPTS $GTK_LIBS"
++LIBS="$saved_LIBS $GOOCANVAS_LIBS $GTK_LIBS"
+ CXXFLAGS="$saved_CXXFLAGS $GOOCANVAS_CFLAGS $GTK_CFLAGS"
+ #
+ # AC_TRY_LINK uses the c compiler (set by AC_LANG), so we will
+@@ -54,7 +54,7 @@
+ if test x$have_goocanvas = xyes; then
+ 
+  GOOCANVAS_CFLAGS="$GOOCANVAS_CFLAGS"
+- GOOCANVAS_LIBS="$GOOCANVAS_LDOPTS"
++ GOOCANVAS_LIBS="$GOOCANVAS_LIBS"
+ 
+ ifelse([$1], , :, [$1])
+ 

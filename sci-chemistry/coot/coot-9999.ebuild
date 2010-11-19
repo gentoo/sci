@@ -72,6 +72,7 @@ pkg_setup() {
 PATCHES=(
 	"${FILESDIR}"/${PV}-openmp.patch
 	"${FILESDIR}"/${PV}-include.patch
+	"${FILESDIR}"/${PV}-goocanvas.patch
 	)
 
 src_unpack() {
