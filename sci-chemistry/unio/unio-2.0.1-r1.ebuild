@@ -56,8 +56,10 @@ src_install() {
 	doins -r Unio10 UnioAlgorithms UnioDocumentations || die
 	fperms 755 \
 		/opt/${PN}/Unio10/Linux/Unio10 \
-		/opt/${PN}/Unio10/Linux/Externals/revzip.so \
-		/opt/${PN}/unio/UnioAlgorithms/${P}/{bin,src/${PN}}/* || die
+		/opt/${PN}/Unio10/Linux/Externals/revzip.so || die
+	chmod 755 \
+		${ED}/opt/${PN}/UnioAlgorithms/${P}/bin/* \
+		${ED}/opt/${PN}/UnioAlgorithms/${P}/src/${PN}/* || die
 
 	cat >> "${T}/${PN}" <<- EOF
 	#!/bin/bash
