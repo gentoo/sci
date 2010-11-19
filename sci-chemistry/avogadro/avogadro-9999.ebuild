@@ -36,11 +36,6 @@ pkg_setup() {
 	python_set_active_version 2
 }
 
-src_prepare() {
-	epatch \
-		"${FILESDIR}"/${PV}-sip.patch
-}
-
 src_configure() {
 	local mycmakeargs
 	mycmakeargs="${mycmakeargs}
