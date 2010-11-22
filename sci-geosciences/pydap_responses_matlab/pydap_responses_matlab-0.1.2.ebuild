@@ -11,9 +11,7 @@ RESTRICT_PYTHON_ABIS="3.*"
 inherit distutils versionator
 
 MY_PN=${PN//_/.}
-LETTER_PV="$(get_version_component_range 4)"
-MAJMIN_PV="$(get_version_component_range 1-3)"
-MY_P=${MY_PN}-${MAJMIN_PV}.${LETTER_PV}
+MY_P=${MY_PN}-${PV}
 
 DESCRIPTION="NetCDF response for Pydap Data Access Protocol server."
 HOMEPAGE="http://pydap.org"
