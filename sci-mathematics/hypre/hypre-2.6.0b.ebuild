@@ -9,7 +9,7 @@ inherit eutils
 DESCRIPTION="Parallel High Performance Preconditioners library for scalable
 solution of linear systems"
 HOMEPAGE="http://www.llnl.gov/casc/hypre/"
-SRC_URI="http://sourceforge.net/projects/charon-suite/files/thirdparty/${P}.tar.gz"
+SRC_URI="https://computation.llnl.gov/casc/hypre/download/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"

@@ -3,6 +3,11 @@
 # $Header: $
 
   24 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
+  hypre-2.6.0b.ebuild:
+  using original hypre download link instead of charon-suite third-party
+  packages
+
+  24 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
   -hypre-2.4.0b-r1.ebuild, -files/hypre-2.4.0b-soname.patch,
   hypre-2.6.0b.ebuild, +files/hypre-2.6.0b-makefile.patch:
   removed non-working 2.4 tree
