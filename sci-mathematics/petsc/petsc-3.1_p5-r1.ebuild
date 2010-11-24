@@ -34,7 +34,7 @@ if use hypre; then
 fi
 
 src_prepare(){
-	epatch "${FILESDIR}/fix-configure-pic.patch"
+	epatch "${FILESDIR}/${PN}-configure-pic.patch"
 }
 
 src_configure(){

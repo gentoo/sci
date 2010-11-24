@@ -28,8 +28,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MY_P}"
 
 src_prepare(){
-	epatch "${FILESDIR}/fix-configure-pic.patch"
-	epatch "${FILESDIR}/fix-mpiuni.patch"
+	epatch "${FILESDIR}/${PN}-configure-pic.patch"
 	# My failed tries on the parallel build QA warnings:
 	# sed -i "s/-\?\(@\?\)\${OMAKE}/\1\${MAKE}/g" makefile || die "sed failed"
 	# sed -i "s/\ make /\ ${MAKE} /g" makefile || die "sed failed"

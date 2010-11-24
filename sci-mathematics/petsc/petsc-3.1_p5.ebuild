@@ -28,7 +28,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MY_P}"
 
 src_prepare(){
-	epatch "${FILESDIR}/fix-configure-pic.patch"
+	epatch "${FILESDIR}/${PN}-configure-pic.patch"
 }
 
 src_configure(){
