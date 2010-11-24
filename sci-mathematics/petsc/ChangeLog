@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*petsc-3.1_p5-r2 (24 Nov 2010)
+
+  24 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
+  +petsc-3.1_p5-r2.ebuild, metadata.xml:
+  added new ebuild with hdf5 and parmetis support
+
   24 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
   petsc-3.1_p5-r1.ebuild:
   hypre support now working, further tests and comments welcome
