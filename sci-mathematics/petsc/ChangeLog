@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
+  petsc-3.1_p5-r1.ebuild:
+  hypre support now working, further tests and comments welcome
+
 *petsc-3.1_p5-r1 (14 Nov 2010)
 
   14 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
