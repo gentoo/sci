@@ -27,7 +27,7 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}/${P}/src"
 
 src_prepare() {
-	epatch ${FILESDIR}/${P}-makefile.patch
+	epatch "${FILESDIR}/${P}-makefile.patch"
 }
 
 src_configure() {
