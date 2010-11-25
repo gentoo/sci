@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Nov 2010; Alexey Shvetsov <alexxy@gentoo.org> -gromacs-4.0.7-r5.ebuild,
+  -files/gromacs-4.0.7_missing_distfiles.patch.gz,
+  -files/gromacs-4.0.7_upstream2010-09-15.patch.gz, -gromacs-4.5.2.ebuild,
+  -gromacs-4.5.3.ebuild:
+  Moved to tree
+
 *gromacs-4.5.3 (23 Nov 2010)
 
   23 Nov 2010; Christoph Junghans <kleiner_otti@gmx.de>
