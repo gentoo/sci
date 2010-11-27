@@ -4,7 +4,6 @@
 	<maintainer>
 		<email>weaver@gentoo.org</email>
 		<name>Andrey Kislyuk</name>
-		<description>SAM Tools provide various utilities for manipulating alignments in the SAM format.</description>
 	</maintainer>
 	<herd>sci-biology</herd>
 	<longdescription lang="en">
