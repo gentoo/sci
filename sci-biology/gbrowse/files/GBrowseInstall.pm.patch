@@ -1,0 +1,13 @@
+--- GBrowse-2.03/install_util/GBrowseInstall.pm.ori	2010-11-27 12:01:58.000000000 +0100
++++ GBrowse-2.03/install_util/GBrowseInstall.pm	2010-11-27 12:02:15.000000000 +0100
+@@ -436,8 +436,8 @@
+ 	$self->ownership_warning($databases,$user);
+     }
+ 
+-    chmod 0755,File::Spec->catfile($self->install_path->{'etc'},'init.d','gbrowse-slave');
+-    $self->fix_selinux;
++    # chmod 0755,File::Spec->catfile($self->install_path->{'etc'},'init.d','gbrowse-slave');
++    # $self->fix_selinux;
+ 
+     my $base = basename($self->install_path->{htdocs});
+ 

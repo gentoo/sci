@@ -2,7 +2,4 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <herd>sci-mathematics</herd>
-<use>
-  <flag name="mpi">Build support for the message passing interface in virtual/mpi</flag>
-</use>
 </pkgmetadata>
