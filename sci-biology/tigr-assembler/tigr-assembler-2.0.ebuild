@@ -19,7 +19,7 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/TIGR_Assembler_v2"
 
 src_prepare() {
-	cd ${S}/bin || die
+	cd "${S}"/bin || die
 	mv run_TA run_TA.csh || die
 	cp "${FILESDIR}"/run_TA run_TA || die
 }
@@ -36,7 +36,7 @@ src_install() {
 }
 
 src_test() {
-	cd ${S}/data/201.pre || die
+	cd "${S}"/data/201.pre || die
 	PATH="${D}"/usr/bin:$PATH run_TA '-s -q 201.qual -C 201.contigs' 201.seq || die "Failed to execute run_TA"
 	for f in *; do diff -I "^ed_date" -u -w ../201.post/$f $f; done || die "Found some differences in the output files compared to expected results."
 	for f in 201.align/*; do diff -u -w ../201.post/$f $f; done || die "Found some differences in the output files compared to expected results."
