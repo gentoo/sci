@@ -1,6 +1,8 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=3
 
 DESCRIPTION="A whole-genome shotgun assembler from TIGR"
 HOMEPAGE="http://www.tigr.org/software/assembler/"
@@ -9,7 +11,7 @@ SRC_URI="ftp://ftp.tigr.org/pub/software/assembler/TIGR_Assembler_v2.tar.gz"
 LICENSE="Artistic"
 SLOT="0"
 IUSE=""
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 
 DEPEND=""
 RDEPEND=""
