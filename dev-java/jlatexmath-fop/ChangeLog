@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  01 Dec 2010; Thomas Kahle <tomka@gentoo.org> jlatexmath-fop-0.9.3.ebuild:
+  removed stale doc useflag. Fix by Guillaume Horel in bug 301048.
+
 *jlatexmath-fop-0.9.3 (30 Sep 2010)
 
   30 Sep 2010; Thomas Kahle <tom111@gmx.de> +jlatexmath-fop-0.9.3.ebuild,
