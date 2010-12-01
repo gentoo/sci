@@ -1,0 +1,13 @@
+diff --git a/setup.py b/setup.py
+index 3933d32..8cf0653 100755
+--- a/setup.py
++++ b/setup.py
+@@ -54,7 +54,7 @@ setup(name='cnsface',
+       package_dir={'cnsface':'src'},
+       packages=['cnsface'],
+       requires=['wx'],
+-      scripts=['scripts/cnsi', 'scripts/convert2mtz'],
++      scripts=['scripts/cnsi'],
+       license='GNU General Public License (GPL)',
+       platforms=['OS Independent'],
+       data_files=data_files
