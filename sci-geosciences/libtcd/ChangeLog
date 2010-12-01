@@ -1,6 +1,12 @@
 # ChangeLog for sci-geosciences/libtcd
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libtcd-2.2.5 (19 Nov 2010)
+
+  19 Nov 2010; Tim Cera <timcera@earthlink.net> -libtcd-2.2.4.ebuild,
+  +libtcd-2.2.5.ebuild:
+  Version bump.
 
 *libtcd-2.2.4 (12 Jun 2009)
 

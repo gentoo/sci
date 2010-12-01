@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci-biology</herd>
+	<herd>no-herd</herd>
 	<maintainer>
 		<email>mmokrejs@gentoo.org</email>
 		<name>Martin Mokrejs</name>
 	</maintainer>
-	<longdescription>TIGR assembler</longdescription>
+	<longdescription>BEDTools: a flexible suite of utilities for comparing genomic features.</longdescription>
 </pkgmetadata>
