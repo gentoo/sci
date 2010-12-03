@@ -2,9 +2,15 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*gabedit-2.3.3 (03 Dec 2010)
+
+  03 Dec 2010; Maximilian Bräutigam <max-braeu@gmx.de>
+  +gabedit-2.3.3.ebuild, -gabedit-2.3.2.ebuild:
+  Version bump.
+
 *gabedit-2.3.2 (04 Nov 2010)
 
-  19 Oct 2010; Maximilian Bräutigam <max-braeu@gmx.de>
+  04 Nov 2010; Maximilian Bräutigam <max-braeu@gmx.de>
   +gabedit-2.3.2.ebuild, modified files/CONFIG.Gentoo:
   Version bump.
 
