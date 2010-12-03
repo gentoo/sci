@@ -168,7 +168,7 @@ src_install() {
 
 	# set up the environment
 	echo "LDPATH=/usr/${PVLIBDIR}" >> "${T}"/40${PN}
-	echo "PYTHONPATH=/usr/${PVLIBDIR}" >> "${T}"/40${PN}
+	echo "PYTHONPATH=/usr/${PVLIBDIR}/site-packages" >> "${T}"/40${PN}
 	doenvd "${T}"/40${PN}
 
 #	# this binary does not work and probably should not be installed
