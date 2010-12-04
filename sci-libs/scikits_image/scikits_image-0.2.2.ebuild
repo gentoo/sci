@@ -21,7 +21,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-RDEPEND="dev-python/numpy"
+RDEPEND="dev-python/numpy
+	sci-libs/scikits"
 DEPEND="${RDEPEND}
 	dev-python/setuptools
 	doc? ( dev-python/sphinx )"
@@ -44,6 +45,10 @@ src_test() {
 
 src_install() {
 	distutils_src_install
+	remove_scikits() {
+		rm -f "${ED}"$(python_get_sitedir)/scikits/__init__.py || die
+	}
+	python_execute_function -q remove_scikits
 	dodoc *.txt || die
 	insinto /usr/share/doc/${PF}
 	if use doc; then
