@@ -21,7 +21,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc examples test"
 
-RDEPEND="sci-libs/scipy"
+RDEPEND="sci-libs/scipy
+	sci-libs/scikits"
 DEPEND="dev-python/numpy
 	dev-python/setuptools
 	doc? ( dev-python/sphinx )"
@@ -55,6 +56,10 @@ src_test() {
 src_install() {
 	find "${S}" -name \*LICENSE.txt -delete
 	distutils_src_install
+	remove_scikits() {
+		rm -f "${ED}"$(python_get_sitedir)/scikits/__init__.py || die
+	}
+	python_execute_function -q remove_scikits
 	insinto /usr/share/doc/${PF}
 	if use doc; then
 		doins -r build/sphinx/html || die
