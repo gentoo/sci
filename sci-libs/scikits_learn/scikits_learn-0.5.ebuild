@@ -22,9 +22,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc examples test"
 
 CDEPEND="sci-libs/scipy
-	sci-libs/scikits
 	>=sci-libs/libsvm-2.91"
 RDEPEND="${CDEPEND}
+	sci-libs/scikits
 	dev-python/matplotlib"
 DEPEND="${CDEPEND}
 	dev-python/cython
