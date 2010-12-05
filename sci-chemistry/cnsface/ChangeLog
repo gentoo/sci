@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/cnsface
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*cnsface-0.0.12 (01 Dec 2010)
+
+  01 Dec 2010; Justin Lecher <jlec@gentoo.org> +files/0.0.12-binary.patch,
+  +cnsface-0.0.12.ebuild, +metadata.xml:
+  New addition
+

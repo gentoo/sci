@@ -13,7 +13,7 @@ inherit distutils
 MY_P="${P/scikits_/scikits.}"
 
 DESCRIPTION="A set of python modules for machine learning and data mining"
-HOMEPAGE="http://sourceforge.net/apps/trac/scikit-learn"
+HOMEPAGE="http://scikits-learn.sourceforge.net/"
 SRC_URI="mirror://sourceforge/scikit-learn/${MY_P}.tar.gz"
 
 LICENSE="BSD"
@@ -24,6 +24,7 @@ IUSE="doc examples test"
 CDEPEND="sci-libs/scipy
 	>=sci-libs/libsvm-2.91"
 RDEPEND="${CDEPEND}
+	sci-libs/scikits
 	dev-python/matplotlib"
 DEPEND="${CDEPEND}
 	dev-python/cython
@@ -56,6 +57,10 @@ src_compile() {
 src_install() {
 	find "${S}" -name \*LICENSE.txt -delete
 	distutils_src_install
+	remove_scikits() {
+		rm -f "${ED}"$(python_get_sitedir)/scikits/__init__.py || die
+	}
+	python_execute_function -q remove_scikits
 	insinto /usr/share/doc/${PF}
 	if use doc; then
 		doins "${DISTDIR}"/scikits.learn.pdf || die

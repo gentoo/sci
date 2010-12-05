@@ -6,6 +6,7 @@ EAPI="3"
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit python
 
@@ -36,7 +37,7 @@ src_install() {
 		"${EPREFIX}"/usr/bin/wsdl2py  wsdl/opal.wsdl || die
 
 	installation() {
-		insinto $(python_get_sitedir)
+		insinto $(python_get_sitedir)/AppService
 		doins AppService_*.py || die
 	}
 	python_execute_function -s installation
@@ -46,9 +47,9 @@ src_install() {
 }
 
 pkg_postinst() {
-	python_mod_optimize $(python_get_sitedir)
+	python_mod_optimize AppService
 }
 
 pkg_postrm() {
-	python_mod_cleanup $(python_get_sitedir)
+	python_mod_cleanup AppService
 }

@@ -1,0 +1,11 @@
+# ChangeLog for sci-mathematics/jags
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*jags-2.2.0 (04 Dec 2010)
+
+  04 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org> +jags-2.2.0.ebuild,
+  +metadata.xml:
+  Initial import. Modififed ebuild from originally submitted by Xavier
+  Fernández i Marín, bug #317741
+

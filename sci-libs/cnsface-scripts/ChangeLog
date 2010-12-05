@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/cnsface-scripts
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*cnsface-scripts-0.1 (01 Dec 2010)
+
+  01 Dec 2010; Justin Lecher <jlec@gentoo.org> +cnsface-scripts-0.1.ebuild,
+  +metadata.xml:
+  New addition
+

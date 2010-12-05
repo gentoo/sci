@@ -36,11 +36,15 @@ src_prepare() {
 	use gsl || ewarn "Disabling gsl will lead to reduced functionality"
 	use fftw || ewarn "Disabling fftw will lead to reduced functionality"
 
+	#remove bundled libs
+	rm -rf src/libexpat
+	use boost && rm -rf src/libboost
+
 	eautoreconf || die "eautoreconf failed"
 }
 
 src_configure() {
-	local myconf="--disable-la-files"
+	local myconf="--disable-la-files --disable-rc-files"
 
 	use boost \
 		&&  myconf="${myconf} $(use_with boost) --disable-votca-boost" \
@@ -51,10 +55,6 @@ src_configure() {
 	econf ${myconf} || die "econf failed"
 }
 
-src_compile() {
-	emake || die "emake failed"
-}
-
 src_install() {
 	emake install DESTDIR="${D}" || die "emake install failed"
 	dodoc NOTICE
@@ -62,17 +62,4 @@ src_install() {
 		emake CHANGELOG || die "emake CHANGELOG failed"
 		dodoc CHANGELOG
 	fi
-
-	sed -n -e '/^VOTCA\(BIN\|LDLIB\)/p' \
-		"${ED}"/usr/bin/VOTCARC.bash >> "${T}/80${PN}"
-	doenvd "${T}/80${PN}"
-	rm -f "${ED}"/usr/bin/VOTCARC*
-}
-
-pkg_postinst() {
-	env-update
-}
-
-pkg_postrm() {
-	env-update
 }
