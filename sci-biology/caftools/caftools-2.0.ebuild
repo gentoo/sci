@@ -31,4 +31,5 @@ src_configure(){
 
 src_install(){
 	emake install DESTDIR="${D}" || die
+	einfo "Some usage info is at http://sarton.imb-jena.de/software/consed2gap/"
 }
