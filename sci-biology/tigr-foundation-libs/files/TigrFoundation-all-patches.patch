@@ -1,0 +1,61 @@
+--- /tmp/autoEditor-1.20/TigrFoundation-2.0/ConfigFile.cc.old	2010-12-04 17:07:50.000000000 +0100
++++ /tmp/autoEditor-1.20/TigrFoundation-2.0/ConfigFile.cc	2010-12-04 17:07:25.000000000 +0100
+@@ -33,6 +33,7 @@
+  *  different values.
+  */
+ 
++#include "string.h"
+ #include "ConfigFile.hh"
+ 
+ //! Constructor
+--- /tmp/autoEditor-1.20/TigrFoundation-2.0/Logger.hh.old	2010-12-04 17:20:19.000000000 +0100
++++ /tmp/autoEditor-1.20/TigrFoundation-2.0/Logger.hh	2010-12-04 17:20:49.000000000 +0100
+@@ -15,6 +15,7 @@
+ #include <list>
+ #include <string>
+ #include <fstream>
++#include <stdlib.h>
+ 
+ #include <time.h>
+ #include <pwd.h>
+--- /tmp/autoEditor-1.20/TigrFoundation-2.0/OptionResult.hh.old	2010-12-04 17:21:35.000000000 +0100
++++ /tmp/autoEditor-1.20/TigrFoundation-2.0/OptionResult.hh	2010-12-04 17:22:02.000000000 +0100
+@@ -12,6 +12,7 @@
+ #define OPTIONRESULT_HH 1
+ 
+ #include <string>
++#include <stdlib.h>
+ #include <map>
+ #include "Exceptions.hh"
+ 
+--- /tmp/autoEditor-1.20/TigrFoundation-2.0/Options.hh.old	2010-12-04 17:22:37.000000000 +0100
++++ /tmp/autoEditor-1.20/TigrFoundation-2.0/Options.hh	2010-12-04 17:23:01.000000000 +0100
+@@ -11,6 +11,7 @@
+ #ifndef OPTIONS_HH
+ #define OPTIONS_HH 1
+ 
++#include <string.h>
+ #include <list>
+ #include <map>
+ #include <set>
+--- /tmp/autoEditor-1.20/TigrFoundation-2.0/FileSystem.cc.old	2010-12-04 17:24:02.000000000 +0100
++++ /tmp/autoEditor-1.20/TigrFoundation-2.0/FileSystem.cc	2010-12-04 17:24:12.000000000 +0100
+@@ -55,7 +55,7 @@
+   {
+     // Check to see if path was given
+ 
+-    char * end_of_path = strrchr(filename, PATH_DELIMINATOR);
++    const char * end_of_path = strrchr(filename, PATH_DELIMINATOR);
+     
+     if (end_of_path)
+     {
+--- /tmp/autoEditor-1.20/TigrFoundation-2.0/Options.cc.old	2010-12-04 17:24:53.000000000 +0100
++++ /tmp/autoEditor-1.20/TigrFoundation-2.0/Options.cc	2010-12-04 17:25:15.000000000 +0100
+@@ -25,6 +25,7 @@
+  *  written to stderr is prefixed with (stderr).
+  */
+ 
++#include <cstdio>
+ #include "Options.hh"
+ 
+ //! Constructor takes command line options in standard argc, argv format
