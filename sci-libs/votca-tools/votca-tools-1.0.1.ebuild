@@ -63,11 +63,3 @@ src_install() {
 		dodoc CHANGELOG
 	fi
 }
-
-pkg_postinst() {
-	env-update
-}
-
-pkg_postrm() {
-	env-update
-}
