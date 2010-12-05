@@ -1,0 +1,43 @@
+--- src/Makefile.in.ori	2010-12-05 22:59:40.000000000 +0100
++++ src/Makefile.in	2010-12-05 23:01:19.000000000 +0100
+@@ -32,8 +32,6 @@
+ includedir = @includedir@
+ oldincludedir = /usr/include
+ 
+-DESTDIR =
+-
+ pkgdatadir = $(datadir)/@PACKAGE@
+ pkglibdir = $(libdir)/@PACKAGE@
+ pkgincludedir = $(includedir)/@PACKAGE@
+@@ -323,18 +321,18 @@
+ 
+ install-binPROGRAMS: $(bin_PROGRAMS)
+ 	@$(NORMAL_INSTALL)
+-	$(mkinstalldirs) $(DESTDIR)$(bindir)
++	$(mkinstalldirs) $(bindir)
+ 	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+ 	  if test -f $$p; then \
+-	    echo "  $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
+-	     $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
++	    echo "  $(INSTALL_PROGRAM) $$p $(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
++	     $(INSTALL_PROGRAM) $$p $(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
+ 	  else :; fi; \
+ 	done
+ 
+ uninstall-binPROGRAMS:
+ 	@$(NORMAL_UNINSTALL)
+ 	list='$(bin_PROGRAMS)'; for p in $$list; do \
+-	  rm -f $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
++	  rm -f $(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
+ 	done
+ 
+ .c.o:
+@@ -579,7 +577,7 @@
+ 	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
+ installdirs: installdirs-recursive
+ installdirs-am:
+-	$(mkinstalldirs)  $(DESTDIR)$(bindir)
++	$(mkinstalldirs)  $(bindir)
+ 
+ 
+ mostlyclean-generic:
