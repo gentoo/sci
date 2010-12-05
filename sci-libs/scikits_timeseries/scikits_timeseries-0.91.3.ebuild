@@ -26,6 +26,7 @@ DEPEND="dev-python/setuptools
 	dev-python/numpy
 	doc? ( dev-python/sphinx )"
 RDEPEND="sci-libs/scipy
+	sci-libs/scikits
 	dev-python/matplotlib
 	dev-python/pytables"
 
@@ -40,6 +41,10 @@ src_test() {
 
 src_install() {
 	distutils_src_install
+	remove_scikits() {
+		rm -f "${ED}"$(python_get_sitedir)/scikits/__init__.py || die
+	}
+	python_execute_function -q remove_scikits
 	if use doc; then
 		insinto /usr/share/doc/${PF}
 		doins -r "${WORKDIR}/html" || die

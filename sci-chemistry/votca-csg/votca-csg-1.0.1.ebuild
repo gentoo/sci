@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit autotools bash-completion eutils
+inherit autotools bash-completion
 
 if [ "${PV}" != "9999" ]; then
 	SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz"
@@ -41,9 +41,10 @@ src_prepare() {
 }
 
 src_configure() {
-	local myconf="--disable-la-files"
+	local myconf="--disable-la-files --disable-rc-files"
 
 	if use gromacs; then
+		#prefer gromacs double-precision if it is there
 		if has_version sci-chemistry/gromacs[double-precision]; then
 			myconf="${myconf} --with-libgmx=libgmx_d"
 		else
@@ -58,10 +59,6 @@ src_configure() {
 	econf ${myconf} || die "econf failed"
 }
 
-src_compile() {
-	emake || die "emake failed"
-}
-
 src_install() {
 	emake install DESTDIR="${D}" || die "emake install failed"
 	dodoc README NOTICE
@@ -70,28 +67,14 @@ src_install() {
 		dodoc CHANGELOG
 	fi
 
-	sed -n -e '/^CSGSHARE/p' \
-		"${ED}"/usr/share/votca/rc/csg.rc.bash >> "${T}/80${PN}"
-	doenvd "${T}/80${PN}"
-
-	#from votca-tools
-	if [ -f /usr/share/votca/completion.bash ]; then
-		cat /usr/share/votca/completion.bash > "${T}/completion.bash"
-		cat "${ED}"/usr/share/votca/rc/csg-completion.bash >> "${T}/completion.bash"
-	    dobashcompletion "${T}"/completion.bash ${PN}
-	fi
-	rm -f "${ED}"/usr/share/votca/rc/*
+	dobashcompletion scripts/csg-completion.bash ${PN}
 }
 
 pkg_postinst() {
-	env-update
 	elog
 	elog "Please read and cite:"
 	elog "VOTCA, J. Chem. Theory Comput. 5, 3211 (2009). "
 	elog "http://dx.doi.org/10.1021/ct900369w"
 	elog
-}
-
-pkg_postrm() {
-	env-update
+	bash-completion_pkg_postinst
 }
