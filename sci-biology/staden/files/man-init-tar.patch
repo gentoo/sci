@@ -1,0 +1,14 @@
+--- doc/manual/manpages-t.texi.ori      2009-02-23 03:40:27.000000000 +0100
++++ doc/manual/manpages-t.texi  2009-02-23 03:40:30.000000000 +0100
+@@ -74,11 +74,6 @@
+ _include(hash_tar.1.texi)
+ 
+ @page
+-@node Man-init_tar
+-@chapter Init_tar
+-_include(init_tar.1.texi)
+-
+-@page
+ @node Man-makeSCF
+ @chapter MakeSCF
+ _include(makeSCF.1.texi)

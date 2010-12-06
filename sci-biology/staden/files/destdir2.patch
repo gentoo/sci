@@ -1,0 +1,131 @@
+--- Makefile.in.ori	2010-08-06 14:09:46.000000000 +0200
++++ Makefile.in	2010-08-06 14:13:03.000000000 +0200
+@@ -70,16 +70,16 @@
+ # Installs newly built executables into $STADENROOT/$(MACHINE)-bin
+ # FIXME:
+ install:
+-	-mkdir -p $(INSTALLLIB)
+-	-mkdir -p $(INSTALLBIN)
+-	-mkdir -p $(INSTALLETC)
+-	-mkdir -p $(INSTALLSHARE)
+-	-mkdir -p $(INSTALLSCRIPTS)
+-	-mkdir -p $(INSTALLTCL)
+-	-mkdir -p $(INSTALLDOC)
+-	-mkdir -p $(INSTALLMAN)
+-	cp shlib.conf $(INSTALLETC)
+-	cp @srcdir@/staden.profile $(INSTALLSHARE)
++	-mkdir -p $(DESTDIR)$(INSTALLLIB)
++	-mkdir -p $(DESTDIR)$(INSTALLBIN)
++	-mkdir -p $(DESTDIR)$(INSTALLETC)
++	-mkdir -p $(DESTDIR)$(INSTALLSHARE)
++	-mkdir -p $(DESTDIR)$(INSTALLSCRIPTS)
++	-mkdir -p $(DESTDIR)$(INSTALLTCL)
++	-mkdir -p $(DESTDIR)$(INSTALLDOC)
++	-mkdir -p $(DESTDIR)$(INSTALLMAN)
++	cp shlib.conf $(DESTDIR)$(INSTALLETC)
++	cp @srcdir@/staden.profile $(DESTDIR)$(INSTALLSHARE)
+ 	$(MAKE) $(FLAGS) JOB=install
+ 
+ 
+@@ -95,35 +95,35 @@
+ # and will be copied over separately. This is because in some cases they will
+ # have been manually hacked/bug fixed.
+ distunix:
+-	-mkdir $(DIST)/lib/$(MACHINE)-binaries 
+-	-cp -R lib/$(MACHINE)-binaries/libpng* $(DIST)/lib/$(MACHINE)-binaries
+-	-cp -R lib/$(MACHINE)-binaries/libtcl* $(DIST)/lib/$(MACHINE)-binaries
+-	-cp -R lib/$(MACHINE)-binaries/libtk* $(DIST)/lib/$(MACHINE)-binaries
+-	-cp -R lib/$(MACHINE)-binaries/libitcl* $(DIST)/lib/$(MACHINE)-binaries
+-	-cp -R lib/$(MACHINE)-binaries/libitk* $(DIST)/lib/$(MACHINE)-binaries
++	-mkdir $(DESTDIR)$(DIST)/lib/$(MACHINE)-binaries 
++	-cp -R lib/$(MACHINE)-binaries/libpng* $(DESTDIR)$(DIST)/lib/$(MACHINE)-binaries
++	-cp -R lib/$(MACHINE)-binaries/libtcl* $(DESTDIR)$(DIST)/lib/$(MACHINE)-binaries
++	-cp -R lib/$(MACHINE)-binaries/libtk* $(DESTDIR)$(DIST)/lib/$(MACHINE)-binaries
++	-cp -R lib/$(MACHINE)-binaries/libitcl* $(DESTDIR)$(DIST)/lib/$(MACHINE)-binaries
++	-cp -R lib/$(MACHINE)-binaries/libitk* $(DESTDIR)$(DIST)/lib/$(MACHINE)-binaries
+ 
+ 
+ distwindows:
+-	-mkdir $(DIST)/lib/windows-binaries 
+-	-cp lib/windows-binaries/* $(DIST)/lib/windows-binaries
+-	-cp windows/run/sprun.exe $(DIST)/windows-bin/
+-	-cp windows/run/sprun.exe $(DIST)/windows-bin/gap.exe
+-	-cp windows/run/sprun.exe $(DIST)/windows-bin/pregap4.exe
+-	-cp windows/run/sprun.exe $(DIST)/windows-bin/spin.exe
+-	-cp windows/run/sprun.exe $(DIST)/windows-bin/trev.exe
+-	-cp tk8.4.6/win/wish84.exe $(DIST)/windows-bin/wish.exe
+-	#-cp trev/trev.bat $(DIST)/windows-bin
+-	#-cp gap4/gap4.bat $(DIST)/windows-bin
+-	#-cp spin/spin.bat $(DIST)/windows-bin
+-	#-cp pregap4/pregap4.bat $(DIST)/windows-bin
+-	-cp ../windows-bin/*.exe $(DIST)/windows-bin
++	-mkdir $(DESTDIR)$(DIST)/lib/windows-binaries 
++	-cp lib/windows-binaries/* $(DESTDIR)$(DIST)/lib/windows-binaries
++	-cp windows/run/sprun.exe $(DESTDIR)$(DIST)/windows-bin/
++	-cp windows/run/sprun.exe $(DESTDIR)$(DIST)/windows-bin/gap.exe
++	-cp windows/run/sprun.exe $(DESTDIR)$(DIST)/windows-bin/pregap4.exe
++	-cp windows/run/sprun.exe $(DESTDIR)$(DIST)/windows-bin/spin.exe
++	-cp windows/run/sprun.exe $(DESTDIR)$(DIST)/windows-bin/trev.exe
++	-cp tk8.4.6/win/wish84.exe $(DESTDIR)$(DIST)/windows-bin/wish.exe
++	#-cp trev/trev.bat $(DESTDIR)$(DIST)/windows-bin
++	#-cp gap4/gap4.bat $(DESTDIR)$(DIST)/windows-bin
++	#-cp spin/spin.bat $(DESTDIR)$(DIST)/windows-bin
++	#-cp pregap4/pregap4.bat $(DESTDIR)$(DIST)/windows-bin
++	-cp ../windows-bin/*.exe $(DESTDIR)$(DIST)/windows-bin
+ 	$(MAKE) STADENROOT=$(DIST) MACHINE=windows install
+-	-rm $(DIST)/windows-bin/gap4
+-	-rm $(DIST)/windows-bin/spin
+-	-rm $(DIST)/windows-bin/trev
+-	-rm $(DIST)/windows-bin/pregap4
+-	-rm $(DIST)/windows-bin/assemble4
+-	-rm $(DIST)/windows-bin/finish_sanger
++	-rm $(DESTDIR)$(DIST)/windows-bin/gap4
++	-rm $(DESTDIR)$(DIST)/windows-bin/spin
++	-rm $(DESTDIR)$(DIST)/windows-bin/trev
++	-rm $(DESTDIR)$(DIST)/windows-bin/pregap4
++	-rm $(DESTDIR)$(DIST)/windows-bin/assemble4
++	-rm $(DESTDIR)$(DIST)/windows-bin/finish_sanger
+ 
+ 
+ 
+@@ -132,10 +132,10 @@
+ distsrc:
+ #
+ #	General souce. Works best from a clean svn checkout.
+-	-mkdir $(DS)
++	-mkdir -p $(DS)
+ 	cp $(S)/configure $(S)/*.in $(S)/bootstrap $(S)/README.build \
+ 	   $(S)/NEWS $(S)/ChangeLog $(S)/global.mk $(S)/staden.profile $(DS)
+-	-mkdir $(DS)/ac_stubs
++	-mkdir -p $(DS)/ac_stubs
+ 	cp $(S)/ac_stubs/*.m4 $(DS)/ac_stubs
+ #
+ #	Recurse through sub-directories too
+@@ -143,22 +143,22 @@
+ 	chmod -R go-w $(DS)
+ #
+ #	 Windows compilation bits
+-#	-mkdir $(S)/windows
++#	-mkdir -p $(S)/windows
+ #	cp -R windows/include $(S)
+-#	-mkdir $(S)/mkdef
++#	-mkdir -p $(S)/mkdef
+ #	cp -R windows/mkdef/mkdef.* $(S)/mkdef
+-#	-mkdir $(S)/run
++#	-mkdir -p $(S)/run
+ #	cp -R windows/run/run.* \
+ #	      windows/run/main.cpp\
+ #	      windows/run/notes.txt\
+ #	      windows/run/sprun.rc\
+ #	      windows/run/staden.ico\
+ #	      $(S)/run
+-#	mkdir $(S)/windows/dumpenv
++#	mkdir -p $(S)/windows/dumpenv
+ #	cp -R windows/dumpenv/dumpenv.*\
+ #	      windows/dumpenv/main.cpp\
+ #	      $(S)/windows/dumpenv
+-#	mkdir $(S)/windows/stashmsg
++#	mkdir -p $(S)/windows/stashmsg
+ #	cp -R windows/stashmsg/stashmsg.*\
+ #	      windows/stashmsg/icon1.ico\
+ #	      windows/stashmsg/messages.*\

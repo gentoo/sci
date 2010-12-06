@@ -1,0 +1,12 @@
+--- course/texi/Makefile.ori    2009-02-23 03:48:35.000000000 +0100
++++ course/texi/Makefile        2009-02-23 03:48:49.000000000 +0100
+@@ -55,7 +55,7 @@
+ #-----------------------------------------------------------------------------
+ # The main make targets.
+ 
+-all: unix windows
++all: windows
+ 
+ unix: course_unix.ps course_unix.pdf
+ 
+

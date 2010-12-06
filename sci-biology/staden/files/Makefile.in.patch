@@ -1,0 +1,11 @@
+--- staden-2.0.0b7-src/Makefile.in 2010-08-02 13:26:53.000000000 +0200
++++ staden-2.0.0b7-src/Makefile.in 2010-08-02 13:27:37.000000000 +0200
+@@ -209,7 +209,7 @@
+ haplo: gap4
+ prefinish: gap4
+ tgap: seq_utils
+-gap5: tgap
++gap5: tgap primer3/src
+ 
+ FORCE:
+ # DO NOT DELETE THIS LINE -- make depend depends on it.

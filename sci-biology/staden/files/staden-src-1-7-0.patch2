@@ -1,0 +1,270 @@
+diff -u -r staden-src-1-7-0.ori/course/texi/Makefile staden-src-1-7-0/course/texi/Makefile
+--- staden-src-1-7-0.ori/course/texi/Makefile	2006-07-05 13:05:50.000000000 +0200
++++ staden-src-1-7-0/course/texi/Makefile	2009-02-23 03:48:49.000000000 +0100
+@@ -55,7 +55,7 @@
+ #-----------------------------------------------------------------------------
+ # The main make targets.
+ 
+-all: unix windows
++all: windows
+ 
+ unix: course_unix.ps course_unix.pdf
+ 
+diff -u -r staden-src-1-7-0.ori/doc/manual/manpages-t.texi staden-src-1-7-0/doc/manual/manpages-t.texi
+--- staden-src-1-7-0.ori/doc/manual/manpages-t.texi	2006-07-04 18:17:37.000000000 +0200
++++ staden-src-1-7-0/doc/manual/manpages-t.texi	2009-02-23 03:40:30.000000000 +0100
+@@ -74,11 +74,6 @@
+ _include(hash_tar.1.texi)
+ 
+ @page
+-@node Man-init_tar
+-@chapter Init_tar
+-_include(init_tar.1.texi)
+-
+-@page
+ @node Man-makeSCF
+ @chapter MakeSCF
+ _include(makeSCF.1.texi)
+diff -u -r staden-src-1-7-0.ori/mklinks staden-src-1-7-0/mklinks
+--- staden-src-1-7-0.ori/mklinks	2006-06-28 17:51:59.000000000 +0200
++++ staden-src-1-7-0/mklinks	2009-02-23 02:13:44.000000000 +0100
+@@ -47,14 +47,6 @@
+ 	ln -s ../src/mutscan/$i-binaries/mutscan .
+ 	ln -s ../src/polyA_clip/$i-binaries/polyA_clip .
+ 	ln -s ../src/qclip/$i-binaries/qclip .
+-	ln -s ../src/io_lib/progs/$i-binaries/convert_trace .
+-	ln -s ../src/io_lib/progs/$i-binaries/extract_seq .
+-	ln -s ../src/io_lib/progs/$i-binaries/index_tar .
+-	ln -s ../src/io_lib/progs/$i-binaries/makeSCF .
+-	ln -s ../src/io_lib/progs/$i-binaries/scf_dump .
+-	ln -s ../src/io_lib/progs/$i-binaries/scf_info .
+-	ln -s ../src/io_lib/progs/$i-binaries/scf_update .
+-	ln -s ../src/io_lib/progs/$i-binaries/trace_dump .
+ 	ln -s ../src/screen_seq/$i-binaries/screen_seq .
+ 	ln -s ../src/tk_utils/$i-binaries/stash .
+ 	ln -s ../src/tracediff/$i-binaries/tracediff .
+diff -u -r staden-src-1-7-0.ori/src/Makefile staden-src-1-7-0/src/Makefile
+--- staden-src-1-7-0.ori/src/Makefile	2005-09-29 15:36:41.000000000 +0200
++++ staden-src-1-7-0/src/Makefile	2009-02-23 01:16:27.000000000 +0100
+@@ -12,7 +12,6 @@
+ include	 mk/global.mk
+ 
+ DIRS =	Misc\
+-	io_lib\
+ 	tk_utils\
+ 	text_utils\
+ 	seq_utils\
+@@ -108,11 +107,6 @@
+ # have been manually hacked/bug fixed.
+ distunix:
+ 	-mkdir $(DIST)/lib/$(MACHINE)-binaries 
+-	-cp -R lib/$(MACHINE)-binaries/libpng* $(DIST)/lib/$(MACHINE)-binaries
+-	-cp -R lib/$(MACHINE)-binaries/libtcl* $(DIST)/lib/$(MACHINE)-binaries
+-	-cp -R lib/$(MACHINE)-binaries/libtk* $(DIST)/lib/$(MACHINE)-binaries
+-	-cp -R lib/$(MACHINE)-binaries/libitcl* $(DIST)/lib/$(MACHINE)-binaries
+-	-cp -R lib/$(MACHINE)-binaries/libitk* $(DIST)/lib/$(MACHINE)-binaries
+ 
+ 
+ distwindows:
+diff -u -r staden-src-1-7-0.ori/src/gap4/Makefile staden-src-1-7-0/src/gap4/Makefile
+--- staden-src-1-7-0.ori/src/gap4/Makefile	2005-08-25 12:20:49.000000000 +0200
++++ staden-src-1-7-0/src/gap4/Makefile	2009-02-23 03:33:34.000000000 +0100
+@@ -165,6 +165,9 @@
+ 	$(P3_LIB)
+ 
+ GAP4SH_LIBS=\
++	$(ZLIB_LIB) \
++	$(PNG_LIB) \
++	$(CURL_LIB) \
+ 	$(IOLIB_LIB) \
+ 	$(G_LIB) \
+ 	$(SEQUTILS_LIB) \
+diff -u -r staden-src-1-7-0.ori/src/mk/global.mk staden-src-1-7-0/src/mk/global.mk
+--- staden-src-1-7-0.ori/src/mk/global.mk	2006-06-08 15:15:58.000000000 +0200
++++ staden-src-1-7-0/src/mk/global.mk	2009-02-23 03:33:36.000000000 +0100
+@@ -128,10 +128,10 @@
+ XSRC		= 
+ TCLVERS		= 8.4
+ TKVERS		= 8.4
+-TCLSRC		= $(SRCROOT)/tcl8.4.6/generic
+-TKSRC		= $(SRCROOT)/tk8.4.6/generic
+-ITCLSRC		= $(SRCROOT)/incrTcl-3.3cvs/itcl/generic
+-ITKSRC		= $(SRCROOT)/incrTcl-3.3cvs/itk/generic
++TCLSRC		= /usr/lib/tcl8.4/include/generic/
++TKSRC		= /usr/lib/tk8.4/include/generic/
++ITCLSRC		= /usr/lib/itcl3.3
++ITKSRC		= /usr/lib/itk3.3
+ TTSRC		=
+ ITCLVERS	= 3.3
+ ITKVERS		= 3.3
+@@ -187,6 +187,7 @@
+ MUT_LIB      = $(MUT_LIB_S) $(LINK_LIBFLAG)mutlib$(LIB_EXT) $(MUT_LIB_E)
+ P3_LIB	     = $(P3_LIB_S)  $(LINK_LIBFLAG)primer3$(LIB_EXT) $(P3_LIB_E)
+ PNG_LIB	     = $(PNG_LIB_S) $(LINK_LIBFLAG)png12$(LIB_EXT) $(PNG_LIB_E)
++CURL_LIB     = $(CURL_LIB_S) $(LINK_LIBFLAG)curl$(LIB_EXT) $(CURL_LIB_E)
+ 
+ 
+ # Standard chunks to add to the compile line
+@@ -201,10 +202,10 @@
+ X_INC		= $(XSRC:%=-I%)
+ XAW_INC		= $(XSRC:%=-I%)
+ TT_INC		= $(TTSRC:%=-I%)
+-IOLIB_INC	= -I$(IOLIBSRC)/include
+-IOUTILS_INC	= -I$(IOLIBSRC)/include
+-SCF_INC		= -I$(IOLIBSRC)/include
+-EXP_INC		= -I$(IOLIBSRC)/include
++IOLIB_INC	= -I$(IOLIBSRC)
++IOUTILS_INC	= -I$(IOLIBSRC)
++SCF_INC		= -I$(IOLIBSRC)
++EXP_INC		= -I$(IOLIBSRC)
+ G_INC		= -I$(GSRC)
+ GAP4_INC	= -I$(GAP4SRC)
+ NIP4_INC	= -I$(NIP4SRC)
+@@ -290,7 +291,7 @@
+ GETSCFFIELD	= $(SRCROOT)/get_scf_field
+ INDEXSEQLIBSSRC	= $(SRCROOT)/indexseqlibs
+ INITEXPSRC	= $(SRCROOT)/init_exp
+-IOLIBSRC	= $(SRCROOT)/io_lib
++IOLIBSRC	= /usr/include/io_lib
+ LOOKUPSRC	= $(SRCROOT)/lookup
+ MAKESCFSRC	= $(SRCROOT)/makeSCF
+ MISCSRC		= $(SRCROOT)/Misc
+diff -u -r staden-src-1-7-0.ori/src/mk/linux.mk staden-src-1-7-0/src/mk/linux.mk
+--- staden-src-1-7-0.ori/src/mk/linux.mk	2005-08-25 12:22:20.000000000 +0200
++++ staden-src-1-7-0/src/mk/linux.mk	2009-02-23 03:35:37.000000000 +0100
+@@ -6,9 +6,10 @@
+ /* DEFINES += -DLITTLE_ENDIAN */
+ 
+ # Use g77 for compiling our fortran
+-F77	 = g77
+-# Ewe:
+-F77_DEP  = -lg2c
++F77	 = gfortran
++# use for g77
++# F77_DEP  = -lg2c
++F77_DEP  = -lgfortran
+ LIBSF	= $(F77_DEP)
+ # Jura
+ # F77_DEP	 = /usr/lib/gcc-lib/i386-glibc21-linux/egcs-2.91.66/libg2c.a
+@@ -31,8 +32,8 @@
+ XBIN	= /usr/X11R6/lib
+ # For AMD64 based systems use XBIN=/usr/X11R6/lib64
+ 
+-#CLDFLAGS_E	+= -shared
+-#FLDFLAGS_E	+= -shared
++CLDFLAGS_E	+= -shared
++FLDFLAGS_E	+= -shared
+ 
+ # Dynamic linking
+ # For AMD64 based systems try -fPIC instead.
+@@ -41,7 +42,7 @@
+ # pic with g77 generates opcodes unknown by the 386 assembler. Odd
+ # It doesn't appear to be needed (but at a speed cost?).
+ # For AMD64 based systems try -fPIC instead.
+-#SHLIB_FFLAGS		= -fpic
++SHLIB_FFLAGS		= -fpic
+ SHLIB_LD		= cc
+ SHLIB_LDFLAGS		= -L$(L) $(SHLIB_STRIP) -shared -o
+ SHLIB_PREFIX		= lib
+diff -u -r staden-src-1-7-0.ori/src/mk/root.mk staden-src-1-7-0/src/mk/root.mk
+--- staden-src-1-7-0.ori/src/mk/root.mk	2003-06-09 13:24:35.000000000 +0200
++++ staden-src-1-7-0/src/mk/root.mk	2009-02-23 02:07:43.000000000 +0100
+@@ -12,7 +12,6 @@
+ # gap/osp-bits
+ # gap
+ DIRS =	Misc\
+-	io_lib\
+ 	seq_utils\
+ 	tk_utils\
+ 	spin\
+@@ -55,13 +54,10 @@
+ # in io_lib from (eg) clean to cleanx.
+ #
+ clean:
+-	cd io_lib; $(MAKE) $(FLAGS) cleanx
+-	$(MAKE) $(FLAGS) JOB=clean
++	-echo blah
+ 
+ spotless:
+-	cd io_lib; $(MAKE) $(FLAGS) spotlessx
+-	$(MAKE) $(FLAGS) JOB=spotless
+-	-rm lib/$(O)/so_locations
++	-ech blah
+ 
+ relink:
+ 	-rm lib/$(O)/so_locations
+diff -u -r staden-src-1-7-0.ori/src/mutlib/Makefile staden-src-1-7-0/src/mutlib/Makefile
+--- staden-src-1-7-0.ori/src/mutlib/Makefile	2004-10-28 11:15:56.000000000 +0200
++++ staden-src-1-7-0/src/mutlib/Makefile	2009-02-23 01:58:04.000000000 +0100
+@@ -63,8 +63,6 @@
+ 
+ MUT_DEP=\
+ 	$(SEQUTILS_LIB) \
+-	$(TKUTILS_LIB) \
+-	$(IOLIB_LIB) \
+ 	$(MISC_LIB) \
+ 	$(MATH_LIB)
+ 
+diff -u -r staden-src-1-7-0.ori/src/mutlib/staden.h staden-src-1-7-0/src/mutlib/staden.h
+--- staden-src-1-7-0.ori/src/mutlib/staden.h	2003-06-09 13:24:40.000000000 +0200
++++ staden-src-1-7-0/src/mutlib/staden.h	2009-02-23 02:21:50.000000000 +0100
+@@ -24,7 +24,7 @@
+ 
+ #include <Misc/misc.h>
+ #include <seq_utils/dna_utils.h>
+-#include <io_lib/include/Read.h>
++#include <io_lib/Read.h>
+ 
+ 
+ #ifdef __cplusplus
+diff -u -r staden-src-1-7-0.ori/src/mutscan/staden.h staden-src-1-7-0/src/mutscan/staden.h
+--- staden-src-1-7-0.ori/src/mutscan/staden.h	2003-06-09 13:25:30.000000000 +0200
++++ staden-src-1-7-0/src/mutscan/staden.h	2009-02-23 02:15:49.000000000 +0100
+@@ -22,7 +22,7 @@
+ #endif
+ 
+ 
+-#include <io_lib/include/Read.h>
++#include <io_lib/Read.h>
+ #include <licence/licence.h>
+ 
+ 
+diff -u -r staden-src-1-7-0.ori/src/tk_utils/Makefile staden-src-1-7-0/src/tk_utils/Makefile
+--- staden-src-1-7-0.ori/src/tk_utils/Makefile	2005-07-07 17:57:33.000000000 +0200
++++ staden-src-1-7-0/src/tk_utils/Makefile	2009-02-23 01:53:17.000000000 +0100
+@@ -72,12 +72,7 @@
+ 	@
+ 
+ TKU_LIBS = \
+-	$(IOLIB_LIB) \
+-	$(TK_LIB) \
+-	$(TCL_LIB) \
+ 	$(MISC_LIB) \
+-	$(PNG_LIB) \
+-	$(ZLIB_LIB) \
+ 	$(SOCKET)
+ 
+ $(L)/$(SHLIB_PREFIX)$(LIBS)$(SHLIB_SUFFIX): $(OBJS) $(DEF_FILE)
+@@ -113,8 +108,8 @@
+ 	-ln -s ../licence/md52.c .
+ 	-ln -s ../licence/md52.h .
+ 	-ln -s ../licence/valid_seq.c .
+-	-ln -s ../tcl8.4.6/unix/tclAppInit.c .
+-	-ln -s ../tk8.4.6/winMain.c .
++	-ln -s /usr/lib/tcl8.4/tclAppInit.c .
++	# -ln -s ../tk8.4.6/winMain.c .
+ 	touch .links
+ 	$(MAKE) $(MFLAGS)
+ 
+diff -u -r staden-src-1-7-0.ori/src/tracediff/staden.h staden-src-1-7-0/src/tracediff/staden.h
+--- staden-src-1-7-0.ori/src/tracediff/staden.h	2003-06-09 13:25:23.000000000 +0200
++++ staden-src-1-7-0/src/tracediff/staden.h	2009-02-23 02:21:06.000000000 +0100
+@@ -22,7 +22,7 @@
+ #endif
+ 
+ 
+-#include <io_lib/include/Read.h>
++#include <io_lib/Read.h>
+ #include <licence/licence.h>
+ 
+ 

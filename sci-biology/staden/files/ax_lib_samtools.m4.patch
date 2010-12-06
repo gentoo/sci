@@ -1,0 +1,34 @@
+--- staden/trunk/src/ac_stubs/ax_lib_samtools.m4	2010/01/14 12:14:01	1949
++++ staden/trunk/src/ac_stubs/ax_lib_samtools.m4	2010/08/02 09:20:59	2190
+@@ -117,7 +117,8 @@
+       if test "x$SAMTOOLS_ROOT" == "x"
+       then
+           samtools_exe=samtools
+-      elseif test -x "$SAMTOOLS_ROOT/bin/samtools"
++      elif test -x "$SAMTOOLS_ROOT/bin/samtools"
++      then
+ 	  samtools_exe="$SAMTOOLS_ROOT/bin/samtools"
+       else
+ 	  samtools_exe="$SAMTOOLS_ROOT/samtools"
+--- staden/trunk/src/ac_stubs/ax_lib_samtools.m4	2010/08/02 09:20:59	2190
++++ staden/trunk/src/ac_stubs/ax_lib_samtools.m4	2010/08/02 11:12:53	2192
+@@ -6,7 +6,7 @@
+ #
+ #   This macro will check for the existence of samtools 'bam' library.
+ #   (http://samtools.sourceforge.net/). It does this by checking for the
+-#   header file ibam.h and the bam library object file. These are
++#   header file bam.h and the bam library object file. These are
+ #   initially searched for in the include and lib subdirectory of the
+ #   --with-samtools=DIR, and if not found there directly within DIR
+ #   itself. This allows for --with-samtools to be specified as either
+--- staden/trunk/src/ac_stubs/ax_lib_samtools.m4	2010/08/02 11:12:53	2192
++++ staden/trunk/src/ac_stubs/ax_lib_samtools.m4	2010/08/02 11:23:16	2193
+@@ -99,7 +99,7 @@
+ 
+       if test "$samtools_ok" = "yes"
+       then
+-          SAMTOOLS_LDFLAGS="$ZLIB_LDFLAGS"
++          SAMTOOLS_LDFLAGS="-lbam $ZLIB_LDFLAGS"
+           SAMTOOLS_CFLAGS=
+       fi
+   fi
