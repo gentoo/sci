@@ -40,5 +40,5 @@ src_install(){
 	./Build install || die "Failed to execute ./Build install"
 	# we have to use the mgblast binary because it cannot be compiled against newer ncbi-tools anymore
 	# also we keep pvmsx binary because the pvmsx package need pvm3.h header which is in pvm bundle which is not in portage
-	for f in mdust psx sclust tclust nrcl zmsort cap3 formatdb cdbfasta cdbyank; do rm -f ${D}/usr/bin/$f || die "Cannot delete ${D}"/usr/bin/"$f"; done
+	for f in mdust psx sclust tclust nrcl zmsort cap3 formatdb cdbfasta cdbyank; do rm -f "${D}"/usr/bin/$f || die "Cannot delete ${D}"/usr/bin/"$f"; done
 }
