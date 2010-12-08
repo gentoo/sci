@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  scikits_timeseries-0.91.3.ebuild:
+  Now depend on common scikits
+
   29 Jun 2010; Justin Lecher <jlec@gentoo.org>
   scikits_timeseries-0.91.3.ebuild:
   Python ABI fixes

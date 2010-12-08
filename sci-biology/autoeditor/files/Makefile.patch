@@ -1,0 +1,100 @@
+--- Makefile	2009-11-23 23:29:24.000000000 +0100
++++ /tmp/Makefile	2010-12-05 15:06:53.000000000 +0100
+@@ -3,7 +3,7 @@
+ 
+ # $Id: Makefile,v 1.2 2009/11/23 22:29:24 mschatz Exp $
+ 
+-INSTALL_DIR = /usr/local/bin
++INSTALL_DIR = $(DESTDIR)/bin
+ 
+ PROG_NAME = autoEditor
+ all: $(PROG_NAME)
+@@ -56,10 +56,9 @@
+ RAWCOBJS = $(SRCS:.c=.o)
+ OBJS     = $(RAWCOBJS:.cc=.o)
+ 
+-TF_ROOT  = TigrFoundation-2.0
+ LIBSLICE = libSlice-1.0
+ 
+-IOLIB      = ${PWD}/io_lib-1.8.11/install
++IOLIB      = /usr
+ IO_LIB_INC = $(IOLIB)/include/io_lib
+ IO_LIB_LIB = $(IOLIB)/lib
+ 
+@@ -68,8 +67,6 @@
+ 
+ DEFINES      = -DUSE_ZLIB -DUSE_CPP_FRONTEND
+ 
+-DEBUG = -O2 -g
+-
+ LFS=-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
+ 
+ ifeq ($(HOSTTYPE), alpha)
+@@ -96,32 +93,12 @@
+ endif
+ 
+ CFLAGS   = -Wall $(DEBUG) $(DEFINES) $(INC) ${LFS}
+-CPPFLAGS = $(CFLAGS) -I$(TF_ROOT) -L$(TF_ROOT) -D_HAS_GETOPT
+-LDLIBS   = -lSlice -lTigrFoundation -lm -lread -lz 
+-
++CPPFLAGS = $(CFLAGS) -D_HAS_GETOPT
++LDLIBS   = -lSlice -lTigrFoundation -lm -lstaden-read -lz 
+ 
+-${IOLIB}/lib/libread.la:
+-	cd io_lib-1.8.11;                                             \
+-  rm -Rf ${IOLIB};                                              \
+-  if [ -e Makefile ] ; then make distclean; fi;                 \
+-  ./configure --prefix=${IOLIB};                                \
+-  make;                                                         \
+-  make install;                                                 \
+-  cp os.h ${IOLIB}/include/io_lib;                              \
+-  cp config.h ${IOLIB}/include/io_lib;                          \
+-  if [ -e ${IOLIB}/lib/libread.so ];                            \
+-    then mv ${IOLIB}/lib/libread.so ${IOLIB}/lib/libread-so.so; \
+-  fi;
+ 
+ libSlice-1.0/libSlice.a:
+ 	cd libSlice-1.0; \
+-	CXXFLAGS="-I../TigrFoundation-2.0 -L../TigrFoundation-2.0" \
+-  CC=$(CC) \
+-  CXX=$(CXX) \
+-  make;
+-
+-TigrFoundation-2.0/libTigrFoundation.a:
+-	cd TigrFoundation-2.0; \
+   CC=$(CC)   \
+   CXX=$(CXX) \
+   make;
+@@ -129,9 +106,7 @@
+ 
+ 
+ # Rule for linking all of the objects into the program
+-$(PROG_NAME): ${IOLIB}/lib/libread.la                \
+-              TigrFoundation-2.0/libTigrFoundation.a \
+-              libSlice-1.0/libSlice.a                \
++$(PROG_NAME): libSlice-1.0/libSlice.a                \
+               $(OBJS)
+ 	$(CXX) $(CPPFLAGS) -o $@ $(OBJS) $(LDLIBS);                 \
+   echo;                                                       \
+@@ -144,18 +119,13 @@
+   cd libSlice-1.0;            \
+   make clean;                 \
+   cd ..;                      \
+-  cd TigrFoundation-2.0;      \
+-  make clean;                 \
+-  cd ..;                      \
+-  cd io_lib-1.8.11;           \
+-  rm -Rf install;             \
+-  if [ -e Makefile ]; then make distclean; fi;
+ 
+ sample: ${PROG_NAME}
+ 	./${PROG_NAME} -v -c sample/29713/chromo sample/29713/29713
+ 
+ install: ${PROG_NAME}
+-	cp ${PROG_NAME} ${INSTALL_DIR}
++	mkdir -p $(DESTDIR)/bin || exit
++	cp ${PROG_NAME} $(DESTDIR)/bin/
+ 
+ uninstall:
+-	rm ${INSTALL_DIR}/${PROG_NAME}
++	rm ${DESTDIR}/${PROG_NAME}

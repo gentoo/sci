@@ -2,6 +2,16 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  scikits_learn-0.5.ebuild:
+  Now depend on common scikits
+
+*scikits_learn-0.5 (04 Dec 2010)
+
+  04 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  +scikits_learn-0.5.ebuild:
+  Version bump. Now depends on sci-libs/scikits.
+
 *scikits_learn-0.4 (05 Aug 2010)
 
   05 Aug 2010; Sébastien Fabbro <bicatali@gentoo.org>

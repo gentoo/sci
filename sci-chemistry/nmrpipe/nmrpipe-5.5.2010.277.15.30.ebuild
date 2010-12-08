@@ -35,8 +35,10 @@ RDEPEND="${DEPEND}
 	app-editors/nedit
 	dev-lang/tk
 	dev-tcltk/blt
+	media-fonts/font-sun-misc
 	!sci-chemistry/talos+
 	sys-libs/ncurses
+	x11-apps/xset
 	x11-libs/libX11
 	amd64? (
 		app-emulation/emul-linux-x86-baselibs

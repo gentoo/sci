@@ -1,0 +1,22 @@
+./autoEditor -v -c sample/29713/chromo sample/29713/29713
+Creating index of offsets of seq_ids in sample/29713/29713.seq ... done
+Creating index of offsets of seq_ids in sample/29713/29713.qual ... done
+Creating index of offsets of seq_ids in sample/29713/29713.pos ... done
+ENTERING THE MAIN LOOP ... 
+Processing asmbl 29713  44 reads
+        Parsing sample/29713/29713.qual file ... done
+        Aligning sequences to the consensus sequence ... done
+        Parsing sample/29713/29713.seq file ... done
+        Parsing sample/29713/29713.pos file ... done
+        Correcting errors ... done
+        Freeing tiling data ... done
+        Aligning sequences to the consensus sequence ... done
+        Recalling consensus sequence values and their quality classes ... done
+        Correcting gap slices ... done
+        Freeing tiling data ... done
+        Aligning sequences to the consensus sequence ... done
+        Creating new contig, qual, and seq files ... done
+        Freeing tiling data ... done
+        Freeing sequence data ... done
+        Flushing Trace Cache ... done
+DONE WITH THE MAIN LOOP in 0min 1sec

@@ -21,7 +21,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="dev-python/numpy"
+RDEPEND="dev-python/numpy
+	sci-libs/scikits"
 DEPEND="${RDEPEND}
 	app-arch/unzip
 	dev-python/setuptools"
@@ -33,4 +34,12 @@ src_test() {
 		PYTHONPATH="$(dir -d build-${PYTHON_ABI}/lib*)" "$(PYTHON)" setup.py build -b "build-${PYTHON_ABI}" test
 	}
 	python_execute_function testing
+}
+
+src_install() {
+	distutils_src_install
+	remove_scikits() {
+		rm -f "${ED}"$(python_get_sitedir)/scikits/__init__.py || die
+	}
+	python_execute_function -q remove_scikits
 }

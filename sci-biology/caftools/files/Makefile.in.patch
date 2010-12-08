@@ -1,0 +1,49 @@
+--- src/Makefile.in.ori	2010-12-05 22:08:50.000000000 +0100
++++ src/Makefile.in	2010-12-05 22:10:07.000000000 +0100
+@@ -18,7 +18,7 @@
+ srcdir = @srcdir@
+ top_srcdir = @top_srcdir@
+ VPATH = @srcdir@
+-prefix = @prefix@
++prefix = $(DESTDIR)/@prefix@
+ exec_prefix = @exec_prefix@
+ 
+ bindir = @bindir@
+@@ -394,14 +394,14 @@
+ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
+ install-binPROGRAMS: $(bin_PROGRAMS)
+ 	@$(NORMAL_INSTALL)
+-	$(mkinstalldirs) $(DESTDIR)$(bindir)
++	$(mkinstalldirs) $(bindir)
+ 	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+ 	  p1=`echo $$p|sed 's/$(EXEEXT)$$//'`; \
+ 	  if test -f $$p \
+ 	  ; then \
+ 	    f=`echo "$$p1" | sed 's,^.*/,,;$(transform);s/$$/$(EXEEXT)/'`; \
+-	   echo " $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) $$p $(DESTDIR)$(bindir)/$$f"; \
+-	   $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) $$p $(DESTDIR)$(bindir)/$$f; \
++	   echo " $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) $$p $(bindir)/$$f"; \
++	   $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) $$p $(bindir)/$$f; \
+ 	  else :; fi; \
+ 	done
+ 
+@@ -409,8 +409,8 @@
+ 	@$(NORMAL_UNINSTALL)
+ 	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+ 	  f=`echo "$$p" | sed 's,^.*/,,;s/$(EXEEXT)$$//;$(transform);s/$$/$(EXEEXT)/'`; \
+-	  echo " rm -f $(DESTDIR)$(bindir)/$$f"; \
+-	  rm -f $(DESTDIR)$(bindir)/$$f; \
++	  echo " rm -f $(bindir)/$$f"; \
++	  rm -f $(bindir)/$$f; \
+ 	done
+ 
+ clean-binPROGRAMS:
+@@ -663,7 +663,7 @@
+ all-am: Makefile $(PROGRAMS) config.h
+ installdirs: installdirs-recursive
+ installdirs-am:
+-	$(mkinstalldirs) $(DESTDIR)$(bindir)
++	$(mkinstalldirs) $(bindir)
+ 
+ install: install-recursive
+ install-exec: install-exec-recursive

@@ -14,7 +14,8 @@ MY_P="ParaView-${PV}"
 
 DESCRIPTION="ParaView is a powerful scientific data visualization application"
 HOMEPAGE="http://www.paraview.org"
-SRC_URI="http://www.paraview.org/files/v3.8/${MY_P}.tar.gz"
+SRC_URI="http://www.paraview.org/files/v3.8/${MY_P}.tar.gz
+	http://ompldr.org/vNmRiOQ/${P}-OFF.patch.bz2"
 RESTRICT="mirror"
 
 LICENSE="paraview GPL-2"
@@ -77,6 +78,8 @@ src_prepare() {
 		sed -i "s:/usr/lib:/usr/lib64:g" \
 			Utilities/Xdmf2/libsrc/CMakeLists.txt || die "sed failed"
 	fi
+
+	epatch "${WORKDIR}"/${P}-OFF.patch
 
 	cd VTK
 	epatch "${FILESDIR}"/vtk-5.6.0-cg-path.patch
@@ -165,7 +168,7 @@ src_install() {
 
 	# set up the environment
 	echo "LDPATH=/usr/${PVLIBDIR}" >> "${T}"/40${PN}
-	echo "PYTHONPATH=/usr/${PVLIBDIR}" >> "${T}"/40${PN}
+	echo "PYTHONPATH=/usr/${PVLIBDIR}/site-packages" >> "${T}"/40${PN}
 	doenvd "${T}"/40${PN}
 
 #	# this binary does not work and probably should not be installed

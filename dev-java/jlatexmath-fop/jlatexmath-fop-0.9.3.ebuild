@@ -4,7 +4,7 @@
 
 EAPI=2
 
-JAVA_PKG_IUSE="doc source"
+JAVA_PKG_IUSE="examples source"
 
 inherit java-pkg-2 java-ant-2
 
@@ -12,7 +12,7 @@ DESCRIPTION="jlatexmath plugin for dev-java/fop"
 SRC_URI="http://forge.scilab.org/index.php/p/jlatexmath/downloads/136/get/ -> jlatexmath-src-all-${PV}.jar"
 HOMEPAGE="http://forge.scilab.org/index.php/p/jlatexmath"
 
-IUSE="doc examples source"
+IUSE=""
 DEPEND=">=virtual/jdk-1.5
 	dev-java/jlatexmath
 	dev-java/avalon-framework
@@ -24,7 +24,6 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 EANT_BUILD_TARGET="buildJar"
-EANT_DOC_TARGET="doc"
 
 S="${WORKDIR}"/plugin/fop
 
@@ -42,6 +41,6 @@ src_prepare() {
 
 src_install() {
 	java-pkg_newjar dist/${P}.jar ${PN}.jar
-	use doc && java-pkg_dojavadoc doc
 	use source && java-pkg_dosrc src/org
+	use examples && java-pkg_doexamples examples
 }
