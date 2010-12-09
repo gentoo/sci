@@ -18,7 +18,6 @@ fi
 
 LICENSE="Artistic"
 SLOT="0"
-KEYWORDS=""
 IUSE=""
 
 DEPEND="dev-vcs/subversion
