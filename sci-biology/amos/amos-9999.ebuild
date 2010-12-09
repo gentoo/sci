@@ -19,7 +19,7 @@ ECVS_PASS=""
 LICENSE="GPL-2"
 SLOT="0"
 IUSE=""
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 #DEPEND=">=x11-libs/qt-3.3:3"
 DEPEND="dev-vcs/cvs
