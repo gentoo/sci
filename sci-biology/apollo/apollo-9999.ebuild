@@ -19,6 +19,7 @@ fi
 LICENSE="Artistic"
 SLOT="0"
 IUSE=""
+KEYWORDS=""
 
 DEPEND="dev-vcs/subversion
 		>=dev-java/sun-jdk-1.5
