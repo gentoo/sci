@@ -10,10 +10,10 @@ HOMEPAGE="http://gmod.org/wiki/Apollo"
 if [ "$PV" == "9999" ]; then
 	#SRC_URI="http://gmod.svn.sourceforge.net/viewvc/gmod/apollo/?view=tar" # Apollo_unix.sh
 	ESVN_REPO_URI="https://gmod.svn.sourceforge.net/svnroot/gmod/apollo/trunk"
-	KEYWORDS="~amd64 ~x86"
+	#KEYWORDS="~amd64 ~x86"
 else
 	SRC_URI="http://apollo.berkeleybop.org/current/installers/Apollo_unix.sh"
-	KEYWORDS="~amd64 ~x86"
+	#KEYWORDS="~amd64 ~x86"
 fi
 
 LICENSE="Artistic"
