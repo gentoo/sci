@@ -5,7 +5,7 @@
 EAPI=3
 inherit perl-module
 
-DESCRIPTION="TIGR perl scripts for clustering large EST/mRNAs datasets"
+DESCRIPTION="TIGR perl scripts for clustering large EST/mRNAs datasets and aceconv, mgblast and pvmsx binaries"
 HOMEPAGE="http://sourceforge.net/projects/tgicl"
 SRC_URI="http://sourceforge.net/projects/tgicl/files/tgicl%20v2.1/TGICL-2.1.tar.gz"
 
@@ -38,7 +38,7 @@ S="${WORKDIR}"/TGICL-2.1
 
 src_install(){
 	./Build install || die "Failed to execute ./Build install"
-	# we have to use the mgblast binary because it cannot be compiled against newer ncbi-tools anymore
-	# also we keep pvmsx binary because the pvmsx package need pvm3.h header which is in pvm bundle which is not in portage
+	einfo "We have to use the mgblast binary provided by upstream because it cannot be compiled against newer ncbi-tools anymore"
+	einfo "We also keep pvmsx binary because the pvmsx package needs pvm3.h header which is probably the one from pvm bundle which is not in portage at all, contact sys-cluster herd"
 	for f in mdust psx sclust tclust nrcl zmsort cap3 formatdb cdbfasta cdbyank; do rm -f "${D}"/usr/bin/$f || die "Cannot delete ${D}"/usr/bin/"$f"; done
 }
