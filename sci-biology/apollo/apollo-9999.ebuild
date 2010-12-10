@@ -3,6 +3,9 @@
 # $Header: $
 
 EAPI=3
+
+inherit java-pkg-2 java-ant-2
+
 [ "$PV" == "9999" ] && inherit subversion
 
 DESCRIPTION="The Apollo genome editor is a Java-based application for browsing and annotating genomic sequences."
@@ -23,6 +26,7 @@ KEYWORDS=""
 
 DEPEND="dev-vcs/subversion
 		>=dev-java/sun-jdk-1.5
+		dev-java/ant-core
 		dev-lang/perl"
 RDEPEND="${DEPEND}"
 
