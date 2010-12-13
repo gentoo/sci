@@ -14,12 +14,12 @@ DESCRIPTION="A library of Algebraic Multigrid (AMG) solvers with a convenient Py
 HOMEPAGE="http://code.google.com/p/pyamg/"
 SRC_URI="http://${PN}.googlecode.com/files/${P}.tar.gz"
 
-LICENSE="BSD-3"
+LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 DEPEND=">=dev-python/numpy-1.2.1
-        >=sci-libs/scipy-0.7.0
-        >=dev-python/nose-0.10.1"
+	>=sci-libs/scipy-0.7.0
+	>=dev-python/nose-0.10.1"
 RDEPEND=""
