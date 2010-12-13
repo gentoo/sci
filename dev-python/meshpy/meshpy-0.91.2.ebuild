@@ -12,15 +12,17 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 
 DESCRIPTION="Quality triangular and tetrahedral mesh generation for Python"
 HOMEPAGE="http://mathema.tician.de/software/meshpy http://pypi.python.org/pypi/MeshPy"
-SRC_URI="http://pypi.python.org/packages/source/M/${MY_PN}/${MY_PN}-${PV}.tar.gz"
+SRC_URI="mirror://pypi/M/${MY_PN}/${MY_PN}-${PV}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
+IUSE=""
+
 DEPEND="dev-python/setuptools"
 RDEPEND="dev-libs/boost[python]
-         dev-python/pyvtk"
+	dev-python/pyvtk"
 
 src_configure() {
 	./configure.py --boost-python-libname="boost_python-mt"
