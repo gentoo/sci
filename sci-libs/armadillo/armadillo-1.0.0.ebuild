@@ -9,14 +9,14 @@ DESCRIPTION="C++ linear algebra library aiming towards a good balance between sp
 HOMEPAGE="http://arma.sourceforge.net/"
 SRC_URI="http://downloads.sourceforge.net/arma/${P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="lapack blas boost"
+IUSE=""
 
-RDEPEND=">=sys-devel/gcc-4.0.0
-	lapack? ( virtual/lapack )
-	blas? ( virtual/blas )
-	boost? ( >=dev-libs/boost-1.34 )"
-DEPEND="dev-util/cmake
-	${DEPEND}"
+DEPEND=">=sys-devel/gcc-4.0.0
+	virtual/lapack
+	virtual/blas
+	>=dev-libs/boost-1.34"
+
+RDEPEND="${DEPEND}"
