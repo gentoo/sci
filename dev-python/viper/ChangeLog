@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/viper
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*viper-0.4.6 (14 Dec 2010)
+
+  14 Dec 2010; Nico Schlömer <nico.schloemer@gmail.com>
+  +viper-0.4.6.ebuild, +metadata.xml:
+  Initial import.
+
