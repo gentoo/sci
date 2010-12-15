@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/exodusii
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*exodusii-4.98 (15 Dec 2010)
+
+  15 Dec 2010; Nico Schlömer <nico.schloemer@gmail.com>
+  +exodusii-4.98.ebuild, +files/exodusii-4.98-find-netcdf.patch,
+  +metadata.xml:
+  Initial import.
+
