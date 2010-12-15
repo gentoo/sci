@@ -16,6 +16,7 @@ LICENSE="MolSoft"
 SLOT="0"
 
 DEPEND="!sci-chemistry/icm-browser
+		app-arch/unzip
 		amd64? (
 			64bit? (
 					media-libs/tiff:3
@@ -67,15 +68,24 @@ src_install () {
 	dodir "${instdir}"
 	dodir "${instdir}/licenses"
 	cp -pPR * "${D}/${instdir}"
+	rm "${D}/${instdir}/unzip"
 	doenvd "${FILESDIR}/90icm" || die
 	if use x86; then
 		dosym "${instdir}/icm"  /opt/bin/icm || die
-		rm  "${instdir}/icm64" || die
+		rm  "${D}/${instdir}/icm64" || die
 	elif use amd64; then
-		use 32bit && dosym "${instdir}/icm"  /opt/bin/icm || die
-		use 64bit && dosym "${instdir}/icm64" /opt/bin/icm64 || die
-		!use 64bit && rm  "${instdir}/icm64" || die
-		!use 32bit && "${instdir}/icm" || die
+		if use 32bit; then
+			dosym "${instdir}/icm"  /opt/bin/icm || die
+		fi
+		if use 64bit; then
+			dosym "${instdir}/icm64" /opt/bin/icm64 || die
+		fi
+		if ! use 64bit; then
+			rm  "${D}/${instdir}/icm64" || die
+		fi
+		if ! use 32bit; then
+			rm "${D}/${instdir}/icm" || die
+		fi
 	fi
 	dosym "${instdir}/txdoc"  /opt/bin/txdoc || die
 	dosym "${instdir}/lmhostid"  /opt/bin/lmhostid || die
