@@ -74,8 +74,8 @@ src_install () {
 	elif use amd64; then
 		use 32bit && dosym "${instdir}/icm"  /opt/bin/icm || die
 		use 64bit && dosym "${instdir}/icm64" /opt/bin/icm64 || die
-		use !64bit && rm  "${instdir}/icm64" || die
-		use !32bit && "${instdir}/icm" || die
+		!use 64bit && rm  "${instdir}/icm64" || die
+		!use 32bit && "${instdir}/icm" || die
 	fi
 	dosym "${instdir}/txdoc"  /opt/bin/txdoc || die
 	dosym "${instdir}/lmhostid"  /opt/bin/lmhostid || die
