@@ -10,7 +10,7 @@ TEST_PV="4.0.4"
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="release-4-0-patches"
 
-inherit autotools bash-completion eutils fortran git multilib toolchain-funcs
+inherit autotools bash-completion eutils git multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -44,15 +44,6 @@ QA_EXECSTACK="usr/lib/libgmx.so.*
 	usr/lib/libgmx_d.so.*"
 
 use static && QA_EXECSTACK="$QA_EXECSTACK usr/bin/*"
-
-pkg_setup() {
-	if use fkernels; then
-		FORTRAN="g77 gfortran ifc"
-		fortran_pkg_setup
-	else
-		FORTRANC=""
-	fi
-}
 
 src_prepare() {
 
@@ -182,10 +173,10 @@ src_configure() {
 		einfo "Configuring for ${x} precision"
 		cd "${S}-${x}"
 		local p=myconf${x}
-		ECONF_SOURCE="${S}" econf ${!p} --disable-mpi CC="$(tc-getCC)" F77="${FORTRANC}"
+		ECONF_SOURCE="${S}" econf ${!p} --disable-mpi CC="$(tc-getCC)" F77="$(tc-getFC)"
 		use mpi || continue
 		cd "${S}-${x}_mpi"
-		ECONF_SOURCE="${S}" econf ${!p} --enable-mpi CC="$(tc-getCC)" F77="${FORTRANC}"
+		ECONF_SOURCE="${S}" econf ${!p} --enable-mpi CC="$(tc-getCC)" F77="$(tc-getFC)"
 	done
 }
 

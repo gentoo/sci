@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Dec 2010; Justin Lecher <jlec@gentoo.org> gromacs-4.0.9999.ebuild,
+  gromacs-4.5.9999.ebuild, gromacs-9999.ebuild:
+  Removal of fortran.eclass, #348851
+
   25 Nov 2010; Alexey Shvetsov <alexxy@gentoo.org> -gromacs-4.0.7-r5.ebuild,
   -files/gromacs-4.0.7_missing_distfiles.patch.gz,
   -files/gromacs-4.0.7_upstream2010-09-15.patch.gz, -gromacs-4.5.2.ebuild,
