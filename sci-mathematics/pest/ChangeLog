@@ -2,6 +2,9 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Dec 2010; Justin Lecher <jlec@gentoo.org> pest-12.1.ebuild:
+  Removal of fortran.eclass, #348851
+
   17 Nov 2010; Tim Cera <timcera@earthlink.net> pest-12.1.ebuild:
   Fixed come code for some of the utility programs.
 
