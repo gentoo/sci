@@ -1,10 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header:$
+# $Header: $
 
-FORTRAN="g77 gfortran"
-
-inherit eutils fortran toolchain-funcs
+inherit eutils toolchain-funcs
 
 DESCRIPTION="the crystallographic computing system"
 HOMEPAGE="http://www-xray.fzu.cz/jana/jana.html"
@@ -26,11 +24,11 @@ src_unpack() {
 	unpack ${A}
 	cd "${S}"
 
-	einfo "setting up the Makefile for ${FORTRANC}"
+	einfo "setting up the Makefile for $(tc-getFC)"
 
-	if [[ ${FORTRANC} == gfortran ]]; then
+	if [[ $(tc-getFC) == gfortran ]]; then
 		epatch "${FILESDIR}/${PV}-gfortran.diff"
-	elif [[ ${FORTRANC} == g77 ]]; then
+	elif [[ $(tc-getFC) == g77 ]]; then
 		epatch "${FILESDIR}/${PV}-g77.diff"
 	fi
 }
