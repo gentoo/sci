@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Dec 2010; Justin Lecher <jlec@gentoo.org> scalasca-1.3.1.ebuild,
+  scalasca-1.3.2.ebuild:
+  Removal of fortran.eclass, #348851
+
 *scalasca-1.3.2 (12 Dec 2010)
 
   12 Dec 2010; Christoph Junghans <kleiner_otti@gmx.de>
