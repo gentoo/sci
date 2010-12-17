@@ -5,7 +5,7 @@
 EAPI=2
 PYTHON_DEPEND="2"
 
-inherit eutils fortran python mpi
+inherit eutils python mpi toolchain-funcs
 
 MY_PV=${PV/_/}
 DESCRIPTION="MPICH2 - A portable MPI implementation"
@@ -36,11 +36,6 @@ pkg_setup() {
 	python_pkg_setup
 
 	MPI_ESELECT_FILE="eselect.mpi.mpich2"
-
-	if use fortran ; then
-		FORTRAN="g77 gfortran ifort ifc"
-		fortran_pkg_setup
-	fi
 
 	if use mpi-threads && ! use threads; then
 		ewarn "mpi-threads requires threads, assuming that's what you want"
@@ -109,7 +104,7 @@ src_configure() {
 	fi
 
 	# enable f90 support for appropriate compilers
-	case "${FORTRANC}" in
+	case "$(tc-getFC)" in
 	    gfortran|if*)
 			c="${c} --enable-f77 --enable-f90";;
 	    g77)
