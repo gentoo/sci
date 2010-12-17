@@ -1,8 +1,8 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit mpi fortran
+inherit mpi
 
 SLOT="0"
 LICENSE="BSD"
@@ -60,7 +60,6 @@ pkg_setup() {
 			die "unsupported architecture: ${ARCH}"
 			;;
 	esac
-	use fortran && fortran_pkg_setup
 }
 
 src_unpack() {
@@ -112,8 +111,8 @@ src_compile() {
 
 	# enable f90 support for appropriate compilers
 	if use fortran; then
-		case "${FORTRANC}" in
-			gfortran|ifc|ifort|f95)
+		case "$(tc-getFC)" in
+			gfortran|ifort|f95)
 				c="${c} --enable-f77 --enable-f90";;
 			g77|f77|f2c)
 				c="${c} --enable-f77 --disable-f90";;
