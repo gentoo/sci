@@ -1,61 +1,13 @@
-Index: configure.in
-===================================================================
---- configure.in	(revision 3219)
-+++ configure.in	(working copy)
-@@ -51,6 +51,21 @@
- 
- AC_OPENMP
- 
-+dnl Find OpenMP library
-+GOMP_LIBS=''
-+if test "$enable_openmp" != 'no'; then
-+  if test "${GCC}" = "yes"; then
-+    AC_CHECK_LIB(gomp,GOMP_parallel_start,GOMP_LIBS="-lgomp",,)  # gcc
-+  else
-+    AC_CHECK_LIB(mtsk,sunw_mp_register_warn,GOMP_LIBS="-lmtsk",,)  # solaris cc
-+    AC_CHECK_LIB(xlsmp,_xlsmpFlush,GOMP_LIBS="-lxlsmp",,)  # AIX xlc
-+    AC_CHECK_LIB(mp,mp_destroy,GOMP_LIBS="-lmp",,)  # SGI IRIX 6.5 MIPSpro C/C++
-+  fi
-+  LIBS="$GOMP_LIBS $LIBS"
-+fi
-+AC_SUBST(GOMP_LIBS)
-+
-+
- AC_LIB_PREPARE_MULTILIB
- 
- AC_SUBST(COOT_STDTYPES)
 Index: surface/Makefile.am
 ===================================================================
---- surface/Makefile.am	(revision 3219)
+--- surface/Makefile.am	(revision 3299)
 +++ surface/Makefile.am	(working copy)
-@@ -48,7 +48,7 @@
- 	CXXUtils.h \
- 	CXXSphereFlatTriangle.h
+@@ -1,7 +1,7 @@
  
--libccp4mg_surface_la_LIBADD = $(CLIPPER_LIBS) $(MMDB_LIBS)
-+libccp4mg_surface_la_LIBADD = $(CLIPPER_LIBS) $(MMDB_LIBS) $(GOMP_LIBS)
+ INCLUDES = -I$(top_srcdir)/coot-utils $(MMDB_CXXFLAGS) $(CLIPPER_CXXFLAGS) $(FFTW_CXXFLAGS)
  
+-AM_CPPFLAGS = $(OPENMP_CFLAGS)
++AM_CPPFLAGS = $(OPENMP_CXXFLAGS)
  
- # CXXAtom.h CXXAtom.cpp
-Index: src/Makefile.am
-===================================================================
---- src/Makefile.am	(revision 3219)
-+++ src/Makefile.am	(working copy)
-@@ -166,7 +166,7 @@
- 	$(GUILE_CFLAGS)		\
- 	$(PYTHON_CFLAGS)	\
- 	$(COOT_WINDOWS_CFLAGS) 	\
--	$(COOT_GSL_FLAGS) $(OPENMP_CFLAGS)
-+	$(COOT_GSL_FLAGS) $(OPENMP_CXXFLAGS)
+ lib_LTLIBRARIES = libccp4mg-surface.la
  
- 
- 
-@@ -414,7 +414,7 @@
- # coot_real_LDFLAGS = -static -lstdc++
- coot_real_LDFLAGS =
- 
--coot_real_LDADD =  $(OPENMP_CFLAGS)     \
-+coot_real_LDADD =  $(GOMP_LIBS)     \
-                 $(COOT_EXTRA_LIBS)      \
- 		$(GUILE_GTK_LIBS)       \
- 		$(GUILE_LDFLAGS)	\
