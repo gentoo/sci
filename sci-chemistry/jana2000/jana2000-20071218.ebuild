@@ -26,9 +26,9 @@ src_unpack() {
 
 	einfo "setting up the Makefile for $(tc-getFC)"
 
-	if [[ $(tc-getFC) == gfortran ]]; then
+	if [[ $(tc-getFC) =~ gfortran ]]; then
 		epatch "${FILESDIR}/${PV}-gfortran.diff"
-	elif [[ $(tc-getFC) == g77 ]]; then
+	elif [[ $(tc-getFC) =~ g77 ]]; then
 		epatch "${FILESDIR}/${PV}-g77.diff"
 	fi
 }
