@@ -4,9 +4,7 @@
 
 EAPI="2"
 
-inherit fortran toolchain-funcs versionator
-
-FORTRAN="ifc gfortran"
+inherit toolchain-funcs versionator
 
 MY_P="${PN}_$(replace_version_separator 2 '-')"
 

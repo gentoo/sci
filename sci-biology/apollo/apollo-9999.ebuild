@@ -25,10 +25,12 @@ IUSE=""
 KEYWORDS=""
 
 DEPEND="dev-vcs/subversion
+		>=virtual/jdk-1.5
 		>=dev-java/sun-jdk-1.5
 		dev-java/ant-core
 		dev-lang/perl"
-RDEPEND="${DEPEND}"
+RDEPEND=">=virtual/jre-1.5
+		${DEPEND}"
 
 src_unpack() {
 	subversion_src_unpack || die

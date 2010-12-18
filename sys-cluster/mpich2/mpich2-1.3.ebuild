@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-inherit eutils fortran mpi
+inherit eutils mpi toolchain-funcs
 
 MY_PV=${PV/_/}
 DESCRIPTION="MPICH2 - A portable MPI implementation"
@@ -30,11 +30,6 @@ S="${WORKDIR}"/${PN}-${MY_PV}
 
 pkg_setup() {
 	MPI_ESELECT_FILE="eselect.mpi.mpich2"
-
-	if use fortran ; then
-		FORTRAN="g77 gfortran ifort ifc"
-		fortran_pkg_setup
-	fi
 
 	if use mpi-threads && ! use threads; then
 		ewarn "mpi-threads requires threads, assuming that's what you want"
@@ -94,7 +89,7 @@ src_configure() {
 	fi
 
 	# enable f90 support for appropriate compilers
-	case "${FORTRANC}" in
+	case "$(tc-getFC)" in
 	    gfortran|if*)
 			c="${c} --enable-f77 --enable-fc";;
 	    g77)

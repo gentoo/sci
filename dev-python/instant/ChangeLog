@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/instant
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*instant-0.9.8 (14 Dec 2010)
+
+  14 Dec 2010; Nico Schlömer <nico.schloemer@gmail.com>
+  +instant-0.9.8.ebuild, +metadata.xml:
+  Initial import.
+

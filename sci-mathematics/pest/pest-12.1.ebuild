@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit fortran versionator
+inherit versionator toolchain-funcs
 
 MY_P="${P/-/}"
 
@@ -27,7 +27,6 @@ RDEPEND=""
 MAKEOPTS="${MAKEOPTS} -j1"
 
 # Need a Fortran 90 compiler.
-FORTRAN="gfortran ifc"
 
 S="${WORKDIR}/${PN}"
 
@@ -40,8 +39,8 @@ src_unpack() {
 src_prepare() {
 	# I decided it was cleaner to make all edits with sed, rather than a patch.
 	sed -i \
-		-e "s;^F90=.*;F90=${FORTRANC};" \
-		-e "s;^LD=.*;LD=${FORTRANC};" \
+		-e "s;^F90=.*;F90=$(tc-getFC);" \
+		-e "s;^LD=.*;LD=$(tc-getFC);" \
 		 *.mak makefile
 	sed -i \
 		-e "s;^FFLAGS=.*;FFLAGS=${FFLAGS:--O2} -c;" \

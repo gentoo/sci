@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/armadillo
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*armadillo-1.0.0 (13 Dec 2010)
+
+  13 December 2010; Nico Schlömer <nico.schloemer@gmail.com>
+  +metadata.xml, +armadillo-1.0.0.ebuild:
+  Initial import.

@@ -3,7 +3,7 @@
 # $Header: $
 
 MPI_PKG_NEED_IMPS="openmpi mpich2"
-inherit fortran eutils java-utils-2 mpi
+inherit eutils java-utils-2 mpi
 
 MY_P=${P/_/}
 DESCRIPTION="MPI development tools"
@@ -39,11 +39,6 @@ pkg_setup() {
 	local i
 
 	MPE_IMP=$(mpi_pkg_base_imp)
-
-	if use fortran ; then
-		FORTRAN="g77 gfortran ifort ifc"
-		fortran_pkg_setup
-	fi
 
 	if use threads; then
 		if ! built_with_use ${CATEGORY}/${MPE_IMP} threads; then
@@ -82,9 +77,9 @@ src_compile() {
 	local c="--with-mpicc=$(mpi_pkg_cc)"
 	local d=$(mpi_root)
 
-	if [ -n "${FORTRANC}" -a -n "$(mpi_pkg_f77)" ]; then
+	if [ -n "$(tc-getFC)" -a -n "$(mpi_pkg_f77)" ]; then
 		c="${c} --with-mpif77=$(mpi_pkg_f77)"
-		export F77=${FORTRANC}
+		export F77=$(tc-getFC)
 	else
 		c="${c} --disable-f77"
 	fi

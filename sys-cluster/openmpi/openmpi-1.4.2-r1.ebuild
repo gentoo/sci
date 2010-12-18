@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/sys-cluster/openmpi/openmpi-1.2.4.ebuild,v 1.2 2007/12/13 22:39:53 jsbronder Exp $
 
 EAPI=3
-inherit eutils multilib flag-o-matic toolchain-funcs fortran mpi
+inherit eutils multilib flag-o-matic toolchain-funcs mpi
 
 MY_P=${P/-mpi}
 S=${WORKDIR}/${MY_P}
@@ -42,11 +42,6 @@ pkg_setup() {
 	elog "Don't forget the EXTRA_ECONF environment variable can let you"
 	elog "specify configure options if you find them necessary."
 	elog
-
-	if use fortran; then
-		FORTRAN="g77 gfortran ifc"
-		fortran_pkg_setup
-	fi
 }
 
 src_prepare() {
@@ -76,9 +71,9 @@ src_configure() {
 	fi
 
 	if use fortran; then
-		if [[ "${FORTRANC}" = "g77" ]]; then
+		if [[ "$(tc-getFC)" = "g77" ]]; then
 			c="${c} --disable-mpi-f90"
-		elif [[ "${FORTRANC}" = if* ]]; then
+		elif [[ "$(tc-getFC)" = if* ]]; then
 			# Enabled here as gfortran compile times are huge with this enabled.
 			c="${c} --with-mpi-f90-size=medium"
 		fi

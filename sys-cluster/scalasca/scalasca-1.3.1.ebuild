@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit eutils fortran
+inherit eutils
 
 DESCRIPTION="Scalable Performance Analysis of Large-Scale Applications"
 HOMEPAGE="http://www.fz-juelich.de/jsc/scalasca/"
@@ -20,12 +20,6 @@ DEPEND="mpi? ( virtual/mpi )
 	x11-libs/qt-gui:4"
 
 RDEPEND="${DEPEND}"
-
-FORTRAN="g77 gfortran ifc"
-
-pkg_setup() {
-	use fortran && fortran_pkg_setup
-}
 
 src_prepare() {
 	sed -e "s:CFLAGS   =.*:CFLAGS   = ${CFLAGS}:" \

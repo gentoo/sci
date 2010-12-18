@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit fortran versionator multilib
+inherit versionator multilib toolchain-funcs
 
 MY_P="${PN}_$(replace_version_separator 2 '-')"
 

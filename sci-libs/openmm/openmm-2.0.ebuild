@@ -13,11 +13,12 @@ SRC_URI="${MY_PN}${PV}-Source.zip"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="+cuda opencl"
 
-RDEPEND=">=dev-util/nvidia-cuda-sdk-3.1
-	dev-util/nvidia-cuda-sdk[opencl?,cuda?]"
+RDEPEND="
+	>=dev-util/nvidia-cuda-toolkit-3.1
+	>=dev-util/nvidia-cuda-sdk-3.1[opencl=,cuda=]"
 DEPEND="${RDEPEND}
 	dev-util/cmake
 	virtual/jre"
@@ -43,6 +44,8 @@ src_configure() {
 
 	mycmakeargs="${mycmakeargs}
 		-DCUDA_NVCC_FLAGS:STRING=${NVCC_FLAGS}
+		-DOPENMM_BUILD_FREE_ENERGY_CUDA_LIB=OFF
+		-DOPENMM_BUILD_FREE_ENERGY_PLUGIN=OFF
 		$(cmake-utils_use cuda OPENMM_BUILD_CUDA_LIB)
 		$(cmake-utils_use opencl OPENMM_BUILD_OPENCL_LIB)"
 
