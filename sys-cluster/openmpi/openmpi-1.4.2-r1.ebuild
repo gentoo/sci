@@ -71,9 +71,9 @@ src_configure() {
 	fi
 
 	if use fortran; then
-		if [[ "$(tc-getFC)" = "g77" ]]; then
+		if [[ $(tc-getFC) =~ g77 ]]; then
 			c="${c} --disable-mpi-f90"
-		elif [[ "$(tc-getFC)" = if* ]]; then
+		elif [[ $(tc-getFC) =~ if.* ]]; then
 			# Enabled here as gfortran compile times are huge with this enabled.
 			c="${c} --with-mpi-f90-size=medium"
 		fi
