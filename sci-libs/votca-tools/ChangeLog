@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Dec 2010; Christoph Junghans <kleiner_otti@gmx.de> 
+  votca-tools-9999.ebuild:
+  using autotools-utils eclass
+
 *votca-tools-1.0.1 (05 Dec 2010)
 
   05 Dec 2010; Christoph Junghans <kleiner_otti@gmx.de>
