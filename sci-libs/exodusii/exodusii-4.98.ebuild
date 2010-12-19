@@ -12,11 +12,17 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
+IUSE="static-libs test"
 
 DEPEND=">=sci-libs/netcdf-3.6.0"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-find-netcdf.patch
+}
+
+pkg_setup() {
+	mycmakeargs="${mycmakeargs}
+		$(cmake-utils_use !static-libs BUILD_SHARED_LIBS)
+		$(cmake-utils_use test BUILD_TESTING)"
 }
