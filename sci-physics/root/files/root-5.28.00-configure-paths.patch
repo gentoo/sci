@@ -1,15 +1,6 @@
---- root.orig/configure	2010-10-13 23:43:25.000000000 +0100
-+++ root/configure	2010-10-13 23:43:58.000000000 +0100
-@@ -728,7 +728,7 @@
-             cat <<EOF > conftest.mk
- include config/Makefile.${arch}
- conftest:conftest.c $symbolfile
--	\$(CC) \$(CFLAGS) \$(LDFLAGS) $symbolfile \$< -o \$@
-+	\$(CC) \$(CFLAGS) \$(LDFLAGS) \$< $symbolfile -o \$@
- 
- conftest.c:
- 	echo "extern int $symbol (); " > \$@
-@@ -2255,8 +2255,8 @@
+--- root.orig/configure	2010-12-17 22:34:50.987000643 +0300
++++ root/configure	2010-12-17 22:35:55.046516404 +0300
+@@ -2703,8 +2703,8 @@
  if test ! "x$enable_pgsql" = "xno"; then
      # Check for PgSQL include and library
      check_header "libpq-fe.h" "$pgsqlincdir" $PGSQL $PGSQL/include \
@@ -20,7 +11,7 @@
          /usr/include/postgresql/8.0 /usr/pgsql/include \
          /usr/local/include/pgsql /usr/local/include/postgresql \
          /usr/include/postgresql/8.0 /usr/pgsql /usr/local/pgsql \
-@@ -2338,7 +2338,7 @@
+@@ -2786,7 +2786,7 @@
      else
          check_header "sqlext.h" "$odbcincdir" \
              $ODBC $ODBC/include $ODBCINCDIR /usr/local/include \
@@ -29,3 +20,4 @@
          odbcinc=$found_hdr
          odbcincdir=$found_dir
  
+
