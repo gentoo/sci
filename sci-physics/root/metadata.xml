@@ -15,7 +15,9 @@
   <flag name="clarens">
     Buld the Clarens and PEAC plug-ins, to use in a GRID enabled
     analysis.</flag>
+  <flag name="fits">Support for images and data from FITS files</flag>
   <flag name="geant4">Build the <pkg>sci-physics/geant</pkg> (GEANT4) navigator</flag>
+  <flag name="fits">Build the new cling interactive interpreter based on <pkg>sys-devel/llvm</pkg></flag>
   <flag name="math">Build all math related libraries plugins, needs <pkg>sci-libs/gsl</pkg> </flag>
   <flag name="pythia6">
     Builds the interface to Pythia-6 (<pkg>sci-physics/pythia</pkg>)

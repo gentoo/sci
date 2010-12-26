@@ -1,0 +1,138 @@
+diff -Naur root.orig/Makefile root/Makefile
+--- root.orig/Makefile	2010-12-17 22:48:40.577775091 +0300
++++ root/Makefile	2010-12-17 22:49:27.902497903 +0300
+@@ -1148,10 +1148,7 @@
+ 	   if test "x$(RFLX_GRFLXPY)" != "x"; then \
+ 	      rm -f $(DESTDIR)$(LIBDIR)/$(RFLX_GRFLXPY); \
+ 	   fi; \
+-	   if test "x$(RFLX_GRFLXPYC)" != "x"; then \
+-	      rm -f $(DESTDIR)$(LIBDIR)/$(RFLX_GRFLXPYC); \
+-	   fi; \
+-	   if test "x$(RFLX_GRFLXPY)$(RFLX_GRFLXPYC)" != "x"; then \
++	   if test "x$(RFLX_GRFLXPY)" != "x"; then \
+ 	      dir=$(RFLX_GRFLXDD:lib/=); \
+ 	      while test "x$${dir}" != "x" && \
+ 	         test -d $(DESTDIR)$(LIBDIR)/$${dir} && \
+diff -Naur root.orig/bindings/pyroot/Module.mk root/bindings/pyroot/Module.mk
+--- root.orig/bindings/pyroot/Module.mk	2010-12-17 22:48:39.941179413 +0300
++++ root/bindings/pyroot/Module.mk	2010-12-17 22:49:27.899164943 +0300
+@@ -48,8 +48,6 @@
+ ROOTPY       := $(subst $(MODDIR),$(LPATH),$(ROOTPYS))
+ $(LPATH)/%.py: $(MODDIR)/%.py; cp $< $@
+ endif
+-ROOTPYC      := $(ROOTPY:.py=.pyc)
+-ROOTPYO      := $(ROOTPY:.py=.pyo)
+ 
+ # used in the main Makefile
+ ALLHDRS      += $(patsubst $(MODDIRI)/%.h,include/%.h,$(PYROOTH))
+@@ -68,10 +66,8 @@
+ include/%.h:    $(PYROOTDIRI)/%.h
+ 		cp $< $@
+ 
+-%.pyc: %.py;    python -c 'import py_compile; py_compile.compile( "$<" )'
+-%.pyo: %.py;    python -O -c 'import py_compile; py_compile.compile( "$<" )'
+ 
+-$(PYROOTLIB):   $(PYROOTO) $(PYROOTDO) $(ROOTPY) $(ROOTPYC) $(ROOTPYO) \
++$(PYROOTLIB):   $(PYROOTO) $(PYROOTDO) $(ROOTPY) \
+                 $(ROOTLIBSDEP) $(PYTHONLIBDEP)
+ 		@$(MAKELIB) $(PLATFORM) $(LD) "$(LDFLAGS)" \
+ 		  "$(SOFLAGS)" libPyROOT.$(SOEXT) $@ \
+@@ -113,7 +109,7 @@
+ 
+ distclean-$(MODNAME): clean-$(MODNAME)
+ 		@rm -f $(PYROOTDEP) $(PYROOTDS) $(PYROOTDH) $(PYROOTLIB) \
+-		   $(ROOTPY) $(ROOTPYC) $(ROOTPYO) $(PYROOTMAP) \
++		   $(ROOTPY) $(PYROOTMAP) \
+ 		   $(PYROOTPYD) $(PYTHON64DEP) $(PYTHON64)
+ 
+ distclean::     distclean-$(MODNAME)
+diff -Naur root.orig/build/package/debian/rules root/build/package/debian/rules
+--- root.orig/build/package/debian/rules	2010-12-17 22:48:40.197817461 +0300
++++ root/build/package/debian/rules	2010-12-17 22:49:27.902497903 +0300
+@@ -623,10 +623,6 @@
+ 		-X$(SYSCONFDIR)/root/system.rootauthrc			\
+ 		-X$(SYSCONFDIR)/root/system.rootdaemonrc		\
+ 		-X$(PREFIX)/lib/root/$(SOVERS)/libAfterImage.a		\
+-		-X$(PREFIX)/lib/root/$(SOVERS)/PyCintex.pyc		\
+-		-X$(PREFIX)/lib/root/$(SOVERS)/PyCintex.pyo		\
+-		-X$(PREFIX)/lib/root/$(SOVERS)/ROOT.pyc			\
+-		-X$(PREFIX)/lib/root/$(SOVERS)/ROOT.pyo			
+ #		$(foreach i, \
+ #		   $(wildcard $(DTMP)/$(PREFIX)/lib/root/lib*.so.$(SOVERS)), \
+ #		    -X$(i:$(DTMP)/%=%) )
+diff -Naur root.orig/cint/cintex/Module.mk root/cint/cintex/Module.mk
+--- root.orig/cint/cintex/Module.mk	2010-12-17 22:48:40.057833071 +0300
++++ root/cint/cintex/Module.mk	2010-12-17 22:49:27.902497903 +0300
+@@ -31,10 +31,6 @@
+ CINTEXPY     := $(subst $(MODDIR)/python,$(LPATH),$(CINTEXPYS))
+ $(LPATH)/%.py: $(MODDIR)/python/%.py; cp $< $@
+ endif
+-ifneq ($(BUILDPYTHON),no)
+-CINTEXPYC    := $(CINTEXPY:.py=.pyc)
+-CINTEXPYO    := $(CINTEXPY:.py=.pyo)
+-endif
+ 
+ # used in the main Makefile
+ ALLHDRS      += $(patsubst $(MODDIRI)/Cintex/%.h,include/Cintex/%.h,$(CINTEXH))
+@@ -86,8 +82,6 @@
+ 		fi)
+ 		cp $< $@
+ 
+-%.pyc: %.py;    python -c 'import py_compile; py_compile.compile( "$<" )'
+-%.pyo: %.py;    python -O -c 'import py_compile; py_compile.compile( "$<" )'
+ 
+ $(CINTEXLIB):   $(CINTEXO) $(CINTEXPY) $(CINTEXPYC) $(CINTEXPYO) \
+                 $(ORDER_) $(subst $(CINTEXLIB),,$(MAINLIBS)) $(CINTEXLIBDEP)
+diff -Naur root.orig/cint/reflex/Module.mk root/cint/reflex/Module.mk
+--- root.orig/cint/reflex/Module.mk	2010-12-17 22:48:40.037835301 +0300
++++ root/cint/reflex/Module.mk	2010-12-17 22:51:36.871451359 +0300
+@@ -48,9 +48,6 @@
+ RFLX_GRFLXS   := $(wildcard $(RFLX_GRFLXSD)/*.py)
+ RFLX_GRFLXPY  := $(patsubst $(RFLX_GRFLXSD)/%.py,$(RFLX_GRFLXDD)/%.py,$(RFLX_GRFLXS))
+ RFLX_GRFLXPY  += $(RFLX_GCCXMLPATHPY)
+-ifneq ($(BUILDPYTHON),no)
+-RFLX_GRFLXPYC := $(subst .py,.pyc,$(RFLX_GRFLXPY))
+-endif
+ 
+ RFLX_LIBDIR = $(LIBDIR)
+ 
+@@ -92,7 +89,7 @@
+ 
+ ALLEXECS += $(RFLX_GENMAPX)
+ 
+-POSTBIN  += $(RFLX_GRFLXPYC) $(RFLX_GRFLXPY)
++POSTBIN  += $(RFLX_GRFLXPY)
+ 
+ ##### local rules #####
+ .PHONY:         all-$(MODNAME) clean-$(MODNAME) distclean-$(MODNAME) \
+@@ -122,8 +119,6 @@
+ 		  mkdir -p lib/python/genreflex; fi )
+ 		cp $< $@
+ 
+-$(RFLX_GRFLXDD)/%.pyc: $(RFLX_GRFLXDD)/%.py
+-		@python -c 'import py_compile; py_compile.compile( "$<" )'
+ 
+ $(RFLX_GENMAPO) : CXXFLAGS += -I$(REFLEXDIRS)/genmap
+ 
+@@ -149,7 +144,7 @@
+ 		$(RLIBMAP) -o $@ -l $(REFLEXDICTLIB) \
+ 		   -d $(REFLEXDICTLIBDEPM) -c $(REFLEXL)
+ 
+-all-$(MODNAME): $(REFLEXLIB) $(REFLEXDICTLIB) $(REFLEXDICTMAP) $(RFLX_GRFLXPYC) $(RFLX_GRFLXPY)
++all-$(MODNAME): $(REFLEXLIB) $(REFLEXDICTLIB) $(REFLEXDICTMAP) $(RFLX_GRFLXPY)
+ 
+ clean-genreflex:
+ 		@rm -rf lib/python/genreflex
+diff -Naur root.orig/cint/reflex/python/CMakeLists.txt root/cint/reflex/python/CMakeLists.txt
+--- root.orig/cint/reflex/python/CMakeLists.txt	2010-12-17 22:48:40.037835301 +0300
++++ root/cint/reflex/python/CMakeLists.txt	2010-12-17 22:49:27.902497903 +0300
+@@ -15,7 +15,7 @@
+ #####################   sources   ####################
+ 
+ FILE(GLOB_RECURSE GENREFLEX_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} genreflex/*.py)
+-SET(GENREFLEX_SCRIPT ${CMAKE_CURRENT_BINARY_DIR}/genreflex/genreflex.pyc PARENT_SCOPE)
++SET(GENREFLEX_SCRIPT PARENT_SCOPE)
+ 
+ #####################  gccxmlpath ####################
+ 
+

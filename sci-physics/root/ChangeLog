@@ -2,6 +2,24 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.73 2010/07/10 19:05:23 armin76 Exp $
 
+*root-5.28.00 (20 Dec 2010)
+
+  20 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org> -root-5.26.00e.ebuild,
+  -files/root-5.26.00e-configure-paths.patch,
+  -files/root-5.26.00e-glibc212.patch, -files/root-5.26.00e-make-3.82.patch,
+  -files/root-5.26.00e-nobyte-compile.patch,
+  -files/root-5.26.00e-prop-ldflags.patch,
+  -files/root-5.26.00e-xrootd-prop-flags.patch, +root-5.28.00.ebuild,
+  +files/root-5.28.00-asneeded.patch,
+  +files/root-5.28.00-configure-paths.patch,
+  +files/root-5.28.00-glibc212.patch, +files/root-5.28.00-nobyte-compile.patch,
+  +files/root-5.28.00-prop-ldflags.patch, +files/root-5.28.00-unuran.patch,
+  +files/root-5.28.00-xrootd-prop-flags.patch, metadata.xml:
+  Version bump. Still a bit experimental. Changed python directory and ruby
+  directory to more standard paths. Unbundled unuran. A few more options.
+  Thanks much to Andrew Savchenko for his work on the patches (bug #348993).
+  Also prefix clean, bug #346933, thanks XU Benda
+
   16 Oct 2010; Kacper Kowalik <xarthisius@gentoo.org> root-5.26.00e.ebuild,
   +files/root-5.26.00e-make-3.82.patch:
   backport upstream patch to fix build with gmake-3.82

@@ -1,0 +1,25 @@
+diff -Naur a/cmake/modules/FindArmadillo.cmake b/cmake/modules/FindArmadillo.cmake
+--- a/cmake/modules/FindArmadillo.cmake	2010-09-02 02:49:57.000000000 +0200
++++ b/cmake/modules/FindArmadillo.cmake	2010-12-15 14:21:34.810300165 +0100
+@@ -95,8 +95,8 @@
+ #include <armadillo>
+ int main()
+ {
+- arma::mat A = arma::rand(4, 4);
+- arma::vec b = arma::rand(4);
++ arma::mat A = arma::randu(4, 4);
++ arma::vec b = arma::randu(4);
+  arma::vec x = arma::solve(A, b);
+  return 0;
+ }
+@@ -112,8 +112,8 @@
+ #include <armadillo>
+ int main()
+ {
+- arma::mat A = arma::rand(4, 4);
+- arma::vec b = arma::rand(4);
++ arma::mat A = arma::randu(4, 4);
++ arma::vec b = arma::randu(4);
+  arma::vec x = arma::solve(A, b);
+  return 0;
+ }

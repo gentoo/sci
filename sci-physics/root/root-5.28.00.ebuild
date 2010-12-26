@@ -1,21 +1,23 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.26.00-r4.ebuild,v 1.4 2010/07/06 15:59:37 bicatali Exp $
+# $Header: $
 
 EAPI=3
 
 PYTHON_DEPEND="python? 2"
+SUPPORT_PYTHON_ABIS="1"
+RUBY_OPTIONAL="yes"
+USE_RUBY="ruby18"
 
-inherit versionator eutils qt4 elisp-common fdo-mime python toolchain-funcs
+inherit versionator eutils elisp-common fdo-mime python toolchain-funcs flag-o-matic
 
-DOC_PV=$(get_major_version)_$(get_version_component_range 2)
+#DOC_PV=$(get_major_version)_$(get_version_component_range 2)
+DOC_PV=5_26
 ROOFIT_DOC_PV=2.91-33
-TMVA_DOC_PV=4
-PATCH_PV=p01
+TMVA_DOC_PV=4.03
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
-#	mirror://gentoo/${P}-patches-${PATCH_PV}.tar.bz2
 SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
 	doc? (
 		ftp://root.cern.ch/root/doc/Users_Guide_${DOC_PV}.pdf
@@ -24,9 +26,9 @@ SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
 
 SLOT="0"
 LICENSE="LGPL-2.1"
-KEYWORDS="~amd64 ~hppa ~sparc ~x86"
-IUSE="afs clarens doc emacs examples fftw geant4 graphviz kerberos ldap
-	+math mysql	odbc +opengl openmp oracle postgres pythia6 pythia8 python
+KEYWORDS="~amd64 ~x86"
+IUSE="afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap llvm
+	+math mysql	ncurses odbc +opengl openmp oracle postgres pythia6 pythia8 python
 	+reflex	ruby qt4 ssl xft xml xinetd xrootd"
 
 # libafterimage ignored, to check every version
@@ -34,25 +36,30 @@ IUSE="afs clarens doc emacs examples fftw geant4 graphviz kerberos ldap
 #	|| ( >=media-libs/libafterimage-1.18 x11-wm/afterstep )
 CDEPEND=">=dev-lang/cfortran-4.4-r2
 	dev-libs/libpcre
-	>=media-libs/ftgl-2.1.3_rc5
-	media-libs/libpng
-	media-libs/jpeg
+	media-libs/ftgl
 	media-libs/giflib
 	media-libs/glew
+	media-libs/jpeg
+	media-libs/libpng
 	media-libs/tiff
 	sys-apps/shadow
-	x11-libs/libXpm
+	x11-libs/libX11
+	x11-libs/libXext
 	x11-libs/libXft
+	x11-libs/libXpm
 	afs? ( >=net-fs/openafs-1.4.7 )
+	avahi? ( net-dns/avahi )
 	clarens? ( dev-libs/xmlrpc-c )
 	emacs? ( virtual/emacs )
+	fits? ( sci-libs/cfitsio )
 	fftw? ( sci-libs/fftw:3.0 )
-	geant4? ( sci-physics/geant:4 )
 	graphviz? ( media-gfx/graphviz )
 	kerberos? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
-	math? ( >=sci-libs/gsl-1.8 )
+	llvm? ( sys-devel/llvm )
+	math? ( sci-libs/gsl sci-mathematics/unuran )
 	mysql? ( virtual/mysql )
+	ncurses? ( sys-libs/ncurses )
 	odbc? ( || ( dev-db/libiodbc dev-db/unixODBC ) )
 	opengl? ( virtual/opengl virtual/glu )
 	oracle? ( dev-db/oracle-instantclient-basic )
@@ -62,6 +69,8 @@ CDEPEND=">=dev-lang/cfortran-4.4-r2
 	qt4? ( x11-libs/qt-gui:4
 		x11-libs/qt-opengl:4
 		x11-libs/qt-qt3support:4
+		x11-libs/qt-svg:4
+		x11-libs/qt-webkit:4
 		x11-libs/qt-xmlpatterns:4 )
 	ruby? ( dev-lang/ruby
 			dev-ruby/rubygems )
@@ -72,6 +81,7 @@ DEPEND="${CDEPEND}
 	dev-util/pkgconfig"
 
 RDEPEND="${CDEPEND}
+	reflex? ( dev-cpp/gccxml )
 	xinetd? ( sys-apps/xinetd )"
 
 S="${WORKDIR}/${PN}"
@@ -80,7 +90,7 @@ pkg_setup() {
 	elog
 	elog "You may want to build ROOT with these non Gentoo extra packages:"
 	elog "AliEn, castor, Chirp, dCache, gfal, gLite, Globus,"
-	elog "Monalisa, MaxDB/SapDB, SRP."
+	elog "HDFS, Monalisa, MaxDB/SapDB, SRP."
 	elog "You can use the env variable EXTRA_ECONF variable for this."
 	elog "For example, for SRP, you would set: "
 	elog "EXTRA_ECONF=\"--enable-srp --with-srp-libdir=/usr/$(get_libdir)\""
@@ -88,37 +98,33 @@ pkg_setup() {
 	enewgroup rootd
 	enewuser rootd -1 -1 /var/spool/rootd rootd
 
-	if use openmp && \
-		[[ $(tc-getCC)$ == *gcc* ]] && \
-		( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] || \
-			! has_version sys-devel/gcc[openmp] ); then
+	if use openmp && [[ $(tc-getCC)$ == *gcc* ]] && ! tc-has-openmp; then
 		ewarn "You are using gcc and OpenMP is available with gcc >= 4.2"
 		ewarn "If you want to build this package with OpenMP, abort now,"
 		ewarn "and set CC to an OpenMP capable compiler"
-		epause 5
 	elif use openmp; then
 		export USE_OPENMP=1
 		use math && export USE_PARALLEL_MINUIT2=1
 	fi
-	use python && python_set_active_version 2
+}
+
+src_unpack() {
+	# prevent ruby-ng.eclass from messing with the src path
+	default
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-make-3.82.patch
-	epatch "${FILESDIR}"/${P}-prop-ldflags.patch
-	epatch "${FILESDIR}"/${P}-xrootd-prop-flags.patch
-	epatch "${FILESDIR}"/${P}-configure-paths.patch
-	epatch "${FILESDIR}"/${P}-nobyte-compile.patch
-	epatch "${FILESDIR}"/${P}-glibc212.patch
+	epatch \
+		"${FILESDIR}"/${P}-prop-ldflags.patch \
+		"${FILESDIR}"/${P}-configure-paths.patch \
+		"${FILESDIR}"/${P}-asneeded.patch \
+		"${FILESDIR}"/${P}-nobyte-compile.patch \
+		"${FILESDIR}"/${P}-glibc212.patch \
+		"${FILESDIR}"/${P}-xrootd-prop-flags.patch \
+		"${FILESDIR}"/${P}-unuran.patch
 
 	# use system cfortran
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc
-
-	# take a more descriptive name for ruby libs
-	sed -i \
-		-e 's/libRuby/libRubyROOT/g' \
-		bindings/ruby/Module.mk bindings/ruby/src/drr.cxx \
-		|| die "ajusting ruby libname failed"
 
 	# in gentoo, libPythia6 is called libpythia6
 	# libungif is called libgif
@@ -133,6 +139,12 @@ src_prepare() {
 		-e 's/CFLAGS=$$ACFLAGS//' \
 		graf2d/asimage/Module.mk graf2d/asimage/src/libAfterImage/configure \
 		|| die "flag propagation in libafterimage failed"
+
+	# prefixify the configure script
+	sed -i \
+		-e 's:/usr:${EPREFIX}/usr:g' \
+		configure || die "prefixify configure failed"
+
 	# QTDIR only used for qt3 in gentoo, and configure looks for it.
 	unset QTDIR
 }
@@ -140,15 +152,15 @@ src_prepare() {
 src_configure() {
 	# the configure script is not the standard autotools
 	./configure \
-		--with-cc=$(tc-getCC) \
-		--with-cxx=$(tc-getCXX) \
-		--with-f77=$(tc-getFC) \
-		--fail-on-missing \
 		--prefix="${EPREFIX}"/usr \
+		--etcdir="${EPREFIX}"/etc \
 		--libdir="${EPREFIX}"/usr/$(get_libdir)/${PN} \
 		--docdir="${EPREFIX}"/usr/share/doc/${PF} \
 		--tutdir="${EPREFIX}"/usr/share/doc/${PF}/examples/tutorials \
 		--testdir="${EPREFIX}"/usr/share/doc/${PF}/examples/tests \
+		--with-cc=$(tc-getCC) \
+		--with-cxx=$(tc-getCXX) \
+		--with-f77=$(tc-getFC) \
 		--with-sys-iconpath="${EPREFIX}"/usr/share/pixmaps \
 		--disable-builtin-freetype \
 		--disable-builtin-ftgl \
@@ -166,20 +178,25 @@ src_configure() {
 		--enable-shared	\
 		--enable-soversion \
 		--enable-table \
+		--fail-on-missing \
 		--with-afs-shared=yes \
 		$(use_enable afs) \
+		$(use_enable avahi bonjour) \
 		$(use_enable clarens) \
 		$(use_enable clarens peac) \
+		$(use_enable ncurses editline) \
+		$(use_enable fits fitsio) \
 		$(use_enable fftw fftw3) \
-		$(use_enable geant4 g4root) \
 		$(use_enable graphviz gviz) \
 		$(use_enable kerberos krb5) \
 		$(use_enable ldap) \
+		$(use_enable llvm cling) \
 		$(use_enable math gsl-shared) \
 		$(use_enable math genvector) \
 		$(use_enable math mathmore) \
 		$(use_enable math minuit2) \
 		$(use_enable math roofit) \
+		$(use_enable math tmva) \
 		$(use_enable math unuran) \
 		$(use_enable mysql) \
 		$(use_enable odbc) \
@@ -270,13 +287,11 @@ src_install() {
 
 	echo "LDPATH=${EPREFIX}/usr/$(get_libdir)/root" > 99root
 	use pythia8 && echo "PYTHIA8=${EPREFIX}/usr" >> 99root
-	use python && echo "PYTHONPATH=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
-	use ruby && echo "RUBYLIB=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
 	doenvd 99root || die "doenvd failed"
 
 	# The build system installs Emacs support unconditionally and in the wrong
 	# directory. Remove it and call elisp-install in case of USE=emacs.
-	rm -rf "${D}"/usr/share/emacs
+	rm -rf "${ED}"/usr/share/emacs
 	if use emacs; then
 		elisp-install ${PN} build/misc/*.{el,elc} || die "elisp-install failed"
 	fi
@@ -284,6 +299,21 @@ src_install() {
 	doc_install
 	daemon_install
 	desktop_install
+
+	if use python; then
+		local pydir=$(python_get_sitedir)
+		dodir $(pydir)
+		mv "${ED}"usr/$(get_libdir)/${PN}/*.py \
+			"${ED}"$(pydir)
+		dosym "${ED}"usr/$(get_libdir)/${PN}/libPyROOT.so \
+			${pydir}/libPyROOT.so
+	fi
+
+	if use ruby; then
+		local rubydir=$(${RUBY} -rrbconfig -e 'puts Config::CONFIG["sitearchdir"]')
+		dodir ${rubydir}
+		dosym "${ED}"usr/$(get_libdir)/${PN}/libRuby.so ${rubydir}/libRuby.so
+	fi
 
 	# Cleanup of files either already distributed or unused on Gentoo
 	rm "${ED}"usr/share/doc/${PF}/{INSTALL,LICENSE,COPYING.CINT}
@@ -295,15 +325,17 @@ src_install() {
 	rm -f "${ED}"/etc/root/proof/*.sample
 	rm -rf "${ED}"/etc/root/daemons
 	popd > /dev/null
+	# these should be in PATH
+	mv "${ED}"usr/share/root/proof/utils/pq2/pq2* \
+		"${ED}"usr/bin
 }
 
 pkg_postinst() {
-	use ruby && elog "ROOT Ruby module is available as libRubyROOT"
 	fdo-mime_desktop_database_update
-	use python && python_mod_optimize /usr/$(get_libdir)/root
+	use python && python_mod_optimize
 }
 
 pkg_postrm() {
 	fdo-mime_desktop_database_update
-	use python && python_mod_cleanup /usr/$(get_libdir)/root
+	use python && python_mod_cleanup
 }
