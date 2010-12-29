@@ -90,6 +90,8 @@ src_prepare() {
 	sed -e "s:@VTK_TCL_LIBRARY_DIR@:/usr/$(get_libdir):" \
 		-i Wrapping/Tcl/pkgIndex.tcl.in \
 		|| die "Failed to fix tcl pkgIndex file"
+	# Remove FindPythonLibs.cmake to use the patched one from cmake
+	rm CMake/FindPythonLibs.cmake
 }
 
 src_configure() {

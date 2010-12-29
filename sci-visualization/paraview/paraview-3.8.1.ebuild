@@ -6,7 +6,7 @@ EAPI="2"
 
 PYTHON_DEPEND="python? 2:2.6"
 
-inherit distutils eutils flag-o-matic toolchain-funcs versionator python qt4-r2 cmake-utils
+inherit distutils eutils flag-o-matic toolchain-funcs versionator multilib python qt4-r2 cmake-utils
 
 MAIN_PV=$(get_major_version)
 MAJOR_PV=$(get_version_component_range 1-2)
@@ -88,6 +88,8 @@ src_prepare() {
 	sed -e "s:CHIPNAME_STRING_LENGTH    (48 + 1):CHIPNAME_STRING_LENGTH    (79 + 1):" \
 		-i Utilities/kwsys/SystemInformation.cxx \
 		|| die "Failed to fix SystemInformation.cxx buffer overflow"
+	# Remove FindPythonLibs.cmake to use the patched one from cmake
+	rm CMake/FindPythonLibs.cmake
 }
 
 src_configure() {
@@ -199,4 +201,10 @@ pkg_postinst() {
 	elog "/usr/bin/lproj_paraview to avoid a file collision"
 	elog "with vtk."
 	echo
+}
+
+pkg_postrm() {
+	if use python ; then
+		python_mod_cleanup /usr/$(get_libdir)/"${PN}-${MAJOR_PV}"/site-packages
+	fi
 }
