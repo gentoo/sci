@@ -1,6 +1,17 @@
 # ChangeLog for sci-chemistry/nmrpipe
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Jan 2011; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-5.5.2010.343.17.20.ebuild, files/env-nmrpipe-new:
+  Added missing env
+
+*nmrpipe-5.5.2010.343.17.20 (03 Jan 2011)
+
+  03 Jan 2011; Justin Lecher <jlec@gentoo.org>
+  +files/5.5.2010.343.17.20-lib.patch, -files/5.5.2010.277.15.30-lib.patch,
+  -nmrpipe-5.5.2010.277.15.30.ebuild, +nmrpipe-5.5.2010.343.17.20.ebuild:
+  Version Bump
 
   01 Dec 2010; Justin Lecher <jlec@gentoo.org>
   nmrpipe-5.5.2010.277.15.30.ebuild:
