@@ -1,0 +1,31 @@
+#!/sbin/runscript
+# Copyright 1999-2004 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/sys-cluster/keepalived/files/init-keepalived,v 1.4 2007/04/30 06:45:49 robbat2 Exp $
+
+depend() {
+	use logger
+	need net
+}
+
+PIDFILE=/var/run/keepalived.pid
+
+checkconfig() {
+	if [ ! -e /etc/keepalived/keepalived.conf ] ; then
+		eerror "You need an /etc/keepalived/keepalived.conf file to run keepalived"
+		return 1
+	fi
+}
+
+start() {
+	checkconfig || return 1
+	ebegin "Starting Keepalived"
+	start-stop-daemon --start --quiet --pidfile $PIDFILE --exec /usr/sbin/keepalived
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping Keepalived"
+	start-stop-daemon --stop --quiet --pidfile $PIDFILE
+	eend $?
+}
