@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -36,6 +36,7 @@ RDEPEND="${DEPEND}
 	dev-lang/tk
 	dev-tcltk/blt
 	media-fonts/font-sun-misc
+	!sci-chemistry/sparta+
 	!sci-chemistry/talos+
 	sys-libs/ncurses
 	x11-apps/xset
