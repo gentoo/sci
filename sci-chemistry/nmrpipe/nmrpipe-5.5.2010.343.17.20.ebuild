@@ -127,7 +127,7 @@ src_install() {
 	# Remove installation log files.
 	rm -f README_NMRPIPE_USERS *.log || die "Failed to remove installation log."
 	# Remove unused binaries
-	rm -f talos*/bin/TALOS*.{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
+	rm -f talos*/bin/TALOS*.{linux,mac,sgi6x,winxp} pdb/misc/addSeg spartaplus/bin/SPARTA+*.{linux,mac,sgi6x,winxp} || die
 
 	# Set the correct path to NMRPipe in the auxiliary scripts.
 	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc talosplus/com -type f); do

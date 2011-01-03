@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Jan 2011; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-5.5.2010.343.17.20.ebuild, files/env-nmrpipe-new:
+  Added missing env
+
 *nmrpipe-5.5.2010.343.17.20 (03 Jan 2011)
 
   03 Jan 2011; Justin Lecher <jlec@gentoo.org>
