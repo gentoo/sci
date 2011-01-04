@@ -4,7 +4,7 @@
 
 EAPI=3
 
-DESCRIPTION="Perl-based tools to manipulate caf, gap, ace files used in genome assembly"
+DESCRIPTION="Convert from ace to gap4 (of staden v1.x), not needed to convert ace for gap5 of staden v2"
 HOMEPAGE="http://genome.imb-jena.de/software/roche454ace2caf"
 SRC_URI="http://genome.imb-jena.de/software/roche454ace2caf/download/src/roche454ace2gap-2010-12-08.tgz"
 
@@ -13,12 +13,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-lang/perl"
+DEPEND=""
 RDEPEND="${DEPEND}
 		sci-biology/align_to_scf
 		sci-biology/sff_dump
 		sci-biology/caftools
 		sci-biology/staden
+		dev-lang/perl
 		app-shells/ksh"
 
 S="${WORKDIR}"/roche2gap
