@@ -30,6 +30,20 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher <jlec> (04 Jan 2011)
+# Masked for several QA reasons:
+# portage screams during processing this ebuild
+# Author uses @gentoo.org address, although not a dev
+# java pkg, but no java eclass used
+# containing python code, but no python eclass used
+# tries to act interactivally with the installer, which doesn't work
+# instead source should be processed unpacked
+# repoman usage is recommended, as Changelog and metadata.xml are missing
+# line wrap at 80-100 chars
+# DESCRIPTION does not need to include $PN
+# #348029
+sci-biology/tablet-bin
+
 # Alexey Shvetsov (15 Dec 2010)
 # Mask icm-3.7
 =sci-chemistry/icm-3.7*
