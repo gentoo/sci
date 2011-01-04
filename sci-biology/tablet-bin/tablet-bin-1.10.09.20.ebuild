@@ -20,14 +20,14 @@ IUSE=""
 DEPEND="dev-lang/java"
 RDEPEND="${DEPEND}"
 
-src_install(){
-	sh tablet_linux_x86_1_10_09_20.sh -c -q << EOF
+src_install() {
+	sh tablet_linux_x86_1_10_09_20.sh -c -q <<-EOF
 	o
 	[Enter]
 	[Enter]
 	[Enter]
 	1
 	"${D}"/opt/Tablet
-	EOF <<
+	EOF
 	dobin "${DISTDIR}"/coveragestats.py  | die
 }
