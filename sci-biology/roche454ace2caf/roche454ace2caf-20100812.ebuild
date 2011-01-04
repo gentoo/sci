@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,12 +18,12 @@ RDEPEND="${DEPEND}
 		sci-biology/align_to_scf
 		sci-biology/sff_dump
 		sci-biology/caftools
-		sci-biology/staden"
+		sci-biology/staden
+		app-shells/ksh"
 
 S="${WORKDIR}"/roche2gap
 
 src_install(){
-	dobin bin/*.pl
-	#newbin bin/align_to_scf-Linux align_to_scf
-	#newbin bin/sff_dump-Linux sff_dump
+	dobin bin/*.pl bin/roche454ace2gap
+	dosym bin/roche454ace2gap roche2gap # claims to require ksh, have not tested bash
 }
