@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,21 +14,31 @@ SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
 
 LICENSE="petsc"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="mpi X cxx debug static-libs fortran doc"
+KEYWORDS="~x86 ~amd64"
+IUSE="mpi hypre metis hdf5 X cxx debug static-libs fortran doc"
 
 RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )
 	virtual/lapack
-	virtual/blas"
+	virtual/blas
+	hypre? ( >=sci-mathematics/hypre-2.6.0b[static-libs=] )
+	metis? ( sci-libs/parmetis )
+	hdf5? ( sci-libs/hdf5[!mpi?] )
+"
 
 DEPEND="${RDEPEND}
 	sys-devel/gcc[-nocxx,fortran?]"
 
 S="${WORKDIR}/${MY_P}"
 
+if use hypre; then
+	use cxx || die "hypre needs cxx, please enable cxx or disable hypre use flag"
+	use mpi || die "hypre needs mpi, please enable mpi or disable hypre use flag"
+fi
+
 src_prepare(){
 	epatch "${FILESDIR}/${PN}-configure-pic.patch"
+	epatch "${FILESDIR}/${PN}-disable-rpath.patch"
 }
 
 src_configure(){
@@ -53,6 +63,15 @@ src_configure(){
 	myconf[18]="--with-single-library=1"
 	myconf[19]="--with-petsc-arch=${PETSC_ARCH}"
 	myconf[20]="--with-precision=double"
+	myconf[21]="--with-gnu-compilers=1"
+	use amd64 \
+		&& myconf[22]="--with-64-bit-pointers=1" \
+		|| myconf[22]="--with-64-bit-pointers=0"
+	use cxx \
+		&& myconf[23]="--with-c-support=1"
+	use amd64 \
+		&& myconf[24]="--with-64-bit-indices=1" \
+		|| myconf[24]="--with-64-bit-indices=0"
 
 	if use mpi; then
 		myconf[30]="--with-cc=/usr/bin/mpicc"
@@ -73,9 +92,6 @@ src_configure(){
 	use static-libs \
 		&& myconf[41]="--with-shared=0" \
 		|| myconf[41]="--with-shared=1"
-	use amd64 \
-		&& myconf[42]="--with-64-bit-indices=1" \
-		|| myconf[42]="--with-64-bit-indices=0"
 	use fortran \
 		&& myconf[43]="--with-fortran=1" \
 		|| myconf[43]="--with-fortran=0"
@@ -88,6 +104,37 @@ src_configure(){
 		myconf[44]="--with-debugging=0"
 	fi
 
+	if use hypre; then
+		# hypre cannot handle 64 bit indices, therefore disabled
+		myconf[24]="--with-64-bit-indices=0"
+		myconf[52]="--with-hypre=1"
+		myconf[53]="--with-hypre-include=/usr/include/hypre"
+		use static-libs \
+			&& myconf[54]="--with-hypre-lib=/usr/$(get_libdir)/libHYPRE.a" \
+			|| myconf[54]="--with-hypre-lib=/usr/$(get_libdir)/libHYPRE.so"
+	else
+		myconf[52]="--with-hypre=0"
+	fi
+
+	if use metis; then
+		myconf[61]="--with-parmetis=1"
+		myconf[62]="--with-parmetis-include=/usr/include/parmetis"
+		myconf[63]="--with-parmetis-lib=/usr/$(get_libdir)/libparmetis.so"
+	else
+		myconf[61]="--with-parmetis=0"
+	fi
+
+	if use hdf5; then
+		myconf[71]="--with-hdf5=1"
+		myconf[72]="--with-hdf5-include=/usr/include"
+		myconf[73]="--with-hdf5-lib=/usr/$(get_libdir)/libhdf5.so"
+	else
+		myconf[71]="--with-hdf5=0"
+	fi
+
+	myconf[81]="--with-scotch=0"
+
+	einfo "Configure options: ${myconf[@]}"
 	python "${S}/config/configure.py" "${myconf[@]}" \
 		|| die "PETSc configuration failed"
 }
