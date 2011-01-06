@@ -1,10 +1,10 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=3
 
-DESCRIPTION="This is used by sci-biology/roche454ace2caf.pl"
+DESCRIPTION="Provide data to staden to view trace information at a given position missing from Roche .ace files"
 HOMEPAGE="http://genome.imb-jena.de/software/roche454ace2caf"
 SRC_URI="http://genome.imb-jena.de/software/roche454ace2caf/download/src/align_to_scf-1.06.tgz"
 
@@ -25,4 +25,5 @@ src_prepare(){
 
 src_install(){
 	dobin align_to_scf || die
+	dodoc "${FILESDIR}"/README || die
 }
