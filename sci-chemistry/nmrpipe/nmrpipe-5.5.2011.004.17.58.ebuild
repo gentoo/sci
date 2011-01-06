@@ -165,7 +165,7 @@ src_install() {
 
 	# fperms does not chmod nmrwish
 #	fperms -v 775 ${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
-	chmod -c 775 "${ED}"/${NMRBASE}/{talos*/bin/,nmrbin.linux9/,com/,dynamo/tcl/,nmrtxt/*.com,talos*/com/}* || die
+	chmod -c 775 "${ED}"/${NMRBASE}/{talos*/bin/,sparta*/bin/,nmrbin.linux9/,com/,dynamo/tcl/,nmrtxt/*.com,talos*/com/}* || die
 
 	exeinto ${NMRBASE}/nmrbin.linux9
 	doexe "${T}"/nmrWish || die
