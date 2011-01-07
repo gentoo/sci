@@ -1,0 +1,37 @@
+* What's about "align_to_scf" ?
+
+  This is important if you want to see the real traces within the contig editor from STADEN at a given position.
+
+  Note: there are no information given within the ACE assembly to recalculate the trace position backward from assembly.
+  STADEN "trev" will access/open traces as given from "sequencer machine" and Roche assembly give you only the complete assembly
+  information. This is the problem !
+
+  Are you firm with gap4 ?
+  The program "trev" is automatically called within "gap4".
+  And you start this with:
+  -> open gap4 database
+  --> open contig editor, select contig
+  ---> double-click on one letter will open this trace at this position and set cursor to exact this position !
+       double-click on the consensus line will open all traces at this position !
+
+  You can also see the "slack" by enable/disable "show cutoff";
+
+  Example ?
+  Try this very simple test data and verify this letter by letter:
+
+
+  % align_to_scf -f test.qry -o test.aln
+
+  --- test.qry ---
+  >F0FH8BE01EUM6Y              <- name of read from sff archive
+  ATGCATCATG-ATGC              <- fasta sequence of this read from ace file
+  ATGCATGCATGCATGC             <- fasta sequence of this read from sff trace file
+
+
+  And you should get this output "test.aln" ( see also CAF format description ) :
+
+  >F0FH8BE01EUM6Y
+  Align_to_SCF 1 6 1 6
+  Align_to_SCF 7 10 8 11
+  Align_to_SCF 12 15 13 16
+
