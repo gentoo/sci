@@ -1,6 +1,6 @@
-diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.env.in root/net/xrootd/src/xrootd/config/GNUmake.env.in
---- root.orig/net/xrootd/src/xrootd/config/GNUmake.env.in	2010-12-17 22:55:29.875476979 +0300
-+++ root/net/xrootd/src/xrootd/config/GNUmake.env.in	2010-12-18 05:02:29.765122076 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/config/GNUmake.env.in root/net/xrootd/src/xrootd/config/GNUmake.env.in
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.env.in	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/config/GNUmake.env.in	2011-01-08 18:49:30.000000000 +0000
 @@ -45,6 +45,7 @@
  CFHASXRDCRYPTO = @hasxrdcrypto@
  
@@ -9,9 +9,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.env.in root/net/xrootd
  
  # AFS relevant variables
  @incafs@
-diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.options.in root/net/xrootd/src/xrootd/config/GNUmake.options.in
---- root.orig/net/xrootd/src/xrootd/config/GNUmake.options.in	2010-12-17 22:55:29.875476979 +0300
-+++ root/net/xrootd/src/xrootd/config/GNUmake.options.in	2010-12-18 05:02:29.765122076 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/config/GNUmake.options.in root/net/xrootd/src/xrootd/config/GNUmake.options.in
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.options.in	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/config/GNUmake.options.in	2011-01-08 18:49:30.000000000 +0000
 @@ -16,7 +16,7 @@
  CF32="$(TYPECF32)" \
  CFOP="$(@buildopt@)" \
@@ -30,9 +30,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.options.in root/net/xr
  LDSO="$(TYPELDSO)" \
  LIBS=" @ldsyslibs@ $(TYPELIBS)" \
  TYPE="$(TYPE)"
-diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd root/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd
---- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd	2010-12-17 22:55:29.875476979 +0300
-+++ root/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd	2010-12-18 05:02:29.765122076 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd root/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd	2011-01-08 18:49:30.000000000 +0000
 @@ -11,7 +11,7 @@
               -Wall -Wno-deprecated $(CFTRACE)
  TYPECF32   =
@@ -42,9 +42,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd root/net/xr
  TYPEDBG    = $(TYPEMISC) -g
  TYPELDSO   = -shared
  TYPESHLIB  = so
-diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gcc root/net/xrootd/src/xrootd/config/GNUmake.rules.gcc
---- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gcc	2010-12-17 22:55:29.875476979 +0300
-+++ root/net/xrootd/src/xrootd/config/GNUmake.rules.gcc	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gcc root/net/xrootd/src/xrootd/config/GNUmake.rules.gcc
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gcc	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.gcc	2011-01-08 18:49:30.000000000 +0000
 @@ -11,7 +11,7 @@
               -Wall -Wno-deprecated -D__linux__ $(CFTRACE)
  TYPECF32   =
@@ -54,9 +54,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gcc root/net/xro
  TYPEDBG    = $(TYPEMISC) -g
  TYPELDSO   = -shared
  TYPESHLIB  = so
-diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64 root/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64
---- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64	2010-12-17 22:55:29.875476979 +0300
-+++ root/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64 root/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64	2011-01-08 18:49:30.000000000 +0000
 @@ -11,7 +11,7 @@
               -Wall -Wno-deprecated -D__linux__ $(CFTRACE)
  TYPECF32   =
@@ -66,9 +66,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64 root/net
  TYPEDBG    = $(TYPEMISC) -g
  TYPELDSO   = -shared
  TYPESHLIB  = so
-diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664 root/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664
---- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664	2010-12-17 22:55:29.875476979 +0300
-+++ root/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664 root/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664	2011-01-08 18:49:30.000000000 +0000
 @@ -11,7 +11,7 @@
               -Wall -Wno-deprecated -D__linux__ $(CFTRACE)
  TYPECF32   =
@@ -78,9 +78,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664 root/ne
  TYPEDBG    = $(TYPEMISC) -g
  TYPELDSO   = -m64 -shared
  TYPESHLIB  = so
-diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.icc root/net/xrootd/src/xrootd/config/GNUmake.rules.icc
---- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.icc	2010-12-17 22:55:29.875476979 +0300
-+++ root/net/xrootd/src/xrootd/config/GNUmake.rules.icc	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.icc root/net/xrootd/src/xrootd/config/GNUmake.rules.icc
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.icc	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.icc	2011-01-08 18:49:30.000000000 +0000
 @@ -13,7 +13,7 @@
               -ansi -D__linux__ -D__ICC__ -wd1476 -wd191 -wd468 -wd858 -wd1224 -wd584 $(CFTRACE)
  TYPECF32   =
@@ -90,9 +90,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.icc root/net/xro
  TYPEDBG    = $(TYPEMISC) -g
  TYPELDSO   = -m32 -shared
  TYPESHLIB  = so
-diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664 root/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664
---- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664	2010-12-17 22:55:29.875476979 +0300
-+++ root/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664 root/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664	2011-01-08 18:49:30.000000000 +0000
 @@ -14,7 +14,7 @@
               -wd1572 -wd584 -i-dynamic $(CFTRACE)
  TYPECF32   =
@@ -102,9 +102,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664 root/ne
  TYPEDBG    = $(TYPEMISC) -g
  TYPELDSO   = -m64 -shared
  TYPESHLIB  = so
-diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos root/net/xrootd/src/xrootd/config/GNUmake.rules.macos
---- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos	2010-12-17 22:55:29.875476979 +0300
-+++ root/net/xrootd/src/xrootd/config/GNUmake.rules.macos	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos root/net/xrootd/src/xrootd/config/GNUmake.rules.macos
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.macos	2011-01-08 18:49:30.000000000 +0000
 @@ -18,7 +18,7 @@
  TYPECF32   =
  TYPECF64   = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
@@ -114,9 +114,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos root/net/x
  TYPEDBG    = $(TYPEMISC) -g
  ifeq ($(subst $(MACOSX_MINOR),,1234),1234)
  TYPELDSO   = $(TYPELINK) -dynamiclib -single_module -m32
-diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos64 root/net/xrootd/src/xrootd/config/GNUmake.rules.macos64
---- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos64	2010-12-17 22:55:29.875476979 +0300
-+++ root/net/xrootd/src/xrootd/config/GNUmake.rules.macos64	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos64 root/net/xrootd/src/xrootd/config/GNUmake.rules.macos64
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos64	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.macos64	2011-01-08 18:49:30.000000000 +0000
 @@ -15,7 +15,7 @@
  TYPECF32   =
  TYPECF64   = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
@@ -126,9 +126,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos64 root/net
  TYPEDBG    = $(TYPEMISC) -g
  ifeq ($(subst $(MACOSX_MINOR),,1234),1234)
  TYPELDSO   = $(TYPELINK) -dynamiclib -single_module -m64
-diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc root/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc
---- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc	2010-12-17 22:55:29.875476979 +0300
-+++ root/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc root/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc	2011-01-08 18:49:30.000000000 +0000
 @@ -11,7 +11,7 @@
               -Wall -Wno-deprecated -DSUNGCC $(CFTRACE)
  TYPECF32   =
@@ -138,9 +138,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc root/net/
  TYPEDBG    = $(TYPEMISC) -g
  TYPELDSO   = -shared
  TYPESHLIB  = so
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile root/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile	2010-12-17 22:55:29.832148475 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile root/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -71,7 +71,7 @@
  
  $(TESTBIN): $(OBJECTB) $(LIBDEPS)
@@ -150,9 +150,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile root/net/xroot
  
  $(OBJDIR)/XrdAccAccess.o: XrdAccAccess.cc     XrdAccAccess.hh \
                            XrdAccCapability.hh XrdAccConfig.hh    XrdAccGroups.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile root/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile	2010-12-17 22:55:29.822149591 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile root/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -50,7 +50,7 @@
    
  $(XRDADLER32): $(XRDADLER32_OBJ) $(XRDADLERDEPS)
@@ -180,9 +180,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile root/net/xroo
  
  $(XRDW41_OBJ): XrdWait41.cc \
                     XrdOucTList.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile root/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile	2010-12-17 22:55:29.845480323 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile root/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -67,7 +67,7 @@
  	$(ECHO)ranlib $(LIBARCH)
  
@@ -192,9 +192,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile root/net/xroot
  
  $(OBJDIR)/XrdBwm.o:  XrdBwm.cc           XrdBwm.hh \
                       XrdAccAuthorize.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile root/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile	2010-12-17 22:55:29.818816629 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile root/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile	2010-12-14 14:20:22.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -160,17 +160,17 @@
  $(LIBSHARED): $(OBJECTS) $(LIBDEP)
  	@echo Creating shared library $(LIBSHARED) 
@@ -250,9 +250,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile root/net/xr
  
  $(XRDADMIN): $(PERLMOD)
  	$(ECHO)if [ "$(PERLBIN)" != "" ]; then \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile root/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile	2010-12-17 22:55:29.835481437 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile	2010-12-18 05:02:29.765122078 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile root/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -136,7 +136,7 @@
  
  $(BINARY): $(OBJSRVR) $(OBJBOTH) $(LIBDEPS)
@@ -262,9 +262,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile root/net/xroot
  
  
  $(LIBRARY): $(OBJCLNT) $(OBJBOTH)
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile root/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile	2010-12-17 22:55:29.868811057 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile	2010-12-18 05:02:29.771787705 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile root/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -89,11 +89,11 @@
  
  $(TARGCNSD): $(OBJCNSD) $(OBJCOM) $(LIBDEP)
@@ -279,9 +279,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile root/net/xroot
  
  $(OBJDIR)/XrdCnsConfig.o:  XrdCnsConfig.hh    XrdCnsConfig.cc \
                             XrdCnsDaemon.hh    XrdCnsLogRec.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile root/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile	2010-12-17 22:55:29.858812171 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile	2010-12-18 05:02:29.771787705 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile root/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -139,7 +139,7 @@
  
  $(LIBRARY): $(OBJECTS) $(LIBUTIL)
@@ -305,9 +305,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile root/net/xr
  
  $(OBJDIR)/XrdCryptotest.o: XrdCryptotest.cc XrdSutAux.hh XProtocol.hh XrdSutBucket.hh \
  			   XrdCryptoAux.hh XrdCryptoFactory.hh XrdCryptoCipher.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile root/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile	2010-12-17 22:55:29.842147361 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile	2010-12-18 05:06:33.900708559 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile root/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -133,15 +133,15 @@
  
  $(BINADMIN): $(OBJLIB) $(OBJADMIN)          $(OBJDEPS)
@@ -327,9 +327,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile root/net/xroot
  
  $(BINAGNT): $(BINXFRD)
  	@echo Creating executables $(BINAGNT)
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile root/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile	2010-12-17 22:55:29.852146247 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile	2010-12-18 05:02:29.771787705 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile root/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -141,45 +141,45 @@
  
  $(ADMIN):	$(OBJECTS_BIN_ADM) $(LIBRARY_SND) $(LIBRARY_OUC) $(LIBRARY_COMMON) 
@@ -386,9 +386,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile root/net/xroot
  
  $(OBJDIR)/%.o : %.cc
  	@echo Compiling $(<F)
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile root/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile	2010-12-17 22:55:29.822149591 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile	2010-12-18 05:02:29.771787705 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile root/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile	2010-12-14 14:20:22.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile	2011-01-08 18:52:20.000000000 +0000
 @@ -76,14 +76,14 @@
  
  $(LIBPLDR): $(OBJECTP) $(OBJECTS) $(OBJECTT) $(LIBDEP)
@@ -398,7 +398,8 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile root/net/xro
  
  $(LIBRARY): $(OBJECTP) $(OBJECTS) $(OBJECTT) $(LIBDEP)
  	@echo Creating shared library $(LIBRARY) 
- 	$(ECHO)$(CC) $(CFLAGS) $(OBJECTS) $(OBJECTU) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY)
+-	$(ECHO)$(CC) $(CFLAGS) $(OBJECTS) $(OBJECTU) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY)
++	$(ECHO)$(CC) $(LDFLAGS) $(CFLAGS) $(OBJECTS) $(OBJECTU) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY)
  ifneq ($(subst $(MACOSX_MINOR),,1234),1234)
  	$(ECHO)if [ "x$(TYPE)" = "xDarwin" ]; then \
 -	   $(CC) $(CFLAGS) $(OBJECTS) $(TYPELDDY) $(MORELIBS) $(LIBS) -o $(LIBDIR)/libXrdPosix.$(TYPEDYLIB); \
@@ -406,9 +407,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile root/net/xro
  	fi
  endif
  # MacOS X does not support linking against shared libraries so include
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile root/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile	2010-12-17 22:55:29.822149591 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile	2010-12-18 05:02:29.771787705 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile root/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile	2010-12-14 14:20:22.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -66,7 +66,7 @@
  
  $(TARGETS): $(OBJECTS) $(OBJECTT) $(LIBDEP)
@@ -418,9 +419,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile root/net/xroot
  
  $(OBJDIR)/XrdPss.o:  XrdPss.cc         XrdPss.hh      XrdPosixXrootd.hh \
                       XrdOss.hh         XrdOssError.hh XrdOucEnv.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile root/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile	2010-12-17 22:55:29.872144019 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile	2010-12-18 05:34:05.382687770 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile root/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -6,7 +6,7 @@
    
  include ../GNUmake.env
@@ -439,9 +440,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile root/net/xro
  
  $(OBJDIR)/XrdRootdProtocol.o: XrdRootdProtocol.hh XrdLink.hh \
                                XrdScheduler.hh     XrdTrace.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile	2010-12-17 22:55:29.845480323 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile	2010-12-18 05:02:29.771787705 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -78,15 +78,15 @@
  
  $(LIBRARY): $(OBJSLIB) $(LIBDEPS)
@@ -461,9 +462,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile root/net/xroot
  
  $(OBJDIR)/XrdSecClient.o: XrdSysPthread.hh XrdSecPManager.hh XrdSecInterface.hh \
                            XrdOucErrInfo.hh XrdSecClient.cc   XrdSecEntity.hh
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile	2010-12-17 22:55:29.838814399 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile	2010-12-18 05:02:29.771787705 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -109,19 +109,19 @@
  
  $(LIBRARY): $(OBJECTS) $(LIBDEPS)
@@ -488,9 +489,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile root/net/xr
  
  $(OBJDIR)/XrdSecgsitest.o: XrdSecgsitest.cc XrdOucString.hh \
  		XrdSysError.hh XrdSutAux.hh XProtocol.hh XPtypes.hh XrdCryptoAux.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile	2010-12-17 22:55:29.825482553 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile	2010-12-18 05:02:29.771787705 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -45,7 +45,7 @@
  
  $(TARGETS): $(OBJECTS) $(LIBDEPS)
@@ -500,9 +501,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile root/net/x
  
  $(OBJDIR)/XrdSecProtocolkrb4.o: XrdSecProtocolkrb4.cc XrdSecInterface.hh \
                                  XrdSysPthread.hh      XrdOucTokenizer.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile	2010-12-17 22:55:29.855479209 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile	2010-12-18 05:02:29.775120520 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -49,7 +49,7 @@
  
  $(TARGETS): $(OBJECTS) $(LIBDEPS)
@@ -512,9 +513,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile root/net/x
  
  $(OBJDIR)/XrdSecProtocolkrb5.o: XrdSecProtocolkrb5.cc XrdSecInterface.hh \
                                  XrdSysPthread.hh      XrdOucTokenizer.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile	2010-12-17 22:55:29.862145133 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile	2010-12-18 05:02:29.775120520 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -65,11 +65,11 @@
  
  $(LIBRARY): $(OBJECTS) $(LIBDEPS)
@@ -529,9 +530,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile root/net/xr
  
  $(OBJDIR)/XrdSecpwdSrvAdmin.o: XrdSecpwdSrvAdmin.cc \
  		XrdOucString.hh XrdSutAux.hh XProtocol.hh XPtypes.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile	2010-12-17 22:55:29.848813285 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile	2010-12-18 05:02:29.775120520 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -85,7 +85,7 @@
  
  $(LIBRARY): $(OBJECTS) $(LIBDEPS)
@@ -550,9 +551,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile root/net/xr
  
  $(OBJDIR)/XrdSecProtocolsslProc.o:  XrdSecProtocolsslProc.cc 	XrdSecProtocolsslProc.hh \
  			        XrdOucString.hh 	XrdOucHash.hh
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile	2010-12-17 22:55:29.855479209 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile	2010-12-18 05:02:29.775120520 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile	2010-12-14 14:20:22.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -69,11 +69,11 @@
  
  $(TARGLIB): $(OBJSLIB) $(LIBDEPS)
@@ -567,9 +568,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile root/net/xr
  
  $(OBJDIR)/XrdSecProtocolsss.o: XrdSecProtocolsss.cc    XrdSecProtocolsss.hh \
                                 XrdNetDNS.hh            XrdOucErrInfo.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile	2010-12-17 22:55:29.842147361 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile	2010-12-18 05:02:29.775120520 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile	2010-12-14 14:20:23.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -45,7 +45,7 @@
  
  $(TARGETS): $(OBJECTS) $(LIBDEPS)
@@ -579,9 +580,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile root/net/x
  
  $(OBJDIR)/XrdSecProtocolunix.o: XrdSecProtocolunix.cc XrdSecInterface.hh \
                                  XrdSysHeaders.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile	2010-12-17 22:55:29.865478095 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile	2010-12-18 05:02:29.775120520 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile	2010-12-14 14:20:22.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -67,7 +67,7 @@
  
  $(LIBRARY): $(OBJECTS) $(LIBDIR)/libXrdOuc.a
@@ -591,9 +592,9 @@ diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile root/net/xroot
  
  $(OBJDIR)/XrdSutPFAdmin.o: XrdSutPFAdmin.cc XrdOucString.hh \
  		XrdSutAux.hh XProtocol.hh XPtypes.hh \
-diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile root/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile
---- root.orig/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile	2010-12-17 22:55:29.865478095 +0300
-+++ root/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile	2010-12-18 05:02:29.775120520 +0300
+diff -Nur root.orig/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile root/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile	2010-12-14 14:20:22.000000000 +0000
++++ root/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile	2011-01-08 18:49:30.000000000 +0000
 @@ -94,7 +94,7 @@
  
  $(TARGETS): $(OBJECTS) $(OBJDEPS)

@@ -1,14 +1,9 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=3
-
 PYTHON_DEPEND="python? 2"
-SUPPORT_PYTHON_ABIS="1"
-RUBY_OPTIONAL="yes"
-USE_RUBY="ruby18"
-
 inherit versionator eutils elisp-common fdo-mime python toolchain-funcs flag-o-matic
 
 #DOC_PV=$(get_major_version)_$(get_version_component_range 2)
@@ -27,9 +22,9 @@ SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
 SLOT="0"
 LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86"
-IUSE="afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap llvm
-	+math mysql	ncurses odbc +opengl openmp oracle postgres pythia6 pythia8 python
-	+reflex	ruby qt4 ssl xft xml xinetd xrootd"
+IUSE="afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
+	llvm +math mysql ncurses odbc +opengl openmp oracle postgres pythia6 pythia8
+	python	+reflex	ruby qt4 ssl xft xml xinetd xrootd"
 
 # libafterimage ignored, to check every version
 # see https://savannah.cern.ch/bugs/?func=detailitem&item_id=30944
@@ -39,15 +34,15 @@ CDEPEND=">=dev-lang/cfortran-4.4-r2
 	media-libs/ftgl
 	media-libs/giflib
 	media-libs/glew
-	media-libs/jpeg
 	media-libs/libpng
 	media-libs/tiff
 	sys-apps/shadow
+	virtual/jpeg
 	x11-libs/libX11
 	x11-libs/libXext
 	x11-libs/libXft
 	x11-libs/libXpm
-	afs? ( >=net-fs/openafs-1.4.7 )
+	afs? ( net-fs/openafs )
 	avahi? ( net-dns/avahi )
 	clarens? ( dev-libs/xmlrpc-c )
 	emacs? ( virtual/emacs )
@@ -88,7 +83,7 @@ S="${WORKDIR}/${PN}"
 
 pkg_setup() {
 	elog
-	elog "You may want to build ROOT with these non Gentoo extra packages:"
+	elog "There are extra options on packages not yet in Gentoo:"
 	elog "AliEn, castor, Chirp, dCache, gfal, gLite, Globus,"
 	elog "HDFS, Monalisa, MaxDB/SapDB, SRP."
 	elog "You can use the env variable EXTRA_ECONF variable for this."
@@ -106,11 +101,6 @@ pkg_setup() {
 		export USE_OPENMP=1
 		use math && export USE_PARALLEL_MINUIT2=1
 	fi
-}
-
-src_unpack() {
-	# prevent ruby-ng.eclass from messing with the src path
-	default
 }
 
 src_prepare() {
@@ -287,6 +277,8 @@ src_install() {
 
 	echo "LDPATH=${EPREFIX}/usr/$(get_libdir)/root" > 99root
 	use pythia8 && echo "PYTHIA8=${EPREFIX}/usr" >> 99root
+	use python && echo "PYTHONPATH=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
+	use ruby && echo "RUBYLIB=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
 	doenvd 99root || die "doenvd failed"
 
 	# The build system installs Emacs support unconditionally and in the wrong
@@ -299,21 +291,6 @@ src_install() {
 	doc_install
 	daemon_install
 	desktop_install
-
-	if use python; then
-		local pydir=$(python_get_sitedir)
-		dodir $(pydir)
-		mv "${ED}"usr/$(get_libdir)/${PN}/*.py \
-			"${ED}"$(pydir)
-		dosym "${ED}"usr/$(get_libdir)/${PN}/libPyROOT.so \
-			${pydir}/libPyROOT.so
-	fi
-
-	if use ruby; then
-		local rubydir=$(${RUBY} -rrbconfig -e 'puts Config::CONFIG["sitearchdir"]')
-		dodir ${rubydir}
-		dosym "${ED}"usr/$(get_libdir)/${PN}/libRuby.so ${rubydir}/libRuby.so
-	fi
 
 	# Cleanup of files either already distributed or unused on Gentoo
 	rm "${ED}"usr/share/doc/${PF}/{INSTALL,LICENSE,COPYING.CINT}
@@ -332,10 +309,10 @@ src_install() {
 
 pkg_postinst() {
 	fdo-mime_desktop_database_update
-	use python && python_mod_optimize
+	use python && python_mod_optimize /usr/$(get_libdir)/root
 }
 
 pkg_postrm() {
 	fdo-mime_desktop_database_update
-	use python && python_mod_cleanup
+	use python && python_mod_cleanup /usr/$(get_libdir)/root
 }
