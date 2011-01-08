@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,9 +10,9 @@ RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils
 
-DESCRIPTION="Python API fir swish-e"
-HOMEPAGE="http://jibe.freeshell.org/bits/SwishE/"
-SRC_URI="http://jibe.freeshell.org/bits/download/${P}.tar.gz"
+DESCRIPTION="Python API for swish-e"
+HOMEPAGE="http://py-swish-e.berlios.de/"
+SRC_URI="mirror://berlios/${PN}/${P/py-/}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -21,3 +21,5 @@ IUSE=""
 
 RDEPEND=">=www-apps/swish-e-2.4"
 DEPEND="${RDEPEND}"
+
+S="${WORKDIR}"/SwishE-${PV}

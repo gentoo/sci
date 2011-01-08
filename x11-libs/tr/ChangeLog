@@ -1,6 +1,9 @@
 # ChangeLog for x11-libs/tr
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  07 Jan 2011; Justin Lecher <jlec@gentoo.org> tr-1.3.ebuild:
+  Some QA on ebuild style
 
   19 Sep 2010; Justin Lecher <jlec@gentoo.org> tr-1.3.ebuild:
   virtual/glut -> media-libs/freeglut & virtual/glu -> virtual/opengl
