@@ -30,6 +30,10 @@
 
 #--- END OF EXAMPLES ---
 
+# Sebastien Fabbro (07 Jan 2011)
+# svn trunk development of root
+>=sci-physics/root-9999
+
 # Justin Lecher <jlec> (04 Jan 2011)
 # Masked for several QA reasons:
 # portage screams during processing this ebuild
