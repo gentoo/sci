@@ -19,7 +19,7 @@ IUSE=""
 DEPEND=">=x11-libs/openmotif-2.3:0"
 RDEPEND="${DEPEND}
 	>=sci-biology/phred-000925
-	>=sci-biology/phrap-1.080721i
+	>=sci-biology/phrap-1.080721
 	dev-lang/perl"
 
 S="${WORKDIR}"
@@ -65,8 +65,8 @@ src_install() {
 	doins -r standard polyphred autofinish assembly_view 454_newbler \
 		align454reads align454reads_answer solexa_example \
 		solexa_example_answer selectRegions selectRegionsAnswer || die
-	echo 'CONSED_HOME='${EPREFIX}'/usr' > "${S}/99consed"
-	doenvd "${S}/99consed" || die
+	echo 'CONSED_HOME='${EPREFIX}'/usr' > ${S}"/99consed"
+	doenvd ${S}"/99consed" || die
 	dodoc README.txt *_announcement.txt || die
 }
 
