@@ -11,15 +11,15 @@ HOMEPAGE="http://sourceforge.net/projects/staden"
 # https://staden.svn.sourceforge.net/svnroot/staden staden
 if [ "$PV" == "9999" ]; then
 	ESVN_REPO_URI="https://staden.svn.sourceforge.net/svnroot/staden/staden/trunk"
-	KEYWORDS="~amd64 ~x86"
+	#KEYWORDS="~amd64 ~x86"
 else
 	SRC_URI="http://downloads.sourceforge.net/staden/staden-2.0.0b7-src.tar.gz"
-	KEYWORDS="~amd64 ~x86"
+	#KEYWORDS="~amd64 ~x86"
 fi
 
 LICENSE="staden"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=""
 IUSE="debug fortran X png curl tcl tk zlib"
 
 # either g77 or gfortran must be available
