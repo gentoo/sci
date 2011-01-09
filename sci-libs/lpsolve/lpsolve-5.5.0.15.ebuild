@@ -32,6 +32,7 @@ src_prepare() {
 		"s|-fpic|-fPIC|g" \
 		"s|-ldl||g" \
 		lp_solve/ccc ${PLIB}/ccc || die "sed failed"
+}
 
 src_compile() {
 	for d in lp_solve ${PLIB}; do
