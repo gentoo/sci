@@ -130,18 +130,25 @@ src_configure() {
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use blas GMX_EXTERNAL_BLAS)
 		-DGMX_ACCELERATION="$acce"
+		-DGMX_DEFAULT_SUFFIX=off
 	)
 
 	for x in ${GMX_DIRS}; do
-		einfo "Compiling for ${x} precision"
 		einfo "Configuring for ${x} precision"
+		local suffix=""
+		#if we build single and double - double is suffixed
+		use double-precision && use single-precision && \
+			[ "${x}" = "double" ] && suffix="_d"
 		local p
 		[ "${x}" = "dobule" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF )
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
+			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		use mpi || continue
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON )
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
+		einfo "Configuring for ${x} precision with mpi"
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON
+			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" cmake-utils_src_configure
 	done
 }
 
@@ -151,7 +158,8 @@ src_compile() {
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile
 		use mpi || continue
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}"\
+		einfo "Compiling for ${x} precision with mpi"
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
 			cmake-utils_src_compile mdrun
 	done
 }

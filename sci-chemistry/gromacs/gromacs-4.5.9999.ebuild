@@ -119,11 +119,9 @@ src_configure() {
 
 	for x in ${GMX_DIRS}; do
 		local suffix=""
-		einfo "Compiling for ${x} precision"
 		#if we build single and double - double is suffixed
 		use double-precision && use single-precision && \
 			[ "${x}" = "double" ] && suffix="_d"
-		einfo "Configuring for ${x} precision"
 		myeconfargs=(
 			--bindir="${EPREFIX}"/usr/bin
 			--docdir="${EPREFIX}"/usr/share/doc/"${PF}"
@@ -144,10 +142,12 @@ src_configure() {
 			--disable-power6
 		)
 
+		einfo "Configuring for ${x} precision"
 		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			autotools-utils_src_configure --disable-mpi	--program-suffix="${suffix}" \
 			CC="$(tc-getCC)" F77="$(tc-getFC)"
 		use mpi || continue
+		einfo "Configuring for ${x} precision with mpi"
 		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
 			autotools-utils_src_configure --enable-mpi --program-suffix="_mpi${suffix}" \
 			CC="$(tc-getCC)" F77="$(tc-getFC)"
@@ -160,6 +160,7 @@ src_compile() {
 		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			autotools-utils_src_compile
 		use mpi || continue
+		einfo "Compiling for ${x} precision with mpi"
 		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			autotools-utils_src_compile mdrun
 	done
