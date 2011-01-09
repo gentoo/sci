@@ -8,7 +8,7 @@
   <flag name='ffamber'>Enable ffamber ports for gromacs</flag>
   <flag name='fkernels'>Enable building of Fortran Kernels for platforms
 	  that dont have assembly loops</flag>
-  <flag name='single-precision'>Single precision version of gromacs</flag>
+  <flag name='single-precision'>Single precision version of gromacs (default)</flag>
   <flag name='zsh-completion'>Enable zsh completion support</flag>
 </use>
 </pkgmetadata>

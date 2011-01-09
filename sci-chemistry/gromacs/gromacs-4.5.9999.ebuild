@@ -63,10 +63,8 @@ src_prepare() {
 	[ -z "$GMX_DIRS" ] && GMX_DIRS+=" float"
 
 	for x in ${GMX_DIRS}; do
-		mkdir "${S}-${x}" || die
-		use test && cp -r "${WORKDIR}"/gmxtest "${S}-${x}"
-		use mpi || continue
-		mkdir "${S}-${x}_mpi" || die
+		mkdir -p "${WORKDIR}/${P}_${x}" || die
+		use test && cp -r "${WORKDIR}"/gmxtest "${WORKDIR}/${P}_${x}"
 	done
 }
 

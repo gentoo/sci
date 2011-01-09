@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,11 +6,12 @@ EAPI="3"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
+MANUAL_PV="4.5.3"
 
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="master"
 
-inherit autotools bash-completion eutils git multilib toolchain-funcs
+inherit bash-completion cmake-utils git multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -19,17 +20,15 @@ SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="X blas dmalloc doc -double-precision +fftw fkernels +gsl lapack
-mpi +single-precision static static-libs test +threads +xml zsh-completion"
+IUSE="X altivec blas doc -double-precision +fftw fkernels lapack
+mpi +single-precision sse test +threads +xml zsh-completion"
 
 DEPEND="app-shells/tcsh
 	X? ( x11-libs/libX11
 		x11-libs/libSM
 		x11-libs/libICE )
-	dmalloc? ( dev-libs/dmalloc )
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
-	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
 	xml? ( dev-libs/libxml2 )"
@@ -38,16 +37,11 @@ RDEPEND="${DEPEND}"
 
 RESTRICT="test"
 
+#gromacs has gnu exec stacks for speedup
 QA_EXECSTACK="usr/lib/libgmx.so.*
 	usr/lib/libgmx_d.so.*"
 
-use static && QA_EXECSTACK="$QA_EXECSTACK usr/bin/*"
-
 src_prepare() {
-
-	( use single-precision || use double-precision ) || \
-		die "Nothing to compile, enable single-precision and/or double-precision"
-
 	if use mpi && use threads; then
 		elog "mdrun uses only threads OR mpi, and gromacs favours the"
 		elog "use of mpi over threads, so a mpi-version of mdrun will"
@@ -55,39 +49,28 @@ src_prepare() {
 		elog "machines only, you can safely disable mpi"
 	fi
 
-	if use static; then
-		use X && die "You cannot compile a static version with X support, disable X or static"
-		use xml && die "You cannot compile a static version with xml support
-		(see bug #306479), disable xml or static"
-	fi
-	epatch_user
 	eautoreconf
+
 	GMX_DIRS=""
-	use single-precision && GMX_DIRS+=" single"
+	use single-precision && GMX_DIRS+=" float"
 	use double-precision && GMX_DIRS+=" double"
+	#if neither single-precision nor double-precision is enabled
+	#build at least default (single)
+	[ -z "$GMX_DIRS" ] && GMX_DIRS+=" float"
+
 	for x in ${GMX_DIRS}; do
-		mkdir "${S}-${x}" || die
-		use test && cp -r "${WORKDIR}"/gmxtest "${S}-${x}"
-		use mpi || continue
-		mkdir "${S}-${x}_mpi" || die
+		mkdir -p "${WORKDIR}/${P}_${x}" || die
+		use test && cp -r "${WORKDIR}"/gmxtest "${WORKDIR}/${P}_${x}"
 	done
 }
 
 src_configure() {
-	local myconf
-	local myconfsingle
-	local myconfdouble
-	local suffixdouble
-
-	#leave all assembly options enabled mdrun is smart enough to deside itself
-	#there so no gentoo on bluegene!
-	myconf="${myconf} --disable-bluegene"
-
-	#we have pkg-config files
-	myconf="${myconf} --disable-la-files"
-
+	local mycmakeargs_pre=( )
 	#from gromacs configure
-	if ! use fftw; then
+	if use fftw; then
+		mycmakeargs_pre+=("-DGMX_FFT_LIBRARY=fftw3")
+	else
+		mycmakeargs_pre+=("-DGMX_FFT_LIBRARY=fftpack")
 		ewarn "WARNING: The built-in FFTPACK routines are slow."
 		ewarn "Are you sure you don\'t want to use FFTW?"
 		ewarn "It is free and much faster..."
@@ -101,54 +84,12 @@ src_configure() {
 
 	#note for gentoo-PREFIX on apple: use --enable-apple-64bit
 
-	#fortran will gone in gromacs 4.1 anyway
+	#fortran will gone in gromacs 5.0 anyway
 	#note for gentoo-PREFIX on aix, fortran (xlf) is still much faster
 	if use fkernels; then
-		use threads && die "You cannot compile fortran kernel with threads"
+		use threads && eerror "You cannot compile fortran kernel with threads"
 		ewarn "Fortran kernels are usually not faster than C kernels and assembly"
 		ewarn "I hope, you know what are you doing..."
-		myconf="${myconf} --enable-fortran"
-	else
-		myconf="${myconf} --disable-fortran"
-	fi
-
-	# if we need external blas
-	if use blas; then
-		export LIBS="${LIBS} -lblas"
-		myconf="${myconf} $(use_with blas external-blas)"
-	fi
-
-	# if we need external lapack
-	if use lapack; then
-		export LIBS="${LIBS} -llapack"
-		myconf="${myconf} $(use_with lapack external-lapack)"
-	fi
-
-	# by default its better to have dynamicaly linked binaries
-	if use static; then
-		#gmx build static libs by default
-		myconf="${myconf} --disable-shared $(use_enable static all-static)"
-	else
-		myconf="${myconf} --disable-all-static --enable-shared $(use_enable static-libs static)"
-	fi
-
-	myconf="--datadir="${EPREFIX}"/usr/share \
-			--bindir="${EPREFIX}"/usr/bin \
-			--libdir="${EPREFIX}"/usr/$(get_libdir) \
-			--docdir="${EPREFIX}"/usr/share/doc/"${PF}" \
-			$(use_with dmalloc) \
-			$(use_with fftw fft fftw3) \
-			$(use_with gsl) \
-			$(use_with X x) \
-			$(use_with xml) \
-			$(use_enable threads) \
-			${myconf}"
-
-	#if we build single and double - double is suffixed
-	if ( use double-precision && use single-precision ); then
-		suffixdouble="_d"
-	else
-		suffixdouble=""
 	fi
 
 	if use double-precision ; then
@@ -172,40 +113,54 @@ src_configure() {
 		elog "libmd with and without mpi support."
 	fi
 
-	myconfdouble="${myconf} --enable-double --program-suffix='${suffixdouble}'"
-	myconfsingle="${myconf} --enable-float --program-suffix=''"
+	# if we need external blas or lapack
+	use blas && export LIBS+=" -lblas"
+	use lapack && export LIBS+=" -llapack"
+
+	#go from slowest to faster acceleration
+	local acce="none"
+	use altivec && acce="altivec"
+	use ia64 && acce="ia64"
+	use fkernels && acce="fortran"
+	use sse && acce="sse"
+
+	mycmakeargs_pre+=(
+		$(cmake-utils_use X GMX_X11)
+		$(cmake-utils_use threads GMX_THREADS)
+		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
+		$(cmake-utils_use blas GMX_EXTERNAL_BLAS)
+		-DGMX_ACCELERATION="$acce"
+	)
+
 	for x in ${GMX_DIRS}; do
+		einfo "Compiling for ${x} precision"
 		einfo "Configuring for ${x} precision"
-		cd "${S}-${x}"
-		local p=myconf${x}
-		ECONF_SOURCE="${S}" econf ${!p} --disable-mpi CC="$(tc-getCC)" F77="$(tc-getFC)"
+		local p
+		[ "${x}" = "dobule" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF )
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		use mpi || continue
-		cd "${S}-${x}_mpi"
-		ECONF_SOURCE="${S}" econf ${!p} --enable-mpi CC="$(tc-getCC)" F77="$(tc-getFC)"
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON )
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 	done
 }
 
 src_compile() {
 	for x in ${GMX_DIRS}; do
-		cd "${S}-${x}"
 		einfo "Compiling for ${x} precision"
-		emake || die "emake for ${x} precision failed"
-		if use doc && [ -z "$OPTDIR" ]; then
-			cd src/contrib
-			emake options || die "emake options failed"
-			OPTDIR="${PWD}"
-		fi
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}"\
+			cmake-utils_src_compile
 		use mpi || continue
-		cd "${S}-${x}_mpi"
-		emake mdrun || die "emake mdrun for ${x} precision failed"
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}"\
+			cmake-utils_src_compile mdrun
 	done
 }
 
 src_test() {
 	for x in ${GMX_DIRS}; do
 		local oldpath="${PATH}"
-		export PATH="${S}-${x}/src/kernel:${S}-{x}/src/tools:${PATH}"
-		cd "${S}-${x}"
+		export PATH="${WORKDIR}/${P}_${x}/src/kernel:${S}-{x}/src/tools:${PATH}"
+		cd "${WORKDIR}/${P}_${x}"
 		emake -j1 tests || die "${x} Precision test failed"
 		export PATH="${oldpath}"
 	done
@@ -213,11 +168,13 @@ src_test() {
 
 src_install() {
 	for x in ${GMX_DIRS}; do
-		cd "${S}-${x}"
-		emake DESTDIR="${D}" install || die "emake install for ${x} failed"
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" \
+			cmake-utils_src_install
 		use mpi || continue
-		cd "${S}-${x}_mpi"
-		emake DESTDIR="${D}" install-mdrun || die "emake install-mdrun for ${x} failed"
+		#cmake-utils_src_install does not support args
+		#using cmake-utils_src_compile instead
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
+			cmake-utils_src_make install-mdrun DESTDIR="${D}"
 	done
 
 	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
@@ -240,14 +197,8 @@ src_install() {
 	cd "${S}"
 	dodoc AUTHORS INSTALL* README*
 	if use doc; then
+		newdoc "${DISTDIR}/gromacs-manual-${MANUAL_PV}.pdf" "manual-${MANUAL_PV}.pdf"
 		dohtml -r "${ED}usr/share/gromacs/html/"
-		insinto /usr/share/gromacs
-		doins "admin/programs.txt"
-		ls -1 "${ED}"/usr/bin | sed -e '/_d$/d' > "${T}"/programs.list
-		doins "${T}"/programs.list
-		cd "${OPTDIR}" || die "cd "${OPTDIR}" failed"
-		../../libtool --mode=install cp options "${ED}"/usr/bin/g_options \
-			|| die "install of g_options failed"
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"
 }
@@ -266,7 +217,4 @@ pkg_postinst() {
 	elog
 	elog "Gromacs can use sci-chemistry/vmd to read additional file formats"
 	elog
-	if use doc; then
-		elog "Live Gromacs manual is available from app-doc/gromacs-manual"
-	fi
 }
