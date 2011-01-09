@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,24 +6,24 @@ EAPI="3"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
-MANUAL_PV="4.5"
+MANUAL_PV="4.5.3"
 
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="release-4-5-patches"
 
-inherit autotools bash-completion eutils git multilib toolchain-funcs
+inherit autotools-utils bash-completion git multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 		doc? (
-		http://www.gromacs.org/@api/deki/files/126/=gromacs_manual-${MANUAL_PV}.pdf -> gromacs-manual-${MANUAL_PV}.pdf )"
+		http://www.gromacs.org/@api/deki/files/133/=manual-${MANUAL_PV}.pdf -> gromacs-manual-${MANUAL_PV}.pdf )"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="X blas dmalloc doc -double-precision +fftw fkernels +gsl lapack
-mpi +single-precision static static-libs test +threads +xml zsh-completion"
+IUSE="X altivec blas dmalloc doc -double-precision +fftw fkernels +gsl lapack
+mpi +single-precision static-libs test +threads +xml zsh-completion"
 
 DEPEND="app-shells/tcsh
 	X? ( x11-libs/libX11
@@ -41,16 +41,11 @@ RDEPEND="${DEPEND}"
 
 RESTRICT="test"
 
+#gromacs has gnu exec stacks for speedup
 QA_EXECSTACK="usr/lib/libgmx.so.*
 	usr/lib/libgmx_d.so.*"
 
-use static && QA_EXECSTACK="$QA_EXECSTACK usr/bin/*"
-
 src_prepare() {
-
-	( use single-precision || use double-precision ) || \
-		die "Nothing to compile, enable single-precision and/or double-precision"
-
 	if use mpi && use threads; then
 		elog "mdrun uses only threads OR mpi, and gromacs favours the"
 		elog "use of mpi over threads, so a mpi-version of mdrun will"
@@ -58,16 +53,15 @@ src_prepare() {
 		elog "machines only, you can safely disable mpi"
 	fi
 
-	if use static; then
-		use X && die "You cannot compile a static version with X support, disable X or static"
-		use xml && die "You cannot compile a static version with xml support
-		(see bug #306479), disable xml or static"
-	fi
-	epatch_user
 	eautoreconf
+
 	GMX_DIRS=""
-	use single-precision && GMX_DIRS+=" single"
+	use single-precision && GMX_DIRS+=" float"
 	use double-precision && GMX_DIRS+=" double"
+	#if neither single-precision nor double-precision is enabled
+	#build at least default (single)
+	[ -z "$GMX_DIRS" ] && GMX_DIRS+=" float"
+
 	for x in ${GMX_DIRS}; do
 		mkdir "${S}-${x}" || die
 		use test && cp -r "${WORKDIR}"/gmxtest "${S}-${x}"
@@ -77,18 +71,6 @@ src_prepare() {
 }
 
 src_configure() {
-	local myconf
-	local myconfsingle
-	local myconfdouble
-	local suffixdouble
-
-	#leave all assembly options enabled mdrun is smart enough to deside itself
-	#there so no gentoo on bluegene!
-	myconf="${myconf} --disable-bluegene"
-
-	#we have pkg-config files
-	myconf="${myconf} --disable-la-files"
-
 	#from gromacs configure
 	if ! use fftw; then
 		ewarn "WARNING: The built-in FFTPACK routines are slow."
@@ -104,54 +86,12 @@ src_configure() {
 
 	#note for gentoo-PREFIX on apple: use --enable-apple-64bit
 
-	#fortran will gone in gromacs 4.1 anyway
+	#fortran will gone in gromacs 5.0 anyway
 	#note for gentoo-PREFIX on aix, fortran (xlf) is still much faster
 	if use fkernels; then
-		use threads && die "You cannot compile fortran kernel with threads"
+		use threads && eerror "You cannot compile fortran kernel with threads"
 		ewarn "Fortran kernels are usually not faster than C kernels and assembly"
 		ewarn "I hope, you know what are you doing..."
-		myconf="${myconf} --enable-fortran"
-	else
-		myconf="${myconf} --disable-fortran"
-	fi
-
-	# if we need external blas
-	if use blas; then
-		export LIBS="${LIBS} -lblas"
-		myconf="${myconf} $(use_with blas external-blas)"
-	fi
-
-	# if we need external lapack
-	if use lapack; then
-		export LIBS="${LIBS} -llapack"
-		myconf="${myconf} $(use_with lapack external-lapack)"
-	fi
-
-	# by default its better to have dynamicaly linked binaries
-	if use static; then
-		#gmx build static libs by default
-		myconf="${myconf} --disable-shared $(use_enable static all-static)"
-	else
-		myconf="${myconf} --disable-all-static --enable-shared $(use_enable static-libs static)"
-	fi
-
-	myconf="--datadir="${EPREFIX}"/usr/share \
-			--bindir="${EPREFIX}"/usr/bin \
-			--libdir="${EPREFIX}"/usr/$(get_libdir) \
-			--docdir="${EPREFIX}"/usr/share/doc/"${PF}" \
-			$(use_with dmalloc) \
-			$(use_with fftw fft fftw3) \
-			$(use_with gsl) \
-			$(use_with X x) \
-			$(use_with xml) \
-			$(use_enable threads) \
-			${myconf}"
-
-	#if we build single and double - double is suffixed
-	if ( use double-precision && use single-precision ); then
-		suffixdouble="_d"
-	else
-		suffixdouble=""
 	fi
 
 	if use double-precision ; then
@@ -175,35 +115,63 @@ src_configure() {
 		elog "libmd with and without mpi support."
 	fi
 
-	myconfdouble="${myconf} --enable-double --program-suffix='${suffixdouble}'"
-	myconfsingle="${myconf} --enable-float --program-suffix=''"
+	# if we need external blas or lapack
+	use blas && export LIBS+=" -lblas"
+	use lapack && export LIBS+=" -llapack"
+
 	for x in ${GMX_DIRS}; do
+		local suffix=""
+		einfo "Compiling for ${x} precision"
+		#if we build single and double - double is suffixed
+		use double-precision && use single-precision && \
+			[ "${x}" = "double" ] && suffix="_d"
 		einfo "Configuring for ${x} precision"
-		cd "${S}-${x}"
-		local p=myconf${x}
-		ECONF_SOURCE="${S}" econf ${!p} --disable-mpi CC="$(tc-getCC)" F77="$(tc-getFC)"
+		myeconfargs=(
+			--bindir="${EPREFIX}"/usr/bin
+			--docdir="${EPREFIX}"/usr/share/doc/"${PF}"
+			--enable-"${x}"
+			$(use_with dmalloc)
+			$(use_with fftw fft fftw3)
+			$(use_with gsl)
+			$(use_with X x)
+			$(use_with xml)
+			$(use_enable threads)
+			$(use_enable altivec ppc-altivec)
+			$(use_enable ia64 ia64-asm)
+			$(use_with lapack external-lapack)
+			$(use_with blas external-blas)
+			$(use_enable fkernels fortran)
+			--disable-bluegene
+			--disable-la-files
+			--disable-power6
+		)
+
+		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
+			autotools-utils_src_configure --disable-mpi	--program-suffix="${suffix}" \
+			CC="$(tc-getCC)" F77="$(tc-getFC)"
 		use mpi || continue
-		cd "${S}-${x}_mpi"
-		ECONF_SOURCE="${S}" econf ${!p} --enable-mpi CC="$(tc-getCC)" F77="$(tc-getFC)"
+		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
+			autotools-utils_src_configure --enable-mpi --program-suffix="_mpi${suffix}" \
+			CC="$(tc-getCC)" F77="$(tc-getFC)"
 	done
 }
 
 src_compile() {
 	for x in ${GMX_DIRS}; do
-		cd "${S}-${x}"
 		einfo "Compiling for ${x} precision"
-		emake || die "emake for ${x} precision failed"
+		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
+			autotools-utils_src_compile
 		use mpi || continue
-		cd "${S}-${x}_mpi"
-		emake mdrun || die "emake mdrun for ${x} precision failed"
+		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
+			autotools-utils_src_compile mdrun
 	done
 }
 
 src_test() {
 	for x in ${GMX_DIRS}; do
 		local oldpath="${PATH}"
-		export PATH="${S}-${x}/src/kernel:${S}-{x}/src/tools:${PATH}"
-		cd "${S}-${x}"
+		export PATH="${WORKDIR}/${P}_${x}/src/kernel:${S}-{x}/src/tools:${PATH}"
+		cd "${WORKDIR}/${P}_${x}"
 		emake -j1 tests || die "${x} Precision test failed"
 		export PATH="${oldpath}"
 	done
@@ -211,11 +179,18 @@ src_test() {
 
 src_install() {
 	for x in ${GMX_DIRS}; do
-		cd "${S}-${x}"
-		emake DESTDIR="${D}" install || die "emake install for ${x} failed"
+		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}" \
+			autotools-utils_src_install
 		use mpi || continue
-		cd "${S}-${x}_mpi"
-		emake DESTDIR="${D}" install-mdrun || die "emake install-mdrun for ${x} failed"
+		#autotools-utils_src_install does not support args
+		#using autotools-utils_src_compile instead
+		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
+			autotools-utils_src_compile install-mdrun DESTDIR="${D}"
+
+		#stolen from autotools-utils_src_install see comment above
+		local args
+		has static-libs ${IUSE//+} && ! use	static-libs || args='none'
+		remove_libtool_files ${args}
 	done
 
 	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
