@@ -32,6 +32,6 @@ RDEPEND="dev-python/numpy
 		sci-libs/fsl
 		sci-libs/libsvm
 		sci-libs/scipy
-		sci-libs/shogun[python] )
+		sci-libs/shogun[python] )"
 
 RESTRICT_PYTHON_ABIS="3.*"
