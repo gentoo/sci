@@ -1,6 +1,13 @@
 # ChangeLog for sci-mathematics/yorick
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*yorick-2.1.06 (22 Dec 2010)
+
+  22 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org> -yorick-2.1.05.ebuild,
+  -files/yorick-2.1.05.patch, +yorick-2.1.06.ebuild,
+  +files/yorick-2.1.06.patch:
+  Bump
 
   16 Oct 2009; Sébastien Fabbro <bicatali@gentoo.org>
   -yorick-1.5.22.ebuild, yorick-2.1.05.ebuild:

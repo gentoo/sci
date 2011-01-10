@@ -11,6 +11,9 @@ MANPATH="/opt/nmrpipe/man"
 TALOS_DIR="/opt/nmrpipe/talos"
 TALOSP_DIR="/opt/nmrpipe/talosplus"
 
+SPARTA_DIR="/opt/nmrpipe/sparta"
+SPARTAP_DIR="/opt/nmrpipe/spartaplus"
+
 # Dynamo
 DYNAMO_DIR="/opt/nmrpipe/dynamo"
 DYNAMO_PARAMS="/opt/nmrpipe/dynamo/params"

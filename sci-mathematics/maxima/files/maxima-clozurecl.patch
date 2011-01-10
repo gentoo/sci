@@ -1,8 +1,0 @@
-diff -r -U1 maxima-5.20.1.orig/configure maxima-5.20.1/configure
---- maxima-5.20.1.orig/configure	2009-12-14 09:20:43.000000000 +0600
-+++ maxima-5.20.1/configure	2009-12-17 23:00:13.000000000 +0600
-@@ -2560,3 +2560,3 @@
- 
--openmcl_default_name=openmcl
-+openmcl_default_name=ccl
- # Check whether --enable-openmcl or --disable-openmcl was given.

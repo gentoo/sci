@@ -1,0 +1,45 @@
+--- src/avbin.c.orig	2008-09-21 02:45:33.000000000 -0400
++++ src/avbin.c	2008-11-22 20:32:48.000000000 -0500
+@@ -28,6 +28,7 @@
+ #include <libavformat/avformat.h>
+ #include <libavcodec/avcodec.h>
+ #include <libavutil/avutil.h>
++#include <libswscale/swscale.h>
+ 
+ struct _AVbinFile {
+     AVFormatContext *context;
+@@ -334,9 +335,5 @@ int avbin_decode_video(AVbinStream *stre
+ 
+     avpicture_fill(&picture_rgb, data_out, PIX_FMT_RGB24, width, height);
+ 
+-    /* img_convert is marked deprecated in favour of swscale, don't
+-     * be surprised if this stops working the next time the ffmpeg version
+-     * is pushed.  Example use of the new API is in ffplay.c. */
+-    img_convert(&picture_rgb, PIX_FMT_RGB24, 
+-                (AVPicture *) stream->frame, stream->codec_context->pix_fmt,
+-                width, height);
++    static int sws_flags = SWS_BICUBIC;
++    static struct SwsContext *img_convert_ctx;
+
++    if (img_convert_ctx == NULL) {     
++    	img_convert_ctx = sws_getContext(width, 
++					 height,
++					 stream->codec_context->pix_fmt,
++					 width, 
++					 height,
++					 PIX_FMT_RGB24,
++					 sws_flags, NULL, NULL, NULL);
++    }
++    sws_scale(img_convert_ctx, 
++		 stream->frame->data, 
++		 stream->frame->linesize,
++		 0, 
++		 height,
++		 picture_rgb.data,
++		 picture_rgb.linesize);
++
++    sws_freeContext(img_convert_ctx);
++
+     return used;
+ }
+ 
