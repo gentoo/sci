@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -23,10 +23,8 @@ DEPEND="sci-libs/cgnslib
 
 RDEPEND="${DEPEND}"
 
-S=${WORKDIR}/${PN}
-
 src_prepare() {
-	epatch "${FILESDIR}"/"${PN}"-compile.patch
+	epatch "${FILESDIR}"/${PN}-compile.patch
 }
 
 src_compile() {
