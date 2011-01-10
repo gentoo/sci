@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,7 +20,7 @@ DEPEND="sci-libs/cgnslib"
 
 RDEPEND="${DEPEND}"
 
-S=${WORKDIR}/${PN}_${MY_PV}
+S=${WORKDIR}/${MY_PN}-${PV}
 
 src_configure() {
 	chmod +x configure
