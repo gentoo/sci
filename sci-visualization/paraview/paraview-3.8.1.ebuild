@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -51,8 +51,8 @@ DEPEND="${RDEPEND}
 		doc? ( app-doc/doxygen )
 		>=dev-util/cmake-2.6.4"
 
-PVLIBDIR="$(get_libdir)/${PN}-${MAJOR_PV}"
-S="${WORKDIR}"/${MY_P}
+PVLIBDIR=$(get_libdir)/${PN}-${MAJOR_PV}
+S=${WORKDIR}/${MY_P}
 
 pkg_setup() {
 	use python && python_set_active_version 2
@@ -94,46 +94,46 @@ src_prepare() {
 
 src_configure() {
 	mycmakeargs=(
-	  -DPV_INSTALL_LIB_DIR="${PVLIBDIR}"
-	  -DCMAKE_INSTALL_PREFIX=/usr
-	  -DEXPAT_INCLUDE_DIR=/usr/include
-	  -DEXPAT_LIBRARY=/usr/$(get_libdir)/libexpat.so
-	  -DOPENGL_gl_LIBRARY=/usr/$(get_libdir)/libGL.so
-	  -DOPENGL_glu_LIBRARY=/usr/$(get_libdir)/libGLU.so
-	  -DCMAKE_SKIP_RPATH=YES
-	  -DVTK_USE_RPATH=OFF
-	  -DBUILD_SHARED_LIBS=ON
-	  -DVTK_USE_SYSTEM_FREETYPE=ON
-	  -DVTK_USE_SYSTEM_JPEG=ON
-	  -DVTK_USE_SYSTEM_PNG=ON
-	  -DVTK_USE_SYSTEM_TIFF=ON
-	  -DVTK_USE_SYSTEM_ZLIB=ON
-	  -DVTK_USE_SYSTEM_EXPAT=ON
-	  -DPARAVIEW_USE_SYSTEM_HDF5=ON
-	  -DCMAKE_VERBOSE_MAKEFILE=OFF
-	  -DCMAKE_COLOR_MAKEFILE=TRUE
-	  -DVTK_USE_SYSTEM_LIBXML2=ON
-	  -DVTK_USE_OFFSCREEN=TRUE
-	  -DCMAKE_USE_PTHREADS=ON
-	  -DBUILD_TESTING=OFF
-	  -DVTK_USE_FFMPEG_ENCODER=OFF
-	  -DPARAVIEW_INSTALL_THIRD_PARTY_LIBRARIES=OFF)
+		-DPV_INSTALL_LIB_DIR="${PVLIBDIR}"
+		-DCMAKE_INSTALL_PREFIX=/usr
+		-DEXPAT_INCLUDE_DIR=/usr/include
+		-DEXPAT_LIBRARY=/usr/$(get_libdir)/libexpat.so
+		-DOPENGL_gl_LIBRARY=/usr/$(get_libdir)/libGL.so
+		-DOPENGL_glu_LIBRARY=/usr/$(get_libdir)/libGLU.so
+		-DCMAKE_SKIP_RPATH=YES
+		-DVTK_USE_RPATH=OFF
+		-DBUILD_SHARED_LIBS=ON
+		-DVTK_USE_SYSTEM_FREETYPE=ON
+		-DVTK_USE_SYSTEM_JPEG=ON
+		-DVTK_USE_SYSTEM_PNG=ON
+		-DVTK_USE_SYSTEM_TIFF=ON
+		-DVTK_USE_SYSTEM_ZLIB=ON
+		-DVTK_USE_SYSTEM_EXPAT=ON
+		-DPARAVIEW_USE_SYSTEM_HDF5=ON
+		-DCMAKE_VERBOSE_MAKEFILE=OFF
+		-DCMAKE_COLOR_MAKEFILE=TRUE
+		-DVTK_USE_SYSTEM_LIBXML2=ON
+		-DVTK_USE_OFFSCREEN=TRUE
+		-DCMAKE_USE_PTHREADS=ON
+		-DBUILD_TESTING=OFF
+		-DVTK_USE_FFMPEG_ENCODER=OFF
+		-DPARAVIEW_INSTALL_THIRD_PARTY_LIBRARIES=OFF)
 
 	# use flag triggered options
 	mycmakeargs+=(
-	  $(cmake-utils_use gui PARAVIEW_BUILD_QT_GUI)
-	  $(cmake-utils_use gui VTK_USE_QVTK)
-	  $(cmake-utils_use gui VTK_USE_QVTK_QTOPENGL)
-	  $(cmake-utils_use mpi PARAVIEW_USE_MPI)
-	  $(cmake-utils_use python PARAVIEW_ENABLE_PYTHON)
-	  $(cmake-utils_use python XDMF_WRAP_PYTHON)
-	  $(cmake-utils_use doc BUILD_DOCUMENTATION)
-	  $(cmake-utils_use examples BUILD_EXAMPLES)
-	  $(cmake-utils_use cg VTK_USE_CG_SHADERS)
-	  $(cmake-utils_use adaptive PARAVIEW_BUILD_AdaptiveParaView)
-	  $(cmake-utils_use streaming PARAVIEW_BUILD_StreamingParaView)
-	  $(cmake-utils_use mysql XDMF_USE_MYSQL)
-	  $(cmake-utils_use coprocessing PARAVIEW_ENABLE_COPROCESSING) )
+		$(cmake-utils_use gui PARAVIEW_BUILD_QT_GUI)
+		$(cmake-utils_use gui VTK_USE_QVTK)
+		$(cmake-utils_use gui VTK_USE_QVTK_QTOPENGL)
+		$(cmake-utils_use mpi PARAVIEW_USE_MPI)
+		$(cmake-utils_use python PARAVIEW_ENABLE_PYTHON)
+		$(cmake-utils_use python XDMF_WRAP_PYTHON)
+		$(cmake-utils_use doc BUILD_DOCUMENTATION)
+		$(cmake-utils_use examples BUILD_EXAMPLES)
+		$(cmake-utils_use cg VTK_USE_CG_SHADERS)
+		$(cmake-utils_use adaptive PARAVIEW_BUILD_AdaptiveParaView)
+		$(cmake-utils_use streaming PARAVIEW_BUILD_StreamingParaView)
+		$(cmake-utils_use mysql XDMF_USE_MYSQL)
+		$(cmake-utils_use coprocessing PARAVIEW_ENABLE_COPROCESSING) )
 
 	if use gui; then
 		mycmakeargs+=(-DVTK_INSTALL_QT_DIR=/${PVLIBDIR}/plugins/designer)
@@ -141,15 +141,15 @@ src_configure() {
 
 	# the rest of the plugins
 	mycmakeargs+=(
-	  $(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_ClientChartView)
-	  $(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_CosmoFilters)
-	  $(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_H5PartReader)
-	  $(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_Moments)
-	  $(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_PointSprite)
-	  $(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_Prism)
-	  $(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_SLACTools)
-	  $(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_AnalyzeNIfTIReaderWriter)
-	  $(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_SurfaceLIC))
+		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_ClientChartView)
+		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_CosmoFilters)
+		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_H5PartReader)
+		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_Moments)
+		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_PointSprite)
+		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_Prism)
+		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_SLACTools)
+		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_AnalyzeNIfTIReaderWriter)
+		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_SurfaceLIC))
 
 	if use python; then
 		mycmakeargs+=($(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_pvblot))
@@ -170,7 +170,7 @@ src_install() {
 
 	# set up the environment
 	echo "LDPATH=/usr/${PVLIBDIR}" >> "${T}"/40${PN}
-	echo "PYTHONPATH=/usr/${PVLIBDIR}/site-packages" >> "${T}"/40${PN}
+	echo "PYTHONPATH=/usr/${PVLIBDIR}:/usr/${PVLIBDIR}/site-packages" >> "${T}"/40${PN}
 	doenvd "${T}"/40${PN}
 
 #	# this binary does not work and probably should not be installed
