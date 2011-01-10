@@ -21,7 +21,7 @@ diff -r -u cgnslib_2.5.orig/configure cgnslib_2.5/configure
      else
        CFGFLAGS="-fPIC $CFGFLAGS"
 -      AR="\$(CC) -shared $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2"
-+      AR="\$(CC) -shared $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2 -lhdf5"
++      AR="\$(CC) -shared -lhdf5 $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2"
        LIBEXT=so
      fi
    fi
@@ -33,7 +33,7 @@ diff -r -u cgnslib_2.5.orig/configure.in cgnslib_2.5/configure.in
      else
        CFGFLAGS="-fPIC $CFGFLAGS"
 -      AR="\$(CC) -shared $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2"
-+      AR="\$(CC) -shared $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2 -lhdf5"
++      AR="\$(CC) -shared -lhdf5 $SYSCFLAGS ${LDFLAGS} -Wl,-soname,libcgns.so.2"
        LIBEXT=so
      fi
    fi
