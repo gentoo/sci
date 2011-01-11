@@ -9,7 +9,7 @@ inherit python base autotools
 
 DESCRIPTION="Pacemaker client GUI and management daemon"
 HOMEPAGE="http://hg.clusterlabs.org/pacemaker/pygui/"
-SRC_URI="http://hg.clusterlabs.org/pacemaker/pygui/archive/0f1490eaa8d8.tar.bz2"
+SRC_URI="http://hg.clusterlabs.org/pacemaker/pygui/archive/45aced6962a9.tar.bz2"
 
 LICENSE="GPL-2 LGPL-2.1"
 KEYWORDS="~amd64 ~x86"
@@ -41,11 +41,11 @@ DEPEND="${CDEPEND}
 		sys-devel/gettext
 	)"
 
-S="${WORKDIR}/Pacemaker-Python-GUI-0f1490eaa8d8/"
+S="${WORKDIR}/Pacemaker-Python-GUI-45aced6962a9/"
 
 PATCHES=(
-	"${FILESDIR}"/${P}-gnutls.patch
-	"${FILESDIR}"/${P}-doc.patch
+ 	"${FILESDIR}/${P}-gnutls.patch"
+ 	"${FILESDIR}/${P}-doc.patch"
 )
 
 pkg_setup() {
