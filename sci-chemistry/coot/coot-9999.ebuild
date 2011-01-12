@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -22,7 +22,7 @@ SRC_URI="test? ( http://www.biop.ox.ac.uk/coot/devel/greg-data.tar.gz )"
 
 SLOT="0"
 LICENSE="GPL-3"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="test"
 
 SCIDEPS="
@@ -61,6 +61,7 @@ RDEPEND="
 	net-dns/libidn"
 DEPEND="${RDEPEND}
 	dev-lang/swig
+	sys-devel/bc
 	test? ( dev-scheme/greg )"
 
 S="${WORKDIR}"
@@ -70,7 +71,8 @@ pkg_setup() {
 }
 
 PATCHES=(
-	"${FILESDIR}"/${PV}-openmp.patch
+	"${FILESDIR}"/${PV}-goocanvas.patch
+	"${FILESDIR}"/${PV}-clipper.patch
 	"${FILESDIR}"/${PV}-include.patch
 	)
 
@@ -94,7 +96,6 @@ src_prepare() {
 		return  ${ESVN_WC_REVISION:-0};
 	}
 	}
-
 	EOF
 
 	eautoreconf
