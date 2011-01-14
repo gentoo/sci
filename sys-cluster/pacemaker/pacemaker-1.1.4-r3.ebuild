@@ -30,7 +30,7 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 PATCHES=(
-	"${FILESDIR}/${P}-autotools.patch"
+	"${FILESDIR}/${P}-autotools-r1.patch"
 )
 
 S=${WORKDIR}/${MY_PN}-1-1-${MY_P}

@@ -19,7 +19,7 @@
 -stonith_la_LDFLAGS = -lpils -export-dynamic -module -avoid-version \
 -		     $(top_builddir)/lib/fencing/libstonithd.la -llrm
 +stonith_la_LDFLAGS = -export-dynamic -module -avoid-version
-+stonith_la_LIBADD = -lpils $(top_builddir)/lib/fencing/libstonithd.la -llrm
++stonith_la_LIBADD = $(top_builddir)/lib/fencing/libstonithd.la -lpils -llrm
  
  install-exec-local:
  	$(mkinstalldirs) $(DESTDIR)$(lrmdir)
@@ -43,7 +43,7 @@
 -notifyServicelogEvent_CFLAGS	= `pkg-config --cflags servicelog-1`
 -notifyServicelogEvent_LDFLAGS	= `pkg-config --libs servicelog-1` $(top_builddir)/lib/common/libcrmcommon.la
 +notifyServicelogEvent_CFLAGS   = $(SERVICELOG_CFLAGS)
-+notifyServicelogEvent_LDADD	= $(SERVICELOG_LIBS) $(top_builddir)/lib/common/libcrmcommon.la
++notifyServicelogEvent_LDADD	= $(top_builddir)/lib/common/libcrmcommon.la $(SERVICELOG_LIBS)
  endif
  
  if BUILD_OPENIPMI_SERVICELOG
@@ -51,7 +51,7 @@
 -ipmiservicelogd_CFLAGS	= `pkg-config --cflags OpenIPMI OpenIPMIposix servicelog-1`
 -ipmiservicelogd_LDFLAGS	= `pkg-config --libs OpenIPMI OpenIPMIposix servicelog-1` $(top_builddir)/lib/common/libcrmcommon.la
 +ipmiservicelogd_CFLAGS = $(OPENIPMI_SERVICELOG_CFLAGS) $(SERVICELOG_CFLAGS)
-+ipmiservicelogd_LDADD	= $(OPENIPMI_SERVICELOG_LIBS) $(SERVICELOG_LIBS) $(top_builddir)/lib/common/libcrmcommon.la
++ipmiservicelogd_LDADD	= $(top_builddir)/lib/common/libcrmcommon.la $(OPENIPMI_SERVICELOG_LIBS) $(SERVICELOG_LIBS)
  endif
  
  %.8:	% crm_attribute
