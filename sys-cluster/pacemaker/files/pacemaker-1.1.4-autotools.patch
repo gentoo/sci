@@ -1,0 +1,84 @@
+--- a/lib/common/Makefile.am
++++ b/lib/common/Makefile.am
+@@ -51,7 +51,8 @@
+ 
+ libcrmcommon_la_SOURCES	= ipc.c utils.c xml.c iso8601.c iso8601_fields.c remote.c mainloop.c
+ 
+-libcrmcommon_la_LDFLAGS	= -version-info 2:0:0  $(GNUTLSLIBS)
++libcrmcommon_la_LDFLAGS	= -version-info 2:0:0
++libcrmcommon_la_LIBADD = $(GNUTLSLIBS)
+ 
+ clean-generic:
+ 	rm -f *.log *.debug *.xml *~
+--- a/lib/plugins/lrm/Makefile.am
++++ b/lib/plugins/lrm/Makefile.am
+@@ -29,8 +29,8 @@
+ plugin_LTLIBRARIES = stonith.la
+ 
+ stonith_la_SOURCES = raexecstonith.c
+-stonith_la_LDFLAGS = -lpils -export-dynamic -module -avoid-version \
+-		     $(top_builddir)/lib/fencing/libstonithd.la -llrm
++stonith_la_LDFLAGS = -export-dynamic -module -avoid-version
++stonith_la_LIBADD = -lpils $(top_builddir)/lib/fencing/libstonithd.la -llrm
+ 
+ install-exec-local:
+ 	$(mkinstalldirs) $(DESTDIR)$(lrmdir)
+--- a/lib/cib/Makefile.am
++++ b/lib/cib/Makefile.am
+@@ -28,7 +28,8 @@
+ libcib_la_SOURCES	= cib_ops.c cib_utils.c cib_client.c cib_native.c cib_attrs.c \
+ 			cib_version.c cib_file.c cib_remote.c
+ 
+-libcib_la_LDFLAGS	= -version-info 1:1:0 $(top_builddir)/lib/common/libcrmcommon.la $(CRYPTOLIB)
++libcib_la_LDFLAGS	= -version-info 1:1:0 
++libcib_la_LIBADD	= $(top_builddir)/lib/common/libcrmcommon.la $(CRYPTOLIB)
+ libcib_la_CFLAGS	= -I$(top_srcdir)
+ 
+ clean-generic:
+--- a/tools/Makefile.am
++++ b/tools/Makefile.am
+@@ -124,13 +124,13 @@
+ if BUILD_SERVICELOG
+ notifyServicelogEvent_SOURCES	= notifyServicelogEvent.c
+-notifyServicelogEvent_CFLAGS	= `pkg-config --cflags servicelog-1`
+-notifyServicelogEvent_LDFLAGS	= `pkg-config --libs servicelog-1` $(top_builddir)/lib/common/libcrmcommon.la
++notifyServicelogEvent_CFLAGS   = $(SERVICELOG_CFLAGS)
++notifyServicelogEvent_LDADD	= $(SERVICELOG_LIBS) $(top_builddir)/lib/common/libcrmcommon.la
+ endif
+ 
+ if BUILD_OPENIPMI_SERVICELOG
+ ipmiservicelogd_SOURCES	= ipmiservicelogd.c
+-ipmiservicelogd_CFLAGS	= `pkg-config --cflags OpenIPMI OpenIPMIposix servicelog-1`
+-ipmiservicelogd_LDFLAGS	= `pkg-config --libs OpenIPMI OpenIPMIposix servicelog-1` $(top_builddir)/lib/common/libcrmcommon.la
++ipmiservicelogd_CFLAGS = $(OPENIPMI_SERVICELOG_CFLAGS) $(SERVICELOG_CFLAGS)
++ipmiservicelogd_LDADD	= $(OPENIPMI_SERVICELOG_LIBS) $(SERVICELOG_LIBS) $(top_builddir)/lib/common/libcrmcommon.la
+ endif
+ 
+ %.8:	% crm_attribute
+--- a/extra/Makefile.am
++++ b/extra/Makefile.am
+@@ -20,5 +20,5 @@
+
+ SUBDIRS                 =  resources
+
+-mibdir = $(datadir)/snmp/mibs
++mibdir = $(datadir)/$(PACKAGE)/snmp/mibs
+ mib_DATA = PCMK-MIB.txt
+--- a/configure.ac
++++ b/configure.ac
+@@ -1354,6 +1354,7 @@
+ if
+     $PKGCONFIG --exists $SERVICELOG
+ then
++    PKG_CHECK_MODULES([SERVICELOG], [servicelog-1])
+     SERVICELOG_EXISTS="yes"
+ fi
+ AC_MSG_RESULT($SERVICELOG_EXISTS)
+@@ -1366,6 +1367,7 @@
+ if
+     $PKGCONFIG --exists $OPENIPMI $SERVICELOG
+ then
++    PKG_CHECK_MODULES([OPENIPMI_SERVICELOG],[OpenIPMI OpenIPMIposix])
+     OPENIPMI_SERVICELOG_EXISTS="yes"
+ fi
+ AC_MSG_RESULT($OPENIPMI_SERVICELOG_EXISTS)
