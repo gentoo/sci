@@ -110,7 +110,7 @@ src_install() {
 	EOF
 
 	# Remove the symlinks for the archives and the installation scripts.
-	for i in ${A} valpha_hn.tar valpha_time.tar; do
+	for i in ${A} valpha_hn.tar valpha_time.tar valpha.tar; do
 		rm -f ${i} || die "Failed to remove archive symlinks."
 	done
 	# Remove some of the bundled applications and libraries; they are provided by Gentoo instead.
