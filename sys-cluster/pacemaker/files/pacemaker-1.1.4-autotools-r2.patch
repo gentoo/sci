@@ -274,3 +274,14 @@
  
  clean-generic:
  	rm -f *.log *.debug *~
+--- a/lib/Makefile.am
++++ b/lib/Makefile.am
+@@ -18,7 +18,7 @@
+ MAINTAINERCLEANFILES    = Makefile.in
+ 
+ ## Subdirectories...
+-SUBDIRS	= common pengine transition cib fencing plugins
++SUBDIRS	= common cib pengine transition fencing plugins
+ DIST_SUBDIRS =  $(SUBDIRS) ais
+ 
+ if BUILD_CS_SUPPORT
