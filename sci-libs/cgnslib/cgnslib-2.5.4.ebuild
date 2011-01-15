@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,11 +17,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="fortran hdf5 szip zlib"
 
-RDEPEND="
-	hdf5? ( >=sci-libs/hdf5-1.8 )
+DEPEND="hdf5? ( >=sci-libs/hdf5-1.8 )
 	zlib? ( sys-libs/zlib )
 	szip? ( sci-libs/szip )"
-DEPEND="${RDEPEND}"
+
+RDEPEND="${DEPEND}"
 
 MY_S="${PN}_$(get_version_component_range 1-2)"
 
@@ -33,9 +33,7 @@ src_prepare() {
 }
 
 src_configure() {
-	local myconf
-	myconf="${myconf} --enable-gcc --enable-lfs --enable-shared=all"
-	use amd64 && myconf="${myconf} --enable-64bit"
+	local myconf="--enable-gcc --enable-lfs --enable-shared=all --enable-64bit"
 
 	tc-export CC
 

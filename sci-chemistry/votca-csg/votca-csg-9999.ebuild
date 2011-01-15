@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -24,7 +24,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="+gromacs static-libs"
 
 RDEPEND="=sci-libs/votca-tools-${PV}
-	>=sci-chemistry/gromacs-4.0.7-r5
+	gromacs? ( >=sci-chemistry/gromacs-4.0.7-r5	<sci-chemistry/gromacs-9999 )
 	dev-lang/perl
 	app-shells/bash"
 

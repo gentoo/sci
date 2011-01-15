@@ -1,0 +1,6 @@
+#install4j response file for Tablet 1.10.09.20
+#Mon Jan 03 23:25:15 CET 2011
+executeLauncherAction$Boolean=false
+sys.programGroupDisabled$Boolean=true
+sys.languageId=en
+sys.installationDir=/var/tmp/portage/sci-biology/tablet-bin-1.10.09.20/image/opt/Tablet
