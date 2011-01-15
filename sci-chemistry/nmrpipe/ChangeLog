@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Jan 2011; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-5.5.2011.004.17.58.ebuild:
+  Also get rid of valpha.tar during installation
+
 *nmrpipe-5.5.2011.004.17.58 (06 Jan 2011)
 
   06 Jan 2011; Justin Lecher <jlec@gentoo.org>

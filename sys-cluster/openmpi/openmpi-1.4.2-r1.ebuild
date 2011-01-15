@@ -29,19 +29,18 @@ pkg_setup() {
 	MPI_ESELECT_FILE="eselect.mpi.openmpi"
 
 	if use mpi-threads; then
-		ewarn
+		echo
 		ewarn "WARNING: use of MPI_THREAD_MULTIPLE is still disabled by"
 		ewarn "default and officially unsupported by upstream."
 		ewarn "You may stop now and set USE=-mpi-threads"
-		ewarn
-		epause 5
+		echo
 	fi
 
-	elog
+	echo
 	elog "OpenMPI has an overwhelming count of configuration options."
 	elog "Don't forget the EXTRA_ECONF environment variable can let you"
 	elog "specify configure options if you find them necessary."
-	elog
+	echo
 }
 
 src_prepare() {
@@ -58,33 +57,32 @@ src_prepare() {
 }
 
 src_configure() {
-	local c="
+	local myconf=(
+		--sysconfdir="${EPREFIX}/etc/${PN}"
 		--without-xgrid
 		--enable-pretty-print-stacktrace
 		--enable-orterun-prefix-by-default
-		--without-slurm"
+		--without-slurm)
 
 	if use mpi-threads; then
-		c="${c}
-			--enable-mpi-threads
-			--enable-progress-threads"
+		myconf+=(--enable-mpi-threads
+			--enable-progress-threads)
 	fi
 
 	if use fortran; then
-		if [[ "$(tc-getFC)" = "g77" ]]; then
-			c="${c} --disable-mpi-f90"
-		elif [[ "$(tc-getFC)" = if* ]]; then
+		if [[ $(tc-getFC) =~ g77 ]]; then
+			myconf+=(--disable-mpi-f90)
+		elif [[ $(tc-getFC) =~ if ]]; then
 			# Enabled here as gfortran compile times are huge with this enabled.
-			c="${c} --with-mpi-f90-size=medium"
+			myconf+=(--with-mpi-f90-size=medium)
 		fi
 	else
-		c="${c}
-			--disable-mpi-f90
-			--disable-mpi-f77"
+		myconf+=(--disable-mpi-f90 --disable-mpi-f77)
 	fi
 
-	! use vt && c="${c} --enable-contrib-no-build=vt"
-	econf $(mpi_econf_args) ${c} \
+	! use vt && myconf+=(--enable-contrib-no-build=vt)
+
+	econf $(mpi_econf_args) "${myconf[@]}" \
 		$(use_enable cxx mpi-cxx) \
 		$(use_enable romio io-romio) \
 		$(use_enable heterogeneous) \
@@ -95,7 +93,7 @@ src_configure() {
 
 src_install () {
 	emake DESTDIR="${D}" install || die
-	mpi_dodoc README AUTHORS NEWS VERSION
+	mpi_dodoc README AUTHORS NEWS VERSION || die
 	mpi_imp_add_eselect
 }
 

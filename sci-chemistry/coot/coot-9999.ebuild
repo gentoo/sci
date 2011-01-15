@@ -71,6 +71,10 @@ pkg_setup() {
 
 PATCHES=(
 	"${FILESDIR}"/${PV}-openmp.patch
+	"${FILESDIR}"/${PV}-gsl.patch
+	"${FILESDIR}"/${PV}-lidia.patch
+	"${FILESDIR}"/${PV}-clipper.patch
+	"${FILESDIR}"/${PV}-goocanvas.patch
 	"${FILESDIR}"/${PV}-include.patch
 	)
 

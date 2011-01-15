@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/gmsh
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  10 Jan 2011; Oliver Borm (boroli) <oli.borm@web.de> -gmsh-2.3.1-r1.ebuild,
+  -files/gmsh-2.3.1.patch, -gmsh-2.4.2.ebuild, gmsh-2.5.0.ebuild:
+  delete old version, added some USE-flags
 
 *gmsh-2.5.0 (13 Dec 2010)
 

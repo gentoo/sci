@@ -48,10 +48,6 @@
 # #348029
 sci-biology/tablet-bin
 
-# Alexey Shvetsov (15 Dec 2010)
-# Mask icm-3.7
-=sci-chemistry/icm-3.7*
-
 # Sebastien Fabbro (29 Sep 2010)
 # alpha software
 >=sci-libs/fftw-3.3_alpha1

@@ -1,3 +1,16 @@
+Index: ltmain.sh
+===================================================================
+--- ltmain.sh	(revision 3299)
++++ ltmain.sh	(working copy)
+@@ -5389,7 +5389,7 @@
+ 	continue
+ 	;;
+ 
+-      -mt|-mthreads|-kthread|-Kthread|-pthread|-pthreads|--thread-safe|-threads)
++      -mt|-mthreads|-kthread|-Kthread|-pthread|-pthreads|--thread-safe|-threads|-fopenmp|-openmp)
+ 	compiler_flags="$compiler_flags $arg"
+ 	func_append compile_command " $arg"
+ 	func_append finalize_command " $arg"
 Index: surface/Makefile.am
 ===================================================================
 --- surface/Makefile.am	(revision 3299)
@@ -7,7 +20,22 @@ Index: surface/Makefile.am
  INCLUDES = -I$(top_srcdir)/coot-utils $(MMDB_CXXFLAGS) $(CLIPPER_CXXFLAGS) $(FFTW_CXXFLAGS)
  
 -AM_CPPFLAGS = $(OPENMP_CFLAGS)
-+AM_CPPFLAGS = $(OPENMP_CXXFLAGS)
++AM_CXXFLAGS = $(OPENMP_CFLAGS)
  
  lib_LTLIBRARIES = libccp4mg-surface.la
  
+Index: src/Makefile.am
+===================================================================
+--- src/Makefile.am	(revision 3299)
++++ src/Makefile.am	(working copy)
+@@ -417,8 +417,8 @@
+ # coot_real_LDFLAGS = -static -lstdc++
+ coot_real_LDFLAGS =
+ 
+-coot_real_LDADD =  $(OPENMP_CFLAGS)     \
+-                $(COOT_EXTRA_LIBS)      \
++coot_real_LDADD =  \
++		$(COOT_EXTRA_LIBS)      \
+ 		$(GUILE_GTK_LIBS)       \
+ 		$(GUILE_LDFLAGS)	\
+ 		$(CLIPPER_LIBS) 	\

@@ -2,6 +2,11 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Dec 2010; Justin Lecher <jlec@gentoo.org> +files/9999-clipper.patch,
+  +files/9999-gsl.patch, +files/9999-lidia.patch, files/9999-goocanvas.patch,
+  files/9999-openmp.patch, coot-9999.ebuild:
+  Fixing for current HEAD
+
   17 Dec 2010; Justin Lecher <jlec@gentoo.org> files/9999-openmp.patch,
   coot-9999.ebuild:
   Correct handling of OpenMp support
