@@ -1,0 +1,12 @@
+# ChangeLog for sci-libs/fox
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*fox-4.1.0 (17 Jan 2011)
+*fox-4.0.4 (17 Jan 2011)
+
+  17 Jan 2011; Honza Macháček <Hloupy.Honza@centrum.cz>
+  +files/4.0.4-install-customizations.patch, +fox-4.0.4.ebuild,
+  +fox-4.1.0.ebuild:
+  A FoX ebuild for sci-physics/abinit
+
