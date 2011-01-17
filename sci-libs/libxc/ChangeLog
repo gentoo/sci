@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/libxc
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*libxc-9999 (17 Jan 2011)
+*libxc-1.0 (17 Jan 2011)
+
+  17 Jan 2011; Honza Macháček <Hloupy.Honza@centrum.cz> +libxc-1.0.ebuild,
+  +libxc-9999.ebuild:
+  A libxc ebuild for sci-physics/abinit
+

@@ -1,0 +1,17 @@
+# ChangeLog for sci-physics/abinit
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*abinit-6.4.2 (17 Jan 2011)
+*abinit-6.2.2 (17 Jan 2011)
+
+  17 Jan 2011; Honza Macháček <Hloupy.Honza@centrum.cz> +files/6.0.3-fftw.patch,
+  +files/6.0.3-libxc-flags.patch,
+  +files/6.2.2-change-default-directories.patch,
+  +files/6.2.2-configure-fortran-calls.patch, +files/6.2.2-long-message.patch,
+  +files/6.2.2-non-plugin-libs.patch, +files/6.4.2-openmp.patch,
+  +abinit-6.2.2.ebuild, +abinit-6.4.2.ebuild:
+  An ebuild for abinit-6.4.2 using external dependencies as proper Gentoo
+  packages. Based on bug 249493, still work in progress. With USE="smp"
+  compiles, but crashes.
+

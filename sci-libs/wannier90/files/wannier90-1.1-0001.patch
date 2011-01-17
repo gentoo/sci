@@ -1,0 +1,16 @@
+diff -urN wannier90-1.1.old/src/wannier_lib.F90 wannier90-1.1.new/src/wannier_lib.F90
+--- wannier90-1.1.old/src/wannier_lib.F90	2007-12-20 10:58:37.000000000 +0100
++++ wannier90-1.1.new/src/wannier_lib.F90	2008-04-28 17:27:19.000000000 +0200
+@@ -166,6 +166,12 @@
+      exclude_bands_loc(1:num_exclude_bands) = exclude_bands(1:num_exclude_bands)
+   end if
+ 
++  if (postproc_setup) then
++   call kmesh_write()
++   write(stdout,'(1x,a25,f11.3,a)') 'Time to write kmesh      ',io_time(),' (sec)'
++   write(stdout,'(/a)') ' '//trim(seedname)//'.nnkp written.'
++  endif
++
+ 
+   call kmesh_dealloc()
+   call param_dealloc()
