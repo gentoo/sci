@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/wannier90
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*wannier90-1.2 (17 Jan 2011)
+
+  17 Jan 2011; Honza Macháček <Hloupy.Honza@centrum.cz>
+  +files/wannier90-1.1-0001.patch, +files/wannier90-1.1-0002.patch,
+  +wannier90-1.2.ebuild:
+  A wannier90 ebuild for sci-physics/abinit
+
