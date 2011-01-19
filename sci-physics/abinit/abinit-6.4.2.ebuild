@@ -72,12 +72,6 @@ src_configure() {
 	local libs="-L/usr/$(get_libdir)"
 	local modules="-I/usr/$(get_libdir)/finclude"
 	local FoX_libs="${libs} -lFoX_dom -lFoX_sax -lFoX_wcml -lFoX_wxml -lFoX_common -lFoX_utils -lFoX_fsys"
-	local cudaopts=""
-	if use cuda; then
-		cudaopts="--enable-gpu --with-gpu-flavor=cuda-single"
-		cudaopts="${cudaopts} --with-gpu-prefix=/opt/cuda/"
-
-	fi
 	local trio_flavor="etsf"
 	use fox && trio_flavor="${trio_flavor}+fox"
 	use hdf5 && trio_flavor="${trio_flavor}+hdf"
@@ -118,7 +112,12 @@ src_configure() {
 		$(use_enable gsl math) \
 		$(use_enable fftw fft) \
 		$(use_enable vdwxc) \
-		${cudaopts} \
+		$(use_enable cuda gpu) \
+		"$(use cuda && echo "--with-gpu-flavor=cuda-single")" \
+		"$(use cuda && echo "--with-gpu-prefix=/opt/cuda/")" \
+		"$(use gsl && echo "--with-math-flavor=gsl")" \
+		"$(use gsl && echo "--with-math-includes=$(pkg-config --cflags gsl)")" \
+		"$(use gsl && echo "--with-math-libs=$(pkg-config --libs gsl)")" \
 		--enable-linalg \
 		--enable-trio \
 		--enable-etsf-io \
@@ -126,10 +125,10 @@ src_configure() {
 		--with-linalg-flavor="atlas" \
 		--with-linalg-libs="$(pkg-config --libs lapack)" \
 		--with-trio-flavor="${trio_flavor}" \
-		"$(use_with netcdf netcdf-includes "-I/usr/include")" \
-		"$(use_with netcdf netcdf-libs "$(pkg-config --libs netcdf) ${netcdff_libs}")" \
-		"$(use_with fox fox-includes "${modules}")" \
-		"$(use_with fox fox-libs "${FoX_libs}")" \
+		"$(use netcdf && echo "--with-netcdf-includes=-I/usr/include")" \
+		"$(use netcdf && echo "--with-netcdf-libs=$(pkg-config --libs netcdf) ${netcdff_libs}")" \
+		"$(use fox && echo "--with-fox-includes=${modules}")" \
+		"$(use fox && echo "--with-fox-libs=${FoX_libs}")" \
 		--with-etsf-io-includes="${modules}" \
 		--with-etsf-io-libs="${libs} -letsf_io -letsf_io_low_level -letsf_io_utils" \
 		--with-trio-includes="-I/usr/include ${modules}" \
@@ -144,12 +143,9 @@ src_configure() {
 		--with-wannier90-libs="${libs} -lwannier $(pkg-config --libs lapack)" \
 		--with-dft-includes="${modules}" \
 		--with-dft-libs="${libs} -lwannier -lpoissonsolver -lbigdft -lxc $(pkg-config --libs lapack)" \
-		"$(use_with fftw fft-flavor "${fft_flavor}")" \
-		"$(use_with fftw fft-includes "-I/usr/include")" \
-		"$(use_with fftw fft-libs "${fft_libs}")" \
-		"$(use_with gsl math-flavor "gsl")" \
-		"$(use_with gsl math-includes "$(pkg-config --cflags gsl)")" \
-		"$(use_with gsl math-libs $(pkg-config --libs gsl))" \
+		"$(use fftw && echo "--with-fft-flavor=${fft_flavor}")" \
+		"$(use fftw && echo "--with-fft-includes=-I/usr/include")" \
+		"$(use fftw && echo "--with-fft-libs=${fft_libs}")" \
 		--with-timer-flavor="abinit" \
 		FC="${MY_FC}" \
 		CC="${MY_CC}" \
