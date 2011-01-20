@@ -1,0 +1,14 @@
+--- a/configure.ac	2011-01-09 00:41:26.000000000 +0100
++++ b/configure.ac	2011-01-20 13:58:12.071764382 +0100
+@@ -33,7 +33,10 @@
+ AC_CHECK_LIB([m], [pow], [true], AC_MSG_FAILURE([libm not found]))
+ AC_CHECK_LIB([pthread], [pthread_create], [true], AC_MSG_FAILURE([libpthread not found]))
+ PKG_CHECK_MODULES([CRYPTOPP], [libcrypto++], [], [
+-	AC_SEARCH_LIBS([_ZTIN8CryptoPP14CBC_EncryptionE], [crypto++ cryptopp], [true], AC_MSG_FAILURE([libcrypto++ not found]), [-lpthread])])
++	AC_LANG_PUSH([C++])
++	AC_SEARCH_LIBS([_ZTIN8CryptoPP14CBC_EncryptionE], [crypto++ cryptopp], [true], AC_MSG_FAILURE([libcrypto++ not found]), [-lpthread])
++	AC_LANG_POP([C++])
++	])
+ 
+ # debug crap?
+ AC_ARG_WITH([debug],

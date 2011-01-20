@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>cluster</herd>
+<longdescription>
+Ceph is a distributed network file system designed to provide excellent performance, reliability, and scalability.
+</longdescription>
+<use>
+	<flag name='fuse'>Build fuse client</flag>
+	<flag name='libatomic'>Use libatomic instead of builtin atomic operations</flag>
+	<flag name='radosgw'>Add radosgw support</flag>
+</use>
+</pkgmetadata>

@@ -21,7 +21,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X altivec blas doc -double-precision +fftw fkernels lapack
-mpi +single-precision sse test +threads +xml zsh-completion"
+mpi +single-precision sse test +threads zsh-completion"
 
 DEPEND="app-shells/tcsh
 	X? ( x11-libs/libX11
@@ -31,9 +31,12 @@ DEPEND="app-shells/tcsh
 	fftw? ( sci-libs/fftw:3.0 )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
-	xml? ( dev-libs/libxml2 )"
+	dev-libs/libxml2"
 
 RDEPEND="${DEPEND}"
+
+#add that back if cmake can build g_options
+#PDEPEND="doc? (app-doc/gromacs-manual)"
 
 RESTRICT="test"
 

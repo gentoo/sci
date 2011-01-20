@@ -2,12 +2,18 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+<<<<<<< HEAD
 *nmrpipe-5.5.2011.004.17.58-r1 (20 Jan 2011)
 
   20 Jan 2011; Justin Lecher <jlec@gentoo.org>
   -nmrpipe-5.5.2011.004.17.58.ebuild, +nmrpipe-5.5.2011.004.17.58-r1.ebuild,
   files/env-nmrpipe-new:
   Added missing variable installation in revbump
+=======
+  15 Jan 2011; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-5.5.2011.004.17.58.ebuild:
+  Also get rid of valpha.tar during installation
+>>>>>>> ba2535e41dc66bb7c69216eb6050b608f8af8482
 
 *nmrpipe-5.5.2011.004.17.58 (06 Jan 2011)
 
