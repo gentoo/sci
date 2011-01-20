@@ -1,0 +1,10 @@
+# ChangeLog for sys-cluster/ceph
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sys-cluster/ceph/ChangeLog,v 1.1 2010/12/07 18:25:28 alexxy Exp $
+
+*ceph-0.23.1 (07 Dec 2010)
+
+  07 Dec 2010; Alexey Shvetsov <alexxy@gentoo.org> +ceph-0.23.1.ebuild,
+  +files/ceph.confd, +files/ceph.initd, +metadata.xml:
+  Initial import per bug #338008
+
