@@ -126,6 +126,7 @@ src_compile() {
 }
 
 src_test() {
+	source "${EPREFIX}/etc/profile.d/40ccp4.setup.sh"
 	mkdir "${T}"/coot_test
 
 	export COOT_STANDARD_RESIDUES="${S}/standard-residues.pdb"
@@ -138,6 +139,7 @@ src_test() {
 	export PYTHONHOME="${EPREFIX}"/usr
 	export CCP4_SCR="${T}"/coot_test
 	export CLIBD_MON="${EPREFIX}/usr/share/ccp4/data/monomers/"
+	export SYMINFO="${S}/syminfo.lib"
 
 	export COOT_TEST_DATA_DIR="${S}"/data/greg-data
 
@@ -163,6 +165,7 @@ src_test() {
 	einfo "PYTHONHOME $PYTHONHOME"
 	einfo "CCP4_SCR ${CCP4_SCR}"
 	einfo "CLIBD_MON ${CLIBD_MON}"
+	einfo "SYMINFO ${SYMINFO}"
 
 	"${S}"/src/coot-real --no-graphics --script command-line-greg.scm || die
 }
