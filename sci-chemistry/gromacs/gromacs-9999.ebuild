@@ -6,7 +6,6 @@ EAPI="3"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
-MANUAL_PV="4.5.3"
 
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="master"
@@ -23,20 +22,19 @@ KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X altivec blas doc -double-precision +fftw fkernels lapack
 mpi +single-precision sse test +threads zsh-completion"
 
-DEPEND="app-shells/tcsh
-	X? ( x11-libs/libX11
-		x11-libs/libSM
-		x11-libs/libICE )
+DEPEND="X? ( x11-libs/libX11
+			x11-libs/libSM
+			x11-libs/libICE )
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
 	dev-libs/libxml2"
 
-RDEPEND="${DEPEND}"
+RDEPEND="app-shells/tcsh
+	${DEPEND}"
 
-#add that back if cmake can build g_options
-#PDEPEND="doc? (app-doc/gromacs-manual)"
+PDEPEND="doc? ( app-doc/gromacs-manual )"
 
 RESTRICT="test"
 
@@ -51,8 +49,6 @@ src_prepare() {
 		elog "be compiled. If you want to run mdrun on shared memory"
 		elog "machines only, you can safely disable mpi"
 	fi
-
-	eautoreconf
 
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" float"
@@ -208,8 +204,11 @@ src_install() {
 	cd "${S}"
 	dodoc AUTHORS INSTALL* README*
 	if use doc; then
-		newdoc "${DISTDIR}/gromacs-manual-${MANUAL_PV}.pdf" "manual-${MANUAL_PV}.pdf"
 		dohtml -r "${ED}usr/share/gromacs/html/"
+		insinto /usr/share/gromacs
+		doins "admin/programs.txt"
+		ls -1 "${ED}"/usr/bin | sed -e '/_d$/d' > "${T}"/programs.list
+		doins "${T}"/programs.list
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"
 }
