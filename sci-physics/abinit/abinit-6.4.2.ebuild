@@ -94,7 +94,7 @@ src_configure() {
 		MY_CC="mpicc"
 		MY_CXX="mpic++"
 	else
-		MY_FC="${tc-getFC}"
+		MY_FC="$(tc-getFC)"
 		MY_CC="$(tc-getCC)"
 		MY_CXX="$(tc-getCXX)"
 	fi
