@@ -113,8 +113,9 @@ src_configure() {
 	fi
 
 	# if we need external blas or lapack
-	use blas && export LIBS+=" -lblas"
-	use lapack && export LIBS+=" -llapack"
+	use blas && LDFLAGS+=" -lblas"
+	use lapack && LDFLAGS+=" -llapack"
+	export LDFLAGS
 
 	#go from slowest to faster acceleration
 	local acce="none"
@@ -139,7 +140,7 @@ src_configure() {
 		use double-precision && use single-precision && \
 			[ "${x}" = "double" ] && suffix="_d"
 		local p
-		[ "${x}" = "dobule" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
+		[ "${x}" = "double" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
