@@ -1,16 +1,26 @@
 # Platform
+NMRCHECK="ALL"
+
 BINTYPE="linux9"
 NMRBINTYPE="linux9"
 PATH="/opt/nmrpipe/com:/opt/nmrpipe/bin:/opt/nmrpipe/dynamo/tcl"
 
 # NMRPipe
 NMRBASE="/opt/nmrpipe"
+NMRBIN="/opt/nmrpipe/bin"
 NMRTXT="/opt/nmrpipe/nmrtxt"
 MANPATH="/opt/nmrpipe/man"
 
+# Performance
+NMR_IO_TIMEOUT="0"
+NMR_IO_SELECT="0"
+NMR_AUTOSWAP="1"
+
+# Talos(+)
 TALOS_DIR="/opt/nmrpipe/talos"
 TALOSP_DIR="/opt/nmrpipe/talosplus"
 
+# Sparta(+)
 SPARTA_DIR="/opt/nmrpipe/sparta"
 SPARTAP_DIR="/opt/nmrpipe/spartaplus"
 

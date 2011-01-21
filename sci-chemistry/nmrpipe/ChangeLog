@@ -3,6 +3,14 @@
 # $Header: $
 
 <<<<<<< HEAD
+
+*nmrpipe-5.5.2011.004.17.58-r2 (21 Jan 2011)
+
+  21 Jan 2011; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-5.5.2011.004.17.58-r1.ebuild, +nmrpipe-5.5.2011.004.17.58-r2.ebuild,
+  files/env-nmrpipe-new:
+  Added missing env stuff
+
 *nmrpipe-5.5.2011.004.17.58-r1 (20 Jan 2011)
 
   20 Jan 2011; Justin Lecher <jlec@gentoo.org>
