@@ -1,8 +1,0 @@
-# These are passed as arguments to original ceph initscript
-#  see also http://ceph.newdream.net/wiki/Starting_and_stopping
-
-# CEPH_COMMON=( --hostname myhost )
-
-CEPH_START=( start )
-CEPH_STOP=( stop )
-CEPH_RELOAD=( reload )
