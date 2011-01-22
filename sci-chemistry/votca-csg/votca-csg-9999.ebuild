@@ -24,7 +24,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="+gromacs static-libs"
 
 RDEPEND="=sci-libs/votca-tools-${PV}
-	gromacs? ( >=sci-chemistry/gromacs-4.0.7-r5	<sci-chemistry/gromacs-9999 )
+	gromacs? ( >=sci-chemistry/gromacs-4.0.7-r5 )
 	dev-lang/perl
 	app-shells/bash"
 
@@ -41,10 +41,12 @@ src_prepare() {
 }
 
 src_configure() {
-	local libgmx="libgmx"
+	local libgmx
 
+	#in >gromacs-4.5 libgmx was renamed to libgromacs
+	has_version =sci-chemistry/gromacs-9999 && libgmx="libgromacs" || libgmx="libgmx"
 	#prefer gromacs double-precision if it is there
-	has_version sci-chemistry/gromacs[double-precision] && libgmx="libgmx_d"
+	has_version sci-chemistry/gromacs[double-precision] && libgmx="${libgmx}_d"
 
 	myeconfargs=( ${myconf} --disable-rc-files  $(use_with gromacs libgmx $libgmx) )
 	autotools-utils_src_configure
