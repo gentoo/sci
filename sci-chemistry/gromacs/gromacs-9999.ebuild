@@ -19,17 +19,18 @@ SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="X altivec blas doc -double-precision +fftw fkernels lapack
-mpi +single-precision sse test +threads zsh-completion"
+IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
+mpi +single-precision sse test +threads xml zsh-completion"
 
 DEPEND="X? ( x11-libs/libX11
 			x11-libs/libSM
 			x11-libs/libICE )
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
+	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
-	dev-libs/libxml2"
+	xml? ( dev-libs/libxml2 )"
 
 RDEPEND="app-shells/tcsh
 	${DEPEND}"
@@ -112,11 +113,6 @@ src_configure() {
 		elog "libmd with and without mpi support."
 	fi
 
-	# if we need external blas or lapack
-	use blas && LDFLAGS+=" -lblas"
-	use lapack && LDFLAGS+=" -llapack"
-	export LDFLAGS
-
 	#go from slowest to faster acceleration
 	local acce="none"
 	use altivec && acce="altivec"
@@ -126,9 +122,11 @@ src_configure() {
 
 	mycmakeargs_pre+=(
 		$(cmake-utils_use X GMX_X11)
-		$(cmake-utils_use threads GMX_THREADS)
-		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use blas GMX_EXTERNAL_BLAS)
+		$(cmake-utils_use gsl GMX_GSL)
+		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
+		$(cmake-utils_use threads GMX_THREADS)
+		$(cmake-utils_use xml GMX_XML)
 		-DGMX_ACCELERATION="$acce"
 		-DGMX_DEFAULT_SUFFIX=off
 	)
