@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,8 +7,8 @@ EAPI="3"
 inherit autotools savedconfig
 
 DESCRIPTION="Extensible Simulation Package for Research on Soft matter"
-HOMEPAGE="http://www.espresso.mpg.de"
-SRC_URI="http://espressowiki.mpip-mainz.mpg.de/wiki/uploads/f/f3/Espresso-${PV}.tar.gz"
+HOMEPAGE="http://www.espressomd.org"
+SRC_URI="http://espressomd.org/mediawiki/images/f/f3/Espresso-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
