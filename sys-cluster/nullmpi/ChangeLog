@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nullmpi-9999 (23 Jan 2011)
+
+  23 Jan 2011; Christoph Junghans <kleiner_otti@gmx.de>
+  +nullmpi-9999.ebuild:
+  added live ebuild
+
   23 Jan 2011; Christoph Junghans <kleiner_otti@gmx.de> nullmpi-0.7.ebuild,
   +files/nullmpi-0.7-libtool.patch:
   added support for shared libs
