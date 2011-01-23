@@ -1,6 +1,10 @@
 # ChangeLog for sys-cluster/nullmpi
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  23 Jan 2011; Christoph Junghans <kleiner_otti@gmx.de> nullmpi-0.7.ebuild,
+  +files/nullmpi-0.7-libtool.patch:
+  added support for shared libs
 
 *nullmpi-0.7 (25 Mar 2010)
 
