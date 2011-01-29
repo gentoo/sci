@@ -1,6 +1,11 @@
 # ChangeLog for sci-libs/vtk
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/vtk/ChangeLog,v 1.78 2010/07/24 18:25:18 jlec Exp $
+
+  29 Jan 2011; François Bissey <francois.bissey@canterbury.ac.nz>
+  vtk-5.6.1.ebuild:
+  Complete the removal of FindPythonLibs.cmake, so we don't have a failure at
+  install.
 
   29 Dec 2010; François Bissey <f.r.bissey@massey.ac.nz> vtk-5.6.1.ebuild:
   Patch for python-2.7 as in paraview-3.8.1
