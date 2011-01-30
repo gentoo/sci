@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -72,7 +72,6 @@ pkg_setup() {
 	java-pkg-opt-2_pkg_setup
 
 	use python && python_set_active_version 2
-	use qt4 && qt4_pkg_setup
 	append-cppflags -D__STDC_CONSTANT_MACROS
 }
 
@@ -92,6 +91,8 @@ src_prepare() {
 		|| die "Failed to fix tcl pkgIndex file"
 	# Remove FindPythonLibs.cmake to use the patched one from cmake
 	rm CMake/FindPythonLibs.cmake
+	# Also remove it from the list of files to install
+	sed -i "/FindPythonLibs.cmake/d" CMakeLists.txt
 }
 
 src_configure() {

@@ -21,7 +21,7 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="+gromacs static-libs"
+IUSE="doc +gromacs static-libs"
 
 RDEPEND="=sci-libs/votca-tools-${PV}
 	gromacs? ( >=sci-chemistry/gromacs-4.0.7-r5 )
@@ -29,6 +29,7 @@ RDEPEND="=sci-libs/votca-tools-${PV}
 	app-shells/bash"
 
 DEPEND="${RDEPEND}
+	doc? ( app-doc/doxygen )
 	>=app-text/txt2tags-2.5
 	dev-util/pkgconfig"
 
@@ -56,6 +57,11 @@ src_install() {
 	DOCS=(README NOTICE ${AUTOTOOLS_BUILD_DIR}/CHANGELOG)
 	dobashcompletion scripts/csg-completion.bash ${PN}
 	autotools-utils_src_install
+	if use doc; then
+		cd share/doc
+		doxygen || die
+		dohtml -r html/*
+	fi
 }
 
 pkg_postinst() {
