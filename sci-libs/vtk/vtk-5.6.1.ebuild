@@ -89,10 +89,9 @@ src_prepare() {
 	sed -e "s:@VTK_TCL_LIBRARY_DIR@:/usr/$(get_libdir):" \
 		-i Wrapping/Tcl/pkgIndex.tcl.in \
 		|| die "Failed to fix tcl pkgIndex file"
-	# Remove FindPythonLibs.cmake to use the patched one from cmake
-	rm CMake/FindPythonLibs.cmake
-	# Also remove it from the list of files to install
-	sed -i "/FindPythonLibs.cmake/d" CMakeLists.txt
+	# Patch FindPythonLibs.cmake for python-2.7, removing it does more harm than good.
+	sed -e "s:2.6 2.5 2.4 2.3 2.2 2.1 2.0:2.7 2.6 2.5 2.4 2.3 2.2 2.1 2.0:" \
+		-i CMake/FindPythonLibs.cmake || die "failed to patch for python 2.7"
 }
 
 src_configure() {

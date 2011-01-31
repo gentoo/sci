@@ -74,10 +74,11 @@ src_prepare() {
 	# mpi + hdf5 fix
 	epatch "${FILESDIR}"/${PN}-3.8.0-h5part.patch
 
-	if use amd64; then
-		sed -i "s:/usr/lib:/usr/lib64:g" \
-			Utilities/Xdmf2/libsrc/CMakeLists.txt || die "sed failed"
-	fi
+	# lib64 fixes
+	sed -i "s:/usr/lib:/usr/$(get_libdir):g" \
+		Utilities/Xdmf2/libsrc/CMakeLists.txt || die "sed failed"
+	sed -i "s:\/lib\/python:\/$(get_libdir)\/python:g" \
+		Utilities/Xdmf2/CMake/setup_install_paths.py || die "sed failed"
 
 	epatch "${WORKDIR}"/${P}-OFF.patch
 
@@ -88,14 +89,16 @@ src_prepare() {
 	sed -e "s:CHIPNAME_STRING_LENGTH    (48 + 1):CHIPNAME_STRING_LENGTH    (79 + 1):" \
 		-i Utilities/kwsys/SystemInformation.cxx \
 		|| die "Failed to fix SystemInformation.cxx buffer overflow"
-	# Remove FindPythonLibs.cmake to use the patched one from cmake
-	rm CMake/FindPythonLibs.cmake
+	# Patch FindPythonLibs.cmake for python-2.7, removing it does more harm than good.
+	sed -e "s:2.6 2.5 2.4 2.3 2.2 2.1 2.0:2.7 2.6 2.5 2.4 2.3 2.2 2.1 2.0:" \
+		-i CMake/FindPythonLibs.cmake || die "failed to patch for python 2.7"
 }
 
 src_configure() {
 	mycmakeargs=(
 		-DPV_INSTALL_LIB_DIR="${PVLIBDIR}"
 		-DCMAKE_INSTALL_PREFIX=/usr
+		-DPV_INSTALL_DOC_DIR="/usr/share/doc/${P}"
 		-DEXPAT_INCLUDE_DIR=/usr/include
 		-DEXPAT_LIBRARY=/usr/$(get_libdir)/libexpat.so
 		-DOPENGL_gl_LIBRARY=/usr/$(get_libdir)/libGL.so
@@ -141,6 +144,7 @@ src_configure() {
 
 	# the rest of the plugins
 	mycmakeargs+=(
+		$(cmake-utils_use plugins PARAVIEW_INSTALL_DEVELOPMENT)
 		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_ClientChartView)
 		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_CosmoFilters)
 		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_H5PartReader)
