@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  31 Jan 2011; François Bissey <francois.bissey@canterbury.ac.nz>
+  paraview-3.8.1.ebuild:
+  General scrubbing, add plugin development files.
+
   10 Jan 2011; Oliver Borm (boroli) <oli.borm@web.de> paraview-3.8.1.ebuild:
   added second python path as this seems to be needed for the compile *.so
   files
