@@ -22,6 +22,7 @@ RDEPEND="X? (
 		>=dev-lang/python-2
 		>=dev-python/pygtk-2
 	)
+	>=sys-cluster/openais-1.1
 	>=dev-libs/glib-2.2.3
 	sys-fs/e2fsprogs"
 DEPEND="${RDEPEND}"
