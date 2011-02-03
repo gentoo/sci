@@ -22,7 +22,9 @@ RDEPEND="X? (
 		>=dev-lang/python-2
 		>=dev-python/pygtk-2
 	)
-	>=sys-cluster/openais-1.1
+	sys-cluster/openais
+	sys-cluster/dlm-lib
+	sys-cluster/cman-lib
 	>=dev-libs/glib-2.2.3
 	sys-fs/e2fsprogs"
 DEPEND="${RDEPEND}"
@@ -32,7 +34,7 @@ src_prepare() {
 }
 
 src_configure() {
-	local myconf="--enable-dynamic-fsck --enable-dynamic-ctl"
+	#local myconf="--enable-dynamic-fsck --enable-dynamic-ctl"
 
 	econf \
 		$(use_enable X ocfs2console) \
