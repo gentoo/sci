@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sys-cluster/openmpi/openmpi-1.2.4.ebuild,v 1.2 2007/12/13 22:39:53 jsbronder Exp $
 
@@ -10,18 +10,19 @@ S=${WORKDIR}/${MY_P}
 
 DESCRIPTION="A high-performance message passing library (MPI)"
 HOMEPAGE="http://www.open-mpi.org"
-SRC_URI="http://www.open-mpi.org/software/ompi/v1.4/downloads/${MY_P}.tar.bz2"
+SRC_URI="http://www.open-mpi.org/software/ompi/v1.5/downloads/${MY_P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
-RESTRICT="mpi-threads? ( test )"
-IUSE="+cxx fortran heterogeneous ipv6 infiniband mpi-threads pbs romio threads vt"
+#RESTRICT="mpi-threads? ( test )"
+IUSE="+cxx elibc_FreeBSD fortran heterogeneous ipv6 infiniband mpi-threads pbs romio threads vt"
 RDEPEND="pbs? ( sys-cluster/torque )
 		vt? (
 			!dev-libs/libotf
 			!app-text/lcdf-typetools
 		)
 		infiniband? ( sys-infiniband/libibverbs )
+		elibc_FreeBSD? ( dev-libs/libexecinfo )
 		$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
 
@@ -59,10 +60,10 @@ src_prepare() {
 src_configure() {
 	local myconf=(
 		--sysconfdir="${EPREFIX}/etc/${PN}"
-		--without-xgrid
 		--enable-pretty-print-stacktrace
 		--enable-orterun-prefix-by-default
-		--without-slurm)
+		--without-slurm
+		)
 
 	if use mpi-threads; then
 		myconf+=(--enable-mpi-threads

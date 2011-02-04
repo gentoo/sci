@@ -1,0 +1,10 @@
+# ChangeLog for virtual/mpi
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mpi-2.0-r2 (23 Jan 2011)
+
+  23 Jan 2011; Christoph Junghans <kleiner_otti@gmx.de> +mpi-2.0-r2.ebuild,
+  +metadata.xml:
+  initial version with sys-cluster/nullmpi support
+

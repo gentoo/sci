@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,7 +21,7 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="-boost +fftw +gsl static-libs"
+IUSE="-boost doc +fftw +gsl static-libs"
 
 RDEPEND="fftw? ( sci-libs/fftw:3.0 )
 	dev-libs/expat
@@ -29,6 +29,7 @@ RDEPEND="fftw? ( sci-libs/fftw:3.0 )
 	boost? ( dev-libs/boost )"
 
 DEPEND="${RDEPEND}
+	doc? ( app-doc/doxygen )
 	>=app-text/txt2tags-2.5
 	dev-util/pkgconfig"
 
@@ -64,4 +65,9 @@ src_configure() {
 src_install() {
 	DOCS=(${AUTOTOOLS_BUILD_DIR}/CHANGELOG NOTICE)
 	autotools-utils_src_install
+	if use doc; then
+		cd share/doc
+		doxygen || die
+		dohtml -r html/*
+	fi
 }

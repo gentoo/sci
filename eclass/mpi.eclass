@@ -266,7 +266,7 @@ mpi_pkg_deplist() {
 	local pn pn2 ver usedeps invalid_imps inval
 
 	case "${EAPI}" in
-		2)
+		2|3|4)
 			[[ ${MPI_PKG_USE_CXX} -ne 0 ]] \
 				&& usedeps=",cxx"
 			[[ ${MPI_PKG_USE_FC} -ne 0 ]] \

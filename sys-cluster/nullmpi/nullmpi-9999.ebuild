@@ -4,11 +4,14 @@
 
 EAPI="2"
 
-inherit autotools-utils
+EGIT_REPO_URI="git://github.com/olenz/NullMPI.git"
+EGIT_BRANCH="master"
+
+inherit autotools-utils git
 
 DESCRIPTION="MPI substitute library"
 HOMEPAGE="http://wissrech.ins.uni-bonn.de/research/projects/nullmpi/"
-SRC_URI="http://wissrech.ins.uni-bonn.de/research/projects/nullmpi/${PF}.tar.gz"
+SRC_URI=""
 
 LICENSE="GPL-1"
 SLOT="0"
@@ -24,7 +27,7 @@ DEPEND="${RDEPEND}"
 
 DOCS=( AUTHORS ChangeLog README TODO )
 
-PATCHES=( "${FILESDIR}/${P}-libtool.patch" )
+S="${WORKDIR}/${EGIT_REPO_URI##*/}"
 
 src_prepare() {
 	autotools-utils_src_prepare

@@ -24,6 +24,7 @@ RDEPEND="${DEPEND}
 
 src_install() {
 	# In theory it seems this binary package could be installed through ant instead of the install4j package which is not easy to be forced non-interactive. The below approach is not ideal.
-	sh "${DISTDIR}"/tablet_linux_x86_1_10_09_20.sh -c -q -overwrite --var-file="${FILESDIR}"/response.varfile --destination="${D}"/opt/Tablet
+	sed "s#\"\${D}\"#"${D}"#g" "${FILESDIR}"/response.varfile > "${DISTDIR}"/response.varfile || die "sed failed"
+	sh "${DISTDIR}"/tablet_linux_x86_1_10_09_20.sh -q -overwrite --var-file="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet
 	dobin "${DISTDIR}"/coveragestats.py || die
 }

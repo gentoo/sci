@@ -1,16 +1,3 @@
-Index: ltmain.sh
-===================================================================
---- ltmain.sh	(revision 3299)
-+++ ltmain.sh	(working copy)
-@@ -5389,7 +5389,7 @@
- 	continue
- 	;;
- 
--      -mt|-mthreads|-kthread|-Kthread|-pthread|-pthreads|--thread-safe|-threads)
-+      -mt|-mthreads|-kthread|-Kthread|-pthread|-pthreads|--thread-safe|-threads|-fopenmp|-openmp)
- 	compiler_flags="$compiler_flags $arg"
- 	func_append compile_command " $arg"
- 	func_append finalize_command " $arg"
 Index: surface/Makefile.am
 ===================================================================
 --- surface/Makefile.am	(revision 3299)

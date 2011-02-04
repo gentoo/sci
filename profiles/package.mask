@@ -57,6 +57,11 @@ sci-biology/tablet-bin
 # mask live ebuild
 =sci-chemistry/burrow-owl-9999_pre15
 
+# Christoph Junghans (ottxor) (23 Jan 1<F2>)
+# kleiner_otti@gmx.de
+# mask live ebuild
+=sys-cluster/nullmpi-9999
+
 # Christoph Junghans (ottxor) (03 Oct 10)
 # kleiner_otti@gmx.de
 # masked for testing

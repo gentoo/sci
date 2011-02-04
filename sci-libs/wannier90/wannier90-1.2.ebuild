@@ -7,7 +7,7 @@ inherit eutils multilib
 
 DESCRIPTION="Calculates maximally localized Wannier functions (MLWFs)"
 HOMEPAGE="http://www.wannier.org/"
-SRC_URI="http://quasiamore.mit.edu/wannier/code/${P}.tar.gz"
+SRC_URI="http://wannier.org/code/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"

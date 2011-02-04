@@ -1,6 +1,15 @@
 # ChangeLog for sys-cluster/hpl
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  01 Feb 2011; Justin Bronder <jsbronder@gentoo.org> hpl-2.0-r1.ebuild:
+  Bump EAPI thanks to scarabeus.
+
+*hpl-2.0-r1 (01 Feb 2011)
+
+  01 Feb 2011; Justin Bronder <jsbronder@gentoo.org> -hpl-2.0.ebuild,
+  +hpl-2.0-r1.ebuild, metadata.xml:
+  Fix SRC_URI and general cleanup
 
   13 Sep 2010; Justin Bronder <jsbronder@gentoo.org> hpl-2.0.ebuild:
   Respect LDFLAGS #336969.

@@ -1,0 +1,103 @@
+Installing, configuring and running OCFS2 on Gentoo Linux
+
+
+INSTALLING
+==========
+Step 1 - Inserting modules
+--------------------------
+Add 'ocfs2', 'configfs' to your /etc/modules.autoload.d/kernel-2.6 file:
+# echo "ocfs2" >> /etc/modules.autoload.d/kernel-2.6
+# echo "configfs" >> /etc/modules.d/autoload.d/kernel-2.6
+# update-modules
+
+Step 2 - Mounting the pseudo-filesystems 
+----------------------------------------
+add mountpoints for configfs and dlmfs to /etc/fstab
+# echo "none /sys/kernel/config configfs defaults 0 0" >> /etc/fstab
+# echo "none /dlm ocfs2_dlmfs defaults 0 0" >> /etc/fstab
+
+Step 3 - Addding ocfs2 to default runlevel 
+------------------------------------------
+# rc-update add ocfs2 default 
+
+
+CONFIGURING 
+===========
+Step 1 - Edit your cluster.conf
+-------------------------------
+Edit /etc/ocfs2/cluster.conf and add your nodes. One node can be a member 
+of many cluster, so repeat the config for each node/cluster pair. In the case of
+a multicluster node, "ip_port" must be different for every cluster.
+You can also use ocfs2console for this task, if you compiled with USE=X.
+
+Step 2 - Copy config to other nodes
+-----------------------------------
+Make sure that every node in cluster(s) has an identical config file.
+
+Step 3 - Update /etc/conf.d/ocfs2
+---------------------------------
+Add names of cluster(s) in which this node belongs to the OCFS2_CLUSTERS list.
+
+Also, if you're running firewall on your nodes, make sure you've read
+"Firewall restrictions" below.
+
+RUNNING 
+=======
+
+Notes about adding nodes while online
+-------------------------
+*DON'T* add nodes to /etc/ocfs2/cluster.conf while the cluster is online.
+Use /sbin/o2cb_ctl instead, e.g.:
+
+# /sbin/o2cb_ctl -C -n <node_name> -t node -a number=<node_number> \ 
+  -a ip_address=<ip_address> -a ip_port=<port> -a cluster=<clustername>
+
+If the complete cluster is down, you may add nodes to /etc/ocfs2/cluster.conf,
+but make sure you end up with *SAME* cluster.conf on every node.
+
+For a complete reference, check files in this directory
+as well as http://oss.oracle.com/projects/ocfs2
+You have been warned.
+
+Also, if you're running a firewall on your nodes, make sure you've read the
+following section.
+
+Firewall restrictions
+---------------------
+Logically, allow all nodes to connect to each other via specified port(s). 
+If you used 7777 as a port for communication, issue: 
+
+# iptables -I INPUT 1 -m state --state ESTABLISHED,RELATED -j ACCEPT
+# iptables -N OCFS2_NODES
+# iptables -A OCFS2_NODES -s <node_ip_address> -j ACCEPT
+(repeat former command for every node)
+# iptables -A OCFS2_NODES -j DROP
+# iptables -A INPUT -p tcp --dport 7777 -m state --state NEW -j OCFS2_NODES
+# /etc/init.d/iptables save 
+
+You should do this on every node.
+
+KNOWN BUGS
+==========
+1. Init script does not have all the funtionality of the o2cb script
+----------------------------------------------------------------
+I know that, but o2cb script doesn't use "depend" and therefore its start 
+can't be controlled inside runlevels. I had to rewrite major portions of it 
+to make it Gentoo-friendly. o2cb is still available, and if you need 
+additional functionality from /etc/init.d/ocfs2, file a bug report (see 
+"Reporting Bugs" below).
+
+2. Booting off the ocfs2 cluster doesn't work
+---------------------------------------------
+... or at least, isn't tested. If someone wants to play with it, I'd be 
+happy to incorporate any ideas or experiences.
+
+REPORTING BUGS
+==============
+Open a bug at http://bugs.gentoo.org and add laza@yu.net into the CC list.
+If the problem is within my powers, I'll fix it, if not, I'll 
+escalate it to ocfs2 developers.
+
+---
+05. Aug 2005. 
+Lazar Obradovic

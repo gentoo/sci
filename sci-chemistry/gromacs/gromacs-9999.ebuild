@@ -6,7 +6,6 @@ EAPI="3"
 
 LIBTOOLIZE="true"
 TEST_PV="4.0.4"
-MANUAL_PV="4.5.3"
 
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="master"
@@ -20,20 +19,23 @@ SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="X altivec blas doc -double-precision +fftw fkernels lapack
-mpi +single-precision sse test +threads +xml zsh-completion"
+IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
+mpi +single-precision sse test +threads xml zsh-completion"
 
-DEPEND="app-shells/tcsh
-	X? ( x11-libs/libX11
-		x11-libs/libSM
-		x11-libs/libICE )
+DEPEND="X? ( x11-libs/libX11
+			x11-libs/libSM
+			x11-libs/libICE )
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
+	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
 	xml? ( dev-libs/libxml2 )"
 
-RDEPEND="${DEPEND}"
+RDEPEND="app-shells/tcsh
+	${DEPEND}"
+
+PDEPEND="doc? ( app-doc/gromacs-manual )"
 
 RESTRICT="test"
 
@@ -48,8 +50,6 @@ src_prepare() {
 		elog "be compiled. If you want to run mdrun on shared memory"
 		elog "machines only, you can safely disable mpi"
 	fi
-
-	eautoreconf
 
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" float"
@@ -113,10 +113,6 @@ src_configure() {
 		elog "libmd with and without mpi support."
 	fi
 
-	# if we need external blas or lapack
-	use blas && export LIBS+=" -lblas"
-	use lapack && export LIBS+=" -llapack"
-
 	#go from slowest to faster acceleration
 	local acce="none"
 	use altivec && acce="altivec"
@@ -126,9 +122,11 @@ src_configure() {
 
 	mycmakeargs_pre+=(
 		$(cmake-utils_use X GMX_X11)
-		$(cmake-utils_use threads GMX_THREADS)
-		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use blas GMX_EXTERNAL_BLAS)
+		$(cmake-utils_use gsl GMX_GSL)
+		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
+		$(cmake-utils_use threads GMX_THREADS)
+		$(cmake-utils_use xml GMX_XML)
 		-DGMX_ACCELERATION="$acce"
 		-DGMX_DEFAULT_SUFFIX=off
 	)
@@ -140,7 +138,7 @@ src_configure() {
 		use double-precision && use single-precision && \
 			[ "${x}" = "double" ] && suffix="_d"
 		local p
-		[ "${x}" = "dobule" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
+		[ "${x}" = "double" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
@@ -205,8 +203,11 @@ src_install() {
 	cd "${S}"
 	dodoc AUTHORS INSTALL* README*
 	if use doc; then
-		newdoc "${DISTDIR}/gromacs-manual-${MANUAL_PV}.pdf" "manual-${MANUAL_PV}.pdf"
 		dohtml -r "${ED}usr/share/gromacs/html/"
+		insinto /usr/share/gromacs
+		doins "admin/programs.txt"
+		ls -1 "${ED}"/usr/bin | sed -e '/_d$/d' > "${T}"/programs.list
+		doins "${T}"/programs.list
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"
 }

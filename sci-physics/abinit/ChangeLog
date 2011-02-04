@@ -2,6 +2,15 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Jan 2011; Honza Macháček <Hloupy.Honza@centrum.cz> abinit-6.4.2.ebuild:
+  The typo of getFC corrected to . By Jérôme Borme <jerome.borme@gmail.com>
+
+  19 Jan 2011; Honza Macháček <Hloupy.Honza@centrum.cz> -abinit-6.2.2.ebuild,
+  abinit-6.4.2.ebuild:
+  The conditional use of several configure options tweaked to actually work
+  even if a USE flag is unset. Reported by Jérôme Borme
+  <jerome.borme@gmail.com>
+
 *abinit-6.4.2 (17 Jan 2011)
 *abinit-6.2.2 (17 Jan 2011)
 
