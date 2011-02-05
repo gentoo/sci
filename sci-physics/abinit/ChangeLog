@@ -2,6 +2,14 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*abinit-6.4.3 (05 Feb 2011)
+
+  05 Feb 2011; Honza Macháček <Hloupy.Honza@centrum.cz> abinit-6.4.2.ebuild,
+  +abinit-6.4.3.ebuild:
+  A simple version bump. An unsolved problem with fortran flags when
+  USE="+netcdf -mpi" circumvented. Minor changes to reports and logs when
+  testing
+
   20 Jan 2011; Honza Macháček <Hloupy.Honza@centrum.cz> abinit-6.4.2.ebuild:
   The typo of getFC corrected to . By Jérôme Borme <jerome.borme@gmail.com>
 
