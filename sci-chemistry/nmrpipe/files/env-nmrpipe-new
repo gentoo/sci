@@ -38,3 +38,5 @@ PDBH_LIST="/opt/nmrpipe/pdb/pdbH.list"
 PDBH_TAB="/opt/nmrpipe/pdb/resolution.tab"
 
 TCLPATH="/opt/nmrpipe/com"
+
+PROMEGA_DIR="/opt/nmrpipe/promega"

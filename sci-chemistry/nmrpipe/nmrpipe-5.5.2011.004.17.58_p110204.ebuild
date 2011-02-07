@@ -127,7 +127,7 @@ src_install() {
 	# Remove installation log files.
 	rm -f README_NMRPIPE_USERS *.log || die "Failed to remove installation log."
 	# Remove unused binaries
-	rm -f talos*/bin/TALOS*.{linux,mac,sgi6x,winxp} pdb/misc/addSeg spartaplus/bin/SPARTA+*.{linux,mac,sgi6x,winxp} || die
+	rm -f {talos*,spartaplus,promega}/bin/*{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
 
 	# Set the correct path to NMRPipe in the auxiliary scripts.
 	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc talosplus/com -type f); do
@@ -141,6 +141,14 @@ src_install() {
 		"${FILESDIR}"/env-${PN}-new \
 		> env-${PN}-new
 	newenvd env-${PN}-new 40${PN} || die "Failed to install env file."
+
+	# PREFIX stuff
+	sed \
+		-e "s: sh : ${EPREFIX}/bin/sh :g" \
+		-e "s: csh : ${EPREFIX}/bin/csh :g" \
+		-e "s: bash : ${EPREFIX}/bin/bash :g" \
+		-e "s:appTerm -e:appTerm -e ${EPREFIX}/bin/csh:g" \
+		-i com/* || die
 
 	# Some scripts are on the wrong place
 	cp -f nmrtxt/*.com com/
@@ -165,7 +173,7 @@ src_install() {
 
 	# fperms does not chmod nmrwish
 #	fperms -v 775 ${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
-	chmod -c 775 "${ED}"/${NMRBASE}/{talos*/bin/,sparta*/bin/,nmrbin.linux9/,com/,dynamo/tcl/,nmrtxt/*.com,talos*/com/}* || die
+	chmod -c 775 "${ED}"/${NMRBASE}/{talos*/bin/,sparta*/bin/,nmrbin.linux9/,com/,dynamo/tcl/,nmrtxt/*.com,talos*/com/,promega/bin/}* || die
 
 	exeinto ${NMRBASE}/nmrbin.linux9
 	doexe "${T}"/nmrWish || die
