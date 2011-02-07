@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>hp-cluster</herd>
+	<herd>cluster</herd>
 	<maintainer>
 		<email>jsbronder@gentoo.org</email>
 	</maintainer>
@@ -13,6 +13,5 @@
 		<flag name='mpi-threads'>Enable MPI_THREAD_MULTIPLE</flag>
 		<flag name='vt'>Enable bundled VampirTrace support</flag>
 		<flag name='infiniband'>Enable infiniband support</flag>
-		<flag name='dapl'>Enable dapl support</flag>
 	</use>
 </pkgmetadata>

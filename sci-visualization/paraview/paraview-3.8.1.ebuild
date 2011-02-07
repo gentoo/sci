@@ -63,12 +63,6 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-3.8.0-xdmf-cstring.patch
 	# disable automatic byte compiling that act directly on the live system
 	epatch "${FILESDIR}"/${PN}-3.8.0-xdmf-bc.patch
-	# respect lib64
-	# http://paraview.org/gitweb?p=ParaView.git;a=commitdiff;h=07ba5364f3ab16d33e7ae7c67f64c4b25e2de11f
-#	epatch "${FILESDIR}"/${P}-installpath.patch
-	# pointsprite example was always built
-	# http://paraview.org/gitweb?p=ParaView.git;a=commitdiff;h=c9af0d884532cbe472993d19a2ef6327aa9be5d8
-#	epatch "${FILESDIR}"/${P}-pointsprite-example.patch
 	# Install properly pointspritedemo without duplicate DESTDIR
 	epatch "${FILESDIR}"/${PN}-3.8.0-pointsprite-example-install.patch
 	# mpi + hdf5 fix
@@ -81,6 +75,10 @@ src_prepare() {
 		Utilities/Xdmf2/CMake/setup_install_paths.py || die "sed failed"
 
 	epatch "${WORKDIR}"/${P}-OFF.patch
+
+	# Install internal vtk binaries inside /usr/${PVLIBDIR}
+	sed -e 's:VTK_INSTALL_BIN_DIR \"/${PV_INSTALL_BIN_DIR}\":VTK_INSTALL_BIN_DIR \"/${PV_INSTALL_LIB_DIR}\":' \
+		-i CMake/ParaViewCommon.cmake || die "failed to patch vtk install location"
 
 	cd VTK
 	epatch "${FILESDIR}"/vtk-5.6.0-cg-path.patch
@@ -176,15 +174,6 @@ src_install() {
 	echo "LDPATH=/usr/${PVLIBDIR}" >> "${T}"/40${PN}
 	echo "PYTHONPATH=/usr/${PVLIBDIR}:/usr/${PVLIBDIR}/site-packages" >> "${T}"/40${PN}
 	doenvd "${T}"/40${PN}
-
-#	# this binary does not work and probably should not be installed
-#	rm -f "${D}/usr/bin/vtkSMExtractDocumentation" \
-#		|| die "Failed to remove vtkSMExtractDocumentation"
-
-	# rename /usr/bin/lproj to /usr/bin/lproj_paraview to avoid
-	# a file collision with vtk which installs the same file
-	mv "${D}/usr/bin/lproj" "${D}/usr/bin/lproj_paraview"  \
-		|| die "Failed to rename /usr/bin/lproj"
 
 	# last but not least lets make a desktop entry
 	newicon "${S}"/Applications/ParaView/pvIcon.png paraview.png \

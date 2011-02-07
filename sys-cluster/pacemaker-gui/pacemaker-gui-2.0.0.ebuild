@@ -27,7 +27,7 @@ CDEPEND="
 	sys-apps/util-linux
 	dev-lang/swig
 	sys-cluster/cluster-glue
-	>=sys-cluster/pacemaker-1.1[ais?,heartbeat?]
+	>=sys-cluster/pacemaker-1.1
 	!heartbeat? ( !ais? ( sys-cluster/pacemaker[ais] ) )
 	sys-libs/ncurses
 	sys-libs/pam

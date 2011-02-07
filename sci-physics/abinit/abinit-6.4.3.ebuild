@@ -166,12 +166,12 @@ src_test() {
 	einfo "The tests take quite a while, on the order of 1-2 hours"
 	einfo "on an Intel Penryn (2.5 GHz)."
 	cd "${S}"/tests
-	emake tests_min
-	emake tests_paw
-	emake tests_gw
-	emake tests_gw_paw
-	emake tests tdft
-	emake tests_bench
+	emake tests_min || ewarn "Minimal tests failed"
+	emake tests_paw || ewarn "PAW tests failed"
+	emake tests_gw || ewarn "GW tests failed"
+	emake tests_gw_paw || ewarn "GW-PAW tests failed"
+	emake tests tdft || ewarn "TDFT tests failed"
+	emake tests_bench || ewarn "Benchmarks failed"
 
 	local REPORT
 	for REPORT in $(find . -name report); do
@@ -186,15 +186,15 @@ src_test() {
 	done
 
 	local testdir
-	find . -name ",,test*" -print | \
+	find . -name "tmp-test*" -print | \
 		while read testdir; do
-			if [ -e summary_tests.tar ]; then
-				tar rvf summary_tests.tar ${testdir}
-			else tar cvf summary_tests.tar ${testdir}
+			if [ -e summary_of_tests.tar ]; then
+				tar rvf summary_of_tests.tar ${testdir}
+			else tar cvf summary_of_tests.tar ${testdir}
 			fi
 		done
 
-	elog "The full test results will be installed as summary_tests.tar.bz2."
+	elog "The full test results will be installed as summary_of_tests.tar.bz2."
 	elog "Also a concise report tests_summary.txt is installed."
 }
 
@@ -204,6 +204,7 @@ src_install() {
 	if use test; then
 		dodoc tests/tests_summary.txt || ewarn "Copying tests summary failed"
 		dodoc tests/summary_tests.tar || ewarn "Copying tests results failed"
+		dodoc tests/summary_of_tests.tar || ewarn "Copying tests results failed"
 	fi
 
 	dodoc KNOWN_PROBLEMS README || die "Copying doc files failed"

@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  01 Feb 2011; François Bissey <francois.bissey@canterbury.ac.nz>
+  paraview-3.8.1.ebuild:
+  Resolve file collisions with vtk.
+
   31 Jan 2011; François Bissey <francois.bissey@canterbury.ac.nz>
   paraview-3.8.1.ebuild:
   General scrubbing, add plugin development files.
