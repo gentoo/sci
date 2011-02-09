@@ -4,6 +4,20 @@
 
 <<<<<<< HEAD
 
+  07 Feb 2011; Justin Lecher <jlec@gentoo.org>
+  -files/5.5.2011.004.17.58-lib.patch, -nmrpipe-5.5.2011.004.17.58-r2.ebuild,
+  +nmrpipe-5.5.2011.004.17.58_p110204.ebuild,
+  +files/5.5.2011.004.17.58_p110204-lib.patch, files/env-nmrpipe-new:
+  Version Bump
+
+*nmrpipe-5.5.2011.004.17.58_p110204 (07 Feb 2011)
+
+  07 Feb 2011; Justin Lecher <jlec@gentoo.org>
+  -files/5.5.2011.004.17.58-lib.patch, -nmrpipe-5.5.2011.004.17.58-r2.ebuild,
+  +nmrpipe-5.5.2011.004.17.58_p110204.ebuild,
+  +files/5.5.2011.004.17.58_p110204-lib.patch, files/env-nmrpipe-new:
+  Version Bump
+
 *nmrpipe-5.5.2011.004.17.58-r2 (21 Jan 2011)
 
   21 Jan 2011; Justin Lecher <jlec@gentoo.org>

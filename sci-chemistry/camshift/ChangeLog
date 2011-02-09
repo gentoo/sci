@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/camshift
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*camshift-1.35.0 (27 Jan 2011)
+
+  27 Jan 2011; Justin Lecher <jlec@gentoo.org> +files/1.35.0-gentoo.patch,
+  +camshift-1.35.0.ebuild, +metadata.xml:
+  New addition, written by me
+

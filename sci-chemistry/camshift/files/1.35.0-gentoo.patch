@@ -1,0 +1,47 @@
+diff --git a/configure.in b/configure.in
+index e0d186d..9b15335 100644
+--- a/configure.in
++++ b/configure.in
+@@ -167,9 +167,6 @@ echo Constraint disabled value $
+ fi
+ 
+ 
+-#C and CPPFLAFS
+-CFLAGS="-O9 -ffast-math -fomit-frame-pointer"
+-CXXFLAGS="-O9 -ffast-math"
+ 
+ #alm_sse
+ mkasm=false
+@@ -231,11 +228,6 @@ else
+ echo OS ${host-os}
+ fi
+ 
+-if test x$darwin = xtrue; then
+-CFLAGS=$CFLAGS" -fast"
+-CXXFLAGS=$CXXFLAGS" -fast"
+-fi
+-
+ if test x$powerpc = xtrue; then
+ AC_DEFINE([POWERPC],[],"PowerPC CPU")
+ fi
+@@ -250,17 +242,13 @@ AM_CONDITIONAL(IX86, test x$ix86 = xtrue)
+ 
+ if test x$darwin = xtrue; then
+ if test x$ix86 = xtrue; then
+-CXXFLAGS=$CXXFLAGS" -msse -msse2 -mmmx"
+-CFLAGS=$CFLAGS" -msse -msse2 -mmmx"
+-fi
+-fi
+-
+-if test x$darwin = xtrue; then
+-if test x$ix86 = xtrue; then
+ CCAS=$PWD/darwinas
+ fi
+ fi
+ 
++PKG_CHECK_MODULES(BLAS, blas)
++PKG_CHECK_MODULES(LAPACK, lapack)
++
+ echo ${host} ${host-cpu}  ${host-vendor} ${host-os} $ix86 $powerpc
+ AC_OUTPUT(
+ 		almost.h 
