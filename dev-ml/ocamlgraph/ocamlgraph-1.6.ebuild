@@ -20,7 +20,7 @@ DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-makefile.patch"
+	epatch "${FILESDIR}/${PN}-makefile.patch"
 	eautoreconf
 }
 
