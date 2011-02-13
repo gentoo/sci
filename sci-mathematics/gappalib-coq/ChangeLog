@@ -3,8 +3,12 @@
 # $Header: $
 
   04 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  +gappalib-coq-0.14.1.ebuild, -gappalib-coq-0.13.ebuild:
+  version bump
+
+  04 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
   +gappalib-coq-0.13.ebuild, -gappalib-coq-0.12.ebuild:
-  Version bump
+  version bump
   
   04 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
   +metadata.xml, +ChangeLog:
