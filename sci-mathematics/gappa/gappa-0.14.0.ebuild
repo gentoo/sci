@@ -21,6 +21,12 @@ DEPEND="${RDEPEND}
 				app-text/ghostscript-gpl
 				app-doc/doxygen )"
 
+src_unpack() {
+	unpack ${A}
+	mv ${S/%0.14.0/0.13.0} ${S}
+	cd ${S}
+}
+
 src_prepare() {
 	sed -i doc/doxygen/Doxyfile \
 		-e "s/GENERATE_LATEX         = NO/GENERATE_LATEX         = YES/g" \
