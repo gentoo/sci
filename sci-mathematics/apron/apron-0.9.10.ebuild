@@ -24,7 +24,8 @@ RDEPEND="ocaml? ( >=dev-lang/ocaml-3.09
 DEPEND="${RDEPEND}
 		doc? ( app-text/texlive
 				app-text/ghostscript-gpl
-				cxx? ( app-doc/doxygen ) )"
+				cxx? ( app-doc/doxygen
+						dev-tex/rubber ) )"
 
 src_prepare() {
 	mv Makefile.config.model Makefile.config
@@ -38,6 +39,8 @@ src_prepare() {
 
 	#fix doc building process
 	sed -i Makefile -e "s/; make html/; make/g"
+	sed -i apronxx/Makefile \
+		-e "s:cd doc/latex && make:cd doc/latex; rubber refman.tex &> /dev/null; pdflatex refman.tex:g"
 	sed -i apronxx/doc/Doxyfile \
 		-e "s/OUTPUT_DIRECTORY       = \/.*/OUTPUT_DIRECTORY       = .\//g" \
 		-e "s/STRIP_FROM_PATH        = \/.*/STRIP_FROM_PATH        = .\//g"
