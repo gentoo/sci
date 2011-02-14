@@ -18,7 +18,7 @@ IUSE="apron doc gtk +ocamlopt +why"
 RESTRICT="strip"
 
 DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
-		>=dev-ml/ocamlgraph-1.4[gtk?,ocamlopt?]
+		>=dev-ml/ocamlgraph-1.6[gtk?,ocamlopt?]
 		gtk? ( >=x11-libs/gtksourceview-2.8
 			>=gnome-base/libgnomecanvas-2.26
 			>=dev-ml/lablgtk-2.14[sourceview,gnomecanvas,ocamlopt?] )
@@ -30,9 +30,8 @@ PDEPEND="why? ( >=sci-mathematics/why-2.26 )"
 S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
 
 src_prepare(){
-	#epatch "${FILESDIR}/${P}-plugin_install.patch"
-
 	rm share/libc/test.c
+	rm -Rf src/wp
 	
 	touch config_file
 	sed -i configure.in \
