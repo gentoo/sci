@@ -31,6 +31,7 @@ S="${WORKDIR}/${MY_P}"
 # TODO: dev-perl/MOBY, dev-perl/Bio-SCF, dev-perl/Safe-World (not compatible w/perl-5.10)
 # TODO: make sure www-servers/apache +cgi
 DEPEND=">=dev-lang/perl-5.8.8
+	dev-perl/Capture-Tiny
 	>=sci-biology/bioperl-1.6
 	>=dev-perl/GD-2.07
 	dev-perl/IO-String
@@ -45,6 +46,11 @@ DEPEND=">=dev-lang/perl-5.8.8
 # TODO: based on the following message in apache/error_log the list of deps should be longer
 # GBROWSE NOTICE: To enable PDF generation, please enter the directory "/home/httpd" and run the commands: "sudo mkdir .inkscape .gnome2" and "sudo chown apache .inkscape .gnome2".  To turn off this message add "generate pdf = 0" to the [GENERAL] section of your GBrowse.conf configuration file., referer: http://127.0.0.1/gbrowse/cgi-bin/gbrowse_details/yeast?ref=chrII;start=90739;end=92028;name=YBL069W;class=Sequence;feature_id=881;db_id=annotations%3Adatabase
 
+#    *  Bio::DB::BigFile is not installed
+#    *  Bio::DB::Sam is not installed
+#    *  DBD::Pg is not installed
+
+
 RDEPEND="${DEPEND}
 	>=www-servers/apache-2.0.47
 	www-apache/mod_fastcgi
@@ -54,6 +60,8 @@ RDEPEND="${DEPEND}
 		dev-perl/File-NFSLock
 		dev-perl/FCGI
 		perl-core/Math-BigInt
+		perl-core/Math-BigInt-FastCalc
+		dev-perl/Math-BigInt-GMP
 		dev-perl/Digest-SHA1
 		dev-perl/Crypt-SSLeay
 		dev-perl/Net-SMTP-SSL
@@ -67,6 +75,7 @@ RDEPEND="${DEPEND}
 		dev-perl/XML-Writer
 		dev-perl/XML-Parser
 		dev-perl/Bio-Das
+		dev-perl/Text-Shellwords
 	)"
 
 src_prepare() {
@@ -93,6 +102,7 @@ src_configure() {
 		INSTALLCONF="n" \
 		WWWUSER="apache" \
 		DO_XS=1 \
+		NONROOT=1 \
 		|| die
 }
 
@@ -102,7 +112,7 @@ src_install() {
 
 	# TODO: write our own readme
 	webapp_postinst_txt en "${S}"/INSTALL
-	webapp_src_install
+	webapp_src_install || die "Failed running webapp_src_install"
 
 	# should create a /etc/init.d/ startup script based on this
 	# /var/tmp/portage/sci-biology/gbrowse-2.03/work/GBrowse-2.03/etc/init.d/gbrowse-slave
@@ -116,6 +126,10 @@ src_install() {
 	einfo "find /var/tmp/gbrowse2/images -type f -atime +20 -print -exec rm {}"
 
 	einfo "Make sure you compiled apache with +cgi and copy ${FILESDIR}/gbrowse.conf.vhosts.d to /etc/apache2/vhosts.d/"
+}
+
+pkg_postinst() {
+	webapp_pkg_postinst || die "webapp_pkg_postinst failed"
 }
 
 src_test() {
