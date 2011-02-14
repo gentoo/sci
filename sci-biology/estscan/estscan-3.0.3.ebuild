@@ -2,8 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils toolchain-funcs
-inherit perl-module
+EAPI=3
+
+inherit eutils toolchain-funcs perl-module
 
 DESCRIPTION="Predict coding regions in DNA/RNA sequences even in low-quality reads with frameshift-causing errors (supersedes ESTscan and ESTscan2)"
 HOMEPAGE="http://sourceforge.net/projects/estscan/"
