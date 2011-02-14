@@ -20,7 +20,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
-mpi +single-precision sse test +threads xml zsh-completion"
+mpi +single-precision sse sse2 test +threads xml zsh-completion"
 
 DEPEND="X? ( x11-libs/libX11
 			x11-libs/libSM
@@ -114,11 +114,10 @@ src_configure() {
 	fi
 
 	#go from slowest to faster acceleration
-	local acce="none"
-	use altivec && acce="altivec"
-	use ia64 && acce="ia64"
-	use fkernels && acce="fortran"
-	use sse && acce="sse"
+	local acce_pre="none"
+	use fkernels && acce_pre="fortran"
+	use altivec && acce_pre="altivec"
+	use ia64 && acce_pre="ia64"
 
 	mycmakeargs_pre+=(
 		$(cmake-utils_use X GMX_X11)
@@ -127,24 +126,25 @@ src_configure() {
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use threads GMX_THREADS)
 		$(cmake-utils_use xml GMX_XML)
-		-DGMX_ACCELERATION="$acce"
 		-DGMX_DEFAULT_SUFFIX=off
 	)
 
 	for x in ${GMX_DIRS}; do
 		einfo "Configuring for ${x} precision"
-		local suffix=""
+		local suffix="" acce="$acce_pre"
 		#if we build single and double - double is suffixed
 		use double-precision && use single-precision && \
 			[ "${x}" = "double" ] && suffix="_d"
+		[ "${x}" = "float" ] && use sse && acce="sse"
+		[ "${x}" = "double" ] && use sse2 && acce="sse"
 		local p
 		[ "${x}" = "double" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF -DGMX_ACCELERATION="$acce"
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON -DGMX_ACCELERATION="$acce"
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" cmake-utils_src_configure
 	done

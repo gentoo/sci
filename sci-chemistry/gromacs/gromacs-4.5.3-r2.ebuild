@@ -8,7 +8,7 @@ LIBTOOLIZE="true"
 TEST_PV="4.0.4"
 MANUAL_PV="4.5.3"
 
-inherit autotools-utils bash-completion multilib toolchain-funcs
+inherit autotools-utils bash-completion flag-o-matic multilib toolchain-funcs
 
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 		doc? (
@@ -29,7 +29,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X altivec blas dmalloc doc -double-precision +fftw fkernels +gsl lapack
-mpi +single-precision static-libs test +threads +xml zsh-completion"
+mpi +single-precision sse sse2 static-libs test +threads +xml zsh-completion"
 
 DEPEND="app-shells/tcsh
 	X? ( x11-libs/libX11
@@ -122,12 +122,19 @@ src_configure() {
 	# if we need external blas or lapack
 	use blas && export LIBS+=" -lblas"
 	use lapack && export LIBS+=" -llapack"
+	local sseflag="x86-64-sse"
+	use x86 && sseflag="ia32-sse"
+
+	#a bug in gromacs autotools
+	use sse && append-flags -msse
+	use sse2 && append-flags -msse2
 
 	for x in ${GMX_DIRS}; do
-		local suffix=""
+		local suffix="" sse="sse"
 		#if we build single and double - double is suffixed
 		use double-precision && use single-precision && \
 			[ "${x}" = "double" ] && suffix="_d"
+		[ "${x}" = "double" ] && sse="sse2"
 		myeconfargs=(
 			--bindir="${EPREFIX}"/usr/bin
 			--docdir="${EPREFIX}"/usr/share/doc/"${PF}"
@@ -146,7 +153,11 @@ src_configure() {
 			--disable-bluegene
 			--disable-la-files
 			--disable-power6
+			--disable-ia32-sse
+			--disable-x86-64-sse
+			$(use_enable $sse $sseflag)
 		)
+		#disable ia32-sse and x86-64-sse and enable what we really need in last line
 
 		einfo "Configuring for ${x} precision"
 		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
