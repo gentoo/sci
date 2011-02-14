@@ -7,9 +7,9 @@ EAPI="3"
 inherit autotools eutils
 
 DESCRIPTION="Frama-C is a suite of tools dedicated to the analysis of the source code of software written in C."
-HOMEPAGE="http://www.frama-c.cea.fr/"
-NAME="Boron"
-SRC_URI="http://www.frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
+HOMEPAGE="http://frama-c.com"
+NAME="Carbon"
+SRC_URI="http://frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
@@ -30,13 +30,13 @@ PDEPEND="why? ( >=sci-mathematics/why-2.26 )"
 S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
 
 src_prepare(){
-	epatch "${FILESDIR}/${P}-plugin_install.patch"
+	#epatch "${FILESDIR}/${P}-plugin_install.patch"
 
 	rm share/libc/test.c
 	
 	touch config_file
 	sed -i configure.in \
-		-e "s:1.4):1.5):g"
+		-e "s:1.7):1.6):g"
 	eautoreconf
 }
 
