@@ -36,7 +36,8 @@ src_prepare() {
 		-e "s/oct_caml/octMPQ_caml/g" \
 		-e "s/box_caml/boxMPQ_caml/g" \
 		-e "s/polka_caml/polkaMPQ_caml/g"
-
+	
+	epatch "${FILESDIR}"/${PN}_jessie-carbon.patch
 	eautoreconf
 }
 
