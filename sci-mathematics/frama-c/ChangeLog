@@ -3,7 +3,7 @@
 # $Header: $
 
   14 Feb 2011; J.-C. Demay <jcdemay@gmail.com>
-  +frama-c-20110201.ebuild, -frama-c-20100401.ebuild, -files/frama-c-20100401-plugin_install.patch:
+  +frama-c-20101202_beta2.ebuild, -frama-c-20100401.ebuild, -files/frama-c-20100401-plugin_install.patch:
   version bump
 
   11 Jul 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
