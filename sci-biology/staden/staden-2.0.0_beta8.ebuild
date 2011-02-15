@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,9 +6,10 @@ EAPI=3
 
 inherit eutils flag-o-matic base
 
-DESCRIPTION="A fully developed set of DNA sequence assembly (Gap4), editing and analysis tools (Spin)."
+DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)."
 HOMEPAGE="http://sourceforge.net/projects/staden"
-SRC_URI="http://downloads.sourceforge.net/staden/staden-2.0.0b7-src.tar.gz"
+SRC_URI="http://downloads.sourceforge.net/staden/staden-2.0.0b8.tar.gz
+		http://sourceforge.net/projects/staden/files/staden/2.0.0b8/staden_doc-2.0.0b8-src.tar.gz"
 
 LICENSE="staden"
 SLOT="0"
@@ -38,11 +39,12 @@ RDEPEND="tcl? ( >=dev-tcltk/itcl-3.2 )
 		tk? ( >=dev-tcltk/itk-3.2 )
 		>=dev-tcltk/iwidgets-4.0"
 
-S="${WORKDIR}"/staden-2.0.0b7-src
+S="${WORKDIR}"/staden-2.0.0b8-src
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}" || die "Cannot cd ${WORKDIR}/staden-2.0.0b7-src"
+src_prepare() {
+	unpack ${A} || die
+	cd "${S}" || die "Cannot cd ${WORKDIR}/staden-2.0.0b8-src"
+	epatch "${FILESDIR}"/rpath.patch || die "failed to apply -rpath=/usr/lib/staden patch"
 	./bootstrap || die "bootstrap failed"
 }
 
@@ -61,4 +63,6 @@ src_compile() {
 
 src_install() {
 	emake install DESTDIR="${D}" || die "make install failed"
+	#cd "${WORKDIR}"/staden_doc-2.0.0b8-src || die "failed to cd "${WORKDIR}"/staden_doc-2.0.0b8-src"
+	#make install prefix="${D}"/usr || die "failed to install pre-created docs from upstream"
 }
