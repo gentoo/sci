@@ -6,7 +6,7 @@ EAPI=3
 
 DESCRIPTION="Graphical viewer for next generation sequence assemblies and alignments."
 HOMEPAGE="http://bioinf.scri.ac.uk/tablet/"
-SRC_URI="http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x86_1_10_09_20.sh
+SRC_URI="http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x86_1_11_01_25.sh
 		http://bioinf.scri.ac.uk/tablet/additional/coveragestats.py"
 
 # Tablet uses a modified version of the BSD License which has been edited to remove references to distribution and use in source forms. This means that we are happy for you to distribute and use Tablet however you please, but we do not (yet) want to make the source code publicly available.
@@ -25,6 +25,6 @@ RDEPEND="${DEPEND}
 src_install() {
 	# In theory it seems this binary package could be installed through ant instead of the install4j package which is not easy to be forced non-interactive. The below approach is not ideal.
 	sed "s#\"\${D}\"#"${D}"#g" "${FILESDIR}"/response.varfile > "${DISTDIR}"/response.varfile || die "sed failed"
-	sh "${DISTDIR}"/tablet_linux_x86_1_10_09_20.sh -q -overwrite --var-file="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet
+	sh "${DISTDIR}"/tablet_linux_x86_1_11_01_25.sh -q -overwrite --var-file="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet
 	dobin "${DISTDIR}"/coveragestats.py || die
 }
