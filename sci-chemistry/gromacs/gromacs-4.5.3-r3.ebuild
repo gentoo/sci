@@ -19,7 +19,9 @@ if [ "${PV%9999}" != "${PV}" ]; then
 	EGIT_BRANCH="release-4-5-patches"
 	inherit git
 else
-	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
+	PATCHES=( ${WORKDIR}/${P}_upstream20110217.patch.bz2 )
+	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
+	mirror://gentoo/${P}_upstream20110217.patch.bz2"
 fi
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
@@ -59,7 +61,12 @@ src_prepare() {
 		elog "machines only, you can safely disable mpi"
 	fi
 
-	eautoreconf
+	autotools-utils_src_prepare || die
+
+	sed -e '/AC_INIT/s/4\.5\.3-dev/4.5.3-2011-02-17/' -i configure.ac \
+		|| die "Failed to change version in configure.ac"
+
+	eautoreconf || die
 
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" float"
