@@ -14,7 +14,8 @@ KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE=""
 
 DEPEND="sci-mathematics/gappa
-		sci-mathematics/coq"
+		sci-mathematics/coq
+		sci-mathematics/flocq"
 RDEPEND="${DEPEND}"
 
 src_prepare(){
