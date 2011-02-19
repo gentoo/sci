@@ -6,14 +6,17 @@ EAPI="3"
 
 inherit autotools-utils bash-completion
 
+MANUAL_PV=1.1
 if [ "${PV}" != "9999" ]; then
-	SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz"
+	SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz
+		doc? ( http://votca.googlecode.com/files/votca-manual-${MANUAL_PV}.pdf )"
 	RESTRICT="primaryuri"
 else
 	SRC_URI=""
 	inherit mercurial
 	EHG_REPO_URI="https://csg.votca.googlecode.com/hg"
 	S="${WORKDIR}/${EHG_REPO_URI##*/}"
+	PDEPEND="doc? ( =app-doc/votca-manual-${PV} )"
 fi
 
 DESCRIPTION="Votca coarse-graining engine"
@@ -36,8 +39,9 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	#from bootstrap.sh
-	[ -z "${PV##*9999}" ] && \
-		emake -C share/scripts/inverse -f Makefile.am.in Makefile.am
+	if [ -z "${PV##*9999}" ]; then
+		emake -C share/scripts/inverse -f Makefile.am.in Makefile.am || die
+	fi
 
 	eautoreconf || die "eautoreconf failed"
 }
@@ -59,9 +63,12 @@ src_install() {
 	dobashcompletion scripts/csg-completion.bash ${PN} || die
 	autotools-utils_src_install || die
 	if use doc; then
-		cd share/doc
+		if [ -n "${PV##*9999}" ]; then
+			dodoc "${WORKDIR}/votca-manual-${MANUAL_PV}.pdf" || die
+		fi
+		cd share/doc || die
 		doxygen || die
-		dohtml -r html/*
+		dohtml -r html/* || die
 	fi
 }
 
