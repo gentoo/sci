@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Feb 2011; Christoph Junghans <ottxor@gentoo.org> -gromacs-4.5.3-r3.ebuild:
+  InCVS
+
 *gromacs-4.5.3-r3 (17 Feb 2011)
 
   17 Feb 2011; Christoph Junghans <ottxor@gentoo.org> -gromacs-4.5.3-r2.ebuild,
