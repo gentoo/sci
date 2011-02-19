@@ -7,7 +7,8 @@ EAPI="3"
 inherit eutils autotools-utils
 
 if [ "${PV}" != "9999" ]; then
-	SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz"
+	SRC_URI="boost? ( http://votca.googlecode.com/files/${PF}_pristine.tar.gz )
+		!boost? ( http://votca.googlecode.com/files/${PF}.tar.gz )"
 	RESTRICT="primaryuri"
 else
 	SRC_URI=""
@@ -68,8 +69,8 @@ src_install() {
 	DOCS=(${AUTOTOOLS_BUILD_DIR}/CHANGELOG NOTICE)
 	autotools-utils_src_install || die
 	if use doc; then
-		cd share/doc
+		cd share/doc || die
 		doxygen || die
-		dohtml -r html/*
+		dohtml -r html/* || die
 	fi
 }
