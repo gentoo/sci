@@ -64,7 +64,7 @@ src_install() {
 	autotools-utils_src_install || die
 	if use doc; then
 		if [ -n "${PV##*9999}" ]; then
-			dodoc "${WORKDIR}/votca-manual-${MANUAL_PV}.pdf" || die
+			dodoc "${DISTDIR}/votca-manual-${MANUAL_PV}.pdf" || die
 		fi
 		cd share/doc || die
 		doxygen || die
