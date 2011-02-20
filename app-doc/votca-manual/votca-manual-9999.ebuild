@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit base mercurial
+inherit mercurial
 
 EHG_REPO_URI="https://manual.votca.googlecode.com/hg"
 S="${WORKDIR}/${EHG_REPO_URI##*/}"
@@ -23,12 +23,13 @@ DEPEND="=sci-chemistry/votca-csg-${PV}
 
 RDEPEND=""
 
-DOCS=( manual.pdf )
-
-#needed to find the scripts of csg_inverse
-export CSGSHARE="/usr/share/votca"
+src_compile() {
+	#CSGSHARE is needed to find the scripts of csg_inverse
+	emake CSGSHARE="/usr/share/votca" || die
+}
 
 #there is no make install rule
 src_install() {
-	base_src_install_docs
+	insinto /usr/share/doc/votca-csg-${PV}
+	newins manual.pdf manual-${PV}.pdf || die
 }
