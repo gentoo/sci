@@ -48,7 +48,8 @@ RDEPEND="!app-emacs/gnuplot-mode
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	doc? ( virtual/latex-base
-		app-text/ghostscript-gpl )"
+		app-text/ghostscript-gpl )
+	virtual/emacs"
 
 S="${WORKDIR}/${PN}"
 GP_VERSION="${PV%.*}"
