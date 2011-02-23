@@ -32,6 +32,8 @@ S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
 src_prepare(){
 	rm share/libc/test.c
 	rm -Rf src/wp
+
+	epatch "${FILESDIR}/${P}-local_tmps.patch"
 	
 	touch config_file
 	sed -i configure.in \
