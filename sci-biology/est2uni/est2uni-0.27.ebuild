@@ -8,7 +8,11 @@ inherit webapp eutils perl-module
 
 DESCRIPTION="EST assembly+annotation: a perl-based analysis pipeline including php-based web interface"
 HOMEPAGE="http://cichlid.umd.edu/est2uni/download.php"
-SRC_URI="http://cichlid.umd.edu/est2uni/est2uni_0.27.tar.gz"
+SRC_URI="http://cichlid.umd.edu/est2uni/est2uni_0.27.tar.gz
+		ftp://ftp.ncbi.nih.gov/pub/UniVec/UniVec
+		ftp://ftp.ncbi.nih.gov/pub/UniVec/UniVec_Core
+		http://www.geneontology.org/ontology/gene_ontology.obo
+		http://www.geneontology.org/doc/GO.terms_and_ids"
 
 LICENSE="GPL-3"
 KEYWORDS="~amd64 ~x86"
@@ -19,7 +23,7 @@ RDEPEND="${DEPEND}
 	sci-biology/lucy
 	sci-biology/cap3-bin
 	sci-biology/estscan
-	sci-biology/hmmer
+	<sci-biology/hmmer-3
 	sci-biology/phred
 	sci-biology/seqclean
 	sci-biology/repeatmasker
@@ -29,31 +33,44 @@ RDEPEND="${DEPEND}
 	sci-biology/exonerate
 	perl-gcpan/go-perl
 	www-servers/apache
-	dev-db/mysql
+	>=dev-db/mysql-4.1
 	<dev-lang/php-5.3"
 
 S="${WORKDIR}"/est2uni
+
+src_prepare(){
+	for f in "${FILESDIR}"/*.pm.patch "${FILESDIR}"/tgicl_files.patch; do
+		cd perl; epatch $f || die "Failed to patch $f"
+	done
+}
 
 src_compile(){
 	"$(tc-getCC)" external_software/sputnik/sputnik.c -o external_software/sputnik/sputnik
 }
 
 src_install(){
-	dobin external_software/sputnik/sputnik || die
-	mkdir -p "${D}"/opt/est2uni || die
-	mv perl "${D}"/opt/est2uni || die
-	doenvd "${FILESDIR}"/est2uni || die
+	mkdir -p "${D}"/opt/est2uni
+	mv external_software/sputnik/sputnik "${D}"/opt/est2uni || die
+
+	chmod a+rx perl/*.pl perl/*.pm || die
+	mv perl/* "${D}"/opt/est2uni || die
+
+	doenvd "${FILESDIR}"/99est2uni || die
 
 	mkdir -p "${D}"/usr/share/webapps/"${PN}"/"${PV}"/htdocs
 	cp -r php/* "${D}"/usr/share/webapps/"${PN}"/"${PV}"/htdocs || die
 
-	mkdir -p "${D}"/usr/share/"${PN}" || die
-	mv test_data "${D}"/usr/share/"${PN}" || die
+	mkdir -p "${D}"/opt/est2uni/test_data || die
+	mv test_data/* "${D}"/opt/est2uni/test_data || die
+	# mkdir -p "${D}"/usr/share/"${PN}" || die
+	# mv test_data "${D}"/usr/share/"${PN}" || die
 	perl-module_src_install || die
 
 	webapp_src_preinst
 	webapp_postinst_txt en "${S}"/README
 	webapp_src_install
+
+	# cp "${DISTDIR}"/UniVec_Core "${DISTDIR}"/UniVec "${D}"/usr/share/ncbi/data/ || die
 
 	einfo "Please follow the pipeline installation and web configuration docs at"
 	einfo "http://cichlid.umd.edu/est2uni/install.php"
