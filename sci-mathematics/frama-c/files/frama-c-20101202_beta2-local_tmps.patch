@@ -1,0 +1,125 @@
+diff -Naurp frama-c-Carbon-20101202-beta2-orig/cil/src/frontc/cabs2cil.ml frama-c-Carbon-20101202-beta2/cil/src/frontc/cabs2cil.ml
+--- frama-c-Carbon-20101202-beta2-orig/cil/src/frontc/cabs2cil.ml	2010-12-17 13:17:07.000000000 +0000
++++ frama-c-Carbon-20101202-beta2/cil/src/frontc/cabs2cil.ml	2011-02-23 15:20:36.000000000 +0000
+@@ -671,13 +671,11 @@ let newTempVar descr (descrpure:bool) ty
+   vi.vdescrpure <- descrpure;
+   (* Rename if clash, but do not add to the environment *)
+   let vi = alphaConvertVarAndAddToEnv false vi in
+-  (*
+   (* the temporary is local to the function: the normalization can use it
+      wherever it wants.
+    *)
+   !currentFunctionFDEC.sbody.blocals <-
+     vi :: !currentFunctionFDEC.sbody.blocals;
+-   *)
+   vi
+ 
+ let mkAddrOfAndMark loc ((b, off) as lval) : exp =
+@@ -4715,7 +4713,7 @@ and doExp local_env
+                     (if uop = A.POSINCR then "++" else "--") in
+                 let tmp = newTempVar (Some descr) true t in
+                 ([var tmp],
+-                 local_var_chunk se' tmp +++
++                 se' +++
+                    (mkStmtOneInstr ~ghost:local_env.is_ghost
+                       (Set(var tmp, e', CurrentLoc.get ())),[],[],[]),
+                 (* the tmp variable should not be investigated for
+@@ -4811,13 +4809,11 @@ and doExp local_env
+               if needsTemp then
+                 let descr = Some (Pretty_utils.sfprintf "%a" dd_lval lv) in
+                 let tmp = newTempVar descr true lvt in
+-                let chunk =
+-                  i2c
+-                    (mkStmtOneInstr ~ghost:local_env.is_ghost
+-                       (Set(lv, new_exp (Lval(var tmp)), loc)),
+-                    [lv],[lv],var tmp :: r1')
+-                in
+-                ([],var tmp, local_var_chunk chunk tmp)
++                ([],var tmp,
++                 i2c
++                   (mkStmtOneInstr ~ghost:local_env.is_ghost
++                      (Set(lv, new_exp (Lval(var tmp)), loc)),
++                    [lv],[lv],var tmp :: r1'))
+               else r1',lv, empty
+             in
+             let (r2,se2, _, _) =
+@@ -4939,17 +4935,14 @@ and doExp local_env
+             let tmp =
+               newTempVar (Some "<boolean expression>") true intType
+             in
+-            let condChunk =
+-              compileCondExp false ce
++            finishExp []
++              (compileCondExp false ce
+                 (empty +++
+                    (mkStmtOneInstr ~ghost:local_env.is_ghost
+                       (Set(var tmp, integer 1,loc)),[],[],[]))
+                 (empty +++
+                    (mkStmtOneInstr ~ghost:local_env.is_ghost
+-                      (Set(var tmp, integer 0,loc)),[],[],[]))
+-            in
+-            finishExp []
+-              (local_var_chunk condChunk tmp)
++                      (Set(var tmp, integer 0,loc)),[],[],[])))
+               (new_exp ~loc (Lval (var tmp)))
+               intType
+       end
+@@ -5046,7 +5039,6 @@ and doExp local_env
+               newTempVar
+                 (Some (Pretty_utils.sfprintf "%a" dd_exp e)) true t
+             in
+-            let c = local_var_chunk c tmp in
+ 	    (* create an instruction to give the e to the temporary *)
+ 	    let i = mkStmtOneInstr ~ghost:local_env.is_ghost
+               (Set(var tmp, e, loc)) in
+@@ -5145,7 +5137,6 @@ and doExp local_env
+                        ASet (is_real,lv, r, lvt) -> is_real, lv, r, lvt
+                      | _ ->
+                          let v = newTempVar None true resTyp in
+-                         prechunk:= local_var_chunk !prechunk v;
+                          false, var v, [], resTyp
+                    in
+                    pwhat := (ASet (is_real, destlv, r, destlvtyp));
+@@ -5275,7 +5266,6 @@ and doExp local_env
+                   (Pretty_utils.pp_list ~sep:", " dd_exp) !pargs
+               in
+               let tmp = newTempVar (Some descr) false restype'' in
+-              prechunk:=local_var_chunk !prechunk tmp;
+               (* Remember that this variable has been created for this
+                * specific call. We will use this in collapseCallCast. *)
+               IH.add callTempVars tmp.vid ();
+@@ -5371,7 +5361,6 @@ and doExp local_env
+                 let (r1,se1, _, _) =
+                   doExp local_env asconst e1 (ASet(false, tmp_var, [], tresult))
+                 in
+-                let se1 = local_var_chunk se1 tmp in
+                 let r3,se3,_,_ =
+                   finishExp
+                     ~newWhat:(ASet(false,tmp_var, [], tresult)) r3 se3 e3' t3
+@@ -5388,7 +5377,7 @@ and doExp local_env
+                   | ASet (is_real, lv, r, lvt) -> is_real, lv, r, lvt, empty
+                   | _ ->
+                       let tmp = newTempVar None true tresult in
+-                      false, var tmp, [], tresult, local_var_chunk empty tmp
++                      false, var tmp, [], tresult, empty
+                 in
+                 (* Now do e2 and e3 for real *)
+                 let (r2,se2, _, _) =
+@@ -5461,7 +5450,7 @@ and doExp local_env
+                     b.bstmts @
+                     [Cil.mkStmtOneInstr ~ghost:local_env.is_ghost
+                        (Set (Cil.var vi, e,loc))];
+-                  (local_var_chunk se vi,Cil.new_exp ~loc (Lval (Cil.var vi)))
++                  (se,Cil.new_exp ~loc (Lval (Cil.var vi)))
+               | _ -> se,e
+             in
+             finishExp [] se e t
+@@ -6583,7 +6572,7 @@ and createLocal ghost ((_, sto, _, _) as
+                 (Some (Pretty_utils.sfprintf "alloca(%a)" d_exp sizeof))
+                 false rt
+             in
+-            (local_var_chunk setlen tmp)
++            setlen
+             +++ (mkStmtOneInstr ~ghost
+                    (Call(Some(var tmp), new_exp ~loc (Lval(var alloca)),
+ 			 [ sizeof  ], CurrentLoc.get ())),[],[],[])
