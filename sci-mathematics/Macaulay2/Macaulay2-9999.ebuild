@@ -1,10 +1,10 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="2"
 
-inherit autotools elisp-common eutils subversion
+inherit autotools elisp-common eutils flag-o-matic subversion
 
 IUSE="emacs optimization"
 
@@ -53,6 +53,7 @@ RESTRICT="mirror"
 
 pkg_setup () {
 		tc-export CC CPP CXX
+		append-cppflags "-I/usr/include/frobby"
 }
 
 src_prepare() {
@@ -60,31 +61,19 @@ src_prepare() {
 	# /usr/bin
 	epatch "${FILESDIR}"/${PV}-paths-of-external-programs.patch
 
-	# This is now a configure option:
-# 	if ! use optimization ; then
-# 		epatch "${FILESDIR}"/respect-CFLAGS.patch
-# 	fi
-
-## fixed in trunk as of 09/28/10
-# 	# The Posets-Package refers to a non-existent Graphs package.
-# 	# We dump it for now.
-# 	rm "${S}"/Macaulay2/packages/Posets.m2
-# 	sed -i "/  Posets/d" "${S}"/configure.ac
-# 	sed -i "/Posets/d" "${S}"/Macaulay2/packages/Macaulay2Doc/changes.m2
-
 	# Fixing make warnings about unavailable jobserver:
 	sed -i "s/\$(MAKE)/+ \$(MAKE)/g" "${S}"/distributions/Makefile.in
 
-	# Factory, and libfac are statically linked libraries which (in this flavor)
-	# are not used by any other program. We build them internally and don't install them
-	# Permission was granted to tomka by bicatali on IRC.
-	# Macaulay 2 in this version insists on a snapshot of boehm-gc that is not available elsewhere
-	# We will let it build its internal version for now.
+	# Factory, and libfac are statically linked libraries which (in this flavor) are not used by any
+	# other program. We build them internally and don't install them
 	mkdir "${S}/BUILD/tarfiles" || die "Creation of directory failed"
 	cp "${DISTDIR}/factory-3-1-1.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
 	cp "${DISTDIR}/libfac-3-1-1.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
+	# Macaulay 2 in this version insists on a snapshot of boehm-gc that is not available elsewhere
+	# We will let it build its internal version until >=boehm-gc-7.2_alpha5 is in in tree.  Note:
+	# The resulting QA warning is known.
 	cp "${DISTDIR}/gc-7.2alpha5-2010-09-03.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
 
@@ -92,19 +81,18 @@ src_prepare() {
 }
 
 src_configure (){
-
 	# Recommended in bug #268064 Possibly unecessary
 	# but should not hurt anybody.
 	if ! use emacs; then
 		tags="ctags"
 	fi
 
-	CPPFLAGS="-I/usr/include/frobby" \
-		./configure --prefix="${D}/usr" \
+	# configure instead of econf to enable install with --prefix
+	./configure --prefix="${D}/usr" \
 		--disable-encap \
 		--disable-strip \
 		$(use_enable optimization optimize) \
-		--enable-build-libraries="factory libfac" \
+		--enable-build-libraries="factory gc libfac" \
 		--with-unbuilt-programs="4ti2 gfan normaliz nauty cddplus lrslib" \
 		|| die "failed to configure Macaulay"
 }
@@ -129,7 +117,6 @@ src_install () {
 
 	# Remove emacs files and install them in the
 	# correct place if use emacs
-
 	rm -rf "${D}"/usr/share/emacs/site-lisp
 	if use emacs; then
 		cd "${S}/Macaulay2/emacs"
@@ -146,6 +133,7 @@ pkg_postinst() {
 		elog "in order to set it to F12 (or choose a different one)."
 	fi
 }
+
 pkg_postrm() {
 	use emacs && elisp-site-regen
 }
