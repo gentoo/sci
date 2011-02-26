@@ -1,6 +1,9 @@
 # ChangeLog for sci-mathematics/Macaulay2
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  26 Feb 2011; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
+  Live ebuild updated
 
   12 Nov 2010; Thomas Kahle <tomka@gentoo.org>
   -files/1.4_pre-paths-of-external-programs.patch,
