@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit autotools-utils bash-completion
+inherit cmake-utils bash-completion
 
 MANUAL_PV=1.1
 if [ "${PV}" != "9999" ]; then
@@ -25,7 +25,7 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="doc +gromacs static-libs"
+IUSE="doc +gromacs"
 
 RDEPEND="=sci-libs/votca-tools-${PV}
 	gromacs? ( >=sci-chemistry/gromacs-4.0.7-r5 )
@@ -37,35 +37,25 @@ DEPEND="${RDEPEND}
 	>=app-text/txt2tags-2.5
 	dev-util/pkgconfig"
 
-src_prepare() {
-	#from bootstrap.sh
-	if [ -z "${PV##*9999}" ]; then
-		emake -C share/scripts/inverse -f Makefile.am.in Makefile.am || die
-	fi
-
-	eautoreconf || die "eautoreconf failed"
-}
-
 src_configure() {
-	local libgmx
+	local extra="-DWITH_GMX_DEVEL=OFF"
 
-	#in >gromacs-4.5 libgmx was renamed to libgromacs
-	has_version =sci-chemistry/gromacs-9999 && libgmx="libgromacs" || libgmx="libgmx"
-	#prefer gromacs double-precision if it is there
-	has_version sci-chemistry/gromacs[double-precision] && libgmx="${libgmx}_d"
+	use gromacs && has_version =sci-chemistry/gromacs-9999 && \
+		extra="-DWITH_GMX_DEVEL=ON"
 
-	myeconfargs=( ${myconf} --disable-rc-files  $(use_with gromacs libgmx $libgmx) )
-	autotools-utils_src_configure || die
+	mycmakeargs=( $(cmake-utils_use_with gromacs GMX) ${extra} -DWITH_RC_FILES=OFF )
+	cmake-utils_src_configure || die
 }
 
 src_install() {
-	DOCS=(README NOTICE ${AUTOTOOLS_BUILD_DIR}/CHANGELOG)
+	DOCS=(README NOTICE ${CMAKE_BUILD_DIR}/CHANGELOG)
 	dobashcompletion scripts/csg-completion.bash ${PN} || die
-	autotools-utils_src_install || die
+	cmake-utils_src_install || die
 	if use doc; then
 		if [ -n "${PV##*9999}" ]; then
 			dodoc "${DISTDIR}/votca-manual-${MANUAL_PV}.pdf" || die
 		fi
+		cd "${CMAKE_BUILD_DIR}" || die
 		cd share/doc || die
 		doxygen || die
 		dohtml -r html/* || die
