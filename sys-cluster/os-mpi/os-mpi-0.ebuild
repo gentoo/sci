@@ -16,3 +16,20 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}"
 
+src_install() {
+	cat >> "${T}"/99mpi <<- EOF
+	MPI_CC=gcc
+	MPI_CXX=g++
+	MPI_FC=gfortran
+	MPI_F90=gfortran
+	HPMPI_F77=gfortran
+	EOF
+	doenvd "${T}"/99mpi
+}
+
+pkg_postinst() {
+	einfo
+	einfo "Please read and edit ${EPREFIX}/etc/env.d/99mpi"
+	einfo "to add needed values for your os-mpi implentation"
+	einfo
+}
