@@ -16,7 +16,7 @@ RDEPEND="|| (
 	sys-cluster/openmpi[cxx?,fortran?,romio?]
 	sys-cluster/mpich2[cxx?,fortran?,romio?]
 	sys-cluster/nullmpi
-	sys-cluster/os-mpi
+	sys-cluster/native-mpi
 )"
 
 DEPEND=""
