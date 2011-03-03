@@ -37,10 +37,10 @@ SCIDEPS="
 
 XDEPS="
 	gnome-base/libgnomecanvas
-	gnome-base/librsvg
+	gnome-base/librsvg:2
 	media-libs/libpng
 	media-libs/freeglut
-	>=x11-libs/gtk+-2.2
+	x11-libs/gtk+:2
 	x11-libs/goocanvas
 	x11-libs/gtkglext"
 
@@ -71,6 +71,7 @@ pkg_setup() {
 }
 
 PATCHES=(
+	"${FILESDIR}"/${PV}-lidia.patch
 	"${FILESDIR}"/${PV}-goocanvas.patch
 	"${FILESDIR}"/${PV}-clipper.patch
 	"${FILESDIR}"/${PV}-include.patch
