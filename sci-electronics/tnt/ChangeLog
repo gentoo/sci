@@ -1,0 +1,33 @@
+# ChangeLog for sci-electronics/tnt
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  24 Feb 2011; Andreas K. Huettel <dilfridge@gentoo.org> tnt-1.2.2.ebuild,
+  -files/tnt-1.2.2-Makefile-am.patch,
+  -files/tnt-1.2.2-doc-Makefile-am.patch, +files/tnt-1.2.2-docs.patch,
+  +files/tnt-1.2.2-f77.patch, +files/tnt-1.2.2-gui.patch,
+  -files/tnt-1.2.2-gui-splash.patch, -files/tnt-1.2.2-gui_help.patch:
+  General cleanup and simplification
+
+  24 Feb 2011; Andreas K. Huettel <dilfridge@gentoo.org> tnt-1.2.2.ebuild,
+  +files/tnt-1.2.2-calc.patch, -files/tnt-1.2.2-calc-cap-calcCAP.patch,
+  -files/tnt-1.2.2-calc-cap-cmplxmat.patch,
+  -files/tnt-1.2.2-calc-cap-cmplxvec.patch,
+  -files/tnt-1.2.2-calc-cap-complex-header.patch,
+  -files/tnt-1.2.2-calc-cap-complex-source.patch,
+  -files/tnt-1.2.2-calc-cap-data.patch,
+  -files/tnt-1.2.2-calc-rl-calcRL.patch,
+  -files/tnt-1.2.2-calc-rl-cmplxmat.patch,
+  -files/tnt-1.2.2-calc-rl-cmplxvec.patch,
+  -files/tnt-1.2.2-calc-rl-complex.patch,
+  -files/tnt-1.2.2-calc-rl-complex-header.patch,
+  -files/tnt-1.2.2-calc-rl-data.patch,
+  -files/tnt-1.2.2-calc-rl-hankel.patch,
+  -files/tnt-1.2.2-calc-rl-kelvin.patch, +files/tnt-1.2.2-namespaces.patch:
+  Started summarizing patches
+
+  24 Feb 2011; Andreas K. Huettel <dilfridge@gentoo.org> tnt-1.2.2.ebuild:
+  Clean up keywords and dependencies
+
+  24 Feb 2011; Andreas K. Huettel <dilfridge@gentoo.org>
+  Added ebuild and patch files from George Reitsma

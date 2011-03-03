@@ -1,0 +1,16 @@
+--- sppdgTcllib/console/tkcon.tcl.org	2011-02-19 01:46:57.000000000 -0800
++++ sppdgTcllib/console/tkcon.tcl	2011-02-19 01:47:36.000000000 -0800
+@@ -43,9 +43,10 @@
+ 
+ if {$tcl_version < 8.0} {
+     return -code error "tkcon requires at least Tcl/Tk8"
+-} else {
+-    package require -exact Tk $tcl_version
+-}
++} 
++#else {
++#    package require -exact Tk $tcl_version
++#}
+ 
+ catch {package require bogus-package-name}
+ foreach pkg [info loaded {}] {

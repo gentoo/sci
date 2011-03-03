@@ -1,0 +1,66 @@
+diff -ruN tnt-1.2.2-5-tkcon/Makefile.am tnt-1.2.2/Makefile.am
+--- tnt-1.2.2-5-tkcon/Makefile.am	2004-07-22 16:23:32.000000000 +0200
++++ tnt-1.2.2/Makefile.am	2011-02-24 23:43:41.000000000 +0100
+@@ -51,14 +51,16 @@
+ #  a prefix.  If not, then I suppose README will go into
+ #  /usr.
+ #---------------------------------------------------------------
+-appdocsdir = $(prefix)
+-appdocs_DATA = \
+-	AUTHORS$(TXTEXT) \
+-	COPYING$(TXTEXT) \
+-	ChangeLog$(TXTEXT) \
+-	NEWS$(TXTEXT) \
+-	README$(TXTEXT) \
+-	THANKS$(TXTEXT)
++#
++# Portage takes care for this
++#appdocsdir = $(prefix)
++#appdocs_DATA = \
++#	AUTHORS$(TXTEXT) \
++#	COPYING$(TXTEXT) \
++#	ChangeLog$(TXTEXT) \
++#	NEWS$(TXTEXT) \
++#	README$(TXTEXT) \
++#	THANKS$(TXTEXT)
+ 
+ #---------------------------------------------------------------
+ #  Convert application documents to text files on Windows.
+diff -ruN tnt-1.2.2-5-tkcon/doc/Makefile.am tnt-1.2.2/doc/Makefile.am
+--- tnt-1.2.2-5-tkcon/doc/Makefile.am	2004-07-21 17:45:26.000000000 +0200
++++ tnt-1.2.2/doc/Makefile.am	2011-02-24 23:43:45.000000000 +0100
+@@ -43,7 +43,7 @@
+ #
+ #---------------------------------------------------------------
+ 
+-docdir = $(prefix)/doc
++#docdir = $(prefix)/doc
+ doc_DATA = \
+ 	user-guide.pdf 
+ 
+@@ -73,15 +73,17 @@
+ 	pdflatex $*
+ 	latex2html -split 4 -show_section_numbers -local_icons $<
+ 
++# Removed, because portage takes care of it.
++#
+ #  Custom installation rule
+-install-data-local:
+-	for f in $(doc_DATA); do \
+-	  $(mkinstalldirs) $(docdir); \
+-	  $(INSTALL_DATA) $$f $(docdir)/$$f; \
+-	  d=`basename $$f .pdf`; \
+-	  $(mkinstalldirs) $(docdir)/$$d; \
+-	  $(INSTALL_DATA) $$d/* $(docdir)/$$d; \
+-	done
++#install-data-local:
++#	for f in $(doc_DATA); do \
++#	  $(mkinstalldirs) $(docdir); \
++#	  $(INSTALL_DATA) $$f $(docdir)/$$f; \
++#	  d=`basename $$f .pdf`; \
++#	  $(mkinstalldirs) $(docdir)/$$d; \
++#	  $(INSTALL_DATA) $$d/* $(docdir)/$$d; \
++#	done
+ 
+ #---------------------------------------------------------------
+ #  clean

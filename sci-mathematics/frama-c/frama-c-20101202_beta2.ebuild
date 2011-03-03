@@ -33,8 +33,11 @@ src_prepare(){
 	rm share/libc/test.c
 	rm -Rf src/wp
 
-	epatch "${FILESDIR}/${P}-local_tmps.patch"
-	
+	mkdir cil/pdf
+	mv cil/doc/*.pdf cil/doc/*.tex cil/pdf
+	mv cil/doc cil/html
+	mv doc/manuals doc/pdf
+
 	touch config_file
 	sed -i configure.in \
 		-e "s:1.7):1.6):g"
@@ -63,6 +66,8 @@ src_install(){
 	dodoc Changelog doc/README
 
 	if use doc; then
-		dodoc doc/manuals/*
+		dodoc doc/pdf/*.pdf
+		dodoc cil/pdf/*.pdf
+		dohtml -r cil/html/*
 	fi
 }

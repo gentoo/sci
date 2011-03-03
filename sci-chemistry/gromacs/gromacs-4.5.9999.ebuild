@@ -8,7 +8,7 @@ LIBTOOLIZE="true"
 TEST_PV="4.0.4"
 MANUAL_PV="4.5.3"
 
-inherit autotools-utils bash-completion flag-o-matic multilib toolchain-funcs
+inherit autotools-utils bash-completion eutils flag-o-matic multilib toolchain-funcs
 
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 		doc? (
@@ -52,6 +52,9 @@ QA_EXECSTACK="usr/lib/libgmx.so.*
 	usr/lib/libgmx_d.so.*"
 
 src_prepare() {
+	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
+	epatch_user
+
 	if use mpi && use threads; then
 		elog "mdrun uses only threads OR mpi, and gromacs favours the"
 		elog "use of mpi over threads, so a mpi-version of mdrun will"
