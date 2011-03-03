@@ -41,4 +41,3 @@ src_install() {
 	dodoc README || die "dodoc failed"
 	dodoc "${DISTDIR}"/ssaha2-manual.pdf || die "Failed to install ssaha2-manual.pdf"
 }
-
