@@ -1,2 +1,3 @@
 move www-apps/SwishE www-apps/py-swish-e
 move sys-cluster/os-mpi sys-cluster/native-mpi
+move sci-misc/freecad media-gfx/freecad
