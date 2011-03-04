@@ -2,6 +2,14 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*freecad-0.11.3729 (04 Mar 2011)
+
+  04 Mar 2011; Andreas K. Huettel <dilfridge@gentoo.org>
+  -freecad-0.9.2646.ebuild, +freecad-0.11.3729.ebuild,
+  +files/freecad-0.11.3729-asneeded.patch, metadata.xml:
+  Version bump; added required RESTRICT with comments; many cleanups and
+  enhancements
+
   04 Mar 2011; Andreas K. Huettel <dilfridge@gentoo.org>
   +freecad-0.9.2646.ebuild, +metadata.xml:
   Moved into media-gfx category
