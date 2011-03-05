@@ -67,6 +67,10 @@ src_configure() {
 		--with-occ-lib=${CASROOT}/lib
 }
 
+src_compile() {
+	MAKEOPTS="-j1" base_src_compile
+}
+
 src_install() {
 	emake  DESTDIR="${D}" install || die "install failed"
 

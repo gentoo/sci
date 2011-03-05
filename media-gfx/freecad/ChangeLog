@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Mar 2011; Andreas K. Huettel <dilfridge@gentoo.org>
+  freecad-0.11.3729.ebuild:
+  The buildsystem has serious parallel make issues, leading to broken
+  moc-generated files
+
 *freecad-0.11.3729 (04 Mar 2011)
 
   04 Mar 2011; Andreas K. Huettel <dilfridge@gentoo.org>
