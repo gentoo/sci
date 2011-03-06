@@ -1,0 +1,30 @@
+--- amber11/AmberTools/src/Makefile.orig	2011-03-07 00:08:41.000000000 +0300
++++ amber11/AmberTools/src/Makefile	2011-03-07 00:10:01.000000000 +0300
+@@ -11,12 +11,12 @@
+ serial: configured_serial $(NETCDFLIB)
+ 	@echo "Starting installation of ${AMBERTOOLS} serial at `date`".
+ #	utility routines and libraries:
+-	(cd ucpp-1.3 && $(MAKE) $(UCPP) )
+-	(cd byacc && $(MAKE) install )
+-	(cd arpack && $(MAKE) install );
+-	(cd lapack && $(MAKE) $(LAPACK) )
+-	(cd blas && $(MAKE) $(BLAS) )
+-	(cd c9x-complex && $(MAKE) $(C9XCOMPLEX) )
++#	(cd ucpp-1.3 && $(MAKE) $(UCPP) )
++#	(cd byacc && $(MAKE) install )
++#	(cd arpack && $(MAKE) install );
++#	(cd lapack && $(MAKE) $(LAPACK) )
++#	(cd blas && $(MAKE) $(BLAS) )
++#	(cd c9x-complex && $(MAKE) $(C9XCOMPLEX) )
+ 	(cd etc && $(MAKE) install )
+ 	(cd chamber && $(MAKE) install )
+ 	(cd pbsa && $(MAKE) install )
+@@ -30,7 +30,7 @@
+ 	(cd ptraj && $(MAKE) install )
+ 
+ #   miscellaneous:
+-	(cd reduce && $(MAKE) install )
++#	(cd reduce && $(MAKE) install )
+ 
+ #   leap and gleap:
+ 	(cd leap && $(MAKE) install )
