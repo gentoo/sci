@@ -6,7 +6,7 @@ EAPI=3
 
 DESCRIPTION="Pairwise sequence alignment mapping DNA reads onto genomic reference, better over SSAHA2."
 HOMEPAGE="http://www.sanger.ac.uk/resources/software/smalt/"
-SRC_URI="ftp://ftp.sanger.ac.uk/pub4/resources/software/smalt/smalt-0.5.0.tgz"
+SRC_URI="ftp://ftp.sanger.ac.uk/pub4/resources/software/smalt/smalt-"${PV}".tgz"
 
 LICENSE="GRL"
 SLOT="0"
