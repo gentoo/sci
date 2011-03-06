@@ -5,7 +5,7 @@
 EAPI=3
 PYTHON_DEPEND=2
 
-inherit base eutils multilib autotools python
+inherit base eutils multilib autotools flag-o-matic python
 
 MY_P="freecad-${PV}"
 MY_PD="FreeCAD-${PV}"
@@ -59,7 +59,10 @@ src_prepare() {
 }
 
 src_configure() {
-	 econf \
+	append-cflags "-DBOOST_FILESYSTEM_VERSION=2"
+	append-cppflags "-DBOOST_FILESYSTEM_VERSION=2"
+	append-cxxflags "-DBOOST_FILESYSTEM_VERSION=2"
+	econf \
 		--with-qt4-include="${EPREFIX}"/usr/include/qt4 \
 		--with-qt4-bin="${EPREFIX}"//usr/bin \
 		--with-qt4-lib="${EPREFIX}"//usr/$(get_libdir)/qt4 \
