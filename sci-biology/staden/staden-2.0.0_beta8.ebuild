@@ -65,4 +65,11 @@ src_install() {
 	emake install DESTDIR="${D}" || die "make install failed"
 	#cd "${WORKDIR}"/staden_doc-2.0.0b8-src || die "failed to cd "${WORKDIR}"/staden_doc-2.0.0b8-src"
 	#make install prefix="${D}"/usr || die "failed to install pre-created docs from upstream"
+
+	# install the LDPATH so that it appears in /etc/ld.so.conf after env-update
+	# subsequently, apps linked against /usr/lib/staden can be run because
+	# loader can find the library (I failed to use '-Wl,-rpath,/usr/lib/staden'
+	# somehow for gap2caf, for example
+	echo 'LDPATH=/usr/lib/staden' > 99staden || die
+	doenvd 99staden
 }
