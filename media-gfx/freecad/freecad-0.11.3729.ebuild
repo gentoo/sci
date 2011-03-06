@@ -71,6 +71,9 @@ src_configure() {
 }
 
 src_compile() {
+	# the build system is generating extremely odd errors on parallel build
+	# seem like moc is trying to process non-existing files, resulting in 
+	# double namespace declarations Bla::Bla::Method in the moc_ files
 	MAKEOPTS="-j1" base_src_compile
 }
 
