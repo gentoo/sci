@@ -1,6 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI="2"
 
 if [[ ${PV} = 9999* ]]; then
 	EBZR_REPO_URI="http://oregonstate.edu/~benisong/software/projects/burrow-owl/releases/1.5"
@@ -26,10 +28,11 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
-RDEPEND="=x11-libs/gtk+-2*
+RDEPEND="
 	dev-scheme/guile-gnome-platform
 	>=dev-scheme/guile-cairo-1.4
-	sci-libs/starparse"
+	>=sci-libs/starparse-1.0
+	x11-libs/gtk+:2"
 DEPEND="${RDEPEND}
 	dev-util/indent
 	dev-util/pkgconfig"
@@ -46,7 +49,6 @@ src_unpack() {
 }
 
 src_compile() {
-	econf || die
 	emake -j1 || die
 }
 
