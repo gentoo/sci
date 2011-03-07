@@ -109,7 +109,7 @@ src_install() {
 		-i "${ED}/usr/bin/mopac.sh" || die
 	# Make symlinks untill binpath for amber will be fixed
 	dodir /usr/share/${PN}/bin
-	for x in "${ED}"/usr/bin/*
+	for x in $(ls "${ED}"/usr/bin/*)
 		do dosym /usr/bin/${x} /usr/share/${PN}/bin/${x}
 	done
 #	sed -e "s:\$AMBERHOME/dat:\$AMBERHOME/share/ambertools/dat:g" \
