@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -7,7 +7,7 @@ PYTHON_DEPEND="2:2.4"
 
 inherit eutils python
 
-DESCRIPTION="SALOME : The Open Source Integration Platform for Numerical Simulation. KERNEL Component"
+DESCRIPTION="The Open Source Integration Platform for Numerical Simulation - KERNEL Component"
 HOMEPAGE="http://www.salome-platform.org"
 SRC_URI="http://files.opencascade.com/Salome/Salome${PV}/src${PV}.tar.gz"
 
@@ -16,22 +16,25 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="debug doc mpi numpy"
 
-RDEPEND="mpi?     ( || ( sys-cluster/openmpi[cxx]
-		 				 sys-cluster/mpich2[cxx] ) )
-		 debug?   ( dev-util/cppunit )
-		 numpy?   ( dev-python/numpy )
-		 >=dev-python/omniorbpy-3.4
-		 >=net-misc/omniORB-4.1.4
-		 >=dev-libs/boost-1.40.0
-		 sci-libs/hdf5"
-
+RDEPEND="
+	>=dev-python/omniorbpy-3.4
+	>=net-misc/omniORB-4.1.4
+	>=dev-libs/boost-1.40.0
+	 sci-libs/hdf5
+	debug?   ( dev-util/cppunit )
+	mpi?
+		( || (
+			sys-cluster/openmpi[cxx]
+			sys-cluster/mpich2[cxx]
+			) )
+	numpy?   ( dev-python/numpy )"
 DEPEND="${RDEPEND}
-		>=app-doc/doxygen-1.5.6
-		media-gfx/graphviz
-		dev-python/docutils
-		dev-lang/swig
-		dev-libs/libxml2
-		>=dev-python/docutils-0.4"
+	>=app-doc/doxygen-1.5.6
+	media-gfx/graphviz
+	dev-python/docutils
+	dev-lang/swig
+	dev-libs/libxml2:2
+	>=dev-python/docutils-0.4"
 
 MODULE_NAME="KERNEL"
 S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
