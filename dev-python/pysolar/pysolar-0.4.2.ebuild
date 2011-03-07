@@ -1,8 +1,9 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=2
+
 PYTHON_DEPEND="2:2.5"
 SUPPORT_PYTHON_ABIS="1"
 
@@ -18,14 +19,15 @@ KEYWORDS="~amd64"
 IUSE="doc"
 
 DEPEND="doc? ( dev-python/numpydoc )"
-RDEPEND="dev-python/imaging
+RDEPEND="
+	dev-python/imaging
 	dev-python/matplotlib
 	dev-python/numpy
-	dev-python/pygtk
+	dev-python/pygtk:2
 	dev-python/pytz
 	sci-libs/scipy"
 
-S=${WORKDIR}/pingswept-${PN}-a110543
+S="${WORKDIR}"/pingswept-${PN}-a110543
 
 PYTHON_MODNAME="constants.py horizon.py julian.py \
 	poly.py query_usno.py radiation.py shade.py \
