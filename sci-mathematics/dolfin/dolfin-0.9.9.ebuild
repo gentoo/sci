@@ -1,9 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=3
-inherit cmake-utils
+
+PYTHON_DEPEND="python? 2"
+
+inherit cmake-utils python
 
 DESCRIPTION="C++/Python interface of FEniCS"
 HOMEPAGE="https://launchpad.net/dolfin"
@@ -15,7 +18,8 @@ KEYWORDS="~amd64"
 IUSE="cgal cholmod gmp mpi parmetis python scotch umfpack zlib"
 # scotch and parmetis require mpi; wait for EAPI 4
 
-DEPEND="dev-libs/libxml2
+DEPEND="
+	dev-libs/libxml2:2
 	sci-mathematics/ufc
 	sci-libs/armadillo
 	dev-libs/boost
@@ -25,6 +29,10 @@ DEPEND="dev-libs/libxml2
 	          dev-python/instant
 	          dev-python/viper )"
 RDEPEND="${DEPEND}"
+
+pkg_setup() {
+	use python && python_set_active_version 2
+}
 
 src_prepare() {
 	epatch "${FILESDIR}"/"${P}"-find-armadillo.patch
