@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI="3"
 
 inherit cmake-utils eutils
 
@@ -17,12 +17,13 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="doc png ssl tcpd tiff +threads xml zlib"
 
-RDEPEND="media-libs/jpeg
+RDEPEND="
+	virtual/jpeg
 	png? ( media-libs/libpng )
 	ssl? ( dev-libs/openssl )
 	tcpd? ( sys-apps/tcp-wrappers )
 	tiff? ( media-libs/tiff )
-	xml? ( dev-libs/libxml2 )
+	xml? ( dev-libs/libxml2:2 )
 	zlib? ( sys-libs/zlib )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
