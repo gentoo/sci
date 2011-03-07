@@ -98,3 +98,27 @@ src_compile() {
 	cd AmberTools/src
 	emake || die
 }
+
+src_install() {
+	for x in bin/*
+		do dobin $x || die
+	done
+	rm "${ED}/usr/bin/yacc"
+	sed -e "s:\$AMBERHOME/dat:\$AMBERHOME/share/ambertools/dat:g" \
+		-i "${ED}/usr/bin/xleap" \
+		-i "${ED}/usr/bin/tleap" || die
+	dodoc doc/AmberTools.pdf doc/leap_pg.pdf
+	dolib.a lib/*
+	insinto /usr/include/${PN}
+	doins include/*
+	insinto /usr/share/${PN}
+	doins -r dat
+	cd AmberTools
+	doins -r benchmarks
+	doins -r examples
+	doins -r test
+	cat >> "${T}"/99ambertools <<- EOF
+	AMBERHOME="${EPREFIX}/usr"
+	EOF
+	doenvd "${T}"/ambertools
+}
