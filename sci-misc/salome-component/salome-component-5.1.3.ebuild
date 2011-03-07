@@ -18,16 +18,16 @@ SLOT="0"
 IUSE="debug doc mpi"
 
 RDEPEND="
-	 >=sci-misc/salome-kernel-${PV}
-	 >=sci-misc/salome-gui-${PV}
-	 >=sci-misc/salome-med-${PV}
-	 >=x11-libs/qt-core-4.4.3
-	 >=x11-libs/qt-gui-4.4.3
-	 >=x11-libs/qt-opengl-4.4.3
-	 >=x11-libs/qwt-5.2
-	 >=dev-python/PyQt4-4.4.3
-	 >=sci-libs/opencascade-6.3
-	 debug?   ( dev-util/cppunit )
+	>=sci-misc/salome-kernel-${PV}
+	>=sci-misc/salome-gui-${PV}
+	>=sci-misc/salome-med-${PV}
+	>=x11-libs/qt-core-4.4.3
+	>=x11-libs/qt-gui-4.4.3
+	>=x11-libs/qt-opengl-4.4.3
+	>=x11-libs/qwt-5.2
+	>=dev-python/PyQt4-4.4.3
+	>=sci-libs/opencascade-6.3
+	debug?   ( dev-util/cppunit )
 	mpi?
 		(
 		|| (
@@ -36,12 +36,12 @@ RDEPEND="
 			)
 		)"
 DEPEND="${RDEPEND}
-		>=app-doc/doxygen-1.5.6
-		media-gfx/graphviz
-		>=dev-python/docutils-0.4
-		>=dev-python/sip-4.7.7
-		dev-lang/swig
-		dev-libs/libxml2:2"
+	>=app-doc/doxygen-1.5.6
+	media-gfx/graphviz
+	>=dev-python/docutils-0.4
+	>=dev-python/sip-4.7.7
+	dev-lang/swig
+	dev-libs/libxml2:2"
 
 MODULE_NAME="COMPONENT"
 S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
