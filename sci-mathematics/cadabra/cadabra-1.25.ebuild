@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,14 +17,17 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc examples X"
-DEPEND="sci-libs/modglue
+
+DEPEND="
+	sci-libs/modglue
 	sci-mathematics/lie
 	dev-libs/gmp[-nocxx]
 	dev-libs/libpcre
-	X? ( >=x11-libs/gtk+-2.0
-		>=dev-cpp/gtkmm-2.4
-		dev-cpp/pangomm
-	    app-text/dvipng )
+	X? (
+		x11-libs/gtk+:2
+		dev-cpp/gtkmm:2.4
+		dev-cpp/pangomm:2.4
+		app-text/dvipng )
 	doc? ( || ( app-text/texlive-core dev-tex/pdftex ) )"
 RDEPEND="${DEPEND}
 	virtual/latex-base
@@ -42,15 +45,13 @@ src_configure(){
 }
 
 src_compile() {
+	emake || die
 
-	emake
-
-	if ( use doc )
-	then
+	if use doc; then
 		cd "${S}/doc"
-		emake
+		emake || die
 		cd doxygen/latex
-		emake pdf
+		emake pdf || die
 	fi
 }
 
