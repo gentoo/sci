@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/openbabel/openbabel-2.2.3.ebuild,v 1.11 2010/07/18 14:53:22 armin76 Exp $
 
@@ -16,13 +16,12 @@ LICENSE="GPL-2"
 IUSE="doc gui"
 
 RDEPEND="
-	>=dev-libs/libxml2-2.6.5
+	dev-libs/libxml2:2
 	>=sci-chemistry/inchi-1.03
-	gui? ( x11-libs/wxGTK )
 	!sci-chemistry/babel
 	dev-cpp/eigen:2
-	sys-libs/zlib"
-
+	sys-libs/zlib
+	gui? ( x11-libs/wxGTK )"
 DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.4.8"
 
