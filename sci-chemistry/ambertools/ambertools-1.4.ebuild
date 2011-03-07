@@ -71,7 +71,13 @@ src_configure() {
 		-e "s:NETCDFLIB=\$netcdflib:NETCDFLIB=$(pkg-config netcdf --libs):g" \
 		-e "s:NETCDF=\$netcdf:NETCDF=netcdf.mod:g" \
 		-e "s:-O3::g" \
-		-i configure
+		-i configure || die
+	sed -e "s:arsecond_:arscnd_:g" \
+		-i sff/time.c \
+		-i sff/sff.h \
+		-i sff/sff.c || die
+	sed -e "s:\$(NAB):\$(NAB) -lrfftw:g" \
+		-i nss/Makefile || die
 
 	local myconf
 
@@ -90,5 +96,5 @@ src_configure() {
 
 src_compile() {
 	cd AmberTools/src
-	emake -f Makefile || die
+	emake || die
 }
