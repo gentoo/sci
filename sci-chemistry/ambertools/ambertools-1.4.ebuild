@@ -106,7 +106,7 @@ src_install() {
 	rm "${ED}/usr/bin/yacc"
 	dobin AmberTools/src/antechamber/mopac.sh
 	sed -e "s:\$AMBERHOME/bin/mopac:mopac7:g" \
-		-i "${ED}/bin/mopac.sh" || die
+		-i "${ED}/usr/bin/mopac.sh" || die
 	# Make symlinks untill binpath for amber will be fixed
 	dodir /usr/share/${PN}/bin
 	for x in "${ED}"/usr/bin/*
