@@ -31,19 +31,21 @@ KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X altivec blas dmalloc doc -double-precision +fftw fkernels +gsl lapack
 mpi +single-precision sse sse2 static-libs test +threads +xml zsh-completion"
 
-DEPEND="app-shells/tcsh
-	X? ( x11-libs/libX11
+DEPEND="
+	X? (
+		x11-libs/libX11
 		x11-libs/libSM
-		x11-libs/libICE )
+		x11-libs/libICE
+		)
 	dmalloc? ( dev-libs/dmalloc )
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
-	xml? ( dev-libs/libxml2 )"
-
-RDEPEND="${DEPEND}"
+	xml? ( dev-libs/libxml2:2 )"
+RDEPEND="${DEPEND}
+	app-shells/tcsh"
 
 RESTRICT="test"
 

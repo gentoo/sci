@@ -22,19 +22,20 @@ KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
 mpi +single-precision sse sse2 test +threads xml zsh-completion"
 
-DEPEND="X? ( x11-libs/libX11
-			x11-libs/libSM
-			x11-libs/libICE )
+DEPEND="
+	X? (
+		x11-libs/libX11
+		x11-libs/libSM
+		x11-libs/libICE
+		)
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
-	xml? ( dev-libs/libxml2 )"
-
-RDEPEND="app-shells/tcsh
-	${DEPEND}"
-
+	xml? ( dev-libs/libxml2:2 )"
+RDEPEND="${DEPEND}
+	app-shells/tcsh"
 PDEPEND="doc? ( app-doc/gromacs-manual )"
 
 RESTRICT="test"
