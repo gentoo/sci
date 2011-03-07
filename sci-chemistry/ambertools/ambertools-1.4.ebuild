@@ -101,7 +101,7 @@ src_compile() {
 
 src_install() {
 	for x in bin/*
-		do dobin $x || die
+		do dobin ${x} || die
 	done
 	rm "${ED}/usr/bin/yacc"
 	dobin AmberTools/src/antechamber/mopac.sh
@@ -109,9 +109,11 @@ src_install() {
 		-i "${ED}/usr/bin/mopac.sh" || die
 	# Make symlinks untill binpath for amber will be fixed
 	dodir /usr/share/${PN}/bin
-	for x in $(ls "${ED}"/usr/bin/*)
+	cd "${ED}/usr/bin"
+	for x in *
 		do dosym /usr/bin/${x} /usr/share/${PN}/bin/${x}
 	done
+	cd "${S}"
 #	sed -e "s:\$AMBERHOME/dat:\$AMBERHOME/share/ambertools/dat:g" \
 #		-i "${ED}/usr/bin/xleap" \
 #		-i "${ED}/usr/bin/tleap" || die
