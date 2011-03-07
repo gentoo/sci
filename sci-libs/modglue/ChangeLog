@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/modglue
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  07 Mar 2011; Justin Lecher <jlec@gentoo.org> modglue-1.16.ebuild:
+  Correct Slots for gtk 3 introduction to tree
 
   23 Aug 2010; François Bissey <f.r.bissey@massey.ac.nz>
   modglue-1.16.ebuild, files/modglue-1.16-lib64.patch:
