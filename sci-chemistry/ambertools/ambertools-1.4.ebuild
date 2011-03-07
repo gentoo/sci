@@ -120,5 +120,5 @@ src_install() {
 	cat >> "${T}"/99ambertools <<- EOF
 	AMBERHOME="${EPREFIX}/usr"
 	EOF
-	doenvd "${T}"/ambertools
+	doenvd "${T}"/99ambertools
 }
