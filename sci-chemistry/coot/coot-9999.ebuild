@@ -55,7 +55,7 @@ RDEPEND="
 	${SCIDEPS}
 	${XDEPS}
 	${SCHEMEDEPS}
-	dev-python/pygtk
+	dev-python/pygtk:2
 	>=dev-libs/gmp-4.2.2-r2
 	>=net-misc/curl-7.19.6
 	net-dns/libidn"
