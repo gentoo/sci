@@ -10,23 +10,23 @@ IUSE="emacs optimization"
 
 ESVN_REPO_URI="svn://svn.macaulay2.com/Macaulay2/trunk/M2"
 
-DESCRIPTION="research tool for commutative algebra and algebraic geometry"
+DESCRIPTION="Research tool for commutative algebra and algebraic geometry"
+HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
 SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
 SRC_URI="${SRC_BASE}/OtherSourceCode/1.3/factory-3-1-1.tar.gz
 		 ${SRC_BASE}/OtherSourceCode/1.3/libfac-3-1-1.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Extra/gc-7.2alpha5-2010-09-03.tar.gz"
 
-HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
-
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS=""
 
-DEPEND="sys-libs/gdbm
+DEPEND="
+	sys-libs/gdbm
 	>=dev-libs/ntl-5.5.2
 	>=sci-mathematics/pari-2.3.4[gmp]
 	>=sys-libs/readline-6.1
-	dev-libs/libxml2
+	dev-libs/libxml2:2
 	sci-mathematics/frobby
 	sci-mathematics/4ti2
 	sci-mathematics/nauty
