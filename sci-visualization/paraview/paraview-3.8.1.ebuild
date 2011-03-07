@@ -22,20 +22,24 @@ LICENSE="paraview GPL-2"
 KEYWORDS="~x86 ~amd64"
 SLOT="0"
 IUSE="mpi +python doc examples +gui plugins adaptive streaming cg mysql -coprocessing"
-RDEPEND="sci-libs/hdf5[mpi=]
+
+RDEPEND="
+	sci-libs/hdf5[mpi=]
 	mpi? ( virtual/mpi[cxx,romio] )
-	gui? ( x11-libs/qt-gui:4
-			x11-libs/qt-qt3support:4
-			x11-libs/qt-opengl:4
-			|| ( >=x11-libs/qt-assistant-4.7.0:4[compat] <x11-libs/qt-assistant-4.7.0:4 )
-			x11-libs/qt-sql:4 )
-	adaptive? ( x11-libs/qt-gui:4
-			x11-libs/qt-qt3support:4
-			x11-libs/qt-opengl:4
-			x11-libs/qt-assistant:4 )
+	gui? (
+		x11-libs/qt-gui:4
+		x11-libs/qt-qt3support:4
+		x11-libs/qt-opengl:4
+		|| ( >=x11-libs/qt-assistant-4.7.0:4[compat] <x11-libs/qt-assistant-4.7.0:4 )
+		x11-libs/qt-sql:4 )
+	adaptive? (
+		x11-libs/qt-gui:4
+		x11-libs/qt-qt3support:4
+		x11-libs/qt-opengl:4
+		x11-libs/qt-assistant:4 )
 	mysql? ( virtual/mysql )
 	coprocessing? ( plugins? ( x11-libs/qt-gui:4 ) )
-	dev-libs/libxml2
+	dev-libs/libxml2:2
 	media-libs/libpng
 	virtual/jpeg
 	media-libs/tiff
@@ -46,7 +50,6 @@ RDEPEND="sci-libs/hdf5[mpi=]
 	virtual/opengl
 	sci-libs/netcdf
 	x11-libs/libXmu"
-
 DEPEND="${RDEPEND}
 		doc? ( app-doc/doxygen )
 		>=dev-util/cmake-2.6.4"
