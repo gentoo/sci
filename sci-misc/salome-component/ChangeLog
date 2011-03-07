@@ -1,5 +1,9 @@
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  07 Mar 2011; Justin Lecher <jlec@gentoo.org> salome-component-5.1.3.ebuild,
+  salome-component-5.1.4.ebuild:
+  Correct Slots for gtk 3 introduction to tree
 
 *salome-component-5.1.4 (27 Oct 2010)
 
