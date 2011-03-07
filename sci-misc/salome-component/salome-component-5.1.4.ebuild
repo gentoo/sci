@@ -32,7 +32,7 @@ RDEPEND="
 		(
 		|| (
 			sys-cluster/openmpi[cxx]
-			sys-cluster/mpich2[cxx] 
+			sys-cluster/mpich2[cxx]
 			)
 		)"
 DEPEND="${RDEPEND}
