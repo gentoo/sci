@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -7,7 +7,7 @@ PYTHON_DEPEND="2:2.4"
 
 inherit eutils flag-o-matic python
 
-DESCRIPTION="SALOME : The Open Source Integration Platform for Numerical Simulation. MED Component"
+DESCRIPTION="The Open Source Integration Platform for Numerical Simulation - MED Component"
 HOMEPAGE="http://www.salome-platform.org"
 SRC_URI="http://files.opencascade.com/Salome/Salome${PV}/src${PV}.tar.gz"
 
@@ -16,25 +16,28 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="debug doc mpi metis opengl scotch"
 
-RDEPEND="opengl? ( virtual/opengl )
-		 mpi?    ( || ( sys-cluster/openmpi[cxx]
-		 				sys-cluster/mpich2[cxx] ) )
-		 debug?  ( dev-util/cppunit )
-		 metis?	 ( >=sci-libs/metis-4.0 )
-		 scotch? ( >=sci-libs/scotch-4.0 )
-		 >=sci-misc/salome-kernel-${PV}
-		 >=sci-misc/salome-gui-${PV}
-		 >=x11-libs/qt-core-4.5.2
-		 >=x11-libs/qt-gui-4.5.2
-		 >=x11-libs/qt-opengl-4.5.2
-		 >=dev-libs/boost-1.40.0
-		 >=sci-libs/opencascade-6.3
-		 >=sci-libs/med-2.3.5
-		 >=sci-libs/vtk-5.0[python]"
+RDEPEND="
+	>=sci-misc/salome-kernel-${PV}
+	>=sci-misc/salome-gui-${PV}
+	>=x11-libs/qt-core-4.5.2
+	>=x11-libs/qt-gui-4.5.2
+	>=x11-libs/qt-opengl-4.5.2
+	>=dev-libs/boost-1.40.0
+	>=sci-libs/opencascade-6.3
+	>=sci-libs/med-2.3.5
+	>=sci-libs/vtk-5.0[python]
+	debug?  ( dev-util/cppunit )
+	metis?	 ( >=sci-libs/metis-4.0 )
+	mpi? ( || (
+			sys-cluster/openmpi[cxx]
+			sys-cluster/mpich2[cxx]
+		) )
+	opengl? ( virtual/opengl )
+	scotch? ( >=sci-libs/scotch-4.0 )"
 
 DEPEND="${RDEPEND}
-		dev-lang/swig
-		dev-libs/libxml2"
+	dev-lang/swig
+	dev-libs/libxml2:2"
 
 MODULE_NAME="MED"
 S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
