@@ -104,9 +104,17 @@ src_install() {
 		do dobin $x || die
 	done
 	rm "${ED}/usr/bin/yacc"
-	sed -e "s:\$AMBERHOME/dat:\$AMBERHOME/share/ambertools/dat:g" \
-		-i "${ED}/usr/bin/xleap" \
-		-i "${ED}/usr/bin/tleap" || die
+	dobin AmberTools/src/antechamber/mopac.sh
+	sed -e "s:bin/mopac:bin/mopac7:g" \
+		-i "${ED}/bin/mopac.sh" || die
+	# Make symlinks untill binpath for amber will be fixed
+	dodir /usr/share/${PN}/bin
+	for x in "${ED}"/usr/bin/*
+		do dosym /usr/bin/${x} /usr/share/${PN}/bin/${x}
+	done
+#	sed -e "s:\$AMBERHOME/dat:\$AMBERHOME/share/ambertools/dat:g" \
+#		-i "${ED}/usr/bin/xleap" \
+#		-i "${ED}/usr/bin/tleap" || die
 	dodoc doc/AmberTools.pdf doc/leap_pg.pdf
 	dolib.a lib/*
 	insinto /usr/include/${PN}
@@ -118,7 +126,7 @@ src_install() {
 	doins -r examples
 	doins -r test
 	cat >> "${T}"/99ambertools <<- EOF
-	AMBERHOME="${EPREFIX}/usr"
+	AMBERHOME="${EPREFIX}/usr/share/ambertools"
 	EOF
 	doenvd "${T}"/99ambertools
 }
