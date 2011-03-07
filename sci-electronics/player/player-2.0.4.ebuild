@@ -1,6 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=1
 
 PYTHON_DEPEND="2"
 
@@ -28,11 +30,12 @@ KEYWORDS="~amd64 ~x86"
 #	yarpimage     - needs YarpCam (not in portage)
 #	rcore_xbridge - needs libparticle (not in portage)
 
-IUSE="ieee1394 sphinx2 wifi v4l test
+IUSE="ieee1394 sphinx2 wifi v4l test imagemagick
 	boost gnome gtk openssl festival
 	opengl glut gsl java python doc"
 
-RDEPEND="media-libs/jpeg
+RDEPEND="
+	media-libs/jpeg
 	opengl? ( virtual/opengl )
 	glut? ( media-libs/freeglut )
 	openssl? ( dev-libs/openssl )
@@ -40,12 +43,11 @@ RDEPEND="media-libs/jpeg
 	gsl? ( sci-libs/gsl )
 	ieee1394? ( sys-libs/libraw1394 media-libs/libdc1394 )
 	java? ( virtual/jdk )
-	gtk? ( x11-libs/gtk+ )
+	gtk? ( x11-libs/gtk+:2 )
 	gnome? ( >=gnome-base/libgnomecanvas-2.0 )
 	boost? ( dev-libs/boost )
 	sphinx2? ( app-accessibility/sphinx2 )
 	festival? ( app-accessibility/festival )"
-
 DEPEND="${RDEPEND}
 	python? ( dev-lang/swig )
 	java? ( dev-lang/swig )

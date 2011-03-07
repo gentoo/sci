@@ -1,6 +1,21 @@
 # ChangeLog for sci-electronics/player
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  07 Mar 2011; Justin Lecher <jlec@gentoo.org> player-2.0.4.ebuild:
+  QA things
+
+  07 Mar 2011; Justin Lecher <jlec@gentoo.org> player-2.0.4.ebuild:
+  QA things
+
+  07 Mar 2011; Justin Lecher <jlec@gentoo.org> player-2.0.4.ebuild:
+  QA things
+
+  07 Mar 2011; Justin Lecher <jlec@gentoo.org> player-2.0.4.ebuild:
+  QA things
+
+  07 Mar 2011; Justin Lecher <jlec@gentoo.org> player-2.0.4.ebuild:
+  Correct Slots for gtk 3 introduction to tree
 
   19 Sep 2010; Justin Lecher <jlec@gentoo.org> player-2.0.4.ebuild:
   virtual/glut -> media-libs/freeglut & virtual/glu -> virtual/opengl
