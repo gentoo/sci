@@ -15,7 +15,7 @@ LICENSE="GPL-3 free-noncomm"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 ## cgns is not compiling ATM, maybe fix cgns lib first
-IUSE="blas chaco cgns doc examples jpeg lua med metis mpi netgen opencascade png taucs tetgen zlib X"
+IUSE="blas chaco cgns doc examples jpeg lua med metis mpi netgen opencascade png petsc taucs tetgen zlib X"
 
 RDEPEND="X? ( x11-libs/fltk:1.1 )
 	blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
@@ -25,6 +25,7 @@ RDEPEND="X? ( x11-libs/fltk:1.1 )
 	med? ( >=sci-libs/med-2.3.4 )
 	opencascade? ( sci-libs/opencascade )
 	png? ( media-libs/libpng )
+	petsc? ( sci-mathematics/petsc )
 	zlib? ( sys-libs/zlib )
 	mpi? ( virtual/mpi[cxx] )
 	taucs? ( sci-libs/taucs )"
@@ -55,7 +56,8 @@ src_configure() {
 		$(cmake-utils_use_enable netgen NETGEN)
 		$(cmake-utils_use_enable taucs TAUCS)
 		$(cmake-utils_use_enable tetgen TETGEN)
-		$(cmake-utils_use_enable opencascade OCC)"
+		$(cmake-utils_use_enable opencascade OCC)
+		$(cmake-utils_use_enable petsc PETSC)"
 # 		$(cmake-utils_use_enable tetgen TETGEN_NEW)
 
 	cmake-utils_src_configure ${mycmakeargs} \
@@ -65,6 +67,7 @@ src_configure() {
 src_install() {
 	cmake-utils_src_install
 
+	# TODO: tutorials get installed twice ATM
 	if use doc ; then
 		cd "${CMAKE_BUILD_DIR}"
 		emake pdf || die "failed to build documentation"
