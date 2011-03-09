@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=2
 
 PYTHON_DEPEND="python? 2:2.6"
 
@@ -14,8 +14,7 @@ MY_P="ParaView-${PV}"
 
 DESCRIPTION="ParaView is a powerful scientific data visualization application"
 HOMEPAGE="http://www.paraview.org"
-SRC_URI="http://www.paraview.org/files/v3.8/${MY_P}.tar.gz
-	http://ompldr.org/vNmRiOQ/${P}-OFF.patch.bz2"
+SRC_URI="http://www.paraview.org/files/v3.8/${MY_P}.tar.gz"
 RESTRICT="mirror"
 
 LICENSE="paraview GPL-2"
@@ -76,8 +75,6 @@ src_prepare() {
 		Utilities/Xdmf2/libsrc/CMakeLists.txt || die "sed failed"
 	sed -i "s:\/lib\/python:\/$(get_libdir)\/python:g" \
 		Utilities/Xdmf2/CMake/setup_install_paths.py || die "sed failed"
-
-	epatch "${WORKDIR}"/${P}-OFF.patch
 
 	# Install internal vtk binaries inside /usr/${PVLIBDIR}
 	sed -e 's:VTK_INSTALL_BIN_DIR \"/${PV_INSTALL_BIN_DIR}\":VTK_INSTALL_BIN_DIR \"/${PV_INSTALL_LIB_DIR}\":' \
@@ -193,9 +190,6 @@ pkg_postinst() {
 	elog "If you experience data corruption during parsing of"
 	elog "data files with paraview please try setting your"
 	elog "locale to LC_ALL=C."
-	elog "The binary /usr/bin/lproj has been renamed to"
-	elog "/usr/bin/lproj_paraview to avoid a file collision"
-	elog "with vtk."
 	echo
 }
 
