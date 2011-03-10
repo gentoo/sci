@@ -27,20 +27,20 @@ RDEPEND=""
 
 src_compile() {
 	local progs
-	./mkmdp /usr/share/doc/gromacs-${PV}/html || die "mkmdp failed"
-	progs=$(sed -e '/luck/d' /usr/share/gromacs/programs.list | tr '\n' ' ') || \
+	einfo "Building mdp option file"
+	./mkmdp /usr/share/doc/gromacs-${PV}/html || die
+	progs=$(sed -e '/g_luck/d' /usr/share/gromacs/programs.list | tr '\n' ' ') || \
 		die "sed of programs.list failed"
-	echo "Building manpages for ${progs}"
-	sed -e "s@^set PROGRAMS.*@set PROGRAMS = '${progs}'@" mkman > mkman.gentoo || \
-		die "sed of mkman failed"
-	cmp -s mkman mkman.gentoo && die "sed of mkman.gentoo failed"
-	chmod 755 ./mkman.gentoo || die "chmod of mkman.gentoo failed"
-	./mkman.gentoo /usr/bin || die "mkman failed"
-	cp /usr/share/gromacs/programs.txt . || die "cp of programs.txt failed"
-	./mk_proglist || die "mk_proglist failed"
-	g_options  -man tex || die "g_options failed"
-	mv g_options.tex options.tex || die "mv of options.tex failed"
-	make pdf
+	einfo "Building manpages for ${progs}"
+	sed -i "s@^\(set PROGRAMS\).*@\1 = '${progs}'@" mkman || die
+	./mkman /usr/bin || die
+	cp /usr/share/gromacs/programs.txt . || die
+	einfo "Building program list"
+	./mk_proglist || die
+	einfo "Building common option file"
+	emake g_options.tex || die
+	einfo "Building pdf manual"
+	emake pdf || die
 }
 
 src_install() {
