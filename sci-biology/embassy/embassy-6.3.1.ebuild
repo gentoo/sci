@@ -10,7 +10,6 @@ DESCRIPTION="A meta-package for installing all EMBASSY packages (EMBOSS add-ons)
 SRC_URI=""
 
 LICENSE="GPL-2 freedist"
-
 KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux ~ppc-macos"
 
 RDEPEND+="
@@ -30,3 +29,5 @@ RDEPEND+="
 	=sci-biology/embassy-structure-0.1.0-r5
 	=sci-biology/embassy-topo-2.0.0
 	=sci-biology/embassy-vienna-1.7.2-r2"
+
+DOCS=""
