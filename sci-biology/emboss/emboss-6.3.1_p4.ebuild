@@ -2,82 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/emboss-6.3.1_p4.ebuild,v 1.2 2011/03/09 16:29:05 jlec Exp $
 
-EAPI="4"
+EBO_PATCH="4"
+EBOV="${PV/_p${EBO_PATCH}}"
 
-inherit autotools eutils
+inherit embassy-ng
 
-MY_PATCH="4"
-
-DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
-HOMEPAGE="http://emboss.sourceforge.net/"
-SRC_URI="
-	ftp://${PN}.open-bio.org/pub/EMBOSS/EMBOSS-${PV/_p${MY_PATCH}}.tar.gz
-	ftp://${PN}.open-bio.org/pub/EMBOSS/fixes/patches/patch-1-${MY_PATCH}.gz -> ${P}.patch.gz"
-
-LICENSE="GPL-2 LGPL-2"
-SLOT="0"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
-IUSE="doc +largefile minimal mysql pdf png postgres static-libs X"
-
-DEPEND="
-	dev-libs/expat
-	dev-libs/libpcre:3
-	sci-libs/plplot
-	sys-libs/zlib
-	mysql? ( dev-db/mysql )
-	pdf? ( media-libs/libharu )
-	png? (
-		sys-libs/zlib
-		media-libs/libpng
-		media-libs/gd
-		)
-	postgres? ( dev-db/postgresql-base )
-	!minimal? (
-		sci-biology/primer3
-		sci-biology/clustalw
-		)
-	X? ( x11-libs/libXt )"
-RDEPEND="${DEPEND}
-	!sys-devel/cons"
-PDEPEND="
-	!minimal? (
-		sci-biology/aaindex
-		sci-biology/cutg
-		sci-biology/prints
-		sci-biology/prosite
-		sci-biology/rebase
-		sci-biology/transfac
-		)"
-
-S="${WORKDIR}/EMBOSS-${PV/_p${MY_PATCH}}"
-
-src_prepare() {
-	epatch "${WORKDIR}"/${P}.patch
-	epatch \
-		"${FILESDIR}"/${PV}-unbundle-libs.patch
-	eautoreconf
-}
-
-src_configure() {
-	econf \
-		$(use_with X x) \
-		$(use_with png pngdriver "${EPREFIX}/usr") \
-		$(use_with doc docroot "${EPREFIX}/usr") \
-		$(use_with pdf hpdf "${EPREFIX}/usr") \
-		$(use_with mysql mysql "${EPREFIX}/usr/bin/mysql_config") \
-		$(use_with postgres postgresql "${EPREFIX}/usr/bin/pg_config") \
-		$(use_enable amd64 64) \
-		$(use_enable largefile large) \
-		$(use_enable static-libs static) \
-		--without-java \
-		--enable-systemlibs \
-		--includedir="${ED}/usr/include/emboss"
-}
 
 src_install() {
-	einstall || die "Failed to install program files."
+	embassy-ng_src_install
 
-	dodoc AUTHORS ChangeLog FAQ NEWS README THANKS
 	sed "s:EPREFIX:${EPREFIX}:g" "${FILESDIR}"/${PN}-README.Gentoo-2 > README.Gentoo && \
 	dodoc README.Gentoo
 
