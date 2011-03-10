@@ -2,13 +2,6 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-iprscan/ChangeLog,v 1.5 2010/01/15 22:45:28 fauli Exp $
 
-*embassy-iprscan-4.3.1-r2 (10 Mar 2011)
-
-  10 Mar 2011; Justin Lecher <jlec@gentoo.org>
-  +embassy-iprscan-4.3.1-r2.ebuild, +files/embassy-iprscan-4.3.1-r2.patch,
-  +metadata.xml:
-  Move to new embassy-ng.eclass
-
   15 Jan 2010; Christian Faulhammer <fauli@gentoo.org>
   embassy-iprscan-4.3.1-r1.ebuild:
   Transfer Prefix keywords
