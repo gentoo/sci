@@ -16,7 +16,7 @@
 # @DESCRIPTION:
 # The inheriting ebuild should provide EBOV, EBO_DESCRIPTION and "KEYWORDS",
 # before the inherit line.
-# Additionally "(R|P)DEPEND"encies and other standard ebuild Variables can be set.
+# Additionally "(R|P)DEPEND"encies and other standard ebuild Variables can be extended (FOO+="BAR").
 # The inheriting ebuild's name must begin by "embassy-" and must be EAPI=4 conform.
 
 # @ECLASS-VARIABLE: EBOV
@@ -83,6 +83,10 @@ DEPEND="
 
 RDEPEND="${DEPEND}"
 
+DOCS="AUTHORS ChangeLog NEWS README"
+
+[[ -z ${EBOV} ]] && die "You must set EBOV in the ebuild!"
+
 if [[ ${PN} == "emboss" ]] ; then
 	DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
 	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-${EBOV}.tar.gz"
@@ -99,6 +103,7 @@ if [[ ${PN} == "emboss" ]] ; then
 				sci-biology/transfac
 				)"
 	S="${WORKDIR}/EMBOSS-${EBOV}"
+	DOCS+=" FAQ THANKS"
 else
 	# The EMBASSY package name, retrieved from the inheriting ebuild's name
 	EN=${PN:8}
@@ -167,9 +172,4 @@ embassy-ng_src_configure() {
 		${EBO_ECONF}
 }
 
-embassy-ng_src_install() {
-	emake DESTDIR="${D}" install
-	nonfatal dodoc AUTHORS ChangeLog FAQ NEWS README THANKS
-}
-
-EXPORT_FUNCTIONS src_prepare src_configure src_install
+[[ ${PN} == embassy ]] || EXPORT_FUNCTIONS src_prepare src_configure
