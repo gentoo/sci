@@ -1,0 +1,230 @@
+diff -ruN tnt-1.2.2-2-bem/bem/src/magicad.h tnt-1.2.2/bem/src/magicad.h
+--- tnt-1.2.2-2-bem/bem/src/magicad.h	2002-10-23 00:29:27.000000000 +0200
++++ tnt-1.2.2/bem/src/magicad.h	2011-02-24 19:36:32.000000000 +0100
+@@ -100,7 +100,8 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #ifdef __cplusplus
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ #endif
+ #include <limits.h>
+ #if !defined(PATH_MAX) || defined(__hpux)
+diff -ruN tnt-1.2.2-2-bem/calcCAP/src/bicgstab.cpp tnt-1.2.2/calcCAP/src/bicgstab.cpp
+--- tnt-1.2.2-2-bem/calcCAP/src/bicgstab.cpp	2004-07-22 21:29:12.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/bicgstab.cpp	2011-02-24 19:36:32.000000000 +0100
+@@ -9,7 +9,8 @@
+ 
+ 
+ //#include "stdafx.h"
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ #include <math.h>
+ 
+ #include "vector.h"
+diff -ruN tnt-1.2.2-2-bem/calcCAP/src/diffrm.cpp tnt-1.2.2/calcCAP/src/diffrm.cpp
+--- tnt-1.2.2-2-bem/calcCAP/src/diffrm.cpp	2002-10-10 15:46:02.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/diffrm.cpp	2011-02-24 19:36:41.000000000 +0100
+@@ -8,8 +8,10 @@
+ 
+ //#include "stdafx.h"
+ #include <math.h>
+-#include <iostream.h>
+-#include <iomanip.h>
++#include <iostream>
++using namespace std;
++#include <iomanip>
++using namespace std;
+ #include <stdlib.h>
+ 
+ #include "complex.h"
+diff -ruN tnt-1.2.2-2-bem/calcCAP/src/ivectorl.h tnt-1.2.2/calcCAP/src/ivectorl.h
+--- tnt-1.2.2-2-bem/calcCAP/src/ivectorl.h	2002-10-10 15:46:04.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/ivectorl.h	2011-02-24 19:36:32.000000000 +0100
+@@ -1,6 +1,7 @@
+ #ifndef _IVectorl__h_
+ #define _IVectorl__h_
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ 
+ class IVectorl
+ {
+diff -ruN tnt-1.2.2-2-bem/calcCAP/src/prony.cpp tnt-1.2.2/calcCAP/src/prony.cpp
+--- tnt-1.2.2-2-bem/calcCAP/src/prony.cpp	2002-10-10 15:46:06.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/prony.cpp	2011-02-24 19:36:41.000000000 +0100
+@@ -1,6 +1,7 @@
+ #include "stdafx.h"
+ #include <math.h>
+-#include <iomanip.h>
++#include <iomanip>
++using namespace std;
+ #include <stdlib.h>
+ #include "complex.h"
+ #include "vector.h"
+diff -ruN tnt-1.2.2-2-bem/calcCAP/src/sparse.cpp tnt-1.2.2/calcCAP/src/sparse.cpp
+--- tnt-1.2.2-2-bem/calcCAP/src/sparse.cpp	2004-07-22 21:29:12.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/sparse.cpp	2011-02-24 19:36:41.000000000 +0100
+@@ -2,9 +2,11 @@
+ 
+ //#include "stdafx.h"
+ #include <math.h>
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ #include <stdlib.h>
+-#include <iomanip.h>
++#include <iomanip>
++using namespace std;
+ 
+ #include "complex.h" 
+ #include "vector.h" 
+diff -ruN tnt-1.2.2-2-bem/calcCAP/src/stdafx.h tnt-1.2.2/calcCAP/src/stdafx.h
+--- tnt-1.2.2-2-bem/calcCAP/src/stdafx.h	2002-10-10 15:46:08.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/stdafx.h	2011-02-24 19:36:50.000000000 +0100
+@@ -2,11 +2,15 @@
+ #define _stdafx__h_
+ 
+ #include <math.h>
+-#include <iostream.h>
+-#include <iomanip.h>
+-#include <fstream.h>
++#include <iostream>
++using namespace std;
++#include <iomanip>
++using namespace std;
++#include <fstream>
++using namespace std;
+ #include <stdlib.h>
+-#include <iomanip.h>
++#include <iomanip>
++using namespace std;
+ 
+ #include "complex.h"
+ #include "vector.h"
+diff -ruN tnt-1.2.2-2-bem/calcCAP/src/systsolv.cpp tnt-1.2.2/calcCAP/src/systsolv.cpp
+--- tnt-1.2.2-2-bem/calcCAP/src/systsolv.cpp	2002-10-10 15:46:08.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/systsolv.cpp	2011-02-24 19:36:32.000000000 +0100
+@@ -3,7 +3,8 @@
+ 
+ //#include "stdafx.h"
+ 
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ #include <math.h>
+ #include <stdlib.h>
+ #include "complex.h"
+diff -ruN tnt-1.2.2-2-bem/calcCAP/src/vector.h tnt-1.2.2/calcCAP/src/vector.h
+--- tnt-1.2.2-2-bem/calcCAP/src/vector.h	2002-10-10 15:46:09.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/vector.h	2011-02-24 19:36:41.000000000 +0100
+@@ -1,8 +1,10 @@
+ #ifndef _Vector__h_
+ #define _Vector__h_
+ 
+-#include <iostream.h>
+-#include <iomanip.h>
++#include <iostream>
++using namespace std;
++#include <iomanip>
++using namespace std;
+ 
+ class Vector
+ {
+diff -ruN tnt-1.2.2-2-bem/calcRL/src/bicgstab.cpp tnt-1.2.2/calcRL/src/bicgstab.cpp
+--- tnt-1.2.2-2-bem/calcRL/src/bicgstab.cpp	2004-07-22 21:29:37.000000000 +0200
++++ tnt-1.2.2/calcRL/src/bicgstab.cpp	2011-02-24 19:36:32.000000000 +0100
+@@ -9,7 +9,8 @@
+ 
+ 
+ //#include "stdafx.h"
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ #include <math.h>
+ 
+ #include "vector.h"
+diff -ruN tnt-1.2.2-2-bem/calcRL/src/ivectorl.h tnt-1.2.2/calcRL/src/ivectorl.h
+--- tnt-1.2.2-2-bem/calcRL/src/ivectorl.h	2002-10-09 22:23:41.000000000 +0200
++++ tnt-1.2.2/calcRL/src/ivectorl.h	2011-02-24 19:36:32.000000000 +0100
+@@ -2,7 +2,8 @@
+ #define _IVectorl__h_
+ #include <stdlib.h>
+ #include <math.h>
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ 
+ class IVectorl
+ {
+diff -ruN tnt-1.2.2-2-bem/calcRL/src/sparse.cpp tnt-1.2.2/calcRL/src/sparse.cpp
+--- tnt-1.2.2-2-bem/calcRL/src/sparse.cpp	2002-10-09 22:23:45.000000000 +0200
++++ tnt-1.2.2/calcRL/src/sparse.cpp	2011-02-24 19:36:41.000000000 +0100
+@@ -1,9 +1,11 @@
+ /******* functions, needed for sparse matrices  *******/
+ 
+ #include <math.h>
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ #include <stdlib.h>
+-#include <iomanip.h>
++#include <iomanip>
++using namespace std;
+ 
+ #include "complex.h" 
+ #include "vector.h" 
+diff -ruN tnt-1.2.2-2-bem/calcRL/src/stdafx.h tnt-1.2.2/calcRL/src/stdafx.h
+--- tnt-1.2.2-2-bem/calcRL/src/stdafx.h	2002-10-09 22:23:56.000000000 +0200
++++ tnt-1.2.2/calcRL/src/stdafx.h	2011-02-24 19:36:50.000000000 +0100
+@@ -2,11 +2,15 @@
+ #define _stdafx__h_
+ 
+ #include <math.h>
+-#include <iostream.h>
+-#include <iomanip.h>
+-#include <fstream.h>
++#include <iostream>
++using namespace std;
++#include <iomanip>
++using namespace std;
++#include <fstream>
++using namespace std;
+ #include <stdlib.h>
+-#include <iomanip.h>
++#include <iomanip>
++using namespace std;
+ 
+ #include "complex.h"
+ #include "vector.h"
+diff -ruN tnt-1.2.2-2-bem/calcRL/src/systsolv.cpp tnt-1.2.2/calcRL/src/systsolv.cpp
+--- tnt-1.2.2-2-bem/calcRL/src/systsolv.cpp	2002-10-09 22:23:57.000000000 +0200
++++ tnt-1.2.2/calcRL/src/systsolv.cpp	2011-02-24 19:36:32.000000000 +0100
+@@ -2,7 +2,8 @@
+      /*****Source - "NUMERICAL RECIPES IN C", www.nr.com*****/
+ 
+ //#include "stdafx.h"
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ #include <math.h>
+ #include <stdlib.h>
+ #include "complex.h"
+diff -ruN tnt-1.2.2-2-bem/calcRL/src/vector.h tnt-1.2.2/calcRL/src/vector.h
+--- tnt-1.2.2-2-bem/calcRL/src/vector.h	2002-10-09 22:23:59.000000000 +0200
++++ tnt-1.2.2/calcRL/src/vector.h	2011-02-24 19:36:41.000000000 +0100
+@@ -3,8 +3,10 @@
+ 
+ #include <stdlib.h>
+ #include <math.h>
+-#include <iostream.h>
+-#include <iomanip.h>
++#include <iostream>
++using namespace std;
++#include <iomanip>
++using namespace std;
+ 
+ class Vector
+ {

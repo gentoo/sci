@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,37 +6,41 @@ EAPI="3"
 
 inherit autotools eutils
 
-DESCRIPTION="Frama-C is a suite of tools dedicated to the analysis of the source code of software written in C."
-HOMEPAGE="http://www.frama-c.cea.fr/"
 NAME="Boron"
-SRC_URI="http://www.frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
+
+DESCRIPTION="Suite for analysis of the source code in C"
+HOMEPAGE="http://frama-c.com"
+SRC_URI="http://frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~sparc ~x86"
+KEYWORDS="~amd64 ~ppc ~x86"
 IUSE="apron doc gtk +ocamlopt +why"
+
 RESTRICT="strip"
 
-DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
-		>=dev-ml/ocamlgraph-1.4[gtk?,ocamlopt?]
-		gtk? ( >=x11-libs/gtksourceview-2.8
-			>=gnome-base/libgnomecanvas-2.26
-			>=dev-ml/lablgtk-2.14[sourceview,gnomecanvas,ocamlopt?] )
-		sci-mathematics/ltl2ba
-		apron? ( sci-mathematics/apron )"
+DEPEND="
+	>=dev-lang/ocaml-3.10.2[ocamlopt?]
+	>=dev-ml/ocamlgraph-1.6[gtk?,ocamlopt?]
+	sci-mathematics/ltl2ba
+	apron? ( sci-mathematics/apron )
+	gtk? (
+		x11-libs/gtksourceview:2.0
+		>=gnome-base/libgnomecanvas-2.26
+		>=dev-ml/lablgtk-2.14[sourceview,gnomecanvas,ocamlopt?]
+		)"
 RDEPEND="${DEPEND}"
 PDEPEND="why? ( >=sci-mathematics/why-2.26 )"
 
 S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
 
 src_prepare(){
+	rm share/libc/test.c
+	rm -Rf src/wp
+
 	epatch "${FILESDIR}/${P}-plugin_install.patch"
 
-	rm share/libc/test.c
-	
 	touch config_file
-	sed -i configure.in \
-		-e "s:1.4):1.5):g"
 	eautoreconf
 }
 

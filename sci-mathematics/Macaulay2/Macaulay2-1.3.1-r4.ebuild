@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,27 +6,28 @@ EAPI="2"
 
 inherit autotools elisp-common eutils
 
-IUSE="emacs optimization"
-
 MY_REV="r10737"
-DESCRIPTION="research tool for commutative algebra and algebraic geometry"
-SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
-SRC_URI="${SRC_BASE}/SourceCode/Macaulay2-${PV}-${MY_REV}.bz2 -> ${P}.tar.bz2
-		 ${SRC_BASE}/OtherSourceCode/1.3/factory-3-1-0.tar.gz
-		 ${SRC_BASE}/OtherSourceCode/1.3/libfac-3-1-0.tar.gz"
 
+DESCRIPTION="Research tool for commutative algebra and algebraic geometry"
 HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
+SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
+SRC_URI="
+	${SRC_BASE}/SourceCode/Macaulay2-${PV}-${MY_REV}.bz2 -> ${P}.tar.bz2
+	${SRC_BASE}/OtherSourceCode/1.3/factory-3-1-0.tar.gz
+	${SRC_BASE}/OtherSourceCode/1.3/libfac-3-1-0.tar.gz"
 
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
+IUSE="emacs optimization"
 
-DEPEND="sys-libs/gdbm
+DEPEND="
+	sys-libs/gdbm
 	>=dev-libs/ntl-5.5.2
 	>=dev-libs/boehm-gc-7.1
 	>=sci-mathematics/pari-2.3.4[gmp]
 	>=sys-libs/readline-6.0
-	dev-libs/libxml2
+	dev-libs/libxml2:2
 	sci-mathematics/frobby
 	sci-mathematics/4ti2
 	<sci-mathematics/normaliz-2.5

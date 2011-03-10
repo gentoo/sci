@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="Scalable Performance Analysis of Large-Scale Applications"
 HOMEPAGE="http://www.fz-juelich.de/jsc/scalasca/"
-SRC_URI="http://www.fz-juelich.de/jsc/datapool/scalasca/${P}.tar.gz"
+SRC_URI="http://www2.fz-juelich.de/zam/datapool/scalasca/${P}.tar.gz"
 
 LICENSE="scalasca"
 SLOT="0"

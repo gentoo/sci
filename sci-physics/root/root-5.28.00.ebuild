@@ -3,7 +3,9 @@
 # $Header: $
 
 EAPI=3
+
 PYTHON_DEPEND="python? 2"
+
 inherit versionator eutils elisp-common fdo-mime python toolchain-funcs flag-o-matic
 
 #DOC_PV=$(get_major_version)_$(get_version_component_range 2)
@@ -13,7 +15,8 @@ TMVA_DOC_PV=4.03
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
-SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
+SRC_URI="
+	ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
 	doc? (
 		ftp://root.cern.ch/root/doc/Users_Guide_${DOC_PV}.pdf
 		ftp://root.cern.ch/root/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
@@ -29,7 +32,8 @@ IUSE="afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
 # libafterimage ignored, to check every version
 # see https://savannah.cern.ch/bugs/?func=detailitem&item_id=30944
 #	|| ( >=media-libs/libafterimage-1.18 x11-wm/afterstep )
-CDEPEND=">=dev-lang/cfortran-4.4-r2
+CDEPEND="
+	>=dev-lang/cfortran-4.4-r2
 	dev-libs/libpcre
 	media-libs/ftgl
 	media-libs/giflib
@@ -61,17 +65,18 @@ CDEPEND=">=dev-lang/cfortran-4.4-r2
 	postgres? ( dev-db/postgresql-base )
 	pythia6? ( sci-physics/pythia:6 )
 	pythia8? ( sci-physics/pythia:8 )
-	qt4? ( x11-libs/qt-gui:4
+	qt4? (
+		x11-libs/qt-gui:4
 		x11-libs/qt-opengl:4
 		x11-libs/qt-qt3support:4
 		x11-libs/qt-svg:4
 		x11-libs/qt-webkit:4
 		x11-libs/qt-xmlpatterns:4 )
-	ruby? ( dev-lang/ruby
-			dev-ruby/rubygems )
+	ruby? (
+		dev-lang/ruby
+		dev-ruby/rubygems )
 	ssl? ( dev-libs/openssl )
-	xml? ( dev-libs/libxml2 )"
-
+	xml? ( dev-libs/libxml2:2 )"
 DEPEND="${CDEPEND}
 	dev-util/pkgconfig"
 

@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.73 2010/07/10 19:05:23 armin76 Exp $
 
+  07 Mar 2011; Justin Lecher <jlec@gentoo.org> root-5.28.00.ebuild:
+  Correct Slots for gtk 3 introduction to tree
+
   08 Jan 2011; Sébastien Fabbro <bicatali@gentoo.org> root-5.28.00.ebuild,
   files/root-5.28.00-xrootd-prop-flags.patch:
   Respect more LDFLAGS. Go back to old style python and ruby modules, multiple

@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,6 +18,8 @@ IUSE=""
 
 DEPEND="sci-biology/tigr-foundation-libs"
 RDEPEND="${DEPEND}
+		dev-lang/perl
+		dev-lang/python
 		dev-perl/XML-Parser
 		dev-perl/Config-IniFiles
 		dev-perl/GraphViz"
@@ -95,6 +97,8 @@ src_install() {
 	mkdir -p "${D}"/usr/share/doc/"${P}" || die
 	mv "${D}"/usr/doc/* "${D}"/usr/share/doc/"${P}" || die
 	rmdir "${D}"/usr/doc || die
+
+	dobin "${FILESDIR}"/goBambus.pl || die "Failed to install the alternative of goBambus.py written in perl"
 }
 
 pkg_postinst(){

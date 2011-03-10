@@ -1,0 +1,503 @@
+# Adapt this old source to the new C++ standards
+# These patches fix a c++ scope issue, gcc was for some reason
+# not able to discover friend function of class Complex.
+# This has been solved by making this functions a member instead of a friend.
+# George Reitsma <g.p.reitsma@gmail.com>
+
+diff -ruN tnt-1.2.2-0-vanilla/calcCAP/src/calcCAP.cpp tnt-1.2.2/calcCAP/src/calcCAP.cpp
+--- tnt-1.2.2-0-vanilla/calcCAP/src/calcCAP.cpp	2004-07-22 21:29:12.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/calcCAP.cpp	2011-02-24 19:29:44.000000000 +0100
+@@ -14,6 +14,8 @@
+ #endif
+ #include <time.h>
+ #include <stdio.h>
++#include <string.h>
++using namespace std;
+ 
+ /********************** Global variables *******************/
+ 
+@@ -287,7 +289,7 @@
+       
+       for ( i1 = 0; i1 < Nc; i1 ++ ) {
+ 	
+-	sumc[i1] = cmplx( 0.0, 0.0 );
++	sumc[i1] = Complex( 0.0, 0.0 );
+ 
+ 	
+ 	for ( j1 = 0; j1 < Nw; j1 ++ ) {
+diff -ruN tnt-1.2.2-0-vanilla/calcCAP/src/cmplxmat.cpp tnt-1.2.2/calcCAP/src/cmplxmat.cpp
+--- tnt-1.2.2-0-vanilla/calcCAP/src/cmplxmat.cpp	2004-07-22 21:29:12.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/cmplxmat.cpp	2011-02-24 19:29:44.000000000 +0100
+@@ -378,7 +378,7 @@
+   Matrix result(d_i,d_j);
+   for(int i = 0; i < d_i; i++)
+     for(int j = 0; j < d_j; j++)
+-      result(i,j)=::real(elem(i,j));
++      result(i,j)=elem(i,j).real(); // result(i,j)=::real(elem(i,j));
+   return (result);
+ }
+ 
+@@ -387,7 +387,7 @@
+   Matrix result(d_i,d_j);
+   for(int i = 0; i < d_i; i++)
+     for(int j = 0; j < d_j; j++)
+-      result(i,j)=::imag(elem(i,j));
++      result(i,j)=elem(i,j).imag(); // result(i,j)=::imag(elem(i,j));
+   return (result);
+ }
+ 
+@@ -396,7 +396,7 @@
+   Matrix result(d_i,d_j);
+   for(int i = 0; i < d_i; i++)
+     for(int j = 0; j < d_j; j++)
+-      result(i,j)=::cabs(elem(i,j));
++      result(i,j)=elem(i,j).cabs(); // result(i,j)=::cabs(elem(i,j));
+   return (result);
+ }
+ 
+@@ -405,7 +405,7 @@
+   CmplxMatrix result(d_i,d_j);
+   for(int i = 0; i < d_i; i++)
+     for(int j = 0; j < d_j; j++)
+-      result(i,j)=::conjg(elem(i,j));
++      result(i,j)=elem(i,j).conjg(); // result(i,j)=::conjg(elem(i,j));
+   return (result);
+ }
+      
+diff -ruN tnt-1.2.2-0-vanilla/calcCAP/src/cmplxvec.cpp tnt-1.2.2/calcCAP/src/cmplxvec.cpp
+--- tnt-1.2.2-0-vanilla/calcCAP/src/cmplxvec.cpp	2004-07-22 21:29:12.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/cmplxvec.cpp	2011-02-24 19:29:44.000000000 +0100
+@@ -287,7 +287,7 @@
+  
+  int n = d;
+  CmplxVector tmp(n);
+- for(int i = 0; i < n; i++)  tmp[i] = ::conjg(v[i]);
++ for(int i = 0; i < n; i++)  tmp[i] = v[i].conjg(); // tmp[i] = ::conjg(v[i]);
+  return (tmp);
+ }
+ 
+@@ -295,7 +295,7 @@
+  
+  Vector tmp(d);
+  int n = d;
+- while(n--) tmp[n] = ::real(v[n]);
++ while(n--) tmp[n] = v[n].real(); // tmp[n] = ::real(v[n]);
+  return (tmp);
+ }
+ 
+@@ -303,7 +303,7 @@
+  
+  Vector tmp(d);
+  int n = d;
+- while(n--) tmp[n] = ::imag(v[n]);
++ while(n--) tmp[n] = v[n].imag(); // tmp[n] = ::imag(v[n]);
+  return (tmp);
+ }
+ 
+@@ -311,7 +311,7 @@
+ 
+   Vector result(d);
+   for(int i = 0; i < d; i++)
+-      result[i]=::cabs(v[i]);
++    result[i]=v[i].cabs(); // result[i]=::cabs(v[i]);
+   return (result);
+ }
+ 
+diff -ruN tnt-1.2.2-0-vanilla/calcCAP/src/complex.cpp tnt-1.2.2/calcCAP/src/complex.cpp
+--- tnt-1.2.2-0-vanilla/calcCAP/src/complex.cpp	2002-10-10 15:46:00.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/complex.cpp	2011-02-24 19:29:44.000000000 +0100
+@@ -203,6 +203,54 @@
+   return(result);
+ }
+ 
++double Complex::real(void) {
++ 
++  return(re);
++}
++
++double Complex::imag(void) {
++ 
++  return(im);
++}
++
++double Complex::arg(void) {
++
++  return((im == 0.0)&&(re == 0.0) ? 0 : atan2(im, re));
++}
++
++double Complex::cabs(void) {
++ 
++  double x, y, ans, temp;
++  x = fabs(re);
++  y = fabs(im);
++  if (x == 0.0)
++     ans = y;
++  else if (y == 0.0)    
++     ans = x;
++  else if (x > y) {
++     temp = y/x;
++     ans = x*sqrt(1.0+temp*temp);
++  } else {
++     temp = x/y;
++     ans = y*sqrt(1.0+temp*temp);
++  }
++  return ans;  
++}
++
++double Complex::cabsm(void) {
++ 
++  return(sqrt(re*re + im*im));
++}
++
++Complex Complex::conjg(void) {
++ 
++  Complex com;
++  com.re =  re;
++  com.im = -im;
++  return(com);
++}
++
++
+ /********************* friends *****************************/
+ 
+ Complex operator*(const double& r, const Complex& c) { 
+diff -ruN tnt-1.2.2-0-vanilla/calcCAP/src/complex.h tnt-1.2.2/calcCAP/src/complex.h
+--- tnt-1.2.2-0-vanilla/calcCAP/src/complex.h	2002-10-10 15:46:00.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/complex.h	2011-02-24 19:29:44.000000000 +0100
+@@ -1,10 +1,13 @@
+ #ifndef _complex__h_
+ #define _complex__h_
+ 
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ 
+ class Complex
+ {
++ public:
++
+    friend Complex operator*(const double&, const Complex&);
+    friend Complex operator+(const double&, const Complex&);
+    friend Complex operator-(const double&, const Complex&);
+@@ -16,6 +19,14 @@
+    friend double     cabs(const Complex&);
+    friend double     cabsm(const Complex&);
+    friend Complex   conjg(const Complex&);
++
++   double     real(void);
++   double     imag(void);
++   double     arg(void);
++   double     cabs(void);
++   double     cabsm(void);
++   Complex   conjg(void);
++
+    friend Complex   cmplx(const double,const double);  
+    friend Complex   polar(const double&, const double&);
+    friend Complex   cos(const Complex&);
+@@ -37,7 +48,6 @@
+    friend ostream& operator<<(ostream&, Complex&);
+    friend istream& operator>>(istream&, Complex&);
+ 
+- public:
+    Complex(){}                       // constructors
+    Complex(double r, double i = 0.0);
+    Complex(const Complex&);
+diff -ruN tnt-1.2.2-0-vanilla/calcCAP/src/data.cpp tnt-1.2.2/calcCAP/src/data.cpp
+--- tnt-1.2.2-0-vanilla/calcCAP/src/data.cpp	2002-10-10 15:46:01.000000000 +0200
++++ tnt-1.2.2/calcCAP/src/data.cpp	2011-02-24 19:29:44.000000000 +0100
+@@ -260,7 +260,7 @@
+       }
+     }
+     
+-    Ic = cmplx( 0.0, 1.0 );
++    Ic = Complex( 0.0, 1.0 );
+     
+     Nc4 = 11*Nh+1;
+     step_w = 1.0/power( 2.0, J );
+diff -ruN tnt-1.2.2-0-vanilla/calcRL/src/calcRL.cpp tnt-1.2.2/calcRL/src/calcRL.cpp
+--- tnt-1.2.2-0-vanilla/calcRL/src/calcRL.cpp	2004-07-22 21:29:37.000000000 +0200
++++ tnt-1.2.2/calcRL/src/calcRL.cpp	2011-02-24 19:29:53.000000000 +0100
+@@ -43,7 +43,8 @@
+ #endif
+ #include <time.h>
+ #include <stdio.h>
+-
++#include <string.h>
++using namespace std;
+ /********************** Global variables *******************/
+ 
+    int     Nc, Die, Rec, Cir, Tri, Ell, Pol, Gnd, Tra;
+@@ -564,7 +565,7 @@
+ 	tmp4 = Circum[i] / double(Nw);
+ 	tmpsum1 = 0.0;
+ 	tmpsum2 = 0.0;
+-	sum2[i] = cmplx( 0.0, 0.0 );
++	sum2[i] = Complex( 0.0, 0.0 );
+ 	
+ 	for (j = 0; j < Nw; j ++) {
+ 	  
+diff -ruN tnt-1.2.2-0-vanilla/calcRL/src/cmplxmat.cpp tnt-1.2.2/calcRL/src/cmplxmat.cpp
+--- tnt-1.2.2-0-vanilla/calcRL/src/cmplxmat.cpp	2004-07-22 21:29:37.000000000 +0200
++++ tnt-1.2.2/calcRL/src/cmplxmat.cpp	2011-02-24 19:29:53.000000000 +0100
+@@ -386,7 +386,7 @@
+   Matrix result(d_i,d_j);
+   for(int i = 0; i < d_i; i++)
+     for(int j = 0; j < d_j; j++)
+-      result(i,j)=::real(elem(i,j));
++      result(i,j)=elem(i,j).real(); // result(i,j)=::real(elem(i,j));
+   return (result);
+ }
+ 
+@@ -395,7 +395,7 @@
+   Matrix result(d_i,d_j);
+   for(int i = 0; i < d_i; i++)
+     for(int j = 0; j < d_j; j++)
+-      result(i,j)=::imag(elem(i,j));
++      result(i,j)=elem(i,j).imag(); // result(i,j)=::imag(elem(i,j));
+   return (result);
+ }
+ 
+@@ -404,7 +404,7 @@
+   Matrix result(d_i,d_j);
+   for(int i = 0; i < d_i; i++)
+     for(int j = 0; j < d_j; j++)
+-      result(i,j)=::cabs(elem(i,j));
++      result(i,j)=elem(i,j).cabs(); // result(i,j)=::cabj(elem(i,j));
+   return (result);
+ }
+ 
+@@ -413,7 +413,7 @@
+   CmplxMatrix result(d_i,d_j);
+   for(int i = 0; i < d_i; i++)
+     for(int j = 0; j < d_j; j++)
+-      result(i,j)=::conjg(elem(i,j));
++      result(i,j)=elem(i,j).conjg(); // result(i,j)=::conjg(elem(i,j));
+   return (result);
+ }
+      
+diff -ruN tnt-1.2.2-0-vanilla/calcRL/src/cmplxvec.cpp tnt-1.2.2/calcRL/src/cmplxvec.cpp
+--- tnt-1.2.2-0-vanilla/calcRL/src/cmplxvec.cpp	2004-07-22 21:29:37.000000000 +0200
++++ tnt-1.2.2/calcRL/src/cmplxvec.cpp	2011-02-24 19:29:53.000000000 +0100
+@@ -289,7 +289,7 @@
+  
+  int n = d;
+  CmplxVector tmp(n);
+- for(int i = 0; i < n; i++)  tmp[i] = ::conjg(v[i]);
++ for(int i = 0; i < n; i++)  tmp[i] = v[i].conjg(); // tmp[i] = ::conjg(v[i]);
+  return (tmp);
+ }
+ 
+@@ -297,7 +297,7 @@
+  
+  Vector tmp(d);
+  int n = d;
+- while(n--) tmp[n] = ::real(v[n]);
++ while(n--) tmp[n] = v[n].real(); // tmp[n] = ::real(v[n]);
+  return (tmp);
+ }
+ 
+@@ -305,7 +305,7 @@
+  
+  Vector tmp(d);
+  int n = d;
+- while(n--) tmp[n] = ::imag(v[n]);
++ while(n--) tmp[n] = v[n].imag(); // tmp[n] = ::imag(v[n])
+  return (tmp);
+ }
+ 
+@@ -313,7 +313,7 @@
+ 
+   Vector result(d);
+   for(int i = 0; i < d; i++)
+-      result[i]=::cabs(v[i]);
++    result[i]=v[i].cabs(); // result[i]=::cabs(v[i]);
+   return (result);
+ }
+ 
+diff -ruN tnt-1.2.2-0-vanilla/calcRL/src/complex.cpp tnt-1.2.2/calcRL/src/complex.cpp
+--- tnt-1.2.2-0-vanilla/calcRL/src/complex.cpp	2002-10-09 22:23:38.000000000 +0200
++++ tnt-1.2.2/calcRL/src/complex.cpp	2011-02-24 19:29:53.000000000 +0100
+@@ -17,6 +17,53 @@
+ 
+ /*********************** members *********************************/
+ 
++double Complex::real(void) {
++ 
++  return(re);
++}
++
++double Complex::imag(void) {
++ 
++  return(im);
++}
++
++double Complex::arg(void) {
++
++  return((im == 0.0)&&(re == 0.0) ? 0 : atan2(im, re));
++}
++
++double Complex::cabs(void) {
++ 
++  double x, y, ans, temp;
++  x = fabs(re);
++  y = fabs(im);
++  if (x == 0.0)
++     ans = y;
++  else if (y == 0.0)    
++     ans = x;
++  else if (x > y) {
++     temp = y/x;
++     ans = x*sqrt(1.0+temp*temp);
++  } else {
++     temp = x/y;
++     ans = y*sqrt(1.0+temp*temp);
++  }
++  return ans;  
++}
++
++double Complex::cabsm(void) {
++ 
++  return(sqrt(re*re + im*im));
++}
++
++Complex Complex::conjg(void) {
++ 
++  Complex com;
++  com.re =  re;
++  com.im = -im;
++  return(com);
++}
++
+ /********************* friends *****************************/
+ 
+ Complex operator*(const double& r, const Complex& c) { 
+diff -ruN tnt-1.2.2-0-vanilla/calcRL/src/complex.h tnt-1.2.2/calcRL/src/complex.h
+--- tnt-1.2.2-0-vanilla/calcRL/src/complex.h	2002-10-09 22:23:39.000000000 +0200
++++ tnt-1.2.2/calcRL/src/complex.h	2011-02-24 19:29:53.000000000 +0100
+@@ -3,10 +3,12 @@
+ 
+ #include <stdlib.h>
+ #include <math.h>
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ 
+ class Complex
+ {
++ public:
+    friend Complex operator*(const double&, const Complex&);
+    friend Complex operator+(const double&, const Complex&);
+    friend Complex operator-(const double&, const Complex&);
+@@ -14,6 +16,14 @@
+ 
+    friend double     real(const Complex&);
+    friend double     imag(const Complex&);
++   double     real(void);
++   double     imag(void);
++   double     arg(void);
++   double     cabs(void);
++   double     cabsm(void);
++   Complex   conjg(void);
++   
++
+    friend double     arg(const Complex&);
+    friend double     cabs(const Complex&);
+    friend double     cabsm(const Complex&);
+@@ -39,7 +49,7 @@
+    friend ostream& operator<<(ostream&, Complex&);
+    friend istream& operator>>(istream&, Complex&);
+ 
+- public:
++
+    Complex(){}                       // constructors
+    Complex(double r, double i = 0.0);
+    Complex(const Complex&);
+diff -ruN tnt-1.2.2-0-vanilla/calcRL/src/data.cpp tnt-1.2.2/calcRL/src/data.cpp
+--- tnt-1.2.2-0-vanilla/calcRL/src/data.cpp	2004-07-22 21:29:37.000000000 +0200
++++ tnt-1.2.2/calcRL/src/data.cpp	2011-02-24 19:29:53.000000000 +0100
+@@ -251,7 +251,7 @@
+       }
+     }
+     
+-    Ic = cmplx( 0.0, 1.0 );
++    Ic = Complex( 0.0, 1.0 );
+     
+     Nc4 = 11*Nh+1;
+     step_w = 1.0/power( 2.0, J );
+diff -ruN tnt-1.2.2-0-vanilla/calcRL/src/hankel.cpp tnt-1.2.2/calcRL/src/hankel.cpp
+--- tnt-1.2.2-0-vanilla/calcRL/src/hankel.cpp	2002-10-09 22:23:40.000000000 +0200
++++ tnt-1.2.2/calcRL/src/hankel.cpp	2011-02-24 19:29:53.000000000 +0100
+@@ -19,7 +19,7 @@
+ 
+    hank01( vj0, vy0, x, 1 );
+ 
+-   return( cmplx( vj0, -vy0 ) );
++   return( Complex( vj0, -vy0 ) );
+ }
+ 
+ /***** Function Hank21 - to calculate H^(2)_1(x), x - double  ****/
+@@ -30,7 +30,7 @@
+ 
+    hank11( vj1, vy1, x, 1 );
+ 
+-   return( cmplx( vj1, -vy1 ) );
++   return( Complex( vj1, -vy1 ) );
+ }
+ 
+ /***** Function Hank10 - to calculate H^(1)_0(x), x - double  ****/
+@@ -41,7 +41,7 @@
+ 
+    hank01( vj0, vy0, x, 1 );
+ 
+-   return( cmplx( vj0, vy0 ) );
++   return( Complex( vj0, vy0 ) );
+ }
+ 
+ /***** Function Hank11 - to calculate H^(1)_1(x), x - double  ****/
+@@ -52,7 +52,7 @@
+ 
+    hank11( vj1, vy1, x, 1 );
+ 
+-   return( cmplx( vj1, vy1 ) );
++   return( Complex( vj1, vy1 ) );
+ }
+ 
+ int hank01( double& vj0, double& vy0, double xd, int n ) {
+diff -ruN tnt-1.2.2-0-vanilla/calcRL/src/kelvin.cpp tnt-1.2.2/calcRL/src/kelvin.cpp
+--- tnt-1.2.2-0-vanilla/calcRL/src/kelvin.cpp	2002-10-09 22:23:42.000000000 +0200
++++ tnt-1.2.2/calcRL/src/kelvin.cpp	2011-02-24 19:29:53.000000000 +0100
+@@ -332,20 +332,20 @@
+   return(keip);
+ }
+ 
+-static Complex  seta_p1 = cmplx(0.0,-0.3926991);
+-static Complex  seta_p2 = cmplx(0.0110486,0.0);
+-static Complex  seta_p3 = cmplx(0.0,-0.0009765);
+-static Complex  seta_p4 = cmplx(-0.0000906,-0.0000901);
+-static Complex  seta_p5 = cmplx(-0.0000252,0.0);
+-static Complex  seta_p6 = cmplx(-0.0000034,0.0000051);
+-static Complex  seta_p7 = cmplx(0.0000006,.0000019);
+-static Complex  dphi_p1 = cmplx(0.7071068,0.7071068);
+-static Complex  dphi_p2 = cmplx(-0.0625001,-0.0000001);
+-static Complex  dphi_p3 = cmplx(-0.0013813,0.0013811);
+-static Complex  dphi_p4 = cmplx(0.0000005,0.0002452);
+-static Complex  dphi_p5 = cmplx(0.0000346,0.0000338);
+-static Complex  dphi_p6 = cmplx(0.0000117,-0.0000024);
+-static Complex  dphi_p7 = cmplx(0.0000016,-0.0000032);
++static Complex  seta_p1 = Complex(0.0,-0.3926991);
++static Complex  seta_p2 = Complex(0.0110486,0.0);
++static Complex  seta_p3 = Complex(0.0,-0.0009765);
++static Complex  seta_p4 = Complex(-0.0000906,-0.0000901);
++static Complex  seta_p5 = Complex(-0.0000252,0.0);
++static Complex  seta_p6 = Complex(-0.0000034,0.0000051);
++static Complex  seta_p7 = Complex(0.0000006,.0000019);
++static Complex  dphi_p1 = Complex(0.7071068,0.7071068);
++static Complex  dphi_p2 = Complex(-0.0625001,-0.0000001);
++static Complex  dphi_p3 = Complex(-0.0013813,0.0013811);
++static Complex  dphi_p4 = Complex(0.0000005,0.0002452);
++static Complex  dphi_p5 = Complex(0.0000346,0.0000338);
++static Complex  dphi_p6 = Complex(0.0000117,-0.0000024);
++static Complex  dphi_p7 = Complex(0.0000016,-0.0000032);
+ 
+ 
+ 

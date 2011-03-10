@@ -4,10 +4,12 @@
 
 EAPI="3"
 
-inherit eutils autotools-utils
+inherit eutils cmake-utils
 
 if [ "${PV}" != "9999" ]; then
-	SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz"
+	SRC_URI="boost? ( http://votca.googlecode.com/files/${PF}_pristine.tar.gz )
+		!boost? ( http://votca.googlecode.com/files/${PF}.tar.gz )"
+	RESTRICT="primaryuri"
 else
 	SRC_URI=""
 	inherit mercurial
@@ -21,7 +23,7 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="-boost doc +fftw +gsl static-libs"
+IUSE="-boost doc +fftw +gsl"
 
 RDEPEND="fftw? ( sci-libs/fftw:3.0 )
 	dev-libs/expat
@@ -29,7 +31,7 @@ RDEPEND="fftw? ( sci-libs/fftw:3.0 )
 	boost? ( dev-libs/boost )"
 
 DEPEND="${RDEPEND}
-	doc? ( app-doc/doxygen )
+	doc? ( app-doc/doxygen[-nodot] )
 	>=app-text/txt2tags-2.5
 	dev-util/pkgconfig"
 
@@ -38,36 +40,28 @@ src_prepare() {
 	use fftw || ewarn "Disabling fftw will lead to reduced functionality"
 
 	#remove bundled libs
-	rm -rf src/libexpat
 	if use boost; then
 		rm -rf src/libboost
-	else
-		#fix a qa issue ../../config is not support as m4 dir
-		mkdir -p src/libboost/config
-		sed -i 's@\.\./\.\./config@config@' \
-			src/libboost/configure.ac \
-			src/libboost/Makefile.am
 	fi
-	eautoreconf || die "eautoreconf failed"
 }
 
 src_configure() {
-	local myconf
-	use boost && myconf="--disable-votca-boost" || myconf="--enable-votca-boost"
-
-	myeconfargs=( ${myconf} --disable-rc-files
-		$(use_with gsl)
-		$(use_with fftw)
+	mycmakeargs=(
+		$(cmake-utils_use boost EXTERNAL_BOOST)
+		$(cmake-utils_use_with gsl GSL)
+		$(cmake-utils_use_with fftw FFTW)
+		-DWITH_RC_FILES=OFF
 	)
-	autotools-utils_src_configure
+	cmake-utils_src_configure || die
 }
 
 src_install() {
-	DOCS=(${AUTOTOOLS_BUILD_DIR}/CHANGELOG NOTICE)
-	autotools-utils_src_install
+	DOCS=(${CMAKE_BUILD_DIR}/CHANGELOG NOTICE)
+	cmake-utils_src_install || die
 	if use doc; then
-		cd share/doc
+		cd "${CMAKE_BUILD_DIR}" || die
+		cd share/doc || die
 		doxygen || die
-		dohtml -r html/*
+		dohtml -r html/* || die
 	fi
 }

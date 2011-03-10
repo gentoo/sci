@@ -1,6 +1,8 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI="3"
 
 inherit autotools eutils
 
@@ -14,16 +16,14 @@ KEYWORDS="~amd64 ~x86"
 
 IUSE="doc"
 
-RDEPEND=">=x11-libs/gtk+-2.4
+RDEPEND="
+	x11-libs/gtk+:2
 	>=sci-electronics/player-2.0.2
 	x11-apps/rgb"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-
+src_prepare() {
 	epatch "${FILESDIR}"/${P}-docdst-fix.patch
 	sed -i \
 		-e 's;/usr/X11R6/lib/X11/rgb.txt;/usr/share/X11/rgb.txt;' \
@@ -31,9 +31,12 @@ src_unpack() {
 	eautoreconf
 }
 
-src_compile() {
+src_configure() {
 	#Disable gnome-canvas since its experimental
-	econf --disable-gnomecanvas || die "econf failed"
+	econf --disable-gnomecanvas
+}
+
+src_compile() {
 	emake || die "emake failed"
 
 	if use doc; then

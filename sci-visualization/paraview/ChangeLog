@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Mar 2011; Oliver Borm (boroli) <oli.borm@web.de> paraview-3.8.1.ebuild:
+  sci-visualization/paraview: removed OFF patch as this is now an external
+  plugin
+
+  07 Mar 2011; Justin Lecher <jlec@gentoo.org> paraview-3.8.1.ebuild:
+  Correct Slots for gtk 3 introduction to tree
+
   01 Feb 2011; François Bissey <francois.bissey@canterbury.ac.nz>
   paraview-3.8.1.ebuild:
   Resolve file collisions with vtk.

@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/geom
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*geom-5.1.2.7 (09 Mar 2011)
+
+  09 Mar 2011; Oliver Borm (boroli) <oli.borm@web.de> +geom-5.1.2.7.ebuild,
+  +metadata.xml:
+  sci-libs/geom: New ebuild from bug 358061
+

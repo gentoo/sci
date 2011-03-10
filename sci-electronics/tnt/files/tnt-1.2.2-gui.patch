@@ -1,0 +1,24 @@
+diff -ruN tnt-1.2.2-6-docs/gui/gui_help.tcl tnt-1.2.2/gui/gui_help.tcl
+--- tnt-1.2.2-6-docs/gui/gui_help.tcl	2004-07-26 15:37:52.000000000 +0200
++++ tnt-1.2.2/gui/gui_help.tcl	2011-02-24 23:45:27.000000000 +0100
+@@ -26,7 +26,7 @@
+     switch -exact $helpTopic {
+ 
+ 	userguide {
+-	    display_online_help user-guide/index.html
++	    display_online_help /usr/share/doc/package_name/html/index.html
+ 	}
+ 
+     }
+diff -ruN tnt-1.2.2-6-docs/gui/splash.tcl tnt-1.2.2/gui/splash.tcl
+--- tnt-1.2.2-6-docs/gui/splash.tcl	2004-07-22 15:16:21.000000000 +0200
++++ tnt-1.2.2/gui/splash.tcl	2011-02-24 23:45:23.000000000 +0100
+@@ -81,7 +81,7 @@
+     } else {
+ 	set filename COPYING
+     }
+-    set licenseFile [file join $::scriptDir .. $filename]
++    set licenseFile [file join /usr share doc package_name html $filename]
+     if { [file exists $licenseFile] } {
+ 	::gui::guiPopupFile $licenseFile
+     } else {

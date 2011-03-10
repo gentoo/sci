@@ -1,0 +1,99 @@
+diff --git a/Makefile.am b/Makefile.am
+index 6bfb6f0..d547b12 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,5 +1,6 @@
+ #
+ 
++ACLOCAL_AMFLAGS = -I m4
+ SUBDIRS = src emboss_acd emboss_doc
+ 
+ EXTRA_DIST = depcomp ltmain.sh install-sh config.sub config.guess
+diff --git a/configure.in b/configure.in
+index 5175a14..445b008 100644
+--- a/configure.in
++++ b/configure.in
+@@ -187,15 +187,6 @@ AC_PROG_INSTALL
+ AC_PROG_LN_S
+ AC_PROG_MAKE_SET
+ 
+-dnl Intel MacOSX 10.6 puts X11 in a non-standard place
+-if test "${with_x}" != "no" ; then
+-if test "`uname -a | grep Darwin`"; then
+-OSXX=`sw_vers -productVersion | sed 's/\(10\.[[0-9]]*\).*/\1/'`
+-if test ${OSXX} '>' '10.4'; then
+-CFLAGS="$CFLAGS -I/usr/X11/include -L/usr/X11/lib"
+-fi
+-fi
+-fi
+ 
+ dnl Check for header files
+ AC_PATH_XTRA
+@@ -250,8 +241,8 @@ AX_LIB_POSTGRESQL
+ CFLAGS="$CFLAGS $MYSQL_CFLAGS"
+ LDFLAGS="$LDFLAGS $MYSQL_LDFLAGS"
+ 
+-CFLAGS="$CFLAGS $POSTGRESQL_CFLAGS"
+-LDFLAGS="$LDFLAGS $POSTGRESQL_LDFLAGS"
++CFLAGS="$POSTGRESQL_CFLAGS $CFLAGS"
++LDFLAGS="$POSTGRESQL_LDFLAGS $LDFLAGS"
+ 
+ 
+ dnl "Export" these variables for PCRE
+@@ -388,9 +379,30 @@ AC_ARG_ENABLE(systemlibs,
+    AS_HELP_STRING([--enable-systemlibs], [Use system versions of zlib/expat]))
+ if test "${enable_systemlibs}" = "yes" ; then
+     have_systemlibs=yes
++    DEFINE_USE_SYSTEM_PCRE="#define"
++    PKG_CHECK_MODULES([PLPLOT], [plplotd])
++    PKG_CHECK_MODULES([ZLIB], [zlib])
++else
++    dnl X11 is only used by plplot
++    dnl Intel MacOSX 10.6 puts X11 in a non-standard place
++    if test "${with_x}" != "no" ; then
++    if test "`uname -a | grep Darwin`"; then
++    OSXX=`sw_vers -productVersion | sed 's/\(10\.[[0-9]]*\).*/\1/'`
++    if test ${OSXX} '>' '10.4'; then
++    CFLAGS="$CFLAGS -I/usr/X11/include -L/usr/X11/lib"
++    fi
++    fi
++    fi
++    if test "${with_x}" != "no" ; then
++    LF_EMBOSS_PATH_XLIB
++    fi
++     AC_MSG_NOTICE(USING bundled LIBS)
+ fi          
+ AM_CONDITIONAL(ESYSTEMLIBS, test "$have_systemlibs" = "yes")
+ AC_SUBST(ESYSTEMLIBS)
++AC_SUBST(DEFINE_USE_SYSTEM_PCRE)
++AC_SUBST(PLPLOT_CFLAGS)
++AC_SUBST(PLPLOT_LIBS)
+ 
+ 
+ 
+diff --git a/src/Makefile.am b/src/Makefile.am
+index d06f78d..d273b16 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -17,9 +17,9 @@ INCLUDES = -I../../../nucleus -I../../../ajax/pcre \
+ 	-I../../../ajax/ensembl -I../../../ajax/ajaxdb \
+ 	-I../../../ajax/acd -I../../../plplot
+ else
+-INCLUDES = -I${embprefix}/include -I${embprefix}/include/eplplot \
+-	$(NLINCLUDES) \
+-	-I${embprefix}/include/epcre
++INCLUDES = -I${embprefix}/include $(PLPLOT_CFLAGS) \
++	$(NLINCLUDES) -I${embprefix}/include/emboss \
++	-I${embprefix}/include/pcre
+ endif
+ 
+ if ISSHARED
+@@ -67,6 +67,6 @@ LDADD = ../../../nucleus/libnucleus.la ../../../ajax/acd/libacd.la \
+ 	../../../plplot/libeplplot.la \
+ 	$(XLIB)
+ else
+-LDADD = -L${embprefix}/lib -lnucleus -lacd -lajaxdb -lensembl -lajaxg \
+-        -lajax -lepcre $(NLADD) -leplplot $(XLIB)
++LDADD = -lnucleus -lacd -lajaxdb -lensembl -lajaxg \
++        -lajax -lpcre $(NLADD) $(PLPLOT_LIBS) $(XLIB)
+ endif

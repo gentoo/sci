@@ -1,6 +1,27 @@
 # ChangeLog for sci-chemistry/votca-csg
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Mar 2011; Christoph Junghans <ottxor@gentoo.org> -votca-csg-1.1.1.ebuild:
+  InCVS
+
+*votca-csg-1.1.1 (03 Mar 2011)
+
+  03 Mar 2011; Christoph Junghans <ottxor@gentoo.org> -votca-csg-1.1.ebuild,
+  +votca-csg-1.1.1.ebuild:
+  version bump
+
+*votca-csg-1.1 (19 Feb 2011)
+
+  19 Feb 2011; Christoph Junghans <ottxor@gentoo.org>
+  -votca-csg-1.1_rc2.ebuild, +votca-csg-1.1.ebuild:
+  Version bump
+
+*votca-csg-1.1_rc1 (12 Feb 2011)
+
+  12 Feb 2011; Christoph Junghans <kleiner_otti@gmx.de>
+  +votca-csg-1.1_rc1.ebuild, votca-csg-9999.ebuild:
+  Version bump
 
   17 Dec 2010; Christoph Junghans <kleiner_otti@gmx.de>
   votca-csg-9999.ebuild:

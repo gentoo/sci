@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI="3"
+
 PYTHON_DEPEND="python? 2"
 
 inherit eutils flag-o-matic java-pkg-opt-2 python qt4-r2 versionator toolchain-funcs cmake-utils
@@ -42,7 +43,7 @@ RDEPEND="
 	tk? ( >=dev-lang/tk-8.2.3 )
 	R? ( dev-lang/R )
 	dev-libs/expat
-	dev-libs/libxml2
+	dev-libs/libxml2:2
 	media-libs/freetype
 	virtual/jpeg
 	media-libs/libpng
@@ -53,7 +54,6 @@ RDEPEND="
 	x11-libs/libX11
 	x11-libs/libXmu
 	x11-libs/libXt"
-
 DEPEND="${RDEPEND}
 		java? ( >=virtual/jdk-1.5 )
 		boost? ( >=dev-libs/boost-1.40.0[mpi?] )

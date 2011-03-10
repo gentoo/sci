@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -8,7 +8,7 @@ PYTHON_DEPEND="2:2.4"
 
 inherit eutils flag-o-matic python
 
-DESCRIPTION="SALOME : The Open Source Integration Platform for Numerical Simulation. GUI component"
+DESCRIPTION="The Open Source Integration Platform for Numerical Simulation - GUI component"
 HOMEPAGE="http://www.salome-platform.org"
 SRC_URI="http://files.opencascade.com/Salome/Salome${PV}/src${PV}.tar.gz"
 
@@ -17,28 +17,28 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="debug doc opengl"
 
-RDEPEND="opengl?  ( virtual/opengl )
-		 debug?   ( dev-util/cppunit )
-		 >=sci-misc/salome-kernel-${PV}
-		 >=net-misc/omniORB-4.1.4
-		 >=dev-python/omniorbpy-3.4
-		 >=sci-libs/hdf5-1.6.4
-		 >=dev-libs/boost-1.40.0
-		 >=x11-libs/qt-core-4.5.2
-		 >=x11-libs/qt-gui-4.5.2
-		 >=x11-libs/qt-opengl-4.5.2
-		 >=x11-libs/qwt-5.2
-		 >=dev-python/PyQt4-4.5.4
-		 >=sci-libs/vtk-5.0[python,mpi]
-		 >=sci-libs/opencascade-6.3
-		 app-text/dgs"
-
+RDEPEND="
+	>=sci-misc/salome-kernel-${PV}
+	>=net-misc/omniORB-4.1.4
+	>=dev-python/omniorbpy-3.4
+	>=sci-libs/hdf5-1.6.4
+	>=dev-libs/boost-1.40.0
+	>=x11-libs/qt-core-4.5.2
+	>=x11-libs/qt-gui-4.5.2
+	>=x11-libs/qt-opengl-4.5.2
+	>=x11-libs/qwt-5.2
+	>=dev-python/PyQt4-4.5.4
+	>=sci-libs/vtk-5.0[python,mpi]
+	>=sci-libs/opencascade-6.3
+	app-text/dgs
+	opengl?  ( virtual/opengl )
+	debug?   ( dev-util/cppunit )"
 DEPEND="${RDEPEND}
-		>=app-doc/doxygen-1.5.6
-		media-gfx/graphviz
-		>=dev-python/sip-4.8.2
-		dev-lang/swig
-		dev-libs/libxml2"
+	>=app-doc/doxygen-1.5.6
+	media-gfx/graphviz
+	>=dev-python/sip-4.8.2
+	dev-lang/swig
+	dev-libs/libxml2:2"
 
 MODULE_NAME="GUI"
 S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
@@ -104,7 +104,7 @@ src_install() {
 	doenvd 90${P}
 	rm adm_local/Makefile adm_local/unix/Makefile adm_local/cmake_files/Makefile \
 		adm_local/unix/config_files/Makefile
-		
+
 	insinto "${INSTALL_DIR}"
 	doins -r adm_local
 	use doc && dodoc AUTHORS INSTALL NEWS README

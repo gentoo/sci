@@ -1,0 +1,11 @@
+--- bem/src/nmmtl.cpp.org	2011-02-19 16:12:58.000000000 -0800
++++ bem/src/nmmtl.cpp	2011-02-19 16:15:36.000000000 -0800
+@@ -352,7 +352,7 @@
+     sprintf (filespec, "%s.result", filename); 
+     if( (output_file1 = fopen(filespec,"w")) == NULL )
+     {
+-      printf ("*** Could not open %s for output ***\n");
++      printf ("*** Could not open %s for output ***\n", filespec); 
+       return 0;  /* Fatal error; could not open output file */
+     }
+     

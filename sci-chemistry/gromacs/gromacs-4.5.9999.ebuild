@@ -8,36 +8,46 @@ LIBTOOLIZE="true"
 TEST_PV="4.0.4"
 MANUAL_PV="4.5.3"
 
-EGIT_REPO_URI="git://git.gromacs.org/gromacs"
-EGIT_BRANCH="release-4-5-patches"
+inherit autotools-utils bash-completion flag-o-matic multilib toolchain-funcs
 
-inherit autotools-utils bash-completion git multilib toolchain-funcs
-
-DESCRIPTION="The ultimate molecular dynamics simulation package"
-HOMEPAGE="http://www.gromacs.org/"
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 		doc? (
 		http://www.gromacs.org/@api/deki/files/133/=manual-${MANUAL_PV}.pdf -> gromacs-manual-${MANUAL_PV}.pdf )"
+
+if [ "${PV%9999}" != "${PV}" ]; then
+	EGIT_REPO_URI="git://git.gromacs.org/gromacs"
+	EGIT_BRANCH="release-4-5-patches"
+	inherit git
+else
+	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
+fi
+
+DESCRIPTION="The ultimate molecular dynamics simulation package"
+HOMEPAGE="http://www.gromacs.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X altivec blas dmalloc doc -double-precision +fftw fkernels +gsl lapack
-mpi +single-precision static-libs test +threads +xml zsh-completion"
+mpi +single-precision sse sse2 static-libs test +threads +xml zsh-completion"
 
-DEPEND="app-shells/tcsh
-	X? ( x11-libs/libX11
+CDEPEND="
+	X? (
+		x11-libs/libX11
 		x11-libs/libSM
-		x11-libs/libICE )
+		x11-libs/libICE
+		)
 	dmalloc? ( dev-libs/dmalloc )
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
-	xml? ( dev-libs/libxml2 )"
-
-RDEPEND="${DEPEND}"
+	xml? ( dev-libs/libxml2:2 )"
+DEPEND="${CDEPEND}
+	dev-util/pkgconfig"
+RDEPEND="${CDEPEND}
+	app-shells/tcsh"
 
 RESTRICT="test"
 
@@ -53,7 +63,9 @@ src_prepare() {
 		elog "machines only, you can safely disable mpi"
 	fi
 
-	eautoreconf
+	autotools-utils_src_prepare || die
+
+	eautoreconf || die
 
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" float"
@@ -114,14 +126,22 @@ src_configure() {
 	fi
 
 	# if we need external blas or lapack
-	use blas && export LIBS+=" -lblas"
-	use lapack && export LIBS+=" -llapack"
+	use blas && export LIBS+=" $(pkg-config blas cblas --libs)"
+	use lapack && export LIBS+=" $(pkg-config lapack --libs)"
+	local sseflag="x86-64-sse"
+	use x86 && sseflag="ia32-sse"
+
+	#a bug in gromacs autotools
+	use sse && append-flags -msse
+	use sse2 && append-flags -msse2
 
 	for x in ${GMX_DIRS}; do
-		local suffix=""
+		local suffix="" sse="sse"
 		#if we build single and double - double is suffixed
 		use double-precision && use single-precision && \
 			[ "${x}" = "double" ] && suffix="_d"
+		#double uses sse2, single sse
+		[ "${x}" = "double" ] && sse="sse2"
 		myeconfargs=(
 			--bindir="${EPREFIX}"/usr/bin
 			--docdir="${EPREFIX}"/usr/share/doc/"${PF}"
@@ -140,7 +160,11 @@ src_configure() {
 			--disable-bluegene
 			--disable-la-files
 			--disable-power6
+			--disable-ia32-sse
+			--disable-x86-64-sse
+			$(use_enable $sse $sseflag)
 		)
+		#disable ia32-sse and x86-64-sse and enable what we really need in last line
 
 		einfo "Configuring for ${x} precision"
 		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
@@ -161,7 +185,7 @@ src_compile() {
 			autotools-utils_src_compile
 		use mpi || continue
 		einfo "Compiling for ${x} precision with mpi"
-		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
+		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
 			autotools-utils_src_compile mdrun
 	done
 }

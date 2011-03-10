@@ -10,7 +10,7 @@ TEST_PV="4.0.4"
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="master"
 
-inherit bash-completion cmake-utils git multilib toolchain-funcs
+inherit bash-completion cmake-utils eutils git multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -20,21 +20,22 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
-mpi +single-precision sse test +threads xml zsh-completion"
+mpi +single-precision sse sse2 test +threads xml zsh-completion"
 
-DEPEND="X? ( x11-libs/libX11
-			x11-libs/libSM
-			x11-libs/libICE )
+DEPEND="
+	X? (
+		x11-libs/libX11
+		x11-libs/libSM
+		x11-libs/libICE
+		)
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
-	xml? ( dev-libs/libxml2 )"
-
-RDEPEND="app-shells/tcsh
-	${DEPEND}"
-
+	xml? ( dev-libs/libxml2:2 )"
+RDEPEND="${DEPEND}
+	app-shells/tcsh"
 PDEPEND="doc? ( app-doc/gromacs-manual )"
 
 RESTRICT="test"
@@ -44,6 +45,9 @@ QA_EXECSTACK="usr/lib/libgmx.so.*
 	usr/lib/libgmx_d.so.*"
 
 src_prepare() {
+	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
+	epatch_user
+
 	if use mpi && use threads; then
 		elog "mdrun uses only threads OR mpi, and gromacs favours the"
 		elog "use of mpi over threads, so a mpi-version of mdrun will"
@@ -114,11 +118,10 @@ src_configure() {
 	fi
 
 	#go from slowest to faster acceleration
-	local acce="none"
-	use altivec && acce="altivec"
-	use ia64 && acce="ia64"
-	use fkernels && acce="fortran"
-	use sse && acce="sse"
+	local acce_pre="none"
+	use fkernels && acce_pre="fortran"
+	use altivec && acce_pre="altivec"
+	use ia64 && acce_pre="ia64"
 
 	mycmakeargs_pre+=(
 		$(cmake-utils_use X GMX_X11)
@@ -127,24 +130,26 @@ src_configure() {
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use threads GMX_THREADS)
 		$(cmake-utils_use xml GMX_XML)
-		-DGMX_ACCELERATION="$acce"
 		-DGMX_DEFAULT_SUFFIX=off
 	)
 
 	for x in ${GMX_DIRS}; do
 		einfo "Configuring for ${x} precision"
-		local suffix=""
+		local suffix="" acce="$acce_pre"
 		#if we build single and double - double is suffixed
 		use double-precision && use single-precision && \
 			[ "${x}" = "double" ] && suffix="_d"
+		#double uses sse2, single sse
+		[ "${x}" = "float" ] && use sse && acce="sse"
+		[ "${x}" = "double" ] && use sse2 && acce="sse"
 		local p
 		[ "${x}" = "double" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF -DGMX_ACCELERATION="$acce"
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON -DGMX_ACCELERATION="$acce"
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" cmake-utils_src_configure
 	done

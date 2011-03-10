@@ -41,4 +41,9 @@ src_install(){
 	einfo "We have to use the mgblast binary provided by upstream because it cannot be compiled against newer ncbi-tools anymore"
 	einfo "We also keep pvmsx binary because the pvmsx package needs pvm3.h header which is probably the one from pvm bundle which is not in portage at all, contact sys-cluster herd"
 	for f in mdust psx sclust tclust nrcl zmsort cap3 formatdb cdbfasta cdbyank; do rm -f "${D}"/usr/bin/$f || die "Cannot delete ${D}"/usr/bin/"$f"; done
+
+	# fix first lines of teh script to use /usr/bin/perl instead of /usr/bin/perl-$version
+	for f in tgicl tgicl_asm.psx tgicl_asmpta.psx tgicl_cluster.psx; do
+		sed -i 's@^#!/usr/bin/perl-*@#! /usr/bin/perl@' "${D}"/usr/bin/$f || die "Failed to fix ${D}"/usr/bin/"$f";
+	done
 }

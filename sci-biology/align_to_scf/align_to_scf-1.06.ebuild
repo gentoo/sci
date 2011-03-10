@@ -4,6 +4,8 @@
 
 EAPI=3
 
+inherit eutils
+
 DESCRIPTION="Provide data to staden to view trace information at a given position missing from Roche .ace files"
 HOMEPAGE="http://genome.imb-jena.de/software/roche454ace2caf"
 SRC_URI="http://genome.imb-jena.de/software/roche454ace2caf/download/src/align_to_scf-1.06.tgz"
@@ -17,10 +19,10 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_prepare(){
-	sed -i 's:^CC :#CC :' Makefile
-	sed -i 's:^LD :#LD :' Makefile
-	sed -i 's:^CFLAGS.*:CFLAGS+= -D__LINUX__ -Wcast-align:' Makefile
-	sed -i 's:^LDFLAGS=:#LDFLAGS=:' Makefile
+	sed -i "s:^CC :CC=$(tc-getCC) #:" Makefile || die "sed failed"
+	sed -i "s:^LD :LD=$(tc-getCC) #:" Makefile || die "sed failed"
+	sed -i 's:^CFLAGS.*:CFLAGS+= -D__LINUX__ -Wcast-align:' Makefile || die "sed failed"
+	sed -i 's:^LDFLAGS =:#LDFLAGS =:' Makefile || die "sed failed"
 }
 
 src_install(){

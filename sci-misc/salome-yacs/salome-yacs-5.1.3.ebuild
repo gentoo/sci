@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -7,8 +7,7 @@ PYTHON_DEPEND="2:2.4"
 
 inherit eutils python
 
-DESCRIPTION="SALOME : The Open Source Integration Platform for Numerical
-Simulation. YACS component"
+DESCRIPTION="The Open Source Integration Platform for Numerical Simulation - YACS component"
 HOMEPAGE="http://www.salome-platform.org"
 SRC_URI="http://files.opencascade.com/Salome/Salome${PV}/src${PV}.tar.gz"
 
@@ -17,30 +16,30 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE="debug doc opengl"
 
-RDEPEND="opengl?  ( virtual/opengl )
-		 debug?   ( dev-util/cppunit )
-		 >=sci-misc/salome-kernel-${PV}
-		 >=sci-misc/salome-gui-${PV}
-		 >=dev-python/omniorbpy-3.4
-		 >=sci-libs/hdf5-1.6.4
-		 >=dev-libs/boost-1.40.0
-		 >=x11-libs/qt-core-4.5.2
-		 >=x11-libs/qt-gui-4.5.2
-		 >=x11-libs/qt-opengl-4.5.2
-		 >=dev-python/PyQt4-4.5.4
-		 >=x11-libs/qscintilla-2.4
-		 >=net-misc/omniORB-4.1.3
-		 dev-libs/expat"
-
+RDEPEND="
+	debug?   ( dev-util/cppunit )
+	opengl?  ( virtual/opengl )
+	>=sci-misc/salome-kernel-${PV}
+	>=sci-misc/salome-gui-${PV}
+	>=dev-python/omniorbpy-3.4
+	>=sci-libs/hdf5-1.6.4
+	>=dev-libs/boost-1.40.0
+	>=x11-libs/qt-core-4.5.2
+	>=x11-libs/qt-gui-4.5.2
+	>=x11-libs/qt-opengl-4.5.2
+	>=dev-python/PyQt4-4.5.4
+	>=x11-libs/qscintilla-2.4
+	>=net-misc/omniORB-4.1.3
+	dev-libs/expat"
 DEPEND="${RDEPEND}
-		doc? ( dev-python/sphinx )
-		>=app-doc/doxygen-1.5.6
-		media-gfx/graphviz
-		>=dev-python/docutils-0.4
-		dev-lang/swig
-		dev-libs/libxml2
-		>=dev-python/celementtree-1.0.5
-		>=dev-python/elementtree-1.2.6"
+	>=app-doc/doxygen-1.5.6
+	media-gfx/graphviz
+	>=dev-python/docutils-0.4
+	dev-lang/swig
+	dev-libs/libxml2:2
+	>=dev-python/celementtree-1.0.5
+	>=dev-python/elementtree-1.2.6
+	doc? ( dev-python/sphinx )"
 
 MODULE_NAME="YACS"
 S="${WORKDIR}/src${PV}/${MODULE_NAME}_SRC_${PV}"
@@ -65,18 +64,18 @@ src_prepare() {
 }
 
 src_configure() {
-	econf --prefix=${INSTALL_DIR} \
-	      --datadir=${INSTALL_DIR}/share/salome \
-	      --docdir=${INSTALL_DIR}/doc/salome \
-		  --libdir=${INSTALL_DIR}/$(get_libdir)/salome \
-	      --infodir=${INSTALL_DIR}/share/info \
-		  --with-qt4=/usr \
-		  --with-qt4-libraries=/usr/$(get_libdir)/qt4 \
-		  --with-qsci4-includes=/usr/include/Qsci \
-	      $(use_enable debug ) \
-	      $(use_enable !debug production ) \
-	      $(use_with debug cppunit /usr ) \
-		|| die "econf failed"
+	econf \
+		--prefix=${INSTALL_DIR} \
+		--datadir=${INSTALL_DIR}/share/salome \
+		--docdir=${INSTALL_DIR}/doc/salome \
+		--libdir=${INSTALL_DIR}/$(get_libdir)/salome \
+		--infodir=${INSTALL_DIR}/share/info \
+		--with-qt4=/usr \
+		--with-qt4-libraries=/usr/$(get_libdir)/qt4 \
+		--with-qsci4-includes=/usr/include/Qsci \
+		$(use_enable debug ) \
+		$(use_enable !debug production ) \
+		$(use_with debug cppunit /usr )
 }
 
 src_install() {

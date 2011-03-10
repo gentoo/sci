@@ -2,6 +2,29 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Mar 2011; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
+  gromacs-9999.ebuild:
+  added fixes from 4.5.3-r4
+
+  07 Mar 2011; Justin Lecher <jlec@gentoo.org> gromacs-4.0.9999.ebuild,
+  gromacs-4.5.9999.ebuild, gromacs-9999.ebuild:
+  Correct Slots for gtk 3 introduction to tree
+
+  19 Feb 2011; Christoph Junghans <ottxor@gentoo.org> -gromacs-4.5.3-r3.ebuild:
+  InCVS
+
+*gromacs-4.5.3-r3 (17 Feb 2011)
+
+  17 Feb 2011; Christoph Junghans <ottxor@gentoo.org> -gromacs-4.5.3-r2.ebuild,
+  +gromacs-4.5.3-r3.ebuild:
+  version bump
+
+*gromacs-4.5.3-r2 (14 Feb 2011)
+
+  14 Feb 2011; Christoph Junghans <ottxor@gentoo.org> -gromacs-4.5.3-r1.ebuild,
+  +gromacs-4.5.3-r2.ebuild, gromacs-4.5.9999.ebuild, gromacs-9999.ebuild:
+  bring back sse/sse2 useflag (bug #339837)
+
   20 Jan 2011; Christoph Junghans <kleiner_otti@gmx.de> gromacs-9999.ebuild:
   add back live manual
 

@@ -1,6 +1,10 @@
 # ChangeLog for sys-cluster/scalasca
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  10 Mar 2011; Christoph Junghans <ottxor@gentoo.org> -scalasca-1.3.1.ebuild,
+  scalasca-1.3.2.ebuild:
+  cleanup + url updates
 
   16 Dec 2010; Justin Lecher <jlec@gentoo.org> scalasca-1.3.1.ebuild,
   scalasca-1.3.2.ebuild:

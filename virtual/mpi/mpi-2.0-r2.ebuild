@@ -9,13 +9,14 @@ HOMEPAGE=""
 SRC_URI=""
 LICENSE=""
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="cxx fortran romio"
 
 RDEPEND="|| (
 	sys-cluster/openmpi[cxx?,fortran?,romio?]
 	sys-cluster/mpich2[cxx?,fortran?,romio?]
 	sys-cluster/nullmpi
+	sys-cluster/native-mpi
 )"
 
 DEPEND=""

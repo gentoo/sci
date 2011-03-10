@@ -1,12 +1,15 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI="4"
 
 inherit eutils
 
 DESCRIPTION="Displays atomic structures such as crystals, gain boudaries, molecules"
 HOMEPAGE="http://www-drfmc.cea.fr/sp2m/L_Sim/V_Sim/index.en.html"
 SRC_URI="http://www-drfmc.cea.fr/sp2m/L_Sim/V_Sim/download/${P}.tar.bz2"
+
 LICENSE="CeCILL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~alpha"
@@ -16,28 +19,17 @@ KEYWORDS="~amd64 ~x86 ~alpha"
 # debug: Adds console debug messages. This is really verbose.
 IUSE="doc debug"
 
-# V_sim should work with gtk 2.4, but has been tested with gtk 2.6.
-RDEPEND=">=x11-libs/gtk+-2.6.8
-	>=dev-libs/glib-2.4.5
-	>=x11-libs/pango-1.8.1-r1
-	>=media-libs/libpng-1.2
-	virtual/opengl
-	virtual/opengl
-"
+RDEPEND="
+	x11-libs/gtk+:2
+	dev-libs/glib:2
+	x11-libs/pango
+	media-libs/libpng
+	virtual/opengl"
 DEPEND="${RDEPEND}
 	sys-apps/sed
-	doc?  ( >=dev-util/gtk-doc-1.4-r1 )
-"
+	doc?  ( >=dev-util/gtk-doc-1.4-r1 )"
 
-pkg_setup() {
-	# Required
-	check_license
-}
-
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-
+src_prepare() {
 	# The author follows Debian conventions, hence the example files and docs
 	# end up in /usr/share/doc/${PN} instead of /usr/share/doc/${PF}. We
 	# correct this here.
@@ -49,7 +41,7 @@ src_unpack() {
 	sed -i -e "s:/usr/local/:/usr/:g" src/visu_basic.c || die "sed failed on updating directories in visu_basic.c"
 }
 
-src_compile() {
+src_configure() {
 	if use doc ; then
 		gtkdocize
 	fi
@@ -57,11 +49,14 @@ src_compile() {
 	econf \
 		$(use_enable doc gtk-doc) \
 		$(use_enable debug debug-messages)
-	HOME="${S}" make || die "emake failed"
+}
+
+src_compile() {
+	HOME="${S}" emake
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install
 }
 
 pkg_postinst() {

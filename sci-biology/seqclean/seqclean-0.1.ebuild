@@ -4,7 +4,7 @@
 
 EAPI=3
 
-DESCRIPTION="SeqClean: perl scripts for automated trimming and validation of ESTs or other DNA sequences by screening for various contaminants, low quality and low-complexity sequences with two binaries"
+DESCRIPTION="Trimpoly and mdust for trimming and validation of ESTs/DNA sequences, low quality and low-complexity sequences with two binaries"
 HOMEPAGE="http://compbio.dfci.harvard.edu/tgi/software"
 for i in seqclean/{seqcl_scripts,mdust,trimpoly}; do
 	SRC_URI="${SRC_URI} ftp://occams.dfci.harvard.edu/pub/bio/tgi/software/${i}.tar.gz"

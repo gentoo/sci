@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,16 +9,17 @@ inherit eutils autotools-utils
 DESCRIPTION="C++ library for handling of multiple co-processes"
 HOMEPAGE="http://cadabra.phi-sci.com"
 SRC_URI="http://cadabra.phi-sci.com/${P}.tar.gz"
+
 RESTRICT="mirror"
 
 LICENSE="GPL-2"
-
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc"
-DEPEND="dev-util/pkgconfig
-	>=dev-libs/libsigc++-2.0"
-RDEPEND=">=dev-libs/libsigc++-2.0"
+
+RDEPEND="dev-libs/libsigc++:2"
+DEPEND="${RDEPEND}
+	dev-util/pkgconfig"
 
 AUTOTOOLS_IN_SOURCE_BUILD=1
 

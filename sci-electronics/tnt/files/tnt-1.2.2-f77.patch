@@ -1,0 +1,14 @@
+diff -ruN tnt-1.2.2-3-namespace/bem/configure.ac tnt-1.2.2-4-g77/bem/configure.ac
+--- tnt-1.2.2-3-namespace/bem/configure.ac	2004-04-22 22:07:12.000000000 +0200
++++ tnt-1.2.2-4-g77/bem/configure.ac	2011-02-24 23:55:35.000000000 +0100
+@@ -74,9 +74,7 @@
+ ;;
+ *linux*)
+ 	#  For Linux, all flavors...
+-	#  Use the GNU compilers for C++ and FORTRAN.
+-	CXX="g++"
+-	F77="g77"
++	#  Use the GNU compilers for C++ and FORTRAN and rely on portage
+ 	AM_CXXFLAGS="-DFORTRAN_UNDERBARS"
+ ;;
+ esac
