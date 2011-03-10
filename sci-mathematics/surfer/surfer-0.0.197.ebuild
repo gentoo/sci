@@ -1,6 +1,8 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI="4"
 
 inherit autotools
 
@@ -13,23 +15,19 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-cpp/gtkmm
+RDEPEND="
+	dev-cpp/gtkmm:2.4
+	media-gfx/surf"
+DEPEND="
+	dev-cpp/gtkmm:2.4
 	dev-util/pkgconfig"
 
-RDEPEND="dev-cpp/gtkmm
-	media-gfx/surf"
+DOCS="README AUTHORS"
 
-S="${WORKDIR}/${PN}-0.0.158"
+S="${WORKDIR}"/${PN}-0.1
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-	# rebuild the buggy autotools
+src_prepare() {
 	eautoreconf
-}
-src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
-	dodoc README AUTHORS
 }
 
 pkg_postinst() {
