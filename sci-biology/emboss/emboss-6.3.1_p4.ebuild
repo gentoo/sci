@@ -4,6 +4,7 @@
 
 EBO_PATCH="4"
 EBOV="${PV/_p${EBO_PATCH}}"
+EBO_ECONF="--includedir=${EPREFIX}/usr/include/emboss"
 
 inherit embassy-ng
 
