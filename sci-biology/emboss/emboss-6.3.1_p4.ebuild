@@ -10,7 +10,7 @@ inherit embassy-ng
 KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
 
 src_install() {
-	embassy-ng_src_install
+	default
 
 	sed "s:EPREFIX:${EPREFIX}:g" "${FILESDIR}"/${PN}-README.Gentoo-2 > README.Gentoo && \
 	dodoc README.Gentoo
