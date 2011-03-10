@@ -15,7 +15,4 @@
 		analysis into a seamless whole. EMBOSS breaks the historical trend
 		towards commercial software packages.
 	</longdescription>
-<use>
-  <flag name='largefile'>Support for large files</flag>
-</use>
 </pkgmetadata>
