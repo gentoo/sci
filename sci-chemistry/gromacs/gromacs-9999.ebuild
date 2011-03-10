@@ -139,6 +139,7 @@ src_configure() {
 		#if we build single and double - double is suffixed
 		use double-precision && use single-precision && \
 			[ "${x}" = "double" ] && suffix="_d"
+		#double uses sse2, single sse
 		[ "${x}" = "float" ] && use sse && acce="sse"
 		[ "${x}" = "double" ] && use sse2 && acce="sse"
 		local p

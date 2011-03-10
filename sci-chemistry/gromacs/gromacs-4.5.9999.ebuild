@@ -8,7 +8,7 @@ LIBTOOLIZE="true"
 TEST_PV="4.0.4"
 MANUAL_PV="4.5.3"
 
-inherit autotools-utils bash-completion eutils flag-o-matic multilib toolchain-funcs
+inherit autotools-utils bash-completion flag-o-matic multilib toolchain-funcs
 
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 		doc? (
@@ -31,7 +31,7 @@ KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X altivec blas dmalloc doc -double-precision +fftw fkernels +gsl lapack
 mpi +single-precision sse sse2 static-libs test +threads +xml zsh-completion"
 
-DEPEND="
+CDEPEND="
 	X? (
 		x11-libs/libX11
 		x11-libs/libSM
@@ -44,7 +44,9 @@ DEPEND="
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
 	xml? ( dev-libs/libxml2:2 )"
-RDEPEND="${DEPEND}
+DEPEND="${CDEPEND}
+	dev-util/pkgconfig"
+RDEPEND="${CDEPEND}
 	app-shells/tcsh"
 
 RESTRICT="test"
@@ -54,9 +56,6 @@ QA_EXECSTACK="usr/lib/libgmx.so.*
 	usr/lib/libgmx_d.so.*"
 
 src_prepare() {
-	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
-	epatch_user
-
 	if use mpi && use threads; then
 		elog "mdrun uses only threads OR mpi, and gromacs favours the"
 		elog "use of mpi over threads, so a mpi-version of mdrun will"
@@ -64,7 +63,9 @@ src_prepare() {
 		elog "machines only, you can safely disable mpi"
 	fi
 
-	eautoreconf
+	autotools-utils_src_prepare || die
+
+	eautoreconf || die
 
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" float"
@@ -125,8 +126,8 @@ src_configure() {
 	fi
 
 	# if we need external blas or lapack
-	use blas && export LIBS+=" -lblas"
-	use lapack && export LIBS+=" -llapack"
+	use blas && export LIBS+=" $(pkg-config blas cblas --libs)"
+	use lapack && export LIBS+=" $(pkg-config lapack --libs)"
 	local sseflag="x86-64-sse"
 	use x86 && sseflag="ia32-sse"
 
@@ -139,6 +140,7 @@ src_configure() {
 		#if we build single and double - double is suffixed
 		use double-precision && use single-precision && \
 			[ "${x}" = "double" ] && suffix="_d"
+		#double uses sse2, single sse
 		[ "${x}" = "double" ] && sse="sse2"
 		myeconfargs=(
 			--bindir="${EPREFIX}"/usr/bin
@@ -183,7 +185,7 @@ src_compile() {
 			autotools-utils_src_compile
 		use mpi || continue
 		einfo "Compiling for ${x} precision with mpi"
-		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
+		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
 			autotools-utils_src_compile mdrun
 	done
 }
