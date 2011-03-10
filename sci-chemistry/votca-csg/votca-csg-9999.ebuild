@@ -16,7 +16,7 @@ else
 	inherit mercurial
 	EHG_REPO_URI="https://csg.votca.googlecode.com/hg"
 	S="${WORKDIR}/${EHG_REPO_URI##*/}"
-	PDEPEND="doc? ( =app-doc/votca-manual-${PV} )"
+	PDEPEND="doc? ( =app-doc/votca-csg-manual-${PV} )"
 fi
 
 DESCRIPTION="Votca coarse-graining engine"
