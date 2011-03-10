@@ -14,7 +14,7 @@ IUSE+=" ncurses"
 EBO_ECONF="$(use_with ncurses curses ${EPREFIX}/usr)"
 
 src_install() {
-	embassy-ng_src_install
+	default
 	insinto /usr/include/emboss/mse
 	doins h/*.h
 }
