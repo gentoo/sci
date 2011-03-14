@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-memenew/ChangeLog,v 1.11 2010/01/01 22:03:00 fauli Exp $
 
+  14 Mar 2011; Justin Lecher <jlec@gentoo.org> embassy-memenew-4.0.0-r1.ebuild:
+  EOV not needed to be set anymore
+
   01 Jan 2010; Christian Faulhammer <fauli@gentoo.org>
   embassy-memenew-4.0.0.ebuild:
   Transfer Prefix keywords
