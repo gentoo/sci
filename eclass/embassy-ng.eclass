@@ -14,18 +14,10 @@
 # jlec@gentoo.org
 # @BLURB: Use this to easy install EMBOSS and EMBASSY programs (EMBOSS add-ons).
 # @DESCRIPTION:
-# The inheriting ebuild should provide EBOV, EBO_DESCRIPTION and "KEYWORDS",
-# before the inherit line.
-# Additionally "(R|P)DEPEND"encies and other standard ebuild Variables can be extended (FOO+="BAR").
+# The inheriting ebuild should provide EBO_DESCRIPTION before the inherit line.
+# KEYWORDS should set and additional "(R|P)DEPEND"encies and other standard
+# ebuild Variables can be extended (FOO+="BAR").
 # The inheriting ebuild's name must begin by "embassy-" and must be EAPI=4 conform.
-
-# @ECLASS-VARIABLE: EBOV
-# @DEFAULT_UNSET
-# @REQUIRED
-# @DESCRIPTION:
-# This specifies the minimum Emboss version needed for this package. *DEPEND are set to
-# >=sci-biology/emboss-${EBOV}.
-# This variable must be always set by the ebuild before the inheriting line
 
 # @ECLASS-VARIABLE: EBO_DESCRIPTION
 # @DESCRIPTION:
@@ -48,7 +40,7 @@
 # @ECLASS-VARIABLE: NO_RECONF
 # @DEFAULT_UNSET
 # @DESCRIPTION:
-# Set this, if you do want to have eautoreconf be run after patching.
+# Set this, if you do not want to have eautoreconf be run after patching.
 
 # @ECLASS-VARIABLE: EBO_ECONF
 # @DEFAULT_UNSET
@@ -60,11 +52,11 @@ EAPI="4"
 inherit autotools eutils multilib
 
 DESCRIPTION="Based on the $ECLASS eclass"
-HOMEPAGE="http://emboss.sourceforge.net/"
+HOMEPAGE="http://emboss.sourceforge.net"
 LICENSE="LGPL-2 GPL-2"
 
 SLOT="0"
-IUSE+=" doc minimal mysql pdf png postgres static-libs X"
+IUSE+=" doc minimal mysql pdf png postgres static-libs X "
 
 DEPEND="
 	dev-libs/expat
@@ -79,21 +71,25 @@ DEPEND="
 		media-libs/gd
 		)
 	postgres? ( dev-db/postgresql-base )
-	X? ( x11-libs/libXt )"
+	X? ( x11-libs/libXt )
+	"
 
-RDEPEND="${DEPEND}"
+RDEPEND="
+	${DEPEND}
+	"
 
 DOCS="AUTHORS ChangeLog NEWS README"
 
-[[ -z ${EBOV} ]] && die "You must set EBOV in the ebuild!"
-
 if [[ ${PN} == "emboss" ]] ; then
+	EBOV="${PV/_p*}"
 	DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
 	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-${EBOV}.tar.gz"
 	[[ -n ${EBO_PATCH} ]] && SRC_URI+=" ftp://${PN}.open-bio.org/pub/EMBOSS/fixes/patches/patch-1-${EBO_PATCH}.gz -> ${P}.patch.gz"
-	IUSE+=" minimal"
-	RDEPEND+=" !sys-devel/cons"
-	PDEPEND="
+	IUSE+=" minimal "
+	RDEPEND+="
+		!sys-devel/cons
+		"
+	PDEPEND+="
 		!minimal? (
 				sci-biology/aaindex
 				sci-biology/cutg
@@ -101,9 +97,10 @@ if [[ ${PN} == "emboss" ]] ; then
 				sci-biology/prosite
 				sci-biology/rebase
 				sci-biology/transfac
-				)"
+				)
+		"
 	S="${WORKDIR}/EMBOSS-${EBOV}"
-	DOCS+=" FAQ THANKS"
+	DOCS+=" FAQ THANKS "
 else
 	# The EMBASSY package name, retrieved from the inheriting ebuild's name
 	EN=${PN:8}
@@ -112,8 +109,8 @@ else
 	EF="$(echo ${EN} | tr "[:lower:]" "[:upper:]")-${PV}"
 	EBO_DESCRIPTION=${EBO_DESCRIPTION:=${EN}}
 	DESCRIPTION="EMBOSS integrated version of ${EBO_DESCRIPTION}"
-	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/${EF}.tar.gz -> embassy-${EBOV}-${PN:8}-${PV}.tar.gz"
-	DEPEND+=" >=sci-biology/emboss-${EBOV}[mysql=,pdf=,png=,postgres=,static-libs=,X=]"
+	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/${EF}.tar.gz -> embassy-${PN:8}-${PV}.tar.gz"
+	DEPEND+=" >=sci-biology/emboss-6.3.1_p4[mysql=,pdf=,png=,postgres=,static-libs=,X=] "
 
 	S="${WORKDIR}"/${EF}
 fi
