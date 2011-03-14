@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -21,7 +21,7 @@ DEPEND="dev-tcltk/tix
 	x11-libs/libXmu
 	opencascade? ( sci-libs/opencascade )
 	ffmpeg? ( media-video/ffmpeg )
-	jpeg? ( media-libs/jpeg )
+	jpeg? ( virtual/jpeg )
 	mpi? ( virtual/mpi ) "
 RDEPEND="${DEPEND}"
 # Note, MPI has not be tested.
