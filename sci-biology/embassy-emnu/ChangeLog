@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-emnu/ChangeLog,v 1.29 2010/01/01 21:55:20 fauli Exp $
 
+  14 Mar 2011; Justin Lecher <jlec@gentoo.org> embassy-emnu-1.05-r7.ebuild:
+  EOV not needed to be set anymore
+
   10 Mar 2011; Justin Lecher <jlec@gentoo.org>
   -files/embassy-emnu-1.05-r6.patch, +files/embassy-emnu-1.05-r7.patch:
   Move to new embassy-ng.eclass
