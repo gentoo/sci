@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,7 +21,7 @@ KEYWORDS="~amd64 ~x86"
 SLOT="0"
 IUSE=""
 
-RDEPEND="sci-libs/opencascade"
+RDEPEND="<sci-libs/opencascade-6.4"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
