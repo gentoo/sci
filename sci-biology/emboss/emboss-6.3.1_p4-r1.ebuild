@@ -3,7 +3,6 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/emboss-6.3.1_p4.ebuild,v 1.2 2011/03/09 16:29:05 jlec Exp $
 
 EBO_PATCH="4"
-EBOV="${PV/_p${EBO_PATCH}}"
 EBO_ECONF="--includedir=${EPREFIX}/usr/include/emboss"
 
 inherit embassy-ng
