@@ -4,7 +4,7 @@
 
 EBO_DESCRIPTION="MSE - Multiple Sequence Screen Editor"
 
-inherit embassy-ng
+inherit emboss
 
 KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux ~ppc-macos"
 
