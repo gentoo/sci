@@ -3,6 +3,9 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/ChangeLog,v 1.61 2011/03/09 16:29:05 jlec Exp $
 
   15 Mar 2011; Justin Lecher <jlec@gentoo.org> emboss-6.3.1_p4-r1.ebuild:
+  New emboss_src_install used
+
+  15 Mar 2011; Justin Lecher <jlec@gentoo.org> emboss-6.3.1_p4-r1.ebuild:
   Naming of eclass changed
 
   14 Mar 2011; Justin Lecher <jlec@gentoo.org> emboss-6.3.1_p4-r1.ebuild:

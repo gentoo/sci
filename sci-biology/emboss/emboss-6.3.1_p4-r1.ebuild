@@ -10,7 +10,7 @@ inherit emboss
 KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
 
 src_install() {
-	default
+	emboss_src_install
 
 	sed "s:EPREFIX:${EPREFIX}:g" "${FILESDIR}"/${PN}-README.Gentoo-2 > README.Gentoo && \
 	dodoc README.Gentoo
@@ -24,17 +24,11 @@ src_install() {
 	EOF
 	doenvd 22emboss
 
-	# Symlink preinstalled docs to "/usr/share/doc".
-	dosym /usr/share/EMBOSS/doc/manuals /usr/share/doc/${PF}/manuals
-	dosym /usr/share/EMBOSS/doc/programs /usr/share/doc/${PF}/programs
-	dosym /usr/share/EMBOSS/doc/tutorials /usr/share/doc/${PF}/tutorials
-	dosym /usr/share/EMBOSS/doc/html /usr/share/doc/${PF}/html
-
 	# Clashes #330507
 	mv "${ED}"/usr/bin/{digest,pepdigest} || die
 
 	# Remove useless dummy files from the image.
-	find emboss/data -name dummyfile -delete || die "Failed to remove dummy files."
+	find "${ED}"/usr/share/EMBOSS -name dummyfile -delete || die "Failed to remove dummy files."
 
 	# Move the provided codon files to a different directory. This will avoid
 	# user confusion and file collisions on case-insensitive file systems (see
