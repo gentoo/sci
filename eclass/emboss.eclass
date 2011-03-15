@@ -8,7 +8,7 @@
 # Author of the next generation eclass
 # Justin Lecher <jlec@gentoo.org>
 
-# @ECLASS: embassy-ng.eclass
+# @ECLASS: emboss.eclass
 # @MAINTAINER:
 # sci-biology@gentoo.org
 # jlec@gentoo.org
@@ -51,12 +51,11 @@ EAPI="4"
 
 inherit autotools eutils multilib
 
-DESCRIPTION="Based on the $ECLASS eclass"
 HOMEPAGE="http://emboss.sourceforge.net"
 LICENSE="LGPL-2 GPL-2"
 
 SLOT="0"
-IUSE+=" doc minimal mysql pdf png postgres static-libs X "
+IUSE="doc mysql pdf png postgres static-libs X "
 
 DEPEND="
 	dev-libs/expat
@@ -65,11 +64,7 @@ DEPEND="
 	sys-libs/zlib
 	mysql? ( dev-db/mysql )
 	pdf? ( media-libs/libharu )
-	png? (
-		sys-libs/zlib
-		media-libs/libpng
-		media-libs/gd
-		)
+	png? ( media-libs/gd[png] )
 	postgres? ( dev-db/postgresql-base )
 	X? ( x11-libs/libXt )
 	"
@@ -78,14 +73,14 @@ RDEPEND="
 	${DEPEND}
 	"
 
-DOCS="AUTHORS ChangeLog NEWS README"
+DOCS="AUTHORS ChangeLog NEWS README "
 
 if [[ ${PN} == "emboss" ]] ; then
-	EBOV="${PV/_p*}"
+	EBOV=${PV/_p*}
 	DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
 	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-${EBOV}.tar.gz"
 	[[ -n ${EBO_PATCH} ]] && SRC_URI+=" ftp://${PN}.open-bio.org/pub/EMBOSS/fixes/patches/patch-1-${EBO_PATCH}.gz -> ${P}.patch.gz"
-	IUSE+=" minimal "
+	IUSE+="minimal "
 	RDEPEND+="
 		!sys-devel/cons
 		"
@@ -99,23 +94,23 @@ if [[ ${PN} == "emboss" ]] ; then
 				sci-biology/transfac
 				)
 		"
-	S="${WORKDIR}/EMBOSS-${EBOV}"
-	DOCS+=" FAQ THANKS "
+	S=${WORKDIR}/EMBOSS-${EBOV}
+	DOCS+="FAQ THANKS "
 else
 	# The EMBASSY package name, retrieved from the inheriting ebuild's name
 	EN=${PN:8}
 	# The full name and version of the EMBASSY package (excluding the Gentoo
 	# revision number)
-	EF="$(echo ${EN} | tr "[:lower:]" "[:upper:]")-${PV}"
+	EF=$(echo ${EN} | tr "[:lower:]" "[:upper:]")-${PV}
 	EBO_DESCRIPTION=${EBO_DESCRIPTION:=${EN}}
 	DESCRIPTION="EMBOSS integrated version of ${EBO_DESCRIPTION}"
 	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/${EF}.tar.gz -> embassy-${PN:8}-${PV}.tar.gz"
-	DEPEND+=" >=sci-biology/emboss-6.3.1_p4[mysql=,pdf=,png=,postgres=,static-libs=,X=] "
+	DEPEND+=">=sci-biology/emboss-6.3.1_p4[mysql=,pdf=,png=,postgres=,static-libs=,X=] "
 
-	S="${WORKDIR}"/${EF}
+	S=${WORKDIR}/${EF}
 fi
 
-# @FUNCTION: embassy-ng_src_prepare
+# @FUNCTION: emboss_src_prepare
 # @USAGE:
 # @RETURN:
 # @MAINTAINER:
@@ -127,13 +122,13 @@ fi
 #  3. runs eautoreconf unless NO_RECONF is set
 #
 
-embassy-ng_src_prepare() {
+emboss_src_prepare() {
 	[[ ${PN} == emboss ]] && [[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}.patch
 	[[ -f "${FILESDIR}"/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
 	[[ -n ${NO_RECONF} ]] || eautoreconf
 }
 
-# @FUNCTION: embassy-ng_src_prepare
+# @FUNCTION: emboss_src_prepare
 # @USAGE:
 # @RETURN:
 # @MAINTAINER:
@@ -153,7 +148,7 @@ embassy-ng_src_prepare() {
 #  --enable-systemlibs
 #  ${EBO_ECONF}
 
-embassy-ng_src_configure() {
+emboss_src_configure() {
 	econf \
 		$(use_with X x) \
 		$(use_with png pngdriver "${EPREFIX}/usr") \
