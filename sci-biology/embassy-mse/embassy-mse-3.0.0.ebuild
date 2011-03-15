@@ -13,7 +13,7 @@ IUSE+=" ncurses"
 EBO_ECONF="$(use_with ncurses curses ${EPREFIX}/usr)"
 
 src_install() {
-	default
+	emboss_src_install
 	insinto /usr/include/emboss/mse
 	doins h/*.h
 }
