@@ -4,9 +4,7 @@
 
 EAPI="4"
 
-inherit toolchain-funcs eutils fortran
-
-FORTRAN="g77 gfortran ifc"
+inherit toolchain-funcs eutils
 
 DESCRIPTION="A suite of programs for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"
@@ -38,7 +36,6 @@ pkg_nofetch() {
 }
 
 pkg_setup() {
-	need_fortran "${FORTRAN}"
 	if use openmp &&
 	[[ $(tc-getCC)$ == *gcc* ]] &&
 		( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] ||
@@ -68,7 +65,7 @@ src_configure() {
 		-e "s:CFLAGS=:CFLAGS=${CFLAGS} -DBINTRAJ :g" \
 		-e "s:FFLAGS=:FFLAGS=${FFLAGS} :g" \
 		-e "s:LDFLAGS=$ldflags:LDFLAGS=${LDFLAGS}:g" \
-		-e "s:fc=g77:fc=${FORTRANC}:g" \
+		-e "s:fc=g77:fc=$(tc-getFC):g" \
 		-e "s:NETCDFLIB=\$netcdflib:NETCDFLIB=$(pkg-config netcdf --libs):g" \
 		-e "s:NETCDF=\$netcdf:NETCDF=netcdf.mod:g" \
 		-e "s:-O3::g" \

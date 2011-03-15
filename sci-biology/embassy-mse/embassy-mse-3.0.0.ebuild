@@ -4,7 +4,7 @@
 
 EBO_DESCRIPTION="MSE - Multiple Sequence Screen Editor"
 
-inherit embassy-ng
+inherit emboss
 
 KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux ~ppc-macos"
 
@@ -13,7 +13,7 @@ IUSE+=" ncurses"
 EBO_ECONF="$(use_with ncurses curses ${EPREFIX}/usr)"
 
 src_install() {
-	default
+	emboss_src_install
 	insinto /usr/include/emboss/mse
 	doins h/*.h
 }

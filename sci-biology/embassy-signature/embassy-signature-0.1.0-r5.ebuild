@@ -4,6 +4,6 @@
 
 EBO_DESCRIPTION="Protein signature add-on package"
 
-inherit embassy-ng
+inherit emboss
 
 KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux ~ppc-macos"

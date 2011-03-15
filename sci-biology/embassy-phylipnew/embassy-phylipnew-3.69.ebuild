@@ -4,7 +4,7 @@
 
 EBO_DESCRIPTION="PHYLIP - The Phylogeny Inference Package"
 
-inherit embassy-ng
+inherit emboss
 
 LICENSE="freedist"
 

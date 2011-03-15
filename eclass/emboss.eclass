@@ -8,16 +8,16 @@
 # Author of the next generation eclass
 # Justin Lecher <jlec@gentoo.org>
 
-# @ECLASS: embassy-ng.eclass
+# @ECLASS: emboss.eclass
 # @MAINTAINER:
 # sci-biology@gentoo.org
 # jlec@gentoo.org
 # @BLURB: Use this to easy install EMBOSS and EMBASSY programs (EMBOSS add-ons).
 # @DESCRIPTION:
 # The inheriting ebuild should provide EBO_DESCRIPTION before the inherit line.
-# KEYWORDS should set and additional "(R|P)DEPEND"encies and other standard
+# KEYWORDS should be set. Additionally "(R|P)DEPEND"encies and other standard
 # ebuild Variables can be extended (FOO+="BAR").
-# The inheriting ebuild's name must begin by "embassy-" and must be EAPI=4 conform.
+# The inheriting ebuild's name must begin with "emboss" or "embassy" and must be EAPI=4 conform.
 
 # @ECLASS-VARIABLE: EBO_DESCRIPTION
 # @DESCRIPTION:
@@ -34,7 +34,7 @@
 #
 # ftp://emboss.open-bio.org/pub/EMBOSS/fixes/patches/patch-1-${EBO_PATCH}.gz.
 #
-# Embassy package should create one patch package and place it in FILESDIR, e.g.
+# Embassy packages should create one patch package and place it in FILESDIR, e.g.
 # "files/embassy-iprscan-4.3.1-r2.patch". The patch will be automatically used during src_prepare
 
 # @ECLASS-VARIABLE: NO_RECONF
@@ -51,12 +51,11 @@ EAPI="4"
 
 inherit autotools eutils multilib
 
-DESCRIPTION="Based on the $ECLASS eclass"
 HOMEPAGE="http://emboss.sourceforge.net"
 LICENSE="LGPL-2 GPL-2"
 
 SLOT="0"
-IUSE+=" doc minimal mysql pdf png postgres static-libs X "
+IUSE="mysql pdf png postgres static-libs X "
 
 DEPEND="
 	dev-libs/expat
@@ -65,11 +64,7 @@ DEPEND="
 	sys-libs/zlib
 	mysql? ( dev-db/mysql )
 	pdf? ( media-libs/libharu )
-	png? (
-		sys-libs/zlib
-		media-libs/libpng
-		media-libs/gd
-		)
+	png? ( media-libs/gd[png] )
 	postgres? ( dev-db/postgresql-base )
 	X? ( x11-libs/libXt )
 	"
@@ -78,14 +73,14 @@ RDEPEND="
 	${DEPEND}
 	"
 
-DOCS="AUTHORS ChangeLog NEWS README"
+DOCS="AUTHORS ChangeLog NEWS README "
 
 if [[ ${PN} == "emboss" ]] ; then
-	EBOV="${PV/_p*}"
+	EBOV=${PV/_p*}
 	DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
 	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-${EBOV}.tar.gz"
 	[[ -n ${EBO_PATCH} ]] && SRC_URI+=" ftp://${PN}.open-bio.org/pub/EMBOSS/fixes/patches/patch-1-${EBO_PATCH}.gz -> ${P}.patch.gz"
-	IUSE+=" minimal "
+	IUSE+="minimal "
 	RDEPEND+="
 		!sys-devel/cons
 		"
@@ -99,23 +94,23 @@ if [[ ${PN} == "emboss" ]] ; then
 				sci-biology/transfac
 				)
 		"
-	S="${WORKDIR}/EMBOSS-${EBOV}"
-	DOCS+=" FAQ THANKS "
+	S=${WORKDIR}/EMBOSS-${EBOV}
+	DOCS+="FAQ THANKS "
 else
 	# The EMBASSY package name, retrieved from the inheriting ebuild's name
 	EN=${PN:8}
 	# The full name and version of the EMBASSY package (excluding the Gentoo
 	# revision number)
-	EF="$(echo ${EN} | tr "[:lower:]" "[:upper:]")-${PV}"
+	EF=$(echo ${EN} | tr "[:lower:]" "[:upper:]")-${PV}
 	EBO_DESCRIPTION=${EBO_DESCRIPTION:=${EN}}
 	DESCRIPTION="EMBOSS integrated version of ${EBO_DESCRIPTION}"
 	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/${EF}.tar.gz -> embassy-${PN:8}-${PV}.tar.gz"
-	DEPEND+=" >=sci-biology/emboss-6.3.1_p4[mysql=,pdf=,png=,postgres=,static-libs=,X=] "
+	DEPEND+=">=sci-biology/emboss-6.3.1_p4[mysql=,pdf=,png=,postgres=,static-libs=,X=] "
 
-	S="${WORKDIR}"/${EF}
+	S=${WORKDIR}/${EF}
 fi
 
-# @FUNCTION: embassy-ng_src_prepare
+# @FUNCTION: emboss_src_prepare
 # @USAGE:
 # @RETURN:
 # @MAINTAINER:
@@ -123,26 +118,25 @@ fi
 # Does three things
 #
 #  1. Patches EMBOSS if EBO_PATCH is set
-#  2. Patches, if "${FILESDIR}"/${PF}.patch is a file
-#  3. runs eautoreconf unless NO_RECONF is set
+#  2. Patches with "${FILESDIR}"/${PF}.patch, of present
+#  3. Runs eautoreconf unless NO_RECONF is set
 #
 
-embassy-ng_src_prepare() {
+emboss_src_prepare() {
 	[[ ${PN} == emboss ]] && [[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}.patch
 	[[ -f "${FILESDIR}"/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
 	[[ -n ${NO_RECONF} ]] || eautoreconf
 }
 
-# @FUNCTION: embassy-ng_src_prepare
+# @FUNCTION: emboss_src_prepare
 # @USAGE:
 # @RETURN:
 # @MAINTAINER:
 # @DESCRIPTION:
-# runs econf with following options. Extra things can be passed by setting EBO_ECONF
+# runs econf with following options. Extra options can be passed by setting EBO_ECONF
 #
 #  $(use_with X x)
 #  $(use_with png pngdriver "${EPREFIX}/usr")
-#  $(use_with doc docroot "${EPREFIX}/usr")
 #  $(use_with pdf hpdf "${EPREFIX}/usr")
 #  $(use_with mysql mysql "${EPREFIX}/usr/bin/mysql_config")
 #  $(use_with postgres postgresql "${EPREFIX}/usr/bin/pg_config")
@@ -153,11 +147,10 @@ embassy-ng_src_prepare() {
 #  --enable-systemlibs
 #  ${EBO_ECONF}
 
-embassy-ng_src_configure() {
+emboss_src_configure() {
 	econf \
 		$(use_with X x) \
 		$(use_with png pngdriver "${EPREFIX}/usr") \
-		$(use_with doc docroot "${EPREFIX}/usr") \
 		$(use_with pdf hpdf "${EPREFIX}/usr") \
 		$(use_with mysql mysql "${EPREFIX}/usr/bin/mysql_config") \
 		$(use_with postgres postgresql "${EPREFIX}/usr/bin/pg_config") \
@@ -169,4 +162,17 @@ embassy-ng_src_configure() {
 		${EBO_ECONF}
 }
 
-[[ ${PN} == embassy ]] || EXPORT_FUNCTIONS src_prepare src_configure
+# @FUNCTION: emboss_src_install
+# @USAGE:
+# @RETURN:
+# @MAINTAINER:
+# @DESCRIPTION:
+# Standard src_install. Takes care of correct position of docs.
+
+emboss_src_install() {
+	default
+	mv "${ED}"/usr/share/EMBOSS/doc/* "${ED}"/usr/share/doc/${PF}/
+	rm -rf "${ED}"/usr/share/EMBOSS/doc
+}
+
+[[ ${PN} == embassy ]] || EXPORT_FUNCTIONS src_prepare src_configure src_install

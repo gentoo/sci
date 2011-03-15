@@ -5,7 +5,7 @@
 EBO_DESCRIPTION="EMBOSS Menu is Not UNIX - Simple menu of EMBOSS applications"
 EBO_ECONF="$(use_with ncurses curses ${EPREFIX}/usr)"
 
-inherit embassy-ng
+inherit emboss
 
 IUSE+=" ncurses"
 KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux ~ppc-macos"
