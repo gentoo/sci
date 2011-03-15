@@ -1,4 +1,4 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -38,7 +38,7 @@ RDEPEND="
 	)
 	X? (
 		media-libs/freeglut
-		media-libs/jpeg
+		virtual/jpeg
 		x11-libs/wxGTK:2.8[X,opengl]
 	)
 	"

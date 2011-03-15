@@ -35,7 +35,7 @@ IUSE="ieee1394 sphinx2 wifi v4l test imagemagick
 	opengl glut gsl java python doc"
 
 RDEPEND="
-	media-libs/jpeg
+	virtual/jpeg
 	opengl? ( virtual/opengl )
 	glut? ( media-libs/freeglut )
 	openssl? ( dev-libs/openssl )

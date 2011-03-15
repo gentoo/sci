@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Mar 2011; Oliver Borm (boroli) <oli.borm@web.de>
+  vtkPOFFReader-300.ebuild:
+  sci-visualization/vtkPOFFReader: changed SRC_URI top ESVN_REPO_URI due to
+  problems with md5sum's
+
 *vtkPOFFReader-300 (09 Mar 2011)
 
   09 Mar 2011; Oliver Borm (boroli) <oli.borm@web.de>

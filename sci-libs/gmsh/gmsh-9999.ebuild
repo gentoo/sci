@@ -20,7 +20,7 @@ IUSE="blas chaco cgns doc examples jpeg med metis mpi opencascade png taucs zlib
 RDEPEND="X? ( x11-libs/fltk:1.1 )
 		blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 		cgns? ( sci-libs/cgnslib )
-		jpeg? ( media-libs/jpeg )
+		jpeg? ( virtual/jpeg )
 		med? ( >=sci-libs/med-2.3.4 )
 		mpi? ( sys-cluster/openmpi[cxx] )
 		opencascade? ( sci-libs/opencascade )

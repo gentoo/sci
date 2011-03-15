@@ -4,11 +4,11 @@
 
 EAPI=3
 
-inherit versionator multilib cmake-utils
+inherit versionator multilib cmake-utils subversion
 
 DESCRIPTION="Parallelized reader for OpenFOAM(R) file format for use with ParaView/VTK"
 HOMEPAGE="http://of-interfaces.sourceforge.net"
-SRC_URI="http://of-interfaces.svn.sourceforge.net/viewvc/of-interfaces/trunk/vtkPOFFReader/?view=tar&pathrev=${PV} -> ${P}.tar.gz"
+ESVN_REPO_URI="http://of-interfaces.svn.sourceforge.net/svnroot/of-interfaces/trunk/vtkPOFFReader@${PV}"
 
 LICENSE="paraview GPL-2"
 KEYWORDS="~amd64 ~x86"

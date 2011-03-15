@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-cbstools/ChangeLog,v 1.5 2010/01/15 22:44:35 fauli Exp $
 
+  14 Mar 2011; Justin Lecher <jlec@gentoo.org>
+  embassy-cbstools-1.0.0-r2.ebuild:
+  EOV not needed to be set anymore
+
 *embassy-cbstools-1.0.0-r2 (10 Mar 2011)
 
   10 Mar 2011; Justin Lecher <jlec@gentoo.org>

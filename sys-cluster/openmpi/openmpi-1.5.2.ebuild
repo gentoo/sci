@@ -23,6 +23,7 @@ RDEPEND="pbs? ( sys-cluster/torque )
 		)
 		infiniband? ( sys-infiniband/libibverbs )
 		elibc_FreeBSD? ( dev-libs/libexecinfo )
+		>=sys-apps/hwloc-1.1.1
 		$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
 
@@ -63,6 +64,7 @@ src_configure() {
 		--enable-pretty-print-stacktrace
 		--enable-orterun-prefix-by-default
 		--without-slurm
+		--with-hwloc=/usr
 		)
 
 	if use mpi-threads; then

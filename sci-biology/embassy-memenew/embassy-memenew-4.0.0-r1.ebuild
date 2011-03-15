@@ -2,7 +2,6 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-memenew/embassy-memenew-4.0.0.ebuild,v 1.2 2010/01/01 22:03:00 fauli Exp $
 
-EBOV="6.3.1"
 EBO_DESCRIPTION="MEME - Multiple Em for Motif Elicitation"
 
 inherit embassy-ng

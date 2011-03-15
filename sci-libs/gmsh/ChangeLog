@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Mar 2011; Justin Lecher <jlec@gentoo.org> gmsh-9999.ebuild:
+  Moved media-libs/jpeg -> virtual/jpeg
+
   09 Mar 2011; Oliver Borm (boroli) <oli.borm@web.de> gmsh-2.5.0.ebuild,
   metadata.xml:
   sci-libs/gmsh: Added sci-mathematics/petsc support
