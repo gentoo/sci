@@ -55,7 +55,7 @@ HOMEPAGE="http://emboss.sourceforge.net"
 LICENSE="LGPL-2 GPL-2"
 
 SLOT="0"
-IUSE="doc mysql pdf png postgres static-libs X "
+IUSE="mysql pdf png postgres static-libs X "
 
 DEPEND="
 	dev-libs/expat
@@ -137,7 +137,6 @@ emboss_src_prepare() {
 #
 #  $(use_with X x)
 #  $(use_with png pngdriver "${EPREFIX}/usr")
-#  $(use_with doc docroot "${EPREFIX}/usr")
 #  $(use_with pdf hpdf "${EPREFIX}/usr")
 #  $(use_with mysql mysql "${EPREFIX}/usr/bin/mysql_config")
 #  $(use_with postgres postgresql "${EPREFIX}/usr/bin/pg_config")
@@ -152,7 +151,6 @@ emboss_src_configure() {
 	econf \
 		$(use_with X x) \
 		$(use_with png pngdriver "${EPREFIX}/usr") \
-		$(use_with doc docroot "${EPREFIX}/usr") \
 		$(use_with pdf hpdf "${EPREFIX}/usr") \
 		$(use_with mysql mysql "${EPREFIX}/usr/bin/mysql_config") \
 		$(use_with postgres postgresql "${EPREFIX}/usr/bin/pg_config") \
@@ -164,4 +162,17 @@ emboss_src_configure() {
 		${EBO_ECONF}
 }
 
-[[ ${PN} == embassy ]] || EXPORT_FUNCTIONS src_prepare src_configure
+# @FUNCTION: emboss_src_install
+# @USAGE:
+# @RETURN:
+# @MAINTAINER:
+# @DESCRIPTION:
+# Standard src_install. Takes care of correct position of docs.
+
+emboss_src_install() {
+	default
+	mv "${ED}"/usr/share/EMBOSS/doc/* "${ED}"/usr/share/doc/${PF}/
+	rm -rf "${ED}"/usr/share/EMBOSS/doc
+}
+
+[[ ${PN} == embassy ]] || EXPORT_FUNCTIONS src_prepare src_configure src_install
