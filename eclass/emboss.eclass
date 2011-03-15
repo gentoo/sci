@@ -15,9 +15,9 @@
 # @BLURB: Use this to easy install EMBOSS and EMBASSY programs (EMBOSS add-ons).
 # @DESCRIPTION:
 # The inheriting ebuild should provide EBO_DESCRIPTION before the inherit line.
-# KEYWORDS should set and additional "(R|P)DEPEND"encies and other standard
+# KEYWORDS should be set. Additionally "(R|P)DEPEND"encies and other standard
 # ebuild Variables can be extended (FOO+="BAR").
-# The inheriting ebuild's name must begin by "embassy-" and must be EAPI=4 conform.
+# The inheriting ebuild's name must begin with "emboss" or "embassy" and must be EAPI=4 conform.
 
 # @ECLASS-VARIABLE: EBO_DESCRIPTION
 # @DESCRIPTION:
@@ -34,7 +34,7 @@
 #
 # ftp://emboss.open-bio.org/pub/EMBOSS/fixes/patches/patch-1-${EBO_PATCH}.gz.
 #
-# Embassy package should create one patch package and place it in FILESDIR, e.g.
+# Embassy packages should create one patch package and place it in FILESDIR, e.g.
 # "files/embassy-iprscan-4.3.1-r2.patch". The patch will be automatically used during src_prepare
 
 # @ECLASS-VARIABLE: NO_RECONF
@@ -118,8 +118,8 @@ fi
 # Does three things
 #
 #  1. Patches EMBOSS if EBO_PATCH is set
-#  2. Patches, if "${FILESDIR}"/${PF}.patch is a file
-#  3. runs eautoreconf unless NO_RECONF is set
+#  2. Patches with "${FILESDIR}"/${PF}.patch, of present
+#  3. Runs eautoreconf unless NO_RECONF is set
 #
 
 emboss_src_prepare() {
@@ -133,7 +133,7 @@ emboss_src_prepare() {
 # @RETURN:
 # @MAINTAINER:
 # @DESCRIPTION:
-# runs econf with following options. Extra things can be passed by setting EBO_ECONF
+# runs econf with following options. Extra options can be passed by setting EBO_ECONF
 #
 #  $(use_with X x)
 #  $(use_with png pngdriver "${EPREFIX}/usr")
