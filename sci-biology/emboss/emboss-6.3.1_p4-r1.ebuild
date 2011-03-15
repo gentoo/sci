@@ -5,7 +5,7 @@
 EBO_PATCH="4"
 EBO_ECONF="--includedir=${EPREFIX}/usr/include/emboss"
 
-inherit embassy-ng
+inherit emboss
 
 KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
 
