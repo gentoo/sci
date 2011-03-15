@@ -4,7 +4,7 @@
 
 EBO_DESCRIPTION="wrappers for HMMER - Biological sequence analysis with profile HMMs"
 
-inherit embassy-ng
+inherit emboss
 
 KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux ~ppc-macos"
 
