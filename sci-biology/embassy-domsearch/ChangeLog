@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-domsearch/ChangeLog,v 1.19 2010/01/01 21:53:24 fauli Exp $
 
+  15 Mar 2011; Justin Lecher <jlec@gentoo.org>
+  embassy-domsearch-0.1.0-r5.ebuild:
+  Naming of eclass changed
+
   14 Mar 2011; Justin Lecher <jlec@gentoo.org>
   embassy-domsearch-0.1.0-r5.ebuild:
   EOV not needed to be set anymore
