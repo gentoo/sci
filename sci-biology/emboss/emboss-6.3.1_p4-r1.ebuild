@@ -17,10 +17,9 @@ src_install() {
 
 	# Install env file for setting libplplot and acd files path.
 	cat <<- EOF > 22emboss
-		# plplot libs dir
-		PLPLOT_LIB="${EPREFIX}/usr/share/EMBOSS/"
 		# ACD files location
 		EMBOSS_ACDROOT="${EPREFIX}/usr/share/EMBOSS/acd"
+		EMBOSS_DATA="${EPREFIX}/usr/share/EMBOSS/data"
 	EOF
 	doenvd 22emboss
 
