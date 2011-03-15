@@ -4,7 +4,7 @@
 
 EBOV="6.3.1"
 
-inherit embassy-ng
+inherit emboss
 
 DESCRIPTION="A meta-package for installing all EMBASSY packages (EMBOSS add-ons)"
 SRC_URI=""
