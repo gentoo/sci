@@ -4,6 +4,6 @@
 
 EBO_DESCRIPTION="TOPO - Transmembrane protein display"
 
-inherit embassy-ng
+inherit emboss
 
 KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
