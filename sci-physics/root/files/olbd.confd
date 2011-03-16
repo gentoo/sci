@@ -1,9 +1,0 @@
-# conf.d file for olbd daemon
-
-# User to run as (default is `xrootd')
-OLBD_USER="root"
-
-#
-# Please refer to the olbd(1) man(1) page for more
-# information on command line parameters. 
-OLBD_OPTS=""
