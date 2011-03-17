@@ -112,13 +112,13 @@ src_configure() {
 
 	# if we need external blas
 	if use blas; then
-		export LIBS="${LIBS} -lblas"
+		export LIBS="${LIBS} $(pkg-config --libs blas)"
 		myconf="${myconf} $(use_with blas external-blas)"
 	fi
 
 	# if we need external lapack
 	if use lapack; then
-		export LIBS="${LIBS} -llapack"
+		export LIBS="${LIBS} $(pkg-config --libs lapack)"
 		myconf="${myconf} $(use_with lapack external-lapack)"
 	fi
 
