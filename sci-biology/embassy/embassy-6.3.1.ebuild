@@ -2,14 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy/embassy-6.1.0.ebuild,v 1.2 2010/01/01 21:35:29 fauli Exp $
 
-EBOV="6.3.1"
+EAPI="4"
 
 inherit emboss
 
 DESCRIPTION="A meta-package for installing all EMBASSY packages (EMBOSS add-ons)"
 SRC_URI=""
 
-LICENSE="GPL-2 freedist"
+LICENSE+=" freedist"
 KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux ~ppc-macos"
 
 RDEPEND+="
