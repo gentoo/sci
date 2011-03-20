@@ -1,6 +1,15 @@
 # ChangeLog for sci-mathematics/hypre
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*hypre-2.7.0b (19 Mar 2011)
+
+  19 Mar 2011; Jens-Malte Gottfried <jmgottfried@web.de>
+  hypre-2.6.0b.ebuild, -files/hypre-2.6.0b-makefile.patch,
+  +hypre-2.7.0b.ebuild, +files/makefile-mpicxx.patch:
+  Added new ebuild of hypre version 2.7.0b
+  moved makefile mpicxx patch to version-independen name since it
+  applies to the new version too.
 
   24 Nov 2010; Jens-Malte Gottfried <jmgottfried@web.de>
   hypre-2.6.0b.ebuild:
