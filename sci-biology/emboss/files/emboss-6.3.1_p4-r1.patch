@@ -234,29 +234,28 @@ index ab45afc..f61c605 100644
  libajaxg_la_LDFLAGS = $(LINKFLAGS)
 +libajaxg_la_LIBADD = ../core/libajax.la $(EXTRA_LIBS)
 diff --git a/ajax/graphics/ajgraph.c b/ajax/graphics/ajgraph.c
-index 25e75e4..60f2743 100644
+index 25e75e4..ce21a32 100644
 --- a/ajax/graphics/ajgraph.c
 +++ b/ajax/graphics/ajgraph.c
-@@ -34,10 +34,8 @@
+@@ -26,6 +26,9 @@
+ 
+ #define GRAPHMAIN 1
+ 
++#define _GNU_SOURCE
++#include <stdio.h>
++
+ #include "ajax.h"
+ #include "ajgraph.h"
+ 
+@@ -34,7 +37,6 @@
  #include <float.h>
  #define AZ 28
  
 -
  #include "plplotP.h"
  
--
- static void     GraphArray(ajuint numofpoints,
- 			   float *x, float *y);
- static void     GraphArrayGaps(ajuint numofpoints,
-@@ -1049,13 +1047,26 @@ static void GraphDefCharSize(float size)
- ** @@
- ******************************************************************************/
  
-+#define _GNU_SOURCE
-+#include <stdio.h>
-+
- static void GraphSetName(const AjPGraph thys,
- 			 const AjPStr txt, const char *ext)
+@@ -1054,8 +1056,18 @@ static void GraphSetName(const AjPGraph thys,
  {
      if(!thys->ready)
      {
@@ -265,7 +264,7 @@ index 25e75e4..60f2743 100644
 +#endif
          ajDebug("=g= plxsfnam ('%S', '%s')\n", txt, ext);
 +#ifdef USE_PLXSFNAM_SHIM
-+        fullname = asprintf(fullname,"%s%s", ajStrGetPtr(txt), ext);
++        asprintf(&fullname,"%s%s", ajStrGetPtr(txt), ext);
 +        ajDebug("=g= plsfnam ('%S') instead\n", fullname);
 +        plsfnam(fullname);
 +        free(fullname);
