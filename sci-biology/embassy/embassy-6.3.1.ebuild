@@ -31,3 +31,11 @@ RDEPEND+="
 	=sci-biology/embassy-vienna-1.7.2-r2"
 
 DOCS=""
+
+src_prepare() {
+:
+}
+
+src_configure() {
+:
+}
