@@ -32,6 +32,8 @@ RDEPEND+="
 
 DOCS=""
 
+S="${WORKDIR}"
+
 src_prepare() {
 :
 }
