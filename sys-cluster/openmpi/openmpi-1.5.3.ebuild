@@ -14,7 +14,6 @@ SRC_URI="http://www.open-mpi.org/software/ompi/v1.5/downloads/${MY_P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
-#RESTRICT="mpi-threads? ( test )"
 IUSE="+cxx elibc_FreeBSD fortran heterogeneous ipv6 infiniband mpi-threads pbs romio threads vt"
 RDEPEND="pbs? ( sys-cluster/torque )
 		vt? (
