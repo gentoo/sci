@@ -16,8 +16,7 @@
 # @DESCRIPTION:
 # The inheriting ebuild must set EAPI=4 and provide EBO_DESCRIPTION before the inherit line.
 # KEYWORDS should be set. Additionally "(R|P)DEPEND"encies and other standard
-# ebuild Variables can be extended (FOO+="BAR").
-# The inheriting ebuild's name must begin with "emboss" or "embassy".
+# ebuild variables can be extended (FOO+=" bar").
 # Default installation of following DOCS="AUTHORS ChangeLog NEWS README"
 #
 # Example:
@@ -27,9 +26,6 @@
 # EBO_DESCRIPTION="applications from the CBS group"
 #
 # inherit emboss
-#
-# KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
-
 
 # @ECLASS-VARIABLE: EBO_DESCRIPTION
 # @DESCRIPTION:
@@ -44,7 +40,7 @@
 # @ECLASS-VARIABLE: EBO_EAUTORECONF
 # @DESCRIPTION:
 # Set to 'no', if you don't want eautoreconf to be run after patching.
-: ${EBO_EAUTORECONF:="yes"}
+: ${EBO_EAUTORECONF:=yes}
 
 # @ECLASS-VARIABLE: EBO_EXTRA_ECONF
 # @DEFAULT_UNSET
@@ -56,7 +52,7 @@ case ${EAPI:-0} in
 	*) die "this eclass doesn't support < EAPI 4" ;;
 esac
 
-inherit autotools eutils multilib
+inherit autotools eutils
 
 HOMEPAGE="http://emboss.sourceforge.net/"
 LICENSE="LGPL-2 GPL-2"
@@ -101,13 +97,13 @@ DOCS="AUTHORS ChangeLog NEWS README"
 #
 
 emboss_src_prepare() {
-	[[ -f "${FILESDIR}"/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
+	[[ -f ${FILESDIR}/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
 	[[ ${EBO_EAUTORECONF} == yes ]] && eautoreconf
 }
 
-# @FUNCTION: emboss_src_prepare
+# @FUNCTION: emboss_src_configure
 # @DESCRIPTION:
-# runs econf with following options. Extra options can be passed by setting EBO_EXTRA_ECONF
+# runs econf with following options.
 #
 #  $(use_with X x)
 #  $(use_with png pngdriver)
@@ -118,6 +114,7 @@ emboss_src_prepare() {
 #  --enable-large
 #  --without-java
 #  --enable-systemlibs
+#  --docdir="${EPREFIX}/usr/share/doc/${PF}"
 #  ${EBO_EXTRA_ECONF}
 
 emboss_src_configure() {
@@ -131,7 +128,7 @@ emboss_src_configure() {
 		--enable-large \
 		--without-java \
 		--enable-systemlibs \
-		--docdir="${EPREFIX}/usr/share/doc/${PF}/" \
+		--docdir="${EPREFIX}/usr/share/doc/${PF}" \
 		${EBO_EXTRA_ECONF}
 }
 
