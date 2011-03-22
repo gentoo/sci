@@ -1,3 +1,27 @@
+ Makefile.am                     |   13 +++++++++-
+ README.fixes                    |    9 +++++++
+ ajax/Makefile.am                |    4 +-
+ ajax/acd/Makefile.am            |    8 +++++-
+ ajax/ajaxdb/Makefile.am         |    6 +++-
+ ajax/core/Makefile.am           |   12 +++++++--
+ ajax/core/ajax-pcre-config.h.in |    1 +
+ ajax/core/ajreg.h               |    9 +++++++
+ ajax/ensembl/Makefile.am        |    8 ++++--
+ ajax/graphics/Makefile.am       |    9 ++++++-
+ ajax/graphics/ajgraph.c         |   14 +++++++++++-
+ configure.in                    |   45 +++++++++++++++++++++++++-------------
+ doc/manuals/Makefile.am         |    2 +-
+ doc/programs/html/Makefile.am   |    4 +-
+ doc/programs/text/Makefile.am   |    4 +-
+ doc/tutorials/Makefile.am       |    2 +-
+ emboss/Makefile.am              |   12 ++++++----
+ m4/hpdf.m4                      |   16 ++++---------
+ m4/mysql.m4                     |   14 ++++++------
+ m4/pngdriver.m4                 |   29 +++++++++++++------------
+ m4/postgresql.m4                |    8 +++---
+ nucleus/Makefile.am             |   10 ++++++--
+ 22 files changed, 156 insertions(+), 83 deletions(-)
+
 diff --git a/Makefile.am b/Makefile.am
 index 4fe2ed1..7f3a95f 100644
 --- a/Makefile.am
@@ -104,7 +128,7 @@ index da57727..857ca5f 100644
  libajaxdb_la_LDFLAGS = $(LINKFLAGS)
 +libajaxdb_la_LIBADD = ../core/libajax.la ../ensembl/libensembl.la
 diff --git a/ajax/core/Makefile.am b/ajax/core/Makefile.am
-index af27cb0..8fa4a3a 100644
+index af27cb0..fa57e93 100644
 --- a/ajax/core/Makefile.am
 +++ b/ajax/core/Makefile.am
 @@ -12,13 +12,18 @@ CYGWIN_LDAJAX = -L../../plplot -L../expat -L../pcre -L../zlib \
@@ -141,7 +165,7 @@ index af27cb0..8fa4a3a 100644
  endif
  
  libajax_la_LDFLAGS = $(LINKFLAGS)
-+libajax_la_LIBADD = $(EXTRA_LIBS) $(POSTGRESQL_LDFLAGS) $(MYSQL_LDFLAGS)
++libajax_la_LIBADD = $(EXTRA_LIBS) $(POSTGRESQL_LIBS) $(MYSQL_LIBS)
 diff --git a/ajax/core/ajax-pcre-config.h.in b/ajax/core/ajax-pcre-config.h.in
 new file mode 100644
 index 0000000..b09e4e6
@@ -654,7 +678,7 @@ index 5934321..de970ae 100644
 -fi
  ])
 diff --git a/m4/postgresql.m4 b/m4/postgresql.m4
-index e6a804d..ef4d49c 100644
+index e6a804d..eb14d5c 100644
 --- a/m4/postgresql.m4
 +++ b/m4/postgresql.m4
 @@ -26,7 +26,7 @@
@@ -680,7 +704,7 @@ index e6a804d..ef4d49c 100644
  
              POSTGRESQL_CFLAGS="-I`$PG_CONFIG --includedir`"
 -            POSTGRESQL_LDFLAGS="-L`$PG_CONFIG --libdir` -lpq"
-+            POSTGRESQL_LIBS="-L`$PG_CONFIG --libdir` `$PG_CONFIG --libs`"
++            POSTGRESQL_LIBS="-L`$PG_CONFIG --libdir` `$PG_CONFIG --libs` -lpq"
  
              POSTGRESQL_VERSION=`$PG_CONFIG --version | sed -e 's#PostgreSQL ##'`
  
