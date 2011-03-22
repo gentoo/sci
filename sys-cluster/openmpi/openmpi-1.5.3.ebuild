@@ -15,11 +15,12 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
 IUSE="+cxx elibc_FreeBSD fortran heterogeneous ipv6 infiniband mpi-threads pbs romio threads vt"
+MPI_UNCLASSED_DEP_STR="
+	vt? (
+		!dev-libs/libotf
+		!app-text/lcdf-typetools
+	)"
 RDEPEND="pbs? ( sys-cluster/torque )
-		vt? (
-			!dev-libs/libotf
-			!app-text/lcdf-typetools
-		)
 		infiniband? ( sys-infiniband/libibverbs )
 		elibc_FreeBSD? ( dev-libs/libexecinfo )
 		>=sys-apps/hwloc-1.1.1
