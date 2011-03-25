@@ -5,9 +5,8 @@
 EAPI="3"
 
 WX_GTK_VER="2.8"
-PYTHON_DEPEND="python? 2"
 
-inherit cmake-utils eutils python wxwidgets
+inherit cmake-utils eutils wxwidgets
 
 DESCRIPTION="Interconverts file formats used in molecular modeling"
 HOMEPAGE="http://openbabel.sourceforge.net/"
@@ -16,7 +15,7 @@ SRC_URI="mirror://sourceforge/openbabel/${P}.tar.gz"
 KEYWORDS="~amd64"
 SLOT="0"
 LICENSE="GPL-2"
-IUSE="doc python wxwidgets"
+IUSE="doc wxwidgets"
 
 RDEPEND="
 	dev-cpp/eigen:2
@@ -38,7 +37,6 @@ src_configure() {
 	local mycmakeargs=""
 	mycmakeargs="${mycmakeargs}
 		-DOPENBABEL_USE_SYSTEM_INCHI=ON
-		$(cmake-utils_use python PYTHON_BINDINGS)
 		$(cmake-utils_use wxwidgets BUILD_GUI)"
 
 	cmake-utils_src_configure
