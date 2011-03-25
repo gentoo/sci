@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,11 +13,11 @@ SLOT="0"
 LICENSE="GPL-2"
 IUSE="swig"
 
-RDEPEND="~sci-chemistry/openbabel-${PV}
-	dev-lang/perl"
-
+RDEPEND="
+	dev-lang/perl
+	~sci-chemistry/openbabel-${PV}"
 DEPEND="${RDEPEND}
-	swig? ( >=dev-lang/swig-1.3.38 )"
+	swig? ( dev-lang/swig )"
 
 src_unpack() {
 	unpack ${A}

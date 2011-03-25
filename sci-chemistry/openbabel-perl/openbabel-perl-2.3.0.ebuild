@@ -1,55 +1,46 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils perl-module
+EAPI="3"
+
+inherit cmake-utils eutils perl-module
 
 DESCRIPTION="Perl bindings for OpenBabel"
 HOMEPAGE="http://openbabel.sourceforge.net/"
 SRC_URI="mirror://sourceforge/openbabel/openbabel-${PV}.tar.gz"
 
-KEYWORDS="~amd64"
+#KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 SLOT="0"
 LICENSE="GPL-2"
 IUSE="swig"
 
-RDEPEND="~sci-chemistry/openbabel-${PV}
-	dev-lang/perl"
-
+RDEPEND="
+	dev-lang/perl
+	~sci-chemistry/openbabel-${PV}"
 DEPEND="${RDEPEND}
-	swig? ( >=dev-lang/swig-1.3.39 )"
+	swig? ( dev-lang/swig )"
 
-src_unpack() {
-	unpack ${A}
 	S="${WORKDIR}/openbabel-${PV}"
-	cd "${S}"
 
-	econf \
-		$(use_enable swig maintainer-mode) \
-		--enable-static \
-			|| die "econf failed"
-	S="${S}/scripts"
-	cd "${S}"
-	if use swig ; then
-		emake -W openbabel-perl.i perl/openbabel_perl.cpp \
-			|| die "Failed to make SWIG perl bindings"
-	fi
-	S="${S}/perl"
-	cd "${S}"
-	epatch "${FILESDIR}/${P}-makefile.patch" \
-		|| die "Failed to apply ${P}-makefile.patch"
+src_configure() {
+	local mycmakeargs="-DPERL_BINDINGS=ON $(cmake-utils_use_enable swig RUN_SWIG)"
+	cmake-utils_src_configure
 }
 
 src_compile() {
+	cd "${WORKDIR}/${P}_build/scripts"
 	perl-module_src_prep
 	perl-module_src_compile
 }
 
 src_test() {
+	cd "${WORKDIR}/${P}_build/scripts"
 	emake test || die "make test failed"
 }
 
 src_install() {
+	cd "${WORKDIR}/${P}_build/scripts"
 	perl-module_src_install
 }
 
