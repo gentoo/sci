@@ -1,0 +1,9 @@
+--- scripts/perl/Makefile.PL	2011-03-26 00:38:31.000000000 +0200
++++ scripts/perl/Makefile.PL	2011-03-26 00:41:36.000000000 +0200
+@@ -32,5 +32,6 @@
+     'CC'        => $CC,
+     'LD'        => '$(CC)',
+     'INC'       => '-I../../include -I'.$cmakesrcdir.'/include',
++    'DESTDIR'   => @ENV{"D"},
+     'OBJECT'    => 'openbabel-perl.o'
+ );

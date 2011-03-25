@@ -23,6 +23,10 @@ DEPEND="${RDEPEND}
 
 	S="${WORKDIR}/openbabel-${PV}"
 
+src_prepare() {
+	epatch "${FILESDIR}/${P}-makefile.patch"
+}
+
 src_configure() {
 	local mycmakeargs="-DPERL_BINDINGS=ON $(cmake-utils_use_enable swig RUN_SWIG)"
 	cmake-utils_src_configure

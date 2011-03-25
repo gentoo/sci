@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Mar 2011; Reinis Danne <rei4dan@gmail.com> openbabel-perl-2.3.0.ebuild,
+  +files/openbabel-perl-2.3.0-makefile.patch:
+  Fix install in sandbox
+
 *openbabel-perl-2.3.0 (25 Mar 2011)
 *openbabel-perl-2.2.3 (25 Mar 2011)
 
