@@ -8,27 +8,27 @@ PYTHON_DEPEND="*:2.4"
 SUPPORT_PYTHON_ABIS="1"
 PYTHON_MODNAME="openbabel.py pybel.py"
 
-inherit cmake-utils eutils python distutils
+inherit cmake-utils eutils distutils
 
 DESCRIPTION="Python bindings for OpenBabel (including Pybel)"
 HOMEPAGE="http://openbabel.sourceforge.net/"
 SRC_URI="mirror://sourceforge/openbabel/openbabel-${PV}.tar.gz"
 
-KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 SLOT="0"
 LICENSE="GPL-2"
 IUSE=""
 
 RDEPEND="
-	~sci-chemistry/openbabel-${PV}
+	dev-cpp/eigen:2
 	dev-libs/libxml2:2
 	!sci-chemistry/babel
-	dev-cpp/eigen:2
+	~sci-chemistry/openbabel-${PV}
 	sys-libs/zlib"
 DEPEND="${RDEPEND}
-	>=dev-util/cmake-2.6.0"
+	dev-util/cmake"
 
-S="${WORKDIR}/openbabel-${PV}"
+S="${WORKDIR}"/openbabel-${PV}
 
 DISTUTILS_SETUP_FILES="${WORKDIR}/openbabel-${PV}/scripts/python/setup.py"
 

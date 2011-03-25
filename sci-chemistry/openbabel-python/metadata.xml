@@ -9,7 +9,4 @@ search, convert, analyze, or store data from molecular modeling, chemistry,
 solid-state materials, biochemistry, or related areas. This package enables
 to access OpenBabel library from Python programs.
 </longdescription>
-<use>
-<flag name='swig'>Enable SWIG language binding regeneration</flag>
-</use>
 </pkgmetadata>
