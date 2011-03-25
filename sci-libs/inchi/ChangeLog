@@ -1,0 +1,14 @@
+# ChangeLog for sci-libs/inchi
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  25 Mar 2011; Justin Lecher <jlec@gentoo.org> +inchi-1.03.ebuild,
+  +files/inchi-1.03-shared.patch, +metadata.xml:
+  Cleaned ebuild, moved from sci-chemistry to sci-libs
+
+*inchi-1.03 (14 Nov 2010)
+
+  14 Nov 2010; Reinis Danne <rei4dan@gmail.com> +inchi-1.03.ebuild,
+  +files/inchi-1.03-makefile.patch, +metadata.xml:
+  New package sci-chemistry/inchi
+
