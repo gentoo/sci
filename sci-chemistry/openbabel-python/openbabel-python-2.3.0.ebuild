@@ -24,6 +24,7 @@ RDEPEND="
 	dev-libs/libxml2:2
 	!sci-chemistry/babel
 	~sci-chemistry/openbabel-${PV}
+	=dev-lang/swig-2.0.1
 	sys-libs/zlib"
 DEPEND="${RDEPEND}
 	dev-util/cmake"
@@ -32,13 +33,20 @@ S="${WORKDIR}"/openbabel-${PV}
 
 DISTUTILS_SETUP_FILES="${WORKDIR}/openbabel-${PV}/scripts/python/setup.py"
 
+src_prepare() {
+	epatch "${FILESDIR}/${P}-wrap_OBInternalCoord.patch"
+	epatch "${FILESDIR}/${P}-py3_iterator.patch"
+}
+
 src_configure() {
 	local mycmakeargs="-DPYTHON_BINDINGS=ON"
+	mycmakeargs="${mycmakeargs}
+		-DRUN_SWIG=ON"
 	cmake-utils_src_configure
 }
 
 src_compile() {
-	#cmake-utils_src_compile _openbabel
+	cmake-utils_src_compile _openbabel
 	cd "${WORKDIR}/${P}_build/scripts"
 	distutils_src_compile
 }
