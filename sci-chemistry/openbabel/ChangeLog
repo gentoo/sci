@@ -3,6 +3,9 @@
 # $Header: $
 
   25 Mar 2011; Justin Lecher <jlec@gentoo.org> openbabel-2.3.0.ebuild:
+  keyworded for ~x86
+
+  25 Mar 2011; Justin Lecher <jlec@gentoo.org> openbabel-2.3.0.ebuild:
   Removed python again
 
   25 Mar 2011; Justin Lecher <jlec@gentoo.org> openbabel-2.3.0.ebuild:

@@ -12,7 +12,7 @@ DESCRIPTION="Interconverts file formats used in molecular modeling"
 HOMEPAGE="http://openbabel.sourceforge.net/"
 SRC_URI="mirror://sourceforge/openbabel/${P}.tar.gz"
 
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 SLOT="0"
 LICENSE="GPL-2"
 IUSE="doc wxwidgets"
