@@ -10,25 +10,24 @@ DESCRIPTION="Perl bindings for OpenBabel"
 HOMEPAGE="http://openbabel.sourceforge.net/"
 SRC_URI="mirror://sourceforge/openbabel/openbabel-${PV}.tar.gz"
 
-#KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 SLOT="0"
 LICENSE="GPL-2"
-IUSE="swig"
+IUSE=""
 
 RDEPEND="
 	dev-lang/perl
 	~sci-chemistry/openbabel-${PV}"
-DEPEND="${RDEPEND}
-	swig? ( dev-lang/swig )"
+DEPEND="${RDEPEND}"
 
-	S="${WORKDIR}/openbabel-${PV}"
+S="${WORKDIR}/openbabel-${PV}"
 
 src_prepare() {
 	epatch "${FILESDIR}/${P}-makefile.patch"
 }
 
 src_configure() {
-	local mycmakeargs="-DPERL_BINDINGS=ON $(cmake-utils_use_enable swig RUN_SWIG)"
+	local mycmakeargs="-DPERL_BINDINGS=ON"
 	cmake-utils_src_configure
 }
 
