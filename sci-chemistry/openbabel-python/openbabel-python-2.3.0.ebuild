@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-PYTHON_DEPEND="*:2.4"
+PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
 PYTHON_MODNAME="openbabel.py pybel.py"
 
@@ -24,18 +24,19 @@ RDEPEND="
 	dev-libs/libxml2:2
 	!sci-chemistry/babel
 	~sci-chemistry/openbabel-${PV}
-	=dev-lang/swig-2.0.1
 	sys-libs/zlib"
 DEPEND="${RDEPEND}
+	=dev-lang/swig-2.0.1
 	dev-util/cmake"
 
 S="${WORKDIR}"/openbabel-${PV}
 
-DISTUTILS_SETUP_FILES="${WORKDIR}/openbabel-${PV}/scripts/python/setup.py"
+DISTUTILS_SETUP_FILES="${S}/scripts/python/setup.py"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-wrap_OBInternalCoord.patch"
-	epatch "${FILESDIR}/${P}-py3_iterator.patch"
+	epatch \
+		"${FILESDIR}"/${P}-wrap_OBInternalCoord.patch \
+		"${FILESDIR}"/${P}-py3_iterator.patch
 }
 
 src_configure() {
