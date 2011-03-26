@@ -53,6 +53,7 @@ src_install() {
 	cd "${S}/INCHI/gcc/inchi-1"
 	dobin inchi-1
 	cd "${S}/INCHI_API/gcc_so_makefile/result"
+	rm *gz
 	dolib.so lib*
 	insinto /usr/include
 	doins ../../inchi_main/inchi_api.h
