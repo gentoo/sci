@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/ChangeLog,v 1.61 2011/03/09 16:29:05 jlec Exp $
 
+  27 Mar 2011; Justin Lecher <jlec@gentoo.org> emboss-6.3.1_p4-r1.ebuild,
+  -files/emboss-6.3.1_p4-r1.patch:
+  Last fix for 64bitness
+
   22 Mar 2011; Justin Lecher <jlec@gentoo.org> files/emboss-6.3.1_p4-r1.patch:
   Fix compile correctly against postgresql, #359959
 
