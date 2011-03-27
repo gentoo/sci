@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE="blas chaco cgns doc examples jpeg med metis mpi opencascade png taucs zlib X"
 
-RDEPEND="X? ( x11-libs/fltk:1.1 )
+RDEPEND="X? ( x11-libs/fltk:1 )
 		blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 		cgns? ( sci-libs/cgnslib )
 		jpeg? ( virtual/jpeg )
