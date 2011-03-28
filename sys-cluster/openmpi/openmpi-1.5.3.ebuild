@@ -56,6 +56,9 @@ src_prepare() {
 		echo 'oob_tcp_listen_mode = listen_thread' \
 			>> opal/etc/openmpi-mca-params.conf
 	fi
+
+	# Gentoo bug 360185
+	epatch "${FILESDIR}"/openmpi-r24328.patch
 }
 
 src_configure() {
