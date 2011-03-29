@@ -12,7 +12,7 @@ MY_P=Jmol
 DESCRIPTION="Jmol is a java molecular viever for 3-D chemical structures."
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}-${PV}-full.tar.gz"
 HOMEPAGE="http://jmol.sourceforge.net/"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 LICENSE="LGPL-2.1"
 
 IUSE="client-only vhosts"
@@ -44,7 +44,7 @@ pkg_setup() {
 src_unpack() {
 
 	unpack ${A}
-	cd ${S}
+	cd "${S}"
 	epatch "${FILESDIR}"/${PV}/${PN}-nointl.patch
 	epatch "${FILESDIR}"/${PV}/${PN}-manifest.patch
 
