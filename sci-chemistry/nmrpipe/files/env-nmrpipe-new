@@ -3,7 +3,7 @@ NMRCHECK="ALL"
 
 BINTYPE="linux9"
 NMRBINTYPE="linux9"
-PATH="/opt/nmrpipe/com:/opt/nmrpipe/bin:/opt/nmrpipe/dynamo/tcl"
+PATH="/opt/nmrpipe/com:/opt/nmrpipe/bin:/opt/nmrpipe/dynamo/tcl:/opt/nmrpipe/talosplus/com:/opt/nmrpipe/dynamo/com"
 
 # NMRPipe
 NMRBASE="/opt/nmrpipe"

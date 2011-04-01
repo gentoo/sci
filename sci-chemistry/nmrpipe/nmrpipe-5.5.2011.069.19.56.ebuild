@@ -130,7 +130,7 @@ src_install() {
 	rm -f {talos*,spartaplus,promega}/bin/*{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
 
 	# Set the correct path to NMRPipe in the auxiliary scripts.
-	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc talosplus/com -type f); do
+	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc talosplus/com spartaplus/com -type f); do
 		sed -e "s%/u/delaglio%${ENMRBASE}%" -i ${i} || die \
 			"Failed patching scripts."
 	done
