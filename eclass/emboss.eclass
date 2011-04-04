@@ -92,7 +92,7 @@ DOCS="AUTHORS ChangeLog NEWS README"
 # @DESCRIPTION:
 # Does following things
 #
-#  1. Patches with "${FILESDIR}"/${PF}.patch, of present
+#  1. Patches with "${FILESDIR}"/${PF}.patch, if present
 #  2. Runs eautoreconf, unless EBO_EAUTORECONF is set to no
 #
 
