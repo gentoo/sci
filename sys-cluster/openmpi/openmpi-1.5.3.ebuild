@@ -14,13 +14,13 @@ SRC_URI="http://www.open-mpi.org/software/ompi/v1.5/downloads/${MY_P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
-#RESTRICT="mpi-threads? ( test )"
 IUSE="+cxx elibc_FreeBSD fortran heterogeneous ipv6 infiniband mpi-threads pbs romio threads vt"
+MPI_UNCLASSED_DEP_STR="
+	vt? (
+		!dev-libs/libotf
+		!app-text/lcdf-typetools
+	)"
 RDEPEND="pbs? ( sys-cluster/torque )
-		vt? (
-			!dev-libs/libotf
-			!app-text/lcdf-typetools
-		)
 		infiniband? ( sys-infiniband/libibverbs )
 		elibc_FreeBSD? ( dev-libs/libexecinfo )
 		>=sys-apps/hwloc-1.1.1
@@ -96,6 +96,8 @@ src_configure() {
 
 src_install () {
 	emake DESTDIR="${D}" install || die
+	# From USE=vt see #359917
+	rm "${D}"/$(mpi_root)/usr/share/libtool &> /dev/null
 	mpi_dodoc README AUTHORS NEWS VERSION || die
 	mpi_imp_add_eselect
 }

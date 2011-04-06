@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/jmol
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  29 Mar 2011; Jeff Gardner <je_fro@gentoo.org> jmol-12.0.34.ebuild:
+  Add ~amd64 for testing by others.
 
 *jmol-11.6 (23 Apr 2009)
 

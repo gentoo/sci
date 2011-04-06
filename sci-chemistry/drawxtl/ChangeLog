@@ -1,6 +1,10 @@
 # ChangeLog for sci-chemistry/drawxtl
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  05 Apr 2011; Justin Lecher <jlec@gentoo.org> drawxtl-44.ebuild,
+  drawxtl-54.ebuild:
+  Corrected Slot of fltk to 1, thanks Jan M. Simons noticing this
 
   19 Oct 2010; Justin Lecher <jlec@gentoo.org> +files/44-gentoo.patch,
   drawxtl-44.ebuild, -files/44-ldflags.patch, drawxtl-54.ebuild,

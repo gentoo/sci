@@ -6,7 +6,6 @@
 </maintainer>
 <use>
   <flag name='apbs'>Pymol supprt for sci-chemistry/apbs</flag>
-  <flag name='shaders'>Enable shaders support for Pymol</flag>
   <flag name='numpy'>Enable numpy support for Pymol</flag>
   <flag name='vmd'>Builds molfile plugin support</flag>
 </use>

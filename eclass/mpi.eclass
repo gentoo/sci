@@ -31,8 +31,9 @@ __MPI_ALL_CLASSABLE_PNS="openmpi mpich2 lam-mpi"
 # Generic Functions that are used by Implementations and Packages #
 ###################################################################
 
-# @ECLASS-VARIABLE: MPI_UNCLASSED_BLOCKERS
-# @DESCRIPTION: Packages that are blockers when not using a classed install.
+# @ECLASS-VARIABLE: MPI_UNCLASSED_DEP_STR
+# @DESCRIPTION: String inserted into the deplist when not using a classed
+# install.
 
 # @FUNCTION: mpi_classed
 # @USAGE:
@@ -196,20 +197,18 @@ mpi_dosym()     { _mpi_do "dosym"        $*; }
 # @FUNCTION: mpi_imp_deplist
 # @USAGE:
 # @RETURNS: Returns a deplist that handles the blocking between mpi
-# implementations, and any blockers as specified in MPI_UNCLASSED_BLOCKERS
+# implementations, and any blockers as specified in MPI_UNCLASSED_DEP_STR
 mpi_imp_deplist() {
 	local c="sys-cluster"
 	local pn ver
-	
+
 	mpi_classed && c="${CATEGORY}"
 	ver=""
 	for pn in ${__MPI_ALL_IMPLEMENTATION_PNS}; do
 		ver="${ver} !${c}/${pn}"
 	done
-	if ! mpi_classed; then
-		for pn in ${MPI_UNCLASSED_BLOCKERS}; do
-			ver="${ver} !${MPI_UNCLASSED_BLOCKERS}"
-		done
+	if ! mpi_classed && [ -n "${MPI_UNCLASSED_DEP_STR}" ]; then
+		ver="${ver} ${MPI_UNCLASSED_DEP_STR}"
 	else
 		ver="${ver} sys-cluster/empi"
 	fi
@@ -288,10 +287,8 @@ mpi_pkg_deplist() {
 		ver="${ver}[${usedeps:1}]"
 	fi
 
-	if ! mpi_classed && [ -n "${MPI_UNCLASSED_BLOCKERS}" ]; then
-		for pn in ${MPI_UNCLASSED_BLOCKERS}; do
-			ver="${ver} !${pn}"
-		done
+	if ! mpi_classed && [ -n "${MPI_UNCLASSED_DEP_STR}" ]; then
+		ver="${ver} ${MPI_UNCLASSED_DEP_STR}"
 	fi
 
 	for pn in ${__MPI_ALL_IMPLEMENTATION_PNS}; do

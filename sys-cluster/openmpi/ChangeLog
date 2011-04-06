@@ -2,6 +2,21 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Mar 2011; Justin Bronder <jsbronder@gentoo.org> openmpi-1.5.3.ebuild:
+  Remove libtool if it was installed by USE=vt, bug #359917.
+
+  22 Mar 2011; Justin Bronder <jsbronder@gentoo.org> openmpi-1.5.3.ebuild:
+  Make the USE=vt blockers conditional on being an unclasssed merge.
+
+  22 Mar 2011; Justin Bronder <jsbronder@gentoo.org> openmpi-1.5.3.ebuild:
+  Remove commented RESTRICT
+
+*openmpi-1.5.3 (22 Mar 2011)
+
+  22 Mar 2011; Justin Bronder <jsbronder@gentoo.org> -openmpi-1.5.2.ebuild,
+  +openmpi-1.5.3.ebuild:
+  Bump #349076
+
 *openmpi-1.5.2 (14 Mar 2011)
 
   14 Mar 2011; Justin Bronder <jsbronder@gentoo.org> -openmpi-1.5.1.ebuild,

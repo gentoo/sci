@@ -1,4 +1,4 @@
-# Copyright 1999-2004 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/eclass/embassy.eclass,v 1.17 2008/11/03 22:17:50 ribosome Exp $
 
@@ -14,48 +14,51 @@
 # jlec@gentoo.org
 # @BLURB: Use this to easy install EMBOSS and EMBASSY programs (EMBOSS add-ons).
 # @DESCRIPTION:
-# The inheriting ebuild should provide EBO_DESCRIPTION before the inherit line.
+# The inheriting ebuild must set EAPI=4 and provide EBO_DESCRIPTION before the inherit line.
 # KEYWORDS should be set. Additionally "(R|P)DEPEND"encies and other standard
-# ebuild Variables can be extended (FOO+="BAR").
-# The inheriting ebuild's name must begin with "emboss" or "embassy" and must be EAPI=4 conform.
+# ebuild variables can be extended (FOO+=" bar").
+# Default installation of following DOCS="AUTHORS ChangeLog NEWS README"
+#
+# Example:
+#
+# EAPI="4"
+#
+# EBO_DESCRIPTION="applications from the CBS group"
+#
+# inherit emboss
 
 # @ECLASS-VARIABLE: EBO_DESCRIPTION
 # @DESCRIPTION:
-# Should be set. Completes the describtion of the embassy module as follows:
+# Should be set. Completes the generic description of the embassy module as follows:
 #
-# EMBOSS integrated version of EBO_DESCRIPTION"
+# EMBOSS integrated version of ${EBO_DESCRIPTION},
+# e.g.
+# "EMBOSS integrated version of applications from the CBS group"
 #
 # Defaults to the upstream name of the module.
 
-# @ECLASS-VARIABLE: EBO_PATCH
-# @DEFAULT_UNSET
-# @DESCRIPTION: Specify the patch level of EMBOSS. Only available for the emboss ebuild.
-# The patch wil be fetch from:
-#
-# ftp://emboss.open-bio.org/pub/EMBOSS/fixes/patches/patch-1-${EBO_PATCH}.gz.
-#
-# Embassy packages should create one patch package and place it in FILESDIR, e.g.
-# "files/embassy-iprscan-4.3.1-r2.patch". The patch will be automatically used during src_prepare
-
-# @ECLASS-VARIABLE: NO_RECONF
-# @DEFAULT_UNSET
+# @ECLASS-VARIABLE: EBO_EAUTORECONF
 # @DESCRIPTION:
-# Set this, if you do not want to have eautoreconf be run after patching.
+# Set to 'no', if you don't want eautoreconf to be run after patching.
+: ${EBO_EAUTORECONF:=yes}
 
-# @ECLASS-VARIABLE: EBO_ECONF
+# @ECLASS-VARIABLE: EBO_EXTRA_ECONF
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # Extra config options passed to econf, similar to EXTRA_ECONF.
 
-EAPI="4"
+case ${EAPI:-0} in
+	4) ;;
+	*) die "this eclass doesn't support < EAPI 4" ;;
+esac
 
-inherit autotools eutils multilib
+inherit autotools eutils
 
-HOMEPAGE="http://emboss.sourceforge.net"
+HOMEPAGE="http://emboss.sourceforge.net/"
 LICENSE="LGPL-2 GPL-2"
 
 SLOT="0"
-IUSE="mysql pdf png postgres static-libs X "
+IUSE="mysql pdf png postgres static-libs X"
 
 DEPEND="
 	dev-libs/expat
@@ -66,113 +69,67 @@ DEPEND="
 	pdf? ( media-libs/libharu )
 	png? ( media-libs/gd[png] )
 	postgres? ( dev-db/postgresql-base )
-	X? ( x11-libs/libXt )
-	"
+	X? ( x11-libs/libXt )"
+RDEPEND="${DEPEND}"
 
-RDEPEND="
-	${DEPEND}
-	"
-
-DOCS="AUTHORS ChangeLog NEWS README "
-
-if [[ ${PN} == "emboss" ]] ; then
-	EBOV=${PV/_p*}
-	DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
-	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-${EBOV}.tar.gz"
-	[[ -n ${EBO_PATCH} ]] && SRC_URI+=" ftp://${PN}.open-bio.org/pub/EMBOSS/fixes/patches/patch-1-${EBO_PATCH}.gz -> ${P}.patch.gz"
-	IUSE+="minimal "
-	RDEPEND+="
-		!sys-devel/cons
-		"
-	PDEPEND+="
-		!minimal? (
-				sci-biology/aaindex
-				sci-biology/cutg
-				sci-biology/prints
-				sci-biology/prosite
-				sci-biology/rebase
-				sci-biology/transfac
-				)
-		"
-	S=${WORKDIR}/EMBOSS-${EBOV}
-	DOCS+="FAQ THANKS "
-else
+if [[ ${PN} == embassy-* ]]; then
 	# The EMBASSY package name, retrieved from the inheriting ebuild's name
 	EN=${PN:8}
 	# The full name and version of the EMBASSY package (excluding the Gentoo
 	# revision number)
 	EF=$(echo ${EN} | tr "[:lower:]" "[:upper:]")-${PV}
-	EBO_DESCRIPTION=${EBO_DESCRIPTION:=${EN}}
+	: ${EBO_DESCRIPTION:=${EN}}
 	DESCRIPTION="EMBOSS integrated version of ${EBO_DESCRIPTION}"
-	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/${EF}.tar.gz -> embassy-${PN:8}-${PV}.tar.gz"
-	DEPEND+=">=sci-biology/emboss-6.3.1_p4[mysql=,pdf=,png=,postgres=,static-libs=,X=] "
+	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/${EF}.tar.gz -> embassy-${EN}-${PV}.tar.gz"
+	DEPEND+=" >=sci-biology/emboss-6.3.1_p4[mysql=,pdf=,png=,postgres=,static-libs=,X=]"
 
-	S=${WORKDIR}/${EF}
+	S="${WORKDIR}"/${EF}
 fi
 
+DOCS="AUTHORS ChangeLog NEWS README"
+
 # @FUNCTION: emboss_src_prepare
-# @USAGE:
-# @RETURN:
-# @MAINTAINER:
 # @DESCRIPTION:
-# Does three things
+# Does following things
 #
-#  1. Patches EMBOSS if EBO_PATCH is set
-#  2. Patches with "${FILESDIR}"/${PF}.patch, of present
-#  3. Runs eautoreconf unless NO_RECONF is set
+#  1. Patches with "${FILESDIR}"/${PF}.patch, if present
+#  2. Runs eautoreconf, unless EBO_EAUTORECONF is set to no
 #
 
 emboss_src_prepare() {
-	[[ ${PN} == emboss ]] && [[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}.patch
-	[[ -f "${FILESDIR}"/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
-	[[ -n ${NO_RECONF} ]] || eautoreconf
+	[[ -f ${FILESDIR}/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
+	[[ ${EBO_EAUTORECONF} == yes ]] && eautoreconf
 }
 
-# @FUNCTION: emboss_src_prepare
-# @USAGE:
-# @RETURN:
-# @MAINTAINER:
+# @FUNCTION: emboss_src_configure
 # @DESCRIPTION:
-# runs econf with following options. Extra options can be passed by setting EBO_ECONF
+# runs econf with following options.
 #
 #  $(use_with X x)
-#  $(use_with png pngdriver "${EPREFIX}/usr")
-#  $(use_with pdf hpdf "${EPREFIX}/usr")
-#  $(use_with mysql mysql "${EPREFIX}/usr/bin/mysql_config")
-#  $(use_with postgres postgresql "${EPREFIX}/usr/bin/pg_config")
-#  $(use_enable amd64 64)
+#  $(use_with png pngdriver)
+#  $(use_with pdf hpdf)
+#  $(use_with mysql mysql)
+#  $(use_with postgres postgresql)
 #  $(use_enable static-libs static)
 #  --enable-large
 #  --without-java
 #  --enable-systemlibs
-#  ${EBO_ECONF}
+#  --docdir="${EPREFIX}/usr/share/doc/${PF}"
+#  ${EBO_EXTRA_ECONF}
 
 emboss_src_configure() {
 	econf \
 		$(use_with X x) \
-		$(use_with png pngdriver "${EPREFIX}/usr") \
-		$(use_with pdf hpdf "${EPREFIX}/usr") \
-		$(use_with mysql mysql "${EPREFIX}/usr/bin/mysql_config") \
-		$(use_with postgres postgresql "${EPREFIX}/usr/bin/pg_config") \
-		$(use_enable amd64 64) \
+		$(use_with png pngdriver) \
+		$(use_with pdf hpdf) \
+		$(use_with mysql mysql) \
+		$(use_with postgres postgresql) \
 		$(use_enable static-libs static) \
 		--enable-large \
 		--without-java \
 		--enable-systemlibs \
-		${EBO_ECONF}
+		--docdir="${EPREFIX}/usr/share/doc/${PF}" \
+		${EBO_EXTRA_ECONF}
 }
 
-# @FUNCTION: emboss_src_install
-# @USAGE:
-# @RETURN:
-# @MAINTAINER:
-# @DESCRIPTION:
-# Standard src_install. Takes care of correct position of docs.
-
-emboss_src_install() {
-	default
-	mv "${ED}"/usr/share/EMBOSS/doc/* "${ED}"/usr/share/doc/${PF}/
-	rm -rf "${ED}"/usr/share/EMBOSS/doc
-}
-
-[[ ${PN} == embassy ]] || EXPORT_FUNCTIONS src_prepare src_configure src_install
+EXPORT_FUNCTIONS src_prepare src_configure

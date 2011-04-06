@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,7 +21,7 @@ IUSE="examples"
 DEPEND="virtual/opengl
 	>=media-libs/freeglut-2.6
 	virtual/opengl
-	x11-libs/fltk:1.1[opengl]"
+	x11-libs/fltk:1[opengl]"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_PN}"

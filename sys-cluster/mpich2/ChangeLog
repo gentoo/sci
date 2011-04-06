@@ -1,6 +1,9 @@
 # ChangeLog for sys-cluster/mpich2
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  22 Mar 2011; Justin Bronder <jsbronder@gentoo.org> mpich2-1.2.1_p1-r2.ebuild:
+  Use MPI_UNCLASSED_DEP_STR over MPI_UNCLASSED_BLOCKERS
 
   16 Dec 2010; Justin Lecher <jlec@gentoo.org> mpich2-1.2.1_p1-r2.ebuild,
   mpich2-1.3.ebuild:

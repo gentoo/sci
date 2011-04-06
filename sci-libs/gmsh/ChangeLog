@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Mar 2011; Justin Lecher <jlec@gentoo.org> gmsh-2.5.0.ebuild,
+  gmsh-9999.ebuild:
+  Corrected slot of fltk, #360641
+
   14 Mar 2011; Justin Lecher <jlec@gentoo.org> gmsh-9999.ebuild:
   Moved media-libs/jpeg -> virtual/jpeg
 

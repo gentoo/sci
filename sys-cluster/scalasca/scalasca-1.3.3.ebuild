@@ -13,11 +13,11 @@ SRC_URI="http://www2.fz-juelich.de/zam/datapool/scalasca/${P}.tar.gz"
 LICENSE="scalasca"
 SLOT="0"
 KEYWORDS="~x86"
-IUSE="examples fortran mpi openmp"
+IUSE="examples fortran mpi openmp qt4"
 
 DEPEND="mpi? ( virtual/mpi )
-	x11-libs/qt-core:4
-	x11-libs/qt-gui:4"
+	qt4? ( x11-libs/qt-core:4
+		x11-libs/qt-gui:4 )"
 
 RDEPEND="${DEPEND}"
 
@@ -38,9 +38,10 @@ src_configure() {
 
 	#configure is not a real (autotools) configure
 
-	#only --disable-(omp/mpi) is supported by configure
+	#only --disable-XXX is supported by configure
 	use openmp || myconf="${myconf} --disable-omp"
 	use mpi || myconf="${myconf} --disable-mpi"
+	use qt4 || myconf="${myconf} --disable-gui"
 
 	./configure --prefix="${EPREFIX}"/usr ${myconf} || die "configure failed"
 }

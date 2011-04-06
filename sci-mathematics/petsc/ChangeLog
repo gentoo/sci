@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*petsc-3.1_p8 (19 Mar 2011)
+
+  19 Mar 2011; Jens-Malte Gottfried <jmgottfried@web.de>
+  +petsc-3.1_p8.ebuild, +files/petsc-3.1_p8-configure-pic.patch:
+  added petsc 3.1-p8 release, fixed configure-pic patch
+
 *petsc-3.1_p7 (06 Jan 2011)
 
   06 Jan 2011; Jens-Malte Gottfried <jmgottfried@web.de>
