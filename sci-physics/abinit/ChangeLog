@@ -4,6 +4,10 @@
 
 *abinit-6.6.1 (07 Mar 2011)
 
+  09 Apr 2011; Dongxu Li <dongxuli2011@gmail.com>
+  abinit-6.6.1.ebuild:
+  Simple fix of a building issue due to FFTW. Disabled fftw-threads.
+
   07 Mar 2011; Honza Macháček <Hloupy.Honza@centrum.cz>
   +files/6.6.1-openmp.patch, +abinit-6.6.1.ebuild:
   A quick bump to sci-physics/abinit-6.6.1. Some cleanup, some mess. Switched

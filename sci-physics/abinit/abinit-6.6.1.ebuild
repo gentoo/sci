@@ -81,13 +81,15 @@ src_configure() {
 	local netcdff_libs="-lnetcdff"
 	use hdf5 && netcdff_libs="${netcdff_libs} -lhdf5_fortran"
 	local fft_flavor="fftw3"
-	local fft_libs="-L/usr/lib"
-	if use threads; then
-		fft_libs="${fft_libs} $(pkg-config --libs fftw3_threads)"
-		fft_flavor="fftw3-threads"
-	else
+	local fft_libs="-lfftw3"
 		fft_libs="${fft_libs} $(pkg-config --libs fftw3)"
-	fi
+	#fft_flavor="fftw3-threads" doesn't build for me
+	#if use threads; then
+	#		fft_libs="${fft_libs} $(pkg-config --libs fftw3_threads)"
+	#		fft_flavor="fftw3-threads"
+	#else
+	#		fft_libs="${fft_libs} $(pkg-config --libs fftw3)"
+	#fi
 	if use mpi; then
 		MY_FC="mpif90"
 		MY_CC="mpicc"
@@ -102,6 +104,9 @@ src_configure() {
 		MY_CC="${MY_CC} -fopenmp"
 		MY_CXX="${MY_CXX} -fopenmp"
 	fi
+	#enable bindings for ab6 header and libraries
+	# --enable-bindings
+	#--with-fc-version=f90 --enable-bindings \
 	MARKDOWN=Markdown.pl econf \
 		$(use_enable debug debug enhanced) \
 		$(use_enable mpi) \
