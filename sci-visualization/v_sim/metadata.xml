@@ -5,4 +5,8 @@
 <maintainer>
   <email>sci@gentoo.org</email>
 </maintainer>
+<use>
+	<flag name='abinit'>Add support for ABINIT file formats <pkg>sci-physics/abinit</pkg></flag>
+	<flag name='openbabel'>Add support for ABINIT file formats <pkg>sci-chemistry/openbabel</pkg></flag>
+</use>
 </pkgmetadata>
