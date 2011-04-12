@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -23,6 +23,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
+	dev-python/imaging[tk]
+	dev-python/zsi
+	sci-chemistry/autodock
 	sci-chemistry/mgltools-dejavu
 	sci-chemistry/mgltools-geomutils
 	sci-chemistry/mgltools-mglutil
@@ -32,8 +35,7 @@ RDEPEND="
 	sci-chemistry/mgltools-pybabel
 	sci-chemistry/mgltools-pyglf
 	sci-chemistry/mgltools-support
-	sci-chemistry/mgltools-viewer-framework
-	dev-python/imaging[tk]"
+	sci-chemistry/mgltools-viewer-framework"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
