@@ -34,10 +34,8 @@ RDEPEND="${DEPEND}
 	dev-tex/mh"
 
 src_prepare(){
-	# deal with pre-stripping - note that upstream do not provide any makefile.am
-	epatch "${FILESDIR}/${PN}-1.21-no-stripping.patch"
 	# xcadabra doesn't respect LDFLAGS (cadabra does!)
-	epatch "${FILESDIR}/${P}-xcadabra-flags.patch"
+	epatch "${FILESDIR}/${PN}-1.25-xcadabra-flags.patch"
 }
 
 src_configure(){
