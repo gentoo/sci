@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -43,6 +43,9 @@ src_prepare() {
 		-e 's:^.*CVS:#&1:g' \
 		-e 's:^.*LICENSE:#&1:g' \
 		-i "${S}"/MANIFEST.in
+	sed \
+		-e '/__debug__/d' \
+		-i ViewerFramework/VF.py
 	distutils_src_prepare
 }
 
