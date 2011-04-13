@@ -6,7 +6,7 @@ EAPI=2
 
 PYTHON_DEPEND="python? 2:2.6"
 
-inherit distutils eutils flag-o-matic toolchain-funcs versionator multilib python qt4-r2 cmake-utils
+inherit eutils flag-o-matic toolchain-funcs versionator multilib python qt4-r2 cmake-utils
 
 MAIN_PV=$(get_major_version)
 MAJOR_PV=$(get_version_component_range 1-2)
