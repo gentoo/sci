@@ -2,8 +2,6 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
-
 inherit eutils
 
 DESCRIPTION="ACL2 industrial strength theorem prover"
@@ -28,18 +26,8 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}-sources"
 
-src_prepare() {
-	epatch "${FILESDIR}"/set-booksdir.patch
-}
-
 src_compile() {
 	emake LISP="sbcl --noinform --noprint" || die "emake failed"
-	cd books
-	einfo
-	einfo "Building certificates..."
-	einfo "(this may take hours to finish)"
-	sleep 5
-	emake ACL2="${S}"/saved_acl2 || die
 }
 
 src_install() {
@@ -61,4 +49,14 @@ src_install() {
 	dohtml doc/HTML/* || die
 
 	doinfo doc/EMACS/* || die
+}
+
+pkg_postinst() {
+	local BOOKSDIR="/usr/share/acl2/books"
+	cd "${BOOKSDIR}"
+	einfo
+	einfo "Building certificates in ${BOOKSDIR} ..."
+	einfo "(this may take hours to finish)"
+	sleep 5
+	emake || die
 }
