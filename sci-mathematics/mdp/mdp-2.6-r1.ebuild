@@ -1,9 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="3"
+
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils
 
@@ -16,16 +19,17 @@ SRC_URI="mirror://sourceforge/mdp-toolkit/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
 RDEPEND="|| ( >=dev-python/numpy-1.1 >=sci-libs/scipy-0.5.2 )"
 
-RESTRICT_PYTHON_ABIS="3.*"
-
 S="${WORKDIR}/${MY_P}"
 
 src_test() {
-	PYTHONPATH="${S}/src" "${python}" -c "import mdp;mdp.test()" || die "tests failed"
+	testing() {
+		PYTHONPATH="build-${PYTHON_ABI}/src" "$(PYTHON)" -c "import mdp;mdp.test()"
+	}
+	python_execute_function testing
 }
