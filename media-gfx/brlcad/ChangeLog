@@ -4,6 +4,9 @@
 
 *brlcad-7.18.2 (27 Mar 2011)
 
+  15 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> brlcad-7.18.4.ebuild:
+  Added dev-tcltk/tkpng to RDEPENDS, #363251. Added itk3.4, itcl3.4 to LDPATH
+
   12 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> +brlcad-7.18.4.ebuild:
   Version bump to 7.18.4
 

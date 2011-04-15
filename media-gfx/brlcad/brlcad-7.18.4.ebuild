@@ -31,6 +31,7 @@ RDEPEND="media-libs/libpng
 DEPEND="${RDEPEND}
 	sys-devel/bison
 	sys-devel/flex
+	dev-tcltk/tkpng
 	java? ( >=virtual/jdk-1.5 )
 	doc? ( dev-libs/libxslt )"
 
@@ -85,7 +86,8 @@ src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
 	rm -f "${D}"usr/share/brlcad/{README,NEWS,AUTHORS,HACKING,INSTALL,COPYING}
 	dodoc AUTHORS NEWS README HACKING TODO BUGS ChangeLog
-	echo "PATH=\"${BRLCAD_DIR}/bin\"" >  99brlcad
+	echo "LDPATH=\"/usr/$(get_libdir)/itk3.4:/usr/$(get_libdir)/itcl3.4\"" >  99brlcad
+	echo "PATH=\"${BRLCAD_DIR}/bin\"" >>  99brlcad
 	echo "MANPATH=\"${BRLCAD_DIR}/man\"" >> 99brlcad
 	doenvd 99brlcad || die
 	newicon misc/macosx/Resources/ReadMe.rtfd/brlcad_logo_tiny.png brlcad.png
