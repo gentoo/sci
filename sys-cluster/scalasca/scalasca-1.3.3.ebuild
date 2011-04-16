@@ -7,7 +7,7 @@ EAPI="3"
 inherit eutils
 
 DESCRIPTION="Scalable Performance Analysis of Large-Scale Applications"
-HOMEPAGE="http://www.fz-juelich.de/jsc/scalasca/"
+HOMEPAGE="http://www.scalasca.org"
 SRC_URI="http://www2.fz-juelich.de/zam/datapool/scalasca/${P}.tar.gz"
 
 LICENSE="scalasca"
