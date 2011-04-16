@@ -26,7 +26,7 @@ RDEPEND="
 	examples? (
 			x11-libs/qt-core:4[qt3support]
 			x11-libs/qt-gui:4[qt3support] )
-	ffmpeg? ( media-video/ffmpeg )
+	ffmpeg? ( virtual/ffmpeg )
 	java? ( >=virtual/jre-1.5 )
 	mpi? ( virtual/mpi[cxx,romio] )
 	mysql? ( virtual/mysql )
@@ -38,9 +38,9 @@ RDEPEND="
 			x11-libs/qt-opengl:4
 			x11-libs/qt-sql:4
 			x11-libs/qt-webkit:4 )
-	tcl? ( >=dev-lang/tcl-8.2.3 )
+	tcl? ( dev-lang/tcl )
 	theora? ( media-libs/libtheora )
-	tk? ( >=dev-lang/tk-8.2.3 )
+	tk? ( dev-lang/tk )
 	R? ( dev-lang/R )
 	dev-libs/expat
 	dev-libs/libxml2:2
@@ -57,8 +57,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 		java? ( >=virtual/jdk-1.5 )
 		boost? ( >=dev-libs/boost-1.40.0[mpi?] )
-		mpi? ( >=dev-util/cmake-2.8.1-r2 )
-		>=dev-util/cmake-2.6"
+		dev-util/cmake"
 
 S="${WORKDIR}"/VTK
 
@@ -76,12 +75,15 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-5.6.0-cg-path.patch
-	epatch "${FILESDIR}"/${PN}-5.2.0-tcl-install.patch
-	epatch "${FILESDIR}"/${PN}-5.6.0-boost-property_map.patch
-	epatch "${FILESDIR}"/${PN}-5.6.0-libpng14.patch
-	epatch "${FILESDIR}"/${PN}-5.6.0-R.patch
-	epatch "${FILESDIR}"/${PN}-5.6.0-odbc.patch
+	epatch \
+		"${FILESDIR}"/${PN}-5.6.0-cg-path.patch \
+		"${FILESDIR}"/${PN}-5.2.0-tcl-install.patch \
+		"${FILESDIR}"/${PN}-5.6.0-boost-property_map.patch \
+		"${FILESDIR}"/${PN}-5.6.0-libpng14.patch \
+		"${FILESDIR}"/${PN}-5.6.0-R.patch \
+		"${FILESDIR}"/${PN}-5.6.0-odbc.patch \
+		"${FILESDIR}"/${P}-ffmpeg.patch
+
 	# Fix sure buffer overflow on some processors as reported by Flameyes in #338819
 	sed -e "s:CHIPNAME_STRING_LENGTH    (48 + 1):CHIPNAME_STRING_LENGTH    (79 + 1):" \
 		-i Utilities/kwsys/SystemInformation.cxx \
@@ -199,30 +201,11 @@ src_install() {
 
 	# install examples
 	if use examples; then
-		dodir /usr/share/${PN} || \
-			die "Failed to create data/examples directory"
-
-		cp -pPR "${S}"/Examples "${D}"/usr/share/${PN}/examples || \
-			die "Failed to copy example files"
-
-		# fix example's permissions
-		find "${D}"/usr/share/${PN}/examples -type d -exec \
-			chmod 0755 {} \; || \
-			die "Failed to fix example directories permissions"
-		find "${D}"/usr/share/${PN}/examples -type f -exec \
-			chmod 0644 {} \; || \
-			die "Failed to fix example files permissions"
-
-		cp -pPR "${WORKDIR}"/VTKData "${D}"/usr/share/${PN}/data || \
-			die "Failed to copy data files"
-
-		# fix data's permissions
-		find "${D}"/usr/share/${PN}/data -type d -exec \
-			chmod 0755 {} \; || \
-			die "Failed to fix data directories permissions"
-		find "${D}"/usr/share/${PN}/data -type f -exec \
-			chmod 0644 {} \; || \
-			die "Failed to fix data files permissions"
+		insinto /usr/share/${PN}
+		mv -v Examples examples
+		doins -r examples || die
+		mv -v VTKData data || die
+		doins -r data || die
 	fi
 
 	#install big docs
@@ -235,9 +218,11 @@ src_install() {
 	fi
 
 	# environment
-	echo "VTK_DATA_ROOT=/usr/share/${PN}/data" >> "${T}"/40${PN}
-	echo "VTK_DIR=/usr/$(get_libdir)/${PN}-${SPV}" >> "${T}"/40${PN}
-	echo "VTKHOME=/usr" >> "${T}"/40${PN}
+	cat >> "${T}"/40${PN} <<- EOF
+	VTK_DATA_ROOT=${EPREFIX}/usr/share/${PN}/data
+	VTK_DIR=${EPREFIX}/usr/$(get_libdir)/${PN}-${SPV}
+	VTKHOME=${EPREFIX}/usr
+	EOF
 	doenvd "${T}"/40${PN}
 }
 
