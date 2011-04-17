@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="4"
 
-inherit eutils
+inherit eutils toolchain-funcs
 
 DESCRIPTION="Scalable Performance Analysis of Large-Scale Applications"
 HOMEPAGE="http://www.scalasca.org"
@@ -22,11 +22,24 @@ DEPEND="mpi? ( virtual/mpi )
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-	sed -e "s:CFLAGS   =.*:CFLAGS   = ${CFLAGS}:" \
-	    -e "s:CXXFLAGS =.*:CXXFLAGS = ${CXXFLAGS}:" \
-	    -e "s:SZLIB_OPTFLAGS =.*:SZLIB_OPTFLAGS =:" \
-		-i mf/Makefile.defs.linux-gomp mf/Makefile.defs.linux-gnu \
-		|| die "sed CFLAGS,CXXFLAGS failed"
+	sed \
+		-e "s:\(^PLATCC[[:space:]]*=\).*:\1 $(tc-getCC):" \
+		-e "s:\(^PFLAG[[:space:]]*=\).*:\1:" \
+		-e "s:\(^AFLAG[[:space:]]*=\).*:\1:" \
+		-e "s:\(^OPTFLAGS[[:space:]]*=\).*:\1:" \
+		-e "s:\(^CC[[:space:]]*=\).*:\1 $(tc-getCC):" \
+		-e "s:\(^CFLAGS[[:space:]]*=\).*:\1 ${CFLAGS}:" \
+		-e "s:\(^CXX[[:space:]]*=\).*:\1 $(tc-getCXX):" \
+		-e "s:\(^CXXFLAGS[[:space:]]*=\).*:\1 ${CXXFLAGS}:" \
+		-e "s:\(^F77[[:space:]]*=\).*:\1 $(tc-getFC):" \
+		-e "s:\(^F90[[:space:]]*=\).*:\1 $(tc-getFC):" \
+		-e "s:\(^FFLAGS[[:space:]]*=\).*:\1 ${FCFLAGS}:" \
+		-e "s:\(^LDFLAGS[[:space:]]*=\).*:\1 ${LDFLAGS}:" \
+		-e "s:\(^ECXX[[:space:]]*=\).*:\1 $(tc-getCXX):" \
+		-e "s:\(^ECXX_AR[[:space:]]*=\).*:\1 $(tc-getAR):" \
+		-e "s:\(^SZLIB_OPTFLAGS[[:space:]]*=\).*:\1:" \
+		-i mf/Makefile.defs.* \
+		|| die "sed of flags failed"
 
 	sed -e "s:DOCDIR =.*:DOCDIR = \${PREFIX}/share/doc/${PF}:" \
 	    -i mf/common.defs \
@@ -40,6 +53,7 @@ src_configure() {
 
 	#only --disable-XXX is supported by configure
 	use openmp || myconf="${myconf} --disable-omp"
+	use fortran || myconf="${myconf} --disable-fortran"
 	use mpi || myconf="${myconf} --disable-mpi"
 	use qt4 || myconf="${myconf} --disable-gui"
 
