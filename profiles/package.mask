@@ -116,10 +116,3 @@ sci-biology/tablet-bin
 # mask for removal in 30d since there is no source anymore
 # (fetch restricted, and the ftp server does not respond; no hint of program at HOMEPAGE)
 sci-biology/newbler
-
-# Francois Bissey (kiwifb) (27 Oct 2010)
-# f.r.bissey@massey.ac.nz
-# mask vtk-5.6.1 as there are no stable versions in the tree
-# Avoid accidental upgrade
-=sci-libs/vtk-5.6.1
-
