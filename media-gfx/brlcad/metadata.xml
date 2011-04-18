@@ -2,6 +2,14 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <herd>sci</herd>
+<maintainer>
+  <email>dongxuli2011@gmail.com</email>
+  <description>please assign bugs</description>
+</maintainer>
+<maintainer>
+  <email>dilfridge@gentoo.org</email>
+  <description>proxy-maintainer, please cc on bugs</description>
+</maintainer>
 <longdescription lang="en">
   BRL-CAD is a Combinatorial/Constructive Solid Geometry (CSG)
   solid modeling system that includes an interactive geometry editor,
