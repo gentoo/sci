@@ -57,18 +57,23 @@ sci-biology/tablet-bin
 # mask live ebuild
 =sci-chemistry/burrow-owl-9999_pre15
 
-# Christoph Junghans (ottxor) (23 Jan 1<F2>)
-# kleiner_otti@gmx.de
+# Christoph Junghans (ottxor) (23 Jan 11)
+# ottxor@gentoo.org
 # mask live ebuild
 =sys-cluster/nullmpi-9999
 
+# Christoph Junghans (ottxor) (20 Apr 11)
+# ottxor@gentoo.org
+# mask live ebuild
+=sci-physics/espresso-9999
+
 # Christoph Junghans (ottxor) (03 Oct 10)
-# kleiner_otti@gmx.de
+# ottxor@gentoo.org
 # masked for testing
 =sci-libs/openmm-2.0
 
 # Christoph Junghans (ottxor) (31 Jul 10)
-# kleiner_otti@gmx.de
+# ottxor@gentoo.org
 # mask live ebuilds
 =sci-chemistry/gromacs-4.0.9999
 =sci-chemistry/gromacs-4.5.9999
@@ -76,7 +81,7 @@ sci-biology/tablet-bin
 =app-doc/gromacs-manual-9999
 
 # Christoph Junghans (ottxor) (23 Jan 10)
-# kleiner_otti@gmx.de
+# ottxor@gentoo.org
 # mask live ebuilds
 =sci-libs/votca-tools-9999
 =sci-chemistry/votca-csg-9999
@@ -90,7 +95,7 @@ sci-biology/tablet-bin
 =sci-chemistry/pymol-9999
 
 # Christoph Junghans (ottxor) (02 Nov 09)
-# kleiner_otti@gmx.de
+# ottxor@gentoo.org
 # live cvs ebuild, deps changing constantly
 # report to bug #232363
 =sci-visualization/gnuplot-4.4.9999
