@@ -29,7 +29,6 @@ DEPEND="${RDEPEND}
 		virtual/latex-base )"
 
 src_prepare() {
-	sed -i 's/^CFLAGS/#&/' configure.ac
 	autotools-utils_src_prepare
 	eautoreconf
 	restore_config myconfig.h
