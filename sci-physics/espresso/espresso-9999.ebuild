@@ -1,18 +1,21 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/espresso/espresso-3.0.0.ebuild,v 1.1 2011/04/20 13:03:00 ottxor Exp $
 
-EAPI="3"
+EAPI="4"
 
-inherit autotools savedconfig
+inherit autotools-utils git savedconfig
 
 DESCRIPTION="Extensible Simulation Package for Research on Soft matter"
 HOMEPAGE="http://www.espressomd.org"
-SRC_URI="http://espressomd.org/mediawiki/images/f/f3/Espresso-${PV}.tar.gz"
+SRC_URI=""
 
-LICENSE="GPL-2"
+EGIT_REPO_URI="git://git.savannah.nongnu.org/espressomd.git"
+EGIT_BRANCH="master"
+
+LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~x86"
 IUSE="X doc examples fftw mpi packages test -tk"
 
 RDEPEND="dev-lang/tcl
@@ -22,60 +25,52 @@ RDEPEND="dev-lang/tcl
 	tk? ( >=dev-lang/tk-8.4.18-r1 )"
 
 DEPEND="${RDEPEND}
-	doc? ( app-doc/doxygen
+	doc? ( app-doc/doxygen[-nodot]
 		virtual/latex-base )"
 
-#S="${WORKDIR}/${PN}-${PV:0:5}"
-
 src_prepare() {
-	ln -s Makefile-am.am Makefile.am
+	sed -i 's/^CFLAGS/#&/' configure.ac
+	autotools-utils_src_prepare
 	eautoreconf
 	restore_config myconfig.h
 }
 
 src_configure() {
-	econf \
-		--disable-processor-optimization \
+	myeconfargs=(
 		$(use_with fftw) \
 		$(use_with mpi) \
 		$(use_with tk) \
 		$(use_with X x)
+	)
+	autotools-utils_src_configure
 }
 
 src_compile() {
-	emake || die "emake failed"
+	autotools-utils_src_compile
 	if use doc; then
-		emake doc || die "emake doc failed"
+		autotools-utils_src_compile doc || die "emake doc failed"
 	fi
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "Installing failed"
+	autotools-utils_src_install
 
-	dodoc INSTALL README RELEASE_NOTES
+	dodoc AUTHORS NEWS README ChangeLog
 
 	insinto /usr/share/${PN}
-	doins myconfig-sample.h
+	doins ${AUTOTOOLS_BUILD_DIR}/myconfig-sample.h
 
-	if [ -f myconfig.h ]; then
-		save_config myconfig.h
-	else
-		save_config config/myconfig.h
-	fi
+	save_config ${AUTOTOOLS_BUILD_DIR}/src/myconfig-final.h
 
 	if use doc; then
-		newdoc doc/ug/ug.pdf user_guide.pdf
-		dohtml -r doc/dg/html/*
-		newdoc doc/tutorials/tut2/tut2.pdf tutorial.pdf
+		newdoc ${AUTOTOOLS_BUILD_DIR}/doc/ug/ug.pdf user_guide.pdf
+		dohtml -r ${AUTOTOOLS_BUILD_DIR}/doc/dg/html/*
+		newdoc ${AUTOTOOLS_BUILD_DIR}/doc/tutorials/tut2/tut2.pdf tutorial.pdf
 	fi
 
 	if use examples; then
 		insinto /usr/share/${PN}/examples
 		doins -r samples/*
-		#the testsuite are also good examples
-		rm testsuite/Makefile* testsuite/test.sh.in
-		insinto /usr/share/${PN}/testsuite
-		doins testsuite/*
 	fi
 
 	if use packages; then
