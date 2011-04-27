@@ -31,7 +31,11 @@ src_prepare() {
 
 src_configure() {
 	set_arch_to_kernel
-	econf --with-config=all --with-linux="${KERNEL_DIR}" --with-linux-obj="${KERNEL_DIR}"
+	econf \
+		--prefix="${EPREFIX}" \
+		--with-config=all \
+		--with-linux="${KERNEL_DIR}" \
+		--with-linux-obj="${KERNEL_DIR}"
 }
 
 src_install() {

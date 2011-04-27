@@ -34,9 +34,13 @@ src_prepare() {
 
 src_configure() {
 	set_arch_to_kernel
-	econf --with-config=all \
-			--with-linux="${KERNEL_DIR}" --with-linux-obj="${KERNEL_DIR}" \
-			--with-spl=/usr/include/spl --with-spl-obj=/usr/include/spl/module
+	econf \
+		--with-prefix="${EPREFIX}" \
+		--with-config=all \
+		--with-linux="${KERNEL_DIR}" \
+		--with-linux-obj="${KERNEL_DIR}" \
+		--with-spl=/usr/include/spl \
+		--with-spl-obj=/usr/include/spl/module
 }
 
 src_compile() {
