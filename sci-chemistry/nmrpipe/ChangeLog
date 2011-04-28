@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nmrpipe-5.8.2011.108.15.55 (28 Apr 2011)
+
+  28 Apr 2011; Justin Lecher <jlec@gentoo.org>
+  +files/5.8.2011.108.15.55-lib.patch, -files/5.5.2011.069.19.56-lib.patch,
+  -nmrpipe-5.5.2011.069.19.56.ebuild, +nmrpipe-5.8.2011.108.15.55.ebuild:
+  Version Bump, Minor corrects to fullfil repoman QA
+
   01 Apr 2011; Justin Lecher <jlec@gentoo.org>
   nmrpipe-5.5.2011.069.19.56.ebuild, files/env-nmrpipe-new:
   Missing script dirs included
