@@ -4,19 +4,26 @@
 
 EAPI="4"
 
-inherit autotools-utils git savedconfig
+inherit autotools-utils savedconfig
 
 DESCRIPTION="Extensible Simulation Package for Research on Soft matter"
 HOMEPAGE="http://www.espressomd.org"
-SRC_URI=""
 
-EGIT_REPO_URI="git://git.savannah.nongnu.org/espressomd.git"
-EGIT_BRANCH="master"
+if [ "${PV%9999}" != "${PV}" ]; then
+	EGIT_REPO_URI="git://git.savannah.nongnu.org/espressomd.git"
+	EGIT_BRANCH="master"
+	inherit git
+else
+	SRC_URI="mirror://nongnu/${PN}md/${P}.tar.gz"
+fi
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86"
 IUSE="X doc examples fftw mpi packages test -tk"
+REQUIRED_USE="tk? ( X )"
+
+RESTRICT="tk? ( test )"
 
 RDEPEND="dev-lang/tcl
 	X? ( x11-libs/libX11 )
@@ -62,9 +69,11 @@ src_install() {
 	save_config ${AUTOTOOLS_BUILD_DIR}/src/myconfig-final.h
 
 	if use doc; then
-		newdoc ${AUTOTOOLS_BUILD_DIR}/doc/ug/ug.pdf user_guide.pdf
+		local where="."
+		[ "${PV%9999}" != "${PV}" ] && where="${AUTOTOOLS_BUILD_DIR}"
+		newdoc ${where}/doc/ug/ug.pdf user_guide.pdf
 		dohtml -r ${AUTOTOOLS_BUILD_DIR}/doc/dg/html/*
-		newdoc ${AUTOTOOLS_BUILD_DIR}/doc/tutorials/tut2/tut2.pdf tutorial.pdf
+		newdoc ${where}/doc/tutorials/tut2/tut2.pdf tutorial.pdf
 	fi
 
 	if use examples; then

@@ -4,6 +4,9 @@
 
 *abinit-6.6.1 (07 Mar 2011)
 
+  26 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> +abinit-6.6.2.ebuild +metadata.xml:
+  Version bump to 6.6.2. Cleaned up old versions for numerous quality control issues.
+
   09 Apr 2011; Dongxu Li <dongxuli2011@gmail.com>
   abinit-6.6.1.ebuild:
   Simple fix of a building issue due to FFTW. Disabled fftw-threads.

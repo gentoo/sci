@@ -1,5 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI="3"
 
@@ -11,12 +12,13 @@ SRC_URI="http://ftp.abinit.org/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="cuda -debug +fftw +fox gsl +hdf5 mpi +netcdf python -smp +threads -test -vdwxc"
 
 RDEPEND="=sci-libs/bigdft-1.2.0.2
 	sci-libs/etsf_io
 	=sci-libs/libxc-1.0[fortran]
+	sci-physics/atompaw[libxc]
 	fox? ( sci-libs/fox[dom,sax,wcml,wxml] )
 	netcdf? (
 		sci-libs/netcdf[fortran]
@@ -30,18 +32,25 @@ RDEPEND="=sci-libs/bigdft-1.2.0.2
 	virtual/lapack
 	gsl? ( sci-libs/gsl )
 	fftw? (
-		sci-libs/fftw:2.1
-		threads? ( sci-libs/fftw:2.1[threads] )
+		sci-libs/fftw:3.0
+		threads? ( sci-libs/fftw:3.0[threads] )
 		)
 	mpi? ( virtual/mpi )
 	python? ( dev-python/numpy )
-	cuda? ( dev-util/nvidia-cuda-sdk )"
+	x86? (
+	cuda? ( dev-util/nvidia-cuda-sdk )
+	)
+	amd64? (
+	cuda? ( dev-util/nvidia-cuda-sdk )
+	)
+	"
+
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	dev-perl/Text-Markdown"
 
-WANT_AUTOCONF="latest"
-WANT_AUTOMAKE="latest"
+#WANT_AUTOCONF="latest"
+#WANT_AUTOMAKE="latest"
 
 S=${WORKDIR}/${P%[a-z]}
 
@@ -53,42 +62,42 @@ pkg_setup() {
 				die "Requires gcc-4.1 or newer"
 		fi
 	fi
+	if use smp; then
+		ewarn "OpenMP support mostly broken. Apparently some developers \
+			have used OpenMP semaphors !$ as comment delimiters. Not yet solved \
+			upstream, patch incomplete."
+		if use mpi && has_version sys-cluster/openmpi; then
+			ewarn "Combined with openMPI, OpenMP support is especially likely to crash."
+		fi
+	fi
 }
 
 src_prepare() {
 	epatch "${FILESDIR}"/6.2.2-change-default-directories.patch
-	epatch "${FILESDIR}"/6.2.2-configure-fortran-calls.patch
 	epatch "${FILESDIR}"/6.0.3-fftw.patch
-	epatch "${FILESDIR}"/6.2.2-non-plugin-libs.patch
-	epatch "${FILESDIR}"/6.4.2-openmp.patch
-# To compile against libxc-1.0 or the current SVN HEAD:
-	epatch "${FILESDIR}"/6.0.3-libxc-flags.patch
+	epatch "${FILESDIR}"/6.6.1-openmp.patch
 	eautoreconf
-	find "${S}" -type f -exec grep -q -- '-llibxc' {} \; \
-		-exec sed -i -e's/-llibxc/-lxc/g' {} \;
 }
 
 src_configure() {
 	local libs="-L/usr/$(get_libdir)"
 	local modules="-I/usr/$(get_libdir)/finclude"
 	local FoX_libs="${libs} -lFoX_dom -lFoX_sax -lFoX_wcml -lFoX_wxml -lFoX_common -lFoX_utils -lFoX_fsys"
-	local trio_flavor="etsf"
+	local trio_flavor="etsf_io"
 	use fox && trio_flavor="${trio_flavor}+fox"
-	use hdf5 && trio_flavor="${trio_flavor}+hdf"
 	use netcdf && trio_flavor="${trio_flavor}+netcdf"
 	local netcdff_libs="-lnetcdff"
 	use hdf5 && netcdff_libs="${netcdff_libs} -lhdf5_fortran"
-	local trio_libs="-letsf_io -letsf_io_low_level -letsf_io_utils"
-	use fox && trio_libs="${trio_libs} ${FoX_libs}"
-	use netcdf && trio_libs="${trio_libs} $(pkg-config --libs netcdf) -lnetcdff"
-	use hdf5 && trio_libs="${trio_libs} -lhdf5_fortran"
-	local fft_flavor="fftw2"
-	local fft_libs="-L/usr/lib"
-	if use threads; then
-		fft_libs="${fft_libs} -lfftw_threads"
-		fft_flavor="fftw2-threads"
-	fi
-	fft_libs="${fft_libs} -lfftw -lrt -lm"
+	local fft_flavor="fftw3"
+	local fft_libs="-lfftw3"
+		fft_libs="${fft_libs} $(pkg-config --libs fftw3)"
+	#fft_flavor="fftw3-threads" doesn't build for me
+	#if use threads; then
+	#		fft_libs="${fft_libs} $(pkg-config --libs fftw3_threads)"
+	#		fft_flavor="fftw3-threads"
+	#else
+	#		fft_libs="${fft_libs} $(pkg-config --libs fftw3)"
+	#fi
 	if use mpi; then
 		MY_FC="mpif90"
 		MY_CC="mpicc"
@@ -103,63 +112,57 @@ src_configure() {
 		MY_CC="${MY_CC} -fopenmp"
 		MY_CXX="${MY_CXX} -fopenmp"
 	fi
+	#enable bindings for ab6 header and libraries
+	# --enable-bindings
+	#--with-fc-version=f90 --enable-bindings \
+	local my_cuda
+	if use cuda; then
+		if use x86 || use amd64; then
+		my_cuda="--enable-gpu --with-gpu-flavor=cuda-single --with-gpu-prefix=/opt/cuda/"
+		fi
+	fi
 	MARKDOWN=Markdown.pl econf \
 		$(use_enable debug debug enhanced) \
 		$(use_enable mpi) \
 		$(use_enable mpi mpi-io) \
 		$(use_enable smp) \
-		$(use_enable fox) \
-		$(use_enable gsl math) \
-		$(use_enable fftw fft) \
 		$(use_enable vdwxc) \
-		$(use_enable cuda gpu) \
-		"$(use cuda && echo "--with-gpu-flavor=cuda-single")" \
-		"$(use cuda && echo "--with-gpu-prefix=/opt/cuda/")" \
 		"$(use gsl && echo "--with-math-flavor=gsl")" \
-		"$(use gsl && echo "--with-math-includes=$(pkg-config --cflags gsl)")" \
+		"$(use gsl && echo "--with-math-incs=$(pkg-config --cflags gsl)")" \
 		"$(use gsl && echo "--with-math-libs=$(pkg-config --libs gsl)")" \
-		--enable-linalg \
-		--enable-trio \
-		--enable-etsf-io \
-		--enable-dft \
 		--with-linalg-flavor="atlas" \
 		--with-linalg-libs="$(pkg-config --libs lapack)" \
 		--with-trio-flavor="${trio_flavor}" \
-		"$(use netcdf && echo "--with-netcdf-includes=-I/usr/include")" \
+		"$(use netcdf && echo "--with-netcdf-incs=-I/usr/include")" \
 		"$(use netcdf && echo "--with-netcdf-libs=$(pkg-config --libs netcdf) ${netcdff_libs}")" \
-		"$(use fox && echo "--with-fox-includes=${modules}")" \
+		"$(use fox && echo "--with-fox-incs=${modules}")" \
 		"$(use fox && echo "--with-fox-libs=${FoX_libs}")" \
-		--with-etsf-io-includes="${modules}" \
-		--with-etsf-io-libs="${libs} -letsf_io -letsf_io_low_level -letsf_io_utils" \
-		--with-trio-includes="-I/usr/include ${modules}" \
-		--with-trio-libs="${trio_libs}" \
-		--with-dft-flavor="libxc+bigdft+wannier90" \
-		--with-libxc-includes="${modules}" \
+		--with-etsf-io-incs="${modules}" \
+		--with-etsf-io-libs="${libs} -letsf_io -letsf_io_utils -letsf_io_low_level" \
+		--with-dft-flavor="libxc+bigdft+atompaw+wannier90" \
+		--with-libxc-incs="${modules}" \
 		--with-libxc-libs="${libs} -lxc" \
-		--with-bigdft-includes="${modules}" \
+		--with-bigdft-incs="${modules}" \
 		--with-bigdft-libs="${libs} -lpoissonsolver -lbigdft" \
-		--with-wannier90="/usr/bin/wannier90.x" \
-		--with-wannier90-includes="${modules}" \
+		--with-atompaw-incs="${modules}" \
+		--with-atompaw-libs="${libs} -latompaw" \
+		--with-wannier90-bins="/usr/bin" \
+		--with-wannier90-incs="${modules}" \
 		--with-wannier90-libs="${libs} -lwannier $(pkg-config --libs lapack)" \
-		--with-dft-includes="${modules}" \
-		--with-dft-libs="${libs} -lwannier -lpoissonsolver -lbigdft -lxc $(pkg-config --libs lapack)" \
 		"$(use fftw && echo "--with-fft-flavor=${fft_flavor}")" \
-		"$(use fftw && echo "--with-fft-includes=-I/usr/include")" \
+		"$(use fftw && echo "--with-fft-incs=-I/usr/include")" \
 		"$(use fftw && echo "--with-fft-libs=${fft_libs}")" \
 		--with-timer-flavor="abinit" \
 		FC="${MY_FC}" \
 		CC="${MY_CC}" \
 		CXX="${MY_CXX}" \
 		LD="$(tc-getLD)" \
-		FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}} ${modules} -I/usr/include"
+		FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}} ${modules} -I/usr/include" \
+		"${my_cuda}"
 }
 
 src_compile() {
-#	if use mpi; then
-#		emake multi || die
-#	else
-		emake || die
-#	fi
+	emake || die
 }
 
 src_test() {
