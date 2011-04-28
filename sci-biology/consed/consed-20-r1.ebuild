@@ -44,6 +44,7 @@ src_prepare() {
 	sed -i -e 's/CFLAGS=/CFLAGS += /' "${S}"/misc/*/Makefile || die
 	sed -i 's!\($szPhredParameterFile =\).*!\1 $ENV{PHRED_PARAMETER_FILE} || "'${EPREFIX}'/usr/share/phred/phredpar.dat";!' "${S}/scripts/"* || die
 	epatch "${FILESDIR}"/nextPhredPipeline.cpp.patch || die
+	epatch "${FILESDIR}"/nLine.h.patch || die
 }
 
 src_compile() {
