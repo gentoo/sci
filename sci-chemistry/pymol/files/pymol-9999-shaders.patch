@@ -1,12 +1,8 @@
- layer0/ShaderMgr.c |   16 ++++++++--------
- layer1/Setting.c   |    2 +-
- 2 files changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/layer0/ShaderMgr.c b/layer0/ShaderMgr.c
-index 929167f..ecb4130 100644
---- a/layer0/ShaderMgr.c
-+++ b/layer0/ShaderMgr.c
-@@ -386,7 +386,7 @@ int CShaderMgr_ShadersPresent(CShaderMgr * I)
+Index: layer0/ShaderMgr.c
+===================================================================
+--- layer0/ShaderMgr.c	(revision 3945)
++++ layer0/ShaderMgr.c	(working copy)
+@@ -400,7 +400,7 @@
  char * CShaderMgr_ReadShaderFromDisk(PyMOLGlobals * G, const char * fileName) {
    FILE* f;
    long size;
@@ -15,7 +11,7 @@ index 929167f..ecb4130 100644
  
    PRINTFB(G, FB_ShaderMgr, FB_Debugging)
      "CShaderMgr_ReadShaderFromDisk: fileName='%s'\n", fileName
-@@ -398,16 +398,16 @@ char * CShaderMgr_ReadShaderFromDisk(PyMOLGlobals * G, const char * fileName) {
+@@ -412,16 +412,16 @@
      return NULL;
    }
    
@@ -24,8 +20,8 @@ index 929167f..ecb4130 100644
 +  pymol_data = getenv("PYMOL_DATA");
 +  if (!pymol_data){
      PRINTFB(G, FB_ShaderMgr, FB_Warnings)
--      " PyMOLShader_NewFromFile-Warning: PYMOL_PATH not set, cannot read shader config files (%s) from disk\n", fileName ENDFB(G);
-+      " PyMOLShader_NewFromFile-Warning: PYMOL_DATA not set, cannot read shader config files (%s) from disk\n", fileName ENDFB(G);
+-      " PyMOLShader_NewFromFile-Warning: PYMOL_PATH not set, cannot read shader config files from disk\n", fileName ENDFB(G);
++      " PyMOLShader_NewFromFile-Warning: PYMOL_DATA not set, cannot read shader config files from disk\n", fileName ENDFB(G);
      return NULL;
    }
    /* make this a setting */
@@ -38,7 +34,7 @@ index 929167f..ecb4130 100644
    fullFile = strcat(fullFile, shader_path);
    fullFile = strcat(fullFile, fileName);
  
-@@ -416,7 +416,7 @@ char * CShaderMgr_ReadShaderFromDisk(PyMOLGlobals * G, const char * fileName) {
+@@ -430,7 +430,7 @@
  
    if (!f) {
      PRINTFB(G, FB_ShaderMgr, FB_Errors)
@@ -47,11 +43,11 @@ index 929167f..ecb4130 100644
      return NULL;
    } else {
      PRINTFB(G, FB_ShaderMgr, FB_Blather)
-diff --git a/layer1/Setting.c b/layer1/Setting.c
-index 3aa0b8d..f9b5789 100644
---- a/layer1/Setting.c
-+++ b/layer1/Setting.c
-@@ -3956,7 +3956,7 @@ void SettingInitGlobal(PyMOLGlobals * G, int alloc, int reset_gui, int use_defau
+Index: layer1/Setting.c
+===================================================================
+--- layer1/Setting.c	(revision 3945)
++++ layer1/Setting.c	(working copy)
+@@ -3990,7 +3990,7 @@
      set_b(I, cSetting_line_use_shader, 1);
      set_b(I, cSetting_sphere_use_shader, 1);
      set_b(I, cSetting_use_shaders, 0);  /* disable by default until optimized shaders present; doesn't effect vol */
