@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nmrpipe-5.8.2011.117.18.42 (29 Apr 2011)
+
+  29 Apr 2011; Justin Lecher <jlec@gentoo.org>
+  +files/5.8.2011.117.18.42-lib.patch, -files/5.8.2011.108.15.55-lib.patch,
+  -nmrpipe-5.8.2011.108.15.55.ebuild, +nmrpipe-5.8.2011.117.18.42.ebuild:
+  Version BUmp
+
 *nmrpipe-5.8.2011.108.15.55 (28 Apr 2011)
 
   28 Apr 2011; Justin Lecher <jlec@gentoo.org>
