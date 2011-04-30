@@ -9,8 +9,8 @@ depend() {
 }
 
 CACHEFILE=/etc/zfs/zpool.cache
-ZPOOL=/sbin/zpool
-ZFS=/sbin/zfs
+ZPOOL=/usr/sbin/zpool
+ZFS=/usr/sbin/zfs
 ZFS_MODULE=zfs
 LOCKFILE=/var/lock/zfs/zfs_lockfile
 
