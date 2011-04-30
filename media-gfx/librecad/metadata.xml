@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<maintainer>
+  <email>dongxuli2011@gmail.com</email>
+</maintainer>
+<longdescription lang="en">
+  LibreCAD is a 2D CAD drawing tool based on the community edition of QCad
+  (www.qcad.org). LibreCAD has been re-structured and ported to qt4 and works
+  natively cross platform.
+</longdescription>
+</pkgmetadata>
