@@ -40,4 +40,6 @@ src_configure() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die 'emake install failed'
+	dosym /usr/include/spl/spl_config.h /usr/include/spl/module/spl_config.h \
+		|| die
 }

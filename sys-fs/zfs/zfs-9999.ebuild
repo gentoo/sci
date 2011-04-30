@@ -36,7 +36,7 @@ src_prepare() {
 src_configure() {
 	set_arch_to_kernel
 	econf \
-		--with-prefix="${EPREFIX}" \
+		--prefix="${EPREFIX}" \
 		--includedir="${EPREFIX}"/usr/include \
 		--with-config=all \
 		--with-linux="${KERNEL_DIR}" \
