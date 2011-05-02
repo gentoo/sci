@@ -9,7 +9,7 @@ AT_M4DIR=./config  # for aclocal called by eautoreconf
 
 EGIT_REPO_URI="http://github.com/behlendorf/zfs.git"
 
-inherit git eutils autotools linux-mod
+inherit autotools eutils git linux-mod
 
 DESCRIPTION="Native ZFS for Linux"
 HOMEPAGE="http://wiki.github.com/behlendorf/zfs/"
@@ -22,11 +22,22 @@ IUSE=""
 
 DEPEND="
 		>=sys-devel/spl-${PV}
-		>=virtual/linux-sources-2.6.32
+		>=virtual/linux-sources-2.6
 		"
 RDEPEND="
 		!sys-fs/zfs-fuse
 		"
+
+pkg_setup() {
+	linux-mod_pkg_setup
+	kernel_is gt 2 6 32 || die "Your kernel is too old. ${CATEGORY}/${PN} need 2.6.32 or newer."
+	linux_config_exists || die "Your kernel sources are unconfigured."
+	if linux_chkconfig_present PREEMPT; then
+		eerror "${CATEGORY}/${PN} doesn't currently work with PREEMPT kernel."
+		eerror "Please look at bug https://github.com/behlendorf/zfs/issues/83"
+		die "PREEMPT kernel"
+	fi
+}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-0.6.0-includedir.patch
@@ -52,4 +63,6 @@ src_install() {
 	emake DESTDIR="${D}" install || die 'emake install failed'
 	newinitd "${FILESDIR}/zfs.initd" zfs
 	keepdir /var/lock/zfs
+	# Drop unwanted files
+	rm -rf "${D}/usr/src" || die "removing unwanted files die"
 }
