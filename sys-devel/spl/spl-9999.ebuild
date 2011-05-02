@@ -19,7 +19,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="
-		>=virtual/linux-sources-2.6.32
+		>=virtual/linux-sources-2.6
 		"
 RDEPEND=""
 
