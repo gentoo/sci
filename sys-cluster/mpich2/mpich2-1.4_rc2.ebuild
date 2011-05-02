@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,11 +12,11 @@ SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY
 
 LICENSE="as-is"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 IUSE="+cxx debug doc fortran threads romio mpi-threads"
 
 COMMON_DEPEND="dev-libs/libaio
-	sys-apps/hwloc
+	>=sys-apps/hwloc-1.1.1
 	romio? ( net-fs/nfs-utils )
 	$(mpi_imp_deplist)"
 
@@ -44,19 +44,11 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# We need f90 to include the directory with mods, and to
-	# fix hardcoded paths for src_test()
-	# Submitted upstream.
+	# Cannot use bin/mpiexec, as hydra is built by autotools and is
+	# a shell wrapped executabled.
 	sed -i \
-		-e "s,FCFLAGS\( *\)=,FCFLAGS\1?=," \
-		-e "s,\$(bindir)/,${S}/bin/,g" \
-		-e "s,@MPIEXEC@,${S}/bin/mpiexec,g" \
+		-e "s,@MPIEXEC@,${S}/src/pm/hydra/mpiexec.hydra,g" \
 		$(find ./test/ -name 'Makefile.in') || die
-
-	if ! use romio; then
-		# These tests in errhan/ rely on MPI::File ...which is in romio
-		echo "" > test/mpi/errors/cxx/errhan/testlist
-	fi
 
 	# 293665:  Should check in on MPICH2_MPIX_FLAGS in later releases
 	# (>1.3) as this is seeing some development in trunk as of r6350.
@@ -78,7 +70,7 @@ src_configure() {
 	if use mpi-threads; then
 		# MPI-THREAD requries threading.
 		c="${c} --with-thread-package=pthreads"
-		c="${c} --enable-threads=default"
+		c="${c} --enable-threads=runtime"
 	else
 		if use threads ; then
 			c="${c} --with-thread-package=pthreads"
@@ -102,6 +94,8 @@ src_configure() {
 		--with-pm=hydra \
 		--disable-mpe \
 		--with-hwloc-prefix=/usr \
+		--disable-fast \
+		--enable-smpcoll \
 		$(use_enable romio) \
 		$(use_enable cxx) \
 		|| die
@@ -110,28 +104,42 @@ src_configure() {
 src_compile() {
 	# Oh, the irony.
 	# http://wiki.mcs.anl.gov/mpich2/index.php/Frequently_Asked_Questions#Q:_The_build_fails_when_I_use_parallel_make.
-	# https://trac.mcs.anl.gov/projects/mpich2/ticket/297
+	# https://trac.mcs.anl.gov/projects/mpich2/ticket/711
 	emake -j1 || die
 }
 
 src_test() {
-	local rc
+	if ! use romio; then
+		# These tests in errhan/ rely on MPI::File ...which is in romio
+		echo "" > test/mpi/errors/cxx/errhan/testlist
+	fi
 
-	make \
+	# See #362655 and comments in the testlist files.
+	# large_message:  only on machines with > 8gb of ram
+	# bcastlength:  This is an extension to MPI that's not necessary
+	# non_zero_root: performance test
+	# Also note that I/O tests may fail on non-local filesystems.
+	sed -i '/^[# ]*large_message/d' test/mpi/pt2pt/testlist || die
+	sed -i '/^[# ]*bcastlength/d' test/mpi/errors/coll/testlist || die
+	sed -i '/^[# ]*non_zero_root/d' test/mpi/perf/testlist || die
+
+	if use debug; then
+		# http://bugs.gentoo.org/show_bug.cgi?id=362655#c8
+		sed -i '/^[# ]*scancel/d' test/mpi/pt2pt/testlist || die
+		sed -i '/^[# ]*pscancel/d' test/mpi/pt2pt/testlist || die
+		sed -i '/^[# ]*cancelrecv/d' test/mpi/pt2pt/testlist || die
+	fi
+
+	emake -j1 \
 		CC="${S}"/bin/mpicc \
 		CXX="${S}"/bin/mpicxx \
 		F77="${S}"/bin/mpif77 \
 		FC="${S}"/bin/mpif90 \
-		FCFLAGS="${FCFLAGS} -I${S}/src/binding/f90/" \
 		testing
-	rc=$?
-
-	return ${rc}
 }
 
 src_install() {
 	local d=$(echo ${D}/$(mpi_root)/ | sed 's,///*,/,g')
-	local f
 
 	emake DESTDIR="${D}" install || die
 
