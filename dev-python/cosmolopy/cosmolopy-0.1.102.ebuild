@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=3
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils
 
@@ -13,20 +14,18 @@ MY_PN=CosmoloPy
 MY_P=${MY_PN}-${PV}
 
 DESCRIPTION="Cosmology routines built on NumPy/SciPy"
-HOMEPAGE="http://roban.github.com/CosmoloPy/ http://pypi.python.org/pypi/CosmoloPy"
-SRC_URI="http://pypi.python.org/packages/source/C/${MY_PN}/${MY_P}.tar.gz"
+HOMEPAGE="http://roban.github.com/CosmoloPy/ http://pypi.python.org/pypi/CosmoloPy/"
+SRC_URI="mirror://pypi/C/${MY_PN}/${MY_P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-DEPEND="dev-python/nose
+DEPEND="
 	dev-lang/swig
 	doc? ( dev-python/epydoc )"
 RDEPEND="sci-libs/scipy"
-
-RESTRICT_PYTHON_ABIS="3.*"
 
 S=${WORKDIR}/${MY_P}
 
