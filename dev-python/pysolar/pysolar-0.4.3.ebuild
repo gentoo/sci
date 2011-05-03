@@ -12,7 +12,7 @@ inherit distutils python
 
 DESCRIPTION="A collection of Python libraries for simulating the Sun's irradiation"
 HOMEPAGE="http://pysolar.org/ http://pypi.python.org/pypi/Pysolar/"
-SRC_URI="http://github.com/pingswept/${PN}/tarball/${PV} -> ${P}.tar.gz"
+SRC_URI="https://github.com/pingswept/${PN}/tarball/${PV} -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -35,6 +35,7 @@ PYTHON_MODNAME="constants.py horizon.py julian.py \
 	simulate.py solar.py util.py"
 
 src_prepare() {
+	mv *${PN}* "${S}" && cd "${S}"
 	sed \
 		-e "s:'testsolar', ::" \
 		-e "s:'shade_test', ::" \
