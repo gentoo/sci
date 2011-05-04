@@ -41,7 +41,7 @@ XDEPS="
 	media-libs/libpng
 	media-libs/freeglut
 	x11-libs/gtk+:2
-	x11-libs/goocanvas
+	x11-libs/goocanvas:0
 	x11-libs/gtkglext"
 
 SCHEMEDEPS="
