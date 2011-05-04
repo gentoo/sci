@@ -12,7 +12,7 @@ SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY
 
 LICENSE="as-is"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
+KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86"
 IUSE="+cxx debug doc fortran threads romio mpi-threads"
 
 COMMON_DEPEND="dev-libs/libaio
@@ -44,17 +44,18 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# Cannot use bin/mpiexec, as hydra is built by autotools and is
-	# a shell wrapped executabled.
+	# Cannot use bin/mpiexec as hydra is built by autotools and is
+	# a shell wrapped executable.
 	sed -i \
 		-e "s,@MPIEXEC@,${S}/src/pm/hydra/mpiexec.hydra,g" \
 		$(find ./test/ -name 'Makefile.in') || die
 
-	# 293665:  Should check in on MPICH2_MPIX_FLAGS in later releases
-	# (>1.3) as this is seeing some development in trunk as of r6350.
+	# #293665
+	# We could use MPICH2LIB_XFLAGS here and unset the cooresponding ones
+	# in the environment, however that's messy and doesn't for for LDFLAGS.
 	sed -i \
-		-e 's|\(WRAPPER_[A-Z90]*FLAGS\)="@.*@"|\1=""|' \
-		src/env/mpi*.in || die
+		-e 's,\(.*=\ *\)"@WRAPPER_[A-Z]*FLAGS@",\1"",' \
+		src/env/*.conf.in || die
 }
 
 src_configure() {
