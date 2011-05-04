@@ -142,7 +142,7 @@ src_test() {
 src_install() {
 	local d=$(echo ${D}/$(mpi_root)/ | sed 's,///*,/,g')
 
-	emake DESTDIR="${D}" install || die
+	emake -j1 DESTDIR="${D}" install || die
 
 	mpi_dodir /usr/share/doc/${PF}
 	mpi_dodoc COPYRIGHT README CHANGES RELEASE_NOTES || die
