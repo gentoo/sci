@@ -44,7 +44,7 @@ src_install() {
 	# disable the installation process to symlink from /usr/local/bin/table to
 	# /opt/Tablet/tablet. That was logged in that file with the following line:
 	#
-	# /scratch/var/tmp/portage/sci-biology/tablet-bin-1.11.02.18/image/opt/Tablet/.install4j/installation.log: Variable changed: sys.symlinkDir=/usr/local/bin[class java.lang.String]
+	# /var/tmp/portage/sci-biology/tablet-bin-1.11.02.18/image/opt/Tablet/.install4j/installation.log: Variable changed: sys.symlinkDir=/usr/local/bin[class java.lang.String]
 	#
 	# The file is then left on the installed system in "${D}"/opt/Tablet/.install4j/response.varfile
 	mkdir -p "${D}"/opt/Tablet/.install4j || die "Cannot pre-create	"${D}"/opt/Tablet/.install4j/"
@@ -54,6 +54,6 @@ src_install() {
 	# directory area. We force -Duser.home . It seems also -Dinstall4j.userHome
 	# could be done based on the figure shown at http://resources.ej-technologies.com/install4j/help/doc/
 	sed "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${D}"/../temp -Dinstall4j.jvmDir#" -i "${DISTDIR}"/tablet_linux_x86_1_11_02_18.sh || die "failed to set userHome value"
-	sh "${DISTDIR}"/tablet_linux_x86_1_11_02_18.sh -q -overwrite -varfile="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet -dir /scratch/var/tmp/portage/sci-biology/tablet-bin-1.11.02.18/image/opt/Tablet
+	sh "${DISTDIR}"/tablet_linux_x86_1_11_02_18.sh -q -overwrite -varfile="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet -dir "${D}"/opt/Tablet
 	dobin "${DISTDIR}"/coveragestats.py
 }
