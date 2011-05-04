@@ -54,6 +54,6 @@ src_install() {
 	# directory area. We force -Duser.home . It seems also -Dinstall4j.userHome
 	# could be done based on the figure shown at http://resources.ej-technologies.com/install4j/help/doc/
 	sed "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${D}"/../temp -Dinstall4j.jvmDir#" -i "${DISTDIR}"/tablet_linux_x86_1_11_05_03.sh || die "failed to set userHome value"
-	sh "${DISTDIR}"/tablet_linux_x86_1_11_02_18.sh -q -overwrite -varfile="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet -dir "${D}"/opt/Tablet
+	sh "${DISTDIR}"/tablet_linux_x86_1_11_05_03.sh -q -overwrite -varfile="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet -dir "${D}"/opt/Tablet || die "Failed to run the self-extracting exe file"
 	dobin "${DISTDIR}"/coveragestats.py
 }
