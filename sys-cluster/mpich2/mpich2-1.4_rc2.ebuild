@@ -66,7 +66,7 @@ src_configure() {
 	# don't all show up in the top level configure, however, they
 	# are picked up in the children directories.
 
-	use debug && c="${c} --enable-g=all --enable-debuginfo"
+	use debug && c="${c} --enable-g=dbg --enable-debuginfo"
 
 	if use mpi-threads; then
 		# MPI-THREAD requries threading.
