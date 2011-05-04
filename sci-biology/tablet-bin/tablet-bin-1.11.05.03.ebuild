@@ -8,7 +8,7 @@ inherit python java-pkg-2
 
 DESCRIPTION="Graphical viewer for next generation sequence assemblies and alignments."
 HOMEPAGE="http://bioinf.scri.ac.uk/tablet/"
-SRC_URI="http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x86_1_11_02_18.sh
+SRC_URI="http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x86_1_11_05_03.sh
 		http://bioinf.scri.ac.uk/tablet/additional/coveragestats.py"
 
 # Tablet uses a modified version of the BSD License which has been edited to remove
@@ -53,7 +53,7 @@ src_install() {
 	# make sure we force java to point a to $HOME which is inside our sanbox
 	# directory area. We force -Duser.home . It seems also -Dinstall4j.userHome
 	# could be done based on the figure shown at http://resources.ej-technologies.com/install4j/help/doc/
-	sed "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${D}"/../temp -Dinstall4j.jvmDir#" -i "${DISTDIR}"/tablet_linux_x86_1_11_02_18.sh || die "failed to set userHome value"
+	sed "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${D}"/../temp -Dinstall4j.jvmDir#" -i "${DISTDIR}"/tablet_linux_x86_1_11_05_03.sh || die "failed to set userHome value"
 	sh "${DISTDIR}"/tablet_linux_x86_1_11_02_18.sh -q -overwrite -varfile="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet -dir "${D}"/opt/Tablet
 	dobin "${DISTDIR}"/coveragestats.py
 }
