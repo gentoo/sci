@@ -59,7 +59,7 @@ src_prepare() {
 }
 
 src_configure() {
-	local c="--enable-shared --enable-sharedlibs=gcc"
+	local c="--enable-shared"
 	local romio_conf
 
 	# The configure statements can be somewhat confusing, as they
@@ -110,11 +110,6 @@ src_compile() {
 }
 
 src_test() {
-	if ! use romio; then
-		# These tests in errhan/ rely on MPI::File ...which is in romio
-		echo "" > test/mpi/errors/cxx/errhan/testlist
-	fi
-
 	# See #362655 and comments in the testlist files.
 	# large_message:  only on machines with > 8gb of ram
 	# bcastlength:  This is an extension to MPI that's not necessary
@@ -123,13 +118,6 @@ src_test() {
 	sed -i '/^[# ]*large_message/d' test/mpi/pt2pt/testlist || die
 	sed -i '/^[# ]*bcastlength/d' test/mpi/errors/coll/testlist || die
 	sed -i '/^[# ]*non_zero_root/d' test/mpi/perf/testlist || die
-
-	if use debug; then
-		# http://bugs.gentoo.org/show_bug.cgi?id=362655#c8
-		sed -i '/^[# ]*scancel/d' test/mpi/pt2pt/testlist || die
-		sed -i '/^[# ]*pscancel/d' test/mpi/pt2pt/testlist || die
-		sed -i '/^[# ]*cancelrecv/d' test/mpi/pt2pt/testlist || die
-	fi
 
 	emake -j1 \
 		CC="${S}"/bin/mpicc \
