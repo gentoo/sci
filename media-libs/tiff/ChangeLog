@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*tiff-3.9.4-r1 (07 May 2011)
+
+  07 May 2011; Christoph Junghans <ottxor@gentoo.org> +tiff-3.9.4-r1.ebuild,
+  -tiff-3.9.4-r2.ebuild:
+  Undo the bump (see bug #364181)
+
 *tiff-3.9.4-r2 (06 May 2011)
 
   06 May 2011; Christoph Junghans <ottxor@gentoo.org> -tiff-3.9.4-r1.ebuild,
