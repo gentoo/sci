@@ -24,6 +24,10 @@ src_unpack()
 	subversion_src_unpack || die
 	cd "$(subversion__get_wc_path "${ESVN_REPO_URI}")"
 	rsync -rlpgo . "${S}" || die "${ESVN}: can't export to ${S}."
+  # patch to solve an issue caused by gcc-4.6, by mickele, archlinux
+    sed -e "s|LiteralMask<Value_t, n>::mask;|LiteralMask<Value_t, static_cast<unsigned int>(n)>::mask;|" \
+	    -e "s|SimpleSpaceMask<n>::mask;|SimpleSpaceMask<static_cast<unsigned int>(n)>::mask;|" \
+		-i "${S}"/fparser/fparser.cc
 }
 
 src_install()
