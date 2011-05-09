@@ -39,7 +39,7 @@ DEPEND="!sci-chemistry/icm-browser
 			)
 		)
 		x86? (
-				media-libs/tiff:3
+				media-libs/tiff-compat:3
 				media-libs/libpng:1.2
 				media-libs/libmng
 				app-crypt/mit-krb5

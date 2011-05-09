@@ -8,3 +8,6 @@
   09 May 2011; Justin Lecher <jlec@gentoo.org> icm-3.7.2a.ebuild:
   Moved from media-libs/tiff to media-libs/tiff-compat
 
+  09 May 2011; Justin Lecher <jlec@gentoo.org> icm-3.7.2a.ebuild:
+  Moved from media-libs/tiff to media-libs/tiff-compat
+
