@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/icm
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  09 May 2011; Justin Lecher <jlec@gentoo.org> icm-3.7.2a.ebuild:
+  Moved from media-libs/tiff to media-libs/tiff-compat
+
+  09 May 2011; Justin Lecher <jlec@gentoo.org> icm-3.7.2a.ebuild:
+  Moved from media-libs/tiff to media-libs/tiff-compat
+

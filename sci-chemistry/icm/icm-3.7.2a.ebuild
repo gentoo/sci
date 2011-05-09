@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/icm/icm-3.6.1i.ebuild,v 1.1 2010/05/21 12:36:43 alexxy Exp $
 
@@ -8,18 +8,23 @@ inherit eutils versionator
 
 MY_PV=$(replace_version_separator 2 '-' )
 MY_P="$PN-${MY_PV}"
-DESCRIPTION="MolSoft LCC ICM Pro"
-SRC_URI="${MY_P}-linux.sh"
-HOMEPAGE="http://www.molsoft.com/icm_pro.html"
-LICENSE="MolSoft"
 
+DESCRIPTION="MolSoft LCC ICM Pro"
+HOMEPAGE="http://www.molsoft.com/icm_pro.html"
+SRC_URI="${MY_P}-linux.sh"
+
+LICENSE="MolSoft"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
+IUSE="32bit 64bit"
+
+RESTRICT="fetch"
 
 DEPEND="!sci-chemistry/icm-browser
 		app-arch/unzip
 		amd64? (
 			64bit? (
-					media-libs/tiff:3
+					media-libs/tiff-compat:3
 					media-libs/libmng
 					app-crypt/mit-krb5
 					app-arch/bzip2
@@ -44,10 +49,6 @@ DEPEND="!sci-chemistry/icm-browser
 				sys-apps/keyutils
 		)"
 RDEPEND="$DEPEND"
-
-KEYWORDS="~amd64 ~x86"
-IUSE="32bit 64bit"
-RESTRICT="fetch"
 
 S="${WORKDIR}"
 
