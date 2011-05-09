@@ -1,6 +1,9 @@
 # ChangeLog for sci-misc/sfst
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  09 May 2011; <flammie@gentoo.org> -sfst-1.4.ebuild:
+  Remove ebuild with missing download.
 
 *sfst-1.4 (28 Oct 2010)
 
