@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*sfst-1.4.2 (09 May 2011)
+
+  09 May 2011; <flammie@gentoo.org> +sfst-1.4.2.ebuild:
+  Version bump.
+
   09 May 2011; <flammie@gentoo.org> -sfst-1.4.ebuild:
   Remove ebuild with missing download.
 
