@@ -1,6 +1,9 @@
 # ChangeLog for dev-python/cvxopt
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 May 2011; Justin Lecher <jlec@gentoo.org> cvxopt-1.1.3.ebuild:
+  Smaller reorganization of the ebuild
 
   29 Dec 2010; François Bissey <f.r.bissey@massey.ac.nz> cvxopt-1.1.3.ebuild:
   Add a changelog :), synchronize with the version in sage-on-gentoo overlay

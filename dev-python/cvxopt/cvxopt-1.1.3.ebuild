@@ -1,8 +1,9 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=3
+
 PYTHON_DEPEND=2:2.5
 SUPPORT_PYTHON_ABIS=1
 RESTRICT_PYTHON_ABIS="2.4 3.*"
@@ -21,12 +22,15 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="fftw glpk gsl"
 
-DEPEND="virtual/blas
-	virtual/lapack
+DEPEND="
+	virtual/blas
 	virtual/cblas
+	virtual/lapack
+
 	fftw? ( sci-libs/fftw )
 	glpk? ( sci-mathematics/glpk )
 	gsl? ( sci-libs/gsl )"
+
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${P}/src
