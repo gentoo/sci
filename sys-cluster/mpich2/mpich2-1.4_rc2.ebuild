@@ -55,7 +55,7 @@ src_prepare() {
 	# in the environment, however that's messy and doesn't for for LDFLAGS.
 	sed -i \
 		-e 's,\(.*=\ *\)"@WRAPPER_[A-Z]*FLAGS@",\1"",' \
-		src/env/*.conf.in || die
+		src/env/*.in || die
 }
 
 src_configure() {

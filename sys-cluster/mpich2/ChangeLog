@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 May 2011; Justin Bronder <jsbronder@gentoo.org> mpich2-1.4_rc2.ebuild:
+  Correct fix for #293665
+
   05 May 2011; Justin Bronder <jsbronder@gentoo.org> mpich2-1.4_rc2.ebuild:
   Re-enable some tests
 
