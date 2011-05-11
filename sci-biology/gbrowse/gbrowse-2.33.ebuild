@@ -9,7 +9,9 @@ MY_P="GBrowse-${PV}"
 
 DESCRIPTION="The generic genome browser provides a display of genomic annotations on interactive web pages"
 HOMEPAGE="http://gmod.org"
-SRC_URI="mirror://sourceforge/gmod/${MY_P}.tar.gz
+# mirror://sourceforge/gmod/${MY_P}.tar.gz
+# http://search.cpan.org/CPAN/authors/id/L/LD/LDS/GBrowse-2.33.tar.gz
+SRC_URI="http://search.cpan.org/CPAN/authors/id/L/LD/LDS/${MY_P}.tar.gz
 	test? ( http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/saccharomyces_cerevisiae.gff.bz2
 			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/Refseq_Genome_TBLASTX.tar.gz
 			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/README-gff-files
@@ -30,7 +32,9 @@ S="${WORKDIR}/${MY_P}"
 
 # TODO: dev-perl/MOBY, dev-perl/Bio-SCF, dev-perl/Safe-World (not compatible w/perl-5.10)
 # TODO: make sure www-servers/apache +cgi
-DEPEND=">=dev-lang/perl-5.8.8
+DEPEND="
+	>=perl-core/Module-Build-0.380.0
+	>=dev-lang/perl-5.8.8
 	dev-perl/Capture-Tiny
 	>=sci-biology/bioperl-1.6
 	>=dev-perl/GD-2.07
@@ -39,7 +43,7 @@ DEPEND=">=dev-lang/perl-5.8.8
 	>=dev-perl/CGI-Session-4.03
 	dev-perl/Statistics-Descriptive
 	>=dev-perl/Bio-Graphics-1.97
-	dev-perl/JSON
+	>=dev-perl/JSON-2.510.0
 	dev-perl/libwww-perl
 	svg? ( dev-perl/GD-SVG )"
 
@@ -49,6 +53,7 @@ DEPEND=">=dev-lang/perl-5.8.8
 #    *  Bio::DB::BigFile is not installed
 #    *  Bio::DB::Sam is not installed
 #    *  DBD::Pg is not installed
+
 
 RDEPEND="${DEPEND}
 	>=www-servers/apache-2.0.47
@@ -81,16 +86,11 @@ src_prepare() {
 	sed -i 's/return unless -t STDIN/return/' install_util/GBrowseInstall.pm || die
 	sed -i 's/process_/bp_process_/g' INSTALL || die
 	epatch "${FILESDIR}"/GBrowseInstall.pm-"${PV}".patch || die "Failed to patch"
-	epatch "${FILESDIR}"/GBrowseInstall.pm-disable-gbrowse_metadb_config.pl"${PV}".pm.patch || die "Failed to patch"
 }
 
 src_configure() {
 	# GBROWSE_ROOT is the root path in SRC_URI to be prepended
 	# /usr/share/webapps/gbrowse/2.03/htdocs/etc/gbrowse/GBrowse.conf
-
-	# if we use CONF="${D}${MY_HTDOCSDIR}"/etc/gbrowse the the install process
-	# will not find currently installed config files and therefore place *.conf
-	# files into "{$S}"/blib/conf/*.conf instead of creating "{$S}"/blib/conf/*.conf.new
 	webapp_src_preinst
 	perl Makefile.PL \
 		HTDOCS="${MY_HTDOCSDIR}" \
@@ -108,12 +108,6 @@ src_configure() {
 		DO_XS=1 \
 		NONROOT=1 \
 		|| die
-
-	#sed -i 's#DBI:SQLite:#DBI:SQLite:'${D}'#' "${S}"/install_util/GBrowseInstall.pm || die
-	#sed -i 's#DBI:SQLite:#DBI:SQLite:'${D}'#' "${S}"/conf/GBrowse.conf || die
-	#sed -i 's#/var/www/gbrowse2/databases/#'${D}'/var/www/gbrowse2/databases/#' "${S}"/_build/build_params
-	#sed -i 's#/var/www/gbrowse2/databases/#'${D}'/var/www/gbrowse2/databases/#' "${S}"/_build/config_data
-	#sed -i 's#/var/www/gbrowse2/databases/#'${D}'/var/www/gbrowse2/databases/#' "${S}"/_build/runtime_params
 }
 
 src_install() {
@@ -121,18 +115,15 @@ src_install() {
 	perl-module_src_install
 
 	# TODO: write our own readme
-	webapp_src_preinst
-	webapp_postinst_txt en "${S}"/INSTALL || die
-	webapp_src_install
+	webapp_postinst_txt en "${S}"/INSTALL
+	webapp_src_install || die "Failed running webapp_src_install"
 
 	# should create a /etc/init.d/ startup script based on this
 	# /var/tmp/portage/sci-biology/gbrowse-2.03/work/GBrowse-2.03/etc/init.d/gbrowse-slave
 
-	# pre-create the directory so we can force its owner later on
-	mkdir -p "${D}"/var/www/gbrowse2/databases || die
 	chown -R apache.apache "${D}"/var/www/gbrowse2/databases || die
-	mkdir -p "${D}"/var/www/localhost/htdocs/gbrowse || die
 
+	mkdir -p "${D}"/var/www/localhost/htdocs/gbrowse || die
 	ln -s "${D}"/var/tmp/gbrowse2/images "${D}"/var/www/localhost/htdocs/gbrowse/i || die
 
 	einfo "Probably you want to install a cron job to remove the generated temporary images:"
