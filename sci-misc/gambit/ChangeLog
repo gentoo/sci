@@ -1,7 +1,0 @@
-# ChangeLog for sci-misc/gambit
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  15 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> +gambit-0.2010.09.01.ebuild +Manifest +metadata.html +ChangeLog:
-  Initial port. #47670
-
