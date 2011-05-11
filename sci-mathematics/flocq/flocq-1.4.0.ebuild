@@ -8,7 +8,7 @@ EAPI="2"
 
 DESCRIPTION="A floating-point formalization for the Coq system."
 HOMEPAGE="http://flocq.gforge.inria.fr/"
-SRC_URI="https://gforge.inria.fr/frs/download.php/28156/${P}.tar.gz"
+SRC_URI="https://gforge.inria.fr/frs/download.php/28389/${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"

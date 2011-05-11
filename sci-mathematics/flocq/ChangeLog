@@ -1,6 +1,10 @@
-# ChangeLog for sci-mathematics/gappa
+# ChangeLog for sci-mathematics/flocq
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 May 2011; J.-C. Demay <jcdemay@gmail.com>
+  -flocq-1.2.ebuild, +flocq-1.4.0.ebuild:
+  version bump
 
   13 Feb 2011; J.-C. Demay <jcdemay@gmail.com>
   +metadata.xml, +ChangeLog:
