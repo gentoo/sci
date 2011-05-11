@@ -4,6 +4,9 @@
 
 *abinit-6.6.3 (10 May 2011)
 
+  11 May 2011; Dongxu Li <dongxuli2011@gmail.com> abinit-6.6.3.ebuild abinit-6.6.2.ebuild:
+  --with-fft-flavor=fftw3-threads still not accepted by configure, removed for the time being. arch="ppc" still causes DEPEND.bad
+
   10 May 2011; Honza Macháček <Hloupy.Honza@centrum.cz> +abinit-6.6.3.ebuild:
   Another quick version bump. Minor cleanup, smp removed until usable. Bizzare
   6.6.2 ebuild mostly ignored, but not deleted until discussed. In the list?

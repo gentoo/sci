@@ -89,15 +89,8 @@ src_configure() {
 	local netcdff_libs="-lnetcdff"
 	use hdf5 && netcdff_libs="${netcdff_libs} -lhdf5_fortran"
 	local fft_flavor="fftw3"
-	local fft_libs="-lfftw3"
-		fft_libs="${fft_libs} $(pkg-config --libs fftw3)"
-	#fft_flavor="fftw3-threads" doesn't build for me
-	#if use threads; then
-	#		fft_libs="${fft_libs} $(pkg-config --libs fftw3_threads)"
-	#		fft_flavor="fftw3-threads"
-	#else
-	#		fft_libs="${fft_libs} $(pkg-config --libs fftw3)"
-	#fi
+	# fft_flavor="fftw3-threads" causes error in ./confgure
+	local fft_libs="/usr/$(get_libdir) $(pkg-config --libs fftw3)"
 	if use mpi; then
 		MY_FC="mpif90"
 		MY_CC="mpicc"
