@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,29 +6,24 @@ EAPI="3"
 
 inherit autotools eutils
 
-NAME="Boron"
-
-DESCRIPTION="Suite for analysis of the source code in C"
+DESCRIPTION="Frama-C is a suite of tools dedicated to the analysis of the source code of software written in C."
 HOMEPAGE="http://frama-c.com"
+NAME="Carbon"
 SRC_URI="http://frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE="apron doc gtk +ocamlopt +why"
-
 RESTRICT="strip"
 
-DEPEND="
-	>=dev-lang/ocaml-3.10.2[ocamlopt?]
-	>=dev-ml/ocamlgraph-1.6[gtk?,ocamlopt?]
-	sci-mathematics/ltl2ba
-	apron? ( sci-mathematics/apron )
-	gtk? (
-		x11-libs/gtksourceview:2.0
-		>=gnome-base/libgnomecanvas-2.26
-		>=dev-ml/lablgtk-2.14[sourceview,gnomecanvas,ocamlopt?]
-		)"
+DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
+		>=dev-ml/ocamlgraph-1.6[gtk?,ocamlopt?]
+		gtk? ( >=x11-libs/gtksourceview-2.8
+			>=gnome-base/libgnomecanvas-2.26
+			>=dev-ml/lablgtk-2.14[sourceview,gnomecanvas,ocamlopt?] )
+		sci-mathematics/ltl2ba
+		apron? ( sci-mathematics/apron )"
 RDEPEND="${DEPEND}"
 PDEPEND="why? ( >=sci-mathematics/why-2.26 )"
 
@@ -38,7 +33,10 @@ src_prepare(){
 	rm share/libc/test.c
 	rm -Rf src/wp
 
-	epatch "${FILESDIR}/${P}-plugin_install.patch"
+	mkdir cil/pdf
+	mv cil/doc/*.pdf cil/doc/*.tex cil/pdf
+	mv cil/doc cil/html
+	mv doc/manuals doc/pdf
 
 	touch config_file
 	eautoreconf
@@ -66,6 +64,8 @@ src_install(){
 	dodoc Changelog doc/README
 
 	if use doc; then
-		dodoc doc/manuals/*
+		dodoc doc/pdf/*.pdf
+		dodoc cil/pdf/*.pdf
+		dohtml -r cil/html/*
 	fi
 }
