@@ -26,18 +26,27 @@ src_prepare(){
 		-e "s:config.h \$(includedir)/giac:config.h \$(DESTDIR)\$(includedir)/giac:g" \
 		-e "s:\$(DESTDIR)\$(DESTDIR):\$(DESTDIR):g"	\
 		-i `find -name Makefile\*`
+	if use !fltk; then
+		sed -e "s: gl2ps\.[chlo]*::g" -i src/Makefile.*
+	fi
 }
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
-	mv ${D}/usr/bin/{aide,giachelp}
+	mv ${D}/usr/bin/{aide,giac-help}
+	rm ${D}/usr/bin/*cas_help
 	dodoc AUTHORS ChangeLog COPYING INSTALL NEWS README TROUBLES
+	if use !fltk; then
+		rm ${D}/usr/bin/x*
+	fi
 	if use !doc; then
 		rm -R ${D}/usr/share/doc/giac ${D}/usr/share/giac/doc/
 	else
 		for LANG in el en es fr pt; do
 			if echo ${LINGUAS} | grep -v $LANG &> /dev/null; then
 				rm -R ${D}/usr/share/giac/doc/$LANG
+			else
+				ln ${D}/usr/share/giac/doc/aide_cas ${D}/usr/share/giac/doc/$LANG/aide_cas
 			fi
 		done
 	fi
