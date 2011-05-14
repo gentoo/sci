@@ -1,4 +1,4 @@
-From aa31bffa2022a73c3a5c57914462025ebdbd4407 Mon Sep 17 00:00:00 2001
+From 954736163c4314a99a65c3bbdcb0294e896ba97a Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Sat, 14 May 2011 18:25:37 +0400
 Subject: [PATCH] [gentoo] Fix detection of gentoo
@@ -6,9 +6,35 @@ Subject: [PATCH] [gentoo] Fix detection of gentoo
 Also this may fix other distros because some of them also provides
 /etc/lsb-release not only ubuntu.
 ---
- configure |    8 ++++----
- 1 files changed, 4 insertions(+), 4 deletions(-)
+ config/zfs-build.m4 |    8 ++++----
+ configure           |    8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
+diff --git a/config/zfs-build.m4 b/config/zfs-build.m4
+index d281b4d..773a944 100644
+--- a/config/zfs-build.m4
++++ b/config/zfs-build.m4
+@@ -178,16 +178,16 @@ AC_DEFUN([ZFS_AC_DEFAULT_PACKAGE], [
+ 		VENDOR=redhat ;
+ 	elif test -f /etc/fedora-release ; then
+ 		VENDOR=fedora ;
+-	elif test -f /etc/lsb-release ; then
+-		VENDOR=ubuntu ;
++	elif test -f /etc/gentoo-release ; then
++		VENDOR=gentoo ;
+ 	elif test -f /etc/debian_version ; then
+ 		VENDOR=debian ;
+ 	elif test -f /etc/SuSE-release ; then
+ 		VENDOR=sles ;
+ 	elif test -f /etc/slackware-version ; then
+ 		VENDOR=slackware ;
+-	elif test -f /etc/gentoo-release ; then
+-		VENDOR=gentoo ;
++	elif test -f /etc/lsb-release ; then
++		VENDOR=ubuntu ;
+ 	elif test -f /etc/lunar.release ; then
+ 		VENDOR=lunar ;
+ 	else
 diff --git a/configure b/configure
 index fee3c74..f504950 100755
 --- a/configure
