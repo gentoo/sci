@@ -41,6 +41,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-0.6.0-includedir.patch
+	epatch "{FILESDIR}"/0001-gentoo-Fix-detection-of-gentoo.patch
 	eautoreconf
 }
 

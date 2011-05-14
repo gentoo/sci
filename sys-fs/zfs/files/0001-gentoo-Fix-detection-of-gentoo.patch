@@ -1,0 +1,41 @@
+From aa31bffa2022a73c3a5c57914462025ebdbd4407 Mon Sep 17 00:00:00 2001
+From: Alexey Shvetsov <alexxy@gentoo.org>
+Date: Sat, 14 May 2011 18:25:37 +0400
+Subject: [PATCH] [gentoo] Fix detection of gentoo
+
+Also this may fix other distros because some of them also provides
+/etc/lsb-release not only ubuntu.
+---
+ configure |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/configure b/configure
+index fee3c74..f504950 100755
+--- a/configure
++++ b/configure
+@@ -11785,18 +11785,18 @@ $as_echo_n "checking linux distribution... " >&6; }
+ 		VENDOR=redhat ;
+ 	elif test -f /etc/fedora-release ; then
+ 		VENDOR=fedora ;
+-	elif test -f /etc/lsb-release ; then
+-		VENDOR=ubuntu ;
++	elif test -f /etc/gentoo-release ; then
++		VENDOR=gentoo ;
+ 	elif test -f /etc/debian_version ; then
+ 		VENDOR=debian ;
+ 	elif test -f /etc/SuSE-release ; then
+ 		VENDOR=sles ;
+ 	elif test -f /etc/slackware-version ; then
+ 		VENDOR=slackware ;
+-	elif test -f /etc/gentoo-release ; then
+-		VENDOR=gentoo ;
+ 	elif test -f /etc/lunar.release ; then
+ 		VENDOR=lunar ;
++	elif test -f /etc/lsb-release ; then
++		VENDOR=ubuntu ;
+ 	else
+ 		VENDOR= ;
+ 	fi
+-- 
+1.7.5.rc3
+
