@@ -9,7 +9,7 @@ AT_M4DIR=./config  # for aclocal called by eautoreconf
 
 EGIT_REPO_URI="http://github.com/behlendorf/zfs.git"
 
-inherit autotools eutils git linux-mod
+inherit autotools eutils git-2 linux-mod
 
 DESCRIPTION="Native ZFS for Linux"
 HOMEPAGE="http://wiki.github.com/behlendorf/zfs/"
@@ -61,8 +61,6 @@ src_compile() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die 'emake install failed'
-	newinitd "${FILESDIR}/zfs.initd" zfs
-	keepdir /var/lock/zfs
 	# Drop unwanted files
 	rm -rf "${D}/usr/src" || die "removing unwanted files die"
 }
