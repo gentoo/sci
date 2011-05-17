@@ -1,0 +1,13 @@
+# ChangeLog for sci-libs/ipp
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  23 Feb 2011; Sébastien Fabbro <bicatali@gentoo.org> ipp-7.0.2.137.ebuild:
+  Bump
+
+*ipp-7.0.1.084 (03 Dec 2010)
+
+  03 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org> +ipp-7.0.1.084.ebuild,
+  +metadata.xml:
+  Version bump and refactored ebuild
+
