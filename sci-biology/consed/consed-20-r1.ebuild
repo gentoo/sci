@@ -48,7 +48,7 @@ src_prepare() {
 }
 
 src_compile() {
-	emake || die
+	emake || die "If you have gcc-4.5 please use <=4.4 or visit bug #351152"
 	emake -C misc/mktrace || die
 	emake -C misc/phd2fasta || die
 	(cd misc/454; $(tc-getCC) ${CFLAGS} sff2scf.c -o sff2scf) || die
