@@ -52,7 +52,7 @@ RDEPEND=""
 DEPEND=">=app-arch/rpm2targz-9.0.0.3g"
 INTEL_SDP_YEAR=${INTEL_DPV%_update*}
 INTEL_SDP_DIR="opt/intel/${INTEL_SUBDIR}-${INTEL_SDP_YEAR:-${INTEL_PV1}}.${INTEL_PV3}.${INTEL_PV4}"
-INTEL_SDP_EDIR="${EROOT#/}/${INTEL_SDP_DIR}"
+INTEL_SDP_EDIR="${EROOT%/}/${INTEL_SDP_DIR}"
 
 S="${WORKDIR}"
 
@@ -132,15 +132,16 @@ intel-sdp_src_install() {
 	find opt -name \*sh -type f -exec sed -i \
 		-e "s:<.*DIR>:${INTEL_SDP_EDIR}:g" \
 		'{}' \;
+	mkdir -p "${ED:-${D}}"/ || die
 	mv opt "${ED:-${D}}"/ || die "moving files failed"
 }
 
 intel-sdp_pkg_postinst() {
 	# add product registry to intel "database"
 	local l r
-	INTEL_SDP_DB="${EROOT#/}"/opt/intel/intel-sdp-products.db
+	INTEL_SDP_DB="${EROOT%/}"/opt/intel/intel-sdp-products.db
 	for r in ${INTEL_RPMS}; do
-		l="$(ls -1 ${EROOT#/}/opt/intel/.${r}_*.log | head -n 1)"
+		l="$(ls -1 ${EROOT%/}/opt/intel/.${r}_*.log | head -n 1)"
 		echo >> ${INTEL_SDP_DB} \
 			"<:${r%-${INTEL_PV4}*}-${INTEL_PV4}:${r}:${INTEL_SDP_EDIR}:${l}:>"
 	done
