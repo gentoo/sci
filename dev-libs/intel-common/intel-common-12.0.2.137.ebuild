@@ -48,7 +48,7 @@ src_install() {
 	for arch in ${INTEL_ARCH}; do
 			path=${path}:${INTEL_SDP_EDIR}/bin/${arch}:${INTEL_SDP_EDIR}/mpirt/bin/${arch}
 			rootpath=${rootpath}:${INTEL_SDP_EDIR}/bin/${arch}:${INTEL_SDP_EDIR}/mpirt/bin/${arch}
-			ldpath=${ldpath}:${INTEL_SDP_EDIR}/compiler/lib/${arch}
+			ldpath=${ldpath}:${INTEL_SDP_EDIR}/compiler/lib/${arch}:${INTEL_SDP_EDIR}/mpirt/lib/${arch}
 	done
 	cat >> ${fenv} <<-EOF
 		PATH=${path#:}
