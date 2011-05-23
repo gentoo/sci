@@ -20,7 +20,8 @@ KEYWORDS=""
 # masked because of 'libtool: Version mismatch error.  This is libtool 2.4, but the definition of this LT_INIT comes from libtool 2.2.6b. You should recreate aclocal.m4 with macros from libtool 2.4 and run autoconf again.', dyeing at src/examples_programming/
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 
-CDEPEND=">=dev-libs/boost-1.41.0-r3"
+CDEPEND=">=dev-libs/boost-1.41.0-r3
+		dev-util/google-perftools"
 DEPEND="${CDEPEND}
 	dev-libs/expat"
 RDEPEND="${CDEPEND}
@@ -45,7 +46,7 @@ src_configure() {
 src_compile() {
 	base_src_compile
 	# TODO: resolve docbook incompatibility for building docs
-	if use doc; then emake -C doc clean docs || die; fi
+	if use doc; then emake -C doc clean docs || die "This will probably die because upstream did not imrove re-genartion of the docs yet."; fi
 }
 
 src_install() {

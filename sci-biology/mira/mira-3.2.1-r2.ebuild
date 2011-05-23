@@ -18,7 +18,8 @@ SLOT="0"
 IUSE=""
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 
-CDEPEND=">=dev-libs/boost-1.41.0-r3"
+CDEPEND=">=dev-libs/boost-1.41.0-r3
+		dev-util/google-perftools"
 DEPEND="${CDEPEND}
 	dev-libs/expat"
 RDEPEND="${CDEPEND}
