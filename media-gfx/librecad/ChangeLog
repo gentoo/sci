@@ -2,5 +2,8 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
 
+  24 May 2011; Dongxu Li <dongxuli2011@gmail.com> librecad-9999.ebuild:
+  Switch from svn to git, add qt-assistant DEPEND
+
   30 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> +librecad-9999.ebuild:
   Initial port. #344791, ebuild by Egor Y. Egorov
