@@ -25,10 +25,10 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="doc +gromacs"
+IUSE="-boost doc +gromacs"
 
-RDEPEND="=sci-libs/votca-tools-${PV}
-	gromacs? ( >=sci-chemistry/gromacs-4.0.7-r5 )
+RDEPEND="=sci-libs/votca-tools-${PV}[boost=]
+	gromacs? ( sci-chemistry/gromacs )
 	dev-lang/perl
 	app-shells/bash"
 
@@ -43,7 +43,12 @@ src_configure() {
 	use gromacs && has_version =sci-chemistry/gromacs-9999 && \
 		extra="-DWITH_GMX_DEVEL=ON"
 
-	mycmakeargs=( $(cmake-utils_use_with gromacs GMX) ${extra} -DWITH_RC_FILES=OFF )
+	mycmakeargs=(
+		$(cmake-utils_use boost EXTERNAL_BOOST)
+		$(cmake-utils_use_with gromacs GMX)
+		${extra}
+		-DWITH_RC_FILES=OFF
+	)
 	cmake-utils_src_configure || die
 }
 

@@ -8,5 +8,6 @@
 	</maintainer>
 	<use>
 		<flag name='gromacs'>Add support for gromacs file formats (sci-chemistry/gromacs)</flag>
+		<flag name='boost'>Compile against external boost headers (dev-libs/boost)</flag>
 	</use>
 </pkgmetadata>
