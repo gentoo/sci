@@ -58,5 +58,5 @@ src_install() {
 	EOF
 	doenvd ${fenv} || die
 
-	mkdir -p ${INTEL_SDP_EDIR}/licenses
+	dodir ${INTEL_SDP_DIR}/licenses
 }
