@@ -4,8 +4,8 @@
 
 EAPI=3
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=2065
-INTEL_DPV=2011_update1
+INTEL_DID=2158
+INTEL_DPV=2011_update2
 INTEL_SUBDIR=composerxe
 
 inherit intel-sdp
@@ -44,7 +44,7 @@ src_install() {
 	cat > ${fenv} <<-EOF
 		NLSPATH=${INTEL_SDP_EDIR}/lib/locale/en_US/%N
 		MANPATH=${INTEL_SDP_EDIR}/man/en_US
-		INTEL_LICENSE_FILE=${INTEL_SDP_EDIR}/licenses
+		INTEL_LICENSE_FILE=${EPREFIX}/opt/intel/licenses
 	EOF
 	for arch in ${INTEL_ARCH}; do
 			path=${path}:${INTEL_SDP_EDIR}/bin/${arch}:${INTEL_SDP_EDIR}/mpirt/bin/${arch}
@@ -58,5 +58,6 @@ src_install() {
 	EOF
 	doenvd ${fenv} || die
 
-	dodir ${INTEL_SDP_DIR}/licenses
+	dodir /opt/intel/licenses
+	keepdir /opt/intel/licenses
 }

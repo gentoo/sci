@@ -73,9 +73,9 @@ pkg_setup() {
 PATCHES=(
 	"${FILESDIR}"/${PV}-lidia.patch
 	"${FILESDIR}"/${PV}-goocanvas.patch
-	"${FILESDIR}"/${PV}-clipper.patch
 	"${FILESDIR}"/${PV}-include.patch
 	"${FILESDIR}"/${PV}-gl.patch
+	"${FILESDIR}"/${PV}-align.patch
 	)
 
 src_unpack() {

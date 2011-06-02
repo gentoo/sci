@@ -1,0 +1,29 @@
+Index: src/c-interface-mutate.cc
+===================================================================
+--- src/c-interface-mutate.cc	(revision 3528)
++++ src/c-interface-mutate.cc	(working copy)
+@@ -292,7 +292,9 @@
+   PyObject *r = Py_False;
+    if (is_valid_model_molecule(imol)) {
+       std::pair<bool, std::string> p = 
+-	 graphics_info_t::molecules[imol].find_terminal_residue_type(chain_id, resno);
++	 graphics_info_t::molecules[imol].find_terminal_residue_type(chain_id, resno,
++																					graphics_info_t::alignment_wgap,
++																					graphics_info_t::alignment_wspace);
+       if (p.first) {
+ 	 r = PyString_FromString(p.second.c_str());
+       }
+Index: src/c-interface-validate.cc
+===================================================================
+--- src/c-interface-validate.cc	(revision 3528)
++++ src/c-interface-validate.cc	(working copy)
+@@ -1653,7 +1653,8 @@
+ 
+    if (is_valid_model_molecule(imol)) {
+       std::pair<bool, std::vector<coot::chain_mutation_info_container_t> > ar = 
+-      	 graphics_info_t::molecules[imol].residue_mismatches();
++      	 graphics_info_t::molecules[imol].residue_mismatches(graphics_info_t::alignment_wgap,
++																				graphics_info_t::alignment_wspace);
+       if (ar.first)
+ 	r = PyList_New(0);
+       for (unsigned int ir=0; ir<ar.second.size(); ir++) {
