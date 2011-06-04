@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  2 Jun 2011; Dongxu Li <dongxuli2011@gmail.com> +cadabra-1.28.ebuild:
+  Version bump to 1.29
+
   11 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> +cadabra-1.28.ebuild:
   Version bump to 1.28
 
