@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Jun 2011; Christoph Junghans <ottxor@gentoo.org> votca-csg-9999.ebuild:
+  use default instead of tip commit
+
   08 Mar 2011; Christoph Junghans <ottxor@gentoo.org> -votca-csg-1.1.1.ebuild:
   InCVS
 
