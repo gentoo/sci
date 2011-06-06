@@ -15,6 +15,7 @@ else
 	SRC_URI=""
 	inherit mercurial
 	EHG_REPO_URI="https://csg.votca.googlecode.com/hg"
+	EHG_REVISION="default"
 	S="${WORKDIR}/${EHG_REPO_URI##*/}"
 	PDEPEND="doc? ( =app-doc/votca-csg-manual-${PV} )"
 fi

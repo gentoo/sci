@@ -14,6 +14,7 @@ else
 	SRC_URI=""
 	inherit mercurial
 	EHG_REPO_URI="https://tools.votca.googlecode.com/hg"
+	EHG_REVISION="default"
 	S="${WORKDIR}/${EHG_REPO_URI##*/}"
 fi
 
