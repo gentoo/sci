@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*hdf-java-2.7 (07 Jun 2011)
+
+  07 Jun 2011; Kacper Kowalik <xarthisius@gentoo.org> -hdf-java-2.6.1.ebuild,
+  -files/hdf-java-2.6.1-shared.patch, +hdf-java-2.7.ebuild,
+  +files/hdf-java-2.7-shared.patch:
+  Version bump wrt #301049 by Guillaume Horel <guillaume.horel@gmail.com>
+
   14 Mar 2011; Justin Lecher <jlec@gentoo.org> hdf-java-2.6.1.ebuild:
   Moved media-libs/jpeg -> virtual/jpeg
 
