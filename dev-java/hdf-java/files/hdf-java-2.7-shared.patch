@@ -1,6 +1,10 @@
-diff -Nur hdf-java.orig/configure.in hdf-java/configure.in
---- hdf-java.orig/configure.in	2010-03-23 15:41:36.000000000 +0000
-+++ hdf-java/configure.in	2010-03-24 04:53:01.000000000 +0000
+Respect LDFLAGS, properly use shared libraries
+
+http://bugs.gentoo.org/show_bug.cgi?id=301049
+
+Patch written by Guillaume Horel <guillaume.horel@gmail.com>
+--- a/configure.in
++++ b/configure.in
 @@ -177,7 +177,7 @@
    *)
      if test -n "$withval" ; then
@@ -16,7 +20,7 @@ diff -Nur hdf-java.orig/configure.in hdf-java/configure.in
          jpeg_lib="`echo $withval |cut -f2 -d, -s`"
 -	JPEGLIB=$jpeg_lib"/libjpeg."$LLEXT
 +	JPEGLIB="-L$jpeg_lib -ljpeg"
-     	#AC_MSG_RESULT([jpeg found: $JPEGLIB]);
+     	dnl AC_MSG_RESULT([jpeg found: $JPEGLIB]);
  	HAVE_JPEG="yes"
      else
 @@ -246,7 +246,7 @@
@@ -25,7 +29,7 @@ diff -Nur hdf-java.orig/configure.in hdf-java/configure.in
  	    sz_lib="`echo $withval |cut -f2 -d, -s`"
 -		SZLIB=$sz_lib"/libsz."$LLEXT
 +		SZLIB="-L$sz_lib -lsz"
- 		#AC_MSG_RESULT([szlib found: $SZLIB]);
+ 		dnl AC_MSG_RESULT([szlib found: $SZLIB]);
  		HAVE_SZIP="yes"
  	else
 @@ -302,7 +302,7 @@
@@ -33,7 +37,7 @@ diff -Nur hdf-java.orig/configure.in hdf-java/configure.in
  esac
  if test -n "$HDF4LIB"; then
 -	LIBS="$HDF4LIB/libdf.$LLEXT $HDF4LIB/libmfhdf.$LLEXT $LIBS"
-+	LIBS="-L$HDF4LIB -ldf -lmfhdf $LIBS"
++	LIBS="-L$HDF4LIB -ldf -lmhdf $LIBS"
  	HAVE_HDF4="yes"
  fi
  AC_MSG_RESULT([$HAVE_HDF4])
@@ -55,17 +59,10 @@ diff -Nur hdf-java.orig/configure.in hdf-java/configure.in
  	HAVE_HDF5="yes"
  fi
  AC_MSG_RESULT([$HAVE_HDF5])
-@@ -626,16 +626,10 @@
- AC_CACHE_CHECK("JH45 install directory",ac_cv_lib_JH45INST,JH45INST_FOUND=0)
- fi
- if test $JH45INST_FOUND -eq 1; then
-+        mkdir -p $JH45INST
- 	if test -z "$JH45INST" ; then
- 		JH45INST=$ac_cv_lib_JH45INST;
+@@ -628,10 +628,6 @@
+ 	if test \( ! -d "$JH45INST" \); then
+ 		JH45INST_FOUND=0
  	fi
--	if test \( ! -d "$JH45INST" \); then
--		JH45INST_FOUND=0
--	fi
 -	if test \( ! -w "$JH45INST" \); then
 -		AC_MSG_ERROR( [ $JAVINST : not writable ])
 -		JH45INST_FOUND=0
@@ -73,19 +70,18 @@ diff -Nur hdf-java.orig/configure.in hdf-java/configure.in
  fi
  until test $JH45INST_FOUND -eq 1; do
  	echo "Please type the directory in which to install the JH45"
-diff -Nur hdf-java.orig/native/hdf5lib/Makefile.in hdf-java/native/hdf5lib/Makefile.in
---- hdf-java.orig/native/hdf5lib/Makefile.in	2010-03-23 15:41:36.000000000 +0000
-+++ hdf-java/native/hdf5lib/Makefile.in	2010-03-24 04:52:13.000000000 +0000
-@@ -33,7 +33,7 @@
+--- a/native/hdf5lib/Makefile.in
++++ b/native/hdf5lib/Makefile.in
+@@ -35,7 +35,7 @@
  
- CFLAGS = -DH5_USE_16_API -D_FILE_OFFSET_BITS=64 $(DEFS) -I. -I$(HDF5INC) -I$(JAVAINC1) -I$(JAVAINC2)
+ CFLAGS = -D_FILE_OFFSET_BITS=64 $(DEFS) -I. -I$(HDF5INC) -I$(JAVAINC1) -I$(JAVAINC2)
  
 -LIBS =  $(HDF5LIB)/libhdf5.$(LLEXT) $(ZLIB) $(SZLIB) -lm
 +LIBS =  -L$(HDF5LIB) -lhdf5 $(ZLIB) $(SZLIB) -lm
  
  # Macro def: object filename used
- OBJECTS =  exceptionImp.o h5Constants.o h5Imp.o h5aImp.o h5dImp.o h5fImp.o h5gImp.o h5iImp.o h5pImp.o h5rImp.o h5sImp.o h5tImp.o nativeData.o h5util.o h5zImp.o
-@@ -45,7 +45,7 @@
+ OBJECTS =  exceptionImp.o h5Constants.o h5Imp.o h5aImp.o h5dImp.o h5eImp.o h5fImp.o h5gImp.o h5iImp.o h5lImp.o h5oImp.o h5pImp.o h5rImp.o h5sImp.o h5tImp.o nativeData.o h5util.o h5zImp.o
+@@ -47,7 +47,7 @@
  
  libjhdf5: $(OBJECTS)
  	-mkdir -p $(LIBDIR);
@@ -94,10 +90,9 @@ diff -Nur hdf-java.orig/native/hdf5lib/Makefile.in hdf-java/native/hdf5lib/Makef
  
  clean:
  	$(RM) -f *.o so_locations $(LIBDIR)/libjhdf5.$(JSLEXT)
-diff -Nur hdf-java.orig/native/hdflib/Makefile.in hdf-java/native/hdflib/Makefile.in
---- hdf-java.orig/native/hdflib/Makefile.in	2010-03-23 15:41:36.000000000 +0000
-+++ hdf-java/native/hdflib/Makefile.in	2010-03-24 04:52:13.000000000 +0000
-@@ -37,7 +37,7 @@
+--- a/native/hdflib/Makefile.in
++++ b/native/hdflib/Makefile.in
+@@ -41,7 +41,7 @@
  CFLAGS = $(DEFS) -I. -I$(JAVAINC1) -I$(JAVAINC2) -I$(HDFINC)
  
  # Be sure to add -lbsd if compiling in a SYSV environment
@@ -106,7 +101,7 @@ diff -Nur hdf-java.orig/native/hdflib/Makefile.in hdf-java/native/hdflib/Makefil
  
  # Macro def: object filename used
  OBJECTS =  hdfstructsutil.o \
-@@ -56,7 +56,7 @@
+@@ -60,7 +60,7 @@
  
  libjhdf: $(OBJECTS) 
  	-mkdir -p $(LIBDIR);
