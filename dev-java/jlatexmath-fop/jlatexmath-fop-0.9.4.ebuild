@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,8 +8,10 @@ JAVA_PKG_IUSE="examples source"
 
 inherit java-pkg-2 java-ant-2
 
+MY_PN="${PN/-fop/}"
+MY_P="${P/-fop/}"
 DESCRIPTION="jlatexmath plugin for dev-java/fop"
-SRC_URI="http://forge.scilab.org/index.php/p/jlatexmath/downloads/136/get/ -> jlatexmath-src-all-${PV}.jar"
+SRC_URI="http://forge.scilab.org/upload/jlatexmath/files/${MY_PN}-src-all-${PV}.zip"
 HOMEPAGE="http://forge.scilab.org/index.php/p/jlatexmath"
 
 IUSE=""
@@ -25,10 +27,10 @@ KEYWORDS="~amd64 ~x86"
 
 EANT_BUILD_TARGET="buildJar"
 
-S="${WORKDIR}"/plugin/fop
+S="${WORKDIR}/${MY_P}/plugin/fop"
 
 src_prepare() {
-	cd "${WORKDIR}"
+	cd "${WORKDIR}/${MY_P}"
 	sed -i -e "s:/usr/share/java/fop.jar:$(java-pkg_getjar fop fop.jar):g" \
 		-e "s:/usr/share/java/xmlgraphics-commons.jar:$(java-pkg_getjar xmlgraphics-commons-1.3 xmlgraphics-commons.jar):g" \
 		-e "s:/usr/share/java/batik.jar:$(java-pkg_getjar batik-1.7 batik-all.jar):g" \
