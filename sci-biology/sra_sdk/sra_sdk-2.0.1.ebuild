@@ -29,7 +29,11 @@ src_compile(){
 }
 
 src_install(){
-	dobin ${WORKDIR}"/objdir/linux/rel/gcc/i386/bin/*"
+	if use amd64; then
+		dobin ${WORKDIR}"/objdir/linux/rel/gcc/x86_64/bin/*"
+	elif use x86; then
+		dobin ${WORKDIR}"/objdir/linux/rel/gcc/i386/bin/*"
+	fi
 
 	# mkdir -p ${D}/usr/bin || die
 	# for f in ${W}/objdir/linux/rel/gcc/i386/bin/*; do if [ ! -l "$f" ]; then cp "$f" ${D}/usr/bin || die "copy failed" ; fi; done
