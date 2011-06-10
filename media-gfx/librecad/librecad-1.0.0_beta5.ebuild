@@ -13,6 +13,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="debug doc"
 
 EGIT_REPO_URI="https://github.com/LibreCAD/LibreCAD.git"
+EGIT_COMMIT="${PV/_beta/beta}"
 
 RDEPEND="x11-libs/qt-gui[qt3support]"
 DEPEND="${RDEPEND}
@@ -22,7 +23,7 @@ DEPEND="${RDEPEND}
 
 src_prepare()
 {
-	# patch to solve an issue caused by gcc-4.6, by mickele, archlinux
+# patch to solve an issue caused by gcc-4.6, by mickele, archlinux
 	sed -e "s|LiteralMask<Value_t, n>::mask;|LiteralMask<Value_t, static_cast<unsigned int>(n)>::mask;|" \
 	-e "s|SimpleSpaceMask<n>::mask;|SimpleSpaceMask<static_cast<unsigned int>(n)>::mask;|" \
 	-i fparser/fparser.cc
