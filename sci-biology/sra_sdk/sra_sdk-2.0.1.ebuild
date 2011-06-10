@@ -30,9 +30,9 @@ src_compile(){
 
 src_install(){
 	if use amd64; then
-		dobin ${WORKDIR}"/objdir/linux/rel/gcc/x86_64/bin/*"
+		dobin "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/bin/*
 	elif use x86; then
-		dobin ${WORKDIR}"/objdir/linux/rel/gcc/i386/bin/*"
+		dobin "${WORKDIR}"/objdir/linux/rel/gcc/i386/bin/*
 	fi
 
 	# mkdir -p ${D}/usr/bin || die
