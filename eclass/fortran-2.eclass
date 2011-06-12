@@ -87,12 +87,14 @@ get_fcomp() {
 			echo "gfortran" ;;
 		ifort )
 			echo "ifc" ;;
+		pathf*)
+			echo "pathcc" ;;
 		mpi*)
 			local _fcomp=$($(tc-getFC) -show | awk '{print $1}')
 			echo "$(FC=${_fcomp} get_fcomp)";;
-      * )
+		* )
 			echo $(tc-getFC) ;;
-   esac
+	esac
 }
 
 # @FUNCTION: fortran-2_pkg_setup
