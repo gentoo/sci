@@ -26,8 +26,8 @@ inherit toolchain-funcs
 DEPEND="virtual/fortran"
 RDEPEND="${DEPEND}"
 
-_tc-has-fortran() {
-	local base="${T}/test-tc-fortran"
+_have-valid-fortran() {
+	local base=${T}/test-tc-fortran
 	cat <<-EOF > "${base}.f"
 	      end
 	EOF
@@ -37,26 +37,35 @@ _tc-has-fortran() {
 	return ${ret}
 }
 
-# See if the toolchain gfortran only supports OpenMP.
-_gfortran-has-openmp() {
-	[[ $(tc-getFC) != *gfortran* ]] && return 0
-	local base="${T}/test-fc-openmp"
+# See if the fortran supports OpenMP.
+_fortran-has-openmp() {
+	local flag
+	case "$(tc-getFC)" in
+		*gfortran*|pathf*)
+			flag=-fopenmp ;;
+		ifort)
+			flag=-openmp ;;
+		*)
+			return 0 ;;
+	esac
+	local base=${T}/test-fc-openmp
 	# leave extra leading space to make sure it works on fortran 77 as well
 	cat << EOF > "${base}.f"
        call omp_get_num_threads
        end
 EOF
-	$(tc-getFC "$@") -fopenmp "${base}.f" -o "${base}" >&/dev/null
+	$(tc-getFC "$@") ${flag} "${base}.f" -o "${base}" >&/dev/null
 	local ret=$?
 	rm -f "${base}"*
 	return ${ret}
 }
 
 fortran-2_pkg_setup() {
-	_tc-has-fortran || \
-		 die "Please emerge the current gcc with USE=fortran or export FC defining a working fortran compiler"
+	_have-valid-fortran || \
+		die "Please emerge the current gcc with USE=fortran or export FC defining a working fortran compiler"
 	if [[ ${FCOPENMP} == 1 ]]; then
-		_gfortran-has-openmp || die "Please emerge current gcc with USE=openmp"
+		_fortran-has-openmp || \
+		die "Please emerge current gcc with USE=openmp or export FC with compiler that supports OpenMP"
 	fi
 }
 
