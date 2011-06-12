@@ -3,21 +3,22 @@
 # $Header: $
 
 # Author Justin Lecher <jlec@gentoo.org>
+# Test functions provided by Sebastien Fabbro and Kacper Kowalik
 
 # @ECLASS: fortran-2.eclass
 # @MAINTAINER:
-# sci@gentoo.org
 # jlec@gentoo.org
+# sci@gentoo.org
 # @BLURB: Packages, which need a frortran compiler should inherit this eclass.
 # @DESCRIPTION:
 # If you need a fortran compiler, inherit this eclass. This eclass tests for
-# working fortran compilers. Optional, check for openmp capability of the
-# current fortran compiler through FCOPENMP=1. Only function exported
-# is pkg_setup.
+# working fortran compilers. Optional, it checks for openmp capability of the
+# current fortran compiler through FC_NEED_OPENMP=1.
+# Only phase function exported is pkg_setup.
 
-# @ECLASS-VARIABLE: FCOPENMP
+# @ECLASS-VARIABLE: FC_NEED_OPENMP
 # @DESCRIPTION:
-# If FCOPNMP=1, FC is tested for openmp capabilities
+# SET FC_NEED_OPENMP=1 in order to test FC for openmp capabilities
 #
 # Default is 0
 
@@ -26,10 +27,15 @@ inherit toolchain-funcs
 DEPEND="virtual/fortran"
 RDEPEND="${DEPEND}"
 
+# internal function
+#
+# FUNCTION: _have-valid-fortran
+# DESCRIPTION:
+# Check whether FC returns a working fortran compiler
 _have-valid-fortran() {
 	local base=${T}/test-tc-fortran
 	cat <<- EOF > "${base}.f"
-	      end
+	       end
 	EOF
 	$(tc-getFC "$@") "${base}.f" -o "${base}" >&/dev/null
 	local ret=$?
@@ -37,6 +43,10 @@ _have-valid-fortran() {
 	return ${ret}
 }
 
+# internal function
+#
+# FUNCTION: _fortran-has-openmp
+# DESCRIPTION:
 # See if the fortran supports OpenMP.
 _fortran-has-openmp() {
 	local flag
@@ -45,6 +55,10 @@ _fortran-has-openmp() {
 			flag=-fopenmp ;;
 		ifort)
 			flag=-openmp ;;
+		mpi*)
+			local _fcomp=$($(tc-getFC) -show | awk '{print $1}')
+			FC=${_fcomp} _fortran-has-openmp
+			return $? ;;
 		*)
 			return 0 ;;
 	esac
@@ -60,9 +74,35 @@ _fortran-has-openmp() {
 	return ${ret}
 }
 
+# @FUNCTION: get_fcomp
+# @DESCRIPTION:
+# Returns the canonical name or the native compiler of the current fortran compiler
+#
+# e.g.
+#
+# x86_64-linux-gnu-gfortran -> gfortran
+get_fcomp() {
+	case $(tc-getFC) in
+		*gfortran* )
+			echo "gfortran" ;;
+		ifort )
+			echo "ifc" ;;
+		mpi*)
+			local _fcomp=$($(tc-getFC) -show | awk '{print $1}')
+			echo "$(FC=${_fcomp} get_fcomp)";;
+      * )
+			echo $(tc-getFC) ;;
+   esac
+}
+
+# @FUNCTION: fortran-2_pkg_setup
+# @DESCRIPTION:
+# Setup functionallity, checks for a valid fortran compiler and optionally for its openmp support.
 fortran-2_pkg_setup() {
 	_have-valid-fortran || \
 		die "Please emerge the current gcc with USE=fortran or export FC defining a working fortran compiler"
+	export F77="$(tc-getFC)"
+	export F95="$(tc-getFC)"
 	if [[ ${FCOPENMP} == 1 ]]; then
 		_fortran-has-openmp || \
 		die "Please emerge current gcc with USE=openmp or export FC with compiler that supports OpenMP"
