@@ -42,10 +42,10 @@ _gfortran-has-openmp() {
 	[[ $(tc-getFC) != *gfortran* ]] && return 0
 	local base="${T}/test-fc-openmp"
 	# leave extra leading space to make sure it works on fortran 77 as well
-	cat <<- EOF > "${base}.f"
-	call omp_get_num_threads
-	end
-	EOF
+	cat << EOF > "${base}.f"
+       call omp_get_num_threads
+       end
+EOF
 	$(tc-getFC "$@") -fopenmp "${base}.f" -o "${base}" >&/dev/null
 	local ret=$?
 	rm -f "${base}"*
