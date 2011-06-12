@@ -102,6 +102,7 @@ fortran-2_pkg_setup() {
 	_have-valid-fortran || \
 		die "Please emerge the current gcc with USE=fortran or export FC defining a working fortran compiler"
 	export F77="$(tc-getFC)"
+	export F90="$(tc-getFC)"
 	export F95="$(tc-getFC)"
 	if [[ ${FCOPENMP} == 1 ]]; then
 		_fortran-has-openmp || \
