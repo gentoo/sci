@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mpich2-1.4_rc2-r1 (12 Jun 2011)
+
+  12 Jun 2011; Justin Bronder <jsbronder@gentoo.org> -mpich2-1.4_rc2.ebuild,
+  +mpich2-1.4_rc2-r1.ebuild, +files/fix-pkg-config-files.patch:
+  Fix pkg-config files, #369263
+
   10 May 2011; Justin Bronder <jsbronder@gentoo.org> mpich2-1.4_rc2.ebuild:
   Correct fix for #293665
 
