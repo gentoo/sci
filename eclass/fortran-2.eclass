@@ -106,7 +106,7 @@ fortran-2_pkg_setup() {
 	export F77="$(tc-getFC)"
 	export F90="$(tc-getFC)"
 	export F95="$(tc-getFC)"
-	if [[ ${FCOPENMP} == 1 ]]; then
+	if [[ ${FC_NEED_OPENMP} == 1 ]]; then
 		_fortran-has-openmp || \
 		die "Please emerge current gcc with USE=openmp or export FC with compiler that supports OpenMP"
 	fi
