@@ -9,7 +9,7 @@
 # @MAINTAINER:
 # jlec@gentoo.org
 # sci@gentoo.org
-# @BLURB: Packages, which need a frortran compiler should inherit this eclass.
+# @BLURB: Packages, which need a fortran compiler should inherit this eclass.
 # @DESCRIPTION:
 # If you need a fortran compiler, inherit this eclass. This eclass tests for
 # working fortran compilers. Optional, it checks for openmp capability of the
@@ -18,7 +18,7 @@
 
 # @ECLASS-VARIABLE: FC_NEED_OPENMP
 # @DESCRIPTION:
-# SET FC_NEED_OPENMP=1 in order to test FC for openmp capabilities
+# Set FC_NEED_OPENMP=1 in order to test FC for openmp capabilities
 #
 # Default is 0
 
@@ -50,7 +50,7 @@ _have-valid-fortran() {
 # See if the fortran supports OpenMP.
 _fortran-has-openmp() {
 	local flag
-	case "$(tc-getFC)" in
+	case $(tc-getFC) in
 		*gfortran*|pathf*)
 			flag=-fopenmp ;;
 		ifort)
@@ -91,25 +91,40 @@ get_fcomp() {
 			echo "pathcc" ;;
 		mpi*)
 			local _fcomp=$($(tc-getFC) -show | awk '{print $1}')
-			echo "$(FC=${_fcomp} get_fcomp)";;
+			echo $(FC=${_fcomp} get_fcomp) ;;
 		* )
 			echo $(tc-getFC) ;;
 	esac
 }
 
-# @FUNCTION: fortran-2_pkg_setup
+# @FUNCTION: fortran-2_pkg_pretend
 # @DESCRIPTION:
 # Setup functionallity, checks for a valid fortran compiler and optionally for its openmp support.
-fortran-2_pkg_setup() {
+fortran-2_pkg_pretend() {
 	_have-valid-fortran || \
 		die "Please emerge the current gcc with USE=fortran or export FC defining a working fortran compiler"
-	export F77="$(tc-getFC)"
-	export F90="$(tc-getFC)"
-	export F95="$(tc-getFC)"
+	export FC=$(tc-getFC)
+	export F77=$(tc-getFC)
+	export F90=$(tc-getFC)
+	export F95=$(tc-getFC)
 	if [[ ${FC_NEED_OPENMP} == 1 ]]; then
 		_fortran-has-openmp || \
 		die "Please emerge current gcc with USE=openmp or export FC with compiler that supports OpenMP"
 	fi
 }
 
-EXPORT_FUNCTIONS pkg_setup
+
+# @FUNCTION: fortran-2_pkg_setup
+# @DESCRIPTION:
+# Setup functionallity, checks for a valid fortran compiler and optionally for its openmp support, used in EAPI < 4.
+fortran-2_pkg_setup() {
+	has ${EAPI:-0} 0 1 2 3 && fortran-2_pkg_pretend
+}
+
+case "${EAPI:-0}" in
+	0|1|2|3)
+		EXPORT_FUNCTIONS pkg_setup;;
+	4)
+		EXPORT_FUNCTIONS pkg_pretend;;
+	*) die "EAPI=${EAPI} is not supported" ;;
+esac
