@@ -9,7 +9,7 @@
 # @MAINTAINER:
 # jlec@gentoo.org
 # sci@gentoo.org
-# @BLURB: Packages, which need a frortran compiler should inherit this eclass.
+# @BLURB: Packages, which need a fortran compiler should inherit this eclass.
 # @DESCRIPTION:
 # If you need a fortran compiler, inherit this eclass. This eclass tests for
 # working fortran compilers. Optional, it checks for openmp capability of the
@@ -18,7 +18,7 @@
 
 # @ECLASS-VARIABLE: FC_NEED_OPENMP
 # @DESCRIPTION:
-# SET FC_NEED_OPENMP=1 in order to test FC for openmp capabilities
+# Set FC_NEED_OPENMP=1 in order to test FC for openmp capabilities
 #
 # Default is 0
 
@@ -103,6 +103,7 @@ get_fcomp() {
 fortran-2_pkg_setup() {
 	_have-valid-fortran || \
 		die "Please emerge the current gcc with USE=fortran or export FC defining a working fortran compiler"
+	export FC="$(tc-getFC)"
 	export F77="$(tc-getFC)"
 	export F90="$(tc-getFC)"
 	export F95="$(tc-getFC)"
