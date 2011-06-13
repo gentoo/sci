@@ -97,10 +97,10 @@ get_fcomp() {
 	esac
 }
 
-# @FUNCTION: fortran-2_pkg_setup
+# @FUNCTION: fortran-2_pkg_pretend
 # @DESCRIPTION:
 # Setup functionallity, checks for a valid fortran compiler and optionally for its openmp support.
-fortran-2_pkg_setup() {
+fortran-2_pkg_pretend() {
 	_have-valid-fortran || \
 		die "Please emerge the current gcc with USE=fortran or export FC defining a working fortran compiler"
 	export FC="$(tc-getFC)"
@@ -113,4 +113,18 @@ fortran-2_pkg_setup() {
 	fi
 }
 
-EXPORT_FUNCTIONS pkg_setup
+
+# @FUNCTION: fortran-2_pkg_setup
+# @DESCRIPTION:
+# Setup functionallity, checks for a valid fortran compiler and optionally for its openmp support, used in EAPI < 4.
+fortran-2_pkg_setup() {
+	has ${EAPI:-0} 0 1 2 3 && fortran-2_pkg_pretend
+}
+
+case "${EAPI:-0}" in
+	0|1|2|3)
+		EXPORT_FUNCTIONS pkg_setup;;
+	4)
+		EXPORT_FUNCTIONS pkg_pretend;;
+	*) die "EAPI=${EAPI} is not supported" ;;
+esac
