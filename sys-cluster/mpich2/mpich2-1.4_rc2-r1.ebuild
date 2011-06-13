@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-inherit eutils mpi toolchain-funcs
+inherit eutils mpi toolchain-funcs autotools
 
 MY_PV=${PV/_/}
 DESCRIPTION="MPICH2 - A portable MPI implementation"
@@ -56,6 +56,10 @@ src_prepare() {
 	sed -i \
 		-e 's,\(.*=\ *\)"@WRAPPER_[A-Z]*FLAGS@",\1"",' \
 		src/env/*.in || die
+
+	# 369263 and 1044, 1500 upstream. 	
+	epatch "${FILESDIR}"/fix-pkg-config-files.patch
+	AT_M4DIR="${S}"/confdb eautoreconf || die
 }
 
 src_configure() {

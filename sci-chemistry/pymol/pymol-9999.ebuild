@@ -20,7 +20,7 @@ ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
 LICENSE="PSF-2.2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
-IUSE="apbs numpy vmd"
+IUSE="apbs numpy vmd web"
 
 DEPEND="
 	dev-python/numpy
@@ -36,13 +36,16 @@ DEPEND="
 		sci-chemistry/apbs
 		sci-chemistry/pdb2pqr
 		sci-chemistry/pymol-apbs-plugin
-	)"
+	)
+	web? ( !dev-python/webpy )"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-data-path.patch \
 		"${FILESDIR}"/${P}-shaders.patch
+
+	use web || epatch "${FILESDIR}"/${PV}-web.patch
 
 	epatch "${FILESDIR}"/${P}-prefix.patch && \
 	eprefixify setup.py
