@@ -50,7 +50,7 @@ _have-valid-fortran() {
 # See if the fortran supports OpenMP.
 _fortran-has-openmp() {
 	local flag
-	case "$(tc-getFC)" in
+	case $(tc-getFC) in
 		*gfortran*|pathf*)
 			flag=-fopenmp ;;
 		ifort)
@@ -91,7 +91,7 @@ get_fcomp() {
 			echo "pathcc" ;;
 		mpi*)
 			local _fcomp=$($(tc-getFC) -show | awk '{print $1}')
-			echo "$(FC=${_fcomp} get_fcomp)";;
+			echo $(FC=${_fcomp} get_fcomp) ;;
 		* )
 			echo $(tc-getFC) ;;
 	esac
@@ -103,10 +103,10 @@ get_fcomp() {
 fortran-2_pkg_pretend() {
 	_have-valid-fortran || \
 		die "Please emerge the current gcc with USE=fortran or export FC defining a working fortran compiler"
-	export FC="$(tc-getFC)"
-	export F77="$(tc-getFC)"
-	export F90="$(tc-getFC)"
-	export F95="$(tc-getFC)"
+	export FC=$(tc-getFC)
+	export F77=$(tc-getFC)
+	export F90=$(tc-getFC)
+	export F95=$(tc-getFC)
 	if [[ ${FC_NEED_OPENMP} == 1 ]]; then
 		_fortran-has-openmp || \
 		die "Please emerge current gcc with USE=openmp or export FC with compiler that supports OpenMP"
