@@ -75,7 +75,6 @@ PATCHES=(
 	"${FILESDIR}"/${PV}-goocanvas.patch
 	"${FILESDIR}"/${PV}-include.patch
 	"${FILESDIR}"/${PV}-gl.patch
-	"${FILESDIR}"/${PV}-align.patch
 	)
 
 src_unpack() {
