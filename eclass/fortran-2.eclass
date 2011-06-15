@@ -13,12 +13,12 @@
 # @DESCRIPTION:
 # If you need a fortran compiler, inherit this eclass. This eclass tests for
 # working fortran compilers. Optional, it checks for openmp capability of the
-# current fortran compiler through FC_NEED_OPENMP=1.
+# current fortran compiler through FORTRAN_NEED_OPENMP=1.
 # Only phase function exported is pkg_setup.
 
-# @ECLASS-VARIABLE: FC_NEED_OPENMP
+# @ECLASS-VARIABLE: FORTRAN_NEED_OPENMP
 # @DESCRIPTION:
-# Set FC_NEED_OPENMP=1 in order to test FC for openmp capabilities
+# Set FORTRAN_NEED_OPENMP=1 in order to test FC for openmp capabilities
 #
 # Default is 0
 
@@ -29,16 +29,45 @@ RDEPEND="${DEPEND}"
 
 # internal function
 #
-# FUNCTION: _have-valid-fortran
+# FUNCTION: _speaks_fortran_generic
 # DESCRIPTION:
-# Check whether FC returns a working fortran compiler
-_have-valid-fortran() {
-	local base=${T}/test-tc-fortran
+# Takes fortran compiler as argument.
+# Checks whether the passed fortran compiler is working
+_speaks_fortran_generic() {
+	local base=${T}/test-fortran-generic
+	local fcomp=${1}
+
+	[[ -z ${fcomp} ]] && die "_speaks_fortran_generic needs one argument"
+
 	cat <<- EOF > "${base}.f"
 	       end
 	EOF
-	$(tc-getFC "$@") "${base}.f" -o "${base}" >&/dev/null
+	${fcomp} "${base}.f" -o "${base}" >&/dev/null
 	local ret=$?
+
+	rm -f "${base}"*
+	return ${ret}
+}
+
+# internal function
+#
+# FUNCTION: _speaks_fortran_2003
+# DESCRIPTION:
+# Takes fortran compiler as argument.
+# Checks whether the passed fortran compiler is working
+_speaks_fortran_2003() {
+	local base=${T}/test-fortran-2003
+	local fcomp=${1}
+
+	[[ -z ${fcomp} ]] && die "_speaks_fortran_2003 needs one argument"
+
+	cat <<- EOF > "${base}.f"
+	       procedure(), pointer :: p
+	       end
+	EOF
+	${fcomp} "${base}.f" -o "${base}" >&/dev/null
+	local ret=$?
+
 	rm -f "${base}"*
 	return ${ret}
 }
@@ -50,26 +79,19 @@ _have-valid-fortran() {
 # See if the fortran supports OpenMP.
 _fortran-has-openmp() {
 	local flag
-	case $(tc-getFC) in
-		*gfortran*|pathf*)
-			flag=-fopenmp ;;
-		ifort)
-			flag=-openmp ;;
-		mpi*)
-			local _fcomp=$($(tc-getFC) -show | awk '{print $1}')
-			FC=${_fcomp} _fortran-has-openmp
-			return $? ;;
-		*)
-			return 0 ;;
-	esac
 	local base=${T}/test-fc-openmp
-	# leave extra leading space to make sure it works on fortran 77 as well
+
 	cat <<- EOF > "${base}.f"
-       call omp_get_num_threads
-       end
+	       call omp_get_num_threads
+	       end
 	EOF
-	$(tc-getFC "$@") ${flag} "${base}.f" -o "${base}" >&/dev/null
-	local ret=$?
+
+	for flag in -fopenmp -xopenmp -openmp -mp -omp -qsmp=omp; do
+		$(tc-getFC "$@") ${flag} "${base}.f" -o "${base}" >&/dev/null
+		local ret=$?
+		(( ${ret} )) || break
+	done
+
 	rm -f "${base}"*
 	return ${ret}
 }
@@ -85,6 +107,8 @@ get_fcomp() {
 	case $(tc-getFC) in
 		*gfortran* )
 			echo "gfortran" ;;
+		*g77* )
+			echo "g77" ;;
 		ifort )
 			echo "ifc" ;;
 		pathf*)
@@ -101,30 +125,32 @@ get_fcomp() {
 # @DESCRIPTION:
 # Setup functionallity, checks for a valid fortran compiler and optionally for its openmp support.
 fortran-2_pkg_pretend() {
-	_have-valid-fortran || \
+	local dialect
+
+	_speaks_fortran_generic $(tc-getFC) || \
+		_speaks_fortran_generic $(tc-getF77) || \
 		die "Please emerge the current gcc with USE=fortran or export FC defining a working fortran compiler"
-	export FC=$(tc-getFC)
-	export F77=$(tc-getFC)
-	export F90=$(tc-getFC)
-	export F95=$(tc-getFC)
-	if [[ ${FC_NEED_OPENMP} == 1 ]]; then
+
+	[[ -n ${FORTRAN_STANDARD} ]] || FORTRAN_STANDARD="77"
+
+	for dialect in ${FORTRAN_STANDARD}; do
+		case ${dialect} in
+			77|90|95) _speaks_fortran_generic $(tc-getFC) || \
+				die "Your fortran compiler does not speak the Fortran ${dialect}" ;;
+			2003) _speaks_fortran_${dialect} $(tc-getFC) ||  \
+				die "Your fortran compiler does not speak the Fortran ${dialect}" ;;
+			2008) die "Future";;
+			*) die "This dialect is not a fortran ";;
+		esac
+	done
+
+	if [[ ${FORTRAN_NEED_OPENMP} == 1 ]]; then
 		_fortran-has-openmp || \
-		die "Please emerge current gcc with USE=openmp or export FC with compiler that supports OpenMP"
+			die "Please emerge current gcc with USE=openmp or export FC with compiler that supports OpenMP"
 	fi
 }
 
-
-# @FUNCTION: fortran-2_pkg_setup
-# @DESCRIPTION:
-# Setup functionallity, checks for a valid fortran compiler and optionally for its openmp support, used in EAPI < 4.
-fortran-2_pkg_setup() {
-	has ${EAPI:-0} 0 1 2 3 && fortran-2_pkg_pretend
-}
-
 case "${EAPI:-0}" in
-	0|1|2|3)
-		EXPORT_FUNCTIONS pkg_setup;;
-	4)
-		EXPORT_FUNCTIONS pkg_pretend;;
+	4) EXPORT_FUNCTIONS pkg_pretend;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
