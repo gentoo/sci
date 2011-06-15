@@ -16,6 +16,7 @@
 # Optional, it checks for openmp capability of the
 # current fortran compiler through FORTRAN_NEED_OPENMP=1.
 # Only phase function exported is pkg_pretend and pkg_setup.
+# Need help? Ask the sci team.
 
 # @ECLASS-VARIABLE: FORTRAN_NEED_OPENMP
 # @DESCRIPTION:
@@ -27,7 +28,7 @@
 # @DESCRIPTION:
 # Set this, if a special dialect needs to be support. Generally not needed.
 #
-# Valid settings are
+# Valid settings are any combination of
 #
 # FORTRAN_STANDARD="77 90 95 2003"
 #
@@ -73,7 +74,7 @@ _compile_test() {
 	local fcomp=${1}
 	local fdia=${2}
 
-	[[ -z ${fcomp} ]] && die "_compile_test() needs at least one arg"
+	[[ -z ${fcomp} ]] && die "_compile_test() needs at least one argument"
 
 	[[ -f "${filebase}.f${fdia}" ]] || _write_testsuite
 
@@ -149,7 +150,7 @@ fortran-2_pkg_pretend() {
 
 # @FUNCTION: fortran-2_pkg_setup
 # @DESCRIPTION:
-# In EAPI < 4 it calls the compiler check. This behaviour is deprecated
+# In EAPI < 4 it calls the compiler check. This behavior is deprecated
 # and will be removed at 01-Sep-2011. Please migrate to EAPI=4.
 #
 # Exports the FC and F77 variable according to the compiler checks.
