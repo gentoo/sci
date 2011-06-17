@@ -28,7 +28,7 @@ RDEPEND="virtual/lapack
 		>=dev-java/flexdock-0.5.2
 		>=dev-java/jeuclid-core-3.1
 		>=dev-java/jlatexmath-0.9.4
-		~dev-java/jgraphx-1.4.1.0
+		=dev-java/jgraphx-1.4.1*
 		dev-java/jogl
 		dev-java/jgoodies-looks
 		dev-java/jrosetta
@@ -38,7 +38,7 @@ RDEPEND="virtual/lapack
 		hdf5? ( dev-java/hdf-java ) )
 	fftw? ( sci-libs/fftw:3.0 )
 	matio? ( sci-libs/matio )
-	hdf5? ( >=sci-libs/hdf5-1.8.4 )"
+	hdf5? ( >=sci-libs/hdf5-1.8.4[-mpi] )"
 
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
@@ -57,9 +57,9 @@ pkg_setup() {
 
 src_prepare() {
 	# Increases java heap to 512M when available, when building docs
-	check_reqs_conditional && epatch "${FILESDIR}"/java-heap-${PV}.patch
+	check_reqs_conditional && epatch "${FILESDIR}/java-heap-${PV}.patch"
 	# fix scilib path
-	epatch "${FILESDIR}"/scilib-fix.patch
+	epatch "${FILESDIR}/${P}-scilib-fix.patch"
 	# bug 9268 reported upstream http://bugzilla.scilab.org/show_bug.cgi?id=9268
 	epatch "${FILESDIR}"/bug_9268.diff
 
@@ -86,13 +86,7 @@ src_configure() {
 	export JAVA_HOME=$(java-config -O)
 	export BLAS_LIBS="$(pkg-config --libs blas)"
 	export LAPACK_LIBS="$(pkg-config --libs lapack)"
-	# mpi is only used for hdf5 i/o
-	if use hdf5 && has_version sci-libs/hdf5[mpi]; then
-		export CC=mpicc
-		export CXX=mpicxx
-		export FC=mpif90
-		export F77=mpif77
-	fi
+
 	econf \
 		--disable-rpath \
 		--without-pvm \
