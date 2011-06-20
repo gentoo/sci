@@ -3,13 +3,12 @@
 # $Header: $
 
 EAPI=3
-
 PYTHON_DEPEND=2:2.5
 SUPPORT_PYTHON_ABIS=1
 RESTRICT_PYTHON_ABIS="2.4 3.*"
 DISTUTILS_USE_SEPARATE_SOURCE_DIRECTORIES=1
 
-inherit distutils
+inherit eutils distutils python
 
 DESCRIPTION="A Python Package for Convex Optimization"
 HOMEPAGE="http://abel.ee.ucla.edu/cvxopt"
@@ -22,20 +21,35 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="fftw glpk gsl"
 
-DEPEND="
-	virtual/blas
-	virtual/cblas
+DEPEND="virtual/blas
 	virtual/lapack
-
+	virtual/cblas
 	fftw? ( sci-libs/fftw )
 	glpk? ( sci-mathematics/glpk )
 	gsl? ( sci-libs/gsl )"
-
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}/${P}/src
 
 src_prepare(){
+	epatch "${FILESDIR}/${PN}"-1.1.3-blas.patch
+
+	BLAS=\'$(pkg-config --libs-only-l blas | sed \
+		-e 's/^-l//' \
+		-e "s/ -l/\',\'/g" \
+		-e 's/,.pthread//g' \
+		-e "s:  ::")\'
+	LAPACK=\'$(pkg-config --libs-only-l lapack | sed \
+		-e 's/^-l//' \
+		-e "s/ -l/\',\'/g" \
+		-e 's/,.pthread//g' \
+		-e "s:  ::")\'
+
+	sed -i \
+		-e "s:@GENTOO_BLAS:${BLAS}:" \
+		-e "s:@GENTOO_LAPACK:${LAPACK}:" \
+		setup.py
+
 	distutils_src_prepare
 
 	prepare_builddir() {
