@@ -16,7 +16,7 @@
 # and exports the variables FC and F77.
 # Optionally, it checks for extended capabilities based on
 # the variable options selected in the ebuild
-# The only phase functions exported are pkg_pretend and pkg_setup.
+# The only phase function exported is fortran-2_pkg_setup.
 
 # @ECLASS-VARIABLE: FORTRAN_NEED_OPENMP
 # @DESCRIPTION:
@@ -122,10 +122,10 @@ _die_msg() {
 	die "Currently no working fortran compiler is available"
 }
 
-# @FUNCTION: fortran-2_pkg_pretend
+# @FUNCTION: fortran-2_pkg_setup
 # @DESCRIPTION:
 # Setup functionallity, checks for a valid fortran compiler and optionally for its openmp support.
-fortran-2_pkg_pretend() {
+fortran-2_pkg_setup() {
 	local dialect
 
 	: ${F77:=$(tc-getFC)}
@@ -145,27 +145,10 @@ fortran-2_pkg_pretend() {
 		_fortran-has-openmp || \
 			die "Please install current gcc with USE=openmp or set the FC variable to a compiler that supports OpenMP"
 	fi
-}
-
-# @FUNCTION: fortran-2_pkg_setup
-# @DESCRIPTION:
-# In EAPI < 4 it calls the compiler check. This behavior is deprecated
-# and will be removed at 01-Okt-2011. Please migrate to EAPI=4.
-#
-# Exports the FC and F77 variable according to the compiler checks.
-fortran-2_pkg_setup() {
-	if has ${EAPI:-0} 0 1 2 3; then
-		ewarn "The support for EAPI=${EAPI} by the fortran-2.eclass"
-		ewarn "will be end at 01-Okt-2011"
-		ewarn "Please migrate your package to EAPI=4"
-		fortran-2_pkg_pretend
-	fi
-	[[ -n ${F77} ]] || export F77=$(tc-getFC)
-	[[ -n ${FC} ]] || export FC=$(tc-getFC)
+	tc-export F77 FC
 }
 
 case ${EAPI:-0} in
-	1|2|3) EXPORT_FUNCTIONS pkg_setup ;;
-	4) EXPORT_FUNCTIONS pkg_pretend pkg_setup ;;
+	1|2|3|4) EXPORT_FUNCTIONS pkg_setup ;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
