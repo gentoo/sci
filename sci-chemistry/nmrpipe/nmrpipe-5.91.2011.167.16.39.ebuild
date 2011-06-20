@@ -141,7 +141,7 @@ src_install() {
 	sed \
 		-e "s:/opt/nmrpipe:${EPREFIX}/opt/nmrpipe:g" \
 		"${FILESDIR}"/env-${PN}-new \
-		> env-${PN}-new
+		> env-${PN}-new || die
 	newenvd env-${PN}-new 40${PN} || die "Failed to install env file."
 
 	# PREFIX stuff

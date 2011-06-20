@@ -9,40 +9,37 @@
 # @MAINTAINER:
 # jlec@gentoo.org
 # sci@gentoo.org
-# @BLURB: Packages, which need a fortran compiler should inherit this eclass.
+# @BLURB: Simplify fortran compiler management
 # @DESCRIPTION:
-# If you need a fortran compiler, inherit this eclass. This eclass tests for
-# working fortran compilers and exports the variables FC and F77.
-# Optional, it checks for openmp capability of the
-# current fortran compiler through FORTRAN_NEED_OPENMP=1.
-# Only phase function exported is pkg_pretend and pkg_setup.
-# Need help? Ask the sci team.
+# If you need a fortran compiler, then you should be inheriting this eclass.
+# The eclass tests for working fortran compilers
+# and exports the variables FC and F77.
+# Optionally, it checks for extended capabilities based on
+# the variable options selected in the ebuild
+# The only phase function exported is fortran-2_pkg_setup.
 
 # @ECLASS-VARIABLE: FORTRAN_NEED_OPENMP
 # @DESCRIPTION:
-# Set FORTRAN_NEED_OPENMP=1 in order to test FC for openmp capabilities
-#
-# Default is 0
+# Set to "1" in order to automatically have the eclass abort if the fortran
+# compiler lacks openmp support.
+: ${FORTRAN_NEED_OPENMP:=0}
 
 # @ECLASS-VARIABLE: FORTRAN_STANDARD
 # @DESCRIPTION:
-# Set this, if a special dialect needs to be support. Generally not needed.
+# Set this, if a special dialect needs to be supported.
+# Generally not needed as default is sufficient.
 #
-# Valid settings are any combination of
-#
-# FORTRAN_STANDARD="77 90 95 2003"
-#
-# Defaults to FORTRAN_STANDARD="77" which is sufficient for most cases.
+# Valid settings are any combination of: 77 90 95 2003
+: ${FORTRAN_STANDARD:=77}
 
 inherit toolchain-funcs
 
 DEPEND="virtual/fortran"
 RDEPEND="${DEPEND}"
 
-# internal function
-#
-# FUNCTION: _write_testsuite
-# DESCRIPTION: writes fortran test code
+# @FUNCTION: _write_testsuite
+# @DESCRIPTION: writes fortran test code
+# @INTERNAL
 _write_testsuite() {
 	local filebase=${T}/test-fortran
 
@@ -63,56 +60,58 @@ _write_testsuite() {
 	EOF
 }
 
-# internal function
-#
-# FUNCTION: _compile_test
-# DESCRIPTION:
+# @FUNCTION: _compile_test
+# @DESCRIPTION:
 # Takes fortran compiler as first argument and dialect as second.
 # Checks whether the passed fortran compiler speaks the fortran dialect
+# @INTERNAL
 _compile_test() {
 	local filebase=${T}/test-fortran
 	local fcomp=${1}
 	local fdia=${2}
+	local fcode=${filebase}.f${fdia}
+	local ret
 
-	[[ -z ${fcomp} ]] && die "_compile_test() needs at least one argument"
+	[[ $# -eq 0 ]] && die "_compile_test() needs at least one argument"
 
-	[[ -f "${filebase}.f${fdia}" ]] || _write_testsuite
+	[[ -f ${fcode} ]] || _write_testsuite
 
-	${fcomp} "${filebase}.f${fdia}" -o "${filebase}-f${fdia}" >&/dev/null
-	local ret=$?
+	${fcomp} "${fcode}" -o "${fcode}.x" >&/dev/null
+	ret=$?
 
-	rm -f "${filebase}-f${fdia}"
+	rm -f "${fcode}.x"
 	return ${ret}
 }
 
-# internal function
-#
-# FUNCTION: _fortran-has-openmp
-# DESCRIPTION:
+# @FUNCTION: _fortran-has-openmp
+# @DESCRIPTION:
 # See if the fortran supports OpenMP.
+# @INTERNAL
 _fortran-has-openmp() {
 	local flag
 	local filebase=${T}/test-fc-openmp
+	local fcode=${filebase}.f
+	local ret
+	local _fc=$(tc-getFC)
 
-	cat <<- EOF > "${filebase}.f"
+	cat <<- EOF > "${fcode}"
 	       call omp_get_num_threads
 	       end
 	EOF
 
 	for flag in -fopenmp -xopenmp -openmp -mp -omp -qsmp=omp; do
-		$(tc-getFC "$@") ${flag} "${filebase}.f" -o "${filebase}" >&/dev/null
-		local ret=$?
+		${_fc} ${flag} "${fcode}" -o "${fcode}.x" >&/dev/null
+		ret=$?
 		(( ${ret} )) || break
 	done
 
-	rm -f "${filebase}"*
+	rm -f "${fcode}.x"
 	return ${ret}
 }
 
-# internal
-#
-# FUNCTION: _die_msg
-# DESCRIPTION: Detailed description how to handle fortran support
+# @FUNCTION: _die_msg
+# @DESCRIPTION: Detailed description how to handle fortran support
+# @INTERNAL
 _die_msg() {
 	echo
 	eerror "Please install currently selected gcc version with USE=fortran."
@@ -123,13 +122,13 @@ _die_msg() {
 	die "Currently no working fortran compiler is available"
 }
 
-# @FUNCTION: fortran-2_pkg_pretend
+# @FUNCTION: fortran-2_pkg_setup
 # @DESCRIPTION:
 # Setup functionallity, checks for a valid fortran compiler and optionally for its openmp support.
-fortran-2_pkg_pretend() {
+fortran-2_pkg_setup() {
 	local dialect
 
-	[[ -n ${F77} ]] || F77=$(tc-getFC)
+	: ${F77:=$(tc-getFC)}
 
 	: ${FORTRAN_STANDARD:=77}
 	for dialect in ${FORTRAN_STANDARD}; do
@@ -146,27 +145,10 @@ fortran-2_pkg_pretend() {
 		_fortran-has-openmp || \
 			die "Please install current gcc with USE=openmp or set the FC variable to a compiler that supports OpenMP"
 	fi
+	tc-export F77 FC
 }
 
-# @FUNCTION: fortran-2_pkg_setup
-# @DESCRIPTION:
-# In EAPI < 4 it calls the compiler check. This behavior is deprecated
-# and will be removed at 01-Sep-2011. Please migrate to EAPI=4.
-#
-# Exports the FC and F77 variable according to the compiler checks.
-fortran-2_pkg_setup() {
-	if has ${EAPI:-0} 0 1 2 3; then
-		ewarn "The support for EAPI=${EAPI} by the fortran-2.eclass"
-		ewarn "will be end at 01-Sep-2011"
-		ewarn "Please migrate your package to EAPI=4"
-		fortran-2_pkg_pretend
-	fi
-	[[ -n ${F77} ]] || export F77=$(tc-getFC)
-	[[ -n ${FC} ]] || export FC=$(tc-getFC)
-}
-
-case "${EAPI:-0}" in
-	1|2|3) EXPORT_FUNCTIONS pkg_setup ;;
-	4) EXPORT_FUNCTIONS pkg_pretend pkg_setup ;;
+case ${EAPI:-0} in
+	1|2|3|4) EXPORT_FUNCTIONS pkg_setup ;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
