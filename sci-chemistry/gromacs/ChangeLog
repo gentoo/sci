@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Jun 2011; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
+  metadata.xml:
+  autotools is broken
+
   10 Apr 2011; Christoph Junghans <ottxor@gentoo.org> -gromacs-4.0.9999.ebuild:
   remove 4.0.* (EOM)
 
