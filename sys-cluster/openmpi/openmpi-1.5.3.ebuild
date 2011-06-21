@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/sys-cluster/openmpi/openmpi-1.2.4.ebuild,v 1.2 2007/12/13 22:39:53 jsbronder Exp $
 
 EAPI=3
-inherit eutils multilib flag-o-matic toolchain-funcs mpi
+inherit eutils fortran-2 multilib flag-o-matic toolchain-funcs mpi
 
 MY_P=${P/-mpi}
 S=${WORKDIR}/${MY_P}
@@ -28,6 +28,7 @@ RDEPEND="pbs? ( sys-cluster/torque )
 DEPEND="${RDEPEND}"
 
 pkg_setup() {
+	fortran-2_pkg_setup
 	MPI_ESELECT_FILE="eselect.mpi.openmpi"
 
 	if use mpi-threads; then

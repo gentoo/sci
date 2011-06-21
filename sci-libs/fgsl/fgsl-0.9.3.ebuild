@@ -1,10 +1,10 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=2
 
-inherit eutils multilib toolchain-funcs
+inherit eutils fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="A Fortran interface to the GNU Scientific Library"
 HOMEPAGE="http://www.lrz.de/services/software/mathematik/gsl/fortran/"

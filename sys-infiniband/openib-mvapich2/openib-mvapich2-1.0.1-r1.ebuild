@@ -1,33 +1,32 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit mpi
+inherit fortran-2 mpi
 
-SLOT="0"
-LICENSE="BSD"
-
-KEYWORDS="~x86 ~amd64"
-
-DESCRIPTION="MVAPICH2 MPI-over-infiniband package auto-configured for OpenIB."
-
+DESCRIPTION="MVAPICH2 MPI-over-infiniband package auto-configured for OpenIB"
 HOMEPAGE="http://mvapich.cse.ohio-state.edu/"
 SRC_URI="${HOMEPAGE}/download/mvapich2/mvapich2-${PV/_/-}.tar.gz"
 
-S="${WORKDIR}/mvapich2-${PV/_/-}"
-
+SLOT="0"
+LICENSE="BSD"
+KEYWORDS="~x86 ~amd64"
 IUSE="debug medium-cluster large-cluster rdma romio threads fortran"
 
 RDEPEND="
-	|| ( ( sys-infiniband/libibverbs
+	|| (
+		(
+			sys-infiniband/libibverbs
 			sys-infiniband/libibumad
 			sys-infiniband/libibmad
 			rdma? ( sys-infiniband/librdmacm ) )
-			sys-infiniband/openib-userspace )
-	$(mpi_imp_deplist)"
+		sys-infiniband/openib-userspace )"
 DEPEND="${RDEPEND}"
 
+S="${WORKDIR}/mvapich2-${PV/_/-}"
+
 pkg_setup() {
+	fortran-2_pkg_setup
 	MPI_ESELECT_FILE="eselect.mpi.mvapich2"
 
 	if [ -z "${MVAPICH_HCA_TYPE}" ]; then

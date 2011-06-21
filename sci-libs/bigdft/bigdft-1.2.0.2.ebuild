@@ -1,36 +1,40 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
-EAPI="3"
+EAPI=3
 
-inherit eutils toolchain-funcs
+inherit eutils fortran-2 toolchain-funcs
 
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
 HOMEPAGE="http://inac.cea.fr/L_Sim/BigDFT/"
-SRC_URI="http://inac.cea.fr/L_Sim/BigDFT/${P}.tar.gz
-		http://inac.cea.fr/L_Sim/BigDFT/${PN}-1.3.2.tar.gz"
+SRC_URI="
+	http://inac.cea.fr/L_Sim/BigDFT/${P}.tar.gz
+	http://inac.cea.fr/L_Sim/BigDFT/${PN}-1.3.2.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="cuda doc mpi test"
 
-RDEPEND="virtual/blas
+RDEPEND="
+	=sci-libs/libxc-1.0[fortran]
+	virtual/blas
 	virtual/lapack
 	mpi? ( virtual/mpi )
-	cuda? ( dev-util/nvidia-cuda-sdk )
-	=sci-libs/libxc-1.0[fortran]"
+	cuda? ( dev-util/nvidia-cuda-sdk )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	>=sys-devel/autoconf-2.59
 	doc? ( virtual/latex-base )"
 
 src_prepare() {
-	epatch ${FILESDIR}/${P}-0001.patch
-	epatch ${FILESDIR}/${P}-0002.patch
-	epatch ${FILESDIR}/${P}-0003.patch
-	epatch ${FILESDIR}/${P}-0004.patch
-	epatch ${FILESDIR}/${P}-testH.patch
+	epatch \
+		"${FILESDIR}"/${P}-0001.patch \
+		"${FILESDIR}"/${P}-0002.patch \
+		"${FILESDIR}"/${P}-0003.patch \
+		"${FILESDIR}"/${P}-0004.patch \
+		"${FILESDIR}"/${P}-testH.patch
 
 	rm -r src/PSolver/ABINIT-common
 	mv ../${PN}-1.3.2/src/PSolver/ABINIT-common src/PSolver/
@@ -83,6 +87,5 @@ src_test() {
 
 src_install() {
 	emake HAVE_LIBXC=1 DESTDIR="${D}" install || die "install failed"
-	dodoc README INSTALL COPYING ChangeLog AUTHORS NEWS || die "dodoc failed"
+	dodoc README INSTALL ChangeLog AUTHORS NEWS || die "dodoc failed"
 }
-

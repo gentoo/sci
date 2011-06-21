@@ -6,4 +6,6 @@
 		<email>mmokrejs@fold.natur.cuni.cz</email>
 		<name>Martin Mokrejs</name>
 	</maintainer>
+<use><flag name='ifc'> Use ifc</flag></use>
+<use><flag name='icc'> Use icc</flag></use>
 </pkgmetadata>

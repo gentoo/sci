@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  21 Jun 2011; Justin Lecher <jlec@gentoo.org> wannier90-1.2.ebuild,
+  +metadata.xml:
+  Added fortran-2.eclass support
+
   18 Jan 2011; Honza Macháček <Hloupy.Honza@centrum.cz> wannier90-1.2.ebuild:
   Corrected the sources location. Thanks to jerome.borme@laposte.net from bug
   329429.

@@ -1,10 +1,10 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=3
 
-inherit flag-o-matic toolchain-funcs
+inherit flag-o-matic fortran-2 toolchain-funcs
 
 MY_P="${PN}-${PV/_/-}"
 

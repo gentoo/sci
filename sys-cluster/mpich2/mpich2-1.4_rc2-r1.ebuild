@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-inherit eutils mpi toolchain-funcs autotools
+inherit eutils fortran-2 mpi toolchain-funcs autotools
 
 MY_PV=${PV/_/}
 DESCRIPTION="MPICH2 - A portable MPI implementation"
@@ -29,6 +29,7 @@ RDEPEND="${COMMON_DEPEND}"
 S="${WORKDIR}"/${PN}-${MY_PV}
 
 pkg_setup() {
+	fortran-2_pkg_setup
 	MPI_ESELECT_FILE="eselect.mpi.mpich2"
 
 	if use mpi-threads && ! use threads; then

@@ -9,7 +9,7 @@ TEST_PV="4.0.4"
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="master"
 
-inherit bash-completion cmake-utils eutils git multilib toolchain-funcs
+inherit bash-completion cmake-utils eutils fortran-2 git multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"

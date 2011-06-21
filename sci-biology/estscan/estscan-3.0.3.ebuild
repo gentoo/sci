@@ -1,31 +1,31 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=3
 
-inherit eutils toolchain-funcs perl-module
+inherit eutils fortran-2 toolchain-funcs perl-module
 
-DESCRIPTION="Predict coding regions in DNA/RNA sequences even in low-quality reads with frameshift-causing errors (supersedes ESTscan and ESTscan2)"
+DESCRIPTION="Prediction of coding regions in DNA/RNA sequences"
 HOMEPAGE="http://sourceforge.net/projects/estscan/"
-SRC_URI="http://downloads.sourceforge.net/estscan/estscan-3.0.3.tar.gz
-		http://downloads.sourceforge.net/estscan/At.smat.gz
-		http://downloads.sourceforge.net/estscan/Dm.smat.gz
-		http://downloads.sourceforge.net/estscan/Dr.smat.gz
-		http://downloads.sourceforge.net/estscan/Hs.smat.gz
-		http://downloads.sourceforge.net/estscan/Mm.smat.gz
-		http://downloads.sourceforge.net/estscan/Rn.smat.gz
-		http://downloads.sourceforge.net/estscan/user_guide_fev_07.pdf
-		http://downloads.sourceforge.net/estscan/BTLib-0.19.tar.gz"
+SRC_URI="
+	http://downloads.sourceforge.net/estscan/estscan-3.0.3.tar.gz
+	http://downloads.sourceforge.net/estscan/At.smat.gz
+	http://downloads.sourceforge.net/estscan/Dm.smat.gz
+	http://downloads.sourceforge.net/estscan/Dr.smat.gz
+	http://downloads.sourceforge.net/estscan/Hs.smat.gz
+	http://downloads.sourceforge.net/estscan/Mm.smat.gz
+	http://downloads.sourceforge.net/estscan/Rn.smat.gz
+	http://downloads.sourceforge.net/estscan/user_guide_fev_07.pdf
+	http://downloads.sourceforge.net/estscan/BTLib-0.19.tar.gz"
 
-LICENSE="estscan"
 SLOT="0"
+LICENSE="estscan"
 KEYWORDS="~x86 ~amd64"
 IUSE="icc ifc"
 
 DEPEND="icc? ( dev-lang/icc )
 		ifc? ( dev-lang/ifc )"
-
 RDEPEND=""
 
 S="${WORKDIR}"

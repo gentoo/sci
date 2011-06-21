@@ -1,9 +1,10 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
-EAPI="3"
+EAPI=3
 
-inherit autotools eutils multilib toolchain-funcs
+inherit autotools eutils fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="Find total energy, charge density and electronic structure using density functional theory"
 HOMEPAGE="http://www.abinit.org/"
@@ -44,6 +45,7 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}/${P%[a-z]}
 
 pkg_setup() {
+	fortran-2_pkg_setup
 	# Doesn't compile with gcc-4.0, only >=4.1
 	if [[ $(tc-getFC) == *gfortran ]]; then
 		if [[ $(gcc-major-version) -eq 4 ]] \

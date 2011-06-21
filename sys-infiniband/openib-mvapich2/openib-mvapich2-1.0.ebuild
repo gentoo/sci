@@ -1,34 +1,36 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+inherit fortran-2
 
 # WARNING: this script is interactive - it requires user-input once to verify
 # the type of HCA to configure for.  This needs to be fixed to take out the
 # interactivity.
 
-SLOT="0"
-LICENSE="BSD"
-
-KEYWORDS="~amd64"
-
-DESCRIPTION="MVAPICH2 MPI-over-infiniband package auto-configured for OpenIB."
-
+DESCRIPTION="MVAPICH2 MPI-over-infiniband package auto-configured for OpenIB"
 HOMEPAGE="http://mvapich.cse.ohio-state.edu/"
 SRC_URI="${HOMEPAGE}/download/mvapich2/mvapich2-${PV/_/-}.tar.gz"
 
-S="${WORKDIR}/mvapich2-${PV/_/-}"
-
+SLOT="0"
+LICENSE="BSD"
+KEYWORDS="~amd64"
 IUSE="threads debug medium-cluster large-cluster rdma"
 
 RDEPEND="
-	|| ( ( sys-infiniband/libibverbs
-	       sys-infiniband/libibumad
-		   sys-infiniband/libibmad
-	       rdma? ( sys-infiniband/librdmacm ) )
-	     sys-infiniband/openib-userspace )"
+	|| (
+		(
+			sys-infiniband/libibverbs
+			sys-infiniband/libibumad
+			sys-infiniband/libibmad
+			rdma? ( sys-infiniband/librdmacm ) )
+		sys-infiniband/openib-userspace )"
 DEPEND="${RDEPEND}"
 
+S="${WORKDIR}/mvapich2-${PV/_/-}"
+
 pkg_setup() {
+	fortran-2_pkg_setup
 	ARCH=
 	VCLUSTER=_SMALL_CLUSTER
 	HAVE_MPD_RING="-DUSE_MPD_RING"

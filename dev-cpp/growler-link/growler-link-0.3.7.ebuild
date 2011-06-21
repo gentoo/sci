@@ -1,12 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=3
 
 inherit eutils
 
-DESCRIPTION="Growler-Link: the lowest-level Growler library."
+DESCRIPTION="The lowest-level Growler library"
 HOMEPAGE="http://www.nas.nasa.gov/~bgreen/growler/"
 SRC_URI="${HOMEPAGE}/downloads/growler-link-${PV}.tar.gz"
 
@@ -15,10 +15,15 @@ LICENSE="NOSA"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc tcpd static fortran"
 
-RDEPEND=">=dev-libs/boost-1.33.1
+RDEPEND="
+		dev-libs/boost
 		tcpd? ( sys-apps/tcp-wrappers )"
 DEPEND="${RDEPEND}
 		doc? ( app-doc/doxygen )"
+
+pkg_setup() {
+	use fortran && fortran-2_pkg_setup
+}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PV}-gcc4.patch
