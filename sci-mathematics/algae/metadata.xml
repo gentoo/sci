@@ -12,5 +12,5 @@ Boeing because they needed a fast and versatile tool, capable of handling large
 systems. Algae has been applied to interesting problems in aerospace and
 related fields for more than a decade.
 </longdescription>
-<use><flag name='icc'>Use icc as c compiler</flag></use>
+<use><flag name='intel'>Use icc as c compiler</flag></use>
 </pkgmetadata>
