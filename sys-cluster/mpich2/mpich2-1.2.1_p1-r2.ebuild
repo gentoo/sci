@@ -5,7 +5,7 @@
 EAPI=2
 PYTHON_DEPEND="2"
 
-inherit eutils python mpi toolchain-funcs
+inherit eutils fortran-2 python mpi toolchain-funcs
 
 MY_PV=${PV/_/}
 DESCRIPTION="MPICH2 - A portable MPI implementation"
@@ -32,6 +32,7 @@ RDEPEND="${COMMON_DEPEND}"
 S="${WORKDIR}"/${PN}-${MY_PV}
 
 pkg_setup() {
+	fortran-2_pkg_setup
 	python_set_active_version 2
 	python_pkg_setup
 
