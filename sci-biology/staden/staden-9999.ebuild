@@ -1,12 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=3
 
-inherit eutils flag-o-matic base subversion # autotools
+inherit eutils fortran-2 flag-o-matic base multilib subversion # autotools
 
-DESCRIPTION="A fully developed set of DNA sequence assembly (Gap4), editing and analysis tools (Spin)."
+DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
 HOMEPAGE="http://sourceforge.net/projects/staden"
 # https://staden.svn.sourceforge.net/svnroot/staden staden
 if [ "$PV" == "9999" ]; then
@@ -28,23 +28,22 @@ IUSE="debug fortran X png curl tcl tk zlib"
 #
 # this is a glibc-2.9 issue, see https://sourceforge.net/tracker/index.php?func=detail&aid=2629155&group_id=100316&atid=627058
 #
-# 
 #
-DEPEND="dev-vcs/subversion
-		>=dev-lang/tk-8.4
-		>=dev-lang/tcl-8.4
-		dev-tcltk/tklib
-		>=sci-libs/io_lib-1.12.2
-		>=sys-libs/zlib-1.2
-		>=media-libs/libpng-1.2
-		sci-biology/samtools
-		>=app-arch/xz-utils-4.999"
+DEPEND="
+	dev-lang/tk
+	dev-tcltk/tklib
+	>=sci-libs/io_lib-1.12.2
+	>=sys-libs/zlib-1.2
+	>=media-libs/libpng-1.2
+	sci-biology/samtools
+	>=app-arch/xz-utils-4.999"
 
 # maybe we should depend on app-arch/lzma or app-arch/xz-utils?
 
-RDEPEND="tcl? ( >=dev-tcltk/itcl-3.2 )
-		tk? ( >=dev-tcltk/itk-3.2 )
-		>=dev-tcltk/iwidgets-4.0"
+RDEPEND="${DEPEND}
+	>=dev-tcltk/iwidgets-4.0
+	tcl? ( >=dev-tcltk/itcl-3.2 )
+	tk? ( >=dev-tcltk/itk-3.2 )"
 
 src_unpack() {
 	if [ "$PV" == "9999" ]; then
@@ -67,12 +66,7 @@ src_configure() {
 	use amd64 && myconf="${myconf} --enable-64bit"
 	use debug && append-cflags "-DCACHE_REF_DEBUG"
 	use debug && append-cxxflags "-DCACHE_REF_DEBUG"
-	econf ${myconf} || die "configure failed"
-	emake || die "emake failed"
-}
-
-src_compile() {
-	emake || die "emake failed"
+	econf ${myconf}
 }
 
 src_install() {
