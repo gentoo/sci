@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=3
 
-inherit eutils multilib toolchain-funcs flag-o-matic autotools subversion
+inherit eutils fortran-2 multilib toolchain-funcs flag-o-matic autotools subversion
 
-DESCRIPTION="The ETSF library of exchange-correlation functionals"
+DESCRIPTION="A library of exchange-correlation functionals"
 HOMEPAGE="http://www.tddft.org/programs/octopus/wiki/index.php/Libxc"
 ESVN_REPO_URI="http://www.tddft.org/svn/octopus/trunk/${PN}/"
 ESVN_BOOTSTRAP="eautoreconf -i"
@@ -15,12 +15,6 @@ LICENSE="LGPL-3"
 SLOT="0"
 IUSE="fortran debug"
 KEYWORDS="~amd64 ~x86"
-
-pkg_setup() {
-	if use fortran ; then
-		tc-export FC
-	fi
-}
 
 src_configure() {
 	econf \

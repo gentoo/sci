@@ -2,14 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=3
 
-inherit multilib toolchain-funcs
+inherit fortran-2 multilib toolchain-funcs
 
 MY_P=${P//_/-}
 
 DESCRIPTION="A library of exchange-correlation functionals for use in DFT"
-HOMEPAGE="http://www.tddft.org/programs/octopus/wiki/index.php/Libxc"
+HOMEPAGE="http://www.tddft.org/programs/octopus/wiki/index.php/Libxc/"
 SRC_URI="http://www.tddft.org/programs/octopus/download/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-3"
@@ -17,13 +17,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="fortran"
 
-S=${WORKDIR}/${MY_P}
-
-pkg_setup() {
-	if use fortran ; then
-		tc-export FC
-	fi
-}
+S="${WORKDIR}"/${MY_P}
 
 src_configure() {
 	econf \
