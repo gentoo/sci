@@ -7,7 +7,7 @@ EAPI="4"
 TEST_PV="4.0.4"
 MANUAL_PV="4.5.4"
 
-inherit bash-completion cmake-utils eutils multilib toolchain-funcs
+inherit bash-completion cmake-utils eutils fortran-2 multilib toolchain-funcs
 
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf -> gromacs-manual-${MANUAL_PV}.pdf )"
