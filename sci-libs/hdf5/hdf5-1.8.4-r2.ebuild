@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,7 @@ EAPI=2
 
 MPI_PKG_USE_ROMIO=1
 
-inherit eutils autotools mpi
+inherit eutils fortran-2 autotools mpi
 
 DESCRIPTION="General purpose library and file format for storing scientific data"
 HOMEPAGE="http://www.hdfgroup.org/HDF5/"
@@ -34,6 +34,7 @@ pkg_setup() {
 		fi
 		export CC=$(mpi_pkg_cc)
 		if use fortran; then
+			fortran-2_pkg_setup
 			export FC=$(mpi_pkg_fc)
 		fi
 	fi
