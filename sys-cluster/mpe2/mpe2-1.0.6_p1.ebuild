@@ -1,9 +1,10 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 MPI_PKG_NEED_IMPS="openmpi mpich2"
-inherit eutils java-utils-2 mpi
+
+inherit eutils fortran-2 java-utils-2 mpi
 
 MY_P=${P/_/}
 DESCRIPTION="MPI development tools"
@@ -36,6 +37,7 @@ MPE_IMP=""
 # correctly in preperation.
 
 pkg_setup() {
+	fortran-2_pkg_setup
 	local i
 
 	MPE_IMP=$(mpi_pkg_base_imp)
