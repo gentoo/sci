@@ -1,6 +1,9 @@
 # ChangeLog for dev-cpp/growler-link
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  21 Jun 2011; Justin Lecher <jlec@gentoo.org> growler-link-0.3.7.ebuild:
+  Added fortran-2.eclass support
 
   23 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   growler-link-0.3.7.ebuild:
