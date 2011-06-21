@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit flag-o-matic toolchain-funcs
+inherit flag-o-matic fortran-2 toolchain-funcs
 
 MY_P="${PN}-${PV/_/-}"
 
