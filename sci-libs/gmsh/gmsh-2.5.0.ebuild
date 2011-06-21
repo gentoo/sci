@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
-EAPI="3"
+EAPI=3
 
-inherit cmake-utils flag-o-matic toolchain-funcs
+inherit cmake-utils flag-o-matic fortran-2 toolchain-funcs
 
-DESCRIPTION="A three-dimensional finite element mesh generator with built-in pre- and post-processing facilities."
+DESCRIPTION="A three-dimensional finite element mesh generator with built-in pre- and post-processing facilities"
 HOMEPAGE="http://www.geuz.org/gmsh/"
 SRC_URI="http://www.geuz.org/gmsh/src/${P}-source.tgz"
 
@@ -17,7 +17,8 @@ KEYWORDS="~amd64 ~x86"
 ## cgns is not compiling ATM, maybe fix cgns lib first
 IUSE="blas chaco cgns doc examples jpeg lua med metis mpi netgen opencascade png petsc taucs tetgen zlib X"
 
-RDEPEND="X? ( x11-libs/fltk:1 )
+RDEPEND="
+	X? ( x11-libs/fltk:1 )
 	blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 	cgns? ( sci-libs/cgnslib )
 	jpeg? ( virtual/jpeg )
@@ -42,10 +43,12 @@ S=${WORKDIR}/${P}-source
 
 src_configure() {
 	local mycmakeargs=""
-	use blas && mycmakeargs="${mycmakeargs}
-		-DCMAKE_Fortran_COMPILER=$(tc-getF77)"
+	use blas && \
+		mycmakeargs="${mycmakeargs}
+			-DCMAKE_Fortran_COMPILER=$(tc-getF77)"
 
-	mycmakeargs="${mycmakeargs} $(cmake-utils_use_enable blas BLAS_LAPACK)
+	mycmakeargs="${mycmakeargs}
+		$(cmake-utils_use_enable blas BLAS_LAPACK)
 		$(cmake-utils_use_enable cgns CGNS)
 		$(cmake-utils_use_enable chaco CHACO)
 		$(cmake-utils_use_enable X FLTK)
