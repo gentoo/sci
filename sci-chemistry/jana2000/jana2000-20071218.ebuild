@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils toolchain-funcs
+inherit eutils fortran-2 toolchain-funcs
 
 DESCRIPTION="the crystallographic computing system"
 HOMEPAGE="http://www-xray.fzu.cz/jana/jana.html"
