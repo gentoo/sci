@@ -13,12 +13,14 @@ SRC_URI="http://oss.oracle.com/projects/${PN}/dist/files/source/v$(get_version_c
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug gtk"
+IUSE="debug gtk external"
 
 RDEPEND="
 	sys-apps/util-linux
 	sys-cluster/cman-lib
-	|| ( sys-cluster/corosync sys-cluster/openais sys-cluster/dlm-lib )
+	external?  (
+				|| ( sys-cluster/corosync sys-cluster/openais sys-cluster/dlm-lib )
+				)
 	sys-fs/e2fsprogs
 	sys-libs/ncurses
 	sys-libs/readline
