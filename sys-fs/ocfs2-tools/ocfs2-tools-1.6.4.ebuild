@@ -18,7 +18,7 @@ IUSE="debug gtk"
 RDEPEND="
 	sys-apps/util-linux
 	sys-cluster/cman-lib
-	|| ( sys-cluster/corosync sys-cluster/openais )
+	|| ( sys-cluster/corosync sys-cluster/openais sys-cluster/dlm-lib )
 	sys-fs/e2fsprogs
 	sys-libs/ncurses
 	sys-libs/readline
