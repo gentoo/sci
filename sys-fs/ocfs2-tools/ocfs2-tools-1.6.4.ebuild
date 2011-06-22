@@ -56,5 +56,5 @@ src_configure() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die
-	newinitd "${FILESDIR}/ocfs2.init" || die
+	newinitd "${FILESDIR}/ocfs2.init" ocfs2  || die
 }
