@@ -31,11 +31,6 @@ RDEPEND="
 # specialy cluster things corosync/pacemaker
 DEPEND="${RDEPEND}"
 
-PATCHES=(
-	"${FILESDIR}/${PV}-gcc45.patch"
-	"${FILESDIR}/${PV}-cpg.patch"
-)
-
 DOCS=(
 	"${S}/documentation/samples/cluster.conf"
 	"${S}/documentation/users_guide.txt"
