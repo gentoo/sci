@@ -53,3 +53,8 @@ src_configure() {
 		--enable-dynamic-fsck \
 		--enable-dynamic-ctl
 }
+
+src_install() {
+	base-src_install
+	newinitd "${FILESDIR}/ocfs2.init"
+}
