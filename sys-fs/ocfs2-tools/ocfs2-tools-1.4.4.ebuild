@@ -1,73 +1,58 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
-
-PYTHON_DEPEND="2"
-
-inherit eutils python
-
-PV_MAJOR="${PV%%.*}"
-PV_MINOR="${PV#*.}"
-PV_MINOR="${PV_MINOR%%.*}"
+EAPI=3
+PYTHON_DEPEND="gtk? 2"
+inherit python base versionator
 
 DESCRIPTION="Support programs for the Oracle Cluster Filesystem 2"
 HOMEPAGE="http://oss.oracle.com/projects/ocfs2-tools/"
-SRC_URI="http://oss.oracle.com/projects/ocfs2-tools/dist/files/source/v${PV_MAJOR}.${PV_MINOR}/${P}.tar.gz"
+SRC_URI="http://oss.oracle.com/projects/${PN}/dist/files/source/v$(get_version_component_range 1-2)/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
-IUSE="X"
+KEYWORDS="~amd64 ~x86"
+IUSE="debug gtk"
 
-# (#142216) build system's broke, always requires glib for debugfs utility
 RDEPEND="
-	dev-libs/glib:2
-	sys-cluster/openais
-	sys-cluster/dlm-lib
+	sys-apps/util-linux
 	sys-cluster/cman-lib
+	|| ( sys-cluster/corosync sys-cluster/openais )
 	sys-fs/e2fsprogs
-	X? (
-		x11-libs/gtk+:2
-		dev-python/pygtk:2
-		)"
+	sys-libs/ncurses
+	sys-libs/readline
+	sys-process/psmisc
+	gtk? (
+		dev-python/pygtk
+	)
+"
+# 99% of deps this thing has is automagic
+# specialy cluster things corosync/pacemaker
 DEPEND="${RDEPEND}"
+
+PATCHES=(
+	"${FILESDIR}/${PV}-gcc45.patch"
+	"${FILESDIR}/${PV}-cpg.patch"
+)
+
+DOCS=(
+	"${S}/documentation/samples/cluster.conf"
+	"${S}/documentation/users_guide.txt"
+)
+
+MAKEOPTS+=" -j1"
 
 pkg_setup() {
 	python_set_active_version 2
-}
-
-src_prepare() {
-	epatch "${FILESDIR}/gcc45-ftbfs.patch"
+	python_pkg_setup
 }
 
 src_configure() {
-	#local myconf="--enable-dynamic-fsck --enable-dynamic-ctl"
-
 	econf \
-		$(use_enable X ocfs2console) \
-		${myconf}
-}
-
-src_install() {
-	emake DESTDIR="${D}" install || die "Failed to install"
-
-	dodoc \
-		COPYING CREDITS MAINTAINERS README README.O2CB debugfs.ocfs2/README \
-		documentation/users_guide.txt documentation/samples/cluster.conf \
-		documentation/ocfs2_faq.txt "${FILESDIR}"/INSTALL.GENTOO \
-		vendor/common/o2cb.init vendor/common/o2cb.sysconfig
-
-	# Move programs not needed before /usr is mounted to /usr/sbin/
-	newinitd "${FILESDIR}"/ocfs2.init ocfs2
-	newconfd "${FILESDIR}"/ocfs2.conf ocfs2
-
-	insinto /etc/ocfs2
-	newins "${S}"/documentation/samples/cluster.conf cluster.conf
-}
-
-pkg_postinst() {
-	elog "Read ${ROOT}usr/share/doc/${P}/INSTALL.GENTOO* for instructions"
-	elog "about how to install, configure and run ocfs2."
+		$(use_enable debug debug) \
+		$(use_enable debug debugexe) \
+		$(use_enable gtk ocfs2console) \
+		--enable-dynamic-fsck \
+		--enable-dynamic-ctl
 }
