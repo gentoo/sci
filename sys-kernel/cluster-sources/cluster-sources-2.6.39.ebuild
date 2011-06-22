@@ -14,7 +14,7 @@ DESCRIPTION="Gentoo patchset + some additional cluster related patches"
 HOMEPAGE="http://dev.gentoo.org/~mpagano/genpatches/ http://dev.gentoo.org/~alexxy/cluster/"
 IUSE=""
 
-CLUSTER_VERSION="1"
+CLUSTER_VERSION="2"
 
 CLUSTER_SRC="clusterpathches-${PV}-${CLUSTER_VERSION}.tar.bz2"
 
