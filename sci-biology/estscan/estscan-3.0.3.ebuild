@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
-inherit eutils fortran-2 toolchain-funcs perl-module
+inherit eutils fortran-2 perl-module toolchain-funcs
 
 DESCRIPTION="Prediction of coding regions in DNA/RNA sequences"
 HOMEPAGE="http://sourceforge.net/projects/estscan/"
@@ -22,28 +22,33 @@ SRC_URI="
 SLOT="0"
 LICENSE="estscan"
 KEYWORDS="~x86 ~amd64"
-IUSE="icc ifc"
+IUSE="intel"
 
-DEPEND="icc? ( dev-lang/icc )
-		ifc? ( dev-lang/ifc )"
-RDEPEND=""
+DEPEND="
+	virtual/fortran
+	intel? (
+		dev-lang/icc
+		dev-lang/ifc )"
+RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"
 
-src_compile() {
-	#
-	sed -e 's/\\rm -f/rm -rf/' \
-		-e 's/^ LDFLAGS = -lm/LDFLAGS = -lm/' -i "${P}"/Makefile || die "failed to edit Makefile"
+src_prepare() {
+	sed \
+		-e 's/\\rm -f/rm -rf/' \
+		-e 's/^ LDFLAGS = -lm/LDFLAGS = -lm/' \
+		-i "${P}"/Makefile || die "failed to edit Makefile"
 
 	# fix hard-coded paths
 	sed -e 's+/usr/molbio/share/ESTScan+/usr/share/ESTscan+' -i "${P}"/estscan.c || die
 	sed -e 's+/usr/molbio/share/ESTScan+/usr/share/ESTscan+' -i "${P}"/estscan.spec || die
 
 	if ! use icc; then
-		sed -e 's/^ CFLAGS = -O2/#CFLAGS = ${CFLAGS}/' \
+		sed \
+			-e 's/^ CFLAGS = -O2/#CFLAGS = ${CFLAGS}/' \
 			-e 's/^ FFLAGS = -O2/#FFLAGS = ${FFLAGS}/' \
 			-e "s/^ F77 = g77/F77 = $(tc-getF77)/" -i "${P}"/Makefile \
-			|| die "blah"
+			|| die
 	else
 		# FIXME: I would use $(tc-getCC) instead of hard-coded icc but it gives
 		# me gcc instead, same for $(tc-getF77)
@@ -54,49 +59,55 @@ src_compile() {
 		# FIXME: below as a dirty hack I force gfortran instead of ifort for
 		# my testing purposes. Didn't ebuild contain "PROVIDES" line?
 		# Same for FFLAGS.
-		sed -e "s:^# CC = icc:CC = icc:" \
-		    -e "s:^# CFLAGS = -O3 -ipo -axP:#CFLAGS = -O3 -ipo -axP:" \
+		sed \
+			-e "s:^# CC = icc:CC = icc:" \
+		   -e "s:^# CFLAGS = -O3 -ipo -axP:#CFLAGS = -O3 -ipo -axP:" \
 			-e "s:^# FFLAGS = -O3 -ipo -axP:#FFLAGS = -O3 -ipo -axP:" \
 			-e "s/^ CFLAGS = -O2/#CFLAGS = -O2/" \
 			-e "s/^# F77 = ifort/F77 = gfortran/" \
 			-e "s/^ FFLAGS = -O2/#FFLAGS = -O2/" \
 			-e "s/^ CC = gcc/# CC = gcc/" \
-			-e "s/^ F77 = g77/# F77 = g77/" -i "${P}"/Makefile || die "sed failed to fix CFLAGS, FFLAGS, CC, F77"
+			-e "s/^ F77 = g77/# F77 = g77/" \
+			-i "${P}"/Makefile || die "sed failed to fix CFLAGS, FFLAGS, CC, F77"
 	fi
-	cd "${P}" || die "chdir "${P}" failed"
-	emake || die "emake failed"
+}
 
-	cd ../BTLib-0.19 || die "cd ../BTLib-0.19 failed"
+src_compile() {
+	emake -C ${P}
+
+	cd ../BTLib-0.19
 	perl Makefile.PL || die "perl Makefile.PL failed"
 }
 
 src_install() {
 	# FIXME: Some kind of documentation is in {P}/estscan.spec
-	cd "${P}"
-	dobin build_model estscan evaluate_model extract_EST extract_UG_EST extract_mRNA makesmat maskred prepare_data winsegshuffle || die "dobin failed"
+	cd ${P}
+	dobin \
+		build_model estscan evaluate_model extract_EST extract_UG_EST \
+		extract_mRNA makesmat maskred prepare_data winsegshuffle
 	# the file build_model_utils.pl should go into some PERL site-packages dir
 	# see {P}/estscan.spec
 
 	# install the doc (but is not in ${WORKDIR} because src_UNPACK() failed on it
-	cd "${WORKDIR}" || die
+	cd "${WORKDIR}"
 	insinto /usr/share/doc/ESTscan
 	# grab the file directly from ../distdir/
-	doins ../distdir/user_guide_fev_07.pdf || die "failed to install user_guide_fev_07.pdf"
+	doins ../distdir/user_guide_fev_07.pdf
 
 	# install the default precomputed matrices
-	cd "${WORKDIR}" || die
+	cd "${WORKDIR}"
 	insinto /usr/share/ESTscan
-	doins *.smat || die "Failed to install matrices"
+	doins *.smat
 
 	# install BTlib (in perl)
 	cd BTLib-0.19 || die
-	dobin fetch indexer netfetch || die "dobin failed"
+	dobin fetch indexer netfetch
 	insinto /usr/share/ESTscan/
-	doins fetch.conf || die "Failed to install fetch.conf"
+	doins fetch.conf
 
 	# FIXME: install the *.pm files from BTLib-0.19
 	myinst="DESTDIR=${D}"
-	perl-module_src_install || die "perl-module_src_install failed"
+	perl-module_src_install
 
 	einfo "Please edit /usr/share/ESTscan/fetch.conf to fit your local database layout."
 	einfo "Also create your own scoring matrices and place them into /usr/share/ESTscan/."
