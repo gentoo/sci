@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit toolchain-funcs eutils fortran-2
+inherit eutils fortran-2 toolchain-funcs
 
 DESCRIPTION="A suite for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"
@@ -24,7 +24,8 @@ RDEPEND="
 	sci-libs/cifparse-obj
 	sci-chemistry/mopac7
 	sci-libs/netcdf
-	sci-chemistry/reduce"
+	sci-chemistry/reduce
+	virtual/fortran"
 DEPEND="${RDEPEND}
 	dev-util/byacc
 	dev-libs/libf2c
