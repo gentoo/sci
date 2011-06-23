@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
-inherit eutils
+inherit eutils fortran-2
 
 DESCRIPTION="The lowest-level Growler library"
 HOMEPAGE="http://www.nas.nasa.gov/~bgreen/growler/"
@@ -16,8 +16,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc tcpd static fortran"
 
 RDEPEND="
-		dev-libs/boost
-		tcpd? ( sys-apps/tcp-wrappers )"
+	virtual/fortran
+	dev-libs/boost
+	tcpd? ( sys-apps/tcp-wrappers )"
 DEPEND="${RDEPEND}
 		doc? ( app-doc/doxygen )"
 
@@ -35,9 +36,4 @@ src_configure() {
 		$(use_enable tcpd) \
 		$(use_enable static) \
 		$(use_enable fortran)
-}
-
-src_install() {
-	emake DESTDIR="${D}" install || die "install failed"
-	dodoc README NEWS AUTHORS NOSA ChangeLog || die
 }
