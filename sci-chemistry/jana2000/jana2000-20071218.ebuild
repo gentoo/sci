@@ -2,9 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=4
+
 inherit eutils fortran-2 toolchain-funcs
 
-DESCRIPTION="the crystallographic computing system"
+DESCRIPTION="The crystallographic computing system"
 HOMEPAGE="http://www-xray.fzu.cz/jana/jana.html"
 SRC_URI="ftp://ftp.fzu.cz/pub/cryst/beta2000/${PN}.tar.gz"
 
@@ -13,17 +15,16 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="x11-libs/libX11"
+RDEPEND="
+	x11-libs/libX11
+	virtual/fortran"
 DEPEND="${RDEPEND}
 	x11-proto/xproto
 	sys-apps/gawk"
 
 S="${WORKDIR}/${PN}"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-
+src_prepare() {
 	einfo "setting up the Makefile for $(tc-getFC)"
 
 	if [[ $(tc-getFC) =~ gfortran ]]; then
@@ -34,18 +35,18 @@ src_unpack() {
 }
 
 src_compile() {
-	emake -j1 CCOM="$(tc-getCC)" || die "emake failed"
+	emake -j1 CCOM="$(tc-getCC)"
 }
 
 src_install() {
-	dobin jana2000 || die "dobin failed"
-	dodoc README.TXT || die "dodoc failed"
+	dobin jana2000
+	dodoc README.TXT
 
 	insinto /usr/share/${PN}/source
-	doins -r source/{fg,data} || die "doins failed"
+	doins -r source/{fg,data}
 
 	echo "JANADIR=/usr/share/${PN}" >"${T}/jana2000env"
-	newenvd "${T}/jana2000env" 99jana2000env || die "newenvd failed"
+	newenvd "${T}/jana2000env" 99jana2000env
 }
 
 pkg_postinst() {
