@@ -8,7 +8,7 @@ PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
 RESTRICT_PYTHON_ABIS="3.*"
 
-inherit distutils fortran-2 flag-o-matic toolchain-funcs
+inherit distutils flag-o-matic fortran-2 toolchain-funcs
 
 DESCRIPTION="Feed-forward neural network for python"
 HOMEPAGE="http://ffnet.sourceforge.net/"
@@ -23,6 +23,7 @@ DEPEND="
 	dev-python/networkx
 	dev-python/numpy
 	sci-libs/scipy
+	virtual/fortran
 	matplotlib? ( dev-python/matplotlib )
 	graphviz? ( dev-python/pygraphviz )"
 RDEPEND="${DEPEND}"
