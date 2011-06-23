@@ -33,6 +33,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/mira_left_clip.readpool.C.patch
 	epatch "${FILESDIR}"/libtool.m4.patch
 	AT_M4DIR="config/m4" eautoreconf
+	#epatch "${FILESDIR}"/libtool.patch
 }
 
 src_configure() {
