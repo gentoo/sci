@@ -34,7 +34,8 @@ DEPEND="
 	>=media-libs/libpng-1.2
 	sci-biology/samtools
 	>=sci-libs/io_lib-1.12.2
-	>=sys-libs/zlib-1.2"
+	>=sys-libs/zlib-1.2
+	virtual/fortran"
 RDEPEND="${DEPEND}
 	>=dev-tcltk/iwidgets-4.0
 	tcl? ( >=dev-tcltk/itcl-3.2 )

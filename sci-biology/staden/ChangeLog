@@ -6,6 +6,10 @@
   staden-9999.ebuild:
   Streamlined fortran-2 eclass usage
 
+  23 Jun 2011; Justin Lecher <jlec@gentoo.org> staden-2.0.0_beta8.ebuild,
+  staden-9999.ebuild:
+  Streamlined fortran-2 eclass usage
+
   21 Jun 2011; Justin Lecher <jlec@gentoo.org> staden-2.0.0_beta8.ebuild,
   staden-9999.ebuild:
   Added fortran-2.eclass support
