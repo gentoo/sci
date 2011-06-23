@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Jun 2011; Justin Lecher <jlec@gentoo.org> growler-link-0.3.7.ebuild:
+  Streamlined fortran-2 eclass usage
+
   21 Jun 2011; Justin Lecher <jlec@gentoo.org> growler-link-0.3.7.ebuild:
   Added fortran-2.eclass support
 

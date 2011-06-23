@@ -4,23 +4,21 @@
 
 EAPI=3
 
-inherit eutils fortran-2 flag-o-matic base multilib subversion # autotools
+inherit base eutils flag-o-matic fortran-2 multilib subversion
 
 DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
-HOMEPAGE="http://sourceforge.net/projects/staden"
+HOMEPAGE="http://sourceforge.net/projects/staden/"
 # https://staden.svn.sourceforge.net/svnroot/staden staden
 if [ "$PV" == "9999" ]; then
 	ESVN_REPO_URI="https://staden.svn.sourceforge.net/svnroot/staden/staden/trunk"
-	#KEYWORDS="~amd64 ~x86"
 else
 	SRC_URI="http://downloads.sourceforge.net/staden/staden-2.0.0b7-src.tar.gz"
-	#KEYWORDS="~amd64 ~x86"
 fi
 
 LICENSE="staden"
 SLOT="0"
 KEYWORDS=""
-IUSE="debug fortran X png curl tcl tk zlib"
+IUSE="curl debug fortran png tcl tk X zlib"
 
 # either g77 or gfortran must be available
 # edit src/mk/linux.mk accordingly
@@ -30,16 +28,14 @@ IUSE="debug fortran X png curl tcl tk zlib"
 #
 #
 DEPEND="
+	app-arch/xz-utils
 	dev-lang/tk
 	dev-tcltk/tklib
-	>=sci-libs/io_lib-1.12.2
-	>=sys-libs/zlib-1.2
 	>=media-libs/libpng-1.2
 	sci-biology/samtools
-	>=app-arch/xz-utils-4.999"
-
-# maybe we should depend on app-arch/lzma or app-arch/xz-utils?
-
+	>=sci-libs/io_lib-1.12.2
+	>=sys-libs/zlib-1.2
+	virtual/fortran"
 RDEPEND="${DEPEND}
 	>=dev-tcltk/iwidgets-4.0
 	tcl? ( >=dev-tcltk/itcl-3.2 )
@@ -71,6 +67,10 @@ src_configure() {
 
 src_install() {
 	emake install DESTDIR="${D}" || die "make install failed"
-	echo "STADENROOT="${EPREFIX}"/usr/share/staden" > "${S}"/99staden
+
+	cat >> "${S}"/99staden <<- EOF
+	STADENROOT="${EPREFIX}"/usr/share/staden
+	EOF
+
 	doenvd "${S}"/99staden || die
 }

@@ -31,6 +31,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-3.0.0-asneeded.patch
 	# http://sourceforge.net/apps/trac/mira-assembler/ticket/47
 	epatch "${FILESDIR}"/mira_left_clip.readpool.C.patch
+	epatch "${FILESDIR}"/libtool.m4.patch
 	AT_M4DIR="config/m4" eautoreconf
 }
 

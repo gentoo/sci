@@ -4,10 +4,10 @@
 
 EAPI=3
 
-inherit eutils fortran-2 flag-o-matic base multilib
+inherit base eutils flag-o-matic fortran-2 multilib
 
 DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
-HOMEPAGE="http://sourceforge.net/projects/staden"
+HOMEPAGE="http://sourceforge.net/projects/staden/"
 SRC_URI="
 	http://downloads.sourceforge.net/staden/staden-2.0.0b8.tar.gz
 	http://sourceforge.net/projects/staden/files/staden/2.0.0b8/staden_doc-2.0.0b8-src.tar.gz"
@@ -15,27 +15,24 @@ SRC_URI="
 LICENSE="staden"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="debug fortran X png curl tcl tk zlib"
+IUSE="curl debug fortran png tcl tk X zlib"
 
 # either g77 or gfortran must be available
 # edit src/mk/linux.mk accordingly
-
 #
 # this is a glibc-2.9 issue, see https://sourceforge.net/tracker/index.php?func=detail&aid=2629155&group_id=100316&atid=627058
 #
 #
 #
 DEPEND="
+	app-arch/xz-utils
 	dev-lang/tk
 	dev-tcltk/tklib
-	>=sci-libs/io_lib-1.12.2
-	>=sys-libs/zlib-1.2
 	>=media-libs/libpng-1.2
 	sci-biology/samtools
-	>=app-arch/xz-utils-4.999"
-
-# maybe we should depend on app-arch/lzma or app-arch/xz-utils?
-
+	>=sci-libs/io_lib-1.12.2
+	>=sys-libs/zlib-1.2
+	virtual/fortran"
 RDEPEND="${DEPEND}
 	>=dev-tcltk/iwidgets-4.0
 	tcl? ( >=dev-tcltk/itcl-3.2 )
@@ -68,6 +65,8 @@ src_install() {
 	# subsequently, apps linked against /usr/lib/staden can be run because
 	# loader can find the library (I failed to use '-Wl,-rpath,/usr/lib/staden'
 	# somehow for gap2caf, for example
-	echo 'LDPATH=/usr/$(get_libdir)/staden' > 99staden || die
+	cat >> "${T}"/99staden <<- EOF
+	LDPATH=/usr/$(get_libdir)/staden
+	EOF
 	doenvd 99staden
 }

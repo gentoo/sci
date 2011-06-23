@@ -31,6 +31,7 @@ mpi +single-precision sse2 test +threads xml zsh-completion"
 REQUIRED_USE="fkernels? ( !threads )"
 
 CDEPEND="
+	fkernels? ( virtual/fortran )
 	X? (
 		x11-libs/libX11
 		x11-libs/libSM
@@ -48,6 +49,10 @@ RDEPEND="${CDEPEND}
 	app-shells/tcsh"
 
 RESTRICT="test"
+
+pkg_setup() {
+	use fkernels && fortran-2_pkg_setup
+}
 
 src_prepare() {
 	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
