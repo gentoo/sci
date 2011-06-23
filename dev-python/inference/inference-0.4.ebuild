@@ -6,9 +6,10 @@ EAPI=3
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 DISTUTILS_SRC_TEST="nosetests"
 
-inherit distutils fortran-2 toolchain-funcs flag-o-matic
+inherit distutils flag-o-matic fortran-2 toolchain-funcs
 
 DESCRIPTION="Collection of Python modules for statistical inference"
 HOMEPAGE="http://inference.astro.cornell.edu/"
@@ -19,11 +20,11 @@ LICENSE="as-is"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="sci-libs/scipy"
+DEPEND="
+	sci-libs/scipy
+	virtual/fortran"
 RDEPEND="${DEPEND}
 	dev-python/matplotlib"
-
-RESTRICT_PYTHON_ABIS="3.*"
 
 # buggy tests
 RESTRICT="test"
