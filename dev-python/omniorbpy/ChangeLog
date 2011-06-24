@@ -1,6 +1,9 @@
 # ChangeLog for dev-python/omniorbpy
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> omniorbpy-3.4.ebuild:
+  Sort inherit and/or USE
 
   26 Jun 2010; Justin Lecher <jlec@gentoo.org> omniorbpy-3.4.ebuild:
   Python ABI fixes
