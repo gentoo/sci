@@ -10,7 +10,7 @@ SRC_URI="ftp://ftp.mathematik.uni-muenchen.de/pub/forster/${PN}/UNIX_LINUX/${P}.
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86"
-IUSE="doc examples emacs"
+IUSE="doc emacs examples"
 
 DEPEND="emacs? ( virtual/emacs )"
 
