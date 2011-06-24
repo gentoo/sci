@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils multilib flag-o-matic
+inherit eutils flag-o-matic multilib
 
 DESCRIPTION="Finite State Transducer tools by Google et al."
 HOMEPAGE="http://www.openfst.org"
