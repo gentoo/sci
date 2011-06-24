@@ -16,7 +16,7 @@ SRC_URI="
 LICENSE="BSD"
 KEYWORDS="~x86"
 SLOT="0"
-IUSE="png ssl tcpd tiff xml zlib doc"
+IUSE="doc png ssl tcpd tiff xml zlib"
 
 RDEPEND="
 	virtual/jpeg
