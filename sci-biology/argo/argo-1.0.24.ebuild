@@ -6,9 +6,7 @@ EAPI=3
 
 inherit java-pkg-2 java-ant-2 java-utils-2 toolchain-funcs
 
-DESCRIPTION="The Argo Genome Browser is a production tool for
-			visualizing and manually annotating whole genomes
-			stored in .gff3 files"
+DESCRIPTION="Production tool for visualizing and manually annotating whole genomes"
 HOMEPAGE="http://www.broadinstitute.org/annotation/argo/"
 SRC_URI="http://www.broadinstitute.org/annotation/argo/src/workspace-2008-03-11.tgz"
 
@@ -18,8 +16,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND=">=virtual/jre-1.5"
-DEPEND=">=virtual/jdk-1.5
-		dev-java/ant-core"
+DEPEND="
+	>=virtual/jdk-1.5
+	dev-java/ant-core"
 
 S="${WORKDIR}"/workspace-2008-03-11
 
