@@ -34,6 +34,10 @@
 # fftw dep is masked
 sci-libs/pfft
 
+# Justin Lecher <jlec@gentoo.org> (24 Jun 2011)
+# paraview dep is masked
+sci-visualization/vtkPOFFReader
+
 # Justin Lecher <jlec@gentoo.org> (04 Jan 2011)
 # Masked for several QA reasons:
 # portage screams during processing this ebuild
