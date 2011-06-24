@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-astronomy/scamp/scamp-1.7.0.ebuild,v 1.1 2010/05/03 21:44:04 bicatali Exp $
 
 EAPI=3
-inherit eutils autotools
+inherit autotools eutils
 
 DESCRIPTION="Performs basic maintenance and packaging tasks on FITS files"
 HOMEPAGE="http://www.astromatic.net/software/missfits"
