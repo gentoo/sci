@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-mathematics/axiom/axiom-200805.ebuild,v 1.6 2008/08/30 13:17:33 markusle Exp $
 
-inherit eutils multilib flag-o-matic
+inherit eutils flag-o-matic multilib
 
 DESCRIPTION="Axiom is a general purpose Computer Algebra system"
 HOMEPAGE="http://axiom.axiom-developer.org/"
