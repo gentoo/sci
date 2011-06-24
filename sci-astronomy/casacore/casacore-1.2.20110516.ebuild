@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils cmake-utils
+inherit cmake-utils eutils
 
 DESCRIPTION="Core libraries for the Common Astronomy Software Applications"
 HOMEPAGE="http://code.google.com/p/casacore/"
