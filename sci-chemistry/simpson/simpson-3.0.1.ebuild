@@ -13,7 +13,7 @@ SRC_URI="http://www.bionmr.chem.au.dk/download/${PN}/3.0/${PN}-source-${PV}.tgz"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux"
 LICENSE="GPL-2"
-IUSE="threads gtk tk"
+IUSE="gtk threads tk"
 
 RDEPEND="
 	dev-libs/libf2c
