@@ -15,7 +15,7 @@ SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
 LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="mpi X cxx debug static-libs fortran doc"
+IUSE="cxx debug doc fortran mpi static-libs X"
 
 RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )
