@@ -15,12 +15,15 @@ SLOT="3.0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos"
 IUSE="altivec doc fortran mpi openmp sse sse2 static-libs threads"
 
-DEPEND="mpi? ( virtual/mpi )"
+DEPEND="
+	fortran? ( virtual/fortran )
+	mpi? ( virtual/mpi )"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${P//_}"
 
 pkg_setup() {
+	use openmp && FORTRAN_NEED_OPENMP="1"
 	use fortran && fortran-2_pkg_setup
 	FFTW_THREADS="--disable-threads --disable-openmp"
 	if use openmp; then
@@ -28,12 +31,7 @@ pkg_setup() {
 	elif use threads; then
 		FFTW_THREADS="--enable-threads --disable-openmp"
 	fi
-	if use openmp &&
-		[[ $(tc-getCC)$ == *gcc* ]] &&
-		[[ $(tc-getCC)$ != *apple* ]] &&
-		( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] ||
-			! has_version sys-devel/gcc[openmp] )
-	then
+	if use openmp && ! tc-has-openmp; then
 		ewarn "You are using gcc and OpenMP is only available with gcc >= 4.2 "
 		ewarn "If you want to build fftw with OpenMP, abort now,"
 		ewarn "and switch CC to an OpenMP capable compiler"
