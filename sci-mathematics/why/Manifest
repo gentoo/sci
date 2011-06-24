@@ -1,5 +1,315 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
 AUX why_jessie-carbon.patch 1651 RMD160 66796b81d7f047312f941a826e99296e1522c955 SHA1 2a4de59dea9a6ce5e960e0729e388a6b3e851948 SHA256 b04c7434176e85da5de15f86417ed01a2a79c6c978beae2af234fc683b1bae96
 DIST why-2.29.tar.gz 2962977 RMD160 2438151fd7ecb309b1a1fb79f09db032b9338c08 SHA1 2b649673964d3273eb995f2e70797c5a2b10925d SHA256 f1d09d64468592db4ccfb0fad7fcaec928a26e0b90a74e5818edb52ae707a905
-EBUILD why-2.29.ebuild 1464 RMD160 643ad7bf50f510bb3f10882b302ea7b4590e16be SHA1 608e583872abab481ac6e9223831ea63834ba4e9 SHA256 5c79c57844828c8a60a4bcd78f4d9553b87cbb877a9d3895e118065afe6fb6c3
+EBUILD why-2.29.ebuild 1464 RMD160 774cdd9ba53d4a687d12cb4c0eb4f9f8f4e068ab SHA1 bff050b256a7564e133ae0fa409edb798f7149f7 SHA256 8d26bac226b226156e013eb7f04d91c38ffdae9ede4b91b637fb044c7c913ba4
 MISC ChangeLog 704 RMD160 30784599b3d6b0112c93a5ed927e8ca721732eac SHA1 864eccf86954ceb018a05a6efabdbcb683a2f291 SHA256 ddff26d6271ac115e1e3053f4f49a2365f3d1e34a19b48aa54887a8d000ec068
 MISC metadata.xml 835 RMD160 38717707edcc9cd836d5f13bbfd38ae7a26114e2 SHA1 c7eb904790b811b3e9393a40440dc24c917f8b39 SHA256 fe7c99c8ec56d17c9fe627e4e2b7edbb2b97a81b33d27fcf2d64a7254d3fe8de
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqQcACgkQgAnW8HDreRZRpACfVgY8C0HROyQdWXLhT/KfvpjS
+/pEAoIwHWZUxgsBlGYUbGwryPZzkpa1p
+=gM1g
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqQ4ACgkQgAnW8HDreRayLwCfSTipzebOny5owq0oy+dPY8+U
+OHEAnRyxIQbIDOPy7ZyUVDuIAtEXnUf8
+=iAuX
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqRUACgkQgAnW8HDreRaAtwCeLCBvHgW9cyQV7IHXgfEEyMdm
+fYoAn2TXigY3ALCtWHc+AKk8VUcDNc0o
+=wNSk
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqRwACgkQgAnW8HDreRZy8wCgh25KVdFxMEE4wMf6uO4jlHvR
+EtUAn3Tj1rIcirGUurvPAEVLmTbPXPwQ
+=/AYK
+- - - - - - - - - - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqSMACgkQgAnW8HDreRZl9ACdH1Fral/oBwxPafViDYxZ5YsQ
+xQgAnjaFm5D/r9+fReh64Sa0ooz/tO3r
+=W5Hf
+- - - - - - - - - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqSoACgkQgAnW8HDreRZwNQCgsJOrIOz5Ypl3xEx+k2mSqiH2
+npAAn2vO4T8XsyDqwaU1m0rS8a1teQzu
+=C3qX
+- - - - - - - - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqTEACgkQgAnW8HDreRYusACghAkUPmJsVeUoTY/vzmD/jW0R
+J7EAoMTPCoI0ooqE+0OFfsQsOEBP5cvJ
+=3CkT
+- - - - - - - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqTcACgkQgAnW8HDreRaRZwCeM+kYJyV0VORNSkP9A8ByWM5P
+BlQAoNA0MGoz/lHKlENByV6mfJkBJn/s
+=VVv0
+- - - - - - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqT4ACgkQgAnW8HDreRb9awCgpHnna2tvfdEju8UriI5t0sCJ
+UP4AnRg6IlPO9swzUPfYK+rRcllhPIDS
+=6J8f
+- - - - - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqUUACgkQgAnW8HDreRYJAACeNKx8HA3mKLZfBEVOPuSiTGgI
+N00AoKUNBR7RGScWnmmTU4+73Vmqc6ei
+=SjhL
+- - - - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqUwACgkQgAnW8HDreRYSFQCgpBpvelLm4jiamzBint6SD2R9
+VCAAnjxz24Nw2HDXMqkZDPhpn/dKy2Ge
+=uecx
+- - - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqVMACgkQgAnW8HDreRZKKQCgmRceCHYZTfhUuN42bli36O7W
+bgkAnAyMA5kTloBCbIqFIBZmE/fL2J/f
+=GWS+
+- - - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqVkACgkQgAnW8HDreRaXSgCcC1ePlGzkv3yCi/8IWQz+g8Qj
+BL8AnRtt/NIFKYd1ACj2FE+tRNvdvsZS
+=oI1L
+- - - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqWAACgkQgAnW8HDreRbmdQCfYhNw5UFLdKHlAZUVHE0Yxg7P
+/+wAn19UU/o9pdq55ibbVyOyhuVv8hu5
+=MXuB
+- - - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqWcACgkQgAnW8HDreRYYXwCgk6hmuuCnFxCQLDIyWL1ScHRU
+Nm8AnA4vtHejklIWrZmOgVBjpF8VPev6
+=5hNI
+- - - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqW4ACgkQgAnW8HDreRbXpQCfbMSO9VfJd5pvp3oD5g6irlEN
+OIIAnjFL9vI33hoLNxV6WALqJ7FHJaWV
+=60ke
+- - - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqXQACgkQgAnW8HDreRYs4gCfZGxlDJvtoa6i7LppQQN+vqZe
+UpEAmgKHmzcTLX6wm3vulDxScLrdX4IO
+=mtyo
+- - - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqXsACgkQgAnW8HDreRZDWwCfeBh7TEVxHrJI1CpfiRTViTzb
+e4IAn0uqxxJEOiugU61k4cKokXCtquMJ
+=tMJq
+- - - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqYIACgkQgAnW8HDreRYYUgCfYbXXxsOs8qmBCTBUAXFbEAAp
+TDUAnRvCzyxV4GH3ekOfVTanIJjcOMEL
+=Ar9/
+- - - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqYkACgkQgAnW8HDreRYVtwCgvSeCeAFsf3vzxGMxkmTIrijB
+wBwAnRdOugK4M8WqYTew3no4iXPnCmWd
+=gd15
+- - - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqZAACgkQgAnW8HDreRZi7gCeLCQi/XwjDqGFzCOHGK7WFp6Z
+x4UAnRXPKVzFuinQ3r0qtSLjiFHEIyF/
+=DX4Y
+- - - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqZYACgkQgAnW8HDreRb+hQCgz/3xaBI0+uvNkt1BUn9L4g3r
+uHIAn3HMhVp/2CC+E+PJqmkeEl38o7hi
+=DtUY
+- - - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqZ0ACgkQgAnW8HDreRbzcwCfYC6bc11zmNB3K7ovHF6syE/m
+NDkAoLiFSdclHYbl925RRTcFOPhYcEBA
+=3WLf
+- - - - - - - - -----END PGP SIGNATURE-----
+- - - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqaQACgkQgAnW8HDreRZ+ewCgwSy4AJbkXtnvkCyz0SojWbTm
+nw4AoLqjwrJp7dD5DxiSNRZ07flTlpbM
+=Rx8K
+- - - - - - - -----END PGP SIGNATURE-----
+- - - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqasACgkQgAnW8HDreRYQ3QCgysOIoZ6757RsqDOvG/dj/OEK
+39IAn2E2FI+/9qXTqHxaXgDt5NXU/nyV
+=xo4l
+- - - - - - -----END PGP SIGNATURE-----
+- - - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqbIACgkQgAnW8HDreRYpYQCeJiNIB2NPdTzeM8NW+r0lqF7l
+qmgAoKPJ+n4prXUY17aypomVAdm/qc9x
+=U+Gk
+- - - - - -----END PGP SIGNATURE-----
+- - - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqbgACgkQgAnW8HDreRaJZQCggCq4mnjflbHmDkcvo6zyo+8n
+QHMAn3QMe+RRRo+3f5h9w6ZRfBuDWuni
+=QHGU
+- - - - -----END PGP SIGNATURE-----
+- - - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4Eqb8ACgkQgAnW8HDreRY2mQCfYFmxgq1AE+tp9LrZWLJkNUKE
+nGYAn0KAFpnjvcR8bAUVAvnAU6Pmpb9W
+=vq/b
+- - - -----END PGP SIGNATURE-----
+- - -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqcYACgkQgAnW8HDreRZGVgCfUsuJJvFLGwg63CiYJRx5Owx7
+I9UAn3MX9qazDGsNAZoLI2Mu3iV6Lqlq
+=Doee
+- - -----END PGP SIGNATURE-----
+- -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4Eqc0ACgkQgAnW8HDreRbQJQCfS5WF43O/qhIqIOubJNqBuUv4
+tjAAoNMTJ6mVwi6M67Gm3PiJ3OBlfJNb
+=PYXW
+- -----END PGP SIGNATURE-----
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.17 (GNU/Linux)
+
+iEYEARECAAYFAk4EqdQACgkQgAnW8HDreRYXDQCgiv4UdESk65pJ6b3D/xSzf/GH
+YXcAoJRxlCVm9rt0ANo9WaT0sGVNz1Lj
+=l0Jr
+-----END PGP SIGNATURE-----
