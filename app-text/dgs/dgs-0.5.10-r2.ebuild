@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-text/dgs/dgs-0.5.10-r1.ebuild,v 1.38 2008/03/18 13:24:47 flameeyes Exp $
 
@@ -8,7 +8,7 @@ EAPI=2
 
 WANT_AUTOCONF="2.1"
 
-inherit eutils autotools
+inherit autotools eutils
 
 DESCRIPTION="A Ghostscript based Display Postscript (DPS) server"
 HOMEPAGE="http://www.gnustep.org/developers/DGS.html"
