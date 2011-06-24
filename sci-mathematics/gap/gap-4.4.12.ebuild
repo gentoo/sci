@@ -1,7 +1,7 @@
 # Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-inherit versionator elisp-common
+inherit elisp-common versionator
 
 DESCRIPTION="System for computational discrete algebra"
 HOMEPAGE="http://www.gap-system.org/"

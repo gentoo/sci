@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<maintainer>
-  <email>A.G.Grozin@inp.nsk.su</email>
-  <name>Andrey Grozin</name>
-</maintainer>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <maintainer>
+    <email>A.G.Grozin@inp.nsk.su</email>
+    <name>Andrey Grozin</name>
+  </maintainer>
+  <longdescription lang="en">
   Groups, Algorithms, Programming is a system for computational
   discrete algebra, with particular emphasis on Computational Group
   Theory. GAP provides a  programming language, a library of thousands
@@ -16,4 +16,5 @@
   representations, rings, vector spaces, algebras, combinatorial
   structures, and more.
 </longdescription>
+  <use><flag name="xtom">Automatically generated description for xtom</flag></use>
 </pkgmetadata>
