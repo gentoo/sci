@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit toolchain-funcs eutils
+inherit eutils toolchain-funcs
 
 DESCRIPTION="A genome sequence finishing program"
 HOMEPAGE="http://bozeman.mbt.washington.edu/consed/consed.html"
