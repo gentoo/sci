@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit eutils autotools java-pkg-2 check-reqs flag-o-matic
+inherit autotools check-reqs eutils flag-o-matic java-pkg-2
 
 DESCRIPTION="Scientific software package for numerical computations"
 LICENSE="CeCILL-2"
