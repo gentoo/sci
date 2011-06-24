@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-inherit eutils fortran-2 mpi toolchain-funcs autotools
+inherit autotools eutils fortran-2 mpi toolchain-funcs
 
 MY_PV=${PV/_/}
 DESCRIPTION="MPICH2 - A portable MPI implementation"
@@ -13,7 +13,7 @@ SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY
 LICENSE="as-is"
 SLOT="0"
 KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86"
-IUSE="+cxx debug doc fortran threads romio mpi-threads"
+IUSE="+cxx debug doc fortran mpi-threads romio threads"
 
 COMMON_DEPEND="dev-libs/libaio
 	>=sys-apps/hwloc-1.1.1
