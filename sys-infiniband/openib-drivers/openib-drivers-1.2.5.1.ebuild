@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit rpm linux-mod
+inherit linux-mod rpm
 
 DESCRIPTION="OpenIB kernel modules"
 HOMEPAGE="http://www.openfabrics.org/"
@@ -15,7 +15,7 @@ LICENSE="|| ( GPL-2 BSD-2 )"
 SLOT="0"
 
 KEYWORDS="~x86 ~amd64"
-IUSE="memtrack hpage-patch srp ipath iser ehca rds madeye vnic cxgb3 debug"
+IUSE="cxgb3 debug ehca hpage-patch ipath iser madeye memtrack rds srp vnic"
 
 RDEPEND=""
 DEPEND="${RDEPEND}
