@@ -5,7 +5,7 @@
 EAPI=2
 
 MODULE_AUTHOR=EASR
-inherit perl-module multilib
+inherit multilib perl-module
 
 DESCRIPTION="Manipulates OBO- and OWL-formatted ontologies (like the Gene Ontology)"
 
