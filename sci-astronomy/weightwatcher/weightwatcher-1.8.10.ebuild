@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit eutils autotools
+inherit autotools eutils
 
 DESCRIPTION="Combine weight maps and polygon for astronomical images weighting"
 HOMEPAGE="http://www.astromatic.net/software/weightwatcher"
