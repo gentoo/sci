@@ -10,7 +10,7 @@ PYTHON_USE_WITH="tk"
 RESTRICT_PYTHON_ABIS="3.*"
 PYTHON_MODNAME="yaml nltk_contrib nltk"
 
-inherit eutils distutils
+inherit distutils eutils
 
 DESCRIPTION="Natural language processing tool collection"
 HOMEPAGE="http://www.nltk.org/"
