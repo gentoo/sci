@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-inherit eutils autotools
+inherit autotools eutils
 
 DESCRIPTION="Tool for automatic generation of astronomical catalogs"
 HOMEPAGE="http://astromatic.iap.fr/software/stuff/"
