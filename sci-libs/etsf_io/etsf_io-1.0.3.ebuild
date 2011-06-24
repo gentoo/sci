@@ -3,7 +3,7 @@
 
 EAPI=4
 
-inherit fortran-2
+inherit fortran-2 multilib
 
 DESCRIPTION="A library of F90 routines to read/write the ETSF file format"
 HOMEPAGE="http://www.etsf.eu/resources/software/libraries_and_tools/"
@@ -14,7 +14,9 @@ SLOT="0"
 IUSE="examples"
 KEYWORDS="~amd64 ~x86"
 
-RDEPEND="sci-libs/netcdf[fortran]"
+RDEPEND="
+	sci-libs/netcdf[fortran]
+	virtual/fortran"
 DEPEND="${RDEPEND}"
 
 FORTRAN_STANDARD="90"
@@ -23,8 +25,8 @@ src_configure() {
 	# fortran 90 uses FCFLAGS
 	export FCFLAGS="${FFLAGS:--O2}"
 	econf \
-		--prefix=/usr \
 		$(use_enable examples build-tutorials) \
-		--with-netcdf-ldflags="-L/usr/lib -lnetcdff" \
-		--with-moduledir=/usr/lib/finclude
+		--prefix="${EPREFIX}/usr" \
+		--with-netcdf-ldflags="-L${EPREFIX}/usr/$(get_libdir) -lnetcdff" \
+		--with-moduledir="${EPREFIX}/usr/$(get_libdir)/finclude"
 }
