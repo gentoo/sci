@@ -17,7 +17,7 @@ KEYWORDS="~amd64 ~x86 ~alpha"
 # doc:   Adds developer documentation (/usr/share/doc/${PF}/APIreference/)
 #        Example files are copied even when USE='-doc'
 # debug: Adds console debug messages. This is really verbose.
-IUSE="doc debug"
+IUSE="debug doc"
 
 RDEPEND="
 	x11-libs/gtk+:2
