@@ -5,7 +5,7 @@
 EAPI=1
 WEBAPP_OPTIONAL="yes"
 
-inherit eutils webapp java-pkg-2 java-ant-2
+inherit eutils java-pkg-2 java-ant-2 webapp
 
 DESCRIPTION="Jmol is a java molecular viever for 3-D chemical structures."
 SRC_URI="mirror://sourceforge/${PN}/${P}-full.tar.gz"
