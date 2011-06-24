@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> cvxopt-1.1.3.ebuild:
+  Sort inherit and/or USE
+
   20 Jun 2011; François Bissey <francois.bissey@canterbury.ac.nz>
   cvxopt-1.1.3.ebuild, +files/cvxopt-1.1.3-blas.patch, metadata.xml:
   Add useflag description in metadata
