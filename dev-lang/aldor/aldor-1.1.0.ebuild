@@ -1,7 +1,7 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-inherit subversion elisp-common
+inherit elisp-common subversion
 
 DESCRIPTION="Aldor - programming language with a two-level type system"
 HOMEPAGE="http://www.aldor.org/"
