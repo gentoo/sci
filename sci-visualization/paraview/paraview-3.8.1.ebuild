@@ -6,7 +6,7 @@ EAPI=2
 
 PYTHON_DEPEND="python? 2:2.6"
 
-inherit eutils flag-o-matic toolchain-funcs versionator multilib python qt4-r2 cmake-utils
+inherit cmake-utils eutils flag-o-matic multilib python qt4-r2 toolchain-funcs versionator
 
 MAIN_PV=$(get_major_version)
 MAJOR_PV=$(get_version_component_range 1-2)
@@ -20,7 +20,7 @@ RESTRICT="mirror"
 LICENSE="paraview GPL-2"
 KEYWORDS="~x86 ~amd64"
 SLOT="0"
-IUSE="mpi +python doc examples +gui plugins adaptive streaming cg mysql -coprocessing"
+IUSE="adaptive cg -coprocessing doc examples +gui mpi mysql plugins +python streaming"
 
 RDEPEND="
 	sci-libs/hdf5[mpi=]
