@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> +metadata.xml:
+  metadata.xml added
+
 *fox-4.1.0 (17 Jan 2011)
 *fox-4.0.4 (17 Jan 2011)
 
