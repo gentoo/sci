@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit toolchain-funcs eutils
+inherit eutils toolchain-funcs
 
 DESCRIPTION="A quick and light preprocessor, but anyway fully compliant to C99"
 HOMEPAGE="http://code.google.com/p/ucpp/"
