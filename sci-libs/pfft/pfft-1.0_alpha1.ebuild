@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils autotools
+inherit autotools eutils
 
 DESCRIPTION="parallel 3d FFT"
 HOMEPAGE="http://www-user.tu-chemnitz.de/~mpip/software.php"
