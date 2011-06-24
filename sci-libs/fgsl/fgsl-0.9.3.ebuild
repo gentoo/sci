@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=4
 
 inherit eutils fortran-2 multilib toolchain-funcs
 
@@ -15,7 +15,9 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="static-libs"
 
-DEPEND=">=sci-libs/gsl-1.14"
+DEPEND="
+	>=sci-libs/gsl-1.14
+	virtual/fortran"
 RDEPEND="${DEPEND}"
 #TODO: make docs
 
@@ -41,13 +43,13 @@ src_configure() {
 }
 
 src_install() {
-	dodoc NEWS README || die
+	dodoc NEWS README
 	ln -s lib${PN}.so.0.0.0 lib${PN}.so.0
 	ln -s lib${PN}.so.0.0.0 lib${PN}.so
-	dolib.so lib${PN}.so* || die
+	dolib.so lib${PN}.so*
 	insinto /usr/include
-	doins ${PN}.mod || die
+	doins ${PN}.mod
 	if use static-libs ; then
-		newlib.a lib${PN}_$(tc-getFC).a lib${PN}.a || die
+		newlib.a lib${PN}_$(tc-getFC).a lib${PN}.a
 	fi
 }
