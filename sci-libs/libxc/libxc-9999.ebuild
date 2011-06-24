@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit eutils fortran-2 multilib toolchain-funcs flag-o-matic autotools subversion
+inherit autotools eutils flag-o-matic fortran-2 multilib subversion toolchain-funcs
 
 DESCRIPTION="A library of exchange-correlation functionals"
 HOMEPAGE="http://www.tddft.org/programs/octopus/wiki/index.php/Libxc"
@@ -13,7 +13,7 @@ ESVN_BOOTSTRAP="eautoreconf -i"
 
 LICENSE="LGPL-3"
 SLOT="0"
-IUSE="fortran debug"
+IUSE="debug fortran"
 KEYWORDS="~amd64 ~x86"
 
 src_configure() {
