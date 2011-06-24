@@ -114,4 +114,3 @@ pkg_postinst() {
 	einfo "echo 512000000 > /proc/sys/kernel/shmmax"
 	einfo "echo -e '* soft memlock 500000\n* hard memlock 500000' > /etc/security/limits.conf"
 }
-
