@@ -12,10 +12,11 @@ SRC_URI="http://ftp.abinit.org/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="cuda -debug +fftw +fox gsl +hdf5 mpi +netcdf python +threads -test -vdwxc"
+KEYWORDS="~amd64 ~x86"
+IUSE="cuda -debug +fftw +fox gsl +hdf5 mpi +netcdf python -test +threads -vdwxc"
 
-RDEPEND=">=sci-libs/bigdft-1.2.0.2
+RDEPEND="
+	>=sci-libs/bigdft-1.2.0.2
 	sci-libs/etsf_io
 	=sci-libs/libxc-1.0[fortran]
 	sci-physics/atompaw[libxc]

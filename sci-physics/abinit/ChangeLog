@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> abinit-6.6.3.ebuild:
+  Dropped ~ppc as many deps aren't keyworded
+
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> -abinit-6.6.2.ebuild,
   abinit-6.6.3.ebuild:
   Dropped ~ppc as many deps aren't keyworded
