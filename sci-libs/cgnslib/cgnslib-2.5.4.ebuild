@@ -19,9 +19,10 @@ KEYWORDS="~amd64 ~x86"
 IUSE="fortran hdf5 szip zlib"
 
 DEPEND="
+	fortran? ( virtual/fortran )
 	hdf5? ( >=sci-libs/hdf5-1.8 )
-	zlib? ( sys-libs/zlib )
-	szip? ( sci-libs/szip )"
+	szip? ( sci-libs/szip )
+	zlib? ( sys-libs/zlib )"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/${MY_S}
@@ -38,7 +39,7 @@ src_prepare() {
 src_configure() {
 	local myconf="--enable-gcc --enable-lfs --enable-shared=all --enable-64bit"
 
-	tc-export CC
+	tc-export CC FC
 
 	econf \
 		${myconf} \
@@ -50,5 +51,7 @@ src_configure() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
-	use hdf5 && fperms 755 /usr/bin/{hdf2adf,adf2hdf}
+	use hdf5 && \
+		fperms 755 /usr/bin/{hdf2adf,adf2hdf} || \
+		rm -f "${D}"/usr/bin/{hdf2adf,adf2hdf}
 }
