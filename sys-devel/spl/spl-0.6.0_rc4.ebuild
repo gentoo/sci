@@ -6,7 +6,7 @@ EAPI="2"
 
 WANT_AUTOMAKE="1.11"
 AT_M4DIR=./config  # for aclocal called by eautoreconf
-inherit linux-info eutils autotools
+inherit autotools eutils linux-info
 
 DESCRIPTION="Solaris Porting Layer - a Linux kernel module providing some Solaris kernel APIs"
 HOMEPAGE="http://wiki.github.com/behlendorf/spl/"
