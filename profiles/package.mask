@@ -34,7 +34,7 @@
 # fftw dep is masked
 sci-libs/pfft
 
-# Justin Lecher <jlec> (04 Jan 2011)
+# Justin Lecher <jlec@gentoo.org> (04 Jan 2011)
 # Masked for several QA reasons:
 # portage screams during processing this ebuild
 # Author uses @gentoo.org address, although not a dev
@@ -48,63 +48,13 @@ sci-libs/pfft
 # #348029
 sci-biology/tablet-bin
 
-# Sebastien Fabbro (29 Sep 2010)
-# alpha software
->=sci-libs/fftw-3.3_alpha1
-
-# Justin Lecher (jlec) (1 Aug 2009)
-# jlec@gentoo.org
-# mask live ebuild
-=sci-chemistry/burrow-owl-9999_pre15
-
-# Christoph Junghans (ottxor) (23 Jan 2011)
-# ottxor@gentoo.org
-# mask live ebuild
-=sys-cluster/nullmpi-9999
-
-# Christoph Junghans (ottxor) (20 Apr 2011)
-# ottxor@gentoo.org
+# Christoph Junghans <ottxor@gentoo.org> (20 Apr 2011)
 # mask live ebuild
 =sci-physics/espresso-9999
 
-# Christoph Junghans (ottxor) (03 Oct 2010)
-# ottxor@gentoo.org
-# masked for testing
-=sci-libs/openmm-2.0
-
-# Christoph Junghans (ottxor) (31 Jul 10)
-# ottxor@gentoo.org
-# mask live ebuilds
-=sci-chemistry/gromacs-4.0.9999
-=sci-chemistry/gromacs-4.5.9999
-=sci-chemistry/gromacs-9999
-=app-doc/gromacs-manual-9999
-
-# Christoph Junghans (ottxor) (23 Jan 10)
-# ottxor@gentoo.org
-# mask live ebuilds
-=sci-libs/votca-tools-9999
-=sci-chemistry/votca-csg-9999
-=app-doc/votca-csg-manual-9999
-
-# Justin Lecher (jlec) (08 Jun 09)
-# jlec@gentoo.org
-# mask live ebuilds
-=sci-chemistry/pymol-apbs-plugin-9999
-=sci-chemistry/coot-9999
-=sci-chemistry/pymol-9999
-
-# Christoph Junghans (ottxor) (02 Nov 09)
-# ottxor@gentoo.org
-# live cvs ebuild, deps changing constantly
-# report to bug #232363
-=sci-visualization/gnuplot-4.4.9999
-=sci-visualization/gnuplot-4.5.9999
-
-# Justin Lecher (jlec) (11 May 09)
-# jlec@gentoo.org
-# work in progress 
-=sci-chemistry/almost-1.0.3-r1
+# Christoph Junghans <ottxor@gentoo.org> (23 Jan 2011)
+# mask live ebuild
+=sys-cluster/nullmpi-9999
 
 # Francois Bissey (kiwifb) (29 Oct 2010)
 # f.r.bissey@massey.ac.nz
@@ -112,12 +62,43 @@ sci-biology/tablet-bin
 # Avoid accidental upgrade
 >=sci-visualization/paraview-3.8.0
 
-# Andreas K. Huettel (dilfridge) (23 Jun 2010)
-# mask dev-lang/aldor for removal in 30d since there is no source available anymore
-# (was a svn checkout, but the server is dead)
-=dev-lang/aldor-1.1.0
+# Christoph Junghans <ottxor@gentoo.org> (03 Oct 2010)
+# masked for testing
+=sci-libs/openmm-2.0
 
-# Andreas K. Huettel (dilfridge) (27 Jun 2010)
-# mask for removal in 30d since there is no source anymore
-# (fetch restricted, and the ftp server does not respond; no hint of program at HOMEPAGE)
-sci-biology/newbler
+# Sebastien Fabbro (29 Sep 2010)
+# alpha software
+>=sci-libs/fftw-3.3_alpha1
+
+# Christoph Junghans <ottxor@gentoo.org> (31 Jul 2010)
+# mask live ebuilds
+=sci-chemistry/gromacs-4.0.9999
+=sci-chemistry/gromacs-4.5.9999
+=sci-chemistry/gromacs-9999
+=app-doc/gromacs-manual-9999
+
+# Christoph Junghans <ottxor@gentoo.org> (23 Jan 2010)
+# mask live ebuilds
+=sci-libs/votca-tools-9999
+=sci-chemistry/votca-csg-9999
+=app-doc/votca-csg-manual-9999
+
+# Christoph Junghans <ottxor@gentoo.org> (02 Nov 2009)
+# live cvs ebuild, deps changing constantly
+# report to bug #232363
+=sci-visualization/gnuplot-4.4.9999
+=sci-visualization/gnuplot-4.5.9999
+
+# Justin Lecher <jlec@gentoo.org> (1 Aug 2009)
+# mask live ebuild
+=sci-chemistry/burrow-owl-9999_pre15
+
+# Justin Lecher <jlec@gentoo.org> (08 Jun 2009)
+# mask live ebuilds
+=sci-chemistry/pymol-apbs-plugin-9999
+=sci-chemistry/coot-9999
+=sci-chemistry/pymol-9999
+
+# Justin Lecher <jlec@gentoo.org> (11 May 2009)
+# work in progress 
+=sci-chemistry/almost-1.0.3-r1
