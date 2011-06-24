@@ -11,7 +11,7 @@ SRC_URI="${HOMEPAGE}/download/mvapich2/mvapich2-${PV/_/-}.tar.gz"
 SLOT="0"
 LICENSE="BSD"
 KEYWORDS="~x86 ~amd64"
-IUSE="debug medium-cluster large-cluster rdma romio threads fortran"
+IUSE="debug fortran large-cluster medium-cluster rdma romio threads"
 
 RDEPEND="
 	|| (

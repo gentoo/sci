@@ -14,7 +14,7 @@ SRC_URI="http://nowlab.cse.ohio-state.edu/projects/mpi-iba/download-mvapich2/mva
 
 SLOT="0"
 LICENSE="BSD"
-IUSE="threads debug medium-cluster large-cluster"
+IUSE="debug large-cluster medium-cluster threads"
 KEYWORDS="~x86 ~amd64"
 
 DEPEND="

@@ -15,7 +15,7 @@ SRC_URI="${HOMEPAGE}/download/mvapich2/mvapich2-${PV/_/-}.tar.gz"
 SLOT="0"
 LICENSE="BSD"
 KEYWORDS="~amd64"
-IUSE="threads debug medium-cluster large-cluster rdma"
+IUSE="debug large-cluster medium-cluster rdma threads"
 
 RDEPEND="
 	|| (
