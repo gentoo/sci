@@ -4,7 +4,7 @@
 
 EAPI=3
 PYTHON_DEPEND="gtk? 2"
-inherit python base versionator
+inherit base python versionator
 
 DESCRIPTION="Support programs for the Oracle Cluster Filesystem 2"
 HOMEPAGE="http://oss.oracle.com/projects/ocfs2-tools/"
@@ -13,7 +13,7 @@ SRC_URI="http://oss.oracle.com/projects/${PN}/dist/files/source/v$(get_version_c
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug gtk external"
+IUSE="debug external gtk"
 
 RDEPEND="
 	sys-apps/util-linux
