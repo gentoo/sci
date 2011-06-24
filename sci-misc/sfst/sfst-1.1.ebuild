@@ -16,7 +16,7 @@ emacs? ( http://www.cis.uni-muenchen.de/~wastl/emacs/sfst.el )"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86"
-IUSE="vim-syntax emacs"
+IUSE="emacs vim-syntax"
 
 DEPEND="sys-libs/readline
 sys-devel/bison

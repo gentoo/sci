@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils elisp
+inherit elisp eutils
 
 MY_PN="SFST"
 MY_P="${MY_PN}-${PV}"
@@ -16,7 +16,7 @@ emacs? ( http://www.cis.uni-muenchen.de/~wastl/emacs/sfst.el )"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="vim-syntax emacs"
+IUSE="emacs vim-syntax"
 
 DEPEND="sys-libs/readline
 sys-devel/bison
