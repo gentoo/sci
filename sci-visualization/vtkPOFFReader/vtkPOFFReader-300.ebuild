@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit versionator multilib cmake-utils subversion
+inherit cmake-utils multilib subversion versionator
 
 DESCRIPTION="Parallelized reader for OpenFOAM(R) file format for use with ParaView/VTK"
 HOMEPAGE="http://of-interfaces.sourceforge.net"
