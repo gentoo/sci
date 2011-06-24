@@ -6,7 +6,7 @@ EAPI="3"
 
 PYTHON_DEPEND="2"
 
-inherit autotools base versionator python subversion toolchain-funcs
+inherit autotools base python subversion toolchain-funcs versionator
 
 MY_S2_PV=$(replace_version_separator 2 - ${PV})
 MY_S2_P=${PN}-${MY_S2_PV/pre1/pre-1}
