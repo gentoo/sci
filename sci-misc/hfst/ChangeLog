@@ -2,6 +2,14 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> hfst-2.2.ebuild,
+  hfst-3.0.2.ebuild:
+  EAPI bump
+
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> hfst-2.2.ebuild,
+  hfst-3.0.2.ebuild:
+  EAPI bump
+
 *hfst-3.0.2 (09 May 2011)
 
   09 May 2011; <flammie@gentoo.org> +hfst-3.0.2.ebuild, metadata.xml:
