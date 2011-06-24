@@ -6,7 +6,7 @@ EAPI="2"
 
 PYTHON_USE_WITH="sqlite"
 PYTHON_DEPEND="python? 2"
-inherit python cmake-utils subversion
+inherit cmake-utils python subversion
 
 DESCRIPTION="User friendly Geographic Information System"
 HOMEPAGE="http://www.qgis.org/"
