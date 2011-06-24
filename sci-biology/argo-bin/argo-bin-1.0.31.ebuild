@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit toolchain-funcs java-utils-2
+inherit java-utils-2 toolchain-funcs
 
 DESCRIPTION="The Argo Genome Browser is a production tool for
 			visualizing and manually annotating whole genomes
