@@ -5,15 +5,6 @@
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> gcb-1.5.6.ebuild:
   Sort inherit and/or USE
 
-  24 Jun 2011; Justin Lecher <jlec@gentoo.org> gcb-1.5.6.ebuild:
-  Sort inherit and/or USE
-
-  24 Jun 2011; Justin Lecher <jlec@gentoo.org> gcb-1.5.6.ebuild:
-  Sort inherit and/or USE
-
-  24 Jun 2011; Justin Lecher <jlec@gentoo.org> gcb-1.5.6.ebuild:
-  Sort inherit and/or USE
-
 *gcb-1.5.6 (23 Oct 2009)
 
   23 Oct 2009; Sébastien Fabbro <bicatali@gentoo.org> +gcb-1.5.6.ebuild,
