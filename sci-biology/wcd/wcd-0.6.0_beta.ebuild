@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit flag-o-matic eutils
+inherit eutils flag-o-matic
 
 DESCRIPTION="wcd clusters sequences (typically ESTs) by either of: d2 function, edit distance, common word heuristics."
 HOMEPAGE="http://code.google.com/p/wcdest"
