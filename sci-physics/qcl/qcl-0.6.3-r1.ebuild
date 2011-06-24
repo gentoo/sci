@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-inherit flag-o-matic eutils
+inherit eutils flag-o-matic
 
 DESCRIPTION="Quantum Computation Language with an emulator of a quantum computer"
 HOMEPAGE="http://tph.tuwien.ac.at/~oemer/qcl.html"
