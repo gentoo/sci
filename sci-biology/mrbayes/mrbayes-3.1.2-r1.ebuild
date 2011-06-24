@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/mrbayes/mrbayes-3.1.2.ebuild,v 1.7 2008/06/11 18:10:48 ken69267 Exp $
 
-inherit eutils toolchain-funcs mpi
+inherit eutils mpi toolchain-funcs
 
 DESCRIPTION="Bayesian Inference of Phylogeny"
 LICENSE="GPL-2"
