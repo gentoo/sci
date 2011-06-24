@@ -6,7 +6,7 @@ EAPI="3"
 
 PYTHON_DEPEND="python? 2:2.5"
 
-inherit cmake-utils eutils python git
+inherit cmake-utils eutils git python
 
 DESCRIPTION="Advanced molecular editor that uses Qt4 and OpenGL"
 HOMEPAGE="http://avogadro.sourceforge.net/"
