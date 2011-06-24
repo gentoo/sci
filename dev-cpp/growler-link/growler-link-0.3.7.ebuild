@@ -13,7 +13,7 @@ SRC_URI="${HOMEPAGE}/downloads/growler-link-${PV}.tar.gz"
 SLOT="0"
 LICENSE="NOSA"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc tcpd static fortran"
+IUSE="doc fortran static tcpd"
 
 RDEPEND="
 	virtual/fortran
