@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils autotools versionator flag-o-matic mpi
+inherit autotools eutils flag-o-matic mpi versionator
 
 MY_PV=$(replace_version_separator 2 '-')
 
