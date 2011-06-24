@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit eutils autotools
+inherit autotools eutils
 
 DESCRIPTION="library for nonequispaced discrete Fourier transform"
 HOMEPAGE="http://www-user.tu-chemnitz.de/~potts/nfft"
