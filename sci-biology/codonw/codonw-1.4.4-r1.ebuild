@@ -4,7 +4,7 @@
 
 EAPI=2
 
-inherit versionator toolchain-funcs
+inherit toolchain-funcs versionator
 
 MY_PV=$(replace_all_version_separators '_')
 
