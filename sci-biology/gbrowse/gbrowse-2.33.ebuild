@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="2"
@@ -7,21 +7,23 @@ inherit perl-module webapp
 
 MY_P="GBrowse-${PV}"
 
-DESCRIPTION="The generic genome browser provides a display of genomic annotations on interactive web pages"
-HOMEPAGE="http://gmod.org"
+DESCRIPTION="Display of genomic annotations on interactive web pages"
+HOMEPAGE="http://gmod.org/"
 # mirror://sourceforge/gmod/${MY_P}.tar.gz
-# http://search.cpan.org/CPAN/authors/id/L/LD/LDS/GBrowse-2.33.tar.gz
-SRC_URI="http://search.cpan.org/CPAN/authors/id/L/LD/LDS/${MY_P}.tar.gz
-	test? ( http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/saccharomyces_cerevisiae.gff.bz2
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/Refseq_Genome_TBLASTX.tar.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/README-gff-files
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/human.gff.tar.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/yeast.fasta.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/yeast.gff.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/worm.fasta.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/worm.gff.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/fly.fasta.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/fly.gff.gz )"
+# mirror://cpan/authors/id/L/LD/LDS/GBrowse-2.33.tar.gz
+SRC_URI="
+	mirror://cpan/authors/id/L/LD/LDS/${MY_P}.tar.gz
+	test? (
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/saccharomyces_cerevisiae.gff.bz2
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/Refseq_Genome_TBLASTX.tar.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/README-gff-files
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/human.gff.tar.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/yeast.fasta.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/yeast.gff.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/worm.fasta.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/worm.gff.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/fly.fasta.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/fly.gff.gz )"
 
 LICENSE="Artistic"
 # webapp ebuilds do not set SLOT
@@ -53,7 +55,6 @@ DEPEND="
 #    *  Bio::DB::BigFile is not installed
 #    *  Bio::DB::Sam is not installed
 #    *  DBD::Pg is not installed
-
 
 RDEPEND="${DEPEND}
 	>=www-servers/apache-2.0.47

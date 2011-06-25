@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="2"
@@ -7,19 +7,21 @@ inherit perl-module webapp
 
 MY_P="GBrowse-${PV}"
 
-DESCRIPTION="The generic genome browser provides a display of genomic annotations on interactive web pages"
-HOMEPAGE="http://gmod.org"
-SRC_URI="mirror://sourceforge/gmod/${MY_P}.tar.gz
-	test? ( http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/saccharomyces_cerevisiae.gff.bz2
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/Refseq_Genome_TBLASTX.tar.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/README-gff-files
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/human.gff.tar.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/yeast.fasta.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/yeast.gff.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/worm.fasta.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/worm.gff.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/fly.fasta.gz
-			http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/fly.gff.gz )"
+DESCRIPTION="Display of genomic annotations on interactive web pages"
+HOMEPAGE="http://gmod.org/"
+SRC_URI="
+	mirror://sourceforge/gmod/${MY_P}.tar.gz
+	test? (
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/saccharomyces_cerevisiae.gff.bz2
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/Refseq_Genome_TBLASTX.tar.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/README-gff-files
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/human.gff.tar.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/yeast.fasta.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/yeast.gff.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/worm.fasta.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/worm.gff.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/fly.fasta.gz
+		http://sourceforge.net/projects/gmod/files/Generic%20Genome%20Browser/Sample%20Data%20Files/fly.gff.gz )"
 
 LICENSE="Artistic"
 # webapp ebuilds do not set SLOT
@@ -30,7 +32,8 @@ S="${WORKDIR}/${MY_P}"
 
 # TODO: dev-perl/MOBY, dev-perl/Bio-SCF, dev-perl/Safe-World (not compatible w/perl-5.10)
 # TODO: make sure www-servers/apache +cgi
-DEPEND=">=dev-lang/perl-5.8.8
+DEPEND="
+	>=dev-lang/perl-5.8.8
 	dev-perl/Capture-Tiny
 	>=sci-biology/bioperl-1.6
 	>=dev-perl/GD-2.07
