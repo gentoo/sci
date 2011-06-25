@@ -27,6 +27,7 @@ DEPEND="selinux? ( sec-policy/selinux-dhcp )
 		net-nds/openldap
 		ssl? ( dev-libs/openssl )
 	)"
+RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}"
 
