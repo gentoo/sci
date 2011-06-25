@@ -1,6 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=4
 
 inherit versionator
 # FIXME: for versions with last part < 10 pad with zeroes
@@ -10,7 +12,16 @@ MY_PV=$(delete_all_version_separators)
 DESCRIPTION="Speech analysis and synthesis"
 SRC_URI="http://www.fon.hum.uva.nl/praat/${PN}${MY_PV}_sources.tar.gz"
 HOMEPAGE="http://www.fon.hum.uva.nl/praat/"
-DEPEND="|| ( ( x11-libs/libXmu
+
+KEYWORDS="~amd64 ~x86"
+IUSE=""
+LICENSE="GPL-2"
+SLOT="0"
+
+DEPEND="
+	|| (
+		(
+			x11-libs/libXmu
 			x11-libs/libXt
 			x11-libs/libX11
 			x11-libs/libICE
@@ -22,18 +33,13 @@ DEPEND="|| ( ( x11-libs/libXmu
 	)
 	x11-libs/openmotif"
 RDEPEND="${DEPEND}"
-KEYWORDS="~amd64"
-IUSE=""
-LICENSE="GPL-2"
-SLOT="0"
 
 S="${WORKDIR}/sources_${MY_PV}"
 
-src_compile() {
+src_prepare() {
 	# TODO: following line should be updated for non-linux etc. builds
 	# (Flammie does not have testing equipment)
 	cp "${S}/makefiles/makefile.defs.linux.dynamic" "${S}/makefile.defs"
-	emake || die "emake failed"
 }
 
 src_install() {
@@ -48,4 +54,3 @@ src_install() {
 	insinto /usr/share/${PN}/logisticRegression
 	doins test/logisticRegression/*
 }
-
