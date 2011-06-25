@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jun 2011; Christoph Junghans <ottxor@gentoo.org> nullmpi-9999.ebuild:
+  migrate to git-2
+
 *nullmpi-9999 (23 Jan 2011)
 
   23 Jan 2011; Christoph Junghans <kleiner_otti@gmx.de>
