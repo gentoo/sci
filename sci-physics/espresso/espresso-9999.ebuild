@@ -12,7 +12,7 @@ HOMEPAGE="http://www.espressomd.org"
 if [ "${PV%9999}" != "${PV}" ]; then
 	EGIT_REPO_URI="git://git.savannah.nongnu.org/espressomd.git"
 	EGIT_BRANCH="master"
-	inherit git
+	inherit git-2
 else
 	SRC_URI="mirror://nongnu/${PN}md/${P}.tar.gz"
 fi
