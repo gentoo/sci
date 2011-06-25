@@ -1,6 +1,9 @@
 # ChangeLog for x11-libs/xview
-# Copyright 2000-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Fixed herd entry in metadata.xml
 
   03 Feb 2009; justin Lecher (jlec) <jlec@j-schmitz.net>
   xview-3.2-r6.ebuild, -xview-3.2-r7.ebuild, xview-3.2-r8.ebuild:
