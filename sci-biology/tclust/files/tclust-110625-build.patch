@@ -1,0 +1,43 @@
+ Makefile |    9 ++++-----
+ 1 files changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index f4f69f1..30ba16e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -11,8 +11,8 @@ SYSTYPE :=     $(shell uname)
+ 
+ # C compiler
+ 
+-CC      := g++
+-CFLAGS  = -O2 -Wall ${SEARCHDIRS} -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_REENTRANT -fno-exceptions -fno-rtti -fno-strict-aliasing
++CC      ?= g++
++CXXFLAGS  += -Wall ${SEARCHDIRS} -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_REENTRANT -fno-exceptions -fno-rtti -fno-strict-aliasing
+ 
+ %.o : %.c
+ 	${CC} ${CFLAGS} -c $< -o $@
+@@ -24,7 +24,7 @@ CFLAGS  = -O2 -Wall ${SEARCHDIRS} -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_
+ 	${CC} ${CFLAGS} -c $< -o $@
+ 
+ %.o : %.cpp
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ %.o : %.cxx
+ 	${CC} ${CFLAGS} -c $< -o $@
+@@ -32,14 +32,13 @@ CFLAGS  = -O2 -Wall ${SEARCHDIRS} -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_
+ # C/C++ linker
+ 
+ LINKER    := g++
+-LDFLAGS    =
+ LOADLIBES := 
+ 
+ .PHONY : all
+ all:    tclust
+ 
+ tclust:  ./tclust.o ${GCLDIR}/GBase.o ${GCLDIR}/GStr.o ${GCLDIR}/GArgs.o
+-	${LINKER} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LOADLIBES}
++	${CXX} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LOADLIBES}
+ 
+ # target for removing all object files
+ 
