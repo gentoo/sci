@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> gromacs-4.5.9999.ebuild,
+  gromacs-9999.ebuild, metadata.xml:
+  migrate from 'git' to 'git-2'
+
   21 Jun 2011; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
   gromacs-9999.ebuild:
   only USE=fkernels needs fortran
