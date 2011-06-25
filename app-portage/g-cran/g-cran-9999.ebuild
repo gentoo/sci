@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
 RESTRICT_PYTHON_ABIS="3.*"
 
-inherit distutils git
+inherit distutils git-2
 
 DESCRIPTION="CRAN-style packages installer helper for package managers"
 HOMEPAGE="http://git.overlays.gentoo.org/gitweb/?p=proj/g-cran.git;a=summary"
