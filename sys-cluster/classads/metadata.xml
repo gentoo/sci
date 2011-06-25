@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>hp-cluster</herd>
-<maintainer>
-  <email>bicatali@gentoo.org</email>
-</maintainer>
-<longdescription lang='en'>
+  <herd>cluster</herd>
+  <maintainer>
+    <email>bicatali@gentoo.org</email>
+  </maintainer>
+  <longdescription lang="en">
   Classified Advertisements (classads) are the lingua franca of
   Condor. They are used for describing jobs, workstations, and other
   resources. They are exchanged by Condor processes to schedule
