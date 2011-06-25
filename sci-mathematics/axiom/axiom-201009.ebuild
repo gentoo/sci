@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-mathematics/axiom/axiom-200805.ebuild,v 1.6 2008/08/30 13:17:33 markusle Exp $
 
@@ -19,13 +19,15 @@ RESTRICT="strip"
 
 # Seems to need a working version of pstricks package these days Bummer: <gmp-5 is needed for the
 # interal gcl, otherwise axiom will try to build an internal copy of gmp-4 which fails.
-DEPEND="virtual/latex-base
+RDEPEND="
+	dev-libs/gmp
+	x11-libs/libXaw"
+DEPEND="${RDEPEND}
 	app-text/dvipdfm
 	dev-texlive/texlive-pstricks
-	x11-libs/libXaw
 	sys-apps/debianutils
 	sys-process/procps
-	dev-libs/gmp"
+	virtual/latex-base"
 
 S="${WORKDIR}"/${PN}
 
