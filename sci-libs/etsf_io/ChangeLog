@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> etsf_io-1.0.3.ebuild,
+  metadata.xml:
+  Fixed Malformed CVS Header on line: 3
+
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> etsf_io-1.0.3.ebuild:
   Streamlined fortran-2 eclass usage
 
