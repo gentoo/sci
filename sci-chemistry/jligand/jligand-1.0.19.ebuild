@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=4
 
 inherit java-pkg-2 java-ant-2 multilib
 
 MY_PN="JLigand"
 
-DESCRIPTION="a Java interface which allows links descriptions to be created"
+DESCRIPTION="Java interface which allows links descriptions to be created"
 HOMEPAGE="http://www.ysbl.york.ac.uk/~pyoung/JLigand/JLigand.html"
 SRC_URI="http://www.ysbl.york.ac.uk/mxstat/${MY_PN}/${MY_PN}.${PV}.tar.gz"
 
