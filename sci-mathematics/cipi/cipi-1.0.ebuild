@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit cmake-utils git
+inherit cmake-utils git-2
 
 DESCRIPTION="Computing information projections iteratively"
 HOMEPAGE="http://github.com/tom111/cipi"
