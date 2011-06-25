@@ -1,8 +1,0 @@
-# ChangeLog for sci-geosciences/tcd-editor
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  16 May 2008; Tim Cera <timcera@earthlink.net> +tcd-editor-1.4.1.ebuild,
-  +metadata.xml:
-  Initial import.
-
