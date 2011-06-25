@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit cmake-utils git
+inherit cmake-utils git-2
 
 DESCRIPTION="Parallelization engine for optimization problems"
 HOMEPAGE="http://pagmo.sourceforge.net/"
