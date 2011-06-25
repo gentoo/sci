@@ -1,0 +1,41 @@
+ Makefile |    7 +++----
+ 1 files changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 82e16a0..f9505e0 100644
+--- a/Makefile
++++ b/Makefile
+@@ -12,7 +12,7 @@ SYSTYPE :=     $(shell uname)
+ # C compiler
+ 
+ CC      := g++
+-CFLAGS  = -O2 -Wall ${SEARCHDIRS} -D_LARGEFILE_SOURCE  -D_FILE_OFFSET_BITS=64 \
++CXXFLAGS  += -Wall ${SEARCHDIRS} -D_LARGEFILE_SOURCE  -D_FILE_OFFSET_BITS=64 \
+  -fno-exceptions -fno-rtti -fno-strict-aliasing -D_REENTRANT
+ 
+ %.o : %.c
+@@ -25,7 +25,7 @@ CFLAGS  = -O2 -Wall ${SEARCHDIRS} -D_LARGEFILE_SOURCE  -D_FILE_OFFSET_BITS=64 \
+ 	${CC} ${CFLAGS} -c $< -o $@
+ 
+ %.o : %.cpp
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ %.o : %.cxx
+ 	${CC} ${CFLAGS} -c $< -o $@
+@@ -33,14 +33,13 @@ CFLAGS  = -O2 -Wall ${SEARCHDIRS} -D_LARGEFILE_SOURCE  -D_FILE_OFFSET_BITS=64 \
+ # C/C++ linker
+ 
+ LINKER    := g++
+-LDFLAGS    =
+ LOADLIBES := 
+ 
+ .PHONY : all
+ all:    zmsort
+ 
+ zmsort:  ./zmsort.o ${GCLDIR}/GBase.o ${GCLDIR}/GStr.o ${GCLDIR}/GArgs.o
+-	${LINKER} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LOADLIBES}
++	${CXX} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LOADLIBES}
+ 
+ # target for removing all object files
+ 
