@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<maintainer>
-<email>tom111@gmx.de</email>
-<name>Thomas Kahle</name>
-</maintainer>
-<longdescription lang="en">
+	<herd>sci</herd>
+	<maintainer>
+		<email>tom111@gmx.de</email>
+		<name>Thomas Kahle</name>
+	</maintainer>
+	<longdescription lang="en">
 libfac is an extension of Singular-factory to finite fields
 </longdescription>
+	<use>
+		<flag name="singular">Automatically generated description for singular</flag>
+	</use>
 </pkgmetadata>
