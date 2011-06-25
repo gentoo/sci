@@ -7,7 +7,7 @@ EAPI="4"
 EGIT_REPO_URI="git://git.gromacs.org/manual"
 EGIT_BRANCH="master"
 
-inherit cmake-utils git
+inherit cmake-utils git-2
 
 DESCRIPTION="Manual for gromacs"
 HOMEPAGE="http://www.gromacs.org/"
