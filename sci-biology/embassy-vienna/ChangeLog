@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-vienna/ChangeLog,v 1.8 2010/01/15 22:47:16 fauli Exp $
 
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> embassy-vienna-1.7.2-r2.ebuild:
+  Dropped ~ppc due to missing keywording of sci-libs/plplot, #358035
+
   20 Mar 2011; Justin Lecher <jlec@gentoo.org> embassy-vienna-1.7.2-r2.ebuild,
   files/embassy-vienna-1.7.2-r2.patch:
   Fixed for reviewed eclass
