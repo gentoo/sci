@@ -1,10 +1,10 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=4
 
-inherit autotools eutils prefix
+inherit eutils prefix
 
 DESCRIPTION="General-purpose software package for simulation virtually all kinds of solid-state NMR experiments"
 HOMEPAGE="http://bionmr.chem.au.dk/bionmr/software/index.php"
@@ -35,10 +35,9 @@ src_prepare() {
 src_compile() {
 	emake \
 		CC="$(tc-getCC)" \
-		CFLAGS="${CFLAGS}" \
-		|| die
+		CFLAGS="${CFLAGS}"
 }
 
 src_install() {
-	dobin ${PN} || die
+	dobin ${PN}
 }
