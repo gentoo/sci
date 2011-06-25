@@ -6,6 +6,7 @@ EAPI=4
 
 EGIT_REPO_URI="git://github.com/olenz/NullMPI.git"
 EGIT_BRANCH="master"
+EGIT_BOOTSTRAP="eautoreconf"
 
 inherit autotools-utils git-2
 
@@ -26,11 +27,4 @@ RDEPEND="
 
 DEPEND="${RDEPEND}"
 
-DOCS=( AUTHORS ChangeLog README TODO )
-
-S="${WORKDIR}/${EGIT_REPO_URI##*/}"
-
-src_prepare() {
-	autotools-utils_src_prepare
-	eautoreconf
-}
+DOCS=( AUTHORS NEWS README TODO )

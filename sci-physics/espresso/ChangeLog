@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jun 2011; Christoph Junghans <ottxor@gentoo.org> espresso-9999.ebuild:
+  migrate to git-2
+
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> espresso-9999.ebuild,
   metadata.xml:
   Cleaned ebuild
