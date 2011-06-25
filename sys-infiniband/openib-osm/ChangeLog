@@ -1,6 +1,11 @@
 # ChangeLog for sys-infiniband/openib-osm
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org>
+  openib-osm-3.2.5_p20081207.ebuild, openib-osm-3.2.6_p20090317.ebuild,
+  metadata.xml:
+  Cleaned ebuild
 
 *openib-osm-3.2.6_p20090317 (20 Aug 2009)
 
