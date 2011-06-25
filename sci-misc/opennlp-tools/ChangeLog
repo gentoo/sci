@@ -1,6 +1,10 @@
 # ChangeLog for sci-misc/opennlp-tools
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> opennlp-tools-1.3.0.ebuild,
+  metadata.xml:
+  Cleaned ebuild and add USE description to metadata.xml
 
 *opennlp-tools-1.3.0 (03 Jan 2008)
 

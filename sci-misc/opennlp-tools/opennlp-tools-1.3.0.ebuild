@@ -1,14 +1,16 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 JAVA_PKG_IUSE="doc source"
+
 inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Natural Language Programming API and tool suite"
 HOMEPAGE="http://opennlp.sf.net/"
 
-MODELS="english/chunker/EnglishChunk.bin.gz
+MODELS="
+	english/chunker/EnglishChunk.bin.gz
 	english/coref/acronyms
 	english/coref/cmodel.bin.gz
 	english/coref/cmodel.nr.bin.gz
@@ -60,13 +62,12 @@ models? ( ${MODELS_SRC_URI} )"
 
 # Toolkit is all LGPL-2.1
 LICENSE="LGPL-2.1"
-
 SLOT="0"
-
 KEYWORDS="~x86"
-
 IUSE="${IUSE} models"
-COMMON_DEP="dev-java/trove
+
+COMMON_DEP="
+	dev-java/trove
 	>=sci-misc/jwnl-1.3_rc3
 	>=app-dicts/wordnet-2.0
 	sci-misc/opennlp-maxent"
