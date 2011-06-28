@@ -1,16 +1,18 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=1
 WEBAPP_OPTIONAL="yes"
 
-inherit eutils java-pkg-2 java-ant-2 webapp
+inherit eutils webapp java-pkg-2 java-ant-2
+
+MY_P=Jmol
 
 DESCRIPTION="Jmol is a java molecular viever for 3-D chemical structures."
-SRC_URI="mirror://sourceforge/${PN}/${P}-full.tar.gz"
+SRC_URI="mirror://sourceforge/${PN}/${MY_P}-${PV}-full.tar.gz"
 HOMEPAGE="http://jmol.sourceforge.net/"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 LICENSE="LGPL-2.1"
 
 IUSE="client-only vhosts"
@@ -42,8 +44,9 @@ pkg_setup() {
 src_unpack() {
 
 	unpack ${A}
-	epatch "${FILESDIR}"/${P}-nointl.patch
-	epatch "${FILESDIR}"/${P}-manifest.patch
+	cd "${S}"
+	epatch "${FILESDIR}"/${PV}/${PN}-nointl.patch
+	epatch "${FILESDIR}"/${PV}/${PN}-manifest.patch
 
 	mkdir "${S}"/selfSignedCertificate || die "Failed to create Cert directory."
 	cp "${FILESDIR}"/selfSignedCertificate.store "${S}"/selfSignedCertificate/ \
