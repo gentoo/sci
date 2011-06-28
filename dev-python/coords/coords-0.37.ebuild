@@ -1,16 +1,17 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header$
+# $Header: $
 
 EAPI=3
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils
 
-DESCRIPTION="managing astronomical coordinate systems"
-HOMEPAGE="https://trac6.assembla.com/astrolib/wiki http://www.scipy.org/AstroLib"
+DESCRIPTION="Managing astronomical coordinate systems"
+HOMEPAGE="https://trac6.assembla.com/astrolib/wiki/ http://www.scipy.org/AstroLib/"
 SRC_URI="http://stsdas.stsci.edu/astrolib/${P}.tar.gz"
 
 LICENSE="AURA"
@@ -20,7 +21,6 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="dev-python/numpy"
-RESTRICT_PYTHON_ABIS="3.*"
 
 src_test() {
 	testing() {

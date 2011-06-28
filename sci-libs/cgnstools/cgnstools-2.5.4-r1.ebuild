@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils versionator multilib
+inherit eutils multilib versionator
 
 MY_P="${PN}-$(replace_all_version_separators '-')"
 

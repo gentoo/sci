@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,9 +10,10 @@ RESTRICT_PYTHON_ABIS="3.*"
 inherit distutils
 
 DESCRIPTION="Sphinx extension to support docstrings in Numpy format"
-HOMEPAGE="http://projects.scipy.org/numpy/browser/trunk/doc/sphinxext
-	http://pypi.python.org/pypi/numpydoc"
-SRC_URI="http://pypi.python.org/packages/source/n/${PN}/${P}.tar.gz"
+HOMEPAGE="
+	http://projects.scipy.org/numpy/browser/trunk/doc/sphinxext/
+	http://pypi.python.org/pypi/numpydoc/"
+SRC_URI="mirror://pypi/n/${PN}/${P}.tar.gz"
 
 LICENSE="PYTHON BSD"
 SLOT="0"

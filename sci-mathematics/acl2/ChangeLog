@@ -1,0 +1,18 @@
+# ChangeLog for sci-mathematics/acl2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> acl2-4.2.ebuild:
+  Some ebuild cleaning
+
+*acl2-4.2 (13 Apr 2011)
+
+  13 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> -files/set-booksdir.patch:
+  Build books in pkg_postinst(), following #49316
+
+  12 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> +files/set-booksdir.patch:
+  fixed books dir for certificates
+
+  12 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> +acl2-4.2.ebuild +ChangeLog +metadata.xml :
+  Initial import.  #49316
+

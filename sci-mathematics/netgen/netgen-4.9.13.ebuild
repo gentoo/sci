@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils versionator multilib flag-o-matic
+inherit eutils flag-o-matic multilib versionator
 
 DESCRIPTION="NETGEN is an automatic 3d tetrahedral mesh generator"
 HOMEPAGE="http://www.hpfem.jku.at/netgen/"
@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/netgen-mesher/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86"
-IUSE="opencascade jpeg -mpi -ffmpeg"
+IUSE="-ffmpeg jpeg -mpi opencascade"
 SLOT="0"
 
 DEPEND="dev-tcltk/tix

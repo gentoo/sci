@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit toolchain-funcs python eutils
+inherit eutils python toolchain-funcs
 
 DESCRIPTION="Phasing macromolecular crystal structures with maximum likelihood methods"
 SRC_URI="ftp://ftp.ccp4.ac.uk/ccp4/6.1.1/${P}-cctbx-src.tar.gz"

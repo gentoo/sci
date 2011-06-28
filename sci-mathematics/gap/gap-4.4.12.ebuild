@@ -1,14 +1,10 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-inherit versionator elisp-common
 
-DESCRIPTION="System for computational discrete algebra"
-HOMEPAGE="http://www.gap-system.org/"
-SLOT="0"
-IUSE="emacs vim-syntax xtom"
-LICENSE="GPL-2"
-KEYWORDS="~amd64 ~x86"
+EAPI=3
+
+inherit elisp-common versionator
 
 XTOM_VERSION=1r1p4
 
@@ -17,19 +13,25 @@ PV2=$(get_version_component_range 3 )
 PV1=$(replace_version_separator 1 'r' ${PV1} )
 PV2=${PV1}p${PV2}
 
-SRC_URI="ftp://ftp.gap-system.org/pub/gap/gap4/tar.bz2/${PN}${PV2}.tar.bz2
+DESCRIPTION="System for computational discrete algebra"
+HOMEPAGE="http://www.gap-system.org/"
+SRC_URI="
+	ftp://ftp.gap-system.org/pub/gap/gap4/tar.bz2/${PN}${PV2}.tar.bz2
 	xtom? ( ftp://ftp.gap-system.org/pub/gap/gap4/tar.bz2/xtom${XTOM_VERSION}.tar.bz2 )"
 
-RDEPEND="emacs? ( virtual/emacs )
-	vim-syntax? ( || ( app-editors/vim app-editors/gvim ) )"
+SLOT="0"
+IUSE="emacs vim-syntax xtom"
+LICENSE="GPL-2"
+KEYWORDS="~amd64 ~x86"
 
-#### delete the next line when moving this ebuild to the main tree!
-RESTRICT=mirror
+RDEPEND="
+	emacs? ( virtual/emacs )
+	vim-syntax? ( || ( app-editors/vim app-editors/gvim ) )"
+DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${PN}${PV1}
 
 src_compile() {
-	econf
 	emake CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" compile || die "emake failed"
 }
 

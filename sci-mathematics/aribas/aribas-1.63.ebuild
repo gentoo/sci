@@ -1,6 +1,9 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=4
+
 inherit elisp-common versionator
 
 DESCRIPTION="Interpreter for big integer and multi-precision floating point arithmetic"
@@ -10,17 +13,15 @@ SRC_URI="ftp://ftp.mathematik.uni-muenchen.de/pub/forster/${PN}/UNIX_LINUX/${P}.
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86"
-IUSE="doc examples emacs"
+IUSE="doc emacs examples"
 
 DEPEND="emacs? ( virtual/emacs )"
+RDEPEND="${DEPEND}"
 
 SITEFILE=64${PN}-gentoo.el
 CH_PV=$(delete_all_version_separators)
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"/src
-
+src_prepare() {
 	# Linux x86 assembly piece
 	if use x86; then
 		mv LINUX/arito386.S .
@@ -34,9 +35,9 @@ src_unpack() {
 src_compile() {
 	cd src
 	if use x86; then
-		emake CFLAGS="-DLiNUX -DPROTO ${CFLAGS}" || die "emake failed"
+		emake CFLAGS="-DLiNUX -DPROTO ${CFLAGS}"
 	else
-		emake CC=gcc CFLAGS="-DUNiX -DPROTO ${CFLAGS}" || die "emake failed"
+		emake CC=gcc CFLAGS="-DUNiX -DPROTO ${CFLAGS}"
 	fi
 
 	if use emacs; then
@@ -48,10 +49,10 @@ src_compile() {
 src_install() {
 	dobin src/${PN}
 	doman doc/*.1
-	dodoc CHANGES${CH_PV}.txt || die "dodoc failed"
+	dodoc CHANGES${CH_PV}.txt
 
 	if use doc; then
-		dodoc doc/${PN}.doc doc/${PN}.tut || die "dodoc failed"
+		dodoc doc/${PN}.doc doc/${PN}.tut
 	fi
 
 	if use examples; then

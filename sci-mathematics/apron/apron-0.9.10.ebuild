@@ -40,7 +40,7 @@ src_prepare() {
 	#fix doc building process
 	sed -i Makefile -e "s/; make html/; make/g"
 	sed -i apronxx/Makefile \
-		-e "s:cd doc/latex && make:cd doc/latex; rubber refman.tex &> /dev/null; pdflatex refman.tex:g"
+		-e "s:cd doc/latex && make:cd doc/latex; rubber refman.tex; dvipdf refman.dvi:g"
 	sed -i apronxx/doc/Doxyfile \
 		-e "s/OUTPUT_DIRECTORY       = \/.*/OUTPUT_DIRECTORY       = .\//g" \
 		-e "s/STRIP_FROM_PATH        = \/.*/STRIP_FROM_PATH        = .\//g"

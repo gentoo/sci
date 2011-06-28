@@ -1,0 +1,123 @@
+From e4ffe1eb191ab5d02de5c25e416f1d4d0f471f44 Mon Sep 17 00:00:00 2001
+From: Justin Bronder <jsbronder@gmail.com>
+Date: Sun, 12 Jun 2011 14:45:34 -0400
+Subject: [PATCH] fix pkg-config files
+
+https://trac.mcs.anl.gov/projects/mpich2/ticket/1044
+https://trac.mcs.anl.gov/projects/mpich2/ticket/1500
+---
+ configure.in                             |    6 ++++++
+ src/packaging/pkgconfig/mpich2-c.pc.in   |   10 ++--------
+ src/packaging/pkgconfig/mpich2-cxx.pc.in |   10 ++--------
+ src/packaging/pkgconfig/mpich2-f77.pc.in |   10 ++--------
+ src/packaging/pkgconfig/mpich2-f90.pc.in |   10 ++--------
+ 5 files changed, 14 insertions(+), 32 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index de22cac..8543bb1 100644
+--- a/configure.in
++++ b/configure.in
+@@ -5329,6 +5329,12 @@ AC_SUBST(MPICH_TIMER_KIND)
+ # Setup other replaceable values
+ AC_SUBST(MPILIBNAME)
+ AC_SUBST(PMPILIBNAME)
++PKGCONFIG_PMPILIB=""
++if test "$NEEDSPLIB" = yes -a test -n "${PMPILIBNAME}" ; then
++    PKGCONFIG_PMPILIB="-l${PMPILIBNAME}"
++fi
++AC_SUBST(PKGCONFIG_PMPILIB)
++
+ # Note that aint_size must be used instead of void_p where the desired check
+ # is on the size of MPI_Aint
+ aint_size=$ac_cv_sizeof_void_p
+diff --git a/src/packaging/pkgconfig/mpich2-c.pc.in b/src/packaging/pkgconfig/mpich2-c.pc.in
+index b071fc6..e0ab3fa 100644
+--- a/src/packaging/pkgconfig/mpich2-c.pc.in
++++ b/src/packaging/pkgconfig/mpich2-c.pc.in
+@@ -4,15 +4,9 @@ exec_prefix=@exec_prefix@
+ libdir=@libdir@
+ includedir=@includedir@
+ 
+-if test "@NEEDSPLIB@" = "yes" ; then
+-   plib=@PMPILIBNAME@
+-else
+-   plib=
+-fi
+-
+ Name: mpich2
+ Description: MPICH2 is an implementation of the Message-Passing Interface (MPI). The goals of MPICH2 are to provide an MPI implementation for important platforms, including clusters, SMPs, and massively parallel processors. It also provides a vehicle for MPI implementation research and for developing new and better parallel programming environments.
+ Version: @MPICH2_VERSION@
+ Requires:
+-Libs: @WRAPPER_LDFLAGS@ -L$libdir -l$plib -l@MPILIBNAME@ @WRAPPER_LIBS@
+-Cflags: @WRAPPER_CPPFLAGS@ @WRAPPER_CFLAGS@ -I$includedir
++Libs: @WRAPPER_LDFLAGS@ -L${libdir} @PKGCONFIG_PMPILIB@ -l@MPILIBNAME@ @WRAPPER_LIBS@
++Cflags: @WRAPPER_CPPFLAGS@ @WRAPPER_CFLAGS@ -I${includedir}
+diff --git a/src/packaging/pkgconfig/mpich2-cxx.pc.in b/src/packaging/pkgconfig/mpich2-cxx.pc.in
+index d21f9e6..d82e184 100644
+--- a/src/packaging/pkgconfig/mpich2-cxx.pc.in
++++ b/src/packaging/pkgconfig/mpich2-cxx.pc.in
+@@ -4,15 +4,9 @@ exec_prefix=@exec_prefix@
+ libdir=@libdir@
+ includedir=@includedir@
+ 
+-if test "@NEEDSPLIB@" = "yes" ; then
+-   plib=@PMPILIBNAME@
+-else
+-   plib=
+-fi
+-
+ Name: mpich2
+ Description: MPICH2 is an implementation of the Message-Passing Interface (MPI). The goals of MPICH2 are to provide an MPI implementation for important platforms, including clusters, SMPs, and massively parallel processors. It also provides a vehicle for MPI implementation research and for developing new and better parallel programming environments.
+ Version: @MPICH2_VERSION@
+ Requires:
+-Libs: @WRAPPER_LDFLAGS@ -L$libdir -l$plib -l@MPILIBNAME@ @WRAPPER_LIBS@
+-Cxxflags: @WRAPPER_CPPFLAGS@ @WRAPPER_CXXFLAGS@ -I$includedir
++Libs: @WRAPPER_LDFLAGS@ -L${libdir} @PKGCONFIG_PMPILIB@ -l@MPILIBNAME@ @WRAPPER_LIBS@
++Cxxflags: @WRAPPER_CPPFLAGS@ @WRAPPER_CXXFLAGS@ -I${includedir}
+diff --git a/src/packaging/pkgconfig/mpich2-f77.pc.in b/src/packaging/pkgconfig/mpich2-f77.pc.in
+index 1b48bf6..193c2ab 100644
+--- a/src/packaging/pkgconfig/mpich2-f77.pc.in
++++ b/src/packaging/pkgconfig/mpich2-f77.pc.in
+@@ -4,15 +4,9 @@ exec_prefix=@exec_prefix@
+ libdir=@libdir@
+ includedir=@includedir@
+ 
+-if test "@NEEDSPLIB@" = "yes" ; then
+-   plib=@PMPILIBNAME@
+-else
+-   plib=
+-fi
+-
+ Name: mpich2
+ Description: MPICH2 is an implementation of the Message-Passing Interface (MPI). The goals of MPICH2 are to provide an MPI implementation for important platforms, including clusters, SMPs, and massively parallel processors. It also provides a vehicle for MPI implementation research and for developing new and better parallel programming environments.
+ Version: @MPICH2_VERSION@
+ Requires:
+-Libs: @WRAPPER_LDFLAGS@ -L$libdir -l$plib -l@MPILIBNAME@ @WRAPPER_LIBS@
+-Fflags: @WRAPPER_FFLAGS@ -I$includedir
++Libs: @WRAPPER_LDFLAGS@ -L${libdir} @PKGCONFIG_PMPILIB@ -l@MPILIBNAME@ @WRAPPER_LIBS@
++Fflags: @WRAPPER_FFLAGS@ -I${includedir}
+diff --git a/src/packaging/pkgconfig/mpich2-f90.pc.in b/src/packaging/pkgconfig/mpich2-f90.pc.in
+index ebb8499..700976f 100644
+--- a/src/packaging/pkgconfig/mpich2-f90.pc.in
++++ b/src/packaging/pkgconfig/mpich2-f90.pc.in
+@@ -4,15 +4,9 @@ exec_prefix=@exec_prefix@
+ libdir=@libdir@
+ includedir=@includedir@
+ 
+-if test "@NEEDSPLIB@" = "yes" ; then
+-   plib=@PMPILIBNAME@
+-else
+-   plib=
+-fi
+-
+ Name: mpich2
+ Description: MPICH2 is an implementation of the Message-Passing Interface (MPI). The goals of MPICH2 are to provide an MPI implementation for important platforms, including clusters, SMPs, and massively parallel processors. It also provides a vehicle for MPI implementation research and for developing new and better parallel programming environments.
+ Version: @MPICH2_VERSION@
+ Requires:
+-Libs: @WRAPPER_LDFLAGS@ -L$libdir -l$plib -l@MPILIBNAME@ @WRAPPER_LIBS@
+-Fcflags: @WRAPPER_FCFLAGS@ -I$includedir
++Libs: @WRAPPER_LDFLAGS@ -L${libdir} @PKGCONFIG_PMPILIB@ -l@MPILIBNAME@ @WRAPPER_LIBS@
++Fcflags: @WRAPPER_FCFLAGS@ -I${includedir}
+-- 
+1.7.3.4
+

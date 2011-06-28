@@ -1,6 +1,9 @@
 # ChangeLog for sci-mathematics/burrtools
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  05 Apr 2011; Justin Lecher <jlec@gentoo.org> burrtools-0.5.2-r1.ebuild:
+  Corrected Slot of fltk to 1
 
 *burrtools-0.5.2-r1 (09 Mar 2010)
 

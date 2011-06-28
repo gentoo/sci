@@ -1,11 +1,58 @@
-diff -uarN pymol-9999.orig/setup.py pymol-9999/setup.py
---- pymol-9999.orig/setup.py	2008-06-18 11:47:58.000000000 +0200
-+++ pymol-9999/setup.py	2008-06-18 11:48:52.000000000 +0200
-@@ -143,6 +143,7 @@
-     def_macros=[("_PYMOL_MODULE",None),
-                     ("_PYMOL_INLINE",None),
-                     ("_PYMOL_FREETYPE",None),
-+                    ("_PYMOL_OPENGL_SHADERS",None),
- # Numeric Python support                    
- #                        ("_PYMOL_NUMPY",None),
- # VMD plugin support                    
+Index: layer0/ShaderMgr.c
+===================================================================
+--- layer0/ShaderMgr.c	(revision 3945)
++++ layer0/ShaderMgr.c	(working copy)
+@@ -400,7 +400,7 @@
+ char * CShaderMgr_ReadShaderFromDisk(PyMOLGlobals * G, const char * fileName) {
+   FILE* f;
+   long size;
+-  char* buffer = NULL, *p, *pymol_path, *shader_path, *fullFile;
++  char* buffer = NULL, *p, *pymol_data, *shader_path, *fullFile;
+ 
+   PRINTFB(G, FB_ShaderMgr, FB_Debugging)
+     "CShaderMgr_ReadShaderFromDisk: fileName='%s'\n", fileName
+@@ -412,16 +412,16 @@
+     return NULL;
+   }
+   
+-  pymol_path = getenv("PYMOL_PATH");
+-  if (!pymol_path){
++  pymol_data = getenv("PYMOL_DATA");
++  if (!pymol_data){
+     PRINTFB(G, FB_ShaderMgr, FB_Warnings)
+-      " PyMOLShader_NewFromFile-Warning: PYMOL_PATH not set, cannot read shader config files from disk\n", fileName ENDFB(G);
++      " PyMOLShader_NewFromFile-Warning: PYMOL_DATA not set, cannot read shader config files from disk\n", fileName ENDFB(G);
+     return NULL;
+   }
+   /* make this a setting */
+-  shader_path = "/data/shaders/";
+-  fullFile = malloc( sizeof(char) * (strlen(pymol_path)+strlen(shader_path)+strlen(fileName)+1));
+-  fullFile = strcpy(fullFile, pymol_path);
++  shader_path = "/shaders/";
++  fullFile = malloc( sizeof(char) * (strlen(pymol_data)+strlen(shader_path)+strlen(fileName)+1));
++  fullFile = strcpy(fullFile, pymol_data);
+   fullFile = strcat(fullFile, shader_path);
+   fullFile = strcat(fullFile, fileName);
+ 
+@@ -430,7 +430,7 @@
+ 
+   if (!f) {
+     PRINTFB(G, FB_ShaderMgr, FB_Errors)
+-      " PyMOLShader_NewFromFile-Error: Unable to open file '%s' PYMOL_PATH='%s'\n", fullFile, pymol_path ENDFB(G);
++      " PyMOLShader_NewFromFile-Error: Unable to open file '%s' PYMOL_DATA='%s'\n", fullFile, pymol_data ENDFB(G);
+     return NULL;
+   } else {
+     PRINTFB(G, FB_ShaderMgr, FB_Blather)
+Index: layer1/Setting.c
+===================================================================
+--- layer1/Setting.c	(revision 3945)
++++ layer1/Setting.c	(working copy)
+@@ -3990,7 +3990,7 @@
+     set_b(I, cSetting_line_use_shader, 1);
+     set_b(I, cSetting_sphere_use_shader, 1);
+     set_b(I, cSetting_use_shaders, 0);  /* disable by default until optimized shaders present; doesn't effect vol */
+-    set_s(I, cSetting_shader_path, "data/shaders");
++    set_s(I, cSetting_shader_path, "shaders");
+     set_i(I, cSetting_volume_bit_depth, 8);
+     set_color(I, cSetting_volume_color, "-1");
+     set_f(I, cSetting_volume_layers, 256);

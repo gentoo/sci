@@ -1,6 +1,12 @@
 # ChangeLog for sci-geosciences/seawater
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*seawater-2.0.1 (07 Apr 2011)
+
+  07 Apr 2011; Tim Cera <timcera@earthlink.net> -seawater-1.0.4.ebuild,
+  +seawater-2.0.1.ebuild:
+  Version bump.
 
 *seawater-1.0.4 (02 Sep 2010)
 

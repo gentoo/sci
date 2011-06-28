@@ -10,7 +10,7 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="amd64 hppa ppc ppc64 x86"
 IUSE=""
 DEPEND="app-admin/eselect"
 RDEPEND="${DEPEND}"

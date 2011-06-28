@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils autotools
+inherit autotools eutils
 
 MY_P="${PN}${PV}_lite"
 

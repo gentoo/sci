@@ -1,17 +1,15 @@
-Index: lbg/Makefile.am
-===================================================================
---- lbg/Makefile.am	(revision 3406)
-+++ lbg/Makefile.am	(working copy)
-@@ -25,6 +25,12 @@
-     lbg-search.cc  residue-circles.cc rdkit-interface.cc \
-     flev-annotations.cc
+ lidia-core/Makefile.am |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/lidia-core/Makefile.am b/lidia-core/Makefile.am
+index 17d468d..78bf054 100644
+--- a/lidia-core/Makefile.am
++++ b/lidia-core/Makefile.am
+@@ -34,3 +34,7 @@ libcoot_lidia_core_la_SOURCES = lbg-molfile.cc lig-build.cc
+ # test_molfile_SOURCES: test-molfile.cc
  
-+libcoot_lidia_la_LIBADD = \
-+	$(top_builddir)/coot-utils/libcoot-coord-utils.la \
-+	$(top_builddir)/lidia-core/libcoot-lidia-core.la \
-+	$(top_builddir)/geometry/libcoot-geometry.la \
-+	$(GTK_LIBS) $(GSL_LIBS) $(GOOCANVAS_LIBS)
+ # test_molfile_LDADD: libcoot-lidia-core.la
 +
- lidia_SOURCES = lidia-main.cc lbg-callbacks-outer.cc
- 
- include_HEADERS = lbg.hh wmolecule.hh rdkit-interface.hh flev-annotations.hh 
++libcoot_lidia_core_la_LIBADD = \
++	$(top_builddir)/geometry/libcoot-geometry.la \
++	$(MMDB_LIBS) $(CLIPPER_LIBS)

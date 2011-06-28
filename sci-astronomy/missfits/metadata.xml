@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+	<herd>sci</herd>
+	<longdescription lang="en">
   MissFITS is a program that performs basic maintenance and packaging
   tasks on FITS files using an optimised FITS library. MissFITS can:
     * add/edit/remove FITS header keywords
@@ -10,7 +10,4 @@
     * unpile/pile FITS data-cubes
     * create/check/update FITS checksums, using R. Seaman’s protocol.
 </longdescription>
-<use>
-  <flag name="plplot">Build with <pkg>sci-libs/plplot</pkg> to allow diagnostic plots during processing</flag>
-</use>
 </pkgmetadata>

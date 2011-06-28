@@ -2,6 +2,15 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> votca-tools-9999.ebuild:
+  Sort inherit and/or USE
+
+  03 Jun 2011; Christoph Junghans <ottxor@gentoo.org> votca-tools-9999.ebuild:
+  use default instead of tip
+
+  02 Jun 2011; Christoph Junghans <ottxor@gentoo.org> votca-tools-9999.ebuild:
+  added sqlite3 support
+
   08 Mar 2011; Christoph Junghans <ottxor@gentoo.org>
   -votca-tools-1.1.1.ebuild:
   InCVS

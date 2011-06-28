@@ -16,7 +16,7 @@ LICENSE="|| ( GPL-2 BSD-2 )"
 SLOT="0"
 
 KEYWORDS="~x86 ~amd64"
-IUSE="srp ipath iser ehca mlx4 rds vnic"
+IUSE="ehca ipath iser mlx4 rds srp vnic"
 
 RDEPEND=""
 DEPEND="${RDEPEND}"

@@ -1,0 +1,14 @@
+--- dst/Makefile.dist.old	2004-12-24 13:31:22.986061032 +0000
++++ dst/Makefile.dist	2004-12-24 13:47:19.036913364 +0000
+@@ -31,6 +31,10 @@
+ all:	libdst.a
+ 
+ install:
++	mkdir -p $(DESTDIR)$(LIBDIR)
++	$(INSTALL) libdst.a $(DESTDIR)$(LIBDIR)
++	$(CHMOD) 644 $(DESTDIR)$(LIBDIR)/libdst.a
++
+ 
+ libdst.a:	$(OBJ)
+    rm -f dst.a
+

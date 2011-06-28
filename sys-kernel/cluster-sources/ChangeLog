@@ -1,0 +1,7 @@
+# ChangeLog for sys-kernel/cluster-sources
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Fixed herd entry in metadata.xml
+

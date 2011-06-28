@@ -2,15 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="4"
 
-LIBTOOLIZE="true"
 TEST_PV="4.0.4"
 
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="master"
 
-inherit bash-completion cmake-utils eutils git multilib toolchain-funcs
+inherit bash-completion cmake-utils eutils fortran-2 git-2 multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -20,9 +19,11 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
-mpi +single-precision sse sse2 test +threads xml zsh-completion"
+mpi +single-precision sse2 test +threads xml zsh-completion"
+REQUIRED_USE="fkernels? ( !threads )"
 
-DEPEND="
+CDEPEND="
+	fkernels? ( virtual/fortran )
 	X? (
 		x11-libs/libX11
 		x11-libs/libSM
@@ -34,15 +35,17 @@ DEPEND="
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
 	xml? ( dev-libs/libxml2:2 )"
-RDEPEND="${DEPEND}
+DEPEND="${CDEPEND}
+	dev-util/pkgconfig"
+RDEPEND="${CDEPEND}
 	app-shells/tcsh"
 PDEPEND="doc? ( app-doc/gromacs-manual )"
 
 RESTRICT="test"
 
-#gromacs has gnu exec stacks for speedup
-QA_EXECSTACK="usr/lib/libgmx.so.*
-	usr/lib/libgmx_d.so.*"
+pkg_setup() {
+	use fkernels && fortran-2_pkg_setup
+}
 
 src_prepare() {
 	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
@@ -88,10 +91,8 @@ src_configure() {
 
 	#note for gentoo-PREFIX on apple: use --enable-apple-64bit
 
-	#fortran will gone in gromacs 5.0 anyway
 	#note for gentoo-PREFIX on aix, fortran (xlf) is still much faster
 	if use fkernels; then
-		use threads && eerror "You cannot compile fortran kernel with threads"
 		ewarn "Fortran kernels are usually not faster than C kernels and assembly"
 		ewarn "I hope, you know what are you doing..."
 	fi
@@ -117,11 +118,12 @@ src_configure() {
 		elog "libmd with and without mpi support."
 	fi
 
-	#go from slowest to faster acceleration
-	local acce_pre="none"
-	use fkernels && acce_pre="fortran"
-	use altivec && acce_pre="altivec"
-	use ia64 && acce_pre="ia64"
+	#go from slowest to fasterest acceleration
+	local acce="none"
+	use fkernels && acce="fortran"
+	use altivec && acce="altivec"
+	use ia64 && acce="ia64"
+	use sse2 && acce="sse"
 
 	mycmakeargs_pre+=(
 		$(cmake-utils_use X GMX_X11)
@@ -131,25 +133,23 @@ src_configure() {
 		$(cmake-utils_use threads GMX_THREADS)
 		$(cmake-utils_use xml GMX_XML)
 		-DGMX_DEFAULT_SUFFIX=off
+		-DGMX_ACCELERATION="$acce"
 	)
 
 	for x in ${GMX_DIRS}; do
 		einfo "Configuring for ${x} precision"
-		local suffix="" acce="$acce_pre"
+		local suffix=""
 		#if we build single and double - double is suffixed
 		use double-precision && use single-precision && \
 			[ "${x}" = "double" ] && suffix="_d"
-		#double uses sse2, single sse
-		[ "${x}" = "float" ] && use sse && acce="sse"
-		[ "${x}" = "double" ] && use sse2 && acce="sse"
 		local p
 		[ "${x}" = "double" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF -DGMX_ACCELERATION="$acce"
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON -DGMX_ACCELERATION="$acce"
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" cmake-utils_src_configure
 	done

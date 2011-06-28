@@ -1,6 +1,9 @@
 # ChangeLog for dev-util/smartgit
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Fixed herd entry in metadata.xml
 
 *smartgit-1.0.2 (10 Jan 2010)
 

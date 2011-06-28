@@ -1,6 +1,21 @@
 # ChangeLog for sci-chemistry/pymol
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  02 Jun 2011; Justin Lecher <jlec@gentoo.org> +files/9999-web.patch,
+  pymol-9999.ebuild, metadata.xml:
+  Fix collision with dev-python/webpy, #368947
+
+  02 Jun 2011; Justin Lecher <jlec@gentoo.org> +files/9999-web.patch,
+  pymol-9999.ebuild:
+  Fix collision with dev-python/webpy, #368947
+
+  28 Apr 2011; Justin Lecher <jlec@gentoo.org> files/pymol-9999-shaders.patch:
+  Fixed patches for current HEAD
+
+  04 Apr 2011; Justin Lecher <jlec@gentoo.org> +files/9999-vmd.patch,
+  pymol-9999.ebuild, files/pymol-9999-shaders.patch, metadata.xml:
+  Fix to latest head
 
   12 Nov 2010; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
   Synchonized with tree ebuild

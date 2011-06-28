@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils versionator toolchain-funcs
+inherit eutils toolchain-funcs versionator
 
 Sing_PV=$(replace_all_version_separators -)
 Sing_DIR=$(get_version_component_range 1-3 ${MY_PV})

@@ -5,4 +5,7 @@
 <maintainer>
   <email>sci@gentoo.org</email>
 </maintainer>
+<use>
+	<flag name='external'>Enable external locking</flag>
+</use>
 </pkgmetadata>

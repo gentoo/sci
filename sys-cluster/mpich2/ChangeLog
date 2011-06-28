@@ -2,6 +2,32 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  21 Jun 2011; Justin Lecher <jlec@gentoo.org> mpich2-1.2.1_p1-r2.ebuild,
+  mpich2-1.4_rc2-r1.ebuild:
+  Added fortran-2.eclass support
+
+*mpich2-1.4_rc2-r1 (12 Jun 2011)
+
+  12 Jun 2011; Justin Bronder <jsbronder@gentoo.org> -mpich2-1.4_rc2.ebuild,
+  +mpich2-1.4_rc2-r1.ebuild, +files/fix-pkg-config-files.patch:
+  Fix pkg-config files, #369263
+
+  10 May 2011; Justin Bronder <jsbronder@gentoo.org> mpich2-1.4_rc2.ebuild:
+  Correct fix for #293665
+
+  05 May 2011; Justin Bronder <jsbronder@gentoo.org> mpich2-1.4_rc2.ebuild:
+  Re-enable some tests
+
+  04 May 2011; Justin Bronder <jsbronder@gentoo.org> mpich2-1.4_rc2.ebuild:
+  Sync with main tree. Add ~hppa, fix comments, fix #293665 fix.
+
+*mpich2-1.4_rc2 (02 May 2011)
+
+  02 May 2011; Justin Bronder <jsbronder@gentoo.org> -mpich2-1.3.ebuild,
+  +mpich2-1.4_rc2.ebuild:
+  Version bump. Use system hwloc. Switch to hydra instead of mpd for
+  pm. Disable more tests as suggested by upstream. #362655.
+
   22 Mar 2011; Justin Bronder <jsbronder@gentoo.org> mpich2-1.2.1_p1-r2.ebuild:
   Use MPI_UNCLASSED_DEP_STR over MPI_UNCLASSED_BLOCKERS
 

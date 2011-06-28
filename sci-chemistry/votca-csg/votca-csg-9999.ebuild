@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=3
 
-inherit cmake-utils bash-completion
+inherit bash-completion cmake-utils
 
 MANUAL_PV=1.1
 if [ "${PV}" != "9999" ]; then
@@ -15,6 +15,7 @@ else
 	SRC_URI=""
 	inherit mercurial
 	EHG_REPO_URI="https://csg.votca.googlecode.com/hg"
+	EHG_REVISION="default"
 	S="${WORKDIR}/${EHG_REPO_URI##*/}"
 	PDEPEND="doc? ( =app-doc/votca-csg-manual-${PV} )"
 fi
@@ -25,10 +26,10 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="doc +gromacs"
+IUSE="-boost doc +gromacs"
 
-RDEPEND="=sci-libs/votca-tools-${PV}
-	gromacs? ( >=sci-chemistry/gromacs-4.0.7-r5 )
+RDEPEND="=sci-libs/votca-tools-${PV}[boost=]
+	gromacs? ( sci-chemistry/gromacs )
 	dev-lang/perl
 	app-shells/bash"
 
@@ -43,7 +44,12 @@ src_configure() {
 	use gromacs && has_version =sci-chemistry/gromacs-9999 && \
 		extra="-DWITH_GMX_DEVEL=ON"
 
-	mycmakeargs=( $(cmake-utils_use_with gromacs GMX) ${extra} -DWITH_RC_FILES=OFF )
+	mycmakeargs=(
+		$(cmake-utils_use boost EXTERNAL_BOOST)
+		$(cmake-utils_use_with gromacs GMX)
+		${extra}
+		-DWITH_RC_FILES=OFF
+	)
 	cmake-utils_src_configure || die
 }
 

@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=3
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
@@ -13,7 +13,7 @@ inherit distutils
 MY_PN=${PN//_/.}
 MY_P=${P//_/.}
 
-DESCRIPTION="SQL handler for Pydap server that allows serving data from SQL databases."
+DESCRIPTION="SQL handler for Pydap server that allows serving data from SQL databases"
 HOMEPAGE="http://pydap.org/handlers.html#cdms"
 SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
@@ -23,11 +23,12 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-python/setuptools-0.6_rc3"
-RDEPEND=">=sci-geosciences/pydap-3.0_rc8
+RDEPEND="
+	>=sci-geosciences/pydap-3.0_rc8
 	>=sci-geosciences/cdat-lite-5.2
 	>=dev-python/arrayterator-1.0.1
-	postgresql? ( >=dev-python/psycopg-2 )
-	mysql? ( >=dev-python/mysql-python-1.2.3_rc1 )"
+	>=dev-python/psycopg-2
+	>=dev-python/mysql-python-1.2.3_rc1"
 
 	# When cx_oracle is available...
 	# oracle? >=dev-python/cx_oracle

@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=4
 
-inherit eutils base
+inherit base eutils
 
-DESCRIPTION="Bist, the chemical drawing tool"
-HOMEPAGE="http://www.autistici.org/interzona/index.php?mod=03_Bist"
+DESCRIPTION="Chemical drawing tool"
+HOMEPAGE="http://www.autistici.org/interzona/index.php?mod=03_Bist/"
 SRC_URI="http://www.autistici.org/interzona/ftrack.php?url=sections/06_Download/${P}.tar.gz"
 
 LICENSE="GPL-3"
@@ -15,13 +15,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="net-misc/curl
+RDEPEND="
+	media-libs/plotutils
+	net-misc/curl
 	dev-libs/expat
-	>=x11-libs/fltk-1.1.7:1.1
+	sci-chemistry/openbabel
 	sci-libs/gsl
-	>=sci-chemistry/openbabel-2.2.0
-	>=media-libs/plotutils-2.5"
-
+	x11-libs/fltk:1"
 DEPEND="${RDEPEND}"
 
 src_prepare() {

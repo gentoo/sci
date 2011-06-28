@@ -2,18 +2,21 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=4
 
-inherit toolchain-funcs eutils
+inherit eutils fortran-2 toolchain-funcs
 
-DESCRIPTION="A suite of programs for carrying out complete molecular mechanics investigations"
+DESCRIPTION="A suite for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"
-SRC_URI="AmberTools-${PV}.tar.bz2"
+SRC_URI="
+	AmberTools-${PV}.tar.bz2
+	mirror://gentoo/${P}-bugfix_1-18.patch.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="mpi openmp X"
+
 RESTRICT="fetch"
 
 RDEPEND="
@@ -23,7 +26,8 @@ RDEPEND="
 	sci-libs/cifparse-obj
 	sci-chemistry/mopac7
 	sci-libs/netcdf
-	sci-chemistry/reduce"
+	sci-chemistry/reduce
+	virtual/fortran"
 DEPEND="${RDEPEND}
 	dev-util/byacc
 	dev-libs/libf2c
@@ -36,21 +40,18 @@ pkg_nofetch() {
 }
 
 pkg_setup() {
-	if use openmp &&
-	[[ $(tc-getCC)$ == *gcc* ]] &&
-		( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] ||
-		! has_version sys-devel/gcc[openmp] )
-	then
-		ewarn "You are using gcc and OpenMP is only available with gcc >= 4.2 "
-		ewarn "If you want to build ${PN} with OpenMP, abort now,"
-		ewarn "and switch CC to an OpenMP capable compiler"
+	fortran-2_pkg_setup
+	if use openmp; then
+		tc-has-openmp || \
+			die "Please select an openmp capable compiler like gcc[openmp]"
 	fi
 	AMBERHOME="${S}"
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-bugfix_1-18.patch"
-	epatch "${FILESDIR}/${P}-gentoo.patch"
+	epatch \
+		"${WORKDIR}/${P}-bugfix_1-18.patch" \
+		"${FILESDIR}/${P}-gentoo.patch"
 	cd AmberTools/src
 	rm -r arpack blas lapack fftw-2.1.5 c9x-complex cifparse netcdf pnetcdf reduce ucpp-1.3 || die
 }

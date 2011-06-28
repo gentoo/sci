@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,19 +9,16 @@ HOMEPAGE="http://stud4.tuwien.ac.at/~e0225855/finomaton/finomaton.html"
 SRC_URI="http://stud4.tuwien.ac.at/~e0225855/finomaton/${P}.tar.gz"
 
 LICENSE="GPL-2"
-
 SLOT="0"
-
 KEYWORDS="~x86"
-
 IUSE="examples"
 
 # script only
 DEPEND=""
 # tex for metapost
-RDEPEND="dev-texlive/texlive-metapost
-	>=dev-lang/tcl-8.3
-	>=dev-lang/tk-8.3"
+RDEPEND="
+	dev-lang/tk
+	dev-texlive/texlive-metapost"
 
 src_install() {
 	dobin finomaton.tcl

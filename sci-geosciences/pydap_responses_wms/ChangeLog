@@ -2,6 +2,12 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pydap_responses_wms-0.4.6 (22 Nov 2010)
+
+  22 Nov 2010; Tim Cera <timcera@earthlink.net>
+  -pydap_responses_wms-0.4.5.ebuild, +pydap_responses_wms-0.4.6.ebuild:
+  Version bump.
+
 *pydap_responses_wms-0.4.5 (09 Aug 2010)
 
   09 Aug 2010; Tim Cera <timcera@earthlink.net>

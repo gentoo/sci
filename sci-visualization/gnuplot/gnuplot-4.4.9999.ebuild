@@ -4,16 +4,24 @@
 
 EAPI=3
 
-inherit autotools cvs elisp-common multilib wxwidgets
+inherit elisp-common multilib wxwidgets
 
 DESCRIPTION="Command-line driven interactive plotting program"
 HOMEPAGE="http://www.gnuplot.info/"
 
-ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot"
-ECVS_MODULE="gnuplot"
-ECVS_BRANCH="branch-4-4-stable"
-ECVS_USER="anonymous"
-ECVS_CVS_OPTIONS="-dP"
+if [[ -z ${PV%%*9999} ]]; then
+	inherit autotools cvs
+	ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot"
+	ECVS_MODULE="gnuplot"
+	ECVS_BRANCH="branch-4-4-stable"
+	ECVS_USER="anonymous"
+	ECVS_CVS_OPTIONS="-dP"
+	MY_P="${PN}"
+	SRC_URI=""
+else
+	MY_P="${P/_/-}"
+	SRC_URI="mirror://sourceforge/gnuplot/${MY_P}.tar.gz"
+fi
 
 LICENSE="gnuplot GPL-2"
 SLOT="0"
@@ -38,33 +46,35 @@ RDEPEND="!app-emacs/gnuplot-mode
 	wxwidgets? ( x11-libs/wxGTK:2.8[X]
 		x11-libs/cairo
 		x11-libs/pango
-		>=x11-libs/gtk+-2.8:2 )
+		x11-libs/gtk+:2 )
 	X? ( x11-libs/libXaw )
 	xemacs? ( app-editors/xemacs
-		app-xemacs/xemacs-base
-		app-xemacs/texinfo )"
+		app-xemacs/xemacs-base )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	doc? ( virtual/latex-base
-		app-text/ghostscript-gpl )"
+		app-text/ghostscript-gpl )
+	!emacs? ( xemacs? ( app-xemacs/texinfo ) )
+	!emacs? ( !xemacs? ( || ( virtual/emacs app-xemacs/texinfo ) ) )"
 
-S="${WORKDIR}/${PN}"
+S="${WORKDIR}/${MY_P}"
 GP_VERSION="${PV%.*}"
 E_SITEFILE="50${PN}-gentoo.el"
 TEXMF="${EPREFIX}/usr/share/texmf-site"
 
 src_prepare() {
-	local dir
-	for dir in config demo m4 term tutorial; do
-		emake -C "$dir" -f Makefile.am.in Makefile.am || \
-			die "make -f Makefile.am.in Makefile.am in $dir failed"
-	done
+	if [[ -z ${PV%%*9999} ]]; then
+		local dir
+		for dir in config demo m4 term tutorial; do
+			emake -C "$dir" -f Makefile.am.in Makefile.am || \
+				die "make -f Makefile.am.in Makefile.am in $dir failed"
+		done
+		eautoreconf
+	fi
 
 	# Add special version identification as required by provision 2
 	# of the gnuplot license
 	sed -i -e "1s/.*/& (Gentoo revision ${PR})/" PATCHLEVEL || die
-
-	eautoreconf
 }
 
 src_configure() {
@@ -96,7 +106,15 @@ src_configure() {
 		&& myconf="${myconf} --with-readline=gnu" \
 		|| myconf="${myconf} --with-readline=builtin"
 
-	econf ${myconf} DIST_CONTACT="http://bugs.gentoo.org/"
+	if has_version virtual/emacs; then
+		emacs="emacs"
+	elif has_version app-xemacs/texinfo; then
+		emacs="xemacs"
+	fi
+
+	econf ${myconf} \
+		DIST_CONTACT="http://bugs.gentoo.org/" \
+		EMACS="${emacs}"
 
 	if use xemacs; then
 		einfo "Configuring gnuplot-mode for XEmacs ..."
@@ -121,7 +139,7 @@ src_compile() {
 	# example plots.
 	addwrite /dev/svga:/dev/mouse:/dev/tts/0
 
-	emake || die
+	emake all info || die
 
 	if use xemacs; then
 		cd "${S}/lisp-xemacs"
@@ -202,7 +220,12 @@ pkg_postinst() {
 	use emacs && elisp-site-regen
 	use latex && texmf-update
 
+	einfo "Gnuplot no longer links against pdflib, see the ChangeLog for"
+	einfo "details. You can use the \"pdfcairo\" terminal for PDF output."
+	use cairo || einfo "It is available with USE=\"cairo\"."
+
 	if use svga; then
+		echo
 		einfo "In order to enable ordinary users to use SVGA console graphics"
 		einfo "gnuplot needs to be set up as setuid root.  Please note that"
 		einfo "this is usually considered to be a security hazard."

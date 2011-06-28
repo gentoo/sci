@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils multilib toolchain-funcs autotools
+inherit autotools eutils multilib toolchain-funcs
 
 DESCRIPTION="a program that will automatically determine values of the anomalous scattering factors"
 HOMEPAGE="http://www.gwyndafevans.co.uk/id2.html"

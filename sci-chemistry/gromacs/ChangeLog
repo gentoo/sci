@@ -2,6 +2,29 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jun 2011; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
+  gromacs-9999.ebuild:
+  migrate to git-2
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> gromacs-4.5.9999.ebuild,
+  gromacs-9999.ebuild, metadata.xml:
+  migrate from 'git' to 'git-2'
+
+  21 Jun 2011; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
+  gromacs-9999.ebuild:
+  only USE=fkernels needs fortran
+
+  21 Jun 2011; Justin Lecher <jlec@gentoo.org> gromacs-4.5.9999.ebuild,
+  gromacs-9999.ebuild:
+  Added fortran-2.eclass support
+
+  19 Jun 2011; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
+  metadata.xml:
+  autotools is broken
+
+  10 Apr 2011; Christoph Junghans <ottxor@gentoo.org> -gromacs-4.0.9999.ebuild:
+  remove 4.0.* (EOM)
+
   08 Mar 2011; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
   gromacs-9999.ebuild:
   added fixes from 4.5.3-r4

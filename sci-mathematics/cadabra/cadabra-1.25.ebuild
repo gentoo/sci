@@ -26,7 +26,7 @@ DEPEND="
 	X? (
 		x11-libs/gtk+:2
 		dev-cpp/gtkmm:2.4
-		dev-cpp/pangomm:2.4
+		dev-cpp/pangomm:1.4
 		app-text/dvipng )
 	doc? ( || ( app-text/texlive-core dev-tex/pdftex ) )"
 RDEPEND="${DEPEND}

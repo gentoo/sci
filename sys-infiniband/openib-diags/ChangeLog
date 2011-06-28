@@ -1,6 +1,11 @@
 # ChangeLog for sys-infiniband/openib-diags
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org>
+  openib-diags-1.4.4_p20081207.ebuild, openib-diags-1.4.4_p20090314.ebuild,
+  metadata.xml:
+  Cleaned ebuild
 
 *openib-diags-1.4.4_p20090314 (20 Aug 2009)
 

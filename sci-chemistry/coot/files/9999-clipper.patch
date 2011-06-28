@@ -1,9 +1,0 @@
-Index: lidia-core/Makefile.am
-===================================================================
---- lidia-core/Makefile.am	(revision 3299)
-+++ lidia-core/Makefile.am	(working copy)
-@@ -23,3 +23,4 @@
- 
- libcoot_lidia_core_la_SOURCES = lbg-molfile.cc lig-build.cc
- 
-+libcoot_lidia_core_la_LIBADD = $(CLIPPER_LIBS)

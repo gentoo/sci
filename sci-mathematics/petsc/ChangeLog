@@ -2,6 +2,17 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  21 Jun 2011; Justin Lecher <jlec@gentoo.org> petsc-3.1_p4.ebuild,
+  petsc-3.1_p5-r2.ebuild, petsc-3.1_p7.ebuild, petsc-3.1_p8.ebuild,
+  petsc-3.1_p8-r1.ebuild, metadata.xml:
+  Added fortran-2.eclass support
+
+*petsc-3.1_p8-r1 (19 Apr 2011)
+
+  19 Apr 2011; Thomas Kahle <tomka@gentoo.org> +petsc-3.1_p8-r1.ebuild:
+  various improvements to install locations and IUSE=complex scalars
+  patch by Joshua Rich
+
 *petsc-3.1_p8 (19 Mar 2011)
 
   19 Mar 2011; Jens-Malte Gottfried <jmgottfried@web.de>

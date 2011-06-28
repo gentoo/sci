@@ -1,5 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI=3
 
@@ -12,12 +13,12 @@ DIRV="${PV/%[0-9]/X}"
 DESCRIPTION="A library designed to allow the easy use of XML from Fortran"
 HOMEPAGE="http://www1.gly.bris.ac.uk/~walker/FoX/"
 SRC_URI="http://www1.gly.bris.ac.uk/~walker/FoX/source/${MY_PN}-${DIRV}/${MY_P}-full.tar.gz"
+
 LICENSE="BSD ZLIB"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc dom fast sax wcml wxml"
-RDEPEND=""
-DEPEND="${RDEPEND}"
+
 S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
@@ -49,7 +50,7 @@ src_install() {
 		-e's%comp_prefix/finclude%comp_prefix/lib/finclude%' \
 		FoX-config
 	emake -j1 DESTDIR="${D}" install || die "make install failed"
-	dodoc README.FoX.txt Changelog LICENSE || die "dodoc failed"
+	dodoc README.FoX.txt Changelog || die "dodoc failed"
 	if use doc; then
 		dohtml -r DoX/ || die "installing the HTML docs failed"
 	fi

@@ -1,0 +1,18 @@
+# ChangeLog for dev-lang/icc
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*icc-12.0.4.191 (28 May 2011)
+
+  28 May 2011; Justin Lecher <jlec@gentoo.org> +icc-12.0.4.191.ebuild:
+  Version Bump
+
+*icc-12.0.2.137 (23 Feb 2011)
+
+  23 Feb 2011; Sébastien Fabbro <bicatali@gentoo.org> +icc-12.0.2.137.ebuild:
+  Bump
+
+  03 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org> icc-12.0.0.084.ebuild,
+  +metadata.xml:
+  Version bump and with newly factored ebuilds
+

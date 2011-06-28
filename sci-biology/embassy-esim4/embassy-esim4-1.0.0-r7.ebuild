@@ -8,4 +8,4 @@ EBO_DESCRIPTION="sim4 - Alignment of cDNA and genomic DNA"
 
 inherit emboss
 
-KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux ~ppc-macos"
+KEYWORDS="~amd64 ~x86 ~x86-linux ~ppc-macos"

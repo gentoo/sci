@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ SUPPORT_PYTHON_ABIS=1
 RESTRICT_PYTHON_ABIS="2.4 3.*"
 DISTUTILS_USE_SEPARATE_SOURCE_DIRECTORIES=1
 
-inherit distutils
+inherit distutils eutils python
 
 DESCRIPTION="A Python Package for Convex Optimization"
 HOMEPAGE="http://abel.ee.ucla.edu/cvxopt"
@@ -32,6 +32,24 @@ RDEPEND="${DEPEND}"
 S=${WORKDIR}/${P}/src
 
 src_prepare(){
+	epatch "${FILESDIR}/${PN}"-1.1.3-blas.patch
+
+	BLAS=\'$(pkg-config --libs-only-l blas | sed \
+		-e 's/^-l//' \
+		-e "s/ -l/\',\'/g" \
+		-e 's/,.pthread//g' \
+		-e "s:  ::")\'
+	LAPACK=\'$(pkg-config --libs-only-l lapack | sed \
+		-e 's/^-l//' \
+		-e "s/ -l/\',\'/g" \
+		-e 's/,.pthread//g' \
+		-e "s:  ::")\'
+
+	sed -i \
+		-e "s:@GENTOO_BLAS:${BLAS}:" \
+		-e "s:@GENTOO_LAPACK:${LAPACK}:" \
+		setup.py
+
 	distutils_src_prepare
 
 	prepare_builddir() {

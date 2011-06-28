@@ -6,11 +6,12 @@ EAPI=2
 
 PYTHON_DEPEND="2:2.5"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils python
 
 DESCRIPTION="A collection of Python libraries for simulating the Sun's irradiation"
-HOMEPAGE="http://pysolar.org/ http://pypi.python.org/pypi/Pysolar"
+HOMEPAGE="http://pysolar.org/ http://pypi.python.org/pypi/Pysolar/"
 SRC_URI="http://github.com/pingswept/${PN}/tarball/${PV} -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
@@ -33,10 +34,9 @@ PYTHON_MODNAME="constants.py horizon.py julian.py \
 	poly.py query_usno.py radiation.py shade.py \
 	simulate.py solar.py util.py"
 
-RESTRICT_PYTHON_ABIS="3.*"
-
 src_prepare() {
-	sed -e "s:'testsolar', ::" \
+	sed \
+		-e "s:'testsolar', ::" \
 		-e "s:'shade_test', ::" \
 		-i setup.py || die
 }

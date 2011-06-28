@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,7 +15,8 @@ KEYWORDS="x86"
 
 IUSE="doc examples"
 
-DEPEND="x11-libs/fltk:1.1
+DEPEND="
+	x11-libs/fltk:1
 	media-libs/libpng"
 RDEPEND="${DEPEND}
 	app-text/htmldoc"

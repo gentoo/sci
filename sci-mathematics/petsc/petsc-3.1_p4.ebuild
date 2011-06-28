@@ -1,10 +1,10 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=3
 
-inherit flag-o-matic toolchain-funcs
+inherit flag-o-matic fortran-2 toolchain-funcs
 
 MY_P="${PN}-${PV/_/-}"
 
@@ -15,7 +15,7 @@ SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
 LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="mpi X cxx debug static-libs fortran doc"
+IUSE="cxx debug doc fortran mpi static-libs X"
 
 RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )

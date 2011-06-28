@@ -1,0 +1,36 @@
+# ChangeLog for dev-libs/intel-common
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*intel-common-12.0.4.191 (28 May 2011)
+
+  28 May 2011; Justin Lecher <jlec@gentoo.org> +intel-common-12.0.4.191.ebuild:
+  Version Bump
+
+  28 May 2011; Justin Lecher <jlec@gentoo.org> intel-common-12.0.2.137.ebuild:
+  Sandbox fix
+
+  19 May 2011; Justin Lecher <jlec@gentoo.org> intel-common-12.0.2.137.ebuild:
+  Correct for double prfix
+
+  19 May 2011; Justin Lecher <jlec@gentoo.org> intel-common-12.0.2.137.ebuild:
+  Fix license dir to /opt/intel/composerxe-2011.2.137/licenses/
+
+  19 May 2011; Justin Lecher <jlec@gentoo.org> intel-common-12.0.2.137.ebuild:
+  Add missing path to LDPATH, #367959
+
+  31 Mar 2011; Justin Lecher <jlec@gentoo.org> intel-common-12.0.2.137.ebuild:
+  Corrected env.d files creation
+
+*intel-common-12.0.2.137 (23 Feb 2011)
+
+  23 Feb 2011; Sébastien Fabbro <bicatali@gentoo.org>
+  +intel-common-12.0.2.137.ebuild:
+  Bump
+
+*intel-common-12.0.0.084 (03 Dec 2010)
+
+  03 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  +intel-common-12.0.0.084.ebuild, +metadata.xml:
+  Initial import
+

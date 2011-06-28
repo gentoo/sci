@@ -1,6 +1,14 @@
 # ChangeLog for sci-misc/simpy
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  13 Apr 2011; Justin Lecher <jlec@gentoo.org> simpy-2.1.0.ebuild:
+  Fix ups
+
+*simpy-2.1.0 (13 Apr 2011)
+
+  13 Apr 2011; Justin Lecher <jlec@gentoo.org> +simpy-2.1.0.ebuild:
+  Version Bump
 
   29 Jun 2010; Justin Lecher <jlec@gentoo.org> simpy-2.0.1.ebuild:
   Python ABI fixes

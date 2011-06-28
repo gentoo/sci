@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit versionator eutils
+inherit eutils versionator
 
 MY_PV=$(delete_all_version_separators "${PV}" )
 

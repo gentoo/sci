@@ -5,7 +5,7 @@
 EAPI=1
 WEBAPP_OPTIONAL="yes"
 
-inherit eutils webapp java-pkg-2 java-ant-2
+inherit eutils java-pkg-2 java-ant-2 webapp
 
 MY_P=Jmol
 

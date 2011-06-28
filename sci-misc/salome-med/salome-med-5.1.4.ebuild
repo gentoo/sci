@@ -14,7 +14,7 @@ SRC_URI="http://files.opencascade.com/Salome/Salome${PV}/src${PV}.tar.gz"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
-IUSE="debug doc mpi metis opengl scotch"
+IUSE="debug doc metis mpi opengl scotch"
 
 RDEPEND="
 	>=sci-misc/salome-kernel-${PV}

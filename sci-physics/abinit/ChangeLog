@@ -2,7 +2,31 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> -abinit-6.6.2.ebuild,
+  abinit-6.6.3.ebuild:
+  Dropped ~ppc as many deps aren't keyworded
+
+  21 Jun 2011; Justin Lecher <jlec@gentoo.org> abinit-6.6.2.ebuild,
+  abinit-6.6.3.ebuild:
+  Added fortran-2.eclass support
+
+*abinit-6.6.3 (10 May 2011)
+
+  11 May 2011; Dongxu Li <dongxuli2011@gmail.com> abinit-6.6.3.ebuild abinit-6.6.2.ebuild:
+  --with-fft-flavor=fftw3-threads still not accepted by configure, removed for the time being. arch="ppc" still causes DEPEND.bad
+
+  10 May 2011; Honza Macháček <Hloupy.Honza@centrum.cz> +abinit-6.6.3.ebuild:
+  Another quick version bump. Minor cleanup, smp removed until usable. Bizzare
+  6.6.2 ebuild mostly ignored, but not deleted until discussed. In the list?
+
 *abinit-6.6.1 (07 Mar 2011)
+
+  26 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> +abinit-6.6.2.ebuild +metadata.xml:
+  Version bump to 6.6.2. Cleaned up old versions for numerous quality control issues.
+
+  09 Apr 2011; Dongxu Li <dongxuli2011@gmail.com>
+  abinit-6.6.1.ebuild:
+  Simple fix of a building issue due to FFTW. Disabled fftw-threads.
 
   07 Mar 2011; Honza Macháček <Hloupy.Honza@centrum.cz>
   +files/6.6.1-openmp.patch, +abinit-6.6.1.ebuild:

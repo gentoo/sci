@@ -2,12 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=4
 
 EGIT_REPO_URI="git://github.com/olenz/NullMPI.git"
 EGIT_BRANCH="master"
+EGIT_BOOTSTRAP="eautoreconf"
 
-inherit autotools-utils git
+inherit autotools-utils git-2
 
 DESCRIPTION="MPI substitute library"
 HOMEPAGE="http://wissrech.ins.uni-bonn.de/research/projects/nullmpi/"
@@ -18,18 +19,12 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="static-libs"
 
-RDEPEND="!sys-cluster/mpich
+RDEPEND="
 	!sys-cluster/lam-mpi
+	!sys-cluster/mpich
 	!sys-cluster/mpich2
 	!sys-cluster/mpiexec"
 
 DEPEND="${RDEPEND}"
 
-DOCS=( AUTHORS ChangeLog README TODO )
-
-S="${WORKDIR}/${EGIT_REPO_URI##*/}"
-
-src_prepare() {
-	autotools-utils_src_prepare
-	eautoreconf || die "eautoreconf failed"
-}
+DOCS=( AUTHORS NEWS README TODO )

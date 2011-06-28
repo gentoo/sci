@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+	<herd>sci</herd>
+	<longdescription lang="en">
 G-CRAN helps package managers install R packages. It reads CRAN-style
 repositories and translates it into something most package managers
 can work with.

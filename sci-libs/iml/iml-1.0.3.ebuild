@@ -4,7 +4,7 @@
 
 EAPI=2
 
-inherit eutils autotools
+inherit autotools eutils
 
 DESCRIPTION="Integer Matrix Library"
 HOMEPAGE="http://www.cs.uwaterloo.ca/~astorjoh/iml.html"

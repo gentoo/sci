@@ -1,6 +1,15 @@
 # ChangeLog for sci-misc/foma
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> -foma-0.9.1_alpha.ebuild,
+  -foma-0.9.4_alpha.ebuild, foma-0.9.14_alpha.ebuild, metadata.xml:
+  Cleaned ebuild
+
+*foma-0.9.14_alpha (09 May 2011)
+
+  09 May 2011; <flammie@gentoo.org> +foma-0.9.14_alpha.ebuild:
+  Version bump
 
 *foma-0.9.4_alpha (16 Jan 2009)
 

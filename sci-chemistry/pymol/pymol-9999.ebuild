@@ -1,6 +1,6 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/pymol/pymol-1.2.3-r1.ebuild,v 1.3 2010/03/23 13:54:53 fauli Exp $
+# $Header: $
 
 EAPI="3"
 
@@ -10,38 +10,42 @@ RESTRICT_PYTHON_ABIS="2.4 2.5 3.*"
 PYTHON_USE_WITH="tk"
 PYTHON_MODNAME="${PN} chempy pmg_tk pmg_wx"
 
-
-inherit eutils distutils prefix subversion
-
-ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
+inherit distutils eutils prefix subversion versionator
 
 DESCRIPTION="A Python-extensible molecular graphics system."
 HOMEPAGE="http://pymol.sourceforge.net/"
 SRC_URI=""
+ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
 
 LICENSE="PSF-2.2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
-IUSE="apbs numpy shaders vmd"
+IUSE="apbs numpy vmd web"
 
 DEPEND="
-		dev-python/numpy
-		dev-python/pmw
-		media-libs/freetype:2
-		media-libs/libpng
-		media-video/mpeg-tools
-		sys-libs/zlib
-		media-libs/freeglut
-		apbs? (
-			dev-libs/maloc
-			sci-chemistry/apbs
-			sci-chemistry/pdb2pqr
-			sci-chemistry/pymol-apbs-plugin
-		)"
+	dev-python/numpy
+	dev-python/pmw
+	media-libs/freetype:2
+	media-libs/glew
+	media-libs/libpng
+	media-video/mpeg-tools
+	sys-libs/zlib
+	media-libs/freeglut
+	apbs? (
+		dev-libs/maloc
+		sci-chemistry/apbs
+		sci-chemistry/pdb2pqr
+		sci-chemistry/pymol-apbs-plugin
+	)
+	web? ( !dev-python/webpy )"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-data-path.patch
+	epatch \
+		"${FILESDIR}"/${P}-data-path.patch \
+		"${FILESDIR}"/${P}-shaders.patch
+
+	use web || epatch "${FILESDIR}"/${PV}-web.patch
 
 	epatch "${FILESDIR}"/${P}-prefix.patch && \
 	eprefixify setup.py
@@ -55,9 +59,7 @@ src_prepare() {
 		-e "s:\(ext_comp_args=\).*:\1[]:g" \
 		"${S}"/setup.py || die "Failed running sed on setup.py"
 
-	use shaders && epatch "${FILESDIR}"/${PN}-1.2.2-shaders.patch
-
-	use vmd && epatch "${FILESDIR}"/1.3.0-vmd.patch
+	use vmd && epatch "${FILESDIR}"/${PV}-vmd.patch
 
 	use numpy && \
 		sed \

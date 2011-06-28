@@ -3,15 +3,16 @@
 # $Header: $
 
 EAPI=4
-inherit base autotools eutils toolchain-funcs
+
+inherit autotools base eutils fortran-2 toolchain-funcs
 
 DESCRIPTION="MoM 2.5 D stripline simulator"
-SRC_URI="mirror://sourceforge/mmtl/${P}.tar.gz"
 HOMEPAGE="http://mmtl.sourceforge.net/"
-LICENSE="BSD GPL-2"
-KEYWORDS="~amd64 ~ppc ~x86"
+SRC_URI="mirror://sourceforge/mmtl/${P}.tar.gz"
 
 SLOT="0"
+LICENSE="BSD GPL-2"
+KEYWORDS="~amd64 ~ppc ~x86"
 IUSE="doc"
 
 RDEPEND="
@@ -19,13 +20,11 @@ RDEPEND="
 	dev-tcltk/tcllib
 	dev-tcltk/itcl
 	dev-tcltk/bwidget
-	sys-devel/gcc[fortran]
-"
+	virtual/fortran"
 DEPEND="${RDEPEND}
 	dev-texlive/texlive-latex
 	dev-tex/latex2html
-	media-gfx/imagemagick
-"
+	media-gfx/imagemagick"
 
 PATCHES=( "${FILESDIR}/${P}"-{calc,bem-nmmtl,namespaces,f77,tkcon,docs,gui}.patch )
 
@@ -40,21 +39,19 @@ src_prepare() {
 }
 
 src_install () {
-	emake DESTDIR="${D}" install || die "make install failed"
-
-	dodoc AUTHORS ChangeLog NEWS README THANKS || die
+	default
 
 	# tcl cannot handle the archives created by dodoc
 	dohtml COPYING || die
 	if use doc; then
-				dodoc doc/*.pdf doc/*.png || die
-				dohtml doc/user-guide/* || die
+				dodoc doc/*.pdf doc/*.png
+				dohtml doc/user-guide/*
 	fi
 
 	# Install icon
 	convert gui/logo.gif gui/tnt.png
 	docinto "examples"
-	dodoc examples/* || die "failed to install exampels"
+	dodoc examples/*
 	newicon gui/tnt.png tnt.png
 	make_desktop_entry ${PN} "tnt" ${PN}
 }

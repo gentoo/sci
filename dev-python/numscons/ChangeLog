@@ -1,6 +1,10 @@
 # ChangeLog for dev-python/numscons
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> numscons-0.10.1.ebuild,
+  metadata.xml:
+  'http://pypi.python.org/packages/source' found in thirdpartymirrors
 
   26 Jun 2010; Justin Lecher <jlec@gentoo.org> numscons-0.10.1.ebuild:
   Python ABI fixes
