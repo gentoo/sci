@@ -16,7 +16,7 @@ KEYWORDS="~amd64"
 IUSE="static-libs"
 
 DEPEND="
-	>=sci-libs/gsl-1.14
+	>=sci-libs/gsl-1.15
 	virtual/fortran"
 RDEPEND="${DEPEND}"
 #TODO: make docs
@@ -24,7 +24,7 @@ RDEPEND="${DEPEND}"
 FORTRAN_STANDARD=90
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-sharedlibs.patch
+	epatch "${FILESDIR}"/${PN}-0.9.3-sharedlibs.patch
 	use amd64 && ln -s interface/integer_ilp64.finc integer.finc
 	use x86 && ln -s interface/integer_ilp32.finc integer.finc
 	cat <<- EOF > "${S}/make.inc"
@@ -41,7 +41,7 @@ src_prepare() {
 }
 
 src_configure() {
-	return
+:
 }
 
 src_install() {
