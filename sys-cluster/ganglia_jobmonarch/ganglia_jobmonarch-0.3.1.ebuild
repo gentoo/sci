@@ -32,6 +32,10 @@ pkg_setup() {
 	webapp_pkg_setup
 }
 
+src_compile() {
+	einfo "Nothing to do"
+}
+
 src_install() {
 	insinto /etc
 	doins "${S}/jobmond/jobmond.conf"
