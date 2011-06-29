@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI="3"
 
 inherit autotools eutils fortran-2 multilib toolchain-funcs
 
@@ -15,8 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="cuda -debug +fftw +fox gsl +hdf5 mpi +netcdf python -test +threads -vdwxc"
 
-RDEPEND="
-	>=sci-libs/bigdft-1.2.0.2
+RDEPEND=">=sci-libs/bigdft-1.2.0.2
 	sci-libs/etsf_io
 	=sci-libs/libxc-1.0[fortran]
 	sci-physics/atompaw[libxc]
@@ -72,8 +71,20 @@ src_configure() {
 	local netcdff_libs="-lnetcdff"
 	use hdf5 && netcdff_libs="${netcdff_libs} -lhdf5_fortran"
 	local fft_flavor="fftw3"
-	#fft_flavor="fftw3-threads" causes a ./configure error
-	local fft_libs="-L/usr/$(get_libdir) $(pkg-config --libs fftw3)"
+	local fft_libs="-L/usr/lib"
+	# Since now, fftw threads support is protected by black magick.
+	# Anybody removes it again, dies.
+	# If it does not work FOR YOU, disable the "threads" USE flag
+	# for the package at YOUR box. If YOU want it disabled selectively
+	# for fftw use in abinit, you may consider adding a special USE flag
+	# for that. NEVER REMOVE AN OPTION FOR OTHERS, at least if there is
+	# anybody it works for.
+	if use threads; then
+		fft_libs="${fft_libs} $(pkg-config --libs fftw3_threads)"
+		fft_flavor="fftw3-threads"
+	else
+		fft_libs="${fft_libs} $(pkg-config --libs fftw3)"
+	fi
 	if use mpi; then
 		MY_FC="mpif90"
 		MY_CC="mpicc"
