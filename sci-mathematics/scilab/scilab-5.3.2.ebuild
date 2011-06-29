@@ -21,7 +21,8 @@ KEYWORDS="~amd64 ~x86"
 # http://wiki.scilab.org/Dependencies_of_Scilab_5.X
 RDEPEND="virtual/lapack
 	tk? ( dev-lang/tk )
-	xcos? ( dev-lang/ocaml )
+	xcos? ( dev-lang/ocaml 
+			dev-java/hdf-java )
 	umfpack? ( sci-libs/umfpack )
 	gui? ( >=virtual/jre-1.5
 		dev-java/commons-logging
