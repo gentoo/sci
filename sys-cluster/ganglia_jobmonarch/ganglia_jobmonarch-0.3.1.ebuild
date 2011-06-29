@@ -32,10 +32,6 @@ pkg_setup() {
 	webapp_pkg_setup
 }
 
-src_prepare() {
-	epatch "${FILESDIR}"/${P}-fix.patch
-}
-
 src_install() {
 	insinto /etc
 	doins "${S}/jobmond/jobmond.conf"
