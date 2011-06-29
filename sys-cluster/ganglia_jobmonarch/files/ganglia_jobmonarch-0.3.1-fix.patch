@@ -1,0 +1,79 @@
+diff -Naur ganglia_jobmonarch-0.3.1/web/addons/job_monarch/host_view.php ganglia_jobmonarch-0.3.1-new/web/addons/job_monarch/host_view.php                   
+--- ganglia_jobmonarch-0.3.1/web/addons/job_monarch/host_view.php       2007-07-06 17:05:08.000000000 +0200                                                  
++++ ganglia_jobmonarch-0.3.1-new/web/addons/job_monarch/host_view.php   2008-04-14 19:47:12.000000000 +0200                                                  
+@@ -73,8 +73,8 @@                                                                                                                                            
+        $trd = new TarchRrdGraph( $clustername, $hostname );                                                                                                 
+        $rrdirs = $trd->getRrdDirs( $period_start, $period_stop );                                                                                           
+                                                                                                                                                             
+-       $longtitle = "Batch Archive Node Report :: Powered by Job Monarch!";                                                                                 
+-       $title = "Batch Archive Node Report";                                                                                                                
++       $longtitle = "Host Node";                                                                                                                            
++       $title = "Host Node";                                                                                                                                
+                                                                                                                                                             
+        makeHeader( 'host_view', $title, $longtitle );                                                                                                       
+                                                                                                                                                             
+diff -Naur ganglia_jobmonarch-0.3.1/web/addons/job_monarch/libtoga.php ganglia_jobmonarch-0.3.1-new/web/addons/job_monarch/libtoga.php                       
+--- ganglia_jobmonarch-0.3.1/web/addons/job_monarch/libtoga.php 2008-02-28 09:33:32.000000000 +0100                                                          
++++ ganglia_jobmonarch-0.3.1-new/web/addons/job_monarch/libtoga.php     2008-04-16 20:09:11.000000000 +0200                                                  
+@@ -1433,7 +1433,7 @@                                                                                                                                        
+                                //                                                                                                                           
+                                $colorblue      = imageColorAllocate( $image, 0, 0, 255 );                                                                   
+                                                                                                                                                             
+-                               imageString( $image, $font, 2, 2, "Monarch Joblist - cluster: ".$this->clustername, $colorblue );                            
++                               imageString( $image, $font, 2, 2, "Joblist - cluster: ".$this->clustername, $colorblue );                                    
+                        }                                                                                                                                    
+                                                                                                                                                             
+                        if( $this->isBig() && ( isset( $SORT_XLABEL ) || isset( $SORT_YLABEL ) ) )                                                           
+@@ -1583,7 +1583,7 @@
+
+                                $colorblue      = imageColorAllocate( $image, 0, 0, 255 );
+
+-                               imageString( $image, $font, 2, 2, "Monarch Joblist - cluster: ".$this->clustername, $colorblue );
++                               imageString( $image, $font, 2, 2, "Joblist - cluster: ".$this->clustername, $colorblue );
+                        }
+
+                        for( $n = 0; $n < $node_rows; $n++ ) {
+@@ -1810,7 +1810,7 @@
+
+                $colorblue      = imageColorAllocate( $this->image, 0, 0, 255 );
+
+-               imageString( $this->image, $this->font, 1, $this->y_offset, "Monarch Joblist - host: ".$this->host, $colorblue );
++               imageString( $this->image, $this->font, 1, $this->y_offset, "Joblist - host: ".$this->host, $colorblue );
+                $this->newLineOffset();
+
+                $this->drawHeader();
+diff -Naur ganglia_jobmonarch-0.3.1/web/addons/job_monarch/search.php ganglia_jobmonarch-0.3.1-new/web/addons/job_monarch/search.php
+--- ganglia_jobmonarch-0.3.1/web/addons/job_monarch/search.php  2007-07-06 17:06:44.000000000 +0200
++++ ganglia_jobmonarch-0.3.1-new/web/addons/job_monarch/search.php      2008-04-14 19:53:38.000000000 +0200
+@@ -261,8 +261,8 @@
+        //printf("start = %s stop = %s\n", $start, $stop );
+        //printf("m %s\n", $metricname );
+
+-       $longtitle = "Batch Archive Search :: Powered by Job Monarch!";
+-       $title = "Batch Archive Search";
++       $longtitle = "Archive Search";
++       $title = "Archive Search";
+
+        makeHeader( 'search', $title, $longtitle );
+
+diff -Naur ganglia_jobmonarch-0.3.1/web/addons/job_monarch/templates/header.tpl ganglia_jobmonarch-0.3.1-new/web/addons/job_monarch/templates/header.tpl
+--- ganglia_jobmonarch-0.3.1/web/addons/job_monarch/templates/header.tpl        2007-04-23 19:17:40.000000000 +0200
++++ ganglia_jobmonarch-0.3.1-new/web/addons/job_monarch/templates/header.tpl    2008-08-06 19:21:50.000000000 +0200
+@@ -1,7 +1,7 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+ <HTML>
+ <HEAD>
+-<TITLE>Ganglia :: {longpage_title}</TITLE>
++<TITLE>Ganglia Batch Report of {longpage_title}</TITLE>
+ <META http-equiv="Content-type" content="text/html; charset=utf-8">
+ <META http-equiv="refresh" content="{refresh}{redirect}" >
+ <LINK rel="stylesheet" href="./styles.css" type="text/css">
+@@ -34,7 +34,7 @@
+   <TR BGCOLOR="#DDDDDD">
+      <TD BGCOLOR="#DDDDDD">
+      <FONT SIZE="+1">
+-     <B>{page_title} for {date}</B>
++     <B>{page_title} @ {date}</B>
+      </FONT>
+      </TD>
+      <TD BGCOLOR="#DDDDDD" ALIGN="RIGHT">
