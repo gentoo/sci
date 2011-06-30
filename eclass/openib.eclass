@@ -7,7 +7,7 @@
 # Purpose:  Simplify working with OFED packages
 #
 
-inherit base eutils rpm
+inherit base eutils rpm versionator
 
 EXPORT_FUNCTIONS src_unpack
 
