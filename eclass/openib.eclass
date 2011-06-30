@@ -27,17 +27,8 @@ SLOT="0"
 SRC_URI="http://www.openfabrics.org/downloads/OFED/ofed-${OFED_VER}/OFED-${OFED_VER}.tgz"
 
 case ${PN} in
-	openib-osm)
-		MY_PN="opensm"
-		;;
-	openib-diags)
-		MY_PN="infiniband-diags"
-		;;
 	openib-files)
 		MY_PN="ofa_kernel"
-		;;
-	openib-perf)
-		MY_PN="perftest"
 		;;
 	*)
 		MY_PN="${PN}"

@@ -1,0 +1,5 @@
+move sys-infiniband/openib-diags sys-infiniband/infiniband-diags
+move sys-infiniband/openib-osm sys-infiniband/opensm
+move sys-infiniband/openib-perf sys-infiniband/perftest
+move sys-infiniband/openib-srptools sys-infiniband/srptools
+move sys-infiniband/openib-mvapich2 sys-cluster/mvapich2
