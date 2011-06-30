@@ -19,8 +19,6 @@ DEPEND="${RDEPEND}
 	x11-libs/qt-assistant:4
 	x11-libs/qt-qt3support:4
 "
-
-
 src_prepare()
 {
 	# patch to solve an issue caused by gcc-4.6, by mickele, archlinux
