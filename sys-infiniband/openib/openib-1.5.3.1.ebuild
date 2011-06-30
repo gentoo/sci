@@ -11,7 +11,7 @@ SRC_URI=""
 SLOT="0"
 LICENSE="|| ( GPL-2 BSD-2 )"
 KEYWORDS="~amd64 ~x86"
-IUSE="+dapl diags ehca ipath mlx4 mthca nes +opensm"
+IUSE="+dapl diags ehca ipath mlx4 mthca nes +opensm srp"
 
 DEPEND="
 	>=sys-infiniband/libibcm-1.0.5
@@ -27,5 +27,6 @@ DEPEND="
 	mlx4? ( >=sys-infiniband/libmlx4-1.0.1 )
 	mthca? ( >=sys-infiniband/libmthca-1.0.5 )
 	nes? ( >=sys-infiniband/libnes-1.1.1 )
+	srp? ( >=sys-infiniband/srptools-0.0.4 )
 	opensm? ( >=sys-infiniband/opensm-3.3.9 )"
 RDEPEND="${DEPEND}"

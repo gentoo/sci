@@ -13,6 +13,7 @@ Meta package for OpenIB.  Infiniband for Linux.  See 'www.openfabrics.org'.
     <flag name="mlx4">Automatically generated description for mlx4</flag>
     <flag name="mthca">Automatically generated description for mthca</flag>
     <flag name="nes">Automatically generated description for nes</flag>
-    <flag name="opensm">Automatically generated description for opensm</flag>
+	<flag name="opensm">Automatically generated description for opensm</flag>
+	<flag name="srp">Add support for srp targets</flag>
   </use>
 </pkgmetadata>
