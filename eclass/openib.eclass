@@ -23,8 +23,9 @@ SLOT="0"
 # @DESCRIPTION:
 # Defines OFED package suffix eg -1.ofed1.4
 
+OFED_BASE_VER=$(get_version_component_range 1-3 ${OFED_VER})
 
-SRC_URI="http://www.openfabrics.org/downloads/OFED/ofed-${OFED_VER}/OFED-${OFED_VER}.tgz"
+SRC_URI="http://www.openfabrics.org/downloads/OFED/ofed-${OFED_BASE_VER}/OFED-${OFED_VER}.tgz"
 
 case ${PN} in
 	openib-files)
