@@ -23,6 +23,10 @@ SLOT="0"
 # @DESCRIPTION:
 # Defines OFED package suffix eg -1.ofed1.4
 
+# @ECLASS-VARIABLE: OFED_SNAPSHOT
+# @DESCRIPTION:
+# Defines if src tarball is git snapshot
+
 OFED_BASE_VER=$(get_version_component_range 1-3 ${OFED_VER})
 
 SRC_URI="http://www.openfabrics.org/downloads/OFED/ofed-${OFED_BASE_VER}/OFED-${OFED_VER}.tgz"
@@ -62,12 +66,9 @@ S="${WORKDIR}/${MY_PN}-${MY_PV}"
 openib_src_unpack() {
 	unpack ${A}
 	rpm_unpack "./OFED-${OFED_VER}/SRPMS/${MY_PN}-${MY_PV}-${OFED_SUFFIX}.src.rpm"
-	case ${MY_PN} in
-		rds-tools)
-			MY_PV="${PV}-${OFED_SUFFIX}"
-			;;
-		*)
-			;;
-	esac
-	unpack ./${MY_PN}-${MY_PV}.${EXT}
+	if [ -z ${OFED_SNAPSHOT} ]; then
+		unpack ./${MY_PN}-${MY_PV}.${EXT}
+	else
+		unpack ./${MY_PN}-${MY_PV}-${OFED_SUFFIX}.${EXT}
+	fi
 }
