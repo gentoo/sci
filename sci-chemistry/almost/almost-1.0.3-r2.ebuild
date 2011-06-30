@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils flag-o-matic autotools
+inherit autotools eutils flag-o-matic
 
 DATE="090822"
 

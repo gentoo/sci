@@ -2,6 +2,19 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> ambertools-1.4.ebuild,
+  -files/ambertools-1.4-bugfix_1-18.patch, ambertools-1.5.ebuild,
+  -files/ambertools-1.5-bugfix_1-3.patch:
+  Cleaned ebuild
+
+  23 Jun 2011; Justin Lecher <jlec@gentoo.org> ambertools-1.4.ebuild,
+  ambertools-1.5.ebuild:
+  Streamlined fortran-2 eclass usage
+
+  21 Jun 2011; Justin Lecher <jlec@gentoo.org> ambertools-1.4.ebuild,
+  ambertools-1.5.ebuild:
+  Added fortran-2.eclass support
+
 *ambertools-1.5 (04 Jun 2011)
 
   04 Jun 2011; Reinis Danne <rei4dan@gmail.com> +ambertools-1.5.ebuild,

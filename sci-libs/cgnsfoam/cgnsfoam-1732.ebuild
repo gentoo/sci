@@ -2,12 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=4
 
 inherit eutils multilib
 
 DESCRIPTION="cgnsfoam is a conversion tool from cgns to openfoam format"
-HOMEPAGE="http://openfoam-extend.sourceforge.net"
+HOMEPAGE="http://openfoam-extend.sourceforge.net/"
 SRC_URI="http://ppa.launchpad.net/cae-team/ppa/ubuntu/pool/main/c/${PN}/${PN}_${PV}.orig.tar.gz"
 
 LICENSE="GPL-2"
@@ -15,12 +15,12 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-OF_PV="1.5"
+OF_PV="1.7"
 
-DEPEND="sci-libs/cgnslib
+DEPEND="
+	sci-libs/cgnslib
 	sci-libs/libcgnsoo
-	=sci-libs/openfoam-src-${OF_PV}*"
-
+	sci-libs/openfoam:${OF_PV}"
 RDEPEND="${DEPEND}"
 
 src_prepare() {

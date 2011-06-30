@@ -1,23 +1,25 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
-inherit cmake-utils git
+EAPI=4
+
+inherit cmake-utils git-2
 
 DESCRIPTION="Parallelization engine for optimization problems"
 HOMEPAGE="http://pagmo.sourceforge.net/"
-EGIT_REPO_URI="git://pagmo.git.sourceforge.net/gitroot/pagmo/pagmo"
 SRC_URI=""
+EGIT_REPO_URI="git://pagmo.git.sourceforge.net/gitroot/pagmo/pagmo"
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE="gsl kepler mpi nlopt python test"
 KEYWORDS="~amd64 ~x86"
+IUSE="gsl kepler mpi nlopt python test"
 
-RDEPEND="dev-libs/boost[mpi?,python?]
-	gsl? ( sci-libs/gsl )
-	nlopt? ( sci-libs/nlopt )"
+RDEPEND="
+	dev-libs/boost[mpi?,python?]
+	nlopt? ( sci-libs/nlopt )
+	gsl? ( sci-libs/gsl )"
 DEPEND="${RDEPEND}"
 
 src_configure() {

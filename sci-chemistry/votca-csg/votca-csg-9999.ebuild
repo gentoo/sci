@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=3
 
-inherit cmake-utils bash-completion
+inherit bash-completion cmake-utils
 
 MANUAL_PV=1.1
 if [ "${PV}" != "9999" ]; then

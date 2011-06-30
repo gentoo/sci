@@ -1,0 +1,76 @@
+--- setup.py.orig	2011-06-20 15:32:19.584436452 +1200
++++ setup.py	2011-06-20 15:35:14.962030823 +1200
+@@ -46,14 +48,14 @@
+ # optional modules
+ 
+ if BUILD_GSL:
+-    gsl = Extension('gsl', libraries = ['m', 'gsl', 'blas'],
++    gsl = Extension('gsl', libraries = ['m', 'gsl', @GENTOO_BLAS],
+         include_dirs = [ GSL_INC_DIR ],
+         library_dirs = [ GSL_LIB_DIR ],
+         sources = ['C/gsl.c'] )
+     extmods += [gsl];
+ 
+ if BUILD_FFTW:
+-    fftw = Extension('fftw', libraries = ['fftw3', 'blas'],
++    fftw = Extension('fftw', libraries = ['fftw3', @GENTOO_BLAS],
+         include_dirs = [ FFTW_INC_DIR ],
+         library_dirs = [ FFTW_LIB_DIR, ATLAS_LIB_DIR ],
+         sources = ['C/fftw.c'] )
+@@ -67,7 +69,7 @@
+     extmods += [glpk];
+ 
+ if BUILD_DSDP:
+-    dsdp = Extension('dsdp', libraries = ['dsdp', 'blas', 'lapack'],
++    dsdp = Extension('dsdp', libraries = ['dsdp', @GENTOO_LAPACK],
+         include_dirs = [ DSDP_INC_DIR ],
+         library_dirs = [ DSDP_LIB_DIR, ATLAS_LIB_DIR ],
+         sources = ['C/dsdp.c'] )
+@@ -85,17 +87,17 @@
+ else:    
+     MACROS = []
+ 
+-base = Extension('base', libraries = ['m','lapack','blas'],
++base = Extension('base', libraries = ['m', @GENTOO_LAPACK],
+     library_dirs = [ ATLAS_LIB_DIR ],
+     define_macros = MACROS,
+     sources = ['C/base.c','C/dense.c','C/sparse.c']) 
+ 
+-blas = Extension('blas', libraries = ['blas'],
++blas = Extension('blas', libraries = [@GENTOO_BLAS],
+     library_dirs = [ ATLAS_LIB_DIR ],
+     define_macros = MACROS,
+     sources = ['C/blas.c'] )
+ 
+-lapack = Extension('lapack', libraries = ['lapack','blas'],
++lapack = Extension('lapack', libraries = [@GENTOO_LAPACK],
+     library_dirs = [ ATLAS_LIB_DIR ],
+     define_macros = MACROS,
+     sources = ['C/lapack.c'] )
+@@ -106,7 +108,7 @@
+         'C/SuiteSparse/UFconfig' ],
+     library_dirs = [ ATLAS_LIB_DIR ],
+     define_macros = MACROS,
+-    libraries = [ 'blas', 'lapack'],
++    libraries = [@GENTOO_LAPACK],
+     sources = [ 'C/umfpack.c',
+         'C/SuiteSparse/UMFPACK/Source/umfpack_global.c',
+         'C/SuiteSparse/UMFPACK/Source/umfpack_tictoc.c' ] +
+@@ -118,7 +120,7 @@
+ 
+ cholmod = Extension('cholmod',
+     library_dirs = [ ATLAS_LIB_DIR ],
+-    libraries = ['lapack', 'blas'],
++    libraries = [@GENTOO_LAPACK],
+     include_dirs = [ 'C/SuiteSparse/CHOLMOD/Include', 
+         'C/SuiteSparse/COLAMD', 'C/SuiteSparse/AMD/Include', 
+         'C/SuiteSparse/UFconfig', 'C/SuiteSparse/COLAMD/Include' ],
+@@ -139,7 +141,7 @@
+     define_macros = MACROS,
+     sources = [ 'C/amd.c' ] + glob('C/SuiteSparse/AMD/Source/*.c') )
+ 
+-misc_solvers = Extension('misc_solvers', libraries = ['lapack', 'blas'],
++misc_solvers = Extension('misc_solvers', libraries = [@GENTOO_LAPACK],
+     library_dirs = [ ATLAS_LIB_DIR ],
+     define_macros = MACROS,
+     sources = ['C/misc_solvers.c'] )

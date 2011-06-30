@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit eutils autotools
+inherit autotools eutils
 
 DESCRIPTION="GAP4 file format to CAF v2 format converter for genomic assembly data"
 HOMEPAGE="http://www.sanger.ac.uk/resources/software/caf/"

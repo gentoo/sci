@@ -4,7 +4,7 @@
 
 EAPI=2
 
-inherit eutils elisp-common
+inherit elisp-common eutils
 
 DESCRIPTION="language for scientific graphics programming"
 HOMEPAGE="http://gri.sourceforge.net/"

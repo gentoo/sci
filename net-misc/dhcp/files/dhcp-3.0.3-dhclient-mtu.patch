@@ -1,0 +1,180 @@
+--- client/scripts/bsdos
++++ client/scripts/bsdos
+@@ -81,6 +81,9 @@
+ if [ x$alias_subnet_mask != x ]; then
+   alias_subnet_arg="netmask $alias_subnet_mask"
+ fi
++if [ x$new_interface_mtu != x ]; then
++  mtu_arg="mtu $new_interface_mtu"
++fi
+ 
+ if [ x$reason = xMEDIUM ]; then
+   eval "ifconfig $interface $medium"
+@@ -138,7 +141,7 @@
+   if [ x$old_ip_address = x ] || [ x$old_ip_address != x$new_ip_address ] || \
+      [ x$reason = xBOUND ] || [ x$reason = xREBOOT ]; then
+     eval "ifconfig $interface inet $new_ip_address $new_netmask_arg \
+-					$new_broadcast_arg $medium"
++					$new_broadcast_arg $mtu_arg $medium"
+     route add $new_ip_address 127.1 >/dev/null 2>&1
+     for router in $new_routers; do
+       route add default $router >/dev/null 2>&1
+@@ -195,7 +198,7 @@
+     route delete $alias_ip_address 127.0.0.1 > /dev/null 2>&1
+   fi
+   eval "ifconfig $interface inet $new_ip_address $new_netmask_arg \
+-					$new_broadcast_arg $medium"
++					$new_broadcast_arg $mtu_arg $medium"
+   sleep 1
+   if [ "$new_routers" != "" ]; then
+     set $new_routers
+--- client/scripts/freebsd
++++ client/scripts/freebsd
+@@ -91,6 +91,9 @@
+ if [ x$alias_subnet_mask != x ]; then
+   alias_subnet_arg="netmask $alias_subnet_mask"
+ fi
++if [ x$new_interface_mtu != x ]; then
++  mtu_arg="mtu $new_interface_mtu"
++fi
+ 
+ if [ x$reason = xMEDIUM ]; then
+   eval "ifconfig $interface $medium"
+@@ -148,7 +151,7 @@
+   if [ x$old_ip_address = x ] || [ x$old_ip_address != x$new_ip_address ] || \
+      [ x$reason = xBOUND ] || [ x$reason = xREBOOT ]; then
+     eval "ifconfig $interface inet $new_ip_address $new_netmask_arg \
+-					$new_broadcast_arg $medium"
++					$new_broadcast_arg $mtu_arg $medium"
+     $LOGGER "New IP Address ($interface): $new_ip_address"
+     $LOGGER "New Subnet Mask ($interface): $new_subnet_mask"
+     $LOGGER "New Broadcast Address ($interface): $new_broadcast_address"
+@@ -212,7 +215,7 @@
+     route delete $alias_ip_address 127.0.0.1 > /dev/null 2>&1
+   fi
+   eval "ifconfig $interface inet $new_ip_address $new_netmask_arg \
+-					$new_broadcast_arg $medium"
++					$new_broadcast_arg $mtu_arg $medium"
+   $LOGGER "New IP Address ($interface): $new_ip_address"
+   $LOGGER "New Subnet Mask ($interface): $new_subnet_mask"
+   $LOGGER "New Broadcast Address ($interface): $new_broadcast_address"
+--- client/scripts/linux
++++ client/scripts/linux
+@@ -103,6 +103,9 @@
+ if [ x$alias_subnet_mask != x ]; then
+   alias_subnet_arg="netmask $alias_subnet_mask"
+ fi
++if [ x$new_interface_mtu != x ]; then
++  mtu_arg="mtu $new_interface_mtu"
++fi
+ 
+ if [ x$reason = xMEDIUM ]; then
+   # Linux doesn't do mediums (ok, ok, media).
+@@ -159,7 +162,7 @@
+      [ x$reason = xBOUND ] || [ x$reason = xREBOOT ]; then
+ 
+     ifconfig $interface inet $new_ip_address $new_subnet_arg \
+-							$new_broadcast_arg
++					$new_broadcast_arg $mtu_arg
+     # Add a network route to the computed network address.
+     if [ $relmajor -lt 2 ] || \
+ 		( [ $relmajor -eq 2 ] && [ $relminor -eq 0 ] ); then
+@@ -201,7 +204,7 @@
+     ifconfig $interface:0- inet 0
+   fi
+   ifconfig $interface inet $new_ip_address $new_subnet_arg \
+-					$new_broadcast_arg
++					$new_broadcast_arg $mtu_arg
+   set $new_routers
+   ############## what is -w in ping?
+   if ping -q -c 1 $1; then
+--- client/scripts/netbsd
++++ client/scripts/netbsd
+@@ -81,6 +81,9 @@
+ if [ x$alias_subnet_mask != x ]; then
+   alias_subnet_arg="netmask $alias_subnet_mask"
+ fi
++if [ x$new_interface_mtu != x ]; then
++  mtu_arg="mtu $new_interface_mtu"
++fi
+ 
+ if [ x$reason = xMEDIUM ]; then
+   eval "ifconfig $interface $medium"
+@@ -138,7 +141,7 @@
+   if [ x$old_ip_address = x ] || [ x$old_ip_address != x$new_ip_address ] || \
+      [ x$reason = xBOUND ] || [ x$reason = xREBOOT ]; then
+     eval "ifconfig $interface inet $new_ip_address $new_netmask_arg \
+-					$new_broadcast_arg $medium"
++					$new_broadcast_arg $mtu_arg $medium"
+     route add $new_ip_address 127.1 >/dev/null 2>&1
+     for router in $new_routers; do
+       route add default $router >/dev/null 2>&1
+@@ -195,7 +198,7 @@
+     route delete $alias_ip_address 127.0.0.1 > /dev/null 2>&1
+   fi
+   eval "ifconfig $interface inet $new_ip_address $new_netmask_arg \
+-					$new_broadcast_arg $medium"
++					$new_broadcast_arg $mtu_arg $medium"
+   sleep 1
+   if [ "$new_routers" != "" ]; then
+     set $new_routers
+--- client/scripts/openbsd
++++ client/scripts/openbsd
+@@ -81,6 +81,9 @@
+ if [ x$alias_subnet_mask != x ]; then
+   alias_subnet_arg="netmask $alias_subnet_mask"
+ fi
++if [ x$new_interface_mtu != x ]; then
++  mtu_arg="mtu $new_interface_mtu"
++fi
+ 
+ if [ x$reason = xMEDIUM ]; then
+   eval "ifconfig $interface $medium"
+@@ -138,7 +141,7 @@
+   if [ x$old_ip_address = x ] || [ x$old_ip_address != x$new_ip_address ] || \
+      [ x$reason = xBOUND ] || [ x$reason = xREBOOT ]; then
+     eval "ifconfig $interface inet $new_ip_address $new_netmask_arg \
+-					$new_broadcast_arg $medium"
++					$new_broadcast_arg $mtu_arg $medium"
+     route add $new_ip_address 127.1 >/dev/null 2>&1
+     for router in $new_routers; do
+       route add default $router >/dev/null 2>&1
+@@ -195,7 +198,7 @@
+     route delete $alias_ip_address 127.0.0.1 > /dev/null 2>&1
+   fi
+   eval "ifconfig $interface inet $new_ip_address $new_netmask_arg \
+-					$new_broadcast_arg $medium"
++					$new_broadcast_arg $mtu_arg $medium"
+   sleep 1
+   if [ "$new_routers" != "" ]; then
+     set $new_routers
+--- client/scripts/solaris
++++ client/scripts/solaris
+@@ -76,6 +76,9 @@
+ if [ x$alias_subnet_mask != x ]; then
+   alias_subnet_arg="netmask $alias_subnet_mask"
+ fi
++if [ x$new_interface_mtu != x ]; then
++  mtu_arg="mtu $new_interface_mtu"
++fi
+ 
+ ifconfig=/sbin/ifconfig
+ 
+@@ -138,7 +141,7 @@
+   if [ x$old_ip_address = x ] || [ x$old_ip_address != x$new_ip_address ] || \
+      [ x$reason = xBOUND ] || [ x$reason = xREBOOT ]; then
+     eval "$ifconfig $interface inet $new_ip_address $new_netmask_arg \
+-					$new_broadcast_arg $medium"
++					$new_broadcast_arg $mtu_arg $medium"
+     route add $new_ip_address 127.1 1 >/dev/null 2>&1
+     for router in $new_routers; do
+       route add default $router 1 >/dev/null 2>&1
+@@ -179,7 +182,7 @@
+     route delete $alias_ip_address 127.0.0.1 > /dev/null 2>&1
+   fi
+   eval "$ifconfig $interface inet $new_ip_address $new_netmask_arg \
+-					$new_broadcast_arg $medium"
++					$new_broadcast_arg $mtu_arg $medium"
+   sleep 1
+   set $new_routers
+   if ping -s -n -I 1 $1 64 1; then

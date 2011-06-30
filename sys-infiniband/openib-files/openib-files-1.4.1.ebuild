@@ -12,7 +12,7 @@ inherit openib
 DESCRIPTION="OpenIB system files"
 SCRIPTDIR="${S}/ofed_scripts"
 KEYWORDS="~x86 ~amd64"
-IUSE="srp ipath iser ehca mlx4 rds vnic"
+IUSE="ehca ipath iser mlx4 rds srp vnic"
 
 DEPEND=""
 RDEPEND="${DEPEND}"

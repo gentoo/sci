@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
 DESCRIPTION="CAP3 is for small-scale assembly of EST sequences with or without quality value"
 HOMEPAGE="http://seq.cs.iastate.edu"
@@ -18,25 +18,27 @@ HOMEPAGE="http://seq.cs.iastate.edu"
 # http://seq.cs.iastate.edu/pub/CAP3/cap3.linux.itanium.tar
 # http://seq.cs.iastate.edu/pub/CAP3/cap3.linux.powerpc32.tar
 # http://seq.cs.iastate.edu/pub/CAP3/cap3.linux.powerpc64.tar
-SRC_URI="x86? ( http://seq.cs.iastate.edu/CAP3/cap3.linux.tar )
-		amd64? ( http://seq.cs.iastate.edu/CAP3/cap3.linux.i686_xeon64.tar )"
+SRC_URI="
+	x86? ( http://seq.cs.iastate.edu/CAP3/cap3.linux.tar )
+	amd64? ( http://seq.cs.iastate.edu/CAP3/cap3.linux.i686_xeon64.tar )"
 
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
+S="${WORKDIR}/CAP3"
 
 src_install() {
-	cd "${WORKDIR}/CAP3" || die
-	dobin cap3 formcon || die
-	dodoc README || die
-	newdoc doc cap3.txt || die
+	exeinto /opt/${PN}
+	doexe cap3 formcon
+	dosym ../${PN}/cap3 /opt/bin/cap3
+	dosym ../${PN}/formcon /opt/bin/formcon
+	dodoc README
+	newdoc doc cap3.txt
 	# other examples
 	# http://seq.cs.iastate.edu/pub/CAP3/data.tar
-	dodir /usr/share/cap3/examples || die
-	insinto /usr/share/cap3 || die
-	doins -r example || die
+	dodir /usr/share/cap3/examples
+	insinto /usr/share/cap3
+	doins -r example
 }

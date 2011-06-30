@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-cbstools/ChangeLog,v 1.5 2010/01/15 22:44:35 fauli Exp $
 
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org>
+  embassy-cbstools-1.0.0-r2.ebuild:
+  Dropped ~ppc due to missing keywording of sci-libs/plplot, #358035
+
   19 Mar 2011; Justin Lecher <jlec@gentoo.org>
   embassy-cbstools-1.0.0-r2.ebuild, files/embassy-cbstools-1.0.0-r2.patch:
   Fixed for reviewed eclass

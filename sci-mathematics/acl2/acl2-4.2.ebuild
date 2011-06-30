@@ -5,23 +5,15 @@
 inherit eutils
 
 DESCRIPTION="ACL2 industrial strength theorem prover"
-
 HOMEPAGE="http://www.cs.utexas.edu/users/moore/acl2/"
-
 SRC_URI="http://www.cs.utexas.edu/users/moore/acl2/v${PV/\./-}/distrib/acl2.tar.gz"
 
-LICENSE="GPL-2"
-
 SLOT="0"
-
+LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
-
 IUSE=""
 
-#RESTRICT="strip"
-
 DEPEND="dev-lisp/sbcl"
-
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}-sources"

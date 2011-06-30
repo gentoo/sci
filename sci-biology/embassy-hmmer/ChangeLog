@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-hmmer/ChangeLog,v 1.30 2010/01/01 22:00:05 fauli Exp $
 
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> embassy-hmmer-2.3.2-r4.ebuild:
+  Dropped ~ppc due to missing keywording of sci-libs/plplot, #358035
+
   20 Mar 2011; Justin Lecher <jlec@gentoo.org> embassy-hmmer-2.3.2-r4.ebuild,
   files/embassy-hmmer-2.3.2-r4.patch:
   Fixed for reviewed eclass

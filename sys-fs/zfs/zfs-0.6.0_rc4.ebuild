@@ -6,7 +6,7 @@ EAPI="2"
 
 WANT_AUTOMAKE="1.11"
 AT_M4DIR=./config  # for aclocal called by eautoreconf
-inherit eutils autotools linux-mod
+inherit autotools eutils linux-mod
 
 DESCRIPTION="Native ZFS for Linux"
 HOMEPAGE="http://wiki.github.com/behlendorf/zfs/"

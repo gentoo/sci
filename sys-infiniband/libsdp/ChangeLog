@@ -1,6 +1,10 @@
 # ChangeLog for sys-infiniband/libsdp
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> libsdp-1.1.99.ebuild,
+  libsdp-1.1.99-r1.ebuild, metadata.xml:
+  Cleaned ebuild
 
 *libsdp-1.1.99-r1 (20 Aug 2009)
 

@@ -1,9 +1,9 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=2
-inherit eutils autotools java-pkg-2 check-reqs
+inherit autotools check-reqs eutils java-pkg-2
 
 DESCRIPTION="Scientific software package for numerical computations"
 LICENSE="CeCILL-2"

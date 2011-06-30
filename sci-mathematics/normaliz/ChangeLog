@@ -1,6 +1,10 @@
 # ChangeLog for sci-mathematics/normaliz
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> normaliz-2.2.ebuild,
+  metadata.xml:
+  Cleaned ebuild, unused local USE-description
 
   03 Nov 2010; Thomas Kahle <tomka@gentoo.org> -normaliz-2.5.ebuild,
   -normaliz-2.5-r1.ebuild, -files/normaliz-2.5-makefile.patch:

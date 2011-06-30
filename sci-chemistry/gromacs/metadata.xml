@@ -7,9 +7,8 @@
 		<name>Christoph Junghans</name>
 	</maintainer>
 	<use>
-		<flag name='dmalloc'>Enable use of Debug Malloc</flag>
-		<flag name='double-precision'>More precise calculations at the expense of speed</flag>
-		<flag name='fkernels'>Enable building of Fortran Kernels for platforms that dont have assembly loops</flag>
-		<flag name='single-precision'>Single precision version of gromacs (default)</flag>
+		<flag name="double-precision">More precise calculations at the expense of speed</flag>
+		<flag name="fkernels">Enable building of Fortran Kernels for platforms that dont have assembly loops</flag>
+		<flag name="single-precision">Single precision version of gromacs (default)</flag>
 	</use>
 </pkgmetadata>

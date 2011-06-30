@@ -1,19 +1,20 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=2
 
-inherit versionator toolchain-funcs
+inherit fortran-2 toolchain-funcs versionator
 
 MY_P="${P/-/}"
 
-DESCRIPTION="Model-independent Parameter ESTimation for model calibration and
-predictive uncertainty analysis."
-HOMEPAGE="http://www.pesthomepage.org"
-SRC_URI="http://www.pesthomepage.org/getfiles.php?file=${MY_P}.tar.zip -> ${P}.tar.zip
-	doc? ( http://www.pesthomepage.org/files/pestman.pdf
-	       http://www.pesthomepage.org/files/addendum.pdf )"
+DESCRIPTION="Model-independent Parameter ESTimation for calibration and predictive uncertainty analysis"
+HOMEPAGE="http://www.pesthomepage.org/"
+SRC_URI="
+	http://www.pesthomepage.org/getfiles.php?file=${MY_P}.tar.zip -> ${P}.tar.zip
+	doc? (
+		http://www.pesthomepage.org/files/pestman.pdf
+		http://www.pesthomepage.org/files/addendum.pdf )"
 
 # License is poorly specified on the SSPA web site.  It only says that
 # Pest is freeware.
@@ -21,12 +22,13 @@ LICENSE="public-domain"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="doc"
+
 DEPEND="app-arch/unzip"
 RDEPEND=""
 
-MAKEOPTS="${MAKEOPTS} -j1"
+FORTRAN_STANDARD="90"
 
-# Need a Fortran 90 compiler.
+MAKEOPTS="${MAKEOPTS} -j1"
 
 S="${WORKDIR}/${PN}"
 

@@ -12,7 +12,7 @@ SRC_URI="http://www.astromatic.net/download/${PN}/${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc threads plplot"
+IUSE="doc plplot threads"
 
 RDEPEND="virtual/cblas
 	sci-libs/lapack-atlas

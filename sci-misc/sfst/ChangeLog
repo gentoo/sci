@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> -sfst-1.1.ebuild,
+  -sfst-1.2.ebuild, -sfst-1.3.ebuild, sfst-1.4.2.ebuild, metadata.xml:
+  Cleaned ebuild
+
 *sfst-1.4.2 (09 May 2011)
 
   09 May 2011; <flammie@gentoo.org> +sfst-1.4.2.ebuild:

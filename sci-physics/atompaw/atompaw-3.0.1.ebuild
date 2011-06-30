@@ -1,21 +1,27 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI=3
 
-inherit eutils multilib toolchain-funcs
+inherit eutils fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="PAW atomic data generator"
 HOMEPAGE="http://www.wfu.edu/~natalie/papers/pwpaw/man.html"
-IUSE="doc libxc"
-SRC_URI="http://www.wfu.edu/~natalie/papers/pwpaw/${P}.tar.gz
-	doc? ( http://www.wfu.edu/~natalie/papers/pwpaw/atompaw.pdf
+SRC_URI="
+	http://www.wfu.edu/~natalie/papers/pwpaw/${P}.tar.gz
+	doc? (
+		http://www.wfu.edu/~natalie/papers/pwpaw/atompaw.pdf
 		http://www.wfu.edu/~natalie/papers/pwpaw/atompaw-usersguide.pdf
 		http://www.wfu.edu/~natalie/papers/pwpaw/notes/atompaw/atompawEqns.pdf )"
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-RDEPEND="virtual/lapack
+IUSE="doc libxc"
+
+RDEPEND="
+	virtual/lapack
 	virtual/blas
 	libxc? ( sci-libs/libxc[fortran] )"
 DEPEND="${RDEPEND}
@@ -24,9 +30,9 @@ DEPEND="${RDEPEND}
 src_unpack() {
 	unpack ${P}.tar.gz
 	if use doc; then
-		cp ${DISTDIR}/atompaw.pdf ${S}/
-		cp ${DISTDIR}/atompaw-usersguide.pdf ${S}/
-		cp ${DISTDIR}/atompawEqns.pdf ${S}/
+		cp "${DISTDIR}"/atompaw.pdf "${S}"/
+		cp "${DISTDIR}"/atompaw-usersguide.pdf "${S}"/
+		cp "${DISTDIR}"/atompawEqns.pdf "${S}"/
 	fi
 }
 

@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit eutils
+inherit eutils fortran-2
 
 DESCRIPTION="Parallel High Performance Preconditioners library for scalable
 solution of linear systems"

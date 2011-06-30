@@ -1,6 +1,12 @@
 # ChangeLog for dev-java/jgraphx
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*jgraphx-1.4.1.0 (30 Jun 2011)
+
+  30 Jun 2011; Guillaume Horel <guillaume.horel@gmail.com>
+  +jgraphx-1.4.1.0.ebuild:
+  Version 1.4.1.0 is specifically required by scilab
 
 *jgraphx-1.4.1.2 (06 Oct 2010)
 

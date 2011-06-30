@@ -17,7 +17,7 @@ KEYWORDS="~amd64 ~x86"
 # doc:   Adds developer documentation (/usr/share/doc/${PF}/APIreference/)
 #        Example files are copied even when USE='-doc'
 # debug: Adds console debug messages. This is really verbose.
-IUSE="abinit blas doc cube debug netcdf openbabel xsf"
+IUSE="abinit blas cube debug doc netcdf openbabel xsf"
 
 RDEPEND="
 	x11-libs/gtk+:2

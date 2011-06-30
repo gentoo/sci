@@ -5,7 +5,7 @@
 EAPI=2
 PYTHON_DEPEND="2"
 
-inherit eutils python mpi toolchain-funcs
+inherit eutils fortran-2 mpi python toolchain-funcs
 
 MY_PV=${PV/_/}
 DESCRIPTION="MPICH2 - A portable MPI implementation"
@@ -15,7 +15,7 @@ SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY
 LICENSE="as-is"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
-IUSE="+cxx debug doc fortran threads romio mpi-threads"
+IUSE="+cxx debug doc fortran mpi-threads romio threads"
 
 MPI_UNCLASSED_DEP_STR="!media-sound/mpd"
 
@@ -32,6 +32,7 @@ RDEPEND="${COMMON_DEPEND}"
 S="${WORKDIR}"/${PN}-${MY_PV}
 
 pkg_setup() {
+	fortran-2_pkg_setup
 	python_set_active_version 2
 	python_pkg_setup
 

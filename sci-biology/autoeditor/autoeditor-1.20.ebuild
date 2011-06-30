@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,20 +6,21 @@ EAPI=3
 
 inherit eutils
 
-DESCRIPTION="AutoEditor is a program that can automatically correct discrepancies in a
-multiple alignment by reanalyzing the chromatograms of the discrepant bases."
+DESCRIPTION="Automatic correct of discrepancies in multiple sequence alignments"
 HOMEPAGE="http://sourceforge.net/apps/mediawiki/amos/index.php?title=AutoEditor"
-SRC_URI="ftp://ftp.cbcb.umd.edu/pub/software/autoEditor/autoEditor-1.20.tar.gz
-		test? ( ftp://ftp.cbcb.umd.edu/pub/software/autoEditor/autoEditor-1.20-sample.tar.gz )"
+SRC_URI="
+	ftp://ftp.cbcb.umd.edu/pub/software/autoEditor/autoEditor-1.20.tar.gz
+	test? ( ftp://ftp.cbcb.umd.edu/pub/software/autoEditor/autoEditor-1.20-sample.tar.gz )"
 
 LICENSE="Artistic"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=">=sci-libs/io_lib-1.8.11
-		sys-libs/zlib
-		sci-biology/tigr-foundation-libs"
+DEPEND="
+	>=sci-libs/io_lib-1.8.11
+	sci-biology/tigr-foundation-libs
+	sys-libs/zlib"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/autoEditor-1.20
@@ -27,14 +28,6 @@ S="${WORKDIR}"/autoEditor-1.20
 src_prepare(){
 	epatch "${FILESDIR}"/Makefile.patch || die
 	rm -rf TigrFoundation-2.0 || die "Failed to drop TigrFoundation-2.0/"
-}
-
-src_compile(){
-	emake || die
-}
-
-src_install(){
-	emake install DESTDIR="${D}" || die
 }
 
 # TODO:

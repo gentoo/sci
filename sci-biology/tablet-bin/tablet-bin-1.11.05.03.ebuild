@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit python java-pkg-2
+inherit java-pkg-2 python
 
 DESCRIPTION="Graphical viewer for next generation sequence assemblies and alignments."
 HOMEPAGE="http://bioinf.scri.ac.uk/tablet/"

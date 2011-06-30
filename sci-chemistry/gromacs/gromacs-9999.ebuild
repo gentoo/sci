@@ -9,7 +9,7 @@ TEST_PV="4.0.4"
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="master"
 
-inherit bash-completion cmake-utils eutils git multilib toolchain-funcs
+inherit bash-completion cmake-utils eutils fortran-2 git-2 multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -23,6 +23,7 @@ mpi +single-precision sse2 test +threads xml zsh-completion"
 REQUIRED_USE="fkernels? ( !threads )"
 
 CDEPEND="
+	fkernels? ( virtual/fortran )
 	X? (
 		x11-libs/libX11
 		x11-libs/libSM
@@ -41,6 +42,10 @@ RDEPEND="${CDEPEND}
 PDEPEND="doc? ( app-doc/gromacs-manual )"
 
 RESTRICT="test"
+
+pkg_setup() {
+	use fkernels && fortran-2_pkg_setup
+}
 
 src_prepare() {
 	#add user patches from /etc/portage/patches/sci-chemistry/gromacs

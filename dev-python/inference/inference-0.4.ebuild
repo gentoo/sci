@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,34 +6,34 @@ EAPI=3
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 DISTUTILS_SRC_TEST="nosetests"
 
-inherit distutils toolchain-funcs flag-o-matic
+inherit distutils flag-o-matic fortran-2 toolchain-funcs
 
 DESCRIPTION="Collection of Python modules for statistical inference"
 HOMEPAGE="http://inference.astro.cornell.edu/"
 SRC_URI="${HOMEPAGE}/${P}.tar.gz"
 
-IUSE=""
 SLOT="0"
+LICENSE="as-is"
 KEYWORDS="~amd64 ~x86"
-LICENSE="mixed"
+IUSE=""
 
-DEPEND="dev-python/scipy"
+DEPEND="
+	sci-libs/scipy
+	virtual/fortran"
 RDEPEND="${DEPEND}
 	dev-python/matplotlib"
-
-RESTRICT_PYTHON_ABIS="3.*"
 
 # buggy tests
 RESTRICT="test"
 
 pkg_setup() {
+	fortran-2_pkg_setup
 	# The usual numpy.distutils hacks when fortran is used
 	append-ldflags -shared
-	[[ -z ${FC} ]] && export FC=$(tc-getFC)
-	[[ -z ${F77} ]]	&& export F77=$(tc-getFC)
-	export FFLAGS="${FFLAGS} -fPIC"
+	append-fflags -fPIC
 	export NUMPY_FCONFIG="config_fc --noopt --noarch"
 }
 

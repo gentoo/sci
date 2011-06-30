@@ -4,11 +4,10 @@
 
 EAPI="4"
 
-LIBTOOLIZE="true"
 TEST_PV="4.0.4"
 MANUAL_PV="4.5.4"
 
-inherit autotools-utils bash-completion flag-o-matic multilib toolchain-funcs
+inherit bash-completion cmake-utils eutils fortran-2 multilib toolchain-funcs
 
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf -> gromacs-manual-${MANUAL_PV}.pdf )"
@@ -16,7 +15,7 @@ SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 if [ "${PV%9999}" != "${PV}" ]; then
 	EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 	EGIT_BRANCH="release-4-5-patches"
-	inherit git
+	inherit git-2
 else
 	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
 fi
@@ -27,17 +26,17 @@ HOMEPAGE="http://www.gromacs.org/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="X altivec blas dmalloc doc -double-precision +fftw fkernels +gsl lapack
-mpi +single-precision sse2 static-libs test +threads +xml zsh-completion"
+IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
+mpi +single-precision sse2 test +threads xml zsh-completion"
 REQUIRED_USE="fkernels? ( !threads )"
 
 CDEPEND="
+	fkernels? ( virtual/fortran )
 	X? (
 		x11-libs/libX11
 		x11-libs/libSM
 		x11-libs/libICE
 		)
-	dmalloc? ( dev-libs/dmalloc )
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
 	gsl? ( sci-libs/gsl )
@@ -51,17 +50,20 @@ RDEPEND="${CDEPEND}
 
 RESTRICT="test"
 
+pkg_setup() {
+	use fkernels && fortran-2_pkg_setup
+}
+
 src_prepare() {
+	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
+	epatch_user
+
 	if use mpi && use threads; then
 		elog "mdrun uses only threads OR mpi, and gromacs favours the"
 		elog "use of mpi over threads, so a mpi-version of mdrun will"
 		elog "be compiled. If you want to run mdrun on shared memory"
 		elog "machines only, you can safely disable mpi"
 	fi
-
-	autotools-utils_src_prepare || die
-
-	eautoreconf || die
 
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" float"
@@ -77,8 +79,12 @@ src_prepare() {
 }
 
 src_configure() {
+	local mycmakeargs_pre=( )
 	#from gromacs configure
-	if ! use fftw; then
+	if use fftw; then
+		mycmakeargs_pre+=("-DGMX_FFT_LIBRARY=fftw3")
+	else
+		mycmakeargs_pre+=("-DGMX_FFT_LIBRARY=fftpack")
 		ewarn "WARNING: The built-in FFTPACK routines are slow."
 		ewarn "Are you sure you don\'t want to use FFTW?"
 		ewarn "It is free and much faster..."
@@ -119,65 +125,52 @@ src_configure() {
 		elog "libmd with and without mpi support."
 	fi
 
-	# if we need external blas or lapack
-	use blas && export LIBS+=" $(pkg-config blas --libs)"
-	use lapack && export LIBS+=" $(pkg-config lapack --libs)"
-	local sseflag="x86-64-sse"
-	use x86 && sseflag="ia32-sse"
+	#go from slowest to fasterest acceleration
+	local acce="none"
+	use fkernels && acce="fortran"
+	use altivec && acce="altivec"
+	use ia64 && acce="ia64"
+	use sse2 && acce="sse"
 
-	#missing flag in autotools (bug #339837)
-	use sse2 && append-flags -msse2
+	mycmakeargs_pre+=(
+		$(cmake-utils_use X GMX_X11)
+		$(cmake-utils_use blas GMX_EXTERNAL_BLAS)
+		$(cmake-utils_use gsl GMX_GSL)
+		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
+		$(cmake-utils_use threads GMX_THREADS)
+		$(cmake-utils_use xml GMX_XML)
+		-DGMX_DEFAULT_SUFFIX=off
+		-DGMX_ACCELERATION="$acce"
+	)
 
 	for x in ${GMX_DIRS}; do
+		einfo "Configuring for ${x} precision"
 		local suffix=""
 		#if we build single and double - double is suffixed
 		use double-precision && use single-precision && \
 			[ "${x}" = "double" ] && suffix="_d"
-		myeconfargs=(
-			--bindir="${EPREFIX}"/usr/bin
-			--docdir="${EPREFIX}"/usr/share/doc/"${PF}"
-			--enable-"${x}"
-			$(use_with dmalloc)
-			$(use_with fftw fft fftw3)
-			$(use_with gsl)
-			$(use_with X x)
-			$(use_with xml)
-			$(use_enable threads)
-			$(use_enable altivec ppc-altivec)
-			$(use_enable ia64 ia64-asm)
-			$(use_with lapack external-lapack)
-			$(use_with blas external-blas)
-			$(use_enable fkernels fortran)
-			--disable-bluegene
-			--disable-la-files
-			--disable-power6
-			--disable-ia32-sse
-			--disable-x86-64-sse
-			$(use_enable sse2 $sseflag)
-		)
-		#disable ia32-sse and x86-64-sse and enable what we really need in last line
-
-		einfo "Configuring for ${x} precision"
-		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
-			autotools-utils_src_configure --disable-mpi	--program-suffix="${suffix}" \
-			CC="$(tc-getCC)" F77="$(tc-getFC)"
+		local p
+		[ "${x}" = "double" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
+			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
-		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
-			autotools-utils_src_configure --enable-mpi --program-suffix="_mpi${suffix}" \
-			CC="$(tc-getCC)" F77="$(tc-getFC)"
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON
+			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" cmake-utils_src_configure
 	done
 }
 
 src_compile() {
 	for x in ${GMX_DIRS}; do
 		einfo "Compiling for ${x} precision"
-		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}"\
-			autotools-utils_src_compile
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}"\
+			cmake-utils_src_compile
 		use mpi || continue
 		einfo "Compiling for ${x} precision with mpi"
-		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
-			autotools-utils_src_compile mdrun
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
+			cmake-utils_src_compile mdrun
 	done
 }
 
@@ -193,18 +186,13 @@ src_test() {
 
 src_install() {
 	for x in ${GMX_DIRS}; do
-		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}" \
-			autotools-utils_src_install
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" \
+			cmake-utils_src_install
 		use mpi || continue
-		#autotools-utils_src_install does not support args
-		#using autotools-utils_src_compile instead
-		AUTOTOOLS_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
-			autotools-utils_src_compile install-mdrun DESTDIR="${D}"
-
-		#stolen from autotools-utils_src_install see comment above
-		local args
-		has static-libs ${IUSE//+} && ! use	static-libs || args='none'
-		remove_libtool_files ${args}
+		#cmake-utils_src_install does not support args
+		#using cmake-utils_src_compile instead
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
+			cmake-utils_src_make install-mdrun DESTDIR="${D}"
 	done
 
 	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"

@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit eutils autotools-utils
+inherit autotools-utils eutils
 
 DESCRIPTION="C++ library for handling of multiple co-processes"
 HOMEPAGE="http://cadabra.phi-sci.com"

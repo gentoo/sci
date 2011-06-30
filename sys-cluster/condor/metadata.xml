@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>hp-cluster</herd>
-<maintainer>
-   <email>bicatali@gentoo.org</email>
-</maintainer>
-<longdescription lang='en'>
+  <herd>cluster</herd>
+  <maintainer>
+    <email>bicatali@gentoo.org</email>
+  </maintainer>
+  <longdescription lang="en">
   Condor is a open-source, specialized workload management system for
   compute-intensive jobs. Like other full-featured batch systems, Condor
   provides a job queueing mechanism, scheduling policy, priority scheme,
@@ -16,11 +16,11 @@
   also contains mechanisms to submit jobs to grid-sites and supports many
   different grid toolkits.
 </longdescription>
-<use>
-  <flag name='classads'>Enable the Condor's classified advertisement language</flag>
-  <flag name='drmaa'>Enable the Distributed Resource Management
+  <use>
+    <flag name="classads">Enable the Condor's classified advertisement language</flag>
+    <flag name="drmaa">Enable the Distributed Resource Management
   Application API</flag>
-  <flag name='gcb'>Enable condor to communicate over firewall/NAT</flag>
-  <flag name='kbdd'>Enable the Condor Keyboard Daemon to monitor logged in X users for activity</flag>
-</use>
+    <flag name="gcb">Enable condor to communicate over firewall/NAT</flag>
+    <flag name="kbdd">Enable the Condor Keyboard Daemon to monitor logged in X users for activity</flag>
+  </use>
 </pkgmetadata>

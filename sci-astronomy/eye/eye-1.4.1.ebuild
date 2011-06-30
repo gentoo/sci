@@ -1,9 +1,9 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=3
-inherit eutils autotools
+inherit autotools eutils
 
 DESCRIPTION="Enhance astronomical object extraction with neural network filters"
 HOMEPAGE="http://www.astromatic.net/software/eye"

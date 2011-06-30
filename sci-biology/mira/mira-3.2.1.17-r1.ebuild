@@ -16,9 +16,7 @@ SRC_URI="mirror://sourceforge/mira-assembler/${P}.tar.bz2
 LICENSE="GPL-2"
 SLOT="0"
 IUSE=""
-KEYWORDS=""
-# masked because of 'libtool: Version mismatch error.  This is libtool 2.4, but the definition of this LT_INIT comes from libtool 2.2.6b. You should recreate aclocal.m4 with macros from libtool 2.4 and run autoconf again.', dyeing at src/examples_programming/
-#KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 
 CDEPEND=">=dev-libs/boost-1.41.0-r3
 		dev-util/google-perftools"
@@ -33,6 +31,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-3.0.0-asneeded.patch
 	# http://sourceforge.net/apps/trac/mira-assembler/ticket/47
 	epatch "${FILESDIR}"/mira_left_clip.readpool.C.patch
+	epatch "${FILESDIR}"/libtool.m4.patch
 	AT_M4DIR="config/m4" eautoreconf
 }
 

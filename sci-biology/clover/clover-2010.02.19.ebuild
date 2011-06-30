@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit versionator toolchain-funcs
+inherit toolchain-funcs versionator
 
 MY_PV=$(replace_all_version_separators '-')
 

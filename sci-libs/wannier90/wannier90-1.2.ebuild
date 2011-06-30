@@ -1,22 +1,26 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
-EAPI="3"
+EAPI=3
 
-inherit eutils multilib
+inherit eutils fortran-2 multilib
 
 DESCRIPTION="Calculates maximally localized Wannier functions (MLWFs)"
 HOMEPAGE="http://www.wannier.org/"
 SRC_URI="http://wannier.org/code/${P}.tar.gz"
+
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc examples perl test"
-RDEPEND="virtual/blas
+
+RDEPEND="
+	virtual/blas
 	virtual/lapack
 	perl? ( dev-lang/perl )"
 DEPEND="${RDEPEND}
-		doc? ( virtual/latex-base 
+		doc? ( virtual/latex-base
 			|| (
 				dev-texlive/texlive-latexextra
 				app-text/tetex
@@ -26,8 +30,9 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	# Patch taken from sci-physics/abinit-5.7.3 bundled version
-	epatch "${FILESDIR}"/${PN}-1.1-0001.patch
-	epatch "${FILESDIR}"/${PN}-1.1-0002.patch
+	epatch \
+		"${FILESDIR}"/${PN}-1.1-0001.patch \
+		"${FILESDIR}"/${PN}-1.1-0002.patch
 }
 
 src_configure() {
@@ -63,11 +68,11 @@ src_install() {
 	insinto /usr/$(get_libdir)/finclude
 	doins src/*.mod || die
 	if use examples; then
-		mkdir -p ${D}/usr/share/${PN}
-		cp -r examples ${D}/usr/share/${PN}/;
+		mkdir -p "${D}"/usr/share/${PN}
+		cp -r examples "${D}"/usr/share/${PN}/;
 	fi
 	if use doc; then
 		(cd doc; dodoc *.pdf )
 	fi
-	dodoc README README.install LICENCE CHANGE.log
+	dodoc README README.install CHANGE.log
 }

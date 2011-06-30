@@ -4,7 +4,7 @@
 
 EAPI="4"
 
-inherit eutils toolchain-funcs
+inherit eutils fortran-2 toolchain-funcs
 
 DESCRIPTION="Scalable Performance Analysis of Large-Scale Applications"
 HOMEPAGE="http://www.scalasca.org"

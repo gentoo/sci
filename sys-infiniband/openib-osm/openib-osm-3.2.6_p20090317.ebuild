@@ -1,8 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=4
 
 OFED_VER="1.4.1"
 OFED_SUFFIX="1.ofed1.4.1"
@@ -13,11 +13,12 @@ DESCRIPTION="OpenSM - InfiniBand Subnet Manager and Administration for OpenIB"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=">=sys-infiniband/libibmad-1.2.3_p20090314
-		>=sys-infiniband/libibumad-1.2.3_p20090314"
+DEPEND="
+	>=sys-infiniband/libibmad-1.2.3_p20090314
+	>=sys-infiniband/libibumad-1.2.3_p20090314"
 RDEPEND="$DEPEND
-		 sys-infiniband/openib-files
-		 net-misc/iputils"
+	 sys-infiniband/openib-files
+	 net-misc/iputils"
 
 src_prepare() {
 	epatch "${FILESDIR}/${P}-fix.patch"
@@ -31,8 +32,7 @@ src_configure() {
 }
 
 src_install() {
-	make DESTDIR="${D}" install || die "install failed"
-	dodoc AUTHORS README NEWS ChangeLog
+	default
 	newconfd "${S}/scripts/opensm.sysconfig" opensm
 	newinitd "${FILESDIR}/opensm.init.d" opensm
 	insinto /etc/logrotate.d

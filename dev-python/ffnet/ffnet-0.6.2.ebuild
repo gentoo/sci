@@ -1,43 +1,41 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=3
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
-inherit distutils flag-o-matic toolchain-funcs
+inherit distutils flag-o-matic fortran-2 toolchain-funcs
 
 DESCRIPTION="Feed-forward neural network for python"
 HOMEPAGE="http://ffnet.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
 LICENSE="GPL-2"
+KEYWORDS="~x86 ~amd64"
 IUSE="examples graphviz matplotlib"
 
 DEPEND="
 	dev-python/networkx
 	dev-python/numpy
 	sci-libs/scipy
+	virtual/fortran
 	matplotlib? ( dev-python/matplotlib )
 	graphviz? ( dev-python/pygraphviz )"
 RDEPEND="${DEPEND}"
 
-RESTRICT_PYTHON_ABIS="3.*"
-
 pkg_setup() {
-	[[ -z ${FC}  ]] && export FC=$(tc-getFC)
-	# hack to force F77 to be FC until bug #278772 is fixed
-	[[ -z ${F77} ]] && export F77=$(tc-getFC)
+	fortran-2_pkg_setup
 	export FCONFIG="config_fc --noopt --noarch"
+	append-ldflags -shared
+	append-fflags -fPIC
 }
 
 src_compile() {
-	append-ldflags -shared
-	[[ -n ${FFLAGS} ]] && FFLAGS="${FFLAGS} -fPIC"
 	distutils_src_compile ${FCONFIG}
 }
 

@@ -2,6 +2,14 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> gmsh-2.5.0.ebuild,
+  gmsh-9999.ebuild:
+  Streamlined fortran-2 eclass usage
+
+  21 Jun 2011; Justin Lecher <jlec@gentoo.org> gmsh-2.5.0.ebuild,
+  gmsh-9999.ebuild:
+  Added fortran-2.eclass support
+
   27 Mar 2011; Justin Lecher <jlec@gentoo.org> gmsh-2.5.0.ebuild,
   gmsh-9999.ebuild:
   Corrected slot of fltk, #360641

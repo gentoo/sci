@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-inherit eutils versionator elisp-common
+inherit elisp-common eutils versionator
 
 DESCRIPTION="Language for scientific computing and rapid prototyping"
 HOMEPAGE="http://yorick.sourceforge.net/"

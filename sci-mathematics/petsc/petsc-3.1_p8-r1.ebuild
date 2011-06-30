@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit flag-o-matic toolchain-funcs
+inherit flag-o-matic fortran-2 toolchain-funcs
 
 MY_P="${PN}-${PV/_/-}"
 
@@ -15,7 +15,7 @@ SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
 LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="mpi hypre metis hdf5 X cxx debug static-libs fortran doc complex-scalars"
+IUSE="complex-scalars cxx debug doc fortran hdf5 hypre metis mpi static-libs X"
 
 RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )
@@ -169,11 +169,11 @@ src_install(){
 	dosed "s:${PETSC_ARCH}/lib:$(get_libdir):g" /usr/include/"${PN}/${PETSC_ARCH}"/include/petscconf.h
 	dosed "s:INSTALL_DIR =.*:INSTALL_DIR = /usr:" /usr/include/"${PN}/${PETSC_ARCH}"/conf/petscvariables
 
-	cat > ${T}/99petsc <<EOF
-PETSC_ARCH=${PETSC_ARCH}
-PETSC_DIR=/usr/include/${PN}
-EOF
-	doenvd ${T}/99petsc
+	cat >> "${T}"/99petsc <<- EOF
+	PETSC_ARCH=${PETSC_ARCH}
+	PETSC_DIR=/usr/include/${PN}
+	EOF
+	doenvd "${T}"/99petsc
 
 	if ! use mpi ; then
 		insinto /usr/include/"${PN}"/mpiuni

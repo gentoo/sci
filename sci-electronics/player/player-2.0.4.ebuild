@@ -30,7 +30,7 @@ KEYWORDS="~amd64 ~x86"
 #	yarpimage     - needs YarpCam (not in portage)
 #	rcore_xbridge - needs libparticle (not in portage)
 
-IUSE="ieee1394 sphinx2 wifi v4l test imagemagick
+IUSE="ieee1394 imagemagick sphinx2 test v4l wifi
 	boost gnome gtk openssl festival
 	opengl glut gsl java python doc"
 

@@ -8,4 +8,4 @@ EBO_DESCRIPTION="Transmembrane protein display"
 
 inherit emboss
 
-KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos"

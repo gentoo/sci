@@ -1,6 +1,13 @@
 # ChangeLog for sci-mathematics/algae
-# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  21 Jun 2011; Justin Lecher <jlec@gentoo.org> algae-4.3.6.ebuild,
+  metadata.xml:
+  Tweak the ebuild
+
+  21 Jun 2011; Justin Lecher <jlec@gentoo.org> algae-4.3.6.ebuild:
+  Added fortran-2.eclass support
 
 *algae-4.3.6 (7 June 2006)
 

@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit toolchain-funcs base
+inherit base toolchain-funcs
 
 MY_PN="DRAWxtl"
 MY_P=${MY_PN}${PV}

@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
 
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> librecad-1.0.0_beta5.ebuild,
+  librecad-1.0.0_rc1.ebuild, librecad-9999.ebuild:
+  Sort inherit and/or USE
+
+  19 Jun 2011; Dongxu Li <dongxuli2011@gmail.com> +librecad-1.0.0_rc1.ebuild:
+  Version bump to 1.0.0rc1
+
   09 Jun 2011; Dongxu Li <dongxuli2011@gmail.com> +librecad-1.0.0_beta5.ebuild:
   added tagged version 1.0.0beta5
 

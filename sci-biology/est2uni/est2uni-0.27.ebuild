@@ -4,16 +4,18 @@
 
 EAPI=3
 
-inherit webapp eutils perl-module
+inherit eutils perl-module webapp
 
 DESCRIPTION="EST assembly+annotation: a perl-based analysis pipeline including php-based web interface"
 HOMEPAGE="http://cichlid.umd.edu/est2uni/download.php"
-SRC_URI="http://cichlid.umd.edu/est2uni/est2uni_0.27.tar.gz
-		ftp://ftp.ncbi.nih.gov/pub/UniVec/UniVec
-		ftp://ftp.ncbi.nih.gov/pub/UniVec/UniVec_Core
-		http://www.geneontology.org/ontology/gene_ontology.obo
-		http://www.geneontology.org/doc/GO.terms_and_ids"
+SRC_URI="
+	http://cichlid.umd.edu/est2uni/est2uni_0.27.tar.gz
+	ftp://ftp.ncbi.nih.gov/pub/UniVec/UniVec
+	ftp://ftp.ncbi.nih.gov/pub/UniVec/UniVec_Core
+	http://www.geneontology.org/ontology/gene_ontology.obo
+	http://www.geneontology.org/doc/GO.terms_and_ids"
 
+SLOT="0"
 LICENSE="GPL-3"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
@@ -31,10 +33,10 @@ RDEPEND="${DEPEND}
 	sci-biology/ncbi-tools
 	sci-biology/bioperl
 	sci-biology/exonerate
-	perl-gcpan/go-perl
 	www-servers/apache
 	>=dev-db/mysql-4.1
 	<dev-lang/php-5.3"
+#	perl-gcpan/go-perl
 
 S="${WORKDIR}"/est2uni
 
@@ -45,7 +47,7 @@ src_prepare(){
 }
 
 src_compile(){
-	"$(tc-getCC)" external_software/sputnik/sputnik.c -o external_software/sputnik/sputnik
+	$(tc-getCC) ${CFLAGS} ${LDFLAGS} external_software/sputnik/sputnik.c -o external_software/sputnik/sputnik || die
 }
 
 src_install(){

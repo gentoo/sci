@@ -16,13 +16,13 @@ Before committing, please remove the comments from this file. They are
 not relevant for general metadata.xml files.
 -->
 <pkgmetadata>
-<herd>no-herd</herd>
-<maintainer>
-  <email>@gentoo.org</email>
-<!--  <description>Description of the maintainership</description> -->
-</maintainer>
-<!-- <longdescription>Long description of the package</longdescription> -->
-<!--
+	<herd>no-herd</herd>
+	<maintainer>
+		<email>@gentoo.org</email>
+		<!--  <description>Description of the maintainership</description> -->
+	</maintainer>
+	<!-- <longdescription>Long description of the package</longdescription> -->
+	<!--
 <use>
   <flag name='flag'>Description of how USE='flag' affects this package</flag>
   <flag name='userland_GNU'>Description of how USERLAND='GNU' affects this

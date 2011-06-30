@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils flag-o-matic autotools
+inherit autotools eutils flag-o-matic
 
 DESCRIPTION="lattE-macchiato consists of tools for lattice point enumeration"
 SRC_URI="http://www.math.ucdavis.edu/~mkoeppe/latte/download/latte-for-tea-too-1.2-mk-0.9.3.tar.gz"

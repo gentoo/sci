@@ -10,7 +10,7 @@ DESCRIPTION="A meta-package for installing all EMBASSY packages (EMBOSS add-ons)
 SRC_URI=""
 
 LICENSE+=" freedist"
-KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux ~ppc-macos"
+KEYWORDS="~amd64 ~x86 ~x86-linux ~ppc-macos"
 
 RDEPEND+="
 	=sci-biology/embassy-cbstools-1.0.0-r2

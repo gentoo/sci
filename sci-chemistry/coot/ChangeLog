@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Jun 2011; Justin Lecher <jlec@gentoo.org>
+  +files/9999-clipper-config.patch, +files/9999-mmdb-config.patch,
+  coot-9999.ebuild, +files/9999-test.patch, metadata.xml:
+  Imported changes from tree
+
   15 Jun 2011; Justin Lecher <jlec@gentoo.org> -files/9999-align.patch,
   coot-9999.ebuild:
   Updated to current HEAD
