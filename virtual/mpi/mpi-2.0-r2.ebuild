@@ -15,6 +15,7 @@ IUSE="cxx fortran romio"
 RDEPEND="|| (
 	sys-cluster/openmpi[cxx?,fortran?,romio?]
 	sys-cluster/mpich2[cxx?,fortran?,romio?]
+	sys-cluster/mvapich2[cxx?,fortran?,romio?]
 	sys-cluster/nullmpi
 	sys-cluster/native-mpi
 )"
