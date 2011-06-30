@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="4"
+
 inherit fortran-2 mpi
 
 DESCRIPTION="MVAPICH2 MPI-over-infiniband package auto-configured for OpenIB"
@@ -11,7 +13,7 @@ SRC_URI="${HOMEPAGE}/download/mvapich2/mvapich2-${PV/_/-}.tgz"
 SLOT="0"
 LICENSE="BSD"
 KEYWORDS="~x86 ~amd64"
-IUSE="debug fortran large-cluster medium-cluster rdma romio threads"
+IUSE="debug fortran large-cluster medium-cluster romio threads"
 
 RDEPEND="
 	|| (
@@ -19,7 +21,7 @@ RDEPEND="
 			sys-infiniband/libibverbs
 			sys-infiniband/libibumad
 			sys-infiniband/libibmad
-			rdma? ( sys-infiniband/librdmacm ) )
+			sys-infiniband/librdmacm )
 		sys-infiniband/openib-userspace )"
 DEPEND="${RDEPEND}"
 
@@ -61,9 +63,7 @@ pkg_setup() {
 	esac
 }
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+src_prepare() {
 	einfo "Disabling examples"
 	# Examples are always compiled with the default 'all' target.  This
 	# causes problems when we don't build support for everything, including
@@ -71,7 +71,7 @@ src_unpack() {
 	sed -i 's:.*cd examples && ${MAKE} all.*::' Makefile.in
 }
 
-src_compile() {
+src_configure() {
 	local c="--with-device=osu_ch3:mrail
 		--with-rdma=gen2
 		--with-pm=mpd
@@ -88,10 +88,8 @@ src_compile() {
 	use medium-cluster 	&& vcluster=-D_MEDIUM_CLUSTER
 	[ "${MVAPICH_HCA_TYPE}" == "_MLX_PCI_X_" ] && enable_srq="-DSRQ"
 
-	if use rdma; then
-		append-ldflags "-lrdmacm"
-		append-flags "-DADAPTIVE_RDMA_FAST_PATH -DRDMA_CM"
-	fi
+	append-ldflags "-lrdmacm"
+	append-flags "-DADAPTIVE_RDMA_FAST_PATH -DRDMA_CM"
 	append-ldflags "-libverbs -libumad -libmad"
 
 	append-flags "${BUILD_ARCH} -DUSE_INLINE -D_SMP_ -D_GNU_SOURCE"
@@ -129,11 +127,6 @@ src_compile() {
 
 	! mpi_classed && c="${c} --sysconfdir=/etc/${PN}"
 	econf $(mpi_econf_args)	${c}
-
-	# http://www.mcs.anl.gov/research/projects/mpich2/support/index.php?s=faqs#parmake
-	# https://trac.mcs.anl.gov/projects/mpich2/ticket/297
-	emake -j1 || die
-
 }
 
 src_install() {
