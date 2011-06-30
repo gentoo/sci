@@ -21,6 +21,6 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 src_install() {
-	dodoc README Copying runme
+	dodoc README runme
 	dobin ib_*
 }
