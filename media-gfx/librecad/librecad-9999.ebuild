@@ -2,8 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
-inherit git-2 qt4-r2
+EAPI="4"
+inherit qt4-r2 git-2
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
@@ -19,6 +19,7 @@ DEPEND="${RDEPEND}
 	x11-libs/qt-assistant:4
 	x11-libs/qt-qt3support:4
 "
+
 
 src_prepare()
 {
