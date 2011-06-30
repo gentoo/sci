@@ -11,5 +11,5 @@ inherit openib
 
 DESCRIPTION="Tools for discovering and connecting to SRP CSI targets on InfiniBand fabrics"
 
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
