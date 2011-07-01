@@ -1,6 +1,9 @@
 # ChangeLog for sci-mathematics/acl2
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> acl2-4.2.ebuild:
+  Some ebuild cleaning
 
 *acl2-4.2 (13 Apr 2011)
 

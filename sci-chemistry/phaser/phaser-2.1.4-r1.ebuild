@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit python base flag-o-matic
+inherit base flag-o-matic python
 
 DESCRIPTION="A program for phasing macromolecular crystal structures"
 HOMEPAGE="http://www-structmed.cimr.cam.ac.uk/phaser"

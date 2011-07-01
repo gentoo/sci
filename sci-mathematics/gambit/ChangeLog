@@ -1,6 +1,10 @@
-# ChangeLog for sci-misc/gambit
+# ChangeLog for sci-mathematics/gambit
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> gambit-0.2010.09.01.ebuild,
+  metadata.xml:
+  Cleaned ebuild
 
   16 Apr 2011; Dongxu Li <dongxuli2011@gmail.com> ChangeLog:
   Moved the the sci-mathematics category.

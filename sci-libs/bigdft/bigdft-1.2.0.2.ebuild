@@ -20,6 +20,7 @@ IUSE="cuda doc mpi test"
 RDEPEND="
 	=sci-libs/libxc-1.0[fortran]
 	virtual/blas
+	virtual/fortran
 	virtual/lapack
 	mpi? ( virtual/mpi )
 	cuda? ( dev-util/nvidia-cuda-sdk )"
@@ -48,10 +49,9 @@ src_configure() {
 	if use mpi; then
 		MY_FC="mpif90"
 		MY_CC="mpicc"
-	else
-		MY_FC="$(tc-getFC)"
-		MY_CC="$(tc-getCC)"
 	fi
+
+	tc-export FC CC
 
 	econf \
 		$(use_enable mpi) \
@@ -66,10 +66,7 @@ src_configure() {
 		$(use_with cuda cuda-path /opt/cuda) \
 		$(use_with cuda lib-cutils /opt/cuda/lib) \
 		FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}}" \
-		FC="${MY_FC}" \
-		CC="${MY_CC}" \
-		LD="$(tc-getLD)" \
-		|| die "configure failed"
+		LD="$(tc-getLD)"
 }
 
 src_compile() {

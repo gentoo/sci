@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit eutils fortran-2 autotools
+inherit autotools eutils fortran-2
 
 DESCRIPTION="Library for reading and writing matlab files"
 HOMEPAGE="http://sourceforge.net/projects/matio/"

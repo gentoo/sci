@@ -15,9 +15,10 @@ LICENSE="GPL-3 free-noncomm"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 ## cgns is not compiling ATM, maybe fix cgns lib first
-IUSE="blas chaco cgns doc examples jpeg lua med metis mpi netgen opencascade png petsc taucs tetgen zlib X"
+IUSE="blas cgns chaco doc examples jpeg lua med metis mpi netgen opencascade petsc png taucs tetgen X zlib"
 
 RDEPEND="
+	virtual/fortran
 	X? ( x11-libs/fltk:1 )
 	blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 	cgns? ( sci-libs/cgnslib )
@@ -41,8 +42,13 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/${P}-source
 
+pkg_setup() {
+	fortran-2_pkg_setup
+}
+
 src_configure() {
 	local mycmakeargs=""
+
 	use blas && \
 		mycmakeargs="${mycmakeargs}
 			-DCMAKE_Fortran_COMPILER=$(tc-getF77)"

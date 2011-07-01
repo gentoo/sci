@@ -14,7 +14,7 @@ SRC_URI="ftp://ftp.mcs.anl.gov/pub/mpi/${PN%2}/${MY_P}.tar.gz"
 LICENSE="as-is"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="minimal fortran threads debug"
+IUSE="debug fortran minimal threads"
 
 COMMON_DEPEND="$(mpi_pkg_deplist)
 	!minimal? ( x11-libs/libXtst

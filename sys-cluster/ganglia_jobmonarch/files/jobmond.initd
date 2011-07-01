@@ -1,0 +1,28 @@
+#!/sbin/runscript
+# Copyright 1999-2011 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+PIDFILE=/var/run/jobmond.pid
+
+depend() {
+    need gmond
+}
+
+start() {
+    ebegin "Starting Jobmond"
+    start-stop-daemon --start --exec /sbin/jobmond.py -- -p ${PIDFILE} -c /etc/jobmond.conf
+    eend 0
+}
+
+stop() {
+    ebegin "Stopping Jobmond"
+    start-stop-daemon --stop --quiet --signal TERM -p ${PIDFILE}
+    eend $?
+}
+
+restart() {
+    svc_stop
+    sleep 3
+    svc_start
+}
+# vim:ts=4

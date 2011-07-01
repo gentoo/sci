@@ -18,7 +18,7 @@ SRC_URI="ftp://ftp.isc.org/isc/dhcp/${MY_P}.tar.gz"
 LICENSE="as-is BSD"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
-IUSE="+client ipv6 kernel_linux ldap selinux +server ssl vim-syntax infiniband"
+IUSE="+client infiniband ipv6 kernel_linux ldap selinux +server ssl vim-syntax"
 
 DEPEND="selinux? ( sec-policy/selinux-dhcp )
 	kernel_linux? ( sys-apps/net-tools )
@@ -27,6 +27,7 @@ DEPEND="selinux? ( sec-policy/selinux-dhcp )
 		net-nds/openldap
 		ssl? ( dev-libs/openssl )
 	)"
+RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}"
 

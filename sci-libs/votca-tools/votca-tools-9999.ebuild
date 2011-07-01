@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit eutils cmake-utils
+inherit cmake-utils eutils
 
 if [ "${PV}" != "9999" ]; then
 	SRC_URI="boost? ( http://votca.googlecode.com/files/${PF}_pristine.tar.gz )

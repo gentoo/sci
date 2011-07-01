@@ -2,22 +2,23 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
-EAPI=2
+EAPI=3
 
 inherit cmake-utils flag-o-matic fortran-2 subversion toolchain-funcs
 
-DESCRIPTION="A three-dimensional finite element mesh generator with built-in pre- and post-processing facilities."
+DESCRIPTION="A three-dimensional finite element mesh generator with built-in pre- and post-processing facilities"
 HOMEPAGE="http://www.geuz.org/gmsh/"
 ESVN_REPO_URI="https://geuz.org/svn/gmsh/trunk"
 ESVN_USER="gmsh"
 ESVN_PASSWORD="gmsh"
 
-LICENSE="GPL-2"
+LICENSE="GPL-3 free-noncomm"
 SLOT="0"
 KEYWORDS=""
-IUSE="blas chaco cgns doc examples jpeg med metis mpi opencascade png taucs zlib X"
+IUSE="blas cgns chaco doc examples jpeg med metis mpi opencascade png taucs X zlib"
 
 RDEPEND="
+	virtual/fortran
 	X? ( x11-libs/fltk:1 )
 	blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 	cgns? ( sci-libs/cgnslib )

@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=4
+
 inherit eutils
 
 DESCRIPTION="Command line utilities for operating on netCDF files"
@@ -12,14 +13,13 @@ SRC_URI="http://dust.ess.uci.edu/nco/src/${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
-
 IUSE="doc gsl mpi ncap2 static-libs udunits"
 
-RDEPEND=">=sci-libs/netcdf-4
+RDEPEND="
+	>=sci-libs/netcdf-4
 	gsl? ( sci-libs/gsl )
 	mpi? ( virtual/mpi )
 	udunits? ( >=sci-libs/udunits-2 )"
-
 DEPEND="${RDEPEND}
 	ncap2? ( !mpi? ( dev-java/antlr:0 ) )
 	doc? ( virtual/latex-base )"

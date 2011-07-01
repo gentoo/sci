@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=2
-inherit eutils autotools
+inherit autotools eutils
 
 DESCRIPTION="Program that simulates astronomical images"
 HOMEPAGE="http://www.astromatic.net/software/skymaker"

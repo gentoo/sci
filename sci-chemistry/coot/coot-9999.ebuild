@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=3
 
 PYTHON_DEPEND="2"
 
-inherit autotools base versionator python subversion toolchain-funcs
+inherit autotools base python subversion toolchain-funcs versionator
 
 MY_S2_PV=$(replace_version_separator 2 - ${PV})
 MY_S2_P=${PN}-${MY_S2_PV/pre1/pre-1}
@@ -23,16 +23,17 @@ SRC_URI="test? ( http://www.biop.ox.ac.uk/coot/devel/greg-data.tar.gz )"
 SLOT="0"
 LICENSE="GPL-3"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="test"
+IUSE="+openmp test"
 
 SCIDEPS="
 	>=sci-libs/ccp4-libs-6.1
 	>=sci-libs/clipper-20090520
 	>=sci-libs/coot-data-2
 	>=sci-libs/gsl-1.3
-	sci-libs/mmdb
+	>=sci-libs/mmdb-1.23
+	<sci-libs/monomer-db-1
 	sci-chemistry/reduce
-	sci-chemistry/refmac
+	<sci-chemistry/refmac-5.6
 	sci-chemistry/probe"
 
 XDEPS="
@@ -67,14 +68,20 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}"
 
 pkg_setup() {
+	if use openmp; then
+		tc-has-openmp || die "Please use an OPENMP capable compiler"
+	fi
 	python_set_active_version 2
 }
 
 PATCHES=(
+	"${FILESDIR}"/${PV}-clipper-config.patch
 	"${FILESDIR}"/${PV}-lidia.patch
 	"${FILESDIR}"/${PV}-goocanvas.patch
 	"${FILESDIR}"/${PV}-include.patch
 	"${FILESDIR}"/${PV}-gl.patch
+	"${FILESDIR}"/${PV}-mmdb-config.patch
+	"${FILESDIR}"/${PV}-test.patch
 	)
 
 src_unpack() {
@@ -84,12 +91,6 @@ src_unpack() {
 
 src_prepare() {
 	base_src_prepare
-
-	# Link against single-precision fftw
-	sed -i \
-		-e "s:\}fftw:}sfftw:g" \
-		-e "s:\}rfftw:}srfftw:g" \
-		"${S}"/macros/clipper.m4
 
 	cat >> src/svn-revision.cc <<- EOF
 	extern "C" {
@@ -107,17 +108,15 @@ src_configure() {
 	# Yes, this is broken behavior.
 	econf \
 		--includedir='${prefix}/include/coot' \
-		--with-gtkcanvas-prefix="${EPREFIX}"/usr \
-		--with-clipper-prefix="${EPREFIX}"/usr \
-		--with-mmdb-prefix="${EPREFIX}"/usr \
-		--with-ssmlib-prefix="${EPREFIX}"/usr \
-		--with-gtkgl-prefix="${EPREFIX}"/usr \
+		--with-gtkcanvas-prefix="${EPREFIX}/usr" \
+		--with-ssmlib-prefix="${EPREFIX}/usr" \
+		--with-gtkgl-prefix="${EPREFIX}/usr" \
 		--with-guile \
-		--with-python="${EPREFIX}"/usr \
+		--with-python="${EPREFIX}/usr" \
 		--with-guile-gtk \
 		--with-gtk2 \
 		--with-pygtk \
-		--enable-openmp
+		$(use_enable openmp)
 }
 
 src_compile() {
@@ -133,16 +132,16 @@ src_test() {
 	export COOT_STANDARD_RESIDUES="${S}/standard-residues.pdb"
 	export COOT_SCHEME_DIR="${S}/scheme/"
 	export COOT_RESOURCES_FILE="${S}/cootrc"
-	export COOT_PIXMAPS_DIR="${S}/pixmaps"
-	export COOT_DATA_DIR="${S}"
-	export COOT_PYTHON_DIR="${S}/python"
+	export COOT_PIXMAPS_DIR="${S}/pixmaps/"
+	export COOT_DATA_DIR="${S}/"
+	export COOT_PYTHON_DIR="${S}/python/"
 	export PYTHONPATH="${COOT_PYTHON_DIR}:${PYTHONPATH}"
-	export PYTHONHOME="${EPREFIX}"/usr
-	export CCP4_SCR="${T}"/coot_test
+	export PYTHONHOME="${EPREFIX}"/usr/
+	export CCP4_SCR="${T}"/coot_test/
 	export CLIBD_MON="${EPREFIX}/usr/share/ccp4/data/monomers/"
 	export SYMINFO="${S}/syminfo.lib"
 
-	export COOT_TEST_DATA_DIR="${S}"/data/greg-data
+	export COOT_TEST_DATA_DIR="${S}"/data/greg-data/
 
 	cat > command-line-greg.scm <<- EOF
 	(use-modules (ice-9 greg))
@@ -169,4 +168,5 @@ src_test() {
 	einfo "SYMINFO ${SYMINFO}"
 
 	"${S}"/src/coot-real --no-graphics --script command-line-greg.scm || die
+	"${S}"/src/coot-real --no-graphics --script python-tests/coot_unittest.py || die
 }

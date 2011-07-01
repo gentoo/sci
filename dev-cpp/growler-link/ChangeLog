@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> growler-link-0.3.7.ebuild:
+  Sort inherit and/or USE
+
   23 Jun 2011; Justin Lecher <jlec@gentoo.org> growler-link-0.3.7.ebuild:
   Streamlined fortran-2 eclass usage
 

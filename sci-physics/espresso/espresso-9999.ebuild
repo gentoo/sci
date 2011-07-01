@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/espresso/espresso-3.0.0.ebuild,v 1.1 2011/04/20 13:03:00 ottxor Exp $
 
-EAPI="4"
+EAPI=4
 
 inherit autotools-utils savedconfig
 
@@ -12,7 +12,7 @@ HOMEPAGE="http://www.espressomd.org"
 if [ "${PV%9999}" != "${PV}" ]; then
 	EGIT_REPO_URI="git://git.savannah.nongnu.org/espressomd.git"
 	EGIT_BRANCH="master"
-	inherit git
+	inherit git-2
 else
 	SRC_URI="mirror://nongnu/${PN}md/${P}.tar.gz"
 fi
@@ -25,14 +25,16 @@ REQUIRED_USE="tk? ( X )"
 
 RESTRICT="tk? ( test )"
 
-RDEPEND="dev-lang/tcl
-	X? ( x11-libs/libX11 )
+RDEPEND="
+	dev-lang/tcl
 	fftw? ( sci-libs/fftw:3.0 )
 	mpi? ( virtual/mpi )
-	tk? ( >=dev-lang/tk-8.4.18-r1 )"
+	tk? ( >=dev-lang/tk-8.4.18-r1 )
+	X? ( x11-libs/libX11 )"
 
 DEPEND="${RDEPEND}
-	doc? ( app-doc/doxygen[-nodot]
+	doc? (
+		app-doc/doxygen[-nodot]
 		virtual/latex-base )"
 
 src_prepare() {

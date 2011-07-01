@@ -1,6 +1,16 @@
 # ChangeLog for app-doc/gromacs-manual
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> gromacs-manual-9999.ebuild:
+  Merged
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> gromacs-manual-9999.ebuild:
+  Merged
+
+  25 Jun 2011; Christoph Junghans <ottxor@gentoo.org>
+  gromacs-manual-9999.ebuild:
+  migrate to git-2
 
 *gromacs-manual-9999 (26 Aug 2010)
 

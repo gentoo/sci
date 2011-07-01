@@ -1,0 +1,135 @@
+ mdust/Makefile    |   18 +++++++++---------
+ mdust/fastafile.c |    3 ++-
+ mdust/mdust.c     |    1 +
+ trimpoly/Makefile |   16 ++++++++--------
+ 4 files changed, 20 insertions(+), 18 deletions(-)
+
+diff --git a/mdust/Makefile b/mdust/Makefile
+index 81bf4e9..0c75e69 100644
+--- a/mdust/Makefile
++++ b/mdust/Makefile
+@@ -1,40 +1,40 @@
+ # Useful directories
+ 
+ # Directories to search for header files
+-SEARCHDIRS := -I. -I- 
++SEARCHDIRS := -I. -iquote
+ 
+ 
+ #SYSTYPE :=     $(shell uname)
+ 
+-CC      := gcc
+-CFLAGS  = -O2 -Wall ${SEARCHDIRS} -D_REENTRANT
++CC      ?= gcc
++CFLAGS  += ${SEARCHDIRS} -D_REENTRANT
++CXXFLAGS  += ${SEARCHDIRS} -D_REENTRANT
+ 
+ %.o : %.c
+ 	${CC} ${CFLAGS} -c $< -o $@
+ 
+ %.o : %.cc
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ %.o : %.C
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ %.o : %.cpp
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ %.o : %.cxx
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ # C/C++ linker
+ 
+ LINKER    := gcc
+-LDFLAGS    =
+ LOADLIBES := 
+ 
+ .PHONY : all
+ all:    mdust
+ 
+ mdust:  ./mdust.o ./dust.o ./fastafile.o
+-	${LINKER} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LOADLIBES}
++	${CXX} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LOADLIBES}
+ 
+ # target for removing all object files
+ 
+diff --git a/mdust/fastafile.c b/mdust/fastafile.c
+index 6c14b99..5f70f14 100644
+--- a/mdust/fastafile.c
++++ b/mdust/fastafile.c
+@@ -1,7 +1,8 @@
+ #include <stdio.h>
+ #include <ctype.h>
+ #include <malloc.h>
+-
++#include <string.h>
++#include <stdlib.h>
+ #include "fastafile.h"
+ 
+ 
+diff --git a/mdust/mdust.c b/mdust/mdust.c
+index f2bae99..c3ee686 100644
+--- a/mdust/mdust.c
++++ b/mdust/mdust.c
+@@ -1,6 +1,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <ctype.h>
++#include <string.h>
+ #include "dust.h"
+ #include "fastafile.h"
+ 
+diff --git a/trimpoly/Makefile b/trimpoly/Makefile
+index 84db22d..71145c2 100644
+--- a/trimpoly/Makefile
++++ b/trimpoly/Makefile
+@@ -3,28 +3,28 @@
+ # Directories to search for header files
+ SEARCHDIRS := -I.
+ 
+-CC      := gcc
+-CFLAGS  = -O2 -Wall ${SEARCHDIRS} -D_REENTRANT
++CC      ?= gcc
++CFLAGS  += ${SEARCHDIRS} -D_REENTRANT
++CXXFLAGS  += ${SEARCHDIRS} -D_REENTRANT
+ 
+ %.o : %.c
+ 	${CC} ${CFLAGS} -c $< -o $@
+ 
+ %.o : %.cc
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ %.o : %.C
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ %.o : %.cpp
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ %.o : %.cxx
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ # C/C++ linker
+ 
+ LINKER    := gcc
+-LDFLAGS    = 
+ LOADLIBES =
+ SYSTYPE :=     $(shell uname)
+ #ifeq ($(SYSTYPE), Linux)
+@@ -37,7 +37,7 @@ SYSTYPE :=     $(shell uname)
+ all:    trimpoly
+ 
+ trimpoly:  ./trimpoly.o color_c.o
+-	${LINKER} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LOADLIBES}
++	${CXX} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LOADLIBES}
+ 
+ # target for removing all object files
+ 

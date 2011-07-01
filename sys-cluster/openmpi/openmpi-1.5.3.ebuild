@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/sys-cluster/openmpi/openmpi-1.2.4.ebuild,v 1.2 2007/12/13 22:39:53 jsbronder Exp $
 
 EAPI=3
-inherit eutils fortran-2 multilib flag-o-matic toolchain-funcs mpi
+inherit eutils flag-o-matic fortran-2 mpi multilib toolchain-funcs
 
 MY_P=${P/-mpi}
 S=${WORKDIR}/${MY_P}
@@ -13,8 +13,8 @@ HOMEPAGE="http://www.open-mpi.org"
 SRC_URI="http://www.open-mpi.org/software/ompi/v1.5/downloads/${MY_P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ppc ~ppc64 ~sparc ~x86"
-IUSE="+cxx elibc_FreeBSD fortran heterogeneous ipv6 infiniband mpi-threads pbs romio threads vt"
+KEYWORDS="~amd64 ~x86"
+IUSE="+cxx elibc_FreeBSD fortran heterogeneous infiniband ipv6 mpi-threads pbs romio threads vt"
 MPI_UNCLASSED_DEP_STR="
 	vt? (
 		!dev-libs/libotf

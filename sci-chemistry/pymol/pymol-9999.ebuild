@@ -10,7 +10,7 @@ RESTRICT_PYTHON_ABIS="2.4 2.5 3.*"
 PYTHON_USE_WITH="tk"
 PYTHON_MODNAME="${PN} chempy pmg_tk pmg_wx"
 
-inherit eutils distutils prefix subversion versionator
+inherit distutils eutils prefix subversion versionator
 
 DESCRIPTION="A Python-extensible molecular graphics system."
 HOMEPAGE="http://pymol.sourceforge.net/"

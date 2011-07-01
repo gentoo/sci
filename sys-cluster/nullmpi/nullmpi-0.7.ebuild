@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=4
 
 inherit autotools-utils
 
@@ -15,8 +15,9 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="static-libs"
 
-RDEPEND="!sys-cluster/mpich
+RDEPEND="
 	!sys-cluster/lam-mpi
+	!sys-cluster/mpich
 	!sys-cluster/mpich2
 	!sys-cluster/mpiexec"
 
@@ -28,5 +29,5 @@ PATCHES=( "${FILESDIR}/${P}-libtool.patch" )
 
 src_prepare() {
 	autotools-utils_src_prepare
-	eautoreconf || die "eautoreconf failed"
+	eautoreconf
 }

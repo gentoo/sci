@@ -15,7 +15,7 @@ LICENSE="BSD"
 
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
-IUSE="doc png ssl tcpd tiff +threads xml zlib"
+IUSE="doc png ssl tcpd +threads tiff xml zlib"
 
 RDEPEND="
 	virtual/jpeg

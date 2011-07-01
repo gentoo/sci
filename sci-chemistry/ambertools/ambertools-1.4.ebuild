@@ -8,7 +8,9 @@ inherit eutils fortran-2 toolchain-funcs
 
 DESCRIPTION="A suite for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"
-SRC_URI="AmberTools-${PV}.tar.bz2"
+SRC_URI="
+	AmberTools-${PV}.tar.bz2
+	mirror://gentoo/${P}-bugfix_1-18.patch.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -48,7 +50,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}/${P}-bugfix_1-18.patch" \
+		"${WORKDIR}/${P}-bugfix_1-18.patch" \
 		"${FILESDIR}/${P}-gentoo.patch"
 	cd AmberTools/src
 	rm -r arpack blas lapack fftw-2.1.5 c9x-complex cifparse netcdf pnetcdf reduce ucpp-1.3 || die

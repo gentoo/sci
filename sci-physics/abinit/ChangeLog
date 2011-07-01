@@ -2,6 +2,21 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*abinit-6.8.1 (29 Jun 2011)
+
+  29 Jun 2011; Honza Macháček <Hloupy.Honza@centrum.cz> +abinit-6.8.1.ebuild:
+  Yet another quick version bump, no improvement to the ebuild. Compiles well
+  for me but has problems testing. The fault may be just in my openmpi
+  installation but use with caution.
+
+  29 Jun 2011; Honza Macháček <Hloupy.Honza@centrum.cz> abinit-6.6.3.ebuild:
+  Restored the support for threaded fftw. Works for me. NEVER DISABLE FEATURES
+  FOR OTHERS.
+
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> -abinit-6.6.2.ebuild,
+  abinit-6.6.3.ebuild:
+  Dropped ~ppc as many deps aren't keyworded
+
   21 Jun 2011; Justin Lecher <jlec@gentoo.org> abinit-6.6.2.ebuild,
   abinit-6.6.3.ebuild:
   Added fortran-2.eclass support

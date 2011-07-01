@@ -1,6 +1,10 @@
 # ChangeLog for sci-astronomy/missfits
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> missfits-2.4.0.ebuild,
+  metadata.xml:
+  Cleaned ebuild, unused local USE-description: 'plplot'
 
 *missfits-2.4.0 (18 Nov 2010)
 

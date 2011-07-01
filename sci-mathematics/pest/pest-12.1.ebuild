@@ -4,7 +4,7 @@
 
 EAPI=2
 
-inherit fortran-2 versionator toolchain-funcs
+inherit fortran-2 toolchain-funcs versionator
 
 MY_P="${P/-/}"
 

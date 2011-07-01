@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils versionator java-pkg-2 java-utils-2
+inherit eutils java-pkg-2 java-utils-2 versionator
 
 MY_P=${PN}$(delete_all_version_separators)
 DESCRIPTION="Java interface to WordNet dictionary data"

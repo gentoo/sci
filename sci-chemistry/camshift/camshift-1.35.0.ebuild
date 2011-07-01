@@ -4,7 +4,7 @@
 
 EAPI="3"
 
-inherit eutils flag-o-matic autotools
+inherit autotools eutils flag-o-matic
 
 sDESCRIPTION="Structure based prediction of protein chemical shifts"
 HOMEPAGE="http://www-vendruscolo.ch.cam.ac.uk/camshift/camshift.php"

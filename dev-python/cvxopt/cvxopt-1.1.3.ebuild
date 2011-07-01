@@ -8,7 +8,7 @@ SUPPORT_PYTHON_ABIS=1
 RESTRICT_PYTHON_ABIS="2.4 3.*"
 DISTUTILS_USE_SEPARATE_SOURCE_DIRECTORIES=1
 
-inherit eutils distutils python
+inherit distutils eutils python
 
 DESCRIPTION="A Python Package for Convex Optimization"
 HOMEPAGE="http://abel.ee.ucla.edu/cvxopt"

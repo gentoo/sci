@@ -9,7 +9,7 @@ EBO_EXTRA_ECONF="$(use_with ncurses curses)"
 
 inherit emboss
 
-KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux ~ppc-macos"
+KEYWORDS="~amd64 ~x86 ~x86-linux ~ppc-macos"
 IUSE+=" ncurses"
 
 RDEPEND+=" ncurses? ( sys-libs/ncurses )"

@@ -1,6 +1,10 @@
 # ChangeLog for sci-chemistry/simpson
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> simpson-3.0.1.ebuild,
+  metadata.xml:
+  Cleaned ebuild
 
 *simpson-3.0.1 (11 Aug 2010)
 

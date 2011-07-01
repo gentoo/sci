@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/pfft
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org> pfft-1.0_alpha1.ebuild:
+  Fixed Manifest and cleaned ebuild
 
   15 Sep 2010; Christoph Junghans <kleiner_otti@gmx.de>
   pfft-1.0_alpha1.ebuild, files/pfft-1.0alpha1-Makefile.am,

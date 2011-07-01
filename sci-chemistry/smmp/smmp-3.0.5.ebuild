@@ -22,7 +22,9 @@ KEYWORDS="~amd64 ~x86"
 LICENSE="GPL-2"
 IUSE="doc mpi test"
 
-RDEPEND="mpi? ( virtual/mpi )"
+RDEPEND="
+	virtual/fortran
+	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
@@ -37,18 +39,16 @@ src_compile() {
 		FC="mpif90"
 		target="parallel"
 	else
-		FC=$(tc-getFC)
 		target="${PN}"
 	fi
 
-	emake FC=${FC} ${target} || die
+	tc-export FC
 
-	if use test; then
-		emake FC=${FC} examples || die
-	fi
+	emake ${target} || die
 }
 
 src_test() {
+	emake examples || die
 	cd EXAMPLES
 	bash smmp.cmd || die
 }

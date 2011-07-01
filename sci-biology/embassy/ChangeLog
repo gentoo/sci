@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy/ChangeLog,v 1.33 2010/01/01 21:35:29 fauli Exp $
 
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> embassy-6.3.1.ebuild:
+  Dropped ~ppc due to missing keywording of sci-libs/plplot, #358035
+
   21 Mar 2011; Justin Lecher <jlec@gentoo.org> embassy-6.3.1.ebuild:
   Fixed for reviewed eclass
 

@@ -1,6 +1,10 @@
 # ChangeLog for sci-misc/praat
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jun 2011; Justin Lecher <jlec@gentoo.org> -praat-5.0.38.ebuild,
+  -praat-5.0.45.ebuild, praat-5.1.00.ebuild, praat-5.1.15.ebuild, metadata.xml:
+  Cleaned ebuild
 
 *praat-5.1.15 (07 Sep 2009)
 

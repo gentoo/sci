@@ -8,4 +8,4 @@ EBO_DESCRIPTION="Protein domain analysis add-on package"
 
 inherit emboss
 
-KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux ~ppc-macos"
+KEYWORDS="~amd64 ~x86 ~x86-linux ~ppc-macos"

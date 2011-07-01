@@ -13,7 +13,7 @@ SRC_URI="mirror://sourceforge/algae/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86"
-IUSE="intel blas lapack"
+IUSE="blas intel lapack"
 
 DEPEND="
 	sci-libs/fftw \

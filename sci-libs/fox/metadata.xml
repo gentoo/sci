@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>sci@gentoo.org</email>
+  </maintainer>
+  <use>
+    <flag name="dom">Automatically generated description for dom</flag>
+    <flag name="fast">Automatically generated description for fast</flag>
+    <flag name="sax">Automatically generated description for sax</flag>
+    <flag name="wcml">Automatically generated description for wcml</flag>
+    <flag name="wxml">Automatically generated description for wxml</flag>
+  </use>
+</pkgmetadata>

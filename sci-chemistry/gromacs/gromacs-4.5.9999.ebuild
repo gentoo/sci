@@ -15,7 +15,7 @@ SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 if [ "${PV%9999}" != "${PV}" ]; then
 	EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 	EGIT_BRANCH="release-4-5-patches"
-	inherit git
+	inherit git-2
 else
 	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
 fi

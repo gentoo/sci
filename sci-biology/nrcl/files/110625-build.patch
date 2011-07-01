@@ -1,0 +1,48 @@
+ Makefile |   18 +++++++++---------
+ 1 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 6d5d68f..30a1019 100644
+--- a/Makefile
++++ b/Makefile
+@@ -11,23 +11,23 @@ SYSTYPE :=     $(shell uname)
+ 
+ # C compiler
+ 
+-CC      := g++
+-CFLAGS  = -O2 -Wall ${SEARCHDIRS} -fno-exceptions -fno-rtti -fno-strict-aliasing -D_REENTRANT
++CXX      ?= g++
++CXXFLAGS  += -Wall ${SEARCHDIRS} -fno-exceptions -fno-rtti -fno-strict-aliasing -D_REENTRANT
+ 
+ %.o : %.c
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+-%.o : %.cc
+-	${CC} ${CFLAGS} -c $< -o $@
++%.o : %.CXX
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ %.o : %.C
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ %.o : %.cpp
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ %.o : %.cxx
+-	${CC} ${CFLAGS} -c $< -o $@
++	${CXX} ${CXXFLAGS} -c $< -o $@
+ 
+ # C/C++ linker
+ 
+@@ -39,7 +39,7 @@ LOADLIBES :=
+ all:    nrcl
+ 
+ nrcl:  ./nrcl.o ${GCLDIR}/GBase.o ${GCLDIR}/GStr.o ${GCLDIR}/GArgs.o
+-	${LINKER} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LOADLIBES}
++	${CXX} ${LDFLAGS} -o $@ ${filter-out %.a %.so, $^} ${LOADLIBES}
+ 
+ # target for removing all object files
+ 

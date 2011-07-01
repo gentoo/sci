@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit eutils autotools java-pkg-2 check-reqs flag-o-matic
+inherit autotools check-reqs eutils flag-o-matic java-pkg-2
 
 DESCRIPTION="Scientific software package for numerical computations"
 LICENSE="CeCILL-2"
@@ -21,14 +21,15 @@ KEYWORDS="~amd64 ~x86"
 # http://wiki.scilab.org/Dependencies_of_Scilab_5.X
 RDEPEND="virtual/lapack
 	tk? ( dev-lang/tk )
-	xcos? ( dev-lang/ocaml )
+	xcos? ( dev-lang/ocaml
+			dev-java/hdf-java )
 	umfpack? ( sci-libs/umfpack )
 	gui? ( >=virtual/jre-1.5
 		dev-java/commons-logging
 		>=dev-java/flexdock-0.5.2
 		>=dev-java/jeuclid-core-3.1
 		>=dev-java/jlatexmath-0.9.4
-		=dev-java/jgraphx-1.4.1*
+		=dev-java/jgraphx-1.4.1.0
 		dev-java/jogl
 		dev-java/jgoodies-looks
 		dev-java/jrosetta
@@ -100,7 +101,7 @@ src_configure() {
 		$(use_with matio) \
 		$(use_with umfpack) \
 		$(use_with tk) \
-		$(use_with xcos scicos) \
+		$(use_with xcos) \
 		${myopts}
 }
 

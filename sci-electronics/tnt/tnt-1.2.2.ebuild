@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit base autotools eutils fortran-2 toolchain-funcs
+inherit autotools base eutils fortran-2 toolchain-funcs
 
 DESCRIPTION="MoM 2.5 D stripline simulator"
 HOMEPAGE="http://mmtl.sourceforge.net/"
@@ -19,7 +19,8 @@ RDEPEND="
 	dev-lang/tcl
 	dev-tcltk/tcllib
 	dev-tcltk/itcl
-	dev-tcltk/bwidget"
+	dev-tcltk/bwidget
+	virtual/fortran"
 DEPEND="${RDEPEND}
 	dev-texlive/texlive-latex
 	dev-tex/latex2html

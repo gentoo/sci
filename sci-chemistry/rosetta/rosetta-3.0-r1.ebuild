@@ -6,7 +6,7 @@
 
 EAPI="2"
 
-inherit versionator eutils multilib
+inherit eutils multilib versionator
 
 MY_P="${PN}$(get_major_version)_source"
 
@@ -17,7 +17,7 @@ SRC_URI="${MY_P}.tgz"
 LICENSE="|| ( rosetta-academic rosetta-commercial )"
 SLOT="0"
 KEYWORDS=""
-IUSE="boinc boost X mpi debug doc"
+IUSE="boinc boost debug doc mpi X"
 RESTRICT="fetch"
 
 RDEPEND="mpi? ( virtual/mpi )
