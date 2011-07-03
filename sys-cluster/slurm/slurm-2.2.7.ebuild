@@ -13,7 +13,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="munge mysql pam postgres ssl static"
+IUSE="munge mysql pam postgres ssl static-libs"
 
 DEPEND="
 	mysql? ( dev-db/mysql )
@@ -42,7 +42,7 @@ src_configure() {
 		$(use_enable pam) \
 		$(use_with ssl) \
 		$(use_with munge) \
-		$(use_enable static)
+		$(use_enable static-libs static)
 }
 
 src_compile() {
@@ -53,4 +53,5 @@ src_compile() {
 src_install() {
 	default
 	use pam && emake DESTDIR="${D}" -C contribs/pam install || die
+	use static-libs || find "${ED}" -name '*.la' -exec rm {} +
 }
