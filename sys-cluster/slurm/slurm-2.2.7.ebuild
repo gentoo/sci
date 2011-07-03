@@ -12,8 +12,8 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
-IUSE="munge mysql pam +pbs-compat postgres ssl static-libs"
+KEYWORDS="~amd64 ~x86"
+IUSE="maui +munge mysql pam +pbs-compat postgres ssl static-libs"
 
 DEPEND="
 	mysql? ( dev-db/mysql )
@@ -22,9 +22,9 @@ DEPEND="
 	pbs-compat? ( !sys-cluster/torque )
 	postgres? ( dev-db/postgresql-base )
 	ssl? ( dev-libs/openssl )
-	>=sys-apps/hwloc-1.1.1-r1
-	>=sys-process/numactl-2.0.6"
-RDEPEND="${DEPEND}"
+	>=sys-apps/hwloc-1.1.1-r1"
+RDEPEND="${DEPEND}
+	maui? ( sys-cluster/maui[slurm] )"
 
 pkg_setup() {
 	enewgroup slurm
