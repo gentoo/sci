@@ -56,4 +56,6 @@ src_install() {
 	use pam && emake DESTDIR="${D}" -C contribs/pam install || die
 	use pbs-compat && emake DESTDIR="${D}" -C contribs/torque install || die
 	use static-libs || find "${ED}" -name '*.la' -exec rm {} +
+	# we dont need it
+	rm "${ED}/usr/bin/mpiexec" || die
 }
