@@ -72,6 +72,7 @@ src_install() {
 	keepdir /etc/slurm
 	keepdir /var/log/slurm
 	keepdir /var/spool/slurm
+	keepdir /var/run/slurm
 	insinto /etc/slurm
 	doins etc/cgroup.conf.example
 	doins etc/federation.conf.example
@@ -95,6 +96,14 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
+	einfo "Fixing permissions in /var/spool/${PN}"
+	chown -R ${PN}:${PN} /var/spool/${PN}
+	einfo "Fixing permissions in /var/run/${PN}"
+	chown -R ${PN}:${PN} /var/run/${PN}
+	einfo "Fixing permissions in /var/log/${PN}"
+	chown -R ${PN}:${PN} /var/log/${PN}
+	echo
+
 	elog "Please visit the file '/usr/share/doc/${P}/html/configurator.html"
 	elog "through a (javascript enabled) browser to create a configureation file."
 	elog "Copy that file to /etc/slurm.conf on all nodes (including the headnode) of your cluster."

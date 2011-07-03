@@ -24,7 +24,7 @@ checkconfig() {
 start() {
 	ebegin "Starting slurmdb daemon"
 	start-stop-daemon --start --quiet --background \
-		--pidfile /var/run/slurmddb.pid \
+		--pidfile /var/run/slurm/slurmddb.pid \
 		--user slurm \
 		--group slurm \
 		--exec /usr/sbin/slurmddb -- ${SLURMD_OPTS}
@@ -33,7 +33,7 @@ start() {
 
 stop() {
 	ebegin "Stopping slurmdb daemon"
-	start-stop-daemon --stop --pidfile /var/run/slurmdbd.pid
+	start-stop-daemon --stop --pidfile /var/run/slurm/slurmdbd.pid
 	eend $?
 }
 
