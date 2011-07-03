@@ -9,7 +9,7 @@ opts="reload"
 
 depend() {
 	local _need="net"
-	[ ${SLURM_USE_MUNGE} -ne 0 ] && _need="${_need} munged"
+	[[ ${SLURM_USE_MUNGE} -ne 0 ]] && _need="${_need} munged"
 	after logger
 	need ${_need}
 }
