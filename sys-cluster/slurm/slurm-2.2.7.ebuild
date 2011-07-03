@@ -58,4 +58,15 @@ src_install() {
 	use static-libs || find "${ED}" -name '*.la' -exec rm {} +
 	# we dont need it
 	rm "${ED}/usr/bin/mpiexec" || die
+	# install sample configs
+	keepdir /etc/slurm
+	keepdir /var/log/slurm
+	keepdir /var/spool/slurm
+	insinto /etc/slurm
+	doins etc/cgroup.conf.example
+	doins etc/cgroup.release_agent
+	doins etc/federation.conf.example
+	doins etc/slurm.conf.example
+	doins etc/slurmdbd.conf.example
+	doins etc/slurm.epilog.clean
 }
