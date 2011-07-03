@@ -34,7 +34,7 @@ src_configure() {
 			--sysconfdir="${EPREFIX}/etc/${PN}"
 			--with-hwloc="${ED}/usr"
 			)
-	use pam && myconf+=( --with_pam_dir=$(getpam_mod_dir) )
+	use pam && myconf+=( --with-pam_dir=$(getpam_mod_dir) )
 	use mysql && myconf+=( --with-mysql_config="${EPREFIX}/usr/bin/mysql_config" )
 	use postgres && myconf+=( --with-pg_config="${EPREFIX}/usr/bin/pg_config" )
 	econf "${myconf[@]}" \
