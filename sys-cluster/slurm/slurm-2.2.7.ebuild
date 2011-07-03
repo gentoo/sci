@@ -74,9 +74,23 @@ src_install() {
 	keepdir /var/spool/slurm
 	insinto /etc/slurm
 	doins etc/cgroup.conf.example
-	doins etc/cgroup.release_agent
+	doexe etc/cgroup.release_agent
 	doins etc/federation.conf.example
 	doins etc/slurm.conf.example
 	doins etc/slurmdbd.conf.example
-	doins etc/slurm.epilog.clean
+	doexe etc/slurm.epilog.clean
+	# install init.d files
+	newinitd "${FILESDIR}/slurmd.initd" slurmd
+	newinitd "${FILESDIR}/slurmctld.initd" slurmctld
+	newinitd "${FILESDIR}/slurmdbd.initd" slurmdbd
+	# install conf.d files
+	newconfd "${FILESDIR}/slurmd.confd" slurmd
+	newconfd "${FILESDIR}/slurmctld.confd" slurmctld
+	newconfd "${FILESDIR}/slurmdbd.confd" slurmdbd
+}
+
+pkg_postinst() {
+	elog "Please visit the file '/usr/share/doc/${P}/html/configurator.html"
+	elog "through a (javascript enabled) browser to create a configureation file."
+	elog "Copy that file to /etc/slurm.conf on all nodes (including the headnode) of your cluster."
 }

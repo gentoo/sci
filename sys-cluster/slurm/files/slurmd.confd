@@ -1,0 +1,2 @@
+# /etc/conf.d/slurd: config file for /etc/init.d/slurd
+SLURMD_OPTIONS=""

@@ -1,0 +1,42 @@
+#!/sbin/runscript
+# Copyright 1999-2011 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+opts="reload"
+
+depend() {
+	local _need="net"
+	[ ${SLURM_USE_MUNGE} -ne 0 ] && _need="${_need} munged"
+	after logger
+	need ${_need}
+}
+
+checkconfig() {
+	if [ ! -e "/etc/slurm/slurmdbd.conf" ]; then
+		eerror "Missing config /etc/slurm/slurmdbd.conf"
+		return 1
+	fi
+}
+
+start() {
+	ebegin "Starting slurmdb daemon"
+	start-stop-daemon --start --quiet --background \
+		--pidfile /var/run/slurmddb.pid \
+		--user slurm \
+		--group slurm \
+		--exec /usr/sbin/slurmddb -- ${SLURMD_OPTS}
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping slurmdb daemon"
+	start-stop-daemon --stop --pidfile /var/run/slurmdbd.pid
+	eend $?
+}
+
+reload() {
+	ebegin "Reloading slurmdb daemon configuration"
+	killproc slurmdbd -HUP
+	eend $?
+}
