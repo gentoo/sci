@@ -32,7 +32,7 @@ pkg_setup() {
 src_configure() {
 	local myconf=(
 			--sysconfdir="${EPREFIX}/etc/${PN}"
-			--with-hwloc="${ED}/usr"
+			--with-hwloc="${EPREFIX}/usr"
 			)
 	use pam && myconf+=( --with-pam_dir=$(getpam_mod_dir) )
 	use mysql && myconf+=( --with-mysql_config="${EPREFIX}/usr/bin/mysql_config" )
