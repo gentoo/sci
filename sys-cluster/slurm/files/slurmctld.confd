@@ -1,2 +1,0 @@
-# /etc/conf.d/slurmctld: config file for /etc/init.d/slurmctld
-SLURMCTLD_OPTIONS=""

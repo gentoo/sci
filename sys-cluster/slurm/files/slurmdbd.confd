@@ -1,2 +1,0 @@
-# /etc/conf.d/slurmdbd: config file for /etc/init.d/slurmdbd
-SLURMDBD_OPTIONS=""

@@ -85,9 +85,13 @@ src_install() {
 	newinitd "${FILESDIR}/slurmctld.initd" slurmctld
 	newinitd "${FILESDIR}/slurmdbd.initd" slurmdbd
 	# install conf.d files
-	newconfd "${FILESDIR}/slurmd.confd" slurmd
-	newconfd "${FILESDIR}/slurmctld.confd" slurmctld
-	newconfd "${FILESDIR}/slurmdbd.confd" slurmdbd
+	newconfd "${FILESDIR}/slurm.confd" slurmd
+}
+
+pkg_preinst() {
+	if use munge; then
+		sed -i 's,\(PBS_USE_MUNGE=\).*,\11,' "${D}"etc/conf.d/slurm || die
+	fi
 }
 
 pkg_postinst() {
