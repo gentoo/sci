@@ -74,10 +74,11 @@ src_install() {
 	keepdir /var/spool/slurm
 	insinto /etc/slurm
 	doins etc/cgroup.conf.example
-	doexe etc/cgroup.release_agent
 	doins etc/federation.conf.example
 	doins etc/slurm.conf.example
 	doins etc/slurmdbd.conf.example
+	exeinto /etc/slurm
+	doexe etc/cgroup.release_agent
 	doexe etc/slurm.epilog.clean
 	# install init.d files
 	newinitd "${FILESDIR}/slurmd.initd" slurmd
