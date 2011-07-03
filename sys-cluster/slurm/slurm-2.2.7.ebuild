@@ -13,12 +13,13 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="munge mysql pam postgres ssl static-libs"
+IUSE="munge mysql pam +pbs-compat postgres ssl static-libs"
 
 DEPEND="
 	mysql? ( dev-db/mysql )
 	munge? ( sys-auth/munge )
 	pam? ( virtual/pam )
+	pbs-compat? ( !sys-cluster/torque )
 	postgres? ( dev-db/postgresql-base )
 	ssl? ( dev-libs/openssl )
 	>=sys-apps/hwloc-1.1.1-r1
@@ -53,5 +54,6 @@ src_compile() {
 src_install() {
 	default
 	use pam && emake DESTDIR="${D}" -C contribs/pam install || die
+	use pbs-compat && emake DESTDIR="${D}" -C contribs/torque install || die
 	use static-libs || find "${ED}" -name '*.la' -exec rm {} +
 }
