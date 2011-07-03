@@ -31,6 +31,16 @@ pkg_setup() {
 	enewuser slurm -1 -1 /var/spool/slurm slurm
 }
 
+src_prepare() {
+	# gentoo uses /sys/fs/cgroup instead of /dev/cgroup
+	sed -e 's:/dev/cgroup:/sys/fs/cgroup:g' \
+		-i "${S}/doc/man/man5/cgroup.conf.5" \
+		-i "${S}/etc/cgroup.conf.example" \
+		-i "${S}/etc/cgroup.release_agent" \
+		-i "${S}/src/plugins/proctrack/cgroup/xcgroup.h" \
+		|| die
+}
+
 src_configure() {
 	local myconf=(
 			--sysconfdir="${EPREFIX}/etc/${PN}"
