@@ -85,7 +85,7 @@ src_install() {
 	newinitd "${FILESDIR}/slurmctld.initd" slurmctld
 	newinitd "${FILESDIR}/slurmdbd.initd" slurmdbd
 	# install conf.d files
-	newconfd "${FILESDIR}/slurm.confd" slurmd
+	newconfd "${FILESDIR}/slurm.confd" slurm
 }
 
 pkg_preinst() {
