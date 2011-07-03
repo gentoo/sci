@@ -46,11 +46,11 @@ src_configure() {
 }
 
 src_compile() {
-	emake || die
+	default
 	use pam && emake -C contribs/pam || die
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die
+	default
 	use pam && emake DESTDIR="${D}" -C contribs/pam install || die
 }
