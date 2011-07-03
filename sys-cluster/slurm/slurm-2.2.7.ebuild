@@ -29,7 +29,7 @@ pkg_setup() {
 	enewuser slurm -1 -1 /var/spool/slurm slurm
 }
 
-pkg_config() {
+src_configure() {
 	local myconf=(
 			--sysconfdir="${EPREFIX}/etc/${PN}"
 			--with-hwloc="${ED}/usr"
