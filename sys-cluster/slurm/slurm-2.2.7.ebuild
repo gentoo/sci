@@ -39,6 +39,17 @@ src_prepare() {
 		-i "${S}/etc/cgroup.release_agent" \
 		-i "${S}/src/plugins/proctrack/cgroup/xcgroup.h" \
 		|| die
+	# also we running slurm daemons under slurm user
+	sed -e '#SlurmdUser=root:SlurmdUser=slurm:g' \
+		-i "${S}/etc/slurm.conf.example"
+	# and pids should go to /var/run/slurm
+	sed -e 's:/var/run/slurmctld.pid:/var/run/slurm/slurmctld.pid:g' \
+		-e 's:/var/run/slurmd.pid:/var/run/slurm/slurmd.pid:g' \
+		-i "${S}/etc/slurm.conf.example"
+	# also state dirs are in /var/spool/slurm
+	sed -e 's:StateSaveLocation=/tmp:StateSaveLocation=/var/spool/slurm:g' \
+		-e 's:SlurmdSpoolDir=/tmp/slurmd:SlurmdSpoolDir=/var/spool/slurm/slurmd:g' \
+		-i "${S}/etc/slurm.conf.example"
 }
 
 src_configure() {
