@@ -21,7 +21,8 @@ DEPEND="
 	pam? ( virtual/pam )
 	postgres? ( dev-db/postgresql-base )
 	ssl? ( dev-libs/openssl )
-	>=sys-apps/hwloc-1.1.1-r1"
+	>=sys-apps/hwloc-1.1.1-r1
+	>=sys-process/numactl-2.0.6"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
@@ -42,4 +43,14 @@ src_configure() {
 		$(use_with ssl) \
 		$(use_with munge) \
 		$(use_enable static)
+}
+
+src_compile() {
+	emake
+	use pam && emake -C contrib/pam
+}
+
+src_install() {
+	emake DESTDIR="${D}" install
+	use pam && emake DESTDIR="${D}" -C contrib/pam install
 }
