@@ -55,7 +55,7 @@ DEPEND="
 # TODO: implement ebuild checks for these version of packages
 #    !  Bio::Root::Version (1.006001) is installed, but we need version >= 1.0069
 #    *  Bio::DB::BigFile is not installed
-#    *  Bio::DB::Sam is not installed
+#    *  Bio::DB::Sam is not installed, install http://cpansearch.perl.org/src/LDS/Bio-SamTools-1.29
 #    *  DBD::Pg is not installed
 #    >=perl-gcpan/Text-ParseWords-3.27
 
