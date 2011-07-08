@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/generic-genome-browser/ChangeLog,v 1.10 2007/07/29 17:07:38 phreak Exp $
 
+  08 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  gbrowse-2.38.ebuild:
+  Added dependency on >=perl-gcpan/Text-ParseWords-3.27, documented requirement
+  of Bio::Root::Version >= 1.0069
+
 *gbrowse-2.38 (26 Jun 2011)
 
   26 Jun 2011; Justin Lecher <jlec@gentoo.org> -gbrowse-2.26.ebuild,
