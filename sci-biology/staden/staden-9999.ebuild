@@ -66,6 +66,7 @@ src_configure() {
 }
 
 src_install() {
+	# TODO: dodoc /usr/share/doc/staden/manual/gap4.index ?
 	emake install DESTDIR="${D}" || die "make install failed"
 
 	cat >> "${S}"/99staden <<- EOF

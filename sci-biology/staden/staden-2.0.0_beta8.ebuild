@@ -57,6 +57,7 @@ src_configure(){
 }
 
 src_install() {
+	# TODO: dodoc /usr/share/doc/staden/manual/gap4.index ?
 	emake install DESTDIR="${D}" || die "make install failed"
 	#cd "${WORKDIR}"/staden_doc-2.0.0b8-src || die "failed to cd "${WORKDIR}"/staden_doc-2.0.0b8-src"
 	#make install prefix="${D}"/usr || die "failed to install pre-created docs from upstream"
