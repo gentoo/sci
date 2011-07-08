@@ -30,7 +30,7 @@ DEPEND="
 	sci-mathematics/frobby
 	sci-mathematics/4ti2
 	sci-mathematics/nauty
-	>=sci-mathematics/normaliz-2.5
+	>=sci-mathematics/normaliz-2.7
 	sci-mathematics/gfan
 	>=dev-libs/mpfr-3.0.0
 	>=sci-libs/mpir-2.1.1[cxx]
