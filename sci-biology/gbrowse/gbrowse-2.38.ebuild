@@ -52,9 +52,12 @@ DEPEND="
 # TODO: based on the following message in apache/error_log the list of deps should be longer
 # GBROWSE NOTICE: To enable PDF generation, please enter the directory "/home/httpd" and run the commands: "sudo mkdir .inkscape .gnome2" and "sudo chown apache .inkscape .gnome2".  To turn off this message add "generate pdf = 0" to the [GENERAL] section of your GBrowse.conf configuration file., referer: http://127.0.0.1/gbrowse/cgi-bin/gbrowse_details/yeast?ref=chrII;start=90739;end=92028;name=YBL069W;class=Sequence;feature_id=881;db_id=annotations%3Adatabase
 
+# TODO: implement ebuild checks for these version of packages
+#    !  Bio::Root::Version (1.006001) is installed, but we need version >= 1.0069
 #    *  Bio::DB::BigFile is not installed
-#    *  Bio::DB::Sam is not installed
+#    *  Bio::DB::Sam is not installed, install http://cpansearch.perl.org/src/LDS/Bio-SamTools-1.29
 #    *  DBD::Pg is not installed
+#    >=perl-gcpan/Text-ParseWords-3.27
 
 RDEPEND="${DEPEND}
 	>=www-servers/apache-2.0.47

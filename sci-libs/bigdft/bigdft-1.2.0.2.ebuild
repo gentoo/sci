@@ -46,12 +46,13 @@ src_prepare() {
 }
 
 src_configure() {
+	# fortran-2.eclass does not handle mpi wrappers
 	if use mpi; then
-		MY_FC="mpif90"
-		MY_CC="mpicc"
+		export FC="mpif90"
+		export CC="mpicc"
+	else
+		tc-export FC CC
 	fi
-
-	tc-export FC CC
 
 	econf \
 		$(use_enable mpi) \

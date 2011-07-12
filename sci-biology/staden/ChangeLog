@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  staden-2.0.0_beta8.ebuild, staden-9999.ebuild:
+  Documented that we have to install somehow
+  /usr/share/doc/staden/manual/gap4.index which is looked up when user accesses
+  built-in help menu item
+
   23 Jun 2011; Justin Lecher <jlec@gentoo.org> staden-2.0.0_beta8.ebuild,
   staden-9999.ebuild:
   Streamlined fortran-2 eclass usage

@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Jul 2011; Honza Macháček <Hloupy.Honza@centrum.cz>
+  bigdft-1.2.0.2.ebuild:
+  The MPI support, broken by fortran-2.eclass usage, made work again.
+
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> bigdft-1.2.0.2.ebuild:
   Streamlined fortran-2 eclass usage
 
