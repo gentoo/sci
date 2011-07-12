@@ -29,6 +29,7 @@ DEPEND="!sci-chemistry/icm-browser
 					app-crypt/mit-krb5
 					app-arch/bzip2
 					media-libs/libpng:1.2
+					media-libs/jpeg:62
 					x11-libs/libdrm
 					x11-libs/libX11
 					sys-apps/keyutils
@@ -91,7 +92,7 @@ src_install () {
 	dosym "${instdir}/txdoc"  /opt/bin/txdoc || die
 	dosym "${instdir}/lmhostid"  /opt/bin/lmhostid || die
 	# make desktop entry
-	doicon "${FILESDIR}/${PN}.png"
+	doicon "${FILESDIR}/${PN}.xpm"
 	if use x86; then
 		make_desktop_entry "icm -g" "ICM Pro" ${PN} Chemistry
 	elif use amd64; then
