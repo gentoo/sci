@@ -7,8 +7,26 @@ depend() {
 	need net
 }
 
-start() { 
+checksystem() {
+	if [ -c /dev/open-mx ]; then
+		einfo "Open-MX module already loaded"
+		return 0
+	else
+		einfo "Checking if Open-MX module present"
+		if [ "x$(modprobe -l  open-mx | grep open-mx)" == "x" ]; then
+			eerror "open-mx not found!"
+			return 1
+		fi
+	fi
+}
+
+start() {
 	ebegin "Starting ${SVCNAME}"
+	checksystem || return 1
+	if [ ! -c /dev/open-mx]; then
+		ebegin "Loading open-mx module"
+		modprobe -q open-mx
+	fi
 	start-stop-daemon --start --exec /usr/bin/omxoed \
 	 	--background --make-pidfile \
 	 	--pidfile /var/run/omeoed.pid
@@ -20,4 +38,9 @@ stop() {
 	start-stop-daemon --stop --exec /usr/bin/omxoed \
 		--pidfile /var/run/omeoed.pid
 	eend $?
+}
+
+status() {
+	ebegin "Showing current active Open-MX peers"
+	omx_info -q
 }
