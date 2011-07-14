@@ -7,9 +7,9 @@ depend() {
 	need net
 }
 
-start() {
-	 ebegin "Stopping ${SVCNAME}"
-	 start-stop-daemon --start --exec /usr/bin/omxoed \
+start() { 
+	ebegin "Starting ${SVCNAME}"
+	start-stop-daemon --start --exec /usr/bin/omxoed \
 	 	--background --make-pidfile \
 	 	--pidfile /var/run/omeoed.pid
 	eend $?
