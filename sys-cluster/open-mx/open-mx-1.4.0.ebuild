@@ -55,6 +55,7 @@ src_install() {
 	use static-libs || find "${ED}" -name '*.*a' -exec rm {} +
 	# Drop init scripts
 	rm -rf "${ED}/usr/sbin" || die
+	rm "${ED}/usr/bin/omx_check"
 	# install udev rules
 	insinto /etc/udev/rules.d
 	doins "${ED}/etc/open-mx/10-open-mx.rules"

@@ -9,14 +9,15 @@ depend() {
 
 start() {
 	 ebegin "Stopping ${SVCNAME}"
-	 start-stop-daemon --start --exec /usr/bin/omeoed \
+	 start-stop-daemon --start --exec /usr/bin/omxoed \
+	 	--background --make-pidfile \
 	 	--pidfile /var/run/omeoed.pid
 	eend $?
 }
 
 stop() {
 	ebegin "Stopping ${SVCNAME}"
-	start-stop-daemon --stop --exec /usr/bin/omeoed \
+	start-stop-daemon --stop --exec /usr/bin/omxoed \
 		--pidfile /var/run/omeoed.pid
 	eend $?
 }
