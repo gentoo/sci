@@ -23,7 +23,7 @@ checksystem() {
 start() {
 	ebegin "Starting ${SVCNAME}"
 	checksystem || return 1
-	if [ ! -c /dev/open-mx]; then
+	if [ ! -c /dev/open-mx ]; then
 		ebegin "Loading open-mx module"
 		modprobe -q open-mx
 	fi
