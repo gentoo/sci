@@ -4,8 +4,11 @@
 
 *brlcad-7.18.4 (18 Apr 2011)
 
+  14 Jul 2011; Dongxu Li <dongxuli2011@gmail.com> +brlcad-7.20.2-r1.ebuild:
+  Switch to cmake, have to wait for upstream to fix the itcl/itk link problem to enable using system itcl/itk
+
   13 Jul 2011; Dongxu Li <dongxuli2011@gmail.com> +brlcad-7.20.2.ebuild:
-  media-gfx/brlcad: version bump to 7.20.2, still need to enable cmake building as supported by upstream
+  version bump to 7.20.2, still need to enable cmake building as supported by upstream
 
   18 Apr 2011; Andreas K. Huettel <dilfridge@gentoo.org>
   +brlcad-7.18.4.ebuild:
