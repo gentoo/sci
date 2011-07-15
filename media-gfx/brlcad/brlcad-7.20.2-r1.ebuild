@@ -43,6 +43,10 @@ DEPEND="${RDEPEND}
 
 BRLCAD_DIR="${EPREFIX}/usr/${PN}"
 
+src_prepare() {
+	epatch "${FILESDIR}/${P}-cmake.patch"
+}
+
 src_configure() {
 		#waiting for upstream to fix itck/itk issues for cmake
 		#have to enable tcl/tk local build, otherwise cmake won't be able to link for
