@@ -1,13 +1,16 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=3
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
 
-inherit bzr distutils
+EGIT_REPO_URI="git://github.com/eteq/${PN}.git"
+EGIT_BRANCH="master"
+
+inherit distutils git-2
 
 DESCRIPTION="General purpose python library for professional astronomers/astrophysicists"
 HOMEPAGE="http://packages.python.org/Astropysics/"
@@ -18,13 +21,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-EBZR_REPO_URI="lp:astropysics"
-
 DEPEND="doc? ( dev-python/sphinx )"
 RDEPEND="dev-python/chaco
+	dev-python/ipython
 	dev-python/matplotlib
-	dev-python/pyfits
-	dev-python/vo
+	dev-python/networkx
+	dev-python/pygraphviz
+	dev-python/atpy[fits,votable]
 	sci-astronomy/sextractor
 	sci-visualization/mayavi
 	sci-libs/scipy"
