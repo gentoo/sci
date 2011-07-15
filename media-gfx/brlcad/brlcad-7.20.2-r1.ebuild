@@ -35,6 +35,7 @@ DEPEND="${RDEPEND}
 	sys-devel/bison
 	sys-devel/flex
 	dev-tcltk/tktable
+	>=virtual/jre-1.5
 	doc? (
 		dev-libs/libxslt
 		app-doc/doxygen
@@ -43,7 +44,7 @@ DEPEND="${RDEPEND}
 BRLCAD_DIR="${EPREFIX}/usr/${PN}"
 
 src_configure() {
-		#waiting for upstream to fix itck/itk issue for cmake
+		#waiting for upstream to fix itck/itk issues for cmake
 		#have to enable tcl/tk local build, otherwise cmake won't be able to link for
 		# -litcl -litk
 	local mycmakeargs=(
