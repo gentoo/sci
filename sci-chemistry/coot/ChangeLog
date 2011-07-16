@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Jul 2011; Justin Lecher <jlec@gentoo.org> +files/9999-ssm.patch,
+  coot-9999.ebuild:
+  Adopt to unbundled ssm
+
   15 Jul 2011; Justin Lecher <jlec@gentoo.org> files/9999-mmdb-config.patch:
   Mmdb fix
 
