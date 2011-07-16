@@ -1,0 +1,14 @@
+--- ssm.pc.in_orig	2007-09-03 13:58:16.000000000 -0700
++++ ssm.pc.in	2008-02-27 16:19:48.000000000 -0800
+@@ -1,7 +1,7 @@
+-prefix=@SSM_PREFIX@
+-exec_prefix=@SSM_PREFIX@
+-libdir=@SSM_PREFIX@/lib
+-includedir=@SSM_PREFIX@/include
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
+ 
+ Name: ssm
+ Description: Macromolecular superposition library
