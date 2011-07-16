@@ -10,9 +10,9 @@
 		<email>ulm@gentoo.org</email>
 	</maintainer>
 	<use>
-		<flag name='gd'>Add support for <pkg>media-libs/gd</pkg>.
+		<flag name="gd">Add support for <pkg>media-libs/gd</pkg>.
     		Needed for GIF, JPEG, and PNG image output.</flag>
-  		<flag name='thin-splines'>Enable thin plate splines</flag>
-  		<flag name='qt4'>Build Qt4 terminal</flag>
+		<flag name="thin-splines">Enable thin plate splines</flag>
+		<flag name="qt4">Build Qt4 terminal</flag>
 	</use>
 </pkgmetadata>

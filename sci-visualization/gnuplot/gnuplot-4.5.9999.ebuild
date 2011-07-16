@@ -26,17 +26,21 @@ fi
 LICENSE="gnuplot GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
-IUSE="cairo doc emacs +gd ggi latex lua plotutils qt4 readline svga thin-splines wxwidgets X xemacs"
+IUSE="cairo doc emacs examples +gd ggi latex lua plotutils qt4 readline svga thin-splines wxwidgets X xemacs"
 RESTRICT="wxwidgets? ( test )"
 
-RDEPEND="!app-emacs/gnuplot-mode
-	cairo? ( x11-libs/cairo
+RDEPEND="
+	!app-emacs/gnuplot-mode
+	cairo? (
+		x11-libs/cairo
 		x11-libs/pango )
 	emacs? ( virtual/emacs )
 	gd? ( media-libs/gd[png] )
 	ggi? ( media-libs/libggi )
-	latex? ( virtual/latex-base
-		lua? ( dev-tex/pgf
+	latex? (
+		virtual/latex-base
+		lua? (
+			dev-tex/pgf
 			>=dev-texlive/texlive-latexrecommended-2008-r2 ) )
 	lua? ( dev-lang/lua )
 	plotutils? ( media-libs/plotutils )
@@ -45,21 +49,25 @@ RDEPEND="!app-emacs/gnuplot-mode
 		>=x11-libs/qt-svg-4.5 )
 	readline? ( sys-libs/readline )
 	svga? ( media-libs/svgalib )
-	wxwidgets? ( x11-libs/wxGTK:2.8[X]
+	wxwidgets? (
+		x11-libs/wxGTK:2.8[X]
 		x11-libs/cairo
 		x11-libs/pango
 		x11-libs/gtk+:2 )
 	X? ( x11-libs/libXaw )
-	xemacs? ( app-editors/xemacs
+	xemacs? (
+		app-editors/xemacs
 		app-xemacs/xemacs-base )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
-	doc? ( virtual/latex-base
+	doc? (
+		virtual/latex-base
 		app-text/ghostscript-gpl )
 	!emacs? ( xemacs? ( app-xemacs/texinfo ) )
 	!emacs? ( !xemacs? ( || ( virtual/emacs app-xemacs/texinfo ) ) )"
 
 S="${WORKDIR}/${MY_P}"
+
 GP_VERSION="${PV%.*}"
 E_SITEFILE="50${PN}-gentoo.el"
 TEXMF="${EPREFIX}/usr/share/texmf-site"
@@ -195,12 +203,14 @@ src_install () {
 	newdoc term/js/README README-js
 	use lua && newdoc term/lua/README README-lua
 
-	if use doc; then
+	if use examples; then
 		# Demo files
 		insinto /usr/share/${PN}/${GP_VERSION}
 		doins -r demo || die
 		rm -f "${ED}"/usr/share/${PN}/${GP_VERSION}/demo/Makefile*
 		rm -f "${ED}"/usr/share/${PN}/${GP_VERSION}/demo/binary*
+	fi
+	if use doc; then
 		# Manual
 		dodoc docs/gnuplot.pdf
 		# Tutorial
