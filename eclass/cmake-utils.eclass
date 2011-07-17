@@ -52,7 +52,7 @@ inherit toolchain-funcs multilib flag-o-matic base
 
 CMAKE_EXPF="src_compile src_test src_install"
 case ${EAPI:-0} in
-	4|3|2) CMAKE_EXPF+=" src_prepare src_configure" ;;
+	4|3|2) CMAKE_EXPF+=" src_configure" ;;
 	1|0) ;;
 	*) die "Unknown EAPI, Bug eclass maintainers." ;;
 esac
@@ -274,17 +274,13 @@ _modify-cmakelists() {
 	_EOF_
 }
 
-enable_cmake-utils_src_prepare() {
+enable_cmake-utils_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
 
 	local name
 	for name in ${CMAKE_REMOVE_MODULES} ; do
 		find "${S}" -name ${name}.cmake -exec rm -v {} +
 	done
-}
-
-enable_cmake-utils_src_configure() {
-	debug-print-function ${FUNCNAME} "$@"
 
 	_check_build_dir
 
@@ -387,7 +383,6 @@ enable_cmake-utils_src_configure() {
 enable_cmake-utils_src_compile() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	has src_prepare ${CMAKE_EXPF} || cmake-utils_src_prepare
 	has src_configure ${CMAKE_EXPF} || cmake-utils_src_configure
 	cmake-utils_src_make "$@"
 }
@@ -439,14 +434,6 @@ enable_cmake-utils_src_test() {
 	[[ -n ${TEST_VERBOSE} ]] && ctestargs="--extra-verbose --output-on-failure"
 	ctest ${ctestargs} "$@" || die "Tests failed."
 	popd > /dev/null
-}
-
-# @FUNCTION: cmake-utils_src_prepare
-# @DESCRIPTION:
-# General function for configuring with cmake. Default behaviour is to start an
-# out-of-source build.
-cmake-utils_src_prepare() {
-	_execute_optionaly "src_prepare" "$@"
 }
 
 # @FUNCTION: cmake-utils_src_configure
