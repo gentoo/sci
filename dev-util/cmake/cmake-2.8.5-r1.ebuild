@@ -21,6 +21,7 @@ DEPEND="
 	>=app-arch/libarchive-2.8.0
 	>=net-misc/curl-7.20.0-r1[ssl]
 	>=dev-libs/expat-2.0.1
+	dev-util/pkgconfig
 	sys-libs/zlib
 	ncurses? ( sys-libs/ncurses )
 	qt4? ( x11-libs/qt-gui:4 )
@@ -56,6 +57,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-2.8.3-ruby_libname.patch
 	"${FILESDIR}"/${PN}-2.8.4-FindBoost.patch
 	"${FILESDIR}"/${PN}-2.8.5-FindBLAS.patch
+	"${FILESDIR}"/${PN}-2.8.5-FindLAPACK.patch
 )
 cmake_src_bootstrap() {
 	# Cleanup args to extract only JOBS.
