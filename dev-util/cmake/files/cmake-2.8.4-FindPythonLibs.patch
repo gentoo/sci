@@ -1,0 +1,12 @@
+diff -urN cmake-2.8.4.old/Modules/FindPythonLibs.cmake cmake-2.8.4/Modules/FindPythonLibs.cmake
+--- cmake-2.8.4.old/Modules/FindPythonLibs.cmake	2011-02-20 19:32:16.363655002 +0100
++++ cmake-2.8.4/Modules/FindPythonLibs.cmake	2011-02-20 19:33:51.905655001 +0100
+@@ -33,6 +33,8 @@
+   ${Python_ADDITIONAL_VERSIONS}
+   2.7 2.6 2.5 2.4 2.3 2.2 2.1 2.0 1.6 1.5)
+ 
++EXECUTE_PROCESS(COMMAND python -c "import sys; sys.stdout.write('.'.join([str(x) for x in sys.version_info[:2]]))"
++	OUTPUT_VARIABLE _Python_VERSIONS)
+ FOREACH(_CURRENT_VERSION ${_Python_VERSIONS})
+   STRING(REPLACE "." "" _CURRENT_VERSION_NO_DOTS ${_CURRENT_VERSION})
+   IF(WIN32)

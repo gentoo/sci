@@ -1,0 +1,11 @@
+diff -urN cmake-2.8.4.old/Modules/FindPythonInterp.cmake cmake-2.8.4/Modules/FindPythonInterp.cmake
+--- cmake-2.8.4.old/Modules/FindPythonInterp.cmake	2011-02-20 19:32:16.545655003 +0100
++++ cmake-2.8.4/Modules/FindPythonInterp.cmake	2011-02-20 20:22:37.597936743 +0100
+@@ -26,6 +26,7 @@
+   ${Python_ADDITIONAL_VERSIONS}
+   2.7 2.6 2.5 2.4 2.3 2.2 2.1 2.0 1.6 1.5)
+ 
++set(_Python_VERSIONS "")
+ # Run first with the Python version in the executable
+ foreach(_CURRENT_VERSION ${_Python_VERSIONS})
+   set(_Python_NAMES python${_CURRENT_VERSION})

@@ -1,0 +1,12 @@
+diff -urN cmake-2.8.3.orig//Modules/FindRuby.cmake cmake-2.8.3//Modules/FindRuby.cmake
+--- cmake-2.8.3.orig//Modules/FindRuby.cmake	2010-12-25 16:56:42.597163498 +0100
++++ cmake-2.8.3//Modules/FindRuby.cmake	2010-12-25 16:57:55.207163499 +0100
+@@ -180,7 +180,7 @@
+ 
+ 
+ # Determine the list of possible names for the ruby library
+-SET(_RUBY_POSSIBLE_LIB_NAMES ruby ruby-static ruby${_RUBY_VERSION_SHORT})
++SET(_RUBY_POSSIBLE_LIB_NAMES ruby ruby-static ruby${_RUBY_VERSION_SHORT} ruby${_RUBY_VERSION_SHORT_NODOT})
+ 
+ IF(WIN32)
+    SET( _RUBY_MSVC_RUNTIME "" )

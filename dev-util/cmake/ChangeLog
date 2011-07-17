@@ -1,0 +1,753 @@
+# ChangeLog for dev-util/cmake
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/dev-util/cmake/ChangeLog,v 1.169 2011/07/11 16:50:44 scarabeus Exp $
+
+*cmake-2.8.5-r1 (17 Jul 2011)
+
+  17 Jul 2011; Andreas K. Huettel <dilfridge@gentoo.org>
+  +files/50cmake-gentoo.el, +files/cmake-2.6.3-darwin-bundle.patch,
+  +files/cmake-2.6.3-fix_broken_lfs_on_aix.patch,
+  +files/cmake-2.6.3-no-duplicates-in-rpath.patch,
+  +files/cmake-2.8.0-darwin-default-install_name.patch,
+  +files/cmake-2.8.1-libform.patch,
+  +files/cmake-2.8.3-fix_assembler_test.patch,
+  +files/cmake-2.8.3-more-no_host_paths.patch,
+  +files/cmake-2.8.3-ruby_libname.patch, +files/cmake-2.8.4-FindBoost.patch,
+  +files/cmake-2.8.4-FindPythonInterp.patch,
+  +files/cmake-2.8.4-FindPythonLibs.patch, +files/cmake-2.8.4-FindQt4.patch,
+  +cmake-2.8.5-r1.ebuild, +files/cmake-2.8.5-FindBLAS.patch, +files/cmake.vim,
+  +metadata.xml:
+  Patch FindBLAS to prefer PkgConfig over all tests, for the sci guys
+
+*cmake-2.8.5 (11 Jul 2011)
+
+  11 Jul 2011; Tomáš Chvátal <scarabeus@gentoo.org> +cmake-2.8.5.ebuild:
+  Version bump to 2.8.5. Recompiled everything using cmake and all tests pass.
+  Fixes bug #374665. Tests needs to state some deps like cvs/git/...
+
+  08 May 2011; Tomáš Chvátal <scarabeus@gentoo.org>
+  -files/cmake-2.6.0-interix.patch, -files/cmake-2.6.4-FindBoost.patch,
+  -files/cmake-2.8.0-darwin-no-app-with-qt.patch, -cmake-2.8.1-r2.ebuild,
+  -files/cmake-2.8.1-FindBoost.patch,
+  -files/cmake-2.8.1-more-no_host_paths.patch, -files/cmake-2.8.1-mpi.patch,
+  -files/cmake-2.8.3-FindLibArchive.patch,
+  -files/cmake-2.8.3-FindPythonInterp.patch,
+  -files/cmake-2.8.3-FindPythonLibs.patch,
+  -files/cmake-2.8.3-buffer_overflow.patch, -files/cmake-FindJNI.patch,
+  -files/cmake-FindPythonInterp.patch, -files/cmake-FindPythonLibs.patch:
+  Drop older stuff. Keep just latest stable.
+
+  07 May 2011; Raúl Porcel <armin76@gentoo.org> cmake-2.8.4-r1.ebuild:
+  ia64/s390/sh/sparc stable wrt #357771
+
+  02 May 2011; Thomas Kahle <tomka@gentoo.org> cmake-2.8.4-r1.ebuild:
+  x86 stable per bug 357771
+
+  28 Apr 2011; Tomáš Chvátal <scarabeus@gentoo.org> -cmake-2.8.4.ebuild,
+  cmake-2.8.4-r1.ebuild:
+  Move keywords from 2.8.4 to r1 (even the stable ones), because the only
+  change is in the cross-compilation finder, not really requiring the
+  restabilisation.
+
+*cmake-2.8.4-r1 (18 Apr 2011)
+
+  18 Apr 2011; Tomáš Chvátal <scarabeus@gentoo.org> -cmake-2.8.3-r1.ebuild,
+  +cmake-2.8.4-r1.ebuild, +files/cmake-2.8.4-FindQt4.patch:
+  Revision bump to fix bug #358317.
+
+  07 Apr 2011; Tomáš Chvátal <scarabeus@gentoo.org> cmake-2.8.4.ebuild:
+  Inherit virtualx.eclass to fix bug #362389
+
+  27 Mar 2011; Tobias Klausmann <klausman@gentoo.org> cmake-2.8.4.ebuild:
+  Stable on alpha, bug #357771
+
+  25 Mar 2011; Kacper Kowalik <xarthisius@gentoo.org> cmake-2.8.4.ebuild:
+  ppc64 stable wrt #357771
+
+  21 Mar 2011; Brent Baude <ranger@gentoo.org> cmake-2.8.4.ebuild:
+  Marking cmake-2.8.4 ppc for bug 357771
+
+  18 Mar 2011; Markus Meier <maekke@gentoo.org> cmake-2.8.4.ebuild:
+  arm stable, bug #357771
+
+  09 Mar 2011; Jeroen Roovers <jer@gentoo.org> cmake-2.8.4.ebuild:
+  Stable for HPPA (bug #357771).
+
+  08 Mar 2011; Markos Chandras <hwoarang@gentoo.org> cmake-2.8.4.ebuild:
+  Stable on amd64 wrt bug #357771
+
+  07 Mar 2011; Tomáš Chvátal <scarabeus@gentoo.org> cmake-2.8.4.ebuild:
+  Revert to eapi3 for now so it can go stable.
+
+  23 Feb 2011; Tomáš Chvátal <scarabeus@gentoo.org> cmake-2.8.4.ebuild:
+  Use only one -E exclude parameter, obviously duplication is not working.
+
+  21 Feb 2011; Tomáš Chvátal <scarabeus@gentoo.org> cmake-2.8.4.ebuild:
+  Exclude sdcc test.
+
+  21 Feb 2011; Tomáš Chvátal <scarabeus@gentoo.org> cmake-2.8.4.ebuild:
+  Exclude bootstraptest because it is pointless for us.
+
+*cmake-2.8.4 (21 Feb 2011)
+
+  21 Feb 2011; Tomáš Chvátal <scarabeus@gentoo.org> +cmake-2.8.4.ebuild,
+  +files/cmake-2.8.4-FindBoost.patch,
+  +files/cmake-2.8.4-FindPythonInterp.patch,
+  +files/cmake-2.8.4-FindPythonLibs.patch:
+  Version bump to the latest (some tests still fail, to be fixed).
+
+  17 Jan 2011; Tomáš Chvátal <scarabeus@gentoo.org> cmake-2.8.3-r1.ebuild:
+  Fix tests per bug #315223.
+
+  26 Dec 2010; Tomáš Chvátal <scarabeus@gentoo.org> -cmake-2.6.4-r3.ebuild,
+  -cmake-2.8.3.ebuild:
+  old
+
+  25 Dec 2010; Tomáš Chvátal <scarabeus@gentoo.org> cmake-2.8.3-r1.ebuild,
+  +files/cmake-2.8.3-fix_assembler_test.patch:
+  Fix assembler test bug #338627. Thanks to Anthony (blueness) for the
+  solution.
+
+*cmake-2.8.3-r1 (25 Dec 2010)
+
+  25 Dec 2010; Tomáš Chvátal <scarabeus@gentoo.org> +cmake-2.8.3-r1.ebuild,
+  +files/cmake-2.8.3-buffer_overflow.patch,
+  +files/cmake-2.8.3-ruby_libname.patch:
+  Fix ruby finding per bug #345993 and buffer overflowing per bug #329043.
+
+  20 Dec 2010; Tomáš Chvátal <scarabeus@gentoo.org> cmake-2.8.3.ebuild:
+  Fix dependency on libarchive version. Fixes bug #348887.
+
+  16 Dec 2010; Tomáš Chvátal <scarabeus@gentoo.org> cmake-2.8.1-r2.ebuild,
+  cmake-2.8.3.ebuild:
+  Fix malformed headers
+
+*cmake-2.8.3 (16 Dec 2010)
+
+  16 Dec 2010; Tomáš Chvátal <scarabeus@gentoo.org> +cmake-2.8.3.ebuild,
+  +files/cmake-2.8.3-FindLibArchive.patch,
+  +files/cmake-2.8.3-FindPythonInterp.patch,
+  +files/cmake-2.8.3-FindPythonLibs.patch,
+  +files/cmake-2.8.3-more-no_host_paths.patch:
+  Version bump. Per bug #344259. Thanks to Arseny Solokha for updated patches.
+
+  11 Sep 2010; Raúl Porcel <armin76@gentoo.org> cmake-2.8.1-r2.ebuild:
+  ia64/s390/sh/sparc stable wrt #325845
+
+  10 Sep 2010; Tobias Klausmann <klausman@gentoo.org> cmake-2.8.1-r2.ebuild:
+  Stable on alpha, bug #325845
+
+  11 Aug 2010; Markus Meier <maekke@gentoo.org> cmake-2.8.1-r2.ebuild:
+  arm stable, bug #325845
+
+  10 Aug 2010; Tomáš Chvátal <scarabeus@gentoo.org>
+  -files/cmake-2.8.0-more-no_host_paths.patch, -cmake-2.8.1.ebuild,
+  -cmake-2.8.1-r1.ebuild:
+  Drop older stuff.
+
+  06 Aug 2010; Christian Faulhammer <fauli@gentoo.org>
+  cmake-2.8.1-r2.ebuild:
+  stable x86, bug 325845
+
+  06 Aug 2010; Samuli Suominen <ssuominen@gentoo.org> cmake-2.8.1-r2.ebuild:
+  Run bootstrap with FEATURES="test" wrt #315223 by Thomas Kahle.
+
+  27 Jul 2010; Jeroen Roovers <jer@gentoo.org> cmake-2.8.1-r2.ebuild:
+  Stable for HPPA PPC (bug #325845).
+
+  07 Jul 2010; Maciej Mrozowski <reavertm@gentoo.org> cmake-2.8.1-r2.ebuild:
+  export JAVA_HOME gathered from java-config, bug 315229
+
+  06 Jul 2010; Markos Chandras <hwoarang@gentoo.org> cmake-2.8.1-r2.ebuild:
+  Stable on amd64 wrt bug #325845
+
+  04 Jul 2010; Samuli Suominen <ssuominen@gentoo.org> cmake-2.8.1-r2.ebuild:
+  ppc64 stable wrt #325845
+
+*cmake-2.8.1-r2 (27 May 2010)
+
+  27 May 2010; Justin Lecher <jlec@gentoo.org> cmake-2.8.1-r1.ebuild,
+  +cmake-2.8.1-r2.ebuild, +files/cmake-2.8.1-mpi.patch:
+  Fixing problem with detecting mpi libs through FindMPI module
+
+*cmake-2.8.1-r1 (13 Apr 2010)
+
+  13 Apr 2010; Tomáš Chvátal <scarabeus@gentoo.org>
+  -cmake-2.8.0-r3.ebuild, +cmake-2.8.1-r1.ebuild,
+  +files/cmake-2.8.1-FindBoost.patch, +files/cmake-2.8.1-libform.patch:
+  Revision bump from overlay. Fix boost issues and bundled libform. Remove
+  old.
+
+  17 Mar 2010; Fabian Groffen <grobian@gentoo.org> cmake-2.8.1.ebuild,
+  +files/cmake-2.8.1-more-no_host_paths.patch:
+  Port more-no_host_paths patch since it is really necessary for proper
+  operation in Prefix, bump to EAPI=3.
+
+*cmake-2.8.1 (17 Mar 2010)
+
+  17 Mar 2010; Tomáš Chvátal <scarabeus@gentoo.org> +cmake-2.8.1.ebuild:
+  Version bump.
+
+*cmake-2.8.0-r3 (17 Mar 2010)
+
+  17 Mar 2010; Tomáš Chvátal <scarabeus@gentoo.org> -cmake-2.8.0.ebuild,
+  -cmake-2.8.0-r1.ebuild, -cmake-2.8.0-r2.ebuild, +cmake-2.8.0-r3.ebuild:
+  Update deps to match latest curl IUSE update.
+
+  26 Feb 2010; Fabian Groffen <grobian@gentoo.org> cmake-2.8.0-r2.ebuild:
+  Marked ~x64-macos, thanks Ramon van Alteren, bug #305367
+
+  10 Feb 2010; Fabian Groffen <grobian@gentoo.org> cmake-2.8.0-r2.ebuild,
+  +files/cmake-2.8.0-darwin-no-app-with-qt.patch:
+  Add patch by Heiko Przybyl not to build an .app on OSX with USE=qt4
+
+*cmake-2.8.0-r2 (31 Jan 2010)
+
+  31 Jan 2010; Fabian Groffen <grobian@gentoo.org> +cmake-2.8.0-r2.ebuild,
+  +files/cmake-2.8.0-darwin-default-install_name.patch:
+  Revision bump, add patch to set a default install_name on Darwin. This is
+  sufficient for most cases, and allows us to revert some install_name_tool
+  hacks for cmake-based packages.
+
+  24 Jan 2010; Tomáš Chvátal <scarabeus@gentoo.org>
+  cmake-2.8.0-r1.ebuild:
+  Fix typo.
+
+*cmake-2.8.0-r1 (24 Jan 2010)
+
+  24 Jan 2010; Tomáš Chvátal <scarabeus@gentoo.org>
+  +cmake-2.8.0-r1.ebuild:
+  Drop some deps. Still needs work on ncurses are harddep when bootstraping
+  but optional otherwise.
+
+  11 Jan 2010; Jonathan Callen <abcd@gentoo.org>
+  +files/cmake-2.6.0-interix.patch, +files/cmake-2.6.3-darwin-bundle.patch,
+  +files/cmake-2.6.3-fix_broken_lfs_on_aix.patch,
+  +files/cmake-2.6.3-no-duplicates-in-rpath.patch, cmake-2.8.0.ebuild,
+  +files/cmake-2.8.0-more-no_host_paths.patch:
+  Add prefix keywords, patches
+
+  05 Dec 2009; Jonathan Callen <abcd@gentoo.org> -cmake-2.6.4.ebuild,
+  -cmake-2.6.4-r1.ebuild:
+  Drop old ebuilds
+
+  29 Nov 2009; Tomáš Chvátal <scarabeus@gentoo.org> cmake-2.8.0.ebuild:
+  Update deps so the tests are not failing, and features are not missing.
+  Per bug #295070.
+
+  24 Nov 2009; Raúl Porcel <armin76@gentoo.org> cmake-2.6.4-r3.ebuild:
+  ia64/s390/sh/sparc stable wrt #290723
+
+  19 Nov 2009; Markus Meier <maekke@gentoo.org> cmake-2.6.4-r3.ebuild:
+  arm stable, bug #290723
+
+  18 Nov 2009; Brent Baude <ranger@gentoo.org> cmake-2.6.4-r3.ebuild:
+  Marking cmake-2.6.4-r3 ppc64 for bug 290723
+
+*cmake-2.8.0 (14 Nov 2009)
+
+  14 Nov 2009; Tomáš Chvátal <scarabeus@gentoo.org>
+  -cmake-2.8.0_rc4.ebuild, +cmake-2.8.0.ebuild:
+  Version bump for new 2.8.0 release. Remove old rc. Tests are fatal, 100%
+  pased on all my machines right now.
+
+  11 Nov 2009; Jeroen Roovers <jer@gentoo.org> cmake-2.6.4-r3.ebuild:
+  Stable for HPPA (bug #290723).
+
+  08 Nov 2009; Tobias Klausmann <klausman@gentoo.org> cmake-2.6.4-r3.ebuild:
+  Stable on alpha, bug #290723
+
+  08 Nov 2009; Mounir Lamouri <volkmar@gentoo.org> cmake-2.6.4-r3.ebuild:
+  Stable for ppc, bug 290723
+
+*cmake-2.8.0_rc4 (03 Nov 2009)
+
+  03 Nov 2009; Marcus D. Hanwell <cryos@gentoo.org> -cmake-2.8.0_rc3.ebuild,
+  +cmake-2.8.0_rc4.ebuild:
+  Version bump, new rc. Dropped JNI patch - no longer applies.
+
+  02 Nov 2009; Markus Meier <maekke@gentoo.org> cmake-2.6.4-r3.ebuild:
+  amd64/x86 stable, bug #290723
+
+  19 Oct 2009; Tomáš Chvátal <scarabeus@gentoo.org>
+  -cmake-2.6.2-r1.ebuild, -cmake-2.6.3-r1.ebuild:
+  Drop old.
+
+*cmake-2.8.0_rc3 (10 Oct 2009)
+
+  10 Oct 2009; Marcus D. Hanwell <cryos@gentoo.org> -cmake-2.8.0_rc2.ebuild,
+  +cmake-2.8.0_rc3.ebuild:
+  Version bump, new rc.
+
+  05 Oct 2009; Dominik Kapusta <ayoy@gentoo.org> cmake-2.6.2-r1.ebuild:
+  Removed alternative dependency on Qt metapackage
+
+*cmake-2.8.0_rc2 (02 Oct 2009)
+
+  02 Oct 2009; Marcus D. Hanwell <cryos@gentoo.org> -cmake-2.8.0_rc1.ebuild,
+  +cmake-2.8.0_rc2.ebuild:
+  New release candidate, removed old one.
+
+*cmake-2.6.4-r3 (01 Oct 2009)
+
+  01 Oct 2009; Arfrever Frehtes Taifersar Arahesis <arfrever@gentoo.org>
+  -cmake-2.6.4-r2.ebuild, +cmake-2.6.4-r3.ebuild, cmake-2.8.0_rc1.ebuild,
+  -files/cmake-python-3.patch, files/cmake-FindPythonLibs.patch,
+  metadata.xml:
+  FindPythonLibs.cmake should use currently active Python version (bug
+  #287143). Remove no longer needed "python3" USE flag.
+
+*cmake-2.8.0_rc1 (01 Oct 2009)
+
+  01 Oct 2009; Marcus D. Hanwell <cryos@gentoo.org> +cmake-2.8.0_rc1.ebuild:
+  Version bump, in package.mask initially for further testing.
+
+*cmake-2.6.4-r2 (28 Jul 2009)
+
+  28 Jul 2009; Arfrever Frehtes Taifersar Arahesis <arfrever@gentoo.org>
+  +cmake-2.6.4-r2.ebuild, +files/cmake-python-3.patch,
+  files/cmake-FindPythonInterp.patch, files/cmake-FindPythonLibs.patch,
+  metadata.xml:
+  Add "python3" USE flag.
+
+  26 Jul 2009; Marcus D. Hanwell <cryos@gentoo.org> cmake-2.6.4.ebuild,
+  cmake-2.6.4-r1.ebuild:
+  Bumped to depend on >=dev-libs/xmlrpc-c-1.06.27[curl], fixes bug 276333.
+
+  24 Jul 2009; Arfrever Frehtes Taifersar Arahesis <arfrever@gentoo.org>
+  files/cmake-FindPythonInterp.patch, files/cmake-FindPythonLibs.patch:
+  Support more Python versions.
+
+*cmake-2.6.4-r1 (17 Jul 2009)
+
+  17 Jul 2009; Arfrever Frehtes Taifersar Arahesis <arfrever@gentoo.org>
+  +cmake-2.6.4-r1.ebuild, +files/cmake-2.6.4-FindBoost.patch:
+  Support more Boost versions.
+
+  31 May 2009; Markus Meier <maekke@gentoo.org> cmake-2.6.4.ebuild:
+  amd64 stable, bug #271444
+
+  31 May 2009; Brent Baude <ranger@gentoo.org> cmake-2.6.4.ebuild:
+  Marking cmake-2.6.4 ppc64 for bug 271444
+
+  30 May 2009; nixnut <nixnut@gentoo.org> cmake-2.6.4.ebuild:
+  ppc stable #271444
+
+  30 May 2009; Raúl Porcel <armin76@gentoo.org> cmake-2.6.4.ebuild:
+  alpha/arm/ia64/s390/sh stable wrt #271444
+
+  28 May 2009; Tomáš Chvátal <scarabeus@gentoo.org> cmake-2.6.4.ebuild:
+  Add einfo informing about the test that might fail.
+
+  28 May 2009; Christian Faulhammer <fauli@gentoo.org> cmake-2.6.4.ebuild:
+  stable x86, bug 271444
+
+  28 May 2009; Ferris McCormick <fmccor@gentoo.org> cmake-2.6.4.ebuild:
+  Sparc stable, Bug #271444 (which see for comments).
+
+  27 May 2009; Jeroen Roovers <jer@gentoo.org> cmake-2.6.4.ebuild:
+  Stable for HPPA (bug #271444).
+
+  03 May 2009; Arfrever Frehtes Taifersar Arahesis <arfrever@gentoo.org>
+  cmake-2.6.4.ebuild:
+  Fix syntax.
+
+  03 May 2009; Marcus D. Hanwell <cryos@gentoo.org> cmake-2.6.4:
+  Fixed to the bootstrap logic.
+
+*cmake-2.6.4 (02 May 2009)
+
+  02 May 2009; Marcus D. Hanwell <cryos@gentoo.org> +cmake-2.6.4.ebuild:
+  Version bump, applied patch from bug 266383.
+
+  13 Apr 2009; Tomas Chvatal <scarabeus@gentoo.org> cmake-2.6.3-r1.ebuild:
+  Fix the has_version check. Current eclass does not support cmake 2.4...
+
+  11 Apr 2009; Joshua Kinard <kumba@gentoo.org> cmake-2.6.3-r1.ebuild:
+  Added ~mips to KEYWORDS.
+
+*cmake-2.6.3-r1 (04 Apr 2009)
+
+  04 Apr 2009; Tomas Chvatal <scarabeus@gentoo.org>
+  -files/cmake-2.0.6-rpath-fix.patch, -files/cmake-2.4.7-findkde4.patch,
+  -files/FindSWIG.cmake, +files/cmake-FindJNI.patch, -cmake-2.4.7-r1.ebuild,
+  -cmake-2.4.8.ebuild, -cmake-2.6.3.ebuild, +cmake-2.6.3-r1.ebuild:
+  Revision bump. Introduce some fixes. Remove old.
+
+  15 Mar 2009; Tomas Chvatal <scarabeus@gentoo.org> -cmake-2.4.6-r1.ebuild,
+  -cmake-2.6.2.ebuild:
+  Remove old.
+
+  14 Mar 2009; Raúl Porcel <armin76@gentoo.org> cmake-2.6.2-r1.ebuild:
+  arm/ia64/s390/sh/sparc stable wrt #259741
+
+  11 Mar 2009; Brent Baude <ranger@gentoo.org> cmake-2.6.2-r1.ebuild:
+  Marking cmake-2.6.2-r1 ppc64 for bug 259741
+
+  08 Mar 2009; Markus Meier <maekke@gentoo.org> cmake-2.6.2-r1.ebuild:
+  x86 stable, bug #259741
+
+  07 Mar 2009; Jeremy Olexa <darkside@gentoo.org> cmake-2.6.2-r1.ebuild:
+  amd64 stable, bug 259741
+
+  01 Mar 2009; nixnut <nixnut@gentoo.org> cmake-2.6.2-r1.ebuild:
+  ppc stable #259741
+
+*cmake-2.6.3 (01 Mar 2009)
+
+  01 Mar 2009; Tomas Chvatal <scarabeus@gentoo.org> +cmake-2.6.3.ebuild:
+  Version bump.
+
+  22 Feb 2009; Tobias Klausmann <klausman@gentoo.org> cmake-2.6.2-r1.ebuild:
+  Stable on alpha, bug #259741
+
+  20 Feb 2009; Jeroen Roovers <jer@gentoo.org> cmake-2.6.2-r1.ebuild:
+  Stable for HPPA (bug #259741).
+
+  03 Feb 2009; Tomas Chvatal <scarabeus@gentoo.org> cmake-2.6.2-r1.ebuild:
+  Fix src_configure. Per bug #254898.
+
+  21 Jan 2009; Markus Meier <maekke@gentoo.org> cmake-2.4.8.ebuild:
+  amd64/x86 stable
+
+*cmake-2.6.2-r1 (03 Jan 2009)
+
+  03 Jan 2009; Tomas Chvatal <scarabeus@gentoo.org>
+  +files/cmake-FindPythonInterp.patch, +cmake-2.6.2-r1.ebuild:
+  Add patch for python lib detection. Per bug #253593. Thanks to Oldrich
+  Jedlicka for patch.
+
+  02 Dec 2008; Tomas Chvatal <scarabeus@gentoo.org>
+  -files/cmake-2.6.1-gc-sections.patch, -files/cmake-2.6.1-rpath.patch,
+  -cmake-2.6.1.ebuild, cmake-2.6.2.ebuild:
+  Dupe old. Update current to eapi2. Fixes bug #226153.
+
+*cmake-2.6.2 (27 Sep 2008)
+
+  27 Sep 2008; Marcus D. Hanwell <cryos@gentoo.org> -cmake-2.6.0.ebuild,
+  +cmake-2.6.2.ebuild:
+  Version bump and removed old version.
+
+*cmake-2.6.1 (27 Aug 2008)
+
+  27 Aug 2008; Timo Gurr <tgurr@gentoo.org>
+  +files/cmake-2.6.1-gc-sections.patch, +files/cmake-2.6.1-rpath.patch,
+  +cmake-2.6.1.ebuild:
+  Version bump. Big thanks to Brad King from kitware, thewtex and Arfrever
+  Frehtes Taifersar Arahesis and everyone else involved. Fixes bug #224901,
+  #232111, #233772 and #235731.
+
+*cmake-2.6.0 (08 May 2008)
+
+  08 May 2008; Marcus D. Hanwell <cryos@gentoo.org>
+  +files/cmake-FindPythonLibs.patch, +cmake-2.6.0.ebuild:
+  Version bump, masked for now until it receives wider testing.
+
+  22 Feb 2008; Ingmar Vanhassel <ingmar@gentoo.org> -cmake-2.0.6-r1.ebuild,
+  -cmake-2.4.3.ebuild, -cmake-2.4.4.ebuild, -cmake-2.4.5.ebuild,
+  -cmake-2.4.6.ebuild, -cmake-2.4.7.ebuild, -cmake-2.4.7-r2.ebuild,
+  -cmake-2.4.8_rc12.ebuild:
+  Old.
+
+  11 Feb 2008; Diego Pettenò <flameeyes@gentoo.org> cmake-2.4.7-r2.ebuild,
+  cmake-2.4.8_rc12.ebuild, cmake-2.4.8.ebuild:
+  Remove --no-as-needed, xmlrpc-c caused the bug and is now fixed. If you want
+  to build cmake with --as-needed rebuild your xmlrpc-c.
+
+*cmake-2.4.8 (09 Feb 2008)
+
+  09 Feb 2008; Bo Ørsted Andresen <zlin@gentoo.org> +cmake-2.4.8.ebuild:
+  Version bump (bug #208618).
+
+*cmake-2.4.8_rc12 (14 Jan 2008)
+
+  14 Jan 2008; Ingmar Vanhassel <ingmar@gentoo.org>
+  +cmake-2.4.8_rc12.ebuild:
+  Bump to latest RC.
+
+  13 Jan 2008; Wulf C. Krueger <philantrop@gentoo.org>
+  cmake-2.4.7-r2.ebuild:
+  Dropped ~mips to get bug 194031 out of the way. Filed bug 205633 for
+  re-keywording.
+
+  17 Dec 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  cmake-2.4.7-r2.ebuild:
+  Added a check to make sure dev-libs/xmlrpc-c has been installed with
+  suitable USE flags. Fixes bug 194405.
+
+  10 Oct 2007; Christian Heim <phreak@gentoo.org> cmake-2.4.6-r1.ebuild,
+  cmake-2.4.7.ebuild, cmake-2.4.7-r1.ebuild, cmake-2.4.7-r2.ebuild:
+  Fixing #156800 by issuing -fno-stack-protector if we are having a GCC_MAJOR
+  equal to 3.
+
+*cmake-2.4.7-r2 (27 Sep 2007)
+
+  27 Sep 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +files/FindSWIG.cmake, +cmake-2.4.7-r2.ebuild:
+  cmake-2.4.7-r2 now uses the system libraries during the bootstrap process
+  instead of the bundled versions. Fixes bug 178999. Furthermore, it features
+  a new FindSWIG.cmake module as provided by Axel Roebel on upstream bug 4145.
+  Fixes our bug 192594.
+
+*cmake-2.4.7-r1 (07 Sep 2007)
+
+  07 Sep 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +files/cmake-2.4.7-findkde4.patch, +cmake-2.4.7-r1.ebuild:
+  Added an upstream patch to fix cmake failing to detect an existing KDE4
+  installation if the program being built is not going to be installed in the
+  same directory as KDE4. Fixes bug 191412. Thanks, Zephyrus, for reporting
+  this and providing the patch!
+
+  19 Jul 2007; Marcus D. Hanwell <cryos@gentoo.org> cmake-2.4.7.ebuild:
+  Moved to testing, fixes bug 185832. Sorry.
+
+*cmake-2.4.7 (18 Jul 2007)
+
+  18 Jul 2007; Marcus D. Hanwell <cryos@gentoo.org> +cmake-2.4.7.ebuild:
+  Version bump.
+
+  26 Jun 2007; Lars Weiler <pylon@gentoo.org> cmake-2.4.6-r1.ebuild:
+  Stable on ppc; bug #182724.
+
+  21 Jun 2007; Raúl Porcel <armin76@gentoo.org> cmake-2.4.6-r1.ebuild:
+  alpha/ia64/x86 stable wrt #182724
+
+  21 Jun 2007; Jeroen Roovers <jer@gentoo.org> cmake-2.4.6-r1.ebuild:
+  Stable for HPPA (bug #182724).
+
+  21 Jun 2007; Gustavo Zacarias <gustavoz@gentoo.org> cmake-2.4.6-r1.ebuild:
+  Stable on sparc wrt #182724
+
+  21 Jun 2007; Joshua Kinard <kumba@gentoo.org> cmake-2.4.6-r1.ebuild:
+  Stable on mips, per #182724.
+
+  20 Jun 2007; Christoph Mende <angelos@gentoo.org> cmake-2.4.6-r1.ebuild:
+  Stable on amd64 wrt bug 182724
+
+  20 Jun 2007; Markus Rothe <corsair@gentoo.org> cmake-2.4.6-r1.ebuild:
+  Stable on ppc64; bug #182724
+
+*cmake-2.4.6-r1 (07 Jun 2007)
+
+  07 Jun 2007; Wulf C. Krueger <philantrop@gentoo.org>
+  +files/50cmake-gentoo.el, +files/cmake.vim, +cmake-2.4.6-r1.ebuild:
+  Added patches by Jack Kelly from bug 180667 to add vim and emacs syntax
+  files. Thanks, Jack!
+
+*cmake-2.4.6 (29 Jan 2007)
+
+  29 Jan 2007; Diego Pettenò <flameeyes@gentoo.org> +cmake-2.4.6.ebuild:
+  Version bump, closes bug #163487.
+
+  04 Jan 2007; Diego Pettenò <flameeyes@gentoo.org> cmake-2.0.6-r1.ebuild:
+  Get rid of debug.eclass usage.
+
+  16 Dec 2006; Stefan Schweizer <genstef@gentoo.org> cmake-2.4.5.ebuild:
+  inherit qt3 to avoid sandbox violations thanks to Johannes Hirte
+  <johannes-hirte@web.de> and Mike Arthur <mike@mikearthur.co.uk> in bug
+  158161
+
+*cmake-2.4.5 (13 Dec 2006)
+
+  13 Dec 2006; Stefan Schweizer <genstef@gentoo.org>
+  -files/cmake-2.0.6-rpath-fix.patch, -files/cmake-2.2.0-rpath-fix.patch,
+  -files/cmake-2.2.1-rpath-fix.patch, -files/cmake-2.2.2-rpath-fix.patch,
+  -files/cmake-2.2.3-rpath-fix.patch, -files/cmake-2.4.2-kde.patch,
+  -files/cmake-2.4.2-rpath-fix.patch, -cmake-2.0.6-r1.ebuild,
+  -cmake-2.2.0-r1.ebuild, -cmake-2.2.1.ebuild, -cmake-2.2.2.ebuild,
+  -cmake-2.2.3.ebuild, -cmake-2.4.2.ebuild, -cmake-2.4.2-r1.ebuild,
+  +cmake-2.4.5.ebuild:
+  version bump
+
+  08 Dec 2006; Jeroen Roovers <jer@gentoo.org> cmake-2.4.3.ebuild:
+  Stable for HPPA (bug #155307).
+
+  06 Dec 2006; Bryan Østergaard <kloeri@gentoo.org> cmake-2.4.3.ebuild:
+  Stable on Alpha.
+
+  01 Dec 2006; Gustavo Zacarias <gustavoz@gentoo.org> cmake-2.4.3.ebuild:
+  Stable on sparc wrt #155307
+
+  30 Nov 2006; Markus Rothe <corsair@gentoo.org> cmake-2.4.3.ebuild:
+  Stable on ppc64; bug #155307
+
+  30 Nov 2006; Christian Faulhammer <opfer@gentoo.org> cmake-2.4.3.ebuild:
+  stable x86, bug #155307
+
+  30 Nov 2006; Lars Weiler <pylon@gentoo.org> cmake-2.4.3.ebuild:
+  Stable on ppc; bug #155307.
+
+  29 Nov 2006; Steve Dibb <beandog@gentoo.org> cmake-2.4.3.ebuild:
+  amd64 stable, fixed some copyright headers too, bug 155307
+
+*cmake-2.4.4 (29 Nov 2006)
+
+  29 Nov 2006; Stefan Schweizer <genstef@gentoo.org> +cmake-2.4.4.ebuild:
+  Version bump thanks to    Didier Link <didier.link@wanadoo.fr> in bug 156582
+
+  21 Oct 2006; Tobias Scherbaum <dertobi123@gentoo.org> cmake-2.2.1.ebuild:
+  ppc stable
+
+  24 Sep 2006; Daniel Black <dragonheart@gentoo.org> metadata.xml:
+  herd kde to take maintainence thanks Diego
+
+*cmake-2.4.3 (16 Sep 2006)
+
+  16 Sep 2006; Daniel Black <dragonheart@gentoo.org> +cmake-2.4.3.ebuild:
+  version bump as per bug #143337 thanks to Nick Bowler et al
+
+  20 Jul 2006; <psi29a@gentoo.org> cmake-2.0.6-r1.ebuild:
+  stable on mips
+
+*cmake-2.4.2-r1 (30 Jun 2006)
+
+  30 Jun 2006; Daniel Black <dragonheart@gentoo.org>
+  +files/cmake-2.4.2-kde.patch, +cmake-2.4.2-r1.ebuild:
+  removed rpath patch - nolonger needed as per bug #137918 thanks Dan. KDE 
+  plugin path added as per bug #137918 thanks to Michael. KDE plugin path patch
+  thanks to Andreas Beckermann kde bug #129737
+
+  25 May 2006; Diego Pettenò <flameeyes@gentoo.org> cmake-2.4.2.ebuild:
+  Add ~x86-fbsd keyword.
+
+*cmake-2.4.2 (24 May 2006)
+
+  24 May 2006; Daniel Black <dragonheart@gentoo.org>
+  +files/cmake-2.4.2-rpath-fix.patch, +cmake-2.4.2.ebuild:
+  verion bump as per bug #131080 thanks to Tobias Roeser, Diego, and others
+
+  29 Apr 2006; Jason Wever <weeve@gentoo.org> cmake-2.0.6-r1.ebuild:
+  Stable on SPARC.
+
+  06 Feb 2006; Aron Griffis <agriffis@gentoo.org> cmake-2.2.1.ebuild:
+  Mark 2.2.1 stable on alpha
+
+  04 Feb 2006; Aron Griffis <agriffis@gentoo.org> cmake-2.2.1.ebuild:
+  Mark 2.2.1 stable on ia64
+
+*cmake-2.2.3 (16 Jan 2006)
+
+  16 Jan 2006; Lisa Seelye <lisa@gentoo.org>
+  +files/cmake-2.2.3-rpath-fix.patch, +cmake-2.2.3.ebuild:
+  Version bump to solve bug #118822
+
+*cmake-2.2.2 (08 Nov 2005)
+
+  08 Nov 2005; Lisa Seelye <lisa@gentoo.org>
+  +files/cmake-2.2.2-rpath-fix.patch, +cmake-2.2.2.ebuild:
+  version bump to solve bug #111881
+
+  29 Oct 2005; Daniel Goller <morfic@gentoo.org> cmake-2.2.1.ebuild:
+  Stable on amd64
+
+  02 Oct 2005; Daniel Black <dragonheart@gentoo.org> -cmake-2.0.5.ebuild,
+  -cmake-2.0.6.ebuild:
+  remove rpath vulnerable versions: bug 105721
+
+  02 Oct 2005; Bryan Østergaard <kloeri@gentoo.org> cmake-2.0.6-r1.ebuild:
+  Stable on ia64, bug 105721.
+
+  29 Sep 2005; Fernando J. Pereda <ferdy@gentoo.org> cmake-2.0.6-r1.ebuild:
+  stable on alpha wrt bug #105721
+
+  26 Sep 2005; Stefan Briesenick <sbriesen@gentoo.org> cmake-2.2.1.ebuild:
+  fixing parallel build problem (emake -j1).
+
+*cmake-2.2.1 (26 Sep 2005)
+*cmake-2.2.0-r1 (26 Sep 2005)
+*cmake-2.0.6-r1 (26 Sep 2005)
+
+  26 Sep 2005; Daniel Black <dragonheart@gentoo.org>
+  +files/cmake-2.0.6-rpath-fix.patch, +files/cmake-2.2.0-rpath-fix.patch,
+  +files/cmake-2.2.1-rpath-fix.patch, +cmake-2.0.6-r1.ebuild,
+  -cmake-2.2.0.ebuild, +cmake-2.2.0-r1.ebuild, +cmake-2.2.1.ebuild:
+  insecure runpaths as per security bug #105721 resulted in 2.2.0-r1 and
+  2.0.6-r1. Thanks Ashu Tiwary. version bump to 2.2.1 as per bug #106781 by
+  David Somers
+
+  02 Sep 2005; Michael Hanselmann <hansmi@gentoo.org> cmake-2.0.6.ebuild:
+  Stable on ppc.
+
+  23 Aug 2005; Aron Griffis <agriffis@gentoo.org> cmake-2.0.6.ebuild:
+  stable on ia64
+
+*cmake-2.2.0 (20 Aug 2005)
+
+  20 Aug 2005; Daniel Black <dragonheart@gentoo.org> -cmake-2.0.3.ebuild,
+  cmake-2.0.6.ebuild, +cmake-2.2.0.ebuild:
+  version bump (bug #99045). thanks david somers. x86 stable on 2.0.6. old
+  version removal
+
+  05 Aug 2005; Aaron Walker <ka0ttic@gentoo.org> cmake-2.0.6.ebuild:
+  Added ~mips.
+
+  02 Jul 2005; Bryan Østergaard <kloeri@gentoo.org> cmake-2.0.5.ebuild:
+  Stable on alpha.
+
+  12 May 2005; Aron Griffis <agriffis@gentoo.org> cmake-2.0.6.ebuild:
+  add ~ia64
+
+  24 Apr 2005; Michael Hanselmann <hansmi@gentoo.org> cmake-2.0.5.ebuild:
+  Stable on ppc.
+
+*cmake-2.0.6 (21 Apr 2005)
+
+  21 Apr 2005; Daniel Black <dragonheart@gentoo.org> +metadata.xml,
+  +cmake-2.0.6.ebuild:
+  Version bump as per bug #89394. Thanks to david somers
+  <dsomers@treSPAM_FREEvezel.com>
+
+  23 Mar 2005; Daniel Black <dragonheart@gentoo.org> -cmake-2.0.2.ebuild,
+  cmake-2.0.5.ebuild:
+  x86 stable as per bug #86292. Old version removal. Thanks to david somers
+  <dsomers@trevezel.com>
+
+  18 Jan 2005; Bryan Østergaard <kloeri@gentoo.org> cmake-2.0.3.ebuild:
+  Stable on alpha.
+
+*cmake-2.0.5 (01 Jan 2005)
+
+  01 Jan 2005; Daniel Black <dragonheart@gentoo.org> -cmake-1.8.2.ebuild,
+  -cmake-1.8.3.ebuild, cmake-2.0.2.ebuild, cmake-2.0.3.ebuild,
+  +cmake-2.0.5.ebuild:
+  version bump as per bug #76291.x86 keywords to 2.0.2 and 2.0.3. Remove
+  old version 1.8.3.  Thanks to david somers <dsomers@trevezel.com> for 
+  the notification. 
+
+  31 Dec 2004; Ciaran McCreesh <ciaranm@gentoo.org> :
+  Change encoding to UTF-8 for GLEP 31 compliance
+
+  24 Nov 2004; Karol Wojtaszek <sekretarz@gentoo.org> cmake-2.0.3.ebuild:
+  Added to ~amd64, bug #72299
+
+*cmake-2.0.3 (10 Aug 2004)
+
+  10 Aug 2004; Mike Frysinger <vapier@gentoo.org> +cmake-2.0.3.ebuild:
+  Version bump.
+
+*cmake-2.0.2 (02 Jul 2004)
+
+  02 Jul 2004; Lisa Seelye <lisa@gentoo.org> +cmake-2.0.2.ebuild:
+  version bump for bug #55558
+
+  03 Jun 2004; Bryan Østergaard <kloeri@gentoo.org> cmake-1.8.3.ebuild:
+  Stable on alpha.
+
+*cmake-1.8.3 (24 Feb 2004)
+
+  24 Feb 2004; Lisa Seelye <lisa@gentoo.org> cmake-1.8.1.ebuild,
+  cmake-1.8.2.ebuild, cmake-1.8.3.ebuild:
+  Remove old 1.8.1, bump 1.8.2 to stable on x86, add 1.8.3 to the tree to close
+  bug #42613
+
+*cmake-1.8.2 (09 Jan 2004)
+
+  09 Jan 2004; Lisa Seelye <lisa@gentoo.org> cmake-1.8.2.ebuild:
+  Version bump, closes bug #36619.
+
+*cmake-1.8.1 (08 Dec 2003)
+
+  08 Dec 2003; Lisa Seelye <lisa@gentoo.org> cmake-1.8.1.ebuild:
+  Initial checkin. Submitted by Sam Yates <sam@quux.dropbear.id.au> to close bug
+  25334.
+

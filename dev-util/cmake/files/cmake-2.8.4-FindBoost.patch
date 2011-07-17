@@ -1,0 +1,13 @@
+diff -urN cmake-2.8.4.old//Modules/FindBoost.cmake cmake-2.8.4/Modules/FindBoost.cmake
+--- cmake-2.8.4.old//Modules/FindBoost.cmake	2011-02-20 19:32:16.528655001 +0100
++++ cmake-2.8.4/Modules/FindBoost.cmake	2011-02-20 20:28:41.572936744 +0100
+@@ -73,6 +73,9 @@
+ # binary Boost releases do so.
+ #
+ # set(Boost_ADDITIONAL_VERSIONS "1.78" "1.78.0" "1.79" "1.79.0")
++set(Boost_ADDITIONAL_VERSIONS "1.50.0" "1.50" "1.49.0" "1.49" "1.48.0" "1.48"
++    "1.47.0" "1.47" "1.46.0" "1.46" "1.45.0" "1.45" "1.44.0" "1.44" "1.43.0"
++    "1.43" "1.42.0" "1.42")
+ #
+ # ===================================== ============= ========================
+ #

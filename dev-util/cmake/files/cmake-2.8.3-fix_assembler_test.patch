@@ -1,0 +1,17 @@
+diff -urN cmake-2.8.3.orig/Tests/Assembler/CMakeLists.txt cmake-2.8.3/Tests/Assembler/CMakeLists.txt
+--- cmake-2.8.3.orig/Tests/Assembler/CMakeLists.txt	2010-12-25 16:56:42.646163500 +0100
++++ cmake-2.8.3/Tests/Assembler/CMakeLists.txt	2010-12-25 20:18:17.156163502 +0100
+@@ -11,8 +11,11 @@
+     enable_language(ASM-ATT OPTIONAL)
+     if(CMAKE_ASM-ATT_COMPILER_WORKS)
+       message(STATUS "Trying to enable ASM-ATT for Linux/x86 - succeeded")
+-      # this assembler file was created using gcc -S main.c
+-      set(SRCS main-linux-x86-gas.s)
++      # generate assembler file
++	  execute_process(COMMAND ${CMAKE_C_COMPILER} -S
++			  "${CMAKE_CURRENT_SOURCE_DIR}/main.c" -o
++			  "${CMAKE_CURRENT_BINARY_DIR}/main-linux-x86-gas.s")
++	  set(SRCS ${CMAKE_CURRENT_BINARY_DIR}/main-linux-x86-gas.s)
+     endif(CMAKE_ASM-ATT_COMPILER_WORKS)
+   endif(CMAKE_SYSTEM MATCHES Linux OR CMAKE_SYSTEM MATCHES FreeBSD)
+ endif(NOT SRCS AND CMAKE_SYSTEM_PROCESSOR MATCHES "[ix].?86$")
