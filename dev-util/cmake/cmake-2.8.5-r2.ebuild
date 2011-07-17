@@ -4,6 +4,7 @@
 
 EAPI=4
 
+CMAKE_REMOVE="NO"
 inherit elisp-common toolchain-funcs eutils versionator flag-o-matic base cmake-utils virtualx
 
 MY_P="${PN}-$(replace_version_separator 3 - ${MY_PV})"

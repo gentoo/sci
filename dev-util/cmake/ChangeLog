@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-util/cmake/ChangeLog,v 1.169 2011/07/11 16:50:44 scarabeus Exp $
 
+*cmake-2.8.5-r2 (17 Jul 2011)
+
+  17 Jul 2011; Andreas K. Huettel <dilfridge@gentoo.org>
+  -cmake-2.8.5-r1.ebuild, +cmake-2.8.5-r2.ebuild:
+  cmake should of course install all modules
+
   17 Jul 2011; Andreas K. Huettel <dilfridge@gentoo.org>
   files/cmake-2.8.5-FindBLAS.patch, files/cmake-2.8.5-FindLAPACK.patch:
   Fix missing bracket
