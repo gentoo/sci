@@ -33,16 +33,16 @@ WANT_CMAKE="${WANT_CMAKE:-always}"
 # Specify the minimum required CMake version.  Default is 2.8.1
 CMAKE_MIN_VERSION="${CMAKE_MIN_VERSION:-2.8.1}"
 
-# @ECLASS-VARIABLE: CMAKE_REMOVE_MODULES
+# @ECLASS-VARIABLE: CMAKE_REMOVE_MODULES_LIST
 # @DESCRIPTION:
 # Space-separated list of CMake modules that will be removed in $S during src_prepare, 
 # in order to force packages to use the system version.
-CMAKE_REMOVE_MODULES="${CMAKE_REMOVE_MODULES:-FindBLAS FindLAPACK}"
+CMAKE_REMOVE_MODULES_LIST="${CMAKE_REMOVE_MODULES_LIST:-FindBLAS FindLAPACK}"
 
-# @ECLASS-VARIABLE: CMAKE_REMOVE
+# @ECLASS-VARIABLE: CMAKE_REMOVE_MODULES
 # @DESCRIPTION:
-# Do we want to remove anything? YES or whatever else
-CMAKE_REMOVE="${CMAKE_REMOVE:-YES}"
+# Do we want to remove anything? yes or whatever else for no
+CMAKE_REMOVE_MODULES="${CMAKE_REMOVE_MODULES:-yes}"
 
 CMAKEDEPEND=""
 case ${WANT_CMAKE} in
@@ -282,9 +282,9 @@ _modify-cmakelists() {
 enable_cmake-utils_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	[[ "${CMAKE_REMOVE}" == "YES" ]] && {
+	[[ "${CMAKE_REMOVE_MODULES}" == "yes" ]] && {
 		local name
-		for name in ${CMAKE_REMOVE_MODULES} ; do
+		for name in ${CMAKE_REMOVE_MODULES_LIST} ; do
 			find "${S}" -name ${name}.cmake -exec rm -v {} +
 		done
 	}
