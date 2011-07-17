@@ -20,7 +20,8 @@ else
 	EHG_REVISION="default"
 	S="${WORKDIR}/${EHG_REPO_URI##*/}"
 	PDEPEND="doc? ( =app-doc/votca-csg-manual-${PV} )
-		examples? ( =sci-chemistry/votca-csg-tutorials-${PV} )"
+		examples? ( =sci-chemistry/votca-csg-tutorials-${PV} )
+		extras? ( =sci-chemistry/votca-csg-apps-${PV} )"
 fi
 
 DESCRIPTION="Votca coarse-graining engine"
@@ -29,7 +30,7 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="-boost doc examples +gromacs"
+IUSE="-boost doc examples extras +gromacs"
 
 RDEPEND="=sci-libs/votca-tools-${PV}[boost=]
 	gromacs? ( sci-chemistry/gromacs )

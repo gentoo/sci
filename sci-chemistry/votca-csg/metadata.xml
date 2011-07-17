@@ -7,7 +7,8 @@
 		<name>Christoph Junghans</name>
 	</maintainer>
 	<use>
-		<flag name='gromacs'>Add support for gromacs file formats (sci-chemistry/gromacs)</flag>
-		<flag name='boost'>Compile against external boost headers (dev-libs/boost)</flag>
+		<flag name='gromacs'>Add support for gromacs file formats through <pkg>sci-chemistry/gromacs</pkg></flag>
+		<flag name='boost'>Compile against external boost headers from <pkg>dev-libs/boost</pkg></flag>
+		<flag name='extras'>Pull in extra applications from <pkg>dev-libs/boost</pkg></flag>
 	</use>
 </pkgmetadata>
