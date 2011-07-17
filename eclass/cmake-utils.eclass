@@ -37,7 +37,7 @@ CMAKE_MIN_VERSION="${CMAKE_MIN_VERSION:-2.8.1}"
 # @DESCRIPTION:
 # Space-separated list of CMake modules that will be removed in $S during src_prepare, 
 # in order to force packages to use the system version.
-CMAKE_REMOVE_MODULES="${CMAKE_REMOVE_MODULES:-FindBLAS}"
+CMAKE_REMOVE_MODULES="${CMAKE_REMOVE_MODULES:-FindBLAS FindLAPACK}"
 
 CMAKEDEPEND=""
 case ${WANT_CMAKE} in
