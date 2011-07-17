@@ -39,6 +39,11 @@ CMAKE_MIN_VERSION="${CMAKE_MIN_VERSION:-2.8.1}"
 # in order to force packages to use the system version.
 CMAKE_REMOVE_MODULES="${CMAKE_REMOVE_MODULES:-FindBLAS FindLAPACK}"
 
+# @ECLASS-VARIABLE: CMAKE_REMOVE
+# @DESCRIPTION:
+# Do we want to remove anything? YES or whatever else
+CMAKE_REMOVE="${CMAKE_REMOVE:-YES}"
+
 CMAKEDEPEND=""
 case ${WANT_CMAKE} in
 	always)
@@ -277,10 +282,12 @@ _modify-cmakelists() {
 enable_cmake-utils_src_configure() {
 	debug-print-function ${FUNCNAME} "$@"
 
-	local name
-	for name in ${CMAKE_REMOVE_MODULES} ; do
-		find "${S}" -name ${name}.cmake -exec rm -v {} +
-	done
+	[[ "${CMAKE_REMOVE}" == "YES" ]] && {
+		local name
+		for name in ${CMAKE_REMOVE_MODULES} ; do
+			find "${S}" -name ${name}.cmake -exec rm -v {} +
+		done
+	}
 
 	_check_build_dir
 
