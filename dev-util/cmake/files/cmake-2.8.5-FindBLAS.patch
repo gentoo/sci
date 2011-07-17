@@ -21,7 +21,7 @@ diff -ruN cmake-2.8.5.orig/Modules/FindBLAS.cmake cmake-2.8.5/Modules/FindBLAS.c
 +find_package(PkgConfig REQUIRED)
 +pkg_check_modules(BLAS blas)
 +if(NOT BLAS_FOUND)
-+message(STATUS "No PkgConfig configuration for BLAS found; starting more extensive search."
++message(STATUS "No PkgConfig configuration for BLAS found; starting more extensive search.")
 +
  include(CheckFunctionExists)
  include(CheckFortranFunctionExists)
