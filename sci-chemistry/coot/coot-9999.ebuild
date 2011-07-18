@@ -31,6 +31,7 @@ SCIDEPS="
 	>=sci-libs/coot-data-2
 	>=sci-libs/gsl-1.3
 	>=sci-libs/mmdb-1.23
+	sci-libs/ssm
 	<sci-libs/monomer-db-1
 	sci-chemistry/reduce
 	<sci-chemistry/refmac-5.6
@@ -82,6 +83,7 @@ PATCHES=(
 	"${FILESDIR}"/${PV}-gl.patch
 	"${FILESDIR}"/${PV}-mmdb-config.patch
 	"${FILESDIR}"/${PV}-test.patch
+	"${FILESDIR}"/${PV}-ssm.patch
 	)
 
 src_unpack() {
@@ -109,7 +111,6 @@ src_configure() {
 	econf \
 		--includedir='${prefix}/include/coot' \
 		--with-gtkcanvas-prefix="${EPREFIX}/usr" \
-		--with-ssmlib-prefix="${EPREFIX}/usr" \
 		--with-gtkgl-prefix="${EPREFIX}/usr" \
 		--with-guile \
 		--with-python="${EPREFIX}/usr" \

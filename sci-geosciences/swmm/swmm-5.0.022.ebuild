@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,7 +10,7 @@ MY_SRC="swmm${MY_PV}_engine.zip"
 
 DESCRIPTION="Storm Water Management Model - SWMM, hydrology, hydraulics, and water quality model."
 HOMEPAGE="http://www.epa.gov/ednnrmrl/models/swmm/index.htm"
-SRC_URI="http://www.epa.gov/ednnrmrl/models/swmm/${MY_SRC}"
+SRC_URI="http://www.epa.gov/nrmrl/wswrd/wq/models/swmm/${MY_SRC}"
 
 LICENSE="public-domain"
 SLOT="0"

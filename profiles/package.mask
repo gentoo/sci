@@ -85,6 +85,8 @@ sci-biology/tablet-bin
 # mask live ebuilds
 =sci-libs/votca-tools-9999
 =sci-chemistry/votca-csg-9999
+=sci-chemistry/votca-csg-tutorials-9999
+=sci-chemistry/votca-csg-apps-9999
 =app-doc/votca-csg-manual-9999
 
 # Christoph Junghans <ottxor@gentoo.org> (02 Nov 2009)

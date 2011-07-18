@@ -45,6 +45,13 @@ pkg_setup() {
 	python_pkg_setup
 }
 
+src_prepare() {
+	# gentoo uses /sys/kernel/dlm as dlmfs mountpoint
+	sed -e 's:"/dlm/":"/sys/kernel/dlm":g' \
+		-i libo2dlm/o2dlm_test.c \
+		-i libocfs2/dlm.c || die "sed failed"
+}
+
 src_configure() {
 	econf \
 		$(use_enable debug debug) \
@@ -56,5 +63,6 @@ src_configure() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die
-	newinitd "${FILESDIR}/ocfs2.init" ocfs2  || die
+	newinitd "${FILESDIR}/ocfs2.initd" ocfs2  || die
+	newconfd "${FILESDIR}/ocfs2.confd" ocfs2  || die
 }
