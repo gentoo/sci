@@ -9,6 +9,9 @@ TEST_PV="4.0.4"
 EGIT_REPO_URI="git://git.gromacs.org/gromacs"
 EGIT_BRANCH="master"
 
+#to find external blas/lapack
+CMAKE_MIN_VERSION="2.8.5-r2"
+
 inherit bash-completion cmake-utils eutils fortran-2 git-2 multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
@@ -23,7 +26,6 @@ mpi +single-precision sse2 test +threads xml zsh-completion"
 REQUIRED_USE="fkernels? ( !threads )"
 
 CDEPEND="
-	fkernels? ( virtual/fortran )
 	X? (
 		x11-libs/libX11
 		x11-libs/libSM
@@ -31,6 +33,7 @@ CDEPEND="
 		)
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
+	fkernels? ( virtual/fortran )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
@@ -134,6 +137,7 @@ src_configure() {
 		$(cmake-utils_use xml GMX_XML)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_ACCELERATION="$acce"
+		-DGMXLIB="$(get_libdir)"
 	)
 
 	for x in ${GMX_DIRS}; do

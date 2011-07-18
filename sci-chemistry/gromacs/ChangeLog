@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Jul 2011; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
+  gromacs-9999.ebuild:
+  sync with tree
+
   25 Jun 2011; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
   gromacs-9999.ebuild:
   migrate to git-2
