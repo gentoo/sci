@@ -27,8 +27,7 @@ fi
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="custom-cflags native"
-#TODO: openmp, fortran flags
+IUSE="custom-cflags debugger fortran native +openmp"
 
 DEPEND="sys-devel/gcc:4.2[vanilla]
 	native? ( || ( dev-lang/ekopath-bin dev-lang/path64 ) )"
@@ -82,10 +81,11 @@ src_configure() {
 	mycmakeargs=(
 		-DPATH64_ENABLE_TARGETS="x86_64"
 		-DPATH64_ENABLE_PROFILING=ON
-		-DPATH64_ENABLE_FORTRAN=ON
 		-DPATH64_ENABLE_MATHLIBS=ON
-		-DPATH64_ENABLE_OPENMP=ON
 		-DPATH64_ENABLE_PATHOPT2=OFF
+		$(cmake-utils_use fortran PATH64_ENABLE_FORTRAN)
+		$(cmake-utils_use openmp PATH64_ENABLE_OPENMP)
+		$(cmake-utils_use debugger PATH64_ENABLE_PATHDB)
 		-DPSC_CRT_PATH_x86_64=$(dirname ${crt})
 		-DPSC_CRTBEGIN_PATH=$(dirname ${libgcc})
 		-DPSC_DYNAMIC_LINKER_x86_64=${linker}

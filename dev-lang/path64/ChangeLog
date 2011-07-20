@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild,
+  metadata.xml:
+  Add fortran,openmp,debugger to IUSE
+
   20 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:
   Add native use flag for release build
 
