@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=4
-CMAKE_BUILD_TYPE=Debug
 CMAKE_VERBOSE=1
 if [ "${PV%9999}" != "${PV}" ] ; then
 	SCM=git-2
@@ -27,11 +26,12 @@ fi
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
-IUSE="custom-cflags"
+KEYWORDS="~amd64"
+IUSE="custom-cflags native"
 #TODO: openmp, fortran flags
 
-DEPEND="sys-devel/gcc:4.2[vanilla]"
+DEPEND="sys-devel/gcc:4.2[vanilla]
+	native? ( || ( dev-lang/ekopath-bin dev-lang/path64 ) )"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
@@ -59,15 +59,26 @@ src_unpack() {
 }
 
 src_configure() {
-	local MY_CFLAGS=""
-	local MY_CXXFLAGS=""
+	local linker=$($(tc-getCC) --help -v 2>&1 >/dev/null | grep	'\-dynamic\-linker' | cut -f7 -d' ')
+	local libgcc=$($(tc-getCC) -print-libgcc-file-name)
+	local crt=$($(tc-getCC) -print-file-name=crt1.o)
 	if use custom-cflags; then
 		MY_CFLAGS=${CFLAGS}
 		MY_CXXFLAGS=${CXXFLAGS}
 	fi
-	local linker=$($(tc-getCC) --help -v 2>&1 >/dev/null | grep	'\-dynamic\-linker' | cut -f7 -d' ')
-	local libgcc=$($(tc-getCC) -print-libgcc-file-name)
-	local crt=$($(tc-getCC) -print-file-name=crt1.o)
+
+	if use native ; then
+		export CMAKE_BUILD_TYPE=Release
+		export CC=pathcc
+		export CXX=pathCC
+		export MYCMAKEARGS="-UCMAKE_USER_MAKE_RULES_OVERRIDE"
+		if use amd64 ; then
+			MY_CFLAGS="${MY_CFLAGS} -fPIC"
+			MY_CXXFLAGS="${MY_CXXFLAGS} -fPIC"
+		fi
+	else
+		export CMAKE_BUILD_TYPE=Debug
+	fi
 	mycmakeargs=(
 		-DPATH64_ENABLE_TARGETS="x86_64"
 		-DPATH64_ENABLE_PROFILING=ON
@@ -78,11 +89,11 @@ src_configure() {
 		-DPSC_CRT_PATH_x86_64=$(dirname ${crt})
 		-DPSC_CRTBEGIN_PATH=$(dirname ${libgcc})
 		-DPSC_DYNAMIC_LINKER_x86_64=${linker}
-		-DCMAKE_Fortran_COMPILER=$(tc-getFC)
-		-DCMAKE_C_COMPILER=$(tc-getCC)
-		-DCMAKE_C_FLAGS=${MY_CFLAGS}
-		-DCMAKE_CXX_COMPILER=$(tc-getCXX)
-		-DCMAKE_CXX_FLAGS=${MY_CXXFLAGS}
+		-DCMAKE_Fortran_COMPILER="$(tc-getFC)"
+		-DCMAKE_C_COMPILER="$(tc-getCC)"
+		-DCMAKE_C_FLAGS="${MY_CFLAGS}"
+		-DCMAKE_CXX_COMPILER="$(tc-getCXX)"
+		-DCMAKE_CXX_FLAGS="${MY_CFLAGS}"
 	)
 	cmake-utils_src_configure
 }
