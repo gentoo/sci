@@ -52,9 +52,9 @@ src_unpack() {
 
 src_prepare() {
 	cat > "98${PN}" <<-EOF
-		PATH=/usr/lib/${PN}/bin
-		ROOTPATH=/usr/lib/${PN}/bin
-		LDPATH=/usr/lib/${PN}/lib
+		PATH=/usr/$(get_libdir)/${PN}/bin
+		ROOTPATH=/usr/$(get_libdir)/${PN}/bin
+		LDPATH=/usr/$(get_libdir)/${PN}/lib
 	EOF
 }
 
@@ -82,7 +82,7 @@ src_configure() {
 		export CMAKE_BUILD_TYPE=Debug
 	fi
 	mycmakeargs=(
-		-DCMAKE_INSTALL_PREFIX=/usr/lib/${PN}
+		-DCMAKE_INSTALL_PREFIX=/usr/$(get_libdir)/${PN}
 		-DPATH64_ENABLE_TARGETS="x86_64"
 		-DPATH64_ENABLE_PROFILING=ON
 		-DPATH64_ENABLE_MATHLIBS=ON

@@ -3,6 +3,9 @@
 # $Header: $
 
   23 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:
+  Change lib -> get_libdir
+
+  23 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:
   gcc:4.2 is no longer a strict dep
 
   23 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:
