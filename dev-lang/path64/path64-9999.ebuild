@@ -71,12 +71,15 @@ src_configure() {
 	if use custom-cflags; then
 		MY_CFLAGS=${CFLAGS}
 		MY_CXXFLAGS=${CXXFLAGS}
+		MY_FCFLAGS=${FCFLAGS}
 	fi
 
 	if use native ; then
 		export CMAKE_BUILD_TYPE=Release
 		export CC=pathcc
 		export CXX=pathCC
+		export FC=pathf90
+		export F90=pathf90
 		export MYCMAKEARGS="-UCMAKE_USER_MAKE_RULES_OVERRIDE"
 		if use amd64 ; then
 			MY_CFLAGS="${MY_CFLAGS} -fPIC"
@@ -100,6 +103,7 @@ src_configure() {
 		-DPSC_CRTBEGIN_PATH=$(dirname ${libgcc})
 		-DPSC_DYNAMIC_LINKER_x86_64=${linker}
 		-DCMAKE_Fortran_COMPILER="$(tc-getFC)"
+		-DCMAKE_Fortran_FLAGS="${MY_FCFLAGS}"
 		-DCMAKE_C_COMPILER="$(tc-getCC)"
 		-DCMAKE_C_FLAGS="${MY_CFLAGS}"
 		-DCMAKE_CXX_COMPILER="$(tc-getCXX)"
