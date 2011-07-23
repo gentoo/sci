@@ -3,6 +3,9 @@
 # $Header: $
 
   23 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:
+  Unset all fortran vars
+
+  23 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:
   Fix fortran specific env handling
 
   23 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:

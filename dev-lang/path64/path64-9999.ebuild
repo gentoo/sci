@@ -78,8 +78,7 @@ src_configure() {
 		export CMAKE_BUILD_TYPE=Release
 		export CC=pathcc
 		export CXX=pathCC
-		export FC=pathf90
-		export F90=pathf90
+		unset FC F90 F77 FCFLAGS F90FLAGS FFLAGS
 		export MYCMAKEARGS="-UCMAKE_USER_MAKE_RULES_OVERRIDE"
 		if use amd64 ; then
 			MY_CFLAGS="${MY_CFLAGS} -fPIC"
@@ -102,8 +101,6 @@ src_configure() {
 		-DPSC_CRT_PATH_x86_64=$(dirname ${crt})
 		-DPSC_CRTBEGIN_PATH=$(dirname ${libgcc})
 		-DPSC_DYNAMIC_LINKER_x86_64=${linker}
-		-DCMAKE_Fortran_COMPILER="$(tc-getFC)"
-		-DCMAKE_Fortran_FLAGS="${MY_FCFLAGS}"
 		-DCMAKE_C_COMPILER="$(tc-getCC)"
 		-DCMAKE_C_FLAGS="${MY_CFLAGS}"
 		-DCMAKE_CXX_COMPILER="$(tc-getCXX)"
