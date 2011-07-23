@@ -11,12 +11,11 @@ if [ "${PV%9999}" != "${PV}" ] ; then
 	PATH64_URI="compiler assembler"
 	PATHSCALE_URI="compiler-rt libcxxrt libdwarf-bsd libunwind stdcxx"
 	DBG_URI="git://github.com/path64/debugger.git"
-
 fi
 
 inherit cmake-utils ${SCM} multilib toolchain-funcs
 
-DESCRIPTION="PathScale EKOPath Compiler Suite"
+DESCRIPTION="Path64 Compiler Suite Community Edition"
 HOMEPAGE="http://www.pathscale.com/ekopath-compiler-suite"
 if [ "${PV%9999}" != "${PV}" ] ; then
 	SRC_URI=""
@@ -27,16 +26,16 @@ fi
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="custom-cflags debugger fortran native +openmp"
+IUSE="assembler custom-cflags debugger fortran +native +openmp"
 
-DEPEND="sys-devel/gcc:4.2[vanilla]
+DEPEND="!native? ( sys-devel/gcc:4.2[vanilla] )
 	native? ( || ( dev-lang/ekopath-bin dev-lang/path64 ) )"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
-	[[ $(gcc-version) != 4.2 ]] && \
+	if use !native && [[ $(gcc-version) != 4.2 ]] ; then
 		die "To bootstrap Path64 you'll need to use gcc:4.2[vanilla]"
-	export GCC42_PATH=$($(tc-getCC) -print-search-dirs | head -n 1 | cut -f2- -d' ')
+	fi
 }
 
 src_unpack() {
@@ -55,6 +54,14 @@ src_unpack() {
 	done
 	EGIT_REPO_URI=${DBG_URI} EGIT_DIR="${EGIT_STORE_DIR}/compiler/pathdb" \
 		EGIT_SOURCEDIR="${WORKDIR}/${P}/compiler/pathdb" git-2_src_unpack
+}
+
+src_prepare() {
+	cat > "98${PN}" <<-EOF
+		PATH=/usr/lib/${PN}/bin
+		ROOTPATH=/usr/lib/${PN}/bin
+		LDPATH=/usr/lib/${PN}/lib
+	EOF
 }
 
 src_configure() {
@@ -79,10 +86,13 @@ src_configure() {
 		export CMAKE_BUILD_TYPE=Debug
 	fi
 	mycmakeargs=(
+		-DCMAKE_INSTALL_PREFIX=/usr/lib/${PN}
 		-DPATH64_ENABLE_TARGETS="x86_64"
 		-DPATH64_ENABLE_PROFILING=ON
 		-DPATH64_ENABLE_MATHLIBS=ON
 		-DPATH64_ENABLE_PATHOPT2=OFF
+		$(cmake-utils_use assembler PATH64_ENABLE_PATHAS)
+		$(cmake-utils_use assembler PATH64_ENABLE_DEFAULT_PATHAS)
 		$(cmake-utils_use fortran PATH64_ENABLE_FORTRAN)
 		$(cmake-utils_use openmp PATH64_ENABLE_OPENMP)
 		$(cmake-utils_use debugger PATH64_ENABLE_PATHDB)
@@ -96,4 +106,9 @@ src_configure() {
 		-DCMAKE_CXX_FLAGS="${MY_CFLAGS}"
 	)
 	cmake-utils_src_configure
+}
+
+src_install() {
+	cmake-utils_src_install
+	doenvd "98${PN}"
 }
