@@ -28,15 +28,9 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="assembler custom-cflags debugger fortran +native +openmp"
 
-DEPEND="!native? ( sys-devel/gcc:4.2[vanilla] )
+DEPEND="!native? ( sys-devel/gcc[vanilla] )
 	native? ( || ( dev-lang/ekopath-bin dev-lang/path64 ) )"
 RDEPEND="${DEPEND}"
-
-pkg_setup() {
-	if use !native && [[ $(gcc-version) != 4.2 ]] ; then
-		die "To bootstrap Path64 you'll need to use gcc:4.2[vanilla]"
-	fi
-}
 
 src_unpack() {
 	git-2_src_unpack
@@ -58,9 +52,9 @@ src_unpack() {
 
 src_prepare() {
 	cat > "98${PN}" <<-EOF
-		PATH=/usr/lib/${PN}/bin
-		ROOTPATH=/usr/lib/${PN}/bin
-		LDPATH=/usr/lib/${PN}/lib
+		PATH=/usr/$(get_libdir)/${PN}/bin
+		ROOTPATH=/usr/$(get_libdir)/${PN}/bin
+		LDPATH=/usr/$(get_libdir)/${PN}/lib
 	EOF
 }
 
@@ -88,7 +82,7 @@ src_configure() {
 		export CMAKE_BUILD_TYPE=Debug
 	fi
 	mycmakeargs=(
-		-DCMAKE_INSTALL_PREFIX=/usr/lib/${PN}
+		-DCMAKE_INSTALL_PREFIX=/usr/$(get_libdir)/${PN}
 		-DPATH64_ENABLE_TARGETS="x86_64"
 		-DPATH64_ENABLE_PROFILING=ON
 		-DPATH64_ENABLE_MATHLIBS=ON
