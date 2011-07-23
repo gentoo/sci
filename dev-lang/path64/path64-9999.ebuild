@@ -28,15 +28,9 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="assembler custom-cflags debugger fortran +native +openmp"
 
-DEPEND="!native? ( sys-devel/gcc:4.2[vanilla] )
+DEPEND="!native? ( sys-devel/gcc[vanilla] )
 	native? ( || ( dev-lang/ekopath-bin dev-lang/path64 ) )"
 RDEPEND="${DEPEND}"
-
-pkg_setup() {
-	if use !native && [[ $(gcc-version) != 4.2 ]] ; then
-		die "To bootstrap Path64 you'll need to use gcc:4.2[vanilla]"
-	fi
-}
 
 src_unpack() {
 	git-2_src_unpack
