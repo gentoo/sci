@@ -11,12 +11,11 @@ if [ "${PV%9999}" != "${PV}" ] ; then
 	PATH64_URI="compiler assembler"
 	PATHSCALE_URI="compiler-rt libcxxrt libdwarf-bsd libunwind stdcxx"
 	DBG_URI="git://github.com/path64/debugger.git"
-
 fi
 
 inherit cmake-utils ${SCM} multilib toolchain-funcs
 
-DESCRIPTION="PathScale EKOPath Compiler Suite"
+DESCRIPTION="Path64 Compiler Suite Community Edition"
 HOMEPAGE="http://www.pathscale.com/ekopath-compiler-suite"
 if [ "${PV%9999}" != "${PV}" ] ; then
 	SRC_URI=""
@@ -55,6 +54,14 @@ src_unpack() {
 	done
 	EGIT_REPO_URI=${DBG_URI} EGIT_DIR="${EGIT_STORE_DIR}/compiler/pathdb" \
 		EGIT_SOURCEDIR="${WORKDIR}/${P}/compiler/pathdb" git-2_src_unpack
+}
+
+src_prepare() {
+	cat > "98${PN}" <<-EOF
+		PATH=/usr/lib/${PN}/bin
+		ROOTPATH=/usr/lib/${PN}/bin
+		LDPATH=/usr/lib/${PN}/lib
+	EOF
 }
 
 src_configure() {
@@ -99,4 +106,9 @@ src_configure() {
 		-DCMAKE_CXX_FLAGS="${MY_CFLAGS}"
 	)
 	cmake-utils_src_configure
+}
+
+src_install() {
+	cmake-utils_src_install
+	doenvd "98${PN}"
 }
