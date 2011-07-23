@@ -27,16 +27,16 @@ fi
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="custom-cflags debugger fortran native +openmp"
+IUSE="assembler custom-cflags debugger fortran +native +openmp"
 
-DEPEND="sys-devel/gcc:4.2[vanilla]
+DEPEND="!native? ( sys-devel/gcc:4.2[vanilla] )
 	native? ( || ( dev-lang/ekopath-bin dev-lang/path64 ) )"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
-	[[ $(gcc-version) != 4.2 ]] && \
+	if use !native && [[ $(gcc-version) != 4.2 ]] ; then
 		die "To bootstrap Path64 you'll need to use gcc:4.2[vanilla]"
-	export GCC42_PATH=$($(tc-getCC) -print-search-dirs | head -n 1 | cut -f2- -d' ')
+	fi
 }
 
 src_unpack() {
@@ -79,10 +79,13 @@ src_configure() {
 		export CMAKE_BUILD_TYPE=Debug
 	fi
 	mycmakeargs=(
+		-DCMAKE_INSTALL_PREFIX=/usr/lib/${PN}
 		-DPATH64_ENABLE_TARGETS="x86_64"
 		-DPATH64_ENABLE_PROFILING=ON
 		-DPATH64_ENABLE_MATHLIBS=ON
 		-DPATH64_ENABLE_PATHOPT2=OFF
+		$(cmake-utils_use assembler PATH64_ENABLE_PATHAS)
+		$(cmake-utils_use assembler PATH64_ENABLE_DEFAULT_PATHAS)
 		$(cmake-utils_use fortran PATH64_ENABLE_FORTRAN)
 		$(cmake-utils_use openmp PATH64_ENABLE_OPENMP)
 		$(cmake-utils_use debugger PATH64_ENABLE_PATHDB)
