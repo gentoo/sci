@@ -28,7 +28,7 @@ KEYWORDS="~amd64"
 IUSE="assembler custom-cflags debugger fortran +native +openmp"
 
 DEPEND="!native? ( sys-devel/gcc[vanilla] )
-	native? ( || ( dev-lang/ekopath-bin dev-lang/path64 ) )"
+	native? ( || ( dev-lang/ekopath dev-lang/path64 ) )"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
