@@ -7,7 +7,6 @@ CMAKE_VERBOSE=1
 if [ "${PV%9999}" != "${PV}" ] ; then
 	SCM=git-2
 	EGIT_REPO_URI="git://github.com/pathscale/${PN}-suite.git"
-	EGIT_HAS_SUBMODULES=yes
 	PATH64_URI="compiler assembler"
 	PATHSCALE_URI="compiler-rt libcxxrt libdwarf-bsd libunwind stdcxx"
 	DBG_URI="git://github.com/path64/debugger.git"
@@ -26,11 +25,22 @@ fi
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="assembler custom-cflags debugger fortran +native +openmp"
+IUSE="assembler custom-cflags debugger fortran +native +openmp valgrind"
 
 DEPEND="!native? ( sys-devel/gcc[vanilla] )
-	native? ( || ( dev-lang/ekopath-bin dev-lang/path64 ) )"
+	native? ( || ( dev-lang/ekopath dev-lang/path64 ) )
+	valgrind? ( dev-util/valgrind )"
 RDEPEND="${DEPEND}"
+
+pkg_setup() {
+	if use custom-cflags ; then
+		ewarn "You are trying to build ${PN} with custom-cflags"
+		ewarn "There is a high chance that you will utterly fail!"
+		ewarn "Unless you know what you are doing you'd better stop now"
+		ewarn "Should you decide to proceed, you are on your own..."
+		epause
+	fi
+}
 
 src_unpack() {
 	git-2_src_unpack
@@ -56,28 +66,26 @@ src_prepare() {
 		ROOTPATH=/usr/$(get_libdir)/${PN}/bin
 		LDPATH=/usr/$(get_libdir)/${PN}/lib
 	EOF
+	sed -i -e "s/-Wl,-s //" CMakeLists.txt || die #strip
 }
 
 src_configure() {
 	local linker=$($(tc-getCC) --help -v 2>&1 >/dev/null | grep	'\-dynamic\-linker' | cut -f7 -d' ')
 	local libgcc=$($(tc-getCC) -print-libgcc-file-name)
 	local crt=$($(tc-getCC) -print-file-name=crt1.o)
-	if use custom-cflags; then
-		MY_CFLAGS=${CFLAGS}
-		MY_CXXFLAGS=${CXXFLAGS}
-		MY_FCFLAGS=${FCFLAGS}
-	fi
+	use custom-cflags && flags=(
+			-DCMAKE_C_FLAGS="${CFLAGS}"
+			-DCMAKE_CXX_FLAGS="${CXXFLAGS}"
+		)
+
+	# Yup, I know how bad it is, but I'd rather have a working compiler
+	unset FC F90 F77 FCFLAGS F90FLAGS FFLAGS CFLAGS CXXFLAGS
 
 	if use native ; then
 		export CMAKE_BUILD_TYPE=Release
 		export CC=pathcc
 		export CXX=pathCC
-		unset FC F90 F77 FCFLAGS F90FLAGS FFLAGS
 		export MYCMAKEARGS="-UCMAKE_USER_MAKE_RULES_OVERRIDE"
-		if use amd64 ; then
-			MY_CFLAGS="${MY_CFLAGS} -fPIC"
-			MY_CXXFLAGS="${MY_CXXFLAGS} -fPIC"
-		fi
 	else
 		export CMAKE_BUILD_TYPE=Debug
 	fi
@@ -92,13 +100,13 @@ src_configure() {
 		$(cmake-utils_use fortran PATH64_ENABLE_FORTRAN)
 		$(cmake-utils_use openmp PATH64_ENABLE_OPENMP)
 		$(cmake-utils_use debugger PATH64_ENABLE_PATHDB)
+		$(cmake-utils_use valgrind PATH64_ENABLE_VALGRIND)
 		-DPSC_CRT_PATH_x86_64=$(dirname ${crt})
 		-DPSC_CRTBEGIN_PATH=$(dirname ${libgcc})
 		-DPSC_DYNAMIC_LINKER_x86_64=${linker}
 		-DCMAKE_C_COMPILER="$(tc-getCC)"
-		-DCMAKE_C_FLAGS="${MY_CFLAGS}"
 		-DCMAKE_CXX_COMPILER="$(tc-getCXX)"
-		-DCMAKE_CXX_FLAGS="${MY_CFLAGS}"
+		"${flags[@]}"
 	)
 	cmake-utils_src_configure
 }

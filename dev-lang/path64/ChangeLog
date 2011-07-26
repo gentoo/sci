@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:
+  Add valgrind IUSE for debugging
+
+  25 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:
+  Unset all env vars that may cause trouble, prevent stripping source when
+  build with Release, clean up
+
   23 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:
   Change lib -> get_libdir
 
