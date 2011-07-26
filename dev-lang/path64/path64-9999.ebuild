@@ -25,10 +25,11 @@ fi
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="assembler custom-cflags debugger fortran +native +openmp"
+IUSE="assembler custom-cflags debugger fortran +native +openmp valgrind"
 
 DEPEND="!native? ( sys-devel/gcc[vanilla] )
-	native? ( || ( dev-lang/ekopath-bin dev-lang/path64 ) )"
+	native? ( || ( dev-lang/ekopath dev-lang/path64 ) )
+	valgrind? ( dev-util/valgrind )"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
@@ -99,6 +100,7 @@ src_configure() {
 		$(cmake-utils_use fortran PATH64_ENABLE_FORTRAN)
 		$(cmake-utils_use openmp PATH64_ENABLE_OPENMP)
 		$(cmake-utils_use debugger PATH64_ENABLE_PATHDB)
+		$(cmake-utils_use valgrind PATH64_ENABLE_VALGRIND)
 		-DPSC_CRT_PATH_x86_64=$(dirname ${crt})
 		-DPSC_CRTBEGIN_PATH=$(dirname ${libgcc})
 		-DPSC_DYNAMIC_LINKER_x86_64=${linker}

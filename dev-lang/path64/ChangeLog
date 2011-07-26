@@ -3,6 +3,9 @@
 # $Header: $
 
   25 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:
+  Add valgrind IUSE for debugging
+
+  25 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> path64-9999.ebuild:
   Unset all env vars that may cause trouble, prevent stripping source when
   build with Release, clean up
 
