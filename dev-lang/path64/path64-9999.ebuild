@@ -61,10 +61,11 @@ src_unpack() {
 }
 
 src_prepare() {
+	local ver=$(grep 'SET(PSC_FULL_VERSION' CMakeLists.txt | cut -d'"' -f2)
 	cat > "98${PN}" <<-EOF
 		PATH=/usr/$(get_libdir)/${PN}/bin
 		ROOTPATH=/usr/$(get_libdir)/${PN}/bin
-		LDPATH=/usr/$(get_libdir)/${PN}/lib
+		LDPATH=/usr/$(get_libdir)/${PN}/lib:/usr/$(get_libdir)/${PN}/lib/${ver}/x8664/64
 	EOF
 	sed -i -e "s/-Wl,-s //" CMakeLists.txt || die #strip
 }
