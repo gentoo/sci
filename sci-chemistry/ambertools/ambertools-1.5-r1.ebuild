@@ -52,7 +52,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch \
-		"${WORKDIR}/${P}-bugfix_1-3.patch" \
+		"${WORKDIR}/${P}-bugfix_1-10.patch" \
 		"${FILESDIR}/${P}-gentoo.patch"
 	cd AmberTools/src
 	rm -r arpack blas lapack fftw-2.1.5 c9x-complex cifparse netcdf pnetcdf reduce ucpp-1.3 || die
