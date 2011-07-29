@@ -4,15 +4,16 @@
 
 EAPI=4
 CMAKE_VERBOSE=1
+MY_MIRROR=http://dev.gentoo.org/~xarthisius/distfiles
 
 inherit cmake-utils multilib toolchain-funcs
 
 DESCRIPTION="Path64 Compiler Suite Community Edition"
 HOMEPAGE="http://www.pathscale.com/ekopath-compiler-suite"
-SRC_URI="http://dev.gentoo.org/~xarthisius/${PN}-suite-${PV}.tbz2 
-   http://dev.gentoo.org/~xarthisius/${PN}-compiler-${PV}.tbz2
-   assembler? ( http://dev.gentoo.org/~xarthisius/${PN}-assembler-${PV}.tbz2 )
-   debugger? ( http://dev.gentoo.org/~xarthisius/${PN}-debugger-${PV}.tbz2 )"
+SRC_URI="${MY_MIRROR}/${PN}-suite-${PV}.tbz2 
+   ${MY_MIRROR}/${PN}-compiler-${PV}.tbz2
+   assembler? ( ${MY_MIRROR}/${PN}-assembler-${PV}.tbz2 )
+   debugger? ( ${MY_MIRROR}/${PN}-debugger-${PV}.tbz2 )"
 
 LICENSE="GPL-3"
 SLOT="0"

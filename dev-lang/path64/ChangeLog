@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org>
+  path64-1.0.0_pre20110729.ebuild:
+  Fix SRC_URI for snapshot
+
 *path64-1.0.0_pre20110729 (29 Jul 2011)
 
   29 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org>
