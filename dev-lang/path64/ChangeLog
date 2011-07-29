@@ -3,6 +3,10 @@
 # $Header: $
 
   29 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org>
+  -path64-1.0.0_pre20110729.ebuild:
+  Moved to g-x86
+
+  29 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org>
   path64-1.0.0_pre20110729.ebuild:
   Fix SRC_URI for snapshot
 
