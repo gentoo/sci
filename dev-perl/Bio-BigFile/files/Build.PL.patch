@@ -1,0 +1,40 @@
+--- Bio-BigFile-1.06/Build.PL.ori	2011-07-14 01:36:32.000000000 +0200
++++ Bio-BigFile-1.06/Build.PL	2011-07-14 02:01:27.000000000 +0200
+@@ -47,12 +47,10 @@
+ sub find_jk {
+     my ($jk_include,$jk_lib);
+ 
+-    if (my $jksrc = $ENV{KENT_SRC}) {
+-	$jk_include = "$jksrc/inc"
+-	    if -e "$jksrc/inc/$HeaderFile";
+-	$jk_lib     = "$jksrc/lib/$ENV{MACHTYPE}"
+-	    if -e "$jksrc/lib/$ENV{MACHTYPE}/$LibFile";
+-    }
++    $jk_include = "/usr/include/ucsc-genome-browser"
++	    if -e "/usr/include/ucsc-genome-browser/$HeaderFile";
++    $jk_lib     = "/usr/lib"
++	    if -e "/usr/lib/$LibFile";
+ 
+     unless ($jk_include && $jk_lib) {
+ 	print STDERR <<END;
+@@ -67,15 +65,15 @@
+ 
+ END
+ 	my $prompt = "Please enter the location of Kent source tree: ";
+-	my $found;
++	my $found = 1;
+ 	while (!$found) {
+ 	    my $path = prompt($prompt);
+ 	    print STDERR "\n";
+ 	    last unless $path;
+-	    $jk_include = "$path/inc"
+-		if -e "$path/inc/$HeaderFile";
+-	    $jk_lib = "$path/lib/$ENV{MACHTYPE}"
+-		if -e "$path/lib/$ENV{MACHTYPE}/$LibFile";
++	    $jk_include = "/usr/include/ucsc-genome-browser"
++		if -e "/usr/include/ucsc-genome-browser/$HeaderFile";
++	    $jk_lib = "/usr/lib"
++		if -e "/usr/lib/$LibFile";
+ 	    $found = $jk_include && $jk_lib;
+ 	    unless ($found) {
+ 		print STDERR "Can't find the $HeaderFile and $LibFile files at this location.\n";
