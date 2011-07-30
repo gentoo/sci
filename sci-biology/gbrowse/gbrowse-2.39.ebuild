@@ -28,7 +28,7 @@ SRC_URI="
 LICENSE="Artistic"
 # webapp ebuilds do not set SLOT
 KEYWORDS="~x86 ~amd64"
-IUSE="cgi fastcgi minimal mysql postgres svg test" # lwp moby scf
+IUSE="cgi fastcgi minimal mysql pdf postgres svg test" # lwp moby scf
 
 S="${WORKDIR}/${MY_P}"
 
@@ -48,6 +48,7 @@ DEPEND="
 	>=dev-perl/JSON-2.510.0
 	dev-perl/libwww-perl
 	svg? ( dev-perl/GD-SVG )
+	pdf? ( media-gfx/inkscape )
 	mysql? ( dev-perl/DBD-mysql )
 	postgres? ( dev-perl/DBD-Pg )
 	sci-biology/ucsc-genome-browser" # that provides bigWig.h and jkweb.a, aka Jim Kent's src
@@ -92,6 +93,9 @@ src_prepare() {
 	epatch "${FILESDIR}"/GBrowseInstall.pm-"${PV}".patch || die "Failed to apply GBrowseInstall.pm-"${PV}".patch"
 	epatch "${FILESDIR}"/destdir.patch || die "Failed to apply destdir.patch"
 	epatch "${FILESDIR}"/fix-PNG-export.patch || die "Failed to apply fix-PNG-export.patch"
+	epatch "${FILESDIR}"/symlink.patch || die "Failed to apply symlink.patch"
+	epatch "${FILESDIR}"/gbrowse_metadb_config.pl.patch || die "Failed to apply gbrowse_metadb_config.pl.patch"
+	epatch "${FILESDIR}"/disable-gbrowse_metadb_config.pl.patch || die "Failed to apply disable-gbrowse_metadb_config.pl.patch"
 }
 
 src_configure() {
@@ -145,8 +149,7 @@ src_install() {
 pkg_postinst() {
 	webapp_pkg_postinst || die "webapp_pkg_postinst failed"
 
-	einfo "Please run gbrowse_metadb_config.pl to update SQlite flatfiles or the live database"
-	einfo "This was disabled by "${FILESDIR}"/GBrowseInstall.pm-disable-gbrowse_metadb_config.pl.pm.patch"
+	einfo "Please run gbrowse_metadb_config.pl to update SQLite flatfiles of the live database."
 }
 
 src_test() {
