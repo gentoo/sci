@@ -42,18 +42,18 @@ src_configure() {
 		$(use_enable allplugins) \
 		$(use_enable allcxxplugins) \
 		$(use_enable cgal) \
-		--enable-siscone \
-		--enable-cdfcones \
-		--enable-pxcone \
-		--enable-d0runiicone \
-		--enable-nesteddefs \
-		--enable-trackjet \
-		--enable-atlascone \
-		--enable-cmsiterativecone \
-		--enable-eecambridge \
-		--enable-jade
+#		--enable-siscone \
+#		--enable-cdfcones \
+#		--enable-pxcone \
+#		--enable-d0runiicone \
+#		--enable-nesteddefs \
+#		--enable-trackjet \
+#		--enable-atlascone \
+#		--enable-cmsiterativecone \
+#		--enable-eecambridge \
+#		--enable-jade
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
+	emake DESTDIR="${D}" install
 }
