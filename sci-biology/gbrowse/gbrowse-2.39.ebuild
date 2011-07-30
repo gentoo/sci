@@ -89,7 +89,8 @@ RDEPEND="${DEPEND}
 src_prepare() {
 	sed -i 's/return unless -t STDIN/return/' install_util/GBrowseInstall.pm || die
 	sed -i 's/process_/bp_process_/g' INSTALL || die
-	epatch "${FILESDIR}"/GBrowseInstall.pm-"${PV}".patch || die "Failed to patch"
+	epatch "${FILESDIR}"/GBrowseInstall.pm-"${PV}".patch || die "Failed to apply GBrowseInstall.pm-"${PV}".patch"
+	epatch "${FILESDIR}"/destdir.patch || die "Failed to apply destdir.patch "
 }
 
 src_configure() {

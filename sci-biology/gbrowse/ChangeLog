@@ -3,6 +3,14 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/generic-genome-browser/ChangeLog,v 1.10 2007/07/29 17:07:38 phreak Exp $
 
   30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  gbrowse-2.39.ebuild, +files/destdir.patch:
+  added support for --destdir, patch sent to upstream gbrowse-2.39.ebuild
+
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  gbrowse-2.39.ebuild, +files/destdir.patch:
+  added support for --destdir, patch sent to upstream
+
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   -gbrowse-2.38.ebuild, -files/GBrowseInstall.pm-2.38.patch,
   +gbrowse-2.39.ebuild, +files/GBrowseInstall.pm-2.39.patch:
   version bump but still need to rewrite upstream's install procedure to
