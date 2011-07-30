@@ -144,7 +144,7 @@ src_install() {
 pkg_postinst() {
 	webapp_pkg_postinst || die "webapp_pkg_postinst failed"
 
-	einfo "Please run gbrowse_metadb_config.pl to upate SQlite flatfiles or the live database"
+	einfo "Please run gbrowse_metadb_config.pl to update SQlite flatfiles or the live database"
 	einfo "This was disabled by "${FILESDIR}"/GBrowseInstall.pm-disable-gbrowse_metadb_config.pl.pm.patch"
 }
 
