@@ -28,17 +28,17 @@ SRC_URI="
 LICENSE="Artistic"
 # webapp ebuilds do not set SLOT
 KEYWORDS="~x86 ~amd64"
-IUSE="-minimal svg test" # lwp moby scf
+IUSE="cgi fastcgi minimal mysql postgres svg test" # lwp moby scf
 
 S="${WORKDIR}/${MY_P}"
 
 # TODO: dev-perl/MOBY, dev-perl/Bio-SCF, dev-perl/Safe-World (not compatible w/perl-5.10)
-# TODO: make sure www-servers/apache +cgi
+# how about mod_fcgi and dev-libs/fcgi and mod_scgi?
 DEPEND="
 	>=perl-core/Module-Build-0.380.0
 	>=dev-lang/perl-5.8.8
 	dev-perl/Capture-Tiny
-	>=sci-biology/bioperl-1.6
+	>=sci-biology/bioperl-1.6.901
 	>=dev-perl/GD-2.07
 	dev-perl/IO-String
 	virtual/perl-Digest-MD5
@@ -47,20 +47,17 @@ DEPEND="
 	>=dev-perl/Bio-Graphics-1.97
 	>=dev-perl/JSON-2.510.0
 	dev-perl/libwww-perl
-	svg? ( dev-perl/GD-SVG )"
+	svg? ( dev-perl/GD-SVG )
+	mysql? ( dev-perl/DBD-mysql )
+	postgres? ( dev-perl/DBD-Pg )
+	sci-biology/ucsc-genome-browser" # that provides bigWig.h and jkweb.a, aka Jim Kent's src
 
 # TODO: based on the following message in apache/error_log the list of deps should be longer
 # GBROWSE NOTICE: To enable PDF generation, please enter the directory "/home/httpd" and run the commands: "sudo mkdir .inkscape .gnome2" and "sudo chown apache .inkscape .gnome2".  To turn off this message add "generate pdf = 0" to the [GENERAL] section of your GBrowse.conf configuration file., referer: http://127.0.0.1/gbrowse/cgi-bin/gbrowse_details/yeast?ref=chrII;start=90739;end=92028;name=YBL069W;class=Sequence;feature_id=881;db_id=annotations%3Adatabase
 
-# TODO: implement ebuild checks for these version of packages
-#    !  Bio::Root::Version (1.006001) is installed, but we need version >= 1.0069
-#    *  Bio::DB::BigFile is not installed
-#    *  Bio::DB::Sam is not installed, install http://cpansearch.perl.org/src/LDS/Bio-SamTools-1.29
-#    *  DBD::Pg is not installed
-#    >=perl-gcpan/Text-ParseWords-3.27
-
 RDEPEND="${DEPEND}
 	>=www-servers/apache-2.0.47
+	fastcgi? ( dev-libs/fcgi )
 	www-apache/mod_fastcgi
 	dev-perl/DBI
 	|| ( dev-perl/DBD-Pg dev-perl/DBD-mysql )
@@ -84,6 +81,9 @@ RDEPEND="${DEPEND}
 		dev-perl/XML-Parser
 		dev-perl/Bio-Das
 		dev-perl/Text-Shellwords
+		postgres? ( >=dev-perl/Bio-DB-Das-Chado-0.32 )
+		>=dev-perl/Bio-SamTools-1.29
+		>=dev-perl/Bio-BigFile-1.06
 	)"
 
 src_prepare() {
