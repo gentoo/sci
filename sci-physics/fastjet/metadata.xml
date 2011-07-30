@@ -2,6 +2,10 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<herd>sci-physics</herd>
+	<maintainer>
+	<email>bbannier+gentoo_bugs@gmail.com</email>
+	  <description>please assign bugs</description>
+	</maintainer>
 	<longdescription lang="en">
 		The FastJet package provides a fast implementation of the longitudinally
 		invariant kt longitudinally invariant inclusive Cambridge/Aachen and
