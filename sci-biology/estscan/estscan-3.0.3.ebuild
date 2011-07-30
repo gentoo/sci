@@ -21,14 +21,16 @@ SRC_URI="
 
 SLOT="0"
 LICENSE="estscan"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=""
+#KEYWORDS="~x86 ~amd64"
 IUSE="intel"
 
 DEPEND="
 	virtual/fortran
 	intel? (
 		dev-lang/icc
-		dev-lang/ifc )"
+		dev-lang/ifc )
+	dev-perl/BTLib"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"
@@ -74,40 +76,39 @@ src_prepare() {
 
 src_compile() {
 	emake -C ${P}
-
-	cd ../BTLib-0.19
-	perl Makefile.PL || die "perl Makefile.PL failed"
 }
 
 src_install() {
 	# FIXME: Some kind of documentation is in {P}/estscan.spec
-	cd ${P}
+	cd ${P} || die "Failed to chdir to "${P}"
 	dobin \
 		build_model estscan evaluate_model extract_EST extract_UG_EST \
 		extract_mRNA makesmat maskred prepare_data winsegshuffle
 	# the file build_model_utils.pl should go into some PERL site-packages dir
 	# see {P}/estscan.spec
 
-	# install the doc (but is not in ${WORKDIR} because src_UNPACK() failed on it
-	cd "${WORKDIR}"
+	# install the doc (but is not in ${WORKDIR} because src_unpack() failed on it as it has .pdf extension
+	cd "${DISTDIR}" || die "Failed to chdir to "${DISTDIR}"
 	insinto /usr/share/doc/ESTscan
 	# grab the file directly from ../distdir/
-	doins ../distdir/user_guide_fev_07.pdf
+	doins "${DISTDIR}"/user_guide_fev_07.pdf
 
 	# install the default precomputed matrices
-	cd "${WORKDIR}"
+	cd "${WORKDIR}" || die "Failed to chdir to "${WORKDIR}"
 	insinto /usr/share/ESTscan
 	doins *.smat
 
 	# install BTlib (in perl)
-	cd BTLib-0.19 || die
-	dobin fetch indexer netfetch
+	# dobin fetch indexer netfetch
 	insinto /usr/share/ESTscan/
-	doins fetch.conf
+	# install the config file which is packed inside the BTLib tarball while is not
+	# being installed by dev-perl/BTLib
+	doins "${WORKDIR}"/BTLib-0.19/fetch.conf
 
 	# FIXME: install the *.pm files from BTLib-0.19
-	myinst="DESTDIR=${D}"
-	perl-module_src_install
+	# cd "${WORKDIR}"/BTLib-0.19 || die "Failed to chdir to "${WORKDIR}"/BTLib-0.19
+	# myinst="DESTDIR=${D}"
+	# perl-module_src_install
 
 	einfo "Please edit /usr/share/ESTscan/fetch.conf to fit your local database layout."
 	einfo "Also create your own scoring matrices and place them into /usr/share/ESTscan/."
