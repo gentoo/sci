@@ -3,24 +3,23 @@
 # $Header: $
 
 EAPI=4
-inherit eutils
 
-DESCRIPTION="Fast implementation of several longitudinal invariant sequential
-recombination jet algorithms"
+DESCRIPTION="Fast implementation of several recombination jet algorithms"
 HOMEPAGE="http://www.lpthe.jussieu.fr/~salam/fastjet/"
 SRC_URI="http://www.lpthe.jussieu.fr/~salam/fastjet/repo/${PF}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2 QPL"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
-IUSE="+allplugins +allcxxplugins cgal"
+KEYWORDS="~amd64 ~x86"
+IUSE="+allplugins +allcxxplugins cgal doc static-libs"
 
-DEPEND="cgal? ( sci-mathematics/cgal )"
-RDEPEND="${DEPEND}"
+RDEPEND="cgal? ( sci-mathematics/cgal )"
+DEPEND="${RDEPEND}
+	doc? ( app-doc/doxygen )"
 
 pkg_setup() {
 	if use allplugins || use allcxxplugins; then
-		elog
+		echo
 		elog "Will build all plugins since you have one of allplugins or allcxxplugins set."
 		elog "The following plugins are available:"
 		elog "  - siscone"
@@ -33,7 +32,7 @@ pkg_setup() {
 		elog "  - cmsiterativecone"
 		elog "  - eecambridge"
 		elog "  - jade"
-		elog
+		echo
 	fi
 }
 
@@ -42,6 +41,7 @@ src_configure() {
 		$(use_enable allplugins) \
 		$(use_enable allcxxplugins) \
 		$(use_enable cgal) \
+		$(use_enable static-libs static)
 #		--enable-siscone \
 #		--enable-cdfcones \
 #		--enable-pxcone \
@@ -54,6 +54,20 @@ src_configure() {
 #		--enable-jade
 }
 
+src_compile() {
+	default_src_compile
+	if use doc; then
+		$(type -p doxygen) Doxyfile || die
+	fi
+}
+
 src_install() {
-	emake DESTDIR="${D}" install
+	default_src_install
+	nonfatal dodoc AUTHORS BUGS ChangeLog NEWS README
+	if use doc; then
+		dohtml html/*
+	fi
+	if ! use static-libs; then
+		find "${D}" -name '*.la' -exec rm -f {}
+	fi
 }
