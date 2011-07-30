@@ -3,6 +3,11 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/generic-genome-browser/ChangeLog,v 1.10 2007/07/29 17:07:38 phreak Exp $
 
   30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  gbrowse-2.39.ebuild, +files/fix-PNG-export.patch:
+  sci-biology/gbrowse: add missing brackets cause a perl error while exporting
+  a PNG image gbrowse-2.39.ebuild files/fix-PNG-export.patch
+
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   gbrowse-2.39.ebuild, +files/destdir.patch:
   added support for --destdir, patch sent to upstream gbrowse-2.39.ebuild
 

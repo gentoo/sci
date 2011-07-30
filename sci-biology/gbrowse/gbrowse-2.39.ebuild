@@ -90,7 +90,8 @@ src_prepare() {
 	sed -i 's/return unless -t STDIN/return/' install_util/GBrowseInstall.pm || die
 	sed -i 's/process_/bp_process_/g' INSTALL || die
 	epatch "${FILESDIR}"/GBrowseInstall.pm-"${PV}".patch || die "Failed to apply GBrowseInstall.pm-"${PV}".patch"
-	epatch "${FILESDIR}"/destdir.patch || die "Failed to apply destdir.patch "
+	epatch "${FILESDIR}"/destdir.patch || die "Failed to apply destdir.patch"
+	epatch "${FILESDIR}"/fix-PNG-export.patch || die "Failed to apply fix-PNG-export.patch"
 }
 
 src_configure() {
