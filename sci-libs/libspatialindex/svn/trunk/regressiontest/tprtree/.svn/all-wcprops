@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/spatialindex/!svn/ver/177/spatialindex/trunk/regressiontest/tprtree
+END
+TPRTreeQuery.cc
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/spatialindex/!svn/ver/159/spatialindex/trunk/regressiontest/tprtree/TPRTreeQuery.cc
+END
+Exhaustive.cc
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/spatialindex/!svn/ver/171/spatialindex/trunk/regressiontest/tprtree/Exhaustive.cc
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/spatialindex/!svn/ver/45/spatialindex/trunk/regressiontest/tprtree/Makefile.am
+END
+TPRTreeLoad.cc
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/spatialindex/!svn/ver/159/spatialindex/trunk/regressiontest/tprtree/TPRTreeLoad.cc
+END
+Generator.cc
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/spatialindex/!svn/ver/159/spatialindex/trunk/regressiontest/tprtree/Generator.cc
+END
+RandomGenerator.cc
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/spatialindex/!svn/ver/33/spatialindex/trunk/regressiontest/tprtree/RandomGenerator.cc
+END
+RandomGenerator.h
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/spatialindex/!svn/ver/33/spatialindex/trunk/regressiontest/tprtree/RandomGenerator.h
+END

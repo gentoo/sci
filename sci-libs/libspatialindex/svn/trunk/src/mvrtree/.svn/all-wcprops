@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/spatialindex/!svn/ver/159/spatialindex/trunk/src/mvrtree
+END
+Statistics.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/spatialindex/!svn/ver/130/spatialindex/trunk/src/mvrtree/Statistics.h
+END
+PointerPoolNode.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/spatialindex/!svn/ver/130/spatialindex/trunk/src/mvrtree/PointerPoolNode.h
+END
+MVRTree.cc
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/spatialindex/!svn/ver/159/spatialindex/trunk/src/mvrtree/MVRTree.cc
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/spatialindex/!svn/ver/45/spatialindex/trunk/src/mvrtree/Makefile.am
+END
+Node.cc
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/spatialindex/!svn/ver/159/spatialindex/trunk/src/mvrtree/Node.cc
+END
+MVRTree.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/spatialindex/!svn/ver/133/spatialindex/trunk/src/mvrtree/MVRTree.h
+END
+Index.cc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/spatialindex/!svn/ver/159/spatialindex/trunk/src/mvrtree/Index.cc
+END
+Leaf.cc
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/spatialindex/!svn/ver/130/spatialindex/trunk/src/mvrtree/Leaf.cc
+END
+Node.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/spatialindex/!svn/ver/130/spatialindex/trunk/src/mvrtree/Node.h
+END
+Index.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/spatialindex/!svn/ver/130/spatialindex/trunk/src/mvrtree/Index.h
+END
+Leaf.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/spatialindex/!svn/ver/130/spatialindex/trunk/src/mvrtree/Leaf.h
+END
+Statistics.cc
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/spatialindex/!svn/ver/130/spatialindex/trunk/src/mvrtree/Statistics.cc
+END

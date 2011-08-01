@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/spatialindex/!svn/ver/198/spatialindex/trunk/src/capi
+END
+IdVisitor.cc
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/spatialindex/!svn/ver/180/spatialindex/trunk/src/capi/IdVisitor.cc
+END
+LeafQuery.cc
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/spatialindex/!svn/ver/172/spatialindex/trunk/src/capi/LeafQuery.cc
+END
+CustomStorage.cc
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/spatialindex/!svn/ver/186/spatialindex/trunk/src/capi/CustomStorage.cc
+END
+BoundsQuery.cc
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/spatialindex/!svn/ver/180/spatialindex/trunk/src/capi/BoundsQuery.cc
+END
+sidx_api.cc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/spatialindex/!svn/ver/198/spatialindex/trunk/src/capi/sidx_api.cc
+END
+Utility.cc
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/spatialindex/!svn/ver/186/spatialindex/trunk/src/capi/Utility.cc
+END
+DataStream.cc
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/spatialindex/!svn/ver/180/spatialindex/trunk/src/capi/DataStream.cc
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/spatialindex/!svn/ver/186/spatialindex/trunk/src/capi/Makefile.am
+END
+Index.cc
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/spatialindex/!svn/ver/186/spatialindex/trunk/src/capi/Index.cc
+END
+CountVisitor.cc
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/spatialindex/!svn/ver/180/spatialindex/trunk/src/capi/CountVisitor.cc
+END
+Error.cc
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/spatialindex/!svn/ver/138/spatialindex/trunk/src/capi/Error.cc
+END
+ObjVisitor.cc
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/spatialindex/!svn/ver/180/spatialindex/trunk/src/capi/ObjVisitor.cc
+END

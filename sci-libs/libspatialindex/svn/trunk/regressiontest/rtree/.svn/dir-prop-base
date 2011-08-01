@@ -1,0 +1,16 @@
+K 10
+svn:ignore
+V 102
+RTreeLoad
+Makefile.in
+Exhaustive
+Generator
+RTreeBulkLoad
+.libs
+RTreeQuery
+.deps
+Makefile
+data
+queries
+
+END

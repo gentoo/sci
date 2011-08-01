@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/spatialindex/!svn/ver/203/spatialindex/trunk
+END
+HOWTORELEASE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/spatialindex/!svn/ver/178/spatialindex/trunk/HOWTORELEASE.txt
+END
+spatialindex.sln
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/spatialindex/!svn/ver/112/spatialindex/trunk/spatialindex.sln
+END
+mkinstalldirs
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/spatialindex/!svn/ver/75/spatialindex/trunk/mkinstalldirs
+END
+makefile.vc
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/spatialindex/!svn/ver/199/spatialindex/trunk/makefile.vc
+END
+AUTHORS
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/spatialindex/!svn/ver/62/spatialindex/trunk/AUTHORS
+END
+ChangeLog
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/spatialindex/!svn/ver/199/spatialindex/trunk/ChangeLog
+END
+depcomp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/spatialindex/!svn/ver/2/spatialindex/trunk/depcomp
+END
+spatialindex.suo
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/spatialindex/!svn/ver/203/spatialindex/trunk/spatialindex.suo
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/spatialindex/!svn/ver/203/spatialindex/trunk/README
+END
+INSTALL.WIN
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/spatialindex/!svn/ver/106/spatialindex/trunk/INSTALL.WIN
+END
+configure.ac
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/spatialindex/!svn/ver/199/spatialindex/trunk/configure.ac
+END
+INSTALL
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/spatialindex/!svn/ver/75/spatialindex/trunk/INSTALL
+END
+COPYING
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/spatialindex/!svn/ver/2/spatialindex/trunk/COPYING
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/spatialindex/!svn/ver/189/spatialindex/trunk/Makefile.am
+END
+missing
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/spatialindex/!svn/ver/2/spatialindex/trunk/missing
+END
+autogen.sh
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/spatialindex/!svn/ver/44/spatialindex/trunk/autogen.sh
+END
+NEWS
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/spatialindex/!svn/ver/2/spatialindex/trunk/NEWS
+END
+install-sh
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/spatialindex/!svn/ver/2/spatialindex/trunk/install-sh
+END

@@ -1,0 +1,13 @@
+K 10
+svn:ignore
+V 79
+Makefile.in
+MVRTreeLoad
+Exhaustive
+Generator
+.libs
+.deps
+MVRTreeQuery
+Makefile
+
+END

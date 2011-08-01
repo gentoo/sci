@@ -1,0 +1,11 @@
+K 10
+svn:ignore
+V 48
+Makefile.in
+geometry
+tools
+.libs
+.deps
+Makefile
+
+END

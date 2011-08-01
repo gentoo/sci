@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/spatialindex/!svn/ver/202/spatialindex/trunk/src/spatialindex
+END
+TimeRegion.cc
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/spatialindex/!svn/ver/159/spatialindex/trunk/src/spatialindex/TimeRegion.cc
+END
+MovingRegion.cc
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/spatialindex/!svn/ver/179/spatialindex/trunk/src/spatialindex/MovingRegion.cc
+END
+Region.cc
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/spatialindex/!svn/ver/202/spatialindex/trunk/src/spatialindex/Region.cc
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/spatialindex/!svn/ver/45/spatialindex/trunk/src/spatialindex/Makefile.am
+END
+SpatialIndexImpl.cc
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/spatialindex/!svn/ver/99/spatialindex/trunk/src/spatialindex/SpatialIndexImpl.cc
+END
+TimePoint.cc
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/spatialindex/!svn/ver/159/spatialindex/trunk/src/spatialindex/TimePoint.cc
+END
+MovingPoint.cc
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/spatialindex/!svn/ver/159/spatialindex/trunk/src/spatialindex/MovingPoint.cc
+END
+Point.cc
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/spatialindex/!svn/ver/159/spatialindex/trunk/src/spatialindex/Point.cc
+END
+SpatialIndexImpl.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/spatialindex/!svn/ver/99/spatialindex/trunk/src/spatialindex/SpatialIndexImpl.h
+END
+LineSegment.cc
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/spatialindex/!svn/ver/159/spatialindex/trunk/src/spatialindex/LineSegment.cc
+END
