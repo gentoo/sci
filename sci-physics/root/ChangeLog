@@ -1,0 +1,24 @@
+# ChangeLog for sci-physics/root
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*root-5.30.00 (02 Aug 2011)
+
+  02 Aug 2011; <andrew@gentoo.org> +files/root-5.28.00b-asneeded.patch,
+  +files/root-5.28.00b-glibc212.patch, +files/root-5.28.00b-prop-ldflags.patch,
+  +files/root-5.28.00b-unuran.patch, +root-5.30.00.ebuild,
+  +files/root-5.30.00-lzma.patch, +files/root-5.30.00-nobyte-compile.patch,
+  +files/root-5.30.00-xrootd-prop-flags.patch, +files/olbd.confd,
+  +files/olbd.initd, +files/proofd.confd, +files/proofd.initd,
+  +files/rootd.confd, +files/rootd.initd, +files/xrootd.confd,
+  +files/xrootd.initd, +metadata.xml:
+  Version bump. This are changes from bug 374709 including:
+  - upatchset update;
+  - lzma support (for root file data compression);
+  - X support is now optional (but enabled by default, of course),
+  this is extremely useful on X-less computating stations;
+  - fix tmva and roofit documentation installation (pdfs were missed due to
+  ebuild typo;
+  - some missed deps.
+  - libXft dep is controlled by xft flag.
+

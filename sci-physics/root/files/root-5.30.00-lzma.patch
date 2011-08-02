@@ -1,0 +1,13 @@
+--- root/configure.orig	2011-07-10 11:51:42.000000000 +0400
++++ root/configure	2011-07-10 11:54:40.053175390 +0400
+@@ -2430,8 +2430,8 @@
+     check_header "lzma.h" "" \
+         $LZMA ${LZMA:+$LZMA/include} \
+         ${finkdir:+$finkdir/include} \
+-        /usr/local/include /usr/include/lzma /usr/local/include/lzma \
+-        /opt/lzma/include /usr/include
++        /usr/local/include /usr/include /usr/local/include \
++        /opt/lzma/include
+     if test "x$found_dir" = "x" ; then
+         enable_builtin_lzma=yes
+     else
