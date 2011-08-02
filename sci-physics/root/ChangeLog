@@ -4,10 +4,11 @@
 
 *root-5.30.00 (02 Aug 2011)
 
-  02 Aug 2011; <andrew@gentoo.org> +files/root-5.28.00b-asneeded.patch,
-  +files/root-5.28.00b-glibc212.patch, +files/root-5.28.00b-prop-ldflags.patch,
-  +files/root-5.28.00b-unuran.patch, +root-5.30.00.ebuild,
-  +files/root-5.30.00-lzma.patch, +files/root-5.30.00-nobyte-compile.patch,
+  02 Aug 2011; Andrew Savchenko <bircoph@gmail.com> 
+  +files/root-5.28.00b-asneeded.patch, +files/root-5.28.00b-glibc212.patch,
+  +files/root-5.28.00b-prop-ldflags.patch, +files/root-5.28.00b-unuran.patch,
+  +root-5.30.00.ebuild, +files/root-5.30.00-lzma.patch,
+  +files/root-5.30.00-nobyte-compile.patch,
   +files/root-5.30.00-xrootd-prop-flags.patch, +files/olbd.confd,
   +files/olbd.initd, +files/proofd.confd, +files/proofd.initd,
   +files/rootd.confd, +files/rootd.initd, +files/xrootd.confd,
