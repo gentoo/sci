@@ -22,10 +22,10 @@ SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
 
 SLOT="0"
 LICENSE="LGPL-2.1"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
-	llvm +math mpi mysql ncurses odbc +opengl openmp oracle postgres pythia6
-	pythia8	python +reflex ruby qt4 ssl xft xml xinetd xrootd"
+	llvm +math mpi mysql ncurses odbc +opengl openmp oracle postgres prefix
+	pythia6	pythia8	python +reflex ruby qt4 ssl xft xml xinetd xrootd"
 
 CDEPEND="app-arch/xz-utils
 	>=dev-lang/cfortran-4.4-r2
@@ -182,7 +182,6 @@ src_configure() {
 		--disable-builtin-pcre \
 		--disable-builtin-zlib \
 		--disable-builtin-lzma \
-		--disable-rpath \
 		--enable-astiff \
 		--enable-exceptions	\
 		--enable-explicitlink \
@@ -218,6 +217,7 @@ src_configure() {
 		$(use_enable odbc) \
 		$(use_enable opengl) \
 		$(use_enable postgres pgsql) \
+		$(use_enable prefix rpath) \
 		$(use_enable pythia6) \
 		$(use_enable pythia8) \
 		$(use_enable python) \
