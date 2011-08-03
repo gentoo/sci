@@ -23,9 +23,9 @@ RDEPEND="!app-admin/eselect-blas
 	 =app-admin/eselect-1.2.15-r1"
 
 src_install() {
-	insinto /usr/$(get_libdir)/autobench
+	insinto /usr/$(get_libdir)/numbench
 	doins *.py
 	doins -r btl accuracy
-	chmod +x "${D}"/usr/$(get_libdir)/autobench/main.py
-	dosym /usr/$(get_libdir)/autobench/main.py /usr/bin/autobench
+	chmod +x "${D}"/usr/$(get_libdir)/numbench/main.py
+	dosym /usr/$(get_libdir)/numbench/main.py /usr/bin/numbench
 }
