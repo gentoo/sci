@@ -1,0 +1,9 @@
+# ChangeLog for sci-physics/fastjet
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  30 Jul 2011; Kacper Kowalik <xarthisius@gentoo.org> fastjet-2.4.4.ebuild:
+  Remove unused eutils.eclass, shorten DESC, add missing license, sort
+  KEYWORDS, add static-libs, docs IUSE, add dependency on doxygen for [doc],
+  build only shared libs by default, install documentation
+

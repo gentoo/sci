@@ -2,6 +2,47 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/generic-genome-browser/ChangeLog,v 1.10 2007/07/29 17:07:38 phreak Exp $
 
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  gbrowse-2.39.ebuild, +files/disable-gbrowse_metadb_config.pl.patch,
+  +files/gbrowse_metadb_config.pl.patch, +files/symlink.patch:
+  Make sure portage does not run gbrowse_metadb_config.pl otherwise sandbox
+  violation occurs when modifying /var/www/gbrowse2/databases/users.sqlite*
+  file, maybe we could copy these during src_install to the {}, fix there and
+  copy back to live filesystem? Improve error handling in
+  gbrowse_metadb_config.pl. Fix symlink creation during install procedure.
+  gbrowse-2.39.ebuild files/GBrowseInstall.pm-2.39.patch files/destdir.patch
+  files/disable-gbrowse_metadb_config.pl.patch files/fix-PNG-export.patch
+  files/gbrowse-slave.default files/gbrowse-slave.init.d
+  files/gbrowse.conf.vhosts.d files/gbrowse_metadb_config.pl.patch
+  files/symlink.patch
+
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  gbrowse-2.39.ebuild, +files/fix-PNG-export.patch:
+  sci-biology/gbrowse: add missing brackets cause a perl error while exporting
+  a PNG image gbrowse-2.39.ebuild files/fix-PNG-export.patch
+
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  gbrowse-2.39.ebuild, +files/destdir.patch:
+  added support for --destdir, patch sent to upstream gbrowse-2.39.ebuild
+
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  gbrowse-2.39.ebuild, +files/destdir.patch:
+  added support for --destdir, patch sent to upstream
+
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  -gbrowse-2.38.ebuild, -files/GBrowseInstall.pm-2.38.patch,
+  +gbrowse-2.39.ebuild, +files/GBrowseInstall.pm-2.39.patch:
+  version bump but still need to rewrite upstream's install procedure to
+  prevent 'mkdir /var/lib/gbrowse2' from happening
+
+*gbrowse-2.39 (30 Jul 2011)
+
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  -gbrowse-2.38.ebuild, -files/GBrowseInstall.pm-2.38.patch,
+  +gbrowse-2.39.ebuild, +files/GBrowseInstall.pm-2.39.patch:
+  version bump but still need to rewrite upstream's install procedure to
+  prevent 'mkdir /var/lib/gbrowse2' from happening
+
   08 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   gbrowse-2.38.ebuild:
   Added dependency on >=perl-gcpan/Text-ParseWords-3.27, documented requirement

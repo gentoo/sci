@@ -1,0 +1,23 @@
+# ChangeLog for sci-biology/est2uni
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/9999-est_clustering.pm.patch, +files/9999-pipe_db.pm.patch,
+  +est2uni-9999.ebuild:
+  ebuild cleanup est2uni-0.27.ebuild est2uni-9999.ebuild Manifest
+  files/9999-est_clustering.pm.patch files/9999-pipe_db.pm.patch
+  files/99est2uni files/est2uni files/est_annot.pm.patch
+  files/est_annot_go.pm.patch files/est_annot_psnp.pm.patch
+  files/est_annot_reciprocal_blast.pm.patch files/est_clustering.pm.patch
+  files/est_prepro.pm.patch files/installation_est2uni_perl.txt.patch
+  files/mysql_fixes.sql files/pipe_db.pm.patch files/tables.sql.patch
+  files/tgicl_files.patch metadata.xml
+
+*est2uni-9999 (05 Jul 2011)
+
+  05 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/9999-est_clustering.pm.patch, +files/9999-pipe_db.pm.patch,
+  +est2uni-9999.ebuild:
+  vim est2uni-9999.ebuild
+

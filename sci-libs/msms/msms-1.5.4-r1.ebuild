@@ -6,7 +6,7 @@ EAPI="3"
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
-inherit distutils
+inherit distutils eutils
 
 MY_PN="mslib"
 MY_P="${MY_PN}-${PV}"
@@ -31,6 +31,16 @@ S="${WORKDIR}"/${MY_P}
 src_unpack() {
 	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
 	tar xzpf mgltools_source_${PV}/MGLPACKS/${MY_P}.tar.gz
+}
+
+src_prepare() {
+	epatch "${FILESDIR}"/build-with-linux-3.0.patch
+	pushd "${S}"/lib >/dev/null
+	# Set up symlinks for 3.x kernels
+	for x in *inux2; do
+		ln -s ${x} ${x%2}3
+	done
+	popd >/dev/null
 }
 
 pkg_postinst() {

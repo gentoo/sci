@@ -7,6 +7,9 @@ EAPI="4"
 TEST_PV="4.0.4"
 MANUAL_PV="4.5.4"
 
+#to find external blas/lapack
+CMAKE_MIN_VERSION="2.8.5-r2"
+
 inherit bash-completion cmake-utils eutils fortran-2 multilib toolchain-funcs
 
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
@@ -31,7 +34,6 @@ mpi +single-precision sse2 test +threads xml zsh-completion"
 REQUIRED_USE="fkernels? ( !threads )"
 
 CDEPEND="
-	fkernels? ( virtual/fortran )
 	X? (
 		x11-libs/libX11
 		x11-libs/libSM
@@ -39,6 +41,7 @@ CDEPEND="
 		)
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
+	fkernels? ( virtual/fortran )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
@@ -141,6 +144,7 @@ src_configure() {
 		$(cmake-utils_use xml GMX_XML)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_ACCELERATION="$acce"
+		-DGMXLIB="$(get_libdir)"
 	)
 
 	for x in ${GMX_DIRS}; do

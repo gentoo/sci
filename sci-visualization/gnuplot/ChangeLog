@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Jul 2011; Justin Lecher <jlec@gentoo.org> gnuplot-4.4.9999.ebuild,
+  gnuplot-4.5.9999.ebuild, metadata.xml:
+  Install demos through USE=examples, #374187
+
   28 May 2011; Christoph Junghans <ottxor@gentoo.org> gnuplot-4.5.9999.ebuild:
   sync with tree
 
