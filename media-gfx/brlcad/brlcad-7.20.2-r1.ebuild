@@ -8,6 +8,7 @@ inherit cmake-utils eutils
 DESCRIPTION="Constructive solid geometry modeling system"
 HOMEPAGE="http://brlcad.org/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
+# CMAKE_MIN_VERSION="2.8"
 
 LICENSE="LGPL-2 BSD"
 SLOT="0"
@@ -31,7 +32,6 @@ RDEPEND="media-libs/libpng
 	#java? ( >=virtual/jre-1.5 )"
 
 DEPEND="${RDEPEND}
-	>=dev-util/cmake-2.8
 	sys-devel/bison
 	sys-devel/flex
 	dev-tcltk/tktable
