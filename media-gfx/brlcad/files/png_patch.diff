@@ -1,0 +1,48 @@
+Index: src/other/libpng.dist
+===================================================================
+--- src/other/libpng.dist	(revision 45616)
++++ src/other/libpng.dist	(revision 45617)
+@@ -8,7 +8,6 @@
+ configure.ac
+ contrib
+ example.c
+-libpng-1.4.5.txt
+ libpng-config.in
+ libpng.3
+ libpng.pc.in
+Index: src/libged/png.c
+===================================================================
+--- src/libged/png.c	(revision 45616)
++++ src/libged/png.c	(revision 45617)
+@@ -30,6 +30,7 @@
+ #include <string.h>
+ #include "bio.h"
+ 
++#include "zlib.h"
+ #include "png.h"
+ #include "bu.h"
+ #include "vmath.h"
+Index: src/fb/fb-png.c
+===================================================================
+--- src/fb/fb-png.c	(revision 45616)
++++ src/fb/fb-png.c	(revision 45617)
+@@ -38,6 +38,7 @@
+ #  include <unistd.h>
+ #endif
+ 
++#include "zlib.h"
+ #include "png.h"
+ #include "bu.h"
+ #include "fb.h"
+Index: src/util/pix-png.c
+===================================================================
+--- src/util/pix-png.c	(revision 45616)
++++ src/util/pix-png.c	(revision 45617)
+@@ -36,7 +36,6 @@
+ #include "bio.h"
+ 
+ #include "zlib.h"
+-#include "pngconf.h"
+ #include "png.h"
+ 
+ #include "bu.h"

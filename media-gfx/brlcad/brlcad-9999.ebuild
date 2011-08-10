@@ -3,12 +3,11 @@
 # $Header: /var/cvsroot/gentoo-x86/media-gfx/brlcad/brlcad-7.18.4.ebuild,v 1.1 2011/04/18 22:47:37 dilfridge Exp $
 
 EAPI=4
-inherit cmake-utils eutils
+inherit cmake-utils eutils subversion
 
 DESCRIPTION="Constructive solid geometry modeling system"
 HOMEPAGE="http://brlcad.org/"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
-# CMAKE_MIN_VERSION="2.8"
+ESVN_REPO_URI="https://brlcad.svn.sourceforge.net/svnroot/${PN}/${PN}/trunk"
 
 LICENSE="LGPL-2 BSD"
 SLOT="0"
@@ -45,7 +44,6 @@ BRLCAD_DIR="${EPREFIX}/usr/${PN}"
 
 src_prepare() {
 	epatch "${FILESDIR}/${P}-cmake.patch"
-	epatch "${FILESDIR}/png_patch.diff"
 }
 
 src_configure() {
@@ -64,12 +62,13 @@ src_configure() {
 		-DBRLCAD_BUILD_LOCAL_TKTABLE=OFF
 		-DBRLCAD_BUILD_LOCAL_PNG=OFF
 		-DBRLCAD_BUILD_LOCAL_REGEX=OFF
+		-DBRLCAD_BUILD_LOCAL_ZLIB=OFF
 		-DBRLCAD_BUILD_LOCAL_TERMLIB=OFF
 		-DBRLCAD_BUILD_LOCAL_UTAHRLE=OFF
 		-DBRLCAD_BUILD_LOCAL_SCL=OFF
 		-DBRLCAD-ENABLE_RTSERVER=OFF
 		-DBRLCAD-ENABLE_JOVE=OFF
-		-DBRLCAD_BUILD_LOCAL_ZLIB=OFF
+
 		-DBRLCAD_BUILD_LOCAL_IWIDGETS_FORCE_ON=ON
 		-DBRLCAD_BUILD_LOCAL_TCL_FORCE_ON=ON
 		-DBRLCAD_BUILD_LOCAL_TK_FORCE_ON=ON

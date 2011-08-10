@@ -4,9 +4,8 @@
 
 *brlcad-7.20.2 (15 Jul 2011)
 
-  09 Aug 2011; Dongxu Li <dongxuli2011@gmail.com> brlcad-7.20.2-r1.ebuild:
-  No need to depend on cmake explicitly
-
+  09 Aug 2011; Dongxu Li <dongxuli2011@gmail.com> +brlcad-9999.ebuild brlcad-7.20.2-r1.ebuild:
+  No need to depend on cmake explicitly, added patch for libpng-1.5, added the subversion version brlcad-9999.ebuild
 
   15 Jul 2011; Dongxu Li <dongxuli2011@gmail.com> brlcad-7.20.2-r1.ebuild:
   Patching of CMakeLists.txt still needed. Since upstream already fixed this problem, the patch won't be necessary after the current release 
