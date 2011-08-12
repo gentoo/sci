@@ -26,6 +26,11 @@ MODULE_NAMES="open-mx(misc:${S}/driver/linux)"
 BUILD_TARGETS="all"
 BUILD_PARAMS="KDIR=${KERNEL_DIR}"
 
+pkg_setup() {
+	einfo "You can set desired mtu by setting OPEN_MX_MTU in make.conf"
+	linux-mod_pkg_setup
+}
+
 src_prepare() {
 	# We still want to configure driver but dont want to build it at all
 	epatch "${FILESDIR}/open-mx-1.4.0-driver.patch"
@@ -38,6 +43,7 @@ src_prepare() {
 
 src_configure() {
 	econf \
+		--with-mtu=${OPEN_MX_MTU:-9000} \
 		$(use_enable static-libs static) \
 		$(use_enable debug)
 }
