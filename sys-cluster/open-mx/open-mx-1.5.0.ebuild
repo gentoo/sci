@@ -8,7 +8,7 @@ inherit autotools linux-mod multilib
 
 DESCRIPTION="Open-MX - Myrinet Express over Generic Ethernet Hardware"
 HOMEPAGE="http://open-mx.gforge.inria.fr/"
-SRC_URI="http://gforge.inria.fr/frs/download.php/28399/${P}.tar.gz"
+SRC_URI="http://gforge.inria.fr/frs/download.php/28871/${P}.tar.gz"
 
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
