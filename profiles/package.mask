@@ -30,6 +30,18 @@
 
 #--- END OF EXAMPLES ---
 
+# Dongxu Li <dongxuli2011@gmail.com> (10 Aug 2011)
+# Mask live version of librecad
+>=media-gfx/librecad-9999
+
+# Dongxu Li <dongxuli2011@gmail.com> (10 Aug 2011)
+# Mask live version of brlcad
+>=media-gfx/brlcad-9999
+
+# Alexey Shvetsov <alexxy@gentoo.org> (30 Jul 2011)
+# Mask live version of path64
+~dev-lang/path64-9999
+
 # Justin Lecher <jlec@gentoo.org> (24 Jun 2011)
 # fftw dep is masked
 sci-libs/pfft

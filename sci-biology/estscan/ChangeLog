@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  estscan-3.0.3.ebuild:
+  some ebuild cleanup estscan-3.0.3.ebuild
+
   23 Jun 2011; Justin Lecher <jlec@gentoo.org> estscan-3.0.3.ebuild,
   metadata.xml:
   Streamlined fortran-2 eclass usage

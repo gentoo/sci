@@ -12,7 +12,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc"
 
-EGIT_REPO_URI="https://github.com/LibreCAD/LibreCAD.git"
+EGIT_REPO_URI="https://github.com/dxli/LibreCAD.git"
 
 RDEPEND="x11-libs/qt-gui[qt3support]"
 DEPEND="${RDEPEND}

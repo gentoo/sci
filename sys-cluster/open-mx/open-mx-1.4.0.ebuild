@@ -17,7 +17,7 @@ IUSE="debug modules static-libs"
 
 DEPEND="
 		sys-apps/hwloc
-		>=virtual/linux-sources-2.6"
+		virtual/linux-sources"
 RDEPEND="
 		sys-apps/hwloc
 		sys-apps/module-init-tools"

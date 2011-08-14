@@ -1,0 +1,11 @@
+--- mslib-1.5.4.orig/setup.py	2011-07-30 07:46:02.628300605 -0500
++++ mslib-1.5.4/setup.py	2011-07-30 07:46:30.628188677 -0500
+@@ -18,7 +18,7 @@
+ platform =  sys.platform
+ 
+ # amd64
+-if (platform == "linux2"):
++if platform in ["linux2", "linux3"]:
+     lUname = os.uname()
+     if lUname[-1] == 'x86_64':
+         platform = lUname[-1] + lUname[0] + lUname[2][0]

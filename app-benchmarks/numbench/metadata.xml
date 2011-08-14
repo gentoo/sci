@@ -1,0 +1,11 @@
+<pkgmetadata>
+<herd>sci</herd>
+<maintainer>
+<name>Andrea Arteaga</name>
+<email>andyspiros@gmail.com</email>
+</maintainer>
+<description>Automated bechmarks of numerical libraries</description>
+<longdescription>
+This package contains a set of scripts and C++ sources developed during the Google Summer of Code 2011 project. It aims to benchmark numerical libraries, and more precisely implementations of the standard BLAS, CBLAS, LAPACK, PBLAS, ScaLAPACK and the library FFTW.
+</longdescription>
+</pkgmetadata>

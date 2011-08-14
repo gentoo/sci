@@ -64,7 +64,7 @@ intel-sdp_pkg_setup() {
 	elif use amd64; then
 		arch=x86_64
 		INTEL_ARCH="intel64"
-		if use multilib; then
+		if has_multilib_profile; then
 			arch="x86_64 ${INTEL_X86:-i486}"
 			INTEL_ARCH="intel64 ia32"
 		fi

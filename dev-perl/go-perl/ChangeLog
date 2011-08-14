@@ -1,0 +1,10 @@
+# ChangeLog for dev-perl/go-perl
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*go-perl-0.13 (30 Jul 2011)
+
+  30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +go-perl-0.13.ebuild, +metadata.xml:
+  dev-perl/go-perl: new package required by sci-biology/gbrowse
+

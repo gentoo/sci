@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<longdescription lang='en'>
+   ATLAS is an approach for the automatic generation and optimization of
+   numerical software. Currently ATLAS supplies optimized versions for the
+   complete set of linear algebra kernels known as the Basic Linear Algebra
+   Subroutines (BLAS) for both c and F77 interfaces. It can also build
+   a subset of the linear algebra routine LAPACK library or the full
+   LAPACK using the reference LAPACK from Netlib.
+</longdescription>
+<use>
+  <flag name='xblas'>Build LAPACK with extra precision (needs <pkg>sci-libs/xblas</pkg>)</flag>
+</use>
+</pkgmetadata>

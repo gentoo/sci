@@ -1,3 +1,5 @@
+app-admin
+app-benchmarks
 app-doc
 app-portage
 app-text
@@ -30,6 +32,7 @@ sci-physics
 sci-visualization
 sys-cluster
 sys-devel
-sys-infiniband
+sys-fs
+virtual
 www-apps
 x11-libs

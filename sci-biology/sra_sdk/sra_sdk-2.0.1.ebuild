@@ -7,10 +7,12 @@ EAPI=3
 DESCRIPTION="NCBI Sequence Read Archive (SRA) sratoolkit"
 HOMEPAGE="http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?cmd=show&f=faspftp_runs_v1&m=downloads&s=download_sra"
 SRC_URI="http://trace.ncbi.nlm.nih.gov/Traces/sra/static/sra_sdk-"${PV}".tar.gz"
+# http://trace.ncbi.nlm.nih.gov/Traces/sra/static/sratoolkit.2.0.1-centos_linux64.tar.gz
 
 LICENSE="public-domain"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
+#KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="app-shells/bash

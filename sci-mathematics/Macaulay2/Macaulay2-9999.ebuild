@@ -15,7 +15,7 @@ HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
 SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
 SRC_URI="${SRC_BASE}/OtherSourceCode/1.3/factory-3-1-1.tar.gz
 		 ${SRC_BASE}/OtherSourceCode/1.3/libfac-3-1-1.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Extra/gc-7.2alpha5-2010-09-03.tar.gz"
+		 http://www.math.uiuc.edu/Macaulay2/Extra/gc-7.2alpha7-2011-07-25.tar.gz"
 
 SLOT="0"
 LICENSE="GPL-2"
@@ -71,10 +71,10 @@ src_prepare() {
 		|| die "copy failed"
 	cp "${DISTDIR}/libfac-3-1-1.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
-	# Macaulay 2 in this version insists on a snapshot of boehm-gc that is not available elsewhere
-	# We will let it build its internal version until >=boehm-gc-7.2_alpha5 is in in tree.  Note:
+	# Macaulay 2 insists on a snapshot of boehm-gc that is not available elsewhere
+	# We will let it build its internal version for now.  Note:
 	# The resulting QA warning is known.
-	cp "${DISTDIR}/gc-7.2alpha5-2010-09-03.tar.gz" "${S}/BUILD/tarfiles/" \
+	cp "${DISTDIR}/gc-7.2alpha7-2011-07-25.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
 
 	eautoreconf
