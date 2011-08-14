@@ -26,7 +26,8 @@ RDEPEND="!app-admin/eselect-blas
 src_install() {
 	insinto /usr/$(get_libdir)/numbench
 	doins *.py
-	doins -r btl accuracy
+	doins -r accuracy
 	chmod +x "${D}"/usr/$(get_libdir)/numbench/main.py
 	dosym /usr/$(get_libdir)/numbench/main.py /usr/bin/numbench
+	doman doc/numbench.1
 }

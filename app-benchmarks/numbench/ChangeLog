@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*numbench-9999 (14 Aug 2011)
+
+  14 Aug 2011; Andrea Arteaga <andyspiros@gmail.com>
+  Removed btl from ebuild; added manpage
+
 *numbench-9999 (3 Aug 2011)
 
   4 Aug 2011; Andrea Arteaga <andyspiros@gmail.com>
