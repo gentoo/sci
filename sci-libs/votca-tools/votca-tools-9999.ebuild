@@ -7,8 +7,8 @@ EAPI="3"
 inherit cmake-utils eutils
 
 if [ "${PV}" != "9999" ]; then
-	SRC_URI="boost? ( http://votca.googlecode.com/files/${PF}_pristine.tar.gz )
-		!boost? ( http://votca.googlecode.com/files/${PF}.tar.gz )"
+	SRC_URI="system-boost? ( http://votca.googlecode.com/files/${PF}_pristine.tar.gz )
+		!system-boost? ( http://votca.googlecode.com/files/${PF}.tar.gz )"
 	RESTRICT="primaryuri"
 else
 	SRC_URI=""
@@ -24,12 +24,12 @@ HOMEPAGE="http://www.votca.org"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="-boost doc +fftw +gsl sqlite"
+IUSE="doc +fftw +gsl sqlite +system-boost"
 
 RDEPEND="fftw? ( sci-libs/fftw:3.0 )
 	dev-libs/expat
 	gsl? ( sci-libs/gsl )
-	boost? ( dev-libs/boost )
+	system-boost? ( dev-libs/boost )
 	sqlite? ( dev-db/sqlite:3 )"
 
 DEPEND="${RDEPEND}
@@ -42,14 +42,14 @@ src_prepare() {
 	use fftw || ewarn "Disabling fftw will lead to reduced functionality"
 
 	#remove bundled libs
-	if use boost; then
+	if use system-boost; then
 		rm -rf src/libboost
 	fi
 }
 
 src_configure() {
 	mycmakeargs=(
-		$(cmake-utils_use boost EXTERNAL_BOOST)
+		$(cmake-utils_use system-boost EXTERNAL_BOOST)
 		$(cmake-utils_use_with gsl GSL)
 		$(cmake-utils_use_with fftw FFTW)
 		$(cmake-utils_use_with sqlite SQLITE3)
