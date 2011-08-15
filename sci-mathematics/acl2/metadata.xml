@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<maintainer>
-  <name>Dongxu Li</name>
-  <email>dongxuli2011@gmail.com</email>
-</maintainer>
+	<herd>sci</herd>
+	<maintainer>
+		<email>dongxuli2011@gmail.com</email>
+		<name>Dongxu Li</name>
+	</maintainer>
 </pkgmetadata>
