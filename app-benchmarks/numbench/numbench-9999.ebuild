@@ -27,6 +27,8 @@ src_install() {
 	insinto /usr/$(get_libdir)/numbench
 	doins *.py
 	doins -r accuracy
+	insinto /usr/share/numbench/samples
+	doins *.in
 	chmod +x "${D}"/usr/$(get_libdir)/numbench/main.py
 	dosym /usr/$(get_libdir)/numbench/main.py /usr/bin/numbench
 	doman doc/numbench.1
