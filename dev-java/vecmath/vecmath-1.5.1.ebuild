@@ -26,8 +26,8 @@ DEPEND=">=virtual/jdk-1.5
 		test? ( =dev-java/junit-4* )"
 RDEPEND=">=virtual/jre-1.5"
 
-S="${WORKDIR}/${PN}"
-S_TEST="${WORKDIR}/${PN}-test"
+S=${WORKDIR}/${PN}
+S_TEST=${WORKDIR}/${PN}-test
 
 EANT_DOC_TARGET="docs"
 EANT_BUILD_TARGET="jar"
@@ -57,4 +57,3 @@ src_install() {
 		dohtml -r *.html
 	fi
 }
-

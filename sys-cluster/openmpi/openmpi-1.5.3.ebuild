@@ -111,6 +111,5 @@ src_install () {
 
 src_test() {
 	# Doesn't work with the default src_test as the dry run (-n) fails.
-	cd "${S}"
-	emake -j1 check || die "emake check failed"
+	emake -j1 check || die
 }

@@ -43,21 +43,17 @@ RDEPEND="${DEPEND}"
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-data-path.patch \
-		"${FILESDIR}"/${P}-shaders.patch
+		"${FILESDIR}"/${P}-shaders.patch \
+		"${FILESDIR}"/${P}-setup.py.patch
 
 	use web || epatch "${FILESDIR}"/${PV}-web.patch
 
 	epatch "${FILESDIR}"/${P}-prefix.patch && \
-	eprefixify setup.py
+		eprefixify setup.py
 
 	# Turn off splash screen.  Please do make a project contribution
 	# if you are able though. #299020
 	epatch "${FILESDIR}"/nosplash-gentoo.patch
-
-	# Respect CFLAGS
-	sed -i \
-		-e "s:\(ext_comp_args=\).*:\1[]:g" \
-		"${S}"/setup.py || die "Failed running sed on setup.py"
 
 	use vmd && epatch "${FILESDIR}"/${PV}-vmd.patch
 
