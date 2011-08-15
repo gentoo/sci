@@ -4,6 +4,9 @@
 
 *brlcad-7.20.2 (15 Jul 2011)
 
+  15 Aug 2011; Dongxu Li <dongxuli2011@gmail.com> brlcad-9999.ebuild:
+  Enable using system tcl/tk for the svn live build
+
   09 Aug 2011; Dongxu Li <dongxuli2011@gmail.com> +brlcad-9999.ebuild brlcad-7.20.2-r1.ebuild:
   No need to depend on cmake explicitly, added patch for libpng-1.5, added the subversion version brlcad-9999.ebuild
 

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sys-cluster/openmpi/openmpi-1.2.4.ebuild,v 1.2 2007/12/13 22:39:53 jsbronder Exp $
 
-EAPI=3
+EAPI=4
 inherit eutils flag-o-matic fortran-2 mpi multilib toolchain-funcs
 
 MY_P=${P/-mpi}
@@ -14,18 +14,21 @@ SRC_URI="http://www.open-mpi.org/software/ompi/v1.5/downloads/${MY_P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+cxx elibc_FreeBSD fortran heterogeneous infiniband ipv6 mpi-threads pbs romio threads vt"
+IUSE="+cxx elibc_FreeBSD fortran heterogeneous infiniband ipv6 mpi-threads pbs romio slurm threads vt"
 MPI_UNCLASSED_DEP_STR="
 	vt? (
 		!dev-libs/libotf
 		!app-text/lcdf-typetools
 	)"
 RDEPEND="pbs? ( sys-cluster/torque )
-		infiniband? ( sys-infiniband/libibverbs )
-		elibc_FreeBSD? ( dev-libs/libexecinfo )
-		>=sys-apps/hwloc-1.1.1
-		$(mpi_imp_deplist)"
+	slurm? ( sys-cluster/slurm )
+	infiniband? ( sys-infiniband/libibverbs )
+	elibc_FreeBSD? ( dev-libs/libexecinfo )
+	>=sys-apps/hwloc-1.1.1
+	$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
+REQUIRED_USE="pbs? ( !slurm )
+	slurm? ( !pbs )"
 
 pkg_setup() {
 	fortran-2_pkg_setup
@@ -67,7 +70,6 @@ src_configure() {
 		--sysconfdir="${EPREFIX}/etc/${PN}"
 		--enable-pretty-print-stacktrace
 		--enable-orterun-prefix-by-default
-		--without-slurm
 		--with-hwloc=/usr
 		)
 
@@ -94,6 +96,7 @@ src_configure() {
 		$(use_enable romio io-romio) \
 		$(use_enable heterogeneous) \
 		$(use_with pbs tm) \
+		$(use_with slurm) \
 		$(use_enable ipv6) \
 		$(use_with infiniband openib)
 }
