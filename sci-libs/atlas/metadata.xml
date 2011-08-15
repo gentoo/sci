@@ -10,7 +10,4 @@
    a subset of the linear algebra routine LAPACK library or the full
    LAPACK using the reference LAPACK from Netlib.
 </longdescription>
-<use>
-  <flag name='xblas'>Build LAPACK with extra precision (needs <pkg>sci-libs/xblas</pkg>)</flag>
-</use>
 </pkgmetadata>
