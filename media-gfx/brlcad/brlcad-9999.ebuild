@@ -18,6 +18,8 @@ RDEPEND="media-libs/libpng
 	sys-libs/zlib
 	>=sci-libs/tnt-3
 	sci-libs/jama
+	>=dev-lang/tcl-8.5
+	>=dev-lang/tk-8.5
 	=dev-tcltk/itcl-3.4*
 	=dev-tcltk/itk-3.4*
 	dev-tcltk/iwidgets
@@ -44,12 +46,11 @@ BRLCAD_DIR="${EPREFIX}/usr/${PN}"
 
 src_prepare() {
 	epatch "${FILESDIR}/${P}-cmake.patch"
-}
-
-src_configure() {
-		#waiting for upstream to fix itck/itk issues for cmake
-		#have to enable tcl/tk local build, otherwise cmake won't be able to link for
-		# -litcl -litk
+	if use Debug; then
+		CMAKE_BUILD_TYPE=Debug
+		else
+		CMAKE_BUILD_TYPE=Release
+		fi
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_PREFIX="${BRLCAD_DIR}"
 		-DBRLCAD-ENABLE_STRICT=OFF
@@ -68,13 +69,12 @@ src_configure() {
 		-DBRLCAD_BUILD_LOCAL_SCL=OFF
 		-DBRLCAD-ENABLE_RTSERVER=OFF
 		-DBRLCAD-ENABLE_JOVE=OFF
-
-		-DBRLCAD_BUILD_LOCAL_IWIDGETS_FORCE_ON=ON
-		-DBRLCAD_BUILD_LOCAL_TCL_FORCE_ON=ON
-		-DBRLCAD_BUILD_LOCAL_TK_FORCE_ON=ON
-		-DBRLCAD_BUILD_LOCAL_ITCL_FORCE_ON=ON
-		-DBRLCAD_BUILD_LOCAL_ITK_FORCE_ON=ON
-
+		-DBRLCAD_BUILD_LOCAL_IWIDGETS=OFF
+		-DBRLCAD_BUILD_LOCAL_TCL=OFF
+		-DBRLCAD_BUILD_LOCAL_TK=OFF
+		-DBRLCAD_BUILD_LOCAL_ITCL=OFF
+		-DBRLCAD_BUILD_LOCAL_ITK=OFF
+		-DBRLCAD_BUILD_LOCAL_IWIDGETS_FORCE_ON=OFF
 		)
 
 			# use flag triggered options
@@ -85,14 +85,16 @@ src_configure() {
 	fi
 	mycmakeargs+=(
 		$(cmake-utils_use amd64 BRLCAD-ENABLE_64BIT)
-		$(cmake-utils_use aqua BRLCAD-ENABLE_AQUA)
 		$(cmake-utils_use examples BRLCAD-INSTALL_EXAMPLE_GEOMETRY)
-		$(cmake-utils_use doc BRLCAD-BUILD_EXTRADOCS)
-		$(cmake-utils_use doc BRLCAD-BUILD_EXTRADOCS_PDF)
-		$(cmake-utils_use doc BRLCAD-BUILD_EXTRADOCS_MAN)
+		$(cmake-utils_use doc BRLCAD_EXTRADOCS)
+		$(cmake-utils_use doc BRLCAD_EXTRADOCS_PDF)
+		$(cmake-utils_use doc BRLCAD_EXTRADOCS_MAN)
 		$(cmake-utils_use opengl BRLCAD-ENABLE_OPENGL)
+#experimental RTGL support
+		$(cmake-utils_use opengl BRLCAD-ENABLE_RTGL)
 		$(cmake-utils_use smp BRLCAD-ENABLE_SMP)
 		$(cmake-utils_use debug BRLCAD-ENABLE_VERBOSE_PROGRESS)
+#		$(cmake-utils_use aqua BRLCAD-ENABLE_AQUA)
 #			$(cmake-utils_use !debug BRLCAD-ENABLE_OPTIMIZED_BUILD)
 #			$(cmake-utils_use !debug )
 #			$(cmake-utils_use debug BRLCAD-ENABLE_DEBUG_BUILD)
