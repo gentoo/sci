@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="hdf szip zlib test"
 
 CDEPEND=">=sci-libs/hdf5-1.8[szip?,zlib?]
-	hdf? ( 
+	hdf? (
 		sci-libs/hdf
 		virtual/jpeg
 	)"
