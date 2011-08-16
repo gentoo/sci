@@ -92,6 +92,9 @@ src_install() {
 		URL: ${HOMEPAGE}
 		Libs: -L\${libdir} -lopenblas -lm ${threads}
 	EOF
+	if use incblas; then
+		echo >> ${profname}.pc "Cflags: -I\${includedir}/${PN}"
+	fi
 	insinto /usr/$(get_libdir)/pkgconfig
 	doins ${profname}.pc
 
@@ -101,7 +104,6 @@ src_install() {
 	if use incblas; then
 		insinto /usr/include/${PN}
 		doins cblas.h common*.h config.h param.h
-		echo >> ${profname}.pc "Cflags: -I\${includedir}/${PN}"
 		alternatives_for cblas ${profname} 0 \
 			"/usr/$(get_libdir)/pkgconfig/cblas.pc" "${profname}.pc" \
 			"/usr/include/cblas.h" "${PN}/cblas.h"

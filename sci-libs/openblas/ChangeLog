@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Aug 2011; François Bissey <francois.bissey@canterbury.ac.nz>
+  openblas-0.1_alpha2.ebuild, openblas-9999.ebuild:
+  Include extra line in pkgconfig for incblas before installing it - not after.
+
 *openblas-0.1_alpha2 (03 Aug 2011)
 
   03 Aug 2011 Andrea Arteaga <andyspiros@gmail.com> openblas-0.1_alpha2.ebuild
