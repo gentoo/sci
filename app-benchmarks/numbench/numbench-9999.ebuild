@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=3
 
-inherit eutils git-2
+inherit eutils git-2 distutils
 
 DESCRIPTION="Automated benchmarks suite"
 HOMEPAGE=""
@@ -24,12 +24,13 @@ RDEPEND="!app-admin/eselect-blas
 	 app-benchmarks/btl"
 
 src_install() {
-	insinto /usr/$(get_libdir)/numbench
-	doins *.py
-	doins -r accuracy
+	distutils_src_install
+
+	chmod +x exec.py
+	newbin exec.py numbench
+	
 	insinto /usr/share/numbench/samples
 	doins *.in
-	chmod +x "${D}"/usr/$(get_libdir)/numbench/main.py
-	dosym /usr/$(get_libdir)/numbench/main.py /usr/bin/numbench
+	
 	doman doc/numbench.1
 }

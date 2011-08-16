@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Aug 2011; Andrea Arteaga <andyspiros@gmail.com>
+  Using distutils.
+
   15 Aug 2011; Andrea Arteaga <andyspiros@gmail.com>
   Added the sample configuration files
 
