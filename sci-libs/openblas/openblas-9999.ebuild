@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://github.com/xianyi/OpenBLAS.git"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 IUSE="+incblas int64 dynamic openmp static-libs threads"
 
