@@ -98,21 +98,20 @@ src_install() {
 		URL: ${HOMEPAGE}
 		Libs: -L\${libdir} -lopenblas -lm ${threads}
 	EOF
-	if use incblas; then
-		echo >> ${profname}.pc "Cflags: -I\${includedir}/${PN}"
-	fi
-	insinto /usr/$(get_libdir)/pkgconfig
-	doins ${profname}.pc
 
 	alternatives_for blas ${profname} 0 \
 		"/usr/$(get_libdir)/pkgconfig/blas.pc" "${profname}.pc"
 
 	if use incblas; then
+		echo >> ${profname}.pc "Cflags: -I\${includedir}/${PN}"
 		insinto /usr/include/${PN}
 		doins cblas.h common*.h config.h param.h
 		alternatives_for cblas ${profname} 0 \
 			"/usr/$(get_libdir)/pkgconfig/cblas.pc" "${profname}.pc" \
 			"/usr/include/cblas.h" "${PN}/cblas.h"
 	fi
+
+	insinto /usr/$(get_libdir)/pkgconfig
+	doins ${profname}.pc
 	dodoc GotoBLAS_{01Readme,03FAQ,04FAQ,05LargePage,06WeirdPerformance}.txt
 }
