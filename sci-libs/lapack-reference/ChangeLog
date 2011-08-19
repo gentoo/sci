@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
 
+*lapack-reference-3.3.1 (19 Aug 2011)
+
+  19 Aug 2011; Andrea Arteaga <andyspiros@gmail.com> +lapack-reference-9999.ebuild
+  Added svn 9999 version.
+
   19 Aug 2011 Andrea Arteaga <andyspiros@gmail.com> +lapack-reference-3.3.1-r1.ebuild
   +files/3.3.1-blas-libs.patch +files/3.3.1-xblas-libs.patch +Manifest +metadata.xml
   Imported from bicatali overlay.
