@@ -4,6 +4,9 @@
 
 *librecad-1.0.0_rc2 (15 Aug 2011)
 
+  18 Aug 2011; Justin Lecher <jlec@gentoo.org> librecad-9999.ebuild:
+  Cleanup for librecad-9999.ebuild
+
   15 Aug 2011; Justin Lecher <jlec@gentoo.org> +files/1.0.0_rc2-gcc4.6.patch,
   -librecad-1.0.0_beta5.ebuild, -librecad-1.0.0_rc1.ebuild,
   +librecad-1.0.0_rc2.ebuild, metadata.xml:

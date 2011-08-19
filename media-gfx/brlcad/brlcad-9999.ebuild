@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/media-gfx/brlcad/brlcad-7.18.4.ebuild,v 1.1 2011/04/18 22:47:37 dilfridge Exp $
 
 EAPI=4
-inherit cmake-utils eutils subversion
+inherit cmake-utils eutils subversion java-pkg-2
 
 DESCRIPTION="Constructive solid geometry modeling system"
 HOMEPAGE="http://brlcad.org/"
@@ -12,7 +12,7 @@ ESVN_REPO_URI="https://brlcad.svn.sourceforge.net/svnroot/${PN}/${PN}/trunk"
 LICENSE="LGPL-2 BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="benchmarks debug doc examples opengl smp"
+IUSE="benchmarks debug doc examples java opengl smp"
 
 RDEPEND="media-libs/libpng
 	sys-libs/zlib
@@ -29,8 +29,8 @@ RDEPEND="media-libs/libpng
 	media-libs/urt
 	x11-libs/libXt
 	x11-libs/libXi
+	java? ( >=virtual/jre-1.5 )
 	"
-	#java? ( >=virtual/jre-1.5 )"
 
 DEPEND="${RDEPEND}
 	sys-devel/bison
@@ -46,6 +46,9 @@ BRLCAD_DIR="${EPREFIX}/usr/${PN}"
 
 src_prepare() {
 	epatch "${FILESDIR}/${P}-cmake.patch"
+}
+
+src_configure() {
 	if use Debug; then
 		CMAKE_BUILD_TYPE=Debug
 		else
@@ -85,6 +88,7 @@ src_prepare() {
 	fi
 	mycmakeargs+=(
 		$(cmake-utils_use amd64 BRLCAD-ENABLE_64BIT)
+		$(cmake-utils_use java BRLCAD-ENABLE_RTSERVER)
 		$(cmake-utils_use examples BRLCAD-INSTALL_EXAMPLE_GEOMETRY)
 		$(cmake-utils_use doc BRLCAD_EXTRADOCS)
 		$(cmake-utils_use doc BRLCAD_EXTRADOCS_PDF)
@@ -102,6 +106,10 @@ src_prepare() {
 #			$(cmake-utils_use debug BRLCAD-ENABLE_COMPILER_WARNINGS_LABEL)
 			)
 	cmake-utils_src_configure
+}
+
+src_compile() {
+	cmake-utils_src_compile
 }
 
 src_test() {
