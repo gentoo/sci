@@ -1,0 +1,32 @@
+# ChangeLog for sci-libs/blas-reference
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  19 Aug 2011 Andrea Arteaga <andyspiros@gmail.com> +blas-reference-3.3.1-r1.ebuild
+  +Manifest +metadata.xml
+  Imported from bicatali overlay.
+
+*blas-reference-3.3.1-r1 (30 May 2011)
+
+  30 May 2011; Sébastien Fabbro <bicatali@gentoo.org>
+  -blas-reference-3.3.1.ebuild, +blas-reference-3.3.1-r1.ebuild:
+  Moved soname to librefblas.so. Avoid colliion in configure time
+
+*blas-reference-3.3.1 (20 Apr 2011)
+
+  20 Apr 2011; Sébastien Fabbro <bicatali@gentoo.org>
+  -files/3.3.0-cmake-install.patch, -blas-reference-3.3.0.ebuild,
+  +blas-reference-3.3.1.ebuild:
+  Version bump
+
+  23 Feb 2011; Sébastien Fabbro <bicatali@gentoo.org>
+  blas-reference-3.3.0.ebuild:
+  Switched to alternatives-2 framework
+
+*blas-reference-3.3.0 (13 Dec 2010)
+
+  13 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/3.3.0-cmake-install.patch, +blas-reference-3.3.0.ebuild,
+  +metadata.xml:
+  Version bump. Return to traditional versioning
+
