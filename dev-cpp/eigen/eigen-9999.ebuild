@@ -11,7 +11,7 @@ HOMEPAGE="http://eigen.tuxfamily.org/"
 EHG_REPO_URI="https://bitbucket.org/eigen/eigen"
 
 LICENSE="|| ( LGPL-3 GPL-2 )"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 SLOT="3"
 IUSE="adolc fortran fftw doc gmp sparse static-libs test"
 
