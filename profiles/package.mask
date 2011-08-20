@@ -43,10 +43,6 @@
 ~dev-lang/path64-9999
 
 # Justin Lecher <jlec@gentoo.org> (24 Jun 2011)
-# fftw dep is masked
-sci-libs/pfft
-
-# Justin Lecher <jlec@gentoo.org> (24 Jun 2011)
 # paraview dep is masked
 sci-visualization/vtkPOFFReader
 
@@ -81,10 +77,6 @@ sci-biology/tablet-bin
 # Christoph Junghans <ottxor@gentoo.org> (03 Oct 2010)
 # masked for testing
 =sci-libs/openmm-2.0
-
-# Sebastien Fabbro (29 Sep 2010)
-# alpha software
->=sci-libs/fftw-3.3_alpha1
 
 # Christoph Junghans <ottxor@gentoo.org> (31 Jul 2010)
 # mask live ebuilds
