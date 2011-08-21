@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
+<herd>sci-astronomy</herd>
 <longdescription lang="en">
   Astropysics leverages a variety of tools already developed for python to simplify 
   quick-and-dirty calculations and streamline really hard ones. When paired with 

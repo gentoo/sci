@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Aug 2011; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
+  adjusting boehm-gc source file
+
   08 Jul 2011; Thomas Kahle <tomka@gentoo.org>
   -files/1.4-paths-of-external-programs.patch, -Macaulay2-1.3.1-r4.ebuild,
   Macaulay2-9999.ebuild, -files/respect-CFLAGS.patch:

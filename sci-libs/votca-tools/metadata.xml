@@ -7,6 +7,6 @@
 		<name>Christoph Junghans</name>
 	</maintainer>
 	<use>
-		<flag name='boost'>Compile against external boost headers (dev-libs/boost)</flag>
+		<flag name='system-boost'>Use system boost (<pkg>dev-libs/boost</pkg>) instead of bundled one</flag>
 	</use>
 </pkgmetadata>

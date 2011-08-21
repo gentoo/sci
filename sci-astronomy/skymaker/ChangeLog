@@ -1,6 +1,9 @@
 # ChangeLog for sci-astronomy/skymaker
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  04 Aug 2011; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml:
+  Switched herd to sci-astronomy
 
   17 Nov 2010; Sébastien Fabbro <bicatali@gentoo.org> skymaker-3.3.3.ebuild:
   License and web site changes

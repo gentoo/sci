@@ -1,0 +1,623 @@
+diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.env.in root/net/xrootd/src/xrootd/config/GNUmake.env.in
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.env.in	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/config/GNUmake.env.in	2011-07-10 10:27:45.001375019 +0400
+@@ -47,6 +47,7 @@
+ CFHASXRDCRYPTO = @hasxrdcrypto@
+ 
+ CFLAGS += $(CFSTRLCPY) $(CFHASOLDHDRS) $(CFFSTATAT) $(CFHASLIBZ) $(CFATOMICS)
++CFLAGS += $(CXXFLAGS)
+ 
+ # AFS relevant variables
+ @incafs@
+diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.options.in root/net/xrootd/src/xrootd/config/GNUmake.options.in
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.options.in	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/config/GNUmake.options.in	2011-07-10 10:24:16.131357441 +0400
+@@ -16,7 +16,7 @@
+ CF32="$(TYPECF32)" \
+ CFOP="$(@buildopt@)" \
+ LD="$(TYPELD)" \
+-LDOP="$(@buildopt@)" \
++LDOP="$(LDFLAGS)" \
+ LDSO="$(TYPELDSO)" \
+ LIBS=" @ldsyslibs@ $(TYPELIBS)" \
+ TYPE="$(TYPE)"
+@@ -33,7 +33,7 @@
+ CF32="$(TYPECF32)" \
+ CFOP="$(@buildopt@)" \
+ LD="$(TYPELD)" \
+-LDOP="$(@buildopt@)" \
++LDOP="$(LDFLAGS)" \
+ LDSO="$(TYPELDSO)" \
+ LIBS=" @ldsyslibs@ $(TYPELIBS)" \
+ TYPE="$(TYPE)"
+diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd root/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.fbsd	2011-07-10 10:24:16.131357441 +0400
+@@ -11,7 +11,7 @@
+              -Wall -Wno-deprecated $(CFTRACE)
+ TYPECF32   =
+ TYPECF64   = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+-TYPEOPT    = $(TYPEMISC) -O2
++TYPEOPT    = $(TYPEMISC) $(CXXFLAGS)
+ TYPEDBG    = $(TYPEMISC) -g
+ TYPELDSO   = -shared
+ TYPESHLIB  = so
+diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gcc root/net/xrootd/src/xrootd/config/GNUmake.rules.gcc
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gcc	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.gcc	2011-07-10 10:24:16.131357441 +0400
+@@ -11,7 +11,7 @@
+              -Wall -Wno-deprecated -D__linux__ $(CFTRACE)
+ TYPECF32   =
+ TYPECF64   = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+-TYPEOPT    = $(TYPEMISC) -O2
++TYPEOPT    = $(TYPEMISC) $(CXXFLAGS)
+ TYPEDBG    = $(TYPEMISC) -g
+ TYPELDSO   = -shared
+ TYPESHLIB  = so
+diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64 root/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.gccia64	2011-07-10 10:24:16.131357441 +0400
+@@ -11,7 +11,7 @@
+              -Wall -Wno-deprecated -D__linux__ $(CFTRACE)
+ TYPECF32   =
+ TYPECF64   = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+-TYPEOPT    = $(TYPEMISC) -O2
++TYPEOPT    = $(TYPEMISC) $(CXXFLAGS)
+ TYPEDBG    = $(TYPEMISC) -g
+ TYPELDSO   = -shared
+ TYPESHLIB  = so
+diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664 root/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.gccx8664	2011-07-10 10:24:16.131357441 +0400
+@@ -11,7 +11,7 @@
+              -Wall -Wno-deprecated -D__linux__ $(CFTRACE)
+ TYPECF32   =
+ TYPECF64   = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+-TYPEOPT    = $(TYPEMISC) -O2
++TYPEOPT    = $(TYPEMISC) $(CXXFLAGS)
+ TYPEDBG    = $(TYPEMISC) -g
+ TYPELDSO   = -m64 -shared
+ TYPESHLIB  = so
+diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.icc root/net/xrootd/src/xrootd/config/GNUmake.rules.icc
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.icc	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.icc	2011-07-10 10:24:16.131357441 +0400
+@@ -13,7 +13,7 @@
+              -ansi -D__linux__ -D__ICC__ -wd1476 -wd191 -wd468 -wd858 -wd1224 -wd584 $(CFTRACE)
+ TYPECF32   =
+ TYPECF64   = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+-TYPEOPT    = $(TYPEMISC) -O2
++TYPEOPT    = $(TYPEMISC) $(CXXFLAGS)
+ TYPEDBG    = $(TYPEMISC) -g
+ TYPELDSO   = -m32 -shared
+ TYPESHLIB  = so
+diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664 root/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.iccx8664	2011-07-10 10:24:16.131357441 +0400
+@@ -14,7 +14,7 @@
+              -wd1572 -wd584 -i-dynamic $(CFTRACE)
+ TYPECF32   =
+ TYPECF64   = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+-TYPEOPT    = $(TYPEMISC) -O2
++TYPEOPT    = $(TYPEMISC) $(CXXFLAGS)
+ TYPEDBG    = $(TYPEMISC) -g
+ TYPELDSO   = -m64 -shared
+ TYPESHLIB  = so
+diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos root/net/xrootd/src/xrootd/config/GNUmake.rules.macos
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.macos	2011-07-10 10:24:16.131357441 +0400
+@@ -18,7 +18,7 @@
+ TYPECF32   =
+ TYPECF64   = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+ TYPELINK   = -undefined dynamic_lookup -multiply_defined suppress 
+-TYPEOPT    = $(TYPEMISC) -O2
++TYPEOPT    = $(TYPEMISC) $(CXXFLAGS)
+ TYPEDBG    = $(TYPEMISC) -g
+ ifeq ($(subst $(MACOSX_MINOR),,1234),1234)
+ TYPELDSO   = $(TYPELINK) -dynamiclib -single_module -m32
+diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos64 root/net/xrootd/src/xrootd/config/GNUmake.rules.macos64
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.macos64	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.macos64	2011-07-10 10:24:16.131357441 +0400
+@@ -15,7 +15,7 @@
+ TYPECF32   =
+ TYPECF64   = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+ TYPELINK   = -undefined dynamic_lookup -multiply_defined suppress 
+-TYPEOPT    = $(TYPEMISC) -O2
++TYPEOPT    = $(TYPEMISC) $(CXXFLAGS)
+ TYPEDBG    = $(TYPEMISC) -g
+ ifeq ($(subst $(MACOSX_MINOR),,1234),1234)
+ TYPELDSO   = $(TYPELINK) -dynamiclib -single_module -m64
+diff -Naur root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc root/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc
+--- root.orig/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/config/GNUmake.rules.sungcc	2011-07-10 10:24:16.131357441 +0400
+@@ -11,7 +11,7 @@
+              -Wall -Wno-deprecated -DSUNGCC $(CFTRACE)
+ TYPECF32   =
+ TYPECF64   = -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+-TYPEOPT    = $(TYPEMISC) -O2
++TYPEOPT    = $(TYPEMISC) $(CXXFLAGS)
+ TYPEDBG    = $(TYPEMISC) -g
+ TYPELDSO   = -shared
+ TYPESHLIB  = so
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile root/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile	2011-06-28 13:49:42.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdAcc/GNUmakefile	2011-07-10 10:24:16.131357441 +0400
+@@ -71,7 +71,7 @@
+ 
+ $(TESTBIN): $(OBJECTB) $(LIBDEPS)
+ 	@echo Creating executable $(TESTBIN) 
+-	$(ECHO)$(LD) $(CFLAGS) $(LDOP) $(OBJECTB) $(BINLIBS) $(LIBS) -o $(TESTBIN)
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(OBJECTB) $(BINLIBS) $(LIBS) -o $(TESTBIN)
+ 
+ $(OBJDIR)/XrdAccAccess.o: XrdAccAccess.cc     XrdAccAccess.hh \
+                           XrdAccCapability.hh XrdAccConfig.hh    XrdAccGroups.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile root/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile	2011-06-28 13:49:42.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdApps/GNUmakefile	2011-07-10 10:24:16.131357441 +0400
+@@ -59,7 +59,7 @@
+   
+ $(XRDADLER32): $(XRDADLER32_OBJ) $(XRDADLERDEPT)
+ 	@echo Creating executable $(XRDADLER32)
+-	$(ECHO)$(LD) $(LDOP) $(XRDADLER32_OBJ) $(XRDADLERDEPS) $(XRDADLERLIBS) -o $(XRDADLER32)
++	$(ECHO) $(LD) $(LDFLAGS) $(XRDADLER32_OBJ) $(XRDADLERDEPS) $(XRDADLERLIBS) -o $(XRDADLER32)
+ 
+ $(XRDADLER32_OBJ): Xrdadler32.cc \
+                    XrdPosixExtern.hh    XrdPosixXrootd.hh \
+@@ -90,7 +90,7 @@
+ 
+ $(XRDMPXBIN): $(XRDMPXOBJ) $(XrdMPXDEPS)
+ 	@echo Creating executable $(XRDMPXBIN)
+-	$(ECHO)$(LD) $(LDOP) $(XRDMPXOBJ) $(XRDMPXLIBS) $(LIBS) -o $(XRDMPXBIN)
++	$(ECHO)$(CC) $(CXXFLAGS) $(LDFLAGS) $(XRDMPXOBJ) $(XRDMPXLIBS) $(LIBS) -o $(XRDMPXBIN)
+  
+ $(XRDMPXOBJ): XrdMpxStats.cc \
+               XrdNetDNS.hh       XrdNetSocket.hh   XrdNetOpts.hh \
+@@ -106,7 +106,7 @@
+  
+ $(XRDW41): $(XRDW41_OBJ) $(XRDW41_DEPS)
+ 	@echo Creating executable $(XRDW41)
+-	$(ECHO)$(LD) $(LDOP) $(XRDW41_OBJ) $(XRDW41LIBS) -o $(XRDW41)
++	$(ECHO)$(CC) $(CXXFLAGS) $(LDFLAGS) $(XRDW41_OBJ) $(XRDW41LIBS) -o $(XRDW41)
+ 
+ $(XRDW41_OBJ): XrdWait41.cc \
+                    XrdOucTList.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile root/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile	2011-06-28 13:49:43.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdBwm/GNUmakefile	2011-07-10 10:24:16.131357441 +0400
+@@ -67,7 +67,7 @@
+ 	$(ECHO)ranlib $(LIBARCH)
+ 
+ 	@echo Creating shared library $(LIBRARY) 
+-	$(ECHO)$(CC) $(CFLAGS) $(OBJECTS) $(OBJFS) $(LDSO) $(MORELIBS) $(LIBS)  -o $(LIBRARY)
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(OBJECTS) $(OBJFS) $(LDSO) $(MORELIBS) $(LIBS)  -o $(LIBRARY)
+ 
+ $(OBJDIR)/XrdBwm.o:  XrdBwm.cc           XrdBwm.hh \
+                      XrdAccAuthorize.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile root/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile	2011-06-28 13:49:41.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdClient/GNUmakefile	2011-07-10 10:24:16.131357441 +0400
+@@ -160,17 +160,17 @@
+ $(LIBSHARED): $(OBJECTS) $(LIBDEP)
+ 	@echo Creating shared library $(LIBSHARED) 
+ 	$(ECHO)rm -f $(LIBSHARED)
+-	$(ECHO)$(CC) $(CFLAGS) $(OBJECTS) $(LDSO) $(LIBLIBS) $(LIBS) -o $(LIBSHARED)
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(OBJECTS) $(LDSO) $(LIBLIBS) $(LIBS) -o $(LIBSHARED)
+ ifneq ($(subst $(MACOSX_MINOR),,1234),1234)
+ 	$(ECHO)if [ "x$(TYPE)" = "xDarwin" ]; then \
+-	          $(CC) $(CFLAGS) $(OBJECTS) $(TYPELDDY) $(LIBLIBS) $(LIBS) -o $(LIBDIR)/libXrdClient.$(TYPEDYLIB); \
++	          $(CC) $(CFLAGS) $(LDFLAGS) $(OBJECTS) $(TYPELDDY) $(LIBLIBS) $(LIBS) -o $(LIBDIR)/libXrdClient.$(TYPEDYLIB); \
+ 	fi
+ endif
+ 
+ $(LIBRARY_JNI): $(OBJECT_JNI)
+ 	@echo Creating shared library $(LIBRARY_JNI) 
+ 	$(ECHO)rm -f $(LIBRARY_JNI);
+-	$(ECHO)$(CC) $(CFLAGS) $(OBJECT_JNI) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY_JNI)
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(OBJECT_JNI) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY_JNI)
+ 
+ $(CLASS_JNI_TARGET): $(CLASS_JNI).java
+ 	@echo Creating JNI class file $(CLASS_JNI_TARGET)
+@@ -178,27 +178,27 @@
+ 
+ $(BINDIR)/TestXrdClient_read: $(OBJECTS) $(OBJECTD) $(LIBDEPS)
+ 	@echo Creating executable $(BINDIR)/TestXrdClient_read 
+-	$(ECHO)$(LD) $(LDOP) $(OBJECTD) $(BINLIBS) $(LIBS) -o $(BINDIR)/TestXrdClient_read
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTD) $(BINLIBS) $(LIBS) -o $(BINDIR)/TestXrdClient_read
+ 
+ $(BINDIR)/TestXrdClient: $(OBJECTS) $(OBJECTB) $(LIBDEPS)
+ 	@echo Creating executable $(BINDIR)/TestXrdClient 
+-	$(ECHO)$(LD) $(LDOP) $(OBJECTB) $(BINLIBS) $(LIBS) -o $(BINDIR)/TestXrdClient
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTB) $(BINLIBS) $(LIBS) -o $(BINDIR)/TestXrdClient
+ 
+ $(XRDCP): $(OBJECTS) $(OBJECTC) $(LIBDEPS)
+ 	@echo Creating executable $(XRDCP) 
+-	$(ECHO)$(LD) $(LDOP) $(OBJECTC) $(BINLIBS) $(LIBS) $(LIBZ) -o $(XRDCP)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTC) $(BINLIBS) $(LIBS) $(LIBZ) -o $(XRDCP)
+ 
+ $(XRDPREPTOOL): $(OBJECTS) $(OBJECT_PREPTOOL) $(LIBDEPS)
+ 	@echo Creating executable $(XRDPREPTOOL)
+-	$(ECHO)$(LD) $(LDOP) $(OBJECT_PREPTOOL) $(BINLIBS) $(LIBS) -o $(XRDPREPTOOL)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECT_PREPTOOL) $(BINLIBS) $(LIBS) -o $(XRDPREPTOOL)
+ 
+ $(XRDSTAGETOOL): $(OBJECTS) $(OBJECT_STAGETOOL) $(LIBDEPS)
+ 	@echo Creating executable $(XRDSTAGETOOL) 
+-	$(ECHO)$(LD) $(LDOP) $(OBJECT_STAGETOOL) $(BINLIBS) $(LIBS) -o $(XRDSTAGETOOL)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECT_STAGETOOL) $(BINLIBS) $(LIBS) -o $(XRDSTAGETOOL)
+ 
+ $(XRDCLI): $(OBJECTS) $(OBJECT_CLI) $(LIBDEPS)
+ 	@echo Creating executable $(XRDCLI) 
+-	$(ECHO)$(LD) $(LDOP) $(OBJECT_CLI) $(BINLIBS) $(LIBS) $(LIBREADLINE) -o $(XRDCLI)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECT_CLI) $(BINLIBS) $(LIBS) $(LIBREADLINE) -o $(XRDCLI)
+ 
+ $(XRDADMIN): $(PERLMOD)
+ 	$(ECHO)if [ "$(PERLBIN)" != "" ]; then \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile root/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile	2011-06-28 13:49:43.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdCms/GNUmakefile	2011-07-10 10:24:16.138023789 +0400
+@@ -136,7 +136,7 @@
+ 
+ $(BINARY): $(OBJSRVR) $(OBJBOTH) $(LIBDEPS)
+ 	@echo Creating executable $(BINARY) 
+-	$(ECHO)$(LD) $(LDOP) $(OBJSRVR) $(OBJBOTH) $(BINLIBS) $(LIBS) $(TYPELIBMT) -o $(BINARY)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJSRVR) $(OBJBOTH) $(BINLIBS) $(LIBS) $(TYPELIBMT) -o $(BINARY)
+ 
+ 
+ $(LIBRARY): $(OBJCLNT) $(OBJBOTH)
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile root/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile	2011-06-28 13:49:41.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdCns/GNUmakefile	2011-07-10 10:24:16.138023789 +0400
+@@ -90,11 +90,11 @@
+ 
+ $(TARGCNSD): $(OBJCNSD) $(OBJCOM) $(LIBDEP)
+ 	@echo Creating executable $(BINDIR)/XrdCnsd
+-	$(ECHO)$(LD) $(LDOP) $(CFLAGS) $(OBJCNSD) $(OBJCOM) $(LIBDEP) $(MORELIBS) $(LIBS) -o $(BINDIR)/XrdCnsd
++	$(ECHO)$(CC) $(LDFLAGS) $(CFLAGS) $(OBJCNSD) $(OBJCOM) $(LIBDEP) $(MORELIBS) $(LIBS) -o $(BINDIR)/XrdCnsd
+ 
+ $(TARGSSI): $(OBJSSI) $(OBJCOM) $(LIBDEP)
+ 	@echo Creating executable $(BINDIR)/cns_ssi
+-	$(ECHO)$(LD) $(LDOP) $(CFLAGS) $(OBJSSI) $(OBJCOM) $(LIBDEP) $(MORELIBS) $(LIBS) -o $(BINDIR)/cns_ssi
++	$(ECHO)$(CC) $(LDFLAGS) $(CFLAGS) $(OBJSSI) $(OBJCOM) $(LIBDEP) $(MORELIBS) $(LIBS) -o $(BINDIR)/cns_ssi
+ 
+ $(OBJDIR)/XrdCnsConfig.o:  XrdCnsConfig.hh    XrdCnsConfig.cc \
+                            XrdCnsDaemon.hh    XrdCnsLogRec.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile root/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile	2011-06-28 13:49:42.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdCrypto/GNUmakefile	2011-07-10 10:24:16.138023789 +0400
+@@ -139,7 +139,7 @@
+ 
+ $(LIBRARY): $(OBJECTS) $(LIBUTIL)
+ 	@echo Creating shared library $(LIBRARY) 
+-	$(ECHO)$(CC) $(OBJECTS) $(LDSO) $(LIBUTIL) -o $(LIBRARY)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LDSO) $(LIBUTIL) -o $(LIBRARY)
+ 
+ $(LIBASSL): $(OBJCSSL)
+ 	@echo Creating archive $(LIBASSL) 
+@@ -149,11 +149,11 @@
+ 
+ $(LIBCSSL): $(OBJCSSL) $(LIBARCH) $(LIBUTIL)
+ 	@echo Creating shared library $(LIBCSSL) 
+-	$(ECHO)$(LD) $(OBJCSSL) $(LDSO) $(LIBSSL) $(LIBARCH) $(LIBUTIL) -o $(LIBCSSL)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJCSSL) $(LDSO) $(LIBSSL) $(LIBARCH) $(LIBUTIL) -o $(LIBCSSL)
+ 
+ $(CRYPTOTEST): $(OBJECTA) $(LIBARCH) $(LIBDEPS)
+ 	@echo Creating executable $(CRYPTOTEST) 
+-	$(ECHO)$(LD) $(OBJECTA) $(LIBARCH) $(BINLIBS) $(LIBS) -o $(CRYPTOTEST)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTA) $(LIBARCH) $(BINLIBS) $(LIBS) -o $(CRYPTOTEST)
+ 
+ $(OBJDIR)/XrdCryptotest.o: XrdCryptotest.cc XrdSutAux.hh XProtocol.hh XrdSutBucket.hh \
+ 			   XrdCryptoAux.hh XrdCryptoFactory.hh XrdCryptoCipher.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdFfs/GNUmakefile root/net/xrootd/src/xrootd/src/XrdFfs/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdFfs/GNUmakefile	2011-06-28 13:49:41.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdFfs/GNUmakefile	2011-07-10 10:37:08.791154841 +0400
+@@ -82,7 +82,7 @@
+ 
+ $(BINARY): $(OBJECTS) $(OBJBIN) $(BINDEPS)
+ 	@echo Creating executable $(BINARY)
+-	$(ECHO)$(LD) $(LDOP) $(OBJBIN) $(BINDEPS) $(BINLIBS) $(LIBS) $(TYPELIBMT) -o $(BINARY)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJBIN) $(BINDEPS) $(BINLIBS) $(LIBS) $(TYPELIBMT) -o $(BINARY)
+ 
+ $(OBJDIR)/XrdFfsDent.o: XrdFfsDent.cc  XrdFfsDent.hh
+ 	@echo Compiling XrdFfsDent.cc
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile root/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile	2011-06-28 13:49:42.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdFrm/GNUmakefile	2011-07-10 10:24:16.138023789 +0400
+@@ -134,15 +134,15 @@
+ 
+ $(BINADMIN): $(OBJLIB) $(OBJADMIN)          $(OBJDEPS)
+ 	@echo Creating executable $(BINADMIN)
+-	$(ECHO)$(LD) $(LDOP) $(OBJADMIN) $(OBJADDS) $(LIBREADLINE) $(LIBS) $(BINLIBS) $(TYPELIBMT) -o $(BINADMIN)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJADMIN) $(OBJADDS) $(LIBREADLINE) $(BINLIBS) $(LIBS) $(TYPELIBMT) -o $(BINADMIN)
+ 
+ $(BINPURGD): $(OBJLIB) $(OBJPURG) $(OBJADDS) $(OBJDEPS)
+ 	@echo Creating executable $(BINPURGD)
+-	$(ECHO)$(LD) $(LDOP) $(OBJPURG) $(OBJADDS) $(LIBS) $(BINLIBS) $(TYPELIBMT) -o $(BINPURGD)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJPURG) $(OBJADDS) $(BINLIBS) $(LIBS) $(TYPELIBMT) -o $(BINPURGD)
+ 
+ $(BINXFRD): $(OBJLIB) $(OBJXFR) $(OBJADDS) $(OBJDEPS)
+ 	@echo Creating executables $(BINXFRD)
+-	$(ECHO)$(LD) $(LDOP) $(OBJXFR) $(OBJADDS) $(LIBS) $(BINLIBS) $(TYPELIBMT) -o $(BINXFRD)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJXFR) $(OBJADDS) $(BINLIBS) $(LIBS) $(TYPELIBMT) -o $(BINXFRD)
+ 
+ $(BINAGNT): $(BINXFRD)
+ 	@echo Creating executables $(BINAGNT)
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile root/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile	2011-06-28 13:49:43.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdMon/GNUmakefile	2011-07-10 10:24:16.138023789 +0400
+@@ -141,45 +141,45 @@
+ 
+ $(ADMIN):	$(OBJECTS_BIN_ADM) $(LIBRARY_SND) $(LIBRARY_OUC) $(LIBRARY_COMMON) 
+ 	@echo Creating executable $(@F)
+-	$(ECHO)$(CC) $(CFLAGS) $(LDOP) $(LIBS) -lresolv -o $@ $^ -L$(LIBDIR) -lXrdSys
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -lresolv -o $@ $^ -L$(LIBDIR) -lXrdSys
+ 
+ $(COLLECTOR):	$(OBJECTS_BIN_CTR) $(LIBRARY_CTR) \
+ 	$(LIBRARY_DEC) $(LIBRARY_OUC) $(LIBRARY_COMMON) 
+ 	@echo Creating executable $(@F)
+-	$(ECHO)$(CC) $(CFLAGS) $(LDOP) $(LIBS) -o $@ $^ -L$(LIBDIR) -lXrdSys
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@ $^ -L$(LIBDIR) -lXrdSys
+ 
+ $(CONVTIME):	$(OBJECTS_BIN_CTM) $(LIBRARY_COMMON) 
+ 	@echo Creating executable $(@F)
+-	$(ECHO)$(CC) $(CFLAGS) $(LDOP) $(LIBS) -o $@ $^
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@ $^
+ 
+ $(COUT2FILE):	$(OBJECTS_BIN_C2F) $(LIBRARY_DEC) $(LIBRARY_OUC) $(LIBRARY_COMMON) 
+ 	@echo Creating executable $(@F)
+-	$(ECHO)$(CC) $(CFLAGS) $(LDOP) $(LIBS) -lresolv -o $@ $^
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -lresolv -o $@ $^
+ 
+ $(DEBUGPACKET):	$(OBJECTS_BIN_DBP) $(LIBRARY_DEC) $(LIBRARY_OUC) $(LIBRARY_COMMON) 
+ 	@echo Creating executable $(@F)
+-	$(ECHO)$(CC) $(CFLAGS) $(LDOP) $(LIBS) -o $@ $^
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@ $^
+ 
+ $(DECODER):	$(OBJECTS_BIN_DEC) $(LIBRARY_DEC) $(LIBRARY_OUC) \
+ 	$(LIBRARY_COMMON) 
+ 	@echo Creating executable $(@F)
+-	$(ECHO)$(CC) $(CFLAGS) $(LDOP) $(LIBS) -o $@ $^
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@ $^
+ 
+ $(DUMPPACKETS):	$(OBJECTS_BIN_DMP) $(LIBRARY_DEC) $(LIBRARY_COMMON) 
+ 	@echo Creating executable $(@F)
+-	$(ECHO)$(CC) $(CFLAGS) $(LDOP) $(LIBS) -o $@ $^
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@ $^
+ 
+ $(FSENDER):	$(OBJECTS_BIN_FSD) $(LIBRARY_SND) $(LIBRARY_OUC) $(LIBRARY_COMMON) 
+ 	@echo Creating executable $(@F)
+-	$(ECHO)$(CC) $(CFLAGS) $(LDOP) $(LIBS) -lresolv -o $@ $^
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -lresolv -o $@ $^
+ 
+ $(SENDER):	$(OBJECTS_BIN_SND) $(LIBRARY_SND) $(LIBRARY_OUC) $(LIBRARY_COMMON) 
+ 	@echo Creating executable $(@F)
+-	$(ECHO)$(CC) $(CFLAGS) $(LDOP) $(LIBS) -lresolv -o $@ $^ -L$(LIBDIR) -lXrdSys
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -lresolv -o $@ $^ -L$(LIBDIR) -lXrdSys
+ 
+ $(TESTPARSER):	$(OBJECTS_BIN_TPR) $(LIBRARY_COMMON)
+ 	@echo Creating executable $(@F)
+-	$(ECHO)$(CC) $(CFLAGS) $(LDOP) $(LIBS) -lresolv -o $@ $^
++	$(ECHO)$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -lresolv -o $@ $^
+ 
+ $(OBJDIR)/%.o : %.cc
+ 	@echo Compiling $(<F)
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile root/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile	2011-06-28 13:49:40.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdPosix/GNUmakefile	2011-07-10 10:24:16.138023789 +0400
+@@ -76,14 +76,14 @@
+ 
+ $(LIBPLDR): $(OBJECTP) $(OBJECTS) $(OBJECTT) $(LIBDEP)
+ 	@echo Creating shared library $(LIBPLDR)
+-	$(ECHO)$(CC) $(CFLAGS) $(OBJECTS) $(OBJECTT) $(OBJECTU) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBPLDR)
++	$(ECHO)$(CC) $(LDFLAGS) $(CFLAGS) $(OBJECTS) $(OBJECTT) $(OBJECTU) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBPLDR)
+ 
+ $(LIBRARY): $(OBJECTP) $(OBJECTS) $(OBJECTT) $(LIBDEP)
+ 	@echo Creating shared library $(LIBRARY) 
+-	$(ECHO)$(CC) $(CFLAGS) $(OBJECTS) $(OBJECTU) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY)
++	$(ECHO)$(CC) $(LDFLAGS) $(CFLAGS) $(OBJECTS) $(OBJECTU) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY)
+ ifneq ($(subst $(MACOSX_MINOR),,1234),1234)
+ 	$(ECHO)if [ "x$(TYPE)" = "xDarwin" ]; then \
+-	   $(CC) $(CFLAGS) $(OBJECTS) $(TYPELDDY) $(MORELIBS) $(LIBS) -o $(LIBDIR)/libXrdPosix.$(TYPEDYLIB); \
++	   $(CC) $(LDFLAGS) $(CFLAGS) $(OBJECTS) $(TYPELDDY) $(MORELIBS) $(LIBS) -o $(LIBDIR)/libXrdPosix.$(TYPEDYLIB); \
+ 	fi
+ endif
+ # MacOS X does not support linking against shared libraries so include
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile root/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile	2011-06-28 13:49:40.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdPss/GNUmakefile	2011-07-10 10:24:16.138023789 +0400
+@@ -70,7 +70,7 @@
+ 
+ $(TARGETS): $(OBJECTS) $(OBJECTT) $(LIBDEP)
+ 	@echo Creating shared library $(LIBRARY) 
+-	$(ECHO)$(CC) $(CFLAGS) $(OBJECTT) $(OBJECTS) $(OBJECTU) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY)
++	$(ECHO)$(CC) $(LDFLAGS) $(CFLAGS) $(OBJECTT) $(OBJECTS) $(OBJECTU) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY)
+ 
+ $(OBJDIR)/XrdPss.o:  XrdPss.cc         XrdPss.hh \
+                      XrdFfsPosix.hh    XrdPosixXrootd.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile root/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile	2011-06-28 13:49:42.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdRootd/GNUmakefile	2011-07-10 10:24:16.138023789 +0400
+@@ -6,7 +6,7 @@
+   
+ include ../GNUmake.env
+ 
+-LFLAGS  = -L$(LIBDIR) -lXrdOuc $(LDSO)
++LFLAGS  = $(LDSO) -L$(LIBDIR) -lXrdOuc
+ 
+ LIBDEPS = $(LIBDIR)/libXrdOuc.a
+ 
+@@ -48,7 +48,7 @@
+ 
+ $(TARGETS): $(OBJECTS) $(LIBDEPS)
+ 	@echo Creating shared library $(LIBRARY) 
+-	$(ECHO)$(CC) $(OBJECTS) $(LFLAGS) -o $(LIBRARY)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LFLAGS) -o $(LIBRARY)
+ 
+ $(OBJDIR)/XrdRootdProtocol.o: XrdRootdProtocol.hh XrdLink.hh \
+                               XrdScheduler.hh     XrdTrace.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile	2011-06-28 13:49:42.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdSec/GNUmakefile	2011-07-10 10:24:16.138023789 +0400
+@@ -78,15 +78,15 @@
+ 
+ $(LIBRARY): $(OBJSLIB) $(LIBDEPS)
+ 	@echo Creating shared library $(LIBRARY) 
+-	$(ECHO)$(CC) $(OBJSLIB) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY);
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJSLIB) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY);
+ 
+ $(TSTBINA): $(OBJECTA) $(LIBDEPS)
+ 	@echo Creating executable $(TSTBINA) 
+-	$(ECHO)$(LD) $(LDOP) $(OBJECTA) $(LIBS) $(BINLIBS) -o $(TSTBINA)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTA) $(LIBS) $(BINLIBS) -o $(TSTBINA)
+ 
+ $(TSTBINB): $(OBJECTB) $(LIBDEPS)
+ 	@echo Creating executable $(TSTBINB) 
+-	$(ECHO)$(LD) $(LDOP) $(OBJECTB) $(LIBS) $(BINLIBS) -o $(TSTBINB)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTB) $(LIBS) $(BINLIBS) -o $(TSTBINB)
+ 
+ $(OBJDIR)/XrdSecClient.o: XrdSysPthread.hh XrdSecPManager.hh XrdSecInterface.hh \
+                           XrdOucErrInfo.hh XrdSecClient.cc   XrdSecEntity.hh
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile	2011-06-28 13:49:42.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdSecgsi/GNUmakefile	2011-07-10 10:31:48.396441015 +0400
+@@ -115,23 +115,23 @@
+ 
+ $(LIBRARY): $(OBJECTS) $(LIBDEPS)
+ 	@echo Creating shared library $(LIBRARY) 
+-	$(ECHO)$(LD) $(OBJECTS) $(LDSO) $(LIBLIBS) $(LIBS) -o $(LIBRARY)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LDSO) $(LIBLIBS) $(LIBS) -o $(LIBRARY)
+ 
+ $(LIBGMLDAP): $(OBJECTC)
+ 	@echo Creating shared library $(LIBGMLDAP) 
+-	$(ECHO)$(LD) $(OBJECTC) $(LDSO) $(LIBS) -o $(LIBGMLDAP)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTC) $(LDSO) $(LIBS) -o $(LIBGMLDAP)
+ 
+ $(LIBGMDN): $(OBJECTD)
+ 	@echo Creating shared library $(LIBGMDN) 
+-	$(ECHO)$(LD) $(OBJECTD) $(LDSO) $(LIBDIR)/libXrdOuc.a $(LIBS) -o $(LIBGMDN)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTD) $(LDSO) $(LIBDIR)/libXrdOuc.a $(LIBS) -o $(LIBGMDN)
+ 
+ $(SECGSITEST): $(OBJECTA) $(LIBDEPS)
+ 	@echo Creating executable $(SECGSITEST) 
+-	$(ECHO)$(LD) $(LDOP) $(OBJECTA) $(BINLIBS) $(LIBS) -o $(SECGSITEST)
++	$(ECHO)$(CC) $(LDFLAGS) $(LDOP) $(OBJECTA) $(BINLIBS) $(LIBS) -o $(SECGSITEST)
+ 
+ $(SECGSIPROXY): $(OBJECTB) $(LIBDEPS)
+ 	@echo Creating executable $(SECGSIPROXY) 
+-	$(ECHO)$(LD) $(LDOP) $(OBJECTB) $(BINLIBS) $(LIBS) -o $(SECGSIPROXY)
++	$(ECHO)$(CC) $(LDFLAGS) $(LDOP) $(OBJECTB) $(BINLIBS) $(LIBS) -o $(SECGSIPROXY)
+ 
+ $(OBJDIR)/XrdSecgsitest.o: XrdSecgsitest.cc XrdOucString.hh \
+ 		XrdSysError.hh XrdSutAux.hh XProtocol.hh XPtypes.hh XrdCryptoAux.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdSeckrb4/GNUmakefile	2011-07-10 10:24:16.141356963 +0400
+@@ -45,7 +45,7 @@
+ 
+ $(TARGETS): $(OBJECTS) $(LIBDEPS)
+ 	@echo Creating shared library $(TARGETS) 
+-	$(ECHO)$(CC) $(OBJECTS) $(LDSO) $(MORELIBS) $(LIBS) -o $(TARGETS);
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LDSO) $(MORELIBS) $(LIBS) -o $(TARGETS);
+ 
+ $(OBJDIR)/XrdSecProtocolkrb4.o: XrdSecProtocolkrb4.cc XrdSecInterface.hh \
+                                 XrdSysPthread.hh      XrdOucTokenizer.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdSeckrb5/GNUmakefile	2011-07-10 10:24:16.141356963 +0400
+@@ -49,7 +49,7 @@
+ 
+ $(TARGETS): $(OBJECTS) $(LIBDEPS)
+ 	@echo Creating shared library $(TARGETS) 
+-	$(ECHO)$(CC) $(OBJECTS) $(LDSO) $(MORELIBS) $(LIBS) -o $(TARGETS);
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LDSO) $(MORELIBS) $(LIBS) -o $(TARGETS);
+ 
+ $(OBJDIR)/XrdSecProtocolkrb5.o: XrdSecProtocolkrb5.cc XrdSecInterface.hh \
+                                 XrdSysPthread.hh      XrdOucTokenizer.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile	2011-06-28 13:49:43.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdSecpwd/GNUmakefile	2011-07-10 10:24:16.141356963 +0400
+@@ -65,11 +65,11 @@
+ 
+ $(LIBRARY): $(OBJECTS) $(LIBDEPS)
+ 	@echo Creating shared library $(LIBRARY) 
+-	$(ECHO)$(CC) $(OBJECTS) $(LDSO) $(BINLIBS) $(LIBS) $(RESOLVLIB) -o $(LIBRARY)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LDSO) $(BINLIBS) $(LIBS) $(RESOLVLIB) -o $(LIBRARY)
+ 
+ $(SRVADMIN): $(OBJECTA) $(LIBDEPS)
+ 	@echo Creating executable $(SRVADMIN) 
+-	$(ECHO)$(LD) $(LDOP) $(OBJECTA) $(BINLIBS) $(LIBS)  $(RESOLVLIB) -o $(SRVADMIN)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTA) $(BINLIBS) $(LIBS)  $(RESOLVLIB) -o $(SRVADMIN)
+ 
+ $(OBJDIR)/XrdSecpwdSrvAdmin.o: XrdSecpwdSrvAdmin.cc \
+ 		XrdOucString.hh XrdSutAux.hh XProtocol.hh XPtypes.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile	2011-06-28 13:49:44.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdSecssl/GNUmakefile	2011-07-10 10:24:16.141356963 +0400
+@@ -85,7 +85,7 @@
+ 
+ $(LIBRARY): $(OBJECTS) $(LIBDEPS)
+ 	@echo Creating shared library $(LIBRARY) 
+-	$(ECHO)$(CC) $(OBJECTS) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY);
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LDSO) $(MORELIBS) $(LIBS) -o $(LIBRARY);
+ 
+ $(LIBGRST): $(OBJGRST)
+ 	@echo Creating archive $(LIBGRST)
+@@ -95,7 +95,7 @@
+ 
+ $(SECSSLTEST): $(OBJECTA) $(LIBDEPS)
+ 	@echo Creating executable $(SECSSLTEST)
+-	$(ECHO)$(LD) $(LDOP) $(OBJECTA) -L$(LIBDIR) -lXrdSecssl $(MORELIBS) $(LIBS) -o $(SECSSLTEST)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTA) -L$(LIBDIR) -lXrdSecssl $(MORELIBS) $(LIBS) -o $(SECSSLTEST)
+ 
+ $(OBJDIR)/XrdSecProtocolsslProc.o:  XrdSecProtocolsslProc.cc 	XrdSecProtocolsslProc.hh \
+ 			        XrdOucString.hh 	XrdOucHash.hh
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile	2011-06-28 13:49:40.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdSecsss/GNUmakefile	2011-07-10 10:24:16.141356963 +0400
+@@ -77,11 +77,11 @@
+ 
+ $(TARGLSO): $(OBJSLIB) $(LIBDEPS)
+ 	@echo Creating shared library $(TARGLSO)
+-	$(ECHO)$(CC) $(OBJSLIB) $(LDSO) $(MORELIBS) $(LIBSSL) $(LIBS) -o $(TARGLSO);
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJSLIB) $(LDSO) $(MORELIBS) $(LIBSSL) $(LIBS) -o $(TARGLSO);
+ 
+ $(TARGBIN): $(OBJSBIN)
+ 	@echo Creating executable $(TARGBIN)
+-	$(ECHO)$(LD) $(LDOP) $(OBJSBIN) $(MORELIBS) $(LIBS) -o $(TARGBIN);
++	$(ECHO) $(LD) $(LDFLAGS) $(OBJSBIN) $(MORELIBS) $(LIBS) -o $(TARGBIN);
+ 
+ $(OBJDIR)/XrdSecProtocolsss.o: XrdSecProtocolsss.cc    XrdSecProtocolsss.hh \
+                                XrdNetDNS.hh            XrdOucErrInfo.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile	2011-06-28 13:49:42.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdSecunix/GNUmakefile	2011-07-10 10:24:16.141356963 +0400
+@@ -45,7 +45,7 @@
+ 
+ $(TARGETS): $(OBJECTS) $(LIBDEPS)
+ 	@echo Creating shared library $(TARGETS) 
+-	$(ECHO)$(CC) $(OBJECTS) $(LDSO) $(MORELIBS) $(LIBS) -o $(TARGETS);
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LDSO) $(MORELIBS) $(LIBS) -o $(TARGETS);
+ 
+ $(OBJDIR)/XrdSecProtocolunix.o: XrdSecProtocolunix.cc XrdSecInterface.hh \
+                                 XrdSysHeaders.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile root/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile	2011-06-28 13:49:40.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdSut/GNUmakefile	2011-07-10 10:24:16.141356963 +0400
+@@ -67,7 +67,7 @@
+ 
+ $(LIBRARY): $(OBJECTS) $(LIBDIR)/libXrdOuc.a
+ 	@echo Creating shared library $(LIBRARY) 
+-	$(ECHO)$(CC) $(OBJECTS) $(LIBDIR)/libXrdOuc.a $(LDSO) -o $(LIBRARY)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(LIBDIR)/libXrdOuc.a $(LDSO) -o $(LIBRARY)
+ 
+ $(OBJDIR)/XrdSutPFAdmin.o: XrdSutPFAdmin.cc XrdOucString.hh \
+ 		XrdSutAux.hh XProtocol.hh XPtypes.hh \
+diff -Naur root.orig/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile root/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile
+--- root.orig/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile	2011-06-28 13:49:41.000000000 +0400
++++ root/net/xrootd/src/xrootd/src/XrdXrootd/GNUmakefile	2011-07-10 10:24:16.141356963 +0400
+@@ -95,7 +95,7 @@
+ 
+ $(TARGETS): $(OBJECTS) $(OBJDEPS)
+ 	@echo Creating executable $(TARGETS) 
+-	$(ECHO)$(LD) $(LDOP) $(OBJECTS) $(OBJFS) $(LIBS) $(BINLIBS) $(TYPELIBMT) -o $(TARGETS)
++	$(ECHO)$(CC) $(LDFLAGS) $(OBJECTS) $(OBJFS) $(LIBS) $(BINLIBS) $(TYPELIBMT) -o $(TARGETS)
+ 
+ $(OBJDIR)/XrdXrootdAdmin.o: XrdXrootdAdmin.hh      XrdXrootdAdmin.cc \
+                             XrdXrootdTrace.hh      XrdXrootdProtocol.hh \

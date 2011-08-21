@@ -1,74 +1,160 @@
-# Copyright 1999-2006 Gentoo Foundation.
-# Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# This file is deprecated as per GLEP 56 in favor of metadata.xml. Please add
+# your descriptions to your package's metadata.xml ONLY.
+# * generated automatically using egencache *
 
-# This file contains descriptions of local USE flags, and the ebuilds which
-# contain them.
-# Keep it sorted.
-
-# We keep here only the new USE flags introduced by packages in the overlay.
-# Ultimately, they will be merged into the main tree.
-
-sci-biology/tgi-tools:pvm - Use sys-cluster/pvm (Parallel Virtual Machine) and build the pvmsx utility
-sci-chemistry/votca-csg:gromacs - Add support for gromacs file formats (sci-chemistry/gromacs)
-sci-geosciences/libtcd:non-commercial - Install tide constituent database that is free for non-commercial use only
+dev-java/hdf-java:hdf - Add support for the Hierarchical Data Format v.4 (sci-libs/hdf)
+dev-lang/icc:eclipse - Install the dev-util/eclipse-sdk plugins
+dev-lang/idb:eclipse - Install the dev-util/eclipse-sdk plugins
+dev-lang/path64:debugger - Build PathDB
+dev-lang/path64:native - Use EKOPath/Path64 for bootstraping
+dev-libs/intel-common:compiler - Install the libraries needed for the icc and ifort compilers
+dev-ml/mlgmpidl:mpfr - add support for mpfr, the library for multiple-precision floating-point computations with exact rounding
+dev-python/cvxopt:glpk - Use GNU Linear Programming Kit
+dev-python/ffnet:matplotlib - Use matplotlib for drawing
+media-gfx/brlcad:benchmarks - Run benchmarks during test phase (need test option enabled)
+net-misc/dhcp:client - Install the dhclient program
+net-misc/dhcp:infiniband - Enable ipoib support
+net-misc/dhcp:server - Install the dhcpd and dhcrelay programs
+sci-astronomy/psfex:plplot - Build with sci-libs/plplot to allow diagnostic plots during processing
+sci-biology/estscan:intel - Use intel compiler
+sci-chemistry/avogadro:glsl - Enable glsl features via GLEW.
+sci-chemistry/gromacs:double-precision - More precise calculations at the expense of speed
+sci-chemistry/gromacs:fkernels - Enable building of Fortran Kernels for platforms that dont have assembly loops
+sci-chemistry/gromacs:single-precision - Single precision version of gromacs (default)
+sci-chemistry/jmol:client-only - Install the viewer only, no applet files for httpd
+sci-chemistry/pymol:apbs - Pymol supprt for sci-chemistry/apbs
+sci-chemistry/pymol:numpy - Enable numpy support for Pymol
+sci-chemistry/pymol:vmd - Builds molfile plugin support
+sci-chemistry/pymol:web - Install Pymodule needed for web app support
+sci-chemistry/rosetta:boinc - compile rosetta as a rosetta@home client
+sci-chemistry/rosetta:boost - compile rosetta with boost supported code
+sci-chemistry/votca-csg:boost - Compile against external boost headers from dev-libs/boost
+sci-chemistry/votca-csg:extras - Pull in extra applications from dev-libs/boost
+sci-chemistry/votca-csg:gromacs - Add support for gromacs file formats through sci-chemistry/gromacs
+sci-electronics/player:boost - Automatically generated description for boost
+sci-electronics/player:festival - Automatically generated description for festival
+sci-electronics/player:openssl - Automatically generated description for openssl
+sci-electronics/player:sphinx2 - Automatically generated description for sphinx2
+sci-geosciences/libtcd:non-commercial - Allows the use of a tide constituent database that is available for non-commercial use only.
+sci-geosciences/qgis:grass - Add support for sci-geosciences/grass
+sci-geosciences/xtide:non-commercial - Allows the use of a tide constituent database that is available for non-commercial use only.
+sci-libs/atlas:xblas - Build LAPACK with extra precision (needs sci-libs/xblas)
+sci-libs/bigdft:cuda - Add cuda support
 sci-libs/calculix-ccx:arpack - Add sparse eigen value support via sci-libs/arpack
-sci-libs/factory:singular - Add support for sci-mathematics/Singular
+sci-libs/factory:singular - Enable support for sci-mathematics/singular
+sci-libs/fox:dom - Automatically generated description for dom
+sci-libs/fox:fast - Automatically generated description for fast
+sci-libs/fox:sax - Automatically generated description for sax
+sci-libs/fox:wcml - Automatically generated description for wcml
+sci-libs/fox:wxml - Automatically generated description for wxml
 sci-libs/gmsh:cgns - Enables cgns output support
 sci-libs/gmsh:chaco - Enables chaco partitioner support
+sci-libs/gmsh:med - Enables med support
 sci-libs/gmsh:metis - Enables metis support
+sci-libs/gmsh:netgen - Enable 3D Frontal triangulation using netgen lib
 sci-libs/gmsh:opencascade - Enable OpenCASCADE support
-sci-libs/libfac:singular - Add support for sci-mathematics/Singular
+sci-libs/gmsh:petsc - Enable sci-mathematics/petsc support
+sci-libs/gmsh:taucs - Enable sci-libs/taucs support
+sci-libs/gmsh:tetgen - Enable 3D delauny triangulation using tetgen lib
+sci-libs/libcmatrix:atlas - Use of atlas blas implementation
+sci-libs/libfac:singular - Automatically generated description for singular
+sci-libs/lwpr:octave - Add sci-mathematics/octave support
+sci-libs/oasa:cairo - Add support for Cairo graphics library using dev-python/pycairo
+sci-libs/openblas:dynamic - Build dynamic architecture detection at run time (for multi targets)
+sci-libs/openblas:incblas - Build the CBLAS interface
+sci-libs/openblas:int64 - Build the 64 bits integer library
+sci-libs/openmm:cuda - Build Cuda lib
+sci-libs/openmm:opencl - Build OpenCL lib
+sci-libs/pagmo:kepler - Automatically generated description for kepler
+sci-libs/pagmo:nlopt - Automatically generated description for nlopt
 sci-libs/votca-tools:boost - Compile against external boost headers (dev-libs/boost)
-sci-mathematics/gap:xtom - extra tables of marks
+sci-libs/xdrfile:dmalloc - Enable use of Debug Malloc
+sci-mathematics/Macaulay2:optimization - Accept upstream's choices for -O option, i.e. -O3 almost everywhere.
+sci-mathematics/algae:intel - Use icc as c compiler
+sci-mathematics/apron:ppl - Enable optional interface to the Parma Polyhedra Library
+sci-mathematics/dolfin:cgal - Adds support for geometric algorithms with sci-mathematics/cgal
+sci-mathematics/dolfin:cholmod - Adds support for sparse Cholesky factorization with sci-libs/cholmod
+sci-mathematics/dolfin:parmetis - Adds support for parallel graph partitioning with sci-libs/parmetis
+sci-mathematics/dolfin:scotch - Adds support for graph partitioning with sci-libs/scotch
+sci-mathematics/dolfin:umfpack - Adds support for sparse solving with sci-libs/umfpack
+sci-mathematics/frama-c:apron - ?apron?
+sci-mathematics/frama-c:gtk - ?gtk?
+sci-mathematics/frama-c:why - ?why?
+sci-mathematics/gambit:X - Enable gui support using wxWidgets.
+sci-mathematics/gap:xtom - Automatically generated description for xtom
+sci-mathematics/giac:fltk - ?fltk?
 sci-mathematics/netgen:opencascade - Enable OpenCASCADE support
-sci-misc/opencascade:draw-harness - Enable building of draw-harness
-sci-misc/opencascade:stlport - Build OpenCASCADE with STLPort
-sci-misc/opencascade:wok - Enable building of WOK
-sci-misc/opennlp-tools:models - Install prebuild ME models (requires a ton of disk space)
-sci-misc/salome-component:openpbs - Enables openpbs support
-sci-misc/salome-gui:corba - Enables corba support
-sci-misc/salome-gui:glviewer - make glviewer module
-sci-misc/salome-gui:occviewer - make occviewer module
-sci-misc/salome-gui:plot2dviewer - make plot2dviewer module
-sci-misc/salome-gui:pyconsole - make python console module
-sci-misc/salome-gui:salomeobject - make salomeobject module
-sci-misc/salome-gui:supervgraphviewer - make supervgraphviewer module
-sci-misc/salome-gui:vtkviewer - make vtkviewer module
-sci-misc/salome-kernel:openpbs - Enables openpbs support
-sci-misc/salome-med:openpbs - Enables openpbs support
-sci-visualization/nodemon:pbs - Adds support for PBS (Portable Batch System) queries
-sys-cluster/openib-drivers:cxgb3 - make CXGB3 module
-sys-cluster/openib-drivers:ehca - make EHCA module
-sys-cluster/openib-drivers:hpage-patch - apply huge pages patch
-sys-cluster/openib-drivers:ipath - make IPATH module
-sys-cluster/openib-drivers:iser - make ISER module
-sys-cluster/openib-drivers:madeye - make MADEYE module
-sys-cluster/openib-drivers:memtrack - enable momory tracking
-sys-cluster/openib-drivers:mlx4 - make MLX4 module
-sys-cluster/openib-drivers:rds - make RDS module
-sys-cluster/openib-drivers:srp - make SRP module
-sys-cluster/openib-drivers:vnic - make VNIC module
-sys-cluster/openib-files:ehca - load EHCA module
-sys-cluster/openib-files:ipath - load IPATH module
-sys-cluster/openib-files:iser - load ISER module
-sys-cluster/openib-files:mlx4 - load MLX4 module
-sys-cluster/openib-files:rds - load RDS module
-sys-cluster/openib-files:srp - load SRP module
-sys-cluster/openib-files:vnic - load VNIC module
-sys-cluster/openib-mvapich2:large-cluster - build _LARGE_CLUSTER configuration
-sys-cluster/openib-mvapich2:medium-cluster - build _MEDIUM_CLUSTER configuration
-sys-cluster/openib-mvapich2:rdma - use rdmacm
-sys-cluster/openib-mvapich2:romio - enable ROMIO support
-sys-cluster/openib-userspace:cxgb3 - include libcxgb3 package
-sys-cluster/openib-userspace:dapl - add DAPL (Direct Access Provider Library) support
-sys-cluster/openib-userspace:ehca - include libehca package
-sys-cluster/openib-userspace:ipath - add PathScale HCA support
-sys-cluster/openib-userspace:mstflint - include mstflint package
-sys-cluster/openib-userspace:opensm - add OpenSM Subnet Management support.
-sys-cluster/openib-userspace:qlvnictools - include qlvnictools package
-sys-cluster/openib-userspace:srptools - include srptools package
-sys-cluster/openib-userspace:tvflash - include tvflash package
-sys-cluster/openib:dapl - add DAPL (Direct Access Provider Library) support.
-sys-cluster/openib:ipath - add PathScale HCA support.
-sys-cluster/openib:opensm - add OpenSM Subnet Management support.
+sci-mathematics/petsc:complex-scalars - Make scalars complex
+sci-mathematics/petsc:hypre - Use HYPRE (sci-mathematics/hypre) for preconditioning
+sci-mathematics/petsc:metis - Use METIS (sci-libs/parmetis) for partitioning
+sci-mathematics/polybori:sage - Replace the standard python interface by sage's python interface for easy integration in sage.
+sci-mathematics/scilab:gui - Build the Java base graphical interface
+sci-mathematics/scilab:matio - Enable support for MATLAB file through sci-libs/matio
+sci-mathematics/scilab:umfpack - Adds support for sparse solving with sci-libs/umfpack
+sci-mathematics/scilab:xcos - Enable building hybrid dynamic systems modeler and simulator Xcos
+sci-mathematics/why:apron - ?apron?
+sci-mathematics/why:coq - ?coq?
+sci-mathematics/why:gappa - ?gappa?
+sci-mathematics/why:gtk - ?gtk?
+sci-mathematics/why:jessie - ?jessie?
+sci-mathematics/why:pff - ?pff?
+sci-misc/hfst:openfst - Add optional support for openfst backend library (sci-misc/openfst)
+sci-misc/hfst:sfst - Add optional support for sfst backend library (sci-misc/sfst)
+sci-misc/nco:ncap2 - Build next generation netcdf arithmetic processor (needs dev-java/antlr)
+sci-misc/nco:udunits - Add sci-libs/udunits files support
+sci-misc/opennlp-tools:models - Automatically generated description for models
+sci-misc/salome-kernel:numpy - Enable support for dev-python/numpy
+sci-misc/salome-med:metis - Add support for metis
+sci-misc/salome-med:scotch - Add support for scotch
+sci-physics/abinit:cuda - Enable support for nVidia CUDA
+sci-physics/abinit:fox - Enable support for FoX Fortran XML library
+sci-physics/abinit:vdwxc - Activate van der Waals exchange-correlation
+sci-physics/atompaw:libxc - Use libxc for something
+sci-physics/elk:libxc - Use sci-libs/libxc library of exchange-correlation functionals by ETSF.
+sci-physics/espresso:examples - Installs the examples
+sci-physics/espresso:packages - Installs extra subpackages
+sci-physics/fastjet:allcxxplugins - Build all C++ plugins.
+sci-physics/fastjet:allplugins - Build all standard plugins.
+sci-physics/fastjet:cgal - Use sci-mathematics/cgal instead of bundled algorithms.
+sci-physics/root:clarens - Buld the Clarens and PEAC plug-ins, to use in a GRID enabled analysis.
+sci-physics/root:fits - Support for images and data from FITS files with sci-libs/cfitsio
+sci-physics/root:llvm - Build the new cling interactive interpreter based on sys-devel/llvm
+sci-physics/root:math - Build all math related libraries plugins, needs sci-libs/gsl
+sci-physics/root:pythia6 - Builds the interface to Pythia-6 (sci-physics/pythia) high energy physics generation events library
+sci-physics/root:pythia8 - Builds the interface to Pythia-8 (sci-physics/pythia) high energy physics generation events library
+sci-physics/root:reflex - Builds the reflection database for the C++ interpretor
+sci-physics/root:xrootd - Build the xrootd low latency file server
+sci-visualization/gnuplot:gd - Add support for media-libs/gd. Needed for GIF, JPEG, and PNG image output.
+sci-visualization/gnuplot:qt4 - Build Qt4 terminal
+sci-visualization/gnuplot:thin-splines - Enable thin plate splines
+sci-visualization/nodemon:pbs - Enable support for the Portable Batch System.
+sci-visualization/paraview:adaptive - Enable the adaptive paraview application
+sci-visualization/paraview:cg - Add support for nvidia's cg shaders
+sci-visualization/paraview:coprocessing - Enable the coprocessing infrastructure which is mainly useful in the context of clusters
+sci-visualization/paraview:gui - Build paraview's gui not just the server
+sci-visualization/paraview:mysql - Build support for MySQL data item in the XDMF format
+sci-visualization/paraview:nvcontrol - Add NVCONTROL support for OpenGL options
+sci-visualization/paraview:plugins - Build and install additional plugins
+sci-visualization/paraview:streaming - Enable streaming paraview application
+sci-visualization/paraview:webkit - Built support for qt-webkit in vtk
+sci-visualization/v_sim:abinit - Add support for ABINIT file formats sci-physics/abinit
+sci-visualization/v_sim:cube - Add support plug-in support for Cube files (densities and structures)
+sci-visualization/v_sim:openbabel - Add support for ABINIT file formats sci-chemistry/openbabel
+sci-visualization/v_sim:xsf - plug-in support for files that follow the XCrysDen format for structural positions and densities
+sys-cluster/condor:classads - Enable the Condor's classified advertisement language
+sys-cluster/condor:drmaa - Enable the Distributed Resource Management Application API
+sys-cluster/condor:gcb - Enable condor to communicate over firewall/NAT
+sys-cluster/condor:kbdd - Enable the Condor Keyboard Daemon to monitor logged in X users for activity
+sys-cluster/mpich2:mpi-threads - Enable MPI_THREAD_MULTIPLE
+sys-cluster/mpich2:romio - Build the ROMIO MPI-IO component
+sys-cluster/mvapich2:large-cluster - Automatically generated description for large-cluster
+sys-cluster/mvapich2:medium-cluster - Automatically generated description for medium-cluster
+sys-cluster/mvapich2:romio - Automatically generated description for romio
+sys-cluster/openmpi:heterogeneous - Enable features required for heterogeneous platform support
+sys-cluster/openmpi:infiniband - Enable infiniband support
+sys-cluster/openmpi:mpi-threads - Enable MPI_THREAD_MULTIPLE
+sys-cluster/openmpi:pbs - Add support for the Portable Batch System (PBS)
+sys-cluster/openmpi:romio - Build the ROMIO MPI-IO component
+sys-cluster/openmpi:vt - Enable bundled VampirTrace support
+sys-fs/ocfs2-tools:external - Enable external locking
+virtual/mpi:romio - Enable romio, a high-performance portable MPI-IO

@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Jul 2011; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
+  +files/pymol-9999-setup.py.patch, files/pymol-9999-shaders.patch,
+  metadata.xml:
+  Grap some fedora stuff, fix shadrers patch for current head
+
   02 Jun 2011; Justin Lecher <jlec@gentoo.org> +files/9999-web.patch,
   pymol-9999.ebuild, metadata.xml:
   Fix collision with dev-python/webpy, #368947

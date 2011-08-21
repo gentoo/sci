@@ -1,0 +1,31 @@
+# ChangeLog for sci-libs/openblas
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  16 Aug 2011; François Bissey <francois.bissey@canterbury.ac.nz>
+  openblas-0.1_alpha2.ebuild, openblas-9999.ebuild:
+  Include extra line in pkgconfig for incblas before installing it - not after.
+
+*openblas-0.1_alpha2 (03 Aug 2011)
+
+  03 Aug 2011 Andrea Arteaga <andyspiros@gmail.com> openblas-0.1_alpha2.ebuild
+  Import from bicatali overlay. Added alpha version.
+
+  20 Jun 2011; Sébastien Fabbro <bicatali@gentoo.org> openblas-9999.ebuild:
+  Added more include files, thanks François Bissey for his note
+
+  31 May 2011; Sébastien Fabbro <bicatali@gentoo.org> openblas-9999.ebuild,
+  +files/openblas-aliasing.patch:
+  Fixed shared libs. Make ebuild easier to debug with a generated rule Makefile
+  instead of dynamic. Added a aliasing patch. Switched to EAPI4.
+
+  23 Feb 2011; Sébastien Fabbro <bicatali@gentoo.org> openblas-9999.ebuild,
+  files/openblas-sharedlibs.patch:
+  fixed ldflags propagation
+
+*openblas-9999 (23 Feb 2011)
+
+  23 Feb 2011; Sébastien Fabbro <bicatali@gentoo.org> +openblas-9999.ebuild,
+  +files/openblas-sharedlibs.patch, +metadata.xml:
+  Initial import
+

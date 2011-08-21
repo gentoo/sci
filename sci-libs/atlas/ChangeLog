@@ -1,0 +1,67 @@
+# ChangeLog for sci-libs/atlas
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*atlas-3.8.4 (06 Aug 2011)
+
+  06 Aug 2011; Andrea Arteaga <andyspiros@gmail.com> +atlas-3.8.4.ebuild:
+  Version 3.8.4 restored
+
+*atlas-3.9.47 (06 Aug 2011)
+
+  06 Aug 2011; Andrea Arteaga <andyspiros@gmail.com> atlas-3.9.47.ebuild:
+  Version bump
+
+*atlas-3.9.46 (03 Aug 2011)
+
+  03 Aug 2011; Andrea Arteaga <andyspiros@gmail.com> -atlas-3.8.4.ebuild,
+  -atlas-3.9.41.ebuild, +atlas-3.9.46.ebuild
+  Version bump and import from bicatali
+
+*atlas-3.8.4 (23 May 2011)
+
+  23 May 2011; Sébastien Fabbro <bicatali@gentoo.org> -atlas-3.8.3.ebuild,
+  +atlas-3.8.4.ebuild:
+  Version bump of the stable branch
+
+  23 May 2011; Sébastien Fabbro <bicatali@gentoo.org> atlas-3.9.41.ebuild:
+  Forces gcc whenever a version of gcc is used, avoiding upstream bug
+
+*atlas-3.9.41 (17 May 2011)
+
+  17 May 2011; Sébastien Fabbro <bicatali@gentoo.org> -atlas-3.9.40-r1.ebuild,
+  +atlas-3.9.41.ebuild:
+  Version bump. Removed archdef 0 causing undefined symbols
+
+*atlas-3.9.40-r1 (29 Apr 2011)
+
+  29 Apr 2011; Sébastien Fabbro <bicatali@gentoo.org> -atlas-3.9.40.ebuild,
+  +atlas-3.9.40-r1.ebuild:
+  Reworked entirely linking procedure: now explicitely treat each module blas,
+  cblas and lapack separately
+
+*atlas-3.9.40 (27 Apr 2011)
+
+  27 Apr 2011; Sébastien Fabbro <bicatali@gentoo.org> -atlas-3.9.39.ebuild,
+  +atlas-3.9.40.ebuild:
+  Bump
+
+  15 Apr 2011; Justin Lecher <jlec@gentoo.org> atlas-3.9.39.ebuild:
+  Correct syntax for cpufrq check being all CPUs under performance controll
+
+*atlas-3.9.39 (21 Mar 2011)
+
+  21 Mar 2011; Sébastien Fabbro <bicatali@gentoo.org> atlas-3.9.39.ebuild:
+  Version bump. Seriously refactored the ebuild. Now choose posix threads over
+  openmp when the two are enabled
+
+*atlas-3.9.32 (05 Dec 2010)
+
+  05 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org> atlas-3.8.3.ebuild,
+  +atlas-3.9.32.ebuild:
+  Version bump. Still beta.
+
+  03 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org> atlas-3.8.3.ebuild,
+  metadata.xml:
+  Initial import. Ebuilds merged from blas-atlas and lapack-atlas.
+

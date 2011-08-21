@@ -71,9 +71,9 @@ src_prepare() {
 }
 
 src_configure() {
-	local linker=$($(tc-getCC) --help -v 2>&1 >/dev/null | grep	'\-dynamic\-linker' | cut -f7 -d' ')
+	local linker=$($(tc-getCC) --help -v 2>&1 >/dev/null | \
+		sed -n -e '/dynamic-linker/s:.* -dynamic-linker \([^ ]\+\) .*:\1:p')
 	local libgcc=$($(tc-getCC) -print-libgcc-file-name)
-	local crt=$($(tc-getCC) -print-file-name=crt1.o)
 	use custom-cflags && flags=(
 			-DCMAKE_C_FLAGS="${CFLAGS}"
 			-DCMAKE_CXX_FLAGS="${CXXFLAGS}"
@@ -102,7 +102,7 @@ src_configure() {
 		$(cmake-utils_use openmp PATH64_ENABLE_OPENMP)
 		$(cmake-utils_use debugger PATH64_ENABLE_PATHDB)
 		$(cmake-utils_use valgrind PATH64_ENABLE_VALGRIND)
-		-DPSC_CRT_PATH_x86_64=$(dirname ${crt})
+		-DPSC_CRT_PATH_x86_64=/usr/$(get_libdir)
 		-DPSC_CRTBEGIN_PATH=$(dirname ${libgcc})
 		-DPSC_DYNAMIC_LINKER_x86_64=${linker}
 		-DCMAKE_C_COMPILER="$(tc-getCC)"

@@ -1,9 +1,0 @@
-# ChangeLog for app-benchmarks/autobench
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*autobench-9999 (14 Jul 2011)
-
-  14 Jul 2011; Andrea Arteaga <andyspiros@gmail.com> +autobench-9999.ebuild,
-  +metadata.xml:
-  Initial import

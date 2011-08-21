@@ -14,11 +14,14 @@ IUSE="debug doc"
 
 EGIT_REPO_URI="https://github.com/LibreCAD/LibreCAD.git"
 
-RDEPEND="x11-libs/qt-gui[qt3support]"
-DEPEND="${RDEPEND}
+DEPEND="
+	x11-libs/qt-gui[qt3support]
 	x11-libs/qt-assistant:4
 	x11-libs/qt-qt3support:4
 "
+
+RDEPEND="${DEPEND}"
+
 src_prepare()
 {
 	# patch to solve an issue caused by gcc-4.6, by mickele, archlinux
@@ -29,11 +32,12 @@ src_prepare()
 
 src_install()
 {
+qt4-r2_src_install
 	dobin unix/librecad
 	insinto /usr/share/"${PN}"
 	doins -r unix/resources/*
 	if use doc ; then
-	dohtml -r support/doc/*
+		dohtml -r support/doc/*
 	fi
 	doicon res/main/"${PN}".png
 	make_desktop_entry "${PN}" LibreCAD "${PN}.png" Graphics
