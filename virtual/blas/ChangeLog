@@ -1,0 +1,16 @@
+# ChangeLog for virtual/blas
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/virtual/blas/ChangeLog,v 1.3 2010/01/11 10:55:38 ulm Exp $
+
+  11 Jan 2010; Ulrich Mueller <ulm@gentoo.org> blas-1.0.ebuild:
+  Set empty HOMEPAGE and LICENSE.
+
+  15 Dec 2009; Jonathan Callen <abcd@gentoo.org> blas-1.0.ebuild:
+  Add prefix keywords (~x86-freebsd ~amd64-linux ~x86-linux ~ppc-macos)
+
+*blas-1.0 (10 Oct 2007)
+
+  10 Oct 2007; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +blas-1.0.ebuild:
+  New style virtual for blas. Version number is abitrary.
+
