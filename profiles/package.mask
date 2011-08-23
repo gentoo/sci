@@ -60,6 +60,11 @@ sci-visualization/vtkPOFFReader
 # #348029
 sci-biology/tablet-bin
 
+# Sebastien Fabbro <ottxor@gentoo.org> (23 Aug 2011)
+# mask old blas from main tree to allow smoother transition to 
+# new blas/lapack framework
+=sci-libs/blas-reference-20070226*
+
 # Christoph Junghans <ottxor@gentoo.org> (20 Apr 2011)
 # mask live ebuild
 =sci-physics/espresso-9999

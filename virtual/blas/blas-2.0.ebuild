@@ -20,6 +20,7 @@ RDEPEND="|| (
 		>=sci-libs/acml-4.4
 		>=sci-libs/gotoblas2-1.13
 		>=sci-libs/mkl-10.3
+		!>sci-libs/blas-reference-20070225
 	)
 	doc? ( >=app-doc/blas-docs-3.2 )"
 DEPEND=""
