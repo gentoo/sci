@@ -1,0 +1,17 @@
+Authors:  Elias Pipping <pipping@exherbo.org>
+Upstream: no
+Synopsis: Fix compilation under KATMAI and PRESCOTT architecture.
+--- old/driver/others/dynamic.c 2010-01-20 17:28:45.000000000 +0100
++++ new/driver/others/dynamic.c 2010-05-28 16:04:10.190975461 +0200
+@@ -181,9 +181,9 @@
+   gotoblas = get_coretype();
+   
+ #ifdef ARCH_X86
+-  if (gotoblas == NULL) gotoblas = gotoblas_KATMAI;
++  if (gotoblas == NULL) gotoblas = &gotoblas_KATMAI;
+ #else
+-  if (gotoblas == NULL) gotoblas = gotoblas_PRESCOTT;
++  if (gotoblas == NULL) gotoblas = &gotoblas_PRESCOTT;
+ #endif
+   
+   if (gotoblas && gotoblas -> init) {

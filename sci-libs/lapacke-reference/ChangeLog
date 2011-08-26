@@ -1,0 +1,18 @@
+# ChangeLog for sci-libs/lapacke-reference
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*lapacke-reference-1.0.0.009 (22 Aug 2011)
+
+  22 Aug 2011; Sébastien Fabbro <bicatali@gentoo.org>
+  +lapacke-reference-1.0.0.009.ebuild, +._lapacke, +metadata.xml:
+  Imported from bicatali overlay
+
+  23 Feb 2011; Sébastien Fabbro <bicatali@gentoo.org>
+  lapacke-reference-1.0.0.009.ebuild:
+  Switched to alternatives-2 framework
+
+  05 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  lapacke-1.0.0.009.ebuild, +metadata.xml:
+  Initial import
+

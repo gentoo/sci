@@ -40,7 +40,10 @@ RDEPEND="
 		webkit? ( x11-libs/qt-webkit:4 ) )
 	mysql? ( virtual/mysql )
 	coprocessing? ( plugins? ( x11-libs/qt-gui:4 ) )
-	python? ( dev-python/sip )
+	python? ( 
+		dev-python/sip
+		dev-python/PyQt4
+	)
 	dev-libs/libxml2:2
 	media-libs/libpng
 	virtual/jpeg
@@ -72,12 +75,14 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-3.8.0-pointsprite-example-install.patch
 	# mpi + hdf5 fix
 	#epatch "${FILESDIR}"/${PN}-3.8.0-h5part.patch
+	# gcc fix for vtk
+	epatch "${FILESDIR}"/${P}-gcc46.patch
 
 	# lib64 fixes
 	sed -i "s:/usr/lib:/usr/$(get_libdir):g" \
-		Utilities/Xdmf2/libsrc/CMakeLists.txt || die "sed failed"
+		Utilities/Xdmf2/libsrc/CMakeLists.txt || die
 	sed -i "s:\/lib\/python:\/$(get_libdir)\/python:g" \
-		Utilities/Xdmf2/CMake/setup_install_paths.py || die "sed failed"
+		Utilities/Xdmf2/CMake/setup_install_paths.py || die
 
 	# Install internal vtk binaries inside /usr/${PVLIBDIR}
 	sed -e 's:VTK_INSTALL_BIN_DIR \"/${PV_INSTALL_BIN_DIR}\":VTK_INSTALL_BIN_DIR \"/${PV_INSTALL_LIB_DIR}\":' \
@@ -95,7 +100,7 @@ src_configure() {
 	mycmakeargs=(
 		-DPV_INSTALL_LIB_DIR="${PVLIBDIR}"
 		-DCMAKE_INSTALL_PREFIX=/usr
-		-DPV_INSTALL_DOC_DIR="/usr/share/doc/${P}"
+		-DPV_INSTALL_DOC_DIR="/usr/share/doc/${PF}"
 		-DEXPAT_INCLUDE_DIR=/usr/include
 		-DEXPAT_LIBRARY=/usr/$(get_libdir)/libexpat.so
 		-DOPENGL_gl_LIBRARY=/usr/$(get_libdir)/libGL.so
@@ -110,7 +115,7 @@ src_configure() {
 		-DVTK_USE_SYSTEM_ZLIB=ON
 		-DVTK_USE_SYSTEM_EXPAT=ON
 		-DPARAVIEW_USE_SYSTEM_HDF5=ON
-		-DCMAKE_VERBOSE_MAKEFILE=OFF
+		-DCMAKE_VERBOSE_MAKEFILE=ON
 		-DCMAKE_COLOR_MAKEFILE=TRUE
 		-DVTK_USE_SYSTEM_LIBXML2=ON
 		-DVTK_USE_OFFSCREEN=TRUE
@@ -138,7 +143,7 @@ src_configure() {
 		$(cmake-utils_use mysql XDMF_USE_MYSQL)
 		$(cmake-utils_use coprocessing PARAVIEW_ENABLE_COPROCESSING))
 
-	if ( use  gui  || use adaptive ); then
+	if ( use gui || use adaptive ); then
 		mycmakeargs+=(-DVTK_INSTALL_QT_DIR=/${PVLIBDIR}/plugins/designer
 			$(cmake-utils_use webkit VTK_QT_USE_WEBKIT))
 		if use python ; then

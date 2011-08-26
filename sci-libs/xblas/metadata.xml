@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<longdescription lang="en">
+  The XBLAS library of routines is part of a reference implementation for 
+  the Dense and Banded Basic Linear Algebra Subroutines, along with their 
+  Extended and Mixed Precision versions, as documented in Chapters 2 and 4 
+  of the new BLAS Standard.
+</longdescription>
+</pkgmetadata>

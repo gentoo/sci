@@ -43,10 +43,6 @@
 ~dev-lang/path64-9999
 
 # Justin Lecher <jlec@gentoo.org> (24 Jun 2011)
-# fftw dep is masked
-sci-libs/pfft
-
-# Justin Lecher <jlec@gentoo.org> (24 Jun 2011)
 # paraview dep is masked
 sci-visualization/vtkPOFFReader
 
@@ -63,6 +59,11 @@ sci-visualization/vtkPOFFReader
 # DESCRIPTION does not need to include $PN
 # #348029
 sci-biology/tablet-bin
+
+# Sebastien Fabbro <ottxor@gentoo.org> (23 Aug 2011)
+# mask old blas from main tree to allow smoother transition to 
+# new blas/lapack framework
+=sci-libs/blas-reference-20070226*
 
 # Christoph Junghans <ottxor@gentoo.org> (20 Apr 2011)
 # mask live ebuild
@@ -82,10 +83,6 @@ sci-biology/tablet-bin
 # masked for testing
 =sci-libs/openmm-2.0
 
-# Sebastien Fabbro (29 Sep 2010)
-# alpha software
->=sci-libs/fftw-3.3_alpha1
-
 # Christoph Junghans <ottxor@gentoo.org> (31 Jul 2010)
 # mask live ebuilds
 =sci-chemistry/gromacs-4.0.9999
@@ -98,7 +95,7 @@ sci-biology/tablet-bin
 =sci-libs/votca-tools-9999
 =sci-chemistry/votca-csg-9999
 =sci-chemistry/votca-csg-tutorials-9999
-=sci-chemistry/votca-csg-apps-9999
+=sci-chemistry/votca-csgapps-9999
 =app-doc/votca-csg-manual-9999
 
 # Christoph Junghans <ottxor@gentoo.org> (02 Nov 2009)

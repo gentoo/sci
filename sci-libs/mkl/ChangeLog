@@ -1,0 +1,22 @@
+# ChangeLog for sci-libs/mkl
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mkl-10.3.4.191 (22 Aug 2011)
+
+  22 Aug 2011; Sébastien Fabbro <bicatali@gentoo.org> +mkl-10.3.4.191.ebuild,
+  +metadata.xml:
+  Imported from bicatali overlay
+
+  06 Jun 2011; Sébastien Fabbro <bicatali@gentoo.org> mkl-10.3.4.191.ebuild:
+  Reworked all profile generation
+
+  30 May 2011; Sébastien Fabbro <bicatali@gentoo.org> mkl-10.3.4.191.ebuild:
+  Bump
+
+  23 Feb 2011; Sébastien Fabbro <bicatali@gentoo.org> mkl-10.3.2.137.ebuild:
+  Bump and switched to alternatives-2 framework
+
+  03 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org> mkl-10.3.0.084.ebuild:
+  Version bump. refactored ebuilds
+

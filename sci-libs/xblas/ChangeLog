@@ -1,0 +1,20 @@
+# ChangeLog for sci-libs/xblas
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*xblas-1.0.248 (22 Aug 2011)
+
+  22 Aug 2011; Sébastien Fabbro <bicatali@gentoo.org> +xblas-1.0.248.ebuild,
+  +metadata.xml:
+  Imported from bicatali overlay
+
+  31 May 2011; Sébastien Fabbro <bicatali@gentoo.org> xblas-1.0.248.ebuild:
+  Removed libm dependendency. Make shared lib consistent with other numeric
+  libraries packages. Switched to EAPI4.
+
+  09 Nov 2010; Sébastien Fabbro <bicatali@gentoo.org> xblas-1.0.248.ebuild:
+  Added eselect profile
+
+  03 Nov 2010; Sébastien Fabbro <bicatali@gentoo.org> ChangeLog:
+  Initial import
+
