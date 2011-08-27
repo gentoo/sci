@@ -4,6 +4,9 @@
 
 *librecad-1.0.0_rc2 (15 Aug 2011)
 
+  26 Aug 2011; Dongxu Li <dongxuli2011@gmail.com> librecad-1.0.0_rc2.ebuild:
+  Switched from zipball to tarball. fixed a git tag error during qmake
+
   18 Aug 2011; Justin Lecher <jlec@gentoo.org> librecad-9999.ebuild:
   Cleanup for librecad-9999.ebuild
 

@@ -8,7 +8,8 @@ inherit qt4-r2
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
-SRC_URI="https://nodeload.github.com/LibreCAD/LibreCAD/zipball/1.0.0rc2 -> ${P}.zip"
+SRC_URI="https://nodeload.github.com/LibreCAD/LibreCAD/tarball/1.0.0rc2 ->
+${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -27,7 +28,8 @@ src_unpack() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PV}-gcc4.6.patch
+	epatch "${FILESDIR}/${PV}-gcc4.6.patch"
+	epatch "${FILESDIR}/${P}-version.patch"
 }
 
 src_install() {
