@@ -1,0 +1,16 @@
+# ChangeLog for sci-chemistry/votca-csgapps
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*votca-csgapps-9999 (25 Aug 2011)
+
+  25 Aug 2011; Christoph Junghans <ottxor@gentoo.org>
+  +votca-csgapps-9999.ebuild, +metadata.xml:
+  sci-chemistry/votca-csg-apps -> sci-chemistry/votca-csgapps
+
+*votca-csg-apps-9999 (17 Jul 2011)
+
+  17 Jul 2011; Christoph Junghans <ottxor@gentoo.org>
+  +votca-csg-apps-9999.ebuild, +metadata.xml:
+  Initial commit
+

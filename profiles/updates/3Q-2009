@@ -21,3 +21,4 @@ move sys-cluster/libipathverbs sys-infiniband/libipathverbs
 move sys-cluster/openib-mvapich2 sys-infiniband/openib-mvapich2
 move sys-cluster/libibumad sys-infiniband/libibumad
 move sys-cluster/dapl sys-infiniband/dapl
+move sci-chemistry/votca-csg-apps sci-chemistry/votca-csgapps

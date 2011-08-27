@@ -6,25 +6,21 @@ EAPI=4
 
 inherit bash-completion cmake-utils
 
-MANUAL_PV=1.2
-TUTORIAL_PV=1.2
-IUSE="doc examples +gromacs +system-boost"
+IUSE="doc examples extras +gromacs +system-boost"
+PDEPEND="extras? ( =sci-chemistry/votca-csgapps-${PV} )"
 if [ "${PV}" != "9999" ]; then
 	SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz
-		doc? ( http://votca.googlecode.com/files/votca-manual-${MANUAL_PV}.pdf )
-		examples? (	http://votca.googlecode.com/files/votca-tutorials-${TUTORIAL_PV}.tar.gz )"
+		doc? ( http://votca.googlecode.com/files/votca-manual-${PV}.pdf )
+		examples? (	http://votca.googlecode.com/files/votca-tutorials-${PV}.tar.gz )"
 	RESTRICT="primaryuri"
 else
 	SRC_URI=""
-	#make this a common use when csg-apps get released
-	IUSE="${IUSE} extras"
 	inherit mercurial
 	EHG_REPO_URI="https://csg.votca.googlecode.com/hg"
 	EHG_REVISION="default"
 	S="${WORKDIR}/${EHG_REPO_URI##*/}"
-	PDEPEND="doc? ( =app-doc/votca-csg-manual-${PV} )
-		examples? ( =sci-chemistry/votca-csg-tutorials-${PV} )
-		extras? ( =sci-chemistry/votca-csg-apps-${PV} )"
+	PDEPEND="${PDEPEND} doc? ( =app-doc/votca-csg-manual-${PV} )
+		examples? ( =sci-chemistry/votca-csg-tutorials-${PV} )"
 fi
 
 DESCRIPTION="Votca coarse-graining engine"
@@ -65,7 +61,7 @@ src_install() {
 	cmake-utils_src_install
 	if use doc; then
 		if [ -n "${PV##*9999}" ]; then
-			dodoc "${DISTDIR}/votca-manual-${MANUAL_PV}.pdf"
+			dodoc "${DISTDIR}/votca-manual-${PV}.pdf"
 		fi
 		cd "${CMAKE_BUILD_DIR}" || die
 		cd share/doc || die
@@ -75,7 +71,7 @@ src_install() {
 	if use examples && [ -n "${PV##*9999}" ]; then
 		insinto "/usr/share/doc/${PF}/tutorials"
 		docompress -x "/usr/share/doc/${PF}/tutorials"
-		doins -r "${WORKDIR}/votca-tutorials-${TUTORIAL_PV}"/*
+		doins -r "${WORKDIR}/votca-tutorials-${PV}"/*
 	fi
 }
 

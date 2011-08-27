@@ -1,0 +1,21 @@
+# ChangeLog for sci-libs/mpiblacs
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  22 Aug 2011; Sébastien Fabbro <bicatali@gentoo.org> +mpiblacs-1.1.ebuild,
+  +metadata.xml:
+  Imported from bicatali overlay
+
+  01 Jun 2011; Sébastien Fabbro <bicatali@gentoo.org> mpiblacs-1.1.ebuild:
+  Switched to EAPI4. Create a static include makefile with big sed. Fixed
+  linking.
+
+  23 Feb 2011; Sébastien Fabbro <bicatali@gentoo.org> mpiblacs-1.1.ebuild:
+  Switched to alternatives-2 framework
+
+*mpiblacs-1.1 (06 Dec 2010)
+
+  06 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org> +mpiblacs-1.1.ebuild,
+  +metadata.xml:
+  Initial import
+

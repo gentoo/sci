@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Aug 2011; Christoph Junghans <ottxor@gentoo.org> votca-csg-9999.ebuild:
+  changes due to 1.2.1 release
+
   14 Aug 2011; Christoph Junghans <ottxor@gentoo.org> votca-csg-9999.ebuild,
   metadata.xml:
   renamed boost useflag to system-boost

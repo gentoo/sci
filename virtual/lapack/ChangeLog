@@ -1,0 +1,27 @@
+# ChangeLog for virtual/lapack
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/virtual/lapack/ChangeLog,v 1.5 2010/01/11 11:04:19 ulm Exp $
+
+*lapack-3.3 (24 Nov 2010)
+
+  24 Nov 2010; Sébastien Fabbro <bicatali@gentoo.org> +lapack-3.3.ebuild,
+  +metadata.xml:
+  Version bump
+
+  11 Jan 2010; Ulrich Mueller <ulm@gentoo.org> lapack-3.0.ebuild,
+  lapack-3.1.ebuild:
+  Set empty HOMEPAGE and LICENSE.
+
+  15 Dec 2009; Jonathan Callen <abcd@gentoo.org> lapack-3.1.ebuild:
+  QA: Add prefix keywords
+
+  21 Nov 2007; Sébastien Fabbro <bicatali@gentoo.org> lapack-3.0.ebuild,
+  lapack-3.1.ebuild:
+  added hppa
+
+*lapack-3.1 (21 Nov 2007)
+*lapack-3.0 (21 Nov 2007)
+
+  21 Nov 2007; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +lapack-3.0.ebuild, +lapack-3.1.ebuild:
+  Initial import of new style virtual for lapack.

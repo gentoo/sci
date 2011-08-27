@@ -17,7 +17,14 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND="=sci-chemistry/${PN%-manual}-${PV}
+DEPEND="
+	|| (
+		(
+			=sci-chemistry/${PN%-manual}-${PV}[extras]
+			=sci-chemistry/${PN%-manual}apps-${PV}
+		)
+		=sci-chemistry/${PN%-manual}-${PV}[-extras]
+	)
 	virtual/latex-base
 	dev-tex/pgf"
 

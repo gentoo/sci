@@ -1,27 +1,23 @@
- layer0/ShaderMgr.c |   16 ++++++++--------
- layer1/Setting.c   |    2 +-
- 2 files changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/layer0/ShaderMgr.c b/layer0/ShaderMgr.c
-index 4658b96..092aac8 100644
---- a/layer0/ShaderMgr.c
-+++ b/layer0/ShaderMgr.c
-@@ -416,7 +416,7 @@ int CShaderMgr_ShadersPresent(CShaderMgr * I)
+Index: layer0/ShaderMgr.c
+===================================================================
+--- layer0/ShaderMgr.c	(revision 3963)
++++ layer0/ShaderMgr.c	(working copy)
+@@ -416,7 +416,7 @@
  char * CShaderMgr_ReadShaderFromDisk(PyMOLGlobals * G, const char * fileName) {
    FILE* f;
    long size;
 -  char* buffer = NULL, *p, *pymol_path, *shader_path, *fullFile;
 +  char* buffer = NULL, *p, *pymol_data, *shader_path, *fullFile;
+   size_t res;
  
    PRINTFB(G, FB_ShaderMgr, FB_Debugging)
-     "CShaderMgr_ReadShaderFromDisk: fileName='%s'\n", fileName
-@@ -428,16 +428,16 @@ char * CShaderMgr_ReadShaderFromDisk(PyMOLGlobals * G, const char * fileName) {
+@@ -429,16 +429,16 @@
      return NULL;
    }
    
 -  pymol_path = getenv("PYMOL_PATH");
 -  if (!pymol_path){
-+  pymol_data = getenv("PYMOL_DATA");
++  pymol_path = getenv("PYMOL_DATA");
 +  if (!pymol_data){
      PRINTFB(G, FB_ShaderMgr, FB_Warnings)
 -      " PyMOLShader_NewFromFile-Warning: PYMOL_PATH not set, cannot read shader config files from disk\n" ENDFB(G);
@@ -38,7 +34,7 @@ index 4658b96..092aac8 100644
    fullFile = strcat(fullFile, shader_path);
    fullFile = strcat(fullFile, fileName);
  
-@@ -446,7 +446,7 @@ char * CShaderMgr_ReadShaderFromDisk(PyMOLGlobals * G, const char * fileName) {
+@@ -447,7 +447,7 @@
  
    if (!f) {
      PRINTFB(G, FB_ShaderMgr, FB_Errors)
@@ -47,11 +43,11 @@ index 4658b96..092aac8 100644
      return NULL;
    } else {
      PRINTFB(G, FB_ShaderMgr, FB_Blather)
-diff --git a/layer1/Setting.c b/layer1/Setting.c
-index 29b6bc5..2a70835 100644
---- a/layer1/Setting.c
-+++ b/layer1/Setting.c
-@@ -3991,7 +3991,7 @@ void SettingInitGlobal(PyMOLGlobals * G, int alloc, int reset_gui, int use_defau
+Index: layer1/Setting.c
+===================================================================
+--- layer1/Setting.c	(revision 3963)
++++ layer1/Setting.c	(working copy)
+@@ -3991,7 +3991,7 @@
      set_b(I, cSetting_line_use_shader, 1);
      set_b(I, cSetting_sphere_use_shader, 1);
      set_b(I, cSetting_use_shaders, 0);  /* disable by default until optimized shaders present; doesn't effect vol */

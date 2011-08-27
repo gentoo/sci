@@ -1,0 +1,10 @@
+# ChangeLog for app-doc/scalapack-docs
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*scalapack-docs-1.8 (13 Dec 2010)
+
+  13 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org>
+  +scalapack-docs-1.8.ebuild, +metadata.xml:
+  Initial import
+

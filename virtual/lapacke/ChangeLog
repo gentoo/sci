@@ -1,0 +1,10 @@
+# ChangeLog for virtual/lapacke
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*lapacke-1.0 (09 Dec 2010)
+
+  09 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org> +lapacke-1.0.ebuild,
+  +metadata.xml:
+  Initial import
+

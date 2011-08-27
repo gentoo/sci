@@ -1,0 +1,11 @@
+--- driver/others/init.c.orig	2011-05-31 23:23:24.000000000 +0100
++++ driver/others/init.c	2011-05-31 23:23:49.000000000 +0100
+@@ -215,7 +215,7 @@
+   for (node = 0; node < MAX_NODES; node ++) common -> node_info[node] = 0;
+ 
+   while ((dir = readdir(dp)) != NULL) {
+-    if (*(unsigned int *) dir -> d_name == 0x065646f6eU) {
++    if (*(char *) dir -> d_name == 0x065646f6eU) {
+ 
+       node = atoi(&dir -> d_name[4]);
+ 

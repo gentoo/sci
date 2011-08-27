@@ -30,6 +30,11 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher <jlec@gentoo.org> (26 Aug 2011)
+# Mask the tree reference-blas/lapack versions
+# resolves blas/lapack-eselect blocker, #380213
+>sci-libs/blas-reference-20
+
 # Dongxu Li <dongxuli2011@gmail.com> (10 Aug 2011)
 # Mask live version of librecad
 >=media-gfx/librecad-9999
@@ -59,6 +64,11 @@ sci-visualization/vtkPOFFReader
 # DESCRIPTION does not need to include $PN
 # #348029
 sci-biology/tablet-bin
+
+# Sebastien Fabbro <ottxor@gentoo.org> (23 Aug 2011)
+# mask old blas from main tree to allow smoother transition to 
+# new blas/lapack framework
+=sci-libs/blas-reference-20070226*
 
 # Christoph Junghans <ottxor@gentoo.org> (20 Apr 2011)
 # mask live ebuild
@@ -90,7 +100,7 @@ sci-biology/tablet-bin
 =sci-libs/votca-tools-9999
 =sci-chemistry/votca-csg-9999
 =sci-chemistry/votca-csg-tutorials-9999
-=sci-chemistry/votca-csg-apps-9999
+=sci-chemistry/votca-csgapps-9999
 =app-doc/votca-csg-manual-9999
 
 # Christoph Junghans <ottxor@gentoo.org> (02 Nov 2009)
