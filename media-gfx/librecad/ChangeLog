@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
 
+  28 Aug 2011; Justin Lecher <jlec@gentoo.org> librecad-1.0.0_rc2.ebuild,
+  librecad-9999.ebuild:
+  Cleaned up ebuild
+
 *librecad-1.0.0_rc2 (15 Aug 2011)
 
   26 Aug 2011; Dongxu Li <dongxuli2011@gmail.com> librecad-1.0.0_rc2.ebuild:
