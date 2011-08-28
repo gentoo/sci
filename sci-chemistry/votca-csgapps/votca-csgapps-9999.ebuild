@@ -12,6 +12,7 @@ if [ "${PV}" != "9999" ]; then
 else
 	inherit mercurial
 	EHG_REPO_URI="https://csgapps.votca.googlecode.com/hg"
+	EHG_REVISION="default"
 	S="${WORKDIR}/${EHG_REPO_URI##*/}"
 fi
 
