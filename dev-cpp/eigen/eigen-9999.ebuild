@@ -51,7 +51,7 @@ src_compile() {
 
 src_install() {
 	cmake-utils_src_install
-	use doc && dohtml -r "${CMAKE_BUILD_DIR}"/html/*
+	use doc && dohtml -r "${CMAKE_BUILD_DIR}"/doc/html/*
 	local x
 	for x in ${FORTRAN_LIBS}; do
 		local libname="eigen_${x}"

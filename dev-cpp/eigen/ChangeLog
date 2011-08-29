@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-cpp/eigen/ChangeLog,v 1.44 2011/03/25 16:01:28 jlec Exp $
 
+  29 Aug 2011; Justin Lecher <jlec@gentoo.org> eigen-3.0.1-r2.ebuild,
+  eigen-9999.ebuild, metadata.xml:
+  Corrected doc installation, thanks James Cloos for the fix
+
   19 Aug 2011; Andrea Arteaga <andyspiros@gmail.com> eigen-9999.ebuild
   Removed ~x86 and ~amd64 keyworkds (mask).
 
