@@ -73,10 +73,9 @@ src_unpack() {
 		ln -s "${DISTDIR}"/${i} ${i}
 	done
 	# ... copy the installation scripts ...
-	cp "${DISTDIR}"/{binval.com,install.com} .
+	cp -L "${DISTDIR}"/{binval.com,install.com} .
 	# ... and make the installation scripts executable.
 	chmod +x binval.com install.com
-
 	# Unset DISPLAY to avoid the interactive graphical test.
 	# This just unpacks the stuff
 	env DISPLAY="" csh ./install.com +type linux9 +dest "${S}"/NMR || die

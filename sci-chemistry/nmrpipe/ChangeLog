@@ -2,6 +2,23 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  31 Aug 2011; Justin Lecher <jlec@gentoo.org>
+  +files/5.99.2011.242.16.23-lib.patch, -files/5.95.2011.186.16.48-lib.patch,
+  -nmrpipe-5.95.2011.186.16.48.ebuild, +nmrpipe-5.99.2011.242.16.23.ebuild:
+  Version Bump
+
+  31 Aug 2011; Justin Lecher <jlec@gentoo.org>
+  +files/5.99.2011.242.16.23-lib.patch, -files/5.95.2011.186.16.48-lib.patch,
+  -nmrpipe-5.95.2011.186.16.48.ebuild, +nmrpipe-5.99.2011.242.16.23.ebuild:
+  Version Bump
+
+*nmrpipe-5.99.2011.242.16.23 (31 Aug 2011)
+
+  31 Aug 2011; Justin Lecher <jlec@gentoo.org>
+  +files/5.99.2011.242.16.23-lib.patch, -files/5.95.2011.186.16.48-lib.patch,
+  -nmrpipe-5.95.2011.186.16.48.ebuild, +nmrpipe-5.99.2011.242.16.23.ebuild:
+  Version Bump
+
 *nmrpipe-5.95.2011.186.16.48 (06 Jul 2011)
 
   06 Jul 2011; Justin Lecher <jlec@gentoo.org>
