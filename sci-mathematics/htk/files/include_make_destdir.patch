@@ -1,0 +1,73 @@
+diff -Naur htk.old//HLMTools/Makefile.in htk//HLMTools/Makefile.in
+--- htk.old//HLMTools/Makefile.in	2009-03-11 07:07:18.000000000 -0300
++++ htk//HLMTools/Makefile.in	2011-09-02 18:46:15.452348315 -0300
+@@ -71,9 +71,9 @@
+ 	-rm -f *.o $(PROGS) Makefile *.exe
+ 
+ install: mkinstalldir $(PROGS)
+-	for program in $(PROGS) ; do $(INSTALL) -m 755 $${program}@BINARY_EXTENSION@ $(bindir) ; done
++	for program in $(PROGS) ; do $(INSTALL) -m 755 $${program}@BINARY_EXTENSION@ $(DESTDIR)$(bindir) ; done
+ 
+ mkinstalldir:
+-        if [ ! -d $(bindir) -a X_@TRADHTK@ = X_yes ] ; then mkdir -p $(bindir) ; fi
++	if [ ! -d $(DESTDIR)$(bindir) -a X_@TRADHTK@ = X_yes ] ; then mkdir -p $(DESTDIR)$(bindir) ; fi
+ 
+ .PHONY: all strip clean cleanup distclean install mkinstalldir
+diff -Naur htk.old//HTKLVRec/Makefile.in htk//HTKLVRec/Makefile.in
+--- htk.old//HTKLVRec/Makefile.in	2009-03-11 06:56:05.000000000 -0300
++++ htk//HTKLVRec/Makefile.in	2011-09-02 18:44:40.072737063 -0300
+@@ -112,11 +112,11 @@
+ 	-rm -f *.o HDecode HDecode.mod Makefile
+ 
+ install: mkinstalldir
+-	$(INSTALL) -m 755 HDecode $(bindir)
+-	$(INSTALL) -m 755 HDecode.mod $(bindir)
++	$(INSTALL) -m 755 HDecode $(DESTDIR)$(bindir)
++	$(INSTALL) -m 755 HDecode.mod $(DESTDIR)$(bindir)
+ 
+ mkinstalldir:
+-	-mkdir -p $(bindir)
++	-mkdir -p $(DESTDIR)$(bindir)
+ 
+ .PHONY: std mod all strip clean cleanup distclean install mkinstalldir
+ 
+diff -Naur htk.old//HTKTools/Makefile.in htk//HTKTools/Makefile.in
+--- htk.old//HTKTools/Makefile.in	2009-03-11 09:50:53.000000000 -0300
++++ htk//HTKTools/Makefile.in	2011-09-02 18:45:41.423059972 -0300
+@@ -73,10 +73,10 @@
+ 	-rm -f *.o $(PROGS) *.exe Makefile
+ 
+ install: mkinstalldir $(PROGS)
+-	for program in $(PROGS) ; do $(INSTALL) -m 755 $${program} $(bindir) ; done
++	for program in $(PROGS) ; do $(INSTALL) -m 755 $${program} $(DESTDIR)$(bindir) ; done
+ 
+ mkinstalldir:
+-	if [ ! -d $(bindir) ] ; then mkdir $(bindir) ; fi
++	if [ ! -d $(DESTDIR)$(bindir) ] ; then mkdir -p $(DESTDIR)$(bindir) ; fi
+ 
+ 
+ .PHONY: all strip clean cleanup distclean install mkinstalldir
+diff -Naur htk.old//Makefile.in htk//Makefile.in
+--- htk.old//Makefile.in	2009-03-11 07:08:06.000000000 -0300
++++ htk//Makefile.in	2011-09-02 18:44:40.073737098 -0300
+@@ -119,16 +119,16 @@
+ 
+ # installation
+ install-htktools: htktools
+-	(cd $(HTKTOOLS) && $(MAKE) install) \
++	(cd $(HTKTOOLS) && $(MAKE) DESTDIR=$(DESTDIR) install) \
+ 	|| case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac;
+ install-hlmtools: hlmtools
+-	(cd $(HLMTOOLS) && $(MAKE) install) \
++	(cd $(HLMTOOLS) && $(MAKE) DESTDIR=$(DESTDIR) install) \
+ 	|| case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac;
+ install-hdecode:
+-	(cd $(LVREC) && $(MAKE) install) \
++	(cd $(LVREC) && $(MAKE) DESTDIR=$(DESTDIR) install) \
+ 	|| case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac;
+ install-book: book
+-	(cd $(HTKBOOK) && $(MAKE) install) \
++	(cd $(HTKBOOK) && $(MAKE) DESTDIR=$(DESTDIR) install) \
+ 	|| case "$(MFLAGS)" in *k*) fail=yes;; *) exit 1;; esac;
+ 
+ clean:
