@@ -40,7 +40,7 @@ src_configure() {
 		F90 = $(tc-getFC)
 		FCOPTS = ${FCFLAGS:- ${FFLAGS:- -O2}}
 		LDOPTS = ${LDFLAGS}
-		LIBS = -llapack -lblas
+		LIBS = $(pkg-config --libs blas lapack)
 	EOF
 }
 
