@@ -6,14 +6,11 @@
 		<email>pedosb@gmail.com</email>
 		<name>Pedro Batista</name>
 	</maintainer>
-	<longdescription>he Hidden Markov Model Toolkit (HTK) is a portable toolkit for building and manipulating hidden Markov models.</longdescription>
+	<longdescription>The Hidden Markov Model Toolkit (HTK) is a portable toolkit for building and manipulating hidden Markov models</longdescription>
 		<use>
-		<flag name="hlmtools">Installs the tools for manipulate language
-			models</flag>
-		<flag name="hdecode">Installs the HDecode a large vocabulary word
-			recogniser.</flag>
-		<flag name="htkbook">Builds the HTK documentation (HTK Book)</flag>
-		<flag name="hslab">Installs HSLab an label editor for manipulating
-			speech label. </flag>
+		<flag name="hlmtools">Install the tools for manipulation of language models</flag>
+		<flag name="hdecode">Install HDecode, a large vocabulary word recogniser</flag>
+		<flag name="htkbook">Build the HTK documentation (HTK Book)</flag>
+		<flag name="hslab">Install HSLab a label editor for speech label manipulation</flag>
 	</use>
 </pkgmetadata>
