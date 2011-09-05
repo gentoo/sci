@@ -41,15 +41,18 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
 src_configure() {
-	local extra="-DWITH_GMX_DEVEL=OFF"
+	local GMX_DEV="OFF" GMX_DOUBLE="OFF"
 
-	use gromacs && has_version =sci-chemistry/gromacs-9999 && \
-		extra="-DWITH_GMX_DEVEL=ON"
+	if use gromacs; then
+		has_version =sci-chemistry/gromacs-9999 && GMX_DEV="ON"
+		has_version sci-chemistry/gromacs[double-precision] && GMX_DOUBLE="ON"
+	fi
 
 	mycmakeargs=(
 		$(cmake-utils_use system-boost EXTERNAL_BOOST)
 		$(cmake-utils_use_with gromacs GMX)
-		${extra}
+		-DWITH_GMX_DEVEL="${GMX_DEV}"
+		-DGMX_DOUBLE="${GMX_DOUBLE}"
 		-DWITH_RC_FILES=OFF
 	)
 	cmake-utils_src_configure
