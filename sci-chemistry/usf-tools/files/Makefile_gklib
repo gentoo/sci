@@ -1,0 +1,24 @@
+EXTRA_FFLAGS = -DLINUX -u -std=legacy -ffixed-line-length-132
+LIBS = -lccp4f -lccp4c
+
+all: libkley.so.0.0.1
+
+OBJ = $(patsubst %.f,%.o,$(wildcard *.f))
+
+echo :
+	echo $(OBJ)
+
+%.o: %.f
+	$(FC) $(FFLAGS) $(EXTRA_FFLAGS) -fPIC -c $<
+
+fmalloc:
+	$(CC) $(CFLAGS) -DLINUX -fPIC -c $@.c
+
+libkley.a: OBJ fmalloc
+	ar rsv $@ *.o
+	ranlib $@
+
+libkley.so.0.0.1: $(OBJ) fmalloc
+	$(FC) $(LDFLAGS) -shared -Wl,-soname,libkley.so.0 -o $@ *.o $(LIBS)
+	ln -sf $@ libkley.so.0
+	ln -sf $@ libkley.so
