@@ -1,6 +1,12 @@
 # ChangeLog for app-doc/blas-docs
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/app-doc/blas-docs/ChangeLog,v 1.12 2009/12/17 10:04:04 fauli Exp $
+
+*blas-docs-3.3 (06 Sep 2011)
+
+  06 Sep 2011; Sébastien Fabbro <bicatali@gentoo.org> -blas-docs-3.2.0.ebuild,
+  +blas-docs-3.3.ebuild:
+  Version bump
 
 *blas-docs-3.2.0 (24 Nov 2010)
 
