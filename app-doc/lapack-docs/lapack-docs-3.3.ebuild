@@ -1,10 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=4
+
 DESCRIPTION="Documentation reference and man pages for LAPACK implementations"
 HOMEPAGE="http://www.netlib.org/lapack/"
-SRC_URI="mirror://gentoo/lapack-man-${PV}.tar.gz
+SRC_URI="http://dev.gentoo.org/~bicatali/lapack-man-${PV}.tar.gz
 	http://www.netlib.org/lapack/lapackqref.ps"
 
 LICENSE="BSD"
@@ -12,7 +14,7 @@ SLOT="0"
 KEYWORDS="alpha amd64 hppa ia64 ppc ppc64 s390 sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x86-macos"
 IUSE=""
 
-S="${WORKDIR}/lapack-${PV}/manpages"
+S="${WORKDIR}/manpages"
 
 src_install() {
 	# These belong to the blas-docs
@@ -20,11 +22,11 @@ src_install() {
 
 	# rename because doman do not yet understand manl files
 	# Not all systems have the rename command, like say FreeBSD
-	local f= t=
+	local f t
 	for f in man/manl/*.l; do
 		t="${f%%.l}.n"
 		mv "${f}" "${t}"
 	done
-	doman man/manl/* || die "doman failed"
-	dodoc README "${DISTDIR}"/lapackqref.ps || die "dodoc failed"
+	doman man/manl/*
+	dodoc README "${DISTDIR}"/lapackqref.ps
 }
