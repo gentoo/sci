@@ -1,6 +1,6 @@
 Index: libs/Makefile.am
 ===================================================================
---- libs/Makefile.am	(revision 803)
+--- libs/Makefile.am	(revision 837)
 +++ libs/Makefile.am	(working copy)
 @@ -1,6 +1,7 @@
  eselectlibsdir = $(datadir)/$(PACKAGE_NAME)/libs/
@@ -30,7 +30,7 @@ Index: libs/Makefile.am
  	@$(dosed) $< > $@
 Index: bin/Makefile.am
 ===================================================================
---- bin/Makefile.am	(revision 803)
+--- bin/Makefile.am	(revision 837)
 +++ bin/Makefile.am	(working copy)
 @@ -4,6 +4,7 @@
  dosed = @SED@ -e 's,\@BASH\@,$(BASH),g' \
@@ -42,7 +42,7 @@ Index: bin/Makefile.am
  % : %.in
 Index: bin/eselect.in
 ===================================================================
---- bin/eselect.in	(revision 803)
+--- bin/eselect.in	(revision 837)
 +++ bin/eselect.in	(working copy)
 @@ -22,10 +22,15 @@
  # Where are modules installed by default?
@@ -64,8 +64,8 @@ Index: bin/eselect.in
  # Look in this place for libraries
  ESELECT_CORE_PATH="${ESELECT_DATA_PATH}/libs"
 --- libs/alternatives.bash.in.orig	1970-01-01 01:00:00.000000000 +0100
-+++ libs/alternatives.bash.in	2010-12-15 19:37:54.000000000 +0000
-@@ -0,0 +1,533 @@
++++ libs/alternatives.bash.in	2011-09-06 18:55:43.000000000 +0100
+@@ -0,0 +1,550 @@
 +# Copyright 2008 Mike Kelly
 +# Copyright 2009 David Leverton
 +# Copyright 2010 Bo Ørsted Andresen
@@ -75,7 +75,7 @@ Index: bin/eselect.in
 +inherit config output path-manipulation
 +
 +ALTERNATIVESDIR_ROOTLESS="@sysconfdir@/env.d/alternatives"
-+ALTERNATIVESDIR="${EROOT}${ALTERNATIVESDIR_ROOTLESS}"
++ALTERNATIVESDIR="${ALTERNATIVESDIR_ROOTLESS}"
 +
 +get_current_provider() {
 +    local dieprefix="Could not determine current provider for ${ALTERNATIVE}"
@@ -244,29 +244,36 @@ Index: bin/eselect.in
 +
 +describe_set_options() {
 +    echo "--force : overwrite or remove existing non-symlink files (but not directories) if necessary"
-+    echo "<provider> : the name of the provider to use"
++    echo "<provider> : the name of the provider to use or the index of the provider preceeded by a dash"
 +}
 +
 +do_set() {
 +    [[ -z "${ALTERNATIVE}" ]] && die "Need to set ALTERNATIVE in the eselect module"
 +
-+    local force=
++    local force provider providers
 +    if [[ ${1} == --force ]]; then
 +        force=yes
 +        shift
 +    fi
 +
-+    local provider="${1}"
-+    [[ -z "${provider}" ]] && die -q "Missing required parameter 'provider'"
-+    if is_number "${provider}" ; then
-+        local providers=( $(get_providers) )
-+        (( ${provider} <= ${#providers[@]} )) || die -q "The given provider (${provider}) does not exist"
-+        provider=${providers[${provider}-1]}
++    if [[ ${1} == -+([[:digit:]]) ]]; then
++        providers=( $(get_providers) )
++        (( ${1#-} <= ${#providers[@]} )) || die -q "The given provider with index (${1#-}) does not exist"
++        provider=${providers[${1#-}-1]}
++    else
++        provider="${1}"
 +    fi
++    [[ -z "${provider}" ]] && die -q "Missing required parameter 'provider'"
 +    local dieprefix="Could not set provider ${provider} for alternative ${ALTERNATIVE}"
 +
-+    [[ -d ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider} ]] \
-+        || die -q "The given provider (${provider}) does not exist"
++    if [[ ! -d ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider} ]] ; then
++        if is_number ${provider} ; then
++            providers=( $(get_providers) )
++            [[ -n ${providers[${1#-}-1]} ]] &&
++                die -q "The given provider (${provider}) does not exist, did you mean -${provider} (${providers[${1#-}-1]})?"
++        fi
++        die -q "The given provider (${provider}) does not exist"
++    fi
 +
 +    local symlink newsymlinks=() oldsymlinks=()
 +
@@ -542,26 +549,36 @@ Index: bin/eselect.in
 +describe_script_options() {
 +    echo "--sh : use Bourne shell syntax (default)"
 +    echo "--csh : use C shell syntax"
-+    echo "<provider> : the provider to use (if not specified, use the system default)"
++    echo "<provider> : the provider to use or the index of the provider preceeded by a dash (if not specified, use the system default)"
 +}
 +
 +do_script() {
 +    [[ -z "${ALTERNATIVE}" ]] && die "Need to set ALTERNATIVE in the eselect module"
-+    local syntax=sh
++    local syntax=sh provider providers
 +    if [[ ${1} == --sh ]]; then
 +        shift
 +    elif [[ ${1} == --csh ]]; then
 +        syntax=csh
 +        shift
 +    fi
-+    local provider=${1}
-+    [[ -z "${provider}" ]] && die -q "Missing required parameter 'provider'"
-+    if is_number "${provider}" ; then
-+        local providers=( $(get_providers) )
-+        (( ${provider} <= ${#providers[@]} )) || die -q "The given provider (${provider}) does not exist"
-+        provider=${providers[${provider}-1]}
++
++    if [[ ${1} == -+([[:digit:]]) ]]; then
++        providers=( $(get_providers) )
++        (( ${1#-} <= ${#providers[@]} )) || die -q "The given provider with index (${1#-}) does not exist"
++        provider=${providers[${1#-}-1]}
++    else
++        provider="${1}"
 +    fi
-+    [[ -d ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider} ]] || die -q "The given provider (${provider}) does not exist"
++    [[ -z "${provider}" ]] && die -q "Missing required parameter 'provider'"
++
++    if [[ ! -d ${ALTERNATIVESDIR}/${ALTERNATIVE}/${provider} ]] ; then
++        if is_number ${provider} ; then
++            providers=( $(get_providers) )
++            [[ -n ${providers[${1#-}-1]} ]] &&
++                die -q "The given provider (${provider}) does not exist, did you mean -${provider} (${providers[${1#-}-1]})?"
++        fi
++        die -q "The given provider (${provider}) does not exist"
++    fi
 +
 +    local variables=( PATH LD_LIBRARY_PATH MANPATH )
 +    [[ -n ${!default_*} ]] && local ${!default_*}
