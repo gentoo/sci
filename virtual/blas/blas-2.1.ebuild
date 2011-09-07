@@ -13,14 +13,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE="doc"
 RDEPEND="|| (
-		>=sci-libs/blas-reference-3.3
-		>=dev-cpp/eigen-3.0.1-r1
-		>=sci-libs/atlas-3.8.4[fortran]
+		>=sci-libs/blas-reference-20110417
+		>=dev-cpp/eigen-3.0.2-r1
+		sci-libs/atlas[fortran]
 		sci-libs/openblas
 		>=sci-libs/acml-4.4
-		>=sci-libs/gotoblas2-1.13
+		sci-libs/gotoblas2
 		>=sci-libs/mkl-10.3
-		!>sci-libs/blas-reference-20070225
 	)
 	doc? ( >=app-doc/blas-docs-3.2 )"
 DEPEND=""
