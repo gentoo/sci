@@ -5,7 +5,7 @@
 EAPI=4
 inherit eutils toolchain-funcs cmake-utils alternatives-2
 
-MYP=lapack-${PV}
+MYP=lapack-3.3.1
 
 DESCRIPTION="Reference implementation of BLAS and LAPACK"
 HOMEPAGE="http://www.netlib.org/lapack/"
