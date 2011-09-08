@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,7 @@ EAPI=3
 inherit cmake-utils
 
 DESCRIPTION="BamTools provides a fast, flexible C++ API for reading and writing BAM files."
-HOMEPAGE="http://sourceforge.net/projects/bamtools"
+HOMEPAGE="https://github.com/pezmaster31/bamtools"
 SRC_URI="http://sourceforge.net/projects/bamtools/files/bamtools/bamtools-20101215.tar.gz"
 
 LICENSE="MIT"

@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Sep 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  bamtools-9999.ebuild, bamtools-20101215.ebuild:
+  Point to current HOMEPAGE bamtools-20101215.ebuild bamtools-9999.ebuild
+
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> bamtools-9999.ebuild:
   Moved from 'git' to 'git-2'
 
