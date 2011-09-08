@@ -108,7 +108,9 @@ src_compile() {
 }
 
 src_test() {
-	emake check || die "tests failed"
+	# No parallel tests yet & Need to increase the time
+	# limit for long running tests in Schubert2 to pass
+	emake TLIMIT=550 -j1 check || die "tests failed"
 }
 
 src_install () {
