@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit bash-completion cmake-utils
+inherit bash-completion-r1 cmake-utils
 
 IUSE="doc examples extras +gromacs +system-boost"
 PDEPEND="extras? ( =sci-chemistry/votca-csgapps-${PV} )"
@@ -60,7 +60,7 @@ src_configure() {
 
 src_install() {
 	DOCS=(README NOTICE ${CMAKE_BUILD_DIR}/CHANGELOG)
-	dobashcompletion scripts/csg-completion.bash ${PN}
+	newbashcomp scripts/csg-completion.bash ${PN}
 	cmake-utils_src_install
 	if use doc; then
 		if [ -n "${PV##*9999}" ]; then
