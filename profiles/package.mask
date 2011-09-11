@@ -30,10 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Justin Lecher <jlec@gentoo.org> (26 Aug 2011)
-# Mask the tree reference-blas/lapack versions
-# resolves blas/lapack-eselect blocker, #380213
->sci-libs/blas-reference-20
 
 # Dongxu Li <dongxuli2011@gmail.com> (10 Aug 2011)
 # Mask live version of librecad
