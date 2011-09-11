@@ -12,7 +12,7 @@ EGIT_BRANCH="master"
 #to find external blas/lapack
 CMAKE_MIN_VERSION="2.8.5-r2"
 
-inherit bash-completion cmake-utils eutils fortran-2 git-2 multilib toolchain-funcs
+inherit bash-completion-r1 cmake-utils eutils fortran-2 git-2 multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -198,7 +198,7 @@ src_install() {
 	doenvd "${T}/80gromacs"
 	rm -f "${ED}"/usr/bin/GMXRC*
 
-	dobashcompletion "${ED}"/usr/bin/completion.bash ${PN}
+	newbashcomp "${ED}"/usr/bin/completion.bash ${PN}
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
 		newins "${ED}"/usr/bin/completion.zsh _${PN}
@@ -223,16 +223,13 @@ src_install() {
 
 pkg_postinst() {
 	env-update && source /etc/profile
-	elog
-	elog "Please read and cite:"
-	elog "Gromacs 4, J. Chem. Theory Comput. 4, 435 (2008). "
-	elog "http://dx.doi.org/10.1021/ct700301q"
-	elog
-	bash-completion_pkg_postinst
-	elog
-	elog $(g_luck)
-	elog "For more Gromacs cool quotes (gcq) add luck to your .bashrc"
-	elog
-	elog "Gromacs can use sci-chemistry/vmd to read additional file formats"
-	elog
+	einfo
+	einfo  "Please read and cite:"
+	einfo  "Gromacs 4, J. Chem. Theory Comput. 4, 435 (2008). "
+	einfo  "http://dx.doi.org/10.1021/ct700301q"
+	einfo
+	einfo  $(g_luck)
+	einfo  "For more Gromacs cool quotes (gcq) add g_luck to your .bashrc"
+	einfo
+	elog  "Gromacs can use sci-chemistry/vmd to read additional file formats"
 }

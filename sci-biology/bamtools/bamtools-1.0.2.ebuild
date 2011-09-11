@@ -6,10 +6,9 @@ EAPI=3
 
 inherit cmake-utils
 
-DESCRIPTION="BamTools provides a fast, flexible C++ API for reading and writing BAM files."
+DESCRIPTION="BamTools provides a fast, flexible C++ API for reading and writing BAM files using modified JsonCPP."
 HOMEPAGE="https://github.com/pezmaster31/bamtools"
-SRC_URI="http://sourceforge.net/projects/bamtools/files/bamtools/bamtools-20101215.tar.gz"
-
+SRC_URI="https://github.com/downloads/pezmaster31/bamtools/"${P}".tar.gz"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"

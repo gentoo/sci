@@ -2,6 +2,15 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*bamtools-1.0.2 (10 Sep 2011)
+
+  10 Sep 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +bamtools-1.0.2.ebuild, bamtools-9999.ebuild, -bamtools-20101215.ebuild,
+  metadata.xml:
+  moved to new release download link and version bump, documented that included
+  JsonCPP is a modified version bamtools-20101215.ebuild bamtools-1.0.2.ebuild
+  bamtools-9999.ebuild
+
   08 Sep 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   bamtools-9999.ebuild, bamtools-20101215.ebuild:
   Point to current HOMEPAGE bamtools-20101215.ebuild bamtools-9999.ebuild
