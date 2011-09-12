@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit autotools eutils
+inherit autotools-utils eutils flag-o-matic fortran-2
 
 DESCRIPTION="Parallel 3d FFT"
 HOMEPAGE="http://www-user.tu-chemnitz.de/~mpip/software.php"
@@ -13,24 +13,28 @@ SRC_URI="http://www-user.tu-chemnitz.de/~mpip/software/${P//_}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="static-libs"
+IUSE="static-libs test"
 
 RDEPEND="
-	=sci-libs/fftw-3.3*[mpi]
-	virtual/mpi"
-DEPEND="${RDEPEND}"
+	=sci-libs/fftw-3.3*[mpi,fortran]
+	virtual/mpi
+	"
+
+DEPEND="
+	${RDEPEND}
+	test? ( virtual/fortran )
+	"
 
 S="${WORKDIR}/${P//_}"
 
 src_prepare() {
 	local i
+	use test && fortran-2_pkg_setup
 	for i in Makefile.am configure.ac libpfft.pc.in; do
-		cp "${FILESDIR}"/"${PF//_}"-"${i}" "${i}" || die "cp of ${i} failed"
+		cp "${FILESDIR}"/"${PF//_}"-"${i}" "${i}" || die
 	done
 
-	eautoreconf
-}
+	append-cppflags "-I${EROOT}/usr/include"
 
-src_configure() {
-	econf --disable-la-files "$(use_enable static-libs static)"
+	eautoreconf
 }
