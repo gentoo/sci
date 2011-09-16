@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*astlib-0.5.0 (16 Sep 2011)
+
+  16 Sep 2011; Kacper Kowalik <xarthisius@gentoo.org> +astlib-0.5.0.ebuild:
+  Version bump
+
   04 Aug 2011; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml:
   Switched herd to sci-astronomy
 
