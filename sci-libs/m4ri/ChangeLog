@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/m4ri
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Sep 2011; Andreas K. Huettel <dilfridge@gentoo.org> m4ri-20100221.ebuild:
+  Add $(use_enable debug) on request from mgorny
 
 *m4ri-20100221 (20 Aug 2010)
 

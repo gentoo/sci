@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -31,6 +31,7 @@ src_configure() {
 	# switch from yakuake to desktop
 	myeconfargs=(
 		$(use_with openmp)
+		$(use_enable debug)
 	)
 
 	autotools-utils_src_configure
