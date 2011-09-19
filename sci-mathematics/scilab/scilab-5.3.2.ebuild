@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=3
-inherit autotools check-reqs eutils flag-o-matic java-pkg-2
+inherit autotools check-reqs eutils fdo-mime flag-o-matic java-pkg-2
 
 DESCRIPTION="Scientific software package for numerical computations"
 LICENSE="CeCILL-2"
@@ -21,7 +21,8 @@ KEYWORDS="~amd64 ~x86"
 # http://wiki.scilab.org/Dependencies_of_Scilab_5.X
 RDEPEND="virtual/lapack
 	tk? ( dev-lang/tk )
-	xcos? ( dev-lang/ocaml )
+	xcos? ( dev-lang/ocaml
+			dev-java/hdf-java )
 	umfpack? ( sci-libs/umfpack )
 	gui? ( >=virtual/jre-1.5
 		dev-java/commons-logging
@@ -63,6 +64,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${P}-scilib-fix.patch"
 	# bug 9268 reported upstream http://bugzilla.scilab.org/show_bug.cgi?id=9268
 	epatch "${FILESDIR}"/bug_9268.diff
+	epatch "${FILESDIR}/${P}-allow-hdf-1.8.7.patch"
 
 	#bug 9824 upstream
 	sed -i "/BLAS_LIBS=$/d" m4/libsmath.m4
@@ -104,7 +106,7 @@ src_configure() {
 		$(use_with matio) \
 		$(use_with umfpack) \
 		$(use_with tk) \
-		$(use_with xcos scicos) \
+		$(use_with xcos) \
 		${myopts}
 }
 
@@ -117,15 +119,14 @@ src_compile() {
 
 src_install() {
 	emake DESTDIR="${ED}" install || die "emake install failed"
-
+	find "${ED}" -name '*.la' -delete || die
 	# install docs
 	dodoc ACKNOWLEDGEMENTS README_Unix Readme_Visual.txt \
 	|| die "failed to install docs"
+	insinto /usr/share/mime/packages
+	doins "${FILESDIR}/${PN}.xml"
 }
 
 pkg_postinst() {
-	einfo "To tell Scilab about your printers, set the environment"
-	einfo "variable PRINTERS in the form:"
-	einfo
-	einfo "PRINTERS=\"firstPrinter:secondPrinter:anotherPrinter\""
+	fdo-mime_mime_database_update
 }
