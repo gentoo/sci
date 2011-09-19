@@ -21,8 +21,7 @@ KEYWORDS="~amd64 ~x86"
 # http://wiki.scilab.org/Dependencies_of_Scilab_5.X
 RDEPEND="virtual/lapack
 	tk? ( dev-lang/tk )
-	xcos? ( dev-lang/ocaml
-			dev-java/hdf-java )
+	xcos? ( dev-lang/ocaml )
 	umfpack? ( sci-libs/umfpack )
 	gui? ( >=virtual/jre-1.5
 		dev-java/commons-logging
@@ -49,7 +48,8 @@ DEPEND="${RDEPEND}
 		app-text/docbook-xsl-stylesheets )"
 
 pkg_setup() {
-	CHECKREQS_MEMORY="512"
+	use doc && CHECKREQS_MEMORY="512M"
+	check-reqs_pkg_setup
 	java-pkg-2_pkg_setup
 
 	# temp Bug 6593 upstream, fixed
@@ -58,11 +58,14 @@ pkg_setup() {
 
 src_prepare() {
 	# Increases java heap to 512M when available, when building docs
-	check_reqs_conditional && epatch "${FILESDIR}/java-heap-${PV}.patch"
+	use doc && epatch "${FILESDIR}/java-heap-${PV}.patch"
 	# fix scilib path
 	epatch "${FILESDIR}/${P}-scilib-fix.patch"
 	# bug 9268 reported upstream http://bugzilla.scilab.org/show_bug.cgi?id=9268
 	epatch "${FILESDIR}"/bug_9268.diff
+
+	#bug 9824 upstream
+	sed -i "/BLAS_LIBS=$/d" m4/libsmath.m4
 
 	sed -i "s|-L\$SCI_SRCDIR/bin/|-L\$SCI_SRCDIR/bin/ \
 		-L$(java-config -i gluegen) \
@@ -84,7 +87,7 @@ src_configure() {
 	use doc && myopts="--with-docbook=/usr/share/sgml/docbook/xsl-stylesheets"
 	# javac complained about (j)hdf
 	use hdf5 && myopts="$myopts --with-hdf5-library=$(java-config -i hdf-java)"
-	export JAVA_HOME=$(java-config -O)
+	export JAVA_HOME="$(java-config -O)"
 	export BLAS_LIBS="$(pkg-config --libs blas)"
 	export LAPACK_LIBS="$(pkg-config --libs lapack)"
 
@@ -101,7 +104,7 @@ src_configure() {
 		$(use_with matio) \
 		$(use_with umfpack) \
 		$(use_with tk) \
-		$(use_with xcos) \
+		$(use_with xcos scicos) \
 		${myopts}
 }
 

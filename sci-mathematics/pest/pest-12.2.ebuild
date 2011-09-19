@@ -51,12 +51,6 @@ src_prepare() {
 		-e "s;^INSTALLDIR=.*;INSTALLDIR=${D}/usr/bin;" \
 		-e 's;^install :;install :\n\tinstall -d $(INSTALLDIR);' \
 		 makefile
-
-	# These changes are just for 12.1 - should go away
-	sed -i \
-	    -e 's/\(.*jco2jco .*jco2jco.*\)/\1 openun.o/' \
-	    -e 's/\(.*jcochek .*jcochek.o.*\)/\1 openun.o/' pestutl1.mak
-	sed -i -e '/.*integer.*ies2ipar.*$/ d' cmaes_p.F sceua_p.F
 }
 
 src_compile() {
@@ -64,7 +58,6 @@ src_compile() {
 	for mfile in pest.mak ppest.mak pestutl1.mak pestutl2.mak pestutl3.mak pestutl4.mak pestutl5.mak pestutl6.mak sensan.mak mpest.mak
 		do
 			emake -f ${mfile} all || die "${mfile} emake failed"
-			emake clean || die "emake clean failed"
 		done
 }
 
