@@ -13,7 +13,7 @@ LICENSE="public-domain"
 SLOT="0"
 KEYWORDS=""
 #KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="static"
 
 DEPEND="app-shells/bash
 	sys-libs/zlib
@@ -29,22 +29,45 @@ src_compile(){
 	# -I/var/tmp/portage/sci-biology/sra_sdk-2.0.1/work/sra_sdk-2.0.1/interfaces/os/unix
 	LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir out || die
 	LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir || die
+
+	# COMP env variable may have 'GCC' or 'ICC' values
+	if use static; then
+		emake static
+	else
+		emake dynamic
+	fi
 }
 
 src_install(){
+	# for details see "${WORKDIR}"/sra_sdk-2.1.6/README-build
+
+	# BUG: at the moment every binary is installed three times, e.g.:
+	# -rwxr-xr-x 1 root root 1797720 Sep 23 01:31 abi-dump
+	# -rwxr-xr-x 1 root root 1797720 Sep 23 01:31 abi-dump.2
+	# -rwxr-xr-x 1 root root 1797720 Sep 23 01:31 abi-dump.2.1.6
 	if use amd64; then
-		dobin "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/bin/*
+		dobin "${WORKDIR}"/objdir/linux/pub/gcc/x86_64/bin/*
+		insinto /usr/bin/ncbi
+		dobin "${WORKDIR}"/objdir/linux/pub/gcc/x86_64/bin/ncbi/*
 	elif use x86; then
-		dobin "${WORKDIR}"/objdir/linux/rel/gcc/i386/bin/*
+		dobin "${WORKDIR}"/objdir/linux/pub/gcc/i386/bin/*
+		insinto /usr/bin/ncbi
+		dobin "${WORKDIR}"/objdir/linux/pub/gcc/i386/bin/ncbi/*
 	fi
 
 	# mkdir -p ${D}/usr/bin || die
 	# for f in ${W}/objdir/linux/rel/gcc/i386/bin/*; do if [ ! -l "$f" ]; then cp "$f" ${D}/usr/bin || die "copy failed" ; fi; done
 
-	# looks the binaries have the folllowing libs statically linked
+	# looks the binaries have the folllowing libs statically linked in so we do NOT need these files
 	# mkdir -p ${D}/usr/ilib || die
 	# dolib ${W}/objdir/linux/rel/gcc/i386/ilib/*
+	# insinto "${D}"/usr/lib/ncbi
+	# doins ${W}/objdir/linux/rel/gcc/i386/ilib/ncbi/*
 
 	# mkdir -p ${D}/usr/lib || die
 	# dolib ${W}/objdir/linux/rel/gcc/i386/lib/*
+	# insinto "${D}"/usr/lib/ncbi
+	# doins ${W}/objdir/linux/rel/gcc/i386/lib/ncbi/*
+
+	# same for mod/ and wmod/ subdirs
 }
