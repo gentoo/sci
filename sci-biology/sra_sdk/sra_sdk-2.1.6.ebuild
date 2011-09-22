@@ -21,6 +21,7 @@ DEPEND="app-shells/bash
 	dev-libs/libxml2"
 RDEPEND="${DEPEND}"
 
+# upstream says:
 # icc, icpc are supported: tested with 11.0 (64-bit) and 10.1 (32-bit), 32-bit 11.0 does not work
 
 src_compile(){

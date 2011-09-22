@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*sra_sdk-2.1.6 (22 Sep 2011)
+
+  22 Sep 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  -sra_sdk-2.0.1.ebuild, +sra_sdk-2.1.6.ebuild:
+  version bump sra_sdk-2.1.6.ebuild
+
   30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   sra_sdk-2.0.1.ebuild:
   backbone of a new package, should probably use a lot of stuff from
