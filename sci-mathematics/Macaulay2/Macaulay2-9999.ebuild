@@ -13,8 +13,8 @@ ESVN_REPO_URI="svn://svn.macaulay2.com/Macaulay2/trunk/M2"
 DESCRIPTION="Research tool for commutative algebra and algebraic geometry"
 HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
 SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
-SRC_URI="${SRC_BASE}/OtherSourceCode/1.3/factory-3-1-1.tar.gz
-		 ${SRC_BASE}/OtherSourceCode/1.3/libfac-3-1-1.tar.gz
+SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/libfac-3-1-3.tar.gz
+		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-3-1-3.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Extra/gc-7.2alpha7-2011-07-25.tar.gz"
 
 SLOT="0"
@@ -67,9 +67,9 @@ src_prepare() {
 	# Factory, and libfac are statically linked libraries which (in this flavor) are not used by any
 	# other program. We build them internally and don't install them
 	mkdir "${S}/BUILD/tarfiles" || die "Creation of directory failed"
-	cp "${DISTDIR}/factory-3-1-1.tar.gz" "${S}/BUILD/tarfiles/" \
+	cp "${DISTDIR}/factory-3-1-3.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
-	cp "${DISTDIR}/libfac-3-1-1.tar.gz" "${S}/BUILD/tarfiles/" \
+	cp "${DISTDIR}/libfac-3-1-3.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
 	# Macaulay 2 insists on a snapshot of boehm-gc that is not available elsewhere
 	# We will let it build its internal version for now.  Note:
