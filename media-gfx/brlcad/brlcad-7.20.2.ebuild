@@ -36,6 +36,9 @@ DEPEND="${RDEPEND}
 	doc? ( dev-libs/libxslt )"
 
 BRLCAD_DIR="${EPREFIX}/usr/${PN}"
+src_prepare() {
+	epatch "${FILESDIR}/${PN}-7.18.4-libpng15.patch"
+}
 
 src_configure() {
 	local myconf="--without-jdk"
