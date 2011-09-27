@@ -4,6 +4,9 @@
 
 *brlcad-7.20.2 (15 Jul 2011)
 
+  26 Sep 2011; Dongxu Li <dongxuli2011@gmail.com> brlcad-7.20.2.ebuild:
+  Included libpng15 patch by Ian Stakenvicius, bug#378273
+
   18 Aug 2011; Dongxu Li <dongxuli2011@gmail.com> brlcad-9999.ebuild:
   Fixed an ebuild configuration issue
 
