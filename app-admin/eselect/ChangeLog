@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/app-admin/eselect/ChangeLog,v 1.179 2011/01/22 21:38:52 ulm Exp $
 
+*eselect-1.2.18-r1 (27 Sep 2011)
+
+  27 Sep 2011; Alexey Shvetsov <alexxy@gentoo.org> -eselect-1.2.17-r1.ebuild,
+  +eselect-1.2.18-r1.ebuild:
+  Version bump
+
   06 Sep 2011; Sébastien Fabbro <bicatali@gentoo.org>
   files/eselect-alternatives.patch:
   Updated to newer eclectic alternatives. Fixed a prefix thanks Francois Bissey
