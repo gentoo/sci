@@ -88,6 +88,7 @@ sci-biology/tablet-bin
 # mask live ebuilds
 =sci-chemistry/gromacs-4.0.9999
 =sci-chemistry/gromacs-4.5.9999
+=sci-chemistry/gromacs-4.6.9999
 =sci-chemistry/gromacs-9999
 =app-doc/gromacs-manual-9999
 
