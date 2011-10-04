@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*abinit-6.8.2 (27 Sep 2011)
+
+  27 Sep 2011; Honza Macháček <Hloupy.Honza@centrum.cz> +abinit-6.8.2.ebuild,
+  metadata.xml:
+  Another version bump. USE flag fftw-threads introduced, a workaround for
+  sci-libs/fftw-3.3 bug #384645 temporarily used.
+
 *abinit-6.8.1 (29 Jun 2011)
 
   29 Jun 2011; Honza Macháček <Hloupy.Honza@centrum.cz> +abinit-6.8.1.ebuild:

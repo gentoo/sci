@@ -1,9 +1,10 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-admin/eselect/eselect-1.2.18.ebuild,v 1.1 2011/09/25 16:24:18 ulm Exp $
 
 EAPI=3
-inherit eutils bash-completion autotools
+
+inherit autotools bash-completion-r1 eutils
 
 DESCRIPTION="Gentoo's multi-purpose configuration and management tool"
 HOMEPAGE="http://www.gentoo.org/proj/en/eselect/"
@@ -11,7 +12,7 @@ SRC_URI="mirror://gentoo/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~ppc-aix ~sparc-fbsd ~x86-fbsd ~x86-freebsd ~hppa-hpux ~ia64-hpux ~x86-interix ~amd64-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~ppc-aix ~sparc-fbsd ~x86-fbsd ~x64-freebsd ~x86-freebsd ~hppa-hpux ~ia64-hpux ~x86-interix ~amd64-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 IUSE="doc"
 
 RDEPEND="sys-apps/sed
@@ -30,24 +31,28 @@ RDEPEND="!app-admin/eselect-news
 # Commented out: only few users of eselect will edit its source
 #PDEPEND="emacs? ( app-emacs/gentoo-syntax )
 #	vim-syntax? ( app-vim/eselect-syntax )"
+
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-alternatives.patch
 	eautoreconf
 }
 
 src_compile() {
-	emake || die "emake failed"
+	emake || die
 
 	if use doc; then
-		make html || die "failed to build html"
+		emake html || die
 	fi
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "make install failed"
-	dodoc AUTHORS ChangeLog NEWS README TODO doc/*.txt
-	use doc && dohtml *.html doc/*
-	dobashcompletion misc/${PN}.bashcomp
+	emake DESTDIR="${D}" install || die
+	newbashcomp misc/${PN}.bashcomp ${PN} || die
+	dodoc AUTHORS ChangeLog NEWS README TODO doc/*.txt || die
+
+	if use doc; then
+		dohtml *.html doc/* || die
+	fi
 
 	# needed by news module
 	keepdir /var/lib/gentoo/news
@@ -59,6 +64,4 @@ pkg_postinst() {
 	[[ -z ${EROOT} ]] && local EROOT=${ROOT}
 	chgrp portage "${EROOT}/var/lib/gentoo/news" \
 		&& chmod g+w "${EROOT}/var/lib/gentoo/news"
-
-	bash-completion_pkg_postinst
 }
