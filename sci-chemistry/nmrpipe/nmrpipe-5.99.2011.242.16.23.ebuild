@@ -4,9 +4,9 @@
 
 # Versioning is output of nmrPipe -help
 
-EAPI="3"
+EAPI=3
 
-inherit eutils prefix
+inherit eutils prefix virtualx
 
 DESCRIPTION="Spectral visualisation, analysis and Fourier processing"
 HOMEPAGE="http://spin.niddk.nih.gov/bax/software/NMRPipe/"
@@ -78,7 +78,8 @@ src_unpack() {
 	chmod +x binval.com install.com
 	# Unset DISPLAY to avoid the interactive graphical test.
 	# This just unpacks the stuff
-	env DISPLAY="" csh ./install.com +type linux9 +dest "${S}"/NMR || die
+#	env DISPLAY="" csh ./install.com +type linux9 +dest "${S}"/NMR || die
+	VIRTUALX_COMMAND="csh ./install.com +type linux9 +dest ${S}/NMR" virtualmake
 }
 
 src_prepare() {
