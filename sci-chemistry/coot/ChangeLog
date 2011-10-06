@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Oct 2011; Justin Lecher <jlec@gentoo.org> +files/9999-libpng-1.5.patch,
+  coot-9999.ebuild:
+  Add png15 support and don't build static libs
+
   16 Jul 2011; Justin Lecher <jlec@gentoo.org> +files/9999-ssm.patch,
   coot-9999.ebuild:
   Adopt to unbundled ssm

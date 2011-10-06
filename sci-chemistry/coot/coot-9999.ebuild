@@ -84,6 +84,7 @@ PATCHES=(
 	"${FILESDIR}"/${PV}-mmdb-config.patch
 	"${FILESDIR}"/${PV}-test.patch
 	"${FILESDIR}"/${PV}-ssm.patch
+	"${FILESDIR}"/${PV}-libpng-1.5.patch
 	)
 
 src_unpack() {
@@ -109,6 +110,7 @@ src_configure() {
 	# All the --with's are used to activate various parts.
 	# Yes, this is broken behavior.
 	econf \
+		--disable-static \
 		--includedir='${prefix}/include/coot' \
 		--with-gtkcanvas-prefix="${EPREFIX}/usr" \
 		--with-gtkgl-prefix="${EPREFIX}/usr" \
