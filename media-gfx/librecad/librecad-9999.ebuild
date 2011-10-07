@@ -16,7 +16,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE="debug doc"
 
 DEPEND="
-	x11-libs/qt-assistant:4"
+	x11-libs/qt-assistant:4
+	dev-libs/boost
+	"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
