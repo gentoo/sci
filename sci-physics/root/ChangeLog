@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*root-5.28.00g (07 Oct 2011)
+
+  07 Oct 2011; Andrew Savchenko <bircoph@gmail.com>
+  +files/root-5.28.00b-nobyte-compile.patch, +root-5.28.00g.ebuild:
+  Version bump for 5.28 branch as requester per bug 384729.
+
 *root-5.30.02 (03 Oct 2011)
 
   03 Oct 2011; Andrew Savchenko <bircoph@gmail.com> +root-5.30.02.ebuild:
