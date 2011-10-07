@@ -64,6 +64,7 @@ RDEPEND="
 	>=net-misc/curl-7.19.6
 	net-dns/libidn"
 DEPEND="${RDEPEND}
+	>=sys-devel/libtool-2.4-r2
 	dev-lang/swig
 	sys-devel/bc
 	test? ( dev-scheme/greg )"

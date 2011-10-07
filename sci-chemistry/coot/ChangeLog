@@ -3,6 +3,9 @@
 # $Header: $
 
   07 Oct 2011; Justin Lecher <jlec@gentoo.org> coot-9999.ebuild:
+  Added dep on >=sys-devel/libtool-2.4-r2
+
+  07 Oct 2011; Justin Lecher <jlec@gentoo.org> coot-9999.ebuild:
   Moved to autotools-utils.eclass in order to have correct .a/la file handling,
   #385865; added png15 patch
 
