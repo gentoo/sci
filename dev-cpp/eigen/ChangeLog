@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-cpp/eigen/ChangeLog,v 1.44 2011/03/25 16:01:28 jlec Exp $
 
+* eigen-3.0.3 (7 Oct 2011)
+
+  7 Oct 2011; Andrea Arteaga <andyspiros@gmail.com> eigen-3.0.3.ebuild
+  Version bump.
+
 *eigen-3.0.2 (29 Aug 2011)
 
   29 Aug 2011; Justin Lecher <jlec@gentoo.org> +eigen-3.0.2.ebuild:
@@ -32,13 +37,13 @@
 
 *eigen-3.0.1-r1 (15 Jun 2011)
 
-  15 Jun 2011; Sébastien Fabbro <bicatali@gentoo.org> -eigen-3.0.0-r1.ebuild,
+  15 Jun 2011; SÃ©bastien Fabbro <bicatali@gentoo.org> -eigen-3.0.0-r1.ebuild,
   +eigen-3.0.1-r1.ebuild:
   Bump
 
 *eigen-3.0.0-r1 (31 Mar 2011)
 
-  31 Mar 2011; Sébastien Fabbro <bicatali@gentoo.org> +eigen-3.0.0-r1.ebuild,
+  31 Mar 2011; SÃ©bastien Fabbro <bicatali@gentoo.org> +eigen-3.0.0-r1.ebuild,
   +metadata.xml:
   Added a few extras flags to pull dependencies for unsupported eigen features.
   Also now build a blas implementation
@@ -49,7 +54,7 @@
   eigen-2.0.15.ebuild, +eigen-3.0.0.ebuild:
   Version Bump, Adapted to new tarball, #358761
 
-  13 Feb 2011; Tomáš Chvátal <scarabeus@gentoo.org> -eigen-2.0.5.ebuild,
+  13 Feb 2011; TomÃ¡Å¡ ChvÃ¡tal <scarabeus@gentoo.org> -eigen-2.0.5.ebuild,
   -eigen-2.0.14.ebuild:
   old
 
@@ -62,7 +67,7 @@
   eigen-2.0.14.ebuild, +eigen-2.0.15.ebuild:
   Version Bump, 339258
 
-  27 Aug 2010; Raúl Porcel <armin76@gentoo.org> eigen-2.0.13.ebuild:
+  27 Aug 2010; RaÃºl Porcel <armin76@gentoo.org> eigen-2.0.13.ebuild:
   alpha/ia64/sparc stable wrt #327581
 
   23 Jul 2010; Markus Meier <maekke@gentoo.org> eigen-2.0.13.ebuild:
@@ -95,15 +100,15 @@
   14 Jan 2010; Jeroen Roovers <jer@gentoo.org> eigen-2.0.5.ebuild:
   Stable for HPPA (bug #295884).
 
-  28 Dec 2009; Tomáš Chvátal <scarabeus@gentoo.org> eigen-2.0.5.ebuild,
+  28 Dec 2009; TomÃ¡Å¡ ChvÃ¡tal <scarabeus@gentoo.org> eigen-2.0.5.ebuild,
   eigen-2.0.10.ebuild:
   Reorder the deps to not rdepend on doxygen.
 
-  28 Dec 2009; Tomáš Chvátal <scarabeus@gentoo.org> eigen-2.0.5.ebuild,
+  28 Dec 2009; TomÃ¡Å¡ ChvÃ¡tal <scarabeus@gentoo.org> eigen-2.0.5.ebuild,
   eigen-2.0.10.ebuild:
   Doc useflag require doxygen. Per bug #298074.
 
-  27 Dec 2009; Raúl Porcel <armin76@gentoo.org> eigen-2.0.5.ebuild:
+  27 Dec 2009; RaÃºl Porcel <armin76@gentoo.org> eigen-2.0.5.ebuild:
   alpha/ia64/sparc stable
 
 *eigen-2.0.10 (10 Dec 2009)
@@ -124,7 +129,7 @@
   30 Nov 2009; Joseph Jezak <josejx@gentoo.org> Manifest:
   Marked ppc/ppc64 stable.
 
-  29 Nov 2009; Raúl Porcel <armin76@gentoo.org> eigen-2.0.9.ebuild:
+  29 Nov 2009; RaÃºl Porcel <armin76@gentoo.org> eigen-2.0.9.ebuild:
   Add ~sparc
 
 *eigen-2.0.9 (01 Nov 2009)
@@ -171,7 +176,7 @@
 
 *eigen-2.0.3 (30 Jul 2009)
 
-  30 Jul 2009; Tomáš Chvátal <scarabeus@gentoo.org> +eigen-2.0.3.ebuild,
+  30 Jul 2009; TomÃ¡Å¡ ChvÃ¡tal <scarabeus@gentoo.org> +eigen-2.0.3.ebuild,
   +files/eigen-ppc-define.patch:
   Version bump.
 
@@ -192,7 +197,7 @@
   14 Apr 2009; Tomas Chvatal <scarabeus@gentoo.org> +eigen-2.0.1.ebuild:
   Version bump.
 
-  11 Apr 2009; Raúl Porcel <armin76@gentoo.org> eigen-2.0.0.ebuild:
+  11 Apr 2009; RaÃºl Porcel <armin76@gentoo.org> eigen-2.0.0.ebuild:
   Add ~alpha/~ia64 wrt #260777
 
   09 Mar 2009; Brent Baude <ranger@gentoo.org> eigen-2.0.0.ebuild:
