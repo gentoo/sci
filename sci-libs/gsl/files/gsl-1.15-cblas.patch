@@ -1,0 +1,17 @@
+ Makefile.am |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 327d2f3..acae2a3 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -20,7 +20,9 @@ EXTRA_DIST = autogen.sh gsl-config.in gsl.pc.in configure.ac THANKS BUGS gsl.spe
+ lib_LTLIBRARIES = libgsl.la
+ libgsl_la_SOURCES = version.c
+ libgsl_la_LIBADD = $(SUBLIBS)
++libgsl_la_LIBADD += cblas/libgslcblas.la
+ libgsl_la_LDFLAGS = -version-info $(GSL_LT_VERSION)
++libgsl_la_LDFLAGS += -no-undefined
+ noinst_HEADERS = templates_on.h templates_off.h build.h
+ 
+ MINGW32_HOST = @MINGW32_HOST@

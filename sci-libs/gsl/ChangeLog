@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/gsl/ChangeLog,v 1.77 2010/08/09 09:32:55 xarthisius Exp $
 
+*gsl-1.15-r2 (11 Oct 2011)
+
+  11 Oct 2011; Justin Lecher <jlec@gentoo.org> -gsl-1.15-r1.ebuild,
+  +gsl-1.15-r2.ebuild, +files/gsl-1.15-cblas.patch, metadata.xml:
+  Fix undefined symbols because of missing gslcblas lib during linking
+
   22 Aug 2011; Sébastien Fabbro <bicatali@gentoo.org> +gsl-1.15-r1.ebuild,
   +files/gsl-1.15-pkgconfig.patch, +metadata.xml:
   Imported from bicatali overlay
