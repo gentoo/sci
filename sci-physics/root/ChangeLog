@@ -2,6 +2,15 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*root-5.30.03-r1 (21 Oct 2011)
+
+  21 Oct 2011; Andrew Savchenko <bircoph@gmail.com> +root-5.30.03-r1.ebuild:
+  sci-physics/root: update the latest ebuild
+
+  - switch to EAPI=4 in order to use REQUIRED_USE to constrain
+  X-related USE flags;
+  - fix build with libiodbc-3.52.7 (sed replace pattern changed).
+
 *root-5.30.03 (21 Oct 2011)
 
   21 Oct 2011; Andrew Savchenko <bircoph@gmail.com> +root-5.30.03.ebuild:
