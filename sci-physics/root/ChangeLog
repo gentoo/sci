@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*root-5.30.03 (21 Oct 2011)
+
+  21 Oct 2011; Andrew Savchenko <bircoph@gmail.com> +root-5.30.03.ebuild:
+  Version bump for 5.30.03 production patch release.
+
 *root-5.28.00g (07 Oct 2011)
 
   07 Oct 2011; Andrew Savchenko <bircoph@gmail.com>
