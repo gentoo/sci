@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.28.00d.ebuild,v 1.3 2011/06/21 14:31:50 jlec Exp $
 
-EAPI=3
+EAPI=4
 PYTHON_DEPEND="python? 2"
 inherit versionator eutils fortran-2 elisp-common fdo-mime python toolchain-funcs flag-o-matic
 
@@ -11,6 +11,7 @@ DOC_PV=5_26
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
 PATCH_PV=5.28.00b
+PATCH_PV2=5.30.00
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
@@ -80,14 +81,17 @@ DEPEND="${CDEPEND}
 
 RDEPEND="
 	virtual/fortran
-${CDEPEND}
+	${CDEPEND}
 	reflex? ( dev-cpp/gccxml )
 	xinetd? ( sys-apps/xinetd )"
+
+REQUIRED_USE="!X? ( !opengl !qt4 !xft )"
 
 S="${WORKDIR}/${PN}"
 
 pkg_setup() {
 	fortran-2_pkg_setup
+	python_pkg_setup
 	elog
 	elog "There are extra options on packages not yet in Gentoo:"
 	elog "AliEn, castor, Chirp, dCache, gfal, gLite, Globus,"
@@ -114,13 +118,12 @@ pkg_setup() {
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/${P}-xrootd-prop-flags.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-xrootd-prop-flags.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-prop-ldflags.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-asneeded.patch \
-		"${FILESDIR}"/${P}-nobyte-compile.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
-		"${FILESDIR}"/${P}-lzma.patch
+		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc
@@ -149,7 +152,7 @@ src_prepare() {
 	sed -i \
 		-e 's:libPythia6:libpythia6:g' \
 		-e 's:ungif:gif:g' \
-		-e 's:$ODBCINC:$ODBCINC /usr/include/iodbc:' \
+		-e 's:$ODBCINCDIR:$ODBCINCDIR /usr/include/iodbc:' \
 		-e 's:libpq-fe.h:pg_config.h:' \
 		configure || die "adjusting configure for Gentoo failed"
 
