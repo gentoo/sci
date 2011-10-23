@@ -37,7 +37,8 @@ INTEL_PV3=$(get_version_component_range 3)
 INTEL_PV4=$(get_version_component_range 4)
 INTEL_URI="http://registrationcenter-download.intel.com/irc_nas/${INTEL_DID}/${INTEL_DPN}"
 
-SRC_URI="amd64? ( multilib? ( ${INTEL_URI}_${INTEL_DPV}.tgz ) )
+SRC_URI="
+	amd64? ( multilib? ( ${INTEL_URI}_${INTEL_DPV}.tgz ) )
 	amd64? ( !multilib? ( ${INTEL_URI}_${INTEL_DPV}_intel64.tgz ) )
 	x86?  ( ${INTEL_URI}_${INTEL_DPV}_ia32.tgz )"
 
@@ -79,7 +80,7 @@ intel-sdp_pkg_setup() {
 		INTEL_RPMS="${INTEL_RPMS} intel-${p}-${INTEL_PV4}-${INTEL_PV1}.${INTEL_PV2}-${INTEL_PV3}.noarch.rpm"
 	done
 	[[ -z ${CHECKREQS_DISK_BUILD} ]] && CHECKREQS_DISK_BUILD=256
-	check_reqs
+	check_reqs_pkg_setup
 }
 
 intel-sdp_src_unpack() {
