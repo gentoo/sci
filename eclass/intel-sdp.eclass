@@ -80,7 +80,7 @@ intel-sdp_pkg_setup() {
 		INTEL_RPMS="${INTEL_RPMS} intel-${p}-${INTEL_PV4}-${INTEL_PV1}.${INTEL_PV2}-${INTEL_PV3}.noarch.rpm"
 	done
 	[[ -z ${CHECKREQS_DISK_BUILD} ]] && CHECKREQS_DISK_BUILD=256
-	check_reqs_pkg_setup
+	check-reqs_pkg_setup
 }
 
 intel-sdp_src_unpack() {
