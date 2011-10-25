@@ -16,7 +16,6 @@ Before committing, please remove the comments from this file. They are
 not relevant for general metadata.xml files.
 -->
 <pkgmetadata>
-	<herd>no-herd</herd>
 	<maintainer>
 		<email>@gentoo.org</email>
 		<!--  <description>Description of the maintainership</description> -->
