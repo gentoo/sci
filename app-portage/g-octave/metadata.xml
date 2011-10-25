@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>no-herd</herd>
 	<maintainer>
 		<email>rafael@rafaelmartins.eng.br</email>
 		<name>Rafael Goncalves Martins</name>
@@ -15,4 +14,3 @@
 		tries to be very similar to the interface of the emerge tool.
 	</longdescription>
 </pkgmetadata>
-
