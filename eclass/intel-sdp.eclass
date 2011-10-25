@@ -52,6 +52,7 @@ RESTRICT="mirror"
 RDEPEND=""
 DEPEND=">=app-arch/rpm2targz-9.0.0.3g"
 INTEL_SDP_YEAR=${INTEL_DPV%_update*}
+INTEL_SDP_YEAR=${INTEL_DPV%_sp*}
 INTEL_SDP_DIR="opt/intel/${INTEL_SUBDIR}-${INTEL_SDP_YEAR:-${INTEL_PV1}}.${INTEL_PV3}.${INTEL_PV4}"
 INTEL_SDP_EDIR="${EROOT%/}/${INTEL_SDP_DIR}"
 
@@ -79,7 +80,7 @@ intel-sdp_pkg_setup() {
 	for p in ${INTEL_DAT_RPMS}; do
 		INTEL_RPMS="${INTEL_RPMS} intel-${p}-${INTEL_PV4}-${INTEL_PV1}.${INTEL_PV2}-${INTEL_PV3}.noarch.rpm"
 	done
-	[[ -z ${CHECKREQS_DISK_BUILD} ]] && CHECKREQS_DISK_BUILD=256
+	[[ -z ${CHECKREQS_DISK_BUILD} ]] && CHECKREQS_DISK_BUILD=256M
 	check-reqs_pkg_setup
 }
 
@@ -100,6 +101,7 @@ intel-sdp_src_unpack() {
 			mv ${l} opt/intel/ || die "failed moving extract log file"
 		done
 	done
+	mv -v opt/intel/* ${INTEL_SDP_DIR} || die "Correction of INTEL_SDP_DIR failed"
 }
 
 intel_link_eclipse_plugins() {
