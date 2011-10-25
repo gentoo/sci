@@ -4,8 +4,8 @@
 
 EAPI=3
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=2158
-INTEL_DPV=2011_update2
+INTEL_DID=2328
+INTEL_DPV=2011_sp1
 INTEL_SUBDIR=composerxe
 
 inherit intel-sdp
@@ -14,6 +14,7 @@ DESCRIPTION="Intel FORTRAN Compiler"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-composer-xe/"
 
 IUSE=""
+
 RDEPEND="~dev-libs/intel-common-${PV}[compiler]"
 DEPEND="${RDEPEND}"
 

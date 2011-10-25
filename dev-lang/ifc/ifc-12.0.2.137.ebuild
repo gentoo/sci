@@ -24,7 +24,5 @@ QA_PREBUILT="
 	${INTEL_SDP_DIR}/mpirt/lib/*/*"
 QA_PRESTRIPPED="${INTEL_SDP_DIR}/compiler/lib/*/.*libFNP.so"
 
-CHECKREQS_DISK_BUILD=256
-
 INTEL_BIN_RPMS="compilerprof compilerprof-devel"
 INTEL_DAT_RPMS="compilerprof-common"
