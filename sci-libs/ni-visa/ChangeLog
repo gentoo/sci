@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/ni-visa
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Oct 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Removed no-herd from herd tag in metadata.xml
 
 *ni-visa-0.0.1 (22 Jun 2010)
 
