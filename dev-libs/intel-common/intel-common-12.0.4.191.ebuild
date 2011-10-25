@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=3
+
 INTEL_DPN=parallel_studio_xe
 INTEL_DID=2158
 INTEL_DPV=2011_update2
@@ -24,8 +25,6 @@ QA_PRESTRIPPED="
 	${INTEL_SDP_DIR}/compiler/lib/*/.*libFNP.so
 	${INTEL_SDP_DIR}/bin/sourcechecker/lib/*/pinruntime/.*
 	${INTEL_SDP_DIR}/bin/sourcechecker/*/*/.*"
-
-CHECKREQS_DISK_BUILD=256
 
 pkg_setup() {
 	einfo ${INTEL_SDP_DIR}
