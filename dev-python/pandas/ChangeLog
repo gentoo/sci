@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Oct 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Removed no-herd from herd tag in metadata.xml
+
 *pandas-0.4.1 (27 Sep 2011)
 
   27 Sep 2011; Tim Cera <timcera@earthlink.net> +pandas-0.4.1.ebuild,
