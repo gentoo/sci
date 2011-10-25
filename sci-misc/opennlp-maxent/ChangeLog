@@ -1,6 +1,9 @@
 # ChangeLog for sci-misc/opennlp-maxent
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Oct 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Removed no-herd from herd tag in metadata.xml
 
 *opennlp-maxent-2.4.0 (03 Jan 2008)
 
