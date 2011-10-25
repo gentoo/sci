@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Oct 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Removed no-herd from herd tag in metadata.xml
+
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> hfst-2.2.ebuild,
   hfst-3.0.2.ebuild:
   EAPI bump
