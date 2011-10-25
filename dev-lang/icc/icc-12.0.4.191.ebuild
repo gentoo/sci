@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=3
+
 INTEL_DPN=parallel_studio_xe
 INTEL_DID=2158
 INTEL_DPV=2011_update2
@@ -14,6 +15,7 @@ DESCRIPTION="Intel C/C++ Compiler"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-composer-xe/"
 
 IUSE="eclipse"
+
 DEPEND="~dev-libs/intel-common-${PV}[compiler]"
 RDEPEND="${DEPEND}
 	eclipse? ( dev-util/eclipse-sdk )"
