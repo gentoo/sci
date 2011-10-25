@@ -1,0 +1,22 @@
+# ChangeLog for sci-chemistry/ambertools
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ambertools/ChangeLog,v 1.2 2011/08/02 14:42:37 alexxy Exp $
+
+*ambertools-1.5-r2 (25 Oct 2011)
+
+  25 Oct 2011; Reinis Danne <rei4dan@gmail.com> +ambertools-1.5-r2.ebuild,
+  +files/ambertools-1.5-bugfix_1-21.patch, +files/ambertools-1.5-gentoo2.patch,
+  +metadata.xml:
+  Add bugfixes up to bugfix 21, use system byacc, fix arpack unbundling,
+  respect *FLAGS, remove mpi use, don't build sleap (it is broken), enable
+  tests.
+
+  02 Aug 2011; Alexey Shvetsov <alexxy@gentoo.org> ambertools-1.5-r1.ebuild:
+  Add ~amd64-linux keyword
+
+*ambertools-1.5-r1 (28 Jul 2011)
+
+  28 Jul 2011; Alexey Shvetsov <alexxy@gentoo.org> +ambertools-1.5-r1.ebuild,
+  +files/ambertools-1.5-gentoo.patch, +metadata.xml:
+  Initial import to tree
+
