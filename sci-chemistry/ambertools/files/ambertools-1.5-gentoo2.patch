@@ -305,6 +305,18 @@ diff -urN amber11.orig/AmberTools/src/ptraj/ptraj.h amber11/AmberTools/src/ptraj
  #endif
  #endif
  
+diff -urN amber11.orig/AmberTools/src/ptraj/trajectory.c amber11/AmberTools/src/ptraj/trajectory.c
+--- amber11.orig/AmberTools/src/ptraj/trajectory.c	2011-03-10 20:12:15.000000000 +0200
++++ amber11/AmberTools/src/ptraj/trajectory.c	2011-10-26 22:25:04.192375511 +0300
+@@ -1314,7 +1314,7 @@
+ {
+   fpos_t fileMarker;         /* marker for current file postition */
+   char *junk;
+-  char buffer[120];
++  char buffer[BUFFER_SIZE];
+   char coords[26];    /* room for 24 characters (3f8.3) + \n + (char) 0  */
+   char c;     
+   int j,ret;
 diff -urN amber11.orig/AmberTools/src/rism/Makefile amber11/AmberTools/src/rism/Makefile
 --- amber11.orig/AmberTools/src/rism/Makefile	2011-04-14 15:30:19.000000000 +0300
 +++ amber11/AmberTools/src/rism/Makefile	2011-10-25 15:32:04.010129318 +0300
