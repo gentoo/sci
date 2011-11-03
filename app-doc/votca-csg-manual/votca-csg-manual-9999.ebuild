@@ -6,7 +6,7 @@ EAPI="3"
 
 inherit base mercurial
 
-EHG_REPO_URI="https://manual.votca.googlecode.com/hg"
+EHG_REPO_URI="https://csg-manual.votca.googlecode.com/hg"
 EHG_REVISION="default"
 S="${WORKDIR}/${EHG_REPO_URI##*/}"
 
