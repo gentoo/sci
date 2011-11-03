@@ -37,6 +37,8 @@ DEPEND="${RDEPEND}
 	>=app-text/txt2tags-2.5
 	dev-util/pkgconfig"
 
+DOCS=( NOTICE )
+
 src_prepare() {
 	use gsl || ewarn "Disabling gsl will lead to reduced functionality"
 	use fftw || ewarn "Disabling fftw will lead to reduced functionality"
@@ -59,7 +61,6 @@ src_configure() {
 }
 
 src_install() {
-	DOCS=(${CMAKE_BUILD_DIR}/CHANGELOG NOTICE)
 	cmake-utils_src_install || die
 	if use doc; then
 		cd "${CMAKE_BUILD_DIR}" || die

@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Nov 2011; Christoph Junghans <ottxor@gentoo.org> votca-tools-9999.ebuild:
+  live ebuild update
+
   14 Aug 2011; Christoph Junghans <ottxor@gentoo.org> votca-tools-9999.ebuild,
   metadata.xml:
   renamed boost useflag to system-boost
