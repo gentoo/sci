@@ -29,7 +29,6 @@ KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd
 IUSE="cairo doc emacs examples +gd ggi latex lua plotutils readline svga thin-splines wxwidgets X xemacs"
 
 RDEPEND="
-	!app-emacs/gnuplot-mode
 	cairo? (
 		x11-libs/cairo
 		x11-libs/pango )

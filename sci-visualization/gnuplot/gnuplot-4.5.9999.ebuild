@@ -30,7 +30,6 @@ IUSE="cairo doc emacs examples +gd ggi latex lua plotutils qt4 readline svga thi
 RESTRICT="wxwidgets? ( test )"
 
 RDEPEND="
-	!app-emacs/gnuplot-mode
 	cairo? (
 		x11-libs/cairo
 		x11-libs/pango )
@@ -100,6 +99,7 @@ src_configure() {
 	local myconf
 	myconf="${myconf} --without-lisp-files"
 	myconf="${myconf} --without-pdf"
+	myconf="${myconf} --enable-stats" #extra command save to be enabled
 	myconf="${myconf} --with-texdir=${TEXMF}/tex/latex/${PN}"
 	myconf="${myconf} $(use_with cairo)"
 	myconf="${myconf} $(use_with doc tutorial)"
