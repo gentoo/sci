@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Nov 2011; Christoph Junghans <ottxor@gentoo.org>
+  votca-csg-tutorials-9999.ebuild:
+  Live ebuild update
+
 *votca-csg-tutorials-9999 (17 Jul 2011)
 
   17 Jul 2011; Christoph Junghans <ottxor@gentoo.org>
