@@ -40,6 +40,8 @@ DEPEND="${RDEPEND}
 	>=app-text/txt2tags-2.5
 	dev-util/pkgconfig"
 
+DOCS=( README NOTICE )
+
 src_configure() {
 	local GMX_DEV="OFF" GMX_DOUBLE="OFF"
 
@@ -59,7 +61,6 @@ src_configure() {
 }
 
 src_install() {
-	DOCS=(README NOTICE ${CMAKE_BUILD_DIR}/CHANGELOG)
 	newbashcomp scripts/csg-completion.bash ${PN}
 	cmake-utils_src_install
 	if use doc; then
