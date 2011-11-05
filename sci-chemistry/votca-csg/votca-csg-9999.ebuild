@@ -69,9 +69,8 @@ src_install() {
 			dodoc "${DISTDIR}/votca-manual-${PV}.pdf"
 		fi
 		cd "${CMAKE_BUILD_DIR}" || die
-		cd share/doc || die
-		doxygen || die
-		dohtml -r html/*
+		emake html
+		dohtml -r share/doc/html/*
 	fi
 	if use examples && [ -n "${PV##*9999}" ]; then
 		insinto "/usr/share/doc/${PF}/tutorials"
