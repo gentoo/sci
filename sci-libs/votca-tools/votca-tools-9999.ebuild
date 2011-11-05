@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=4
 
-inherit cmake-utils eutils
+inherit cmake-utils eutils multilib
 
 if [ "${PV}" != "9999" ]; then
 	SRC_URI="system-boost? ( http://votca.googlecode.com/files/${PF}_pristine.tar.gz )
@@ -56,16 +56,16 @@ src_configure() {
 		$(cmake-utils_use_with fftw FFTW)
 		$(cmake-utils_use_with sqlite SQLITE3)
 		-DWITH_RC_FILES=OFF
+		-DLIB=$(get_libdir)
 	)
-	cmake-utils_src_configure || die
+	cmake-utils_src_configure
 }
 
 src_install() {
-	cmake-utils_src_install || die
+	cmake-utils_src_install
 	if use doc; then
-		cd "${CMAKE_BUILD_DIR}" || die
-		cd share/doc || die
-		doxygen || die
-		dohtml -r html/* || die
+		cd "${CMAKE_BUILD_DIR}"
+		emake html
+		dohtml -r share/doc/html/*
 	fi
 }
