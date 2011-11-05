@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit bash-completion-r1 cmake-utils
+inherit bash-completion-r1 cmake-utils multilib
 
 IUSE="doc examples extras +gromacs +system-boost"
 PDEPEND="extras? ( =sci-chemistry/votca-csgapps-${PV} )"
@@ -56,6 +56,7 @@ src_configure() {
 		-DWITH_GMX_DEVEL="${GMX_DEV}"
 		-DGMX_DOUBLE="${GMX_DOUBLE}"
 		-DWITH_RC_FILES=OFF
+		-DLIB=$(get_libdir)
 	)
 	cmake-utils_src_configure
 }
