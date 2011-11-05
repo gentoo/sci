@@ -18,7 +18,7 @@ else
 	S="${WORKDIR}/${EHG_REPO_URI##*/}"
 fi
 
-DESCRIPTION="Votca molecular orbital overlap code"
+DESCRIPTION="Votca kinetic Monte Carlo code"
 HOMEPAGE="http://www.votca.org"
 
 LICENSE="Apache-2.0"
