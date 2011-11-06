@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/app-doc/lapack-docs/ChangeLog,v 1.16 2009/12/17 10:06:48 fauli Exp $
 
+*lapack-docs-3.3-r1 (06 Nov 2011)
+
+  06 Nov 2011; Andrew Savchenko <bircoph@gmail.com> -lapack-docs-3.3.ebuild,
+  +lapack-docs-3.3-r1.ebuild:
+  Remove files belonging to blas-docs.
+  See bug #387981.
+
 *lapack-docs-3.3 (06 Sep 2011)
 
   06 Sep 2011; Sébastien Fabbro <bicatali@gentoo.org>

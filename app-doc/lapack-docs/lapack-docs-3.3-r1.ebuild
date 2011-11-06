@@ -18,7 +18,7 @@ S="${WORKDIR}/manpages"
 
 src_install() {
 	# These belong to the blas-docs
-	rm -f man/manl/{lsame,xerbla}.*
+	rm -f man/manl/{csrot,lsame,xerbla,xerbla_array,zdrot}.*
 
 	# rename because doman do not yet understand manl files
 	# Not all systems have the rename command, like say FreeBSD
