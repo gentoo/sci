@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/libsufr
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*libsufr-0.3.0 (09 Nov 2011)
+
+  09 Nov 2011; Kacper Kowalik <xarthisius@gentoo.org> +libsufr-0.3.0.ebuild,
+  +files/libsufr-0.3.0-multilib.patch, +metadata.xml:
+  Initial import, ebuild written by Marc van der Sluys <sluys@astro.ru.nl>,
+  edited by me
+
