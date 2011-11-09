@@ -1,0 +1,12 @@
+diff -Naur atompaw-3.0.1-orig/src/atompaw_prog.f90 atompaw-3.0.1/src/atompaw_prog.f90
+--- src/atompaw_prog.f90	2011-01-29 22:53:52.000000000 +0000
++++ src/atompaw_prog.f90	2011-06-03 12:12:36.000000000 +0000
+@@ -485,7 +485,7 @@
+      CALL mkname(io,flnm)
+      OPEN(ifout,file='wfn'//TRIM(flnm),form='formatted')
+      WRITE(ifout,*) '# l=',PAW%l(io),'basis function with energy  ',PAW%eig(io)
+-       DO i=1,irc+50
++       DO i=1,n
+           WRITE(ifout,'(1p,5e12.4)') r(i),PAW%ophi(i,io),PAW%otphi(i,io),PAW%otp(i,io)
+        ENDDO
+        CLOSE(ifout)

@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*abinit-6.10.1 (09 Nov 2011)
+
+  09 Nov 2011; Honza Macháček <Hloupy.Honza@centrum.cz>
+  +abinit-6.10.1.ebuild:
+  Version bump to 6.10.1, sci-physics/atompaw ebuild updated as well, update of
+  bigDFT and other issues still to be done
+
 *abinit-6.8.2 (27 Sep 2011)
 
   27 Sep 2011; Honza Macháček <Hloupy.Honza@centrum.cz> +abinit-6.8.2.ebuild,
