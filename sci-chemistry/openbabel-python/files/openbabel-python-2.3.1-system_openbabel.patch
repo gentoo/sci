@@ -1,0 +1,15 @@
+--- scripts/python/setup.py
++++ scripts/python/setup.py
+@@ -15,11 +15,7 @@
+ 
+ obExtension = Extension('_openbabel',
+                  [os.path.join(srcdir, "openbabel-python.cpp")],
+-                 include_dirs=[os.path.join(srcdir, "..", "..", "include"),
+-                               os.path.join("..", "include")],
+-                 library_dirs=[os.path.join(srcdir, "..", "..", "lib"),
+-                               os.path.join(srcdir, "..", "..", "lib64"),
+-                               os.path.join("..", "lib")],
++                 include_dirs=[os.path.join("/usr", "include", "openbabel-2.0")],
+                  libraries=['openbabel']
+                  )
+ 

@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/openbabel-python
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*openbabel-python-2.3.1 (10 Nov 2011)
+
+  10 Nov 2011; Reinis Danne <rei4dan@gmail.com> +openbabel-python-2.3.1.ebuild,
+  +files/openbabel-python-2.3.1-system_openbabel.patch, +metadata.xml:
+  Version bump to 2.3.1
+
