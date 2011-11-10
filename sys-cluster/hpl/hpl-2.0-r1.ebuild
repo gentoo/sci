@@ -28,7 +28,7 @@ src_prepare() {
 		-e '/^ARCH\>/s,= .*,= gentoo_hpl_fblas_x86,' \
 		-e '/^MPdir\>/s,= .*,=,' \
 		-e '/^MPlib\>/s,= .*,=,' \
-		-e "/^LAlib\>/s,= .*,= /usr/$(get_libdir)/libblas.so /usr/$(get_libdir)/liblapack.so," \
+		-e "/^LAlib\>/s,= .*,= $(pkg-config --libs-only-l blas lapack)," \
 		-e "/^LINKER\>/s,= .*,= ${mpicc_path}," \
 		-e "/^CC\>/s,= .*,= ${mpicc_path}," \
 		-e "/^LINKFLAGS\>/s|= .*|= ${LDFLAGS}|" \
