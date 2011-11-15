@@ -1,0 +1,10 @@
+# ChangeLog for dev-ml/lacaml
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*lacaml-5.5.2 (15 Nov 2011)
+
+  15 Nov 2011; Guillaume Horel <guillaume.horel@gmail.com>
+  +lacaml-5.5.2.ebuild, +metadata.xml:
+  Original import
+
