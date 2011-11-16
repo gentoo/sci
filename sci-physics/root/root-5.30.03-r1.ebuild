@@ -28,13 +28,14 @@ IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
 	llvm +math mpi mysql ncurses odbc +opengl openmp oracle postgres prefix
 	pythia6	pythia8	python +reflex ruby qt4 ssl xft xml xinetd xrootd"
 
-CDEPEND="app-arch/xz-utils
+CDEPEND="
+	app-arch/xz-utils
 	>=dev-lang/cfortran-4.4-r2
 	dev-libs/libpcre
 	media-libs/freetype
 	media-libs/giflib
-	media-libs/libpng
-	media-libs/tiff
+	media-libs/libpng:0
+	media-libs/tiff:0
 	sys-apps/shadow
 	sys-libs/zlib
 	virtual/jpeg
@@ -46,13 +47,15 @@ CDEPEND="app-arch/xz-utils
 		x11-libs/libXpm
 		|| ( >=media-libs/libafterimage-1.20 >=x11-wm/afterstep-2.2.11 )
 		opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps )
-		qt4? ( x11-libs/qt-gui:4
+		qt4? (
+			x11-libs/qt-gui:4
 			x11-libs/qt-opengl:4
 			x11-libs/qt-qt3support:4
 			x11-libs/qt-svg:4
 			x11-libs/qt-webkit:4
 			x11-libs/qt-xmlpatterns:4 )
-		xft? ( x11-libs/libXft ) )
+		xft? ( x11-libs/libXft )
+		)
 	afs? ( net-fs/openafs )
 	avahi? ( net-dns/avahi )
 	clarens? ( dev-libs/xmlrpc-c )
@@ -71,7 +74,8 @@ CDEPEND="app-arch/xz-utils
 	postgres? ( dev-db/postgresql-base )
 	pythia6? ( sci-physics/pythia:6 )
 	pythia8? ( sci-physics/pythia:8 )
-	ruby? ( dev-lang/ruby
+	ruby? (
+			dev-lang/ruby
 			dev-ruby/rubygems )
 	ssl? ( dev-libs/openssl )
 	xml? ( dev-libs/libxml2 )"
@@ -92,14 +96,14 @@ S="${WORKDIR}/${PN}"
 pkg_setup() {
 	fortran-2_pkg_setup
 	python_pkg_setup
-	elog
+	echo
 	elog "There are extra options on packages not yet in Gentoo:"
 	elog "AliEn, castor, Chirp, dCache, gfal, gLite, Globus,"
 	elog "HDFS, Monalisa, MaxDB/SapDB, SRP."
 	elog "You can use the env variable EXTRA_ECONF variable for this."
 	elog "For example, for SRP, you would set: "
 	elog "EXTRA_ECONF=\"--enable-srp --with-srp-libdir=/usr/$(get_libdir)\""
-	elog
+	echo
 	enewgroup rootd
 	enewuser rootd -1 -1 /var/spool/rootd rootd
 
