@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -24,7 +24,7 @@ IUSE=""
 
 DEPEND=">=dev-python/setuptools-0.6_rc3"
 RDEPEND=">=sci-geosciences/pydap-3.0_rc10
-	>=sci-geosciences/cdat-lite-5.2
+	>=sci-geosciences/cdat-lite-6.0_alpha
 	>=dev-python/arrayterator-1.0.1"
 
 S="$WORKDIR/$MY_P"
