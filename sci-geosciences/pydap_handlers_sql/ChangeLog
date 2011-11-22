@@ -2,6 +2,18 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pydap_handlers_sql-0.1.2 (22 Nov 2011)
+
+  22 Nov 2011; Tim Cera <tim@cerazone.net> -pydap_handlers_sql-0.1.0.ebuild,
+  +pydap_handlers_sql-0.1.2.ebuild:
+  Version bump.
+
+*pydap_handlers_sql-0.1.1 (22 Nov 2011)
+
+  22 Nov 2011; Tim Cera <tim@cerazone.net> -pydap_handlers_sql-0.1.0.ebuild,
+  +pydap_handlers_sql-0.1.1.ebuild:
+  Version bump.
+
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> pydap_handlers_sql-0.1.0.ebuild,
   metadata.xml:
   Cleaned repoman issues, don't know if ebuild is still working
