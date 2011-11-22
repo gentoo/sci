@@ -1,0 +1,10 @@
+# ChangeLog for sci-geosciences/pydap_handlers_hdf5
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pydap_handlers_hdf5-0.1.4 (21 Nov 2011)
+
+  21 Nov 2011; Tim Cera <tim@cerazone.net> +pydap_handlers_hdf5-0.1.4.ebuild,
+  +metadata.xml:
+  Initial ebuild.
+
