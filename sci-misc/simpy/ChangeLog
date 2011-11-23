@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*simpy-2.2 (23 Nov 2011)
+
+  23 Nov 2011; Tim Cera <tim@cerazone.net> -simpy-2.0.1.ebuild,
+  -simpy-2.1.0.ebuild, +simpy-2.2.ebuild, metadata.xml:
+  Version bump.
+
   13 Apr 2011; Justin Lecher <jlec@gentoo.org> simpy-2.1.0.ebuild:
   Fix ups
 
