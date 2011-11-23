@@ -2,7 +2,7 @@
 # Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  23 Aug 2008; Tim Cera <timcera@earthlink.net> +congen-1.6.ebuild,
+  23 Aug 2008; Tim Cera <tim@cerazone.net> +congen-1.6.ebuild,
   +metadata.xml:
   Initial ebuild.
 

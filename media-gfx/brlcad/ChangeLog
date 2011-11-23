@@ -93,7 +93,7 @@
   -files/brlcad-tcltk-man_install.patch:
   Version bump. Rewrote from scratch
 
-  24 Aug 2008; Tim Cera <timcera@earthlink.net> brlcad-7.10.4.ebuild:
+  24 Aug 2008; Tim Cera <tim@cerazone.net> brlcad-7.10.4.ebuild:
   * The BDL (BSD Documentation License) was for content on their wiki. Removed
   from software licenses. * Changed the copyright year to 2008.
 

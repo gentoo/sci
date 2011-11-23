@@ -4,20 +4,20 @@
 
 *libtcd-2.2.5 (19 Nov 2010)
 
-  19 Nov 2010; Tim Cera <timcera@earthlink.net> -libtcd-2.2.4.ebuild,
+  19 Nov 2010; Tim Cera <tim@cerazone.net> -libtcd-2.2.4.ebuild,
   +libtcd-2.2.5.ebuild:
   Version bump.
 
 *libtcd-2.2.4 (12 Jun 2009)
 
-  12 Jun 2009; Tim Cera <timcera@earthlink.net> libtcd-2.2.3.ebuild,
+  12 Jun 2009; Tim Cera <tim@cerazone.net> libtcd-2.2.3.ebuild,
   +libtcd-2.2.4.ebuild:
   sci-geosciences/libtcd: Version bump to 2.2.4, removed ~x86
 
-  06 Jul 2008; Tim Cera <timcera@earthlink.net> libtcd-2.2.3.ebuild:
+  06 Jul 2008; Tim Cera <tim@cerazone.net> libtcd-2.2.3.ebuild:
   Added ~x64 per http://bugs.gentoo.org/show_bug.cgi?id=214867#c4
 
-  16 May 2008; Tim Cera <timcera@earthlink.net> +libtcd-2.2.3.ebuild,
+  16 May 2008; Tim Cera <tim@cerazone.net> +libtcd-2.2.3.ebuild,
   +metadata.xml:
   Initial import
 

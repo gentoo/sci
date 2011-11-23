@@ -4,29 +4,29 @@
 
 *swmm-5.0.022 (15 Jul 2011)
 
-  15 Jul 2011; Tim Cera <timcera@earthlink.net> -swmm-5.0.020.ebuild,
+  15 Jul 2011; Tim Cera <tim@cerazone.net> -swmm-5.0.020.ebuild,
   +swmm-5.0.022.ebuild:
   Version bump.
 
 *swmm-5.0.020 (04 Sep 2010)
 
-  04 Sep 2010; Tim Cera <timcera@earthlink.net> -swmm-5.0.018.ebuild,
+  04 Sep 2010; Tim Cera <tim@cerazone.net> -swmm-5.0.018.ebuild,
   +swmm-5.0.020.ebuild:
   Version bump.
 
 *swmm-5.0.018 (13 Dec 2009)
 
-  13 Dec 2009; Tim Cera <timcera@earthlink.net> -swmm-5.0.015.ebuild,
+  13 Dec 2009; Tim Cera <tim@cerazone.net> -swmm-5.0.015.ebuild,
   +swmm-5.0.018.ebuild:
   Changed to match upstream's new version numbering. Version bump.
 
 *swmm-5.0.015 (10 Jun 2009)
 
-  10 Jun 2009; Tim Cera <timcera@earthlink.net> -swmm-5.0.013.ebuild,
+  10 Jun 2009; Tim Cera <tim@cerazone.net> -swmm-5.0.013.ebuild,
   +swmm-5.0.015.ebuild:
   sci-geosciences/swmm: Version bump.
 
-  09 Oct 2008; Tim Cera <timcera@earthlink.net> +swmm-5.0.013.ebuild,
+  09 Oct 2008; Tim Cera <tim@cerazone.net> +swmm-5.0.013.ebuild,
   +metadata.xml:
   Initial ebuild.
 

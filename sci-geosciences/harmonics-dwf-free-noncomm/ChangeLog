@@ -4,7 +4,7 @@
 
 *harmonics-dwf-free-noncomm-20100529 (19 Nov 2010)
 
-  19 Nov 2010; Tim Cera <timcera@earthlink.net>
+  19 Nov 2010; Tim Cera <tim@cerazone.net>
   -harmonics-dwf-free-noncomm-20071228.ebuild,
   -harmonics-dwf-free-noncomm-20081228.ebuild,
   +harmonics-dwf-free-noncomm-20100529.ebuild:
@@ -12,16 +12,16 @@
 
 *harmonics-dwf-free-noncomm-20081228 (12 Jun 2009)
 
-  12 Jun 2009; Tim Cera <timcera@earthlink.net>
+  12 Jun 2009; Tim Cera <tim@cerazone.net>
   +harmonics-dwf-free-noncomm-20081228.ebuild:
   sci-geosciences/harmonics-dwf-free-noncomm: Version bump to 20081228. 
   Minor changes.
 
-  06 Jul 2008; Tim Cera <timcera@earthlink.net>
+  06 Jul 2008; Tim Cera <tim@cerazone.net>
   harmonics-dwf-free-noncomm-20071228.ebuild:
   Added ~x86 per http://bugs.gentoo.org/show_bug.cgi?id=214873#c4
 
-  16 May 2008; Tim Cera <timcera@earthlink.net>
+  16 May 2008; Tim Cera <tim@cerazone.net>
   +harmonics-dwf-free-noncomm-20071228.ebuild, +metadata.xml:
   Initial import.
 

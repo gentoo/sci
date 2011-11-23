@@ -20,7 +20,7 @@
 
 *pydap_handlers_sql-0.1.0 (09 Aug 2010)
 
-  09 Aug 2010; Tim Cera <timcera@earthlink.net>
+  09 Aug 2010; Tim Cera <tim@cerazone.net>
   +pydap_handlers_sql-0.1.0.ebuild, +metadata.xml:
   Initial ebuild.
 

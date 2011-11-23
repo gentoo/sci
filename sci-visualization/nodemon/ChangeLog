@@ -10,7 +10,7 @@
   Silenced repoman. FIXME: it looks like the pbs switch is not implemented
   properly.
 
-  24 Aug 2008; Tim Cera <timcera@earthlink.net> nodemon-0.3.5.ebuild:
+  24 Aug 2008; Tim Cera <tim@cerazone.net> nodemon-0.3.5.ebuild:
   Cut down description to under 100 characters and updated copyright year.
 
   08 Nov 2007; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:

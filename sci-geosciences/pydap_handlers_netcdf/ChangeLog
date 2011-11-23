@@ -10,27 +10,27 @@
 
 *pydap_handlers_netcdf-0.5.0 (22 Nov 2010)
 
-  22 Nov 2010; Tim Cera <timcera@earthlink.net>
+  22 Nov 2010; Tim Cera <tim@cerazone.net>
   -pydap_handlers_netcdf-0.4.9.ebuild, +pydap_handlers_netcdf-0.5.0.ebuild:
   Version bump.
 
 *pydap_handlers_netcdf-0.4.9 (08 Aug 2010)
 
-  08 Aug 2010; Tim Cera <timcera@earthlink.net>
+  08 Aug 2010; Tim Cera <tim@cerazone.net>
   -pydap_handlers_netcdf-0.4.8.ebuild, +pydap_handlers_netcdf-0.4.9.ebuild:
   Version bump.
 
-  24 Apr 2010; Tim Cera <timcera@earthlink.net>
+  24 Apr 2010; Tim Cera <tim@cerazone.net>
   pydap_handlers_netcdf-0.4.8.ebuild:
   Updated to latest python ebuild standards.
 
-  28 Jan 2010; Tim Cera <timcera@earthlink.net>
+  28 Jan 2010; Tim Cera <tim@cerazone.net>
   pydap_handlers_netcdf-0.4.8.ebuild:
   Corrected license.
 
 *pydap_handlers_netcdf-0.4.8 (24 Jan 2010)
 
-  24 Jan 2010; Tim Cera <timcera@earthlink.net>
+  24 Jan 2010; Tim Cera <tim@cerazone.net>
   +pydap_handlers_netcdf-0.4.8.ebuild, +metadata.xml:
   Initial ebuild.
 

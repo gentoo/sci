@@ -19,7 +19,7 @@
   29 Jun 2010; Justin Lecher <jlec@gentoo.org> simpy-2.0.1.ebuild:
   Python ABI fixes
 
-  26 Jan 2010; Tim Cera <timcera@earthlink.net> -simpy-1.9.1.ebuild:
+  26 Jan 2010; Tim Cera <tim@cerazone.net> -simpy-1.9.1.ebuild:
   Deleted old ebuild.
 
 *simpy-2.0.1 (17 May 2009)
@@ -28,6 +28,6 @@
   +simpy-2.0.1.ebuild:
   version bump
 
-  24 Aug 2008; Tim Cera <timcera@earthlink.net> +simpy-1.9.1.ebuild:
+  24 Aug 2008; Tim Cera <tim@cerazone.net> +simpy-1.9.1.ebuild:
   Initial ebuild.
 

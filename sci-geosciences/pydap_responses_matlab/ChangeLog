@@ -4,21 +4,21 @@
 
 *pydap_responses_matlab-0.1.2 (22 Nov 2010)
 
-  22 Nov 2010; Tim Cera <timcera@earthlink.net>
+  22 Nov 2010; Tim Cera <tim@cerazone.net>
   -pydap_responses_matlab-0.1.0a.ebuild,
   +pydap_responses_matlab-0.1.2.ebuild:
   Version bump and change in numbering.
 
 *pydap_responses_matlab-0.1.0a (20 Aug 2010)
 
-  20 Aug 2010; Tim Cera <timcera@earthlink.net>
+  20 Aug 2010; Tim Cera <tim@cerazone.net>
   -pydap_responses_matlab-0.1.0.ebuild,
   +pydap_responses_matlab-0.1.0a.ebuild:
   Version bump.
 
 *pydap_responses_matlab-0.1.0 (09 Aug 2010)
 
-  09 Aug 2010; Tim Cera <timcera@earthlink.net>
+  09 Aug 2010; Tim Cera <tim@cerazone.net>
   +pydap_responses_matlab-0.1.0.ebuild, +metadata.xml:
   Initial ebuild.
 

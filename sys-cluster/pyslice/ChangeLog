@@ -8,19 +8,19 @@
   +pyslice-1.6.4-r1.ebuild:
   Fix for python ABI stuff
 
-  26 Jan 2010; Tim Cera <timcera@earthlink.net> -pyslice-1.6.1.ebuild:
+  26 Jan 2010; Tim Cera <tim@cerazone.net> -pyslice-1.6.1.ebuild:
   Deleted old ebuild.
 
 *pyslice-1.6.4 (01 Jul 2009)
 
-  01 Jul 2009; Tim Cera <timcera@earthlink.net> +pyslice-1.6.4.ebuild:
+  01 Jul 2009; Tim Cera <tim@cerazone.net> +pyslice-1.6.4.ebuild:
   Version bump. Fixed DEPEND and RDEPEND. Updated copyright.
 
-  08 Jul 2008; Tim Cera <timcera@earthlink.net> pyslice-1.6.1.ebuild:
+  08 Jul 2008; Tim Cera <tim@cerazone.net> pyslice-1.6.1.ebuild:
   Added ~x86 per https://bugs.gentoo.org/show_bug.cgi?id=138008#c4
   Thanks Marek Miller for testing these ebuilds!
 
-  07 Jul 2008; Tim Cera <timcera@earthlink.net> +pyslice-1.6.1.ebuild,
+  07 Jul 2008; Tim Cera <tim@cerazone.net> +pyslice-1.6.1.ebuild,
   +metadata.xml:
   sys-cluster/pyslice
   * Initial ebuild entry.

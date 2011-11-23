@@ -4,15 +4,15 @@
 
 *tcd-utils-20080820 (12 Jun 2009)
 
-  12 Jun 2009; Tim Cera <timcera@earthlink.net> tcd-utils-20061127.ebuild,
+  12 Jun 2009; Tim Cera <tim@cerazone.net> tcd-utils-20061127.ebuild,
   +tcd-utils-20080820.ebuild:
   sci-geosciences/tcd-utils: Version bump to 20080820. Updated copyright 
   year.
 
-  06 Jul 2008; Tim Cera <timcera@earthlink.net> tcd-utils-20061127.ebuild:
+  06 Jul 2008; Tim Cera <tim@cerazone.net> tcd-utils-20061127.ebuild:
   Added ~x86 per http://bugs.gentoo.org/show_bug.cgi?id=214875#c4
 
-  16 May 2008; Tim Cera <timcera@earthlink.net> +tcd-utils-20061127.ebuild,
+  16 May 2008; Tim Cera <tim@cerazone.net> +tcd-utils-20061127.ebuild,
   +metadata.xml:
   Initial import.
 

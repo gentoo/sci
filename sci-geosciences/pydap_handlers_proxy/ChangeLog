@@ -4,7 +4,7 @@
 
 *pydap_handlers_proxy-0.1.1 (08 Aug 2010)
 
-  08 Aug 2010; Tim Cera <timcera@earthlink.net>
+  08 Aug 2010; Tim Cera <tim@cerazone.net>
   +pydap_handlers_proxy-0.1.1.ebuild, +metadata.xml:
   Initial ebuild.
 

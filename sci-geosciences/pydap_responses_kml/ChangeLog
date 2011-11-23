@@ -4,13 +4,13 @@
 
 *pydap_responses_kml-0.4.5 (22 Nov 2010)
 
-  22 Nov 2010; Tim Cera <timcera@earthlink.net>
+  22 Nov 2010; Tim Cera <tim@cerazone.net>
   -pydap_responses_kml-0.4.4.ebuild, +pydap_responses_kml-0.4.5.ebuild:
   Version bump.
 
 *pydap_responses_kml-0.4.4 (09 Aug 2010)
 
-  09 Aug 2010; Tim Cera <timcera@earthlink.net>
+  09 Aug 2010; Tim Cera <tim@cerazone.net>
   -pydap_responses_kml-0.4.3.ebuild, +pydap_responses_kml-0.4.4.ebuild:
   Version bump.
 
@@ -18,17 +18,17 @@
   pydap_responses_kml-0.4.3.ebuild:
   Python ABI fixes
 
-  24 Apr 2010; Tim Cera <timcera@earthlink.net>
+  24 Apr 2010; Tim Cera <tim@cerazone.net>
   pydap_responses_kml-0.4.3.ebuild:
   Updated to latest python ebuild standards.
 
-  28 Jan 2010; Tim Cera <timcera@earthlink.net>
+  28 Jan 2010; Tim Cera <tim@cerazone.net>
   pydap_responses_kml-0.4.3.ebuild:
   Corrected license.
 
 *pydap_responses_kml-0.4.3 (24 Jan 2010)
 
-  24 Jan 2010; Tim Cera <timcera@earthlink.net>
+  24 Jan 2010; Tim Cera <tim@cerazone.net>
   +pydap_responses_kml-0.4.3.ebuild, +metadata.xml:
   sci-geosciences/pydap_responses_kml: Initial ebuild.
 

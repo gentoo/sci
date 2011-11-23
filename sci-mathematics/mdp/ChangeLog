@@ -9,7 +9,7 @@
 
 *mdp-3.1 (15 Jul 2011)
 
-  15 Jul 2011; Tim Cera <timcera@earthlink.net> -mdp-2.6-r1.ebuild,
+  15 Jul 2011; Tim Cera <tim@cerazone.net> -mdp-2.6-r1.ebuild,
   +mdp-3.1.ebuild:
   Version bump. Added Python 3 support.
 
@@ -25,23 +25,23 @@
 
 *mdp-2.6 (21 May 2010)
 
-  21 May 2010; Tim Cera <timcera@earthlink.net> -mdp-2.4.ebuild,
+  21 May 2010; Tim Cera <tim@cerazone.net> -mdp-2.4.ebuild,
   -mdp-2.5.ebuild, +mdp-2.6.ebuild:
   Version bump.
 
 *mdp-2.5 (30 Jun 2009)
 
-  30 Jun 2009; Tim Cera <timcera@earthlink.net> -mdp-2.3.ebuild,
+  30 Jun 2009; Tim Cera <tim@cerazone.net> -mdp-2.3.ebuild,
   +mdp-2.5.ebuild:
   Version bump. Fixed DEPEND and RDEPEND.
 
-  23 Oct 2008; Tim Cera <timcera@earthlink.net> +mdp-2.4.ebuild:
+  23 Oct 2008; Tim Cera <tim@cerazone.net> +mdp-2.4.ebuild:
   Bumped to version 2.4, updated DEPEND.
 
-  16 Jul 2008; Tim Cera <timcera@earthlink.net> mdp-2.3.ebuild:
+  16 Jul 2008; Tim Cera <tim@cerazone.net> mdp-2.3.ebuild:
   Added ~x86 per http://bugs.gentoo.org/show_bug.cgi?id=146976
 
-  15 Jul 2008; Tim Cera <timcera@earthlink.net> +mdp-2.3.ebuild,
+  15 Jul 2008; Tim Cera <tim@cerazone.net> +mdp-2.3.ebuild,
   +metadata.xml:
   Initial ebuild.
 

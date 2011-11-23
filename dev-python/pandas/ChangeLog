@@ -7,7 +7,7 @@
 
 *pandas-0.4.1 (27 Sep 2011)
 
-  27 Sep 2011; Tim Cera <timcera@earthlink.net> +pandas-0.4.1.ebuild,
+  27 Sep 2011; Tim Cera <tim@cerazone.net> +pandas-0.4.1.ebuild,
   +metadata.xml:
   Initial ebuild.
 

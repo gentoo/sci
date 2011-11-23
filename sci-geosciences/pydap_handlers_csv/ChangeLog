@@ -4,13 +4,13 @@
 
 *pydap_handlers_csv-0.1.1 (16 Aug 2010)
 
-  16 Aug 2010; Tim Cera <timcera@earthlink.net>
+  16 Aug 2010; Tim Cera <tim@cerazone.net>
   -pydap_handlers_csv-0.1.0.ebuild, +pydap_handlers_csv-0.1.1.ebuild:
   Version bump.
 
 *pydap_handlers_csv-0.1.0 (08 Aug 2010)
 
-  08 Aug 2010; Tim Cera <timcera@earthlink.net>
+  08 Aug 2010; Tim Cera <tim@cerazone.net>
   +pydap_handlers_csv-0.1.0.ebuild, +metadata.xml:
   Initial ebuild.
 

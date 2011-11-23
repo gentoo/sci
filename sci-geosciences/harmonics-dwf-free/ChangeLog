@@ -4,18 +4,18 @@
 
 *harmonics-dwf-free-20100529 (19 Nov 2010)
 
-  19 Nov 2010; Tim Cera <timcera@earthlink.net>
+  19 Nov 2010; Tim Cera <tim@cerazone.net>
   -harmonics-dwf-free-20071228.ebuild, -harmonics-dwf-free-20081228.ebuild,
   +harmonics-dwf-free-20100529.ebuild:
   Version bump.
 
 *harmonics-dwf-free-20081228 (12 Jun 2009)
 
-  12 Jun 2009; Tim Cera <timcera@earthlink.net>
+  12 Jun 2009; Tim Cera <tim@cerazone.net>
   +harmonics-dwf-free-20081228.ebuild:
   sci-geosciences/harmonics-dwf-free: Version bump to 20081228.
 
-  16 May 2008; Tim Cera <timcera@earthlink.net>
+  16 May 2008; Tim Cera <tim@cerazone.net>
   +harmonics-dwf-free-20071228.ebuild, +metadata.xml:
   Initial import.
 

@@ -33,7 +33,7 @@
   moved to EAPI=2
   Some QA
 
-  25 Jun 2008; Tim Cera <timcera@earthlink.net> +metadata.xml:
+  25 Jun 2008; Tim Cera <tim@cerazone.net> +metadata.xml:
   Added metadata.xml.
 
   28 May 2008; Jeff Gardner <je_fro@gentoo.org> +drawxtl-43.ebuild,

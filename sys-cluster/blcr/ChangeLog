@@ -2,16 +2,16 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  26 Jan 2010; Tim Cera <timcera@earthlink.net> -blcr-0.6.5.ebuild:
+  26 Jan 2010; Tim Cera <tim@cerazone.net> -blcr-0.6.5.ebuild:
   Removed old ebuild. Updated copyright years.
 
 *blcr-0.8.2 (15 Oct 2009)
 
-  15 Oct 2009; Tim Cera <timcera@earthlink.net> +blcr-0.8.2.ebuild:
+  15 Oct 2009; Tim Cera <tim@cerazone.net> +blcr-0.8.2.ebuild:
   Version bump to blcr-0.8.2. The vmadump is no longer used and seems 
   better behaved in terms of the sandbox so removed the warning.
 
-  07 Jul 2008; Tim Cera <timcera@earthlink.net> blcr-0.6.5.ebuild,
+  07 Jul 2008; Tim Cera <tim@cerazone.net> blcr-0.6.5.ebuild,
   +metadata.xml:
   Minor repoman edits.
 

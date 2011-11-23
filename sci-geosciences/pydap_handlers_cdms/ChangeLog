@@ -4,7 +4,7 @@
 
 *pydap_handlers_cdms-0.2.0.1 (21 Nov 2011)
 
-  21 Nov 2011; Tim Cera <timcera@earthlink.net>
+  21 Nov 2011; Tim Cera <tim@cerazone.net>
   -pydap_handlers_cdms-0.1.1.ebuild, +pydap_handlers_cdms-0.2.0.1.ebuild:
   Version bump.
 
@@ -12,17 +12,17 @@
   pydap_handlers_cdms-0.1.1.ebuild:
   Python ABI fixes
 
-  24 Apr 2010; Tim Cera <timcera@earthlink.net>
+  24 Apr 2010; Tim Cera <tim@cerazone.net>
   pydap_handlers_cdms-0.1.1.ebuild:
   Updated to latest python ebuild standards.
 
-  28 Jan 2010; Tim Cera <timcera@earthlink.net>
+  28 Jan 2010; Tim Cera <tim@cerazone.net>
   pydap_handlers_cdms-0.1.1.ebuild:
   Corrected license.
 
 *pydap_handlers_cdms-0.1.1 (24 Jan 2010)
 
-  24 Jan 2010; Tim Cera <timcera@earthlink.net>
+  24 Jan 2010; Tim Cera <tim@cerazone.net>
   +pydap_handlers_cdms-0.1.1.ebuild, +metadata.xml:
   Initial ebuild.
 

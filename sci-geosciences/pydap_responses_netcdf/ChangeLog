@@ -4,7 +4,7 @@
 
 *pydap_responses_netcdf-0.1.3 (09 Aug 2010)
 
-  09 Aug 2010; Tim Cera <timcera@earthlink.net>
+  09 Aug 2010; Tim Cera <tim@cerazone.net>
   -pydap_responses_netcdf-0.1.1.ebuild,
   +pydap_responses_netcdf-0.1.3.ebuild:
   Version bump.
@@ -13,17 +13,17 @@
   pydap_responses_netcdf-0.1.1.ebuild:
   Python ABI fixes
 
-  24 Apr 2010; Tim Cera <timcera@earthlink.net>
+  24 Apr 2010; Tim Cera <tim@cerazone.net>
   pydap_responses_netcdf-0.1.1.ebuild:
   Updated to latest python ebuild standards.
 
-  28 Jan 2010; Tim Cera <timcera@earthlink.net>
+  28 Jan 2010; Tim Cera <tim@cerazone.net>
   pydap_responses_netcdf-0.1.1.ebuild:
   Corrected license.
 
 *pydap_responses_netcdf-0.1.1 (24 Jan 2010)
 
-  24 Jan 2010; Tim Cera <timcera@earthlink.net>
+  24 Jan 2010; Tim Cera <tim@cerazone.net>
   +pydap_responses_netcdf-0.1.1.ebuild, +metadata.xml:
   Initial ebuild.
 
