@@ -11,8 +11,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="doc non-commercial"
 
-DEPEND=">=sci-geosciences/harmonics-dwf-free-20081228
-	non-commercial?	( >=sci-geosciences/harmonics-dwf-free-noncomm-20081228 )"
+DEPEND=">=sci-geosciences/harmonics-dwf-free-20110410
+	non-commercial?	( >=sci-geosciences/harmonics-dwf-free-noncomm-20110410 )"
 RDEPEND="${DEPEND}"
 
 src_install() {

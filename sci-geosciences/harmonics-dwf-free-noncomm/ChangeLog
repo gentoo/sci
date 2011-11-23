@@ -1,6 +1,15 @@
 # ChangeLog for sci-geosciences/harmonics-dwf-free-noncomm
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*harmonics-dwf-free-noncomm-20110410 (23 Nov 2011)
+
+  23 Nov 2011; Tim Cera <tim@cerazone.net>
+  -harmonics-dwf-free-noncomm-20100529.ebuild,
+  +harmonics-dwf-free-noncomm-20110410.ebuild:
+  Version bump and now creates a /etc/env.d/50xtide_harm file that contains the
+  HFILE_PATH environment variable pointing to all installed tidal constituent
+  databases.
 
 *harmonics-dwf-free-noncomm-20100529 (19 Nov 2010)
 

@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,11 +21,4 @@ RDEPEND="${DEPEND}"
 src_install() {
 	dobin xtide tide xttpd
 	doman *.[18]
-	tcd_paths=`find /usr/share/harmonics-dwf-free* -name '*.tcd'`
-	for t in ${tcd_paths}; do
-		echo -n ${t} >> xtide.conf
-		echo -n ':' >> xtide.conf
-	done
-	insinto /etc
-	doins xtide.conf
 }

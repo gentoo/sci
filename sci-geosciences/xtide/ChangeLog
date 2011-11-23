@@ -1,6 +1,12 @@
 # ChangeLog for sci-geosciences/xtide
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*xtide-2.12 (23 Nov 2011)
+
+  23 Nov 2011; Tim Cera <tim@cerazone.net> -xtide-2.11.ebuild,
+  +xtide-2.12.ebuild:
+  Version bump and shifted configuration to the harmonics-dwf ebuilds.
 
 *xtide-2.11 (19 Nov 2010)
 

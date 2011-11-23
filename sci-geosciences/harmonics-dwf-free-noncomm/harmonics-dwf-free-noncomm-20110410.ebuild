@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,4 +20,11 @@ RDEPEND="${DEPEND}"
 src_install() {
 	insinto /usr/share/"${PN}"
 	doins "${WORKDIR}/${MY_P}"-nonfree.tcd
+	tcd_paths=`find /usr/share/harmonics-* -name '*.tcd'`
+	echo -n 'HFILE_PATH=' > 50xtide_harm
+	for t in ${tcd_paths}; do
+		echo -n ${t} >> 50xtide_harm
+		echo -n ':' >> 50xtide_harm
+	done
+	doenvd 50xtide_harm
 }
