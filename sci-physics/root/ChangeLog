@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*root-5.30.05 (25 Nov 2011)
+
+  25 Nov 2011; Andrew Savchenko <bircoph@gmail.com> -root-5.30.03-r1.ebuild,
+  +root-5.30.05.ebuild:
+  Version bump (patch release).
+
   16 Nov 2011; Justin Lecher <jlec@gentoo.org> -root-5.28.00g.ebuild,
   root-5.30.03-r1.ebuild, metadata.xml:
   Corrected Slotting of media-libs/libpng and media-libs/tiff
