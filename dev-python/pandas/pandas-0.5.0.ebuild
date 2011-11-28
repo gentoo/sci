@@ -12,7 +12,7 @@ inherit python distutils
 
 DESCRIPTION="Powerful data structures for data analysis and statistics"
 HOMEPAGE="http://pandas.sourceforge.net"
-SRC_URI="mirror://pypi/packages/source/p/${PN}/${P}.tar.gz"
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 KEYWORDS="~amd64"

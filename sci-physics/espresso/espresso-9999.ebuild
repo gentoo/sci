@@ -37,8 +37,13 @@ DEPEND="${RDEPEND}
 		app-doc/doxygen[-nodot]
 		virtual/latex-base )"
 
+DOCS=( AUTHORS NEWS README ChangeLog )
+
 src_prepare() {
 	autotools-utils_src_prepare
+	sed -i -e '/^[^S]/s/tutorials/tutorial/g' \
+		-e 's/cd tutorial/&s/' doc/Makefile.am \
+		|| die "sed of Makefile.am failed"
 	eautoreconf
 	restore_config myconfig.h
 }
@@ -55,15 +60,13 @@ src_configure() {
 
 src_compile() {
 	autotools-utils_src_compile
-	if use doc; then
-		autotools-utils_src_compile doc || die "emake doc failed"
-	fi
+	use doc && autotools-utils_src_compile doc
 }
 
 src_install() {
-	autotools-utils_src_install
+	local i
 
-	dodoc AUTHORS NEWS README ChangeLog
+	autotools-utils_src_install
 
 	insinto /usr/share/${PN}
 	doins ${AUTOTOOLS_BUILD_DIR}/myconfig-sample.h
@@ -74,8 +77,11 @@ src_install() {
 		local where="."
 		[ "${PV%9999}" != "${PV}" ] && where="${AUTOTOOLS_BUILD_DIR}"
 		newdoc ${where}/doc/ug/ug.pdf user_guide.pdf
-		dohtml -r ${AUTOTOOLS_BUILD_DIR}/doc/dg/html/*
-		newdoc ${where}/doc/tutorials/tut2/tut2.pdf tutorial.pdf
+		newdoc ${where}/doc/dg/dg.pdf developer_guide.pdf
+		dohtml -r ${AUTOTOOLS_BUILD_DIR}/doc/doxygen/html/*
+		for i in ${where}/doc/tutorials/*/[0-9]*.pdf; do
+			newdoc ${i} tutorial_${i##*/}
+		done
 	fi
 
 	if use examples; then
