@@ -8,7 +8,7 @@ inherit eutils prefix
 
 DESCRIPTION="General-purpose software package for simulation virtually all kinds of solid-state NMR experiments"
 HOMEPAGE="http://bionmr.chem.au.dk/bionmr/software/index.php"
-SRC_URI="http://www.bionmr.chem.au.dk/download/${PN}/3.0/${PN}-source-${PV}.tgz"
+SRC_URI="http://www.bionmr.chem.au.dk/download/${PN}/3.1/${PN}-source-${PV}.tbz2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux"
@@ -29,7 +29,7 @@ S="${WORKDIR}"/${PN}-source-${PV}
 src_prepare() {
 	edos2unix Makefile
 	epatch "${FILESDIR}"/${PV}-gentoo.patch
-	epatch "${FILESDIR}"/${PV}-type.patch
+	epatch "${FILESDIR}"/3.0.1-type.patch
 	eprefixify Makefile
 }
 
