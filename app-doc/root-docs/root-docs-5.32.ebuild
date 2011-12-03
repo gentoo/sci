@@ -21,5 +21,5 @@ S=${WORKDIR}/htmldoc
 src_install() {
 	insinto /usr/share/doc/${PF}/html
 	# use mv, there is too much to copy
-	mv * "${ED}"/usr/share/doc/${PF}/html
+	mv ${MYP}/* "${ED}"/usr/share/doc/${PF}/
 }

@@ -2,6 +2,14 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*root-docs-5.32 (03 Dec 2011)
+
+  03 Dec 2011; Andrew Savchenko <bircoph@gmail.com> -root-docs-5.30.ebuild,
+  +root-docs-5.32.ebuild:
+  Version bump.
+  Remove useless html/html32/ patch chunk, thus html files will be
+  installed directly into /usr/share/doc/${PF}/.
+
 *root-docs-5.30 (02 Aug 2011)
 
   02 Aug 2011; Andrew Savchenko <bircoph@gmail.com> +root-docs-5.30.ebuild,
