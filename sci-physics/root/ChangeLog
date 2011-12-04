@@ -2,6 +2,34 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*root-5.32.00 (03 Dec 2011)
+
+  03 Dec 2011; Andrew Savchenko <bircoph@gmail.com>
+  -files/root-5.28.00b-nobyte-compile.patch,
+  -files/root-5.30.00-xrootd-prop-flags.patch, -root-5.30.05.ebuild,
+  +root-5.32.00.ebuild, +files/root-5.32.00-afs.patch, -files/olbd.confd,
+  -files/olbd.initd, -files/rootd.initd, -files/xrootd.confd,
+  -files/xrootd.initd:
+  Version bump to the new production release 5.32.00
+
+  Major changes are:
+  - xrootd is now unbundled upstream, separate sci-physics/xrootd
+  package was added to the science overlay for this support, all
+  xrootd-related patches and scripts are removed from this ebuild and
+  used in sci-physcis/xrootd.
+  - AFS support for net-fs/openafs-1.6.0 is fixed now with a patch
+  for openafs itself: the problem is that openafs hides some symbols
+  from shared versions of the libraries which are present in the same
+  static libraries. One of such symbols, ka_GetAFSTicket, is required
+  for root to build and root can't use static libafsauthent.a due to
+  relocation issues.
+
+  To enable AFS support the following needed:
+  - type cast patch;
+  - strlcpy and strlcat from ROOT core lib must be defined weak,
+  since they are redefined in openafs lib;
+  - ka_GetAFSTicket symbol is added to openafs by patch in bug #393071.
+
 *root-5.30.05 (25 Nov 2011)
 
   25 Nov 2011; Andrew Savchenko <bircoph@gmail.com> -root-5.30.03-r1.ebuild,

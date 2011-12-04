@@ -1,8 +1,0 @@
-# conf.d file for xroot daemon
-
-# User to run as (default is `root')
-XROOTD_USER="root"
-
-# Please refer to the xrootd(1) man(1) page for more
-# information on command line parameters. 
-XROOTD_OPTS=""

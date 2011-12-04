@@ -12,6 +12,7 @@ ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
 PATCH_PV=5.28.00b
 PATCH_PV2=5.30.00
+PATCH_PV3=5.32.00
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
@@ -78,7 +79,8 @@ CDEPEND="
 			dev-lang/ruby
 			dev-ruby/rubygems )
 	ssl? ( dev-libs/openssl )
-	xml? ( dev-libs/libxml2 )"
+	xml? ( dev-libs/libxml2 )
+	xrootd? ( sci-physics/xrootd )"
 
 DEPEND="${CDEPEND}
 	dev-util/pkgconfig"
@@ -122,12 +124,12 @@ pkg_setup() {
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-xrootd-prop-flags.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-prop-ldflags.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-asneeded.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch
+		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV3}-afs.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc
@@ -141,13 +143,6 @@ src_prepare() {
 	rm -rf core/lzma/src/*.tar.gz
 	rm graf3d/gl/{inc,src}/gl2ps.*
 	sed -i -e 's/^GLLIBS *:= .* $(OPENGLLIB)/& -lgl2ps/' graf3d/gl/Module.mk
-
-	# TODO: unbundle xrootd as a new package
-	#rm -rf net/xrootd/src
-	#sed -i \
-	#	-e 's:-lXrdOuc:-lXrd &:' \
-	#	-e 's:$(XROOTDDIRL)/lib\(Xrd\w*\).a:-l\1:g' \
-	#	proof/proofd/Module.mk || die
 
 	# In Gentoo, libPythia6 is called libpythia6
 	# libungif is called libgif,
@@ -275,7 +270,6 @@ daemon_install() {
 	dodir /var/spool/rootd/{pub,tmp}
 	fperms 1777 /var/spool/rootd/{pub,tmp}
 
-	use xrootd && daemons="${daemons} xrootd olbd"
 	for i in ${daemons}; do
 		newinitd "${FILESDIR}"/${i}.initd ${i}
 		newconfd "${FILESDIR}"/${i}.confd ${i}
