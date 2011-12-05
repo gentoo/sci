@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Dec 2011; Justin Lecher <jlec@gentoo.org> files/pymol-9999-setup.py.patch:
+  Fix pymol-9999-setup.py.patch for current HEAD
+
   29 Aug 2011; Justin Lecher <jlec@gentoo.org> files/pymol-9999-shaders.patch:
   Latest changes on HEAD
 
