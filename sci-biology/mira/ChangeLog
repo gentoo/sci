@@ -1,0 +1,13 @@
+# ChangeLog for sci-biology/mira
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mira-3.4.0.1 (08 Dec 2011)
+
+  08 Dec 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +mira-3.4.0.1.ebuild, +files/mira-3.4.0.1-asneeded.patch:
+  version bump and dropped the expat patch for --as-needed CFLAGS as upstream
+  fixed that in a different way, the still applicable part of the patch is
+  however provided under files/ but is just a cosmetic change (hence not really
+  needed)
+
