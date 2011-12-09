@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/tablet-bin
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*tablet-bin-1.11.11.01 (09 Dec 2011)
+
+  09 Dec 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  tablet-bin-1.11.05.03.ebuild, +tablet-bin-1.11.11.01.ebuild:
+  ebuild cleanup, version bump
+
