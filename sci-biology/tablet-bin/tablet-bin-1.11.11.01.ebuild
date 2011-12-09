@@ -8,7 +8,7 @@ inherit java-pkg-2 python
 
 DESCRIPTION="Viewer of next generation sequence assemblies and alignments."
 HOMEPAGE="http://bioinf.scri.ac.uk/tablet/"
-SRC_URI="http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x86_1_11_05_03.sh
+SRC_URI="http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x86_1_11_11_01.sh
 		http://bioinf.scri.ac.uk/tablet/additional/coveragestats.py"
 
 # Upstream says regarding source code unavailability:
