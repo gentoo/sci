@@ -24,7 +24,7 @@ SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
 
 SLOT="0"
 LICENSE="LGPL-2.1"
-KEYWORDS="~amd64 ~x86 ~amd64-linux"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
 	llvm +math mpi mysql ncurses odbc +opengl openmp oracle postgres prefix
 	pythia6	pythia8	python +reflex ruby qt4 ssl xft xml xinetd xrootd"
