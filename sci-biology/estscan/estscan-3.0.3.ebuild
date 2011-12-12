@@ -21,15 +21,13 @@ SRC_URI="
 
 SLOT="0"
 LICENSE="estscan"
-KEYWORDS=""
-#KEYWORDS="~x86 ~amd64"
-IUSE="intel"
+KEYWORDS="~x86 ~amd64"
+IUSE="icc ifc"
 
 DEPEND="
 	virtual/fortran
-	intel? (
-		dev-lang/icc
-		dev-lang/ifc )
+	icc? ( dev-lang/icc )
+	ifc? ( dev-lang/ifc )
 	dev-perl/BTLib"
 RDEPEND="${DEPEND}"
 
@@ -47,11 +45,17 @@ src_prepare() {
 
 	if ! use icc; then
 		sed \
-			-e 's/^ CFLAGS = -O2/#CFLAGS = ${CFLAGS}/' \
+			-e 's/^ CFLAGS = -O2/#CFLAGS = ${CFLAGS}/' -i "${P}"/Makefile || die
+	fi
+
+	if ! use ifc; then
+		sed \
 			-e 's/^ FFLAGS = -O2/#FFLAGS = ${FFLAGS}/' \
 			-e "s/^ F77 = g77/F77 = $(tc-getF77)/" -i "${P}"/Makefile \
 			|| die
-	else
+	fi
+
+	if use icc; then
 		# FIXME: I would use $(tc-getCC) instead of hard-coded icc but it gives
 		# me gcc instead, same for $(tc-getF77)
 		# Moreover, the if/else logic here should separate users having only icc
@@ -63,14 +67,20 @@ src_prepare() {
 		# Same for FFLAGS.
 		sed \
 			-e "s:^# CC = icc:CC = icc:" \
-		   -e "s:^# CFLAGS = -O3 -ipo -axP:#CFLAGS = -O3 -ipo -axP:" \
-			-e "s:^# FFLAGS = -O3 -ipo -axP:#FFLAGS = -O3 -ipo -axP:" \
+			-e "s:^# CFLAGS = -O3 -ipo -axP:#CFLAGS = -O3 -ipo -axP:" \
 			-e "s/^ CFLAGS = -O2/#CFLAGS = -O2/" \
+			-e "s/^ CC = gcc/# CC = gcc/" \
+			-i "${P}"/Makefile || die "sed failed to fix CFLAGS and CC"
+
+	fi
+
+	if use ifc; then
+		sed \
+			-e "s:^# FFLAGS = -O3 -ipo -axP:#FFLAGS = -O3 -ipo -axP:" \
 			-e "s/^# F77 = ifort/F77 = gfortran/" \
 			-e "s/^ FFLAGS = -O2/#FFLAGS = -O2/" \
-			-e "s/^ CC = gcc/# CC = gcc/" \
 			-e "s/^ F77 = g77/# F77 = g77/" \
-			-i "${P}"/Makefile || die "sed failed to fix CFLAGS, FFLAGS, CC, F77"
+			-i "${P}"/Makefile || die "sed failed to fix FFLAGS and F77"
 	fi
 }
 
