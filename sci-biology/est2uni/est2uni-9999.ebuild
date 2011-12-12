@@ -49,6 +49,8 @@ src_prepare(){
 	for f in "${FILESDIR}"/9999-*.pm.patch; do
 		cd perl; epatch $f || die "Failed to apply patch $f"
 	done
+	cd ../php || die "Failed to chdir to ../php"
+	epatch "${FILESDIR}"/configuration.php.patch || die "Failed to apply config patch for VHOSTS setup"
 }
 
 src_compile(){
@@ -83,6 +85,9 @@ src_install(){
 
 	einfo "Please follow the pipeline installation and web configuration docs at"
 	einfo "http://cichlid.umd.edu/est2uni/install.php"
+	einfo ""
+	einfo "Example changes to the config file are in ${FILESDIR}/configuration.php.patch"
+	einfo ""
 	einfo "BEWARE the software is not maintained anymore by upstream but I do not"
 	einfo "know any better available (replaced by ngs_backbone which has no web"
 	einfo "interface yet). Consider using latest svn checkout instead of 0.27"
