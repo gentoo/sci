@@ -4,6 +4,10 @@
 
   12 Dec 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   tablet-bin-1.11.11.01.ebuild:
+  fix sanbox violations on some systems tablet-bin-1.11.11.01.ebuild
+
+  12 Dec 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  tablet-bin-1.11.11.01.ebuild:
   added MYPV to the ebuild to make it more easily re-usable
   tablet-bin-1.11.11.01.ebuild
 

@@ -35,6 +35,12 @@ RDEPEND="${DEPEND}
 
 MYPV="$(replace_all_version_separators '_')"
 
+pkg_setup() {
+	einfo "Fixing java access violations ..."
+	# bug 387227
+	addpredict /proc/self/coredump_filter
+}
+
 src_install() {
 	# In theory it seems this binary package could be installed through ant
 	# instead of the install4j package which is not easy to be forced
