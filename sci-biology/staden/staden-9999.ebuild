@@ -21,7 +21,7 @@ fi
 
 LICENSE="staden"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE="curl debug fortran png tcl tk X zlib"
 
 # either g77 or gfortran must be available
