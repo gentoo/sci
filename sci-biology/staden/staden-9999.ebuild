@@ -6,6 +6,10 @@ EAPI=3
 
 inherit base eutils flag-o-matic fortran-2 multilib subversion
 
+if [ "$PV" == "9999" ]; then
+	inherit autotools
+fi
+
 DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
 HOMEPAGE="http://sourceforge.net/projects/staden/"
 # https://staden.svn.sourceforge.net/svnroot/staden staden
@@ -17,7 +21,7 @@ fi
 
 LICENSE="staden"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="curl debug fortran png tcl tk X zlib"
 
 # either g77 or gfortran must be available
@@ -63,11 +67,14 @@ src_configure() {
 	use debug && append-cflags "-DCACHE_REF_DEBUG"
 	use debug && append-cxxflags "-DCACHE_REF_DEBUG"
 	econf ${myconf}
+	# edit system.mk to place there proper version number of the svn-controlled checkout
+	SVNVERSION=`svnversion ${ESVN_STORE_DIR}/${ESVN_PROJECT}/${ESVN_REPO_URI##*/}`
+	sed -e "s/^SVNVERS.*/SVNVERS = "${SVNVERSION}"/" -i system.mk
 }
 
 src_install() {
 	# TODO: dodoc /usr/share/doc/staden/manual/gap4.index ?
-	emake install DESTDIR="${D}" || die "make install failed"
+	emake install DESTDIR="${D}" SVN_VERSION="${SVNVERSION}" || die "make install failed"
 
 	cat >> "${S}"/99staden <<- EOF
 	STADENROOT="${EPREFIX}"/usr/share/staden
