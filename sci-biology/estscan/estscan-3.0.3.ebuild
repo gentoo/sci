@@ -90,7 +90,7 @@ src_compile() {
 
 src_install() {
 	# FIXME: Some kind of documentation is in {P}/estscan.spec
-	cd ${P} || die "Failed to chdir to "${P}"
+	cd ${P} || die "Failed to chdir to ${P}"
 	dobin \
 		build_model estscan evaluate_model extract_EST extract_UG_EST \
 		extract_mRNA makesmat maskred prepare_data winsegshuffle
@@ -98,13 +98,13 @@ src_install() {
 	# see {P}/estscan.spec
 
 	# install the doc (but is not in ${WORKDIR} because src_unpack() failed on it as it has .pdf extension
-	cd "${DISTDIR}" || die "Failed to chdir to "${DISTDIR}"
+	cd "${DISTDIR}" || die "Failed to chdir to ${DISTDIR}"
 	insinto /usr/share/doc/ESTscan
 	# grab the file directly from ../distdir/
 	doins "${DISTDIR}"/user_guide_fev_07.pdf
 
 	# install the default precomputed matrices
-	cd "${WORKDIR}" || die "Failed to chdir to "${WORKDIR}"
+	cd "${WORKDIR}" || die "Failed to chdir to ${WORKDIR}"
 	insinto /usr/share/ESTscan
 	doins *.smat
 
