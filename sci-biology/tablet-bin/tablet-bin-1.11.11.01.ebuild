@@ -33,6 +33,8 @@ RDEPEND="${DEPEND}
 		virtual/jre
 		dev-lang/python"
 
+MYPV="$(replace_all_version_separators '_')"
+
 src_install() {
 	# In theory it seems this binary package could be installed through ant
 	# instead of the install4j package which is not easy to be forced
@@ -56,7 +58,7 @@ src_install() {
 	# make sure we force java to point a to $HOME which is inside our sanbox
 	# directory area. We force -Duser.home . It seems also -Dinstall4j.userHome
 	# could be done based on the figure shown at http://resources.ej-technologies.com/install4j/help/doc/
-	sed "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${D}"/../temp -Dinstall4j.jvmDir#" -i "${DISTDIR}"/tablet_linux_x86_1_11_05_03.sh || die "failed to set userHome value"
-	sh "${DISTDIR}"/tablet_linux_x86_1_11_05_03.sh -q -overwrite -varfile="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet -dir "${D}"/opt/Tablet || die "Failed to run the self-extracting exe file"
+	sed "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${D}"/../temp -Dinstall4j.jvmDir#" -i "${DISTDIR}"/tablet_linux_x86_"${MYPV}".sh || die "failed to set userHome value"
+	sh "${DISTDIR}"/tablet_linux_x86_"${MYPV}".sh -q -overwrite -varfile="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet -dir "${D}"/opt/Tablet || die "Failed to run the self-extracting exe file"
 	dobin "${DISTDIR}"/coveragestats.py
 }
