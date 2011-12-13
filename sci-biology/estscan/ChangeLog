@@ -4,6 +4,10 @@
 
   12 Dec 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   estscan-3.0.3.ebuild:
+  remove offending double-quotes
+
+  12 Dec 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  estscan-3.0.3.ebuild:
   ebuild cleanup, works, releasing for testing estscan-3.0.3.ebuild
 
   30 Jul 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
