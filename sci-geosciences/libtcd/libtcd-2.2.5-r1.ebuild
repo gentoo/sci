@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -11,8 +11,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="doc non-commercial"
 
-DEPEND=">=sci-geosciences/harmonics-dwf-free-20110410
-	non-commercial?	( >=sci-geosciences/harmonics-dwf-free-noncomm-20110410 )"
+DEPEND=">=sci-geosciences/harmonics-dwf-free-20110410-r1
+	non-commercial?	( >=sci-geosciences/harmonics-dwf-free-noncomm-20110410-r1 )"
 RDEPEND="${DEPEND}"
 
 src_install() {

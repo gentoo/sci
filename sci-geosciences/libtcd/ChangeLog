@@ -1,6 +1,13 @@
 # ChangeLog for sci-geosciences/libtcd
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libtcd-2.2.5-r1 (13 Dec 2011)
+
+  13 Dec 2011; Tim Cera <tim@cerazone.net> -libtcd-2.2.5.ebuild,
+  +libtcd-2.2.5-r1.ebuild:
+  Version bump to force an update of DEPEND tidal constituent database (tcd)
+  files.
 
 *libtcd-2.2.5 (19 Nov 2010)
 

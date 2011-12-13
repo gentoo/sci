@@ -2,6 +2,13 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*xtide-2.12-r1 (13 Dec 2011)
+
+  13 Dec 2011; Tim Cera <tim@cerazone.net> -xtide-2.12.ebuild,
+  +xtide-2.12-r1.ebuild:
+  Putting all tide constituent database (tcd) files in one directory:
+  /usr/share/harmonics
+
 *xtide-2.12 (23 Nov 2011)
 
   23 Nov 2011; Tim Cera <tim@cerazone.net> -xtide-2.11.ebuild,
