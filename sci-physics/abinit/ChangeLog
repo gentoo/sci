@@ -2,6 +2,14 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*abinit-6.10.3 (14 Dec 2011)
+
+  14 Dec 2011; Honza Macháček <Hloupy.Honza@centrum.cz> -abinit-6.8.1.ebuild,
+  +abinit-6.10.3.ebuild, metadata.xml:
+  Version bump to 6.10.3, gui use-flag added. Update of sci-libs/bigdft to 1.2.0.5 was necessary,
+  sci-libs/libxc updated to 1.1.0 alongside. Ebuild for abinit-6.8.1 removed,
+  6.6.3 and 6.10.1 retained for now.
+
 *abinit-6.10.1 (09 Nov 2011)
 
   09 Nov 2011; Honza Macháček <Hloupy.Honza@centrum.cz>

@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*libxc-1.1.0 (14 Dec 2011)
+
+  14 Dec 2011; Honza Macháček <Hloupy.Honza@centrum.cz> +libxc-1.1.0.ebuild:
+  Version bump to 1.1.0
+
   21 Jun 2011; Justin Lecher <jlec@gentoo.org> libxc-1.0.ebuild,
   libxc-9999.ebuild:
   Added fortran-2.eclass support

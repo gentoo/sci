@@ -21,6 +21,11 @@ ABINIT is a package whose main program allows one to find the total energy, char
   </flag>
 </use>
 <use>
+  <flag name="gui">
+   Build the abinit GUI (requires java)
+  </flag>
+</use>
+<use>
   <flag name="vdwxc">
    Activate van der Waals exchange-correlation
   </flag>

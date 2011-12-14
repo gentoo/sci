@@ -13,11 +13,11 @@ SRC_URI="http://ftp.abinit.org/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cuda -debug +fftw +fox gsl +hdf5 mpi +netcdf python -test +threads -vdwxc"
+IUSE="cuda -debug +fftw +fftw-threads +fox gsl gui +hdf5 mpi +netcdf python -test +threads -vdwxc"
 
-RDEPEND=">=sci-libs/bigdft-1.2.0.2
+RDEPEND=">=sci-libs/bigdft-1.2.0.5
 	sci-libs/etsf_io
-	=sci-libs/libxc-1.0[fortran]
+	=sci-libs/libxc-1*[fortran]
 	sci-physics/atompaw[libxc]
 	fox? ( sci-libs/fox[dom,sax,wcml,wxml] )
 	netcdf? (
@@ -33,16 +33,21 @@ RDEPEND=">=sci-libs/bigdft-1.2.0.2
 	gsl? ( sci-libs/gsl )
 	fftw? (
 		sci-libs/fftw:3.0
-		threads? ( sci-libs/fftw:3.0[threads] )
+		fftw-threads? ( sci-libs/fftw:3.0[threads] )
 		)
 	mpi? ( virtual/mpi )
 	python? ( dev-python/numpy )
 	cuda? ( dev-util/nvidia-cuda-sdk )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
+	gui? ( >=virtual/jdk-1.6.0
+		app-arch/sharutils
+		sys-apps/gawk )
 	dev-perl/Text-Markdown"
 
 S=${WORKDIR}/${P%[a-z]}
+
+lat1loc=""
 
 pkg_setup() {
 	fortran-2_pkg_setup
@@ -51,6 +56,27 @@ pkg_setup() {
 		if [[ $(gcc-major-version) -eq 4 ]] \
 			&& [[ $(gcc-minor-version) -lt 1  ]]; then
 				die "Requires gcc-4.1 or newer"
+		fi
+	fi
+	if use fftw-threads && ! use fftw; then
+		ewarn "fftw-threads set but fftw not used, ignored"
+	fi
+	if use gui; then
+		lat1loc="$(locale |awk '/LC_CTYPE="(.*)"/{sub("LC_CTYPE=\"",""); sub("\" *$", ""); print}')"
+		if locale charmap |grep -i "\<iso885915\?\>"; then
+			einfo "Good, locale compatible with the GUI build"
+		else
+			ewarn "The locale ${lat1loc} incompatible with the GUI build"
+			if latloc=`locale -a| grep -i "\<iso885915\?\>"`; then
+				if echo "${latloc}" |grep -q "^fr"; then
+					lat1loc="$(echo "${latloc}" | grep -im1 "^fr")"
+				else
+					lat1loc="$(echo "${latloc}" | grep -im1 "iso88591")"
+				fi
+				einfo "Will use ${lat1loc} to build the GUI"
+			else
+				ewarn "No ISO-8859-1 nor ISO-8859-15 locale available, the GUI build may crash"
+			fi
 		fi
 	fi
 }
@@ -72,16 +98,28 @@ src_configure() {
 	use hdf5 && netcdff_libs="${netcdff_libs} -lhdf5_fortran"
 	local fft_flavor="fftw3"
 	local fft_libs="-L/usr/lib"
-	# Since now, fftw threads support is protected by black magick.
-	# Anybody removes it again, dies.
-	# If it does not work FOR YOU, disable the "threads" USE flag
-	# for the package at YOUR box. If YOU want it disabled selectively
-	# for fftw use in abinit, you may consider adding a special USE flag
-	# for that. NEVER REMOVE AN OPTION FOR OTHERS, at least if there is
-	# anybody it works for.
-	if use threads; then
-		fft_libs="${fft_libs} $(pkg-config --libs fftw3_threads)"
+	# The fftw threads support is protected by black magick.
+	# Anybody removes it, dies.
+	# New USE flag "fftw-threads" was added to control usage
+	# of the threaded fftw variant. Since fftw-3.3 has expanded
+	# the paralel options by MPI and OpenMP support, analogical
+	# USE flags should be added to select them in future;
+	# unusable with previous FFTW versions, they are postponed
+	# for now.
+	if use fftw-threads; then
 		fft_flavor="fftw3-threads"
+		if has_version '>=sci-libs/fftw-3.3'; then
+			# pkg-config files for fftw-3.3 are broken
+			# All the parallel stuff is separated
+			# from the main body of common routines,
+			# and -lfftw3 must be always included alongside.
+			# Until version 3.3 this used to be masked by
+			# .la files.
+			# Bug 384645
+			fft_libs="${fft_libs} $(pkg-config --libs fftw3_threads) $(pkg-config --libs fftw3)"
+		else
+			fft_libs="${fft_libs} $(pkg-config --libs fftw3_threads)"
+		fi
 	else
 		fft_libs="${fft_libs} $(pkg-config --libs fftw3)"
 	fi
@@ -134,10 +172,21 @@ src_configure() {
 		CXX="${MY_CXX}" \
 		LD="$(tc-getLD)" \
 		FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}} ${modules} -I/usr/include"
+
+	if use gui; then
+		cd gui
+		./bootstrap.sh
+		econf
+	fi
 }
 
 src_compile() {
-	emake || die
+	emake || die "make failed"
+
+	if use gui; then
+		cd gui
+		LC_CTYPE="${lat1loc}" emake || die "Making GUI failed"
+	fi
 }
 
 src_test() {
@@ -184,6 +233,12 @@ src_install() {
 		dodoc tests/summary_tests.tar || ewarn "Copying tests results failed"
 		dodoc tests/summary_of_tests.tar || ewarn "Copying tests results failed"
 	fi
+
+	if use gui; then
+		( cd gui
+		emake DESTDIR="${D}" install || die "The GUI install failed" )
+	fi
+
 
 	dodoc KNOWN_PROBLEMS README || die "Copying doc files failed"
 }
