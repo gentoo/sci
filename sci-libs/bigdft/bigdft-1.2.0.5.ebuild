@@ -32,10 +32,7 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-0001.patch \
-		"${FILESDIR}"/${P}-0002.patch \
-		"${FILESDIR}"/${P}-0003.patch \
-		"${FILESDIR}"/${P}-0004.patch \
-		"${FILESDIR}"/${P}-testH.patch
+		"${FILESDIR}"/${PN}-1.2.0.2-testH.patch
 
 	rm -r src/PSolver/ABINIT-common
 	mv ../${PN}-1.3.2/src/PSolver/ABINIT-common src/PSolver/
@@ -71,9 +68,9 @@ src_configure() {
 }
 
 src_compile() {
-	emake -j1 HAVE_LIBXC=1 || die "make failed"
+	emake -j1 HAVE_ETSF_XC=1 || die "make failed"
 	if use doc; then
-		emake HAVE_LIBXC=1 doc || die "make doc failed"
+		emake HAVE_ETSF_XC=1 doc || die "make doc failed"
 	fi
 }
 
@@ -84,6 +81,6 @@ src_test() {
 }
 
 src_install() {
-	emake HAVE_LIBXC=1 DESTDIR="${D}" install || die "install failed"
+	emake HAVE_ETSF_XC=1 DESTDIR="${D}" install || die "install failed"
 	dodoc README INSTALL ChangeLog AUTHORS NEWS || die "dodoc failed"
 }
