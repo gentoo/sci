@@ -59,7 +59,7 @@ CDEPEND="
 		)
 	afs? ( net-fs/openafs )
 	avahi? ( net-dns/avahi )
-	clarens? ( dev-libs/xmlrpc-c )
+	clarens? ( dev-libs/xmlrpc-c[curl] )
 	emacs? ( virtual/emacs )
 	fits? ( sci-libs/cfitsio )
 	fftw? ( sci-libs/fftw:3.0 )
