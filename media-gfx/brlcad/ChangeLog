@@ -4,6 +4,9 @@
 
 *brlcad-7.20.2 (15 Jul 2011)
 
+  16 Dec 2011; Dongxu Li <dongxuli2011@gmail.com> +brlcad-7.20.4.ebuild brlcad-9999.ebuild:
+  version bumped to 7.20.4; svn version updated
+
   26 Sep 2011; Dongxu Li <dongxuli2011@gmail.com> brlcad-7.20.2.ebuild:
   Included libpng15 patch by Ian Stakenvicius, bug#378273
 

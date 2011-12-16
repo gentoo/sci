@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/media-gfx/brlcad/brlcad-7.18.4.ebuild,v 1.1 2011/04/18 22:47:37 dilfridge Exp $
 
 EAPI=4
-inherit cmake-utils eutils subversion java-pkg-2
+inherit cmake-utils eutils subversion java-pkg-2 flag-o-matic
 
 DESCRIPTION="Constructive solid geometry modeling system"
 HOMEPAGE="http://brlcad.org/"
@@ -49,6 +49,8 @@ src_prepare() {
 }
 
 src_configure() {
+filter-flags -std=c++0x
+filter-ldflags -Wl,--as-needed
 	if use Debug; then
 		CMAKE_BUILD_TYPE=Debug
 		else
@@ -56,28 +58,11 @@ src_configure() {
 		fi
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_PREFIX="${BRLCAD_DIR}"
-		-DBRLCAD-ENABLE_STRICT=OFF
-		-DBRLCAD_BUILD_LOCAL_OPENNURBS=ON
-		-DBUILD_STATIC_LIBS=OFF
-		-DBRLCAD-ENABLE_X11=ON
-		-DBRLCAD_BUILD_LOCAL_INCRTCL=OFF
-		-DBRLCAD_BUILD_LOCAL_TKHTML=OFF
-		-DBRLCAD_BUILD_LOCAL_TKPNG=OFF
-		-DBRLCAD_BUILD_LOCAL_TKTABLE=OFF
-		-DBRLCAD_BUILD_LOCAL_PNG=OFF
-		-DBRLCAD_BUILD_LOCAL_REGEX=OFF
-		-DBRLCAD_BUILD_LOCAL_ZLIB=OFF
-		-DBRLCAD_BUILD_LOCAL_TERMLIB=OFF
-		-DBRLCAD_BUILD_LOCAL_UTAHRLE=OFF
-		-DBRLCAD_BUILD_LOCAL_SCL=OFF
-		-DBRLCAD-ENABLE_RTSERVER=OFF
-		-DBRLCAD-ENABLE_JOVE=OFF
-		-DBRLCAD_BUILD_LOCAL_IWIDGETS=OFF
-		-DBRLCAD_BUILD_LOCAL_TCL=OFF
-		-DBRLCAD_BUILD_LOCAL_TK=OFF
-		-DBRLCAD_BUILD_LOCAL_ITCL=OFF
-		-DBRLCAD_BUILD_LOCAL_ITK=OFF
-		-DBRLCAD_BUILD_LOCAL_IWIDGETS_FORCE_ON=OFF
+		-DBRLCAD_ENABLE_STRICT=OFF
+		-DBRLCAD_ENABLE_COMPILER_WARNINGS=OFF
+		-DBRLCAD_FLAGS_OPTIMIZATION=ON
+		-DBRLCAD_ENABLE_X11=ON
+		-DBRLCAD_BUNDLED_LIBS=AUTO
 		)
 
 			# use flag triggered options
@@ -87,23 +72,17 @@ src_configure() {
 		mycmakeargs += "-DCMAKE_BUILD_TYPE=Release"
 	fi
 	mycmakeargs+=(
-		$(cmake-utils_use amd64 BRLCAD-ENABLE_64BIT)
-		$(cmake-utils_use java BRLCAD-ENABLE_RTSERVER)
-		$(cmake-utils_use examples BRLCAD-INSTALL_EXAMPLE_GEOMETRY)
+		$(cmake-utils_use opengl BRLCAD_ENABLE_OPENGL)
+#experimental RTGL support
+	#	$(cmake-utils_use opengl BRLCAD_ENABLE_RTGL)
+		$(cmake-utils_use amd64 BRLCAD_ENABLE_64BIT)
+		$(cmake-utils_use smp BRLCAD_ENABLE_SMP)
+	#	$(cmake-utils_use java BRLCAD_ENABLE_RTSERVER)
+		$(cmake-utils_use examples BRLCAD_INSTALL_EXAMPLE_GEOMETRY)
 		$(cmake-utils_use doc BRLCAD_EXTRADOCS)
 		$(cmake-utils_use doc BRLCAD_EXTRADOCS_PDF)
 		$(cmake-utils_use doc BRLCAD_EXTRADOCS_MAN)
-		$(cmake-utils_use opengl BRLCAD-ENABLE_OPENGL)
-#experimental RTGL support
-		$(cmake-utils_use opengl BRLCAD-ENABLE_RTGL)
-		$(cmake-utils_use smp BRLCAD-ENABLE_SMP)
-		$(cmake-utils_use debug BRLCAD-ENABLE_VERBOSE_PROGRESS)
-#		$(cmake-utils_use aqua BRLCAD-ENABLE_AQUA)
-#			$(cmake-utils_use !debug BRLCAD-ENABLE_OPTIMIZED_BUILD)
-#			$(cmake-utils_use !debug )
-#			$(cmake-utils_use debug BRLCAD-ENABLE_DEBUG_BUILD)
-#			$(cmake-utils_use debug BRLCAD-ENABLE_RUNTIME_DEBUG)
-#			$(cmake-utils_use debug BRLCAD-ENABLE_COMPILER_WARNINGS_LABEL)
+		$(cmake-utils_use debug BRLCAD_ENABLE_VERBOSE_PROGRESS)
 			)
 	cmake-utils_src_configure
 }
