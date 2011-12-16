@@ -2,6 +2,12 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*libxc-1.1.0-r1 (16 Dec 2011)
+
+  16 Dec 2011; Honza Macháček <Hloupy.Honza@centrum.cz>
+  +libxc-1.1.0-r1.ebuild:
+  Forced -fPIC to go well with sci-physics/atompaw
+
 *libxc-1.1.0 (14 Dec 2011)
 
   14 Dec 2011; Honza Macháček <Hloupy.Honza@centrum.cz> +libxc-1.1.0.ebuild:
