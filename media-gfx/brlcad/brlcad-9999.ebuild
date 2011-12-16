@@ -62,7 +62,7 @@ filter-ldflags -Wl,--as-needed
 		-DBRLCAD_ENABLE_COMPILER_WARNINGS=OFF
 		-DBRLCAD_FLAGS_OPTIMIZATION=ON
 		-DBRLCAD_ENABLE_X11=ON
-		-DBRLCAD_BUNDLED_LIBS=AUTO
+		-DBRLCAD_BUNDLED_LIBS=System
 		)
 
 			# use flag triggered options
