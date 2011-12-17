@@ -7,8 +7,9 @@ EAPI=3
 inherit eutils fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="Abinit AtomPAW atomic data convertor"
-HOMEPAGE="http://www.abinit.org/downloads/PAW/AtomPAW2Abinit-Manual-html/AtomPAW2Abinit2.htm"
-SRC_URI="http://www.abinit.org/downloads/PAW/AtomPAW2Abinit-Manual-html/Atompaw2Abinit.tgz -> ${P}.tgz"
+HOMEPAGE="http://www.abinit.org/downloads/PAW2/AtomPAW2Abinit-Manual-html/Old-AtomPAW2Abinit-Manual-html/AtomPAW2Abinit2.htm"
+SRC_URI="http://www.abinit.org/downloads/PAW2/AtomPAW2Abinit-Manual-html/Old-AtomPAW2Abinit-Manual-html/Atompaw2Abinit.tgz -> ${P}.tgz"
+
 
 LICENSE="GPL-2"
 SLOT="0"
