@@ -4,6 +4,8 @@
 
 EAPI=4
 
+inherit base
+
 DESCRIPTION="Micro Read Fast Alignment Search Tool"
 HOMEPAGE="http://mrfast.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
@@ -16,7 +18,10 @@ KEYWORDS="~amd64"
 DEPEND=""
 RDEPEND=""
 
+PATCHES=("${FILESDIR}"/${P}-*.patch)
+
 src_prepare() {
+	base_src_prepare
 	sed -i -e 's/CFLAGS =/CFLAGS +=/' -e 's/LDFLAGS =/LDFLAGS +=/' Makefile
 }
 
