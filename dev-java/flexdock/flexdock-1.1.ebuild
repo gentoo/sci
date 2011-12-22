@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,7 +9,7 @@ inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="A Java docking framework for use in cross-platform Swing applications"
 HOMEPAGE="http://flexdock.dev.java.net/"
-SRC_URI="https://flexdock.dev.java.net/files/documents/2037/52480/${P}-src.zip"
+SRC_URI="http://java.net/projects/flexdock/downloads/download/${P}-src.zip"
 
 LICENSE="MIT"
 SLOT="0"
@@ -20,37 +20,32 @@ IUSE=""
 RDEPEND=">=virtual/jre-1.4"
 DEPEND=">=virtual/jdk-1.4
 	app-arch/unzip
-	dev-java/skinlf
-	dev-java/commons-logging"
+	dev-java/skinlf"
 
-EANT_BUILD_TARGET="build.with.native jar"
 EANT_DOC_TARGET="doc"
 
-java_prepare() {
-	epatch "${FILESDIR}"/${P}-nativelib.patch
-	epatch "${FILESDIR}"/${P}-build.patch
-	epatch "${FILESDIR}"/${P}-nodemo.patch
+src_unpack() {
+	mkdir "${WORKDIR}/${P}"
+	cd "${S}"
+	unpack ${A}
+}
 
-	#configure java environment
-	cp workingcopy.properties-sample workingcopy.properties
-	sed -i -e 's|sdk.home=C:\\\\jdk1.5.0_03|sdk.home=|' \
-	-e "s|sdk.home=|sdk.home=$(java-config -O)|" workingcopy.properties|| die
+java_prepare() {
+	epatch "${FILESDIR}"/${P}-nodemo.patch
 
 	#some cleanups
 	find . -name '*.so' -exec rm -v {} \;|| die
 	find . -name '*.dll' -exec rm -v {} \;|| die
 
 	#remove built-in jars and use the system ones
-	cd "${WORKDIR}/lib" || die
+	cd lib || die
 	rm -rvf *.jar jmf|| die
 	java-pkg_jar-from skinlf
-	java-pkg_jar-from commons-logging commons-logging.jar
 	java-pkg_jar-from jgoodies-looks-2.0 looks.jar
 }
 
 src_install() {
 	java-pkg_newjar "build/${P}.jar" "${PN}.jar"
-	java-pkg_doso build/bin/org/flexdock/docking/drag/outline/xlib/*.so
 	use doc && java-pkg_dojavadoc build/docs/api
 	use source && java-pkg_dosrc src
 }
