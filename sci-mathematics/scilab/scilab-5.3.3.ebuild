@@ -74,6 +74,9 @@ src_prepare() {
 	#bug 9824 upstream
 	sed -i "/BLAS_LIBS=$/d" m4/libsmath.m4
 	epatch "${FILESDIR}/${P}-allow-hdf-1.8.7.patch"
+	#bug 392363 
+	sed -i -e "s|ClÃ©ment DAVID|Clement DAVID|g" $(find . -iname '*.java')
+	sed -i -e "s/ -lhpi//g" m4/java.m4
 
 	sed -i "s|-L\$SCI_SRCDIR/bin/|-L\$SCI_SRCDIR/bin/ \
 		-L$(java-config -i gluegen) \
