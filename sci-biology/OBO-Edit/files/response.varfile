@@ -2,4 +2,5 @@ executeLauncherAction$Boolean=false
 sys.programGroupDisabled$Boolean=true
 sys.symlinkDir="${D}"usr/bin
 sys.languageId=en
+sys.userHome="${D}"/../temp
 sys.installationDir="${D}"opt/OBO-Edit2
