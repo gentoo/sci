@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Dec 2011; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-6.2.2011.314.15.12.ebuild:
+  Always use bundled xview
+
   06 Dec 2011; Justin Lecher <jlec@gentoo.org>
   +files/6.2.2011.314.15.12-lib.patch, -files/6.0.2011.286.17.18-lib.patch,
   -nmrpipe-6.0.2011.286.17.18.ebuild, +nmrpipe-6.2.2011.314.15.12.ebuild:

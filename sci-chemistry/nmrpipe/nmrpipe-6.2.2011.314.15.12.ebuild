@@ -121,7 +121,7 @@ src_install() {
 		nmrbin.{linux,mac,sgi6x,sol,winxp} nmruser format \
 		|| die "Failed to remove unnecessary libraries."
 	# As long as xview is not fixed for amd64 we do this
-	use amd64 || rm nmrbin.linux9/lib/{libxview.so*,libolgx.so*}
+	#use amd64 || rm nmrbin.linux9/lib/{libxview.so*,libolgx.so*}
 	# Remove the initialisation script generated during the installation.
 	# It contains incorrect hardcoded paths; only the "nmrInit.com" script
 	# should be used.
