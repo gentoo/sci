@@ -44,8 +44,8 @@ RDEPEND="${DEPEND}
 	amd64? (
 		app-emulation/emul-linux-x86-baselibs
 		app-emulation/emul-linux-x86-xlibs
-	)
-	x86? ( x11-libs/xview )"
+	)"
+#	x86? ( x11-libs/xview )"
 
 S="${WORKDIR}"
 NMRBASE="/opt/${PN}"

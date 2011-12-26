@@ -4,6 +4,10 @@
 
   26 Dec 2011; Justin Lecher <jlec@gentoo.org>
   nmrpipe-6.2.2011.314.15.12.ebuild:
+  Remove dep on xview
+
+  26 Dec 2011; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-6.2.2011.314.15.12.ebuild:
   Always use bundled xview
 
   06 Dec 2011; Justin Lecher <jlec@gentoo.org>
