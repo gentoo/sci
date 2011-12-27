@@ -2,6 +2,11 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Dec 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  go-parser-9999.ebuild:
+  documented status of go-parser (as a very simple implementation) which should
+  be dropped once its successor code get into biopython
+
 *go-parser-9999 (26 Dec 2011)
 
   26 Dec 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
