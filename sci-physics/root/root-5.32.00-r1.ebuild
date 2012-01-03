@@ -80,7 +80,7 @@ CDEPEND="
 			dev-ruby/rubygems )
 	ssl? ( dev-libs/openssl )
 	xml? ( dev-libs/libxml2 )
-	xrootd? ( sci-physics/xrootd )"
+	xrootd? ( net-misc/xrootd )"
 
 DEPEND="${CDEPEND}
 	dev-util/pkgconfig"
