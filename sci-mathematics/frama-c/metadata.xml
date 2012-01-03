@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci</herd>
+	<herd>sci-mathematics</herd>
 	<longdescription>
 		Frama-C is a suite of tools dedicated to the analysis of the source code
 		of software written in C. It gathers several static analysis techniques
