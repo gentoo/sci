@@ -3,17 +3,15 @@
 # $Header: $
 
 EAPI=4
-inherit eutils toolchain-funcs cmake-utils alternatives-2
-
-MYP=lapack-3.3.1
+inherit eutils toolchain-funcs cmake-utils alternatives-2 subversion
 
 DESCRIPTION="Reference implementation of BLAS"
 HOMEPAGE="http://www.netlib.org/lapack/"
-SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
+ESVN_REPO_URI="https://icl.cs.utk.edu/svn/lapack-dev/lapack/trunk"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="static-libs test"
 
 RDEPEND="virtual/fortran"
@@ -76,5 +74,5 @@ src_install() {
 			cmake-utils_src_install -C BLAS
 	fi
 	alternatives_for blas reference 0 \
-				"/usr/$(get_libdir)/pkgconfig/blas.pc" "refblas.pc"
+		"/usr/$(get_libdir)/pkgconfig/blas.pc" "refblas.pc"
 }
