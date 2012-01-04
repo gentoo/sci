@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit autotools-utils
+inherit autotools-utils fortran-2
 
 DESCRIPTION="CCP4 ccif lib"
 HOMEPAGE="http://www.ccp4.ac.uk/"
@@ -14,5 +14,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="LGPL-3"
 IUSE="static-libs"
+
+RDEPEND="virtual/fortran"
+DEPEND="${RDEPEND}"
 
 DOCS=(AUTHOS README)
