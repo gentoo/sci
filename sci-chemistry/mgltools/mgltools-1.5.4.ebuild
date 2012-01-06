@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -31,6 +31,7 @@ RDEPEND="${PLUG_DEP}
 	dev-lang/tk
 	sci-libs/msms
 	>=dev-python/pmw-1.3
+	dev-python/simpy
 	dev-python/imaging[tk]
 	dev-python/numpy"
 DEPEND="${RDEPEND}"

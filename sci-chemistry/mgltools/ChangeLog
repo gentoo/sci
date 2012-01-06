@@ -1,6 +1,14 @@
 # ChangeLog for sci-chemistry/mgltools
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2012; Justin Lecher <jlec@gentoo.org> mgltools-1.5.4.ebuild,
+  metadata.xml:
+  Added DEP on dev-python/simpy
+
+  06 Jan 2012; Justin Lecher <jlec@gentoo.org> mgltools-1.5.4.ebuild,
+  metadata.xml:
+  Added DEP on dev-python/simpy
 
   30 Aug 2010; Justin Lecher <jlec@gentoo.org> mgltools-1.5.4.ebuild:
   Fixed SRC_URI
