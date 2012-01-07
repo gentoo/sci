@@ -1,6 +1,13 @@
 # ChangeLog for sci-chemistry/mgltools-opengltk
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*mgltools-opengltk-1.5.6_rc2 (07 Jan 2012)
+
+  07 Jan 2012; Justin Lecher <jlec@gentoo.org>
+  +mgltools-opengltk-1.5.6_rc2.ebuild,
+  +files/mgltools-opengltk-1.5.6_rc2-unbundle.patch, metadata.xml:
+  Version Bump, #373679
 
   19 Sep 2010; Justin Lecher <jlec@gentoo.org>
   mgltools-opengltk-1.5.4-r2.ebuild:
