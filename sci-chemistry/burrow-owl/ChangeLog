@@ -1,6 +1,12 @@
 # ChangeLog for sci-chemistry/burrow-owl
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*burrow-owl-9999 (08 Jan 2012)
+
+  08 Jan 2012; Justin Lecher <jlec@gentoo.org> +files/9999-impl-dec.patch,
+  +files/9999-no-doc.patch, +burrow-owl-9999.ebuild, metadata.xml:
+  Bumped to new upstream repo uri
 
   07 Mar 2011; Justin Lecher <jlec@gentoo.org> burrow-owl-9999_pre15.ebuild:
   Correct Slots for gtk 3 introduction to tree

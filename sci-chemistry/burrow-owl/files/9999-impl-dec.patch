@@ -1,0 +1,23 @@
+ burrow/spectrum/spectrum.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/burrow/spectrum/spectrum.c b/burrow/spectrum/spectrum.c
+index 5e099d8..38040bb 100644
+--- a/burrow/spectrum/spectrum.c
++++ b/burrow/spectrum/spectrum.c
+@@ -35,6 +35,7 @@
+ #include "spectrum_priv.h"
+ #include "skiplist.h"
+ #include "debug.h"
++#include <stdlib.h>
+ 
+ /* for debugging purposes; make value available */
+ static const gdouble datum_unknown_value_substitute=DATUM_UNKNOWN_VALUE_SUBSTITUTE;
+@@ -1023,7 +1024,6 @@ point_cache_store(HosSpectrum *spec, gsize idx, gdouble value)
+   if (point_cache_enable)
+     {
+       struct _point_cache_slot *slot = point_cache + point_cache_hash(spec, idx);
+-      
+       gint old_version = g_atomic_pointer_get(&(slot->version));
+       slot->spec = NULL;
+       g_atomic_int_set(&(slot->version), old_version + 1);
