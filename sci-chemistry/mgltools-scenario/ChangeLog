@@ -1,6 +1,10 @@
 # ChangeLog for sci-chemistry/mgltools-scenario
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2012; Justin Lecher <jlec@gentoo.org>
+  mgltools-scenario-1.5.4-r1.ebuild, metadata.xml:
+  CAT move for simpy package
 
 *mgltools-scenario-1.5.4-r1 (27 Jun 2010)
 

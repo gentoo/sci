@@ -1,0 +1,26 @@
+# ChangeLog for sci-chemistry/mgltools-scenario2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mgltools-scenario2-1.5.6_rc2 (06 Jan 2012)
+
+  06 Jan 2012; Justin Lecher <jlec@gentoo.org>
+  +mgltools-scenario2-1.5.6_rc2.ebuild, +metadata.xml:
+  Version Bump, #373679
+
+  06 Jan 2012; Justin Lecher <jlec@gentoo.org>
+  mgltools-scenario-1.5.4-r1.ebuild, metadata.xml:
+  CAT move for simpy package
+
+*mgltools-scenario-1.5.4-r1 (27 Jun 2010)
+
+  27 Jun 2010; Justin Lecher <jlec@gentoo.org>
+  -mgltools-scenario-1.5.4.ebuild, +mgltools-scenario-1.5.4-r1.ebuild:
+  Python ABI fixes
+
+*mgltools-scenario-1.5.4 (17 May 2009)
+
+  17 May 2009; Justin Lecher (jlec) <jlec@j-schmitz.net>
+  +mgltools-scenario-1.5.4.ebuild, +metadata.xml:
+  Initial setup
+
