@@ -28,5 +28,4 @@ src_configure() {
 		$(use_enable guile)
 	)
 	autotools-utils_src_configure
-	emake || die
 }
