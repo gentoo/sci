@@ -1,0 +1,769 @@
+diff -U 3 -H -d -r -N -x '*.kdev4' -- scamp-1.7.0/src/astrcplot.c scamp-1.7.0-r2/src/astrcplot.c
+--- scamp-1.7.0/src/astrcplot.c	2009-09-10 15:10:02.000000000 +0200
++++ scamp-1.7.0-r2/src/astrcplot.c	2012-01-01 20:23:46.809506421 +0100
+@@ -87,7 +87,7 @@
+   plfont(2);
+   plschr(0.0, 0.3);
+   plwid(0);
+-  plcol(7);
++  plcol0(7);
+   mark[0] = 500;
+   space[0] = 500;
+   for (wcspos[0] = -180.0; wcspos[0]<=180.0; wcspos[0]+=14.999)
+@@ -138,7 +138,7 @@
+     {
+     field = fgroups[g]->field;
+     nfield = fgroups[g]->nfield;
+-    plcol(15);
++    plcol0(15);
+     for (f=0; f<nfield; f++)
+       {
+       set = field[f]->set;
+@@ -172,7 +172,7 @@
+       x[i] = rawpos2[0];
+       y[i] = rawpos2[1];
+       }
+-    plcol(3);
++    plcol0(3);
+     plline(37, x,y);
+     }
+ 
+@@ -814,7 +814,7 @@
+     psize = 1.0;
+ 
+   plfont(2);
+-  plcol(15);
++  plcol0(15);
+   plschr(0.0, 0.67);
+   lwid = plotaaflag? ((CPLOT_AAFAC+1)/2) : 1;
+   plwid(lwid);
+@@ -851,9 +851,9 @@
+     }
+   plssym(0.0, psize);
+   plwid(lsize);
+-  plcol(3);
++  plcol0(3);
+   plpoin((PLINT)npoint, x,y, 11);
+-  plcol(1);
++  plcol0(1);
+   plpoin((PLINT)(nsamp-npoint), x2,y2, 0);
+   free(x);
+   free(y);
+@@ -888,12 +888,12 @@
+             *(yt++) = (PLFLT)samp->projpos[lat];
+             }
+         plwid(lsize);
+-        plcol(8);
++        plcol0(8);
+         if (lsize)
+           plpoin((PLINT)(xt-x), x,y, 17);
+         else
+           plpoin((PLINT)(xt-x), x,y, 1);
+-        plcol(4);
++        plcol0(4);
+         plpoin((PLINT)(x+nsamp-x2t), x2t,y2t, 2);
+         free(x);
+         free(y);
+@@ -901,7 +901,7 @@
+       plwid(2*lwid);
+       if (field->cplot_colour==15)
+         {
+-        plcol(15);
++        plcol0(15);
+         cplot_drawbounds(set->wcs, wcs);
+         }
+       }
+@@ -914,7 +914,7 @@
+     if (field->cplot_colour!=15)
+       {
+       plwid(3*lwid);
+-      plcol(field->cplot_colour);
++      plcol0(field->cplot_colour);
+       for (s=0; s<field->nset; s++)
+         {
+         set = field->set[s];
+@@ -923,7 +923,7 @@
+       }
+     }
+ 
+-  plcol(7);
++  plcol0(7);
+   plwid(lwid);
+   cplot_drawcoordgrid(wcs, xmin, xmax, ymin, ymax);
+   plflush();
+@@ -1025,16 +1025,16 @@
+   lwid = plotaaflag? ((CPLOT_AAFAC+1)/2) : 1;
+   plwid(lwid);
+   plfont(2);
+-  plcol(15);
++  plcol0(15);
+   plenv((PLFLT)xmin, (PLFLT)xmax, (PLFLT)ymin, (PLFLT)ymax, 1, -1);
+   sprintf(str, "#uInstrument A%d: distortion map", field->astromlabel+1);
+   pllab("","", str);
+   plwid(0);
+-  plcol(7);
++  plcol0(7);
+   cplot_drawloccoordgrid(wcs, xmin, xmax, ymin, ymax);
+ 
+   pllsty(1);
+-  plcol(15);
++  plcol0(15);
+   plscmap1n(256);
+ 
+   scalemin = BIG;
+@@ -1104,7 +1104,7 @@
+ 
+     wcsptr[0] = set->wcs;
+     wcsptr[1] = wcs;
+-    plshades(scale, CPLOT_NDISTGRID, CPLOT_NDISTGRID, NULL,
++    plshades((const PLFLT **)scale, CPLOT_NDISTGRID, CPLOT_NDISTGRID, NULL,
+ 	     xstep/2.0+0.5, set->wcs->naxisn[lng]-xstep/2.0+0.5,
+              ystep/2.0+0.5, set->wcs->naxisn[lat]-ystep/2.0+0.5,
+ 	     clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1, distort_map, wcsptr);
+@@ -1112,7 +1112,7 @@
+     plwid(0);
+     cplot_drawfgrids(set->wcs, wcs);
+ */
+-    plcol(7);
++    plcol0(7);
+     plwid(lwid);
+     cplot_drawbounds(set->wcs, wcs);
+     }
+@@ -1126,10 +1126,10 @@
+ 
+   plvpor(0.91,0.935,0.115,0.885);
+   plwind(0.0,1.0,scalemin*DEG/ARCSEC,scalemax*DEG/ARCSEC);
+-  plshades(scale, 2, CPLOT_NSHADES, NULL, 0.0, 1.0,
++  plshades((const PLFLT **)scale, 2, CPLOT_NSHADES, NULL, 0.0, 1.0,
+ 	   scalemin*DEG/ARCSEC,scalemax*DEG/ARCSEC, clevel,
+ 	   CPLOT_NSHADES, 1, 0, 0, plfill, 1, NULL, NULL);
+-  plcol(15);
++  plcol0(15);
+   plschr(0.0, 0.5);
+   plbox("bc", 0.0, 0, "bnstv", 0.0, 0);
+   sprintf(str, "%s", mscale < 0.09*ARCSEC/DEG?
+@@ -1304,19 +1304,19 @@
+   lwid = plotaaflag? ((CPLOT_AAFAC+1)/2) : 1;
+   plwid(lwid);
+   plfont(2);
+-  plcol(15);
++  plcol0(15);
+   plenv((PLFLT)xmin, (PLFLT)xmax, (PLFLT)ymin, (PLFLT)ymax, 1, -1);
+   sprintf(str, "#uInstrument A%d: map of astrometric systematics (internal)", 
+ 	field0->astromlabel+1);
+   pllab("","", str);
+   plwid(0);
+-  plcol(7);
++  plcol0(7);
+   cplot_drawloccoordgrid(wcs0, xmin, xmax, ymin, ymax);
+   y[0] = y[1] = 3.0;
+   x[0] = 7.0;
+   x[1] = x[0] + scalel;
+   pllsty(1);
+-  plcol(15);
++  plcol0(15);
+   plwid(lwid*3);
+   plline(2,x,y);
+   plwid(lwid);
+@@ -1333,7 +1333,7 @@
+   for (s=0; s<nset; s++)
+     {
+     set0 = field0->set[s];
+-    plcol(7);
++    plcol0(7);
+     cplot_drawbounds(set0->wcs, wcs0);
+     lng = set0->lng;
+     lat = set0->lat;
+@@ -1455,9 +1455,9 @@
+           y[0] = vecpos[lat];
+           y[1] = vecpos2[lat] + minscale*(vecpos2[lat] - vecpos[lat]);
+           plwid(lwid*2);
+-          plcol(3);
++          plcol0(3);
+           plline(2, x,y);
+-          plcol(15);
++          plcol0(15);
+           plpoin(1,x,y,1);
+           plwid(lwid);
+           }
+@@ -1618,20 +1618,20 @@
+   lwid = plotaaflag? ((CPLOT_AAFAC+1)/2) : 1;
+   plwid(lwid);
+   plfont(2);
+-  plcol(15);
++  plcol0(15);
+   plenv((PLFLT)xmin, (PLFLT)xmax, (PLFLT)ymin, (PLFLT)ymax, 1, -1);
+   plschr(0.0, 0.8);
+   sprintf(str, "#uInstrument A%d: map of astrometric systematics (reference)",
+ 	field0->astromlabel+1);
+   pllab("","", str);
+   plwid(0);
+-  plcol(7);
++  plcol0(7);
+   cplot_drawloccoordgrid(wcs0, xmin, xmax, ymin, ymax);
+   y[0] = y[1] = 3.0;
+   x[0] = 7.0;
+   x[1] = x[0] + scalel;
+   pllsty(1);
+-  plcol(15);
++  plcol0(15);
+   plwid(lwid*3);
+   plline(2,x,y);
+   plwid(lwid);
+@@ -1648,7 +1648,7 @@
+   for (s=0; s<nset; s++)
+     {
+     set0 = field0->set[s];
+-    plcol(7);
++    plcol0(7);
+     cplot_drawbounds(set0->wcs, wcs0);
+     lng = set0->lng;
+     lat = set0->lat;
+@@ -1759,9 +1759,9 @@
+           y[0] = vecpos[lat];
+           y[1] = vecpos2[lat] + minscale*(vecpos2[lat] - vecpos[lat]);
+           plwid(lwid*2);
+-          plcol(1);
++          plcol0(1);
+           plline(2, x,y);
+-          plcol(15);
++          plcol0(15);
+           plpoin(1,x,y,1);
+           plwid(lwid);
+           }
+@@ -1833,7 +1833,7 @@
+ 
+ /*-- Now plot! */
+ /* Internal chi2/d.o.f. first */
+-  plcol(15);
++  plcol0(15);
+   plschr(0.0,0.5);
+   lwid = plotaaflag? ((CPLOT_AAFAC+1)/2) : 1;
+   plwid(lwid);
+@@ -1971,7 +1971,7 @@
+ 
+ /*-- Now plot! */
+ /* Internal chi2/d.o.f. first */
+-  plcol(15);
++  plcol0(15);
+   plschr(0.0,0.5);
+   lwid = plotaaflag? ((CPLOT_AAFAC+1)/2) : 1;
+   plwid(lwid);
+@@ -2217,13 +2217,13 @@
+         r[0] = 0.96; g[0] = 1.0; b[0] = 0.96;
+         r[1] = 0.2; g[1] = 0.3; b[1] = 0.2;
+         plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-        plshades(histo[d3], CPLOT_ADERR1DNX, CPLOT_ADERR1DNY, NULL,
+-		fgroup->projposmin[d2], fgroup->projposmax[d2], -maxlim, maxlim,
+-		clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1, NULL, NULL);
++        plshades((const PLFLT **)histo[d3], CPLOT_ADERR1DNX, CPLOT_ADERR1DNY,
++		NULL, fgroup->projposmin[d2], fgroup->projposmax[d2], -maxlim,
++		maxlim, clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1, NULL, NULL);
+         }
+       else
+         {
+-        plcol(1);
++        plcol0(1);
+         plptex((fgroup->projposmin[d2] - margin + fgroup->projposmax[d2])/2.0,
+ 		maxlim/2.0, 1.0, 0.0, 0.5, "No overlapping detections!");
+         }
+@@ -2232,23 +2232,24 @@
+         r[0] = 0.0; g[0] = 0.0; b[0] = 0.0;
+         r[1] = 0.7; g[1] = 0.7; b[1] = 0.7;
+         plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-        plimage(histo_hsn[d3], CPLOT_ADERR1DNX_HSN, CPLOT_ADERR1DNY_HSN,
+-		fgroup->projposmin[d2], fgroup->projposmax[d2], -maxlim, maxlim,
+-		0.5, zmax_hsn[d3],
+-		fgroup->projposmin[d2], fgroup->projposmax[d2], -maxlim, maxlim);
++        plimage((const PLFLT **)histo_hsn[d3], CPLOT_ADERR1DNX_HSN,
++		CPLOT_ADERR1DNY_HSN, fgroup->projposmin[d2],
++		fgroup->projposmax[d2], -maxlim, maxlim, 
++		0.5, zmax_hsn[d3], fgroup->projposmin[d2], 
++		fgroup->projposmax[d2], -maxlim, maxlim);
+         }
+       sprintf(xlabel, "AXIS%d [pixels]", d2+1);
+       sprintf(ylabel, "#gDAXIS%d [\"]", d+1);
+       plscolbg(255,255,255);	/* Force the background colour to white */
+       plscol0(15, 0,0,0);	/* Force the foreground colour to black */
+ /* 1D histograms */
+-      plcol(3);
++      plcol0(3);
+       plwid(2*lwid);
+       plline(CPLOT_NADERRHISTBIN, cuty[d3], cutbin);
+-      plcol(7);
++      plcol0(7);
+       plline(CPLOT_NADERRHISTBIN, cuty_hsn[d3], cutbin);
+       plwid(lwid);
+-      plcol(15);
++      plcol0(15);
+       plwid(lwid);
+       xl[0] = fgroup->projposmin[d2] - margin;
+       xl[1] = fgroup->projposmax[d2];
+@@ -2459,13 +2460,13 @@
+     r[0] = 0.96; g[0] = 1.0; b[0] = 0.96;
+     r[1] = 0.2; g[1] = 0.3; b[1] = 0.2;
+     plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-    plshades(histo, CPLOT_ADERR2DN, CPLOT_ADERR2DN, NULL,
++    plshades((const PLFLT **)histo, CPLOT_ADERR2DN, CPLOT_ADERR2DN, NULL,
+ 	-maxlim,maxlim, -maxlim,maxlim,
+ 	clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1, NULL, NULL);
+     }
+   else
+     {
+-    plcol(1);
++    plcol0(1);
+     plptex(0.0, maxlim/2.0, 1.0, 0.0, 0.5, "No overlapping detections!");
+     }
+ 
+@@ -2474,7 +2475,7 @@
+     r[0] = 0.0; g[0] = 0.0; b[0] = 0.0;
+     r[1] = 0.8; g[1] = 0.8; b[1] = 0.8;
+     plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-    plimage(histo_hsn, CPLOT_ADERR2DN_HSN, CPLOT_ADERR2DN_HSN,
++    plimage((const PLFLT **)histo_hsn, CPLOT_ADERR2DN_HSN, CPLOT_ADERR2DN_HSN,
+ 	-maxlim,maxlim, -maxlim, maxlim,
+ 	0.5, zmax_hsn,
+ 	-maxlim, maxlim, -maxlim, maxlim);
+@@ -2484,7 +2485,7 @@
+   plscol0(15, 0,0,0);		/* Force the foreground colour to black */
+   plschr(0.0,0.5);
+ /* Pixel footprint */
+-  plcol(15);
++  plcol0(15);
+   pllsty(3);
+   xl[0] = xl[1] = xl[4] = pixscale[0]/2.0;
+   yl[0] = yl[3] = yl[4] = pixscale[1]/2.0;
+@@ -2493,15 +2494,15 @@
+   plline(5, xl, yl);
+   pllsty(1);
+ /* 1D histograms */
+-  plcol(3);
++  plcol0(3);
+   plwid(2*lwid);
+   plline(CPLOT_NADERRHISTBIN, cutbin, cutx);
+   plline(CPLOT_NADERRHISTBIN, cuty, cutbin);
+-  plcol(7);
++  plcol0(7);
+   plline(CPLOT_NADERRHISTBIN, cutbin, cutx_hsn);
+   plline(CPLOT_NADERRHISTBIN, cuty_hsn, cutbin);
+   plwid(lwid);
+-  plcol(15);
++  plcol0(15);
+   plbox("bcnst", 0.0, 0.0, "bcnst", 0.0, 0.0);
+   sprintf(str, "Group ##%d: 2D internal astrometric errors", fgroup->no);
+   pllab( "#gDAXIS1 [\"]", "#gDAXIS2 [\"]", str);
+@@ -2725,13 +2726,13 @@
+         r[0] = 1.0; g[0] = 0.98; b[0] = 0.98;
+         r[1] = 0.6; g[1] = 0.1; b[1] = 0.1;
+         plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-        plshades(histo[d3], CPLOT_ADERR1DNX, CPLOT_ADERR1DNY, NULL,
+-		fgroup->projposmin[d2], fgroup->projposmax[d2], -maxlim, maxlim,
+-		clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1, NULL, NULL);
++        plshades((const PLFLT **)histo[d3], CPLOT_ADERR1DNX, CPLOT_ADERR1DNY,
++		NULL, fgroup->projposmin[d2], fgroup->projposmax[d2], -maxlim,
++		maxlim,	clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1, NULL, NULL);
+         }
+       else
+         {
+-        plcol(1);
++        plcol0(1);
+         plptex((fgroup->projposmin[d2] - margin + fgroup->projposmax[d2])/2.0,
+ 		maxlim/2.0, 1.0, 0.0, 0.5, "No match with a reference!");
+         }
+@@ -2740,23 +2741,24 @@
+         r[0] = 0.0; g[0] = 0.0; b[0] = 0.0;
+         r[1] = 0.8; g[1] = 0.8; b[1] = 0.8;
+         plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-        plimage(histo_hsn[d3], CPLOT_ADERR1DNX_HSN, CPLOT_ADERR1DNY_HSN,
+-		fgroup->projposmin[d2], fgroup->projposmax[d2], -maxlim, maxlim,
+-		0.5, zmax_hsn[d3],
+-		fgroup->projposmin[d2], fgroup->projposmax[d2], -maxlim, maxlim);
++        plimage((const PLFLT **)histo_hsn[d3], CPLOT_ADERR1DNX_HSN, 
++		CPLOT_ADERR1DNY_HSN, fgroup->projposmin[d2], 
++		fgroup->projposmax[d2], -maxlim, maxlim, 
++		0.5, zmax_hsn[d3], fgroup->projposmin[d2], 
++		fgroup->projposmax[d2], -maxlim, maxlim);
+         }
+       plscolbg(255,255,255);	/* Force the background colour to white */
+       plscol0(15, 0,0,0);	/* Force the foreground colour to black */
+       sprintf(xlabel, "AXIS%d [pixels]", d2+1);
+       sprintf(ylabel, "#gDAXIS%d [\"]", d+1);
+ /*---- 1D histograms */
+-      plcol(1);
++      plcol0(1);
+       plwid(2*lwid);
+       plline(CPLOT_NREFERRHISTBIN, cuty[d3], cutbin);
+-      plcol(7);
++      plcol0(7);
+       plline(CPLOT_NREFERRHISTBIN, cuty_hsn[d3], cutbin);
+       plwid(lwid);
+-      plcol(15);
++      plcol0(15);
+       plwid(lwid);
+       xl[0] = fgroup->projposmin[d2] - margin;
+       xl[1] = fgroup->projposmax[d2];
+@@ -2964,13 +2966,13 @@
+     r[0] = 1.0; g[0] = 0.98; b[0] = 0.98;
+     r[1] = 0.6; g[1] = 0.1; b[1] = 0.1;
+     plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-    plshades(histo, CPLOT_REFERR2DN, CPLOT_REFERR2DN, NULL,
++    plshades((const PLFLT **)histo, CPLOT_REFERR2DN, CPLOT_REFERR2DN, NULL,
+ 	-maxlim,maxlim, -maxlim,maxlim,
+ 	clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1, NULL, NULL);
+     }
+   else
+     {
+-    plcol(1);
++    plcol0(1);
+     plptex(0.0, maxlim/2.0, 1.0, 0.0, 0.5, "No match with a reference!");
+     }
+   if (zmax_hsn>=1.0)
+@@ -2978,16 +2980,15 @@
+     r[0] = 0.0; g[0] = 0.0; b[0] = 0.0;
+     r[1] = 0.8; g[1] = 0.8; b[1] = 0.8;
+     plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-    plimage(histo_hsn, CPLOT_REFERR2DN_HSN, CPLOT_REFERR2DN_HSN,
+-	-maxlim,maxlim, -maxlim, maxlim,
+-	0.5, zmax_hsn,
+-	-maxlim, maxlim, -maxlim, maxlim);
++    plimage((const PLFLT **)histo_hsn, CPLOT_REFERR2DN_HSN, 
++	CPLOT_REFERR2DN_HSN, -maxlim,maxlim, -maxlim, maxlim,
++	0.5, zmax_hsn, -maxlim, maxlim, -maxlim, maxlim);
+     }
+   plscolbg(255,255,255);	/* Force the background colour to white */
+   plscol0(15, 0,0,0);		/* Force the foreground colour to black */
+   plschr(0.0,0.5);
+ /* Pixel footprint */
+-  plcol(15);
++  plcol0(15);
+   pllsty(3);
+   xl[0] = xl[1] = xl[4] = pixscale[0]/2.0;
+   yl[0] = yl[3] = yl[4] = pixscale[1]/2.0;
+@@ -2996,15 +2997,15 @@
+   plline(5, xl, yl);
+   pllsty(1);
+ /* 1D histograms */
+-  plcol(1);
++  plcol0(1);
+   plwid(2*lwid);
+   plline(CPLOT_NREFERRHISTBIN, cutbin, cutx);
+   plline(CPLOT_NREFERRHISTBIN, cuty, cutbin);
+-  plcol(7);
++  plcol0(7);
+   plline(CPLOT_NREFERRHISTBIN, cutbin, cutx_hsn);
+   plline(CPLOT_NREFERRHISTBIN, cuty_hsn, cutbin);
+   plwid(lwid);
+-  plcol(15);
++  plcol0(15);
+   plbox("bcnst", 0.0, 0.0, "bcnst", 0.0, 0.0);
+   sprintf(str, "Group ##%d: 2D reference astrometric errors", fgroup->no);
+   pllab( "#gDAXIS1 [\"]", "#gDAXIS2 [\"]", str);
+@@ -3317,7 +3318,7 @@
+         }
+       else
+         {
+-        plcol(1);
++        plcol0(1);
+         plptex(-margin/2.0, maxlim/2.0, 1.0, 0.0, 0.5,
+ 		"No overlapping detections!");
+         }
+@@ -3326,36 +3327,35 @@
+         r[0] = 0.0; g[0] = 0.0; b[0] = 0.0;
+         r[1] = 0.7; g[1] = 0.7; b[1] = 0.7;
+         plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-        plimage(histo_hsn[d3], CPLOT_PIXERR1DNX_HSN, CPLOT_PIXERR1DNY_HSN,
+-		0.5, maxwidth, -maxlim, maxlim,
+-		0.5, zmax_hsn[d3],
+-		0.5, maxwidth, -maxlim, maxlim);
++        plimage((const PLFLT **)histo_hsn[d3], CPLOT_PIXERR1DNX_HSN, 
++		CPLOT_PIXERR1DNY_HSN, 0.5, maxwidth, -maxlim, maxlim,
++		0.5, zmax_hsn[d3], 0.5, maxwidth, -maxlim, maxlim);
+         }
+       sprintf(xlabel, "AXIS%d [pixels]", d2+1);
+       sprintf(ylabel, "#gDAXIS%d [pixels]", d+1);
+       plscolbg(255,255,255);	/* Force the background colour to white */
+       plscol0(15, 0,0,0);	/* Force the foreground colour to black */
+ /* 1D histograms */
+-      plcol(3);
++      plcol0(3);
+       plwid(2*lwid);
+       plline(CPLOT_NPIXERRHISTBIN, cuty[d3], cutbin);
+-      plcol(7);
++      plcol0(7);
+       plline(CPLOT_NPIXERRHISTBIN, cuty_hsn[d3], cutbin);
+       if (zmax[d3]>=1.0)
+         {
+-        plcol(15);
++        plcol0(15);
+         for (i=0; i<CPLOT_PIXERR1DNX+1; i++)
+           if (weight[d3][i]>0.0)
+             line[d3][i] /= weight[d3][i];
+         plwid(6*lwid);
+-        plcol(15);
++        plcol0(15);
+         plline(CPLOT_PIXERR1DNX+1, cutx, line[d3]);
+         plwid(3*lwid);
+-        plcol(3);
++        plcol0(3);
+         plline(CPLOT_PIXERR1DNX+1, cutx, line[d3]);
+         }
+       plwid(lwid);
+-      plcol(15);
++      plcol0(15);
+       plwid(lwid);
+       xl[0] = 0.5 - margin;
+       xl[1] = maxwidth;
+@@ -3659,7 +3659,7 @@
+         }
+       else
+         {
+-        plcol(1);
++        plcol0(1);
+         plptex(-margin/2.0, maxlim/2.0, 1.0, 0.0, 0.5,
+ 		"No overlapping detections!");
+         }
+@@ -3668,7 +3668,7 @@
+         r[0] = 0.0; g[0] = 0.0; b[0] = 0.0;
+         r[1] = 0.7; g[1] = 0.7; b[1] = 0.7;
+         plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-        plimage(histo_hsn[d3], CPLOT_SUBPIXERR1DNX_HSN,
++        plimage((const PLFLT **)histo_hsn[d3], CPLOT_SUBPIXERR1DNX_HSN,
+ 		CPLOT_SUBPIXERR1DNY_HSN,
+ 		-0.5, 0.5, -maxlim, maxlim,
+ 		0.5, zmax_hsn[d3],
+@@ -3679,27 +3679,27 @@
+       plscolbg(255,255,255);	/* Force the background colour to white */
+       plscol0(15, 0,0,0);	/* Force the foreground colour to black */
+ /* 1D histograms */
+-      plcol(3);
++      plcol0(3);
+       plwid(2*lwid);
+       plline(CPLOT_NSUBPIXERRHISTBIN, cuty[d3], cutbin);
+-      plcol(7);
++      plcol0(7);
+       plline(CPLOT_NSUBPIXERRHISTBIN, cuty_hsn[d3], cutbin);
+       if (zmax[d3]>=1.0)
+         {
+-        plcol(15);
++        plcol0(15);
+         for (i=0; i<CPLOT_SUBPIXERR1DNX; i++)
+           if (weight[d3][i]>0.0)
+             line[d3][i] /= weight[d3][i];
+         line[d3][CPLOT_SUBPIXERR1DNX] = line[d3][0];
+         plwid(6*lwid);
+-        plcol(15);
++        plcol0(15);
+         plline(CPLOT_SUBPIXERR1DNX+1, cutx, line[d3]);
+         plwid(3*lwid);
+-        plcol(3);
++        plcol0(3);
+         plline(CPLOT_SUBPIXERR1DNX+1, cutx, line[d3]);
+         }
+       plwid(lwid);
+-      plcol(15);
++      plcol0(15);
+       plwid(lwid);
+       xl[0] = -0.5 - margin;
+       xl[1] = 0.5;
+@@ -4012,13 +4012,14 @@
+           r[0] = 1.0; g[0] = 0.96; b[0] = 1.0;
+           r[1] = 0.3; g[1] = 0.2; b[1] = 0.3;
+           plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-          plshades(histo[d], CPLOT_ASTRCOLSHIFT1DNX, CPLOT_ASTRCOLSHIFT1DNY,
+-		NULL, dmagmin, dmagmax, -maxlim, maxlim,
+-		clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1, NULL, NULL);
++          plshades((const PLFLT **)histo[d], CPLOT_ASTRCOLSHIFT1DNX, 
++		CPLOT_ASTRCOLSHIFT1DNY,	NULL, dmagmin, dmagmax, -maxlim,
++		maxlim,	clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1,
++		NULL, NULL);
+           }
+         else
+           {
+-          plcol(1);
++          plcol0(1);
+           plptex((PLFLT)mdmag, maxlim/2.0, 1.0, 0.0, 0.5,
+ 		"No overlapping detections!");
+           }
+@@ -4027,7 +4028,7 @@
+           r[0] = 0.0; g[0] = 0.0; b[0] = 0.0;
+           r[1] = 0.7; g[1] = 0.7; b[1] = 0.7;
+           plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-          plimage(histo_hsn[d], CPLOT_ASTRCOLSHIFT1DNX_HSN,
++          plimage((const PLFLT **)histo_hsn[d], CPLOT_ASTRCOLSHIFT1DNX_HSN,
+ 		CPLOT_ASTRCOLSHIFT1DNY_HSN,
+ 		dmagmin, dmagmax, -maxlim, maxlim, 0.5, zmax_hsn[d],
+ 		dmagmin, dmagmax, -maxlim, maxlim);
+@@ -4037,13 +4038,13 @@
+         plscolbg(255,255,255);	/* Force the background colour to white */
+         plscol0(15, 0,0,0);	/* Force the foreground colour to black */
+ /*------ 1D histograms */
+-        plcol(13);
++        plcol0(13);
+         plwid(2*lwid);
+         plline(CPLOT_NADERRHISTBIN, cuty[d], cutbin);
+-        plcol(7);
++        plcol0(7);
+         plline(CPLOT_NADERRHISTBIN, cuty_hsn[d], cutbin);
+         plwid(lwid);
+-        plcol(15);
++        plcol0(15);
+         plwid(lwid);
+         xl[0] = dmagmin;
+         xl[1] = dmagmax;
+@@ -4250,13 +4251,13 @@
+       r[0] = 1.0; g[0] = 0.96; b[0] = 1.0;
+       r[1] = 0.3; g[1] = 0.2; b[1] = 0.3;
+       plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-      plshades(histo[d], CPLOT_REFPROPN, CPLOT_REFPROPN, NULL,
++      plshades((const PLFLT **)histo[d], CPLOT_REFPROPN, CPLOT_REFPROPN, NULL,
+ 	-maxlim,maxlim, -maxlim,maxlim,
+ 	clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1, NULL, NULL);
+       }
+     else
+       {
+-      plcol(1);
++      plcol0(1);
+       plptex(0.0, maxlim/2.0, 1.0, 0.0, 0.5, "No match with a reference!");
+       }
+     if (zmax_hsn[d]>=1.0)
+@@ -4264,14 +4265,13 @@
+       r[0] = 0.0; g[0] = 0.0; b[0] = 0.0;
+       r[1] = 0.8; g[1] = 0.8; b[1] = 0.8;
+       plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-      plimage(histo_hsn[d], CPLOT_REFERR2DN_HSN, CPLOT_REFERR2DN_HSN,
+-	-maxlim,maxlim, -maxlim, maxlim,
+-	0.5, zmax_hsn[d],
+-	-maxlim, maxlim, -maxlim, maxlim);
++      plimage((const PLFLT **)histo_hsn[d], CPLOT_REFERR2DN_HSN, 
++	CPLOT_REFERR2DN_HSN, -maxlim,maxlim, -maxlim, maxlim,
++	0.5, zmax_hsn[d], -maxlim, maxlim, -maxlim, maxlim);
+       }
+     plscolbg(255,255,255);	/* Force the background colour to white */
+     plscol0(15, 0,0,0);		/* Force the foreground colour to black */
+-    plcol(15);
++    plcol0(15);
+     plbox("bcnst", 0.0, 0.0, "bcnst", 0.0, 0.0);
+     pllab(d?"#gm#d#gd#u(ref) [mas/yr]":"#gm#d#ga#u(ref) [mas/yr]",
+ 	d?"#gm#d#gd#u(SCAMP) [mas/yr]":"#gm#d#ga#u(SCAMP) [mas/yr]", "");
+diff -U 3 -H -d -r -N -x '*.kdev4' -- scamp-1.7.0/src/photcplot.c scamp-1.7.0-r2/src/photcplot.c
+--- scamp-1.7.0/src/photcplot.c	2009-09-10 15:11:14.000000000 +0200
++++ scamp-1.7.0-r2/src/photcplot.c	2012-01-01 20:55:00.358169400 +0100
+@@ -182,7 +182,7 @@
+ /*-- Now plot! */
+     firstflag = 1;
+     yl[0] = yl[1] = 0.0;
+-    plcol(15);
++    plcol0(15);
+     plschr(0.0,0.5);
+     lwid = plotaaflag? ((CPLOT_AAFAC+1)/2) : 1;
+     plwid(lwid);
+@@ -204,9 +204,9 @@
+       if (fields[f]->photomlabel == instru)
+         {
+         if (fields[f]->photomflag==1)
+- 	  plcol(9);
++ 	  plcol0(9);
+         else
+- 	  plcol(8);
++ 	  plcol0(8);
+         plpoin((PLINT)1, x+n,y+n, 5);
+         plptex(x[n],y[n], 0.0, -1.0, -0.1, fields[f]->rfilename);
+         n++;
+@@ -214,7 +214,7 @@
+     xl[0] = 0.0;
+     xl[1] = npointmax+1.0;
+     pllsty(2);
+-    plcol(15);
++    plcol0(15);
+     plline(2, xl, yl);
+     pllsty(1);
+     firstflag = 0;
+@@ -443,13 +443,14 @@
+         r[0] = 0.98; g[0] = 0.98; b[0] = 1.0;
+         r[1] = 0.3; g[1] = 0.3; b[1] = 0.4;
+         plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-        plshades(histo[d], CPLOT_PHOTERRNX, CPLOT_PHOTERRNY, NULL,
+-		fgroup->projposmin[d], fgroup->projposmax[d], -maxlim, maxlim,
+-		clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1, NULL, NULL);
++        plshades((const PLFLT **)histo[d], CPLOT_PHOTERRNX, CPLOT_PHOTERRNY, 
++		NULL, fgroup->projposmin[d], fgroup->projposmax[d], -maxlim,
++		maxlim, clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1,
++		NULL, NULL);
+         }
+       else
+         {
+-        plcol(1);
++        plcol0(1);
+         plptex((fgroup->projposmin[d] - margin + fgroup->projposmax[d])/2.0,
+ 		maxlim/2.0, 1.0, 0.0, 0.5, "No overlapping detections!");
+         }
+@@ -458,20 +459,20 @@
+         r[0] = 0.0; g[0] = 0.0; b[0] = 0.0;
+         r[1] = 0.8; g[1] = 0.8; b[1] = 0.8;
+         plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-       plimage(histo_hsn[d], CPLOT_PHOTERRNX_HSN, CPLOT_PHOTERRNY_HSN,
+-		fgroup->projposmin[d], fgroup->projposmax[d], -maxlim, maxlim,
+-		0.5, zmax_hsn[d],
++       plimage((const PLFLT **)histo_hsn[d], CPLOT_PHOTERRNX_HSN, 
++		CPLOT_PHOTERRNY_HSN, fgroup->projposmin[d], 
++		fgroup->projposmax[d], -maxlim, maxlim, 0.5, zmax_hsn[d],
+ 		fgroup->projposmin[d], fgroup->projposmax[d], -maxlim, maxlim);
+         }
+       plscolbg(255,255,255);	/* Force the background colour to white */
+       plscol0(15, 0,0,0);	/* Force the foreground colour to black */
+-      plcol(9);
++      plcol0(9);
+       plwid(2*lwid);
+       plline(CPLOT_NADERRHISTBIN, cuty[d], cutbin);
+-      plcol(7);
++      plcol0(7);
+       plline(CPLOT_NADERRHISTBIN, cuty_hsn[d], cutbin);
+       plwid(lwid);
+-      plcol(15);
++      plcol0(15);
+       xl[0] = fgroup->projposmin[d] - margin;
+       xl[1] = fgroup->projposmax[d];
+       pllsty(2);
+@@ -728,13 +729,13 @@
+       r[0] = 0.98; g[0] = 0.98; b[0] = 1.0;
+       r[1] = 0.3; g[1] = 0.3; b[1] = 0.4;
+       plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-      plshades(histo, CPLOT_PHOTERRNX, CPLOT_PHOTERRNY, NULL,
++      plshades((const PLFLT **)histo, CPLOT_PHOTERRNX, CPLOT_PHOTERRNY, NULL,
+ 		xoffset, magmax, -maxlim, maxlim,
+ 		clevel, CPLOT_NSHADES, 1, 0, 0, plfill, 1, NULL, NULL);
+       }
+     else
+       {
+-      plcol(1);
++      plcol0(1);
+       plptex((xoffset - margin + magmax)/2.0,
+ 		maxlim/2.0, 1.0, 0.0, 0.5, "No overlapping detections!");
+       }
+@@ -743,20 +744,19 @@
+       r[0] = 0.0; g[0] = 0.0; b[0] = 0.0;
+       r[1] = 0.8; g[1] = 0.8; b[1] = 0.8;
+       plscmap1l(1, 2, cpoint, r, g, b, NULL);
+-     plimage(histo_hsn, CPLOT_PHOTERRNX_HSN, CPLOT_PHOTERRNY_HSN,
+-		xoffset, magmax, -maxlim, maxlim,
+-		0.5, zmax_hsn,
+-		xoffset, magmax, -maxlim, maxlim);
++     plimage((const PLFLT **)histo_hsn, CPLOT_PHOTERRNX_HSN,
++		CPLOT_PHOTERRNY_HSN, xoffset, magmax, -maxlim, maxlim,
++		0.5, zmax_hsn, xoffset, magmax, -maxlim, maxlim);
+       }
+     plscolbg(255,255,255);	/* Force the background colour to white */
+     plscol0(15, 0,0,0);	/* Force the foreground colour to black */
+-    plcol(9);
++    plcol0(9);
+     plwid(2*lwid);
+     plline(CPLOT_NADERRHISTBIN, cuty, cutbin);
+-    plcol(7);
++    plcol0(7);
+     plline(CPLOT_NADERRHISTBIN, cuty_hsn, cutbin);
+     plwid(lwid);
+-    plcol(15);
++    plcol0(15);
+     xl[0] = xoffset - margin;
+     xl[1] = magmax;
+     pllsty(2);

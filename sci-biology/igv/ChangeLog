@@ -1,0 +1,7 @@
+# ChangeLog for sci-biology/igv
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  08 Jan 2012; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
+  New package, ebuild written by me
+

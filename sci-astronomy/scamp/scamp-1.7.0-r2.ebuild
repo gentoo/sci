@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -36,6 +36,7 @@ src_prepare() {
 		-e "s/-llapack/-l${myclapack}/g" \
 		-e "s/AC_CHECK_LIB(lapack/AC_CHECK_LIB(${myclapack}/g" \
 		configure || die "sed acx_atlas.m4 failed"
+	epatch "${FILESDIR}"/${PV}-plplot599.patch
 }
 
 src_configure() {

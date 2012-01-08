@@ -1,0 +1,12 @@
+# ChangeLog for dev-python/GOGrapher
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*GOGrapher-9999 (08 Jan 2012)
+
+  08 Jan 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +GOGrapher-9999.ebuild, +metadata.xml:
+  new package, more robust version from same author is at
+  https://github.com/ntamas/biopython/blob/gosupport which is a rewrite of
+  https://github.com/gotgenes/biopython
+

@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,7 @@ inherit eutils toolchain-funcs cmake-utils alternatives-2
 
 MYP=lapack-3.3.1
 
-DESCRIPTION="Reference implementation of BLAS and LAPACK"
+DESCRIPTION="Reference implementation of BLAS"
 HOMEPAGE="http://www.netlib.org/lapack/"
 SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
 
