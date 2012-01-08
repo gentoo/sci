@@ -1,29 +1,32 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EBZR_REPO_URI="http://oregonstate.edu/~benisong/software/projects/starparse/head"
-EBZR_BOOTSTRAP="eautoreconf"
+EAPI=4
 
-inherit autotools bzr
+AUTOTOOLS_AUTORECONF="true"
+
+inherit autotools-utils git-2
 
 DESCRIPTION="Library for parsing NMR star files (peak-list format) and CIF files"
 HOMEPAGE="http://burrow-owl.sourceforge.net/"
 #SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
+EGIT_REPO_URI="git://burrow-owl.git.sourceforge.net/gitroot/burrow-owl/starparse"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="guile"
+IUSE="guile static-libs"
 
 RDEPEND="guile? ( dev-scheme/guile )"
 DEPEND="${RDEPEND}"
 
-src_compile() {
-	econf $(use_enable guile) || die
-	emake || die
-}
+AUTOTOOLS_IN_SOURCE_BUILD=1
 
-src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
+src_configure() {
+	local myeconfargs=(
+		$(use_enable guile)
+	)
+	autotools-utils_src_configure
+	emake || die
 }
