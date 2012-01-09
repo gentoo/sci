@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/artemis
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*artemis-9999 (08 Jan 2012)
+
+  08 Jan 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +artemis-9999.ebuild, +metadata.xml:
+  initial, not yet working ebuild
+
