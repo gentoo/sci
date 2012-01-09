@@ -30,7 +30,7 @@ fi
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="examples"
+IUSE="doc examples static-libs"
 
 RDEPEND="
 	dev-scheme/guile-gnome-platform
@@ -44,6 +44,7 @@ DEPEND="${RDEPEND}
 PATCHES=(
 	"${FILESDIR}"/${PV}-no-doc.patch
 	"${FILESDIR}"/${PV}-impl-dec.patch
+	"${FILESDIR}"/${PV}-header.patch
 	)
 
 MAKEOPTS+=" -j1"
@@ -55,6 +56,13 @@ src_unpack() {
 	else
 		unpack ${A}
 	fi
+}
+
+src_configure() {
+	local myeconfargs=(
+		$(use_with doc doxygen)
+	)
+	autotools-utils_src_configure
 }
 
 src_install() {

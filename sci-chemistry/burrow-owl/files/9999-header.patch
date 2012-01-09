@@ -1,0 +1,15 @@
+ burrow/spectrum/Makefile.am |    1 -
+ 1 files changed, 0 insertions(+), 1 deletions(-)
+
+diff --git a/burrow/spectrum/Makefile.am b/burrow/spectrum/Makefile.am
+index 18409cd..d9bc0ec 100644
+--- a/burrow/spectrum/Makefile.am
++++ b/burrow/spectrum/Makefile.am
+@@ -50,7 +50,6 @@ contour.h		       \
+ nih.h			       \
+ painter.h		       \
+ painter_bwps.h		       \
+-spectrum.h		       \
+ spectrum_segmented.h 	       \
+ spectrum_convoluted.h	       \
+ spectrum_diagonal_project.h    \
