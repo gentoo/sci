@@ -1,10 +1,11 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
 PYTHON_DEPEND="2"
+AUTOTOOLS_AUTORECONF="true"
 
 inherit autotools-utils python subversion toolchain-funcs versionator
 
@@ -14,18 +15,15 @@ MY_S_P=${MY_S2_P}-${PR/r/revision-}
 MY_PV=${PV}
 MY_P=${PN}-${MY_PV}
 
-ESVN_REPO_URI="http://coot.googlecode.com/svn/trunk"
-
 DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, completion and validation"
 HOMEPAGE="http://www.biop.ox.ac.uk/coot/"
 SRC_URI="test? ( http://www.biop.ox.ac.uk/coot/devel/greg-data.tar.gz )"
+ESVN_REPO_URI="http://coot.googlecode.com/svn/trunk"
 
 SLOT="0"
 LICENSE="GPL-3"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="+openmp static-libs test"
-
-AUTOTOOLS_IN_SOURCE_BUILD=1
 
 SCIDEPS="
 	>=sci-libs/ccp4-libs-6.1
@@ -71,6 +69,8 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}"
 
+AUTOTOOLS_IN_SOURCE_BUILD=1
+
 pkg_setup() {
 	if use openmp; then
 		tc-has-openmp || die "Please use an OPENMP capable compiler"
@@ -105,8 +105,6 @@ src_prepare() {
 	}
 	}
 	EOF
-
-	eautoreconf
 }
 
 src_configure() {

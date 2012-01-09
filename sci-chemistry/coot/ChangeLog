@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/coot
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  09 Jan 2012; Justin Lecher <jlec@gentoo.org> coot-9999.ebuild:
+  Bumped EAPI to 4 and added new eautoreconf handling of autotools-utils.eclass
 
   07 Oct 2011; Justin Lecher <jlec@gentoo.org> coot-9999.ebuild:
   Added dep on >=sys-devel/libtool-2.4-r2
