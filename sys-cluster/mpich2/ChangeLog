@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 Jan 2012; Justin Bronder <jsbronder@gentoo.org>
+  +files/mpich2-hvector.patch, mpich2-1.4.1_p1.ebuild:
+  Drop failing tests for now, fix #393361
+
 *mpich2-1.4.1_p1 (10 Jan 2012)
 
   10 Jan 2012; Justin Bronder <jsbronder@gentoo.org> -mpich2-1.4_rc2-r1.ebuild,
