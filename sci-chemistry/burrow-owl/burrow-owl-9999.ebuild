@@ -44,7 +44,6 @@ DEPEND="${RDEPEND}
 PATCHES=(
 	"${FILESDIR}"/${PV}-no-doc.patch
 	"${FILESDIR}"/${PV}-impl-dec.patch
-	"${FILESDIR}"/${PV}-header.patch
 	)
 
 MAKEOPTS+=" -j1"

@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 Jan 2012; Justin Lecher <jlec@gentoo.org> -files/9999-header.patch,
+  burrow-owl-9999.ebuild:
+  Remove patch, fixed upstream
+
+  10 Jan 2012; Justin Lecher <jlec@gentoo.org> -files/9999-header.patch,
+  burrow-owl-9999.ebuild:
+  Remove patch, fixed upstream
+
   09 Jan 2012; Justin Lecher <jlec@gentoo.org> +files/9999-header.patch,
   files/9999-impl-dec.patch, burrow-owl-9999.ebuild:
   Fix double installation of spectrum.h
