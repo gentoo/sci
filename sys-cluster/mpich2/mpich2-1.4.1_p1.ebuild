@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -58,7 +58,21 @@ src_prepare() {
 		-e 's,\(.*=\ *\)"@WRAPPER_[A-Z]*FLAGS@",\1"",' \
 		src/env/*.in || die
 
-	# 369263 and 1044, 1500 upstream. 	
+	# See
+	# http://lists.mcs.anl.gov/pipermail/mpich-discuss/2011-August/010680.html
+	# http://lists.mcs.anl.gov/pipermail/mpich-discuss/2011-August/010678.html
+	# and countless other sources pointing out the insanity.
+	sed -i \
+		-e 's|prefix=${DESTDIR}|prefix=|g' \
+		-e 's|dir=${DESTDIR}|dir=|g' \
+		Makefile.in || die
+
+	sed -i \
+		-e "s|prefix='\${DESTDIR}|prefix='|" \
+		-e "s|dir='\${DESTDIR}|dir='|" \
+		src/env/Makefile.in || die
+
+	# 369263 and 1500 upstream. 	
 	epatch "${FILESDIR}"/fix-pkg-config-files.patch
 	AT_M4DIR="${S}"/confdb eautoreconf || die
 }
