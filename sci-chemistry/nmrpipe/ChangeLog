@@ -1,6 +1,13 @@
 # ChangeLog for sci-chemistry/nmrpipe
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*nmrpipe-6.5.2012.009.14.35 (10 Jan 2012)
+
+  10 Jan 2012; Justin Lecher <jlec@gentoo.org>
+  +files/6.5.2012.009.14.35-lib.patch, -files/6.2.2011.314.15.12-lib.patch,
+  -nmrpipe-6.2.2011.314.15.12.ebuild, +nmrpipe-6.5.2012.009.14.35.ebuild:
+  Version Bump
 
   26 Dec 2011; Justin Lecher <jlec@gentoo.org>
   nmrpipe-6.2.2011.314.15.12.ebuild:
