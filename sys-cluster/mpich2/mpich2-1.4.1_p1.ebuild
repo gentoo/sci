@@ -143,6 +143,7 @@ src_test() {
 	sed -i '/^[# ]*non_zero_root/d' test/mpi/perf/testlist || die
 
 	# Failing tests based on requiring MPI_THREAD_MULTIPLE.
+	# http://lists.mcs.anl.gov/pipermail/mpich-discuss/2012-January/011618.html
 	sed -i \
 		-e '/^[# ]*pt2pt/d' \
 		-e '/^[# ]*comm/d' \
