@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/embassy-mira
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-mira/ChangeLog,v 1.5 2010/01/15 22:46:25 fauli Exp $
+
+  14 Jan 2012; Andreas K. Huettel <dilfridge@gentoo.org>
+  -embassy-mira-2.8.2-r2.ebuild:
+  Removed because the sources cannot be fetched
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> embassy-mira-2.8.2-r2.ebuild:
   Dropped ~ppc due to missing keywording of sci-libs/plplot, #358035
