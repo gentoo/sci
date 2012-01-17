@@ -2,15 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils eutils
 
 MYPN=astLib
-MYP="${MYPN}-${PV}"
+MYP=${MYPN}-${PV}
 
 DESCRIPTION="Python astronomy modules for coordinate conversion and manipulating FITS images"
 HOMEPAGE="http://astlib.sourceforge.net/"
@@ -28,21 +29,20 @@ RDEPEND="${DEPEND}
 	dev-python/pyfits
 	sci-libs/scipy"
 
-RESTRICT_PYTHON_ABIS="3.*"
-
 S=${WORKDIR}/${MYP}
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-0.4.0-wcstools.patch
+	epatch "${FILESDIR}"/${P}-wcstools.patch
+	distutils_src_prepare
 }
 
 src_install() {
 	distutils_src_install
 	if use doc; then
-		dohtml docs/${MYPN}/* || die
+		dohtml docs/${MYPN}/*
 	fi
 	if use examples; then
 		insinto /usr/share/doc/${PF}
-		doins -r examples || die
+		doins -r examples
 	fi
 }
