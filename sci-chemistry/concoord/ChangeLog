@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/concoord
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*concoord-2.1 (17 Jan 2012)
+
+  17 Jan 2012; Justin Lecher <jlec@gentoo.org> +concoord-2.1.ebuild,
+  +metadata.xml:
+  New addition
+
