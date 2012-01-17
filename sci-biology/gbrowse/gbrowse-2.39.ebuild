@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 EAPI="2"
@@ -46,6 +46,7 @@ DEPEND="
 	dev-perl/Statistics-Descriptive
 	>=dev-perl/Bio-Graphics-1.97
 	>=dev-perl/JSON-2.510.0
+	dev-perl/TermReadKey
 	dev-perl/libwww-perl
 	svg? ( dev-perl/GD-SVG )
 	pdf? ( media-gfx/inkscape )
