@@ -1,14 +1,14 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-admin/eselect/eselect-1.2.18.ebuild,v 1.1 2011/09/25 16:24:18 ulm Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-admin/eselect/eselect-1.3.ebuild,v 1.1 2012/01/21 19:02:55 ulm Exp $
 
 EAPI=3
 
-inherit autotools bash-completion-r1 eutils
+inherit bash-completion-r1 eutils autotools
 
 DESCRIPTION="Gentoo's multi-purpose configuration and management tool"
 HOMEPAGE="http://www.gentoo.org/proj/en/eselect/"
-SRC_URI="mirror://gentoo/${P}.tar.bz2"
+SRC_URI="mirror://gentoo/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -22,6 +22,7 @@ RDEPEND="sys-apps/sed
 		app-misc/realpath
 	)"
 DEPEND="${RDEPEND}
+	app-arch/xz-utils
 	doc? ( dev-python/docutils )"
 RDEPEND="!app-admin/eselect-news
 	${RDEPEND}
@@ -56,6 +57,8 @@ src_install() {
 
 	# needed by news module
 	keepdir /var/lib/gentoo/news
+	fowners root:portage /var/lib/gentoo/news || die
+	fperms g+w /var/lib/gentoo/news || die
 }
 
 pkg_postinst() {
