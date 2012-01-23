@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,7 +21,7 @@ RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )
 	virtual/lapack
 	virtual/blas
-	hypre? ( >=sci-mathematics/hypre-2.6.0b[static-libs=] )
+	hypre? ( sci-libs/hypre[static-libs=] )
 	metis? ( sci-libs/parmetis )
 	hdf5? ( sci-libs/hdf5[!mpi?] )
 "
