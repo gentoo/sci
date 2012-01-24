@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.28.00d.ebuild,v 1.3 2011/06/21 14:31:50 jlec Exp $
 
@@ -11,8 +11,7 @@ DOC_PV=5_26
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
 PATCH_PV=5.28.00b
-PATCH_PV2=5.30.00
-PATCH_PV3=5.32.00
+PATCH_PV2=5.32.00
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
@@ -129,7 +128,8 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV3}-afs.patch
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc

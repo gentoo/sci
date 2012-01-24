@@ -1,0 +1,29 @@
+--- CONFIG/src/atlconf_misc.c.orig	2012-01-11 16:00:42.000000000 +0000
++++ CONFIG/src/atlconf_misc.c	2012-01-23 19:33:37.000000000 +0000
+@@ -439,6 +439,7 @@
+    assert(cmnd);
+    sprintf(cmnd, "%s -m", uname);
+    res = atlsys_1L(targ, cmnd, 0, 0);
++   free(cmnd);
+    if (res)
+    {
+       if (strstr(res, "ppc") || strstr(res, "Power Macintosh") ||
+@@ -707,6 +708,7 @@
+    assert(cmnd);
+    sprintf(cmnd, "%s --version", comp);
+    res = atlsys_1L(NULL, cmnd, 0, 0);
++   free(cmnd);
+    if (res)
+    {
+ /*
+--- CONFIG/src/config.c.orig	2012-01-23 19:41:11.000000000 +0000
++++ CONFIG/src/config.c	2012-01-24 04:46:25.000000000 +0000
+@@ -1102,7 +1105,7 @@
+          else if (!strcmp(sp0, "kern"))
+             gcc3 = sp;
+          else if (!strcmp(sp0, "pmake"))
+-            *pmake = sp;
++	   *pmake = NewStringCopy(sp);
+         else if (!strcmp(sp0, "flapack"))
+            *flapack = sp;
+         else if (!strcmp(sp0, "f77lib"))

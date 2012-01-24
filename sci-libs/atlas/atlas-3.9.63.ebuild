@@ -1,11 +1,11 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=4
 inherit eutils toolchain-funcs versionator alternatives-2
 
-LAPACKP=lapack-3.3.1
+LAPACKP=lapack-3.4.0
 
 DESCRIPTION="Automatically Tuned Linear Algebra Software"
 HOMEPAGE="http://math-atlas.sourceforge.net/"
@@ -24,9 +24,10 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/ATLAS"
 
 atlas_configure() {
+	# hack needed to trick the flaky gcc detection
 	local mycc="$(tc-getCC)"
-	# http://sourceforge.net/tracker/?func=detail&aid=3301697&group_id=23725&atid=379483
 	[[ ${mycc} == *gcc* ]] && mycc=gcc
+
 	local myconf=(
 		"--prefix=${ED}/usr"
 		"--libdir=${ED}/usr/$(get_libdir)"
@@ -39,7 +40,7 @@ atlas_configure() {
 	)
 
 	# OpenMP shown to decreased performance over POSIX threads
-	# (at least in 3.9.39, see atlas-dev mailing list)
+	# (at least in 3.9.x, see atlas-dev mailing list)
 	if use threads; then
 		myconf+=( "-t -1" "-Si omp 0" )
 	else
@@ -80,6 +81,8 @@ atlas_configure() {
 	local confdir="${S}_${1}"; shift
 	myconf+=( $@ )
 	mkdir "${confdir}" && cd "${confdir}"
+	# for debugging
+	echo ${myconf[@]} > myconf.out
 	"${S}"/configure ${myconf[@]} || die "configure in ${confdir} failed"
 }
 
@@ -156,6 +159,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/3.9.39-bfr-overflow.patch
+	epatch "${FILESDIR}"/3.9.63-leaks.patch
 }
 
 src_configure() {

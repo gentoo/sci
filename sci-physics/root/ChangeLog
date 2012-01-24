@@ -1,6 +1,20 @@
 # ChangeLog for sci-physics/root
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*root-5.32.00-r2 (20 Jan 2012)
+
+  20 Jan 2012; Andrew Savchenko <bircoph@gmail.com>
+  -files/root-5.30.00-nobyte-compile.patch, -root-5.32.00-r1.ebuild,
+  +root-5.32.00-r2.ebuild, +files/root-5.32.00-cfitsio.patch,
+  +files/root-5.32.00-nobyte-compile.patch:
+  Link with dynamic cfistsio library if both static and dynamic
+  versions are present. Thanks Marcel Straub for the report and the
+  patch. See bug 374709 for details.
+
+  Rename root-5.30.00-nobyte-compile.patch ->
+  root-5.32.00-nobyte-compile.patch to simplify patch versioning in
+  the ebuild.
 
   15 Dec 2011; Andrew Savchenko <bircoph@gmail.com> root-5.32.00-r1.ebuild:
   sci-physics/root: update clarens requirements
