@@ -1,8 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=4
 
 DESCRIPTION="C++ wrapper for LAPACK libraries"
 HOMEPAGE="http://lapackpp.sourceforge.net"
@@ -11,7 +11,7 @@ LICENSE="LGPL-2.1"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc"
+IUSE="doc static-libs"
 
 RDEPEND="virtual/blas
 	virtual/lapack"
@@ -26,23 +26,18 @@ src_prepare() {
 
 src_configure() {
 	econf \
+		$(use_enable static-libs static) \
 		--disable-atlas \
-		--enable-static \
 		--with-blas="$(pkg-config --libs blas)" \
 		--with-lapack="$(pkg-config --libs lapack)"
 }
 
 src_compile() {
-	default_src_compile
-	if use doc; then
-		emake srcdoc || die "emake srcdoc failed"
-	fi
+	default
+	use doc && emake srcdoc
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
-	dodoc NEWS MAINTAINER RELEASE.NOTES README ChangeLog AUTHORS
-	if use doc; then
-		dohtml -r api-doc/html/* || die "dohtml failed"
-	fi
+	default
+	use doc && dohtml -r api-doc/html/*
 }
