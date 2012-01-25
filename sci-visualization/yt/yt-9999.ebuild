@@ -10,7 +10,7 @@ RESTRICT_PYTHON_ABIS="3.*"
 
 inherit distutils mercurial
 
-DESCRIPTION="Astrophysical Simulation Analysis and Vizualization"
+DESCRIPTION="Astrophysical Simulation Analysis and Vizualization package"
 HOMEPAGE="http://yt-project.org/"
 SRC_URI=""
 EHG_REPO_URI="https://bitbucket.org/yt_analysis/yt"
@@ -22,12 +22,12 @@ IUSE=""
 
 CDEPEND="media-libs/freetype
 	media-libs/libpng
-	sci-libs/hdf5
-	sys-libs/zlib"
+	sci-libs/hdf5"
 DEPEND="${CDEPEND}
 	dev-python/cython
 	dev-python/setuptools"
 RDEPEND="${CDEPEND}
+	dev-python/pyx
 	dev-python/numpy
 	dev-python/h5py
 	dev-python/matplotlib"
