@@ -1,6 +1,12 @@
 # ChangeLog for sci-libs/lapack-reference
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
+
+*lapack-reference-3.4.0 (26 Jan 2012)
+
+  26 Jan 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +lapack-reference-3.4.0.ebuild:
+  Version bump
 
 *lapack-reference-3.3.1 (19 Aug 2011)
 
