@@ -91,9 +91,9 @@ sci-visualization/vtkPOFFReader
 
 # Christoph Junghans <ottxor@gentoo.org> (02 Nov 2009)
 # live cvs ebuild, deps changing constantly
-# report to bug #232363
 =sci-visualization/gnuplot-4.4.9999
-=sci-visualization/gnuplot-4.5.9999
+=sci-visualization/gnuplot-4.6.9999
+=sci-visualization/gnuplot-4.7.9999
 
 # Justin Lecher <jlec@gentoo.org> (1 Aug 2009)
 # mask live ebuild
