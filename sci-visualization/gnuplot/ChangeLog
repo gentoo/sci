@@ -1,6 +1,13 @@
 # ChangeLog for sci-visualization/gnuplot
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*gnuplot-4.7.9999 (27 Jan 2012)
+*gnuplot-4.6.9999 (27 Jan 2012)
+
+  27 Jan 2012; Christoph Junghans <ottxor@gentoo.org> -gnuplot-4.5.9999.ebuild,
+  +gnuplot-4.6.9999.ebuild, +gnuplot-4.7.9999.ebuild:
+  version bump
 
   03 Nov 2011; Christoph Junghans <ottxor@gentoo.org> gnuplot-4.4.9999.ebuild,
   gnuplot-4.5.9999.ebuild:

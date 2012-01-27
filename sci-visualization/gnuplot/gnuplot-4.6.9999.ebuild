@@ -1,8 +1,8 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
 inherit elisp-common multilib wxwidgets
 
@@ -13,13 +13,13 @@ if [[ -z ${PV%%*9999} ]]; then
 	inherit autotools cvs
 	ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot"
 	ECVS_MODULE="gnuplot"
-	ECVS_BRANCH="HEAD"
+	ECVS_BRANCH="branch-4-6-stable"
 	ECVS_USER="anonymous"
 	ECVS_CVS_OPTIONS="-dP"
 	MY_P="${PN}"
 	SRC_URI=""
 else
-	MY_P="${P/_/-}"
+	MY_P="${P/_/.}"
 	SRC_URI="mirror://sourceforge/gnuplot/${MY_P}.tar.gz"
 fi
 
@@ -75,8 +75,7 @@ src_prepare() {
 	if [[ -z ${PV%%*9999} ]]; then
 		local dir
 		for dir in config demo m4 term tutorial; do
-			emake -C "$dir" -f Makefile.am.in Makefile.am || \
-				die "make -f Makefile.am.in Makefile.am in $dir failed"
+			emake -C "$dir" -f Makefile.am.in Makefile.am
 		done
 		eautoreconf
 	fi
@@ -150,44 +149,44 @@ src_compile() {
 	# example plots.
 	addwrite /dev/svga:/dev/mouse:/dev/tts/0
 
-	emake all info || die
+	emake all info
 
 	if use xemacs; then
 		cd "${S}/lisp-xemacs"
-		emake || die
+		emake
 	fi
 
 	if use emacs; then
 		cd "${S}/lisp"
-		emake || die
+		emake
 	fi
 
 	if use doc; then
 		# Avoid sandbox violation in epstopdf/ghostscript
 		addpredict /var/cache/fontconfig
 		cd "${S}/docs"
-		emake pdf || die
+		emake pdf
 		cd "${S}/tutorial"
-		emake pdf || die
+		emake pdf
 
 		if use emacs || use xemacs; then
 			cd "${S}/lisp"
-			emake pdf || die
+			emake pdf
 		fi
 	fi
 }
 
 src_install () {
-	emake DESTDIR="${D}" install || die
+	emake DESTDIR="${D}" install
 
 	if use xemacs; then
 		cd "${S}/lisp-xemacs"
-		emake DESTDIR="${D}" install || die
+		emake DESTDIR="${D}" install
 	fi
 
 	if use emacs; then
 		cd "${S}/lisp"
-		emake DESTDIR="${D}" install || die
+		emake DESTDIR="${D}" install
 		# info-look* is included with >=emacs-21
 		rm -f "${ED}${SITELISP}/${PN}"/info-look*
 
@@ -206,7 +205,7 @@ src_install () {
 	if use examples; then
 		# Demo files
 		insinto /usr/share/${PN}/${GP_VERSION}
-		doins -r demo || die
+		doins -r demo
 		rm -f "${ED}"/usr/share/${PN}/${GP_VERSION}/demo/Makefile*
 		rm -f "${ED}"/usr/share/${PN}/${GP_VERSION}/demo/binary*
 	fi
