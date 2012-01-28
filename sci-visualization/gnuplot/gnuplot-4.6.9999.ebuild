@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-visualization/gnuplot/gnuplot-4.6_rc1.ebuild,v 1.3 2012/01/27 16:05:06 ulm Exp $
 
 EAPI=4
 
@@ -61,9 +61,15 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	doc? (
 		virtual/latex-base
+		dev-texlive/texlive-latexextra
 		app-text/ghostscript-gpl )
-	!emacs? ( xemacs? ( app-xemacs/texinfo ) )
+	!emacs? ( xemacs? ( app-xemacs/texinfo ) )"
+
+if [[ -z ${PV%%*9999} ]]; then
+	# The live ebuild always needs an Emacs for building of gnuplot.texi
+	DEPEND="${DEPEND}
 	!emacs? ( !xemacs? ( || ( virtual/emacs app-xemacs/texinfo ) ) )"
+fi
 
 S="${WORKDIR}/${MY_P}"
 
@@ -116,15 +122,15 @@ src_configure() {
 		&& myconf="${myconf} --with-readline=gnu" \
 		|| myconf="${myconf} --with-readline=builtin"
 
-	if has_version virtual/emacs; then
-		emacs="emacs"
-	elif has_version app-xemacs/texinfo; then
-		emacs="xemacs"
+	local emacs=$(usev emacs || usev xemacs || echo no)
+	if [[ -z ${PV%%*9999} && ${emacs} = no ]]; then
+		#live ebuild needs an emacs to build texi
+		has_version virtual/emacs && emacs="emacs" || emacs="xemacs"
 	fi
 
 	econf ${myconf} \
 		DIST_CONTACT="http://bugs.gentoo.org/" \
-		EMACS="${emacs}"
+		EMACS=${emacs}
 
 	if use xemacs; then
 		einfo "Configuring gnuplot-mode for XEmacs ..."
@@ -232,23 +238,23 @@ pkg_postinst() {
 	use emacs && elisp-site-regen
 	use latex && texmf-update
 
-	einfo "Gnuplot no longer links against pdflib, see the ChangeLog for"
-	einfo "details. You can use the \"pdfcairo\" terminal for PDF output."
-	use cairo || einfo "It is available with USE=\"cairo\"."
+	elog "Gnuplot no longer links against pdflib, see the ChangeLog for"
+	elog "details. You can use the \"pdfcairo\" terminal for PDF output."
+	use cairo || elog "It is available with USE=\"cairo\"."
 
 	if use svga; then
 		echo
-		einfo "In order to enable ordinary users to use SVGA console graphics"
-		einfo "gnuplot needs to be set up as setuid root.  Please note that"
-		einfo "this is usually considered to be a security hazard."
-		einfo "As root, manually \"chmod u+s /usr/bin/gnuplot\"."
+		elog "In order to enable ordinary users to use SVGA console graphics"
+		elog "gnuplot needs to be set up as setuid root. Please note that"
+		elog "this is usually considered to be a security hazard."
+		elog "As root, manually \"chmod u+s /usr/bin/gnuplot\"."
 	fi
 	if use gd; then
 		echo
-		einfo "For font support in png/jpeg/gif output, you may have to"
-		einfo "set the GDFONTPATH and GNUPLOT_DEFAULT_GDFONT environment"
-		einfo "variables. See the FAQ file in /usr/share/doc/${PF}/"
-		einfo "for more information."
+		elog "For font support in png/jpeg/gif output, you may have to"
+		elog "set the GDFONTPATH and GNUPLOT_DEFAULT_GDFONT environment"
+		elog "variables. See the FAQ file in /usr/share/doc/${PF}/"
+		elog "for more information."
 	fi
 }
 

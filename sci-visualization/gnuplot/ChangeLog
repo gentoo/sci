@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Jan 2012; Christoph Junghans <ottxor@gentoo.org> gnuplot-4.6.9999.ebuild,
+  gnuplot-4.7.9999.ebuild:
+  sync with tree and bug #400999#c7
+
 *gnuplot-4.7.9999 (27 Jan 2012)
 *gnuplot-4.6.9999 (27 Jan 2012)
 
