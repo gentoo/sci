@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Jan 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> ChangeLog:
+  and the path to the helpfile was corrected in the Makefile to match intended
+  location specified in ebuild
+
 *seaview-4.3.3 (30 Jan 2012)
 
   30 Jan 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
