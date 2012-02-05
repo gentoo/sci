@@ -146,6 +146,7 @@ src_configure() {
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_ACCELERATION="$acce"
 		-DGMXLIB="$(get_libdir)"
+	    -DGMX_VMD_PLUGIN_PATH="${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/"
 	)
 
 	for x in ${GMX_DIRS}; do
@@ -200,10 +201,6 @@ src_install() {
 			cmake-utils_src_make install-mdrun DESTDIR="${D}"
 	done
 
-	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
-	echo "VMD_PLUGIN_PATH=${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/" >> "${T}/80gromacs"
-
-	doenvd "${T}/80gromacs"
 	rm -f "${ED}"/usr/bin/GMXRC*
 
 	newbashcomp "${ED}"/usr/bin/completion.bash ${PN}

@@ -3,6 +3,9 @@
 # $Header: $
 
   05 Feb 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
+  handle new vmd detection
+
+  05 Feb 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
   added openmp support
 
 *gromacs-4.6.9999 (28 Sep 2011)
