@@ -14,7 +14,7 @@ SRC_URI="http://trace.ncbi.nlm.nih.gov/Traces/sra/static/sra_sdk-"${PV}".tar.gz"
 LICENSE="public-domain"
 SLOT="0"
 #KEYWORDS=""
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="static"
 
 DEPEND="app-shells/bash
@@ -28,12 +28,14 @@ RDEPEND="${DEPEND}"
 
 src_prepare(){
 	epatch "${FILESDIR}"/sra_sdk-destdir.patch || die
+	epatch "${FILESDIR}"/tools_vdb-vcopy_Makefile.patch || die
+	epatch "${FILESDIR}"/libs_sra_Makefile.patch || die
+	mkdir -p /var/tmp/portage/sci-biology/"${P}"/image//var/tmp/portage/sci-biology/
+	ln -s /var/tmp/portage/sci-biology/"${P}" /var/tmp/portage/sci-biology/"${P}"/image//var/tmp/portage/sci-biology/"${P}"
+
 }
 
 src_compile(){
-	# -I/usr/include/libxml2
-	# -I/var/tmp/portage/sci-biology/sra_sdk-2.0.1/work/sra_sdk-2.0.1/interfaces/os/unix
-
 	# COMP env variable may have 'GCC' or 'ICC' values
 	if use static; then
 		emake static LIBDIR=/lib64 DESTDIR="${D}"
@@ -46,35 +48,19 @@ src_compile(){
 }
 
 src_install(){
-	# for details see "${WORKDIR}"/sra_sdk-2.1.6/README-build
-
+	rm -rf  /var/tmp/portage/sci-biology/"${P}"/image//var
 	# BUG: at the moment every binary is installed three times, e.g.:
 	# -rwxr-xr-x 1 root root 1797720 Sep 23 01:31 abi-dump
 	# -rwxr-xr-x 1 root root 1797720 Sep 23 01:31 abi-dump.2
 	# -rwxr-xr-x 1 root root 1797720 Sep 23 01:31 abi-dump.2.1.6
 	if use amd64; then
-		dobin "${WORKDIR}"/objdir/linux/pub/gcc/x86_64/bin/*
-		insinto /usr/bin/ncbi
-		dobin "${WORKDIR}"/objdir/linux/pub/gcc/x86_64/bin/ncbi/*
-	elif use x86; then
-		dobin "${WORKDIR}"/objdir/linux/pub/gcc/i386/bin/*
-		insinto /usr/bin/ncbi
-		dobin "${WORKDIR}"/objdir/linux/pub/gcc/i386/bin/ncbi/*
+		mkdir "${D}"/usr
+		mkdir "${D}"/usr/bin
+		dobin "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/bin/*
+		# for f in ${W}/objdir/linux/rel/gcc/i386/bin/*; do if [ ! -l "$f" ]; then cp "$f" ${D}/usr/bin || die "copy failed" ; fi; done
+
+		dolib "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/ilib/*
+		dolib "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/mod/*
+		dolib "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/wmod/*
 	fi
-
-	# mkdir -p ${D}/usr/bin || die
-	# for f in ${W}/objdir/linux/rel/gcc/i386/bin/*; do if [ ! -l "$f" ]; then cp "$f" ${D}/usr/bin || die "copy failed" ; fi; done
-
-	# looks the binaries have the folllowing libs statically linked in so we do NOT need these files
-	# mkdir -p ${D}/usr/ilib || die
-	# dolib ${W}/objdir/linux/rel/gcc/i386/ilib/*
-	# insinto "${D}"/usr/lib/ncbi
-	# doins ${W}/objdir/linux/rel/gcc/i386/ilib/ncbi/*
-
-	# mkdir -p ${D}/usr/lib || die
-	# dolib ${W}/objdir/linux/rel/gcc/i386/lib/*
-	# insinto "${D}"/usr/lib/ncbi
-	# doins ${W}/objdir/linux/rel/gcc/i386/lib/ncbi/*
-
-	# same for mod/ and wmod/ subdirs
 }

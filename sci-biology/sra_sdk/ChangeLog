@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  sra_sdk-2.1.9.ebuild, +files/libs_sra_Makefile.patch,
+  +files/tools_vdb-vcopy_Makefile.patch:
+  two more Makefiles needed a DESTDIR patch, in conjunction with an ugly
+  symlink hack in one can build the stuff; dobin does not transfer symliks so
+  every binary appears installed 3 times; upstream bug
+  http://jira.be-md.ncbi.nlm.nih.gov/browse/TR-10207
+
 *sra_sdk-2.1.9 (06 Feb 2012)
 
   06 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
