@@ -1,12 +1,10 @@
 # ChangeLog for sci-mathematics/gappalib-coq
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*gappalib-coq-0.16.0 (25 Jun 2011)
-
-  25 Jun 2011; Justin Lecher <jlec@gentoo.org> -gappalib-coq-0.14.1.ebuild,
-  +gappalib-coq-0.16.0.ebuild:
-  Version Bump
+  12 Dec 2011; J.-C. Demay <jcdemay@gmail.com>
+  +gappalib-coq-0.16.0.ebuild, -gappalib-coq-0.14.1.ebuild:
+  version bump
 
   04 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
   +gappalib-coq-0.14.1.ebuild, -gappalib-coq-0.13.ebuild:
