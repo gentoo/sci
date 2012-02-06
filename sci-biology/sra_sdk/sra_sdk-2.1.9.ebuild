@@ -38,13 +38,17 @@ src_prepare(){
 src_compile(){
 	# COMP env variable may have 'GCC' or 'ICC' values
 	if use static; then
-		emake static LIBDIR=/lib64 DESTDIR="${D}"
+		emake static LIBDIR=/usr/lib64 DESTDIR="${D}"
 	else
-		emake dynamic LIBDIR=/lib64 DESTDIR="${D}"
+		emake dynamic LIBDIR=/usr/lib64 DESTDIR="${D}"
 	fi
 
-	LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir out LIBDIR=/lib64 DESTDIR="${D}" || die
-	LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir LIBDIR=/lib64 DESTDIR="${D}" || die
+	LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir out LIBDIR=/usr/lib64 DESTDIR="${D}" || die
+	LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir LIBDIR=/usr/lib64 DESTDIR="${D}" || die
+
+	# preserve the libs written directly into $DESTDIR by ar/ld/gcc
+	mkdir -p "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/lib
+	mv "${D}"/usr/lib64/* "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/lib/
 }
 
 src_install(){
@@ -59,6 +63,7 @@ src_install(){
 		dobin "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/bin/*
 		# for f in ${W}/objdir/linux/rel/gcc/i386/bin/*; do if [ ! -l "$f" ]; then cp "$f" ${D}/usr/bin || die "copy failed" ; fi; done
 
+		dolib "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/lib/*
 		dolib "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/ilib/*
 		dolib "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/mod/*
 		dolib "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/wmod/*
