@@ -1,6 +1,12 @@
 # ChangeLog for sci-biology/sra_sdk
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*sra_sdk-2.1.9 (06 Feb 2012)
+
+  06 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  sra_sdk-2.1.6.ebuild, +sra_sdk-2.1.9.ebuild, +files/sra_sdk-destdir.patch:
+  version bump and almost correct DESTDIR patch
 
   22 Sep 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   sra_sdk-2.1.6.ebuild:

@@ -4,6 +4,8 @@
 
 EAPI=3
 
+inherit eutils
+
 DESCRIPTION="NCBI Sequence Read Archive (SRA) sratoolkit"
 HOMEPAGE="http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?cmd=show&f=faspftp_runs_v1&m=downloads&s=download_sra"
 SRC_URI="http://trace.ncbi.nlm.nih.gov/Traces/sra/static/sra_sdk-"${PV}".tar.gz"
@@ -24,18 +26,23 @@ RDEPEND="${DEPEND}"
 # upstream says:
 # icc, icpc are supported: tested with 11.0 (64-bit) and 10.1 (32-bit), 32-bit 11.0 does not work
 
+src_prepare(){
+	epatch "${FILESDIR}"/sra_sdk-destdir.patch || die
+}
+
 src_compile(){
 	# -I/usr/include/libxml2
 	# -I/var/tmp/portage/sci-biology/sra_sdk-2.0.1/work/sra_sdk-2.0.1/interfaces/os/unix
-	LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir out LIBDIR=/usr/lib64 DESTDIR="${D}" || die
-	LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir LIBDIR=/usr/lib64 DESTDIR="${D}" || die
 
 	# COMP env variable may have 'GCC' or 'ICC' values
 	if use static; then
-		emake static LIBDIR=/usr/lib64 DESTDIR="${D}"
+		emake static LIBDIR=/lib64 DESTDIR="${D}"
 	else
-		emake dynamic LIBDIR=/usr/lib64 DESTDIR="${D}"
+		emake dynamic LIBDIR=/lib64 DESTDIR="${D}"
 	fi
+
+	LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir out LIBDIR=/lib64 DESTDIR="${D}" || die
+	LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir LIBDIR=/lib64 DESTDIR="${D}" || die
 }
 
 src_install(){
