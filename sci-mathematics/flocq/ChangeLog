@@ -2,9 +2,6 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  25 Jun 2011; Justin Lecher <jlec@gentoo.org> flocq-1.4.0.ebuild:
-  Define EAPI after inherit
-
   06 May 2011; J.-C. Demay <jcdemay@gmail.com>
   -flocq-1.2.ebuild, +flocq-1.4.0.ebuild:
   version bump

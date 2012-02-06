@@ -2,20 +2,27 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+inherit autotools
 
-DESCRIPTION="A floating-point formalization for the Coq system"
+EAPI="2"
+
+DESCRIPTION="A floating-point formalization for the Coq system."
 HOMEPAGE="http://flocq.gforge.inria.fr/"
 SRC_URI="https://gforge.inria.fr/frs/download.php/28389/${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE=""
 
 DEPEND="sci-mathematics/coq"
-RDEPEND="${DEPEND}"
 
 src_configure() {
 	econf --libdir="`coqc -where`/user-contrib/Flocq"
 }
+
+src_install() {
+	emake install DESTDIR="${D}" || die "emake install failed"
+	dodoc NEWS README AUTHORS ChangeLog
+}
+
