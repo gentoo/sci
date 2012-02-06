@@ -8,7 +8,7 @@ inherit autotools eutils
 
 DESCRIPTION="Framework for analysis of source codes written in C"
 HOMEPAGE="http://frama-c.com"
-NAME="Carbon"
+NAME="Nitrogen"
 SRC_URI="http://frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
 
 LICENSE="LGPL-2"
@@ -18,14 +18,14 @@ IUSE="apron doc gtk +ocamlopt +why"
 RESTRICT="strip"
 
 DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
-		>=dev-ml/ocamlgraph-1.7[gtk?,ocamlopt?]
+		>=dev-ml/ocamlgraph-1.8.1[gtk?,ocamlopt?]
 		gtk? ( >=x11-libs/gtksourceview-2.8
 			>=gnome-base/libgnomecanvas-2.26
 			>=dev-ml/lablgtk-2.14[sourceview,gnomecanvas,ocamlopt?] )
 		sci-mathematics/ltl2ba
 		apron? ( sci-mathematics/apron )"
 RDEPEND="${DEPEND}"
-PDEPEND="why? ( >=sci-mathematics/why-2.29 )"
+PDEPEND="why? ( >=sci-mathematics/why-2.30 )"
 
 S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
 
@@ -37,6 +37,8 @@ src_prepare(){
 	mv cil/doc/*.pdf cil/doc/*.tex cil/pdf
 	mv cil/doc cil/html
 	mv doc/manuals doc/pdf
+
+	sed -e "s:1\.8):1\.8\.1):g" -i configure.in
 
 	touch config_file
 	eautoreconf
