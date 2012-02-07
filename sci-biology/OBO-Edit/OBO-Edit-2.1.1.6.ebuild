@@ -53,15 +53,20 @@ src_prepare(){
 	sed -e "s@/bin/java\" -Dinstall4j.jvmDir=\"\$app_java_home\"@/bin/java\" -Duser.home="${TMPDIR}" -Dinstall4j.jvmDir="${TMPDIR}" -Dsys.symlinkDir="${D}"usr/bin -Djava.util.prefs.systemRoot="${TMPDIR}"@" -i "${DISTDIR}"/"${PN}"_unix_install4j-"${PV}".sh || die "failed to set userHome and jvmDir where JAVA .systemPrefs can be found"
 
 	chmod u+rx "${DISTDIR}"/"${PN}"_unix_install4j-"${PV}".sh
-	grep Duser "${DISTDIR}"/"${PN}"_unix_install4j-"${PV}".sh
 }
 
 src_install(){
-	cat "${TMPDIR}"/.install4j/response.varfile
-	chmod a-w "${TMPDIR}"/.install4j/response.varfile
+	# it looks install4j removes the target installation direcotry before writing into it :((
+	#
+	# cat "${TMPDIR}"/.install4j/response.varfile
+	# chmod a-w "${TMPDIR}"/.install4j/response.varfile
+
 	INSTALL4J_KEEP_TEMP="yes" HOME="${TMPDIR}" "${DISTDIR}"/"${PN}"_unix_install4j-"${PV}".sh -q --varfile="${TMPDIR}"/.install4j/response.varfile --destination="${D}"/opt/OBO-Edit2 -dir "${D}"/opt/OBO-Edit2 || die "Failed to run the self-extracting "${DISTDIR}"/"${PN}"_unix_install4j-"${PV}".sh file"
 	find . -name firstrun -delete
 	find . -name .svn -exec rm -rf '{}' \;
 
 	dodoc "${DISTDIR}"/"${PN}"_ReleaseNotes-"${PV}".txt
+
+	echo "PATH=/opt/OBO-Edit2" > 99OBO-Edit
+	doenvd 99OBO-Edit || die
 }
