@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -43,4 +43,7 @@ src_compile() {
 
 src_install() {
 	java-pkg_dojar jars/apollo.jar || die
+
+	echo "PATH=/opt/Apollo" > 99Apollo
+	doenvd 99Apollo || die
 }
