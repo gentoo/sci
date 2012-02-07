@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -64,7 +64,7 @@ src_install() {
 	# make sure we force java to point a to $HOME which is inside our sanbox
 	# directory area. We force -Duser.home . It seems also -Dinstall4j.userHome
 	# could be done based on the figure shown at http://resources.ej-technologies.com/install4j/help/doc/
-	sed "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${D}"/../temp -Dinstall4j.jvmDir#" -i "${DISTDIR}"/tablet_linux_x86_"${MYPV}".sh || die "failed to set userHome value"
+	sed "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${TMPDIR}" -Dinstall4j.jvmDir#" -i "${DISTDIR}"/tablet_linux_x86_"${MYPV}".sh || die "failed to set userHome value"
 	sh "${DISTDIR}"/tablet_linux_x86_"${MYPV}".sh -q -overwrite -varfile="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet -dir "${D}"/opt/Tablet || die "Failed to run the self-extracting exe file"
 	dobin "${DISTDIR}"/coveragestats.py
 }
