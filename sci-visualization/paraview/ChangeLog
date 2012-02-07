@@ -1,6 +1,13 @@
 # ChangeLog for sci-visualization/paraview
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*paraview-3.12.0 (07 Feb 2012)
+
+  07 Feb 2012; François Bissey <francois.bissey@canterbury.ac.nz>
+  +paraview-3.12.0.ebuild, +files/paraview-3.12.0-gcc46.patch,
+  +files/paraview-3.12.0-protobuf.patch:
+  introducing paraview-3.12.0
 
   24 Aug 2011; Kacper Kowalik <xarthisius@gentoo.org> -paraview-3.8.1.ebuild,
   paraview-3.10.1.ebuild, +files/paraview-3.10.1-gcc46.patch:
