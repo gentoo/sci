@@ -67,4 +67,7 @@ src_install() {
 	sed "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${TMPDIR}" -Dinstall4j.jvmDir#" -i "${DISTDIR}"/tablet_linux_x86_"${MYPV}".sh || die "failed to set userHome value"
 	sh "${DISTDIR}"/tablet_linux_x86_"${MYPV}".sh -q -overwrite -varfile="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet -dir "${D}"/opt/Tablet || die "Failed to run the self-extracting exe file"
 	dobin "${DISTDIR}"/coveragestats.py
+
+	echo "PATH=/opt/Tablet" > 99Tablet
+	doenvd 99Tablet || die
 }

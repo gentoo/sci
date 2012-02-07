@@ -4,6 +4,10 @@
 
   07 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   tablet-bin-1.11.11.01.ebuild:
+  adjust PATH to point to the installation place
+
+  07 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  tablet-bin-1.11.11.01.ebuild:
   make use of the TMPDIR variable
 
   12 Dec 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
