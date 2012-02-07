@@ -13,7 +13,7 @@ HOMEPAGE="http://www.sanger.ac.uk/resources/software/artemis"
 
 if [ "$PV" == "9999" ]; then
 	EGIT_REPO_URI="https://github.com/sanger-pathogens/Artemis"
-	KEYWORDS=""
+	KEYWORDS="~amd64 ~x86"
 else
 	SRC_URI="ftp://ftp.sanger.ac.uk/pub4/resources/software/artemis/v13/v"${PV}"/artemis_compiled_v"${PV}".tar.gz"
 	KEYWORDS="~amd64 ~x86"
@@ -21,7 +21,7 @@ fi
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 # uses its own BamView
