@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  07 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  OBO-Edit-2.1.1.6.ebuild:
+  sci-biology/OBO-Edit: more attempts to get rid of sandbox ACCESS VIOLATION
+  SUMMARY errors
+
 *OBO-Edit-2.1.1.6 (07 Feb 2012)
 
   07 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>

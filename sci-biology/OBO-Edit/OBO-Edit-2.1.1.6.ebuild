@@ -27,7 +27,6 @@ RDEPEND="virtual/jre"
 S="${WORKDIR}"
 
 src_prepare(){
-	cd "${S}" || die
 	mkdir -p "${D}"/opt/OBO-Edit2/.install4j || die "Cannot pre-create "${D}"/opt/OBO-Edit2/.install4j/"
 	mkdir -p "${D}"/usr/bin
 
@@ -48,7 +47,6 @@ src_prepare(){
 }
 
 src_install(){
-	cd "${S}" || die
 	cat "${TMPDIR}"/.install4j/response.varfile
 	chmod a-w "${TMPDIR}"/.install4j/response.varfile
 	INSTALL4J_KEEP_TEMP="yes" HOME="${TMPDIR}" "${DISTDIR}"/"${PN}"_unix_install4j-"${PV}".sh -q --varfile="${TMPDIR}"/.install4j/response.varfile --destination="${D}"/opt/OBO-Edit2 -dir "${D}"/opt/OBO-Edit2 || die "Failed to run the self-extracting "${DISTDIR}"/"${PN}"_unix_install4j-"${PV}".sh file"
