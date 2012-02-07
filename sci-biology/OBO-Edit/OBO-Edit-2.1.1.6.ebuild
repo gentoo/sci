@@ -27,13 +27,11 @@ RDEPEND="virtual/jre"
 S="${WORKDIR}"
 
 pkg_setup() {
-        einfo "Fixing java access violations ..."
-        # learned from bug #387227
-
-		# opened a bug #402507 to get this .systemPrefs directory pre-created for everybody
-        addpredict /opt/icedtea-bin-7.2.0/jre/.systemPrefs
-		addpredict /usr/local/bin/OBO-Edit
-
+	einfo "Fixing java access violations ..."
+	# learned from bug #387227
+	# opened a bug #402507 to get this .systemPrefs directory pre-created for everybody
+	addpredict /opt/icedtea-bin-7.2.0/jre/.systemPrefs
+	addpredict /usr/local/bin/OBO-Edit
 }
 
 src_prepare(){

@@ -4,6 +4,11 @@
 
   07 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   OBO-Edit-2.1.1.6.ebuild:
+  added the addpredict() trick from tablet-bin*.ebuild to make the ACCESS DENIED
+  messages quiet, bugs #402507 (learned from bug #387227)
+
+  07 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  OBO-Edit-2.1.1.6.ebuild:
   added the addpredict() trick from tablet-bin*.ebuild to make the ACCESS
   DENIED messages quiet, bugs #402507 (learned from bug #387227)
 
