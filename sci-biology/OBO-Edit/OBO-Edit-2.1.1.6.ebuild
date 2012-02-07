@@ -26,6 +26,16 @@ RDEPEND="virtual/jre"
 
 S="${WORKDIR}"
 
+pkg_setup() {
+        einfo "Fixing java access violations ..."
+        # learned from bug #387227
+
+		# opened a bug #402507 to get this .systemPrefs directory pre-created for everybody
+        addpredict /opt/icedtea-bin-7.2.0/jre/.systemPrefs
+		addpredict /usr/local/bin/OBO-Edit
+
+}
+
 src_prepare(){
 	mkdir -p "${D}"/opt/OBO-Edit2/.install4j || die "Cannot pre-create "${D}"/opt/OBO-Edit2/.install4j/"
 	mkdir -p "${D}"/usr/bin
@@ -40,7 +50,9 @@ src_prepare(){
 	# for user root install4j writes into /opt/icedtea-bin-7.2.0/jre/.systemPrefs or whatever it
 	# found via JAVA_HOME or similar variables
 	# for other users it writes into $HOME/.java/.userPrefs/
-	sed -e "s@/bin/java\" -Dinstall4j.jvmDir=\"\$app_java_home\"@/bin/java\" -Duser.home="${TMPDIR}" -Dinstall4j.jvmDir="${TMPDIR}" -Dsys.symlinkDir="${D}"usr/bin@" -i "${DISTDIR}"/"${PN}"_unix_install4j-"${PV}".sh || die "failed to set userHome and jvmDir where JAVA .systemPrefs can be found"
+
+	# trick setting -Djava.util.prefs.systemRoot="${TMPDIR}" does not work
+	sed -e "s@/bin/java\" -Dinstall4j.jvmDir=\"\$app_java_home\"@/bin/java\" -Duser.home="${TMPDIR}" -Dinstall4j.jvmDir="${TMPDIR}" -Dsys.symlinkDir="${D}"usr/bin -Djava.util.prefs.systemRoot="${TMPDIR}"@" -i "${DISTDIR}"/"${PN}"_unix_install4j-"${PV}".sh || die "failed to set userHome and jvmDir where JAVA .systemPrefs can be found"
 
 	chmod u+rx "${DISTDIR}"/"${PN}"_unix_install4j-"${PV}".sh
 	grep Duser "${DISTDIR}"/"${PN}"_unix_install4j-"${PV}".sh
