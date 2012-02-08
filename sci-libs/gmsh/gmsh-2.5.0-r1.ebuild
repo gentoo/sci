@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
-EAPI=3
+EAPI=4
 
-inherit cmake-utils flag-o-matic fortran-2 toolchain-funcs
+inherit cmake-utils fortran-2 toolchain-funcs
 
-DESCRIPTION="A three-dimensional finite element mesh generator with built-in pre- and post-processing facilities"
+DESCRIPTION="3D finite element mesh generator with built-in pre- and post-processing facilities"
 HOMEPAGE="http://www.geuz.org/gmsh/"
 SRC_URI="http://www.geuz.org/gmsh/src/${P}-source.tgz"
 
@@ -18,6 +18,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="blas cgns chaco doc examples jpeg lua med metis mpi netgen opencascade petsc taucs tetgen X"
 
 RDEPEND="virtual/fortran
+	media-libs/libpng
+	sys-libs/zlib
 	X? ( x11-libs/fltk:1 )
 	blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 	cgns? ( sci-libs/cgnslib )
@@ -27,38 +29,23 @@ RDEPEND="virtual/fortran
 	opencascade? ( sci-libs/opencascade )
 	petsc? ( sci-mathematics/petsc )
 	mpi? ( virtual/mpi[cxx] )
-	taucs? ( sci-libs/taucs )"
-
-# taucs needs metis enabled.
-# Wait for the REQUIRED_USE syntax in EAPI4.
-# http://www.gentoo.org/proj/en/council/meeting-logs/20101130-summary.txt
+	taucs? ( sci-libs/taucs )
+	"
 
 DEPEND="${RDEPEND}
-	dev-util/cmake
-	media-libs/libpng
-	sys-libs/zlib
 	doc? ( virtual/latex-base )"
 
 S=${WORKDIR}/${P}-source
 
-pkg_setup() {
-	fortran-2_pkg_setup
-}
+PATCHES=( "${FILESDIR}/${P}-libpng-1.5.patch" )
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-	epatch "${FILESDIR}/${P}-libpng-1.5.patch"
-}
+REQUIRED_USE="taucs? ( metis )"
 
 src_configure() {
-	local mycmakeargs=""
-
 	use blas && \
-		mycmakeargs="${mycmakeargs}
-			-DCMAKE_Fortran_COMPILER=$(tc-getF77)"
+		myargs="-DCMAKE_Fortran_COMPILER=$(tc-getF77)"
 
-	mycmakeargs="${mycmakeargs}
+	mycmakeargs=(
 		$(cmake-utils_use_enable blas BLAS_LAPACK)
 		$(cmake-utils_use_enable cgns CGNS)
 		$(cmake-utils_use_enable chaco CHACO)
@@ -71,26 +58,29 @@ src_configure() {
 		$(cmake-utils_use_enable taucs TAUCS)
 		$(cmake-utils_use_enable tetgen TETGEN)
 		$(cmake-utils_use_enable opencascade OCC)
-		$(cmake-utils_use_enable petsc PETSC)"
+		$(cmake-utils_use_enable petsc PETSC)
+		${myargs}
+	)
 # 		$(cmake-utils_use_enable tetgen TETGEN_NEW)
 
-	cmake-utils_src_configure ${mycmakeargs} \
-		|| die "cmake configuration failed"
+	cmake-utils_src_configure
+}
+
+src_compile() {
+	cmake-utils_src_compile
+	if use doc ; then
+		emake pdf -C "${CMAKE_BUILD_DIR}"
+	fi
 }
 
 src_install() {
 	cmake-utils_src_install
 
 	# TODO: tutorials get installed twice ATM
-	if use doc ; then
-		cd "${CMAKE_BUILD_DIR}"
-		emake pdf || die "failed to build documentation"
-		cd "${S}"
-		dodoc doc/texinfo/gmsh.pdf
-	fi
+	use doc && dodoc doc/texinfo/gmsh.pdf
 
 	if use examples ; then
 		insinto /usr/share/doc/${PF}
-		doins -r demos tutorial || die "failed to install examples"
+		doins -r demos tutorial
 	fi
 }
