@@ -36,7 +36,7 @@ src_install() {
 }
 
 # As part of the licence we display information about Bertini
-# This procedure was agreed upon with Jon Haustein
+# This procedure was agreed upon with Jon Hauenstein
 pkg_postinst(){
 	elog "You just installed"
 	elog "Bertini: Software for Numerical Algebraic Geometry"
