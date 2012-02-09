@@ -25,8 +25,8 @@ RDEPEND="
 S="${WORKDIR}"
 
 src_install() {
-	dosym ../../usr/$(get_libdir)/librefblas.so "${EPREFIX}/opt/${PN}/libblas.so.3"
-	dosym ../../usr/$(get_libdir)/libreflapack.so "${EPREFIX}/opt/${PN}/liblapack.so.3"
+	dosym ../../usr/$(get_libdir)/librefblas.so /opt/${PN}/libblas.so.3
+	dosym ../../usr/$(get_libdir)/libreflapack.so /opt/${PN}/liblapack.so.3
 
 	cat >> "${T}"/${PN} <<- EOF
 	#!${EPREFIX}/bin/bash
