@@ -1,0 +1,13 @@
+# ChangeLog for sci-chemistry/modelfree
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*modelfree-4.20 (09 Feb 2012)
+
+  09 Feb 2012; Justin Lecher <jlec@gentoo.org> +modelfree-4.20.ebuild,
+  +metadata.xml:
+  Add this nasty binary package
+
+  09 Feb 2012; Justin Lecher <jlec@gentoo.org> Manifest:
+  Add this nasty binary package
+
