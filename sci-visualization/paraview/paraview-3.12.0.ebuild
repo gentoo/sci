@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=3
 
 PYTHON_DEPEND="python? 2:2.6"
 
@@ -76,7 +76,7 @@ src_prepare() {
 	#epatch "${FILESDIR}"/${PN}-3.8.0-h5part.patch
 	# gcc fix for vtk
 	epatch "${FILESDIR}"/${P}-gcc46.patch
-
+	# use system provided protobuf and avoid http://paraview.org/Bug/view.php?id=12852
 	epatch "${FILESDIR}"/${P}-protobuf.patch
 
 	# lib64 fixes
@@ -88,11 +88,6 @@ src_prepare() {
 	# Install internal vtk binaries inside /usr/${PVLIBDIR}
 	sed -e 's:VTK_INSTALL_BIN_DIR \"/${PV_INSTALL_BIN_DIR}\":VTK_INSTALL_BIN_DIR \"/${PV_INSTALL_LIB_DIR}\":' \
 		-i CMake/ParaViewCommon.cmake || die "failed to patch vtk install location"
-	sed -e "s:get_target_property(PROTOC_LOCATION protoc_compiler LOCATION):SET(PROTOC_LOCATION \${SYSTEM_PB}):" \
-		-e "s:protoc_compiler::" \
-		-i ParaViewCore/ServerImplementation/CMakeLists.txt
-	sed -i "s:DEPENDS \${in_proto_file} protoc_compiler:DEPENDS \${in_proto_file}:" \
-		CMake/ParaViewMacros.cmake
 
 	cd VTK
 	epatch "${FILESDIR}"/vtk-5.6.0-cg-path.patch
