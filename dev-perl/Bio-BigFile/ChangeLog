@@ -1,0 +1,8 @@
+# ChangeLog for dev-perl/Bio-BigFile
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  09 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  Bio-BigFile-1.06.ebuild:
+  initial ebuild, see bug #402835
+
