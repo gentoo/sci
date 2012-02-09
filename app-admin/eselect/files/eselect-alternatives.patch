@@ -75,7 +75,7 @@ Index: libs/Makefile.am
 +inherit config output path-manipulation
 +
 +ALTERNATIVESDIR_ROOTLESS="@sysconfdir@/env.d/alternatives"
-+ALTERNATIVESDIR="${ALTERNATIVESDIR_ROOTLESS}"
++ALTERNATIVESDIR="${EROOT}${ALTERNATIVESDIR_ROOTLESS}"
 +
 +get_current_provider() {
 +    local dieprefix="Could not determine current provider for ${ALTERNATIVE}"
