@@ -3,6 +3,9 @@
 # $Header: $
 
   12 Feb 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
+  sci-chemistry/gromacs: clean up
+
+  12 Feb 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
   fixed threads and mpi
 
   05 Feb 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:

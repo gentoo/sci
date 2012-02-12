@@ -53,6 +53,10 @@ RDEPEND="${CDEPEND}
 
 RESTRICT="test"
 
+pkg_pretend() {
+	[[ $(gcc-version) == "4.1" ]] && die "gcc 4.1 is not supported by gromacs"
+}
+
 pkg_setup() {
 	use fkernels && fortran-2_pkg_setup
 }
@@ -60,13 +64,6 @@ pkg_setup() {
 src_prepare() {
 	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
 	epatch_user
-
-	if use mpi && use threads; then
-		elog "mdrun uses only threads OR mpi, and gromacs favours the"
-		elog "use of mpi over threads, so a mpi-version of mdrun will"
-		elog "be compiled. If you want to run mdrun on shared memory"
-		elog "machines only, you can safely disable mpi"
-	fi
 
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" float"
@@ -83,21 +80,6 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs_pre=( )
-	#from gromacs configure
-	if use fftw; then
-		mycmakeargs_pre+=("-DGMX_FFT_LIBRARY=fftw3")
-	else
-		mycmakeargs_pre+=("-DGMX_FFT_LIBRARY=fftpack")
-		ewarn "WARNING: The built-in FFTPACK routines are slow."
-		ewarn "Are you sure you don\'t want to use FFTW?"
-		ewarn "It is free and much faster..."
-	fi
-
-	if [[ $(gcc-version) == "4.1" ]]; then
-		eerror "gcc 4.1 is not supported by gromacs"
-		eerror "please run test suite"
-		die
-	fi
 
 	#note for gentoo-PREFIX on apple: use --enable-apple-64bit
 
@@ -105,27 +87,6 @@ src_configure() {
 	if use fkernels; then
 		ewarn "Fortran kernels are usually not faster than C kernels and assembly"
 		ewarn "I hope, you know what are you doing..."
-	fi
-
-	if use double-precision ; then
-		#from gromacs manual
-		elog
-		elog "For most simulations single precision is accurate enough. In some"
-		elog "cases double precision is required to get reasonable results:"
-		elog
-		elog "-normal mode analysis, for the conjugate gradient or l-bfgs minimization"
-		elog " and the calculation and diagonalization of the Hessian "
-		elog "-calculation of the constraint force between two large groups of	atoms"
-		elog "-energy conservation: this can only be done without temperature coupling and"
-		elog " without cutoffs"
-		elog
-	fi
-
-	if use mpi ; then
-		elog "You have enabled mpi, only mdrun will make use of mpi, that is why"
-		elog "we configure/compile gromacs twice (with and without mpi) and only"
-		elog "install mdrun with mpi support. In addtion you will get libgmx and"
-		elog "libmd with and without mpi support."
 	fi
 
 	#go from slowest to fasterest acceleration
@@ -136,11 +97,11 @@ src_configure() {
 	use sse2 && acce="sse"
 
 	mycmakeargs_pre+=(
+		-DGMX_FFT_LIBRARY=$(usex fftw fftw3 fftwpack)
 		$(cmake-utils_use X GMX_X11)
 		$(cmake-utils_use blas GMX_EXTERNAL_BLAS)
 		$(cmake-utils_use gsl GMX_GSL)
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
-		$(cmake-utils_use threads GMX_THREAD_MPI)
 		$(cmake-utils_use openmp GMX_OPENMP)
 		$(cmake-utils_use xml GMX_XML)
 		-DGMX_DEFAULT_SUFFIX=off
@@ -158,11 +119,12 @@ src_configure() {
 		local p
 		[[ ${x} = "double" ]] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
+			$(cmake-utils_use threads GMX_THREAD_MPI)
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF -DGMX_MPI=ON
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" CC="mpicc" cmake-utils_src_configure
 	done
