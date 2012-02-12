@@ -45,12 +45,12 @@ DEPEND="${RDEPEND}
 BRLCAD_DIR="${EPREFIX}/usr/${PN}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${PN}-9999-cmake.patch"
+	epatch "${FILESDIR}/${P}-cmake.patch"
 }
 
 src_configure() {
 filter-flags -std=c++0x
-filter-ldflags -Wl,--as-needed
+append-ldflags $(no-as-needed)
 	if use Debug; then
 		CMAKE_BUILD_TYPE=Debug
 		else
