@@ -4,28 +4,14 @@
 
 EAPI=4
 
-if [[ ${PV} = 9999* ]]; then
-	EGIT_REPO_URI="git://burrow-owl.git.sourceforge.net/gitroot/burrow-owl/burrow-owl"
-	GIT="git-2"
-fi
-
 AUTOTOOLS_AUTORECONF="true"
 
-inherit autotools-utils ${GIT}
-
-SRC_PN="${PN/-owl}"
-SRC_P="${SRC_PN}-${PV}"
+inherit autotools-utils git-2
 
 DESCRIPTION="Visualize multidimensional nuclear magnetic resonance (NMR) spectra"
 HOMEPAGE="http://burrow-owl.sourceforge.net/"
-if [[ ${PV} = 9999* ]]; then
-	SRC_URI="examples? ( mirror://sourceforge/${PN}/${SRC_PN}-demos.tar )"
-else
-	SRC_URI="
-		mirror://sourceforge/${PN}/${SRC_P}.tar.gz
-		examples? ( mirror://sourceforge/${PN}/${SRC_PN}-demos.tar )"
-	S="${WORKDIR}/${SRC_P}"
-fi
+SRC_URI="examples? ( mirror://sourceforge/${PN}/burrow-demos.tar )"
+EGIT_REPO_URI="git://burrow-owl.git.sourceforge.net/gitroot/burrow-owl/burrow-owl"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -33,46 +19,45 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc examples static-libs"
 
 RDEPEND="
+	dev-libs/g-wrap
+	dev-libs/glib:2
+	dev-scheme/guile[networking,regex]
+	dev-scheme/guile-cairo
 	dev-scheme/guile-gnome-platform
-	>=dev-scheme/guile-cairo-1.4
-	>=sci-libs/starparse-1.0
+	sci-libs/starparse
 	x11-libs/gtk+:2"
 DEPEND="${RDEPEND}
 	dev-util/indent
-	dev-util/pkgconfig"
+	dev-util/pkgconfig
+	doc? ( app-doc/doxygen )
+"
 
 PATCHES=(
-	"${FILESDIR}"/${PV}-no-doc.patch
-	"${FILESDIR}"/${PV}-impl-dec.patch
+	"${FILESDIR}"/${P}-prll.patch
+	"${FILESDIR}"/${P}-impl-dec.patch
 	)
 
-MAKEOPTS+=" -j1"
-
 src_unpack() {
-	if [[ ${PV} = 9999* ]]; then
-		git-2_src_unpack
-		use examples && unpack ${A}
-	else
-		unpack ${A}
-	fi
+	git-2_src_unpack
+	use examples && unpack ${A}
 }
 
 src_configure() {
 	local myeconfargs=(
-		$(use_with doc doxygen)
+		$(use_with doc doxygen doxygen)
 	)
 	autotools-utils_src_configure
 }
 
+src_test () {
+	autotools-utils_src_compile -C test-suite check
+}
+
 src_install() {
+	use doc && HTML_DOCS=("${AUTOTOOLS_BUILD_DIR}/doc/api/html/")
 	autotools-utils_src_install
-	if use examples; then
-		pushd "${WORKDIR}"/burrow-demos
-		docinto demonstration
-		dodoc *
-		cd data
-		docinto demonstration/data
-		dodoc *
-		popd
-	fi
+
+	use examples && \
+		insinto /usr/share/${PN} && \
+		doins -r "${WORKDIR}"/burrow-demos/*
 }
