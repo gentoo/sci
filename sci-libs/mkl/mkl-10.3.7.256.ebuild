@@ -25,7 +25,7 @@ QA_PREBUILT="
 	${INTEL_SDP_DIR}/mkl/benchmarks/linpack/*
 	${INTEL_SDP_DIR}/mkl/benchmarks/mp_linpack/*/*/*"
 
-CHECKREQS_DISK_BUILD=1536
+CHECKREQS_DISK_BUILD=1536M
 
 INTEL_BIN_RPMS="mkl-sp1 mkl-sp1-devel"
 INTEL_DAT_RPMS="mkl-sp1-common"
