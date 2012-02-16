@@ -2,7 +2,6 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<herd>sci</herd>
-	<herd>python</herd>
 	<longdescription lang="en">
 	Sphinx extension to support docstrings in Numpy format.
 </longdescription>
