@@ -18,8 +18,8 @@ S=${WORKDIR}
 src_prepare() {
 	if use examples ; then
 		for f in $(find ${S}/examples -name index.html); do
-	   		sed -e "s:../../../build:/usr/share/${PN}:g" \
-				-e "s:../../build:/usr/share/${PN}:g" \
+	   		sed -e "s:../../../build:/usr/share/${PN}/build:g" \
+				-e "s:../../build:/usr/share/${PN}/build:g" \
 				-i ${f} || die
 		done
 		sed -e "s:../../../shaders/:/usr/share/${PN}/shaders/:" \
@@ -29,7 +29,7 @@ src_prepare() {
 
 src_install() {
 	insinto /usr/share/${PN}
-	doins -r build/* shaders
+	doins -r build shaders
 
 	if use examples ; then
 		insinto /usr/share/doc/${PF}
