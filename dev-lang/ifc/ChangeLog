@@ -1,6 +1,12 @@
 # ChangeLog for dev-lang/ifc
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*ifc-12.1.7.256 (16 Feb 2012)
+
+  16 Feb 2012; Sébastien Fabbro <bicatali@gentoo.org> -ifc-12.0.2.137.ebuild,
+  -ifc-12.0.4.191.ebuild, +ifc-12.1.7.256.ebuild:
+  Version bump
 
 *ifc-12.1.6.233 (25 Oct 2011)
 

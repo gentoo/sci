@@ -1,16 +1,17 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
+
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=2158
-INTEL_DPV=2011_update2
+INTEL_DID=2405
+INTEL_DPV=2011_sp1_update1
 INTEL_SUBDIR=composerxe
 
 inherit intel-sdp
 
-DESCRIPTION="Intel C/C++/FORTRAN debugger"
+DESCRIPTION="Intel C/C++ Compiler"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-composer-xe/"
 
 IUSE="eclipse"
@@ -21,12 +22,10 @@ RDEPEND="${DEPEND}
 
 QA_PREBUILT="
 	${INTEL_SDP_DIR}/bin/*/*
-	${INTEL_SDP_DIR}/debugger/*/*/*"
-QA_PRESTRIPPED="
-	${INTEL_SDP_DIR}/bin/*/*
-	${INTEL_SDP_DIR}/debugger/lib/*/*"
+	${INTEL_SDP_DIR}/compiler/lib/*/*
+	${INTEL_SDP_DIR}/mpirt/bin/*/*
+	${INTEL_SDP_DIR}/mpirt/lib/*/*"
+QA_PRESTRIPPED="${INTEL_SDP_DIR}/compiler/lib/*/.*libFNP.so"
 
-CHECKREQS_DISK_BUILD=256
-
-INTEL_BIN_RPMS="idb"
-INTEL_DAT_RPMS="idb-common idbcdt"
+INTEL_BIN_RPMS="compilerproc compilerproc-devel"
+INTEL_DAT_RPMS="compilerproc-common"

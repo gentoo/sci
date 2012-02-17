@@ -58,6 +58,11 @@ INTEL_SDP_EDIR="${EROOT%/}/${INTEL_SDP_DIR}"
 
 S="${WORKDIR}"
 
+intel-sdp_pkg_pretend() {
+	: ${CHECKREQS_DISK_BUILD:=256M}
+	check-reqs_pkg_pretend
+}
+
 intel-sdp_pkg_setup() {
 	local arch a p
 	if use x86; then
@@ -80,8 +85,10 @@ intel-sdp_pkg_setup() {
 	for p in ${INTEL_DAT_RPMS}; do
 		INTEL_RPMS="${INTEL_RPMS} intel-${p}-${INTEL_PV4}-${INTEL_PV1}.${INTEL_PV2}-${INTEL_PV3}.noarch.rpm"
 	done
-	[[ -z ${CHECKREQS_DISK_BUILD} ]] && CHECKREQS_DISK_BUILD=256M
-	check-reqs_pkg_setup
+
+	case "${EAPI:-0}" in
+		0|1|2|3) intel-sdp_pkg_pretend ;;
+	esac
 }
 
 intel-sdp_src_unpack() {
@@ -96,12 +103,12 @@ intel-sdp_src_unpack() {
 			l=.${r}_$(date +'%d%m%y_%H%M%S').log
 			tar xf "${DISTDIR}"/${t} \
 				${rpmdir}/${r} || die "extracting ${r} failed"
-			rpm2tar -O "./${rpmdir}/${r}" | tar xvf - \
-				| sed -e "s:^\.:${EROOT#/}:g" > ${l} || die "failure unpacking ${r}"
+			rpm2tar -O "./${rpmdir}/${r}" | tar xvf - | sed -e \
+				"s:^\.:${EROOT#/}:g" > ${l} || die "unpacking ${r} failed"
 			mv ${l} opt/intel/ || die "failed moving extract log file"
 		done
 	done
-	mv -v opt/intel/* ${INTEL_SDP_DIR} || die "Correction of INTEL_SDP_DIR failed"
+	mv -v opt/intel/* ${INTEL_SDP_DIR} || die "mv to INTEL_SDP_DIR failed"
 }
 
 intel_link_eclipse_plugins() {
@@ -163,3 +170,8 @@ intel-sdp_pkg_postrm() {
 }
 
 EXPORT_FUNCTIONS pkg_setup src_unpack src_install pkg_postinst pkg_postrm
+case "${EAPI:-0}" in
+	0|1|2|3) ;;
+	4) EXPORT_FUNCTIONS pkg_pretend ;;
+	*) die "EAPI=${EAPI} is not supported" ;;
+esac

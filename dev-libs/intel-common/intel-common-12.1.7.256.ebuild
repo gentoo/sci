@@ -1,12 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=2065
-INTEL_DPV=2011_update1
+INTEL_DID=2405
+INTEL_DPV=2011_sp1_update1
 INTEL_SUBDIR=composerxe
 
 inherit intel-sdp
@@ -55,7 +55,7 @@ src_install() {
 		ROOTPATH=${rootpath#:}
 		LDPATH=${ldpath#:}
 	EOF
-	doenvd ${fenv} || die
 
+	doenvd ${fenv}
 	dodir ${INTEL_SDP_DIR}/licenses
 }

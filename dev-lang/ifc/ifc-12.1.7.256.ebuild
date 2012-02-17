@@ -1,11 +1,11 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=2158
-INTEL_DPV=2011_update2
+INTEL_DID=2405
+INTEL_DPV=2011_sp1_update1
 INTEL_SUBDIR=composerxe
 
 inherit intel-sdp
@@ -14,6 +14,7 @@ DESCRIPTION="Intel FORTRAN Compiler"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-composer-xe/"
 
 IUSE=""
+
 RDEPEND="~dev-libs/intel-common-${PV}[compiler]"
 DEPEND="${RDEPEND}"
 
