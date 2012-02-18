@@ -1,6 +1,20 @@
 # ChangeLog for sci-libs/lapacke-reference
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*lapacke-reference-3.4.0_p20120215-r1 (17 Feb 2012)
+
+  17 Feb 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  -lapacke-reference-1.0.0.009.ebuild,
+  -lapacke-reference-3.4.0_p20120215.ebuild,
+  +lapacke-reference-3.4.0_p20120215-r1.ebuild:
+  Fixed pkg-config
+
+*lapacke-reference-3.4.0_p20120215 (16 Feb 2012)
+
+  16 Feb 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +lapacke-reference-3.4.0_p20120215.ebuild, metadata.xml:
+  bump, with home patches
 
 *lapacke-reference-1.0.0.009 (22 Aug 2011)
 

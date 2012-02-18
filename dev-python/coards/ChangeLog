@@ -1,6 +1,9 @@
 # ChangeLog for dev-python/coards
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  10 Feb 2012; Alexey Shvetsov <alexxy@gentoo.org> coards-0.2.2.ebuild:
+  [dev-python/coards] also fix this in similar way
 
   25 Jun 2010; Justin Lecher <jlec@gentoo.org> coards-0.2.2.ebuild:
   Fix PYTHON ABI Stuff
