@@ -1,43 +1,57 @@
- setup.py |    8 ++++----
- 1 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/setup.py b/setup.py
-index ce0d271..2b6fa35 100755
---- a/setup.py
-+++ b/setup.py
-@@ -104,7 +104,7 @@ elif sys.platform=='darwin':
-         inc_dirs=["ov/src",
-                   "layer0","layer1","layer2",
-                   "layer3","layer4","layer5", 
--                  "/usr/X11R6/include",
-+                  "@GENTOO_PORTAGE_EPREFIX@/usr/include",
-                   EXT+"/include",
-                   EXT+"/include/GL",
-                   EXT+"/include/freetype2",
-@@ -120,7 +120,7 @@ elif sys.platform=='darwin':
-                     ]
+Index: setup.py
+===================================================================
+--- setup.py	(revision 3983)
++++ setup.py	(working copy)
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!@GENTOO_PORTAGE_EPREFIX@/usr/bin/env python
+ #
+ # This script only applies if you are performing a Python Distutils-based
+ # installation of PyMOL.
+@@ -35,7 +35,7 @@
+ 	      "modules/cealign/src/tnt" ]
+     libs=["glut32","opengl32","glu32","png"]
+     pyogl_libs = ["glut32","opengl32","glu32"]
+-    lib_dirs=["/usr/lib/w32api"]
++    lib_dirs=["@GENTOO_PORTAGE_EPREFIX@/usr/lib/w32api"]
+     def_macros=[("_PYMOL_MODULE",None),
+                 ("CYGWIN",None),
+                 ("_PYMOL_LIBPNG",None)]
+@@ -87,7 +87,7 @@
+                   "/sw/include/freetype2/freetype",
+                   "/sw/include/freetype2",
+                   "/sw/include",
+-                  "/usr/X11/include",
++                  "@GENTOO_PORTAGE_EPREFIX@/usr/X11/include",
+ 		  "modules/cealign/src",
+ 		  "modules/cealign/src/tnt",
+ 		  #"contrib/uiuc/plugins/include/",
+@@ -114,8 +114,8 @@
          ext_comp_args=[]
          ext_link_args=[
--            "-L/usr/X11R6/lib64", "-lGL", "-lXxf86vm",
-+            "-L@GENTOO_PORTAGE_EPREFIX@/usr/lib64", "-lGL", "-lXxf86vm",
-             "-L"+EXT+"/lib", "-lpng", "-lglut", "-lfreetype"
-             ]
- #============================================================================
-@@ -159,7 +159,7 @@ else: # linux or other unix
+                        "-L/sw/lib", "-lpng",
+-                       "/usr/X11/lib/libGL.dylib",
+-                       "/usr/X11/lib/libGLU.dylib",
++                       "@GENTOO_PORTAGE_EPREFIX@/usr/X11/lib/libGL.dylib",
++                       "@GENTOO_PORTAGE_EPREFIX@/usr/X11/lib/libGLU.dylib",
+                        "-lfreeglut",
+                        "-lglew",
+                        "-L/sw/lib/freetype219/lib", "-lfreetype"
+@@ -221,7 +221,7 @@
                   "layer3",
                   "layer4",
                   "layer5",
 -                 "/usr/include/freetype2",
 +                 "@GENTOO_PORTAGE_EPREFIX@/usr/include/freetype2",
                # VMD plugin support
-                             "contrib/uiuc/plugins/include",
-                             "contrib/uiuc/plugins/molfile_plugin/src",
-@@ -180,7 +180,7 @@ else: # linux or other unix
+               #              "contrib/uiuc/plugins/include",
+               #              "contrib/uiuc/plugins/molfile_plugin/src",
+@@ -242,7 +242,7 @@
                     "GLU",
                     "glut",
                     "GLEW"]
 -    lib_dirs = [ "/usr/X11R6/lib64", ]
-+    lib_dirs = [ "@GENTOO_PORTAGE_EPREFIX@/usr/lib64", ]
++    lib_dirs = [ "@GENTOO_PORTAGE_EPREFIX@/usr/X11R6/lib64", ]
      def_macros = [ ("_PYMOL_MODULE",None),
                     ("_PYMOL_INLINE",None),
                     ("_PYMOL_FREETYPE",None),
