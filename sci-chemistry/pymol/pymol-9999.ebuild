@@ -1,12 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=4
 
-PYTHON_DEPEND="2:2.6"
+PYTHON_DEPEND="2:2.7"
 SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="2.4 2.5 3.*"
+RESTRICT_PYTHON_ABIS="2.4 2.5 2.6 3.*"
 PYTHON_USE_WITH="tk"
 PYTHON_MODNAME="${PN} chempy pmg_tk pmg_wx"
 
@@ -42,27 +42,30 @@ RDEPEND="${DEPEND}"
 
 src_prepare() {
 	epatch \
+		"${FILESDIR}"/${P}-setup.py.patch \
 		"${FILESDIR}"/${P}-data-path.patch \
-		"${FILESDIR}"/${P}-shaders.patch \
-		"${FILESDIR}"/${P}-setup.py.patch
+		"${FILESDIR}"/${P}-flags.patch
 
-	use web || epatch "${FILESDIR}"/${PV}-web.patch
+	use web || epatch "${FILESDIR}"/${P}-web.patch
 
 	epatch "${FILESDIR}"/${P}-prefix.patch && \
 		eprefixify setup.py
 
 	# Turn off splash screen.  Please do make a project contribution
 	# if you are able though. #299020
-	epatch "${FILESDIR}"/nosplash-gentoo.patch
+	epatch "${FILESDIR}"/${P}-nosplash.patch
 
-	use vmd && epatch "${FILESDIR}"/${PV}-vmd.patch
+	use vmd && epatch "${FILESDIR}"/${P}-vmd.patch
 
-	use numpy && \
+	if use numpy; then
 		sed \
 			-e '/PYMOL_NUMPY/s:^#::g' \
-			-i setup.py
+			-i setup.py || die
+	fi
 
 	rm ./modules/pmg_tk/startup/apbs_tools.py || die
+
+	echo "site_packages = \'$(python_get_sitedir -f)\'" > setup3.py || die
 
 	# python 3.* fix
 	# sed '452,465d' -i setup.py
@@ -84,20 +87,27 @@ src_install() {
 		PYMOL_SCRIPTS="${EPREFIX}/usr/share/pymol/scripts"
 	EOF
 
-	doenvd "${T}"/20pymol || die "Failed to install env.d file."
+	doenvd "${T}"/20pymol
 
 	cat >> "${T}"/pymol <<- EOF
 	#!/bin/sh
 	$(PYTHON -f) -O \${PYMOL_PATH}/__init__.py \$*
 	EOF
 
-	dobin "${T}"/pymol || die "Failed to install wrapper."
+	dobin "${T}"/pymol
 
 	insinto /usr/share/pymol
-	doins -r test data scripts || die "no shared data"
+	doins -r test data scripts
 
 	insinto /usr/share/pymol/examples
-	doins -r examples || die "Failed to install docs."
+	doins -r examples
 
-	dodoc DEVELOPERS README || die "Failed to install docs."
+	dodoc DEVELOPERS README
+}
+
+pkg_postinst() {
+	elog "\t USE=shaders was removed,"
+	elog "please use pymol config settings"
+	elog "\t set use_shaders, 1"
+	distutils_pkg_postinst
 }

@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/libxc
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  09 Feb 2012; Justin Lecher <jlec@gentoo.org> -libxc-1.0.ebuild,
+  -libxc-1.1.0.ebuild, libxc-1.1.0-r1.ebuild, libxc-9999.ebuild, metadata.xml:
+  Moved to autotools-utils, some more sanity
 
 *libxc-1.1.0-r1 (16 Dec 2011)
 

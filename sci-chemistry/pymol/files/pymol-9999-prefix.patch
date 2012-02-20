@@ -1,40 +1,43 @@
-Index: setup.py
-===================================================================
---- setup.py	(revision 3963)
-+++ setup.py	(working copy)
-@@ -101,7 +101,7 @@
-         #
-         # REMEMEBER to use "./ext/bin/python ..."
-         #
--        EXT = os.getcwd()+"/ext"
-+        EXT = "@GENTOO_PORTAGE_EPREFIX@/usr"
+ setup.py |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index ce0d271..2b6fa35 100755
+--- a/setup.py
++++ b/setup.py
+@@ -104,7 +104,7 @@ elif sys.platform=='darwin':
          inc_dirs=["ov/src",
                    "layer0","layer1","layer2",
                    "layer3","layer4","layer5", 
-@@ -121,7 +121,7 @@
+-                  "/usr/X11R6/include",
++                  "@GENTOO_PORTAGE_EPREFIX@/usr/include",
+                   EXT+"/include",
+                   EXT+"/include/GL",
+                   EXT+"/include/freetype2",
+@@ -120,7 +120,7 @@ elif sys.platform=='darwin':
                      ]
          ext_comp_args=[]
          ext_link_args=[
--	               "-L/usr/X11R6/lib64", "-lGL", "-lXxf86vm",
-+	               "-lGL", "-lXxf86vm",
-                    "-L"+EXT+"/lib", "-lpng", "-lglut", "-lfreetype"
-                    ]
+-            "-L/usr/X11R6/lib64", "-lGL", "-lXxf86vm",
++            "-L@GENTOO_PORTAGE_EPREFIX@/usr/lib64", "-lGL", "-lXxf86vm",
+             "-L"+EXT+"/lib", "-lpng", "-lglut", "-lfreetype"
+             ]
  #============================================================================
-@@ -129,7 +129,7 @@
-     inc_dirs=["ov/src",
-               "layer0","layer1","layer2",
-               "layer3","layer4","layer5",
--              "/usr/include/freetype2",
-+              "@GENTOO_PORTAGE_EPREFIX@/usr/include/freetype2",
- #                 "/users/warren/ext/include",
- # VMD plugin support
- #              "contrib/uiuc/plugins/include",
-@@ -141,7 +141,7 @@
-           ]	
-     pyogl_libs = ["GL","GLU","glut", "GLEW"]
-     lib_dirs=[
--        "/usr/X11R6/lib64",
-+        "@GENTOO_PORTAGE_EPREFIX@/usr/usr/X11R6/lib",
- #        "/users/warren/pymol/ext/lib"
-         ]
-     def_macros=[("_PYMOL_MODULE",None),
+@@ -159,7 +159,7 @@ else: # linux or other unix
+                  "layer3",
+                  "layer4",
+                  "layer5",
+-                 "/usr/include/freetype2",
++                 "@GENTOO_PORTAGE_EPREFIX@/usr/include/freetype2",
+               # VMD plugin support
+                             "contrib/uiuc/plugins/include",
+                             "contrib/uiuc/plugins/molfile_plugin/src",
+@@ -180,7 +180,7 @@ else: # linux or other unix
+                    "GLU",
+                    "glut",
+                    "GLEW"]
+-    lib_dirs = [ "/usr/X11R6/lib64", ]
++    lib_dirs = [ "@GENTOO_PORTAGE_EPREFIX@/usr/lib64", ]
+     def_macros = [ ("_PYMOL_MODULE",None),
+                    ("_PYMOL_INLINE",None),
+                    ("_PYMOL_FREETYPE",None),
