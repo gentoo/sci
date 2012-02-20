@@ -30,6 +30,25 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher <jlec@gentoo.org> (20 Feb 2012)
+# They are broken in one or the other way
+# Need to be bumped to emboss-6.4.0
+sci-biology/emboss::science
+sci-biology/embassy::science
+sci-biology/embassy-cbstools::science
+sci-biology/embassy-domainatrix::science
+sci-biology/embassy-domalign::science
+sci-biology/embassy-domsearch::science
+sci-biology/embassy-emnu::science
+sci-biology/embassy-esim4::science
+sci-biology/embassy-hmmer::science
+sci-biology/embassy-iprscan::science
+sci-biology/embassy-mse::science
+sci-biology/embassy-phylipnew::science
+sci-biology/embassy-signature::science
+sci-biology/embassy-structure::science
+sci-biology/embassy-topo::science
+sci-biology/embassy-vienna::science
 
 # Dongxu Li <dongxuli2011@gmail.com> (10 Aug 2011)
 # Mask live version of librecad
