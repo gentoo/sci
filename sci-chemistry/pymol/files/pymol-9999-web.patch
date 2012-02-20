@@ -1,19 +1,16 @@
- setup.py |    5 +----
- 1 files changed, 1 insertions(+), 4 deletions(-)
-
-diff --git a/setup.py b/setup.py
-index 18866a2..366d552 100755
---- a/setup.py
-+++ b/setup.py
-@@ -229,10 +229,7 @@ distribution = setup ( # Distribution meta-data
-                  'pymol/opengl/gl',
+Index: setup.py
+===================================================================
+--- setup.py	(revision 3983)
++++ setup.py	(working copy)
+@@ -292,10 +292,7 @@
                   'pymol/opengl/glu',
                   'pymol/opengl/glut',
--                 'pymol/wizard',
+                  'pymol/wizard',
+-                 'pymol2',
 -                 'web',
 -                 'web/examples',
 -                 'web/javascript', ],
-+                 'pymol/wizard', ],
++                 'pymol2', ],
      ext_modules = [
          Extension("pymol._cmd", [
                  "modules/cealign/src/ccealignmodule.cpp",

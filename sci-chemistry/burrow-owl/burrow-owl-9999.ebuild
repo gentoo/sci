@@ -15,7 +15,7 @@ EGIT_REPO_URI="git://burrow-owl.git.sourceforge.net/gitroot/burrow-owl/burrow-ow
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="doc examples static-libs"
 
 RDEPEND="

@@ -5,13 +5,12 @@
 EAPI=4
 inherit eutils toolchain-funcs fortran-2 versionator alternatives-2
 
-LAPACKP=lapack-3.4.0_p20120215.tar.bz2
+LAPACKP=lapack-3.4.0.tgz
 
 DESCRIPTION="Automatically Tuned Linear Algebra Software"
 HOMEPAGE="http://math-atlas.sourceforge.net/"
 SRC_URI="mirror://sourceforge/math-atlas/${PN}${PV}.tar.bz2
-	fortran? ( lapack? ( http://dev.gentoo.org/~bicatali/distfiles/${LAPACKP} ) )"
-#	fortran? ( lapack? ( http://www.netlib.org/lapack/${LAPACKP} ) )"
+	fortran? ( lapack? ( http://www.netlib.org/lapack/${LAPACKP} ) )"
 
 LICENSE="BSD"
 SLOT="0"

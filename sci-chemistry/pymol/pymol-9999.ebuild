@@ -10,11 +10,11 @@ RESTRICT_PYTHON_ABIS="2.4 2.5 2.6 3.*"
 PYTHON_USE_WITH="tk"
 PYTHON_MODNAME="${PN} chempy pmg_tk pmg_wx"
 
-inherit distutils eutils prefix subversion versionator
+inherit distutils eutils fdo-mime prefix subversion versionator
 
 DESCRIPTION="A Python-extensible molecular graphics system."
 HOMEPAGE="http://pymol.sourceforge.net/"
-SRC_URI=""
+SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${PN}.xpm.tar"
 ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
 
 LICENSE="PSF-2.2"
@@ -40,6 +40,11 @@ DEPEND="
 	web? ( !dev-python/webpy )"
 RDEPEND="${DEPEND}"
 
+src_unpack() {
+	unpack ${A}
+	subversion_src_unpack
+}
+
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-setup.py.patch \
@@ -50,10 +55,6 @@ src_prepare() {
 
 	epatch "${FILESDIR}"/${P}-prefix.patch && \
 		eprefixify setup.py
-
-	# Turn off splash screen.  Please do make a project contribution
-	# if you are able though. #299020
-	epatch "${FILESDIR}"/${P}-nosplash.patch
 
 	use vmd && epatch "${FILESDIR}"/${P}-vmd.patch
 
@@ -91,7 +92,7 @@ src_install() {
 
 	cat >> "${T}"/pymol <<- EOF
 	#!/bin/sh
-	$(PYTHON -f) -O \${PYMOL_PATH}/__init__.py \$*
+	$(PYTHON -f) -O \${PYMOL_PATH}/__init__.py -q \$*
 	EOF
 
 	dobin "${T}"/pymol
@@ -103,6 +104,9 @@ src_install() {
 	doins -r examples
 
 	dodoc DEVELOPERS README
+
+	doicon "${WORKDIR}"/${PN}.xpm
+	make_desktop_entry pymol PyMol ${PN} "Graphics;Science;Chemistry"
 }
 
 pkg_postinst() {
@@ -110,4 +114,11 @@ pkg_postinst() {
 	elog "please use pymol config settings"
 	elog "\t set use_shaders, 1"
 	distutils_pkg_postinst
+	fdo-mime_desktop_database_update
+	fdo-mime_mime_database_update
+}
+
+pkg_postrm() {
+	fdo-mime_desktop_database_update
+	fdo-mime_mime_database_update
 }
