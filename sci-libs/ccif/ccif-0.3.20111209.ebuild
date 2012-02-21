@@ -17,5 +17,3 @@ IUSE="static-libs"
 
 RDEPEND="virtual/fortran"
 DEPEND="${RDEPEND}"
-
-DOCS=(AUTHOS README)

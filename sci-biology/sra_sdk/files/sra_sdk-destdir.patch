@@ -1,0 +1,76 @@
+diff -r -u -w sra_sdk-2.1.9/work/sra_sdk-2.1.9/build/Makefile.env sra_sdk-2.1.9-/work/sra_sdk-2.1.9/build/Makefile.env
+--- sra_sdk-2.1.9/work/sra_sdk-2.1.9/build/Makefile.env	2011-08-31 21:46:21.000000000 +0200
++++ sra_sdk-2.1.9-/work/sra_sdk-2.1.9/build/Makefile.env	2012-02-06 02:02:38.000000000 +0100
+@@ -141,7 +141,7 @@
+ 
+ # create all required output directories
+ makedirs:
+-	@ mkdir -p $(addprefix $(TARGDIR)/,$(SUBDIRS) obj/$(MODULE)) $(NCBIDIR)
++	@ mkdir -p $(addprefix $(TARGDIR)/,$(SUBDIRS) obj/$(MODULE)) $(DESTDIR)/$(NCBIDIR)
+ 
+ ifeq (win,$(OS))
+ 
+diff -r -u -w sra_sdk-2.1.9/work/sra_sdk-2.1.9/build/ld.linux.gcc.sh sra_sdk-2.1.9-/work/sra_sdk-2.1.9/build/ld.linux.gcc.sh
+--- sra_sdk-2.1.9/work/sra_sdk-2.1.9/build/ld.linux.gcc.sh	2010-12-28 22:46:39.000000000 +0100
++++ sra_sdk-2.1.9-/work/sra_sdk-2.1.9/build/ld.linux.gcc.sh	2012-02-06 02:23:07.000000000 +0100
+@@ -38,10 +38,10 @@
+ # versioned output
+ if [ "$VERS" = "" ]
+ then
+-    DLIB_CMD="$DLIB_CMD -o $TARG"
+-    EXE_CMD="$EXE_CMD -o $TARG"
++    DLIB_CMD="$DLIB_CMD -o $DESTDIR$TARG"
++    EXE_CMD="$EXE_CMD -o $TARG"
+ else
+     set-vers $(echo $VERS | tr '.' ' ')
+-    DLIB_CMD="$DLIB_CMD -o $OUTDIR/$NAME$DBGAP.so.$VERS -Wl,-soname,$NAME.so.$MAJ"
+-    EXE_CMD="$EXE_CMD -o $OUTDIR/$NAME$DBGAP.$VERS"
++    DLIB_CMD="$DLIB_CMD -o $DESTDIR$OUTDIR/$NAME$DBGAP.so.$VERS -Wl,-soname,$NAME.so.$MAJ"
++    EXE_CMD="$EXE_CMD -o $DESTDIR$OUTDIR/$NAME$DBGAP.$VERS"
+ fi
+diff -r -u -w sra_sdk-2.1.9/work/sra_sdk-2.1.9/build/ld.linux.ln.sh sra_sdk-2.1.9-/work/sra_sdk-2.1.9/build/ld.linux.ln.sh
+--- sra_sdk-2.1.9/work/sra_sdk-2.1.9/build/ld.linux.ln.sh	2010-12-28 22:46:39.000000000 +0100
++++ sra_sdk-2.1.9-/work/sra_sdk-2.1.9/build/ld.linux.ln.sh	2012-02-06 02:34:46.000000000 +0100
+@@ -52,12 +52,12 @@
+ 
+ set-vers $(echo $VERS | tr '.' ' ')
+ 
+-cd "$OUTDIR" || exit 5
++cd $DESTDIR$OUTDIR || exit 5
+ 
+ # create link
+ create-link ()
+ {
+-    rm -f "$2"
++    rm -f $DESTDIR"$2"
+     local CMD="ln -s $1 $2"
+     echo $CMD
+     $CMD
+--- sra_sdk-2.1.9/work/sra_sdk-2.1.9/build/ld.linux.slib.sh        2012-02-06 04:05:16.000000000 +0100
++++ sra_sdk-2.1.9-/work/sra_sdk-2.1.9/build/ld.linux.slib.sh	2012-02-06 04:05:29.000000000 +0100
+@@ -77,7 +77,7 @@
+     CMD="$CMD $TARG"
+ else
+     set-vers $(echo $VERS | tr '.' ' ')
+-    CMD="$CMD $OUTDIR/$NAME$DBGAP.a.$VERS"
++    CMD="$CMD $DESTDIR/$OUTDIR/$NAME$DBGAP.a.$VERS"
+ fi
+ 
+ # tack on object files
+--- sra_sdk-2.1.9/work/sra_sdk-2.1.9/build/Makefile.gcc.ori	2012-02-06 04:24:39.000000000 +0100
++++ sra_sdk-2.1.9/work/sra_sdk-2.1.9/build/Makefile.gcc	2012-02-06 04:22:57.000000000 +0100
+@@ -36,12 +36,12 @@
+ LD = @ $(TOP)/build/ld.sh $(OS) $(ARCH) gcc \
+ 	--build $(BUILD) --ldflags "$(LDFLAGS)" $(STATIC) \
+ 	$(STATICSYSLIBS) $(CHECKSUM) --objx $(OBJX) --shlx $(SHLX) --libx $(LIBX) \
+-	-MD --srcdir $(SRCDIR) --bindir $(BINDIR) -L$(LIBDIR):$(ILIBDIR)
++	-MD --srcdir $(SRCDIR) --bindir $(BINDIR) -L$(DESTDIR)$(LIBDIR):$(ILIBDIR)
+ 
+ LP = @ $(TOP)/build/ld.sh $(OS) $(ARCH) g++ \
+ 	--build $(BUILD) --ldflags "$(LDFLAGS)" $(STATIC) \
+ 	$(STATICSYSLIBS) $(CHECKSUM) --objx $(OBJX) --shlx $(SHLX) --libx $(LIBX) \
+-	-MD --srcdir $(SRCDIR) --bindir $(BINDIR) -L$(LIBDIR):$(ILIBDIR)
++	-MD --srcdir $(SRCDIR) --bindir $(BINDIR) -L$(DESTDIR)$(LIBDIR):$(ILIBDIR)
+ 
+ # tool options
+ WARN = -Wall -Wno-variadic-macros # -Wconversion

@@ -4,7 +4,13 @@
 
 *brlcad-7.20.2 (15 Jul 2011)
 
-  16 Dec 2011; Dongxu Li <dongxuli2011@gmail.com> brlcad-9999.ebuild:
+  12 Feb 2012; Dongxu Li <dongxuli2011@gmail.com> -brlcad-7.20.2.ebuild brlcad-7.20.4.ebuild:
+  Removed 7.20.2 for building issues. Fixed 7.20.4 for as-needed
+
+  11 Feb 2012; Dongxu Li <dongxuli2011@gmail.com> brlcad-7.20.4.ebuild:
+  fixed as-needed filtering
+
+  5 Feb 2012; Dongxu Li <dongxuli2011@gmail.com> brlcad-9999.ebuild:
   Use system libraries
 
   16 Dec 2011; Dongxu Li <dongxuli2011@gmail.com> +brlcad-7.20.4.ebuild brlcad-9999.ebuild:

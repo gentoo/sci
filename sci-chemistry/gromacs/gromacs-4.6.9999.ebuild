@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -30,7 +30,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
-mpi +single-precision sse2 test +threads xml zsh-completion"
+mpi openmp +single-precision sse2 test +threads xml zsh-completion"
 REQUIRED_USE="fkernels? ( !threads )"
 
 CDEPEND="
@@ -73,7 +73,7 @@ src_prepare() {
 	use double-precision && GMX_DIRS+=" double"
 	#if neither single-precision nor double-precision is enabled
 	#build at least default (single)
-	[ -z "$GMX_DIRS" ] && GMX_DIRS+=" float"
+	[[ -z $GMX_DIRS ]] && GMX_DIRS+=" float"
 
 	for x in ${GMX_DIRS}; do
 		mkdir -p "${WORKDIR}/${P}_${x}" || die
@@ -140,11 +140,13 @@ src_configure() {
 		$(cmake-utils_use blas GMX_EXTERNAL_BLAS)
 		$(cmake-utils_use gsl GMX_GSL)
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
-		$(cmake-utils_use threads GMX_THREADS)
+		$(cmake-utils_use threads GMX_THREAD_MPI)
+		$(cmake-utils_use openmp GMX_OPENMP)
 		$(cmake-utils_use xml GMX_XML)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_ACCELERATION="$acce"
 		-DGMXLIB="$(get_libdir)"
+	    -DGMX_VMD_PLUGIN_PATH="${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/"
 	)
 
 	for x in ${GMX_DIRS}; do
@@ -152,9 +154,9 @@ src_configure() {
 		local suffix=""
 		#if we build single and double - double is suffixed
 		use double-precision && use single-precision && \
-			[ "${x}" = "double" ] && suffix="_d"
+			[[ ${x} = "double" ]] && suffix="_d"
 		local p
-		[ "${x}" = "double" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
+		[[ ${x} = "double" ]] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
@@ -162,7 +164,7 @@ src_configure() {
 		einfo "Configuring for ${x} precision with mpi"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" cmake-utils_src_configure
+		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" CC="mpicc" cmake-utils_src_configure
 	done
 }
 
@@ -199,10 +201,6 @@ src_install() {
 			cmake-utils_src_make install-mdrun DESTDIR="${D}"
 	done
 
-	sed -n -e '/^GMXBIN/,/^GMXDATA/p' "${ED}"/usr/bin/GMXRC.bash > "${T}/80gromacs"
-	echo "VMD_PLUGIN_PATH=${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/" >> "${T}/80gromacs"
-
-	doenvd "${T}/80gromacs"
 	rm -f "${ED}"/usr/bin/GMXRC*
 
 	newbashcomp "${ED}"/usr/bin/completion.bash ${PN}
@@ -226,7 +224,6 @@ src_install() {
 }
 
 pkg_postinst() {
-	env-update && source /etc/profile
 	einfo
 	einfo  "Please read and cite:"
 	einfo  "Gromacs 4, J. Chem. Theory Comput. 4, 435 (2008). "

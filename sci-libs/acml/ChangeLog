@@ -1,6 +1,11 @@
 # ChangeLog for sci-libs/acml
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/acml/ChangeLog,v 1.40 2009/07/07 23:27:59 flameeyes Exp $
+
+*acml-5.1.0 (24 Jan 2012)
+
+  24 Jan 2012; Sébastien Fabbro <bicatali@gentoo.org> +acml-5.1.0.ebuild:
+  Version bump
 
   22 Aug 2011; Sébastien Fabbro <bicatali@gentoo.org> +acml-4.4.0-r1.ebuild,
   +metadata.xml:

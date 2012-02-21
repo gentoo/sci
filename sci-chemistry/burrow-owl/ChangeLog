@@ -2,6 +2,22 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Feb 2012; Justin Lecher <jlec@gentoo.org> burrow-owl-9999.ebuild:
+  Drop Keywords
+
+  19 Feb 2012; Justin Lecher <jlec@gentoo.org> burrow-owl-9999.ebuild:
+  Drop Keywords
+
+  19 Feb 2012; Justin Lecher <jlec@gentoo.org> burrow-owl-9999.ebuild:
+  Drop Keywords
+
+  14 Feb 2012; Justin Lecher <jlec@gentoo.org> -files/1.4-include.patch,
+  -burrow-owl-1.4.ebuild, -burrow-owl-9999_pre15.ebuild,
+  burrow-owl-9999.ebuild, +files/burrow-owl-9999-impl-dec.patch,
+  +files/burrow-owl-9999-prll.patch, -files/9999-impl-dec.patch,
+  -files/9999-no-doc.patch, -files/9999_pre15-no-doc.patch:
+  Fix for HEAD
+
   10 Jan 2012; Justin Lecher <jlec@gentoo.org> -files/9999-header.patch,
   burrow-owl-9999.ebuild:
   Remove patch, fixed upstream

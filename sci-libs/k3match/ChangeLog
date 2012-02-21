@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/k3match
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+* k3match-1.0 (29 Jan 2012)
+
+ 29 Jan 2012; Marc van der Sluys <AstroFloyd@gmail.com>
+	+k3match-1.0.ebuild +metadata.xml:
+	Initial import.
+

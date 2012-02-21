@@ -50,7 +50,7 @@ src_prepare() {
 
 src_configure() {
 filter-flags -std=c++0x
-filter-ldflags -Wl,--as-needed
+	append-ldflags $(no-as-needed)
 	if use Debug; then
 		CMAKE_BUILD_TYPE=Debug
 		else

@@ -1,6 +1,40 @@
 # ChangeLog for sci-chemistry/pymol
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  19 Feb 2012; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
+  files/pymol-9999-prefix.patch, files/pymol-9999-web.patch:
+  Fix for current HEAD, correct desktop entry generation
+
+  19 Feb 2012; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
+  files/pymol-9999-prefix.patch, files/pymol-9999-web.patch:
+  Fix for current HEAD, correct desktop entry generation
+
+  19 Feb 2012; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
+  files/pymol-9999-prefix.patch, files/pymol-9999-web.patch:
+  Version Bump, correct desktop entry generation
+
+  19 Feb 2012; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
+  files/pymol-9999-prefix.patch, files/pymol-9999-web.patch:
+  Add icon to desktop file
+
+  19 Feb 2012; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
+  files/pymol-9999-prefix.patch, files/pymol-9999-web.patch:
+  Add desktop entry
+
+  19 Feb 2012; Justin Lecher <jlec@gentoo.org> files/pymol-9999-prefix.patch,
+  files/pymol-9999-web.patch:
+  Fix for latest head
+
+  13 Feb 2012; Justin Lecher <jlec@gentoo.org> -files/1.3.0-vmd.patch,
+  -files/pymol-0.99_rc10-data-path.patch, -files/pymol-1.2.2-shaders.patch,
+  pymol-9999.ebuild, +files/pymol-9999-flags.patch, -files/9999-vmd.patch,
+  files/pymol-9999-prefix.patch, -files/9999-web.patch,
+  files/pymol-9999-data-path.patch, +files/pymol-9999-nosplash.patch,
+  files/pymol-9999-setup.py.patch, -files/pymol-9999-shaders.patch,
+  +files/pymol-9999-vmd.patch, +files/pymol-9999-web.patch,
+  -files/nosplash-gentoo.patch:
+  Update to latest head
 
   05 Dec 2011; Justin Lecher <jlec@gentoo.org> files/pymol-9999-setup.py.patch:
   Fix pymol-9999-setup.py.patch for current HEAD

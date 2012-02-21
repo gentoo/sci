@@ -76,6 +76,7 @@ pkg_setup() {
 		tc-has-openmp || die "Please use an OPENMP capable compiler"
 	fi
 	python_set_active_version 2
+	python_pkg_setup
 }
 
 PATCHES=(

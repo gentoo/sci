@@ -1,0 +1,16 @@
+Index: setup.py
+===================================================================
+--- setup.py	(revision 3983)
++++ setup.py	(working copy)
+@@ -292,10 +292,7 @@
+                  'pymol/opengl/glu',
+                  'pymol/opengl/glut',
+                  'pymol/wizard',
+-                 'pymol2',
+-                 'web',
+-                 'web/examples',
+-                 'web/javascript', ],
++                 'pymol2', ],
+     ext_modules = [
+         Extension("pymol._cmd", [
+                 "modules/cealign/src/ccealignmodule.cpp",

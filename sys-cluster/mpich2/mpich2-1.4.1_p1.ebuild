@@ -2,21 +2,21 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
-inherit autotools eutils fortran-2 mpi toolchain-funcs
+EAPI=4
+inherit autotools eutils fortran-2 mpi toolchain-funcs versionator
 
 MY_PV=${PV/_/}
-DESCRIPTION="MPICH2 - A portable MPI implementation"
+DESCRIPTION="A high performance and portable MPI implementation"
 HOMEPAGE="http://www.mcs.anl.gov/research/projects/mpich2/index.php"
 SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY_PV}/${PN}-${MY_PV}.tar.gz"
 
-LICENSE="as-is"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86"
-IUSE="+cxx debug doc fortran mpi-threads romio threads"
+IUSE="+cxx debug doc fortran fortran90 mpi-threads romio threads"
 
 COMMON_DEPEND="dev-libs/libaio
-	>=sys-apps/hwloc-1.1.1
+	sys-apps/hwloc
 	romio? ( net-fs/nfs-utils )
 	$(mpi_imp_deplist)"
 
@@ -24,12 +24,16 @@ DEPEND="${COMMON_DEPEND}
 	dev-lang/perl
 	sys-devel/libtool"
 
-RDEPEND="${COMMON_DEPEND}"
+RDEPEND="${COMMON_DEPEND}
+	fortran? ( virtual/fortran )"
 
 S="${WORKDIR}"/${PN}-${MY_PV}
 
 pkg_setup() {
-	fortran-2_pkg_setup
+	if use fortran; then
+		use fortran90 && FORTRAN_STANDARD="77 90"
+		fortran-2_pkg_setup
+	fi
 	MPI_ESELECT_FILE="eselect.mpi.mpich2"
 
 	if use mpi-threads && ! use threads; then
@@ -72,7 +76,7 @@ src_prepare() {
 		-e "s|dir='\${DESTDIR}|dir='|" \
 		src/env/Makefile.in || die
 
-	# 369263 and 1500 upstream. 	
+	# 369263 and 1500 upstream.
 	epatch "${FILESDIR}"/fix-pkg-config-files.patch
 
 	# 393361, backport of r8809 upstream.
@@ -82,7 +86,7 @@ src_prepare() {
 }
 
 src_configure() {
-	local c="--enable-shared"
+	local c="--enable-shared --disable-rpath"
 	local romio_conf
 
 	# The configure statements can be somewhat confusing, as they
@@ -104,32 +108,25 @@ src_configure() {
 		c="${c} --enable-threads=single"
 	fi
 
-	# enable f90 support for appropriate compilers
-	case "$(tc-getFC)" in
-	    gfortran|if*)
-			c="${c} --enable-f77 --enable-fc";;
-	    g77)
-			c="${c} --enable-f77 --disable-fc";;
-	esac
-
-	! mpi_classed && c="${c} --sysconfdir=/etc/${PN}"
+	! mpi_classed && c="${c} --sysconfdir=${EPREFIX}/etc/${PN}"
 	econf $(mpi_econf_args) ${c} ${romio_conf} \
 		--docdir=$(mpi_root)/usr/share/doc/${PF} \
 		--with-pm=hydra \
 		--disable-mpe \
-		--with-hwloc-prefix=/usr \
+		--with-hwloc-prefix="${EPREFIX}/usr" \
 		--disable-fast \
 		--enable-smpcoll \
 		$(use_enable romio) \
 		$(use_enable cxx) \
-		|| die
+		$(use_enable fortran f77) \
+		$(use_enable fortran90 fc)
 }
 
 src_compile() {
 	# Oh, the irony.
 	# http://wiki.mcs.anl.gov/mpich2/index.php/Frequently_Asked_Questions#Q:_The_build_fails_when_I_use_parallel_make.
 	# https://trac.mcs.anl.gov/projects/mpich2/ticket/711
-	emake -j1 || die
+	emake -j1
 }
 
 src_test() {
@@ -159,9 +156,9 @@ src_test() {
 }
 
 src_install() {
-	local d=$(echo ${D}/$(mpi_root)/ | sed 's,///*,/,g')
+	local d=$(echo ${ED}/$(mpi_root)/ | sed 's,///*,/,g')
 
-	emake -j1 DESTDIR="${D}" install || die
+	emake -j1 DESTDIR="${D}" install
 
 	mpi_dodir /usr/share/doc/${PF}
 	mpi_dodoc COPYRIGHT README CHANGES RELEASE_NOTES || die

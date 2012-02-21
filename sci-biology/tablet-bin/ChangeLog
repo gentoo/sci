@@ -1,6 +1,14 @@
 # ChangeLog for sci-biology/tablet-bin
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  07 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  tablet-bin-1.11.11.01.ebuild:
+  adjust PATH to point to the installation place
+
+  07 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  tablet-bin-1.11.11.01.ebuild:
+  make use of the TMPDIR variable
 
   12 Dec 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   tablet-bin-1.11.11.01.ebuild:

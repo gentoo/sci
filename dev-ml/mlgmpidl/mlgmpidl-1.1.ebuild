@@ -8,7 +8,7 @@ inherit eutils toolchain-funcs
 
 DESCRIPTION="MLGMPIDL is an OCaml interface to the GMP and MPFR libraries"
 HOMEPAGE="http://www.inrialpes.fr/pop-art/people/bjeannet/mlxxxidl-forge/mlgmpidl/"
-SRC_URI="http://gforge.inria.fr/frs/download.php/20228/${PN}-${PV}.tgz"
+SRC_URI="https://gforge.inria.fr/frs/download.php/20228/${PN}-${PV}.tgz"
 
 LICENSE="LGPL-2"
 SLOT="0"
