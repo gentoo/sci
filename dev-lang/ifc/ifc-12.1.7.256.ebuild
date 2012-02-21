@@ -27,3 +27,13 @@ QA_PRESTRIPPED="${INTEL_SDP_DIR}/compiler/lib/*/.*libFNP.so"
 
 INTEL_BIN_RPMS="compilerprof compilerprof-devel"
 INTEL_DAT_RPMS="compilerprof-common"
+
+src_install() {
+	intel-sdp_src_install
+	local i
+	for i in /opt/intel/composerxe-2011.7.256/compiler/lib/{ia32,intel64}/locale/ja_JP/{diagspt,flexnet}.cat; do
+		if [[ -e "${EPREFIX}${i}" ]]; then
+			rm -rf "${ED}${i}" || die
+		fi
+	done
+}
