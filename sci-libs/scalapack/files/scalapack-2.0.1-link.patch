@@ -1,0 +1,18 @@
+--- scalapack-2.0.1.orig/CMakeLists.txt	2012-01-17 23:35:02.000000000 +0000
++++ scalapack-2.0.1/CMakeLists.txt	2012-02-23 05:27:30.772365248 +0000
+@@ -232,12 +232,15 @@
+ 
+ if (UNIX)
+    add_library(scalapack ${blacs} ${tools} ${tools-C} ${extra_lapack} ${pblas} ${pblas-F} ${ptzblas} ${ptools} ${pbblas} ${redist} ${src} ${src-C})
++   target_link_libraries(scalapack ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
+    scalapack_install_library(scalapack)
+ else (UNIX) # Need to separate Fortran and C Code
+    OPTION(BUILD_SHARED_LIBS "Build shared libraries" ON )
+    add_library(scalapack ${blacs} ${tools-C} ${pblas} ${ptools} ${redist} ${src-C})
+    add_library(scalapack-F ${pblas-F} ${pbblas} ${ptzblas} ${tools} ${src} ${extra_lapack} )
++   target_link_libraries(scalapack ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
+    scalapack_install_library(scalapack)
++   target_link_libraries(scalapack-F ${LAPACK_LIBRARIES} ${BLAS_LIBRARIES})
+    scalapack_install_library(scalapack-F)
+ endif (UNIX)
+ add_subdirectory(TESTING)
