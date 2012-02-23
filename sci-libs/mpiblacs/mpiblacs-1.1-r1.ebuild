@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,7 +17,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="static-libs test"
 
 RDEPEND="virtual/mpi[fortran]
-	virtual/blas"
+	virtual/blas
+	!>sci-libs/scalapack-2"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 

@@ -1,6 +1,12 @@
 # ChangeLog for app-doc/scalapack-docs
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*scalapack-docs-2.0 (23 Feb 2012)
+
+  23 Feb 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  -scalapack-docs-1.8.ebuild, +scalapack-docs-2.0.ebuild:
+  Bumping to match scalapack-2 which include blacs quick reference sheets
 
 *scalapack-docs-1.8 (13 Dec 2010)
 

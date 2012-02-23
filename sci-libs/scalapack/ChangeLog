@@ -1,6 +1,12 @@
 # ChangeLog for sci-libs/scalapack
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*scalapack-2.0.1 (23 Feb 2012)
+
+  23 Feb 2012; Sébastien Fabbro <bicatali@gentoo.org> +scalapack-2.0.1.ebuild,
+  +files/scalapack-2.0.1-link.patch, +files/scalapack-2.0.1-multipledefs.patch:
+  Version bump. CMake based building, BLACS is now included with ScaLAPACK
 
   23 Feb 2011; Sébastien Fabbro <bicatali@gentoo.org> scalapack-1.8.0.ebuild:
   Switched to alternatives-2 framework
