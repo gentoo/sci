@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
 
+  23 Feb 2012; Justin Lecher <jlec@gentoo.org>
+  lapack-reference-3.4.0_p20120215-r1.ebuild, metadata.xml:
+  Keyworded for ~-linux prefix
+
+  23 Feb 2012; Justin Lecher <jlec@gentoo.org>
+  lapack-reference-3.4.0_p20120215-r1.ebuild, metadata.xml:
+  Keyworded for ~-linux prefix
+
 *lapack-reference-3.4.0_p20120215-r1 (17 Feb 2012)
 
   17 Feb 2012; Sébastien Fabbro <bicatali@gentoo.org>
