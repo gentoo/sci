@@ -1,10 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=4
 
-inherit eutils autotools-utils alternatives-2
+AUTOTOOLS_AUTORECONF=true
+
+inherit alternatives-2 autotools-utils eutils
 
 DESCRIPTION="The GNU Scientific Library"
 HOMEPAGE="http://www.gnu.org/software/gsl/"
@@ -19,11 +21,6 @@ PATCHES=(
 	"${FILESDIR}/${P}-pkgconfig.patch"
 	"${FILESDIR}/${P}-cblas.patch"
 	)
-
-src_prepare() {
-	autotools-utils_src_prepare
-	eautoreconf
-}
 
 src_install() {
 	autotools-utils_src_install
