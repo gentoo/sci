@@ -14,7 +14,7 @@ SRC_URI="http://dev.gentoo.org/~bicatali/distfiles/${MYP}.tar.bz2"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test"
 
 RDEPEND="virtual/fortran"
