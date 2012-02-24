@@ -4,8 +4,9 @@
 
 EAPI=4
 
-AUTOTOOLS_AUTORECONF=yes
-inherit eutils autotools-utils alternatives-2
+AUTOTOOLS_AUTORECONF=true
+
+inherit alternatives-2 autotools-utils eutils
 
 DESCRIPTION="The GNU Scientific Library"
 HOMEPAGE="http://www.gnu.org/software/gsl/"
