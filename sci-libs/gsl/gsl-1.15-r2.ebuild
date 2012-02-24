@@ -17,10 +17,7 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd ~x86-interix ~amd64-linux ~x86-linux ~x86-macos ~sparc-solaris ~x86-solaris"
 IUSE="static-libs"
 
-PATCHES=(
-	"${FILESDIR}/${P}-pkgconfig.patch"
-	"${FILESDIR}/${P}-cblas.patch"
-	)
+PATCHES=( "${FILESDIR}"/${P}-cblas.patch )
 
 src_install() {
 	autotools-utils_src_install

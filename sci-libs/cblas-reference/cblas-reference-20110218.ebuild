@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,7 +15,7 @@ SRC_URI="http://www.netlib.org/blas/blast-forum/${MYPN}.tgz -> ${P}.tgz"
 
 SLOT="0"
 IUSE="static-libs"
-KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
 
 RDEPEND="virtual/blas
 	virtual/fortran"
@@ -29,14 +29,24 @@ LIBVER=3
 
 make_shared_lib() {
 	local libstatic=${1}
-	local soname=$(basename "${1%.a}").so.${LIBVER}
-	shift
-	einfo "Making ${soname}"
-	${LINK:-$(tc-getCC)} ${LDFLAGS}  \
-		-shared -Wl,-soname="${soname}" \
-		-Wl,--whole-archive "${libstatic}" -Wl,--no-whole-archive \
-		"$@" -o $(dirname "${libstatic}")/"${soname}" || die "${soname} failed"
-	ln -s "${soname}" $(dirname "${libstatic}")/"${soname%.*}"
+	if [[ ${CHOST} == *-darwin* ]] ; then
+		local dylibname=$(basename "${1%.a}").dylib
+		shift
+		einfo "Making ${dylibname}"
+		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
+			-dynamiclib -install_name "${EPREFIX}"/usr/lib/"${dylibname}" \
+			-Wl,-all_load -Wl,"${libstatic}" \
+			"$@" -o $(dirname "${libstatic}")/"${dylibname}" || die "${dylibname} failed"
+	else
+		local soname=$(basename "${1%.a}").so.${LIBVER}
+		shift
+		einfo "Making ${soname}"
+		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
+			-shared -Wl,-soname="${soname}" \
+			-Wl,--whole-archive "${libstatic}" -Wl,--no-whole-archive \
+			"$@" -o $(dirname "${libstatic}")/"${soname}" || die "${soname} failed"
+		ln -s "${soname}" $(dirname "${libstatic}")/"${soname%.*}"
+	fi
 }
 
 src_prepare() {
@@ -77,7 +87,11 @@ src_test() {
 }
 
 src_install() {
-	dolib.so lib/lib${LIBNAME}.so*
+	local shlib=so
+	if [[ ${CHOST} == *-darwin* ]] ; then
+		shlib=dylib
+	fi
+	dolib.so lib/lib${LIBNAME}.${shlib}*
 	use static-libs && dolib.a lib/lib${LIBNAME}.a
 	insinto /usr/include/cblas
 	doins include/cblas.h
