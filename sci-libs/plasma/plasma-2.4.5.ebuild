@@ -71,15 +71,15 @@ src_configure() {
 		LIBCBLAS = $(pkg-config --libs cblas)
 		LIBLAPACK = $(pkg-config --libs lapack)
 		LIBCLAPACK = $(pkg-config --libs lapacke)
+		$(use fortran && echo "PLASMA_F90 = 1")
 	EOF
-	use fortran && echo >> make.inc "PLASMA_F90 = 1"
 }
 
 src_compile() {
 	emake lib
-	make_shared_lib lib/libcoreblas.a
-	make_shared_lib lib/libplasma.a
-	make_shared_lib quark/libquark.a
+	make_shared_lib quark/libquark.a $(pkg-config --libs hwloc) -pthread
+	make_shared_lib lib/libcoreblas.a quark/libquark.so $(pkg-config --libs cblas lapacke)
+	make_shared_lib lib/libplasma.a quark/libquark.so lib/libcoreblas.so
 	if use static-libs; then
 		emake cleanall
 		sed 's/-fPIC//g' make.inc
@@ -90,11 +90,11 @@ src_compile() {
 src_install() {
 	dolib.so lib/lib*.so* quark/libquark.so*
 	use static-libs && dolib.a lib/lib*.a quark/libquark.a
-	insinto /usr/include/plasma
+	insinto /usr/include/${PN}
 	doins quark/quark{,_unpack_args}.h quark/icl_{hash,list}.h include/*.h
 	use fortran && doins include/*.mod
 	insinto /usr/$(get_libdir)/pkgconfig
-	doins plasma.pc
+	doins ${PN}.pc
 	dodoc README ToDo ReleaseNotes
 	use doc && dodoc docs/pdf/*.pdf && dohtml docs/doxygen/out/html/*
 	if use examples; then
