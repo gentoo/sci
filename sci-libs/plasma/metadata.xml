@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<longdescription lang="en">
+  The Parallel Linear Algebra for Scalable Multi-core Architectures
+  (PLASMA) project aims to address the critical and highly disruptive
+  situation that is facing the Linear Algebra and High Performance
+  Computing community due to the introduction of multi-core
+  architectures.
+</longdescription>
+</pkgmetadata>

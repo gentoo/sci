@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/plasma
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*plasma-2.4.5 (24 Feb 2012)
+
+  24 Feb 2012; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +plasma-2.4.5.ebuild:
+  sci-libs/plasma: Initial import
+
