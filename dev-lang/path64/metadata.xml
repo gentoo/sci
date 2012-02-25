@@ -12,7 +12,8 @@
 	SSE, SSE2, SSE3, SSSE3, SSE4.1, SSE4.2, AMD SSE4A and AVX.
 	</longdescription>
 	<use>
-		<flag name="debugger">Build PathDB</flag>
+		<flag name="debugger">Build PathDB debugger</flag>
+		<flag name="assembler">Build PathAS assembler</flag>
 		<flag name="native">Use EKOPath/Path64 for bootstraping</flag>
 	</use>
 </pkgmetadata>
