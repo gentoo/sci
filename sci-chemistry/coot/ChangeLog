@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Feb 2012; Justin Lecher <jlec@gentoo.org> -files/9999-include.patch,
+  -files/9999-lidia.patch, coot-9999.ebuild:
+  Cleaned old patches, added goocanvas config option
+
+  25 Feb 2012; Justin Lecher <jlec@gentoo.org> -files/9999-include.patch,
+  -files/9999-lidia.patch, coot-9999.ebuild:
+  Cleaned old patches, added goocanvas config option
+
   14 Jan 2012; Justin Lecher <jlec@gentoo.org> -Manifest, -Manifest:
   Dropped Manifest
 
