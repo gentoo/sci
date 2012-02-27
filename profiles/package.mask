@@ -33,6 +33,7 @@
 # Justin Lecher <jlec@gentoo.org> (20 Feb 2012)
 # They are broken in one or the other way
 # Need to be bumped to emboss-6.4.0
+sci-biology/emboss
 sci-biology/embassy
 sci-biology/embassy-cbstools
 sci-biology/embassy-domainatrix
