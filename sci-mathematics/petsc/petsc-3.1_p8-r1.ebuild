@@ -21,7 +21,7 @@ RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )
 	virtual/lapack
 	virtual/blas
-	hypre? ( sci-libs/hypre[static-libs=] )
+	hypre? ( sci-libs/hypre )
 	metis? ( sci-libs/parmetis )
 	hdf5? ( sci-libs/hdf5[!mpi?] )
 "
