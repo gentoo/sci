@@ -15,5 +15,6 @@
 		<flag name="debugger">Build PathDB debugger</flag>
 		<flag name="assembler">Build PathAS assembler</flag>
 		<flag name="native">Use EKOPath/Path64 for bootstraping</flag>
+		<flag name="valgrind">Support compiler debugging with <pkg>dev-util/valgrind</pkg></flag>
 	</use>
 </pkgmetadata>

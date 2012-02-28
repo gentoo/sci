@@ -81,9 +81,7 @@ pkg_setup() {
 
 PATCHES=(
 	"${FILESDIR}"/${PV}-clipper-config.patch
-	"${FILESDIR}"/${PV}-lidia.patch
 	"${FILESDIR}"/${PV}-goocanvas.patch
-	"${FILESDIR}"/${PV}-include.patch
 	"${FILESDIR}"/${PV}-gl.patch
 	"${FILESDIR}"/${PV}-mmdb-config.patch
 	"${FILESDIR}"/${PV}-test.patch
@@ -113,8 +111,7 @@ src_configure() {
 	# Yes, this is broken behavior.
 	local myeconfargs=(
 		--includedir='${prefix}/include/coot'
-		--with-gtkcanvas-prefix="${EPREFIX}/usr"
-		--with-gtkgl-prefix="${EPREFIX}/usr"
+		--with-goocanvas-prefix="${EPREFIX}/usr"
 		--with-guile
 		--with-python="${EPREFIX}/usr"
 		--with-guile-gtk
