@@ -7,12 +7,12 @@ EAPI=3
 inherit eutils git-2 distutils
 
 DESCRIPTION="Automated benchmarks suite"
-HOMEPAGE=""
+HOMEPAGE="http://soc.dev.gentoo.org/~spiros"
 EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/auto-numerical-bench.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 IUSE=""
 
@@ -20,7 +20,7 @@ RDEPEND="!app-admin/eselect-blas
 	 !app-admin/eselect-cblas
 	 !app-admin/eselect-lapack
 	 >=dev-python/matplotlib-1.0.0
-	 =app-admin/eselect-1.2.17-r1
+	 =app-admin/eselect-1.3.1-r1
 	 app-benchmarks/btl"
 
 src_install() {
