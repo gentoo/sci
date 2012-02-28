@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*sra_sdk-2.1.6 (17 Feb 2012)
+
+  17 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +sra_sdk-2.1.6.ebuild, sra_sdk-2.1.9.ebuild:
+  sci-biology/sra_sdk: updated ebuild for 2.1.6 and 2.1.9: they both
+  compile/install but possibly install layout is still broken, leading to non-
+  functional sff-dump
+
   06 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   sra_sdk-2.1.9.ebuild:
   preserve libs written directly into at the end of src_compile() and install
