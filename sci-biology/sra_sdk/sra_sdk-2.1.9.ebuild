@@ -75,7 +75,7 @@ src_install(){
 	# dobin "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/bin/*
 	for f in "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/bin/*; do cp --preserve=links "$f" "${D}"/usr/bin || die "copy failed" ; done
 	dolib "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/lib/*
-	
+
 	# install the main libs and the ncbi/vdb-copy.kfg file
 	insinto /usr/lib/ncbi
 	doins "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/lib/ncbi/*
