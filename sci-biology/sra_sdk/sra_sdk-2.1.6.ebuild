@@ -15,7 +15,6 @@ SRC_URI="http://trace.ncbi.nlm.nih.gov/Traces/sra/static/sra_sdk-"${PV}".tar.gz"
 
 LICENSE="public-domain"
 SLOT="0"
-#KEYWORDS=""
 KEYWORDS="~amd64 ~x86"
 IUSE="static"
 
@@ -28,33 +27,12 @@ RDEPEND="${DEPEND}"
 # upstream says:
 # icc, icpc are supported: tested with 11.0 (64-bit) and 10.1 (32-bit), 32-bit 11.0 does not work
 
-#src_prepare(){
-	# epatch "${FILESDIR}"/sra_sdk-destdir.patch || die
-	# epatch "${FILESDIR}"/tools_vdb-vcopy_Makefile.patch || die
-	# epatch "${FILESDIR}"/libs_sra_Makefile.patch || die
-	# mkdir -p /var/tmp/portage/sci-biology/"${P}"/image//var/tmp/portage/sci-biology/
-	# ln -s /var/tmp/portage/sci-biology/"${P}" /var/tmp/portage/sci-biology/"${P}"/image//var/tmp/portage/sci-biology/"${P}"
-
-#}
-
 src_compile(){
 	# # COMP env variable may have 'GCC' or 'ICC' values
-	#if use static; then
-	#	emake static LIBDIR=/usr/lib64 DESTDIR="${D}"
-	#else
-	#	emake dynamic LIBDIR=/usr/lib64 DESTDIR="${D}"
-	#fi
-
-	#LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir out LIBDIR=/usr/lib64 DESTDIR="${D}" || die
-	#LIBXML_INCLUDES="/usr/include/libxml2" make -j1 OUTDIR="${WORKDIR}"/objdir LIBDIR=/usr/lib64 DESTDIR="${D}" || die
-
-	# preserve the libs written directly into $DESTDIR by ar/ld/gcc
-	#mkdir -p "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/lib
-	#mv "${D}"/usr/lib64/* "${WORKDIR}"/objdir/linux/rel/gcc/x86_64/lib/
 	make OUTDIR="${WORKDIR}"/objdir out || die
-	make dynamic || die
-	make release || die
-	emake || die
+	LIBXML_INCLUDES="/usr/include/libxml2" make dynamic || die
+	LIBXML_INCLUDES="/usr/include/libxml2" make release || die
+	LIBXML_INCLUDES="/usr/include/libxml2" emake || die
 }
 
 src_install(){
@@ -72,7 +50,6 @@ src_install(){
 	mkdir "${D}"/usr/bin
 	mkdir -p "${D}"/usr/lib/ncbi
 	mkdir -p "${D}"/usr/ncbi/schema
-	# dobin "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/bin/*
 	for f in "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/bin/*; do cp --preserve=links "$f" "${D}"/usr/bin || die "copy failed" ; done
 	dolib "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/lib/*
 

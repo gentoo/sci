@@ -1,18 +1,18 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=3
 
-inherit eutils git-2 distutils
+inherit eutils distutils
 
 DESCRIPTION="Automated benchmarks suite"
 HOMEPAGE="http://soc.dev.gentoo.org/~spiros"
-EGIT_REPO_URI="git://git.overlays.gentoo.org/proj/auto-numerical-bench.git"
+SRC_URI="${HOMEPAGE}/repository/${P}.tbz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 IUSE=""
 

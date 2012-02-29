@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/generic-genome-browser/ChangeLog,v 1.10 2007/07/29 17:07:38 phreak Exp $
 
+*gbrowse-2.48 (28 Feb 2012)
+
+  28 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  gbrowse-2.45.ebuild, +gbrowse-2.48.ebuild:
+  added dependency on <=sci-biology/primer3-2, per
+  http://generic-model-organism-system-database.450254.n5.nabble.com/PrimerDesi
+  gner-working-in-2-40-tp4724773p5479669.html
+
 *gbrowse-2.45 (17 Jan 2012)
 
   17 Jan 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
