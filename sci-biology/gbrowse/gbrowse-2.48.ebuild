@@ -86,6 +86,7 @@ RDEPEND="${DEPEND}
 		postgres? ( >=dev-perl/Bio-DB-Das-Chado-0.32 )
 		>=dev-perl/Bio-SamTools-1.29
 		>=dev-perl/Bio-BigFile-1.06
+		<=sci-biology/primer3-2
 	)"
 
 src_prepare() {
