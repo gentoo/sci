@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*petsc-3.2_p6 (01 Mar 2012)
+
+  01 Mar 2012; Jens-Malte Gottfried <jmgottfried@web.de>
+  petsc-3.1_p8-r1.ebuild, -files/petsc-3.1_p8-configure-pic.patch,
+  +petsc-3.2_p6.ebuild, files/petsc-configure-pic.patch:
+  added new petsc 3.2-p6 ebuild
+
   23 Jan 2012; Sébastien Fabbro <bicatali@gentoo.org> -petsc-3.1_p4.ebuild,
   -petsc-3.1_p5-r2.ebuild, -petsc-3.1_p7.ebuild, -petsc-3.1_p8.ebuild,
   petsc-3.1_p8-r1.ebuild:

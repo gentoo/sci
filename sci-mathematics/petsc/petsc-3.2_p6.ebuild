@@ -27,7 +27,9 @@ RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 "
 
 DEPEND="${RDEPEND}
-	sys-devel/gcc[-nocxx,fortran?]"
+	sys-devel/gcc[-nocxx,fortran?]
+	dev-util/cmake
+"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -64,14 +66,15 @@ src_configure(){
 	myconf[19]="--with-petsc-arch=${PETSC_ARCH}"
 	myconf[20]="--with-precision=double"
 	myconf[21]="--with-gnu-compilers=1"
+	myconf[22]="--with-cmake=/usr/bin/cmake"
 	use amd64 \
-		&& myconf[22]="--with-64-bit-pointers=1" \
-		|| myconf[22]="--with-64-bit-pointers=0"
+		&& myconf[23]="--with-64-bit-pointers=1" \
+		|| myconf[23]="--with-64-bit-pointers=0"
 	use cxx \
-		&& myconf[23]="--with-c-support=1"
+		&& myconf[24]="--with-c-support=1"
 	use amd64 \
-		&& myconf[24]="--with-64-bit-indices=1" \
-		|| myconf[24]="--with-64-bit-indices=0"
+		&& myconf[25]="--with-64-bit-indices=1" \
+		|| myconf[25]="--with-64-bit-indices=0"
 
 	if use mpi; then
 		myconf[30]="--with-cc=/usr/bin/mpicc"
@@ -90,8 +93,8 @@ src_configure(){
 		&& myconf[40]="--with-X=1" \
 		|| myconf[40]="--with-X=0"
 	use static-libs \
-		&& myconf[41]="--with-shared=0" \
-		|| myconf[41]="--with-shared=1"
+		&& myconf[41]="--with-shared-libraries=0" \
+		|| myconf[41]="--with-shared-libraries=1"
 	use fortran \
 		&& myconf[43]="--with-fortran=1" \
 		|| myconf[43]="--with-fortran=0"
@@ -106,7 +109,7 @@ src_configure(){
 
 	if use hypre; then
 		# hypre cannot handle 64 bit indices, therefore disabled
-		myconf[24]="--with-64-bit-indices=0"
+		myconf[25]="--with-64-bit-indices=0"
 		myconf[52]="--with-hypre=1"
 		myconf[53]="--with-hypre-include=/usr/include/hypre"
 		use static-libs \
@@ -118,7 +121,7 @@ src_configure(){
 
 	if use metis; then
 		# parmetis cannot handle 64 bit indices, therefore disabled
-		myconf[24]="--with-64-bit-indices=0"
+		myconf[25]="--with-64-bit-indices=0"
 		myconf[61]="--with-parmetis=1"
 		myconf[62]="--with-parmetis-include=/usr/include/parmetis"
 		myconf[63]="--with-parmetis-lib=/usr/$(get_libdir)/libparmetis.so"
@@ -194,8 +197,4 @@ pkg_postinst() {
 	elog "The petsc ebuild is still under development."
 	elog "Help us improve the ebuild in:"
 	elog "http://bugs.gentoo.org/show_bug.cgi?id=53386"
-	elog "This ebuild is known to have parallel build issues, "
-	elog "hopefully resolved by upstream soon."
-	elog "Another problem is that you can break this package by"
-	elog "switching your mpi implementation without rebuild petsc."
 }
