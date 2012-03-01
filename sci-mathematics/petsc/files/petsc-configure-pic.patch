@@ -4,8 +4,8 @@
        languages.append('FC')
      for language in languages:
        self.pushLanguage(language)
--      for testFlag in ['-PIC', '-fPIC', '-KPIC']:
-+      for testFlag in ['-fPIC', '-PIC', '-KPIC']:
+-      for testFlag in ['-PIC', '-fPIC', '-KPIC','-qpic']:
++      for testFlag in ['-fPIC', '-PIC', '-KPIC', '-qpic']:
          try:
            self.framework.logPrint('Trying '+language+' compiler flag '+testFlag)
            if not self.checkLinkerFlag(testFlag):
