@@ -2,8 +2,18 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.92 2012/01/21 19:23:26 bicatali Exp $
 
+*root-5.32.01 (01 Mar 2012)
+
+  01 Mar 2012; Andrew Savchenko <bircoph@gmail.com>
+  -files/root-5.26.00-make-3.82.patch, -root-5.26.00e-r1.ebuild,
+  -files/root-5.26.00e-libpng15.patch,
+  -files/root-5.28.00b-nobyte-compile.patch, -root-5.28.00d.ebuild,
+  -root-5.32.00-r2.ebuild, +root-5.32.01.ebuild, -files/olbd.confd,
+  -files/olbd.initd, -files/xrootd.confd, -files/xrootd.initd:
+  Version bump for patch release 5.32/01.
+
   27 Feb 2012; Andrew Savchenko <bircoph@gmail.com>
-  root-5.26.00e-r1.ebuild:
+  root-5.32.00-r1.ebuild:
   Fix build on non-english locales. find tool may become crazy on
   them, so force LANG=C LC_ALL=C for find only.
 
