@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.92 2012/01/21 19:23:26 bicatali Exp $
 
+  01 Mar 2012; Andrew Savchenko <bircoph@gmail.com> metadata.xml:
+  Fix repoman warning.
+
 *root-5.32.01 (01 Mar 2012)
 
   01 Mar 2012; Andrew Savchenko <bircoph@gmail.com>
