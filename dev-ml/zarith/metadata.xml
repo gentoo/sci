@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<longdescription lang='en'>
+Arithmetic and logic operations over arbitrary-precision integers in Ocaml
+</longdescription>
+<use>
+<flag name='mpir'>Use mpir library instead of gmp</flag>
+</use>
+</pkgmetadata>

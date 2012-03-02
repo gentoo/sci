@@ -12,11 +12,10 @@ SRC_URI="http://www.lrz.de/services/software/mathematik/gsl/fortran/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~amd64-linux"
 IUSE="static-libs"
 
-DEPEND="
-	>=sci-libs/gsl-1.15
+DEPEND=">=sci-libs/gsl-1.15
 	virtual/fortran"
 RDEPEND="${DEPEND}"
 #TODO: make docs
