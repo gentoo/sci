@@ -15,7 +15,13 @@ SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
 LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="boost complex-scalars cxx debug doc fortran hdf5 hypre metis mpi threads X"
+IUSE="afterimage boost complex-scalars cxx debug doc \
+	fortran hdf5 hypre metis mpi sparse threads X"
+
+REQUIRED_USE="
+	hypre? ( cxx mpi )
+	hdf5? ( mpi )
+"
 
 RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )
@@ -23,16 +29,16 @@ RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	virtual/blas
 	hypre? ( sci-libs/hypre )
 	metis? ( sci-libs/parmetis )
-	hdf5? ( sci-libs/hdf5[!mpi?] )
+	hdf5? ( sci-libs/hdf5 )
 	boost? ( dev-libs/boost )
+	afterimage? ( media-libs/libafterimage )
+	sparse? ( sci-libs/cholmod )
 "
 
 DEPEND="${RDEPEND}
 	sys-devel/gcc[-nocxx,fortran?]
 	dev-util/cmake
 "
-
-REQUIRED_USE="hypre? ( cxx mpi )"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -106,18 +112,21 @@ src_configure(){
 		$(petsc_enable fortran) \
 		$(use fortran && echo "$(petsc_select mpi fc /usr/bin/mpif77 $(tc-getF77))") \
 		$(petsc_enable mpi mpi-compilers) \
-		$(petsc_with X) \
-		$(petsc_with boost) \
 		$(petsc_enable threads pthread) \
 		$(petsc_enable threads pthreadclasses) \
+		$(petsc_select complex-scalars scalar-type complex real) \
 		--with-windows-graphics=0 \
 		--with-matlab=0 \
 		--with-python=0 \
 		--with-cmake=/usr/bin/cmake \
+		$(petsc_with afterimage afterimage \
+			/usr/$(get_libdir)/libAfterImage.so /usr/include/libAfterImage) \
+		$(petsc_with sparse cholmod) \
+		$(petsc_with boost) \
 		$(petsc_with hdf5) \
 		$(petsc_with hypre hypre /usr/$(get_libdir)/libHYPRE.so /usr/include/hypre) \
 		$(petsc_with metis parmetis) \
-		$(petsc_select complex-scalars scalar-type complex real) \
+		$(petsc_with X x11) \
 		--with-scotch=0 \
 		${EXTRA_ECONF} || die "configuration failed"
 }
