@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ambertools/ChangeLog,v 1.2 2011/08/02 14:42:37 alexxy Exp $
 
+  03 Mar 2012; Reinis Danne <rei4dan@gmail.com> ambertools-1.5-r3.ebuild,
+  +files/ambertools-1.5-overflow.patch:
+  Add another buffer overflow patch.
+
 *ambertools-1.5-r3 (03 Mar 2012)
 
   03 Mar 2012; Reinis Danne <rei4dan@gmail.com> +ambertools-1.5-r3.ebuild,

@@ -53,7 +53,8 @@ src_prepare() {
 	epatch \
 		"${FILESDIR}/${P}-bugfix_1-21.patch" \
 		"${FILESDIR}/${P}-bugfix_22-27.patch" \
-		"${FILESDIR}/${P}-gentoo2.patch"
+		"${FILESDIR}/${P}-gentoo2.patch" \
+		"${FILESDIR}/${P}-overflow.patch"
 	cd "${S}"/AmberTools/src
 	rm -r \
 		arpack \
