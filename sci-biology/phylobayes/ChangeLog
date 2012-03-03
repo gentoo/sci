@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/phylobayes
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*phylobayes-3.3b (02 Mar 2012)
+
+  02 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +phylobayes-3.3b.ebuild:
+  initial ebuild
+
