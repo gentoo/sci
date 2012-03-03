@@ -14,8 +14,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 DEPEND="sci-mathematics/glpk
-		dev-lang/python
-		doc? ( app-text/ghostscript-gpl )
+		doc? ( app-text/ghostscript-gpl
+				dev-lang/python )
 		test? ( dev-util/valgrind )"
 RDEPEND="${DEPEND}"
 
@@ -27,3 +27,6 @@ src_prepare(){
 	fi
 	econf ${MYOPTS} || die
 }
+
+# a dynamic library can be built using
+# cmake -DBUILD_SHARED_LIBS=TRUE ..
