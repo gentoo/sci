@@ -110,6 +110,10 @@ src_configure(){
 }
 
 src_install(){
+	# petsc install structure is very different from
+	# installing headers to /usr/include/petsc and lib to /usr/lib
+	# it also installs many unneeded executables and scripts
+	# so manual install is easier than cleanup after "emake install"
 	insinto /usr/include/"${PN}"
 	doins "${S}"/include/*.h "${S}"/include/*.hh
 	insinto /usr/include/"${PN}/${PETSC_ARCH}"/include
@@ -122,14 +126,16 @@ src_install(){
 	doins "${S}"/conf/{variables,rules,test}
 	insinto /usr/include/"${PN}/${PETSC_ARCH}"/conf
 	doins "${S}/${PETSC_ARCH}"/conf/{petscrules,petscvariables,RDict.db}
-
 	insinto /usr/include/"${PN}"/private
 	doins "${S}"/include/private/*.h
 
-	dosed "s:${S}:/usr:g" /usr/include/"${PN}/${PETSC_ARCH}"/include/petscconf.h
-	dosed "s:${PETSC_ARCH}/lib:$(get_libdir):g" /usr/include/"${PN}/${PETSC_ARCH}"/include/petscconf.h
-	dosed "s:INSTALL_DIR =.*:INSTALL_DIR = /usr:" /usr/include/"${PN}/${PETSC_ARCH}"/conf/petscvariables
+	# fix configuration files: replace ${S} by installed location
+	sed -i "s:${S}:/usr:g" ${D}/usr/include/"${PN}/${PETSC_ARCH}"/include/petscconf.h
+	sed -i "s:${PETSC_ARCH}/lib:$(get_libdir):g" ${D}/usr/include/"${PN}/${PETSC_ARCH}"/include/petscconf.h
+	sed -i "s:INSTALL_DIR =.*:INSTALL_DIR = /usr:" ${D}/usr/include/"${PN}/${PETSC_ARCH}"/conf/petscvariables
 
+	# add information about installation directory and
+	# PETSC_ARCH to environmental variables
 	cat >> "${T}"/99petsc <<- EOF
 	PETSC_ARCH=${PETSC_ARCH}
 	PETSC_DIR=/usr/include/${PN}
@@ -153,4 +159,7 @@ pkg_postinst() {
 	elog "The petsc ebuild is still under development."
 	elog "Help us improve the ebuild in:"
 	elog "http://bugs.gentoo.org/show_bug.cgi?id=53386"
+	elog "Note that PETSC_ARCH may be dropped in future since " \
+		"upstream now also supports installations without " \
+		"different subdirectories."
 }
