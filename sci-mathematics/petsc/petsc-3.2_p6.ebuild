@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
 inherit flag-o-matic fortran-2 toolchain-funcs
 
@@ -15,7 +15,7 @@ SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
 LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="complex-scalars cxx debug doc fortran hdf5 hypre metis mpi static-libs X"
+IUSE="complex-scalars cxx debug doc fortran hdf5 hypre metis mpi X"
 
 RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )
@@ -31,12 +31,9 @@ DEPEND="${RDEPEND}
 	dev-util/cmake
 "
 
-S="${WORKDIR}/${MY_P}"
+REQUIRED_USE="hypre? ( cxx mpi )"
 
-if use hypre; then
-	use cxx || die "hypre needs cxx, please enable cxx or disable hypre use flag"
-	use mpi || die "hypre needs mpi, please enable mpi or disable hypre use flag"
-fi
+S="${WORKDIR}/${MY_P}"
 
 src_prepare(){
 	epatch "${FILESDIR}/${PN}-configure-pic.patch"
@@ -44,111 +41,72 @@ src_prepare(){
 }
 
 src_configure(){
+	# petsc uses --with-blah=1 and --with-blah=0 to en/disable options
+	petsc_enable(){
+		use "$1" && echo "--with-${2:-$1}=1" || echo "--with-${2:-$1}=0"
+	}
+	# select between configure options depending on use flag
+	pestc_select() {
+		use "$1" && echo "--with-$2=$3" || echo "--with-$2=$4"
+	}
+	# add info about library include dirs and lib file
+	petsc_lib_info(){
+		use "$1" && echo "--with-${4:-$1}-include=$2 --with-${4:-$1}-lib=$3"
+	}
+
 	local mylang
 	local myopt
-	local myconf
 
 	use cxx && mylang="cxx" || mylang="c"
 	use debug && myopt="debug" || myopt="opt"
 
-	export PETSC_DIR="${S}" || die
-	export PETSC_ARCH="linux-gnu-${mylang}-${myopt}" || die
+	# environmental variables expected by petsc during build
+	export PETSC_DIR="${S}"
+	export PETSC_ARCH="linux-gnu-${mylang}-${myopt}"
 
-	myconf[10]="--with-blas-lapack-lib=$(pkg-config --libs lapack)"
-	myconf[11]="CFLAGS=${CFLAGS}"
-	myconf[12]="CXXFLAGS=${CXXFLAGS}"
-	myconf[13]="LDFLAGS=${LDFLAGS}"
-	myconf[14]="--with-windows-graphics=0"
-	myconf[15]="--with-matlab=0"
-	myconf[16]="--with-python=0"
-	myconf[17]="--with-clanguage=${mylang}"
-	myconf[18]="--with-single-library=1"
-	myconf[19]="--with-petsc-arch=${PETSC_ARCH}"
-	myconf[20]="--with-precision=double"
-	myconf[21]="--with-gnu-compilers=1"
-	myconf[22]="--with-cmake=/usr/bin/cmake"
-	use amd64 \
-		&& myconf[23]="--with-64-bit-pointers=1" \
-		|| myconf[23]="--with-64-bit-pointers=0"
-	use cxx \
-		&& myconf[24]="--with-c-support=1"
-	use amd64 \
-		&& myconf[25]="--with-64-bit-indices=1" \
-		|| myconf[25]="--with-64-bit-indices=0"
-
-	if use mpi; then
-		myconf[30]="--with-cc=/usr/bin/mpicc"
-		myconf[31]="--with-cxx=/usr/bin/mpicxx"
-		use fortran && myconf[32]="--with-fc=/usr/bin/mpif77"
-		myconf[33]="--with-mpi=1"
-		myconf[34]="--with-mpi-compilers=1"
-	else
-		myconf[30]="--with-cc=$(tc-getCC)"
-		myconf[31]="--with-cxx=$(tc-getCXX)"
-		use fortran && myconf[32]="--with-fc=$(tc-getF77)"
-		myconf[33]="--with-mpi=0"
-	fi
-
-	use X \
-		&& myconf[40]="--with-X=1" \
-		|| myconf[40]="--with-X=0"
-	use static-libs \
-		&& myconf[41]="--with-shared-libraries=0" \
-		|| myconf[41]="--with-shared-libraries=1"
-	use fortran \
-		&& myconf[43]="--with-fortran=1" \
-		|| myconf[43]="--with-fortran=0"
+	# flags difficult to pass due to correct quoting of spaces
+	local myconf
+	myconf[1]="CFLAGS=${CFLAGS}"
+	myconf[2]="CXXFLAGS=${CXXFLAGS}"
+	myconf[3]="LDFLAGS=${LDFLAGS}"
+	myconf[4]="--with-blas-lapack-lib=$(pkg-config --libs lapack)"
 
 	if use debug; then
 		strip-flags
 		filter-flags -O*
-		myconf[44]="--with-debugging=1"
-	else
-		myconf[44]="--with-debugging=0"
 	fi
 
-	if use hypre; then
-		# hypre cannot handle 64 bit indices, therefore disabled
-		myconf[25]="--with-64-bit-indices=0"
-		myconf[52]="--with-hypre=1"
-		myconf[53]="--with-hypre-include=/usr/include/hypre"
-		use static-libs \
-			&& myconf[54]="--with-hypre-lib=/usr/$(get_libdir)/libHYPRE.a" \
-			|| myconf[54]="--with-hypre-lib=/usr/$(get_libdir)/libHYPRE.so"
-	else
-		myconf[52]="--with-hypre=0"
-	fi
-
-	if use metis; then
-		# parmetis cannot handle 64 bit indices, therefore disabled
-		myconf[25]="--with-64-bit-indices=0"
-		myconf[61]="--with-parmetis=1"
-		myconf[62]="--with-parmetis-include=/usr/include/parmetis"
-		myconf[63]="--with-parmetis-lib=/usr/$(get_libdir)/libparmetis.so"
-	else
-		myconf[61]="--with-parmetis=0"
-	fi
-
-	if use hdf5; then
-		myconf[71]="--with-hdf5=1"
-		myconf[72]="--with-hdf5-include=/usr/include"
-		myconf[73]="--with-hdf5-lib=/usr/$(get_libdir)/libhdf5.so"
-	else
-		myconf[71]="--with-hdf5=0"
-	fi
-
-	myconf[81]="--with-scotch=0"
-
-	if use complex-scalars; then
-		# cannot enable C support with complex scalars
-		# (cannot even set configure option to zero!)
-		myconf[23]=""
-		myconf[82]="--with-scalar-type=complex"
-	fi
-
-	einfo "Configure options: ${myconf[@]}"
-	python "${S}/config/configure.py" "${myconf[@]}" \
-		|| die "PETSc configuration failed"
+	# run petsc configure script
+	python "${S}/config/configure.py" \
+		--prefix="${EPREFIX}/usr" \
+		--with-shared-libraries \
+		--with-single-library \
+		--with-clanguage=${mylang} \
+		$(petsc_enable cxx c-support) \
+		--with-petsc-arch=${PETSC_ARCH} \
+		--with-precision=double \
+		--with-gnu-compilers \
+		$(petsc_enable debug debugging) \
+		$(petsc_enable fortran) \
+		$(petsc_enable mpi) \
+		$(petsc_select mpi cc /usr/bin/mpicc $(tc-getCC)) \
+		$(petsc_select mpi cxx /usr/bin/mpicxx $(tc-getCXX)) \
+		$(use fortran && $(pestc_select mpi fc /usr/bin/mpif77 $(tc-getF77))) \
+		$(petsc_enable mpi mpi-compilers) \
+		$(petsc_enable X) \
+		--with-windows-graphics=0 \
+		--with-matlab=0 \
+		--with-python=0 \
+		--with-cmake=/usr/bin/cmake \
+		$(petsc_enable hdf5) \
+		$(petsc_lib_info hdf5 /usr/include /usr/$(get_libdir)/libhdf5.so) \
+		$(petsc_enable hypre) \
+		$(petsc_lib_info hypre /usr/include/hypre /usr/$(get_libdir)/libHYPRE.so) \
+		$(petsc_enable metis parmetis) \
+		$(petsc_lib_info metis /usr/include/parmetis /usr/$(get_libdir)/libparmetis.so parmetis) \
+		$(petsc_select complex-scalars scalar-type complex real) \
+		--with-scotch=0 \
+		"${myconf[@]}"
 }
 
 src_install(){
@@ -188,9 +146,7 @@ src_install(){
 		dohtml -r docs/*.html docs/changes docs/manualpages
 	fi
 
-	use static-libs \
-		&& dolib.a  "${S}/${PETSC_ARCH}"/lib/*.a  \
-		|| dolib.so "${S}/${PETSC_ARCH}"/lib/*.so
+	dolib.so "${S}/${PETSC_ARCH}"/lib/*.so
 }
 
 pkg_postinst() {
