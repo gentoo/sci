@@ -3,6 +3,7 @@
 <pkgmetadata>
 <herd>sci-mathematics</herd>
 <use>
+  <flag name="boost">Use boost (dev-libs/boost)</flag>
   <flag name="hypre">Use HYPRE (sci-mathematics/hypre) for preconditioning</flag>
   <flag name="metis">Use METIS (sci-libs/parmetis) for partitioning</flag>
   <flag name="complex-scalars">Make scalars complex</flag>

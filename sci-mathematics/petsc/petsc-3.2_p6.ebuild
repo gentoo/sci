@@ -15,7 +15,7 @@ SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
 LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="complex-scalars cxx debug doc fortran hdf5 hypre metis mpi X"
+IUSE="boost complex-scalars cxx debug doc fortran hdf5 hypre metis mpi threads X"
 
 RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )
@@ -24,6 +24,7 @@ RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	hypre? ( sci-libs/hypre )
 	metis? ( sci-libs/parmetis )
 	hdf5? ( sci-libs/hdf5[!mpi?] )
+	boost? ( dev-libs/boost )
 "
 
 DEPEND="${RDEPEND}
@@ -37,6 +38,7 @@ S="${WORKDIR}/${MY_P}"
 
 src_prepare(){
 	epatch "${FILESDIR}/${PN}-configure-pic.patch"
+	epatch "${FILESDIR}/${PN}-disable-env-warnings.patch"
 	epatch "${FILESDIR}/${PN}-disable-rpath.patch"
 }
 
@@ -45,13 +47,27 @@ src_configure(){
 	petsc_enable(){
 		use "$1" && echo "--with-${2:-$1}=1" || echo "--with-${2:-$1}=0"
 	}
-	# select between configure options depending on use flag
-	pestc_select() {
-		use "$1" && echo "--with-$2=$3" || echo "--with-$2=$4"
+	# add external library:
+	# petsc_with use_flag libname libdir
+	# petsc_with use_flag libname lib include
+	petsc_with() {
+		local myuse p=${2:-${1}}
+		if use ${1}; then
+			myuse="--with-${p}=1"
+			if [[ $# == 4 ]]; then
+				myuse="${myuse} --with-${p}-lib=\"${3}\""
+				myuse="${myuse} --with-${p}-include=${4}"
+			else
+				myuse="${myuse} --with-${p}-dir=${EPREFIX}${3:-/usr}"
+			fi
+		else
+			myuse="--with-${p}=0"
+		fi
+		echo ${myuse}
 	}
-	# add info about library include dirs and lib file
-	petsc_lib_info(){
-		use "$1" && echo "--with-${4:-$1}-include=$2 --with-${4:-$1}-lib=$3"
+	# select between configure options depending on use flag
+	petsc_select() {
+		use "$1" && echo "--with-$2=$3" || echo "--with-$2=$4"
 	}
 
 	local mylang
@@ -64,21 +80,17 @@ src_configure(){
 	export PETSC_DIR="${S}"
 	export PETSC_ARCH="linux-gnu-${mylang}-${myopt}"
 
-	# flags difficult to pass due to correct quoting of spaces
-	local myconf
-	myconf[1]="CFLAGS=${CFLAGS}"
-	myconf[2]="CXXFLAGS=${CXXFLAGS}"
-	myconf[3]="LDFLAGS=${LDFLAGS}"
-	myconf[4]="--with-blas-lapack-lib=$(pkg-config --libs lapack)"
-
 	if use debug; then
 		strip-flags
 		filter-flags -O*
 	fi
 
 	# run petsc configure script
-	python "${S}/config/configure.py" \
+	./configure \
 		--prefix="${EPREFIX}/usr" \
+		CFLAGS="${CFLAGS}" \
+		CXXFLAGS="${CXXFLAGS}" \
+		LDFLAGS="${LDFLAGS}" \
 		--with-shared-libraries \
 		--with-single-library \
 		--with-clanguage=${mylang} \
@@ -86,27 +98,28 @@ src_configure(){
 		--with-petsc-arch=${PETSC_ARCH} \
 		--with-precision=double \
 		--with-gnu-compilers \
+		--with-blas-lapack-lib="$(pkg-config --libs lapack)" \
 		$(petsc_enable debug debugging) \
-		$(petsc_enable fortran) \
 		$(petsc_enable mpi) \
 		$(petsc_select mpi cc /usr/bin/mpicc $(tc-getCC)) \
 		$(petsc_select mpi cxx /usr/bin/mpicxx $(tc-getCXX)) \
-		$(use fortran && $(pestc_select mpi fc /usr/bin/mpif77 $(tc-getF77))) \
+		$(petsc_enable fortran) \
+		$(use fortran && echo "$(petsc_select mpi fc /usr/bin/mpif77 $(tc-getF77))") \
 		$(petsc_enable mpi mpi-compilers) \
-		$(petsc_enable X) \
+		$(petsc_with X) \
+		$(petsc_with boost) \
+		$(petsc_enable threads pthread) \
+		$(petsc_enable threads pthreadclasses) \
 		--with-windows-graphics=0 \
 		--with-matlab=0 \
 		--with-python=0 \
 		--with-cmake=/usr/bin/cmake \
-		$(petsc_enable hdf5) \
-		$(petsc_lib_info hdf5 /usr/include /usr/$(get_libdir)/libhdf5.so) \
-		$(petsc_enable hypre) \
-		$(petsc_lib_info hypre /usr/include/hypre /usr/$(get_libdir)/libHYPRE.so) \
-		$(petsc_enable metis parmetis) \
-		$(petsc_lib_info metis /usr/include/parmetis /usr/$(get_libdir)/libparmetis.so parmetis) \
+		$(petsc_with hdf5) \
+		$(petsc_with hypre hypre /usr/$(get_libdir)/libHYPRE.so /usr/include/hypre) \
+		$(petsc_with metis parmetis) \
 		$(petsc_select complex-scalars scalar-type complex real) \
 		--with-scotch=0 \
-		"${myconf[@]}"
+		${EXTRA_ECONF} || die "configuration failed"
 }
 
 src_install(){
@@ -159,7 +172,4 @@ pkg_postinst() {
 	elog "The petsc ebuild is still under development."
 	elog "Help us improve the ebuild in:"
 	elog "http://bugs.gentoo.org/show_bug.cgi?id=53386"
-	elog "Note that PETSC_ARCH may be dropped in future since " \
-		"upstream now also supports installations without " \
-		"different subdirectories."
 }
