@@ -21,6 +21,7 @@ IUSE="afterimage boost complex-scalars cxx debug doc \
 REQUIRED_USE="
 	hypre? ( cxx mpi )
 	hdf5? ( mpi )
+	afterimage? ( X )
 "
 
 RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
@@ -126,6 +127,7 @@ src_configure(){
 		$(petsc_with hdf5) \
 		$(petsc_with hypre hypre /usr/$(get_libdir)/libHYPRE.so /usr/include/hypre) \
 		$(petsc_with metis parmetis) \
+		$(petsc_with X x) \
 		$(petsc_with X x11) \
 		--with-scotch=0 \
 		${EXTRA_ECONF} || die "configuration failed"
