@@ -4,10 +4,10 @@
 <herd>sci-mathematics</herd>
 <use>
   <flag name="afterimage">Use Afterstep image library (media-libs/libafterimage)</flag>
-  <flag name="hypre">Use HYPRE (sci-mathematics/hypre) for preconditioning</flag>
+  <flag name="hypre">Use HYPRE (sci-mathematics/hypre) and superlu (sci-libs/superlu) for preconditioning</flag>
   <flag name="metis">Use METIS (sci-libs/parmetis) for partitioning</flag>
   <flag name="complex-scalars">Make scalars complex</flag>
-  <flag name="sparse">Use cholmod and suitesparse for sparse factorization</flag>
+  <flag name="sparse">Use suitesparse (sci-libs/suitesparse) including cholmod (sci-libs/cholmod) for sparse factorization</flag>
   <!-- Disabled:
   <flag name="boost">Use boost (dev-libs/boost)</flag>
 	-->

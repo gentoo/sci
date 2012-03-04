@@ -30,11 +30,11 @@ RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )
 	virtual/lapack
 	virtual/blas
-	hypre? ( sci-libs/hypre )
+	hypre? ( sci-libs/hypre sci-libs/superlu )
 	metis? ( sci-libs/parmetis )
 	hdf5? ( sci-libs/hdf5 )
 	afterimage? ( media-libs/libafterimage )
-	sparse? ( sci-libs/suitesparse sci-libs/cholmod )
+	sparse? ( sci-libs/suitesparse >=sci-libs/cholmod-1.7.0 )
 "
 #	boost? ( dev-libs/boost )
 #	imagemagick? ( media-gfx/imagemagick )
@@ -98,8 +98,7 @@ src_configure(){
 	fi
 
 	# run petsc configure script
-	./configure \
-		--prefix="${EPREFIX}/usr" \
+	econf \
 		CFLAGS="${CFLAGS}" \
 		CXXFLAGS="${CXXFLAGS}" \
 		LDFLAGS="${LDFLAGS}" \
@@ -129,14 +128,14 @@ src_configure(){
 			/usr/$(get_libdir)/libAfterImage.so /usr/include/libAfterImage) \
 		$(petsc_with hdf5) \
 		$(petsc_with hypre hypre /usr/$(get_libdir)/libHYPRE.so /usr/include/hypre) \
+		$(petsc_with hypre superlu /usr/$(get_libdir)/libsuperlu.so /usr/include/superlu) \
 		$(petsc_with metis parmetis) \
 		$(petsc_with sparse cholmod) \
 		$(petsc_with X x) \
 		$(petsc_with X x11) \
-		--with-scotch=0 \
-		${EXTRA_ECONF} || die "configuration failed"
+		--with-scotch=0
 
-# failed dependencies, perhaps fixed in upstream:
+# failed dependencies, perhaps fixed in upstream soon:
 #		$(petsc_with boost) \
 #		$(petsc_with imagemagick imagemagick /usr/$(get_libdir)/libMagickCore.so /usr/include/ImageMagick) \
 }
