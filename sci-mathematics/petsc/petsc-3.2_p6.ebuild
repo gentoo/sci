@@ -16,11 +16,12 @@ LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="afterimage boost complex-scalars cxx debug doc \
-	fortran hdf5 hypre metis mpi sparse threads X"
+	imagemagick fortran hdf5 hypre metis mpi sparse threads X"
 
 REQUIRED_USE="
 	hypre? ( cxx mpi )
 	hdf5? ( mpi )
+	imagemagick? ( X )
 	afterimage? ( X )
 "
 
@@ -33,6 +34,7 @@ RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	hdf5? ( sci-libs/hdf5 )
 	boost? ( dev-libs/boost )
 	afterimage? ( media-libs/libafterimage )
+	imagemagick? ( media-gfx/imagemagick )
 	sparse? ( sci-libs/cholmod )
 "
 
@@ -47,6 +49,8 @@ src_prepare(){
 	epatch "${FILESDIR}/${PN}-configure-pic.patch"
 	epatch "${FILESDIR}/${PN}-disable-env-warnings.patch"
 	epatch "${FILESDIR}/${PN}-disable-rpath.patch"
+	epatch "${FILESDIR}/${PN}-fix-xops.patch"
+	epatch "${FILESDIR}/${PN}-fix-afterimage.patch"
 }
 
 src_configure(){
@@ -126,6 +130,7 @@ src_configure(){
 		$(petsc_with boost) \
 		$(petsc_with hdf5) \
 		$(petsc_with hypre hypre /usr/$(get_libdir)/libHYPRE.so /usr/include/hypre) \
+		$(petsc_with imagemagick imagemagick /usr/$(get_libdir)/libMagickCore.so /usr/include/ImageMagick) \
 		$(petsc_with metis parmetis) \
 		$(petsc_with X x) \
 		$(petsc_with X x11) \
