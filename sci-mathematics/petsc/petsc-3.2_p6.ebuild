@@ -16,8 +16,8 @@ LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="afterimage complex-scalars cxx debug doc \
-	fortran hdf5 hypre metis mpi threads X"
-# Failed: boost imagemagick sparse 
+	fortran hdf5 hypre metis mpi sparse threads X"
+# Failed: boost imagemagick
 
 REQUIRED_USE="
 	hypre? ( cxx mpi )
@@ -34,10 +34,10 @@ RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	metis? ( sci-libs/parmetis )
 	hdf5? ( sci-libs/hdf5 )
 	afterimage? ( media-libs/libafterimage )
+	sparse? ( sci-libs/suitesparse sci-libs/cholmod )
 "
 #	boost? ( dev-libs/boost )
 #	imagemagick? ( media-gfx/imagemagick )
-#	sparse? ( sci-libs/cholmod )
 
 DEPEND="${RDEPEND}
 	sys-devel/gcc[-nocxx,fortran?]
@@ -130,6 +130,7 @@ src_configure(){
 		$(petsc_with hdf5) \
 		$(petsc_with hypre hypre /usr/$(get_libdir)/libHYPRE.so /usr/include/hypre) \
 		$(petsc_with metis parmetis) \
+		$(petsc_with sparse cholmod) \
 		$(petsc_with X x) \
 		$(petsc_with X x11) \
 		--with-scotch=0 \
@@ -138,7 +139,6 @@ src_configure(){
 # failed dependencies, perhaps fixed in upstream:
 #		$(petsc_with boost) \
 #		$(petsc_with imagemagick imagemagick /usr/$(get_libdir)/libMagickCore.so /usr/include/ImageMagick) \
-#		$(petsc_with sparse cholmod) \
 }
 
 src_install(){
