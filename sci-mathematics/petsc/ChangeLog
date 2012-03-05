@@ -2,6 +2,18 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Mar 2012; Sébastien Fabbro <bicatali@gentoo.org> petsc-3.2_p6.ebuild,
+  +files/petsc-3.2_p6-configure-pic.patch,
+  +files/petsc-3.2_p6-disable-env-warnings.patch,
+  +files/petsc-3.2_p6-disable-rpath.patch,
+  +files/petsc-3.2_p6-fix-afterimage.patch,
+  +files/petsc-3.2_p6-fix-imagemagick.patch,
+  +files/petsc-3.2_p6-fix-xops.patch, -files/petsc-configure-pic.patch,
+  -files/petsc-disable-env-warnings.patch, -files/petsc-disable-rpath.patch,
+  -files/petsc-fix-afterimage.patch, -files/petsc-fix-xops.patch:
+  Added EPREFIX love, remove extra quotes, added imagemagick use flag, more
+  cleaning
+
 *petsc-3.2_p6 (01 Mar 2012)
 
   01 Mar 2012; Jens-Malte Gottfried <jmgottfried@web.de>
