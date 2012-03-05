@@ -16,13 +16,16 @@ LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="afterimage complex-scalars cxx debug doc \
-	fortran hdf5 hypre metis mpi sparse threads X"
+	fortran hdf5 hypre metis mpi sparse superlu threads X"
 # Failed: boost imagemagick
 
+# hypre and superlu curretly exclude each other due to missing linking to hypre
+# if both are enabled
 REQUIRED_USE="
 	hypre? ( cxx mpi )
 	hdf5? ( mpi )
 	afterimage? ( X )
+	^^ ( hypre superlu )
 "
 #	imagemagick? ( X )
 
@@ -30,11 +33,12 @@ RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )
 	virtual/lapack
 	virtual/blas
-	hypre? ( sci-libs/hypre sci-libs/superlu )
+	hypre? ( sci-libs/hypre )
 	metis? ( sci-libs/parmetis )
 	hdf5? ( sci-libs/hdf5 )
 	afterimage? ( media-libs/libafterimage )
 	sparse? ( sci-libs/suitesparse >=sci-libs/cholmod-1.7.0 )
+	superlu? ( sci-libs/superlu )
 "
 #	boost? ( dev-libs/boost )
 #	imagemagick? ( media-gfx/imagemagick )
@@ -128,9 +132,9 @@ src_configure(){
 			/usr/$(get_libdir)/libAfterImage.so /usr/include/libAfterImage) \
 		$(petsc_with hdf5) \
 		$(petsc_with hypre hypre /usr/$(get_libdir)/libHYPRE.so /usr/include/hypre) \
-		$(petsc_with hypre superlu /usr/$(get_libdir)/libsuperlu.so /usr/include/superlu) \
 		$(petsc_with metis parmetis) \
 		$(petsc_with sparse cholmod) \
+		$(petsc_with superlu superlu /usr/$(get_libdir)/libsuperlu.so /usr/include/superlu) \
 		$(petsc_with X x) \
 		$(petsc_with X x11) \
 		--with-scotch=0
