@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
 inherit flag-o-matic fortran-2 toolchain-funcs
 
@@ -15,16 +15,29 @@ SRC_URI="http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/${MY_P}.tar.gz"
 LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="complex-scalars cxx debug doc fortran hdf5 hypre metis mpi static-libs X"
+IUSE="afterimage complex-scalars cxx debug doc \
+	fortran hdf5 hypre metis mpi sparse threads X"
+# Failed: boost imagemagick
+
+REQUIRED_USE="
+	hypre? ( cxx mpi )
+	hdf5? ( mpi )
+	afterimage? ( X )
+"
+#	imagemagick? ( X )
 
 RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 	X? ( x11-libs/libX11 )
 	virtual/lapack
 	virtual/blas
-	hypre? ( sci-libs/hypre )
+	hypre? ( sci-libs/hypre sci-libs/superlu )
 	metis? ( sci-libs/parmetis )
-	hdf5? ( sci-libs/hdf5[!mpi?] )
+	hdf5? ( sci-libs/hdf5 )
+	afterimage? ( media-libs/libafterimage )
+	sparse? ( sci-libs/suitesparse >=sci-libs/cholmod-1.7.0 )
 "
+#	boost? ( dev-libs/boost )
+#	imagemagick? ( media-gfx/imagemagick )
 
 DEPEND="${RDEPEND}
 	sys-devel/gcc[-nocxx,fortran?]
@@ -33,125 +46,105 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${MY_P}"
 
-if use hypre; then
-	use cxx || die "hypre needs cxx, please enable cxx or disable hypre use flag"
-	use mpi || die "hypre needs mpi, please enable mpi or disable hypre use flag"
-fi
-
 src_prepare(){
 	epatch "${FILESDIR}/${PN}-configure-pic.patch"
+	epatch "${FILESDIR}/${PN}-disable-env-warnings.patch"
 	epatch "${FILESDIR}/${PN}-disable-rpath.patch"
+	epatch "${FILESDIR}/${PN}-fix-xops.patch"
+	epatch "${FILESDIR}/${PN}-fix-afterimage.patch"
 }
 
 src_configure(){
+	# petsc uses --with-blah=1 and --with-blah=0 to en/disable options
+	petsc_enable(){
+		use "$1" && echo "--with-${2:-$1}=1" || echo "--with-${2:-$1}=0"
+	}
+	# add external library:
+	# petsc_with use_flag libname libdir
+	# petsc_with use_flag libname lib include
+	petsc_with() {
+		local myuse p=${2:-${1}}
+		if use ${1}; then
+			myuse="--with-${p}=1"
+			if [[ $# == 4 ]]; then
+				myuse="${myuse} --with-${p}-lib=\"${3}\""
+				myuse="${myuse} --with-${p}-include=${4}"
+			else
+				myuse="${myuse} --with-${p}-dir=${EPREFIX}${3:-/usr}"
+			fi
+		else
+			myuse="--with-${p}=0"
+		fi
+		echo ${myuse}
+	}
+	# select between configure options depending on use flag
+	petsc_select() {
+		use "$1" && echo "--with-$2=$3" || echo "--with-$2=$4"
+	}
+
 	local mylang
 	local myopt
-	local myconf
 
 	use cxx && mylang="cxx" || mylang="c"
 	use debug && myopt="debug" || myopt="opt"
 
-	export PETSC_DIR="${S}" || die
-	export PETSC_ARCH="linux-gnu-${mylang}-${myopt}" || die
-
-	myconf[10]="--with-blas-lapack-lib=$(pkg-config --libs lapack)"
-	myconf[11]="CFLAGS=${CFLAGS}"
-	myconf[12]="CXXFLAGS=${CXXFLAGS}"
-	myconf[13]="LDFLAGS=${LDFLAGS}"
-	myconf[14]="--with-windows-graphics=0"
-	myconf[15]="--with-matlab=0"
-	myconf[16]="--with-python=0"
-	myconf[17]="--with-clanguage=${mylang}"
-	myconf[18]="--with-single-library=1"
-	myconf[19]="--with-petsc-arch=${PETSC_ARCH}"
-	myconf[20]="--with-precision=double"
-	myconf[21]="--with-gnu-compilers=1"
-	myconf[22]="--with-cmake=/usr/bin/cmake"
-	use amd64 \
-		&& myconf[23]="--with-64-bit-pointers=1" \
-		|| myconf[23]="--with-64-bit-pointers=0"
-	use cxx \
-		&& myconf[24]="--with-c-support=1"
-	use amd64 \
-		&& myconf[25]="--with-64-bit-indices=1" \
-		|| myconf[25]="--with-64-bit-indices=0"
-
-	if use mpi; then
-		myconf[30]="--with-cc=/usr/bin/mpicc"
-		myconf[31]="--with-cxx=/usr/bin/mpicxx"
-		use fortran && myconf[32]="--with-fc=/usr/bin/mpif77"
-		myconf[33]="--with-mpi=1"
-		myconf[34]="--with-mpi-compilers=1"
-	else
-		myconf[30]="--with-cc=$(tc-getCC)"
-		myconf[31]="--with-cxx=$(tc-getCXX)"
-		use fortran && myconf[32]="--with-fc=$(tc-getF77)"
-		myconf[33]="--with-mpi=0"
-	fi
-
-	use X \
-		&& myconf[40]="--with-X=1" \
-		|| myconf[40]="--with-X=0"
-	use static-libs \
-		&& myconf[41]="--with-shared-libraries=0" \
-		|| myconf[41]="--with-shared-libraries=1"
-	use fortran \
-		&& myconf[43]="--with-fortran=1" \
-		|| myconf[43]="--with-fortran=0"
+	# environmental variables expected by petsc during build
+	export PETSC_DIR="${S}"
+	export PETSC_ARCH="linux-gnu-${mylang}-${myopt}"
 
 	if use debug; then
 		strip-flags
 		filter-flags -O*
-		myconf[44]="--with-debugging=1"
-	else
-		myconf[44]="--with-debugging=0"
 	fi
 
-	if use hypre; then
-		# hypre cannot handle 64 bit indices, therefore disabled
-		myconf[25]="--with-64-bit-indices=0"
-		myconf[52]="--with-hypre=1"
-		myconf[53]="--with-hypre-include=/usr/include/hypre"
-		use static-libs \
-			&& myconf[54]="--with-hypre-lib=/usr/$(get_libdir)/libHYPRE.a" \
-			|| myconf[54]="--with-hypre-lib=/usr/$(get_libdir)/libHYPRE.so"
-	else
-		myconf[52]="--with-hypre=0"
-	fi
+	# run petsc configure script
+	econf \
+		CFLAGS="${CFLAGS}" \
+		CXXFLAGS="${CXXFLAGS}" \
+		LDFLAGS="${LDFLAGS}" \
+		--with-shared-libraries \
+		--with-single-library \
+		--with-clanguage=${mylang} \
+		$(petsc_enable cxx c-support) \
+		--with-petsc-arch=${PETSC_ARCH} \
+		--with-precision=double \
+		--with-gnu-compilers \
+		--with-blas-lapack-lib="$(pkg-config --libs lapack)" \
+		$(petsc_enable debug debugging) \
+		$(petsc_enable mpi) \
+		$(petsc_select mpi cc /usr/bin/mpicc $(tc-getCC)) \
+		$(petsc_select mpi cxx /usr/bin/mpicxx $(tc-getCXX)) \
+		$(petsc_enable fortran) \
+		$(use fortran && echo "$(petsc_select mpi fc /usr/bin/mpif77 $(tc-getF77))") \
+		$(petsc_enable mpi mpi-compilers) \
+		$(petsc_enable threads pthread) \
+		$(petsc_enable threads pthreadclasses) \
+		$(petsc_select complex-scalars scalar-type complex real) \
+		--with-windows-graphics=0 \
+		--with-matlab=0 \
+		--with-python=0 \
+		--with-cmake=/usr/bin/cmake \
+		$(petsc_with afterimage afterimage \
+			/usr/$(get_libdir)/libAfterImage.so /usr/include/libAfterImage) \
+		$(petsc_with hdf5) \
+		$(petsc_with hypre hypre /usr/$(get_libdir)/libHYPRE.so /usr/include/hypre) \
+		$(petsc_with hypre superlu /usr/$(get_libdir)/libsuperlu.so /usr/include/superlu) \
+		$(petsc_with metis parmetis) \
+		$(petsc_with sparse cholmod) \
+		$(petsc_with X x) \
+		$(petsc_with X x11) \
+		--with-scotch=0
 
-	if use metis; then
-		# parmetis cannot handle 64 bit indices, therefore disabled
-		myconf[25]="--with-64-bit-indices=0"
-		myconf[61]="--with-parmetis=1"
-		myconf[62]="--with-parmetis-include=/usr/include/parmetis"
-		myconf[63]="--with-parmetis-lib=/usr/$(get_libdir)/libparmetis.so"
-	else
-		myconf[61]="--with-parmetis=0"
-	fi
-
-	if use hdf5; then
-		myconf[71]="--with-hdf5=1"
-		myconf[72]="--with-hdf5-include=/usr/include"
-		myconf[73]="--with-hdf5-lib=/usr/$(get_libdir)/libhdf5.so"
-	else
-		myconf[71]="--with-hdf5=0"
-	fi
-
-	myconf[81]="--with-scotch=0"
-
-	if use complex-scalars; then
-		# cannot enable C support with complex scalars
-		# (cannot even set configure option to zero!)
-		myconf[23]=""
-		myconf[82]="--with-scalar-type=complex"
-	fi
-
-	einfo "Configure options: ${myconf[@]}"
-	python "${S}/config/configure.py" "${myconf[@]}" \
-		|| die "PETSc configuration failed"
+# failed dependencies, perhaps fixed in upstream soon:
+#		$(petsc_with boost) \
+#		$(petsc_with imagemagick imagemagick /usr/$(get_libdir)/libMagickCore.so /usr/include/ImageMagick) \
 }
 
 src_install(){
+	# petsc install structure is very different from
+	# installing headers to /usr/include/petsc and lib to /usr/lib
+	# it also installs many unneeded executables and scripts
+	# so manual install is easier than cleanup after "emake install"
 	insinto /usr/include/"${PN}"
 	doins "${S}"/include/*.h "${S}"/include/*.hh
 	insinto /usr/include/"${PN}/${PETSC_ARCH}"/include
@@ -164,14 +157,16 @@ src_install(){
 	doins "${S}"/conf/{variables,rules,test}
 	insinto /usr/include/"${PN}/${PETSC_ARCH}"/conf
 	doins "${S}/${PETSC_ARCH}"/conf/{petscrules,petscvariables,RDict.db}
-
 	insinto /usr/include/"${PN}"/private
 	doins "${S}"/include/private/*.h
 
-	dosed "s:${S}:/usr:g" /usr/include/"${PN}/${PETSC_ARCH}"/include/petscconf.h
-	dosed "s:${PETSC_ARCH}/lib:$(get_libdir):g" /usr/include/"${PN}/${PETSC_ARCH}"/include/petscconf.h
-	dosed "s:INSTALL_DIR =.*:INSTALL_DIR = /usr:" /usr/include/"${PN}/${PETSC_ARCH}"/conf/petscvariables
+	# fix configuration files: replace ${S} by installed location
+	sed -i "s:${S}:/usr:g" ${D}/usr/include/"${PN}/${PETSC_ARCH}"/include/petscconf.h
+	sed -i "s:${PETSC_ARCH}/lib:$(get_libdir):g" ${D}/usr/include/"${PN}/${PETSC_ARCH}"/include/petscconf.h
+	sed -i "s:INSTALL_DIR =.*:INSTALL_DIR = /usr:" ${D}/usr/include/"${PN}/${PETSC_ARCH}"/conf/petscvariables
 
+	# add information about installation directory and
+	# PETSC_ARCH to environmental variables
 	cat >> "${T}"/99petsc <<- EOF
 	PETSC_ARCH=${PETSC_ARCH}
 	PETSC_DIR=/usr/include/${PN}
@@ -188,9 +183,7 @@ src_install(){
 		dohtml -r docs/*.html docs/changes docs/manualpages
 	fi
 
-	use static-libs \
-		&& dolib.a  "${S}/${PETSC_ARCH}"/lib/*.a  \
-		|| dolib.so "${S}/${PETSC_ARCH}"/lib/*.so
+	dolib.so "${S}/${PETSC_ARCH}"/lib/*.so
 }
 
 pkg_postinst() {

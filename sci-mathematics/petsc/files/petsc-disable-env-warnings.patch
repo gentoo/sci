@@ -1,0 +1,13 @@
+Index: petsc-3.2-p6/config/BuildSystem/config/setCompilers.py
+===================================================================
+--- petsc-3.2-p6.orig/config/BuildSystem/config/setCompilers.py
++++ petsc-3.2-p6/config/BuildSystem/config/setCompilers.py
+@@ -1463,7 +1463,7 @@ This way - mpi compilers from '''+self.a
+                  'LDFLAGS','LIBS','MPI_DIR']
+     for envVal in ignoreEnv:
+       if envVal in os.environ:
+-        self.logPrintBox('***** WARNING: '+envVal+' found in enviornment variables - ignoring ******')
++        #self.logPrintBox('***** WARNING: '+envVal+' found in enviornment variables - ignoring ******')
+         del os.environ[envVal]
+     return
+ 

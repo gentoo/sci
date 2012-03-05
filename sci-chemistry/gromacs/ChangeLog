@@ -2,6 +2,16 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Mar 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
+  gromacs-9999.ebuild:
+  removed obsolete call to env-update
+
+  04 Mar 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
+  reworked fortran and openmp support
+
+  12 Feb 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
+  sci-chemistry/gromacs: clean up
+
   12 Feb 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
   fixed threads and mpi
 

@@ -1,0 +1,13 @@
+# ChangeLog for sci-libs/lemon
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  03 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> lemon-1.2.3.ebuild:
+  added a note how to eventually create a shared library
+
+*lemon-1.2.3 (02 Mar 2012)
+
+  02 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +lemon-1.2.3.ebuild, +metadata.xml:
+  initial and working ebuild
+
