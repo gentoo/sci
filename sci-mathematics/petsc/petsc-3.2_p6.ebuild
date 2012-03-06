@@ -48,7 +48,10 @@ DEPEND="${RDEPEND}
 	virtual/fortran
 	dev-lang/python
 	dev-util/pkgconfig
+	dev-util/cmake
 "
+# cmake is used for parralel building
+# in some configuration setups, legacy build is used (slow)
 
 S="${WORKDIR}/${MY_P}"
 
@@ -120,7 +123,6 @@ src_configure() {
 		--with-gnu-compilers \
 		--with-blas-lapack-lib="$(pkg-config --libs lapack)" \
 		$(petsc_enable debug debugging) \
-		$(petsc_with imagemagick imagemagick /usr/include/ImageMagick $(pkg-config --libs MagickCore)) \
 		$(petsc_enable mpi) \
 		$(petsc_select mpi cc mpicc $(tc-getCC)) \
 		$(petsc_select mpi cxx mpicxx $(tc-getCXX)) \
@@ -132,17 +134,19 @@ src_configure() {
 		$(petsc_select complex-scalars scalar-type complex real) \
 		--with-windows-graphics=0 \
 		--with-matlab=0 \
-		--with-python=0 \ # why not?
-		--with-cmake=cmake \ # what for?
+		--with-cmake=cmake \
 		$(petsc_with afterimage afterimage /usr/include/libAfterImage -lAfterImage) \
 		$(petsc_with hdf5) \
 		$(petsc_with hypre hypre /usr/include/hypre -lHYPRE) \
+		$(petsc_with imagemagick imagemagick /usr/include/ImageMagick $(pkg-config --libs MagickCore)) \
 		$(petsc_with metis parmetis) \
 		$(petsc_with sparse cholmod) \
 		$(petsc_with superlu superlu  /usr/include/superlu -lsuperlu) \
 		$(petsc_with X x) \
 		$(petsc_with X x11) \
-		--with-scotch=0 # why not?
+		--with-python=0 \
+		--with-scotch=0
+		# not yet tested: python bindings, sctotch support
 
 # failed dependencies, perhaps fixed in upstream soon:
 #		$(petsc_with boost) \
@@ -176,7 +180,6 @@ src_install() {
 	sed -i \
 		-e "s:usr/lib:usr/$(get_libdir):g" \
 		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/include/petscconf.h || die
-
 
 	# add information about installation directory and
 	# PETSC_ARCH to environmental variables
