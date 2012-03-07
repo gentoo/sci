@@ -4,7 +4,7 @@
 
 EAPI=4
 
-DESCRIPTION="A C++ template STATIC library providing efficient implementations of common data structures and algorithms with combinatorial optimization tasks of graphs and networks."
+DESCRIPTION="A C++ template STATIC library of efficient implementations of common data structures and algorithms."
 HOMEPAGE="https://lemon.cs.elte.hu/trac/lemon/"
 SRC_URI="http://lemon.cs.elte.hu/pub/sources/lemon-"${PV}".tar.gz"
 
