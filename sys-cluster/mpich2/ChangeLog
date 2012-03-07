@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  07 Mar 2012; Justin Bronder <jsbronder@gentoo.org> mpich2-1.4.1_p1.ebuild,
+  metadata.xml:
+  Enable all fortran with single USE flag, fix license.
+
   11 Jan 2012; Sébastien Fabbro <bicatali@gentoo.org> mpich2-1.4.1_p1.ebuild:
   Switch to EAPI4. Fixed license. Prefix love.
 

@@ -10,10 +10,10 @@ DESCRIPTION="A high performance and portable MPI implementation"
 HOMEPAGE="http://www.mcs.anl.gov/research/projects/mpich2/index.php"
 SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY_PV}/${PN}-${MY_PV}.tar.gz"
 
-LICENSE="MIT"
+LICENSE="as-is"
 SLOT="0"
 KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86"
-IUSE="+cxx debug doc fortran fortran90 mpi-threads romio threads"
+IUSE="+cxx debug doc fortran mpi-threads romio threads"
 
 COMMON_DEPEND="dev-libs/libaio
 	sys-apps/hwloc
@@ -31,7 +31,7 @@ S="${WORKDIR}"/${PN}-${MY_PV}
 
 pkg_setup() {
 	if use fortran; then
-		use fortran90 && FORTRAN_STANDARD="77 90"
+		FORTRAN_STANDARD="77 90"
 		fortran-2_pkg_setup
 	fi
 	MPI_ESELECT_FILE="eselect.mpi.mpich2"
@@ -119,7 +119,7 @@ src_configure() {
 		$(use_enable romio) \
 		$(use_enable cxx) \
 		$(use_enable fortran f77) \
-		$(use_enable fortran90 fc)
+		$(use_enable fortran fc)
 }
 
 src_compile() {
