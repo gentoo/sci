@@ -6,7 +6,7 @@ EAPI=3
 
 PYTHON_DEPEND="python? 2"
 
-inherit versionator eutils fortran-2 elisp-common fdo-mime python toolchain-funcs
+inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs versionator
 
 DOC_PV=$(get_major_version)_$(get_version_component_range 2)
 ROOFIT_DOC_PV=2.91-33

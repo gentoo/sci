@@ -4,9 +4,19 @@
 
 EAPI=4
 PYTHON_DEPEND="python? 2"
-inherit versionator eutils fortran-2 elisp-common fdo-mime python toolchain-funcs flag-o-matic
+inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs
 
-#DOC_PV=$(get_major_version)_$(get_version_component_range 2)
+if [[ ${PV} == "9999" ]] ; then
+	inherit subversion
+	ESVN_REPO_URI="https://root.cern.ch/svn/root/trunk"
+	ESVN_OPTIONS="--non-interactive --trust-server-cert"
+	SRC_URI=""
+	KEYWORDS=""
+else
+	SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+fi
+
 DOC_PV=5_26
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
@@ -15,7 +25,7 @@ PATCH_PV2=5.32.00
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
-SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
+SRC_URI="${SRC_URI}
 	doc? ( ftp://root.cern.ch/${PN}/doc/Users_Guide_${DOC_PV}.pdf
 	math? (
 		ftp://root.cern.ch/${PN}/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
@@ -23,9 +33,8 @@ SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
 
 SLOT="0"
 LICENSE="LGPL-2.1"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
-	-llvm +math mpi mysql ncurses odbc +opengl openmp oracle postgres prefix
+	llvm +math mpi mysql ncurses odbc +opengl openmp oracle postgres prefix
 	pythia6	pythia8	python qt4 +reflex ruby ssl xft xinetd xml xrootd"
 
 CDEPEND="
@@ -65,7 +74,7 @@ CDEPEND="
 	graphviz? ( media-gfx/graphviz )
 	kerberos? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
-	llvm? ( >=sys-devel/clang-3.1 >=sys-devel/llvm-3.1 )
+	llvm? ( =sys-devel/clang-9999 =sys-devel/llvm-9999 )
 	math? ( sci-libs/gsl sci-mathematics/unuran mpi? ( virtual/mpi ) )
 	mysql? ( virtual/mysql )
 	ncurses? ( sys-libs/ncurses )
@@ -129,8 +138,7 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-explicit-functions.patch
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc
