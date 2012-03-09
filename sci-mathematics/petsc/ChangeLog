@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Mar 2012; Jens-Malte Gottfried <jmgottfried@web.de>
+  petsc-3.1_p8-r1.ebuild, +files/petsc-3.1_p8-configure-pic.patch,
+  +files/petsc-3.1_p8-disable-rpath.patch:
+  fixed legacy ebuild of petsc 3.1
+
   05 Mar 2012; Sébastien Fabbro <bicatali@gentoo.org> petsc-3.2_p6.ebuild,
   +files/petsc-3.2_p6-configure-pic.patch,
   +files/petsc-3.2_p6-disable-env-warnings.patch,

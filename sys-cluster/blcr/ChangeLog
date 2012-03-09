@@ -1,6 +1,13 @@
 # ChangeLog for sys-cluster/blcr
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*blcr-0.8.4 (08 Mar 2012)
+
+  08 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> blcr-0.8.2.ebuild,
+  +blcr-0.8.4.ebuild:
+  update SRC_HOME, SRC_URI and added a check for kernel version <2.6.30, resp.
+  <2.6.38, a version bump
 
   26 Jan 2010; Tim Cera <tim@cerazone.net> -blcr-0.6.5.ebuild:
   Removed old ebuild. Updated copyright years.

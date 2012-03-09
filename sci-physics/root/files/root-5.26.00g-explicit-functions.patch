@@ -1,0 +1,12 @@
+--- root/io/io/Module.mk.orig	2011-09-29 13:49:50.000000000 +0400
++++ root/io/io/Module.mk	2012-03-09 02:57:20.518370595 +0400
+@@ -66,9 +66,4 @@
+ distclean::     distclean-$(MODNAME)
+ 
+ ##### extra rules ######
+-#ifeq ($(GCC_VERS_FULL),gcc-4.4.0)
+-ifeq ($(GCC_VERS),gcc-4.4)
+-ifneq ($(filter -O%,$(OPT)),)
+    $(IODIRS)/TStreamerInfoReadBuffer.o: CXXFLAGS += -DR__EXPLICIT_FUNCTION_INSTANTIATION
+-endif
+-endif

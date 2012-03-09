@@ -16,8 +16,8 @@ LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="afterimage complex-scalars cxx debug doc
-	fortran hdf5 hypre imagemagick metis mpi sparse superlu threads X"
-# Failed: boost
+	fortran hdf5 hypre metis mpi sparse superlu threads X"
+# Failed: boost imagemagick
 
 # hypre and superlu curretly exclude each other due to missing linking to hypre
 # if both are enabled
@@ -25,9 +25,9 @@ REQUIRED_USE="
 	hypre? ( cxx mpi )
 	hdf5? ( mpi )
 	afterimage? ( X )
-	imagemagick? ( X )
 	^^ ( hypre superlu )
 "
+#	imagemagick? ( X )
 
 RDEPEND="
 	virtual/blas
@@ -35,7 +35,6 @@ RDEPEND="
 	afterimage? ( media-libs/libafterimage )
 	hdf5? ( sci-libs/hdf5[mpi?] )
 	hypre? ( sci-libs/hypre[mpi?] )
-	imagemagick? ( media-gfx/imagemagick )
 	metis? ( sci-libs/parmetis )
 	mpi? ( virtual/mpi[cxx?,fortran?] )
 	sparse? ( sci-libs/suitesparse >=sci-libs/cholmod-1.7.0 )
@@ -43,12 +42,16 @@ RDEPEND="
 	X? ( x11-libs/libX11 )
 "
 #	boost? ( dev-libs/boost )
+#	imagemagick? ( media-gfx/imagemagick )
 
 DEPEND="${RDEPEND}
 	virtual/fortran
 	dev-lang/python
 	dev-util/pkgconfig
+	dev-util/cmake
 "
+# cmake is used for parralel building
+# in some configuration setups, legacy build is used (slow)
 
 S="${WORKDIR}/${MY_P}"
 
@@ -76,7 +79,7 @@ src_configure() {
 			if [[ $# -ge 4 ]]; then
 				myuse="${myuse} --with-${p}-include=${3}"
 				shift 3
-				myuse="${myuse} --with-${p}-lib=\"$@\""
+				myuse="${myuse} --with-${p}-lib=$@"
 			else
 				myuse="${myuse} --with-${p}-dir=${EPREFIX}${3:-/usr}"
 			fi
@@ -120,7 +123,6 @@ src_configure() {
 		--with-gnu-compilers \
 		--with-blas-lapack-lib="$(pkg-config --libs lapack)" \
 		$(petsc_enable debug debugging) \
-		$(petsc_with imagemagick imagemagick /usr/include/ImageMagick $(pkg-config --libs MagickCore)) \
 		$(petsc_enable mpi) \
 		$(petsc_select mpi cc mpicc $(tc-getCC)) \
 		$(petsc_select mpi cxx mpicxx $(tc-getCXX)) \
@@ -132,20 +134,31 @@ src_configure() {
 		$(petsc_select complex-scalars scalar-type complex real) \
 		--with-windows-graphics=0 \
 		--with-matlab=0 \
-		--with-python=0 \ # why not?
-		--with-cmake=cmake \ # what for?
-		$(petsc_with afterimage afterimage /usr/include/libAfterImage -lAfterImage) \
+		--with-cmake=cmake \
+		$(petsc_with afterimage afterimage \
+			/usr/include/libAfterImage -lAfterImage) \
 		$(petsc_with hdf5) \
-		$(petsc_with hypre hypre /usr/include/hypre -lHYPRE) \
+		$(petsc_with hypre hypre \
+			/usr/include/hypre -lHYPRE) \
 		$(petsc_with metis parmetis) \
 		$(petsc_with sparse cholmod) \
-		$(petsc_with superlu superlu  /usr/include/superlu -lsuperlu) \
+		$(petsc_with superlu superlu \
+			/usr/include/superlu -lsuperlu) \
 		$(petsc_with X x) \
 		$(petsc_with X x11) \
-		--with-scotch=0 # why not?
+		--with-imagemagick=0 \
+		--with-python=0 \
+		--with-scotch=0
+
+# not yet tested:
+#		python bindings, sctotch, netcdf, scalapack
+# non-working:
+#		fftw: no mpi-implementaion available in gentoo
 
 # failed dependencies, perhaps fixed in upstream soon:
 #		$(petsc_with boost) \
+#		$(petsc_with imagemagick imagemagick \
+#			/usr/include/ImageMagick $(pkg-config --libs MagickCore)) \
 }
 
 src_install() {
@@ -176,7 +189,6 @@ src_install() {
 	sed -i \
 		-e "s:usr/lib:usr/$(get_libdir):g" \
 		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/include/petscconf.h || die
-
 
 	# add information about installation directory and
 	# PETSC_ARCH to environmental variables
