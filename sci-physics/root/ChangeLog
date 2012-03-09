@@ -1,18 +1,34 @@
 # ChangeLog for sci-physics/root
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.92 2012/01/21 19:23:26 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.93 2012/03/02 05:34:01 bicatali Exp $
+
+*root-5.28.00h (09 Mar 2012)
+*root-5.26.00g (09 Mar 2012)
+
+  09 Mar 2012; Andrew Savchenko <bircoph@gmail.com>
+  +files/root-5.26.00e-libpng15.patch, +root-5.26.00g.ebuild,
+  +files/root-5.26.00g-explicit-functions.patch,
+  +files/root-5.28.00b-nobyte-compile.patch, +root-5.28.00h.ebuild,
+  +files/root-5.28.00h-explicit-functions.patch,
+  +files/root-5.32.00-explicit-functions.patch, root-5.32.01.ebuild,
+  +files/olbd.confd, +files/olbd.initd, +files/xrootd.confd,
+  +files/xrootd.initd, metadata.xml:
+  Version bump for 5.26 and 5.28 branches to the latest patchlevels.
+  Fix bug 386905 for all branches by applying upstream fix. Thanks
+  gcc and ROOT developers for their hard work.
+  Fix pq2 files installation.
+
+*root-5.32.01 (02 Mar 2012)
+
+  02 Mar 2012; Sébastien Fabbro <bicatali@gentoo.org> +root-5.32.01.ebuild,
+  metadata.xml:
+  Imported bump from the sci overlay
 
   01 Mar 2012; Andrew Savchenko <bircoph@gmail.com> metadata.xml:
   Fix repoman warning.
 
-*root-5.32.01 (01 Mar 2012)
-
   01 Mar 2012; Andrew Savchenko <bircoph@gmail.com>
-  -files/root-5.26.00-make-3.82.patch, -root-5.26.00e-r1.ebuild,
-  -files/root-5.26.00e-libpng15.patch,
-  -files/root-5.28.00b-nobyte-compile.patch, -root-5.28.00d.ebuild,
-  -root-5.32.00-r2.ebuild, +root-5.32.01.ebuild, -files/olbd.confd,
-  -files/olbd.initd, -files/xrootd.confd, -files/xrootd.initd:
+  +root-5.32.01.ebuild
   Version bump for patch release 5.32/01.
 
   27 Feb 2012; Andrew Savchenko <bircoph@gmail.com>

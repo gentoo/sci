@@ -1,85 +1,76 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.01.ebuild,v 1.1 2012/03/02 05:34:01 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.26.00e-r1.ebuild,v 1.12 2011/11/13 11:21:12 jlec Exp $
 
-EAPI=4
+EAPI=3
+
 PYTHON_DEPEND="python? 2"
-inherit versionator eutils fortran-2 elisp-common fdo-mime python toolchain-funcs flag-o-matic
 
-#DOC_PV=$(get_major_version)_$(get_version_component_range 2)
-DOC_PV=5_26
+inherit versionator eutils fortran-2 elisp-common fdo-mime python toolchain-funcs
+
+DOC_PV=$(get_major_version)_$(get_version_component_range 2)
 ROOFIT_DOC_PV=2.91-33
-TMVA_DOC_PV=4.03
-PATCH_PV=5.28.00b
-PATCH_PV2=5.32.00
+TMVA_DOC_PV=4
+PATCH_PV="5.26.00e"
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
-SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
-	doc? ( ftp://root.cern.ch/${PN}/doc/Users_Guide_${DOC_PV}.pdf
-	math? (
-		ftp://root.cern.ch/${PN}/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
-		http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf ) )"
+SRC_URI="
+	ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz
+	mirror://gentoo/${PN}-${PATCH_PV}-patches.tar.bz2
+	doc? (
+		ftp://root.cern.ch/root/doc/Users_Guide_${DOC_PV}.pdf
+		ftp://root.cern.ch/root/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
+		http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf )"
 
 SLOT="0"
 LICENSE="LGPL-2.1"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
-	llvm +math mpi mysql ncurses odbc +opengl openmp oracle postgres prefix
-	pythia6	pythia8	python +reflex ruby qt4 ssl xft xml xinetd xrootd"
+KEYWORDS="~amd64 ~x86"
+IUSE="afs clarens doc emacs examples fftw geant4 graphviz kerberos ldap
+	+math mysql	odbc +opengl openmp oracle postgres pythia6 pythia8 python
+	+reflex	ruby qt4 ssl xft xml xinetd xrootd"
 
+# libafterimage ignored, to check every version
+# see https://savannah.cern.ch/bugs/?func=detailitem&item_id=30944
+#	|| ( >=media-libs/libafterimage-1.18 x11-wm/afterstep )
 CDEPEND="
-	app-arch/xz-utils
 	>=dev-lang/cfortran-4.4-r2
 	dev-libs/libpcre
-	media-libs/freetype
+	>=media-libs/ftgl-2.1.3_rc5
 	media-libs/giflib
+	media-libs/glew
 	media-libs/libpng:0
 	media-libs/tiff:0
 	sys-apps/shadow
-	sys-libs/zlib
 	virtual/jpeg
-	X? (
-		media-libs/ftgl
-		media-libs/glew
-		x11-libs/libX11
-		x11-libs/libXext
-		x11-libs/libXpm
-		|| ( >=media-libs/libafterimage-1.20 >=x11-wm/afterstep-2.2.11 )
-		opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps )
-		qt4? (
-			x11-libs/qt-gui:4
-			x11-libs/qt-opengl:4
-			x11-libs/qt-qt3support:4
-			x11-libs/qt-svg:4
-			x11-libs/qt-webkit:4
-			x11-libs/qt-xmlpatterns:4 )
-		xft? ( x11-libs/libXft )
-		)
-	afs? ( net-fs/openafs )
-	avahi? ( net-dns/avahi )
-	clarens? ( dev-libs/xmlrpc-c[curl] )
+	x11-libs/libXft
+	x11-libs/libXpm
+	afs? ( >=net-fs/openafs-1.4.7 )
+	clarens? ( dev-libs/xmlrpc-c )
 	emacs? ( virtual/emacs )
-	fits? ( sci-libs/cfitsio )
 	fftw? ( sci-libs/fftw:3.0 )
+	geant4? ( sci-physics/geant:4 )
 	graphviz? ( media-gfx/graphviz )
 	kerberos? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
-	llvm? ( sys-devel/llvm )
-	math? ( sci-libs/gsl sci-mathematics/unuran mpi? ( virtual/mpi ) )
+	math? ( sci-libs/gsl )
 	mysql? ( virtual/mysql )
-	ncurses? ( sys-libs/ncurses )
 	odbc? ( || ( dev-db/libiodbc dev-db/unixODBC ) )
+	opengl? ( virtual/opengl virtual/glu )
 	oracle? ( dev-db/oracle-instantclient-basic )
 	postgres? ( dev-db/postgresql-base )
 	pythia6? ( sci-physics/pythia:6 )
 	pythia8? ( sci-physics/pythia:8 )
+	qt4? (
+		x11-libs/qt-gui:4
+		x11-libs/qt-opengl:4
+		x11-libs/qt-qt3support:4
+		x11-libs/qt-xmlpatterns:4 )
 	ruby? (
 			dev-lang/ruby
 			dev-ruby/rubygems )
 	ssl? ( dev-libs/openssl )
-	xml? ( dev-libs/libxml2 )
-	xrootd? ( net-libs/xrootd )"
+	xml? ( dev-libs/libxml2:2 )"
 
 DEPEND="${CDEPEND}
 	dev-util/pkgconfig"
@@ -87,20 +78,16 @@ DEPEND="${CDEPEND}
 RDEPEND="
 	virtual/fortran
 	${CDEPEND}
-	reflex? ( dev-cpp/gccxml )
 	xinetd? ( sys-apps/xinetd )"
-
-REQUIRED_USE="!X? ( !opengl !qt4 !xft )"
 
 S="${WORKDIR}/${PN}"
 
 pkg_setup() {
 	fortran-2_pkg_setup
-	python_pkg_setup
 	echo
-	elog "There are extra options on packages not yet in Gentoo:"
+	elog "You may want to build ROOT with these non Gentoo extra packages:"
 	elog "AliEn, castor, Chirp, dCache, gfal, gLite, Globus,"
-	elog "HDFS, Monalisa, MaxDB/SapDB, SRP."
+	elog "Monalisa, MaxDB/SapDB, SRP."
 	elog "You can use the env variable EXTRA_ECONF variable for this."
 	elog "For example, for SRP, you would set: "
 	elog "EXTRA_ECONF=\"--enable-srp --with-srp-libdir=/usr/$(get_libdir)\""
@@ -108,59 +95,53 @@ pkg_setup() {
 	enewgroup rootd
 	enewuser rootd -1 -1 /var/spool/rootd rootd
 
-	if use math; then
-		if use openmp && [[ $(tc-getCC)$ == *gcc* ]] && ! tc-has-openmp; then
-			ewarn "You are using gcc and OpenMP is available with gcc >= 4.2"
-			ewarn "If you want to build this package with OpenMP, abort now,"
-			ewarn "and set CC to an OpenMP capable compiler"
-		elif use openmp; then
-			export USE_OPENMP=1 USE_PARALLEL_MINUIT2=1
-		elif use mpi; then
-			export USE_MPI=1 USE_PARALLEL_MINUIT2=1
-		fi
+	if use openmp && \
+		[[ $(tc-getCC)$ == *gcc* ]] && \
+		( [[ $(gcc-major-version)$(gcc-minor-version) -lt 42 ]] || \
+			! has_version sys-devel/gcc[openmp] ); then
+		ewarn "You are using gcc and OpenMP is available with gcc >= 4.2"
+		ewarn "If you want to build this package with OpenMP, abort now,"
+		ewarn "and set CC to an OpenMP capable compiler"
+	elif use openmp; then
+		export USE_OPENMP=1
+		use math && export USE_PARALLEL_MINUIT2=1
 	fi
+	use python && python_set_active_version 2
 }
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/${PN}-${PATCH_PV}-prop-ldflags.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV}-asneeded.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-nobyte-compile.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-explicit-functions.patch
+		"${WORKDIR}"/${PN}-${PATCH_PV}-make-3.82.patch \
+		"${WORKDIR}"/${PN}-${PATCH_PV}-prop-ldflags.patch \
+		"${WORKDIR}"/${PN}-${PATCH_PV}-configure-paths.patch \
+		"${WORKDIR}"/${PN}-${PATCH_PV}-nobyte-compile.patch \
+		"${WORKDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
+		"${WORKDIR}"/${PN}-${PATCH_PV}-xrootd-prop-flags.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV}-libpng15.patch \
+		"${FILESDIR}"/${P}-explicit-functions.patch
 
-	# make sure we use system libs and headers
+	# use system cfortran
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc
-	rm -rf graf2d/asimage/src/libAfterImage
-	rm -rf graf3d/ftgl/{inc,src}
-	rm -rf graf2d/freetype/src
-	rm -rf graf3d/glew/{inc,src}
-	rm -rf core/pcre/src
-	rm -rf math/unuran/src/unuran-*.tar.gz
-	LANG=C LC_ALL=C find core/zip -type f -name "[a-z]*" | xargs rm
-	rm -rf core/lzma/src/*.tar.gz
-	rm graf3d/gl/{inc,src}/gl2ps.*
-	sed -i -e 's/^GLLIBS *:= .* $(OPENGLLIB)/& -lgl2ps/' graf3d/gl/Module.mk
 
-	# In Gentoo, libPythia6 is called libpythia6
-	# libungif is called libgif,
-	# iodbc is in /usr/include/iodbc
-	# pg_config.h is checked instead of libpq-fe.h
+	# take a more descriptive name for ruby libs
 	sed -i \
-		-e 's:libPythia6:libpythia6:g' \
-		-e 's:ungif:gif:g' \
-		-e 's:$ODBCINCDIR:$ODBCINCDIR /usr/include/iodbc:' \
-		-e 's:libpq-fe.h:pg_config.h:' \
-		configure || die "adjusting configure for Gentoo failed"
+		-e 's/libRuby/libRubyROOT/g' \
+		bindings/ruby/Module.mk bindings/ruby/src/drr.cxx \
+		|| die "ajusting ruby libname failed"
 
-	# prefixify the configure script
+	# in gentoo, libPythia6 is called libpythia6
+	# libungif is called libgif
 	sed -i \
-		-e 's:/usr:${EPREFIX}/usr:g' \
-		configure || die "prefixify configure failed"
+		-e 's/libPythia6/libpythia6/g' \
+		-e 's/ungif/gif/g' \
+		configure || die "adjusting library names failed"
 
+	# libafterimage flags are hardcoded
+	sed -i \
+		-e 's/CFLAGS="-O3"//' \
+		-e 's/CFLAGS=$$ACFLAGS//' \
+		graf2d/asimage/Module.mk graf2d/asimage/src/libAfterImage/configure \
+		|| die "flag propagation in libafterimage failed"
 	# QTDIR only used for qt3 in gentoo, and configure looks for it.
 	unset QTDIR
 }
@@ -169,7 +150,6 @@ src_configure() {
 	# the configure script is not the standard autotools
 	./configure \
 		--prefix="${EPREFIX}"/usr \
-		--etcdir="${EPREFIX}"/etc/root \
 		--libdir="${EPREFIX}"/usr/$(get_libdir)/${PN} \
 		--docdir="${EPREFIX}"/usr/share/doc/${PF} \
 		--tutdir="${EPREFIX}"/usr/share/doc/${PF}/examples/tutorials \
@@ -178,13 +158,13 @@ src_configure() {
 		--with-cxx=$(tc-getCXX) \
 		--with-f77=$(tc-getFC) \
 		--with-sys-iconpath="${EPREFIX}"/usr/share/pixmaps \
-		--disable-builtin-afterimage \
 		--disable-builtin-freetype \
 		--disable-builtin-ftgl \
 		--disable-builtin-glew \
 		--disable-builtin-pcre \
 		--disable-builtin-zlib \
-		--disable-builtin-lzma \
+		--disable-rpath \
+		--enable-asimage \
 		--enable-astiff \
 		--enable-exceptions	\
 		--enable-explicitlink \
@@ -196,31 +176,24 @@ src_configure() {
 		--enable-table \
 		--fail-on-missing \
 		--with-afs-shared=yes \
-		$(use_enable X x11) \
-		$(use_enable X asimage) \
 		$(use_enable afs) \
-		$(use_enable avahi bonjour) \
 		$(use_enable clarens) \
 		$(use_enable clarens peac) \
-		$(use_enable ncurses editline) \
-		$(use_enable fits fitsio) \
 		$(use_enable fftw fftw3) \
+		$(use_enable geant4 g4root) \
 		$(use_enable graphviz gviz) \
 		$(use_enable kerberos krb5) \
 		$(use_enable ldap) \
-		$(use_enable llvm cling) \
 		$(use_enable math gsl-shared) \
 		$(use_enable math genvector) \
 		$(use_enable math mathmore) \
 		$(use_enable math minuit2) \
 		$(use_enable math roofit) \
-		$(use_enable math tmva) \
 		$(use_enable math unuran) \
 		$(use_enable mysql) \
 		$(use_enable odbc) \
 		$(use_enable opengl) \
 		$(use_enable postgres pgsql) \
-		$(use_enable prefix rpath) \
 		$(use_enable pythia6) \
 		$(use_enable pythia8) \
 		$(use_enable python) \
@@ -248,18 +221,23 @@ doc_install() {
 	cd "${S}"
 	if use doc; then
 		einfo "Installing user's guides"
-		dodoc "${DISTDIR}"/Users_Guide_${DOC_PV}.pdf
-		use math && dodoc \
-			"${DISTDIR}"/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf \
-			"${DISTDIR}"/TMVAUsersGuide-v${TMVA_DOC_PV}.pdf
+		insinto /usr/share/doc/${PF}
+		doins \
+			"${DISTDIR}"/Users_Guide_${DOC_PV}.pdf \
+			"${DISTDIR}"/TMVAUsersGuide-v${TMVA_DOC_PV}.pdf \
+			|| die "pdf install failed"
+		if use math; then
+			doins "${DISTDIR}"/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf \
+				|| die "math doc install failed"
+		fi
 	fi
 
 	if use examples; then
 		# these should really be taken care of by the root make install
 		insinto /usr/share/doc/${PF}/examples/tutorials/tmva
-		doins -r tmva/test
+		doins -r tmva/test || die
 	else
-		rm -rf "${ED}"/usr/share/doc/${PF}/examples
+		rm -rf "${D}"/usr/share/doc/${PF}/examples
 	fi
 }
 
@@ -271,13 +249,14 @@ daemon_install() {
 	dodir /var/spool/rootd/{pub,tmp}
 	fperms 1777 /var/spool/rootd/{pub,tmp}
 
+	use xrootd && daemons="${daemons} xrootd olbd"
 	for i in ${daemons}; do
 		newinitd "${FILESDIR}"/${i}.initd ${i}
 		newconfd "${FILESDIR}"/${i}.confd ${i}
 	done
 	if use xinetd; then
 		insinto /etc/xinetd
-		doins etc/daemons/{rootd,proofd}.xinetd
+		doins etc/daemons/{rootd,proofd}.xinetd || die
 	fi
 }
 
@@ -306,7 +285,7 @@ src_install() {
 
 	# The build system installs Emacs support unconditionally and in the wrong
 	# directory. Remove it and call elisp-install in case of USE=emacs.
-	rm -rf "${ED}"/usr/share/emacs
+	rm -rf "${D}"/usr/share/emacs
 	if use emacs; then
 		elisp-install ${PN} build/misc/*.{el,elc} || die "elisp-install failed"
 	fi
@@ -325,12 +304,10 @@ src_install() {
 	rm -f "${ED}"/etc/root/proof/*.sample
 	rm -rf "${ED}"/etc/root/daemons
 	popd > /dev/null
-	# these should be in PATH
-	mv "${ED}"etc/root/proof/utils/pq2/pq2* \
-		"${ED}"usr/bin
 }
 
 pkg_postinst() {
+	use ruby && elog "ROOT Ruby module is available as libRubyROOT"
 	fdo-mime_desktop_database_update
 	use python && python_mod_optimize /usr/$(get_libdir)/root
 }
