@@ -29,7 +29,7 @@ LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86"
 IUSE="afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
 	+math mpi mysql ncurses odbc +opengl openmp oracle postgres pythia6
-	pythia8	python +reflex ruby qt4 ssl xft xml xinetd xrootd"
+	pythia8	python qt4 +reflex ruby ssl xft xinetd xml xrootd"
 
 CDEPEND="
 	>=dev-lang/cfortran-4.4-r2

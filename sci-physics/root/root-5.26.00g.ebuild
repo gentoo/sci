@@ -28,7 +28,7 @@ LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86"
 IUSE="afs clarens doc emacs examples fftw geant4 graphviz kerberos ldap
 	+math mysql	odbc +opengl openmp oracle postgres pythia6 pythia8 python
-	+reflex	ruby qt4 ssl xft xml xinetd xrootd"
+	qt4 +reflex	ruby ssl xft xinetd xml xrootd"
 
 # libafterimage ignored, to check every version
 # see https://savannah.cern.ch/bugs/?func=detailitem&item_id=30944

@@ -25,8 +25,8 @@ SLOT="0"
 LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
-	llvm +math mpi mysql ncurses odbc +opengl openmp oracle postgres prefix
-	pythia6	pythia8	python +reflex ruby qt4 ssl xft xml xinetd xrootd"
+	-llvm +math mpi mysql ncurses odbc +opengl openmp oracle postgres prefix
+	pythia6	pythia8	python qt4 +reflex ruby ssl xft xinetd xml xrootd"
 
 CDEPEND="
 	app-arch/xz-utils
@@ -65,7 +65,7 @@ CDEPEND="
 	graphviz? ( media-gfx/graphviz )
 	kerberos? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
-	llvm? ( sys-devel/llvm )
+	llvm? ( >=sys-devel/clang-3.1 >=sys-devel/llvm-3.1 )
 	math? ( sci-libs/gsl sci-mathematics/unuran mpi? ( virtual/mpi ) )
 	mysql? ( virtual/mysql )
 	ncurses? ( sys-libs/ncurses )
@@ -177,6 +177,8 @@ src_configure() {
 		--with-cc=$(tc-getCC) \
 		--with-cxx=$(tc-getCXX) \
 		--with-f77=$(tc-getFC) \
+		--with-afs-shared=yes \
+		--with-llvm-config="${EPREFIX}"/usr/bin/llvm-config \
 		--with-sys-iconpath="${EPREFIX}"/usr/share/pixmaps \
 		--disable-builtin-afterimage \
 		--disable-builtin-freetype \
@@ -195,7 +197,6 @@ src_configure() {
 		--enable-soversion \
 		--enable-table \
 		--fail-on-missing \
-		--with-afs-shared=yes \
 		$(use_enable X x11) \
 		$(use_enable X asimage) \
 		$(use_enable afs) \

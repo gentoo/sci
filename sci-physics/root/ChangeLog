@@ -2,6 +2,15 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.93 2012/03/02 05:34:01 bicatali Exp $
 
+*root-5.32.01-r1 (09 Mar 2012)
+
+  09 Mar 2012; Andrew Savchenko <bircoph@gmail.com> root-5.26.00g.ebuild,
+  root-5.28.00h.ebuild, -root-5.32.01.ebuild, +root-5.32.01-r1.ebuild,
+  metadata.xml:
+  Fix llvm support per bug 407097. Patch by Marek Szuba with some
+  changes. cling atm depends on live llvm and clang, so it may fail
+  to build, disabled by default. Fix USE flags ordering in ebuilds.
+
 *root-5.28.00h (09 Mar 2012)
 *root-5.26.00g (09 Mar 2012)
 
