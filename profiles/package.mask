@@ -30,6 +30,12 @@
 
 #--- END OF EXAMPLES ---
 
+
+# Sebasien Fabbro <bicatali@gentoo.org> (10 Mar 2012)
+# incompatible API with previous versions of metis (4)
+# masked until reverse depedencies are fixed
+>=sci-libs/parmetis-4
+
 # Justin Lecher <jlec@gentoo.org> (20 Feb 2012)
 # They are broken in one or the other way
 # Need to be bumped to emboss-6.4.0
