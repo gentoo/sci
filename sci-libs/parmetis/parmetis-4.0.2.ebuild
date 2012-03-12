@@ -21,10 +21,11 @@ SRC_URI="http://glaros.dtc.umn.edu/gkhome/fetch/sw/${PN}/${P}.tar.gz
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
 LICENSE="free-noncomm"
-IUSE="doc examples mpi openmp pcre static-libs"
+IUSE="doc double-precision examples int64 mpi openmp pcre static-libs"
 
 DEPEND="mpi? ( virtual/mpi )"
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	!<sci-libs/metis-5"
 
 pkg_setup() {
 	if use openmp; then
@@ -58,6 +59,12 @@ src_prepare() {
 			CMakeLists.txt || die
 
 	fi
+
+	use int64 && \
+		sed -i -e '/IDXTYPEWIDTH/s/32/64/' metis/include/metis.h
+
+	use double-precision && \
+		sed -i -e '/REALTYPEWIDTH/s/32/64/' metis/include/metis.h
 }
 
 src_configure() {
