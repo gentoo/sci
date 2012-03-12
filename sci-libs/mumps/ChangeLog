@@ -1,0 +1,14 @@
+# ChangeLog for sci-libs/mumps
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  12 Mar 2012; Sébastien Fabbro <bicatali@gentoo.org> +mumps-4.10.0.ebuild,
+  +metadata.xml:
+  metis-mpi is now parmetis
+
+*mumps-4.10.0 (01 Jun 2011)
+
+  01 Jun 2011; Sébastien Fabbro <bicatali@gentoo.org> +mumps-4.10.0.ebuild,
+  +metadata.xml:
+  Initial import
+
