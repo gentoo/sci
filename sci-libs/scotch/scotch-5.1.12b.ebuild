@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils toolchain-funcs versionator
+inherit eutils toolchain-funcs versionator flag-o-matic
 
 # use esmumps version to allow linking with mumps
 MYP="${PN}_${PV}_esmumps"
@@ -18,7 +18,7 @@ SRC_URI="http://gforge.inria.fr/frs/download.php/${DID}/${MYP}.tar.gz"
 LICENSE="CeCILL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc examples mpi static-libs tools"
+IUSE="doc examples int64 mpi static-libs tools"
 
 DEPEND="sys-libs/zlib
 	mpi? ( virtual/mpi )"
@@ -56,6 +56,7 @@ src_prepare() {
 		-e "s/ ar/ $(tc-getAR)/" \
 		-e "s/ranlib/$(tc-getRANLIB)/" \
 		src/Make.inc/Makefile.inc.i686_pc_linux2 > src/Makefile.inc || die
+	use int64 && append-cflags -DIDXSIZE64
 }
 
 src_compile() {
