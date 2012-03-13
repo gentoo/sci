@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=4
-inherit eutils toolchain-funcs flag-o-matic versionator
+inherit eutils toolchain-funcs flag-o-matic versionator fortran-2
 
 MYP=MUMPS_${PV}
 
@@ -17,11 +17,13 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc examples metis mpi +scotch static-libs"
 
 RDEPEND="virtual/blas
-   sci-libs/parmetis[mpi?]
-   scotch? ( sci-libs/scotch[mpi?] )
-   mpi? ( virtual/scalapack )"
+	metis? ( || ( sci-libs/metis <sci-libs/parmetis-4 )
+		mpi? ( <sci-libs/parmetis-4 ) )
+	scotch? ( sci-libs/scotch[mpi=] )
+	mpi? ( virtual/scalapack )"
 
 DEPEND="${RDEPEND}
+	virtual/fortran
 	dev-util/pkgconfig"
 
 S="${WORKDIR}/${MYP}"
@@ -51,6 +53,8 @@ src_prepare() {
 		-e "s:^\(OPTC\s*=\).*:\1${CFLAGS} \$(PIC):" \
 		-e "s:^\(OPTL\s*=\).*:\1${LDFLAGS}:" \
 		Make.inc/Makefile.inc.generic > Makefile.inc || die
+	# fixed a missing copy of libseq to libdir
+
 }
 
 src_configure() {
@@ -95,6 +99,12 @@ src_configure() {
 			Makefile.inc || die
 		export LINK=mpif90
 		LIBADD="${LIBADD} $(pkg-config --libs scalapack)"
+	else
+		sed -i \
+			-e 's:-Llibseq:-L$(topdir)/libseq:' \
+			-e 's:PAR):SEQ):g' \
+			-e 's:^LIBSEQNEEDED =:LIBSEQNEEDED = libseqneeded:g' \
+			Makefile.inc || die
 	fi
 	sed -i -e "s:^\s*\(ORDERINGSF\s*=\).*:\1 ${ord}:" Makefile.inc || die
 }

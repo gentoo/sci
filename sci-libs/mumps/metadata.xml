@@ -10,4 +10,9 @@
   interfaces, and can interface with ordering tools such 
   as Scotch or Metis.
 </longdescription>
+<use>
+  <flag name="metis">Enable ordering with METIS
+  (<pkg>sci-libs/metis</pkg>, <pkg>sci-libs/parmetis</pkg>)</flag>
+  <flag name="scotch">Enable ordering with <pkg>sci-libs/scotch</pkg></flag>
+</use>
 </pkgmetadata>
