@@ -30,6 +30,8 @@ src_prepare() {
 		-e 's:BINARY_DIR}/scalapack.pc:BINARY_DIR}/refscalapack.pc:g' \
 		CMakeLists.txt || die
 	use static-libs && mkdir "${WORKDIR}/${PN}_static"
+	# mpi does not have a pc file
+	sed -i -e 's/mpi//' scalapack.pc.in || die
 }
 
 src_configure() {
