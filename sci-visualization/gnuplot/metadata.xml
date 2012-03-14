@@ -13,6 +13,6 @@
 		<flag name="gd">Add support for <pkg>media-libs/gd</pkg>.
     		Needed for GIF, JPEG, and PNG image output.</flag>
 		<flag name="thin-splines">Enable thin plate splines</flag>
-		<flag name="qt4">Build Qt4 terminal</flag>
+		<flag name="bitmap">Enable dot-matrix printers and pbm terminal</flag>
 	</use>
 </pkgmetadata>

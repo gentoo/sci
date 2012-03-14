@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-visualization/gnuplot/gnuplot-4.6_rc1.ebuild,v 1.3 2012/01/27 16:05:06 ulm Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-visualization/gnuplot/gnuplot-4.6_rc1.ebuild,v 1.7 2012/03/07 00:33:49 ulm Exp $
 
 EAPI=4
 
@@ -23,10 +23,10 @@ else
 	SRC_URI="mirror://sourceforge/gnuplot/${MY_P}.tar.gz"
 fi
 
-LICENSE="gnuplot GPL-2"
+LICENSE="gnuplot GPL-2 bitmap? ( free-noncomm )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
-IUSE="cairo doc emacs examples +gd ggi latex lua plotutils qt4 readline svga thin-splines wxwidgets X xemacs"
+IUSE="bitmap cairo doc emacs examples +gd ggi latex lua plotutils qt4 readline svga thin-splines wxwidgets X xemacs"
 RESTRICT="wxwidgets? ( test )"
 
 RDEPEND="
@@ -106,6 +106,7 @@ src_configure() {
 	myconf="${myconf} --without-pdf"
 	myconf="${myconf} --enable-stats" #extra command save to be enabled
 	myconf="${myconf} --with-texdir=${TEXMF}/tex/latex/${PN}"
+	myconf="${myconf} $(use_with bitmap bitmap-terminals)"
 	myconf="${myconf} $(use_with cairo)"
 	myconf="${myconf} $(use_with doc tutorial)"
 	myconf="${myconf} $(use_with gd)"
@@ -124,8 +125,9 @@ src_configure() {
 
 	local emacs=$(usev emacs || usev xemacs || echo no)
 	if [[ -z ${PV%%*9999} && ${emacs} = no ]]; then
-		#live ebuild needs an emacs to build texi
-		has_version virtual/emacs && emacs="emacs" || emacs="xemacs"
+		# Live ebuild needs an Emacs to build gnuplot.texi
+		if has_version virtual/emacs; then emacs=emacs
+		elif has_version app-xemacs/texinfo; then emacs=xemacs; fi
 	fi
 
 	econf ${myconf} \
@@ -150,10 +152,9 @@ src_compile() {
 	# Prevent access violations, see bug 201871
 	VARTEXFONTS="${T}/fonts"
 
-	# This is a hack to avoid sandbox violations when using the Linux console.
-	# Creating the DVI and PDF tutorials require /dev/svga to build the
-	# example plots.
-	addwrite /dev/svga:/dev/mouse:/dev/tts/0
+	# We believe that the following line is no longer needed.
+	# In case of problems file a bug report at bugs.gentoo.org.
+	#addwrite /dev/svga:/dev/mouse:/dev/tts/0
 
 	emake all info
 
