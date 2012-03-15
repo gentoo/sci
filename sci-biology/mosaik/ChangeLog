@@ -1,0 +1,16 @@
+# ChangeLog for sci-biology/mosaik
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mosaik-2.1.33 (15 Mar 2012)
+*mosaik-1.1.0021 (15 Mar 2012)
+
+  15 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +mosaik-1.1.0021.ebuild, +mosaik-2.1.33.ebuild:
+  version bump, added the pdf documentation to SRC_URI, the compile process
+  leaks through many 'Fastq.cpp:224: error: conditional expression between
+  distinct pointer types 'gzFile_s*' and 'FILE*' lacks a cast' messages in
+  Fastq.cpp:224, Fastq.cpp:226, Fasta.cpp:258, Fasta.cpp:260, Fasta.cpp:266,
+  Fasta.cpp:268, but the package itself installs and executes at least
+  mosaik-1.1.0021.ebuild
+
