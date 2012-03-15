@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Mar 2012; Alexey Shvetsov <alexxy@gentoo.org>
+  files/dhcp-4.2.0-ib-options.patch:
+  [net-misc/dhcp] Opps fix patch
+
 *dhcp-4.2.3_p1-r1 (15 Mar 2012)
 
   15 Mar 2012; Alexey Shvetsov <alexxy@gentoo.org> +dhcp-4.2.3_p1-r1.ebuild,
