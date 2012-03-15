@@ -66,7 +66,7 @@ src_configure() {
 
 src_compile() {
 	mkdir solibs
-	emake libs shared && mv *.$(get_libname) solibs/
+	emake libs shared && mv *$(get_libname) solibs/
 	use static-libs && emake clean && emake libs NEED_PIC=
 }
 
@@ -84,7 +84,7 @@ src_install() {
 		profname=${profname}-openmp
 	fi
 
-	dolib.so solibs/lib*.$(get_libname)
+	dolib.so solibs/lib*$(get_libname)
 	use static-libs && dolib.a lib*.a
 
 	# create pkg-config file and associated eselect file
