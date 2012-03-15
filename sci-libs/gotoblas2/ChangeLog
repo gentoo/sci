@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/gotoblas2
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  15 Mar 2012; François Bissey <francois.bissey@canterbury.ac.nz>
+  gotoblas2-1.13.ebuild:
+  add *-macos prefix support mirroring openblas
 
   22 Aug 2011; Sébastien Fabbro <bicatali@gentoo.org> +gotoblas2-1.13.ebuild,
   +files/gotoblas2-1.13-aliasing.patch, +files/gotoblas2-1.13-dynamic.patch,
