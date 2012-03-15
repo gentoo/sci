@@ -1,4 +1,4 @@
-From 1b23cc04e0c76579eb3657ff93abaa487363a434 Mon Sep 17 00:00:00 2001
+From adb006f9d22b9001c89e0adda8c48e34c2773b16 Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Thu, 15 Mar 2012 23:21:21 +0400
 Subject: [PATCH] ib options
