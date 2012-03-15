@@ -62,10 +62,14 @@ src_prepare() {
 
 	# infiniband patches
 	if use infiniband; then
+		epatch "${FILESDIR}"/${PN}-4.2.3-options.patch
+		epatch "${FILESDIR}"/${PN}-4.2.2-xen-checksum.patch
+		epatch "${FILESDIR}"/${PN}-4.2.0-PPP.patch
 		epatch "${FILESDIR}"/${PN}-4.2.2-lpf-ib.patch
 		epatch "${FILESDIR}"/${PN}-4.2.2-improved-xid.patch
 		epatch "${FILESDIR}"/${PN}-4.2.2-gpxe-cid.patch
 	fi
+
 
 	# Brand the version with Gentoo
 	sed -i \

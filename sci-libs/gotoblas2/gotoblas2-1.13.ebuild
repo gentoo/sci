@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils toolchain-funcs alternatives-2
+inherit eutils toolchain-funcs alternatives-2 multilib
 
 MYPN="GotoBLAS2"
 MYP="${MYPN}-${PV}_bsd"
@@ -24,13 +24,6 @@ RDEPEND="virtual/fortran"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${MYPN}"
-
-pkg_setup() {
-	SHLIB=so
-	if [[ ${CHOST} == *-darwin* ]] ; then
-		SHLIB=dylib
-	fi
-}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-{dynamic,sharedlibs,fcheck,aliasing}.patch
@@ -70,7 +63,7 @@ src_configure() {
 
 src_compile() {
 	mkdir solibs
-	emake libs shared && mv *."${SHLIB}" solibs/
+	emake libs shared && mv *$(get_libname) solibs/
 	use static-libs && emake clean && emake libs NEED_PIC=
 }
 
@@ -88,7 +81,7 @@ src_install() {
 		profname=${profname}-openmp
 	fi
 
-	dolib.so solibs/lib*."${SHLIB}"
+	dolib.so solibs/lib*$(get_libname)
 	use static-libs && dolib.a lib*.a
 
 	# create pkg-config file and associated eselect file

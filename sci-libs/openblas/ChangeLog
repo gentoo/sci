@@ -4,6 +4,14 @@
 
   15 Mar 2012; François Bissey <francois.bissey@canterbury.ac.nz>
   openblas-0.1_alpha2.ebuild, openblas-9999.ebuild:
+  correct typo
+
+  15 Mar 2012; François Bissey <francois.bissey@canterbury.ac.nz>
+  openblas-0.1_alpha2.ebuild, openblas-9999.ebuild:
+  use multilib eclass
+
+  15 Mar 2012; François Bissey <francois.bissey@canterbury.ac.nz>
+  openblas-0.1_alpha2.ebuild, openblas-9999.ebuild:
   Add *-macos prefix support
 
   16 Aug 2011; François Bissey <francois.bissey@canterbury.ac.nz>

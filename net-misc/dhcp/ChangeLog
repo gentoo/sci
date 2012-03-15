@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*dhcp-4.2.3_p2-r1 (15 Mar 2012)
+
+  15 Mar 2012; Alexey Shvetsov <alexxy@gentoo.org> +dhcp-4.2.3_p2-r1.ebuild,
+  +files/dhcp-4.2.0-PPP.patch, +files/dhcp-4.2.2-xen-checksum.patch,
+  +files/dhcp-4.2.3-options.patch, -dhcp-4.2.3_p1-r1.ebuild:
+  [net-misc/dhcp] Import more patches to make also client work
+
   15 Mar 2012; Alexey Shvetsov <alexxy@gentoo.org>
   +files/dhcp-4.2.2-gpxe-cid.patch, +files/dhcp-4.2.2-improved-xid.patch,
   +files/dhcp-4.2.2-lpf-ib.patch, -files/dhcp-4.2.0-ib-options.patch,
