@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mosaik-9999 (15 Mar 2012)
+
+  15 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  mosaik-2.1.33.ebuild, +mosaik-9999.ebuild:
+  version bump for 2.1.33 and GIT HEAD, neither compiles so far; upstream
+  re-contacted mosaik-2.1.33.ebuild mosaik-9999.ebuild
+
 *mosaik-2.1.33 (15 Mar 2012)
 *mosaik-1.1.0021 (15 Mar 2012)
 
