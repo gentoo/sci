@@ -1,4 +1,4 @@
-From adb006f9d22b9001c89e0adda8c48e34c2773b16 Mon Sep 17 00:00:00 2001
+From eb2ec733aa64bf9da9e64364dbbbde3411eaf90a Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Thu, 15 Mar 2012 23:21:21 +0400
 Subject: [PATCH] ib options
@@ -8,8 +8,8 @@ Subject: [PATCH] ib options
  client/dhclient.c   |  270 ++++++++++++++++++++++++++++++++++++++++++++++++++-
  common/conflex.c    |    2 +
  includes/dhcpd.h    |    3 +
- includes/dhctoken.h |    1 +
- 5 files changed, 282 insertions(+), 4 deletions(-)
+ includes/dhctoken.h |    3 +-
+ 5 files changed, 283 insertions(+), 5 deletions(-)
 
 diff --git a/client/clparse.c b/client/clparse.c
 index 9de4ce2..890647d 100644
@@ -404,13 +404,15 @@ index 5a137e6..7da8b76 100644
  
  /* Per-interface state used in the dhcp client... */
 diff --git a/includes/dhctoken.h b/includes/dhctoken.h
-index 9911d70..6110b4f 100644
+index 9911d70..3fdda93 100644
 --- a/includes/dhctoken.h
 +++ b/includes/dhctoken.h
-@@ -364,6 +364,7 @@ enum dhcp_token {
+@@ -363,7 +363,8 @@ enum dhcp_token {
+ 	INITIAL_DELAY = 664,
  	GETHOSTBYNAME = 665,
  	PRIMARY6 = 666,
- 	SECONDARY6 = 667
+-	SECONDARY6 = 667
++	SECONDARY6 = 667,
 +	BOOTP_BROADCAST_ALWAYS = 668
  };
  

@@ -8,6 +8,10 @@
 
   15 Mar 2012; Alexey Shvetsov <alexxy@gentoo.org>
   files/dhcp-4.2.0-ib-options.patch:
+  [net-misc/dhcp] once again
+
+  15 Mar 2012; Alexey Shvetsov <alexxy@gentoo.org>
+  files/dhcp-4.2.0-ib-options.patch:
   [net-misc/dhcp] wrong one =D
 
   15 Mar 2012; Alexey Shvetsov <alexxy@gentoo.org>
