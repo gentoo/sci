@@ -1,7 +1,7 @@
 From 1b23cc04e0c76579eb3657ff93abaa487363a434 Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Thu, 15 Mar 2012 23:21:21 +0400
-Subject: [PATCH 3/3] ib options
+Subject: [PATCH] ib options
 
 ---
  client/clparse.c    |   10 +-
@@ -410,8 +410,7 @@ index 9911d70..6110b4f 100644
 @@ -364,6 +364,7 @@ enum dhcp_token {
  	GETHOSTBYNAME = 665,
  	PRIMARY6 = 666,
-- 	SECONDARY6 = 667
-+	SECONDARY6 = 667,
+ 	SECONDARY6 = 667
 +	BOOTP_BROADCAST_ALWAYS = 668
  };
  
