@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  sra_sdk-2.1.9.ebuild:
+  use EAPI=4 hoping it will handle symlinks in bin/ and lib/ directories
+  properly (but it does not, bug #408199 sra_sdk-2.1.9.ebuild
+
 *sra_sdk-2.1.6 (17 Feb 2012)
 
   17 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
 inherit eutils
 
@@ -72,13 +72,27 @@ src_install(){
 	mkdir "${D}"/usr/bin
 	mkdir -p "${D}"/usr/lib/ncbi
 	mkdir -p "${D}"/usr/ncbi/schema
-	# dobin "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/bin/*
-	for f in "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/bin/*; do cp --preserve=links "$f" "${D}"/usr/bin || die "copy failed" ; done
-	dolib "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/lib/*
+
+	# BUG: neither 'doins -r' nor cp --preserve=all work
+	#insinto /usr/bin
+	#doins -r "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/bin/*
+	for f in "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/bin/*; do cp --preserve=all "$f" "${D}"/usr/bin/ || die "$f copying failed" ; done
+
+
 
 	# install the main libs and the ncbi/vdb-copy.kfg file
 	insinto /usr/lib/ncbi
 	doins "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/lib/ncbi/*
+
+	# zap the subdirectory so that copying below does not fail
+	rm -rf "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/lib/ncbi
+
+
+
+	# BUG: neither the dolib nor cp --preserve=all work
+	#dolib "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/lib/*
+	mkdir -p "${D}"/usr/lib64
+	for f in "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/lib/*; do cp --preserve=all "$f" "${D}"/usr/lib64/ || die "$f copying failed" ; done
 
 	insinto /usr/ncbi/schema
 	doins "${W}"/interfaces/align/*.vschema
