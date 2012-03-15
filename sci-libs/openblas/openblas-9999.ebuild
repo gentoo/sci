@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,6 +20,13 @@ RDEPEND="virtual/fortran"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${MYPN}"
+
+pkg_setup() {
+	SHLIB=so
+	if [[ ${CHOST} == *-darwin* ]] ; then
+		SHLIB=dylib
+	fi
+}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-{sharedlibs,aliasing}.patch
@@ -60,7 +67,7 @@ src_configure() {
 
 src_compile() {
 	mkdir solibs
-	emake libs shared && mv *.so solibs/
+	emake libs shared && mv *."${SHLIB}" solibs/
 	use static-libs && emake clean && emake libs NEED_PIC=
 }
 
@@ -78,7 +85,7 @@ src_install() {
 		profname=${profname}-openmp
 	fi
 
-	dolib.so solibs/lib*.so
+	dolib.so solibs/lib*."$SHLIB"
 	use static-libs && dolib.a lib*.a
 
 	# create pkg-config file and associated eselect file
@@ -109,4 +116,13 @@ src_install() {
 			"/usr/include/cblas.h" "${PN}/cblas.h"
 	fi
 	dodoc GotoBLAS_{01Readme,03FAQ,04FAQ,05LargePage,06WeirdPerformance}.txt
+
+	if [[ ${CHOST} == *-darwin* ]] ; then
+		cd "${ED}"/usr/$(get_libdir)
+		for d in *.dylib ; do
+			ebegin "correcting install_name of ${d}"
+			install_name_tool -id "${EPREFIX}/usr/$(get_libdir)/${d}" "${d}"
+			eend $?
+		done
+	fi
 }
