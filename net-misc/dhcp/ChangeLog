@@ -3,6 +3,13 @@
 # $Header: $
 
   15 Mar 2012; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/dhcp-4.2.2-gpxe-cid.patch, +files/dhcp-4.2.2-improved-xid.patch,
+  +files/dhcp-4.2.2-lpf-ib.patch, -files/dhcp-4.2.0-ib-options.patch,
+  -files/dhcp-4.2.0-improved-xid.patch, -files/dhcp-4.2.0-lpf-ib.patch,
+  dhcp-4.2.3_p1-r1.ebuild:
+  [net-misc/dhcp] Import patches from F17
+
+  15 Mar 2012; Alexey Shvetsov <alexxy@gentoo.org>
   files/dhcp-4.2.0-ib-options.patch:
   [net-misc/dhcp] once again
 

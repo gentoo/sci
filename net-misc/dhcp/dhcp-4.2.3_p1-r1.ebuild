@@ -62,9 +62,9 @@ src_prepare() {
 
 	# infiniband patches
 	if use infiniband; then
-		epatch "${FILESDIR}"/${PN}-4.2.0-improved-xid.patch
-		epatch "${FILESDIR}"/${PN}-4.2.0-lpf-ib.patch
-		epatch "${FILESDIR}"/${PN}-4.2.0-ib-options.patch
+		epatch "${FILESDIR}"/${PN}-4.2.2-lpf-ib.patch
+		epatch "${FILESDIR}"/${PN}-4.2.2-improved-xid.patch
+		epatch "${FILESDIR}"/${PN}-4.2.2-gpxe-cid.patch
 	fi
 
 	# Brand the version with Gentoo
