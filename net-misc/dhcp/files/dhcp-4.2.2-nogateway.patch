@@ -1,7 +1,7 @@
 http://bugs.gentoo.org/265531
 
---- dhcp-4.2.1/client/scripts/linux
-+++ dhcp-4.2.1/client/scripts/linux
+--- dhcp-4.2.2/client/scripts/linux
++++ dhcp-4.2.2/client/scripts/linux
 @@ -193,12 +193,14 @@
      ifconfig $interface inet $new_ip_address $new_subnet_arg \
  					$new_broadcast_arg $mtu_arg
@@ -20,9 +20,9 @@ http://bugs.gentoo.org/265531
 +        route add default gw $router $metric_arg dev $interface
 +      done
 +    fi
-   fi
-   if [ x$new_ip_address != x$alias_ip_address ] && [ x$alias_ip_address != x ];
-    then
+   else
+     # we haven't changed the address, have we changed other options           
+     # that we wish to update?
 @@ -244,12 +246,14 @@
        ifconfig $interface:0 inet $alias_ip_address $alias_subnet_arg
        route add -host $alias_ip_address dev $interface:0

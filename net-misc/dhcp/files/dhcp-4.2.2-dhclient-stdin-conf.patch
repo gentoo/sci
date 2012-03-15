@@ -1,18 +1,17 @@
-diff -uNr dhcp-4.0.1.ORIG/client/clparse.c dhcp-4.0.1/client/clparse.c
---- dhcp-4.0.1.ORIG/client/clparse.c	2009-03-30 13:54:47.000000000 +0100
-+++ dhcp-4.0.1/client/clparse.c	2009-03-30 13:58:02.000000000 +0100
-@@ -174,6 +174,10 @@
+--- dhcp-4.2.2/client/clparse.c
++++ dhcp-4.2.2/client/clparse.c
+@@ -182,6 +182,10 @@ isc_result_t read_client_conf ()
  #endif
  	}
  
-+       /* Read any extra configuration from stdin */
-+	read_client_conf_stdin ((struct interface_info *)0,
-+				&top_level_config);
++	/* Read any extra configuration from stdin */
++	extern int read_client_conf_stdin (struct interface_info *ip, struct client_config *client);
++	read_client_conf_stdin (NULL, &top_level_config);
 +
  	/* Set up state and config structures for clients that don't
  	   have per-interface configuration statements. */
  	config = (struct client_config *)0;
-@@ -203,23 +207,13 @@
+@@ -211,23 +215,13 @@ isc_result_t read_client_conf ()
  	return status;
  }
  
@@ -25,7 +24,7 @@ diff -uNr dhcp-4.0.1.ORIG/client/clparse.c dhcp-4.0.1/client/clparse.c
  	const char *val;
  	int token;
  	isc_result_t status;
- 	
+ 
 -	if ((file = open (name, O_RDONLY)) < 0)
 -		return uerr2isc (errno);
 -
@@ -37,9 +36,9 @@ diff -uNr dhcp-4.0.1.ORIG/client/clparse.c dhcp-4.0.1/client/clparse.c
  	do {
  		token = peek_token (&val, (unsigned *)0, cfile);
  		if (token == END_OF_FILE)
-@@ -230,10 +224,74 @@
+@@ -238,10 +232,74 @@ int read_client_conf_file (const char *name, struct interface_info *ip,
  	status = (cfile -> warnings_occurred
- 		  ? ISC_R_BADPARSE
+ 		  ? DHCP_R_BADPARSE
  		  : ISC_R_SUCCESS);
 +	return status;
 +}
