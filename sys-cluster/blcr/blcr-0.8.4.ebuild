@@ -39,15 +39,16 @@ pkg_setup() {
 	ECONF_PARAMS="--with-kernel=${KV_DIR}"
 }
 
+
 src_install() {
 	dodoc README NEWS
-	cd "${S}"/util
+	cd "${S}"/util || die
 	emake DESTDIR="${D}" install || die "binaries install failed"
-	cd "${S}"/libcr
+	cd "${S}"/libcr || die
 	emake DESTDIR="${D}" install || die "libcr install failed"
-	cd "${S}"/man
+	cd "${S}"/man || die
 	emake DESTDIR="${D}" install || die "man install failed"
-	cd "${S}"/include
+	cd "${S}"/include || die
 	emake DESTDIR="${D}" install || die "headers install failed"
 	linux-mod_src_install
 }
