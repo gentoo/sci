@@ -4,6 +4,10 @@
 
   15 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   sra_sdk-2.1.9.ebuild:
+  added missing insinto sra_sdk-2.1.9.ebuild
+
+  15 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  sra_sdk-2.1.9.ebuild:
   use EAPI=4 hoping it will handle symlinks in bin/ and lib/ directories
   properly (but it does not, bug #408199 sra_sdk-2.1.9.ebuild
 

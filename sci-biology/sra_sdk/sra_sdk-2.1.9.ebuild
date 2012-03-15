@@ -90,6 +90,7 @@ src_install(){
 
 
 	# BUG: neither the dolib nor cp --preserve=all work
+	#insinto /usr/lib64
 	#dolib "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/lib/*
 	mkdir -p "${D}"/usr/lib64
 	for f in "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/lib/*; do cp --preserve=all "$f" "${D}"/usr/lib64/ || die "$f copying failed" ; done
