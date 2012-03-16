@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openblas-0.1_alpha25 (16 Mar 2012)
+
+  16 Mar 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +openblas-0.1_alpha25.ebuild:
+  Version bump
+
   15 Mar 2012; François Bissey <francois.bissey@canterbury.ac.nz>
   openblas-0.1_alpha2.ebuild, openblas-9999.ebuild:
   correct typo
