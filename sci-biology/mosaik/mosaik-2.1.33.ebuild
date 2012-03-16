@@ -13,15 +13,17 @@ HOMEPAGE="http://code.google.com/p/mosaik-aligner/"
 
 if [ "$PV" == "9999" ]; then
 	EGIT_REPO_URI="http://code.google.com/p/mosaik-aligner"
+	KEYWORDS=""
 else
 	SRC_URI="http://mosaik-aligner.googlecode.com/files/MOSAIK-${PV}-source.tar
 		http://code.google.com/p/mosaik-aligner/downloads/detail?name=Mosaik%201.0%20Documentation.pdf -> Mosaik-1.0-Documentation.pdf"
+	#KEYWORDS="~amd64 ~x86"
+	KEYWORDS=""
 fi
 
 LICENSE="GPL-2 || ( MIT )"
 SLOT="0"
 IUSE=""
-KEYWORDS="~amd64 ~x86"
 
 DEPEND=""
 RDEPEND=""

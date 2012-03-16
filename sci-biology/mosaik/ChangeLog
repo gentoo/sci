@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  mosaik-2.1.33.ebuild, mosaik-9999.ebuild:
+  sci-biology/mosaik: masking mosaik-2.1.33 mosaik-9999
+
 *mosaik-9999 (15 Mar 2012)
 
   15 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
