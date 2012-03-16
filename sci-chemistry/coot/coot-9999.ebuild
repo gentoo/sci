@@ -5,6 +5,7 @@
 EAPI=4
 
 PYTHON_DEPEND="2"
+
 AUTOTOOLS_AUTORECONF="true"
 
 inherit autotools-utils python subversion toolchain-funcs versionator
@@ -24,6 +25,8 @@ SLOT="0"
 LICENSE="GPL-3"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="+openmp static-libs test"
+
+AUTOTOOLS_IN_SOURCE_BUILD=1
 
 SCIDEPS="
 	>=sci-libs/ccp4-libs-6.1
@@ -69,8 +72,6 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}"
 
-AUTOTOOLS_IN_SOURCE_BUILD=1
-
 pkg_setup() {
 	if use openmp; then
 		tc-has-openmp || die "Please use an OPENMP capable compiler"
@@ -82,9 +83,7 @@ pkg_setup() {
 PATCHES=(
 	"${FILESDIR}"/${PV}-clipper-config.patch
 	"${FILESDIR}"/${PV}-goocanvas.patch
-	"${FILESDIR}"/${PV}-gl.patch
 	"${FILESDIR}"/${PV}-mmdb-config.patch
-	"${FILESDIR}"/${PV}-test.patch
 	"${FILESDIR}"/${PV}-ssm.patch
 	"${FILESDIR}"/${PV}-libpng-1.5.patch
 	)
@@ -95,6 +94,10 @@ src_unpack() {
 }
 
 src_prepare() {
+	sed \
+		-e "s:AM_COOT_SYS_BUILD_TYPE:COOT_SYS_BUILD_TYPE=Gentoo-Linux-$(PYTHON)-gtk2 ; AC_MSG_RESULT([\$COOT_SYS_BUILD_TYPE]); AC_SUBST(COOT_SYS_BUILD_TYPE):g" \
+		-i configure.in || die
+
 	autotools-utils_src_prepare
 
 	cat >> src/svn-revision.cc <<- EOF
