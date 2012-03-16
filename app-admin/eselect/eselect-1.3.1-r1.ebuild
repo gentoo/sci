@@ -59,6 +59,12 @@ src_install() {
 	keepdir /var/lib/gentoo/news
 	fowners root:portage /var/lib/gentoo/news || die
 	fperms g+w /var/lib/gentoo/news || die
+
+	# band aid for prefix
+	if use prefix; then
+		cd "${ED}"/usr/share/eselect/libs
+		sed -i "s:ALTERNATIVESDIR_ROOTLESS=\"${EPREFIX}:ALTERNATIVESDIR_ROOTLESS=\":" alternatives.bash
+	fi
 }
 
 pkg_postinst() {

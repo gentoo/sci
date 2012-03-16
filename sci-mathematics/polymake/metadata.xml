@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<maintainer>
+<email>tomka@gentoo.org</email>
+<name>Thomas Kahle</name>
+</maintainer>
+<herd>sci-mathematics</herd>
+<use>
+  <flag name="libpolymake">Build the polymake library to build applications using the C++ interface.</flag>
+</use>
+<longdescription lang="en">
+Polymake started out as a tool for the algorithmic treatment of convex
+polyhedra. By now it also deals with finite simplicial complexes,
+tight spans of finite metric spaces, and other objects. 
+</longdescription>
+</pkgmetadata>
