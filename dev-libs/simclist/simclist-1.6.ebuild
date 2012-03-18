@@ -7,7 +7,7 @@ EAPI=3
 inherit cmake-utils
 
 DESCRIPTION="SimCList is a high quality C (C++ embeddable) library for handling lists."
-HOMEPAGE="http://mij.oltrelinux.com/devel/simclist/"
+HOMEPAGE="http://mij.oltrelinux.com/devel/simclist"
 SRC_URI="${HOMEPAGE}/${P/_/}.tar.bz2"
 
 LICENSE="BSD"

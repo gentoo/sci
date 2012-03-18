@@ -33,11 +33,6 @@ src_prepare(){
 	rm share/libc/test.c
 	rm -Rf src/wp
 
-	mkdir cil/pdf
-	mv cil/doc/*.pdf cil/doc/*.tex cil/pdf
-	mv cil/doc cil/html
-	mv doc/manuals doc/pdf
-
 	sed -e "s:1\.8):1\.8\.1):g" -i configure.in
 
 	touch config_file
@@ -66,8 +61,6 @@ src_install(){
 	dodoc Changelog doc/README
 
 	if use doc; then
-		dodoc doc/pdf/*.pdf
-		dodoc cil/pdf/*.pdf
-		dohtml -r cil/html/*
+		dodoc doc/manuals/*.pdf
 	fi
 }
