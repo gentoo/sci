@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/acml/acml-4.1.0-r1.ebuild,v 1.4 2008/12/07 18:28:37 vapier Exp $
 
@@ -10,8 +10,8 @@ MYP=${PN}-$(replace_all_version_separators -)-lin64
 
 DESCRIPTION="AMD replacement of libm for x86_64 architectures"
 HOMEPAGE="http://developer.amd.com/cpu/Libraries/LibM/Pages/default.aspx"
-SRC_URI="http://download2-developer.amd.com/amd/LIBM/${MYP}.tgz"
-LICENSE="AMD"
+SRC_URI="" #bug 405803
+LICENSE="amdlibm"
 SLOT="0"
 KEYWORDS="-* ~amd64"
 IUSE="examples static-libs"
