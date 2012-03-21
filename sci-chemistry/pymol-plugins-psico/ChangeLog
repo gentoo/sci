@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/pymol-plugins-psico
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pymol-plugins-psico-9999 (21 Mar 2012)
+
+  21 Mar 2012; Justin Lecher <jlec@gentoo.org>
+  +pymol-plugins-psico-9999.ebuild, +metadata.xml:
+  New addition, written by me, #408995
+
