@@ -128,6 +128,7 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-explicit-functions.patch
 
 	# make sure we use system libs and headers
@@ -138,7 +139,6 @@ src_prepare() {
 	rm -rf graf3d/glew/{inc,src}
 	rm -rf core/pcre/src
 	rm -rf math/unuran/src/unuran-*.tar.gz
-	LANG=C LC_ALL=C find core/zip -type f -name "[a-z]*" | xargs rm
 	rm -rf core/lzma/src/*.tar.gz
 	rm graf3d/gl/{inc,src}/gl2ps.*
 	sed -i -e 's/^GLLIBS *:= .* $(OPENGLLIB)/& -lgl2ps/' graf3d/gl/Module.mk
