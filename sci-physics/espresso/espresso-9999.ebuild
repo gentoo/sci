@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/espresso/espresso-3.0.0.ebuild,v 1.1 2011/04/20 13:03:00 ottxor Exp $
 
@@ -9,7 +9,7 @@ inherit autotools-utils savedconfig
 DESCRIPTION="Extensible Simulation Package for Research on Soft matter"
 HOMEPAGE="http://www.espressomd.org"
 
-if [ "${PV%9999}" != "${PV}" ]; then
+if [[ ${PV} = 9999 ]]; then
 	EGIT_REPO_URI="git://git.savannah.nongnu.org/espressomd.git"
 	EGIT_BRANCH="master"
 	inherit git-2
@@ -33,6 +33,7 @@ RDEPEND="
 	X? ( x11-libs/libX11 )"
 
 DEPEND="${RDEPEND}
+	dev-lang/python
 	doc? (
 		app-doc/doxygen[-nodot]
 		virtual/latex-base )"
@@ -41,9 +42,6 @@ DOCS=( AUTHORS NEWS README ChangeLog )
 
 src_prepare() {
 	autotools-utils_src_prepare
-	sed -i -e '/^[^S]/s/tutorials/tutorial/g' \
-		-e 's/cd tutorial/&s/' doc/Makefile.am \
-		|| die "sed of Makefile.am failed"
 	eautoreconf
 	restore_config myconfig.h
 }
@@ -60,7 +58,8 @@ src_configure() {
 
 src_compile() {
 	autotools-utils_src_compile
-	use doc && autotools-utils_src_compile doc
+	use doc && autotools-utils_src_compile ug doxygen tutorials
+	[[ ${PV} = 9999 ]] && use doc && autotools-utils_src_compile dg
 }
 
 src_install() {
@@ -74,12 +73,11 @@ src_install() {
 	save_config ${AUTOTOOLS_BUILD_DIR}/src/myconfig-final.h
 
 	if use doc; then
-		local where="."
-		[ "${PV%9999}" != "${PV}" ] && where="${AUTOTOOLS_BUILD_DIR}"
-		newdoc ${where}/doc/ug/ug.pdf user_guide.pdf
-		newdoc ${where}/doc/dg/dg.pdf developer_guide.pdf
+		[[ ${PV} = 9999 ]] && \
+			newdoc ${AUTOTOOLS_BUILD_DIR}/doc/dg/dg.pdf developer_guide.pdf
+		newdoc ${AUTOTOOLS_BUILD_DIR}/doc/ug/ug.pdf user_guide.pdf
 		dohtml -r ${AUTOTOOLS_BUILD_DIR}/doc/doxygen/html/*
-		for i in ${where}/doc/tutorials/*/[0-9]*.pdf; do
+		for i in ${AUTOTOOLS_BUILD_DIR}/doc/tutorials/*/[0-9]*.pdf; do
 			newdoc ${i} tutorial_${i##*/}
 		done
 	fi
