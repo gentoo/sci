@@ -24,7 +24,7 @@ SLOT="0"
 LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
-	+math mpi mysql ncurses odbc +opengl openmp oracle postgres prefix
+	+math mpi mysql odbc +opengl openmp oracle postgres prefix
 	pythia6	pythia8	python qt4 +reflex ruby ssl xft xinetd xml xrootd"
 
 CDEPEND="
@@ -66,7 +66,6 @@ CDEPEND="
 	ldap? ( net-nds/openldap )
 	math? ( sci-libs/gsl sci-mathematics/unuran mpi? ( virtual/mpi ) )
 	mysql? ( virtual/mysql )
-	ncurses? ( sys-libs/ncurses )
 	odbc? ( || ( dev-db/libiodbc dev-db/unixODBC ) )
 	oracle? ( dev-db/oracle-instantclient-basic )
 	postgres? ( dev-db/postgresql-base )
@@ -139,6 +138,7 @@ src_prepare() {
 	rm -rf graf3d/glew/{inc,src}
 	rm -rf core/pcre/src
 	rm -rf math/unuran/src/unuran-*.tar.gz
+	LANG=C LC_ALL=C find core/zip -type f -name "[a-z]*" | xargs rm
 	rm -rf core/lzma/src/*.tar.gz
 	rm graf3d/gl/{inc,src}/gl2ps.*
 	sed -i -e 's/^GLLIBS *:= .* $(OPENGLLIB)/& -lgl2ps/' graf3d/gl/Module.mk
@@ -201,7 +201,6 @@ src_configure() {
 		$(use_enable avahi bonjour) \
 		$(use_enable clarens) \
 		$(use_enable clarens peac) \
-		$(use_enable ncurses editline) \
 		$(use_enable fits fitsio) \
 		$(use_enable fftw fftw3) \
 		$(use_enable graphviz gviz) \
