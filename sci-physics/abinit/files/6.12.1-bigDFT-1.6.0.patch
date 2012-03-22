@@ -1,0 +1,61 @@
+diff -Naur abinit-6.12.1_orig/src/42_wvl_wrappers/wvl_descr_psp_set.F90 abinit-6.12.1/src/42_wvl_wrappers/wvl_descr_psp_set.F90
+--- src/42_wvl_wrappers/wvl_descr_psp_set.F90	2012-01-30 20:43:51.000000000 +0000
++++ src/42_wvl_wrappers/wvl_descr_psp_set.F90	2012-03-19 13:06:59.000000000 +0000
+@@ -105,7 +105,7 @@
+  ! Missing currently read radii_cf.
+  wvl%atoms%donlcc = .false.
+  ! TODO: add symmetry support
+- wvl%atoms%symObj = -1
++ wvl%atoms%sym%symObj = -1
+ #endif  
+ end subroutine wvl_descr_psp_set
+ !!***
+diff -Naur abinit-6.12.1_orig/src/42_wvl_wrappers/wvl_projectors_set.F90 abinit-6.12.1/src/42_wvl_wrappers/wvl_projectors_set.F90
+--- src/42_wvl_wrappers/wvl_projectors_set.F90	2012-01-30 20:43:50.000000000 +0000
++++ src/42_wvl_wrappers/wvl_projectors_set.F90	2012-03-19 13:17:37.000000000 +0000
+@@ -122,7 +122,7 @@
+  ABI_ALLOCATE(xcart,(3, natom))
+  call xredxcart(natom, 1, rprimd, xcart, xred)
+ 
+- call createProjectorsArrays(me, wfs%Glr%d%n1, wfs%Glr%d%n2, wfs%Glr%d%n3, &
++ call createProjectorsArrays(me, wfs%Glr, &
+       & xcart, wvl%atoms, wfs%orbs, psps%gth_params%radii_cf, &
+       & wvl_frmult, wvl_frmult, wvl%h(1), wvl%h(2), wvl%h(3), proj%keys, proj%proj)
+  write(message, '(a,a,a,a,I0)' ) ch10,&
+diff -Naur abinit-6.12.1_orig/src/42_wvl_wrappers/wvl_wfs_free.F90 abinit-6.12.1/src/42_wvl_wrappers/wvl_wfs_free.F90
+--- src/42_wvl_wrappers/wvl_wfs_free.F90	2012-01-30 20:43:50.000000000 +0000
++++ src/42_wvl_wrappers/wvl_wfs_free.F90	2012-03-19 13:01:03.000000000 +0000
+@@ -68,7 +68,7 @@
+ #if defined HAVE_DFT_BIGDFT
+   call deallocate_lr(wfs%Glr, sub)
+   call deallocate_orbs(wfs%orbs, sub)
+-  call deallocate_diis_objects(wfs%diis, sub)
++  ! call deallocate_diis_objects(wfs%diis, sub)
+   call deallocate_comms(wfs%comms, sub)
+   if (associated(wfs%orbs%eval))  then
+     ABI_DEALLOCATE(wfs%orbs%eval)
+diff -Naur abinit-6.12.1_orig/src/42_wvl_wrappers/wvl_wfs_set.F90 abinit-6.12.1/src/42_wvl_wrappers/wvl_wfs_set.F90
+--- src/42_wvl_wrappers/wvl_wfs_set.F90	2012-01-30 20:43:55.000000000 +0000
++++ src/42_wvl_wrappers/wvl_wfs_set.F90	2012-03-19 12:58:54.000000000 +0000
+@@ -59,7 +59,7 @@
+  use defs_wvltypes
+ #if defined HAVE_DFT_BIGDFT
+   use BigDFT_API, only: createWavefunctionsDescriptors, orbitals_descriptors, &
+-       & orbitals_communicators, allocate_diis_objects, wvl_timing => timing
++       & orbitals_communicators, wvl_timing => timing
+ #endif
+ 
+ !This section has been created automatically by the script Abilint (TD).
+@@ -179,9 +179,9 @@
+  call wvl_timing(me,'CrtDescriptors','OF')
+ 
+  ! allocate arrays necessary for DIIS convergence acceleration
+- call allocate_diis_objects(nwfshist,1._dp,&
+-      & sum(wfs%comms%ncntt(0:nproc-1)), wfs%orbs%nkptsp, wfs%orbs%nspinor, &
+-      & wfs%orbs%norbd, wfs%diis, "wvl_init_wfs_type")
++ ! call allocate_diis_objects(nwfshist,1._dp,&
++ !      & sum(wfs%comms%ncntt(0:nproc-1)), wfs%orbs%nkptsp, wfs%orbs%nspinor, &
++ !      & wfs%orbs%norbd, wfs%diis, "wvl_init_wfs_type")
+ 
+ #else
+  write(message, '(a,a,a,a)' ) ch10,&

@@ -1,0 +1,21 @@
+diff -Naur old/fallbacks/configure.ac new/fallbacks/configure.ac
+--- old/fallbacks/configure.ac	2012-01-30 19:40:41.000000000 +0000
++++ new/fallbacks/configure.ac	2012-02-13 08:16:08.000000000 +0000
+@@ -114,6 +114,17 @@
+ 
+ # ---------------------------------------------------------------------------- #
+ 
++AM_CONDITIONAL([DO_BUILD_FOX],[test "${enable_fox}" = "yes"])
++AM_CONDITIONAL([DO_BUILD_LIBXC],[test "${enable_libxc}" = "yes"])
++AM_CONDITIONAL([DO_BUILD_LINALG],[test "${enable_linalg}" = "yes"])
++AM_CONDITIONAL([DO_BUILD_NETCDF],[test "${enable_netcdf}" = "yes"])
++AM_CONDITIONAL([DO_BUILD_ETSF_IO],[test "${enable_etsf_io}" = "yes"])
++AM_CONDITIONAL([DO_BUILD_ATOMPAW],[test "${enable_atompaw}" = "yes"])
++AM_CONDITIONAL([DO_BUILD_WANNIER90],[test "${enable_wannier90}" = "yes"])
++AM_CONDITIONAL([DO_BUILD_BIGDFT],[test "${enable_bigdft}" = "yes"])
++
++# ---------------------------------------------------------------------------- #
++
+ #
+ # Downloading support
+ #

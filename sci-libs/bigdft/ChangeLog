@@ -2,6 +2,21 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*bigdft-1.6_pre1 (22 Mar 2012)
+*bigdft-1.6_pre0 (22 Mar 2012)
+
+  22 Mar 2012; Honza Macháček <Hloupy.Honza@centrum.cz>
+  +bigdft-1.2.0.2.ebuild, +bigdft-1.2.0.5.ebuild, +bigdft-1.6_pre0.ebuild,
+  +bigdft-1.6_pre1.ebuild, bigdft-1.6.0.ebuild,
+  +files/bigdft-1.6.0-libxc_dir_include.patch,
+  +files/bigdft-1.6-tuto.1-bigdft.pc.patch,
+  +files/bigdft-1.6-tuto.1-libxc_dir_include.patch,
+  +files/bigdft-1.6-tuto-bigdft.pc.patch,
+  +files/bigdft-1.6-tuto-libxc_dir_include.patch:
+  Old versions used by old versions of abinit ressurected. May be removed
+  forever if nobody complains about the latest abinit. 1.6.0 corrected,
+  1.6_pre0 and 1.6_pre1 added; 1.6_pre1 is used by sci-physics/abinit-6.12.1.
+
 *bigdft-1.6.0 (18 Feb 2012)
 
   18 Feb 2012; Justin Lecher <jlec@gentoo.org> -bigdft-1.2.0.2.ebuild,

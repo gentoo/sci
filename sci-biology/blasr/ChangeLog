@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/blasr
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*blasr-9999 (22 Mar 2012)
+
+  22 Mar 2012; Andrey Kislyuk <weaver@gentoo.org> +blasr-9999.ebuild,
+  +metadata.xml:
+  New package, ebuild written by me
+

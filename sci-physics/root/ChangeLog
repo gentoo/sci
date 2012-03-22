@@ -2,6 +2,20 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.93 2012/03/02 05:34:01 bicatali Exp $
 
+  22 Mar 2012; Andrew Savchenko <bircoph@gmail.com> root-5.32.01-r2.ebuild,
+  root-9999.ebuild:
+  Apply chklib64 fix to the live ebuild as well.
+  Remove deprecated ncurses support and editline option: they are
+  deprecated and do nothing actually.
+
+  21 Mar 2012; Andrew Savchenko <bircoph@gmail.com>
+  +files/root-5.32.00-chklib64.patch, root-5.32.01-r2.ebuild:
+  Fix library architecture check (32/64 bit) for libraries having .so
+  file installed as an ld script instead of normal binary file.
+  See bug 406817 for details.
+  Thanks to Jean-Francois Ostiguy and Jauhien Piatlicki for their
+  major work on this bug.
+
 *root-9999 (09 Mar 2012)
 *root-5.32.01-r2 (09 Mar 2012)
 

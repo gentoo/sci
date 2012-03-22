@@ -24,7 +24,7 @@ SLOT="0"
 LICENSE="LGPL-2.1"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
-	+math mpi mysql ncurses odbc +opengl openmp oracle postgres prefix
+	+math mpi mysql odbc +opengl openmp oracle postgres prefix
 	pythia6	pythia8	python qt4 +reflex ruby ssl xft xinetd xml xrootd"
 
 CDEPEND="
@@ -66,7 +66,6 @@ CDEPEND="
 	ldap? ( net-nds/openldap )
 	math? ( sci-libs/gsl sci-mathematics/unuran mpi? ( virtual/mpi ) )
 	mysql? ( virtual/mysql )
-	ncurses? ( sys-libs/ncurses )
 	odbc? ( || ( dev-db/libiodbc dev-db/unixODBC ) )
 	oracle? ( dev-db/oracle-instantclient-basic )
 	postgres? ( dev-db/postgresql-base )
@@ -128,6 +127,7 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-explicit-functions.patch
 
 	# make sure we use system libs and headers
@@ -201,7 +201,6 @@ src_configure() {
 		$(use_enable avahi bonjour) \
 		$(use_enable clarens) \
 		$(use_enable clarens peac) \
-		$(use_enable ncurses editline) \
 		$(use_enable fits fitsio) \
 		$(use_enable fftw fftw3) \
 		$(use_enable graphviz gviz) \
