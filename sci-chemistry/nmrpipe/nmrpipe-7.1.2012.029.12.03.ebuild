@@ -12,10 +12,8 @@ DESCRIPTION="Spectral visualisation, analysis and Fourier processing"
 HOMEPAGE="http://spin.niddk.nih.gov/bax/software/NMRPipe/"
 SRC_URI="
 	NMRPipeX.tZ
-	valpha_all.tar
 	talos.tZ
 	dyn.tZ
-	acme.tar.Z
 	binval.com
 	install.com"
 
@@ -69,8 +67,8 @@ pkg_nofetch() {
 src_unpack() {
 	# The installation script will unpack the package. We just provide symlinks
 	# to the archive files, ...
-	for i in valpha_all.tar talos.tZ NMRPipeX.tZ dyn.tZ acme.tar.Z; do
-		ln -s "${DISTDIR}"/${i} ${i}
+	for i in NMRPipeX.tZ talos.tZ dyn.tZ; do
+		ln -sf "${DISTDIR}"/${i} || die
 	done
 	# ... copy the installation scripts ...
 	cp -L "${DISTDIR}"/{binval.com,install.com} .
@@ -79,7 +77,7 @@ src_unpack() {
 	# Unset DISPLAY to avoid the interactive graphical test.
 	# This just unpacks the stuff
 #	env DISPLAY="" csh ./install.com +type linux9 +dest "${S}"/NMR || die
-	VIRTUALX_COMMAND="csh ./install.com +type linux9 +dest ${S}/NMR" virtualmake
+	VIRTUALX_COMMAND="csh ./install.com +type linux9 +dest ${S}/NMR +nopost" virtualmake
 }
 
 src_prepare() {
@@ -112,7 +110,7 @@ src_install() {
 	EOF
 
 	# Remove the symlinks for the archives and the installation scripts.
-	for i in ${A} valpha_hn.tar valpha_time.tar valpha.tar; do
+	for i in ${A} ; do
 		rm -f ${i} || die "Failed to remove archive symlinks."
 	done
 	# Remove some of the bundled applications and libraries; they are provided by Gentoo instead.
