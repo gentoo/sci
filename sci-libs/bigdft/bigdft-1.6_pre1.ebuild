@@ -9,7 +9,8 @@ inherit autotools-utils flag-o-matic fortran-2 toolchain-funcs
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
 HOMEPAGE="http://inac.cea.fr/L_Sim/BigDFT/"
 
-REAL_P="${P/_pre0/-tuto}"
+REAL_P="${P/_pre/-tuto.}"
+REAL_P="${REAL_P/-tuto.0/-tuto}"
 S="${WORKDIR}/${REAL_P}"
 
 SRC_URI="
@@ -63,6 +64,9 @@ pkg_setup() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/"${REAL_P}"-libxc_dir_include.patch
+	epatch "${FILESDIR}"/"${REAL_P}"-bigdft.pc.patch
+	sed -i -e's/capitalize_module_ext/ax_fc_mod_ext/g' "${S}"/configure
+	sed -i -e's/capitalize_module_ext/ax_fc_mod_ext/g' "${S}"/configure.ac
 	eautoreconf
 }
 
@@ -84,6 +88,7 @@ src_configure() {
 			$(pkg-config --libs-only-l blas)"
 		--with-ext-linalg-path="$(pkg-config --libs-only-L lapack) \
 			$(pkg-config --libs-only-L blas)"
+		--enable-libxc
 		--disable-internal-libxc
 		--with-libxc-path="/usr"
 		--with-libxc-include="${modules}"

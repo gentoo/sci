@@ -11,6 +11,11 @@ ABINIT is a package whose main program allows one to find the total energy, char
   </flag>
 </use>
 <use>
+  <flag name="cuda-double">
+   Enable support for double precision nVidia CUDA
+  </flag>
+</use>
+<use>
   <flag name="fftw-threads">
    Use the threaded version of sci-libs/fftw
   </flag>

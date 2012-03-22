@@ -1,6 +1,19 @@
 # ChangeLog for sci-physics/abinit
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*abinit-6.12.1 (22 Mar 2012)
+
+  22 Mar 2012; Honza Macháček <Hloupy.Honza@centrum.cz>
+  +files/6.12.1-autoconf.patch, -abinit-6.10.1.ebuild,
+  +files/6.12.1-gui-conf.patch, +abinit-6.12.1.ebuild,
+  +files/6.12.1-libabinit_options.patch, +files/6.12.1-xmalloc.patch,
+  +files/6.12.1-bigDFT-1.6.0.patch, metadata.xml:
+  6.12.1 added, moved towards autotools-utils. Uses sci-libs/bigdft-1.6_pre1,
+  patching to use the latest 1.6.0 still not done. Libraries installed,
+  pkg-config file corrected; libabinit made an option, but for now would
+  conflict with sci-libs/bigdft. TO DO: Make sci-libs/bigdft compile against
+  libabinit of sci-physics/abinit, solve the resulting circular dependency.
 
 *abinit-6.10.3 (14 Dec 2011)
 

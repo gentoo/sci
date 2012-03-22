@@ -1,0 +1,48 @@
+diff -Naur abinit-6.12.1_orig/src/02_clib/fsi_posix.c abinit-6.12.1/src/02_clib/fsi_posix.c
+--- src/02_clib/fsi_posix.c	2012-01-30 19:40:41.000000000 +0000
++++ src/02_clib/fsi_posix.c	2012-03-22 08:21:46.000000000 +0000
+@@ -19,7 +19,7 @@
+ */
+ 
+ #include "abi_clib.h"
+-#include "xmalloc.h"
++/* #include "xmalloc.h" */
+ #include "string_f.h"
+ 
+ /* Create a directory */
+diff -Naur abinit-6.12.1_orig/src/02_clib/intrinsics.c abinit-6.12.1/src/02_clib/intrinsics.c
+--- src/02_clib/intrinsics.c	2012-01-30 19:40:41.000000000 +0000
++++ src/02_clib/intrinsics.c	2012-03-22 08:20:26.000000000 +0000
+@@ -18,7 +18,7 @@
+  */
+ 
+ #include "abi_clib.h"
+-#include "xmalloc.h"
++/* #include "xmalloc.h" */
+ #include "string_f.h"
+ 
+ /* 
+diff -Naur abinit-6.12.1_orig/src/02_clib/progress_bar.c abinit-6.12.1/src/02_clib/progress_bar.c
+--- src/02_clib/progress_bar.c	2012-01-30 19:40:41.000000000 +0000
++++ src/02_clib/progress_bar.c	2012-03-22 08:21:06.000000000 +0000
+@@ -20,7 +20,7 @@
+ */
+ 
+ #include "abi_clib.h"
+-#include "xmalloc.h"
++/* #include "xmalloc.h" */
+ 
+ #include <sys/time.h>
+ #include <sys/ioctl.h>
+diff -Naur abinit-6.12.1_orig/src/02_clib/xmalloc.c abinit-6.12.1/src/02_clib/xmalloc.c
+--- src/02_clib/xmalloc.c	2012-01-30 19:40:41.000000000 +0000
++++ src/02_clib/xmalloc.c	2012-03-22 08:22:09.000000000 +0000
+@@ -19,7 +19,7 @@
+  */
+ 
+ #include "abi_clib.h"
+-#include "xmalloc.h"
++/* #include "xmalloc.h" */
+ 
+ static void
+ memory_error_and_abort (const char *fname)

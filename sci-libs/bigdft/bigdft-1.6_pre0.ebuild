@@ -9,7 +9,8 @@ inherit autotools-utils flag-o-matic fortran-2 toolchain-funcs
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
 HOMEPAGE="http://inac.cea.fr/L_Sim/BigDFT/"
 
-REAL_P="${P/_pre0/-tuto}"
+REAL_P="${P/_pre/-tuto.}"
+REAL_P="${REAL_P/-tuto.0/-tuto}"
 S="${WORKDIR}/${REAL_P}"
 
 SRC_URI="
@@ -63,6 +64,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/"${REAL_P}"-libxc_dir_include.patch
+	epatch "${FILESDIR}"/"${REAL_P}"-bigdft.pc.patch
 	eautoreconf
 }
 
