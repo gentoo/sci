@@ -56,6 +56,14 @@ DOCS=( AUTHORS ChangeLog COPYING INSTALL KNOWN_PROBLEMS NEWS PACKAGING
 FORTRAN_STANDARD=90
 
 pkg_setup() {
+	# Doesn't compile with gcc-4.0, only >=4.1
+	if [[ $(tc-getFC) == *gfortran ]]; then
+		if [[ $(gcc-major-version) -eq 4 ]] \
+			&& [[ $(gcc-minor-version) -lt 1  ]]; then
+				die "Requires gcc-4.1 or newer"
+		fi
+	fi
+
 	# fortran-2.eclass does not handle mpi wrappers
 	if use mpi; then
 		export FC="mpif90"
@@ -65,15 +73,11 @@ pkg_setup() {
 	else
 		tc-export FC F77 CC CXX
 	fi
-	fortran-2_pkg_setup
 
-	# Doesn't compile with gcc-4.0, only >=4.1
-	if [[ $(tc-getFC) == *gfortran ]]; then
-		if [[ $(gcc-major-version) -eq 4 ]] \
-			&& [[ $(gcc-minor-version) -lt 1  ]]; then
-				die "Requires gcc-4.1 or newer"
-		fi
-	fi
+	# Preprocesor macross can make some lines really long
+	append-fflags -ffree-line-length-none
+
+	fortran-2_pkg_setup
 
 	# Sort out some USE options
 	if use fftw-threads && ! use fftw; then

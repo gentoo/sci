@@ -31,6 +31,12 @@ ABINIT is a package whose main program allows one to find the total energy, char
   </flag>
 </use>
 <use>
+  <flag name="libabinit">
+   Build the libabinit used by sci-libs/bigdft
+   (usage not tested yet, circular dependency not resolved)
+  </flag>
+</use>
+<use>
   <flag name="vdwxc">
    Activate van der Waals exchange-correlation
   </flag>
