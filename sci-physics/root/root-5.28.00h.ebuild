@@ -38,7 +38,7 @@ CDEPEND="
 	media-libs/glew
 	media-libs/libpng:0
 	media-libs/tiff:0
-	sys-apps/shadow
+	virtual/shadow
 	virtual/jpeg
 	x11-libs/libX11
 	x11-libs/libXext

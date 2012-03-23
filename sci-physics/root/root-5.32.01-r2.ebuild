@@ -35,7 +35,7 @@ CDEPEND="
 	media-libs/giflib
 	media-libs/libpng:0
 	media-libs/tiff:0
-	sys-apps/shadow
+	virtual/shadow
 	sys-libs/zlib
 	virtual/jpeg
 	X? (
