@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils flag-o-matic fortran-2 toolchain-funcs versionator
+inherit base flag-o-matic fortran-2 toolchain-funcs versionator
 
 MY_P="${PN}-$(replace_version_separator _ -)"
 
@@ -55,14 +55,13 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${MY_P}"
 
-src_prepare() {
-	epatch \
-		"${FILESDIR}"/${P}-configure-pic.patch \
-		"${FILESDIR}"/${P}-disable-env-warnings.patch \
-		"${FILESDIR}"/${P}-disable-rpath.patch \
-		"${FILESDIR}"/${P}-fix-xops.patch \
-		"${FILESDIR}"/${P}-fix-afterimage.patch
-}
+PATCHES=(
+	"${FILESDIR}"/${P}-configure-pic.patch
+	"${FILESDIR}"/${P}-disable-env-warnings.patch
+	"${FILESDIR}"/${P}-disable-rpath.patch
+	"${FILESDIR}"/${P}-fix-xops.patch
+	"${FILESDIR}"/${P}-fix-afterimage.patch
+)
 
 src_configure() {
 	# petsc uses --with-blah=1 and --with-blah=0 to en/disable options
