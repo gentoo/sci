@@ -21,13 +21,8 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${P}"
 
-pkg_setup() {
-	ewarn "If the compilation fails, try setting the TARGET environment variable"
-	ewarn "to your CPU's codename and run emerge again."
-}
-
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-{sharedlibs,aliasing}.patch
+	epatch "${FILESDIR}"/${PN}-{sharedlibs-0.1,aliasing}.patch
 	# respect LDFLAGS
 	sed -i -e '/^LDFLAGS\s*=/d' Makefile.* || die
 	# respect CFLAGS only if dynamic flag not enabled
