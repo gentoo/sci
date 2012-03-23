@@ -35,9 +35,9 @@ CDEPEND="
 	media-libs/giflib
 	media-libs/libpng:0
 	media-libs/tiff:0
-	virtual/shadow
 	sys-libs/zlib
 	virtual/jpeg
+	virtual/shadow
 	X? (
 		media-libs/ftgl
 		media-libs/glew
