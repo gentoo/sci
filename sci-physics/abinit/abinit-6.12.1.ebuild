@@ -4,7 +4,7 @@
 
 EAPI="4"
 
-inherit autotools-utils fortran-2 multilib toolchain-funcs
+inherit autotools-utils flag-o-matic fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="Find total energy, charge density and electronic structure using density functional theory"
 HOMEPAGE="http://www.abinit.org/"
@@ -116,9 +116,8 @@ src_prepare() {
 
 	if use gui; then
 		epatch "${FILESDIR}"/6.12.1-gui-conf.patch
-#		pushd "${S}"/gui
-		pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
-		"${S}"/gui/autogen.sh
+		pushd "${S}"/gui > /dev/null
+		./autogen.sh
 		popd
 	fi
 }

@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Mar 2012; Honza Macháček <Hloupy.Honza@centrum.cz> abinit-6.12.1.ebuild:
+  Fortran setup improvement in 6.12.1 ebuild corrected, gui preparation corrected.
+
   23 Mar 2012; Honza Macháček <Hloupy.Honza@centrum.cz> abinit-6.12.1.ebuild,
   metadata.xml:
   Metadata updated, fortran setup in 6.12.1 ebuild improved.
