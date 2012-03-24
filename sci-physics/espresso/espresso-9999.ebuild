@@ -35,7 +35,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	dev-lang/python
 	doc? (
-		app-doc/doxygen[-nodot]
+		|| ( <app-doc/doxygen-1.7.6.1[-nodot] >=app-doc/doxygen-1.7.6.1[dot] )
 		virtual/latex-base )"
 
 DOCS=( AUTHORS NEWS README ChangeLog )
