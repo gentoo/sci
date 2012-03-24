@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -36,7 +36,7 @@ RDEPEND="=sci-libs/votca-tools-${PV}[system-boost=]
 	app-shells/bash"
 
 DEPEND="${RDEPEND}
-	doc? ( app-doc/doxygen[-nodot] )
+	doc? ( || ( <app-doc/doxygen-1.7.6.1[-nodot] >=app-doc/doxygen-1.7.6.1[dot]	) )
 	>=app-text/txt2tags-2.5
 	dev-util/pkgconfig"
 
