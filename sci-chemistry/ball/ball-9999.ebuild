@@ -42,6 +42,12 @@ DEPEND="${RDEPEND}
 	sys-devel/bison
 	virtual/yacc"
 
+pkg_setup() {
+	use python \
+		&& python_set_active_version 2 \
+		&& python_pkg_setup
+}
+
 src_prepare() {
 	sed \
 		-e '/INSTALL_DIRECTORY/s:"lib":${CMAKE_INSTALL_LIBDIR}:g' \
