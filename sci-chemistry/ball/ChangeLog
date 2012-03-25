@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/ball
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ball-9999 (25 Mar 2012)
+
+  25 Mar 2012; Justin Lecher <jlec@gentoo.org> +ball-9999.ebuild,
+  +metadata.xml:
+  New addition, written by me, #406401
+
