@@ -42,17 +42,15 @@ DEPEND="${RDEPEND}
 	sys-devel/bison
 	virtual/yacc"
 
+PATCHES=(
+	"${FILESDIR}"/${P}-multilib.patch
+	"${FILESDIR}"/${P}-libsvm.patch
+	)
+
 pkg_setup() {
 	use python \
 		&& python_set_active_version 2 \
 		&& python_pkg_setup
-}
-
-src_prepare() {
-	sed \
-		-e '/INSTALL_DIRECTORY/s:"lib":${CMAKE_INSTALL_LIBDIR}:g' \
-		-i CMakeLists.txt || die
-	base_src_prepare
 }
 
 src_configure() {
