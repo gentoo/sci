@@ -2,7 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/media-gfx/brlcad/ChangeLog,v 1.3 2011/04/18 22:47:37 dilfridge Exp $
 
-*brlcad-7.20.2 (15 Jul 2011)
+*brlcad-7.20.4 (27 Mar 2012)
+
+  27 Mar 2012; Dongxu Li <dongxuli2011@gmail.com> brlcad-9999.ebuild +files/brlcad-7.20.4-cmake.patch:
+  added missing patch for 7.20.4
 
   12 Feb 2012; Dongxu Li <dongxuli2011@gmail.com> -brlcad-7.20.2.ebuild brlcad-7.20.4.ebuild:
   Removed 7.20.2 for building issues. Fixed 7.20.4 for as-needed

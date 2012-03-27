@@ -44,10 +44,6 @@ DEPEND="${RDEPEND}
 
 BRLCAD_DIR="${EPREFIX}/usr/${PN}"
 
-src_prepare() {
-	epatch "${FILESDIR}/${P}-cmake.patch"
-}
-
 src_configure() {
 filter-flags -std=c++0x
 	append-ldflags $(no-as-needed)
