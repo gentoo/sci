@@ -105,7 +105,7 @@ src_install() {
 
 	dodoc DEVELOPERS README
 
-	doicon "${WORKDIR}"/${PN}.xpm
+	doicon "${WORKDIR}"/${PN}.{xpm,png}
 	make_desktop_entry pymol PyMol ${PN} "Graphics;Science;Chemistry"
 }
 
