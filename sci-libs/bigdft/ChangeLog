@@ -2,6 +2,15 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Mar 2012; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -bigdft-1.2.0.2.ebuild, -files/bigdft-1.2.0.2-0001.patch,
+  -files/bigdft-1.2.0.2-0002.patch, -files/bigdft-1.2.0.2-0003.patch,
+  -files/bigdft-1.2.0.2-0004.patch, -files/bigdft-1.2.0.2-testH.patch,
+  -bigdft-1.2.0.5.ebuild, -files/bigdft-1.2.0.5-0001.patch,
+  -bigdft-1.6_pre0.ebuild, -files/bigdft-1.6-tuto-bigdft.pc.patch,
+  -files/bigdft-1.6-tuto-libxc_dir_include.patch:
+  Clean-up.
+
 *bigdft-1.6_pre1 (22 Mar 2012)
 *bigdft-1.6_pre0 (22 Mar 2012)
 
