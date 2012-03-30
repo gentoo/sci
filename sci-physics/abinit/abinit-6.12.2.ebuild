@@ -253,12 +253,13 @@ src_test() {
 	# again something the autotools-utils function cannot be called to do
 	# now quite a lot of work actually
 	cd tests
-	emake tests_min || ewarn "Minimal tests failed"
+	emake tests_acc || ewarn "Accuracy tests failed"
 	emake tests_paw || ewarn "PAW tests failed"
 	emake tests_gw || ewarn "GW tests failed"
 	emake tests_gw_paw || ewarn "GW-PAW tests failed"
-	emake tests tdft || ewarn "TDFT tests failed"
-	emake tests_bench || ewarn "Benchmarks failed"
+	emake tests_bs || ewarn "BSE tests failed"
+	emake tests_tddft || ewarn "TDDFT tests failed"
+	emake tests_eph || ewarn "Elphon tests failed"
 
 	local REPORT
 	for REPORT in $(find . -name report); do
