@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/votca-csg
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  24 Mar 2012; Christoph Junghans <ottxor@gentoo.org> votca-csg-9999.ebuild:
+  Fixes bug #405455, again
 
   05 Nov 2011; Christoph Junghans <ottxor@gentoo.org> votca-csg-9999.ebuild:
   multilib support

@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Mar 2012; Guillaume Horel <guillaume.horel@gmail.com> lacaml-6.0.4.ebuild:
+  moved to new oasis eclass
+
 *lacaml-6.0.4 (02 Mar 2012)
 
   02 Mar 2012; Guillaume Horel <guillaume.horel@gmail.com>

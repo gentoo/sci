@@ -2,12 +2,17 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-cpp/eigen/ChangeLog,v 1.44 2011/03/25 16:01:28 jlec Exp $
 
+* eigen-3.1.0_alpha2 (25 Feb 2012)
+
+  25 Feb 2012; Andrea Arteaga <andyspiros@gmail.com> eigen-3.1.0_alpha2.ebuild
+  Version bump.
+
 * eigen-3.0.5 (10 Feb 2012)
 
   10 Feb 2012; Andrea Arteaga <andyspiros@gmail.com> eigen-3.0.5.ebuild
   Version bump.
 
-*eigen-3.0.4 (20 Dec 2011)
+* eigen-3.0.4 (20 Dec 2011)
 
   20 Dec 2011; Sébastien Fabbro <bicatali@gentoo.org> -eigen-3.0.1-r2.ebuild,
   -eigen-3.0.2.ebuild, -eigen-3.0.3.ebuild, +eigen-3.0.4.ebuild:

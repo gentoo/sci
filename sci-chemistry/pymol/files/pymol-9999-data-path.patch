@@ -4,8 +4,8 @@
  modules/chempy/tinker/__init__.py   |    2 +-
  modules/pymol/commanding.py         |    6 +++---
  modules/pymol/importing.py          |    2 +-
- modules/pymol/wizard/mutagenesis.py |    4 ++--
- 7 files changed, 17 insertions(+), 17 deletions(-)
+ modules/pymol/wizard/mutagenesis.py |    8 ++++----
+ 7 files changed, 19 insertions(+), 19 deletions(-)
 
 diff --git a/layer0/ShaderMgr.c b/layer0/ShaderMgr.c
 index cc760ae..364277f 100644
@@ -74,7 +74,7 @@ index 23dbe45..795a223 100644
      path = os.environ['PYMOL_DATA'] + '/chempy/'
  elif os.environ.has_key('PYMOL_PATH'):
 -    path = os.environ['PYMOL_PATH'] + '/data/chempy/'   
-+    path = os.environ['PYMOL_PATH'] + '/chempy/'   
++    path = os.environ['PYMOL_PATH'] + '/chempy/'
  elif os.environ.has_key('FREEMOL_MODULES'):
      path = os.environ['FREEMOL_MODULES'] + '/chempy/'
  else:
@@ -127,20 +127,24 @@ diff --git a/modules/pymol/wizard/mutagenesis.py b/modules/pymol/wizard/mutagene
 index 8a5250d..6c1b26c 100644
 --- a/modules/pymol/wizard/mutagenesis.py
 +++ b/modules/pymol/wizard/mutagenesis.py
-@@ -53,7 +53,7 @@ class Mutagenesis(Wizard):
+@@ -52,8 +52,8 @@ class Mutagenesis(Wizard):
+         
          self.dep = default_dep
  
-         self.ind_library = io.pkl.fromFile(os.environ['PYMOL_PATH']+
+-        self.ind_library = io.pkl.fromFile(os.environ['PYMOL_PATH']+
 -                                           "/data/chempy/sidechains/sc_bb_ind.pkl")
++        self.ind_library = io.pkl.fromFile(os.environ['PYMOL_DATA']+
 +                                           "/chempy/sidechains/sc_bb_ind.pkl")
          self.load_library()
          self.status = 0 # 0 no selection, 1 mutagenizing
          self.bump_check = 1
-@@ -218,7 +218,7 @@ class Mutagenesis(Wizard):
+@@ -217,8 +217,8 @@ class Mutagenesis(Wizard):
+     def load_library(self):
          if self.dep == 'dep':
              if not hasattr(self,'dep_library'):
-                 self.dep_library = io.pkl.fromFile(os.environ['PYMOL_PATH']+
+-                self.dep_library = io.pkl.fromFile(os.environ['PYMOL_PATH']+
 -                                           "/data/chempy/sidechains/sc_bb_dep.pkl")
++                self.dep_library = io.pkl.fromFile(os.environ['PYMOL_DATA']+
 +                                           "/chempy/sidechains/sc_bb_dep.pkl")
              
      def set_mode(self,mode):

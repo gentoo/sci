@@ -14,7 +14,7 @@ inherit distutils eutils fdo-mime prefix subversion versionator
 
 DESCRIPTION="A Python-extensible molecular graphics system."
 HOMEPAGE="http://pymol.sourceforge.net/"
-SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${PN}.xpm.tar"
+SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${PN}-icons.tar.xz"
 ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
 
 LICENSE="PSF-2.2"
@@ -105,7 +105,7 @@ src_install() {
 
 	dodoc DEVELOPERS README
 
-	doicon "${WORKDIR}"/${PN}.xpm
+	doicon "${WORKDIR}"/${PN}.{xpm,png}
 	make_desktop_entry pymol PyMol ${PN} "Graphics;Science;Chemistry"
 }
 
