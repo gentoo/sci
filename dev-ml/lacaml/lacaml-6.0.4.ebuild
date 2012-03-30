@@ -4,7 +4,8 @@
 
 EAPI=4
 
-inherit eutils findlib
+OASIS_BUILD_DOCS=1
+inherit oasis
 
 DESCRIPTION="BLAS/LAPACK interface for OCaml"
 HOMEPAGE="http://forge.ocamlcore.org/projects/lacaml"
@@ -13,28 +14,20 @@ SRC_URI="http://forge.ocamlcore.org/frs/download.php/806/${P}.tar.gz"
 LICENSE="LGPL-2.1-linking-exception"
 SLOT="0"
 KEYWORDS="~x86"
-IUSE="doc"
+IUSE=""
 
-DEPEND="dev-lang/ocaml[ocamlopt]
-	virtual/blas
+RDEPEND="virtual/blas
 	virtual/lapack"
-RDEPEND="${DEPEND}"
+DEPEND="${DEPEND}
+	dev-util/pkgconfig"
 
-src_configure() {
-	ocaml setup.ml -configure \
-		--override conf_cclib "$(pkg-config --libs blas) \
-$(pkg-config --libs lapack)" \
-		--destdir "${ED}" \
-		--prefix "/usr" \
-		--docdir "/usr/share/${PF}/doc" || die "configuration failed"
-}
+DOCS=( "README.txt" "Changelog" )
 
-src_compile() {
-	emake
-	use doc && emake doc
-}
-
-src_install() {
-	findlib_src_install
-	dodoc README.txt Changelog
+src_prepare() {
+	cclib="$(pkg-config --libs blas lapack)"
+	cclib="[$(echo $cclib|sed -e 's/\(-[a-z0-9]*\) /\"\1\"\;/g' -e \
+	's/\(-[a-z0-9]*\)$/\"\1\"/')]"
+	sed -i "s/cclib = \[\]/cclib = ${cclib}/" setup.conf
+	#would like to do the below, but doesn't work from ebuild
+	#oasis_configure_opts="--override conf_cclib $(pkg-config --libs blas atlas)
 }
