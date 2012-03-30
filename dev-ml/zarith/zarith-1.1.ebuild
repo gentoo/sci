@@ -8,37 +8,29 @@ inherit findlib eutils
 
 DESCRIPTION="Arithmetic and logic operations over arbitrary-precision integers"
 HOMEPAGE="https://forge.ocamlcore.org/projects/zarith/"
-SRC_URI="http://forge.ocamlcore.org/frs/download.php/683/${P}.tgz"
+SRC_URI="http://forge.ocamlcore.org/frs/download.php/835/${P}.tgz"
 
 LICENSE="LGPL-2.1-linking-exception"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug doc mpir +ocamlopt"
+IUSE="doc mpir +ocamlopt"
 
 RDEPEND=">=dev-lang/ocaml-3.12.1[ocamlopt?]
 !mpir? ( dev-libs/gmp )
 mpir? ( sci-libs/mpir )"
 
-DEPEND="${DEPEND}
+DEPEND="${RDEPEND}
 dev-lang/perl"
 
-src_prepare() {
-	epatch "${FILESDIR}/${P}-optnotrequired.patch"
-	epatch "${FILESDIR}/${P}-bytecode.patch"
-}
-
 src_configure() {
-	MY_OPTS="-ocamllibdir /usr/$(get_libdir) -installdir ${D}"
+	MY_OPTS="-ocamllibdir /usr/$(get_libdir) -installdir \
+	${D}/usr/$(get_libdir)/ocaml"
 	use mpir && MY_OPTS="${MY_OPTS} -mpir"
 	./configure ${MY_OPTS}|| die
 }
 
 src_compile() {
-	if use ocamlopt; then
-		emake all
-	else
-		emake all-byte
-	fi
+	emake all
 	use doc && emake doc
 }
 
@@ -52,11 +44,7 @@ src_test() {
 
 src_install() {
 	findlib_src_preinst
-	if use ocamlopt; then
-		emake install
-	else
-		emake install-byte
-	fi
-	dodoc README
+	emake install
+	dodoc Changes README
 	use doc && dodoc -r html/
 }
