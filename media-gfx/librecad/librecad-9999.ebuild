@@ -17,6 +17,7 @@ EGIT_REPO_URI="https://github.com/LibreCAD/LibreCAD.git"
 DEPEND="${RDEPEND}
 	x11-libs/qt-assistant:4
 	dev-libs/boost
+	dev-cpp/muParser
 "
 
 src_prepare() {
