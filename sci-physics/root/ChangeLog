@@ -2,6 +2,16 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+*root-5.32.02-r1 (03 Apr 2012)
+*root-5.28.00h-r1 (03 Apr 2012)
+
+  03 Apr 2012; Andrew Savchenko <bircoph@gmail.com> -root-5.28.00h.ebuild,
+  +root-5.28.00h-r1.ebuild, -root-5.32.02.ebuild, +root-5.32.02-r1.ebuild,
+  root-9999.ebuild:
+  Force format library dependencies on libafterimage and afterstep.
+  This fixes bug 408987. Port to other versions, 5.26 branch is not
+  affected.
+
 *root-5.32.02 (02 Apr 2012)
 
   02 Apr 2012; Andrew Savchenko <bircoph@gmail.com> -root-5.32.01-r2.ebuild,
