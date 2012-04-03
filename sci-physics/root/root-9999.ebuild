@@ -45,16 +45,19 @@ CDEPEND="
 	media-libs/giflib
 	media-libs/libpng:0
 	media-libs/tiff:0
-	virtual/shadow
 	sys-libs/zlib
 	virtual/jpeg
+	virtual/shadow
 	X? (
 		media-libs/ftgl
 		media-libs/glew
 		x11-libs/libX11
 		x11-libs/libXext
 		x11-libs/libXpm
-		|| ( >=media-libs/libafterimage-1.20 >=x11-wm/afterstep-2.2.11 )
+		|| (
+			>=media-libs/libafterimage-1.20[gif,jpeg,png,tiff] 
+			>=x11-wm/afterstep-2.2.11[gif,jpeg,png,tiff]
+		)
 		opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps )
 		qt4? (
 			x11-libs/qt-gui:4

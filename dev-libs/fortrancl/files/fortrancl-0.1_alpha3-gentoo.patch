@@ -1,0 +1,35 @@
+Index: fortrancl.pc.in
+===================================================================
+--- fortrancl.pc.in	(revision 142)
++++ fortrancl.pc.in	(working copy)
+@@ -1,8 +1,3 @@
+-prefix=@prefix@
+-exec_prefix=@exec_prefix@
+-libdir=@libdir@
+-includedir=@includedir@
+-
+ Name: @PACKAGE_NAME@
+ Description: OpenCL interface for Fortran 90
+ Version: @PACKAGE_VERSION@
+@@ -13,21 +8,3 @@
+ exec_prefix=@exec_prefix@
+ libdir=@libdir@
+ includedir=@includedir@
+-
+-Name: @PACKAGE_NAME@
+-Description: OpenCL interface for Fortran 90
+-Version: @PACKAGE_VERSION@
+-URL: @PACKAGE_URL@
+-Libs: -L${libdir} -lfortrancl
+-Cflags: -I${includedir}/fortrancl
+-prefix=@prefix@
+-exec_prefix=@exec_prefix@
+-libdir=@libdir@
+-includedir=@includedir@
+-
+-Name: @PACKAGE_NAME@
+-Description: OpenCL interface for Fortran 90
+-Version: @PACKAGE_VERSION@
+-URL: @PACKAGE_URL@
+-Libs: -L${libdir} -lfortrancl
+-Cflags: -I${includedir}/fortrancl

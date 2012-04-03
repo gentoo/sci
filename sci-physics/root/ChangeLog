@@ -1,6 +1,26 @@
 # ChangeLog for sci-physics/root
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.93 2012/03/02 05:34:01 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
+
+*root-5.32.02-r1 (03 Apr 2012)
+*root-5.28.00h-r1 (03 Apr 2012)
+
+  03 Apr 2012; Andrew Savchenko <bircoph@gmail.com> -root-5.28.00h.ebuild,
+  +root-5.28.00h-r1.ebuild, -root-5.32.02.ebuild, +root-5.32.02-r1.ebuild,
+  root-9999.ebuild:
+  Force format library dependencies on libafterimage and afterstep.
+  This fixes bug 408987. Port to other versions, 5.26 branch is not
+  affected.
+
+*root-5.32.02 (02 Apr 2012)
+
+  02 Apr 2012; Andrew Savchenko <bircoph@gmail.com> -root-5.32.01-r2.ebuild,
+  +root-5.32.02.ebuild:
+  Version bump for a new patch release.
+
+  29 Mar 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/root-5.32.00-chklib64.patch, root-5.32.01-r2.ebuild:
+  Import from the science overlay
 
   23 Mar 2012; Andrew Savchenko <bircoph@gmail.com> root-5.26.00g.ebuild,
   root-5.28.00h.ebuild, root-5.32.01-r2.ebuild, root-9999.ebuild:
@@ -20,13 +40,18 @@
   Thanks to Jean-Francois Ostiguy and Jauhien Piatlicki for their
   major work on this bug.
 
-*root-9999 (09 Mar 2012)
+  13 Mar 2012; Sébastien Fabbro <bicatali@gentoo.org> +root-5.26.00g.ebuild,
+  +files/root-5.26.00g-explicit-functions.patch, -root-5.28.00d.ebuild,
+  +root-5.28.00h.ebuild, +files/root-5.28.00h-explicit-functions.patch,
+  -root-5.32.00-r2.ebuild, +files/root-5.32.00-explicit-functions.patch,
+  -root-5.32.01.ebuild, +root-5.32.01-r2.ebuild, files/olbd.initd,
+  files/xrootd.initd:
+  Imported changed from bircoph into main tree
+
 *root-5.32.01-r2 (09 Mar 2012)
 
   09 Mar 2012; Andrew Savchenko <bircoph@gmail.com> root-5.26.00g.ebuild,
-  root-5.28.00h.ebuild, -root-5.32.01-r1.ebuild, +root-5.32.01-r2.ebuild,
-  +root-9999.ebuild:
-  Add live ebuild.
+  root-5.28.00h.ebuild, -root-5.32.01-r1.ebuild, +root-5.32.01-r2.ebuild
   Remove llvm (cling) support from everywhere but live ebuild.
   Current cling code highly depends on particular llvm trunk
   revisions, there is no way to support it for regular ebuilds yet.
@@ -45,17 +70,19 @@
 *root-5.26.00g (09 Mar 2012)
 
   09 Mar 2012; Andrew Savchenko <bircoph@gmail.com>
-  +files/root-5.26.00e-libpng15.patch, +root-5.26.00g.ebuild,
+  +root-5.26.00g.ebuild,
   +files/root-5.26.00g-explicit-functions.patch,
-  +files/root-5.28.00b-nobyte-compile.patch, +root-5.28.00h.ebuild,
+  +root-5.28.00h.ebuild,
   +files/root-5.28.00h-explicit-functions.patch,
-  +files/root-5.32.00-explicit-functions.patch, root-5.32.01.ebuild,
-  +files/olbd.confd, +files/olbd.initd, +files/xrootd.confd,
-  +files/xrootd.initd, metadata.xml:
+  +files/root-5.32.00-explicit-functions.patch:
   Version bump for 5.26 and 5.28 branches to the latest patchlevels.
   Fix bug 386905 for all branches by applying upstream fix. Thanks
   gcc and ROOT developers for their hard work.
   Fix pq2 files installation.
+
+  13 Mar 2012; Pawel Hajdan jr <phajdan.jr@gentoo.org> root-5.26.00e-r1.ebuild,
+  root-5.28.00d.ebuild, root-5.32.00-r2.ebuild, root-5.32.01.ebuild:
+  Switch to virtual/shadow.
 
 *root-5.32.01 (02 Mar 2012)
 
