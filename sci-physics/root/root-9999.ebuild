@@ -27,12 +27,13 @@ DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
 SRC_URI="${SRC_URI}
 	doc? ( ftp://root.cern.ch/${PN}/doc/Users_Guide_${DOC_PV}.pdf
-	math? (
-		ftp://root.cern.ch/${PN}/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
-		http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf ) )"
+		math? (
+			ftp://root.cern.ch/${PN}/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
+			http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf ) )"
 
 SLOT="0"
 LICENSE="LGPL-2.1"
+KEYWORDS=""
 IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
 	llvm +math mpi mysql odbc +opengl openmp oracle postgres prefix
 	pythia6	pythia8	python qt4 +reflex ruby ssl xft xinetd xml xrootd"
@@ -55,7 +56,7 @@ CDEPEND="
 		x11-libs/libXext
 		x11-libs/libXpm
 		|| (
-			>=media-libs/libafterimage-1.20[gif,jpeg,png,tiff] 
+			>=media-libs/libafterimage-1.20[gif,jpeg,png,tiff]
 			>=x11-wm/afterstep-2.2.11[gif,jpeg,png,tiff]
 		)
 		opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps )
@@ -120,7 +121,7 @@ pkg_setup() {
 	enewuser rootd -1 -1 /var/spool/rootd rootd
 
 	if use math; then
-		if use openmp && [[ $(tc-getCC)$ == *gcc* ]] && ! tc-has-openmp; then
+		if use openmp && ! tc-has-openmp; then
 			ewarn "You are using gcc and OpenMP is available with gcc >= 4.2"
 			ewarn "If you want to build this package with OpenMP, abort now,"
 			ewarn "and set CC to an OpenMP capable compiler"
@@ -144,17 +145,17 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch
 
 	# make sure we use system libs and headers
-	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc
-	rm -rf graf2d/asimage/src/libAfterImage
-	rm -rf graf3d/ftgl/{inc,src}
-	rm -rf graf2d/freetype/src
-	rm -rf graf3d/glew/{inc,src}
-	rm -rf core/pcre/src
-	rm -rf math/unuran/src/unuran-*.tar.gz
-	LANG=C LC_ALL=C find core/zip -type f -name "[a-z]*" | xargs rm
-	rm -rf core/lzma/src/*.tar.gz
-	rm graf3d/gl/{inc,src}/gl2ps.*
-	sed -i -e 's/^GLLIBS *:= .* $(OPENGLLIB)/& -lgl2ps/' graf3d/gl/Module.mk
+	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
+	rm -rf graf2d/asimage/src/libAfterImage || die
+	rm -rf graf3d/ftgl/{inc,src} || die
+	rm -rf graf2d/freetype/src || die
+	rm -rf graf3d/glew/{inc,src} || die
+	rm -rf core/pcre/src || die
+	rm -rf math/unuran/src/unuran-*.tar.gz || die
+	LANG=C LC_ALL=C find core/zip -type f -name "[a-z]*" -print0 | xargs -0 rm -f || die
+	rm -rf core/lzma/src/*.tar.gz || die
+	rm graf3d/gl/{inc,src}/gl2ps.* || die
+	sed -i -e 's/^GLLIBS *:= .* $(OPENGLLIB)/& -lgl2ps/' graf3d/gl/Module.mk || die
 
 	# In Gentoo, libPythia6 is called libpythia6
 	# libungif is called libgif,
@@ -188,6 +189,7 @@ src_configure() {
 		--with-cc=$(tc-getCC) \
 		--with-cxx=$(tc-getCXX) \
 		--with-f77=$(tc-getFC) \
+		--with-ld=$(tc-getCXX) \
 		--with-afs-shared=yes \
 		--with-llvm-config="${EPREFIX}"/usr/bin/llvm-config \
 		--with-sys-iconpath="${EPREFIX}"/usr/share/pixmaps \
@@ -249,7 +251,7 @@ src_configure() {
 }
 
 src_compile() {
-	emake OPT="${CFLAGS}" F77OPT="${FFLAGS}" || die "emake failed"
+	emake OPT="${CXXFLAGS}" F77OPT="${FFLAGS}"
 	if use emacs; then
 		elisp-compile build/misc/*.el || die "elisp-compile failed"
 	fi
@@ -270,7 +272,7 @@ doc_install() {
 		insinto /usr/share/doc/${PF}/examples/tutorials/tmva
 		doins -r tmva/test
 	else
-		rm -rf "${ED}"/usr/share/doc/${PF}/examples
+		rm -rf "${ED}"/usr/share/doc/${PF}/examples || die
 	fi
 }
 
@@ -307,13 +309,13 @@ desktop_install() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
+	emake DESTDIR="${D}" install
 
 	echo "LDPATH=${EPREFIX}/usr/$(get_libdir)/root" > 99root
 	use pythia8 && echo "PYTHIA8=${EPREFIX}/usr" >> 99root
 	use python && echo "PYTHONPATH=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
 	use ruby && echo "RUBYLIB=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
-	doenvd 99root || die "doenvd failed"
+	doenvd 99root
 
 	# The build system installs Emacs support unconditionally and in the wrong
 	# directory. Remove it and call elisp-install in case of USE=emacs.
@@ -327,18 +329,18 @@ src_install() {
 	desktop_install
 
 	# Cleanup of files either already distributed or unused on Gentoo
-	rm "${ED}"usr/share/doc/${PF}/{INSTALL,LICENSE,COPYING.CINT}
-	rm "${ED}"usr/share/root/fonts/LICENSE
+	rm "${ED}"usr/share/doc/${PF}/{INSTALL,LICENSE,COPYING.CINT} || die
+	rm "${ED}"usr/share/root/fonts/LICENSE || die
 	pushd "${ED}"usr/$(get_libdir)/root/cint/cint/lib > /dev/null
 	rm -f posix/mktypes dll_stl/setup \
-		G__* dll_stl/G__* dll_stl/rootcint_* posix/exten.o
-	rm -f "${ED}"usr/$(get_libdir)/root/cint/cint/include/makehpib
-	rm -f "${ED}"/etc/root/proof/*.sample
-	rm -rf "${ED}"/etc/root/daemons
+		G__* dll_stl/G__* dll_stl/rootcint_* posix/exten.o || die
+	rm -f "${ED}"usr/$(get_libdir)/root/cint/cint/include/makehpib || die
+	rm -f "${ED}"/etc/root/proof/*.sample || die
+	rm -rf "${ED}"/etc/root/daemons || die
 	popd > /dev/null
 	# these should be in PATH
 	mv "${ED}"etc/root/proof/utils/pq2/pq2* \
-		"${ED}"usr/bin
+		"${ED}"usr/bin/ || die
 }
 
 pkg_postinst() {

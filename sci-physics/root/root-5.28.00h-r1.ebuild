@@ -45,7 +45,7 @@ CDEPEND="
 	x11-libs/libXft
 	x11-libs/libXpm
 	|| (
-		>=media-libs/libafterimage-1.20[gif,jpeg,png,tiff] 
+		>=media-libs/libafterimage-1.20[gif,jpeg,png,tiff]
 		>=x11-wm/afterstep-2.2.11[gif,jpeg,png,tiff]
 	)
 	afs? ( net-fs/openafs )
