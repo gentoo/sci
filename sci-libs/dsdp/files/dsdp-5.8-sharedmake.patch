@@ -1,0 +1,36 @@
+--- Makefile.orig	2005-10-22 08:31:14.000000000 +1300
++++ Makefile	2012-04-03 14:22:10.488043308 +1200
+@@ -10,8 +10,8 @@
+ include make.include
+ 
+ dsdplibrary: chkroot info
+-	cd ${D1}; make all
+-	${RANLIB} ${DSDPLIB}
++	make -C ${D1} all
++	${SH_LD} -o ${DSDPLIBSO} lib/*.o ${LAPACKBLAS};
+ 
+ example:
+ 	cd ${D2}; make most
+--- make.include.orig	2005-10-22 08:31:14.000000000 +1300
++++ make.include	2012-04-04 12:48:12.190409224 +1200
+@@ -48,7 +48,7 @@
+ #CLINKER	= ${CXX} ${OPTFLAGS} -static
+ #CLINKER	= link /out:dsdp5.exe
+ 
+-#SH_LD = ${CC} -shared -W1,-soname,
++SH_LD =
+ 
+ # STEP 5:
+ # Location of BLAS AND LAPACK libraries. 
+@@ -90,9 +90,8 @@
+ PP	 = ../
+ 
+ dsdplib: ${DSDPOBJ}
+-	${ARCH} ${DSDPLIB} ${DSDPOBJ}
+-	${RANLIB} ${DSDPLIB}	
+-	make clean
++	${CP} ${DSDPOBJ} -t ${DSDPROOT}/lib
++	$(MAKE) clean
+ 
+ .c.o: 
+ 	${CC} ${CFLAGS} ${DCFLAGS} -c $*.c

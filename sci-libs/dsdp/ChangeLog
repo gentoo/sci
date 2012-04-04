@@ -1,0 +1,38 @@
+# ChangeLog for sci-libs/dsdp
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/sci-libs/dsdp/ChangeLog,v 1.5 2012/01/17 17:36:56 bicatali Exp $
+
+*dsdp-5.8-r2 (04 Apr 2012)
+
+  04 Apr 2012; François Bissey <francois.bissey@canterbury.ac.nz>
+  +dsdp-5.8-r2.ebuild, +files/dsdp-5.8-gold.patch,
+  +files/dsdp-5.8-malloc.patch, +files/dsdp-5.8-readsdpa.patch,
+  +files/dsdp-5.8-sharedmake.patch, +metadata.xml:
+  Massive amount of fixes: work on macos prefix with correct dylib, removal of
+  malloc.h, stdlib.h is enough on modern 
+  systems. Fix parallel make - there was a direct call to make in make.include.
+  Fix bug 410735 and link to lapack properly.
+
+*dsdp-5.8-r1 (17 Jan 2012)
+
+  17 Jan 2012; Sébastien Fabbro <bicatali@gentoo.org> -dsdp-5.8.ebuild,
+  +dsdp-5.8-r1.ebuild:
+  Now installs header files as well, bug #399035
+
+  28 Jun 2011; Justin Lecher <jlec@gentoo.org> dsdp-5.8.ebuild, metadata.xml:
+  Fix sed on *FLAGS from : to |
+
+  05 Jun 2011; Justin Lecher <jlec@gentoo.org> dsdp-5.8.ebuild,
+  +files/dsdp-5.8-gold.patch:
+  Make it gold resistant, #370109
+
+  14 Mar 2011; Sébastien Fabbro <bicatali@gentoo.org> dsdp-5.8.ebuild,
+  +files/dsdp-5.8-readsdpa.patch:
+  Fixed leak in one of the examples
+
+*dsdp-5.8 (07 Mar 2011)
+
+  07 Mar 2011; Sébastien Fabbro <bicatali@gentoo.org> +dsdp-5.8.ebuild,
+  +metadata.xml:
+  Initial import
+
