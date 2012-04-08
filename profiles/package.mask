@@ -31,6 +31,10 @@
 #--- END OF EXAMPLES ---
 
 
+# Andrea Arteaga <andyspiros@gmail.com> (8 Apr 2012)
+# Masked for testing
+sci-libs/trilinos
+
 # Sebasien Fabbro <bicatali@gentoo.org> (10 Mar 2012)
 # incompatible API with previous versions of metis (4)
 # masked until reverse depedencies are fixed
