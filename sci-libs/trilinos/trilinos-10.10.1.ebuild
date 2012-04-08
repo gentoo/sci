@@ -68,6 +68,11 @@ src_configure() {
 	mycmakeargs=(
 		-DBUILD_SHARED_LIBS=ON
 		-DTrilinos_ENABLE_ALL_PACKAGES=ON
+		
+		# Directories (workaround for generating correct Makefiles and CMakefiles)
+		-DCMAKE_INSTALL_PREFIX="/"
+		-DTrilinos_INSTALL_INCLUDE_DIR="/usr/include/trilinos"
+		-DTrilinos_INSTALL_LIB_DIR="/usr/$(get_libdir)/trilinos"
 
 		# Tests
 		$(cmake-utils_use test Trilinos_ENABLE_TESTS)
@@ -103,54 +108,4 @@ src_configure() {
     mycmakeargs+=( -DBLACS_INCLUDE_DIRS="/usr/include/blacs" )
 
 	cmake-utils_src_configure
-}
-
-src_compile() {
-    cmake-utils_src_compile
-}
-
-src_install() {
-	cmake-utils_src_install
-
-	local k
-	local fname
-	local libpath
-	local tpkg
-
-	# Edit cmake files
-	libpath="/usr/$(get_libdir)/Trilinos"
-	pushd "${D}/usr/lib/cmake"
-	for i in *; do
-	fname="${i}/${i}Config.cmake"
-
-	k=$(grep -n "${i}_INCLUDE_DIRS" "${fname}" | sed 's/\([0-9]*\):.*/\1/')
-	sed "${k}s|/usr/include|/usr/include/Trilinos|" < "${fname}" > "${fname}.temp"
-
-	k=$(grep -n "${i}_LIBRARY_DIRS" "${fname}" | sed 's/\([0-9]*\):.*/\1/')
-	sed "${k}s|/usr/lib|${libpath}|" < "${fname}.temp" > "${fname}"
-
-	rm "${fname}.temp"
-	done
-	popd
-
-	# Edit Makefiles
-	pushd "${D}/usr/include"
-	for i in Makefile.export.*; do
-	tpkg="$(echo ${i} | sed 's/Makefile.export.//')"
-
-	sed "s|${tpkg}_INCLUDE_DIRS= -I/usr/include|${tpkg}_INCLUDE_DIRS= -I/usr/include/Trilinos|" < "Makefile.export.${tpkg}" > "Makefile.export.${tpkg}.temp"
-	sed "s|${tpkg}_LIBRARY_DIRS= -L/usr/lib|${tpkg}_LIBRARY_DIRS= -L${libpath}|" < "Makefile.export.${tpkg}.temp" > "Makefile.export.${tpkg}"
-	rm "Makefile.export.${tpkg}.temp"
-	done
-	popd
-
-
-	# Move libraries
-	mkdir -p "${D}/${libpath}"
-	mv ${D}usr/lib/*.so "${D}/${libpath}"
-
-	# Move headers
-	mkdir "${T}/headers"
-	mv ${D}usr/include/* "${T}/headers"
-	mv "${T}/headers" "${D}/usr/include/Trilinos"
 }
