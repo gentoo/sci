@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/trilinos
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*trilinos-10.10.1 (8 Apr 2012)
+
+  8 Apr 2012; Andrea Arteaga <andyspiros@gmail.com>
+  +trilinos-10.10.1.ebuild +metadata.xml:
+  Initial ebuild.
+
