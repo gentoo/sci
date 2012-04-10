@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,14 +8,14 @@ inherit eutils java-pkg-2 autotools
 
 DESCRIPTION="Java interface to the HDF5 library"
 HOMEPAGE="http://www.hdfgroup.org/hdf-java-html/index.html"
-SRC_URI="http://www.hdfgroup.org/ftp/HDF5/hdf-java/src/${P}-src.tar"
+SRC_URI="http://www.hdfgroup.org/ftp/HDF5/releases/HDF-JAVA/HDF-JAVA-${PV}/src/${P}-src.tar"
 
 LICENSE="NCSA-HDF"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="hdf szip zlib test"
 
-CDEPEND=">=sci-libs/hdf5-1.8[szip?,zlib?]
+CDEPEND=">=sci-libs/hdf5-1.8[szip=,zlib=]
 	hdf? (
 		sci-libs/hdf
 		virtual/jpeg
