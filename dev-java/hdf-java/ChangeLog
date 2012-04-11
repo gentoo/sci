@@ -1,6 +1,9 @@
 # ChangeLog for dev-java/hdf-java
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  10 Apr 2012; Guillaume Horel <guillaume.horel@gmail.com> hdf-java-2.7.ebuild:
+  Updates SRC_URI (fixes #396437) and fixes USE flag dependencies
 
 *hdf-java-2.7 (07 Jun 2011)
 

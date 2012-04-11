@@ -1,10 +1,17 @@
 # ChangeLog for app-benchmarks/numbench
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+  
+*numbench-0.2_beta3
+
+  10 Apr 2012; Andrea Arteaga <andyspiros@gmail.com> +numbench-0.2_beta3.ebuild
+  Version 0.2_beta3 added.
 
   28 Feb 2012; Andrea Arteaga <andyspiros@gmail.com> numbench-9999.ebuild
   Updated eselect dependency. Removed keywords.
   
+*numbench-0.2_beta1
+
   28 Feb 2012; Andrea Arteaga <andyspiros@gmail.com> +numbench-0.2_beta1.ebuild metadata.xml
   Version 0.2_beta1 added. Metadata updated.
 
