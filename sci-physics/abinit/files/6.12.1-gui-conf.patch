@@ -1,0 +1,12 @@
+diff -Naur abinit-6.12.1_orig/gui/configure abinit-6.12.1/gui/configure
+--- gui/configure	2012-01-30 19:42:26.000000000 +0000
++++ gui/configure	2012-03-16 13:38:54.000000000 +0000
+@@ -3143,7 +3143,7 @@
+   test -z "$as_dir" && as_dir=.
+     for ac_exec_ext in '' $ac_executable_extensions; do
+   if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+-    ac_cv_prog_UUDECODE="no"
++    ac_cv_prog_UUDECODE="$as_dir/$ac_word$ac_exec_ext"
+     $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+     break 2
+   fi
