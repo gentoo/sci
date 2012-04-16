@@ -2,24 +2,29 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
-inherit qt4-r2
+inherit qt4-r2 flag-o-matic
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
-SRC_URI="https://nodeload.github.com/LibreCAD/LibreCAD/tarball/v${PV} -> ${P}.tar.gz"
+SRC_URI="https://nodeload.github.com/LibreCAD/LibreCAD/tarball/${PV/_/} ->
+${P}.tar.gz"
+
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc"
 
-RDEPEND="
-	x11-libs/qt-gui[qt3support]
+DEPEND="
 	x11-libs/qt-assistant:4
-	x11-libs/qt-qt3support:4"
-DEPEND="${RDEPEND}"
+	x11-libs/qt-gui:4
+	dev-libs/boost
+	dev-cpp/muParser
+	"
+
+RDEPEND="${DEPEND}"
 
 src_unpack() {
 	unpack ${A}
@@ -27,13 +32,15 @@ src_unpack() {
 }
 
 src_prepare() {
-sed -i -e "s:\\\$\+system(git describe --tags):1.0.0:" "${PN}.pro"
+	append-cppflags "-std=c++0x"
+    sed -i -e '/RS_VECTOR2D/ s/^#//' librecad/src/src.pro
 }
 
 src_install() {
-	dobin unix/librecad || die
+	qt4-r2_src_install
+	dobin unix/librecad
 	insinto /usr/share/"${PN}"
-	doins -r unix/resources/* || die
+	doins -r unix/resources/*
 	if use doc ; then
 		dohtml -r support/doc/*
 	fi
