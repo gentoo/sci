@@ -119,7 +119,7 @@ src_prepare() {
 src_configure() {
 	local libs="-L/usr/$(get_libdir)"
 	local modules="-I/usr/$(get_libdir)/finclude"
-	local FoX_libs="${libs} -lFoX_dom -lFoX_sax -lFoX_wcml -lFoX_wxml -lFoX_common -lFoX_utils -lFoX_fsys"
+	local FoX_libs="${libs} -lFoX_common -lFoX_utils -lFoX_fsys"
 	local trio_flavor=""
 	use etsf_io && trio_flavor="${trio_flavor}+etsf_io"
 	use fox && trio_flavor="${trio_flavor}+fox"
