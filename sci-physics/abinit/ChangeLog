@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Apr 2012; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -files/6.12.1-gui-conf.patch, abinit-6.12.2.ebuild, abinit-6.12.3.ebuild:
+  GUI configuration corrected (to find uudecode).
+
 *abinit-6.12.3 (13 Apr 2012)
 
   13 Apr 2012; Honza Macháček <Hloupy.Honza@centrum.cz>

@@ -6,10 +6,11 @@
     <email>sci@gentoo.org</email>
   </maintainer>
   <use>
-    <flag name="dom">Automatically generated description for dom</flag>
-    <flag name="fast">Automatically generated description for fast</flag>
-    <flag name="sax">Automatically generated description for sax</flag>
-    <flag name="wcml">Automatically generated description for wcml</flag>
-    <flag name="wxml">Automatically generated description for wxml</flag>
+    <flag name="dom">Compile the W3C document object model module</flag>
+    <flag name="fast">Compile with best known optimization flags</flag>
+    <flag name="sax">Compile the streaming, validating parser based on java's Simple API for XML</flag>
+    <flag name="wcml">Compile the module for a subset of the Chemical Markup Language</flag>
+    <flag name="wkml">Compile the module for the creation of KML documents used by applications such as Google Earth</flag>
+    <flag name="wxml">Compile the XML writer used to sequentially create arbitrary XML documents quickly with minimal memory requirements</flag>
   </use>
 </pkgmetadata>

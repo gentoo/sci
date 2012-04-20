@@ -114,12 +114,6 @@ src_prepare() {
 	epatch "${FILESDIR}"/6.12.1-libabinit_options.patch
 	eautoreconf
 
-	if use gui; then
-		epatch "${FILESDIR}"/6.12.1-gui-conf.patch
-		pushd "${S}"/gui > /dev/null
-		./autogen.sh
-		popd
-	fi
 }
 
 src_configure() {
@@ -218,7 +212,7 @@ src_configure() {
 		pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
 		mkdir -p gui
 		cd gui
-		ECONF_SOURCE="${S}"/gui econf
+		ECONF_SOURCE="${S}"/gui econf UUDECODE="uudecode"
 	fi
 }
 
