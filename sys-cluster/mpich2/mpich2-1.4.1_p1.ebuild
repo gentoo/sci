@@ -108,9 +108,14 @@ src_configure() {
 		c="${c} --enable-threads=single"
 	fi
 
-	! mpi_classed && c="${c} --sysconfdir=${EPREFIX}/etc/${PN}"
+	if ! mpi_classed; then
+		c="${c} --sysconfdir=${EPREFIX}/etc/${PN}"
+		c="${c} --docdir=${EPREFIX}/usr/share/doc/${PF}"
+	else
+		c="${c} --docdir=$(mpi_root)/usr/share/doc/${PF}"
+	fi
+
 	econf $(mpi_econf_args) ${c} ${romio_conf} \
-		--docdir=$(mpi_root)/usr/share/doc/${PF} \
 		--with-pm=hydra \
 		--disable-mpe \
 		--with-hwloc-prefix="${EPREFIX}/usr" \

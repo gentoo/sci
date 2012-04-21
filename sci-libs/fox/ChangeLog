@@ -1,6 +1,16 @@
 # ChangeLog for sci-libs/fox
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  20 Apr 2012; Honza Macháček <Hloupy.Honza@centrum.cz> fox-4.1.2.ebuild:
+  Modular download enabled, FoX-config improved.
+
+*fox-4.1.2 (19 Apr 2012)
+
+  19 Apr 2012; Honza Macháček <Hloupy.Honza@centrum.cz> +fox-4.1.2.ebuild,
+  metadata.xml:
+  A version bump to 4.1.2. Not moved to autotools-utils, does not like out of
+  the tree compilation. Metadata improved.
 
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> fox-4.0.4.ebuild,
   fox-4.1.0.ebuild:

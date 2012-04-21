@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/dsdp/ChangeLog,v 1.5 2012/01/17 17:36:56 bicatali Exp $
 
+  11 Apr 2012; François Bissey <francois.bissey@canterbury.ac.nz>
+  files/dsdp-5.8-gold.patch:
+  fix test
+
 *dsdp-5.8-r2 (04 Apr 2012)
 
   04 Apr 2012; François Bissey <francois.bissey@canterbury.ac.nz>

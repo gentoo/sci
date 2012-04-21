@@ -114,18 +114,12 @@ src_prepare() {
 	epatch "${FILESDIR}"/6.12.1-libabinit_options.patch
 	eautoreconf
 
-	if use gui; then
-		epatch "${FILESDIR}"/6.12.1-gui-conf.patch
-		pushd "${S}"/gui > /dev/null
-		./autogen.sh
-		popd
-	fi
 }
 
 src_configure() {
 	local libs="-L/usr/$(get_libdir)"
 	local modules="-I/usr/$(get_libdir)/finclude"
-	local FoX_libs="${libs} -lFoX_dom -lFoX_sax -lFoX_wcml -lFoX_wxml -lFoX_common -lFoX_utils -lFoX_fsys"
+	local FoX_libs="${libs} -lFoX_common -lFoX_utils -lFoX_fsys"
 	local trio_flavor=""
 	use etsf_io && trio_flavor="${trio_flavor}+etsf_io"
 	use fox && trio_flavor="${trio_flavor}+fox"
@@ -218,7 +212,7 @@ src_configure() {
 		pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
 		mkdir -p gui
 		cd gui
-		ECONF_SOURCE="${S}"/gui econf
+		ECONF_SOURCE="${S}"/gui econf UUDECODE="uudecode"
 	fi
 }
 
@@ -302,7 +296,7 @@ src_install() {
 	fi
 
 	if use test; then
-		for dc in tests_summary.txt summary_tests.tar summary_of_tests.tar; do
+		for dc in tests_summary.txt summary_of_tests.tar; do
 			test -e tests/"${dc}" && dodoc tests/"${dc}" || ewarn "Copying tests results failed"
 		done
 	fi

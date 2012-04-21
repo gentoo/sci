@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -22,8 +22,14 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=">=dev-python/setuptools-0.6_rc3"
+DEPEND=">=dev-python/setuptools-0.6_rc3
+	>=dev-python/paver-1.0.4"
 RDEPEND=">=sci-geosciences/pydap-3.0_rc10
 	>=sci-libs/scipy-0.7.2-r1"
 
 S="$WORKDIR/$MY_P"
+
+src_prepare() {
+	paver generate_setup || die
+	distutils_src_prepare
+}

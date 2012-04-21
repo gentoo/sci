@@ -6,7 +6,7 @@ EAPI="4"
 
 TEST_PV="4.0.4"
 
-EGIT_REPO_URI="git://git.gromacs.org/gromacs"
+EGIT_REPO_URI="git://git.gromacs.org/gromacs http://repo.or.cz/r/gromacs.git"
 EGIT_BRANCH="master"
 
 #to find external blas/lapack

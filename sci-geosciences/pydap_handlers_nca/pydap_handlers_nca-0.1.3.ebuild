@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,9 +13,8 @@ inherit distutils
 MY_PN=${PN//_/.}
 MY_P=${P//_/.}
 
-DESCRIPTION="HDF5 file handler for Pydap Data Access Protocol server."
+DESCRIPTION="Aggregated NetCDF handler for Pydap Data Access Protocol server."
 HOMEPAGE="http://pydap.org/"
-
 SRC_URI="mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz"
 
 LICENSE="pydap"
@@ -25,9 +24,8 @@ IUSE=""
 
 DEPEND=">=dev-python/setuptools-0.6_rc3"
 RDEPEND="
-	>=sci-geosciences/pydap-3.0
+	>=sci-geosciences/pydap-3.0_rc8
 	>=dev-python/pupynere-1.0.8
-	>=dev-python/arrayterator-1.0.1
-	>=dev-python/h5py-2.0"
+	>=dev-python/configobj-4.6.0"
 
 S="${WORKDIR}/${MY_P}"

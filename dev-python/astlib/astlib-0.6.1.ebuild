@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -29,18 +29,16 @@ RDEPEND="${DEPEND}
 	dev-python/pyfits
 	sci-libs/scipy"
 
-S=${WORKDIR}/${MYP}
+S="${WORKDIR}/${MYP}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-wcstools.patch
+	epatch "${FILESDIR}"/${PN}-0.6.0-wcstools.patch
 	distutils_src_prepare
 }
 
 src_install() {
 	distutils_src_install
-	if use doc; then
-		dohtml docs/${MYPN}/*
-	fi
+	use doc && dohtml docs/${MYPN}/*
 	if use examples; then
 		insinto /usr/share/doc/${PF}
 		doins -r examples
