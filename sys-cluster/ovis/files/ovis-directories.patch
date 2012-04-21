@@ -1,0 +1,96 @@
+diff -uNr original//CMakeLists.txt patched//CMakeLists.txt
+--- original//CMakeLists.txt	2010-11-22 20:52:47.000000000 +0100
++++ patched//CMakeLists.txt	2012-04-21 22:51:48.819917913 +0200
+@@ -37,8 +37,13 @@
+ #-----------------------------------------------------------------------------
+ # Set install locations.
+ 
++if ( OVIS_INSTALL_INCLUDE_DIR )
++  set( ovis_install_inc_suffix ${OVIS_INSTALL_INCLUDE_DIR} )
++else ( OVIS_INSTALL_INCLUDE_DIR )
++  set( ovis_install_inc_suffix include )
++endif ( OVIS_INSTALL_INCLUDE_DIR )
++
+ set( ovis_install_bin_suffix bin )
+-set( ovis_install_inc_suffix include )
+ set( ovis_install_bin_dir ${CMAKE_INSTALL_PREFIX}/${ovis_install_bin_suffix} )
+ set( ovis_install_inc_dir ${CMAKE_INSTALL_PREFIX}/${ovis_install_inc_suffix} )
+ 
+@@ -48,15 +53,21 @@
+   CHECK_TYPE_SIZE( "void*" CMAKE_SIZEOF_VOID_P BUILTIN_TYPES_ONLY )
+ endif ( NOT CMAKE_SIZEOF_VOID_P )
+ message( STATUS "Pointers are ${CMAKE_SIZEOF_VOID_P} bytes" )
+-if ( CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "Solaris" OR CMAKE_SYSTEM_NAME MATCHES "Irix" )
+-  if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+-    set( ovis_install_lib_suffix lib64 )
+-  else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
++
++if ( NOT OVIS_INSTALL_LIB_DIR )
++  if ( CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "Solaris" OR CMAKE_SYSTEM_NAME MATCHES "Irix" )
++    if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
++      set( ovis_install_lib_suffix lib64 )
++    else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
++      set( ovis_install_lib_suffix lib )
++    endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
++  else ( CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "Solaris" OR CMAKE_SYSTEM_NAME MATCHES "Irix" )
+     set( ovis_install_lib_suffix lib )
+-  endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+-else ( CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "Solaris" OR CMAKE_SYSTEM_NAME MATCHES "Irix" )
+-  set( ovis_install_lib_suffix lib )
+-endif ( CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "Solaris" OR CMAKE_SYSTEM_NAME MATCHES "Irix" )
++  endif ( CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "Solaris" OR CMAKE_SYSTEM_NAME MATCHES "Irix" )
++else ( NOT OVIS_INSTALL_LIB_DIR )
++  set( ovis_install_lib_suffix ${OVIS_INSTALL_LIB_DIR} )
++endif ( NOT OVIS_INSTALL_LIB_DIR )
++
+ set( ovis_install_lib_dir ${CMAKE_INSTALL_PREFIX}/${ovis_install_lib_suffix} )
+ 
+ #-----------------------------------------------------------------------------
+diff -uNr original//util/alglib/CMakeLists.txt patched//util/alglib/CMakeLists.txt
+--- original//util/alglib/CMakeLists.txt	2010-11-22 20:52:49.000000000 +0100
++++ patched//util/alglib/CMakeLists.txt	2012-04-22 01:29:33.059752714 +0200
+@@ -48,11 +48,7 @@
+   set( alglib_install_bin_dir ${CMAKE_INSTALL_PREFIX}/bin )
+ endif ( VTK_INSTALL_BIN_DIR_CM24 )
+ 
+-if ( VTK_INSTALL_LIB_DIR_CM24 )
+-  set( alglib_install_lib_dir ${VTK_INSTALL_LIB_DIR_CM24} )
+-else ( VTK_INSTALL_LIB_DIR_CM24 )
+-  set( alglib_install_lib_dir ${CMAKE_INSTALL_PREFIX}/lib )
+-endif ( VTK_INSTALL_LIB_DIR_CM24 )
++set( alglib_install_lib_dir ${ovis_install_lib_suffix} )
+ 
+ if ( VTK_INSTALL_INCLUDE_DIR_CM24 )
+   set( alglib_install_inc_dir ${VTK_INSTALL_INCLUDE_DIR_CM24} )
+diff -uNr original//util/CMakeLists.txt patched//util/CMakeLists.txt
+--- original//util/CMakeLists.txt	2010-11-22 20:52:47.000000000 +0100
++++ patched//util/CMakeLists.txt	2012-04-21 23:10:41.389898144 +0200
+@@ -65,9 +65,9 @@
+ # Send VTK executables to the ParaView LIBRARY directory (not a mistake).
+ # Send VTK include files to the ParaView include directory
+ # Send VTK libraries to the ParaView library directory.
+-set(VTK_INSTALL_BIN_DIR "/${ovis_install_bin_suffix}")
+-set(VTK_INSTALL_INCLUDE_DIR "/${ovis_install_inc_suffix}")
+-set(VTK_INSTALL_LIB_DIR "/${ovis_install_lib_suffix}")
++set(VTK_INSTALL_BIN_DIR "${ovis_install_bin_suffix}")
++set(VTK_INSTALL_INCLUDE_DIR "${ovis_install_inc_suffix}/vtk")
++set(VTK_INSTALL_LIB_DIR "${ovis_install_lib_suffix}/vtk")
+ set(VTK_INSTALL_PACKAGE_DIR "/${ovis_install_lib_suffix}")
+ ## VTK and KWCommon should install only the components paraview does.
+ #set(VTK_INSTALL_NO_DOCUMENTATION 1)
+diff -uNr original//util/kiss_fft/CMakeLists.txt patched//util/kiss_fft/CMakeLists.txt
+--- original//util/kiss_fft/CMakeLists.txt	2010-11-22 20:52:49.000000000 +0100
++++ patched//util/kiss_fft/CMakeLists.txt	2012-04-22 01:29:39.189752607 +0200
+@@ -35,11 +35,7 @@
+   set( kiss_fft_install_bin_dir ${CMAKE_INSTALL_PREFIX}/bin )
+ endif ( VTK_INSTALL_BIN_DIR_CM24 )
+ 
+-if ( VTK_INSTALL_LIB_DIR_CM24 )
+-  set( kiss_fft_install_lib_dir ${VTK_INSTALL_LIB_DIR_CM24} )
+-else ( VTK_INSTALL_LIB_DIR_CM24 )
+-  set( kiss_fft_install_lib_dir ${CMAKE_INSTALL_PREFIX}/lib )
+-endif ( VTK_INSTALL_LIB_DIR_CM24 )
++set( kiss_fft_install_lib_dir ${ovis_install_lib_suffix} )
+ 
+ if ( VTK_INSTALL_INCLUDE_DIR_CM24 )
+   set( kiss_fft_install_inc_dir ${VTK_INSTALL_INCLUDE_DIR_CM24} )
