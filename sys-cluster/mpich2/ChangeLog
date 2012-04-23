@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Apr 2012; Justin Bronder <jsbronder@gentoo.org> mpich2-1.4.1_p1.ebuild:
+  Fix docdir for prefix. Thanks to Robert McGehee for reporting.
+
   07 Mar 2012; Justin Bronder <jsbronder@gentoo.org> mpich2-1.4.1_p1.ebuild,
   metadata.xml:
   Enable all fortran with single USE flag, fix license.

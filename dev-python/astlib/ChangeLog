@@ -1,6 +1,12 @@
 # ChangeLog for dev-python/astlib
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*astlib-0.6.1 (20 Apr 2012)
+
+  20 Apr 2012; Sébastien Fabbro <bicatali@gentoo.org> -astlib-0.6.0.ebuild,
+  +astlib-0.6.1.ebuild:
+  Version bump
 
 *astlib-0.5.0 (16 Sep 2011)
 
