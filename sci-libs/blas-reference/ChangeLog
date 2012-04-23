@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*blas-reference-20120423 (23 Apr 2012)
+
+  23 Apr 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  -blas-reference-20111123.ebuild, +blas-reference-20120423.ebuild:
+  Version bump
+
   23 Feb 2012; Justin Lecher <jlec@gentoo.org>
   blas-reference-20120215-r1.ebuild, metadata.xml:
   Keyworded for ~-linux prefix
