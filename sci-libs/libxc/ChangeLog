@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*libxc-1.2.0 (23 Apr 2012)
+
+  23 Apr 2012; Honza Macháček <Hloupy.Honza@centrum.cz> +libxc-1.2.0.ebuild:
+  Version bump to 1.2.0.
+
   09 Feb 2012; Justin Lecher <jlec@gentoo.org> -libxc-1.0.ebuild,
   -libxc-1.1.0.ebuild, libxc-1.1.0-r1.ebuild, libxc-9999.ebuild, metadata.xml:
   Moved to autotools-utils, some more sanity
