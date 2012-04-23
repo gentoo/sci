@@ -9,8 +9,7 @@ MYP=lapack-${PV}
 
 DESCRIPTION="Reference implementation of LAPACK"
 HOMEPAGE="http://www.netlib.org/lapack/"
-#SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
-SRC_URI="http://dev.gentoo.org/~bicatali/distfiles/${MYP}.tar.bz2"
+SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -26,6 +25,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MYP}"
 
 src_prepare() {
+	epatch "${FILESDIR}"/${PV}-cmake.patch
 	use static-libs && mkdir "${WORKDIR}/${PN}_static"
 }
 
