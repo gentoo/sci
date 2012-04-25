@@ -97,7 +97,7 @@ intel-sdp_src_unpack() {
 		# TODO: need to find a fast way to find the rpmdir
 		# in some cases rpms are in rpms/, in other cases in rpm/
 		# tar tvf is too slow for 1.4G tar balls
-		rpmdir=${t%.tgz}/rpm
+		rpmdir=${t%%.*}/rpm
 		for r in ${INTEL_RPMS}; do
 			einfo "Unpacking ${r}"
 			l=.${r}_$(date +'%d%m%y_%H%M%S').log
