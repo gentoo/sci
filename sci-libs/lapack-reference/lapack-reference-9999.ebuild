@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -31,7 +31,7 @@ src_prepare() {
 	#epatch \
 	#	"${FILESDIR}"/${PV}-blas-libs.patch \
 	#	"${FILESDIR}"/${PV}-xblas-libs.patch
-	
+
 	# avoid collision with other lapack
 	sed -i \
 		-e 's:BINARY_DIR}/lapack.pc:BINARY_DIR}/reflapack.pc:' \
