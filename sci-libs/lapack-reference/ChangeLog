@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
 
+  25 Apr 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  -files/3.4.1-cmake.patch, lapack-reference-3.4.1.ebuild,
+  +files/lapack-3.4.1-cmake.patch:
+  fixed patch for testing
+
   24 Apr 2012; Justin Lecher <jlec@gentoo.org> Manifest:
   Clean checksums
 

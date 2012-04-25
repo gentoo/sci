@@ -25,7 +25,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MYP}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PV}-cmake.patch
+	epatch "${FILESDIR}"/${MYP}-cmake.patch
 	use static-libs && mkdir "${WORKDIR}/${PN}_static"
 }
 

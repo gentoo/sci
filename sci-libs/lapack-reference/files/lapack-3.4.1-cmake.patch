@@ -1,6 +1,6 @@
 Index: CMakeLists.txt
 ===================================================================
---- CMakeLists.txt	(revision 1284)
+--- CMakeLists.txt	(revision 1294)
 +++ CMakeLists.txt	(working copy)
 @@ -94,10 +94,6 @@
  # Precision to build
@@ -125,7 +125,7 @@ Index: CMakeLists.txt
  configure_file(${LAPACK_SOURCE_DIR}/CMAKE/lapack-config-build.cmake.in
 Index: lapacke/example/CMakeLists.txt
 ===================================================================
---- lapacke/example/CMakeLists.txt	(revision 1284)
+--- lapacke/example/CMakeLists.txt	(revision 1294)
 +++ lapacke/example/CMakeLists.txt	(working copy)
 @@ -1,8 +1,8 @@
  add_executable(xexample_DGESV_rowmajor example_DGESV_rowmajor.c)
@@ -140,7 +140,7 @@ Index: lapacke/example/CMakeLists.txt
  add_test(example_ZGESV_rowmajor ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/xexample_ZGESV_rowmajor)
 Index: lapacke/CMakeLists.txt
 ===================================================================
---- lapacke/CMakeLists.txt	(revision 1284)
+--- lapacke/CMakeLists.txt	(revision 1294)
 +++ lapacke/CMakeLists.txt	(working copy)
 @@ -45,14 +45,14 @@
  
@@ -162,7 +162,7 @@ Index: lapacke/CMakeLists.txt
  
 Index: TESTING/LIN/CMakeLists.txt
 ===================================================================
---- TESTING/LIN/CMakeLists.txt	(revision 1284)
+--- TESTING/LIN/CMakeLists.txt	(revision 1294)
 +++ TESTING/LIN/CMakeLists.txt	(working copy)
 @@ -193,7 +193,7 @@
  
@@ -175,7 +175,7 @@ Index: TESTING/LIN/CMakeLists.txt
  IF(BUILD_SINGLE)
 Index: TESTING/EIG/CMakeLists.txt
 ===================================================================
---- TESTING/EIG/CMakeLists.txt	(revision 1284)
+--- TESTING/EIG/CMakeLists.txt	(revision 1294)
 +++ TESTING/EIG/CMakeLists.txt	(working copy)
 @@ -119,7 +119,7 @@
  
@@ -188,10 +188,19 @@ Index: TESTING/EIG/CMakeLists.txt
  if (BUILD_SINGLE)
 Index: TESTING/MATGEN/CMakeLists.txt
 ===================================================================
---- TESTING/MATGEN/CMakeLists.txt	(revision 1284)
+--- TESTING/MATGEN/CMakeLists.txt	(revision 1294)
 +++ TESTING/MATGEN/CMakeLists.txt	(working copy)
-@@ -71,5 +71,5 @@
+@@ -64,12 +64,12 @@
+   set(ALLOBJ ${ALLOBJ} ${ZMATGEN} ${DZATGEN})
+ endif()
+ 
+-list(REMOVE_DUPLICATES ALLOBJ)
+-
+ if (NOT ALLOBJ)
+ set(ALLOBJ ${SMATGEN} ${CMATGEN} ${SCATGEN} ${DMATGEN} ${ZMATGEN}
    ${DZATGEN})
++else()
++  list(REMOVE_DUPLICATES ALLOBJ)
  endif()
  add_library(tmglib ${ALLOBJ} )
 -target_link_libraries(tmglib lapack)
