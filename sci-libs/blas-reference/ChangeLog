@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Apr 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/lapack-3.4.1-cmake.patch, -blas-reference-20120215-r1.ebuild,
+  blas-reference-20120423.ebuild:
+  applied lapack patch to not compile tmglib when not needed
+
   24 Apr 2012; Justin Lecher <jlec@gentoo.org> Manifest:
   Clean checksums
 

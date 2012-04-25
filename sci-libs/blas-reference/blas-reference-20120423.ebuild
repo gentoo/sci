@@ -23,11 +23,12 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MYP}"
 
 src_prepare() {
+	epatch "${FILESDIR}"/${MYP}-cmake.patch
 	use static-libs && mkdir "${WORKDIR}/${PN}_static"
 }
 
 src_configure() {
-	lapack_configure() {
+	blas_configure() {
 		local mycmakeargs=(
 			-DUSE_OPTIMIZED_BLAS=OFF
 			$(cmake-utils_use_build test TESTING)
@@ -36,9 +37,9 @@ src_configure() {
 		cmake-utils_src_configure
 	}
 
-	lapack_configure -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
+	blas_configure -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
 	use static-libs && \
-		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" lapack_configure \
+		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" blas_configure \
 		-DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON
 }
 
