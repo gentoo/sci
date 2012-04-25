@@ -29,6 +29,11 @@
 # @DESCRIPTION: the package sub-directory where it will end-up in /opt/intel
 # To find out its value, you have to do a raw install from the Intel tar ball
 
+# @ECLASS-VARIABLE: INTEL_RPMS_DIRS
+# @DEFAULT_UNSET
+# @DESCRIPTION: a list of subdirectories in the main archive which contains the
+# rpms to extract.
+
 inherit versionator check-reqs multilib
 
 INTEL_PV1=$(get_version_component_range 1)
@@ -97,15 +102,20 @@ intel-sdp_src_unpack() {
 		# TODO: need to find a fast way to find the rpmdir
 		# in some cases rpms are in rpms/, in other cases in rpm/
 		# tar tvf is too slow for 1.4G tar balls
-		rpmdir=${t%%.*}/rpm
 		for r in ${INTEL_RPMS}; do
-			einfo "Unpacking ${r}"
-			l=.${r}_$(date +'%d%m%y_%H%M%S').log
-			tar xf "${DISTDIR}"/${t} \
-				${rpmdir}/${r} || die "extracting ${r} failed"
-			rpm2tar -O "./${rpmdir}/${r}" | tar xvf - | sed -e \
-				"s:^\.:${EROOT#/}:g" > ${l} || die "unpacking ${r} failed"
-			mv ${l} opt/intel/ || die "failed moving extract log file"
+			# Find which subdirectory of the archive the rpm is in
+			rpm_found="false"
+			for subdir in ${INTEL_RPMS_DIRS:-rpm}; do
+				[[ "${rpm_found}" == "true" ]] && continue
+				rpmdir=${t%%.*}/${subdir}
+				l=.${r}_$(date +'%d%m%y_%H%M%S').log
+				tar xf "${DISTDIR}"/${t} ${rpmdir}/${r} 2> /dev/null || continue
+				einfo "Unpacking ${r}"
+				rpm_found="true"
+				rpm2tar -O "./${rpmdir}/${r}" | tar xvf - | sed -e \
+					"s:^\.:${EROOT#/}:g" > ${l} || die "unpacking ${r} failed"
+				mv ${l} opt/intel/ || die "failed moving extract log file"
+			done
 		done
 	done
 	mv -v opt/intel/* ${INTEL_SDP_DIR} || die "mv to INTEL_SDP_DIR failed"
