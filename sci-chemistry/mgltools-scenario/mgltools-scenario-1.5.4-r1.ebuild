@@ -28,7 +28,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
-RESTRICT_PYTHON_ABIS="3.*"
+RESTRICT_PYTHON_ABIS="3.* 2.7-pypy-*"
 S="${WORKDIR}"/${MY_P}
 
 DOCS="scenario/Readme"
