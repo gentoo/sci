@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Apr 2012; Justin Lecher <jlec@gentoo.org>
+  mgltools-opengltk-1.5.4-r2.ebuild, mgltools-opengltk-1.5.6_rc2.ebuild:
+  Add 2.7-pypy-* to RESTRICT_PYTHON_ABIS
+
   07 Mar 2012; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Removed maintainer, as herd is enough
 

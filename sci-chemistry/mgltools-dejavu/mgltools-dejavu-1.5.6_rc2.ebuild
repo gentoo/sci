@@ -7,7 +7,7 @@ EAPI=4
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
 PYTHON_USE_WITH="tk"
-RESTRICT_PYTHON_ABIS="3.*"
+RESTRICT_PYTHON_ABIS="3.* 2.7-pypy-*"
 
 inherit distutils eutils
 

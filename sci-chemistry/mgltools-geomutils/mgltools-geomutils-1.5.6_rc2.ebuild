@@ -6,7 +6,7 @@ EAPI=4
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+RESTRICT_PYTHON_ABIS="3.* 2.7-pypy-*"
 
 inherit distutils eutils
 
@@ -29,7 +29,7 @@ RDEPEND="dev-python/numpy"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
-RESTRICT_PYTHON_ABIS="3.*"
+RESTRICT_PYTHON_ABIS="3.* 2.7-pypy-*"
 S="${WORKDIR}"/${MY_P}
 
 src_unpack() {

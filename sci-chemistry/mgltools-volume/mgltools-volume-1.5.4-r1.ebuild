@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -25,7 +25,7 @@ RDEPEND=""
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
-RESTRICT_PYTHON_ABIS="3.*"
+RESTRICT_PYTHON_ABIS="3.* 2.7-pypy-*"
 S="${WORKDIR}"/${MY_P}
 
 DOCS="Volume/RELNOTES Volume/README Volume/TODO"
