@@ -30,6 +30,9 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher <jlec@gentoo.org> (28 Apr 2012)
+# Doesn't install pkg-config files, which many packages rely on
+=sci-libs/mmdb-1.24.20111208
 
 # Andrea Arteaga <andyspiros@gmail.com> (22 Apr 2012)
 # Masked for testing
