@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Apr 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
+  [sci-chemistry/gromacs] add more mirrors
+
   19 Apr 2012; Alexey Shvetsov <alexxy@gentoo.org> gromacs-4.5.9999.ebuild,
   gromacs-4.6.9999.ebuild, gromacs-9999.ebuild:
   [sci-chemistry/gromacs] Also add http mirror git uri
