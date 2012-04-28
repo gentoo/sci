@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*fox-4.1.2-r1 (28 Apr 2012)
+
+  28 Apr 2012; Honza Macháček <Hloupy.Honza@centrum.cz> -fox-4.1.2.ebuild,
+  +fox-4.1.2-r1.ebuild:
+  fox-4.1.2.ebuild made 4.1.2-r1 to mark the important change in patching
+  FoX-config
+
   20 Apr 2012; Honza Macháček <Hloupy.Honza@centrum.cz> fox-4.1.2.ebuild:
   Modular download enabled, FoX-config improved.
 

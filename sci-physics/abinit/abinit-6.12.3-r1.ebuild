@@ -20,7 +20,7 @@ RDEPEND="=sci-libs/bigdft-1.6_pre1
 	=sci-libs/libxc-1*[fortran]
 	sci-physics/atompaw[libxc]
 	etsf_io? ( sci-libs/etsf_io )
-	fox? ( sci-libs/fox[dom,sax,wcml,wxml] )
+	fox? ( >=sci-libs/fox-4.1.2-r1[sax] )
 	netcdf? (
 		sci-libs/netcdf[fortran]
 		hdf5? (
@@ -118,8 +118,8 @@ src_prepare() {
 
 src_configure() {
 	local libs="-L/usr/$(get_libdir)"
-	local modules="-I/usr/$(get_libdir)/finclude"
-	local FoX_libs="${libs} -lFoX_common -lFoX_utils -lFoX_fsys"
+	local modules="-I/usr/$(get_libdir)/finclude $(FoX-config --sax --fcflags)"
+	local FoX_libs="${libs} $(FoX-config --sax --libs)"
 	local trio_flavor=""
 	use etsf_io && trio_flavor="${trio_flavor}+etsf_io"
 	use fox && trio_flavor="${trio_flavor}+fox"
