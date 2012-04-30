@@ -35,9 +35,6 @@ S="${WORKDIR}/${My_PN}${PV}-${_arch}"
 _destination=/opt/${My_PN}
 
 src_install() {
-    dodir /usr/bin
-    dodir /usr/share/applications
-
     cd ${WORKDIR}
     dodir `dirname ${_destination}`
     cp -a ${S} ${D}${_destination}
@@ -46,10 +43,12 @@ src_install() {
     # link to it in /usr/bin thus cannot work. Instead, copy it to /usr/bin and
     # remove the autodetection of the script's directory and hardcode it to ${_destination}.
     # Then create a lowercase symbolic link to this new launcher.
+    dodir /usr/bin
     cp ${D}${_destination}/${My_PN} ${D}/usr/bin/${My_PN}
     sed "s|gDEBuggerBinariesDir=.*|gDEBuggerBinariesDir=\"${_destination}\"|g" -i ${D}/usr/bin/${My_PN}
     dosym /usr/bin/${My_PN} /usr/bin/${PN}
 
+    dodir /usr/share/applications
     cat >> ${D}/usr/share/applications/${PN}.desktop <<- EOF
 		[Desktop Entry]
 		Name=${My_PN}
