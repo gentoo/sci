@@ -48,7 +48,7 @@ src_install() {
     # Then create a lowercase symbolic link to this new launcher.
     dodir /usr/bin
     cp ${D}${_destination}/${My_PN} ${D}/usr/bin/${My_PN}
-    sed "s|gDEBuggerBinariesDir=.*|gDEBuggerBinariesDir=\"${_destination}\"|g" -i ${D}/usr/bin/${My_PN}
+    sed "s|gDEBuggerBinariesDir=.*|gDEBuggerBinariesDir=\"${_destination}\"|g" -i ${D}/usr/bin/${My_PN} || die "Failed to set gDEBuggerBinariesDir to ${_destination}."
     dosym /usr/bin/${My_PN} /usr/bin/${PN}
 
     dodir /usr/share/applications
