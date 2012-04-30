@@ -50,15 +50,17 @@ src_install() {
     sed "s|gDEBuggerBinariesDir=.*|gDEBuggerBinariesDir=\"${_destination}\"|g" -i ${D}/usr/bin/${My_PN}
     dosym /usr/bin/${My_PN} /usr/bin/${PN}
 
-    echo "[Desktop Entry]
-Name=${My_PN}
-Exec=${_destination}/${My_PN}
-Type=Application
-GenericName=OpenCL/OpenGL debugger
-Terminal=false
-Icon=${My_PN}
-Caption=OpenCL/OpenGL debugger
-Categories=Application;Development;" > ${D}/usr/share/applications/${PN}.desktop || die "Can't create .desktop file"
+    cat >> ${D}/usr/share/applications/${PN}.desktop <<- EOF
+		[Desktop Entry]
+		Name=${My_PN}
+		Exec=${_destination}/${My_PN}
+		Type=Application
+		GenericName=OpenCL/OpenGL debugger
+		Terminal=false
+		Icon=${My_PN}
+		Caption=OpenCL/OpenGL debugger
+		Categories=Application;Development;
+EOF
 
     insinto /usr/share/icons/hicolor/64x64/apps/
     newins ${D}${_destination}/tutorial/images/applicationicon_64.png ${My_PN}.png
