@@ -27,7 +27,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="virtual/libstdc++"
-DEPEND="${RDEPEND} app-text/html2text"
+DEPEND="${RDEPEND}"
 
 RESTRICT="mirror strip"
 
@@ -37,7 +37,6 @@ _destination=/opt/${My_PN}
 src_install() {
     dodir /opt
     dodir /usr/bin
-    dodir /usr/portage/licenses/
     dodir /usr/share/applications
 
     cd ..
@@ -50,8 +49,6 @@ src_install() {
     cp ${D}${_destination}/${My_PN} ${D}/usr/bin/${My_PN}
     sed "s|gDEBuggerBinariesDir=.*|gDEBuggerBinariesDir=\"${_destination}\"|g" -i ${D}/usr/bin/${My_PN}
     dosym /usr/bin/${My_PN} /usr/bin/${PN}
-
-    html2text ${D}${_destination}/Legal/EndUserLicenseAgreement.htm > ${D}/usr/portage/licenses/${My_PN}.txt || die "Can't copy license"
 
     echo "[Desktop Entry]
 Name=${My_PN}
