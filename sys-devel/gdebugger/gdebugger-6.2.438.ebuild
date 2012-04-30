@@ -31,16 +31,13 @@ DEPEND="${RDEPEND}"
 
 RESTRICT="mirror strip"
 
-_dest_folder=/opt
-_destination=${_dest_folder}/${My_PN}
-
-_extracted_folder=${My_PN}${PV}-${_arch}
-S="${WORKDIR}/${_extracted_folder}"
+S="${WORKDIR}/${My_PN}${PV}-${_arch}"
+_destination=/opt/${My_PN}
 
 src_install() {
-    insinto ${_dest_folder}
-    doins -r ${S}
-	mv ${D}${_dest_folder}/${_extracted_folder} ${D}/${_destination}
+    cd ${WORKDIR}
+    dodir `dirname ${_destination}`
+    cp -a ${S} ${D}${_destination}
 
     # The included launcher gets the directory where it is being run; a symbolic
     # link to it in /usr/bin thus cannot work. Instead, copy it to /usr/bin and
