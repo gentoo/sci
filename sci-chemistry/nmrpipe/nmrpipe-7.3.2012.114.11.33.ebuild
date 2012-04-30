@@ -49,7 +49,14 @@ S="${WORKDIR}"
 NMRBASE="/opt/${PN}"
 ENMRBASE="${EPREFIX}/${NMRBASE}"
 
-QA_DT_HASH_amd64="opt/nmrpipe/nmrbin.linux9/lib/.*"
+QA_FLAGS_IGNORED_amd64="
+	opt/nmrpipe/nmrbin.linux9/lib/.*
+	opt/nmrpipe/nmrbin.linux9/.*
+	opt/nmrpipe/promega/bin.*
+	opt/nmrpipe/talos/bin/.*
+	opt/nmrpipe/talosplus/bin/.*
+	opt/nmrpipe/spartaplus/bin/.*
+	"
 
 pkg_nofetch() {
 	einfo "Please visit:"
