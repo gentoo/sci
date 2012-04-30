@@ -35,11 +35,11 @@ S="${WORKDIR}/${My_PN}${PV}-${_arch}"
 _destination=/opt/${My_PN}
 
 src_install() {
-    dodir /opt
     dodir /usr/bin
     dodir /usr/share/applications
 
     cd ${WORKDIR}
+    dodir `dirname ${_destination}`
     cp -a ${S} ${D}${_destination}
 
     # The included launcher gets the directory where it is being run; a symbolic
