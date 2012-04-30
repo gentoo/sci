@@ -49,7 +49,7 @@ S="${WORKDIR}"
 NMRBASE="/opt/${PN}"
 ENMRBASE="${EPREFIX}/${NMRBASE}"
 
-QA_FLAGS_IGNORED_amd64="
+QA_PREBUILTD_amd64="
 	opt/nmrpipe/nmrbin.linux9/lib/.*
 	opt/nmrpipe/nmrbin.linux9/.*
 	opt/nmrpipe/promega/bin.*
