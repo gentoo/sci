@@ -39,7 +39,7 @@ src_install() {
     dodir /usr/bin
     dodir /usr/share/applications
 
-    cd ..
+    cd ${WORKDIR}
     cp -a ${S} ${D}${_destination}
 
     # The included launcher gets the directory where it is being run; a symbolic
