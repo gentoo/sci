@@ -9,7 +9,7 @@ inherit versionator
 My_PN="gDEBugger"
 My_PV=$(delete_all_version_separators)
 
-DESCRIPTION="OpenCL and OpenGL debugger and memory analyzer."
+DESCRIPTION="OpenCL and OpenGL debugger and memory analyzer"
 HOMEPAGE="http://developer.amd.com/tools/gDEBugger/Pages/default.aspx"
 
 if [[ "${ARCH}" == "amd64" ]]; then
