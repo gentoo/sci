@@ -11,16 +11,18 @@ IUSE="emacs optimization"
 ESVN_REPO_URI="svn://svn.macaulay2.com/Macaulay2/trunk/M2"
 
 BOEHM_GC="gc-7.3alpha1.2012.01.23"
-FACTORY="factory-3-1-4"
+FACTORY="factory-3-1-4-1"
 LIBFAC="libfac-3-1-4"
 
 DESCRIPTION="Research tool for commutative algebra and algebraic geometry"
 HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
 SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
-SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${FACTORY}.tar.gz
+SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${LIBFAC}.tar.gz
 		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
-		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/${LIBFAC}.tar.gz
+		 http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/${FACTORY}.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Extra/${BOEHM_GC}.tar.gz"
+# Somebody changed the tarball after release... grrr.
+#		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/${FACTORY}.tar.gz
 
 SLOT="0"
 LICENSE="GPL-2"
