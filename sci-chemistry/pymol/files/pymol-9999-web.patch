@@ -6,6 +6,7 @@ Index: setup.py
                   'pymol/opengl/glu',
                   'pymol/opengl/glut',
                   'pymol/wizard',
+                  'pymol/plugins',
 -                 'pymol2',
 -                 'web',
 -                 'web/examples',
@@ -13,4 +14,3 @@ Index: setup.py
 +                 'pymol2', ],
      ext_modules = [
          Extension("pymol._cmd", [
-                 "modules/cealign/src/ccealignmodule.cpp",
