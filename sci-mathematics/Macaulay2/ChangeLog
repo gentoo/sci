@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 May 2012; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
+  Fix live ebuild
+
   01 Mar 2012; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
   Update deps in M2-live ebuild
 

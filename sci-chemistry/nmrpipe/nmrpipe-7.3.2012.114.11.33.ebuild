@@ -49,13 +49,13 @@ S="${WORKDIR}"
 NMRBASE="/opt/${PN}"
 ENMRBASE="${EPREFIX}/${NMRBASE}"
 
-QA_PREBUILTD_amd64="
+QA_PREBUILT="
 	opt/nmrpipe/nmrbin.linux9/lib/.*
 	opt/nmrpipe/nmrbin.linux9/.*
-	opt/nmrpipe/promega/bin.*
 	opt/nmrpipe/talos/bin/.*
 	opt/nmrpipe/talosplus/bin/.*
-	opt/nmrpipe/spartaplus/bin/.*
+	opt/nmrpipe/promega/.*
+	opt/nmrpipe/spartaplus/.*
 	"
 
 pkg_nofetch() {
