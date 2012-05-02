@@ -2,6 +2,18 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 May 2012; Justin Lecher <jlec@gentoo.org>
+  +files/7.3.2012.114.11.33-lib.patch, -files/7.1.2012.029.12.03-lib.patch,
+  -nmrpipe-7.1.2012.029.12.03.ebuild, +nmrpipe-7.3.2012.114.11.33.ebuild:
+  Version Bump, use QA_PREBUILT
+
+*nmrpipe-7.3.2012.114.11.33 (02 May 2012)
+
+  02 May 2012; Justin Lecher <jlec@gentoo.org>
+  +files/7.3.2012.114.11.33-lib.patch, -files/7.1.2012.029.12.03-lib.patch,
+  -nmrpipe-7.1.2012.029.12.03.ebuild, +nmrpipe-7.3.2012.114.11.33.ebuild:
+  Version Bump, use QA_PREBUILT
+
   22 Mar 2012; Justin Lecher <jlec@gentoo.org>
   +files/7.1.2012.029.12.03-lib.patch, -files/6.5.2012.009.14.35-lib.patch,
   -nmrpipe-6.5.2012.009.14.35.ebuild, +nmrpipe-7.1.2012.029.12.03.ebuild:
