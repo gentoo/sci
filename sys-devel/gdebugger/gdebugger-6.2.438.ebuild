@@ -4,63 +4,95 @@
 
 EAPI=4
 
-inherit versionator
+inherit eutils toolchain-funcs versionator
 
-My_PN="gDEBugger"
-My_PV=$(delete_all_version_separators)
+MY_PN=gDEBugger
+MY_PV=$(delete_all_version_separators)
+MY_P=${MY_PN}${PV}
 
 DESCRIPTION="OpenCL and OpenGL debugger and memory analyzer"
 HOMEPAGE="http://developer.amd.com/tools/gDEBugger/Pages/default.aspx"
-
-if [[ "${ARCH}" == "amd64" ]]; then
-    _arch="x86_64"
-elif [[ "${ARCH}" == "x86" ]]; then
-    _arch="x86"
-fi
-
 SRC_URI="
-    x86?    ( http://developer.amd.com/Downloads/AMD${My_PN}${PV}x86.tar.gz )
-    amd64?  ( http://developer.amd.com/Downloads/AMD${My_PN}${PV}x86_64.tar.gz )"
+	x86? ( http://developer.amd.com/Downloads/AMD${MY_P}x86.tar.gz )
+	amd64? ( http://developer.amd.com/Downloads/AMD${MY_P}x86_64.tar.gz )"
 
-LICENSE="${My_PN}"
+LICENSE="gDEBugger"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+IUSE="examples"
 
-RDEPEND="virtual/libstdc++"
-DEPEND="${RDEPEND}"
+DEPEND=""
+RDEPEND="virtual/libstdc++
+	dev-libs/atk
+	dev-libs/glib:2
+	media-libs/fontconfig
+	media-libs/freetype
+	media-libs/libpng:1.2
+	media-libs/mesa
+	sys-libs/zlib
+	x11-libs/cairo
+	x11-libs/gdk-pixbuf
+	x11-libs/gtk+:2
+	x11-libs/libICE
+	x11-libs/libSM
+	x11-libs/libX11
+	x11-libs/libXext
+	x11-libs/libXrender
+	x11-libs/libXxf86vm
+	x11-libs/pango"
 
 RESTRICT="mirror strip"
 
-S="${WORKDIR}/${My_PN}${PV}-${_arch}"
-_destination=/opt/${My_PN}
+S=${WORKDIR}
+
+QA_PREBUILT="
+	/opt/${MY_PN}/libGROSWrappers.so
+	/opt/${MY_PN}/libGRProcessDebugger.so
+	/opt/${MY_PN}/libGRAPIClasses.so
+	/opt/${MY_PN}/libgDEBuggerAppCode.so
+	/opt/${MY_PN}/libGRApiFunctions.so
+	/opt/${MY_PN}/libAMDTApplicationFramework.so
+	/opt/${MY_PN}/libGRApplicationComponents.so
+	/opt/${MY_PN}/libAMDTgDEBuggerAppWrapper.so
+	/opt/${MY_PN}/libGRSpiesUtilities.so
+	/opt/${MY_PN}/libGRBaseTools.so
+	/opt/${MY_PN}/gDEBugger
+"
+
+src_prepare() {
+	cat >> "${T}"/99${PN} <<- EOF
+		PATH="/opt/${MY_PN}"
+		LDPATH="/opt/${MY_PN}"
+	EOF
+}
 
 src_install() {
-    cd ${WORKDIR}
-    dodir `dirname ${_destination}`
-    cp -a ${S} ${D}${_destination}
+	pushd ${MY_P}-$(tc-arch-kernel) &> /dev/null
+	local _dest=/opt/${MY_PN}
 
-    # The included launcher gets the directory where it is being run; a symbolic
-    # link to it in /usr/bin thus cannot work. Instead, copy it to /usr/bin and
-    # remove the autodetection of the script's directory and hardcode it to ${_destination}.
-    # Then create a lowercase symbolic link to this new launcher.
-    dodir /usr/bin
-    cp ${D}${_destination}/${My_PN} ${D}/usr/bin/${My_PN}
-    sed "s|gDEBuggerBinariesDir=.*|gDEBuggerBinariesDir=\"${_destination}\"|g" -i ${D}/usr/bin/${My_PN} || die "Failed to set gDEBuggerBinariesDir to ${_destination}."
-    dosym /usr/bin/${My_PN} /usr/bin/${PN}
+	exeinto ${_dest}
+	doexe $(find . -maxdepth 1 -type f -name '*.so*')
+	for f in lib*.so.?.?.?; do
+		dosym $f ${_dest}/${f%.?.?.?}
+		dosym $f ${_dest}/${f%.?.?}
+	done
+	newexe ${MY_PN}-bin ${MY_PN}
 
-    dodir /usr/share/applications
-    cat >> ${D}/usr/share/applications/${PN}.desktop <<- EOF
-		[Desktop Entry]
-		Name=${My_PN}
-		Exec=${_destination}/${My_PN}
-		Type=Application
-		GenericName=OpenCL/OpenGL debugger
-		Terminal=false
-		Icon=${My_PN}
-		Caption=OpenCL/OpenGL debugger
-		Categories=Application;Development;
-EOF
+	insinto ${_dest}
+	doins -r Images webhelp	tutorial
 
-    insinto /usr/share/icons/hicolor/64x64/apps/
-    newins ${D}${_destination}/tutorial/images/applicationicon_64.png ${My_PN}.png
+	insinto ${_dest}/Legal
+	doins Legal/EndUserLicenseAgreement.htm
+
+	if use examples ; then
+		insinto ${_dest}/examples
+		doins -r examples/*
+	fi
+
+	newicon tutorial/images/applicationicon_64.png ${MY_PN}.png
+	popd &> /dev/null
+
+	doenvd "${T}"/99${PN}
+	make_desktop_entry ${MY_PN} ${MY_PN} ${MY_PN} \
+		"Application;Development"
 }
