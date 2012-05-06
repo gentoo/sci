@@ -17,18 +17,18 @@ SRC_URI=""
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="doc test"
 
-DEPEND="dev-python/setuptools
+RDEPEND="dev-python/numpy"
+DEPEND="${RDEPEND}
+	dev-python/setuptools
 	sys-devel/flex
-	doc? ( 
-		dev-python/sphinx 
+	doc? (
+		dev-python/sphinx
 		media-gfx/graphviz
 	)
 	test? ( dev-python/pytest )"
-RDEPEND="${DEPEND}
-	dev-python/numpy"
 
 PYTHON_CFLAGS=("2.* + -fno-strict-aliasing")
 
