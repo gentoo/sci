@@ -57,10 +57,12 @@ src_prepare() {
 	if use ppl; then
 		sed -i -e "s/# HAS_PPL = 1/HAS_PPL = 1/g" Makefile.config
 	fi
-	if use cxx && use ppl; then
-		sed -i -e "s/# HAS_CPP = 1/HAS_CPP = 1/g" Makefile.config
-	else
-		die "USE flag 'cxx' needs USE flag 'ppl' set"
+	if use cxx; then
+		if use ppl; then
+			sed -i -e "s/# HAS_CPP = 1/HAS_CPP = 1/g" Makefile.config
+		else
+			die "USE flag 'cxx' needs USE flag 'ppl' set"
+		fi
 	fi
 }
 
