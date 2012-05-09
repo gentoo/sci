@@ -1,0 +1,48 @@
+diff -Nur astrometry.net-0.38.orig/util/makefile.cfitsio astrometry.net-0.38/util/makefile.cfitsio
+--- astrometry.net-0.38.orig/util/makefile.cfitsio	2008-05-17 02:46:19.000000000 +0100
++++ astrometry.net-0.38/util/makefile.cfitsio	2012-05-09 20:11:25.000000000 +0100
+@@ -14,22 +14,5 @@
+ # along with the Astrometry.net suite ; if not, write to the Free Software
+ # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+ 
+-CFITS_DIR := $(BASEDIR)/cfitsio
+-CFITS_INC := -I$(CFITS_DIR)
+-CFITS_LIB := $(CFITS_DIR)/libcfitsio.a
+-
+-# CFLAGS to pass to CFITSIO's configure.
+-CFITS_CONFIG_CFLAGS := $(CFLAGS_DEF)
+-
+-$(CFITS_LIB): $(wildcard $(CFITS_DIR)/*.c) $(wildcard $(CFITS_DIR)/*.h) $(CFITS_DIR)/Makefile
+-	cd $(CFITS_DIR) && $(MAKE)
+-
+-$(CFITS_DIR)/Makefile: $(CFITS_DIR)/Makefile.in
+-	cd $(CFITS_DIR) && CFLAGS="$(CFITS_CONFIG_CFLAGS)" CC="$(CC)" ./configure 
+-
+-$(CFITS_DIR)/Makefile.in: ;
+-
+-REMAKE_CFITSIO := remake-cfitsio
+-.PHONY: $(REMAKE_CFITSIO)
+-$(REMAKE_CFITSIO): $(CFITS_DIR)/Makefile
+-	cd $(CFITS_DIR) && $(MAKE)
++CFITS_INC := $(shell pkg-config --cflags cfitsio 2>/dev/null)
++CFITS_LIB := $(shell pkg-config --libs cfitsio 2>/dev/null)
+diff -Nur astrometry.net-0.38.orig/util/makefile.gsl astrometry.net-0.38/util/makefile.gsl
+--- astrometry.net-0.38.orig/util/makefile.gsl	2008-04-15 22:08:08.000000000 +0100
++++ astrometry.net-0.38/util/makefile.gsl	2012-05-09 20:12:43.000000000 +0100
+@@ -14,14 +14,5 @@
+ # along with the Astrometry.net suite ; if not, write to the Free Software
+ # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+ 
+-GSL_DIR := $(BASEDIR)/gsl-an
+-GSL_INC := -I$(GSL_DIR)
+-GSL_LIB := $(GSL_DIR)/libgsl-an.a
+-
+-$(GSL_LIB):
+-	cd $(GSL_DIR) && $(MAKE)
+-
+-REMAKE_GSL := remake-gsl
+-.PHONY: $(REMAKE_GSL)
+-$(REMAKE_GSL):
+-	cd $(GSL_DIR) && $(MAKE)
++GSL_INC := $(shell pkg-config --cflags gs 2> /dev/null)
++GSL_LIB := $(shell pkg-config --libs gsl 2> /dev/null)

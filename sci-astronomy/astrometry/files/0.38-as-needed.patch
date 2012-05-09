@@ -1,0 +1,694 @@
+diff -Nur astrometry.net-0.38.orig/blind/Makefile astrometry.net-0.38/blind/Makefile
+--- astrometry.net-0.38.orig/blind/Makefile	2010-11-24 20:18:39.000000000 +0000
++++ astrometry.net-0.38/blind/Makefile	2012-05-09 19:13:29.000000000 +0100
+@@ -50,7 +50,7 @@
+ endif
+ 
+ LDFLAGS := $(LDFLAGS_DEF)
+-LDFLAGS += -lm
++LIBM = -lm
+ LDFLAGS += -fPIC
+ 
+ CFLAGS += $(CFLAGS_DEF)
+@@ -132,7 +132,7 @@
+ 
+ $(BACKEND_SO): $(BACKEND_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(LIBKD_LIB) \
+ 		$(QFITS_LIB) $(GSL_LIB)
+-	$(CC) $(SHAREDLIBFLAGS) -o $@ $^
++	$(CC) $(SHAREDLIBFLAGS) $^ -o $@
+ 
+ # old and miscellaneous executables that aren't part of the pipeline.
+ OLDEXECS := plotquads rawstartree checkquads
+@@ -230,9 +230,9 @@
+ 	done
+ 
+ test-solver: test-solver.o solver_test.o blind_wcs.o verify.o matchfile.o \
+-		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(GSL_LIB)
++		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(GSL_LIB) $(LIBM)
+ test-solver-2: test-solver-2.o solver_test_2.o blind_wcs.o verify.o matchfile.o quad-utils.o codefile.o \
+-		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(GSL_LIB)
++		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(GSL_LIB) $(LIBM)
+ 
+ NODEP_OBJS += solver_test.o solver_test_2.o
+ ALL_OBJ += test-solver.o test-solver-2.o
+@@ -240,14 +240,14 @@
+ CFLAGS_DEBUG = $(subst -DNDEBUG,,$(CFLAGS))
+ 
+ test-solver.o: test-solver.c
+-	$(CC) $(CFLAGS_DEBUG) -o $@ -c $<
++	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
+ test-solver-2.o: test-solver-2.c
+-	$(CC) $(CFLAGS_DEBUG) -o $@ -c $<
++	$(CC) $(CFLAGS_DEBUG) -c $< -o $@
+ 
+ solver_test.o: solver.c
+-	$(CC) $(CFLAGS_DEBUG) -DTESTING=1 -DTESTING_TRYALLCODES=1 -o $@ -c $<
++	$(CC) $(CFLAGS_DEBUG) -DTESTING=1 -DTESTING_TRYALLCODES=1 -c $< -o $@
+ solver_test_2.o: solver.c
+-	$(CC) $(CFLAGS_DEBUG) -DTESTING=1 -DTESTING_TRYPERMUTATIONS=1 -o $@ -c $<
++	$(CC) $(CFLAGS_DEBUG) -DTESTING=1 -DTESTING_TRYPERMUTATIONS=1 -c $< -o $@
+ 
+ 
+ #######################################
+@@ -264,7 +264,7 @@
+ # Add the dependencies here...
+ TEST_DFIND_OBJS := dfind.o
+ ALL_TEST_EXTRA_OBJS += $(TEST_DFIND_OBJS)
+-test_dfind: $(TEST_DFIND_OBJS) $(ANUTILS_LIB) $(GSL_LIB)
++test_dfind: $(TEST_DFIND_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(LIBM)
+ 
+ TEST_CTMF_OBJS := ctmf.o
+ ALL_TEST_EXTRA_OBJS += $(TEST_CTMF_OBJS)
+@@ -280,31 +280,31 @@
+ 
+ #../util/cutest.o \
+ 
+-test_2mass: 2mass.o 2mass-fits.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++test_2mass: 2mass.o 2mass-fits.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_TEST_EXTRA_OBJS += 2mass-fits.o 2mass.o
+ 
+-test_usnob: usnob-fits.o usnob.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++test_usnob: usnob-fits.o usnob.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_TEST_EXTRA_OBJS += usnob-fits.o usnob.o
+ 
+-test_nomad: nomad-fits.o nomad.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++test_nomad: nomad-fits.o nomad.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_TEST_EXTRA_OBJS += nomad-fits.o nomad.o
+ 
+-test_matchfile: matchfile.o matchobj.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++test_matchfile: matchfile.o matchobj.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_TEST_EXTRA_OBJS += matchfile.o matchobj.o
+ 
+-test_blindutils: blindutils.o $(ANUTILS_LIB) $(GSL_LIB)
++test_blindutils: blindutils.o $(ANUTILS_LIB) $(GSL_LIB) $(LIBM)
+ ALL_TEST_EXTRA_OBJS += blindutils.o
+ 
+ test_dcen3x3: dcen3x3.o
+ ALL_TEST_EXTRA_OBJS += dcen3x3.o
+ 
+-test_simplexy: $(SIMPLEXY_OBJ) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++test_simplexy: $(SIMPLEXY_OBJ) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_TEST_EXTRA_OBJS += $(SIMPLEXY_OBJ)
+ 
+-test_resort-xylist: resort-xylist.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++test_resort-xylist: resort-xylist.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_TEST_EXTRA_OBJS += resort-xylist.o
+ 
+-test_tweak: test_tweak.o tweak.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++test_tweak: test_tweak.o tweak.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_TEST_EXTRA_OBJS += tweak.o
+ 
+ ALL_TEST_LIBS += $(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) 
+@@ -323,15 +323,15 @@
+ 
+ demo_dsmooth: demo_dsmooth.o dsmooth.o \
+ 	$(COMMON)/cairoutils.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) 
+-	$(CC) -o $@ $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) -pg
++	$(CC)  $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(LIBM) -pg -o $@
+ 
+ control-program: control-program.o \
+ 		$(BACKEND_OBJS) $(SIMPLEXY_OBJ) \
+-		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB) $(LIBM)
+ ALL_OBJ += control-program.o
+ 
+ # qfits is only needed for writing debugging images...
+-image2xy: image2xy-main.o image2xy-files.o $(SIMPLEXY_OBJ) $(CFITS_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++image2xy: image2xy-main.o image2xy-files.o $(SIMPLEXY_OBJ) $(CFITS_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ ALL_OBJ += image2xy-main.o image2xy-files.o
+ 
+@@ -340,19 +340,19 @@
+ ALL_OBJ += new-wcs-main.o
+ 
+ rdls2hpls: rdls2hpls.o \
+-		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ rdlstohealpix: rdlstohealpix.o \
+-		$(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ xylist2fits: xylist2fits.o \
+-		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ certifiable: certifiable.o matchfile.o matchobj.o solvedfile.o \
+-		$(UTILS_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTILS_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ fits-guess-scale: fits-guess-scale-main.o fits-guess-scale.o \
+-		$(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ ALL_OBJ += fits-guess-scale-main.o
+ 
+@@ -361,27 +361,27 @@
+ 
+ wcs-xy2rd: wcs-xy2rd-main.o wcs-xy2rd.o $(UTIL_OBJS) \
+ 		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $(CCFLAGS) $^ $(LDFLAGS) $(WCSLIB_LIB)
++	$(CC) $(CCFLAGS) $^ $(LDFLAGS) $(WCSLIB_LIB) $(LIBM) -o $@
+ ALL_OBJ += wcs-xy2rd-main.o
+ 
+ wcs-rd2xy: wcs-rd2xy-main.o wcs-rd2xy.o $(UTIL_OBJS) \
+ 		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $(CCFLAGS) $^ $(LDFLAGS) $(WCSLIB_LIB)
++	$(CC) $(CCFLAGS) $^ $(LDFLAGS) $(WCSLIB_LIB) $(LIBM) -o $@
+ ALL_OBJ += wcs-rd2xy-main.o
+ 
+ wcs-pv2sip: wcs-pv2sip.o tweak.o \
+ 		$(ANLIBS) $(GSL_LIB)
+ ALL_OBJ += wcs-pv2sip.o
+ 
+-noisesim: noisesim.o noise.o $(ANUTILS_LIB) $(GSL_LIB)
++noisesim: noisesim.o noise.o $(ANUTILS_LIB) $(GSL_LIB) $(LIBM)
+ 
+-noisesim2: noisesim2.o noise.o $(ANUTILS_LIB) $(GSL_LIB)
++noisesim2: noisesim2.o noise.o $(ANUTILS_LIB) $(GSL_LIB) $(LIBM)
+ 
+-hpgrid: hpgrid.o $(ANUTILS_LIB) $(GSL_LIB)
++hpgrid: hpgrid.o $(ANUTILS_LIB) $(GSL_LIB) $(LIBM)
+ 
+-get-healpix: get-healpix.o $(ANUTILS_LIB) $(GSL_LIB)
++get-healpix: get-healpix.o $(ANUTILS_LIB) $(GSL_LIB) $(LIBM)
+ 
+-$(CFITS_UTILS) :: %: %.o $(CFITS_LIB)
++$(CFITS_UTILS) :: %: %.o $(CFITS_LIB) $(LIBM)
+ 
+ fitsverify: ftverify.c fvrf_data.c fvrf_file.c fvrf_head.c fvrf_key.c fvrf_misc.c $(CFITS_LIB)
+ 	$(CC) -DSTANDALONE -trigraphs $(CFITS_INC) -o $@ $^ -lm
+@@ -389,15 +389,15 @@
+ $(OLDEXECS) :: %: %.o $(OLDEXECS_OBJS) \
+ 		$(ANUTILS_LIB) $(GSL_LIB) $(LIBKD_LIB) $(QFITS_LIB)
+ 
+-catalog_analysis: catalog_analysis.o pnpoly.o $(ANUTILS_LIB) $(GSL_LIB)
++catalog_analysis: catalog_analysis.o pnpoly.o $(ANUTILS_LIB) $(GSL_LIB) $(LIBM)
+ 
+ nomadtofits: nomadtofits.o nomad-fits.o nomad.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ read_nomad: read_nomad.o nomad.o
+ 
+ 2masstofits: $(2MASSOBJ) $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) $(ZLIB_LIB)
++	$(CC) $(CFLAGS) $^ $(LDFLAGS) $(ZLIB_LIB) $(LIBM) -o $@
+ 
+ diffractionFlag_check: diffractionFlag_check.o usnob-fits.o usnob.o \
+ 		$(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+@@ -406,72 +406,72 @@
+ 		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+ 
+ usnobtofits: usnobtofits.o usnob-fits.o usnob.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+-hpowned: hpowned.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++hpowned: hpowned.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ build-an-catalog: build-an-catalog.o usnob-fits.o usnob.o \
+ 		2mass-fits.o 2mass.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ cut-an: cut-an.o catalog.o usnob.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ startree: startree.o catalog.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ startree2: startree2-main.o startree2.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += startree2-main.o startree2.o
+ 
+ uniformize-catalog: uniformize-catalog-main.o uniformize-catalog.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += uniformize-catalog-main.o uniformize-catalog.o
+ 
+ build-index: build-index-main.o build-index.o uniformize-catalog.o startree2.o hpquads.o \
+ 		quad-builder.o quad-utils.o codefile.o codetree.o unpermute-stars.o \
+ 		unpermute-quads.o merge-index.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += build-index-main.o build-index.o uniformize-catalog.o quad-utils.o
+ 
+ hpquads: hpquads-main.o hpquads.o quad-builder.o quad-utils.o codefile.o pnpoly.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += hpquads-main.o quad-builder.o hpquads.o
+ 
+ allquads: allquads-main.o allquads.o quad-builder.o quad-utils.o codefile.o \
+ 		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+ 
+ codetree: codetree-main.o codetree.o codefile.o quad-utils.o \
+-		$(UTIL_OBJS) $(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += codetree-main.o
+ 
+ unpermute-stars: unpermute-stars-main.o unpermute-stars.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += unpermute-stars-main.o
+ 
+ unpermute-quads: unpermute-quads-main.o unpermute-quads.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += unpermute-quads-main.o
+ 
+ merge-index: merge-index-main.o merge-index.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += merge-index-main.o
+ 
+ local-index: local-index.o build-index.o codetree.o startree2.o codetree.o \
+ 		hpquads.o uniformize-catalog.o merge-index.o unpermute-quads.o unpermute-stars.o \
+ 		quad-builder.o quad-utils.o codefile.o wcs-xy2rd.o \
+ 		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $(CCFLAGS) $^ $(LDFLAGS) $(WCSLIB_LIB)
++	$(CC) $(CCFLAGS) $^ $(LDFLAGS) $(WCSLIB_LIB) $(LIBM) -o $@
+ ALL_OBJ += local-index.o
+ 
+ index-to-table: index-to-table.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ threadtest: threadtest.o $(BACKEND_LIB) \
+ 		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB)
+ 
+ backend: backend-main.o $(BACKEND_LIB) \
+-		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB) $(LIBM)
+ ### TWEAK_DEBUG_PLOTS
+ #backend: backend-main.o $(BACKEND_LIB) \
+ #		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB) \
+@@ -480,14 +480,14 @@
+ 
+ verify: verify-main.o verify.o verify2.o matchfile.o matchobj.o $(PLOTSTUFF) $(COMMON)/cairoutils.o \
+ 		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB)
+-	$(CC) -o $@ $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB)
++	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(LIBM) -o $@
+ 
+ keirthing: keirthing.o blind_wcs.o tweak.o \
+ 		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(GSL_LIB)
+ 
+ dstnthing: dstnthing.o tweak2.o blind_wcs.o tweak.o matchfile.o matchobj.o verify.o scamp.o $(PLOTSTUFF) \
+ 		$(COMMON)/cairoutils.o $(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB) 
+-	$(CC) -o $@ $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB)
++	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(LIBM) -o $@
+ ALL_OBJ += dstnthing.o
+ 
+ ALL_OBJ += verify-main.o
+@@ -497,13 +497,13 @@
+ 		fits-guess-scale.o wcs-rd2xy.o new-wcs.o \
+ 		scamp.o \
+ 		$(SIMPLEXY_OBJ) $(CFITS_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $(CCFLAGS) $^ $(LDFLAGS) $(WCSLIB_LIB)
++	$(CC) $(CCFLAGS) $^ $(LDFLAGS) $(WCSLIB_LIB) $(LIBM) -o $@
+ 
+ ALL_OBJ += scamp.o cut-table.o
+ 
+ augment-xylist: augment-xylist-main.o augment-xylist.o tabsort.o cut-table.o fits-guess-scale.o \
+ 		image2xy-files.o resort-xylist.o blindutils.o \
+-		$(SIMPLEXY_OBJ) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(CFITS_LIB)
++		$(SIMPLEXY_OBJ) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(CFITS_LIB) $(LIBM)
+ 
+ ALL_OBJ += augment-xylist-main.o
+ 
+@@ -512,46 +512,46 @@
+ 		blind_wcs.o tweak.o \
+ 		$(UTIL_OBJS) \
+ 		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB)
+-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@.tmp $^
++	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(LIBM) -o $@.tmp
+ 	mv $@.tmp $@
+ 
+ tweak: tweak-main.o blind_wcs.o verify.o matchfile.o \
+ 		$(COMMON)/cairoutils.o $(PLOTSTUFF) \
+ 		$(UTIL_OBJS) \
+ 		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB)
+-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB)
++	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(LIBM) -o $@
+ 
+ whynot: whynot.o matchfile.o matchobj.o codefile.o solvedclient.o \
+ 		solvedfile.o verify.o blind_wcs.o quad-utils.o \
+ 		$(COMMON)/cairoutils.o $(PLOTSTUFF) \
+ 		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB) 
+-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB)
++	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(LIBM) -o $@
+ ALL_OBJ += whynot.o
+ 
+ quadcenters: quadcenters.o \
+-		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ startree2rdls: startree2rdls.o \
+-		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ agreeable: agreeable.o matchfile.o matchobj.o solvedfile.o solvedclient.o verify.o \
+-		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBKD_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(LIBM)
+ 
+-rdlsinfo: rdlsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++rdlsinfo: rdlsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+-xylsinfo: xylsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++xylsinfo: xylsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ wcsinfo: wcsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) \
+-		$(QFITS_LIB) $(GSL_LIB)
++		$(QFITS_LIB) $(GSL_LIB) $(LIBM)
+ 
+-index-info: index-info.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++index-info: index-info.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ subwcs: subwcs.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) \
+-		$(QFITS_LIB) $(GSL_LIB)
++		$(QFITS_LIB) $(GSL_LIB) $(LIBM)
+ ALL_OBJS += subwcs.o
+ 
+ wcs-grab: wcs-grab.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) \
+-		$(QFITS_LIB)
++		$(QFITS_LIB) $(LIBM)
+ 
+ printsolved: printsolved.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) 
+ 
+@@ -565,7 +565,7 @@
+ 
+ plotcat: plotcat.o 2mass-fits.o 2mass.o nomad-fits.o nomad.o catalog.o usnob-fits.o usnob.o \
+ 		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(LIBKD_LIB) \
+-		$(QFITS_LIB)
++		$(QFITS_LIB) $(LIBM)
+ 
+ plotquad.o: plotquad.c 
+ 	$(CC) $(CFLAGS) $(CAIRO_INC) $(NETPBM_INC) -c $< -o $@
+@@ -574,34 +574,34 @@
+ 	$(MAKE) -C $(COMMON) cairoutils.o
+ 
+ onepixel: onepixel.o $(COMMON)/cairoutils.o
+-	$(CC) -o $@ $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB)
++	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(LIBM) -o $@
+ 
+ plotquad: plotquad.o matchfile.o matchobj.o $(COMMON)/cairoutils.o \
+ 		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) 
+-	$(CC) -o $@ $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB)
++	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(LIBM) -o $@
+ 
+ plot-xy-and-quad: plot-xy-and-quad.o matchfile.o $(COMMON)/cairoutils.o \
+ 		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) 
+-	$(CC) -o $@ $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB)
++	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(LIBM) -o $@
+ 
+ plot-constellations.o: plot-constellations.c
+ 	$(CC) $(CFLAGS) $(CAIRO_INC) $(NETPBM_INC) -c -o $@ $<
+ 
+ plot-constellations: plot-constellations.o $(COMMON)/cairoutils.o \
+ 		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) $(LDFLAGS) $^ -o $@ $(CAIRO_LIB) $(NETPBM_LIB) $(PNG_LIB) $(JPEG_LIB)
++	$(CC) $(LDFLAGS) $^ $(CAIRO_LIB) $(NETPBM_LIB) $(PNG_LIB) $(JPEG_LIB) $(LIBM) -o $@
+ 
+ catalog-dists: catalog-dists.o 2mass-fits.o usnob-fits.o usnob.o \
+ 		$(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+ 
+ add-text: add-text.o $(COMMON)/cairoutils.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) $(LDFLAGS) $^ -o $@ $(CAIRO_LIB) $(NETPBM_LIB) $(PNG_LIB) $(JPEG_LIB)
++	$(CC) $(LDFLAGS) $^ $(CAIRO_LIB) $(NETPBM_LIB) $(PNG_LIB) $(JPEG_LIB) $(LIBM) -o $@
+ 
+ plotstuff.o: plotstuff.c
+ 	$(CC) $(CFLAGS) $(CAIRO_INC) $(NETPBM_INC) -c -o $@ $<
+ 
+ plotstuff: plotstuff-main.o $(PLOTSTUFF) $(COMMON)/cairoutils.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB)
++	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(LIBM) -o $@
+ ALL_OBJ += plotstuff-main.o
+ 
+ PLOTSTUFF_SRCS = $(subst .o,.c,$(PLOTSTUFF))
+@@ -625,39 +625,39 @@
+ 	$(CC) $(CFLAGS) $(CAIRO_INC) $(NETPBM_INC) -c $< -o $@
+ 
+ plotxy: plotxy-main.o $(PLOTSTUFF) $(COMMON)/cairoutils.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB)
++	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(LIBM) -o $@
+ ALL_OBJ += plotxy-main.o
+ 
+ test_plotstuff: test_plotstuff-main.o test_plotstuff.o $(COMMON)/cutest.o $(PLOTSTUFF) $(COMMON)/cairoutils.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB)
++	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(LIBM) -o $@
+ test_plotstuff-main.c: test_plotstuff.c
+ 	$(AN_SHELL) $(MAKE_TESTS) $^ > $@
+ 
+-query-starkd: query-starkd.o $(ANLIBS)
++query-starkd: query-starkd.o $(ANLIBS) $(LIBM)
+ ALL_OBJ += query-starkd.o
+ 
+-quadidx: quadidx.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++quadidx: quadidx.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+-codeprojections: codeprojections.o $(UTIL_OBJS) $(ANLIBS)
++codeprojections: codeprojections.o $(UTIL_OBJS) $(ANLIBS) $(LIBM)
+ 
+ quadscales: quadscales.o \
+ 		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(LIBKD_LIB) \
+-		$(QFITS_LIB)
++		$(QFITS_LIB) $(LIBM)
+ 
+ index-stats: index-stats.o \
+ 		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(LIBKD_LIB) \
+-		$(QFITS_LIB)
++		$(QFITS_LIB) $(LIBM)
+ 
+ quadsperstar: quadsperstar.o \
+ 		$(UTIL_OBJS) $(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) \
+-		$(QFITS_LIB)
++		$(QFITS_LIB) $(LIBM)
+ 
+ fitsgetext: fitsgetext.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+ 
+ fits-dedup: fits-dedup.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+ 
+ wcs-resample: wcs-resample-main.o wcs-resample.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $^ $(LDFLAGS) $(WCSLIB_LIB)
++	$(CC) $^ $(LDFLAGS) $(WCSLIB_LIB) $(LIBM) -o $@
+ 
+ 
+ subtable: subtable.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+@@ -668,15 +668,15 @@
+ 
+ column-merge: column-merge.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+ 
+-add-healpix-column: add-healpix-column.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++add-healpix-column: add-healpix-column.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ resort-xylist: resort-xylist-main.o resort-xylist.o $(UTIL_OBJS) \
+-		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ ALL_OBJ += resort-xylist-main.o
+ 
+ bgsubtract: bgsubtract.o ctmf.o $(COMMON)/cairoutils.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB)
++	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(LIBM) -o $@
+ 
+ usnob-scamp-catalog: usnob-scamp-catalog.o usnob-fits.o usnob.o $(UTIL_OBJS) \
+ 		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
+
+diff -Nur astrometry.net-0.38.orig/libkd/Makefile astrometry.net-0.38/libkd/Makefile
+--- astrometry.net-0.38.orig/libkd/Makefile	2010-11-15 22:26:43.000000000 +0000
++++ astrometry.net-0.38/libkd/Makefile	2012-05-09 18:29:56.000000000 +0100
+@@ -49,7 +49,7 @@
+ #CFLAGS += -DKDTREE_MEM_TRACK
+ 
+ LDFLAGS := $(LDFLAGS_DEF)
+-LDFLAGS += -lm
++LIBM = -lm
+ 
+ LIBKD := libkd.a
+ 
+@@ -93,9 +93,9 @@
+ 
+ DEP_OBJ += $(PYSPHEREMATCH_OBJ)
+ 
+-checktree: checktree.o $(LIBKD) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
++checktree: checktree.o $(LIBKD) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(LIBM)
+ 
+-fix-bb: fix-bb.o $(LIBKD) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
++fix-bb: fix-bb.o $(LIBKD) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(LIBM)
+ 
+ DEP_OBJ += fix-bb.o checktree.o
+ 
+diff -Nur astrometry.net-0.38.orig/util/Makefile astrometry.net-0.38/util/Makefile
+--- astrometry.net-0.38.orig/util/Makefile	2010-11-19 20:47:53.000000000 +0000
++++ astrometry.net-0.38/util/Makefile	2012-05-09 18:22:01.000000000 +0100
+@@ -26,7 +26,7 @@
+ $(DATA)/%.dat: ;
+ 
+ %.o: %.c
+-	$(CC) -o $@ $(CFLAGS) -c $<
++	$(CC) $(CFLAGS) -c $< -o $@
+ 
+ # You can build stripped-down versions of the AN libraries that do not
+ # depend on libkd or libqfits by defining the following in your Makefile
+@@ -74,7 +74,7 @@
+ endif
+ 
+ LDFLAGS += $(LDFLAGS_DEF)
+-LDFLAGS += -lm
++LIBM = -lm
+ 
+ ifndef NO_QFITS
+ CFLAGS += $(QFITS_INC)
+@@ -169,11 +169,11 @@
+ 
+ resample: resample.o \
+ 		$(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $^ $(WCSLIB_LIB)
++	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(WCSLIB_LIB) $(LIBM) -o $@ 
+ ALL_OBJ += resampe.o
+ 
+ tycho2tofits: tycho2tofits.o \
+-		$(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += tycho2tofits.o
+ 
+ tycho2tostellarium: tycho2tostellarium.o $(ANUTILS_LIB) $(QFITS_LIB)
+@@ -193,10 +193,10 @@
+ _sip.so: sip-utils.o gslutils.o sip.o starutil.o mathutil.o sip_qfits.o \
+ 		fitsioutils.o errors.o ioutils.o bl.o os-features.o an-endian.o \
+ 		log.o $(QFITS_LIB) $(GSL_LIB)
+-	$(CC) $(SHAREDLIBFLAGS) -o $@ $^
++	$(CC) $(SHAREDLIBFLAGS) $^ -o $@
+ 
+ _healpix.so: healpix-utils.o healpix.o permutedsort.o starutil.o mathutil.o errors.o ioutils.o bl.o log.o os-features.o
+-	$(CC) $(SHAREDLIBFLAGS) -o $@ $^
++	$(CC) $(SHAREDLIBFLAGS) $^ -o $@
+ 
+ index_wrap.c: index.i index.h
+ 	swig -python -I. $<
+@@ -208,30 +208,30 @@
+ 	cp build/lib/_index_util.so _index_util.so
+ 
+ coadd: coadd-main.o $(ANUTILS_LIB) $(QFITS_LIB) $(GSL_LIB)
+-	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $^ $(WCSLIB_LIB)
++	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(WCSLIB_LIB) $(LIBM) -o $@
+ ALL_OBJ += coadd.o coadd-main.o
+ 
+ pad-file: pad-file.o $(ANUTILS_LIB)
+ ALL_OBJ += pad-file.o
+ 
+-an-fitstopnm: an-fitstopnm.o $(ANUTILS_LIB) $(QFITS_LIB)
++an-fitstopnm: an-fitstopnm.o $(ANUTILS_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += an-fitstopnm.o
+ 
+ an-pnmtofits: an-pnmtofits.o $(ANUTILS_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $^ $(NETPBM_LIB)
++	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(NETPBM_LIB) $(LIBM) -o $@
+ ALL_OBJ += an-pnmtofits.o
+ 
+-downsample-fits: downsample-fits.o $(ANUTILS_LIB) $(QFITS_LIB)
++downsample-fits: downsample-fits.o $(ANUTILS_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += downsample-fits.o
+ 
+-smooth-image: smooth-image.o $(ANUTILS_LIB) $(QFITS_LIB)
++smooth-image: smooth-image.o $(ANUTILS_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += smooth-image.o
+ 
+ fits-flip-endian: fits-flip-endian.o $(ANUTILS_LIB) $(QFITS_LIB)
+ ALL_OBJ += fits-flip-endian.o
+ 
+ search-index: search-index.o \
+-		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
++		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(LIBM)
+ ALL_OBJ += search-index.o
+ 
+ PYTHON_INSTALL := fits2fits.py image2pnm.py healpix.py sip.py starutil.py \
+@@ -285,32 +285,36 @@
+ 	@echo "---- Error messages in the next few commands are not necessarily bugs ----"
+ 	@echo "     (we're checking how things works on your computer)"
+ 	( \
+-	 (($(CC) -o os-features-test-canonicalize \
+-	   $(CFLAGS) -DTEST_CANONICALIZE_FILE_NAME $(LDFLAGS) $^  > /dev/null && \
++	 (($(CC) \
++	   $(CFLAGS) -DTEST_CANONICALIZE_FILE_NAME $(LDFLAGS) $^ $(LIBM) \
++	   -o os-features-test-canonicalize > /dev/null && \
+ 	   ./os-features-test-canonicalize > /dev/null && \
+ 	   echo "#define NEED_CANONICALIZE_FILE_NAME 0") \
+ 	|| echo "#define NEED_CANONICALIZE_FILE_NAME 1") \
+ 	; \
+-	 (($(CC) -o os-features-test-declare-qsort \
+-	   $(CFLAGS) -DTEST_DECLARE_QSORT_R $(LDFLAGS) $^ > /dev/null && \
++	 (($(CC) \
++	   $(CFLAGS) -DTEST_DECLARE_QSORT_R $(LDFLAGS) $^ $(LIBM) \
++	   -o os-features-test-declare-qsort > /dev/null && \
+ 	   ./os-features-test-declare-qsort > /dev/null && \
+ 	   echo "#define NEED_DECLARE_QSORT_R 1") \
+ 	|| echo "#define NEED_DECLARE_QSORT_R 0") \
+ 	; \
+-	 (($(CC) -o os-features-test-qsort \
+-	   $(CFLAGS) -DTEST_QSORT_R $(LDFLAGS) $^ > /dev/null && \
++	 (($(CC) \
++	   $(CFLAGS) -DTEST_QSORT_R $(LDFLAGS) $^ $(LIBM) \
++	   -o os-features-test-qsort > /dev/null && \
+ 	   ./os-features-test-qsort > /dev/null && \
+ 	   echo "#define NEED_QSORT_R 0") \
+ 	|| echo "#define NEED_QSORT_R 1") \
+ 	; \
+-	 (($(CC) -o os-features-test-swap-qsort \
+-	   $(CFLAGS) -DTEST_SWAP_QSORT_R $(LDFLAGS) $^ > /dev/null && \
++	 (($(CC) \
++	   $(CFLAGS) -DTEST_SWAP_QSORT_R $(LDFLAGS) $^ $(LIBM) \
++	   -o os-features-test-swap-qsort > /dev/null && \
+ 	   ./os-features-test-swap-qsort > /dev/null && \
+ 	   echo "#define NEED_SWAP_QSORT_R 1") \
+ 	|| echo "#define NEED_SWAP_QSORT_R 0") \
+ 	; \
+-	 (($(CC) -o os-features-test-netpbm \
+-	   $(CFLAGS) -DTEST_NETPBM $(LDFLAGS) $(NETPBM_INC_ORIG) $(NETPBM_LIB_ORIG) $^ > /dev/null && \
++	 (($(CC) \
++	   $(CFLAGS) -DTEST_NETPBM $(LDFLAGS) $(NETPBM_INC_ORIG) $(NETPBM_LIB_ORIG) $(LIBM) $^ -o os-features-test-netpbm > /dev/null && \
+ 	   ./os-features-test-netpbm > /dev/null && \
+ 	   echo "#define HAVE_NETPBM 1") \
+ 	|| echo "#define HAVE_NETPBM 0") \
+@@ -321,8 +325,8 @@
+ makefile.os-features: os-features-test.c
+ 	( \
+ 	 echo "# This file is generated by util/Makefile."; \
+-	 (($(CC) -o os-features-test-netpbm-make \
+-	   $(CFLAGS) -DTEST_NETPBM_MAKE $(LDFLAGS) $(NETPBM_INC_ORIG) $(NETPBM_LIB_ORIG) $^ > /dev/null && \
++	 (($(CC) \
++	   $(CFLAGS) -DTEST_NETPBM_MAKE $(LDFLAGS) $(NETPBM_INC_ORIG) $(NETPBM_LIB_ORIG) $(LIBM) $^ -o os-features-test-netpbm-make > /dev/null && \
+ 	   ./os-features-test-netpbm-make > /dev/null && \
+ 	   echo "HAVE_NETPBM := yes") \
+ 	|| echo "# Don't HAVE_NETPBM.") \
+@@ -354,7 +358,7 @@
+ 
+ grab-stellarium-constellations: grab-stellarium-constellations.o \
+ 		starutil.o mathutil.o bl.o an-endian.o
+-	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $^ -lm
++	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(LIBM) -o $@
+ 
+ hd1.fits: henry-draper.tsv build-hd-tree
+ 	build-hd-tree -s -R 16 henry-draper.tsv $@
+@@ -404,7 +408,7 @@
+ test_sip-utils: $(ANUTILS_LIB) $(QFITS_LIB) $(GSL_LIB)
+ 
+ test_anwcs: $(ANUTILS_LIB) $(QFITS_LIB)
+-	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $^ $(WCSLIB_LIB)
++	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(WCSLIB_LIB) $(LIBM) -o $@
+ 
+ test_tycho2: $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
+ 
+diff -Nur astrometry.net-0.38.orig/util/makefile.tests astrometry.net-0.38/util/makefile.tests
+--- astrometry.net-0.38.orig/util/makefile.tests	2010-07-16 20:48:05.000000000 +0100
++++ astrometry.net-0.38/util/makefile.tests	2012-05-09 19:15:29.000000000 +0100
+@@ -50,5 +50,5 @@
+ 	$(AN_SHELL) $(MAKE_TESTS) $(TEST_SOURCES) > $@
+ 
+ test: test.o $(COMMON)/cutest.o $(ALL_TEST_FILES_O) $(sort $(ALL_TEST_EXTRA_OBJS)) $(ALL_TEST_LIBS)
+-	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $^ $(ALL_TEST_EXTRA_LDFLAGS)
++	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(ALL_TEST_EXTRA_LDFLAGS) -lm -o $@
+ 
