@@ -1,0 +1,10 @@
+# ChangeLog for sci-astronomy/bpz
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*bpz-1.99.3 (10 May 2012)
+
+  10 May 2012; Sébastien Fabbro <bicatali@gentoo.org> +bpz-1.99.3.ebuild,
+  +metadata.xml:
+  sci-astronomy/bpz: Initial import
+
