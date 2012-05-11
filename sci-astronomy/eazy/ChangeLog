@@ -1,0 +1,10 @@
+# ChangeLog for sci-astronomy/eazy
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*eazy-1.00 (11 May 2012)
+
+  11 May 2012; Sébastien Fabbro <bicatali@gentoo.org> +eazy-1.00.ebuild,
+  +files/eazy-1.00-makefile.patch, +metadata.xml:
+  sci-astronomy/eazy: Initial import
+

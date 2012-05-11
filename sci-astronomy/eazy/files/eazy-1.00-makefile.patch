@@ -1,0 +1,21 @@
+--- src/makefile.orig	2012-05-11 04:15:35.000000000 +0100
++++ src/makefile	2012-05-11 04:15:53.000000000 +0100
+@@ -1,16 +1,14 @@
+ # -pg -lc_p for profiling
+-.c.o:
+-	gcc -msse2 -c -O3 -Wall $<
+ 
+ all: eazy 
+ 
+ eazy: main.o output_files.o zeropoints.o getpar.o makegrid.o interpol.o getphotz.o  kmag_prior.o 
+-	gcc -o eazy main.o output_files.o zeropoints.o getpar.o makegrid.o interpol.o getphotz.o kmag_prior.o  -lm 
++	$(CC) $(LDFLAGS) main.o output_files.o zeropoints.o getpar.o makegrid.o interpol.o getphotz.o kmag_prior.o  -lm -o eazy
+ 
+ main.o output_files.o zeropoints.o getpar.o makegrid.o interpol.o getphotz.o temperr.o kmag_prior.o : defs.h
+ 
+ temperr: temperr.o  getpar.o
+-	gcc -o temperr temperr.o getpar.o -lm
++	$(CC) $(LDFLAGS) temperr.o getpar.o -lm -o temperr
+ 
+ clean:
+ 	rm *.o eazy 
