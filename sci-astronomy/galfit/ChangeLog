@@ -1,0 +1,10 @@
+# ChangeLog for sci-astronomy/galfit
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*galfit-3.0.4 (11 May 2012)
+
+  11 May 2012; Sébastien Fabbro <bicatali@gentoo.org> +galfit-3.0.4.ebuild,
+  +metadata.xml:
+  sci-astronomy/galfit: Initial import
+
