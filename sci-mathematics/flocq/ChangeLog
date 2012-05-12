@@ -1,6 +1,9 @@
 # ChangeLog for sci-mathematics/flocq
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  12 May 2012; Alexey Shvetsov <alexxy@gentoo.org> flocq-1.4.0.ebuild:
+  [sci-mathematics/flocq] Fix ebuild eapi parsing and other minor issues
 
   06 May 2011; J.-C. Demay <jcdemay@gmail.com>
   -flocq-1.2.ebuild, +flocq-1.4.0.ebuild:
