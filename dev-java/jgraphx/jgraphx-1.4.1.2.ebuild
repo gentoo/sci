@@ -1,9 +1,11 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-JAVA_PKG_IUSE="doc source"
 EAPI=2
+
+JAVA_PKG_IUSE="doc source"
+
 inherit java-pkg-2 java-ant-2 versionator
 
 MY_PV=$(replace_all_version_separators '_')
