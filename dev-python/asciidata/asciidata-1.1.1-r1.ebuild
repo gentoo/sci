@@ -2,37 +2,40 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=4
 
-PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
+DISTUTILS_SRC_TEST=setup.py
+RESTRICT_PYTHON_ABIS="3.* 2.7-pypy-*"
 
 inherit distutils
 
-DISTUTILS_SRC_TEST="setup.py"
-
 DESCRIPTION="Python module to handle ASCII tables"
-SRC_URI="http://www.stecf.org/software/PYTHONtools/astro${PN}/source/${P}.tar.gz
-	doc? ( http://www.stecf.org/software/PYTHONtools/astro${PN}/manual/${PN}_${PV}.tar.gz )"
 HOMEPAGE="http://www.stecf.org/software/astroasciidata/index.html"
+SRC_URI="http://www.stecf.org/software/PYTHONtools/astro${PN}/source/${P}.tar.gz"
 
-IUSE="doc"
+IUSE="doc test"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 LICENSE="GPL-2"
 
-RDEPEND="dev-python/numpy"
-DEPEND="${RDEPEND}"
+RDEPEND="dev-python/numpy
+	dev-python/pyfits"
+DEPEND="doc? ( dev-tex/latex2html )
+	test? ( ${RDEPEND} )"
 
-RESTRICT_PYTHON_ABIS="3.*"
-
-src_test() {
-	distutils_src_test
+src_compile() {
+	distutils_src_compile
+	if use doc; then
+		pushd doc &> /dev/null
+		latex2html ${PN}.tex
+		popd &> /dev/null
+	fi
 }
 
 src_install() {
 	distutils_src_install
 	if use doc; then
-		dohtml "${WORKDIR}"/asciidata/* || die
+		dohtml -r doc/${PN}/
 	fi
 }
