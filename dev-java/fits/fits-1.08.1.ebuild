@@ -31,7 +31,7 @@ JAVA_ANT_REWRITE_CLASSPATH="true"
 
 src_unpack() {
 	mkdir -p ${P}/src && cd ${P}/src
-	unpack "${A}"
+	unpack ${A}
 }
 
 java_prepare() {
