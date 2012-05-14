@@ -1,0 +1,41 @@
+diff -Naur gluegen.orig/make/gluegen-cpptasks.xml gluegen/make/gluegen-cpptasks.xml
+--- gluegen.orig/make/gluegen-cpptasks.xml	2007-03-14 23:09:20.000000000 +1300
++++ gluegen/make/gluegen-cpptasks.xml	2007-03-14 23:09:40.000000000 +1300
+@@ -397,16 +397,16 @@
+       <compilerarg value="-fPIC"/>
+     </compiler>
+ 
+-    <compiler id="compiler.cfg.solaris" name="suncc">
++    <compiler id="compiler.cfg.solaris" name="gcc">
+     </compiler>
+ 
+-    <compiler id="compiler.cfg.solaris.sparcv9" name="suncc">
++    <compiler id="compiler.cfg.solaris.sparcv9" name="gcc">
+       <compilerarg value="-fast" />
+       <compilerarg value="-xchip=ultra" />
+       <compilerarg value="-xarch=v9a" />
+     </compiler>
+ 
+-    <compiler id="compiler.cfg.solaris.amd64" name="suncc">
++    <compiler id="compiler.cfg.solaris.amd64" name="gcc">
+       <compilerarg value="-fast" />
+       <compilerarg value="-xchip=opteron" />
+       <compilerarg value="-xarch=amd64" />
+@@ -492,14 +492,14 @@
+     <linker id="linker.cfg.linux.amd64" name="gcc">
+     </linker>
+ 
+-    <linker id="linker.cfg.solaris" name="suncc">
++    <linker id="linker.cfg.solaris" name="gcc">
+     </linker>
+ 
+-    <linker id="linker.cfg.solaris.sparcv9" name="suncc">
++    <linker id="linker.cfg.solaris.sparcv9" name="gcc">
+       <linkerarg value="-xarch=v9a" />
+     </linker>
+ 
+-    <linker id="linker.cfg.solaris.amd64" name="suncc">
++    <linker id="linker.cfg.solaris.amd64" name="gcc">
+       <linkerarg value="-xarch=amd64" />
+     </linker>
+ 

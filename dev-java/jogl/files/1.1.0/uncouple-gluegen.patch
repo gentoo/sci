@@ -1,0 +1,32 @@
+diff -Naur jogl.orig/make/build.xml jogl/make/build.xml
+--- jogl.orig/make/build.xml	2007-02-13 17:45:16.000000000 +1300
++++ jogl/make/build.xml	2007-03-14 22:55:50.000000000 +1300
+@@ -127,7 +127,18 @@
+         <property name="gluegen.build.xml" value="${gluegen.make.dir}/build.xml" />
+         <property name="gluegen.jar" value="../../gluegen/build/gluegen.jar" />
+         <property name="gluegen-rt.jar" value="../../gluegen/build/gluegen-rt.jar" />
+-                                                
++	<!-- This property is used to skip building gluegen if the jar files
++	   - are already available on the system and have been overridden
++	   - by the user. The purpose is to allow linux distro's to uncouple
++	   - gluegen from jogl.
++	  -->
++	<condition property="gluegen.prebuilt" >
++		<and>
++			<available file="${gluegen.jar}" />
++			<available file="${gluegen-rt.jar}" />
++		</and>
++	</condition>
++
+         <!-- Names of directories relative to the project root.
+              Some of these are used in FileMappers later for dependence information
+              and need exact string matching, which is why they use file.separator
+@@ -479,7 +490,7 @@
+     <!--
+        - Build GlueGen
+       -->
+-    <target name="build.gluegen" depends="init">
++    <target name="build.gluegen" depends="init" unless="gluegen.prebuilt">
+         <!-- Run the GlueGen build to ensure that the GlueGen ANT task
+            - has been built. -->
+         <!-- FIXME: remove passing down of antlr.jar when gluegen.properties is on all
