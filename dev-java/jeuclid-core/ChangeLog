@@ -1,6 +1,12 @@
 # ChangeLog for dev-java/jeuclid-core
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*jeuclid-core-3.1.9 (14 May 2012)
+
+  14 May 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +jeuclid-core-3.1.9.ebuild:
+  Version bump
 
   13 Jul 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   jeuclid-core-3.1.8.ebuild:
