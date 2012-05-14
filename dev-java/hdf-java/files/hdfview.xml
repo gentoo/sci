@@ -1,0 +1,13 @@
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-hdf">
+    <comment xml:lang="en">HDF files</comment>
+    <glob pattern="*.hdf"/>
+    <glob pattern="*.h4"/>
+    <glob pattern="*.hdf4"/>
+  </mime-type>
+  <mime-type type="application/x-hdf5">
+    <comment xml:lang="en">HDF5 files</comment>
+    <glob pattern="*.h5"/>
+    <glob pattern="*.hdf5"/>
+  </mime-type>
+</mime-info>

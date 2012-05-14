@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*hdf-java-2.8 (14 May 2012)
+
+  14 May 2012; Sébastien Fabbro <bicatali@gentoo.org> +hdf-java-2.8.ebuild,
+  +files/hdf-java-2.8-shared.patch, +files/hdfview.xml, metadata.xml:
+  Version bump. Added use flag hdfview. Adapted from the wtk overlay
+
   10 Apr 2012; Guillaume Horel <guillaume.horel@gmail.com> hdf-java-2.7.ebuild:
   Updates SRC_URI (fixes #396437) and fixes USE flag dependencies
 
