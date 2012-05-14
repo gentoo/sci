@@ -1,0 +1,10 @@
+# ChangeLog for dev-java/joda-time
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*joda-time-2.1 (14 May 2012)
+
+  14 May 2012; Sébastien Fabbro <bicatali@gentoo.org> +joda-time-2.1.ebuild,
+  +metadata.xml:
+  dev-java/joda-time: import from wtk overlay
+
