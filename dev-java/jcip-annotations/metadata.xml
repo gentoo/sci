@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>java</herd>
+	<maintainer>
+		<email>ali_bush@gentoo.org</email>
+		<name>Alistair Bush</name>
+	</maintainer>
+	<longdescription lang="en">
+		Annotations used within the Java Concurrency in Practice book by
+		Brain Goetz.
+	</longdescription>
+</pkgmetadata>
+
