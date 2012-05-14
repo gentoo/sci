@@ -1,0 +1,44 @@
+I have been unable to track down a source repository for fits, so this
+ebuild straps a build system onto source unpacked from a source JAR.
+Not the greatest solution, but it's the best I can come up with.  I've
+also had trouble figuring out who holds copyright and what the
+licensing terms are.  If you find more authoritative information, let
+me know!
+
+Authors (listed with the first release note to mention them):
+  Tom McGlynn <thomas.a.mcglynn@nasa.gov> [1,12]
+  Jens Knudstrup [2]
+  Alan Brighton [2]
+  R.J. Mathar [3]
+  Jorgo Bakker [3]
+  Laurent Michel [3]
+  R. Mathar [4]
+  Guillame Belanger [4]
+  A. Kovacs [5]
+  Javier Diaz [6]
+  Juan Carlos Segovia [7]
+  Thomas Granzer [7]
+  L. Michel [8]
+  Mark Taylor [9]
+  Laurent Bourges [10]
+  V. Forchi [11]
+
+From [11]:
+
+> [The] build procedure for FITS library has been changed. The library
+> is now stored as a NetBeans project and the standard NetBeans build
+> script has been modified to generate the fits.jar and fits_src.jar.
+
+
+[1]: http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v0.9/NOTES/NOTE.v091
+[2]: http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v0.9/NOTES/NOTE.v093
+[3]: http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v0.9/NOTES/NOTE.v099
+[4]: http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v0.9/NOTES/NOTE.v099.1
+[5]: http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v0.9/NOTES/NOTE.v099.5
+[6]: http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v1.0/NOTE.v100.1
+[7]: http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v1.0/NOTE.v101.0
+[8]: http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v1.0/NOTE.v102.0
+[9]: http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v1.0/NOTE.v104.0
+[10]: http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v1.0/NOTE.v105.0
+[11]: http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v1.0/NOTE.v105.1
+[12]: http://asd.gsfc.nasa.gov/Thomas.McGlynn/

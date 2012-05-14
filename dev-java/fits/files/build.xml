@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<project name="fits" default="all" basedir=".">
+  <target name="init" description="Sets build properties">
+    <!-- package configuration -->
+    <property name="package.version" value="devel"/>
+    <!-- directory locations -->
+    <property name="src" value="${basedir}/src"/>
+    <property name="build" value="${basedir}/build"/>
+    <property name="doc" value="${basedir}/doc"/>
+    <property name="doc.api" value="${doc}/api"/>
+    <!-- external dependencies -->
+    <property name="junit.jar" value="junit.jar"/>
+    <!-- classpaths -->
+    <path id="project.class.path">
+    </path>
+    <path id="build.class.path">
+      <pathelement location="${junit.jar}"/>
+    </path>
+    <path id="test.class.path">
+      <pathelement location="${build}"/>
+    </path>
+  </target>
+  <target name="all" depends="jar,javadoc"
+          description="Pseudo-target that builds JAR and Javadoc">
+  </target>
+  <target name="build" depends="init"
+          description="Compiles the classes">
+    <mkdir dir="${build}"/>
+    <javac destdir="${build}" srcdir="${src}" debug="true"
+           deprecation="true" includeantruntime="false">
+      <classpath refid="project.class.path"/>
+      <classpath refid="build.class.path"/>
+      <!--compilerarg line="-Xlint:unchecked"/-->
+    </javac>
+    <copy todir="${build}">
+      <mappedresources>
+        <fileset dir="${src}" includes="**/test/test.fits*"/>
+        <globmapper from="*" to="*"/>
+      </mappedresources>
+    </copy>
+  </target>
+  <target name="test" depends="build">
+    <junit>
+      <classpath refid="project.class.path" />
+      <classpath refid="test.class.path"/>
+      <formatter type="brief" usefile="false" />
+      <batchtest>
+        <fileset dir="${build}">
+          <include name="**/test/*.class" />
+          <exclude name="**/*$*.class" />
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+  <target name="javadoc" depends="init"
+          description="Generates Javadoc API documentation">
+    <mkdir dir="${doc.api}"/>
+    <javadoc packagenames="*"
+             sourcepath="${src}" destdir="${doc.api}"
+             author="true"       version="true"
+             use="true"          private="true">
+      <classpath refid="project.class.path" />
+      <classpath refid="build.class.path"/>
+    </javadoc>
+  </target>
+  <target name="jar" depends="build"
+          description="Builds a project JAR file">
+    <jar basedir="${build}" jarfile="${build}/fits.jar">
+      <manifest>
+        <attribute name="Version" value="${package.version}"/>
+      </manifest>
+    </jar>
+  </target>
+  <target name="clean" depends="init"
+          description="Erase all generated files and dirs">
+    <delete dir="${build}" verbose="true"/>
+    <delete dir="${doc}/api" verbose="true"/>
+    <delete verbose="true">
+        <fileset dir="${basedir}" includes="*.fits"/>
+        <fileset dir="${basedir}" includes="*.fil"/>
+        <fileset dir="${basedir}" includes="*.hdr"/>
+    </delete>
+  </target>
+</project>

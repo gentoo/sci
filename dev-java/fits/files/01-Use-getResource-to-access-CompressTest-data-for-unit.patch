@@ -1,0 +1,137 @@
+diff --git a/src/nom/tam/fits/test/CompressTest.java b/src/nom/tam/fits/test/CompressTest.java
+index dd3aad0..c6d953e 100644
+--- a/src/nom/tam/fits/test/CompressTest.java
++++ b/src/nom/tam/fits/test/CompressTest.java
+@@ -54,58 +54,57 @@ public class CompressTest {
+ 
+     @Test
+     public void testStream() throws Exception {
+-        InputStream is;
++        String is;
+ 
+-        is = new FileInputStream("test.fits");
++        is = "test.fits";
+         assertEquals("Stream1", 300, streamRead(is, false, false));
+ 
+-        is = new FileInputStream("test.fits.Z");
++        is = "test.fits.Z";
+         assertEquals("Stream2", 300, streamRead(is, false, false));
+ 
+-        is = new FileInputStream("test.fits.gz");
++        is = "test.fits.gz";
+         assertEquals("Stream3", 300, streamRead(is, false, false));
+ 
+-        is = new FileInputStream("test.fits");
++        is = "test.fits";
+         assertEquals("Stream4", 300, streamRead(is, false, true));
+ 
+-        is = new FileInputStream("test.fits.Z");
++        is = "test.fits.Z";
+         assertEquals("Stream5", 300, streamRead(is, false, true));
+ 
+-        is = new FileInputStream("test.fits.gz");
++        is = "test.fits.gz";
+         assertEquals("Stream6", 300, streamRead(is, false, true));
+ 
+-
+-        is = new FileInputStream("test.fits.Z");
++        is = "test.fits.Z";
+         assertEquals("Stream7", 300, streamRead(is, true, true));
+ 
+-        is = new FileInputStream("test.fits.gz");
++        is = "test.fits.gz";
+         assertEquals("Stream8", 300, streamRead(is, true, true));
+ 
+-        is = new FileInputStream("test.fits.bz2");
++        is = "test.fits.bz2";
+         assertEquals("Stream9", 300, streamRead(is, true, true));
+     }
+ 
+     @Test
+     public void testFile() throws Exception {
+-        File is = new File("test.fits");
++        String is = "test.fits";
+         assertEquals("File1", 300, fileRead(is, false, false));
+ 
+-        is = new File("test.fits.Z");
++        is = "test.fits.Z";
+         assertEquals("File2", 300, fileRead(is, false, false));
+ 
+-        is = new File("test.fits.gz");
++        is = "test.fits.gz";
+         assertEquals("File3", 300, fileRead(is, false, false));
+ 
+-        is = new File("test.fits");
++        is = "test.fits";
+         assertEquals("File4", 300, fileRead(is, false, true));
+ 
+-        is = new File("test.fits.Z");
++        is = "test.fits.Z";
+         assertEquals("File7", 300, fileRead(is, true, true));
+ 
+-        is = new File("test.fits.gz");
++        is = "test.fits.gz";
+         assertEquals("File8", 300, fileRead(is, true, true));
+ 
+-        is = new File("test.fits.bz2");
++        is = "test.fits.bz2";
+         assertEquals("File9", 300, fileRead(is, true, true));
+     }
+ 
+@@ -131,7 +130,6 @@ public class CompressTest {
+ 
+         is = "test.fits.bz2";
+         assertEquals("String8", 300, stringRead(is, true, true));
+-
+     }
+ 
+     @Test
+@@ -158,13 +156,9 @@ public class CompressTest {
+         assertEquals("String8", 300, urlRead(is, true, true));
+     }
+ 
+-    int urlRead(String is, boolean comp, boolean useComp)
++    int urlRead(String filename, boolean comp, boolean useComp)
+             throws Exception {
+-        File fil = new File(is);
+-
+-        String path = fil.getCanonicalPath();
+-        URL u = new URL("file://" + path);
+-
++        URL u = CompressTest.class.getResource(filename);
+         Fits f;
+         if (useComp) {
+             f = new Fits(u, comp);
+@@ -176,8 +170,9 @@ public class CompressTest {
+         return total(data);
+     }
+ 
+-    int streamRead(InputStream is, boolean comp, boolean useComp)
++    int streamRead(String filename, boolean comp, boolean useComp)
+             throws Exception {
++        InputStream is = CompressTest.class.getResourceAsStream(filename);
+         Fits f;
+         if (useComp) {
+             f = new Fits(is, comp);
+@@ -190,8 +185,9 @@ public class CompressTest {
+         return total(data);
+     }
+ 
+-    int fileRead(File is, boolean comp, boolean useComp)
++    int fileRead(String filename, boolean comp, boolean useComp)
+             throws Exception {
++        File is = new File(CompressTest.class.getResource(filename).getPath());
+         Fits f;
+         if (useComp) {
+             f = new Fits(is, comp);
+@@ -203,8 +199,9 @@ public class CompressTest {
+         return total(data);
+     }
+ 
+-    int stringRead(String is, boolean comp, boolean useComp)
++    int stringRead(String filename, boolean comp, boolean useComp)
+             throws Exception {
++        String is = CompressTest.class.getResource(filename).getPath();
+         Fits f;
+         if (useComp) {
+             f = new Fits(is, comp);
