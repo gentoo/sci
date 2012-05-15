@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*bigdft-1.6.0-r1 (15 May 2012)
+*bigdft-1.6_pre1-r1 (15 May 2012)
+
+  15 May 2012; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -bigdft-1.6_pre1.ebuild, +bigdft-1.6_pre1-r1.ebuild, -bigdft-1.6.0.ebuild,
+  +bigdft-1.6.0-r1.ebuild:
+  pkg-config file corrected
+
   30 Mar 2012; Honza Macháček <Hloupy.Honza@centrum.cz>
   -bigdft-1.2.0.2.ebuild, -files/bigdft-1.2.0.2-0001.patch,
   -files/bigdft-1.2.0.2-0002.patch, -files/bigdft-1.2.0.2-0003.patch,

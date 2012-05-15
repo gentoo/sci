@@ -108,7 +108,7 @@ src_compile() {
 	_check_build_dir
 	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
 	emake -j1 || die 'emake failed'
-	sed -i -e's%\$(top_builddir)/src/lib\([^ /$-]*\)\.a%-l\1%g' bigdft.pc
+	sed -i -e's%\$(top_builddir)/[^ ]*/lib\([^ /$-]*\)\.a%-l\1%g' bigdft.pc
 	popd > /dev/null
 
 	use doc && autotools-utils_src_compile doc
