@@ -2,6 +2,18 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+*root-5.32.03 (15 May 2012)
+
+  15 May 2012; Andrew Savchenko <bircoph@gmail.com>
+  -files/root-5.26.00e-libpng15.patch,
+  -files/root-5.26.00g-explicit-functions.patch,
+  -files/root-5.28.00b-nobyte-compile.patch,
+  -files/root-5.28.00h-explicit-functions.patch, +root-5.32.03.ebuild,
+  root-9999.ebuild:
+  Bump ebuild, use live ebuild as a template.
+  Switch to virtual/pkgconfig. Remove extra KEYWORDS from live
+  ebuild.
+
   03 Apr 2012; Justin Lecher <jlec@gentoo.org> -root-5.26.00g.ebuild,
   -root-5.28.00h-r1.ebuild, -root-5.32.02-r1.ebuild:
   Drop in tree version

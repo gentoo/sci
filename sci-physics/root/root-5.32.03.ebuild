@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.01.ebuild,v 1.1 2012/03/02 05:34:01 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.02-r1.ebuild,v 1.3 2012/05/04 07:55:34 jdhore Exp $
 
 EAPI=4
 PYTHON_DEPEND="python? 2"
@@ -34,7 +34,7 @@ SRC_URI="${SRC_URI}
 SLOT="0"
 LICENSE="LGPL-2.1"
 IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
-	llvm +math mpi mysql odbc +opengl openmp oracle postgres prefix
+	+math mpi mysql odbc +opengl openmp oracle postgres prefix
 	pythia6	pythia8	python qt4 +reflex ruby ssl xft xinetd xml xrootd"
 
 CDEPEND="
@@ -77,7 +77,6 @@ CDEPEND="
 	graphviz? ( media-gfx/graphviz )
 	kerberos? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
-	llvm? ( =sys-devel/clang-9999 =sys-devel/llvm-9999 )
 	math? ( sci-libs/gsl sci-mathematics/unuran mpi? ( virtual/mpi ) )
 	mysql? ( virtual/mysql )
 	odbc? ( || ( dev-db/libiodbc dev-db/unixODBC ) )
@@ -141,7 +140,8 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-explicit-functions.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
@@ -190,7 +190,6 @@ src_configure() {
 		--with-f77=$(tc-getFC) \
 		--with-ld=$(tc-getCXX) \
 		--with-afs-shared=yes \
-		--with-llvm-config="${EPREFIX}"/usr/bin/llvm-config \
 		--with-sys-iconpath="${EPREFIX}"/usr/share/pixmaps \
 		--disable-builtin-afterimage \
 		--disable-builtin-freetype \
@@ -199,6 +198,7 @@ src_configure() {
 		--disable-builtin-pcre \
 		--disable-builtin-zlib \
 		--disable-builtin-lzma \
+		--disable-cling \
 		--enable-astiff \
 		--enable-exceptions	\
 		--enable-explicitlink \
@@ -220,7 +220,6 @@ src_configure() {
 		$(use_enable graphviz gviz) \
 		$(use_enable kerberos krb5) \
 		$(use_enable ldap) \
-		$(use_enable llvm cling) \
 		$(use_enable math gsl-shared) \
 		$(use_enable math genvector) \
 		$(use_enable math mathmore) \
