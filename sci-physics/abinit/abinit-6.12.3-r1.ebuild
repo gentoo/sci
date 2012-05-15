@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="cuda cuda-double -debug +etsf_io +fftw +fftw-threads +fox gsl gui +hdf5 libabinit mpi +netcdf python -test +threads -vdwxc"
 
-RDEPEND="=sci-libs/bigdft-1.6_pre1
+RDEPEND="~sci-libs/bigdft-1.6_pre1
 	sci-libs/etsf_io
 	=sci-libs/libxc-1*[fortran]
 	sci-physics/atompaw[libxc]
