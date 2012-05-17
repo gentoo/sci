@@ -2,17 +2,17 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# svn export -r "{2009-05-09}" https://gluegen.dev.java.net/svn/gluegen/trunk
-# gluegen --username xxx --password xxx
+EAPI="2"
 
 WANT_ANT_TASKS="ant-antlr"
-EAPI="2"
 JAVA_PKG_IUSE=""
 
 inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Tool to generate Java and JNI code necessary to call C libraries"
 HOMEPAGE="https://gluegen.dev.java.net/"
+# svn export -r "{2009-05-09}" https://gluegen.dev.java.net/svn/gluegen/trunk
+# gluegen --username xxx --password xxx
 SRC_URI="http://dev.gentoo.org/~ali_bush/distfiles/${P}.tar.bz2"
 
 LICENSE="BSD"
