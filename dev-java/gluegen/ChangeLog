@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 May 2012; Justin Lecher <jlec@gentoo.org> gluegen-20080421.ebuild,
+  metadata.xml:
+  Fix repoman warning about position off EAPI
+
+  17 May 2012; Justin Lecher <jlec@gentoo.org> gluegen-20080421.ebuild,
+  metadata.xml:
+  Fix repoman warning about position off EAPI
+
 *gluegen-20080421 (14 May 2012)
 
   14 May 2012; Sébastien Fabbro <bicatali@gentoo.org>
