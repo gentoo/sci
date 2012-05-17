@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci-astronomy</herd>
+<longdescription lang="en">
+  The Zurich Extragalactic Bayesian Redshift Analyzer is a software to
+  compute and analyze photometric redshifts of galaxies.
+  ZEBRA combines and extends several of the classical approaches to
+  produce accurate photometric redshifts down to faint magnitudes. In
+  particular, ZEBRA uses the template-fitting approach to produce
+  Maximum Likelihood and Bayesian redshift estimates based on:
+    * An automatic iterative technique to correct the original set of
+      galaxy templates to best represent the SEDs of real galaxies at
+      different redshifts;
+    * A training set of spectroscopic redshifts for a small fraction of
+      the photometric sample, to improve the robustness of the
+      photometric redshift estimates; and
+    * An iterative technique for Bayesian redshift estimates, which
+      extracts the full two-dimensional redshift and template likelihood
+      function for each galaxy.
+</longdescription>
+</pkgmetadata>
