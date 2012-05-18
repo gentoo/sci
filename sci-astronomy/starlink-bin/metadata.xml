@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci-astronomy</herd>
+<longdescription lang="en">
+  The Starlink Project, referred to by users as Starlink and by
+  developers as simply The Project, was a UK astronomical computing
+  project which supplied general-purpose data reduction
+  software.
+</longdescription>
+</pkgmetadata>
