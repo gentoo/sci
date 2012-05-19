@@ -30,10 +30,15 @@
 
 #--- END OF EXAMPLES ---
 
+# Sebastien Fabbro <bicatali@gentoo.org> (14 May 2012)
+# alpha version for testing
+>=sci-mathematics/scilab-5.3.99
+
 # Justin Lecher <jlec@gentoo.org> (30 Apr 2012)
 # Make sci overlay user to tester.
 >=sci-libs/arpack-96
 
+# Justin Lecher <jlec@gentoo.org> (28 Apr 2012)
 # Doesn't install pkg-config files, which many packages rely on
 =sci-libs/mmdb-1.24.20111208
 

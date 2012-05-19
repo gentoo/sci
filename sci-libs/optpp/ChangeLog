@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/optpp
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*optpp-2.4 (17 May 2012)
+
+  17 May 2012; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +optpp-2.4.ebuild:
+  sci-libs/optpp: Initial import
+

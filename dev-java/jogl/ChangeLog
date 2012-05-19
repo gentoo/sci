@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 May 2012; Christoph Junghans <ottxor@gentoo.org> jogl-1.1.1.ebuild:
+  Fix repoman warning about position off EAPI
+
 *jogl-1.1.1 (14 May 2012)
 
   14 May 2012; Sébastien Fabbro <bicatali@gentoo.org>

@@ -1,0 +1,10 @@
+# ChangeLog for sci-astronomy/zebra
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*zebra-1.01 (17 May 2012)
+
+  17 May 2012; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +zebra-1.01.ebuild:
+  sci-astronomy/zebra: Initial import
+
