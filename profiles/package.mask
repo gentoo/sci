@@ -30,7 +30,10 @@
 
 #--- END OF EXAMPLES ---
 
-# Justin Lecher <jlec@gentoo.org> (28 Apr 2012)
+# Justin Lecher <jlec@gentoo.org> (30 Apr 2012)
+# Make sci overlay user to tester.
+>=sci-libs/arpack-96
+
 # Doesn't install pkg-config files, which many packages rely on
 =sci-libs/mmdb-1.24.20111208
 
