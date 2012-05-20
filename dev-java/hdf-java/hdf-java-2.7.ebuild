@@ -40,8 +40,8 @@ src_configure() {
 	local myconf="--with-hdf4=no --with-libjpeg=no"
 	use hdf && \
 		myconf="--with-libjpeg=${stdpath} --with-hdf4=${stdpath}"
-	use zlib &&	myconf="${myconf} --with-libz="${stdpath}""
-	use szip && myconf="${myconf} --with-libsz="${stdpath}""
+	use zlib &&	myconf="${myconf} --with-libz=${stdpath}"
+	use szip && myconf="${myconf} --with-libsz=${stdpath}"
 
 	econf \
 		${myconf} \
