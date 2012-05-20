@@ -2,6 +2,9 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
 
+  20 May 2012; Dongxu Li <dongxuli2011@gmail.com> librecad-9999.ebuild
+  added media-libs/freetype dependency
+
   15 Apr 2012; Dongxu Li <dongxuli2011@gmail.com> +librecad-2.0.0_alpha3.ebuild +librecad-1.0.2.ebuild
   Version bumped to 2.0.0_alpha3, 1.0.2
 

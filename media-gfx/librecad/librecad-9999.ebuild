@@ -18,6 +18,7 @@ DEPEND="${RDEPEND}
 	x11-libs/qt-assistant:4
 	dev-libs/boost
 	dev-cpp/muParser
+	media-libs/freetype
 "
 
 src_prepare() {
