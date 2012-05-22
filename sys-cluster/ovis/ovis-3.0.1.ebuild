@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit cmake-utils
+inherit cmake-utils eutils
 
 DESCRIPTION="Tool for statistical analysis of large data sets"
 HOMEPAGE="http://ovis.ca.sandia.gov/"
