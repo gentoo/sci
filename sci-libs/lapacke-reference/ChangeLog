@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 May 2012; Justin Lecher <jlec@gentoo.org> lapacke-reference-3.4.1.ebuild:
+  Add missing eutils.eclass
+
 *lapacke-reference-3.4.1 (23 Apr 2012)
 
   23 Apr 2012; Sébastien Fabbro <bicatali@gentoo.org>
