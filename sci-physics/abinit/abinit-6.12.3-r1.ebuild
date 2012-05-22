@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=4
 
-inherit autotools-utils flag-o-matic fortran-2 multilib toolchain-funcs
+inherit autotools-utils eutils flag-o-matic fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="Find total energy, charge density and electronic structure using density functional theory"
 HOMEPAGE="http://www.abinit.org/"
@@ -107,11 +107,12 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/6.2.2-change-default-directories.patch
-	epatch "${FILESDIR}"/6.0.3-fftw.patch
-	epatch "${FILESDIR}"/6.12.1-autoconf.patch
-	epatch "${FILESDIR}"/6.12.1-xmalloc.patch
-	epatch "${FILESDIR}"/6.12.1-libabinit_options.patch
+	epatch \
+		"${FILESDIR}"/6.2.2-change-default-directories.patch \
+		"${FILESDIR}"/6.0.3-fftw.patch \
+		"${FILESDIR}"/6.12.1-autoconf.patch \
+		"${FILESDIR}"/6.12.1-xmalloc.patch \
+		"${FILESDIR}"/6.12.1-libabinit_options.patch
 	eautoreconf
 
 }
