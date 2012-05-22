@@ -1,10 +1,10 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=4
 
-inherit fortran-2 toolchain-funcs versionator
+inherit eutils fortran-2 toolchain-funcs versionator
 
 MY_P="${PN}_$(replace_version_separator 2 '-')"
 MY_S="${PN}_$(get_version_component_range 1-2)"
@@ -50,7 +50,7 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "install failed"
+	emake DESTDIR="${D}" install
 	use hdf5 && \
 		fperms 755 /usr/bin/{hdf2adf,adf2hdf} || \
 		rm -f "${D}"/usr/bin/{hdf2adf,adf2hdf}
