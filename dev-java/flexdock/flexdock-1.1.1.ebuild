@@ -2,10 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=4
+
 JAVA_PKG_IUSE="doc source"
 
-inherit java-pkg-2 java-ant-2
+inherit eutils java-pkg-2 java-ant-2
 
 DESCRIPTION="A Java docking framework for use in cross-platform Swing applications"
 HOMEPAGE="http://flexdock.dev.java.net/"
@@ -14,21 +15,17 @@ SRC_URI="http://java.net/projects/flexdock/downloads/download/${P}-src.zip"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-
 IUSE=""
 
 RDEPEND=">=virtual/jre-1.4"
-DEPEND=">=virtual/jdk-1.4
+DEPEND="
 	app-arch/unzip
-	dev-java/skinlf"
+	dev-java/skinlf
+	>=virtual/jdk-1.4"
 
 EANT_DOC_TARGET="doc"
 
-src_unpack() {
-	mkdir "${WORKDIR}/${P}"
-	cd "${S}"
-	unpack ${A}
-}
+S="${WORKDIR}"
 
 java_prepare() {
 	epatch "${FILESDIR}"/${P}-nodemo.patch
