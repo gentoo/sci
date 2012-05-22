@@ -1,15 +1,15 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
 PYTHON_DEPEND="python? 2"
 
-inherit cmake-utils python
+inherit cmake-utils eutils python
 
 DESCRIPTION="C++/Python interface of FEniCS"
-HOMEPAGE="https://launchpad.net/dolfin"
+HOMEPAGE="https://launchpad.net/dolfin/"
 SRC_URI="http://launchpad.net/${PN}/trunk/${PV}/+download/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
@@ -19,15 +19,16 @@ IUSE="cgal cholmod gmp mpi parmetis python scotch umfpack zlib"
 # scotch and parmetis require mpi; wait for EAPI 4
 
 DEPEND="
-	dev-libs/libxml2:2
-	sci-mathematics/ufc
-	sci-libs/armadillo
 	dev-libs/boost
-	python? ( dev-python/ufl
-	          dev-python/ffc
-	          dev-python/fiat
-	          dev-python/instant
-	          dev-python/viper )"
+	dev-libs/libxml2:2
+	sci-libs/armadillo
+	sci-mathematics/ufc
+	python? (
+		dev-python/ufl
+		dev-python/ffc
+		dev-python/fiat
+		dev-python/instant
+		dev-python/viper )"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {

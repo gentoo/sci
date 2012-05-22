@@ -2,35 +2,39 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=4
+
 WANT_ANT_TASKS="ant-antlr"
 JAVA_PKG_IUSE="cg source doc"
 
-inherit java-pkg-2 java-ant-2
+inherit eutils java-pkg-2 java-ant-2
 
 DESCRIPTION="Java(TM) Binding fot the OpenGL(TM) API"
-HOMEPAGE="https://jogl.dev.java.net"
+HOMEPAGE="https://jogl.dev.java.net/"
 SRC_URI="http://download.java.net/media/${PN}/builds/archive/jsr-231-1.1.1/${P}-src.zip"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+IUSE=""
 
-COMMON_DEPEND="dev-java/ant-core
+COMMON_DEPEND="
+	dev-java/ant-core
 	>=dev-java/cpptasks-1.0_beta4-r2
 	=dev-java/gluegen-20080421
-	cg? ( media-gfx/nvidia-cg-toolkit )
 	virtual/opengl
 	x11-libs/libX11
-	x11-libs/libXxf86vm"
+	x11-libs/libXxf86vm
+	cg? ( media-gfx/nvidia-cg-toolkit )"
 
-DEPEND=">=virtual/jdk-1.4
+DEPEND="
 	app-arch/unzip
+	>=virtual/jdk-1.4
 	${COMMON_DEPEND}"
 
-RDEPEND=">=virtual/jre-1.4
+RDEPEND="
+	>=virtual/jre-1.4
 	${COMMON_DEPEND}"
-IUSE=""
 
 S="${WORKDIR}/${PN}"
 
@@ -39,8 +43,8 @@ java_prepare() {
 	cd "${S}/make"
 	mv build.xml build.xml.bak
 
-	sed 's_/usr/X11R6_/usr_g' build.xml.bak > build.xml
-	sed -i -e 's/suncc/gcc/g' build.xml ../../gluegen/make/gluegen-cpptasks.xml
+	sed 's_/usr/X11R6_/usr_g' build.xml.bak > build.xml || die
+	sed -i -e 's/suncc/gcc/g' build.xml ../../gluegen/make/gluegen-cpptasks.xml || die
 
 	rm -R "${S}/build/gensrc/classes/javax"
 

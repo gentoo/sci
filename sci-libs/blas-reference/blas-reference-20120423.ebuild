@@ -3,7 +3,8 @@
 # $Header: $
 
 EAPI=4
-inherit fortran-2 cmake-utils alternatives-2
+
+inherit alternatives-2 eutils cmake-utils fortran-2
 
 MYP=lapack-3.4.1
 

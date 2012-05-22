@@ -1,10 +1,10 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/emboss-6.3.1_p4.ebuild,v 1.2 2011/03/09 16:29:05 jlec Exp $
 
 EAPI="4"
 
-inherit emboss
+inherit emboss eutils
 
 EBO_PATCH="4"
 EBOV=${PV/_p*}

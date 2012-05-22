@@ -3,7 +3,8 @@
 # $Header: $
 
 EAPI=4
-inherit cmake-utils fortran-2 alternatives-2
+
+inherit alternatives-2 cmake-utils eutils fortran-2
 
 MYP=lapack-${PV}
 
@@ -16,7 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test xblas"
 
-RDEPEND="virtual/blas
+RDEPEND="
+	virtual/blas
 	virtual/lapack
 	xblas? ( sci-libs/xblas )"
 DEPEND="${RDEPEND}

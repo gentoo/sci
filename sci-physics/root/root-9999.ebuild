@@ -3,11 +3,11 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.01.ebuild,v 1.1 2012/03/02 05:34:01 bicatali Exp $
 
 EAPI=4
+
 PYTHON_DEPEND="python? 2"
-inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs
 
 if [[ ${PV} == "9999" ]] ; then
-	inherit subversion
+	_SVN=subversion
 	ESVN_REPO_URI="https://root.cern.ch/svn/root/trunk"
 	ESVN_OPTIONS="--non-interactive --trust-server-cert"
 	SRC_URI=""
@@ -16,6 +16,8 @@ else
 	SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
+
+inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs ${_SVN}
 
 DOC_PV=5_26
 ROOFIT_DOC_PV=2.91-33

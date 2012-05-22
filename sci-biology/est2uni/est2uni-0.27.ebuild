@@ -1,12 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=4
 
 inherit eutils perl-module webapp
 
-DESCRIPTION="EST assembly+annotation: a perl-based analysis pipeline including php-based web interface"
+DESCRIPTION="Perl-based analysis pipeline including php-based web interface"
 HOMEPAGE="http://cichlid.umd.edu/est2uni/download.php"
 SRC_URI="
 	http://cichlid.umd.edu/est2uni/est2uni_0.27.tar.gz
@@ -22,27 +22,27 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	sci-biology/lucy
+	>=dev-db/mysql-4.1
+	dev-lang/php:5.3
+	dev-perl/go-perl
+	sci-biology/bioperl
 	sci-biology/cap3-bin
 	sci-biology/estscan
-	<sci-biology/hmmer-3
-	sci-biology/phred
-	sci-biology/seqclean
-	sci-biology/repeatmasker
-	sci-biology/tgicl
-	sci-biology/ncbi-tools
-	sci-biology/bioperl
 	sci-biology/exonerate
-	www-servers/apache
-	>=dev-db/mysql-4.1
-	<dev-lang/php-5.3"
-#	perl-gcpan/go-perl
+	<sci-biology/hmmer-3.0
+	sci-biology/lucy
+	sci-biology/ncbi-tools
+	sci-biology/phred
+	sci-biology/repeatmasker
+	sci-biology/seqclean
+	sci-biology/tgicl
+	www-servers/apache"
 
 S="${WORKDIR}"/est2uni
 
 src_prepare(){
 	for f in "${FILESDIR}"/*.pm.patch "${FILESDIR}"/tgicl_files.patch; do
-		cd perl; epatch $f || die "Failed to patch $f"
+		cd perl; epatch $f
 	done
 }
 
@@ -57,7 +57,7 @@ src_install(){
 	chmod a+rx perl/*.pl perl/*.pm || die
 	mv perl/* "${D}"/opt/est2uni || die
 
-	doenvd "${FILESDIR}"/99est2uni || die
+	doenvd "${FILESDIR}"/99est2uni
 
 	mkdir -p "${D}"/usr/share/webapps/"${PN}"/"${PV}"/htdocs
 	cp -r php/* "${D}"/usr/share/webapps/"${PN}"/"${PV}"/htdocs || die
@@ -90,10 +90,10 @@ src_install(){
 	einfo "https://listas.upv.es/pipermail/est2uni/2008-April/000129.html"
 	einfo "https://listas.upv.es/pipermail/est2uni/2008-April/000128.html"
 	einfo "https://listas.upv.es/pipermail/est2uni/2008-May/000139.html"
-	einfo ""
+	echo ""
 	einfo "Current code is at http://bioinf.comav.upv.es/git///?p=est2uni;a=summary"
 }
 
 pkg_postinst(){
-	webapp_pkg_postinst || die "webapp_pkg_postinst failed"
+	webapp_pkg_postinst
 }

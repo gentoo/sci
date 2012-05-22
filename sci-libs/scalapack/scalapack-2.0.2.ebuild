@@ -3,7 +3,8 @@
 # $Header: $
 
 EAPI=4
-inherit cmake-utils alternatives-2 fortran-2
+
+inherit alternatives-2 cmake-utils eutils fortran-2
 
 DESCRIPTION="Subset of LAPACK routines redesigned for heterogenous computing"
 HOMEPAGE="http://www.netlib.org/scalapack/"
@@ -14,7 +15,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="static-libs test"
 
-RDEPEND="virtual/lapack
+RDEPEND="
+	virtual/lapack
 	virtual/mpi
 	!sci-libs/mpiblacs"
 

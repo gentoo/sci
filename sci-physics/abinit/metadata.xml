@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-physics</herd>
-<longdescription lang="en">
+	<herd>sci-physics</herd>
+	<longdescription lang="en">
 ABINIT is a package whose main program allows one to find the total energy, charge density and electronic structure of systems made of electrons and nuclei (molecules and periodic solids) within Density Functional Theory (DFT), using pseudopotentials and a planewave basis. ABINIT also includes options to optimize the geometry according to the DFT forces and stresses, or to perform molecular dynamics simulations using these forces, or to generate dynamical matrices, Born effective charges, and dielectric tensors. Excited states can be computed within the Time-Dependent Density Functional Theory (for molecules), or within Many-Body Perturbation Theory (the GW approximation). In addition to the main ABINIT code, different utility programs are provided.   
 </longdescription>
-<use>
-  <flag name="cuda">
+	<use>
+		<flag name="cuda">
    Enable support for nVidia CUDA
   </flag>
-</use>
-<use>
-  <flag name="cuda-double">
+	</use>
+	<use>
+		<flag name="cuda-double">
    Enable support for double precision nVidia CUDA
   </flag>
-</use>
-<use>
-  <flag name="fftw-threads">
+	</use>
+	<use>
+		<flag name="fftw-threads">
    Use the threaded version of sci-libs/fftw
   </flag>
-</use>
-<use>
-  <flag name="fox">
+	</use>
+	<use>
+		<flag name="fox">
    Enable support for FoX Fortran XML library
   </flag>
-</use>
-<use>
-  <flag name="gui">
+	</use>
+	<use>
+		<flag name="gui">
    Build the abinit GUI (requires java)
   </flag>
-</use>
-<use>
-  <flag name="libabinit">
+	</use>
+	<use>
+		<flag name="libabinit">
    Build the libabinit used by sci-libs/bigdft
    (usage not tested yet, circular dependency not resolved)
   </flag>
-</use>
-<use>
-  <flag name="vdwxc">
+	</use>
+	<use>
+		<flag name="vdwxc">
    Activate van der Waals exchange-correlation
   </flag>
-</use>
+	</use>
 </pkgmetadata>

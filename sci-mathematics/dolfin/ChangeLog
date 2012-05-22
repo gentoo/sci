@@ -1,6 +1,10 @@
 # ChangeLog for sci-mathematics/dolfin
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  22 May 2012; Justin Lecher <jlec@gentoo.org> dolfin-0.9.9.ebuild,
+  metadata.xml:
+  Add missing eutils.eclass, bump to EAPI=4
 
   07 Mar 2011; Justin Lecher <jlec@gentoo.org> dolfin-0.9.9.ebuild:
   Correct Slots for gtk 3 introduction to tree

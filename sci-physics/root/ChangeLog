@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  22 May 2012; Justin Lecher <jlec@gentoo.org> root-5.32.03.ebuild,
+  root-9999.ebuild:
+  Add missing eutils.eclass
+
 *root-5.32.03 (15 May 2012)
 
   15 May 2012; Andrew Savchenko <bircoph@gmail.com>
