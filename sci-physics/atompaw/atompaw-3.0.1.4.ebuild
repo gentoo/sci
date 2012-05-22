@@ -4,12 +4,14 @@
 
 EAPI=4
 
-inherit autotools-utils fortran-2 multilib toolchain-funcs
+inherit autotools-utils eutils fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="PAW atomic data generator"
 HOMEPAGE="http://www.wfu.edu/~natalie/papers/pwpaw/man.html"
-SRC_URI="http://www.wfu.edu/~natalie/papers/pwpaw/${P}.tar.gz
-	doc? ( http://www.wfu.edu/~natalie/papers/pwpaw/atompaw.pdf
+SRC_URI="
+	http://www.wfu.edu/~natalie/papers/pwpaw/${P}.tar.gz
+	doc? (
+		http://www.wfu.edu/~natalie/papers/pwpaw/atompaw.pdf
 		http://www.wfu.edu/~natalie/papers/pwpaw/notes/atompaw/atompawEqns.pdf )"
 
 LICENSE="GPL-2"
@@ -17,26 +19,26 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc libxc"
 
-RDEPEND="virtual/lapack
+RDEPEND="
 	virtual/blas
+	virtual/lapack
 	libxc? ( sci-libs/libxc[fortran] )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
-DOCS=( README  )
+DOCS=( README )
 
 FORTRAN_STANDARD=90
 
 src_unpack() {
 	unpack ${P}.tar.gz
 	if use doc; then
-		cp "${DISTDIR}"/atompaw.pdf "${S}"/doc/
-		cp "${DISTDIR}"/atompawEqns.pdf "${S}"/doc/
+		cp "${DISTDIR}"/atompaw.pdf "${DISTDIR}"/atompawEqns.pdf "${S}"/doc/ || die
 	fi
 }
 
 src_prepare() {
-	epatch ${FILESDIR}/3.0.1-longplot.patch
+	epatch "${FILESDIR}"/3.0.1-longplot.patch
 }
 
 src_configure() {
@@ -64,7 +66,5 @@ src_test() {
 src_install() {
 	autotools-utils_src_install
 
-	if use doc; then
-		dodoc doc/atompaw.pdf doc/atompawEqns.pdf || die "PDF doc failed"
-	fi
+	use doc && dodoc doc/atompaw.pdf doc/atompawEqns.pdf
 }
