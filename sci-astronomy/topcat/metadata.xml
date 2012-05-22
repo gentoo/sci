@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci-astronomy</herd>
+<longdescription lang="en">
+  Tool for OPerations on Catalogues And Tables is an interactive
+  graphical viewer and editor for tabular data. Its aim is to provide
+  most of the facilities that astronomers need for analysis and
+  manipulation of source catalogues and other tables, though it can be
+  used for non-astronomical data as well. It understands a number of
+  different astronomically important formats (including FITS and
+  VOTable) and more formats can be added. 
+</longdescription>
+</pkgmetadata>
