@@ -1,9 +1,10 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=4
-inherit eutils toolchain-funcs versionator alternatives-2
+
+inherit alternatives-2 eutils toolchain-funcs versionator
 
 DESCRIPTION="Subset of LAPACK routines redesigned for heterogenous computing"
 HOMEPAGE="http://www.netlib.org/scalapack/"
@@ -14,7 +15,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="static-libs test"
 
-RDEPEND="virtual/blacs
+RDEPEND="
+	virtual/blacs
 	virtual/lapack"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
