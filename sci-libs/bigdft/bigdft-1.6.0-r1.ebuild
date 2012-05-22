@@ -2,19 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=4
 
-inherit autotools-utils flag-o-matic fortran-2 toolchain-funcs
+inherit autotools-utils eutils flag-o-matic fortran-2 toolchain-funcs
+
+REAL_P="${P/_pre0/-tuto}"
 
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
 HOMEPAGE="http://inac.cea.fr/L_Sim/BigDFT/"
-
-REAL_P="${P/_pre0/-tuto}"
-S="${WORKDIR}/${REAL_P}"
-
-SRC_URI="
-	http://inac.cea.fr/L_Sim/BigDFT/${REAL_P}.tar.gz
-	"
+SRC_URI="http://inac.cea.fr/L_Sim/BigDFT/${REAL_P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -35,14 +31,13 @@ RDEPEND="
 			)
 		)
 	etsf_io? ( sci-libs/etsf_io )
-	netcdf? (
-		sci-libs/netcdf[fortran]
-		)
-	"
+	netcdf? ( sci-libs/netcdf[fortran] )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	>=sys-devel/autoconf-2.59
 	doc? ( virtual/latex-base )"
+
+S="${WORKDIR}/${REAL_P}"
 
 DOCS=( README INSTALL ChangeLog AUTHORS NEWS )
 
@@ -107,7 +102,7 @@ src_compile() {
 	#autotools-utils_src_compile() expanded
 	_check_build_dir
 	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
-	emake -j1 || die 'emake failed'
+	emake -j1
 	sed -i -e's%\$(top_builddir)/[^ ]*/lib\([^ /$-]*\)\.a%-l\1%g' bigdft.pc
 	popd > /dev/null
 

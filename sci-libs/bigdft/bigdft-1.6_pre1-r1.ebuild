@@ -2,20 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=4
 
-inherit autotools-utils flag-o-matic fortran-2 toolchain-funcs
-
-DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
-HOMEPAGE="http://inac.cea.fr/L_Sim/BigDFT/"
+inherit autotools-utils eutils flag-o-matic fortran-2 toolchain-funcs
 
 REAL_P="${P/_pre/-tuto.}"
 REAL_P="${REAL_P/-tuto.0/-tuto}"
-S="${WORKDIR}/${REAL_P}"
 
-SRC_URI="
-	http://inac.cea.fr/L_Sim/BigDFT/${REAL_P}.tar.gz
-	"
+DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
+HOMEPAGE="http://inac.cea.fr/L_Sim/BigDFT/"
+SRC_URI="http://inac.cea.fr/L_Sim/BigDFT/${REAL_P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -36,14 +32,13 @@ RDEPEND="
 			)
 		)
 	etsf_io? ( sci-libs/etsf_io )
-	netcdf? (
-		sci-libs/netcdf[fortran]
-		)
-	"
+	netcdf? ( sci-libs/netcdf[fortran] )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	>=sys-devel/autoconf-2.59
 	doc? ( virtual/latex-base )"
+
+S="${WORKDIR}/${REAL_P}"
 
 DOCS=( README INSTALL ChangeLog AUTHORS NEWS )
 
@@ -63,10 +58,11 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/"${REAL_P}"-libxc_dir_include.patch
-	epatch "${FILESDIR}"/"${REAL_P}"-bigdft.pc.patch
-	sed -i -e's/capitalize_module_ext/ax_fc_mod_ext/g' "${S}"/configure
-	sed -i -e's/capitalize_module_ext/ax_fc_mod_ext/g' "${S}"/configure.ac
+	epatch \
+		"${FILESDIR}"/"${REAL_P}"-libxc_dir_include.patch \
+		"${FILESDIR}"/"${REAL_P}"-bigdft.pc.patch
+	sed -i -e's/capitalize_module_ext/ax_fc_mod_ext/g' "${S}"/configure || die
+	sed -i -e's/capitalize_module_ext/ax_fc_mod_ext/g' "${S}"/configure.ac || die
 	eautoreconf
 }
 
@@ -112,7 +108,7 @@ src_compile() {
 	#autotools-utils_src_compile() expanded
 	_check_build_dir
 	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
-	emake -j1 || die 'emake failed'
+	emake -j1
 	sed -i -e's%\$(top_builddir)/[^ ]*/lib\([^ /$-]*\)\.a%-l\1%g' bigdft.pc
 	popd > /dev/null
 
