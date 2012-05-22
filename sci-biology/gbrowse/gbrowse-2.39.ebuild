@@ -1,9 +1,10 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
-EAPI="2"
 
-inherit perl-module webapp
+EAPI=4
+
+inherit eutils perl-module webapp
 
 MY_P="GBrowse-${PV}"
 
@@ -91,12 +92,13 @@ RDEPEND="${DEPEND}
 src_prepare() {
 	sed -i 's/return unless -t STDIN/return/' install_util/GBrowseInstall.pm || die
 	sed -i 's/process_/bp_process_/g' INSTALL || die
-	epatch "${FILESDIR}"/GBrowseInstall.pm-"${PV}".patch || die "Failed to apply GBrowseInstall.pm-"${PV}".patch"
-	epatch "${FILESDIR}"/destdir.patch || die "Failed to apply destdir.patch"
-	epatch "${FILESDIR}"/fix-PNG-export.patch || die "Failed to apply fix-PNG-export.patch"
-	epatch "${FILESDIR}"/symlink.patch || die "Failed to apply symlink.patch"
-	epatch "${FILESDIR}"/gbrowse_metadb_config.pl.patch || die "Failed to apply gbrowse_metadb_config.pl.patch"
-	epatch "${FILESDIR}"/disable-gbrowse_metadb_config.pl.patch || die "Failed to apply disable-gbrowse_metadb_config.pl.patch"
+	epatch \
+		"${FILESDIR}"/GBrowseInstall.pm-"${PV}".patch \
+		"${FILESDIR}"/destdir.patch \
+		"${FILESDIR}"/fix-PNG-export.patch \
+		"${FILESDIR}"/symlink.patch \
+		"${FILESDIR}"/gbrowse_metadb_config.pl.patch \
+		"${FILESDIR}"/disable-gbrowse_metadb_config.pl.patch
 }
 
 src_configure() {
@@ -143,7 +145,7 @@ src_install() {
 	einfo "Make sure you compiled apache with +cgi and copy ${FILESDIR}/gbrowse.conf.vhosts.d to /etc/apache2/vhosts.d/"
 
 	sed -i "s#"${D}"##g" "${S}"/install_util/GBrowseInstall.pm || die
-	sed -i "s#"${D}"##" "${S}"/blib/conf/GBrowse.conf*
+	sed -i "s#"${D}"##" "${S}"/blib/conf/GBrowse.conf* || die
 	sed -i 's#DBI:SQLite:'${D}'/var/www/gbrowse2/databases/#DBI:SQLite:/var/www/gbrowse2/databases/#' "${S}"/install_util/GBrowseInstall.pm || die
 }
 
