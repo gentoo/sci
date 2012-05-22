@@ -2,31 +2,30 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=4
+
 inherit cmake-utils
 
 DESCRIPTION="Tool for statistical analysis of large data sets"
-HOMEPAGE="http://ovis.ca.sandia.gov"
+HOMEPAGE="http://ovis.ca.sandia.gov/"
 SRC_URI="http://ovis.ca.sandia.gov/mediawiki/downloads/OVIS-${PV}.tar.gz"
 
-KEYWORDS="~amd64 ~x86"
-
-LICENSE="BSD"
 SLOT="0"
-
+LICENSE="BSD"
+KEYWORDS="~amd64 ~x86"
 IUSE="avahi"
 
-RDEPEND=">=x11-libs/qt-gui-4.7.4
-    >=x11-libs/qt-assistant-4.7.4[compat]
-	>=dev-libs/qjson-0.7.1
+RDEPEND="
+	>=dev-db/mysql-5.0.77
 	>=dev-libs/boost-1.44
-    avahi? ( >=net-dns/avahi-0.6.27 )
-    >=dev-db/mysql-5.0.77
-    dev-libs/libevent
-    sys-libs/readline"
-    
+	dev-libs/libevent
+	>=dev-libs/qjson-0.7.1
+	sys-libs/readline
+	>=x11-libs/qt-assistant-4.7.4[compat]
+	>=x11-libs/qt-gui-4.7.4
+	avahi? ( >=net-dns/avahi-0.6.27 )"
 DEPEND="${RDEPEND}
-	>=net-dns/avahi-0.6.27"
+	avahi? ( >=net-dns/avahi-0.6.27 )"
 
 S="${WORKDIR}/OVIS-${PV}"
 
@@ -45,19 +44,19 @@ src_configure() {
 
 src_install() {
 	cmake-utils_src_install
-	
-	echo "LDPATH=\"/usr/$(get_libdir)/vtk\"" > "${DISTDIR}/etc/env.d/91ovis"
+	echo "LDPATH=\"/usr/$(get_libdir)/vtk\"" > "${T}/91ovis"
+	doenvd  "${T}/91ovis"
 }
 
 pkg_postinst() {
 	elog "Ovis requires a MySQL database and all privileges on it"
 	elog "in order to work. To do so, start the mysql client with:"
 	elog "  mysql -u root -p"
-	elog " "
+	echo ""
 	elog "and perform the following operations:"
 	elog "  CREATE DATABASE OVIS_Cluster;"
 	elog "  GRANT ALL PRIVILEGES ON OVIS_Cluster.* TO ovis@localhost;"
 	elog "  flush-privileges;"
-	elog " "
+	echo ""
 	einfo "Remember to start the mysql server before using Ovis!"
 }
