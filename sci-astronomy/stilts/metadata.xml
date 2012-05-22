@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci-astronomy</herd>
+<longdescription lang="en">
+  The Starlink Tables Infrastructure Library Tool Set is a set of
+  command-line tools based on STIL, the Starlink Tables Infrastructure
+  Library. It deals with the processing of tabular data; the package
+  has been designed for, but is not restricted to, astronomical tables
+  such as object catalogues. Some of the tools are generic and can
+  work with multiple formats (including FITS, VOTable, CSV, SQL and
+  ASCII), and others are specific to the VOTable format.
+</longdescription>
+</pkgmetadata>

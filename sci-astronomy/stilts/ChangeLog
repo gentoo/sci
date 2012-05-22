@@ -1,0 +1,10 @@
+# ChangeLog for sci-astronomy/stilts
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*stilts-2.4 (22 May 2012)
+
+  22 May 2012; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +stilts-2.4.ebuild:
+  sci-astronomy/stilts: Initial import
+
