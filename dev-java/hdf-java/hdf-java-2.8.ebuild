@@ -59,6 +59,9 @@ src_configure() {
 }
 
 src_compile() {
+	# gentoo bug #302621
+	has_version sci-libs/hdf5[mpi] && export CXX=mpicxx CC=mpicc
+
 	# parallel needs work. anyone?
 	emake -j1 ncsa just-hdf5
 

@@ -3,6 +3,9 @@
 # $Header: $
 
   23 May 2012; Sébastien Fabbro <bicatali@gentoo.org> hdf-java-2.8.ebuild:
+  add hack for hdf5[mpi]
+
+  23 May 2012; Sébastien Fabbro <bicatali@gentoo.org> hdf-java-2.8.ebuild:
   fixed missing use
 
   20 May 2012; Guillaume Horel <guillaume.horel@gmail.com> hdf-java-2.7.ebuild,
