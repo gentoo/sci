@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit eutils toolchain-funcs
+inherit eutils user toolchain-funcs
 
 MY_PV="${PV//_alpha/a}"
 MY_PV="${MY_PV//_beta/b}"
@@ -69,7 +69,6 @@ src_prepare() {
 		epatch "${FILESDIR}"/${PN}-4.2.2-improved-xid.patch
 		epatch "${FILESDIR}"/${PN}-4.2.2-gpxe-cid.patch
 	fi
-
 
 	# Brand the version with Gentoo
 	sed -i \
