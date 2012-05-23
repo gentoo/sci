@@ -19,7 +19,6 @@ fi
 
 inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs ${_SVN}
 
-DOC_PV=5_26
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
 PATCH_PV=5.28.00b
@@ -28,7 +27,7 @@ PATCH_PV2=5.32.00
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
 SRC_URI="${SRC_URI}
-	doc? ( ftp://root.cern.ch/${PN}/doc/Users_Guide_${DOC_PV}.pdf
+	doc? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuide.pdf
 		math? (
 			ftp://root.cern.ch/${PN}/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
 			http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf ) )"
@@ -262,7 +261,7 @@ doc_install() {
 	cd "${S}"
 	if use doc; then
 		einfo "Installing user's guides"
-		dodoc "${DISTDIR}"/Users_Guide_${DOC_PV}.pdf
+		dodoc "${DISTDIR}"/ROOTUsersGuide.pdf
 		use math && dodoc \
 			"${DISTDIR}"/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf \
 			"${DISTDIR}"/TMVAUsersGuide-v${TMVA_DOC_PV}.pdf
