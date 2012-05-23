@@ -12,7 +12,7 @@ if [ "${PV%9999}" != "${PV}" ] ; then
 	DBG_URI="git://github.com/path64/debugger.git"
 fi
 
-inherit cmake-utils ${SCM} multilib toolchain-funcs eutils
+inherit cmake-utils ${SCM} multilib toolchain-funcs
 
 DESCRIPTION="Path64 Compiler Suite Community Edition"
 HOMEPAGE="http://www.pathscale.com/ekopath-compiler-suite"
@@ -38,7 +38,6 @@ pkg_setup() {
 		ewarn "There is a high chance that you will utterly fail!"
 		ewarn "Unless you know what you are doing you'd better stop now"
 		ewarn "Should you decide to proceed, you are on your own..."
-		epause
 	fi
 }
 
