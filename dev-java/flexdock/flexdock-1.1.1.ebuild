@@ -18,9 +18,9 @@ KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 RDEPEND=">=virtual/jre-1.4"
-DEPEND="
-	app-arch/unzip
+DEPEND="app-arch/unzip
 	dev-java/skinlf
+	dev-java/jgoodies-looks:2.0
 	>=virtual/jdk-1.4"
 
 EANT_DOC_TARGET="doc"
