@@ -4,7 +4,7 @@
 
 EAPI=2
 
-inherit autotools eutils flag-o-matic
+inherit autotools eutils user flag-o-matic
 
 DESCRIPTION="Workload management system for compute-intensive jobs"
 HOMEPAGE="http://www.cs.wisc.edu/condor/"
