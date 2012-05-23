@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit qt4-r2
+inherit qt4-r2 eutils
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"

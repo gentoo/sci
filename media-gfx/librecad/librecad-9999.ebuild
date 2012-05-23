@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI="4"
-inherit qt4-r2 git-2 flag-o-matic
+inherit qt4-r2 eutils git-2 flag-o-matic
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"

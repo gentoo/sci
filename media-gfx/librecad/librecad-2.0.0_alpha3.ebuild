@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit qt4-r2 flag-o-matic
+inherit qt4-r2 eutils flag-o-matic
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
@@ -37,7 +37,7 @@ src_prepare() {
 }
 
 src_install() {
-	qt4-r2_src_install
+	qt4-r2 eutils_src_install
 	dobin unix/librecad
 	insinto /usr/share/"${PN}"
 	doins -r unix/resources/*

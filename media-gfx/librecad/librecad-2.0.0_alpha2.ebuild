@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit qt4-r2
+inherit qt4-r2 eutils
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
@@ -35,7 +35,7 @@ sed -i -e '/HAS_CPP11/ s/^#//' src/src.pro
 }
 
 src_install() {
-	qt4-r2_src_install
+	qt4-r2 eutils_src_install
 	dobin unix/librecad
 	insinto /usr/share/"${PN}"
 	doins -r unix/resources/*
