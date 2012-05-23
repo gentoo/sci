@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,8 @@ EAPI="2"
 
 PYTHON_USE_WITH="sqlite"
 PYTHON_DEPEND="python? 2"
-inherit cmake-utils python subversion
+
+inherit cmake-utils python subversion eutils
 
 DESCRIPTION="User friendly Geographic Information System"
 HOMEPAGE="http://www.qgis.org/"
