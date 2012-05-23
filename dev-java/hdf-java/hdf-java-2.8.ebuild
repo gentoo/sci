@@ -37,7 +37,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/${P}-shared.patch
 	eautoreconf
 	rm lib/*.jar
-	if hdfview; then
+	if use hdfview; then
 		java-pkg_jar-from --into lib fits fits.jar
 		java-pkg_jar-from --into lib netcdf netcdf.jar
 	fi
