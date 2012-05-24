@@ -31,7 +31,7 @@ src_prepare() {
 		-e "/^LAlib\>/s,= .*,= $(pkg-config --libs-only-l blas lapack)," \
 		-e "/^LINKER\>/s,= .*,= ${mpicc_path}," \
 		-e "/^CC\>/s,= .*,= ${mpicc_path}," \
-		-e "/^LINKFLAGS\>/s|= .*|= ${LDFLAGS}|" \
+		-e "/^LINKFLAGS\>/s|= .*|= ${LDFLAGS} $(pkg-config --libs-only-L blas lapack)|" \
 		Make.gentoo_hpl_fblas_x86 || die
 }
 
