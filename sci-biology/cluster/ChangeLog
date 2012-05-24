@@ -1,6 +1,12 @@
 # ChangeLog for sci-biology/cluster
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*cluster-1.50 (24 May 2012)
+
+  24 May 2012; Justin Lecher <jlec@gentoo.org> -cluster-1.38.ebuild,
+  +cluster-1.50.ebuild, metadata.xml:
+  Version Bump, Move to EAPI=4
 
   23 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   cluster-1.38.ebuild:
