@@ -1,3 +1,5 @@
+applied from upstream http://bugzilla.scilab.org/show_bug.cgi?id=9268
+
 diff --git a/scilab/bin/scilab b/scilab/bin/scilab
 index 67f6474..7a4f6f5 100755
 --- a/scilab/bin/scilab

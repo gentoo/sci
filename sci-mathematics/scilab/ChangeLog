@@ -1,6 +1,36 @@
 # ChangeLog for sci-mathematics/scilab
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*scilab-5.3.3-r1 (25 May 2012)
+
+  25 May 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/scilab.bash_completion, -files/bug_9268.diff, -scilab-5.2.1.ebuild,
+  -files/scilab-5.2.1-hdf-java-2.6.patch, -files/scilab-5.2.1-java-heap.patch,
+  -files/scilab-5.2.1-no-redef-exp10.patch,
+  -files/scilab-5.2.1-nojavacheckversion.patch,
+  -files/scilab-5.2.1-scilib-fix.patch, -scilab-5.3.2.ebuild,
+  -files/scilab-5.3.2-allow-hdf-1.8.7.patch,
+  -files/scilab-5.3.2-scilib-fix.patch, -files/java-heap-5.3.2.patch,
+  -scilab-5.3.3.ebuild, +scilab-5.3.3-r1.ebuild,
+  -files/scilab-5.3.3-allow-hdf-1.8.7.patch,
+  +files/scilab-5.3.3-as-needed.patch, +files/scilab-5.3.3-blas-libs.patch,
+  +files/scilab-5.3.3-disable-build-help.patch,
+  +files/scilab-5.3.3-fix-random-runtime-failures.patch,
+  +files/scilab-5.3.3-fortran-link.patch, +files/scilab-5.3.3-hdf18.patch,
+  +files/scilab-5.3.3-java-heap.patch, +files/scilab-5.3.3-javadoc-utf8.patch,
+  +files/scilab-5.3.3-jgrapx-min.patch,
+  +files/scilab-5.3.3-jvm-detection.patch, +files/scilab-5.3.3-matio15.patch,
+  +files/scilab-5.3.3-no-lhpi.patch, +files/scilab-5.3.3-no-xcos-deps.patch,
+  -files/scilab-5.3.3-scilib-fix.patch, -files/java-heap-5.3.3.patch,
+  -files/disablebuildhelp.patch:
+  Completely revamped ebuild. Support linguas. Force matio < 1.5. Added 
+  fortran eclass and patch to allow user to define F77. Added 
+  bash-completion. Tests need X with gui. Re-order dependencies with use 
+  flags. Added openmp flag with test of compiler. Added a debug flag. 
+  Added a fix for hdf5 with mpi, bug #302621. Added a few more patches to 
+  please Gentoo QA (random runtime failures), javadoc utf8 and re-organize 
+  some sed's in patches. General cleanup and remove old versions.
 
   23 Dec 2011; Guillaume Horel <guillaume.horel@gmail.com> scilab-5.3.3.ebuild:
   Fixes for jdk-1.7

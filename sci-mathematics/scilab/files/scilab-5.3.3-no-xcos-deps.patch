@@ -1,0 +1,90 @@
+From 86ea77b316580c685263e54cd6564e4b939daf72 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Cl=C3=A9ment=20DAVID?= <clement.david@scilab.org>
+Date: Wed, 14 Sep 2011 20:52:14 +0200
+Subject: [PATCH 3/8] Remove Xcos dependencies check
+
+---
+ .../src/java/org/scilab/modules/xcos/Xcos.java     |   67 +------------------
+ 1 files changed, 4 insertions(+), 63 deletions(-)
+
+diff --git a/modules/xcos/src/java/org/scilab/modules/xcos/Xcos.java b/modules/xcos/src/java/org/scilab/modules/xcos/Xcos.java
+index 2417b06..35ed224 100644
+--- a/modules/xcos/src/java/org/scilab/modules/xcos/Xcos.java
++++ b/modules/xcos/src/java/org/scilab/modules/xcos/Xcos.java
+@@ -145,69 +145,10 @@ public final class Xcos {
+ 	// CSOFF: IllegalCatch
+ 	// CSOFF: MagicNumber
+ 	private void checkDependencies() {
+-		final ClassLoader loader = ClassLoader.getSystemClassLoader();
+-		
+-		/* JGraphx */
+-		String mxGraphVersion = "";
+-		try {
+-			final Class< ? > klass = loader.loadClass("com.mxgraph.view.mxGraph");
+-			mxGraphVersion = (String) klass.getDeclaredField("VERSION").get(null);
+-				
+-			if (!MXGRAPH_VERSIONS.contains(mxGraphVersion)) {
+-				throw new Exception();
+-			}
+-		} catch (final Throwable e) {
+-			throw new RuntimeException(String.format(UNABLE_TO_LOAD_JGRAPHX,
+-					MXGRAPH_VERSIONS.get(0), mxGraphVersion), e);
+-		}
+-		
+-		/* HDF5 */
+-		final int[] libVersion = new int[3]; 
+-		try {
+-			final Class< ? > klass = loader.loadClass("ncsa.hdf.hdf5lib.H5");
+-			
+-			/* hdf5-java */
+-			int ret = (Integer) klass.getMethod("H5get_libversion", libVersion.getClass())
+-									.invoke(null, libVersion);
+-			if (ret < 0) {
+-				throw new Exception();
+-			}
+-			
+-			if (!HDF5_VERSIONS.contains(Arrays.toString(libVersion))) {
+-				throw new Exception();
+-			}
+-			
+-			
+-			/* hdf5 */
+-			ret = (Integer) klass.getMethod("H5check_version", int.class,
+-					int.class, int.class).invoke(null, libVersion[0],
+-					libVersion[1], libVersion[2]);
+-			if (ret < 0) {
+-				throw new RuntimeException(UNABLE_TO_LOAD_HDF5);
+-			}
+-			
+-		} catch (final Throwable e) {
+-			if (!(e instanceof RuntimeException)) {
+-				throw new RuntimeException(String.format(UNABLE_TO_LOAD_JHDF5,
+-						HDF5_VERSIONS.get(0), Arrays.toString(libVersion)), e);
+-			}
+-		}
+-		
+-		/* Batik */
+-		String batikVersion = null;
+-		try {
+-			final Class< ? > klass = loader.loadClass("org.apache.batik.Version");
+-			batikVersion = klass.getPackage().getImplementationVersion()
+-								.split("\\+")[0];
+-			
+-			if (!BATIK_VERSIONS.contains(batikVersion)) {
+-				throw new Exception();
+-			}
+-			
+-		} catch (final Throwable e) {
+-			throw new RuntimeException(String.format(UNABLE_TO_LOAD_BATIK,
+-					BATIK_VERSIONS.get(0), batikVersion), e);
+-		}
++		LOG.trace("dependencies check removed");
++		// Remove all dependencies check
++		// It may cause some trouble in case of any API change but will
++		// ease maintenance.
+ 	}
+ 	// CSON: MagicNumber
+ 	// CSON: IllegalCatch
+-- 
+1.7.7
+
