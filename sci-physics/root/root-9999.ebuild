@@ -136,7 +136,6 @@ pkg_setup() {
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-prop-ldflags.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV}-asneeded.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
@@ -201,7 +200,6 @@ src_configure() {
 		--disable-builtin-zlib \
 		--disable-builtin-lzma \
 		--enable-astiff \
-		--enable-exceptions	\
 		--enable-explicitlink \
 		--enable-gdml \
 		--enable-memstat \
