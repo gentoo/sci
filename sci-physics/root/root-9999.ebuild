@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.01.ebuild,v 1.1 2012/03/02 05:34:01 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.02-r1.ebuild,v 1.3 2012/05/04 07:55:34 jdhore Exp $
 
 EAPI=4
 
@@ -17,12 +17,13 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit elisp-common eutils user fdo-mime fortran-2 python toolchain-funcs ${_SVN}
+inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs ${_SVN}
 
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
 PATCH_PV=5.28.00b
 PATCH_PV2=5.32.00
+PATCH_PV3=5.34
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
@@ -30,18 +31,24 @@ SRC_URI="${SRC_URI}
 	doc? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuide.pdf
 		math? (
 			ftp://root.cern.ch/${PN}/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
-			http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf ) )"
+			http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf )
+		htmldoc? (
+			http://root.cern.ch/drupal/sites/default/files/rootdrawing-logo.png
+			http://root.cern.ch/drupal/sites/all/themes/newsflash/images/blue/root-banner.png
+			http://root.cern.ch/drupal/sites/all/themes/newsflash/images/info.png ) )"
 
 SLOT="0"
 LICENSE="LGPL-2.1"
-IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz kerberos ldap
-	llvm +math mpi mysql odbc +opengl openmp oracle postgres prefix
-	pythia6	pythia8	python qt4 +reflex ruby ssl xft xinetd xml xrootd"
+IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz htmldoc kerberos
+	ldap llvm +math mpi mysql odbc +opengl openmp oracle postgres prefix pythia6
+	pythia8 python qt4 +reflex ruby ssl xft xinetd xml xrootd"
 
 CDEPEND="
 	app-arch/xz-utils
+	!app-doc/root-docs
 	>=dev-lang/cfortran-4.4-r2
 	dev-libs/libpcre
+	media-fonts/dejavu
 	media-libs/freetype
 	media-libs/giflib
 	media-libs/libpng:0
@@ -94,7 +101,8 @@ CDEPEND="
 	xrootd? ( net-libs/xrootd )"
 
 DEPEND="${CDEPEND}
-	virtual/pkgconfig"
+	virtual/pkgconfig
+	htmldoc? ( x11-base/xorg-server[xvfb] )"
 
 RDEPEND="
 	virtual/fortran
@@ -102,7 +110,9 @@ RDEPEND="
 	reflex? ( dev-cpp/gccxml )
 	xinetd? ( sys-apps/xinetd )"
 
-REQUIRED_USE="!X? ( !opengl !qt4 !xft )"
+REQUIRED_USE="
+	!X? ( !opengl !qt4 !xft )
+	htmldoc? ( X doc graphviz )"
 
 S="${WORKDIR}/${PN}"
 
@@ -141,7 +151,8 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-dotfont.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
@@ -174,6 +185,24 @@ src_prepare() {
 
 	# QTDIR only used for qt3 in gentoo, and configure looks for it.
 	unset QTDIR
+
+	# Make html docs self-consistent for offline work (based on Fedora spec)
+	if use htmldoc; then
+		epatch "${FILESDIR}"/${PN}-${PATCH_PV3}-htmldoc.patch
+		# make images local
+		sed 's!http://root.cern.ch/drupal/sites/all/themes/newsflash/images/blue/!!' \
+			-i etc/html/ROOT.css || die "htmldoc sed failed"
+		sed 's!http://root.cern.ch/drupal/sites/all/themes/newsflash/images/!!' \
+			-i etc/html/ROOT.css || die "htmldoc sed failed"
+		sed 's!http://root.cern.ch/drupal/sites/default/files/!!' \
+			-i etc/html/header.html || die "htmldoc sed failed"
+
+		cp "${DISTDIR}"/{rootdrawing-logo.png,root-banner.png,info.png} etc/html ||
+			die "htmldoc preparation failed"
+
+		# set build etc directory
+		sed "s%@PWD@%${S}%" -i build/unix/makehtml.sh || die "htmldoc sed failed"
+	fi
 }
 
 src_configure() {
@@ -253,6 +282,22 @@ src_compile() {
 	if use emacs; then
 		elisp-compile build/misc/*.el || die "elisp-compile failed"
 	fi
+	if use htmldoc; then
+		# we need X server running, THtml uses it for GUI snapshots
+		Xvfb -screen 0 1280x1024x24 :50 >/dev/null 2>&1 &
+		local xvfb_pid=$!
+		ps h -C Xvfb | grep -q ${xvfb_pid} || die "Xvfb failed to start"
+
+		LD_LIBRARY_PATH=${S}/lib:${S}/cint/cint/include:${S}/cint/cint/stl \
+		ROOTSYS=${S} DISPLAY=":50" \
+		emake html || die "html doc generation failed"
+		# if root.exe crashes, return code will be 0 due to gdb attach,
+		# so we need to check if last html file was generated;
+		# this check is volatile and can't catch crash on the last file.
+		[[ -f htmldoc/timespec.html ]] || die "looks like html doc generation crashed"
+
+		kill ${xvfb_pid}
+	fi
 }
 
 doc_install() {
@@ -263,6 +308,8 @@ doc_install() {
 		use math && dodoc \
 			"${DISTDIR}"/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf \
 			"${DISTDIR}"/TMVAUsersGuide-v${TMVA_DOC_PV}.pdf
+		# too large data to copy
+		use htmldoc && mv htmldoc "${ED}usr/share/doc/${PF}/html"
 	fi
 
 	if use examples; then

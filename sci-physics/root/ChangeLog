@@ -2,6 +2,16 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+*root-5.32.03-r2 (29 May 2012)
+
+  29 May 2012; Andrew Savchenko <bircoph@gmail.com>
+  +files/root-5.32.00-dotfont.patch, +files/root-5.32.00-htmldoc.patch,
+  -root-5.32.03-r1.ebuild, +root-5.32.03-r2.ebuild,
+  +files/root-5.34-htmldoc.patch, root-9999.ebuild, metadata.xml:
+  Add USE="htmldoc" for htmtl documentation build. This obsoletes
+  app-doc/root-docs. Fix fonts for dot code generation, force DejeVu
+  Serif.
+
   25 May 2012; Andrew Savchenko <bircoph@gmail.com> root-9999.ebuild:
   Adapt for upstream changes:
   - enable-exceptions is gone;
