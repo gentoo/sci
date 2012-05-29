@@ -2,6 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+# svn export -r "{2009-05-09}" https://gluegen.dev.java.net/svn/gluegen/trunk
+# gluegen --username xxx --password xxx
+
 EAPI="2"
 
 WANT_ANT_TASKS="ant-antlr"
@@ -9,11 +12,10 @@ JAVA_PKG_IUSE=""
 
 inherit java-pkg-2 java-ant-2
 
-DESCRIPTION="Tool to generate Java and JNI code necessary to call C libraries"
-HOMEPAGE="https://gluegen.dev.java.net/"
-# svn export -r "{2009-05-09}" https://gluegen.dev.java.net/svn/gluegen/trunk
-# gluegen --username xxx --password xxx
-SRC_URI="http://dev.gentoo.org/~ali_bush/distfiles/${P}.tar.bz2"
+DESCRIPTION="GlueGen is a tool which automatically generates the Java and JNI
+code necessary to call C libraries"
+HOMEPAGE="https://gluegen.dev.java.net"
+SRC_URI="http://dev.gentoo.org/~ali_bush/distfiles/${PN}-${PV#1_p}.tar.bz2"
 
 LICENSE="BSD"
 SLOT="0"
@@ -27,6 +29,8 @@ DEPEND=">=virtual/jdk-1.4
 	dev-java/antlr:0
 	dev-java/cpptasks:0"
 IUSE=""
+
+S="${WORKDIR}/${PN}-${PV#1_p}"
 
 java_prepare() {
 	rm make/lib/{cdc_fp,cpptasks}.jar
