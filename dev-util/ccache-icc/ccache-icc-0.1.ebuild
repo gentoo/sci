@@ -21,6 +21,8 @@ RDEPEND="
 	"
 DEPEND=""
 
+S="${T}"
+
 src_install() {
 	dosym "/usr/bin/ccache" "/usr/$(get_libdir)/ccache/bin/icc"
 	dosym "/usr/bin/ccache" "/usr/$(get_libdir)/ccache/bin/icpc"
