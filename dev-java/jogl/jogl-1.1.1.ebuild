@@ -21,7 +21,7 @@ IUSE=""
 COMMON_DEPEND="
 	dev-java/ant-core
 	>=dev-java/cpptasks-1.0_beta4-r2
-	=dev-java/gluegen-20080421
+	=dev-java/gluegen-1*
 	virtual/opengl
 	x11-libs/libX11
 	x11-libs/libXxf86vm
