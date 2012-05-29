@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 May 2012; Sébastien Fabbro <bicatali@gentoo.org> scilab-5.3.3-r1.ebuild,
+  +files/scilab-5.3.3-gui-no-xcos.patch:
+  fix bug #375769
+
   29 May 2012; Sébastien Fabbro <bicatali@gentoo.org> scilab-5.3.3-r1.ebuild:
   More fixing for deps for gui and xcos
 

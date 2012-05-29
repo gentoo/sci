@@ -1,0 +1,26 @@
+diff -Nur scilab-5.3.3.orig/modules/graph/Makefile.am scilab-5.3.3/modules/graph/Makefile.am
+--- scilab-5.3.3.orig/modules/graph/Makefile.am	2012-05-29 18:59:31.000000000 +0100
++++ scilab-5.3.3/modules/graph/Makefile.am	2012-05-29 19:02:11.000000000 +0100
+@@ -87,5 +87,7 @@
+ libscigraph_la_sci_gateway_DATA = 
+ 
+ if GUI
++if XCOS
+ USEANT=1
+ endif
++endif
+diff -Nur scilab-5.3.3.orig/modules/hdf5/Makefile.am scilab-5.3.3/modules/hdf5/Makefile.am
+--- scilab-5.3.3.orig/modules/hdf5/Makefile.am	2012-05-29 18:59:42.000000000 +0100
++++ scilab-5.3.3/modules/hdf5/Makefile.am	2012-05-29 19:03:04.000000000 +0100
+@@ -10,9 +10,11 @@
+ if HDF5
+ 
+ if GUI
++if XCOS
+ # No GUI. Disable the Java build
+ USEANT=1
+ endif
++endif
+ 
+ 
+ HDF5_SOURCES = src/c/h5_fileManagement.c \

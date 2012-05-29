@@ -123,7 +123,8 @@ src_prepare() {
 		"${FILESDIR}"/${P}-blas-libs.patch \
 		"${FILESDIR}"/${P}-no-xcos-deps.patch \
 		"${FILESDIR}"/${P}-javadoc-utf8.patch \
-		"${FILESDIR}"/${P}-fix-random-runtime-failures.patch
+		"${FILESDIR}"/${P}-fix-random-runtime-failures.patch \
+		"${FILESDIR}"/${P}-gui-no-xcos.patch
 
 	# need serious as-needed work (inter-dependencies among modules)
 	#	"${FILESDIR}"/${P}-as-needed.patch \
