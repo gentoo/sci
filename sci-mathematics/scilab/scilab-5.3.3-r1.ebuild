@@ -49,16 +49,20 @@ CDEPEND="dev-libs/libpcre
 	virtual/lapack
 	fftw? ( sci-libs/fftw:3.0 )
 	gui? (
+		dev-java/avalon-framework
 		dev-java/batik
+		dev-java/commons-io
 		dev-java/commons-logging
 		dev-java/flexdock
 		dev-java/fop
+		=dev-java/gluegen-1*
 		dev-java/javahelp
 		dev-java/jeuclid-core
 		dev-java/jgoodies-looks
 		>=dev-java/jlatexmath-0.9.4
-		dev-java/jogl
+		=dev-java/jogl-1*
 		dev-java/jrosetta
+		dev-java/skinlf
 		dev-java/xmlgraphics-commons
 		virtual/opengl
 		doc? ( dev-java/saxon:6.5 )
@@ -78,9 +82,9 @@ DEPEND="${CDEPEND}
 	debug? ( dev-util/lcov )
 	gui? (
 		>=virtual/jdk-1.5
-		doc? (
-			>=dev-java/jlatexmath-fop-0.9.4
-			app-text/docbook-xsl-stylesheets )
+		doc? ( app-text/docbook-xsl-stylesheets
+			   >=dev-java/jlatexmath-fop-0.9.4
+			   dev-java/xml-commons-external )
 		xcos? ( dev-lang/ocaml ) )
 	test? ( gui? ( ${VIRTUALX_DEPEND} ) )"
 
@@ -155,14 +159,17 @@ src_prepare() {
 		-L$(java-config -i jogl)|" \
 			configure.ac || die
 		sed -i \
-			-e "s|/usr/lib/jni|$(java-config -i hdf-java)|g" \
-			m4/hdf5.m4 || die
-
-		sed -i \
 			-e "/<\/librarypaths>/i\<path value=\"$(java-config -i gluegen)\"\/>" \
 			-e "/<\/librarypaths>/i\<path value=\"$(java-config -i jogl)\"\/>" \
+			etc/librarypath.xml || die
+		if use xcos; then
+			sed -i \
+				-e "s|/usr/lib/jni|$(java-config -i hdf-java)|g" \
+				m4/hdf5.m4 || die
+		sed -i \
 			-e "/<\/librarypaths>/i\<path value=\"$(java-config -i hdf-java)\"\/>" \
 			etc/librarypath.xml || die
+		fi
 	fi
 	java-pkg-opt-2_src_prepare
 	eautoreconf

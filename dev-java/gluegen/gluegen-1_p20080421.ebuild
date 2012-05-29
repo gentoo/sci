@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="2"
+
 # svn export -r "{2009-05-09}" https://gluegen.dev.java.net/svn/gluegen/trunk
 # gluegen --username xxx --password xxx
-
-EAPI="2"
 
 WANT_ANT_TASKS="ant-antlr"
 JAVA_PKG_IUSE=""
