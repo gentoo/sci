@@ -17,7 +17,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs ${_SVN}
+inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs virtualx ${_SVN}
 
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
@@ -99,8 +99,7 @@ CDEPEND="
 	xrootd? ( net-libs/xrootd )"
 
 DEPEND="${CDEPEND}
-	virtual/pkgconfig
-	htmldoc? ( x11-base/xorg-server[xvfb] )"
+	virtual/pkgconfig"
 
 RDEPEND="
 	virtual/fortran
@@ -111,6 +110,8 @@ RDEPEND="
 REQUIRED_USE="
 	!X? ( !opengl !qt4 !xft )
 	htmldoc? ( X doc graphviz )"
+
+VIRTUALX_REQUIRED="htmldoc"
 
 S="${WORKDIR}/${PN}"
 
@@ -283,20 +284,13 @@ src_compile() {
 		elisp-compile build/misc/*.el || die "elisp-compile failed"
 	fi
 	if use htmldoc; then
-		# we need X server running, THtml uses it for GUI snapshots
-		Xvfb -screen 0 1280x1024x24 :50 >/dev/null 2>&1 &
-		local xvfb_pid=$!
-		ps h -C Xvfb | grep -q ${xvfb_pid} || die "Xvfb failed to start"
-
 		LD_LIBRARY_PATH=${S}/lib:${S}/cint/cint/include:${S}/cint/cint/stl \
 		ROOTSYS=${S} DISPLAY=":50" \
-		emake html || die "html doc generation failed"
+		Xemake html || die "html doc generation failed"
 		# if root.exe crashes, return code will be 0 due to gdb attach,
 		# so we need to check if last html file was generated;
 		# this check is volatile and can't catch crash on the last file.
 		[[ -f htmldoc/timespec.html ]] || die "looks like html doc generation crashed"
-
-		kill ${xvfb_pid}
 	fi
 }
 
