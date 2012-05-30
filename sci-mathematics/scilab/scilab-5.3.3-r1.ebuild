@@ -67,7 +67,7 @@ CDEPEND="dev-libs/libpcre
 		virtual/opengl
 		doc? ( dev-java/saxon:6.5 )
 		hdf5? ( dev-java/hdf-java
-				xcos? ( >=dev-java/jgraphx-1.4.1 ) ) )
+				xcos? ( =dev-java/jgraphx-1.4.1.0 ) ) )
 	hdf5? ( sci-libs/hdf5 )
 	matio? ( <sci-libs/matio-1.5 )
 	tk? ( dev-lang/tk )

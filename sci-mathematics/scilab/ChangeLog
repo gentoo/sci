@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 May 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  scilab-5.3.3-r1.ebuild:
+  force exact version of jgraphx
+
   29 May 2012; Sébastien Fabbro <bicatali@gentoo.org> scilab-5.3.3-r1.ebuild,
   +files/scilab-5.3.3-gui-no-xcos.patch:
   fix bug #375769
