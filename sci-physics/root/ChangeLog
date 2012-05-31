@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  30 May 2012; Andrew Savchenko <bircoph@gmail.com> root-5.32.03-r2.ebuild,
+  root-9999.ebuild:
+  Use virtualx eclass for Xvfb during htmldoc generation.
+
 *root-5.32.03-r2 (29 May 2012)
 
   29 May 2012; Andrew Savchenko <bircoph@gmail.com>
