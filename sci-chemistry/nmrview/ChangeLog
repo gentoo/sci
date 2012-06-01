@@ -1,6 +1,10 @@
 # ChangeLog for sci-chemistry/nmrview
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  01 Jun 2012; Justin Lecher <jlec@gentoo.org> nmrview-5.2.2-r3.ebuild,
+  metadata.xml:
+  Move to EAPI=4, specify QA_PREBUILT
 
 *nmrview-5.2.2-r3 (14 Aug 2009)
 
