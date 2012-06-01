@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  01 Jun 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  mosaik-1.1.0021.ebuild:
+  improved die() message to inform user that gcc-4.5.3 does not work while
+  gcc-4.3.6 does
+
   16 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   mosaik-2.1.33.ebuild, mosaik-9999.ebuild:
   sci-biology/mosaik: masking mosaik-2.1.33 mosaik-9999

@@ -27,7 +27,7 @@ src_compile() {
 	emake -C src || die
 	emake -C MosaikTools/c++ || die
 	export PERL_CORE_DIR=/usr/lib64/perl5/5.12.4/x86_64-linux/CORE
-	emake -C MosaikTools/perl PERL_CORE_DIR=/usr/lib64/perl5/5.12.4/x86_64-linux/CORE || die
+	emake -C MosaikTools/perl PERL_CORE_DIR=/usr/lib64/perl5/5.12.4/x86_64-linux/CORE || die "Please use gcc-4.3.6 while not 4.5.3 if the latter exits at MosaikAlignment.cpp"
 }
 
 src_install() {
