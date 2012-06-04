@@ -46,5 +46,7 @@ src_prepare() {
 		-e 's:^.*CVS:#&1:g' \
 		-e 's:^.*LICENSE:#&1:g' \
 		-i "${S}"/MANIFEST.in || die
+
+	epatch "${FILESDIR}"/${P}-code-fix.patch
 	distutils_src_prepare
 }

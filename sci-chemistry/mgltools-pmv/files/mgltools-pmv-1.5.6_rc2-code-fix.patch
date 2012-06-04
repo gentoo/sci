@@ -1,0 +1,66 @@
+ .../blender/plugin/blenderPmvClientGUI.py          |    2 +-
+ .../cinema4d/plugin/epmv_c4d_plugin.py             |    2 +-
+ Pmv/hostappInterface/cinema4d/test/energy_test.py  |    4 ++--
+ Pmv/styles/sessionToStyle.py                       |    3 +--
+ 4 files changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/Pmv/hostappInterface/blender/plugin/blenderPmvClientGUI.py b/Pmv/hostappInterface/blender/plugin/blenderPmvClientGUI.py
+index 68e09c0..d52b17d 100644
+--- a/Pmv/hostappInterface/blender/plugin/blenderPmvClientGUI.py
++++ b/Pmv/hostappInterface/blender/plugin/blenderPmvClientGUI.py
+@@ -46,7 +46,7 @@ interface...
+ import math
+ import sys
+ 
+-MGL_ROOT=   #'/Library/MGLTools/1.5.6.csv'
++MGL_ROOT= ""   #'/Library/MGLTools/1.5.6.csv'
+ sys.path[0]=(MGL_ROOT+'/lib/python2.5/site-packages')
+ sys.path.append(MGL_ROOT+'/lib/python2.5/site-packages/PIL')
+ sys.path.append(MGL_ROOT+'/MGLToolsPckgs')
+diff --git a/Pmv/hostappInterface/cinema4d/plugin/epmv_c4d_plugin.py b/Pmv/hostappInterface/cinema4d/plugin/epmv_c4d_plugin.py
+index 42617e3..6087cd0 100644
+--- a/Pmv/hostappInterface/cinema4d/plugin/epmv_c4d_plugin.py
++++ b/Pmv/hostappInterface/cinema4d/plugin/epmv_c4d_plugin.py
+@@ -38,7 +38,7 @@ __version__="v0.1.1a"
+ # ***** END GPL LICENCE BLOCK ***** 
+ # -------------------------------------------------------------------------- 
+     
+-MGL_ROOT=
++MGL_ROOT= ""
+ 
+ #TODO:
+ #make the pyrosetta extension
+diff --git a/Pmv/hostappInterface/cinema4d/test/energy_test.py b/Pmv/hostappInterface/cinema4d/test/energy_test.py
+index 9393e25..c5f83c9 100644
+--- a/Pmv/hostappInterface/cinema4d/test/energy_test.py
++++ b/Pmv/hostappInterface/cinema4d/test/energy_test.py
+@@ -56,7 +56,7 @@ c = self.md_Amber94
+ #call md_Amber94 command
+ #c('mdtest5', 349, callback=1, filename='0', log=0, callback_freq=10)
+ import thread
+-thread.start_new(c,('mdtest5', 349, callback=1, filename='0', log=0, callback_freq=10))
++thread.start_new_thread(c,'mdtest5', 349, callback=1, filename='0', log=0, callback_freq=10)
+ thr = MyThread()#c,'mdtest5', 349, callback=1, filename='0', log=0, callback_freq=10)
+ thr.start(back=True)
+ #do some other operations here
+@@ -101,4 +101,4 @@ for mode in modes:
+ 
+ 
+ # Show animation of the first non-trivial mode 
+-view(modes[6])
+\ No newline at end of file
++view(modes[6])
+diff --git a/Pmv/styles/sessionToStyle.py b/Pmv/styles/sessionToStyle.py
+index 013bae1..4b0db48 100644
+--- a/Pmv/styles/sessionToStyle.py
++++ b/Pmv/styles/sessionToStyle.py
+@@ -14,8 +14,7 @@ name, ext = os.path.splitext(filename)
+ f = open(name+'_style.py', 'w')
+ f.write("numberOfMolecules = 1\n\n")
+ 
+-f.write("__doc__ = """Style_01: Applies to X molecules. It displays ..
+-"""\n")
++f.write('__doc__ = """Style_01: Applies to X molecules. It displays .."""\n')
+ 
+ f.write("def applyStyle(mv, molName):\n")
+ f.write("    mode='both'\n")
