@@ -45,6 +45,8 @@ src_prepare() {
 		-e 's:^.*LICENSE:#&1:g' \
 		-i "${S}"/MANIFEST.in || die
 
-	epatch "${FILESDIR}"/1.5.4-gcc4.3.patch
+	epatch \
+		"${FILESDIR}"/1.5.4-gcc4.3.patch \
+		"${FILESDIR}"/1.5.4-gcc4.7.patch
 	distutils_src_prepare
 }
