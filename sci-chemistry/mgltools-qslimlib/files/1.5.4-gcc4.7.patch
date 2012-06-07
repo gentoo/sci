@@ -1,0 +1,30 @@
+ src/mixkit/MxDynBlock.h |    2 +-
+ src/mixkit/MxStack.h    |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/mixkit/MxDynBlock.h b/src/mixkit/MxDynBlock.h
+index 51cc89b..4e313d2 100644
+--- a/src/mixkit/MxDynBlock.h
++++ b/src/mixkit/MxDynBlock.h
+@@ -41,7 +41,7 @@ public:
+ 
+     T& add()
+     {
+-	if( length()==total_space() )  resize(total_space() * 2);
++	if( length()==total_space() )  this->resize(total_space() * 2);
+ 	fill++;
+ 	return last();
+     }
+diff --git a/src/mixkit/MxStack.h b/src/mixkit/MxStack.h
+index 9ed9a05..1275ddd 100644
+--- a/src/mixkit/MxStack.h
++++ b/src/mixkit/MxStack.h
+@@ -33,7 +33,7 @@ public:
+ 
+     T& pop() { return this->drop(); }
+ 
+-    void push(const T& val) { add(val); }
++    void push(const T& val) { this->add(val); }
+     //
+     // NOTE: In this code, it is *crucial* that we do the add() and
+     //       assignment in separate steps.  The obvious alternative

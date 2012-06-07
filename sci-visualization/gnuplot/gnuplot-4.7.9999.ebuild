@@ -102,7 +102,7 @@ src_configure() {
 	fi
 
 	local myconf
-	myconf="${myconf} --without-lisp-files"
+	myconf="${myconf} --with-lisp-files" #need to build info file
 	myconf="${myconf} --without-pdf"
 	myconf="${myconf} --enable-stats" #extra command save to be enabled
 	myconf="${myconf} --with-texdir=${TEXMF}/tex/latex/${PN}"
@@ -184,7 +184,8 @@ src_compile() {
 }
 
 src_install () {
-	emake DESTDIR="${D}" install
+	emake DESTDIR="${D}" install install-info
+	rm -rf "${D}"/usr/share/emacs #handled by use {,x}emacs below
 
 	if use xemacs; then
 		cd "${S}/lisp-xemacs"

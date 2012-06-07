@@ -35,7 +35,7 @@ RDEPEND="!app-admin/eselect-news
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-alternatives.patch
-	eautoreconf
+	AT_M4DIR="." eautoreconf
 }
 
 src_compile() {
