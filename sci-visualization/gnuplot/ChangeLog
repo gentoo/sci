@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  07 Jun 2012; Christoph Junghans <ottxor@gentoo.org> gnuplot-4.7.9999.ebuild:
+  fixed info install
+
   14 Mar 2012; Christoph Junghans <ottxor@gentoo.org> -gnuplot-4.4.9999.ebuild,
   gnuplot-4.6.9999.ebuild, gnuplot-4.7.9999.ebuild, metadata.xml:
   sci-visualization/gnuplot: clean up
