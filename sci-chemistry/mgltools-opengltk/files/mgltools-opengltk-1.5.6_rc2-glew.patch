@@ -1,0 +1,16 @@
+ setup.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 21f893f..ca5ec85 100644
+--- a/setup.py
++++ b/setup.py
+@@ -615,7 +615,7 @@ elif platform == 'win32':
+     macros = [('WIN32', None)]
+ else:
+     extra_link_args = ''
+-    libraries = ''
++    libraries = gl_libs
+     macros = []
+ 
+ glextlib_ext = MyExtension("extent._glextlib",
