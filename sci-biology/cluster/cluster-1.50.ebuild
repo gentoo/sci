@@ -14,7 +14,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE="X"
 
 DEPEND="X? ( x11-libs/openmotif )"
-RDEPEND="X? ( x11-misc/xdg-utils app-text/mupdf )"
+RDEPEND="
+	!>=media-gfx/graphviz-2.28.0
+	X? ( x11-misc/xdg-utils app-text/mupdf )"
 
 RESTRICT="fetch"
 
