@@ -179,6 +179,8 @@ src_install() {
 	doins conf/{variables,rules,test}
 	insinto /usr/include/${PN}/${PETSC_ARCH}/conf
 	doins ${PETSC_ARCH}/conf/{petscrules,petscvariables,RDict.db}
+	insinto /usr/include/${PN}/petsc-private
+	doins include/petsc-private/*.h
 
 	# fix configuration files: replace ${S} by installed location
 	sed -i \
