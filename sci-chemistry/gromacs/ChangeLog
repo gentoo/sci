@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Jun 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild,
+  metadata.xml:
+  add support for new hybrid kernels
+
   28 Apr 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
   [sci-chemistry/gromacs] add more mirrors
 
