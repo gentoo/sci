@@ -30,6 +30,7 @@ RDEPEND="
 	dev-python/numpy
 	dev-tcltk/tkdnd
 	dev-tcltk/togl
+	media-libs/glew
 	virtual/opengl"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
@@ -44,7 +45,9 @@ src_unpack() {
 src_prepare() {
 	local tcl_ver="$(best_version dev-lang/tcl | cut -d- -f3 | cut -d. -f1,2)"
 
-	epatch "${FILESDIR}"/${P}-unbundle.patch
+	epatch \
+		"${FILESDIR}"/${P}-unbundle.patch \
+		"${FILESDIR}"/${P}-glew.patch
 
 	eprefixify setup.py
 

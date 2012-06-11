@@ -15,12 +15,13 @@ inherit bash-completion-r1 cmake-utils eutils fortran-2 multilib toolchain-funcs
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
 		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf -> gromacs-manual-${MANUAL_PV}.pdf )"
 
-if [ "${PV%9999}" != "${PV}" ]; then
+if [[ $PV = *9999* ]]; then
 	EGIT_REPO_URI="git://git.gromacs.org/gromacs.git
 		https://gerrit.gromacs.org/gromacs.git
 		git://github.com/gromacs/gromacs.git
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-4-6"
+	use hybrid && EGIT_BRANCH="nbnxn_hybrid_acc"
 	inherit git-2
 else
 	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
@@ -32,7 +33,7 @@ HOMEPAGE="http://www.gromacs.org/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
+IUSE="X altivec blas cuda doc -double-precision +fftw fkernels gsl hybrid lapack
 mpi openmp +single-precision sse2 test +threads xml zsh-completion"
 
 CDEPEND="
@@ -42,6 +43,7 @@ CDEPEND="
 		x11-libs/libICE
 		)
 	blas? ( virtual/blas )
+	cuda? ( dev-util/nvidia-cuda-toolkit )
 	fftw? ( sci-libs/fftw:3.0 )
 	fkernels? ( !threads? ( !altivec? ( !ia64? ( !sse2? ( virtual/fortran ) ) ) ) )
 	gsl? ( sci-libs/gsl )
@@ -55,10 +57,16 @@ RDEPEND="${CDEPEND}
 
 RESTRICT="test"
 
+REQUIRED_USE="cuda? ( !double-precision hybrid )"
+
 pkg_pretend() {
 	[[ $(gcc-version) == "4.1" ]] && die "gcc 4.1 is not supported by gromacs"
 	use openmp && ! tc-has-openmp && \
 		die "Please switch to an openmp compatible compiler"
+	if use cuda && [[ $(( $(gcc-major-version) * 10 + $(gcc-minor-version) )) -gt 44 ]] ; then
+		eerror "gcc 4.5 and up are not supported for useflag cuda!"
+		die "gcc 4.5 and up are not supported for useflag cuda!"
+	fi
 }
 
 pkg_setup() {
@@ -107,10 +115,14 @@ src_configure() {
 	use ia64 && acce="ia64"
 	use sse2 && acce="sse"
 
+	#workaround for now
+	use sse2 && use hybrid && CFLAGS+=" -msse2"
+
 	mycmakeargs_pre+=(
 		-DGMX_FFT_LIBRARY=$(usex fftw fftw3 fftwpack)
 		$(cmake-utils_use X GMX_X11)
 		$(cmake-utils_use blas GMX_EXTERNAL_BLAS)
+		$(cmake-utils_use cuda GMX_GPU)
 		$(cmake-utils_use gsl GMX_GSL)
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use openmp GMX_OPENMP)
@@ -206,4 +218,9 @@ pkg_postinst() {
 	einfo  "For more Gromacs cool quotes (gcq) add g_luck to your .bashrc"
 	einfo
 	elog  "Gromacs can use sci-chemistry/vmd to read additional file formats"
+	if use hybrid; then
+		elog "Cuda and hybrid acceleration is still experimental,"
+		elog "use 'cutoff-scheme = Verlet' in your mdp file and"
+		elog "report bugs: http://redmine.gromacs.org/issues"
+	fi
 }

@@ -32,6 +32,10 @@
 
 # Justin Lecher <jlec@gentoo.org> (22 May 2012)
 # Make sci overlay user to tester.
+>=sci-chemistry/dssp-070831
+
+# Justin Lecher <jlec@gentoo.org> (22 May 2012)
+# Make sci overlay user to tester.
 >=sci-biology/ncbi-tools-20080302
 
 # Sebastien Fabbro <bicatali@gentoo.org> (14 May 2012)

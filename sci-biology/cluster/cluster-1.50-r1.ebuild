@@ -15,7 +15,6 @@ IUSE="X"
 
 DEPEND="X? ( x11-libs/openmotif )"
 RDEPEND="
-	!>=media-gfx/graphviz-2.28.0
 	X? ( x11-misc/xdg-utils app-text/mupdf )"
 
 RESTRICT="fetch"
@@ -43,8 +42,14 @@ src_configure() {
 src_install() {
 	default
 
+	mv "${ED}"/usr/bin/cluster{,3}
+
 	insinto /usr/share/doc/${P}/examples
 	doins example/example.c example/README
 	insinto /usr/share/doc/${PR}
 	doins doc/cluster.pdf
+}
+
+pkg_postinst() {
+	elog "We renamed the cluster binary to cluster3"
 }

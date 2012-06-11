@@ -22,7 +22,7 @@ index 0191ba2..bda3e41 100644
 -                          library_dirs = glx_libdirs,
 -                          libraries = ['X11'] + gl_libs,
 +                          library_dirs = glx_libdirs + ['@GENTOO_PORTAGE_EPREFIX@/usr/lib64/Togl2.0/'],
-+                          libraries = ['X11', 'GLEW'] + gl_libs,
++                          libraries = ['X11', 'GLEW', 'GLEWmx'] + gl_libs,
                            headers = {
                               'name': path.join("GL","glx.h"),
                               'dir': h_dir,

@@ -2,6 +2,15 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Jun 2012; Justin Lecher <jlec@gentoo.org> cluster-1.50.ebuild,
+  cluster-1.50-r1.ebuild:
+  Correct masking, #419999
+
+*cluster-1.50-r1 (07 Jun 2012)
+
+  07 Jun 2012; Justin Lecher <jlec@gentoo.org> +cluster-1.50-r1.ebuild:
+  Rename cluster to cluster3, #419999
+
 *cluster-1.50 (24 May 2012)
 
   24 May 2012; Justin Lecher <jlec@gentoo.org> -cluster-1.38.ebuild,
