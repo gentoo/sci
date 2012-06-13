@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.02-r1.ebuild,v 1.3 2012/05/04 07:55:34 jdhore Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.03-r2.ebuild,v 1.1 2012/06/13 15:42:21 bicatali Exp $
 
 EAPI=4
 
@@ -130,12 +130,13 @@ pkg_setup() {
 	enewuser rootd -1 -1 /var/spool/rootd rootd
 
 	if use math; then
-		if use openmp && ! tc-has-openmp; then
-			ewarn "You are using gcc and OpenMP is available with gcc >= 4.2"
-			ewarn "If you want to build this package with OpenMP, abort now,"
-			ewarn "and set CC to an OpenMP capable compiler"
-		elif use openmp; then
-			export USE_OPENMP=1 USE_PARALLEL_MINUIT2=1
+		if use openmp; then
+			if [[ $(tc-getCC)$ == *gcc* ]] && ! tc-has-openmp; then
+				ewarn "You are using a gcc without OpenMP capabilities"
+				die "Need an OpenMP capable compiler"
+			else
+				export USE_OPENMP=1 USE_PARALLEL_MINUIT2=1
+			fi
 		elif use mpi; then
 			export USE_MPI=1 USE_PARALLEL_MINUIT2=1
 		fi
