@@ -85,6 +85,7 @@ PATCHES=(
 	"${FILESDIR}"/${PV}-goocanvas.patch
 	"${FILESDIR}"/${PV}-mmdb-config.patch
 	"${FILESDIR}"/${PV}-ssm.patch
+	"${FILESDIR}"/${P}-gcc47.patch
 	)
 
 src_unpack() {

@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Jun 2012; Justin Lecher <jlec@gentoo.org> coot-9999.ebuild,
+  +files/coot-9999-gcc47.patch:
+  Fix for gcc-4.7
+
   25 Apr 2012; Justin Lecher <jlec@gentoo.org> -files/9999-libpng-1.5.patch,
   coot-9999.ebuild:
   Drop libpng-1.5 patch, included upstream
