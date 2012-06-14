@@ -17,7 +17,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs virtualx ${_SVN}
+inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs user virtualx ${_SVN}
 
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
@@ -39,9 +39,9 @@ SRC_URI="${SRC_URI}
 
 SLOT="0"
 LICENSE="LGPL-2.1"
-IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz htmldoc kerberos
-	ldap llvm +math mpi mysql odbc +opengl openmp oracle postgres prefix pythia6
-	pythia8 python qt4 +reflex ruby ssl xft xinetd xml xrootd"
+IUSE="+X afs avahi c++0x clarens doc emacs examples fits fftw graphviz htmldoc
+	kerberos ldap llvm +math mpi mysql odbc +opengl openmp oracle postgres prefix
+	pythia6 pythia8 python qt4 +reflex ruby ssl xft xinetd xml xrootd"
 
 CDEPEND="
 	app-arch/xz-utils
@@ -78,6 +78,7 @@ CDEPEND="
 		)
 	afs? ( net-fs/openafs )
 	avahi? ( net-dns/avahi )
+	c++0x? ( >=sys-devel/gcc-4.7.0 )
 	clarens? ( dev-libs/xmlrpc-c[curl] )
 	emacs? ( virtual/emacs )
 	fits? ( sci-libs/cfitsio )
@@ -98,7 +99,7 @@ CDEPEND="
 			dev-ruby/rubygems )
 	ssl? ( dev-libs/openssl )
 	xml? ( dev-libs/libxml2 )
-	xrootd? ( net-libs/xrootd )"
+	xrootd? ( >=net-libs/xrootd-3.2.0 )"
 
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
@@ -111,7 +112,9 @@ RDEPEND="
 
 REQUIRED_USE="
 	!X? ( !opengl !qt4 !xft )
-	htmldoc? ( X doc graphviz )"
+	htmldoc? ( X doc graphviz )
+	mpi? ( math !openmp )
+	openmp? ( math !mpi )"
 
 VIRTUALX_REQUIRED="htmldoc"
 
@@ -132,12 +135,13 @@ pkg_setup() {
 	enewuser rootd -1 -1 /var/spool/rootd rootd
 
 	if use math; then
-		if use openmp && ! tc-has-openmp; then
-			ewarn "You are using gcc and OpenMP is available with gcc >= 4.2"
-			ewarn "If you want to build this package with OpenMP, abort now,"
-			ewarn "and set CC to an OpenMP capable compiler"
-		elif use openmp; then
-			export USE_OPENMP=1 USE_PARALLEL_MINUIT2=1
+		if use openmp; then
+			if [[ $(tc-getCC)$ == *gcc* ]] && ! tc-has-openmp; then
+				ewarn "You are using a gcc without OpenMP capabilities"
+				die "Need an OpenMP capable compiler"
+			else
+				export USE_OPENMP=1 USE_PARALLEL_MINUIT2=1
+			fi
 		elif use mpi; then
 			export USE_MPI=1 USE_PARALLEL_MINUIT2=1
 		fi
@@ -153,7 +157,7 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-dotfont.patch
+		"${FILESDIR}"/${PN}-${PATCH_PV3}-dotfont.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
@@ -279,13 +283,12 @@ src_configure() {
 }
 
 src_compile() {
-	emake OPT="${CXXFLAGS}" F77OPT="${FFLAGS}"
+	emake OPT="${CXXFLAGS}" F77OPT="${FFLAGS}" ROOTSYS=${S} LD_LIBRARY_PATH=${S}/lib
 	if use emacs; then
 		elisp-compile build/misc/*.el || die "elisp-compile failed"
 	fi
 	if use htmldoc; then
-		LD_LIBRARY_PATH=${S}/lib:${S}/cint/cint/include:${S}/cint/cint/stl \
-		ROOTSYS=${S} DISPLAY=":50" \
+		ROOTSYS=${S} LD_LIBRARY_PATH=${S}/lib DISPLAY=":50" \
 		Xemake html || die "html doc generation failed"
 		# if root.exe crashes, return code will be 0 due to gdb attach,
 		# so we need to check if last html file was generated;

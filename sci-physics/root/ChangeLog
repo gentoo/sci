@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  14 Jun 2012; Andrew Savchenko <bircoph@gmail.com>
+  +files/root-5.34-dotfont.patch, root-9999.ebuild, metadata.xml:
+  Update live ebuild to account 5.34 barnch changes.
+  This adds experimental support for C++0x startard, imroves chances
+  of llvm build and makes clear openmp and mpi relationship: they are
+  used only for math and are mutually exclusive.
+
   13 Jun 2012; Sébastien Fabbro <bicatali@gentoo.org> root-5.32.03-r2.ebuild,
   metadata.xml:
   sync with tree
