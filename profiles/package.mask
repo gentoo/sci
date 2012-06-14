@@ -30,6 +30,10 @@
 
 #--- END OF EXAMPLES ---
 
+# Christoph Junghans <ottxor@gentoo.org> (14 May 2012)
+# live ebuild
+=dev-lang/ispc-9999
+
 # Sebastien Fabbro <bicatali@gentoo.org> (14 May 2012)
 # alpha version for testing
 >=sci-mathematics/scilab-5.3.99
