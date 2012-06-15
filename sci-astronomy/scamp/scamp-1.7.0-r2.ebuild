@@ -36,12 +36,12 @@ src_prepare() {
 		-e "s/-llapack/-l${myclapack}/g" \
 		-e "s/AC_CHECK_LIB(lapack/AC_CHECK_LIB(${myclapack}/g" \
 		configure || die "sed acx_atlas.m4 failed"
-	epatch "${FILESDIR}"/${PV}-plplot599.patch
+	epatch "${FILESDIR}"/${P}-plplot599.patch
 }
 
 src_configure() {
 	econf \
-		--with-atlas-incdir="${EROOT}/usr/include/atlas" \
+		--with-atlas-incdir="${EPREFIX}/usr/include/atlas" \
 		$(use_with plplot) \
 		$(use_enable threads)
 }
