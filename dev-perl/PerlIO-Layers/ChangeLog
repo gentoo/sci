@@ -1,0 +1,10 @@
+# ChangeLog for dev-perl/PerlIO-Layers
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*PerlIO-Layers-0.010 (16 Jun 2012)
+
+  16 Jun 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +PerlIO-Layers-0.010.ebuild, +metadata.xml:
+  dev-perl/PerlIO-Layers: Initial import
+
