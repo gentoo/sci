@@ -1,6 +1,12 @@
 # ChangeLog for sci-geosciences/xtide
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*xtide-2.13 (16 Jun 2012)
+
+  16 Jun 2012; Tim Cera <tim@cerazone.net> +xtide-2.13.ebuild:
+  Version bump. Removed 'non-commercial' keyword since upstream was sent a
+  take-down notice for that data set and it is no longer available.
 
 *xtide-2.12-r1 (13 Dec 2011)
 
