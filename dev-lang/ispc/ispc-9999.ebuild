@@ -12,7 +12,7 @@ SRC_URI=""
 
 EGIT_REPO_URI="git://github.com/ispc/ispc.git"
 
-LICENSE="ispc"
+LICENSE="BSD BSD-2 UoI-NCSA"
 SLOT="0"
 KEYWORDS="~x86"
 IUSE="examples"
