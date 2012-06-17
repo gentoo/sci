@@ -16,7 +16,9 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}"
 
+S="${WORKDIR}"/"${MY_P}"
+
 src_install() {
 	insinto /usr/share/harmonics
-	doins "${WORKDIR}/${MY_P}"-free.tcd
+	doins "${MY_P}"-free.tcd
 }
