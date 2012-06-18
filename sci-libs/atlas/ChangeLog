@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*atlas-3.9.79 (18 Jun 2012)
+
+  18 Jun 2012; Sébastien Fabbro <bicatali@gentoo.org> +atlas-3.9.79.ebuild,
+  -atlas-3.9.74.ebuild, -atlas-3.9.77.ebuild:
+  sci-libs/atlas: Version bump
+
 *atlas-3.9.77 (07 Jun 2012)
 
   07 Jun 2012; Sébastien Fabbro <bicatali@gentoo.org> -atlas-3.9.71.ebuild,
