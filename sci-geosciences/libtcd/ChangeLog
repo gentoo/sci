@@ -1,6 +1,14 @@
 # ChangeLog for sci-geosciences/libtcd
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libtcd-2.2.5_p2 (16 Jun 2012)
+
+  16 Jun 2012; Tim Cera <tim@cerazone.net> +libtcd-2.2.5_p2.ebuild:
+  Version bump. Removed "non-commercial" use since upstream received a
+  take-down notice for that dataset and it is no longer available. Changed
+  naming convention since upstream was using -r# at the end of the download
+  files.  Went with _p# replacing -r# so that -r# could be used by gentoo.
 
 *libtcd-2.2.5-r1 (13 Dec 2011)
 

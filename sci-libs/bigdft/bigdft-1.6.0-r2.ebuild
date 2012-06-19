@@ -6,8 +6,7 @@ EAPI=4
 
 inherit autotools-utils eutils flag-o-matic fortran-2 toolchain-funcs
 
-REAL_P="${P/_pre/-tuto.}"
-REAL_P="${REAL_P/-tuto.0/-tuto}"
+REAL_P="${P/_pre0/-tuto}"
 
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
 HOMEPAGE="http://inac.cea.fr/L_Sim/BigDFT/"
@@ -32,7 +31,11 @@ RDEPEND="
 			)
 		)
 	etsf_io? ( sci-libs/etsf_io )
-	netcdf? ( sci-libs/netcdf[fortran] )"
+	netcdf? ( || (
+				sci-libs/netcdf[fortran]
+				sci-libs/netcdf-fortran
+				)
+			)"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	>=sys-devel/autoconf-2.59
@@ -58,11 +61,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch \
-		"${FILESDIR}"/"${REAL_P}"-libxc_dir_include.patch \
-		"${FILESDIR}"/"${REAL_P}"-bigdft.pc.patch
-	sed -i -e's/capitalize_module_ext/ax_fc_mod_ext/g' "${S}"/configure || die
-	sed -i -e's/capitalize_module_ext/ax_fc_mod_ext/g' "${S}"/configure.ac || die
+	epatch "${FILESDIR}"/"${REAL_P}"-libxc_dir_include.patch
 	eautoreconf
 }
 
@@ -84,7 +83,6 @@ src_configure() {
 			$(pkg-config --libs-only-l blas)"
 		--with-ext-linalg-path="$(pkg-config --libs-only-L lapack) \
 			$(pkg-config --libs-only-L blas)"
-		--enable-libxc
 		--disable-internal-libxc
 		--with-libxc-path="/usr"
 		--with-libxc-include="${modules}"

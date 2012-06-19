@@ -27,14 +27,16 @@ else
 	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
 fi
 
+ACCE_IUSE="fkernels power6 sse2 sse41 avx128fma avx256"
+
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="X altivec blas cuda doc -double-precision +fftw fkernels gsl hybrid lapack
-mpi openmp +single-precision sse2 test +threads xml zsh-completion"
+IUSE="X blas cuda doc -double-precision +fftw gsl hybrid lapack
+mpi openmp +single-precision test +threads xml zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
 	X? (
@@ -109,11 +111,13 @@ src_configure() {
 	local mycmakeargs_pre=( )
 
 	#go from slowest to fastest acceleration
-	local acce="none"
-	use fkernels && use !threads && acce="fortran"
-	use altivec && acce="altivec"
-	use ia64 && acce="ia64"
-	use sse2 && acce="sse"
+	local acce="None"
+	use fkernels && use !threads && acce="Fortran"
+	use power6 && acce="Power6"
+	use sse2 && acce="SSE2"
+	use sse41 && acce="SSE4.1"
+	use avx128fma && acce="AVX_128_FMA"
+	use avx256 && acce="AVX_256"
 
 	#workaround for now
 	use sse2 && use hybrid && CFLAGS+=" -msse2"

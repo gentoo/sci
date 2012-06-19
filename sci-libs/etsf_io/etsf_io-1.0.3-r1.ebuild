@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,7 +16,10 @@ IUSE="examples"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	sci-libs/netcdf[fortran]
+	|| (
+		sci-libs/netcdf[fortran]
+		sci-libs/netcdf-fortran
+	)
 	virtual/fortran"
 DEPEND="${RDEPEND}"
 

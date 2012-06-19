@@ -9,8 +9,13 @@
 	<use>
 		<flag name="cuda">Enable cuda non-bonded kernels</flag>
 		<flag name="double-precision">More precise calculations at the expense of speed</flag>
-		<flag name="fkernels">Enable building of Fortran Kernels for platforms that dont have assembly loops</flag>
 		<flag name="hybrid">Enable hybrid acceleration kernels</flag>
 		<flag name="single-precision">Single precision version of gromacs (default)</flag>
+		<!-- acceleration optimization flags -->
+		<flag name="fkernels">Enable building of Fortran Kernels for platforms that dont have assembly loops</flag>
+		<flag name="sse41">Enable sse4.1 acceleration</flag>
+		<flag name="avx128fma">Enable 128bit avx with fma (e.g. AMD BullDozer)</flag>
+		<flag name="avx256">Enable 256bit avx (e.g. Intel Sandy Bridge)</flag>
+		<flag name="power6">Enable Power6 optimizations</flag>
 	</use>
 </pkgmetadata>
