@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+*root-5.34.00 (19 Jun 2012)
+
+  19 Jun 2012; Andrew Savchenko <bircoph@gmail.com> +root-5.34.00.ebuild:
+  Version bump form 5.34.00 based on live ebuild.
+
   19 Jun 2012; Andrew Savchenko <bircoph@gmail.com>
   -files/root-5.34-dotfont.patch, files/root-5.34-htmldoc.patch,
   root-9999.ebuild, +files/root-9999-dotfont.patch:
