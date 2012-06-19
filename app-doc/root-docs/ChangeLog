@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*root-docs-5.34.00 (19 Jun 2012)
+
+  19 Jun 2012; Andrew Savchenko <bircoph@gmail.com> +root-docs-5.34.00.ebuild:
+  Version bump based on live ebuild.
+
 *root-docs-9999 (19 Jun 2012)
 
   19 Jun 2012; Andrew Savchenko <bircoph@gmail.com>
