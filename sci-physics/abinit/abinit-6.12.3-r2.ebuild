@@ -16,15 +16,17 @@ KEYWORDS="~amd64 ~x86"
 IUSE="cuda cuda-double -debug +etsf_io +fftw +fftw-threads +fox gsl gui +hdf5 libabinit mpi +netcdf python -test +threads -vdwxc"
 
 RDEPEND="~sci-libs/bigdft-1.6_pre1
-	sci-libs/etsf_io
 	=sci-libs/libxc-1*[fortran]
 	sci-physics/atompaw[libxc]
 	etsf_io? ( sci-libs/etsf_io )
 	fox? ( >=sci-libs/fox-4.1.2-r1[sax] )
 	netcdf? (
-		sci-libs/netcdf[fortran]
+		|| (
+			sci-libs/netcdf[fortran]
+			sci-libs/netcdf-fortran
+			)
 		hdf5? (
-			  sci-libs/netcdf[fortran,hdf5]
+			  sci-libs/netcdf[hdf5]
 			  )
 		)
 	hdf5? ( sci-libs/hdf5[fortran] )
