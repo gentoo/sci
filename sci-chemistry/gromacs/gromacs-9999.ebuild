@@ -9,6 +9,8 @@ TEST_PV="4.0.4"
 EGIT_REPO_URI="git://git.gromacs.org/gromacs http://repo.or.cz/r/gromacs.git"
 EGIT_BRANCH="master"
 
+ACCE_IUSE="fkernels power6 sse2 sse41 avx128fma avx256"
+
 #to find external blas/lapack
 CMAKE_MIN_VERSION="2.8.5-r2"
 
@@ -21,8 +23,8 @@ SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
-mpi +single-precision sse2 test +threads xml zsh-completion"
+IUSE="X blas doc -double-precision +fftw gsl lapack mpi +single-precision  test
++threads xml zsh-completion ${ACCE_IUSE}"
 REQUIRED_USE="fkernels? ( !threads )"
 
 CDEPEND="
@@ -122,11 +124,13 @@ src_configure() {
 	fi
 
 	#go from slowest to fasterest acceleration
-	local acce="none"
-	use fkernels && acce="fortran"
-	use altivec && acce="altivec"
-	use ia64 && acce="ia64"
-	use sse2 && acce="sse"
+	local acce="None"
+	use fkernels && use !threads && acce="Fortran"
+	use power6 && acce="Power6"
+	use sse2 && acce="SSE2"
+	use sse41 && acce="SSE4.1"
+	use avx128fma && acce="AVX_128_FMA"
+	use avx256 && acce="AVX_256"
 
 	mycmakeargs_pre+=(
 		$(cmake-utils_use X GMX_X11)
