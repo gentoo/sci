@@ -8,8 +8,7 @@ PYTHON_DEPEND="python? 2"
 
 if [[ ${PV} == "9999" ]] ; then
 	_SVN=subversion
-	ESVN_REPO_URI="https://root.cern.ch/svn/root/trunk"
-	ESVN_OPTIONS="--non-interactive --trust-server-cert"
+	ESVN_REPO_URI="http://root.cern.ch/svn/root/trunk"
 	SRC_URI=""
 	KEYWORDS=""
 else
@@ -17,7 +16,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs user virtualx ${_SVN}
+inherit elisp-common eutils fdo-mime fortran-2 multilib python toolchain-funcs user virtualx ${_SVN}
 
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
@@ -45,7 +44,6 @@ IUSE="+X afs avahi c++0x clarens doc emacs examples fits fftw graphviz htmldoc
 
 CDEPEND="
 	app-arch/xz-utils
-	!app-doc/root-docs
 	>=dev-lang/cfortran-4.4-r2
 	dev-libs/libpcre
 	media-fonts/dejavu
@@ -110,13 +108,12 @@ RDEPEND="
 	reflex? ( dev-cpp/gccxml )
 	xinetd? ( sys-apps/xinetd )"
 
+PDEPEND="htmldoc? ( ~app-doc/root-docs-${PV} )"
+
 REQUIRED_USE="
 	!X? ( !opengl !qt4 !xft )
-	htmldoc? ( X doc graphviz )
 	mpi? ( math !openmp )
 	openmp? ( math !mpi )"
-
-VIRTUALX_REQUIRED="htmldoc"
 
 S="${WORKDIR}/${PN}"
 
@@ -157,7 +154,7 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV3}-dotfont.patch
+		"${FILESDIR}"/${PN}-9999-dotfont.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
@@ -204,9 +201,6 @@ src_prepare() {
 
 		cp "${DISTDIR}"/{rootdrawing-logo.png,root-banner.png,info.png} etc/html ||
 			die "htmldoc preparation failed"
-
-		# set build etc directory
-		sed "s%@PWD@%${S}%" -i build/unix/makehtml.sh || die "htmldoc sed failed"
 	fi
 }
 
@@ -283,17 +277,9 @@ src_configure() {
 }
 
 src_compile() {
-	emake OPT="${CXXFLAGS}" F77OPT="${FFLAGS}" ROOTSYS=${S} LD_LIBRARY_PATH=${S}/lib
+	emake OPT="${CXXFLAGS}" F77OPT="${FFLAGS}" ROOTSYS="${S}" LD_LIBRARY_PATH="${S}/lib"
 	if use emacs; then
 		elisp-compile build/misc/*.el || die "elisp-compile failed"
-	fi
-	if use htmldoc; then
-		ROOTSYS=${S} LD_LIBRARY_PATH=${S}/lib DISPLAY=":50" \
-		Xemake html || die "html doc generation failed"
-		# if root.exe crashes, return code will be 0 due to gdb attach,
-		# so we need to check if last html file was generated;
-		# this check is volatile and can't catch crash on the last file.
-		[[ -f htmldoc/timespec.html ]] || die "looks like html doc generation crashed"
 	fi
 }
 
@@ -305,8 +291,6 @@ doc_install() {
 		use math && dodoc \
 			"${DISTDIR}"/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf \
 			"${DISTDIR}"/TMVAUsersGuide-v${TMVA_DOC_PV}.pdf
-		# too large data to copy
-		use htmldoc && mv htmldoc "${ED}usr/share/doc/${PF}/html"
 	fi
 
 	if use examples; then
