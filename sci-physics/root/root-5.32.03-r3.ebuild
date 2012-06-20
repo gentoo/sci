@@ -17,7 +17,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit elisp-common eutils fdo-mime fortran-2 multilib python toolchain-funcs user virtualx ${_SVN}
+inherit elisp-common eutils fdo-mime fortran-2 multilib python toolchain-funcs user ${_SVN}
 
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
@@ -44,7 +44,6 @@ IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz htmldoc kerbero
 
 CDEPEND="
 	app-arch/xz-utils
-	!app-doc/root-docs
 	>=dev-lang/cfortran-4.4-r2
 	dev-libs/libpcre
 	media-fonts/dejavu
@@ -107,11 +106,12 @@ RDEPEND="
 	reflex? ( dev-cpp/gccxml )
 	xinetd? ( sys-apps/xinetd )"
 
+PDEPEND="htmldoc? ( ~app-doc/root-docs-${PV} )"
+
 REQUIRED_USE="
 	!X? ( !opengl !qt4 !xft )
-	htmldoc? ( X doc graphviz )"
-
-VIRTUALX_REQUIRED="htmldoc"
+	mpi? ( math !openmp )
+	openmp? ( math !mpi )"
 
 S="${WORKDIR}/${PN}"
 
@@ -201,9 +201,6 @@ src_prepare() {
 
 		cp "${DISTDIR}"/{rootdrawing-logo.png,root-banner.png,info.png} etc/html ||
 			die "htmldoc preparation failed"
-
-		# set build etc directory
-		sed "s%@PWD@%${S}%" -i build/unix/makehtml.sh || die "htmldoc sed failed"
 	fi
 }
 
@@ -284,15 +281,6 @@ src_compile() {
 	if use emacs; then
 		elisp-compile build/misc/*.el || die "elisp-compile failed"
 	fi
-	if use htmldoc; then
-		LD_LIBRARY_PATH=${S}/lib:${S}/cint/cint/include:${S}/cint/cint/stl \
-		ROOTSYS=${S} DISPLAY=":50" \
-		Xemake html || die "html doc generation failed"
-		# if root.exe crashes, return code will be 0 due to gdb attach,
-		# so we need to check if last html file was generated;
-		# this check is volatile and can't catch crash on the last file.
-		[[ -f htmldoc/timespec.html ]] || die "looks like html doc generation crashed"
-	fi
 }
 
 doc_install() {
@@ -303,8 +291,6 @@ doc_install() {
 		use math && dodoc \
 			"${DISTDIR}"/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf \
 			"${DISTDIR}"/TMVAUsersGuide-v${TMVA_DOC_PV}.pdf
-		# too large data to copy
-		use htmldoc && mv htmldoc "${ED}usr/share/doc/${PF}/html"
 	fi
 
 	if use examples; then
