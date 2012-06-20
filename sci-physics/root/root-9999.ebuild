@@ -22,7 +22,6 @@ ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
 PATCH_PV=5.28.00b
 PATCH_PV2=5.32.00
-PATCH_PV3=5.34
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
@@ -190,7 +189,7 @@ src_prepare() {
 
 	# Make html docs self-consistent for offline work (based on Fedora spec)
 	if use htmldoc; then
-		epatch "${FILESDIR}"/${PN}-${PATCH_PV3}-htmldoc.patch
+		epatch "${FILESDIR}"/${PN}-${PATCH_PV2}-htmldoc.patch
 		# make images local
 		sed 's!http://root.cern.ch/drupal/sites/all/themes/newsflash/images/blue/!!' \
 			-i etc/html/ROOT.css || die "htmldoc sed failed"
