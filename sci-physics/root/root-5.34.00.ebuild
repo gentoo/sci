@@ -16,7 +16,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit elisp-common eutils fdo-mime fortran-2 multilib python toolchain-funcs user virtualx ${_SVN}
+inherit elisp-common eutils fdo-mime fortran-2 multilib python toolchain-funcs user ${_SVN}
 
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
