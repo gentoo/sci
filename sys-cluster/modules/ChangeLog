@@ -1,0 +1,9 @@
+# ChangeLog for sys-cluster/modules
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*modules-3.2.9c (21 Jun 2012)
+
+  21 Jun 2012; Nick <nbock@gentoo.org> +metadata.xml, +modules-3.2.9c.ebuild:
+  First commit for modules package.
+
