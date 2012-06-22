@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/wannier90
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  22 Jun 2012; Alexey Shvetsov <alexxy@gentoo.org> wannier90-1.2.ebuild:
+  [sci-libs/wannier90] add ~amd64-linux
 
   21 Jun 2011; Justin Lecher <jlec@gentoo.org> wannier90-1.2.ebuild,
   +metadata.xml:
