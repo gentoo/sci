@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Jun 2012; Alexey Shvetsov <alexxy@gentoo.org> bigdft-1.6.0-r2.ebuild,
+  bigdft-1.6_pre1-r2.ebuild:
+  [sci-libs/bigdft] add ~amd64-linux
+
 *bigdft-1.6.0-r2 (19 Jun 2012)
 *bigdft-1.6_pre1-r2 (19 Jun 2012)
 
