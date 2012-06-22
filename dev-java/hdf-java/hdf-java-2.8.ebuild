@@ -7,7 +7,7 @@ JAVA_PKG_IUSE="doc examples"
 inherit eutils java-pkg-2 autotools fdo-mime
 
 DESCRIPTION="Java interface to the HDF5 library"
-HOMEPAGE="http://www.hdfgroup.org/hdf-java-html/inxodex.html"
+HOMEPAGE="http://www.hdfgroup.org/hdf-java-html/index.html"
 SRC_URI="http://www.hdfgroup.org/ftp/HDF5/hdf-java/src/${P}-src.tar"
 
 LICENSE="NCSA-HDF"
@@ -75,7 +75,7 @@ src_compile() {
 		emake -j1 just-hdf4
 	fi
 
-	use hdfview && emake -j1
+	use hdfview && emake -j1 packages
 	use examples && emake -j1 do-examples
 	use doc && emake -j1 javadocs
 }
@@ -100,10 +100,11 @@ src_install() {
 		java-pkg_dojar lib/ext/fitsobj.jar
 		java-pkg_dojar lib/jhdfview.jar
 		cat <<-EOF > hdfview
+			#!/bin/sh
 			export CLASSPATH=\$(java-config --classpath hdf-java)
 			\$(java-config --java) \
 				-Xmx1000m \
-				-Djava.library.path=\"\$(java-config --library hdf-java)\" \
+				-Djava.library.path=\$(java-config --library hdf-java) \
 				ncsa.hdf.view.HDFView \
 				-root "${EROOT}" \$*
 		EOF
