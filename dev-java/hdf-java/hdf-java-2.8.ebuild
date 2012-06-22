@@ -75,7 +75,7 @@ src_compile() {
 		emake -j1 just-hdf4
 	fi
 
-	use hdfview && emake -j1
+	use hdfview && emake -j1 packages
 	use examples && emake -j1 do-examples
 	use doc && emake -j1 javadocs
 }
