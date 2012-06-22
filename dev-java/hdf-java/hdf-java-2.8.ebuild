@@ -100,10 +100,11 @@ src_install() {
 		java-pkg_dojar lib/ext/fitsobj.jar
 		java-pkg_dojar lib/jhdfview.jar
 		cat <<-EOF > hdfview
+			#!/bin/sh
 			export CLASSPATH=\$(java-config --classpath hdf-java)
 			\$(java-config --java) \
 				-Xmx1000m \
-				-Djava.library.path=\"\$(java-config --library hdf-java)\" \
+				-Djava.library.path=\$(java-config --library hdf-java) \
 				ncsa.hdf.view.HDFView \
 				-root "${EROOT}" \$*
 		EOF
