@@ -7,7 +7,7 @@ JAVA_PKG_IUSE="doc examples"
 inherit eutils java-pkg-2 autotools fdo-mime
 
 DESCRIPTION="Java interface to the HDF5 library"
-HOMEPAGE="http://www.hdfgroup.org/hdf-java-html/inxodex.html"
+HOMEPAGE="http://www.hdfgroup.org/hdf-java-html/index.html"
 SRC_URI="http://www.hdfgroup.org/ftp/HDF5/hdf-java/src/${P}-src.tar"
 
 LICENSE="NCSA-HDF"
