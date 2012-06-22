@@ -18,6 +18,7 @@ IUSE="X"
 DEPEND="
 	dev-lang/tcl
 	dev-tcltk/tclx
+	X? ( x11-libs/libX11 )
 	"
 RDEPEND="${DEPEND}"
 
