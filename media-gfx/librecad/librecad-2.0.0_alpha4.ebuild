@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit qt4-r2 eutils
+inherit qt4-r2 eutils flag-o-matic
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
@@ -21,6 +21,8 @@ DEPEND="
 	x11-libs/qt-assistant:4
 	x11-libs/qt-gui:4
 	dev-libs/boost
+	dev-cpp/muParser
+	media-libs/freetype
 	"
 
 RDEPEND="${DEPEND}"
@@ -31,17 +33,16 @@ src_unpack() {
 }
 
 src_prepare() {
-sed -i -e '/HAS_CPP11/ s/^#//' src/src.pro
+    sed -i -e '/RS_VECTOR2D/ s/^#//' librecad/src/src.pro
 }
 
 src_install() {
-	qt4-r2 eutils_src_install
 	dobin unix/librecad
 	insinto /usr/share/"${PN}"
 	doins -r unix/resources/*
 	if use doc ; then
 		dohtml -r support/doc/*
 	fi
-	doicon res/main/"${PN}".png
+	doicon librecad/res/main/"${PN}".png
 	make_desktop_entry "${PN}" LibreCAD "${PN}.png" Graphics
 }

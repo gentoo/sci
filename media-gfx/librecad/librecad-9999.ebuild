@@ -24,7 +24,6 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	#sed -i -e "s:\\\$\+system(git describe --tags):9999:" src/src.pro
 	#enable C++11 by default
-	append-cppflags "-std=c++0x"
 	sed -i -e '/RS_VECTOR2D/ s/^#//' librecad/src/src.pro
 }
 
@@ -36,6 +35,6 @@ src_install()
 	if use doc ; then
 	dohtml -r support/doc/*
 	fi
-	doicon res/main/"${PN}".png
+	doicon librecad/res/main/"${PN}".png
 	make_desktop_entry "${PN}" LibreCAD "${PN}" Graphics
 }
