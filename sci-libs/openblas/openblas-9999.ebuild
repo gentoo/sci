@@ -22,7 +22,7 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}/${MYPN}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-{sharedlibs,aliasing}.patch
+	epatch "${FILESDIR}"/${PN}-{sharedlibs-0.2,aliasing}.patch
 	# respect LDFLAGS
 	sed -i -e '/^LDFLAGS\s*=/d' Makefile.* || die
 	# respect CFLAGS only if dynamic flag not enabled

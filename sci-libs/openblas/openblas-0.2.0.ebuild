@@ -6,23 +6,26 @@ EAPI=4
 
 inherit eutils toolchain-funcs alternatives-2 multilib
 
+# commit ID
+CID="23a7062"
+
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
-SRC_URI="http://soc.dev.gentoo.org/~spiros/repository/${P}.tbz2"
+SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~x86-macos ~ppc-macos ~x64-macos"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos ~ppc-macos ~x64-macos"
 
-IUSE="+incblas int64 dynamic openmp static-libs threads"
+IUSE="+incblas int64 dynamic openmp static-libs test threads"
 
 RDEPEND="virtual/fortran"
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/${P}"
+S="${WORKDIR}/xianyi-OpenBLAS-${CID}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-{sharedlibs-0.1,aliasing}.patch
+	epatch "${FILESDIR}"/${PN}-{sharedlibs-0.2,aliasing}.patch
 	# respect LDFLAGS
 	sed -i -e '/^LDFLAGS\s*=/d' Makefile.* || die
 	# respect CFLAGS only if dynamic flag not enabled
@@ -48,6 +51,7 @@ src_configure() {
 		einfo "openmp and threads enabled: using threads"
 	sed -i \
 		-e "s:^#\s*\(NO_LAPACK\)\s*=.*:\1=1:" \
+		-e "s:^#\s*\(NO_LAPACKE\)\s*=.*:\1=1:" \
 		-e "s:^#\s*\(CC\)\s*=.*:\1=$(tc-getCC):" \
 		-e "s:^#\s*\(FC\)\s*=.*:\1=$(tc-getFC):" \
 		-e "s:^#\s*\(USE_THREAD\)\s*=.*:\1=$(use threads && echo 1 || echo 0):" \
@@ -90,7 +94,8 @@ src_install() {
 		Description: ${DESCRIPTION}
 		Version: ${PV}
 		URL: ${HOMEPAGE}
-		Libs: -L\${libdir} -lopenblas -lm ${threads}
+		Libs: -L\${libdir} -lopenblas ${threads}
+		Libs.private: -lm
 	EOF
 
 	alternatives_for blas ${profname} 0 \
