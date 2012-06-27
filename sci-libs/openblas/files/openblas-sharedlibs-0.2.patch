@@ -8,7 +8,7 @@
 +	$(CC) $(LDFLAGS) -shared \
  	-Wl,--whole-archive ../$(LIBNAME) -Wl,--no-whole-archive \
 -	-Wl,--retain-symbols-file=linux.def -Wl,-soname,$(LIBPREFIX).so.$(MAJOR_VERSION) $(EXTRALIB)
-+	-Wl,--retain-symbols-file=linux.def -Wl,-soname,$(LIBPREFIX).so.$(MAJOR_VERSION) $(EXTRALIB) -o ../$(LIBSONAME)
++	-Wl,--retain-symbols-file=linux.def -Wl,-soname,$(LIBSONAME) $(EXTRALIB) -o ../$(LIBSONAME)
  	$(CC) $(CFLAGS) -w -o linktest linktest.c ../$(LIBSONAME) $(FEXTRALIB) && echo OK.
  	rm -f linktest
  
@@ -20,7 +20,7 @@
 +	$(CC) $(LDFLAGS)  -shared \
  	-Wl,--whole-archive ../$(LIBNAME) -Wl,--no-whole-archive \
 -	-Wl,--retain-symbols-file=linux.def $(FEXTRALIB) $(EXTRALIB)
-+	-Wl,--retain-symbols-file=linux.def $(FEXTRALIB) $(EXTRALIB) -o ../$(LIBSONAME)
++	-Wl,--soname=$(LIBSONAME) -Wl,--retain-symbols-file=linux.def $(FEXTRALIB) $(EXTRALIB) -o ../$(LIBSONAME)
  	$(CC) $(CFLAGS) -w -o linktest linktest.c ../$(LIBSONAME) $(FEXTRALIB) && echo OK.
  	rm -f linktest
  
@@ -38,7 +38,7 @@
 -	$(CC) $(CFLAGS)  -shared -o ../$(LIBSONAME) \
 -	-Wl,--whole-archive ../$(LIBNAME) -Wl,--no-whole-archive $(EXTRALIB)
 +	$(CC) $(LDFLAGS)  -shared  \
-+	-Wl,--whole-archive ../$(LIBNAME) -Wl,--no-whole-archive $(EXTRALIB) \
++	-Wl,--whole-archive ../$(LIBNAME) -Wl,--no-whole-archive -Wl,--soname=$\(LIBSONAME) $(EXTRALIB) \
 +	-o ../$(LIBSONAME)
  	$(CC) $(CFLAGS) -w -o linktest linktest.c ../$(LIBSONAME) $(FEXTRALIB) && echo OK.
  	rm -f linktest
