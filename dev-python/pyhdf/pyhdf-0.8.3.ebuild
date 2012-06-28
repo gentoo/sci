@@ -34,7 +34,7 @@ src_compile () {
 src_install() {
 	distutils_src_install
 
-	dohtml doc/*.html 
+	dohtml doc/*.html
 	dodoc CHANGES doc/*.txt
 
 	if use examples; then
