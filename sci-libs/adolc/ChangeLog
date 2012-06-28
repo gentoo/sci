@@ -1,0 +1,17 @@
+# ChangeLog for sci-libs/adolc
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*adolc-2.3.0 (28 Jun 2012)
+
+  28 Jun 2012; Sébastien Fabbro <bicatali@gentoo.org> +adolc-2.3.0.ebuild,
+  +metadata.xml:
+  Version bump and import to the sci overlay
+
+*adolc-2.1.12 (30 Mar 2011)
+
+  30 Mar 2011; Sébastien Fabbro <bicatali@gentoo.org> +adolc-2.1.12.ebuild,
+  +files/adolc-2.1.12-autotools.patch, +files/adolc-2.1.12-sparse-openmp.patch,
+  +metadata.xml:
+  Initial import
+
