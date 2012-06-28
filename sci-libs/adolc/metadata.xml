@@ -8,4 +8,7 @@
   operations, which it plays back later in various ways to calculate
   the requested values.
 </longdescription>
+<use>
+  <flag name='sparse'>Add support for sparse matrix algebra with <pkg>sci-libs/colpack</pkg></flag>
+</use>
 </pkgmetadata>
