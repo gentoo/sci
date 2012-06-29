@@ -11,7 +11,7 @@ inherit eutils cmake-utils pam versionator fdo-mime java-pkg-2
 # * work out server (see package/linux/debian-control/*)
 # * package gin and gwt
 # * use dict from tree, linguas
-# * use java-pkg-2 eclass
+# * use java-pkg-2 eclass and/or java-ant-2.eclass
 # * do src_test (use junit from tree?)
 # * fix the about/help/menu and get rid of license
 # * desktop flag -> qt4 flag?
