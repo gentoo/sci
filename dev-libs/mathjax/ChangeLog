@@ -1,0 +1,10 @@
+# ChangeLog for dev-libs/mathjax
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mathjax-2.0 (29 Jun 2012)
+
+  29 Jun 2012; Sebastien Fabbro <fabbros@gentoo.org> +mathjax-2.0.ebuild,
+  +metadata.xml:
+  dev-libs/mathjax: Initial import
+
