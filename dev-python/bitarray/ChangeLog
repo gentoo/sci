@@ -1,0 +1,10 @@
+# ChangeLog for dev-python/bitarray
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*bitarray-0.8.0 (29 Jun 2012)
+
+  29 Jun 2012; Justin Lecher <jlec@gentoo.org> +bitarray-0.8.0.ebuild,
+  +metadata.xml:
+  New package requested by jamasi on irc
+
