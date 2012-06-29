@@ -17,7 +17,7 @@ SRC_URI="http://gforge.inria.fr/frs/download.php/${DID}/${MYP}.tar.gz"
 
 LICENSE="CeCILL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples int64 mpi static-libs tools"
 
 DEPEND="sys-libs/zlib
@@ -51,7 +51,7 @@ make_shared_lib() {
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P}-as-needed.patch
-	sed -e "s/-O3/${CFLAGS}/" \
+	sed -e "s/-O3/${CFLAGS} -pthread/" \
 		-e "s/gcc/$(tc-getCC)/" \
 		-e "s/ ar/ $(tc-getAR)/" \
 		-e "s/ranlib/$(tc-getRANLIB)/" \
