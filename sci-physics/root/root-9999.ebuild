@@ -16,7 +16,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit elisp-common eutils fdo-mime fortran-2 multilib python toolchain-funcs user ${_SVN}
+inherit elisp-common eutils fdo-mime fortran-2 multilib python ${_SVN} toolchain-funcs user versionator
 
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
@@ -37,7 +37,7 @@ SRC_URI="${SRC_URI}
 
 SLOT="0"
 LICENSE="LGPL-2.1"
-IUSE="+X afs avahi c++0x clarens doc emacs examples fits fftw graphviz htmldoc
+IUSE="+X afs avahi -c++0x clarens doc emacs examples fits fftw graphviz htmldoc
 	kerberos ldap llvm +math mpi mysql odbc +opengl openmp oracle postgres prefix
 	pythia6 pythia8 python qt4 +reflex ruby ssl xft xinetd xml xrootd"
 
@@ -75,7 +75,6 @@ CDEPEND="
 		)
 	afs? ( net-fs/openafs )
 	avahi? ( net-dns/avahi )
-	c++0x? ( >=sys-devel/gcc-4.7.0 )
 	clarens? ( dev-libs/xmlrpc-c[curl] )
 	emacs? ( virtual/emacs )
 	fits? ( sci-libs/cfitsio )
@@ -132,8 +131,8 @@ pkg_setup() {
 
 	if use math; then
 		if use openmp; then
-			if [[ $(tc-getCC)$ == *gcc* ]] && ! tc-has-openmp; then
-				ewarn "You are using a gcc without OpenMP capabilities"
+			if [[ $(tc-getCXX)$ == *g++* ]] && ! tc-has-openmp; then
+				ewarn "You are using a g++ without OpenMP capabilities"
 				die "Need an OpenMP capable compiler"
 			else
 				export USE_OPENMP=1 USE_PARALLEL_MINUIT2=1
@@ -141,6 +140,11 @@ pkg_setup() {
 		elif use mpi; then
 			export USE_MPI=1 USE_PARALLEL_MINUIT2=1
 		fi
+	fi
+	if use c++0x && [[ $(tc-getCXX) == *g++* ]] && \
+		! version_is_at_least "4.7" "$(gcc-version)"; then
+		eerror "You are using a g++ without C++0x capabilities"
+		die "Need an C++0x capable compiler"
 	fi
 }
 
