@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-doc/root-docs/root-docs-5.28-r1.ebuild,v 1.1 2011/05/17 17:51:07 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-doc/root-docs/root-docs-5.32.03.ebuild,v 1.1 2012/06/27 17:30:22 bicatali Exp $
 
 EAPI=4
 
@@ -13,7 +13,7 @@ if [[ ${PV} == "9999" ]] ; then
 	KEYWORDS=""
 else
 	SRC_URI="ftp://root.cern.ch/${ROOT_PN}/${ROOT_PN}_v${PV}.source.tar.gz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
 inherit eutils multilib toolchain-funcs virtualx
@@ -24,14 +24,12 @@ HOMEPAGE="http://root.cern.ch/"
 SLOT="0"
 LICENSE="LGPL-2.1"
 IUSE=""
-KEYWORDS="~amd64 ~x86"
 
 S="${WORKDIR}/${ROOT_PN}"
 VIRTUALX_REQUIRED="always"
 
 DEPEND="
 	~sci-physics/root-${PV}[X,doc,graphviz,htmldoc,opengl]
-	>=sci-physics/root-5.32.03-r3[X,doc,graphviz,htmldoc,opengl]
 	virtual/pkgconfig
 	${_SVN_DEP}"
 RDEPEND=""
@@ -88,7 +86,7 @@ src_compile() {
 }
 
 src_install() {
-	mkdir -p "${ED}usr/share/doc/${PF}/"
+	dodir /usr/share/doc/${PF}
 	# too large data to copy
 	mv htmldoc/* "${ED}usr/share/doc/${PF}/"
 }
