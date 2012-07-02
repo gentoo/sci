@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  01 Jul 2012; Andrew Savchenko <bircoph@gmail.com> root-5.34.00.ebuild,
+  root-9999.ebuild, -files/olbd.confd, -files/olbd.initd, -files/xrootd.confd,
+  -files/xrootd.initd, metadata.xml:
+  Backport fixes from the portage.
+  Remove unused files and USE flag description.
+
   28 Jun 2012; Justin Lecher <jlec@gentoo.org> -root-5.32.03-r3.ebuild,
   -root-5.34.00.ebuild, metadata.xml:
   Drop in tree versions

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
+<maintainer>
+  <email>bircoph@gmail.com</email>
+  <name>Andrew Savchenko</name>
+  <description>Maintainer. Assign bugs to him</description>
+</maintainer>
 <herd>sci-physics</herd>
+<longdescription lang="en">
+  This package contains the automatically generated ROOT class
+  documentation.
+</longdescription>
 </pkgmetadata>
