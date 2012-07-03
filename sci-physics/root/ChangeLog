@@ -8,6 +8,10 @@
   Backport fixes from the portage.
   Remove unused files and USE flag description.
 
+  28 Jun 2012; Justin Lecher <jlec@gentoo.org> -root-5.32.03-r3.ebuild,
+  -root-5.34.00.ebuild, metadata.xml:
+  Drop in tree versions
+
 *root-5.32.03-r3 (20 Jun 2012)
 
   20 Jun 2012; Andrew Savchenko <bircoph@gmail.com> -root-5.32.03-r2.ebuild,

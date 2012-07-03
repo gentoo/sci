@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>bircoph@gmail.com</email>
-		<name>Andrew Savchenko</name>
-		<description>Maintainer. Assign bugs to him</description>
-	</maintainer>
-	<herd>sci-physics</herd>
-	<longdescription lang="en">
+<maintainer>
+  <email>bircoph@gmail.com</email>
+  <name>Andrew Savchenko</name>
+  <description>Maintainer. Assign bugs to him</description>
+</maintainer>
+<herd>sci-physics</herd>
+<longdescription lang="en">
   ROOT Object Oriented Technologies is an object oriented data
   analysis framework written in C++ by the CERN. Widely used in
   high energy physics, but also in other data analysis applications. It
