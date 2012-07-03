@@ -36,7 +36,9 @@ src_install() {
 
 	into ${cudadir}
 	dobin bin/* nvvm/*
-	dolib $(get_libdir)/*
+	# use explicit lib64 because of amd64-linux prefix which uses lib
+	use amd64 && dolib lib64/*
+	use x86 && dolib lib/*
 
 	if ! use debugger; then
 		rm -f "${ED}"/${cudadir}/bin/cuda-gdb
