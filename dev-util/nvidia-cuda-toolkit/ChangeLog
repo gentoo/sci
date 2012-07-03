@@ -4,6 +4,10 @@
 
   03 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
   nvidia-cuda-toolkit-4.2.ebuild:
+  Fix for amd64-linux prefix which uses lib instead of lib64
+
+  03 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  nvidia-cuda-toolkit-4.2.ebuild:
   More prefix fixes
 
 *nvidia-cuda-toolkit-4.2 (03 Jul 2012)
