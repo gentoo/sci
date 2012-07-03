@@ -35,7 +35,7 @@ src_install() {
 	local cudadir=/opt/cuda
 
 	into ${cudadir}
-	dobin bin/*nvvm/*
+	dobin bin/* nvvm/*
 	dolib $(get_libdir)/*
 
 	if ! use debugger; then
@@ -86,10 +86,10 @@ src_install() {
 	fi
 
 	cat > "${T}"/99cuda <<- EOF
-		PATH=${cudadir}/bin:${cudadir}/libnvvp
-		ROOTPATH=${cudadir}/bin
-		LDPATH=${cudadir}/$(get_libdir)
-		MANPATH=${cudadir}/man
+		PATH=${EPREFIX}${cudadir}/bin:${EPREFIX}${cudadir}/libnvvp
+		ROOTPATH=${EPREFIX}${cudadir}/bin
+		LDPATH=${EPREFIX}${cudadir}/$(get_libdir)
+		MANPATH=${EPREFIX}${cudadir}/man
 	EOF
 	doenvd "${T}"/99cuda
 
