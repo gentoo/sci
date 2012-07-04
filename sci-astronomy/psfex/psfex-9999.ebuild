@@ -4,29 +4,39 @@
 
 EAPI=4
 
-inherit autotools
+if [[ ${PV} == "9999" ]] ; then
+	_SVN=subversion
+	ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
+	SRC_URI=""
+	KEYWORDS=""
+else
+	SRC_URI="http://www.astromatic.net/download/${PN}/${P}.tar.gz"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+fi
+
+inherit ${_SVN} autotools
 
 DESCRIPTION="Extracts models of the Point Spread Function from FITS images"
 HOMEPAGE="http://www.astromatic.net/software/psfex"
-SRC_URI="http://www.astromatic.net/download/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="doc plplot threads"
+IUSE="doc threads plplot"
 
-RDEPEND="sci-libs/atlas[lapack]
+RDEPEND="virtual/cblas
+	sci-libs/atlas[lapack]
 	sci-libs/fftw:3.0
 	plplot? ( sci-libs/plplot )"
 DEPEND="${RDEPEND}"
 
 src_prepare() {
-	local mycblas=atlcblas myclapack=atlclapack
+	local mycblas=atlcblas  myclapack=atlclapack
 	if use threads; then
 		[[ -e ${EPREFIX}/usr/$(get_libdir)/libptcblas.so ]] && \
 			mycblas=ptcblas
-		[[ -e ${EPREFIX}/usr/$(get_libdir)/libptclapack.so ]] && \
-			myclapack=ptclapack
+		[[ -e ${EPREFIX}/usr/$(get_libdir)/libptclapack.so ]] &&
+		myclapack=ptclapack
 	fi
 	# fix the configure and not the acx_atlas.m4. the eautoreconf will
 	# produce a configure giving  a wrong install Makefile target (to fix)
