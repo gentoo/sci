@@ -24,7 +24,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc modelfit threads"
 
-RDEPEND="modelfit? ( virtual/cblas sci-libs/atlas[lapack] sci-libs/fftw:3.0 )"
+RDEPEND="modelfit? ( sci-libs/atlas[lapack] sci-libs/fftw:3.0 )"
 DEPEND="${RDEPEND}"
 
 src_prepare() {
