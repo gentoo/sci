@@ -24,8 +24,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc threads plplot"
 
-RDEPEND="virtual/cblas
-	sci-libs/atlas[lapack]
+RDEPEND="sci-libs/atlas[lapack]
 	sci-libs/fftw:3.0
 	plplot? ( sci-libs/plplot )"
 DEPEND="${RDEPEND}"
