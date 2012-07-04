@@ -25,7 +25,6 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc plplot threads"
 
 RDEPEND=">=sci-astronomy/cdsclient-3.4
-	virtual/cblas
 	sci-libs/atlas[lapack]
 	sci-libs/fftw:3.0
 	plplot? ( sci-libs/plplot )"

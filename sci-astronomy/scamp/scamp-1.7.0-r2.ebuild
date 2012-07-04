@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=4
-inherit eutils
+inherit eutils autotools
 
 DESCRIPTION="Astrometric and photometric solutions for astronomical images"
 HOMEPAGE="http://www.astromatic.net/software/scamp"
@@ -15,7 +15,6 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc threads plplot"
 
 RDEPEND=">=sci-astronomy/cdsclient-3.4
-	virtual/cblas
 	sci-libs/atlas[lapack]
 	sci-libs/fftw:3.0
 	plplot? ( sci-libs/plplot )"
@@ -36,8 +35,10 @@ src_prepare() {
 		-e "s/AC_CHECK_LIB(cblas/AC_CHECK_LIB(${mycblas}/g" \
 		-e "s/-llapack/-l${myclapack}/g" \
 		-e "s/AC_CHECK_LIB(lapack/AC_CHECK_LIB(${myclapack}/g" \
-		configure || die
+		 acx_atlas.m4 || die
 	epatch "${FILESDIR}"/${P}-plplot599.patch
+	sed -i -e 's/doc//' Makefile.am || die
+	eautoreconf
 }
 
 src_configure() {
@@ -49,5 +50,5 @@ src_configure() {
 
 src_install () {
 	default
-	use doc && dodoc doc/*,pdf
+	use doc && dodoc doc/*
 }
