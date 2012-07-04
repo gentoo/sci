@@ -3,25 +3,22 @@
 # $Header: $
 
 EAPI=4
+
 FORTRAN_STANDARD="77 90"
-
 inherit eutils fortran-2 toolchain-funcs versionator
-
-MYP=${PN}_${PV}
 
 DESCRIPTION="Matrix Algebra on GPU and Multicore Architectures"
 HOMEPAGE="http://icl.cs.utk.edu/magma/"
-SRC_URI="http://icl.cs.utk.edu/projectsfiles/${PN}/${MYP}.tar.gz"
+SRC_URI="http://icl.cs.utk.edu/projectsfiles/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="fermi static-libs tesla"
 
 RDEPEND="dev-util/nvidia-cuda-toolkit
 	virtual/cblas
 	virtual/lapack"
-
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
@@ -40,8 +37,8 @@ make_shared_lib() {
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/${P}-cblas-dotc.patch \
-		"${FILESDIR}"/${P}-duplicate-symbols.patch
+		"${FILESDIR}"/${P}-duplicate-symbols.patch \
+		"${FILESDIR}"/${P}-no-cuda-driver.patch
 
 	# distributed pc file not so useful so replace it
 	cat <<-EOF > ${PN}.pc
@@ -53,7 +50,7 @@ src_prepare() {
 		Version: ${PV}
 		URL: ${HOMEPAGE}
 		Libs: -L\${libdir} -lmagma -lmagmablas
-		Libs.private: -lm -lpthread -ldl -lcublas -lcudart -lcuda
+		Libs.private: -lm -lpthread -ldl -lcublas -lcudart
 		Cflags: -I\${includedir}
 		Requires: cblas lapack
 	EOF
@@ -70,12 +67,13 @@ src_configure() {
 		INC = -I${EPREFIX}/opt/cuda/include -DADD_
 		OPTS = ${CFLAGS} -fPIC
 		FOPTS = ${FFLAGS} -fPIC -x f95-cpp-input
+		F77OPTS = ${FFLAGS} -fPIC
 		NVOPTS = -DADD_ --compiler-options '-fPIC ${CFLAGS}' -DUNIX
 		LOADER = $(tc-getFC)
 		LIBBLAS = $(pkg-config --libs cblas)
 		LIBLAPACK = $(pkg-config --libs lapack)
 		CUDADIR = ${EPREFIX}/opt/cuda
-		LIBCUDA = -L\$(CUDADIR)/$(get_libdir) -lcublas -lcudart -lcuda
+		LIBCUDA = -L\$(CUDADIR)/$(get_libdir) -lcublas -lcudart
 		LIB = -pthread -lm -ldl \$(LIBCUDA) \$(LIBBLAS) \$(LIBLAPACK) -lstdc++
 	EOF
 	if use fermi; then
