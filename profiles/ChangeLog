@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> package.mask:
+  Mask live ebuilds from sci-astronomy
+
   15 May 2012; Sébastien Fabbro <bicatali@gentoo.org> package.mask:
   masked scilab-5.4*
 
