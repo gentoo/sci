@@ -8,8 +8,7 @@ PYTHON_DEPEND="python? 2"
 
 if [[ ${PV} == "9999" ]] ; then
 	_SVN=subversion
-	ESVN_REPO_URI="https://root.cern.ch/svn/root/trunk"
-	ESVN_OPTIONS="--non-interactive --trust-server-cert"
+	ESVN_REPO_URI="http://root.cern.ch/svn/root/trunk"
 	SRC_URI=""
 	KEYWORDS=""
 else
@@ -17,13 +16,12 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit elisp-common eutils fdo-mime fortran-2 python toolchain-funcs virtualx ${_SVN}
+inherit elisp-common eutils fdo-mime fortran-2 multilib python ${_SVN} toolchain-funcs user versionator
 
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
 PATCH_PV=5.28.00b
 PATCH_PV2=5.32.00
-PATCH_PV3=5.34
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
@@ -39,13 +37,12 @@ SRC_URI="${SRC_URI}
 
 SLOT="0"
 LICENSE="LGPL-2.1"
-IUSE="+X afs avahi clarens doc emacs examples fits fftw graphviz htmldoc kerberos
-	ldap llvm +math mpi mysql odbc +opengl openmp oracle postgres prefix pythia6
-	pythia8 python qt4 +reflex ruby ssl xft xinetd xml xrootd"
+IUSE="+X afs avahi -c++0x clarens doc emacs examples fits fftw graphviz htmldoc
+	kerberos ldap llvm +math mpi mysql odbc +opengl openmp oracle postgres prefix
+	pythia6 pythia8 python qt4 +reflex ruby ssl xft xinetd xml xrootd"
 
 CDEPEND="
 	app-arch/xz-utils
-	!app-doc/root-docs
 	>=dev-lang/cfortran-4.4-r2
 	dev-libs/libpcre
 	media-fonts/dejavu
@@ -98,7 +95,7 @@ CDEPEND="
 			dev-ruby/rubygems )
 	ssl? ( dev-libs/openssl )
 	xml? ( dev-libs/libxml2 )
-	xrootd? ( net-libs/xrootd )"
+	xrootd? ( >=net-libs/xrootd-3.2.0 )"
 
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
@@ -109,11 +106,12 @@ RDEPEND="
 	reflex? ( dev-cpp/gccxml )
 	xinetd? ( sys-apps/xinetd )"
 
+PDEPEND="htmldoc? ( ~app-doc/root-docs-${PV} )"
+
 REQUIRED_USE="
 	!X? ( !opengl !qt4 !xft )
-	htmldoc? ( X doc graphviz )"
-
-VIRTUALX_REQUIRED="htmldoc"
+	mpi? ( math !openmp )
+	openmp? ( math !mpi )"
 
 S="${WORKDIR}/${PN}"
 
@@ -132,15 +130,21 @@ pkg_setup() {
 	enewuser rootd -1 -1 /var/spool/rootd rootd
 
 	if use math; then
-		if use openmp && ! tc-has-openmp; then
-			ewarn "You are using gcc and OpenMP is available with gcc >= 4.2"
-			ewarn "If you want to build this package with OpenMP, abort now,"
-			ewarn "and set CC to an OpenMP capable compiler"
-		elif use openmp; then
-			export USE_OPENMP=1 USE_PARALLEL_MINUIT2=1
+		if use openmp; then
+			if [[ $(tc-getCXX)$ == *g++* ]] && ! tc-has-openmp; then
+				ewarn "You are using a g++ without OpenMP capabilities"
+				die "Need an OpenMP capable compiler"
+			else
+				export USE_OPENMP=1 USE_PARALLEL_MINUIT2=1
+			fi
 		elif use mpi; then
 			export USE_MPI=1 USE_PARALLEL_MINUIT2=1
 		fi
+	fi
+	if use c++0x && [[ $(tc-getCXX) == *g++* ]] && \
+		! version_is_at_least "4.7" "$(gcc-version)"; then
+		eerror "You are using a g++ without C++0x capabilities"
+		die "Need an C++0x capable compiler"
 	fi
 }
 
@@ -153,7 +157,7 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-dotfont.patch
+		"${FILESDIR}"/${PN}-9999-dotfont.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
@@ -189,7 +193,7 @@ src_prepare() {
 
 	# Make html docs self-consistent for offline work (based on Fedora spec)
 	if use htmldoc; then
-		epatch "${FILESDIR}"/${PN}-${PATCH_PV3}-htmldoc.patch
+		epatch "${FILESDIR}"/${PN}-${PATCH_PV2}-htmldoc.patch
 		# make images local
 		sed 's!http://root.cern.ch/drupal/sites/all/themes/newsflash/images/blue/!!' \
 			-i etc/html/ROOT.css || die "htmldoc sed failed"
@@ -200,9 +204,6 @@ src_prepare() {
 
 		cp "${DISTDIR}"/{rootdrawing-logo.png,root-banner.png,info.png} etc/html ||
 			die "htmldoc preparation failed"
-
-		# set build etc directory
-		sed "s%@PWD@%${S}%" -i build/unix/makehtml.sh || die "htmldoc sed failed"
 	fi
 }
 
@@ -279,18 +280,9 @@ src_configure() {
 }
 
 src_compile() {
-	emake OPT="${CXXFLAGS}" F77OPT="${FFLAGS}"
+	emake OPT="${CXXFLAGS}" F77OPT="${FFLAGS}" ROOTSYS="${S}" LD_LIBRARY_PATH="${S}/lib"
 	if use emacs; then
 		elisp-compile build/misc/*.el || die "elisp-compile failed"
-	fi
-	if use htmldoc; then
-		LD_LIBRARY_PATH=${S}/lib:${S}/cint/cint/include:${S}/cint/cint/stl \
-		ROOTSYS=${S} DISPLAY=":50" \
-		Xemake html || die "html doc generation failed"
-		# if root.exe crashes, return code will be 0 due to gdb attach,
-		# so we need to check if last html file was generated;
-		# this check is volatile and can't catch crash on the last file.
-		[[ -f htmldoc/timespec.html ]] || die "looks like html doc generation crashed"
 	fi
 }
 
@@ -302,8 +294,6 @@ doc_install() {
 		use math && dodoc \
 			"${DISTDIR}"/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf \
 			"${DISTDIR}"/TMVAUsersGuide-v${TMVA_DOC_PV}.pdf
-		# too large data to copy
-		use htmldoc && mv htmldoc "${ED}usr/share/doc/${PF}/html"
 	fi
 
 	if use examples; then

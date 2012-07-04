@@ -15,7 +15,7 @@ SRC_URI="http://inac.cea.fr/L_Sim/BigDFT/${REAL_P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE="cuda doc etsf_io mpi netcdf opencl test"
 
 RDEPEND="
@@ -73,7 +73,7 @@ src_prepare() {
 }
 
 src_configure() {
-	local modules="/usr/$(get_libdir)/finclude"
+	local modules="${EPREFIX}/usr/$(get_libdir)/finclude"
 	local netcdff_libs="-lnetcdff"
 	filter-flags '-m*' '-O*' "-pipe"
 	local nvcflags="${CFLAGS}"
@@ -98,9 +98,9 @@ src_configure() {
 		$(use_with cuda cuda-path /opt/cuda)
 		$(use_with cuda nvcc-flags "${nvcflags}")
 		$(use_enable opencl)
-		$(use_with opencl ocl-path /usr)
+		$(use_with opencl ocl-path "${EPREFIX}/usr")
 		$(use_with etsf_io etsf-io)
-		$(use_with etsf_io etsf-io-path "/usr")
+		$(use_with etsf_io etsf-io-path "${EPREFIX}/usr")
 		$(use_with etsf_io netcdf-path "$(pkg-config --libs-only-L netcdf)")
 		"$(use etsf_io && echo "--with-netcdf-libs=$(pkg-config --libs netcdf) ${netcdff_libs}")"
 		FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}} -I${modules}"

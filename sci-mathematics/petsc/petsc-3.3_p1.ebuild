@@ -56,9 +56,9 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
-	"${FILESDIR}"/${P}-configure-pic.patch
-	"${FILESDIR}"/${P}-disable-env-warnings.patch
-	"${FILESDIR}"/${P}-disable-rpath.patch
+	"${FILESDIR}"/${P%_*}-configure-pic.patch
+	"${FILESDIR}"/${P%_*}-disable-env-warnings.patch
+	"${FILESDIR}"/${P%_*}-disable-rpath.patch
 )
 
 src_configure() {

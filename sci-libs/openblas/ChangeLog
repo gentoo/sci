@@ -2,6 +2,17 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Jun 2012; Sebastien Fabbro <fabbros@gentoo.org>
+  files/openblas-sharedlibs-0.2.patch:
+  sci-libs/openblas: fixed soname
+
+*openblas-0.2.0 (26 Jun 2012)
+
+  26 Jun 2012; Sebastien Fabbro <fabbros@gentoo.org> -openblas-0.1.ebuild,
+  +openblas-0.2.0.ebuild, +files/openblas-sharedlibs-0.2.patch,
+  openblas-9999.ebuild, -files/openblas-sharedlibs.patch:
+  Version bump. Adapted patch. More prefix keywords
+
   07 May 2012; Andrea Arteaga <andyspiros@gmail.com>
   -openblas-0.1_alpha2.ebuild -openblas-0.1_alpha25.ebuild:
   Cleaned up old versions.

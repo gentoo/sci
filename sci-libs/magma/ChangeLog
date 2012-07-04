@@ -1,0 +1,21 @@
+# ChangeLog for sci-libs/magma
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*magma-1.2.1 (03 Jul 2012)
+
+  03 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/magma-1.2.1-duplicate-symbols.patch,
+  +files/magma-1.2.1-no-cuda-driver.patch, +magma-1.2.1.ebuild,
+  -files/magma-1.2.0-cblas-dotc.patch,
+  -files/magma-1.2.0-duplicate-symbols.patch, -magma-1.2.0.ebuild:
+  sci-libs/magma: Version bump. Updated patches
+
+*magma-1.2.0 (25 Jun 2012)
+
+  25 Jun 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/magma-1.2.0-cblas-dotc.patch,
+  +files/magma-1.2.0-duplicate-symbols.patch, +magma-1.2.0.ebuild,
+  +metadata.xml:
+  sci-libs/magma: Initial import
+

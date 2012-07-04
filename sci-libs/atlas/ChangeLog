@@ -2,6 +2,18 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*atlas-3.9.82 (03 Jul 2012)
+
+  03 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> +atlas-3.9.82.ebuild,
+  -atlas-3.9.80.ebuild, -files/3.9.63-leaks.patch:
+  sci-libs/atlas: version bump. Adapt calls to compilers. Inherit multilib
+
+*atlas-3.9.80 (26 Jun 2012)
+
+  26 Jun 2012; Sebastien Fabbro <fabbros@gentoo.org> -atlas-3.9.79.ebuild,
+  +atlas-3.9.80.ebuild:
+  Version bump
+
 *atlas-3.9.79 (18 Jun 2012)
 
   18 Jun 2012; Sébastien Fabbro <bicatali@gentoo.org> +atlas-3.9.79.ebuild,

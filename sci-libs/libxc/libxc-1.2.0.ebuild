@@ -14,7 +14,7 @@ SRC_URI="http://www.tddft.org/programs/octopus/download/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE="fortran static-libs"
 
 S="${WORKDIR}"/${MY_P}

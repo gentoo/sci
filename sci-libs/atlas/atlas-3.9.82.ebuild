@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=4
-inherit eutils toolchain-funcs fortran-2 versionator alternatives-2
+inherit eutils toolchain-funcs fortran-2 versionator alternatives-2 multilib
 
 LAPACKP=lapack-3.4.1.tgz
 
@@ -48,18 +48,14 @@ pkg_setup() {
 
 src_configure() {
 	atlas_configure() {
-		# hack needed to trick the flaky gcc detection
-		local mycc="$(tc-getCC)"
-		[[ ${mycc} == *gcc* ]] && mycc=gcc
-
 		local myconf=(
-			"--prefix=${ED}/usr"
-			"--libdir=${ED}/usr/$(get_libdir)"
-			"--incdir=${ED}/usr/include"
-			"--cc=${mycc}"
-			"-C ac ${mycc}"
+			--prefix="${ED}/usr"
+			--libdir="${ED}/usr/$(get_libdir)"
+			--incdir="${ED}/usr/include"
+			--cc="$(tc-getCC)"
+			"-C acg '$(type -P $(tc-getCC))'"
 			"-D c -DWALL"
-			"-F ac '${CFLAGS}'"
+			"-F acg '${CFLAGS}'"
 			"-Ss pmake '\$(MAKE) ${MAKEOPTS}'"
 		)
 
@@ -88,7 +84,7 @@ src_configure() {
 		fi
 		if use fortran; then
 			myconf+=(
-				"-C if $(tc-getFC)"
+				"-C if '$(type -P $(tc-getFC))'"
 				"-F if '${FFLAGS}'"
 			)
 			if use lapack; then

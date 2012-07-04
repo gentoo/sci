@@ -14,7 +14,7 @@ HOMEPAGE="http://www1.gly.bris.ac.uk/~walker/FoX/"
 
 LICENSE="BSD ZLIB"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE="debug doc +dom +fast +sax +wcml +wkml +wxml"
 
 SRC_URI=" doc? ( http://www1.gly.bris.ac.uk/~walker/FoX/source/${MY_P}-full.tar.gz )
@@ -34,7 +34,7 @@ src_prepare() {
 }
 
 src_configure() {
-		econf --prefix=/usr \
+		econf --prefix="${EPREFIX}/usr" \
 		$(use_enable debug) \
 		$(use_enable dom) \
 		$(use_enable fast) \
@@ -55,7 +55,7 @@ src_test() {
 }
 
 src_install() {
-	sed -i -e's%^comp_prefix=.*$%comp_prefix=/usr%' \
+	sed -i -e's%^comp_prefix=.*$%comp_prefix=${EPREFIX}/usr%' \
 		-e's%comp_prefix/finclude%comp_prefix/lib/finclude%' \
 		-e's%\$libdir/lib\([^ ]\+\)\.a\>%-l\1%g' \
 		-e's%\(echo\( -I"$moddir"\)\?\) \$LIBS%\1 -L"$libdir" $LIBS%' \

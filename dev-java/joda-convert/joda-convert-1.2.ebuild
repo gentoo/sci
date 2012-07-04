@@ -17,6 +17,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=">=virtual/jdk-1.5
+	dev-java/junit:4
 	test? (
 		dev-java/ant-junit4
 		dev-java/hamcrest-core
