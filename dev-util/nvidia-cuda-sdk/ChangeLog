@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-util/nvidia-cuda-sdk/ChangeLog,v 1.30 2012/02/05 16:39:02 spock Exp $
 
+*nvidia-cuda-sdk-4.2.9 (04 Jul 2012)
+
+  04 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +nvidia-cuda-sdk-4.2.9.ebuild, -nvidia-cuda-sdk-4.2.ebuild, metadata.xml:
+  dev-util/nvidia-cuda-sdk: Adapted to newer nvidia-cuda-sdk
+
 *nvidia-cuda-sdk-4.2 (03 Jul 2012)
 
   03 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
