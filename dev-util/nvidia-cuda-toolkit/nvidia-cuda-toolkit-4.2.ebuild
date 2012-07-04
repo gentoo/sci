@@ -14,7 +14,8 @@ DIR_V=${CUDA_V//./_}
 DIR_V=${DIR_V//beta/Beta}
 
 BASE_URI="http://developer.download.nvidia.com/compute/cuda/${DIR_V}/rel/toolkit"
-SRC_URI="amd64? ( ${BASE_URI}/cudatoolkit_${CUDA_V}.9_linux_64_ubuntu11.04.run )
+SRC_URI="
+	amd64? ( ${BASE_URI}/cudatoolkit_${CUDA_V}.9_linux_64_ubuntu11.04.run )
 	x86? ( ${BASE_URI}/cudatoolkit_${CUDA_V}.9_linux_32_ubuntu11.04.run )"
 
 LICENSE="NVIDIA"
@@ -30,6 +31,9 @@ RDEPEND="${DEPEND}
 	!<=x11-drivers/nvidia-drivers-270.41"
 
 S="${WORKDIR}"
+
+QA_PREBUILT="
+	opt/cuda/*"
 
 src_install() {
 	local cudadir=/opt/cuda
