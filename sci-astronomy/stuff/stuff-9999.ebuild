@@ -3,22 +3,31 @@
 # $Header: $
 
 EAPI=4
-inherit autotools eutils
+
+if [[ ${PV} == "9999" ]] ; then
+	_SVN=subversion
+	ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
+	SRC_URI=""
+	KEYWORDS=""
+else
+	SRC_URI="http://www.astromatic.net/download/${PN}/${P}.tar.gz"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+fi
+
+inherit ${_SVN} autotools
 
 DESCRIPTION="Tool for automatic generation of astronomical catalogs"
 HOMEPAGE="http://www.astromatic.net/software/stuff/"
-SRC_URI="http://www.astromatic.net/download/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="threads"
 
-DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="sci-libs/fftw:3.0"
+DEPEND="${RDEPEND}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-configure.patch
 	eautoreconf
 }
 
