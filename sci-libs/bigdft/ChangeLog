@@ -2,6 +2,15 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*bigdft-1.6_pre1-r3 (04 Jul 2012)
+
+  04 Jul 2012; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -bigdft-1.6_pre1-r2.ebuild, +bigdft-1.6_pre1-r3.ebuild,
+  +files/bigdft-1.6-tuto.1-GPUlibs.patch,
+  +files/bigdft-1.6-tuto.1-gcc-4.6.patch:
+  bigdft-1.6_pre1 from -r2 to -r3: patched to install necessary libraries for
+  GPU support and to compile with gcc-4.6
+
 *bigdft-1.6.0-r2 (19 Jun 2012)
 *bigdft-1.6_pre1-r2 (19 Jun 2012)
 
