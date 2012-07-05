@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*modules-3.2.9c-r1 (05 Jul 2012)
+
+  05 Jul 2012; Nicolas Bock <nicolasbock@gmail.com> +modules-3.2.9c-r1.ebuild:
+  Added modules-3.2.9c-r1.ebuild.
+
   05 Jul 2012; Nicolas Bock <nicolasbock@gmail.com> metadata.xml:
   update metadata
 
