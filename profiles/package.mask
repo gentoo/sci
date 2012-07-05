@@ -30,6 +30,10 @@
 
 #--- END OF EXAMPLES ---
 
+# Nicolas Bock <nicolasbock@gmail.com> (05 July 2012)
+# live ebuild
+=sci-chemistry/freeon-9999
+
 # Sebastien Fabbro <bicatali@gentoo.org> (04 July 2012)
 # live ebuilds
 =sci-astronomy/psfex-9999
