@@ -18,13 +18,16 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=""
+DEPEND="
+	sys-libs/zlib
+	virtual/lapack"
 RDEPEND="${DEPEND}"
 
 src_configure() {
 	local myeconfargs=(
-		--enable-internal_lapack
+		--disable-internal_lapack
 		--enable-internal_hdf5
 	)
 	autotools-utils_src_configure
+	./fix_localversion.sh
 }

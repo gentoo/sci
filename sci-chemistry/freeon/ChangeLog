@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Jul 2012; Nicolas Bock <nicolasbock@gmail.com> freeon-9999.ebuild:
+  Updated DEPEND.
+
 *freeon-9999 (05 Jul 2012)
 
   05 Jul 2012; Nicolas Bock <nicolasbock@gmail.com> +freeon-9999.ebuild,
