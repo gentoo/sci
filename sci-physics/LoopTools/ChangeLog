@@ -1,0 +1,10 @@
+# ChangeLog for sci-physics/LoopTools
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*LoopTools-2.7 (05 Jul 2012)
+
+  05 Jul 2012; Jauhien Piatlicki (jauhien) piatlicki@gmail.com
+  +LoopTools-2.7.ebuild, +files/LoopTools-2.7-makefile.patch, +metadata.xml:
+  Initial release, new ebuild for bug#424860
+
