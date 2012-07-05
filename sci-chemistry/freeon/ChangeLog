@@ -1,0 +1,11 @@
+# ChangeLog for sci-chemistry/freeon
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*freeon-9999 (05 Jul 2012)
+
+  05 Jul 2012; Nicolas Bock <nicolasbock@gmail.com> +freeon-9999.ebuild,
+  +metadata.xml:
+  Adding live build.  FreeON is an experimental, open source (GPL) suite of
+  programs for linear scaling quantum chemistry.
+
