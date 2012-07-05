@@ -1,0 +1,29 @@
+--- makefile.in
++++ makefile.in
+@@ -1,8 +1,8 @@
+ BLD = build$(QUADSUFFIX)
+ 
+-LIBDIR = $(PREFIX)/lib$(LIBDIRSUFFIX)
+-INCLUDEDIR = $(PREFIX)/include
+-BINDIR = $(PREFIX)/bin
++LIBDIR = $(DESTDIR)/$(PREFIX)/lib$(LIBDIRSUFFIX)
++INCLUDEDIR = $(DESTDIR)/$(PREFIX)/include
++BINDIR = $(DESTDIR)/$(PREFIX)/bin
+ 
+ LIB = libooptools$(QUADSUFFIX).a
+ FE = lt$(QUADSUFFIX)$(EXE)
+@@ -38,13 +38,12 @@
+ 	cd $(BLD) && $(MAKE) $(ARGS) $@
+ 
+ install: lib frontend
+-	-mkdir $(PREFIX)
++	-mkdir $(DESTDIR)$(PREFIX)
+ 	-mkdir $(LIBDIR) $(BINDIR) $(INCLUDEDIR)
+ 	cp -p $(BLD)/$(LIB) $(LIBDIR)
+ 	cp -p $(INCLUDE$(QUADSUFFIX)) $(INCLUDEDIR)
+-	strip $(BLD)/$(FE)
+ 	cp -p $(BLD)/fcc $(BLD)/$(FE) $(BINDIR)
+-	test ! -f $(BLD)/$(MFE) || { strip $(BLD)/$(MFE) ; cp -p $(BLD)/$(MFE) $(BINDIR); }
++	test ! -f $(BLD)/$(MFE) || { cp -p $(BLD)/$(MFE) $(BINDIR); }
+ 
+ force: $(BLD)/timestamp
