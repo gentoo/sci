@@ -2,8 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jul 2012; Jauhien Piatlicki (jauhien) piatlicki@gmail.com
+  ThePEG-1.8.0.ebuild, metadata.xml:
+  longdescription added, eutils.eclass removed from inherit
+
 *ThePEG-1.8.0 (06 Jul 2012)
 
   06 Jul 2012; <jauhien@gentoo.org> +ThePEG-1.8.0.ebuild, +metadata.xml:
   Initial release, new ebuild for bug#424003, thanks to hasufell
-

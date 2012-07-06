@@ -6,6 +6,14 @@
   <email>maintainer-wanted@gentoo.org</email>
 </maintainer>
 
+<longdescription>
+  ThePEG has been broken out from the PYTHIA7 
+  program to better factorize the parts which
+  were PYTHIA-specific from those which are general
+  model-independent components of the toolkit and which
+  can be used by any event generator model.
+</longdescription>
+
 <use>
   <flag name='hepmc'>Adds support for High Energy Physics Monte Carlo
 	Generators <pkg>sci-physics/hepmc</pkg></flag>

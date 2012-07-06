@@ -4,8 +4,6 @@
 
 EAPI=4
 
-inherit eutils
-
 DESCRIPTION="Toolkit for High Energy Physics Event Generation"
 HOMEPAGE="http://home.thep.lu.se/ThePEG/"
 SRC_URI="http://www.hepforge.org/archive/thepeg/${P}.tar.bz2"
@@ -39,8 +37,8 @@ pkg_setup() {
 src_configure() {
 	econf \
 		--disable-silent-rules \
-		$(usex hepmc --with-hepmc= --without-hepmc "${EPREFIX}/usr" ) \
-		$(usex java --with-javagui --without-javagui ) \
-		$(usex lhapdf --with-LHAPDF= --without-LHAPDF "${EPREFIX}/usr" ) \
-		$(usex zlib --with-zlib= --without-zlib "${EPREFIX}/usr" )
+		$(use_with hepmc hepmc "${EPREFIX}"/usr) \
+		$(use_with java javagui) \
+		$(use_with lhapdf LHAPDF "${EPREFIX}"/usr) \
+		$(use_with zlib zlib "${EPREFIX}"/usr)
 }
