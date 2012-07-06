@@ -4,9 +4,11 @@
 
 EAPI=4
 
+MYP=ThePEG-${PV}
+
 DESCRIPTION="Toolkit for High Energy Physics Event Generation"
 HOMEPAGE="http://home.thep.lu.se/ThePEG/"
-SRC_URI="http://www.hepforge.org/archive/thepeg/${P}.tar.bz2"
+SRC_URI="http://www.hepforge.org/archive/thepeg/${MYP}.tar.bz2"
 
 LICENSE="GPL-2"
 
@@ -24,6 +26,8 @@ DEPEND="sci-libs/gsl
 RDEPEND="${DEPEND}
 	test? ( sys-process/time )"
 
+S="${WORKDIR}/${MYP}"
+
 pkg_setup() {
 	echo
 	elog "There is an extra option on package Rivet not yet in Gentoo:"
@@ -32,7 +36,6 @@ pkg_setup() {
 	elog "where DIR - location of Rivet installation"
 	echo
 }
-
 
 src_configure() {
 	econf \
