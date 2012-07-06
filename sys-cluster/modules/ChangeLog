@@ -3,6 +3,9 @@
 # $Header: $
 
   06 Jul 2012; Nick <nbock@gentoo.org> modules-3.2.9c-r1.ebuild:
+  Fixed typo.
+
+  06 Jul 2012; Nick <nbock@gentoo.org> modules-3.2.9c-r1.ebuild:
   Moved prefix to /opt.
 
 *modules-3.2.9c-r1 (05 Jul 2012)

@@ -41,5 +41,5 @@ src_install() {
 
 pkg_postinst() {
 	elog "Add this line at the end of your bashrc:"
-	elog "[ -e /opt/Modules/default/init/bash\" ] && . \"/opt/Modules/default/init/bash\""
+	elog "[ -f /opt/Modules/default/init/bash ] && source /opt/Modules/default/init/bash"
 }
