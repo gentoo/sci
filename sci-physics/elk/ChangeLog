@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*elk-1.4.22 (07 Jul 2012)
+
+  07 Jul 2012; Honza Macháček <Hloupy.Honza@centrum.cz> +elk-1.4.22.ebuild:
+  Version bump to 1.4.22
+
 *elk-1.4.18 (18 Apr 2012)
 
   18 Apr 2012; Honza Macháček <Hloupy.Honza@centrum.cz> +elk-1.4.18.ebuild:
