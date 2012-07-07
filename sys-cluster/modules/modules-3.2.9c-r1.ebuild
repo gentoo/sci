@@ -26,26 +26,20 @@ S="${WORKDIR}/${P%[a-z]}"
 
 DOCS=(ChangeLog README NEWS TODO)
 
-pkg_setup() {
-	export MODULES_PATH=/etc/Modules
-	export MODULES_VERSION="3.2.9"
-}
-
 src_configure() {
 	local myeconfargs=(
 		$(use_with X x)
-		--with-module-path=${MODULES_PATH}/${MODULES_VERSION}/modulefiles
-		--with-version-path=${MODULES_PATH}/${MODULES_VERSION}/versions
+		--prefix=/opt
 	)
 	autotools-utils_src_configure
 }
 
 src_install() {
 	autotools-utils_src_install
-	dosym ${MODULES_PATH}/${MODULES_VERSION} ${MODULES_PATH}/default
+	dosym ${PV%[a-z]} /opt/Modules/default
 }
 
 pkg_postinst() {
 	elog "Add this line at the end of your bashrc:"
-	elog "[ -e \"${MODULES_PATH}/default/init/bash\" ] && . \"${MODULES_PATH}/default/init/bash\""
+	elog "[ -f /opt/Modules/default/init/bash ] && source /opt/Modules/default/init/bash"
 }
