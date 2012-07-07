@@ -10,4 +10,10 @@
   ability to automatically separate stars and galaxy using neural
   networks.
 </longdescription>
+<use>
+<flag name='modelfit'>
+  Enable profile model fitting, needs <pkg>sci-libs/atlas</pkg>
+  and <pkg>sci-libs/fftw</pkg>
+</flag>
+</use>
 </pkgmetadata>

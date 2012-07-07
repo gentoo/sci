@@ -28,8 +28,5 @@ src_install() {
 	java-pkg_newjar dist/${P}.jar ${PN}.jar
 	use doc && java-pkg_dojavadoc doc
 	use source && java-pkg_dosrc src/org
-	if use examples; then
-		eant examples
-		java-pkg_doexamples examples
-	fi
+	use examples && java-pkg_doexamples examples
 }

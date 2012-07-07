@@ -8,8 +8,6 @@
   software with CUDA C/C++ or DirectCompute.
 </longdescription>
 <use>
-  <flag name='emulation'>Build binaries for device emulation mode. These binaries will not require a CUDA-capable GPU to run.
-  </flag>
   <flag name='opencl'>Build OpenCL binaries</flag>
   <flag name='cuda'>Build CUDA binaries</flag>
 </use>

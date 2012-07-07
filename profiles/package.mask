@@ -30,6 +30,19 @@
 
 #--- END OF EXAMPLES ---
 
+# Nicolas Bock <nicolasbock@gmail.com> (05 July 2012)
+# live ebuild
+=sci-chemistry/freeon-9999
+
+# Sebastien Fabbro <bicatali@gentoo.org> (04 July 2012)
+# live ebuilds
+=sci-astronomy/psfex-9999
+=sci-astronomy/scamp-9999
+=sci-astronomy/sextractor-9999
+=sci-astronomy/skymaker-9999
+=sci-astronomy/stuff-9999
+=sci-astronomy/swarp-9999
+
 # Christoph Junghans <ottxor@gentoo.org> (14 May 2012)
 # live ebuild
 =dev-lang/ispc-9999
