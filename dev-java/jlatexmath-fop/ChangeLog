@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  07 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  -jlatexmath-fop-0.9.4.ebuild:
+  dev-java/jlatexmath-fop: remove old
+
 *jlatexmath-fop-0.9.7 (14 May 2012)
 
   14 May 2012; Sébastien Fabbro <bicatali@gentoo.org>
@@ -22,4 +26,3 @@
   30 Sep 2010; Thomas Kahle <tom111@gmx.de> +jlatexmath-fop-0.9.3.ebuild,
   +metadata.xml:
   Initial upload. Ebuild by Dmitry S. Kulyabov in bug 301048
-
