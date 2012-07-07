@@ -4,6 +4,8 @@
 
 EAPI=4
 
+inherit java-pkg-opt-2
+
 MYP=ThePEG-${PV}
 
 DESCRIPTION="Toolkit for High Energy Physics Event Generation"
@@ -35,6 +37,7 @@ pkg_setup() {
 	elog "EXTRA_ECONF=\"--with-rivet=DIR\""
 	elog "where DIR - location of Rivet installation"
 	echo
+	java-pkg-opt-2_pkg_setup
 }
 
 src_configure() {
