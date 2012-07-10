@@ -3,6 +3,11 @@
 # $Header: $
 
 <<<<<<< HEAD
+
+  10 Jul 2012; Honza Macháček <Hloupy.Honza@centrum.cz>
+  files/bigdft-1.6-tuto.1-GPUlibs.patch:
+  bigdft-1.6-tuto.1-GPUlibs.patch updated not to forget the pkg-config file
+
 *bigdft-1.6_pre1-r3 (04 Jul 2012)
 
   04 Jul 2012; Honza Macháček <Hloupy.Honza@centrum.cz>
