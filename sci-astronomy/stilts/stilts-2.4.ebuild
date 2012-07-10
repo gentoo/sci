@@ -12,11 +12,13 @@ SRC_URI="ftp://andromeda.star.bris.ac.uk/pub/star/${PN}/v${PV}/${PN}.jar -> ${P}
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 RDEPEND=">=virtual/jre-1.5"
 DEPEND=""
+
+S="${WORKDIR}"
 
 src_install() {
 	java-pkg_newjar "${DISTDIR}"/${P}.jar
