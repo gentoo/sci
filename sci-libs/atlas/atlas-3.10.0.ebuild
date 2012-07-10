@@ -47,14 +47,17 @@ pkg_setup() {
 }
 
 src_configure() {
+	# hack needed to trick the flaky gcc detection
+	local mycc="$(type -P $(tc-getCC))"
+	[[ ${mycc} == *gcc* ]] && mycc=gcc
 	atlas_configure() {
 		local myconf=(
 			--prefix="${ED}/usr"
 			--libdir="${ED}/usr/$(get_libdir)"
 			--incdir="${ED}/usr/include"
 			--cc="$(tc-getCC)"
-			"-C acg '$(type -P $(tc-getCC))'"
 			"-D c -DWALL"
+			"-C acg '${mycc}'"
 			"-F acg '${CFLAGS}'"
 			"-Ss pmake '\$(MAKE) ${MAKEOPTS}'"
 		)
@@ -101,7 +104,7 @@ src_configure() {
 		local confdir="${S}_${1}"; shift
 		myconf+=( $@ )
 		mkdir "${confdir}" && cd "${confdir}"
-	# for debugging
+		# for debugging
 		echo ${myconf[@]} > myconf.out
 		"${S}"/configure ${myconf[@]} || die "configure in ${confdir} failed"
 	}
