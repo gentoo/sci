@@ -2,6 +2,15 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scilab-5.3.999 (11 Jul 2012)
+
+  11 Jul 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  +scilab-5.3.999.ebuild, +files/scilab-5.3.999-blas-libs.patch,
+  +files/scilab-5.3.999-followlinks.patch,
+  +files/scilab-5.3.999-fortran-link.patch,
+  +files/scilab-5.3.999-gluegen.patch, +files/scilab-5.3.999-java-heap.patch:
+  new ebuild for the 5.4 branch
+
   30 May 2012; Guillaume Horel <guillaume.horel@gmail.com>
   scilab-5.3.3-r1.ebuild:
   force exact version of jgraphx

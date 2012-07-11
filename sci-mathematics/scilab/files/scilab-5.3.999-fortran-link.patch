@@ -1,0 +1,22 @@
+diff -urN scilab-orig/configure.ac scilab/configure.ac
+--- scilab-orig/configure.ac	2012-06-14 22:30:33.438115959 -0400
++++ scilab/configure.ac	2012-06-14 22:37:57.229102963 -0400
+@@ -200,16 +200,14 @@
+    if test -z "$F77"; then
+      AC_MSG_ERROR([You asked me to use gfortran but i haven't been able to find it])
+     fi
+-fi
+ 
+-if test "$with_intelcompilers" = yes; then
++elif test "$with_intelcompilers" = yes; then
+    AC_PROG_F77(ifc ifort)
+    if test -z "$F77"; then
+      AC_MSG_ERROR([You asked me to use ifc (intel fortran compiler) but i haven't been able to find it])
+     fi
+-fi
+ 
+-if test -z "$F77"; then
++elif test -z "$F77"; then
+ ## No Fortran compiler specified... Prefer gfortran and intel compilers
+    AC_PROG_F77([gfortran ifc ifort])
+    if test -z "$F77"; then
