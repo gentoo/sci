@@ -1,0 +1,8 @@
+# ChangeLog for sci-physics/thepeg
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*thepeg-1.8.0 (06 Jul 2012)
+
+  06 Jul 2012; <jauhien@gentoo.org> +thepeg-1.8.0.ebuild, +metadata.xml:
+  Initial release, new ebuild for bug#424003, thanks to hasufell
