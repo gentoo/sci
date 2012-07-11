@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-util/nvidia-cuda-sdk/ChangeLog,v 1.30 2012/02/05 16:39:02 spock Exp $
 
+  11 Jul 2012; Honza Macháček <Hloupy.Honza@centrum.cz>
+  nvidia-cuda-sdk-4.2.9.ebuild:
+  Corrected OpenCL spelling in `emake -C OpenCL`
+
 *nvidia-cuda-sdk-4.2.9 (04 Jul 2012)
 
   04 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>

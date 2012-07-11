@@ -39,7 +39,7 @@ src_compile() {
 	use debug && myopts+=" dbg=1"
 	cd sdk
 	use cuda && emake -C C cuda-install="${EPREFIX}"/opt/cuda ${myopts}
-	use opencl && emake -C opencl
+	use opencl && emake -C OpenCL
 }
 
 src_install() {
