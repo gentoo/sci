@@ -13,7 +13,7 @@ SRC_URI="${HOMEPAGE}${MYP}.tar.gz"
 
 LICENSE="public-domain"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples metis mpi +scotch static-libs"
 
 RDEPEND="virtual/blas
@@ -24,20 +24,30 @@ RDEPEND="virtual/blas
 
 DEPEND="${RDEPEND}
 	virtual/fortran
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 S="${WORKDIR}/${MYP}"
 
 make_shared_lib() {
 	local libstatic=${1}
-	local soname=$(basename "${1%.a}").so.$(get_major_version)
-	shift
-	einfo "Making ${soname}"
-	${LINK:-$(tc-getCC)} ${LDFLAGS}  \
-		-shared -Wl,-soname="${soname}" \
-		-Wl,--whole-archive "${libstatic}" -Wl,--no-whole-archive \
-		"$@" -o $(dirname "${libstatic}")/"${soname}" || die "${soname} failed"
-	ln -s "${soname}" $(dirname "${libstatic}")/"${soname%.*}"
+	if [[ ${CHOST} == *-darwin* ]] ; then
+		local dylibname=$(basename "${1%.a}").dylib
+		shift
+		einfo "Making ${dylibname}"
+		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
+			-dynamiclib -install_name "${EPREFIX}"/usr/lib/"${dylibname}" \
+			-Wl,-all_load -Wl,"${libstatic}" \
+			"$@" -o $(dirname "${libstatic}")/"${dylibname}" || die
+	else
+		local soname=$(basename "${1%.a}").so.${LIBVER}
+		shift
+		einfo "Making ${soname}"
+		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
+			-shared -Wl,-soname="${soname}" \
+			-Wl,--whole-archive "${libstatic}" -Wl,--no-whole-archive \
+			"$@" -o $(dirname "${libstatic}")/"${soname}" || die "${soname} failed"
+		ln -s "${soname}" $(dirname "${libstatic}")/"${soname%.*}"
+	fi
 }
 
 src_prepare() {
@@ -138,7 +148,7 @@ src_test() {
 }
 
 src_install() {
-	dolib.so lib/lib*.so*
+	dolib.so lib/lib*$(get_libname)*
 	use static-libs && dolib.a lib/lib*.a
 	insinto /usr
 	doins -r include
