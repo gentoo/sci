@@ -1,8 +1,0 @@
-# ChangeLog for sci-mathematics/libdsfmt
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  19 Jun 2008; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
-  +libdsfmt-1.3.1.ebuild:
-  Initial import, ebuild by Perttu Luukko, bug #227851
-
