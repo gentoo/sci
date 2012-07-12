@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils alternatives-2 flag-o-matic toolchain-funcs
+inherit eutils alternatives-2 flag-o-matic toolchain-funcs versionator multilib
 
 MYPN="${PN/-reference/}"
 
@@ -20,32 +20,33 @@ KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-lin
 RDEPEND="virtual/blas
 	virtual/fortran"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 S="${WORKDIR}/CBLAS"
 
 LIBNAME=refcblas
-LIBVER=3
 
-make_shared_lib() {
-	local libstatic=${1}
+static_to_shared() {
+	local libstatic=$1
+	shift
+	local libname=$(basename ${libstatic%.a})
+	local soname=${libname}$(get_libname $(get_version_component_range 1-2))
+	local libdir=$(dirname ${libstatic})
+
+	einfo "Making ${soname} from ${libstatic}"
 	if [[ ${CHOST} == *-darwin* ]] ; then
-		local dylibname=$(basename "${1%.a}").dylib
-		shift
-		einfo "Making ${dylibname}"
 		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
-			-dynamiclib -install_name "${EPREFIX}"/usr/lib/"${dylibname}" \
-			-Wl,-all_load -Wl,"${libstatic}" \
-			"$@" -o $(dirname "${libstatic}")/"${dylibname}" || die "${dylibname} failed"
+			-dynamiclib -install_name "${EPREFIX}"/usr/lib/${soname} \
+			-Wl,-all_load -Wl,${libstatic} \
+			"$@" -o ${libdir}/${soname} || die "${soname} failed"
 	else
-		local soname=$(basename "${1%.a}").so.${LIBVER}
-		shift
-		einfo "Making ${soname}"
 		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
-			-shared -Wl,-soname="${soname}" \
-			-Wl,--whole-archive "${libstatic}" -Wl,--no-whole-archive \
-			"$@" -o $(dirname "${libstatic}")/"${soname}" || die "${soname} failed"
-		ln -s "${soname}" $(dirname "${libstatic}")/"${soname%.*}"
+			-shared -Wl,-soname=${soname} \
+			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
+			"$@" -o ${libdir}/${soname} || die "${soname} failed"
+		[[ $(get_version_component_count) -gt 1 ]] && \
+			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version))
+		ln -s ${soname} ${libdir}/${libname}$(get_libname)
 	fi
 }
 
@@ -71,9 +72,7 @@ src_compile() {
 		CFLAGS="${CFLAGS} -fPIC" \
 		CBLIB=../lib/lib${LIBNAME}.a \
 		alllib
-	cd lib
-	make_shared_lib lib${LIBNAME}.a $(pkg-config --libs blas)
-	cd "${S}"
+	static_to_shared lib/lib${LIBNAME}.a $(pkg-config --libs blas)
 	if use static-libs; then
 		emake clean
 		emake alllib
@@ -87,11 +86,7 @@ src_test() {
 }
 
 src_install() {
-	local shlib=so
-	if [[ ${CHOST} == *-darwin* ]] ; then
-		shlib=dylib
-	fi
-	dolib.so lib/lib${LIBNAME}.${shlib}*
+	dolib.so lib/lib${LIBNAME}$(get_libname)*
 	use static-libs && dolib.a lib/lib${LIBNAME}.a
 	insinto /usr/include/cblas
 	doins include/cblas.h

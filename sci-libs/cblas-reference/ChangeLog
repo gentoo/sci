@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/cblas-reference/ChangeLog,v 1.33 2010/03/07 19:14:51 jlec Exp $
 
+  12 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  cblas-reference-20110218.ebuild, metadata.xml:
+  sci-libs/cblas-reference: Shared library fixes and prefix love
+
   24 Feb 2012; François Bissey <francois.bissey@canterbury.ac.nz>
   cblas-reference-20110218.ebuild:
   adding OS X support
@@ -191,4 +195,3 @@
   +cblas-reference-20030223.ebuild:
   Initial import (fixes bug #122958). Many thanks to Adam Piątyszek
   <ediap@et.put.poznan.pl> for his ebuild and patches.
-
