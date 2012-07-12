@@ -2,14 +2,6 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <herd>sci</herd>
-<maintainer>
-  <email>patrick@gentoo.org</email>
-  <name>Patrick Lauer</name>
-</maintainer>
-<maintainer>
-  <email>oli.borm@web.de</email>
-  <name>Oliver Borm</name>
-</maintainer>
 <longdescription lang="en">
   SCOTCH is a software package and libraries for graph, mesh and
   hypergraph partitioning, static mapping, and sparse matrix block

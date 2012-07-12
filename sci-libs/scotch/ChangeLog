@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/scotch/ChangeLog,v 1.5 2011/05/17 10:08:20 xarthisius Exp $
 
+  12 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml,
+  scotch-5.1.12b.ebuild:
+  sci-libs/scotch: Shared library fixes and prefix love
+
   28 Jun 2012; Sébastien Fabbro <bicatali@gentoo.org> scotch-5.1.12b.ebuild:
   keyword amd64-linux and x86-linux
 
@@ -57,4 +61,3 @@
   +files/shared-libs.patch, +metadata.xml:
   Initial import of scotch, dependency of OpenFoam. Ebuild by Richard
   Westwell and Oliver Borm. Fixes #220823
-
