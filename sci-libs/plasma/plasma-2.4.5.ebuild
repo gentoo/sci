@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=4
-inherit eutils fortran-2 toolchain-funcs versionator
+inherit eutils fortran-2 toolchain-funcs versionator multilib
 
 MYP=${PN}_${PV}
 
@@ -13,31 +13,42 @@ SRC_URI="http://icl.cs.utk.edu/projectsfiles/plasma/pubs/${MYP}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples fortran static-libs"
 
 RDEPEND="sys-apps/hwloc
 	virtual/blas
 	virtual/cblas
+	virtual/fortran
 	virtual/lapack
 	virtual/lapacke"
 
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 S="${WORKDIR}/${MYP}"
 
-make_shared_lib() {
-	local libstatic=${1}
-	local soname=$(basename "${1%.a}").so.$(get_major_version)
-	shift
-	einfo "Making ${soname}"
-	${LINK:-$(tc-getCC)} ${LDFLAGS}  \
-		-shared -Wl,-soname="${soname}" \
-		-Wl,--whole-archive "${libstatic}" -Wl,--no-whole-archive \
-		"$@" -o $(dirname "${libstatic}")/"${soname}" \
-		|| die "${soname} failed"
-	ln -s "${soname}" $(dirname "${libstatic}")/"${soname%.*}"
+static_to_shared() {
+	local libstatic=${1}; shift
+	local libname=$(basename ${libstatic%.a})
+	local soname=${libname}$(get_libname $(get_version_component_range 1-2))
+	local libdir=$(dirname ${libstatic})
+
+	einfo "Making ${soname} from ${libstatic}"
+	if [[ ${CHOST} == *-darwin* ]] ; then
+		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
+			-dynamiclib -install_name "${EPREFIX}"/usr/lib/"${soname}" \
+			-Wl,-all_load -Wl,${libstatic} \
+			"$@" -o ${libdir}/${soname} || die "${soname} failed"
+	else
+		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
+			-shared -Wl,-soname=${soname} \
+			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
+			"$@" -o ${libdir}/${soname} || die "${soname} failed"
+		[[ $(get_version_component_count) -gt 1 ]] && \
+			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version))
+		ln -s ${soname} ${libdir}/${libname}$(get_libname)
+	fi
 }
 
 src_prepare() {
@@ -77,9 +88,9 @@ src_configure() {
 
 src_compile() {
 	emake lib
-	make_shared_lib quark/libquark.a $(pkg-config --libs hwloc) -pthread
-	make_shared_lib lib/libcoreblas.a quark/libquark.so $(pkg-config --libs cblas lapacke)
-	make_shared_lib lib/libplasma.a quark/libquark.so lib/libcoreblas.so
+	static_to_shared quark/libquark.a $(pkg-config --libs hwloc) -pthread
+	static_to_shared lib/libcoreblas.a quark/libquark.so $(pkg-config --libs cblas lapacke)
+	static_to_shared lib/libplasma.a quark/libquark.so lib/libcoreblas.so
 	if use static-libs; then
 		emake cleanall
 		sed 's/-fPIC//g' make.inc
@@ -88,7 +99,7 @@ src_compile() {
 }
 
 src_install() {
-	dolib.so lib/lib*.so* quark/libquark.so*
+	dolib.so lib/lib*$(get_libname)* quark/libquark$(get_libname)*
 	use static-libs && dolib.a lib/lib*.a quark/libquark.a
 	insinto /usr/include/${PN}
 	doins quark/quark{,_unpack_args}.h quark/icl_{hash,list}.h include/*.h
