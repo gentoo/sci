@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=4
-inherit eutils toolchain-funcs flag-o-matic versionator fortran-2
+inherit eutils toolchain-funcs flag-o-matic versionator fortran-2 multilib
 
 MYP=MUMPS_${PV}
 
@@ -17,36 +17,37 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples metis mpi +scotch static-libs"
 
 RDEPEND="virtual/blas
+	virtual/fortran
 	metis? ( || ( sci-libs/metis <sci-libs/parmetis-4 )
 		mpi? ( <sci-libs/parmetis-4 ) )
 	scotch? ( sci-libs/scotch[mpi=] )
 	mpi? ( virtual/scalapack )"
 
 DEPEND="${RDEPEND}
-	virtual/fortran
 	virtual/pkgconfig"
 
 S="${WORKDIR}/${MYP}"
 
-make_shared_lib() {
-	local libstatic=${1}
+static_to_shared() {
+	local libstatic=${1}; shift
+	local libname=$(basename ${libstatic%.a})
+	local soname=${libname}$(get_libname $(get_version_component_range 1-2))
+	local libdir=$(dirname ${libstatic})
+
+	einfo "Making ${soname} from ${libstatic}"
 	if [[ ${CHOST} == *-darwin* ]] ; then
-		local dylibname=$(basename "${1%.a}").dylib
-		shift
-		einfo "Making ${dylibname}"
 		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
-			-dynamiclib -install_name "${EPREFIX}"/usr/lib/"${dylibname}" \
-			-Wl,-all_load -Wl,"${libstatic}" \
-			"$@" -o $(dirname "${libstatic}")/"${dylibname}" || die
+			-dynamiclib -install_name "${EPREFIX}"/usr/lib/"${soname}" \
+			-Wl,-all_load -Wl,${libstatic} \
+			"$@" -o ${libdir}/${soname} || die "${soname} failed"
 	else
-		local soname=$(basename "${1%.a}").so.${LIBVER}
-		shift
-		einfo "Making ${soname}"
 		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
-			-shared -Wl,-soname="${soname}" \
-			-Wl,--whole-archive "${libstatic}" -Wl,--no-whole-archive \
-			"$@" -o $(dirname "${libstatic}")/"${soname}" || die "${soname} failed"
-		ln -s "${soname}" $(dirname "${libstatic}")/"${soname%.*}"
+			-shared -Wl,-soname=${soname} \
+			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
+			"$@" -o ${libdir}/${soname} || die "${soname} failed"
+		[[ $(get_version_component_count) -gt 1 ]] && \
+			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version))
+		ln -s ${soname} ${libdir}/${libname}$(get_libname)
 	fi
 }
 
@@ -121,10 +122,10 @@ src_configure() {
 
 src_compile() {
 	emake alllib PIC="-fPIC"
-	make_shared_lib lib/libmumps_common.a ${LIBADD}
+	static_to_shared lib/libmumps_common.a ${LIBADD}
 	local i
 	for i in c d s z; do
-		make_shared_lib lib/lib${i}mumps.a -Llib -lmumps_common
+		static_to_shared lib/lib${i}mumps.a -Llib -lmumps_common
 	done
 	if use static-libs; then
 		emake clean

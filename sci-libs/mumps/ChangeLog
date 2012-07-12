@@ -3,6 +3,9 @@
 # $Header: $
 
   12 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> mumps-4.10.0.ebuild:
+  sci-libs/mumps: Shared library fixes and prefix love
+
+  12 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> mumps-4.10.0.ebuild:
   sci-libs/mumps: prefix love
 
   13 Mar 2012; Sébastien Fabbro <bicatali@gentoo.org> mumps-4.10.0.ebuild,
