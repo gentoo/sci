@@ -21,7 +21,7 @@ RDEPEND="
 	!sci-libs/mpiblacs"
 
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 src_prepare() {
 	#epatch "${FILESDIR}"/${PN}-2.0.1-link.patch
