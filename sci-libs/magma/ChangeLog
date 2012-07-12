@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> magma-1.2.1.ebuild:
+  sci-libs/magma: Shared library fixes, prefix love and ebuild cleanup
+
 *magma-1.2.1 (03 Jul 2012)
 
   03 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
@@ -18,4 +21,3 @@
   +files/magma-1.2.0-duplicate-symbols.patch, +magma-1.2.0.ebuild,
   +metadata.xml:
   sci-libs/magma: Initial import
-
