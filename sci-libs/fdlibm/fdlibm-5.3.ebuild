@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit toolchain-funcs flag-o-matic versionator
+inherit toolchain-funcs flag-o-matic versionator multilib
 
 DESCRIPTION="C math library supporting IEEE 754 floating-point arithmetic"
 HOMEPAGE="http://www.netlib.org/fdlibm"
@@ -18,24 +18,34 @@ IUSE="static-libs"
 RDEPEND=""
 DEPEND="${RDEPEND}"
 
-make_shared_lib() {
-	local soname=$(basename "${1%.a}")$(get_libname $(get_major_version))
-	einfo "Making ${soname}"
-	${2:-$(tc-getCC)} ${LDFLAGS}  \
-		-shared -Wl,-soname="${soname}" \
-		$([[ ${CHOST} == *-darwin* ]] && \
-		echo "-Wl,-install_name -Wl,${EPREFIX}/usr/$(get_libdir)/${soname}") \
-		-Wl,--whole-archive "${1}" -Wl,--no-whole-archive \
-		-o $(dirname "${1}")/"${soname}" \
-		-lm $(pkg-config --libs blas lapack) || return 1
-	ln -s "${soname}" $(dirname "${1}")/$(basename "${1%.a}")$(get_libname)
+static_to_shared() {
+	local libstatic=${1}; shift
+	local libname=$(basename ${libstatic%.a})
+	local soname=${libname}$(get_libname $(get_version_component_range 1-2))
+	local libdir=$(dirname ${libstatic})
+
+	einfo "Making ${soname} from ${libstatic}"
+	if [[ ${CHOST} == *-darwin* ]] ; then
+		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
+			-dynamiclib -install_name "${EPREFIX}"/usr/lib/"${soname}" \
+			-Wl,-all_load -Wl,${libstatic} \
+			"$@" -o ${libdir}/${soname} || die "${soname} failed"
+	else
+		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
+			-shared -Wl,-soname=${soname} \
+			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
+			"$@" -o ${libdir}/${soname} || die "${soname} failed"
+		[[ $(get_version_component_count) -gt 1 ]] && \
+			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version))
+		ln -s ${soname} ${libdir}/${libname}$(get_libname)
+	fi
 }
 
 src_compile() {
 	append-cflags -D_IEEE_LIBM
 	emake CFLAGS="${CFLAGS} -fPIC" CC=$(tc-getCC)
 	mv libm.a lib${PN}.a
-	make_shared_lib lib${PN}.a || die "doing shared lib failed"
+	static_to_shared lib${PN}.a
 	if use static-libs; then
 		rm -f *.o
 		emake CFLAGS="${CFLAGS}" CC=$(tc-getCC)
