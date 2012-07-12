@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/xblas
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  12 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> xblas-1.0.248.ebuild:
+  sci-libs/xblas: Shared library fixes, prefix love and ebuild cleanup
 
 *xblas-1.0.248 (22 Aug 2011)
 
@@ -17,4 +20,3 @@
 
   03 Nov 2010; Sébastien Fabbro <bicatali@gentoo.org> ChangeLog:
   Initial import
-
