@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=4
-inherit eutils toolchain-funcs versionator alternatives-2
+inherit eutils toolchain-funcs versionator alternatives-2 multilib
 
 DESCRIPTION="Basic Linear Algebra Communication Subprograms with MPI"
 HOMEPAGE="http://www.netlib.org/blacs/"
@@ -13,27 +13,38 @@ SRC_URI="${HOMEPAGE}/${PN}.tgz
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test"
 
 RDEPEND="virtual/mpi[fortran]
 	virtual/blas
 	!>sci-libs/scalapack-2"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 S="${WORKDIR}/BLACS"
 
-make_shared_lib() {
-	local libstatic=${1}
-	local soname=$(basename "${1%.a}").so.$(get_major_version)
-	shift
-	einfo "Making ${soname}"
-	${LINK:-$(tc-getCC)} ${LDFLAGS}  \
-		-shared -Wl,-soname="${soname}" \
-		-Wl,--whole-archive "${libstatic}" -Wl,--no-whole-archive \
-		"$@" -o $(dirname "${libstatic}")/"${soname}" || die "${soname} failed"
-	ln -s "${soname}" $(dirname "${libstatic}")/"${soname%.*}"
+static_to_shared() {
+	local libstatic=${1}; shift
+	local libname=$(basename ${libstatic%.a})
+	local soname=${libname}$(get_libname $(get_version_component_range 1-2))
+	local libdir=$(dirname ${libstatic})
+
+	einfo "Making ${soname} from ${libstatic}"
+	if [[ ${CHOST} == *-darwin* ]] ; then
+		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
+			-dynamiclib -install_name "${EPREFIX}"/usr/lib/"${soname}" \
+			-Wl,-all_load -Wl,${libstatic} \
+			"$@" -o ${libdir}/${soname} || die "${soname} failed"
+	else
+		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
+			-shared -Wl,-soname=${soname} \
+			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
+			"$@" -o ${libdir}/${soname} || die "${soname} failed"
+		[[ $(get_version_component_count) -gt 1 ]] && \
+			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version))
+		ln -s ${soname} ${libdir}/${libname}$(get_libname)
+	fi
 }
 
 src_prepare() {
@@ -67,11 +78,9 @@ src_compile() {
 		F77FLAGS="${FFLAGS} -fPIC" \
 		CCFLAGS="${CFLAGS} -fPIC" \
 		mpi
-	cd LIB
-	LINK=mpif77 make_shared_lib lib${PN}.a
-	LINK=mpicc make_shared_lib lib${PN}Cinit.a -L. -l${PN}
-	LINK=mpif77 make_shared_lib lib${PN}F77init.a -L. -l${PN}
-	cd "${S}"
+	LINK=mpif77 static_to_shared LIB/lib${PN}.a
+	LINK=mpicc static_to_shared LIB/lib${PN}Cinit.a -LLIB -l${PN}
+	LINK=mpif77 static_to_shared LIB/lib${PN}F77init.a -LLIB -l${PN}
 	if use static-libs; then
 		emake clean -C SRC/MPI && rm -f LIB/*.a
 		emake mpi
@@ -91,7 +100,7 @@ src_test() {
 
 src_install() {
 	pushd LIB
-	dolib.so lib*.so*
+	dolib.so lib*$(get_libname)*
 	use static-libs && dolib.a lib*.a
 	cat <<-EOF > ${PN}.pc
 		prefix=${EPREFIX}/usr
@@ -101,18 +110,19 @@ src_install() {
 		Description: ${DESCRIPTION}
 		Version: ${PV}
 		URL: ${HOMEPAGE}
-		Libs: -L\${libdir} -l${PN} -l${PN}Cinit -l${PN}F77init -lm
+		Libs: -L\${libdir} -l${PN} -l${PN}Cinit -l${PN}F77init
+		Private: -lm
 		Cflags: -I\${includedir}/${PN}
 		Requires: blas
 	EOF
 	insinto /usr/$(get_libdir)/pkgconfig
 	doins ${PN}.pc || die
 	alternatives_for blacs ${PN} 0 \
-		"/usr/$(get_libdir)/pkgconfig/blacs.pc" "${PN}.pc"
-	popd
+		/usr/$(get_libdir)/pkgconfig/blacs.pc ${PN}.pc
+	popd > /dev/null
 
-	pushd SRC/MPI
+	pushd SRC/MPI > /dev/null
 	insinto /usr/include/blacs
 	doins Bconfig.h Bdef.h
-	popd
+	popd > /dev/null
 }
