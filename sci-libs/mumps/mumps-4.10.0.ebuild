@@ -65,7 +65,6 @@ src_prepare() {
 		-e "s:^\(OPTL\s*=\).*:\1${LDFLAGS}:" \
 		Make.inc/Makefile.inc.generic > Makefile.inc || die
 	# fixed a missing copy of libseq to libdir
-
 }
 
 src_configure() {
@@ -114,8 +113,11 @@ src_configure() {
 		sed -i \
 			-e 's:-Llibseq:-L$(topdir)/libseq:' \
 			-e 's:PAR):SEQ):g' \
+			-e "s:^\(SCALAP\s*=\).*:\1:" \
 			-e 's:^LIBSEQNEEDED =:LIBSEQNEEDED = libseqneeded:g' \
 			Makefile.inc || die
+		LIBADD="${LIBADD} -Llibseq -lmpiseq"
+		export LINK="$(tc-getFC)"
 	fi
 	sed -i -e "s:^\s*\(ORDERINGSF\s*=\).*:\1 ${ord}:" Makefile.inc || die
 }
@@ -125,7 +127,7 @@ src_compile() {
 	static_to_shared lib/libmumps_common.a ${LIBADD}
 	local i
 	for i in c d s z; do
-		static_to_shared lib/lib${i}mumps.a -Llib -lmumps_common
+		static_to_shared lib/lib${i}mumps.a -Llib -lmumps_common ${LIBADD}
 	done
 	if use static-libs; then
 		emake clean
