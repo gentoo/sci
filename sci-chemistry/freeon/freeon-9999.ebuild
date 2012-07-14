@@ -4,30 +4,36 @@
 
 EAPI=4
 
-inherit autotools-utils git-2
+inherit autotools-utils fortran-2 git-2
 
-DESCRIPTION="FreeON is an experimental, open source (GPL) suite of programs for linear scaling quantum chemistry."
+DESCRIPTION="an experimental suite of programs for linear scaling quantum chemistry."
 HOMEPAGE="http://www.freeon.org"
 
 EGIT_REPO_URI="http://git.savannah.gnu.org/r/freeon.git"
+EGIT_BOOTSTRAP="fix_localversion.sh"
 
 AUTOTOOLS_AUTORECONF=1
 
+FORTRAN_STANDARD=90
+
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
-IUSE=""
+KEYWORDS="~amd64 ~x86"
+IUSE="static-libs"
 
 DEPEND="
 	sys-libs/zlib
+	sci-libs/hdf5
+	virtual/fortran
 	virtual/lapack"
 RDEPEND="${DEPEND}"
 
 src_configure() {
 	local myeconfargs=(
-		--disable-internal_lapack
-		--enable-internal_hdf5
+		--disable-internal-hdf5
+		--disable-static-binaries
+		--disable-internal-lapack
 	)
+	#TODO mv BasisSets from /usr to /usr/share/freeon/
 	autotools-utils_src_configure
-	./fix_localversion.sh
 }
