@@ -1,0 +1,9 @@
+# ChangeLog for dev-util/f90cache
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*f90cache-0.93.7 (14 Jul 2012)
+
+  14 Jul 2012; Christoph Junghans <ottxor@gentoo.org> +f90cache-0.93.7.ebuild,
+  +metadata.xml:
+  initial commit
