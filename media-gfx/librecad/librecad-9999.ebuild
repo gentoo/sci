@@ -15,7 +15,9 @@ IUSE="debug doc"
 EGIT_REPO_URI="https://github.com/LibreCAD/LibreCAD.git"
 
 DEPEND="${RDEPEND}
+	x11-libs/qt-gui:4
 	x11-libs/qt-assistant:4
+	x11-libs/qt-svg:4
 	dev-libs/boost
 	dev-cpp/muParser
 	media-libs/freetype
