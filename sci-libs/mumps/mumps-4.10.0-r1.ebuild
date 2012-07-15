@@ -55,7 +55,7 @@ src_prepare() {
 	sed -e "s:^\(CC\s*=\).*:\1$(tc-getCC):" \
 		-e "s:^\(FC\s*=\).*:\1$(tc-getFC):" \
 		-e "s:^\(FL\s*=\).*:\1$(tc-getFC):" \
-		-e "s:^\(AR\s*=\).*:\1$(tc-getAR) rv :" \
+		-e "s:^\(AR\s*=\).*:\1$(tc-getAR) cr :" \
 		-e "s:^\(RANLIB\s*=\).*:\1$(tc-getRANLIB):" \
 		-e "s:^\(LIBBLAS\s*=\).*:\1$(pkg-config --libs blas):" \
 		-e "s:^\(INCPAR\s*=\).*:\1:" \
@@ -116,7 +116,6 @@ src_configure() {
 			-e "s:^\(SCALAP\s*=\).*:\1:" \
 			-e 's:^LIBSEQNEEDED =:LIBSEQNEEDED = libseqneeded:g' \
 			Makefile.inc || die
-		LIBADD="${LIBADD} -Llibseq -lmpiseq"
 		export LINK="$(tc-getFC)"
 	fi
 	sed -i -e "s:^\s*\(ORDERINGSF\s*=\).*:\1 ${ord}:" Makefile.inc || die
@@ -124,7 +123,11 @@ src_configure() {
 
 src_compile() {
 	emake alllib PIC="-fPIC"
+	if ! use mpi; then
+		$(tc-getAR) crs lib/libmumps_common.a libseq/*.o || die
+	fi
 	static_to_shared lib/libmumps_common.a ${LIBADD}
+
 	local i
 	for i in c d s z; do
 		static_to_shared lib/lib${i}mumps.a -Llib -lmumps_common ${LIBADD}
@@ -155,6 +158,10 @@ src_install() {
 	use static-libs && dolib.a lib/lib*.a
 	insinto /usr
 	doins -r include
+	if ! use mpi; then
+		insinto /usr/include/mpiseq
+		doins libseq/*.h
+	fi
 	dodoc README ChangeLog VERSION
 	use doc && dodoc doc/*.pdf
 	if use examples; then
