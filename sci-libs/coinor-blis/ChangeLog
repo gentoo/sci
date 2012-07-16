@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/coinor-blis
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*coinor-blis-0.93.3 (16 Jul 2012)
+
+  16 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +coinor-blis-0.93.3.ebuild, +metadata.xml:
+  sci-libs/coinor-blis: Initial import
