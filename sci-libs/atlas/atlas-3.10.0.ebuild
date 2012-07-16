@@ -46,6 +46,10 @@ pkg_setup() {
 	use fortran && fortran-2_pkg_setup
 }
 
+src_prepare() {
+	epatch "${FILESDIR}"/atlas-3.10-x32-support.patch
+}
+
 src_configure() {
 	# hack needed to trick the flaky gcc detection
 	local mycc="$(type -P $(tc-getCC))"
@@ -75,6 +79,8 @@ src_configure() {
 				myconf+=( "-b 64" )
 			elif [ ${ABI} = x86 ] || [ ${ABI} = ppc ] || [ ${ABI} = sparc32 ] ; then
 				myconf+=( "-b 32" )
+			elif [ ${ABI} = x32 ] ; then
+				myconf+=( "-b 48" )
 			else
 				myconf+=( "-b 64" )
 			fi
