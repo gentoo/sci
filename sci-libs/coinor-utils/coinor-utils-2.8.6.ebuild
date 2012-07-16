@@ -58,7 +58,7 @@ src_configure() {
 		myeconfargs+=( --without-glpk )
 	fi
 	if use lapack; then
-		myeconfargs+=( --with-blas-lapack="$(pkg-config --libs lapack)" )
+		myeconfargs+=( --with-lapack="$(pkg-config --libs lapack)" )
 	else
 		myeconfargs+=( --without-lapack )
 	fi
