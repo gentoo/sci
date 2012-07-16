@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/coinor-clp
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*coinor-clp-1.14.6 (16 Jul 2012)
+
+  16 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> +coinor-clp-1.14.6.ebuild,
+  +metadata.xml:
+  sci-libs/coinor-clp: Initial import
