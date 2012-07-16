@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/coinor-vol
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*coinor-vol-1.3.3 (16 Jul 2012)
+
+  16 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> +coinor-vol-1.3.3.ebuild,
+  +metadata.xml:
+  sci-libs/coinor-vol: Initial import
