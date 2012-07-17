@@ -3,9 +3,9 @@
 # $Header: $
 
 EAPI=4
-inherit eutils check-reqs fortran-2
+inherit eutils check-reqs fortran-2 versionator
 
-MYP=${PN}_dev_v${PV}
+MYP=${PN}_dev_v$(replace_version_separator 2 '')
 
 DESCRIPTION="Photometric Analysis for Redshift Estimate for galaxies"
 HOMEPAGE="http://www.cfht.hawaii.edu/~arnouts/LEPHARE/lephare.html"
@@ -13,7 +13,7 @@ SRC_URI="http://www.cfht.hawaii.edu/~arnouts/LEPHARE/DOWNLOAD/${MYP}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc"
 
 RDEPEND=""
