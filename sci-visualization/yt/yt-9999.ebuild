@@ -27,6 +27,7 @@ DEPEND="${CDEPEND}
 	dev-python/cython
 	dev-python/setuptools"
 RDEPEND="${CDEPEND}
+	dev-python/ipython[notebook]
 	dev-python/pyx
 	dev-python/numpy
 	dev-python/h5py
