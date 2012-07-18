@@ -8,7 +8,7 @@ inherit autotools-utils multilib
 
 MYPN=Bcp
 
-DESCRIPTION="COIN-OR "
+DESCRIPTION="COIN-OR Branch-Cut-Price Framework"
 HOMEPAGE="https://projects.coin-or.org/Bcp/"
 SRC_URI="http://www.coin-or.org/download/source/${MYPN}/${MYPN}-${PV}.tgz"
 
