@@ -6,7 +6,4 @@
 		<email>ottxor@gentoo.org</email>
 		<name>Christoph Junghans</name>
 	</maintainer>
-	<use>
-		<flag name='system-boost'>Use system boost (<pkg>dev-libs/boost</pkg>) instead of bundled one</flag>
-	</use>
 </pkgmetadata>
