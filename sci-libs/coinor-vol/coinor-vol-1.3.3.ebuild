@@ -60,6 +60,7 @@ src_test() {
 
 src_install() {
 	use doc && HTML_DOC=("${AUTOTOOLS_BUILD_DIR}/doxydocs/html/")
+	autotools-utils_src_install -C src install-am
 	autotools-utils_src_install
 	# already installed
 	rm "${ED}"/usr/share/coin/doc/${MYPN}/{README,AUTHORS,LICENSE} || die
