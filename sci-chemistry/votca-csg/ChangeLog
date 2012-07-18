@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Jul 2012; Christoph Junghans <ottxor@gentoo.org> metadata.xml,
+  votca-csg-9999.ebuild:
+  live ebuild update
+
   24 Mar 2012; Christoph Junghans <ottxor@gentoo.org> votca-csg-9999.ebuild:
   Fixes bug #405455, again
 
@@ -154,4 +158,3 @@
   13 Dec 2009; Christoph Junghans <kleiner_otti@gmx.de>
   +votca-csg-1.0_rc1.ebuild, +metadata.xml:
   initial add bug #296707
-
