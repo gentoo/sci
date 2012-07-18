@@ -6,7 +6,7 @@ EAPI=4
 
 inherit bash-completion-r1 cmake-utils multilib
 
-IUSE="doc examples extras +gromacs +system-boost"
+IUSE="doc examples extras +gromacs"
 PDEPEND="extras? ( =sci-chemistry/votca-csgapps-${PV} )"
 if [ "${PV}" != "9999" ]; then
 	SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz
@@ -30,7 +30,7 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 
-RDEPEND="=sci-libs/votca-tools-${PV}[system-boost=]
+RDEPEND="=sci-libs/votca-tools-${PV}
 	gromacs? ( sci-chemistry/gromacs )
 	dev-lang/perl
 	app-shells/bash"
@@ -38,7 +38,7 @@ RDEPEND="=sci-libs/votca-tools-${PV}[system-boost=]
 DEPEND="${RDEPEND}
 	doc? ( || ( <app-doc/doxygen-1.7.6.1[-nodot] >=app-doc/doxygen-1.7.6.1[dot]	) )
 	>=app-text/txt2tags-2.5
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 DOCS=( README NOTICE )
 
@@ -51,7 +51,6 @@ src_configure() {
 	fi
 
 	mycmakeargs=(
-		$(cmake-utils_use system-boost EXTERNAL_BOOST)
 		$(cmake-utils_use_with gromacs GMX)
 		-DWITH_GMX_DEVEL="${GMX_DEV}"
 		-DGMX_DOUBLE="${GMX_DOUBLE}"
