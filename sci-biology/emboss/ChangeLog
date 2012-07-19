@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/ChangeLog,v 1.61 2011/03/09 16:29:05 jlec Exp $
 
+  19 Jul 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/emboss-6.3.1_p4-r1_plcol.patch, emboss-6.3.1_p4-r1.ebuild:
+  added plcol patch with increased diff line count, bug #391669; same patch
+  needs to go into offical emboss-6.3.1_p4
+
   22 May 2012; Justin Lecher <jlec@gentoo.org> emboss-6.3.1_p4-r1.ebuild:
   Add missing eutils.eclass
 
@@ -348,4 +353,3 @@
 
   03 Sep 2003; <sediener@gentoo.org> emboss-2.7.1.ebuild:
   Initial ebuild
-
