@@ -39,6 +39,7 @@ DOCS+=" FAQ THANKS"
 src_prepare() {
 	[[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}-upstream.patch
 	epatch "${WORKDIR}"/${PF}.patch
+	epatch "${FILESDIR}/${PF}_plcol.patch"
 	emboss_src_prepare
 }
 
