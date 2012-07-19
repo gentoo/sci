@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/coinor-cppad
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*coinor-cppad-20120719 (19 Jul 2012)
+
+  19 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +coinor-cppad-20120719.ebuild, +metadata.xml:
+  sci-libs/coinor-cppad: Initial import
