@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit unpacker toolchain-funcs versionator
+inherit eutils unpacker toolchain-funcs versionator
 
 DESCRIPTION="NVIDIA CUDA Software Development Kit"
 HOMEPAGE="http://developer.nvidia.com/cuda"
@@ -22,7 +22,7 @@ RDEPEND=">=dev-util/nvidia-cuda-toolkit-${PV}
 	media-libs/freeglut"
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}"
+S=${WORKDIR}
 
 pkg_setup() {
 	if use cuda || use opencl && [[ $(tc-getCXX) == *gcc* ]] && \
@@ -31,6 +31,10 @@ pkg_setup() {
 		eerror "Please use gcc-config to switch to a compatible GCC version"
 		die ">=sys-devel/gcc-4.4 required"
 	fi
+}
+
+src_prepare() {
+	epatch "${FILESDIR}"/${P}-asneeded.patch
 }
 
 src_compile() {
