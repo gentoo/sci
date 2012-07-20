@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>sci</herd>
+	<longdescription lang="en">
+  Armadillo is a C++ linear algebra library (matrix maths) aiming
+  towards a good balance between speed and ease of use. Integer,
+  floating point and complex numbers are supported, as well as a
+  subset of trigonometric and statistics functions. Various matrix
+  decompositions are provided through optional integration with LAPACK
+  and ATLAS libraries. 
+  A delayed evaluation approach is employed (during compile time) to
+  combine several operations into one and reduce (or eliminate) the
+  need for temporaries. This is accomplished through recursive
+  templates and template meta-programming.
+</longdescription>
+	<use>
+		<flag name="atlas">Link with ATLAS libraries for cblas and clapack (needs <pkg>sci-libs/lapack-atlas</pkg>)</flag>
+	</use>
+</pkgmetadata>
