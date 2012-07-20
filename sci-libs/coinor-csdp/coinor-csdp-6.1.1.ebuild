@@ -12,7 +12,7 @@ DESCRIPTION="COIN-OR C Library for Semi-Definite Programming"
 HOMEPAGE="https://projects.coin-or.org/Csdp/"
 SRC_URI="http://www.coin-or.org/download/source/${MYPN}/${MYPN}-${PV}.tgz"
 
-LICENSE="EPL-1.0"
+LICENSE="CPL-1.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples openmp static-libs"
