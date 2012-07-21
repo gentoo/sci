@@ -5,7 +5,7 @@
 EAPI=4
 
 ROOT_PN="root"
-PATCH_PV="5.34"
+PATCH_PV="9999"
 
 if [[ ${PV} == "9999" ]] ; then
 	_SVN_DEP="dev-vcs/subversion"

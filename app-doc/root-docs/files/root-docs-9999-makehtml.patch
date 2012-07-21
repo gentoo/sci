@@ -1,10 +1,10 @@
---- root/Makefile.orig	2012-05-30 00:50:46.000000000 +0400
-+++ root/Makefile	2012-05-30 00:51:05.839679686 +0400
-@@ -1088,16 +1088,7 @@
- releasenotes:
- 	@$(MAKERELNOTES)
+--- root/Makefile.orig	2012-07-13 13:42:46.000000000 +0400
++++ root/Makefile	2012-07-22 00:15:03.282994389 +0400
+@@ -1087,16 +1087,7 @@
  
--html: $(ROOTEXE) changelog releasenotes
+ ifeq ($(BUILDX11),yes)
+ ifeq ($(BUILDASIMAGE),yes)
+-html: rootexecs postbin changelog releasenotes
 -ifneq ($(USECONFIG),FALSE)
 -	@if [ "x`which root.exe`" != "x$(DESTDIR)$(BINDIR)/root.exe" ] \
 -	  || [ "`which root.exe`" -ot "bin/root.exe" ]; then \
@@ -16,17 +16,16 @@
 -	@$(MAKELOGHTML)
 +html: compiledata releasenotes
  	@$(MAKEHTML)
- 
- # Use DESTDIR to set a sandbox prior to calling "make install", e.g.:
---- root/build/unix/makehtml.sh.orig	2012-06-18 06:44:59.000000000 +0400
-+++ root/build/unix/makehtml.sh	2012-06-18 19:39:41.262064654 +0400
-@@ -1,17 +1,17 @@
+ else
+ html:
+--- root/build/unix/makehtml.sh.orig	2012-06-28 11:33:36.000000000 +0400
++++ root/build/unix/makehtml.sh	2012-07-22 00:18:58.705804436 +0400
+@@ -1,16 +1,16 @@
  #! /bin/sh
  
--ROOT=bin/root.exe
-+ROOT=root.exe
- 
  dir=`pwd`
+-ROOT=$dir/bin/root
++ROOT=root
  cd tutorials
  # we need tutorials/hsimple.root
  if [ ! -f hsimple.root ]; then
@@ -41,10 +40,10 @@
  fi
  cd $dir
  
-@@ -19,7 +19,7 @@
- echo "Generating doc in directory htmldoc/..."
- echo ""
+@@ -20,7 +20,7 @@
  
+ # To generate the full documentation, we do need to
+ # use the graphics engine, so do not use '-b'.
 -$ROOT -l <<makedoc
 +$ROOT -l <<makedoc || exit 1
      THtml h;

@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  21 Jul 2012; Andrew Savchenko <bircoph@gmail.com>
+  -files/root-docs-5.32-makehtml.patch, -files/root-docs-5.34-makehtml.patch,
+  root-docs-9999.ebuild, +files/root-docs-9999-makehtml.patch:
+  Update patching for live ebuild. Remove old.
+
   06 Jul 2012; Justin Lecher <jlec@gentoo.org> -root-docs-5.32.03.ebuild,
   metadata.xml:
   Dropped in tree version
