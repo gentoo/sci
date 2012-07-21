@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  21 Jul 2012; Andrew Savchenko <bircoph@gmail.com> root-9999.ebuild,
+  metadata.xml:
+  Clarens and PEAC were removed from ROOT.
+  CAD interface using sci-libs/opencascade was added.
+
   21 Jul 2012; Andrew Savchenko <bircoph@gmail.com>
   -files/root-5.32.00-explicit-functions.patch, +root-5.34.00.ebuild,
   root-9999.ebuild:

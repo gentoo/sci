@@ -37,7 +37,7 @@ SRC_URI="${SRC_URI}
 
 SLOT="0"
 LICENSE="LGPL-2.1"
-IUSE="+X afs avahi -c++0x clarens doc emacs examples fits fftw graphviz htmldoc
+IUSE="+X afs avahi -c++0x doc emacs examples fits fftw geocad graphviz htmldoc
 	kerberos ldap llvm +math mpi mysql odbc +opengl openmp oracle postgres prefix
 	pythia6 pythia8 python qt4 +reflex ruby ssl xinetd xml xrootd"
 
@@ -75,10 +75,10 @@ CDEPEND="
 		)
 	afs? ( net-fs/openafs )
 	avahi? ( net-dns/avahi )
-	clarens? ( dev-libs/xmlrpc-c[curl] )
 	emacs? ( virtual/emacs )
 	fits? ( sci-libs/cfitsio )
 	fftw? ( sci-libs/fftw:3.0 )
+	geocad? ( sci-libs/opencascade )
 	graphviz? ( media-gfx/graphviz )
 	kerberos? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
@@ -244,8 +244,6 @@ src_configure() {
 		$(use_enable X xft) \
 		$(use_enable afs) \
 		$(use_enable avahi bonjour) \
-		$(use_enable clarens) \
-		$(use_enable clarens peac) \
 		$(use_enable fits fitsio) \
 		$(use_enable fftw fftw3) \
 		$(use_enable graphviz gviz) \
