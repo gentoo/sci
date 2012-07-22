@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+*root-5.34.01 (22 Jul 2012)
+
+  22 Jul 2012; Andrew Savchenko <bircoph@gmail.com> -root-5.34.00.ebuild,
+  +root-5.34.01.ebuild, metadata.xml:
+  Version bump. Clarens and PEAC are gone, despite this is a minor
+  release.
+
   22 Jul 2012; Andrew Savchenko <bircoph@gmail.com> root-9999.ebuild,
   +files/root-9999-cling.patch:
   One step further to build with cling. But ATM patched version of
