@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*root-docs-5.34.01 (22 Jul 2012)
+
+  22 Jul 2012; Andrew Savchenko <bircoph@gmail.com> +root-docs-5.34.01.ebuild,
+  +files/root-docs-5.34.01-makehtml.patch, root-docs-9999.ebuild,
+  -files/root-docs-9999-makehtml.patch:
+  Version bump.
+
   21 Jul 2012; Andrew Savchenko <bircoph@gmail.com>
   -files/root-docs-5.32-makehtml.patch, -files/root-docs-5.34-makehtml.patch,
   root-docs-9999.ebuild, +files/root-docs-9999-makehtml.patch:
