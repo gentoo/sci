@@ -1,0 +1,82 @@
+diff -Nur cvmfs-2.0.18.orig/cvmfs/src/cvmfs_config cvmfs-2.0.18/cvmfs/src/cvmfs_config
+--- cvmfs-2.0.18.orig/cvmfs/src/cvmfs_config	2012-05-05 15:16:19.000000000 +0100
++++ cvmfs-2.0.18/cvmfs/src/cvmfs_config	2012-07-23 23:16:06.000000000 +0100
+@@ -16,9 +16,15 @@
+ 
+ if [ -x /sbin/service ]; then
+   service="/sbin/service"
+-else
++  chkconfig="/sbin/chkconfig"
++elif [ -x /usr/sbin/service ]; then
+   # Ubuntu
+   service="/usr/sbin/service"
++  chkconfig="/usr/sbin/chkconfig"
++elif [ -x /usr/sbin/rc-service ]; then
++  # OpenRC
++  service="/sbin/rc-service"
++  chkconfig="/usr/bin/rc-config"
+ fi
+ 
+ var_list="CVMFS_USER CVMFS_NFILES CVMFS_CACHE_BASE CVMFS_MOUNT_DIR CVMFS_QUOTA_LIMIT \
+@@ -116,9 +122,9 @@
+    fi
+ 
+    if [ $noservice -eq 0 ]; then
+-      /sbin/chkconfig --list cvmfs > /dev/null 2>&1
++      $chkconfig --list cvmfs > /dev/null 2>&1
+       if [ $? -ne 0 ]; then
+-         /sbin/chkconfig --add cvmfs
++         $chkconfig --add cvmfs
+       fi
+    fi
+ 
+@@ -580,8 +586,8 @@
+    for cmd in 'uname -a' 'cat /etc/issue' 'hostname -f' 'ifconfig -a' 'cvmfs2 --version' \
+               'grep cvmfs2 /var/log/messages' 'grep cvmfs2 /var/log/syslog' \
+               "eval find ${CVMFS_CACHE_BASE} -maxdepth 1 -exec ls -lah \{\} \;" \
+-              'service cvmfs probe' 'mount' 'df -h' 'ps -ef' \
+-              'service cvmfs status' 'cvmfs_config showconfig' \
++              "${service}\ cvmfs\ probe" 'mount' 'df -h' 'ps -ef' \
++              "${service}\ cvmfs\ status" 'cvmfs_config showconfig' \
+               'cvmfs_config chksetup' 'cvmfs_config stat -v' \
+               'cat /etc/fuse.conf'  'ls -la /usr/bin/fusermount' 'ls -la /bin/fusermount' \
+               'cat /etc/auto.master' 'cat /etc/sysconfig/autofs' 'cat /etc/fstab'
+diff -Nur cvmfs-2.0.18.orig/cvmfs/src/cvmfs_server cvmfs-2.0.18/cvmfs/src/cvmfs_server
+--- cvmfs-2.0.18.orig/cvmfs/src/cvmfs_server	2011-11-30 11:26:55.000000000 +0000
++++ cvmfs-2.0.18/cvmfs/src/cvmfs_server	2012-07-23 23:31:32.000000000 +0100
+@@ -1,5 +1,13 @@
+ #!/bin/bash
+ 
++service=$(type -P service)
++chconfig=$(type -P chkconfig)
++if [ -n ${service} ]; then
++  # OpenRC
++  service="rc-service"
++  chkconfig="echo > /dev/null"
++fi
++
+ create_master_key() {
+    local name; name=$1
+    master_key="/etc/cvmfs/keys/$name.masterkey"
+@@ -161,8 +169,8 @@
+    create_whitelist $name
+    
+    echo -n "Starting services... "
+-   service cvmfsd start > /dev/null
+-   chkconfig cvmfsd on
++   $service cvmfsd start > /dev/null
++   $chkconfig cvmfsd on
+    echo "New CernVM-FS repository for $name" > /cvmfs/${name}/empty
+    usermod -s /bin/bash cvmfs
+    publish $name > /dev/null
+@@ -182,8 +190,8 @@
+    
+    echo -n "Stopping services... "
+    usermod -s /sbin/nologin cvmfs
+-   service cvmfsd stop > /dev/null
+-   chkconfig cvmfsd off
++   $service cvmfsd stop > /dev/null
++   $chkconfig cvmfsd off
+    echo "done"
+    
+    echo -n "Unmounting CernVM-FS Area... "

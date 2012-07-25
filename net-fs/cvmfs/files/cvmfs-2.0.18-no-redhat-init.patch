@@ -1,0 +1,22 @@
+* Avoid forcing install of fedora/redhat init scripts
+* Add a more general init script to adapt other distributions
+
+bicatali@gentoo.org 07/2012
+
+--- cvmfs-2.0.18.orig/mount/Makefile.am
++++ cvmfs-2.0.18/mount/Makefile.am
+@@ -2,14 +2,12 @@
+ install-exec-hook:
+ 	test -z "$(DESTDIR)/etc" || mkdir -p "$(DESTDIR)/etc"
+ 	test -z "$(DESTDIR)/sbin" || mkdir -p "$(DESTDIR)/sbin"
+-	test -z "$(DESTDIR)/etc/rc.d/init.d" || mkdir -p "$(DESTDIR)/etc/rc.d/init.d"
+ 	test -z "$(DESTDIR)/etc/cvmfs" || mkdir -p "$(DESTDIR)/etc/cvmfs"
+ 	test -z "$(DESTDIR)/etc/cvmfs/config.d" || mkdir -p "$(DESTDIR)/etc/cvmfs/config.d"	
+ 	test -z "$(DESTDIR)/etc/cvmfs/domain.d" || mkdir -p "$(DESTDIR)/etc/cvmfs/domain.d"
+ 	test -z "$(DESTDIR)/etc/cvmfs/keys" || mkdir -p "$(DESTDIR)/etc/cvmfs/keys"
+ 	install -c auto.cvmfs "$(DESTDIR)/etc/auto.cvmfs"
+ 	install -c mount.cvmfs "$(DESTDIR)/sbin/mount.cvmfs"
+-	install -c cvmfs.initd "$(DESTDIR)/etc/rc.d/init.d/cvmfs"
+ 	install -c -m 0644 config.sh "$(DESTDIR)/etc/cvmfs/config.sh"
+ 	install -c -m 0644 default.conf "$(DESTDIR)/etc/cvmfs/default.conf"
+ 	install -c -m 0644 domain.d/cern.ch.conf "$(DESTDIR)/etc/cvmfs/domain.d/cern.ch.conf"

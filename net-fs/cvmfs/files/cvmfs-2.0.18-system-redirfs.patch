@@ -1,0 +1,16 @@
+use the installed redirfs instead of bundled one
+(need an experimental 0.11 redirfs on 3.x kernels)
+
+bicatali@gentoo.org 07/2012
+
+--- cvmfs-2.0.18.orig/kernel/cvmfsflt/src/cvmfsflt.h
++++ cvmfs-2.0.18/kernel/cvmfsflt/src/cvmfsflt.h
+@@ -8,7 +8,7 @@
+ #include <asm/uaccess.h>	/* for put_user */
+ #include <linux/slab.h>    /* for kmalloc/kfree */ 
+ 
+-#include "redirfs.h"
++#include <linux/redirfs.h>
+ 
+ 
+ #define CVMFSFLT_VERSION "0.1"
