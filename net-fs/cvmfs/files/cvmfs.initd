@@ -110,7 +110,7 @@ start() {
 }
 
 stop() {
-    local m ret
+    local m ret=0
     # FIXME: do we need to unmount here or?
     for m in $(list_mounts | awk '{print $3}');  do	
 	ebegin "Unmounting ${m}"

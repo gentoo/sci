@@ -11,7 +11,7 @@ diff -Nur cvmfs-2.0.18.orig/cvmfs/src/cvmfs_config cvmfs-2.0.18/cvmfs/src/cvmfs_
    # Ubuntu
    service="/usr/sbin/service"
 +  chkconfig="/usr/sbin/chkconfig"
-+elif [ -x /usr/sbin/rc-service ]; then
++elif [ -x /sbin/rc-service ]; then
 +  # OpenRC
 +  service="/sbin/rc-service"
 +  chkconfig="/usr/bin/rc-config"

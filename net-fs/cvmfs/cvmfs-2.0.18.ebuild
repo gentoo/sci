@@ -32,8 +32,9 @@ DEPEND="${CDEPEND}
 	virtual/pkgconfig
 	doc? ( app-doc/doxygen[dot] )"
 
-# needs to be either client or server
-REQUIRED_USE="!server? ( client )"
+
+# either client or server is required and are mutually exclusive
+REQUIRED_USE="^^ ( client server )"
 
 pkg_setup() {
 	if use server && use openmp && [[ $(tc-getCC) == *gcc* ]] && ! tc-has-openmp
@@ -101,4 +102,23 @@ pkg_postinst() {
 
 pkg_postrm() {
 	use server && linux-mod_pkg_postrm
+}
+
+pkg_config() {
+	if use client; then
+		einfo "Setting up CernVM-FS client"
+		cvmfs_config setup
+		cat > ${EROOT}/etc/cvmfs/default.local <<-EOF
+			# Repositories to fetch example is for ATLAS
+			CVMFS_REPOSITORIES=atlas.cern.ch,atlas-condb.cern.ch,grid.cern.ch
+			# Local proxy settings, ex: http://cernvm.cern.ch/config/proxy.cgi
+			CVMFS_HTTP_PROXY="DIRECT"
+			# Where to keep the cvmfs cache
+			CVMFS_CACHE_BASE=${EROOT}/var/scratch/cvmfs
+			# Quota limit in Mb
+			CVMFS_QUOTA_LIMIT=10000
+		EOF
+		einfo "Now edit ${EROOT}/etc/cvmfs/default.local and run"
+		einfo "  ${EROOT}/usr/init.d/cvmfs restart"
+	fi
 }

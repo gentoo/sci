@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> cvmfs-2.0.18.ebuild,
+  files/cvmfs-2.0.18-openrc.patch, files/cvmfs.initd:
+  net-fs/cvmfs: fixed client init and setup, added config stage
+
 *cvmfs-2.0.18 (25 Jul 2012)
 
   25 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> +cvmfs-2.0.18.ebuild,
