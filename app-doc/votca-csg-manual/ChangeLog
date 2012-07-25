@@ -1,6 +1,10 @@
 # ChangeLog for app-doc/votca-csg-manual
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Jul 2012; Christoph Junghans <ottxor@gentoo.org>
+  votca-csg-manual-9999.ebuild:
+  sync with gx86
 
   03 Nov 2011; Christoph Junghans <ottxor@gentoo.org>
   votca-csg-manual-9999.ebuild:
@@ -15,4 +19,3 @@
   19 Feb 2011; Christoph Junghans <ottxor@gentoo.org>
   +votca-manual-9999.ebuild, +metadata.xml:
   Initial commit
-
