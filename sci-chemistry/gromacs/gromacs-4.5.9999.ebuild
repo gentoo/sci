@@ -47,7 +47,7 @@ CDEPEND="
 	mpi? ( virtual/mpi )
 	xml? ( dev-libs/libxml2:2 )"
 DEPEND="${CDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 RDEPEND="${CDEPEND}
 	app-shells/tcsh"
 

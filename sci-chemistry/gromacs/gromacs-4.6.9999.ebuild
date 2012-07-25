@@ -34,7 +34,7 @@ HOMEPAGE="http://www.gromacs.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 IUSE="X blas cuda doc -double-precision +fftw gsl hybrid lapack
 mpi openmp +single-precision test +threads xml zsh-completion ${ACCE_IUSE}"
 
@@ -53,7 +53,7 @@ CDEPEND="
 	mpi? ( virtual/mpi )
 	xml? ( dev-libs/libxml2:2 )"
 DEPEND="${CDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 RDEPEND="${CDEPEND}
 	app-shells/tcsh"
 
@@ -108,7 +108,7 @@ src_prepare() {
 }
 
 src_configure() {
-	local mycmakeargs_pre=( )
+	local mycmakeargs_pre=( ) extra
 
 	#go from slowest to fastest acceleration
 	local acce="None"
@@ -121,6 +121,10 @@ src_configure() {
 
 	#workaround for now
 	use sse2 && use hybrid && CFLAGS+=" -msse2"
+
+	#to create man pages, build tree binaries are executed (bug #398437)
+	[[ ${CHOST} = *-darwin* ]] && \
+		extra+=" -DCMAKE_BUILD_WITH_INSTALL_RPATH=OFF"
 
 	mycmakeargs_pre+=(
 		-DGMX_FFT_LIBRARY=$(usex fftw fftw3 fftwpack)
@@ -135,6 +139,7 @@ src_configure() {
 		-DGMX_ACCELERATION="$acce"
 		-DGMXLIB="$(get_libdir)"
 	    -DGMX_VMD_PLUGIN_PATH="${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/"
+		${extra}
 	)
 
 	for x in ${GMX_DIRS}; do

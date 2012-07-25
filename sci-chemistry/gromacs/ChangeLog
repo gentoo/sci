@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jul 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
+  gromacs-4.6.9999.ebuild, gromacs-9999.ebuild:
+  added ~x86-macos
+
   19 Jun 2012; Alexey Shvetsov <alexxy@gentoo.org> gromacs-4.6.9999.ebuild,
   gromacs-9999.ebuild, metadata.xml:
   [sci-chemistry/gromacs] Add new acceleration use flags for gromacs
@@ -305,4 +309,3 @@
   20 Jan 2009; Alexey Shvetsov <alexxy@gentoo.org> -gromacs-3.3.3.ebuild,
   +gromacs-4.0.3.ebuild:
   Version bump
-
