@@ -26,6 +26,7 @@ DEPEND="
 		)
 		=sci-chemistry/${PN%-manual}-${PV}[-extras]
 	)
+	dev-texlive/texlive-latexextra
 	virtual/latex-base
 	dev-tex/pgf"
 
