@@ -7,7 +7,7 @@ EAPI=4
 JAVA_PKG_OPT_USE="gui"
 VIRTUALX_REQUIRED="manual"
 
-inherit eutils autotools check-reqs eutils fdo-mime flag-o-matic \
+inherit eutils autotools check-reqs eutils fdo-mime flag-o-matic git-2\
 	java-pkg-opt-2 fortran-2 flag-o-matic toolchain-funcs virtualx
 
 # Comments:
@@ -26,7 +26,8 @@ inherit eutils autotools check-reqs eutils fdo-mime flag-o-matic \
 DESCRIPTION="Scientific software package for numerical computations"
 LICENSE="CeCILL-2"
 HOMEPAGE="http://www.scilab.org/"
-SRC_URI="http://guillaume.horel.free.fr/${P}.tar.gz"
+#SRC_URI="http://guillaume.horel.free.fr/${P}.tar.gz"
+EGIT_REPO_URI="git://git.scilab.org/scilab"
 
 SLOT="0"
 IUSE="bash-completion debug doc fftw +gui +matio nls openmp
@@ -68,7 +69,7 @@ CDEPEND="dev-libs/libpcre
 		>=dev-java/jrosetta-1.0.4:0
 		dev-java/scirenderer:0
 		dev-java/skinlf:0
-		dev-java/xmlgraphics-commons:1.3
+		dev-java/xmlgraphics-commons:1.5
 		virtual/opengl
 		doc? ( dev-java/saxon:6.5 )
 		xcos? ( dev-java/jgraphx:1.8 ) )
@@ -93,7 +94,8 @@ DEPEND="${CDEPEND}
 		dev-java/junit
 		gui? ( ${VIRTUALX_DEPEND} ) )"
 
-S="${WORKDIR}/${PN}"
+EGIT_SOURCEDIR="${WORKDIR}/${PN}"
+S="${WORKDIR}/${PN}/${PN}"
 DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
 
 pkg_pretend() {
@@ -124,7 +126,6 @@ pkg_setup() {
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-fortran-link.patch \
-		"${FILESDIR}"/${P}-blas-libs.patch \
 		"${FILESDIR}"/${P}-followlinks.patch \
 		"${FILESDIR}"/${P}-gluegen.patch
 
@@ -157,7 +158,7 @@ src_prepare() {
 	java-pkg_jar-from jgraphx-1.8,jlatexmath,hdf-java,flexdock,skinlf
 	java-pkg_jar-from jgoodies-looks-2.0,jrosetta,scirenderer
 	java-pkg_jar-from avalon-framework-4.2,saxon-6.5,jeuclid-core
-	java-pkg_jar-from xmlgraphics-commons-1.3,commons-io-1,jlatexmath-fop
+	java-pkg_jar-from xmlgraphics-commons-1.5,commons-io-1,jlatexmath-fop
 	java-pkg_jar-from jogl-2 jogl.all.jar jogl2.jar
 	java-pkg_jar-from gluegen-2 gluegen-rt.jar gluegen2-rt.jar
 	java-pkg_jar-from batik-1.7 batik-all.jar

@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Jul 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  scilab-5.3.999.ebuild, -files/scilab-5.3.999-blas-libs.patch,
+  files/scilab-5.3.999-java-heap.patch:
+  live ebuild update
+
 *scilab-5.3.999 (11 Jul 2012)
 
   11 Jul 2012; Guillaume Horel <guillaume.horel@gmail.com>
