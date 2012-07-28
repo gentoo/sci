@@ -34,6 +34,7 @@
 # masked for upcoming scilab-5.4.0
 =dev-java/jrosetta-1.0.4
 =dev-java/flexdock-1.2.0
+>=dev-java/jgraphx-1.8
 
 # Nicolas Bock <nicolasbock@gmail.com> (05 July 2012)
 # live ebuild
