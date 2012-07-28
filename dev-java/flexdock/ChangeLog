@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*flexdock-1.2.0 (28 Jul 2012)
+
+  28 Jul 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  +flexdock-1.2.0.ebuild, +files/flexdock-1.2.0-nodemo.patch:
+  version bump.
+  remove jgoodies-looks dependencies since we don't build demos
+
   23 May 2012; Sébastien Fabbro <bicatali@gentoo.org> flexdock-1.1.1.ebuild:
   add missing jgoodies-looks dependency
 
