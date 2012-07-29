@@ -4,6 +4,8 @@
 
 EAPI=4
 
+inherit multilib
+
 DESCRIPTION="Galaxy morphology fitting program"
 HOMEPAGE="http://www.csua.berkeley.edu/~cyp/work/galfit/galfit.html"
 CURI="http://www.csua.berkeley.edu/~cyp/work/${PN}"
@@ -26,12 +28,19 @@ DEPEND=""
 S="${WORKDIR}"
 
 src_test() {
+	chmod +x galfit
+	ln -s "${EROOT}"/$(get_libdir)/libncurses.so.5 libtinfo.so.5
+	ln -s "${EROOT}"/usr/$(get_libdir)/libncurses.so libtinfo.so
 	cd galfit-example/EXAMPLE
-	../../galfit galfit.feedme
+	LD_LIBRARY_PATH=../.. ../../galfit galfit.feedme
 }
 
 src_install () {
 	dobin galfit
+	# was built on a distro where ncurses was spit with tinfo
+	dosym libncurses.so.5 /$(get_libdir)/libtinfo.so.5
+	dosym libncurses.so /usr/$(get_libdir)/libtinfo.so
+
 	use doc && newdoc "${DISTDIR}"/galfit.pdf README.pdf
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
