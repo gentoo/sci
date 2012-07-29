@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/atlas-3.10.0-x32-support.patch, -files/atlas-3.10-x32-support.patch,
+  atlas-3.10.0.ebuild, metadata.xml:
+  sci-libs/atlas: added a generic flag for more generic architectures, and
+  possibility for user to pass configure options via standard EXTRA_ECONF flags
+
   16 Jul 2012; Olivier Huber <oli.huber@gmail.com>
   +files/atlas-3.10-x32-support.patch, -files/3.9.76-x32.patch,
   atlas-3.10.0.ebuild:

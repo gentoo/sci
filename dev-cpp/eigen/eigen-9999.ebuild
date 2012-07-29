@@ -19,7 +19,7 @@ inherit cmake-utils alternatives-2 fortran-2 multilib ${_SCM}
 DESCRIPTION="C++ template library for linear algebra"
 HOMEPAGE="http://eigen.tuxfamily.org/"
 
-LICENSE="|| ( LGPL-3 GPL-2 )"
+LICENSE="MPL-2.0"
 SLOT="3"
 IUSE="adolc doc fortran fftw gmp mkl sparse static-libs test"
 
@@ -53,6 +53,7 @@ src_configure() {
 	# TOFIX: is it worth fixing all the automagic given no library is built?
 	mycmakeargs=(
 		-DEIGEN_BUILD_BTL=OFF
+		-DEIGEN_TEST_NO_OPENGL=ON
 		$(cmake-utils_use test EIGEN_BUILD_TESTS)
 		$(cmake-utils_use !fortran EIGEN_TEST_NO_FORTRAN)
 	)

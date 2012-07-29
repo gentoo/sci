@@ -1,0 +1,12 @@
+diff -urN flexdock-orig/build.xml flexdock/build.xml
+--- flexdock-orig/build.xml	2011-12-09 11:11:26.000000000 -0500
++++ flexdock/build.xml	2011-12-20 18:47:57.277051174 -0500
+@@ -145,8 +145,6 @@
+          <src path="${java.src.drag}"/>
+          <src path="${java.src.perspective}"/>
+       </javac>
+-      <javac classpathref="javac.classpath.demo" srcdir="${java.src.demo}" destdir="${bin.dir.demo}" debug="true" source="1.5" target="1.5" includeAntRuntime="no"/>
+-      <javac classpathref="javac.classpath.test" srcdir="${java.src.test}" destdir="${bin.dir.test}" debug="true" source="1.5" target="1.5"  includeAntRuntime="no"/>
+    </target>
+ 
+ 

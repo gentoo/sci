@@ -14,8 +14,8 @@ SRC_URI="mirror://sourceforge/math-atlas/${PN}${PV}.tar.bz2
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux"
-IUSE="fortran doc lapack static-libs threads"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+IUSE="fortran doc generic lapack static-libs threads"
 
 RDEPEND="fortran? ( virtual/fortran )"
 DEPEND="${RDEPEND}
@@ -34,7 +34,7 @@ pkg_setup() {
 				ewarn "Run cpufreq-set -r -g performance as root"
 				die "${PN} needs all cpu set to performance"
 			fi
-			cpu=$(( cpu + 1 ))
+			cpu=$((cpu + 1))
 		done
 	else
 		ewarn "Please make sure to disable CPU throttling completely"
@@ -47,7 +47,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/atlas-3.10-x32-support.patch
+	epatch "${FILESDIR}"/${P}-x32-support.patch
 }
 
 src_configure() {
@@ -69,7 +69,11 @@ src_configure() {
 		# OpenMP shown to decreased performance over POSIX threads
 		# (at least in 3.9.x, see atlas-dev mailing list)
 		if use threads; then
-			myconf+=( "-t -1" "-Si omp 0" )
+			if use generic; then # 2 threads is most generic
+				myconf+=( "-t 2" "-Si omp 0" )
+			else
+				myconf+=( "-t -1" "-Si omp 0" )
+			fi
 		else
 			myconf+=( "-t  0" "-Si omp 0" )
 		fi
@@ -107,6 +111,11 @@ src_configure() {
 		else
 			myconf+=( "-Si latune 0" "--nof77" )
 		fi
+		# generic stuff found by make make xprint_enums in atlas build dir
+		# basically assuming sse2+sse1 and 2 threads max
+		use generic && use x86   && myconf+=( "-V 384 -A 13")
+		use generic && use amd64 && myconf+=( "-V 384 -A 24")
+
 		local confdir="${S}_${1}"; shift
 		myconf+=( $@ )
 		mkdir "${confdir}" && cd "${confdir}"
@@ -115,8 +124,8 @@ src_configure() {
 		"${S}"/configure ${myconf[@]} || die "configure in ${confdir} failed"
 	}
 
-	atlas_configure shared "-Fa alg -fPIC"
-	use static-libs && atlas_configure static
+	atlas_configure shared "-Fa alg -fPIC" ${EXTRA_ECONF}
+	use static-libs && atlas_configure static ${EXTRA_ECONF}
 }
 
 src_compile() {
@@ -267,5 +276,5 @@ src_install() {
 	dodoc INDEX.txt AtlasCredits.txt ChangeLog
 	use doc && dodoc atlas*pdf cblas.pdf cblasqref.pdf
 	use doc && use fortran && dodoc f77blas*pdf
-	use doc && use fortran && use lapack && dodoc lapack*pdf
+	use doc && use fortran && use lapack && dodoc *lapack*pdf
 }
