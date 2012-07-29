@@ -6,17 +6,18 @@ EAPI=4
 
 DESCRIPTION="Galaxy morphology fitting program"
 HOMEPAGE="http://www.csua.berkeley.edu/~cyp/work/galfit/galfit.html"
-SRC_URI="amd64? ( http://www.csua.berkeley.edu/~cyp/work/${PN}/${PN}3-debian64.tar.gz )
-	x86? ( http://www.csua.berkeley.edu/~cyp/work/${PN}/${PN}3-debian.tar.gz )
-	doc? ( http://www.csua.berkeley.edu/~cyp/work/${PN}/README.pdf -> galfit.pdf )
-	examples? ( http://www.csua.berkeley.edu/~cyp/work/${PN}/galfit-ex.tar.gz )
-	test? ( http://www.csua.berkeley.edu/~cyp/work/${PN}/galfit-ex.tar.gz )"
+CURI="http://www.csua.berkeley.edu/~cyp/work/${PN}"
+SRC_URI="amd64? ( ${CURI}/${PN}3-debian64.tar.gz )
+	x86? ( ${CURI}/${PN}3-debian32.tar.gz )
+	doc? ( ${CURI}/README.pdf -> galfit.pdf )
+	examples? ( ${CURI}/galfit-ex.tar.gz )
+	test? ( ${CURI}/${PN}/galfit-ex.tar.gz )"
 
 RESTRICT="mirror"
 
 LICENSE="as-is"
 SLOT="0"
-KEYWORDS="-* ~amd64 ~x86"
+KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples"
 
 RDEPEND="sys-libs/ncurses"
