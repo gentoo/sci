@@ -1,0 +1,9 @@
+# ChangeLog for sci-astronomy/galfit-bin
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*galfit-bin-3.0.4 (30 Jul 2012)
+
+  30 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> +galfit-bin-3.0.4.ebuild,
+  +metadata.xml:
+  sci-astronomy/galfit-bin: renamed to binary package
