@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils toolchain-funcs flag-o-matic
+inherit eutils toolchain-funcs flag-o-matic multilib
 
 MY_PN="${P}p1.4"
 
