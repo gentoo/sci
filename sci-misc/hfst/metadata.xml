@@ -6,11 +6,23 @@
 		traditional FST-based linguistic morphology tools.
 	</longdescription>
 	<use>
-		<flag name="openfst">Add optional support for openfst backend
-		library (<pkg>sci-misc/openfst</pkg>)</flag>
-		<!--		<flag name="foma">Add optional support for foma backend
-		library (<pkg>sci-misc/foma</pkg>)</flag> -->
-		<flag name="sfst">Add optional support for sfst backend
-		library (<pkg>sci-misc/sfst</pkg>)</flag>
+		<flag name="openfst">
+			Add optional support for openfst backend library
+			(<pkg>sci-misc/openfst</pkg>)
+		</flag>
+		<flag name="foma">
+			Add optional support for foma backend library
+			(<pkg>sci-misc/foma</pkg>)</flag>
+		<flag name="sfst">
+			Add optional support for sfst backend library
+			(<pkg>sci-misc/sfst</pkg>)
+		</flag>
+		<flag name="glib">
+			Parse UTF-8 and collate unicode using glib instead of
+			homebrewn methods
+		</flag>
+		<flag name="xml">
+			Include parsers for grammars and formats that require XML support
+		</flag>
 	</use>
 </pkgmetadata>
