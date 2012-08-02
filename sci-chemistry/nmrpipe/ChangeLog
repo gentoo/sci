@@ -2,6 +2,22 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  31 Jul 2012; Justin Lecher <jlec@gentoo.org>
+  +files/7.5.2012.204.11.07-lib.patch, -files/7.3.2012.114.11.33-lib.patch,
+  -nmrpipe-7.3.2012.114.11.33.ebuild, +nmrpipe-7.5.2012.204.11.07.ebuild:
+  Version Bump, bring x11-libs/xview back into the game
+
+  31 Jul 2012; Justin Lecher <jlec@gentoo.org>
+  +files/7.5.2012.204.11.07-lib.patch, -files/7.3.2012.114.11.33-lib.patch,
+  -nmrpipe-7.3.2012.114.11.33.ebuild, +nmrpipe-7.5.2012.204.11.07.ebuild:
+  Version Bump, bring x11-libs/xview back into the game
+
+*nmrpipe-7.5.2012.204.11.07 (31 Jul 2012)
+
+  31 Jul 2012; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-7.3.2012.114.11.33.ebuild, +nmrpipe-7.5.2012.204.11.07.ebuild:
+  Version Bump, bring x11-libs/xview back into the game
+
   02 May 2012; Justin Lecher <jlec@gentoo.org>
   +files/7.3.2012.114.11.33-lib.patch, -files/7.1.2012.029.12.03-lib.patch,
   -nmrpipe-7.1.2012.029.12.03.ebuild, +nmrpipe-7.3.2012.114.11.33.ebuild:

@@ -1,0 +1,30 @@
+ lib/libxview/misc/hashfn.c |    1 +
+ lib/libxview/win/win_env.c |    3 +++
+ 2 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/lib/libxview/misc/hashfn.c b/lib/libxview/misc/hashfn.c
+index f127e2b..a7b27b9 100644
+--- a/lib/libxview/misc/hashfn.c
++++ b/lib/libxview/misc/hashfn.c
+@@ -17,6 +17,7 @@ static char     sccsid[] = "@(#)hashfn.c 20.12 93/06/28";
+ #define hashfn_c
+ 
+ #include <xview_private/hashfn.h>
++#include <stdlib.h>
+ 
+ /*
+  * hashfn_new_table(size, hash_fn, cmp_fn) -- create a new hash table object
+diff --git a/lib/libxview/win/win_env.c b/lib/libxview/win/win_env.c
+index d8e7fcc..72f1def 100644
+--- a/lib/libxview/win/win_env.c
++++ b/lib/libxview/win/win_env.c
+@@ -18,6 +18,9 @@ static char     sccsid[] = "@(#)win_env.c 20.16 93/06/28";
+ #include <xview/rect.h>
+ #include <xview/win_env.h>
+ #include <xview/win_struct.h>
++#include <stdlib.h>
++#include <string.h>
++#include <stdio.h>
+ 
+ /*
+  * Public routines

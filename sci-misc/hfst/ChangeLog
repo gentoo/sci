@@ -1,6 +1,12 @@
 # ChangeLog for sci-misc/hfst
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*hfst-3.3.12 (31 Jul 2012)
+
+  31 Jul 2012; Flammie Pirinen <flammie@gentoo.org> +hfst-3.3.12.ebuild, 
+  metadata.xml:
+  Version bump hfst to 3.3.12
 
   25 Oct 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Removed no-herd from herd tag in metadata.xml
