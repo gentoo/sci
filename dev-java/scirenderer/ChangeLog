@@ -8,6 +8,12 @@
   -scirenderer-0.5.1.ebuild, +scirenderer-0.5.5.ebuild:
   version bump
 
+*scirenderer-0.5.1 (28 Jul 2012)
+
+  28 Jul 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  -scirenderer-0.5.0.ebuild, +scirenderer-0.5.1.ebuild:
+  version bump
+
 *scirenderer-0.5.0 (11 Jul 2012)
 
   11 Jul 2012; Guillaume Horel <guillaume.horel@gmail.com>

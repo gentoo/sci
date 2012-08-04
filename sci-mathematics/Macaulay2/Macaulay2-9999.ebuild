@@ -10,7 +10,10 @@ IUSE="emacs optimization"
 
 ESVN_REPO_URI="svn://svn.macaulay2.com/Macaulay2/trunk/M2"
 
+# Those packages will be built internally, Macaulay2 always wants the
+# latest and greatest
 BOEHM_GC="gc-7.3alpha1.2012.01.23"
+GCLIBATOMIC_OPS="gc-libatomic_ops-7.3alpha2"
 FACTORY="factory-3-1-4-1"
 LIBFAC="libfac-3-1-4"
 
@@ -20,7 +23,8 @@ SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
 SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${LIBFAC}.tar.gz
 		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/${FACTORY}.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Extra/${BOEHM_GC}.tar.gz"
+		 http://www.math.uiuc.edu/Macaulay2/Extra/${BOEHM_GC}.tar.gz
+		 http://www.math.uiuc.edu/Macaulay2/Extra/${GCLIBATOMIC_OPS}.tar.gz"
 # Somebody changed the tarball after release... grrr.
 #		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/${FACTORY}.tar.gz
 
@@ -84,6 +88,8 @@ src_prepare() {
 	# We will let it build its internal version for now.  Note:
 	# The resulting QA warning is known.
 	cp "${DISTDIR}/${BOEHM_GC}.tar.gz" "${S}/BUILD/tarfiles/" \
+		|| die "copy failed"
+	cp "${DISTDIR}/${GCLIBATOMIC_OPS}.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
 
 	eautoreconf

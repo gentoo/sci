@@ -36,6 +36,8 @@ src_prepare() {
 		-e "s/-llapack/-l${myclapack}/g" \
 		-e "s/AC_CHECK_LIB(lapack/AC_CHECK_LIB(${myclapack}/g" \
 		acx_atlas.m4 || die
+	# fix for newer plplot
+	sed -i -e 's/plcol(/plcol0(/g' src/cplot.c || die
 	eautoreconf
 }
 

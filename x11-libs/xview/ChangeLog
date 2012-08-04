@@ -1,6 +1,17 @@
 # ChangeLog for x11-libs/xview
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  31 Jul 2012; Justin Lecher <jlec@gentoo.org> xview-3.2-r6.ebuild,
+  xview-3.2-r7.ebuild:
+  Add missing inherit of multilib
+
+*xview-3.2-r7 (31 Jul 2012)
+
+  31 Jul 2012; Justin Lecher <jlec@gentoo.org> +xview-3.2-r7.ebuild,
+  +files/xview-3.2-impl-dec.patch, metadata.xml:
+  Use everything from debian; build only 32bit libs everywhere; be carefully
+  this is very hacky approach
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Fixed herd entry in metadata.xml

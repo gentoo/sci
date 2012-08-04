@@ -1,6 +1,11 @@
 # ChangeLog for sci-misc/foma
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*foma-0.9.16_alpha (31 Jul 2012)
+
+  31 Jul 2012; Flammie Pirinen <flammie@gentoo.org> +foma-0.9.16_alpha.ebuild:
+  Bump foma to version 0.9.16alpha, install headers
 
   25 Oct 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Removed no-herd from herd tag in metadata.xml

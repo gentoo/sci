@@ -4,7 +4,7 @@
 
 # Versioning is output of nmrPipe -help
 
-EAPI=3
+EAPI=4
 
 inherit eutils prefix virtualx
 
@@ -39,13 +39,14 @@ RDEPEND="${DEPEND}
 	sys-libs/ncurses
 	x11-apps/xset
 	x11-libs/libX11
+	x11-libs/xview
 	amd64? (
 		app-emulation/emul-linux-x86-baselibs
 		app-emulation/emul-linux-x86-xlibs
 	)"
-#	x86? ( x11-libs/xview )"
 
 S="${WORKDIR}"
+
 NMRBASE="/opt/${PN}"
 ENMRBASE="${EPREFIX}/${NMRBASE}"
 
@@ -126,7 +127,7 @@ src_install() {
 		nmrbin.{linux,mac,sgi6x,sol,winxp} nmruser format \
 		|| die "Failed to remove unnecessary libraries."
 	# As long as xview is not fixed for amd64 we do this
-	#use amd64 || rm nmrbin.linux9/lib/{libxview.so*,libolgx.so*}
+	rm nmrbin.linux9/lib/{libxview.so*,libolgx.so*} || die
 	# Remove the initialisation script generated during the installation.
 	# It contains incorrect hardcoded paths; only the "nmrInit.com" script
 	# should be used.
