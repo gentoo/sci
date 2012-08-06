@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Aug 2012; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
+  Update live dependencies
+
   02 May 2012; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
   Fix live ebuild
 
@@ -137,4 +140,3 @@
   +metadata.xml +files/70Macaulay2-gentoo.el +files/patch-3.1.0b
 
   Intial import (Bug #246095)
-

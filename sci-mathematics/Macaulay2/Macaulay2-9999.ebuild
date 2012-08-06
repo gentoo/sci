@@ -11,9 +11,9 @@ IUSE="emacs optimization"
 ESVN_REPO_URI="svn://svn.macaulay2.com/Macaulay2/trunk/M2"
 
 # Those packages will be built internally, Macaulay2 always wants the
-# latest and greatest
-BOEHM_GC="gc-7.3alpha1.2012.01.23"
+# latest and greatest (mostly git snapshots)
 GCLIBATOMIC_OPS="gc-libatomic_ops-7.3alpha2"
+GC="gc-20120729"
 FACTORY="factory-3-1-4-1"
 LIBFAC="libfac-3-1-4"
 
@@ -23,10 +23,8 @@ SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
 SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${LIBFAC}.tar.gz
 		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/${FACTORY}.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Extra/${BOEHM_GC}.tar.gz
+		 http://www.math.uiuc.edu/Macaulay2/Extra/${GC}.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Extra/${GCLIBATOMIC_OPS}.tar.gz"
-# Somebody changed the tarball after release... grrr.
-#		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/${FACTORY}.tar.gz
 
 SLOT="0"
 LICENSE="GPL-2"
@@ -84,10 +82,10 @@ src_prepare() {
 		|| die "copy failed"
 	cp "${DISTDIR}/${LIBFAC}.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
-	# Macaulay 2 insists on a snapshot of boehm-gc that is not available elsewhere
-	# We will let it build its internal version for now.  Note:
-	# The resulting QA warning is known.
-	cp "${DISTDIR}/${BOEHM_GC}.tar.gz" "${S}/BUILD/tarfiles/" \
+	# Macaulay 2 insists on a git snapshot of gc We will let it build
+	# its internal version for now.  Note: The resulting QA warning is
+	# known.
+	cp "${DISTDIR}/${GC}.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
 	cp "${DISTDIR}/${GCLIBATOMIC_OPS}.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
@@ -114,7 +112,8 @@ src_configure (){
 
 src_compile() {
 	# Parallel build not supported yet
-	emake -j1 || die "failed to build Macaulay"
+	# For trunk builds, let's ignore example errors
+	emake IgnoreExampleErrors=true -j1 || die "failed to build Macaulay"
 
 	if use emacs; then
 		cd "${S}/Macaulay2/emacs"
