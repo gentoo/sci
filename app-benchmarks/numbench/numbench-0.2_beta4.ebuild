@@ -20,8 +20,7 @@ RDEPEND="!app-admin/eselect-blas
 	 !app-admin/eselect-cblas
 	 !app-admin/eselect-lapack
 	 >=dev-python/matplotlib-1.0.0
-	 =app-admin/eselect-1.3.1-r1
-	 app-benchmarks/btl"
+	 =app-admin/eselect-1.3.1-r1"
 
 src_install() {
 	distutils_src_install
@@ -30,7 +29,7 @@ src_install() {
 	newbin exec.py numbench
 
 	insinto /usr/share/numbench/samples
-	doins *.in
+	doins samples/*.xml
 
 	doman doc/numbench.1
 }

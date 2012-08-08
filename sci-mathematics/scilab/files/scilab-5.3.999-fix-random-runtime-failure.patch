@@ -1,0 +1,12 @@
+diff -urN scilab-orig/modules/api_scilab/src/cpp/api_double.cpp scilab/modules/api_scilab/src/cpp/api_double.cpp
+--- scilab-orig/modules/api_scilab/src/cpp/api_double.cpp	2012-08-06 23:26:31.342617365 -0400
++++ scilab/modules/api_scilab/src/cpp/api_double.cpp	2012-08-06 23:27:34.838621420 -0400
+@@ -497,7 +497,7 @@
+ /*--------------------------------------------------------------------------*/
+ int createScalarDouble(void* _pvCtx, int _iVar, double _dblReal)
+ {
+-    return createCommonScalarDouble(_pvCtx, _iVar, 0, _dblReal, NULL);
++    return createCommonScalarDouble(_pvCtx, _iVar, 0, _dblReal, 0);
+ }
+ /*--------------------------------------------------------------------------*/
+ int createScalarComplexDouble(void* _pvCtx, int _iVar, double _dblReal, double _dblImg)

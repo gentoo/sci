@@ -16,7 +16,7 @@ RESTRICT="fetch"
 LICENSE="BSD LGPL-2.1"
 SLOT="0"
 
-IUSE="arprec boost cuda hdf5 netcdf qd qt taucs tbb umfpack zlib"
+IUSE="arprec boost cuda hdf5 hwloc netcdf qd qt scotch taucs tbb umfpack zlib"
 
 RDEPEND="virtual/blas
 	virtual/lapack
@@ -26,9 +26,11 @@ RDEPEND="virtual/blas
 	boost? ( dev-libs/boost )
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-3.2 )
 	hdf5? ( sci-libs/hdf5[mpi] )
+	hwloc? ( sys-apps/hwloc )
 	netcdf? ( sci-libs/netcdf )
 	qd? ( sci-libs/qd )
 	qt? ( >=x11-libs/qt-gui-4.5 )
+	scotch? ( sys-libs/scotch[mpi] )
 	taucs? ( sci-libs/taucs )
 	tbb? ( dev-cpp/tbb )
 	umfpack? ( sci-libs/umfpack )"
@@ -44,21 +46,21 @@ pkg_nofetch() {
 }
 
 function trilinos_alternatives {
-    alt_dirs=""
-    for d in $(pkg-config --libs-only-L $1); do
-        alt_dirs="${alt_dirs};${d:2}"
-    done
-    arg="-D${2}_LIBRARY_DIRS=${alt_dirs:1}"
-    mycmakeargs+=(
+	alt_dirs=""
+	for d in $(pkg-config --libs-only-L $1); do
+		alt_dirs="${alt_dirs};${d:2}"
+	done
+	arg="-D${2}_LIBRARY_DIRS=${alt_dirs:1}"
+	mycmakeargs+=(
 		$arg
 	)
-	
+
 	alt_libs=""
-    for d in $(pkg-config --libs-only-l $1); do
-        alt_libs="${alt_libs};${d:2}"
-    done
-    arg="-D${2}_LIBRARY_NAMES=${alt_libs:1}"
-    mycmakeargs+=(
+	for d in $(pkg-config --libs-only-l $1); do
+		alt_libs="${alt_libs};${d:2}"
+	done
+	arg="-D${2}_LIBRARY_NAMES=${alt_libs:1}"
+	mycmakeargs+=(
 		$arg
 	)
 }
@@ -68,7 +70,7 @@ src_configure() {
 	mycmakeargs=(
 		-DBUILD_SHARED_LIBS=ON
 		-DTrilinos_ENABLE_ALL_PACKAGES=ON
-		
+	
 		# Directories (workaround for generating correct Makefiles and CMakefiles)
 		-DCMAKE_INSTALL_PREFIX="/"
 		-DTrilinos_INSTALL_INCLUDE_DIR="/usr/include/trilinos"
@@ -78,6 +80,7 @@ src_configure() {
 		$(cmake-utils_use test Trilinos_ENABLE_TESTS)
 
 		# Mandatory dependencies
+		-DTPL_ENABLE_BinUtils=ON
 		-DTPL_ENABLE_MPI=ON
 		-DTPL_ENABLE_BLAS=ON
 		-DTPL_ENABLE_LAPACK=ON
@@ -88,24 +91,32 @@ src_configure() {
 		# Optional dependencies
 		$(cmake-utils_use arprec TPL_ENABLE_ARPREC)
 		$(cmake-utils_use boost TPL_ENABLE_Boost)
+		$(cmake-utils_use boost TPL_ENABLE_BoostLib)
 		$(cmake-utils_use cuda TPL_ENABLE_CUDA)
 		$(cmake-utils_use hdf5 TPL_ENABLE_HDF5)
+		$(cmake-utils_use hwloc TPL_ENABLE_HWLOC)
 		$(cmake-utils_use netcdf TPL_ENABLE_Netcdf)
 		$(cmake-utils_use qd TPL_ENABLE_QD)
 		$(cmake-utils_use qt TPL_ENABLE_QT)
+		$(cmake-utils_use scotch TPL_ENABLE_Scotch)
 		$(cmake-utils_use taucs TPL_ENABLE_TAUCS)
 		$(cmake-utils_use tbb TPL_ENABLE_TBB)
 		$(cmake-utils_use umfpack TPL_ENABLE_UMFPACK)
 		$(cmake-utils_use zlib TPL_ENABLE_Zlib)
 	)
 
-    # Add BLAS libraries
-    trilinos_alternatives blas BLAS
-    trilinos_alternatives lapack LAPACK
-    trilinos_alternatives scalapack SCALAPACK
-    trilinos_alternatives scalapack BLACS
-    
-    mycmakeargs+=( -DBLACS_INCLUDE_DIRS="/usr/include/blacs" )
+	# Scotch libraries
+	if use scotch; then
+		mycmakeargs+=( -DScotch_INCLUDE_DIRS="/usr/include/scotch" )
+	fi
+
+	# Add BLAS libraries
+	trilinos_alternatives blas BLAS
+	trilinos_alternatives lapack LAPACK
+	trilinos_alternatives scalapack SCALAPACK
+	trilinos_alternatives scalapack BLACS
+
+	mycmakeargs+=( -DBLACS_INCLUDE_DIRS="/usr/include/blacs" )
 
 	cmake-utils_src_configure
 }

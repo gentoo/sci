@@ -8,7 +8,7 @@ inherit eutils distutils
 
 DESCRIPTION="Automated benchmarks suite"
 HOMEPAGE="http://soc.dev.gentoo.org/~spiros"
-SRC_URI="${HOMEPAGE}/repository/${P}.tbz2"
+SRC_URI="${HOMEPAGE}/repository/${PF}.tbz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -20,8 +20,7 @@ RDEPEND="!app-admin/eselect-blas
 	 !app-admin/eselect-cblas
 	 !app-admin/eselect-lapack
 	 >=dev-python/matplotlib-1.0.0
-	 =app-admin/eselect-1.3.1-r1
-	 app-benchmarks/btl"
+	 =app-admin/eselect-1.3.1-r1"
 
 src_install() {
 	distutils_src_install
