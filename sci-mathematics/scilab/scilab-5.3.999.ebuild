@@ -7,19 +7,16 @@ EAPI=4
 JAVA_PKG_OPT_USE="gui"
 VIRTUALX_REQUIRED="manual"
 
-inherit eutils autotools check-reqs eutils fdo-mime flag-o-matic git-2\
-	java-pkg-opt-2 fortran-2 flag-o-matic toolchain-funcs virtualx
+inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
+	fortran-2 git-2 java-pkg-opt-2 toolchain-funcs virtualx
 
 # Comments:
 # - we don't rely on the configure script to find the right version of java
 # packages. This should fix bug #41821
 # Things that don't work:
 # - tests
-# - libxml2 needs -icu otherwise fails during compilation of xml module
-# (upstream is aware of it)
-# - can't build without help
+# - can't build without docs (-doc) 
 # - has to call eautoconf, and not eautoreconf, libtool fails otherwise
-# - --as-needed still doesn't work
 # - needs to remove scilab-5.3.x before installing otherwise gets a DOCBOOK_ROOT
 # error
 
@@ -47,7 +44,7 @@ done
 KEYWORDS="~amd64 ~x86"
 
 CDEPEND="dev-libs/libpcre
-	dev-libs/libxml2:2[-icu]
+	dev-libs/libxml2:2
 	sys-devel/gettext
 	sys-libs/ncurses
 	sys-libs/readline
@@ -69,7 +66,7 @@ CDEPEND="dev-libs/libpcre
 		>=dev-java/jrosetta-1.0.4:0
 		dev-java/scirenderer:0
 		dev-java/skinlf:0
-		dev-java/xmlgraphics-commons:1.5
+		dev-java/xmlgraphics-commons:1.3
 		virtual/opengl
 		doc? ( dev-java/saxon:6.5 )
 		xcos? ( dev-java/jgraphx:1.8 ) )
@@ -125,12 +122,11 @@ pkg_setup() {
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/${P}-fortran-link.patch \
-		"${FILESDIR}"/${P}-followlinks.patch \
-		"${FILESDIR}"/${P}-gluegen.patch
+		"${FILESDIR}/${P}-fortran-link.patch" \
+		"${FILESDIR}/${P}-followlinks.patch" \
+		"${FILESDIR}/${P}-gluegen.patch" \
+		"${FILESDIR}/${P}-fix-random-runtime-failure.patch"
 
-	# need serious as-needed work (inter-dependencies among modules)
-	#	"${FILESDIR}"/${P}-as-needed.patch \
 	append-ldflags $(no-as-needed)
 
 	# increases java heap to 512M when building docs (sync with cheqreqs above)
@@ -158,7 +154,7 @@ src_prepare() {
 	java-pkg_jar-from jgraphx-1.8,jlatexmath,hdf-java,flexdock,skinlf
 	java-pkg_jar-from jgoodies-looks-2.0,jrosetta,scirenderer
 	java-pkg_jar-from avalon-framework-4.2,saxon-6.5,jeuclid-core
-	java-pkg_jar-from xmlgraphics-commons-1.5,commons-io-1,jlatexmath-fop
+	java-pkg_jar-from xmlgraphics-commons-1.3,commons-io-1,jlatexmath-fop
 	java-pkg_jar-from jogl-2 jogl.all.jar jogl2.jar
 	java-pkg_jar-from gluegen-2 gluegen-rt.jar gluegen2-rt.jar
 	java-pkg_jar-from batik-1.7 batik-all.jar
