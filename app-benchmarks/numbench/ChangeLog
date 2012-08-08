@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  8 Aug 2012; Andrea Arteaga <andyspiros@gmail.com> +numbench-0.2_beta4-r1.ebuild
+  -numbench-0.2_beta1.ebuild -numbench-0.2_beta3.ebuild
+  Important bug solved upstream. Cleaned up old versions.
+
   7 Aug 2012; Andrea Arteaga <andyspiros@gmail.com> numbench-9999.ebuild
   Updated live ebuild.
   
