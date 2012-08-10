@@ -10,6 +10,8 @@ MANUAL_PV="4.5.4"
 #to find external blas/lapack
 CMAKE_MIN_VERSION="2.8.5-r2"
 
+CMAKE_MAKEFILE_GENERATOR="ninja"
+
 inherit bash-completion-r1 cmake-utils eutils fortran-2 multilib toolchain-funcs
 
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
@@ -192,7 +194,7 @@ src_install() {
 		#cmake-utils_src_install does not support args
 		#using cmake-utils_src_make instead
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
-			cmake-utils_src_make install-mdrun DESTDIR="${D}"
+			DESTDIR="${D}" cmake-utils_src_make install-mdrun
 	done
 
 	rm -f "${ED}"/usr/bin/GMXRC*
@@ -203,10 +205,6 @@ src_install() {
 		newins "${ED}"/usr/bin/completion.zsh _${PN}
 	fi
 	rm -f "${ED}"/usr/bin/completion.*
-
-	# Fix typos in a couple of files.
-	sed -e "s:+0f:-f:" -i "${ED}"usr/share/gromacs/tutor/gmxdemo/demo \
-		|| die "Failed to fixup demo script."
 
 	cd "${S}"
 	dodoc AUTHORS INSTALL* README*

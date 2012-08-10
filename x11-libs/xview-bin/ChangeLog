@@ -1,0 +1,10 @@
+# ChangeLog for x11-libs/xview-bin
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*xview-bin-3.2 (10 Aug 2012)
+
+  10 Aug 2012; Justin Lecher <jlec@gentoo.org> +xview-bin-3.2.ebuild,
+  +metadata.xml:
+  Add stupid binary package
+
