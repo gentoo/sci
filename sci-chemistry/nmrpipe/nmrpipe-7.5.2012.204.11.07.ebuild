@@ -26,7 +26,7 @@ LICENSE="as-is"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
-RESTRICT="fetch"
+RESTRICT="fetch strip"
 
 DEPEND="app-shells/tcsh"
 RDEPEND="${DEPEND}
@@ -39,11 +39,12 @@ RDEPEND="${DEPEND}
 	sys-libs/ncurses
 	x11-apps/xset
 	x11-libs/libX11
-	x11-libs/xview
+	|| ( x11-libs/xview x11-libs/xview-bin )
 	amd64? (
 		app-emulation/emul-linux-x86-baselibs
 		app-emulation/emul-linux-x86-xlibs
-	)"
+	)
+	prefix? ( dev-util/patchelf )"
 
 S="${WORKDIR}"
 
@@ -89,9 +90,74 @@ src_unpack() {
 }
 
 src_prepare() {
+	local bin
 	epatch "${FILESDIR}"/${PV}-lib.patch
 
 	mv nmrbin.linux9/nmr{W,w}ish || die
+
+	ebegin "Cleaning installation"
+	for i in ${A} ; do
+		rm -f ${i} || die "Failed to remove archive symlinks."
+	done
+
+	# Remove some of the bundled applications and libraries; they are provided by Gentoo instead.
+#	rm -r nmrbin.linux9/{lib/{libBLT24.so,libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
+	rm -rf nmrbin.linux9/{lib/*.timestamp,*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
+		nmrbin.{linux,mac,sgi6x,sol,winxp} nmruser format \
+		|| die "Failed to remove unnecessary libraries."
+	# As long as xview is not fixed for amd64 we do this
+	rm nmrbin.linux9/lib/{libxview.so*,libolgx.so*} || die
+	# Remove the initialisation script generated during the installation.
+	# It contains incorrect hardcoded paths; only the "nmrInit.com" script
+	# should be used.
+	rm -f com/nmrInit.linux9.com || die "Failed to remove broken init script."
+	# Remove installation log files.
+	rm -f README_NMRPIPE_USERS *.log || die "Failed to remove installation log."
+	# Remove unused binaries
+	rm -f {talos*,spartaplus,promega}/bin/*{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
+
+	# Some scripts are on the wrong place
+	cp -f nmrtxt/*.com com/
+	rm -f {acme,com}/{nmrproc,fid}.com || die
+
+	eend
+
+	ebegin "Fixing paths in scripts"
+
+	# Set the correct path to NMRPipe in the auxiliary scripts.
+	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc talosplus/com -type f); do
+		sed -e "s%/u/delaglio%${ENMRBASE}%" -i ${i} || die \
+			"Failed patching scripts."
+	done
+	sed -i "s:${WORKDIR}:${ENMRBASE}:g" com/font.com || die
+
+	sed \
+		-e "s:!/bin:!${EPREFIX}/bin:g" \
+		-e "s:!/usr/bin:!${EPREFIX}/usr/bin:g" \
+		-e "s:!/usr/local/bin:!${EPREFIX}/usr/bin:g" \
+		-e "s: /bin: ${EPREFIX}/bin:g" \
+		-e "s: /usr/bin: ${EPREFIX}/usr/bin:g" \
+		-e "s: /usr/local/bin: ${EPREFIX}/usr/bin:g" \
+		-i $(find "${S}" \( -name *.tcl -o -name *.com -o -name *.ksh \) ) \
+			{com/,nmrtxt/*.com,nmrtxt/nt/*.com,dynamo/tcl/,talos*/com/,dynamo/tcl/}* \
+			nmrbin.linux9/{nmrDraw,xNotify} || die
+
+	eend
+
+	if use prefix; then
+		sed \
+			-e "s: sh : ${EPREFIX}/bin/sh :g" \
+			-e "s: csh : ${EPREFIX}/bin/csh :g" \
+			-e "s: bash : ${EPREFIX}/bin/bash :g" \
+			-e "s:appTerm -e:appTerm -e ${EPREFIX}/bin/csh:g" \
+			-i com/* || die
+
+		ebegin "Setting RPATH in binaries"
+		for bin in $(find nmrbin.linux9/ -type f -maxdepth 1); do
+			patchelf --set-rpath "${EPREFIX}"/usr/lib/ ${bin}
+		done
+		eend $?
+	fi
 }
 
 src_install() {
@@ -117,72 +183,21 @@ src_install() {
 	nmrwish \$*
 	EOF
 
-	# Remove the symlinks for the archives and the installation scripts.
-	for i in ${A} ; do
-		rm -f ${i} || die "Failed to remove archive symlinks."
-	done
-	# Remove some of the bundled applications and libraries; they are provided by Gentoo instead.
-#	rm -r nmrbin.linux9/{lib/{libBLT24.so,libolgx.so*,libxview.so*,*.timestamp},*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
-	rm -rf nmrbin.linux9/{lib/*.timestamp,*timestamp,xv,gnuplot*,rasmol*,nc,nedit} \
-		nmrbin.{linux,mac,sgi6x,sol,winxp} nmruser format \
-		|| die "Failed to remove unnecessary libraries."
-	# As long as xview is not fixed for amd64 we do this
-	rm nmrbin.linux9/lib/{libxview.so*,libolgx.so*} || die
-	# Remove the initialisation script generated during the installation.
-	# It contains incorrect hardcoded paths; only the "nmrInit.com" script
-	# should be used.
-	rm -f com/nmrInit.linux9.com || die "Failed to remove broken init script."
-	# Remove installation log files.
-	rm -f README_NMRPIPE_USERS *.log || die "Failed to remove installation log."
-	# Remove unused binaries
-	rm -f {talos*,spartaplus,promega}/bin/*{linux,mac,sgi6x,winxp} pdb/misc/addSeg || die
-
-	# Set the correct path to NMRPipe in the auxiliary scripts.
-	for i in $(find com/ dynamo/surface/misc/ nmrtxt/ talos/misc talosplus/com -type f); do
-		sed -e "s%/u/delaglio%${ENMRBASE}%" -i ${i} || die \
-			"Failed patching scripts."
-	done
-	sed -i "s:${WORKDIR}:${ENMRBASE}:g" com/font.com || die
-
 	sed \
 		-e "s:/opt/nmrpipe:${EPREFIX}/opt/nmrpipe:g" \
 		"${FILESDIR}"/env-${PN}-new \
 		> env-${PN}-new || die
-	newenvd env-${PN}-new 40${PN} || die "Failed to install env file."
-
-	# PREFIX stuff
-	sed \
-		-e "s: sh : ${EPREFIX}/bin/sh :g" \
-		-e "s: csh : ${EPREFIX}/bin/csh :g" \
-		-e "s: bash : ${EPREFIX}/bin/bash :g" \
-		-e "s:appTerm -e:appTerm -e ${EPREFIX}/bin/csh:g" \
-		-i com/* || die
-
-	# Some scripts are on the wrong place
-	cp -f nmrtxt/*.com com/
-	rm -f {acme,com}/{nmrproc,fid}.com || die
-
-	sed \
-		-e "s:!/bin:!${EPREFIX}/bin:g" \
-		-e "s:!/usr/bin:!${EPREFIX}/usr/bin:g" \
-		-e "s:!/usr/local/bin:!${EPREFIX}/usr/bin:g" \
-		-e "s: /bin: ${EPREFIX}/bin:g" \
-		-e "s: /usr/bin: ${EPREFIX}/usr/bin:g" \
-		-e "s: /usr/local/bin: ${EPREFIX}/usr/bin:g" \
-		-i $(find "${S}" \( -name *.tcl -o -name *.com -o -name *.ksh \) ) \
-		-i {com/,nmrtxt/*.com,nmrtxt/nt/*.com,dynamo/tcl/,talos*/com/,dynamo/tcl/}* \
-			nmrbin.linux9/{nmrDraw,xNotify} || die
+	newenvd env-${PN}-new 40${PN}
 
 	insinto ${NMRBASE}
-	doins -r * || die "Failed to install application."
+	doins -r *
 
-	dosym nmrbin.linux9 ${NMRBASE}/bin || die \
-		"Failed to symlink binaries."
+	dosym nmrbin.linux9 ${NMRBASE}/bin
 
-	# fperms does not chmod nmrwish
-#	fperms -v 775 ${NMRBASE}/{talos/bin,nmrbin.linux9,com,dynamo/tcl}/* || die
-	chmod -c 775 "${ED}"/${NMRBASE}/{talos*/bin/,sparta*/bin/,nmrbin.linux9/,com/,dynamo/tcl/,nmrtxt/*.com,talos*/com/,promega/bin/}* || die
+	ebegin "Fixing permissions"
+	chmod 775 "${ED}"/${NMRBASE}/{talos*/bin/,sparta*/bin/,nmrbin.linux9/,com/,dynamo/tcl/,nmrtxt/*.com,talos*/com/,promega/bin/}* || die
+	eend
 
 	exeinto ${NMRBASE}/nmrbin.linux9
-	doexe "${T}"/nmrWish || die
+	doexe "${T}"/nmrWish
 }
