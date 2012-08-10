@@ -6,7 +6,7 @@
 
 EAPI=4
 
-inherit eutils prefix virtualx
+inherit eutils virtualx
 
 DESCRIPTION="Spectral visualisation, analysis and Fourier processing"
 HOMEPAGE="http://spin.niddk.nih.gov/bax/software/NMRPipe/"

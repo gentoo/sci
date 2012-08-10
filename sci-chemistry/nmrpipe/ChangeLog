@@ -4,6 +4,10 @@
 
   10 Aug 2012; Justin Lecher <jlec@gentoo.org>
   nmrpipe-7.5.2012.204.11.07.ebuild:
+  no function called from prefix.eclass; please drop
+
+  10 Aug 2012; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-7.5.2012.204.11.07.ebuild:
   Enhancing prefix support
 
   10 Aug 2012; Justin Lecher <jlec@gentoo.org>
