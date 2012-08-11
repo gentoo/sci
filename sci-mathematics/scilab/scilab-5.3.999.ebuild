@@ -49,7 +49,6 @@ CDEPEND="dev-libs/libpcre
 	sys-libs/ncurses
 	sys-libs/readline
 	virtual/lapack
-	dev-java/hdf-java
 	fftw? ( sci-libs/fftw:3.0 )
 	gui? (
 		dev-java/avalon-framework:4.2
@@ -147,11 +146,10 @@ src_prepare() {
 			configure.ac || die
 
 		sed -i -e "s/jogl/jogl-2/" -e "s/gluegen/gluegen-2/" \
-			-e "s/jhdf5/hdf-java/" etc/librarypath.xml || die
-		sed -i -e "s|/jhdf5|/hdf-java|g" m4/hdf5.m4
+			etc/librarypath.xml || die
 	fi
 	mkdir jar; cd jar
-	java-pkg_jar-from jgraphx-1.8,jlatexmath,hdf-java,flexdock,skinlf
+	java-pkg_jar-from jgraphx-1.8,jlatexmath,flexdock,skinlf
 	java-pkg_jar-from jgoodies-looks-2.0,jrosetta,scirenderer
 	java-pkg_jar-from avalon-framework-4.2,saxon-6.5,jeuclid-core
 	java-pkg_jar-from xmlgraphics-commons-1.3,commons-io-1,jlatexmath-fop
