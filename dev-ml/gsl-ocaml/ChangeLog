@@ -1,0 +1,10 @@
+# ChangeLog for dev-ml/gsl-ocaml
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*gsl-ocaml-1.10.2 (11 Aug 2012)
+
+  11 Aug 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  +gsl-ocaml-1.10.2.ebuild, +metadata.xml:
+  new package from #390583
+
