@@ -1,6 +1,13 @@
 # ChangeLog for sci-chemistry/usf-tools
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*usf-tools-9999 (13 Aug 2012)
+
+  13 Aug 2012; Justin Lecher <jlec@gentoo.org> -files/usf-tools-1-build.patch,
+  -usf-tools-2.ebuild, +usf-tools-9999.ebuild,
+  +files/usf-tools-9999-longline.patch, -files/Makefile, -files/Makefile_gklib:
+  Bump to latest release
 
 *usf-tools-2 (11 Sep 2011)
 
