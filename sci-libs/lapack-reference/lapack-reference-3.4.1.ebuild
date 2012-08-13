@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=4
-inherit eutils fortran-2 cmake-utils alternatives-2
+inherit eutils fortran-2 cmake-utils alternatives-2 toolchain-funcs
 
 MYP=lapack-${PV}
 
@@ -33,7 +33,7 @@ src_configure() {
 	lapack_configure() {
 		local mycmakeargs=(
 			-DUSE_OPTIMIZED_BLAS=ON
-			-DBLAS_LIBRARIES="$(pkg-config --libs blas)"
+			-DBLAS_LIBRARIES="$($(tc-getPKG_CONFIG) --libs blas)"
 			$(cmake-utils_use_build test TESTING)
 			$(cmake-utils_use_use xblas XBLAS)
 			$@
