@@ -4,13 +4,13 @@
 
 EAPI="4"
 
-inherit findlib eutils
+inherit findlib multilib
 
 DESCRIPTION="Arithmetic and logic operations over arbitrary-precision integers"
 HOMEPAGE="https://forge.ocamlcore.org/projects/zarith/"
 SRC_URI="http://forge.ocamlcore.org/frs/download.php/835/${P}.tgz"
 
-LICENSE="LGPL-2.1-linking-exception"
+LICENSE="LGPL-2.1-with-linking-exception"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc mpir +ocamlopt"
