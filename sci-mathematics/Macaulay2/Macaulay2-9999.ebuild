@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=4
 
 inherit autotools elisp-common eutils flag-o-matic subversion
 
@@ -10,10 +10,7 @@ IUSE="emacs optimization"
 
 ESVN_REPO_URI="svn://svn.macaulay2.com/Macaulay2/trunk/M2"
 
-# Those packages will be built internally, Macaulay2 always wants the
-# latest and greatest (mostly git snapshots)
-GCLIBATOMIC_OPS="gc-libatomic_ops-7.3alpha2"
-GC="gc-20120729"
+# Those packages will be built internally.
 FACTORY="factory-3-1-4-1"
 LIBFAC="libfac-3-1-4"
 
@@ -23,8 +20,7 @@ SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
 SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${LIBFAC}.tar.gz
 		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/${FACTORY}.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Extra/${GC}.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Extra/${GCLIBATOMIC_OPS}.tar.gz"
+		 http://www.math.uiuc.edu/Macaulay2/Extra/gtest-1.6.0.tar.gz"
 
 SLOT="0"
 LICENSE="GPL-2"
@@ -51,6 +47,7 @@ DEPEND="
 	dev-util/ctags
 	sys-libs/ncurses
 	sys-process/time
+	>dev-libs/boehm-gc-7.1
 	emacs? ( virtual/emacs )"
 RDEPEND="${DEPEND}"
 
@@ -82,12 +79,10 @@ src_prepare() {
 		|| die "copy failed"
 	cp "${DISTDIR}/${LIBFAC}.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
-	# Macaulay 2 insists on a git snapshot of gc We will let it build
-	# its internal version for now.  Note: The resulting QA warning is
-	# known.
-	cp "${DISTDIR}/${GC}.tar.gz" "${S}/BUILD/tarfiles/" \
-		|| die "copy failed"
-	cp "${DISTDIR}/${GCLIBATOMIC_OPS}.tar.gz" "${S}/BUILD/tarfiles/" \
+	# Macaulay2 developers want that gtest is built internally because
+	# the documentation says it may fail if build with options not the
+	# same as the tested program.
+	cp "${DISTDIR}/gtest-1.6.0.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
 
 	eautoreconf
@@ -105,38 +100,39 @@ src_configure (){
 		--disable-encap \
 		--disable-strip \
 		$(use_enable optimization optimize) \
-		--enable-build-libraries="factory gc libfac" \
+		--enable-build-libraries="factory libfac" \
 		--with-unbuilt-programs="4ti2 gfan normaliz nauty cddplus lrslib" \
 		|| die "failed to configure Macaulay"
 }
 
 src_compile() {
 	# Parallel build not supported yet
-	# For trunk builds, let's ignore example errors
-	emake IgnoreExampleErrors=true -j1 || die "failed to build Macaulay"
+	# emake -j1
+	# For trunk builds we may wish to ignore example errors
+	emake IgnoreExampleErrors=true -j1
 
 	if use emacs; then
 		cd "${S}/Macaulay2/emacs"
-		elisp-compile *.el || die "elisp-compile failed"
+		elisp-compile *.el
 	fi
 }
 
 src_test() {
 	# No parallel tests yet & Need to increase the time
 	# limit for long running tests in Schubert2 to pass
-	emake TLIMIT=550 -j1 check || die "tests failed"
+	emake TLIMIT=550 -j1 check
 }
 
 src_install () {
 	# Parallel install not supported yet
-	emake -j1 install || die "install failed"
+	emake -j1 install
 
 	# Remove emacs files and install them in the
 	# correct place if use emacs
 	rm -rf "${D}"/usr/share/emacs/site-lisp
 	if use emacs; then
 		cd "${S}/Macaulay2/emacs"
-		elisp-install ${PN} *.elc *.el || die "elisp-install failed"
+		elisp-install ${PN} *.elc *.el
 		elisp-site-file-install "${FILESDIR}/${SITEFILE}"
 	fi
 }
