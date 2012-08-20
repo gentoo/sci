@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Aug 2012; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
+  update to EAPI=4, cosmetics, deps
+
   06 Aug 2012; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
   Update live dependencies
 

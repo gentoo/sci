@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Aug 2012; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
+  Correct Desktop entry
+
   02 May 2012; Justin Lecher <jlec@gentoo.org> files/pymol-9999-web.patch:
   Fix for latest HEAD
 

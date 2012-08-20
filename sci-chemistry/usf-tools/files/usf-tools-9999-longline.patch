@@ -1,0 +1,57 @@
+ gklib/pckrho.f |   24 ++++++++++++++++++------
+ 1 files changed, 18 insertions(+), 6 deletions(-)
+
+diff --git a/gklib/pckrho.f b/gklib/pckrho.f
+index 31eefad..2dd5104 100644
+--- a/gklib/pckrho.f
++++ b/gklib/pckrho.f
+@@ -21,23 +21,33 @@ c        print *,'IX,IY,IZ    - ',ix, iy, iz
+ c        print *,'JX,JY,LEVEL - ',jx,jy,level
+ c        print *,'UVW         - ',uvw
+ c
+-	if (uvw(1) .eq. 1 .and. uvw(2) .eq. 2 .and. uvw(3) .eq. 3) then
++        if (  uvw(1) .eq. 1
++     :  .and. uvw(2) .eq. 2
++     :  .and. uvw(3) .eq. 3) then
+ 	  do 100 i=1,iy
+ 	  do 100 j=1,ix
+ 100	    sav(j,i,level) = rho(j,i)
+-	else if (uvw(1) .eq. 1 .and. uvw(2) .eq. 3 .and. uvw(3) .eq. 2) then
++        else if (uvw(1) .eq. 1
++     :  .and.    uvw(2) .eq. 3
++     :  .and.    uvw(3) .eq. 2) then
+ 	  do 110 i=1,iz
+ 	  do 110 j=1,ix
+ 110	    sav(j,level,i) = rho(j,i)
+-	else if (uvw(1) .eq. 2 .and. uvw(2) .eq. 1 .and. uvw(3) .eq. 3) then
++        else if (uvw(1) .eq. 2
++     :  .and.    uvw(2) .eq. 1
++     :  .and.    uvw(3) .eq. 3) then
+ 	  do 120 j=1,iy
+ 	  do 120 i=1,ix
+ 120	    sav(i,j,level) = rho(j,i)
+-	else if (uvw(1) .eq. 2 .and. uvw(2) .eq. 3 .and. uvw(3) .eq. 1) then
++        else if (uvw(1) .eq. 2
++     :  .and.    uvw(2) .eq. 3
++     :  .and.    uvw(3) .eq. 1) then
+ 	  do 130 i=1,iz
+ 	  do 130 j=1,iy
+ 130	    sav(level,j,i) = rho(j,i)
+-	else if (uvw(1) .eq. 3 .and. uvw(2) .eq. 1 .and. uvw(3) .eq. 2) then
++        else if (uvw(1) .eq. 3
++     :  .and.    uvw(2) .eq. 1
++     :  .and.    uvw(3) .eq. 2) then
+ 	  do 140 i=1,ix
+ cxyz
+ c          call ivalut (' I(x) now :',1,i)
+@@ -47,7 +57,9 @@ c            call ivalut (' J(z) now :',1,j)
+ c            call rvalut (' RHO(j,i) :',1,rho(j,i))
+ c            call rvalut (' SAV(I,LEVEL,J) :',1,sav(i,level,j))
+ 140	    sav(i,level,j) = rho(j,i)
+-	else if (uvw(1) .eq. 3 .and. uvw(2) .eq. 2 .and. uvw(3) .eq. 1) then
++        else if (uvw(1) .eq. 3
++     :  .and.    uvw(2) .eq. 2
++     :  .and.    uvw(3) .eq. 1) then
+ 	  do 150 i=1,iy
+ 	  do 150 j=1,iz
+ 150	    sav(level,i,j) = rho(j,i)

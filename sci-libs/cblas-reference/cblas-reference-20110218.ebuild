@@ -72,7 +72,7 @@ src_compile() {
 		CFLAGS="${CFLAGS} -fPIC" \
 		CBLIB=../lib/lib${LIBNAME}.a \
 		alllib
-	static_to_shared lib/lib${LIBNAME}.a $(pkg-config --libs blas)
+	static_to_shared lib/lib${LIBNAME}.a $($(tc-getPKG_CONFIG) --libs blas)
 	if use static-libs; then
 		emake clean
 		emake alllib
