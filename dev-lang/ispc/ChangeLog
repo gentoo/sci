@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Aug 2012; Christoph Junghans <ottxor@gentoo.org> ispc-9999.ebuild:
+  sync with gx86
+
   17 Jun 2012; Christoph Junghans <ottxor@gentoo.org> ispc-9999.ebuild:
   fixed redundant license (bug #421401)
 
@@ -10,4 +13,3 @@
   14 Jun 2012; Christoph Junghans <ottxor@gentoo.org> +ispc-9999.ebuild,
   +metadata.xml:
   initial commit
-
