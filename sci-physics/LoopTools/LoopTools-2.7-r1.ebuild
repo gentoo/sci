@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils
+inherit eutils fortran-2
 
 DESCRIPTION="A package for evaluation of scalar and tensor one-loop integrals"
 HOMEPAGE="http://www.feynarts.de/looptools"
@@ -16,9 +16,10 @@ SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
 
-DEPEND=""
-RDEPEND=""
+DEPEND="virtual/fortran"
+RDEPEND="${DEPEND}"
 
 src_prepare() {
 	epatch "${FILESDIR}/${P}-makefile.patch"
+	export VER="${PV}"
 }
