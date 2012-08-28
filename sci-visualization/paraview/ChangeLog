@@ -2,6 +2,15 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*paraview-3.14.1 (28 Aug 2012)
+
+  28 Aug 2012; François Bissey <francois.bissey@canterbury.ac.nz>
+  +paraview-3.14.1.ebuild, +files/paraview-3.14.1-ffmpeg-noinstall.patch,
+  +files/paraview-3.14.1-xdmf-linking.patch, +files/vtk-5.6.0-odbc.patch,
+  +files/vtk-5.6.1-ffmpeg.patch, +files/vtk-boost1.49.patch,
+  +files/vtk-5.6.1-libav-0.8.patch:
+  3.14.1
+
   09 Feb 2012; François Bissey <francois.bissey@canterbury.ac.nz>
   paraview-3.12.0.ebuild, files/paraview-3.12.0-protobuf.patch:
   clean up protobuf mess, go to EAPI 3 (for python QA)
