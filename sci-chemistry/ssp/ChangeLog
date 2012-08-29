@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/ssp
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ssp-09.11 (29 Aug 2012)
+
+  29 Aug 2012; Justin Lecher <jlec@gentoo.org> +ssp-09.11.ebuild,
+  +metadata.xml:
+  New addition
+
