@@ -10,6 +10,7 @@
 		<flag name='plugins'>Build and install additional plugins</flag>
 		<flag name='gui'>Build paraview's gui not just the server</flag>
 		<flag name='cg'>Add support for nvidia's cg shaders</flag>
+                <flag name="boost">Add support for boost</flag>
 		<flag name='streaming'>Enable streaming paraview application</flag>
 		<flag name='adaptive'>Enable the adaptive paraview application</flag>
 		<flag name='mysql'>Build support for MySQL data item in the XDMF format</flag>
