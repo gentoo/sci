@@ -18,6 +18,12 @@ DEPEND=""
 
 S="${WORKDIR}"/${PN}
 
+src_prepare() {
+	sed \
+		-e "s:\(REF\/\):${EPREFIX}/usr/share/${PN}/\1:g" \
+		-i ${PN} || die
+}
+
 src_install() {
 	dobin reref ${PN}
 	dodoc README
