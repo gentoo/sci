@@ -2,25 +2,48 @@
 # your descriptions to your package's metadata.xml ONLY.
 # * generated automatically using egencache *
 
+dev-cpp/eigen:adolc - Enable use for automatic differentiation using sci-libs/adolc
+dev-cpp/eigen:sparse - Enable use for extra sparse matrix with sci-libs/umfpack, sci-libs/cholmod, sci-libs/superlu and dev-cpp/sparsehash
 dev-java/hdf-java:hdf - Add support for the Hierarchical Data Format v.4 (sci-libs/hdf)
+dev-java/hdf-java:hdfview - Build a GUI viewer for all files supported in dev-java/hdf-java
+dev-java/jogl:cg - Enable NVidia Cg binding.
 dev-lang/icc:eclipse - Install the dev-util/eclipse-sdk plugins
 dev-lang/idb:eclipse - Install the dev-util/eclipse-sdk plugins
-dev-lang/path64:debugger - Build PathDB
+dev-lang/path64:assembler - Build PathAS assembler
+dev-lang/path64:debugger - Build PathDB debugger
 dev-lang/path64:native - Use EKOPath/Path64 for bootstraping
+dev-lang/path64:valgrind - Support compiler debugging with dev-util/valgrind
 dev-libs/intel-common:compiler - Install the libraries needed for the icc and ifort compilers
 dev-ml/mlgmpidl:mpfr - add support for mpfr, the library for multiple-precision floating-point computations with exact rounding
-dev-python/cvxopt:glpk - Use GNU Linear Programming Kit
+dev-ml/zarith:mpir - Use mpir library instead of gmp
 dev-python/ffnet:matplotlib - Use matplotlib for drawing
+dev-python/pyhdf:szip - Allow to use sci-libs/szip for SZIP compression method in SDsetcompress()
+dev-util/nvidia-cuda-sdk:cuda - Build CUDA binaries
+dev-util/nvidia-cuda-sdk:opencl - Build OpenCL binaries
+dev-util/nvidia-cuda-toolkit:debugger - Installs the NVIDIA CUDA debugger
+dev-util/nvidia-cuda-toolkit:profiler - Installs the NVIDIA CUDA visual profiler
 media-gfx/brlcad:benchmarks - Run benchmarks during test phase (need test option enabled)
+net-fs/cvmfs:client - Install the cvmfs client programs and init script
+net-fs/cvmfs:server - Install the cvmfsd program and init script
 net-misc/dhcp:client - Install the dhclient program
-net-misc/dhcp:infiniband - Enable ipoib support
 net-misc/dhcp:server - Install the dhcpd and dhcrelay programs
 sci-astronomy/psfex:plplot - Build with sci-libs/plplot to allow diagnostic plots during processing
-sci-biology/estscan:intel - Use intel compiler
+sci-astronomy/scamp:plplot - Build with sci-libs/plplot to allow diagnostic plots during processing
+sci-astronomy/sextractor:modelfit - Enable profile model fitting, needs sci-libs/atlas and sci-libs/fftw
+sci-astronomy/zpeg:gdl - Install GDL/IDL plotting routines
 sci-chemistry/avogadro:glsl - Enable glsl features via GLEW.
+sci-chemistry/ball:cuda - Include cuda support
+sci-chemistry/ball:sql - Include SQL database support
+sci-chemistry/ball:webkit - Uses x11-libs/qt-webkit for drawing
+sci-chemistry/gromacs:avx128fma - Enable 128bit avx with fma (e.g. AMD BullDozer)
+sci-chemistry/gromacs:avx256 - Enable 256bit avx (e.g. Intel Sandy Bridge)
+sci-chemistry/gromacs:cuda - Enable cuda non-bonded kernels
 sci-chemistry/gromacs:double-precision - More precise calculations at the expense of speed
 sci-chemistry/gromacs:fkernels - Enable building of Fortran Kernels for platforms that dont have assembly loops
+sci-chemistry/gromacs:hybrid - Enable hybrid acceleration kernels
+sci-chemistry/gromacs:power6 - Enable Power6 optimizations
 sci-chemistry/gromacs:single-precision - Single precision version of gromacs (default)
+sci-chemistry/gromacs:sse41 - Enable sse4.1 acceleration
 sci-chemistry/jmol:client-only - Install the viewer only, no applet files for httpd
 sci-chemistry/pymol:apbs - Pymol supprt for sci-chemistry/apbs
 sci-chemistry/pymol:numpy - Enable numpy support for Pymol
@@ -28,8 +51,7 @@ sci-chemistry/pymol:vmd - Builds molfile plugin support
 sci-chemistry/pymol:web - Install Pymodule needed for web app support
 sci-chemistry/rosetta:boinc - compile rosetta as a rosetta@home client
 sci-chemistry/rosetta:boost - compile rosetta with boost supported code
-sci-chemistry/votca-csg:boost - Compile against external boost headers from dev-libs/boost
-sci-chemistry/votca-csg:extras - Pull in extra applications from dev-libs/boost
+sci-chemistry/votca-csg:extras - Pull in extra applications from sci-chemistry/votca-csg-apps
 sci-chemistry/votca-csg:gromacs - Add support for gromacs file formats through sci-chemistry/gromacs
 sci-electronics/player:boost - Automatically generated description for boost
 sci-electronics/player:festival - Automatically generated description for festival
@@ -38,15 +60,30 @@ sci-electronics/player:sphinx2 - Automatically generated description for sphinx2
 sci-geosciences/libtcd:non-commercial - Allows the use of a tide constituent database that is available for non-commercial use only.
 sci-geosciences/qgis:grass - Add support for sci-geosciences/grass
 sci-geosciences/xtide:non-commercial - Allows the use of a tide constituent database that is available for non-commercial use only.
-sci-libs/atlas:xblas - Build LAPACK with extra precision (needs sci-libs/xblas)
+sci-libs/acml:gfortran - Fetch and install acml compiled with GNU FORTRAN compiler
+sci-libs/acml:ifort - Fetch and install acml compiled with the Intel FORTRAN compiler
+sci-libs/acml:int64 - Install the 64 bits integer library
+sci-libs/acml:nag - Fetch and install acml compiled with the NAG FORTRAN compiler
+sci-libs/acml:open64 - Fetch and install acml compiled with the Open64 FORTRAN Compiler
+sci-libs/acml:pgi - Fetch and install acml compiled with the Portland Group FORTRAN compiler
+sci-libs/armadillo:atlas - Link with ATLAS libraries for cblas and clapack (needs sci-libs/lapack-atlas)
+sci-libs/atlas:generic - Build atlas assuming a fairly generic architecture (sse2 for x86, core2 for amd64)
 sci-libs/bigdft:cuda - Add cuda support
 sci-libs/calculix-ccx:arpack - Add sparse eigen value support via sci-libs/arpack
+sci-libs/coinor-clp:glpk - Enable GNU Linear Programming Kit sci-mathematics/glpk support
+sci-libs/coinor-clp:metis - Enable partitioning with sci-libs/metis
+sci-libs/coinor-clp:mumps - Enable sci-libs/mumps support
+sci-libs/coinor-clp:sparse - Enable support for sparse matrix with sci-libs/cholmod
+sci-libs/coinor-osi:glpk - Enable GNU Linear Programming Kit sci-mathematics/glpk support
+sci-libs/coinor-symphony:glpk - Enable GNU Linear Programming Kit sci-mathematics/glpk support
+sci-libs/coinor-utils:glpk - Enable GNU Linear Programming Kit sci-mathematics/glpk support
 sci-libs/factory:singular - Enable support for sci-mathematics/singular
-sci-libs/fox:dom - Automatically generated description for dom
-sci-libs/fox:fast - Automatically generated description for fast
-sci-libs/fox:sax - Automatically generated description for sax
-sci-libs/fox:wcml - Automatically generated description for wcml
-sci-libs/fox:wxml - Automatically generated description for wxml
+sci-libs/fox:dom - Compile the W3C document object model module
+sci-libs/fox:fast - Compile with best known optimization flags
+sci-libs/fox:sax - Compile the streaming, validating parser based on java's Simple API for XML
+sci-libs/fox:wcml - Compile the module for a subset of the Chemical Markup Language
+sci-libs/fox:wkml - Compile the module for the creation of KML documents used by applications such as Google Earth
+sci-libs/fox:wxml - Compile the XML writer used to sequentially create arbitrary XML documents quickly with minimal memory requirements
 sci-libs/gmsh:cgns - Enables cgns output support
 sci-libs/gmsh:chaco - Enables chaco partitioner support
 sci-libs/gmsh:med - Enables med support
@@ -56,19 +93,27 @@ sci-libs/gmsh:opencascade - Enable OpenCASCADE support
 sci-libs/gmsh:petsc - Enable sci-mathematics/petsc support
 sci-libs/gmsh:taucs - Enable sci-libs/taucs support
 sci-libs/gmsh:tetgen - Enable 3D delauny triangulation using tetgen lib
-sci-libs/libcmatrix:atlas - Use of atlas blas implementation
+sci-libs/gotoblas2:dynamic - Build dynamic architecture detection at run time (for multi targets)
+sci-libs/gotoblas2:incblas - Build the CBLAS interface
+sci-libs/gotoblas2:int64 - Build the 64 bits integer library
+sci-libs/ipopt:mumps - Enable sci-libs/mumps support
+sci-libs/lapack-reference:xblas - Build LAPACK with extra precision (needs sci-libs/xblas)
+sci-libs/lapacke-reference:xblas - Build LAPACKE with extra precision (needs sci-libs/xblas)
+sci-libs/levmar:plasma - Use the multi-threaded sci-libs/plasma library for linear algebra
 sci-libs/libfac:singular - Automatically generated description for singular
 sci-libs/lwpr:octave - Add sci-mathematics/octave support
+sci-libs/magma:fermi - Compile for GPU NVIDIA Fermi family (2.x cards)
+sci-libs/magma:tesla - Compile for GPU NVIDIA Tesla family (1.x cards)>
+sci-libs/mumps:metis - Enable ordering with METIS (sci-libs/metis, sci-libs/parmetis)
+sci-libs/mumps:scotch - Enable ordering with sci-libs/scotch
 sci-libs/oasa:cairo - Add support for Cairo graphics library using dev-python/pycairo
 sci-libs/openblas:dynamic - Build dynamic architecture detection at run time (for multi targets)
 sci-libs/openblas:incblas - Build the CBLAS interface
 sci-libs/openblas:int64 - Build the 64 bits integer library
-sci-libs/openmm:cuda - Build Cuda lib
-sci-libs/openmm:opencl - Build OpenCL lib
 sci-libs/pagmo:kepler - Automatically generated description for kepler
 sci-libs/pagmo:nlopt - Automatically generated description for nlopt
-sci-libs/votca-tools:boost - Compile against external boost headers (dev-libs/boost)
-sci-libs/xdrfile:dmalloc - Enable use of Debug Malloc
+sci-libs/parmetis:double-precision - Floating-point operation done as double precision
+sci-libs/parmetis:int64 - Build the 64 bits integer library (needed for > 2^31 vertices)
 sci-mathematics/Macaulay2:optimization - Accept upstream's choices for -O option, i.e. -O3 almost everywhere.
 sci-mathematics/algae:intel - Use icc as c compiler
 sci-mathematics/apron:ppl - Enable optional interface to the Parma Polyhedra Library
@@ -83,11 +128,20 @@ sci-mathematics/frama-c:why - ?why?
 sci-mathematics/gambit:X - Enable gui support using wxWidgets.
 sci-mathematics/gap:xtom - Automatically generated description for xtom
 sci-mathematics/giac:fltk - ?fltk?
+sci-mathematics/htk:hdecode - Install HDecode, a large vocabulary word recogniser
+sci-mathematics/htk:hlmtools - Install the tools for manipulation of language models
+sci-mathematics/htk:hslab - Install HSLab a label editor for speech label manipulation
+sci-mathematics/htk:htkbook - Build the HTK documentation (HTK Book)
 sci-mathematics/netgen:opencascade - Enable OpenCASCADE support
+sci-mathematics/petsc:afterimage - Use Afterstep image library (media-libs/libafterimage)
 sci-mathematics/petsc:complex-scalars - Make scalars complex
-sci-mathematics/petsc:hypre - Use HYPRE (sci-mathematics/hypre) for preconditioning
+sci-mathematics/petsc:hypre - Use HYPRE (sci-mathematics/hypre) and for preconditioning
 sci-mathematics/petsc:metis - Use METIS (sci-libs/parmetis) for partitioning
-sci-mathematics/polybori:sage - Replace the standard python interface by sage's python interface for easy integration in sage.
+sci-mathematics/petsc:sparse - Use suitesparse (sci-libs/suitesparse) including cholmod (sci-libs/cholmod) for sparse factorization
+sci-mathematics/petsc:superlu - Use superlu (sci-libs/superlu) for preconditioning
+sci-mathematics/polymake:libpolymake - Build the polymake library to build applications using the C++ interface.
+sci-mathematics/rstudio:desktop - Build the QT4 desktop interface
+sci-mathematics/rstudio:server - Build and install the RStudio server
 sci-mathematics/scilab:gui - Build the Java base graphical interface
 sci-mathematics/scilab:matio - Enable support for MATLAB file through sci-libs/matio
 sci-mathematics/scilab:umfpack - Adds support for sparse solving with sci-libs/umfpack
@@ -98,37 +152,42 @@ sci-mathematics/why:gappa - ?gappa?
 sci-mathematics/why:gtk - ?gtk?
 sci-mathematics/why:jessie - ?jessie?
 sci-mathematics/why:pff - ?pff?
+sci-misc/hfst:foma - Add optional support for foma backend library (sci-misc/foma)
+sci-misc/hfst:glib - Parse UTF-8 and collate unicode using glib instead of homebrewn methods
 sci-misc/hfst:openfst - Add optional support for openfst backend library (sci-misc/openfst)
 sci-misc/hfst:sfst - Add optional support for sfst backend library (sci-misc/sfst)
-sci-misc/nco:ncap2 - Build next generation netcdf arithmetic processor (needs dev-java/antlr)
-sci-misc/nco:udunits - Add sci-libs/udunits files support
+sci-misc/hfst:xml - Include parsers for grammars and formats that require XML support
 sci-misc/opennlp-tools:models - Automatically generated description for models
 sci-misc/salome-kernel:numpy - Enable support for dev-python/numpy
 sci-misc/salome-med:metis - Add support for metis
 sci-misc/salome-med:scotch - Add support for scotch
 sci-physics/abinit:cuda - Enable support for nVidia CUDA
+sci-physics/abinit:cuda-double - Enable support for double precision nVidia CUDA
+sci-physics/abinit:fftw-threads - Use the threaded version of sci-libs/fftw
 sci-physics/abinit:fox - Enable support for FoX Fortran XML library
+sci-physics/abinit:gui - Build the abinit GUI (requires java)
+sci-physics/abinit:libabinit - Build the libabinit used by sci-libs/bigdft (usage not tested yet, circular dependency not resolved)
 sci-physics/abinit:vdwxc - Activate van der Waals exchange-correlation
 sci-physics/atompaw:libxc - Use libxc for something
 sci-physics/elk:libxc - Use sci-libs/libxc library of exchange-correlation functionals by ETSF.
 sci-physics/espresso:examples - Installs the examples
 sci-physics/espresso:packages - Installs extra subpackages
-sci-physics/fastjet:allcxxplugins - Build all C++ plugins.
-sci-physics/fastjet:allplugins - Build all standard plugins.
-sci-physics/fastjet:cgal - Use sci-mathematics/cgal instead of bundled algorithms.
-sci-physics/root:clarens - Buld the Clarens and PEAC plug-ins, to use in a GRID enabled analysis.
+sci-physics/root:c++0x - Build ROOT using the C++11 standard. Not supported, requires sys-devel/gcc>=4.7.0
 sci-physics/root:fits - Support for images and data from FITS files with sci-libs/cfitsio
+sci-physics/root:geocad - Enable ROOT-CAD interface using sci-libs/opencascade
+sci-physics/root:htmldoc - Generate html documentation
 sci-physics/root:llvm - Build the new cling interactive interpreter based on sys-devel/llvm
 sci-physics/root:math - Build all math related libraries plugins, needs sci-libs/gsl
-sci-physics/root:pythia6 - Builds the interface to Pythia-6 (sci-physics/pythia) high energy physics generation events library
-sci-physics/root:pythia8 - Builds the interface to Pythia-8 (sci-physics/pythia) high energy physics generation events library
-sci-physics/root:reflex - Builds the reflection database for the C++ interpretor
-sci-physics/root:xrootd - Build the xrootd low latency file server
+sci-physics/root:pythia6 - Build the interface for sci-physics/pythia version 6.x
+sci-physics/root:pythia8 - Build the interface for sci-physics/pythia version 8.x
+sci-physics/root:reflex - Build the reflection database for the C++ interpreter
+sci-physics/root:xrootd - Build the interface for net-libs/xrootd
+sci-visualization/gnuplot:bitmap - Enable dot-matrix printers and pbm terminal
 sci-visualization/gnuplot:gd - Add support for media-libs/gd. Needed for GIF, JPEG, and PNG image output.
-sci-visualization/gnuplot:qt4 - Build Qt4 terminal
 sci-visualization/gnuplot:thin-splines - Enable thin plate splines
 sci-visualization/nodemon:pbs - Enable support for the Portable Batch System.
 sci-visualization/paraview:adaptive - Enable the adaptive paraview application
+sci-visualization/paraview:boost - Add support for boost
 sci-visualization/paraview:cg - Add support for nvidia's cg shaders
 sci-visualization/paraview:coprocessing - Enable the coprocessing infrastructure which is mainly useful in the context of clusters
 sci-visualization/paraview:gui - Build paraview's gui not just the server
@@ -156,5 +215,4 @@ sys-cluster/openmpi:mpi-threads - Enable MPI_THREAD_MULTIPLE
 sys-cluster/openmpi:pbs - Add support for the Portable Batch System (PBS)
 sys-cluster/openmpi:romio - Build the ROMIO MPI-IO component
 sys-cluster/openmpi:vt - Enable bundled VampirTrace support
-sys-fs/ocfs2-tools:external - Enable external locking
 virtual/mpi:romio - Enable romio, a high-performance portable MPI-IO
