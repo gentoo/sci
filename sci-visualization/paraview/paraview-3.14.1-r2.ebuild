@@ -23,6 +23,7 @@ SLOT="0"
 IUSE="boost cg -coprocessing doc examples +gui mpi mysql nvcontrol +plugins +python webkit ffmpeg theora"
 
 RDEPEND="
+	~sci-libs/netcdf-4.1.3[cxx,hdf5]
 	sci-libs/hdf5[mpi=]
 	mpi? ( virtual/mpi[cxx,romio] )
 	gui? (
@@ -108,6 +109,8 @@ src_prepare() {
 	epatch "${FILESDIR}"/vtk-5.6.1-libav-0.8.patch
 	# debian patch for recent boost should work with 1.48 too
 	epatch "${FILESDIR}"/vtk-boost1.49.patch
+	# adapted from debian patch need to be applied after paraview-3.14.1-removesqlite.patch
+	epatch "${FILESDIR}"/${PN}-3.14.1-vtknetcd.patch
 }
 
 src_configure() {
