@@ -1,24 +1,3 @@
-diff -Naur orig/bigdft-1.6-tuto.1.orig/configure.ac patched/bigdft-1.6-tuto.1/configure.ac
---- bigdft-1.6-tuto.1.orig/configure.ac	2012-07-10 08:50:27.000000000 +0000
-+++ bigdft-1.6-tuto.1/configure.ac	2012-07-10 09:03:46.303491671 +0000
-@@ -295,7 +295,7 @@ if test x"$ac_use_cuda_gpu" = "xyes" ; t
-     fi
-   fi
-   AC_SUBST(NVCC_FLAGS)
--  LIBCUDA_LIBS="-L$ac_cuda_lib_path -lcudart -lcublas"
-+  LIBCUDA_LIBS="-L$ac_cuda_lib_path -lGPU -lcudart -lcublas"
- fi
- 
- dnl Use the OpenCL support
-@@ -332,7 +332,7 @@ if test x"$ac_use_ocl" = "xyes" ; then
-       ac_use_ocl="no"
-     else
- dnl      LIBOCL_LIBS="-L$ac_ocl_path/lib -lOpenCL -lm -lrt -lstdc++"
--      LIBOCL_LIBS="-L$ac_ocl_path/lib -lOpenCL -lm"
-+      LIBOCL_LIBS="-L$ac_ocl_path/lib -lOCL -lOpenCL -lm"
-     fi
-     LIBS=$LIBS_OLD
-   fi
 diff -Naur orig/bigdft-1.6-tuto.1.orig/src/CUDA/Makefile.am patched/bigdft-1.6-tuto.1/src/CUDA/Makefile.am
 --- bigdft-1.6-tuto.1.orig/src/CUDA/Makefile.am	2011-09-27 12:43:06.000000000 +0000
 +++ bigdft-1.6-tuto.1/src/CUDA/Makefile.am	2012-07-04 12:08:27.000000000 +0000
