@@ -1,0 +1,75 @@
+--- setup.py.orig	2012-09-06 09:40:12.270646957 -0700
++++ setup.py	2012-09-06 09:45:04.370193374 -0700
+@@ -13,23 +13,23 @@
+ exampleScripts=glob.glob("scripts"+os.path.sep+"*.py")
+ 
+ class build_PyWCSTools_ext(build_ext):
+-	
++
+ 	def build_extensions(self):
+-		
++
+ 		os.chdir(sourceDir)
+-		
++
+ 		cc=distutils.ccompiler.new_compiler()
+-		
+-		WCSToolsCFiles=["actread.c", "binread.c", "ctgread.c", "catutil.c", "cel.c", "daoread.c", "dateutil.c", "distort.c", "dsspos.c", 
++
++		WCSToolsCFiles=["actread.c", "binread.c", "ctgread.c", "catutil.c", "cel.c", "daoread.c", "dateutil.c", "distort.c", "dsspos.c",
+ 				"fileutil.c", "imutil.c", "findstar.c", "fitsfile.c", "fitswcs.c", "gscread.c", "gsc2read.c", "hget.c", "hput.c", "iget.c",
+ 				"imgetwcs.c", "imhfile.c", "imio.c", "imsetwcs.c", "imrotate.c", "lin.c", "matchstar.c", "platefit.c", "platepos.c",
+ 				"polfit.c", "proj.c", "sdssread.c", "sortstar.c", "sph.c", "tabread.c", "tmcread.c", "tnxpos.c", "ty2read.c", "uacread.c",
+ 				"ubcread.c", "ucacread.c", "ujcread.c", "wcs.c", "wcsinit.c", "wcscon.c", "wcslib.c", "wcstrig.c", "webread.c", "worldpos.c"]
+ 		cc.compile(WCSToolsCFiles)
+-		
++
+ 		os.chdir(topDir)
+-		
+-		build_ext.build_extensions(self)		
++
++		build_ext.build_extensions(self)
+ 
+ setup(name='astLib',
+ 	version='0.17.1',
+@@ -51,35 +51,11 @@
+ 	with World Coordinate System (WCS) information through PyWCSTools - a simple wrapping of WCSTools by Doug Mink.
+ 	PyWCSTools is distributed (and developed) as part of astLib.""",
+ 	packages=['astLib', 'PyWCSTools'],
+-	cmdclass={"build_ext": build_PyWCSTools_ext},
+ 	scripts=exampleScripts,
+ 	ext_modules=[
+-		Extension('PyWCSTools._wcscon', [sourceDir+"wcscon_wrap.c"], 
+-		extra_objects=[sourceDir+"actread.o", sourceDir+"binread.o", sourceDir+"ctgread.o", sourceDir+"catutil.o",
+-					sourceDir+"cel.o", sourceDir+"daoread.o", sourceDir+"dateutil.o", sourceDir+"distort.o",
+-					sourceDir+"dsspos.o", sourceDir+"fileutil.o", sourceDir+"imutil.o", sourceDir+"findstar.o",
+-					sourceDir+"fitsfile.o", sourceDir+"fitswcs.o", sourceDir+"gscread.o", sourceDir+"gsc2read.o",
+-					sourceDir+"hget.o", sourceDir+"hput.o", sourceDir+"iget.o", sourceDir+"imgetwcs.o",
+-					sourceDir+"imhfile.o", sourceDir+"imio.o", sourceDir+"imsetwcs.o", sourceDir+"imrotate.o", 
+-					sourceDir+"lin.o", sourceDir+"matchstar.o", sourceDir+"platefit.o", 
+-					sourceDir+"platepos.o", sourceDir+"polfit.o", sourceDir+"proj.o", sourceDir+"sdssread.o",
+-					sourceDir+"sortstar.o", sourceDir+"sph.o", sourceDir+"tabread.o", sourceDir+"tmcread.o",
+-					sourceDir+"tnxpos.o", sourceDir+"ty2read.o", sourceDir+"uacread.o", sourceDir+"ubcread.o",
+-					sourceDir+"ucacread.o", sourceDir+"ujcread.o", sourceDir+"wcs.o", sourceDir+"wcsinit.o",
+-					sourceDir+"wcscon.o", sourceDir+"wcslib.o", sourceDir+"wcstrig.o", sourceDir+"webread.o",
+-					sourceDir+"worldpos.o"]),
+-		Extension('PyWCSTools._wcs', [sourceDir+"wcs_wrap.c"], 
+-		extra_objects=[sourceDir+"actread.o", sourceDir+"binread.o", sourceDir+"ctgread.o", sourceDir+"catutil.o",
+-					sourceDir+"cel.o", sourceDir+"daoread.o", sourceDir+"dateutil.o", sourceDir+"distort.o",
+-					sourceDir+"dsspos.o", sourceDir+"fileutil.o", sourceDir+"imutil.o", sourceDir+"findstar.o",
+-					sourceDir+"fitsfile.o", sourceDir+"fitswcs.o", sourceDir+"gscread.o", sourceDir+"gsc2read.o",
+-					sourceDir+"hget.o", sourceDir+"hput.o", sourceDir+"iget.o", sourceDir+"imgetwcs.o",
+-					sourceDir+"imhfile.o", sourceDir+"imio.o", sourceDir+"imsetwcs.o", sourceDir+"imrotate.o", 
+-					sourceDir+"lin.o", sourceDir+"matchstar.o", sourceDir+"platefit.o", 
+-					sourceDir+"platepos.o", sourceDir+"polfit.o", sourceDir+"proj.o", sourceDir+"sdssread.o",
+-					sourceDir+"sortstar.o", sourceDir+"sph.o", sourceDir+"tabread.o", sourceDir+"tmcread.o",
+-					sourceDir+"tnxpos.o", sourceDir+"ty2read.o", sourceDir+"uacread.o", sourceDir+"ubcread.o",
+-					sourceDir+"ucacread.o", sourceDir+"ujcread.o", sourceDir+"wcs.o", sourceDir+"wcsinit.o",
+-					sourceDir+"wcscon.o", sourceDir+"wcslib.o", sourceDir+"wcstrig.o", sourceDir+"webread.o",
+-					sourceDir+"worldpos.o"])]
++		Extension('PyWCSTools._wcscon', [sourceDir+"wcscon_wrap.c"],
++                  libraries=['wcstools']),
++		Extension('PyWCSTools._wcs', [sourceDir+"wcs_wrap.c"],
++                  libraries=['wcstools'])]
++
+ 	)
