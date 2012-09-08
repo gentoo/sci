@@ -22,7 +22,7 @@ SLOT="0"
 KEYWORDS="~x86"
 IUSE="emacs hepmc java lhapdf test zlib"
 
-DEPEND="sci-libs/gsl
+RDEPEND="sci-libs/gsl
 	dev-lang/perl
 	emacs? ( virtual/emacs )
 	hepmc? ( sci-physics/hepmc )
@@ -30,8 +30,7 @@ DEPEND="sci-libs/gsl
 	lhapdf? ( sci-physics/lhapdf )
 	zlib? ( sys-libs/zlib )
 "
-RDEPEND="${DEPEND}"
-DEPEND="${DEPEND}
+DEPEND="${RDEPEND}
 	test? ( sys-process/time )"
 
 S="${WORKDIR}/${MYP}"
