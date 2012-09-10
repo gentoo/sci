@@ -25,7 +25,7 @@ DEPEND="dev-libs/boost
 	dev-lang/perl
 	sci-physics/thepeg
 	fastjet? ( sci-physics/fastjet )"
-RDEPEND=""
+RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MYP}"
 
