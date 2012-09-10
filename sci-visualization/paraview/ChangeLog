@@ -2,6 +2,22 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*paraview-3.14.1-r2 (31 Aug 2012)
+
+  31 Aug 2012; François Bissey <francois.bissey@canterbury.ac.nz>
+  -paraview-3.14.1-r1.ebuild, +paraview-3.14.1-r2.ebuild,
+  +files/paraview-3.14.1-vtknetcd.patch:
+  netcdf dealt with
+
+*paraview-3.14.1-r1 (30 Aug 2012)
+
+  30 Aug 2012; François Bissey <francois.bissey@canterbury.ac.nz>
+  -paraview-3.14.1.ebuild, +paraview-3.14.1-r1.ebuild,
+  +files/paraview-3.14.1-gcc-4.7.patch, +files/paraview-3.14.1-mpi4py.patch,
+  +files/paraview-3.14.1-python-exit.patch,
+  +files/paraview-3.14.1-removesqlite.patch:
+  fix a number of things
+
 *paraview-3.14.1 (28 Aug 2012)
 
   28 Aug 2012; François Bissey <francois.bissey@canterbury.ac.nz>

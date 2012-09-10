@@ -1,0 +1,138 @@
+LIGPLOT - Automated representation of protein-ligand interactions
+  ----------------------------------------------------------------
+
+			CONFIDENTIALITY AGREEMENT
+			-------------------------
+
+
+
+In regard to the LIGPLOT , specified in the Appendix herewith 
+(the Software) supplied to us, the copyright and other
+intellectual property rights to which belong to the authors, we
+
+
+    __________________________________________________________________
+
+undertake to the authors that we shall be bound by the following terms 
+and conditions:-
+
+1. We will receive the Software and any related documentation in 
+confidence and will not use the same except for the purpose of the
+department's own research. The Software will be used only by such of 
+our officers or employees to whom it must reasonably be communicated 
+to enable us to undertake our research and who agree to be bound by 
+the same confidence.  The department shall procure and enforce such
+agreement from its staff for the benefit of the authors.
+
+2. The publication of research using the Software must reference
+"Wallace A C, Laskowski R A, Thornton J M (1995). LIGPLOT: A program
+to generate schematic diagrams of protein-ligand interactions. Protein 
+Engineering, 8, 127-134."
+
+3. Research shall take place solely at the department's premises at
+
+
+    __________________________________________________________________
+
+4. All forms of the Software will be kept in a reasonably secure place
+ to prevent unauthorised access.
+
+5. Each copy of the Software or, if not practicable then, any package
+associated therewith shall be suitably marked (and such marking 
+maintained) with the following copyright notice: " Copyright 1994
+A C Wallace, R A Laskowski, & J M Thornton All Rights Reserved".
+
+6. The Software may be modified but any changes made shall be made
+available to the authors.
+
+7. The Software shall be used exclusively for academic teaching and
+research. The Software will not be used for any commercial research or
+research associated with an industrial company.
+
+8. The confidentiality obligation in paragraph one shall not apply:
+
+   (i)  to information and data known to the department at the time of
+	receipt hereunder (as evidenced by its written records);
+
+  (ii)	to information and data which was at the time of receipt in the 
+	public domain or thereafter becomes so through no wrongful act of
+	the department;
+
+ (iii)	to information and data which the department receives from a third
+	party not in breach of any obligation of confidentiality owed to
+	the authors.
+
+Please sign this Undertaking and return a copy of it to indicate that you 
+have read, understood and accepted the above terms.
+
+
+
+		      For and on behalf of _____________________________
+
+		      _________________________________________________
+		     
+		      ..................................................
+
+		      Dated ............................................
+
+
+
+e-mail address ___________________________
+
+
+
+Please complete the above form, sign it, and then send it, or fax it, to:-
+
+
+Roman Laskowski
+European Bioinformatics Institute,
+Wellcome Trust Genome Campus,
+Hinxton,
+Cambridge, CB10 1SD,
+United Kingdom
+ 
+Fax:- +44 (0)1223 494 468
+ 
+roman@ebi.ac.uk
+
+
+If you have any problems either installing the software or running it,
+please e-mail your problems to:-
+
+     roman@ebi.ac.uk
+
+
+APPENDIX - Files supplied as part of the LIGPLOT program
+--------------------------------------------------------
+
+Source program files:-
+1. ligplot.c
+2. ligplot.h
+3. hbadd.c
+4. hbadd.h
+5. dimer.c
+6. dimer.h
+
+Script files:-
+1. ligplot.scr
+2. ligonly.scr
+3. dimplot.scr
+4. dimonly.scr
+
+Parameter file:-
+1. ligplot.prm
+
+Installation instructions:-
+1. install.doc
+
+Documentation:-
+1. manual.tar.Z
+2. README
+
+Confidentiality Agreement:-
+1. confid.txt
+
+
+
+                                                   v.4.4.2 - 7 Mar 2003
+

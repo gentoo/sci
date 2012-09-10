@@ -23,6 +23,7 @@ SLOT="0"
 IUSE="boost cg -coprocessing doc examples +gui mpi mysql nvcontrol +plugins +python webkit ffmpeg theora"
 
 RDEPEND="
+	~sci-libs/netcdf-4.1.3[cxx,hdf5]
 	sci-libs/hdf5[mpi=]
 	mpi? ( virtual/mpi[cxx,romio] )
 	gui? (
@@ -39,10 +40,13 @@ RDEPEND="
 	python? (
 		dev-python/sip
 		gui? ( dev-python/PyQt4 )
-		dev-python/numpy )
+		dev-python/numpy
+		mpi? ( dev-python/mpi4py )
+	)
 	ffmpeg? ( virtual/ffmpeg )
 	theora? ( media-libs/libtheora )
 	dev-libs/libxml2:2
+	dev-db/sqlite:3
 	media-libs/libpng
 	virtual/jpeg
 	media-libs/tiff
@@ -75,6 +79,17 @@ src_prepare() {
 	epatch "${FILESDIR}"/${PN}-3.14.1-ffmpeg-noinstall.patch
 	# patch from debian for some underlinking in xdmf
 	epatch "${FILESDIR}"/${PN}-3.14.1-xdmf-linking.patch
+	# upstream http://paraview.org/Bug/view.php?id=13222 and 
+	# commit https://github.com/Kitware/ParaView/commit/559af72e540f418310b6425055348336a48ad557
+	epatch "${FILESDIR}"/${PN}-3.14.1-python-exit.patch
+	# disable internal mpi4py copy
+	epatch "${FILESDIR}"/${PN}-3.14.1-mpi4py.patch
+	# remove the internal copy of sqlite (vtksqlite)
+	# http://patch-tracker.debian.org/patch/series/view/paraview/3.14.1-7/removesqlite.patch
+	epatch "${FILESDIR}"/${PN}-3.14.1-removesqlite.patch
+	# gcc 4.7 fix
+	# http://patch-tracker.debian.org/patch/series/view/paraview/3.14.1-7/fix_FTBFS_gcc-4.7.patch
+	epatch "${FILESDIR}"/${PN}-3.14.1-gcc-4.7.patch
 
 	# lib64 fixes
 	sed -i "s:/usr/lib:${EPREFIX}/usr/$(get_libdir):g" \
@@ -82,7 +97,8 @@ src_prepare() {
 	sed -i "s:\/lib\/python:\/$(get_libdir)\/python:g" \
 		Utilities/Xdmf2/CMake/setup_install_paths.py || die
 
-	# Install internal vtk binaries inside /usr/${PVLIBDIR}
+	# Install internal vtk binaries to PV_INSTALL_LIB_DIR as noted in the comment in the cmake file.
+	# upstream doesn't even do what they say they do.
 	sed -e 's:VTK_INSTALL_BIN_DIR \"/${PV_INSTALL_BIN_DIR}\":VTK_INSTALL_BIN_DIR \"/${PV_INSTALL_LIB_DIR}\":' \
 		-i CMake/ParaViewCommon.cmake || die "failed to patch vtk install location"
 
@@ -93,6 +109,8 @@ src_prepare() {
 	epatch "${FILESDIR}"/vtk-5.6.1-libav-0.8.patch
 	# debian patch for recent boost should work with 1.48 too
 	epatch "${FILESDIR}"/vtk-boost1.49.patch
+	# adapted from debian patch need to be applied after paraview-3.14.1-removesqlite.patch
+	epatch "${FILESDIR}"/${PN}-3.14.1-vtknetcd.patch
 }
 
 src_configure() {
@@ -114,12 +132,12 @@ src_configure() {
 		-DVTK_USE_SYSTEM_ZLIB=ON
 		-DVTK_USE_SYSTEM_EXPAT=ON
 		-DPARAVIEW_USE_SYSTEM_HDF5=ON
+		-DVTK_USE_SYSTEM_HDF5=ON
 		-DCMAKE_VERBOSE_MAKEFILE=ON
 		-DCMAKE_COLOR_MAKEFILE=TRUE
 		-DVTK_USE_SYSTEM_LIBXML2=ON
 		-DVTK_USE_OFFSCREEN=TRUE
 		-DCMAKE_USE_PTHREADS=ON
-		-DBUILD_TESTING=OFF
 		-DVTK_USE_FFMPEG_ENCODER=OFF
 		-DPARAVIEW_INSTALL_THIRD_PARTY_LIBRARIES=OFF
 		-DPROTOC_LOCATION=$(which protoc))
@@ -147,8 +165,14 @@ src_configure() {
 		$(cmake-utils_use theora VTK_USE_THEORA_ENCODER)
 		$(cmake-utils_use theora VTK_USE_SYSTEM_OGGTHEORA))
 
+	# testing, disabling vtk testing as vtkpython is tested and will fail.
+	mycmakeargs+=(
+		$(cmake-utils_use test BUILD_TESTING)
+		$(cmake-utils_use test PARAVIEW_DISABLE_VTK_TESTING))
+
 	if ( use gui ); then
-		mycmakeargs+=(-DVTK_INSTALL_QT_DIR=/${PVLIBDIR}/plugins/designer
+		mycmakeargs+=(
+			-DVTK_INSTALL_QT_DIR=/${PVLIBDIR}/plugins/designer
 			$(cmake-utils_use webkit VTK_QT_USE_WEBKIT))
 		if use python ; then
 			# paraview cannot guess sip directory right probably because a path is not propagated properly
@@ -177,7 +201,8 @@ src_configure() {
 		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_VisTrailPlugin))
 
 	if use python; then
-		mycmakeargs+=($(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_pvblot))
+		mycmakeargs+=(
+			$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_pvblot))
 	fi
 
 	if use coprocessing; then
@@ -214,6 +239,8 @@ pkg_postinst() {
 	elog "If you experience data corruption during parsing of"
 	elog "data files with paraview please try setting your"
 	elog "locale to LC_ALL=C."
+	elog "If you plan to use paraview component from an existing shell"
+	elog "you should run env-update and . /etc/profile first"
 	echo
 }
 

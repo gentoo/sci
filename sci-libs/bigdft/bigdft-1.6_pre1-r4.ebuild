@@ -64,9 +64,9 @@ pkg_setup() {
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/"${REAL_P}"-libxc_dir_include.patch \
-		"${FILESDIR}"/"${REAL_P}"-bigdft.pc.patch \
+		"${FILESDIR}"/"${REAL_P}"-bigdft.pc-1.patch \
 		"${FILESDIR}"/"${REAL_P}"-gcc-4.6.patch \
-		"${FILESDIR}"/"${REAL_P}"-GPUlibs.patch
+		"${FILESDIR}"/"${REAL_P}"-GPUlibs-1.patch
 	sed -i -e's/capitalize_module_ext/ax_fc_mod_ext/g' "${S}"/configure || die
 	sed -i -e's/capitalize_module_ext/ax_fc_mod_ext/g' "${S}"/configure.ac || die
 	eautoreconf

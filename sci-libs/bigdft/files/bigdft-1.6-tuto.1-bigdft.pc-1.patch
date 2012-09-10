@@ -158,7 +158,11 @@ diff -Naur bigdft-1.6-tuto_orig/Makefile.in bigdft-1.6-tuto/Makefile.in
 diff -Naur bigdft-1.6-tuto_orig/bigdft.pc.in bigdft-1.6-tuto/bigdft.pc.in
 --- bigdft.pc.in	1970-01-01 00:00:00.000000000 +0000
 +++ bigdft.pc.in	2012-02-01 09:43:59.000000000 +0000
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,15 @@
++@USE_CUDA_GPU_FALSE@libs_cuda=
++@USE_CUDA_GPU_TRUE@libs_cuda=$(top_builddir)/src/CUDA/libGPU.a
++@USE_OCL_FALSE@libs_ocl=
++@USE_OCL_TRUE@libs_ocl=$(top_builddir)/src/OpenCL/libOCL.a -lstdc++
 +prefix=@prefix@
 +exec_prefix=@exec_prefix@
 +libdir=@libdir@
@@ -168,7 +172,7 @@ diff -Naur bigdft-1.6-tuto_orig/bigdft.pc.in bigdft-1.6-tuto/bigdft.pc.in
 +Description: Library for DFT calculation over wavelets.
 +Requires: 
 +Version: @VERSION@
-+Libs: -L${libdir} -lbigdft -lpoissonsolver @LIBS@ @FCLIBS@
++Libs: -L${libdir} -lbigdft -lpoissonsolver ${libs_cuda} ${libs_ocl} @LIBS@ @FCLIBS@
 +Cflags: -I${includedir}
 diff -Naur bigdft-1.6-tuto_orig/configure bigdft-1.6-tuto/configure
 --- configure	2012-03-21 10:03:26.000000000 +0000

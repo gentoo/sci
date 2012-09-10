@@ -4,7 +4,6 @@
 
 EAPI=4
 
-PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
 RESTRICT_PYTHON_ABIS="3.*"
 
@@ -19,7 +18,7 @@ SRC_URI="mirror://sourceforge/${PN}/${MYP}.tar.gz"
 
 IUSE="doc examples"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="BSD"
 
 DEPEND="sci-astronomy/wcstools"
@@ -32,7 +31,7 @@ RDEPEND="${DEPEND}
 S="${WORKDIR}/${MYP}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-0.6.0-wcstools.patch
+	epatch "${FILESDIR}"/${PN}-0.17.1-wcstools.patch
 	distutils_src_prepare
 }
 
