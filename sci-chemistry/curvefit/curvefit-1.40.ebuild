@@ -28,7 +28,7 @@ src_install() {
 	local _exe
 	sed \
 		-e 's: xmgr : xmgrace :g' \
-		-e 's:/bin/ls:/usr/bin/ls:g' \
+		-e 's: /bin/ls:${EPREFIX}/bin/ls:g' \
 		-i batch_curve curveplot || die
 
 	exeinto /opt/bin
