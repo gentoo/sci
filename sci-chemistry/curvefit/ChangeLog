@@ -3,6 +3,9 @@
 # $Header: $
 
   14 Sep 2012; Justin Lecher <jlec@gentoo.org> curvefit-1.40.ebuild:
+  We have ls in usr/bin
+
+  14 Sep 2012; Justin Lecher <jlec@gentoo.org> curvefit-1.40.ebuild:
   Also include gcc-4.1 libdir in rpath
 
 *curvefit-1.40 (14 Sep 2012)
