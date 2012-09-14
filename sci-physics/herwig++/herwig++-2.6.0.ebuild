@@ -44,8 +44,7 @@ src_configure() {
 		$(use_with fastjet fastjet "${EPREFIX}"/usr)
 }
 
-src_install () {
-	emake DESTDIR="${D}" install
-	sed -i "s%${D}%%g" "${D}"/usr/share/herwig++/defaults/PDF.in || die
-	sed -i "s%${D}%%g" "${D}"/usr/share/herwig++/HerwigDefaults.rpo || die
+pkg_preinst () {
+	sed -i "s%${ED}%%g" "${ED}"/usr/share/herwig++/defaults/PDF.in || die
+	sed -i "s%${ED}%%g" "${ED}"/usr/share/herwig++/HerwigDefaults.rpo || die
 }
