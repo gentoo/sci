@@ -37,7 +37,7 @@ src_install() {
 		_exe=./linux_64/curvefit
 	fi
 
-	patchelf --set-rpath "${EPREFIX}/opt/${PN}" ${_exe}
+	patchelf --set-rpath "${EPREFIX}/opt/${PN}:${EPREFIX}/usr/$(get_libdir)/gcc/x86_64-pc-linux-gnu/4.1.2/" ${_exe}
 
 	doexe batch_curve curveplot ${_exe}
 
