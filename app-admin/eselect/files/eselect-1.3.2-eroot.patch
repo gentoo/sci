@@ -1,0 +1,11 @@
+--- a/bin/eselect.in
++++ b/bin/eselect.in
+@@ -43,7 +43,7 @@
+ 
+ # Support variables for Gentoo Prefix
+ EPREFIX="@EPREFIX@"
+-EROOT="${ROOT%/}${EPREFIX}"
++EROOT="${ROOT%${EPREFIX:+/}}${EPREFIX}"
+ 
+ # Remove all alias definitions. Unset functions and variables that are
+ # known to cause trouble.
