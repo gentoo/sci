@@ -20,7 +20,7 @@ RESTRICT="mirror"
 LICENSE="paraview GPL-2"
 KEYWORDS="~x86 ~amd64"
 SLOT="0"
-IUSE="boost cg -coprocessing doc examples +gui mpi mysql postscript nvcontrol +plugins +python webkit ffmpeg theora"
+IUSE="boost cg -coprocessing doc examples +gui mpi mysql gl2ps nvcontrol +plugins +python webkit ffmpeg theora"
 
 RDEPEND="
 	~sci-libs/netcdf-4.1.3[cxx,hdf5]
@@ -45,7 +45,7 @@ RDEPEND="
 	)
 	ffmpeg? ( virtual/ffmpeg )
 	theora? ( media-libs/libtheora )
-	postscript? ( x11-libs/gl2ps )
+	gl2ps? ( x11-libs/gl2ps )
 	dev-libs/libxml2:2
 	dev-db/sqlite:3
 	media-libs/libpng
@@ -161,8 +161,8 @@ src_configure() {
 		$(cmake-utils_use nvcontrol VTK_USE_NVCONTROL)
 		$(cmake-utils_use mysql XDMF_USE_MYSQL)
 		$(cmake-utils_use mysql VTK_USE_MYSQL)
-		$(cmake-utils_use postscript VTK_USE_GL2PS)
-		$(cmake-utils_use postscript VTK_USE_SYSTEM_GL2PS)
+		$(cmake-utils_use gl2ps VTK_USE_GL2PS)
+		$(cmake-utils_use gl2ps VTK_USE_SYSTEM_GL2PS)
 		$(cmake-utils_use coprocessing PARAVIEW_ENABLE_COPROCESSING)
 		$(cmake-utils_use ffmpeg VTK_USE_FFMPEG_ENCODER)
 		$(cmake-utils_use theora VTK_USE_THEORA_ENCODER)
