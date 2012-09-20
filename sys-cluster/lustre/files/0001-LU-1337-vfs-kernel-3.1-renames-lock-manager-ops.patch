@@ -1,0 +1,190 @@
+From 0635f4d7cde2da46e05ba6be6d6dd26e72814ff8 Mon Sep 17 00:00:00 2001
+From: Liu Xuezhao <xuezhao.liu@emc.com>
+Date: Thu, 9 Aug 2012 10:37:39 +0800
+Subject: [PATCH 01/13] LU-1337 vfs: kernel 3.1 renames lock-manager ops
+
+Kernel 3.1 renames lock-manager ops(lock_manager_operations) from
+fl_xxx to lm_xxx (commit 8fb47a4fbf858a164e973b8ea8ef5e83e61f2e50).
+
+Add LC_LM_XXX_LOCK_MANAGER_OPS/HAVE_LM_XXX_LOCK_MANAGER_OPS to check.
+
+Re-arrange several macro definitions in lustre-core.m4 as kernel
+version sequence.
+
+Signed-off-by: Liu Xuezhao <xuezhao.liu@emc.com>
+Change-Id: Ic86ec9db2f8262ef7ab9f5f2fb51ca79591120a4
+---
+ lustre/autoconf/lustre-core.m4         | 85 +++++++++++++++++++++-------------
+ lustre/include/linux/lustre_compat25.h |  4 ++
+ lustre/llite/file.c                    | 18 +++----
+ 3 files changed, 67 insertions(+), 40 deletions(-)
+
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index 64c14e5..403add5 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -1729,6 +1729,18 @@ EXTRA_KCFLAGS="$tmp_flags"
+ ])
+ 
+ #
++# 2.6.38 export simple_setattr
++#
++AC_DEFUN([LC_EXPORT_SIMPLE_SETATTR],
++[LB_CHECK_SYMBOL_EXPORT([simple_setattr],
++[fs/libfs.c],[
++AC_DEFINE(HAVE_SIMPLE_SETATTR, 1,
++            [simple_setattr is exported by the kernel])
++],[
++])
++])
++
++#
+ # 2.6.39 remove unplug_fn from request_queue.
+ #
+ AC_DEFUN([LC_REQUEST_QUEUE_UNPLUG_FN],
+@@ -1798,14 +1810,42 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
+-# 2.6.38 export simple_setattr
++# 3.1.1 has ext4_blocks_for_truncate
+ #
+-AC_DEFUN([LC_EXPORT_SIMPLE_SETATTR],
+-[LB_CHECK_SYMBOL_EXPORT([simple_setattr],
+-[fs/libfs.c],[
+-AC_DEFINE(HAVE_SIMPLE_SETATTR, 1,
+-            [simple_setattr is exported by the kernel])
++AC_DEFUN([LC_BLOCKS_FOR_TRUNCATE],
++[AC_MSG_CHECKING([if kernel has ext4_blocks_for_truncate])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/fs.h>
++	#include "$LINUX/fs/ext4/ext4_jbd2.h"
++	#include "$LINUX/fs/ext4/truncate.h"
+ ],[
++	ext4_blocks_for_truncate(NULL);
++],[
++	AC_MSG_RESULT([yes])
++	AC_DEFINE(HAVE_BLOCKS_FOR_TRUNCATE, 1,
++		  [kernel has ext4_blocks_for_truncate])
++],[
++	AC_MSG_RESULT([no])
++])
++])
++
++#
++# 3.1 renames lock-manager ops(lock_manager_operations) from fl_xxx to lm_xxx
++# see kernel commit 8fb47a4fbf858a164e973b8ea8ef5e83e61f2e50
++#
++AC_DEFUN([LC_LM_XXX_LOCK_MANAGER_OPS],
++[AC_MSG_CHECKING([if lock-manager ops renamed to lm_xxx])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/fs.h>
++],[
++	struct lock_manager_operations lm_ops;
++	lm_ops.lm_compare_owner = NULL;
++],[
++	AC_DEFINE(HAVE_LM_XXX_LOCK_MANAGER_OPS, 1,
++		  [lock-manager ops renamed to lm_xxx])
++	AC_MSG_RESULT([yes])
++],[
++	AC_MSG_RESULT([no])
+ ])
+ ])
+ 
+@@ -1848,26 +1888,6 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
+-# 3.1.1 has ext4_blocks_for_truncate
+-#
+-AC_DEFUN([LC_BLOCKS_FOR_TRUNCATE],
+-[AC_MSG_CHECKING([if kernel has ext4_blocks_for_truncate])
+-LB_LINUX_TRY_COMPILE([
+-	#include <linux/fs.h>
+-	#include "$LINUX/fs/ext4/ext4_jbd2.h"
+-	#include "$LINUX/fs/ext4/truncate.h"
+-],[
+-	ext4_blocks_for_truncate(NULL);
+-],[
+-	AC_MSG_RESULT([yes])
+-	AC_DEFINE(HAVE_BLOCKS_FOR_TRUNCATE, 1,
+-		  [kernel has ext4_blocks_for_truncate])
+-],[
+-	AC_MSG_RESULT([no])
+-])
+-])
+-
+-#
+ # LC_PROG_LINUX
+ #
+ # Lustre linux kernel checks
+@@ -2008,15 +2028,18 @@ AC_DEFUN([LC_PROG_LINUX],
+ 
+          # 2.6.39
+          LC_REQUEST_QUEUE_UNPLUG_FN
+-	LC_HAVE_FSTYPE_MOUNT
+-
+-	# 3.3
+-	LC_HAVE_MIGRATE_HEADER
+-	LC_MIGRATEPAGE_4ARGS
++	 LC_HAVE_FSTYPE_MOUNT
+ 
+ 	 # 3.1.1
+ 	 LC_BLOCKS_FOR_TRUNCATE
+ 
++	 # 3.1
++	 LC_LM_XXX_LOCK_MANAGER_OPS
++
++	 # 3.3
++	 LC_HAVE_MIGRATE_HEADER
++	 LC_MIGRATEPAGE_4ARGS
++
+          #
+          if test x$enable_server = xyes ; then
+              AC_DEFINE(HAVE_SERVER_SUPPORT, 1, [support server])
+diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
+index 172da72..41b4516 100644
+--- a/lustre/include/linux/lustre_compat25.h
++++ b/lustre/include/linux/lustre_compat25.h
+@@ -808,5 +808,9 @@ static inline bool selinux_is_enabled(void)
+ }
+ #endif
+ 
++#ifndef HAVE_LM_XXX_LOCK_MANAGER_OPS
++# define lm_compare_owner	fl_compare_owner
++#endif
++
+ #endif /* __KERNEL__ */
+ #endif /* _COMPAT25_H */
+diff --git a/lustre/llite/file.c b/lustre/llite/file.c
+index 96379d6..1525b07 100644
+--- a/lustre/llite/file.c
++++ b/lustre/llite/file.c
+@@ -2150,15 +2150,15 @@ int ll_file_flock(struct file *file, int cmd, struct file_lock *file_lock)
+         }
+         flock.l_flock.pid = file_lock->fl_pid;
+ 
+-        /* Somewhat ugly workaround for svc lockd.
+-         * lockd installs custom fl_lmops->fl_compare_owner that checks
+-         * for the fl_owner to be the same (which it always is on local node
+-         * I guess between lockd processes) and then compares pid.
+-         * As such we assign pid to the owner field to make it all work,
+-         * conflict with normal locks is unlikely since pid space and
+-         * pointer space for current->files are not intersecting */
+-        if (file_lock->fl_lmops && file_lock->fl_lmops->fl_compare_owner)
+-                flock.l_flock.owner = (unsigned long)file_lock->fl_pid;
++	/* Somewhat ugly workaround for svc lockd.
++	 * lockd installs custom fl_lmops->lm_compare_owner that checks
++	 * for the fl_owner to be the same (which it always is on local node
++	 * I guess between lockd processes) and then compares pid.
++	 * As such we assign pid to the owner field to make it all work,
++	 * conflict with normal locks is unlikely since pid space and
++	 * pointer space for current->files are not intersecting */
++	if (file_lock->fl_lmops && file_lock->fl_lmops->lm_compare_owner)
++		flock.l_flock.owner = (unsigned long)file_lock->fl_pid;
+ 
+         switch (file_lock->fl_type) {
+         case F_RDLCK:
+-- 
+1.7.12
+

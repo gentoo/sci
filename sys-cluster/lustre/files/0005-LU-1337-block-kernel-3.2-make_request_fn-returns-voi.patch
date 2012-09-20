@@ -1,0 +1,108 @@
+From b489d154ef9a88421939b20b146361122a4704d6 Mon Sep 17 00:00:00 2001
+From: Liu Xuezhao <xuezhao.liu@emc.com>
+Date: Thu, 9 Aug 2012 10:18:32 +0800
+Subject: [PATCH 05/13] LU-1337 block: kernel 3.2 make_request_fn returns void
+
+3.2 request_queue.make_request_fn defined as function returns void.
+(kernel commit 5a7bbad27a410350e64a2d7f5ec18fc73836c14f)
+Add LC_HAVE_VOID_MAKE_REQUEST_FN/HAVE_VOID_MAKE_REQUEST_FN for check.
+
+Signed-off-by: Liu Xuezhao <xuezhao.liu@emc.com>
+Change-Id: I49a27873c1754addc9fef7c5f50cbf84592adf05
+---
+ lustre/autoconf/lustre-core.m4         | 24 ++++++++++++++++++++++++
+ lustre/include/linux/lustre_compat25.h |  8 ++++++++
+ lustre/llite/lloop.c                   |  9 +++++----
+ 3 files changed, 37 insertions(+), 4 deletions(-)
+
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index a2d8efc..420d81e 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -1874,6 +1874,27 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
++# 3.2 request_queue.make_request_fn defined as function returns with void
++# see kernel commit 5a7bbad27a410350e64a2d7f5ec18fc73836c14f
++#
++AC_DEFUN([LC_HAVE_VOID_MAKE_REQUEST_FN],
++[AC_MSG_CHECKING([if request_queue.make_request_fn returns void but not int])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/blkdev.h>
++],[
++	int ret;
++	make_request_fn		*mrf;
++	ret = mrf(NULL, NULL);
++],[
++	AC_MSG_RESULT([no])
++],[
++	AC_DEFINE(HAVE_VOID_MAKE_REQUEST_FN, 1,
++		  [request_queue.make_request_fn returns void but not int])
++	AC_MSG_RESULT([yes])
++])
++])
++
++#
+ # 3.3 introduces migrate_mode.h and migratepage has 4 args
+ #
+ AC_DEFUN([LC_HAVE_MIGRATE_HEADER],
+@@ -2061,6 +2082,9 @@ AC_DEFUN([LC_PROG_LINUX],
+ 	 LC_LM_XXX_LOCK_MANAGER_OPS
+ 	 LC_INODE_DIO_WAIT
+ 
++	 # 3.2
++	 LC_HAVE_VOID_MAKE_REQUEST_FN
++
+ 	 # 3.3
+ 	 LC_HAVE_MIGRATE_HEADER
+ 	 LC_MIGRATEPAGE_4ARGS
+diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
+index 914069a..2d0dd0e 100644
+--- a/lustre/include/linux/lustre_compat25.h
++++ b/lustre/include/linux/lustre_compat25.h
+@@ -831,5 +831,13 @@ static inline int ll_namei_to_lookup_intent_flag(int flag)
+ 	return flag;
+ }
+ 
++#ifdef HAVE_VOID_MAKE_REQUEST_FN
++# define ll_mrf_ret void
++# define LL_MRF_RETURN(rc) EXIT
++#else
++# define ll_mrf_ret int
++# define LL_MRF_RETURN(rc) RETURN(rc)
++#endif
++
+ #endif /* __KERNEL__ */
+ #endif /* _COMPAT25_H */
+diff --git a/lustre/llite/lloop.c b/lustre/llite/lloop.c
+index 5f4dec3..59814e6 100644
+--- a/lustre/llite/lloop.c
++++ b/lustre/llite/lloop.c
+@@ -338,7 +338,8 @@ static unsigned int loop_get_bio(struct lloop_device *lo, struct bio **req)
+         return count;
+ }
+ 
+-static int loop_make_request(struct request_queue *q, struct bio *old_bio)
++static ll_mrf_ret
++loop_make_request(struct request_queue *q, struct bio *old_bio)
+ {
+         struct lloop_device *lo = q->queuedata;
+         int rw = bio_rw(old_bio);
+@@ -366,10 +367,10 @@ static int loop_make_request(struct request_queue *q, struct bio *old_bio)
+                 goto err;
+         }
+         loop_add_bio(lo, old_bio);
+-        return 0;
++	LL_MRF_RETURN(0);
+ err:
+-        cfs_bio_io_error(old_bio, old_bio->bi_size);
+-        return 0;
++	cfs_bio_io_error(old_bio, old_bio->bi_size);
++	LL_MRF_RETURN(0);
+ }
+ 
+ #ifdef HAVE_REQUEST_QUEUE_UNPLUG_FN
+-- 
+1.7.12
+

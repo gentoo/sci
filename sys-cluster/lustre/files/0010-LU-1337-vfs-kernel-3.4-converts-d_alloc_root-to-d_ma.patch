@@ -1,0 +1,128 @@
+From 9d5b2096640f5a9ed1d9307748cc79a35def59fb Mon Sep 17 00:00:00 2001
+From: Liu Xuezhao <xuezhao.liu@emc.com>
+Date: Mon, 16 Jul 2012 17:05:04 +0800
+Subject: [PATCH 10/13] LU-1337 vfs: kernel 3.4 converts d_alloc_root to
+ d_make_root
+
+kernel 3.4 converts d_alloc_root to d_make_root.
+(kernel commit 32991ab305ace7017c62f8eecbe5eb36dc32e13b)
+
+Add LC_HAVE_D_MAKE_ROOT/HAVE_D_MAKE_ROOT to ckeck it.
+
+Signed-off-by: Liu Xuezhao <xuezhao.liu@emc.com>
+Change-Id: I7ff1f0eff25495b655e650997016377ca0a200aa
+---
+ lustre/autoconf/lustre-core.m4         | 20 ++++++++++++++++++++
+ lustre/include/linux/lustre_compat25.h | 14 ++++++++++++++
+ lustre/llite/llite_lib.c               |  7 ++++++-
+ lustre/obdclass/obd_mount.c            | 13 ++++++-------
+ 4 files changed, 46 insertions(+), 8 deletions(-)
+
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index 3b3115c..bc92b4f 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -2028,6 +2028,25 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
++# 3.4 converts d_alloc_root to d_make_root
++# see kernel commit 32991ab305ace7017c62f8eecbe5eb36dc32e13b
++#
++AC_DEFUN([LC_HAVE_D_MAKE_ROOT],
++[AC_MSG_CHECKING([if have d_make_root])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/fs.h>
++],[
++	d_make_root((struct inode *)NULL);
++],[
++	AC_DEFINE(HAVE_D_MAKE_ROOT, 1,
++		  [have d_make_root])
++	AC_MSG_RESULT([yes])
++],[
++	AC_MSG_RESULT([no])
++])
++])
++
++#
+ # LC_PROG_LINUX
+ #
+ # Lustre linux kernel checks
+@@ -2189,6 +2208,7 @@ AC_DEFUN([LC_PROG_LINUX],
+ 
+ 	 # 3.4
+ 	 LC_TOUCH_ATIME_1ARG
++	 LC_HAVE_D_MAKE_ROOT
+ 
+          #
+          if test x$enable_server = xyes ; then
+diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
+index 070ad83..b1d3056 100644
+--- a/lustre/include/linux/lustre_compat25.h
++++ b/lustre/include/linux/lustre_compat25.h
+@@ -853,5 +853,19 @@ static inline void set_nlink(struct inode *inode, unsigned int nlink)
+ # define ll_umode_t	int
+ #endif
+ 
++#include <linux/dcache.h>
++#ifndef HAVE_D_MAKE_ROOT
++static inline struct dentry *d_make_root(struct inode *root_inode)
++{
++	struct dentry *res;
++
++	res = d_alloc_root(root_inode);
++	if (res == NULL)
++		iput(root_inode);
++
++	return res;
++}
++#endif
++
+ #endif /* __KERNEL__ */
+ #endif /* _COMPAT25_H */
+diff --git a/lustre/llite/llite_lib.c b/lustre/llite/llite_lib.c
+index 18246ac..f125461 100644
+--- a/lustre/llite/llite_lib.c
++++ b/lustre/llite/llite_lib.c
+@@ -539,7 +539,12 @@ static int client_common_fill_super(struct super_block *sb, char *md, char *dt,
+                                  NULL);
+         cl_sb_init(sb);
+ 
+-        sb->s_root = d_alloc_root(root);
++	sb->s_root = d_make_root(root);
++	if (sb->s_root == NULL) {
++		CERROR("Can't make root dentry\n");
++		GOTO(out_lock_cn_cb, err = -ENOMEM);
++	}
++
+ #ifdef HAVE_DCACHE_LOCK
+ 	sb->s_root->d_op = &ll_d_root_ops;
+ #else
+diff --git a/lustre/obdclass/obd_mount.c b/lustre/obdclass/obd_mount.c
+index b2ec636..c2481bf 100644
+--- a/lustre/obdclass/obd_mount.c
++++ b/lustre/obdclass/obd_mount.c
+@@ -1609,14 +1609,13 @@ static int server_fill_super_common(struct super_block *sb)
+         /* apparently we need to be a directory for the mount to finish */
+         root->i_mode = S_IFDIR;
+ 
+-        sb->s_root = d_alloc_root(root);
+-        if (!sb->s_root) {
+-                CERROR("Can't make root dentry\n");
+-                iput(root);
+-                RETURN(-EIO);
+-        }
++	sb->s_root = d_make_root(root);
++	if (!sb->s_root) {
++		CERROR("Can't make root dentry\n");
++		RETURN(-EIO);
++	}
+ 
+-        RETURN(0);
++	RETURN(0);
+ }
+ 
+ static int osd_start(struct lustre_sb_info *lsi, unsigned long mflags)
+-- 
+1.7.12
+

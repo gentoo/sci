@@ -1,0 +1,90 @@
+From 9e05a2ac1524f4d7d3aa3f5cc6f278ee3e460b17 Mon Sep 17 00:00:00 2001
+From: Peng Tao <tao.peng@emc.com>
+Date: Wed, 22 Aug 2012 17:57:04 +0800
+Subject: [PATCH 12/13] LU-1337 llite: kernel 3.5 renames end_writeback to
+ clear_inode
+
+kernel commit dbd5768f8 renames end_writeback to clear_inode,
+which used to exist for ~2.6.36 kernels.
+
+Signed-off-by: Peng Tao <tao.peng@emc.com>
+Change-Id: I2435e820092085c0fb55539818f4bad9e48ff386
+---
+ lustre/autoconf/lustre-core.m4         | 22 ++++++++++++++++++++++
+ lustre/include/linux/lustre_compat25.h |  3 +++
+ lustre/llite/llite_lib.c               |  4 +---
+ 3 files changed, 26 insertions(+), 3 deletions(-)
+
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index bc92b4f..3f47dab 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -2047,6 +2047,25 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
++# 3.5 renames end_writeback() back to clear_inode()...
++# see kernel commit dbd5768f87ff6fb0a4fe09c4d7b6c4a24de99430
++#
++AC_DEFUN([LC_HAVE_CLEAR_INODE],
++[AC_MSG_CHECKING([if have clear_inode])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/fs.h>
++],[
++	clear_inode((struct inode *)NULL);
++],[
++	AC_DEFINE(HAVE_CLEAR_INODE, 1,
++		  [have clear_inode])
++	AC_MSG_RESULT([yes])
++],[
++	AC_MSG_RESULT([no])
++])
++])
++
++#
+ # LC_PROG_LINUX
+ #
+ # Lustre linux kernel checks
+@@ -2210,6 +2229,9 @@ AC_DEFUN([LC_PROG_LINUX],
+ 	 LC_TOUCH_ATIME_1ARG
+ 	 LC_HAVE_D_MAKE_ROOT
+ 
++	 # 3.5
++	 LC_HAVE_CLEAR_INODE
++
+          #
+          if test x$enable_server = xyes ; then
+              AC_DEFINE(HAVE_SERVER_SUPPORT, 1, [support server])
+diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
+index b1d3056..b2bba25 100644
+--- a/lustre/include/linux/lustre_compat25.h
++++ b/lustre/include/linux/lustre_compat25.h
+@@ -866,6 +866,9 @@ static inline struct dentry *d_make_root(struct inode *root_inode)
+ 	return res;
+ }
+ #endif
++#ifndef HAVE_CLEAR_INODE
++#define clear_inode(i)		end_writeback(i)
++#endif
+ 
+ #endif /* __KERNEL__ */
+ #endif /* _COMPAT25_H */
+diff --git a/lustre/llite/llite_lib.c b/lustre/llite/llite_lib.c
+index f125461..ccbaad0 100644
+--- a/lustre/llite/llite_lib.c
++++ b/lustre/llite/llite_lib.c
+@@ -1881,10 +1881,8 @@ void ll_delete_inode(struct inode *inode)
+ 
+ #ifdef HAVE_SBOPS_EVICT_INODE
+         ll_clear_inode(inode);
+-        end_writeback(inode);
+-#else
+-        clear_inode(inode);
+ #endif
++        clear_inode(inode);
+ 
+         EXIT;
+ }
+-- 
+1.7.12
+
