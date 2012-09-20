@@ -4,7 +4,7 @@
 
 EAPI=3
 
-inherit bash-completion-r1 eutils autotools
+inherit autotools eutils bash-completion-r1
 
 DESCRIPTION="Gentoo's multi-purpose configuration and management tool"
 HOMEPAGE="http://www.gentoo.org/proj/en/eselect/"
@@ -12,7 +12,7 @@ SRC_URI="mirror://gentoo/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~ppc-aix ~sparc-fbsd ~x86-fbsd ~x64-freebsd ~x86-freebsd ~hppa-hpux ~ia64-hpux ~x86-interix ~amd64-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~ppc-aix ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x64-freebsd ~x86-freebsd ~hppa-hpux ~ia64-hpux ~x86-interix ~amd64-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 IUSE="doc"
 
 RDEPEND="sys-apps/sed
@@ -34,6 +34,7 @@ RDEPEND="!app-admin/eselect-news
 #	vim-syntax? ( app-vim/eselect-syntax )"
 
 src_prepare() {
+	epatch "${FILESDIR}/${P}-eroot.patch"
 	epatch "${FILESDIR}"/${PN}-alternatives.patch
 	AT_M4DIR="." eautoreconf
 }
@@ -57,8 +58,10 @@ src_install() {
 
 	# needed by news module
 	keepdir /var/lib/gentoo/news
-	fowners root:portage /var/lib/gentoo/news || die
-	fperms g+w /var/lib/gentoo/news || die
+	if ! use prefix; then
+		fowners root:portage /var/lib/gentoo/news || die
+		fperms g+w /var/lib/gentoo/news || die
+	fi
 
 	# band aid for prefix
 	if use prefix; then
@@ -70,7 +73,8 @@ src_install() {
 pkg_postinst() {
 	# fowners in src_install doesn't work for the portage group:
 	# merging changes the group back to root
-	[[ -z ${EROOT} ]] && local EROOT=${ROOT}
-	chgrp portage "${EROOT}/var/lib/gentoo/news" \
-		&& chmod g+w "${EROOT}/var/lib/gentoo/news"
+	if ! use prefix; then
+		chgrp portage "${EROOT}/var/lib/gentoo/news" \
+			&& chmod g+w "${EROOT}/var/lib/gentoo/news"
+	fi
 }
