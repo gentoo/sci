@@ -49,6 +49,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch ${PATCHES[@]}
+	apply_user_patches
 	sh ./autogen.sh
 }
 

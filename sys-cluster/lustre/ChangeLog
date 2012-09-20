@@ -1,0 +1,6 @@
+# ChangeLog for sys-cluster/lustre
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  20 Sep 2012; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  [sys-cluster/lustre] call apply_user_patches
