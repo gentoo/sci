@@ -2,6 +2,18 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*paraview-3.14.1-r4 (20 Sep 2012)
+
+  20 Sep 2012; François Bissey <francois.bissey@canterbury.ac.nz>
+  -paraview-3.14.1-r3.ebuild, +paraview-3.14.1-r4.ebuild, metadata.xml:
+  change postscript useflag to gl2ps as in opencascade
+
+*paraview-3.14.1-r3 (16 Sep 2012)
+
+  16 Sep 2012; François Bissey <francois.bissey@canterbury.ac.nz>
+  -paraview-3.14.1-r2.ebuild, +paraview-3.14.1-r3.ebuild:
+  add a ps useflags for gl2ps
+
 *paraview-3.14.1-r2 (31 Aug 2012)
 
   31 Aug 2012; François Bissey <francois.bissey@canterbury.ac.nz>
