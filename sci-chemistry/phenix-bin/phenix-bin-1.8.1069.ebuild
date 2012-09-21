@@ -23,6 +23,10 @@ LICENSE="phenix"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
+RDEPEND="
+	media-libs/jpeg:62"
+DEPEND=""
+
 RESTRICT="fetch"
 
 QA_PREBUILT="opt/phenix-${MY_PV}/.*"
