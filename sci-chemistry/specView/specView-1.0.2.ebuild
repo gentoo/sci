@@ -44,7 +44,7 @@ src_prepare() {
 		-e "/^LINK_FLAGS/s:$: ${LDFLAGS}:g" \
 		-e "/^PYTHON_DIR/s:=.*:= ${EPREFIX}/usr:g" \
 		-e "/^PYTHON_LIB/s:=.*:= $(python_get_library -l):g" \
-		-e "/^PYTHON_INCLUDE_FLAGS/s:=.*:= -I$(python_get_includedir) -I$(python_get_sitedir)/numpy/core/include/numpy:g" \
+		-e "/^PYTHON_INCLUDE_FLAGS/s:=.*:= -I${EPREFIX}$(python_get_includedir) -I${EPREFIX}$(python_get_sitedir)/numpy/core/include/numpy:g" \
 		-e "/^PYTHON_LIB_FLAGS/s:=.*:= -L${EPREFIX}/usr/$(get_libdir):g" \
 		-e "/^SHARED_FLAGS/s:=.*:= -shared:g" \
 		-e "/^GL_DIR/s:=.*:= ${EPREFIX}/usr/$(get_libdir):g" \

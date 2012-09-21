@@ -3,6 +3,9 @@
 # $Header: $
 
   21 Sep 2012; Justin Lecher <jlec@gentoo.org> specView-1.0.2.ebuild:
+  Prefix offset for header dirs
+
+  21 Sep 2012; Justin Lecher <jlec@gentoo.org> specView-1.0.2.ebuild:
   Copile py code
 
 *specView-1.0.2 (21 Sep 2012)
