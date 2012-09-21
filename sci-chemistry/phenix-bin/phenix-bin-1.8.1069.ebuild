@@ -75,9 +75,9 @@ src_install() {
 }
 
 pkg_postinst() {
-	python_mod_optimize "${EPREFIX}/opt/phenix-${MY_PV}"
+	python_mod_optimize "/opt/phenix-${MY_PV}"
 }
 
 pkg_postrm() {
-	python_mod_cleanup "${EPREFIX}/opt/phenix-${MY_PV}"
+	python_mod_cleanup "/opt/phenix-${MY_PV}"
 }

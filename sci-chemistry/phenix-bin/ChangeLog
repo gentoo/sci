@@ -3,6 +3,9 @@
 # $Header: $
 
   21 Sep 2012; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.1069.ebuild:
+  Don't double prefix
+
+  21 Sep 2012; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.1069.ebuild:
   Not everyone installs on my box
 
   20 Sep 2012; Justin Lecher <jlec@gentoo.org> +phenix-bin-1.8.1069.ebuild,
