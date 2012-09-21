@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/specView
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*specView-1.0.2 (21 Sep 2012)
+
+  21 Sep 2012; Justin Lecher <jlec@gentoo.org> +specView-1.0.2.ebuild,
+  +files/specView, +metadata.xml:
+  New addition
+
