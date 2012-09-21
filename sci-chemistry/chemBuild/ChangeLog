@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/chemBuild
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*chemBuild-1.0.2 (21 Sep 2012)
+
+  21 Sep 2012; Justin Lecher <jlec@gentoo.org> +chemBuild-1.0.2.ebuild,
+  +files/chemBuild, +metadata.xml:
+  New addition
+
