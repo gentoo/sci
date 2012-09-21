@@ -19,7 +19,7 @@ IUSE=""
 
 RDEPEND="
 	dev-python/pyopengl
-	dev-python/pyside"
+	dev-python/pyside[webkit]"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/ccpnmr/ccpnmr3.0/
