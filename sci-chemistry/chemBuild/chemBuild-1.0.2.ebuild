@@ -17,7 +17,7 @@ LICENSE="|| ( CCPN LGPL-2.1 )"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
-RDEPEND="dev-python/pyside"
+RDEPEND="dev-python/pyside[webkit]"
 DEPEND=""
 
 S="${WORKDIR}"/ccpnmr/ccpnmr3.0/
