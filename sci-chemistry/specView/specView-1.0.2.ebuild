@@ -97,5 +97,12 @@ src_install() {
 		chmod 755 ${_file}
 	done
 	eend
+}
 
+pkg_postinst() {
+	python_mod_optimize ${PN}
+}
+
+pkg_postrm() {
+	python_mod_cleanup ${PN}
 }
