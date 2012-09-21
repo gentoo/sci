@@ -17,6 +17,8 @@ LICENSE="chimera"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
+DEPEND="prefix? ( dev-util/patchelf )"
+
 S="${WORKDIR}"
 
 RESTRICT="fetch"
@@ -52,4 +54,11 @@ src_install() {
 	doexe "${T}"/chimera
 
 	make_desktop_entry "${EPREFIX}/opt/bin/chimera" Chimera chimeraIcon
+
+	if use prefix; then
+		local i
+		for i in "${ED}"/opt/${PN}/bin/{tiffcp,povray,al2co} "${ED}"/opt/${PN}/lib/*.so; do
+			patchelf --set-rpath "${EPREFIX}/usr/lib:${EPREFIX}/opt/${PN}/lib" "${i}" || die
+		done
+	fi
 }
