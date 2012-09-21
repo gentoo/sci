@@ -21,7 +21,7 @@ DEPEND="prefix? ( dev-util/patchelf )"
 
 S="${WORKDIR}"
 
-RESTRICT="fetch"
+RESTRICT="fetch strip"
 
 QA_PREBUILT="opt/.*"
 
