@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,7 +13,7 @@
 
 # The EAPI variable tells the ebuild format in use.
 # Defaults to 0 if not specified.
-# It is suggested that you the latest EAPI approved by the Council.
+# It is suggested that you use the latest EAPI approved by the Council.
 # The PMS contains specifications for all EAPIs. Eclasses will test for this
 # variable if they need to use EAPI > 0 features.
 EAPI=4
@@ -30,17 +30,17 @@ inherit eutils
 #   epatch "${FILESDIR}"/patch-name-here
 #
 # eclasses tend to list descriptions of how to use their functions properly.
-# take a look at /usr/portage/eclasses/ for more examples.
+# take a look at /usr/portage/eclass/ for more examples.
 
 # Short one-line description of this package.
 DESCRIPTION="This is a sample skeleton ebuild file"
 
 # Homepage, not used by Portage directly but handy for developer reference
-HOMEPAGE="http://foo.bar.com/"
+HOMEPAGE="http://foo.example.org/"
 
 # Point to any required sources; these will be automatically downloaded by
 # Portage.
-SRC_URI="ftp://foo.bar.com/${P}.tar.gz"
+SRC_URI="ftp://foo.example.org/${P}.tar.gz"
 
 
 # License of the package.  This must match the name of file(s) in
@@ -107,7 +107,7 @@ RDEPEND="${DEPEND}"
 # unpacked) inside ${WORKDIR}.  The default value for S is ${WORKDIR}/${P}
 # If you don't need to change it, leave the S= line out of the ebuild
 # to keep it tidy.
-#S="${WORKDIR}/${P}"
+#S=${WORKDIR}/${P}
 
 
 # The following src_configure function is implemented as default by portage, so
