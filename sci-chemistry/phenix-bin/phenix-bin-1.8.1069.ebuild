@@ -53,8 +53,8 @@ src_install() {
 	sed \
 		-e "s:${S}/foo:${EPREFIX}/opt:g" \
 		-i \
-			build-binary/intel-linux-2.6-*/paul/log/*.log \
-			build-final/intel-linux-2.6-*/paul/log/*.log \
+			build-binary/intel-linux-2.6-*/*/log/*.log \
+			build-final/intel-linux-2.6-*/*/log/*.log \
 			foo/phenix-${MY_PV}/build/intel-linux-2.6-*/*_env \
 			foo/phenix-${MY_PV}/build/intel-linux-*/*sh \
 			foo/phenix-${MY_PV}/build/intel-linux-*/bin/* \
