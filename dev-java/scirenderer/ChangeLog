@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scirenderer-1.0.0 (25 Sep 2012)
+
+  25 Sep 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  -scirenderer-0.5.6.ebuild, +scirenderer-1.0.0.ebuild:
+  version bump
+
 *scirenderer-0.5.6 (11 Aug 2012)
 
   11 Aug 2012; Guillaume Horel <guillaume.horel@gmail.com>
