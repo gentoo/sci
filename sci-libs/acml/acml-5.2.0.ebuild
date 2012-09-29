@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils toolchain-funcs versionator alternatives-2
+inherit eutils multilib toolchain-funcs versionator alternatives-2
 
 ACML_INST_DIR=opt/${PN}${PV}
 QA_PREBUILT="${ACML_INST_DIR}/*/lib/*"
