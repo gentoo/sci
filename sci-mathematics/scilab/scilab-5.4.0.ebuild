@@ -8,7 +8,7 @@ JAVA_PKG_OPT_USE="gui"
 VIRTUALX_REQUIRED="manual"
 
 inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
-	fortran-2 git-2 java-pkg-opt-2 toolchain-funcs virtualx
+	fortran-2 java-pkg-opt-2 toolchain-funcs virtualx
 
 # Comments:
 # - we don't rely on the configure script to find the right version of java
@@ -23,11 +23,10 @@ inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
 DESCRIPTION="Scientific software package for numerical computations"
 LICENSE="CeCILL-2"
 HOMEPAGE="http://www.scilab.org/"
-#SRC_URI="http://guillaume.horel.free.fr/${P}.tar.gz"
-EGIT_REPO_URI="git://git.scilab.org/scilab"
+SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz"
 
 SLOT="0"
-IUSE="bash-completion debug doc fftw +gui +matio nls openmp
+IUSE="bash-completion debug +doc fftw +gui +matio nls openmp
 	static-libs test tk +umfpack xcos"
 REQUIRED_USE="xcos? ( gui ) doc? ( gui )"
 
@@ -60,10 +59,10 @@ CDEPEND="dev-libs/libpcre
 		dev-java/javahelp:0
 		dev-java/jeuclid-core:0
 		dev-java/jgoodies-looks:2.0
-		dev-java/jlatexmath:1
+		>=dev-java/jlatexmath-1.0.0:0
 		dev-java/jogl:2
 		>=dev-java/jrosetta-1.0.4:0
-		dev-java/scirenderer:1
+		dev-java/scirenderer:0
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:1.3
 		virtual/opengl
@@ -83,15 +82,13 @@ DEPEND="${CDEPEND}
 	gui? (
 		>=virtual/jdk-1.5
 		doc? ( app-text/docbook-xsl-stylesheets
-			   dev-java/jlatexmath-fop:1
-			   dev-java/xml-commons-external:1.4 )
+			   >=dev-java/jlatexmath-fop-1.0.0:1
+			   dev-java/xml-commons-external )
 		xcos? ( dev-lang/ocaml ) )
 	test? (
-		dev-java/junit:4
+		dev-java/junit
 		gui? ( ${VIRTUALX_DEPEND} ) )"
 
-EGIT_SOURCEDIR="${WORKDIR}/${PN}"
-S="${WORKDIR}/${PN}/${PN}"
 DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
 
 pkg_pretend() {
@@ -126,10 +123,10 @@ src_prepare() {
 		"${FILESDIR}/${P}-gluegen.patch" \
 		"${FILESDIR}/${P}-fix-random-runtime-failure.patch"
 
-	append-ldflags $(no-as-needed)
+	#append-ldflags $(no-as-needed)
 
 	# increases java heap to 512M when building docs (sync with cheqreqs above)
-	use doc && epatch "${FILESDIR}"/${P}-java-heap.patch
+	use doc && epatch "${FILESDIR}/${P}-java-heap.patch"
 
 	# make sure library path are preloaded in binaries
 	sed -i \
@@ -153,7 +150,7 @@ src_prepare() {
 	java-pkg_jar-from jgoodies-looks-2.0,jrosetta,scirenderer
 	java-pkg_jar-from avalon-framework-4.2,saxon-6.5,jeuclid-core
 	java-pkg_jar-from xmlgraphics-commons-1.3,commons-io-1,jlatexmath-fop
-	java-pkg_jar-from jogl-2 jogl-all.jar jogl2.jar
+	java-pkg_jar-from jogl-2 jogl.all.jar jogl2.jar
 	java-pkg_jar-from gluegen-2 gluegen-rt.jar gluegen2-rt.jar
 	java-pkg_jar-from batik-1.7 batik-all.jar
 	java-pkg_jar-from xml-commons-external-1.4 xml-apis-ext.jar
