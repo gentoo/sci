@@ -59,10 +59,10 @@ CDEPEND="dev-libs/libpcre
 		dev-java/javahelp:0
 		dev-java/jeuclid-core:0
 		dev-java/jgoodies-looks:2.0
-		>=dev-java/jlatexmath-1.0.0:0
+		>=dev-java/jlatexmath-1.0.0:1
 		dev-java/jogl:2
 		>=dev-java/jrosetta-1.0.4:0
-		dev-java/scirenderer:0
+		dev-java/scirenderer:1
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:1.3
 		virtual/opengl
@@ -83,10 +83,10 @@ DEPEND="${CDEPEND}
 		>=virtual/jdk-1.5
 		doc? ( app-text/docbook-xsl-stylesheets
 			   >=dev-java/jlatexmath-fop-1.0.0:1
-			   dev-java/xml-commons-external )
+			   dev-java/xml-commons-external:1.4 )
 		xcos? ( dev-lang/ocaml ) )
 	test? (
-		dev-java/junit
+		dev-java/junit:4
 		gui? ( ${VIRTUALX_DEPEND} ) )"
 
 DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
@@ -123,7 +123,7 @@ src_prepare() {
 		"${FILESDIR}/${P}-gluegen.patch" \
 		"${FILESDIR}/${P}-fix-random-runtime-failure.patch"
 
-	#append-ldflags $(no-as-needed)
+	append-ldflags $(no-as-needed)
 
 	# increases java heap to 512M when building docs (sync with cheqreqs above)
 	use doc && epatch "${FILESDIR}/${P}-java-heap.patch"
