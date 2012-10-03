@@ -23,7 +23,6 @@ if [[ $PV = *9999* ]]; then
 		git://github.com/gromacs/gromacs.git
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-4-6"
-	use hybrid && EGIT_BRANCH="nbnxn_hybrid_acc"
 	inherit git-2
 else
 	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
@@ -37,7 +36,7 @@ HOMEPAGE="http://www.gromacs.org/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
-IUSE="X blas cuda doc -double-precision +fftw gsl hybrid lapack
+IUSE="X blas cuda doc -double-precision +fftw gsl lapack
 mpi openmp +single-precision test +threads xml zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
@@ -61,7 +60,7 @@ RDEPEND="${CDEPEND}
 
 RESTRICT="test"
 
-REQUIRED_USE="cuda? ( !double-precision hybrid )"
+REQUIRED_USE="cuda? ( !double-precision )"
 
 pkg_pretend() {
 	[[ $(gcc-version) == "4.1" ]] && die "gcc 4.1 is not supported by gromacs"
@@ -122,7 +121,7 @@ src_configure() {
 	use avx256 && acce="AVX_256"
 
 	#workaround for now
-	use sse2 && use hybrid && CFLAGS+=" -msse2"
+	use sse2 && CFLAGS+=" -msse2"
 
 	#to create man pages, build tree binaries are executed (bug #398437)
 	[[ ${CHOST} = *-darwin* ]] && \
@@ -225,9 +224,4 @@ pkg_postinst() {
 	einfo  "For more Gromacs cool quotes (gcq) add g_luck to your .bashrc"
 	einfo
 	elog  "Gromacs can use sci-chemistry/vmd to read additional file formats"
-	if use hybrid; then
-		elog "Cuda and hybrid acceleration is still experimental,"
-		elog "use 'cutoff-scheme = Verlet' in your mdp file and"
-		elog "report bugs: http://redmine.gromacs.org/issues"
-	fi
 }
