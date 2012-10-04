@@ -5,7 +5,6 @@
 EAPI="4"
 
 TEST_PV="4.0.4"
-MANUAL_PV="4.5.4"
 
 #to find external blas/lapack
 CMAKE_MIN_VERSION="2.8.5-r2"
@@ -14,8 +13,7 @@ CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit bash-completion-r1 cmake-utils eutils fortran-2 multilib toolchain-funcs
 
-SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
-		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf -> gromacs-manual-${MANUAL_PV}.pdf )"
+SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
 
 if [[ $PV = *9999* ]]; then
 	EGIT_REPO_URI="git://git.gromacs.org/gromacs.git
@@ -24,6 +22,7 @@ if [[ $PV = *9999* ]]; then
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-4-6"
 	inherit git-2
+	PDEPEND="doc? ( ~app-doc/gromacs-manual-${PV} )"
 else
 	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
 fi
@@ -55,8 +54,7 @@ CDEPEND="
 	xml? ( dev-libs/libxml2:2 )"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
-RDEPEND="${CDEPEND}
-	app-shells/tcsh"
+RDEPEND="${CDEPEND}"
 
 RESTRICT="test"
 
@@ -119,9 +117,6 @@ src_configure() {
 	use sse41 && acce="SSE4.1"
 	use avx128fma && acce="AVX_128_FMA"
 	use avx256 && acce="AVX_256"
-
-	#workaround for now
-	use sse2 && CFLAGS+=" -msse2"
 
 	#to create man pages, build tree binaries are executed (bug #398437)
 	[[ ${CHOST} = *-darwin* ]] && \
@@ -208,8 +203,11 @@ src_install() {
 	cd "${S}"
 	dodoc AUTHORS INSTALL* README*
 	if use doc; then
-		newdoc "${DISTDIR}/gromacs-manual-${MANUAL_PV}.pdf" "manual-${MANUAL_PV}.pdf"
 		dohtml -r "${ED}usr/share/gromacs/html/"
+		insinto /usr/share/gromacs
+		doins "admin/programs.txt"
+		ls -1 "${ED}"/usr/bin | sed -e '/_d$/d' > "${T}"/programs.list
+		doins "${T}"/programs.list
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"
 }
