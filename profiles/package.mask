@@ -143,6 +143,7 @@ sci-visualization/vtkPOFFReader
 =sci-chemistry/gromacs-4.5.9999
 =sci-chemistry/gromacs-4.6.9999
 =sci-chemistry/gromacs-9999
+=app-doc/gromacs-manual-4.6.9999
 =app-doc/gromacs-manual-9999
 
 # Christoph Junghans <ottxor@gentoo.org> (04 Nov 2011)
