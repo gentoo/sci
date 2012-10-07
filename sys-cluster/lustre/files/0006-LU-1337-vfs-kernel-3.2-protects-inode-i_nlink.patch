@@ -1,0 +1,194 @@
+From 7fefbc7487f55b0edaa7a85f0e5b9fea68d5ff15 Mon Sep 17 00:00:00 2001
+From: Liu Xuezhao <xuezhao.liu@emc.com>
+Date: Thu, 9 Aug 2012 10:31:10 +0800
+Subject: [PATCH 06/13] LU-1337 vfs: kernel 3.2 protects inode->i_nlink
+
+Kernel 3.2 protects inode->i_nlink from direct modification.
+Filesystems may only read i_nlink directly. They shall use the
+(set|clear|inc|drop)_nlink for modification.
+See kernel commit a78ef704a8dd430225955f0709b22d4a6ba21deb.
+
+This patch adds LC_HAVE_PROTECT_I_NLINK checking and implements
+set_nlink for old kernel, clear/inc/drop_nlink exists after 2.6.18
+so need not to be re-implemented.
+
+Signed-off-by: Liu Xuezhao <xuezhao.liu@emc.com>
+Change-Id: Ie958cb308291ecc48d409a1282fed7ea3549a561
+---
+ lustre/autoconf/lustre-core.m4         | 22 ++++++++++++++++++++++
+ lustre/include/linux/lustre_compat25.h |  8 ++++++++
+ lustre/llite/dcache.c                  |  4 ++--
+ lustre/llite/file.c                    |  2 +-
+ lustre/llite/llite_lib.c               |  4 ++--
+ lustre/osd-ldiskfs/osd_handler.c       | 12 ++++++------
+ 6 files changed, 41 insertions(+), 11 deletions(-)
+
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index 420d81e..84f1678 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -1895,6 +1895,27 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
++# 3.2 protects inode->i_nlink from direct modification
++# see kernel commit a78ef704a8dd430225955f0709b22d4a6ba21deb
++# at the same time, add set_nlink()
++#
++AC_DEFUN([LC_HAVE_PROTECT_I_NLINK],
++[AC_MSG_CHECKING([if inode->i_nlink is protected from direct modification])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/fs.h>
++],[
++	struct inode i;
++	i.i_nlink = 0;
++],[
++	AC_MSG_RESULT([no])
++],[
++	AC_DEFINE(HAVE_PROTECT_I_NLINK, 1,
++		  [inode->i_nlink is protected from direct modification])
++	AC_MSG_RESULT([yes])
++])
++])
++
++#
+ # 3.3 introduces migrate_mode.h and migratepage has 4 args
+ #
+ AC_DEFUN([LC_HAVE_MIGRATE_HEADER],
+@@ -2084,6 +2105,7 @@ AC_DEFUN([LC_PROG_LINUX],
+ 
+ 	 # 3.2
+ 	 LC_HAVE_VOID_MAKE_REQUEST_FN
++	 LC_HAVE_PROTECT_I_NLINK
+ 
+ 	 # 3.3
+ 	 LC_HAVE_MIGRATE_HEADER
+diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
+index 2d0dd0e..7ead133 100644
+--- a/lustre/include/linux/lustre_compat25.h
++++ b/lustre/include/linux/lustre_compat25.h
+@@ -839,5 +839,13 @@ static inline int ll_namei_to_lookup_intent_flag(int flag)
+ # define LL_MRF_RETURN(rc) RETURN(rc)
+ #endif
+ 
++#include <linux/fs.h>
++#ifndef HAVE_PROTECT_I_NLINK
++static inline void set_nlink(struct inode *inode, unsigned int nlink)
++{
++	inode->i_nlink = nlink;
++}
++#endif
++
+ #endif /* __KERNEL__ */
+ #endif /* _COMPAT25_H */
+diff --git a/lustre/llite/dcache.c b/lustre/llite/dcache.c
+index 14fb634..b507408 100644
+--- a/lustre/llite/dcache.c
++++ b/lustre/llite/dcache.c
+@@ -187,7 +187,7 @@ static int ll_ddelete(HAVE_D_DELETE_CONST struct dentry *de)
+ 	/* if not ldlm lock for this inode, set i_nlink to 0 so that
+ 	 * this inode can be recycled later b=20433 */
+ 	if (de->d_inode && !find_cbdata(de->d_inode))
+-		de->d_inode->i_nlink = 0;
++		clear_nlink(de->d_inode);
+ #endif
+ 
+ 	if (d_lustre_invalid((struct dentry *)de))
+@@ -687,7 +687,7 @@ void ll_d_iput(struct dentry *de, struct inode *inode)
+ {
+         LASSERT(inode);
+         if (!find_cbdata(inode))
+-                inode->i_nlink = 0;
++		clear_nlink(inode);
+         iput(inode);
+ }
+ 
+diff --git a/lustre/llite/file.c b/lustre/llite/file.c
+index bf9ba2f..8840295 100644
+--- a/lustre/llite/file.c
++++ b/lustre/llite/file.c
+@@ -2315,7 +2315,7 @@ ldlm_mode_t ll_take_md_lock(struct inode *inode, __u64 bits,
+ static int ll_inode_revalidate_fini(struct inode *inode, int rc) {
+         if (rc == -ENOENT) { /* Already unlinked. Just update nlink
+                               * and return success */
+-                inode->i_nlink = 0;
++		clear_nlink(inode);
+                 /* This path cannot be hit for regular files unless in
+                  * case of obscure races, so no need to to validate
+                  * size. */
+diff --git a/lustre/llite/llite_lib.c b/lustre/llite/llite_lib.c
+index 7f3ac28..07efcfc 100644
+--- a/lustre/llite/llite_lib.c
++++ b/lustre/llite/llite_lib.c
+@@ -1218,7 +1218,7 @@ int ll_md_setattr(struct dentry *dentry, struct md_op_data *op_data,
+         if (rc) {
+                 ptlrpc_req_finished(request);
+                 if (rc == -ENOENT) {
+-                        inode->i_nlink = 0;
++			clear_nlink(inode);
+                         /* Unlinked special device node? Or just a race?
+                          * Pretend we done everything. */
+                         if (!S_ISREG(inode->i_mode) &&
+@@ -1724,7 +1724,7 @@ void ll_update_inode(struct inode *inode, struct lustre_md *md)
+         if (body->valid & OBD_MD_FLFLAGS)
+                 inode->i_flags = ll_ext_to_inode_flags(body->flags);
+         if (body->valid & OBD_MD_FLNLINK)
+-                inode->i_nlink = body->nlink;
++		set_nlink(inode, body->nlink);
+         if (body->valid & OBD_MD_FLRDEV)
+                 inode->i_rdev = old_decode_dev(body->rdev);
+ 
+diff --git a/lustre/osd-ldiskfs/osd_handler.c b/lustre/osd-ldiskfs/osd_handler.c
+index 1c37bd9..ec9dfb6 100644
+--- a/lustre/osd-ldiskfs/osd_handler.c
++++ b/lustre/osd-ldiskfs/osd_handler.c
+@@ -1518,7 +1518,7 @@ static int osd_inode_setattr(const struct lu_env *env,
+         if (bits & LA_GID)
+                 inode->i_gid    = attr->la_gid;
+         if (bits & LA_NLINK)
+-                inode->i_nlink  = attr->la_nlink;
++		set_nlink(inode, attr->la_nlink);
+         if (bits & LA_RDEV)
+                 inode->i_rdev   = attr->la_rdev;
+ 
+@@ -2076,7 +2076,7 @@ static int osd_object_destroy(const struct lu_env *env,
+                 LASSERT(osd_inode_unlinked(inode) ||
+                         inode->i_nlink == 1);
+                 cfs_spin_lock(&obj->oo_guard);
+-                inode->i_nlink = 0;
++		clear_nlink(inode);
+                 cfs_spin_unlock(&obj->oo_guard);
+                 inode->i_sb->s_op->dirty_inode(inode);
+         } else {
+@@ -2283,11 +2283,11 @@ static int osd_object_ref_add(const struct lu_env *env,
+          * do not actually care whether this flag is set or not.
+          */
+         cfs_spin_lock(&obj->oo_guard);
+-        inode->i_nlink++;
++	inc_nlink(inode);
+         if (S_ISDIR(inode->i_mode) && inode->i_nlink > 1) {
+                 if (inode->i_nlink >= LDISKFS_LINK_MAX ||
+                     inode->i_nlink == 2)
+-                        inode->i_nlink = 1;
++			set_nlink(inode, 1);
+         }
+         LASSERT(inode->i_nlink <= LDISKFS_LINK_MAX);
+         cfs_spin_unlock(&obj->oo_guard);
+@@ -2333,12 +2333,12 @@ static int osd_object_ref_del(const struct lu_env *env, struct dt_object *dt,
+ 
+         cfs_spin_lock(&obj->oo_guard);
+         LASSERT(inode->i_nlink > 0);
+-        inode->i_nlink--;
++	drop_nlink(inode);
+         /* If this is/was a many-subdir directory (nlink > LDISKFS_LINK_MAX)
+          * then the nlink count is 1. Don't let it be set to 0 or the directory
+          * inode will be deleted incorrectly. */
+         if (S_ISDIR(inode->i_mode) && inode->i_nlink == 0)
+-                inode->i_nlink++;
++		inc_nlink(inode);
+         cfs_spin_unlock(&obj->oo_guard);
+         inode->i_sb->s_op->dirty_inode(inode);
+         LINVRNT(osd_invariant(obj));
+-- 
+1.7.12
+

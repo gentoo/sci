@@ -32,6 +32,7 @@
 
 # Guillaume Horel <guillaume.horel@gmail.com> (11 July 2012)
 # masked for upcoming scilab-5.4.0
+=sci-mathematics/scilab-5.4.0
 =dev-java/jrosetta-1.0.4
 =dev-java/flexdock-1.2.0
 >=dev-java/jgraphx-1.8
@@ -56,10 +57,6 @@
 # Christoph Junghans <ottxor@gentoo.org> (14 May 2012)
 # live ebuild
 =dev-lang/ispc-9999
-
-# Sebastien Fabbro <bicatali@gentoo.org> (14 May 2012)
-# alpha version for testing
->=sci-mathematics/scilab-5.3.99
 
 # Justin Lecher <jlec@gentoo.org> (28 Apr 2012)
 # Doesn't install pkg-config files, which many packages rely on
@@ -146,6 +143,7 @@ sci-visualization/vtkPOFFReader
 =sci-chemistry/gromacs-4.5.9999
 =sci-chemistry/gromacs-4.6.9999
 =sci-chemistry/gromacs-9999
+=app-doc/gromacs-manual-4.6.9999
 =app-doc/gromacs-manual-9999
 
 # Christoph Junghans <ottxor@gentoo.org> (04 Nov 2011)

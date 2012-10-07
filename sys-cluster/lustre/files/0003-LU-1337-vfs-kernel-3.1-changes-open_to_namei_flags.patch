@@ -1,0 +1,95 @@
+From 1bece6cbb7d810ef085d00ac4c664bbb37c8bc7b Mon Sep 17 00:00:00 2001
+From: Liu Xuezhao <xuezhao.liu@emc.com>
+Date: Thu, 26 Jul 2012 15:38:30 +0800
+Subject: [PATCH 03/13] LU-1337 vfs: kernel 3.1 changes open_to_namei_flags
+
+Kernel 3.1 changes the translation from open_flag to namei_flag,
+(kernel commit 8a5e929dd2e05ab4d3d89f58c5e8fca596af8f3a).
+
+So after 3.1, kernel's nameidata.intent.open.flags is different
+with lustre's lookup_intent.it_flags, as lustre's it_flags'
+lower bits equal to FMODE_xxx while kernel doesn't transliterate
+lower bits of nameidata.intent.open.flags to FMODE_xxx.
+
+This patch keeps lustre it_flags' semantics and add
+ll_namei_to_lookup_intent_flag for translation.
+
+Signed-off-by: Liu Xuezhao <xuezhao.liu@emc.com>
+Change-Id: I408685040688bae574d04cf288abb6ca967607df
+---
+ lustre/include/linux/lustre_compat25.h | 15 +++++++++++++++
+ lustre/llite/namei.c                   | 32 ++++++++++++++++----------------
+ 2 files changed, 31 insertions(+), 16 deletions(-)
+
+diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
+index bb45125..914069a 100644
+--- a/lustre/include/linux/lustre_compat25.h
++++ b/lustre/include/linux/lustre_compat25.h
+@@ -816,5 +816,20 @@ static inline bool selinux_is_enabled(void)
+ # define lm_compare_owner	fl_compare_owner
+ #endif
+ 
++/*
++ * After 3.1, kernel's nameidata.intent.open.flags is different
++ * with lustre's lookup_intent.it_flags, as lustre's it_flags'
++ * lower bits equal to FMODE_xxx while kernel doesn't transliterate
++ * lower bits of nameidata.intent.open.flags to FMODE_xxx.
++ * */
++#include <linux/version.h>
++static inline int ll_namei_to_lookup_intent_flag(int flag)
++{
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 1, 0)
++	flag = (flag & ~O_ACCMODE) | OPEN_FMODE(flag);
++#endif
++	return flag;
++}
++
+ #endif /* __KERNEL__ */
+ #endif /* _COMPAT25_H */
+diff --git a/lustre/llite/namei.c b/lustre/llite/namei.c
+index 7521e3d..4cb3bf4 100644
+--- a/lustre/llite/namei.c
++++ b/lustre/llite/namei.c
+@@ -552,23 +552,23 @@ static struct dentry *ll_lookup_it(struct inode *parent, struct dentry *dentry,
+ struct lookup_intent *ll_convert_intent(struct open_intent *oit,
+                                         int lookup_flags)
+ {
+-        struct lookup_intent *it;
+-
+-        OBD_ALLOC(it, sizeof(*it));
+-        if (!it)
+-                return ERR_PTR(-ENOMEM);
+-
+-        if (lookup_flags & LOOKUP_OPEN) {
+-                it->it_op = IT_OPEN;
+-                if (lookup_flags & LOOKUP_CREATE)
+-                        it->it_op |= IT_CREAT;
+-                it->it_create_mode = (oit->create_mode & S_IALLUGO) | S_IFREG;
+-                it->it_flags = oit->flags;
+-        } else {
+-                it->it_op = IT_GETATTR;
+-        }
++	struct lookup_intent *it;
++
++	OBD_ALLOC(it, sizeof(*it));
++	if (!it)
++		return ERR_PTR(-ENOMEM);
++
++	if (lookup_flags & LOOKUP_OPEN) {
++		it->it_op = IT_OPEN;
++		if (lookup_flags & LOOKUP_CREATE)
++			it->it_op |= IT_CREAT;
++		it->it_create_mode = (oit->create_mode & S_IALLUGO) | S_IFREG;
++		it->it_flags = ll_namei_to_lookup_intent_flag(oit->flags);
++	} else {
++		it->it_op = IT_GETATTR;
++	}
+ 
+-        return it;
++	return it;
+ }
+ 
+ static struct dentry *ll_lookup_nd(struct inode *parent, struct dentry *dentry,
+-- 
+1.7.12
+

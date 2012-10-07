@@ -74,7 +74,7 @@ src_configure() {
 		if use ${1}; then
 			myuse="--with-${p}=1"
 			if [[ $# -ge 4 ]]; then
-				myuse="${myuse} --with-${p}-include=${3}"
+				myuse="${myuse} --with-${p}-include=${EPREFIX}${3}"
 				shift 3
 				myuse="${myuse} --with-${p}-lib=$@"
 			else

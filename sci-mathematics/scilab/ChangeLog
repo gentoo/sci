@@ -2,6 +2,24 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scilab-5.4.0 (02 Oct 2012)
+
+  02 Oct 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  -scilab-5.3.999.ebuild,
+  -files/scilab-5.3.999-fix-random-runtime-failure.patch,
+  -files/scilab-5.3.999-followlinks.patch,
+  -files/scilab-5.3.999-fortran-link.patch,
+  -files/scilab-5.3.999-gluegen.patch, -files/scilab-5.3.999-java-heap.patch,
+  +scilab-5.4.0.ebuild, +files/scilab-5.4.0-fix-random-runtime-failure.patch,
+  +files/scilab-5.4.0-followlinks.patch,
+  +files/scilab-5.4.0-fortran-link.patch, +files/scilab-5.4.0-gluegen.patch,
+  +files/scilab-5.4.0-java-heap.patch:
+  version bump and delete live ebuild
+
+  25 Sep 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  scilab-5.3.999.ebuild:
+  update dependencies
+
   11 Aug 2012; Guillaume Horel <guillaume.horel@gmail.com>
   scilab-5.3.999.ebuild:
   drop dependency on hdf-java

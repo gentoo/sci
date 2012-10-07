@@ -5,7 +5,6 @@
 EAPI="4"
 
 TEST_PV="4.0.4"
-MANUAL_PV="4.5.4"
 
 #to find external blas/lapack
 CMAKE_MIN_VERSION="2.8.5-r2"
@@ -14,8 +13,7 @@ CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit bash-completion-r1 cmake-utils eutils fortran-2 multilib toolchain-funcs
 
-SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )
-		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf -> gromacs-manual-${MANUAL_PV}.pdf )"
+SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
 
 if [[ $PV = *9999* ]]; then
 	EGIT_REPO_URI="git://git.gromacs.org/gromacs.git
@@ -23,8 +21,8 @@ if [[ $PV = *9999* ]]; then
 		git://github.com/gromacs/gromacs.git
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-4-6"
-	use hybrid && EGIT_BRANCH="nbnxn_hybrid_acc"
 	inherit git-2
+	PDEPEND="doc? ( ~app-doc/gromacs-manual-${PV} )"
 else
 	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
 fi
@@ -37,7 +35,7 @@ HOMEPAGE="http://www.gromacs.org/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
-IUSE="X blas cuda doc -double-precision +fftw gsl hybrid lapack
+IUSE="X blas cuda doc -double-precision +fftw gsl lapack
 mpi openmp +single-precision test +threads xml zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
@@ -56,12 +54,11 @@ CDEPEND="
 	xml? ( dev-libs/libxml2:2 )"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
-RDEPEND="${CDEPEND}
-	app-shells/tcsh"
+RDEPEND="${CDEPEND}"
 
 RESTRICT="test"
 
-REQUIRED_USE="cuda? ( !double-precision hybrid )"
+REQUIRED_USE="cuda? ( !double-precision )"
 
 pkg_pretend() {
 	[[ $(gcc-version) == "4.1" ]] && die "gcc 4.1 is not supported by gromacs"
@@ -120,9 +117,6 @@ src_configure() {
 	use sse41 && acce="SSE4.1"
 	use avx128fma && acce="AVX_128_FMA"
 	use avx256 && acce="AVX_256"
-
-	#workaround for now
-	use sse2 && use hybrid && CFLAGS+=" -msse2"
 
 	#to create man pages, build tree binaries are executed (bug #398437)
 	[[ ${CHOST} = *-darwin* ]] && \
@@ -209,8 +203,11 @@ src_install() {
 	cd "${S}"
 	dodoc AUTHORS INSTALL* README*
 	if use doc; then
-		newdoc "${DISTDIR}/gromacs-manual-${MANUAL_PV}.pdf" "manual-${MANUAL_PV}.pdf"
 		dohtml -r "${ED}usr/share/gromacs/html/"
+		insinto /usr/share/gromacs
+		doins "admin/programs.txt"
+		ls -1 "${ED}"/usr/bin | sed -e '/_d$/d' > "${T}"/programs.list
+		doins "${T}"/programs.list
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"
 }
@@ -225,9 +222,4 @@ pkg_postinst() {
 	einfo  "For more Gromacs cool quotes (gcq) add g_luck to your .bashrc"
 	einfo
 	elog  "Gromacs can use sci-chemistry/vmd to read additional file formats"
-	if use hybrid; then
-		elog "Cuda and hybrid acceleration is still experimental,"
-		elog "use 'cutoff-scheme = Verlet' in your mdp file and"
-		elog "report bugs: http://redmine.gromacs.org/issues"
-	fi
 }

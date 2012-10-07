@@ -42,9 +42,8 @@ CDEPEND="
 	xml? ( dev-libs/libxml2:2 )"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
-RDEPEND="${CDEPEND}
-	app-shells/tcsh"
-PDEPEND="doc? ( app-doc/gromacs-manual )"
+RDEPEND="${CDEPEND}"
+PDEPEND="doc? ( ~app-doc/gromacs-manual-${PV} )"
 
 RESTRICT="test"
 

@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
   
+  29 Sep 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  -numbench-0.2_beta4-r1.ebuild, -numbench-0.2_beta4.ebuild,
+  numbench-0.2.ebuild, numbench-9999.ebuild:
+  app-benchmarks/numbench: Updated dependency for eselect alternatives
+
 *numbench-0.2
 
   8 Aug 2012; Andrea Arteaga <andyspiros@gmail.com> +numbench-0.2.ebuild

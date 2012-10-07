@@ -1,0 +1,446 @@
+From 13a22da522d306d69511e439406d2f986a596adb Mon Sep 17 00:00:00 2001
+From: Liu Xuezhao <xuezhao.liu@emc.com>
+Date: Sun, 22 Jul 2012 01:07:18 +0800
+Subject: [PATCH 02/13] LU-1337 vfs: kernel 3.1 kills inode->i_alloc_sem
+
+Kernel 3.1 kills inode->i_alloc_sem, use i_dio_count and
+inode_dio_wait/inode_dio_done instead.
+(kernel commit bd5fe6c5eb9c548d7f07fe8f89a150bb6705e8e3).
+
+Add HAVE_INODE_DIO_WAIT to differentiate it.
+Add INODE_DIO_LOCK_WRITE/INODE_DIO_RELEASE_WRITE,
+    INODE_DIO_LOCK_READ/INODE_DIO_RELEASE_READ macros.
+
+Signed-off-by: Liu Xuezhao <xuezhao.liu@emc.com>
+Change-Id: Ife36e07a85c76153985a4a86ee1973262c4c0e27
+---
+ lustre/autoconf/lustre-core.m4         | 22 ++++++++++++
+ lustre/include/linux/lustre_compat25.h | 18 ++++++----
+ lustre/llite/llite_lib.c               |  4 +--
+ lustre/llite/vvp_io.c                  | 27 ++++++--------
+ lustre/llite/vvp_page.c                |  1 -
+ lustre/obdfilter/filter.c              | 65 +++++++++++++++++-----------------
+ lustre/obdfilter/filter_io.c           | 28 ++++++++-------
+ lustre/obdfilter/filter_io_26.c        | 10 +++---
+ lustre/osc/osc_cache.c                 |  6 ++--
+ lustre/osd-ldiskfs/osd_io.c            |  1 -
+ 10 files changed, 102 insertions(+), 80 deletions(-)
+
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index 403add5..0aef14f 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -1850,6 +1850,27 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
++# 3.1 kills inode->i_alloc_sem, use i_dio_count and inode_dio_wait/
++#     inode_dio_done instead.
++# see kernel commit bd5fe6c5eb9c548d7f07fe8f89a150bb6705e8e3
++#
++AC_DEFUN([LC_INODE_DIO_WAIT],
++[AC_MSG_CHECKING([if inode->i_alloc_sem is killed and use inode_dio_wait/done.])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/fs.h>
++],[
++	inode_dio_wait((struct inode *)0);
++	inode_dio_done((struct inode *)0);
++],[
++	AC_DEFINE(HAVE_INODE_DIO_WAIT, 1,
++		  [inode->i_alloc_sem is killed and use inode_dio_wait/done])
++	AC_MSG_RESULT([yes])
++],[
++	AC_MSG_RESULT([no])
++])
++])
++
++#
+ # 3.3 introduces migrate_mode.h and migratepage has 4 args
+ #
+ AC_DEFUN([LC_HAVE_MIGRATE_HEADER],
+@@ -2035,6 +2056,7 @@ AC_DEFUN([LC_PROG_LINUX],
+ 
+ 	 # 3.1
+ 	 LC_LM_XXX_LOCK_MANAGER_OPS
++	 LC_INODE_DIO_WAIT
+ 
+ 	 # 3.3
+ 	 LC_HAVE_MIGRATE_HEADER
+diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
+index 41b4516..bb45125 100644
+--- a/lustre/include/linux/lustre_compat25.h
++++ b/lustre/include/linux/lustre_compat25.h
+@@ -269,13 +269,17 @@ static inline int mapping_has_pages(struct address_space *mapping)
+                 (type *)( (char *)__mptr - offsetof(type,member) );})
+ #endif
+ 
+-#define UP_WRITE_I_ALLOC_SEM(i)   up_write(&(i)->i_alloc_sem)
+-#define DOWN_WRITE_I_ALLOC_SEM(i) down_write(&(i)->i_alloc_sem)
+-#define LASSERT_I_ALLOC_SEM_WRITE_LOCKED(i) LASSERT(down_read_trylock(&(i)->i_alloc_sem) == 0)
+-
+-#define UP_READ_I_ALLOC_SEM(i)    up_read(&(i)->i_alloc_sem)
+-#define DOWN_READ_I_ALLOC_SEM(i)  down_read(&(i)->i_alloc_sem)
+-#define LASSERT_I_ALLOC_SEM_READ_LOCKED(i) LASSERT(down_write_trylock(&(i)->i_alloc_sem) == 0)
++#ifdef HAVE_INODE_DIO_WAIT
++# define INODE_DIO_LOCK_WRITE(i)	inode_dio_wait(i)
++# define INODE_DIO_RELEASE_WRITE(i)	do {} while (0)
++# define INODE_DIO_LOCK_READ(i)		atomic_inc(&(i)->i_dio_count)
++# define INODE_DIO_RELEASE_READ(i)	inode_dio_done(i)
++#else
++# define INODE_DIO_LOCK_WRITE(i)	down_write(&(i)->i_alloc_sem)
++# define INODE_DIO_RELEASE_WRITE(i)	up_write(&(i)->i_alloc_sem)
++# define INODE_DIO_LOCK_READ(i)		down_read(&(i)->i_alloc_sem)
++# define INODE_DIO_RELEASE_READ(i)	up_read(&(i)->i_alloc_sem)
++#endif
+ 
+ #include <linux/mpage.h>        /* for generic_writepages */
+ 
+diff --git a/lustre/llite/llite_lib.c b/lustre/llite/llite_lib.c
+index 9980c2c..7f3ac28 100644
+--- a/lustre/llite/llite_lib.c
++++ b/lustre/llite/llite_lib.c
+@@ -1439,12 +1439,12 @@ int ll_setattr_raw(struct dentry *dentry, struct iattr *attr)
+ 
+ 	if (!S_ISDIR(inode->i_mode)) {
+ 		if (ia_valid & ATTR_SIZE)
+-			UP_WRITE_I_ALLOC_SEM(inode);
++			INODE_DIO_RELEASE_WRITE(inode);
+ 		mutex_unlock(&inode->i_mutex);
+ 		cfs_down_write(&lli->lli_trunc_sem);
+ 		mutex_lock(&inode->i_mutex);
+ 		if (ia_valid & ATTR_SIZE)
+-			DOWN_WRITE_I_ALLOC_SEM(inode);
++			INODE_DIO_LOCK_WRITE(inode);
+ 	}
+ 
+ 	/* We need a steady stripe configuration for setattr to avoid
+diff --git a/lustre/llite/vvp_io.c b/lustre/llite/vvp_io.c
+index 50a19c9..0b4cfb5 100644
+--- a/lustre/llite/vvp_io.c
++++ b/lustre/llite/vvp_io.c
+@@ -295,7 +295,7 @@ static int vvp_io_setattr_iter_init(const struct lu_env *env,
+ 	 */
+ 	mutex_unlock(&inode->i_mutex);
+ 	if (cl_io_is_trunc(ios->cis_io))
+-		UP_WRITE_I_ALLOC_SEM(inode);
++		INODE_DIO_RELEASE_WRITE(inode);
+ 	cio->u.setattr.cui_locks_released = 1;
+ 	return 0;
+ }
+@@ -348,7 +348,7 @@ static int vvp_io_setattr_trunc(const struct lu_env *env,
+                                 const struct cl_io_slice *ios,
+                                 struct inode *inode, loff_t size)
+ {
+-	DOWN_WRITE_I_ALLOC_SEM(inode);
++	INODE_DIO_LOCK_WRITE(inode);
+ 	return 0;
+ }
+ 
+@@ -420,7 +420,7 @@ static void vvp_io_setattr_fini(const struct lu_env *env,
+ 	if (cio->u.setattr.cui_locks_released) {
+ 		mutex_lock(&inode->i_mutex);
+ 		if (cl_io_is_trunc(io))
+-			DOWN_WRITE_I_ALLOC_SEM(inode);
++			INODE_DIO_LOCK_WRITE(inode);
+ 		cio->u.setattr.cui_locks_released = 0;
+ 	}
+ 	vvp_io_fini(env, ios);
+@@ -689,28 +689,26 @@ static int vvp_io_fault_start(const struct lu_env *env,
+ 
+         /* must return locked page */
+         if (fio->ft_mkwrite) {
+-		/* we grab alloc_sem to exclude truncate case.
+-		 * Otherwise, we could add dirty pages into osc cache
+-		 * while truncate is on-going. */
+-		DOWN_READ_I_ALLOC_SEM(inode);
+-
+-                LASSERT(cfio->ft_vmpage != NULL);
+-                lock_page(cfio->ft_vmpage);
++		LASSERT(cfio->ft_vmpage != NULL);
++		lock_page(cfio->ft_vmpage);
+         } else {
+                 result = vvp_io_kernel_fault(cfio);
+                 if (result != 0)
+                         return result;
+         }
+ 
+-        vmpage = cfio->ft_vmpage;
+-        LASSERT(PageLocked(vmpage));
++	vmpage = cfio->ft_vmpage;
++	LASSERT(PageLocked(vmpage));
+ 
+         if (OBD_FAIL_CHECK(OBD_FAIL_LLITE_FAULT_TRUNC_RACE))
+                 ll_invalidate_page(vmpage);
+ 
++
++	size = i_size_read(inode);
+         /* Though we have already held a cl_lock upon this page, but
+          * it still can be truncated locally. */
+-        if (unlikely(vmpage->mapping == NULL)) {
++	if (unlikely((vmpage->mapping != inode->i_mapping) ||
++		     (page_offset(vmpage) > size))) {
+                 CDEBUG(D_PAGE, "llite: fault and truncate race happened!\n");
+ 
+                 /* return +1 to stop cl_io_loop() and ll_fault() will catch
+@@ -758,7 +756,6 @@ static int vvp_io_fault_start(const struct lu_env *env,
+                 }
+         }
+ 
+-        size = i_size_read(inode);
+         last = cl_index(obj, size - 1);
+         LASSERT(fio->ft_index <= last);
+         if (fio->ft_index == last)
+@@ -777,8 +774,6 @@ out:
+         /* return unlocked vmpage to avoid deadlocking */
+ 	if (vmpage != NULL)
+ 		unlock_page(vmpage);
+-	if (fio->ft_mkwrite)
+-		UP_READ_I_ALLOC_SEM(inode);
+ #ifdef HAVE_VM_OP_FAULT
+ 	cfio->fault.ft_flags &= ~VM_FAULT_LOCKED;
+ #endif
+diff --git a/lustre/llite/vvp_page.c b/lustre/llite/vvp_page.c
+index b428744..66842a0 100644
+--- a/lustre/llite/vvp_page.c
++++ b/lustre/llite/vvp_page.c
+@@ -420,7 +420,6 @@ static void vvp_transient_page_verify(const struct cl_page *page)
+ 	struct inode *inode = ccc_object_inode(page->cp_obj);
+ 
+ 	LASSERT(!mutex_trylock(&inode->i_mutex));
+-	/* LASSERT_SEM_LOCKED(&inode->i_alloc_sem); */
+ }
+ 
+ static int vvp_transient_page_own(const struct lu_env *env,
+diff --git a/lustre/obdfilter/filter.c b/lustre/obdfilter/filter.c
+index 23a992e..a93501d 100644
+--- a/lustre/obdfilter/filter.c
++++ b/lustre/obdfilter/filter.c
+@@ -3343,13 +3343,13 @@ int filter_setattr_internal(struct obd_export *exp, struct dentry *dentry,
+         }
+ 	if (ia_valid & (ATTR_SIZE | ATTR_UID | ATTR_GID)) {
+ 		unsigned long now = jiffies;
+-		/* Filter truncates and writes are serialized by
+-		 * i_alloc_sem, see the comment in
+-		 * filter_preprw_write.*/
+-		if (ia_valid & ATTR_SIZE)
+-			down_write(&inode->i_alloc_sem);
++		/* Filter truncates and writes are serialized.
++		 * See the comment in filter_preprw_write.*/
+ 		mutex_lock(&inode->i_mutex);
+-		fsfilt_check_slow(exp->exp_obd, now, "i_alloc_sem and i_mutex");
++		if (ia_valid & ATTR_SIZE)
++			INODE_DIO_LOCK_WRITE(inode);
++		fsfilt_check_slow(exp->exp_obd, now,
++				  "i_mutex and INODE_DIO_LOCK_WRITE");
+ 		old_size = i_size_read(inode);
+ 	}
+ 
+@@ -3473,7 +3473,7 @@ out_unlock:
+ 	if (ia_valid & (ATTR_SIZE | ATTR_UID | ATTR_GID))
+ 		mutex_unlock(&inode->i_mutex);
+ 	if (ia_valid & ATTR_SIZE)
+-		up_write(&inode->i_alloc_sem);
++		INODE_DIO_RELEASE_WRITE(inode);
+ 	if (fcc)
+ 		OBD_FREE(fcc, sizeof(*fcc));
+ 
+@@ -3554,14 +3554,14 @@ int filter_setattr(const struct lu_env *env, struct obd_export *exp,
+          */
+         if (oa->o_valid &
+             (OBD_MD_FLMTIME | OBD_MD_FLATIME | OBD_MD_FLCTIME)) {
+-                unsigned long now = jiffies;
+-                down_write(&dentry->d_inode->i_alloc_sem);
+-                fsfilt_check_slow(exp->exp_obd, now, "i_alloc_sem");
+-                fmd = filter_fmd_get(exp, oa->o_id, oa->o_seq);
+-                if (fmd && fmd->fmd_mactime_xid < oti->oti_xid)
+-                        fmd->fmd_mactime_xid = oti->oti_xid;
+-                filter_fmd_put(exp, fmd);
+-                up_write(&dentry->d_inode->i_alloc_sem);
++		unsigned long now = jiffies;
++		INODE_DIO_LOCK_WRITE(dentry->d_inode);
++		fsfilt_check_slow(exp->exp_obd, now, "INODE_DIO_LOCK_WRITE");
++		fmd = filter_fmd_get(exp, oa->o_id, oa->o_seq);
++		if (fmd && fmd->fmd_mactime_xid < oti->oti_xid)
++			fmd->fmd_mactime_xid = oti->oti_xid;
++		filter_fmd_put(exp, fmd);
++		INODE_DIO_RELEASE_WRITE(dentry->d_inode);
+         }
+ 
+         /* setting objects attributes (including owner/group) */
+@@ -4292,28 +4292,29 @@ int filter_destroy(const struct lu_env *env, struct obd_export *exp,
+                         *fcc = oa->o_lcookie;
+         }
+ 
+-        /* we're gonna truncate it first in order to avoid possible deadlock:
+-         *      P1                      P2
+-         * open trasaction      open transaction
+-         * down(i_zombie)       down(i_zombie)
+-         *                      restart transaction
+-         * (see BUG 4180) -bzzz
+-         *
+-         * take i_alloc_sem too to prevent other threads from writing to the
+-         * file while we are truncating it. This can cause lock ordering issue
+-         * between page lock, i_mutex & starting new journal handle.
+-         * (see bug 20321) -johann
+-         */
++	/* we're gonna truncate it first in order to avoid possible deadlock:
++	 *      P1                      P2
++	 * open trasaction      open transaction
++	 * down(i_zombie)       down(i_zombie)
++	 *                      restart transaction
++	 * (see BUG 4180) -bzzz
++	 *
++	 * INODE_DIO_LOCK_WRITE too to prevent other threads from writing to the
++	 * file while we are truncating it. This can cause lock ordering issue
++	 * between page lock, i_mutex & starting new journal handle.
++	 * (see bug 20321) -johann
++	 */
+ 	now = jiffies;
+-	down_write(&dchild->d_inode->i_alloc_sem);
++	INODE_DIO_LOCK_WRITE(dchild->d_inode);
+ 	mutex_lock(&dchild->d_inode->i_mutex);
+-	fsfilt_check_slow(exp->exp_obd, now, "i_alloc_sem and i_mutex");
++	fsfilt_check_slow(exp->exp_obd, now,
++			  "INODE_DIO_LOCK_WRITE and i_mutex");
+ 
+ 	/* VBR: version recovery check */
+ 	rc = filter_version_get_check(exp, oti, dchild->d_inode);
+ 	if (rc) {
+ 		mutex_unlock(&dchild->d_inode->i_mutex);
+-		up_write(&dchild->d_inode->i_alloc_sem);
++		INODE_DIO_RELEASE_WRITE(dchild->d_inode);
+ 		GOTO(cleanup, rc);
+ 	}
+ 
+@@ -4321,7 +4322,7 @@ int filter_destroy(const struct lu_env *env, struct obd_export *exp,
+ 				  NULL, 1);
+ 	if (IS_ERR(handle)) {
+ 		mutex_unlock(&dchild->d_inode->i_mutex);
+-		up_write(&dchild->d_inode->i_alloc_sem);
++		INODE_DIO_RELEASE_WRITE(dchild->d_inode);
+ 		GOTO(cleanup, rc = PTR_ERR(handle));
+ 	}
+ 
+@@ -4333,7 +4334,7 @@ int filter_destroy(const struct lu_env *env, struct obd_export *exp,
+ 	rc = fsfilt_setattr(obd, dchild, handle, &iattr, 1);
+ 	rc2 = fsfilt_commit(obd, dchild->d_inode, handle, 0);
+ 	mutex_unlock(&dchild->d_inode->i_mutex);
+-	up_write(&dchild->d_inode->i_alloc_sem);
++	INODE_DIO_RELEASE_WRITE(dchild->d_inode);
+ 	if (rc)
+ 		GOTO(cleanup, rc);
+ 	if (rc2)
+diff --git a/lustre/obdfilter/filter_io.c b/lustre/obdfilter/filter_io.c
+index a946d90..3c4dcad 100644
+--- a/lustre/obdfilter/filter_io.c
++++ b/lustre/obdfilter/filter_io.c
+@@ -634,7 +634,8 @@ static int filter_grant_check(struct obd_export *exp, struct obdo *oa,
+  * on mulitple inodes.  That isn't all, because there still exists the
+  * possibility of a truncate starting a new transaction while holding the ext3
+  * rwsem = write while some writes (which have started their transactions here)
+- * blocking on the ext3 rwsem = read => lock inversion.
++ * blocking on the ext3 rwsem = read => lock inversion. (kernel 3.1 kills the
++ * rwsem and replaces it by i_dio_count and inode_dio_wait/done.)
+  *
+  * The handling gets very ugly when dealing with locked pages.  It may be easier
+  * to just get rid of the locked page code (which has problems of its own) and
+@@ -730,14 +731,15 @@ static int filter_preprw_write(int cmd, struct obd_export *exp, struct obdo *oa,
+ 
+         fsfilt_check_slow(obd, now, "preprw_write setup");
+ 
+-        /* Filter truncate first locks i_mutex then partially truncated
+-         * page, filter write code first locks pages then take
+-         * i_mutex.  To avoid a deadlock in case of concurrent
+-         * punch/write requests from one client, filter writes and
+-         * filter truncates are serialized by i_alloc_sem, allowing
+-         * multiple writes or single truncate. */
+-        down_read(&dentry->d_inode->i_alloc_sem);
+-        fsfilt_check_slow(obd, now, "i_alloc_sem");
++	/* Filter truncate first locks i_mutex then partially truncated
++	 * page, filter write code first locks pages then take
++	 * i_mutex.  To avoid a deadlock in case of concurrent
++	 * punch/write requests from one client, filter writes and
++	 * filter truncates are serialized by INODE_DIO_LOCK_READ, allowing
++	 * multiple writes or single truncate. */
++
++	INODE_DIO_LOCK_READ(dentry->d_inode);
++	fsfilt_check_slow(obd, now, "INODE_DIO_LOCK_READ");
+ 
+         /* Don't update inode timestamps if this write is older than a
+          * setattr which modifies the timestamps. b=10150 */
+@@ -895,11 +897,11 @@ cleanup:
+                                 }
+                         }
+                 }
+-        case 3:
+-                if (rc)
+-                        up_read(&dentry->d_inode->i_alloc_sem);
++	case 3:
++		if (rc)
++			INODE_DIO_RELEASE_READ(dentry->d_inode);
+ 
+-                filter_iobuf_put(&obd->u.filter, iobuf, oti);
++		filter_iobuf_put(&obd->u.filter, iobuf, oti);
+         case 2:
+                 pop_ctxt(&saved, &obd->obd_lvfs_ctxt, NULL);
+                 if (rc)
+diff --git a/lustre/obdfilter/filter_io_26.c b/lustre/obdfilter/filter_io_26.c
+index 853e4f5..6d2b89f 100644
+--- a/lustre/obdfilter/filter_io_26.c
++++ b/lustre/obdfilter/filter_io_26.c
+@@ -635,10 +635,10 @@ int filter_commitrw_write(struct obd_export *exp, struct obdo *oa,
+                 LASSERT(PageLocked(lnb->page));
+                 LASSERT(!PageWriteback(lnb->page));
+ 
+-                /* since write & truncate are serialized by the i_alloc_sem,
+-                 * even partial truncate should not leave dirty pages in
+-                 * the page cache */
+-                LASSERT(!PageDirty(lnb->page));
++		/* since write & truncate are serialized by the inode_dio_wait,
++		 * even partial truncate should not leave dirty pages in
++		 * the page cache */
++		LASSERT(!PageDirty(lnb->page));
+ 
+                 SetPageUptodate(lnb->page);
+ 
+@@ -867,7 +867,7 @@ cleanup:
+                 if (fo->fo_writethrough_cache == 0 ||
+                     i_size_read(inode) > fo->fo_readcache_max_filesize)
+                         filter_release_cache(obd, obj, nb, inode);
+-                up_read(&inode->i_alloc_sem);
++		INODE_DIO_RELEASE_READ(inode);
+         }
+ 
+         RETURN(rc);
+diff --git a/lustre/osc/osc_cache.c b/lustre/osc/osc_cache.c
+index 23dc755..b42e41c 100644
+--- a/lustre/osc/osc_cache.c
++++ b/lustre/osc/osc_cache.c
+@@ -2695,9 +2695,9 @@ void osc_cache_truncate_end(const struct lu_env *env, struct osc_io *oio,
+  * The caller must have called osc_cache_writeback_range() to issue IO
+  * otherwise it will take a long time for this function to finish.
+  *
+- * Caller must hold inode_mutex and i_alloc_sem, or cancel exclusive
+- * dlm lock so that nobody else can dirty this range of file while we're
+- * waiting for extents to be written.
++ * Caller must hold inode_mutex , or cancel exclusive dlm lock so that
++ * nobody else can dirty this range of file while we're waiting for
++ * extents to be written.
+  */
+ int osc_cache_wait_range(const struct lu_env *env, struct osc_object *obj,
+ 			 pgoff_t start, pgoff_t end)
+diff --git a/lustre/osd-ldiskfs/osd_io.c b/lustre/osd-ldiskfs/osd_io.c
+index af3d6af..d266805 100644
+--- a/lustre/osd-ldiskfs/osd_io.c
++++ b/lustre/osd-ldiskfs/osd_io.c
+@@ -433,7 +433,6 @@ struct page *osd_get_page(struct dt_object *dt, loff_t offset, int rw)
+ /*
+  * there are following "locks":
+  * journal_start
+- * i_alloc_sem
+  * i_mutex
+  * page lock
+ 
+-- 
+1.7.12
+

@@ -1,0 +1,23 @@
+# ChangeLog for sci-chemistry/phenix-bin
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  21 Sep 2012; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.1069.ebuild:
+  Add missing dep
+
+  21 Sep 2012; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.1069.ebuild:
+  Don't double prefix
+
+  21 Sep 2012; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.1069.ebuild:
+  Not everyone installs on my box
+
+  20 Sep 2012; Justin Lecher <jlec@gentoo.org> +phenix-bin-1.8.1069.ebuild,
+  +metadata.xml:
+  New Addition
+
+*phenix-bin-1.8.1069 (20 Sep 2012)
+
+  20 Sep 2012; Justin Lecher <jlec@gentoo.org> +phenix-bin-1.8.1069.ebuild,
+  +metadata.xml:
+  New Addition
+

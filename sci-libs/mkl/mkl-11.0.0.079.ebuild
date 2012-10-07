@@ -3,9 +3,10 @@
 # $Header: $
 
 EAPI=4
+
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=2405
-INTEL_DPV=2011_sp1_update1
+INTEL_DID=2749
+INTEL_DPV=2013
 INTEL_SUBDIR=composerxe
 
 inherit intel-sdp multilib alternatives-2
@@ -27,8 +28,8 @@ QA_PREBUILT="
 
 CHECKREQS_DISK_BUILD=1536M
 
-INTEL_BIN_RPMS="mkl-sp1 mkl-sp1-devel"
-INTEL_DAT_RPMS="mkl-sp1-common"
+INTEL_BIN_RPMS="mkl mkl-devel"
+INTEL_DAT_RPMS="mkl-common"
 
 src_prepare() {
 	chmod u+w -R opt

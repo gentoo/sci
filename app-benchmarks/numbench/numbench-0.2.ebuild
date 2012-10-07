@@ -21,8 +21,8 @@ RDEPEND="!app-admin/eselect-blas
 	 !app-admin/eselect-cblas
 	 !app-admin/eselect-lapack
 	 >=dev-python/matplotlib-1.0.0
-	 =app-admin/eselect-1.3.1-r1"
-	 
+	 >=app-admin/eselect-1.3.2-r100"
+
 S="${WORKDIR}/andyspiros-numbench-${CID}"
 
 src_install() {

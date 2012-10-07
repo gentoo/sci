@@ -1,0 +1,211 @@
+From 3d5f9b7679cfc5bb0a1c21c232478c17cfeb77e2 Mon Sep 17 00:00:00 2001
+From: Liu Xuezhao <xuezhao.liu@emc.com>
+Date: Mon, 16 Jul 2012 11:08:56 +0800
+Subject: [PATCH 08/13] LU-1337 kernel: remove unnecessary includings of
+ system.h
+
+<asm/system.h> is removed in kernel 3.4, and it is indeed not needed.
+
+Signed-off-by: Liu Xuezhao <xuezhao.liu@emc.com>
+Change-Id: Ic4d0a086656c5dfb05669aae40680b41e8ea00c7
+---
+ libcfs/include/libcfs/linux/kp30.h     | 1 -
+ libcfs/libcfs/linux/linux-debug.c      | 1 -
+ libcfs/libcfs/linux/linux-proc.c       | 1 -
+ lnet/klnds/mxlnd/mxlnd.h               | 1 -
+ lnet/klnds/o2iblnd/o2iblnd.h           | 1 -
+ lnet/klnds/ptllnd/ptllnd.h             | 1 -
+ lnet/klnds/qswlnd/qswlnd.h             | 1 -
+ lnet/klnds/ralnd/ralnd.h               | 1 -
+ lnet/klnds/socklnd/socklnd_lib-linux.h | 1 -
+ lustre/llite/llite_mmap.c              | 1 -
+ lustre/llite/rw.c                      | 1 -
+ lustre/llite/rw26.c                    | 1 -
+ lustre/mdt/mdt_identity.c              | 1 -
+ lustre/mdt/mdt_idmap.c                 | 1 -
+ lustre/obdclass/linux/linux-module.c   | 1 -
+ 15 files changed, 15 deletions(-)
+
+diff --git a/libcfs/include/libcfs/linux/kp30.h b/libcfs/include/libcfs/linux/kp30.h
+index 2e1ead7..b8c0aff 100644
+--- a/libcfs/include/libcfs/linux/kp30.h
++++ b/libcfs/include/libcfs/linux/kp30.h
+@@ -45,7 +45,6 @@
+ #include <linux/init.h>
+ #include <linux/errno.h>
+ #include <linux/unistd.h>
+-#include <asm/system.h>
+ #include <linux/kmod.h>
+ #include <linux/notifier.h>
+ #include <linux/fs.h>
+diff --git a/libcfs/libcfs/linux/linux-debug.c b/libcfs/libcfs/linux/linux-debug.c
+index 9fc64e6..5ff5771 100644
+--- a/libcfs/libcfs/linux/linux-debug.c
++++ b/libcfs/libcfs/linux/linux-debug.c
+@@ -51,7 +51,6 @@
+ #endif
+ #include <linux/unistd.h>
+ #include <linux/interrupt.h>
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ #include <linux/completion.h>
+ 
+diff --git a/libcfs/libcfs/linux/linux-proc.c b/libcfs/libcfs/linux/linux-proc.c
+index 5294e08..e9c5018 100644
+--- a/libcfs/libcfs/linux/linux-proc.c
++++ b/libcfs/libcfs/linux/linux-proc.c
+@@ -50,7 +50,6 @@
+ #include <net/sock.h>
+ #include <linux/uio.h>
+ 
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ 
+ #include <linux/fs.h>
+diff --git a/lnet/klnds/mxlnd/mxlnd.h b/lnet/klnds/mxlnd/mxlnd.h
+index 69b2978..fdb0942 100644
+--- a/lnet/klnds/mxlnd/mxlnd.h
++++ b/lnet/klnds/mxlnd/mxlnd.h
+@@ -49,7 +49,6 @@
+ #include <linux/uio.h>
+ #include <linux/fs.h>
+ 
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ #include <asm/io.h>
+ 
+diff --git a/lnet/klnds/o2iblnd/o2iblnd.h b/lnet/klnds/o2iblnd/o2iblnd.h
+index ce80d76..f3add0b 100644
+--- a/lnet/klnds/o2iblnd/o2iblnd.h
++++ b/lnet/klnds/o2iblnd/o2iblnd.h
+@@ -47,7 +47,6 @@
+ #include <linux/unistd.h>
+ #include <linux/uio.h>
+ 
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ #include <asm/io.h>
+ 
+diff --git a/lnet/klnds/ptllnd/ptllnd.h b/lnet/klnds/ptllnd/ptllnd.h
+index c51d82d..7862952 100644
+--- a/lnet/klnds/ptllnd/ptllnd.h
++++ b/lnet/klnds/ptllnd/ptllnd.h
+@@ -45,7 +45,6 @@
+ #include <linux/unistd.h>
+ #include <linux/uio.h>
+ 
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ #include <asm/io.h>
+ 
+diff --git a/lnet/klnds/qswlnd/qswlnd.h b/lnet/klnds/qswlnd/qswlnd.h
+index 33e44b0..14a2845 100644
+--- a/lnet/klnds/qswlnd/qswlnd.h
++++ b/lnet/klnds/qswlnd/qswlnd.h
+@@ -55,7 +55,6 @@
+ #include <net/sock.h>
+ #include <linux/uio.h>
+ 
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ 
+ #include <linux/fs.h>
+diff --git a/lnet/klnds/ralnd/ralnd.h b/lnet/klnds/ralnd/ralnd.h
+index fbea48d..606e8cd 100644
+--- a/lnet/klnds/ralnd/ralnd.h
++++ b/lnet/klnds/ralnd/ralnd.h
+@@ -45,7 +45,6 @@
+ #include <linux/unistd.h>
+ #include <linux/uio.h>
+ 
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ #include <asm/io.h>
+ 
+diff --git a/lnet/klnds/socklnd/socklnd_lib-linux.h b/lnet/klnds/socklnd/socklnd_lib-linux.h
+index 2a943c0..41ba9c3 100644
+--- a/lnet/klnds/socklnd/socklnd_lib-linux.h
++++ b/lnet/klnds/socklnd/socklnd_lib-linux.h
+@@ -50,7 +50,6 @@
+ #include <linux/uio.h>
+ #include <linux/if.h>
+ 
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ #include <asm/irq.h>
+ 
+diff --git a/lustre/llite/llite_mmap.c b/lustre/llite/llite_mmap.c
+index 2549bad..5310b14 100644
+--- a/lustre/llite/llite_mmap.c
++++ b/lustre/llite/llite_mmap.c
+@@ -41,7 +41,6 @@
+ #include <linux/errno.h>
+ #include <linux/unistd.h>
+ #include <linux/version.h>
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ 
+ #include <linux/fs.h>
+diff --git a/lustre/llite/rw.c b/lustre/llite/rw.c
+index 310cf45..76e259d 100644
+--- a/lustre/llite/rw.c
++++ b/lustre/llite/rw.c
+@@ -45,7 +45,6 @@
+ #include <linux/errno.h>
+ #include <linux/unistd.h>
+ #include <linux/version.h>
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ 
+ #include <linux/fs.h>
+diff --git a/lustre/llite/rw26.c b/lustre/llite/rw26.c
+index 917ba3f..83cbe55 100644
+--- a/lustre/llite/rw26.c
++++ b/lustre/llite/rw26.c
+@@ -45,7 +45,6 @@
+ #include <linux/errno.h>
+ #include <linux/unistd.h>
+ #include <linux/version.h>
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ 
+ #ifdef HAVE_MIGRATE_H
+diff --git a/lustre/mdt/mdt_identity.c b/lustre/mdt/mdt_identity.c
+index 23c7ce4..0e2a3e2 100644
+--- a/lustre/mdt/mdt_identity.c
++++ b/lustre/mdt/mdt_identity.c
+@@ -50,7 +50,6 @@
+ #include <linux/errno.h>
+ #include <linux/version.h>
+ #include <linux/unistd.h>
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ #include <linux/fs.h>
+ #include <linux/stat.h>
+diff --git a/lustre/mdt/mdt_idmap.c b/lustre/mdt/mdt_idmap.c
+index 2b50225..68f4391 100644
+--- a/lustre/mdt/mdt_idmap.c
++++ b/lustre/mdt/mdt_idmap.c
+@@ -48,7 +48,6 @@
+ #include <linux/errno.h>
+ #include <linux/version.h>
+ #include <linux/unistd.h>
+-#include <asm/system.h>
+ #include <asm/uaccess.h>
+ #include <linux/fs.h>
+ #include <linux/stat.h>
+diff --git a/lustre/obdclass/linux/linux-module.c b/lustre/obdclass/linux/linux-module.c
+index af3fd9a..cae8397 100644
+--- a/lustre/obdclass/linux/linux-module.c
++++ b/lustre/obdclass/linux/linux-module.c
+@@ -62,7 +62,6 @@
+ #include <linux/highmem.h>
+ #include <asm/io.h>
+ #include <asm/ioctls.h>
+-#include <asm/system.h>
+ #include <asm/poll.h>
+ #include <asm/uaccess.h>
+ #include <linux/miscdevice.h>
+-- 
+1.7.12
+
