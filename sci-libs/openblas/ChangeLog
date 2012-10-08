@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openblas-0.2.4 (08 Oct 2012)
+
+  08 Oct 2012; Andrea Arteaga <andyspiros@gmail.com> +openblas-0.2.4.ebuild:
+  Version bump
+
 *openblas-0.2.3 (20 Aug 2012)
 
   20 Aug 2012; Andrea Arteaga <andyspiros@gmail.com> +openblas-0.2.3.ebuild:
