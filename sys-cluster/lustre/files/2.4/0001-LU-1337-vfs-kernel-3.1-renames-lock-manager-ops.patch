@@ -1,4 +1,4 @@
-From 0635f4d7cde2da46e05ba6be6d6dd26e72814ff8 Mon Sep 17 00:00:00 2001
+From 384e48e3f72883df9ea12649a4d8e76f78e8c70a Mon Sep 17 00:00:00 2001
 From: Liu Xuezhao <xuezhao.liu@emc.com>
 Date: Thu, 9 Aug 2012 10:37:39 +0800
 Subject: [PATCH 01/13] LU-1337 vfs: kernel 3.1 renames lock-manager ops
@@ -20,10 +20,10 @@ Change-Id: Ic86ec9db2f8262ef7ab9f5f2fb51ca79591120a4
  3 files changed, 67 insertions(+), 40 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 64c14e5..403add5 100644
+index c8cc45f..3762784 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -1729,6 +1729,18 @@ EXTRA_KCFLAGS="$tmp_flags"
+@@ -1713,6 +1713,18 @@ EXTRA_KCFLAGS="$tmp_flags"
  ])
  
  #
@@ -42,7 +42,7 @@ index 64c14e5..403add5 100644
  # 2.6.39 remove unplug_fn from request_queue.
  #
  AC_DEFUN([LC_REQUEST_QUEUE_UNPLUG_FN],
-@@ -1798,14 +1810,42 @@ LB_LINUX_TRY_COMPILE([
+@@ -1782,14 +1794,42 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -91,7 +91,7 @@ index 64c14e5..403add5 100644
  ])
  ])
  
-@@ -1848,26 +1888,6 @@ LB_LINUX_TRY_COMPILE([
+@@ -1832,26 +1872,6 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -118,7 +118,7 @@ index 64c14e5..403add5 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2008,15 +2028,18 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -1991,15 +2011,18 @@ AC_DEFUN([LC_PROG_LINUX],
  
           # 2.6.39
           LC_REQUEST_QUEUE_UNPLUG_FN
@@ -143,10 +143,10 @@ index 64c14e5..403add5 100644
           if test x$enable_server = xyes ; then
               AC_DEFINE(HAVE_SERVER_SUPPORT, 1, [support server])
 diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
-index 172da72..41b4516 100644
+index 6a9c060..6b8d155 100644
 --- a/lustre/include/linux/lustre_compat25.h
 +++ b/lustre/include/linux/lustre_compat25.h
-@@ -808,5 +808,9 @@ static inline bool selinux_is_enabled(void)
+@@ -758,5 +758,9 @@ static inline bool selinux_is_enabled(void)
  }
  #endif
  
@@ -157,10 +157,10 @@ index 172da72..41b4516 100644
  #endif /* __KERNEL__ */
  #endif /* _COMPAT25_H */
 diff --git a/lustre/llite/file.c b/lustre/llite/file.c
-index 96379d6..1525b07 100644
+index f793d52..d03ec76 100644
 --- a/lustre/llite/file.c
 +++ b/lustre/llite/file.c
-@@ -2150,15 +2150,15 @@ int ll_file_flock(struct file *file, int cmd, struct file_lock *file_lock)
+@@ -2155,15 +2155,15 @@ int ll_file_flock(struct file *file, int cmd, struct file_lock *file_lock)
          }
          flock.l_flock.pid = file_lock->fl_pid;
  

@@ -1,4 +1,4 @@
-From b489d154ef9a88421939b20b146361122a4704d6 Mon Sep 17 00:00:00 2001
+From 399a9f6df970eeb694cf294ae41d14165d8143bf Mon Sep 17 00:00:00 2001
 From: Liu Xuezhao <xuezhao.liu@emc.com>
 Date: Thu, 9 Aug 2012 10:18:32 +0800
 Subject: [PATCH 05/13] LU-1337 block: kernel 3.2 make_request_fn returns void
@@ -16,10 +16,10 @@ Change-Id: I49a27873c1754addc9fef7c5f50cbf84592adf05
  3 files changed, 37 insertions(+), 4 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index a2d8efc..420d81e 100644
+index 5a039e2..0c99beb 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -1874,6 +1874,27 @@ LB_LINUX_TRY_COMPILE([
+@@ -1858,6 +1858,27 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -47,7 +47,7 @@ index a2d8efc..420d81e 100644
  # 3.3 introduces migrate_mode.h and migratepage has 4 args
  #
  AC_DEFUN([LC_HAVE_MIGRATE_HEADER],
-@@ -2061,6 +2082,9 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2044,6 +2065,9 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_LM_XXX_LOCK_MANAGER_OPS
  	 LC_INODE_DIO_WAIT
  
@@ -58,10 +58,10 @@ index a2d8efc..420d81e 100644
  	 LC_HAVE_MIGRATE_HEADER
  	 LC_MIGRATEPAGE_4ARGS
 diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
-index 914069a..2d0dd0e 100644
+index ab9a7de..60accf0 100644
 --- a/lustre/include/linux/lustre_compat25.h
 +++ b/lustre/include/linux/lustre_compat25.h
-@@ -831,5 +831,13 @@ static inline int ll_namei_to_lookup_intent_flag(int flag)
+@@ -781,5 +781,13 @@ static inline int ll_namei_to_lookup_intent_flag(int flag)
  	return flag;
  }
  

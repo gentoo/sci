@@ -1,4 +1,4 @@
-From 9e6789a41f3b1afd1a8a2575a4abbc49f0b10727 Mon Sep 17 00:00:00 2001
+From cef0397a3c092bd39266b07b5579e72b5ae46d8e Mon Sep 17 00:00:00 2001
 From: Liu Xuezhao <xuezhao.liu@emc.com>
 Date: Thu, 9 Aug 2012 10:34:49 +0800
 Subject: [PATCH 09/13] LU-1337 vfs: kernel 3.4 touch_atime switchs to 1
@@ -17,10 +17,10 @@ Change-Id: I1a0478459538376761b96e1dc65328eeeef60d0f
  2 files changed, 31 insertions(+)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 15f58ab..3b3115c 100644
+index 99f6ec6..9ff79f4 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2009,6 +2009,25 @@ EXTRA_KCFLAGS="$tmp_flags"
+@@ -1993,6 +1993,25 @@ EXTRA_KCFLAGS="$tmp_flags"
  ])
  
  #
@@ -46,7 +46,7 @@ index 15f58ab..3b3115c 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2168,6 +2187,9 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2151,6 +2170,9 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_SUPEROPS_USE_DENTRY
  	 LC_INODEOPS_USE_UMODE_T
  
@@ -57,20 +57,20 @@ index 15f58ab..3b3115c 100644
           if test x$enable_server = xyes ; then
               AC_DEFINE(HAVE_SERVER_SUPPORT, 1, [support server])
 diff --git a/lustre/llite/dir.c b/lustre/llite/dir.c
-index f985625..f418631 100644
+index 3965d20..e8e9d56 100644
 --- a/lustre/llite/dir.c
 +++ b/lustre/llite/dir.c
-@@ -500,6 +500,9 @@ int ll_readdir(struct file *filp, void *cookie, filldir_t filldir)
-         int                   hash64     = sbi->ll_flags & LL_SBI_64BIT_HASH;
-         struct page          *page;
+@@ -484,6 +484,9 @@ int ll_dir_read(struct inode *inode, __u64 *_pos, void *cookie,
          struct ll_dir_chain   chain;
+ 	int                   done = 0;
+ 	int                   rc = 0;
 +#ifdef HAVE_TOUCH_ATIME_1ARG
 +	struct path           path;
 +#endif
-         int                   done;
-         int                   rc;
          ENTRY;
-@@ -627,7 +630,13 @@ int ll_readdir(struct file *filp, void *cookie, filldir_t filldir)
+ 
+         ll_dir_chain_init(&chain);
+@@ -623,7 +626,13 @@ static int ll_readdir(struct file *filp, void *cookie, filldir_t filldir)
                          filp->f_pos = pos;
          }
          filp->f_version = inode->i_version;
@@ -82,8 +82,8 @@ index f985625..f418631 100644
          touch_atime(filp->f_vfsmnt, filp->f_dentry);
 +#endif
  
-         ll_dir_chain_fini(&chain);
- 
+ out:
+         if (!rc)
 -- 
 1.7.12
 

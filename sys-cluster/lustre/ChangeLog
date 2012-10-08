@@ -2,5 +2,35 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/2.4/0001-LU-1337-vfs-kernel-3.1-renames-lock-manager-ops.patch,
+  +files/2.4/0002-LU-1337-vfs-kernel-3.1-kills-inode-i_alloc_sem.patch,
+  +files/2.4/0003-LU-1337-vfs-kernel-3.1-changes-open_to_namei_flags.patch,
+  +files/2.4/0004-LU-1337-vfs-provides-ll_get_acl-to-i_op-get_acl.patch,
+  +files/2.4/0005-LU-1337-block-kernel-3.2-make_request_fn-returns-voi.patch,
+  +files/2.4/0006-LU-1337-vfs-kernel-3.2-protects-inode-i_nlink.patch,
+  +files/2.4/0007-LU-1337-vfs-3.3-changes-super_operations-inode_opera.patch,
+  +files/2.4/0008-LU-1337-kernel-remove-unnecessary-includings-of-syst.patch,
+  +files/2.4/0009-LU-1337-vfs-kernel-3.4-touch_atime-switchs-to-1-argu.patch,
+  +files/2.4/0010-LU-1337-vfs-kernel-3.4-converts-d_alloc_root-to-d_ma.patch,
+  +files/2.4/0011-LU-1337-kernel-v3.5-defines-INVALID_UID.patch,
+  +files/2.4/0012-LU-1337-llite-kernel-3.5-renames-end_writeback-to-cl.patch,
+  +files/2.4/0013-LU-1337-kernel-3.5-kernel-encode_fh-passes-in-parent.patch,
+  -files/0001-LU-1337-vfs-kernel-3.1-renames-lock-manager-ops.patch,
+  -files/0002-LU-1337-vfs-kernel-3.1-kills-inode-i_alloc_sem.patch,
+  -files/0003-LU-1337-vfs-kernel-3.1-changes-open_to_namei_flags.patch,
+  -files/0004-LU-1337-vfs-provides-ll_get_acl-to-i_op-get_acl.patch,
+  -files/0005-LU-1337-block-kernel-3.2-make_request_fn-returns-voi.patch,
+  -files/0006-LU-1337-vfs-kernel-3.2-protects-inode-i_nlink.patch,
+  -files/0007-LU-1337-vfs-3.3-changes-super_operations-inode_opera.patch,
+  -files/0008-LU-1337-kernel-remove-unnecessary-includings-of-syst.patch,
+  -files/0009-LU-1337-vfs-kernel-3.4-touch_atime-switchs-to-1-argu.patch,
+  -files/0010-LU-1337-vfs-kernel-3.4-converts-d_alloc_root-to-d_ma.patch,
+  -files/0011-LU-1337-kernel-v3.5-defines-INVALID_UID.patch,
+  -files/0012-LU-1337-llite-kernel-3.5-renames-end_writeback-to-cl.patch,
+  -files/0013-LU-1337-kernel-3.5-kernel-encode_fh-passes-in-parent.patch,
+  lustre-9999.ebuild:
+  [sys-cluster/lustre] Update patches
+
   20 Sep 2012; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
   [sys-cluster/lustre] call apply_user_patches

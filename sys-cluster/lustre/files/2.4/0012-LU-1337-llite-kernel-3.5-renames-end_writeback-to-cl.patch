@@ -1,4 +1,4 @@
-From 9e05a2ac1524f4d7d3aa3f5cc6f278ee3e460b17 Mon Sep 17 00:00:00 2001
+From 2ab84dda5f7de4bd2bd00256ee8cdbd329633811 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Wed, 22 Aug 2012 17:57:04 +0800
 Subject: [PATCH 12/13] LU-1337 llite: kernel 3.5 renames end_writeback to
@@ -16,10 +16,10 @@ Change-Id: I2435e820092085c0fb55539818f4bad9e48ff386
  3 files changed, 26 insertions(+), 3 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index bc92b4f..3f47dab 100644
+index e563921..66555cc 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2047,6 +2047,25 @@ LB_LINUX_TRY_COMPILE([
+@@ -2031,6 +2031,25 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -45,7 +45,7 @@ index bc92b4f..3f47dab 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2210,6 +2229,9 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2193,6 +2212,9 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_TOUCH_ATIME_1ARG
  	 LC_HAVE_D_MAKE_ROOT
  
@@ -56,10 +56,10 @@ index bc92b4f..3f47dab 100644
           if test x$enable_server = xyes ; then
               AC_DEFINE(HAVE_SERVER_SUPPORT, 1, [support server])
 diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
-index b1d3056..b2bba25 100644
+index 321892a..e9ff0e2 100644
 --- a/lustre/include/linux/lustre_compat25.h
 +++ b/lustre/include/linux/lustre_compat25.h
-@@ -866,6 +866,9 @@ static inline struct dentry *d_make_root(struct inode *root_inode)
+@@ -816,6 +816,9 @@ static inline struct dentry *d_make_root(struct inode *root_inode)
  	return res;
  }
  #endif
@@ -70,10 +70,10 @@ index b1d3056..b2bba25 100644
  #endif /* __KERNEL__ */
  #endif /* _COMPAT25_H */
 diff --git a/lustre/llite/llite_lib.c b/lustre/llite/llite_lib.c
-index f125461..ccbaad0 100644
+index 1db4903..26659f4 100644
 --- a/lustre/llite/llite_lib.c
 +++ b/lustre/llite/llite_lib.c
-@@ -1881,10 +1881,8 @@ void ll_delete_inode(struct inode *inode)
+@@ -1892,10 +1892,8 @@ void ll_delete_inode(struct inode *inode)
  
  #ifdef HAVE_SBOPS_EVICT_INODE
          ll_clear_inode(inode);

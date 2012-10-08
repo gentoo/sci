@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5_pre1
+EAPI=5
 
 WANT_AUTOCONF="2.5"
 WANT_AUTOMAKE="1.9"
@@ -25,19 +25,19 @@ RDEPEND="${DEPEND}"
 BUILD_PARAMS="-C ${KV_DIR} SUBDIRS=${S}"
 
 PATCHES=(
-"${FILESDIR}/0001-LU-1337-vfs-kernel-3.1-renames-lock-manager-ops.patch"
-"${FILESDIR}/0002-LU-1337-vfs-kernel-3.1-kills-inode-i_alloc_sem.patch"
-"${FILESDIR}/0003-LU-1337-vfs-kernel-3.1-changes-open_to_namei_flags.patch"
-"${FILESDIR}/0004-LU-1337-vfs-provides-ll_get_acl-to-i_op-get_acl.patch"
-"${FILESDIR}/0005-LU-1337-block-kernel-3.2-make_request_fn-returns-voi.patch"
-"${FILESDIR}/0006-LU-1337-vfs-kernel-3.2-protects-inode-i_nlink.patch"
-"${FILESDIR}/0007-LU-1337-vfs-3.3-changes-super_operations-inode_opera.patch"
-"${FILESDIR}/0008-LU-1337-kernel-remove-unnecessary-includings-of-syst.patch"
-"${FILESDIR}/0009-LU-1337-vfs-kernel-3.4-touch_atime-switchs-to-1-argu.patch"
-"${FILESDIR}/0010-LU-1337-vfs-kernel-3.4-converts-d_alloc_root-to-d_ma.patch"
-"${FILESDIR}/0011-LU-1337-kernel-v3.5-defines-INVALID_UID.patch"
-"${FILESDIR}/0012-LU-1337-llite-kernel-3.5-renames-end_writeback-to-cl.patch"
-"${FILESDIR}/0013-LU-1337-kernel-3.5-kernel-encode_fh-passes-in-parent.patch"
+"${FILESDIR}/2.4/0001-LU-1337-vfs-kernel-3.1-renames-lock-manager-ops.patch"
+"${FILESDIR}/2.4/0002-LU-1337-vfs-kernel-3.1-kills-inode-i_alloc_sem.patch"
+"${FILESDIR}/2.4/0003-LU-1337-vfs-kernel-3.1-changes-open_to_namei_flags.patch"
+"${FILESDIR}/2.4/0004-LU-1337-vfs-provides-ll_get_acl-to-i_op-get_acl.patch"
+"${FILESDIR}/2.4/0005-LU-1337-block-kernel-3.2-make_request_fn-returns-voi.patch"
+"${FILESDIR}/2.4/0006-LU-1337-vfs-kernel-3.2-protects-inode-i_nlink.patch"
+"${FILESDIR}/2.4/0007-LU-1337-vfs-3.3-changes-super_operations-inode_opera.patch"
+"${FILESDIR}/2.4/0008-LU-1337-kernel-remove-unnecessary-includings-of-syst.patch"
+"${FILESDIR}/2.4/0009-LU-1337-vfs-kernel-3.4-touch_atime-switchs-to-1-argu.patch"
+"${FILESDIR}/2.4/0010-LU-1337-vfs-kernel-3.4-converts-d_alloc_root-to-d_ma.patch"
+"${FILESDIR}/2.4/0011-LU-1337-kernel-v3.5-defines-INVALID_UID.patch"
+"${FILESDIR}/2.4/0012-LU-1337-llite-kernel-3.5-renames-end_writeback-to-cl.patch"
+"${FILESDIR}/2.4/0013-LU-1337-kernel-3.5-kernel-encode_fh-passes-in-parent.patch"
 )
 
 pkg_setup() {

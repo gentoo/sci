@@ -1,4 +1,4 @@
-From c3b73bfe1e157ec42be9015d231da66808483554 Mon Sep 17 00:00:00 2001
+From 7e571b57b0a1e3c676deb2cf958dbc193be1c91b Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Thu, 23 Aug 2012 13:55:46 +0800
 Subject: [PATCH 13/13] LU-1337 kernel: 3.5 kernel encode_fh passes in parent
@@ -14,10 +14,10 @@ Change-Id: I6d7223b934bfe4151371744ad72bdab6b170c700
  2 files changed, 36 insertions(+)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 3f47dab..dbf7233 100644
+index 66555cc..2f0aeee 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2066,6 +2066,35 @@ LB_LINUX_TRY_COMPILE([
+@@ -2050,6 +2050,35 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -53,7 +53,7 @@ index 3f47dab..dbf7233 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2231,6 +2260,7 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2214,6 +2243,7 @@ AC_DEFUN([LC_PROG_LINUX],
  
  	 # 3.5
  	 LC_HAVE_CLEAR_INODE
@@ -62,7 +62,7 @@ index 3f47dab..dbf7233 100644
           #
           if test x$enable_server = xyes ; then
 diff --git a/lustre/llite/llite_nfs.c b/lustre/llite/llite_nfs.c
-index 809a564..ba4f9f1 100644
+index 1f18337..515f5b3 100644
 --- a/lustre/llite/llite_nfs.c
 +++ b/lustre/llite/llite_nfs.c
 @@ -173,11 +173,17 @@ ll_iget_for_nfs(struct super_block *sb, struct lu_fid *fid, struct lu_fid *paren

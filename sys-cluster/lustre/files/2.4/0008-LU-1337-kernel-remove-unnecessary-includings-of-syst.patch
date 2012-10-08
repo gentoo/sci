@@ -1,4 +1,4 @@
-From 3d5f9b7679cfc5bb0a1c21c232478c17cfeb77e2 Mon Sep 17 00:00:00 2001
+From e871c9406129c66531597413b61948ea3df2679a Mon Sep 17 00:00:00 2001
 From: Liu Xuezhao <xuezhao.liu@emc.com>
 Date: Mon, 16 Jul 2012 11:08:56 +0800
 Subject: [PATCH 08/13] LU-1337 kernel: remove unnecessary includings of
@@ -51,7 +51,7 @@ index 9fc64e6..5ff5771 100644
  #include <linux/completion.h>
  
 diff --git a/libcfs/libcfs/linux/linux-proc.c b/libcfs/libcfs/linux/linux-proc.c
-index 5294e08..e9c5018 100644
+index b093d12..9078fc6 100644
 --- a/libcfs/libcfs/linux/linux-proc.c
 +++ b/libcfs/libcfs/linux/linux-proc.c
 @@ -50,7 +50,6 @@
@@ -147,7 +147,7 @@ index 2549bad..5310b14 100644
  
  #include <linux/fs.h>
 diff --git a/lustre/llite/rw.c b/lustre/llite/rw.c
-index 310cf45..76e259d 100644
+index 8079d29..8254cf3 100644
 --- a/lustre/llite/rw.c
 +++ b/lustre/llite/rw.c
 @@ -45,7 +45,6 @@

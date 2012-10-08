@@ -1,4 +1,4 @@
-From 2c89f077618a5017fb61b57a8d358a5fb9542a5f Mon Sep 17 00:00:00 2001
+From 84a0d64c068f65dd073e13f6fcf55d11ed8a21a7 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Wed, 22 Aug 2012 16:55:22 +0800
 Subject: [PATCH 11/13] LU-1337 kernel: v3.5 defines INVALID_UID
