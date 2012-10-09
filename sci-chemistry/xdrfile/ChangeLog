@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> xdrfile-1.1.ebuild:
+  [sci-chemistry/xdrfile] actualy allow optional fortran
+
 *xdrfile-1.1 (09 Oct 2012)
 
   09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> +metadata.xml,

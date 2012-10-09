@@ -21,3 +21,8 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${P}b"
+
+src_configure() {
+	econf \
+		$(use_enable fortran)
+}
