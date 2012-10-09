@@ -10,7 +10,7 @@ SRC_URI="http://www.uppmax.uu.se/Members/daniels/trajng-trajectory-compression-l
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~amd64-linux ~x86-linux"
 IUSE="fortran mpi"
 
 DEPEND="
