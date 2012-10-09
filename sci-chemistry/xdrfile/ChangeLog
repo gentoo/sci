@@ -3,6 +3,9 @@
 # $Header: $
 
   09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> xdrfile-1.1.ebuild:
+  [sci-chemistry/xdrfile] Add keywords
+
+  09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> xdrfile-1.1.ebuild:
   [sci-chemistry/xdrfile] actualy allow optional fortran
 
 *xdrfile-1.1 (09 Oct 2012)
