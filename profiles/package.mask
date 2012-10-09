@@ -122,6 +122,7 @@ sci-visualization/vtkPOFFReader
 # Christoph Junghans <ottxor@gentoo.org> (20 Apr 2011)
 # mask live ebuild
 =sci-physics/espresso-9999
+=sci-physics/espresso++-9999
 
 # Christoph Junghans <ottxor@gentoo.org> (23 Jan 2011)
 # mask live ebuild
