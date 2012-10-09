@@ -10,10 +10,9 @@ DESCRIPTION="vim plugin: Gromacs file syntax highlighting and some macros"
 HOMEPAGE="https://github.com/HubLot/vim-gromacs"
 #EGIT_REPO_URI="git://github.com/Reinis/${PN}.git"
 EGIT_REPO_URI="
-	https://github.com/HubLot/vim-gromacs.git
-	git://github.com/HubLot/vim-gromacs.git
-	git://github.com/Reinis/${PN}.git
-	"
+	https://github.com/HubLot/${PN}.git
+	git://github.com/HubLot/${PN}.git
+	git://github.com/Reinis/${PN}.git"
 SRC_URI=""
 
 LICENSE="GPL-3"
