@@ -20,10 +20,6 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
-src_prepare() {
-	rm -rf "${S}/xdrfile" || die
-}
-
 src_configure() {
 	econf \
 		--with-xdrlib="${EPREFIX}/usr" \

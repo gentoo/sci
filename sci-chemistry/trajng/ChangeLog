@@ -3,6 +3,9 @@
 # $Header: $
 
   09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> trajng-0.6.1.ebuild:
+  [sci-chemistry/trajng] Fix ebuild
+
+  09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> trajng-0.6.1.ebuild:
   [sci-chemistry/trajng] Add keywords
 
 *trajng-0.6.1 (09 Oct 2012)
