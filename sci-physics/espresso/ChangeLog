@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Oct 2012; Christoph Junghans <ottxor@gentoo.org> espresso-9999.ebuild:
+  sync with gx86
+
   06 May 2012; Christoph Junghans <ottxor@gentoo.org> espresso-9999.ebuild:
   sync with gx86
 
@@ -46,4 +49,3 @@
 
   16 May 2009; Christoph Junghans <kleiner_otti@gmx.de> ChangeLog:
   Initial commit. Ebuild written by me. bug #266648
-
