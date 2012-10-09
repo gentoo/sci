@@ -1,0 +1,9 @@
+# ChangeLog for sci-chemistry/trajng
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*trajng-0.6.1 (09 Oct 2012)
+
+  09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> +metadata.xml,
+  +trajng-0.6.1.ebuild:
+  [sci-chemistry/trajng] Add to repo
