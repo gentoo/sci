@@ -8,7 +8,7 @@ PYTHON_DEPEND="2"
 
 inherit python versionator
 
-MY_PV="$(replace_version_separator 2 -)"
+MY_PV="$(replace_version_separator 3 -)"
 MY_P="phenix-installer-${MY_PV}"
 
 DESCRIPTION="Python-based Hierarchical ENvironment for Integrated Xtallography"
