@@ -7,7 +7,6 @@ EAPI=4
 inherit eutils cmake-utils pam versionator fdo-mime java-pkg-2
 
 # TODO
-# * make sure icon/menu and mime type work
 # * work out server (see package/linux/debian-control/*)
 # * package gin and gwt
 # * use dict from tree, linguas
