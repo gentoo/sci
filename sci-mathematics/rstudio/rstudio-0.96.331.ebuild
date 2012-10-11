@@ -66,7 +66,7 @@ src_unpack() {
 
 src_prepare() {
 	find . -name .gitignore -delete
-	# Fix the QA warnings on the desktop file
+	# Fix the QA warning on the desktop file
 	epatch "${FILESDIR}"/${PN}.desktop.patch
 	# And now we fix src/gwt/build.xml since java's user preference class is
 	# braindead and insists on writing where it is not allowed.
