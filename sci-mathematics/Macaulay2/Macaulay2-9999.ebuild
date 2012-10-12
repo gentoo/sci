@@ -48,6 +48,7 @@ DEPEND="
 	sys-libs/ncurses
 	sys-process/time
 	>dev-libs/boehm-gc-7.1
+	dev-libs/libatomic_ops
 	emacs? ( virtual/emacs )"
 RDEPEND="${DEPEND}"
 
