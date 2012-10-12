@@ -1,0 +1,27 @@
+From: Marcin Slusarz <address@hidden>
+Subject: [PATCH] easm: fix build with bison >= 2.6
+
+easm_parse.h started to reference yyscan_t, which is defined in easm_lex.h,
+but we can't include easm_lex.h before easm_parse.h, because easm_lex.h
+uses YYSTYPE which is defined in easm_parse.h.
+To fix this, break the circular dependency by injecting definition of yyscan_t
+before including anything.
+---
+ easm/easm_parse.y | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/easm/easm_parse.y b/easm/easm_parse.y
+index bfac370..0b6de26 100644
+--- a/easm/easm_parse.y
++++ b/easm/easm_parse.y
+@@ -23,6 +23,7 @@
+  */
+ 
+ %{
++typedef void* yyscan_t;
+ #include "easm.h"
+ #include "yy.h"
+ #include "easm_parse.h"
+-- 
+1.7.12
+

@@ -28,3 +28,7 @@ DEPEND="${RDEPEND}
 "
 
 DOCS=( OPCODES README )
+
+PATCHES=(
+	"${FILESDIR}/${PN}-bison.patch"
+	)
