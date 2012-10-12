@@ -27,7 +27,7 @@ DEPEND="${RDEPEND}
 	sys-devel/flex
 "
 
-DOCS=( OPCODES README )
+DOCS=( README )
 
 PATCHES=(
 	"${FILESDIR}/${PN}-bison.patch"
