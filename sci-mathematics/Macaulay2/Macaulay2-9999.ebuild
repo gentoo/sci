@@ -60,6 +60,8 @@ RESTRICT="mirror"
 pkg_setup () {
 		tc-export CC CPP CXX
 		append-cppflags "-I/usr/include/frobby"
+		# gtest needs python:2
+		python_set_active_version 2
 }
 
 src_prepare() {
