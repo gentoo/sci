@@ -3,6 +3,9 @@
 # $Header: $
 
   12 Oct 2012; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
+  bump boehm-gc, fix python
+
+  12 Oct 2012; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
   Fix deps of live ebuild
 
   12 Oct 2012; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild,

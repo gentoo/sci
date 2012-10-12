@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit autotools elisp-common eutils flag-o-matic subversion
+inherit autotools elisp-common eutils flag-o-matic python subversion
 
 IUSE="emacs optimization"
 
@@ -47,7 +47,7 @@ DEPEND="
 	dev-util/ctags
 	sys-libs/ncurses
 	sys-process/time
-	>dev-libs/boehm-gc-7.1
+	>=dev-libs/boehm-gc-7.2_alpha6
 	dev-libs/libatomic_ops
 	emacs? ( virtual/emacs )"
 RDEPEND="${DEPEND}"
