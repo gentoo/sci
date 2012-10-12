@@ -1,0 +1,9 @@
+# ChangeLog for x11-misc/envytools
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*envytools-9999 (12 Oct 2012)
+
+  12 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> +envytools-9999.ebuild,
+  +metadata.xml:
+  [x11-misc/envytools] Add envytools
