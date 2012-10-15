@@ -59,7 +59,7 @@ CDEPEND="dev-libs/libpcre
 		dev-java/javahelp:0
 		dev-java/jeuclid-core:0
 		dev-java/jgoodies-looks:2.0
-		>=dev-java/jlatexmath-1.0.0:1
+		dev-java/jlatexmath:1
 		dev-java/jogl:2
 		>=dev-java/jrosetta-1.0.4:0
 		dev-java/scirenderer:1
@@ -82,7 +82,7 @@ DEPEND="${CDEPEND}
 	gui? (
 		>=virtual/jdk-1.5
 		doc? ( app-text/docbook-xsl-stylesheets
-			   >=dev-java/jlatexmath-fop-1.0.0:1
+			   dev-java/jlatexmath-fop:1
 			   dev-java/xml-commons-external:1.4 )
 		xcos? ( dev-lang/ocaml ) )
 	test? (
@@ -146,10 +146,10 @@ src_prepare() {
 			etc/librarypath.xml || die
 	fi
 	mkdir jar; cd jar
-	java-pkg_jar-from jgraphx-1.8,jlatexmath,flexdock,skinlf
-	java-pkg_jar-from jgoodies-looks-2.0,jrosetta,scirenderer
+	java-pkg_jar-from jgraphx-1.8,jlatexmath-1,flexdock,skinlf
+	java-pkg_jar-from jgoodies-looks-2.0,jrosetta,scirenderer-1
 	java-pkg_jar-from avalon-framework-4.2,saxon-6.5,jeuclid-core
-	java-pkg_jar-from xmlgraphics-commons-1.3,commons-io-1,jlatexmath-fop
+	java-pkg_jar-from xmlgraphics-commons-1.3,commons-io-1,jlatexmath-fop-1
 	java-pkg_jar-from jogl-2 jogl.all.jar jogl2.jar
 	java-pkg_jar-from gluegen-2 gluegen-rt.jar gluegen2-rt.jar
 	java-pkg_jar-from batik-1.7 batik-all.jar
@@ -183,7 +183,7 @@ src_configure() {
 	econf \
 		--enable-relocatable \
 		--disable-rpath \
-		-with-docbook="${EPREFIX}/usr/share/sgml/docbook/xsl-stylesheets" \
+		--with-docbook="${EPREFIX}/usr/share/sgml/docbook/xsl-stylesheets" \
 		$(use_enable debug) \
 		$(use_enable debug code-coverage) \
 		$(use_enable debug debug-C) \

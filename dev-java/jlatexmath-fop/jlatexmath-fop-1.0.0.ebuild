@@ -16,7 +16,7 @@ SRC_URI="http://forge.scilab.org/upload/jlatexmath/files/${MY_PN}-src-all-${PV}.
 HOMEPAGE="http://forge.scilab.org/index.php/p/jlatexmath"
 
 IUSE=""
-CDEPEND="dev-java/jlatexmath
+CDEPEND="dev-java/jlatexmath:1
 	dev-java/avalon-framework
 	dev-java/fop"
 REPEND=">=virtual/jdk-1.5
