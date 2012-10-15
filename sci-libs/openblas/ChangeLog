@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openblas-0.2.4-r1 (15 Oct 2012)
+
+  15 Oct 2012; Andrea Arteaga <spiros@gentoo.com> +openblas-0.2.4-r1.ebuild:
+  Solved problem with fetching
+
+
 *openblas-0.2.4 (08 Oct 2012)
 
   08 Oct 2012; Andrea Arteaga <andyspiros@gmail.com> +openblas-0.2.4.ebuild:
