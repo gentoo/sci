@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Oct 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  scilab-5.3.3-r1.ebuild, scilab-5.4.0.ebuild:
+  remove virtual/fortran as intended with the updated fortran-2 eclass
+
 *scilab-5.4.0 (02 Oct 2012)
 
   02 Oct 2012; Guillaume Horel <guillaume.horel@gmail.com>
