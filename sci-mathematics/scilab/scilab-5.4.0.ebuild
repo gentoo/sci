@@ -96,6 +96,10 @@ pkg_pretend() {
 
 pkg_setup() {
 	if use openmp; then
+		if [[ $(tc-getCC) == *gcc* ]] && ! tc-has-openmp; then
+			ewarn "You are using a gcc without OpenMP capabilities"
+			die "Need an OpenMP capable compiler"
+		fi
 		FORTRAN_NEED_OPENMP=1
 	fi
 	FORTRAN_STANDARD="77 90"
