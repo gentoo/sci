@@ -53,7 +53,7 @@ src_configure() {
 			-DPYTHON_EXECUTABLE=${PYTHON}
 			-DPYTHON_INCLUDE_DIR=${EPREFIX}/usr/include/${EPYTHON}
 			-DPYTHON_LIBRARY=${EPREFIX}/usr/$(get_libdir)/lib${EPYTHON}.so
-			-DENABLE_TESTS=ON)"
+			-DENABLE_TESTS=ON"
 
 		cmake-utils_src_configure
 	}
