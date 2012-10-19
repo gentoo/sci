@@ -17,7 +17,7 @@ SLOT="0"
 LICENSE="GPL-2"
 IUSE=""
 
-RDEPEND="
+RDEPEND="${PYTHON_DEPS}
 	!sci-chemistry/babel
 	~sci-chemistry/openbabel-${PV}
 	sys-libs/zlib"
