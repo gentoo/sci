@@ -103,13 +103,12 @@ src_configure() {
 		gnu
 }
 
-src_compile() {
-	cd "${S}"/AmberTools/src
-	emake
-}
-
 src_test() {
-	cd "${S}"/AmberTools/test
+	# Get the number of physical cores
+	local ncpus=$(grep "^core id" /proc/cpuinfo | sort -u | wc -l)
+	# Limit number of OpenMP threads
+	use openmp && export OMP_NUM_THREADS=$((1+${ncpus}/2))
+
 	emake test
 }
 

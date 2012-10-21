@@ -145,10 +145,10 @@ index e5c0ded..ce8f883 100644
  cuda:
  	@echo "$(AMBERTOOLS) has no CUDA-enabled components"
 diff --git a/AmberTools/src/configure2 b/AmberTools/src/configure2
-index 25d3f0a..1ad86e6 100755
+index 9ce5ef0..8dfcd3e 100755
 --- a/AmberTools/src/configure2
 +++ b/AmberTools/src/configure2
-@@ -387,11 +387,11 @@ omp_flag=
+@@ -389,11 +389,11 @@ omp_flag=
  mpi_flag=
  lex=flex
  flibs_mkl=
@@ -164,7 +164,7 @@ index 25d3f0a..1ad86e6 100755
  
  #-----------------------------------
  # skip building of xleap?
-@@ -618,13 +618,14 @@ gnu)
+@@ -621,13 +621,14 @@ gnu)
      flibs_arch="-lgfortran -w"
      flibsf_arch=
      cc=gcc
@@ -182,7 +182,7 @@ index 25d3f0a..1ad86e6 100755
      staticflag='-static'
      
      # If -noopt has been requested, force lack of optimisation;
-@@ -645,11 +646,11 @@ gnu)
+@@ -648,11 +649,11 @@ gnu)
        foptflags=""
      else
        cnooptflags=
@@ -197,7 +197,7 @@ index 25d3f0a..1ad86e6 100755
      fi
      
      # Debugging options
-@@ -2026,26 +2027,26 @@ EOF
+@@ -2044,26 +2045,26 @@ EOF
        if [ "$sse" = "yes" ]; then
            enable_sse="--enable-sse2=yes" # --enable-avx=yes"
        fi
@@ -243,7 +243,7 @@ index 25d3f0a..1ad86e6 100755
        fftw3="\$(LIBDIR)/libfftw3.a"
        if [ "$mpi" = 'yes' ]; then
            flibs_fftw3="-lfftw3_mpi $flibs_fftw3"
-@@ -2282,7 +2283,7 @@ LDFLAGS=$ldflags \$(CUSTOMBUILDFLAGS)
+@@ -2300,7 +2301,7 @@ LDFLAGS=$ldflags \$(CUSTOMBUILDFLAGS)
  AMBERLDFLAGS=\$(AMBERBUILDFLAGS)
  
  LEX=   $lex
@@ -252,7 +252,7 @@ index 25d3f0a..1ad86e6 100755
  AR=    ar rv
  M4=    $m4
  RANLIB=$ranlib
-@@ -2319,7 +2320,7 @@ CP=$localcp
+@@ -2337,7 +2338,7 @@ CP=$localcp
  #  Information about Fortran compilation:
  
  FC=$fc
@@ -330,7 +330,7 @@ index 524dad8..5df64c6 100644
    coord tc;
  
 diff --git a/AmberTools/src/mmpbsa_py/MMPBSA_mods/amber_outputs.py b/AmberTools/src/mmpbsa_py/MMPBSA_mods/amber_outputs.py
-index b01b891..24ea20f 100644
+index 0349ba9..c700beb 100644
 --- a/AmberTools/src/mmpbsa_py/MMPBSA_mods/amber_outputs.py
 +++ b/AmberTools/src/mmpbsa_py/MMPBSA_mods/amber_outputs.py
 @@ -210,7 +210,7 @@ class AmberOutput(object):
@@ -1198,6 +1198,27 @@ index 3b49c55..61d0dc3 100644
  clean:
  	/bin/rm -f *.o  *.mod *.d sqm$(SFX)
  
+diff --git a/AmberTools/test/Makefile b/AmberTools/test/Makefile
+index 27afe24..4796250 100644
+--- a/AmberTools/test/Makefile
++++ b/AmberTools/test/Makefile
+@@ -3,14 +3,14 @@ include ../src/config.h
+ ######    Top-level targets, for general use:    ############################
+ 
+ test:
+-	./test_at_serial.sh
++	+./test_at_serial.sh
+ 
+ test.parallel:
+ 	./test_at_parallel.sh
+ 
+ ######    Intermediate-level targets:    ############################
+ 
+-test.serial: clean is_amberhome_defined \
++test.serial: is_amberhome_defined \
+ 	test.nab test.ptraj test.cpptraj test.antechamber \
+ 	test.leap test.resp test.pbsa test.mmpbsa test.parmed \
+ 	test.ambpdb test.elsize test.chamber test.sqm test.rism1d \
 diff --git a/AmberTools/test/mmpbsa_py/01_Generalized_Born/energies.csv.save b/AmberTools/test/mmpbsa_py/01_Generalized_Born/energies.csv.save
 index 3595375..1a0be46 100644
 --- a/AmberTools/test/mmpbsa_py/01_Generalized_Born/energies.csv.save
@@ -1222,6 +1243,19 @@ index 3595375..1a0be46 100644
 +0,-63.4582,-32.3518,35.2679,-8.3751,-95.8100,26.8928,-68.9172
 +1,-60.9966,-35.1045,41.6205,-8.4650,-96.1011,33.1555,-62.9456
  
+ 
+diff --git a/AmberTools/test/nab/Makefile b/AmberTools/test/nab/Makefile
+index 1bb2505..7459a15 100644
+--- a/AmberTools/test/nab/Makefile
++++ b/AmberTools/test/nab/Makefile
+@@ -12,6 +12,8 @@ testrism:  \
+ 	rism_ion-noasymp rism_ion_pse1 rism_ion_pse3 rism_mdiis0 rism_mdiis1 \
+ 	rism_sp rism_sp2
+ 
++.NOTPARALLEL:
++
+ duplex_test::
+ 	@./Run.duplex
  
 diff --git a/AmberTools/test/nab/Run.rism_sp b/AmberTools/test/nab/Run.rism_sp
 index bd8471d..a88bf58 100755
@@ -1249,3 +1283,30 @@ index a2b9521..11da8de 100755
  ../dacdif -a 1e-6 guv.2.O.1.dx.check guv.2.O.1.dx
  ../dacdif -a 1e-6 guv.2.H1.2.dx.check guv.2.H1.2.dx
  ../dacdif -a 1e-6 guv.2.O.3.dx.check guv.2.O.3.dx
+diff --git a/AmberTools/test/test_at_serial.sh b/AmberTools/test/test_at_serial.sh
+index 15bb590..8fa52e3 100755
+--- a/AmberTools/test/test_at_serial.sh
++++ b/AmberTools/test/test_at_serial.sh
+@@ -39,3 +39,9 @@ fi
+ 
+ # save summary for later reporting:
+ tail -5 ${logfile} > ${logdir}/at_summary
++
++if [ "${questionable_count}" -ne 0 -o "${error_count}" -ne 0 ]
++then
++  # Tests failed
++  exit 1
++fi
+diff --git a/Makefile b/Makefile
+index 54ddfcb..643ba15 100644
+--- a/Makefile
++++ b/Makefile
+@@ -30,7 +30,7 @@ clean.test:
+ test::  test.$(INSTALLTYPE)
+ 
+ test.serial:
+-	-(cd AmberTools/test && $(MAKE) test)
++	(cd AmberTools/test && $(MAKE) test)
+ 	-@(if [ -n "$(BUILDAMBER)" ] ; then \
+ 	    cd test && $(MAKE) test; \
+ 	    echo "" ; \
