@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*blas-reference-20120925 (21 Oct 2012)
+
+  21 Oct 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +blas-reference-20120925.ebuild:
+  sci-libs/blas-reference: Version bump, revert to change soname to refblas
+
   22 May 2012; Justin Lecher <jlec@gentoo.org> blas-reference-20120423.ebuild:
   Add missing eutils.eclass
 
@@ -85,4 +91,3 @@
   +files/3.3.0-cmake-install.patch, +blas-reference-3.3.0.ebuild,
   +metadata.xml:
   Version bump. Return to traditional versioning
-
