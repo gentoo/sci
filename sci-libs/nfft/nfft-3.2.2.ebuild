@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="openmp static-libs"
 
-RDEPEND="sci-libs/fftw:3.0"
+RDEPEND="sci-libs/fftw:3.0[openmp?]"
 DEPEND="${RDEPEND}"
 
 pkg_pretend() {
