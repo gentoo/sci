@@ -23,40 +23,37 @@ RDEPEND=""
 S="${WORKDIR}"/INCHI-1-API
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-1.03-shared.patch
-	epatch "${FILESDIR}"/${PN}-1.04-static.patch
+	epatch \
+		"${FILESDIR}"/${PN}-1.03-shared.patch \
+		"${FILESDIR}"/${PN}-1.04-static.patch
+	tc-export AR RANLIB
 }
 
 src_compile() {
-	for dir in  INCHI/gcc/inchi-1 INCHI_API/gcc_so_makefile; do
-		pushd ${dir} > /dev/null
-		emake \
-			C_COMPILER=$(tc-getCC) \
-			CPP_COMPILER=$(tc-getCXX) \
-			LINKER="$(tc-getCXX) ${LDFLAGS}" \
-			SHARED_LINK="$(tc-getCC) ${LDFLAGS} -shared" \
-			C_COMPILER_OPTIONS="\${P_INCL} -ansi -DCOMPILE_ANSI_ONLY ${CFLAGS} -c " \
-			CPP_COMPILER_OPTIONS="\${P_INCL} -D_LIB -ansi ${CXXFLAGS} -frtti -c " \
-			C_OPTIONS="${CFLAGS} -fPIC -c " \
-			LINKER_OPTIONS="${LDFLAGS}" \
-			CREATE_MAIN= \
+	local dir common_opts
+	common_opts=(
+			C_COMPILER=$(tc-getCC)
+			CPP_COMPILER=$(tc-getCXX)
+			LINKER="$(tc-getCXX) ${LDFLAGS}"
+			SHARED_LINK="$(tc-getCC) ${LDFLAGS} -shared"
+			C_COMPILER_OPTIONS="\${P_INCL} -ansi -DCOMPILE_ANSI_ONLY ${CFLAGS} -c "
+			CPP_COMPILER_OPTIONS="\${P_INCL} -D_LIB -ansi ${CXXFLAGS} -frtti -c "
+			C_OPTIONS="${CFLAGS} -fPIC -c "
+			LINKER_OPTIONS="${LDFLAGS}"
+			CREATE_MAIN=
 			ISLINUX=1
+	)
+	for dir in  INCHI/gcc/inchi-1 INCHI_API/gcc_so_makefile; do
+	pushd ${dir} > /dev/null
+		emake \
+			"${common_opts[@]}"
 		popd
 	done
 	if use static-libs ; then
 		pushd INCHI_API/gcc_so_makefile > /dev/null
 		emake libinchi.a \
-            C_COMPILER=$(tc-getCC) \
-            CPP_COMPILER=$(tc-getCXX) \
-            LINKER="$(tc-getCXX) ${LDFLAGS}" \
-            SHARED_LINK="$(tc-getCC) ${LDFLAGS} -shared" \
-            C_COMPILER_OPTIONS="\${P_INCL} -ansi -DCOMPILE_ANSI_ONLY ${CFLAGS} -c " \
-            CPP_COMPILER_OPTIONS="\${P_INCL} -D_LIB -ansi ${CXXFLAGS} -frtti -c " \
-            C_OPTIONS="${CFLAGS} -fPIC -c " \
-            LINKER_OPTIONS="${LDFLAGS}" \
-            CREATE_MAIN= \
-            ISLINUX=1 \
-			STATIC=1
+				"${common_opts[@]}" \
+				STATIC=1
 		popd
 	fi
 }
@@ -68,14 +65,11 @@ src_install() {
 		docinto doc
 		dodoc *.pdf readme.txt
 	fi
-	cd "${S}/INCHI/gcc/inchi-1"
-	dobin inchi-1
+	dobin "${S}"/INCHI/gcc/inchi-1/inchi-1
 	cd "${S}/INCHI_API/gcc_so_makefile/result"
 	rm *gz
-	dolib.so lib*
-	if use static-libs ; then
-		dolib.a lib*.a
-	fi
+	dolib.so lib*so*
+	use static-libs && dolib.a lib*a
 	insinto /usr/include
 	doins ../../inchi_main/inchi_api.h
 }
