@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit fortran-2
 
@@ -12,13 +12,13 @@ DESCRIPTION="Galaxy photometric redshifts from evolutionary synthesis"
 HOMEPAGE="http://imacdlb.iap.fr:8080/cgi-bin/zpeg/zpeg.pl"
 SRC_URI="ftp://ftp.iap.fr/pub/from_users/leborgne/${PN}/${MYP}.tar.gz"
 
-LICENSE="GPL-2"
 SLOT="0"
+LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="gdl"
 
 RDEPEND="gdl? ( dev-lang/gdl )"
-DEPEND="virtual/fortran"
+DEPEND=""
 
 S="${WORKDIR}/${MYP}"
 
@@ -26,7 +26,7 @@ FORTRAN_STANDARD="90"
 
 src_prepare() {
 	# save configure for tests
-	cp configure{,.orig}
+	cp configure{,.orig} || die
 	# install data in FHS
 	sed -i \
 		-e "s:ZPEG_ROOT=.*:ZPEG_ROOT=${EPREFIX}/usr/share/${PN}:" \
@@ -34,19 +34,19 @@ src_prepare() {
 }
 
 src_compile() {
-	# not worth debugging parallell build failures which is due to
+	# not worth debugging parallel build failures which is due to
 	# fortran modules missing dependencies)
 	emake -j1 -C src
 }
 
 src_test() {
 	# test only works with hardcoded path, so reconfigure and recompile
-	mv bin/zpeg{,.orig}
-	mv configure{.orig,}
+	mv bin/zpeg{,.orig} || die
+	mv configure{.orig,} || die
 	emake -C src clean && econf && emake -j1 -C src
 	cd test
 	../bin/zpeg -V ZPEG1_cata.cat -o hdf.zpeg -p hdf.par -t hdf.par.tmp || die
-	mv bin/zpeg{.orig,}
+	mv bin/zpeg{.orig,} || die
 }
 
 src_install() {
