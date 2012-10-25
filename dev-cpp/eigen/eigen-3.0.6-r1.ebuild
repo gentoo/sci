@@ -4,38 +4,36 @@
 
 EAPI=4
 
-inherit cmake-utils alternatives-2 fortran-2 multilib
+FORTRAN_NEEDED=fortran
+
+inherit alternatives-2 cmake-utils fortran-2 multilib vcs-snapshot
 
 DESCRIPTION="C++ template library for linear algebra"
 HOMEPAGE="http://eigen.tuxfamily.org/"
 SRC_URI="http://bitbucket.org/eigen/eigen/get/${PV}.tar.bz2 -> ${P}.tar.bz2"
 
+SLOT="3"
 LICENSE="|| ( LGPL-3 GPL-2 )"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-SLOT="3"
 IUSE="adolc fortran fftw doc gmp sparse static-libs test"
 
-CDEPEND="adolc? ( sci-libs/adolc[sparse?] )
+CDEPEND="
+	adolc? ( sci-libs/adolc[sparse?] )
 	fftw? ( >=sci-libs/fftw-3 )
 	gmp? ( dev-libs/gmp dev-libs/mpfr )
-	sparse? ( dev-cpp/sparsehash
-			sci-libs/cholmod[metis]
-			sci-libs/superlu
-			sci-libs/umfpack )"
+	sparse? (
+		dev-cpp/sparsehash
+		sci-libs/cholmod[metis]
+		sci-libs/superlu
+		sci-libs/umfpack
+		)"
 
-DEPEND="doc? ( app-doc/doxygen[dot,latex] )
+DEPEND="
+	doc? ( app-doc/doxygen[dot,latex] )
 	test? ( ${CDEPEND} )"
-
-RDEPEND="!dev-cpp/eigen:0
+RDEPEND="
+	!dev-cpp/eigen:0
 	${CDEPEND}"
-
-pkg_setup() {
-	use fortran && fortran-2_pkg_setup
-}
-
-src_unpack() {
-	unpack ${A} && mv ${PN}* ${P}
-}
 
 src_configure() {
 	# TOFIX: static-libs for blas are always built with PIC
@@ -46,7 +44,8 @@ src_configure() {
 		$(cmake-utils_use !fortran EIGEN_TEST_NO_FORTRAN)
 	)
 	CMAKE_BUILD_TYPE="release" cmake-utils_src_configure
-	use fortran && FORTRAN_LIBS="blas" # lapack not ready yet
+	# lapack not ready yet?
+	use fortran && FORTRAN_LIBS="blas"
 }
 
 src_compile() {
