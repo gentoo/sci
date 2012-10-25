@@ -155,8 +155,7 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-dotfont.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV3}-glibc216.patch
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-dotfont.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
