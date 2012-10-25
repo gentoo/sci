@@ -1,10 +1,10 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=4
 
-inherit eutils fortran-2
+inherit autotools-utils fortran-2
 
 DESCRIPTION="The lowest-level Growler library"
 HOMEPAGE="http://www.nas.nasa.gov/~bgreen/growler/"
@@ -16,24 +16,20 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc fortran static tcpd"
 
 RDEPEND="
-	virtual/fortran
 	dev-libs/boost
 	tcpd? ( sys-apps/tcp-wrappers )"
 DEPEND="${RDEPEND}
-		doc? ( app-doc/doxygen )"
+	doc? ( app-doc/doxygen )"
 
-pkg_setup() {
-	use fortran && fortran-2_pkg_setup
-}
-
-src_prepare() {
-	epatch "${FILESDIR}"/${PV}-gcc4.patch
-}
+PATCHES=(
+	"${FILESDIR}"/${PV}-gcc4.patch
+	"${FILESDIR}"/${PV}-gcc4.7.patch )
 
 src_configure() {
-	econf \
-		$(use_enable doc) \
-		$(use_enable tcpd) \
-		$(use_enable static) \
-		$(use_enable fortran)
+	local myeconfargs=(
+		$(use_enable doc)
+		$(use_enable tcpd)
+		$(use_enable static)
+		)
+	autotools-utils_src_configure
 }

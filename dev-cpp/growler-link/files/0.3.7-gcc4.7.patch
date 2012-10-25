@@ -1,0 +1,15 @@
+ lib/strings.cxx | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/lib/strings.cxx b/lib/strings.cxx
+index 1efa4fd..09488d8 100644
+--- a/lib/strings.cxx
++++ b/lib/strings.cxx
+@@ -26,6 +26,7 @@
+ #include <cstdio>
+ #include <cerrno>
+ #include <stdexcept>
++#include <unistd.h>
+ 
+ using namespace std;
+ 
