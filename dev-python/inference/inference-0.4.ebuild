@@ -1,8 +1,8 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
@@ -20,9 +20,7 @@ LICENSE="as-is"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="
-	sci-libs/scipy
-	virtual/fortran"
+DEPEND="sci-libs/scipy"
 RDEPEND="${DEPEND}
 	dev-python/matplotlib"
 
@@ -31,10 +29,14 @@ RESTRICT="test"
 
 pkg_setup() {
 	fortran-2_pkg_setup
+}
+
+src_prepare() {
 	# The usual numpy.distutils hacks when fortran is used
 	append-ldflags -shared
 	append-fflags -fPIC
 	export NUMPY_FCONFIG="config_fc --noopt --noarch"
+	distutils_src_prepare
 }
 
 src_compile() {

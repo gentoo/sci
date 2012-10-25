@@ -1,6 +1,10 @@
 # ChangeLog for dev-python/inference
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Oct 2012; Justin Lecher <jlec@gentoo.org> inference-0.4.ebuild,
+  metadata.xml:
+  Move to EAPI=5; correct usage of fortran-2.eclass
 
   23 Jun 2011; Justin Lecher <jlec@gentoo.org> inference-0.4.ebuild:
   Streamlined fortran-2 eclass usage
