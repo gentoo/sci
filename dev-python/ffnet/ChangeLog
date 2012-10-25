@@ -1,6 +1,10 @@
 # ChangeLog for dev-python/ffnet
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Oct 2012; Justin Lecher <jlec@gentoo.org> ffnet-0.6.2.ebuild,
+  metadata.xml:
+  Move to EAPI=5; use distutils-r1.eclass; correct usage of fortran-2.eclass
 
   23 Jun 2011; Justin Lecher <jlec@gentoo.org> ffnet-0.6.2.ebuild:
   Streamlined fortran-2 eclass usage

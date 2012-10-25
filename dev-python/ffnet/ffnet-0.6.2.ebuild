@@ -1,14 +1,15 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+RESTRICT_PYTHON_ABIS="3.* *-pypy-*"
+PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
 
-inherit distutils flag-o-matic fortran-2 toolchain-funcs
+inherit distutils-r1 flag-o-matic fortran-2 toolchain-funcs
 
 DESCRIPTION="Feed-forward neural network for python"
 HOMEPAGE="http://ffnet.sourceforge.net/"
@@ -19,31 +20,29 @@ LICENSE="GPL-2"
 KEYWORDS="~x86 ~amd64"
 IUSE="examples graphviz matplotlib"
 
-DEPEND="
+DEPEND="${PYTHON_DEPS}
 	dev-python/networkx
 	dev-python/numpy
 	sci-libs/scipy
-	virtual/fortran
 	matplotlib? ( dev-python/matplotlib )
 	graphviz? ( dev-python/pygraphviz )"
 RDEPEND="${DEPEND}"
 
-pkg_setup() {
-	fortran-2_pkg_setup
+src_prepare() {
 	export FCONFIG="config_fc --noopt --noarch"
 	append-ldflags -shared
 	append-fflags -fPIC
+	distutils-r1_src_prepare
 }
 
 src_compile() {
-	distutils_src_compile ${FCONFIG}
+	distutils-r1_src_compile ${FCONFIG}
 }
 
 src_install() {
-	distutils_src_install
-	dodoc README || die
+	distutils-r1_src_install
 	if use examples; then
 		insinto /usr/share/doc/${PF}
-		doins -r examples || die
+		doins -r examples
 	fi
 }
