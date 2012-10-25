@@ -1,10 +1,10 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-util/ccache/ccache-3.1.7.ebuild,v 1.9 2012/07/01 16:39:59 armin76 Exp $
+# $Header: $
 
-EAPI="4"
+EAPI=5
 
-inherit multilib toolchain-funcs
+inherit fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="a compiler cache for fortran"
 HOMEPAGE="http://people.irisa.fr/Edouard.Canot/f90cache/"
@@ -15,9 +15,8 @@ SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
 
-DEPEND="virtual/fortran"
-RDEPEND="${DEPEND}
-	dev-util/ccache"
+DEPEND=""
+RDEPEND="dev-util/ccache"
 
 src_prepare() {
 	sed -i -e '/^CFLAGS/d' -e 's/CFLAGS/LDFLAGS/' Makefile.in || die
