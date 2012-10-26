@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*lapacke-reference-3.4.2 (26 Oct 2012)
+
+  26 Oct 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  +lapacke-reference-3.4.2.ebuild:
+  sci-libs/lapacke-reference: Version bump. Restore the reflapack library name
+  instead of lapack
+
   22 May 2012; Justin Lecher <jlec@gentoo.org> lapacke-reference-3.4.1.ebuild:
   Add missing eutils.eclass
 
@@ -42,4 +49,3 @@
   05 Dec 2010; Sébastien Fabbro <bicatali@gentoo.org>
   lapacke-1.0.0.009.ebuild, +metadata.xml:
   Initial import
-
