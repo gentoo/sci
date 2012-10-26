@@ -2,7 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
+
+FORTRAN_NEEDED=fortran
+
 inherit autotools eutils fortran-2 mpi toolchain-funcs versionator
 
 MY_PV=${PV/_/}
@@ -10,12 +13,13 @@ DESCRIPTION="A high performance and portable MPI implementation"
 HOMEPAGE="http://www.mcs.anl.gov/research/projects/mpich2/index.php"
 SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY_PV}/${PN}-${MY_PV}.tar.gz"
 
-LICENSE="as-is"
 SLOT="0"
+LICENSE="as-is"
 KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86"
 IUSE="+cxx debug doc fortran mpi-threads romio threads"
 
-COMMON_DEPEND="dev-libs/libaio
+COMMON_DEPEND="
+	dev-libs/libaio
 	sys-apps/hwloc
 	romio? ( net-fs/nfs-utils )
 	$(mpi_imp_deplist)"
@@ -24,16 +28,13 @@ DEPEND="${COMMON_DEPEND}
 	dev-lang/perl
 	sys-devel/libtool"
 
-RDEPEND="${COMMON_DEPEND}
-	fortran? ( virtual/fortran )"
+RDEPEND="${COMMON_DEPEND}"
 
 S="${WORKDIR}"/${PN}-${MY_PV}
 
 pkg_setup() {
-	if use fortran; then
-		FORTRAN_STANDARD="77 90"
-		fortran-2_pkg_setup
-	fi
+	FORTRAN_STANDARD="77 90"
+	fortran-2_pkg_setup
 	MPI_ESELECT_FILE="eselect.mpi.mpich2"
 
 	if use mpi-threads && ! use threads; then
@@ -82,7 +83,7 @@ src_prepare() {
 	# 393361, backport of r8809 upstream.
 	epatch "${FILESDIR}"/mpich2-hvector.patch
 
-	AT_M4DIR="${S}"/confdb eautoreconf || die
+	AT_M4DIR="${S}"/confdb eautoreconf
 }
 
 src_configure() {
@@ -127,12 +128,10 @@ src_configure() {
 		$(use_enable fortran fc)
 }
 
-src_compile() {
-	# Oh, the irony.
-	# http://wiki.mcs.anl.gov/mpich2/index.php/Frequently_Asked_Questions#Q:_The_build_fails_when_I_use_parallel_make.
-	# https://trac.mcs.anl.gov/projects/mpich2/ticket/711
-	emake -j1
-}
+# Oh, the irony.
+# http://wiki.mcs.anl.gov/mpich2/index.php/Frequently_Asked_Questions#Q:_The_build_fails_when_I_use_parallel_make.
+# https://trac.mcs.anl.gov/projects/mpich2/ticket/711
+MAKEOPTS+=" -j1"
 
 src_test() {
 	# See #362655 and comments in the testlist files.
@@ -152,7 +151,7 @@ src_test() {
 		-e '/^[# ]*spawn/d' \
 		test/mpi/threads/testlist || die
 
-	emake -j1 \
+	emake \
 		CC="${S}"/bin/mpicc \
 		CXX="${S}"/bin/mpicxx \
 		F77="${S}"/bin/mpif77 \
@@ -163,13 +162,13 @@ src_test() {
 src_install() {
 	local d=$(echo ${ED}/$(mpi_root)/ | sed 's,///*,/,g')
 
-	emake -j1 DESTDIR="${D}" install
+	default
 
 	mpi_dodir /usr/share/doc/${PF}
-	mpi_dodoc COPYRIGHT README CHANGES RELEASE_NOTES || die
-	mpi_newdoc src/pm/hydra/README README.hydra || die
+	mpi_dodoc COPYRIGHT README CHANGES RELEASE_NOTES
+	mpi_newdoc src/pm/hydra/README README.hydra
 	if use romio; then
-		mpi_newdoc src/mpi/romio/README README.romio || die
+		mpi_newdoc src/mpi/romio/README README.romio
 	fi
 
 	if ! use doc; then

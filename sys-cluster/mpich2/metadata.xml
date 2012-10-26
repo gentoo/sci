@@ -12,7 +12,7 @@
 		<description>Upstream Contact</description>
 	</maintainer>
 	<use>
-		<flag name='mpi-threads'>Enable MPI_THREAD_MULTIPLE</flag>
-		<flag name='romio'>Build the ROMIO MPI-IO component</flag>
+		<flag name="mpi-threads">Enable MPI_THREAD_MULTIPLE</flag>
+		<flag name="romio">Build the ROMIO MPI-IO component</flag>
 	</use>
 </pkgmetadata>
