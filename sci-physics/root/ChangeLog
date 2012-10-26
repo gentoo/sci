@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+*root-5.34.03 (25 Oct 2012)
+
+  25 Oct 2012; Andrew Savchenko <bircoph@gmail.com>
+  -files/root-5.34.01-glibc216.patch, -root-5.34.02.ebuild,
+  +root-5.34.03.ebuild:
+  Version bump with important fixes in RooFit.
+  Drop old.
+
 *root-5.34.02 (19 Oct 2012)
 *root-5.32.04 (19 Oct 2012)
 
