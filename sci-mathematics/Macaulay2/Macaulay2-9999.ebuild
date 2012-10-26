@@ -6,7 +6,7 @@ EAPI=4
 
 inherit autotools elisp-common eutils flag-o-matic python subversion
 
-IUSE="emacs optimization"
+IUSE="debug emacs optimization"
 
 ESVN_REPO_URI="svn://svn.macaulay2.com/Macaulay2/trunk/M2"
 
@@ -20,11 +20,17 @@ SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
 SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${LIBFAC}.tar.gz
 		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/${FACTORY}.tar.gz
+		 http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/mpfr-3.0.1.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Extra/gtest-1.6.0.tar.gz"
 
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS=""
+
+# Macaulay2 is broken with >=mpfr-3.1, to not force a downgrade on users
+# we let it built an internal copy :(
+# This dep was removed:
+# >=dev-libs/mpfr-3.0.0
 
 DEPEND="
 	sys-libs/gdbm
@@ -37,7 +43,6 @@ DEPEND="
 	sci-mathematics/nauty
 	>=sci-mathematics/normaliz-2.7
 	sci-mathematics/gfan
-	>=dev-libs/mpfr-3.0.0
 	>=sci-libs/mpir-2.1.1[cxx]
 	sci-libs/cdd+
 	sci-libs/cddlib
@@ -47,7 +52,7 @@ DEPEND="
 	dev-util/ctags
 	sys-libs/ncurses
 	sys-process/time
-	>=dev-libs/boehm-gc-7.2_alpha6
+	>=dev-libs/boehm-gc-7.2_alpha6[threads]
 	dev-libs/libatomic_ops
 	emacs? ( virtual/emacs )"
 RDEPEND="${DEPEND}"
@@ -87,6 +92,9 @@ src_prepare() {
 	# same as the tested program.
 	cp "${DISTDIR}/gtest-1.6.0.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
+	# Temporary internal build of mpfr-3.0:
+	cp "${DISTDIR}/mpfr-3.0.1.tar.gz" "${S}/BUILD/tarfiles/" \
+		|| die "copy failed"
 
 	eautoreconf
 }
@@ -103,16 +111,17 @@ src_configure (){
 		--disable-encap \
 		--disable-strip \
 		$(use_enable optimization optimize) \
-		--enable-build-libraries="factory libfac" \
+		$(use_enable debug) \
+		--enable-build-libraries="factory libfac mpfr" \
 		--with-unbuilt-programs="4ti2 gfan normaliz nauty cddplus lrslib" \
 		|| die "failed to configure Macaulay"
 }
 
 src_compile() {
 	# Parallel build not supported yet
-	# emake -j1
+	emake -j1
 	# For trunk builds we may wish to ignore example errors
-	emake IgnoreExampleErrors=true -j1
+	# emake IgnoreExampleErrors=true -j1
 
 	if use emacs; then
 		cd "${S}/Macaulay2/emacs"

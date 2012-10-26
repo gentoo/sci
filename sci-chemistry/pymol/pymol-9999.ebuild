@@ -19,7 +19,7 @@ ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
 
 LICENSE="PSF-2.2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
 IUSE="apbs numpy vmd web"
 
 DEPEND="
@@ -68,6 +68,11 @@ src_prepare() {
 
 	echo "site_packages = \'$(python_get_sitedir -f)\'" > setup3.py || die
 
+	sed \
+		-e "s:/opt/local:${EPREFIX}/usr:g" \
+		-e '/ext_comp_args/s:\[.*\]:[]:g' \
+		-i setup.py || die
+
 	# python 3.* fix
 	# sed '452,465d' -i setup.py
 	distutils_src_prepare
@@ -106,13 +111,16 @@ src_install() {
 	dodoc DEVELOPERS README
 
 	doicon "${WORKDIR}"/${PN}.{xpm,png}
-	make_desktop_entry pymol PyMol ${PN} "Graphics;Education;Science;Chemistry"
+	make_desktop_entry pymol PyMol ${PN} "Graphics;Education;Science;Chemistry" "MimeType=chemical/x-pdb;"
 }
 
 pkg_postinst() {
 	elog "\t USE=shaders was removed,"
-	elog "please use pymol config settings"
+	elog "please use pymol config settings (~/.pymolrc)"
 	elog "\t set use_shaders, 1"
+	elog "in case of crashes, please deactivate this experimental feature by setting"
+	elog "\t set use_shaders, 0"
+	elog "\t set sphere_mode, 0"
 	distutils_pkg_postinst
 	fdo-mime_desktop_database_update
 	fdo-mime_mime_database_update

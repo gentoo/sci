@@ -4,6 +4,8 @@
 
 EAPI=4
 
+FORTRAN_NEEDED=fortran
+
 if [[ ${PV} == "9999" ]] ; then
 	_SCM=mercurial
 	EHG_REPO_URI="https://bitbucket.org/eigen/eigen"
@@ -14,39 +16,35 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit cmake-utils alternatives-2 fortran-2 multilib ${_SCM}
+inherit alternatives-2 cmake-utils fortran-2 multilib vcs-snapshot ${_SCM}
 
 DESCRIPTION="C++ template library for linear algebra"
 HOMEPAGE="http://eigen.tuxfamily.org/"
 
-LICENSE="MPL-2.0"
 SLOT="3"
+LICENSE="MPL-2.0"
 IUSE="adolc doc fortran fftw gmp mkl sparse static-libs test"
 
 # TODO: support for pastix
-CDEPEND="adolc? ( sci-libs/adolc[sparse?] )
-	fortran? ( virtual/fortran )
+CDEPEND="
+	adolc? ( sci-libs/adolc[sparse?] )
 	fftw? ( >=sci-libs/fftw-3 )
 	gmp? ( dev-libs/gmp dev-libs/mpfr )
 	mkl? ( sci-libs/mkl )
-	sparse? ( dev-cpp/sparsehash
-			sci-libs/cholmod[metis]
-			sci-libs/superlu
-			sci-libs/umfpack )"
+	sparse? (
+		dev-cpp/sparsehash
+		sci-libs/cholmod[metis]
+		sci-libs/superlu
+		sci-libs/umfpack
+		)"
 
-DEPEND="doc? ( app-doc/doxygen[dot,latex] )
+DEPEND="
+	doc? ( app-doc/doxygen[dot,latex] )
 	test? ( ${CDEPEND} )"
 
-RDEPEND="!dev-cpp/eigen:0
+RDEPEND="
+	!dev-cpp/eigen:0
 	${CDEPEND}"
-
-pkg_setup() {
-	use fortran && fortran-2_pkg_setup
-}
-
-src_unpack() {
-	unpack ${A} && mv ${PN}* ${P}
-}
 
 src_configure() {
 	# TOFIX: static-libs for blas are always built with PIC
