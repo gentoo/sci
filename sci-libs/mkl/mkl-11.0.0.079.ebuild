@@ -19,14 +19,7 @@ IUSE=""
 DEPEND=""
 RDEPEND=">=dev-libs/intel-common-12"
 
-QA_PREBUILT="
-	${INTEL_SDP_DIR}/mkl/lib/*/*
-	${INTEL_SDP_DIR}/mkl/examples/lapack/lib/*
-	${INTEL_SDP_DIR}/mkl/tests/cblas/source/*
-	${INTEL_SDP_DIR}/mkl/benchmarks/linpack/*
-	${INTEL_SDP_DIR}/mkl/benchmarks/mp_linpack/*/*/*"
-
-CHECKREQS_DISK_BUILD=1536M
+CHECKREQS_DISK_BUILD=2300M
 
 INTEL_BIN_RPMS="mkl mkl-devel"
 INTEL_DAT_RPMS="mkl-common"
