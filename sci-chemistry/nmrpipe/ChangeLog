@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nmrpipe-7.8.2012.295.14.58 (28 Oct 2012)
+
+  28 Oct 2012; Justin Lecher <jlec@gentoo.org>
+  -files/7.5.2012.204.11.07-lib.patch, -nmrpipe-7.5.2012.204.11.07.ebuild,
+  +nmrpipe-7.8.2012.295.14.58.ebuild,
+  +files/nmrpipe-7.8.2012.295.14.58-lib.patch:
+  Version Bump
+
   10 Aug 2012; Justin Lecher <jlec@gentoo.org>
   nmrpipe-7.5.2012.204.11.07.ebuild:
   no function called from prefix.eclass; please drop
