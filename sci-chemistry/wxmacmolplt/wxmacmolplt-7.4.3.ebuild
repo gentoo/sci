@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="5"
+EAPI=5
 WX_GTK_VER=2.8
 
 inherit base eutils autotools wxwidgets
@@ -17,7 +17,7 @@ SLOT="0"
 IUSE="flash"
 
 RDEPEND="
-	>=media-libs/glew-1.5.3
+	media-libs/glew
 	media-libs/mesa
 	x11-libs/wxGTK:2.8[X,opengl]
 	flash? ( media-libs/ming )"
@@ -38,7 +38,7 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${ED}" install || die "install failed"
-	doicon resources/${PN}.png || die
-	make_desktop_entry ${PN} wxMacMolPlt ${PN} "Science;Education"
+	default
+	doicon resources/${PN}.png
+	make_desktop_entry ${PN} wxMacMolPlt ${PN} "Science;DataVisualization;"
 }

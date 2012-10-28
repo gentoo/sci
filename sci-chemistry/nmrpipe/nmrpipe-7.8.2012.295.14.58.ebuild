@@ -91,7 +91,7 @@ src_unpack() {
 
 src_prepare() {
 	local bin
-	epatch "${FILESDIR}"/${PV}-lib.patch
+	epatch "${FILESDIR}"/${P}-lib.patch
 
 	mv nmrbin.linux9/nmr{W,w}ish || die
 
