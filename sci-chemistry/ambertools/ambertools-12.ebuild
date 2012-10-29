@@ -47,7 +47,7 @@ pkg_setup() {
 		tc-has-openmp || \
 			die "Please select an openmp capable compiler like gcc[openmp]"
 	fi
-	AMBERHOME="${S}"
+	export AMBERHOME="${S}"
 }
 
 src_prepare() {

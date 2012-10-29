@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Oct 2012; Justin Lecher <jlec@gentoo.org> mkl-11.0.0.079.ebuild,
+  metadata.xml:
+  Fix size of builddir
+
 *mkl-11.0.0.079 (29 Sep 2012)
 
   29 Sep 2012; Sébastien Fabbro <bicatali@gentoo.org> +mkl-11.0.0.079.ebuild,
