@@ -5,6 +5,7 @@
 EAPI="4"
 
 inherit eutils distutils
+MY_P="PsychoPy-${PV}"
 
 DESCRIPTION="Python experiemntal psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
@@ -29,4 +30,4 @@ RDEPEND="${DEPEND}
         dev-python/pygame
         "
 
-S="${WORKDIR}/PsychoPy-${PV}"
+S="${WORKDIR}/${MY_P}"
