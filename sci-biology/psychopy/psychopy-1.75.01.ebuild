@@ -9,7 +9,7 @@ MY_P="PsychoPy-${PV}"
 
 DESCRIPTION="Python experiemntal psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
-SRC_URI="http://psychopy.googlecode.com/files/PsychoPy-1.75.01.zip"
+SRC_URI="http://psychopy.googlecode.com/files/{MY_P}.zip"
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
