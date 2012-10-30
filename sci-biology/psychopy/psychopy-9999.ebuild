@@ -27,5 +27,3 @@ RDEPEND="${DEPEND}
 	dev-python/pyglet
         dev-python/pygame
         "
-
-S="${WORKDIR}/psychopy/"

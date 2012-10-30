@@ -29,5 +29,4 @@ RDEPEND="${DEPEND}
         dev-python/pygame
         "
 
-S="${WORKDIR}/psychopy/"
-
+S="${WORKDIR}/PsychoPy-${PV}"
