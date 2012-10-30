@@ -54,7 +54,8 @@ DEPEND="
 	sys-process/time
 	>=dev-libs/boehm-gc-7.2_alpha6[threads]
 	dev-libs/libatomic_ops
-	emacs? ( virtual/emacs )"
+	emacs? ( virtual/emacs )
+	virtual/pkgconfig"
 RDEPEND="${DEPEND}"
 
 SITEFILE=70Macaulay2-gentoo.el
@@ -77,6 +78,9 @@ src_prepare() {
 
 	# Fixing make warnings about unavailable jobserver:
 	sed -i "s/\$(MAKE)/+ \$(MAKE)/g" "${S}"/distributions/Makefile.in
+
+	# Shortcircuit lapack tests
+	epatch "${FILESDIR}"/${PV}-lapack.patch
 
 	# Factory, and libfac are statically linked libraries which (in this flavor) are not used by any
 	# other program. We build them internally and don't install them
