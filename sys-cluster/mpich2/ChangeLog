@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mpich2-1.5 (30 Oct 2012)
+
+  30 Oct 2012; Justin Bronder <jsbronder@gentoo.org> +mpich2-1.5.ebuild:
+  Bump
+
   26 Oct 2012; Justin Lecher <jlec@gentoo.org> mpich2-1.2.1_p1-r2.ebuild,
   mpich2-1.4.1_p1.ebuild, metadata.xml:
   Move to EAPI=5, use fortran-2.eclass correctly
