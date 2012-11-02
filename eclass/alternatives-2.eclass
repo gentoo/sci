@@ -1,7 +1,8 @@
+# Copyright 1999-2012 Gentoo Foundation
+# Copyright 2010 Sebastien Fabbro
 # Copyright 2008, 2009 Bo Ørsted Andresen
 # Copyright 2008, 2009 Mike Kelly
 # Copyright 2009 David Leverton
-# 2010: Adapted for Gentoo by Sebastien Fabbro, who does not like copyrights
 # Distributed under the terms of the GNU General Public License v2
 
 # If your package provides pkg_postinst or pkg_prerm phases, you need to be
