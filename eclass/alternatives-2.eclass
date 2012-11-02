@@ -10,7 +10,7 @@
 
 ALTERNATIVES_DIR="/etc/env.d/alternatives"
 
-DEPEND=">=app-admin/eselect-1.3.1-r1"
+DEPEND=">=app-admin/eselect-1.3.3-r100"
 RDEPEND="${DEPEND}
 	!app-admin/eselect-blas
 	!app-admin/eselect-cblas
