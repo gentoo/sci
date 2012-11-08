@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ambertools/ChangeLog,v 1.2 2011/08/02 14:42:37 alexxy Exp $
 
+  08 Nov 2012; Justin Lecher <jlec@gentoo.org> ambertools-12.ebuild,
+  metadata.xml:
+  Add another fix for blas/lapack
+
+  08 Nov 2012; Justin Lecher <jlec@gentoo.org> ambertools-12.ebuild,
+  metadata.xml:
+  Add another fix for blas/lapack
+
   21 Oct 2012; Reinis Danne <rei4dan@gmail.com> ambertools-12.ebuild,
   files/ambertools-12-gentoo.patch:
   Fix parallel tests.

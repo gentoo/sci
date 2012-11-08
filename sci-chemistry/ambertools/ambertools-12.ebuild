@@ -71,9 +71,12 @@ src_prepare() {
 
 src_configure() {
 	cd "${S}"/AmberTools/src
-	sed -e "s:\\\\\$(LIBDIR)/arpack.a:-larpack:g" \
+	sed \
+		-e "s:\\\\\$(LIBDIR)/arpack.a:-larpack:g" \
 		-e "s:\\\\\$(LIBDIR)/lapack.a:$(pkg-config lapack --libs) -lclapack:g" \
+		-e "s:-llapack:$(pkg-config lapack --libs) -lclapack:g" \
 		-e "s:\\\\\$(LIBDIR)/blas.a:$(pkg-config blas cblas --libs):g" \
+		-e "s:-lblas:$(pkg-config blas cblas --libs):g" \
 		-e "s:GENTOO_CFLAGS:${CFLAGS} -DBINTRAJ :g" \
 		-e "s:GENTOO_CXXFLAGS:${CXXFLAGS}:g" \
 		-e "s:GENTOO_FFLAGS:${FFLAGS}:g" \
