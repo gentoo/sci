@@ -84,5 +84,11 @@ src_test() {
 }
 
 src_install() {
-	python_foreach_impl cmake -DCOMPONENT=bindings_python -P cmake_install.cmake
+	my_impl_src_install() {
+		cd "${BUILD_DIR}"
+
+		cmake -DCOMPONENT=bindings_python -P cmake_install.cmake
+	}
+
+	python_foreach_impl my_impl_src_install
 }

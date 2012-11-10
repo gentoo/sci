@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 Nov 2012; Reinis Danne <rei4dan@gmail.com> openbabel-python-2.3.2.ebuild:
+  python-r1.eclass doesn't enter BUILD_DIR in python_foreach_impl, do it
+  manually where necessary.
+
 *openbabel-python-2.3.2 (19 Oct 2012)
 
   19 Oct 2012; Reinis Danne <rei4dan@gmail.com> +openbabel-python-2.3.2.ebuild,
