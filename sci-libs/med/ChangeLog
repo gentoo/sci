@@ -1,5 +1,9 @@
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  12 Nov 2012; Justin Lecher <jlec@gentoo.org> -med-2.3.5.ebuild,
+  med-2.3.6.ebuild, metadata.xml:
+  Fix SRC_URI; move to EAPI=5
 
   24 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   med-2.3.5.ebuild:
