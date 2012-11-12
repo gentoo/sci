@@ -1,12 +1,14 @@
 ## Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/x11-libs/xview/Attic/xview-3.2-r6.ebuild,v 1.6 2008/12/21 09:03:33 ssuominen dead $
+# $Header: $
 
 EAPI=4
 
+DEBVER="3.2p1.4-28"
+
 DESCRIPTION="The X Window-System-based Visual/Integrated Environment for Workstations - binary package"
 HOMEPAGE="http://physionet.caregroup.harvard.edu/physiotools/xview/"
-SRC_URI="mirror://debian/pool/main/x/xview/xviewg_3.2p1.4-25_i386.deb"
+SRC_URI="mirror://debian/pool/main/x/xview/xviewg_${DEBVER}_i386.deb"
 
 LICENSE="XVIEW"
 SLOT="0"
