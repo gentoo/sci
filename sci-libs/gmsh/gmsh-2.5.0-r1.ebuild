@@ -37,7 +37,9 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/${P}-source
 
-PATCHES=( "${FILESDIR}/${P}-libpng-1.5.patch" )
+PATCHES=(
+	"${FILESDIR}/${P}-link.patch"
+	"${FILESDIR}/${P}-libpng-1.5.patch" )
 
 REQUIRED_USE="taucs? ( metis )"
 
