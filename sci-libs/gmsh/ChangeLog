@@ -3,6 +3,9 @@
 # $Header: $
 
   12 Nov 2012; Justin Lecher <jlec@gentoo.org> gmsh-2.5.0-r1.ebuild:
+  Add another dep for opengl support
+
+  12 Nov 2012; Justin Lecher <jlec@gentoo.org> gmsh-2.5.0-r1.ebuild:
   Addmissing dep on virtual/opengl
 
   12 Nov 2012; Justin Lecher <jlec@gentoo.org> gmsh-2.5.0-r1.ebuild,

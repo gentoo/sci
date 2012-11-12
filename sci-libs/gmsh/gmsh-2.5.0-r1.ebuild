@@ -21,8 +21,9 @@ RDEPEND="
 	media-libs/libpng
 	sys-libs/zlib
 	virtual/fortran
+	virtual/glu
 	virtual/opengl
-	X? ( x11-libs/fltk:1 )
+	X? ( x11-libs/fltk:1[opengl] )
 	blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 	cgns? ( sci-libs/cgnslib )
 	jpeg? ( virtual/jpeg )
