@@ -17,9 +17,11 @@ KEYWORDS="~amd64 ~x86"
 ## cgns is not compiling ATM, maybe fix cgns lib first
 IUSE="blas cgns chaco doc examples jpeg lua med metis mpi netgen opencascade petsc taucs tetgen X"
 
-RDEPEND="virtual/fortran
+RDEPEND="
 	media-libs/libpng
 	sys-libs/zlib
+	virtual/fortran
+	virtual/opengl
 	X? ( x11-libs/fltk:1 )
 	blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 	cgns? ( sci-libs/cgnslib )
