@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
+	<herd>sci</herd>
 	<use>
 		<flag name="chaco"> Enables chaco partitioner support</flag>
 		<flag name="cgns"> Enables cgns output support</flag>

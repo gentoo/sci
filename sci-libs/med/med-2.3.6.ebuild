@@ -1,14 +1,14 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=5
 
 inherit eutils flag-o-matic
 
 DESCRIPTION="Modeling and Exchange of Data library"
 HOMEPAGE="http://www.code-aster.org/outils/med/"
-SRC_URI="http://files.opencascade.com/Salome/Salome5.1.3/med-fichier_${PV}.tar.gz"
+SRC_URI="http://lyre.mit.edu/~powell/salome/med-fichier_${PV}.orig.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
@@ -21,9 +21,7 @@ RDEPEND=${DEPEND}
 S=${WORKDIR}/med-${PV}_SRC
 
 src_prepare() {
-	if has_version ">=sci-libs/hdf5-1.8.3"; then
-		append-flags -DH5_USE_16_API
-	fi
+	has_version ">=sci-libs/hdf5-1.8.3" &&	append-cppflags -DH5_USE_16_API
 }
 
 src_configure() {
@@ -32,23 +30,17 @@ src_configure() {
 	myconf="--docdir=/usr/share/doc/${PF}"
 	## has been desabled, in order to compile salome-med
 	#use amd64 && myconf="${myconf} --with-med_int=long"
-	econf ${myconf} || die "econf failed"
+	econf ${myconf}
 }
 
 src_install() {
-	emake DESTDIR="${D}" install \
-		|| die "emake install failed"
+	default
 
-	rm -R "${D}"/usr/share/doc/*
-	rm -R "${D}"/usr/bin/testc
-	rm -R "${D}"/usr/bin/testf
+	rm -R "${ED}"/usr/share/doc/* "${ED}"/usr/bin/testc "${ED}"/usr/bin/testf
 
-	if use doc; then
-		dodoc AUTHORS NEWS README ChangeLog \
-			|| die "dodoc failed"
+	use doc && \
 		dohtml -r doc/index.html doc/med.css doc/html doc/jpg \
-			doc/png doc/gif doc/tests || die "dohtml failed"
-	fi
+			doc/png doc/gif doc/tests
 
 	if use examples; then
 		dodir /usr/share/doc/${PF}/examples/c/.libs

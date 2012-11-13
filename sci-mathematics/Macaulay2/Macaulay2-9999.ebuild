@@ -16,12 +16,13 @@ LIBFAC="libfac-3-1-4"
 
 DESCRIPTION="Research tool for commutative algebra and algebraic geometry"
 HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
-SRC_BASE="http://www.math.uiuc.edu/${PN}/Downloads/"
 SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${LIBFAC}.tar.gz
 		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/${FACTORY}.tar.gz
 		 http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/mpfr-3.0.1.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Extra/gtest-1.6.0.tar.gz"
+		 http://www.math.uiuc.edu/Macaulay2/Extra/gtest-1.6.0.tar.gz
+		 http://www.mathematik.uni-osnabrueck.de/normaliz/Normaliz2.8/Normaliz2.8.zip"
+# Need normaliz for an up to date normaliz.m2
 
 SLOT="0"
 LICENSE="GPL-2"
@@ -41,7 +42,7 @@ DEPEND="
 	sci-mathematics/frobby
 	sci-mathematics/4ti2
 	sci-mathematics/nauty
-	>=sci-mathematics/normaliz-2.7
+	>=sci-mathematics/normaliz-2.8
 	sci-mathematics/gfan
 	>=sci-libs/mpir-2.1.1[cxx]
 	sci-libs/cdd+
@@ -55,7 +56,11 @@ DEPEND="
 	>=dev-libs/boehm-gc-7.2_alpha6[threads]
 	dev-libs/libatomic_ops
 	emacs? ( virtual/emacs )
-	virtual/pkgconfig"
+	virtual/pkgconfig
+	app-arch/unzip
+	app-text/dos2unix"
+# Unzip and dos2unix just for normaliz
+
 RDEPEND="${DEPEND}"
 
 SITEFILE=70Macaulay2-gentoo.el
@@ -63,6 +68,11 @@ SITEFILE=70Macaulay2-gentoo.el
 S="${WORKDIR}/${PN}-${PV}"
 
 RESTRICT="mirror"
+
+src_unpack (){
+	unpack "Normaliz2.8.zip"
+	subversion_src_unpack
+}
 
 pkg_setup () {
 		tc-export CC CPP CXX
@@ -72,6 +82,11 @@ pkg_setup () {
 }
 
 src_prepare() {
+	# Put updated Normaliz.m2 in place
+	cp "${WORKDIR}/Normaliz2.8/Macaulay2/Normaliz.m2" \
+		"${S}/Macaulay2/packages" || die
+	dos2unix ${S}/Macaulay2/packages/Normaliz.m2 || die
+
 	# Patching .m2 files to look for external programs in
 	# /usr/bin
 	epatch "${FILESDIR}"/${PV}-paths-of-external-programs.patch

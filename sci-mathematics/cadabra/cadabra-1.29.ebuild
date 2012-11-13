@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,7 +21,7 @@ IUSE="doc examples X"
 DEPEND="
 	sci-libs/modglue
 	sci-mathematics/lie
-	dev-libs/gmp[-nocxx]
+	dev-libs/gmp[cxx]
 	dev-libs/libpcre
 	X? (
 		x11-libs/gtk+:2

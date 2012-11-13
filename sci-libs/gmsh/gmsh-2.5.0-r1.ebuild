@@ -17,10 +17,13 @@ KEYWORDS="~amd64 ~x86"
 ## cgns is not compiling ATM, maybe fix cgns lib first
 IUSE="blas cgns chaco doc examples jpeg lua med metis mpi netgen opencascade petsc taucs tetgen X"
 
-RDEPEND="virtual/fortran
+RDEPEND="
 	media-libs/libpng
 	sys-libs/zlib
-	X? ( x11-libs/fltk:1 )
+	virtual/fortran
+	virtual/glu
+	virtual/opengl
+	X? ( x11-libs/fltk:1[opengl] )
 	blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 	cgns? ( sci-libs/cgnslib )
 	jpeg? ( virtual/jpeg )
@@ -37,7 +40,9 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/${P}-source
 
-PATCHES=( "${FILESDIR}/${P}-libpng-1.5.patch" )
+PATCHES=(
+	"${FILESDIR}/${P}-link.patch"
+	"${FILESDIR}/${P}-libpng-1.5.patch" )
 
 REQUIRED_USE="taucs? ( metis )"
 
