@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Nov 2012; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.1.1168.ebuild:
+  Fix deps
+
 *phenix-bin-1.8.1.1168 (09 Oct 2012)
 
   09 Oct 2012; Justin Lecher <jlec@gentoo.org> +phenix-bin-1.8.1.1168.ebuild,

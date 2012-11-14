@@ -24,7 +24,41 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 RDEPEND="
-	media-libs/jpeg:62"
+	app-arch/bzip2
+	dev-db/sqlite:3
+	dev-libs/atk
+	dev-libs/boost
+	dev-libs/expat
+	dev-libs/glib:2
+	dev-libs/openssl
+	media-gfx/nvidia-cg-toolkit
+	media-libs/fontconfig
+	media-libs/freetype
+	media-libs/jpeg:62
+	media-libs/libpng:1.2
+	sys-libs/db:4.8
+	sys-libs/gdbm
+	sys-libs/ncurses
+	sys-libs/readline
+	virtual/glu
+	x11-libs/cairo
+	x11-libs/gdk-pixbuf:2
+	x11-libs/gtk+:2
+	x11-libs/pango
+	x11-libs/pixman
+	x11-libs/libSM
+	x11-libs/libX11
+	x11-libs/libXcursor
+	x11-libs/libXext
+	x11-libs/libXfixes
+	x11-libs/libXft
+	x11-libs/libXinerama
+	x11-libs/libXi
+	x11-libs/libXmu
+	x11-libs/libXrandr
+	x11-libs/libXrender
+	x11-libs/libXxf86vm
+	sys-libs/zlib"
 DEPEND=""
 
 RESTRICT="fetch"
