@@ -72,7 +72,8 @@ pkg_nofetch() {
 	elog "http://www.phenix-online.org/phenix_request/index.cgi"
 	elog "and request a download password. With that done,"
 	elog "visit http://www.phenix-online.org/download/phenix/release"
-	elog "and downlaod ${A} to ${DISTDIR}"
+	elog "and download version \"Kernel 2.6 (64-bit; Fedora 15)\" (${A})"
+	elog "into ${DISTDIR}"
 }
 
 pkg_setup() {

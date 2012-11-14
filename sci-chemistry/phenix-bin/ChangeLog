@@ -3,6 +3,9 @@
 # $Header: $
 
   14 Nov 2012; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.1.1168.ebuild:
+  Make no-fetch msg better understandable
+
+  14 Nov 2012; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.1.1168.ebuild:
   Fix deps
 
 *phenix-bin-1.8.1.1168 (09 Oct 2012)
