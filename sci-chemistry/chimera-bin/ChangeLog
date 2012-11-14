@@ -3,6 +3,9 @@
 # $Header: $
 
   14 Nov 2012; Justin Lecher <jlec@gentoo.org> chimera-bin-1.6.2.ebuild:
+  Add dep on virtual/opengl
+
+  14 Nov 2012; Justin Lecher <jlec@gentoo.org> chimera-bin-1.6.2.ebuild:
   Fix deps
 
   21 Sep 2012; Justin Lecher <jlec@gentoo.org> chimera-bin-1.6.2.ebuild:

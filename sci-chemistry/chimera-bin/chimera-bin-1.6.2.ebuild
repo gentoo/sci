@@ -36,6 +36,7 @@ RDEPEND="
 	sys-devel/gcc[openmp,fortran]
 	virtual/jpeg
 	virtual/glu
+	virtual/opengl
 	www-apps/swish-e
 	x11-libs/libX11
 	x11-libs/libICE
