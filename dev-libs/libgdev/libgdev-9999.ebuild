@@ -42,7 +42,9 @@ src_configure() {
 
 src_compile() {
 	cd lib/build
-	emake EXTRA_CFLAGS="$(pkg-config --cflags-only-I libdrm)"
+	emake \
+		EXTRA_CFLAGS="$(pkg-config --cflags-only-I libdrm)" \
+		EXTRA_LIBS="$(pkg-config --libs libdrm_nouveau)"
 }
 
 src_install() {
