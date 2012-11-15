@@ -1,0 +1,26 @@
+From 4f97a0ec262d190741f16d5d75c9305ee6a4318b Mon Sep 17 00:00:00 2001
+From: Alexey Shvetsov <alexxy@gentoo.org>
+Date: Thu, 15 Nov 2012 08:43:59 +0400
+Subject: [PATCH 4/4] Respect extra CFLAGS and LDFLAGS
+
+Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
+---
+ lib/user/gdev/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/user/gdev/Makefile b/lib/user/gdev/Makefile
+index 31bee51..d9c2200 100644
+--- a/lib/user/gdev/Makefile
++++ b/lib/user/gdev/Makefile
+@@ -16,7 +16,7 @@ OBJS = 	$(DRIVER_NAME)_gdev.o lib$(DRIVER_NAME).o lib$(DRIVER_NAME)_ib.o \
+ ZOMBIE  = $(wildcard ./*~)
+ 
+ all: $(OBJS)
+-	$(CC) -shared -Wl,-soname,$(TARGET).so.1 -o ./$(TARGET).so.1.0.0 $(OBJS) $(EXTRA_LIBS)
++	$(CC) $(LDFLAGS) -shared -Wl,-soname,$(TARGET).so.1 -o ./$(TARGET).so.1.0.0 $(OBJS) $(EXTRA_LIBS)
+ 
+ %.o:%.c
+ 	$(CC) -fPIC -c $^ -o $@ $(CFLAGS) $(EXTRA_LIBS)
+-- 
+1.7.12.3
+

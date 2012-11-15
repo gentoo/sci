@@ -1,0 +1,36 @@
+From 870f4cddb0233188ec1613a44eb9feb8c94469da Mon Sep 17 00:00:00 2001
+From: Alexey Shvetsov <alexxy@gentoo.org>
+Date: Thu, 15 Nov 2012 08:34:55 +0400
+Subject: [PATCH 2/4] Fix install target for gdev lib userspace
+
+Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
+---
+ lib/user/gdev/Makefile | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/lib/user/gdev/Makefile b/lib/user/gdev/Makefile
+index d602fa9..5440469 100644
+--- a/lib/user/gdev/Makefile
++++ b/lib/user/gdev/Makefile
+@@ -22,12 +22,12 @@ all: $(OBJS)
+ 	$(CC) -fPIC -c $^ -o $@ $(CFLAGS) $(EXTRA_LIBS)
+ 
+ install:
+-	@if test ! -d $(GDEVDIR) ; then mkdir $(GDEVDIR) ; fi ;
+-	@if test ! -d $(GDEVDIR)/lib64 ; then mkdir $(GDEVDIR)/lib64 ; fi ;
+-	@if test ! -d $(GDEVDIR)/include ; then mkdir $(GDEVDIR)/include ; fi ;
+-	cp -f ./$(TARGET).so.1.0.0 $(GDEVDIR)/lib64/
+-	ln -sf $(GDEVDIR)/lib64/$(TARGET).so.1.0.0 $(GDEVDIR)/lib64/$(TARGET).so.1
+-	ln -sf $(GDEVDIR)/lib64/$(TARGET).so.1 $(GDEVDIR)/lib64/$(TARGET).so
++	@if test ! -d $(GDEVDIR) ; then mkdir $(DESTDIR)/$(GDEVDIR) ; fi ;
++	@if test ! -d $(GDEVDIR)/lib64 ; then mkdir $(DESTDIR)/$(GDEVDIR)/lib64 ; fi ;
++	@if test ! -d $(GDEVDIR)/include ; then mkdir $(DESTDIR)/$(GDEVDIR)/include ; fi ;
++	cp -f ./$(TARGET).so.1.0.0 $(DESTDIR)/$(GDEVDIR)/lib64/
++	ln -sf $(GDEVDIR)/lib64/$(TARGET).so.1.0.0 $(DESTDIR)/$(GDEVDIR)/lib64/$(TARGET).so.1
++	ln -sf $(GDEVDIR)/lib64/$(TARGET).so.1 $(DESTDIR)/$(GDEVDIR)/lib64/$(TARGET).so
+ 	cp -f $(HEADERS) $(GDEVDIR)/include
+ 
+ uninstall:
+-- 
+1.7.12.3
+
