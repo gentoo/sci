@@ -5,8 +5,8 @@
 EAPI=4
 
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=2749
-INTEL_DPV=2013
+INTEL_DID=2872
+INTEL_DPV=2013_update1
 INTEL_SUBDIR=composerxe
 
 inherit intel-sdp
