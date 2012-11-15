@@ -1,0 +1,21 @@
+# ChangeLog for dev-libs/intel-common
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: /var/cvsroot/gentoo-x86/dev-libs/intel-common/ChangeLog,v 1.4 2012/11/14 18:34:25 bicatali Exp $
+
+  14 Nov 2012; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml:
+  Removing myself from maintainer
+
+*intel-common-13.0.0.079-r1 (28 Oct 2012)
+
+  28 Oct 2012; Justin Lecher <jlec@gentoo.org>
+  +intel-common-13.0.0.079-r1.ebuild:
+  Mask installation from revdep-rebuild ,#438820
+
+  20 Sep 2012; Justin Lecher <jlec@gentoo.org> intel-common-13.0.0.079.ebuild:
+  Avoid double prefix
+
+*intel-common-13.0.0.079 (16 Sep 2012)
+
+  16 Sep 2012; Justin Lecher <jlec@gentoo.org> +intel-common-13.0.0.079.ebuild,
+  +metadata.xml:
+  Imported from sci overlay; new package containing common libs, #297542
