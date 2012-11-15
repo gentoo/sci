@@ -7,7 +7,7 @@ EAPI=5
 inherit cuda unpacker
 
 MYD=$(get_version_component_range 1)_$(get_version_component_range 2)
-DISTRO=ubuntu11.10-1
+DISTRO=fedora16-1
 
 DESCRIPTION="NVIDIA CUDA Toolkit (compiler and friends)"
 HOMEPAGE="http://developer.nvidia.com/cuda"
@@ -19,7 +19,7 @@ SRC_URI="
 SLOT="0"
 LICENSE="NVIDIA"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="debugger doc profiler"
+IUSE="debugger doc eclipse profiler"
 
 DEPEND=""
 RDEPEND="${DEPEND}
@@ -36,6 +36,11 @@ S="${WORKDIR}"
 
 QA_PREBUILT="opt/cuda/*"
 
+src_unpack() {
+	unpacker
+	unpacker run_files/cudatoolkit*run
+}
+
 src_prepare() {
 	local cuda_supported_gcc
 
@@ -44,22 +49,23 @@ src_prepare() {
 	sed \
 		-e "s:CUDA_SUPPORTED_GCC:${cuda_supported_gcc}:g" \
 		"${FILESDIR}"/cuda-config.in > "${T}"/cuda-config || die
+
+	find cuda-installer.pl install-linux.pl jre run_files -delete || die
 }
 
 src_install() {
 	local cudadir=/opt/cuda
 	local prefix="${EPREFIX}"${cudadir}
-	rm install-linux.pl
-	# use system jre
-	rm -r libnvvp/jre
 
 	if use doc; then
-		dodoc doc/*{txt,pdf}
+		dodoc doc/{*.txt,pdf/*}
 		dohtml -r doc/html/*
 	fi
+
 	find doc -delete || die
 
 	use debugger || rm -r bin/cuda-gdb extras/Debugger
+	use eclipse || find libnsight -delete
 
 	if use profiler; then
 		# hack found in install-linux.pl

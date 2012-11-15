@@ -11,5 +11,6 @@
 	<use>
 		<flag name="profiler">Installs the NVIDIA CUDA visual profiler</flag>
 		<flag name="debugger">Installs the NVIDIA CUDA debugger</flag>
+		<flag name="eclipse">Installs the Eclipse SDK plugin</flag>
 	</use>
 </pkgmetadata>
