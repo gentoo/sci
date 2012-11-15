@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-lang/ifc/ChangeLog,v 1.65 2012/09/20 21:13:24 jlec Exp $
 
+*ifc-13.0.1.117 (15 Nov 2012)
+
+  15 Nov 2012; Justin Lecher <jlec@gentoo.org> -ifc-13.0.0.079-r1.ebuild,
+  +ifc-13.0.1.117.ebuild:
+  Version Bump
+
 *ifc-13.0.0.079-r1 (20 Sep 2012)
 
   20 Sep 2012; Justin Lecher <jlec@gentoo.org> -ifc-13.0.0.079.ebuild,

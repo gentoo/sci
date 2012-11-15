@@ -5,8 +5,8 @@
 EAPI=4
 
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=2749
-INTEL_DPV=2013
+INTEL_DID=2872
+INTEL_DPV=2013_update1
 INTEL_SUBDIR=composerxe
 
 inherit intel-sdp
@@ -25,7 +25,7 @@ INTEL_DAT_RPMS="compilerprof-common"
 CHECKREQS_DISK_BUILD=300M
 
 src_install() {
-	rm ${INTEL_SDP_DIR}/Documentation/en_US/gs_resources/intel_logo.gif || die
+	rm ${INTEL_SDP_DIR}/Documentation/ja_JP/gs_resources/intel_logo.gif || die
 	intel-sdp_src_install
 	local i
 	local idir=${INTEL_SDP_EDIR}/compiler/lib
