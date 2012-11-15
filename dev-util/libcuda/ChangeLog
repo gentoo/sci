@@ -1,0 +1,13 @@
+# ChangeLog for dev-util/libgdev
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*libgdev-9999 (15 Nov 2012)
+
+  15 Nov 2012; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-Fix-detection-of-nouveau-in-case-its-builtin.patch,
+  +files/0002-Fix-install-target-for-gdev-lib-userspace.patch,
+  +files/0003-Fix-install-target-for-gdev-lib-userspace-part2.patch,
+  +files/0004-Respect-extra-CFLAGS-and-LDFLAGS.patch, +libgdev-9999.ebuild,
+  +metadata.xml:
+  Initial import of libgdev
