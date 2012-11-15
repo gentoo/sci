@@ -13,7 +13,7 @@ index 7206ba5..832e76a 100644
 -#LIBRARIES = -lm -llapack -lblas -ltcl8.4
 -#BINDIR = /usr/local/bin
 +INCLUDES = -I@GENTOO_PORTAGE_EPREFIX@/usr/include/
-+BLASLIBS = `pkg-config --libs blas lapack`
++BLASLIBS = `pkg-config --libs cblas lapack`
 +LIBRARIES = -lm ${BLASLIBS} -ltcl
  
  # Linux MPI 
