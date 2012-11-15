@@ -1,0 +1,23 @@
+#!/bin/bash
+
+_print_help() {
+	cat <<- EOF
+	Usage:
+		$(basename $0) [options]
+	
+		-s | --supported   Returns by current CUDA supported gcc versions
+		-h | --help        Shows this help
+	EOF
+}
+
+case ${1} in
+	-s|--supported)
+		echo "CUDA_SUPPORTED_GCC"
+		;;
+	-h|--help)
+		_print_help
+		;;
+	*)
+		_print_help
+		;;
+esac

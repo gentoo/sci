@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-util/nvidia-cuda-toolkit/ChangeLog,v 1.50 2012/02/21 22:44:39 spock Exp $
 
+*nvidia-cuda-toolkit-4.2.9-r1 (15 Nov 2012)
+
+  15 Nov 2012; Justin Lecher <jlec@gentoo.org>
+  -nvidia-cuda-toolkit-4.2.9.ebuild, +nvidia-cuda-toolkit-4.2.9-r1.ebuild,
+  +files/cuda-config.in, metadata.xml:
+  Use cuda.eclass; install cuda-config; install doc and html into system path
+  to support portages file filter
+
 *nvidia-cuda-toolkit-4.2.9 (04 Jul 2012)
 
   04 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
