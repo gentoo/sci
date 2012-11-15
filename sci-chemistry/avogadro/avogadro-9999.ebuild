@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/avogadro/avogadro-1.0.1.ebuild,v 1.1 2010/05/21 15:33:28 jlec Exp $
 
@@ -15,7 +15,7 @@ EGIT_REPO_URI="git://github.com/cryos/avogadro.git"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="+glsl python"
+IUSE="+glsl python test"
 
 RDEPEND="
 	sci-chemistry/openbabel
@@ -46,4 +46,8 @@ src_configure() {
 		$(cmake-utils_use_enable python PYTHON)"
 
 	cmake-utils_src_configure
+}
+
+src_test() {
+	cmake-utils_src_test
 }
