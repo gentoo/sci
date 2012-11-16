@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SUPPORT_GCC_VERSIONS_BY_CUDA="CUDA_SUPPORTED_GCC"
+
 _print_help() {
 	cat <<- EOF
 	Usage:
@@ -12,12 +14,15 @@ _print_help() {
 
 case ${1} in
 	-s|--supported)
-		echo "CUDA_SUPPORTED_GCC"
+		echo "${SUPPORT_GCC_VERSIONS_BY_CUDA}"
+		exit 0
 		;;
 	-h|--help)
 		_print_help
+		exit -1
 		;;
 	*)
 		_print_help
+		exit 1
 		;;
 esac
