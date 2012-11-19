@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=5
 
 TEST_PV="4.0.4"
 
@@ -33,10 +33,11 @@ DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
 
 LICENSE="GPL-2"
-SLOT="0"
+#every useflag combination and git commit could be binary different
+SLOT="0/$(date +%s)"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 IUSE="X blas cuda doc -double-precision +fftw gsl lapack
-mpi openmp +single-precision test +threads xml zsh-completion ${ACCE_IUSE}"
+mpi openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
 	X? (
@@ -47,40 +48,32 @@ CDEPEND="
 	blas? ( virtual/blas )
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	fftw? ( sci-libs/fftw:3.0 )
-	fkernels? ( !threads? ( !altivec? ( !ia64? ( !sse2? ( virtual/fortran ) ) ) ) )
+	fkernels? ( !threads? ( !sse2? ( virtual/fortran ) ) )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
-	mpi? ( virtual/mpi )
-	xml? ( dev-libs/libxml2:2 )"
+	mpi? ( virtual/mpi )"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}"
 
 RESTRICT="test"
 
-REQUIRED_USE="cuda? ( !double-precision )"
+REQUIRED_USE="cuda? ( single-precision )"
 
 pkg_pretend() {
 	[[ $(gcc-version) == "4.1" ]] && die "gcc 4.1 is not supported by gromacs"
 	use openmp && ! tc-has-openmp && \
 		die "Please switch to an openmp compatible compiler"
-	if use cuda && [[ $(( $(gcc-major-version) * 10 + $(gcc-minor-version) )) -gt 44 ]] ; then
-		eerror "gcc 4.5 and up are not supported for useflag cuda!"
-		die "gcc 4.5 and up are not supported for useflag cuda!"
-	fi
 }
 
 pkg_setup() {
 	#notes/todos
 	# -on apple: there is framework support
 	# -mkl support
+	# -openmm support
 	# -there are power6 kernels
 	if use fkernels; then
-		if use altivec || use ia64 || use sse2; then
-			ewarn "Gromacs only supports one acceleration method, in your case"
-			ewarn "the fortran kernel will be overwritten by (altivec|ia64|sse2)"
-			ewarn "so it is save to disable fkernels use flag!"
-		elif use threads; then
+		if use threads; then
 			ewarn "Fortran kernels and threads do not work together, disabling"
 			ewarn "fortran kernels"
 		else
@@ -126,11 +119,9 @@ src_configure() {
 		-DGMX_FFT_LIBRARY=$(usex fftw fftw3 fftwpack)
 		$(cmake-utils_use X GMX_X11)
 		$(cmake-utils_use blas GMX_EXTERNAL_BLAS)
-		$(cmake-utils_use cuda GMX_GPU)
 		$(cmake-utils_use gsl GMX_GSL)
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use openmp GMX_OPENMP)
-		$(cmake-utils_use xml GMX_XML)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_ACCELERATION="$acce"
 		-DGMXLIB="$(get_libdir)"
@@ -146,13 +137,16 @@ src_configure() {
 			[[ ${x} = "double" ]] && suffix="_d"
 		local p
 		[[ ${x} = "double" ]] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
+		local cuda=$(cmake-utils_use cuda GMX_GPU)
+		[[ ${x} = "double" ]] && use cuda && cuda="-DGMX_GPU=OFF"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
-			$(cmake-utils_use threads GMX_THREAD_MPI)
+			$(cmake-utils_use threads GMX_THREAD_MPI) ${cuda}
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF -DGMX_MPI=ON
+		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF
+			-DGMX_MPI=ON ${cuda}
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" CC="mpicc" cmake-utils_src_configure
 	done
