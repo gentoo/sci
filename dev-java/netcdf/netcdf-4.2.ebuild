@@ -10,7 +10,7 @@ DESCRIPTION="Java Common Data Model (CDM) interface to to netCDF files"
 HOMEPAGE="http://www.unidata.ucar.edu/software/netcdf-java/"
 SRC_URI="ftp://ftp.unidata.ucar.edu/pub/${PN}-java/v${PV}/ncSrc-${PV}.zip"
 
-LICENSE="LGPL-2 MIT"
+LICENSE="netCDF"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
