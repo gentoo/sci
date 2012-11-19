@@ -4,9 +4,8 @@
 
 EAPI="4"
 
-DESCRIPTION="Fullprof is a set of crystallographic programs (FullProf, WinPLOTR,
-EdPCR, GFourier, etc...) mainly developed for Rietveld analysis of powder patterns"
-
+DESCRIPTION="a set of crystallographic programs mainly developed for Rietveld \
+analysis"
 HOMEPAGE="http://www.ill.eu/sites/fullprof/index.html"
 SRC_URI="http://www.ill.eu/sites/fullprof/downloads/FullProf_Suite_May2012_Lin.tgz"
 LICENSE="freedist HPND"
@@ -19,9 +18,9 @@ IUSE="+X"
 RDEPEND="X? ( >=x11-libs/motif-2.3 )"
 
 S="${WORKDIR}/"
-BASEDIR="/opt/fullprof"
 
 src_install() {
+        BASEDIR="/opt/fullprof"
         echo "FULLPROF=\"${BASEDIR}\"" > 99fullprof
         echo "PATH=\"${BASEDIR}\"" >> 99fullprof
         doenvd 99fullprof
