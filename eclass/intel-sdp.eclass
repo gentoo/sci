@@ -133,6 +133,14 @@ intel-sdp_pkg_pretend() {
 #
 # e.g. amd64-multilib -> INTEL_ARCH="intel64 ia32"
 
+# @ ECLASS-FUNCTION: intel-sdp_pkg_setup
+# @DESCRIPTION:
+# The setup finction serves two purposes:
+#
+# * Check that the user has a (valid) license file before going on.
+#
+# * Setting up and sorting some internal variables
+
 intel-sdp_pkg_setup() {
 	local _warn=1 _dirs i _ret arch a p
 	_dirs=(
@@ -176,6 +184,10 @@ intel-sdp_pkg_setup() {
 		0|1|2|3) intel-sdp_pkg_pretend ;;
 	esac
 }
+
+# @ ECLASS-FUNCTION: intel-sdp_src_unpack
+# @DESCRIPTION:
+# Unpacking necessary rpms from tarball, extract them and rearrange the output.
 
 intel-sdp_src_unpack() {
 	local l r t rpmdir
@@ -223,6 +235,10 @@ intel_link_eclipse_plugins() {
 	done
 	popd > /dev/null
 }
+
+# @ ECLASS-FUNCTION: intel-sdp_src_install
+# @DESCRIPTION:
+# Install everything
 
 intel-sdp_src_install() {
 	if ! use doc && [[ -d "${INTEL_SDP_DIR}"/Documentation ]]; then
@@ -419,6 +435,10 @@ run-test() {
 # Full path to intel registry db
 INTEL_SDP_DB="${EROOT%/}"/opt/intel/intel-sdp-products.db
 
+# @ECLASS-FUNCTION
+# @DESCRIPTION:
+# Add things to intel database
+
 intel-sdp_pkg_postinst() {
 	# add product registry to intel "database"
 	local l r
@@ -429,6 +449,10 @@ intel-sdp_pkg_postinst() {
 	done
 	run-test
 }
+
+# @ECLASS-FUNCTION
+# @DESCRIPTION:
+# Sanitize intel database
 
 intel-sdp_pkg_postrm() {
 	# remove from intel "database"
