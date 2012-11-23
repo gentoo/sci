@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-20012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,10 +8,20 @@ inherit toolchain-funcs versionator
 # @MAINTAINER:
 # Justin Lecher <jlec@gentoo.org>
 # @BLURB: Common functions for cuda packages
+# @DESCRIPTION:
+# This eclass contains functions to be used with cuda package. Currently its 
+# setting and/or sanitizing NVCCFLAGS, the compiler flags for nvcc. This is
+# automatically done and exported in src_prepare() or manually by calling
+# cuda_sanatize.
+#
+# Common usage:
+#
+# inherit cuda
 
 # @ECLASS-VARIABLE: NVCCFLAGS
 # DESCRIPTION:
-# nvcc compiler flags (see nvcc --help)
+# nvcc compiler flags (see nvcc --help), which should be used like
+# CFLAGS for c compiler
 : ${NVCCFLAGS:=-O2}
 
 # @ECLASS-VARIABLE: CUDA_VERBOSE
@@ -25,18 +35,22 @@ fi
 
 # @ECLASS-FUNCTION: cuda_gccdir
 # @DESCRIPTION:
-# Helper for determination of the latest bindir supported by nvidia cuda toolkit.
+# Helper for determination of the latest gcc bindir supported by 
+# then current nvidia cuda toolkit.
 #
 # Calling plain it returns simply the path, but you probably want to add \"-f\""
 # to get the full flag to add to nvcc call.
 #
-# cuda_gccdir-f
+# Example:
+#
+# cuda_gccdir -f
 # -> --compiler-bindir="/usr/x86_64-pc-linux-gnu/gcc-bin/4.6.3"
 cuda_gccdir() {
 	local _gcc_bindir _ver _args="" _flag _ret
 
 	# Currently we only support the gnu compiler suite
 	if [[ $(tc-getCXX) != *g++* ]]; then
+        ewarn "Currently we only support the gnu compiler suite"
 		return 2
 	fi
 
@@ -76,14 +90,18 @@ cuda_gccdir() {
 		echo ${_ret}
 		return 0
 	else
-      eerror "Only gcc version(s) ${_args} are supported,"
+        eerror "Only gcc version(s) ${_args} are supported,"
 		eerror "of which none is installed"
-      die "Only gcc version(s) ${_args} are supported"
-      return 1
+        die "Only gcc version(s) ${_args} are supported"
+        return 1
    fi
 }
 
-cuda_pkg_setup() {
+# @ECLASS-FUNCTION: cuda_sanitize
+# @DESCRIPTION:
+# Correct NVCCFLAGS by adding the necessary reference to gcc bindir and
+# passing CXXFLAGS to underlying compiler without disturbing nvcc.
+cuda_sanitize() {
 	# Tell nvcc where to find a compatible compiler
 	NVCCFLAGS+=" $(cuda_gccdir -f)"
 
@@ -93,16 +111,26 @@ cuda_pkg_setup() {
 	export NVCCFLAGS
 }
 
+# @ECLASS-FUNCTION: cuda_pkg_setup
+# @DESCRIPTION:
+# Sanitise NVCCFLAGS by default in pkg_setup
+cuda_pkg_setup() {
+	cuda_sanitize
+}
+
+# @ECLASS-FUNCTION: cuda_pkg_setup
+# @DESCRIPTION:
+# 
 cuda_pkg_postinst() {
 	local a
 	a="$(version_sort $(cuda-config -s))"; a=($a)
-   if [[ $(tc-getCC) == *gcc* ]] && version_is_at_least "$(gcc-version)" ${a[1]}; then
-      ewarn "gcc >= 4.6 will not work with CUDA"
-      ewarn "Make sure you set an earlier version of gcc with gcc-config"
-		ewarn "or append --compiler-bindir= to the nvcc compiler flags"
-		ewarn "pointing to a gcc installation dir like"
-		ewarn "${EPREFIX}/usr/*pc-linux-gnu/gcc-bin/gcc4.6"
-   fi
+	if [[ $(tc-getCC) == *gcc* ]] && version_is_at_least "$(gcc-version)" ${a[1]}; then
+		ewarn "gcc >= ${a[1]} will not work with CUDA"
+		ewarn "Make sure you set an earlier version of gcc with gcc-config"
+		ewarn "or append --compiler-bindir= pointing to a gcc installation dir like"
+		ewarn "${EPREFIX}/usr/*pc-linux-gnu/gcc-bin/gcc${a[1]}"
+		ewarn "to the nvcc compiler flags"
+	fi
 }
 
 EXPORT_FUNCTIONS pkg_setup pkg_postinst
