@@ -35,5 +35,5 @@ src_prepare() {
 
 src_install() {
 	"${S}/${MY_SCRIPT}" --target "${S}/${P}" -- -auto -verbose -createdir=y \
-		-targetdir="${D}/opt" -execdir="${D}/usr/bin"
+		-targetdir="${D}/opt/wolfram" -execdir="${D}/usr/bin"
 }
