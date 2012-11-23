@@ -112,14 +112,12 @@ _INTEL_SDP_YEAR=${INTEL_DPV%_sp*}
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # Full rootless path to installation dir
-
 INTEL_SDP_DIR="opt/intel/${INTEL_SUBDIR}-${_INTEL_SDP_YEAR:-${_INTEL_PV1}}.${_INTEL_PV3}.${_INTEL_PV4}"
 
 # @ECLASS-VARIABLE: INTEL_SDP_EDIR
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # Full rooted path to installation dir
-
 INTEL_SDP_EDIR="${EROOT%/}/${INTEL_SDP_DIR}"
 
 S="${WORKDIR}"
@@ -166,7 +164,6 @@ intel_link_eclipse_plugins() {
 # @ECLASS-FUNCTION: big-warning
 # @INTERNAL
 # warn user that we really require a license
-
 big-warning() {
     case ${1} in
         test-failed )
@@ -247,7 +244,6 @@ run-test() {
     esac
 }
 
-
 # @ ECLASS-FUNCTION: intel-sdp_pkg_setup
 # @DESCRIPTION:
 # The setup finction serves two purposes:
@@ -255,7 +251,6 @@ run-test() {
 # * Check that the user has a (valid) license file before going on.
 #
 # * Setting up and sorting some internal variables
-
 intel-sdp_pkg_setup() {
 	local _warn=1 _dirs i _ret arch a p
 	_dirs=(
@@ -303,7 +298,6 @@ intel-sdp_pkg_setup() {
 # @ ECLASS-FUNCTION: intel-sdp_src_unpack
 # @DESCRIPTION:
 # Unpacking necessary rpms from tarball, extract them and rearrange the output.
-
 intel-sdp_src_unpack() {
 	local l r t rpmdir
 	debug-print "INTEL_RPMS_DIRS are \"${INTEL_RPMS_DIRS}\""
@@ -332,7 +326,6 @@ intel-sdp_src_unpack() {
 # @ ECLASS-FUNCTION: intel-sdp_src_install
 # @DESCRIPTION:
 # Install everything
-
 intel-sdp_src_install() {
 	if ! use doc && [[ -d "${INTEL_SDP_DIR}"/Documentation ]]; then
 		ebegin "Cleaning out documentation"
@@ -377,7 +370,6 @@ intel-sdp_src_install() {
 # @ECLASS-FUNCTION
 # @DESCRIPTION:
 # Add things to intel database
-
 intel-sdp_pkg_postinst() {
 	# add product registry to intel "database"
 	local l r
@@ -392,7 +384,6 @@ intel-sdp_pkg_postinst() {
 # @ECLASS-FUNCTION
 # @DESCRIPTION:
 # Sanitize intel database
-
 intel-sdp_pkg_postrm() {
 	# remove from intel "database"
 	if [[ -e ${INTEL_SDP_DB} ]]; then
