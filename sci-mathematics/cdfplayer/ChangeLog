@@ -1,0 +1,11 @@
+# ChangeLog for sci-mathematics/cdfplayer
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*cdfplayer-8.0.4 (23 Nov 2012)
+
+  23 Nov 2012; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  +cdfplayer-8.0.4.ebuild, +files/cdfplayer-8.0.4-installer.patch,
+  +metadata.xml:
+  initial commit for bug #421019
+
