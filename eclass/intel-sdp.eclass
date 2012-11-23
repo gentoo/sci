@@ -98,7 +98,7 @@ KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 RESTRICT="mirror"
 
 RDEPEND=""
-DEPEND=">=app-arch/rpm2targz-9.0.0.3g"
+DEPEND="app-arch/rpm2targz"
 
 _INTEL_SDP_YEAR=${INTEL_DPV%_update*}
 _INTEL_SDP_YEAR=${INTEL_DPV%_sp*}
