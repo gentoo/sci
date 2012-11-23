@@ -36,6 +36,11 @@ S="${WORKDIR}"
 
 QA_PREBUILT="opt/cuda/*"
 
+pkg_setup() {
+    # We don't like to run cuda_pkg_setup
+    :
+}
+
 src_unpack() {
 	unpacker
 	unpacker run_files/cudatoolkit*run
@@ -55,7 +60,7 @@ src_prepare() {
 
 src_install() {
 	local cudadir=/opt/cuda
-	local prefix="${EPREFIX}"${cudadir}
+	local ecudadir="${EPREFIX}"${cudadir}
 
 	if use doc; then
 		dodoc doc/{*.txt,pdf/*}
@@ -71,8 +76,8 @@ src_install() {
 		# hack found in install-linux.pl
 		cat > bin/nvvp <<- EOF
 			#!${EPREFIX}bin/sh
-			LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:${prefix}/lib:${prefix}/lib64 \
-				UBUNTU_MENUPROXY=0 LIBOVERLAY_SCROLLBAR=0 ${prefix}/libnvvp/nvvp
+			LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:${ecudadir}/lib:${ecudadir}/lib64 \
+				UBUNTU_MENUPROXY=0 LIBOVERLAY_SCROLLBAR=0 ${ecudadir}/libnvvp/nvvp
 		EOF
 		chmod a+x bin/nvvp
 	else
@@ -83,9 +88,9 @@ src_install() {
 	mv * "${ED}"${cudadir}
 
 	cat > "${T}"/99cuda <<- EOF
-		PATH=${prefix}/bin:${prefix}/libnvvp
-		ROOTPATH=${prefix}/bin
-		LDPATH=${prefix}/lib$(use amd64 && echo "64:${prefix}/lib")
+		PATH=${ecudadir}/bin:${ecudadir}/libnvvp
+		ROOTPATH=${ecudadir}/bin
+		LDPATH=${ecudadir}/lib$(use amd64 && echo "64:${ecudadir}/lib")
 	EOF
 	doenvd "${T}"/99cuda
 
