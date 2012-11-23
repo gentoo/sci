@@ -4,7 +4,6 @@
 
 # @ECLASS: intel-sdp.eclass
 # @MAINTAINER:
-# Sébastien Fabbro <bicatali@gentoo.org>
 # Justin Lecher <jlec@gentoo.org>
 # Sci Team <sci@gentoo.org>
 # @BLURB: Handling of Intel's Software Development Products package management
