@@ -166,11 +166,11 @@ intel-sdp_pkg_setup() {
 	INTEL_RPMS=""
 	for p in ${INTEL_BIN_RPMS}; do
 		for a in ${arch}; do
-			INTEL_RPMS="${INTEL_RPMS} intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm"
+			INTEL_RPMS+=" intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm"
 		done
 	done
 	for p in ${INTEL_DAT_RPMS}; do
-		INTEL_RPMS="${INTEL_RPMS} intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.noarch.rpm"
+		INTEL_RPMS+=" intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.noarch.rpm"
 	done
 
 	case "${EAPI:-0}" in
