@@ -134,7 +134,7 @@ intel-sdp_pkg_pretend() {
 # e.g. amd64-multilib -> INTEL_ARCH="intel64 ia32"
 
 intel-sdp_pkg_setup() {
-	local _warn=1 _dirs i _ret
+	local _warn=1 _dirs i _ret arch a p
 	_dirs=(
 		"${INTEL_SDP_EDIR}/licenses"
 		"${INTEL_SDP_EDIR}/Licenses"
@@ -151,7 +151,6 @@ intel-sdp_pkg_setup() {
 	done
 	[[ ${_warn} == "0" ]] || big-warning pre-check
 
-	local arch a p
 	if use x86; then
 		arch=${INTEL_X86}
 		INTEL_ARCH="ia32"
