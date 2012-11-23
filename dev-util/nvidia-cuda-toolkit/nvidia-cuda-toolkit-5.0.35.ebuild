@@ -37,7 +37,7 @@ S="${WORKDIR}"
 QA_PREBUILT="opt/cuda/*"
 
 pkg_setup() {
-    # We don't like to run cuda_pkg_setup
+    # We don't like to run cuda_pkg_setup as it depends on us
     :
 }
 
