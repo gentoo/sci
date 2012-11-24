@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Nov 2012; Olivier Huber <oli.huber@gmail.com> magma-1.2.1.ebuild,
+  metadata.xml:
+  Fix shared lib creation, fix tests and remove the tesla useflag, since this
+  should be the common gpu target 
+
   12 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> magma-1.2.1.ebuild:
   sci-libs/magma: Shared library fixes, prefix love and ebuild cleanup
 
