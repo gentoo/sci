@@ -24,9 +24,9 @@ pkg_nofetch() {
 }
 
 src_unpack() {
-	mkdir "${S}"
-	cp "${DISTDIR}/${MY_SCRIPT}" "${S}/${MY_SCRIPT}"
-	chmod u+x "${S}/${MY_SCRIPT}"
+	mkdir "${S}" || die
+	cp "${DISTDIR}/${MY_SCRIPT}" "${S}/${MY_SCRIPT}" || die
+	chmod u+x "${S}/${MY_SCRIPT}" || die
 }
 
 src_prepare() {
@@ -35,5 +35,10 @@ src_prepare() {
 
 src_install() {
 	"${S}/${MY_SCRIPT}" --target "${S}/${P}" -- -auto -verbose -createdir=y \
-		-targetdir="${D}/opt/wolfram" -execdir="${D}/usr/bin"
+		-targetdir="${ED}/opt/wolfram" -execdir="${ED}/usr/bin" || die
+	find "${ED}" -name '*.desktop' -exec \
+		sed -i "s%${ED}%/%g" {} \; || die
+	mkdir -p "${ED}/usr/share/applications" || die
+	cp "${ED}/opt/wolfram/SystemFiles/Installation/wolfram-cdf8.desktop" \
+		"${ED}/usr/share/applications" || die
 }
