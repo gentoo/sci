@@ -18,28 +18,34 @@ SRC_URI="
 
 LICENSE="CUDPP"
 SLOT="0"
-#KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="debug +doc +examples opencl +cuda"
 
 RDEPEND="
 	>=dev-util/nvidia-cuda-toolkit-${PV}
 	media-libs/freeglut
 	examples? (
-			>=x11-drivers/nvidia-drivers-304.54
-			media-libs/glew
+		media-libs/freeimage
+		media-libs/glew
+		>=x11-drivers/nvidia-drivers-304.54
 		)"
 DEPEND="${RDEPEND}"
 
-S=${WORKDIR}
+S=${WORKDIR}/sdk
 
 src_unpack() {
 	unpacker
 	unpacker run_files/cuda-samples*run
 }
 
+pkg_setup() {
+	if use cuda || use opencl; then
+		cuda_pkg_setup
+	fi
+}
+
 src_prepare() {
-#	epatch "${FILESDIR}"/${PN}-4.2.9-asneeded.patch
+	epatch "${FILESDIR}"/${P}-asneeded.patch
 	sed \
 		-e 's:-O2::g' \
 		-e 's:-O3::g' \
@@ -52,18 +58,19 @@ src_prepare() {
 		-e "/ CFLAGS/s|\(:=\)|\1 ${CFLAGS}|g" \
 		-e "/ CXXFLAGS/s|\(:=\)|\1 ${CXXFLAGS}|g" \
 		-e 's:-Wimplicit::g' \
-		-e 's:GLEW_x86_64:GLEW:g' \
+		-e "s|../../common/lib/linux/\$(OS_ARCH)/libGLEW.a|$(pkg-config --libs glew)|g" \
+		-e "s|../../common/lib/\$(OSLOWER)/libGLEW.a|$(pkg-config --libs glew)|g" \
+		-e "s|../../common/lib/\$(OSLOWER)/\$(OS_ARCH)/libGLEW.a|$(pkg-config --libs glew)|g" \
 		-i $(find . -type f -name "Makefile") || die
 
-	find sdk/common/inc/GL -delete || die
-	find sdk -type f -name "*\.a" -delete || die
+	find common/inc/GL -delete || die
+	find . -type f -name "*\.a" -delete || die
 }
 
 src_compile() {
 	use examples || return
 	local myopts verbose="verbose=1"
 	use debug && myopts+=" dbg=1"
-	cd sdk
 	emake \
 		cuda-install="${EPREFIX}/opt/cuda" \
 		CUDA_PATH="${EPREFIX}/opt/cuda/" \
@@ -72,23 +79,14 @@ src_compile() {
 
 src_install() {
 	local i j f t crap=""
-	cd sdk
 	if use doc; then
 		ebegin "Installing docs ..."
-		for i in *; do
-			if [[ -d ${i} ]]; then
-				for j in doc releaseNotesData; do
-					docinto ${i}
-					[[ -d ${i}/${j} ]] && dodoc -r ${i}/${j}
-				done
-			fi
-		done
-		dodoc -r doc
-		dohtml {.,*}/*htm*
+		dodoc -r doc releaseNotesData
+		dohtml *htm*
 		eend
 	fi
 
-	crap+=" *.txt doc */doc */Samples.htm* */releaseNotesData"
+	crap+=" *.txt doc Samples.htm* releaseNotesData"
 
 	if ! use examples; then
 		crap+=" */bin */tools"

@@ -42,7 +42,7 @@ src_prepare() {
 		-e "/LINK/s:g++:$(tc-getCXX) ${LDFLAGS}:g" \
 		-e "/LINKFLAGS/s:=:= ${LDFLAGS} :g" \
 		-e "/CC/s:gcc:$(tc-getCC):g" \
-		-e "/CX/s:g++:$(tc-getCXX):g" \
+		-e "/CXX/s:g++:$(tc-getCXX):g" \
 		-e "/NVCCFLAGS/s|\(:=\)|\1 ${NVCCFLAGS} |g" \
 		-e "/ CFLAGS/s|\(:=\)|\1 ${CFLAGS}|g" \
 		-e "/ CXXFLAGS/s|\(:=\)|\1 ${CXXFLAGS}|g" \
