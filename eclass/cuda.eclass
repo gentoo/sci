@@ -29,9 +29,7 @@ inherit toolchain-funcs versionator
 # Being verbose during compilation to see underlying commands
 : ${CUDA_VERBOSE:=true}
 
-if [[ "${CUDA_VERBOSE}" == true ]]; then
-	NVCCFLAGS+=" -v"
-fi
+[[ "${CUDA_VERBOSE}" == true ]] && NVCCFLAGS+=" -v"
 
 # @ECLASS-FUNCTION: cuda_gccdir
 # @DESCRIPTION:
@@ -90,10 +88,10 @@ cuda_gccdir() {
 		echo ${_ret}
 		return 0
 	else
-        eerror "Only gcc version(s) ${_args} are supported,"
+		eerror "Only gcc version(s) ${_args} are supported,"
 		eerror "of which none is installed"
-        die "Only gcc version(s) ${_args} are supported"
-        return 1
+		die "Only gcc version(s) ${_args} are supported"
+		return 1
    fi
 }
 
