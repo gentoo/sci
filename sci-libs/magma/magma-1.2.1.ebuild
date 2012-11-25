@@ -14,7 +14,7 @@ SRC_URI="http://icl.cs.utk.edu/projectsfiles/${PN}/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="fermi static-libs tesla"
+IUSE="fermi static-libs"
 
 RDEPEND="dev-util/nvidia-cuda-toolkit
 	virtual/cblas
@@ -22,6 +22,10 @@ RDEPEND="dev-util/nvidia-cuda-toolkit
 	virtual/lapack"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
+
+# We have to have write acccess /dev/nvidia0 and /dev/nvidiactl and the portage
+# user is (usually) not in the video group
+RESTRICT="userpriv"
 
 static_to_shared() {
 	local libstatic=${1}; shift
@@ -87,17 +91,27 @@ src_configure() {
 		LIBCUDA = -L\$(CUDADIR)/$(get_libdir) -lcublas -lcudart
 		LIB = -pthread -lm -ldl \$(LIBCUDA) \$(LIBBLAS) \$(LIBLAPACK) -lstdc++
 	EOF
+	# See http://icl.cs.utk.edu/magma/forum/viewtopic.php?f=2&t=227
 	if use fermi; then
 		echo >> make.inc "GPU_TARGET = Fermi"
-	elif use tesla; then
+	else
 		echo >> make.inc "GPU_TARGET = Tesla"
 	fi
+
+	# see http://icl.cs.utk.edu/magma/forum/viewtopic.php?f=2&t=532
+	sed -i -e 's:[cz]heevd_m.cpp::g' src/Makefile.src src/Makefile
+	sed -i -e 's:[cz]hegvd_m.cpp::g' src/Makefile.src src/Makefile
 }
 
 src_compile() {
-	emake lib
-	static_to_shared lib/libmagma.a -lm -lpthread -ldl -lcublas -lcudart
-	LINK=$(tc-getFC) static_to_shared lib/libmagmablas.a -lm -lpthread -ldl -lcublas -lcudart
+	# restrict to -j1 otherwise the static archive is not complete
+	emake -j1 lib
+	LINK=$(tc-getFC) static_to_shared lib/libmagmablas.a -lm -lpthread -ldl \
+		-lcublas -lcudart -L"${EPREFIX}"/opt/cuda/$(get_libdir) -lstdc++ \
+		$(pkg-config --libs cblas) $(pkg-config --libs lapack)
+	static_to_shared lib/libmagma.a -lm -lpthread -ldl -lcublas -lcudart \
+		-L"${EPREFIX}"/opt/cuda/$(get_libdir) -lmagmablas \
+		-Llib $(pkg-config --libs cblas) $(pkg-config --libs lapack)
 	if use static-libs; then
 		emake cleanall
 		sed 's/-fPIC//g' make.inc
@@ -108,7 +122,10 @@ src_compile() {
 src_test() {
 	emake test lapacktest
 	cd testing/lin
-	python lapack_testing.py || die
+	# we need to access this while running the tests
+	addwrite /dev/nvidiactl
+	addwrite /dev/nvidia0
+	LD_LIBRARY_PATH=${S}/lib python lapack_testing.py || die
 }
 
 src_install() {
