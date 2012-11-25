@@ -37,8 +37,8 @@ S="${WORKDIR}"
 QA_PREBUILT="opt/cuda/*"
 
 pkg_setup() {
-    # We don't like to run cuda_pkg_setup as it depends on us
-    :
+	# We don't like to run cuda_pkg_setup as it depends on us
+	:
 }
 
 src_unpack() {
@@ -98,14 +98,14 @@ src_install() {
 }
 
 pkg_postinst() {
-    local a
-    a="$(version_sort $(cuda-config -s))"; a=($a)
-    if [[ $(tc-getCC) == *gcc* ]] && \
-        version_is_at_least "$(gcc-version)" ${a[1]}; then
-            ewarn "gcc >= ${a[1]} will not work with CUDA"
-            ewarn "Make sure you set an earlier version of gcc with gcc-config"
-            ewarn "or append --compiler-bindir= pointing to a gcc bindir like"
-            ewarn "${EPREFIX}/usr/*pc-linux-gnu/gcc-bin/gcc${a[1]}"
-            ewarn "to the nvcc compiler flags"
-    fi
+	local a
+	a="$(version_sort $(cuda-config -s))"; a=($a)
+	if [[ $(tc-getCC) == *gcc* ]] && \
+		version_is_at_least "$(gcc-version)" ${a[1]}; then
+			ewarn "gcc >= ${a[1]} will not work with CUDA"
+			ewarn "Make sure you set an earlier version of gcc with gcc-config"
+			ewarn "or append --compiler-bindir= pointing to a gcc bindir like"
+			ewarn "${EPREFIX}/usr/*pc-linux-gnu/gcc-bin/gcc${a[1]}"
+			ewarn "to the nvcc compiler flags"
+	fi
 }

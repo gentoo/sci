@@ -19,7 +19,7 @@ SRC_URI="
 SLOT="0"
 LICENSE="NVIDIA"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="debugger doc profiler"
+IUSE="debugger doc eclipse profiler"
 
 DEPEND=""
 RDEPEND="${DEPEND}
@@ -36,6 +36,11 @@ S="${WORKDIR}"
 
 QA_PREBUILT="opt/cuda/*"
 
+pkg_setup() {
+	# We don't like to run cuda_pkg_setup as it depends on us
+	:
+}
+
 src_prepare() {
 	local cuda_supported_gcc
 
@@ -44,29 +49,30 @@ src_prepare() {
 	sed \
 		-e "s:CUDA_SUPPORTED_GCC:${cuda_supported_gcc}:g" \
 		"${FILESDIR}"/cuda-config.in > "${T}"/cuda-config || die
+
+	find cuda-installer.pl install-linux.pl libnvvp/jre run_files -delete || die
 }
 
 src_install() {
 	local cudadir=/opt/cuda
-	local prefix="${EPREFIX}"${cudadir}
-	rm install-linux.pl
-	# use system jre
-	rm -r libnvvp/jre
+	local ecudadir="${EPREFIX}"${cudadir}
 
 	if use doc; then
 		dodoc doc/*{txt,pdf}
 		dohtml -r doc/html/*
 	fi
+
 	find doc -delete || die
 
 	use debugger || rm -r bin/cuda-gdb extras/Debugger
+	use eclipse || find libnsight -delete
 
 	if use profiler; then
 		# hack found in install-linux.pl
 		cat > bin/nvvp <<- EOF
 			#!${EPREFIX}bin/sh
-			LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:${prefix}/lib:${prefix}/lib64 \
-				UBUNTU_MENUPROXY=0 LIBOVERLAY_SCROLLBAR=0 ${prefix}/libnvvp/nvvp
+			LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:${ecudadir}/lib:${ecudadir}/lib64 \
+				UBUNTU_MENUPROXY=0 LIBOVERLAY_SCROLLBAR=0 ${ecudadir}/libnvvp/nvvp
 		EOF
 		chmod a+x bin/nvvp
 	else
@@ -77,11 +83,24 @@ src_install() {
 	mv * "${ED}"${cudadir}
 
 	cat > "${T}"/99cuda <<- EOF
-		PATH=${prefix}/bin:${prefix}/libnvvp
-		ROOTPATH=${prefix}/bin
-		LDPATH=${prefix}/lib$(use amd64 && echo "64:${prefix}/lib")
+		PATH=${ecudadir}/bin:${ecudadir}/libnvvp
+		ROOTPATH=${ecudadir}/bin
+		LDPATH=${ecudadir}/lib$(use amd64 && echo "64:${ecudadir}/lib")
 	EOF
 	doenvd "${T}"/99cuda
 
 	dobin "${T}"/cuda-config
+}
+
+pkg_postinst() {
+	local a
+	a="$(version_sort $(cuda-config -s))"; a=($a)
+	if [[ $(tc-getCC) == *gcc* ]] && \
+		version_is_at_least "$(gcc-version)" ${a[1]}; then
+			ewarn "gcc >= ${a[1]} will not work with CUDA"
+			ewarn "Make sure you set an earlier version of gcc with gcc-config"
+			ewarn "or append --compiler-bindir= pointing to a gcc bindir like"
+			ewarn "${EPREFIX}/usr/*pc-linux-gnu/gcc-bin/gcc${a[1]}"
+			ewarn "to the nvcc compiler flags"
+	fi
 }
