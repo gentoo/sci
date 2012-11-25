@@ -9,7 +9,7 @@ inherit toolchain-funcs versionator
 # Justin Lecher <jlec@gentoo.org>
 # @BLURB: Common functions for cuda packages
 # @DESCRIPTION:
-# This eclass contains functions to be used with cuda package. Currently its 
+# This eclass contains functions to be used with cuda package. Currently it is
 # setting and/or sanitizing NVCCFLAGS, the compiler flags for nvcc. This is
 # automatically done and exported in src_prepare() or manually by calling
 # cuda_sanatize.
@@ -33,7 +33,7 @@ inherit toolchain-funcs versionator
 
 # @ECLASS-FUNCTION: cuda_gccdir
 # @DESCRIPTION:
-# Helper for determination of the latest gcc bindir supported by 
+# Helper for determination of the latest gcc bindir supported by
 # then current nvidia cuda toolkit.
 #
 # Calling plain it returns simply the path, but you probably want to add \"-f\""
