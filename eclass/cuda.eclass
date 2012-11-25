@@ -19,9 +19,7 @@ inherit toolchain-funcs versionator
 # Being verbose during compilation to see underlying commands
 : ${CUDA_VERBOSE:=true}
 
-if [[ "${CUDA_VERBOSE}" == true ]]; then
-	NVCCFLAGS+=" -v"
-fi
+[[ "${CUDA_VERBOSE}" == true ]] && NVCCFLAGS+=" -v"
 
 # @ECLASS-FUNCTION: cuda_gccdir
 # @DESCRIPTION:
@@ -30,15 +28,13 @@ fi
 # Calling plain it returns simply the path, but you probably want to add \"-f\""
 # to get the full flag to add to nvcc call.
 #
-# cuda_gccdir-f
+# cuda_gccdir -f
 # -> --compiler-bindir="/usr/x86_64-pc-linux-gnu/gcc-bin/4.6.3"
 cuda_gccdir() {
 	local _gcc_bindir _ver _args="" _flag _ret
 
 	# Currently we only support the gnu compiler suite
-	if [[ $(tc-getCXX) != *g++* ]]; then
-		return 2
-	fi
+	[[ $(tc-getCXX) != *g++* ]] && return 2
 
 	while [ "$1" ]; do
 		case $1 in
