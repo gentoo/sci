@@ -299,28 +299,27 @@ intel-sdp_pkg_setup() {
 # @DESCRIPTION:
 # Unpacking necessary rpms from tarball, extract them and rearrange the output.
 intel-sdp_src_unpack() {
-	local l r t rpmdir
-	debug-print "INTEL_RPMS_DIRS are \"${INTEL_RPMS_DIRS}\""
+	local l r subdir rb t list=()
+
 	for t in ${A}; do
 		for r in ${INTEL_RPMS}; do
-			# Find which subdirectory of the archive the rpm is in
-			rpm_found="false"
 			for subdir in ${INTEL_RPMS_DIRS}; do
-				[[ "${rpm_found}" == "true" ]] && continue
 				rpmdir=${t%%.*}/${subdir}
-				l=.${r}_$(date +'%d%m%y_%H%M%S').log
-				tar xf "${DISTDIR}"/${t} ${rpmdir}/${r} 2> /dev/null || continue
-				einfo "Unpacking ${r}"
-				rpm_found="true"
-				rpm2tar -O "./${rpmdir}/${r}" | tar xvf - | sed -e \
-					"s:^\.:${EROOT#/}:g" > ${l} || die "unpacking ${r} failed"
-				mv ${l} opt/intel/ || die "failed moving extract log file"
+				list+=( ${rpmdir}/${r})
 			done
-			[[ "${rpm_found}" == "false" ]] && \
-				debug-print "RPM \"${r}\" not found in ${t}"
+		done
+		tar xf "${DISTDIR}"/${t} ${list[@]}  2> /dev/null || die
+		for r in ${list[@]}; do
+			rb=$(basename ${r})
+			l=.${rb}_$(date +'%d%m%y_%H%M%S').log
+			einfo "Unpacking ${rb}"
+			rpm2tar -O ${r} | tar xvf - | sed -e \
+				"s:^\.:${EROOT#/}:g" > ${l} || die "unpacking ${r} failed"
+			mv ${l} opt/intel/ || die "failed moving extract log file"
 		done
 	done
-	mv -v opt/intel/* ${INTEL_SDP_DIR} || die "mv to INTEL_SDP_DIR failed"
+
+	mv opt/intel/* ${INTEL_SDP_DIR} || die "mv to INTEL_SDP_DIR failed"
 }
 
 # @ ECLASS-FUNCTION: intel-sdp_src_install
