@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Nov 2012; Christoph Junghans <ottxor@gentoo.org>
+  gromacs-manual-4.6.9999.ebuild:
+  updated build and deps
+
 *gromacs-manual-4.6.9999 (04 Oct 2012)
 
   04 Oct 2012; Christoph Junghans <ottxor@gentoo.org>
