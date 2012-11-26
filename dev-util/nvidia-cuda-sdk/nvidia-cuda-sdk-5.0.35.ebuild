@@ -63,6 +63,8 @@ src_prepare() {
 		-e "s|../../common/lib/\$(OSLOWER)/\$(OS_ARCH)/libGLEW.a|$(pkg-config --libs glew)|g" \
 		-i $(find . -type f -name "Makefile") || die
 
+	export LDFLAGS="$(raw-ldflags)"
+
 	find common/inc/GL -delete || die
 	find . -type f -name "*\.a" -delete || die
 }
