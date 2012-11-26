@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/pycuda/ChangeLog,v 1.17 2012/11/08 06:32:59 flameeyes Exp $
 
+  26 Nov 2012; Justin Lecher <jlec@gentoo.org> pycuda-2012.1.ebuild:
+  Bump EAPI to 5; add missing dep on dev-python/mako; use cuda.eclass and make
+  use of cuda_gccbindir
+
 *pycuda-2012.1 (25 Nov 2012)
 
   25 Nov 2012; Olivier Huber <oli.huber@gmail.com> +pycuda-2012.1.ebuild,
