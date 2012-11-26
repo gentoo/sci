@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-python/pytools/pytools-11.ebuild,v 1.3 2011/01/01 21:08:52 arfrever Exp $
 
-EAPI="3"
+EAPI=5
+
 SUPPORT_PYTHON_ABIS="1"
-# python3 is failing tests, others are just untested
-RESTRICT_PYTHON_ABIS="3.* *-jython *-pypy-*"
+RESTRICT_PYTHON_ABIS="3.* *-jython"
 DISTUTILS_SRC_TEST="py.test"
 
 inherit distutils
@@ -17,7 +17,9 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="test"
 
-DEPEND="dev-python/setuptools"
+DEPEND="
+	dev-python/setuptools
+	test? ( dev-python/pytest )"
 RDEPEND=""
