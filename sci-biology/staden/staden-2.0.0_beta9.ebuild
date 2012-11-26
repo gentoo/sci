@@ -1,16 +1,18 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
-inherit base eutils flag-o-matic fortran-2 multilib
+AUTOTOOLS_AUTORECONF=yes
+
+inherit autotools-utils eutils flag-o-matic fortran-2 multilib
 
 DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
 HOMEPAGE="http://sourceforge.net/projects/staden/"
 SRC_URI="
-	http://downloads.sourceforge.net/staden/staden-2.0.0b8.tar.gz
-	http://sourceforge.net/projects/staden/files/staden/2.0.0b8/staden_doc-2.0.0b8-src.tar.gz"
+	http://downloads.sourceforge.net/staden/staden-${PV/_beta/b}-src.tar.gz
+	http://sourceforge.net/projects/staden/files/staden/${PV/_beta/b}/staden_doc-${PV/_beta/b}-src.tar.gz"
 
 LICENSE="staden"
 SLOT="0"
@@ -28,38 +30,47 @@ DEPEND="
 	app-arch/xz-utils
 	dev-lang/tk
 	dev-tcltk/tklib
-	>=media-libs/libpng-1.2
+	media-libs/libpng:0
 	sci-biology/samtools
 	>=sci-libs/io_lib-1.12.2
-	>=sys-libs/zlib-1.2
-	virtual/fortran"
+	sys-libs/zlib"
 RDEPEND="${DEPEND}
 	>=dev-tcltk/iwidgets-4.0
 	tcl? ( >=dev-tcltk/itcl-3.2 )
 	tk? ( >=dev-tcltk/itk-3.2 )"
 
-S="${WORKDIR}"/staden-2.0.0b8-src
+S="${WORKDIR}"/staden-${PV/_beta/b}-src
+
+AUTOTOOLS_IN_SOURCE_BUILD=1
+
+PATCHES=(
+	"${FILESDIR}"/${P}-ldflags.patch
+	"${FILESDIR}"/${P}-libpng-1.5.patch
+	"${FILESDIR}"/${P}-zlib.patch )
 
 src_prepare() {
-	unpack ${A} || die
-	cd "${S}" || die "Cannot cd ${WORKDIR}/staden-2.0.0b8-src"
-	epatch "${FILESDIR}"/rpath.patch || die "failed to apply -rpath=/usr/lib/staden patch"
-	./bootstrap || die "bootstrap failed"
+	sed \
+		-e 's:svnversion:false:' \
+		-i configure.in || die
+
+	AT_M4DIR=ac_stubs autotools-utils_src_prepare
 }
 
 src_configure(){
-	local myconf
-	use X && myconf=" --with-x"
-	myconf=" --with-tklib=/usr/lib/tklib0.5" # HACK
-	use amd64 && myconf="${myconf} --enable-64bit"
+	local myeconfargs=()
+	use X && myeconfargs+=( --with-x )
+	myeconfargs+=(
+		--with-tklib=/usr/$(get_libdir)/tklib
+		)
+	use amd64 && myeconfargs+=( --enable-64bit )
 	use debug && append-cflags "-DCACHE_REF_DEBUG"
-	econf ${myconf}
+	autotools-utils_src_configure
 }
 
 src_install() {
+	autotools-utils_src_install
 	# TODO: dodoc /usr/share/doc/staden/manual/gap4.index ?
-	emake install DESTDIR="${D}" || die "make install failed"
-	#cd "${WORKDIR}"/staden_doc-2.0.0b8-src || die "failed to cd "${WORKDIR}"/staden_doc-2.0.0b8-src"
+	#cd "${WORKDIR}"/staden_doc-${PV/_beta/b}-src || die "failed to cd "${WORKDIR}"/staden_doc-${PV/_beta/b}-src"
 	#make install prefix="${D}"/usr || die "failed to install pre-created docs from upstream"
 
 	# install the LDPATH so that it appears in /etc/ld.so.conf after env-update
@@ -67,7 +78,7 @@ src_install() {
 	# loader can find the library (I failed to use '-Wl,-rpath,/usr/lib/staden'
 	# somehow for gap2caf, for example
 	cat >> "${T}"/99staden <<- EOF
-	LDPATH=/usr/$(get_libdir)/staden
+	LDPATH="${EPREFIX}/usr/$(get_libdir)/staden"
 	EOF
-	doenvd 99staden
+	doenvd "${T}"/99staden
 }

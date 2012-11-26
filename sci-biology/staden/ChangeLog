@@ -1,6 +1,14 @@
 # ChangeLog for sci-biology/staden
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*staden-2.0.0_beta9 (26 Nov 2012)
+
+  26 Nov 2012; Justin Lecher <jlec@gentoo.org> -staden-2.0.0_beta8.ebuild,
+  +staden-2.0.0_beta9.ebuild, +files/staden-2.0.0_beta9-ldflags.patch,
+  +files/staden-2.0.0_beta9-libpng-1.5.patch,
+  +files/staden-2.0.0_beta9-zlib.patch, -files/rpath.patch:
+  Version Bump, move to sane portage like building
 
   12 Dec 2011; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> staden-9999.ebuild:
   fix determination of svn-based checkout number required for building
