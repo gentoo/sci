@@ -1,0 +1,4159 @@
+ 0_Simple/asyncAPI/Makefile                        |  8 ++++----
+ 0_Simple/cdpSimplePrint/Makefile                  |  6 +++---
+ 0_Simple/cdpSimpleQuicksort/Makefile              |  6 +++---
+ 0_Simple/clock/Makefile                           |  8 ++++----
+ 0_Simple/cppIntegration/Makefile                  |  8 ++++----
+ 0_Simple/cudaOpenMP/Makefile                      |  8 ++++----
+ 0_Simple/inlinePTX/Makefile                       |  8 ++++----
+ 0_Simple/matrixMul/Makefile                       |  8 ++++----
+ 0_Simple/matrixMulCUBLAS/Makefile                 | 10 +++++-----
+ 0_Simple/matrixMulDrv/Makefile                    |  8 ++++----
+ 0_Simple/matrixMulDynlinkJIT/Makefile             |  8 ++++----
+ 0_Simple/simpleAssert/Makefile                    |  8 ++++----
+ 0_Simple/simpleAtomicIntrinsics/Makefile          |  8 ++++----
+ 0_Simple/simpleCallback/Makefile                  |  8 ++++----
+ 0_Simple/simpleCubemapTexture/Makefile            |  8 ++++----
+ 0_Simple/simpleIPC/Makefile                       |  8 ++++----
+ 0_Simple/simpleLayeredTexture/Makefile            |  8 ++++----
+ 0_Simple/simpleMPI/Makefile                       |  8 ++++----
+ 0_Simple/simpleMultiCopy/Makefile                 |  8 ++++----
+ 0_Simple/simpleMultiGPU/Makefile                  |  8 ++++----
+ 0_Simple/simpleP2P/Makefile                       |  8 ++++----
+ 0_Simple/simplePitchLinearTexture/Makefile        |  8 ++++----
+ 0_Simple/simplePrintf/Makefile                    |  8 ++++----
+ 0_Simple/simpleSeparateCompilation/Makefile       | 10 +++++-----
+ 0_Simple/simpleStreams/Makefile                   |  8 ++++----
+ 0_Simple/simpleSurfaceWrite/Makefile              |  8 ++++----
+ 0_Simple/simpleTemplates/Makefile                 | 10 +++++-----
+ 0_Simple/simpleTexture/Makefile                   |  8 ++++----
+ 0_Simple/simpleTextureDrv/Makefile                |  8 ++++----
+ 0_Simple/simpleVoteIntrinsics/Makefile            |  8 ++++----
+ 0_Simple/simpleZeroCopy/Makefile                  |  8 ++++----
+ 0_Simple/template/Makefile                        | 10 +++++-----
+ 0_Simple/template_runtime/Makefile                | 10 +++++-----
+ 0_Simple/vectorAdd/Makefile                       |  8 ++++----
+ 0_Simple/vectorAddDrv/Makefile                    |  8 ++++----
+ 1_Utilities/bandwidthTest/Makefile                |  8 ++++----
+ 1_Utilities/deviceQuery/Makefile                  |  8 ++++----
+ 1_Utilities/deviceQueryDrv/Makefile               |  8 ++++----
+ 2_Graphics/Mandelbrot/Makefile                    | 10 +++++-----
+ 2_Graphics/bindlessTexture/Makefile               | 10 +++++-----
+ 2_Graphics/marchingCubes/Makefile                 | 10 +++++-----
+ 2_Graphics/simpleGL/Makefile                      | 10 +++++-----
+ 2_Graphics/simpleTexture3D/Makefile               | 10 +++++-----
+ 2_Graphics/volumeFiltering/Makefile               | 10 +++++-----
+ 2_Graphics/volumeRender/Makefile                  | 10 +++++-----
+ 3_Imaging/HSOpticalFlow/Makefile                  |  8 ++++----
+ 3_Imaging/SobelFilter/Makefile                    | 10 +++++-----
+ 3_Imaging/bicubicTexture/Makefile                 | 10 +++++-----
+ 3_Imaging/bilateralFilter/Makefile                | 10 +++++-----
+ 3_Imaging/boxFilter/Makefile                      | 10 +++++-----
+ 3_Imaging/convolutionFFT2D/Makefile               |  8 ++++----
+ 3_Imaging/convolutionSeparable/Makefile           |  8 ++++----
+ 3_Imaging/convolutionTexture/Makefile             |  8 ++++----
+ 3_Imaging/dct8x8/Makefile                         | 10 +++++-----
+ 3_Imaging/dwtHaar1D/Makefile                      |  8 ++++----
+ 3_Imaging/dxtc/Makefile                           |  8 ++++----
+ 3_Imaging/histogram/Makefile                      |  8 ++++----
+ 3_Imaging/imageDenoising/Makefile                 | 10 +++++-----
+ 3_Imaging/postProcessGL/Makefile                  | 10 +++++-----
+ 3_Imaging/recursiveGaussian/Makefile              | 10 +++++-----
+ 3_Imaging/stereoDisparity/Makefile                |  8 ++++----
+ 4_Finance/BlackScholes/Makefile                   |  8 ++++----
+ 4_Finance/MonteCarloMultiGPU/Makefile             |  8 ++++----
+ 4_Finance/SobolQRNG/Makefile                      |  8 ++++----
+ 4_Finance/binomialOptions/Makefile                |  8 ++++----
+ 4_Finance/quasirandomGenerator/Makefile           |  8 ++++----
+ 5_Simulations/fluidsGL/Makefile                   | 10 +++++-----
+ 5_Simulations/nbody/Makefile                      | 10 +++++-----
+ 5_Simulations/oceanFFT/Makefile                   | 10 +++++-----
+ 5_Simulations/oceanFFT/Makefile2                  |  4 ++--
+ 5_Simulations/particles/Makefile                  | 10 +++++-----
+ 5_Simulations/smokeParticles/Makefile             | 10 +++++-----
+ 6_Advanced/FDTD3d/Makefile                        | 10 +++++-----
+ 6_Advanced/FunctionPointers/Makefile              | 10 +++++-----
+ 6_Advanced/alignedTypes/Makefile                  |  8 ++++----
+ 6_Advanced/cdpAdvancedQuicksort/Makefile          |  6 +++---
+ 6_Advanced/cdpLUDecomposition/Makefile            |  6 +++---
+ 6_Advanced/cdpQuadtree/Makefile                   |  6 +++---
+ 6_Advanced/concurrentKernels/Makefile             |  8 ++++----
+ 6_Advanced/eigenvalues/Makefile                   | 10 +++++-----
+ 6_Advanced/fastWalshTransform/Makefile            | 10 +++++-----
+ 6_Advanced/interval/Makefile                      | 10 +++++-----
+ 6_Advanced/lineOfSight/Makefile                   |  8 ++++----
+ 6_Advanced/mergeSort/Makefile                     | 10 +++++-----
+ 6_Advanced/newdelete/Makefile                     | 10 +++++-----
+ 6_Advanced/ptxjit/Makefile                        |  8 ++++----
+ 6_Advanced/radixSortThrust/Makefile               |  8 ++++----
+ 6_Advanced/reduction/Makefile                     |  8 ++++----
+ 6_Advanced/scalarProd/Makefile                    | 10 +++++-----
+ 6_Advanced/scan/Makefile                          | 10 +++++-----
+ 6_Advanced/segmentationTreeThrust/Makefile        | 10 +++++-----
+ 6_Advanced/shfl_scan/Makefile                     | 10 +++++-----
+ 6_Advanced/simpleHyperQ/Makefile                  |  8 ++++----
+ 6_Advanced/sortingNetworks/Makefile               | 10 +++++-----
+ 6_Advanced/threadFenceReduction/Makefile          | 10 +++++-----
+ 6_Advanced/threadMigration/Makefile               | 10 +++++-----
+ 6_Advanced/transpose/Makefile                     |  8 ++++----
+ 7_CUDALibraries/MC_EstimatePiInlineP/Makefile     | 10 +++++-----
+ 7_CUDALibraries/MC_EstimatePiInlineQ/Makefile     | 10 +++++-----
+ 7_CUDALibraries/MC_EstimatePiP/Makefile           | 10 +++++-----
+ 7_CUDALibraries/MC_EstimatePiQ/Makefile           | 10 +++++-----
+ 7_CUDALibraries/MC_SingleAsianOptionP/Makefile    | 10 +++++-----
+ 7_CUDALibraries/MersenneTwisterGP11213/Makefile   | 10 +++++-----
+ 7_CUDALibraries/batchCUBLAS/Makefile              | 10 +++++-----
+ 7_CUDALibraries/boxFilterNPP/Makefile             | 10 +++++-----
+ 7_CUDALibraries/conjugateGradient/Makefile        | 10 +++++-----
+ 7_CUDALibraries/conjugateGradientPrecond/Makefile | 10 +++++-----
+ 7_CUDALibraries/freeImageInteropNPP/Makefile      | 10 +++++-----
+ 7_CUDALibraries/grabcutNPP/Makefile               | 10 +++++-----
+ 7_CUDALibraries/histEqualizationNPP/Makefile      | 10 +++++-----
+ 7_CUDALibraries/imageSegmentationNPP/Makefile     | 10 +++++-----
+ 7_CUDALibraries/randomFog/Makefile                | 10 +++++-----
+ 7_CUDALibraries/simpleCUBLAS/Makefile             | 10 +++++-----
+ 7_CUDALibraries/simpleCUFFT/Makefile              | 10 +++++-----
+ 7_CUDALibraries/simpleDevLibCUBLAS/Makefile       | 10 +++++-----
+ 115 files changed, 510 insertions(+), 510 deletions(-)
+
+diff --git a/0_Simple/asyncAPI/Makefile b/0_Simple/asyncAPI/Makefile
+index d99a26b..9f6a367 100644
+--- a/0_Simple/asyncAPI/Makefile
++++ b/0_Simple/asyncAPI/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ asyncAPI.o: asyncAPI.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ asyncAPI: asyncAPI.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/cdpSimplePrint/Makefile b/0_Simple/cdpSimplePrint/Makefile
+index 71a17e4..b1030e8 100644
+--- a/0_Simple/cdpSimplePrint/Makefile
++++ b/0_Simple/cdpSimplePrint/Makefile
+@@ -84,9 +84,9 @@ GENCODE_FLAGS   :=  $(GENCODE_SM35)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudadevrt 
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudadevrt 
+ else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudadevrt
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudadevrt
+ endif
+ 
+ # OS-architecture specific flags
+@@ -120,7 +120,7 @@ cdpSimplePrint.o: cdpSimplePrint.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ cdpSimplePrint: cdpSimplePrint.o
+-	$(NVCC) $(CCFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LDFLAGS)
++	$(NVCC) $(LDFLAGS) $(CCFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LIBS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/cdpSimpleQuicksort/Makefile b/0_Simple/cdpSimpleQuicksort/Makefile
+index b6cecd3..fac4686 100644
+--- a/0_Simple/cdpSimpleQuicksort/Makefile
++++ b/0_Simple/cdpSimpleQuicksort/Makefile
+@@ -84,9 +84,9 @@ GENCODE_FLAGS   :=  $(GENCODE_SM35)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudadevrt
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudadevrt
+ else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudadevrt
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudadevrt
+ endif
+ 
+ # OS-architecture specific flags
+@@ -119,7 +119,7 @@ cdpSimpleQuicksort.o: cdpSimpleQuicksort.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ cdpSimpleQuicksort: cdpSimpleQuicksort.o
+-	$(NVCC) $(CCFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(NVCC) $(LDFLAGS) $(CCFLAGS) $(EXTRA_LDFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LIBS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/clock/Makefile b/0_Simple/clock/Makefile
+index 2f07117..6e0448b 100644
+--- a/0_Simple/clock/Makefile
++++ b/0_Simple/clock/Makefile
+@@ -77,14 +77,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH)64 -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH)64 -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -118,7 +118,7 @@ clock.o: clock.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 	
+ clock: clock.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/cppIntegration/Makefile b/0_Simple/cppIntegration/Makefile
+index 14983e8..e17b948 100644
+--- a/0_Simple/cppIntegration/Makefile
++++ b/0_Simple/cppIntegration/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -133,7 +133,7 @@ main.o: main.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 	
+ cppIntegration: cppIntegration.o cppIntegration_gold.o main.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/cudaOpenMP/Makefile b/0_Simple/cudaOpenMP/Makefile
+index cadc41c..e7f1450 100644
+--- a/0_Simple/cudaOpenMP/Makefile
++++ b/0_Simple/cudaOpenMP/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lgomp
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lgomp
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lgomp
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lgomp
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lgomp
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lgomp
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -131,7 +131,7 @@ cudaOpenMP.o: cudaOpenMP.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ cudaOpenMP: cudaOpenMP.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/inlinePTX/Makefile b/0_Simple/inlinePTX/Makefile
+index c9f925e..87757ff 100644
+--- a/0_Simple/inlinePTX/Makefile
++++ b/0_Simple/inlinePTX/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ inlinePTX.o: inlinePTX.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 	
+ inlinePTX: inlinePTX.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/matrixMul/Makefile b/0_Simple/matrixMul/Makefile
+index 4444bc3..1ac8915 100644
+--- a/0_Simple/matrixMul/Makefile
++++ b/0_Simple/matrixMul/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ matrixMul.o: matrixMul.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ matrixMul: matrixMul.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/matrixMulCUBLAS/Makefile b/0_Simple/matrixMulCUBLAS/Makefile
+index ea84d15..a74ebc3 100644
+--- a/0_Simple/matrixMulCUBLAS/Makefile
++++ b/0_Simple/matrixMulCUBLAS/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcublas
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += -lcublas
++LIBS       += -lcublas
+ 
+ # Target rules
+ all: build
+@@ -128,7 +128,7 @@ matrixMulCUBLAS.o: matrixMulCUBLAS.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ matrixMulCUBLAS: matrixMulCUBLAS.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/matrixMulDrv/Makefile b/0_Simple/matrixMulDrv/Makefile
+index a998e53..7a94686 100644
+--- a/0_Simple/matrixMulDrv/Makefile
++++ b/0_Simple/matrixMulDrv/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -framework CUDA
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -framework CUDA
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -133,7 +133,7 @@ matrixMulDrv.o: matrixMulDrv.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ matrixMulDrv: matrixMulDrv.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/matrixMulDynlinkJIT/Makefile b/0_Simple/matrixMulDynlinkJIT/Makefile
+index 17fc2f6..e8044d2 100644
+--- a/0_Simple/matrixMulDynlinkJIT/Makefile
++++ b/0_Simple/matrixMulDynlinkJIT/Makefile
+@@ -79,14 +79,14 @@ EXTRA_LDFLAGS   ?=
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda -ldl -rdynamic
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda -ldl -rdynamic
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda -ldl -rdynamic
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda -ldl -rdynamic
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -132,7 +132,7 @@ cuda_drvapi_dynlink.o: cuda_drvapi_dynlink.c
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ matrixMulDynlinkJIT: matrixMulDynlinkJIT.o matrixMul_gold.o matrixMul_kernel_32_ptxdump.o matrixMul_kernel_64_ptxdump.o cuda_drvapi_dynlink.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleAssert/Makefile b/0_Simple/simpleAssert/Makefile
+index 72ade2a..1a87a47 100644
+--- a/0_Simple/simpleAssert/Makefile
++++ b/0_Simple/simpleAssert/Makefile
+@@ -84,14 +84,14 @@ GENCODE_FLAGS   := $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ simpleAssert.o: simpleAssert.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleAssert: simpleAssert.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleAtomicIntrinsics/Makefile b/0_Simple/simpleAtomicIntrinsics/Makefile
+index b153932..8d7d960 100644
+--- a/0_Simple/simpleAtomicIntrinsics/Makefile
++++ b/0_Simple/simpleAtomicIntrinsics/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM11) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -129,7 +129,7 @@ simpleAtomicIntrinsics_cpu.o: simpleAtomicIntrinsics_cpu.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleAtomicIntrinsics: simpleAtomicIntrinsics.o simpleAtomicIntrinsics_cpu.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleCallback/Makefile b/0_Simple/simpleCallback/Makefile
+index 981127d..40366af 100644
+--- a/0_Simple/simpleCallback/Makefile
++++ b/0_Simple/simpleCallback/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lpthread
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lpthread
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lpthread
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lpthread
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lpthread
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lpthread
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -130,7 +130,7 @@ multithreading.o: multithreading.cpp
+ 	
+ 
+ simpleCallback: simpleCallback.o multithreading.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleCubemapTexture/Makefile b/0_Simple/simpleCubemapTexture/Makefile
+index 6d9956d..2aec1b4 100644
+--- a/0_Simple/simpleCubemapTexture/Makefile
++++ b/0_Simple/simpleCubemapTexture/Makefile
+@@ -84,14 +84,14 @@ GENCODE_FLAGS   := $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ simpleCubemapTexture.o: simpleCubemapTexture.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 	
+ simpleCubemapTexture: simpleCubemapTexture.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleIPC/Makefile b/0_Simple/simpleIPC/Makefile
+index bd2fce8..12d08bb 100644
+--- a/0_Simple/simpleIPC/Makefile
++++ b/0_Simple/simpleIPC/Makefile
+@@ -84,14 +84,14 @@ GENCODE_FLAGS   := $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ simpleIPC.o: simpleIPC.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleIPC: simpleIPC.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleLayeredTexture/Makefile b/0_Simple/simpleLayeredTexture/Makefile
+index 84b8394..e5beed2 100644
+--- a/0_Simple/simpleLayeredTexture/Makefile
++++ b/0_Simple/simpleLayeredTexture/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ simpleLayeredTexture.o: simpleLayeredTexture.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_SM20) $(GENCODE_SM30) $(INCLUDES) -o $@ -c $<
+ 
+ simpleLayeredTexture: simpleLayeredTexture.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleMPI/Makefile b/0_Simple/simpleMPI/Makefile
+index 0c94b3f..8ec3b73 100644
+--- a/0_Simple/simpleMPI/Makefile
++++ b/0_Simple/simpleMPI/Makefile
+@@ -105,14 +105,14 @@ endif
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -136,7 +136,7 @@ main.o: simpleMPI.cpp
+ 	$(MPICXX) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleMPI: simpleMPI.o main.o
+-	$(MPICXX) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(MPICXX) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleMultiCopy/Makefile b/0_Simple/simpleMultiCopy/Makefile
+index 97cd76f..4f1279d 100644
+--- a/0_Simple/simpleMultiCopy/Makefile
++++ b/0_Simple/simpleMultiCopy/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ simpleMultiCopy.o: simpleMultiCopy.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleMultiCopy: simpleMultiCopy.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleMultiGPU/Makefile b/0_Simple/simpleMultiGPU/Makefile
+index d48de7f..cd53a32 100644
+--- a/0_Simple/simpleMultiGPU/Makefile
++++ b/0_Simple/simpleMultiGPU/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -130,7 +130,7 @@ simpleMultiGPU.o: simpleMultiGPU.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleMultiGPU: simpleMultiGPU.o
+-	$(GCC) $(CCFLAGS) -o $@ $< $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $< $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleP2P/Makefile b/0_Simple/simpleP2P/Makefile
+index f8d760b..c579a25 100644
+--- a/0_Simple/simpleP2P/Makefile
++++ b/0_Simple/simpleP2P/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ simpleP2P.o: simpleP2P.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleP2P: simpleP2P.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simplePitchLinearTexture/Makefile b/0_Simple/simplePitchLinearTexture/Makefile
+index 713ee89..8ba983a 100644
+--- a/0_Simple/simplePitchLinearTexture/Makefile
++++ b/0_Simple/simplePitchLinearTexture/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ simplePitchLinearTexture.o: simplePitchLinearTexture.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simplePitchLinearTexture: simplePitchLinearTexture.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simplePrintf/Makefile b/0_Simple/simplePrintf/Makefile
+index 7ea2b5b..b4ae5a2 100644
+--- a/0_Simple/simplePrintf/Makefile
++++ b/0_Simple/simplePrintf/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ simplePrintf.o: simplePrintf.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 	
+ simplePrintf: simplePrintf.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleSeparateCompilation/Makefile b/0_Simple/simpleSeparateCompilation/Makefile
+index 9241c83..dcfab4b 100644
+--- a/0_Simple/simpleSeparateCompilation/Makefile
++++ b/0_Simple/simpleSeparateCompilation/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -116,7 +116,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ # Target rules
+ all: build
+ build: simpleDeviceLibrary.a simpleSeparateCompilation
+@@ -129,7 +129,7 @@ simpleSeparateCompilationLink.o: simpleSeparateCompilation.o simpleDeviceLibrary
+ simpleDeviceLibrary.a: simpleDeviceLibrary.o
+ 	$(NVCC) $(NVCCFLAGS) -lib -o $@ $<
+ simpleSeparateCompilation: simpleSeparateCompilation.o simpleDeviceLibrary.a simpleSeparateCompilationLink.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ run: build
+diff --git a/0_Simple/simpleStreams/Makefile b/0_Simple/simpleStreams/Makefile
+index 143f222..156106e 100644
+--- a/0_Simple/simpleStreams/Makefile
++++ b/0_Simple/simpleStreams/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ simpleStreams.o: simpleStreams.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 	
+ simpleStreams: simpleStreams.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleSurfaceWrite/Makefile b/0_Simple/simpleSurfaceWrite/Makefile
+index edef03d..2be711a 100644
+--- a/0_Simple/simpleSurfaceWrite/Makefile
++++ b/0_Simple/simpleSurfaceWrite/Makefile
+@@ -84,14 +84,14 @@ GENCODE_FLAGS   := $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -124,7 +124,7 @@ simpleSurfaceWrite.o: simpleSurfaceWrite.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleSurfaceWrite: simpleSurfaceWrite.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleTemplates/Makefile b/0_Simple/simpleTemplates/Makefile
+index 42c0714..e86504f 100644
+--- a/0_Simple/simpleTemplates/Makefile
++++ b/0_Simple/simpleTemplates/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -116,7 +116,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       +=  -lpthread
++LIBS       +=  -lpthread
+ 
+ # Target rules
+ all: build
+@@ -127,7 +127,7 @@ simpleTemplates.o: simpleTemplates.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 	
+ simpleTemplates: simpleTemplates.o 
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleTexture/Makefile b/0_Simple/simpleTexture/Makefile
+index d09bdf4..a4b6396 100644
+--- a/0_Simple/simpleTexture/Makefile
++++ b/0_Simple/simpleTexture/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ simpleTexture.o: simpleTexture.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleTexture: simpleTexture.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleTextureDrv/Makefile b/0_Simple/simpleTextureDrv/Makefile
+index c956d71..d5c61b1 100644
+--- a/0_Simple/simpleTextureDrv/Makefile
++++ b/0_Simple/simpleTextureDrv/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -133,7 +133,7 @@ simpleTextureDrv.o: simpleTextureDrv.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleTextureDrv: simpleTextureDrv.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleVoteIntrinsics/Makefile b/0_Simple/simpleVoteIntrinsics/Makefile
+index c15724f..2ac07dd 100644
+--- a/0_Simple/simpleVoteIntrinsics/Makefile
++++ b/0_Simple/simpleVoteIntrinsics/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM12) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ simpleVoteIntrinsics.o: simpleVoteIntrinsics.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 	
+ simpleVoteIntrinsics: simpleVoteIntrinsics.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/simpleZeroCopy/Makefile b/0_Simple/simpleZeroCopy/Makefile
+index 92b20f7..f5f1a55 100644
+--- a/0_Simple/simpleZeroCopy/Makefile
++++ b/0_Simple/simpleZeroCopy/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ simpleZeroCopy.o: simpleZeroCopy.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 	
+ simpleZeroCopy: simpleZeroCopy.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/template/Makefile b/0_Simple/template/Makefile
+index 207241b..4fc0e8e 100644
+--- a/0_Simple/template/Makefile
++++ b/0_Simple/template/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -131,7 +131,7 @@ template_cpu.o: template_cpu.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ template: template.o template_cpu.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/template_runtime/Makefile b/0_Simple/template_runtime/Makefile
+index 79faf0b..26ca132 100644
+--- a/0_Simple/template_runtime/Makefile
++++ b/0_Simple/template_runtime/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -120,7 +120,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -131,7 +131,7 @@ template_runtime.o: template_runtime.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ template_runtime: template_runtime.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/vectorAdd/Makefile b/0_Simple/vectorAdd/Makefile
+index b00b03b..897ba46 100644
+--- a/0_Simple/vectorAdd/Makefile
++++ b/0_Simple/vectorAdd/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -122,7 +122,7 @@ vectorAdd.o: vectorAdd.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) -I$(CUDA_INC_PATH) $(GENCODE_FLAGS) -o $@ -c $<
+ 
+ vectorAdd: vectorAdd.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/0_Simple/vectorAddDrv/Makefile b/0_Simple/vectorAddDrv/Makefile
+index 9b313a8..8976a01 100644
+--- a/0_Simple/vectorAddDrv/Makefile
++++ b/0_Simple/vectorAddDrv/Makefile
+@@ -79,14 +79,14 @@ EXTRA_LDFLAGS   ?=
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -127,7 +127,7 @@ $(PTX_FILE): vectorAdd_kernel.cu
+ 	cp $@ ./data
+ 
+ vectorAddDrv: vectorAddDrv.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/1_Utilities/bandwidthTest/Makefile b/1_Utilities/bandwidthTest/Makefile
+index 542aabe..d479c28 100644
+--- a/1_Utilities/bandwidthTest/Makefile
++++ b/1_Utilities/bandwidthTest/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ bandwidthTest.o: bandwidthTest.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ bandwidthTest: bandwidthTest.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/1_Utilities/deviceQuery/Makefile b/1_Utilities/deviceQuery/Makefile
+index d2aae37..b85b2da 100644
+--- a/1_Utilities/deviceQuery/Makefile
++++ b/1_Utilities/deviceQuery/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ deviceQuery.o: deviceQuery.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ deviceQuery: deviceQuery.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/1_Utilities/deviceQueryDrv/Makefile b/1_Utilities/deviceQueryDrv/Makefile
+index b8c2ca0..db11308 100644
+--- a/1_Utilities/deviceQueryDrv/Makefile
++++ b/1_Utilities/deviceQueryDrv/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ deviceQueryDrv.o: deviceQueryDrv.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ deviceQueryDrv: deviceQueryDrv.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/2_Graphics/Mandelbrot/Makefile b/2_Graphics/Mandelbrot/Makefile
+index c4ffa10..5d84025 100644
+--- a/2_Graphics/Mandelbrot/Makefile
++++ b/2_Graphics/Mandelbrot/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM11) $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM3
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -128,7 +128,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -145,7 +145,7 @@ Mandelbrot.o: Mandelbrot.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ Mandelbrot: Mandelbrot.o Mandelbrot_gold.o Mandelbrot_cuda.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/2_Graphics/bindlessTexture/Makefile b/2_Graphics/bindlessTexture/Makefile
+index 837d53c..d349d6c 100644
+--- a/2_Graphics/bindlessTexture/Makefile
++++ b/2_Graphics/bindlessTexture/Makefile
+@@ -83,14 +83,14 @@ GENCODE_SM30    := -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -122,7 +122,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -136,7 +136,7 @@ bindlessTexture.o: bindlessTexture.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ bindlessTexture: bindlessTexture.o bindlessTexture_kernel.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/2_Graphics/marchingCubes/Makefile b/2_Graphics/marchingCubes/Makefile
+index 0480ab6..d863ee1 100644
+--- a/2_Graphics/marchingCubes/Makefile
++++ b/2_Graphics/marchingCubes/Makefile
+@@ -85,14 +85,14 @@ GENCODE_SM30    := -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -124,7 +124,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -138,7 +138,7 @@ marchingCubes.o: marchingCubes.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ marchingCubes: marchingCubes.o marchingCubes_kernel.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/2_Graphics/simpleGL/Makefile b/2_Graphics/simpleGL/Makefile
+index c6de39a..716e6ed 100644
+--- a/2_Graphics/simpleGL/Makefile
++++ b/2_Graphics/simpleGL/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -136,7 +136,7 @@ simpleGL.o: simpleGL.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleGL: simpleGL.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/2_Graphics/simpleTexture3D/Makefile b/2_Graphics/simpleTexture3D/Makefile
+index efd9f4e..a28d74a 100644
+--- a/2_Graphics/simpleTexture3D/Makefile
++++ b/2_Graphics/simpleTexture3D/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -139,7 +139,7 @@ simpleTexture3D.o: simpleTexture3D.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleTexture3D: simpleTexture3D.o simpleTexture3D_kernel.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/2_Graphics/volumeFiltering/Makefile b/2_Graphics/volumeFiltering/Makefile
+index eea0465..601664f 100644
+--- a/2_Graphics/volumeFiltering/Makefile
++++ b/2_Graphics/volumeFiltering/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -145,7 +145,7 @@ volume.o: volume.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ volumeFiltering: volumeRender_kernel.o volumeFilter_kernel.o volumeFiltering.o volume.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/2_Graphics/volumeRender/Makefile b/2_Graphics/volumeRender/Makefile
+index 099c240..f508e1d 100644
+--- a/2_Graphics/volumeRender/Makefile
++++ b/2_Graphics/volumeRender/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -139,7 +139,7 @@ volumeRender.o: volumeRender.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ volumeRender: volumeRender_kernel.o volumeRender.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/HSOpticalFlow/Makefile b/3_Imaging/HSOpticalFlow/Makefile
+index 801cc3c..70db97e 100644
+--- a/3_Imaging/HSOpticalFlow/Makefile
++++ b/3_Imaging/HSOpticalFlow/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -133,7 +133,7 @@ flowGold.o: flowGold.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ HSOpticalFlow: flowCUDA.o main.o flowGold.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/SobelFilter/Makefile b/3_Imaging/SobelFilter/Makefile
+index ee33c09..7d28664 100644
+--- a/3_Imaging/SobelFilter/Makefile
++++ b/3_Imaging/SobelFilter/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -140,7 +140,7 @@ SobelFilter.o: SobelFilter.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ SobelFilter: SobelFilter.o SobelFilter_kernels.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/bicubicTexture/Makefile b/3_Imaging/bicubicTexture/Makefile
+index cc84556..90ddc28 100644
+--- a/3_Imaging/bicubicTexture/Makefile
++++ b/3_Imaging/bicubicTexture/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ endif
+ 
+ # Common includes and paths for CUDA, NPP, and FreeImage Libray
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL) 
++LIBS       += $(LIBPATH_OPENGL) 
+ 
+ # Target rules
+ all: build
+@@ -139,7 +139,7 @@ bicubicTexture.o: bicubicTexture.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ bicubicTexture: bicubicTexture.o bicubicTexture_cuda.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/bilateralFilter/Makefile b/3_Imaging/bilateralFilter/Makefile
+index 75394b7..7db32d4 100644
+--- a/3_Imaging/bilateralFilter/Makefile
++++ b/3_Imaging/bilateralFilter/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -145,7 +145,7 @@ bmploader.o: bmploader.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ bilateralFilter: bilateralFilter.o bilateralFilter_cpu.o bilateral_kernel.o bmploader.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/boxFilter/Makefile b/3_Imaging/boxFilter/Makefile
+index 48c6abc..0516c22 100644
+--- a/3_Imaging/boxFilter/Makefile
++++ b/3_Imaging/boxFilter/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -143,7 +143,7 @@ boxFilter.o: boxFilter.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ boxFilter: boxFilter.o boxFilter_cpu.o boxFilter_kernel.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/convolutionFFT2D/Makefile b/3_Imaging/convolutionFFT2D/Makefile
+index 477bade..91caee5 100644
+--- a/3_Imaging/convolutionFFT2D/Makefile
++++ b/3_Imaging/convolutionFFT2D/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -132,7 +132,7 @@ convolutionFFT2D.o: convolutionFFT2D.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ convolutionFFT2D: main.o convolutionFFT2D_gold.o convolutionFFT2D.o 
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/convolutionSeparable/Makefile b/3_Imaging/convolutionSeparable/Makefile
+index 57c964d..4a3f81b 100644
+--- a/3_Imaging/convolutionSeparable/Makefile
++++ b/3_Imaging/convolutionSeparable/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -132,7 +132,7 @@ convolutionSeparable.o: convolutionSeparable.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ convolutionSeparable: main.o convolutionSeparable_gold.o convolutionSeparable.o 
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/convolutionTexture/Makefile b/3_Imaging/convolutionTexture/Makefile
+index dcceab9..3449940 100644
+--- a/3_Imaging/convolutionTexture/Makefile
++++ b/3_Imaging/convolutionTexture/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -132,7 +132,7 @@ convolutionTexture.o: convolutionTexture.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ convolutionTexture: main.o convolutionTexture_gold.o convolutionTexture.o 
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/dct8x8/Makefile b/3_Imaging/dct8x8/Makefile
+index 6631548..c121894 100644
+--- a/3_Imaging/dct8x8/Makefile
++++ b/3_Imaging/dct8x8/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -116,7 +116,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -133,7 +133,7 @@ DCT8x8_Gold.o: DCT8x8_Gold.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ dct8x8: dct8x8.o BmpUtil.o DCT8x8_Gold.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/dwtHaar1D/Makefile b/3_Imaging/dwtHaar1D/Makefile
+index aa8c9a8..885e1cd 100644
+--- a/3_Imaging/dwtHaar1D/Makefile
++++ b/3_Imaging/dwtHaar1D/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -127,7 +127,7 @@ dwtHaar1D.o: dwtHaar1D.cu dwtHaar1D_kernel.cuh
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ dwtHaar1D: dwtHaar1D.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/dxtc/Makefile b/3_Imaging/dxtc/Makefile
+index 4d6b05b..3f48ba5 100644
+--- a/3_Imaging/dxtc/Makefile
++++ b/3_Imaging/dxtc/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ dxtc.o: dxtc.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ dxtc: dxtc.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/histogram/Makefile b/3_Imaging/histogram/Makefile
+index 67ea4d2..183fa3c 100644
+--- a/3_Imaging/histogram/Makefile
++++ b/3_Imaging/histogram/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -135,7 +135,7 @@ main.o: main.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ histogram: histogram64.o histogram256.o histogram_gold.o main.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/imageDenoising/Makefile b/3_Imaging/imageDenoising/Makefile
+index 05ef7ef..57351f0 100644
+--- a/3_Imaging/imageDenoising/Makefile
++++ b/3_Imaging/imageDenoising/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -143,7 +143,7 @@ bmploader.o: bmploader.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ imageDenoising: imageDenoising.o imageDenoisingGL.o bmploader.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/postProcessGL/Makefile b/3_Imaging/postProcessGL/Makefile
+index 8b089f2..ea5e62d 100644
+--- a/3_Imaging/postProcessGL/Makefile
++++ b/3_Imaging/postProcessGL/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -140,7 +140,7 @@ main.o: main.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ postProcessGL: main.o postProcessGL.o 
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/recursiveGaussian/Makefile b/3_Imaging/recursiveGaussian/Makefile
+index bd37f8e..e230068 100644
+--- a/3_Imaging/recursiveGaussian/Makefile
++++ b/3_Imaging/recursiveGaussian/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -140,7 +140,7 @@ main.o: recursiveGaussian.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ recursiveGaussian: recursiveGaussian.o main.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/3_Imaging/stereoDisparity/Makefile b/3_Imaging/stereoDisparity/Makefile
+index 4e78b24..ea24e6c 100644
+--- a/3_Imaging/stereoDisparity/Makefile
++++ b/3_Imaging/stereoDisparity/Makefile
+@@ -84,14 +84,14 @@ GENCODE_FLAGS   := $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ stereoDisparity.o: stereoDisparity.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 	
+ stereoDisparity: stereoDisparity.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/4_Finance/BlackScholes/Makefile b/4_Finance/BlackScholes/Makefile
+index fcee3a9..af2e0ca 100644
+--- a/4_Finance/BlackScholes/Makefile
++++ b/4_Finance/BlackScholes/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -132,7 +132,7 @@ BlackScholes_gold.o: BlackScholes_gold.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ BlackScholes: BlackScholes.o BlackScholes_gold.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/4_Finance/MonteCarloMultiGPU/Makefile b/4_Finance/MonteCarloMultiGPU/Makefile
+index 34d5c55..70e1b1e 100644
+--- a/4_Finance/MonteCarloMultiGPU/Makefile
++++ b/4_Finance/MonteCarloMultiGPU/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lpthread -lcurand
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lpthread -lcurand
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lpthread -lcurand
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lpthread -lcurand
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lpthread -lcurand
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lpthread -lcurand
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -136,7 +136,7 @@ MonteCarloMultiGPU.o: MonteCarloMultiGPU.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ MonteCarloMultiGPU: MonteCarloMultiGPU.o multithreading.o MonteCarlo_gold.o MonteCarlo_kernel.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/4_Finance/SobolQRNG/Makefile b/4_Finance/SobolQRNG/Makefile
+index fbc7c4c..9717d99 100644
+--- a/4_Finance/SobolQRNG/Makefile
++++ b/4_Finance/SobolQRNG/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -135,7 +135,7 @@ sobol.o: sobol.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ SobolQRNG: sobol.o sobol_gold.o sobol_primitives.o sobol_gpu.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/4_Finance/binomialOptions/Makefile b/4_Finance/binomialOptions/Makefile
+index 4b7f1b0..fc40e63 100644
+--- a/4_Finance/binomialOptions/Makefile
++++ b/4_Finance/binomialOptions/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -136,7 +136,7 @@ binomialOptions_SM13.o: binomialOptions_SM13.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM30) $(INCLUDES) -o $@ -c $<
+ 
+ binomialOptions: binomialOptions.o binomialOptions_gold.o binomialOptions_SM10.o binomialOptions_SM13.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/4_Finance/quasirandomGenerator/Makefile b/4_Finance/quasirandomGenerator/Makefile
+index 7c85a8f..cddcbea 100644
+--- a/4_Finance/quasirandomGenerator/Makefile
++++ b/4_Finance/quasirandomGenerator/Makefile
+@@ -85,14 +85,14 @@ GENCODE_SM30    := -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -135,7 +135,7 @@ quasirandomGenerator.o: quasirandomGenerator.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ quasirandomGenerator: quasirandomGenerator.o quasirandomGenerator_gold.o quasirandomGenerator_SM10.o quasirandomGenerator_SM13.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/5_Simulations/fluidsGL/Makefile b/5_Simulations/fluidsGL/Makefile
+index 613142b..1f4618c 100644
+--- a/5_Simulations/fluidsGL/Makefile
++++ b/5_Simulations/fluidsGL/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -140,7 +140,7 @@ fluidsGL.o: fluidsGL.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ fluidsGL: fluidsGL.o fluidsGL_kernels.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/5_Simulations/nbody/Makefile b/5_Simulations/nbody/Makefile
+index 9064c65..9e6f304 100644
+--- a/5_Simulations/nbody/Makefile
++++ b/5_Simulations/nbody/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -127,7 +127,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -144,7 +144,7 @@ render_particles.o: render_particles.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ nbody: nbody.o bodysystemcuda.o render_particles.o 
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/5_Simulations/oceanFFT/Makefile b/5_Simulations/oceanFFT/Makefile
+index d20c837..28ad256 100644
+--- a/5_Simulations/oceanFFT/Makefile
++++ b/5_Simulations/oceanFFT/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -140,7 +140,7 @@ oceanFFT.o: oceanFFT.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ oceanFFT: oceanFFT.o oceanFFT_kernel.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/5_Simulations/oceanFFT/Makefile2 b/5_Simulations/oceanFFT/Makefile2
+index 48b911c..657e68b 100644
+--- a/5_Simulations/oceanFFT/Makefile2
++++ b/5_Simulations/oceanFFT/Makefile2
+@@ -111,7 +111,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I. -I.. -I../../common/inc -I$(CUDA_INC_PATH)
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -125,7 +125,7 @@ oceanFFT.o: oceanFFT.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ oceanFFT: oceanFFT.o oceanFFT_kernels.cu
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
+ 
+ run: build
+ 	./oceanFFT
+diff --git a/5_Simulations/particles/Makefile b/5_Simulations/particles/Makefile
+index cbf337b..54a88fb 100644
+--- a/5_Simulations/particles/Makefile
++++ b/5_Simulations/particles/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -127,7 +127,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -150,7 +150,7 @@ shaders.o: shaders.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ particles: particles.o particleSystem_cuda.o particleSystem.o render_particles.o shaders.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/5_Simulations/smokeParticles/Makefile b/5_Simulations/smokeParticles/Makefile
+index bfc2fff..40ee13c 100644
+--- a/5_Simulations/smokeParticles/Makefile
++++ b/5_Simulations/smokeParticles/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart -lcufft
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -127,7 +127,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -159,7 +159,7 @@ GLSLProgram.o: GLSLProgram.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ smokeParticles: particleDemo.o ParticleSystem_cuda.o ParticleSystem.o SmokeRenderer.o SmokeShaders.o framebufferObject.o renderbuffer.o GLSLProgram.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/FDTD3d/Makefile b/6_Advanced/FDTD3d/Makefile
+index f63a33e..33b9f11 100644
+--- a/6_Advanced/FDTD3d/Makefile
++++ b/6_Advanced/FDTD3d/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I. -I.. -Iinc/ -I../../common/inc -I$(CUDA_INC_PATH)
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -134,7 +134,7 @@ FDTD3d.o: src/FDTD3d.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ FDTD3d: FDTD3d.o FDTD3dReference.o FDTD3dGPU.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/FunctionPointers/Makefile b/6_Advanced/FunctionPointers/Makefile
+index 60e8d32..e626684 100644
+--- a/6_Advanced/FunctionPointers/Makefile
++++ b/6_Advanced/FunctionPointers/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -139,7 +139,7 @@ FunctionPointers.o: FunctionPointers.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ FunctionPointers: FunctionPointers.o FunctionPointers_kernels.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/alignedTypes/Makefile b/6_Advanced/alignedTypes/Makefile
+index 8dbee0f..1348875 100644
+--- a/6_Advanced/alignedTypes/Makefile
++++ b/6_Advanced/alignedTypes/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ alignedTypes.o: alignedTypes.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ alignedTypes: alignedTypes.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/cdpAdvancedQuicksort/Makefile b/6_Advanced/cdpAdvancedQuicksort/Makefile
+index 4ac691c..6861d1a 100644
+--- a/6_Advanced/cdpAdvancedQuicksort/Makefile
++++ b/6_Advanced/cdpAdvancedQuicksort/Makefile
+@@ -83,10 +83,10 @@ GENCODE_FLAGS   :=  $(GENCODE_SM35)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudadevrt
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudadevrt
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudadevrt
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudadevrt
+ endif
+ 
+ # OS-architecture specific flags
+@@ -123,7 +123,7 @@ cdpBitonicSort.o: cdpBitonicSort.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+   
+ cdpAdvancedQuicksort: cdpAdvancedQuicksort.o cdpBitonicSort.o
+-	$(NVCC) $(CCFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(NVCC) $(LDFLAGS) $(CCFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/cdpLUDecomposition/Makefile b/6_Advanced/cdpLUDecomposition/Makefile
+index 9312fc4..c22a63b 100644
+--- a/6_Advanced/cdpLUDecomposition/Makefile
++++ b/6_Advanced/cdpLUDecomposition/Makefile
+@@ -83,10 +83,10 @@ GENCODE_FLAGS   :=  $(GENCODE_SM35)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcublas -lcublas_device -lcudadevrt -lgomp
++      LIBS   := -L$(CUDA_LIB_PATH) -lcublas -lcublas_device -lcudadevrt -lgomp
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcublas -lcublas_device -lcudadevrt -lgomp
++      LIBS   := -L$(CUDA_LIB_PATH) -lcublas -lcublas_device -lcudadevrt -lgomp
+ endif
+ 
+ # OS-architecture specific flags
+@@ -132,7 +132,7 @@ cdp_lu_main.o: cdp_lu_main.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ cdpLUDecomposition: dlaswp.o dgetf2.o dgetrf.o cdp_lu.o cdp_lu_main.o
+-	$(NVCC) $(CCFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(NVCC) $(LDFLAGS) $(CCFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/cdpQuadtree/Makefile b/6_Advanced/cdpQuadtree/Makefile
+index 185e63a..e9aaf77 100644
+--- a/6_Advanced/cdpQuadtree/Makefile
++++ b/6_Advanced/cdpQuadtree/Makefile
+@@ -84,10 +84,10 @@ GENCODE_FLAGS   :=  $(GENCODE_SM35)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudadevrt
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudadevrt
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudadevrt
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudadevrt
+ endif
+ 
+ # OS-architecture specific flags
+@@ -121,7 +121,7 @@ cdpQuadtree.o: cdpQuadtree.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ cdpQuadtree: cdpQuadtree.o
+-	$(NVCC) $(CCFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(NVCC) $(LDFLAGS) $(CCFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/concurrentKernels/Makefile b/6_Advanced/concurrentKernels/Makefile
+index 61f7a8c..96259bf 100644
+--- a/6_Advanced/concurrentKernels/Makefile
++++ b/6_Advanced/concurrentKernels/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ concurrentKernels.o: concurrentKernels.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ concurrentKernels: concurrentKernels.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/eigenvalues/Makefile b/6_Advanced/eigenvalues/Makefile
+index be3bcc9..b55885c 100644
+--- a/6_Advanced/eigenvalues/Makefile
++++ b/6_Advanced/eigenvalues/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -143,7 +143,7 @@ matlab.o: matlab.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 	
+ eigenvalues: main.o bisect_small.o bisect_large.o bisect_util.o gerschgorin.o matlab.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/fastWalshTransform/Makefile b/6_Advanced/fastWalshTransform/Makefile
+index 5d13a7f..6ce7b68 100644
+--- a/6_Advanced/fastWalshTransform/Makefile
++++ b/6_Advanced/fastWalshTransform/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -131,7 +131,7 @@ fastWalshTransform_gold.o: fastWalshTransform_gold.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ fastWalshTransform: fastWalshTransform.o fastWalshTransform_gold.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/interval/Makefile b/6_Advanced/interval/Makefile
+index c0c5542..2b847bc 100644
+--- a/6_Advanced/interval/Makefile
++++ b/6_Advanced/interval/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -128,7 +128,7 @@ interval.o: interval.cu interval.h cpu_interval.h cuda_interval.h cuda_interval_
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ interval: interval.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/lineOfSight/Makefile b/6_Advanced/lineOfSight/Makefile
+index 33aa71d..9020d6e 100644
+--- a/6_Advanced/lineOfSight/Makefile
++++ b/6_Advanced/lineOfSight/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ lineOfSight.o: lineOfSight.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ lineOfSight: lineOfSight.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/mergeSort/Makefile b/6_Advanced/mergeSort/Makefile
+index b234948..da903d4 100644
+--- a/6_Advanced/mergeSort/Makefile
++++ b/6_Advanced/mergeSort/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -140,7 +140,7 @@ main.o: main.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ mergeSort: main.o mergeSort_validate.o mergeSort_host.o bitonic.o mergeSort.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/newdelete/Makefile b/6_Advanced/newdelete/Makefile
+index 3e4e1f5..a0cd2b8 100644
+--- a/6_Advanced/newdelete/Makefile
++++ b/6_Advanced/newdelete/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -128,7 +128,7 @@ newdelete.o: newdelete.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_SM20) $(GENCODE_SM30) $(INCLUDES) -o $@ -c $<
+ 
+ newdelete: newdelete.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/ptxjit/Makefile b/6_Advanced/ptxjit/Makefile
+index 6629483..b9225ef 100644
+--- a/6_Advanced/ptxjit/Makefile
++++ b/6_Advanced/ptxjit/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ ptxjit.o: ptxjit.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ ptxjit: ptxjit.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/radixSortThrust/Makefile b/6_Advanced/radixSortThrust/Makefile
+index a7da345..4ce697a 100644
+--- a/6_Advanced/radixSortThrust/Makefile
++++ b/6_Advanced/radixSortThrust/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ radixSortThrust.o: radixSortThrust.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ radixSortThrust: radixSortThrust.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/reduction/Makefile b/6_Advanced/reduction/Makefile
+index 7c929e4..7b2275e 100644
+--- a/6_Advanced/reduction/Makefile
++++ b/6_Advanced/reduction/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM3
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -130,7 +130,7 @@ reduction.o: reduction.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ reduction: reduction.o reduction_kernel.o	
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/scalarProd/Makefile b/6_Advanced/scalarProd/Makefile
+index b2557a3..116df9f 100644
+--- a/6_Advanced/scalarProd/Makefile
++++ b/6_Advanced/scalarProd/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -131,7 +131,7 @@ scalarProd_cpu.o: scalarProd_cpu.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ scalarProd: scalarProd.o scalarProd_cpu.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/scan/Makefile b/6_Advanced/scan/Makefile
+index 5ef4018..21849fb 100644
+--- a/6_Advanced/scan/Makefile
++++ b/6_Advanced/scan/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -134,7 +134,7 @@ main.o: main.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ scan: scan.o scan_gold.o main.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/segmentationTreeThrust/Makefile b/6_Advanced/segmentationTreeThrust/Makefile
+index f051050..cf64b51 100644
+--- a/6_Advanced/segmentationTreeThrust/Makefile
++++ b/6_Advanced/segmentationTreeThrust/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -128,7 +128,7 @@ segmentationTree.o: segmentationTree.cu kernels.cuh common.cuh
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM30) $(INCLUDES) -o $@ -c $<
+ 
+ segmentationTreeThrust: segmentationTree.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/shfl_scan/Makefile b/6_Advanced/shfl_scan/Makefile
+index 90d2bb8..663a40d 100644
+--- a/6_Advanced/shfl_scan/Makefile
++++ b/6_Advanced/shfl_scan/Makefile
+@@ -84,14 +84,14 @@ GENCODE_FLAGS   := $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -115,7 +115,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -126,7 +126,7 @@ shfl_scan.o: shfl_scan.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ shfl_scan: shfl_scan.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/simpleHyperQ/Makefile b/6_Advanced/simpleHyperQ/Makefile
+index 4e3aef8..098856c 100644
+--- a/6_Advanced/simpleHyperQ/Makefile
++++ b/6_Advanced/simpleHyperQ/Makefile
+@@ -77,14 +77,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH)64 -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH)64 -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -118,7 +118,7 @@ simpleHyperQ.o: simpleHyperQ.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleHyperQ: simpleHyperQ.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/sortingNetworks/Makefile b/6_Advanced/sortingNetworks/Makefile
+index 1f41677..be92370 100644
+--- a/6_Advanced/sortingNetworks/Makefile
++++ b/6_Advanced/sortingNetworks/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -137,7 +137,7 @@ sortingNetworks_validate.o: sortingNetworks_validate.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ sortingNetworks: bitonicSort.o oddEvenMergeSort.o main.o sortingNetworks_validate.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/threadFenceReduction/Makefile b/6_Advanced/threadFenceReduction/Makefile
+index ee1d519..f4df7f9 100644
+--- a/6_Advanced/threadFenceReduction/Makefile
++++ b/6_Advanced/threadFenceReduction/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM11) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -128,7 +128,7 @@ threadFenceReduction.o: threadFenceReduction.cu threadFenceReduction_kernel.cuh
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ threadFenceReduction: threadFenceReduction.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/threadMigration/Makefile b/6_Advanced/threadMigration/Makefile
+index 9993842..d0f0775 100644
+--- a/6_Advanced/threadMigration/Makefile
++++ b/6_Advanced/threadMigration/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA -lpthread
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -framework CUDA -lpthread
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda -lpthread
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda -lpthread
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcuda -lpthread
++      LIBS   := -L$(CUDA_LIB_PATH) -lcuda -lpthread
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -119,7 +119,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -Iinc/ -I../../common/inc
+-LDFLAGS       += $(LIBPATH_OPENGL)
++LIBS       += $(LIBPATH_OPENGL)
+ 
+ # Target rules
+ all: build
+@@ -135,7 +135,7 @@ threadMigration.o: threadMigration.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ threadMigration: threadMigration.o
+-	$(GCC) $(CCFLAGS) -o $@ $< $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $< $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/6_Advanced/transpose/Makefile b/6_Advanced/transpose/Makefile
+index fa4ab92..fda0ebd 100644
+--- a/6_Advanced/transpose/Makefile
++++ b/6_Advanced/transpose/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -126,7 +126,7 @@ transpose.o: transpose.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(GENCODE_FLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ transpose: transpose.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/MC_EstimatePiInlineP/Makefile b/7_CUDALibraries/MC_EstimatePiInlineP/Makefile
+index c3592ee..ae152aa 100644
+--- a/7_CUDALibraries/MC_EstimatePiInlineP/Makefile
++++ b/7_CUDALibraries/MC_EstimatePiInlineP/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -119,7 +119,7 @@ endif
+ 
+ # Common includes and paths for CUDA, CURAND
+ INCLUDES      := -Iinc/ -I$(CUDA_INC_PATH) -I../../common/inc 
+-LDFLAGS       += -lcurand
++LIBS       += -lcurand
+ 
+ # Target rules
+ all: build
+@@ -136,7 +136,7 @@ test.o: src/test.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ MC_EstimatePiInlineP: piestimator.o main.o test.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/MC_EstimatePiInlineQ/Makefile b/7_CUDALibraries/MC_EstimatePiInlineQ/Makefile
+index d95628e..e883d92 100644
+--- a/7_CUDALibraries/MC_EstimatePiInlineQ/Makefile
++++ b/7_CUDALibraries/MC_EstimatePiInlineQ/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -119,7 +119,7 @@ endif
+ 
+ # Common includes and paths for CUDA, CURAND
+ INCLUDES      := -Iinc/ -I$(CUDA_INC_PATH) -I../../common/inc 
+-LDFLAGS       += -lcurand
++LIBS       += -lcurand
+ 
+ # Target rules
+ all: build
+@@ -136,7 +136,7 @@ test.o: src/test.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ MC_EstimatePiInlineQ: piestimator.o main.o test.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/MC_EstimatePiP/Makefile b/7_CUDALibraries/MC_EstimatePiP/Makefile
+index b4ceb02..576e0f0 100644
+--- a/7_CUDALibraries/MC_EstimatePiP/Makefile
++++ b/7_CUDALibraries/MC_EstimatePiP/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -119,7 +119,7 @@ endif
+ 
+ # Common includes and paths for CUDA, CURAND
+ INCLUDES      := -Iinc/ -I$(CUDA_INC_PATH) -I../../common/inc 
+-LDFLAGS       += -lcurand
++LIBS       += -lcurand
+ 
+ # Target rules
+ all: build
+@@ -136,7 +136,7 @@ test.o: src/test.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ MC_EstimatePiP: piestimator.o main.o test.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/MC_EstimatePiQ/Makefile b/7_CUDALibraries/MC_EstimatePiQ/Makefile
+index 6ba6a31..160a1d2 100644
+--- a/7_CUDALibraries/MC_EstimatePiQ/Makefile
++++ b/7_CUDALibraries/MC_EstimatePiQ/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -119,7 +119,7 @@ endif
+ 
+ # Common includes and paths for CUDA, CURAND
+ INCLUDES      := -Iinc/ -I$(CUDA_INC_PATH) -I../../common/inc 
+-LDFLAGS       += -lcurand
++LIBS       += -lcurand
+ 
+ # Target rules
+ all: build
+@@ -136,7 +136,7 @@ test.o: src/test.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ MC_EstimatePiQ: piestimator.o main.o test.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/MC_SingleAsianOptionP/Makefile b/7_CUDALibraries/MC_SingleAsianOptionP/Makefile
+index f53835f..a74a6fd 100644
+--- a/7_CUDALibraries/MC_SingleAsianOptionP/Makefile
++++ b/7_CUDALibraries/MC_SingleAsianOptionP/Makefile
+@@ -87,14 +87,14 @@ GENCODE_FLAGS   := $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -119,7 +119,7 @@ endif
+ 
+ # Common includes and paths for CUDA, CURAND
+ INCLUDES      := -Iinc/ -I$(CUDA_INC_PATH) -I../../common/inc 
+-LDFLAGS       += -lcurand
++LIBS       += -lcurand
+ 
+ # Target rules
+ all: build
+@@ -136,7 +136,7 @@ test.o: src/test.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ MC_SingleAsianOptionP: pricingengine.o main.o test.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/MersenneTwisterGP11213/Makefile b/7_CUDALibraries/MersenneTwisterGP11213/Makefile
+index cfb9055..b9297ef 100644
+--- a/7_CUDALibraries/MersenneTwisterGP11213/Makefile
++++ b/7_CUDALibraries/MersenneTwisterGP11213/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM13) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -115,7 +115,7 @@ endif
+ 
+ # Common includes and paths for CUDA, CURAND
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I../../common/inc 
+-LDFLAGS       += -lcurand
++LIBS       += -lcurand
+ 
+ # Target rules
+ all: build
+@@ -126,7 +126,7 @@ MersenneTwister.o: MersenneTwister.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ MersenneTwisterGP11213: MersenneTwister.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/batchCUBLAS/Makefile b/7_CUDALibraries/batchCUBLAS/Makefile
+index fce5d59..86492c6 100644
+--- a/7_CUDALibraries/batchCUBLAS/Makefile
++++ b/7_CUDALibraries/batchCUBLAS/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += -lcublas
++LIBS       += -lcublas
+ 
+ # Target rules
+ all: build
+@@ -128,7 +128,7 @@ batchCUBLAS.o: batchCUBLAS.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ batchCUBLAS: batchCUBLAS.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/boxFilterNPP/Makefile b/7_CUDALibraries/boxFilterNPP/Makefile
+index 30fdd74..d792f24 100644
+--- a/7_CUDALibraries/boxFilterNPP/Makefile
++++ b/7_CUDALibraries/boxFilterNPP/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -124,7 +124,7 @@ endif
+ 
+ # Common includes and paths for CUDA, NPP
+ INCLUDES      := -I. -I.. -I../../common/inc -I../common/UtilNPP/ -I../common/FreeImage/include -I$(CUDA_INC_PATH)
+-LDFLAGS       += $(LIBPATH_OPENGL) -lnpp
++LIBS       += $(LIBPATH_OPENGL) -lnpp
+ 
+ # Miscellenous libraries (FreeImage Library)
+ ifneq ($(DARWIN),) 
+@@ -142,7 +142,7 @@ boxFilterNPP.o: boxFilterNPP.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ boxFilterNPP: boxFilterNPP.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/conjugateGradient/Makefile b/7_CUDALibraries/conjugateGradient/Makefile
+index d3fca0a..8b1cd6f 100644
+--- a/7_CUDALibraries/conjugateGradient/Makefile
++++ b/7_CUDALibraries/conjugateGradient/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += -lcublas -lcusparse
++LIBS       += -lcublas -lcusparse
+ 
+ # Target rules
+ all: build
+@@ -128,7 +128,7 @@ main.o: main.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ conjugateGradient: main.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/conjugateGradientPrecond/Makefile b/7_CUDALibraries/conjugateGradientPrecond/Makefile
+index c124bc2..b84db36 100644
+--- a/7_CUDALibraries/conjugateGradientPrecond/Makefile
++++ b/7_CUDALibraries/conjugateGradientPrecond/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += -lcublas -lcusparse
++LIBS       += -lcublas -lcusparse
+ 
+ # Target rules
+ all: build
+@@ -128,7 +128,7 @@ main.o: main.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ conjugateGradientPrecond: main.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/freeImageInteropNPP/Makefile b/7_CUDALibraries/freeImageInteropNPP/Makefile
+index dfd5a3c..79830e0 100644
+--- a/7_CUDALibraries/freeImageInteropNPP/Makefile
++++ b/7_CUDALibraries/freeImageInteropNPP/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -124,7 +124,7 @@ endif
+ 
+ # Common includes and paths for CUDA, NPP
+ INCLUDES      := -I. -I.. -I../../common/inc -I../common/UtilNPP/ -I../common/FreeImage/include -I$(CUDA_INC_PATH)
+-LDFLAGS       += $(LIBPATH_OPENGL) -lnpp
++LIBS       += $(LIBPATH_OPENGL) -lnpp
+ 
+ # Miscellenous libraries (FreeImage Library)
+ ifneq ($(DARWIN),) 
+@@ -142,7 +142,7 @@ freeImageInteropNPP.o: freeImageInteropNPP.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ freeImageInteropNPP: freeImageInteropNPP.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/grabcutNPP/Makefile b/7_CUDALibraries/grabcutNPP/Makefile
+index 02e0b05..c1f5c0d 100644
+--- a/7_CUDALibraries/grabcutNPP/Makefile
++++ b/7_CUDALibraries/grabcutNPP/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM11) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ endif
+ 
+ # Common includes and paths for CUDA, NPP
+ INCLUDES      := -I. -I.. -I../../common/inc -I../common/UtilNPP -I../common/FreeImage/include -I$(CUDA_INC_PATH)
+-LDFLAGS       += $(LIBPATH_OPENGL) -lnpp 
++LIBS       += $(LIBPATH_OPENGL) -lnpp 
+ 
+ # Miscellenous libraries (FreeImage Library)
+ ifneq ($(DARWIN),) 
+@@ -155,7 +155,7 @@ GrabcutMain.o: GrabcutMain.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ grabcutNPP: GrabcutGMM.o GrabcutHistogram.o GrabcutUtil.o GrabCut.o GrabcutMain.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/histEqualizationNPP/Makefile b/7_CUDALibraries/histEqualizationNPP/Makefile
+index a90f4d7..e6077d1 100644
+--- a/7_CUDALibraries/histEqualizationNPP/Makefile
++++ b/7_CUDALibraries/histEqualizationNPP/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -124,7 +124,7 @@ endif
+ 
+ # Common includes and paths for CUDA, NPP
+ INCLUDES      := -I. -I.. -I../../common/inc -I../common/UtilNPP/ -I../common/FreeImage/include -I$(CUDA_INC_PATH)
+-LDFLAGS       += $(LIBPATH_OPENGL) -lnpp
++LIBS       += $(LIBPATH_OPENGL) -lnpp
+ 
+ # Miscellenous libraries (FreeImage Library)
+ ifneq ($(DARWIN),) 
+@@ -142,7 +142,7 @@ histEqualizationNPP.o: histEqualizationNPP.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ histEqualizationNPP: histEqualizationNPP.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/imageSegmentationNPP/Makefile b/7_CUDALibraries/imageSegmentationNPP/Makefile
+index b280e62..8161e5b 100644
+--- a/7_CUDALibraries/imageSegmentationNPP/Makefile
++++ b/7_CUDALibraries/imageSegmentationNPP/Makefile
+@@ -85,14 +85,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -124,7 +124,7 @@ endif
+ 
+ # Common includes and paths for CUDA, NPP
+ INCLUDES      := -I. -I.. -I../../common/inc -I../common/UtilNPP/ -I../common/FreeImage/include -I$(CUDA_INC_PATH)
+-LDFLAGS       += $(LIBPATH_OPENGL) -lnpp
++LIBS       += $(LIBPATH_OPENGL) -lnpp
+ 
+ # Miscellenous libraries (FreeImage Library)
+ ifneq ($(DARWIN),) 
+@@ -142,7 +142,7 @@ imageSegmentationNPP.o: imageSegmentationNPP.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ imageSegmentationNPP: imageSegmentationNPP.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/randomFog/Makefile b/7_CUDALibraries/randomFog/Makefile
+index 23a19a3..e66a511 100644
+--- a/7_CUDALibraries/randomFog/Makefile
++++ b/7_CUDALibraries/randomFog/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -125,7 +125,7 @@ endif
+ 
+ # Common includes and paths for CUDA, CURAND
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc -I../common/FreeImage/include 
+-LDFLAGS       += $(LIBPATH_OPENGL) -lcurand
++LIBS       += $(LIBPATH_OPENGL) -lcurand
+ 
+ # Target rules
+ all: build
+@@ -139,7 +139,7 @@ randomFog.o: randomFog.cpp
+ 	$(GCC) $(CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ randomFog: randomFog.o rng.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/simpleCUBLAS/Makefile b/7_CUDALibraries/simpleCUBLAS/Makefile
+index 02b11ca..5dffa7d 100644
+--- a/7_CUDALibraries/simpleCUBLAS/Makefile
++++ b/7_CUDALibraries/simpleCUBLAS/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -117,7 +117,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += -lcublas
++LIBS       += -lcublas
+ 
+ # Target rules
+ all: build
+@@ -128,7 +128,7 @@ simpleCUBLAS.o: simpleCUBLAS.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleCUBLAS: simpleCUBLAS.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/simpleCUFFT/Makefile b/7_CUDALibraries/simpleCUFFT/Makefile
+index 3eb3abe..0aa7a47 100644
+--- a/7_CUDALibraries/simpleCUFFT/Makefile
++++ b/7_CUDALibraries/simpleCUFFT/Makefile
+@@ -86,14 +86,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30)
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH) -lcudart
++      LIBS   := -L$(CUDA_LIB_PATH) -lcudart
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -118,7 +118,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += -lcudart -lcufft
++LIBS       += -lcudart -lcufft
+ 
+ # Target rules
+ all: build
+@@ -129,7 +129,7 @@ simpleCUFFT.o: simpleCUFFT.cu
+ 	$(NVCC) $(NVCCFLAGS) $(EXTRA_NVCCFLAGS) $(INCLUDES) $(GENCODE_FLAGS) -o $@ -c $<
+ 
+ simpleCUFFT: simpleCUFFT.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
+diff --git a/7_CUDALibraries/simpleDevLibCUBLAS/Makefile b/7_CUDALibraries/simpleDevLibCUBLAS/Makefile
+index 84bd444..4dea500 100644
+--- a/7_CUDALibraries/simpleDevLibCUBLAS/Makefile
++++ b/7_CUDALibraries/simpleDevLibCUBLAS/Makefile
+@@ -78,14 +78,14 @@ GENCODE_FLAGS   := $(GENCODE_SM10) $(GENCODE_SM20) $(GENCODE_SM30) $(GENCODE_SM3
+ 
+ # OS-specific build flags
+ ifneq ($(DARWIN),) 
+-      LDFLAGS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH)
++      LIBS   := -Xlinker -rpath $(CUDA_LIB_PATH) -L$(CUDA_LIB_PATH)
+       CCFLAGS   := -arch $(OS_ARCH) 
+ else
+   ifeq ($(OS_SIZE),32)
+-      LDFLAGS   := -L$(CUDA_LIB_PATH)
++      LIBS   := -L$(CUDA_LIB_PATH)
+       CCFLAGS   := -m32
+   else
+-      LDFLAGS   := -L$(CUDA_LIB_PATH)64
++      LIBS   := -L$(CUDA_LIB_PATH)64
+       CCFLAGS   := -m64
+   endif
+ endif
+@@ -109,7 +109,7 @@ endif
+ 
+ # Common includes and paths for CUDA
+ INCLUDES      := -I$(CUDA_INC_PATH) -I. -I.. -I../../common/inc
+-LDFLAGS       += -lcudart -lcublas
++LIBS       += -lcudart -lcublas
+ # Target rules
+ all: build
+ 
+@@ -125,7 +125,7 @@ simpleDevLibCUBLAS.o: simpleDevLibCUBLAS.cpp
+ 	$(GCC) $(CCFLAGS) $(EXTRA_CCFLAGS) $(INCLUDES) -o $@ -c $<
+ 
+ simpleDevLibCUBLAS: simpleDevLibCUBLAS.o kernels.o kernelsLink.o
+-	$(GCC) $(CCFLAGS) -o $@ $+ $(LDFLAGS) $(EXTRA_LDFLAGS)
++	$(GCC) $(LDFLAGS) $(CCFLAGS) -o $@ $+ $(LIBS) $(EXTRA_LDFLAGS)
+ 	mkdir -p ../../bin/$(OSLOWER)/$(TARGET)
+ 	cp $@ ../../bin/$(OSLOWER)/$(TARGET)
+ 
