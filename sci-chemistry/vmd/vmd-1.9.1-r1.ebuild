@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_DEPEND="2"
 
-inherit eutils multilib prefix python toolchain-funcs
+inherit cuda eutils multilib prefix python toolchain-funcs
 
 DESCRIPTION="Visual Molecular Dynamics"
 HOMEPAGE="http://www.ks.uiuc.edu/Research/vmd/"
@@ -67,6 +67,8 @@ pkg_nofetch() {
 }
 
 src_prepare() {
+	cuda_sanitize
+
 	cd "${WORKDIR}"/plugins
 
 	epatch "${WORKDIR}"/${P}-gentoo-plugins.patch
@@ -116,7 +118,7 @@ src_prepare() {
 		-e "s:gentoo-nvcc:${EPREFIX}/opt/cuda/bin/nvcc:g" \
 		-e "s:gentoo-cflags:${CFLAGS}:g" \
 		-e "s:gentoo-cxxflags:${CXXFLAGS}:g" \
-		-e "s:gentoo-nvflags: -O3 -v:g" \
+		-e "s:gentoo-nvflags::g" \
 		-e "s:gentoo-ldflags:${LDFLAGS}:g" \
 		-e "s:gentoo-plugindir:${WORKDIR}/plugins:g" \
 		-e "s:gentoo-fltk-include:$(fltk-config --includedir):g" \
@@ -133,19 +135,10 @@ src_prepare() {
 #		-i configure || die "failed setting up python"
 
 	if use cuda; then
-		local gcc_bindir
-		if has_version sys-devel/gcc:4.5; then
-			gcc_bindir="$(ls -d ${EPREFIX}/usr/*pc-linux-gnu/gcc-bin/4.5*)"
-		elif has_version sys-devel/gcc:4.4; then
-			gcc_bindir="$(ls -d ${EPREFIX}/usr/*pc-linux-gnu/gcc-bin/4.4*)"
-		else
-			ewarn "Please install gcc with a version between 4.4* and 4.5*"
-		fi
-
 		sed \
 			-e "s:gentoo-cuda-lib:${EPREFIX}/opt/cuda/$(get_libdir):g" \
-			-e "/^\$arch_nvccflags/s:=:= \"--compiler-bindir=${gcc_bindir} \" . \n:1" \
-			-i configure || die
+			-e "/NVCCFLAGS/s:=:= ${NVCCFLAGS}:g" \
+			-i configure src/Makefile || die
 	fi
 
 	sed \
