@@ -14,12 +14,11 @@ DESCRIPTION="A collection of tools missing from the Python standard library"
 HOMEPAGE="http://mathema.tician.de/software/pytools"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="test"
+IUSE=""
 
 DEPEND="
-	dev-python/setuptools
-	test? ( dev-python/pytest )"
+	dev-python/setuptools"
 RDEPEND=""
