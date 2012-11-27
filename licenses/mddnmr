@@ -1,172 +1,39 @@
-MddNMR 1.2c
+Copyright and Legal Information 
 
-Copyright and Legal Information
+Copyright (C) V. Orekhov, V. Jaravine, M. Mayzel, K. Kazimierczuk, Swedish NMR Center, University of Gothenburg, 2004-2011.
 
-Date: Aug 16, 2006
+Date: Jul 3, 2011 
 
-MddNMR is a program for dealing with uniformly and non-uniformly sampled (sparse) NMR spectra.
-It can be used for decomposition of multidimensional NMR data into components in order 
-to estimate frequencies, amplitudes and other spectral features. It also possible to 
-interpolate missing time domain data points to allow regular spectra processing with FFT, LP, etc.
-The following is legal information pertaining to the use of
-the MddNMR program. It applies to all MddNMR source files,
-executable (binary) files, configuration files, documentation
-files contained in the official MddNMR archives. (Certain
-portions refer to custom versions of the software, there are
-specific rules listed below for these versions also.) All of
-these are referred to here as "the software".
-THIS NOTICE MUST ACCOMPANY ALL OFFICIAL OR CUSTOM MddNMR FILES.
-IT MAY NOT BE REMOVED OR MODIFIED. THIS INFORMATION PERTAINS
-TO ALL USE OF THE PACKAGE WORLDWIDE. THIS DOCUMENT SUPERSEDES
-ALL PREVIOUS LICENSES OR DISTRIBUTION POLICIES.
+DESCRIPTION 
+MddNMR is a program for processing uniformly and non-uniformly sampled (sparse) NMR spectra. 
+The following is legal information pertaining to the use of the MddNMR program. It applies to all MddNMR source files, executable (binary) files, configuration and documentation files contained in the official MddNMR archives. (Certain portions refer to custom versions of the software, there are specific rules listed below for these versions also.) All of these are referred to here as "the software".  
 
-IMPORTANT LEGAL INFORMATION
+THIS NOTICE MUST ACCOMPANY ALL OFFICIAL OR CUSTOM MddNMR FILES. IT MAY NOT BE REMOVED OR MODIFIED. THIS INFORMATION PERTAINS TO ALL USE OF THE PACKAGE WORLDWIDE. THIS DOCUMENT SUPERSEDES ALL PREVIOUS LICENSES OR DISTRIBUTION POLICIES.  
 
-While the use MddNMR is essentially free of any costs to
-noncommercial purposes, commercial users will be asked for
-support of the research and development of MddNMR. Therefore,
-the following legal information exclusively concerns
-distribution and use of the software for noncommercial
-purposes. For commercial purposes of MddNMR please contact the
-copyright holders.
-Permission is granted to the user to use the MddNMR program and
-all associated files in this package for making calculations.
-The use of the software for this purpose is free. The user
-retains all rights to these results and may use them for any
-noncommercial purpose. When results obtained by MddNMR are
-used in lectures, publications or other similar occasions,
-then a reference to the authors and the following paper is to
-be made:
-Orekhov, V.Y., I. Ibraghimov, and M. Billeter, Optimizing resolution in multidimensional 
-NMR by three-way decomposition. J. Biomol. NMR, 2003. 27(2): p. 165-173.
-This software package and all of the files in this archive
-are copyrighted by the authors represented by Vladislav
-Orekhov (Gothenburg University). They may
-only be distributed and/or modified according to the
-guidelines listed below. The spirit of the guidelines below
-is to provide the full MddNMR package freely to as many users
-as possible, prevent MddNMR users and developers from being
-taken advantage of, enhance the life quality of those who
-come in contact with MddNMR. This legal document was created
-so these goals could be realized. You are legally bound to
-follow these rules, but we hope you will follow them as a
-matter of ethics, rather than fear of litigation.
-No portion of this package may be separated from the package
-and distributed separately other than under the conditions
-specified in the guidelines below.
-This package may only be bundled in other software packages
-with the explicit permission of the copyright holders.
-This package may only be included in software compilations
-using media such as, but not limited to, floppy disk, CD-ROM,
-tape backup, optical disks, hard disks, or memory cards with
-the explicit permission of the copyright holders.
-The user is granted the privilege to modify and compile the
-source for their own personal use in any fashion they see
-fit. What you do with the software in your own home is your
-business.
-If the user wishes to distribute a modified version of the
-software, documentation or other parts of the package (here
-after referred to as a "custom version") they must follow the
-guidelines listed below. These guidelines have been
-established to promote the growth of MddNMR and prevent
-difficulties for users and developers alike. Please follow
-them carefully for the benefit of all concerned when creating
-a custom version.
-You may not incorporate any portion of the MddNMR source code
-in any software other than a custom version of MddNMR without
-the explicit permission of the copyright holders. However
-authors who contribute source to MddNMR may still retain all
-rights to use their contributed code for any purpose as
-described below.
-The user is encouraged to send enhancements and bug fixes to
-the MddNMR authors, but the authors are in no way required to
-utilize these enhancements or fixes. By sending material to
-the authors, the contributor asserts that he owns the
-materials or has the right to distribute these materials. He
-authorizes the MddNMR authors to use the materials any way
-they like. The contributor still retains rights to the
-donated material, but by donating you grant equal rights to
-the MddNMR authors. The MddNMR authors don't have to use the
-material, but if we do, you do not acquire any rights related
-to MddNMR. We will give you credit if applicable.
+IMPORTANT LEGAL INFORMATION 
+While the use MddNMR is essentially free of any costs for noncommercial purposes, commercial users and software developers, who wish to bundle MddNMR with other software, will be asked for support of the research and development of MddNMR. For commercial purposes of MddNMR please contact the copyright holders. Permission is granted to use the MddNMR program and all associated files in this package for making calculations. Use of the software for academic and educational purposes is free. The user retains all rights to the results and may use them for any noncommercial purpose. The following legal information exclusively concerns distribution and use of the software for noncommercial purposes.
+
+When results obtained by MddNMR are used in lectures, publications or other similar occasions, then a reference to the authors and at least one of the following papers is to be made: 
+(1) Orekhov, V.Y. and V.A. Jaravine, Analysis of non-?uniformly sampled spectra with Multi-?Dimensional Decomposition. Prog. Nucl. Magn. Reson. Spectrosc., 2011, in press, doi:10.1016/j.pnmrs.2011.02.002 	
+	
+(2) Kazimierczuk, K. and V.Y. Orekhov, Accelerated NMR Spectroscopy by Using Compressed Sensing. Angew. Chem.-Int. Edit., 2011, 123, 5670-3 
+
+
+This software package and all of the files in this archive are copyrighted by the authors, which are represented by Prof. Vladislav Orekhov for distribution, copyright and other legal issues (VO). The software may only be distributed and/or modified according to the guidelines listed below. The spirit of the guidelines below is to provide the MddNMR package freely to as many users as possible, prevent MddNMR users and developers from being taken advantage of, enhance the life quality of those who come in contact with MddNMR. This legal document was created so these goals could be realized. You are legally bound to follow these rules, but we hope you will follow them as a matter of ethics, rather than fear of litigation. 
+
+No portion of this package may be separated from the package and distributed separately other than under the conditions specified in the guidelines below. This package may only be bundled in other software packages with the explicit permission of the copyright holders. This package may only be posted in the Internet and/or included in software compilations using media such as, but not limited to, floppy disk, CD-ROM, tape backup, optical disks, hard disks, or memory cards with the explicit permission of the copyright holders. 
+
+CUSTOM VERSIONS
+With a separate agreement a user may be granted the privilege to modify and compile the source for their own use in any fashion they see fit. What you do with the software in your home or lab is your business, however, in such cases the activity is usually limited by the agreement or defined by the collaborative project. If the user wishes to distribute a modified version of the software, documentation or other parts of the package (here after referred to as a "custom version") they must follow the guidelines listed below. These guidelines have been established to promote the growth of MddNMR and prevent difficulties for users and developers alike. Please follow them carefully for the benefit of all concerned when creating a custom version. You may not incorporate any portion of the MddNMR source code in any software other than a custom version of MddNMR without the explicit permission of the copyright holders. However authors who contribute source to MddNMR may still retain all rights to use their contributed code for any purpose as described below. The user is encouraged to send enhancements and bug fixes to the MddNMR authors, but the authors are in no way required to utilize these enhancements or fixes. By sending material to the authors, the contributor asserts that he owns the materials or has the right to distribute these materials. He authorizes the MddNMR authors to use the materials any way they like. The contributor still retains rights to the donated material, but by donating you grant equal rights to the MddNMR authors. The MddNMR authors don't have to use the material, but if we do, you do not acquire any rights related to MddNMR. We will give you credit if applicable. 
+
+CONDITIONS FOR DISTRIBUTION OF CUSTOM VERSIONS 
+The permission to distribute compiled custom version of the software may be granted in advance with specific permission from VO. Typical conditions include but not limited to following conditions are met. These conditions also apply to custom documentation based on our files. - Mark your version clearly on all modified files stating this to be a modified and unofficial version. - Make all of your modifications to MddNMR freely and publicly   available. - Include clear and obvious information on how to obtain the   official MddNMR. - Include contact and support information for your version. - Include all credits and credit screens for the official   version. - Include a copy of this document. The MddNMR authors are not obligated to provide you or your users any technical support. 
 
 GENERAL RULES FOR ALL DISTRIBUTION
-The permission to distribute this package under certain very
-specific conditions is granted in advance, provided that the
-above and following conditions are met.
-These archives must not be re-archived using a different
-method without the explicit permission of the authors. You
-may rename the archives only to meet the file name conventions
-of your system or to avoid file name duplications but we ask
-that you try to keep file names as similar to the originals
-as possible.
-You must distribute a full package of archives as described
-in the next section.
-Noncommercial distribution (such as a user copying the
-software for a personal friend or colleague and not charging
-money or services for that copy) has no other restrictions.
-All forms of commercial distribution are only allowed with
-explicit permission of the copyright holders.
-The copyright holders reserve the right to withdraw
-distribution privileges from any group, individual, or
-organization for any reason.
+All requests to acquire the software should be sent to VO, who normally distributes the software on behalf of all co-authors. The permission to distribute this package under certain very specific conditions is granted in advance to other persons or organizations, provided that the above and following conditions are met. The software archives must not be renamed or re-archived using a different method without the explicit permission of the authors. The full software package, as described in the next section, must always be distributed. All forms of commercial and non-profit distribution are only allowed with explicit permission of the copyright holders represented by VO. Clear reference to the copyright holders (at least to VO) must be present in any description/synopsis of software. The copyright holders reserve the right to withdraw distribution privileges from any group, individual, or organization for any reason. 
 
-DEFINITION OF "MddNMR PACKAGE"
-MddNMR is contained in an archive containing executables,
-documentation and source files. MddNMR is officially distributed for
-PC (LINUX) and MAC (OS X 10.3 and later). Other systems may be added in the future.
-Distributors may support different platforms but for each
-platform you support you must distribute a full package.
+DEFINITION OF "MddNMR PACKAGE" MddNMR is distributed as a number of  archive containing executables, installation scripts, examples, and documentation. MddNMR is officially distributed for PC (LINUX) and Intel MAC (OS X 10.6 and later). Other systems may be added in the future. Distributors may support different platforms but for each platform they support the full package must be distributed. 
 
-CONDITIONS FOR DISTRIBUTION OF ORIGINAL VERSION
-On-line services may distribute the MddNMR archives under the
-conditions following this section.
-The archives must all be easily available on the service and
-should be grouped together in a similar on-line area.
-It is strongly requested that operators remove prior versions
-of MddNMR to avoid user confusion and simplify or minimize our
-support efforts. They should also notify the MddNMR authors so
-that they can be informed about new versions.
-The on-line service may only charge standard usage rates for
-the time required to download this software. A premium may
-not be charged for this package.
-
-CONDITIONS FOR DISTRIBUTION OF CUSTOM VERSIONS
-You may distribute custom compiled versions only if you comply
-with the following conditions. These conditions also apply to
-custom documentation based on our files.
-- Mark your version clearly on all modified files stating
-  this to be a modified and unofficial version.
-- Make all of your modifications to MddNMR freely and publicly
-  available.
-- Include clear and obvious information on how to obtain the
-  official MddNMR.
-- Include contact and support information for your version.
-- Include all credits and credit screens for the official
-  version.
-- Include a copy of this document.
-The MddNMR authors are not obligated to provide you or your
-users any technical support.
-
-DISCLAIMER
-This software is provided as is without any guarantees or
-warranty. Although the authors have attempted to find and
-correct any bugs in the package, they are not responsible for
-any damage or losses of any kind caused by the use or misuse
-of the package. The authors are under no obligation to provide
-service, corrections, or upgrades to this package.
-
-[End of Legal Information]
-
-If you have any problems with the program, the MddNMR people
-would like to hear about them. Also, if you have any comments,
-questions or enhancements, please contact the MddNMR authors
-under the E-mail addresses
-orov@nmr.gu.se 
-Or write to: Vladislav Orekhov, Swedish NMR Centre, Box 465,
-405 30 Gothenburg, Sweden.
-See the README file for more detailed instructions about
-installing the program.
-Users are encouraged to register at orov@nmr.gu.se, so that they
-can be informed of new versions.
-
+DISCLAIMER 
+This software is provided as is without any guarantees or warranty. Although the authors have attempted to find and correct any bugs in the package, they are not responsible for any damage or losses of any kind caused by the use or misuse of the package. The authors are under no obligation to provide service, corrections, or upgrades to this package. 
+[End of Legal Information] 
