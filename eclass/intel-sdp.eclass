@@ -97,7 +97,7 @@ LICENSE="Intel-SDP"
 # Future work, #394411
 #SLOT="${_INTEL_PV1}.${_INTEL_PV2}"
 SLOT="0"
-IUSE="doc examples multilib"
+IUSE="examples multilib static-libs"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 RESTRICT="mirror"
@@ -326,16 +326,20 @@ intel-sdp_src_unpack() {
 # @DESCRIPTION:
 # Install everything
 intel-sdp_src_install() {
-	if ! use doc && [[ -d "${INTEL_SDP_DIR}"/Documentation ]]; then
-		ebegin "Cleaning out documentation"
-		find "${INTEL_SDP_DIR}"/Documentation -delete || die
-		eend
+	dodoc -r "${INTEL_SDP_DIR}"/Documentation/*
+
+	ebegin "Cleaning out documentation"
+	find "${INTEL_SDP_DIR}"/Documentation -delete || die
+	eend
+
+	if use examples && [[ -d "${INTEL_SDP_DIR}"/Samples ]]; then
+		insinto /usr/share/${P}/examples/
+		doins -r "${INTEL_SDP_DIR}"/Samples/*
 	fi
-	if ! use examples && [[ -d "${INTEL_SDP_DIR}"/Samples ]]; then
-		ebegin "Cleaning out examples"
-		find "${INTEL_SDP_DIR}"/Samples -delete || die
-		eend
-	fi
+	ebegin "Cleaning out examples"
+	find "${INTEL_SDP_DIR}"/Samples -delete || die
+	eend
+
 	if [[ -d "${INTEL_SDP_DIR}"/eclipse_support ]]; then
 		if has eclipse ${IUSE} && use eclipse; then
 			intel_link_eclipse_plugins
@@ -348,16 +352,20 @@ intel-sdp_src_install() {
 
 	if [[ -d "${INTEL_SDP_DIR}"/man ]]; then
 		doman "${INTEL_SDP_DIR}"/man/en_US/man1/*
-		[[ ${LINGUAS} == "*ja_JP*" ]] && \
+		use linguas_ja && \
 			doman -i18n=ja_JP "${INTEL_SDP_DIR}"/man/ja_JP/man1/*
 
 		find "${INTEL_SDP_DIR}"/man -delete || die
 	fi
 
-	einfo "Tagging ${PN}"
+	use statc-libs || \
+		find opt -type f -name "*.a" -delete || die
+
+	ebegin "Tagging ${PN}"
 	find opt -name \*sh -type f -exec sed -i \
 		-e "s:<.*DIR>:${INTEL_SDP_EDIR}:g" \
 		'{}' + || die
+	eend
 
 	[[ -d "${ED}" ]] || dodir /
 	mv opt "${ED}"/ || die "moving files failed"
