@@ -1,10 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=5
 
-REL="27Jan10"
+PYTHON_DEPEND="2"
+
+REL="24Sep2012"
 MY_P="${PN}${PV}"
 
 DESCRIPTION="Program for processing of non-uniformly sampled (NUS) multidimensional NMR spectra"
@@ -16,28 +18,42 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="mddnmr"
 IUSE=""
 
-RDEPEND="sci-chemistry/nmrpipe"
+RDEPEND="
+	app-shells/tcsh
+	sci-chemistry/nmrpipe"
 DEPEND=""
+
+RESTRICT="mirror"
 
 S="${WORKDIR}"/${MY_P}
 
+QA_PREBUILT="opt/${PN}/.*"
+
 src_install() {
 	exeinto /opt/${PN}/com
-	doexe com/* || die
+	doexe com/*
 
 	exeinto /opt/${PN}/bin
 	if use amd64; then
-		doexe binLinux64/* || die
+		doexe binLinux64Static/*
 	elif use x86; then
-		doexe binLinux32/* || die
+		doexe binLinux32Static/*
 	fi
 
-	cat >> "${T}"/43mddnmr <<- EOF
-	PATH="${EPREFIX}/opt/${PN}/com:${EPREFIX}/opt/${PN}/bin"
-	MDD_NMR="/opt/${PN}"
+	insinto /opt/${PN}/
+	doins -r GUI
+
+	cat >> "${T}"/qMDD <<- EOF
+	#!${EPREFIX}/bin/csh
+
+	setenv MDD_NMR "${EPREFIX}/opt/${PN}"
+	setenv MDD_NMRbin "${EPREFIX}/opt/${PN}/bin/"
+	setenv path=( . "$MDD_NMRbin"  "${MDD_NMR}/com" )
+
+	csh "${EPREFIX}/opt/${PN}/GUI/qMDD"
 	EOF
 
-	doenvd "${T}"/43mddnmr
+	dobin "${T}"/qMDD
 
-	dodoc Readme* || die
+	dodoc *pdf
 }
