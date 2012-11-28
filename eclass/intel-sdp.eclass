@@ -91,7 +91,7 @@ _INTEL_URI="http://registrationcenter-download.intel.com/irc_nas/${INTEL_DID}/${
 SRC_URI="
 	amd64? ( multilib? ( ${_INTEL_URI}_${INTEL_DPV}.tgz ) )
 	amd64? ( !multilib? ( ${_INTEL_URI}_${INTEL_DPV}_intel64.tgz ) )
-	x86?  ( ${_INTEL_URI}_${INTEL_DPV}_ia32.tgz )"
+	x86?	( ${_INTEL_URI}_${INTEL_DPV}_ia32.tgz )"
 
 LICENSE="Intel-SDP"
 # Future work, #394411
@@ -124,11 +124,6 @@ S="${WORKDIR}"
 
 QA_PREBUILT="${INTEL_SDP_DIR}/*"
 
-intel-sdp_pkg_pretend() {
-	: ${CHECKREQS_DISK_BUILD:=256M}
-	check-reqs_pkg_pretend
-}
-
 # @ECLASS-VARIABLE: INTEL_ARCH
 # @DEFAULT_UNSET
 # @DESCRIPTION:
@@ -136,138 +131,160 @@ intel-sdp_pkg_pretend() {
 #
 # e.g. amd64-multilib -> INTEL_ARCH="intel64 ia32"
 
-# @ECLASS-FUNCTION: intel_link_eclipse_plugins
+# @FUNCTION: _isdp_link_eclipse_plugins
+# @INTERNAL
 # @DESCRIPTION:
 # Creating necessary links to use intel compiler with eclipse
-intel_link_eclipse_plugins() {
-    local c f
-    pushd ${INTEL_SDP_DIR}/eclipse_support > /dev/null
-        for c in cdt*; do
-            local cv=${c#cdt} ev=3.$(( ${cv:0:1} - 1))
-            if has_version "dev-util/eclipse-sdk:${ev}"; then
-                einfo "Linking eclipse (v${ev}) plugin cdt (v${cv})"
-                for f in cdt${cv}/eclipse/features/*; do
-                    dodir /usr/$(get_libdir)/eclipse-${ev}/features
-                    dosym "${INTEL_SDP_EDIR}"/eclipse_support/${f} \
-                        /usr/$(get_libdir)/eclipse-${ev}/features/ || die
-                done
-                for f in cdt${cv}/eclipse/plugins/*; do
-                    dodir /usr/$(get_libdir)/eclipse-${ev}/plugins
-                    dosym "${INTEL_SDP_EDIR}"/eclipse_support/${f} \
-                        /usr/$(get_libdir)/eclipse-${ev}/plugins/ || die
-                done
-            fi
-        done
-    popd > /dev/null
+_isdp_link_eclipse_plugins() {
+	local c f
+	pushd ${INTEL_SDP_DIR}/eclipse_support > /dev/null
+		for c in cdt*; do
+			local cv=${c#cdt} ev=3.$(( ${cv:0:1} - 1))
+			if has_version "dev-util/eclipse-sdk:${ev}"; then
+				einfo "Linking eclipse (v${ev}) plugin cdt (v${cv})"
+				for f in cdt${cv}/eclipse/features/*; do
+					dodir /usr/$(get_libdir)/eclipse-${ev}/features
+					dosym "${INTEL_SDP_EDIR}"/eclipse_support/${f} \
+						/usr/$(get_libdir)/eclipse-${ev}/features/ || die
+				done
+				for f in cdt${cv}/eclipse/plugins/*; do
+					dodir /usr/$(get_libdir)/eclipse-${ev}/plugins
+					dosym "${INTEL_SDP_EDIR}"/eclipse_support/${f} \
+						/usr/$(get_libdir)/eclipse-${ev}/plugins/ || die
+				done
+			fi
+		done
+	popd > /dev/null
 }
 
-# @ECLASS-FUNCTION: big-warning
+# @FUNCTION: _isdp_big-warning
+# @USAGE: [pre-check | test-failed]
 # @INTERNAL
+# @DESCRIPTION:
 # warn user that we really require a license
-big-warning() {
-    case ${1} in
-        test-failed )
-            echo
-            ewarn "Function test failed. Most probably due to an invalid license."
-            ewarn "This means you already tried to bypass the license check once."
-            ;;
-    esac
+_isdp_big-warning() {
+	case ${1} in
+		pre-check )
+			echo ""
+			ewarn "License file not found!"
+			;;
 
-    echo ""
-    ewarn "Make sure you have recieved the an Intel license."
-    ewarn "To receive a non-commercial license, you need to register at:"
-    ewarn "http://software.intel.com/en-us/articles/non-commercial-software-development/"
-    ewarn "Install the license file into ${INTEL_SDP_EDIR}/licenses/"
+		test-failed )
+			echo
+			ewarn "Function test failed. Most probably due to an invalid license."
+			ewarn "This means you already tried to bypass the license check once."
+			;;
+	esac
 
-    case ${1} in
-        pre-check )
-            ewarn "before proceeding with installation of ${P}"
-            echo ""
-            ;;
-        * )
-            echo ""
-            ;;
-            esac
+	echo ""
+	ewarn "Make sure you have recieved the an Intel license."
+	ewarn "To receive a non-commercial license, you need to register at:"
+	ewarn "http://software.intel.com/en-us/articles/non-commercial-software-development/"
+	ewarn "Install the license file into ${INTEL_SDP_EDIR}/licenses/"
+
+	case ${1} in
+		pre-check )
+			ewarn "before proceeding with installation of ${P}"
+			echo ""
+			;;
+		* )
+			echo ""
+			;;
+			esac
 }
 
-# @ECLASS-FUNCTION: _version_test
+# @FUNCTION: _isdp_version_test
 # @INTERNAL
+# @DESCRIPTION:
 # Testing for valid license by asking for version information of the compiler
-_version_test() {
-    local _comp _comp_full _arch _file _warn
-    case ${PN} in
-        ifc )
-            debug-print "Testing ifort"
-            _comp=ifort
-            ;;
-        icc )
-            debug-print "Testing icc"
-            _comp=icc
-            ;;
-        *)
-            die "${PN} is not supported for testing"
-            ;;
-    esac
+_isdp_version_test() {
+	local comp comp_full arch warn
+	case ${PN} in
+		ifc )
+			debug-print "Testing ifort"
+			comp=ifort
+			;;
+		icc )
+			debug-print "Testing icc"
+			comp=icc
+			;;
+		*)
+			die "${PN} is not supported for testing"
+			;;
+	esac
 
-    for _arch in ${INTEL_ARCH}; do
-        case ${EBUILD_PHASE} in
-            install )
-                _comp_full="${ED}/${INTEL_SDP_DIR}/bin/${_arch}/${_comp}"
-                ;;
-            postinst )
-                _comp_full="${INTEL_SDP_EDIR}/bin/${_arch}/${_comp}"
-                ;;
-            * )
-                ewarn "Compile test not supported in ${EBUILD_PHASE}"
-                continue
-                ;;
-        esac
+	for arch in ${INTEL_ARCH}; do
+		case ${EBUILD_PHASE} in
+			install )
+				comp_full="${ED}/${INTEL_SDP_DIR}/bin/${arch}/${comp}"
+				;;
+			postinst )
+				comp_full="${INTEL_SDP_EDIR}/bin/${arch}/${comp}"
+				;;
+			* )
+				ewarn "Compile test not supported in ${EBUILD_PHASE}"
+				continue
+				;;
+		esac
 
-        debug-print "LD_LIBRARY_PATH=\"${INTEL_SDP_EDIR}/bin/${_arch}/\" \"${_comp_full}\" -V"
+		debug-print "LD_LIBRARY_PATH=\"${INTEL_SDP_EDIR}/bin/${arch}/\" \"${comp_full}\" -V"
 
-        LD_LIBRARY_PATH="${INTEL_SDP_EDIR}/bin/${_arch}/" "${_comp_full}" -V &>/dev/null
-        [[ $? -ne 0 ]] && _warn=yes
-    done
-    [[ "${_warn}" == "yes" ]] && big-warning test-failed
+		LD_LIBRARY_PATH="${INTEL_SDP_EDIR}/bin/${arch}/" "${comp_full}" -V &>/dev/null
+		[[ $? -ne 0 ]] && warn=yes
+	done
+	[[ "${warn}" == "yes" ]] && _isdp_big-warning test-failed
 }
 
-# @ECLASS-FUNCTION: run-test
+# @FUNCTION: _isdp_run-test
 # @INTERNAL
 # Test if installed compiler is working
-run-test() {
-    case ${PN} in
-        ifc | icc )
-            _version_test ;;
-        * )
-            debug-print "No test available for ${PN}"
-            ;;
-    esac
+_isdp_run-test() {
+	case ${PN} in
+		ifc | icc )
+			_isdp_version_test ;;
+		* )
+			debug-print "No test available for ${PN}"
+			;;
+	esac
 }
 
-# @ ECLASS-FUNCTION: intel-sdp_pkg_setup
+# @FUNCTION: intel-sdp_pkg_pretend
 # @DESCRIPTION:
-# The setup finction serves two purposes:
-#
+# @CODE
 # * Check that the user has a (valid) license file before going on.
-#
-# * Setting up and sorting some internal variables
-intel-sdp_pkg_setup() {
-	local _warn=1 _dirs i _ret arch a p
+# * Check for space requirements being fullfilled
+# @CODE
+intel-sdp_pkg_pretend() {
+	local warn=1 dir dirs i ret arch a p
+
+	: ${CHECKREQS_DISK_BUILD:=256M}
+	check-reqs_pkg_pretend
+
 	_dirs=(
 		"${INTEL_SDP_EDIR}/licenses"
 		"${INTEL_SDP_EDIR}/Licenses"
 		"${EPREFIX}/opt/intel/licenses"
 		)
-	for ((i = 0; i < ${#_dirs[@]}; i++)); do
-		ebegin "Checking for a license in: ${_dirs[$i]}"
-		[[ $( ls "${_dirs[$i]}"/*lic 2>/dev/null ) ]]; _ret=$?
-		eend ${_ret}
-		if [[ ${_ret} == "0" ]]; then
-			_warn=${_ret}
+	for dir in "${dirs[@]}" ; do
+		ebegin "Checking for a license in: ${dirs[$i]}"
+		[[ $( ls "${dirs[$i]}"/*lic 2>/dev/null ) ]]; ret=$?
+		eend ${ret}
+		if [[ ${ret} == "0" ]]; then
+			warn=${ret}
 			break
 		fi
 	done
-	[[ ${_warn} == "0" ]] || big-warning pre-check
+	if [[ ${warn} == "1" ]]; then
+		_isdp_big-warning pre-check
+		die "Could not find license file"
+	fi
+}
+
+# @FUNCTION: intel-sdp_pkg_setup
+# @DESCRIPTION:
+# Setting up and sorting some internal variables
+intel-sdp_pkg_setup() {
+	local arch a p
 
 	if use x86; then
 		arch=${INTEL_X86}
@@ -295,7 +312,7 @@ intel-sdp_pkg_setup() {
 	esac
 }
 
-# @ ECLASS-FUNCTION: intel-sdp_src_unpack
+# @FUNCTION: intel-sdp_src_unpack
 # @DESCRIPTION:
 # Unpacking necessary rpms from tarball, extract them and rearrange the output.
 intel-sdp_src_unpack() {
@@ -308,7 +325,7 @@ intel-sdp_src_unpack() {
 				list+=( ${rpmdir}/${r})
 			done
 		done
-		tar xf "${DISTDIR}"/${t} ${list[@]}  2> /dev/null || die
+		tar xf "${DISTDIR}"/${t} ${list[@]}	2> /dev/null || die
 		for r in ${list[@]}; do
 			rb=$(basename ${r})
 			l=.${rb}_$(date +'%d%m%y_%H%M%S').log
@@ -322,7 +339,7 @@ intel-sdp_src_unpack() {
 	mv opt/intel/* ${INTEL_SDP_DIR} || die "mv to INTEL_SDP_DIR failed"
 }
 
-# @ ECLASS-FUNCTION: intel-sdp_src_install
+# @FUNCTION: intel-sdp_src_install
 # @DESCRIPTION:
 # Install everything
 intel-sdp_src_install() {
@@ -346,7 +363,7 @@ intel-sdp_src_install() {
 
 	if [[ -d "${INTEL_SDP_DIR}"/eclipse_support ]]; then
 		if has eclipse ${IUSE} && use eclipse; then
-			intel_link_eclipse_plugins
+			_isdp_link_eclipse_plugins
 		else
 			ebegin "Cleaning out eclipse plugin"
 			find "${INTEL_SDP_DIR}"/eclipse_support -delete || die
@@ -379,7 +396,7 @@ intel-sdp_src_install() {
 	keepdir "${INTEL_SDP_EDIR}"/licenses
 }
 
-# @ECLASS-FUNCTION
+# @FUNCTION: intel-sdp_pkg_postinst
 # @DESCRIPTION:
 # Add things to intel database
 intel-sdp_pkg_postinst() {
@@ -390,10 +407,10 @@ intel-sdp_pkg_postinst() {
 		echo >> ${INTEL_SDP_DB} \
 			"<:${r%-${_INTEL_PV4}*}-${_INTEL_PV4}:${r}:${INTEL_SDP_EDIR}:${l}:>"
 	done
-	run-test
+	_isdp_run-test
 }
 
-# @ECLASS-FUNCTION
+# @FUNCTION: intel-sdp_pkg_postrm
 # @DESCRIPTION:
 # Sanitize intel database
 intel-sdp_pkg_postrm() {
