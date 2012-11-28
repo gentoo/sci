@@ -165,9 +165,9 @@ create_pkgconfig() {
 	Requires: ${PC_REQUIRES}
 	Requires.private: ${PC_REQUIRES_PRIVATE}
 	Conflicts: ${PC_CONFLICTS}
-	Cflags: ${PC_CFLAGS}
 	Libs: ${PC_LIBS}
 	Libs.private: ${PC_LIBS_PRIVATE}
+	Cflags: ${PC_CFLAGS}
 	EOF
 
 	insinto /usr/$(get_libdir)/pkgconfig
