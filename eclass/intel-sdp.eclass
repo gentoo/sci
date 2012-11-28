@@ -193,7 +193,7 @@ big-warning() {
 # @ECLASS-FUNCTION: _version_test
 # @INTERNAL
 # Testing for valid license by asking for version information of the compiler
-_version-test() {
+_version_test() {
     local _comp _comp_full _arch _file _warn
     case ${PN} in
         ifc )
@@ -326,19 +326,23 @@ intel-sdp_src_unpack() {
 # @DESCRIPTION:
 # Install everything
 intel-sdp_src_install() {
-	dodoc -r "${INTEL_SDP_DIR}"/Documentation/*
+	if [[ -d "${INTEL_SDP_DIR}"/Documentation ]]; then
+		dodoc -r "${INTEL_SDP_DIR}"/Documentation/*
 
-	ebegin "Cleaning out documentation"
-	find "${INTEL_SDP_DIR}"/Documentation -delete || die
-	eend
-
-	if use examples && [[ -d "${INTEL_SDP_DIR}"/Samples ]]; then
-		insinto /usr/share/${P}/examples/
-		doins -r "${INTEL_SDP_DIR}"/Samples/*
+		ebegin "Cleaning out documentation"
+		find "${INTEL_SDP_DIR}"/Documentation -delete || die
+		eend
 	fi
-	ebegin "Cleaning out examples"
-	find "${INTEL_SDP_DIR}"/Samples -delete || die
-	eend
+
+	if [[ -d "${INTEL_SDP_DIR}"/Samples ]]; then
+		if use examples ; then
+			insinto /usr/share/${P}/examples/
+			doins -r "${INTEL_SDP_DIR}"/Samples/*
+		fi
+		ebegin "Cleaning out examples"
+		find "${INTEL_SDP_DIR}"/Samples -delete || die
+		eend
+	fi
 
 	if [[ -d "${INTEL_SDP_DIR}"/eclipse_support ]]; then
 		if has eclipse ${IUSE} && use eclipse; then
@@ -352,13 +356,14 @@ intel-sdp_src_install() {
 
 	if [[ -d "${INTEL_SDP_DIR}"/man ]]; then
 		doman "${INTEL_SDP_DIR}"/man/en_US/man1/*
-		use linguas_ja && \
+		if has linguas_ja ${IUSE} && use linguas_ja; then
 			doman -i18n=ja_JP "${INTEL_SDP_DIR}"/man/ja_JP/man1/*
+		fi
 
 		find "${INTEL_SDP_DIR}"/man -delete || die
 	fi
 
-	use statc-libs || \
+	use static-libs || \
 		find opt -type f -name "*.a" -delete || die
 
 	ebegin "Tagging ${PN}"
