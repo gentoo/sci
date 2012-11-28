@@ -15,6 +15,5 @@
 <use>
   <flag name="xblas">Build LAPACK with extra precision (needs
   <pkg>sci-libs/xblas</pkg>)</flag>
-  <flag name="tmg">Build the Test Matrix Generator library for lapack</flag>
 </use>
 </pkgmetadata>

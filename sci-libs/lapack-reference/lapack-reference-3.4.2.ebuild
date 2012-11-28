@@ -14,7 +14,7 @@ SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="static-libs test tmg xblas"
+IUSE="static-libs test xblas"
 
 RDEPEND="
 	virtual/blas
@@ -41,7 +41,8 @@ src_prepare() {
 	use static-libs && mkdir "${WORKDIR}/${PN}_static"
 	# some string does not get pass properly
 	sed -i -e '/lapack_testing.py/d' CTestCustom.cmake.in || die
-	use tmg || sed -i -e '/lapack_install_library(tmglib)/d' TESTING/MATGEN/CMakeLists.txt
+	# separate ebuild
+	sed -i -e '/lapack_install_library(tmglib)/d' TESTING/MATGEN/CMakeLists.txt
 }
 
 src_configure() {
@@ -50,7 +51,6 @@ src_configure() {
 			-DUSE_OPTIMIZED_BLAS=ON
 			-DBLAS_LIBRARIES="$($(tc-getPKG_CONFIG) --libs blas)"
 			$(cmake-utils_use_build test TESTING)
-			$(cmake-utils_use_build tmg TESTING)
 			$(cmake-utils_use_use xblas XBLAS)
 			$@
 		)
