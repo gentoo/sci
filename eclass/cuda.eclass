@@ -110,13 +110,23 @@ cuda_sanitize() {
 
 # @FUNCTION: cuda_pkg_setup
 # @DESCRIPTION:
-# Sanitise and export NVCCFLAGS by default
+# Call cuda_src_prepare for EAPIs not supporting src_prepare
 cuda_pkg_setup() {
+	cuda_src_prepare
+}
+
+# @FUNCTION: cuda_src_prepare
+# @DESCRIPTION:
+# Sanitise and export NVCCFLAGS by default
+cuda_src_prepare() {
 	cuda_sanitize
 }
 
-EXPORT_FUNCTIONS pkg_setup
+
 case "${EAPI:-0}" in
-	0|1|2|3|4|5) ;;
+	0|1)
+		EXPORT_FUNCTIONS pkg_setup ;;
+	2|3|4|5)
+		EXPORT_FUNCTIONS src_prepare ;;
 	*) die "EAPI=${EAPI} is not supported" ;;
 esac
