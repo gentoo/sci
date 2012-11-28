@@ -326,11 +326,13 @@ intel-sdp_src_unpack() {
 # @DESCRIPTION:
 # Install everything
 intel-sdp_src_install() {
-	dodoc -r "${INTEL_SDP_DIR}"/Documentation/*
+	if [[ -d "${INTEL_SDP_DIR}"/Documentation ]]; then
+		dodoc -r "${INTEL_SDP_DIR}"/Documentation/*
 
-	ebegin "Cleaning out documentation"
-	find "${INTEL_SDP_DIR}"/Documentation -delete || die
-	eend
+		ebegin "Cleaning out documentation"
+		find "${INTEL_SDP_DIR}"/Documentation -delete || die
+		eend
+	fi
 
 	if [[ -d "${INTEL_SDP_DIR}"/Samples ]]; then
 		if use examples ; then
