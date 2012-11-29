@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*plasma-2.4.6 (29 Nov 2012)
+
+  29 Nov 2012; Sébastien Fabbro <bicatali@gentoo.org> +plasma-2.4.6.ebuild,
+  -plasma-2.4.5.ebuild:
+  sci-libs/plasma: Version bump. Introduce testing
+
   12 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> plasma-2.4.5.ebuild:
   sci-libs/plasma: Shared library fixes and prefix love
 
