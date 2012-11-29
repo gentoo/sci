@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/tmglib
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*tmglib-3.4.2 (29 Nov 2012)
+
+  29 Nov 2012; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +tmglib-3.4.2.ebuild:
+  sci-libs/tmglib: Initial import
