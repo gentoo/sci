@@ -4,7 +4,9 @@
 
 EAPI=4
 
-inherit alternatives-2 cmake-utils eutils fortran-2
+inherit alternatives-2 cmake-utils eutils fortran-2 toolchain-funcs
+
+FORTRAN_NEEDED=test
 
 MYP=lapack-${PV}
 
@@ -15,14 +17,14 @@ SRC_URI="http://www.netlib.org/lapack/${MYP}.tgz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="static-libs test xblas"
+IUSE="static-libs test tmg xblas"
 
 RDEPEND="
 	virtual/blas
 	virtual/lapack
+	tmg? ( sci-libs/tmglib )
 	xblas? ( sci-libs/xblas )"
 DEPEND="${RDEPEND}
-	test? ( virtual/fortran )
 	virtual/pkgconfig"
 
 S="${WORKDIR}/${MYP}"
@@ -41,8 +43,9 @@ src_prepare() {
 	sed -i \
 		-e 's:lapacke:reflapacke:g' \
 		lapacke/example/CMakeLists.txt || die
+	local tmgpc; use tmg && tmgpc=" -ltmglib"
 	sed -i \
-		-e 's:-llapacke:-lreflapacke:g' \
+		-e "s:-llapacke:-lreflapacke${tmgpc}:g" \
 		lapacke/lapacke.pc.in || die
 	use static-libs && mkdir "${WORKDIR}/${PN}_static"
 }
@@ -53,8 +56,9 @@ src_configure() {
 			-DUSE_OPTIMIZED_BLAS=ON
 			-DUSE_OPTIMIZED_LAPACK=ON
 			-DLAPACKE=ON
-			-DBLAS_LIBRARIES="$(pkg-config --libs blas)"
-			-DLAPACK_LIBRARIES="$(pkg-config --libs lapack)"
+			-DBLAS_LIBRARIES="$($(tc-getPKG_CONFIG) --libs blas)"
+			-DLAPACK_LIBRARIES="$($(tc-getPKG_CONFIG) --libs lapack)"
+			$(cmake-utils_use tmg LAPACKE_WITH_TMG)
 			$(cmake-utils_use_build test TESTING)
 			$(cmake-utils_use_use xblas XBLAS)
 			$@
