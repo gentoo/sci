@@ -1,0 +1,30 @@
+ abi/Makefile | 2 +-
+ alf/Makefile | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/abi/Makefile b/abi/Makefile
+index 3c1f8fb..58b4353 100644
+--- a/abi/Makefile
++++ b/abi/Makefile
+@@ -23,7 +23,7 @@ getABISampleName: $(OBJSSN)
+ 	$(CLD) $(LDEXEFLAG)$@$(EXE_SUFFIX) $(SUBSYSTEMCONSOLE) $(OBJSSN) $(LIBS) $(LIBSC)
+ 
+ getABIdate: $(OBJSD)
+-	$(CLD) $(LDEXEFLAG)$@$(EXE_SUFFIX) $(SUBSYSTEMCONSOLE) $(OBJSD) $(IOUTILS_LIB) $(MISC_LIB) $(LIBSC)
++	$(CLD) $(LDFLAGS) $(LDEXEFLAG)$@$(EXE_SUFFIX) $(SUBSYSTEMCONSOLE) $(OBJSD) $(IOUTILS_LIB) $(MISC_LIB) $(LIBSC)
+ 
+ getABIcomment: $(OBJSC)
+ 	$(CLD) $(LDEXEFLAG)$@$(EXE_SUFFIX) $(SUBSYSTEMCONSOLE) $(OBJSC) $(LIBS) $(LIBSC)
+diff --git a/alf/Makefile b/alf/Makefile
+index 94b7480..ef41a26 100644
+--- a/alf/Makefile
++++ b/alf/Makefile
+@@ -16,7 +16,7 @@ INCLUDES_E += $(MISC_INC)
+ ALFOBJ = alfsplit.o
+ 
+ alfsplit: $(ALFOBJ)
+-	$(CLD) $(LDEXEFLAG)$@$(EXE_SUFFIX) $(SUBSYSTEMCONSOLE) $(ALFOBJ) $(LIBSC)
++	$(CLD) $(LDFLAGS) $(LDEXEFLAG)$@$(EXE_SUFFIX) $(SUBSYSTEMCONSOLE) $(ALFOBJ) $(LIBSC)
+ 
+ RSOBJ = $(ALFBIN)/2rs.o
+ 

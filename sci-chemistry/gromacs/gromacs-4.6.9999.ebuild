@@ -33,11 +33,10 @@ DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
 
 LICENSE="GPL-2"
-#every useflag combination and git commit could be binary different
-SLOT="0/$(date +%s)"
+SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 IUSE="X blas cuda doc -double-precision +fftw gsl lapack
-mpi openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
+mpi openmm openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
 	X? (
@@ -51,14 +50,15 @@ CDEPEND="
 	fkernels? ( !threads? ( !sse2? ( virtual/fortran ) ) )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
-	mpi? ( virtual/mpi )"
+	mpi? ( virtual/mpi )
+	openmm? ( sci-libs/openmm[cuda,opencl] )"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}"
 
 RESTRICT="test"
 
-REQUIRED_USE="cuda? ( single-precision )"
+REQUIRED_USE="cuda? ( single-precision ) openmm? ( single-precision cuda )"
 
 pkg_pretend() {
 	[[ $(gcc-version) == "4.1" ]] && die "gcc 4.1 is not supported by gromacs"
@@ -70,7 +70,6 @@ pkg_setup() {
 	#notes/todos
 	# -on apple: there is framework support
 	# -mkl support
-	# -openmm support
 	# -there are power6 kernels
 	if use fkernels; then
 		if use threads; then
@@ -143,6 +142,14 @@ src_configure() {
 			$(cmake-utils_use threads GMX_THREAD_MPI) ${cuda}
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
+		if [[ ${x} = float ]] && use openmm; then
+			einfo "Configuring for openmm build"
+			mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
+				-DGMX_THREAD_MPI=OFF -DGMX_GPU=OFF -DGMX_OPENMM=ON
+				-DGMX_BINARY_SUFFIX="openmm" -DGMX_LIBS_SUFFIX="openmm" )
+			CMAKE_BUILD_DIR="${WORKDIR}/${P}_openmm" \
+				OPENMM_ROOT_DIR="${EPREFIX}/usr" cmake-utils_src_configure
+		fi
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF
@@ -157,6 +164,11 @@ src_compile() {
 		einfo "Compiling for ${x} precision"
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile
+		if [[ ${x} = float ]] && use openmm; then
+			einfo "Compiling for openmm build"
+			CMAKE_BUILD_DIR="${WORKDIR}/${P}_openmm"\
+				cmake-utils_src_compile mdrun
+		fi
 		use mpi || continue
 		einfo "Compiling for ${x} precision with mpi"
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
@@ -178,9 +190,11 @@ src_install() {
 	for x in ${GMX_DIRS}; do
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" \
 			cmake-utils_src_install
+		if [[ ${x} = float ]] && use openmm; then
+			CMAKE_BUILD_DIR="${WORKDIR}/${P}_openmm" \
+				DESTDIR="${D}" cmake-utils_src_make install-mdrun
+		fi
 		use mpi || continue
-		#cmake-utils_src_install does not support args
-		#using cmake-utils_src_make instead
 		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
 			DESTDIR="${D}" cmake-utils_src_make install-mdrun
 	done

@@ -2,6 +2,21 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-util/nvidia-cuda-sdk/ChangeLog,v 1.30 2012/02/05 16:39:02 spock Exp $
 
+  26 Nov 2012; Justin Lecher <jlec@gentoo.org> nvidia-cuda-sdk-5.0.35.ebuild,
+  files/nvidia-cuda-sdk-5.0.35-asneeded.patch:
+  Version Bump, inclusive cuda.eclass usage
+
+*nvidia-cuda-sdk-5.0.35 (16 Nov 2012)
+
+  16 Nov 2012; Justin Lecher <jlec@gentoo.org> +nvidia-cuda-sdk-5.0.35.ebuild:
+  Preparing Version Bump
+
+*nvidia-cuda-sdk-4.2.9-r1 (16 Nov 2012)
+
+  16 Nov 2012; Justin Lecher <jlec@gentoo.org> nvidia-cuda-sdk-4.2.9.ebuild,
+  +nvidia-cuda-sdk-4.2.9-r1.ebuild, metadata.xml:
+  Reverted changes to bicatalis commit; Moving to cuda.eclass
+
   11 Jul 2012; Honza Macháček <Hloupy.Honza@centrum.cz>
   nvidia-cuda-sdk-4.2.9.ebuild:
   Corrected OpenCL spelling in `emake -C OpenCL`

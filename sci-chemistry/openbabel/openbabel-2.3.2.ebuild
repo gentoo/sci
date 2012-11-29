@@ -12,13 +12,13 @@ DESCRIPTION="Interconverts file formats used in molecular modeling"
 HOMEPAGE="http://openbabel.sourceforge.net/"
 SRC_URI="mirror://sourceforge/openbabel/${P}.tar.gz"
 
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
 SLOT="0"
 LICENSE="GPL-2"
-IUSE="doc openmp perl python wxwidgets"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
+IUSE="doc openmp perl python test wxwidgets"
 
 RDEPEND="
-	dev-cpp/eigen:=
+	dev-cpp/eigen:3
 	dev-libs/libxml2:2
 	!sci-chemistry/babel
 	sci-libs/inchi
@@ -33,6 +33,16 @@ PDEPEND="
 DOCS="AUTHORS ChangeLog NEWS README THANKS doc/*.inc doc/README* doc/*.mol2"
 
 PATCHES=( "${FILESDIR}"/${P}-test_lib_path.patch )
+
+pkg_setup() {
+	if use openmp; then
+		if [[ $(tc-getCC) == *gcc ]] && ! tc-has-openmp; then
+			ewarn "OpenMP is not available in your current selected gcc"
+			die "need openmp capable gcc"
+		fi
+		FORTRAN_NEED_OPENMP=1
+	fi
+}
 
 src_configure() {
 	local mycmakeargs=""

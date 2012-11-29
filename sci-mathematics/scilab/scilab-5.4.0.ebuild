@@ -105,14 +105,15 @@ pkg_setup() {
 	FORTRAN_STANDARD="77 90"
 	fortran-2_pkg_setup
 	java-pkg-opt-2_pkg_setup
-	ALL_LINGUAS=
+	ALL_LINGUAS="en_US"
+	ALL_LINGUAS_DOC="en_US"
 	for l in ${LINGUAS}; do
 		use linguas_${l} && ALL_LINGUAS="${ALL_LINGUAS} ${l}"
 	done
 	for l in ${LINGUASLONG}; do
 		use linguas_${l%_*} && ALL_LINGUAS="${ALL_LINGUAS} ${l}"
 	done
-	export ALL_LINGUAS
+	export ALL_LINGUAS ALL_LINGUAS_DOC=$ALL_LINGUAS
 }
 
 src_prepare() {
@@ -127,11 +128,13 @@ src_prepare() {
 	# increases java heap to 512M when building docs (sync with cheqreqs above)
 	use doc && epatch "${FILESDIR}/${P}-java-heap.patch"
 
+	sed -i -e "/^ALL_LINGUAS=/d" -e "/^ALL_LINGUAS_DOC=/d" -i configure.ac
 	# make sure library path are preloaded in binaries
 	sed -i \
 		-e "s|^LD_LIBRARY_PATH=|LD_LIBRARY_PATH=${EPREFIX}/usr/$(get_libdir)/scilab:|g" \
 		bin/scilab* || die
-
+	# make sure it exports the DOCBOOK_ROOT variable
+	sed -i -e "s/xsl-stylesheets-\*/xsl-stylesheets/g" bin/scilab* || die
 	#add specific gentoo java directories
 	if use gui; then
 		sed -i -e "s|/usr/lib/jogl|/usr/lib/jogl-2|" \
@@ -144,7 +147,8 @@ src_prepare() {
 		sed -i -e "s/jogl/jogl-2/" -e "s/gluegen/gluegen-2/" \
 			etc/librarypath.xml || die
 	fi
-	mkdir jar; cd jar
+	mkdir jar || die
+	pushd jar
 	java-pkg_jar-from jgraphx-1.8,jlatexmath-1,flexdock,skinlf
 	java-pkg_jar-from jgoodies-looks-2.0,jrosetta,scirenderer-1
 	java-pkg_jar-from avalon-framework-4.2,saxon-6.5,jeuclid-core
@@ -159,7 +163,7 @@ src_prepare() {
 	if use test; then
 		java-pkg_jar-from junit-4 junit.jar junit4.jar
 	fi
-	cd ..
+	popd
 
 	java-pkg-opt-2_src_prepare
 	eautoconf
