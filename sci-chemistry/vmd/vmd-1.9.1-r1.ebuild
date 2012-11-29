@@ -24,10 +24,7 @@ RESTRICT="fetch"
 # currently, tk-8.5* with USE=truetype breaks some
 # tk apps such as Sequence Viewer or Timeline.
 CDEPEND="
-	|| (
-		>=dev-lang/tk-8.5[-truetype]
-		=dev-lang/tk-8.4*
-	)
+	>=dev-lang/tk-8.5[-truetype]
 	dev-lang/perl
 	dev-python/numpy
 	sci-libs/netcdf

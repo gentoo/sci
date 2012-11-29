@@ -97,7 +97,7 @@ LICENSE="Intel-SDP"
 # Future work, #394411
 #SLOT="${_INTEL_PV1}.${_INTEL_PV2}"
 SLOT="0"
-IUSE="examples multilib static-libs"
+IUSE="examples multilib"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 RESTRICT="mirror"
@@ -260,7 +260,7 @@ intel-sdp_pkg_pretend() {
 	: ${CHECKREQS_DISK_BUILD:=256M}
 	check-reqs_pkg_pretend
 
-	_dirs=(
+	dirs=(
 		"${INTEL_SDP_EDIR}/licenses"
 		"${INTEL_SDP_EDIR}/Licenses"
 		"${EPREFIX}/opt/intel/licenses"
@@ -379,9 +379,6 @@ intel-sdp_src_install() {
 
 		find "${INTEL_SDP_DIR}"/man -delete || die
 	fi
-
-	use static-libs || \
-		find opt -type f -name "*.a" -delete || die
 
 	ebegin "Tagging ${PN}"
 	find opt -name \*sh -type f -exec sed -i \
