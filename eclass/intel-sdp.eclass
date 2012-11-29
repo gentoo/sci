@@ -260,7 +260,7 @@ intel-sdp_pkg_pretend() {
 	: ${CHECKREQS_DISK_BUILD:=256M}
 	check-reqs_pkg_pretend
 
-	_dirs=(
+	dirs=(
 		"${INTEL_SDP_EDIR}/licenses"
 		"${INTEL_SDP_EDIR}/Licenses"
 		"${EPREFIX}/opt/intel/licenses"
