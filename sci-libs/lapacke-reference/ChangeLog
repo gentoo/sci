@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Nov 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  -lapacke-reference-3.4.1.ebuild, lapacke-reference-3.4.2.ebuild, metadata.xml:
+  sci-libs/lapacke-reference: added tmg for testing, cleaning up ebuild
+
 *lapacke-reference-3.4.2 (26 Oct 2012)
 
   26 Oct 2012; Sébastien Fabbro <bicatali@gentoo.org>

@@ -14,19 +14,22 @@ SRC_URI="http://icl.cs.utk.edu/projectsfiles/plasma/pubs/${MYP}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="doc examples fortran static-libs"
+IUSE="doc examples fortran static-libs test"
 
-RDEPEND="sys-apps/hwloc
+RDEPEND="
+	sys-apps/hwloc
 	virtual/blas
 	virtual/cblas
-	virtual/fortran
 	virtual/lapack
 	virtual/lapacke"
-
 DEPEND="${RDEPEND}
-	virtual/pkgconfig"
+	virtual/pkgconfig
+	test? ( sci-libs/lapacke-reference[tmg] )"
 
 S="${WORKDIR}/${MYP}"
+
+# TODO: virtual/{blas,cblas,lapack} serial and threaded. plasma works properly
+# with serial blas/lapack (see README). not doable dynamically with atlas
 
 static_to_shared() {
 	local libstatic=${1}; shift
@@ -78,24 +81,30 @@ src_configure() {
 		CFLAGS = ${CFLAGS} -DADD_ -fPIC
 		FFLAGS = ${FFLAGS} -fPIC
 		LOADER = $(tc-getFC)
-		LIBBLAS = $(pkg-config --libs blas)
-		LIBCBLAS = $(pkg-config --libs cblas)
-		LIBLAPACK = $(pkg-config --libs lapack)
-		LIBCLAPACK = $(pkg-config --libs lapacke)
+		LIBBLAS = $($(tc-getPKG_CONFIG) --libs blas)
+		LIBCBLAS = $($(tc-getPKG_CONFIG) --libs cblas)
+		LIBLAPACK = $($(tc-getPKG_CONFIG) --libs lapack)
+		LIBCLAPACK = $($(tc-getPKG_CONFIG) --libs lapacke)
 		$(use fortran && echo "PLASMA_F90 = 1")
 	EOF
 }
 
 src_compile() {
 	emake lib
-	static_to_shared quark/libquark.a $(pkg-config --libs hwloc) -pthread
-	static_to_shared lib/libcoreblas.a quark/libquark.so $(pkg-config --libs cblas lapacke)
+	static_to_shared quark/libquark.a $($(tc-getPKG_CONFIG --libs hwloc)) -pthread
+	static_to_shared lib/libcoreblas.a quark/libquark.so $($(tc-getPKG_CONFIG --libs cblas lapacke))
 	static_to_shared lib/libplasma.a quark/libquark.so lib/libcoreblas.so
 	if use static-libs; then
 		emake cleanall
 		sed 's/-fPIC//g' make.inc
 		emake lib
 	fi
+}
+
+src_test() {
+	emake test
+	cd testing
+	LD_LIBRARY_PATH="../lib:../quark:${LD_LIBRARY_PATH}" ./plasma_testing.py || die
 }
 
 src_install() {
