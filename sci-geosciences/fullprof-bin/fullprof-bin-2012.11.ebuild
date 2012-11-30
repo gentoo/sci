@@ -48,6 +48,13 @@ src_install() {
           cd .. || die
         fi
 
+        if use !X; then
+          rm tfp tfp.set winplotr-2006 check_group cryscal edpcr fp_studio || die
+          rm gbasireps gbond_str gdatared gfourier gfourier.hlp gxlens || die
+          rm powderpat resvis symmcal wfp2k winplotr.* || die
+          rm -r Fps_Icons || die
+        fi
+
         mkdir -p "${D}/${BASEDIR}" || die
         # make symlinks
         for i in * ; do
