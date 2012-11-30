@@ -20,9 +20,8 @@ S="${WORKDIR}/"
 
 src_install() {
         BASEDIR="/opt/fullprof"
-        echo "FULLPROF=\"${BASEDIR}\"" > 99fullprof
-        doenvd 99fullprof
-        rm 99fullprof || die
+        echo "FULLPROF=\"${BASEDIR}\"" > ${T}/99fullprof
+        doenvd ${T}/99fullprof
 
         if use !examples; then
           rm -r Examples || die
