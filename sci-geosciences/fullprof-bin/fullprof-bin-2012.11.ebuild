@@ -6,7 +6,7 @@ EAPI="4"
 
 DESCRIPTION="a set of crystallographic tools mainly for Rietveld analysis"
 HOMEPAGE="http://www.ill.eu/sites/fullprof/index.html"
-SRC_URI="http://www.ill.eu/sites/fullprof/downloads/FullProf_Suite_May2012_Lin.tgz"
+SRC_URI="http://www.ill.eu/sites/fullprof/downloads/FullProf_Suite_Nov2012_Lin.tgz"
 LICENSE="freedist HPND"
 # There is no clear license specified. But according to Docs/Readme_Fp_Suite.txt
 # those two seem to be appropriate.
@@ -21,22 +21,37 @@ S="${WORKDIR}/"
 src_install() {
         BASEDIR="/opt/fullprof"
         echo "FULLPROF=\"${BASEDIR}\"" > 99fullprof
-        echo "PATH=\"${BASEDIR}\"" >> 99fullprof
         doenvd 99fullprof
         rm 99fullprof || die
+
         if use !examples; then
           rm -r Examples || die
         fi
+
         if use !doc; then
           rm -r Docs || die
           rm -r Html || die
         else
-          # fix html documentation to actually work
-          ls Docs/*.HTM | while read file
-          do
-            mv $file `echo $file | sed 's/\/.*/\L&/'`
+          # fix (html) documentation to actually work
+          # as upstream is using inconsistent upper and lower case
+          mv Docs docs || die
+          cd docs || die
+          for i in *.HTM; do
+            mv "$i" "${i,,}" || die
           done
+          mv "FullProf_Manual.pdf" "Fullprof_Manual.pdf" || die
+          mv "Manual_FullProf_Studio.pdf" "Manual_Fullprof_Studio.pdf" || die
+          mv "FullProf_News.htm" "Fullprof_News.htm" || die
+          for i in FullProf_News_200?.htm; do
+            mv "$i" "${i/FullProf/Fullprof}" || die
+          done
+          cd .. || die
         fi
+
         mkdir -p "${D}/${BASEDIR}" || die
+        # make symlinks
+        for i in * ; do
+          [[ -x $i && ! -d $i ]] && dosym "../fullprof/${i}" /opt/bin/"${i##*/}"
+        done
         mv "${S}"/* "${D}/${BASEDIR}" || die
 }
