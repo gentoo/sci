@@ -25,8 +25,7 @@ IUSE=""
 DEPEND="
 	~sci-chemistry/gromacs-${PV}:=
 	dev-texlive/texlive-latex
-	sys-apps/coreutils
-	app-shells/tcsh"
+	sys-apps/coreutils"
 RDEPEND=""
 
 src_prepare() {
