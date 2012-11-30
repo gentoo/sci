@@ -255,7 +255,7 @@ _isdp_run-test() {
 # * Check for space requirements being fullfilled
 # @CODE
 intel-sdp_pkg_pretend() {
-	local warn=1 dir dirs i ret arch a p
+	local warn=1 dir dirs ret arch a p
 
 	: ${CHECKREQS_DISK_BUILD:=256M}
 	check-reqs_pkg_pretend
@@ -266,8 +266,9 @@ intel-sdp_pkg_pretend() {
 		"${EPREFIX}/opt/intel/licenses"
 		)
 	for dir in "${dirs[@]}" ; do
-		ebegin "Checking for a license in: ${dirs[$i]}"
-		[[ $( ls "${dirs[$i]}"/*lic 2>/dev/null ) ]]; ret=$?
+		ebegin "Checking for a license in: ${dir}"
+		#maybe use nullglob or [[ $(echo ${dir/*lic) != "${dir}/*lic" ]]
+		[[ $( ls "${dir}"/*lic 2>/dev/null ) ]]; ret=$?
 		eend ${ret}
 		if [[ ${ret} == "0" ]]; then
 			warn=${ret}
