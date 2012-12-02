@@ -1,0 +1,13 @@
+--- nwchemrc	2011-12-04 11:29:37.000000000 +0100
++++ nwchemrc	2011-12-04 11:29:26.000000000 +0100
+@@ -0,0 +1,10 @@
++nwchem_basis_library /usr/share/NWChem/basis/libraries/
++nwchem_nwpw_library /usr/share/NWChem/nwpw/libraryps/
++ffield amber
++amber_1 /usr/share/NWChem/data/amber_s/
++amber_2 /usr/share/NWChem/data/amber_q/
++amber_3 /usr/share/NWChem/data/amber_x/
++amber_4 /usr/share/NWChem/data/amber_u/
++spce    /usr/share/NWChem/data/solvents/spce.rst
++charmm_s /usr/share/NWChem/data/charmm_s/
++charmm_x /usr/share/NWChem/data/charmm_x/
