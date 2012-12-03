@@ -34,7 +34,7 @@ DEPEND="=sci-libs/elmer-eio-${PV}
 		vtk? ( >=sci-libs/vtk-5.0.0[qt4,python?] )
 		opencascade? ( >=sci-libs/opencascade-6.3 )
 		python? ( <=dev-python/pythonqt-1.1 )
-		x11-libs/qwt:5
+		qwt? ( x11-libs/qwt:5 )
 		|| ( >=x11-libs/qt-core-4.3:4
 			 ( x11-libs/qt-core:5
 			   x11-libs/qt-xml:5
