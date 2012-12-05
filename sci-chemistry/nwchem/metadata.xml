@@ -3,11 +3,10 @@
 <pkgmetadata>
 	<herd>sci-chemistry</herd>
 	<maintainer>
-		<email>ottxor@gentoo.org</email>
-		<name>Christoph Junghans</name>
+		<email>alexxy@gentoo.org</email>
+		<name>Alexey Shvetsov</name>
 	</maintainer>
 	<use>
-		<flag name="cuda">enable cuda back-end</flag>
-		<flag name="opencl">enable opencl back-end</flag>
+		<flag name="nwchem-tests">Install qa tests data</flag>
 	</use>
 </pkgmetadata>

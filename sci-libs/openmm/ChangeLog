@@ -1,9 +1,0 @@
-# ChangeLog for sci-libs/openmm
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*openmm-4.1.1 (27 Nov 2012)
-
-  27 Nov 2012; Christoph Junghans <ottxor@gentoo.org> +metadata.xml,
-  +openmm-4.1.1.ebuild:
-  re-added for gromacs

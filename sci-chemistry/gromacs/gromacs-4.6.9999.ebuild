@@ -5,6 +5,7 @@
 EAPI=5
 
 TEST_PV="4.0.4"
+MANUAL_PV="4.6-beta1"
 
 #to find external blas/lapack
 CMAKE_MIN_VERSION="2.8.5-r2"
@@ -24,7 +25,9 @@ if [[ $PV = *9999* ]]; then
 	inherit git-2
 	PDEPEND="doc? ( ~app-doc/gromacs-manual-${PV} )"
 else
-	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
+	S="${WORKDIR}/${P//_/-}"
+	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P//_/-}.tar.gz
+		doc? (  ftp://ftp.gromacs.org/pub/manual/gromacs-manual-${MANUAL_PV}.pdf )"
 fi
 
 ACCE_IUSE="fkernels power6 sse2 sse41 avx128fma avx256"
@@ -212,10 +215,14 @@ src_install() {
 	dodoc AUTHORS INSTALL* README*
 	if use doc; then
 		dohtml -r "${ED}usr/share/gromacs/html/"
-		insinto /usr/share/gromacs
-		doins "admin/programs.txt"
-		ls -1 "${ED}"/usr/bin | sed -e '/_d$/d' > "${T}"/programs.list
-		doins "${T}"/programs.list
+		if [[ $PV = *9999* ]]; then
+			insinto /usr/share/gromacs
+			doins "admin/programs.txt"
+			ls -1 "${ED}"/usr/bin | sed -e '/_d$/d' > "${T}"/programs.list
+			doins "${T}"/programs.list
+		else
+			dodoc "${DISTDIR}/gromacs-manual-${MANUAL_PV}.pdf"
+		fi
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"
 }

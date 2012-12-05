@@ -1,0 +1,14 @@
+--- src/tools/global/GNUmakefile	2011-12-03 14:34:01.000000000 +0100
++++ src/tools/global/GNUmakefile	2011-12-03 14:37:40.000000000 +0100
+@@ -68,7 +68,10 @@
+ $(LIBRARY): 
+ 	(echo TARGET is $(TARGET); cd ./src; $(MAKE) || exit 1;) 
+ 
+-$(TESTS) %.x:	$(LIBRARY)
++%.x: $(LIBRARY)
++	(cd ./testing; $(MAKE) $@ || exit 1;)
++
++$(TESTS): $(LIBRARY)
+ 	(cd ./testing; $(MAKE) $@  || exit 1;)
+ 
+ all: $(TESTS)

@@ -19,7 +19,3 @@
 # Kacper Kowalik <xarthisius@gentoo.org> (23 Jul 2011)
 # mask assembler as it currently doesn't work
 dev-lang/path64 assembler
-
-# Christoph Junghans <ottoxr@gentoo.org> (26 Nov 2012)
-# openmm is still under testing
-sci-chemistry/gromacs openmm
