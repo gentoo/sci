@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Dec 2012; Justin Lecher <jlec@gentoo.org> openbabel-2.3.2.ebuild:
+  Add missing dep for USE=doc
+
   26 Nov 2012; Justin Lecher <jlec@gentoo.org> openbabel-2.3.2.ebuild:
   Add test phase, check openmp correctly
 

@@ -25,7 +25,8 @@ RDEPEND="
 	sys-libs/zlib
 	wxwidgets? ( x11-libs/wxGTK:2.8[X] )"
 DEPEND="${RDEPEND}
-	>=dev-util/cmake-2.4.8"
+	>=dev-util/cmake-2.4.8
+	doc? ( app-doc/doxygen )"
 PDEPEND="
 	perl? ( sci-chemistry/openbabel-perl )
 	python? ( sci-chemistry/openbabel-python )"
