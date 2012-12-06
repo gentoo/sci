@@ -25,6 +25,7 @@ IUSE=""
 DEPEND="
 	~sci-chemistry/gromacs-${PV}:=
 	dev-texlive/texlive-latex
+	media-gfx/imagemagick
 	sys-apps/coreutils"
 RDEPEND=""
 

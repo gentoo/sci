@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 EGIT_REPO_URI="git://git.gromacs.org/manual"
 if [[ ${PV} = 9999 ]]; then
@@ -23,8 +23,9 @@ KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 DEPEND="
-	~sci-chemistry/gromacs-${PV}
+	~sci-chemistry/gromacs-${PV}:=
 	dev-texlive/texlive-latex
+	media-gfx/imagemagick
 	sys-apps/coreutils"
 RDEPEND=""
 
