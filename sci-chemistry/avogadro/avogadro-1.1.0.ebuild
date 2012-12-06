@@ -39,6 +39,10 @@ pkg_setup() {
 	python_set_active_version 2
 }
 
+src_prepare() {
+	epatch "${FILESDIR}"/${P}-textrel.patch
+}
+
 src_configure() {
 	local mycmakeargs=(
 		"-DENABLE_THREADGL=OFF"

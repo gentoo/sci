@@ -3,6 +3,10 @@
 # $Header: $
 
   06 Dec 2012; Justin Lecher <jlec@gentoo.org> avogadro-1.1.0.ebuild,
+  +files/avogadro-1.1.0-textrel.patch:
+  Add patch to avoid textrels on i686, #439410
+
+  06 Dec 2012; Justin Lecher <jlec@gentoo.org> avogadro-1.1.0.ebuild,
   avogadro-9999.ebuild:
   Restrict test phase https://sourceforge.net/p/avogadro/bugs/653/
 
