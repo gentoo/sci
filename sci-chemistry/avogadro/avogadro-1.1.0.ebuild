@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="+glsl python sse2"
 
 RDEPEND="
-	>=sci-chemistry/openbabel-2.2.3
+	>=sci-chemistry/openbabel-2.3.0
 	>=x11-libs/qt-gui-4.5.3:4
 	>=x11-libs/qt-opengl-4.5.3:4
 	x11-libs/gl2ps
