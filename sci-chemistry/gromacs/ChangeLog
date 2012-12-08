@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Dec 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild,
+  gromacs-4.6.9999.ebuild, gromacs-9999.ebuild:
+  CMAKE_BUILD_DIR -> BUILD_DIR
+
   30 Nov 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
   sync with gx86
 
