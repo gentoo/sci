@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*rstudio-0.97.237 (09 Dec 2012)
+
+  09 Dec 2012; Denis Dupeyron <calchan@gentoo.org> +rstudio-0.97.237.ebuild,
+  +files/rstudio-0.97.237-prefs.patch:
+  sci-mathematics/rstudio: version bump. The desktop patch isn't needed any
+  longer. Updated prefs patch. Updated gwt version.
+
 *rstudio-0.96.316 (29 Jun 2012)
 
   29 Jun 2012; Sebastien Fabbro <fabbros@gentoo.org> +rstudio-0.96.316.ebuild,
