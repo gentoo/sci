@@ -17,7 +17,7 @@ EGIT_REPO_URI="git://github.com/pybrain/pybrain.git"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="test"
 
 RDEPEND="sci-libs/scipy"
