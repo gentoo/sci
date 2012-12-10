@@ -153,23 +153,23 @@ src_configure() {
 		[ "${x}" = "double" ] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
+		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=ON
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" cmake-utils_src_configure
+		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" cmake-utils_src_configure
 	done
 }
 
 src_compile() {
 	for x in ${GMX_DIRS}; do
 		einfo "Compiling for ${x} precision"
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}"\
+		BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile
 		use mpi || continue
 		einfo "Compiling for ${x} precision with mpi"
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
+		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
 			cmake-utils_src_compile mdrun
 	done
 }
@@ -186,12 +186,12 @@ src_test() {
 
 src_install() {
 	for x in ${GMX_DIRS}; do
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" \
+		BUILD_DIR="${WORKDIR}/${P}_${x}" \
 			cmake-utils_src_install
 		use mpi || continue
 		#cmake-utils_src_install does not support args
 		#using cmake-utils_src_compile instead
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
+		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
 			cmake-utils_src_make install-mdrun DESTDIR="${D}"
 	done
 

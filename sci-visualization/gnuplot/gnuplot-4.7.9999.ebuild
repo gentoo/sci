@@ -11,7 +11,7 @@ HOMEPAGE="http://www.gnuplot.info/"
 
 if [[ -z ${PV%%*9999} ]]; then
 	inherit autotools cvs
-	ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot"
+	ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot/gnuplot"
 	ECVS_MODULE="gnuplot"
 	ECVS_BRANCH="HEAD"
 	ECVS_USER="anonymous"
@@ -26,7 +26,7 @@ fi
 LICENSE="gnuplot GPL-2 bitmap? ( free-noncomm )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
-IUSE="bitmap cairo doc emacs examples +gd ggi latex lua plotutils qt4 readline svga thin-splines wxwidgets X xemacs"
+IUSE="bitmap cairo doc emacs examples +gd ggi latex lua qt4 readline svga thin-splines wxwidgets X"
 RESTRICT="wxwidgets? ( test )"
 
 RDEPEND="
@@ -42,7 +42,6 @@ RDEPEND="
 			dev-tex/pgf
 			>=dev-texlive/texlive-latexrecommended-2008-r2 ) )
 	lua? ( dev-lang/lua )
-	plotutils? ( media-libs/plotutils )
 	qt4? ( >=x11-libs/qt-core-4.5
 		>=x11-libs/qt-gui-4.5
 		>=x11-libs/qt-svg-4.5 )
@@ -53,22 +52,17 @@ RDEPEND="
 		x11-libs/cairo
 		x11-libs/pango
 		x11-libs/gtk+:2 )
-	X? ( x11-libs/libXaw )
-	xemacs? (
-		app-editors/xemacs
-		app-xemacs/xemacs-base )"
+	X? ( x11-libs/libXaw )"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	doc? (
 		virtual/latex-base
 		dev-texlive/texlive-latexextra
-		app-text/ghostscript-gpl )
-	!emacs? ( xemacs? ( app-xemacs/texinfo ) )"
+		app-text/ghostscript-gpl )"
 
 if [[ -z ${PV%%*9999} ]]; then
 	# The live ebuild always needs an Emacs for building of gnuplot.texi
-	DEPEND="${DEPEND}
-	!emacs? ( !xemacs? ( || ( virtual/emacs app-xemacs/texinfo ) ) )"
+	DEPEND="${DEPEND} virtual/emacs"
 fi
 
 S="${WORKDIR}/${MY_P}"
@@ -103,6 +97,7 @@ src_configure() {
 
 	local myconf
 	myconf="${myconf} --with-lisp-files" #need to build info file
+	myconf="${myconf} --with-lispdir=${EPREFIX}${SITELISP}/${PN}"
 	myconf="${myconf} --without-pdf"
 	myconf="${myconf} --enable-stats" #extra command save to be enabled
 	myconf="${myconf} --with-texdir=${TEXMF}/tex/latex/${PN}"
@@ -113,7 +108,6 @@ src_configure() {
 	myconf="${myconf} $(use_with ggi ggi ${EPREFIX}/usr/$(get_libdir))"
 	myconf="${myconf} $(use_with ggi xmi ${EPREFIX}/usr/$(get_libdir))"
 	myconf="${myconf} $(use_with lua)"
-	myconf="${myconf} $(use_with plotutils plot "${EPREFIX}"/usr/$(get_libdir))"
 	myconf="${myconf} $(use_with svga linux-vga)"
 	myconf="${myconf} $(use_enable thin-splines)"
 	myconf="${myconf} $(use_enable wxwidgets)"
@@ -123,29 +117,13 @@ src_configure() {
 		&& myconf="${myconf} --with-readline=gnu" \
 		|| myconf="${myconf} --with-readline=builtin"
 
-	local emacs=$(usev emacs || usev xemacs || echo no)
-	if [[ -z ${PV%%*9999} && ${emacs} = no ]]; then
+	local emacs=$(usev emacs || echo no)
 		# Live ebuild needs an Emacs to build gnuplot.texi
-		if has_version virtual/emacs; then emacs=emacs
-		elif has_version app-xemacs/texinfo; then emacs=xemacs; fi
-	fi
+	[[ -z ${PV%%*9999} ]] && emacs=emacs
 
 	econf ${myconf} \
 		DIST_CONTACT="http://bugs.gentoo.org/" \
 		EMACS=${emacs}
-
-	if use xemacs; then
-		einfo "Configuring gnuplot-mode for XEmacs ..."
-		use emacs && cp -Rp lisp lisp-xemacs || ln -s lisp lisp-xemacs
-		cd "${S}/lisp-xemacs"
-		econf --with-lispdir="${EPREFIX}/usr/lib/xemacs/site-packages/${PN}" EMACS=xemacs
-	fi
-
-	if use emacs; then
-		einfo "Configuring gnuplot-mode for GNU Emacs ..."
-		cd "${S}/lisp"
-		econf --with-lispdir="${EPREFIX}${SITELISP}/${PN}" EMACS=emacs
-	fi
 }
 
 src_compile() {
@@ -158,16 +136,6 @@ src_compile() {
 
 	emake all info
 
-	if use xemacs; then
-		cd "${S}/lisp-xemacs"
-		emake
-	fi
-
-	if use emacs; then
-		cd "${S}/lisp"
-		emake
-	fi
-
 	if use doc; then
 		# Avoid sandbox violation in epstopdf/ghostscript
 		addpredict /var/cache/fontconfig
@@ -176,7 +144,7 @@ src_compile() {
 		cd "${S}/tutorial"
 		emake pdf
 
-		if use emacs || use xemacs; then
+		if use emacs; then
 			cd "${S}/lisp"
 			emake pdf
 		fi
@@ -185,22 +153,14 @@ src_compile() {
 
 src_install () {
 	emake DESTDIR="${D}" install install-info
-	rm -rf "${D}"/usr/share/emacs #handled by use {,x}emacs below
-
-	if use xemacs; then
-		cd "${S}/lisp-xemacs"
-		emake DESTDIR="${D}" install
-	fi
 
 	if use emacs; then
-		cd "${S}/lisp"
-		emake DESTDIR="${D}" install
 		# info-look* is included with >=emacs-21
 		rm -f "${ED}${SITELISP}/${PN}"/info-look*
 
 		# Gentoo emacs site-lisp configuration
 		echo "(add-to-list 'load-path \"@SITELISP@\")" > ${E_SITEFILE}
-		sed '/^;; move/,+3 d' dotemacs >> ${E_SITEFILE} || die
+		sed '/^;; move/,+3 d' "${S}"/lisp/dotemacs >> ${E_SITEFILE} || die
 		elisp-site-file-install ${E_SITEFILE} || die
 	fi
 
@@ -229,7 +189,7 @@ src_install () {
 		dodoc docs/psdoc/{*.doc,*.tex,*.ps,*.gpi,README}
 	fi
 
-	if use emacs || use xemacs; then
+	if use emacs; then
 		docinto emacs
 		dodoc lisp/ChangeLog lisp/README
 		use doc && dodoc lisp/gpelcard.pdf
