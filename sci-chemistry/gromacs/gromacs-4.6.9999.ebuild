@@ -144,13 +144,13 @@ src_configure() {
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 			$(cmake-utils_use threads GMX_THREAD_MPI) ${cuda}
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
+		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		if [[ ${x} = float ]] && use openmm; then
 			einfo "Configuring for openmm build"
 			mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 				-DGMX_THREAD_MPI=OFF -DGMX_GPU=OFF -DGMX_OPENMM=ON
 				-DGMX_BINARY_SUFFIX="openmm" -DGMX_LIBS_SUFFIX="openmm" )
-			CMAKE_BUILD_DIR="${WORKDIR}/${P}_openmm" \
+			BUILD_DIR="${WORKDIR}/${P}_openmm" \
 				OPENMM_ROOT_DIR="${EPREFIX}/usr" cmake-utils_src_configure
 		fi
 		use mpi || continue
@@ -158,23 +158,23 @@ src_configure() {
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF
 			-DGMX_MPI=ON ${cuda}
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" CC="mpicc" cmake-utils_src_configure
+		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" CC="mpicc" cmake-utils_src_configure
 	done
 }
 
 src_compile() {
 	for x in ${GMX_DIRS}; do
 		einfo "Compiling for ${x} precision"
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}"\
+		BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile
 		if [[ ${x} = float ]] && use openmm; then
 			einfo "Compiling for openmm build"
-			CMAKE_BUILD_DIR="${WORKDIR}/${P}_openmm"\
+			BUILD_DIR="${WORKDIR}/${P}_openmm"\
 				cmake-utils_src_compile mdrun
 		fi
 		use mpi || continue
 		einfo "Compiling for ${x} precision with mpi"
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
+		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
 			cmake-utils_src_compile mdrun
 	done
 }
@@ -191,14 +191,14 @@ src_test() {
 
 src_install() {
 	for x in ${GMX_DIRS}; do
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}" \
+		BUILD_DIR="${WORKDIR}/${P}_${x}" \
 			cmake-utils_src_install
 		if [[ ${x} = float ]] && use openmm; then
-			CMAKE_BUILD_DIR="${WORKDIR}/${P}_openmm" \
+			BUILD_DIR="${WORKDIR}/${P}_openmm" \
 				DESTDIR="${D}" cmake-utils_src_make install-mdrun
 		fi
 		use mpi || continue
-		CMAKE_BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
+		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
 			DESTDIR="${D}" cmake-utils_src_make install-mdrun
 	done
 

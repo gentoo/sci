@@ -11,7 +11,7 @@ HOMEPAGE="http://www.gnuplot.info/"
 
 if [[ -z ${PV%%*9999} ]]; then
 	inherit autotools cvs
-	ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot"
+	ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot/gnuplot"
 	ECVS_MODULE="gnuplot"
 	ECVS_BRANCH="branch-4-6-stable"
 	ECVS_USER="anonymous"
@@ -58,7 +58,7 @@ RDEPEND="
 		app-editors/xemacs
 		app-xemacs/xemacs-base )"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	doc? (
 		virtual/latex-base
 		dev-texlive/texlive-latexextra
@@ -204,7 +204,7 @@ src_install () {
 	fi
 
 	cd "${S}"
-	dodoc BUGS ChangeLog NEWS PGPKEYS PORTING README* TODO
+	dodoc BUGS ChangeLog NEWS PGPKEYS PORTING README*
 	newdoc term/PostScript/README README-ps
 	newdoc term/js/README README-js
 	use lua && newdoc term/lua/README README-lua
