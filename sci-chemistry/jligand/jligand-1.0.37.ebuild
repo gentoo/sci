@@ -1,10 +1,10 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=4
 
-inherit java-pkg-2 java-ant-2 multilib
+inherit java-pkg-2 java-ant-2
 
 MY_PN="JLigand"
 
@@ -14,13 +14,13 @@ SRC_URI="http://www.ysbl.york.ac.uk/mxstat/${MY_PN}/${MY_PN}.${PV}.tar.gz"
 
 LICENSE="ccp4"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
 IUSE=""
 
 RDEPEND="
 	>=virtual/jre-1.5
-	>=sci-chemistry/refmac-5.6.77
-	>=sci-libs/monomer-db-5.16"
+	>=sci-chemistry/refmac-5.6.116
+	>=sci-libs/monomer-db-5.28"
 DEPEND=">=virtual/jdk-1.5"
 
 S="${WORKDIR}"/${MY_PN}.${PV}
@@ -31,7 +31,6 @@ src_compile() {
 }
 
 src_install() {
-	java-pkg_dojar ${PN}.jar
-	java-pkg_dolauncher ${PN} \
-		--jar ${PN}.jar
+	java-pkg_dojar JLigand.jar
+	java-pkg_dolauncher ${PN} --jar JLigand.jar
 }

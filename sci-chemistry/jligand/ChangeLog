@@ -1,6 +1,16 @@
 # ChangeLog for sci-chemistry/jligand
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  10 Dec 2012; Justin Lecher <jlec@gentoo.org> -jligand-1.0.19.ebuild,
+  +jligand-1.0.37.ebuild:
+  Version Bump
+
+*jligand-1.0.37 (10 Dec 2012)
+
+  10 Dec 2012; Justin Lecher <jlec@gentoo.org> -jligand-1.0.19.ebuild,
+  +jligand-1.0.37.ebuild:
+  Version Bump
 
 *jligand-1.0.19 (25 Jun 2011)
 
