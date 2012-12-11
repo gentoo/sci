@@ -2,6 +2,14 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mumps-4.10.0-r2 (11 Dec 2012)
+
+  11 Dec 2012; Sébastien Fabbro <bicatali@gentoo.org> +mumps-4.10.0-r2.ebuild,
+  -mumps-4.10.0-r1.ebuild, metadata.xml:
+  sci-libs/mumps: Install libpord, force -j1 on makefile because of random
+  parallel build failures, separate dummy sequential mpi library from the common
+  mumps library
+
   15 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> mumps-4.10.0-r1.ebuild:
   sci-libs/mumps: Merge dummy sequential mpi into sequential mumps
 

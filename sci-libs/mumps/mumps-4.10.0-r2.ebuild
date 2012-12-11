@@ -16,8 +16,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples metis mpi +scotch static-libs"
 
-RDEPEND="virtual/blas
-	virtual/fortran
+RDEPEND="
+	virtual/blas
 	metis? ( || ( sci-libs/metis <sci-libs/parmetis-4 )
 		mpi? ( <sci-libs/parmetis-4 ) )
 	scotch? ( sci-libs/scotch[mpi=] )
@@ -57,7 +57,7 @@ src_prepare() {
 		-e "s:^\(FL\s*=\).*:\1$(tc-getFC):" \
 		-e "s:^\(AR\s*=\).*:\1$(tc-getAR) cr :" \
 		-e "s:^\(RANLIB\s*=\).*:\1$(tc-getRANLIB):" \
-		-e "s:^\(LIBBLAS\s*=\).*:\1$(pkg-config --libs blas):" \
+		-e "s:^\(LIBBLAS\s*=\).*:\1$($(tc-getPKG_CONFIG) --libs blas):" \
 		-e "s:^\(INCPAR\s*=\).*:\1:" \
 		-e 's:^\(LIBPAR\s*=\).*:\1$(SCALAP):' \
 		-e "s:^\(OPTF\s*=\).*:\1${FFLAGS} -DALLOW_NON_INIT \$(PIC):" \
@@ -68,21 +68,21 @@ src_prepare() {
 }
 
 src_configure() {
-	LIBADD="$(pkg-config --libs blas) -Llib -lpord"
+	LIBADD="$($(tc-getPKG_CONFIG) --libs blas) -Llib -lpord"
 	local ord="-Dpord"
 	if use metis && use mpi; then
 		sed -i \
-			-e "s:#\s*\(LMETIS\s*=\).*:\1$(pkg-config --libs parmetis):" \
-			-e "s:#\s*\(IMETIS\s*=\).*:\1$(pkg-config --cflags parmetis):" \
+			-e "s:#\s*\(LMETIS\s*=\).*:\1$($(tc-getPKG_CONFIG) --libs parmetis):" \
+			-e "s:#\s*\(IMETIS\s*=\).*:\1$($(tc-getPKG_CONFIG) --cflags parmetis):" \
 			Makefile.inc || die
-		LIBADD="${LIBADD} $(pkg-config --libs parmetis)"
+		LIBADD="${LIBADD} $($(tc-getPKG_CONFIG) --libs parmetis)"
 		ord="${ord} -Dparmetis"
 	elif use metis; then
 		sed -i \
-			-e "s:#\s*\(LMETIS\s*=\).*:\1$(pkg-config --libs metis):" \
-			-e "s:#\s*\(IMETIS\s*=\).*:\1$(pkg-config --cflags metis):" \
+			-e "s:#\s*\(LMETIS\s*=\).*:\1$($(tc-getPKG_CONFIG) --libs metis):" \
+			-e "s:#\s*\(IMETIS\s*=\).*:\1$($(tc-getPKG_CONFIG) --cflags metis):" \
 			Makefile.inc || die
-		LIBADD="${LIBADD} $(pkg-config --libs metis)"
+		LIBADD="${LIBADD} $($(tc-getPKG_CONFIG) --libs metis)"
 		ord="${ord} -Dmetis"
 	fi
 	if use scotch && use mpi; then
@@ -105,10 +105,10 @@ src_configure() {
 			-e "s:^\(CC\s*=\).*:\1mpicc:" \
 			-e "s:^\(FC\s*=\).*:\1mpif90:" \
 			-e "s:^\(FL\s*=\).*:\1mpif90:" \
-			-e "s:^\(SCALAP\s*=\).*:\1$(pkg-config --libs scalapack):" \
+			-e "s:^\(SCALAP\s*=\).*:\1$($(tc-getPKG_CONFIG) --libs scalapack):" \
 			Makefile.inc || die
 		export LINK=mpif90
-		LIBADD="${LIBADD} $(pkg-config --libs scalapack)"
+		LIBADD="${LIBADD} $($(tc-getPKG_CONFIG) --libs scalapack)"
 	else
 		sed -i \
 			-e 's:-Llibseq:-L$(topdir)/libseq:' \
@@ -122,10 +122,14 @@ src_configure() {
 }
 
 src_compile() {
-	emake alllib PIC="-fPIC"
+	# -j1 because of static archive race
+	emake -j1 alllib PIC="-fPIC"
 	if ! use mpi; then
-		$(tc-getAR) crs lib/libmumps_common.a libseq/*.o || die
+		#$(tc-getAR) crs lib/libmumps_common.a libseq/*.o || die
+		LIBADD+=" -Llibseq -lmpiseq"
+		static_to_shared libseq/libmpiseq.a
 	fi
+	static_to_shared lib/libpord.a ${LIBADD}
 	static_to_shared lib/libmumps_common.a ${LIBADD}
 
 	local i
@@ -134,14 +138,18 @@ src_compile() {
 	done
 	if use static-libs; then
 		emake clean
-		emake alllib
+		emake -j1 alllib
 	fi
 }
 
 src_test() {
 	emake all
 	local dotest
-	use mpi && dotest="mpirun -np 2"
+	if use mpi; then
+		dotest="mpirun -np 2"
+	else
+		export LD_LIBRARY_PATH="${S}/libseq:${LD_LIBRARY_PATH}"
+	fi
 	cd examples
 	${dotest} ./ssimpletest < input_simpletest_real || die
 	${dotest} ./dsimpletest < input_simpletest_real || die
@@ -159,8 +167,10 @@ src_install() {
 	insinto /usr
 	doins -r include
 	if ! use mpi; then
+		dolib.so libseq/lib*$(get_libname)*
 		insinto /usr/include/mpiseq
 		doins libseq/*.h
+		use static-libs && dolib.a libseq/libmpiseq.a
 	fi
 	dodoc README ChangeLog VERSION
 	use doc && dodoc doc/*.pdf

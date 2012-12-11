@@ -11,8 +11,8 @@
   as Scotch or Metis.
 </longdescription>
 <use>
-  <flag name="metis">Enable ordering with METIS
+  <flag name="metis">Enable matrix ordering with METIS
   (<pkg>sci-libs/metis</pkg>, <pkg>sci-libs/parmetis</pkg>)</flag>
-  <flag name="scotch">Enable ordering with <pkg>sci-libs/scotch</pkg></flag>
+  <flag name="scotch">Enable matrix ordering with <pkg>sci-libs/scotch</pkg></flag>
 </use>
 </pkgmetadata>
