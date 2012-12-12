@@ -2,6 +2,11 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mmdb-1.24 (28 Nov 2012)
+
+  28 Nov 2012; Justin Lecher <jlec@gentoo.org> +mmdb-1.24.ebuild:
+  Test version for new eclass
+
 *mmdb-1.24.20111208 (24 Jan 2012)
 
   24 Jan 2012; Justin Lecher <jlec@gentoo.org> +mmdb-1.24.20111208.ebuild,
