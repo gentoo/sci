@@ -12,7 +12,6 @@ if [[ ${PV} == "9999" ]] ; then
 else
 	SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos ~ppc-macos ~x64-macos"
-	CID="4933d61" # commit ID
 fi
 
 inherit eutils toolchain-funcs alternatives-2 multilib ${_SCM}
@@ -28,7 +27,10 @@ IUSE="+incblas int64 dynamic openmp static-libs threads"
 RDEPEND="virtual/fortran"
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/xianyi-OpenBLAS-${CID}"
+src_unpack() {
+	unpack ${A}
+	mv "${WORKDIR}"/*OpenBLAS* "${S}" || die
+}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-{sharedlibs-0.2,aliasing}.patch
