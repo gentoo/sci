@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit cmake-utils eutils
+inherit cmake-utils eutils toolchain-funcs
 
 DESCRIPTION="Levenberg-Marquardt nonlinear least squares C library"
 HOMEPAGE="http://www.ics.forth.gr/~lourakis/levmar/"
@@ -12,22 +12,23 @@ SRC_URI="${HOMEPAGE}/${P}.tgz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="plasma"
 
-RDEPEND="virtual/blas
+RDEPEND="
+	virtual/blas
 	virtual/lapack
 	plasma? ( sci-libs/plasma )"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 PATCHES=( "${FILESDIR}"/${P}-shared.patch )
 
 src_configure() {
-	mycmakeargs+=(
+	local mycmakeargs+=(
 		-DNEED_F2C=OFF
 		-DHAVE_LAPACK=ON
-		-DLAPACKBLAS_LIB_NAMES="$(pkg-config --libs blas lapack)"
+		-DLAPACKBLAS_LIB_NAMES="$($(tc-getPKG_CONFIG) --libs blas lapack)"
 		$(cmake-utils_use plasma PLASMA)
 		$(cmake-utils_use test BUILD_DEMO)
 	)
