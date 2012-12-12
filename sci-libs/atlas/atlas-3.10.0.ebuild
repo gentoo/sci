@@ -3,9 +3,11 @@
 # $Header: $
 
 EAPI=4
+
+FORTRAN_NEEDED=fortran
 inherit eutils toolchain-funcs fortran-2 versionator alternatives-2 multilib
 
-LAPACKP=lapack-3.4.1.tgz
+LAPACKP=lapack-3.4.2.tgz
 
 DESCRIPTION="Automatically Tuned Linear Algebra Software"
 HOMEPAGE="http://math-atlas.sourceforge.net/"
@@ -17,7 +19,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="fortran doc generic lapack static-libs threads"
 
-RDEPEND="fortran? ( virtual/fortran )"
+RDEPEND=""
 DEPEND="${RDEPEND}
 	!prefix? ( sys-power/cpufrequtils )"
 

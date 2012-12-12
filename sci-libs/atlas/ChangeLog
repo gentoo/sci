@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Dec 2012; Sébastien Fabbro <bicatali@gentoo.org> -atlas-3.8.4.ebuild,
+  -files/3.9.39-bfr-overflow.patch, atlas-3.10.0.ebuild, metadata.xml:
+  sci-libs/atlas: Update for lapack-3.4.2
+
   27 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
   +files/atlas-3.10.0-x32-support.patch, -files/atlas-3.10-x32-support.patch,
   atlas-3.10.0.ebuild, metadata.xml:

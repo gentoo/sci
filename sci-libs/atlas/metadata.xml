@@ -11,7 +11,6 @@
    LAPACK using the reference LAPACK from Netlib.
 </longdescription>
 <use>
-<flag name='generic'>Build atlas assuming a fairly generic
-architecture (sse2 for x86, core2 for amd64)</flag>
+  <flag name='generic'>Build atlas assuming a fairly generic architecture (sse2 for x86, core2 for amd64)</flag>
 </use>
 </pkgmetadata>
