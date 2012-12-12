@@ -17,9 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test"
 
-RDEPEND="virtual/fortran"
-DEPEND="${RDEPEND}
-	virtual/pkgconfig"
+RDEPEND=""
+DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${MYP}"
 

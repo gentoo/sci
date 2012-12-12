@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Dec 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  blas-reference-20120925.ebuild, metadata.xml:
+  sci-libs/blas-reference: Removed unused dependencies
+
 *blas-reference-20120925 (21 Oct 2012)
 
   21 Oct 2012; Sébastien Fabbro <bicatali@gentoo.org>
