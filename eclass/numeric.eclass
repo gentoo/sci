@@ -5,101 +5,48 @@
 # @ECLASS: numeric.eclass
 # @MAINTAINER:
 # jlec@gentoo.org
-# @BLURB: Simplify creation of pkg-config files
+# @BLURB: Maintance bits needed for *lapack* and *blas* packages
 # @DESCRIPTION:
-# Use this if you buildsystem doesn't create pkg-config files.
+# Various functions which make the maintenance  numerical algebra packages
+# easier.
 
 inherit multilib
 
-# @ECLASS-VARIABLE: PC_PREFIX
-# @REQUIRED
-# @DESCRIPTION:
-# Offset for current package
-: ${PC_PREFIX:="${EPREFIX}/usr"}
-
-# @ECLASS-VARIABLE: PC_EXEC_PREFIX
-# @REQUIRED
-# @DESCRIPTION:
-# Offset for current package
-: ${PC_EXEC_PREFIX:="${PC_PREFIX}"}
-
-# @ECLASS-VARIABLE: PC_LIBDIR
-# @DESCRIPTION:
-# libdir to use
-: ${PC_LIBDIR:="${EPREFIX}/usr/$(get_libdir)"}
-
-# @ECLASS-VARIABLE: PC_INCLUDEDIR
-# @DESCRIPTION:
-# include dir to use
-: ${PC_INCLUDEDIR:="${PC_PREFIX}/include"}
-
-# @ECLASS-VARIABLE: PC_NAME
-# @DESCRIPTION:
-# A human-readable name for the library or package
-: ${PC_NAME:=${PN}}
-
-# @ECLASS-VARIABLE: PC_DESCRIPTION
-# @DESCRIPTION:
-# A brief description of the package
-: ${PC_DESCRIPTION:=${DESCRIPTION}}
-
-# @ECLASS-VARIABLE: PC_URL
-# @DESCRIPTION:
-# An URL where people can get more information about and download the package
-: ${PC_URL:=${HOMEPAGE}}
-
-# @ECLASS-VARIABLE: PC_VERSION
-# @DESCRIPTION:
-# A string specifically defining the version of the package
-: ${PC_VERSION:=${PV}}
-
-# @ECLASS-VARIABLE: PC_REQUIRES
-# @DEFAULT_UNSET
-# @DESCRIPTION:
-# A list of packages required by this package. The versions of these packages
-# may be specified using the comparison operators =, <, >, <= or >=.
-
-# @ECLASS-VARIABLE: PC_REQUIRES_PRIVATE
-# @DEFAULT_UNSET
-# @DESCRIPTION:
-# A list of private packages required by this package but not exposed to
-# applications. The version specific rules from the PC_REQUIRES field also
-# apply here.
-
-# @ECLASS-VARIABLE: PC_CONFLICTS
-# @DEFAULT_UNSET
-# @DESCRIPTION:
-# An optional field describing packages that this one conflicts with.
-# The version specific rules from the PC_REQUIRES field also apply here.
-# This field also takes multiple instances of the same package. E.g.,
-# Conflicts: bar < 1.2.3, bar >= 1.3.0.
-
-# @ECLASS-VARIABLE: PC_LIBS
-# @DEFAULT_UNSET
-# @DESCRIPTION:
-# The link flags specific to this package and any required libraries that
-# don't support pkg-config. The same rule as PC_CFLAGS applies here.
-
-# @ECLASS-VARIABLE: PC_LIBS_PRIVATE
-# @DEFAULT_UNSET
-# @DESCRIPTION:
-# The link flags for private libraries required by this package but not
-# exposed to applications. The same rule as PC_CFLAGS applies here.
-
-# @ECLASS-VARIABLE: PC_CFLAGS
-# @DEFAULT_UNSET
-# @DESCRIPTION:
-# The compiler flags specific to this package and any required libraries
-# that don't support pkg-config. If the required libraries support
-# pkg-config, they should be added to PC_REQUIRES or PC_REQUIRES_PRIVATE.
-
 # @FUNCTION: create_pkgconfig
-# @USAGE: [-p | --prefix PC_PREFIX] [-e | --exec-prefix PC_EXEC_PREFIX] [-L | --libdir PC_LIBDIR ] [-I | --includedir PC_INCLUDEDIR ] [-n | --name PC_NAME] [-d | --description PC_DESCRIPTION] [-V | --version PC_VERSION] [-u | --url PC_URL] [-r | --requires PC_REQUIRES] [--requires-private PC_REQUIRES_PRIVATE] [--conflicts PC_CONFLICTS] [-l | --libs PC_LIBS] [--libs-private PC_LIBS_PRIVATE] [-c | --cflags PC_CFLAGS] <filename>
+# @USAGE: [ additional arguments ]
 # @DESCRIPTION:
-# Creates and installs .pc file. Function arguments overrule the global set
-# eclass variables. The function should only be executed in src_install().
+# Creates and installs .pc file. The function should only be executed in
+# src_install(). For further information about optional arguments please consult
+# http://people.freedesktop.org/~dbn/pkg-config-guide.html
+#
+# @CODE
+# Optional arguments are:
+#
+#   -p | --prefix       Offset for current package   (${EPREFIX}/usr)
+#   -e | --exec-prefix  Offset for current package   (${prefix})
+#   -L | --libdir       Libdir to use                (${prefix}/$(get_libdir))
+#   -I | --includedir   Includedir to use                  (${prefix}/include)
+#   -n | --name         A human-readable name                    (PN}
+#   -d | --description  A brief description                      (DESCRIPTION)
+#   -V | --version      Version of the package                   (PV)
+#   -u | --url          Web presents                             (HOMEPAGE)
+#   -r | --requires     Packages required by this package        (unset)
+#   -l | --libs         Link flags specific to this package      (unset)
+#   -c | --cflags       Compiler flags specific to this package  (unset)
+#   --requires-private  Like --requires, but not exposed         (unset)
+#   --conflicts         Packages that this one conflicts with    (unset)
+#   --libs-private      Like --libs, but not exposed             (unset)
+# @CODE
 create_pkgconfig() {
-	local pcname
+	local pcfilename pcrequires pcrequirespriv pcconflicts pclibs pclibspriv pccflags
+	local pcprefix="${EPREFIX}/usr"
+	local pcexecprefix="${pcprefix}"
+	local pclibdir="${EPREFIX}/usr/$(get_libdir)"
+	local pcincldir="${pcprefix}/include"
+	local pcname=${PN}
+	local pcdescription="${DESCRIPTION}"
+	local pcurl=${HOMEPAGE}
+	local pcversion=${PV}
 
 	[[ "${EBUILD_PHASE}" != "install" ]] && \
 		die "create_pkgconfig should only be used in src_install()"
@@ -107,69 +54,61 @@ create_pkgconfig() {
 	while (($#)); do
 		case ${1} in
 			-p | --prefix )
-				shift; PC_PREFIX=${1} ;;
+				shift; pcprefix=${1} ;;
 			-e | --exec-prefix )
-				shift; PC_EXEC_PREFIX=${1} ;;
+				shift; pcexecprefix=${1} ;;
 			-L | --libdir )
-				shift; PC_LIBDIR=${1} ;;
+				shift; pclibdir=${1} ;;
 			-I | --includedir )
-				shift; PC_INCLUDEDIR=${1} ;;
+				shift; pcincldir=${1} ;;
 			-n | --name )
-				shift; PC_NAME=${1} ;;
+				shift; pcname=${1} ;;
 			-d | --description )
-				shift; PC_DESCRIPTION=${1} ;;
+				shift; pcdescription=${1} ;;
 			-V | --version )
-				shift; PC_VERSION=${1} ;;
+				shift; pcversion=${1} ;;
 			-u | --url )
-				shift; PC_URL=${1} ;;
+				shift; pcurl=${1} ;;
 			-r | --requires )
-				shift; PC_REQUIRES=${1} ;;
+				shift; pcrequires=${1} ;;
 			--requires-private )
-				shift; PC_REQUIRES_PRIVATE=${1} ;;
+				shift; pcrequirespriv=${1} ;;
 			--conflicts )
-				shift; PC_CONFLICTS=${1};;
+				shift; pcconflicts=${1};;
 			-l | --libs )
-				shift; PC_LIBS=${1} ;;
+				shift; pclibs=${1} ;;
 			--libs-private )
-				shift; PC_LIBS_PRIVATE=${1} ;;
+				shift; pclibspriv=${1} ;;
 			-c | --cflags )
-				shift; PC_CFLAGS=${1} ;;
+				shift; pccflags=${1} ;;
 			-* )
 				ewarn "Unknown option ${1}" ;;
 			* )
-				pcname=${1} ;;
+				pcfilename=${1} ;;
 		esac
 		shift
 	done
 
-	[[ -z ${pcname} ]] && die "Missing name for pkg-config file"
-	: ${PC_PREFIX:="${EPREFIX}/usr"}
-	: ${PC_EXEC_PREFIX:="${PC_PREFIX}"}
-	: ${PC_LIBDIR:="${EPREFIX}/usr/$(get_libdir)"}
-	: ${PC_INCLUDEDIR:="${PC_PREFIX}/include"}
-	: ${PC_NAME:=${PN}}
-	: ${PC_DESCRIPTION:=${DESCRIPTION}}
-	: ${PC_URL:=${HOMEPAGE}}
-	: ${PC_VERSION:=${PV}}
+	[[ -z ${pcfilename} ]] && die "Missing name for pkg-config file"
 
-	cat > "${T}"/${pcname}.pc <<- EOF
-	prefix="${PC_PREFIX}"
-	exec_prefix="${PC_EXEC_PREFIX}"
-	libdir="${PC_LIBDIR}"
-	includedir="${PC_INCLUDEDIR}"
+	cat > "${T}"/${pcfilename}.pc <<- EOF
+	prefix="${pcprefix}"
+	exec_prefix="${pcexecprefix}"
+	libdir="${pclibdir}"
+	includedir="${pcincldir}"
 
-	Name: ${PC_NAME}
-	Description: ${PC_DESCRIPTION}
-	Version: ${PC_VERSION}
-	URL: ${PC_URL}
-	Requires: ${PC_REQUIRES}
-	Requires.private: ${PC_REQUIRES_PRIVATE}
-	Conflicts: ${PC_CONFLICTS}
-	Libs: ${PC_LIBS}
-	Libs.private: ${PC_LIBS_PRIVATE}
-	Cflags: ${PC_CFLAGS}
+	Name: ${pcname}
+	Description: ${pcdescription}
+	Version: ${pcversion}
+	URL: ${pcurl}
+	Requires: ${pcrequires}
+	Requires.private: ${pcrequirespriv}
+	Conflicts: ${pcconflicts}
+	Libs: -L"${pclibdir}" ${pclibs}
+	Libs.private: ${pclibspriv}
+	Cflags: -I"${pcincldir}" ${pccflags}
 	EOF
 
 	insinto /usr/$(get_libdir)/pkgconfig
-	doins "${T}"/${pcname}.pc
+	doins "${T}"/${pcfilename}.pc
 }
