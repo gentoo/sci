@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/acml/ChangeLog,v 1.40 2009/07/07 23:27:59 flameeyes Exp $
 
+  12 Dec 2012; Sébastien Fabbro <bicatali@gentoo.org> -acml-4.4.0-r1.ebuild,
+  metadata.xml:
+  sci-libs/acml: Removed old
+
 *acml-5.2.0 (29 Sep 2012)
 
   29 Sep 2012; Sébastien Fabbro <bicatali@gentoo.org> +acml-5.2.0.ebuild,

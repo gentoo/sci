@@ -17,7 +17,6 @@
 <use>
   <flag name='gfortran'>Fetch and install acml compiled with GNU FORTRAN compiler</flag>
   <flag name='ifort'>Fetch and install acml compiled with the Intel FORTRAN compiler</flag>
-  <flag name='nag'>Fetch and install acml compiled with the NAG FORTRAN compiler</flag>
   <flag name='pgi'>Fetch and install acml compiled with the Portland Group FORTRAN compiler</flag>
   <flag name='open64'>Fetch and install acml compiled with the Open64 FORTRAN Compiler</flag>
   <flag name='int64'>Install the 64 bits integer library</flag>
