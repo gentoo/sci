@@ -20,7 +20,7 @@ RESTRICT="mirror"
 LICENSE="paraview GPL-2"
 KEYWORDS="~x86 ~amd64"
 SLOT="0"
-IUSE="boost cg -coprocessing doc examples +gui mpi mysql gl2ps nvcontrol +plugins +python webkit ffmpeg theora"
+IUSE="boost cg -coprocessing doc examples +gui mpi mysql gl2ps nvcontrol +plugins +python ffmpeg theora"
 
 RDEPEND="
 	~sci-libs/netcdf-4.1.3[cxx,hdf5]
@@ -32,14 +32,14 @@ RDEPEND="
 		x11-libs/qt-opengl:4
 		|| ( >=x11-libs/qt-assistant-4.7.0:4[compat] <x11-libs/qt-assistant-4.7.0:4 )
 		x11-libs/qt-sql:4
-		webkit? ( x11-libs/qt-webkit:4 ) )
+		x11-libs/qt-webkit:4 )
 	mysql? ( virtual/mysql )
 	coprocessing? ( plugins? (
 			x11-libs/qt-gui:4
 			dev-python/PyQt4 ) )
 	python? (
 		dev-python/sip
-		gui? ( dev-python/PyQt4 )
+		gui? ( dev-python/PyQt4[opengl,webkit] )
 		dev-python/numpy
 		mpi? ( dev-python/mpi4py )
 	)
@@ -176,7 +176,7 @@ src_configure() {
 	if ( use gui ); then
 		mycmakeargs+=(
 			-DVTK_INSTALL_QT_DIR=/${PVLIBDIR}/plugins/designer
-			$(cmake-utils_use webkit VTK_QT_USE_WEBKIT))
+			-DVTK_QT_USE_WEBKIT=ON )
 		if use python ; then
 			# paraview cannot guess sip directory right probably because a path is not propagated properly
 			mycmakeargs+=(
