@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Dec 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  +files/63julia-gentoo.el:
+  Add emacs julia mode file
+
 *julia-9999 (19 Dec 2012)
 
   19 Dec 2012; Guillaume Horel <guillaume.horel@gmail.com> +julia-9999.ebuild,
