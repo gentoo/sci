@@ -1,5 +1,5 @@
---- Utilities/CMakeLists.txt.orig	2012-08-31 13:55:56.616827748 +1200
-+++ Utilities/CMakeLists.txt	2012-08-31 13:56:43.487830247 +1200
+--- VTK/Utilities/CMakeLists.txt.orig	2012-08-31 13:55:56.616827748 +1200
++++ VTK/Utilities/CMakeLists.txt	2012-08-31 13:56:43.487830247 +1200
 @@ -47,7 +47,7 @@
  SET( verdict_INSTALL_LIB_DIR ${VTK_INSTALL_LIB_DIR_CM24})
  ADD_SUBDIRECTORY(verdict)
@@ -9,8 +9,8 @@
  IF(VTK_USE_METAIO)
    SET(METAIO_FOR_VTK 1)
    ADD_SUBDIRECTORY(vtkmetaio)
---- Utilities/vtk_netcdf.h.orig	2012-08-31 13:57:25.704832693 +1200
-+++ Utilities/vtk_netcdf.h	2012-08-31 13:57:59.823834877 +1200
+--- VTK/Utilities/vtk_netcdf.h.orig	2012-08-31 13:57:25.704832693 +1200
++++ VTK/Utilities/vtk_netcdf.h	2012-08-31 13:57:59.823834877 +1200
 @@ -16,6 +16,6 @@
  #define __vtk_netcdf_h
  
@@ -19,8 +19,8 @@
 +#include <netcdf.h>
  
  #endif
---- Utilities/vtk_netcdfcpp.h.orig	2012-08-31 13:58:48.800838210 +1200
-+++ Utilities/vtk_netcdfcpp.h	2012-08-31 13:59:31.223841343 +1200
+--- VTK/Utilities/vtk_netcdfcpp.h.orig	2012-08-31 13:58:48.800838210 +1200
++++ VTK/Utilities/vtk_netcdfcpp.h	2012-08-31 13:59:31.223841343 +1200
 @@ -16,6 +16,6 @@
  #define __vtk_netcdfcpp_h
  
@@ -29,8 +29,8 @@
 +#include <netcdfcpp.h>
  
  #endif
---- Utilities/vtkexodus2/CMakeLists.txt.orig	2012-08-31 14:01:26.536856845 +1200
-+++ Utilities/vtkexodus2/CMakeLists.txt	2012-08-31 14:02:11.503872711 +1200
+--- VTK/Utilities/vtkexodus2/CMakeLists.txt.orig	2012-08-31 14:01:26.536856845 +1200
++++ VTK/Utilities/vtkexodus2/CMakeLists.txt	2012-08-31 14:02:11.503872711 +1200
 @@ -241,7 +241,7 @@
  
  
@@ -40,8 +40,8 @@
  
  # Apply user-defined properties to the library target.
  IF(VTK_LIBRARY_PROPERTIES)
---- Utilities/vtkexodus2/test/CMakeLists.txt.orig	2012-08-31 14:02:39.696882673 +1200
-+++ Utilities/vtkexodus2/test/CMakeLists.txt	2012-08-31 14:02:59.743889790 +1200
+--- VTK/Utilities/vtkexodus2/test/CMakeLists.txt.orig	2012-08-31 14:02:39.696882673 +1200
++++ VTK/Utilities/vtkexodus2/test/CMakeLists.txt	2012-08-31 14:02:59.743889790 +1200
 @@ -21,7 +21,7 @@
    )
  
@@ -51,8 +51,8 @@
  
  SET( TestsToRun ${ExoIICTests} )
  REMOVE( TestsToRun ExoIICTests.cxx )
---- IO/CMakeLists.txt.orig	2012-08-31 14:05:00.657933170 +1200
-+++ IO/CMakeLists.txt	2012-08-31 14:06:18.024961299 +1200
+--- VTK/IO/CMakeLists.txt.orig	2012-08-31 14:05:00.657933170 +1200
++++ VTK/IO/CMakeLists.txt	2012-08-31 14:06:18.024961299 +1200
 @@ -18,7 +18,7 @@
  SET(KIT_PYTHON_LIBS vtkFilteringPythonD)
  SET(KIT_JAVA_LIBS vtkFilteringJava)
@@ -62,8 +62,8 @@
    ${_VTK_METAIO_LIB} sqlite3
    ${VTK_PNG_LIBRARIES} ${VTK_ZLIB_LIBRARIES} ${VTK_JPEG_LIBRARIES}
    ${VTK_TIFF_LIBRARIES} ${VTK_EXPAT_LIBRARIES} ${VTK_OGGTHEORA_LIBRARIES}
---- vtkIncludeDirectories.cmake.orig	2012-08-31 15:36:06.599955661 +1200
-+++ vtkIncludeDirectories.cmake	2012-08-31 15:37:35.759045094 +1200
+--- VTK/vtkIncludeDirectories.cmake.orig	2012-08-31 15:36:06.599955661 +1200
++++ VTK/vtkIncludeDirectories.cmake	2012-08-31 15:37:35.759045094 +1200
 @@ -193,7 +193,7 @@
  VTK_THIRD_PARTY_INCLUDE2(TIFF)
  VTK_THIRD_PARTY_INCLUDE2(EXPAT)
@@ -73,3 +73,25 @@
  VTK_THIRD_PARTY_INCLUDE2(Exodus2)
  IF(VTK_USE_GL2PS)
    VTK_THIRD_PARTY_INCLUDE2(GL2PS)
+--- Plugins/StreamingView/VTK/CMakeLists.txt.orig	2012-12-20 09:43:26.858734060 +1300
++++ Plugins/StreamingView/VTK/CMakeLists.txt	2012-12-20 09:44:49.472845455 +1300
+@@ -10,7 +10,7 @@
+ INCLUDE ( ${VTK_USE_FILE} )
+ 
+ SET ( VTK_LINK_LIBRARIES
+-  vtkRendering vtkGraphics vtkFiltering vtkCommon vtkIO vtkImaging vtkNetCDF)
++  vtkRendering vtkGraphics vtkFiltering vtkCommon vtkIO vtkImaging netcdf)
+ 
+ INCLUDE_DIRECTORIES(${VTKNETCDF_BINARY_DIR})
+ 
+--- Utilities/VisItBridge/databases/CMakeLists.txt.orig	2012-12-20 09:43:39.257750799 +1300
++++ Utilities/VisItBridge/databases/CMakeLists.txt	2012-12-20 09:45:45.321920591 +1300
+@@ -163,7 +163,7 @@
+ #build all the readers into a single library
+ vtk_add_library(vtk${KIT} ${Kit_SRCS} ${VISIT_DB_SOURCES})
+ 
+-target_link_libraries(vtk${KIT} vtkVisItAVTAlgorithms vtkNetCDF) 
++target_link_libraries(vtk${KIT} vtkVisItAVTAlgorithms netcdf) 
+ if(PARAVIEW_HDF5_LIBRARIES)
+   target_link_libraries(vtk${KIT} ${PARAVIEW_HDF5_LIBRARIES})
+ endif(PARAVIEW_HDF5_LIBRARIES)  

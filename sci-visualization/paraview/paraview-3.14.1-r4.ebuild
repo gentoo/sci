@@ -91,6 +91,8 @@ src_prepare() {
 	# gcc 4.7 fix
 	# http://patch-tracker.debian.org/patch/series/view/paraview/3.14.1-7/fix_FTBFS_gcc-4.7.patch
 	epatch "${FILESDIR}"/${PN}-3.14.1-gcc-4.7.patch
+	# adapted from debian patch need to be applied after paraview-3.14.1-removesqlite.patch
+	epatch "${FILESDIR}"/${PN}-3.14.1-vtknetcd.patch
 
 	# lib64 fixes
 	sed -i "s:/usr/lib:${EPREFIX}/usr/$(get_libdir):g" \
@@ -110,8 +112,6 @@ src_prepare() {
 	epatch "${FILESDIR}"/vtk-5.6.1-libav-0.8.patch
 	# debian patch for recent boost should work with 1.48 too
 	epatch "${FILESDIR}"/vtk-boost1.49.patch
-	# adapted from debian patch need to be applied after paraview-3.14.1-removesqlite.patch
-	epatch "${FILESDIR}"/${PN}-3.14.1-vtknetcd.patch
 }
 
 src_configure() {
