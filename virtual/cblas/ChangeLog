@@ -1,6 +1,10 @@
 # ChangeLog for virtual/cblas
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/virtual/cblas/ChangeLog,v 1.6 2010/01/11 10:56:05 ulm Exp $
+
+  19 Dec 2012; Denis Dupeyron <calchan@gentoo.org> cblas-2.0.ebuild:
+  Only consider sci-libs/gsl as a valid cblas implementation if the
+  cblas-external USE flag is not set. Update sci-libs/gsl version to 1.15-r3.
 
 *cblas-2.0 (24 Nov 2010)
 
