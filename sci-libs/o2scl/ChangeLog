@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/o2scl
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*o2scl-0.911 (19 Dec 2012)
+
+  19 Dec 2012; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +o2scl-0.911.ebuild:
+  sci-libs/o2scl: Initial import
