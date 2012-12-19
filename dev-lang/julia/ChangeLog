@@ -1,0 +1,11 @@
+# ChangeLog for dev-lang/julia
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*julia-9999 (19 Dec 2012)
+
+  19 Dec 2012; Guillaume Horel <guillaume.horel@gmail.com> +julia-9999.ebuild,
+  +metadata.xml:
+  Initial import. Ebuild written with help from Nicolas Bigaouette and 
+  Sébastien Fabbro.
+
