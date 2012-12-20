@@ -12,7 +12,7 @@ CMAKE_MIN_VERSION="2.8.5-r2"
 
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
-inherit bash-completion-r1 cmake-utils eutils fortran-2 multilib toolchain-funcs
+inherit bash-completion-r1 cmake-utils eutils multilib toolchain-funcs
 
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
 
@@ -30,7 +30,7 @@ else
 		doc? (  ftp://ftp.gromacs.org/pub/manual/gromacs-manual-${MANUAL_PV}.pdf )"
 fi
 
-ACCE_IUSE="fkernels power6 sse2 sse41 avx128fma avx256"
+ACCE_IUSE="sse2 sse41 avx128fma avx256"
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -50,7 +50,6 @@ CDEPEND="
 	blas? ( virtual/blas )
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	fftw? ( sci-libs/fftw:3.0 )
-	fkernels? ( !threads? ( !sse2? ( virtual/fortran ) ) )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
@@ -69,22 +68,11 @@ pkg_pretend() {
 		die "Please switch to an openmp compatible compiler"
 }
 
-pkg_setup() {
+src_prepare() {
 	#notes/todos
 	# -on apple: there is framework support
 	# -mkl support
-	# -there are power6 kernels
-	if use fkernels; then
-		if use threads; then
-			ewarn "Fortran kernels and threads do not work together, disabling"
-			ewarn "fortran kernels"
-		else
-			fortran-2_pkg_setup
-		fi
-	fi
-}
 
-src_prepare() {
 	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
 	epatch_user
 
@@ -106,7 +94,6 @@ src_configure() {
 
 	#go from slowest to fastest acceleration
 	local acce="None"
-	use fkernels && use !threads && acce="Fortran"
 	use power6 && acce="Power6"
 	use sse2 && acce="SSE2"
 	use sse41 && acce="SSE4.1"
