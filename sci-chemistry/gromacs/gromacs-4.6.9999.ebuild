@@ -23,11 +23,11 @@ if [[ $PV = *9999* ]]; then
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-4-6"
 	inherit git-2
-	PDEPEND="doc? ( ~app-doc/gromacs-manual-${PV} )"
+	PDEPEND="doc? ( ~app-doc/${PN}-manual-${PV} )"
 else
 	S="${WORKDIR}/${P//_/-}"
 	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P//_/-}.tar.gz
-		doc? (  ftp://ftp.gromacs.org/pub/manual/gromacs-manual-${MANUAL_PV}.pdf )"
+		doc? (  ftp://ftp.gromacs.org/pub/manual/${PN}-manual-${MANUAL_PV}.pdf )"
 fi
 
 ACCE_IUSE="sse2 sse41 avx128fma avx256"
@@ -38,8 +38,7 @@ HOMEPAGE="http://www.gromacs.org/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
-IUSE="X blas cuda doc -double-precision +fftw gsl lapack
-mpi openmm openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
+IUSE="X blas cuda doc -double-precision +fftw gsl lapack mpi +offensive openmm openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
 	X? (
@@ -94,7 +93,6 @@ src_configure() {
 
 	#go from slowest to fastest acceleration
 	local acce="None"
-	use power6 && acce="Power6"
 	use sse2 && acce="SSE2"
 	use sse41 && acce="SSE4.1"
 	use avx128fma && acce="AVX_128_FMA"
@@ -111,6 +109,7 @@ src_configure() {
 		$(cmake-utils_use gsl GMX_GSL)
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use openmp GMX_OPENMP)
+		$(cmake-utils_use !offensive GMX_NO_QUOTES)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_ACCELERATION="$acce"
 		-DGMXLIB="$(get_libdir)"
@@ -208,7 +207,7 @@ src_install() {
 			ls -1 "${ED}"/usr/bin | sed -e '/_d$/d' > "${T}"/programs.list
 			doins "${T}"/programs.list
 		else
-			dodoc "${DISTDIR}/gromacs-manual-${MANUAL_PV}.pdf"
+			dodoc "${DISTDIR}/${PN}-manual-${MANUAL_PV}.pdf"
 		fi
 	fi
 	rm -rf "${ED}usr/share/gromacs/html/"
@@ -219,9 +218,11 @@ pkg_postinst() {
 	einfo  "Please read and cite:"
 	einfo  "Gromacs 4, J. Chem. Theory Comput. 4, 435 (2008). "
 	einfo  "http://dx.doi.org/10.1021/ct700301q"
-	einfo
-	einfo  $(g_luck)
-	einfo  "For more Gromacs cool quotes (gcq) add g_luck to your .bashrc"
+	if use offensive; then
+		einfo
+		einfo  $(g_luck)
+		einfo  "For more Gromacs cool quotes (gcq) add g_luck to your .bashrc"
+	fi
 	einfo
 	elog  "Gromacs can use sci-chemistry/vmd to read additional file formats"
 }

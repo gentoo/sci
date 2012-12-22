@@ -15,7 +15,7 @@
 		<flag name="sse41">Enable sse4.1 acceleration</flag>
 		<flag name="avx128fma">Enable 128bit avx with fma (e.g. AMD BullDozer)</flag>
 		<flag name="avx256">Enable 256bit avx (e.g. Intel Sandy Bridge)</flag>
+		<flag name="offensive">Enable gromacs partly offensive quotes</flag>
 		<flag name="openmm">Add acceleration through <pkg>sci-libs/openmm</pkg></flag>
-		<flag name="power6">Enable Power6 optimizations</flag>
 	</use>
 </pkgmetadata>

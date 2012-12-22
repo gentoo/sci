@@ -9,12 +9,12 @@ TEST_PV="4.0.4"
 EGIT_REPO_URI="git://git.gromacs.org/gromacs http://repo.or.cz/r/gromacs.git"
 EGIT_BRANCH="master"
 
-ACCE_IUSE="fkernels power6 sse2 sse41 avx128fma avx256"
+ACCE_IUSE="sse2 sse41 avx128fma avx256"
 
 #to find external blas/lapack
 CMAKE_MIN_VERSION="2.8.5-r2"
 
-inherit bash-completion-r1 cmake-utils eutils fortran-2 git-2 multilib toolchain-funcs
+inherit bash-completion-r1 cmake-utils eutils git-2 multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -25,7 +25,6 @@ SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X blas doc -double-precision +fftw gsl lapack mpi +single-precision  test
 +threads xml zsh-completion ${ACCE_IUSE}"
-REQUIRED_USE="fkernels? ( !threads )"
 
 CDEPEND="
 	X? (
@@ -35,7 +34,6 @@ CDEPEND="
 		)
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
-	fkernels? ( virtual/fortran )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
@@ -46,10 +44,6 @@ RDEPEND="${CDEPEND}"
 PDEPEND="doc? ( ~app-doc/gromacs-manual-${PV} )"
 
 RESTRICT="test"
-
-pkg_setup() {
-	use fkernels && fortran-2_pkg_setup
-}
 
 src_prepare() {
 	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
@@ -95,12 +89,6 @@ src_configure() {
 
 	#note for gentoo-PREFIX on apple: use --enable-apple-64bit
 
-	#note for gentoo-PREFIX on aix, fortran (xlf) is still much faster
-	if use fkernels; then
-		ewarn "Fortran kernels are usually not faster than C kernels and assembly"
-		ewarn "I hope, you know what are you doing..."
-	fi
-
 	if use double-precision ; then
 		#from gromacs manual
 		elog
@@ -124,8 +112,6 @@ src_configure() {
 
 	#go from slowest to fasterest acceleration
 	local acce="None"
-	use fkernels && use !threads && acce="Fortran"
-	use power6 && acce="Power6"
 	use sse2 && acce="SSE2"
 	use sse41 && acce="SSE4.1"
 	use avx128fma && acce="AVX_128_FMA"
