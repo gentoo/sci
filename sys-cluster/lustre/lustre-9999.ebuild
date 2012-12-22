@@ -22,6 +22,10 @@ IUSE="utils"
 DEPEND=""
 RDEPEND="${DEPEND}"
 
+PATCHES=(
+	"${FILESDIR}/2.4/0001-LU-1994-llite-atomic_open-support.patch"
+)
+
 BUILD_PARAMS="-C ${KV_DIR} SUBDIRS=${S}"
 
 pkg_setup() {
@@ -32,6 +36,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	epatch ${PATCHES[@]}
 	apply_user_patches
 	sed -e 's:-Werror::g' \
 		-i libcfs/autoconf/lustre-libcfs.m4 \

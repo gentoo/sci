@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Dec 2012; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/2.4/0001-LU-1994-llite-atomic_open-support.patch, lustre-9999.ebuild:
+  [sys-cluster/lustre] Add missing patch
+
   22 Dec 2012; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
   [sys-cluster/lustre] Fix disabling
 
