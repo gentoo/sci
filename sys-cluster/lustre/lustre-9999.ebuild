@@ -33,6 +33,13 @@ pkg_setup() {
 
 src_prepare() {
 	apply_user_patches
+	sed -e 's:-Werror::g' \
+		-i build/autoconf/lustre-build-linux.m4 \
+		-i ldiskfs/build/autoconf/lustre-build-linux.m4 \
+		-i libcfs/autoconf/lustre-libcfs.m4 \
+		-i libsysio/configure.in \
+		-i lnet/autoconf/lustre-lnet.m4 \
+		lustre/autoconf/lustre-core.m4 || die "Disabling Werror failed"
 	sh ./autogen.sh
 }
 

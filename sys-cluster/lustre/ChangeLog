@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Dec 2012; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  [sys-cluster/lustre] Disable Werror
+
   22 Dec 2012; Alexey Shvetsov <alexxy@gentoo.org>
   -files/2.4/0001-LU-1337-vfs-kernel-3.1-renames-lock-manager-ops.patch,
   -files/2.4/0002-LU-1337-vfs-kernel-3.1-kills-inode-i_alloc_sem.patch,
