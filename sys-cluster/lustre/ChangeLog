@@ -3,6 +3,9 @@
 # $Header: $
 
   22 Dec 2012; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  [sys-cluster/lustre] Fix disabling
+
+  22 Dec 2012; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
   [sys-cluster/lustre] Disable Werror
 
   22 Dec 2012; Alexey Shvetsov <alexxy@gentoo.org>
