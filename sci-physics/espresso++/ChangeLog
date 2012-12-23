@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Dec 2012; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
+  sync with gx86
+
 *espresso++-9999 (09 Oct 2012)
 
   09 Oct 2012; Christoph Junghans <ottxor@gentoo.org> +espresso++-9999.ebuild,

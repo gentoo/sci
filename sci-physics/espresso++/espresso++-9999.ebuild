@@ -4,7 +4,7 @@
 
 EAPI=4
 
-PYTHON_DEPEND="2"
+PYTHON_DEPEND="2:2.6"
 
 inherit cmake-utils python
 
@@ -17,6 +17,7 @@ if [[ ${PV} = 9999 ]]; then
 	inherit mercurial
 else
 	SRC_URI="https://www.espresso-pp.de/Download/${PN%++}pp_${PV//./_}.tgz"
+	S="${WORKDIR}/${PN%++}pp"
 fi
 
 LICENSE="GPL-3"
@@ -31,9 +32,11 @@ RDEPEND="
 
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/${PN%++}pp"
-
 DOCS=( AUTHORS NEWS README )
+
+pkg_setup() {
+	python_set_active_version 2
+}
 
 src_configure() {
 	mycmakeargs=(
