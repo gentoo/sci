@@ -2,22 +2,24 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-visualization/gnuplot/gnuplot-4.6_rc1.ebuild,v 1.7 2012/03/07 00:33:49 ulm Exp $
 
-EAPI=4
+EAPI=5
 
 inherit elisp-common multilib wxwidgets
 
 DESCRIPTION="Command-line driven interactive plotting program"
 HOMEPAGE="http://www.gnuplot.info/"
 
-if [[ -z ${PV%%*9999} ]]; then
-	inherit autotools cvs
-	ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot/gnuplot"
-	ECVS_MODULE="gnuplot"
-	ECVS_BRANCH="HEAD"
-	ECVS_USER="anonymous"
-	ECVS_CVS_OPTIONS="-dP"
+if [[ ${PV} = *9999 ]]; then
+	inherit autotools
+	#inherit cvs
+	#ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot/gnuplot"
+	#ECVS_MODULE="gnuplot"
+	#ECVS_BRANCH="HEAD"
+	#ECVS_USER="anonymous"
+	#ECVS_CVS_OPTIONS="-dP"
+	inherit git-2
+	EGIT_REPO_URI="git://github.com/gnuplot/gnuplot.git"
 	MY_P="${PN}"
-	SRC_URI=""
 else
 	MY_P="${P/_/.}"
 	SRC_URI="mirror://sourceforge/gnuplot/${MY_P}.tar.gz"
@@ -26,7 +28,8 @@ fi
 LICENSE="gnuplot GPL-2 bitmap? ( free-noncomm )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
-IUSE="bitmap cairo doc emacs examples +gd ggi latex lua qt4 readline svga thin-splines wxwidgets X"
+IUSE="bitmap cairo doc emacs examples +gd ggi latex lua qt4 readline svga thin-splines wxwidgets X xemacs"
+REQUIRED_USE="?? ( emacs xemacs )"
 RESTRICT="wxwidgets? ( test )"
 
 RDEPEND="
@@ -52,17 +55,22 @@ RDEPEND="
 		x11-libs/cairo
 		x11-libs/pango
 		x11-libs/gtk+:2 )
-	X? ( x11-libs/libXaw )"
+	X? ( x11-libs/libXaw )
+	xemacs? (
+		app-editors/xemacs
+		app-xemacs/xemacs-base )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	doc? (
 		virtual/latex-base
 		dev-texlive/texlive-latexextra
-		app-text/ghostscript-gpl )"
+		app-text/ghostscript-gpl )
+	xemacs? ( app-xemacs/texinfo )"
 
-if [[ -z ${PV%%*9999} ]]; then
+if [[ ${PV} = *9999 ]]; then
 	# The live ebuild always needs an Emacs for building of gnuplot.texi
-	DEPEND="${DEPEND} virtual/emacs"
+	DEPEND="${DEPEND}
+	!emacs? ( !xemacs? ( || ( virtual/emacs app-xemacs/texinfo ) ) )"
 fi
 
 S="${WORKDIR}/${MY_P}"
@@ -72,7 +80,7 @@ E_SITEFILE="50${PN}-gentoo.el"
 TEXMF="${EPREFIX}/usr/share/texmf-site"
 
 src_prepare() {
-	if [[ -z ${PV%%*9999} ]]; then
+	if [[ ${PV} = *9999 ]]; then
 		local dir
 		for dir in config demo m4 term tutorial; do
 			emake -C "$dir" -f Makefile.am.in Makefile.am
@@ -117,9 +125,12 @@ src_configure() {
 		&& myconf="${myconf} --with-readline=gnu" \
 		|| myconf="${myconf} --with-readline=builtin"
 
-	local emacs=$(usev emacs || echo no)
+	local emacs=$(usev emacs || usev xemacs || echo no)
+	if [[ ${PV} = *9999 && ${emacs} = no ]]; then
 		# Live ebuild needs an Emacs to build gnuplot.texi
-	[[ -z ${PV%%*9999} ]] && emacs=emacs
+		if has_version virtual/emacs; then emacs=emacs
+		elif has_version app-xemacs/texinfo; then emacs=xemacs; fi
+	fi
 
 	econf ${myconf} \
 		DIST_CONTACT="http://bugs.gentoo.org/" \

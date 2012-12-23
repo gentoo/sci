@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Dec 2012; Christoph Junghans <ottxor@gentoo.org> gnuplot-4.7.9999.ebuild:
+  reworked emacs issue (bug #444526#c3) + move to git
+
   07 Jun 2012; Christoph Junghans <ottxor@gentoo.org> gnuplot-4.7.9999.ebuild:
   fixed info install
 
@@ -135,4 +138,3 @@
 
   21 May 2009; Christoph Junghans <kleiner_otti@gmx.de> ChangeLog:
   Initial commit ,based upon bug #232363
-
