@@ -63,8 +63,13 @@ pkg_nofetch() {
 	elog "Place both in ${DISTDIR}"
 }
 
+pkg_setup() {
+	python_set_active_version 2
+	python_pkg_setup
+}
+
 src_prepare() {
-	cuda_sanitize
+	use cuda && cuda_sanitize
 
 	cd "${WORKDIR}"/plugins
 
@@ -216,5 +221,6 @@ src_install() {
 	insinto /usr/share/pixmaps
 	doins "${WORKDIR}"/vmd.png
 	eprefixify "${WORKDIR}"/vmd.desktop
+	sed -i '/^Path/d' "${WORKDIR}"/vmd.desktop || die
 	domenu "${WORKDIR}"/vmd.desktop
 }
