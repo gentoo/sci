@@ -18,6 +18,10 @@
 
 #--- END OF EXAMPLES ---
 
+# Christoph Junghans <ottxor@gentoo.org> (24 Dec 2012)
+# Needs multilib
+dev-util/ccache-icc
+
 # Justin Lecher <jlec@gentoo.org> (11 Nov 2011)
 # Needs multilib
 sci-chemistry/nmrpipe
