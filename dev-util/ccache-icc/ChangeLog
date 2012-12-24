@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Dec 2012; Christoph Junghans <ottxor@gentoo.org> ccache-icc-0.1.ebuild:
+  added ~amd64
+
   29 May 2012; Christoph Junghans <ottxor@gentoo.org> ccache-icc-0.1.ebuild:
   fixed EAPI bump
 
@@ -10,4 +13,3 @@
   29 May 2012; Christoph Junghans <ottxor@gentoo.org> +ccache-icc-0.1.ebuild,
   +metadata.xml:
   initial commit
-
