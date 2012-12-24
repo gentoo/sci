@@ -12,24 +12,21 @@ SRC_URI="http://people.irisa.fr/Edouard.Canot/${PN}/${P}.tar.bz2"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 DEPEND=""
 RDEPEND="dev-util/ccache"
 
 src_prepare() {
-	sed -i -e '/^CFLAGS/d' -e 's/CFLAGS/LDFLAGS/' Makefile.in || die
+	sed -i -e '/OBJS/s/CFLAGS/LDFLAGS/' -e '/strip/d' Makefile.in || die
 }
 
 src_install() {
-	#make install does too much magic
-	dodoc README CHANGES
-	doman f90cache.1
+	default
 	dohtml web/*
-	dobin f90cache
 
-	#we depend on ccache, put links in there so that portage uses them
+	#we depend on ccache, put links in there so that portage fined it
 	#TODO improve this
 	dosym "/usr/bin/f90cache" "${ROOT}/usr/$(get_libdir)/ccache/bin/gfortran"
 }
