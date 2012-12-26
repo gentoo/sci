@@ -53,7 +53,10 @@ CDEPEND="
 	lapack? ( virtual/lapack )
 	mkl? ( sci-libs/mkl )
 	mpi? ( virtual/mpi )
-	openmm? ( sci-libs/openmm[cuda,opencl] )"
+	openmm? (
+		dev-util/nvidia-cuda-toolkit
+		sci-libs/openmm[cuda,opencl]
+	)"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}"
@@ -127,7 +130,7 @@ src_configure() {
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_ACCELERATION="$acce"
 		-DGMXLIB="$(get_libdir)"
-	    -DGMX_VMD_PLUGIN_PATH="${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/"
+		-DGMX_VMD_PLUGIN_PATH="${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/"
 		${extra}
 	)
 
@@ -149,7 +152,7 @@ src_configure() {
 			einfo "Configuring for openmm build"
 			mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 				-DGMX_THREAD_MPI=OFF -DGMX_GPU=OFF -DGMX_OPENMM=ON
-				-DGMX_BINARY_SUFFIX="openmm" -DGMX_LIBS_SUFFIX="openmm" )
+				-DGMX_BINARY_SUFFIX="_openmm" -DGMX_LIBS_SUFFIX="_openmm" )
 			BUILD_DIR="${WORKDIR}/${P}_openmm" \
 				OPENMM_ROOT_DIR="${EPREFIX}/usr" cmake-utils_src_configure
 		fi
