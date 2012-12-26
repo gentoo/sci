@@ -63,7 +63,7 @@ RESTRICT="test"
 REQUIRED_USE="
 	cuda? ( single-precision )
 	openmm? ( single-precision )
-	mkl ( !blas !fftw !lapack )"
+	mkl? ( !blas !fftw !lapack )"
 
 pkg_pretend() {
 	[[ $(gcc-version) == "4.1" ]] && die "gcc 4.1 is not supported by gromacs"
