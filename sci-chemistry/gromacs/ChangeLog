@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Dec 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild,
+  metadata.xml:
+  Added mkl support
+
   22 Dec 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild,
   gromacs-9999.ebuild, metadata.xml:
   sync with gx86
