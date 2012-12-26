@@ -3,6 +3,9 @@
 # $Header: $
 
   26 Dec 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
+  fixed another typo
+
+  26 Dec 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
   fixed typo
 
   26 Dec 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild,

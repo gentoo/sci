@@ -106,14 +106,14 @@ src_configure() {
 		extra+=" -DCMAKE_BUILD_WITH_INSTALL_RPATH=OFF"
 
 	if use fftw; then
-		fft_opts=( -DGMX_FFT_LIBRARY=ffw3 )
+		fft_opts=( -DGMX_FFT_LIBRARY=fftw3 )
 	elif use mkl; then
 		fft_opts=( -DGMX_FFT_LIBRARY=mkl
 			-DMKL_INCLUDE_DIR="${MKLROOT}/include"
 			-DMKL_LIBRARIES="$(echo /opt/intel/mkl/10.0.5.025/lib/*/libmkl.so);$(echo /opt/intel/mkl/10.0.5.025/lib/*/libiomp*.so)"
 		)
 	else
-		fft_opts=( -DGMX_FFT_LIBRARY=fftwpack )
+		fft_opts=( -DGMX_FFT_LIBRARY=fftpack )
 	fi
 
 	mycmakeargs_pre+=(
