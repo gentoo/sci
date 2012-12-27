@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Dec 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
+  sci-chemistry/gromacs: clean up
+
   26 Dec 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
   fixed openmm suffix
 

@@ -7,9 +7,6 @@ EAPI=5
 TEST_PV="4.0.4"
 MANUAL_PV="4.6-beta1"
 
-#to find external blas/lapack
-CMAKE_MIN_VERSION="2.8.5-r2"
-
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit bash-completion-r1 cmake-utils eutils multilib toolchain-funcs
@@ -64,6 +61,7 @@ RDEPEND="${CDEPEND}"
 RESTRICT="test"
 
 REQUIRED_USE="
+	|| ( single-precision double-precision )
 	cuda? ( single-precision )
 	openmm? ( single-precision )
 	mkl? ( !blas !fftw !lapack )"
@@ -84,9 +82,6 @@ src_prepare() {
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" float"
 	use double-precision && GMX_DIRS+=" double"
-	#if neither single-precision nor double-precision is enabled
-	#build at least default (single)
-	[[ -z $GMX_DIRS ]] && GMX_DIRS+=" float"
 
 	for x in ${GMX_DIRS}; do
 		mkdir -p "${WORKDIR}/${P}_${x}" || die
