@@ -16,6 +16,10 @@
 ## =media-video/mplayer-0.90_pre5-r1 foo
 #
 
+# Christoph Junghans <ottxor@gentoo.org> (27 Dec 2012)
+# icc/clang is not supported by all platforms
+dev-util/ccache icc clang
+
 # Kacper Kowalik <xarthisius@gentoo.org> (23 Jul 2011)
 # mask assembler as it currently doesn't work
 dev-lang/path64 assembler
