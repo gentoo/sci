@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Dec 2012; Christoph Junghans <ottxor@gentoo.org> files/ccache-config-2:
+  dev-util/ccache: fixed clang links
+
 *ccache-3.1.8-r1 (27 Dec 2012)
 
   27 Dec 2012; Christoph Junghans <ottxor@gentoo.org> +ccache-3.1.8-r1.ebuild,

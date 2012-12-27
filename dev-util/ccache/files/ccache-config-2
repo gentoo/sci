@@ -69,7 +69,7 @@ cc_install_link() {
 cc_links() {
 	local a compilers="gcc cc c++ g++" 
 	[ "${2}" = icc ] && compilers="icc icpc" && set -- "$1"
-	[ "${2}" = clang ] && compilers="clang " && set -- "$1"
+	[ "${2}" = clang ] && compilers="clang clang++" && set -- "$1"
 	for a in ${compilers} ; do
 		if [ -n "${2}" ] ; then
 			# gcc-config doesnt install ${CHOST}-cc, so until
