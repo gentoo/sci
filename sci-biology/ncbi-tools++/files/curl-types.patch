@@ -1,0 +1,24 @@
+Index: libs/kns/url-fetcher-curl.c
+===================================================================
+--- src/sra/sdk/libs/kns/url-fetcher-curl.c (revision 11878)
++++ src/sra/sdk/libs/kns/url-fetcher-curl.c (revision 11880)
+@@ -38,7 +38,6 @@
+ #include <string.h>
+ 
+ #include <curl/curl.h>
+-#include <curl/types.h>
+ #include <curl/easy.h>
+ 
+ /*--------------------------------------------------------------------------
+Index: tools/refseq-load/refseq-load.c
+===================================================================
+--- src/sra/sdk/tools/refseq-load/refseq-load.c     (revision 11878)
++++ src/sra/sdk/tools/refseq-load/refseq-load.c     (revision 11880)
+@@ -41,7 +41,6 @@
+ #include <sysalloc.h>
+ 
+ #include <curl/curl.h>
+-#include <curl/types.h>
+ #include <curl/easy.h>
+ 
+ #include <stdlib.h>
