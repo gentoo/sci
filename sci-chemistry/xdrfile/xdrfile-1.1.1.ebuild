@@ -2,25 +2,20 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
+
+FORTRAN_NEEDED="fortran"
 
 inherit fortran-2
 
 DESCRIPTION="Library to read xtc gromacs trajectory"
-HOMEPAGE="http://wiki.gromacs.org/index.php/XTC_Library"
+HOMEPAGE="http://www.gromacs.org/Developer_Zone/Programming_Guide/XTC_Library"
 SRC_URI="ftp://ftp.gromacs.org/pub/contrib/${P}.tar.gz"
 
-LICENSE="LGPL-2"
+LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="fortran"
-
-DEPEND="
-	fortran? ( virtual/fortran )
-"
-RDEPEND="${DEPEND}"
-
-S="${WORKDIR}/${P}b"
 
 src_configure() {
 	econf \

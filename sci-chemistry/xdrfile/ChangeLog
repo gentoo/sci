@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*xdrfile-1.1.1 (30 Dec 2012)
+
+  30 Dec 2012; Christoph Junghans <ottxor@gentoo.org> +xdrfile-1.1.1.ebuild,
+  -xdrfile-1.1.ebuild:
+  version bump
+
   09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> xdrfile-1.1.ebuild:
   [sci-chemistry/xdrfile] Add keywords
 
