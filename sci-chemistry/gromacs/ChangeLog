@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Dec 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
+  further clean up
+
   29 Dec 2012; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
   fixed build with newer mkl
 
