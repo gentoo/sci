@@ -16,9 +16,7 @@ if [ "${PV}" != "9999" ]; then
 else
 	SRC_URI=""
 	inherit mercurial
-	EHG_REPO_URI="https://csg.votca.googlecode.com/hg"
-	EHG_REVISION="default"
-	S="${WORKDIR}/${EHG_REPO_URI##*/}"
+	EHG_REPO_URI="https://code.google.com/p/votca.csg/"
 	PDEPEND="${PDEPEND} doc? ( =app-doc/${PN}-manual-${PV} )
 		examples? ( =sci-chemistry/${PN}-tutorials-${PV} )"
 fi
