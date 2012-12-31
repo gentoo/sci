@@ -6,9 +6,7 @@ EAPI="4"
 
 inherit mercurial
 
-EHG_REPO_URI="https://csg-tutorials.votca.googlecode.com/hg"
-EHG_REVISION="default"
-S="${WORKDIR}/${EHG_REPO_URI##*/}"
+EHG_REPO_URI="https://code.google.com/p/votca.csg-tutorials"
 
 DESCRIPTION="Tutorials for votca-csg"
 HOMEPAGE="http://www.votca.org"
