@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*magma-1.3.0 (28 Dec 2012)
+
+  28 Dec 2012; Olivier Huber <oli.huber@gmail.com> +magma-1.3.0.ebuild,
+  metadata.xml:
+  sci-libs/magma Bump
+
   24 Nov 2012; Olivier Huber <oli.huber@gmail.com> magma-1.2.1.ebuild,
   metadata.xml:
   Fix shared lib creation, fix tests and remove the tesla useflag, since this

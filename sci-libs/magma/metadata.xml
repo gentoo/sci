@@ -10,5 +10,6 @@
 </longdescription>
 <use>
   <flag name="fermi">Compile for GPU NVIDIA Fermi family (2.x cards)</flag>
+  <flag name="kepler">Compile for GPU NVIDIA Kepler family (GF 6xx cards)</flag>
 </use>
 </pkgmetadata>
