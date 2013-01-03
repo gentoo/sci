@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,7 +9,7 @@ inherit eutils fortran-2 toolchain-funcs versionator multilib
 
 DESCRIPTION="Matrix Algebra on GPU and Multicore Architectures"
 HOMEPAGE="http://icl.cs.utk.edu/magma/"
-SRC_URI="http://icl.cs.utk.edu/projectsfiles/${PN}/${P}.tar.gz"
+SRC_URI="http://icl.cs.utk.edu/projectsfiles/${PN}/pubs/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
