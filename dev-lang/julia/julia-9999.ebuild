@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,13 +8,13 @@ EGIT_REPO_URI="git://github.com/JuliaLang/julia.git"
 
 inherit git-2 elisp-common eutils multilib
 
-DESCRIPTION="High-performance dynamic language for technical computing"
+DESCRIPTION="The Julia Language: a fresh approach to technical computing"
 HOMEPAGE="http://julialang.org/"
 SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc emacs notebook"
 
 RDEPEND=">=sys-devel/llvm-3.0
@@ -24,7 +24,7 @@ RDEPEND=">=sys-devel/llvm-3.0
 	sci-libs/arpack
 	sci-libs/fftw
 	dev-libs/gmp
-	sys-libs/libunwind
+	>=sys-libs/libunwind-0.11
 	dev-libs/libpcre
 	sci-mathematics/glpk
 	sys-libs/zlib
