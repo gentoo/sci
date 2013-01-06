@@ -24,7 +24,7 @@ RDEPEND=">=sys-devel/llvm-3.0
 	sci-libs/arpack
 	sci-libs/fftw
 	dev-libs/gmp
-	>=sys-libs/libunwind-0.11
+	>=sys-libs/libunwind-1.1
 	dev-libs/libpcre
 	sci-mathematics/glpk
 	sys-libs/zlib
