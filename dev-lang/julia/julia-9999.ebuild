@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -80,7 +80,7 @@ src_install() {
 	fi
 	if use emacs; then
 		elisp-install "${PN}" contrib/julia-mode.el
-		elisp-site-file-install "${FILESDIR}"/63-julia-gentoo.el
+		elisp-site-file-install "${FILESDIR}"/63julia-gentoo.el
 	fi
 	use doc && dodoc -r doc/_build/html
 	dodoc README.md
