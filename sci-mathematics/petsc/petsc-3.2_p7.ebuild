@@ -16,8 +16,8 @@ LICENSE="petsc"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="afterimage complex-scalars cxx debug doc
-	fortran hdf5 hypre mpi sparse superlu threads X"
-# Failed: boost imagemagick metis
+	fortran hdf5 hypre metis mpi sparse superlu threads X"
+# Failed: boost imagemagick
 
 # hypre and superlu curretly exclude each other due to missing linking to hypre
 # if both are enabled
@@ -34,14 +34,14 @@ RDEPEND="
 	virtual/lapack
 	afterimage? ( media-libs/libafterimage )
 	hdf5? ( sci-libs/hdf5[mpi?] )
-	hypre? ( >=sci-libs/hypre-2.8.0b[mpi?] )
+	hypre? ( sci-libs/hypre[mpi?] )
+	metis? ( sci-libs/parmetis )
 	mpi? ( virtual/mpi[cxx?,fortran?] )
 	sparse? ( sci-libs/suitesparse >=sci-libs/cholmod-1.7.0 )
 	superlu? ( sci-libs/superlu )
 	X? ( x11-libs/libX11 )
 "
 #	boost? ( dev-libs/boost )
-#	metis? ( sci-libs/parmetis )
 #	imagemagick? ( media-gfx/imagemagick )
 
 DEPEND="${RDEPEND}
@@ -56,9 +56,9 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
-	"${FILESDIR}"/${P%_*}-configure-pic.patch
-	"${FILESDIR}"/${P%_*}-disable-env-warnings.patch
-	"${FILESDIR}"/${P%_*}-disable-rpath.patch
+	"${FILESDIR}"/${P}-configure-pic.patch
+	"${FILESDIR}"/${P}-disable-env-warnings.patch
+	"${FILESDIR}"/${P}-disable-rpath.patch
 )
 
 src_configure() {
@@ -74,7 +74,7 @@ src_configure() {
 		if use ${1}; then
 			myuse="--with-${p}=1"
 			if [[ $# -ge 4 ]]; then
-				myuse="${myuse} --with-${p}-include=${EPREFIX}${3}"
+				myuse="${myuse} --with-${p}-include=${3}"
 				shift 3
 				myuse="${myuse} --with-${p}-lib=$@"
 			else
@@ -137,6 +137,7 @@ src_configure() {
 		$(petsc_with hdf5) \
 		$(petsc_with hypre hypre \
 			/usr/include/hypre -lHYPRE) \
+		$(petsc_with metis parmetis) \
 		$(petsc_with sparse cholmod) \
 		$(petsc_with superlu superlu \
 			/usr/include/superlu -lsuperlu) \
@@ -152,7 +153,6 @@ src_configure() {
 #		fftw: no mpi-implementaion available in gentoo
 
 # failed dependencies, perhaps fixed in upstream soon:
-#		$(petsc_with metis parmetis) \ # needs metis too (>=5.0.2)
 #		$(petsc_with boost) \
 #		$(petsc_with imagemagick imagemagick \
 #			/usr/include/ImageMagick $(pkg-config --libs MagickCore)) \
@@ -171,16 +171,12 @@ src_install() {
 		insinto /usr/include/${PN}/finclude
 		doins include/finclude/*.h
 	fi
-	if ! use mpi ; then
-		insinto /usr/include/${PN}/mpiuni
-		doins include/mpiuni/*.h
-	fi
 	insinto /usr/include/${PN}/conf
 	doins conf/{variables,rules,test}
 	insinto /usr/include/${PN}/${PETSC_ARCH}/conf
 	doins ${PETSC_ARCH}/conf/{petscrules,petscvariables,RDict.db}
-	insinto /usr/include/${PN}/petsc-private
-	doins include/petsc-private/*.h
+	insinto /usr/include/${PN}/private
+	doins include/private/*.h
 
 	# fix configuration files: replace ${S} by installed location
 	sed -i \
@@ -199,13 +195,17 @@ src_install() {
 	EOF
 	doenvd 99petsc
 
-	dolib.so ${PETSC_ARCH}/lib/*.so
+	if ! use mpi ; then
+		insinto /usr/include/${PN}/mpiuni
+		doins include/mpiuni/*.h
+	fi
 
 	if use doc ; then
-		einfo "installing documentation (this could take a while)"
 		dodoc docs/manual.pdf
 		dohtml -r docs/*.html docs/changes docs/manualpages
 	fi
+
+	dolib.so ${PETSC_ARCH}/lib/*.so
 }
 
 pkg_postinst() {
