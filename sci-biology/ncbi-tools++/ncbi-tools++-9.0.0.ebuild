@@ -131,7 +131,7 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
-#	filter-ldflags -Wl,--as-needed
+	filter-ldflags -Wl,--as-needed
 #	append-ldflags -Wl,--no-undefined
 	sed -i -e 's/-print-file-name=libstdc++.a//' \
 		-e '/sed/ s/\([gO]\[0-9\]\)\*/\1\\+/' \
@@ -283,10 +283,8 @@ src_configure() {
 		--with-lfs \
 		--prefix="${ED}"/usr \
 		--libdir="${ED}"/usr/$(get_libdir)/"${PN}" \
-		${myconf} LDFLAGS="-Wl,--as-needed" \
+		${myconf} LDFLAGS="-Wl,--no-as-needed" \
 		|| die
-
-		# ${myconf} LDFLAGS="-Wl,--no-as-needed"
 }
 
 src_compile() {
