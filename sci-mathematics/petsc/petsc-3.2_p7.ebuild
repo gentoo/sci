@@ -59,8 +59,6 @@ PATCHES=(
 	"${FILESDIR}"/${P}-configure-pic.patch
 	"${FILESDIR}"/${P}-disable-env-warnings.patch
 	"${FILESDIR}"/${P}-disable-rpath.patch
-	"${FILESDIR}"/${P}-fix-xops.patch
-	"${FILESDIR}"/${P}-fix-afterimage.patch
 )
 
 src_configure() {
