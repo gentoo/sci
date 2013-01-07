@@ -30,7 +30,7 @@ DEPEND="berkdb? ( sys-libs/db:4.3 )
 	ftds? ( dev-db/freetds )
 	boost? ( dev-libs/boost )
 	curl? ( net-misc/curl )
-	sqlite? ( dev-db/sqlite:2 )
+	sqlite? ( dev-db/sqlite )
 	sqlite3? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
 	gnutls? ( net-libs/gnutls )
@@ -139,7 +139,12 @@ src_prepare() {
 	epatch \
 		"${FILESDIR}"/${PN}-${PV#0.}-fix-order-of-libs.patch \
 		"${FILESDIR}"/curl-types.patch \
-		"${FILESDIR}"/malloc_initialize_upstream_fix.patch
+		"${FILESDIR}"/malloc_initialize_upstream_fix.patch \
+		"${FILESDIR}"/respect_CXXFLAGS_configure.ac.patch \
+		"${FILESDIR}"/respect_CXXFLAGS_configure.patch \
+		"${FILESDIR}"/report_project_settings_configure.ac.patch \
+		"${FILESDIR}"/report_project_settings_configure.patch \
+		"${FILESDIR}"/make_install.patch
 
 #		"${FILESDIR}"/${PN}-${PV#0.}-disable_test_compress.patch
 

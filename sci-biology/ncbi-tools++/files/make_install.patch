@@ -1,0 +1,22 @@
+The C++ Toolkit now includes a copy of the SRA Toolkit, which
+establishes an ncbi/ hierarchy under lib, which previously had no
+subdirectories.  Please try the following patch to the top Makefile (and
+its progenitor, src/build-system/Makefile.in.top):
+
+Index: Makefile.in.top
+===================================================================
+--- Makefile.in.top     (revision 358093)
++++ Makefile.in.top     (working copy)
+@@ -39,7 +39,10 @@
+        -$(RMDIR) $(pincludedir)
+        $(INSTALL) -d $(bindir) $(libdir) $(pincludedir)
+        $(INSTALL) $(lbindir)/* $(bindir)
+-       $(INSTALL) -m 644 $(llibdir)/* $(libdir)
++       $(INSTALL) -m 644 $(llibdir)/*.* $(libdir)
++       if test -d $(llibdir)/ncbi; then \
++           cp -pPR $(llibdir)/ncbi $(libdir)/; \
++       fi
+        -rm -f $(libdir)/lib*-static.a
+        cd $(libdir)  && \
+            for x in *.a; do ln -s "$$x" "`basename \"$$x\" .a`-static.a"; done
+

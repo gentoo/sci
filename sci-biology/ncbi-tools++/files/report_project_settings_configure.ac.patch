@@ -1,0 +1,64 @@
+--- trunk/c++/src/build-system/configure.ac     2012/12/27 15:43:29     56694
++++ trunk/c++/src/build-system/configure.ac     2013/01/03 03:16:14     56754
+@@ -605,7 +605,8 @@
+ fi
+ 
+ case "$with_projects" in
+- "") if test -r projects; then
++ ""|yes)
++     if test -r projects; then
+         AC_MSG_NOTICE([using default projects file "projects".])
+         with_projects=projects
+         AC_SUBST(PROJECTS, "\$(top_srcdir)/projects")
+@@ -623,6 +624,16 @@
+  * ) AC_SUBST(PROJECTS, "\$(top_srcdir)/$with_projects") ;;
+ esac
+ 
++if test -n "$with_projects"; then
++   case "$with_projects" in
++      /* ) abs_projects=$with_projects         ;;
++      yes) abs_projects=$srcdir/projects       ;;
++      *  ) abs_projects=$srcdir/$with_projects ;;
++   esac
++   test -r "$abs_projects"  ||  \
++      AC_MSG_ERROR([unable to read requested projects file "$abs_projects".])
++fi
++
+ # Check for custom optimization flags before potentially going with defaults.
+ skip_fast_flags=no
+ if test -z "${DEF_FAST_FLAGS}${FAST_CXXFLAGS}"; then
+@@ -6379,7 +6390,7 @@
+      sep=", "
+    fi
+    if test -n "$reason" -a "$with_internal" = "yes"; then
+-      if test -z "$with_projects"  -o  "$with_projects" = "no"; then
++      if test -z "$with_projects"; then
+          AC_MSG_ERROR([--with-internal:  Cannot build INTERNAL projects: missing $reason])
+       else
+          AC_MSG_WARN([--with-internal:  Cannot build all INTERNAL projects: missing $reason])
+@@ -6982,11 +6993,9 @@
+    else
+       cfm_flags='-remoteptb'
+    fi
+-   case "$with_projects" in
+-      yes     ) cfm_flags="$cfm_flags -p projects" ;;
+-      no | '' ) ;;
+-      *       ) cfm_flags="$cfm_flags -p $with_projects" ;;
+-   esac
++   if test -n "$with_projects"; then
++      cfm_flags="$cfm_flags -p $with_projects"
++   fi
+    if test "$with_configure_dialog" = yes; then
+       cfm_flags="$cfm_flags -cfg"
+    fi
+@@ -7029,7 +7038,8 @@
+ esac
+ 
+ if test -n "$with_projects"; then
+-    build_proj="To build selected projects:  cd $builddir && make all_p"
++    build_proj="To build selected projects (as listed in \"$with_projects\"):
++  cd $builddir && make all_p"
+ fi
+ 
+ cat << EOCONF
+
