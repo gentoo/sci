@@ -57,7 +57,6 @@ S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
 	"${FILESDIR}"/${P%_*}-configure-pic.patch
-	"${FILESDIR}"/${P%_*}-disable-env-warnings.patch
 	"${FILESDIR}"/${P%_*}-disable-rpath.patch
 )
 
