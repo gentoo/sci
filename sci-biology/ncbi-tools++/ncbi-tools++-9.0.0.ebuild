@@ -283,8 +283,10 @@ src_configure() {
 		--with-lfs \
 		--prefix="${ED}"/usr \
 		--libdir="${ED}"/usr/$(get_libdir)/"${PN}" \
-		${myconf} LDFLAGS="-Wl,--no-as-needed" \
+		${myconf} LDFLAGS="-Wl,--as-needed" \
 		|| die
+
+		# ${myconf} LDFLAGS="-Wl,--no-as-needed"
 }
 
 src_compile() {
@@ -298,6 +300,7 @@ src_install() {
 	emake install || die
 	# File collisions with sci-biology/ncbi-tools
 	rm -f "${ED}"/usr/bin/{asn2asn,rpsblast,test_regexp}
+	mv "${ED}"/usr/bin/seedtop "${ED}"/usr/bin/seedtop2
 
 	echo "LDPATH=${EPREFIX}/usr/$(get_libdir)/${PN}" > ${S}/99${PN}
 	doenvd "${S}/99${PN}"
