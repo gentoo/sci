@@ -1,5 +1,5 @@
---- CDFPlayer_8.0.4_LINUX.sh
-+++ CDFPlayer_8.0.4_LINUX.sh
+--- CDFPlayer_9.0.0_LINUX.sh
++++ CDFPlayer_9.0.0_LINUX.sh
 @@ -261,11 +261,11 @@
                      fi
                  done
