@@ -1,10 +1,12 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-lang/ispc/ispc-1.3.0.ebuild,v 1.2 2012/07/20 19:58:21 ottxor Exp $
 
 EAPI=4
 
-inherit base toolchain-funcs
+PYTHON_DEPEND="2"
+
+inherit base toolchain-funcs python
 
 DESCRIPTION="Intel SPMD Program Compiler"
 HOMEPAGE="http://ispc.github.com/"
@@ -31,6 +33,10 @@ DEPEND="
 	sys-devel/bison
 	sys-devel/flex
 	"
+
+pkg_setup() {
+	python_set_active_version 2
+}
 
 src_compile() {
 	emake LDFLAGS="${LDFLAGS}" OPT="${CXXFLAGS}" CXX="$(tc-getCXX)" CPP="$(tc-getCPP)"
