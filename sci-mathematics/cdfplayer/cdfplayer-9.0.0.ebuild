@@ -43,8 +43,7 @@ src_install() {
 		"${MY_DESKTOPFILE}" \
 		|| die
 	mkdir -p "${ED}/usr/share/applications" || die
-	cp "${MY_DESKTOPFILE}" \
-		"${ED}/usr/share/applications" || die
+	domenu "${MY_DESKTOPFILE}"
 }
 
 pkg_postinst() {
