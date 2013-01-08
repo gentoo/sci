@@ -9,7 +9,7 @@ inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="A Java docking framework for use in cross-platform Swing applications"
 HOMEPAGE="http://flexdock.dev.java.net/"
-SRC_URI="http://forge.scilab.org/index.php/p/flexdock/downloads/get/${P}-src.zip"
+SRC_URI="http://forge.scilab.org/index.php/p/flexdock/downloads/get/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -24,12 +24,6 @@ DEPEND=">=virtual/jdk-1.4
 
 EANT_BUILD_TARGET="jar"
 EANT_DOC_TARGET="doc"
-
-src_unpack() {
-	mkdir "${WORKDIR}/${P}"
-	cd "${S}"
-	unpack ${A}
-}
 
 java_prepare() {
 	epatch "${FILESDIR}"/${P}-nodemo.patch
