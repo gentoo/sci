@@ -44,7 +44,7 @@
   <!-- ====================================================================== -->
 
   <path id="build.classpath">
-    <pathelement location="${maven.repo.local}/com/artenum/jrosetta/jrosetta-api/1.0.4/jrosetta-api-1.0.4.jar"/>
+    <pathelement location="../jrosetta-api/target/classes"/>
   </path>
   <path id="build.test.classpath">
     <pathelement location="${maven.repo.local}/com/artenum/jrosetta/jrosetta-api/1.0.4/jrosetta-api-1.0.4.jar"/>
