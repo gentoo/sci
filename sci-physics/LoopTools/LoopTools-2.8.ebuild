@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ inherit eutils fortran-2
 
 DESCRIPTION="A package for evaluation of scalar and tensor one-loop integrals"
 HOMEPAGE="http://www.feynarts.de/looptools"
-SRC_URI="http://www.feynarts.de/looptools/${P}.tar.gz"
+SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.tar.gz"
 
 LICENSE="LGPL-3"
 
