@@ -1,14 +1,14 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=4
 
-inherit autotools elisp-common eutils flag-o-matic python subversion
+inherit autotools elisp-common eutils flag-o-matic git-2 python
 
 IUSE="debug emacs optimization"
 
-ESVN_REPO_URI="svn://svn.macaulay2.com/Macaulay2/trunk/M2"
+EGIT_REPO_URI="git://github.com/Macaulay2/M2.git"
 
 # Those packages will be built internally.
 FACTORY="factory-3-1-4-1"
@@ -65,13 +65,17 @@ RDEPEND="${DEPEND}"
 
 SITEFILE=70Macaulay2-gentoo.el
 
-S="${WORKDIR}/${PN}-${PV}"
+S="${WORKDIR}/${PN}-${PV}/"
 
 RESTRICT="mirror"
 
 src_unpack (){
 	unpack "Normaliz2.8.zip"
-	subversion_src_unpack
+	git-2_src_unpack
+	# Undo one level of directory until git allows to checkout
+	# subdirectories
+	mv "${S}"/M2/* "${S}" || die
+	rmdir "${S}"/M2 || die
 }
 
 pkg_setup () {
@@ -126,7 +130,8 @@ src_configure (){
 	fi
 
 	# configure instead of econf to enable install with --prefix
-	./configure --prefix="${D}/usr" \
+	./configure LIBS="$(pkg-config --libs lapack)" \
+		--prefix="${D}/usr" \
 		--disable-encap \
 		--disable-strip \
 		$(use_enable optimization optimize) \
