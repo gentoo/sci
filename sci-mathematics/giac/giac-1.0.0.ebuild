@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,7 @@ EAPI="4"
 
 DESCRIPTION="A free C++ CAS (Computer Algebra System) library and its interfaces"
 HOMEPAGE="http://www-fourier.ujf-grenoble.fr/~parisse/giac.html"
-SRC_URI="ftp://ftp-fourier.ujf-grenoble.fr/xcas/${P}.tar.gz"
+SRC_URI="http://www-fourier.ujf-grenoble.fr/~parisse/giac/giac_frozen.tgz -> ${P}.tar.gz"
 LICENSE="GPL-2"
 
 SLOT="0"
@@ -25,6 +25,7 @@ src_prepare(){
 	sed -e "s:\$(prefix)/share:\$(DESTDIR)\$(prefix)/share:g" \
 		-e "s:config.h \$(includedir)/giac:config.h \$(DESTDIR)\$(includedir)/giac:g" \
 		-e "s:\$(DESTDIR)\$(DESTDIR):\$(DESTDIR):g"	\
+		-e "s:\$(DESTDIR)/\$(DESTDIR):\$(DESTDIR):g" \
 		-i `find -name Makefile\*`
 	if use !fltk; then
 		sed -e "s: gl2ps\.[chlo]*::g" -i src/Makefile.*
