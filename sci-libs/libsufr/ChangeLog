@@ -1,6 +1,17 @@
 # ChangeLog for sci-libs/libsufr
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libsufr-0.4.1 (13 Jan 2013)
+
+  13 Jan 2013; AstroFloyd <AstroFloyd@gmail.com> +libsufr-0.4.1.ebuild:
+  Updated libSUFR to 0.4.1, added VERSION to doc files, added ChangeLog
+	to git repo, keep one older version
+
+*libsufr-0.3.3 (5 May 2012)
+
+  13 Jan 2013; Kacper Kowalik (Xarthisius) +libsufr-0.3.3.ebuild:
+  Version bump, drop old, don't install unnecessary doc files
 
 *libsufr-0.3.2 (04 Mar 2012)
 
