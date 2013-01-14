@@ -1,12 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="2"
 
-DESCRIPTION="A tool to help verifying and proving properties on floating-point or fixed-point arithmetic."
+DESCRIPTION="A tool to help verifying and proving properties on floating-point or fixed-point arithmetic"
 HOMEPAGE="http://gappa.gforge.inria.fr/"
-SRC_URI="http://gforge.inria.fr/frs/download.php/29004/${P}.tar.gz"
+SRC_URI="http://gforge.inria.fr/frs/download.php/31927/${P}.tar.gz"
 
 LICENSE="|| ( CeCILL-2.0 GPL-2 )"
 SLOT="0"
@@ -20,12 +20,6 @@ DEPEND="${RDEPEND}
 		doc? ( app-text/texlive
 				app-text/ghostscript-gpl
 				app-doc/doxygen )"
-
-src_unpack() {
-	unpack ${A}
-	mv ${S/%0.14.0/0.13.0} ${S}
-	cd ${S}
-}
 
 src_prepare() {
 	sed -i doc/doxygen/Doxyfile \
