@@ -1,6 +1,12 @@
 # ChangeLog for sci-libs/coinor-cbc
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*coinor-cbc-2.7.8 (14 Jan 2013)
+
+  14 Jan 2013; Justin Lecher <jlec@gentoo.org> -coinor-cbc-2.7.7.ebuild,
+  +coinor-cbc-2.7.8.ebuild, metadata.xml:
+  Version Bump
 
 *coinor-cbc-2.7.7 (16 Jul 2012)
 
