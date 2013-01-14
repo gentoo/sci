@@ -1,12 +1,12 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="2"
 
-DESCRIPTION="Library for reasoning about floating point numbers in coq."
+DESCRIPTION="Library for reasoning about floating point numbers in coq"
 HOMEPAGE="http://lipforge.ens-lyon.fr/www/pff/"
-SRC_URI="http://lipforge.ens-lyon.fr/frs/download.php/163/Float${PV}.tgz"
+SRC_URI="http://lipforge.ens-lyon.fr/frs/download.php/165/Float${PV}.tgz"
 
 LICENSE="LGPL-2"
 SLOT="0"
