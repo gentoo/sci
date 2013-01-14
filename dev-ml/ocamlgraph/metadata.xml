@@ -23,4 +23,10 @@
 	<maintainer>
   		<email>sci@gentoo.org</email>
 	</maintainer>
+	<use>
+		<flag name="doc">?doc?</flag>
+		<flag name="examples">?examples?</flag>
+		<flag name="gtk">?gtk?</flag>
+		<flag name="ocamlopt">?ocamlopt?</flag>
+	</use>
 </pkgmetadata>
