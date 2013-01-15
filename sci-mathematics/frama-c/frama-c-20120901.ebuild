@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,38 +8,35 @@ inherit autotools eutils
 
 DESCRIPTION="Framework for analysis of source codes written in C"
 HOMEPAGE="http://frama-c.com"
-NAME="Nitrogen"
+NAME="Oxygen"
 SRC_URI="http://frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="apron doc gtk +ocamlopt +why"
+IUSE="doc gtk +ocamlopt"
 RESTRICT="strip"
 
 DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
-		>=dev-ml/ocamlgraph-1.8.1[gtk?,ocamlopt?]
+		>=dev-ml/ocamlgraph-1.8.2[gtk?,ocamlopt?]
+		dev-ml/zarith
+		sci-mathematics/ltl2ba
+		sci-mathematics/alt-ergo
 		gtk? ( >=x11-libs/gtksourceview-2.8
 			>=gnome-base/libgnomecanvas-2.26
-			>=dev-ml/lablgtk-2.14[sourceview,gnomecanvas,ocamlopt?] )
-		sci-mathematics/ltl2ba
-		apron? ( sci-mathematics/apron )"
+			>=dev-ml/lablgtk-2.14[sourceview,gnomecanvas,ocamlopt?] )"
 RDEPEND="${DEPEND}"
-PDEPEND="why? ( >=sci-mathematics/why-2.30 )"
 
 S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
 
 src_prepare(){
 	rm share/libc/test.c
-	rm -Rf src/wp
-
-	sed -e "s:1\.8):1\.8\.1):g" -i configure.in
-
 	touch config_file
+
 	eautoreconf
 }
 
-src_configure() {
+src_configure(){
 	if use gtk; then
 		myconf="--enable-gui"
 	else
@@ -49,7 +46,7 @@ src_configure() {
 	econf ${myconf} || die "econf failed"
 }
 
-src_compile() {
+src_compile(){
 	# dependencies can not be processed in parallel,
 	# this is the intended behavior.
 	emake -j1 depend || die "emake depend failed"

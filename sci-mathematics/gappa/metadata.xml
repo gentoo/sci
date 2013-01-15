@@ -12,4 +12,7 @@
 	<maintainer>
 		<email>sci@gentoo.org</email>
 	</maintainer>
+	<use>
+		<flag name="doc">?doc?</flag>
+	</use>
 </pkgmetadata>

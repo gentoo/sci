@@ -1,50 +1,40 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=4
 
-inherit findlib multilib
-
-DESCRIPTION="Arithmetic and logic operations over arbitrary-precision integers"
-HOMEPAGE="https://forge.ocamlcore.org/projects/zarith/"
+DESCRIPTION="The Zarith library implements arithmetic and logical operations over arbitrary-precision integers"
+HOMEPAGE="http://forge.ocamlcore.org/projects/zarith"
 SRC_URI="http://forge.ocamlcore.org/frs/download.php/835/${P}.tgz"
 
-LICENSE="LGPL-2.1-with-linking-exception"
+LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="doc mpir +ocamlopt"
+KEYWORDS="~amd64 ~ppc ~x86"
+IUSE="+ocamlopt"
 
-RDEPEND=">=dev-lang/ocaml-3.12.1[ocamlopt?]
-!mpir? ( dev-libs/gmp )
-mpir? ( sci-libs/mpir )"
+OCAMLDIR=`ocamlc -where`
 
-DEPEND="${RDEPEND}
-dev-lang/perl"
+DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
+		dev-libs/gmp"
+RDEPEND="${DEPEND}"
 
-src_configure() {
-	MY_OPTS="-ocamllibdir /usr/$(get_libdir) -installdir \
-	${D}/usr/$(get_libdir)/ocaml"
-	use mpir && MY_OPTS="${MY_OPTS} -mpir"
-	./configure ${MY_OPTS}|| die
+src_prepare(){
+	sed -i ${S}/project.mak -e "s:(OCAMLFIND) install:(OCAMLFIND) install -ldconf \$(INSTALLDIR)/ld.conf:g"
 }
 
-src_compile() {
-	emake all
-	use doc && emake doc
+src_configure(){
+    ./configure -installdir "${D}${OCAMLDIR}" || die "configure failed"
 }
 
-src_test() {
-	if use ocamlopt; then
-		emake test;LD_LIBRARY_PATH="." ./test || die
-	else
-		emake test.b;LD_LIBRARY_PATH="." ./test.b || die
-	fi
+src_compile(){
+	emake || die "emake failed"
 }
 
-src_install() {
-	findlib_src_preinst
-	emake install
+src_install(){
+	mkdir -p "${D}${OCAMLDIR}"
+	cp "${OCAMLDIR}/ld.conf" "${D}${OCAMLDIR}/ld.conf"
+	emake install || die "emake install failed"
+	rm "${D}${OCAMLDIR}/ld.conf"
 	dodoc Changes README
-	use doc && dodoc -r html/
 }

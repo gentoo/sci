@@ -13,6 +13,8 @@
 		<email>sci@gentoo.org</email>
 	</maintainer>
 	<use>
+		<flag name="doc">?doc?</flag>
+		<flag name="examples">?examples?</flag>
 		<flag name="fltk">?fltk?</flag>
 	</use>
 </pkgmetadata>
