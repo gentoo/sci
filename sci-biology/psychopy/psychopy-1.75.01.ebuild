@@ -2,14 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
+PYTHON_COMPAT=( python2_7 )
 
 PYTHON_DEPEND="2"
 SUPPORT_PYTHON_ABIS="1"
 RESTRICT_PYTHON_ABIS="3.* *-jython *-pypy-*"
 DISTUTILS_SRC_TEST="py.test"
 
-inherit distutils
+inherit distutils-r1 eutils
 
 MY_P="PsychoPy-${PV}"
 
@@ -24,11 +25,11 @@ IUSE="test"
 RDEPEND="dev-python/numpy[lapack]
         sci-libs/scipy
         dev-python/matplotlib
-        dev-python/pyopengl
+        dev-python/pyopengl[${PYTHON_USEDEP}]
         dev-python/imaging
         dev-python/wxpython
-        dev-python/setuptools
-        dev-python/lxml
+        dev-python/setuptools[${PYTHON_USEDEP}]
+        dev-python/lxml[${PYTHON_USEDEP}]
         app-admin/eselect
         dev-python/pyglet
         dev-python/pygame"
@@ -40,3 +41,10 @@ DEPEND="app-arch/unzip
 RESTRICT="test" # interactive, opens lots of windows
 
 S="${WORKDIR}/${MY_P}"
+
+python_install() {
+	distutils-r1_python_install
+	#local EPYTHON=python2.7
+	#die $(sh -c 'echo $EPYTHON')
+	chmod +x "${D}$(python_get_sitedir)/psychopy/app/psychopyApp.py" || die "chmod of psychopyApp.py failed"
+}
