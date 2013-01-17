@@ -1,0 +1,12 @@
+diff -Naurp abinit-7.0.4.orig/tests/Makefile.am abinit-7.0.4/tests/Makefile.am
+--- abinit-7.0.4.orig/tests/Makefile.am	2012-12-08 15:07:26.000000000 +0000
++++ abinit-7.0.4/tests/Makefile.am	2013-01-08 13:58:56.721725346 +0000
+@@ -3607,7 +3607,7 @@ tests_gw_paw: nightly-stamp
+ tests_bs: nightly-stamp
+ 	rm -fr */tmp-bs*
+ 	$(MAKE) tests_v67mbpt dirname=bs start=01 stop=01
+-	cd v6/tmp-bs* ; mv fldiff.report fldiff_keep.report
++	cd v67mbpt/tmp-bs* ; mv fldiff.report fldiff_keep.report
+ 	$(MAKE) tests_v67mbpt dirname=bs start=04 stop=04
+ 	$(MAKE) tests_tutorial dirname=bs start=bs_1 stop=bs_4
+ 	echo
