@@ -30,6 +30,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/${P}.patch
 	epatch "${FILESDIR}"/${P}_cgns_to_vtk2D.patch
 	epatch "${FILESDIR}"/${P}_gcc4.4.patch
+	epatch "${FILESDIR}"/${P}_tcltk.patch
 }
 
 src_configure() {
