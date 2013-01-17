@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=4
 
-DESCRIPTION="A diff program that ignores small numeric differences (actually called ndiff)"
+DESCRIPTION="A diff program that ignores small numeric differences"
 HOMEPAGE="http://www.math.utah.edu/~beebe/software/ndiff/"
 SRC_URI="ftp://ftp.math.utah.edu/pub/misc/${P}.tar.gz"
 
@@ -16,8 +16,8 @@ IUSE="doc"
 DEPEND="dev-libs/gmp"
 RDEPEND="${DEPEND}"
 
-# Rename the files from ndiff to numdiff, since /usr/bin/ndiff is already
-# provided by net-analyzer/nmap:
+# Rename the files from ndiff to numdiff, since /usr/bin/ndiff used to be
+# provided by net-analyzer/nmap, before v4.85:
 src_install() {
 	newbin ndiff numdiff
 	dodoc README* INSTALL ChangeLog
