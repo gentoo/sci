@@ -1,0 +1,114 @@
+From c9606ed1914d88c40e9b076b645bc5f7a8046c86 Mon Sep 17 00:00:00 2001
+From: James Cloos <cloos@jhcloos.com>
+Date: Wed, 16 Jan 2013 20:40:23 -0500
+Subject: [PATCH] Update for current tcl/tk, based on cgns svn trunk.
+
+Signed-off-by: James Cloos <cloos@jhcloos.com>
+---
+ tkogl/nurbs.c    |  4 +++-
+ tkogl/printstr.c |  4 +++-
+ tkogl/quadric.c  |  4 +++-
+ tkogl/tess.c     |  4 +++-
+ tkogl/tkogl.c    | 12 +++++++++---
+ 5 files changed, 21 insertions(+), 7 deletions(-)
+
+diff --git a/tkogl/nurbs.c b/tkogl/nurbs.c
+index 6d89be7..34086a3 100644
+--- a/tkogl/nurbs.c
++++ b/tkogl/nurbs.c
+@@ -278,7 +278,9 @@ done:
+    DestroyFloatArray (cPoint);
+ 
+    if (result == TCL_OK) {
+-      sprintf (interp->result, "%d", dlist);
++      char tmp[128];
++      sprintf (tmp, "%d", dlist);
++      Tcl_SetResult(interp, tmp, TCL_VOLATILE);
+    }
+ 
+    return result;
+diff --git a/tkogl/printstr.c b/tkogl/printstr.c
+index 8807525..e3d04f6 100644
+--- a/tkogl/printstr.c
++++ b/tkogl/printstr.c
+@@ -131,7 +131,9 @@ int LoadBitmapFont(Tcl_Interp *interp, int argc, char* argv [])
+ 	return TCL_ERROR;
+     }
+ 
+-    sprintf (interp->result, "%d", fontOffset);
++    char tmp[128];
++    sprintf (tmp, "%d", fontOffset);
++    Tcl_SetResult(interp, tmp, TCL_VOLATILE);
+     return TCL_OK;
+ }
+ 
+diff --git a/tkogl/quadric.c b/tkogl/quadric.c
+index ea8e7b3..859e440 100644
+--- a/tkogl/quadric.c
++++ b/tkogl/quadric.c
+@@ -147,7 +147,9 @@ done:
+    if (dlist != 0) glEndList(); else return result;
+ 
+    if (result == TCL_OK) {
+-      sprintf (interp->result, "%d", dlist);
++      char tmp[128];
++      sprintf (tmp, "%d", dlist);
++      Tcl_SetResult(interp, tmp, TCL_VOLATILE);
+    }
+    else {
+       glDeleteLists (dlist, 1);
+diff --git a/tkogl/tess.c b/tkogl/tess.c
+index fa9cf37..c054820 100644
+--- a/tkogl/tess.c
++++ b/tkogl/tess.c
+@@ -122,7 +122,9 @@ Tesselate (Tcl_Interp *interp, int argc, char* argv [])
+    }
+    
+    if (dlist != 0) {
+-      sprintf (interp->result, "%d", dlist);
++      char tmp[128];
++      sprintf (tmp, "%d", dlist);
++      Tcl_SetResult(interp, tmp, TCL_VOLATILE);
+    }
+    return TCL_OK;
+ }
+diff --git a/tkogl/tkogl.c b/tkogl/tkogl.c
+index 1e7323d..6c91dd1 100644
+--- a/tkogl/tkogl.c
++++ b/tkogl/tkogl.c
+@@ -641,7 +641,7 @@ OGLwinCmd(clientData, interp, argc, argv)
+     ARRANGE_REDRAW(glxwinPtr);
+     GetAbsXY (glxwinPtr);
+     
+-    interp->result = Tk_PathName(glxwinPtr->tkwin);
++    Tcl_SetResult(interp, Tk_PathName(glxwinPtr->tkwin), TCL_VOLATILE);
+     return TCL_OK;
+ }
+ 
+@@ -998,7 +998,11 @@ OGLwinWidgetCmd(clientData, interp, argc, argv)
+ 	        argv += narg;
+         }
+         glEndList();
+-        if (result == TCL_OK) sprintf (interp->result, "%d", newlist);
++        if (result == TCL_OK) {
++	  char tmp[128];
++	  sprintf (tmp, "%d", newlist);
++	  Tcl_SetResult(interp, tmp, TCL_VOLATILE);
++	}
+    }
+    else if ((c == 'e') && (strncmp(argv[1], "eval", length) == 0)) {
+       /* sends the gl commands directly */
+@@ -1090,7 +1094,9 @@ OGLwinWidgetCmd(clientData, interp, argc, argv)
+ 				viewport, &x, &y, &z);	 
+       }
+       if (retval) {
+-    	 sprintf (interp->result, "%f %f %f", x, y, z);
++    	 char tmp[128];
++	 sprintf (tmp, "%f %f %f", x, y, z);
++	 Tcl_SetResult(interp, tmp, TCL_VOLATILE);
+       }
+    } 
+    else if ((c == 'r') && (strncmp(argv[1], "redraw", length) == 0)) {
+-- 
+1.8.1
+
