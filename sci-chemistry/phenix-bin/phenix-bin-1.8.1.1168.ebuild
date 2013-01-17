@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -38,7 +38,7 @@ RDEPEND="
 	media-libs/libpng:1.2
 	sys-libs/db:4.8
 	sys-libs/gdbm
-	sys-libs/ncurses
+	sys-libs/ncurses[tinfo]
 	sys-libs/readline
 	virtual/glu
 	x11-libs/cairo
