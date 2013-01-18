@@ -112,6 +112,16 @@ pkg_setup() {
 	fi
 }
 
+src_unpack() {
+	default_src_unpack
+	if use gui; then
+		pushd "${S}" > /dev/null
+		tar -xjf "${FILESDIR}"/6.12.3-gui-makefiles.tbz
+		popd > /dev/null
+	fi
+
+}
+
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/6.2.2-change-default-directories.patch \
@@ -121,6 +131,11 @@ src_prepare() {
 	eautoreconf
 	sed -e"s/\(grep '\^-\)\(\[LloW\]\)'/\1\\\(\2\\\|pthread\\\)'/g" -i configure
 
+	if use gui; then
+		pushd gui > /dev/null
+		eautoreconf
+		popd > /dev/null
+	fi
 }
 
 src_configure() {
@@ -222,6 +237,7 @@ src_configure() {
 		mkdir -p gui
 		cd gui
 		ECONF_SOURCE="${S}"/gui econf UUDECODE="uudecode"
+		popd > /dev/null
 	fi
 }
 
@@ -299,9 +315,9 @@ src_install() {
 	use libabinit && dolib libabinit.a
 
 	if use gui; then
-		pushd gui
+		pushd gui > /dev/null
 		emake DESTDIR="${D}" install || die "The GUI install failed"
-		popd
+		popd > /dev/null
 	fi
 
 	if use test; then
