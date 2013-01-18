@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -11,7 +11,7 @@ CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit bash-completion-r1 cmake-utils eutils multilib toolchain-funcs
 
-SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
+SRC_URI="test? ( http://${PN}.googlecode.com/files/regressiontests-master.tar.gz )"
 
 if [[ $PV = *9999* ]]; then
 	EGIT_REPO_URI="git://git.gromacs.org/gromacs.git
@@ -88,8 +88,12 @@ src_prepare() {
 
 	for x in ${GMX_DIRS}; do
 		mkdir -p "${WORKDIR}/${P}_${x}" || die
-		use test && cp -r "${WORKDIR}"/gmxtest "${WORKDIR}/${P}_${x}"
+		use test && cp -r "${WORKDIR}"/regressiontests-master "${WORKDIR}/${P}_${x}"
 	done
+
+	if use openmm; then
+		sed -i '/option.*GMX_OPENMM/s/^#//' src/contrib/CMakeLists.txt || die
+	fi
 }
 
 src_configure() {
@@ -130,7 +134,8 @@ src_configure() {
 		$(cmake-utils_use gsl GMX_GSL)
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use openmp GMX_OPENMP)
-		$(cmake-utils_use !offensive GMX_NO_QUOTES)
+		$(cmake-utils_use offensive GMX_COOL_QUOTES)
+		$(cmake-utils_use test BUILD_TESTING)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_ACCELERATION="$acce"
 		-DGMXLIB="$(get_libdir)"
@@ -150,7 +155,7 @@ src_configure() {
 		local cuda=$(cmake-utils_use cuda GMX_GPU)
 		[[ ${x} = "double" ]] && use cuda && cuda="-DGMX_GPU=OFF"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
-			$(cmake-utils_use threads GMX_THREAD_MPI) ${cuda}
+			$(cmake-utils_use threads GMX_THREAD_MPI) ${cuda} -DGMX_OPENMM=OFF
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		if [[ ${x} = float ]] && use openmm; then
@@ -164,7 +169,7 @@ src_configure() {
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF
-			-DGMX_MPI=ON ${cuda}
+			-DGMX_MPI=ON ${cuda} -DGMX_OPENMM=OFF
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" CC="mpicc" cmake-utils_src_configure
 	done
