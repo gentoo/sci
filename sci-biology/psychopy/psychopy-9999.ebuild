@@ -32,5 +32,5 @@ python_install() {
 	distutils-r1_python_install
 	#local EPYTHON=python2.7
 	#die $(sh -c 'echo $EPYTHON')
-	chmod +x "${D}$(python_get_sitedir)/psychopy/app/psychopyApp.py" || die "chmod of psychopyApp.py failed"
+	fperms +x "$(python_get_sitedir)/psychopy/app/psychopyApp.py" || die "chmod of psychopyApp.py failed"
 }
