@@ -9,7 +9,7 @@ inherit eutils distutils-r1 git-2
 
 DESCRIPTION="Python experiemntal psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
-EGIT_REPO_URI="https://github.com/psychopy/psychopy"
+EGIT_REPO_URI="https://github.com/TheChymera/psychopy.git"
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -28,9 +28,8 @@ RDEPEND="${DEPEND}
 	dev-python/wxpython
 	sci-libs/scipy"
 
-python_install() {
-	distutils-r1_python_install
-	#local EPYTHON=python2.7
-	#die $(sh -c 'echo $EPYTHON')
-	fperms +x "$(python_get_sitedir)/psychopy/app/psychopyApp.py" || die "chmod of psychopyApp.py failed"
+src_install() {
+        distutils-r1_src_install
+        doicon psychopy/monitors/psychopy.ico
+        make_desktop_entry psychopyapp.py PsychoPy psychopy "Science;Biology"
 }

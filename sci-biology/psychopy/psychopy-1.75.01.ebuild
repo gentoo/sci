@@ -42,9 +42,8 @@ RESTRICT="test" # interactive, opens lots of windows
 
 S="${WORKDIR}/${MY_P}"
 
-python_install() {
-	distutils-r1_python_install
-	#local EPYTHON=python2.7
-	#die $(sh -c 'echo $EPYTHON')
-	fperms +x "$(python_get_sitedir)/psychopy/app/psychopyApp.py" || die "chmod of psychopyApp.py failed"
+src_install() {
+        distutils-r1_src_install
+        doicon psychopy/monitors/psychopy.ico
+        make_desktop_entry psychopyapp.py PsychoPy psychopy "Science;Biology"
 }
