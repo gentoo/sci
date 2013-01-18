@@ -155,7 +155,7 @@ src_configure() {
 		local cuda=$(cmake-utils_use cuda GMX_GPU)
 		[[ ${x} = "double" ]] && use cuda && cuda="-DGMX_GPU=OFF"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
-			$(cmake-utils_use threads GMX_THREAD_MPI) ${cuda}
+			$(cmake-utils_use threads GMX_THREAD_MPI) ${cuda} -DGMX_OPENMM=OFF
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		if [[ ${x} = float ]] && use openmm; then
@@ -169,7 +169,7 @@ src_configure() {
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF
-			-DGMX_MPI=ON ${cuda}
+			-DGMX_MPI=ON ${cuda} -DGMX_OPENMM=OFF
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" CC="mpicc" cmake-utils_src_configure
 	done
