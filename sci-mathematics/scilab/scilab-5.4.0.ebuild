@@ -45,6 +45,7 @@ KEYWORDS="~amd64 ~x86"
 CDEPEND="dev-libs/libpcre
 	dev-libs/libxml2:2
 	sci-libs/hdf5
+	>=sci-libs/arpack-3
 	sys-devel/gettext
 	sys-libs/ncurses
 	sys-libs/readline
@@ -54,7 +55,7 @@ CDEPEND="dev-libs/libpcre
 		dev-java/avalon-framework:4.2
 		dev-java/batik:1.7
 		dev-java/commons-io:1
-		dev-java/flexdock:0
+		>=dev-java/flexdock-1.2:0
 		dev-java/fop:0
 		dev-java/gluegen:2
 		dev-java/javahelp:0
@@ -234,7 +235,7 @@ src_test() {
 src_install() {
 	default
 	prune_libtool_files --all
-	rm -rf "${D}"/usr/share/scilab/modules/*/tests
+	rm -rf "${D}"/usr/share/scilab/modules/*/tests ||die
 	use bash-completion && dobashcomp "${FILESDIR}"/${PN}.bash_completion
 }
 
