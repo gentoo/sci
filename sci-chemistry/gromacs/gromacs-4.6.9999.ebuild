@@ -11,8 +11,6 @@ CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit bash-completion-r1 cmake-utils eutils multilib toolchain-funcs
 
-SRC_URI="test? ( http://${PN}.googlecode.com/files/regressiontests-${TEST_PV}.tar.gz )"
-
 if [[ $PV = *9999* ]]; then
 	EGIT_REPO_URI="git://git.gromacs.org/gromacs.git
 		https://gerrit.gromacs.org/gromacs.git
@@ -22,9 +20,9 @@ if [[ $PV = *9999* ]]; then
 	inherit git-2
 	PDEPEND="doc? ( ~app-doc/${PN}-manual-${PV} )"
 else
-	S="${WORKDIR}/${P//_/-}"
-	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P//_/-}.tar.gz
-		doc? (  ftp://ftp.gromacs.org/pub/manual/${PN}-manual-${MANUAL_PV}.pdf )"
+	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
+		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf -> ${PN}-manual-${MANUAL_PV}.pdf )
+		test? ( http://${PN}.googlecode.com/files/regressiontests-${TEST_PV}.tar.gz )"
 fi
 
 ACCE_IUSE="sse2 sse41 avx128fma avx256"
@@ -65,12 +63,27 @@ REQUIRED_USE="
 	|| ( single-precision double-precision )
 	cuda? ( single-precision )
 	openmm? ( single-precision )
-	mkl? ( !blas !fftw !lapack )"
+	mkl? ( !blas !fftw !lapack )
+	!openmm" #broken, but https://gerrit.gromacs.org/#/c/2087/
 
 pkg_pretend() {
 	[[ $(gcc-version) == "4.1" ]] && die "gcc 4.1 is not supported by gromacs"
 	use openmp && ! tc-has-openmp && \
 		die "Please switch to an openmp compatible compiler"
+}
+
+src_unpack() {
+	if [[ ${PV} != *9999 ]]; then
+		default
+	else
+		git-2_src_unpack
+		if use test; then
+			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
+			EGIT_BRANCH="master" EGIT_NOUNPACK="yes" EGIT_COMMIT="master" \
+			EGIT_SOURCEDIR="${WORKDIR}/regressiontests"\
+				git-2_src_unpack
+		fi
+	fi
 }
 
 src_prepare() {
@@ -84,10 +97,12 @@ src_prepare() {
 	use single-precision && GMX_DIRS+=" float"
 	use double-precision && GMX_DIRS+=" double"
 
-	for x in ${GMX_DIRS}; do
-		mkdir -p "${WORKDIR}/${P}_${x}" || die
-		use test && cp -r "${WORKDIR}"/regressiontests-master "${WORKDIR}/${P}_${x}"
-	done
+	if use test; then
+		for x in ${GMX_DIRS}; do
+			mkdir -p "${WORKDIR}/${P}_${x}" || die
+			cp -al "${WORKDIR}/regressiontests"* "${WORKDIR}/${P}_${x}/tests" || die
+		done
+	fi
 
 	if use openmm; then
 		sed -i '/option.*GMX_OPENMM/s/^#//' src/contrib/CMakeLists.txt || die
@@ -133,12 +148,13 @@ src_configure() {
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use openmp GMX_OPENMP)
 		$(cmake-utils_use offensive GMX_COOL_QUOTES)
-		$(cmake-utils_use test BUILD_TESTING)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_ACCELERATION="$acce"
 		-DGMXLIB="$(get_libdir)"
 		-DGMX_VMD_PLUGIN_PATH="${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/"
 		-DGMX_PREFIX_LIBMD=ON
+		-DGMX_X86_AVX_GCC_MASKLOAD_BUG=OFF
+		-DGMX_USE_GCC44_BUG_WORKAROUND=OFF
 		${extra}
 	)
 
@@ -154,6 +170,7 @@ src_configure() {
 		[[ ${x} = "double" ]] && use cuda && cuda="-DGMX_GPU=OFF"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 			$(cmake-utils_use threads GMX_THREAD_MPI) ${cuda} -DGMX_OPENMM=OFF
+			"$(use test && echo -DREGRESSIONTEST_PATH="${WORKDIR}/${P}_${x}/tests")"
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		if [[ ${x} = float ]] && use openmm; then
@@ -192,11 +209,8 @@ src_compile() {
 
 src_test() {
 	for x in ${GMX_DIRS}; do
-		local oldpath="${PATH}"
-		export PATH="${WORKDIR}/${P}_${x}/src/kernel:${S}-{x}/src/tools:${PATH}"
-		cd "${WORKDIR}/${P}_${x}"
-		emake -j1 tests || die "${x} Precision test failed"
-		export PATH="${oldpath}"
+		BUILD_DIR="${WORKDIR}/${P}_${x}"\
+			cmake-utils_src_make check
 	done
 }
 
