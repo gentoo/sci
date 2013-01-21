@@ -28,8 +28,8 @@ RDEPEND="${DEPEND}
 	dev-python/wxpython
 	sci-libs/scipy"
 
-src_install() {
-        distutils-r1_src_install
+python_install_all() {
+        distutils-r1_python_install_all
         newicon -s scalable psychopy/monitors/psychopy-icon.svg psychopy.svg
         make_desktop_entry psychopyApp.py PsychoPy psychopy "Science;Biology"
 }

@@ -42,8 +42,8 @@ RESTRICT="test" # interactive, opens lots of windows
 
 S="${WORKDIR}/${MY_P}"
 
-src_install() {
-        distutils-r1_src_install
+python_install_all() {
+        distutils-r1_python_install_all
         doicon psychopy/monitors/psychopy.ico
         make_desktop_entry psychopyapp.py PsychoPy psychopy "Science;Biology"
 }
