@@ -61,8 +61,6 @@ DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}"
 
-RESTRICT="test"
-
 REQUIRED_USE="
 	|| ( single-precision double-precision )
 	cuda? ( single-precision )
