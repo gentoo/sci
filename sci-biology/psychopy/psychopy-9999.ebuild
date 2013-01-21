@@ -9,7 +9,7 @@ inherit eutils distutils-r1 git-2
 
 DESCRIPTION="Python experiemntal psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
-EGIT_REPO_URI="https://github.com/TheChymera/psychopy.git"
+EGIT_REPO_URI="https://github.com/psychopy/psychopy.git"
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
