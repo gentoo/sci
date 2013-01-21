@@ -21,15 +21,15 @@ IUSE="doc examples +geant4 +root test xml"
 RDEPEND="
 	sci-physics/clhep
 	root? ( sci-physics/root )
-	geant4? ( sci-physics/geant:4[examples?] )
+	geant4? ( >=sci-physics/geant-4.9.6[examples?] )
 	xml? ( dev-libs/xerces-c )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen[dot] )
-	test? ( geant4? ( xml? ( sci-physics/geant:4[gdml] ) ) )"
+	test? ( geant4? ( xml? ( >=sci-physics/geant-4.9.6[gdml] ) ) )"
 
 src_configure() {
 	local mycmakeargs=(
-		-DCLHEP_DIR="${EROOT}/usr"
+		-DCLHEP_DIR="${EROOT}usr"
 		$(cmake-utils_use_with examples)
 		$(cmake-utils_use_with geant4)
 		$(cmake-utils_use_with root)
