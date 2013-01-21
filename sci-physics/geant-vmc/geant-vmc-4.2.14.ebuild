@@ -31,6 +31,7 @@ src_compile() {
 	local dirs="g4root source"
 	use examples && dirs+=" examples"
 	local d
+	source $(ls -1 "${EROOT}"usr/share/Geant4-*/geant4make/geant4make.sh) || die
 	for d in ${dirs}; do
 		pushd ${d} > /dev/null
 		emake
@@ -43,7 +44,6 @@ src_test() {
 	cd examples
 	emake
 	./run_suite.sh || die
-	use examples || emake clean
 }
 
 src_install() {
@@ -54,6 +54,7 @@ src_install() {
 	use doc && dohtml -r Geant4VMC.html doc/*
 	if use examples; then
 		insinto /usr/share/doc/${PF}
+		emake -C examples clean
 		doins -r examples
 	fi
 }
