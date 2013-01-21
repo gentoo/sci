@@ -1,6 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.01.ebuild,v 1.2 2012/10/16 18:50:45 jlec Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.03.ebuild,v 1.1 2012/10/26 15:40:47 bicatali Exp $
 
 EAPI=4
 
@@ -148,7 +148,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/${PN}-${PATCH_PV}-prop-ldflags.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-prop-flags.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
