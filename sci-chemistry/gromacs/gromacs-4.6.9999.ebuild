@@ -4,14 +4,14 @@
 
 EAPI=5
 
-TEST_PV="4.0.4"
-MANUAL_PV="4.6-beta1"
+TEST_PV="4.6"
+MANUAL_PV="4.6"
 
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit bash-completion-r1 cmake-utils eutils multilib toolchain-funcs
 
-SRC_URI="test? ( http://${PN}.googlecode.com/files/regressiontests-master.tar.gz )"
+SRC_URI="test? ( http://${PN}.googlecode.com/files/regressiontests-${TEST_PV}.tar.gz )"
 
 if [[ $PV = *9999* ]]; then
 	EGIT_REPO_URI="git://git.gromacs.org/gromacs.git
