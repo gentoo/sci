@@ -9,7 +9,7 @@ MANUAL_PV="4.6"
 
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
-inherit bash-completion-r1 cmake-utils eutils multilib toolchain-funcs
+inherit bash-completion-r1 cmake-utils cuda eutils multilib toolchain-funcs
 
 if [[ $PV = *9999* ]]; then
 	EGIT_REPO_URI="git://git.gromacs.org/gromacs.git
@@ -45,14 +45,14 @@ CDEPEND="
 		x11-libs/libICE
 		)
 	blas? ( virtual/blas )
-	cuda? ( dev-util/nvidia-cuda-toolkit )
+	cuda? ( >=dev-util/nvidia-cuda-toolkit-4.2.9-r1 )
 	fftw? ( sci-libs/fftw:3.0 )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mkl? ( sci-libs/mkl )
 	mpi? ( virtual/mpi )
 	openmm? (
-		dev-util/nvidia-cuda-toolkit
+		>=dev-util/nvidia-cuda-toolkit-4.2.9-r1
 		sci-libs/openmm[cuda,opencl]
 	)"
 DEPEND="${CDEPEND}
@@ -92,6 +92,8 @@ src_prepare() {
 
 	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
 	epatch_user
+
+	use cuda && cuda_src_prepare
 
 	GMX_DIRS=""
 	use single-precision && GMX_DIRS+=" float"
