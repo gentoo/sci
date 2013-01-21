@@ -30,6 +30,10 @@ RDEPEND="${DEPEND}
 
 src_install() {
         distutils-r1_src_install
-        doicon psychopy/monitors/psychopy.ico
-        make_desktop_entry psychopyapp.py PsychoPy psychopy "Science;Biology"
+        newicon -s scalable psychopy/monitors/psychopy-icon.svg psychopy.svg
+        make_desktop_entry psychopyApp.py PsychoPy psychopy "Science;Biology"
+}
+
+pkg_postinst() {
+	touch "${ROOT}/usr/share/icons/hicolor"
 }

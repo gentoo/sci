@@ -47,3 +47,7 @@ src_install() {
         doicon psychopy/monitors/psychopy.ico
         make_desktop_entry psychopyapp.py PsychoPy psychopy "Science;Biology"
 }
+
+pkg_postinst() {
+	touch "${ROOT}/usr/share/icons/hicolor"
+}
