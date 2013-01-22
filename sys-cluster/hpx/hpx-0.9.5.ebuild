@@ -1,12 +1,13 @@
+# Copyright 1999-2012 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
 EAPI=4
+
 inherit cmake-utils
 inherit versionator
 
 S="${WORKDIR}/${PN}_${PV}"
-
-# MY_PN="hpx"
-# MY_PV="${PV}"
-# MY_P="${MY_PN}_${MY_PV}"
 
 DESCRIPTION="HPX (High Performance ParalleX) is a general C++ runtime system for parallel and distributed applications of any scale."
 HOMEPAGE="http://stellar.cct.lsu.edu/tag/hpx/"
