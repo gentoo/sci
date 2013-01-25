@@ -49,5 +49,5 @@ python_install_all() {
 }
 
 pkg_postinst() {
-	touch "${ROOT}/usr/share/icons/hicolor"
+	gnome2_icon_cache_update
 }
