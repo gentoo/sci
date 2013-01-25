@@ -5,7 +5,7 @@
 EAPI="5"
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils distutils-r1 git-2
+inherit eutils gnome2-eutils distutils-r1 git-2
 
 DESCRIPTION="Python experiemntal psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
@@ -35,5 +35,8 @@ python_install_all() {
 }
 
 pkg_postinst() {
+	gnome2_icon_cache_update
+}
+pkg_postrm() {
 	gnome2_icon_cache_update
 }

@@ -10,7 +10,7 @@ SUPPORT_PYTHON_ABIS="1"
 RESTRICT_PYTHON_ABIS="3.* *-jython *-pypy-*"
 DISTUTILS_SRC_TEST="py.test"
 
-inherit distutils-r1 eutils
+inherit distutils-r1 gnome2-utils eutils
 
 MY_P="PsychoPy-${PV}"
 
@@ -49,5 +49,8 @@ python_install_all() {
 }
 
 pkg_postinst() {
+	gnome2_icon_cache_update
+}
+pkg_postrm() {
 	gnome2_icon_cache_update
 }
