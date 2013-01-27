@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_5,2_6,2_7} )
 
-inherit python-single-r1
+inherit python-r1
 
 PLUGINS="autodocktools bhtree cadd cmolkit dejavu geomutils gle mglutil molkit
 	networkeditor opengltk pmv pyautodock pybabel pyglf qslimlib scenario2 sff
@@ -26,7 +26,7 @@ IUSE=""
 S="${WORKDIR}"/${PN}_source_${PV/_/}
 
 for plug in ${PLUGINS}; do
-	PLUG_DEP="${PLUG_DEP} =sci-chemistry/mgltools-${plug}-${PV}*"
+	PLUG_DEP="${PLUG_DEP} =sci-chemistry/mgltools-${plug}-${PV}*[${PYTHON_USEDEP}]"
 done
 
 RDEPEND="${PLUG_DEP}
