@@ -5,7 +5,7 @@
 EAPI="5"
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils gnome2-eutils distutils-r1 git-2
+inherit eutils gnome2-utils distutils-r1 git-2
 
 DESCRIPTION="Python experiemntal psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
@@ -22,16 +22,16 @@ RDEPEND="${DEPEND}
 	dev-python/lxml[${PYTHON_USEDEP}]
 	dev-python/matplotlib
 	dev-python/numpy[lapack]
-        dev-python/pygame
+	dev-python/pygame
 	dev-python/pyglet
 	dev-python/pyopengl[${PYTHON_USEDEP}]
 	dev-python/wxpython
 	sci-libs/scipy"
 
 python_install_all() {
-        distutils-r1_python_install_all
-        newicon -s scalable psychopy/monitors/psychopy-icon.svg psychopy.svg
-        make_desktop_entry psychopyApp.py PsychoPy psychopy "Science;Biology"
+	distutils-r1_python_install_all
+	newicon -s scalable psychopy/monitors/psychopy-icon.svg psychopy.svg
+	make_desktop_entry psychopyApp.py PsychoPy psychopy "Science;Biology"
 }
 
 pkg_postinst() {
