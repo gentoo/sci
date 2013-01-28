@@ -18,7 +18,6 @@ if [[ $PV = *9999* ]]; then
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-4-6"
 	inherit git-2
-	PDEPEND="doc? ( ~app-doc/${PN}-manual-${PV} )"
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
 		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf -> ${PN}-manual-${MANUAL_PV}.pdf )
@@ -54,9 +53,15 @@ CDEPEND="
 	openmm? (
 		>=dev-util/nvidia-cuda-toolkit-4.2.9-r1
 		sci-libs/openmm[cuda,opencl]
-	)"
+	)
+	!app-doc/gromac-manual"
 DEPEND="${CDEPEND}
-	virtual/pkgconfig"
+	virtual/pkgconfig
+	doc? (
+		dev-texlive/texlive-latex
+		media-gfx/imagemagick
+		sys-apps/coreutils
+	)"
 RDEPEND="${CDEPEND}"
 
 REQUIRED_USE="
@@ -77,6 +82,12 @@ src_unpack() {
 		default
 	else
 		git-2_src_unpack
+		if use doc; then
+			EGIT_REPO_URI="git://git.gromacs.org/manual.git" \
+			EGIT_BRANCH="release-4-6" EGIT_NOUNPACK="yes" EGIT_COMMIT="release-4-6" \
+			EGIT_SOURCEDIR="${WORKDIR}/manual"\
+				git-2_src_unpack
+		fi
 		if use test; then
 			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
 			EGIT_BRANCH="master" EGIT_NOUNPACK="yes" EGIT_COMMIT="master" \
@@ -229,8 +240,6 @@ src_install() {
 			DESTDIR="${D}" cmake-utils_src_make install-mdrun
 	done
 
-	rm -f "${ED}"/usr/bin/GMXRC*
-
 	newbashcomp "${ED}"/usr/bin/completion.bash ${PN}
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
@@ -243,15 +252,26 @@ src_install() {
 	if use doc; then
 		dohtml -r "${ED}usr/share/gromacs/html/"
 		if [[ $PV = *9999* ]]; then
-			insinto /usr/share/gromacs
-			doins "admin/programs.txt"
-			ls -1 "${ED}"/usr/bin | sed -e '/_d$/d' > "${T}"/programs.list
-			doins "${T}"/programs.list
+			local progs
+			for x in "${ED}"/usr/bin/*; do
+				[[ $x = *_d ]] || progs+=" ${x##*/}"
+			done
+			sed -e "/^PROGRAMS=/s/=.*/='${progs## }'/" \
+				-e "/INSTALLED_OPTIONS_PROGRAM_NAME=/s:=.*:=${ED}/usr/bin/g_options:" \
+				-i "${WORKDIR}"/manual/mkman || die
+			mycmakeargs=( -DGMXBIN="${ED}"/usr/bin -DGMXSRC="${WORKDIR}/${P}" )
+			BUILD_DIR="${WORKDIR}"/manual_build \
+				CMAKE_USE_DIR="${WORKDIR}/manual" cmake-utils_src_configure
+			BUILD_DIR="${WORKDIR}"/manual_build cmake-utils_src_make
+			newdoc "${WORKDIR}"/manual_build/gromacs.pdf "${PN}-manual-${PV}.pdf"
 		else
 			dodoc "${DISTDIR}/${PN}-manual-${MANUAL_PV}.pdf"
 		fi
 	fi
-	rm -rf "${ED}usr/share/gromacs/html/"
+	rm -rf "${ED}"/usr/share/gromacs/html/
+
+	rm -f "${ED}"/usr/bin/g_options*
+	rm -f "${ED}"/usr/bin/GMXRC*
 }
 
 pkg_postinst() {
