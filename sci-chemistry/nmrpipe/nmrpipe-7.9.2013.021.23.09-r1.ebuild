@@ -10,12 +10,19 @@ inherit eutils virtualx
 
 DESCRIPTION="Spectral visualisation, analysis and Fourier processing"
 HOMEPAGE="http://spin.niddk.nih.gov/bax/software/NMRPipe/"
+#SRC_URI="
+#	NMRPipeX.tZ
+#	talos.tZ
+#	dyn.tZ
+#	binval.com
+#	install.com"
 SRC_URI="
-	NMRPipeX.tZ
-	talos.tZ
-	dyn.tZ
-	binval.com
-	install.com"
+	http://spin.niddk.nih.gov/NMRPipe/install/download/install.com
+	http://spin.niddk.nih.gov/NMRPipe/install/download/binval.com
+	http://spin.niddk.nih.gov/NMRPipe/install/download/NMRPipeX.tZ
+	http://spin.niddk.nih.gov/NMRPipe/install/download/talos.tZ
+	http://spin.niddk.nih.gov/NMRPipe/install/download/dyn.tZ
+	"
 
 SLOT="0"
 LICENSE="as-is"
@@ -26,7 +33,8 @@ LICENSE="as-is"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
-RESTRICT="fetch strip"
+#RESTRICT="fetch strip"
+RESTRICT="strip"
 
 DEPEND="app-shells/tcsh"
 RDEPEND="${DEPEND}

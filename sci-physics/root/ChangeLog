@@ -1,6 +1,16 @@
 # ChangeLog for sci-physics/root
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
+
+  21 Jan 2013; Andrew Savchenko <bircoph@gmail.com>
+  -files/root-5.28.00b-asneeded.patch,
+  -files/root-5.28.00b-nobyte-compile.patch,
+  -files/root-5.28.00b-prop-ldflags.patch,
+  -files/root-5.32.00-explicit-functions.patch,
+  +files/root-5.32.00-prop-flags.patch, -root-5.32.04.ebuild,
+  root-5.34.03.ebuild, root-9999.ebuild:
+  Honor system *FLAGS, this fixes bug 452806.
+  Remove old versions.
 
   28 Oct 2012; Andrew Savchenko <bircoph@gmail.com>
   -files/root-5.28.00h-explicit-functions.patch:
