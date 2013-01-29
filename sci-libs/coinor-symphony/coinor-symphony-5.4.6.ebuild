@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit autotools-utils multilib
 
@@ -41,11 +41,6 @@ src_prepare() {
 	sed -i \
 		-e 's:\(libSym_la_LIBADD.*=\).*:\1 @SYMPHONYLIB_LIBS@:g' \
 		src/Makefile.in || die
-
-	# bug for later versions of subversions
-	sed -i \
-		-e 's/xexported/xexported -a "x$svn_rev_tmp" != "xUnversioned directory"/' \
-		configure || die
 }
 
 src_configure() {
