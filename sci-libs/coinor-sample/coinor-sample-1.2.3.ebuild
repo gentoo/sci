@@ -21,9 +21,3 @@ RDEPEND=""
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${MYPN}-${PV}"
-
-src_install() {
-	autotools-utils_src_install
-	# already installed and empty directories
-	rm -r "${ED}"/usr/share/coin/doc || die
-}
