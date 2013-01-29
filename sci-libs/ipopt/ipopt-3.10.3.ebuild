@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit autotools-utils multilib
+inherit autotools-utils multilib toolchain-funcs
 
 MYPN=Ipopt
 
@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples lapack mumps static-libs test"
 
-RDEPEND="virtual/blas
+RDEPEND="
+	virtual/blas
 	lapack? ( virtual/lapack )
 	mumps? ( sci-libs/mumps )"
 DEPEND="${RDEPEND}
@@ -44,11 +45,11 @@ src_prepare() {
 
 src_configure() {
 	local myeconfargs=(
-		--with-blas-lib="$(pkg-config --libs blas)"
+		--with-blas-lib="$($(tc-getPKG_CONFIG) --libs blas)"
 		$(use_with doc dot)
 	)
 	if use lapack; then
-		myeconfargs+=( --with-lapack="$(pkg-config --libs lapack)" )
+		myeconfargs+=( --with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)" )
 	else
 		myeconfargs+=( --without-lapack )
 	fi
