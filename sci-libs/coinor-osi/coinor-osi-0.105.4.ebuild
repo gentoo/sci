@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit autotools-utils multilib
 
@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples glpk static-libs test"
 
-RDEPEND="sci-libs/coinor-utils
+RDEPEND="
+	sci-libs/coinor-utils
 	glpk? ( sci-mathematics/glpk )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
