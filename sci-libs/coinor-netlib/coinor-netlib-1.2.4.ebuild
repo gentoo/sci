@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit autotools-utils
 
@@ -25,5 +25,5 @@ S="${WORKDIR}/${MYPN}-${PV}"
 src_install() {
 	autotools-utils_src_install
 	# already installed and empt directories
-	rm -rf "${ED}"/usr/share/coin/doc
+	rm -r "${ED}"/usr/share/coin/doc || die
 }
