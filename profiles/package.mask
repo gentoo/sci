@@ -30,13 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Guillaume Horel <guillaume.horel@gmail.com> (11 July 2012)
-# masked for upcoming scilab-5.4.0
-=sci-mathematics/scilab-5.4.0
-=dev-java/jrosetta-1.0.4
-=dev-java/flexdock-1.2.0
->=dev-java/jgraphx-1.8
-
 # Nicolas Bock <nicolasbock@gmail.com> (05 July 2012)
 # live ebuild
 =sci-chemistry/freeon-9999
