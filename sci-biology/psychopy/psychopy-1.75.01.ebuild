@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -23,16 +23,16 @@ KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 RDEPEND="dev-python/numpy[lapack]
-        sci-libs/scipy
-        dev-python/matplotlib
-        dev-python/pyopengl[${PYTHON_USEDEP}]
-        dev-python/imaging
-        dev-python/wxpython
-        dev-python/setuptools[${PYTHON_USEDEP}]
-        dev-python/lxml[${PYTHON_USEDEP}]
-        app-admin/eselect
-        dev-python/pyglet
-        dev-python/pygame"
+	sci-libs/scipy
+	dev-python/matplotlib
+	dev-python/pyopengl[${PYTHON_USEDEP}]
+	dev-python/imaging
+	dev-python/wxpython
+	dev-python/setuptools[${PYTHON_USEDEP}]
+	dev-python/lxml[${PYTHON_USEDEP}]
+	app-admin/eselect
+	dev-python/pyglet
+	dev-python/pygame"
 
 DEPEND="app-arch/unzip
 	dev-python/setuptools
@@ -43,9 +43,9 @@ RESTRICT="test" # interactive, opens lots of windows
 S="${WORKDIR}/${MY_P}"
 
 python_install_all() {
-        distutils-r1_python_install_all
-        doicon psychopy/monitors/psychopy.ico
-        make_desktop_entry psychopyapp.py PsychoPy psychopy "Science;Biology"
+	distutils-r1_python_install_all
+	doicon psychopy/monitors/psychopy.ico
+	make_desktop_entry psychopyapp.py PsychoPy psychopy "Science;Biology"
 }
 
 pkg_postinst() {

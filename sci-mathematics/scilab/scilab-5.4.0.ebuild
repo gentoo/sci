@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,15 +10,9 @@ VIRTUALX_REQUIRED="manual"
 inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
 	fortran-2 java-pkg-opt-2 toolchain-funcs virtualx
 
-# Comments:
-# - we don't rely on the configure script to find the right version of java
-# packages. This should fix bug #41821
 # Things that don't work:
 # - tests
 # - can't build without docs (-doc) 
-# - has to call eautoconf, and not eautoreconf, libtool fails otherwise
-# - needs to remove scilab-5.3.x before installing otherwise gets a DOCBOOK_ROOT
-# error
 
 DESCRIPTION="Scientific software package for numerical computations"
 LICENSE="CeCILL-2"
@@ -116,7 +110,6 @@ pkg_setup() {
 	for l in ${LINGUASLONG}; do
 		use linguas_${l%_*} && ALL_LINGUAS="${ALL_LINGUAS} ${l}"
 	done
-
 	export ALL_LINGUAS ALL_LINGUAS_DOC=$ALL_LINGUAS
 }
 
@@ -125,20 +118,20 @@ src_prepare() {
 		"${FILESDIR}/${P}-fortran-link.patch" \
 		"${FILESDIR}/${P}-followlinks.patch" \
 		"${FILESDIR}/${P}-gluegen.patch" \
-		"${FILESDIR}/${P}-fix-random-runtime-failure.patch"
+		"${FILESDIR}/${P}-fix-random-runtime-failure.patch" \
+		"${FILESDIR}/${P}-builddocs.patch"
 
 	append-ldflags $(no-as-needed)
 
 	# increases java heap to 512M when building docs (sync with cheqreqs above)
 	use doc && epatch "${FILESDIR}/${P}-java-heap.patch"
 
+	# use the LINGUAS variable that we set
 	sed -i -e "/^ALL_LINGUAS=/d" -e "/^ALL_LINGUAS_DOC=/d" -i configure.ac
-	# make sure library path are preloaded in binaries
-	sed -i \
-		-e "s|^LD_LIBRARY_PATH=|LD_LIBRARY_PATH=${EPREFIX}/usr/$(get_libdir)/scilab:|g" \
-		bin/scilab* || die
-	# make sure it exports the DOCBOOK_ROOT variable
+
+	# make sure the DOCBOOK_ROOT variable is set
 	sed -i -e "s/xsl-stylesheets-\*/xsl-stylesheets/g" bin/scilab* || die
+
 	#add specific gentoo java directories
 	if use gui; then
 		sed -i -e "s|/usr/lib/jogl|/usr/lib/jogl-2|" \
@@ -151,6 +144,7 @@ src_prepare() {
 		sed -i -e "s/jogl/jogl-2/" -e "s/gluegen/gluegen-2/" \
 			etc/librarypath.xml || die
 	fi
+
 	mkdir jar || die
 	pushd jar
 	java-pkg_jar-from jgraphx-1.8,jlatexmath-1,flexdock,skinlf

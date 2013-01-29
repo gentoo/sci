@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 FORTRAN_NEEDED=fortran
 inherit eutils toolchain-funcs fortran-2 versionator alternatives-2 multilib
@@ -49,7 +49,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-x32-support.patch
+	epatch "${FILESDIR}"/${PN}-3.10.0-x32-support.patch
 }
 
 src_configure() {
@@ -94,8 +94,6 @@ src_configure() {
 			myconf+=( "-b 32" )
 		elif use ia64; then
 			myconf+=( "-b 64" )
-		else #hppa alpha ...
-			myconf+=( "" )
 		fi
 		if use fortran; then
 			myconf+=(
@@ -236,6 +234,7 @@ src_install() {
 
 	if use fortran; then
 		LINK=$(tc-getF77) PCREQ=
+
 		# blas
 		atlas_install_libs libf77blas.a -lm -L. -latlas
 		atlas_install_pc f77blas atlas-blas -lm -latlas
