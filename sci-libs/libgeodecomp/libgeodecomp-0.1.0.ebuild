@@ -25,22 +25,14 @@ HOMEPAGE="http://www.libgeodecomp.org"
 
 LICENSE="LGPL-3.0"
 SLOT="0"
-IUSE="cuda doc mpi opencl"
+IUSE="mpi"
 
-RDEPEND=">=dev-libs/boost-1.48
-         cuda? ( dev-util/nvidia-cuda-toolkit )
-         mpi? ( || (
-                     sys-cluster/openmpi[cxx]
-                     sys-cluster/mpich2[cxx]
-               ) )
-         opencl? ( virtual/opencl )"
-DEPEND="${RDEPEND}
-        doc? ( app-doc/doxygen )
-"
+RDEPEND=">=dev-libs/boost-1.48"
+DEPEND="${RDEPEND}"
 
-
-
-# -D FEATURE_QT=false -D FEATURE_OPENCL=false -D FEATURE_CUDA=false mpi
+src_prepare() {
+    epatch "${FILESDIR}/cmake.patch"
+}
 
 src_compile() {
     cmake-utils_src_compile 
@@ -51,10 +43,8 @@ src_compile() {
 
 src_install() {
     cmake-utils_src_install
-
-    dodoc README
-    if ( use doc); then 
-        dohtml doc/html/*
-    fi
 }
 
+src_test() {
+    cmake-utils_src_compile test    
+}
