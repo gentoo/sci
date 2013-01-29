@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit autotools-utils multilib
+inherit autotools-utils multilib toolchain-funcs
 
 MYPN=Clp
 
@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples glpk metis mumps sparse static-libs test"
 
-RDEPEND="sci-libs/coinor-osi
+RDEPEND="
+	sci-libs/coinor-osi
 	sci-libs/coinor-utils
 	glpk? ( sci-mathematics/glpk )
 	metis? ( || ( sci-libs/metis sci-libs/parmetis ) )
@@ -68,8 +69,8 @@ src_configure() {
 	fi
 	if use metis; then
 		myeconfargs+=(
-			--with-metis-incdir="$(pkg-config --cflags metis | sed s/-I//)"
-			--with-metis-lib="$(pkg-config --libs metis)" )
+			--with-metis-incdir="$($(tc-getPKG_CONFIG) --cflags metis | sed s/-I//)"
+			--with-metis-lib="$($(tc-getPKG_CONFIG) --libs metis)" )
 	else
 		myeconfargs+=( --without-metis )
 	fi
