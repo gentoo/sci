@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit autotools-utils multilib
+inherit autotools-utils multilib toolchain-funcs
 
 MYPN=CoinUtils
 
@@ -17,7 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="bzip2 doc glpk blas lapack static-libs test zlib"
 
-RDEPEND="sys-libs/readline
+RDEPEND="
+	sys-libs/readline
 	bzip2? ( app-arch/bzip2 )
 	blas? ( virtual/blas )
 	glpk? ( sci-mathematics/glpk )
@@ -45,7 +46,7 @@ src_configure() {
 		$(use_with doc dot)
 	)
 	if use blas; then
-		myeconfargs+=( --with-blas-lib="$(pkg-config --libs blas)" )
+		myeconfargs+=( --with-blas-lib="$($(tc-getPKG_CONFIG) --libs blas)" )
 	else
 		myeconfargs+=( --without-blas )
 	fi
@@ -58,7 +59,7 @@ src_configure() {
 		myeconfargs+=( --without-glpk )
 	fi
 	if use lapack; then
-		myeconfargs+=( --with-lapack="$(pkg-config --libs lapack)" )
+		myeconfargs+=( --with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)" )
 	else
 		myeconfargs+=( --without-lapack )
 	fi
