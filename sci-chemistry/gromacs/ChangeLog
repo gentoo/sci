@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Jan 2013; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
+  clean up
+
   28 Jan 2013; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
   added app-doc/gromacs-manual in here
 
