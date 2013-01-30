@@ -1,6 +1,6 @@
 diff -ur likwid-3.0/config.mk likwid-3.0-nju/config.mk
 --- likwid-3.0/config.mk	2012-11-29 18:16:13.000000000 +0100
-+++ likwid-3.0-nju/config.mk	2013-01-30 15:23:08.526148281 +0100
++++ likwid-3.0-nju/config.mk	2013-01-30 15:32:47.896140004 +0100
 @@ -10,12 +10,12 @@
  
  # Path were to install likwid
@@ -12,7 +12,7 @@ diff -ur likwid-3.0/config.mk likwid-3.0-nju/config.mk
  # the absolute path to the msr daemon executable.
  # $(PREFIX)/bin/likwid-accessD
 -ACCESSDAEMON = $(PREFIX)/bin/likwid-accessD#NO SPACE
-+ACCESSDAEMON = likwid-accessD#NO SPACE
++ACCESSDAEMON = /usr/bin/likwid-accessD#NO SPACE
  # Path to the msrd-socket in system daemon mode.
  SYSDAEMONSOCKETPATH = /var/run/likwid-msrd.sock#NO SPACE
  
