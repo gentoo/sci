@@ -27,3 +27,10 @@ src_compile() {
     emake || die "emake failed"
     emake likwid-bench || die "emake likwid-bench failed"
  }
+
+pkg_preinst()
+{
+    if use access-daemon ; then 
+	chmod +s $D/bin/likwid-accessD
+    fi
+}
