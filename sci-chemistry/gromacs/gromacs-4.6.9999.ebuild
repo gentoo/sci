@@ -33,7 +33,7 @@ HOMEPAGE="http://www.gromacs.org/"
 # http://repo.or.cz/w/gromacs.git/blob/HEAD:/COPYING
 #        base,    vmd plugins, fftpack from numpy,  blas/lapck from netlib,        memtestG80 library,  mpi_thread lib
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
-SLOT="0"
+SLOT="0/${PV}"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 IUSE="X blas cuda doc -double-precision +fftw gsl lapack mkl mpi +offensive openmm openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
 
@@ -53,8 +53,7 @@ CDEPEND="
 	openmm? (
 		>=dev-util/nvidia-cuda-toolkit-4.2.9-r1
 		sci-libs/openmm[cuda,opencl]
-	)
-	!app-doc/gromac-manual"
+	)"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
 	doc? (
