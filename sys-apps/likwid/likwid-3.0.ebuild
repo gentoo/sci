@@ -31,6 +31,6 @@ src_compile() {
 pkg_preinst()
 {
     if use access-daemon ; then 
-	chmod +s $D/bin/likwid-accessD
+	chmod +s $D/usr/bin/likwid-accessD || die "Couldn't set SUID for access daemon"
     fi
 }
