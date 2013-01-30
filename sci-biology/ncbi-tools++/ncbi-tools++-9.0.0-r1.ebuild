@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils flag-o-matic multilib toolchain-funcs
+inherit autotools eutils flag-o-matic multilib toolchain-funcs
 
 MY_TAG="Jun_15_2010"
 MY_Y="${MY_TAG/*_/}"
@@ -68,70 +68,6 @@ DEPEND="
 	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
 
-# configure options, may want to expose some
-#  --without-debug         build non-debug versions of libs and apps
-#  --without-optimization  turn off optimization flags in non-debug mode
-#  --with-profiling        build profiled versions of libs and apps
-#  --with-tcheck(=DIR)     build for Intel Thread Checker (in DIR)
-#  --with-dll              build all libraries as DLLs
-#  --with-static           build all libraries statically even if --with-dll
-#  --with-static-exe       build all executables as statically as possible
-#  --with-plugin-auto-load always enable the plugin manager by default
-#  --with-bin-release      build executables suitable for public release
-#  --with-mt               compile in a MultiThread-safe manner
-#  --with-64               compile to 64-bit code
-#  --with-universal        build universal binaries on Mac OS X
-#  --with-universal=CPUs   build universal binaries targeting the given CPUs
-#  --without-exe           do not build executables
-#  --with-runpath=         hard-code the runtime path to DLLs
-#  --with-lfs              enable large file support to the extent possible
-#  --with-extra-action=    script to call after the configuration is complete
-#  --with-autodep          automatic generation of dependencies (GNU make)
-#  --with-build-root=DIR   specify a non-default build directory name
-#  --with-fake-root=DIR    appear to have been built under DIR
-#  --without-suffix        no Release/Debug, MT or DLL sfx in the build dir name
-#  --with-hostspec         add full host specs to the build dir name
-#  --without-version       don't always include the cplr ver in the bd name
-#  --with-build-root-sfx=X add a user-specified suffix to the build dir name
-#  --without-execopy       do not copy built executables to the BIN area
-#  --with-bincopy          populate lib and bin with copies, not hard links
-#  --with-lib-rebuilds     ensure that apps use up-to-date libraries
-#  --with-lib-rebuilds=ask ask whether to update each app's libraries
-#  --without-deactivation  keep old copies of libraries that no longer build
-#  --without-makefile-auto-update  do not auto-update generated makefiles
-#  --with-projects=FILE    build projects listed in FILE by default
-#  --without-flat-makefile do not generate an all-encompassing flat makefile
-#  --with-configure-dialog allow interactive flat makefile project selection
-#  --with-saved-settings=F load configuration settings from the file F
-#  --with-check            run test suite after the build
-#  --with-check-tools=...  use the specified tools for testing
-#  --with-ncbi-public      ensure compatibility for all in-house platforms
-#  --with-strip            strip binaries at build time
-#  --with-pch              use precompiled headers if possible
-#  --with-caution          cancel configuration unconditionally when in doubt
-#  --without-caution       proceed without asking when in doubt
-#  --without-ccache        do not automatically use ccache if available
-#  --without-distcc        do not automatically use distcc if available
-#  --without-ncbi-c        do not use NCBI C Toolkit
-#  --without-sss           do not use NCBI SSS libraries
-#  --without-utils         do not use NCBI SSS UTIL library
-#  --without-sssdb         do not use NCBI SSS DB library
-#  --with-included-sss     use the in-tree copy of SSS
-
-#  --without-local-lbsm    turn off support for IPC with locally running LBSMD
-#  --without-ncbi-crypt    use a dummy stubbed-out version of ncbi_crypt
-#  --without-connext       do not build non-public CONNECT library extensions
-#  --without-serial        do not build the serialization library and tools
-#  --without-objects       do not generate/build serializeable objects from ASNs
-#  --without-dbapi         do not build database connectivity libraries
-#  --without-app           do not build standalone applications like ID1_FETCH
-#  --without-ctools        do not build NCBI C Toolkit based projects
-#  --without-gui           do not build most graphical projects
-#  --without-algo          do not build CPU-intensive algorithms
-#  --without-internal      do not build internal projects
-#  --with-gbench           ensure that Genome Workbench can be built
-#  --without-gbench        do not build Genome Workbench
-
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}"
@@ -162,7 +98,17 @@ src_prepare() {
 #		"${FILESDIR}"/${PN}-${PV#0.}-glibc-214.patch
 
 #	use prefix && append-ldflags -Wl,-rpath,"${EPREFIX}/usr/$(get_libdir)/${PN}"
+
+	local PATCHES=(
+		"${FILESDIR}"/${P}-conf-opts.patch
+		"${FILESDIR}"/${P}-as-needed.patch
+		)
+	epatch ${PATCHES[@]}
+
 	tc-export CXX CC
+#	cd src/build-system || die
+#	eaclocal -I.
+#	eautoconf
 }
 
 src_configure() {
@@ -175,54 +121,54 @@ src_configure() {
 	#--with-bin-release      build executables suitable for public release
 	#	no dll and such
 	#--with-64               compile to 64-bit code
-	# --with-universal        build universal binaries on Mac OS X
-	# --with-universal=CPUs   build universal binaries targeting the given CPUs
-	# --without-exe           do not build executables
+	#--with-universal        build universal binaries on Mac OS X
+	#--with-universal=CPUs   build universal binaries targeting the given CPUs
+	#--without-exe           do not build executables
 	#--with-relative-runpath=P specify an executable-relative DLL search path
-	# --with-hard-runpath     hard-code runtime path, ignoring LD_LIBRARY_PATH
-	# --with-limited-linker   don't attempt to build especially large projects
+	#--with-hard-runpath     hard-code runtime path, ignoring LD_LIBRARY_PATH
+	#--with-limited-linker   don't attempt to build especially large projects
 	#--with-extra-action=    script to call after the configuration is complete
 	#--with-autodep          automatic generation of dependencies (GNU make)
-	# --with-fake-root=DIR    appear to have been built under DIR
+	#--with-fake-root=DIR    appear to have been built under DIR
 	#--with-build-root-sfx=X add a user-specified suffix to the build dir name
-	# --without-execopy       do not copy built executables to the BIN area
+	#--without-execopy       do not copy built executables to the BIN area
 	#--with-lib-rebuilds     ensure that apps use up-to-date libraries
-	# --with-lib-rebuilds=ask ask whether to update each app's libraries
-	# --without-deactivation  keep old copies of libraries that no longer build
-	# --without-makefile-auto-update  do not auto-update generated makefiles
-	# --with-projects=FILE    build projects listed in FILE by default
-	# --without-flat-makefile do not generate an all-encompassing flat makefile
-	# --with-configure-dialog allow interactive flat makefile project selection
-	# --with-saved-settings=F load configuration settings from the file F
-	#-with-check-tools=...  use the specified tools for testing
-	# --with-ncbi-public      ensure compatibility for all in-house platforms
+	#--with-lib-rebuilds=ask ask whether to update each app's libraries
+	#--without-deactivation  keep old copies of libraries that no longer build
+	#--without-makefile-auto-update  do not auto-update generated makefiles
+	#--with-projects=FILE    build projects listed in FILE by default
+	#--without-flat-makefile do not generate an all-encompassing flat makefile
+	#--with-configure-dialog allow interactive flat makefile project selection
+	#--with-saved-settings=F load configuration settings from the file F
+	#--with-check-tools=...  use the specified tools for testing
+	#--with-ncbi-public      ensure compatibility for all in-house platforms
 	#--with-sybase-local=DIR use local SYBASE install (DIR is optional)
-	# --with-sybase-new       use newer SYBASE install (12.5 rather than 12.0)
+	#--with-sybase-new       use newer SYBASE install (12.5 rather than 12.0)
 	#--without-ftds-renamed  do not rename Sybase DBLIB symbols in built-in FTDS
 	#--without-sp            do not use SP libraries
 	#--without-orbacus       do not use ORBacus CORBA libraries
-	# --with-orbacus=DIR      use ORBacus installation in DIR
+	#--with-orbacus=DIR      use ORBacus installation in DIR
 	#--with-jni(=JDK-DIR)    build Java bindings (against the JDK in JDK-DIR)
 	#--with-sablot=DIR       use Sablotron installation in DIR
-	# --without-sablot,       do not use Sablotron
+	#--without-sablot,       do not use Sablotron
 	#--with-oechem=DIR       use OpenEye OEChem installation in DIR
-	# --without-oechem        do not use OEChem
-	# --with-sge=DIR          use Sun Grid Engine installation in DIR
-	# --without-sge           do not use Sun Grid Engine
+	#--without-oechem        do not use OEChem
+	#--with-sge=DIR          use Sun Grid Engine installation in DIR
+	#--without-sge           do not use Sun Grid Engine
 	#--with-magic=DIR        use libmagic installation in DIR
-	# --without-magic         do not use libmagic
+	#--without-magic         do not use libmagic
 	#--without-local-lbsm    turn off support for IPC with locally running LBSMD
-	# --without-ncbi-crypt    use a dummy stubbed-out version of ncbi_crypt
-	# --without-connext       do not build non-public CONNECT library extensions
-	# --without-serial        do not build the serialization library and tools
-	# --without-objects       do not generate/build serializeable objects from ASNs
-	# --without-dbapi         do not build database connectivity libraries
-	# --without-app           do not build standalone applications like ID1_FETCH
-	# --without-gui           do not build most graphical projects
-	# --without-algo          do not build CPU-intensive algorithms
+	#--without-ncbi-crypt    use a dummy stubbed-out version of ncbi_crypt
+	#--without-connext       do not build non-public CONNECT library extensions
+	#--without-serial        do not build the serialization library and tools
+	#--without-objects       do not generate/build serializeable objects from ASNs
+	#--without-dbapi         do not build database connectivity libraries
+	#--without-app           do not build standalone applications like ID1_FETCH
+	#--without-gui           do not build most graphical projects
+	#--without-algo          do not build CPU-intensive algorithms
 	#--without-internal      do not build internal projects
-	# --with-gbench           ensure that Genome Workbench can be built
-	# --without-gbench        do not build Genome Workbench
+	#--with-gbench           ensure that Genome Workbench can be built
+	#--without-gbench        do not build Genome Workbench
 	myconf+=(
 	--with-dll
 	--with-lfs
@@ -234,17 +180,18 @@ src_configure() {
 	--without-strip
 	--without-ccache
 	--without-distcc
-	--with-ncbi-c
+#	--with-ncbi-c
 	--without-ctools
-	--with-sss
-	--with-utils
-	--with-sssdb
-	--with-included-sss
+#	--with-sss
+#	--with-sssutils
+#	--with-sssdb
+#	--with-included-sss
 	--with-z="${EPREFIX}"/usr
 	--with-bz2="${EPREFIX}"/usr
 	--with-muparser="${EPREFIX}"/usr
 	--without-sybase
-#	--with-3psw=std:netopt
+	--with-autodep
+#	--with-3psw=std:netopt favor standard (system) builds of the above pkgs
 	$(use_with debug)
 	$(use_with debug max-debug)
 	$(use_with debug symbols)
@@ -265,7 +212,7 @@ src_configure() {
 	$(use_with mesa mesa "${EPREFIX}"/usr)
 	$(use_with opengl glut "${EPREFIX}"/usr)
 	$(use_with opengl glew "${EPREFIX}"/usr)
-	$(use_with opengl glew-m)
+	$(use_with opengl glew-mx)
 	$(use_with wxwidgets wxwidgets "${EPREFIX}"/usr)
 	$(use_with wxwidgets wxwidgets-ucs)
 	$(use_with freetype freetype "${EPREFIX}"/usr)
@@ -277,18 +224,19 @@ src_configure() {
 	$(use_with sqlite sqlite3 "${EPREFIX}"/usr)
 	$(use_with icu icu "${EPREFIX}"/usr)
 	$(use_with expat expat "${EPREFIX}"/usr)
-	$(use_with xml libxml2 "${EPREFIX}"/usr)
+	$(use_with xml libxml "${EPREFIX}"/usr)
 	$(use_with xml libxslt "${EPREFIX}"/usr)
 	$(use_with xerces xerces "${EPREFIX}"/usr)
 	$(use_with hdf5 hdf5 "${EPREFIX}"/usr)
 	$(use_with xalan xalan "${EPREFIX}"/usr)
-	$(use_with gif gif "${EPREFIX}"/usr)
+#	$(use_with gif gif "${EPREFIX}"/usr)
 	$(use_with jpeg jpeg "${EPREFIX}"/usr)
 	$(use_with tiff tiff "${EPREFIX}"/usr)
 	$(use_with png png "${EPREFIX}"/usr)
 	$(use_with xpm xpm "${EPREFIX}"/usr)
 	$(use_with curl curl "${EPREFIX}"/usr)
-	$(use_with X x "${EPREFIX}"/usr)
+#	$(use_with X x "${EPREFIX}"/usr)
+	$(use_with X x)
 	)
 
 	# http://www.ncbi.nlm.nih.gov/books/NBK7167/
@@ -298,16 +246,16 @@ src_configure() {
     # copy optimization -O options from CXXFLAGS to DEF_FAST_FLAGS and pass that also to configure
 	# otherwise your -O2 will be dropped in some subdirectories and repalced by e.g. -O9
 
-	"${S}"/configure \
-	--prefix="${EPREFIX}"/usr \
-	--build=x86_64-pc-linux-gnu \
-	--host=x86_64-pc-linux-gnu \
-	--infodir=/usr/share/info \
-	--datadir=/usr/share \
-	--sysconfdir=/etc \
-	--localstatedir=/var/lib \
-	--libdir=/usr/lib64 \
-	${myconf[@]} || die
+	einfo "bash ./src/build-system/configure --srcdir="${S}" --prefix="${EPREFIX}"/usr --libdir=/usr/lib64 ${myconf[@]}"
+
+#	bash \
+#		./src/build-system/configure \
+#	cd src/build-system || die
+	econf \
+		--srcdir="${S}" \
+		--prefix="${EPREFIX}"/usr \
+		--libdir=/usr/lib64 \
+		${myconf[@]} || die
 #--without-debug \
 #		--with-bin-release \
 #		--with-bincopy \
@@ -326,7 +274,9 @@ src_compile() {
 	# all_r would ignore the --with-projects contents and build more
 	# emake all_r -C GCC*-Release*/build || die
 	# all_p with compile only selected/required components
-	emake all_p -C GCC*-Release*/build || die "gcc-4.5.3 crashes at src/objects/valerr/ValidError.cpp:226:1: internal compiler error: Segmentation fault, right?"
+#	cd "${S}"_build &&\
+	emake all_p -C "${S}"_build/build
+#	emake all_p -C GCC*-Release*/build || die "gcc-4.5.3 crashes at src/objects/valerr/ValidError.cpp:226:1: internal compiler error: Segmentation fault, right?"
 }
 
 src_install() {

@@ -1,0 +1,213 @@
+ src/build-system/configure    | 34 +++++++++++++++++++++++-----------
+ src/build-system/configure.ac | 33 ++++++++++++++++++++++-----------
+ 2 files changed, 45 insertions(+), 22 deletions(-)
+
+diff --git a/src/build-system/configure b/src/build-system/configure
+index 82fc9ef..d31a4f2 100755
+--- a/src/build-system/configure
++++ b/src/build-system/configure
+@@ -924,7 +924,7 @@ Optional Packages:
+  --without-distcc        do not automatically use distcc if available
+  --without-ncbi-c        do not use NCBI C Toolkit
+  --without-sss           do not use NCBI SSS libraries
+- --without-utils         do not use NCBI SSS UTIL library
++ --without-sssutils      do not use NCBI SSS UTIL library
+  --without-sssdb         do not use NCBI SSS DB library
+  --with-included-sss     use the in-tree copy of SSS
+  --with-z=DIR            use zlib installation in DIR
+@@ -2835,12 +2835,12 @@ check ncbi-public strip pch caution ccache distcc \
+ ncbi-c wxwidgets wxwidgets-ucs fastcgi sss sssdb sssutils included-sss \
+ geo included-geo \
+ z bz2 lzo pcre gnutls openssl sybase sybase-local sybase-new \
+-ftds mysql orbacus freetype fltk opengl mesa glut glew glew-mx \
++ftds mysql orbacus odbc freetype fltk opengl mesa glut glew glew-mx \
+ bdb python jni sqlite3 icu boost boost-tag \
+ sp expat sablot libxml libxslt xerces xalan oechem sge muparser hdf5 \
+ gif jpeg tiff png xpm magic curl 3psw \
+ local-lbsm ncbi-crypt connext \
+-serial objects dbapi app ctools gui algo internal gbench"
++serial objects dbapi app ctools gui algo internal gbench x"
+ 
+ x_with_list=`echo "$x_with_list" | sed 's/\([^ ][^ ]*\)/--with-\1 --without-\1/g'`
+ 
+@@ -2864,6 +2864,7 @@ for x_arg in "$@" ; do
+    case "$x_arg" in
+       --with-extra-action= | --exec-prefix= | --with-projects= | --srcdir= \
+       | --cache-file= | --build= | --host= | --target= | --with-runpath= \
++      | --mandir= | --infodir= | --datadir= | --sysconfdir= | --localstatedir= \
+       | --with-relative-runpath= | --x-includes= | --x-libraries= )
+       { { echo "$as_me:$LINENO: error: $x_arg:  requires value;  use --help to show usage" >&5
+ echo "$as_me: error: $x_arg:  requires value;  use --help to show usage" >&2;}
+@@ -2876,6 +2877,7 @@ echo "$as_me: error: $x_arg:  requires value;  use --help to show usage" >&2;}
+       | --with-universal=* | --with-tcheck=* \
+       | --cache-file=* | --build=* | --host=* | --prefix=* | --exec-prefix=* \
+       | --libdir=* | --bindir=* | --includedir=* | --srcdir=* \
++      | --mandir=* | --infodir=* | --datadir=* | --sysconfdir=* | --localstatedir=* \
+       | [A-Z]*=* \
+       | --with-z=* | --with-bz2=* | --with-lzo=* \
+       | --with-pcre=* \
+@@ -3023,7 +3025,8 @@ echo "$as_me: error: --without-extra-action is not allowed" >&2;}
+ fi
+ 
+ case "$with_projects" in
+- "") if test -r projects; then
++ ""|yes)
++     if test -r projects; then
+         { echo "$as_me:$LINENO: using default projects file \"projects\"." >&5
+ echo "$as_me: using default projects file \"projects\"." >&6;}
+         with_projects=projects
+@@ -3049,6 +3052,16 @@ echo "$as_me: WARNING: default projects file \"projects\" is a dangling link." >
+  ;;
+ esac
+ 
++if test -n "$with_projects"; then
++   case "$with_projects" in
++      /* ) abs_projects=$with_projects         ;;
++      yes) abs_projects=$srcdir/projects       ;;
++      *  ) abs_projects=$srcdir/$with_projects ;;
++   esac
++   test -r "$abs_projects"  ||  \
++      as_fn_error $? "unable to read requested projects file \"$abs_projects\"." "$LINENO" 5
++fi
++
+ 
+ #### Always define this
+ 
+@@ -32712,7 +32725,7 @@ else
+      sep=", "
+    fi
+    if test -n "$reason" -a "$with_internal" = "yes"; then
+-      if test -z "$with_projects"  -o  "$with_projects" = "no"; then
++      if test -z "$with_projects"; then
+          { { echo "$as_me:$LINENO: error: --with-internal:  Cannot build INTERNAL projects: missing $reason" >&5
+ echo "$as_me: error: --with-internal:  Cannot build INTERNAL projects: missing $reason" >&2;}
+    { (exit 1); exit 1; }; }
+@@ -34949,11 +34962,9 @@ if test "$with_flat_makefile" != "no"; then
+    else
+       cfm_flags='-remoteptb'
+    fi
+-   case "$with_projects" in
+-      yes     ) cfm_flags="$cfm_flags -p projects" ;;
+-      no | '' ) ;;
+-      *       ) cfm_flags="$cfm_flags -p $with_projects" ;;
+-   esac
++   if test -n "$with_projects"; then
++      cfm_flags="$cfm_flags -p $with_projects"
++   fi
+    if test "$with_configure_dialog" = yes; then
+       cfm_flags="$cfm_flags -cfg"
+    fi
+@@ -34997,7 +35008,8 @@ lib)
+ esac
+ 
+ if test -n "$with_projects"; then
+-    build_proj="To build selected projects:  cd $builddir && make all_p"
++    build_proj="To build selected projects (as listed in \"$with_projects\"):
++    cd $builddir && make all_p"
+ fi
+ 
+ cat << EOCONF
+diff --git a/src/build-system/configure.ac b/src/build-system/configure.ac
+index 7b733af..3b55bf5 100644
+--- a/src/build-system/configure.ac
++++ b/src/build-system/configure.ac
+@@ -222,7 +222,7 @@ AC_ARG_WITH(ncbi-c,
+ AC_ARG_WITH(sss,
+    [ --without-sss           do not use NCBI SSS libraries])
+ AC_ARG_WITH(sssutils,
+-   [ --without-utils         do not use NCBI SSS UTIL library])
++   [ --without-sssutils      do not use NCBI SSS UTIL library])
+ AC_ARG_WITH(sssdb,
+    [ --without-sssdb         do not use NCBI SSS DB library])
+ AC_ARG_WITH(included-sss,
+@@ -462,12 +462,12 @@ check ncbi-public strip pch caution ccache distcc \
+ ncbi-c wxwidgets wxwidgets-ucs fastcgi sss sssdb sssutils included-sss \
+ geo included-geo \
+ z bz2 lzo pcre gnutls openssl sybase sybase-local sybase-new \
+-ftds mysql orbacus freetype fltk opengl mesa glut glew glew-mx \
++ftds mysql orbacus odbc freetype fltk opengl mesa glut glew glew-mx \
+ bdb python jni sqlite3 icu boost boost-tag \
+ sp expat sablot libxml libxslt xerces xalan oechem sge muparser hdf5 \
+ gif jpeg tiff png xpm magic curl 3psw \
+ local-lbsm ncbi-crypt connext \
+-serial objects dbapi app ctools gui algo internal gbench"
++serial objects dbapi app ctools gui algo internal gbench x"
+ 
+ changequote(, )dnl
+ x_with_list=`echo "$x_with_list" | sed 's/\([^ ][^ ]*\)/--with-\1 --without-\1/g'`
+@@ -493,6 +493,7 @@ for x_arg in "$@" ; do
+    case "$x_arg" in
+       --with-extra-action= | --exec-prefix= | --with-projects= | --srcdir= \
+       | --cache-file= | --build= | --host= | --target= | --with-runpath= \
++      | --mandir= | --infodir= | --datadir= | --sysconfdir= | --localstatedir= \
+       | --with-relative-runpath= | --x-includes= | --x-libraries= )
+       AC_MSG_ERROR([$x_arg:  requires value;  use --help to show usage])
+       ;;
+@@ -503,6 +504,7 @@ for x_arg in "$@" ; do
+       | --with-universal=* | --with-tcheck=* \
+       | --cache-file=* | --build=* | --host=* | --prefix=* | --exec-prefix=* \
+       | --libdir=* | --bindir=* | --includedir=* | --srcdir=* \
++      | --mandir=* | --infodir=* | --datadir=* | --sysconfdir=* | --localstatedir=* \
+       | [[A-Z]*=*] \
+       | --with-z=* | --with-bz2=* | --with-lzo=* \
+       | --with-pcre=* \
+@@ -581,7 +583,8 @@ if test "$with_extra_action" = "no" ; then
+ fi
+ 
+ case "$with_projects" in
+- "") if test -r projects; then
++ ""|yes)
++     if test -r projects; then
+         AC_MSG_NOTICE([using default projects file "projects".])
+         with_projects=projects
+         AC_SUBST(PROJECTS, "\$(top_srcdir)/projects")
+@@ -599,6 +602,15 @@ case "$with_projects" in
+  * ) AC_SUBST(PROJECTS, "\$(top_srcdir)/$with_projects") ;;
+ esac
+ 
++if test -n "$with_projects"; then
++   case "$with_projects" in
++      /* ) abs_projects=$with_projects         ;;
++      yes) abs_projects=$srcdir/projects       ;;
++      *  ) abs_projects=$srcdir/$with_projects ;;
++   esac
++   test -r "$abs_projects"  ||  \
++      AC_MSG_ERROR([unable to read requested projects file "$abs_projects".])
++fi
+ 
+ #### Always define this
+ AC_DEFINE(NCBI_CXX_TOOLKIT, 1, [This is the NCBI C++ Toolkit.])
+@@ -6198,7 +6210,7 @@ else
+      sep=", "
+    fi
+    if test -n "$reason" -a "$with_internal" = "yes"; then
+-      if test -z "$with_projects"  -o  "$with_projects" = "no"; then
++      if test -z "$with_projects"; then
+          AC_MSG_ERROR([--with-internal:  Cannot build INTERNAL projects: missing $reason])
+       else
+          AC_MSG_WARN([--with-internal:  Cannot build all INTERNAL projects: missing $reason])
+@@ -6807,11 +6819,9 @@ if test "$with_flat_makefile" != "no"; then
+    else
+       cfm_flags='-remoteptb'
+    fi
+-   case "$with_projects" in
+-      yes     ) cfm_flags="$cfm_flags -p projects" ;;
+-      no | '' ) ;;
+-      *       ) cfm_flags="$cfm_flags -p $with_projects" ;;
+-   esac
++   if test -n "$with_projects"; then
++      cfm_flags="$cfm_flags -p $with_projects"
++   fi
+    if test "$with_configure_dialog" = yes; then
+       cfm_flags="$cfm_flags -cfg"
+    fi
+@@ -6854,7 +6864,8 @@ lib)
+ esac
+ 
+ if test -n "$with_projects"; then
+-    build_proj="To build selected projects:  cd $builddir && make all_p"
++    build_proj="To build selected projects (as listed in \"$with_projects\"):
++  cd $builddir && make all_p"
+ fi
+ 
+ cat << EOCONF
