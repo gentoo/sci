@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=4
-CMAKE_VERBOSE=1
 
 inherit cmake-utils fortran-2
 
