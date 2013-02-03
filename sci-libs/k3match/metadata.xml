@@ -4,7 +4,7 @@
 	<herd>sci</herd>
 	<maintainer>
 		<email>AstroFloyd@gmail.com</email>
-		<name>Marc van der Sluys (AstroFloyd)</name>
+		<name>AstroFloyd</name>
 	</maintainer>
 	<upstream>
 		<remote-id type="github">pschella/k3match</remote-id>

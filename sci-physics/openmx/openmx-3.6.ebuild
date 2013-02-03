@@ -20,11 +20,8 @@ S="${WORKDIR}/${PN}${PV}"
 
 RDEPEND="virtual/blas
 		virtual/lapack
-		sci-libs/fftw:3
-		mpi? ( virtual/mpi
-		     sci-libs/fftw:3[mpi] )
-		openmp? ( sys-devel/gcc[openmp]
-		     sci-libs/fftw:3[openmp] )"
+		sci-libs/fftw:3.0[mpi?,openmp?]
+		mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
@@ -37,7 +34,11 @@ pkg_setup() {
 	fi
 
 	if use openmp; then
-		export CC="${CC} -fopenmp"
+		if tc-has-openmp; then
+			export CC="${CC} -fopenmp"
+		else
+			die "Please switch to an openmp compatible compiler"
+		fi
 	fi
 }
 
@@ -68,8 +69,8 @@ src_configure() {
 	local MX_LIB="${MX_LIB} $(pkg-config --static --libs ${FFTW_FLAVOUR})"
 
 	sed -i -e "s%^CC *=.*$%CC  = ${CC} ${CFLAGS}%" \
-	    -e "s%^LIB *=.*$%LIB = ${MX_LIB}%" \
-	    source/makefile
+		-e "s%^LIB *=.*$%LIB = ${MX_LIB}%" \
+		source/makefile
 }
 
 src_compile() {

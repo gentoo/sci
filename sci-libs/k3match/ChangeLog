@@ -10,6 +10,6 @@
 
 * k3match-1.0 (29 Jan 2012)
 
- 29 Jan 2012; Marc van der Sluys <AstroFloyd@gmail.com>
+ 29 Jan 2012; AstroFloyd <AstroFloyd@gmail.com>
 	+k3match-1.0.ebuild +metadata.xml:
 	Initial import.

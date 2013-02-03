@@ -33,7 +33,7 @@ HOMEPAGE="http://www.gromacs.org/"
 # http://repo.or.cz/w/gromacs.git/blob/HEAD:/COPYING
 #        base,    vmd plugins, fftpack from numpy,  blas/lapck from netlib,        memtestG80 library,  mpi_thread lib
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
-SLOT="0"
+SLOT="0/${PV}"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 IUSE="X blas cuda doc -double-precision +fftw gsl lapack mkl mpi +offensive openmm openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
 
@@ -53,8 +53,7 @@ CDEPEND="
 	openmm? (
 		>=dev-util/nvidia-cuda-toolkit-4.2.9-r1
 		sci-libs/openmm[cuda,opencl]
-	)
-	!app-doc/gromac-manual"
+	)"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
 	doc? (
@@ -70,6 +69,9 @@ REQUIRED_USE="
 	openmm? ( single-precision )
 	mkl? ( !blas !fftw !lapack )
 	!openmm" #broken, but https://gerrit.gromacs.org/#/c/2087/
+
+DOCS=( AUTHORS INSTALL.cmake README )
+HTML_DOCS=( "${ED}"/usr/share/gromacs/html/ )
 
 pkg_pretend() {
 	[[ $(gcc-version) == "4.1" ]] && die "gcc 4.1 is not supported by gromacs"
@@ -235,43 +237,29 @@ src_install() {
 			BUILD_DIR="${WORKDIR}/${P}_openmm" \
 				DESTDIR="${D}" cmake-utils_src_make install-mdrun
 		fi
-		use mpi || continue
-		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
-			DESTDIR="${D}" cmake-utils_src_make install-mdrun
-	done
-
-	newbashcomp "${ED}"/usr/bin/completion.bash ${PN}
-	if use zsh-completion ; then
-		insinto /usr/share/zsh/site-functions
-		newins "${ED}"/usr/bin/completion.zsh _${PN}
-	fi
-	rm -f "${ED}"/usr/bin/completion.*
-
-	cd "${S}"
-	dodoc AUTHORS INSTALL* README*
-	if use doc; then
-		dohtml -r "${ED}usr/share/gromacs/html/"
-		if [[ $PV = *9999* ]]; then
-			local progs
-			for x in "${ED}"/usr/bin/*; do
-				[[ $x = *_d ]] || progs+=" ${x##*/}"
-			done
-			sed -e "/^PROGRAMS=/s/=.*/='${progs## }'/" \
-				-e "/INSTALLED_OPTIONS_PROGRAM_NAME=/s:=.*:=${ED}/usr/bin/g_options:" \
-				-i "${WORKDIR}"/manual/mkman || die
+		#manual can only be build after gromacs was installed once in image
+		if use doc && [[ $PV = *9999*  && ! -d ${WORKDIR}/manual_build ]]; then
 			mycmakeargs=( -DGMXBIN="${ED}"/usr/bin -DGMXSRC="${WORKDIR}/${P}" )
 			BUILD_DIR="${WORKDIR}"/manual_build \
 				CMAKE_USE_DIR="${WORKDIR}/manual" cmake-utils_src_configure
 			BUILD_DIR="${WORKDIR}"/manual_build cmake-utils_src_make
 			newdoc "${WORKDIR}"/manual_build/gromacs.pdf "${PN}-manual-${PV}.pdf"
-		else
-			dodoc "${DISTDIR}/${PN}-manual-${MANUAL_PV}.pdf"
 		fi
-	fi
-	rm -rf "${ED}"/usr/share/gromacs/html/
+		use mpi || continue
+		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
+			DESTDIR="${D}" cmake-utils_src_make install-mdrun
+	done
 
-	rm -f "${ED}"/usr/bin/g_options*
-	rm -f "${ED}"/usr/bin/GMXRC*
+	use doc && [[ $PV != *9999* ]] && dodoc "${DISTDIR}/${PN}-manual-${MANUAL_PV}.pdf"
+	newbashcomp "${ED}"/usr/bin/completion.bash ${PN}
+	if use zsh-completion ; then
+		insinto /usr/share/zsh/site-functions
+		newins "${ED}"/usr/bin/completion.zsh _${PN}
+	fi
+	rm -f "${ED}"usr/bin/completion.*
+	rm -rf "${ED}"usr/share/gromacs/html
+	rm -f "${ED}"usr/bin/g_options*
+	rm -f "${ED}"usr/bin/GMXRC*
 }
 
 pkg_postinst() {

@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
 TEST_PV="4.0.4"
 
@@ -21,7 +21,7 @@ HOMEPAGE="http://www.gromacs.org/"
 SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
 
 LICENSE="GPL-2"
-SLOT="0"
+SLOT="0/${PV}"
 KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="X blas doc -double-precision +fftw gsl lapack mpi +single-precision  test
 +threads xml zsh-completion ${ACCE_IUSE}"
@@ -41,7 +41,6 @@ CDEPEND="
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 RDEPEND="${CDEPEND}"
-PDEPEND="doc? ( ~app-doc/gromacs-manual-${PV} )"
 
 RESTRICT="test"
 
