@@ -333,7 +333,7 @@ index cecfd16..c01668b 100644
 +DLL_LIB = xncbi xutil
 +LIBS = $(SQLITE3_LIBS)
 diff --git a/src/dbapi/Makefile.dbapi.lib b/src/dbapi/Makefile.dbapi.lib
-index 6e3ad4c..4475a78 100644
+index 6e3ad4c..e3d6a49 100644
 --- a/src/dbapi/Makefile.dbapi.lib
 +++ b/src/dbapi/Makefile.dbapi.lib
 @@ -10,3 +10,8 @@ LIB    = dbapi
@@ -341,7 +341,7 @@ index 6e3ad4c..4475a78 100644
  
  WATCHERS = ivanovp
 +
-+#ASN_DEP = driver
++#ASN_DEP = driver dbapi_driver
 +
 +DLL_LIB = xncbi xutil # dbapi_driver$(DLL)
 +LIBS   = $(PYTHON_LIBS)
@@ -425,7 +425,7 @@ index 8019285..2c689ae 100644
 +
 +DLL_LIB = xncbi xser
 diff --git a/src/objects/blast/Makefile.blast.lib b/src/objects/blast/Makefile.blast.lib
-index 0dd0fa3..5ffe052 100644
+index 0dd0fa3..d50f29f 100644
 --- a/src/objects/blast/Makefile.blast.lib
 +++ b/src/objects/blast/Makefile.blast.lib
 @@ -2,3 +2,5 @@ LIB = xnetblast
@@ -433,7 +433,7 @@ index 0dd0fa3..5ffe052 100644
  
  WATCHERS = camacho
 +
-+DLL_LIB = xncbi xutil xser
++DLL_LIB = xncbi xutil xser seq seqset scoremat
 diff --git a/src/objects/blast/Makefile.xnetblastcli.lib b/src/objects/blast/Makefile.xnetblastcli.lib
 index 96325c4..5a72805 100644
 --- a/src/objects/blast/Makefile.xnetblastcli.lib
