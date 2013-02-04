@@ -1,8 +1,13 @@
+ src/algo/align/ngalign/Makefile.xngalign.lib                        | 2 ++
+ src/algo/blast/api/Makefile.xblast.lib                              | 2 +-
  src/algo/blast/blastinput/Makefile.blastinput.lib                   | 2 +-
  src/algo/blast/core/Makefile.blast.lib                              | 2 ++
  src/algo/cobalt/Makefile.cobalt.lib                                 | 2 ++
  src/algo/ms/omssa/Makefile.xomssa.lib                               | 2 ++
  src/algo/sequence/Makefile.xalgoseq.lib                             | 2 ++
+ src/algo/structure/struct_dp/Makefile.xstruct_dp.lib                | 2 ++
+ src/algo/structure/struct_util/Makefile.xstruct_util.lib            | 2 ++
+ src/algo/structure/threader/Makefile.xstruct_thread.lib             | 2 ++
  src/algo/winmask/Makefile.xalgowinmask.lib                          | 1 +
  src/cgi/Makefile.cgi.lib                                            | 2 ++
  src/cgi/Makefile.fcgi.lib                                           | 2 ++
@@ -36,6 +41,7 @@
  src/objects/cn3d/Makefile.cn3d.lib                                  | 2 ++
  src/objects/docsum/Makefile.docsum.lib                              | 2 ++
  src/objects/entrez2/Makefile.entrez2.lib                            | 2 ++
+ src/objects/entrez2/Makefile.entrez2cli.lib                         | 2 ++
  src/objects/entrezgene/Makefile.entrezgene.lib                      | 2 ++
  src/objects/featdef/Makefile.featdef.lib                            | 2 ++
  src/objects/gbseq/Makefile.gbseq.lib                                | 2 ++
@@ -43,34 +49,55 @@
  src/objects/genomecoll/Makefile.genome_collection.lib               | 2 ++
  src/objects/homologene/Makefile.homologene.lib                      | 2 ++
  src/objects/id1/Makefile.id1.lib                                    | 2 ++
+ src/objects/id1/Makefile.id1cli.lib                                 | 2 ++
  src/objects/id2/Makefile.id2.lib                                    | 2 ++
+ src/objects/id2/Makefile.id2cli.lib                                 | 2 ++
  src/objects/insdseq/Makefile.insdseq.lib                            | 2 ++
+ src/objects/macro/Makefile.macro.lib                                | 2 ++
  src/objects/medlars/Makefile.medlars.lib                            | 2 ++
  src/objects/medline/Makefile.medline.lib                            | 2 ++
+ src/objects/mim/Makefile.mim.lib                                    | 2 ++
+ src/objects/mla/Makefile.mla.lib                                    | 2 ++
+ src/objects/mla/Makefile.mlacli.lib                                 | 2 ++
  src/objects/mmdb/Makefile.mmdb.lib                                  | 2 ++
  src/objects/ncbimime/Makefile.ncbimime.lib                          | 2 ++
+ src/objects/objprt/Makefile.objprt.lib                              | 2 ++
  src/objects/omssa/Makefile.omssa.lib                                | 2 ++
+ src/objects/pcassay/Makefile.pcassay.lib                            | 2 ++
+ src/objects/pcsubstance/Makefile.pcsubstance.lib                    | 2 ++
+ src/objects/proj/Makefile.proj.lib                                  | 2 ++
  src/objects/pub/Makefile.pub.lib                                    | 2 ++
+ src/objects/pubmed/Makefile.pubmed.lib                              | 2 ++
+ src/objects/remap/Makefile.remap.lib                                | 2 ++
+ src/objects/remap/Makefile.remapcli.lib                             | 2 ++
  src/objects/scoremat/Makefile.scoremat.lib                          | 2 ++
  src/objects/seq/Makefile.seq.lib                                    | 2 ++
  src/objects/seqcode/Makefile.seqcode.lib                            | 2 ++
  src/objects/seqedit/Makefile.seqedit.lib                            | 1 +
  src/objects/seqset/Makefile.seqset.lib                              | 1 +
  src/objects/seqsplit/Makefile.seqsplit.lib                          | 2 ++
+ src/objects/seqtest/Makefile.seqtest.lib                            | 2 ++
  src/objects/submit/Makefile.submit.lib                              | 1 +
  src/objects/taxon1/Makefile.taxon1.lib                              | 2 ++
  src/objects/taxon3/Makefile.taxon3.lib                              | 2 ++
+ src/objects/tinyseq/Makefile.tinyseq.lib                            | 2 ++
  src/objects/valerr/Makefile.valerr.lib                              | 2 ++
  src/objects/valid/Makefile.valid.lib                                | 2 ++
  src/objects/variation/Makefile.variation.lib                        | 1 +
+ src/objmgr/split/Makefile.id2_split.lib                             | 2 +-
  src/objmgr/util/Makefile.util.lib                                   | 1 +
  src/objtools/align_format/Makefile.align_format.lib                 | 2 ++
  src/objtools/alnmgr/Makefile.alnmgr.lib                             | 1 +
  src/objtools/blast/blastdb_format/Makefile.blastdb_format.lib       | 2 ++
+ src/objtools/blast/gene_info_reader/Makefile.gene_info.lib          | 2 ++
+ src/objtools/blast/gene_info_writer/Makefile.gene_info_writer.lib   | 2 ++
  src/objtools/blast/seqdb_reader/Makefile.seqdb.lib                  | 2 ++
+ src/objtools/blast/seqdb_writer/Makefile.writedb.lib                | 2 ++
  src/objtools/blast/services/Makefile.blast_services.lib             | 1 +
  src/objtools/data_loaders/blastdb/Makefile.ncbi_xloader_blastdb.lib | 3 +++
  src/objtools/data_loaders/genbank/Makefile.ncbi_xreader.lib         | 2 +-
+ src/objtools/data_loaders/genbank/id2/Makefile.ncbi_xreader_id2.lib | 2 ++
+ src/objtools/edit/Makefile.edit.lib                                 | 2 ++
  src/objtools/eutils/egquery/Makefile.egquery.lib                    | 2 ++
  src/objtools/eutils/ehistory/Makefile.ehistory.lib                  | 2 ++
  src/objtools/eutils/einfo/Makefile.einfo.lib                        | 2 ++
@@ -81,6 +108,8 @@
  src/objtools/eutils/esummary/Makefile.esummary.lib                  | 2 ++
  src/objtools/eutils/linkout/Makefile.linkout.lib                    | 2 ++
  src/objtools/format/Makefile.xformat.lib                            | 2 ++
+ src/objtools/lds/Makefile.lds.lib                                   | 2 +-
+ src/objtools/manip/Makefile.xobjmanip.lib                           | 2 ++
  src/objtools/readers/Makefile.xobjread.lib                          | 3 +--
  src/objtools/readers/Makefile.xobjreadex.lib                        | 2 +-
  src/objtools/simple/Makefile.xobjsimple.lib                         | 1 +
@@ -97,8 +126,31 @@
  src/util/regexp/Makefile.regexp.lib                                 | 2 ++
  src/util/sequtil/Makefile.sequtil.lib                               | 2 ++
  src/util/xregexp/Makefile.xregexp.lib                               | 2 +-
- 99 files changed, 182 insertions(+), 13 deletions(-)
+ 128 files changed, 237 insertions(+), 16 deletions(-)
 
+diff --git a/src/algo/align/ngalign/Makefile.xngalign.lib b/src/algo/align/ngalign/Makefile.xngalign.lib
+index d163f7c..f9c79ba 100644
+--- a/src/algo/align/ngalign/Makefile.xngalign.lib
++++ b/src/algo/align/ngalign/Makefile.xngalign.lib
+@@ -15,3 +15,5 @@ LIB = xngalign
+ 
+ CXXFLAGS = $(FAST_CXXFLAGS) -I./. 
+ LDFLAGS  = $(FAST_LDFLAGS)
++
++DLL_LIB = seq xalgoalignutil xncbi blastinput
+diff --git a/src/algo/blast/api/Makefile.xblast.lib b/src/algo/blast/api/Makefile.xblast.lib
+index 073973b..3be07ae 100644
+--- a/src/algo/blast/api/Makefile.xblast.lib
++++ b/src/algo/blast/api/Makefile.xblast.lib
+@@ -78,7 +78,7 @@ SRC  = $(SRC_C:%=.core_%) $(SRC_CXX)
+ 
+ LIB = xblast
+ 
+-DLL_LIB = xalgodustmask xobjutil $(OBJMGR_LIBS)
++DLL_LIB = xalgodustmask xobjutil $(OBJMGR_LIBS) seqdb xnetblast xalgoblastdbindex xalgowinmask tables composition_adjustment xobjread
+ 
+ CFLAGS   = $(FAST_CFLAGS)
+ # Strict gcc flags
 diff --git a/src/algo/blast/blastinput/Makefile.blastinput.lib b/src/algo/blast/blastinput/Makefile.blastinput.lib
 index bfb315c..6f56c5a 100644
 --- a/src/algo/blast/blastinput/Makefile.blastinput.lib
@@ -133,7 +185,7 @@ index e618f67..32905ca 100644
 +
 +DLL_LIB = align_format
 diff --git a/src/algo/ms/omssa/Makefile.xomssa.lib b/src/algo/ms/omssa/Makefile.xomssa.lib
-index 872b92e..bb66af9 100644
+index 872b92e..24fcff3 100644
 --- a/src/algo/ms/omssa/Makefile.xomssa.lib
 +++ b/src/algo/ms/omssa/Makefile.xomssa.lib
 @@ -19,3 +19,5 @@ LIB = xomssa
@@ -141,7 +193,7 @@ index 872b92e..bb66af9 100644
  CXXFLAGS = $(FAST_CXXFLAGS)
  LDFLAGS  = $(FAST_LDFLAGS)
 +
-+DLL_LIB = xutil omssa
++DLL_LIB = xutil omssa pepXML xcompress xconnect seqdb xblast
 diff --git a/src/algo/sequence/Makefile.xalgoseq.lib b/src/algo/sequence/Makefile.xalgoseq.lib
 index 51f4cd7..0c20790 100644
 --- a/src/algo/sequence/Makefile.xalgoseq.lib
@@ -152,6 +204,36 @@ index 51f4cd7..0c20790 100644
  WATCHERS = dicuccio
 +
 +DLL_LIB = taxon1 xalnmgr
+diff --git a/src/algo/structure/struct_dp/Makefile.xstruct_dp.lib b/src/algo/structure/struct_dp/Makefile.xstruct_dp.lib
+index 676a8dd..3d3e4c9 100644
+--- a/src/algo/structure/struct_dp/Makefile.xstruct_dp.lib
++++ b/src/algo/structure/struct_dp/Makefile.xstruct_dp.lib
+@@ -9,3 +9,5 @@ WATCHERS = thiessen
+ SRC = block_align
+ 
+ LIB = xstruct_dp
++
++DLL_LIB = xncbi
+diff --git a/src/algo/structure/struct_util/Makefile.xstruct_util.lib b/src/algo/structure/struct_util/Makefile.xstruct_util.lib
+index 5a38c7d..35d7077 100644
+--- a/src/algo/structure/struct_util/Makefile.xstruct_util.lib
++++ b/src/algo/structure/struct_util/Makefile.xstruct_util.lib
+@@ -17,3 +17,5 @@ SRC = aaa_dummy_pch \
+ 	su_block_multiple_alignment \
+ 	su_pssm \
+ 	su_sequence_set
++
++DLL_LIB = seqset seq xncbi scoremat xstruct_dp xblast
+diff --git a/src/algo/structure/threader/Makefile.xstruct_thread.lib b/src/algo/structure/threader/Makefile.xstruct_thread.lib
+index c06a2c0..9f1ff25 100644
+--- a/src/algo/structure/threader/Makefile.xstruct_thread.lib
++++ b/src/algo/structure/threader/Makefile.xstruct_thread.lib
+@@ -10,3 +10,5 @@ SRC = thrdalgs thrdatd thrdbwfi thrdcpal thrdcpll thrdcprl \
+ 	thrdttbi thrdzsc
+ 
+ LIB = xstruct_thread
++
++DLL_LIB = xutil
 diff --git a/src/algo/winmask/Makefile.xalgowinmask.lib b/src/algo/winmask/Makefile.xalgowinmask.lib
 index afaf676..7344871 100644
 --- a/src/algo/winmask/Makefile.xalgowinmask.lib
@@ -463,14 +545,14 @@ index d18eb78..f90501d 100644
 +
 +DLL_LIB = xser
 diff --git a/src/objects/cdd/Makefile.cdd.lib b/src/objects/cdd/Makefile.cdd.lib
-index 978cae9..35e5190 100644
+index 978cae9..2365261 100644
 --- a/src/objects/cdd/Makefile.cdd.lib
 +++ b/src/objects/cdd/Makefile.cdd.lib
 @@ -1,2 +1,4 @@
  LIB = cdd
  SRC = cdd__ cdd___
 +
-+DLL_LIB = mmdb xser
++DLL_LIB = mmdb xser scoremat
 diff --git a/src/objects/cn3d/Makefile.cn3d.lib b/src/objects/cn3d/Makefile.cn3d.lib
 index 1af5d1d..ecd31b2 100644
 --- a/src/objects/cn3d/Makefile.cn3d.lib
@@ -500,15 +582,25 @@ index 4507f72..4c47ad3 100644
  SRC = entrez2__ entrez2___
 +
 +DLL_LIB = xser
+diff --git a/src/objects/entrez2/Makefile.entrez2cli.lib b/src/objects/entrez2/Makefile.entrez2cli.lib
+index 42a4649..2fdcc6f 100644
+--- a/src/objects/entrez2/Makefile.entrez2cli.lib
++++ b/src/objects/entrez2/Makefile.entrez2cli.lib
+@@ -4,3 +4,5 @@ ASN_DEP = entrez2
+ 
+ LIB = entrez2cli
+ SRC = entrez2_client entrez2_client_
++
++DLL_LIB = xncbi xconnect entrez2
 diff --git a/src/objects/entrezgene/Makefile.entrezgene.lib b/src/objects/entrezgene/Makefile.entrezgene.lib
-index a1bd4f4..e9e8c29 100644
+index a1bd4f4..27319c3 100644
 --- a/src/objects/entrezgene/Makefile.entrezgene.lib
 +++ b/src/objects/entrezgene/Makefile.entrezgene.lib
 @@ -1,2 +1,4 @@
  LIB = entrezgene
  SRC = entrezgene__ entrezgene___
 +
-+DLL_LIB = xser
++DLL_LIB = xser seq
 diff --git a/src/objects/featdef/Makefile.featdef.lib b/src/objects/featdef/Makefile.featdef.lib
 index 51c7c8d..e603711 100644
 --- a/src/objects/featdef/Makefile.featdef.lib
@@ -537,7 +629,7 @@ index 951304f..3be083d 100644
 +
 +DLL_LIB = xser  xncbi xutil
 diff --git a/src/objects/genomecoll/Makefile.genome_collection.lib b/src/objects/genomecoll/Makefile.genome_collection.lib
-index f039af6..eba769c 100644
+index f039af6..f6b41a7 100644
 --- a/src/objects/genomecoll/Makefile.genome_collection.lib
 +++ b/src/objects/genomecoll/Makefile.genome_collection.lib
 @@ -4,3 +4,5 @@ LIB = genome_collection
@@ -545,9 +637,9 @@ index f039af6..eba769c 100644
  
  WATCHERS = dicuccio
 +
-+DLL_LIB = xser
++DLL_LIB = xser seq
 diff --git a/src/objects/homologene/Makefile.homologene.lib b/src/objects/homologene/Makefile.homologene.lib
-index 15d13ad..2417439 100644
+index 15d13ad..d44b2e3 100644
 --- a/src/objects/homologene/Makefile.homologene.lib
 +++ b/src/objects/homologene/Makefile.homologene.lib
 @@ -4,3 +4,5 @@
@@ -555,9 +647,9 @@ index 15d13ad..2417439 100644
  LIB = homologene
  SRC = homologene__ homologene___
 +
-+DLL_LIB = xser
++DLL_LIB = xser seq
 diff --git a/src/objects/id1/Makefile.id1.lib b/src/objects/id1/Makefile.id1.lib
-index d60c728..06b4f84 100644
+index d60c728..bf98427 100644
 --- a/src/objects/id1/Makefile.id1.lib
 +++ b/src/objects/id1/Makefile.id1.lib
 @@ -4,3 +4,5 @@ LIB = id1
@@ -565,9 +657,19 @@ index d60c728..06b4f84 100644
  
  WATCHERS = vasilche
 +
-+DLL_LIB = xser
++DLL_LIB = xser seqset
+diff --git a/src/objects/id1/Makefile.id1cli.lib b/src/objects/id1/Makefile.id1cli.lib
+index e87ea83..745c5cb 100644
+--- a/src/objects/id1/Makefile.id1cli.lib
++++ b/src/objects/id1/Makefile.id1cli.lib
+@@ -4,3 +4,5 @@ LIB = id1cli
+ SRC = id1_client id1_client_
+ 
+ WATCHERS = vasilche
++
++DLL_LIB = id1 xconnect
 diff --git a/src/objects/id2/Makefile.id2.lib b/src/objects/id2/Makefile.id2.lib
-index 09d8b36..b25700d 100644
+index 09d8b36..1e74a58 100644
 --- a/src/objects/id2/Makefile.id2.lib
 +++ b/src/objects/id2/Makefile.id2.lib
 @@ -2,3 +2,5 @@ LIB = id2
@@ -575,7 +677,17 @@ index 09d8b36..b25700d 100644
  
  WATCHERS = vasilche
 +
-+DLL_LIB = xser
++DLL_LIB = xser seq seqsplit
+diff --git a/src/objects/id2/Makefile.id2cli.lib b/src/objects/id2/Makefile.id2cli.lib
+index 5d41f23..ccec62a 100644
+--- a/src/objects/id2/Makefile.id2cli.lib
++++ b/src/objects/id2/Makefile.id2cli.lib
+@@ -4,3 +4,5 @@ LIB = id2cli
+ SRC = id2_client id2_client_
+ 
+ WATCHERS = vasilche
++
++DLL_LIB = id2 xconnect
 diff --git a/src/objects/insdseq/Makefile.insdseq.lib b/src/objects/insdseq/Makefile.insdseq.lib
 index fa729b7..5754057 100644
 --- a/src/objects/insdseq/Makefile.insdseq.lib
@@ -585,15 +697,25 @@ index fa729b7..5754057 100644
  SRC = insdseq__ insdseq___
 +
 +DLL_LIB = xser
+diff --git a/src/objects/macro/Makefile.macro.lib b/src/objects/macro/Makefile.macro.lib
+index 3a0a7c0..25a3b73 100644
+--- a/src/objects/macro/Makefile.macro.lib
++++ b/src/objects/macro/Makefile.macro.lib
+@@ -2,3 +2,5 @@
+ 
+ LIB = macro
+ SRC = macro__ macro___
++
++DLL_LIB = xser
 diff --git a/src/objects/medlars/Makefile.medlars.lib b/src/objects/medlars/Makefile.medlars.lib
-index 3a6d0cd..5230940 100644
+index 3a6d0cd..5c8e00e 100644
 --- a/src/objects/medlars/Makefile.medlars.lib
 +++ b/src/objects/medlars/Makefile.medlars.lib
 @@ -1,2 +1,4 @@
  LIB = medlars
  SRC = medlars__ medlars___
 +
-+DLL_LIB = xser
++DLL_LIB = xser biblio
 diff --git a/src/objects/medline/Makefile.medline.lib b/src/objects/medline/Makefile.medline.lib
 index ea28066..eb42aa4 100644
 --- a/src/objects/medline/Makefile.medline.lib
@@ -603,6 +725,34 @@ index ea28066..eb42aa4 100644
  SRC = medline__ medline___
 +
 +DLL_LIB = general biblio
+diff --git a/src/objects/mim/Makefile.mim.lib b/src/objects/mim/Makefile.mim.lib
+index c2cd50e..2fed8f4 100644
+--- a/src/objects/mim/Makefile.mim.lib
++++ b/src/objects/mim/Makefile.mim.lib
+@@ -1,2 +1,4 @@
+ LIB = mim
+ SRC = mim__ mim___
++
++DLL_LIB = xser
+diff --git a/src/objects/mla/Makefile.mla.lib b/src/objects/mla/Makefile.mla.lib
+index a748f68..5b5523a 100644
+--- a/src/objects/mla/Makefile.mla.lib
++++ b/src/objects/mla/Makefile.mla.lib
+@@ -1,2 +1,4 @@
+ LIB = mla
+ SRC = mla__ mla___
++
++DLL_LIB = xser medline pubmed pub medlars
+diff --git a/src/objects/mla/Makefile.mlacli.lib b/src/objects/mla/Makefile.mlacli.lib
+index 48af427..4cee3ac 100644
+--- a/src/objects/mla/Makefile.mlacli.lib
++++ b/src/objects/mla/Makefile.mlacli.lib
+@@ -2,3 +2,5 @@ ASN_DEP = mla
+ 
+ LIB = mlacli
+ SRC = mla_client mla_client_
++
++DLL_LIB = xncbi xconnect mla
 diff --git a/src/objects/mmdb/Makefile.mmdb.lib b/src/objects/mmdb/Makefile.mmdb.lib
 index 6fc8e25..5c6c100 100644
 --- a/src/objects/mmdb/Makefile.mmdb.lib
@@ -614,14 +764,23 @@ index 6fc8e25..5c6c100 100644
 +
 +DLL_LIB = xser pub seq
 diff --git a/src/objects/ncbimime/Makefile.ncbimime.lib b/src/objects/ncbimime/Makefile.ncbimime.lib
-index 93cafdf..e5aa4eb 100644
+index 93cafdf..1360ade 100644
 --- a/src/objects/ncbimime/Makefile.ncbimime.lib
 +++ b/src/objects/ncbimime/Makefile.ncbimime.lib
 @@ -1,2 +1,4 @@
  LIB = ncbimime
  SRC = ncbimime__ ncbimime___
 +
-+DLL_LIB = mmdb
++DLL_LIB = mmdb cn3d seqset cdd
+diff --git a/src/objects/objprt/Makefile.objprt.lib b/src/objects/objprt/Makefile.objprt.lib
+index 40d6b09..c00e6d2 100644
+--- a/src/objects/objprt/Makefile.objprt.lib
++++ b/src/objects/objprt/Makefile.objprt.lib
+@@ -1,2 +1,4 @@
+ LIB = objprt
+ SRC = objprt__ objprt___
++
++DLL_LIB = xser
 diff --git a/src/objects/omssa/Makefile.omssa.lib b/src/objects/omssa/Makefile.omssa.lib
 index b79617f..e1d4a9e 100644
 --- a/src/objects/omssa/Makefile.omssa.lib
@@ -632,6 +791,33 @@ index b79617f..e1d4a9e 100644
  SRC = omssa__ omssa___
 +
 +DLL_LIB = seq
+diff --git a/src/objects/pcassay/Makefile.pcassay.lib b/src/objects/pcassay/Makefile.pcassay.lib
+index 1086865..587adb5 100644
+--- a/src/objects/pcassay/Makefile.pcassay.lib
++++ b/src/objects/pcassay/Makefile.pcassay.lib
+@@ -1,2 +1,4 @@
+ LIB = pcassay
+ SRC = pcassay__ pcassay___
++
++DLL_LIB = xser pcsubstance seq
+diff --git a/src/objects/pcsubstance/Makefile.pcsubstance.lib b/src/objects/pcsubstance/Makefile.pcsubstance.lib
+index b36802e..c3f6a39 100644
+--- a/src/objects/pcsubstance/Makefile.pcsubstance.lib
++++ b/src/objects/pcsubstance/Makefile.pcsubstance.lib
+@@ -1,2 +1,4 @@
+ LIB = pcsubstance
+ SRC = pcsubstance__ pcsubstance___
++
++DLL_LIB = xser general pub
+diff --git a/src/objects/proj/Makefile.proj.lib b/src/objects/proj/Makefile.proj.lib
+index c5bb3d3..fbde99a 100644
+--- a/src/objects/proj/Makefile.proj.lib
++++ b/src/objects/proj/Makefile.proj.lib
+@@ -1,2 +1,4 @@
+ LIB = proj
+ SRC = proj__ proj___
++
++DLL_LIB = xser pubmed seqset
 diff --git a/src/objects/pub/Makefile.pub.lib b/src/objects/pub/Makefile.pub.lib
 index 78c12e1..9baa08d 100644
 --- a/src/objects/pub/Makefile.pub.lib
@@ -641,6 +827,34 @@ index 78c12e1..9baa08d 100644
  SRC = pub__ pub___
 +
 +DLL_LIB = medline biblio
+diff --git a/src/objects/pubmed/Makefile.pubmed.lib b/src/objects/pubmed/Makefile.pubmed.lib
+index 8b8d553..46e3125 100644
+--- a/src/objects/pubmed/Makefile.pubmed.lib
++++ b/src/objects/pubmed/Makefile.pubmed.lib
+@@ -1,2 +1,4 @@
+ LIB = pubmed
+ SRC = pubmed__ pubmed___
++
++DLL_LIB = xser medline
+diff --git a/src/objects/remap/Makefile.remap.lib b/src/objects/remap/Makefile.remap.lib
+index 9a35d90..1256648 100644
+--- a/src/objects/remap/Makefile.remap.lib
++++ b/src/objects/remap/Makefile.remap.lib
+@@ -1,2 +1,4 @@
+ LIB = remap
+ SRC = remap__ remap___
++
++DLL_LIB = xser seq
+diff --git a/src/objects/remap/Makefile.remapcli.lib b/src/objects/remap/Makefile.remapcli.lib
+index e45f34f..2751bf9 100644
+--- a/src/objects/remap/Makefile.remapcli.lib
++++ b/src/objects/remap/Makefile.remapcli.lib
+@@ -4,3 +4,5 @@ ASN_DEP = remap
+ 
+ LIB = remapcli
+ SRC = remap_client remap_client_
++
++DLL_LIB = xncbi xconnect remap
 diff --git a/src/objects/scoremat/Makefile.scoremat.lib b/src/objects/scoremat/Makefile.scoremat.lib
 index 62e01f5..93bb071 100644
 --- a/src/objects/scoremat/Makefile.scoremat.lib
@@ -670,14 +884,14 @@ index dc9d60e..dabd95b 100644
 +
 +DLL_LIB = xncbi xser
 diff --git a/src/objects/seqedit/Makefile.seqedit.lib b/src/objects/seqedit/Makefile.seqedit.lib
-index 283a9b7..80724b1 100644
+index 283a9b7..520b0bb 100644
 --- a/src/objects/seqedit/Makefile.seqedit.lib
 +++ b/src/objects/seqedit/Makefile.seqedit.lib
 @@ -1,3 +1,4 @@
  LIB = seqedit
  SRC = seqedit__ seqedit___
   
-+DLL_LIB = xser seq
++DLL_LIB = xser seq seqset
 diff --git a/src/objects/seqset/Makefile.seqset.lib b/src/objects/seqset/Makefile.seqset.lib
 index 87f16d0..febce67 100644
 --- a/src/objects/seqset/Makefile.seqset.lib
@@ -687,7 +901,7 @@ index 87f16d0..febce67 100644
  SRC = seqset__ seqset___ gb_release_file
 +DLL_LIB = xser seq
 diff --git a/src/objects/seqsplit/Makefile.seqsplit.lib b/src/objects/seqsplit/Makefile.seqsplit.lib
-index 87ae869..a693f50 100644
+index 87ae869..1743321 100644
 --- a/src/objects/seqsplit/Makefile.seqsplit.lib
 +++ b/src/objects/seqsplit/Makefile.seqsplit.lib
 @@ -2,3 +2,5 @@ LIB = seqsplit
@@ -695,17 +909,27 @@ index 87ae869..a693f50 100644
  
  WATCHERS = vasilche
 +
-+DLL_LIB = xser
++DLL_LIB = xser seq seqset
+diff --git a/src/objects/seqtest/Makefile.seqtest.lib b/src/objects/seqtest/Makefile.seqtest.lib
+index 609a12c..e3d1e4b 100644
+--- a/src/objects/seqtest/Makefile.seqtest.lib
++++ b/src/objects/seqtest/Makefile.seqtest.lib
+@@ -4,3 +4,5 @@ ASN = seqtest
+ 
+ LIB = seqtest
+ SRC = $(ASN:%=%__) $(ASN:%=%___)
++
++DLL_LIB = xser seq
 diff --git a/src/objects/submit/Makefile.submit.lib b/src/objects/submit/Makefile.submit.lib
-index 74798f8..9001a87 100644
+index 74798f8..c74707c 100644
 --- a/src/objects/submit/Makefile.submit.lib
 +++ b/src/objects/submit/Makefile.submit.lib
 @@ -1,2 +1,3 @@
  LIB = submit
  SRC = submit__ submit___
-+DLL_LIB = xser xncbi seq # lds
++DLL_LIB = xser xncbi seq biblio seqset
 diff --git a/src/objects/taxon1/Makefile.taxon1.lib b/src/objects/taxon1/Makefile.taxon1.lib
-index 61658ab..d735117 100644
+index 61658ab..f46db75 100644
 --- a/src/objects/taxon1/Makefile.taxon1.lib
 +++ b/src/objects/taxon1/Makefile.taxon1.lib
 @@ -3,3 +3,5 @@ LIB = taxon1
@@ -713,9 +937,9 @@ index 61658ab..d735117 100644
  
  WATCHERS = domrach
 +
-+DLL_LIB = xser
++DLL_LIB = xser seq xconnect
 diff --git a/src/objects/taxon3/Makefile.taxon3.lib b/src/objects/taxon3/Makefile.taxon3.lib
-index 7e4c93d..5a6033e 100644
+index 7e4c93d..00be2c0 100644
 --- a/src/objects/taxon3/Makefile.taxon3.lib
 +++ b/src/objects/taxon3/Makefile.taxon3.lib
 @@ -4,3 +4,5 @@ LIB = taxon3
@@ -723,7 +947,16 @@ index 7e4c93d..5a6033e 100644
  
  WATCHERS = bollin
 +
-+DLL_LIB = connect
++DLL_LIB = connect xser xconnect seq
+diff --git a/src/objects/tinyseq/Makefile.tinyseq.lib b/src/objects/tinyseq/Makefile.tinyseq.lib
+index 1c7ccf3..e1954cc 100644
+--- a/src/objects/tinyseq/Makefile.tinyseq.lib
++++ b/src/objects/tinyseq/Makefile.tinyseq.lib
+@@ -1,2 +1,4 @@
+ LIB = tinyseq
+ SRC = tinyseq__ tinyseq___
++
++DLL_LIB = xser
 diff --git a/src/objects/valerr/Makefile.valerr.lib b/src/objects/valerr/Makefile.valerr.lib
 index b202355..9699bb2 100644
 --- a/src/objects/valerr/Makefile.valerr.lib
@@ -745,13 +978,25 @@ index 86a00a0..64226d6 100644
 +
 +DLL_LIB = xser xregexp
 diff --git a/src/objects/variation/Makefile.variation.lib b/src/objects/variation/Makefile.variation.lib
-index f21f84a..b08e210 100644
+index f21f84a..9ba5e9d 100644
 --- a/src/objects/variation/Makefile.variation.lib
 +++ b/src/objects/variation/Makefile.variation.lib
 @@ -1,2 +1,3 @@
  LIB = variation
  SRC = variation__ variation___
-+DLL_LIB = xser
++DLL_LIB = xser general seq
+diff --git a/src/objmgr/split/Makefile.id2_split.lib b/src/objmgr/split/Makefile.id2_split.lib
+index fafa70a..8a53975 100644
+--- a/src/objmgr/split/Makefile.id2_split.lib
++++ b/src/objmgr/split/Makefile.id2_split.lib
+@@ -17,6 +17,6 @@ LIB = id2_split
+ 
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(CMPRS_INCLUDE)
+ 
+-DLL_LIB = $(SOBJMGR_LIBS)
++DLL_LIB = $(SOBJMGR_LIBS) seqsplit xcompress
+ 
+ WATCHERS = vasilche
 diff --git a/src/objmgr/util/Makefile.util.lib b/src/objmgr/util/Makefile.util.lib
 index 90eeee0..138e836 100644
 --- a/src/objmgr/util/Makefile.util.lib
@@ -790,8 +1035,28 @@ index d8177ed..f7beead 100644
  # LIB_OR_DLL = dll
 +
 +DLL_LIB = xncbi xser xobjutil seq
+diff --git a/src/objtools/blast/gene_info_reader/Makefile.gene_info.lib b/src/objtools/blast/gene_info_reader/Makefile.gene_info.lib
+index bf5fd1b..c32aca4 100644
+--- a/src/objtools/blast/gene_info_reader/Makefile.gene_info.lib
++++ b/src/objtools/blast/gene_info_reader/Makefile.gene_info.lib
+@@ -4,3 +4,5 @@ WATCHERS = camacho
+ 
+ LIB = gene_info
+ SRC = gene_info gene_info_reader file_utils
++
++DLL_LIB = xncbi
+diff --git a/src/objtools/blast/gene_info_writer/Makefile.gene_info_writer.lib b/src/objtools/blast/gene_info_writer/Makefile.gene_info_writer.lib
+index b0a00dc..37569f8 100644
+--- a/src/objtools/blast/gene_info_writer/Makefile.gene_info_writer.lib
++++ b/src/objtools/blast/gene_info_writer/Makefile.gene_info_writer.lib
+@@ -6,3 +6,5 @@ LIB = gene_info_writer
+ SRC = gene_info_writer
+ 
+ ASN_DEP = blastdb
++
++DLL_LIB = gene_info xncbi seqdb
 diff --git a/src/objtools/blast/seqdb_reader/Makefile.seqdb.lib b/src/objtools/blast/seqdb_reader/Makefile.seqdb.lib
-index 25898aa..92d4d59 100644
+index 25898aa..0b0e478 100644
 --- a/src/objtools/blast/seqdb_reader/Makefile.seqdb.lib
 +++ b/src/objtools/blast/seqdb_reader/Makefile.seqdb.lib
 @@ -29,3 +29,5 @@ CXXFLAGS = $(FAST_CXXFLAGS)
@@ -799,7 +1064,17 @@ index 25898aa..92d4d59 100644
  
  WATCHERS = maning camacho
 +
-+DLL_LIB = blastdb
++DLL_LIB = blastdb xobjmgr
+diff --git a/src/objtools/blast/seqdb_writer/Makefile.writedb.lib b/src/objtools/blast/seqdb_writer/Makefile.writedb.lib
+index 7b9c8e1..6dbdbaa 100644
+--- a/src/objtools/blast/seqdb_writer/Makefile.writedb.lib
++++ b/src/objtools/blast/seqdb_writer/Makefile.writedb.lib
+@@ -13,3 +13,5 @@ CXXFLAGS = $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)
+ 
+ WATCHERS = maning camacho
++
++DLL_LIB = seq blastdb seqdb xobjmgr xobjread xutil
 diff --git a/src/objtools/blast/services/Makefile.blast_services.lib b/src/objtools/blast/services/Makefile.blast_services.lib
 index 10a878c..7a70b22 100644
 --- a/src/objtools/blast/services/Makefile.blast_services.lib
@@ -821,7 +1096,7 @@ index 80af69f..704ed7a 100644
 +DLL_LIB = seqdb
 +
 diff --git a/src/objtools/data_loaders/genbank/Makefile.ncbi_xreader.lib b/src/objtools/data_loaders/genbank/Makefile.ncbi_xreader.lib
-index f2b2b49..a8ee667 100644
+index f2b2b49..864e4b1 100644
 --- a/src/objtools/data_loaders/genbank/Makefile.ncbi_xreader.lib
 +++ b/src/objtools/data_loaders/genbank/Makefile.ncbi_xreader.lib
 @@ -12,6 +12,6 @@ LIB = ncbi_xreader
@@ -829,9 +1104,29 @@ index f2b2b49..a8ee667 100644
  
  # Dependencies for shared library
 -DLL_LIB = 
-+DLL_LIB = xcompress
++DLL_LIB = xcompress xobjmgr seqsplit xconnect id1 id2
  
  WATCHERS = vasilche
+diff --git a/src/objtools/data_loaders/genbank/id2/Makefile.ncbi_xreader_id2.lib b/src/objtools/data_loaders/genbank/id2/Makefile.ncbi_xreader_id2.lib
+index 0a29cbf..015ac93 100644
+--- a/src/objtools/data_loaders/genbank/id2/Makefile.ncbi_xreader_id2.lib
++++ b/src/objtools/data_loaders/genbank/id2/Makefile.ncbi_xreader_id2.lib
+@@ -15,3 +15,5 @@ CPPFLAGS = $(ORIG_CPPFLAGS) $(Z_INCLUDE)
+ # DLL_LIB = xconnect ncbi_xreader$(DLL)
+ 
+ WATCHERS = vasilche
++
++DLL_LIB = xncbi
+diff --git a/src/objtools/edit/Makefile.edit.lib b/src/objtools/edit/Makefile.edit.lib
+index 7ce0d11..f5458c5 100644
+--- a/src/objtools/edit/Makefile.edit.lib
++++ b/src/objtools/edit/Makefile.edit.lib
+@@ -11,3 +11,5 @@ LIB    = xobjedit
+ ASN_DEP = seqset
+ 
+ WATCHERS = bollin
++
++DLL_LIB = xncbi seq xobjutil xobjmgr
 diff --git a/src/objtools/eutils/egquery/Makefile.egquery.lib b/src/objtools/eutils/egquery/Makefile.egquery.lib
 index 82b4ed0..7030a29 100644
 --- a/src/objtools/eutils/egquery/Makefile.egquery.lib
@@ -923,7 +1218,7 @@ index 19b2b8a..77dcc3c 100644
 +
 +DLL_LIB = xser
 diff --git a/src/objtools/format/Makefile.xformat.lib b/src/objtools/format/Makefile.xformat.lib
-index a4fc469..3f771e6 100644
+index a4fc469..0203fea 100644
 --- a/src/objtools/format/Makefile.xformat.lib
 +++ b/src/objtools/format/Makefile.xformat.lib
 @@ -19,3 +19,5 @@ SRC = accession_item basecount_item comment_item contig_item date_item \
@@ -931,7 +1226,29 @@ index a4fc469..3f771e6 100644
  
  WATCHERS = ludwigf dicuccio kornbluh
 +
-+DLL_LIB = submit connect xncbi
++DLL_LIB = submit connect xncbi gbseq xobjmgr
+diff --git a/src/objtools/lds/Makefile.lds.lib b/src/objtools/lds/Makefile.lds.lib
+index e371035..689cfb4 100644
+--- a/src/objtools/lds/Makefile.lds.lib
++++ b/src/objtools/lds/Makefile.lds.lib
+@@ -9,6 +9,6 @@ SRC = lds lds_reader lds_query \
+       lds_coreobjreader lds_files lds_object lds_manager
+ 
+ # Dependencies for shared library
+-DLL_LIB = bdb
++DLL_LIB = bdb seq xobjread xobjmgr xobjutil
+ 
+ WATCHERS = vasilche
+diff --git a/src/objtools/manip/Makefile.xobjmanip.lib b/src/objtools/manip/Makefile.xobjmanip.lib
+index 300ceb2..4a81ac9 100644
+--- a/src/objtools/manip/Makefile.xobjmanip.lib
++++ b/src/objtools/manip/Makefile.xobjmanip.lib
+@@ -6,3 +6,5 @@ LIB = xobjmanip
+ SRC = sage_manip
+ 
+ WATCHERS = dicuccio
++
++DLL_LIB = xncbi general
 diff --git a/src/objtools/readers/Makefile.xobjread.lib b/src/objtools/readers/Makefile.xobjread.lib
 index 0fbffd4..4ca9fed 100644
 --- a/src/objtools/readers/Makefile.xobjread.lib
@@ -973,14 +1290,14 @@ index 80a74d8..6eec94b 100644
 +
 +DLL_LIB = xncbi xobjutil xalnmgr xformat taxon3 valerr valid
 diff --git a/src/objtools/writers/Makefile.xobjwrite.lib b/src/objtools/writers/Makefile.xobjwrite.lib
-index cd6596b..b0d97b1 100644
+index cd6596b..a7d0c01 100644
 --- a/src/objtools/writers/Makefile.xobjwrite.lib
 +++ b/src/objtools/writers/Makefile.xobjwrite.lib
 @@ -15,3 +15,4 @@ SRC = agp_write \
        
  WATCHERS = ludwigf boukn
  
-+DLL_LIB = xobjutil
++DLL_LIB = xobjutil xalnmgr
 diff --git a/src/serial/Makefile.serial.lib b/src/serial/Makefile.serial.lib
 index 2563b5f..efad054 100644
 --- a/src/serial/Makefile.serial.lib
