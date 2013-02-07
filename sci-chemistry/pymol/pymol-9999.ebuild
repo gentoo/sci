@@ -9,7 +9,7 @@ PYTHON_REQ_USE="tk"
 
 inherit distutils-r1 fdo-mime prefix subversion versionator
 
-DESCRIPTION="A Python-extensible molecular graphics system."
+DESCRIPTION="A Python-extensible molecular graphics system"
 HOMEPAGE="http://pymol.sourceforge.net/"
 SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${PN}-icons.tar.xz"
 ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
@@ -120,7 +120,6 @@ pkg_postinst() {
 	elog "in case of crashes, please deactivate this experimental feature by setting"
 	elog "\t set use_shaders, 0"
 	elog "\t set sphere_mode, 0"
-	distutils_pkg_postinst
 	fdo-mime_desktop_database_update
 	fdo-mime_mime_database_update
 }
