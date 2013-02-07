@@ -1,4 +1,4 @@
-# Copyright 2013-2013 Andreas Schäfer
+# Copyright 2013-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,7 +9,7 @@ inherit versionator
 
 S="${WORKDIR}/${PN}_${PV}"
 
-DESCRIPTION="HPX (High Performance ParalleX) is a general C++ runtime system for parallel and distributed applications of any scale."
+DESCRIPTION="A general C++ runtime system for parallel and distributed applications of any scale."
 HOMEPAGE="http://stellar.cct.lsu.edu/tag/hpx/"
 SRC_URI="http://stellar.cct.lsu.edu/files/hpx_${PV}.tar.gz"
 
@@ -22,6 +22,6 @@ DEPEND=">=dev-libs/boost-1.48"
 RDEPEND="${DEPEND}"
 
 src_configure() {
-    export CMAKE_BUILD_TYPE=Release
-    cmake-utils_src_configure
+	export CMAKE_BUILD_TYPE=Release
+	cmake-utils_src_configure
 }
