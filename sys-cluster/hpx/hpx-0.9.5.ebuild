@@ -23,6 +23,6 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${MY_P}"
 
 src_configure() {
-	export CMAKE_BUILD_TYPE=Release
+	CMAKE_BUILD_TYPE=Release
 	cmake-utils_src_configure
 }

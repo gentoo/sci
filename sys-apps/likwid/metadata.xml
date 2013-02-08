@@ -3,9 +3,14 @@
 <pkgmetadata>
   <herd>cluster</herd>
   <longdescription>
-    Likwid stands for Like I knew what I am doing. This project contributes easy to use command line tools for Linux to support programmers in developing high performance multi threaded programs.
+    Likwid stands for Like I knew what I am doing. This project
+    contributes easy to use command line tools for Linux to support
+    programmers in developing high performance multi threaded
+    programs.
   </longdescription>
   <use>
-    <flag name="access-daemon">Build access-daemon for secure access to /dev/cpu/*/msr.</flag>
+    <flag name="access-daemon">
+	  Build access-daemon for secure access to /dev/cpu/*/msr.
+	</flag>
   </use>
 </pkgmetadata>

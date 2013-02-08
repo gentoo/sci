@@ -3,6 +3,9 @@
 <pkgmetadata>
   <herd>cluster</herd>
   <longdescription>
-    LibGeoDecomp is an auto-parallelizing library to speed up stencil code based computer simulations. It runs on virtually all current architectures, be it multi-cores, GPUs, or large scale MPI clusters.
+    LibGeoDecomp is an auto-parallelizing library to speed up stencil
+    code based computer simulations. It runs on virtually all current
+    architectures, be it multi-cores, GPUs, or large scale MPI
+    clusters.
   </longdescription>
 </pkgmetadata>

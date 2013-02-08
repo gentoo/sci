@@ -24,12 +24,11 @@ src_prepare() {
 }
 
 src_compile() {
-	emake
+	default
 	emake likwid-bench
 }
 
-pkg_preinst()
-{
+pkg_preinst() {
 	if use access-daemon ; then
 		fperms 4755 /usr/bin/likwid-accessD
 	fi
