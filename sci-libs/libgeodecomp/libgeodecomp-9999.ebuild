@@ -18,7 +18,7 @@ else
 	S="${WORKDIR}/${P}/src"
 fi
 
-inherit cmake-utils vcs-snapshot ${_SCM}
+inherit cmake-utils ${_SCM}
 
 DESCRIPTION="An auto-parallelizing library to speed up computer simulations"
 HOMEPAGE="http://www.libgeodecomp.org"
@@ -33,20 +33,11 @@ DEPEND="${RDEPEND}
 
 src_compile() {
 	cmake-utils_src_compile
-	if use doc; then
-		cmake-utils_src_compile doc
-	fi
+	use doc && cmake-utils_src_make doc
 }
 
 src_install() {
+	DOCS=( README )
+	use doc && HTML_DOCS=( doc/html/* )
 	cmake-utils_src_install
-
-	dodoc README
-	if use doc; then
-		dohtml doc/html/*
-	fi
-}
-
-src_test() {
-	cmake-utils_src_compile test
 }
