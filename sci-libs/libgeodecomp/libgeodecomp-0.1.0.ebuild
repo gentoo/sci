@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 if [ ${PV} == "9999" ] ; then
 	_SCM=mercurial
@@ -18,7 +18,7 @@ fi
 
 inherit cmake-utils vcs-snapshot ${_SCM}
 
-DESCRIPTION="An auto-parallelizing library to speed up computer simulations."
+DESCRIPTION="An auto-parallelizing library to speed up computer simulations"
 HOMEPAGE="http://www.libgeodecomp.org"
 
 LICENSE="LGPL-3"
@@ -33,9 +33,6 @@ src_prepare() {
 
 src_compile() {
 	cmake-utils_src_compile
-	if use doc; then
-		cmake-utils_src_compile doc
-	fi
 }
 
 src_install() {

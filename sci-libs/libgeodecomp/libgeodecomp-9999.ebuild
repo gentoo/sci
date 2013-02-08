@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 2013-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit versionator
 
@@ -20,7 +20,7 @@ fi
 
 inherit cmake-utils vcs-snapshot ${_SCM}
 
-DESCRIPTION="An auto-parallelizing library to speed up computer simulations."
+DESCRIPTION="An auto-parallelizing library to speed up computer simulations"
 HOMEPAGE="http://www.libgeodecomp.org"
 
 LICENSE="LGPL-3"
@@ -29,7 +29,7 @@ IUSE="doc"
 
 RDEPEND=">=dev-libs/boost-1.48"
 DEPEND="${RDEPEND}
-doc? ( app-doc/doxygen )"
+	doc? ( app-doc/doxygen )"
 
 src_compile() {
 	cmake-utils_src_compile
