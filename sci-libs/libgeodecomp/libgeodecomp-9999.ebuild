@@ -4,8 +4,6 @@
 
 EAPI=5
 
-inherit versionator
-
 if [ ${PV} == "9999" ] ; then
 	_SCM=mercurial
 	EHG_REPO_URI="http://bitbucket.org/gentryx/libgeodecomp"
@@ -23,8 +21,8 @@ inherit cmake-utils ${_SCM}
 DESCRIPTION="An auto-parallelizing library to speed up computer simulations"
 HOMEPAGE="http://www.libgeodecomp.org"
 
-LICENSE="LGPL-3"
 SLOT="0"
+LICENSE="LGPL-3"
 IUSE="doc"
 
 RDEPEND=">=dev-libs/boost-1.48"
@@ -32,12 +30,16 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
 src_compile() {
-	cmake-utils_src_compile
+	default
 	use doc && cmake-utils_src_make doc
 }
 
 src_install() {
 	DOCS=( README )
 	use doc && HTML_DOCS=( doc/html/* )
-	cmake-utils_src_install
+	default
+}
+
+src_test() {
+	cmake-utils_src_make test
 }
