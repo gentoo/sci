@@ -10,15 +10,13 @@ DESCRIPTION="Command line tools for developing high performance multi threaded p
 HOMEPAGE="http://code.google.com/p/likwid/"
 SRC_URI="http://likwid.googlecode.com/files/${P}.0.tar.gz"
 
-LICENSE="GPL-3"
 SLOT="0"
+LICENSE="GPL-3"
 KEYWORDS="~amd64"
 IUSE="+access-daemon"
 
 src_prepare() {
-	if use access-daemon ; then
-		epatch "${FILESDIR}/use_access_daemon.patch"
-	fi
+	use access-daemon && epatch "${FILESDIR}/use_access_daemon.patch"
 	epatch "${FILESDIR}/likwid.patch"
 	sed -i -e "s:/usr/local:${D}/usr:" config.mk || die "Couldn't set prefix!"
 }
@@ -29,7 +27,5 @@ src_compile() {
 }
 
 pkg_preinst() {
-	if use access-daemon ; then
-		fperms 4755 /usr/bin/likwid-accessD
-	fi
+	use access-daemon && fperms 4755 /usr/bin/likwid-accessD
 }

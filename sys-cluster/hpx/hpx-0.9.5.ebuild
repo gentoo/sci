@@ -12,8 +12,8 @@ DESCRIPTION="A general C++ runtime system for parallel and distributed applicati
 HOMEPAGE="http://stellar.cct.lsu.edu/tag/hpx/"
 SRC_URI="http://stellar.cct.lsu.edu/files/${MY_P}.tar.gz"
 
-LICENSE="Boost-1.0"
 SLOT="0"
+LICENSE="Boost-1.0"
 KEYWORDS="~amd64"
 IUSE=""
 
