@@ -106,21 +106,25 @@ src_configure() {
 		filter-flags -O*
 	fi
 
-	# enable C Support on Cxx build if possible
-	local petscCSupp
-	if use cxx && ! use complex-scalars; then
-		petscCSupp="--with-c-support=1"
+	# C Support on Cxx builds is enabled if possible
+	# i.e. when not using complex scalars
+	# (no complex type for both available at the same time)
+
+	if use threads; then
+		ewarn "Threads support may be incomplete on $PN-3.3 release and is not officially supported."
+		ewarn "Upstream recommends not to enable threads support for production runs."
 	fi
 
 	# run petsc configure script
 	econf \
+		scrollOutput=1 \
 		CFLAGS="${CFLAGS}" \
 		CXXFLAGS="${CXXFLAGS}" \
 		LDFLAGS="${LDFLAGS}" \
 		--with-shared-libraries \
 		--with-single-library \
 		--with-clanguage=${mylang} \
-		$petscCSupp \
+		$(use cxx && ! use complex-scalars && echo "with-c-support=1") \
 		--with-petsc-arch=${PETSC_ARCH} \
 		--with-precision=double \
 		--with-gnu-compilers \
