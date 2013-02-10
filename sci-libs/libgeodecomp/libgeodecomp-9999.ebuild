@@ -30,14 +30,14 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
 src_compile() {
-	default
+	cmake-utils_src_compile
 	use doc && cmake-utils_src_make doc
 }
 
 src_install() {
 	DOCS=( README )
 	use doc && HTML_DOCS=( doc/html/* )
-	default
+	cmake-utils_src_install
 }
 
 src_test() {
