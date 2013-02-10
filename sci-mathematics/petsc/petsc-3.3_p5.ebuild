@@ -58,6 +58,7 @@ S="${WORKDIR}/${MY_P}"
 PATCHES=(
 	"${FILESDIR}"/${P%_*}-configure-pic.patch
 	"${FILESDIR}"/${P%_*}-disable-rpath.patch
+	"${FILESDIR}"/${P%_*}-fix-complex-threads.patch
 )
 
 src_configure() {
@@ -105,6 +106,12 @@ src_configure() {
 		filter-flags -O*
 	fi
 
+	# enable C Support on Cxx build if possible
+	local petscCSupp
+	if use cxx && ! use complex-scalars; then
+		petscCSupp="--with-c-support=1"
+	fi
+
 	# run petsc configure script
 	econf \
 		CFLAGS="${CFLAGS}" \
@@ -113,7 +120,7 @@ src_configure() {
 		--with-shared-libraries \
 		--with-single-library \
 		--with-clanguage=${mylang} \
-		$(petsc_enable cxx c-support) \
+		$petscCSupp \
 		--with-petsc-arch=${PETSC_ARCH} \
 		--with-precision=double \
 		--with-gnu-compilers \

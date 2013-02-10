@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -27,7 +27,7 @@ RDEPEND="mpi? ( virtual/mpi[cxx?,fortran?] )
 "
 
 DEPEND="${RDEPEND}
-	sys-devel/gcc[-nocxx,fortran?]"
+	sys-devel/gcc[fortran?]"
 
 S="${WORKDIR}/${MY_P}"
 
