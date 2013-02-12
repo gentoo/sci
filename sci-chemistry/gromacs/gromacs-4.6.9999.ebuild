@@ -7,8 +7,6 @@ EAPI=5
 TEST_PV="4.6"
 MANUAL_PV="4.6"
 
-CMAKE_MAKEFILE_GENERATOR="ninja"
-
 inherit bash-completion-r1 cmake-utils cuda eutils multilib toolchain-funcs
 
 if [[ $PV = *9999* ]]; then
@@ -24,7 +22,7 @@ else
 		test? ( http://${PN}.googlecode.com/files/regressiontests-${TEST_PV}.tar.gz )"
 fi
 
-ACCE_IUSE="sse2 sse41 avx128fma avx256"
+ACCE_IUSE="sse2 sse4_1 avx128fma avx256"
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -130,7 +128,7 @@ src_configure() {
 	#go from slowest to fastest acceleration
 	local acce="None"
 	use sse2 && acce="SSE2"
-	use sse41 && acce="SSE4.1"
+	use sse4_1 && acce="SSE4.1"
 	use avx128fma && acce="AVX_128_FMA"
 	use avx256 && acce="AVX_256"
 

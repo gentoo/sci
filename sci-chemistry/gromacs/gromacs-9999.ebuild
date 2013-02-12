@@ -9,7 +9,7 @@ TEST_PV="4.0.4"
 EGIT_REPO_URI="git://git.gromacs.org/gromacs http://repo.or.cz/r/gromacs.git"
 EGIT_BRANCH="master"
 
-ACCE_IUSE="sse2 sse41 avx128fma avx256"
+ACCE_IUSE="sse2 sse4_1 avx128fma avx256"
 
 #to find external blas/lapack
 CMAKE_MIN_VERSION="2.8.5-r2"
@@ -112,7 +112,7 @@ src_configure() {
 	#go from slowest to fasterest acceleration
 	local acce="None"
 	use sse2 && acce="SSE2"
-	use sse41 && acce="SSE4.1"
+	use sse4_1 && acce="SSE4.1"
 	use avx128fma && acce="AVX_128_FMA"
 	use avx256 && acce="AVX_256"
 
