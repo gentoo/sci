@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,6 +15,7 @@ DESCRIPTION="Intel Math Kernel Library: linear algebra, fft, math functions"
 HOMEPAGE="http://software.intel.com/en-us/articles/intel-mkl/"
 
 IUSE=""
+KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 DEPEND=""
 RDEPEND=">=dev-libs/intel-common-13"
