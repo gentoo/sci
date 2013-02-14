@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=2872
-INTEL_DPV=2013_update1
+INTEL_DID=2987
+INTEL_DPV=2013_update2
 INTEL_SUBDIR=composerxe
 
 inherit intel-sdp multilib alternatives-2
@@ -20,7 +20,7 @@ KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 DEPEND=""
 RDEPEND=">=dev-libs/intel-common-13"
 
-CHECKREQS_DISK_BUILD=2300M
+CHECKREQS_DISK_BUILD=2500M
 
 INTEL_BIN_RPMS="mkl mkl-devel"
 INTEL_DAT_RPMS="mkl-common"
