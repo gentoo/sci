@@ -1,0 +1,9 @@
+# ChangeLog for app-text/jabref
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*jabref-2.9.2 (14 Feb 2013)
+
+  14 Feb 2013; Nick <nbock@gentoo.org> +jabref-2.9.2.ebuild, +metadata.xml:
+  Adding first draft version of jabref-2.9.2 ebuild.  This version is loosely
+  based on jabref-2.8.1.ebuild attached to bug 385751 on bugs.gentoo.org.
