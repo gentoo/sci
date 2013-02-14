@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit java-pkg-2 java-ant-2
 
@@ -17,11 +17,8 @@ IUSE=""
 
 EANT_BUILD_TARGET="jars"
 
-COMMON_DEPEND=""
-DEPEND=">=virtual/jre-1.6
-		${COMMON_DEPEND}"
-RDEPEND=">=virtual/jdk-1.6
-		 ${COMMON_DEPEND}"
+DEPEND=">=virtual/jdk-1.6"
+RDEPEND=">=virtual/jre-1.6"
 
 src_install() {
 	java-pkg_newjar build/lib/JabRef-${PV}.jar
