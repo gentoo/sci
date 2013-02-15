@@ -13,7 +13,7 @@ SRC_URI="mirror://sourceforge/${PN}/JabRef-${PV}-src.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE=""
+IUSE="doc"
 
 EANT_BUILD_TARGET="jars"
 
@@ -22,6 +22,8 @@ RDEPEND=">=virtual/jre-1.6"
 
 src_install() {
 	java-pkg_newjar build/lib/JabRef-${PV}.jar
+	use doc && java-pkg_dojavadoc build/docs/api
+	dodoc src/txt/README
 	java-pkg_dolauncher ${PN} --main net.sf.jabref.JabRef
 	newicon src/images/JabRef-icon-48.png JabRef-icon.png || die "failed to create icon"
 	make_desktop_entry ${PN} JabRef JabRef-icon Office
