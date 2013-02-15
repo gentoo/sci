@@ -17,7 +17,7 @@ ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
 LICENSE="PSF-2.2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
-IUSE="apbs numpy vmd web"
+IUSE="apbs +numpy"
 
 DEPEND="
 	dev-python/numpy
@@ -34,7 +34,7 @@ DEPEND="
 		sci-chemistry/pdb2pqr
 		sci-chemistry/pymol-apbs-plugin
 	)
-	web? ( !dev-python/webpy )"
+	!dev-python/webpy"
 RDEPEND="${DEPEND}"
 
 src_unpack() {
@@ -44,14 +44,9 @@ src_unpack() {
 
 python_prepare_all() {
 	local PATCHES=(
-		"${FILESDIR}"/${P}-setup.py.patch
-		"${FILESDIR}"/${P}-data-path.patch
 		"${FILESDIR}"/${P}-flags.patch
 		"${FILESDIR}"/${P}-prefix.patch
 		)
-
-	use web || PATCHES+=( "${FILESDIR}"/${P}-web.patch )
-	use vmd && PATCHES+=( "${FILESDIR}"/${P}-vmd.patch )
 
 	if use numpy; then
 		sed \
@@ -61,12 +56,8 @@ python_prepare_all() {
 
 	rm ./modules/pmg_tk/startup/apbs_tools.py || die
 
-	python_export python2_7 EPYTHON PYTHON_SITEDIR
-	echo "site_packages = \'$(python_get_sitedir)\'" > setup3.py || die
-
 	sed \
 		-e "s:/opt/local:${EPREFIX}/usr:g" \
-		-e '/ext_comp_args/s:\[.*\]:[]:g' \
 		-i setup.py || die
 
 	distutils-r1_python_prepare_all
@@ -79,47 +70,18 @@ src_prepare() {
 	distutils-r1_src_prepare
 }
 
+python_install() {
+	distutils-r1_python_install --pymol-path="${EPREFIX}/usr/share/pymol"
+}
+
 python_install_all() {
 	distutils-r1_python_install_all
-
-	python_export python2_7 EPYTHON
-
-	# These environment variables should not go in the wrapper script, or else
-	# it will be impossible to use the PyMOL libraries from Python.
-	cat >> "${T}"/20pymol <<- EOF
-		PYMOL_PATH="${EPREFIX}/$(python_get_sitedir)/${PN}"
-		PYMOL_DATA="${EPREFIX}/usr/share/pymol/data"
-		PYMOL_SCRIPTS="${EPREFIX}/usr/share/pymol/scripts"
-	EOF
-
-	doenvd "${T}"/20pymol
-
-	cat >> "${T}"/pymol <<- EOF
-	#!/bin/sh
-	${EPYTHON} -O \${PYMOL_PATH}/__init__.py -q \$*
-	EOF
-
-	dobin "${T}"/pymol
-
-	insinto /usr/share/pymol
-	doins -r test data scripts
-
-	insinto /usr/share/pymol/examples
-	doins -r examples
-
-	dodoc DEVELOPERS README
 
 	doicon "${WORKDIR}"/${PN}.{xpm,png}
 	make_desktop_entry pymol PyMol ${PN} "Graphics;Education;Science;Chemistry" "MimeType=chemical/x-pdb;"
 }
 
 pkg_postinst() {
-	elog "\t USE=shaders was removed,"
-	elog "please use pymol config settings (~/.pymolrc)"
-	elog "\t set use_shaders, 1"
-	elog "in case of crashes, please deactivate this experimental feature by setting"
-	elog "\t set use_shaders, 0"
-	elog "\t set sphere_mode, 0"
 	fdo-mime_desktop_database_update
 	fdo-mime_mime_database_update
 }

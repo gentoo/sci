@@ -7,7 +7,5 @@
   <use>
     <flag name="apbs">Pymol supprt for sci-chemistry/apbs</flag>
     <flag name="numpy">Enable numpy support for Pymol</flag>
-    <flag name="vmd">Builds molfile plugin support</flag>
-    <flag name="web">Install Pymodule needed for web app support</flag>
   </use>
 </pkgmetadata>
