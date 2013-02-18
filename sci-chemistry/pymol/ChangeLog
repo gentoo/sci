@@ -2,6 +2,10 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Feb 2013; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
+  -files/pymol-9999-flags.patch, -files/pymol-9999-prefix.patch, metadata.xml:
+  Adapt to current HEAD
+
   15 Feb 2013; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
   -files/pymol-9999-data-path.patch, files/pymol-9999-flags.patch,
   -files/pymol-9999-nosplash.patch, files/pymol-9999-prefix.patch,

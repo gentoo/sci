@@ -17,7 +17,7 @@ ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
 LICENSE="PSF-2.2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
-IUSE="apbs +numpy"
+IUSE="apbs"
 
 DEPEND="
 	dev-python/numpy
@@ -43,22 +43,12 @@ src_unpack() {
 }
 
 python_prepare_all() {
-	local PATCHES=(
-		"${FILESDIR}"/${P}-flags.patch
-		"${FILESDIR}"/${P}-prefix.patch
-		)
-
-	if use numpy; then
-		sed \
-			-e '/PYMOL_NUMPY/s:^#::g' \
-			-i setup.py || die
-	fi
+	sed \
+		-e "s:\"/usr:\"${EPREFIX}/usr:g" \
+		-e "/ext_comp_args/s:=.*$:=:g" \
+		-i setup.py || die
 
 	rm ./modules/pmg_tk/startup/apbs_tools.py || die
-
-	sed \
-		-e "s:/opt/local:${EPREFIX}/usr:g" \
-		-i setup.py || die
 
 	distutils-r1_python_prepare_all
 
