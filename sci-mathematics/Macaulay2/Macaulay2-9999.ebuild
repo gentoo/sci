@@ -27,7 +27,13 @@ SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS=""
 
-DEPEND="
+DEPEND="sys-process/time
+	virtual/pkgconfig
+	app-arch/unzip
+	app-text/dos2unix"
+# Unzip and dos2unix just for normaliz
+
+RDEPEND="
 	sys-libs/gdbm
 	dev-libs/ntl
 	sci-mathematics/pari[gmp]
@@ -47,16 +53,9 @@ DEPEND="
 	virtual/lapack
 	dev-util/ctags
 	sys-libs/ncurses
-	sys-process/time
 	>=dev-libs/boehm-gc-7.2_alpha6[threads]
 	dev-libs/libatomic_ops
-	emacs? ( virtual/emacs )
-	virtual/pkgconfig
-	app-arch/unzip
-	app-text/dos2unix"
-# Unzip and dos2unix just for normaliz
-
-RDEPEND="${DEPEND}"
+	emacs? ( virtual/emacs )"
 
 SITEFILE=70Macaulay2-gentoo.el
 
@@ -84,7 +83,7 @@ src_prepare() {
 	# Put updated Normaliz.m2 in place
 	cp "${WORKDIR}/Normaliz2.8/Macaulay2/Normaliz.m2" \
 		"${S}/Macaulay2/packages" || die
-	dos2unix ${S}/Macaulay2/packages/Normaliz.m2 || die
+	dos2unix "${S}/Macaulay2/packages/Normaliz.m2" || die
 
 	# Patching .m2 files to look for external programs in
 	# /usr/bin

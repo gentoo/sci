@@ -5,6 +5,9 @@
   18 Feb 2013; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
   Update live ebuild
 
+  18 Feb 2013; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
+  Update live ebuild
+
   10 Jan 2013; Thomas Kahle <tomka@gentoo.org> Macaulay2-9999.ebuild:
   migrate to git-2 eclass, fix lapack support
 
