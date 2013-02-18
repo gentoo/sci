@@ -45,7 +45,7 @@ src_unpack() {
 python_prepare_all() {
 	sed \
 		-e "s:\"/usr:\"${EPREFIX}/usr:g" \
-		-e "/ext_comp_args/s:=.*$:= \[\]:g" \
+		-e "/ext_comp_args/s:=\[.*\]$:= \[\]:g" \
 		-i setup.py || die
 
 	rm ./modules/pmg_tk/startup/apbs_tools.py || die

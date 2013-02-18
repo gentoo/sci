@@ -5,6 +5,9 @@
   18 Feb 2013; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
   Fix sed syntax
 
+  18 Feb 2013; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
+  Fix sed syntax
+
   18 Feb 2013; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
   -files/pymol-9999-flags.patch, -files/pymol-9999-prefix.patch, metadata.xml:
   Adapt to current HEAD
