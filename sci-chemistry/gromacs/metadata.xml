@@ -12,7 +12,7 @@
 		<flag name="single-precision">Single precision version of gromacs (default)</flag>
 		<!-- acceleration optimization flags -->
 		<flag name="fkernels">Enable building of Fortran Kernels for platforms that dont have assembly loops</flag>
-		<flag name="sse41">Enable sse4.1 acceleration</flag>
+		<flag name="sse4_1">Enable sse4.1 acceleration</flag>
 		<flag name="avx128fma">Enable 128bit avx with fma (e.g. AMD BullDozer)</flag>
 		<flag name="avx256">Enable 256bit avx (e.g. Intel Sandy Bridge)</flag>
 		<flag name="offensive">Enable gromacs partly offensive quotes</flag>

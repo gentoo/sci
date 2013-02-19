@@ -6,7 +6,7 @@ Index: bin/eselect.in
  # Where are modules installed by default?
  ESELECT_DEFAULT_MODULES_PATH="${ESELECT_DATA_PATH}/modules"
  
-+# Where are auto-generated modules placed? (e.g. from alternatives-2.eclas)
++# Where are auto-generated modules placed? (e.g. from alternatives-2.eclass)
 +ESELECT_AUTO_GENERATED_MODULES_PATH="${ESELECT_DEFAULT_MODULES_PATH}/auto"
 +
  # Look in these places for modules

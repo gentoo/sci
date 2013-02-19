@@ -1,11 +1,11 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
 WANT_AUTOCONF="2.5"
-WANT_AUTOMAKE="1.9"
+WANT_AUTOMAKE="1.10"
 
 inherit git-2 autotools linux-mod linux-info toolchain-funcs
 
@@ -17,14 +17,10 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="utils"
+IUSE="client utils server"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
-
-PATCHES=(
-	"${FILESDIR}/2.4/0001-LU-1994-llite-atomic_open-support.patch"
-)
 
 BUILD_PARAMS="-C ${KV_DIR} SUBDIRS=${S}"
 
@@ -36,25 +32,30 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch ${PATCHES[@]}
-	apply_user_patches
+	# disable Werror
 	sed -e 's:-Werror::g' \
 		-i libcfs/autoconf/lustre-libcfs.m4 \
 		-i libsysio/configure.in \
 		-i lnet/autoconf/lustre-lnet.m4 \
 		lustre/autoconf/lustre-core.m4 || die "Disabling Werror failed"
+	# fix libzfs lib name we have it as libzfs.so.1
+	sed -e 's:libzfs.so:libzfs.so.1:g' \
+		-e 's:libnvpair.so:libnvpair.so.1:g' \
+		-i lustre/utils/mount_utils_zfs.c || die
 	sh ./autogen.sh
 }
 
 src_configure() {
 	econf \
-		--enable-client \
-		--disable-server \
 		--without-ldiskfs \
 		--disable-ldiskfs-build \
 		--with-linux="${KERNEL_DIR}" \
-		--with-linux-release=${KV_FULL} \
-		$(use_enable utils)
+		--with-linux-release="${KV_FULL}" \
+		--with-zfs="${EPREFIX}/usr/src/zfs/${KV_FULL}" \
+		--with-spl="${EPREFIX}/usr/src/spl/${KV_FULL}" \
+		$(use_enable client) \
+		$(use_enable utils) \
+		$(use_enable server)
 }
 
 src_compile() {
