@@ -6,6 +6,5 @@
   </maintainer>
   <use>
     <flag name="apbs">Pymol supprt for sci-chemistry/apbs</flag>
-    <flag name="numpy">Enable numpy support for Pymol</flag>
   </use>
 </pkgmetadata>
