@@ -13,11 +13,12 @@ SRC_URI="http://likwid.googlecode.com/files/${P}.0.tar.gz"
 SLOT="0"
 LICENSE="GPL-3"
 KEYWORDS="~amd64"
-IUSE="+access-daemon"
+IUSE="+access-daemon uncore"
 
 src_prepare() {
-	use access-daemon && epatch "${FILESDIR}/use_access_daemon.patch"
 	epatch "${FILESDIR}/likwid.patch"
+	use access-daemon && epatch "${FILESDIR}/use_access_daemon.patch"
+	use access-daemon && epatch "${FILESDIR}/use_uncore.patch"
 	sed -i -e "s:/usr/local:${D}/usr:" config.mk || die "Couldn't set prefix!"
 }
 
