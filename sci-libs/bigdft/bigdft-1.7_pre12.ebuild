@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
 
-inherit autotools-utils eutils flag-o-matic fortran-2 python-r1 toolchain-funcs
+inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs
 
 REAL_P="${P/_pre/-dev.}"
 
@@ -68,7 +68,8 @@ pkg_setup() {
 	if use openmp; then
                 tc-has-openmp || \
                         die "Please select an openmp capable compiler like gcc[openmp]"
-        fi
+	fi
+	python-any-r1_pkg_setup
 }
 
 src_prepare() {

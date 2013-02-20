@@ -5,6 +5,11 @@
 <<<<<<< HEAD
 
   20 Feb 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  bigdft-1.7_pre12.ebuild:
+  The setup of python for the compilation of the GPU support in
+  bigdft-1.7_pre12 improved.
+
+  20 Feb 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
   bigdft-1.7_pre12.ebuild, +files/bigdft-1.7-dev.12-GPUlink.patch:
   Compilation of GPU support in bigdft-1.7_pre12 improved. Yet to be tested.
 
