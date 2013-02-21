@@ -77,7 +77,7 @@ src_configure() {
 	LD = $(tc-getLD)
 	AR = $(tc-getAR)
 	LIB_SYS =
-	LIB_LPK = $(pkg-config --libs lapack)
+	LIB_LPK = $($(tc-getPKG_CONFIG) --libs lapack)
 	LIB_FFT = fftlib.a
 	EOF
 
