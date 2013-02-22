@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-geosciences</herd>
-<maintainer>
-<email>marten@xtal.rwth-aachen.de</email>
-<name>Jan M. Simons</name>
-</maintainer>
-<longdescription lang="en">
+  <herd>sci-geosciences</herd>
+  <maintainer>
+    <email>marten@xtal.rwth-aachen.de</email>
+    <name>Jan M. Simons</name>
+  </maintainer>
+  <longdescription lang="en">
 Fullprof is a programm suite of crystallographic programs (FullProf, WinPLOTR,
 EdPCR, GFourier, etc...) mainly developed for Rietveld analysis (structure
 profile refinement) of neutron (constant wavelength, time of flight,
