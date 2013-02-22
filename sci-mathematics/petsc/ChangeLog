@@ -1,6 +1,15 @@
 # ChangeLog for sci-mathematics/petsc
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  22 Feb 2013; Justin Lecher <jlec@gentoo.org> -petsc-3.1_p8-r1.ebuild,
+  -files/petsc-3.1_p8-configure-pic.patch,
+  -files/petsc-3.1_p8-disable-rpath.patch, -petsc-3.2_p7.ebuild,
+  -files/petsc-3.2_p7-configure-pic.patch,
+  -files/petsc-3.2_p7-disable-env-warnings.patch,
+  -files/petsc-3.2_p7-disable-rpath.patch, petsc-3.3_p5.ebuild, metadata.xml:
+  Use tc-getPKG_CONFIG from toolchain-funcs.eclass instead of plain pkg-config;
+  drop old
 
   06 Mar 2012; Jens-Malte Gottfried <jmgottfried@web.de>
   petsc-3.1_p8-r1.ebuild, +files/petsc-3.1_p8-configure-pic.patch,
