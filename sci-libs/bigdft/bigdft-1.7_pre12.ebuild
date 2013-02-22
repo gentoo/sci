@@ -40,7 +40,7 @@ RDEPEND="
 				)
 			)"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	>=sys-devel/autoconf-2.59
 	doc? ( virtual/latex-base )
 	cuda? ( ${PYTHON_DEPS} )
@@ -65,9 +65,8 @@ pkg_setup() {
 	fi
 
 	fortran-2_pkg_setup
-	if use openmp; then
-                tc-has-openmp || \
-                        die "Please select an openmp capable compiler like gcc[openmp]"
+	if use openmp && [[ $(tc-getCC)$ == *gcc* ]] &&	! tc-has-openmp; then
+		die "Please select an openmp capable compiler like gcc[openmp]"
 	fi
 	python-any-r1_pkg_setup
 }
@@ -99,10 +98,10 @@ src_configure() {
 		--disable-internal-libyaml
 		--enable-internal-libabinit
 		--with-moduledir="${modules}"
-		--with-ext-linalg="$(pkg-config --libs-only-l lapack) \
-			$(pkg-config --libs-only-l blas)"
-		--with-ext-linalg-path="$(pkg-config --libs-only-L lapack) \
-			$(pkg-config --libs-only-L blas)"
+		--with-ext-linalg="$($(tc-getPKG_CONFIG) --libs-only-l lapack) \
+			$($(tc-getPKG_CONFIG) --libs-only-l blas)"
+		--with-ext-linalg-path="$($(tc-getPKG_CONFIG) --libs-only-L lapack) \
+			$($(tc-getPKG_CONFIG) --libs-only-L blas)"
 		--enable-libxc
 		--disable-internal-libxc
 		--with-libxc-include="${modules}"
@@ -111,8 +110,8 @@ src_configure() {
 		$(use_with cuda nvcc-flags "${nvcflags}")
 		$(use_enable opencl)
 		$(use_with etsf_io etsf-io)
-		"$(use etsf_io && echo "--with-netcdf-libs=$(pkg-config --libs netcdf) ${netcdff_libs}")"
-		FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}} ${openmp} -I${modules}"
+		"$(use etsf_io && echo "--with-netcdf-libs=$($(tc-getPKG_CONFIG) --libs netcdf) ${netcdff_libs}")"
+		FCFLAGS+=" ${openmp} -I${modules}"
 		LD="$(tc-getLD)"
 		CPP="$(tc-getCPP)"
 		)

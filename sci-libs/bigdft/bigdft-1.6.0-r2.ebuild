@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -37,7 +37,7 @@ RDEPEND="
 				)
 			)"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	>=sys-devel/autoconf-2.59
 	doc? ( virtual/latex-base )"
 
@@ -79,10 +79,10 @@ src_configure() {
 		--enable-binaries
 		--disable-minima-hopping
 		--with-moduledir="${modules}"
-		--with-ext-linalg="$(pkg-config --libs-only-l lapack) \
-			$(pkg-config --libs-only-l blas)"
-		--with-ext-linalg-path="$(pkg-config --libs-only-L lapack) \
-			$(pkg-config --libs-only-L blas)"
+		--with-ext-linalg="$($(tc-getPKG_CONFIG) --libs-only-l lapack) \
+			$($(tc-getPKG_CONFIG) --libs-only-l blas)"
+		--with-ext-linalg-path="$($(tc-getPKG_CONFIG) --libs-only-L lapack) \
+			$($(tc-getPKG_CONFIG) --libs-only-L blas)"
 		--disable-internal-libxc
 		--with-libxc-path="/usr"
 		--with-libxc-include="${modules}"
@@ -93,9 +93,9 @@ src_configure() {
 		$(use_with opencl ocl-path "${EPREFIX}/usr")
 		$(use_with etsf_io etsf-io)
 		$(use_with etsf_io etsf-io-path "${EPREFIX}/usr")
-		$(use_with etsf_io netcdf-path "$(pkg-config --libs-only-L netcdf)")
-		"$(use etsf_io && echo "--with-netcdf-libs=$(pkg-config --libs netcdf) ${netcdff_libs}")"
-		FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}} -I${modules}"
+		$(use_with etsf_io netcdf-path "$($(tc-getPKG_CONFIG) --libs-only-L netcdf)")
+		"$(use etsf_io && echo "--with-netcdf-libs=$($(tc-getPKG_CONFIG) --libs netcdf) ${netcdff_libs}")"
+		FCFLAGS+=" -I${modules}"
 		LD="$(tc-getLD)"
 		CPP="$(tc-getCPP)"
 		)
