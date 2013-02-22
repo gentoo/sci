@@ -1,0 +1,123 @@
+diff -cr staden-2.0.0b8-src/ac_stubs/tcl.m4 staden-2.0.0b8-src.orig/ac_stubs/tcl.m4
+*** staden-2.0.0b8-src/ac_stubs/tcl.m4	Wed Feb  9 11:40:00 2011
+--- staden-2.0.0b8-src.orig/ac_stubs/tcl.m4	Tue Feb 15 15:12:37 2011
+***************
+*** 2245,2250 ****
+--- 2245,2252 ----
+  
+      AC_SUBST(LD_LIBRARY_PATH_VAR)
+  
++     AC_SUBST(CC_SEARCH_FLAGS)
++ 
+      # These must be called after we do the basic CFLAGS checks and
+      # verify any possible 64-bit or similar switches are necessary
+      TEA_TCL_EARLY_FLAGS
+diff -cr staden-2.0.0b8-src/configure staden-2.0.0b8-src.orig/configure
+*** staden-2.0.0b8-src/configure	Wed Feb  9 11:39:59 2011
+--- staden-2.0.0b8-src.orig/configure	Tue Feb 15 15:12:37 2011
+***************
+*** 745,750 ****
+--- 745,751 ----
+  SHLIB_LD_LIBS
+  SHLIB_CFLAGS
+  LD_LIBRARY_PATH_VAR
++ CC_SEARCH_FLAGS
+  TCL_INCLUDES
+  TCL_TOP_DIR_NATIVE
+  TK_INCLUDES
+***************
+*** 13888,13893 ****
+--- 13889,13896 ----
+  
+  
+  
++ 
++ 
+      # These must be called after we do the basic CFLAGS checks and
+      # verify any possible 64-bit or similar switches are necessary
+  
+***************
+*** 15886,15891 ****
+--- 15889,15895 ----
+  SHLIB_LD_LIBS!$SHLIB_LD_LIBS$ac_delim
+  SHLIB_CFLAGS!$SHLIB_CFLAGS$ac_delim
+  LD_LIBRARY_PATH_VAR!$LD_LIBRARY_PATH_VAR$ac_delim
++ CC_SEARCH_FLAGS!$CC_SEARCH_FLAGS$ac_delim
+  TCL_INCLUDES!$TCL_INCLUDES$ac_delim
+  TCL_TOP_DIR_NATIVE!$TCL_TOP_DIR_NATIVE$ac_delim
+  TK_INCLUDES!$TK_INCLUDES$ac_delim
+***************
+*** 15905,15911 ****
+  LTLIBOBJS!$LTLIBOBJS$ac_delim
+  _ACEOF
+  
+!   if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 53; then
+      break
+    elif $ac_last_try; then
+      { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
+--- 15909,15915 ----
+  LTLIBOBJS!$LTLIBOBJS$ac_delim
+  _ACEOF
+  
+!   if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 54; then
+      break
+    elif $ac_last_try; then
+      { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
+diff -cr staden-2.0.0b8-src/staden.profile staden-2.0.0b8-src.orig/staden.profile
+*** staden-2.0.0b8-src/staden.profile	Wed Feb  9 11:40:00 2011
+--- staden-2.0.0b8-src.orig/staden.profile	Tue Feb 15 15:12:37 2011
+***************
+*** 46,54 ****
+          then
+              [ x"$STADEN_PREPEND" != "x" ] \
+              && LD_LIBRARY_PATH=$STADLIB:$LD_LIBRARY_PATH \
+!             || LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$STADLIB
+          else
+!             LD_LIBRARY_PATH=$STADLIB
+          fi
+          export LD_LIBRARY_PATH
+      fi
+--- 46,54 ----
+          then
+              [ x"$STADEN_PREPEND" != "x" ] \
+              && LD_LIBRARY_PATH=$STADLIB:$LD_LIBRARY_PATH \
+!             || LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$STADLIB:$STADENROOT/lib
+          else
+!             LD_LIBRARY_PATH=$STADLIB:$STADENROOT/lib
+          fi
+          export LD_LIBRARY_PATH
+      fi
+diff -cr staden-2.0.0b8-src/system.mk.in staden-2.0.0b8-src.orig/system.mk.in
+*** staden-2.0.0b8-src/system.mk.in	Wed Feb  9 11:40:00 2011
+--- staden-2.0.0b8-src.orig/system.mk.in	Tue Feb 15 15:12:37 2011
+***************
+*** 61,66 ****
+--- 61,67 ----
+  # How else do we get commas in a subst text or pattern?
+  comma = ,
+  
++ LIB_RUNTIME_DIR   = ${prefix}/lib/staden
+  CC		  = @CC@
+  #CDEBUG		  = -Wall -Wno-sign-compare -Wno-pointer-sign -Wno-parentheses -Wno-unused -Wno-char-subscripts -Wno-pointer-to-int-cast -Wno-int-to-pointer-cast
+  CFLAGS		  = @CFLAGS@ $(DEFINES) $(INCLUDES)
+***************
+*** 68,76 ****
+  CXXFLAGS	  = @CXXFLAGS@ $(DEFINES) $(INCLUDES)
+  CPP		  = @CPP@
+  CPPFLAGS	  = @CPPFLAGS@
+! LDFLAGS		  = -L$(L) @LDFLAGS@
+  #CLDFLAGS	  = -L$(L) -Wl,-rpath-link,$(L) $(subst -L,-Wl$(comma)-rpath-link$(comma),$(filter -L%,$(IOLIB_LIB)))
+! CLDFLAGS	  = -L$(L)
+  CXXLDFLAGS	  = $(CLDFLAGS)
+  F77		  = @F77@
+  FFLAGS		  = @FFLAGS@
+--- 69,77 ----
+  CXXFLAGS	  = @CXXFLAGS@ $(DEFINES) $(INCLUDES)
+  CPP		  = @CPP@
+  CPPFLAGS	  = @CPPFLAGS@
+! LDFLAGS		  = -L$(L) @LDFLAGS@ @CC_SEARCH_FLAGS@
+  #CLDFLAGS	  = -L$(L) -Wl,-rpath-link,$(L) $(subst -L,-Wl$(comma)-rpath-link$(comma),$(filter -L%,$(IOLIB_LIB)))
+! CLDFLAGS	  = -L$(L) @CC_SEARCH_FLAGS@
+  CXXLDFLAGS	  = $(CLDFLAGS)
+  F77		  = @F77@
+  FFLAGS		  = @FFLAGS@
