@@ -23,7 +23,9 @@ RDEPEND="
 	blas? ( virtual/blas )
 	lapack? ( virtual/lapack )"
 DEPEND="${DEPEND}
-	virtual/pkgconfig"
+	atlas? ( virtual/pkgconfig )
+	blas? ( virtual/pkgconfig )
+	lapack? ( virtual/pkgconfig )"
 
 src_prepare() {
 	# avoid the automagic cmake macros
