@@ -1,16 +1,17 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=5
 
-inherit eutils
+inherit eutils toolchain-funcs
 
 MY_P=ccx_${PV}
 
 DESCRIPTION="A Free Software Three-Dimensional Structural Finite Element Program"
 HOMEPAGE="http://www.calculix.de/"
-SRC_URI="http://www.dhondt.de/${MY_P}.src.tar.bz2
+SRC_URI="
+	http://www.dhondt.de/${MY_P}.src.tar.bz2
 	doc? ( http://www.dhondt.de/${MY_P}.ps.tar.bz2 )
 	examples? ( http://www.dhondt.de/${MY_P}.test.tar.bz2 )"
 
@@ -19,11 +20,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="arpack doc examples lapack threads"
 
-RDEPEND="arpack? ( >=sci-libs/arpack-96 )
+RDEPEND="
+	arpack? ( sci-libs/arpack )
 	lapack? ( virtual/lapack )
 	>=sci-libs/spooles-2.2
 	virtual/blas"
 DEPEND="${RDEPEND}
+	virtual/pkgconfig
 	doc? ( app-text/ghostscript-gpl )"
 
 S=${WORKDIR}/CalculiX/${MY_P}/src
@@ -34,9 +37,9 @@ src_prepare() {
 }
 
 src_configure() {
-	use lapack && export LAPACK=`pkg-config --libs lapack`
+	use lapack && export LAPACK=$($(tc-getPKG_CONFIG) --libs lapack)
 
-	export BLAS=`pkg-config --libs blas`
+	export BLAS=$($(tc-getPKG_CONFIG) --libs blas)
 
 	export SPOOLESINC="-I/usr/include/spooles -DSPOOLES"
 	export SPOOLESLIB="-lspooles"
@@ -47,7 +50,7 @@ src_configure() {
 
 	if use arpack; then
 		export ARPACK="-DARPACK"
-		export ARPACKLIB="-larpack"
+		export ARPACKLIB=$($(tc-getPKG_CONFIG) --libs arpack)
 	fi
 }
 
