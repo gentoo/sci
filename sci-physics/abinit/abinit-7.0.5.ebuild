@@ -42,7 +42,7 @@ RDEPEND="~sci-libs/bigdft-1.7_pre12
 	python? ( dev-python/numpy )
 	cuda? ( dev-util/nvidia-cuda-sdk )"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	gui? ( >=virtual/jdk-1.6.0
 		app-arch/sharutils
 		sys-apps/gawk )
@@ -80,10 +80,9 @@ pkg_setup() {
 	append-fflags -ffree-line-length-none
 
 	fortran-2_pkg_setup
-	if use openmp; then
-                tc-has-openmp || \
-                        die "Please select an openmp capable compiler like gcc[openmp]"
-        fi
+	if use openmp && [[ $(tc-getCC)$ == *gcc* ]] &&	! tc-has-openmp; then
+		die "Please select an openmp capable compiler like gcc[openmp]"
+	fi
 
 	# Sort out some USE options
 	if use fftw-threads && ! use fftw; then
@@ -171,12 +170,12 @@ src_configure() {
 			# Until version 3.3 this used to be masked by
 			# .la files.
 			# Bug 384645
-			fft_libs="${fft_libs} $(pkg-config --libs fftw3_threads) $(pkg-config --libs fftw3)"
+			fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3_threads) $($(tc-getPKG_CONFIG) --libs fftw3)"
 		else
-			fft_libs="${fft_libs} $(pkg-config --libs fftw3_threads)"
+			fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3_threads)"
 		fi
 	else
-		fft_libs="${fft_libs} $(pkg-config --libs fftw3)"
+		fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3)"
 	fi
 	local gpu_flavor="none"
 	if use cuda; then
@@ -199,13 +198,13 @@ src_configure() {
 		"$(use cuda && echo "--with-gpu-flavor=${gpu_flavor}")"
 		"$(use cuda && echo "--with-gpu-prefix=/opt/cuda/")"
 		"$(use gsl && echo "--with-math-flavor=gsl")"
-		"$(use gsl && echo "--with-math-incs=$(pkg-config --cflags gsl)")"
-		"$(use gsl && echo "--with-math-libs=$(pkg-config --libs gsl)")"
+		"$(use gsl && echo "--with-math-incs=$($(tc-getPKG_CONFIG) --cflags gsl)")"
+		"$(use gsl && echo "--with-math-libs=$($(tc-getPKG_CONFIG) --libs gsl)")"
 		--with-linalg-flavor="atlas"
-		--with-linalg-libs="$(pkg-config --libs lapack)"
+		--with-linalg-libs="$($(tc-getPKG_CONFIG) --libs lapack)"
 		--with-trio-flavor="${trio_flavor}"
 		"$(use netcdf && echo "--with-netcdf-incs=-I/usr/include")"
-		"$(use netcdf && echo "--with-netcdf-libs=$(pkg-config --libs netcdf) ${netcdff_libs}")"
+		"$(use netcdf && echo "--with-netcdf-libs=$($(tc-getPKG_CONFIG) --libs netcdf) ${netcdff_libs}")"
 		"$(use fox && echo "--with-fox-incs=${modules}")"
 		"$(use fox && echo "--with-fox-libs=${FoX_libs}")"
 		"$(use etsf_io && echo "--with-etsf-io-incs=${modules}")"
@@ -214,12 +213,12 @@ src_configure() {
 		--with-libxc-incs="${modules}"
 		--with-libxc-libs="${libs} -lxc"
 		--with-bigdft-incs="${modules}"
-		--with-bigdft-libs="$(pkg-config --libs bigdft)"
+		--with-bigdft-libs="$($(tc-getPKG_CONFIG) --libs bigdft)"
 		--with-atompaw-incs="${modules}"
 		--with-atompaw-libs="${libs} -latompaw"
 		--with-wannier90-bins="/usr/bin"
 		--with-wannier90-incs="${modules}"
-		--with-wannier90-libs="${libs} -lwannier $(pkg-config --libs lapack)"
+		--with-wannier90-libs="${libs} -lwannier $($(tc-getPKG_CONFIG) --libs lapack)"
 		"$(use fftw && echo "--with-fft-flavor=${fft_flavor}")"
 		"$(use fftw && echo "--with-fft-incs=-I/usr/include")"
 		"$(use fftw && echo "--with-fft-libs=${fft_libs}")"

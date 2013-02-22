@@ -1,3 +1,19 @@
+ bin/Makefile.am            |  2 +-
+ configure.in               | 18 +++---------------
+ src/forcefield/Makefile.am |  4 ++--
+ src/lib/Makefile.am        |  2 +-
+ 4 files changed, 7 insertions(+), 19 deletions(-)
+
+diff --git a/bin/Makefile.am b/bin/Makefile.am
+index c9f5f40..0f1d790 100644
+--- a/bin/Makefile.am
++++ b/bin/Makefile.am
+@@ -1,4 +1,4 @@
+-INCLUDES = -I../..  -I../include/almost
++INCLUDES = -I$(top_srcdir)  -I$(top_srcdir)/include/almost
+ bin_PROGRAMS=camshift
+ 
+ if LIBBZ2
 diff --git a/configure.in b/configure.in
 index e0d186d..9b15335 100644
 --- a/configure.in
@@ -45,3 +61,25 @@ index e0d186d..9b15335 100644
  echo ${host} ${host-cpu}  ${host-vendor} ${host-os} $ix86 $powerpc
  AC_OUTPUT(
  		almost.h 
+diff --git a/src/forcefield/Makefile.am b/src/forcefield/Makefile.am
+index 8d143ab..4b72814 100644
+--- a/src/forcefield/Makefile.am
++++ b/src/forcefield/Makefile.am
+@@ -1,4 +1,4 @@
+-INCLUDES = -I../../include/almost
++INCLUDES = -I$(top_srcdir)/include/almost
+ 
+ lib_LIBRARIES= libnbimpl.a
+-libnbimpl_a_SOURCES=enefunc.c enefuncvdw.c pbcenefunc.c forcefunc.c forcefuncvdw.c pbcforcefunc.c sasaenefunc.c pbcsasaenefunc.c sasaforcefunc.c pbcsasaforcefunc.c eneforcefunc.c enefunchs.c  forcefunchs.c enefuncsoft.c forcefuncsoft.c qvdwfunc.c $(ASMF)
+\ No newline at end of file
++libnbimpl_a_SOURCES=enefunc.c enefuncvdw.c pbcenefunc.c forcefunc.c forcefuncvdw.c pbcforcefunc.c sasaenefunc.c pbcsasaenefunc.c sasaforcefunc.c pbcsasaforcefunc.c eneforcefunc.c enefunchs.c  forcefunchs.c enefuncsoft.c forcefuncsoft.c qvdwfunc.c $(ASMF)
+diff --git a/src/lib/Makefile.am b/src/lib/Makefile.am
+index 02ee6ee..0e9001f 100644
+--- a/src/lib/Makefile.am
++++ b/src/lib/Makefile.am
+@@ -1,4 +1,4 @@
+-INCLUDES=-I../../include/almost
++INCLUDES=-I$(top_srcdir)/include/almost
+ lib_LIBRARIES=libAlm.a
+ PBDSOURCES = 	pdb/pdbatomline.cpp \
+ 		pdb/pdbauthorline.cpp \

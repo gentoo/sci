@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -22,7 +22,8 @@ RDEPEND="
 	virtual/lapack
 	gtk? ( x11-libs/gtk+:1 )
 	tk? ( dev-lang/tk )"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	virtual/pkgconfig"
 
 S="${WORKDIR}"/${PN}-source-${PV}
 

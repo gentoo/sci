@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,7 @@ EAPI=4
 
 AUTOTOOLS_AUTORECONF=true
 
-inherit alternatives-2 autotools-utils eutils
+inherit alternatives-2 autotools-utils eutils toolchain-funcs
 
 DESCRIPTION="The GNU Scientific Library"
 HOMEPAGE="http://www.gnu.org/software/gsl/"
@@ -26,8 +26,8 @@ DOCS=( AUTHORS BUGS ChangeLog NEWS README THANKS TODO )
 
 src_configure() {
 	if use cblas-external; then
-		export CBLAS_LIBS="$(pkg-config --libs cblas)"
-		export CBLAS_CFLAGS="$(pkg-config --cflags cblas)"
+		export CBLAS_LIBS="$($(tc-getPKG_CONFIG) --libs cblas)"
+		export CBLAS_CFLAGS="$($(tc-getPKG_CONFIG) --cflags cblas)"
 	fi
 	autotools-utils_src_configure
 }

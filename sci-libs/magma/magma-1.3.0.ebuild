@@ -5,7 +5,7 @@
 EAPI=4
 
 FORTRAN_STANDARD="77 90"
-inherit eutils fortran-2 toolchain-funcs versionator multilib
+inherit eutils fortran-2 multilib toolchain-funcs versionator
 
 DESCRIPTION="Matrix Algebra on GPU and Multicore Architectures"
 HOMEPAGE="http://icl.cs.utk.edu/magma/"
@@ -16,7 +16,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="fermi kepler static-libs"
 
-RDEPEND="dev-util/nvidia-cuda-toolkit
+RDEPEND="
+	dev-util/nvidia-cuda-toolkit
 	virtual/cblas
 	virtual/fortran
 	virtual/lapack"
@@ -80,15 +81,15 @@ src_configure() {
 		NVCC = nvcc
 		CC = $(tc-getCXX)
 		FORT = $(tc-getFC)
-		INC = -I${EPREFIX}/opt/cuda/include -DADD_ -DCUBLAS_GFORTRAN
+		INC = -I"${EPREFIX}/opt/cuda/include" -DADD_ -DCUBLAS_GFORTRAN
 		OPTS = ${CFLAGS} -fPIC
 		FOPTS = ${FFLAGS} -fPIC -x f95-cpp-input
 		F77OPTS = ${FFLAGS} -fPIC
 		NVOPTS = -DADD_ --compiler-options '-fPIC ${CFLAGS}' -DUNIX
 		LOADER = $(tc-getFC)
-		LIBBLAS = $(pkg-config --libs cblas)
-		LIBLAPACK = $(pkg-config --libs lapack)
-		CUDADIR = ${EPREFIX}/opt/cuda
+		LIBBLAS = $($(tc-getPKG_CONFIG) --libs cblas)
+		LIBLAPACK = $($(tc-getPKG_CONFIG) --libs lapack)
+		CUDADIR = "${EPREFIX}/opt/cuda"
 		LIBCUDA = -L\$(CUDADIR)/$(get_libdir) -lcublas -lcudart
 		LIB = -pthread -lm -ldl \$(LIBCUDA) \$(LIBBLAS) \$(LIBLAPACK) -lstdc++
 	EOF
@@ -110,10 +111,10 @@ src_compile() {
 	emake -j1 lib
 	LINK=$(tc-getFC) static_to_shared lib/libmagmablas.a -lm -lpthread -ldl \
 		-lcublas -lcudart -L"${EPREFIX}"/opt/cuda/$(get_libdir) -lstdc++ \
-		$(pkg-config --libs cblas) $(pkg-config --libs lapack)
+		$($(tc-getPKG_CONFIG) --libs cblas) $($(tc-getPKG_CONFIG) --libs lapack)
 	static_to_shared lib/libmagma.a -lm -lpthread -ldl -lcublas -lcudart \
 		-L"${EPREFIX}"/opt/cuda/$(get_libdir) -lmagmablas \
-		-Llib $(pkg-config --libs cblas) $(pkg-config --libs lapack)
+		-Llib $($(tc-getPKG_CONFIG) --libs cblas) $($(tc-getPKG_CONFIG) --libs lapack)
 	if use static-libs; then
 		emake cleanall
 		sed 's/-fPIC//g' make.inc
