@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,14 +12,15 @@ inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
 
 # Things that don't work:
 # - tests
-# - can't build without docs (-doc) 
+# - can't build without docs (-doc)
 
 DESCRIPTION="Scientific software package for numerical computations"
-LICENSE="CeCILL-2"
 HOMEPAGE="http://www.scilab.org/"
 SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz"
 
 SLOT="0"
+LICENSE="CeCILL-2"
+KEYWORDS="~amd64 ~x86"
 IUSE="bash-completion debug +doc fftw +gui +matio nls openmp
 	static-libs test tk +umfpack xcos"
 REQUIRED_USE="xcos? ( gui ) doc? ( gui )"
@@ -34,9 +35,8 @@ for l in ${LINGUASLONG}; do
 	IUSE="${IUSE} linguas_${l%_*}"
 done
 
-KEYWORDS="~amd64 ~x86"
-
-CDEPEND="dev-libs/libpcre
+CDEPEND="
+	dev-libs/libpcre
 	dev-libs/libxml2:2
 	sci-libs/hdf5
 	>=sci-libs/arpack-3
@@ -77,9 +77,10 @@ DEPEND="${CDEPEND}
 	debug? ( dev-util/lcov )
 	gui? (
 		>=virtual/jdk-1.5
-		doc? ( app-text/docbook-xsl-stylesheets
-			   dev-java/jlatexmath-fop:1
-			   dev-java/xml-commons-external:1.4 )
+		doc? (
+			app-text/docbook-xsl-stylesheets
+			dev-java/jlatexmath-fop:1
+			dev-java/xml-commons-external:1.4 )
 		xcos? ( dev-lang/ocaml ) )
 	test? (
 		dev-java/junit:4
