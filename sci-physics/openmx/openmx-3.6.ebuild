@@ -6,25 +6,26 @@ EAPI="4"
 
 inherit eutils multilib toolchain-funcs
 
-DESCRIPTION="Open source package for Material eXplorer using DFT, norm-conserving
-pseudopotentials, and pseudo-atomic localized basis functions."
+DESCRIPTION="Material eXplorer using DFT, norm-conserving pseudopotentials, and pseudo-atomic localized basis functions"
 HOMEPAGE="http://www.openmx-square.org/"
-SRC_URI="http://www.openmx-square.org/${PN}${PV}.tar.gz
-		http://www.openmx-square.org/bugfixed/11Nov14/patch${PV}.1.tar.gz"
+SRC_URI="
+	http://www.openmx-square.org/${PN}${PV}.tar.gz
+	http://www.openmx-square.org/bugfixed/11Nov14/patch${PV}.1.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="-debug mpi openmp test"
-S="${WORKDIR}/${PN}${PV}"
 
-RDEPEND="virtual/blas
-		virtual/lapack
-		sci-libs/fftw:3.0[mpi?,openmp?]
-		mpi? ( virtual/mpi )"
+RDEPEND="
+	virtual/blas
+	virtual/lapack
+	sci-libs/fftw:3.0[mpi?,openmp?]
+	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
+S="${WORKDIR}/${PN}${PV}"
 
 pkg_setup() {
 	if use mpi; then
@@ -49,7 +50,6 @@ src_prepare() {
 }
 
 src_configure() {
-	CFLAGS="${CFLAGS:- -O3 -funroll-loops -ffast-math}"
 	local FFTW_FLAVOUR=fftw3
 	if use openmp; then
 	   FFTW_FLAVOUR=fftw3_omp
@@ -61,26 +61,26 @@ src_configure() {
 	else
 	   export CFLAGS="${CFLAGS} -Dnompi"
 	fi
-	CFLAGS="${CFLAGS} $(pkg-config --cflags lapack)"
-	CFLAGS="${CFLAGS} $(pkg-config --cflags ${FFTW_FLAVOUR})"
+	CFLAGS="${CFLAGS} $($(tc-getPKG_CONFIG) --cflags lapack)"
+	CFLAGS="${CFLAGS} $($(tc-getPKG_CONFIG) --cflags ${FFTW_FLAVOUR})"
 	export CFLAGS
 
-	local MX_LIB="$(pkg-config --static --libs lapack)"
-	local MX_LIB="${MX_LIB} $(pkg-config --static --libs ${FFTW_FLAVOUR})"
+	local MX_LIB="$($(tc-getPKG_CONFIG) --static --libs lapack)"
+	local MX_LIB="${MX_LIB} $($(tc-getPKG_CONFIG) --static --libs ${FFTW_FLAVOUR})"
 
-	sed -i -e "s%^CC *=.*$%CC  = ${CC} ${CFLAGS}%" \
+	sed \
+		-e "s%^CC *=.*$%CC  = ${CC} ${CFLAGS}%" \
 		-e "s%^LIB *=.*$%LIB = ${MX_LIB}%" \
-		source/makefile
+		-i source/makefile || die
 }
 
 src_compile() {
-	cd source
-	emake || die "make failed"
+	emake -C source
 }
 
 src_test() {
 	cd work
-	../source/openmx -runtest
+	../source/openmx -runtest || die
 }
 
 src_install() {
