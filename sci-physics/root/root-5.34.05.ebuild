@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.03.ebuild,v 1.1 2012/10/26 15:40:47 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.03.ebuild,v 1.2 2013/01/22 17:18:55 bicatali Exp $
 
 EAPI=4
 
@@ -22,7 +22,7 @@ ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
 PATCH_PV=5.28.00b
 PATCH_PV2=5.32.00
-PATCH_PV3=5.34.01
+PATCH_PV3=5.34.05
 
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
@@ -107,6 +107,7 @@ PDEPEND="htmldoc? ( ~app-doc/root-docs-${PV} )"
 
 REQUIRED_USE="
 	!X? ( !opengl !qt4 )
+	htmldoc? ( doc )
 	mpi? ( math !openmp )
 	openmp? ( math !mpi )"
 
@@ -149,7 +150,7 @@ pkg_setup() {
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-prop-flags.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-nobyte-compile.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV3}-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
