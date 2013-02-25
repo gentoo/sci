@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/openblas
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Feb 2013; Sébastien Fabbro <bicatali@gentoo.org> openblas-9999.ebuild:
+  sci-libs/openblas: Move threads to Libs.private in pc file
 
 *openblas-0.2.5 (12 Dec 2012)
 

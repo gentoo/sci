@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,7 +14,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos ~ppc-macos ~x64-macos"
 fi
 
-inherit eutils toolchain-funcs alternatives-2 multilib ${_SCM}
+inherit eutils toolchain-funcs alternatives-2 multilib fortran-2 ${_SCM}
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
@@ -24,7 +24,7 @@ SLOT="0"
 
 IUSE="+incblas int64 dynamic openmp static-libs threads"
 
-RDEPEND="virtual/fortran"
+RDEPEND=""
 DEPEND="${RDEPEND}"
 
 src_unpack() {
@@ -102,8 +102,8 @@ src_install() {
 		Description: ${DESCRIPTION}
 		Version: ${PV}
 		URL: ${HOMEPAGE}
-		Libs: -L\${libdir} -lopenblas ${threads}
-		Libs.private: -lm
+		Libs: -L\${libdir} -lopenblas
+		Libs.private: -lm ${threads}
 	EOF
 
 	alternatives_for blas ${profname} 0 \
