@@ -180,7 +180,7 @@ atlas_install_pc() {
 		Version: ${PV}
 		URL: ${HOMEPAGE}
 		Libs: -L\${libdir} -l${libname} $@
-		Libs.private: -L\${libdir} -latlas -lm
+		Libs.private: -L\${libdir} -latlas -lm ${PTLIBS}
 		Cflags: -I\${includedir}/${PN}
 		${PCREQ}
 	EOF
@@ -214,7 +214,7 @@ src_install() {
 	# cblas threaded
 	if [[ -e libptcblas.a ]]; then
 		atlas_install_libs libptcblas.a -lm -L. -latlas ${PTLIBS}
-		atlas_install_pc ptcblas atlas-cblas-threads ${PTLIBS}
+		atlas_install_pc ptcblas atlas-cblas-threads
 		alternatives_for cblas atlas-threads 0 \
 			/usr/$(get_libdir)/pkgconfig/cblas.pc atlas-cblas-threads.pc \
 			/usr/include/cblas.h atlas/cblas.h
@@ -229,7 +229,7 @@ src_install() {
 		# clapack threaded
 		if [[ -e libptclapack.a ]]; then
 			atlas_install_libs libptclapack.a -lm -L. -latlas -lptcblas ${PTLIBS}
-			atlas_install_pc ptclapack atlas-clapack-threads ${PTLIBS}
+			atlas_install_pc ptclapack atlas-clapack-threads
 		fi
 	fi
 
@@ -245,7 +245,7 @@ src_install() {
 		# blas threaded
 		if [[ -e libptf77blas.a ]]; then
 			atlas_install_libs libptf77blas.a -lm -L. -latlas ${PTLIBS}
-			atlas_install_pc ptf77blas atlas-blas-threads ${PTLIBS}
+			atlas_install_pc ptf77blas atlas-blas-threads
 			alternatives_for blas atlas-threads 0 \
 				/usr/$(get_libdir)/pkgconfig/blas.pc atlas-blas-threads.pc
 		fi
@@ -262,7 +262,7 @@ src_install() {
 			if [[ -e libptlapack.a ]]; then
 				atlas_install_libs libptlapack.a \
 					-lm -L. -latlas -lptcblas -lptf77blas ${PTLIBS}
-				atlas_install_pc ptlapack atlas-lapack-threads ${PTLIBS}
+				atlas_install_pc ptlapack atlas-lapack-threads
 				alternatives_for lapack atlas-threads 0 \
 					/usr/$(get_libdir)/pkgconfig/lapack.pc atlas-lapack-threads.pc
 			fi
