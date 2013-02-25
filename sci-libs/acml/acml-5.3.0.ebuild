@@ -78,6 +78,7 @@ src_install() {
 			Version: ${PV}
 			URL: ${HOMEPAGE}
 			Libs: -L\${libdir} ${libs}
+			Libs.private: -lm -lrt ${threads}
 			Cflags: -I\${includedir}
 		EOF
 		insinto /usr/${libdir}/pkgconfig
