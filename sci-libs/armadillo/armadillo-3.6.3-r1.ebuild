@@ -6,7 +6,7 @@ EAPI=5
 
 CMAKE_IN_SOURCE_BUILD=1
 
-inherit cmake-utils toolchain-funcs
+inherit cmake-utils toolchain-funcs multilib
 
 DESCRIPTION="Streamlined C++ linear algebra library"
 HOMEPAGE="http://arma.sourceforge.net/"
@@ -19,7 +19,7 @@ IUSE="atlas blas doc examples lapack"
 
 RDEPEND="
 	dev-libs/boost
-	atlas? ( sci-libs/atlas )
+	atlas? ( sci-libs/atlas[lapack] )
 	blas? ( virtual/blas )
 	lapack? ( virtual/lapack )"
 DEPEND="${DEPEND}
@@ -33,7 +33,7 @@ src_prepare() {
 }
 
 src_configure() {
-	local mycmakeargs=()
+	local mycmakeargs=( -DINSTALL_LIB_DIR="${EROOT}/usr/$(get_libdir)" )
 	if use blas; then
 		mycmakeargs+=(
 			-DBLAS_FOUND=ON
@@ -51,7 +51,6 @@ src_configure() {
 		$(tc-getPKG_CONFIG) --exists atlas-cblas-threads && c+=-threads
 		$(tc-getPKG_CONFIG) --exists atlas-lapack-threads && l+=-threads
 		mycmakeargs=(
-			-DARMA_USE_ATLAS=ON
 			-DCBLAS_FOUND=ON
 			-DCLAPACK_FOUND=ON
 			-DATLAS_INCLUDE_DIR="$($(tc-getPKG_CONFIG) --cflags ${c} | sed 's/-I//')"
