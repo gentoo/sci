@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-DEBVER="3.2p1.4-28"
+DEBVER="3.2p1.4-28.1"
 
 DESCRIPTION="The X Window-System-based Visual/Integrated Environment for Workstations - binary package"
 HOMEPAGE="http://physionet.caregroup.harvard.edu/physiotools/xview/"
