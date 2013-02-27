@@ -44,7 +44,7 @@
 -	AC_MSG_ERROR(the fortran compiler ($FC) does not support the Fortran 90 language required for compiling lapack),
 -	AC_MSG_RESULT(yes))
 -fi
-+BUILTLIBS="$(pkg-config --libs lapack) $BUILTLIBS"
++BUILTLIBS="$(${PKG_CONFIG} --libs lapack) $BUILTLIBS"
  
  if test $BUILD_memtailor = yes
  then BUILTLIBS="-lmemtailor $BUILTLIBS"

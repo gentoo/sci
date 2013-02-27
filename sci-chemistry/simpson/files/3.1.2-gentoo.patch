@@ -73,7 +73,7 @@ index 216955d..ba54573 100644
 +
 +# Linux
 +INCLUDES = -I@GENTOO_PORTAGE_EPREFIX@/usr/include/
-+BLASLIBS = `pkg-config --libs cblas lapack`
++BLASLIBS = `$(PKG_CONFIG) --libs cblas lapack`
 +LIBRARIES = -lm ${BLASLIBS} -ltcl
 +
 +# Linux MPI 

@@ -82,6 +82,7 @@ pkg_setup () {
 }
 
 src_prepare() {
+	tc-export PKG_CONFIG
 	# Put updated Normaliz.m2 in place
 	cp "${WORKDIR}/Normaliz2.8/Macaulay2/Normaliz.m2" \
 		"${S}/Macaulay2/packages" || die
