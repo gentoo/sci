@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils prefix
+inherit eutils prefix toolchain-funcs
 
 DESCRIPTION="General-purpose software package for simulation virtually all kinds of solid-state NMR experiments"
 HOMEPAGE="http://bionmr.chem.au.dk/bionmr/software/index.php"
@@ -28,6 +28,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}"/${PN}-source-${PV}
 
 src_prepare() {
+	tc-export PKG_CONFIG
 	edos2unix Makefile
 	epatch "${FILESDIR}"/${PV}-gentoo.patch
 	epatch "${FILESDIR}"/${PV}-type.patch
