@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/perfmon2/${PN}4/${P}.tar.gz"
 
 LICENSE="GPL-2 MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="static-libs"
 
 DEPEND=""
