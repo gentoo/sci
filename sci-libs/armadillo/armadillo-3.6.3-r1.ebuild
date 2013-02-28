@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/arma/${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="atlas blas doc examples lapack"
 
 RDEPEND="
@@ -33,7 +33,7 @@ src_prepare() {
 }
 
 src_configure() {
-	local mycmakeargs=( -DINSTALL_LIB_DIR="${EROOT}/usr/$(get_libdir)" )
+	local mycmakeargs=( -DINSTALL_LIB_DIR="${EPREFIX}/usr/$(get_libdir)" )
 	if use blas; then
 		mycmakeargs+=(
 			-DBLAS_FOUND=ON
