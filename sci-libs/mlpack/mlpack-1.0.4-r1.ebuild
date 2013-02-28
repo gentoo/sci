@@ -13,7 +13,7 @@ SRC_URI="http://www.mlpack.org/files/${P}.tar.gz"
 LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="doc"
+IUSE="debug doc"
 
 RDEPEND="
 	dev-libs/boost
@@ -26,9 +26,18 @@ DEPEND="${DEPEND}
 DOCS=( HISTORY.txt )
 
 src_prepare() {
+	epatch "${FILESDIR}"/${P}-libdir.patch
 	sed -i \
 		-e "s:share/doc/mlpack:share/doc/${PF}:" \
 		CMakeLists.txt || die
+}
+
+src_configure() {
+	local mycmakeargs=(
+		$(cmake-utils_use debug DEBUG)
+		$(cmake-utils_use debug PROFILE)
+	)
+	cmake-utils_src_configure
 }
 
 src_compile() {
