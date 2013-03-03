@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci</herd>
-	<maintainer>
-		<email>xarthisius@gentoo.org</email>
-		<name>Kacper Kowalik</name>
-	</maintainer>
-	<longdescription>
+  <herd>sci</herd>
+  <maintainer>
+    <email>xarthisius@gentoo.org</email>
+    <name>Kacper Kowalik</name>
+  </maintainer>
+  <longdescription>
 		FortranCL is an OpenCL interface for Fortran 90. It allows programmers to call
 		the OpenCL parallel programming framework directly from Fortran, so developers
 		can accelerate their Fortran code using graphical processing units (GPU) and
