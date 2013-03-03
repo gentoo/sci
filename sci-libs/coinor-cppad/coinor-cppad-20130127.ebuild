@@ -27,9 +27,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MYP}"
 
 src_configure() {
-	local myeconfargs=(
-		$(use doc Documentation)
-	)
+	local myeconfargs=( $(use doc Documentation) )
 	autotools-utils_src_configure
 }
 
@@ -40,7 +38,6 @@ src_compile() {
 	fi
 }
 
-
 src_test() {
 	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null || die
 	emake check test
@@ -48,7 +45,7 @@ src_test() {
 }
 
 src_install() {
-	use doc && HTML_DOC=("${AUTOTOOLS_BUILD_DIR}/doxydocs/html/")
+	use doc && HTML_DOC=( "${AUTOTOOLS_BUILD_DIR}"/doxydocs/html/. )
 	autotools-utils_src_install
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
