@@ -14,7 +14,7 @@ HOMEPAGE="http://www.smrtcommunity.com/SMRT-Analysis/Algorithms/BLASR"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/PacificBiosciences/blasr.git"
 
-LICENSE="as-is"
+LICENSE="blasr"
 SLOT="0"
 IUSE=""
 KEYWORDS=""
