@@ -111,7 +111,7 @@ src_configure() {
 		$(use_enable opencl)
 		$(use_with etsf_io etsf-io)
 		"$(use etsf_io && echo "--with-netcdf-libs=$($(tc-getPKG_CONFIG) --libs netcdf) ${netcdff_libs}")"
-		FCFLAGS+=" ${openmp} -I${modules}"
+		FCFLAGS="${FCFLAGS} ${openmp} -I${modules}"
 		LD="$(tc-getLD)"
 		CPP="$(tc-getCPP)"
 		)

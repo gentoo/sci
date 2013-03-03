@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils fortran-2 toolchain-funcs
+inherit eutils fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="A suite for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"

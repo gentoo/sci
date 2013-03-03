@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -24,7 +24,7 @@ KEYWORDS=""
 
 DEPEND="
 	dev-libs/boost
-	x11-libs/qt-qt3support"
+	dev-qt/qt3support"
 RDEPEND="${DEPEND}
 		dev-perl/DBI
 		sci-biology/mummer"

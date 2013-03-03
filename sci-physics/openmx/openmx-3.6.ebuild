@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=5
 
 inherit eutils multilib toolchain-funcs
 
-DESCRIPTION="Material eXplorer using DFT, norm-conserving pseudopotentials, and pseudo-atomic localized basis functions"
+DESCRIPTION="Material eXplorer using DFT, NC pseudopotentials, and pseudo-atomic localized basis functions"
 HOMEPAGE="http://www.openmx-square.org/"
 SRC_URI="
 	http://www.openmx-square.org/${PN}${PV}.tar.gz

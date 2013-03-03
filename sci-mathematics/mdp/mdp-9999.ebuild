@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -22,10 +22,8 @@ RDEPEND="|| ( >=dev-python/numpy-1.1 >=sci-libs/scipy-0.5.2 )"
 S="${WORKDIR}/${MY_P}"
 
 src_test() {
-        testing() {
-                PYTHONPATH="build-${PYTHON_ABI}/src" "$(PYTHON)" -c "import mdp;mdp.test()"
-        }
-        python_execute_function testing
+	testing() {
+		PYTHONPATH="build-${PYTHON_ABI}/src" "$(PYTHON)" -c "import mdp;mdp.test()"
+	}
+	python_execute_function testing
 }
-
-

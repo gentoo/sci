@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,11 +20,11 @@ else
 	KEYWORDS=""
 fi
 
-LICENSE=""
+LICENSE="GPL-2"
 SLOT="0"
 IUSE=""
 
-DEPEND="dev-python/networkx
-		dev-python/pygraphviz"
+DEPEND="
+	dev-python/networkx
+	dev-python/pygraphviz"
 RDEPEND="${DEPEND}"
-

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-geosciences</herd>
-<longdescription lang='en'>
+  <herd>sci-geosciences</herd>
+  <longdescription lang="en">
   Quantum GIS (QGIS) is a user friendly Open Source Geographic
   Information System (GIS). QGIS supports vector, raster, and database
   formats. QGIS lets you browse and create map data on your
@@ -10,8 +10,7 @@
   ShapeFile, geotiff). QGIS supports plugins to do things like display
   tracks from your GPS. 
 </longdescription>
-<use>
-  <flag name="grass">Add support for <pkg>sci-geosciences/grass</pkg></flag>
-</use>
+  <use>
+    <flag name="grass">Add support for <pkg>sci-geosciences/grass</pkg></flag>
+  </use>
 </pkgmetadata>
-

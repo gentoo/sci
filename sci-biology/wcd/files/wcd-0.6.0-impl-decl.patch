@@ -1,0 +1,15 @@
+ src/auxcluster.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/auxcluster.c b/src/auxcluster.c
+index ac00a0f..e98f19f 100644
+--- a/src/auxcluster.c
++++ b/src/auxcluster.c
+@@ -2,6 +2,7 @@
+ 
+ #include "common.h"
+ #include "strings.h"
++#include <string.h>
+ #include "assert.h"
+ 
+ extern SeqInfoPtr seqInfo;

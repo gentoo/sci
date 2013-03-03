@@ -2,6 +2,10 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> root-5.34.05.ebuild,
+  root-9999.ebuild, metadata.xml:
+  Update to new qt deps names
+
 *root-5.34.05 (23 Feb 2013)
 
   23 Feb 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.34.03.ebuild,

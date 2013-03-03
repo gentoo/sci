@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -26,21 +26,21 @@ RDEPEND="
 	sci-libs/hdf5[mpi=]
 	mpi? ( virtual/mpi[cxx,romio] )
 	gui? (
-		x11-libs/qt-gui:4
-		x11-libs/qt-qt3support:4
-		x11-libs/qt-opengl:4
-		|| ( >=x11-libs/qt-assistant-4.7.0:4[compat] <x11-libs/qt-assistant-4.7.0:4 )
-		x11-libs/qt-sql:4
-		webkit? ( x11-libs/qt-webkit:4 ) )
+		dev-qt/qtgui:4
+		dev-qt/qt3support:4
+		dev-qt/qtopengl:4
+		|| ( >=dev-qt/qthelp-4.7.0:4[compat] <dev-qt/qthelp-4.7.0:4 )
+		dev-qt/qtsql:4
+		webkit? ( dev-qt/qtwebkit:4 ) )
 	adaptive? (
-		x11-libs/qt-gui:4
-		x11-libs/qt-qt3support:4
-		x11-libs/qt-opengl:4
-		x11-libs/qt-assistant:4
-		webkit? ( x11-libs/qt-webkit:4 ) )
+		dev-qt/qtgui:4
+		dev-qt/qt3support:4
+		dev-qt/qtopengl:4
+		dev-qt/qthelp:4
+		webkit? ( dev-qt/qtwebkit:4 ) )
 	mysql? ( virtual/mysql )
-	coprocessing? ( plugins? ( x11-libs/qt-gui:4 ) )
-	python? ( 
+	coprocessing? ( plugins? ( dev-qt/qtgui:4 ) )
+	python? (
 		dev-python/sip
 		dev-python/PyQt4
 	)

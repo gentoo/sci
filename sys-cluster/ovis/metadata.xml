@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci</herd>
-	<maintainer>
-		<email>andyspiros@gmail.com</email>
-	</maintainer>
-	<longdescription lang="en">
+  <herd>sci</herd>
+  <maintainer>
+    <email>andyspiros@gmail.com</email>
+  </maintainer>
+  <longdescription lang="en">
 		The OVIS project addresses scalable, real-time statistical analysis of
 		very large data sets. It contains tools for intelligent, real-time
 		monitoring of large	computational clusters and lossless, deterministic

@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/ncbi-tools++/ncbi-tools++-0.2010.06.15-r1.ebuild,v 1.3 2012/11/05 11:22:49 jlec Exp $
 
@@ -12,7 +12,6 @@ MY_PV="9_0_0"
 MY_P="ncbi_cxx--${MY_PV}"
 #ftp://ftp.ncbi.nlm.nih.gov/toolbox/ncbi_tools++/ARCHIVE/9_0_0/ncbi_cxx--9_0_0.tar.gz
 
-
 DESCRIPTION="NCBI C++ Toolkit, including NCBI BLAST+"
 HOMEPAGE="http://www.ncbi.nlm.nih.gov/books/bv.fcgi?rid=toolkit"
 SRC_URI="
@@ -24,7 +23,7 @@ SLOT="0"
 IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
-	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif 
+	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -89,7 +88,6 @@ src_prepare() {
 #		"${FILESDIR}"/make_install.patch
 
 #		"${FILESDIR}"/${PN}-${PV#0.}-disable_test_compress.patch
-
 
 #		"${FILESDIR}"/${PN}-${PV#0.}-gcc46.patch \
 #		"${FILESDIR}"/${PN}-${PV#0.}-gcc47.patch \
@@ -243,7 +241,7 @@ src_configure() {
 	use test ||	myconf+=( --with-projects="${FILESDIR}"/disable-testsuite-compilation.txt )
 
 	# TODO
-    # copy optimization -O options from CXXFLAGS to DEF_FAST_FLAGS and pass that also to configure
+	# copy optimization -O options from CXXFLAGS to DEF_FAST_FLAGS and pass that also to configure
 	# otherwise your -O2 will be dropped in some subdirectories and repalced by e.g. -O9
 
 	einfo "bash ./src/build-system/configure --srcdir="${S}" --prefix="${EPREFIX}"/usr --libdir=/usr/lib64 ${myconf[@]}"

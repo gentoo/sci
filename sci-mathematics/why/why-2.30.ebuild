@@ -1,65 +1,73 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
-inherit autotools eutils
+AUTOTOOLS_AUTORECONF=true
 
-DESCRIPTION="Why is a software verification platform."
+inherit autotools-utils
+
+DESCRIPTION="Software verification platform"
 HOMEPAGE="http://why.lri.fr/"
 SRC_URI="http://why.lri.fr/download/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="apron coq doc examples gappa jessie gtk pff"
+KEYWORDS="~amd64 ~x86"
+IUSE="apron coq doc examples gappa gtk jessie pff"
 
-DEPEND=">=dev-lang/ocaml-3.09
-		>=dev-ml/ocamlgraph-1.2
-		gtk? ( >=dev-ml/lablgtk-2.14 )
-		apron? ( sci-mathematics/apron )
-		coq? ( sci-mathematics/coq )
-		gappa? ( sci-mathematics/gappalib-coq )
-		pff? ( sci-mathematics/pff )
-		jessie? ( >=sci-mathematics/frama-c-20100401 )"
+DEPEND="
+	>=dev-lang/ocaml-3.09
+	>=dev-ml/ocamlgraph-1.2
+	gtk? ( >=dev-ml/lablgtk-2.14 )
+	apron? ( sci-mathematics/apron )
+	coq? ( sci-mathematics/coq )
+	gappa? ( sci-mathematics/gappalib-coq )
+	pff? ( sci-mathematics/pff )
+	jessie? ( >=sci-mathematics/frama-c-20100401 )"
 RDEPEND="${DEPEND}"
 
+PATCHES=( "${FILESDIR}"/${P}.patch )
+
+MAKEOPTS+=" -j1"
+AUTOTOOLS_IN_SOURCE_BUILD=1
+
 src_prepare() {
-	sed -i Makefile.in \
+	sed \
 		-e "s/DESTDIR =.*//g" \
-		-e "s/@COQLIB@/\$(DESTDIR)\/@COQLIB@/g"
+		-e "s/@COQLIB@/\$(DESTDIR)\/@COQLIB@/g" \
+		-i Makefile.in || die
 
 	#to build with apron-0.9.10
-	sed -i configure.in \
+	sed \
 		-e "s/pvs/sri-pvs/g" \
 		-e "s/oct_caml/octMPQ_caml/g" \
 		-e "s/box_caml/boxMPQ_caml/g" \
-		-e "s/polka_caml/polkaMPQ_caml/g"
+		-e "s/polka_caml/polkaMPQ_caml/g" \
+		-i configure.in
 
-	epatch "${FILESDIR}"/${P}.patch
-	eautoreconf
+	autotools-utils_src_prepare
 }
 
 src_configure() {
-	econf $(use_enable apron) PATH="/usr/bin:$PATH" || die "econf failed"
+	local myeconfargs=(
+		$(use_enable apron)
+		PATH="/usr/bin:$PATH"
+	)
+	autotools-utils_src_configure
 }
 
 src_compile(){
-	emake -j1 DESTDIR="/" || die "emake failed"
+	autotools-utils_src_compile DESTDIR="/"
 }
 
 src_install(){
-	DESTDIR="${D}" emake install || die "emake install failed"
-	dodoc CHANGES README Version
+	use doc && DOCS=( doc/manual.ps )
+	autotools-utils_src_install
+
 	doman doc/why.1
 
-	if use doc; then
-		dodoc doc/manual.ps
-	fi
-
-	if use examples; then
-		insinto /usr/share/doc/${PF}
-		doins -r examples examples-c
-	fi
+	insinto /usr/share/doc/${PF}
+	use examples && doins -r examples examples-c
 }

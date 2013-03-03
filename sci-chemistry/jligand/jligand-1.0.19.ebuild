@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -19,7 +19,7 @@ IUSE=""
 
 RDEPEND="
 	>=virtual/jre-1.5
-	>=sci-chemistry/refmac-5.6.77
+	>=sci-chemistry/refmac-5.6
 	>=sci-libs/monomer-db-5.16"
 DEPEND=">=virtual/jdk-1.5"
 
