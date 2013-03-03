@@ -1,10 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit eutils flag-o-matic
+AUTOTOOLS_AUTORECONF=true
+
+inherit autotools-utils flag-o-matic multilib
 
 DESCRIPTION="Sequence clustering by either of: d2 function, edit distance, common word heuristics"
 HOMEPAGE="http://code.google.com/p/wcdest/"
@@ -18,35 +20,26 @@ IUSE="doc mpi threads"
 DEPEND="mpi? ( sys-cluster/mpich2 )"
 RDEPEND=""
 
-S="${WORKDIR}"/wcd-0.6.0
+PATCHES=(
+	"${FILESDIR}"/${P}-ldflags.patch
+	"${FILESDIR}"/${P}-impl-decl.patch
+	)
 
 src_configure(){
-	local myconf=""
-	if use mpi; then
-		myconf="${myconf} --enable-mpi"
-	fi
+	local myeconfargs=()
+	use mpi && myeconfargs+=( --enable-mpi )
 
-	if use threads; then
-		myconf="${myconf} --enable-pthreads"
-	fi
+	use threads && myeconfargs+=( --enable-pthreads )
 
-	econf ${myconf}
+	autotools-utils_src_configure
 }
 
 src_compile() {
-	emake
-	if use doc; then
-		emake pdf info html
-	fi
+	autotools-utils_src_compile
+	use doc && autotools-utils_src_compile pdf info html
 }
 
 src_install() {
-	local f
-	emake PREFIX=/usr DESTDIR="${D}" LIBDIR="${D}"usr/$(get_libdir) install
-
-	if use doc; then
-		for f in README doc/wcd.html doc/wcd.pdf doc/wcd.texi; do
-			dodoc ${f}
-		done
-	fi
+	use doc && HTML_DOCS=( doc/wcd.html doc/wcd.pdf doc/wcd.texi )
+	autotools-utils_src_install PREFIX=/usr LIBDIR="${D}"usr/$(get_libdir)
 }
