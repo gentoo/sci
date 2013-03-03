@@ -2,6 +2,10 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ambertools/ChangeLog,v 1.2 2011/08/02 14:42:37 alexxy Exp $
 
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> -ambertools-1.5-r2.ebuild,
+  -ambertools-1.5-r3.ebuild, ambertools-12.ebuild:
+  Add missing multilib.eclass
+
   22 Feb 2013; Justin Lecher <jlec@gentoo.org> ambertools-1.5-r2.ebuild,
   ambertools-1.5-r3.ebuild, ambertools-1.5-r4.ebuild, ambertools-12.ebuild,
   metadata.xml:
