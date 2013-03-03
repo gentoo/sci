@@ -28,7 +28,7 @@ RDEPEND="
 	hwloc? ( sys-apps/hwloc )
 	netcdf? ( sci-libs/netcdf )
 	qd? ( sci-libs/qd )
-	qt4? ( >=x11-libs/qt-gui-4.5 )
+	qt4? ( >=dev-qt/qtgui-4.5 )
 	scotch? ( sys-libs/scotch[mpi] )
 	taucs? ( sci-libs/taucs )
 	tbb? ( dev-cpp/tbb )
