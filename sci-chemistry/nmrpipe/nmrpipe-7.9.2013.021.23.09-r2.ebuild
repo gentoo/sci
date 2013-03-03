@@ -154,10 +154,10 @@ src_prepare() {
 
 	if use prefix; then
 		sed \
-			-e "s: sh : ${EPREFIX}/bin/sh :g" \
-			-e "s: csh : ${EPREFIX}/bin/csh :g" \
-			-e "s: bash : ${EPREFIX}/bin/bash :g" \
-			-e "s:appTerm -e:appTerm -e ${EPREFIX}/bin/csh:g" \
+			-e "s: sh : \"${EPREFIX}\"/bin/sh :g" \
+			-e "s: csh : \"${EPREFIX}\"/bin/csh :g" \
+			-e "s: bash : \"${EPREFIX}\"/bin/bash :g" \
+			-e "s:appTerm -e:appTerm -e \"${EPREFIX}\"/bin/csh:g" \
 			-i com/* || die
 
 		ebegin "Setting RPATH in binaries"
