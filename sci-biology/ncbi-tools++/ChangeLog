@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Document USE
+
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> ncbi-tools++-9.0.0.ebuild,
   ncbi-tools++-9.0.0-r1.ebuild:
   Clean whitespace errors
