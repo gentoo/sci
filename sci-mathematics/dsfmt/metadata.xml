@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<longdescription lang="en">
+  <herd>sci-mathematics</herd>
+  <longdescription lang="en">
   The purpose of Double precision SIMD-oriented Fast Mersenne Twister (dSFMT)
   is to speed up the generation by avoiding the expensive conversion
   of integer to double (floating point). dSFMT directly generates
