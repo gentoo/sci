@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -22,9 +22,9 @@ RDEPEND="opengl?  ( virtual/opengl )
 		 >=sci-misc/salome-kernel-${PV}
 		 >=sci-misc/salome-gui-${PV}
 		 >=sci-misc/salome-component-${PV}
-		 >=x11-libs/qt-core-4.5.2
-		 >=x11-libs/qt-gui-4.5.2
-		 >=x11-libs/qt-opengl-4.5.2
+		 >=dev-qt/qtcore-4.5.2
+		 >=dev-qt/qtgui-4.5.2
+		 >=dev-qt/qtopengl-4.5.2
 		 >=dev-libs/boost-1.40.0
 		 >=sci-libs/opencascade-6.3
 		 >=sci-libs/hdf5-1.6.4
