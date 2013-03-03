@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,9 +16,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE="debug doc"
 
 RDEPEND="
-	x11-libs/qt-gui[qt3support]
-	x11-libs/qt-assistant:4
-	x11-libs/qt-qt3support:4
+	dev-qt/qtgui[qt3support]
+	dev-qt/qthelp:4
+	dev-qt/qt3support:4
 	dev-cpp/muParser
 	"
 
