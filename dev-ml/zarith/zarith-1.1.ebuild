@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 DESCRIPTION="The Zarith library implements arithmetic and logical operations over arbitrary-precision integers"
 HOMEPAGE="http://forge.ocamlcore.org/projects/zarith"
@@ -13,28 +13,29 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
 IUSE="+ocamlopt"
 
-OCAMLDIR=`ocamlc -where`
-
-DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
-		dev-libs/gmp"
+DEPEND="
+	>=dev-lang/ocaml-3.10.2[ocamlopt?]
+	dev-libs/gmp"
 RDEPEND="${DEPEND}"
 
+pkg_setup() {
+	OCAMLDIR=$(ocamlc -where)
+}
+
 src_prepare(){
-	sed -i ${S}/project.mak -e "s:(OCAMLFIND) install:(OCAMLFIND) install -ldconf \$(INSTALLDIR)/ld.conf:g"
+	sed \
+		-e "s:(OCAMLFIND) install:(OCAMLFIND) install -ldconf \$(INSTALLDIR)/ld.conf:g" \
+		-i "${S}"/project.mak || die
 }
 
 src_configure(){
-    ./configure -installdir "${D}${OCAMLDIR}" || die "configure failed"
-}
-
-src_compile(){
-	emake || die "emake failed"
+	./configure -installdir "${D}${OCAMLDIR}" || die
 }
 
 src_install(){
-	mkdir -p "${D}${OCAMLDIR}"
-	cp "${OCAMLDIR}/ld.conf" "${D}${OCAMLDIR}/ld.conf"
-	emake install || die "emake install failed"
-	rm "${D}${OCAMLDIR}/ld.conf"
+	dodir "${OCAMLDIR}"
+	cp "${OCAMLDIR}/ld.conf" "${D}${OCAMLDIR}/ld.conf" || die
+	emake install
+	rm "${D}${OCAMLDIR}/ld.conf" || die
 	dodoc Changes README
 }
