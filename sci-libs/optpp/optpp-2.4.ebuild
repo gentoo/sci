@@ -4,16 +4,14 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_5,2_6,2_7,3_1,3_2,3_3} )
-
-inherit autotools-utils toolchain-funcs python-single-r1
+inherit autotools-utils toolchain-funcs
 
 DESCRIPTION="C++ library for non-linear optimization"
 HOMEPAGE="https://software.sandia.gov/opt++/"
 SRC_URI="${HOMEPAGE}/downloads/${P}.tar.gz"
 
 LICENSE="LGPL-2"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 SLOT="0"
 IUSE="doc mpi static-libs"
 
@@ -24,7 +22,7 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_configure() {
-	myeconfargs+=(
+	local myeconfargs=(
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
 		$(use_enable mpi)
 	)
