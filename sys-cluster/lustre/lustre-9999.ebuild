@@ -40,6 +40,7 @@ pkg_setup() {
 }
 
 src_prepare() {
+	epatch ${PATCHES[@]}
 	# disable Werror
 	sed -e 's:-Werror::g' \
 		-i libcfs/autoconf/lustre-libcfs.m4 \
