@@ -1,0 +1,121 @@
+From e095235edfe1339ccda0a61059ee4d3a2016e4f6 Mon Sep 17 00:00:00 2001
+From: Peng Tao <tao.peng@emc.com>
+Date: Tue, 26 Feb 2013 17:09:15 +0800
+Subject: [PATCH 3/5] LU-2850 kernel: 3.7 uneports sock_map_fd
+
+And exports sock_alloc_file. We should use sock_alloc_file instead.
+Besides, there is no need to mess with fd table.
+
+Signed-off-by: Peng Tao <tao.peng@emc.com>
+Change-Id: Iec3c8bc0d8fcb9d8f821dd9f0a82445e1e1096ff
+---
+ libcfs/libcfs/linux/linux-tcpip.c | 39 ++++++++++++++++++++++++++++++++++++++-
+ lustre/autoconf/lustre-core.m4    | 20 ++++++++++++++++++++
+ 2 files changed, 58 insertions(+), 1 deletion(-)
+
+diff --git a/libcfs/libcfs/linux/linux-tcpip.c b/libcfs/libcfs/linux/linux-tcpip.c
+index cd07648..ce93aa8 100644
+--- a/libcfs/libcfs/linux/linux-tcpip.c
++++ b/libcfs/libcfs/linux/linux-tcpip.c
+@@ -41,6 +41,40 @@
+ #include <linux/if.h>
+ #include <linux/in.h>
+ #include <linux/file.h>
++#ifdef HAVE_SOCK_ALLOC_FILE
++int
++libcfs_sock_ioctl(int cmd, unsigned long arg)
++{
++	mm_segment_t   oldmm = get_fs();
++	struct socket  *sock;
++	int             rc;
++	struct file     *sock_filp;
++
++	rc = sock_create(PF_INET, SOCK_STREAM, 0, &sock);
++	if (rc != 0) {
++		CERROR("Can't create socket: %d\n", rc);
++		return rc;
++	}
++
++	sock_filp = sock_alloc_file(sock, 0, NULL);
++	if (IS_ERR(sock_filp)) {
++		rc = PTR_ERR(sock_filp);
++		sock_release(sock);
++		goto out;
++	}
++	get_file(sock_filp);
++
++	set_fs(KERNEL_DS);
++	if (sock_filp->f_op->unlocked_ioctl)
++		rc = sock_filp->f_op->unlocked_ioctl(sock_filp, cmd, arg);
++	set_fs(oldmm);
++
++	fput(sock_filp);
++out:
++	return rc;
++}
++#else /* !HAVE_SOCK_ALLOC_FILE */
++
+ /* For sys_open & sys_close */
+ #include <linux/syscalls.h>
+ 
+@@ -61,8 +95,10 @@ libcfs_sock_ioctl(int cmd, unsigned long arg)
+ 
+ #ifdef HAVE_SOCK_MAP_FD_2ARG
+         fd = sock_map_fd(sock,0);
+-#else
++#elif defined(HAVE_SOCK_MAP_FD)
+         fd = sock_map_fd(sock);
++#else
++#error "Cannot find either sock_map_fd nor sock_alloc_file!"
+ #endif
+         if (fd < 0) {
+                 rc = fd;
+@@ -88,6 +124,7 @@ libcfs_sock_ioctl(int cmd, unsigned long arg)
+  out:
+         return rc;
+ }
++#endif /* !HAVE_SOCK_ALLOC_FILE */
+ 
+ int
+ libcfs_ipif_query (char *name, int *up, __u32 *ip, __u32 *mask)
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index f424f87..3d62a4b 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -2235,6 +2235,24 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
++# 3.7 unexports sock_map_fd() and exports sock_alloc_file
++# see upstream commit 56b31d1
++#
++AC_DEFUN([LC_HAVE_SOCK_MAP_FD],
++	[LB_CHECK_SYMBOL_EXPORT([sock_map_fd],
++	[net/socket.c],
++        [AC_DEFINE(HAVE_SOCK_MAP_FD, 1,
++		   [sock_map_fd is exported by the kernel])])
++])
++
++AC_DEFUN([LC_HAVE_SOCK_ALLOC_FILE],
++	[LB_CHECK_SYMBOL_EXPORT([sock_alloc_file],
++	[net/socket.c],
++        [AC_DEFINE(HAVE_SOCK_ALLOC_FILE, 1,
++		   [sock_alloc_file is exported by the kernel])])
++])
++
++#
+ # LC_PROG_LINUX
+ #
+ # Lustre linux kernel checks
+@@ -2414,6 +2432,8 @@ AC_DEFUN([LC_PROG_LINUX],
+ 
+ 	 # 3.7
+ 	 LC_HAVE_POSIX_ACL_NAMESPACE
++	 LC_HAVE_SOCK_MAP_FD
++	 LC_HAVE_SOCK_ALLOC_FILE
+ 
+ 	 #
+ 	 if test x$enable_server = xyes ; then
+-- 
+1.8.1.5
+
