@@ -18,7 +18,6 @@ inherit bash-completion-r1 cmake-utils eutils git-2 multilib toolchain-funcs
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
-SRC_URI="test? ( ftp://ftp.gromacs.org/pub/tests/gmxtest-${TEST_PV}.tgz )"
 
 LICENSE="GPL-2"
 SLOT="0/${PV}"

@@ -4,10 +4,12 @@
 
 EAPI=5
 
-TEST_PV="4.6"
-MANUAL_PV="4.6"
+TEST_PV="4.6.1"
+MANUAL_PV="4.6.1"
 
-inherit bash-completion-r1 cmake-utils cuda eutils multilib toolchain-funcs
+CMAKE_MAKEFILE_GENERATOR="ninja"
+
+inherit bash-completion-r1 cmake-utils cuda eutils multilib readme.gentoo toolchain-funcs
 
 if [[ $PV = *9999* ]]; then
 	EGIT_REPO_URI="git://git.gromacs.org/gromacs.git
@@ -16,10 +18,16 @@ if [[ $PV = *9999* ]]; then
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-4-6"
 	inherit git-2
+	LIVE_DEPEND="doc? (
+		dev-texlive/texlive-latex
+		media-gfx/imagemagick
+		sys-apps/coreutils
+	)"
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
 		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf -> ${PN}-manual-${MANUAL_PV}.pdf )
 		test? ( http://${PN}.googlecode.com/files/regressiontests-${TEST_PV}.tar.gz )"
+	LIVE_DEPEND=""
 fi
 
 ACCE_IUSE="sse2 sse4_1 avx128fma avx256"
@@ -32,7 +40,7 @@ HOMEPAGE="http://www.gromacs.org/"
 #        base,    vmd plugins, fftpack from numpy,  blas/lapck from netlib,        memtestG80 library,  mpi_thread lib
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
 SLOT="0/${PV}"
-KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
+KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 IUSE="X blas cuda doc -double-precision +fftw gsl lapack mkl mpi +offensive openmm openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
@@ -54,11 +62,7 @@ CDEPEND="
 	)"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
-	doc? (
-		dev-texlive/texlive-latex
-		media-gfx/imagemagick
-		sys-apps/coreutils
-	)"
+	${LIVE_DEPEND}"
 RDEPEND="${CDEPEND}"
 
 REQUIRED_USE="
@@ -68,7 +72,7 @@ REQUIRED_USE="
 	mkl? ( !blas !fftw !lapack )
 	!openmm" #broken, but https://gerrit.gromacs.org/#/c/2087/
 
-DOCS=( AUTHORS INSTALL.cmake README )
+DOCS=( AUTHORS README )
 HTML_DOCS=( "${ED}"/usr/share/gromacs/html/ )
 
 pkg_pretend() {
@@ -101,8 +105,7 @@ src_prepare() {
 	#notes/todos
 	# -on apple: there is framework support
 
-	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
-	epatch_user
+	cmake-utils_src_prepare
 
 	use cuda && cuda_src_prepare
 
@@ -117,9 +120,7 @@ src_prepare() {
 		done
 	fi
 
-	if use openmm; then
-		sed -i '/option.*GMX_OPENMM/s/^#//' src/contrib/CMakeLists.txt || die
-	fi
+	DOC_CONTENTS="Gromacs can use sci-chemistry/vmd to read additional file formats"
 }
 
 src_configure() {
@@ -190,6 +191,7 @@ src_configure() {
 			einfo "Configuring for openmm build"
 			mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 				-DGMX_THREAD_MPI=OFF -DGMX_GPU=OFF -DGMX_OPENMM=ON
+				-DOpenMM_PLUGIN_DIR="${EPREFIX}/usr/$(get_libdir)/plugins"
 				-DGMX_BINARY_SUFFIX="_openmm" -DGMX_LIBS_SUFFIX="_openmm" )
 			BUILD_DIR="${WORKDIR}/${P}_openmm" \
 				OPENMM_ROOT_DIR="${EPREFIX}/usr" cmake-utils_src_configure
@@ -258,6 +260,8 @@ src_install() {
 	rm -rf "${ED}"usr/share/gromacs/html
 	rm -f "${ED}"usr/bin/g_options*
 	rm -f "${ED}"usr/bin/GMXRC*
+
+	readme.gentoo_create_doc
 }
 
 pkg_postinst() {
@@ -271,5 +275,5 @@ pkg_postinst() {
 		einfo  "For more Gromacs cool quotes (gcq) add g_luck to your .bashrc"
 	fi
 	einfo
-	elog  "Gromacs can use sci-chemistry/vmd to read additional file formats"
+	readme.gentoo_print_elog
 }
