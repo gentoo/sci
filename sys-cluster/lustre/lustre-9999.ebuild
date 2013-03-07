@@ -24,7 +24,7 @@ RDEPEND="${DEPEND}"
 
 BUILD_PARAMS="-C ${KV_DIR} SUBDIRS=${S}"
 
-PATHCES=(
+PATCHES=(
 	"${FILESDIR}/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch"
 	"${FILESDIR}/0002-LU-2850-kernel-3.7-kernel-posix-acl-needs-userns.patch"
 	"${FILESDIR}/0003-LU-2850-kernel-3.7-uneports-sock_map_fd.patch"

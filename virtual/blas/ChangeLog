@@ -3,7 +3,7 @@
 # $Header: /var/cvsroot/gentoo-x86/virtual/blas/ChangeLog,v 1.3 2010/01/11 10:55:38 ulm Exp $
 
   06 Feb 2013; Justin Lecher <jlec@gentoo.org> blas-2.1.ebuild, metadata.xml:
-  Rise eigen version in deps
+  Raise eigen version in deps
 
 *blas-2.1 (07 Sep 2011)
 
