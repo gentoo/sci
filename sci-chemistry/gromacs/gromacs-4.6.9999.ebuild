@@ -20,6 +20,7 @@ if [[ $PV = *9999* ]]; then
 	inherit git-2
 	LIVE_DEPEND="doc? (
 		dev-texlive/texlive-latex
+		dev-texlive/texlive-latexextra
 		media-gfx/imagemagick
 		sys-apps/coreutils
 	)"
@@ -242,7 +243,10 @@ src_install() {
 			mycmakeargs=( -DGMXBIN="${ED}"/usr/bin -DGMXSRC="${WORKDIR}/${P}" )
 			BUILD_DIR="${WORKDIR}"/manual_build \
 				CMAKE_USE_DIR="${WORKDIR}/manual" cmake-utils_src_configure
+			[[ ${CHOST} = *-darwin* ]] && \
+				export DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}${DYLD_LIBRARY_PATH:+:}${ED}/usr/$(get_libdir)"
 			BUILD_DIR="${WORKDIR}"/manual_build cmake-utils_src_make
+			[[ ${CHOST} = *-darwin* ]] && DYLD_LIBRARY_PATH="${ED}/usr/$(get_libdir)"
 			newdoc "${WORKDIR}"/manual_build/gromacs.pdf "${PN}-manual-${PV}.pdf"
 		fi
 		use mpi || continue
