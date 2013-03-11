@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="2"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit python versionator
+inherit python-single-r1 versionator
 
 MY_PV="$(replace_version_separator 3 -)"
 MY_P="phenix-installer-${MY_PV}"
@@ -14,7 +14,7 @@ MY_P="phenix-installer-${MY_PV}"
 DESCRIPTION="Python-based Hierarchical ENvironment for Integrated Xtallography"
 HOMEPAGE="http://phenix-online.org/"
 SRC_URI="
-	amd64? ( phenix-installer-${MY_PV}-intel-linux-2.6-x86_64-fc15.tar )
+	amd64? ( phenix-installer-${MY_PV}-intel-linux-2.6-x86_64-fc12.tar )
 	x86? ( phenix-installer-${MY_PV}-intel-linux-2.6-fc3.tar )
 "
 
@@ -72,23 +72,15 @@ pkg_nofetch() {
 	elog "http://www.phenix-online.org/phenix_request/index.cgi"
 	elog "and request a download password. With that done,"
 	elog "visit http://www.phenix-online.org/download/phenix/release"
-	elog "and download version \"Kernel 2.6 (64-bit; Fedora 15)\" (${A})"
+	elog "and download version \"Kernel 2.6 (64-bit; Fedora 12)\" (${A})"
 	elog "into ${DISTDIR}"
-}
-
-pkg_setup() {
-	python_set_active_version 2
-	python_pkg_setup
 }
 
 src_prepare() {
 	./install --prefix="${S}/foo"
-
 }
 
 src_install() {
-#	find -name "*.py[co]" -delete
-#	find -name SConstruct -delete
 	sed \
 		-e "s:${S}/foo:${EPREFIX}/opt:g" \
 		-i \
@@ -100,7 +92,6 @@ src_install() {
 			foo/phenix-${MY_PV}/build/intel-linux-2.6-*/base/etc/{gtk*,pango}/* \
 			foo/phenix-${MY_PV}/phenix_env* \
 			|| die
-#	grep ${S} * -R
 	dodir /opt
 	mv "${S}/foo/phenix-${MY_PV}" "${ED}/opt/"
 
@@ -111,12 +102,7 @@ src_install() {
 	exec phenix
 	EOF
 	dobin phenix
-}
 
-pkg_postinst() {
-	python_mod_optimize "/opt/phenix-${MY_PV}"
-}
-
-pkg_postrm() {
-	python_mod_cleanup "/opt/phenix-${MY_PV}"
+	python_fix_shebang "${ED}"/opt
+	python_optimize "${ED}"/opt
 }
