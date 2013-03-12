@@ -135,6 +135,8 @@ src_configure() {
 			# Live ebuild needs an Emacs to build gnuplot.texi
 			if has_version virtual/emacs; then emacs=emacs
 			elif has_version app-xemacs/texinfo; then emacs=xemacs; fi
+			# with emtpy lispdir info cannot be build
+			lispdir="${T}"
 		fi
 	fi
 
