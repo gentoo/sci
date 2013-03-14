@@ -42,12 +42,6 @@ pkg_setup() {
 
 src_prepare() {
 	epatch ${PATCHES[@]}
-	# disable Werror
-	sed -e 's:-Werror::g' \
-		-i libcfs/autoconf/lustre-libcfs.m4 \
-		-i libsysio/configure.in \
-		-i lnet/autoconf/lustre-lnet.m4 \
-		lustre/autoconf/lustre-core.m4 || die "Disabling Werror failed"
 	# fix libzfs lib name we have it as libzfs.so.1
 	sed -e 's:libzfs.so:libzfs.so.1:g' \
 		-e 's:libnvpair.so:libnvpair.so.1:g' \
