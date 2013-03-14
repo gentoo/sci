@@ -1,7 +1,7 @@
-From 26da95a5b9e0502b1001211370fa01ad17f8ef74 Mon Sep 17 00:00:00 2001
+From 4a1a152f4250df1773ad5824ce236a30edcb0fd2 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Wed, 27 Feb 2013 18:29:34 +0800
-Subject: [PATCH 1/5] LU-2850 build: check header files in generated uapi dir
+Subject: [PATCH 1/6] LU-2850 build: check header files in generated uapi dir
 
 Upstream moved UAPI headers into generated/uapi directory since
 v3.7. We need to check/include necessary header files there.
@@ -30,7 +30,7 @@ index 883d13c..8f3518b 100644
  	include/config/MARKER $@
  endif # LINUX
 diff --git a/build/autoconf/lustre-build-linux.m4 b/build/autoconf/lustre-build-linux.m4
-index db58704..15e2aa0 100644
+index 4c0a581..0873c05 100644
 --- a/build/autoconf/lustre-build-linux.m4
 +++ b/build/autoconf/lustre-build-linux.m4
 @@ -44,7 +44,7 @@ AC_MSG_CHECKING([for Linux release])
@@ -132,7 +132,7 @@ index fd0f6d2..d657399 100644
  	# enable extensive workarounds to get this to build
  	# modules
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index f290ea2..898f2c7 100644
+index 08f5e29..3c773e8 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -319,7 +319,7 @@ AC_DEFUN([LC_BIT_SPINLOCK_H],

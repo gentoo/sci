@@ -1,7 +1,7 @@
-From 89da0781847c0eb2efd0556519560a41f352b57f Mon Sep 17 00:00:00 2001
+From 5c27eb8309b371907eecd4f5666d513f159c6842 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 26 Feb 2013 18:09:42 +0800
-Subject: [PATCH 5/5] LU-2850 kernel: 3.8 upstream removes vmtruncate()
+Subject: [PATCH 5/6] LU-2850 kernel: 3.8 upstream removes vmtruncate()
 
 vmtruncate() is removed since upstream commit b9f61c3.
 We can open code is for llite though.
@@ -14,7 +14,7 @@ Change-Id: I9d4f43a5c181f16482b4caa021ba7a09ee52b600
  2 files changed, 32 insertions(+), 1 deletion(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 0c177b1..290ac89 100644
+index deec2d7..94e57f0 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -2278,6 +2278,26 @@ EXTRA_KCFLAGS="$tmp_flags"
@@ -44,7 +44,7 @@ index 0c177b1..290ac89 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2461,6 +2481,9 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2462,6 +2482,9 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_HAVE_SOCK_ALLOC_FILE
  	 LC_HAVE_STRUCT_FILENAME
  
