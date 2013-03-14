@@ -62,7 +62,7 @@ src_compile() {
 		export MPI_LOC=/usr
 		export MPI_INCLUDE=$MPI_LOC/include
 		export MPI_LIB=$MPI_LOC/$(get_libdir)
-		export LIBMPI="-lfmpich -lmpich -lpthread" # fix mpi linking!
+		export LIBMPI="$(mpif90 -showme:link)"
 	fi
 	if [ "$ARCH" = "amd64" ]; then
 		export NWCHEM_TARGET=LINUX64
