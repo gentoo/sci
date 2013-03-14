@@ -1,4 +1,4 @@
-From a93fa83f921bfcb3ca5f2b8d8a7efad3c6075fa8 Mon Sep 17 00:00:00 2001
+From a8b409cdbb7a95d34746a1d8d387eafc28776a24 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Thu, 14 Mar 2013 09:51:17 +0800
 Subject: [PATCH 6/6] LU-2850 kernel: 3.8 upstream kills daemonize()
@@ -23,7 +23,7 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  libcfs/libcfs/debug.c                      | 20 ++++----
  libcfs/libcfs/linux/Makefile.am            |  2 +-
  libcfs/libcfs/linux/linux-lwt.c            | 81 ------------------------------
- libcfs/libcfs/linux/linux-prim.c           | 40 +++++----------
+ libcfs/libcfs/linux/linux-prim.c           | 42 ++++++----------
  libcfs/libcfs/tracefile.c                  | 15 +++---
  libcfs/libcfs/user-prim.c                  | 38 +++++++-------
  libcfs/libcfs/watchdog.c                   | 25 ++++-----
@@ -80,7 +80,7 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  lustre/quota/qmt_lock.c                    | 17 +++----
  lustre/quota/qsd_reint.c                   |  6 +--
  lustre/quota/qsd_writeback.c               | 16 +++---
- 69 files changed, 550 insertions(+), 764 deletions(-)
+ 69 files changed, 552 insertions(+), 764 deletions(-)
  delete mode 100644 libcfs/libcfs/linux/linux-lwt.c
 
 diff --git a/libcfs/include/libcfs/darwin/darwin-prim.h b/libcfs/include/libcfs/darwin/darwin-prim.h
@@ -413,7 +413,7 @@ index d9d4dc1..0000000
 -}
 -EXPORT_SYMBOL(cfs_create_thread);
 diff --git a/libcfs/libcfs/linux/linux-prim.c b/libcfs/libcfs/linux/linux-prim.c
-index afb4465..e4ac0db 100644
+index afb4465..7e23256 100644
 --- a/libcfs/libcfs/linux/linux-prim.c
 +++ b/libcfs/libcfs/linux/linux-prim.c
 @@ -259,34 +259,19 @@ void cfs_enter_debugger(void)
@@ -462,13 +462,15 @@ index afb4465..e4ac0db 100644
  
  sigset_t
  cfs_block_allsigs(void)
-@@ -373,8 +358,7 @@ libcfs_arch_cleanup(void)
+@@ -373,8 +358,9 @@ libcfs_arch_cleanup(void)
  EXPORT_SYMBOL(libcfs_arch_init);
  EXPORT_SYMBOL(libcfs_arch_cleanup);
  EXPORT_SYMBOL(cfs_enter_debugger);
 -EXPORT_SYMBOL(cfs_daemonize);
 -EXPORT_SYMBOL(cfs_daemonize_ctxt);
-+EXPORT_SYMBOL(unshare_fs_struct);
++#ifndef HAVE_UNSHARE_FS_STRUCT
++	EXPORT_SYMBOL(unshare_fs_struct);
++#endif
  EXPORT_SYMBOL(cfs_block_allsigs);
  EXPORT_SYMBOL(cfs_block_sigs);
  EXPORT_SYMBOL(cfs_block_sigsinv);
