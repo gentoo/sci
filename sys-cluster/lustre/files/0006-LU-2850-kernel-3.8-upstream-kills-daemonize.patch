@@ -1,4 +1,4 @@
-From a8b409cdbb7a95d34746a1d8d387eafc28776a24 Mon Sep 17 00:00:00 2001
+From 6c10836164d76c6efea7253768d4e18c408a7d6a Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Thu, 14 Mar 2013 09:51:17 +0800
 Subject: [PATCH 6/6] LU-2850 kernel: 3.8 upstream kills daemonize()
@@ -413,7 +413,7 @@ index d9d4dc1..0000000
 -}
 -EXPORT_SYMBOL(cfs_create_thread);
 diff --git a/libcfs/libcfs/linux/linux-prim.c b/libcfs/libcfs/linux/linux-prim.c
-index afb4465..7e23256 100644
+index afb4465..d5d62d7 100644
 --- a/libcfs/libcfs/linux/linux-prim.c
 +++ b/libcfs/libcfs/linux/linux-prim.c
 @@ -259,34 +259,19 @@ void cfs_enter_debugger(void)
@@ -469,7 +469,7 @@ index afb4465..7e23256 100644
 -EXPORT_SYMBOL(cfs_daemonize);
 -EXPORT_SYMBOL(cfs_daemonize_ctxt);
 +#ifndef HAVE_UNSHARE_FS_STRUCT
-+	EXPORT_SYMBOL(unshare_fs_struct);
++EXPORT_SYMBOL(unshare_fs_struct);
 +#endif
  EXPORT_SYMBOL(cfs_block_allsigs);
  EXPORT_SYMBOL(cfs_block_sigs);

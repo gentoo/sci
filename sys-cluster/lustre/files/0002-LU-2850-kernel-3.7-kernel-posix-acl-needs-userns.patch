@@ -1,4 +1,4 @@
-From 4b7ad00fd26de2fb8b94fa94a9b115ec97724b36 Mon Sep 17 00:00:00 2001
+From e9f9ce30714f5b645e59d08e6d1c6dfeae6254d4 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 26 Feb 2013 16:31:44 +0800
 Subject: [PATCH 2/6] LU-2850 kernel: 3.7 kernel posix acl needs userns
@@ -9,17 +9,25 @@ to user namespace.
 Signed-off-by: Peng Tao <tao.peng@emc.com>
 Change-Id: I7d82c51c482daae8a7dbb526b8d72eea2bcf0650
 ---
- lustre/autoconf/lustre-core.m4 | 25 +++++++++++++++++++++++++
+ lustre/autoconf/lustre-core.m4 | 26 ++++++++++++++++++++++++++
  lustre/include/liblustre.h     | 11 ++++++++++-
  lustre/llite/xattr.c           |  6 +++++-
  lustre/mdc/mdc_request.c       |  6 +++++-
- 4 files changed, 45 insertions(+), 3 deletions(-)
+ 4 files changed, 46 insertions(+), 3 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 3c773e8..323342a 100644
+index 3c773e8..38d26a3 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2213,6 +2213,28 @@ LB_LINUX_TRY_COMPILE([
+@@ -328,6 +328,7 @@ AC_TRY_RUN([
+         #define __LINUX_POSIX_ACL_H
+ 
+         #ifdef CONFIG_FS_POSIX_ACL
++	struct user_namespace;
+         # include <linux/posix_acl_xattr.h>
+         #endif
+ 
+@@ -2213,6 +2214,28 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -48,7 +56,7 @@ index 3c773e8..323342a 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2391,6 +2413,9 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2391,6 +2414,9 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_DENTRY_OPEN_USE_PATH
  	 LC_HAVE_IOP_ATOMIC_OPEN
  

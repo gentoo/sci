@@ -1,4 +1,4 @@
-From 7fbe22c137037dcfa65eb4e58e6feef7a30f786e Mon Sep 17 00:00:00 2001
+From d162fc8efd5151fac4ac865df2b9d67c5f080ad7 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Wed, 27 Feb 2013 17:51:46 +0800
 Subject: [PATCH 4/6] LU-2850 kernel: 3.7 get/putname uses struct filename
@@ -10,17 +10,17 @@ Signed-off-by: Peng Tao <tao.peng@emc.com>
 Change-Id: Ifc3cfa54220b83b8de5aebfa5464c6efa5525599
 ---
  lustre/autoconf/lustre-core.m4         | 26 ++++++++++++++++++
- lustre/include/linux/lustre_compat25.h | 37 +++++++++++++++++++++++++
+ lustre/include/linux/lustre_compat25.h | 42 ++++++++++++++++++++++++++++
  lustre/llite/dir.c                     | 50 +++++++++++++++++-----------------
  lustre/llite/llite_internal.h          |  2 +-
  lustre/llite/namei.c                   |  2 +-
- 5 files changed, 90 insertions(+), 27 deletions(-)
+ 5 files changed, 95 insertions(+), 27 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 3a13190..deec2d7 100644
+index 579ea17..9a7a458 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2253,6 +2253,31 @@ AC_DEFUN([LC_HAVE_SOCK_ALLOC_FILE],
+@@ -2254,6 +2254,31 @@ AC_DEFUN([LC_HAVE_SOCK_ALLOC_FILE],
  ])
  
  #
@@ -52,7 +52,7 @@ index 3a13190..deec2d7 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2435,6 +2460,7 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2436,6 +2461,7 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_HAVE_POSIX_ACL_NAMESPACE
  	 LC_HAVE_SOCK_MAP_FD
  	 LC_HAVE_SOCK_ALLOC_FILE
@@ -61,10 +61,10 @@ index 3a13190..deec2d7 100644
  	 #
  	 if test x$enable_server = xyes ; then
 diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
-index d25c168..2804183 100644
+index d25c168..dcd4a4f 100644
 --- a/lustre/include/linux/lustre_compat25.h
 +++ b/lustre/include/linux/lustre_compat25.h
-@@ -750,4 +750,41 @@ static inline struct dentry *d_make_root(struct inode *root)
+@@ -750,4 +750,46 @@ static inline struct dentry *d_make_root(struct inode *root)
  }
  #endif
  
@@ -99,9 +99,14 @@ index d25c168..2804183 100644
 +{
 +	return getname(name);
 +}
-+static inline void ll_putname(struct filename *filename)
++static inline void ll_putname(struct filename *name)
 +{
-+	putname(filename);
++	if (name->separate) {
++		__putname(name->name);
++		kfree(name);
++	} else {
++		__putname(name);
++	}
 +}
 +#endif /* !HAVE_STRUCT_FILENAME */
 +

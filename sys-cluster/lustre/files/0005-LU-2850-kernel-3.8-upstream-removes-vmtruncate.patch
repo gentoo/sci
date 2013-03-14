@@ -1,4 +1,4 @@
-From 5c27eb8309b371907eecd4f5666d513f159c6842 Mon Sep 17 00:00:00 2001
+From 20c2e930f8317a0500d08f5f15716719113d8a5b Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 26 Feb 2013 18:09:42 +0800
 Subject: [PATCH 5/6] LU-2850 kernel: 3.8 upstream removes vmtruncate()
@@ -14,10 +14,10 @@ Change-Id: I9d4f43a5c181f16482b4caa021ba7a09ee52b600
  2 files changed, 32 insertions(+), 1 deletion(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index deec2d7..94e57f0 100644
+index 9a7a458..c87afb0 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2278,6 +2278,26 @@ EXTRA_KCFLAGS="$tmp_flags"
+@@ -2279,6 +2279,26 @@ EXTRA_KCFLAGS="$tmp_flags"
  ])
  
  #
@@ -44,7 +44,7 @@ index deec2d7..94e57f0 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2462,6 +2482,9 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2463,6 +2483,9 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_HAVE_SOCK_ALLOC_FILE
  	 LC_HAVE_STRUCT_FILENAME
  
