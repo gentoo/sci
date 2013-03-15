@@ -182,7 +182,7 @@ src_configure() {
 		local p
 		[[ ${x} = "double" ]] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
 		local cuda=( "-DGMX_GPU=OFF" )
-		[[ ${x} = "single" ]] && use cuda && \
+		[[ ${x} = "float" ]] && use cuda && \
 			cuda=( -DGMX_GPU=ON -DCUDA_HOST_COMPILER_OPTIONS="${NVCCFLAGS}" )
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 			$(cmake-utils_use threads GMX_THREAD_MPI) "${cuda[@]}" -DGMX_OPENMM=OFF
