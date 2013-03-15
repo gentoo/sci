@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> gromacs-4.6.9999.ebuild:
+  nvcc flags dont needed anymore here
+
   15 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> gromacs-4.6.9999.ebuild,
   gromacs-9999.ebuild:
   Fix build with cuda enabled

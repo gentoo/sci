@@ -183,7 +183,7 @@ src_configure() {
 		[[ ${x} = "double" ]] && p="-DGMX_DOUBLE=ON" || p="-DGMX_DOUBLE=OFF"
 		local cuda=( "-DGMX_GPU=OFF" )
 		[[ ${x} = "float" ]] && use cuda && \
-			cuda=( -DGMX_GPU=ON -DCUDA_HOST_COMPILER_OPTIONS="${NVCCFLAGS}" )
+			cuda=( -DGMX_GPU=ON )
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
 			$(cmake-utils_use threads GMX_THREAD_MPI) "${cuda[@]}" -DGMX_OPENMM=OFF
 			"$(use test && echo -DREGRESSIONTEST_PATH="${WORKDIR}/${P}_${x}/tests")"
