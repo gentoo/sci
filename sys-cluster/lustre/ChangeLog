@@ -3,6 +3,9 @@
 # $Header: $
 
   15 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Make client and utils as default flags
+
+  15 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
   Update to reflect latest zfs changes
 
   14 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:

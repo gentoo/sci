@@ -17,7 +17,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="client utils server"
+IUSE="+client +utils server"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
