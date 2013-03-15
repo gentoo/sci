@@ -30,6 +30,7 @@ PATCHES=(
 	"${FILESDIR}/0003-LU-2850-kernel-3.7-uneports-sock_map_fd.patch"
 	"${FILESDIR}/0004-LU-2850-kernel-3.7-get-putname-uses-struct-filename.patch"
 	"${FILESDIR}/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
+	"${FILESDIR}/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
 )
 
 pkg_setup() {
@@ -41,12 +42,6 @@ pkg_setup() {
 
 src_prepare() {
 	epatch ${PATCHES[@]}
-	# disable Werror
-	sed -e 's:-Werror::g' \
-		-i libcfs/autoconf/lustre-libcfs.m4 \
-		-i libsysio/configure.in \
-		-i lnet/autoconf/lustre-lnet.m4 \
-		lustre/autoconf/lustre-core.m4 || die "Disabling Werror failed"
 	# fix libzfs lib name we have it as libzfs.so.1
 	sed -e 's:libzfs.so:libzfs.so.1:g' \
 		-e 's:libnvpair.so:libnvpair.so.1:g' \

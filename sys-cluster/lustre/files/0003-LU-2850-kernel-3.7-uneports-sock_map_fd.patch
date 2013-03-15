@@ -1,7 +1,7 @@
-From e095235edfe1339ccda0a61059ee4d3a2016e4f6 Mon Sep 17 00:00:00 2001
+From ff29e7a02c6467bdd235445a071ee299d65e227f Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 26 Feb 2013 17:09:15 +0800
-Subject: [PATCH 3/5] LU-2850 kernel: 3.7 uneports sock_map_fd
+Subject: [PATCH 3/6] LU-2850 kernel: 3.7 uneports sock_map_fd
 
 And exports sock_alloc_file. We should use sock_alloc_file instead.
 Besides, there is no need to mess with fd table.
@@ -14,7 +14,7 @@ Change-Id: Iec3c8bc0d8fcb9d8f821dd9f0a82445e1e1096ff
  2 files changed, 58 insertions(+), 1 deletion(-)
 
 diff --git a/libcfs/libcfs/linux/linux-tcpip.c b/libcfs/libcfs/linux/linux-tcpip.c
-index cd07648..ce93aa8 100644
+index 0a31b55..c576cdf 100644
 --- a/libcfs/libcfs/linux/linux-tcpip.c
 +++ b/libcfs/libcfs/linux/linux-tcpip.c
 @@ -41,6 +41,40 @@
@@ -79,10 +79,10 @@ index cd07648..ce93aa8 100644
  int
  libcfs_ipif_query (char *name, int *up, __u32 *ip, __u32 *mask)
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index f424f87..3d62a4b 100644
+index 38d26a3..579ea17 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2235,6 +2235,24 @@ LB_LINUX_TRY_COMPILE([
+@@ -2236,6 +2236,24 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -107,7 +107,7 @@ index f424f87..3d62a4b 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2414,6 +2432,8 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2416,6 +2434,8 @@ AC_DEFUN([LC_PROG_LINUX],
  
  	 # 3.7
  	 LC_HAVE_POSIX_ACL_NAMESPACE

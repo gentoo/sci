@@ -1,7 +1,7 @@
-From b73192ab79f853231de5809ff40e4fd269060247 Mon Sep 17 00:00:00 2001
+From e9f9ce30714f5b645e59d08e6d1c6dfeae6254d4 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 26 Feb 2013 16:31:44 +0800
-Subject: [PATCH 2/5] LU-2850 kernel: 3.7 kernel posix acl needs userns
+Subject: [PATCH 2/6] LU-2850 kernel: 3.7 kernel posix acl needs userns
 
 With upstream commit 5f3a4a28, kernel posix acl adds support
 to user namespace.
@@ -9,17 +9,25 @@ to user namespace.
 Signed-off-by: Peng Tao <tao.peng@emc.com>
 Change-Id: I7d82c51c482daae8a7dbb526b8d72eea2bcf0650
 ---
- lustre/autoconf/lustre-core.m4 | 25 +++++++++++++++++++++++++
+ lustre/autoconf/lustre-core.m4 | 26 ++++++++++++++++++++++++++
  lustre/include/liblustre.h     | 11 ++++++++++-
  lustre/llite/xattr.c           |  6 +++++-
  lustre/mdc/mdc_request.c       |  6 +++++-
- 4 files changed, 45 insertions(+), 3 deletions(-)
+ 4 files changed, 46 insertions(+), 3 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 898f2c7..f424f87 100644
+index 3c773e8..38d26a3 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2213,6 +2213,28 @@ LB_LINUX_TRY_COMPILE([
+@@ -328,6 +328,7 @@ AC_TRY_RUN([
+         #define __LINUX_POSIX_ACL_H
+ 
+         #ifdef CONFIG_FS_POSIX_ACL
++	struct user_namespace;
+         # include <linux/posix_acl_xattr.h>
+         #endif
+ 
+@@ -2213,6 +2214,28 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -48,7 +56,7 @@ index 898f2c7..f424f87 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2390,6 +2412,9 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2391,6 +2414,9 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_DENTRY_OPEN_USE_PATH
  	 LC_HAVE_IOP_ATOMIC_OPEN
  
@@ -59,7 +67,7 @@ index 898f2c7..f424f87 100644
  	 if test x$enable_server = xyes ; then
  		AC_DEFINE(HAVE_SERVER_SUPPORT, 1, [support server])
 diff --git a/lustre/include/liblustre.h b/lustre/include/liblustre.h
-index ac4414e..1ae9f7b 100644
+index c01069a..fcf3aa7 100644
 --- a/lustre/include/liblustre.h
 +++ b/lustre/include/liblustre.h
 @@ -452,8 +452,17 @@ static inline size_t posix_acl_xattr_size(int count)
@@ -82,7 +90,7 @@ index ac4414e..1ae9f7b 100644
          return NULL;
  }
 diff --git a/lustre/llite/xattr.c b/lustre/llite/xattr.c
-index 1d9923e..a311d65 100644
+index 24a89eb..d0349e2 100644
 --- a/lustre/llite/xattr.c
 +++ b/lustre/llite/xattr.c
 @@ -345,7 +345,11 @@ int ll_getxattr_common(struct inode *inode, const char *name,
@@ -99,10 +107,10 @@ index 1d9923e..a311d65 100644
                  RETURN(rc);
          }
 diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
-index 399c268..dcbab71 100644
+index 853143f..22a0079 100644
 --- a/lustre/mdc/mdc_request.c
 +++ b/lustre/mdc/mdc_request.c
-@@ -448,7 +448,11 @@ static int mdc_unpack_acl(struct ptlrpc_request *req, struct lustre_md *md)
+@@ -466,7 +466,11 @@ static int mdc_unpack_acl(struct ptlrpc_request *req, struct lustre_md *md)
          if (!buf)
                  RETURN(-EPROTO);
  

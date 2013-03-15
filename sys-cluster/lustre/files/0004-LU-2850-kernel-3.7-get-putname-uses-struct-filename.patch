@@ -1,7 +1,7 @@
-From 5d050ddbf8ebe5104e0320b9e1028411e495a1fe Mon Sep 17 00:00:00 2001
+From d162fc8efd5151fac4ac865df2b9d67c5f080ad7 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Wed, 27 Feb 2013 17:51:46 +0800
-Subject: [PATCH 4/5] LU-2850 kernel: 3.7 get/putname uses struct filename
+Subject: [PATCH 4/6] LU-2850 kernel: 3.7 get/putname uses struct filename
 
 3.7 vfs introduces struct filename and changes getname/putname
 parameter to use it.
@@ -10,17 +10,17 @@ Signed-off-by: Peng Tao <tao.peng@emc.com>
 Change-Id: Ifc3cfa54220b83b8de5aebfa5464c6efa5525599
 ---
  lustre/autoconf/lustre-core.m4         | 26 ++++++++++++++++++
- lustre/include/linux/lustre_compat25.h | 37 +++++++++++++++++++++++++
+ lustre/include/linux/lustre_compat25.h | 42 ++++++++++++++++++++++++++++
  lustre/llite/dir.c                     | 50 +++++++++++++++++-----------------
  lustre/llite/llite_internal.h          |  2 +-
  lustre/llite/namei.c                   |  2 +-
- 5 files changed, 90 insertions(+), 27 deletions(-)
+ 5 files changed, 95 insertions(+), 27 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 3d62a4b..0c177b1 100644
+index 579ea17..9a7a458 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2253,6 +2253,31 @@ AC_DEFUN([LC_HAVE_SOCK_ALLOC_FILE],
+@@ -2254,6 +2254,31 @@ AC_DEFUN([LC_HAVE_SOCK_ALLOC_FILE],
  ])
  
  #
@@ -52,7 +52,7 @@ index 3d62a4b..0c177b1 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2434,6 +2459,7 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2436,6 +2461,7 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_HAVE_POSIX_ACL_NAMESPACE
  	 LC_HAVE_SOCK_MAP_FD
  	 LC_HAVE_SOCK_ALLOC_FILE
@@ -61,10 +61,10 @@ index 3d62a4b..0c177b1 100644
  	 #
  	 if test x$enable_server = xyes ; then
 diff --git a/lustre/include/linux/lustre_compat25.h b/lustre/include/linux/lustre_compat25.h
-index e300597..d62646e 100644
+index d25c168..dcd4a4f 100644
 --- a/lustre/include/linux/lustre_compat25.h
 +++ b/lustre/include/linux/lustre_compat25.h
-@@ -750,4 +750,41 @@ static inline struct dentry *d_make_root(struct inode *root)
+@@ -750,4 +750,46 @@ static inline struct dentry *d_make_root(struct inode *root)
  }
  #endif
  
@@ -99,18 +99,23 @@ index e300597..d62646e 100644
 +{
 +	return getname(name);
 +}
-+static inline void ll_putname(struct filename *filename)
++static inline void ll_putname(struct filename *name)
 +{
-+	putname(filename);
++	if (name->separate) {
++		__putname(name->name);
++		kfree(name);
++	} else {
++		__putname(name);
++	}
 +}
 +#endif /* !HAVE_STRUCT_FILENAME */
 +
  #endif /* _COMPAT25_H */
 diff --git a/lustre/llite/dir.c b/lustre/llite/dir.c
-index 466d259..49b159a 100644
+index a3a514c..71c5103 100644
 --- a/lustre/llite/dir.c
 +++ b/lustre/llite/dir.c
-@@ -1406,7 +1406,7 @@ free_lmv:
+@@ -1417,7 +1417,7 @@ free_lmv:
  		RETURN(rc);
  	}
  	case LL_IOC_REMOVE_ENTRY: {
@@ -119,7 +124,7 @@ index 466d259..49b159a 100644
  		int		 namelen = 0;
  		int		 rc;
  
-@@ -1418,18 +1418,18 @@ free_lmv:
+@@ -1429,18 +1429,18 @@ free_lmv:
  		if (!(exp_connect_flags(sbi->ll_md_exp) & OBD_CONNECT_LVB_TYPE))
  			return -ENOTSUPP;
  
@@ -143,7 +148,7 @@ index 466d259..49b159a 100644
  		RETURN(rc);
  	}
  	case LL_IOC_LOV_SWAP_LAYOUTS:
-@@ -1440,21 +1440,21 @@ out_rmdir:
+@@ -1451,21 +1451,21 @@ out_rmdir:
          case LL_IOC_MDC_GETINFO:
          case IOC_MDC_GETFILEINFO:
          case IOC_MDC_GETFILESTRIPE: {
@@ -180,7 +185,7 @@ index 466d259..49b159a 100644
                  } else {
                          rc = ll_dir_getstripe(inode, &lmm, &lmmsize, &request);
                  }
-@@ -1514,10 +1514,10 @@ out_rmdir:
+@@ -1525,10 +1525,10 @@ out_rmdir:
  
                  EXIT;
          out_req:
@@ -196,7 +201,7 @@ index 466d259..49b159a 100644
          case IOC_LOV_GETINFO: {
                  struct lov_user_mds_data *lumd;
 diff --git a/lustre/llite/llite_internal.h b/lustre/llite/llite_internal.h
-index 9329d6c..a577f36 100644
+index 6d41614..2ac22b0 100644
 --- a/lustre/llite/llite_internal.h
 +++ b/lustre/llite/llite_internal.h
 @@ -705,7 +705,7 @@ struct lookup_intent *ll_convert_intent(struct open_intent *oit,
@@ -209,10 +214,10 @@ index 9329d6c..a577f36 100644
  /* llite/rw.c */
  int ll_prepare_write(struct file *, struct page *, unsigned from, unsigned to);
 diff --git a/lustre/llite/namei.c b/lustre/llite/namei.c
-index 3bcf3ff..6c99a7c 100644
+index 1477790..11daf0c 100644
 --- a/lustre/llite/namei.c
 +++ b/lustre/llite/namei.c
-@@ -1142,7 +1142,7 @@ static int ll_rmdir_generic(struct inode *dir, struct dentry *dparent,
+@@ -1146,7 +1146,7 @@ static int ll_rmdir_generic(struct inode *dir, struct dentry *dparent,
  /**
   * Remove dir entry
   **/
