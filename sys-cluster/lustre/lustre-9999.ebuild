@@ -55,8 +55,8 @@ src_configure() {
 		--disable-ldiskfs-build \
 		--with-linux="${KERNEL_DIR}" \
 		--with-linux-release="${KV_FULL}" \
-		--with-zfs="${EPREFIX}/usr/src/zfs/${KV_FULL}" \
-		--with-spl="${EPREFIX}/usr/src/spl/${KV_FULL}" \
+		--with-zfs="${EPREFIX}/usr/src/zfs" \
+		--with-spl="${EPREFIX}/usr/src/spl" \
 		$(use_enable client) \
 		$(use_enable utils) \
 		$(use_enable server)
