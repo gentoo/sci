@@ -19,7 +19,14 @@ SLOT="0"
 KEYWORDS=""
 IUSE="+client +utils server"
 
-DEPEND=""
+DEPEND="
+	virtual/awk
+	virtual/linux-sources
+	server? (
+		>=sys-kernel/spl-0.6.0_rc14-r2
+		>=sys-fs/zfs-kmod-0.6.0_rc14-r4
+	)
+	"
 RDEPEND="${DEPEND}"
 
 BUILD_PARAMS="-C ${KV_DIR} SUBDIRS=${S}"
