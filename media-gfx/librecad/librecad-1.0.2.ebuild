@@ -8,7 +8,7 @@ inherit qt4-r2 eutils
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
-SRC_URI="https://nodeload.github.com/LibreCAD/LibreCAD/tarball/v${PV} -> ${P}.tar.gz"
+SRC_URI="https://github.com/LibreCAD/LibreCAD/archive/v1.0.2.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
