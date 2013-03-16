@@ -8,7 +8,7 @@ inherit qt4-r2 eutils flag-o-matic
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
-SRC_URI="https://nodeload.github.com/LibreCAD/LibreCAD/tarball/${PV/_/} ->
+SRC_URI="https://github.com/LibreCAD/LibreCAD/archive/2.0.0beta2.tar.gz ->
 ${P}.tar.gz"
 
 LICENSE="GPL-2"
