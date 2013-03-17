@@ -29,7 +29,7 @@ pkg_setup() {
 
 src_configure() {
 	./configure \
-		--prefix="${EPREFIX}"/usr/${P} \
+		--prefix="${EPREFIX}"/usr/libexec/${P} \
 		--mandir="${EPREFIX}"/usr/share/man/ \
 		--disable-aligned-segments \
 		--disable-auto-conduit-detect \
@@ -44,14 +44,14 @@ src_configure() {
 		$(use_enable sptr-symmetric) \
 		$(use_enable threads par) \
 		$(use_enable udp) \
-		${EXTRA_ECONF}
+		${EXTRA_ECONF} || die
 }
 
 src_install() {
 	emake DESTDIR="${D}" install
 	dodir /usr/bin
-	dosym ../${P}/bin/upc_trace /usr/bin/upc_trace
-	dosym ../${P}/bin/upcc /usr/bin/upcc
-	dosym ../${P}/bin/upcdecl /usr/bin/upcdecl
-	dosym ../${P}/bin/upcrun /usr/bin/upcrun
+	dosym ../libexec/${P}/bin/upc_trace /usr/bin/upc_trace
+	dosym ../libexec/${P}/bin/upcc /usr/bin/upcc
+	dosym ../libexec/${P}/bin/upcdecl /usr/bin/upcdecl
+	dosym ../libexec/${P}/bin/upcrun /usr/bin/upcrun
 }
