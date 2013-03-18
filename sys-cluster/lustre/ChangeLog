@@ -3,6 +3,9 @@
 # $Header: $
 
   18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Fix some install path
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
   Add gentoo style configure
 
   18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
