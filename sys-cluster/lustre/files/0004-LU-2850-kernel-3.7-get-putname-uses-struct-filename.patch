@@ -1,4 +1,4 @@
-From d162fc8efd5151fac4ac865df2b9d67c5f080ad7 Mon Sep 17 00:00:00 2001
+From e4706fbb2bad8b3d1f4f99fbcd5a3dd8513dea6b Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Wed, 27 Feb 2013 17:51:46 +0800
 Subject: [PATCH 4/6] LU-2850 kernel: 3.7 get/putname uses struct filename
