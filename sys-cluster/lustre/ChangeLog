@@ -2,6 +2,15 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0002-LU-2850-kernel-3.7-kernel-posix-acl-needs-userns.patch,
+  files/0003-LU-2850-kernel-3.7-uneports-sock_map_fd.patch,
+  files/0004-LU-2850-kernel-3.7-get-putname-uses-struct-filename.patch,
+  files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch:
+  Update patches
+
   18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
   Fix some install path
 
