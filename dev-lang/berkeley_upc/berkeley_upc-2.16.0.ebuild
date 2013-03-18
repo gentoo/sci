@@ -14,11 +14,9 @@ KEYWORDS="~x86"
 IUSE="mpi mpi-compat pshm +segment-fast segment-large +single +sptr-packed
 	sptr-struct sptr-symmetric threads +udp"
 
-REQUIRED_USE="^^ ( segment-fast segment-large )
+REQUIRED_USE="
+	^^ ( segment-fast segment-large )
 	^^ ( sptr-packed sptr-struct sptr-symmetric )"
-
-DEPEND=""
-RDEPEND="${DEPEND}"
 
 pkg_setup() {
 	elog "There is a lot of options for this package,"
@@ -48,7 +46,7 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
+	default
 	dodir /usr/bin
 	dosym ../libexec/${P}/bin/upc_trace /usr/bin/upc_trace
 	dosym ../libexec/${P}/bin/upcc /usr/bin/upcc
