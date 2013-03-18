@@ -1,8 +1,8 @@
 diff --git a/build/autoconf/lustre-build-linux.m4 b/build/autoconf/lustre-build-linux.m4
-index 4c0a581..1ea0d12 100644
+index 4c0a581..6f6a40a 100644
 --- a/build/autoconf/lustre-build-linux.m4
 +++ b/build/autoconf/lustre-build-linux.m4
-@@ -363,14 +363,37 @@ rm -f build/conftest.o build/conftest.mod.c build/conftest.mod.o build/conftest.
+@@ -363,14 +363,38 @@ rm -f build/conftest.o build/conftest.mod.c build/conftest.mod.o build/conftest.
  # Determine the kernel's idea of the current architecture
  #
  AC_DEFUN([LB_LINUX_ARCH],
@@ -14,37 +14,38 @@ index 4c0a581..1ea0d12 100644
 -                [AC_MSG_RESULT([$LINUX_ARCH])],
 -                [AC_MSG_ERROR([Could not determine the kernel architecture.])])
 -          rm -f build/arch])
-+         [LINUXARCH=
-+	  rm -f build/conftest.i
-+	  AC_MSG_CHECKING([Linux kernel architecture])
-+	  if test -s $LINUX_OBJ/include/$AUTOCONF_HDIR/compile.h ; then
-+	        LINUXARCHHEADER=$AUTOCONF_HDIR/compile.h
-+	  else
-+	  	LINUXARCHHEADER=linux/version.h
-+	  fi
-+	  LB_LINUX_TRY_MAKE([
-+	  	#include <$LINUXARCHHEADER>
-+	  ],[
-+	  	char *LINUXARCH;
-+		LINUXARCH=UTS_MACHINE;
-+	  ],[
-+	  	$makerule LUSTRE_KERNEL_TEST=conftest.i
-+	  ],[
-+	  	test -s build/conftest.i
-+	  ],[
-+	  	# LINUXARCH="UTS_MACHINE"
-+		eval $(grep "LINUXARCH=" build/conftest.i)
-+	  ],[
-+	  	AC_MSG_RESULT([unknown])
-+		AC_MSG_ERROR([Could not preprocess test program.  Consult config.log for details.])
-+	  ])
-+	  rm -f build/conftest.i
-+	  if test x$LINUXARCH = x ; then
-+	  	AC_MSG_RESULT([unknown])
++[LINUXARCH=
++rm -f build/conftest.i
++AC_MSG_CHECKING([Linux kernel architecture])
++if test -s $LINUX_OBJ/include/$AUTOCONF_HDIR/compile.h ; then
++	LINUXARCHHEADER=$AUTOCONF_HDIR/compile.h
++else
++	LINUXARCHHEADER=linux/version.h
++fi
++LB_LINUX_TRY_MAKE([
++	#include <$LINUXARCHHEADER>
++],[
++	char *LINUXARCH;
++	LINUXARCH=UTS_MACHINE;
++],[
++	$makerule LUSTRE_KERNEL_TEST=conftest.i
++],[
++	test -s build/conftest.i
++],[
++	# LINUXARCH="UTS_MACHINE"
++	eval $(grep "LINUXARCH=" build/conftest.i)
++],[
++	AC_MSG_RESULT([unknown])
++	AC_MSG_ERROR([Could not preprocess test program.  Consult config.log for details.])
++])
++	rm -f build/conftest.i
++	if test x$LINUXARCH = x ; then
++		AC_MSG_RESULT([unknown])
 +		AC_MSG_ERROR([Could not determine Linux architecture from linux/version.h.])
-+	  fi
++	fi
 +AC_MSG_RESULT([$LINUXARCH])
 +AC_SUBST(LINUXARCH)
++])
  
  #
  # LB_LINUX_TRY_COMPILE

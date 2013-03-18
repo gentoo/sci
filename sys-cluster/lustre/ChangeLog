@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> files/LU-2982.patch:
+  Update patch
+
   18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> +files/LU-2982.patch,
   lustre-9999.ebuild:
   Fix sandbox violation during configure
