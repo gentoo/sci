@@ -7,7 +7,7 @@ EAPI=5
 WANT_AUTOCONF="2.5"
 WANT_AUTOMAKE="1.10"
 
-inherit git-2 autotools linux-mod linux-info toolchain-funcs
+inherit git-2 autotools linux-mod toolchain-funcs
 
 DESCRIPTION="Lustre is a parallel distributed file system"
 HOMEPAGE="http://wiki.whamcloud.com/"
@@ -17,9 +17,16 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="client utils server"
+IUSE="+client +utils server"
 
-DEPEND=""
+DEPEND="
+	virtual/awk
+	virtual/linux-sources
+	server? (
+		>=sys-kernel/spl-0.6.0_rc14-r2
+		>=sys-fs/zfs-kmod-0.6.0_rc14-r4
+	)
+	"
 RDEPEND="${DEPEND}"
 
 BUILD_PARAMS="-C ${KV_DIR} SUBDIRS=${S}"
@@ -35,7 +42,6 @@ PATCHES=(
 
 pkg_setup() {
 	linux-mod_pkg_setup
-	linux-info_pkg_setup
 	ARCH="$(tc-arch-kernel)"
 	ABI="${KERNEL_ABI}"
 }
@@ -55,8 +61,8 @@ src_configure() {
 		--disable-ldiskfs-build \
 		--with-linux="${KERNEL_DIR}" \
 		--with-linux-release="${KV_FULL}" \
-		--with-zfs="${EPREFIX}/usr/src/zfs/${KV_FULL}" \
-		--with-spl="${EPREFIX}/usr/src/spl/${KV_FULL}" \
+		--with-zfs="${EPREFIX}/usr/src/zfs" \
+		--with-spl="${EPREFIX}/usr/src/spl" \
 		$(use_enable client) \
 		$(use_enable utils) \
 		$(use_enable server)

@@ -1,6 +1,6 @@
-From 6c10836164d76c6efea7253768d4e18c408a7d6a Mon Sep 17 00:00:00 2001
+From 45927457c2d276951ad1cbf4da785160b36ae3f8 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
-Date: Thu, 14 Mar 2013 09:51:17 +0800
+Date: Mon, 18 Mar 2013 10:47:57 +0800
 Subject: [PATCH 6/6] LU-2850 kernel: 3.8 upstream kills daemonize()
 
 kernel_thread() is a low level kernel function.
@@ -18,12 +18,12 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  libcfs/include/libcfs/user-prim.h          |  5 +-
  libcfs/include/libcfs/winnt/winnt-prim.h   |  4 --
  libcfs/libcfs/Makefile.in                  |  4 +-
- libcfs/libcfs/darwin/darwin-prim.c         | 35 ++++++-------
+ libcfs/libcfs/darwin/darwin-prim.c         | 39 +++++++-------
  libcfs/libcfs/darwin/darwin-utils.c        |  2 +-
  libcfs/libcfs/debug.c                      | 20 ++++----
  libcfs/libcfs/linux/Makefile.am            |  2 +-
  libcfs/libcfs/linux/linux-lwt.c            | 81 ------------------------------
- libcfs/libcfs/linux/linux-prim.c           | 42 ++++++----------
+ libcfs/libcfs/linux/linux-prim.c           | 40 +++++----------
  libcfs/libcfs/tracefile.c                  | 15 +++---
  libcfs/libcfs/user-prim.c                  | 38 +++++++-------
  libcfs/libcfs/watchdog.c                   | 25 ++++-----
@@ -48,7 +48,7 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  lnet/klnds/socklnd/socklnd.c               | 19 +++++--
  lnet/klnds/socklnd/socklnd.h               |  2 +-
  lnet/klnds/socklnd/socklnd_cb.c            | 30 ++++-------
- lnet/lnet/acceptor.c                       | 19 ++++---
+ lnet/lnet/acceptor.c                       | 11 ++--
  lnet/lnet/module.c                         | 10 ++--
  lnet/lnet/router.c                         | 20 ++++----
  lnet/selftest/timer.c                      | 11 ++--
@@ -60,7 +60,7 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  lustre/llite/llite_close.c                 | 26 ++++------
  lustre/llite/lloop.c                       | 10 ++--
  lustre/llite/statahead.c                   | 61 +++++++++++-----------
- lustre/mdc/mdc_request.c                   | 62 ++++++++++-------------
+ lustre/mdc/mdc_request.c                   | 34 ++++++-------
  lustre/mdd/mdd_lfsck.c                     |  5 +-
  lustre/mdt/mdt_capa.c                      | 26 +++++-----
  lustre/mgc/mgc_request.c                   | 31 ++++++------
@@ -70,7 +70,7 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  lustre/obdclass/llog_cat.c                 |  2 +-
  lustre/osd-ldiskfs/osd_scrub.c             |  5 +-
  lustre/osp/osp_precreate.c                 | 15 +++---
- lustre/osp/osp_sync.c                      | 10 ++--
+ lustre/osp/osp_sync.c                      |  9 ++--
  lustre/ptlrpc/import.c                     | 34 +++++++------
  lustre/ptlrpc/pinger.c                     | 39 +++++++-------
  lustre/ptlrpc/ptlrpcd.c                    | 25 +++++----
@@ -80,7 +80,7 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  lustre/quota/qmt_lock.c                    | 17 +++----
  lustre/quota/qsd_reint.c                   |  6 +--
  lustre/quota/qsd_writeback.c               | 16 +++---
- 69 files changed, 552 insertions(+), 764 deletions(-)
+ 69 files changed, 536 insertions(+), 745 deletions(-)
  delete mode 100644 libcfs/libcfs/linux/linux-lwt.c
 
 diff --git a/libcfs/include/libcfs/darwin/darwin-prim.h b/libcfs/include/libcfs/darwin/darwin-prim.h
@@ -152,7 +152,7 @@ index 1aeb5aa..31298e1 100644
   * Task struct
   */
 diff --git a/libcfs/include/libcfs/posix/libcfs.h b/libcfs/include/libcfs/posix/libcfs.h
-index 95ec2ab..74ff722 100644
+index 91158bc..c21e2e6 100644
 --- a/libcfs/include/libcfs/posix/libcfs.h
 +++ b/libcfs/include/libcfs/posix/libcfs.h
 @@ -110,6 +110,7 @@
@@ -181,10 +181,10 @@ index 85253d8..c4e806c 100644
  
  uid_t cfs_curproc_uid(void);
 diff --git a/libcfs/include/libcfs/winnt/winnt-prim.h b/libcfs/include/libcfs/winnt/winnt-prim.h
-index 090adf3..154d81a 100644
+index 985af01..e234bba 100644
 --- a/libcfs/include/libcfs/winnt/winnt-prim.h
 +++ b/libcfs/include/libcfs/winnt/winnt-prim.h
-@@ -460,8 +460,6 @@ typedef struct _cfs_thread_context {
+@@ -442,8 +442,6 @@ typedef struct _cfs_thread_context {
      void *              arg;
  } cfs_thread_context_t;
  
@@ -193,7 +193,7 @@ index 090adf3..154d81a 100644
  /*
   * thread creation flags from Linux, not used in winnt
   */
-@@ -479,8 +477,6 @@ int cfs_create_thread(int (*func)(void *), void *arg, unsigned long flag);
+@@ -461,8 +459,6 @@ int cfs_create_thread(int (*func)(void *), void *arg, unsigned long flag);
  
  #define CLONE_SIGNAL    (CLONE_SIGHAND | CLONE_THREAD)
  
@@ -225,10 +225,10 @@ index 71852cc..ddfadde 100644
  		   prng.o workitem.o upcall_cache.o libcfs_cpu.o \
  		   libcfs_mem.o libcfs_lock.o heap.o
 diff --git a/libcfs/libcfs/darwin/darwin-prim.c b/libcfs/libcfs/darwin/darwin-prim.c
-index 68d1c0d..ff42538 100644
+index 68d1c0d..8e0901f 100644
 --- a/libcfs/libcfs/darwin/darwin-prim.c
 +++ b/libcfs/libcfs/darwin/darwin-prim.c
-@@ -333,24 +333,25 @@ cfs_thread_agent (void)
+@@ -333,24 +333,29 @@ cfs_thread_agent (void)
  
  extern thread_t kernel_thread(task_t task, void (*start)(void));
  
@@ -252,11 +252,15 @@ index 68d1c0d..ff42538 100644
 +	th = kernel_thread(kernel_task, cfs_thread_agent);
 +	thread_arg_release(&cfs_thread_arg);
 +	if (th != THREAD_NULL) {
++		/*
++		 * FIXME: change child thread name...
++		 * cfs_curproc_comm() is already broken. So it is left as is...
 +		va_list args;
 +		va_start(args, namefmt);
 +		snprintf(cfs_curproc_comm(), CFS_CURPROC_COMM_MAX,
 +			 namefmt, args);
 +		va_end(args);
++		 */
 +	} else {
                  ret = -1;
 -        return ret;
@@ -413,10 +417,10 @@ index d9d4dc1..0000000
 -}
 -EXPORT_SYMBOL(cfs_create_thread);
 diff --git a/libcfs/libcfs/linux/linux-prim.c b/libcfs/libcfs/linux/linux-prim.c
-index afb4465..d5d62d7 100644
+index afb4465..6da1744 100644
 --- a/libcfs/libcfs/linux/linux-prim.c
 +++ b/libcfs/libcfs/linux/linux-prim.c
-@@ -259,34 +259,19 @@ void cfs_enter_debugger(void)
+@@ -259,34 +259,20 @@ void cfs_enter_debugger(void)
  #endif
  }
  
@@ -445,8 +449,6 @@ index afb4465..d5d62d7 100644
 -        }
 -#else
 -        unshare_fs_struct();
--#endif
--        return 0;
 +int unshare_fs_struct(void)
 +{
 +	struct task_struct *tsk = current;
@@ -457,36 +459,36 @@ index afb4465..d5d62d7 100644
 +	exit_fs(tsk);
 +	tsk->fs = fs;
 +	return 0;
- }
-+#endif
++}
++EXPORT_SYMBOL(unshare_fs_struct);
+ #endif
+-        return 0;
+-}
  
  sigset_t
  cfs_block_allsigs(void)
-@@ -373,8 +358,9 @@ libcfs_arch_cleanup(void)
+@@ -373,8 +359,6 @@ libcfs_arch_cleanup(void)
  EXPORT_SYMBOL(libcfs_arch_init);
  EXPORT_SYMBOL(libcfs_arch_cleanup);
  EXPORT_SYMBOL(cfs_enter_debugger);
 -EXPORT_SYMBOL(cfs_daemonize);
 -EXPORT_SYMBOL(cfs_daemonize_ctxt);
-+#ifndef HAVE_UNSHARE_FS_STRUCT
-+EXPORT_SYMBOL(unshare_fs_struct);
-+#endif
  EXPORT_SYMBOL(cfs_block_allsigs);
  EXPORT_SYMBOL(cfs_block_sigs);
  EXPORT_SYMBOL(cfs_block_sigsinv);
 diff --git a/libcfs/libcfs/tracefile.c b/libcfs/libcfs/tracefile.c
-index 23e8336..0e2ce2b 100644
+index f31e000..5059f47 100644
 --- a/libcfs/libcfs/tracefile.c
 +++ b/libcfs/libcfs/tracefile.c
-@@ -992,7 +992,6 @@ static int tracefiled(void *arg)
+@@ -991,7 +991,6 @@ static int tracefiled(void *arg)
  
-         /* we're started late enough that we pick up init's fs context */
-         /* this is so broken in uml?  what on earth is going on? */
--        cfs_daemonize("ktracefiled");
+ 	/* we're started late enough that we pick up init's fs context */
+ 	/* this is so broken in uml?  what on earth is going on? */
+-	cfs_daemonize("ktracefiled");
  
  	spin_lock_init(&pc.pc_lock);
  	complete(&tctl->tctl_start);
-@@ -1103,16 +1102,16 @@ int cfs_trace_start_thread(void)
+@@ -1105,16 +1104,16 @@ int cfs_trace_start_thread(void)
  
  	init_completion(&tctl->tctl_start);
  	init_completion(&tctl->tctl_stop);
@@ -1218,10 +1220,10 @@ index eb6c659..4df26ee 100644
  		{
  			CERROR ("failed to spawn scheduling thread: %d\n", rc);
 diff --git a/lnet/klnds/qswlnd/qswlnd_cb.c b/lnet/klnds/qswlnd/qswlnd_cb.c
-index dd5ff27..ba604f4 100644
+index 243918b..50cc744 100644
 --- a/lnet/klnds/qswlnd/qswlnd_cb.c
 +++ b/lnet/klnds/qswlnd/qswlnd_cb.c
-@@ -1656,15 +1656,15 @@ kqswnal_recv (lnet_ni_t     *ni,
+@@ -1655,15 +1655,15 @@ kqswnal_recv (lnet_ni_t     *ni,
  }
  
  int
@@ -1243,7 +1245,7 @@ index dd5ff27..ba604f4 100644
  }
  
  void
-@@ -1683,7 +1683,6 @@ kqswnal_scheduler (void *arg)
+@@ -1682,7 +1682,6 @@ kqswnal_scheduler (void *arg)
          int              counter = 0;
          int              did_something;
  
@@ -1530,10 +1532,10 @@ index b24127d..e624753 100644
  
          CFS_INIT_LIST_HEAD(&enomem_conns);
 diff --git a/lnet/lnet/acceptor.c b/lnet/lnet/acceptor.c
-index 9db3571..d6e7316 100644
+index 9e9b236..7eda4ad 100644
 --- a/lnet/lnet/acceptor.c
 +++ b/lnet/lnet/acceptor.c
-@@ -398,7 +398,6 @@ lnet_accept(cfs_socket_t *sock, __u32 magic)
+@@ -389,7 +389,6 @@ lnet_accept(cfs_socket_t *sock, __u32 magic)
  int
  lnet_acceptor(void *arg)
  {
@@ -1541,7 +1543,7 @@ index 9db3571..d6e7316 100644
          cfs_socket_t  *newsock;
          int            rc;
          __u32          magic;
-@@ -408,8 +407,6 @@ lnet_acceptor(void *arg)
+@@ -399,8 +398,6 @@ lnet_acceptor(void *arg)
  
          LASSERT (lnet_acceptor_state.pta_sock == NULL);
  
@@ -1550,32 +1552,21 @@ index 9db3571..d6e7316 100644
          cfs_block_allsigs();
  
          rc = libcfs_sock_listen(&lnet_acceptor_state.pta_sock,
-@@ -538,16 +535,18 @@ lnet_acceptor_start(void)
-                 return rc;
-         }
+@@ -532,9 +529,11 @@ lnet_acceptor_start(void)
+ 	if (lnet_count_acceptor_nis() == 0)  /* not required */
+ 		return 0;
  
--        if (lnet_count_acceptor_nis() == 0)  /* not required */
--                return 0;
-+	if (lnet_count_acceptor_nis() == 0)  /* not required */
-+		return 0;
- 
--        rc2 = cfs_create_thread(lnet_acceptor, (void *)(ulong_ptr_t)secure, 0);
--        if (rc2 < 0) {
--                CERROR("Can't start acceptor thread: %d\n", rc);
-+	rc2 = PTR_ERR(kthread_run(lnet_acceptor,
-+				  (void *)(ulong_ptr_t)secure,
-+				  "acceptor_%03ld", secure));
+-	rc2 = cfs_create_thread(lnet_acceptor, (void *)(ulong_ptr_t)secure, 0);
+-	if (rc2 < 0) {
+-		CERROR("Can't start acceptor thread: %d\n", rc);
++ 	rc2 = PTR_ERR(kthread_run(lnet_acceptor,
++ 				  (void *)(ulong_ptr_t)secure,
++ 				  "acceptor_%03ld", secure));
 +	if (IS_ERR_VALUE(rc2)) {
 +		CERROR("Can't start acceptor thread: %ld\n", rc2);
- 		mt_fini_completion(&lnet_acceptor_state.pta_signal);
+ 		fini_completion(&lnet_acceptor_state.pta_signal);
  
--                return -ESRCH;
--        }
-+		return -ESRCH;
-+	}
- 
-         /* wait for acceptor to startup */
- 	mt_wait_for_completion(&lnet_acceptor_state.pta_signal);
+ 		return -ESRCH;
 diff --git a/lnet/lnet/module.c b/lnet/lnet/module.c
 index 770345d..9d57479 100644
 --- a/lnet/lnet/module.c
@@ -1668,7 +1659,7 @@ index a66a336..f2f8262 100644
  	spin_lock(&stt_data.stt_lock);
  	stt_data.stt_nthreads++;
 diff --git a/lnet/ulnds/socklnd/usocklnd.c b/lnet/ulnds/socklnd/usocklnd.c
-index d1e6b7f..04f8de6 100644
+index cc8c4c8..d4d5027 100644
 --- a/lnet/ulnds/socklnd/usocklnd.c
 +++ b/lnet/ulnds/socklnd/usocklnd.c
 @@ -296,14 +296,15 @@ usocklnd_base_startup()
@@ -1973,10 +1964,10 @@ index 1d489e6..5e269b3 100644
  
  void ll_capa_thread_stop(void)
 diff --git a/lustre/llite/llite_close.c b/lustre/llite/llite_close.c
-index 6c897dc..1fc723e 100644
+index 26a2c8c..f1a1415 100644
 --- a/lustre/llite/llite_close.c
 +++ b/lustre/llite/llite_close.c
-@@ -350,12 +350,6 @@ static int ll_close_thread(void *arg)
+@@ -349,12 +349,6 @@ static int ll_close_thread(void *arg)
          struct ll_close_queue *lcq = arg;
          ENTRY;
  
@@ -1989,7 +1980,7 @@ index 6c897dc..1fc723e 100644
  	complete(&lcq->lcq_comp);
  
          while (1) {
-@@ -383,25 +377,25 @@ static int ll_close_thread(void *arg)
+@@ -382,25 +376,25 @@ static int ll_close_thread(void *arg)
  
  int ll_close_thread_start(struct ll_close_queue **lcq_ret)
  {
@@ -2160,7 +2151,7 @@ index 9eea49e..cb11191 100644
                  thread_set_flags(thread, SVC_STOPPED);
                  thread_set_flags(&sai->sai_agl_thread, SVC_STOPPED);
 diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
-index 22a0079..dbe4d71 100644
+index 608813c..bc56549 100644
 --- a/lustre/mdc/mdc_request.c
 +++ b/lustre/mdc/mdc_request.c
 @@ -1556,13 +1556,6 @@ static int mdc_changelog_send_thread(void *csdata)
@@ -2177,32 +2168,27 @@ index 22a0079..dbe4d71 100644
          OBD_ALLOC(cs->cs_buf, CR_MAXSIZE);
          if (cs->cs_buf == NULL)
                  GOTO(out, rc = -ENOMEM);
-@@ -1602,39 +1595,38 @@ out:
-         if (cs->cs_buf)
-                 OBD_FREE(cs->cs_buf, CR_MAXSIZE);
-         OBD_FREE_PTR(cs);
+@@ -1599,12 +1592,10 @@ out:
+ 		llog_cat_close(NULL, llh);
+         if (ctxt)
+                 llog_ctxt_put(ctxt);
+-        if (cs->cs_buf)
+-                OBD_FREE(cs->cs_buf, CR_MAXSIZE);
+-        OBD_FREE_PTR(cs);
 -        /* detach from parent process so we get cleaned up */
 -        cfs_daemonize("cl_send");
-         return rc;
+-        return rc;
++	if (cs->cs_buf)
++		OBD_FREE(cs->cs_buf, CR_MAXSIZE);
++	OBD_FREE_PTR(cs);
++	return rc;
  }
  
  static int mdc_ioc_changelog_send(struct obd_device *obd,
--                                  struct ioc_changelog *icc)
--{
--        struct changelog_show *cs;
--        int rc;
--
--        /* Freed in mdc_changelog_send_thread */
--        OBD_ALLOC_PTR(cs);
--        if (!cs)
--                return -ENOMEM;
--
--        cs->cs_obd = obd;
--        cs->cs_startrec = icc->icc_recno;
--        /* matching cfs_put_file in mdc_changelog_send_thread */
--        cs->cs_fp = cfs_get_fd(icc->icc_id);
--        cs->cs_flags = icc->icc_flags;
--
+@@ -1624,13 +1615,16 @@ static int mdc_ioc_changelog_send(struct obd_device *obd,
+ 	cs->cs_fp = fget(icc->icc_id);
+ 	cs->cs_flags = icc->icc_flags;
+ 
 -        /* New thread because we should return to user app before
 -           writing into our pipe */
 -        rc = cfs_create_thread(mdc_changelog_send_thread, cs, CFS_DAEMON_FLAGS);
@@ -2210,40 +2196,19 @@ index 22a0079..dbe4d71 100644
 -                CDEBUG(D_CHANGELOG, "start changelog thread: %d\n", rc);
 -                return 0;
 -        }
-+				  struct ioc_changelog *icc)
-+{
-+	struct changelog_show *cs;
-+	cfs_task_t *task;
-+
-+	/* Freed in mdc_changelog_send_thread */
-+	OBD_ALLOC_PTR(cs);
-+	if (!cs)
-+		return -ENOMEM;
-+
-+	cs->cs_obd = obd;
-+	cs->cs_startrec = icc->icc_recno;
-+	/* matching cfs_put_file in mdc_changelog_send_thread */
-+	cs->cs_fp = cfs_get_fd(icc->icc_id);
-+	cs->cs_flags = icc->icc_flags;
-+
-+	/* New thread because we should return to user app before
-+	   writing into our pipe */
-+	task = kthread_run(mdc_changelog_send_thread, cs,
-+			       "mdc_clg_send_thread");
-+	if (!IS_ERR(task)) {
++	/*
++	 * New thread because we should return to user app before
++	 * writing into our pipe
++	 */
++        rc = PTR_ERR(kthread_run(mdc_changelog_send_thread, cs,
++				 "mdc_clg_send_thread"));
++	if (!IS_ERR_VALUE(rc)) {
 +		CDEBUG(D_CHANGELOG, "start changelog thread\n");
 +		return 0;
 +	}
  
--        CERROR("Failed to start changelog thread: %d\n", rc);
--        OBD_FREE_PTR(cs);
--        return rc;
-+	CERROR("Failed to start changelog thread: %ld\n", PTR_ERR(task));
-+	OBD_FREE_PTR(cs);
-+	return PTR_ERR(task);
- }
- 
- static int mdc_ioc_hsm_ct_start(struct obd_export *exp,
+         CERROR("Failed to start changelog thread: %d\n", rc);
+         OBD_FREE_PTR(cs);
 diff --git a/lustre/mdd/mdd_lfsck.c b/lustre/mdd/mdd_lfsck.c
 index 152a2d4..f7be2bb 100644
 --- a/lustre/mdd/mdd_lfsck.c
@@ -2565,18 +2530,18 @@ index 405524c..de5e7de 100644
  
  	l_wait_event(d->opd_pre_thread.t_ctl_waitq,
 diff --git a/lustre/osp/osp_sync.c b/lustre/osp/osp_sync.c
-index fc67e5c..22650f4 100644
+index 219744f..67863a2 100644
 --- a/lustre/osp/osp_sync.c
 +++ b/lustre/osp/osp_sync.c
-@@ -833,7 +833,6 @@ static int osp_sync_thread(void *_arg)
+@@ -838,7 +838,6 @@ static int osp_sync_thread(void *_arg)
  	struct llog_handle	*llh;
  	struct lu_env		 env;
- 	int			 rc;
+ 	int			 rc, count;
 -	char			 pname[16];
  
  	ENTRY;
  
-@@ -844,9 +843,6 @@ static int osp_sync_thread(void *_arg)
+@@ -849,9 +848,6 @@ static int osp_sync_thread(void *_arg)
  		RETURN(rc);
  	}
  
@@ -2586,22 +2551,14 @@ index fc67e5c..22650f4 100644
  	spin_lock(&d->opd_syn_lock);
  	thread->t_flags = SVC_RUNNING;
  	spin_unlock(&d->opd_syn_lock);
-@@ -1012,6 +1008,7 @@ static void osp_sync_llog_fini(const struct lu_env *env, struct osp_device *d)
- int osp_sync_init(const struct lu_env *env, struct osp_device *d)
- {
- 	struct l_wait_info	 lwi = { 0 };
-+	char			 pname[16];
- 	int			 rc;
- 
- 	ENTRY;
-@@ -1040,8 +1037,9 @@ int osp_sync_init(const struct lu_env *env, struct osp_device *d)
+@@ -1055,8 +1051,9 @@ int osp_sync_init(const struct lu_env *env, struct osp_device *d)
  	cfs_waitq_init(&d->opd_syn_thread.t_ctl_waitq);
  	CFS_INIT_LIST_HEAD(&d->opd_syn_committed_there);
  
 -	rc = cfs_create_thread(osp_sync_thread, d, 0);
 -	if (rc < 0) {
-+	sprintf(pname, "osp-syn-%u", d->opd_index);
-+	rc = PTR_ERR(kthread_run(osp_sync_thread, d, pname));
++	rc = PTR_ERR(kthread_run(osp_sync_thread, d,
++				 "osp-syn-%u", d->opd_index));
 +	if (IS_ERR_VALUE(rc)) {
  		CERROR("%s: can't start sync thread: rc = %d\n",
  		       d->opd_obd->obd_name, rc);

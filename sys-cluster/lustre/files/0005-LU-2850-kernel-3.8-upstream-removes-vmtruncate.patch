@@ -1,4 +1,4 @@
-From 20c2e930f8317a0500d08f5f15716719113d8a5b Mon Sep 17 00:00:00 2001
+From e40d49bfbbda8196e29d98e380d012ff9d9c3639 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 26 Feb 2013 18:09:42 +0800
 Subject: [PATCH 5/6] LU-2850 kernel: 3.8 upstream removes vmtruncate()
@@ -55,7 +55,7 @@ index 9a7a458..c87afb0 100644
  	 if test x$enable_server = xyes ; then
  		AC_DEFINE(HAVE_SERVER_SUPPORT, 1, [support server])
 diff --git a/lustre/llite/vvp_io.c b/lustre/llite/vvp_io.c
-index 9020d77..25f631c 100644
+index db53842..aef8e4b 100644
 --- a/lustre/llite/vvp_io.c
 +++ b/lustre/llite/vvp_io.c
 @@ -362,9 +362,17 @@ static int vvp_do_vmtruncate(struct inode *inode, size_t size)

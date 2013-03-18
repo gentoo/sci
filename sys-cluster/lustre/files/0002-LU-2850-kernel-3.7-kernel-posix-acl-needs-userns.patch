@@ -1,4 +1,4 @@
-From e9f9ce30714f5b645e59d08e6d1c6dfeae6254d4 Mon Sep 17 00:00:00 2001
+From 4cc5a5711dea1e5bebd2cd1812955cc0cf84a8ac Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 26 Feb 2013 16:31:44 +0800
 Subject: [PATCH 2/6] LU-2850 kernel: 3.7 kernel posix acl needs userns
@@ -67,7 +67,7 @@ index 3c773e8..38d26a3 100644
  	 if test x$enable_server = xyes ; then
  		AC_DEFINE(HAVE_SERVER_SUPPORT, 1, [support server])
 diff --git a/lustre/include/liblustre.h b/lustre/include/liblustre.h
-index c01069a..fcf3aa7 100644
+index 14f3ef6..be4652e 100644
 --- a/lustre/include/liblustre.h
 +++ b/lustre/include/liblustre.h
 @@ -452,8 +452,17 @@ static inline size_t posix_acl_xattr_size(int count)
@@ -107,7 +107,7 @@ index 24a89eb..d0349e2 100644
                  RETURN(rc);
          }
 diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
-index 853143f..22a0079 100644
+index 772502b..608813c 100644
 --- a/lustre/mdc/mdc_request.c
 +++ b/lustre/mdc/mdc_request.c
 @@ -466,7 +466,11 @@ static int mdc_unpack_acl(struct ptlrpc_request *req, struct lustre_md *md)
