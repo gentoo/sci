@@ -1,3 +1,16 @@
+From 1abbac39f89cc7e078fd3a3abcd0597c736918a1 Mon Sep 17 00:00:00 2001
+From: Alexey Shvetsov <alexxy@gentoo.org>
+Date: Mon, 18 Mar 2013 16:22:27 +0400
+Subject: [PATCH] LU-2982 build: make AC check for linux arch sandbox friendly
+
+this commit makes AC check for linux kernel arch sandbox friendly
+
+Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
+Change-Id: I173cd892bca5587519806cf6d300a5053dfb935f
+---
+ build/autoconf/lustre-build-linux.m4 | 40 ++++++++++++++++++++++++++++--------
+ 1 file changed, 32 insertions(+), 8 deletions(-)
+
 diff --git a/build/autoconf/lustre-build-linux.m4 b/build/autoconf/lustre-build-linux.m4
 index 4c0a581..6f6a40a 100644
 --- a/build/autoconf/lustre-build-linux.m4
@@ -49,3 +62,6 @@ index 4c0a581..6f6a40a 100644
  
  #
  # LB_LINUX_TRY_COMPILE
+-- 
+1.8.1.5
+
