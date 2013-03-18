@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+
+<pkgmetadata>
+
+        <maintainer>
+                <email>piatlicki@gmail.com</email>
+        </maintainer>
+
+        <use>
+	        <flag name="mpi-compat">Enable interoperability with MPI</flag>
+		<flag name="pshm">Build UPC Runtime/GASNet with Process-SHared Memory enabled</flag>
+		<flag name="segment-fast">Select GASNet's FAST segments (default), for the fastest remote access with a possible cost in max shared memory size</flag>
+		<flag name="segment-large">Select GASNet's LARGE segments, for the largest possible shared memory size, at a possible cost in remote access time</flag>
+	        <flag name="single">Support running over smp loopback (no network)</flag>
+		<flag name="sptr-packed">Use the more efficient 'packed' shared pointer representation</flag>
+		<flag name="sptr-struct">Use the 'struct' shared pointer representation</flag>
+		<flag name="sptr-symmetric">Enable 'symmetric' pointer variant where available (64-bit smp and shmem)</flag>
+                <flag name="udp">Support running over UDP</flag>
+        </use>
+
+</pkgmetadata>
