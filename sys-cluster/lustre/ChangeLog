@@ -3,6 +3,11 @@
 # $Header: $
 
   18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0007-LU-2984-build-Fix-warning-with-gcc-4.6-in-mdt_handle.patch,
+  lustre-9999.ebuild:
+  Fix error in mdt_handler.c
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
   files/0000-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch:
   Update patch
 
