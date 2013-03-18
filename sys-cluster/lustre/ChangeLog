@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Add gentoo style configure
+
   18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
   +files/0007-LU-2984-build-Fix-warning-with-gcc-4.6-in-mdt_handle.patch,
   lustre-9999.ebuild:

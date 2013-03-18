@@ -52,7 +52,37 @@ src_prepare() {
 	sed -e 's:libzfs.so:libzfs.so.1:g' \
 		-e 's:libnvpair.so:libnvpair.so.1:g' \
 		-i lustre/utils/mount_utils_zfs.c || die
-	sh ./autogen.sh
+
+	# replace upstream autogen.sh by our src_prepare()
+	local DIRS="build libcfs lnet lustre snmp"
+	local ACLOCAL_FLAGS
+	for dir in $DIRS ; do
+		ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $PWD/$dir/autoconf"
+	done
+	eaclocal $ACLOCAL_FLAGS
+	eautoheader
+	eautomake
+	eautoconf
+	# now walk in configure dirs
+	einfo "Reconfiguring source in libsysio"
+	cd libsysio
+	eaclocal
+	eautomake
+	eautoconf
+	cd ..
+	einfo "Reconfiguring source in lustre-iokit"
+	cd lustre-iokit
+	eaclocal
+	eautomake
+	eautoconf
+	cd ..
+	einfo "Reconfiguring source in ldiskfs"
+	cd ldiskfs
+	eaclocal -I $PWD/config
+	eautoheader
+	eautomake -W no-portability
+	eautoconf
+	cd ..
 }
 
 src_configure() {
