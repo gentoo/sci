@@ -7,6 +7,10 @@
   Update patch
 
   18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0000-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch:
+  Update patch
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
   +files/0000-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
   -files/LU-2982.patch, lustre-9999.ebuild:
   Add patch sended upstream

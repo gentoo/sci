@@ -1,4 +1,4 @@
-From 8464c612c87117d6f71a1515cd24e72508ee237a Mon Sep 17 00:00:00 2001
+From 1154d0914e29f3d6badb63913855faa008ac7b7b Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Mon, 18 Mar 2013 16:22:27 +0400
 Subject: [PATCH] LU-2982 build: make AC check for linux arch sandbox friendly
@@ -9,14 +9,14 @@ Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 Change-Id: I173cd892bca5587519806cf6d300a5053dfb935f
 Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 ---
- build/autoconf/lustre-build-linux.m4 | 59 +++++++++++++++++++++++++++++++-----
- 1 file changed, 51 insertions(+), 8 deletions(-)
+ build/autoconf/lustre-build-linux.m4 | 65 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 57 insertions(+), 8 deletions(-)
 
 diff --git a/build/autoconf/lustre-build-linux.m4 b/build/autoconf/lustre-build-linux.m4
-index 4c0a581..b6dc7c7 100644
+index 4c0a581..9fcd0b3 100644
 --- a/build/autoconf/lustre-build-linux.m4
 +++ b/build/autoconf/lustre-build-linux.m4
-@@ -363,14 +363,57 @@ rm -f build/conftest.o build/conftest.mod.c build/conftest.mod.o build/conftest.
+@@ -363,14 +363,63 @@ rm -f build/conftest.o build/conftest.mod.c build/conftest.mod.o build/conftest.
  # Determine the kernel's idea of the current architecture
  #
  AC_DEFUN([LB_LINUX_ARCH],
@@ -37,28 +37,34 @@ index 4c0a581..b6dc7c7 100644
 +	LINUXARCHHEADER=linux/autoconf.h
 +fi
 +LB_LINUX_TRY_MAKE([
-+	#include <$LINUXARCHHEADER>
++#include <$LINUXARCHHEADER>
++
++#ifndef UTS_MACHINE
++
++ #ifdef CONFIG_X86
++  #ifdef CONFIG_X86_32
++   #define UTS_MACHINE i386
++  #else
++   #define UTS_MACHINE x86_64
++  #endif
++ #endif
++
++ #ifdef CONFIG_IA64
++  #define UTS_MACHINE ia64
++ #endif
++
++ #ifdef CONFIG_PPC
++  #ifdef CONFIG_PPC32
++   #define UTS_MACHINE ppc
++  #endif
++  #ifdef CONFIG_PPC64
++   #define UTS_MACHINE ppc64
++  #endif
++ #endif
++
++#endif
 +],[
 +	char *LINUXARCH;
-+	#ifndef UTS_MACHINE
-+	#ifdef CONFIG_X86
-+	#ifdef CONFIG_X86_32
-+	#define UTS_MACHINE i386
-+	#else
-+	#define UTS_MACHINE x86_64
-+	#endif
-+	#ifdef CONFIG_IA64
-+	#define UTS_MACHINE ia64
-+	#endif
-+	#ifdef CONFIG_PPC
-+	#ifdef CONFIG_PPC32
-+	#define UTS_MACHINE ppc
-+	#endif
-+	#ifdef CONFIG_PPC64
-+	#define UTS_MACHINE ppc64
-+	#endif
-+	#endif
-+	#endif
 +	LINUXARCH=UTS_MACHINE;
 +],[
 +	$makerule LUSTRE_KERNEL_TEST=conftest.i
