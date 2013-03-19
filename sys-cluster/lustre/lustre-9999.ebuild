@@ -62,7 +62,7 @@ src_prepare() {
 	local DIRS="build libcfs lnet lustre snmp"
 	local ACLOCAL_FLAGS
 	for dir in $DIRS ; do
-		ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $PWD/$dir/autoconf"
+		ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $dir/autoconf"
 	done
 	eaclocal $ACLOCAL_FLAGS
 	eautoheader
@@ -83,7 +83,7 @@ src_prepare() {
 	cd ..
 	einfo "Reconfiguring source in ldiskfs"
 	cd ldiskfs
-	eaclocal -I $PWD/config
+	eaclocal -I config
 	eautoheader
 	eautomake -W no-portability
 	eautoconf

@@ -3,6 +3,9 @@
 # $Header: $
 
   19 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  $PWD dont needed in automake invocation
+
+  19 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
   Fix escape sequence
 
   18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
