@@ -7,7 +7,7 @@ EAPI=5
 WANT_AUTOCONF="2.5"
 WANT_AUTOMAKE="1.10"
 
-inherit git-2 autotools linux-mod toolchain-funcs
+inherit git-2 autotools linux-mod toolchain-funcs udev
 
 DESCRIPTION="Lustre is a parallel distributed file system"
 HOMEPAGE="http://wiki.whamcloud.com/"
@@ -29,15 +29,15 @@ DEPEND="
 	"
 RDEPEND="${DEPEND}"
 
-BUILD_PARAMS="-C ${KV_DIR} SUBDIRS=${S}"
-
 PATCHES=(
+	"${FILESDIR}/0000-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
 	"${FILESDIR}/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch"
 	"${FILESDIR}/0002-LU-2850-kernel-3.7-kernel-posix-acl-needs-userns.patch"
 	"${FILESDIR}/0003-LU-2850-kernel-3.7-uneports-sock_map_fd.patch"
 	"${FILESDIR}/0004-LU-2850-kernel-3.7-get-putname-uses-struct-filename.patch"
 	"${FILESDIR}/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
 	"${FILESDIR}/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
+	"${FILESDIR}/0007-LU-2984-build-Fix-warning-with-gcc-4.6-in-mdt_handle.patch"
 )
 
 pkg_setup() {
@@ -52,7 +52,42 @@ src_prepare() {
 	sed -e 's:libzfs.so:libzfs.so.1:g' \
 		-e 's:libnvpair.so:libnvpair.so.1:g' \
 		-i lustre/utils/mount_utils_zfs.c || die
-	sh ./autogen.sh
+
+	# fix some install paths
+	sed -e "s:$(sysconfdir)/udev:$(get_udevdir):g" \
+		-e "s:$(sysconfdir)/sysconfig:$(sysconfdir)/conf.d:g" \
+		-i lustre/conf/Makefile.am || die
+
+	# replace upstream autogen.sh by our src_prepare()
+	local DIRS="build libcfs lnet lustre snmp"
+	local ACLOCAL_FLAGS
+	for dir in $DIRS ; do
+		ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $PWD/$dir/autoconf"
+	done
+	eaclocal $ACLOCAL_FLAGS
+	eautoheader
+	eautomake
+	eautoconf
+	# now walk in configure dirs
+	einfo "Reconfiguring source in libsysio"
+	cd libsysio
+	eaclocal
+	eautomake
+	eautoconf
+	cd ..
+	einfo "Reconfiguring source in lustre-iokit"
+	cd lustre-iokit
+	eaclocal
+	eautomake
+	eautoconf
+	cd ..
+	einfo "Reconfiguring source in ldiskfs"
+	cd ldiskfs
+	eaclocal -I $PWD/config
+	eautoheader
+	eautomake -W no-portability
+	eautoconf
+	cd ..
 }
 
 src_configure() {
