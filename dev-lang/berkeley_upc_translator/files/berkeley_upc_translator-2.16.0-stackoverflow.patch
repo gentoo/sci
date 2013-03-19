@@ -1,0 +1,18 @@
+Author: Paul H. Hargrove
+See https://upc-bugs.lbl.gov/bugzilla/show_bug.cgi?id=3141
+--- open64/osprey1.0/gccfe/tree_symtab.h
++++ open64/osprey1.0/gccfe/tree_symtab.h
+@@ -45,7 +45,12 @@
+ #include <set>
+ #include <upc_symtab_utils.h>
+
+-#define MAX_PATH 500
++#include <limits>
++#ifdef PATH_MAX
++ #define MAX_PATH PATH_MAX
++#else
++ #define MAX_PATH 4096
++#endif
+
+ extern int Scope_level;
+ extern int For_scope;
