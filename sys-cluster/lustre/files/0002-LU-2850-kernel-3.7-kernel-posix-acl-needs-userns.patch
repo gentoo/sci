@@ -1,6 +1,6 @@
-From 4cc5a5711dea1e5bebd2cd1812955cc0cf84a8ac Mon Sep 17 00:00:00 2001
+From a1552cbe3d0ea36cdc3959db91a8edb19589cf96 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
-Date: Tue, 26 Feb 2013 16:31:44 +0800
+Date: Mon, 11 Mar 2013 11:17:12 +0800
 Subject: [PATCH 2/6] LU-2850 kernel: 3.7 kernel posix acl needs userns
 
 With upstream commit 5f3a4a28, kernel posix acl adds support
@@ -10,10 +10,10 @@ Signed-off-by: Peng Tao <tao.peng@emc.com>
 Change-Id: I7d82c51c482daae8a7dbb526b8d72eea2bcf0650
 ---
  lustre/autoconf/lustre-core.m4 | 26 ++++++++++++++++++++++++++
- lustre/include/liblustre.h     | 11 ++++++++++-
+ lustre/include/liblustre.h     |  9 ++++++++-
  lustre/llite/xattr.c           |  6 +++++-
  lustre/mdc/mdc_request.c       |  6 +++++-
- 4 files changed, 46 insertions(+), 3 deletions(-)
+ 4 files changed, 44 insertions(+), 3 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
 index 3c773e8..38d26a3 100644
@@ -67,28 +67,28 @@ index 3c773e8..38d26a3 100644
  	 if test x$enable_server = xyes ; then
  		AC_DEFINE(HAVE_SERVER_SUPPORT, 1, [support server])
 diff --git a/lustre/include/liblustre.h b/lustre/include/liblustre.h
-index 14f3ef6..be4652e 100644
+index 14f3ef6..50e5f35 100644
 --- a/lustre/include/liblustre.h
 +++ b/lustre/include/liblustre.h
-@@ -452,8 +452,17 @@ static inline size_t posix_acl_xattr_size(int count)
-                sizeof(posix_acl_xattr_entry);
+@@ -453,10 +453,17 @@ static inline size_t posix_acl_xattr_size(int count)
  }
  
-+#ifdef HAVE_POSIX_ACL_NAMESPACE
-+struct user_namespace {};
-+struct user_namespace init_user_ns;
-+
-+static inline
-+struct posix_acl *posix_acl_from_xattr(struct user_namespace *user_ns,
-+					const void *value, size_t size)
-+#else
  static inline
 -struct posix_acl * posix_acl_from_xattr(const void *value, size_t size)
 +struct posix_acl *posix_acl_from_xattr(const void *value, size_t size)
-+#endif
  {
          return NULL;
  }
++#ifdef HAVE_POSIX_ACL_NAMESPACE
++/*
++ * Mask out &init_user_ns so we don't jump through hoops to define it somehow
++ * only to have it ignored anyway.
++ */
++#define posix_acl_from_xattr(a,b,c)    posix_acl_from_xattr(b,c)
++#endif
+ 
+ static inline
+ int posix_acl_valid(const struct posix_acl *acl)
 diff --git a/lustre/llite/xattr.c b/lustre/llite/xattr.c
 index 24a89eb..d0349e2 100644
 --- a/lustre/llite/xattr.c

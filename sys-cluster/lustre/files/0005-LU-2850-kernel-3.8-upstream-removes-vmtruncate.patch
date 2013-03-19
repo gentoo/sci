@@ -1,4 +1,4 @@
-From e40d49bfbbda8196e29d98e380d012ff9d9c3639 Mon Sep 17 00:00:00 2001
+From 6cc48af286a737552bfdb15b8566ecabb32e6642 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 26 Feb 2013 18:09:42 +0800
 Subject: [PATCH 5/6] LU-2850 kernel: 3.8 upstream removes vmtruncate()

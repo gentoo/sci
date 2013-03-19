@@ -1,4 +1,4 @@
-From 45927457c2d276951ad1cbf4da785160b36ae3f8 Mon Sep 17 00:00:00 2001
+From 5f24e2d6b03fd8ef42fbfbd94c11e8640417e3f0 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Mon, 18 Mar 2013 10:47:57 +0800
 Subject: [PATCH 6/6] LU-2850 kernel: 3.8 upstream kills daemonize()
@@ -477,10 +477,10 @@ index afb4465..6da1744 100644
  EXPORT_SYMBOL(cfs_block_sigs);
  EXPORT_SYMBOL(cfs_block_sigsinv);
 diff --git a/libcfs/libcfs/tracefile.c b/libcfs/libcfs/tracefile.c
-index f31e000..5059f47 100644
+index d455e42..f874974 100644
 --- a/libcfs/libcfs/tracefile.c
 +++ b/libcfs/libcfs/tracefile.c
-@@ -991,7 +991,6 @@ static int tracefiled(void *arg)
+@@ -992,7 +992,6 @@ static int tracefiled(void *arg)
  
  	/* we're started late enough that we pick up init's fs context */
  	/* this is so broken in uml?  what on earth is going on? */
@@ -488,7 +488,7 @@ index f31e000..5059f47 100644
  
  	spin_lock_init(&pc.pc_lock);
  	complete(&tctl->tctl_start);
-@@ -1105,16 +1104,16 @@ int cfs_trace_start_thread(void)
+@@ -1106,16 +1105,16 @@ int cfs_trace_start_thread(void)
  
  	init_completion(&tctl->tctl_start);
  	init_completion(&tctl->tctl_stop);
@@ -1747,7 +1747,7 @@ index 2e3a1d5..e61583a 100644
  
  void target_stop_recovery_thread(struct obd_device *obd)
 diff --git a/lustre/ldlm/ldlm_lockd.c b/lustre/ldlm/ldlm_lockd.c
-index 18bbd28..fb4d729 100644
+index 4a75bb0..27a79d9 100644
 --- a/lustre/ldlm/ldlm_lockd.c
 +++ b/lustre/ldlm/ldlm_lockd.c
 @@ -178,7 +178,6 @@ static int expired_lock_main(void *arg)

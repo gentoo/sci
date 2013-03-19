@@ -1,4 +1,4 @@
-From 44bfa4137340d5748aa4aa973f8ef444885ab790 Mon Sep 17 00:00:00 2001
+From 44034bc1deb0f1320693b605ab5c7c240f70df01 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 26 Feb 2013 17:09:15 +0800
 Subject: [PATCH 3/6] LU-2850 kernel: 3.7 uneports sock_map_fd

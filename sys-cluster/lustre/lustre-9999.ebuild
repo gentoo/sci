@@ -7,7 +7,7 @@ EAPI=5
 WANT_AUTOCONF="2.5"
 WANT_AUTOMAKE="1.10"
 
-inherit git-2 autotools linux-mod toolchain-funcs
+inherit git-2 autotools linux-mod toolchain-funcs udev
 
 DESCRIPTION="Lustre is a parallel distributed file system"
 HOMEPAGE="http://wiki.whamcloud.com/"
@@ -52,6 +52,11 @@ src_prepare() {
 	sed -e 's:libzfs.so:libzfs.so.1:g' \
 		-e 's:libnvpair.so:libnvpair.so.1:g' \
 		-i lustre/utils/mount_utils_zfs.c || die
+
+	# fix some install paths
+	sed -e "s:$(sysconfdir)/udev:$(get_udevdir):g" \
+		-e "s:$(sysconfdir)/sysconfig:$(sysconfdir)/conf.d:g" \
+		-i lustre/conf/Makefile.am || die
 
 	# replace upstream autogen.sh by our src_prepare()
 	local DIRS="build libcfs lnet lustre snmp"
