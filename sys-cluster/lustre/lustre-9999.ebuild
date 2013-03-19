@@ -54,8 +54,8 @@ src_prepare() {
 		-i lustre/utils/mount_utils_zfs.c || die
 
 	# fix some install paths
-	sed -e "s:$(sysconfdir)/udev:$(get_udevdir):g" \
-		-e "s:$(sysconfdir)/sysconfig:$(sysconfdir)/conf.d:g" \
+	sed -e "s:$\(sysconfdir\)/udev:$(get_udevdir):g" \
+		-e "s:$\(sysconfdir\)/sysconfig:$\(sysconfdir\)/conf.d:g" \
 		-i lustre/conf/Makefile.am || die
 
 	# replace upstream autogen.sh by our src_prepare()
