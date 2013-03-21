@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit flag-o-matic toolchain-funcs
+inherit flag-o-matic fortran-2 toolchain-funcs
 
 DESCRIPTION="System for chemical shifts based protein structure prediction using ROSETTA"
 HOMEPAGE="http://spin.niddk.nih.gov/bax/software/CSROSETTA/"
