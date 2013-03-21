@@ -77,6 +77,7 @@ src_prepare() {
 		-e "s:GENTOO_CXXFLAGS:${myCXXFLAGS}:g" \
 		-e "s:GENTOO_LDFLAGS:${myCXXFLAGS} ${myLDFLAGS}:g" \
 		-e "s:GENTOO_LIBDIR:$(get_libdir):g" \
+		-e "/program_path/s:#::g" \
 		-i tools/build/user.settings || die
 
 	if use mpi; then
