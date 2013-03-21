@@ -1,0 +1,16 @@
+ tools/build/basic.settings | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/build/basic.settings b/tools/build/basic.settings
+index ecf3237..356cd61 100644
+--- a/tools/build/basic.settings
++++ b/tools/build/basic.settings
+@@ -610,7 +610,7 @@ settings = {
+     "gcc, boost_thread" : {
+         "appends" : {
+             "defines" : [ "MULTI_THREADED" ],
+-            "libraries"     : [ "pthread", "boost_thread" ],
++            "libraries"     : [ "pthread", "boost_thread", "boost_system" ],
+ 	    "library_path"  : [ "/usr/local/lib", "/opt/boost/lib" ],
+             "flags"         : {
+                 "compile"   : [ "pthread" ],

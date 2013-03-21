@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
-EAPI=4
+EAPI=5
 
 DESCRIPTION="Method to generate protein conformations around a known structure based on geometric restrictions"
 HOMEPAGE="http://www.mpibpc.mpg.de/groups/de_groot/concoord/concoord.html"
 SRC_URI="
-	amd64? ( http://www.mpibpc.mpg.de/groups/de_groot/concoord/concoord2.1_linux_x86_64.tgz )
-	x86? ( http://www.mpibpc.mpg.de/groups/de_groot/concoord/concoord2.1_linux_i386.tgz )"
+	amd64? ( http://www3.mpibpc.mpg.de/groups/de_groot/${PN}/${PN}_${PV}_linux64.tgz )
+	x86? ( http://www3.mpibpc.mpg.de/groups/de_groot/${PN}/${PN}_${PV}_linux32.tgz )"
 
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -17,11 +17,10 @@ IUSE=""
 
 QA_PREBUILT="opt/${PN}/bin/*"
 
-S="${WORKDIR}"/${PN}${PV}
+S="${WORKDIR}"/${PN}_${PV}
 
 src_install() {
 	insinto /opt/${PN}/
-	rm lib/*.a || die
 	doins -r lib
 	exeinto /opt/${PN}/bin
 	doexe bin/*

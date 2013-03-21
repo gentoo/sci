@@ -1,6 +1,12 @@
 # ChangeLog for sci-chemistry/usf-tools
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  12 Mar 2013; Justin Lecher <jlec@gentoo.org> usf-tools-9999.ebuild:
+  Update license
+
+  12 Mar 2013; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Drop myself as maintainer
 
 *usf-tools-9999 (13 Aug 2012)
 

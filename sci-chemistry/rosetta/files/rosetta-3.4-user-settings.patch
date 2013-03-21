@@ -1,0 +1,29 @@
+ tools/build/user.settings | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/tools/build/user.settings b/tools/build/user.settings
+index 27a001f..9696e3e 100644
+--- a/tools/build/user.settings
++++ b/tools/build/user.settings
+@@ -22,7 +22,7 @@
+ # and select between them from the options.  For now there is only the
+ # single "user" settings.
+ 
+-#import os
++import os
+ settings = {
+     "user" : {
+         "prepends" : {
+@@ -38,6 +38,12 @@ settings = {
+             #"program_path"  : os.environ["PATH"].split(":"),
+         },
+         "overrides" : {
++            "flags" : {
++                  "compile" : [ GENTOO_CXXFLAGS ],
++                  "link"    : [ GENTOO_LDFLAGS ],
++            },
++            "cc"     : os.environ["CC"],
++            "cxx"     : os.environ["CXX"],
+         },
+         "removes" : {
+         },
