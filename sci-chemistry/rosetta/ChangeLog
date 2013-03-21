@@ -3,6 +3,9 @@
 # $Header: $
 
   21 Mar 2013; Justin Lecher <jlec@gentoo.org> rosetta-3.4.ebuild:
+  Fix for mpi
+
+  21 Mar 2013; Justin Lecher <jlec@gentoo.org> rosetta-3.4.ebuild:
   Use system path
 
   21 Mar 2013; Justin Lecher <jlec@gentoo.org> rosetta-3.4.ebuild,

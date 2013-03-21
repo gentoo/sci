@@ -80,13 +80,16 @@ src_prepare() {
 		-e "/program_path/s:#::g" \
 		-i tools/build/user.settings || die
 
+	tc-export CC CXX
+
 	if use mpi; then
 		sed \
 			-e 's:mpiCC:mpicxx:g' \
 			-i tools/build/basic.settings || die
+		sed \
+			-e "/cxx/d" \
+			-i tools/build/user.settings || die
 	fi
-
-	tc-export CC CXX
 }
 
 src_configure() {
