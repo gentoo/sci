@@ -18,7 +18,7 @@ SRC_URI="${MY_P}.tgz"
 LICENSE="|| ( rosetta-academic rosetta-commercial )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="boinc +boost custom-flags debug doc float mpi +openmp X"
+IUSE="boinc +boost custom-cflags debug doc float mpi +openmp X"
 
 REQUIRED_USE="?? ( mpi boinc )"
 
@@ -48,7 +48,7 @@ src_prepare() {
 	local myCXXFLAGS
 	local myLDFLAGS
 
-	use custom-flags || \
+	use custom-cflags || \
 		export CXXFLAGS="-O3 -ffast-math -funroll-loops -finline-functions -finline-limit=20000 -pipe"
 
 	epatch \
