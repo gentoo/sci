@@ -1,7 +1,7 @@
 From b0dfb2b6916017d659cae52a28f5a86341b4c97f Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Tue, 19 Mar 2013 21:18:32 -0400
-Subject: [PATCH 4/7] LU-2800 llite: introduce local getname()
+Subject: [PATCH 4/8] LU-2800 llite: introduce local getname()
 
 Commit 8e377d15 (v3.7) unexported getname and putname. Although
 getname was re-exported, putname was not. All we really need is

@@ -1,7 +1,7 @@
 From 728e7f60624f777c2629cda04305eeaea9a59d04 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Mon, 18 Mar 2013 10:47:57 +0800
-Subject: [PATCH 6/7] LU-2850 kernel: 3.8 upstream kills daemonize()
+Subject: [PATCH 6/8] LU-2850 kernel: 3.8 upstream kills daemonize()
 
 kernel_thread() is a low level kernel function.
 Instead of calling kernel_thread() and relying on daemonize()
