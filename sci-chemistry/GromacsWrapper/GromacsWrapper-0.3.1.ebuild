@@ -11,6 +11,7 @@ if [[ $PV = *9999* ]]; then
 	EGIT_REPO_URI="
 		git://github.com/orbeckst/${PN}.git
 		https://github.com/orbeckst/${PN}.git"
+	EGIT_BRANCH="develop"
 	SRC_URI=""
 	KEYWORDS=""
 else
@@ -33,3 +34,7 @@ DEPEND="
 		>=sci-libs/scipy-0.9
 		"
 RDEPEND="${DEPEND}"
+
+PATCHES=(
+	"${FILESDIR}/0001-Drop-chmod-hack.patch"
+)

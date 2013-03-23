@@ -34,3 +34,7 @@ DEPEND="
 		>=sci-libs/scipy-0.9
 		"
 RDEPEND="${DEPEND}"
+
+PATCHES=(
+	"${FILESDIR}/0001-Drop-chmod-hack.patch"
+)
