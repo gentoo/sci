@@ -2,6 +2,33 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0008-LU-2929-build-fix-unused-uninitilized-virables-error.patch,
+  +files/0009-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  -files/0007-LU-2984-build-Fix-warning-with-gcc-4.6-in-mdt_handle.patch,
+  files/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0002-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  files/0003-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  files/0004-LU-2800-llite-introduce-local-getname.patch,
+  files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  files/0007-LU-2987-llite-rcu-free-inode.patch, lustre-9999.ebuild:
+  Update patches for 3.9
+
+  22 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0002-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  +files/0003-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  +files/0004-LU-2800-llite-introduce-local-getname.patch,
+  +files/0007-LU-2987-llite-rcu-free-inode.patch,
+  -files/0002-LU-2850-kernel-3.7-kernel-posix-acl-needs-userns.patch,
+  -files/0003-LU-2850-kernel-3.7-uneports-sock_map_fd.patch,
+  -files/0004-LU-2850-kernel-3.7-get-putname-uses-struct-filename.patch,
+  files/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  lustre-9999.ebuild:
+  Update patches for 3.8
+
   19 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
   $PWD dont needed in automake invocation
 

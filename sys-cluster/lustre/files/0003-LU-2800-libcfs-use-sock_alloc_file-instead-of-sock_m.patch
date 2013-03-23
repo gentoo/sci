@@ -1,0 +1,124 @@
+From 92aab7a02e1de86cadc46edc81cc9627d3c0887a Mon Sep 17 00:00:00 2001
+From: Jeff Mahoney <jeffm@suse.com>
+Date: Wed, 13 Feb 2013 02:45:16 -0500
+Subject: [PATCH 3/8] LU-2800 libcfs: use sock_alloc_file instead of
+ sock_map_fd
+
+v2.6.27 added a second argument to sock_map_fd. Earlier versions are
+out of scope and we can remove the test for the number of arguments.
+
+Commit 56b31d1c (v3.7) made sock_map_fd() static and exported
+sock_alloc_file() instead. For our purposes, we didn't want to expose
+the file in the descriptor table anyway.
+
+Signed-off-by: Jeff Mahoney <jeffm@suse.com>
+Change-Id: I4e12da8c102b5d682db9658187330ae601b00a21
+---
+ libcfs/autoconf/lustre-libcfs.m4  | 18 ++++++++++--------
+ libcfs/libcfs/linux/linux-tcpip.c | 17 ++++++++++++-----
+ 2 files changed, 22 insertions(+), 13 deletions(-)
+
+diff --git a/libcfs/autoconf/lustre-libcfs.m4 b/libcfs/autoconf/lustre-libcfs.m4
+index e661f7d..977518a 100644
+--- a/libcfs/autoconf/lustre-libcfs.m4
++++ b/libcfs/autoconf/lustre-libcfs.m4
+@@ -500,18 +500,19 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ # 2.6.27 have second argument to sock_map_fd
+-AC_DEFUN([LIBCFS_SOCK_MAP_FD_2ARG],
+-[AC_MSG_CHECKING([sock_map_fd have second argument])
++# 3.7 (56b31d1c) un-exported sock_map_fd in favor of sock_alloc_file
++AC_DEFUN([LIBCFS_SOCK_ALLOC_FILE],
++[AC_MSG_CHECKING([sock_alloc_file is exported])
+ LB_LINUX_TRY_COMPILE([
+ 	#include <linux/net.h>
+ ],[
+-        sock_map_fd(NULL, 0);
++	sock_alloc_file(NULL, 0);
+ ],[
+-        AC_MSG_RESULT(yes)
+-        AC_DEFINE(HAVE_SOCK_MAP_FD_2ARG, 1,
+-                  [sock_map_fd have second argument])
++	AC_MSG_RESULT(yes)
++	AC_DEFINE(HAVE_SOCK_ALLOC_FILE, 1,
++		  [sock_alloc_file is exported])
+ ],[
+-        AC_MSG_RESULT(NO)
++	AC_MSG_RESULT(NO)
+ ])
+ ])
+ 
+@@ -824,7 +825,6 @@ LIBCFS_CPU_TOPOLOGY
+ LIBCFS_STRUCT_SHASH_ALG
+ # 2.6.30
+ LIBCFS_FUNC_UNSHARE_FS_STRUCT
+-LIBCFS_SOCK_MAP_FD_2ARG
+ # 2.6.31
+ LIBCFS_HAVE_SET_MEMS_ALLOWED
+ # 2.6.32
+@@ -840,6 +840,8 @@ LIBCFS_ADD_WAIT_QUEUE_EXCLUSIVE
+ LC_SK_SLEEP
+ # 2.6.40 fc15
+ LC_SHRINK_CONTROL
++# 3.7
++LIBCFS_SOCK_ALLOC_FILE
+ ])
+ 
+ #
+diff --git a/libcfs/libcfs/linux/linux-tcpip.c b/libcfs/libcfs/linux/linux-tcpip.c
+index 0a31b55..b83ed84 100644
+--- a/libcfs/libcfs/linux/linux-tcpip.c
++++ b/libcfs/libcfs/linux/linux-tcpip.c
+@@ -49,7 +49,9 @@ libcfs_sock_ioctl(int cmd, unsigned long arg)
+ {
+         mm_segment_t   oldmm = get_fs();
+         struct socket  *sock;
++#ifndef HAVE_SOCK_ALLOC_FILE
+         int             fd;
++#endif
+         int             rc;
+         struct file     *sock_filp;
+ 
+@@ -59,11 +61,8 @@ libcfs_sock_ioctl(int cmd, unsigned long arg)
+                 return rc;
+         }
+ 
+-#ifdef HAVE_SOCK_MAP_FD_2ARG
++#ifndef HAVE_SOCK_ALLOC_FILE
+         fd = sock_map_fd(sock,0);
+-#else
+-        fd = sock_map_fd(sock);
+-#endif
+         if (fd < 0) {
+                 rc = fd;
+                 sock_release(sock);
+@@ -75,7 +74,13 @@ libcfs_sock_ioctl(int cmd, unsigned long arg)
+                 rc = -ENOMEM;
+                 goto out_fd;
+         }
+-
++#else
++	sock_filp = sock_alloc_file(sock, 0, NULL);
++	if (IS_ERR(sock_filp)) {
++		rc = PTR_ERR(sock_filp);
++		goto out;
++	}
++#endif
+ 	set_fs(KERNEL_DS);
+ 	if (sock_filp->f_op->unlocked_ioctl)
+ 		rc = sock_filp->f_op->unlocked_ioctl(sock_filp, cmd, arg);
+@@ -83,8 +88,10 @@ libcfs_sock_ioctl(int cmd, unsigned long arg)
+ 
+         fput(sock_filp);
+ 
++#ifndef HAVE_SOCK_ALLOC_FILE
+  out_fd:
+         sys_close(fd);
++#endif
+  out:
+         return rc;
+ }
+-- 
+1.8.1.5
+

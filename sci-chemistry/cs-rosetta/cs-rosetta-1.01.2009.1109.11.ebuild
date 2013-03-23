@@ -95,7 +95,7 @@ src_install() {
 	doins -r *
 	chmod 755 \
 		"${ED}"/opt/${PN}/com/* \
-		"${ED}"/opt/${PN}/src/{mfr2rosetta/mfr2rosetta,SPARTA/src/SPARTA,TALOS/TALOS,rosettaFrag2csFrag/rosettaFrag2csFrag,nnmake/pNNMAKE} \
+		"${ED}"/opt/${PN}/src/{mfr2rosetta/mfr2rosetta,SPARTA/src/SPARTA,pdbrms/pdbrms,TALOS/TALOS,rosettaFrag2csFrag/rosettaFrag2csFrag,nnmake/pNNMAKE} \
 		 || die
 
 	dosym make_fragments_2000.pl /opt/${PN}/com/make_fragment_2000.pl

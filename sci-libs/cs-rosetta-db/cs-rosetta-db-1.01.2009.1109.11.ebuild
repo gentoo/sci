@@ -6,6 +6,8 @@ EAPI=5
 
 inherit flag-o-matic toolchain-funcs
 
+MY_PN="${PN%-db}"
+
 DESCRIPTION="System for chemical shifts based protein structure prediction using ROSETTA"
 HOMEPAGE="http://spin.niddk.nih.gov/bax/software/CSROSETTA/"
 SRC_URI="
@@ -42,18 +44,18 @@ src_unpack() {
 
 src_prepare() {
 	cat >> "${T}"/39${PN} <<- EOF
-	CS_DIR="${EPREFIX}/opt/${PN}/CS"
-	CSHYB_DIR="${EPREFIX}/opt/${PN}/CS"
-	PDBH_DIR="${EPREFIX}/opt/${PN}/PDBH"
-	PDBHYB_DIR="${EPREFIX}/opt/${PN}/PDBH"
-	PDBH_TAB="${EPREFIX}/opt/${PN}/PDBH/resolution.tab"
-	ANGLESS_DIR="${EPREFIX}/opt/${PN}/ANGLESS"
-	ANGLESSHYB_DIR="${EPREFIX}/opt/${PN}/ANGLESS"
+	CS_DIR="${EPREFIX}/opt/${MY_PN}/CS"
+	CSHYB_DIR="${EPREFIX}/opt/${MY_PN}/CS"
+	PDBH_DIR="${EPREFIX}/opt/${MY_PN}/PDBH"
+	PDBHYB_DIR="${EPREFIX}/opt/${MY_PN}/PDBH"
+	PDBH_TAB="${EPREFIX}/opt/${MY_PN}/PDBH/resolution.tab"
+	ANGLESS_DIR="${EPREFIX}/opt/${MY_PN}/ANGLESS"
+	ANGLESSHYB_DIR="${EPREFIX}/opt/${MY_PN}/ANGLESS"
 	EOF
 }
 
 src_install() {
-	insinto /opt/${PN}/
+	insinto /opt/${MY_PN}/
 	doins -r *
 	doenvd "${T}"/39${PN}
 }

@@ -1,23 +1,24 @@
-From 6cc48af286a737552bfdb15b8566ecabb32e6642 Mon Sep 17 00:00:00 2001
+From 6ef5ad16aba6cd3ddaf5e27e9b709a38c3ea3c2b Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 26 Feb 2013 18:09:42 +0800
-Subject: [PATCH 5/6] LU-2850 kernel: 3.8 upstream removes vmtruncate()
+Subject: [PATCH 5/8] LU-2850 kernel: 3.8 upstream removes vmtruncate()
 
 vmtruncate() is removed since upstream commit b9f61c3.
 We can open code is for llite though.
 
 Signed-off-by: Peng Tao <tao.peng@emc.com>
 Change-Id: I9d4f43a5c181f16482b4caa021ba7a09ee52b600
+Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 ---
- lustre/autoconf/lustre-core.m4 | 23 +++++++++++++++++++++++
+ lustre/autoconf/lustre-core.m4 | 24 ++++++++++++++++++++++++
  lustre/llite/vvp_io.c          | 10 +++++++++-
- 2 files changed, 32 insertions(+), 1 deletion(-)
+ 2 files changed, 33 insertions(+), 1 deletion(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 9a7a458..c87afb0 100644
+index fee7abc..3e4bfdc 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2279,6 +2279,26 @@ EXTRA_KCFLAGS="$tmp_flags"
+@@ -2232,6 +2232,26 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -44,10 +45,11 @@ index 9a7a458..c87afb0 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2463,6 +2483,9 @@ AC_DEFUN([LC_PROG_LINUX],
- 	 LC_HAVE_SOCK_ALLOC_FILE
- 	 LC_HAVE_STRUCT_FILENAME
+@@ -2412,6 +2432,10 @@ AC_DEFUN([LC_PROG_LINUX],
  
+ 	 # 3.7
+  	 LC_HAVE_POSIXACL_USER_NS
++
 +	 # 3.8
 +	 LC_HAVE_MM_VMTRUNCATE
 +

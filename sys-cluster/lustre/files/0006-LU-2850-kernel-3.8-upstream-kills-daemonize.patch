@@ -1,7 +1,7 @@
-From 5f24e2d6b03fd8ef42fbfbd94c11e8640417e3f0 Mon Sep 17 00:00:00 2001
+From 728e7f60624f777c2629cda04305eeaea9a59d04 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Mon, 18 Mar 2013 10:47:57 +0800
-Subject: [PATCH 6/6] LU-2850 kernel: 3.8 upstream kills daemonize()
+Subject: [PATCH 6/8] LU-2850 kernel: 3.8 upstream kills daemonize()
 
 kernel_thread() is a low level kernel function.
 Instead of calling kernel_thread() and relying on daemonize()
@@ -11,6 +11,7 @@ kthread_run() and elimilate daemonize().
 Signed-off-by: Peng Tao <tao.peng@emc.com>
 Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
 ---
+ libcfs/autoconf/lustre-libcfs.m4           | 28 -----------
  libcfs/include/libcfs/darwin/darwin-prim.h |  6 +--
  libcfs/include/libcfs/libcfs.h             | 13 +----
  libcfs/include/libcfs/linux/linux-prim.h   |  9 ----
@@ -80,9 +81,62 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  lustre/quota/qmt_lock.c                    | 17 +++----
  lustre/quota/qsd_reint.c                   |  6 +--
  lustre/quota/qsd_writeback.c               | 16 +++---
- 69 files changed, 536 insertions(+), 745 deletions(-)
+ 70 files changed, 536 insertions(+), 773 deletions(-)
  delete mode 100644 libcfs/libcfs/linux/linux-lwt.c
 
+diff --git a/libcfs/autoconf/lustre-libcfs.m4 b/libcfs/autoconf/lustre-libcfs.m4
+index 977518a..8655c99 100644
+--- a/libcfs/autoconf/lustre-libcfs.m4
++++ b/libcfs/autoconf/lustre-libcfs.m4
+@@ -639,15 +639,6 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ ])
+ 
+-AC_DEFUN([LIBCFS_HAVE_OOM_H],
+-[LB_CHECK_FILE([$LINUX/include/linux/oom.h], [
+-        AC_DEFINE(HAVE_LINUX_OOM_H, 1,
+-                [kernel has include/oom.h])
+-],[
+-        AC_MSG_RESULT([no])
+-])
+-])
+-
+ #
+ # check set_mems_allowed
+ # 2.6.31 adds function set_mems_allowed in cpuset.h
+@@ -688,23 +679,6 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ ])
+ 
+-# 2.6.18 store oom parameters in task struct.
+-# 2.6.32 store oom parameters in signal struct
+-AC_DEFUN([LIBCFS_OOMADJ_IN_SIG],
+-[AC_MSG_CHECKING([kernel store oom parameters in task])
+-LB_LINUX_TRY_COMPILE([
+-        #include <linux/sched.h>
+-],[
+-        ((struct signal_struct *)0)->oom_adj = 0;
+-],[
+-        AC_MSG_RESULT(yes)
+-        AC_DEFINE(HAVE_OOMADJ_IN_SIG, 1,
+-                  [kernel store a oom parameters in signal struct])
+-],[
+-        AC_MSG_RESULT(no)
+-])
+-])
+-
+ #
+ # 2.6.33 no longer has ctl_name & strategy field in struct ctl_table.
+ #
+@@ -830,8 +804,6 @@ LIBCFS_HAVE_SET_MEMS_ALLOWED
+ # 2.6.32
+ LIBCFS_STACKTRACE_OPS_HAVE_WALK_STACK
+ LC_SHRINKER_WANT_SHRINK_PTR
+-LIBCFS_HAVE_OOM_H
+-LIBCFS_OOMADJ_IN_SIG
+ # 2.6.33
+ LIBCFS_SYSCTL_CTLNAME
+ # 2.6.34
 diff --git a/libcfs/include/libcfs/darwin/darwin-prim.h b/libcfs/include/libcfs/darwin/darwin-prim.h
 index 7bc7af3..583e257 100644
 --- a/libcfs/include/libcfs/darwin/darwin-prim.h
@@ -1532,7 +1586,7 @@ index b24127d..e624753 100644
  
          CFS_INIT_LIST_HEAD(&enomem_conns);
 diff --git a/lnet/lnet/acceptor.c b/lnet/lnet/acceptor.c
-index 9e9b236..7eda4ad 100644
+index 9e9b236..9bdac05 100644
 --- a/lnet/lnet/acceptor.c
 +++ b/lnet/lnet/acceptor.c
 @@ -389,7 +389,6 @@ lnet_accept(cfs_socket_t *sock, __u32 magic)
@@ -1559,9 +1613,9 @@ index 9e9b236..7eda4ad 100644
 -	rc2 = cfs_create_thread(lnet_acceptor, (void *)(ulong_ptr_t)secure, 0);
 -	if (rc2 < 0) {
 -		CERROR("Can't start acceptor thread: %d\n", rc);
-+ 	rc2 = PTR_ERR(kthread_run(lnet_acceptor,
-+ 				  (void *)(ulong_ptr_t)secure,
-+ 				  "acceptor_%03ld", secure));
++	rc2 = PTR_ERR(kthread_run(lnet_acceptor,
++				  (void *)(ulong_ptr_t)secure,
++				  "acceptor_%03ld", secure));
 +	if (IS_ERR_VALUE(rc2)) {
 +		CERROR("Can't start acceptor thread: %ld\n", rc2);
  		fini_completion(&lnet_acceptor_state.pta_signal);
@@ -1747,7 +1801,7 @@ index 2e3a1d5..e61583a 100644
  
  void target_stop_recovery_thread(struct obd_device *obd)
 diff --git a/lustre/ldlm/ldlm_lockd.c b/lustre/ldlm/ldlm_lockd.c
-index 4a75bb0..27a79d9 100644
+index 8d2057f..d3d1e59 100644
 --- a/lustre/ldlm/ldlm_lockd.c
 +++ b/lustre/ldlm/ldlm_lockd.c
 @@ -178,7 +178,6 @@ static int expired_lock_main(void *arg)
@@ -1758,7 +1812,7 @@ index 4a75bb0..27a79d9 100644
  
          expired_lock_thread.elt_state = ELT_READY;
          cfs_waitq_signal(&expired_lock_thread.elt_waitq);
-@@ -2564,14 +2563,17 @@ static int ldlm_bl_thread_main(void *arg);
+@@ -2570,14 +2569,17 @@ static int ldlm_bl_thread_main(void *arg);
  static int ldlm_bl_thread_start(struct ldlm_bl_pool *blp)
  {
  	struct ldlm_bl_thread_data bltd = { .bltd_blp = blp };
@@ -1782,7 +1836,7 @@ index 4a75bb0..27a79d9 100644
  	}
  	wait_for_completion(&bltd.bltd_comp);
  
-@@ -2595,14 +2597,9 @@ static int ldlm_bl_thread_main(void *arg)
+@@ -2601,14 +2603,9 @@ static int ldlm_bl_thread_main(void *arg)
  
                  blp = bltd->bltd_blp;
  
@@ -1798,7 +1852,7 @@ index 4a75bb0..27a79d9 100644
  		complete(&bltd->bltd_comp);
                  /* cannot use bltd after this, it is only on caller's stack */
          }
-@@ -2941,22 +2938,22 @@ static int ldlm_setup(void)
+@@ -2948,22 +2945,22 @@ static int ldlm_setup(void)
  	}
  
  # ifdef HAVE_SERVER_SUPPORT
@@ -1831,7 +1885,7 @@ index 4a75bb0..27a79d9 100644
  
  	rc = ldlm_pools_init();
 diff --git a/lustre/ldlm/ldlm_pool.c b/lustre/ldlm/ldlm_pool.c
-index 820a50d..aa5b0c0 100644
+index d724a2d..fa14f66 100644
 --- a/lustre/ldlm/ldlm_pool.c
 +++ b/lustre/ldlm/ldlm_pool.c
 @@ -1295,15 +1295,13 @@ EXPORT_SYMBOL(ldlm_pools_recalc);
@@ -2151,10 +2205,10 @@ index 9eea49e..cb11191 100644
                  thread_set_flags(thread, SVC_STOPPED);
                  thread_set_flags(&sai->sai_agl_thread, SVC_STOPPED);
 diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
-index 608813c..bc56549 100644
+index a7b6d4a..7960645 100644
 --- a/lustre/mdc/mdc_request.c
 +++ b/lustre/mdc/mdc_request.c
-@@ -1556,13 +1556,6 @@ static int mdc_changelog_send_thread(void *csdata)
+@@ -1553,13 +1553,6 @@ static int mdc_changelog_send_thread(void *csdata)
          CDEBUG(D_CHANGELOG, "changelog to fp=%p start "LPU64"\n",
                 cs->cs_fp, cs->cs_startrec);
  
@@ -2168,7 +2222,7 @@ index 608813c..bc56549 100644
          OBD_ALLOC(cs->cs_buf, CR_MAXSIZE);
          if (cs->cs_buf == NULL)
                  GOTO(out, rc = -ENOMEM);
-@@ -1599,12 +1592,10 @@ out:
+@@ -1596,12 +1589,10 @@ out:
  		llog_cat_close(NULL, llh);
          if (ctxt)
                  llog_ctxt_put(ctxt);
@@ -2185,7 +2239,7 @@ index 608813c..bc56549 100644
  }
  
  static int mdc_ioc_changelog_send(struct obd_device *obd,
-@@ -1624,13 +1615,16 @@ static int mdc_ioc_changelog_send(struct obd_device *obd,
+@@ -1621,13 +1612,16 @@ static int mdc_ioc_changelog_send(struct obd_device *obd,
  	cs->cs_fp = fget(icc->icc_id);
  	cs->cs_flags = icc->icc_flags;
  
@@ -2210,10 +2264,10 @@ index 608813c..bc56549 100644
          CERROR("Failed to start changelog thread: %d\n", rc);
          OBD_FREE_PTR(cs);
 diff --git a/lustre/mdd/mdd_lfsck.c b/lustre/mdd/mdd_lfsck.c
-index 152a2d4..f7be2bb 100644
+index bca6ce1..540b7a1 100644
 --- a/lustre/mdd/mdd_lfsck.c
 +++ b/lustre/mdd/mdd_lfsck.c
-@@ -2605,7 +2605,6 @@ static int mdd_lfsck_main(void *args)
+@@ -2615,7 +2615,6 @@ static int mdd_lfsck_main(void *args)
  	int			 rc;
  	ENTRY;
  
@@ -2221,7 +2275,7 @@ index 152a2d4..f7be2bb 100644
  	rc = lu_env_init(&env, LCT_MD_THREAD | LCT_DT_THREAD);
  	if (rc != 0) {
  		CERROR("%s: LFSCK, fail to init env, rc = %d\n",
-@@ -2869,8 +2868,8 @@ trigger:
+@@ -2879,8 +2878,8 @@ trigger:
  
  	lfsck->ml_args_oit = (flags << DT_OTABLE_IT_FLAGS_SHIFT) | valid;
  	thread_set_flags(thread, 0);
@@ -2277,7 +2331,7 @@ index 76e2c6f..d4a8bc4 100644
  
  void mdt_ck_thread_stop(struct mdt_device *mdt)
 diff --git a/lustre/mgc/mgc_request.c b/lustre/mgc/mgc_request.c
-index 67e4179..58d2912 100644
+index 9e2357b..01bb584 100644
 --- a/lustre/mgc/mgc_request.c
 +++ b/lustre/mgc/mgc_request.c
 @@ -480,12 +480,9 @@ static void do_requeue(struct config_llog_data *cld)
@@ -2462,7 +2516,7 @@ index fbf2766..7945237 100644
  	rc = lu_env_init(&env, LCT_LOCAL);
  	if (rc)
 diff --git a/lustre/osd-ldiskfs/osd_scrub.c b/lustre/osd-ldiskfs/osd_scrub.c
-index 858aa07..ad72c78 100644
+index 3736410..8d53834 100644
 --- a/lustre/osd-ldiskfs/osd_scrub.c
 +++ b/lustre/osd-ldiskfs/osd_scrub.c
 @@ -962,7 +962,6 @@ static int osd_scrub_main(void *args)
@@ -2485,7 +2539,7 @@ index 858aa07..ad72c78 100644
  		       LDISKFS_SB(osd_sb(dev))->s_es->s_volume_name, rc);
  		RETURN(rc);
 diff --git a/lustre/osp/osp_precreate.c b/lustre/osp/osp_precreate.c
-index 405524c..de5e7de 100644
+index 1836f18..af52b9e 100644
 --- a/lustre/osp/osp_precreate.c
 +++ b/lustre/osp/osp_precreate.c
 @@ -881,15 +881,11 @@ static int osp_precreate_thread(void *_arg)
@@ -2504,7 +2558,7 @@ index 405524c..de5e7de 100644
  	rc = lu_env_init(&env, d->opd_dt_dev.dd_lu_dev.ld_type->ldt_ctx_tags);
  	if (rc) {
  		CERROR("%s: init env error: rc = %d\n", d->opd_obd->obd_name,
-@@ -1257,7 +1253,7 @@ out:
+@@ -1258,7 +1254,7 @@ out:
  int osp_init_precreate(struct osp_device *d)
  {
  	struct l_wait_info	 lwi = { 0 };
@@ -2513,7 +2567,7 @@ index 405524c..de5e7de 100644
  
  	ENTRY;
  
-@@ -1292,10 +1288,11 @@ int osp_init_precreate(struct osp_device *d)
+@@ -1293,10 +1289,11 @@ int osp_init_precreate(struct osp_device *d)
  	/*
  	 * start thread handling precreation and statfs updates
  	 */
