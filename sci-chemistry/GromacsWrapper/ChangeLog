@@ -3,6 +3,9 @@
 # $Header: $
 
   26 Mar 2013; Justin Lecher <jlec@gentoo.org> GromacsWrapper-9999.ebuild:
+  Drop py 2.5 support
+
+  26 Mar 2013; Justin Lecher <jlec@gentoo.org> GromacsWrapper-9999.ebuild:
   Enhance python r1 eclass usage
 
   26 Mar 2013; Justin Lecher <jlec@gentoo.org> -GromacsWrapper-0.3.1.ebuild,
