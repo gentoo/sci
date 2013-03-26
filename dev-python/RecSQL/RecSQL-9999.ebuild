@@ -27,5 +27,7 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
 
-DEPEND="dev-python/numpy"
+DEPEND="
+	dev-lang/python[sqlite]
+	dev-python/numpy"
 RDEPEND="${DEPEND}"
