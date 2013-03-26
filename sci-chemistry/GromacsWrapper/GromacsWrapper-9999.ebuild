@@ -22,16 +22,17 @@ fi
 
 inherit eutils distutils-r1 ${scm_eclass}
 
-DESCRIPTION="GromacsWrapper - a python framework for Gromacs"
+DESCRIPTION="Python framework for Gromacs"
 HOMEPAGE="http://orbeckst.github.com/GromacsWrapper/"
+
 LICENSE="GPL-3 LGPL-3"
 SLOT="0"
 IUSE=""
 
 DEPEND="
-		>=dev-python/matplotlib-0.91.3
-		>=dev-python/RecSQL-0.3
-		>=sci-libs/scipy-0.9
+		>=dev-python/matplotlib-0.91.3[${PYTHON_USEDEP}]
+		>=dev-python/RecSQL-0.3[${PYTHON_USEDEP}]
+		>=sci-libs/scipy-0.9[${PYTHON_USEDEP}]
 		"
 RDEPEND="${DEPEND}"
 
