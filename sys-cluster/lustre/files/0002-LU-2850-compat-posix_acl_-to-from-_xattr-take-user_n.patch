@@ -1,7 +1,7 @@
-From 8153aab75bd9d96af36df0d8eafbe6b3eac45e1c Mon Sep 17 00:00:00 2001
+From 66f494869c183a010a40397221e55c625e5d2e8b Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Wed, 20 Mar 2013 17:33:17 -0400
-Subject: [PATCH 2/8] LU-2850 compat: posix_acl_{to,from}_xattr take
+Subject: [PATCH 2/7] LU-2850 compat: posix_acl_{to,from}_xattr take
  user_namespace
 
 Commit 5f3a4a28 (v3.7) added a struct user_namespace argument to
@@ -67,10 +67,10 @@ index 53975ab..fa4e4d4 100644
 +#endif
  #endif
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 3c773e8..fee7abc 100644
+index 601155c..125bde7 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2213,6 +2213,25 @@ LB_LINUX_TRY_COMPILE([
+@@ -2233,6 +2233,25 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -96,7 +96,7 @@ index 3c773e8..fee7abc 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2391,6 +2410,8 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2414,6 +2433,8 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_DENTRY_OPEN_USE_PATH
  	 LC_HAVE_IOP_ATOMIC_OPEN
  
@@ -134,7 +134,7 @@ index 24a89eb..9575739 100644
                  RETURN(rc);
          }
 diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
-index 9fc8e51..a7b6d4a 100644
+index fd087a5..d67db9d 100644
 --- a/lustre/mdc/mdc_request.c
 +++ b/lustre/mdc/mdc_request.c
 @@ -41,6 +41,7 @@

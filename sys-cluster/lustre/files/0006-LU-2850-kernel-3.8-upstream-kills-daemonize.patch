@@ -1,14 +1,19 @@
-From 728e7f60624f777c2629cda04305eeaea9a59d04 Mon Sep 17 00:00:00 2001
+From 089c9fcca75da19ea13215925fc2cfb83d5dddb4 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Mon, 18 Mar 2013 10:47:57 +0800
-Subject: [PATCH 6/8] LU-2850 kernel: 3.8 upstream kills daemonize()
+Subject: [PATCH 6/7] LU-2850 kernel: 3.8 upstream kills daemonize()
 
 kernel_thread() is a low level kernel function.
 Instead of calling kernel_thread() and relying on daemonize()
 to create new kernel threads, we should really switch to
 kthread_run() and elimilate daemonize().
 
+Conflicts:
+	lustre/obdclass/llog_cat.c
+	lustre/ptlrpc/recov_thread.c
+
 Signed-off-by: Peng Tao <tao.peng@emc.com>
+Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
 ---
  libcfs/autoconf/lustre-libcfs.m4           | 28 -----------
@@ -68,20 +73,18 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  lustre/mgs/mgs_nids.c                      | 13 ++---
  lustre/obdclass/genops.c                   | 22 +++-----
  lustre/obdclass/llog.c                     |  8 +--
- lustre/obdclass/llog_cat.c                 |  2 +-
  lustre/osd-ldiskfs/osd_scrub.c             |  5 +-
  lustre/osp/osp_precreate.c                 | 15 +++---
  lustre/osp/osp_sync.c                      |  9 ++--
  lustre/ptlrpc/import.c                     | 34 +++++++------
  lustre/ptlrpc/pinger.c                     | 39 +++++++-------
  lustre/ptlrpc/ptlrpcd.c                    | 25 +++++----
- lustre/ptlrpc/recov_thread.c               | 40 ++++++++-------
  lustre/ptlrpc/sec_gc.c                     | 12 ++---
  lustre/ptlrpc/service.c                    | 19 ++++---
  lustre/quota/qmt_lock.c                    | 17 +++----
  lustre/quota/qsd_reint.c                   |  6 +--
  lustre/quota/qsd_writeback.c               | 16 +++---
- 70 files changed, 536 insertions(+), 773 deletions(-)
+ 68 files changed, 514 insertions(+), 753 deletions(-)
  delete mode 100644 libcfs/libcfs/linux/linux-lwt.c
 
 diff --git a/libcfs/autoconf/lustre-libcfs.m4 b/libcfs/autoconf/lustre-libcfs.m4
@@ -2205,10 +2208,10 @@ index 9eea49e..cb11191 100644
                  thread_set_flags(thread, SVC_STOPPED);
                  thread_set_flags(&sai->sai_agl_thread, SVC_STOPPED);
 diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
-index a7b6d4a..7960645 100644
+index d67db9d..cf4c46c 100644
 --- a/lustre/mdc/mdc_request.c
 +++ b/lustre/mdc/mdc_request.c
-@@ -1553,13 +1553,6 @@ static int mdc_changelog_send_thread(void *csdata)
+@@ -1567,13 +1567,6 @@ static int mdc_changelog_send_thread(void *csdata)
          CDEBUG(D_CHANGELOG, "changelog to fp=%p start "LPU64"\n",
                 cs->cs_fp, cs->cs_startrec);
  
@@ -2222,7 +2225,7 @@ index a7b6d4a..7960645 100644
          OBD_ALLOC(cs->cs_buf, CR_MAXSIZE);
          if (cs->cs_buf == NULL)
                  GOTO(out, rc = -ENOMEM);
-@@ -1596,12 +1589,10 @@ out:
+@@ -1610,12 +1603,10 @@ out:
  		llog_cat_close(NULL, llh);
          if (ctxt)
                  llog_ctxt_put(ctxt);
@@ -2239,7 +2242,7 @@ index a7b6d4a..7960645 100644
  }
  
  static int mdc_ioc_changelog_send(struct obd_device *obd,
-@@ -1621,13 +1612,16 @@ static int mdc_ioc_changelog_send(struct obd_device *obd,
+@@ -1635,13 +1626,16 @@ static int mdc_ioc_changelog_send(struct obd_device *obd,
  	cs->cs_fp = fget(icc->icc_id);
  	cs->cs_flags = icc->icc_flags;
  
@@ -2502,19 +2505,6 @@ index f08fd6e..ce22932 100644
  			CERROR("%s: cannot start thread: rc = %d\n",
  			       loghandle->lgh_ctxt->loc_obd->obd_name, rc);
  			OBD_FREE_PTR(lpi);
-diff --git a/lustre/obdclass/llog_cat.c b/lustre/obdclass/llog_cat.c
-index fbf2766..7945237 100644
---- a/lustre/obdclass/llog_cat.c
-+++ b/lustre/obdclass/llog_cat.c
-@@ -647,7 +647,7 @@ int llog_cat_process_thread(void *data)
-         int rc;
-         ENTRY;
- 
--        cfs_daemonize_ctxt("ll_log_process");
-+	unshare_fs_struct();
- 
- 	rc = lu_env_init(&env, LCT_LOCAL);
- 	if (rc)
 diff --git a/lustre/osd-ldiskfs/osd_scrub.c b/lustre/osd-ldiskfs/osd_scrub.c
 index 3736410..8d53834 100644
 --- a/lustre/osd-ldiskfs/osd_scrub.c
@@ -2788,65 +2778,6 @@ index 669b0d7..b6486e0 100644
  #else
          pc->pc_wait_callback =
                  liblustre_register_wait_callback("ptlrpcd_check_async_rpcs",
-diff --git a/lustre/ptlrpc/recov_thread.c b/lustre/ptlrpc/recov_thread.c
-index dee77cd..7b5738f 100644
---- a/lustre/ptlrpc/recov_thread.c
-+++ b/lustre/ptlrpc/recov_thread.c
-@@ -513,10 +513,11 @@ EXPORT_SYMBOL(llog_recov_thread_fini);
- static int llog_recov_thread_replay(struct llog_ctxt *ctxt,
-                                     void *cb, void *arg)
- {
--        struct obd_device *obd = ctxt->loc_obd;
--        struct llog_process_cat_args *lpca;
--        int rc;
--        ENTRY;
-+	struct obd_device *obd = ctxt->loc_obd;
-+	struct llog_process_cat_args *lpca;
-+	cfs_task_t *task;
-+	int rc;
-+	ENTRY;
- 
-         if (obd->obd_stopping)
-                 RETURN(-ENODEV);
-@@ -534,22 +535,23 @@ static int llog_recov_thread_replay(struct llog_ctxt *ctxt,
-         /*
-          * This will be balanced in llog_cat_process_thread()
-          */
--        lpca->lpca_ctxt = llog_ctxt_get(ctxt);
--        if (!lpca->lpca_ctxt) {
--                OBD_FREE_PTR(lpca);
--                RETURN(-ENODEV);
--        }
--        rc = cfs_create_thread(llog_cat_process_thread, lpca, CFS_DAEMON_FLAGS);
--        if (rc < 0) {
--                CERROR("Error starting llog_cat_process_thread(): %d\n", rc);
--                OBD_FREE_PTR(lpca);
--                llog_ctxt_put(ctxt);
--        } else {
--                CDEBUG(D_HA, "Started llog_cat_process_thread(): %d\n", rc);
--                rc = 0;
--        }
-+	lpca->lpca_ctxt = llog_ctxt_get(ctxt);
-+	if (!lpca->lpca_ctxt) {
-+		OBD_FREE_PTR(lpca);
-+		RETURN(-ENODEV);
-+	}
-+	task = kthread_run(llog_cat_process_thread, lpca, "ll_log_process");
-+	if (IS_ERR(task)) {
-+		rc = PTR_ERR(task);
-+		CERROR("Error starting llog_cat_process_thread(): %d\n", rc);
-+		OBD_FREE_PTR(lpca);
-+		llog_ctxt_put(ctxt);
-+	} else {
-+		CDEBUG(D_HA, "Started llog_cat_process_thread()\n");
-+		rc = 0;
-+	}
- 
--        RETURN(rc);
-+	RETURN(rc);
- }
- 
- int llog_obd_repl_connect(struct llog_ctxt *ctxt,
 diff --git a/lustre/ptlrpc/sec_gc.c b/lustre/ptlrpc/sec_gc.c
 index 7634d22..595f710 100644
 --- a/lustre/ptlrpc/sec_gc.c

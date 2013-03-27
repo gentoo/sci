@@ -1,7 +1,7 @@
-From 92aab7a02e1de86cadc46edc81cc9627d3c0887a Mon Sep 17 00:00:00 2001
+From b6d238eff4b7417cb5d5d9882b00c630b6ab2ee1 Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Wed, 13 Feb 2013 02:45:16 -0500
-Subject: [PATCH 3/8] LU-2800 libcfs: use sock_alloc_file instead of
+Subject: [PATCH 1/7] LU-2800 libcfs: use sock_alloc_file instead of
  sock_map_fd
 
 v2.6.27 added a second argument to sock_map_fd. Earlier versions are
