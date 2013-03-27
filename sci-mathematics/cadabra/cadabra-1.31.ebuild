@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit eutils
+inherit eutils texlive-common
 
 DESCRIPTION="Field-theory motivated computer algebra system"
 HOMEPAGE="http://cadabra.phi-sci.com"
@@ -15,7 +15,7 @@ RESTRICT="mirror"
 LICENSE="GPL-2"
 
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc examples X"
 
 DEPEND="
@@ -28,7 +28,8 @@ DEPEND="
 		dev-cpp/gtkmm:2.4
 		dev-cpp/pangomm:1.4
 		app-text/dvipng )
-	doc? ( || ( app-text/texlive-core dev-tex/pdftex ) )"
+	doc? ( app-doc/doxygen
+		|| ( app-text/texlive-core dev-tex/pdftex ) )"
 RDEPEND="${DEPEND}
 	virtual/latex-base
 	dev-tex/mh"
@@ -43,39 +44,36 @@ src_configure(){
 }
 
 src_compile() {
-	emake || die
+	emake
 
 	if use doc; then
 		cd "${S}/doc"
-		emake || die
+		emake
 		cd doxygen/latex
-		emake pdf || die
+		emake pdf
 	fi
 }
 
 src_install() {
-	emake DESTDIR="${D}" DEVDESTDIR="${D}" install || die "install died"
+	emake DESTDIR="${D}" DEVDESTDIR="${D}" install
 
-	dodoc AUTHORS ChangeLog INSTALL || die
+	dodoc AUTHORS ChangeLog INSTALL
 
-	if ( use doc )
-		then
+	if use doc;	then
 		cd "${S}/doc/doxygen"
 		dohtml html/*
 		dodoc latex/*.pdf
 	fi
 
-	if ( use examples )
-	then
-		docinto examples
-		dodoc "${S}/examples/*"
+	if use examples; then
+		dodoc -r "${S}/examples/"
 	fi
 
-	rm -rf "${D}/usr/share/TeXmacs"
+	rm -rf "${D}/usr/share/TeXmacs" || die
 }
 
 pkg_postinst() {
-	/usr/sbin/texmf-update
+	etexmf-update
 	elog "This version of the cadabra ebuild is still under development."
 	elog "Help us improve the ebuild in:"
 	elog "http://bugs.gentoo.org/show_bug.cgi?id= 194393"
@@ -83,5 +81,5 @@ pkg_postinst() {
 
 pkg_postrm()
 {
-	/usr/sbin/texmf-update
+	etexmf-update
 }
