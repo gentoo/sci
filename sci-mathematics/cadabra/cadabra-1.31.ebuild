@@ -13,7 +13,6 @@ SRC_URI="http://cadabra.phi-sci.com/${P}.tar.gz"
 RESTRICT="mirror"
 
 LICENSE="GPL-2"
-
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc examples X"
@@ -79,7 +78,6 @@ pkg_postinst() {
 	elog "http://bugs.gentoo.org/show_bug.cgi?id= 194393"
 }
 
-pkg_postrm()
-{
+pkg_postrm() {
 	etexmf-update
 }
