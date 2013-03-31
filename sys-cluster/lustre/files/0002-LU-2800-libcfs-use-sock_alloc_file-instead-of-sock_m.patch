@@ -1,7 +1,7 @@
-From b6d238eff4b7417cb5d5d9882b00c630b6ab2ee1 Mon Sep 17 00:00:00 2001
+From 8258deb14e38559bf5ef37bd50a0918cdf473c00 Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Wed, 13 Feb 2013 02:45:16 -0500
-Subject: [PATCH 1/7] LU-2800 libcfs: use sock_alloc_file instead of
+Subject: [PATCH 2/8] LU-2800 libcfs: use sock_alloc_file instead of
  sock_map_fd
 
 v2.6.27 added a second argument to sock_map_fd. Earlier versions are
@@ -19,7 +19,7 @@ Change-Id: I4e12da8c102b5d682db9658187330ae601b00a21
  2 files changed, 22 insertions(+), 13 deletions(-)
 
 diff --git a/libcfs/autoconf/lustre-libcfs.m4 b/libcfs/autoconf/lustre-libcfs.m4
-index e661f7d..977518a 100644
+index e661f7d..e84cd74 100644
 --- a/libcfs/autoconf/lustre-libcfs.m4
 +++ b/libcfs/autoconf/lustre-libcfs.m4
 @@ -500,18 +500,19 @@ LB_LINUX_TRY_COMPILE([
@@ -35,7 +35,7 @@ index e661f7d..977518a 100644
  	#include <linux/net.h>
  ],[
 -        sock_map_fd(NULL, 0);
-+	sock_alloc_file(NULL, 0);
++	sock_alloc_file(NULL, 0, NULL);
  ],[
 -        AC_MSG_RESULT(yes)
 -        AC_DEFINE(HAVE_SOCK_MAP_FD_2ARG, 1,

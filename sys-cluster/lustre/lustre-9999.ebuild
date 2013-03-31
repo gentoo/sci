@@ -30,15 +30,14 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"${FILESDIR}/0000-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
-	"${FILESDIR}/0001-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch"
-	"${FILESDIR}/0002-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch"
-	"${FILESDIR}/0003-LU-2800-llite-introduce-local-getname.patch"
-	"${FILESDIR}/0004-LU-2850-build-check-header-files-in-generated-uapi-d.patch"
-	"${FILESDIR}/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
-	"${FILESDIR}/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
-	"${FILESDIR}/0007-LU-2987-llite-rcu-free-inode.patch"
-	"${FILESDIR}/0008-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
+	"${FILESDIR}/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
+	"${FILESDIR}/0002-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch"
+	"${FILESDIR}/0003-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch"
+	"${FILESDIR}/0004-LU-2800-llite-introduce-local-getname.patch"
+	"${FILESDIR}/0005-LU-2850-build-check-header-files-in-generated-uapi-d.patch"
+	"${FILESDIR}/0006-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
+	"${FILESDIR}/0007-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
+	"${FILESDIR}/0008-LU-2987-llite-rcu-free-inode.patch"
 )
 
 pkg_setup() {
