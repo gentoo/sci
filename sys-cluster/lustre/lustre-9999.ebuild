@@ -38,6 +38,7 @@ PATCHES=(
 	"${FILESDIR}/0006-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
 	"${FILESDIR}/0007-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
 	"${FILESDIR}/0008-LU-2987-llite-rcu-free-inode.patch"
+	"${FILESDIR}/0009-LU-3011-ubuntu-Fix-build-failures-on-Ubuntu-12.04.patch"
 )
 
 pkg_setup() {

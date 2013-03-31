@@ -1,7 +1,7 @@
 From 60c775330c663b7ecd32f314ab156ad0ba0ea072 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Wed, 27 Feb 2013 18:29:34 +0800
-Subject: [PATCH 5/8] LU-2850 build: check header files in generated uapi dir
+Subject: [PATCH 5/9] LU-2850 build: check header files in generated uapi dir
 
 Upstream moved UAPI headers into generated/uapi directory since
 v3.7. We need to check/include necessary header files there.
