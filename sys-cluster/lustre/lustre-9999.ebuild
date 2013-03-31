@@ -17,11 +17,13 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="+client +utils server"
+IUSE="+client +utils server +liblustre readline tests tcpd +urandom"
 
 DEPEND="
 	virtual/awk
 	virtual/linux-sources
+	readline? ( sys-libs/readline )
+	tcpd? ( sys-apps/tcp-wrappers )
 	server? (
 		>=sys-kernel/spl-0.6.0_rc14-r2
 		>=sys-fs/zfs-kmod-0.6.0_rc14-r4
@@ -101,7 +103,12 @@ src_configure() {
 		--with-spl="${EPREFIX}/usr/src/spl" \
 		$(use_enable client) \
 		$(use_enable utils) \
-		$(use_enable server)
+		$(use_enable server) \
+		$(use_enable liblustre) \
+		$(use_enable readline) \
+		$(use_enable tcpd libwrap) \
+		$(use_enable urandom) \
+		$(use_enable tests)
 }
 
 src_compile() {
