@@ -1,7 +1,7 @@
 From 84010884ffc614cc0d5cf06e5416dadc2693a86a Mon Sep 17 00:00:00 2001
 From: Robert Read <robert.read@intel.com>
 Date: Fri, 22 Mar 2013 11:32:13 -0700
-Subject: [PATCH 9/9] LU-3011 ubuntu: Fix build failures on Ubuntu 12.04
+Subject: [PATCH 09/12] LU-3011 ubuntu: Fix build failures on Ubuntu 12.04
 
 Fix "set-but-unused" warning by using the variable,
 and move -lreadline to end of link command line.

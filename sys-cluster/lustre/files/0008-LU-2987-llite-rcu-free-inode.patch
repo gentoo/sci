@@ -1,7 +1,7 @@
 From 77ae599340fc509002f2875257c2e024fb1b44fb Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 19 Mar 2013 14:04:47 +0800
-Subject: [PATCH 8/9] LU-2987 llite: rcu-free inode
+Subject: [PATCH 08/12] LU-2987 llite: rcu-free inode
 
 Since 2.6.38, inode.i_rcu was added and file system .destory_inode
 should rcu-free inodes.
