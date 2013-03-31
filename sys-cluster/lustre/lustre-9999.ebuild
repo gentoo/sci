@@ -59,12 +59,12 @@ src_prepare() {
 		-i lustre/conf/Makefile.am || die
 
 	# replace upstream autogen.sh by our src_prepare()
-	local DIRS="build libcfs lnet lustre snmp"
+	local DIRS="libcfs lnet lustre snmp"
 	local ACLOCAL_FLAGS
 	for dir in $DIRS ; do
-		ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $dir/config"
+		ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $dir/autoconf"
 	done
-	eaclocal $ACLOCAL_FLAGS
+	eaclocal -I config $ACLOCAL_FLAGS
 	eautoheader
 	eautomake
 	eautoconf
@@ -83,7 +83,7 @@ src_prepare() {
 	cd ..
 	einfo "Reconfiguring source in ldiskfs"
 	cd ldiskfs
-	eaclocal
+	eaclocal -I config
 	eautoheader
 	eautomake -W no-portability
 	eautoconf
