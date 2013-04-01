@@ -1,0 +1,58 @@
+From 84010884ffc614cc0d5cf06e5416dadc2693a86a Mon Sep 17 00:00:00 2001
+From: Robert Read <robert.read@intel.com>
+Date: Fri, 22 Mar 2013 11:32:13 -0700
+Subject: [PATCH 09/12] LU-3011 ubuntu: Fix build failures on Ubuntu 12.04
+
+Fix "set-but-unused" warning by using the variable,
+and move -lreadline to end of link command line.
+
+Signed-off-by: Robert Read <robert.read.@intel.com>
+Change-Id: I676e319ed81dbb6ba41d039e7b075b02d5122b48
+---
+ libcfs/autoconf/lustre-libcfs.m4 | 1 +
+ lustre/utils/Makefile.am         | 8 ++++----
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/libcfs/autoconf/lustre-libcfs.m4 b/libcfs/autoconf/lustre-libcfs.m4
+index 5789166..72ae7b4 100644
+--- a/libcfs/autoconf/lustre-libcfs.m4
++++ b/libcfs/autoconf/lustre-libcfs.m4
+@@ -918,6 +918,7 @@ AC_COMPILE_IFELSE([
+ 		__u64 *data2 = NULL;
+ 
+ 		data1 = data2;
++		data2 = data1;
+ 		return 0;
+ 	}
+ ],[
+diff --git a/lustre/utils/Makefile.am b/lustre/utils/Makefile.am
+index 1309376..bc8d716 100644
+--- a/lustre/utils/Makefile.am
++++ b/lustre/utils/Makefile.am
+@@ -42,19 +42,19 @@ endif
+ noinst_LIBRARIES = liblustreapitmp.a
+ 
+ lctl_SOURCES = lustre_lfsck.c obd.c lustre_cfg.c lctl.c obdctl.h
+-lctl_LDADD := $(LIBREADLINE) liblustreapi.a $(LIBPTLCTL) $(PTHREAD_LIBS)
++lctl_LDADD :=  liblustreapi.a $(LIBPTLCTL) $(PTHREAD_LIBS) $(LIBREADLINE)
+ lctl_DEPENDENCIES := $(LIBPTLCTL) liblustreapi.a
+ 
+ lfs_SOURCES = lfs.c obd.c lustre_cfg.c
+-lfs_LDADD := $(LIBREADLINE) liblustreapi.a $(LIBPTLCTL) $(PTHREAD_LIBS)
++lfs_LDADD := liblustreapi.a $(LIBPTLCTL) $(PTHREAD_LIBS) $(LIBREADLINE)
+ lfs_DEPENDENCIES := $(LIBPTLCTL) liblustreapi.a
+ 
+ loadgen_SOURCES = loadgen.c lustre_cfg.c obd.c
+-loadgen_LDADD := $(LIBREADLINE) liblustreapi.a $(LIBPTLCTL) $(PTHREAD_LIBS)
++loadgen_LDADD := liblustreapi.a $(LIBPTLCTL) $(PTHREAD_LIBS) $(LIBREADLINE)
+ loadgen_DEPENDENCIES := $(LIBPTLCTL) liblustreapi.a
+ 
+ lustre_rsync_SOURCES = lustre_rsync.c obd.c lustre_cfg.c lustre_rsync.h
+-lustre_rsync_LDADD := $(LIBREADLINE) liblustreapi.a $(LIBPTLCTL) $(PTHREAD_LIBS)
++lustre_rsync_LDADD :=  liblustreapi.a $(LIBPTLCTL) $(PTHREAD_LIBS) $(LIBREADLINE)
+ lustre_rsync_DEPENDENCIES := $(LIBPTLCTL) liblustreapi.a
+ 
+ ll_recover_lost_found_objs_SOURCES = ll_recover_lost_found_objs.c
+-- 
+1.8.1.5
+

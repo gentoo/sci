@@ -1,7 +1,7 @@
-From 66f494869c183a010a40397221e55c625e5d2e8b Mon Sep 17 00:00:00 2001
+From 3050d2c9cccb51ce521bdbecd471cb6ce18f77b8 Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Wed, 20 Mar 2013 17:33:17 -0400
-Subject: [PATCH 2/7] LU-2850 compat: posix_acl_{to,from}_xattr take
+Subject: [PATCH 03/12] LU-2850 compat: posix_acl_{to,from}_xattr take
  user_namespace
 
 Commit 5f3a4a28 (v3.7) added a struct user_namespace argument to
@@ -121,7 +121,7 @@ index 14f3ef6..eb62458 100644
  int posix_acl_valid(const struct posix_acl *acl)
  {
 diff --git a/lustre/llite/xattr.c b/lustre/llite/xattr.c
-index 24a89eb..9575739 100644
+index f9e425d..7e3eb53 100644
 --- a/lustre/llite/xattr.c
 +++ b/lustre/llite/xattr.c
 @@ -345,7 +345,7 @@ int ll_getxattr_common(struct inode *inode, const char *name,
@@ -134,7 +134,7 @@ index 24a89eb..9575739 100644
                  RETURN(rc);
          }
 diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
-index fd087a5..d67db9d 100644
+index 9f3dea4..c9aa7a0 100644
 --- a/lustre/mdc/mdc_request.c
 +++ b/lustre/mdc/mdc_request.c
 @@ -41,6 +41,7 @@
@@ -145,7 +145,7 @@ index fd087a5..d67db9d 100644
  #else
  # include <liblustre.h>
  #endif
-@@ -466,7 +467,7 @@ static int mdc_unpack_acl(struct ptlrpc_request *req, struct lustre_md *md)
+@@ -465,7 +466,7 @@ static int mdc_unpack_acl(struct ptlrpc_request *req, struct lustre_md *md)
          if (!buf)
                  RETURN(-EPROTO);
  
