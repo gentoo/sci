@@ -1,0 +1,34 @@
+From 0ec7b7dc1eafdec4da8a69a0c8ca5bab8c2a1634 Mon Sep 17 00:00:00 2001
+From: Alexey Shvetsov <alexxy@gentoo.org>
+Date: Sun, 31 Mar 2013 19:16:54 +0400
+Subject: [PATCH 10/12] LU-3077 build: fix warnings in client modules
+
+This fixes warning with client module
+memset(attr, 0, sizeof(attr)) :
+argument to "sizeof" in "memset" call is the same expression as the
+destination; did you mean to dereference it
+
+gcc version 4.8.0 (Gentoo 4.8.0 p1.0, pie-0.5.10)
+
+Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
+Change-Id: I85197dfb7e512e4c747a7057632c3ecc7486ed37
+---
+ lustre/fld/fld_index.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lustre/fld/fld_index.c b/lustre/fld/fld_index.c
+index cbe8300..a6f9be5 100644
+--- a/lustre/fld/fld_index.c
++++ b/lustre/fld/fld_index.c
+@@ -331,7 +331,7 @@ int fld_index_init(const struct lu_env *env, struct lu_server_fld *fld,
+ 	if (attr == NULL)
+ 		RETURN(-ENOMEM);
+ 
+-	memset(attr, 0, sizeof(attr));
++	memset(attr, 0, sizeof(*attr));
+ 	attr->la_valid = LA_MODE;
+ 	attr->la_mode = S_IFREG | 0666;
+ 	dof.dof_type = DFT_INDEX;
+-- 
+1.8.1.5
+

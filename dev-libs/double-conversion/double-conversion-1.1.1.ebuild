@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit scons-utils eutils
 
@@ -40,7 +40,7 @@ src_test() {
 src_install() {
 	dolib.so ${LIBNAME}.so
 	use static-libs && dolib.a ${LIBNAME}.a
-	insinto /usr/include
-	doins src/double-conversion*h
+	insinto /usr/include/double-conversion
+	doins src/double-conversion.h src/utils.h
 	dodoc README Changelog AUTHORS
 }

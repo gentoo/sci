@@ -1,7 +1,7 @@
-From 8153aab75bd9d96af36df0d8eafbe6b3eac45e1c Mon Sep 17 00:00:00 2001
+From 3050d2c9cccb51ce521bdbecd471cb6ce18f77b8 Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Wed, 20 Mar 2013 17:33:17 -0400
-Subject: [PATCH 2/8] LU-2850 compat: posix_acl_{to,from}_xattr take
+Subject: [PATCH 03/12] LU-2850 compat: posix_acl_{to,from}_xattr take
  user_namespace
 
 Commit 5f3a4a28 (v3.7) added a struct user_namespace argument to
@@ -67,10 +67,10 @@ index 53975ab..fa4e4d4 100644
 +#endif
  #endif
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 3c773e8..fee7abc 100644
+index 601155c..125bde7 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2213,6 +2213,25 @@ LB_LINUX_TRY_COMPILE([
+@@ -2233,6 +2233,25 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -96,7 +96,7 @@ index 3c773e8..fee7abc 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2391,6 +2410,8 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2414,6 +2433,8 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_DENTRY_OPEN_USE_PATH
  	 LC_HAVE_IOP_ATOMIC_OPEN
  
@@ -121,7 +121,7 @@ index 14f3ef6..eb62458 100644
  int posix_acl_valid(const struct posix_acl *acl)
  {
 diff --git a/lustre/llite/xattr.c b/lustre/llite/xattr.c
-index 24a89eb..9575739 100644
+index f9e425d..7e3eb53 100644
 --- a/lustre/llite/xattr.c
 +++ b/lustre/llite/xattr.c
 @@ -345,7 +345,7 @@ int ll_getxattr_common(struct inode *inode, const char *name,
@@ -134,7 +134,7 @@ index 24a89eb..9575739 100644
                  RETURN(rc);
          }
 diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
-index 9fc8e51..a7b6d4a 100644
+index 9f3dea4..c9aa7a0 100644
 --- a/lustre/mdc/mdc_request.c
 +++ b/lustre/mdc/mdc_request.c
 @@ -41,6 +41,7 @@
@@ -145,7 +145,7 @@ index 9fc8e51..a7b6d4a 100644
  #else
  # include <liblustre.h>
  #endif
-@@ -466,7 +467,7 @@ static int mdc_unpack_acl(struct ptlrpc_request *req, struct lustre_md *md)
+@@ -465,7 +466,7 @@ static int mdc_unpack_acl(struct ptlrpc_request *req, struct lustre_md *md)
          if (!buf)
                  RETURN(-EPROTO);
  

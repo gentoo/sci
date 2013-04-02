@@ -17,11 +17,13 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="+client +utils server"
+IUSE="+client +utils server +liblustre readline tests tcpd +urandom"
 
 DEPEND="
 	virtual/awk
 	virtual/linux-sources
+	readline? ( sys-libs/readline )
+	tcpd? ( sys-apps/tcp-wrappers )
 	server? (
 		>=sys-kernel/spl-0.6.0_rc14-r2
 		>=sys-fs/zfs-kmod-0.6.0_rc14-r4
@@ -30,16 +32,18 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"${FILESDIR}/0000-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
-	"${FILESDIR}/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch"
-	"${FILESDIR}/0002-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch"
-	"${FILESDIR}/0003-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch"
+	"${FILESDIR}/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
+	"${FILESDIR}/0002-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch"
+	"${FILESDIR}/0003-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch"
 	"${FILESDIR}/0004-LU-2800-llite-introduce-local-getname.patch"
-	"${FILESDIR}/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
-	"${FILESDIR}/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
-	"${FILESDIR}/0007-LU-2987-llite-rcu-free-inode.patch"
-	"${FILESDIR}/0008-LU-2929-build-fix-unused-uninitilized-virables-error.patch"
-	"${FILESDIR}/0009-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
+	"${FILESDIR}/0005-LU-2850-build-check-header-files-in-generated-uapi-d.patch"
+	"${FILESDIR}/0006-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
+	"${FILESDIR}/0007-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
+	"${FILESDIR}/0008-LU-2987-llite-rcu-free-inode.patch"
+	"${FILESDIR}/0009-LU-3011-ubuntu-Fix-build-failures-on-Ubuntu-12.04.patch"
+	"${FILESDIR}/0010-LU-3077-build-fix-warnings-in-client-modules.patch"
+	"${FILESDIR}/0011-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
+	"${FILESDIR}/0012-LU-2850-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
 )
 
 pkg_setup() {
@@ -61,12 +65,12 @@ src_prepare() {
 		-i lustre/conf/Makefile.am || die
 
 	# replace upstream autogen.sh by our src_prepare()
-	local DIRS="build libcfs lnet lustre snmp"
+	local DIRS="libcfs lnet lustre snmp"
 	local ACLOCAL_FLAGS
 	for dir in $DIRS ; do
 		ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $dir/autoconf"
 	done
-	eaclocal $ACLOCAL_FLAGS
+	eaclocal -I config $ACLOCAL_FLAGS
 	eautoheader
 	eautomake
 	eautoconf
@@ -102,7 +106,12 @@ src_configure() {
 		--with-spl="${EPREFIX}/usr/src/spl" \
 		$(use_enable client) \
 		$(use_enable utils) \
-		$(use_enable server)
+		$(use_enable server) \
+		$(use_enable liblustre) \
+		$(use_enable readline) \
+		$(use_enable tcpd libwrap) \
+		$(use_enable urandom) \
+		$(use_enable tests)
 }
 
 src_compile() {

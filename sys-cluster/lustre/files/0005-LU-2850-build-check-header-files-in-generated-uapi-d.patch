@@ -1,7 +1,7 @@
-From b97f4190c2347410737c5b6698773c17f714f5ec Mon Sep 17 00:00:00 2001
+From 60c775330c663b7ecd32f314ab156ad0ba0ea072 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Wed, 27 Feb 2013 18:29:34 +0800
-Subject: [PATCH 1/8] LU-2850 build: check header files in generated uapi dir
+Subject: [PATCH 05/12] LU-2850 build: check header files in generated uapi dir
 
 Upstream moved UAPI headers into generated/uapi directory since
 v3.7. We need to check/include necessary header files there.
@@ -9,15 +9,15 @@ v3.7. We need to check/include necessary header files there.
 Signed-off-by: Peng Tao <tao.peng@emc.com>
 Change-Id: Ib104919189ebc0af7d3b5e9ca3b866b3b98be3dc
 ---
- autoMakefile.am                      |  2 +-
- build/autoconf/lustre-build-linux.m4 | 14 ++++++++------
- ldiskfs/config/ldiskfs-build.m4      | 14 ++++++++------
- lustre/autoconf/lustre-core.m4       |  2 +-
- lustre/scripts/version_tag.pl        |  1 +
+ autoMakefile.am                 |  2 +-
+ config/lustre-build-linux.m4    | 14 ++++++++------
+ ldiskfs/config/ldiskfs-build.m4 | 14 ++++++++------
+ lustre/autoconf/lustre-core.m4  |  2 +-
+ lustre/scripts/version_tag.pl   |  1 +
  5 files changed, 19 insertions(+), 14 deletions(-)
 
 diff --git a/autoMakefile.am b/autoMakefile.am
-index 8a259bc..6cc5f6d 100644
+index 79bcd65..93608de 100644
 --- a/autoMakefile.am
 +++ b/autoMakefile.am
 @@ -84,7 +84,7 @@ all-am: modules
@@ -29,10 +29,10 @@ index 8a259bc..6cc5f6d 100644
  	$(MODULE_TARGET)=$(PWD) -o tmp_include_depends -o scripts -o \
  	include/config/MARKER $@
  endif # LINUX
-diff --git a/build/autoconf/lustre-build-linux.m4 b/build/autoconf/lustre-build-linux.m4
-index 4c0a581..0873c05 100644
---- a/build/autoconf/lustre-build-linux.m4
-+++ b/build/autoconf/lustre-build-linux.m4
+diff --git a/config/lustre-build-linux.m4 b/config/lustre-build-linux.m4
+index 244d398..b995875 100644
+--- a/config/lustre-build-linux.m4
++++ b/config/lustre-build-linux.m4
 @@ -44,7 +44,7 @@ AC_MSG_CHECKING([for Linux release])
  if test -s $LINUX_OBJ/include/$AUTOCONF_HDIR/utsrelease.h ; then
  	LINUXRELEASEHEADER=$AUTOCONF_HDIR/utsrelease.h
@@ -73,7 +73,7 @@ index 4c0a581..0873c05 100644
  	# This is a clean kernel-source tree, we need to
  	# enable extensive workarounds to get this to build
  	# modules
-@@ -350,7 +352,7 @@ $2
+@@ -312,7 +314,7 @@ $2
  AC_DEFUN([LB_LINUX_COMPILE_IFELSE],
  [m4_ifvaln([$1], [AC_LANG_CONFTEST([$1])])dnl
  rm -f build/conftest.o build/conftest.mod.c build/conftest.ko
@@ -132,7 +132,7 @@ index fd0f6d2..d657399 100644
  	# enable extensive workarounds to get this to build
  	# modules
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 08f5e29..3c773e8 100644
+index 125bde7..5b82ff8 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -319,7 +319,7 @@ AC_DEFUN([LC_BIT_SPINLOCK_H],

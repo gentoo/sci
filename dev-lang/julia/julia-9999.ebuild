@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 EGIT_REPO_URI="git://github.com/JuliaLang/julia.git"
 
@@ -15,7 +15,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc emacs notebook"
+IUSE="doc emacs"
 
 RDEPEND=">=sys-devel/llvm-3.0
 	sys-libs/readline
@@ -24,18 +24,19 @@ RDEPEND=">=sys-devel/llvm-3.0
 	sci-libs/arpack
 	sci-libs/fftw
 	dev-libs/gmp
+	>=dev-libs/double-conversion-1.1.1
 	>=sys-libs/libunwind-1.1
 	dev-libs/libpcre
 	sci-mathematics/glpk
 	sys-libs/zlib
 	virtual/blas
-	virtual/lapack
-	notebook? ( www-servers/lighttpd )"
+	virtual/lapack"
 
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_prepare() {
+	epatch "${FILESDIR}/julia-nopatchelf.patch"
 	# Folder /usr/include/suitesparse does not exists, everything should be in /usr/include
 	sed -e "s|SUITESPARSE_INC = -I /usr/include/suitesparse|SUITESPARSE_INC = |g" \
 	-i deps/Makefile
@@ -57,32 +58,23 @@ src_prepare() {
 }
 
 src_compile() {
-	emake -j1
+	emake
 	use doc && emake -C doc html
-	if use notebook; then
-		emake -C ui/webserver
-		sed -e "s|etc|/share/julia/etc|" \
-		-i usr/bin/launch-julia-webserver ||die
-	fi
 	use emacs && elisp-compile contrib/julia-mode.el
 }
 
 src_install() {
-	emake -j1 install PREFIX="${D}/usr"
+	emake install PREFIX="${D}/usr"
 	cat > 99julia <<-EOF
 		LDPATH=/usr/$(get_libdir)/julia
 	EOF
 	doenvd 99julia
-	if use notebook; then
-		cp -R ui/website "${D}/usr/share/julia"
-		insinto /usr/share/julia/etc
-		doins deps/lighttpd.conf
-	fi
+
 	if use emacs; then
 		elisp-install "${PN}" contrib/julia-mode.el
 		elisp-site-file-install "${FILESDIR}"/63julia-gentoo.el
 	fi
-	use doc && dodoc -r doc/_build/html
+	use doc && dohtml -r doc/_build/html/
 	dodoc README.md
 }
 
