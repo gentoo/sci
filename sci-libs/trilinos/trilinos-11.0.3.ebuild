@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="5"
 inherit cmake-utils
 
 DESCRIPTION="Scientific library collection for large scale problems"
@@ -10,13 +10,12 @@ HOMEPAGE="http://trilinos.sandia.gov/"
 SRC_URI="${P}-Source.tar.gz"
 SRC_PAGE="11.0"
 
-KEYWORDS="~amd64 ~x86"
-RESTRICT="fetch"
-
-LICENSE="BSD LGPL-2.1"
 SLOT="0"
+LICENSE="BSD LGPL-2.1"
+KEYWORDS="~amd64 ~x86"
+IUSE="arprec boost cuda hdf5 hwloc netcdf qd qt scotch taucs tbb test umfpack zlib"
 
-IUSE="arprec boost cuda hdf5 hwloc netcdf qd qt scotch taucs tbb umfpack zlib"
+RESTRICT="fetch"
 
 RDEPEND="virtual/blas
 	virtual/lapack
