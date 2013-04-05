@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/gnome-chemistry-utils
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*gnome-chemistry-utils-0.14.2 (05 Apr 2013)
+
+  05 Apr 2013; Karl Linden (lilrc) <lilrc@users.sourceforge.net>
+  +gnome-chemistry-utils-0.14.2.ebuild, +metadata.xml:
+  Initial ebuild.
+
