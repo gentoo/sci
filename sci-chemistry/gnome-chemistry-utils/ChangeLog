@@ -4,6 +4,12 @@
 
   06 Apr 2013; Karl Linden (lilrc) <lilrc@users.sourceforge.net>
   gnome-chemistry-utils-0.14.2.ebuild:
+  Migrate to gnome2 eclass.
+  Add slots where suitable.
+  Sort inherits alphabetically.
+
+  06 Apr 2013; Karl Linden (lilrc) <lilrc@users.sourceforge.net>
+  gnome-chemistry-utils-0.14.2.ebuild:
   Add missing inherit.
 
 *gnome-chemistry-utils-0.14.2 (05 Apr 2013)

@@ -4,7 +4,8 @@
 
 EAPI="5"
 
-inherit fdo-mime versionator autotools-utils
+GCONF_DEBUG="no"
+inherit gnome2 versionator
 
 DESCRIPTION="Programs and library containing GTK widgets and C++ classes related to chemistry"
 HOMEPAGE="http://gchemutils.nongnu.org/"
@@ -17,8 +18,8 @@ LICENSE="GPL-3 FDL-1.3"
 IUSE="gnumeric nls"
 
 RDEPEND="
-	>=dev-libs/glib-2.26.0
-	>=dev-libs/libxml2-2.4.16
+	>=dev-libs/glib-2.26.0:2
+	>=dev-libs/libxml2-2.4.16:2
 	>=gnome-extra/libgsf-1.14.9
 	>=sci-chemistry/bodr-5
 	>=sci-chemistry/chemical-mime-data-0.1.94
@@ -39,10 +40,5 @@ src_configure() {
 		--disable-mozilla-plugin
 		--disable-update-databases
 	)
-	autotools-utils_src_configure
-}
-
-pkg_postinst() {
-	fdo-mime_desktop_database_update
-	fdo-mime_mime_database_update
+	gnome2_src_configure ${myeconfargs[@]}
 }
