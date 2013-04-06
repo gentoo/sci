@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit versionator autotools-utils
+inherit fdo-mime versionator autotools-utils
 
 DESCRIPTION="Programs and library containing GTK widgets and C++ classes related to chemistry"
 HOMEPAGE="http://gchemutils.nongnu.org/"
