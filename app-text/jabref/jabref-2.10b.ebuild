@@ -18,8 +18,8 @@ IUSE="doc"
 
 EANT_BUILD_TARGET="jars"
 
-DEPEND=">=virtual/jdk-1.6"
-RDEPEND=">=virtual/jre-1.6"
+DEPEND=">=virtual/jdk-1.7"
+RDEPEND=">=virtual/jre-1.7"
 
 src_install() {
 	java-pkg_newjar build/lib/JabRef-${PV}.jar
