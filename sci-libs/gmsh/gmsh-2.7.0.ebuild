@@ -36,7 +36,7 @@ RDEPEND="
 	"
 
 DEPEND="${RDEPEND}
-	doc? ( virtual/latex-base )"
+	doc? ( virtual/latex-base >=sys-apps/texinfo-5.1 )"
 
 S=${WORKDIR}/${P}-source
 
