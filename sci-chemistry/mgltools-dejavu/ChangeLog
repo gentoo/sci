@@ -2,6 +2,13 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mgltools-dejavu-1.5.6 (12 Apr 2013)
+
+  12 Apr 2013; Justin Lecher <jlec@gentoo.org>
+  -mgltools-dejavu-1.5.6_rc2.ebuild, -mgltools-dejavu-1.5.6_rc3.ebuild,
+  +mgltools-dejavu-1.5.6.ebuild:
+  Version Bump, drop old
+
 *mgltools-dejavu-1.5.6_rc3 (27 Jan 2013)
 
   27 Jan 2013; Justin Lecher <jlec@gentoo.org>
