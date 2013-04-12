@@ -15,8 +15,7 @@ PLUGINS="autodocktools bhtree cadd cmolkit dejavu geomutils gle mglutil molkit
 
 DESCRIPTION="Software to visualization and analysis of molecular structures"
 HOMEPAGE="http://mgltools.scripps.edu/"
-#SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
-SRC_URI="http://dev.gentoo.org/~jlec/distfiles/mgltools_source_${PV/_/}.tar.gz"
+SRC_URI="http://mgltools.scripps.edu/downloads/downloads/tars/releases/REL${PV}/${PN}_source_${PV}.tar.gz"
 
 LICENSE="MGLTOOLS"
 SLOT="0"
