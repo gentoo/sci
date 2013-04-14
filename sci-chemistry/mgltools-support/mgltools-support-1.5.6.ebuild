@@ -17,7 +17,7 @@ DESCRIPTION="MGLTools Plugin -- Support"
 HOMEPAGE="http://mgltools.scripps.edu"
 SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
 
-LICENSE="MGLTOOLS"
+LICENSE="MGLTOOLS MPL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
