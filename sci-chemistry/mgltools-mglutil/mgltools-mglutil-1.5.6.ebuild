@@ -15,8 +15,7 @@ PYTHON_MODNAME="${MY_PN}"
 
 DESCRIPTION="MGLTools Plugin -- mglutil"
 HOMEPAGE="http://mgltools.scripps.edu"
-#SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
-SRC_URI="http://dev.gentoo.org/~jlec/distfiles/mgltools_source_${PV/_/}.tar.gz"
+SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
 
 LICENSE="MGLTOOLS"
 SLOT="0"
