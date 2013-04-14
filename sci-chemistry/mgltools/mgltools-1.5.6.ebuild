@@ -17,7 +17,7 @@ DESCRIPTION="Software to visualization and analysis of molecular structures"
 HOMEPAGE="http://mgltools.scripps.edu/"
 SRC_URI="http://mgltools.scripps.edu/downloads/downloads/tars/releases/REL${PV}/${PN}_source_${PV}.tar.gz"
 
-LICENSE="MGLTOOLS"
+LICENSE="MGLTOOLS MPL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
