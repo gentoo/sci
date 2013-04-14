@@ -3,6 +3,10 @@
 # $Header: $
 
   14 Apr 2013; Justin Lecher <jlec@gentoo.org>
+  mgltools-utpackages-1.5.4-r1.ebuild, mgltools-utpackages-1.5.6.ebuild:
+  Correct license
+
+  14 Apr 2013; Justin Lecher <jlec@gentoo.org>
   mgltools-utpackages-1.5.6.ebuild:
   Fix SRC_URI
 
