@@ -2,30 +2,27 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=3
 
-inherit qt4-r2 eutils flag-o-matic
+inherit qt4-r2 eutils
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
-SRC_URI="https://github.com/LibreCAD/LibreCAD/archive/2.0.0beta2.tar.gz ->
-${P}.tar.gz"
+SRC_URI="https://github.com/LibreCAD/LibreCAD/archive/v1.0.3.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug doc"
 
-DEPEND="
+RDEPEND="
+	dev-qt/qtgui[qt3support]
 	dev-qt/qthelp:4
-	dev-qt/qtgui:4
-	dev-qt/qtsvg:4
-	dev-libs/boost
+	dev-qt/qt3support:4
 	dev-cpp/muParser
-	media-libs/freetype
 	"
 
-RDEPEND="${DEPEND}"
+DEPEND="${RDEPEND}"
 
 src_unpack() {
 	unpack ${A}
@@ -33,16 +30,16 @@ src_unpack() {
 }
 
 src_prepare() {
-	sed -i -e '/RS_VECTOR2D/ s/^#//' librecad/src/src.pro
+sed -i -e "s:\\\$\+system(git describe --tags):1.0.3:" "${PN}.pro"
 }
 
 src_install() {
-	dobin unix/librecad
+	dobin unix/librecad || die
 	insinto /usr/share/"${PN}"
-	doins -r unix/resources/*
+	doins -r unix/resources/* || die
 	if use doc ; then
 		dohtml -r support/doc/*
 	fi
-	doicon librecad/res/main/"${PN}".png
+	doicon res/main/"${PN}".png
 	make_desktop_entry "${PN}" LibreCAD "${PN}.png" Graphics
 }
