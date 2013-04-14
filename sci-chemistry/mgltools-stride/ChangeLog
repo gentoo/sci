@@ -3,6 +3,9 @@
 # $Header: $
 
   14 Apr 2013; Justin Lecher <jlec@gentoo.org> mgltools-stride-1.5.4-r1.ebuild:
+  Fix license, thanks ulm looking for correct licensing
+
+  14 Apr 2013; Justin Lecher <jlec@gentoo.org> mgltools-stride-1.5.4-r1.ebuild:
   Correct license
 
   27 Jan 2013; Justin Lecher <jlec@gentoo.org> metadata.xml:

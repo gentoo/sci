@@ -17,7 +17,7 @@ HOMEPAGE="http://mgltools.scripps.edu/"
 #SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
 SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/mgltools_source_${PV}.tar.gz"
 
-LICENSE="MGLTOOLS MPL-1.1 as-is"
+LICENSE="MGLTOOLS MPL-1.1 STRIDE"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
