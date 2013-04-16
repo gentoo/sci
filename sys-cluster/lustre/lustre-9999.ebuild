@@ -25,9 +25,9 @@ DEPEND="
 	readline? ( sys-libs/readline )
 	tcpd? ( sys-apps/tcp-wrappers )
 	server? (
-		>=sys-kernel/spl-0.6.1
-		>=sys-fs/zfs-kmod-0.6.1
-		>=sys-fs/zfs-0.6.1
+		>sys-kernel/spl-0.6.0
+		>sys-fs/zfs-kmod-0.6.0
+		>sys-fs/zfs-0.6.0
 	)
 	"
 RDEPEND="${DEPEND}"
