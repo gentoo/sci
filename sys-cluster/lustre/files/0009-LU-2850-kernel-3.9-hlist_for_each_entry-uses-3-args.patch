@@ -1,7 +1,7 @@
-From 11a0f9a2ac7d3d1bcda9a8bd3af5800cee35249d Mon Sep 17 00:00:00 2001
+From 8ef04c8c6d6d8e9e5ba187ba1e88965aabf9794c Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Sun, 31 Mar 2013 19:32:30 +0400
-Subject: [PATCH 11/12] LU-2850 kernel: 3.9 hlist_for_each_entry uses 3 args
+Subject: [PATCH 09/11] LU-2850 kernel: 3.9 hlist_for_each_entry uses 3 args
 
 In 3.9 hlist_for_each_entry use 3 args since commit
 
@@ -49,7 +49,7 @@ index be06e74..b747804 100644
  #define CFS_HLIST_HEAD_INIT		   HLIST_HEAD_INIT
  #define CFS_HLIST_HEAD(n)		   HLIST_HEAD(n)
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 4e90e86..527052e 100644
+index bf83193..5c1fee2 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -2291,6 +2291,29 @@ LB_LINUX_TRY_COMPILE([

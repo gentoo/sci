@@ -1,7 +1,7 @@
-From da0f460ee306437c583147ea6832298cbc1e9202 Mon Sep 17 00:00:00 2001
+From 3cde88f309039a3c248e15746d20c6492566b18c Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Sun, 31 Mar 2013 20:13:21 +0400
-Subject: [PATCH 12/12] LU-2850 kernel: f_vfsmnt replaced by f_path.mnt
+Subject: [PATCH 10/11] LU-2850 kernel: f_vfsmnt replaced by f_path.mnt
 
 In linux 3.9 f_vfsmnt was killed and replaced
 
@@ -21,7 +21,7 @@ Change-Id: I02f595f0b7bbe804c9695d6da2106deb2d17e0ee
  2 files changed, 27 insertions(+)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 527052e..de79357 100644
+index 5c1fee2..439f677 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -2314,6 +2314,28 @@ LB_LINUX_TRY_COMPILE([

@@ -1,7 +1,7 @@
-From 77ae599340fc509002f2875257c2e024fb1b44fb Mon Sep 17 00:00:00 2001
+From 1abfc6069f78a8efd6002dfe09b6a8196f47552b Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 19 Mar 2013 14:04:47 +0800
-Subject: [PATCH 08/12] LU-2987 llite: rcu-free inode
+Subject: [PATCH 08/11] LU-2987 llite: rcu-free inode
 
 Since 2.6.38, inode.i_rcu was added and file system .destory_inode
 should rcu-free inodes.
@@ -14,7 +14,7 @@ Change-Id: Idc12c94fd1bf9c99756c9bcb2d07f3061e6dad5a
  2 files changed, 37 insertions(+), 2 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index d736343..4e90e86 100644
+index 604e00b..bf83193 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -1682,6 +1682,26 @@ LB_LINUX_TRY_COMPILE([

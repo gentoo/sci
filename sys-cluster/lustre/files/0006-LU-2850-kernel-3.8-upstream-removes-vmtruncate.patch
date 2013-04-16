@@ -1,7 +1,7 @@
-From 19491f9e67e43ae10ae1f71e38730606e2c518a8 Mon Sep 17 00:00:00 2001
+From de4775789c14be8dce4b8dbb168c06c0055d1ca2 Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Wed, 27 Mar 2013 08:49:01 +0400
-Subject: [PATCH 06/12] LU-2850 kernel: 3.8 upstream removes vmtruncate()
+Subject: [PATCH 06/11] LU-2850 kernel: 3.8 upstream removes vmtruncate()
 
 vmtruncate() is removed since upstream commit b9f61c3.
 We can open code is for llite though.
@@ -14,7 +14,7 @@ Change-Id: I9d4f43a5c181f16482b4caa021ba7a09ee52b600
  2 files changed, 32 insertions(+)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 5b82ff8..d736343 100644
+index c13ad6a..604e00b 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -2252,6 +2252,25 @@ LB_LINUX_TRY_COMPILE([
