@@ -1,7 +1,7 @@
-From f2c24d99e4d2bd77411acc300d11ab70fc9d6abc Mon Sep 17 00:00:00 2001
+From f8338a543db484f72f221ac57444afb96a852cfb Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Wed, 20 Mar 2013 17:33:17 -0400
-Subject: [PATCH 03/11] LU-2850 compat: posix_acl_{to,from}_xattr take
+Subject: [PATCH 3/9] LU-2850 compat: posix_acl_{to,from}_xattr take
  user_namespace
 
 Commit 5f3a4a28 (v3.7) added a struct user_namespace argument to

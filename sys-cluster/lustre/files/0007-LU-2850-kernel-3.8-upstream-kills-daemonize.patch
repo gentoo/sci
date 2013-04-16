@@ -1,22 +1,17 @@
-From 08c0e5bebb11c18370cce8b437d8e73b9d5d49db Mon Sep 17 00:00:00 2001
+From 1ab28dd30f7303302d4b5825d7b0e0417a339eee Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Mon, 18 Mar 2013 10:47:57 +0800
-Subject: [PATCH 07/11] LU-2850 kernel: 3.8 upstream kills daemonize()
+Subject: [PATCH 7/9] LU-2850 kernel: 3.8 upstream kills daemonize()
 
 kernel_thread() is a low level kernel function.
 Instead of calling kernel_thread() and relying on daemonize()
 to create new kernel threads, we should really switch to
 kthread_run() and elimilate daemonize().
 
-Conflicts:
-	lustre/obdclass/llog_cat.c
-	lustre/ptlrpc/recov_thread.c
-
 Signed-off-by: Peng Tao <tao.peng@emc.com>
-Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
 ---
- libcfs/autoconf/lustre-libcfs.m4           | 37 --------------
+ libcfs/autoconf/lustre-libcfs.m4           | 19 -------
  libcfs/include/libcfs/darwin/darwin-prim.h |  6 +--
  libcfs/include/libcfs/libcfs.h             | 13 +----
  libcfs/include/libcfs/linux/linux-prim.h   |  9 ----
@@ -84,39 +79,14 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  lustre/quota/qmt_lock.c                    | 17 +++----
  lustre/quota/qsd_reint.c                   |  6 +--
  lustre/quota/qsd_writeback.c               | 16 +++---
- 68 files changed, 515 insertions(+), 763 deletions(-)
+ 68 files changed, 515 insertions(+), 745 deletions(-)
  delete mode 100644 libcfs/libcfs/linux/linux-lwt.c
 
 diff --git a/libcfs/autoconf/lustre-libcfs.m4 b/libcfs/autoconf/lustre-libcfs.m4
-index 380fd5b..a1ed4b0 100644
+index 4545a7a..03a428c 100644
 --- a/libcfs/autoconf/lustre-libcfs.m4
 +++ b/libcfs/autoconf/lustre-libcfs.m4
-@@ -639,24 +639,6 @@ LB_LINUX_TRY_COMPILE([
- ])
- ])
- 
--AC_DEFUN([LIBCFS_HAVE_OOM_H],
--[LB_CHECK_FILE([$LINUX/include/linux/oom.h], [
--        AC_DEFINE(HAVE_LINUX_OOM_H, 1,
--                [kernel has include/oom.h])
--],[
--        AC_MSG_RESULT([no])
--])
--])
--
--AC_DEFUN([LIBCFS_HAVE_KEYTYPE_H],
--[LB_CHECK_FILE([$LINUX/include/linux/key-type.h], [
--        AC_DEFINE(HAVE_LINUX_KEYTYPE_H, 1,
--                [kernel has include/key-type.h])
--],[
--        AC_MSG_RESULT([no])
--])
--])
--
- #
- # check set_mems_allowed
- # 2.6.31 adds function set_mems_allowed in cpuset.h
-@@ -697,23 +679,6 @@ LB_LINUX_TRY_COMPILE([
+@@ -696,23 +696,6 @@ LB_LINUX_TRY_COMPILE([
  ])
  ])
  
@@ -140,7 +110,7 @@ index 380fd5b..a1ed4b0 100644
  #
  # 2.6.33 no longer has ctl_name & strategy field in struct ctl_table.
  #
-@@ -840,8 +805,6 @@ LIBCFS_HAVE_SET_MEMS_ALLOWED
+@@ -865,8 +848,6 @@ LIBCFS_HAVE_SET_MEMS_ALLOWED
  # 2.6.32
  LIBCFS_STACKTRACE_OPS_HAVE_WALK_STACK
  LC_SHRINKER_WANT_SHRINK_PTR

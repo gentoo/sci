@@ -1,7 +1,7 @@
-From 1abfc6069f78a8efd6002dfe09b6a8196f47552b Mon Sep 17 00:00:00 2001
+From eb03fd5e6cfb84118903ed18fe77a77c4935c662 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 19 Mar 2013 14:04:47 +0800
-Subject: [PATCH 08/11] LU-2987 llite: rcu-free inode
+Subject: [PATCH 8/9] LU-2987 llite: rcu-free inode
 
 Since 2.6.38, inode.i_rcu was added and file system .destory_inode
 should rcu-free inodes.
@@ -14,10 +14,10 @@ Change-Id: Idc12c94fd1bf9c99756c9bcb2d07f3061e6dad5a
  2 files changed, 37 insertions(+), 2 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 604e00b..bf83193 100644
+index 485b370..c36b055 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -1682,6 +1682,26 @@ LB_LINUX_TRY_COMPILE([
+@@ -1683,6 +1683,26 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -44,7 +44,7 @@ index 604e00b..bf83193 100644
  # 2.6.38 export blkdev_get_by_dev
  #
  AC_DEFUN([LC_BLKDEV_GET_BY_DEV],
-@@ -2408,6 +2428,7 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2409,6 +2429,7 @@ AC_DEFUN([LC_PROG_LINUX],
           LC_GENERIC_PERMISSION
           LC_QUOTA_ON_USE_PATH
           LC_DCACHE_LOCK
