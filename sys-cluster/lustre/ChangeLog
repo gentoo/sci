@@ -5,6 +5,9 @@
   16 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
   Update lustre deps
 
+  16 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Update lustre deps
+
   16 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org>
   +files/0009-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
   +files/0010-LU-2850-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
