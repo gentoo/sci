@@ -101,9 +101,9 @@ src_configure() {
 	local myconf
 	if use server; then
 		SPL_PATH=$(basename $(echo "${EROOT}usr/src/spl-"*)) \
-			myconf+="${myconf} --with-spl=\"${EROOT}usr/src/${SPL_PATH}\""
+			myconf="${myconf} --with-spl=\"${EROOT}usr/src/${SPL_PATH}\""
 		ZFS_PATH=$(basename $(echo "${EROOT}usr/src/zfs-"*)) \
-			myconf+="${myconf} --with-zfs=\"${EROOT}usr/src/${ZFS_PATH}\""
+			myconf="${myconf} --with-zfs=\"${EROOT}usr/src/${ZFS_PATH}\""
 	fi
 	econf \
 		${myconf} \
