@@ -1,7 +1,7 @@
-From 6cbb83e217da670eba6c48d6a5a8c9248e11290d Mon Sep 17 00:00:00 2001
+From 127cc837cc6e8268e220288ed7a0209d944cc3f5 Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Sun, 31 Mar 2013 19:32:30 +0400
-Subject: [PATCH 09/11] LU-3079 kernel: 3.9 hlist_for_each_entry uses 3 args
+Subject: [PATCH 10/12] LU-3079 kernel: 3.9 hlist_for_each_entry uses 3 args
 
 In 3.9 hlist_for_each_entry use 3 args since commit
 

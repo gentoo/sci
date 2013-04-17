@@ -1,7 +1,7 @@
 From def3a96c6a0755136d13796e5ca4b620a22b125b Mon Sep 17 00:00:00 2001
 From: yangsheng <yang.sheng@intel.com>
 Date: Mon, 8 Apr 2013 21:04:22 +0800
-Subject: [PATCH 04/11] LU-2686 kernel: Kernel update for 3.7.2-201.fc18
+Subject: [PATCH 04/12] LU-2686 kernel: Kernel update for 3.7.2-201.fc18
 
 Add uapi header to include search path.
 

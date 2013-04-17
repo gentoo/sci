@@ -41,9 +41,10 @@ PATCHES=(
 	"${FILESDIR}/0006-LU-2800-llite-introduce-local-getname.patch"
 	"${FILESDIR}/0007-LU-2987-llite-rcu-free-inode.patch"
 	"${FILESDIR}/0008-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
-	"${FILESDIR}/0009-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
-	"${FILESDIR}/0010-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
-	"${FILESDIR}/0011-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch"
+	"${FILESDIR}/0009-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
+	"${FILESDIR}/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
+	"${FILESDIR}/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
+	"${FILESDIR}/0012-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch"
 )
 
 pkg_setup() {

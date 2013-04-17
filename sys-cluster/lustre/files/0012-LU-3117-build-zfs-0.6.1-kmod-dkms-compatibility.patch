@@ -1,7 +1,7 @@
-From b9af425cb67ad9d27a8319a308fecd794478479e Mon Sep 17 00:00:00 2001
+From a706113ecda6efa8186bfe8cf6ff94a845f56603 Mon Sep 17 00:00:00 2001
 From: Brian Behlendorf <behlendorf1@llnl.gov>
 Date: Thu, 28 Mar 2013 12:18:27 -0700
-Subject: [PATCH 11/11] LU-3117 build: zfs-0.6.1 kmod+dkms compatibility
+Subject: [PATCH 12/12] LU-3117 build: zfs-0.6.1 kmod+dkms compatibility
 
 With the release of zfs-0.6.1 the default install location of
 the zfs kmod headers and objects has changed.  The kmod headers

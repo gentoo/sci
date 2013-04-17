@@ -1,7 +1,7 @@
 From bbf10f6ddeb01a6653a5ffa77769aeb349741ee3 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Tue, 9 Apr 2013 11:26:00 -0400
-Subject: [PATCH 02/11] LU-1812 kernel: 3.0/SuSE and 3.6/FC18 server patches
+Subject: [PATCH 02/12] LU-1812 kernel: 3.0/SuSE and 3.6/FC18 server patches
 
 This patch extends lustre server support to FC18 and
 SLES11 SP2 with a ZFS. At this time ldiskfs is not
