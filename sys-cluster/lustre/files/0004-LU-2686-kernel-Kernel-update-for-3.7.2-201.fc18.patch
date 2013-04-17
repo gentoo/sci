@@ -1,7 +1,7 @@
-From 40fc79f1ea2b8ce3ab895af2a0c6dcf2c1a3ab04 Mon Sep 17 00:00:00 2001
+From def3a96c6a0755136d13796e5ca4b620a22b125b Mon Sep 17 00:00:00 2001
 From: yangsheng <yang.sheng@intel.com>
 Date: Mon, 8 Apr 2013 21:04:22 +0800
-Subject: [PATCH 5/9] LU-2686 kernel: Kernel update for 3.7.2-201.fc18
+Subject: [PATCH 04/11] LU-2686 kernel: Kernel update for 3.7.2-201.fc18
 
 Add uapi header to include search path.
 
@@ -152,7 +152,7 @@ index 2feec80..aee760e 100644
  	# enable extensive workarounds to get this to build
  	# modules
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index b9ff1ca..9447b2b 100644
+index 0354dd4..c71702b 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -328,6 +328,7 @@ AC_TRY_RUN([
