@@ -98,13 +98,17 @@ src_prepare() {
 }
 
 src_configure() {
+	local myconf
+	if use server; then
+		myconf+="${myconf} --with-zfs=\"${EPREFIX}/usr/src/zfs\""
+		myconf+="${myconf} --with-spl=\"${EPREFIX}/usr/src/spl\""
+	fi
 	econf \
+		${myconf} \
 		--without-ldiskfs \
 		--disable-ldiskfs-build \
 		--with-linux="${KERNEL_DIR}" \
 		--with-linux-release="${KV_FULL}" \
-		--with-zfs="${EPREFIX}/usr/src/zfs" \
-		--with-spl="${EPREFIX}/usr/src/spl" \
 		$(use_enable client) \
 		$(use_enable utils) \
 		$(use_enable server) \

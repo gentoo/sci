@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Fix client build
+
   17 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org>
   +files/0009-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
   +files/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
