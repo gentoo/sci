@@ -1,12 +1,18 @@
-From 1ab28dd30f7303302d4b5825d7b0e0417a339eee Mon Sep 17 00:00:00 2001
+From f5d1ce5309c4bb7b39f6e49970a3d0e0a4e8a40e Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Mon, 18 Mar 2013 10:47:57 +0800
-Subject: [PATCH 7/9] LU-2850 kernel: 3.8 upstream kills daemonize()
+Subject: [PATCH 09/12] LU-2850 kernel: 3.8 upstream kills daemonize()
 
 kernel_thread() is a low level kernel function.
 Instead of calling kernel_thread() and relying on daemonize()
 to create new kernel threads, we should really switch to
 kthread_run() and elimilate daemonize().
+
+Conflicts:
+	libcfs/autoconf/lustre-libcfs.m4
+	lustre/mdd/mdd_lfsck.c
+	lustre/obdclass/llog_cat.c
+	lustre/ptlrpc/recov_thread.c
 
 Signed-off-by: Peng Tao <tao.peng@emc.com>
 Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
