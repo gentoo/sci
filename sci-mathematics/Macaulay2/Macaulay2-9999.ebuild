@@ -11,8 +11,8 @@ IUSE="debug emacs optimization"
 EGIT_REPO_URI="git://github.com/Macaulay2/M2.git"
 
 # Those packages will be built internally.
-FACTORY="factory-3-1-4-1"
-LIBFAC="libfac-3-1-4"
+FACTORY="factory-3-1-6"
+LIBFAC="libfac-3-1-6"
 
 DESCRIPTION="Research tool for commutative algebra and algebraic geometry"
 HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
