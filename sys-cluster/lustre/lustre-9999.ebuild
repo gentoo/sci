@@ -25,8 +25,8 @@ DEPEND="
 	readline? ( sys-libs/readline )
 	tcpd? ( sys-apps/tcp-wrappers )
 	server? (
-		sys-kernel/spl
-		sys-fs/zfs-kmod
+		>=sys-kernel/spl-0.6.1
+		>=sys-fs/zfs-kmod-0.6.1
 		sys-fs/zfs
 	)
 	"
@@ -100,8 +100,10 @@ src_prepare() {
 src_configure() {
 	local myconf
 	if use server; then
-		myconf+="${myconf} --with-zfs=\"${EPREFIX}/usr/src/zfs\""
-		myconf+="${myconf} --with-spl=\"${EPREFIX}/usr/src/spl\""
+		SPL_PATH=$(basename $(echo "${EROOT}usr/src/spl-"*)) \
+			myconf="${myconf} --with-spl=\"${EROOT}usr/src/${SPL_PATH}\""
+		ZFS_PATH=$(basename $(echo "${EROOT}usr/src/zfs-"*)) \
+			myconf="${myconf} --with-zfs=\"${EROOT}usr/src/${ZFS_PATH}\""
 	fi
 	econf \
 		${myconf} \
