@@ -3,6 +3,9 @@
 # $Header: $
 
   22 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Fix zfs-osd build
+
+  22 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
   Disable liblustre by default
 
   22 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org>
