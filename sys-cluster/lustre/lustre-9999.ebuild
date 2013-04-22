@@ -45,6 +45,7 @@ PATCHES=(
 	"${FILESDIR}/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
 	"${FILESDIR}/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
 	"${FILESDIR}/0012-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch"
+	"${FILESDIR}/0013-LU-3179-fids-fix-compilation-error-with-gcc-4.7.2.patch"
 )
 
 pkg_setup() {

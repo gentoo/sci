@@ -1,7 +1,7 @@
-From 42de9a90abb62598e77cd5ae03f88edf889dfb7c Mon Sep 17 00:00:00 2001
+From 6cc1686b5c1fed6e7ddfd72cfd4e01dc3eac696e Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Wed, 17 Apr 2013 13:27:55 +0400
-Subject: [PATCH 08/12] LU-2850 kernel: 3.8 upstream removes vmtruncate()
+Subject: [PATCH 08/13] LU-2850 kernel: 3.8 upstream removes vmtruncate()
 
 vmtruncate() is removed since upstream commit b9f61c3.
 We can open code is for llite though.
@@ -79,5 +79,5 @@ index db53842..aef8e4b 100644
  }
  
 -- 
-1.8.1.5
+1.8.2.1
 

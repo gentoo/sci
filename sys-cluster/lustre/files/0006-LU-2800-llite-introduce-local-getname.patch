@@ -1,7 +1,7 @@
-From dcecd2b8def2c9d034f4d3e02edcdac5373e47ef Mon Sep 17 00:00:00 2001
+From 1e9898786864f75f45cd50c31148b08b5697647d Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Tue, 19 Mar 2013 21:18:32 -0400
-Subject: [PATCH 06/12] LU-2800 llite: introduce local getname()
+Subject: [PATCH 06/13] LU-2800 llite: introduce local getname()
 
 Commit 8e377d15 (v3.7) unexported getname and putname. Although
 getname was re-exported, putname was not. All we really need is
@@ -87,5 +87,5 @@ index 493996d..14ea720 100644
          }
          case IOC_LOV_GETINFO: {
 -- 
-1.8.1.5
+1.8.2.1
 

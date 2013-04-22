@@ -1,7 +1,7 @@
-From 55b8ccf5de7c8666695245ad95b528185b6c4cf3 Mon Sep 17 00:00:00 2001
+From 6ccd0a77a72119e7ac09978829a2ce1aa47863e0 Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Wed, 20 Mar 2013 17:33:17 -0400
-Subject: [PATCH 05/12] LU-2850 compat: posix_acl_{to,from}_xattr take
+Subject: [PATCH 05/13] LU-2850 compat: posix_acl_{to,from}_xattr take
  user_namespace
 
 Commit 5f3a4a28 (v3.7) added a struct user_namespace argument to
@@ -155,5 +155,5 @@ index 9f3dea4..c9aa7a0 100644
                  rc = PTR_ERR(acl);
                  CERROR("convert xattr to acl: %d\n", rc);
 -- 
-1.8.1.5
+1.8.2.1
 

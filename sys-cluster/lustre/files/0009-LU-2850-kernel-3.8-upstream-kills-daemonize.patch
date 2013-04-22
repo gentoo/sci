@@ -1,7 +1,7 @@
-From f5d1ce5309c4bb7b39f6e49970a3d0e0a4e8a40e Mon Sep 17 00:00:00 2001
+From 56d9f2bdeacf3d4f1a78cd5cac53436cce00014e Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Mon, 18 Mar 2013 10:47:57 +0800
-Subject: [PATCH 09/12] LU-2850 kernel: 3.8 upstream kills daemonize()
+Subject: [PATCH 09/13] LU-2850 kernel: 3.8 upstream kills daemonize()
 
 kernel_thread() is a low level kernel function.
 Instead of calling kernel_thread() and relying on daemonize()
@@ -1789,7 +1789,7 @@ index 2e3a1d5..e61583a 100644
  
  void target_stop_recovery_thread(struct obd_device *obd)
 diff --git a/lustre/ldlm/ldlm_lockd.c b/lustre/ldlm/ldlm_lockd.c
-index 31925ff..3a9bf14 100644
+index da54fcd..f4d05c3 100644
 --- a/lustre/ldlm/ldlm_lockd.c
 +++ b/lustre/ldlm/ldlm_lockd.c
 @@ -178,7 +178,6 @@ static int expired_lock_main(void *arg)
@@ -1800,7 +1800,7 @@ index 31925ff..3a9bf14 100644
  
          expired_lock_thread.elt_state = ELT_READY;
          cfs_waitq_signal(&expired_lock_thread.elt_waitq);
-@@ -2570,14 +2569,17 @@ static int ldlm_bl_thread_main(void *arg);
+@@ -2577,14 +2576,17 @@ static int ldlm_bl_thread_main(void *arg);
  static int ldlm_bl_thread_start(struct ldlm_bl_pool *blp)
  {
  	struct ldlm_bl_thread_data bltd = { .bltd_blp = blp };
@@ -1824,7 +1824,7 @@ index 31925ff..3a9bf14 100644
  	}
  	wait_for_completion(&bltd.bltd_comp);
  
-@@ -2601,14 +2603,9 @@ static int ldlm_bl_thread_main(void *arg)
+@@ -2608,14 +2610,9 @@ static int ldlm_bl_thread_main(void *arg)
  
                  blp = bltd->bltd_blp;
  
@@ -1840,7 +1840,7 @@ index 31925ff..3a9bf14 100644
  		complete(&bltd->bltd_comp);
                  /* cannot use bltd after this, it is only on caller's stack */
          }
-@@ -2948,22 +2945,22 @@ static int ldlm_setup(void)
+@@ -2955,22 +2952,22 @@ static int ldlm_setup(void)
  	}
  
  # ifdef HAVE_SERVER_SUPPORT
@@ -2967,5 +2967,5 @@ index 037fb2b..5ab39e4 100644
  
  	l_wait_event(thread->t_ctl_waitq,
 -- 
-1.8.1.5
+1.8.2.1
 
