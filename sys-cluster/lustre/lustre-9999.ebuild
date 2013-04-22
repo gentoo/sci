@@ -17,7 +17,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="+client +utils server +liblustre readline tests tcpd +urandom"
+IUSE="+client +utils server liblustre readline tests tcpd +urandom"
 
 DEPEND="
 	virtual/awk
