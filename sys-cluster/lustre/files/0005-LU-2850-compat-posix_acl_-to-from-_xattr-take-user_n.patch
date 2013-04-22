@@ -1,7 +1,7 @@
-From 3050d2c9cccb51ce521bdbecd471cb6ce18f77b8 Mon Sep 17 00:00:00 2001
+From 6ccd0a77a72119e7ac09978829a2ce1aa47863e0 Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Wed, 20 Mar 2013 17:33:17 -0400
-Subject: [PATCH 03/12] LU-2850 compat: posix_acl_{to,from}_xattr take
+Subject: [PATCH 05/13] LU-2850 compat: posix_acl_{to,from}_xattr take
  user_namespace
 
 Commit 5f3a4a28 (v3.7) added a struct user_namespace argument to
@@ -67,10 +67,10 @@ index 53975ab..fa4e4d4 100644
 +#endif
  #endif
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 601155c..125bde7 100644
+index c71702b..2f4265a 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -2233,6 +2233,25 @@ LB_LINUX_TRY_COMPILE([
+@@ -2234,6 +2234,25 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -96,7 +96,7 @@ index 601155c..125bde7 100644
  # LC_PROG_LINUX
  #
  # Lustre linux kernel checks
-@@ -2414,6 +2433,8 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -2415,6 +2434,8 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_DENTRY_OPEN_USE_PATH
  	 LC_HAVE_IOP_ATOMIC_OPEN
  
@@ -155,5 +155,5 @@ index 9f3dea4..c9aa7a0 100644
                  rc = PTR_ERR(acl);
                  CERROR("convert xattr to acl: %d\n", rc);
 -- 
-1.8.1.5
+1.8.2.1
 

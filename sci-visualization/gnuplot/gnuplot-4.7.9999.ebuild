@@ -36,7 +36,7 @@ RDEPEND="
 	!emacs? ( xemacs? (
 		app-editors/xemacs
 		app-xemacs/xemacs-base ) )
-	gd? ( media-libs/gd[png] )
+	gd? ( >=media-libs/gd-2.0.35-r3[png] )
 	ggi? ( media-libs/libggi )
 	latex? (
 		virtual/latex-base

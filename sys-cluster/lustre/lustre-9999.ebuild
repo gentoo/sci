@@ -17,7 +17,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="+client +utils server +liblustre readline tests tcpd +urandom"
+IUSE="+client +utils server liblustre readline tests tcpd +urandom"
 
 DEPEND="
 	virtual/awk
@@ -25,25 +25,27 @@ DEPEND="
 	readline? ( sys-libs/readline )
 	tcpd? ( sys-apps/tcp-wrappers )
 	server? (
-		>=sys-kernel/spl-0.6.0_rc14-r2
-		>=sys-fs/zfs-kmod-0.6.0_rc14-r4
+		>=sys-kernel/spl-0.6.1
+		>=sys-fs/zfs-kmod-0.6.1
+		sys-fs/zfs
 	)
 	"
 RDEPEND="${DEPEND}"
 
 PATCHES=(
 	"${FILESDIR}/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
-	"${FILESDIR}/0002-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch"
-	"${FILESDIR}/0003-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch"
-	"${FILESDIR}/0004-LU-2800-llite-introduce-local-getname.patch"
-	"${FILESDIR}/0005-LU-2850-build-check-header-files-in-generated-uapi-d.patch"
-	"${FILESDIR}/0006-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
-	"${FILESDIR}/0007-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
-	"${FILESDIR}/0008-LU-2987-llite-rcu-free-inode.patch"
-	"${FILESDIR}/0009-LU-3011-ubuntu-Fix-build-failures-on-Ubuntu-12.04.patch"
-	"${FILESDIR}/0010-LU-3077-build-fix-warnings-in-client-modules.patch"
-	"${FILESDIR}/0011-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
-	"${FILESDIR}/0012-LU-2850-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
+	"${FILESDIR}/0002-LU-1812-kernel-3.0-SuSE-and-3.6-FC18-server-patches.patch"
+	"${FILESDIR}/0003-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch"
+	"${FILESDIR}/0004-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch"
+	"${FILESDIR}/0005-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch"
+	"${FILESDIR}/0006-LU-2800-llite-introduce-local-getname.patch"
+	"${FILESDIR}/0007-LU-2987-llite-rcu-free-inode.patch"
+	"${FILESDIR}/0008-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
+	"${FILESDIR}/0009-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
+	"${FILESDIR}/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
+	"${FILESDIR}/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
+	"${FILESDIR}/0012-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch"
+	"${FILESDIR}/0013-LU-3179-fids-fix-compilation-error-with-gcc-4.7.2.patch"
 )
 
 pkg_setup() {
@@ -97,13 +99,21 @@ src_prepare() {
 }
 
 src_configure() {
+	local myconf
+	if use server; then
+		SPL_PATH=$(basename $(echo "${EROOT}usr/src/spl-"*)) \
+			myconf="${myconf} --with-spl=\"${EROOT}usr/src/${SPL_PATH}\" \
+							--with-spl-obj=\"${EROOT}usr/src/${SPL_PATH}/${KV_FULL}\""
+		ZFS_PATH=$(basename $(echo "${EROOT}usr/src/zfs-"*)) \
+			myconf="${myconf} --with-zfs=\"${EROOT}usr/src/${ZFS_PATH}\" \
+							--with-zfs-obj=\"${EROOT}usr/src/${ZFS_PATH}/${KV_FULL}\""
+	fi
 	econf \
+		${myconf} \
 		--without-ldiskfs \
 		--disable-ldiskfs-build \
 		--with-linux="${KERNEL_DIR}" \
 		--with-linux-release="${KV_FULL}" \
-		--with-zfs="${EPREFIX}/usr/src/zfs" \
-		--with-spl="${EPREFIX}/usr/src/spl" \
 		$(use_enable client) \
 		$(use_enable utils) \
 		$(use_enable server) \

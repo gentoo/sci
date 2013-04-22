@@ -20,7 +20,8 @@ if [[ -z ${PV%%*9999} ]]; then
 	SRC_URI=""
 else
 	MY_P="${P/_/.}"
-	SRC_URI="mirror://sourceforge/gnuplot/${MY_P}.tar.gz"
+	SRC_URI="mirror://sourceforge/gnuplot/${MY_P}.tar.gz
+		mirror://gentoo/${PN}.info-4.6.2.tar.xz"
 fi
 
 LICENSE="gnuplot GPL-2 bitmap? ( free-noncomm )"
@@ -36,7 +37,7 @@ RDEPEND="
 	!emacs? ( xemacs? (
 		app-editors/xemacs
 		app-xemacs/xemacs-base ) )
-	gd? ( media-libs/gd[png] )
+	gd? ( >=media-libs/gd-2.0.35-r3[png] )
 	ggi? ( media-libs/libggi )
 	latex? (
 		virtual/latex-base
@@ -77,7 +78,10 @@ E_SITEFILE="lisp/50${PN}-gentoo.el"
 TEXMF="${EPREFIX}/usr/share/texmf-site"
 
 src_prepare() {
-	if [[ -z ${PV%%*9999} ]]; then
+	if [[ -n ${PV%%*9999} ]]; then
+		epatch "${FILESDIR}/${PN}-4.6.1-eldoc.patch"
+		epatch "${FILESDIR}/${PN}-4.6.2-gdversion.patch" #462996
+	else
 		local dir
 		for dir in config demo m4 term tutorial; do
 			emake -C "$dir" -f Makefile.am.in Makefile.am
