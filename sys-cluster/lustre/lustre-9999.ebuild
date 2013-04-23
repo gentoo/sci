@@ -44,8 +44,8 @@ PATCHES=(
 	"${FILESDIR}/0009-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
 	"${FILESDIR}/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
 	"${FILESDIR}/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
-	"${FILESDIR}/0012-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch"
-	"${FILESDIR}/0013-LU-3179-fids-fix-compilation-error-with-gcc-4.7.2.patch"
+	"${FILESDIR}/0012-LU-3179-fids-fix-compilation-error-with-gcc-4.7.2.patch"
+	"${FILESDIR}/0013-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch"
 )
 
 pkg_setup() {
@@ -56,16 +56,6 @@ pkg_setup() {
 
 src_prepare() {
 	epatch ${PATCHES[@]}
-	# fix libzfs lib name we have it as libzfs.so.1
-	sed -e 's:libzfs.so:libzfs.so.1:g' \
-		-e 's:libnvpair.so:libnvpair.so.1:g' \
-		-i lustre/utils/mount_utils_zfs.c || die
-
-	# fix some install paths
-	sed -e "s:$\(sysconfdir\)/udev:$(get_udevdir):g" \
-		-e "s:$\(sysconfdir\)/sysconfig:$\(sysconfdir\)/conf.d:g" \
-		-i lustre/conf/Makefile.am || die
-
 	# replace upstream autogen.sh by our src_prepare()
 	local DIRS="libcfs lnet lustre snmp"
 	local ACLOCAL_FLAGS

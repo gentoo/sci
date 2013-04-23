@@ -1,4 +1,4 @@
-From 5d200066e79329977b80dae1b824fb56f8a8e2c4 Mon Sep 17 00:00:00 2001
+From dc6776e7aab810ff4db384de86c323e80649dc7c Mon Sep 17 00:00:00 2001
 From: yangsheng <yang.sheng@intel.com>
 Date: Mon, 8 Apr 2013 21:04:22 +0800
 Subject: [PATCH 04/13] LU-2686 kernel: Kernel update for 3.7.2-201.fc18
