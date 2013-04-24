@@ -1,8 +1,9 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
+
 inherit cmake-utils
 
 DESCRIPTION="Scientific library collection for large scale problems"
@@ -10,15 +11,13 @@ HOMEPAGE="http://trilinos.sandia.gov/"
 SRC_URI="${P}-Source.tar.gz"
 SRC_PAGE="10.10"
 
-KEYWORDS="~amd64 ~x86"
-RESTRICT="fetch"
-
-LICENSE="BSD LGPL-2.1"
 SLOT="0"
+LICENSE="BSD LGPL-2.1"
+IUSE="arprec boost cuda hdf5 hwloc netcdf qd qt4 scotch taucs tbb umfpack zlib"
+KEYWORDS="~amd64 ~x86"
 
-IUSE="arprec boost cuda hdf5 hwloc netcdf qd qt scotch taucs tbb umfpack zlib"
-
-RDEPEND="virtual/blas
+RDEPEND="
+	virtual/blas
 	virtual/lapack
 	virtual/mpi
 	>=sci-libs/scalapack-2
@@ -29,14 +28,17 @@ RDEPEND="virtual/blas
 	hwloc? ( sys-apps/hwloc )
 	netcdf? ( sci-libs/netcdf )
 	qd? ( sci-libs/qd )
-	qt? ( >=x11-libs/qt-gui-4.5 )
+	qt4? ( >=dev-qt/qtgui-4.5 )
 	scotch? ( sys-libs/scotch[mpi] )
 	taucs? ( sci-libs/taucs )
 	tbb? ( dev-cpp/tbb )
 	umfpack? ( sci-libs/umfpack )"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	virtual/pkgconfig"
 
 S="${WORKDIR}/${P}-Source"
+
+RESTRICT="fetch"
 
 pkg_nofetch() {
 	einfo "Sandia requires that you register to the site in order to download Trilinos."
@@ -70,7 +72,7 @@ src_configure() {
 	mycmakeargs=(
 		-DBUILD_SHARED_LIBS=ON
 		-DTrilinos_ENABLE_ALL_PACKAGES=ON
-	
+
 		# Directories (workaround for generating correct Makefiles and CMakefiles)
 		-DCMAKE_INSTALL_PREFIX="/"
 		-DTrilinos_INSTALL_INCLUDE_DIR="/usr/include/trilinos"

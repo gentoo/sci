@@ -1,22 +1,26 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sys-cluster/hpl/hpl-1.0-r2.ebuild,v 1.1 2005/09/01 11:59:18 pbienst Exp $
 
 EAPI=4
-inherit eutils mpi
 
-DESCRIPTION="Portable Implementation of the High-Performance Linpack Benchmark for Distributed-Memory Computers"
+inherit eutils mpi toolchain-funcs
+
+DESCRIPTION="High-Performance Linpack Benchmark for Distributed-Memory Computers"
 HOMEPAGE="http://www.netlib.org/benchmark/hpl/"
 SRC_URI="http://www.netlib.org/benchmark/hpl/hpl-${PV}.tar.gz"
+
 LICENSE="HPL"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-
 IUSE="doc"
-DEPEND="$(mpi_pkg_deplist)
+
+RDEPEND="
+	$(mpi_pkg_deplist)
 	virtual/blas
 	virtual/lapack"
-RDEPEND="${DEPEND}"
+DEPEND="${RDEPEND}
+	virtual/pkgconfig"
 
 src_prepare() {
 	local mpicc_path="$(mpi_pkg_cc)"
@@ -28,10 +32,10 @@ src_prepare() {
 		-e '/^ARCH\>/s,= .*,= gentoo_hpl_fblas_x86,' \
 		-e '/^MPdir\>/s,= .*,=,' \
 		-e '/^MPlib\>/s,= .*,=,' \
-		-e "/^LAlib\>/s,= .*,= $(pkg-config --libs-only-l blas lapack)," \
+		-e "/^LAlib\>/s,= .*,= $($(tc-getPKG_CONFIG) --libs-only-l blas lapack)," \
 		-e "/^LINKER\>/s,= .*,= ${mpicc_path}," \
 		-e "/^CC\>/s,= .*,= ${mpicc_path}," \
-		-e "/^LINKFLAGS\>/s|= .*|= ${LDFLAGS} $(pkg-config --libs-only-L blas lapack)|" \
+		-e "/^LINKFLAGS\>/s|= .*|= ${LDFLAGS} $($(tc-getPKG_CONFIG) --libs-only-L blas lapack)|" \
 		Make.gentoo_hpl_fblas_x86 || die
 }
 

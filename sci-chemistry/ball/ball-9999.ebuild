@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -28,15 +28,15 @@ RDEPEND="
 	sci-mathematics/lpsolve
 	virtual/opengl
 	x11-libs/libX11
-	x11-libs/qt-core
-	x11-libs/qt-gui
-	x11-libs/qt-opengl
-	x11-libs/qt-test
-	x11-libs/qt-webkit
+	dev-qt/qtcore
+	dev-qt/qtgui
+	dev-qt/qtopengl
+	dev-qt/qttest
+	dev-qt/qtwebkit
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	mpi? ( virtual/mpi )
-	sql? ( x11-libs/qt-sql )
-	webkit? ( x11-libs/qt-webkit )"
+	sql? ( dev-qt/qtsql )
+	webkit? ( dev-qt/qtwebkit )"
 DEPEND="${RDEPEND}
 	dev-python/sip
 	sys-devel/bison

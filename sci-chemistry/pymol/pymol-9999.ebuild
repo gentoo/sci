@@ -7,7 +7,7 @@ EAPI=5
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="tk"
 
-inherit distutils-r1 fdo-mime prefix subversion versionator
+inherit distutils-r1 fdo-mime subversion versionator
 
 DESCRIPTION="A Python-extensible molecular graphics system"
 HOMEPAGE="http://pymol.sourceforge.net/"
@@ -17,10 +17,10 @@ ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
 LICENSE="PSF-2.2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
-IUSE="apbs +numpy"
+IUSE="apbs web"
 
 DEPEND="
-	dev-python/numpy
+	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pmw[${PYTHON_USEDEP}]
 	media-libs/freetype:2
 	media-libs/glew
@@ -34,7 +34,7 @@ DEPEND="
 		sci-chemistry/pdb2pqr
 		sci-chemistry/pymol-apbs-plugin
 	)
-	!dev-python/webpy"
+	web? ( !dev-python/webpy )"
 RDEPEND="${DEPEND}"
 
 src_unpack() {
@@ -43,26 +43,19 @@ src_unpack() {
 }
 
 python_prepare_all() {
-	local PATCHES=(
-		"${FILESDIR}"/${P}-flags.patch
-		"${FILESDIR}"/${P}-prefix.patch
-		)
-
-	if use numpy; then
-		sed \
-			-e '/PYMOL_NUMPY/s:^#::g' \
-			-i setup.py || die
-	fi
+	sed \
+		-e "s:\"/usr:\"${EPREFIX}/usr:g" \
+		-e "/ext_comp_args/s:=\[.*\]$:= \[\]:g" \
+		-i setup.py || die
 
 	rm ./modules/pmg_tk/startup/apbs_tools.py || die
 
 	sed \
 		-e "s:/opt/local:${EPREFIX}/usr:g" \
+		-e '/ext_comp_args/s:\[.*\]:[]:g' \
 		-i setup.py || die
 
 	distutils-r1_python_prepare_all
-
-	eprefixify setup.py
 }
 
 src_prepare() {
@@ -77,8 +70,26 @@ python_install() {
 python_install_all() {
 	distutils-r1_python_install_all
 
+	python_export python2_7 EPYTHON
+
+	# These environment variables should not go in the wrapper script, or else
+	# it will be impossible to use the PyMOL libraries from Python.
+	cat >> "${T}"/20pymol <<- EOF
+		PYMOL_PATH="$(python_get_sitedir)/${PN}"
+		PYMOL_DATA="${EPREFIX}/usr/share/pymol/data"
+		PYMOL_SCRIPTS="${EPREFIX}/usr/share/pymol/scripts"
+	EOF
+
+	doenvd "${T}"/20pymol
+
 	doicon "${WORKDIR}"/${PN}.{xpm,png}
 	make_desktop_entry pymol PyMol ${PN} "Graphics;Education;Science;Chemistry" "MimeType=chemical/x-pdb;"
+
+	if ! use web; then
+		rm -rvf "${D}/$(python_get_sitedir)/web" || die
+	fi
+
+	rm -f "${ED}"/usr/share/${PN}/LICENSE || die
 }
 
 pkg_postinst() {

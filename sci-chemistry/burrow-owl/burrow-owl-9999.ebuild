@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 AUTOTOOLS_AUTORECONF="true"
 
@@ -28,7 +28,7 @@ RDEPEND="
 	x11-libs/gtk+:2"
 DEPEND="${RDEPEND}
 	dev-util/indent
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	doc? ( app-doc/doxygen )
 "
 

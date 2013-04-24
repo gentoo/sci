@@ -3,6 +3,8 @@
 <pkgmetadata>
 <herd>sci</herd>
 <longdescription lang="en">
-  Gentoo virtual package for the Scalable LAPACK implementation.
+  Gentoo virtual package for the Scalable LAPACK implementation. The
+  version number corresponds to the version of the ScaLAPACK reference
+  implementation.
 </longdescription>
 </pkgmetadata>

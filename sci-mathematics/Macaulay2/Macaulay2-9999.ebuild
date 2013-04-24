@@ -4,30 +4,32 @@
 
 EAPI=4
 
-inherit autotools elisp-common eutils flag-o-matic git-2 python
+inherit autotools elisp-common eutils flag-o-matic git-2 python toolchain-funcs
 
 IUSE="debug emacs optimization"
 
 EGIT_REPO_URI="git://github.com/Macaulay2/M2.git"
 
 # Those packages will be built internally.
-FACTORY="factory-3-1-4-1"
-LIBFAC="libfac-3-1-4"
+FACTORY="factory-3-1-6"
+LIBFAC="libfac-3-1-6"
 
 DESCRIPTION="Research tool for commutative algebra and algebraic geometry"
 HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
-SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${LIBFAC}.tar.gz
-		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/${FACTORY}.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Extra/gtest-1.6.0.tar.gz
-		 http://www.mathematik.uni-osnabrueck.de/normaliz/Normaliz2.8/Normaliz2.8.zip"
+SRC_URI="
+	ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${LIBFAC}.tar.gz
+	ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
+	http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/${FACTORY}.tar.gz
+	http://www.math.uiuc.edu/Macaulay2/Extra/gtest-1.6.0.tar.gz
+	http://www.mathematik.uni-osnabrueck.de/normaliz/Normaliz2.8/Normaliz2.8.zip"
 # Need normaliz for an up to date normaliz.m2
 
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS=""
 
-DEPEND="sys-process/time
+DEPEND="
+	sys-process/time
 	virtual/pkgconfig
 	app-arch/unzip
 	app-text/dos2unix"
@@ -80,6 +82,7 @@ pkg_setup () {
 }
 
 src_prepare() {
+	tc-export PKG_CONFIG
 	# Put updated Normaliz.m2 in place
 	cp "${WORKDIR}/Normaliz2.8/Macaulay2/Normaliz.m2" \
 		"${S}/Macaulay2/packages" || die
@@ -118,7 +121,7 @@ src_configure (){
 	fi
 
 	# configure instead of econf to enable install with --prefix
-	./configure LIBS="$(pkg-config --libs lapack)" \
+	./configure LIBS="$($(tc-getPKG_CONFIG) --libs lapack)" \
 		--prefix="${D}/usr" \
 		--disable-encap \
 		--disable-strip \

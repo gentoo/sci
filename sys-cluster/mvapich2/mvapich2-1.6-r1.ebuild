@@ -1,10 +1,10 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="4"
 
-inherit fortran-2 mpi
+inherit flag-o-matic fortran-2 mpi
 
 DESCRIPTION="MVAPICH2 MPI-over-infiniband package auto-configured for OpenIB"
 HOMEPAGE="http://mvapich.cse.ohio-state.edu/"

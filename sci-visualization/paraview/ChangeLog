@@ -1,6 +1,10 @@
 # ChangeLog for sci-visualization/paraview
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> paraview-3.10.1.ebuild,
+  paraview-3.12.0.ebuild, paraview-3.14.1-r4.ebuild, metadata.xml:
+  Update to new qt deps names
 
   19 Dec 2012; François Bissey <francois.bissey@canterbury.ac.nz>
   paraview-3.14.1-r4.ebuild, files/paraview-3.14.1-vtknetcd.patch:

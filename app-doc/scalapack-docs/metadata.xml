@@ -9,6 +9,7 @@
   style using explicit message passing for interprocessor
   communication. It assumes matrices are laid out in a two-dimensional
   block cyclic decomposition.
-  This package contains manual pages for the routines, and quick reference guides.
+  This package contains manual pages for the routines, and quick
+  reference guides.
 </longdescription>
 </pkgmetadata>

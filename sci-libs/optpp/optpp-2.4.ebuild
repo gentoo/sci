@@ -1,28 +1,29 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit python autotools-utils
+inherit autotools-utils toolchain-funcs
 
 DESCRIPTION="C++ library for non-linear optimization"
 HOMEPAGE="https://software.sandia.gov/opt++/"
 SRC_URI="${HOMEPAGE}/downloads/${P}.tar.gz"
 
 LICENSE="LGPL-2"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 SLOT="0"
 IUSE="doc mpi static-libs"
 
-RDEPEND="virtual/blas
+RDEPEND="
+	virtual/blas
 	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_configure() {
-	myeconfargs+=(
-		--with-blas="$(pkg-config --libs blas)"
+	local myeconfargs=(
+		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
 		$(use_enable mpi)
 	)
 	autotools-utils_src_configure

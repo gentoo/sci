@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-DESCRIPTION="A C++ template STATIC library of efficient implementations of common data structures and algorithms."
+DESCRIPTION="C++ template STATIC library of efficient implementations of common data structures and algorithms"
 HOMEPAGE="https://lemon.cs.elte.hu/trac/lemon/"
 SRC_URI="http://lemon.cs.elte.hu/pub/sources/lemon-"${PV}".tar.gz"
 
@@ -13,11 +13,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
-DEPEND="sci-mathematics/glpk
-		doc? ( app-text/ghostscript-gpl
-				dev-lang/python )
-		test? ( dev-util/valgrind )"
-RDEPEND="${DEPEND}"
+RDEPEND="
+		sci-mathematics/glpk"
+DEPEND="${RDEPEND}
+	doc? (
+		app-text/ghostscript-gpl
+		dev-lang/python )
+	test? ( dev-util/valgrind )"
 
 src_prepare(){
 	if use test; then
@@ -25,7 +27,7 @@ src_prepare(){
 	else
 		MYOPTS=""
 	fi
-	econf ${MYOPTS} || die
+	econf ${MYOPTS}
 }
 
 # a dynamic library can be built using

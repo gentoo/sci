@@ -45,9 +45,7 @@ RDEPEND="
 #	imagemagick? ( media-gfx/imagemagick )
 
 DEPEND="${RDEPEND}
-	virtual/fortran
 	virtual/pkgconfig
-	dev-lang/python
 	dev-util/cmake
 "
 # cmake is used for parralel building
@@ -128,7 +126,7 @@ src_configure() {
 		--with-petsc-arch=${PETSC_ARCH} \
 		--with-precision=double \
 		--with-gnu-compilers \
-		--with-blas-lapack-lib="$(pkg-config --libs lapack)" \
+		--with-blas-lapack-lib="$($(tc-getPKG_CONFIG) --libs lapack)" \
 		$(petsc_enable debug debugging) \
 		$(petsc_enable mpi) \
 		$(petsc_select mpi cc mpicc $(tc-getCC)) \
@@ -165,7 +163,7 @@ src_configure() {
 #		$(petsc_with metis parmetis) \ # needs metis too (>=5.0.2)
 #		$(petsc_with boost) \
 #		$(petsc_with imagemagick imagemagick \
-#			/usr/include/ImageMagick $(pkg-config --libs MagickCore)) \
+#			/usr/include/ImageMagick $($(tc-getPKG_CONFIG) --libs MagickCore)) \
 }
 
 src_install() {

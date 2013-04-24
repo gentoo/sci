@@ -1,6 +1,13 @@
 # ChangeLog for x11-libs/xview-bin
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> xview-bin-3.2_p1428.ebuild:
+  Fix header
+
+  25 Feb 2013; Justin Lecher <jlec@gentoo.org> xview-bin-3.2_p1428.ebuild,
+  metadata.xml:
+  Version Bump
 
 *xview-bin-3.2_p1428 (12 Nov 2012)
 

@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit multilib
 
@@ -42,7 +42,7 @@ src_install() {
 
 	doexe batch_curve curveplot ${_exe}
 
-	dosym ../../usr/$(get_libdir)/libblas.so /opt/${PN}/libblas.so.3
+	dosym ../../usr/$(get_libdir)/librefblas.so /opt/${PN}/libblas.so.3
 
 	dodoc Versions
 	dohtml curvefit_manual.html

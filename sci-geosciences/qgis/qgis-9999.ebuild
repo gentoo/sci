@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,11 +20,11 @@ KEYWORDS=""
 IUSE="examples gps grass gsl postgres python sqlite"
 
 RDEPEND=">=sci-libs/gdal-1.6.1[geos,postgres?,python?,sqlite?]
-	x11-libs/qt-core:4[qt3support]
-	x11-libs/qt-gui:4
-	x11-libs/qt-svg:4
-	x11-libs/qt-sql:4
-	x11-libs/qt-webkit:4
+	dev-qt/qtcore:4[qt3support]
+	dev-qt/qtgui:4
+	dev-qt/qtsvg:4
+	dev-qt/qtsql:4
+	dev-qt/qtwebkit:4
 	sci-libs/geos
 	gps? (
 		dev-libs/expat

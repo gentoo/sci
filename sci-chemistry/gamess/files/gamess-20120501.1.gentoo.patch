@@ -187,7 +187,7 @@ diff -urN gamess.orig/lked gamess/lked
 -      else
 -         set MATHLIBS="-L$GMS_MATHLIB_PATH -lf77blas -latlas"
 -      endif
-+      set MATHLIBS=`pkg-config --libs blas`
++      set MATHLIBS=`${PKG_CONFIG} --libs blas`
        set BLAS=' '
        breaksw
  
@@ -216,7 +216,7 @@ diff -urN gamess.orig/lked gamess/lked
 -      else
 -         set MATHLIBS="-L$GMS_MATHLIB_PATH -lf77blas -latlas"
 -      endif
-+      set MATHLIBS=`pkg-config --libs blas`
++      set MATHLIBS=`${PKG_CONFIG} --libs blas`
        set BLAS=' '
        breaksw
  

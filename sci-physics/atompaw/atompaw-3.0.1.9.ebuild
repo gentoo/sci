@@ -24,11 +24,13 @@ RDEPEND="
 	virtual/lapack
 	libxc? ( sci-libs/libxc[fortran] )"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 DOCS=( README )
 
 FORTRAN_STANDARD=90
+
+MAKEOPTS+=" -j1"
 
 src_unpack() {
 	unpack ${P}.tar.gz
@@ -46,17 +48,13 @@ src_configure() {
 	local myeconfargs=(
 		$(use_enable libxc)
 		--with-linalg-flavor=atlas
-		--with-linalg-libs="$(pkg-config --libs lapack)"
+		--with-linalg-libs="$($(tc-getPKG_CONFIG) --libs lapack)"
 		--with-libxc-incs="-I/usr/include ${modules}"
 		--with-libxc-libs="${libs} -lxc"
-		FC="$(tc-getFC)" FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}}"
-		CC="$(tc-getCC)" LDFLAGS="${LDFLAGS:- ${CFLAGS:- -O2}}"
+		FC="$(tc-getFC)" FCFLAGS="${FCFLAGS}"
+		CC="$(tc-getCC)" LDFLAGS="${LDFLAGS}"
 	)
 	autotools-utils_src_configure
-}
-
-src_compile() {
-	autotools-utils_src_compile -j1
 }
 
 src_test() {

@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -80,16 +80,12 @@ src_install(){
 	#doins -r "${WORKDIR}"/objdir/linux/rel/gcc/"${builddir}"/bin/*
 	for f in "${OBJDIR}"/bin/*; do cp --preserve=all "$f" "${D}"/usr/bin/ || die "$f copying failed" ; done
 
-
-
 	# install the main libs and the ncbi/vdb-copy.kfg file
 	insinto /usr/lib/ncbi
 	doins "${OBJDIR}"/lib/ncbi/*
 
 	# zap the subdirectory so that copying below does not fail
 	rm -rf "${OBJDIR}"/lib/ncbi
-
-
 
 	# BUG: neither the dolib nor cp --preserve=all work
 	#insinto /usr/lib64

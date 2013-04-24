@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,7 +13,7 @@ DESCRIPTION="Annotations for Concurrency"
 HOMEPAGE="http://www.jcip.net/"
 SRC_URI="http://www.jcip.net/${PN}-src.jar"
 
-LICENSE="CCPL-Attribution-ShareAlike-2.5"
+LICENSE="CC-BY-SA-2.5"
 #Confirm license before entering tree.
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -21,7 +21,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND=">=virtual/jre-1.5"
-DEPEND=">=virtual/jdk-1.5
+DEPEND="
+	>=virtual/jdk-1.5
 	app-arch/unzip"
 
 S="${WORKDIR}"

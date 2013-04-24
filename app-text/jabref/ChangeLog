@@ -2,6 +2,18 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Apr 2013; Nicolas Bock <nicolasbock@gmail.com> jabref-2.10b.ebuild:
+  Jabref-2.10b does not build anymore with Java 6.  Bumping java requirement to
+  java 7.
+
+*jabref-2.10b (05 Apr 2013)
+
+  05 Apr 2013; Nicolas Bock <nicolasbock@gmail.com> +jabref-2.10b.ebuild:
+  Adding jabref-2.10b (beta) ebuild.
+
+  20 Feb 2013; Sébastien Fabbro <bicatali@gentoo.org> jabref-2.9.2-r1.ebuild:
+  app-text/jabref: Fixed doc generation, keyword amd64-linux and x86-linux
+
 *jabref-2.9.2-r1 (15 Feb 2013)
 
   15 Feb 2013; Nicolas Bock <nicolasbock@gmail.com> +jabref-2.9.2-r1.ebuild,

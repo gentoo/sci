@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>guillaume.horel@gmail.com</email>
-		<name>Guillaume Horel</name>
-	</maintainer>
+	<herd>python</herd>
 	<longdescription>
 	Julia is a high-level, high-performance dynamic programming language for
 	technical computing, with syntax that is familiar to users of other
@@ -17,7 +14,4 @@
 	around defining functions, and overloading them for different combinations
 	of argument types (which can also be user-defined).
 	</longdescription>
-<use>
-  <flag name="notebook">Install requirements for the web notebook based on <pkg>www-servers/lighttpd</pkg></flag>
-</use>
 </pkgmetadata>

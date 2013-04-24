@@ -1,8 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=5
 
 DESCRIPTION="Scientific multi-agent simulation library"
 HOMEPAGE="http://sourceforge.net/projects/zarja/"
@@ -13,14 +13,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-RDEPEND="sci-libs/gsl
+RDEPEND="
+	sci-libs/gsl
 	virtual/lapack
-	>=sci-libs/fftw-3
+	sci-libs/fftw:3.0
 	dev-libs/boost
 	dev-cpp/tclap"
-
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	doc? ( app-doc/doxygen )"
 
 src_configure() {
@@ -28,16 +28,14 @@ src_configure() {
 }
 
 src_compile() {
-	emake || die "emake failed"
+	default
 	if use doc; then
 		doxygen Doxyfile || die "doc generation failed"
 	fi
 }
 
 src_install() {
-	emake install DESTDIR="${D}" || die "emake install failed"
-	dodoc README AUTHORS FAQ
-	if use doc; then
-		dohtml html/* || die
-	fi
+	DOCS=( FAQ )
+	use doc && HTML_DOCS=( html/. )
+	default
 }

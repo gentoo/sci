@@ -65,12 +65,12 @@ CDEPEND="
 		)
 		opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps )
 		qt4? (
-			x11-libs/qt-gui:4
-			x11-libs/qt-opengl:4
-			x11-libs/qt-qt3support:4
-			x11-libs/qt-svg:4
-			x11-libs/qt-webkit:4
-			x11-libs/qt-xmlpatterns:4 )
+			dev-qt/qtgui:4
+			dev-qt/qtopengl:4
+			dev-qt/qt3support:4
+			dev-qt/qtsvg:4
+			dev-qt/qtwebkit:4
+			dev-qt/qtxmlpatterns:4 )
 		x11-libs/libXft
 		)
 	afs? ( net-fs/openafs )

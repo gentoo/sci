@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-inherit eutils fortran-2 toolchain-funcs
+inherit eutils fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="A suite for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"
@@ -73,18 +73,18 @@ src_configure() {
 	cd "${S}"/AmberTools/src
 	sed \
 		-e "s:\\\\\$(LIBDIR)/arpack.a:-larpack:g" \
-		-e "s:\\\\\$(LIBDIR)/lapack.a:$(pkg-config lapack --libs) -lclapack:g" \
-		-e "s:-llapack:$(pkg-config lapack --libs) -lclapack:g" \
-		-e "s:\\\\\$(LIBDIR)/blas.a:$(pkg-config blas cblas --libs):g" \
-		-e "s:-lblas:$(pkg-config blas cblas --libs):g" \
+		-e "s:\\\\\$(LIBDIR)/lapack.a:$($(tc-getPKG_CONFIG) lapack --libs) -lclapack:g" \
+		-e "s:-llapack:$($(tc-getPKG_CONFIG) lapack --libs) -lclapack:g" \
+		-e "s:\\\\\$(LIBDIR)/blas.a:$($(tc-getPKG_CONFIG) blas cblas --libs):g" \
+		-e "s:-lblas:$($(tc-getPKG_CONFIG) blas cblas --libs):g" \
 		-e "s:GENTOO_CFLAGS:${CFLAGS} -DBINTRAJ :g" \
 		-e "s:GENTOO_CXXFLAGS:${CXXFLAGS}:g" \
 		-e "s:GENTOO_FFLAGS:${FFLAGS}:g" \
 		-e "s:GENTOO_LDFLAGS:${LDFLAGS}:g" \
 		-e "s:GENTOO_INCLUDE:${EPREFIX}/usr/include:g" \
-		-e "s:GENTOO_FFTW3_LIBS:$(pkg-config fftw3 --libs):" \
+		-e "s:GENTOO_FFTW3_LIBS:$($(tc-getPKG_CONFIG) fftw3 --libs):" \
 		-e "s:fc=g77:fc=$(tc-getFC):g" \
-		-e "s:\$netcdfflag:$(pkg-config netcdf --libs):g" \
+		-e "s:\$netcdfflag:$($(tc-getPKG_CONFIG) netcdf --libs):g" \
 		-e "s:NETCDF=\$netcdf:NETCDF=netcdf.mod:g" \
 		-i configure2 || die
 	sed -e "s:arsecond_:arscnd_:g" \

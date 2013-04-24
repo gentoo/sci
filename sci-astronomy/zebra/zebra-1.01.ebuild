@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit autotools-utils
+inherit autotools-utils toolchain-funcs
 
 DESCRIPTION="Galaxy redhift Bayesian analyzer"
 HOMEPAGE="http://www.astro.phys.ethz.ch/exgal_ocosm/zebra/index.html"
@@ -15,20 +15,20 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc examples"
 
-RDEPEND="sci-libs/gsl
+RDEPEND="
+	sci-libs/gsl
 	sci-libs/lapackpp
 	virtual/blas
 	virtual/cblas
 	virtual/lapack"
-
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_configure() {
 	myeconfargs+=(
-		--with-blas="$(pkg-config --libs blas)"
-		--with-cblas="$(pkg-config --libs cblas)"
-		--with-lapack="$(pkg-config --libs lapack)"
+		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
+		--with-cblas="$($(tc-getPKG_CONFIG) --libs cblas)"
+		--with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)"
 	)
 	autotools-utils_src_configure
 }
