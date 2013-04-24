@@ -1,4 +1,4 @@
-From 6ccd0a77a72119e7ac09978829a2ce1aa47863e0 Mon Sep 17 00:00:00 2001
+From 6e14a93978fe30cbc424fc727f26354172756afd Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Wed, 20 Mar 2013 17:33:17 -0400
 Subject: [PATCH 05/13] LU-2850 compat: posix_acl_{to,from}_xattr take
@@ -134,7 +134,7 @@ index f9e425d..7e3eb53 100644
                  RETURN(rc);
          }
 diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
-index 9f3dea4..c9aa7a0 100644
+index f068026..ce18acf 100644
 --- a/lustre/mdc/mdc_request.c
 +++ b/lustre/mdc/mdc_request.c
 @@ -41,6 +41,7 @@
@@ -145,7 +145,7 @@ index 9f3dea4..c9aa7a0 100644
  #else
  # include <liblustre.h>
  #endif
-@@ -465,7 +466,7 @@ static int mdc_unpack_acl(struct ptlrpc_request *req, struct lustre_md *md)
+@@ -470,7 +471,7 @@ static int mdc_unpack_acl(struct ptlrpc_request *req, struct lustre_md *md)
          if (!buf)
                  RETURN(-EPROTO);
  

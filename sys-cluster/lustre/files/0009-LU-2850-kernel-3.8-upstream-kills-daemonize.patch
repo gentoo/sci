@@ -1,4 +1,4 @@
-From 56d9f2bdeacf3d4f1a78cd5cac53436cce00014e Mon Sep 17 00:00:00 2001
+From fe026adf859311df9a8b329e37d00fb4296aad46 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Mon, 18 Mar 2013 10:47:57 +0800
 Subject: [PATCH 09/13] LU-2850 kernel: 3.8 upstream kills daemonize()
@@ -37,7 +37,7 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  libcfs/libcfs/winnt/winnt-prim.c           | 27 ++++------
  libcfs/libcfs/winnt/winnt-tcpip.c          |  8 +--
  libcfs/libcfs/workitem.c                   | 26 +++++-----
- lnet/klnds/gnilnd/gnilnd_cb.c              |  4 --
+ lnet/klnds/gnilnd/gnilnd_cb.c              |  3 --
  lnet/klnds/gnilnd/gnilnd_conn.c            |  6 ---
  lnet/klnds/gnilnd/gnilnd_stack.c           |  1 -
  lnet/klnds/mxlnd/mxlnd.c                   | 34 ++++++++-----
@@ -85,7 +85,7 @@ Change-Id: I9f977bfc5d58192957d8c8d634204f4910edfa2a
  lustre/quota/qmt_lock.c                    | 17 +++----
  lustre/quota/qsd_reint.c                   |  6 +--
  lustre/quota/qsd_writeback.c               | 16 +++---
- 68 files changed, 515 insertions(+), 745 deletions(-)
+ 68 files changed, 515 insertions(+), 744 deletions(-)
  delete mode 100644 libcfs/libcfs/linux/linux-lwt.c
 
 diff --git a/libcfs/autoconf/lustre-libcfs.m4 b/libcfs/autoconf/lustre-libcfs.m4
@@ -824,10 +824,10 @@ index db839e5..309cfec 100644
  		CERROR("Failed to create thread for WI scheduler %s: %d\n",
  		       name, rc);
 diff --git a/lnet/klnds/gnilnd/gnilnd_cb.c b/lnet/klnds/gnilnd/gnilnd_cb.c
-index 56be88a..53d8337 100644
+index 381aa64..a4407de 100644
 --- a/lnet/klnds/gnilnd/gnilnd_cb.c
 +++ b/lnet/klnds/gnilnd/gnilnd_cb.c
-@@ -2609,7 +2609,6 @@ kgnilnd_reaper(void *arg)
+@@ -2946,7 +2946,6 @@ kgnilnd_reaper(void *arg)
  	struct timer_list  timer;
  	DEFINE_WAIT(wait);
  
@@ -835,13 +835,7 @@ index 56be88a..53d8337 100644
  	cfs_block_allsigs();
  
  	/* all gnilnd threads need to run fairly urgently */
-@@ -4247,14 +4246,11 @@ kgnilnd_scheduler(void *arg)
- {
- 	int               threadno = (long)arg;
- 	kgn_device_t     *dev;
--	char              name[16];
- 	int               busy_loops = 0;
- 	DEFINE_WAIT(wait);
+@@ -4857,8 +4856,6 @@ kgnilnd_scheduler(void *arg)
  
  	dev = &kgnilnd_data.kgn_devices[(threadno + 1) % kgnilnd_data.kgn_ndevs];
  
@@ -851,10 +845,10 @@ index 56be88a..53d8337 100644
  
  	/* all gnilnd threads need to run fairly urgently */
 diff --git a/lnet/klnds/gnilnd/gnilnd_conn.c b/lnet/klnds/gnilnd/gnilnd_conn.c
-index 38aee5b..a64ed3f 100644
+index 39716b8..a513ccd 100644
 --- a/lnet/klnds/gnilnd/gnilnd_conn.c
 +++ b/lnet/klnds/gnilnd/gnilnd_conn.c
-@@ -2157,13 +2157,10 @@ int
+@@ -2167,13 +2167,10 @@ int
  kgnilnd_dgram_waitq(void *arg)
  {
  	kgn_device_t     *dev = (kgn_device_t *) arg;
@@ -868,7 +862,7 @@ index 38aee5b..a64ed3f 100644
  	cfs_block_allsigs();
  
  	/* all gnilnd threads need to run fairly urgently */
-@@ -2312,15 +2309,12 @@ int
+@@ -2345,7 +2342,6 @@ int
  kgnilnd_dgram_mover(void *arg)
  {
  	kgn_device_t            *dev = (kgn_device_t *)arg;
@@ -876,7 +870,8 @@ index 38aee5b..a64ed3f 100644
  	int                      rc, did_something;
  	unsigned long            next_purge_check = jiffies - 1;
  	unsigned long            timeout;
- 	struct timer_list        timer;
+@@ -2353,8 +2349,6 @@ kgnilnd_dgram_mover(void *arg)
+ 	unsigned long		 deadline = 0;
  	DEFINE_WAIT(wait);
  
 -	snprintf(name, sizeof(name), "kgnilnd_dg_%02d", dev->gnd_id);
@@ -885,10 +880,10 @@ index 38aee5b..a64ed3f 100644
  	/* all gnilnd threads need to run fairly urgently */
  	set_user_nice(current, *kgnilnd_tunables.kgn_nice);
 diff --git a/lnet/klnds/gnilnd/gnilnd_stack.c b/lnet/klnds/gnilnd/gnilnd_stack.c
-index 10ae493..9dbc3a1 100644
+index 0dec950..7414233 100644
 --- a/lnet/klnds/gnilnd/gnilnd_stack.c
 +++ b/lnet/klnds/gnilnd/gnilnd_stack.c
-@@ -362,7 +362,6 @@ kgnilnd_ruhroh_thread(void *arg)
+@@ -366,7 +366,6 @@ kgnilnd_ruhroh_thread(void *arg)
  	int                i = 1;
  	DEFINE_WAIT(wait);
  
@@ -1729,10 +1724,10 @@ index cc8c4c8..d4d5027 100644
          usock_data.ud_state = UD_STATE_INITIALIZED;
  
 diff --git a/lustre/ldlm/ldlm_lib.c b/lustre/ldlm/ldlm_lib.c
-index 2e3a1d5..e61583a 100644
+index d89a90f..a497771 100644
 --- a/lustre/ldlm/ldlm_lib.c
 +++ b/lustre/ldlm/ldlm_lib.c
-@@ -1975,19 +1975,12 @@ static int target_recovery_thread(void *arg)
+@@ -1971,19 +1971,12 @@ static int target_recovery_thread(void *arg)
          struct ptlrpc_request *req;
          struct target_recovery_data *trd = &obd->obd_recovery_data;
          unsigned long delta;
@@ -1753,7 +1748,7 @@ index 2e3a1d5..e61583a 100644
          OBD_ALLOC_PTR(thread);
          if (thread == NULL)
                  RETURN(-ENOMEM);
-@@ -2112,22 +2105,24 @@ static int target_recovery_thread(void *arg)
+@@ -2108,22 +2101,24 @@ static int target_recovery_thread(void *arg)
  static int target_start_recovery_thread(struct lu_target *lut,
                                          svc_handler_t handler)
  {
@@ -2193,10 +2188,10 @@ index 6d5b7af..3211557 100644
                  thread_set_flags(thread, SVC_STOPPED);
                  thread_set_flags(&sai->sai_agl_thread, SVC_STOPPED);
 diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
-index c9aa7a0..ead4bcf 100644
+index ce18acf..b9ad1b9 100644
 --- a/lustre/mdc/mdc_request.c
 +++ b/lustre/mdc/mdc_request.c
-@@ -1566,13 +1566,6 @@ static int mdc_changelog_send_thread(void *csdata)
+@@ -1571,13 +1571,6 @@ static int mdc_changelog_send_thread(void *csdata)
          CDEBUG(D_CHANGELOG, "changelog to fp=%p start "LPU64"\n",
                 cs->cs_fp, cs->cs_startrec);
  
@@ -2210,7 +2205,7 @@ index c9aa7a0..ead4bcf 100644
          OBD_ALLOC(cs->cs_buf, CR_MAXSIZE);
          if (cs->cs_buf == NULL)
                  GOTO(out, rc = -ENOMEM);
-@@ -1609,12 +1602,10 @@ out:
+@@ -1614,12 +1607,10 @@ out:
  		llog_cat_close(NULL, llh);
          if (ctxt)
                  llog_ctxt_put(ctxt);
@@ -2227,7 +2222,7 @@ index c9aa7a0..ead4bcf 100644
  }
  
  static int mdc_ioc_changelog_send(struct obd_device *obd,
-@@ -1634,13 +1625,16 @@ static int mdc_ioc_changelog_send(struct obd_device *obd,
+@@ -1639,13 +1630,16 @@ static int mdc_ioc_changelog_send(struct obd_device *obd,
  	cs->cs_fp = fget(icc->icc_id);
  	cs->cs_flags = icc->icc_flags;
  
@@ -2803,10 +2798,10 @@ index 7634d22..595f710 100644
  
          l_wait_event(sec_gc_thread.t_ctl_waitq,
 diff --git a/lustre/ptlrpc/service.c b/lustre/ptlrpc/service.c
-index 63fee6d..7d73b13 100644
+index c141f49..8d52419 100644
 --- a/lustre/ptlrpc/service.c
 +++ b/lustre/ptlrpc/service.c
-@@ -2362,7 +2362,7 @@ static int ptlrpc_main(void *arg)
+@@ -2397,7 +2397,7 @@ static int ptlrpc_main(void *arg)
          ENTRY;
  
          thread->t_pid = cfs_curproc_pid();
@@ -2815,7 +2810,7 @@ index 63fee6d..7d73b13 100644
  
  	/* NB: we will call cfs_cpt_bind() for all threads, because we
  	 * might want to run lustre server only on a subset of system CPUs,
-@@ -2557,7 +2557,7 @@ static int ptlrpc_hr_main(void *arg)
+@@ -2592,7 +2592,7 @@ static int ptlrpc_hr_main(void *arg)
  
  	snprintf(threadname, sizeof(threadname), "ptlrpc_hr%02d_%03d",
  		 hrp->hrp_cpt, hrt->hrt_id);
@@ -2824,7 +2819,7 @@ index 63fee6d..7d73b13 100644
  
  	rc = cfs_cpt_bind(ptlrpc_hr.hr_cpt_table, hrp->hrp_cpt);
  	if (rc != 0) {
-@@ -2623,10 +2623,13 @@ static int ptlrpc_start_hr_threads(void)
+@@ -2658,10 +2658,13 @@ static int ptlrpc_start_hr_threads(void)
  		int	rc = 0;
  
  		for (j = 0; j < hrp->hrp_nthrs; j++) {
@@ -2842,7 +2837,7 @@ index 63fee6d..7d73b13 100644
  				break;
  		}
  		cfs_wait_event(ptlrpc_hr.hr_waitq,
-@@ -2818,8 +2821,8 @@ int ptlrpc_start_thread(struct ptlrpc_service_part *svcpt, int wait)
+@@ -2853,8 +2856,8 @@ int ptlrpc_start_thread(struct ptlrpc_service_part *svcpt, int wait)
  	 * CLONE_VM and CLONE_FILES just avoid a needless copy, because we
  	 * just drop the VM and FILES in cfs_daemonize_ctxt() right away.
  	 */

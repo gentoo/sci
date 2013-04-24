@@ -1,4 +1,4 @@
-From fe121caa09062ce512e7b4733d3f253dbae475dc Mon Sep 17 00:00:00 2001
+From a6906bd6e814b95d37770f136bed99aa6481444c Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 19 Mar 2013 14:04:47 +0800
 Subject: [PATCH 07/13] LU-2987 llite: rcu-free inode
