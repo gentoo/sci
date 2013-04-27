@@ -20,8 +20,7 @@ DEPEND="
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-4.0.0 )"
 
 src_configure() {
-	use cuda && myconf="--with-cuda-dir=/opt/cuda"
-	econf $myconf
+	econf $(use_with cuda cuda-dir "${EPREFIX}"/opt/cuda)
 }
 
 src_install() {
