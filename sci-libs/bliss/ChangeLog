@@ -1,0 +1,7 @@
+
+*bliss-0.72 (28 Apr 2013)
+
+  28 Apr 2013; Christoph Junghans <ottxor@gentoo.org> +bliss-0.72.ebuild,
+  +files/bliss-0.72-autotools.patch, +files/bliss-0.72-fedora.patch,
+  +metadata.xml:
+  initial commit
