@@ -13,7 +13,7 @@ HOMEPAGE="http://www.tcs.hut.fi/Software/bliss/index.shtml"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc gmp"
+IUSE="doc gmp static-libs"
 
 RDEPEND="gmp? ( dev-libs/gmp )"
 
@@ -21,6 +21,7 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
 AUTOTOOLS_AUTORECONF=1
+AUTOTOOLS_PRUNE_LIBTOOL_FILES="all" #comes with pkg-config file
 
 PATCHES=(
 	"${FILESDIR}/${P}-fedora.patch"
