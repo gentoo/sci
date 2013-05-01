@@ -6,16 +6,16 @@ EAPI=5
 
 CMAKE_IN_SOURCE_BUILD=1
 
-inherit cmake-utils toolchain-funcs multilib
+inherit cmake-utils toolchain-funcs multilib eutils
 
 DESCRIPTION="Streamlined C++ linear algebra library"
 HOMEPAGE="http://arma.sourceforge.net/"
 SRC_URI="mirror://sourceforge/arma/${P}.tar.gz"
 
-LICENSE="LGPL-3"
+LICENSE="MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="atlas blas doc examples lapack"
+IUSE="atlas blas debug doc examples hdf5 int64 lapack tbb"
 
 RDEPEND="
 	dev-libs/boost
@@ -26,14 +26,24 @@ DEPEND="${DEPEND}
 	atlas? ( virtual/pkgconfig )
 	blas? ( virtual/pkgconfig )
 	lapack? ( virtual/pkgconfig )"
+PDEPEND="${RDEPEND}
+	hdf5? ( sci-libs/hdf5 )
+	tbb? ( dev-cpp/tbb )"
 
 src_prepare() {
+	epatch "${FILESDIR}"/${P}-{hdf5,example-makefile}.patch
 	# avoid the automagic cmake macros
 	sed -i -e '/ARMA_Find/d' CMakeLists.txt || die
 }
 
 src_configure() {
-	local mycmakeargs=( -DINSTALL_LIB_DIR="${EPREFIX}/usr/$(get_libdir)" )
+	local mycmakeargs=(
+		-DINSTALL_LIB_DIR="${EPREFIX}/usr/$(get_libdir)"
+		$(cmake-utils_use debug ARMA_EXTRA_DEBUG)
+		$(cmake-utils_use hdf5 ARMA_USE_HDF5)
+		$(cmake-utils_use int64 ARMA_64BIT_WORD)
+		$(cmake-utils_use tbb ARMA_TBB_ALLOC)
+	)
 	if use blas; then
 		mycmakeargs+=(
 			-DBLAS_FOUND=ON
@@ -47,10 +57,10 @@ src_configure() {
 		)
 	fi
 	if use atlas; then
-		local c=atlas-cblas l=atlas-lapack
-		$(tc-getPKG_CONFIG) --exists atlas-cblas-threads && c+=-threads
-		$(tc-getPKG_CONFIG) --exists atlas-lapack-threads && l+=-threads
-		mycmakeargs=(
+		local c=atlas-cblas l=atlas-clapack
+		$(tc-getPKG_CONFIG) --exists ${c}-threads && c+=-threads
+		$(tc-getPKG_CONFIG) --exists ${l}-threads && l+=-threads
+		mycmakeargs+=(
 			-DCBLAS_FOUND=ON
 			-DCLAPACK_FOUND=ON
 			-DATLAS_INCLUDE_DIR="$($(tc-getPKG_CONFIG) --cflags ${c} | sed 's/-I//')"
@@ -59,6 +69,15 @@ src_configure() {
 		)
 	fi
 	cmake-utils_src_configure
+}
+
+src_test() {
+	pushd examples > /dev/null
+	emake CXXFLAGS="-I../include ${CXXFLAGS}" EXTRA_LIB_FLAGS="-L.."
+	LD_LIBRARY_PATH="..:${LD_LIBRARY_PATH}" ./example1 || die
+	LD_LIBRARY_PATH="..:${LD_LIBRARY_PATH}" ./example2 || die
+	emake clean
+	popd > /dev/null
 }
 
 src_install() {
