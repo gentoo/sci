@@ -1,14 +1,13 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/gromacs/gromacs-4.5.7.ebuild,v 1.2 2013/05/05 17:31:09 ottxor Exp $
 
 EAPI="4"
 
 TEST_PV="4.0.4"
 MANUAL_PV="4.5.6"
 
-#to find external blas/lapack
-CMAKE_MIN_VERSION="2.8.5-r2"
+FORTRAN_NEEDED=fkernels
 
 inherit bash-completion-r1 cmake-utils eutils fortran-2 multilib toolchain-funcs
 
@@ -30,7 +29,7 @@ HOMEPAGE="http://www.gromacs.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
 mpi +single-precision sse2 test +threads xml zsh-completion"
 REQUIRED_USE="fkernels? ( !threads )"
@@ -43,7 +42,6 @@ CDEPEND="
 		)
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
-	fkernels? ( virtual/fortran )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
@@ -54,10 +52,6 @@ RDEPEND="${CDEPEND}
 	app-shells/tcsh"
 
 RESTRICT="test"
-
-pkg_setup() {
-	use fkernels && fortran-2_pkg_setup
-}
 
 src_prepare() {
 	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
