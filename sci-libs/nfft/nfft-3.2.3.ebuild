@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
-inherit autotools-utils eutils toolchain-funcs
+inherit autotools-utils toolchain-funcs
 
 DESCRIPTION="library for nonequispaced discrete Fourier transform"
 HOMEPAGE="http://www-user.tu-chemnitz.de/~potts/nfft"
