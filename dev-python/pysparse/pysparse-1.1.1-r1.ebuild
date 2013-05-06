@@ -28,17 +28,18 @@ PATCHES=(
 	"${FILESDIR}"/${P}-superlu3.patch
 	)
 
-pc_libdir() {
-	$(tc-getPKG_CONFIG) --libs-only-L $@ | \
-	sed -e 's/^-L//' -e 's/[ ]*-L/:/g'
+pc_libs() {
+	$(tc-getPKG_CONFIG) --libs-only-l $@ | \
+	sed -e 's/[ ]-l*\(pthread\|m\)[ ]*//g' \
+	-e 's/^-l/"/' -e 's/[ ]*-l/","/g' -e 's/[ ]*$/"/g'
 }
 
 python_prepare_all() {
+	distutils-r1_python_prepare_all
 	sed \
 		-e "/libraries_list/s:'lapack', 'blas':$(pc_libs blas lapack):g" \
+		-e "/use_users_umfpack/s:True:False:g" \
 		-i setup.py || die
-
-	distutils-r1_python_prepare_all
 }
 
 python_test() {
