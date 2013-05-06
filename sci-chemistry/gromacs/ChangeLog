@@ -2,6 +2,16 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 May 2013; Christoph Junghans <ottxor@gentoo.org> gromacs-4.5.9999.ebuild:
+  sync with gx86
+
+*gromacs-4.5.9999 (03 May 2013)
+
+  03 May 2013; Christoph Junghans <ottxor@gentoo.org>
+  +files/gromacs-4.5.7-cmake-cpp-asm.patch, +gromacs-4.5.9999.ebuild,
+  metadata.xml:
+  added recent 4.5.x version from gx86 (bug #468454)
+
   15 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> gromacs-4.6.9999.ebuild:
   nvcc flags dont needed anymore here
 
