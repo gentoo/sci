@@ -1,7 +1,7 @@
-From dc6776e7aab810ff4db384de86c323e80649dc7c Mon Sep 17 00:00:00 2001
+From eb644ae44a7a7c1884ff9bb8b384730cedc17175 Mon Sep 17 00:00:00 2001
 From: yangsheng <yang.sheng@intel.com>
 Date: Mon, 8 Apr 2013 21:04:22 +0800
-Subject: [PATCH 04/13] LU-2686 kernel: Kernel update for 3.7.2-201.fc18
+Subject: [PATCH 03/12] LU-2686 kernel: Kernel update for 3.7.2-201.fc18
 
 Add uapi header to include search path.
 
@@ -29,7 +29,7 @@ index 79bcd65..bfec407 100644
  	include/config/MARKER $@
  endif # LINUX
 diff --git a/config/lustre-build-linux.m4 b/config/lustre-build-linux.m4
-index 244d398..0ab7cdb 100644
+index ec77262..fe4f4da 100644
 --- a/config/lustre-build-linux.m4
 +++ b/config/lustre-build-linux.m4
 @@ -44,7 +44,7 @@ AC_MSG_CHECKING([for Linux release])
@@ -96,7 +96,7 @@ index 244d398..0ab7cdb 100644
  	[_AC_MSG_LOG_CONFTEST
  m4_ifvaln([$5],[$5])dnl])
 diff --git a/ldiskfs/config/ldiskfs-build.m4 b/ldiskfs/config/ldiskfs-build.m4
-index 2feec80..aee760e 100644
+index be144de..a978bcf 100644
 --- a/ldiskfs/config/ldiskfs-build.m4
 +++ b/ldiskfs/config/ldiskfs-build.m4
 @@ -4,12 +4,12 @@ AC_DEFUN([LDISKFS_AC_LINUX_VERSION], [
@@ -152,7 +152,7 @@ index 2feec80..aee760e 100644
  	# enable extensive workarounds to get this to build
  	# modules
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 0354dd4..c71702b 100644
+index 7ac2b22..1972e17 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -328,6 +328,7 @@ AC_TRY_RUN([
