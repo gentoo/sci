@@ -41,7 +41,7 @@ src_install() {
 		${_exe}
 
 	doexe ${_exe}
-	dosym ${PN}4 "${EPREFIX}"/opt/bin/${PN}
+	dosym ${PN}4 /opt/bin/${PN}
 
 	use doc && dodoc docs/{modelfree_manual.pdf,VERSIONS.README}
 	use examples && insinto /usr/share/${PN} && doins -r testing

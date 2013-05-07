@@ -3,6 +3,9 @@
 # $Header: $
 
   07 May 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
+  Drop double prefix
+
+  07 May 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
   Fix missing lib dirs for patchelf
 
   07 May 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
