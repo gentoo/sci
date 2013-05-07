@@ -36,7 +36,9 @@ src_install() {
 		_exe=./linux_64/${PN}4
 	fi
 
-	patchelf --set-rpath "${EPREFIX}/opt/${PN}:${EPREFIX}/usr/$(get_libdir)/gcc/x86_64-pc-linux-gnu/4.1.2/" ${_exe}
+	patchelf --set-rpath \
+		"${EPREFIX}/opt/${PN}:$(gcc-config -L | sed 's|:.*$||g'):${EPREFIX}/usr/$(get_libdir)/gcc/x86_64-pc-linux-gnu/4.1.2/" \
+		${_exe}
 
 	doexe ${_exe}
 	dosym ${PN}4 "${EPREFIX}"/opt/bin/${PN}
