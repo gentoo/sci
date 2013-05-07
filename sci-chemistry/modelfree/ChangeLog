@@ -3,6 +3,9 @@
 # $Header: $
 
   07 May 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
+  Fix stupid symlink
+
+  07 May 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
   Merge changes from curvefit
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild,

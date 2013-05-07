@@ -39,7 +39,7 @@ src_install() {
 	patchelf --set-rpath "${EPREFIX}/opt/${PN}:${EPREFIX}/usr/$(get_libdir)/gcc/x86_64-pc-linux-gnu/4.1.2/" ${_exe}
 
 	doexe ${_exe}
-	dosym ${PN} "${EPREFIX}"/opt/bin/${PN}4
+	dosym ${PN}4 "${EPREFIX}"/opt/bin/${PN}
 
 	use doc && dodoc docs/{modelfree_manual.pdf,VERSIONS.README}
 	use examples && insinto /usr/share/${PN} && doins -r testing
