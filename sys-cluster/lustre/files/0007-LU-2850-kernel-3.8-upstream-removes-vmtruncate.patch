@@ -1,4 +1,4 @@
-From ca0935ac2c329ceab8e52681e688947b44a06f25 Mon Sep 17 00:00:00 2001
+From 019311dd1ae9e97336748f016afd2581d8ecc213 Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Wed, 17 Apr 2013 13:27:55 +0400
 Subject: [PATCH 07/12] LU-2850 kernel: 3.8 upstream removes vmtruncate()

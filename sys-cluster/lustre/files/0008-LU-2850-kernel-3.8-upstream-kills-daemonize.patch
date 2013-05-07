@@ -1,4 +1,4 @@
-From 6788eaaadcd9e1cc48f991c4d120cf0665bf02bf Mon Sep 17 00:00:00 2001
+From 3440a08d1e950bddff32304ea1ba919d63ae47be Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 23 Apr 2013 10:18:04 -0400
 Subject: [PATCH 08/12] LU-2850 kernel: 3.8 upstream kills daemonize()

@@ -1,4 +1,4 @@
-From 385173f27cbda04a7fef76ee37e20b8cbd810036 Mon Sep 17 00:00:00 2001
+From 9248d7b04b67f683ac2a04b35793790047b50ab7 Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Tue, 19 Mar 2013 21:18:32 -0400
 Subject: [PATCH 05/12] LU-2800 llite: introduce local getname()
