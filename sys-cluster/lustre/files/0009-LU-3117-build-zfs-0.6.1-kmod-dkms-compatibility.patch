@@ -1,7 +1,7 @@
-From 4d081a6db49068649612223a7d47c3a72c0875d0 Mon Sep 17 00:00:00 2001
+From be658d898d8985782db9aba0c0c65834507938fc Mon Sep 17 00:00:00 2001
 From: Brian Behlendorf <behlendorf1@llnl.gov>
 Date: Thu, 28 Mar 2013 12:18:27 -0700
-Subject: [PATCH 13/13] LU-3117 build: zfs-0.6.1 kmod+dkms compatibility
+Subject: [PATCH 09/12] LU-3117 build: zfs-0.6.1 kmod+dkms compatibility
 
 With the release of zfs-0.6.1 the default install location of
 the zfs kmod headers and objects has changed.  The kmod headers
@@ -50,11 +50,11 @@ Signed-off-by: Nathaniel Clark <nathaniel.l.clark@intel.com>
  autoMakefile.am                |   2 +-
  config/lustre-build-ldiskfs.m4 |   1 -
  config/lustre-build-zfs.m4     | 731 ++++++++++++++++++-----------------------
- contrib/lbuild/lbuild          |  83 ++---
+ contrib/lbuild/lbuild          | 147 +++++----
  lustre.spec.in                 |   2 +-
  lustre/osd-zfs/Makefile.in     |   3 +-
  lustre/utils/Makefile.am       |   6 +-
- 7 files changed, 351 insertions(+), 477 deletions(-)
+ 7 files changed, 407 insertions(+), 485 deletions(-)
 
 diff --git a/autoMakefile.am b/autoMakefile.am
 index bfec407..27e16c1 100644
@@ -67,10 +67,10 @@ index bfec407..27e16c1 100644
  SOURCES_SUBDIRS := @LIBCFS_SUBDIR@ lnet lustre
  RPM_SUBDIRS := @LDISKFS_SUBDIR@ @LUSTREIOKIT_SUBDIR@
 diff --git a/config/lustre-build-ldiskfs.m4 b/config/lustre-build-ldiskfs.m4
-index cdcd10b..d680268 100644
+index d619d7c..f29fd39 100644
 --- a/config/lustre-build-ldiskfs.m4
 +++ b/config/lustre-build-ldiskfs.m4
-@@ -190,7 +190,6 @@ else
+@@ -189,7 +189,6 @@ else
  fi
  
  if test x$enable_ldiskfs_build = xno; then
@@ -847,10 +847,18 @@ index bfc647f..507afd8 100644
 +	AM_CONDITIONAL(ZFS_ENABLED, test x$enable_zfs = xyes)
  ])
 diff --git a/contrib/lbuild/lbuild b/contrib/lbuild/lbuild
-index f389505..075fcb0 100755
+index d682f3c..b4a0a8d 100755
 --- a/contrib/lbuild/lbuild
 +++ b/contrib/lbuild/lbuild
-@@ -996,11 +996,14 @@ build_lustre() {
+@@ -993,36 +993,60 @@ build_lustre() {
+ #
+ # Fetch spl/zfs from the git repo and prepare for lustre build
+ #
++# Overrides:
++#   SPLZFSGITREPO - URI of directory where spl.git and zfs.git are located
++#   SPLZFSTAG     - Tag to checkout of clone repositories
++#   SPLZFSVER     - Version to checkout of both (format zfs/spl-$SPLZFSVER)
++#
  # return 0 if successful, else 255
  build_spl_zfs() {
      # make sure the RPM build environment is set up
@@ -862,54 +870,65 @@ index f389505..075fcb0 100755
      # destination for the rpms
      export RPM_BUILD_ROOT=$TOPDIR
 +    SPLZFSVER=${SPLZFSVER:-0.6.1}
++    SPLZFSTAG=${SPLZFSTAG:-lustre-zfs}
  
      # The files expect a kver to be set to the kernel version .
-     kver=$(cat ${LINUX}/include/config/kernel.release)
-@@ -1009,10 +1012,14 @@ build_spl_zfs() {
+-    kver=$(cat ${LINUX}/include/config/kernel.release)
++    local kver=$(find_linux_release ${LINUX})
+ 
+     # build and install the spl and zfs (and -devel) RPMs for lustre to use
      local pkg
      for pkg in spl zfs; do
  
 -        local rpmmod spldir
 +        local rpmpkg
  
-         [ "$pkg" == "zfs" ] && spldir="$(ls -d $TOPDIR/usr/src/spl-*/*)"
+-        [ "$pkg" == "zfs" ] && spldir="$(ls -d $TOPDIR/usr/src/spl-*/*)"
 -        rpmmod=$pkg-modules
-+	if [ -f $pkg-modules.spec.in ]; then
-+	    rpmpkg=$pkg-modules
-+	else
-+            rpmpkg=$pkg-dkms
-+	fi
++        [ "$pkg" == "zfs" ] && spldir="$(ls -d $TOPDIR/usr/src/spl-*/|tail -1)"
  
          # need to fetch the repo in order to build it.
          # default to github but allow override
-@@ -1020,6 +1027,14 @@ build_spl_zfs() {
+         git clone ${SPLZFSGITREPO:-"https://github.com/zfsonlinux"}/$pkg.git $pkg 2>&1
  
          pushd $pkg || return 255
- 
-+	if [ -n "$SPLZFSTAG" ];
+-
+-        # XXX - _having_ to give a package a kernel just to have it configure
+-        #       enough to do a "make dist" is truely bogus!
+-        if  ! ./configure --with-linux=${LINUX} \
++	if [ -n "$SPLZFSTAG" ]; then
 +	    git checkout $SPLZFSTAG
 +	else
-+	    git checkout -b $pkg-$SPLZFSVER $pkg-$SPLZFSVER
++	    git checkout -b lbuild $pkg-$SPLZFSVER
++	fi
++
++	# This differentiates between older zfs versions
++	if [ -f $pkg-modules.spec.in ]; then
++	    rpmpkg=$pkg-modules
++	    specdir=.
++	    speclist="$pkg.spec $rpmpkg.spec"
++	else
++            rpmpkg=kmod-$pkg-devel
++	    specdir=rpm/generic
++	    speclist="$pkg.spec $pkg-kmod.spec $pkg-dkms.spec"
 +	fi
 +
 +	sh autogen.sh || return 255
 +
-         # XXX - _having_ to give a package a kernel just to have it configure
-         #       enough to do a "make dist" is truely bogus!
-         if  ! ./configure --with-linux=${LINUX} \
-@@ -1028,66 +1043,22 @@ build_spl_zfs() {
++        if  ! ./configure --with-linux=${LINUX} --with-linux-obj=${LINUX} \
+                           ${spldir:+--with-spl="${spldir}"} 2>&1 ||
+             ! make dist 2>&1; then
              popd
-             return 255
+@@ -1030,71 +1054,57 @@ build_spl_zfs() {
          fi
--        popd
+         popd
  
 -        # XXX - dirty hack time.  ~sigh~
 -        #       because the spl tarball contains two .spec files, we cannot
 -        #       simply rebuild the tarball
 -        ln $pkg/$pkg-*.tar.gz $TOPDIR/SOURCES ||
 -            error "failed to link $pkg/$pkg-*.tar.gz into $TOPDIR/SOURCES"
-+	make rpm || return 255
- 
+-
 -        # First build the userspace tools RPMs
 -        if ! $RPMBUILD $targets -bb $pkg/$pkg.spec \
 -            --nodeps -v \
@@ -918,10 +937,7 @@ index f389505..075fcb0 100755
 -            --define "_topdir $TOPDIR" 2>&1; then
 -            return 255
 -        fi
-+	if $DO_SRC; then
-+	    make srpm || return 255
-+	fi
- 
+-
 -        if $DO_SRC; then
 -            if ! $RPMBUILD -bs $pkg/$pkg.spec \
 -                --nodeps -v \
@@ -929,11 +945,39 @@ index f389505..075fcb0 100755
 -                --define "_tmppath /var/tmp" \
 -                --define "_topdir $TOPDIR" 2>&1; then
 -                return 255
--            fi
++        ln -f $pkg/$pkg-*.tar.gz $TOPDIR/SOURCES ||
++           error "failed to link $pkg/$pkg-*.tar.gz into $TOPDIR/SOURCES"
++	if [ -f $pkg/scripts/kmodtool ]; then
++	    ln -f $pkg/scripts/kmodtool $TOPDIR/SOURCES/
++	fi
++
++	local rpmb
++	if $DO_SRC; then
++	    rpmb=-ba
++	else
++	    rpmb=-bb
++	fi
++
++	# set search dir for our own kmodtool to find correct
++	# directories
++	export KERNELSOURCE=$(dirname ${LINUX})
++	# Manually build rpms
++	for spec in $speclist; do
++	    echo "Building RPMs from $pkg/$specdir/$spec"
++            if ! $RPMBUILD $rpmb $pkg/$specdir/$spec \
++		--nodeps -v \
++		--define "require_kdir ${LINUX}" \
++		${LINUXOBJ:+--define "require_kobj ${LINUXOBJ}"} \
++		${spldir:+--define "require_spldir ${spldir}"} \
++		--define "kver $kver" \
++		--define "kernels $kver" \
++		--define "_tmppath /var/tmp" \
++		--define "kernelbuildroot $(find_linux_builddir $LINUX)" \
++		--define "_topdir $TOPDIR" 2>&1; then
++		return 255
+             fi
 -        fi
-+	$DO_SRC && mv $pkg*.src.rpm $TOPDIR/SRPMS/
-+	mv $pkg*.noarch.rpm $TOPDIR/RPMS/noarch/
-+	mv *$pkg*.$arch.rpm $TOPDIR/RPMS/$(basearch $arch)/
++	done
  
 -        # Now the kernel module RPMs
 -        # Need to provide pointers to the lustre kernel source, objects, usr/src
@@ -949,7 +993,10 @@ index f389505..075fcb0 100755
 -            --define "_topdir $TOPDIR" 2>&1; then
 -            return 255
 -        fi
--
++#	$DO_SRC && mv $pkg*.src.rpm $TOPDIR/SRPMS/
++#	mv $pkg*.noarch.rpm $TOPDIR/RPMS/noarch/
++#	mv *$pkg*.$TARGET_ARCH.rpm $TOPDIR/RPMS/$(basearch $TARGET_ARCH)/
+ 
 -        if $DO_SRC; then
 -            if ! $RPMBUILD -bs $pkg/$rpmmod.spec \
 -                --nodeps -v \
@@ -964,18 +1011,54 @@ index f389505..075fcb0 100755
 -                return 255
 -            fi
 -        fi
-+        popd
- 
+-
 -        # We have built the rpms for the package. No we need to extract the
 +        # We have built the rpms for the package. Now we need to extract the
          # contained files so we can build further things against them
 -        local rpm=$(ls $TOPDIR/RPMS/*/$rpmmod-devel-*.rpm)
-+        local rpm=$(ls $TOPDIR/RPMS/*/$rpmpkg-*.rpm)
++        local rpms=$(ls -1 $TOPDIR/RPMS/*/$rpmpkg-*.rpm)
  
          # cpio only extract to pwd so we need to go there.
          pushd $TOPDIR
+-        rpm2cpio < $rpm | cpio -id
++	local rpm
++	for rpm in $rpms; do
++            rpm2cpio $rpm | cpio -id
++	done
+         popd
+ 
+-        CONFIGURE_FLAGS="--with-$pkg=$(ls -d $TOPDIR/usr/src/$pkg-*/*) ${CONFIGURE_FLAGS}"
++        CONFIGURE_FLAGS="--with-$pkg=$(ls -d $TOPDIR/usr/src/$pkg-*/|tail -1) ${CONFIGURE_FLAGS}"
++        CONFIGURE_FLAGS="--with-$pkg-obj=$(ls -d $TOPDIR/usr/src/$pkg-*/$kver*|tail -1) ${CONFIGURE_FLAGS}"
+     done
+ 
+     OSDZFSRPM=true
+@@ -1177,7 +1187,15 @@ find_linux_release() {
+     fi
+ 
+     sed -ne 's/#define UTS_RELEASE "\(.*\)"$/\1/p' $LINUXRELEASEHEADER
++}
++
++# This funcition finds the buildroot directory for a given linux
++# kernel directory
++find_linux_builddir() {
++    local linux=${1:-${LINUX}}
++    local rel=$(find_linux_release $linux)
+ 
++    echo ${linux%/usr/src/kernels/${rel}*}
+ }
+ 
+ # unpack kernel(/source/devel) RPM
+@@ -1765,6 +1783,7 @@ create_rpmbuild_dirs() {
+         fi
+         [ -d RPMS/$arch ] || mkdir RPMS/$arch
+     done
++    [ -d RPMS/noarch ] || mkdir RPMS/noarch
+     [ -d BUILD ] || mkdir BUILD
+     [ -d SOURCES ] || mkdir SOURCES
+     [ -d SPECS ] || mkdir SPECS
 diff --git a/lustre.spec.in b/lustre.spec.in
-index edd02f5..11ff302 100644
+index afb5016..d07949a 100644
 --- a/lustre.spec.in
 +++ b/lustre.spec.in
 @@ -115,7 +115,7 @@ backing store of a Lustre server.
@@ -1003,19 +1086,19 @@ index 0a2dceb..7def377 100644
  
  @INCLUDE_RULES@
 diff --git a/lustre/utils/Makefile.am b/lustre/utils/Makefile.am
-index bc8d716..6ee11c6 100644
+index a353557..23bde35 100644
 --- a/lustre/utils/Makefile.am
 +++ b/lustre/utils/Makefile.am
-@@ -132,7 +132,7 @@ endif
+@@ -133,7 +133,7 @@ endif
  if ZFS_ENABLED
  mount_lustre_SOURCES += mount_utils_zfs.c
- mount_lustre_CPPFLAGS = -DHAVE_IOCTL_IN_UNISTD_H
+ mount_lustre_CPPFLAGS += -DHAVE_IOCTL_IN_UNISTD_H
 -mount_lustre_CPPFLAGS += $(EXTRA_LIBZFS_INCLUDE)
 +mount_lustre_CPPFLAGS += $(ZFS_LIBZFS_INCLUDE)
  mount_lustre_LDFLAGS = -pthread -rdynamic -ldl
  endif
  
-@@ -148,7 +148,7 @@ endif
+@@ -149,7 +149,7 @@ endif
  if ZFS_ENABLED
  mkfs_lustre_SOURCES += mount_utils_zfs.c
  mkfs_lustre_CPPFLAGS += -DHAVE_IOCTL_IN_UNISTD_H
@@ -1024,7 +1107,7 @@ index bc8d716..6ee11c6 100644
  mkfs_lustre_LDFLAGS = -pthread -rdynamic -ldl
  endif
  
-@@ -162,7 +162,7 @@ endif
+@@ -163,7 +163,7 @@ endif
  if ZFS_ENABLED
  tunefs_lustre_SOURCES += mount_utils_zfs.c
  tunefs_lustre_CPPFLAGS += -DHAVE_IOCTL_IN_UNISTD_H

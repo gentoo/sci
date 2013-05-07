@@ -1,7 +1,7 @@
-From 165b74cfea18405a1ad0a01ed1c3ea946f9d8ce5 Mon Sep 17 00:00:00 2001
+From 9798799dc437a49e099ee3e2a4056dbab29f7664 Mon Sep 17 00:00:00 2001
 From: yangsheng <yang.sheng@intel.com>
 Date: Mon, 8 Apr 2013 21:14:09 +0800
-Subject: [PATCH 03/13] LU-2686 kernel: sock_map_fd() replaced by
+Subject: [PATCH 02/12] LU-2686 kernel: sock_map_fd() replaced by
  sock_alloc_file()
 
 Use sock_alloc_file() replace sock_map_fd().

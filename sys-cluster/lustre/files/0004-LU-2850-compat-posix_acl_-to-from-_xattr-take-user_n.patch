@@ -1,7 +1,7 @@
-From 6e14a93978fe30cbc424fc727f26354172756afd Mon Sep 17 00:00:00 2001
+From 1f4b6325b84ae71aca272904452c7751c84e1870 Mon Sep 17 00:00:00 2001
 From: Jeff Mahoney <jeffm@suse.com>
 Date: Wed, 20 Mar 2013 17:33:17 -0400
-Subject: [PATCH 05/13] LU-2850 compat: posix_acl_{to,from}_xattr take
+Subject: [PATCH 04/12] LU-2850 compat: posix_acl_{to,from}_xattr take
  user_namespace
 
 Commit 5f3a4a28 (v3.7) added a struct user_namespace argument to
@@ -67,7 +67,7 @@ index 53975ab..fa4e4d4 100644
 +#endif
  #endif
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index c71702b..2f4265a 100644
+index 1972e17..d0efbf4 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -2234,6 +2234,25 @@ LB_LINUX_TRY_COMPILE([
@@ -106,7 +106,7 @@ index c71702b..2f4265a 100644
  	 if test x$enable_server = xyes ; then
  		AC_DEFINE(HAVE_SERVER_SUPPORT, 1, [support server])
 diff --git a/lustre/include/liblustre.h b/lustre/include/liblustre.h
-index 14f3ef6..eb62458 100644
+index b93d805..ad88587 100644
 --- a/lustre/include/liblustre.h
 +++ b/lustre/include/liblustre.h
 @@ -458,6 +458,10 @@ struct posix_acl * posix_acl_from_xattr(const void *value, size_t size)
@@ -121,7 +121,7 @@ index 14f3ef6..eb62458 100644
  int posix_acl_valid(const struct posix_acl *acl)
  {
 diff --git a/lustre/llite/xattr.c b/lustre/llite/xattr.c
-index f9e425d..7e3eb53 100644
+index 8772b74..a08c58a 100644
 --- a/lustre/llite/xattr.c
 +++ b/lustre/llite/xattr.c
 @@ -345,7 +345,7 @@ int ll_getxattr_common(struct inode *inode, const char *name,
@@ -134,7 +134,7 @@ index f9e425d..7e3eb53 100644
                  RETURN(rc);
          }
 diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
-index f068026..ce18acf 100644
+index 3ea8996..5751460 100644
 --- a/lustre/mdc/mdc_request.c
 +++ b/lustre/mdc/mdc_request.c
 @@ -41,6 +41,7 @@
