@@ -22,19 +22,40 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}-${LAMMPSDATE}"
 
+LAMMPS_INCLUDEFLAGS="-DLAMMPS_GZIP -DLAMMPS_MEMALIGN"
+
 src_prepare() {
 	epatch "${FILESDIR}/Makefile.gentoo-serial.patch"
+
+	# Patch up the patch.
+	sed -i \
+		-e "s/ARCHIVE\s*=.*$/ARCHIVE = $(tc-getAR)/" \
+		-e "s/CC\s*=.*$/CC = $(tc-getCXX)/" \
+		-e "s/CCFLAGS\s*=.*$/CCFLAGS = ${CXXFLAGS}/" \
+		-e "s/LINK\s*=.*$/LINK = $(tc-getCXX)/" \
+		-e "s/LINKFLAGS\s*=.*$/LINKFLAGS = ${LDFLAGS}/" \
+		-e "s/LMP_INC\s*=.*$/LMP_INC = ${LAMMPS_INCLUDEFLAGS}/" \
+		"${S}/src/MAKE/Makefile.gentoo-serial"
+
+	# Patch up other makefiles.
+	use package-meam && sed -i \
+		-e "s/ARCHIVE\s*=.*$/ARCHIVE = $(tc-getAR)/" \
+		-e "s/F90\s*=.*$/F90 = $(tc-getFC)/" \
+		-e "s/F90FLAGS\s*=.*$/F90FLAGS = ${FCFLAGS}/" \
+		-e "s/LINK\s*=.*$/LINK = $(tc-getFC)/" \
+		-e "s/LINKFLAGS\s*=.*$/LINKFLAGS = ${LDFLAGS}/" \
+		"${S}/lib/meam/Makefile.gfortran"
 }
 
 src_compile() {
-	emake -C src ARCHIVE=$(tc-getAR) CC=$(tc-getCXX) CCFLAGS="${CXXFLAGS}" LINKFLAGS="${LDFLAGS}" stubs
+	emake -C src stubs
 	use package-meam && {
-		emake -C src ARCHIVE=$(tc-getAR) CC=$(tc-getCXX) CCFLAGS="${CXXFLAGS}" LINKFLAGS="${LDFLAGS}" yes-meam
-		emake -j1 -C lib/meam -f Makefile.gfortran ARCHIVE=$(tc-getAR) F90=$(tc-getFC) F90FLAGS="${FCFLAGS}" LINKFLAGS="${LDFLAGS}"
+		emake -C src yes-meam
+		emake -j1 -C lib/meam -f Makefile.gfortran
 	}
-	use package-dipole && emake -C src ARCHIVE=$(tc-getAR) CC=$(tc-getCXX) CCFLAGS="${CXXFLAGS}" LINKFLAGS="${LDFLAGS}" yes-dipole
-	use package-rigid && emake -C src ARCHIVE=$(tc-getAR) CC=$(tc-getCXX) CCFLAGS="${CXXFLAGS}" LINKFLAGS="${LDFLAGS}" yes-rigid
-	emake -C src ARCHIVE=$(tc-getAR) CC=$(tc-getCXX) CCFLAGS="${CXXFLAGS}" LINKFLAGS="${LDFLAGS}" gentoo-serial
+	use package-dipole && emake -C src yes-dipole
+	use package-rigid && emake -C src yes-rigid
+	emake -C src gentoo-serial
 }
 
 src_install() {

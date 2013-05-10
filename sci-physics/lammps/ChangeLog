@@ -3,6 +3,9 @@
 # $Header: $
 
   10 May 2013; Nicolas Bock <nicolasbock@gmail.com> lammps-20130512.ebuild:
+  Cleaned up the make command line arguments.
+
+  10 May 2013; Nicolas Bock <nicolasbock@gmail.com> lammps-20130512.ebuild:
   The meam package doesn't like to be built in parallel.
 
   10 May 2013; Nicolas Bock <nicolasbock@gmail.com> lammps-20130512.ebuild,
