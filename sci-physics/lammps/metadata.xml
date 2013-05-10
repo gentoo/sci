@@ -15,5 +15,8 @@
 		techniques and a spatial-decomposition of the simulation domain. The
 		code is designed to be easy to modify or extend with new functionality. 
 	</longdescription>
+	<maintainer>
+		<email>nicolasbock@gmail.com</email>
+	</maintainer>
 </pkgmetadata>
 
