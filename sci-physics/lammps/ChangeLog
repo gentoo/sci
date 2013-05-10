@@ -1,0 +1,9 @@
+# ChangeLog for sci-physics/lammps
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*lammps-20130512 (10 May 2013)
+
+  10 May 2013; Nicolas Bock <nicolasbock@gmail.com>
+  +files/Makefile.gentoo-serial.patch, +lammps-20130512.ebuild, +metadata.xml:
+  Added first draft version of lammps.  For now this is only the serial version.
