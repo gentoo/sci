@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 May 2013; Nicolas Bock <nicolasbock@gmail.com> lammps-20130512.ebuild,
+  metadata.xml:
+  Added more use flags to control the build process.  It seems, at least on my
+  system, that the LAMMPS_MEMALIGN option is a guarantee for a segfault. I made
+  the use of this macro optional.
+
   10 May 2013; Nicolas Bock <nicolasbock@gmail.com> lammps-20130512.ebuild:
   Cleaned up the make command line arguments.
 

@@ -15,17 +15,20 @@ SRC_URI="http://lammps.sandia.gov/tars/lammps-${LAMMPSDATE}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="package-meam package-dipole package-rigid"
+IUSE="lammps-gzip lammps-memalign package-meam package-dipole package-rigid"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}-${LAMMPSDATE}"
 
-LAMMPS_INCLUDEFLAGS="-DLAMMPS_GZIP -DLAMMPS_MEMALIGN"
+LAMMPS_INCLUDEFLAGS=""
 
 src_prepare() {
 	epatch "${FILESDIR}/Makefile.gentoo-serial.patch"
+
+	use lammps-gzip && LAMMPS_INCLUDEFLAGS+=" -DLAMMPS_GZIP"
+	use lammps-memalign && LAMMPS_INCLUDEFLAGS+=" -DLAMMPS_MEMALIGN"
 
 	# Patch up the patch.
 	sed -i \
