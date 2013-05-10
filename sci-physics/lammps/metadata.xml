@@ -15,6 +15,11 @@
 		techniques and a spatial-decomposition of the simulation domain. The
 		code is designed to be easy to modify or extend with new functionality. 
 	</longdescription>
+	<use>
+		<flag name="package-meam">modified EAM potential</flag>
+		<flag name="package-dipole">point dipole particles</flag>
+		<flag name="package-rigid">rigid bodies</flag>
+	</use>
 	<maintainer>
 		<email>nicolasbock@gmail.com</email>
 	</maintainer>

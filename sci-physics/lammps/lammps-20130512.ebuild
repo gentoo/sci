@@ -15,7 +15,7 @@ SRC_URI="http://lammps.sandia.gov/tars/lammps-${LAMMPSDATE}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="package-meam package-dipole package-rigid"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
@@ -28,6 +28,12 @@ src_prepare() {
 
 src_compile() {
 	emake -C src ARCHIVE=$(tc-getAR) CC=$(tc-getCXX) CCFLAGS="${CXXFLAGS}" LINKFLAGS="${LDFLAGS}" stubs
+	use package-meam && {
+		emake -C src ARCHIVE=$(tc-getAR) CC=$(tc-getCXX) CCFLAGS="${CXXFLAGS}" LINKFLAGS="${LDFLAGS}" yes-meam
+		emake -C lib/meam -f Makefile.gfortran ARCHIVE=$(tc-getAR) F90=$(tc-getFC) F90FLAGS="${FCFLAGS}" LINKFLAGS="${LDFLAGS}"
+	}
+	use package-dipole && emake -C src ARCHIVE=$(tc-getAR) CC=$(tc-getCXX) CCFLAGS="${CXXFLAGS}" LINKFLAGS="${LDFLAGS}" yes-dipole
+	use package-rigid && emake -C src ARCHIVE=$(tc-getAR) CC=$(tc-getCXX) CCFLAGS="${CXXFLAGS}" LINKFLAGS="${LDFLAGS}" yes-rigid
 	emake -C src ARCHIVE=$(tc-getAR) CC=$(tc-getCXX) CCFLAGS="${CXXFLAGS}" LINKFLAGS="${LDFLAGS}" gentoo-serial
 }
 
