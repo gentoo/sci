@@ -22,11 +22,10 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}-${LAMMPSDATE}"
 
-LAMMPS_INCLUDEFLAGS=""
-
 src_prepare() {
 	epatch "${FILESDIR}/Makefile.gentoo-serial.patch"
 
+	LAMMPS_INCLUDEFLAGS=""
 	use lammps-gzip && LAMMPS_INCLUDEFLAGS+=" -DLAMMPS_GZIP"
 	use lammps-memalign && LAMMPS_INCLUDEFLAGS+=" -DLAMMPS_MEMALIGN"
 
