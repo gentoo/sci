@@ -3,12 +3,13 @@
 <pkgmetadata>
   <herd>cluster</herd>
   <longdescription>
-    LibGeoDecomp is an auto-parallelizing library to speed up stencil
-    code based computer simulations. It runs on virtually all current
-    architectures, be it multi-cores, GPUs, or large scale MPI
-    clusters.
+	AMD Accelerated Parallel Processing (APP) is an SDK which includes
+	the Bolt libraries and an OpenCL implementation for AMD's CPUs and GPUs.
   </longdescription>
   <maintainer>
     <email>gentryx@gmx.de</email>
   </maintainer>
+  <use>
+	<flag name='examples'>Build the OpenCL example programs</flag>
+  </use>
 </pkgmetadata>
