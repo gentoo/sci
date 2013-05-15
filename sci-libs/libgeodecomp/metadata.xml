@@ -8,4 +8,7 @@
     architectures, be it multi-cores, GPUs, or large scale MPI
     clusters.
   </longdescription>
+  <maintainer>
+    <email>gentryx@gmx.de</email>
+  </maintainer>
 </pkgmetadata>

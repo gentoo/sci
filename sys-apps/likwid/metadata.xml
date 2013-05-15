@@ -8,6 +8,9 @@
     programmers in developing high performance multi threaded
     programs.
   </longdescription>
+  <maintainer>
+    <email>gentryx@gmx.de</email>
+  </maintainer>
   <use>
     <flag name="access-daemon">
       Build access-daemon for secure access to /dev/cpu/*/msr.
