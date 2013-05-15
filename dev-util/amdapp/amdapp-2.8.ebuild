@@ -21,6 +21,7 @@ IUSE="examples"
 
 RDEPEND="
 	app-admin/eselect-opengl
+	!<dev-util/amdstream-2.6
 	sys-devel/llvm
 	sys-devel/gcc
 	media-libs/mesa
@@ -32,34 +33,31 @@ DEPEND="
 	${RDEPEND}
 	dev-lang/perl
 	dev-util/patchelf
-	!<dev-util/amdstream-2.6
 	sys-apps/fakeroot"
 
 RESTRICT="mirror strip"
 
 S="${WORKDIR}/${MY_P}"
 
+pkg_nofetch() {
+	einfo "AMD doesn't provide direct download links. Please download"
+	einfo "${ARCHIVE} from ${HOMEPAGE}"
+}
+
 src_unpack() {
-	default_src_unpack
+	default
 	unpack ./${MY_P}.tgz
 	unpack ./icd-registration.tgz
 }
 
 src_compile() {
-	if use examples; then
-		emake || die "Make failed!"
-	fi
+	use examples && emake
 }
 
 src_install() {
 	dodir /opt/AMDAPP
-	cp -R "${S}/"* "${D}/opt/AMDAPP" || die "Install failed!"
+	cp -R "${S}/"* "${ED}/opt/AMDAPP" || die "Install failed!"
 
 	insinto /etc/OpenCL/vendors/
 	doins ../etc/OpenCL/vendors/*
-}
-
-pkg_nofetch() {
-	einfo "AMD doesn't provide direct download links. Please download"
-	einfo "${ARCHIVE} from ${HOMEPAGE}"
 }
