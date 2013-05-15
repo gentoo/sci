@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd></herd>
-<longdescription lang="en">
-Viper is a minimalistic scientific plotter and run-time visualization module. Viper has support for visualizing meshes and solutions in DOLFIN.
-</longdescription>
+	<herd>sci</herd>
+	<longdescription lang="en">
+		Viper is a minimalistic scientific plotter and run-time visualization
+		module. Viper has support for visualizing meshes and solutions in
+		DOLFIN.
+	</longdescription>
 </pkgmetadata>
-
