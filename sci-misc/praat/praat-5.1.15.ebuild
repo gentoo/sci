@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -19,19 +19,14 @@ LICENSE="GPL-2"
 SLOT="0"
 
 DEPEND="
-	|| (
-		(
-			x11-libs/libXmu
-			x11-libs/libXt
-			x11-libs/libX11
-			x11-libs/libICE
-			x11-libs/libXext
-			x11-libs/libSM
-			x11-libs/libXp
-		)
-		virtual/x11
-	)
-	x11-libs/openmotif"
+	x11-libs/libXmu
+	x11-libs/libXt
+	x11-libs/libX11
+	x11-libs/libICE
+	x11-libs/libXext
+	x11-libs/libSM
+	x11-libs/libXp
+	x11-libs/motif"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/sources_${MY_PV}"

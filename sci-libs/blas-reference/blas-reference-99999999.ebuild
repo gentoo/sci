@@ -1,8 +1,9 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=4
+
 inherit eutils toolchain-funcs cmake-utils alternatives-2 subversion
 
 DESCRIPTION="Reference implementation of BLAS"
@@ -13,10 +14,6 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
 IUSE="static-libs test"
-
-RDEPEND="virtual/fortran"
-DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
 
 DOCS=( README )
 

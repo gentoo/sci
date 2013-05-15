@@ -15,6 +15,16 @@
   templates and template meta-programming.
 </longdescription>
 <use>
-  <flag name="atlas">Link with <pkg>sci-libs/atlas</pkg> libraries for cblas and clapack</flag>
+  <flag name="atlas">
+    Link with <pkg>sci-libs/atlas</pkg> libraries for cblas and
+    clapack
+  </flag>
+  <flag name='int64'>
+    Use 64 bits integer for matrix indexation
+  </flag>
+  <flag name='tbb'>
+    Use matrix allocation from the Threads Building Blocks
+    <pkg>dev-cpp/tbb</pkg>
+  </flag> 
 </use>
 </pkgmetadata>

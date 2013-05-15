@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,7 +17,8 @@ LICENSE="GPL-2"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND="dev-libs/gmp[-nocxx]
+DEPEND="
+	dev-libs/gmp[cxx]
 	>=dev-libs/ntl-5.4.2
 	sci-mathematics/4ti2
 	>=sci-libs/cdd+-077a

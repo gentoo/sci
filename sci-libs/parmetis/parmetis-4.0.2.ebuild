@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,10 +13,10 @@ METISP=metis-${METISPV}
 
 DESCRIPTION="Parallel (MPI) unstructured graph partitioning library"
 HOMEPAGE="http://www-users.cs.umn.edu/~karypis/metis/parmetis/"
-SRC_URI="http://glaros.dtc.umn.edu/gkhome/fetch/sw/${PN}/${P}.tar.gz
+SRC_URI="
+	http://glaros.dtc.umn.edu/gkhome/fetch/sw/${PN}/${P}.tar.gz
 	doc? ( http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/${METISP}.tar.gz )
 	examples? ( http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/${METISP}.tar.gz )"
-
 
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"

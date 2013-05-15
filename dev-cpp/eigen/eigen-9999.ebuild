@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 FORTRAN_NEEDED=fortran
 
@@ -35,9 +35,7 @@ CDEPEND="
 		dev-cpp/sparsehash
 		sci-libs/cholmod[metis]
 		sci-libs/superlu
-		sci-libs/umfpack
-		)"
-
+		sci-libs/umfpack )"
 DEPEND="
 	doc? ( app-doc/doxygen[dot,latex] )
 	test? ( ${CDEPEND} )"
@@ -49,7 +47,7 @@ RDEPEND="
 src_configure() {
 	# TOFIX: static-libs for blas are always built with PIC
 	# TOFIX: is it worth fixing all the automagic given no library is built?
-	mycmakeargs=(
+	local mycmakeargs=(
 		-DEIGEN_BUILD_BTL=OFF
 		-DEIGEN_TEST_NO_OPENGL=ON
 		$(cmake-utils_use test EIGEN_BUILD_TESTS)

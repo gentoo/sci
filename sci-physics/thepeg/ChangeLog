@@ -2,6 +2,13 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*thepeg-1.8.3 (11 Mar 2013)
+
+  11 Mar 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  -thepeg-1.8.2.ebuild, -files/thepeg-1.8.2-java.patch, +thepeg-1.8.3.ebuild,
+  +files/thepeg-1.8.3-java.patch:
+  version bump
+
 *thepeg-1.8.2 (04 Feb 2013)
 
   04 Feb 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>

@@ -1,0 +1,32 @@
+ tools/build/options.settings | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/build/options.settings b/tools/build/options.settings
+index 30fb65e..f79ef5b 100644
+--- a/tools/build/options.settings
++++ b/tools/build/options.settings
+@@ -9,7 +9,7 @@
+ options = {
+ 
+     "cxx" : {
+-        "gcc"     : [ "3.3", "3.4", "4.0", "4.1", "4.2", "4.3","4.4","4.5", "4.6", "*" ],
++        "gcc"     : [ "3.3", "3.4", "4.0", "4.1", "4.2", "4.3","4.4","4.5", "4.6", "4.7", "*" ],
+         "icc"     : [ "8.0", "8.1", "9.0", "9.1", "10.0", "10.1", "11.1", "*" ], #PBHACK
+         "msvc"    : [ "7.0", "7.1", "8.0", "8.1", "*" ],
+         "xlc"     : [ "7.0", "8.0", "9.0", "XL", "*" ],
+ src/protocols/jd2/SingleFileBuffer.cc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/protocols/jd2/SingleFileBuffer.cc b/src/protocols/jd2/SingleFileBuffer.cc
+index aa78d91..61ca823 100644
+--- a/src/protocols/jd2/SingleFileBuffer.cc
++++ b/src/protocols/jd2/SingleFileBuffer.cc
+@@ -28,6 +28,8 @@
+ #include <ctime>      // for clock()
+ #endif
+ 
++#include <unistd.h>
++
+ namespace protocols {
+ namespace jd2 {
+ using namespace core;

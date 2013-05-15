@@ -1,8 +1,8 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=5
 
 inherit autotools-utils eutils
 
@@ -19,11 +19,11 @@ IUSE="doc"
 
 RDEPEND="dev-libs/libsigc++:2"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig"
+	virtual/pkgconfig"
 
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
-src_prepare() {
+PATCHES=(
 	# Respect LDFLAGS
 	epatch "${FILESDIR}"/${P}-ldflags.patch
 	# fix parallel make. test are made at the same time as the library??
@@ -31,12 +31,11 @@ src_prepare() {
 	# take care of the lib/lib64 problem. Without this modglue installs
 	# stuff in /usr/usr/lib64 on 64bits systems.
 	epatch "${FILESDIR}"/${P}-lib64.patch
-}
+)
 
 src_install() {
-	emake DESTDIR="${D}" DEVDESTDIR="${D}" install || die
-	use doc && dohtml "${S}/doc/"*
-	dodoc AUTHORS ChangeLog INSTALL
+	use doc && HTML_DOCS=( "${S}"/doc/. )
+	autotools-utils_src_install DEVDESTDIR="${D}"
 }
 
 pkg_postinst() {

@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,13 +12,13 @@ DESCRIPTION="Automated astrometric calibration programs and service"
 HOMEPAGE="http://astrometry.net/"
 SRC_URI="${HOMEPAGE}/downloads/${MYP}.tar.bz2"
 
-LICENSE="GPL-2"
 SLOT="0"
-
+LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="dev-python/numpy
+RDEPEND="
+	dev-python/numpy
 	media-libs/libpng
 	media-libs/netpbm
 	sci-astronomy/wcslib
@@ -40,7 +40,6 @@ src_prepare() {
 		"${FILESDIR}"/${PV}-respect-user-flags.patch \
 		"${FILESDIR}"/${PV}-array-bounds.patch
 }
-
 
 src_compile() {
 	emake

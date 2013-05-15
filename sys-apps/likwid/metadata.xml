@@ -12,8 +12,6 @@
     <flag name="access-daemon">
       Build access-daemon for secure access to /dev/cpu/*/msr.
     </flag>
-  </use>
-  <use>
     <flag name="uncore">
       Yield access to uncore events.
     </flag>

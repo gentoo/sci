@@ -1,0 +1,16 @@
+ src/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index e986a91..ff87e29 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -7,7 +7,7 @@ wcd_CFLAGS += -DMPI
+ endif
+ if PTHREADS
+ wcd_CFLAGS += -DPTHREADS
+-wcd_LDFLAGS += -lpthread
++wcd_LDADD = -lpthread
+ endif
+ if !COMPILER
+ wcd_CFLAGS += -DNOINLINE 

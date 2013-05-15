@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,11 +20,12 @@ inherit eutils autotools check-reqs fdo-mime bash-completion-r1 \
 #   celestlab, jims,...
 
 DESCRIPTION="Scientific software package for numerical computations"
-LICENSE="CeCILL-2"
 HOMEPAGE="http://www.scilab.org/"
 SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz"
 
 SLOT="0"
+LICENSE="CeCILL-2"
+KEYWORDS="~amd64 ~x86"
 IUSE="bash-completion debug doc fftw +gui hdf5 +matio nls openmp
 	static-libs test tk +umfpack xcos"
 REQUIRED_USE="xcos? ( hdf5 gui ) doc? ( gui )"
@@ -39,9 +40,8 @@ for l in ${LINGUASLONG}; do
 	IUSE="${IUSE} linguas_${l%_*}"
 done
 
-KEYWORDS="~amd64 ~x86"
-
-CDEPEND="dev-libs/libpcre
+CDEPEND="
+	dev-libs/libpcre
 	dev-libs/libxml2:2
 	sys-devel/gettext
 	sys-libs/ncurses
@@ -66,8 +66,9 @@ CDEPEND="dev-libs/libpcre
 		dev-java/xmlgraphics-commons
 		virtual/opengl
 		doc? ( dev-java/saxon:6.5 )
-		hdf5? ( dev-java/hdf-java
-				xcos? ( =dev-java/jgraphx-1.4.1.0 ) ) )
+		hdf5? (
+			dev-java/hdf-java
+			xcos? ( =dev-java/jgraphx-1.4.1.0 ) ) )
 	hdf5? ( sci-libs/hdf5 )
 	matio? ( <sci-libs/matio-1.5 )
 	tk? ( dev-lang/tk )
@@ -81,9 +82,10 @@ DEPEND="${CDEPEND}
 	debug? ( dev-util/lcov )
 	gui? (
 		>=virtual/jdk-1.5
-		doc? ( app-text/docbook-xsl-stylesheets
-			   >=dev-java/jlatexmath-fop-0.9.4
-			   dev-java/xml-commons-external )
+		doc? (
+			app-text/docbook-xsl-stylesheets
+			>=dev-java/jlatexmath-fop-0.9.4
+			dev-java/xml-commons-external )
 		xcos? ( dev-lang/ocaml ) )
 	test? ( gui? ( ${VIRTUALX_DEPEND} ) )"
 
@@ -182,8 +184,8 @@ src_configure() {
 		unset JAVAC
 	fi
 
-	export BLAS_LIBS="$(pkg-config --libs blas)"
-	export LAPACK_LIBS="$(pkg-config --libs lapack)"
+	export BLAS_LIBS="$($(tc-getPKG_CONFIG) --libs blas)"
+	export LAPACK_LIBS="$($(tc-getPKG_CONFIG) --libs lapack)"
 	export F77_LDFLAGS="${LDFLAGS}"
 	# gentoo bug #302621
 	use hdf5 && has_version sci-libs/hdf5[mpi] && \

@@ -1,6 +1,12 @@
 # ChangeLog for sci-libs/calculix-ccx
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  22 Feb 2013; Justin Lecher <jlec@gentoo.org> calculix-ccx-2.2.ebuild,
+  metadata.xml:
+  Use tc-getPKG_CONFIG from toolchain-funcs.eclass instead of plain pkg-config;
+  bump to EAPI=5; add missing dep on virtual/pkgconfig; use pkgconfig to detect
+  arpack
 
 *calculix-ccx-2.2 (29 Oct 2010)
 

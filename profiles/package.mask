@@ -30,6 +30,18 @@
 
 #--- END OF EXAMPLES ---
 
+# Justin Lecher <jlec@gentoo.org> (03 March 2013)
+# Mask for missing license
+sci-biology/lastz
+sci-biology/phylobayes
+
+# Justin Lecher <jlec@gentoo.org> (03 March 2013)
+# Missing deps
+sci-biology/gbrowse
+sci-mathematics/surfer
+dev-python/pymvpa
+sci-biology/artemis-bin
+
 # Nicolas Bock <nicolasbock@gmail.com> (05 July 2012)
 # live ebuild
 =sci-chemistry/freeon-9999

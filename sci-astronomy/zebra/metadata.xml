@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-astronomy</herd>
-<longdescription lang="en">
+  <herd>sci-astronomy</herd>
+  <longdescription lang="en">
   The Zurich Extragalactic Bayesian Redshift Analyzer is a software to
   compute and analyze photometric redshifts of galaxies.
   ZEBRA combines and extends several of the classical approaches to

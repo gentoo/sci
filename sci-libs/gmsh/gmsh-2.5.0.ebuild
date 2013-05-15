@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -37,6 +37,7 @@ RDEPEND="
 # http://www.gentoo.org/proj/en/council/meeting-logs/20101130-summary.txt
 
 DEPEND="${RDEPEND}
+	virtual/pkgconfig
 	dev-util/cmake
 	doc? ( virtual/latex-base )"
 

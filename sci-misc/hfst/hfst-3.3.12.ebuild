@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,7 +10,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="+openfst sfst foma xml +glib"
 
 RDEPEND="
@@ -19,7 +19,7 @@ RDEPEND="
 	foma? ( >sci-misc/foma-0.9.13 )
 	xml? ( dev-libs/libxml2 dev-cpp/libxmlpp )
 	glib? ( dev-libs/glib )"
-DEPEND="${RDEPEND} 
+DEPEND="${RDEPEND}
 	>=sys-devel/flex-2.5.35
 	sys-devel/bison"
 

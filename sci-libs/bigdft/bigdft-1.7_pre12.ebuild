@@ -2,9 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit autotools-utils eutils flag-o-matic fortran-2 toolchain-funcs
+PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
+
+inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs
 
 REAL_P="${P/_pre/-dev.}"
 
@@ -38,11 +40,13 @@ RDEPEND="
 				)
 			)"
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	>=sys-devel/autoconf-2.59
 	doc? ( virtual/latex-base )
+	cuda? ( ${PYTHON_DEPS} )
+	opencl? ( ${PYTHON_DEPS} )
 	app-arch/tar
-	app-arch/bzip2"
+	app-arch/gzip"
 
 S="${WORKDIR}/${REAL_P}"
 
@@ -61,15 +65,16 @@ pkg_setup() {
 	fi
 
 	fortran-2_pkg_setup
-	if use openmp; then
-                tc-has-openmp || \
-                        die "Please select an openmp capable compiler like gcc[openmp]"
-        fi
+	if use openmp && [[ $(tc-getCC)$ == *gcc* ]] &&	! tc-has-openmp; then
+		die "Please select an openmp capable compiler like gcc[openmp]"
+	fi
+	python-any-r1_pkg_setup
 }
 
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/"${REAL_P}"-libxc_dir_include.patch \
+		"${FILESDIR}"/"${REAL_P}"-GPUlink.patch \
 		"${FILESDIR}"/"${REAL_P}"-nolib_mods.patch
 	tar -xjf "${FILESDIR}"/"${REAL_P}"-tests.tar.bz2 -C "${S}"/tests/DFT/postSCF/
 	eautoreconf
@@ -93,10 +98,10 @@ src_configure() {
 		--disable-internal-libyaml
 		--enable-internal-libabinit
 		--with-moduledir="${modules}"
-		--with-ext-linalg="$(pkg-config --libs-only-l lapack) \
-			$(pkg-config --libs-only-l blas)"
-		--with-ext-linalg-path="$(pkg-config --libs-only-L lapack) \
-			$(pkg-config --libs-only-L blas)"
+		--with-ext-linalg="$($(tc-getPKG_CONFIG) --libs-only-l lapack) \
+			$($(tc-getPKG_CONFIG) --libs-only-l blas)"
+		--with-ext-linalg-path="$($(tc-getPKG_CONFIG) --libs-only-L lapack) \
+			$($(tc-getPKG_CONFIG) --libs-only-L blas)"
 		--enable-libxc
 		--disable-internal-libxc
 		--with-libxc-include="${modules}"
@@ -105,8 +110,8 @@ src_configure() {
 		$(use_with cuda nvcc-flags "${nvcflags}")
 		$(use_enable opencl)
 		$(use_with etsf_io etsf-io)
-		"$(use etsf_io && echo "--with-netcdf-libs=$(pkg-config --libs netcdf) ${netcdff_libs}")"
-		FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}} ${openmp} -I${modules}"
+		"$(use etsf_io && echo "--with-netcdf-libs=$($(tc-getPKG_CONFIG) --libs netcdf) ${netcdff_libs}")"
+		FCFLAGS="${FCFLAGS} ${openmp} -I${modules}"
 		LD="$(tc-getLD)"
 		CPP="$(tc-getCPP)"
 		)

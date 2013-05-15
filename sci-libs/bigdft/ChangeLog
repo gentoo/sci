@@ -2,7 +2,25 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-<<<<<<< HEAD
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> bigdft-1.7_pre12.ebuild:
+  Fix issue 52
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> bigdft-1.7_pre12.ebuild:
+  Fix issue 52
+
+  22 Feb 2013; Justin Lecher <jlec@gentoo.org> -bigdft-1.6_pre1-r4.ebuild,
+  bigdft-1.6.0-r2.ebuild, bigdft-1.7_pre12.ebuild, metadata.xml:
+  Use tc-getPKG_CONFIG from toolchain-funcs.eclass instead of plain pkg-config;
+  drop old
+
+  20 Feb 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  bigdft-1.7_pre12.ebuild:
+  The setup of python for the compilation of the GPU support in
+  bigdft-1.7_pre12 improved.
+
+  20 Feb 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  bigdft-1.7_pre12.ebuild, +files/bigdft-1.7-dev.12-GPUlink.patch:
+  Compilation of GPU support in bigdft-1.7_pre12 improved. Yet to be tested.
 
 *bigdft-1.7_pre12 (17 Jan 2013)
 
@@ -36,11 +54,10 @@
   +files/bigdft-1.6-tuto.1-gcc-4.6.patch:
   bigdft-1.6_pre1 from -r2 to -r3: patched to install necessary libraries for
   GPU support and to compile with gcc-4.6
-=======
+
   22 Jun 2012; Alexey Shvetsov <alexxy@gentoo.org> bigdft-1.6.0-r2.ebuild,
   bigdft-1.6_pre1-r2.ebuild:
   [sci-libs/bigdft] add ~amd64-linux
->>>>>>> cd00b2db98a3e0ec9013e1d3646e292213071270
 
 *bigdft-1.6.0-r2 (19 Jun 2012)
 *bigdft-1.6_pre1-r2 (19 Jun 2012)

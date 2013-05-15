@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
-inherit eutils fortran-2 multilib
+inherit eutils fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="Calculates maximally localized Wannier functions (MLWFs)"
 HOMEPAGE="http://www.wannier.org/"
@@ -20,13 +20,14 @@ RDEPEND="
 	virtual/lapack
 	perl? ( dev-lang/perl )"
 DEPEND="${RDEPEND}
-		doc? ( virtual/latex-base
-			|| (
-				dev-texlive/texlive-latexextra
-				app-text/tetex
-				app-tex/ptex
-			)
-		)"
+	virtual/pkgconfig
+	doc? ( virtual/latex-base
+		|| (
+			dev-texlive/texlive-latexextra
+			app-text/tetex
+			app-tex/ptex
+		)
+	)"
 
 src_prepare() {
 	# Patch taken from sci-physics/abinit-5.7.3 bundled version
@@ -40,39 +41,33 @@ src_configure() {
 		F90 = $(tc-getFC)
 		FCOPTS = ${FCFLAGS:- ${FFLAGS:- -O2}}
 		LDOPTS = ${LDFLAGS}
-		LIBS = $(pkg-config --libs blas lapack)
+		LIBS = $($(tc-getPKG_CONFIG) --libs blas lapack)
 	EOF
 }
 
 src_compile() {
-	emake -j1 wannier || die "make wannier failed"
-	emake -j1 lib || die "make lib failed"
-	if use doc; then
-		emake -j1 doc || die "make doc failed"
-	fi
+	emake -j1 wannier
+	emake -j1 lib
+	use doc & emake -j1 doc
 }
 
 src_test() {
 	einfo "Compare the 'Standard' and 'Current' outputs of this test."
 	pushd tests
-	emake test || die
+	emake test
 	cat wantest.log
 }
 
 src_install() {
-	dobin wannier90.x || die "Wannier executable cannot be installed"
-	if use perl; then
-		( cd utility; dobin kmesh.pl )
-	fi
-	dolib.a libwannier.a || die "libwannier.a cannot be installed"
+	dobin wannier90.x
+	use perl && dobin utility/kmesh.pl
+	dolib.a libwannier.a
 	insinto /usr/$(get_libdir)/finclude
-	doins src/*.mod || die
+	doins src/*.mod
 	if use examples; then
-		mkdir -p "${D}"/usr/share/${PN}
-		cp -r examples "${D}"/usr/share/${PN}/;
+		insinto /usr/share/${PN}
+		doins -r examples
 	fi
-	if use doc; then
-		(cd doc; dodoc *.pdf )
-	fi
+	use doc && dodoc doc/*.pdf
 	dodoc README README.install CHANGE.log
 }

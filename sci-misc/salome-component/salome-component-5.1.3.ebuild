@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -21,9 +21,9 @@ RDEPEND="
 	>=sci-misc/salome-kernel-${PV}
 	>=sci-misc/salome-gui-${PV}
 	>=sci-misc/salome-med-${PV}
-	>=x11-libs/qt-core-4.4.3
-	>=x11-libs/qt-gui-4.4.3
-	>=x11-libs/qt-opengl-4.4.3
+	>=dev-qt/qtcore-4.4.3
+	>=dev-qt/qtgui-4.4.3
+	>=dev-qt/qtopengl-4.4.3
 	>=x11-libs/qwt-5.2
 	>=dev-python/PyQt4-4.4.3
 	>=sci-libs/opencascade-6.3

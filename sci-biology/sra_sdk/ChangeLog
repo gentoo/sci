@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/sra_sdk
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> sra_sdk-2.1.9.ebuild,
+  sra_sdk-2.2.2a.ebuild, metadata.xml:
+  Drop useless blank line
 
 *sra_sdk-2.2.2a (28 Dec 2012)
 

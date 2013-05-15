@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/ncbi-tools++/ncbi-tools++-0.2010.06.15-r1.ebuild,v 1.3 2012/11/05 11:22:49 jlec Exp $
 
@@ -12,7 +12,6 @@ MY_PV="9_0_0"
 MY_P="ncbi_cxx--${MY_PV}"
 #ftp://ftp.ncbi.nlm.nih.gov/toolbox/ncbi_tools++/ARCHIVE/9_0_0/ncbi_cxx--9_0_0.tar.gz
 
-
 DESCRIPTION="NCBI C++ Toolkit, including NCBI BLAST+"
 HOMEPAGE="http://www.ncbi.nlm.nih.gov/books/bv.fcgi?rid=toolkit"
 SRC_URI="
@@ -24,7 +23,7 @@ SLOT="0"
 IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
-	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif 
+	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -90,7 +89,6 @@ src_prepare() {
 
 #		"${FILESDIR}"/${PN}-${PV#0.}-disable_test_compress.patch
 
-
 #		"${FILESDIR}"/${PN}-${PV#0.}-gcc46.patch \
 #		"${FILESDIR}"/${PN}-${PV#0.}-gcc47.patch \
 #		"${WORKDIR}"/${PN}-${PV#0.}-asneeded.patch \
@@ -106,6 +104,8 @@ src_prepare() {
 	epatch ${PATCHES[@]}
 
 	tc-export CXX CC
+
+
 #	cd src/build-system || die
 #	eaclocal -I.
 #	eautoconf
@@ -186,9 +186,9 @@ src_configure() {
 #	--with-sssutils
 #	--with-sssdb
 #	--with-included-sss
-	--with-z="${EPREFIX}"/usr
-	--with-bz2="${EPREFIX}"/usr
-	--with-muparser="${EPREFIX}"/usr
+	--with-z="${EPREFIX}/usr"
+	--with-bz2="${EPREFIX}/usr"
+	--with-muparser="${EPREFIX}/usr"
 	--without-sybase
 	--with-autodep
 #	--with-3psw=std:netopt favor standard (system) builds of the above pkgs
@@ -201,41 +201,41 @@ src_configure() {
 	$(use_with prefix runpath "${EPREFIX}/usr/$(get_libdir)/ncbi_cxx")
 	$(use_with test check)
 	$(use_with pch)
-	$(use_with lzo lzo "${EPREFIX}"/usr)
-	$(use_with pcre pcre "${EPREFIX}"/usr)
-	$(use_with gnutls gnutls "${EPREFIX}"/usr)
-	$(use_with ssl openssl "${EPREFIX}"/usr)
-	$(use_with ftds ftds "${EPREFIX}"/usr)
-	$(use_with mysql mysql "${EPREFIX}"/usr)
-	$(use_with fltk fltk "${EPREFIX}"/usr)
-	$(use_with opengl opengl "${EPREFIX}"/usr)
-	$(use_with mesa mesa "${EPREFIX}"/usr)
-	$(use_with opengl glut "${EPREFIX}"/usr)
-	$(use_with opengl glew "${EPREFIX}"/usr)
+	$(use_with lzo lzo "${EPREFIX}/usr")
+	$(use_with pcre pcre "${EPREFIX}/usr")
+	$(use_with gnutls gnutls "${EPREFIX}/usr")
+	$(use_with ssl openssl "${EPREFIX}/usr")
+	$(use_with ftds ftds "${EPREFIX}/usr")
+	$(use_with mysql mysql "${EPREFIX}/usr")
+	$(use_with fltk fltk "${EPREFIX}/usr")
+	$(use_with opengl opengl "${EPREFIX}/usr")
+	$(use_with mesa mesa "${EPREFIX}/usr")
+	$(use_with opengl glut "${EPREFIX}/usr")
+	$(use_with opengl glew "${EPREFIX}/usr")
 	$(use_with opengl glew-mx)
-	$(use_with wxwidgets wxwidgets "${EPREFIX}"/usr)
+	$(use_with wxwidgets wxwidgets "${EPREFIX}/usr")
 	$(use_with wxwidgets wxwidgets-ucs)
-	$(use_with freetype freetype "${EPREFIX}"/usr)
-	$(use_with fastcgi fastcgi "${EPREFIX}"/usr)
-	$(use_with berkdb bdb "${EPREFIX}"/usr)
-	$(use_with odbc odbc "${EPREFIX}"/usr)
-	$(use_with python python "${EPREFIX}"/usr)
-	$(use_with boost boost "${EPREFIX}"/usr)
-	$(use_with sqlite sqlite3 "${EPREFIX}"/usr)
-	$(use_with icu icu "${EPREFIX}"/usr)
-	$(use_with expat expat "${EPREFIX}"/usr)
-	$(use_with xml libxml "${EPREFIX}"/usr)
-	$(use_with xml libxslt "${EPREFIX}"/usr)
-	$(use_with xerces xerces "${EPREFIX}"/usr)
-	$(use_with hdf5 hdf5 "${EPREFIX}"/usr)
-	$(use_with xalan xalan "${EPREFIX}"/usr)
-#	$(use_with gif gif "${EPREFIX}"/usr)
-	$(use_with jpeg jpeg "${EPREFIX}"/usr)
-	$(use_with tiff tiff "${EPREFIX}"/usr)
-	$(use_with png png "${EPREFIX}"/usr)
-	$(use_with xpm xpm "${EPREFIX}"/usr)
-	$(use_with curl curl "${EPREFIX}"/usr)
-#	$(use_with X x "${EPREFIX}"/usr)
+	$(use_with freetype freetype "${EPREFIX}/usr")
+	$(use_with fastcgi fastcgi "${EPREFIX}/usr")
+	$(use_with berkdb bdb "${EPREFIX}/usr")
+	$(use_with odbc odbc "${EPREFIX}/usr")
+	$(use_with python python "${EPREFIX}/usr")
+	$(use_with boost boost "${EPREFIX}/usr")
+	$(use_with sqlite sqlite3 "${EPREFIX}/usr")
+	$(use_with icu icu "${EPREFIX}/usr")
+	$(use_with expat expat "${EPREFIX}/usr")
+	$(use_with xml libxml "${EPREFIX}/usr")
+	$(use_with xml libxslt "${EPREFIX}/usr")
+	$(use_with xerces xerces "${EPREFIX}/usr")
+	$(use_with hdf5 hdf5 "${EPREFIX}/usr")
+	$(use_with xalan xalan "${EPREFIX}/usr")
+#	$(use_with gif gif "${EPREFIX}/usr")
+	$(use_with jpeg jpeg "${EPREFIX}/usr")
+	$(use_with tiff tiff "${EPREFIX}/usr")
+	$(use_with png png "${EPREFIX}/usr")
+	$(use_with xpm xpm "${EPREFIX}/usr")
+	$(use_with curl curl "${EPREFIX}/usr")
+#	$(use_with X x "${EPREFIX}/usr")
 	$(use_with X x)
 	)
 
@@ -243,17 +243,17 @@ src_configure() {
 	use test ||	myconf+=( --with-projects="${FILESDIR}"/disable-testsuite-compilation.txt )
 
 	# TODO
-    # copy optimization -O options from CXXFLAGS to DEF_FAST_FLAGS and pass that also to configure
+	# copy optimization -O options from CXXFLAGS to DEF_FAST_FLAGS and pass that also to configure
 	# otherwise your -O2 will be dropped in some subdirectories and repalced by e.g. -O9
 
-	einfo "bash ./src/build-system/configure --srcdir="${S}" --prefix="${EPREFIX}"/usr --libdir=/usr/lib64 ${myconf[@]}"
+	einfo "bash ./src/build-system/configure --srcdir="${S}" --prefix="${EPREFIX}/usr" --libdir=/usr/lib64 ${myconf[@]}"
 
 #	bash \
 #		./src/build-system/configure \
 #	cd src/build-system || die
 	econf \
 		--srcdir="${S}" \
-		--prefix="${EPREFIX}"/usr \
+		--prefix="${EPREFIX}/usr" \
 		--libdir=/usr/lib64 \
 		${myconf[@]} || die
 #--without-debug \
@@ -280,7 +280,14 @@ src_compile() {
 }
 
 src_install() {
-	emake install || die
+	rm -rvf "${S}"_build/lib/ncbi || die
+	emake install prefix="${ED}/usr" libdir="${ED}/usr/$(get_libdir)/${PN}"
+
+#	dobin "${S}"_build/bin/*
+#	dolib.so "${S}"_build/lib/*so*
+#	dolib.a "${S}"_build/lib/*.a
+#	doheader "${S}"_build/inc/*
+
 	# File collisions with sci-biology/ncbi-tools
 	rm -f "${ED}"/usr/bin/{asn2asn,rpsblast,test_regexp}
 	mv "${ED}"/usr/bin/seedtop "${ED}"/usr/bin/seedtop2

@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,7 +16,7 @@ SRC_URI="
 	http://91.191.147.225/~jlec/distfiles/mgltools_source_${PV}.tar.gz
 	http://dev.gentoo.org/~jlec/distfiles/mgltools_source_${PV}.tar.gz"
 
-LICENSE="MGLTOOLS"
+LICENSE="MGLTOOLS MPL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""

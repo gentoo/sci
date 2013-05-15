@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ambertools/ambertools-1.5-r1.ebuild,v 1.2 2011/08/02 14:42:37 alexxy Exp $
 
 EAPI=4
 
-inherit eutils fortran-2 toolchain-funcs
+inherit eutils fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="A suite for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"
@@ -76,8 +76,8 @@ src_prepare() {
 src_configure() {
 	cd "${S}"/AmberTools/src
 	sed -e "s:\\\\\$(LIBDIR)/arpack.a:-larpack:g" \
-		-e "s:\\\\\$(LIBDIR)/lapack.a:$(pkg-config lapack --libs) -lclapack:g" \
-		-e "s:\\\\\$(LIBDIR)/blas.a:$(pkg-config blas cblas --libs):g" \
+		-e "s:\\\\\$(LIBDIR)/lapack.a:$($(tc-getPKG_CONFIG) lapack --libs) -lclapack:g" \
+		-e "s:\\\\\$(LIBDIR)/blas.a:$($(tc-getPKG_CONFIG) blas cblas --libs):g" \
 		-e "s:\\\\\$(LIBDIR)/libdrfftw.a:${EPREFIX}/usr/$(get_libdir)/libdrfftw.a:g" \
 		-e "s:\\\\\$(LIBDIR)/libdfftw.a:${EPREFIX}/usr/$(get_libdir)/libdrfftw.a:g" \
 		-e "s:GENTOO_CFLAGS:${CFLAGS} -DBINTRAJ :g" \
@@ -85,7 +85,7 @@ src_configure() {
 		-e "s:GENTOO_FFLAGS:${FFLAGS}:g" \
 		-e "s:GENTOO_LDFLAGS:${LDFLAGS}:g" \
 		-e "s:fc=g77:fc=$(tc-getFC):g" \
-		-e "s:\$netcdflib:$(pkg-config netcdf --libs):g" \
+		-e "s:\$netcdflib:$($(tc-getPKG_CONFIG) netcdf --libs):g" \
 		-e "s:NETCDF=\$netcdf:NETCDF=netcdf.mod:g" \
 		-i configure || die
 	sed -e "s:arsecond_:arscnd_:g" \

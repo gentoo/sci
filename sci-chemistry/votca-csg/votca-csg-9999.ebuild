@@ -89,7 +89,9 @@ src_install() {
 	if use doc; then
 		if [[ ${PV} = *9999* ]]; then
 			pushd "${WORKDIR}"/manual
-			emake PATH="${PATH}:${ED}/usr/bin"
+			[[ ${CHOST} = *-darwin* ]] && \
+				export DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}${DYLD_LIBRARY_PATH:+:}${ED}/usr/$(get_libdir)"
+			emake PATH="${PATH}${PATH:+:}${ED}/usr/bin"
 			newdoc manual.pdf "${PN}-manual-${PV}.pdf"
 			popd > /dev/null
 		else
