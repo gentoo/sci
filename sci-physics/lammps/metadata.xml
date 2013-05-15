@@ -16,8 +16,6 @@
 		code is designed to be easy to modify or extend with new functionality. 
 	</longdescription>
 	<use>
-		<flag name="lammps-gzip">The read_data and dump commands will read/write
-			gzipped files</flag>
 		<flag name="lammps-memalign">Enables the use of the posix_memalign()
 			call instead of malloc() when large chunks or memory are allocated
 			by LAMMPS</flag>

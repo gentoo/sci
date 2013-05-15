@@ -4,7 +4,9 @@
 
 EAPI=5
 
-inherit eutils
+FORTRAN_NEEDED="package-meam"
+
+inherit eutils fortran-2
 
 LAMMPSDATE="12May13"
 
@@ -15,51 +17,56 @@ SRC_URI="http://lammps.sandia.gov/tars/lammps-${LAMMPSDATE}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="lammps-gzip lammps-memalign package-meam package-dipole package-rigid"
+IUSE="doc examples gzip lammps-memalign mpi package-dipole package-meam package-rigid"
 
-DEPEND=""
+DEPEND="mpi? ( virtual/mpi )"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}-${LAMMPSDATE}"
 
-src_prepare() {
-	epatch "${FILESDIR}/Makefile.gentoo-serial.patch"
-
-	LAMMPS_INCLUDEFLAGS=""
-	use lammps-gzip && LAMMPS_INCLUDEFLAGS+=" -DLAMMPS_GZIP"
+lmp_emake() {
+	local LAMMPS_INCLUDEFLAGS=
+	use gzip && LAMMPS_INCLUDEFLAGS+=" -DLAMMPS_GZIP"
 	use lammps-memalign && LAMMPS_INCLUDEFLAGS+=" -DLAMMPS_MEMALIGN"
 
-	# Patch up the patch.
-	sed -i \
-		-e "s/ARCHIVE\s*=.*$/ARCHIVE = $(tc-getAR)/" \
-		-e "s/CC\s*=.*$/CC = $(tc-getCXX)/" \
-		-e "s/CCFLAGS\s*=.*$/CCFLAGS = ${CXXFLAGS}/" \
-		-e "s/LINK\s*=.*$/LINK = $(tc-getCXX)/" \
-		-e "s/LINKFLAGS\s*=.*$/LINKFLAGS = ${LDFLAGS}/" \
-		-e "s/LMP_INC\s*=.*$/LMP_INC = ${LAMMPS_INCLUDEFLAGS}/" \
-		"${S}/src/MAKE/Makefile.gentoo-serial"
-
-	# Patch up other makefiles.
-	use package-meam && sed -i \
-		-e "s/ARCHIVE\s*=.*$/ARCHIVE = $(tc-getAR)/" \
-		-e "s/F90\s*=.*$/F90 = $(tc-getFC)/" \
-		-e "s/F90FLAGS\s*=.*$/F90FLAGS = ${FCFLAGS}/" \
-		-e "s/LINK\s*=.*$/LINK = $(tc-getFC)/" \
-		-e "s/LINKFLAGS\s*=.*$/LINKFLAGS = ${LDFLAGS}/" \
-		"${S}/lib/meam/Makefile.gfortran"
+	# Note: The lammps makefile uses CC to indicate the C++ compiler.
+	emake \
+		ARCHIVE=$(tc-getAR) \
+		CC=$(use mpi && echo mpic++ || echo $(tc-getCXX)) \
+		F90=$(use mpi && echo mpif90 || echo $(tc-getFC)) \
+		LINK=$(use mpi && echo mpic++ || echo $(tc-getCXX)) \
+		CCFLAGS="${CXXFLAGS}" \
+		F90FLAGS="${FCFLAGS}" \
+		LINKFLAGS="${LDFLAGS}" \
+		LMP_INC="${LAMMPS_INCLUDEFLAGS}" \
+		MPI_INC=$(use mpi || echo -I../STUBS) \
+		MPI_PATH=$(use mpi || echo -L../STUBS) \
+		MPI_LIB=$(use mpi || echo -lmpi_stubs) \
+ 		"$@"
 }
 
 src_compile() {
-	emake -C src stubs
-	use package-meam && {
-		emake -C src yes-meam
-		emake -j1 -C lib/meam -f Makefile.gfortran
-	}
+	# Compile stubs for serial version.
+	use mpi || lmp_emake -C src stubs
+
+	# Build optional packages.
+	if use package-meam; then
+		lmp_emake -C src yes-meam
+		lmp_emake -j1 -C lib/meam -f Makefile.gfortran
+	fi
 	use package-dipole && emake -C src yes-dipole
 	use package-rigid && emake -C src yes-rigid
-	emake -C src gentoo-serial
+
+	# Compile.
+	lmp_emake -C src serial
 }
 
 src_install() {
-	newbin "$S/src/lmp_gentoo-serial" "lmp-serial"
+	newbin "$S/src/lmp_serial" "lmp"
+	if use examples; then
+		insinto "/usr/share/doc/${PF}"
+		doins -r examples
+	fi
+	dodoc README
+	use doc && dohtml -r docs/*.html
 }
