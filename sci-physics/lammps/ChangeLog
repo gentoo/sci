@@ -2,6 +2,11 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 May 2013; Nicolas Bock <nicolasbock@gmail.com> lammps-20130512.ebuild
+  -files/Makefile.gentoo-serial.patch:
+  Added mpi use flag.  This ebuild builds either the serial version (without the
+  mpi use flag), or the parallel version.
+
   10 May 2013; Nicolas Bock <nicolasbock@gmail.com> lammps-20130512.ebuild:
   Moved a variable definition.
 
