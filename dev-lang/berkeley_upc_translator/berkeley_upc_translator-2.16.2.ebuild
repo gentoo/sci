@@ -16,10 +16,7 @@ KEYWORDS="~x86"
 IUSE=""
 
 DEPEND="app-shells/tcsh"
-
-src_prepare() {
-	epatch "${FILESDIR}"/${P}-stackoverflow.patch
-}
+RDEPEND="dev-lang/berkeley_upc"
 
 src_compile() {
 	emake -j1
