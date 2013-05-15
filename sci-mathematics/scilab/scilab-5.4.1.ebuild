@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 JAVA_PKG_OPT_USE="gui"
 VIRTUALX_REQUIRED="manual"
@@ -12,17 +12,17 @@ inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
 
 # Things that don't work:
 # - tests
-# - can't build without docs (-doc)
+# - can't build without docs (-doc) 
 
 DESCRIPTION="Scientific software package for numerical computations"
 HOMEPAGE="http://www.scilab.org/"
 SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz"
 
-SLOT="0"
 LICENSE="CeCILL-2"
+SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="bash-completion debug +doc fftw +gui +matio nls openmp
-	static-libs test tk +umfpack xcos"
+	static-libs test tk +umfpack +xcos"
 REQUIRED_USE="xcos? ( gui ) doc? ( gui )"
 
 # ALL_LINGUAS variable defined in configure.ac
@@ -35,8 +35,7 @@ for l in ${LINGUASLONG}; do
 	IUSE="${IUSE} linguas_${l%_*}"
 done
 
-CDEPEND="
-	dev-libs/libpcre
+CDEPEND="dev-libs/libpcre
 	dev-libs/libxml2:2
 	sci-libs/hdf5
 	>=sci-libs/arpack-3
@@ -49,7 +48,7 @@ CDEPEND="
 		dev-java/avalon-framework:4.2
 		dev-java/batik:1.7
 		dev-java/commons-io:1
-		>=dev-java/flexdock-1.2:0
+		>=dev-java/flexdock-1.2.2:0
 		dev-java/fop:0
 		dev-java/gluegen:2
 		dev-java/javahelp:0
@@ -61,9 +60,10 @@ CDEPEND="
 		>=dev-java/jrosetta-1.0.4:0
 		dev-java/scirenderer:1
 		dev-java/skinlf:0
-		dev-java/xmlgraphics-commons:1.3
+		dev-java/xmlgraphics-commons:1.5
 		virtual/opengl
-		doc? ( dev-java/saxon:6.5 )
+		doc? ( dev-java/saxon:6.5
+		       dev-java/jlatexmath-fop:1 )
 		xcos? ( dev-java/commons-logging:0 ) )
 	matio? ( <sci-libs/matio-1.5 )
 	tk? ( dev-lang/tk )
@@ -77,10 +77,8 @@ DEPEND="${CDEPEND}
 	debug? ( dev-util/lcov )
 	gui? (
 		>=virtual/jdk-1.5
-		doc? (
-			app-text/docbook-xsl-stylesheets
-			dev-java/jlatexmath-fop:1
-			dev-java/xml-commons-external:1.4 )
+		doc? ( app-text/docbook-xsl-stylesheets
+			   dev-java/xml-commons-external:1.4 )
 		xcos? ( dev-lang/ocaml ) )
 	test? (
 		dev-java/junit:4
@@ -116,11 +114,9 @@ pkg_setup() {
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}/${P}-fortran-link.patch" \
 		"${FILESDIR}/${P}-followlinks.patch" \
 		"${FILESDIR}/${P}-gluegen.patch" \
-		"${FILESDIR}/${P}-fix-random-runtime-failure.patch" \
-		"${FILESDIR}/${P}-builddocs.patch"
+		"${FILESDIR}/${P}-fix-random-runtime-failure.patch"
 
 	append-ldflags $(no-as-needed)
 
@@ -128,21 +124,21 @@ src_prepare() {
 	use doc && epatch "${FILESDIR}/${P}-java-heap.patch"
 
 	# use the LINGUAS variable that we set
-	sed -i -e "/^ALL_LINGUAS=/d" -e "/^ALL_LINGUAS_DOC=/d" -i configure.ac
+	sed -i -e "/^ALL_LINGUAS=/d" -e "/^ALL_LINGUAS_DOC=/d" -i configure.ac ||die
 
 	# make sure the DOCBOOK_ROOT variable is set
 	sed -i -e "s/xsl-stylesheets-\*/xsl-stylesheets/g" bin/scilab* || die
 
 	#add specific gentoo java directories
 	if use gui; then
-		sed -i -e "s|/usr/lib/jogl|/usr/lib/jogl-2|" \
-			-e "s|/usr/lib64/jogl|/usr/lib64/jogl-2|" configure.ac || die
-		sed -i -e "s|/usr/lib/gluegen|/usr/lib/gluegen-2|" \
-			-e "s|/usr/lib64/gluegen|/usr/lib64/gluegen-2|" \
+		sed -i -e "s|/usr/lib/jogl2|/usr/lib/jogl-2|" \
+			-e "s|/usr/lib64/jogl2|/usr/lib64/jogl-2|" configure.ac || die
+		sed -i -e "s|/usr/lib/gluegen2|/usr/lib/gluegen-2|" \
+			-e "s|/usr/lib64/gluegen2|/usr/lib64/gluegen-2|" \
 			-e "s|AC_CHECK_LIB(\[gluegen2-rt|AC_CHECK_LIB([gluegen-rt|" \
 			configure.ac || die
 
-		sed -i -e "s/jogl/jogl-2/" -e "s/gluegen/gluegen-2/" \
+		sed -i -e "s/jogl2/jogl-2/" -e "s/gluegen2/gluegen-2/" \
 			etc/librarypath.xml || die
 	fi
 
@@ -151,7 +147,7 @@ src_prepare() {
 	java-pkg_jar-from jgraphx-1.8,jlatexmath-1,flexdock,skinlf
 	java-pkg_jar-from jgoodies-looks-2.0,jrosetta,scirenderer-1
 	java-pkg_jar-from avalon-framework-4.2,jeuclid-core
-	java-pkg_jar-from xmlgraphics-commons-1.3,commons-io-1
+	java-pkg_jar-from xmlgraphics-commons-1.5,commons-io-1
 	java-pkg_jar-from jogl-2 jogl.all.jar jogl2.jar
 	java-pkg_jar-from gluegen-2 gluegen-rt.jar gluegen2-rt.jar
 	java-pkg_jar-from batik-1.7 batik-all.jar
@@ -232,6 +228,9 @@ src_install() {
 	prune_libtool_files --all
 	rm -rf "${D}"/usr/share/scilab/modules/*/tests ||die
 	use bash-completion && dobashcomp "${FILESDIR}"/${PN}.bash_completion
+	echo "SEARCH_DIRS_MASK=${EPREFIX}/usr/$(get_libdir)/scilab" \
+		> 50-"${PN}"
+	insinto /etc/revdep-rebuild && doins "50-${PN}"
 }
 
 pkg_postinst() {

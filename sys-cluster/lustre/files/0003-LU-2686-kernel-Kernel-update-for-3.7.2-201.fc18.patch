@@ -1,7 +1,7 @@
-From dc6776e7aab810ff4db384de86c323e80649dc7c Mon Sep 17 00:00:00 2001
+From 025fda5f3a44942e7c87f180fc7275529e5405fa Mon Sep 17 00:00:00 2001
 From: yangsheng <yang.sheng@intel.com>
 Date: Mon, 8 Apr 2013 21:04:22 +0800
-Subject: [PATCH 04/13] LU-2686 kernel: Kernel update for 3.7.2-201.fc18
+Subject: [PATCH 03/12] LU-2686 kernel: Kernel update for 3.7.2-201.fc18
 
 Add uapi header to include search path.
 
@@ -16,20 +16,20 @@ Change-Id: Id90e091fef63ebf5bb8e7765969aa3148cc31aa2
  5 files changed, 32 insertions(+), 18 deletions(-)
 
 diff --git a/autoMakefile.am b/autoMakefile.am
-index 79bcd65..bfec407 100644
+index 1cc3b48..7b8a096 100644
 --- a/autoMakefile.am
 +++ b/autoMakefile.am
 @@ -84,7 +84,7 @@ all-am: modules
  modules: $(DEP) all-sources
- 	$(MAKE) CC="$(CC)" -C $(LINUX_OBJ)			     \
+ 	$(MAKE) CC="$(CC)" $(CROSS_VARS) -C $(LINUX_OBJ)	     \
  	-f $(PWD)/build/Makefile LUSTRE_LINUX_CONFIG=$(LINUX_CONFIG) \
--        LINUXINCLUDE='$(EXTRA_LNET_INCLUDE) -I$$(srctree)/arch/$$(SRCARCH)/include -I$$(srctree)/arch/$$(SRCARCH)/include/generated -Iinclude $$(if $$(KBUILD_SRC),-Iinclude2 -I$$(srctree)/include) -include $(CONFIG_INCLUDE)' \
+-	LINUXINCLUDE='$(EXTRA_LNET_INCLUDE) -I$$(srctree)/arch/$$(SRCARCH)/include -I$$(srctree)/arch/$$(SRCARCH)/include/generated -Iinclude $$(if $$(KBUILD_SRC),-Iinclude2 -I$$(srctree)/include) -include $(CONFIG_INCLUDE)' \
 +        LINUXINCLUDE='$(EXTRA_LNET_INCLUDE) -I$$(srctree)/arch/$$(SRCARCH)/include -I$$(srctree)/arch/$$(SRCARCH)/include/generated -Iinclude $$(if $$(KBUILD_SRC),-Iinclude2 -I$$(srctree)/include) -I$$(srctree)/arch/$$(SRCARCH)/include/uapi -Iarch/$$(SRCARCH)/include/generated/uapi -I$$(srctree)/include/uapi -Iinclude/generated/uapi -include $(CONFIG_INCLUDE)' \
  	$(MODULE_TARGET)=$(PWD) -o tmp_include_depends -o scripts -o \
  	include/config/MARKER $@
  endif # LINUX
 diff --git a/config/lustre-build-linux.m4 b/config/lustre-build-linux.m4
-index 244d398..0ab7cdb 100644
+index b08ae65..a78bfe3 100644
 --- a/config/lustre-build-linux.m4
 +++ b/config/lustre-build-linux.m4
 @@ -44,7 +44,7 @@ AC_MSG_CHECKING([for Linux release])
@@ -85,18 +85,18 @@ index 244d398..0ab7cdb 100644
  	# This is a clean kernel-source tree, we need to
  	# enable extensive workarounds to get this to build
  	# modules
-@@ -312,7 +316,8 @@ $2
+@@ -344,7 +348,8 @@ $2
  AC_DEFUN([LB_LINUX_COMPILE_IFELSE],
  [m4_ifvaln([$1], [AC_LANG_CONFTEST([$1])])dnl
  rm -f build/conftest.o build/conftest.mod.c build/conftest.ko
--AS_IF([AC_TRY_COMMAND(cp conftest.c build && make -d [$2] ${LD:+"LD=$LD"} CC="$CC" -f $PWD/build/Makefile LUSTRE_LINUX_CONFIG=$LINUX_CONFIG LINUXINCLUDE="$EXTRA_LNET_INCLUDE -I$LINUX/arch/`echo $target_cpu|sed -e 's/powerpc64/powerpc/' -e 's/x86_64/x86/' -e 's/i.86/x86/'`/include -I$LINUX/arch/`echo $target_cpu|sed -e 's/ppc.*/powerpc/' -e 's/x86_64/x86/' -e 's/i.86/x86/'`/include/generated -I$LINUX_OBJ/include -I$LINUX/include -I$LINUX_OBJ/include2 -include $CONFIG_INCLUDE" -o tmp_include_depends -o scripts -o include/config/MARKER -C $LINUX_OBJ EXTRA_CFLAGS="-Werror-implicit-function-declaration $EXTRA_KCFLAGS" $MODULE_TARGET=$PWD/build) >/dev/null && AC_TRY_COMMAND([$3])],
+-AS_IF([AC_TRY_COMMAND(cp conftest.c build && make -d [$2] ${LD:+"LD=$LD"} CC="$CC" -f $PWD/build/Makefile LUSTRE_LINUX_CONFIG=$LINUX_CONFIG LINUXINCLUDE="$EXTRA_LNET_INCLUDE -I$LINUX/arch/`echo $target_cpu|sed -e 's/powerpc64/powerpc/' -e 's/x86_64/x86/' -e 's/i.86/x86/'`/include -I$LINUX/arch/`echo $target_cpu|sed -e 's/ppc.*/powerpc/' -e 's/x86_64/x86/' -e 's/i.86/x86/'`/include/generated -I$LINUX_OBJ/include -I$LINUX/include -I$LINUX_OBJ/include2 -include $CONFIG_INCLUDE" -o tmp_include_depends -o scripts -o include/config/MARKER -C $LINUX_OBJ EXTRA_CFLAGS="-Werror-implicit-function-declaration $EXTRA_KCFLAGS" $CROSS_VARS $MODULE_TARGET=$PWD/build) >/dev/null && AC_TRY_COMMAND([$3])],
 +SUBARCH=$(echo $target_cpu | sed -e 's/powerpc64/powerpc/' -e 's/x86_64/x86/' -e 's/i.86/x86/')
-+AS_IF([AC_TRY_COMMAND(cp conftest.c build && make -d [$2] ${LD:+"LD=$LD"} CC="$CC" -f $PWD/build/Makefile LUSTRE_LINUX_CONFIG=$LINUX_CONFIG LINUXINCLUDE="$EXTRA_LNET_INCLUDE -I$LINUX/arch/$SUBARCH/include -I$LINUX/arch/$SUBARCH/include/generated -Iinclude -I$LINUX/include -Iinclude2 -I$LINUX/include/uapi -I$LINUX/include/generated -I$LINUX/arch/$SUBARCH/include/uapi -Iarch/$SUBARCH/include/generated/uapi -I$LINUX/include/uapi -Iinclude/generated/uapi -include $CONFIG_INCLUDE" -o tmp_include_depends -o scripts -o include/config/MARKER -C $LINUX_OBJ EXTRA_CFLAGS="-Werror-implicit-function-declaration $EXTRA_KCFLAGS" $MODULE_TARGET=$PWD/build) >/dev/null && AC_TRY_COMMAND([$3])],
++AS_IF([AC_TRY_COMMAND(cp conftest.c build && make -d [$2] ${LD:+"LD=$LD"} CC="$CC" -f $PWD/build/Makefile LUSTRE_LINUX_CONFIG=$LINUX_CONFIG LINUXINCLUDE="$EXTRA_LNET_INCLUDE -I$LINUX/arch/$SUBARCH/include -I$LINUX/arch/$SUBARCH/include/generated -Iinclude -I$LINUX/include -Iinclude2 -I$LINUX/include/uapi -I$LINUX/include/generated -I$LINUX/arch/$SUBARCH/include/uapi -Iarch/$SUBARCH/include/generated/uapi -I$LINUX/include/uapi -Iinclude/generated/uapi -include $CONFIG_INCLUDE" -o tmp_include_depends -o scripts -o include/config/MARKER -C $LINUX_OBJ EXTRA_CFLAGS="-Werror-implicit-function-declaration $EXTRA_KCFLAGS" $CROSS_VARS $MODULE_TARGET=$PWD/build) >/dev/null && AC_TRY_COMMAND([$3])],
  	[$4],
  	[_AC_MSG_LOG_CONFTEST
  m4_ifvaln([$5],[$5])dnl])
 diff --git a/ldiskfs/config/ldiskfs-build.m4 b/ldiskfs/config/ldiskfs-build.m4
-index 2feec80..aee760e 100644
+index be144de..a978bcf 100644
 --- a/ldiskfs/config/ldiskfs-build.m4
 +++ b/ldiskfs/config/ldiskfs-build.m4
 @@ -4,12 +4,12 @@ AC_DEFUN([LDISKFS_AC_LINUX_VERSION], [
@@ -152,7 +152,7 @@ index 2feec80..aee760e 100644
  	# enable extensive workarounds to get this to build
  	# modules
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 0354dd4..c71702b 100644
+index 7ac2b22..1972e17 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -328,6 +328,7 @@ AC_TRY_RUN([

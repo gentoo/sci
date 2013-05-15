@@ -3,11 +3,11 @@
 # $Header: /var/cvsroot/gentoo-x86/media-gfx/brlcad/brlcad-7.18.4.ebuild,v 1.1 2011/04/18 22:47:37 dilfridge Exp $
 
 EAPI=4
-inherit cmake-utils eutils subversion java-pkg-2 flag-o-matic
+inherit cmake-utils eutils java-pkg-2 flag-o-matic
 
 DESCRIPTION="Constructive solid geometry modeling system"
 HOMEPAGE="http://brlcad.org/"
-ESVN_REPO_URI="https://brlcad.svn.sourceforge.net/svnroot/${PN}/${PN}/trunk"
+SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-2 BSD"
 SLOT="0"
@@ -18,6 +18,10 @@ RDEPEND="media-libs/libpng
 	sys-libs/zlib
 	>=sci-libs/tnt-3
 	sci-libs/jama
+	<dev-lang/tcl-8.6
+	<dev-lang/tk-8.6
+	<dev-tcltk/itcl-4.0
+	<dev-tcltk/itk-4.0
 	dev-tcltk/iwidgets
 	dev-tcltk/tkimg
 	dev-tcltk/tkpng
@@ -40,9 +44,13 @@ DEPEND="${RDEPEND}
 
 BRLCAD_DIR="${EPREFIX}/usr/${PN}"
 
+#src_prepare() {
+#	epatch "${FILESDIR}/${P}-cmake.patch"
+#}
+
 src_configure() {
 filter-flags -std=c++0x
-	append-ldflags $(no-as-needed)
+append-ldflags $(no-as-needed)
 	if use Debug; then
 		CMAKE_BUILD_TYPE=Debug
 		else
@@ -51,10 +59,11 @@ filter-flags -std=c++0x
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_PREFIX="${BRLCAD_DIR}"
 		-DBRLCAD_ENABLE_STRICT=OFF
-		-DBRLCAD_ENABLE_COMPILER_WARNINGS=OFF
+		-DBRLCAD-ENABLE_STRICT=OFF
+		-DBRLCAD-ENABLE_COMPILER_WARNINGS=OFF
 		-DBRLCAD_FLAGS_OPTIMIZATION=ON
 		-DBRLCAD_ENABLE_X11=ON
-		-DBRLCAD_BUNDLED_LIBS=ON
+		-DBRLCAD_BUNDLED_LIBS=AUTO
 		)
 
 			# use flag triggered options

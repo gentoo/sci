@@ -1,6 +1,15 @@
 # ChangeLog for dev-python/pysparse
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 May 2013; Justin Lecher <jlec@gentoo.org> pysparse-1.1.1-r1.ebuild:
+  USe internal umfpack due to incompatibility with latest umfpack from tree
+
+*pysparse-1.1.1-r1 (06 May 2013)
+
+  06 May 2013; Justin Lecher <jlec@gentoo.org> -pysparse-1.1.ebuild,
+  -pysparse-1.1.1.ebuild, +pysparse-1.1.1-r1.ebuild, metadata.xml:
+  Fix for correct blas/lapack usage, #468708
 
 *pysparse-1.1.1 (20 Jul 2010)
 

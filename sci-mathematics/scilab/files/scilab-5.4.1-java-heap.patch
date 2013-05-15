@@ -1,0 +1,14 @@
+diff -urN scilab-5.4.1-orig/etc/jvm_options.xml scilab-5.4.1/etc/jvm_options.xml
+--- scilab-5.4.1-orig/etc/jvm_options.xml	2013-04-09 04:48:25.468385699 -0400
++++ scilab-5.4.1/etc/jvm_options.xml	2013-04-09 04:49:17.608390887 -0400
+@@ -21,8 +21,8 @@
+     <option value="-Djava.util.logging.config.file=$SCILAB/etc/logging.properties"/>
+     <!-- ENABLE Just In Time java compiler -->
+     <option value="-Djava.compiler=JIT"/>
+-    <!-- Set Java Heap space to 256mb -->
+-    <option value="-Xmx256m"/>
++    <!-- Set Java Heap space to 512mb -->
++    <option value="-Xmx512m"/>
+ 
+     <!-- Set Java space for direct buffer allocation -->
+ <!--

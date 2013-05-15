@@ -1,7 +1,7 @@
-From a6906bd6e814b95d37770f136bed99aa6481444c Mon Sep 17 00:00:00 2001
+From fe7ac0140ddb8fe5b8b046d857ed018ac9dc6335 Mon Sep 17 00:00:00 2001
 From: Peng Tao <tao.peng@emc.com>
 Date: Tue, 19 Mar 2013 14:04:47 +0800
-Subject: [PATCH 07/13] LU-2987 llite: rcu-free inode
+Subject: [PATCH 06/12] LU-2987 llite: rcu-free inode
 
 Since 2.6.38, inode.i_rcu was added and file system .destory_inode
 should rcu-free inodes.
@@ -14,7 +14,7 @@ Change-Id: Idc12c94fd1bf9c99756c9bcb2d07f3061e6dad5a
  2 files changed, 37 insertions(+), 2 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 2f4265a..1731add 100644
+index d0efbf4..bd7ef11 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
 @@ -1683,6 +1683,26 @@ LB_LINUX_TRY_COMPILE([
@@ -53,7 +53,7 @@ index 2f4265a..1731add 100644
           LC_D_DELETE_CONST
  
 diff --git a/lustre/llite/super25.c b/lustre/llite/super25.c
-index 3f6aadf..0c768d5 100644
+index 90949ff..0b9bdbc 100644
 --- a/lustre/llite/super25.c
 +++ b/lustre/llite/super25.c
 @@ -61,11 +61,25 @@ static struct inode *ll_alloc_inode(struct super_block *sb)
