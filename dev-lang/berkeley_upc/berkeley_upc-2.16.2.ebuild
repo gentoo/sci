@@ -18,6 +18,9 @@ REQUIRED_USE="
 	^^ ( segment-fast segment-large )
 	^^ ( sptr-packed sptr-struct sptr-symmetric )"
 
+DEPEND="mpi? ( virtual/mpi )
+	mpi-compat? ( virtual/mpi )"
+
 pkg_setup() {
 	elog "There is a lot of options for this package,"
 	elog "especially network conduits settings."
