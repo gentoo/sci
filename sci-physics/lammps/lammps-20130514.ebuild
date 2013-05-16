@@ -62,11 +62,11 @@ src_compile() {
 }
 
 src_install() {
-	newbin "$S/src/lmp_serial" "lmp"
+	newbin "src/lmp_serial" "lmp"
 	if use examples; then
 		insinto "/usr/share/doc/${PF}"
-		doins -r "${S}/examples"
+		doins -r "examples"
 	fi
 	dodoc README
-	use doc && dohtml -r "${S}/docs/*.html"
+	use doc && dodoc "doc/Manual.pdf"
 }
