@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-visualization/paraview/paraview-3.98.0.ebuild,v 1.4 2013/03/09 21:34:19 hasufell Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-visualization/paraview/paraview-3.98.0-r1.ebuild,v 1.1 2013/05/07 15:59:53 hasufell Exp $
 
 EAPI=5
 
@@ -19,7 +19,7 @@ RESTRICT="mirror"
 LICENSE="paraview GPL-2"
 KEYWORDS="~amd64 ~x86"
 SLOT="0"
-IUSE="boost cg coprocessing doc examples ffmpeg mpi mysql nvcontrol plugins python qt4 sqlite tcl test tk"
+IUSE="boost cg coprocessing development doc examples ffmpeg mpi mysql nvcontrol plugins python qt4 sqlite tcl test tk"
 
 RDEPEND="
 	dev-db/sqlite:3
@@ -145,6 +145,7 @@ src_configure() {
 
 	# TODO: XDMF_USE_MYSQL?
 	mycmakeargs+=(
+		$(cmake-utils_use development PARAVIEW_INSTALL_DEVELOPMENT_FILES)
 		$(cmake-utils_use qt4 PARAVIEW_BUILD_QT_GUI)
 		$(cmake-utils_use qt4 Module_vtkGUISupportQtOpenGL)
 		$(cmake-utils_use qt4 Module_vtkGUISupportQtSQL)
@@ -194,7 +195,6 @@ src_configure() {
 
 	# TODO: MantaView VaporPlugin VRPlugin
 	mycmakeargs+=(
-		$(cmake-utils_use plugins PARAVIEW_INSTALL_DEVELOPMENT)
 		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_AdiosReader)
 		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_AnalyzeNIfTIIO)
 		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_ArrowGlyph)
@@ -213,6 +213,9 @@ src_configure() {
 		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_SierraPlotTools)
 		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_SurfaceLIC)
 		$(cmake-utils_use plugins PARAVIEW_BUILD_PLUGIN_UncertaintyRendering)
+		# these are always needed for plugins
+		$(cmake-utils_use plugins Module_vtkFiltersFlowPaths)
+		$(cmake-utils_use plugins Module_vtkPVServerManagerApplication)
 		)
 
 	cmake-utils_src_configure

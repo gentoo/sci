@@ -18,5 +18,6 @@
     <flag name="webkit">Built support for qt-webkit in vtk</flag>
     <flag name="gl2ps">Enables gl2ps PostScript printing library</flag>
     <flag name="coprocessing">Enable the coprocessing infrastructure which is mainly useful in the context of clusters</flag>
+    <flag name='development'>Install development files including headers</flag>
   </use>
 </pkgmetadata>
