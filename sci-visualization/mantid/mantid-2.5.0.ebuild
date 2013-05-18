@@ -49,9 +49,7 @@ S="${WORKDIR}/${P}-Source"
 BUILD_DIR="${WORKDIR}/${P}-Build"
 
 src_prepare() {
-	epatch "${S}/Framework/Geometry/CMakeLists.txt" "${FILESDIR}/limits.patch"
-	epatch "${S}/Build/CMake/FindOpenCascade.cmake" "${FILESDIR}/find-opencascade.patch"
-	epatch "${S}/MantidPlot/src/zlib123/minigzip.c" "${FILESDIR}/gzip-of.patch"
+	epatch "${FILESDIR}/limits.patch" "${FILESDIR}/find-opencascade.patch"  "${FILESDIR}/gzip-of.patch"
 }
 
 src_configure() {
