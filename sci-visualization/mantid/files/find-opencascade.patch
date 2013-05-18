@@ -1,5 +1,5 @@
---- Build/CMake/FindOpenCascade.cmake   2012-12-17 05:05:25.000000000 +0000
-+++ Build/CMake/FindOpenCascade2.cmake  2012-12-18 11:18:36.643727000 +0000
+--- Build/CMake/FindOpenCascade.cmake.orig   2012-12-17 05:05:25.000000000 +0000
++++ Build/CMake/FindOpenCascade.cmake  2012-12-18 11:18:36.643727000 +0000
 @@ -16,38 +16,41 @@
    add_definitions ( -DWNT )
  endif ( WIN32 )

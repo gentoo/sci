@@ -1,5 +1,5 @@
---- Framework/Geometry/CMakeLists.txt   2012-12-17 05:05:26.000000000 +0000
-+++ Framework/Geometry/CMakeLists3.txt  2012-12-18 11:27:06.378414000 +0000
+--- Framework/Geometry/CMakeLists.txt.orig   2012-12-17 05:05:26.000000000 +0000
++++ Framework/Geometry/CMakeLists.txt  2012-12-18 11:27:06.378414000 +0000
 @@ -302,10 +302,8 @@
    add_definitions ( -DNO_OPENCASCADE )
  endif ()
