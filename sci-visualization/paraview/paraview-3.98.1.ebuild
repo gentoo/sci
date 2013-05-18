@@ -86,8 +86,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-removesqlite.patch \
 		"${FILESDIR}"/${P}-gcc-4.7.patch \
 		"${FILESDIR}"/${P}-vtknetcd.patch \
-		"${FILESDIR}"/${P}-vtk-cg-path.patch \
-		"${FILESDIR}"/${P}-pvblot.patch
+		"${FILESDIR}"/${P}-vtk-cg-path.patch
 
 	# lib64 fixes
 	sed -i \
