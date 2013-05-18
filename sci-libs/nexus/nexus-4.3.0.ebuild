@@ -32,15 +32,16 @@ swig? ( dev-lang/swig )"
 # N.B. the website says it depends on HDF4 too, but I find it builds fine without it
 
 src_configure() {
+	# Linking between Fortran libraries gives a relocation error, using workaround suggested at:
+	# http://www.gentoo.org/proj/en/base/amd64/howtos/?part=1&chap=3
+	use fortran && append-flags -fPIC
+
 	econf $(use_with doc doxygen) $(use_with fortran f90) $(use_with swig) $(use_with xml) $(use_with cbflib) $(use_with guile) $(use_with java) $(use_with python)
 }
 
 src_compile() {
 	if use fortran
 	then
-		# Linking between Fortran libraries gives a relocation error, using workaround suggested at:
-		# http://www.gentoo.org/proj/en/base/amd64/howtos/?part=1&chap=3
-		append-flags -fPIC
 		# Handling of dependencies between Fortran module files doesn't play well with parallel make
 		emake -j1
 	else
