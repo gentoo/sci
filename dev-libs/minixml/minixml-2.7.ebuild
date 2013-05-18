@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,10 +7,8 @@ EAPI=5
 inherit eutils
 
 DESCRIPTION="A lightweight ANSI C XML library"
-
-HOMEPAGE="http://www.minixml.org/"
-
-SRC_URI="http://ftp.easysw.com/pub/mxml/${PV}/mxml-${PV}.tar.gz"
+HOMEPAGE="http://www.msweet.org/projects.php?Z3"
+SRC_URI="http://www.msweet.org/files/project3/mxml-${PV}.tar.gz"
 
 LICENSE="LGPL-2-with-linking-exception"
 
@@ -21,11 +19,11 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND=""
 
-S=${WORKDIR}/mxml-${PV}
+S="${WORKDIR}/mxml-${PV}"
 
 src_install() {
-	emake install DSTROOT=${D}
-	dodoc README ANNOUNCEMENT CHANGES COPYING
+	emake install DSTROOT="${D}"
+	dodoc README ANNOUNCEMENT CHANGES
 }
