@@ -37,7 +37,11 @@ src_configure() {
 
 src_compile() {
 	if use fortran
-	then # Handling of dependencies between Fortran module files doesn't play well with parallel make
+	then
+		# Linking between Fortran libraries gives a relocation error, using workaround suggested at:
+		# http://www.gentoo.org/proj/en/base/amd64/howtos/?part=1&chap=3
+		append-flags -fPIC
+		# Handling of dependencies between Fortran module files doesn't play well with parallel make
 		emake -j1
 	else
 		emake
