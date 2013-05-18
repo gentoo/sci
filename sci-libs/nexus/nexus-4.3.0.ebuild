@@ -4,14 +4,12 @@
 
 EAPI=5
 
-inherit eutils
+inherit eutils fortran-2
 
 DESCRIPTION="Data format for neutron and x-ray scattering data"
 
 HOMEPAGE="http://nexusformat.org/"
 
-# Point to any required sources; these will be automatically downloaded by
-# Portage.
 SRC_URI="http://download.nexusformat.org/kits/${PV}/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
@@ -22,11 +20,12 @@ KEYWORDS="~amd64"
 
 IUSE="xml doc fortran swig cbflib guile tcl java python"
 
+FORTRAN_NEEDED=fortran
+
 DEPEND="sci-libs/hdf5
 xml? ( dev-libs/minixml ) 
 doc? ( app-doc/doxygen dev-tex/xcolor )
 swig? ( dev-lang/swig )
-fortran? ( virtual/fortran )
 cbflib? ( sci-libs/cbflib )
 guile? ( dev-scheme/guile )
 tcl? ( dev-lang/tcl )
