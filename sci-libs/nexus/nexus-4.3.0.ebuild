@@ -34,3 +34,12 @@ swig? ( dev-lang/swig )"
 src_configure() {
 	econf $(use_with doc doxygen) $(use_with fortran f90) $(use_with swig) $(use_with xml) $(use_with cbflib) $(use_with guile) $(use_with java) $(use_with python)
 }
+
+src_compile() {
+	if use fortran
+	then # Handling of dependencies between Fortran module files doesn't play well with parallel make
+		emake -j1
+	else
+		emake
+	fi
+}
