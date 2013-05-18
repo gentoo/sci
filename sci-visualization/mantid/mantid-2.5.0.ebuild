@@ -8,7 +8,7 @@ inherit eutils cmake-utils fortran-2
 
 DESCRIPTION="Utilities for processing and plotting neutron scattering data"
 HOMEPAGE="http://www.mantidproject.org/"
-SRC_URI="http://download.mantidproject.org/download.psp?f=kits/mantid/Python27/${PV}/${P}-Source.tar.gz"
+SRC_URI="http://download.mantidproject.org/download.psp?f=kits/mantid/Python27/$(basename ${PV} .0)/${P}-Source.tar.gz"
 
 LICENSE="GPL-3+"
 
@@ -24,7 +24,7 @@ dev-libs/poco
 dev-libs/boost[python]
 opencl? ( virtual/opencl )
 tcmalloc? ( dev-util/google-perftools )
-paraview? ( >=sci-visualization/paraview-3.10.1 )
+paraview? ( >=sci-visualization/paraview-3.98.1 )
 virtual/opengl
 x11-libs/qscintilla
 x11-libs/qwt
@@ -40,6 +40,8 @@ dev-python/sphinx
 DEPEND="${RDEPEND}
 doxygen? ( app-doc/doxygen )
 test? ( dev-util/cppcheck )"
+
+S=${WORKDIR}/${P}-Source
 
 S="${WORKDIR}/${P}-Source"
 BUILD_DIR="${WORKDIR}/${P}-Build"
