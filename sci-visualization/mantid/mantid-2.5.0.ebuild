@@ -4,11 +4,13 @@
 
 EAPI=5
 
-inherit eutils cmake-utils fortran-2
+inherit eutils cmake-utils fortran-2 versionator
+
+MAJOR_PV=$(get_version_component_range 1-2)
 
 DESCRIPTION="Utilities for processing and plotting neutron scattering data"
 HOMEPAGE="http://www.mantidproject.org/"
-SRC_URI="http://download.mantidproject.org/download.psp?f=kits/mantid/Python27/$(basename ${PV} .0)/${P}-Source.tar.gz"
+SRC_URI="http://download.mantidproject.org/download.psp?f=kits/mantid/Python27/${MAJOR_PV}/${P}-Source.tar.gz"
 
 LICENSE="GPL-3+"
 
