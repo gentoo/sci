@@ -1,0 +1,55 @@
+From 970710b6b57a14762881a83c2e20d0db067fd1b4 Mon Sep 17 00:00:00 2001
+From: Nikhil Shetty <nikhil.shetty@kitware.com>
+Date: Tue, 11 Dec 2012 15:56:16 -0500
+Subject: [PATCH] BUGFIX: Fixing cmake error configuring pvblot plugin
+
+- There are duplicate configure step below in the CMakeLists.txt
+file.
+- One with the ${EXECUTABLE_OUTPUT_PATH} is unpredictable and deleted.
+- One with ${ParaView_BINARY_DIR} is preferred.
+- Also there was a small bug with the $script_ext variable.
+- $script_exe should actuall be $script_ext
+
+Change-Id: Ice9419ea80e5be9b8506900ebdf9e40174055d51
+---
+ Plugins/pvblot/CMakeLists.txt |   13 +++----------
+ 1 files changed, 3 insertions(+), 10 deletions(-)
+
+diff --git a/Plugins/pvblot/CMakeLists.txt b/Plugins/pvblot/CMakeLists.txt
+index 5b1120d..29a3924 100644
+--- a/Plugins/pvblot/CMakeLists.txt
++++ b/Plugins/pvblot/CMakeLists.txt
+@@ -69,18 +69,11 @@ ENDIF (PARAVIEW_BUILD_QT_GUI)
+ GET_TARGET_PROPERTY(PVBLOT_PVPYTHON_EXECUTABLE pvpython LOCATION)
+ SET(PVBLOT_BLOTISH_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
+ 
+-SET(script_extension)
++SET(script_ext)
+ IF(WIN32 AND NOT CYGWIN)
+   SET(script_ext ".bat")
+ ENDIF(WIN32 AND NOT CYGWIN)
+ 
+-CONFIGURE_FILE(
+-  "${CMAKE_CURRENT_SOURCE_DIR}/pvblot${script_exe}.in"
+-  "${EXECUTABLE_OUTPUT_PATH}/pvblot${script_exe}"
+-  @ONLY
+-  )
+-
+-
+ #############################################################################
+ # Set up pvblot script for when ParaView is installed.  This includes
+ # installing the Python source files.
+@@ -94,8 +87,8 @@ SET(PVBLOT_BLOTISH_PATH "${CMAKE_INSTALL_PREFIX}/${PV_INSTALL_LIB_DIR}")
+ 
+ 
+ CONFIGURE_FILE(
+-  "${CMAKE_CURRENT_SOURCE_DIR}/pvblot${script_exe}.in"
+-  "${ParaView_BINARY_DIR}/CMake/tmp/pvblot${script_exe}"
++  "${CMAKE_CURRENT_SOURCE_DIR}/pvblot${script_ext}.in"
++  "${ParaView_BINARY_DIR}/CMake/tmp/pvblot${script_ext}"
+   @ONLY
+   )
+ 
+-- 
+1.7.0
+
