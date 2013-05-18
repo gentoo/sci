@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils fortran-2 java-pkg-opt-2
+inherit eutils fortran-2 java-pkg-opt-2 flag-o-matic
 
 DESCRIPTION="Data format for neutron and x-ray scattering data"
 HOMEPAGE="http://nexusformat.org/"
@@ -34,7 +34,7 @@ swig? ( dev-lang/swig )"
 src_configure() {
 	# Linking between Fortran libraries gives a relocation error, using workaround suggested at:
 	# http://www.gentoo.org/proj/en/base/amd64/howtos/?part=1&chap=3
-	use fortran && append-flags -fPIC
+	use fortran && append-fflags -fPIC
 
 	econf $(use_with doc doxygen) $(use_with fortran f90) $(use_with swig) $(use_with xml) $(use_with cbflib) $(use_with guile) $(use_with java) $(use_with python)
 }
