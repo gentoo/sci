@@ -18,7 +18,7 @@ SLOT="0"
 
 KEYWORDS="~amd64"
 
-IUSE="test doc opencl shared-libs tcmalloc paraview"
+IUSE="test doc opencl shared-libs tcmalloc paraview test"
 
 RDEPEND="dev-lang/python:2.7
 sci-libs/nexus
@@ -53,5 +53,13 @@ src_prepare() {
 }
 
 src_configure() {
-	cmake-utils_src_configure $(cmake-utils_use_enable doc QTASSISTANT) $(cmake-utils_use_use doc DOT) $(cmake-utils_use opencl OPENCL_BUILD) $(cmake-utils_use_build shared-libs SHARED_LIBS) $(cmake-utils_use_use tcmalloc) $(cmake-utils_use paraview MAKE_VATES)
+	mycmakeargs=(	$(cmake-utils_use_enable doc QTASSISTANT)
+			$(cmake-utils_use_use doc DOT)
+			$(cmake-utils_use opencl OPENCL_BUILD)
+			$(cmake-utils_use_build shared-libs SHARED_LIBS)
+			$(cmake-utils_use_use tcmalloc TCMALLOC)
+			$(cmake-utils_use paraview MAKE_VATES)
+			$(cmake-utils_use_build test TESTING)
+		)
+	cmake-utils_src_configure 
 }
