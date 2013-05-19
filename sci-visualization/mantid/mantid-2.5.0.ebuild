@@ -18,7 +18,7 @@ SLOT="0"
 
 KEYWORDS="~amd64"
 
-IUSE="test doc opencl shared-libs tcmalloc paraview opencascade"
+IUSE="test doc opencl shared-libs tcmalloc paraview"
 
 RDEPEND="dev-lang/python:2.7
 sci-libs/nexus
