@@ -16,7 +16,7 @@ SLOT="0"
 
 KEYWORDS="~amd64"
 
-IUSE="test doxygen opencl shared-libs tcmalloc paraview opencascade"
+IUSE="test doc opencl shared-libs tcmalloc paraview opencascade"
 
 RDEPEND="dev-lang/python:2.7
 sci-libs/nexus
@@ -38,7 +38,7 @@ dev-python/sphinx
 "
 
 DEPEND="${RDEPEND}
-doxygen? ( app-doc/doxygen )
+doc? ( app-doc/doxygen )
 test? ( dev-util/cppcheck )"
 
 S="${WORKDIR}/${P}-Source"

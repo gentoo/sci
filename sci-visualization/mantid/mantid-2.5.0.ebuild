@@ -18,7 +18,7 @@ SLOT="0"
 
 KEYWORDS="~amd64"
 
-IUSE="test doxygen opencl shared-libs tcmalloc paraview opencascade"
+IUSE="test doc opencl shared-libs tcmalloc paraview opencascade"
 
 RDEPEND="dev-lang/python:2.7
 sci-libs/nexus
@@ -35,12 +35,12 @@ dev-python/pyqwt
 sci-libs/gsl
 dev-python/numpy
 dev-cpp/muParser
-opencascade? ( sci-libs/opencascade )
+sci-libs/opencascade
 dev-python/sphinx
 "
 
 DEPEND="${RDEPEND}
-doxygen? ( app-doc/doxygen )
+doc? ( app-doc/doxygen )
 test? ( dev-util/cppcheck )"
 
 S=${WORKDIR}/${P}-Source
@@ -53,5 +53,5 @@ src_prepare() {
 }
 
 src_configure() {
-	cmake-utils_src_configure $(cmake-utils_use opencl OPENCL_BUILD) $(cmake-utils_use_build shared-libs SHARED_LIBS) $(cmake-utils_use_use tcmalloc TCMALLOC) $(cmake-utils_use paraview MAKE_VATES) $(cmake-utils_use_no opencascade OPENCASCADE)
+	cmake-utils_src_configure $(cmake-utils-use-enable doc QTASSISTANT) $(cmake-utils_use opencl OPENCL_BUILD) $(cmake-utils_use_build shared-libs SHARED_LIBS) $(cmake-utils_use_use tcmalloc TCMALLOC) $(cmake-utils_use paraview MAKE_VATES)
 }

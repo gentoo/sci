@@ -10,7 +10,7 @@
 <longdescription>Long description of the package</longdescription>
 <use>
 	<flag name="shared-libs">Build shared libraries</flag>
-	<flag name="doxygen">Generate documentation with <pkg>app-doc/doxygen</pkg></flag>
+	<flag name="doc">Generate documentation with <pkg>app-doc/doxygen</pkg>, QT Assistant etc</flag>
 	<flag name="opencl">Use OpenCL to accelerate calculations</flag>
 	<flag name="tcmalloc">Use thread-caching malloc</flag>
 	<flag name="paraview">Enable the Visualisation and Analysis Toolkit ExtensionS (VATES)</flag>
