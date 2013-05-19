@@ -53,5 +53,5 @@ src_prepare() {
 }
 
 src_configure() {
-	cmake-utils_src_configure $(cmake-utils-use-enable doc QTASSISTANT) $(cmake-utils_use opencl OPENCL_BUILD) $(cmake-utils_use_build shared-libs SHARED_LIBS) $(cmake-utils_use_use tcmalloc TCMALLOC) $(cmake-utils_use paraview MAKE_VATES)
+	cmake-utils_src_configure $(cmake-utils-use-enable doc QTASSISTANT) $(cmake-utils-use-use doc DOT) $(cmake-utils_use opencl OPENCL_BUILD) $(cmake-utils_use_build shared-libs SHARED_LIBS) $(cmake-utils_use_use tcmalloc TCMALLOC) $(cmake-utils_use paraview MAKE_VATES)
 }
