@@ -17,7 +17,7 @@ SRC_URI="http://download.mantidproject.org/download.psp?f=kits/mantid/Python27/$
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="test doc opencl shared-libs tcmalloc paraview test"
+IUSE="doc opencl paraview shared-libs tcmalloc test"
 
 RDEPEND="
 	${PYTHON_DEPS}
