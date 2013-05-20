@@ -32,7 +32,7 @@ DEPEND="${RDEPEND}
 "
 
 pkg_setup() {
-	use python && python_single-r1_pkg_setup
+	use python && python-single-r1_pkg_setup
 	use fortran && fortran-2_pkg_setup
 }
 
