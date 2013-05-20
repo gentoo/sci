@@ -4,7 +4,9 @@
 
 EAPI=5
 
-inherit eutils cmake-utils fortran-2
+FORTRAN_STANDARD=90
+PYTHON_COMPAT=python2_7
+inherit eutils cmake-utils fortran-2 python-single-r1
 
 DESCRIPTION="Utilities for processing and plotting neutron scattering data"
 HOMEPAGE="http://www.mantidproject.org/"
@@ -16,7 +18,7 @@ KEYWORDS="~amd64"
 IUSE="test doc opencl shared-libs tcmalloc paraview opencascade"
 
 RDEPEND="
-	dev-lang/python:2.7
+	${PYTHON_DEPS}
 	sci-libs/nexus
 	dev-libs/poco
 	dev-libs/boost[python]
@@ -32,21 +34,25 @@ RDEPEND="
 	dev-python/numpy
 	dev-cpp/muParser
 	opencascade?	( sci-libs/opencascade )
-	dev-python/sphinx
 "
 
 DEPEND="${RDEPEND}
+	dev-python/sphinx
 	doc?	( app-doc/doxygen )
 	test?	( dev-util/cppcheck )
 "
 
 S="${WORKDIR}/${P}-Source"
-BUILD_DIR="${WORKDIR}/${P}-Build"
 
 src_prepare() {
 	epatch	"${FILESDIR}/limits.patch" \
 		"${FILESDIR}/find-opencascade.patch" \
 		"${FILESDIR}/gzip-of.patch"
+}
+
+pkg_setup() {
+	python_single-r1_pkg_setup
+	fortran-2_pkg_setup
 }
 
 src_configure() {

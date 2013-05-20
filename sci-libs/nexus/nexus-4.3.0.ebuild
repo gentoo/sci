@@ -5,6 +5,7 @@
 EAPI=5
 
 FORTRAN_NEEDED=fortran
+FORTRAN_STANDARD=90
 PYTHON_COMPAT=( python{2_5,2_6,2_7} )
 inherit eutils fortran-2 java-pkg-opt-2 flag-o-matic python-single-r1
 
@@ -15,10 +16,11 @@ SRC_URI="http://download.nexusformat.org/kits/${PV}/${P}.tar.gz"
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="xml doc fortran swig cbflib guile tcl java python"
+IUSE="cbflib doc fortran guile java python swig tcl xml"
 
-RDEPEND="${PYTHON_DEPS}
+RDEPEND="
 	sci-libs/hdf5
+	python?	( ${PYTHON_DEPS} )
 	xml?	( dev-libs/minixml )
 	cbflib?	( sci-libs/cbflib )
 	guile?	( dev-scheme/guile )
@@ -28,6 +30,12 @@ DEPEND="${RDEPEND}
 	doc?	( app-doc/doxygen dev-tex/xcolor )
 	swig?	( dev-lang/swig )
 "
+
+pkg_setup() {
+	use python && python_single-r1_pkg_setup
+	use fortran && fortran-2_pkg_setup
+}
+
 src_configure() {
 	# Linking between Fortran libraries gives a relocation error, using workaround suggested at:
 	# http://www.gentoo.org/proj/en/base/amd64/howtos/?part=1&chap=3
