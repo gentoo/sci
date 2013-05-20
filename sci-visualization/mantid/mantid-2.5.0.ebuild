@@ -13,35 +13,34 @@ HOMEPAGE="http://www.mantidproject.org/"
 SRC_URI="http://download.mantidproject.org/download.psp?f=kits/mantid/Python27/${MAJOR_PV}/${P}-Source.tar.gz"
 
 LICENSE="GPL-3+"
-
 SLOT="0"
-
 KEYWORDS="~amd64"
-
 IUSE="test doc opencl shared-libs tcmalloc paraview test"
 
-RDEPEND="dev-lang/python:2.7
-sci-libs/nexus
-dev-libs/poco
-dev-libs/boost[python]
-opencl? ( virtual/opencl )
-tcmalloc? ( dev-util/google-perftools )
-paraview? ( >=sci-visualization/paraview-3.98.1 )
-virtual/opengl
-x11-libs/qscintilla
-x11-libs/qwt
-x11-libs/qwtplot3d
-dev-python/pyqwt
-sci-libs/gsl
-dev-python/numpy
-dev-cpp/muParser
-sci-libs/opencascade
-dev-python/sphinx
+RDEPEND="
+	dev-lang/python:2.7
+	sci-libs/nexus
+	dev-libs/poco
+	dev-libs/boost[python]
+	opencl?		( virtual/opencl )
+	tcmalloc?	( dev-util/google-perftools )
+	paraview?	( >=sci-visualization/paraview-3.98.1 )
+	virtual/opengl
+	x11-libs/qscintilla
+	x11-libs/qwt
+	x11-libs/qwtplot3d
+	dev-python/pyqwt
+	sci-libs/gsl
+	dev-python/numpy
+	dev-cpp/muParser
+	sci-libs/opencascade
+	dev-python/sphinx
 "
 
 DEPEND="${RDEPEND}
-doc? ( app-doc/doxygen )
-test? ( dev-util/cppcheck )"
+	doc?	( app-doc/doxygen )
+	test?	( dev-util/cppcheck )
+"
 
 S=${WORKDIR}/${P}-Source
 
@@ -49,7 +48,9 @@ S="${WORKDIR}/${P}-Source"
 BUILD_DIR="${WORKDIR}/${P}-Build"
 
 src_prepare() {
-	epatch "${FILESDIR}/limits.patch" "${FILESDIR}/find-opencascade.patch"  "${FILESDIR}/gzip-of.patch"
+	epatch	"${FILESDIR}/limits.patch" \
+		"${FILESDIR}/find-opencascade.patch" \
+		"${FILESDIR}/gzip-of.patch"
 }
 
 src_configure() {
@@ -61,5 +62,5 @@ src_configure() {
 			$(cmake-utils_use paraview MAKE_VATES)
 			$(cmake-utils_use_build test TESTING)
 		)
-	cmake-utils_src_configure 
+	cmake-utils_src_configure
 }

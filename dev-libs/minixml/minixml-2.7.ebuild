@@ -11,15 +11,9 @@ HOMEPAGE="http://www.msweet.org/projects.php?Z3"
 SRC_URI="http://www.msweet.org/files/project3/mxml-${PV}.tar.gz"
 
 LICENSE="LGPL-2-with-linking-exception"
-
 SLOT="0"
-
 KEYWORDS="~amd64"
-
 IUSE=""
-
-DEPEND=""
-RDEPEND=""
 
 S="${WORKDIR}/mxml-${PV}"
 
