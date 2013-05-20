@@ -44,11 +44,7 @@ src_configure() {
 }
 
 src_compile() {
-	if use fortran
-	then
-		# Handling of dependencies between Fortran module files doesn't play well with parallel make
-		emake -j1
-	else
-		emake
-	fi
+	# Handling of dependencies between Fortran module files doesn't play well with parallel make
+	use fortran && MAKEOPTS+=" -j1 "
+	default
 }
