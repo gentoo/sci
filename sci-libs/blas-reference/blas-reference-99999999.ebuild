@@ -2,58 +2,64 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit eutils toolchain-funcs cmake-utils alternatives-2 subversion
+inherit fortran-2 cmake-utils alternatives-2
+
+LPN=lapack
+LPV=3.4.2
+
+if [[ ${PV} == "9999" ]] ; then
+	ESVN_REPO_URI="https://icl.cs.utk.edu/svn/lapack-dev/${LPN}/trunk"
+	inherit subversion
+	KEYWORDS=""
+else
+	SRC_URI="http://www.netlib.org/${LPN}/${LPN}-${LPV}.tgz"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+fi
 
 DESCRIPTION="Reference implementation of BLAS"
 HOMEPAGE="http://www.netlib.org/lapack/"
-ESVN_REPO_URI="https://icl.cs.utk.edu/svn/lapack-dev/lapack/trunk"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test"
 
-DOCS=( README )
-
-S="${WORKDIR}/${MYP}"
+S="${WORKDIR}/${LPN}-${LPV}"
 
 src_prepare() {
-	# avoid collision with other blas
+	# rename library to avoid collision with other blas implementations
 	sed -i \
 		-e 's:blas:refblas:g' \
-		CMakeLists.txt BLAS/blas.pc.in BLAS/{SRC,TESTING}/CMakeLists.txt || die
+		CMakeLists.txt BLAS/blas.pc.in \
+		BLAS/{SRC,TESTING}/CMakeLists.txt || die
 	sed -i \
 		-e 's:BINARY_DIR}/blas:BINARY_DIR}/refblas:' \
 		BLAS/CMakeLists.txt || die
-	export FC=$(tc-getFC) F77=$(tc-getF77)
 	use static-libs && mkdir "${WORKDIR}/${PN}_static"
 }
 
-lapack_configure() {
-	mycmakeargs+=(
-		-DUSE_OPTIMIZED_BLAS=OFF
-		$(cmake-utils_use_build test TESTING)
-	)
-	cmake-utils_src_configure
-}
-
 src_configure() {
-	mycmakeargs=( -DBUILD_SHARED_LIBS=ON )
-	lapack_configure
-	if use static-libs; then
-		mycmakeargs=( -DBUILD_SHARED_LIBS=OFF )
-		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" lapack_configure
-	fi
+	blas_configure() {
+		local mycmakeargs=(
+			-DUSE_OPTIMIZED_BLAS=OFF
+			$(cmake-utils_use_build test TESTING)
+			$@
+		)
+		cmake-utils_src_configure
+	}
+
+	blas_configure -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
+	use static-libs && \
+		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" blas_configure \
+		-DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON
 }
 
 src_compile() {
 	cmake-utils_src_compile -C BLAS
-	if use static-libs; then
-		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" \
-			cmake-utils_src_compile -C BLAS
-	fi
+	use static-libs && CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" \
+		cmake-utils_src_compile -C BLAS
 }
 
 src_test() {
@@ -66,10 +72,8 @@ src_test() {
 
 src_install() {
 	cmake-utils_src_install -C BLAS
-	if use static-libs; then
-		CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" \
+	use static-libs && CMAKE_BUILD_DIR="${WORKDIR}/${PN}_static" \
 			cmake-utils_src_install -C BLAS
-	fi
 	alternatives_for blas reference 0 \
-		"/usr/$(get_libdir)/pkgconfig/blas.pc" "refblas.pc"
+		/usr/$(get_libdir)/pkgconfig/blas.pc refblas.pc
 }
