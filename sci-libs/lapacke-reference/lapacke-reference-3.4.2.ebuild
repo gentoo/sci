@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit alternatives-2 cmake-utils eutils fortran-2 toolchain-funcs
 
@@ -30,7 +30,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MYP}"
 
 src_prepare() {
-	# avoid collision with other lapack
+	# rename libraries to avoid collision with other lapacke
 	sed -i \
 		-e 's:BINARY_DIR}/lapacke.pc:BINARY_DIR}/reflapacke.pc:' \
 		-e '/export/s:lapacke:reflapacke:g' \
