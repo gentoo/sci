@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit cmake-utils
+inherit cmake-utils eutils
 
 DESCRIPTION="Scalable c++ machine learning library"
 HOMEPAGE="http://www.mlpack.org/"
@@ -21,14 +21,16 @@ RDEPEND="
 	sci-libs/armadillo[lapack]"
 
 DEPEND="${DEPEND}
+	app-text/txt2man
 	doc? ( app-doc/doxygen )"
 
 DOCS=( HISTORY.txt )
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-libdir.patch
+	epatch "${FILESDIR}"/${PN}-1.0.4-libdir.patch
 	sed -i \
 		-e "s:share/doc/mlpack:share/doc/${PF}:" \
+		-e 's/-O3//g' \
 		CMakeLists.txt || die
 }
 
