@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*coinor-cgl-0.58.0 (26 May 2013)
+
+  26 May 2013; Sébastien Fabbro <bicatali@gentoo.org> +coinor-cgl-0.58.0.ebuild,
+  -coinor-cgl-0.57.4.ebuild:
+  sci-libs/coinor-cgl: Version bump
+
 *coinor-cgl-0.57.4 (29 Jan 2013)
 
   29 Jan 2013; Sébastien Fabbro <bicatali@gentoo.org> +coinor-cgl-0.57.4.ebuild,
