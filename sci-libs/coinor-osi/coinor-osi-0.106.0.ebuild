@@ -4,7 +4,6 @@
 
 EAPI=5
 
-AUTOTOOLS_IN_SOURCE_BUILD=yes
 inherit autotools-utils multilib
 
 MYPN=Osi
