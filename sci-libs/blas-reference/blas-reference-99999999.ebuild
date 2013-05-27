@@ -9,7 +9,7 @@ inherit fortran-2 cmake-utils alternatives-2
 LPN=lapack
 LPV=3.4.2
 
-if [[ ${PV} == "9999" ]] ; then
+if [[ ${PV} == "99999999" ]] ; then
 	ESVN_REPO_URI="https://icl.cs.utk.edu/svn/lapack-dev/${LPN}/trunk"
 	inherit subversion
 	KEYWORDS=""
