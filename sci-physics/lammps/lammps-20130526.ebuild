@@ -8,7 +8,7 @@ FORTRAN_NEEDED="package-meam"
 
 inherit eutils fortran-2
 
-LAMMPSDATE="14May13"
+LAMMPSDATE="26May13"
 
 DESCRIPTION="Large-scale Atomic/Molecular Massively Parallel Simulator"
 HOMEPAGE="http://lammps.sandia.gov/"
@@ -70,6 +70,6 @@ src_install() {
 	dodoc README
 	if use doc; then
 		dodoc doc/Manual.pdf
-		dohtml -r doc
+		dohtml -r doc/*
 	fi
 }
