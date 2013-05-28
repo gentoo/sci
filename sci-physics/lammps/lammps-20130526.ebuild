@@ -70,6 +70,6 @@ src_install() {
 	dodoc README
 	if use doc; then
 		dodoc doc/Manual.pdf
-		dohtml -r doc
+		dohtml -r doc/*
 	fi
 }
