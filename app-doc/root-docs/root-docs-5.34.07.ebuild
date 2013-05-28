@@ -1,14 +1,14 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-doc/root-docs/root-docs-5.34.03.ebuild,v 1.1 2012/10/26 15:39:53 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-doc/root-docs/root-docs-5.34.07.ebuild,v 1.1 2013/05/23 23:50:00 bicatali Exp $
 
-EAPI=4
+EAPI=5
 
 ROOT_PN="root"
 PATCH_PV="5.34.01"
 
 if [[ ${PV} == "9999" ]] ; then
-	_SVN_DEP="dev-vcs/subversion"
+	_GIT=git-2
 	SRC_URI=""
 	KEYWORDS=""
 else
@@ -16,7 +16,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit eutils multilib toolchain-funcs virtualx
+inherit eutils multilib toolchain-funcs virtualx ${_GIT}
 
 DESCRIPTION="API documentation for ROOT (An Object-Oriented Data Analysis Framework)"
 HOMEPAGE="http://root.cern.ch/"
@@ -31,29 +31,8 @@ VIRTUALX_REQUIRED="always"
 DEPEND="
 	~sci-physics/root-${PV}[X,doc,graphviz,htmldoc,opengl]
 	virtual/pkgconfig
-	${_SVN_DEP}"
+	${_GIT_DEP}"
 RDEPEND=""
-
-pkg_setup() {
-	# sandboxed user can't access video hardware, so xorg-x11 implementation
-	# should be used
-	GL_IMPLEM=$(eselect opengl show)
-	eselect opengl set xorg-x11
-}
-
-src_unpack() {
-	# can't use subversion eclass functions,
-	# we need to svn export the same root tree:
-	# 1) svn revisions for root and root-docs must be the same;
-	# 2) no need to abuse server twice.
-	if [[ ${PV} == "9999" ]] ; then
-		addpredict "${PORTAGE_ACTUAL_DISTDIR:-${DISTDIR}}/svn-src/${ROOT_PN}/trunk/.svn"
-		svn export "${PORTAGE_ACTUAL_DISTDIR:-${DISTDIR}}/svn-src/${ROOT_PN}/trunk" \
-			"${S}" || die "svn export failed"
-	else
-		default
-	fi
-}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-${PATCH_PV}-makehtml.patch
@@ -78,6 +57,10 @@ src_configure() {
 }
 
 src_compile() {
+	# video drivers may want to access hardware devices
+	cards=$(echo -n /dev/dri/card* /dev/ati/card* /dev/nvidiactl* | sed 's/ /:/g')
+	[[ -n "${cards}" ]] && addpredict "${cards}"
+
 	ROOTSYS="${S}" Xemake html
 	# if root.exe crashes, return code will be 0 due to gdb attach,
 	# so we need to check if last html file was generated;
@@ -90,8 +73,4 @@ src_install() {
 	# too large data to copy
 	mv htmldoc/* "${ED}usr/share/doc/${PF}/"
 	docompress -x "${EPREFIX}/usr/share/doc/${PF}/"
-}
-
-pkg_postinst() {
-	eselect opengl set ${GL_IMPLEM}
 }
