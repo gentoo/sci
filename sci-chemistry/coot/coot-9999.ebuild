@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -30,7 +30,7 @@ AUTOTOOLS_IN_SOURCE_BUILD=1
 
 SCIDEPS="
 	>=sci-libs/ccp4-libs-6.1
-	>=sci-libs/clipper-20090520
+	sci-libs/clipper
 	>=sci-libs/coot-data-2
 	>=sci-libs/gsl-1.3
 	>=sci-libs/mmdb-1.23

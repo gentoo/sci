@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/coot
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  29 May 2013; Justin Lecher <jlec@gentoo.org> coot-9999.ebuild, metadata.xml:
+  Drop version from clipper
 
   03 Jul 2012; Justin Lecher <jlec@gentoo.org> coot-9999.ebuild,
   -files/coot-9999-gcc47.patch:
