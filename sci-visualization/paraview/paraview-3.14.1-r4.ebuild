@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,26 +20,26 @@ RESTRICT="mirror"
 LICENSE="paraview GPL-2"
 KEYWORDS="~x86 ~amd64"
 SLOT="0"
-IUSE="boost cg -coprocessing doc examples +gui mpi mysql gl2ps nvcontrol +plugins +python webkit ffmpeg theora"
+IUSE="boost cg -coprocessing doc examples +gui mpi mysql gl2ps nvcontrol +plugins +python ffmpeg theora"
 
 RDEPEND="
 	~sci-libs/netcdf-4.1.3[cxx,hdf5]
 	sci-libs/hdf5[mpi=]
 	mpi? ( virtual/mpi[cxx,romio] )
 	gui? (
-		x11-libs/qt-gui:4
-		x11-libs/qt-qt3support:4
-		x11-libs/qt-opengl:4
-		|| ( >=x11-libs/qt-assistant-4.7.0:4[compat] <x11-libs/qt-assistant-4.7.0:4 )
-		x11-libs/qt-sql:4
-		webkit? ( x11-libs/qt-webkit:4 ) )
+		dev-qt/qtgui:4
+		dev-qt/qt3support:4
+		dev-qt/qtopengl:4
+		|| ( >=dev-qt/qthelp-4.7.0:4[compat] <dev-qt/qthelp-4.7.0:4 )
+		dev-qt/qtsql:4
+		dev-qt/qtwebkit:4 )
 	mysql? ( virtual/mysql )
 	coprocessing? ( plugins? (
-			x11-libs/qt-gui:4
+			dev-qt/qtgui:4
 			dev-python/PyQt4 ) )
 	python? (
 		dev-python/sip
-		gui? ( dev-python/PyQt4 )
+		gui? ( dev-python/PyQt4[opengl,webkit] )
 		dev-python/numpy
 		mpi? ( dev-python/mpi4py )
 	)
@@ -91,6 +91,8 @@ src_prepare() {
 	# gcc 4.7 fix
 	# http://patch-tracker.debian.org/patch/series/view/paraview/3.14.1-7/fix_FTBFS_gcc-4.7.patch
 	epatch "${FILESDIR}"/${PN}-3.14.1-gcc-4.7.patch
+	# adapted from debian patch need to be applied after paraview-3.14.1-removesqlite.patch
+	epatch "${FILESDIR}"/${PN}-3.14.1-vtknetcd.patch
 
 	# lib64 fixes
 	sed -i "s:/usr/lib:${EPREFIX}/usr/$(get_libdir):g" \
@@ -110,8 +112,6 @@ src_prepare() {
 	epatch "${FILESDIR}"/vtk-5.6.1-libav-0.8.patch
 	# debian patch for recent boost should work with 1.48 too
 	epatch "${FILESDIR}"/vtk-boost1.49.patch
-	# adapted from debian patch need to be applied after paraview-3.14.1-removesqlite.patch
-	epatch "${FILESDIR}"/${PN}-3.14.1-vtknetcd.patch
 }
 
 src_configure() {
@@ -176,7 +176,7 @@ src_configure() {
 	if ( use gui ); then
 		mycmakeargs+=(
 			-DVTK_INSTALL_QT_DIR=/${PVLIBDIR}/plugins/designer
-			$(cmake-utils_use webkit VTK_QT_USE_WEBKIT))
+			-DVTK_QT_USE_WEBKIT=ON )
 		if use python ; then
 			# paraview cannot guess sip directory right probably because a path is not propagated properly
 			mycmakeargs+=(

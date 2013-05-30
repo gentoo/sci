@@ -1,6 +1,17 @@
 # ChangeLog for sci-libs/gsl
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/gsl/ChangeLog,v 1.77 2010/08/09 09:32:55 xarthisius Exp $
+
+  22 Feb 2013; Justin Lecher <jlec@gentoo.org> gsl-1.15-r3.ebuild,
+  metadata.xml:
+  Use tc-getPKG_CONFIG from toolchain-funcs.eclass instead of plain pkg-config
+
+*gsl-1.15-r3 (19 Dec 2012)
+
+  19 Dec 2012; Denis Dupeyron <calchan@gentoo.org> -gsl-1.15-r2.ebuild,
+  +gsl-1.15-r3.ebuild, files/gsl-1.15-cblas.patch, metadata.xml:
+  Let gsl optionally build against an external cblas implementation and
+  disables gsl as a possible cblas alternative when doing so.
 
   23 Feb 2012; Sébastien Fabbro <bicatali@gentoo.org> gsl-1.15-r2.ebuild,
   files/gsl-1.15-cblas.patch, -files/gsl-1.15-pkgconfig.patch:

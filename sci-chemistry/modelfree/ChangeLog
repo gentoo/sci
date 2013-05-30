@@ -1,6 +1,22 @@
 # ChangeLog for sci-chemistry/modelfree
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  07 May 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
+  Drop double prefix
+
+  07 May 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
+  Fix missing lib dirs for patchelf
+
+  07 May 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
+  Fix stupid symlink
+
+  07 May 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
+  Merge changes from curvefit
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild,
+  metadata.xml:
+  Add missing multilib.eclass; move to EAPI=5
 
   09 Feb 2012; Justin Lecher <jlec@gentoo.org> modelfree-4.20.ebuild:
   Remove double prefix

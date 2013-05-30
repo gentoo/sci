@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -24,9 +24,9 @@ RDEPEND="
 	>=dev-python/omniorbpy-3.4
 	>=sci-libs/hdf5-1.6.4
 	>=dev-libs/boost-1.40.0
-	>=x11-libs/qt-core-4.5.2
-	>=x11-libs/qt-gui-4.5.2
-	>=x11-libs/qt-opengl-4.5.2
+	>=dev-qt/qtcore-4.5.2
+	>=dev-qt/qtgui-4.5.2
+	>=dev-qt/qtopengl-4.5.2
 	>=dev-python/PyQt4-4.5.4
 	>=x11-libs/qscintilla-2.4
 	>=net-misc/omniORB-4.1.3

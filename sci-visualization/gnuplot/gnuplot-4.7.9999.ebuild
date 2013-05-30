@@ -1,17 +1,17 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-visualization/gnuplot/gnuplot-4.6_rc1.ebuild,v 1.7 2012/03/07 00:33:49 ulm Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-visualization/gnuplot/gnuplot-4.6.1-r1.ebuild,v 1.5 2013/03/07 20:35:32 ottxor Exp $
 
-EAPI=4
+EAPI=5
 
-inherit elisp-common multilib wxwidgets
+inherit elisp-common eutils flag-o-matic multilib readme.gentoo toolchain-funcs wxwidgets
 
 DESCRIPTION="Command-line driven interactive plotting program"
 HOMEPAGE="http://www.gnuplot.info/"
 
 if [[ -z ${PV%%*9999} ]]; then
 	inherit autotools cvs
-	ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot/gnuplot"
+	ECVS_SERVER="gnuplot.cvs.sourceforge.net:/cvsroot/gnuplot"
 	ECVS_MODULE="gnuplot"
 	ECVS_BRANCH="HEAD"
 	ECVS_USER="anonymous"
@@ -26,15 +26,17 @@ fi
 LICENSE="gnuplot GPL-2 bitmap? ( free-noncomm )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
-IUSE="bitmap cairo doc emacs examples +gd ggi latex lua qt4 readline svga thin-splines wxwidgets X"
-RESTRICT="wxwidgets? ( test )"
+IUSE="aqua bitmap cairo doc emacs examples +gd ggi latex lua qt4 readline svga thin-splines wxwidgets X xemacs"
 
 RDEPEND="
 	cairo? (
 		x11-libs/cairo
 		x11-libs/pango )
 	emacs? ( virtual/emacs )
-	gd? ( media-libs/gd[png] )
+	!emacs? ( xemacs? (
+		app-editors/xemacs
+		app-xemacs/xemacs-base ) )
+	gd? ( >=media-libs/gd-2.0.35-r3[png] )
 	ggi? ( media-libs/libggi )
 	latex? (
 		virtual/latex-base
@@ -42,9 +44,9 @@ RDEPEND="
 			dev-tex/pgf
 			>=dev-texlive/texlive-latexrecommended-2008-r2 ) )
 	lua? ( dev-lang/lua )
-	qt4? ( >=x11-libs/qt-core-4.5
-		>=x11-libs/qt-gui-4.5
-		>=x11-libs/qt-svg-4.5 )
+	qt4? ( >=dev-qt/qtcore-4.5:4
+		>=dev-qt/qtgui-4.5:4
+		>=dev-qt/qtsvg-4.5:4 )
 	readline? ( sys-libs/readline )
 	svga? ( media-libs/svgalib )
 	wxwidgets? (
@@ -58,17 +60,19 @@ DEPEND="${RDEPEND}
 	doc? (
 		virtual/latex-base
 		dev-texlive/texlive-latexextra
-		app-text/ghostscript-gpl )"
+		app-text/ghostscript-gpl )
+	!emacs? ( xemacs? ( app-xemacs/texinfo ) )"
 
 if [[ -z ${PV%%*9999} ]]; then
 	# The live ebuild always needs an Emacs for building of gnuplot.texi
-	DEPEND="${DEPEND} virtual/emacs"
+	DEPEND="${DEPEND}
+	|| ( virtual/emacs app-xemacs/texinfo )"
 fi
 
 S="${WORKDIR}/${MY_P}"
 
 GP_VERSION="${PV%.*}"
-E_SITEFILE="50${PN}-gentoo.el"
+E_SITEFILE="lisp/50${PN}-gentoo.el"
 TEXMF="${EPREFIX}/usr/share/texmf-site"
 
 src_prepare() {
@@ -83,6 +87,24 @@ src_prepare() {
 	# Add special version identification as required by provision 2
 	# of the gnuplot license
 	sed -i -e "1s/.*/& (Gentoo revision ${PR})/" PATCHLEVEL || die
+
+	# hacky workaround
+	# Please hack the buildsystem if you like
+	if use prefix && use qt4; then
+		append-ldflags -Wl,-rpath,"${EPREFIX}"/usr/$(get_libdir)/qt4
+	fi
+
+	DOC_CONTENTS='Gnuplot no longer links against pdflib, see the ChangeLog
+		for details. You can use the "pdfcairo" terminal for PDF output.'
+	use cairo || DOC_CONTENTS+=' It is available with USE="cairo".'
+	use svga && DOC_CONTENTS+='\n\nIn order to enable ordinary users to use
+		SVGA console graphics, gnuplot needs to be set up as setuid root.
+		Please note that this is usually considered to be a security hazard.
+		As root, manually "chmod u+s /usr/bin/gnuplot".'
+	use gd && DOC_CONTENTS+='\n\nFor font support in png/jpeg/gif output,
+		you may have to set the GDFONTPATH and GNUPLOT_DEFAULT_GDFONT
+		environment variables. See the FAQ file in /usr/share/doc/${PF}/
+		for more information.'
 }
 
 src_configure() {
@@ -95,35 +117,50 @@ src_configure() {
 		need-wxwidgets unicode
 	fi
 
-	local myconf
-	myconf="${myconf} --with-lisp-files" #need to build info file
-	myconf="${myconf} --with-lispdir=${EPREFIX}${SITELISP}/${PN}"
-	myconf="${myconf} --without-pdf"
-	myconf="${myconf} --enable-stats" #extra command save to be enabled
-	myconf="${myconf} --with-texdir=${TEXMF}/tex/latex/${PN}"
-	myconf="${myconf} $(use_with bitmap bitmap-terminals)"
-	myconf="${myconf} $(use_with cairo)"
-	myconf="${myconf} $(use_with doc tutorial)"
-	myconf="${myconf} $(use_with gd)"
-	myconf="${myconf} $(use_with ggi ggi ${EPREFIX}/usr/$(get_libdir))"
-	myconf="${myconf} $(use_with ggi xmi ${EPREFIX}/usr/$(get_libdir))"
-	myconf="${myconf} $(use_with lua)"
-	myconf="${myconf} $(use_with svga linux-vga)"
-	myconf="${myconf} $(use_enable thin-splines)"
-	myconf="${myconf} $(use_enable wxwidgets)"
-	myconf="${myconf} $(use_with X x)"
-	myconf="${myconf} $(use_enable qt4 qt)"
-	use readline \
-		&& myconf="${myconf} --with-readline=gnu" \
-		|| myconf="${myconf} --with-readline=builtin"
+	tc-export CC CXX			#453174
 
-	local emacs=$(usev emacs || echo no)
-		# Live ebuild needs an Emacs to build gnuplot.texi
-	[[ -z ${PV%%*9999} ]] && emacs=emacs
+	local emacs lispdir
+	if use emacs; then
+		emacs=emacs
+		lispdir="${EPREFIX}${SITELISP}/${PN}"
+		use xemacs \
+			&& ewarn "USE flag \"xemacs\" ignored (superseded by \"emacs\")"
+	elif use xemacs; then
+		emacs=xemacs
+		lispdir="${EPREFIX}/usr/lib/xemacs/site-packages/${PN}"
+	else
+		emacs=no
+		lispdir=""
+		if [[ -z ${PV%%*9999} ]]; then
+			# Live ebuild needs an Emacs to build gnuplot.texi
+			if has_version virtual/emacs; then emacs=emacs
+			elif has_version app-xemacs/texinfo; then emacs=xemacs; fi
+			# with emtpy lispdir info cannot be build
+			lispdir="${T}"
+		fi
+	fi
 
-	econf ${myconf} \
+	econf \
+		--without-pdf \
+		--with-texdir="${TEXMF}/tex/latex/${PN}" \
+		--with-readline=$(usex readline gnu builtin) \
+		--with-lispdir="${lispdir}" \
+		--with$([[ -z ${lispdir} ]] && echo out)-lisp-files \
+		$(use_with bitmap bitmap-terminals) \
+		$(use_with cairo) \
+		$(use_with doc tutorial) \
+		$(use_with gd) \
+		"$(use_with ggi ggi "${EPREFIX}/usr/$(get_libdir)")" \
+		"$(use_with ggi xmi "${EPREFIX}/usr/$(get_libdir)")" \
+		$(use_with lua) \
+		$(use_with svga linux-vga) \
+		$(use_with X x) \
+		--enable-stats \
+		$(use_enable qt4 qt) \
+		$(use_enable thin-splines) \
+		$(use_enable wxwidgets) \
 		DIST_CONTACT="http://bugs.gentoo.org/" \
-		EMACS=${emacs}
+		EMACS="${emacs}"
 }
 
 src_compile() {
@@ -139,36 +176,27 @@ src_compile() {
 	if use doc; then
 		# Avoid sandbox violation in epstopdf/ghostscript
 		addpredict /var/cache/fontconfig
-		cd "${S}/docs"
-		emake pdf
-		cd "${S}/tutorial"
-		emake pdf
-
-		if use emacs; then
-			cd "${S}/lisp"
-			emake pdf
-		fi
+		emake -C docs pdf
+		emake -C tutorial pdf
+		use emacs || use xemacs && emake -C lisp pdf
 	fi
 }
 
 src_install () {
-	emake DESTDIR="${D}" install install-info
+	emake DESTDIR="${D}" install
 
 	if use emacs; then
-		# info-look* is included with >=emacs-21
-		rm -f "${ED}${SITELISP}/${PN}"/info-look*
-
-		# Gentoo emacs site-lisp configuration
+		# Gentoo Emacs site-lisp configuration
 		echo "(add-to-list 'load-path \"@SITELISP@\")" > ${E_SITEFILE}
-		sed '/^;; move/,+3 d' "${S}"/lisp/dotemacs >> ${E_SITEFILE} || die
+		sed '/^;; move/,+3 d' lisp/dotemacs >> ${E_SITEFILE} || die
 		elisp-site-file-install ${E_SITEFILE} || die
 	fi
 
-	cd "${S}"
-	dodoc BUGS ChangeLog NEWS PGPKEYS PORTING README* TODO
+	dodoc BUGS ChangeLog NEWS PGPKEYS PORTING README*
 	newdoc term/PostScript/README README-ps
 	newdoc term/js/README README-js
 	use lua && newdoc term/lua/README README-lua
+	readme.gentoo_create_doc
 
 	if use examples; then
 		# Demo files
@@ -177,47 +205,30 @@ src_install () {
 		rm -f "${ED}"/usr/share/${PN}/${GP_VERSION}/demo/Makefile*
 		rm -f "${ED}"/usr/share/${PN}/${GP_VERSION}/demo/binary*
 	fi
+
 	if use doc; then
-		# Manual
-		dodoc docs/gnuplot.pdf
-		# Tutorial
-		dodoc tutorial/{tutorial.dvi,tutorial.pdf}
-		# FAQ
-		dodoc FAQ.pdf
+		# Manual, tutorial, FAQ
+		dodoc docs/gnuplot.pdf tutorial/{tutorial.dvi,tutorial.pdf} FAQ.pdf
 		# Documentation for making PostScript files
 		docinto psdoc
 		dodoc docs/psdoc/{*.doc,*.tex,*.ps,*.gpi,README}
 	fi
 
-	if use emacs; then
+	if use emacs || use xemacs; then
 		docinto emacs
 		dodoc lisp/ChangeLog lisp/README
 		use doc && dodoc lisp/gpelcard.pdf
 	fi
 }
 
+src_test() {
+	GNUTERM="unknown" default_src_test
+}
+
 pkg_postinst() {
 	use emacs && elisp-site-regen
 	use latex && texmf-update
-
-	elog "Gnuplot no longer links against pdflib, see the ChangeLog for"
-	elog "details. You can use the \"pdfcairo\" terminal for PDF output."
-	use cairo || elog "It is available with USE=\"cairo\"."
-
-	if use svga; then
-		echo
-		elog "In order to enable ordinary users to use SVGA console graphics"
-		elog "gnuplot needs to be set up as setuid root. Please note that"
-		elog "this is usually considered to be a security hazard."
-		elog "As root, manually \"chmod u+s /usr/bin/gnuplot\"."
-	fi
-	if use gd; then
-		echo
-		elog "For font support in png/jpeg/gif output, you may have to"
-		elog "set the GDFONTPATH and GNUPLOT_DEFAULT_GDFONT environment"
-		elog "variables. See the FAQ file in /usr/share/doc/${PF}/"
-		elog "for more information."
-	fi
+	readme.gentoo_print_elog
 }
 
 pkg_postrm() {

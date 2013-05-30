@@ -30,12 +30,17 @@
 
 #--- END OF EXAMPLES ---
 
-# Guillaume Horel <guillaume.horel@gmail.com> (11 July 2012)
-# masked for upcoming scilab-5.4.0
-=sci-mathematics/scilab-5.4.0
-=dev-java/jrosetta-1.0.4
-=dev-java/flexdock-1.2.0
->=dev-java/jgraphx-1.8
+# Justin Lecher <jlec@gentoo.org> (03 March 2013)
+# Mask for missing license
+sci-biology/lastz
+sci-biology/phylobayes
+
+# Justin Lecher <jlec@gentoo.org> (03 March 2013)
+# Missing deps
+sci-biology/gbrowse
+sci-mathematics/surfer
+dev-python/pymvpa
+sci-biology/artemis-bin
 
 # Nicolas Bock <nicolasbock@gmail.com> (05 July 2012)
 # live ebuild
@@ -134,30 +139,20 @@ sci-visualization/vtkPOFFReader
 # Avoid accidental upgrade
 >=sci-visualization/paraview-3.8.0
 
-# Christoph Junghans <ottxor@gentoo.org> (03 Oct 2010)
-# masked for testing
-=sci-libs/openmm-2.0
-
 # Christoph Junghans <ottxor@gentoo.org> (31 Jul 2010)
 # mask live ebuilds
-=sci-chemistry/gromacs-4.0.9999
 =sci-chemistry/gromacs-4.5.9999
 =sci-chemistry/gromacs-4.6.9999
 =sci-chemistry/gromacs-9999
-=app-doc/gromacs-manual-4.6.9999
-=app-doc/gromacs-manual-9999
 
 # Christoph Junghans <ottxor@gentoo.org> (04 Nov 2011)
 # mask live ebuilds
 =sci-libs/votca-tools-9999
 =sci-chemistry/votca-csg-9999
-=sci-chemistry/votca-csg-tutorials-9999
 =sci-chemistry/votca-csgapps-9999
-=app-doc/votca-csg-manual-9999
 
 # Christoph Junghans <ottxor@gentoo.org> (02 Nov 2009)
 # live cvs ebuild, deps changing constantly
-=sci-visualization/gnuplot-4.4.9999
 =sci-visualization/gnuplot-4.6.9999
 =sci-visualization/gnuplot-4.7.9999
 

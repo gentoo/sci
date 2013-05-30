@@ -1,0 +1,13 @@
+--- mlpack-1.0.4/src/mlpack/CMakeLists.txt.old	2013-02-08 16:45:45.218117489 -0500
++++ mlpack-1.0.4/src/mlpack/CMakeLists.txt	2013-02-08 16:45:59.938263211 -0500
+@@ -62,8 +62,8 @@
+ # be entered...
+ install(TARGETS mlpack
+   RUNTIME DESTINATION bin
+-  LIBRARY DESTINATION lib
+-  ARCHIVE DESTINATION lib)
++  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+ # For 'make test'.
+ add_custom_target(test

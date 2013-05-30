@@ -1,14 +1,14 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="2"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
 AUTOTOOLS_AUTORECONF="true"
 
-inherit autotools-utils python subversion toolchain-funcs versionator
+inherit autotools-utils python-single-r1 subversion toolchain-funcs versionator
 
 MY_S2_PV=$(replace_version_separator 2 - ${PV})
 MY_S2_P=${PN}-${MY_S2_PV/pre1/pre-1}
@@ -26,11 +26,13 @@ LICENSE="GPL-3"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="+openmp static-libs test"
 
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
 SCIDEPS="
 	>=sci-libs/ccp4-libs-6.1
-	>=sci-libs/clipper-20090520
+	sci-libs/clipper
 	>=sci-libs/coot-data-2
 	>=sci-libs/gsl-1.3
 	>=sci-libs/mmdb-1.23
@@ -60,7 +62,8 @@ RDEPEND="
 	${SCIDEPS}
 	${XDEPS}
 	${SCHEMEDEPS}
-	dev-python/pygtk:2
+	${PYTHON_DEPS}
+	dev-python/pygtk:2[${PYTHON_USEDEP}]
 	>=dev-libs/gmp-4.2.2-r2
 	>=net-misc/curl-7.19.6
 	net-dns/libidn"
@@ -76,8 +79,7 @@ pkg_setup() {
 	if use openmp; then
 		tc-has-openmp || die "Please use an OPENMP capable compiler"
 	fi
-	python_set_active_version 2
-	python_pkg_setup
+	python-single-r1_pkg_setup
 }
 
 PATCHES=(
@@ -126,7 +128,7 @@ src_configure() {
 
 src_compile() {
 	autotools-utils_src_compile
-	python_convert_shebangs $(python_get_version) "${S}"/src/coot_gtk2.py
+	python_fix_shebang "${S}"/src/coot_gtk2.py
 	cp "${S}"/src/coot_gtk2.py python/coot.py || die
 }
 

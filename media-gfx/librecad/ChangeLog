@@ -1,6 +1,15 @@
 # ChangeLog for media-gfx/librecad
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
+
+  14 Apr 2013; Dongxu Li <dongxuli2011@gmail.com> +librecad-1.0.3.ebuild,
+  +librecad-2.0.0_alpha5.ebuild:
+  Versions bumped to 1.0.3 and 2.0.0beta5
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> -librecad-1.0.1.ebuild,
+  librecad-1.0.2.ebuild, -librecad-2.0.0_alpha3.ebuild,
+  librecad-2.0.0_alpha4.ebuild, librecad-9999.ebuild, metadata.xml:
+  Update to new qt deps names; drop old
 
   15 Ju1 2012; Dongxu Li <dongxuli2011@gmail.com> librecad-9999.ebuild,librecad-2.0.0alpha4.ebuild
   Dependency fix, bug#426730 

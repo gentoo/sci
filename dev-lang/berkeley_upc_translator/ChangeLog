@@ -1,0 +1,19 @@
+# ChangeLog for dev-lang/berkeley_upc_translator
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*berkeley_upc_translator-2.16.2 (14 May 2013)
+
+  14 May 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  -berkeley_upc_translator-2.16.0.ebuild,
+  -files/berkeley_upc_translator-2.16.0-stackoverflow.patch,
+  +berkeley_upc_translator-2.16.2.ebuild:
+  version bump, removed stackoverflow.patch as UPC bug#3141 fixed in upstream
+
+*berkeley_upc_translator-2.16.0 (19 Mar 2013)
+
+  19 Mar 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  +berkeley_upc_translator-2.16.0.ebuild,
+  +files/berkeley_upc_translator-2.16.0-stackoverflow.patch, +metadata.xml:
+  ebuild for bug#462296, thanks to Paul H. Hargrove
+

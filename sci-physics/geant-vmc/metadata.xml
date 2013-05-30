@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci-physics</herd>
+<longdescription lang="en">
+  The Virtual Monte Carlo (VMC) allows to run different simulation
+  Monte Carlo without changing the user code and therefore the input
+  and output format as well as the geometry and detector response
+  definition.
+  The core of the VMC is the category of classes vmc in ROOT. It
+  provides a set of interfaces which completely decouple the
+  dependencies between the user code and the concrete Monte Carlo. 
+  Geant3 VMC (C++) is provided within a single package together with
+  GEANT3 (Fortran) - geant3.
+</longdescription>
+<use>
+  <flag name="vgm">Enable the Virtual Geometry Model (<pkg>sci-physics/vgm</pkg>)</flag>
+</use>
+</pkgmetadata>

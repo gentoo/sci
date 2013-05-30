@@ -1,6 +1,9 @@
 # ChangeLog for dev-lang/ispc
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Jan 2013; Christoph Junghans <ottxor@gentoo.org> ispc-9999.ebuild:
+  fixed python dep
 
   26 Aug 2012; Christoph Junghans <ottxor@gentoo.org> ispc-9999.ebuild:
   sync with gx86

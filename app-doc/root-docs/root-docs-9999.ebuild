@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-doc/root-docs/root-docs-5.34.00.ebuild,v 1.2 2012/06/27 17:31:12 bicatali Exp $
 
@@ -89,6 +89,7 @@ src_install() {
 	dodir /usr/share/doc/${PF}
 	# too large data to copy
 	mv htmldoc/* "${ED}usr/share/doc/${PF}/"
+	docompress -x "${EPREFIX}/usr/share/doc/${PF}/"
 }
 
 pkg_postinst() {

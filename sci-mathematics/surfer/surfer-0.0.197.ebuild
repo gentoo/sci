@@ -1,10 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=5
 
-inherit autotools
+AUTOTOOLS_AUTORECONF=true
+
+inherit autotools-utils
 
 DESCRIPTION="Frontend to surf to visualize algebraic curves and surfaces"
 HOMEPAGE="http://imaginary2008.de/surfer.php"
@@ -15,20 +17,15 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
+CDEPEND="dev-cpp/gtkmm:2.4"
 RDEPEND="
-	dev-cpp/gtkmm:2.4
+	${CDEPEND}
 	media-gfx/surf"
 DEPEND="
-	dev-cpp/gtkmm:2.4
-	dev-util/pkgconfig"
-
-DOCS="README AUTHORS"
+	${CDEPEND}
+	virtual/pkgconfig"
 
 S="${WORKDIR}"/${PN}-0.1
-
-src_prepare() {
-	eautoreconf
-}
 
 pkg_postinst() {
 	elog "${PN} ebuild is still under development."

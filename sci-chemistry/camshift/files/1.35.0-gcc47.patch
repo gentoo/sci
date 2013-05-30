@@ -1,0 +1,148 @@
+ include/almost/forcefield/intern/angleenergy.h | 14 ++++-----
+ include/almost/forcefield/intern/bondenergy.h  |  2 +-
+ include/almost/kernel/molecule.h               |  2 +-
+ include/almost/kernel/rmsd.h                   | 42 +++++++++++++-------------
+ src/lib/io/formostream.cpp                     |  4 +--
+ 5 files changed, 32 insertions(+), 32 deletions(-)
+
+diff --git a/include/almost/forcefield/intern/angleenergy.h b/include/almost/forcefield/intern/angleenergy.h
+index 75308ca..a9bc70c 100644
+--- a/include/almost/forcefield/intern/angleenergy.h
++++ b/include/almost/forcefield/intern/angleenergy.h
+@@ -419,7 +419,7 @@ namespace Almost {
+ 	int f = Coor<float_type>::DIM*this->first_[i];
+ 	int m = Coor<float_type>::DIM*this->middle_[i];
+ 	int l = Coor<float_type>::DIM*this->last_[i];
+-	dangle = angle(coor,f,m,l);
++	dangle = this->angle(coor,f,m,l);
+ 	ene += this->ka_[i]*(dangle-this->a0_[i])*(dangle-this->a0_[i]);
+       }
+       return ene;
+@@ -444,9 +444,9 @@ namespace Almost {
+ 	vkj[2] = coor.coor[l+2]-coor.coor[m+2];
+ 
+ 	
+-	float_type nij = norm(vij);
+-	float_type nkj = norm(vkj);
+-	float_type n   = scal(vij,vkj);
++	float_type nij = this->norm(vij);
++	float_type nkj = this->norm(vkj);
++	float_type n   = this->scal(vij,vkj);
+ 	float_type cosd = n/(nij*nkj);;
+ 	float_type dangle = acos(cosd);
+ 	float_type sind = sqrt(1-cosd*cosd);
+@@ -513,9 +513,9 @@ namespace Almost {
+ 	vkj[2] = coor.coor[l+2]-coor.coor[m+2];
+ 
+ 	
+-	float_type nij = norm(vij);
+-	float_type nkj = norm(vkj);
+-	float_type n   = scal(vij,vkj);
++	float_type nij = this->norm(vij);
++	float_type nkj = this->norm(vkj);
++	float_type n   = this->scal(vij,vkj);
+ 	float_type cosd = n/(nij*nkj);;
+ 	float_type dangle = acos(cosd);
+ 	float_type sind = sqrt(1-cosd*cosd);
+diff --git a/include/almost/forcefield/intern/bondenergy.h b/include/almost/forcefield/intern/bondenergy.h
+index f60d99c..d6977f2 100644
+--- a/include/almost/forcefield/intern/bondenergy.h
++++ b/include/almost/forcefield/intern/bondenergy.h
+@@ -242,7 +242,7 @@ namespace Almost {
+ 	float_type d;
+ 	int f = this->first_[i];
+ 	int s = this->second_[i];
+-	d = sqrt(distanceP2(coor.coor+Coor<float_type>::DIM*f,
++	d = sqrt(this->distanceP2(coor.coor+Coor<float_type>::DIM*f,
+ 			    coor.coor+Coor<float_type>::DIM*s));
+ 	e +=this->kb_[i]*(d-this->b0_[i])*(d-this->b0_[i]);
+       }
+diff --git a/include/almost/kernel/molecule.h b/include/almost/kernel/molecule.h
+index e399d8d..0ea1d28 100644
+--- a/include/almost/kernel/molecule.h
++++ b/include/almost/kernel/molecule.h
+@@ -1100,7 +1100,7 @@ namespace Kernel {
+ 	if(this->fragment_atoms_[i][j]>=gpos) ++this->fragment_atoms_[i][j];
+ 
+ 
+-    return add_atom_(fd,atom,pos);
++    return this->add_atom_(fd,atom,pos);
+   }
+ 
+ 
+diff --git a/include/almost/kernel/rmsd.h b/include/almost/kernel/rmsd.h
+index 0947666..210f53e 100644
+--- a/include/almost/kernel/rmsd.h
++++ b/include/almost/kernel/rmsd.h
+@@ -172,6 +172,27 @@ namespace Almost {
+     /*====================================================================*/
+ 
+     template <typename float_type>
++    float_type EPpythag(float_type a,float_type b)
++    {
++      /* finds sqrt(a*a+b*b) without overflow or destructive underflow */
++
++      float_type p,r,s,t,u;
++
++      p=(abs(a) > abs(b) ? abs(a) : abs(b));
++      if (p>0) {
++	r=(abs(a)<abs(b)?abs(a):abs(b))/p;
++	r=r*r;
++	for (t=4.0+r;t!=4.0;t=4.0+r) {
++	  s=r/t;
++	  u=1.0+2.0*s;
++	  p=u*p;
++	  r=(s/u)*(s/u)*r;
++	}
++      }
++      return(p);
++    }
++
++    template <typename float_type>
+     int EPimtql2(int n,float_type *d,float_type *e,float_type **z)
+     {
+       int i,j,k,l,m,ii,mml;
+@@ -316,27 +337,6 @@ namespace Almost {
+ 
+     /*====================================================================*/
+ 
+-    template <typename float_type>
+-    float_type EPpythag(float_type a,float_type b)
+-    {
+-      /* finds sqrt(a*a+b*b) without overflow or destructive underflow */
+-
+-      float_type p,r,s,t,u;
+-
+-      p=(abs(a) > abs(b) ? abs(a) : abs(b));
+-      if (p>0) {
+-	r=(abs(a)<abs(b)?abs(a):abs(b))/p;
+-	r=r*r;
+-	for (t=4.0+r;t!=4.0;t=4.0+r) {
+-	  s=r/t;
+-	  u=1.0+2.0*s;
+-	  p=u*p;
+-	  r=(s/u)*(s/u)*r;
+-	}
+-      }
+-      return(p);
+-    }
+-
+     template<typename float_type>
+     inline float_type rmsd_dist(const Almost::Coor<float_type> & ref,
+ 				const Almost::Coor<float_type> & to_move,
+diff --git a/src/lib/io/formostream.cpp b/src/lib/io/formostream.cpp
+index 9a98154..1469b8a 100644
+--- a/src/lib/io/formostream.cpp
++++ b/src/lib/io/formostream.cpp
+@@ -1572,9 +1572,9 @@ PDBOStream & operator<<(PDBOStream & pdb, const Molecules & molecules){
+     
+   for(int i=0;i<molecules.solvent_size();i++){
+     pdb<<molecules.solvent(i);
+-    int i = molecules.solvent_size()-1;
++    int j = molecules.solvent_size()-1;
+     sprintf(buff,
+-	    "%-6s%5i\n","TER",molecules.solvent(i).atom_size()
++	    "%-6s%5j\n","TER",molecules.solvent(i).atom_size()
+ 	    +molecules.solvent(i).atom_offset());
+     pdb.stream()<<buff;
+       

@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/ball
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> ball-9999.ebuild, metadata.xml:
+  Update to new qt deps names
 
   25 Mar 2012; Justin Lecher <jlec@gentoo.org> ball-9999.ebuild,
   +files/ball-9999-libsvm.patch, +files/ball-9999-multilib.patch:

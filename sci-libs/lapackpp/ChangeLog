@@ -2,6 +2,9 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Dec 2012; Sébastien Fabbro <bicatali@gentoo.org> lapackpp-2.5.4.ebuild:
+  sci-libs/lapackpp: Use latest pkg-config
+
 *lapackpp-2.5.4 (24 Jan 2012)
 
   24 Jan 2012; Sébastien Fabbro <bicatali@gentoo.org> -lapackpp-2.5.3.ebuild,
@@ -24,4 +27,3 @@
   20 Aug 2007; Sébastien Fabbro <bicatali@gentoo.org>
   +lapackpp-2.5.2.ebuild, +metadata.xml:
   Initial import
-

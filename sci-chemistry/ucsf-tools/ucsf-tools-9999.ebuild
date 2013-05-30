@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 AUTOTOOLS_AUTORECONF=y
 
@@ -15,7 +15,7 @@ SRC_URI="
 	http://dev.gentoo.org/~jlec/distfiles/mark-20110912.tgz"
 
 SLOT="0"
-LICENSE="as-is"
+LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 

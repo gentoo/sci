@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit multilib
+inherit fortran-2 multilib
 
 DESCRIPTION="Linear and non-linear least squares fitting"
 HOMEPAGE="http://cpmcnet.columbia.edu/dept/gsas/biochem/labs/palmer/software/curvefit.html"
@@ -33,16 +33,16 @@ src_install() {
 
 	exeinto /opt/bin
 	if use x86; then
-		_exe=./linux_32/curvefit
+		_exe=./linux_32/${PN}
 	elif use amd64; then
-		_exe=./linux_64/curvefit
+		_exe=./linux_64/${PN}
 	fi
 
 	patchelf --set-rpath "${EPREFIX}/opt/${PN}:${EPREFIX}/usr/$(get_libdir)/gcc/x86_64-pc-linux-gnu/4.1.2/" ${_exe}
 
 	doexe batch_curve curveplot ${_exe}
 
-	dosym ../../usr/$(get_libdir)/libblas.so /opt/${PN}/libblas.so.3
+	dosym ../../usr/$(get_libdir)/librefblas.so /opt/${PN}/libblas.so.3
 
 	dodoc Versions
 	dohtml curvefit_manual.html

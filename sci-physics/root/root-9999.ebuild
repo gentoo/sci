@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.02-r1.ebuild,v 1.3 2012/05/04 07:55:34 jdhore Exp $
 
@@ -65,12 +65,12 @@ CDEPEND="
 		)
 		opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps )
 		qt4? (
-			x11-libs/qt-gui:4
-			x11-libs/qt-opengl:4
-			x11-libs/qt-qt3support:4
-			x11-libs/qt-svg:4
-			x11-libs/qt-webkit:4
-			x11-libs/qt-xmlpatterns:4 )
+			dev-qt/qtgui:4
+			dev-qt/qtopengl:4
+			dev-qt/qt3support:4
+			dev-qt/qtsvg:4
+			dev-qt/qtwebkit:4
+			dev-qt/qtxmlpatterns:4 )
 		x11-libs/libXft
 		)
 	afs? ( net-fs/openafs )
@@ -148,7 +148,7 @@ pkg_setup() {
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/${PN}-${PATCH_PV}-prop-ldflags.patch \
+		"${FILESDIR}"/${PN}-${PATCH_PV2}-prop-flags.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \

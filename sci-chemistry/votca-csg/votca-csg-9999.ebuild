@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit bash-completion-r1 cmake-utils multilib
 
@@ -16,11 +16,7 @@ if [ "${PV}" != "9999" ]; then
 else
 	SRC_URI=""
 	inherit mercurial
-	EHG_REPO_URI="https://csg.votca.googlecode.com/hg"
-	EHG_REVISION="default"
-	S="${WORKDIR}/${EHG_REPO_URI##*/}"
-	PDEPEND="${PDEPEND} doc? ( =app-doc/${PN}-manual-${PV} )
-		examples? ( =sci-chemistry/${PN}-tutorials-${PV} )"
+	EHG_REPO_URI="https://code.google.com/p/votca.csg/"
 fi
 
 DESCRIPTION="Votca coarse-graining engine"
@@ -31,16 +27,37 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
 
 RDEPEND="=sci-libs/votca-tools-${PV}
-	gromacs? ( sci-chemistry/gromacs )
+	gromacs? ( sci-chemistry/gromacs:= )
 	dev-lang/perl
 	app-shells/bash"
 
 DEPEND="${RDEPEND}
-	doc? ( || ( <app-doc/doxygen-1.7.6.1[-nodot] >=app-doc/doxygen-1.7.6.1[dot] ) )
+	doc? (
+		|| ( <app-doc/doxygen-1.7.6.1[-nodot] >=app-doc/doxygen-1.7.6.1[dot] )
+		dev-texlive/texlive-latexextra
+		virtual/latex-base
+		dev-tex/pgf
+	)
 	>=app-text/txt2tags-2.5
 	virtual/pkgconfig"
 
 DOCS=( README NOTICE )
+
+src_unpack() {
+	if [[ ${PV} != *9999 ]]; then
+		default
+	else
+		mercurial_src_unpack
+		use doc && mercurial_fetch \
+			https://code.google.com/p/votca.csg-manual/ \
+			votca.csg-manual \
+			"${WORKDIR}/manual"
+		use examples && mercurial_fetch \
+			https://code.google.com/p/votca.csg-tutorials/ \
+			votca.csg-tutorials \
+			"${WORKDIR}/${PN}-tutorials"
+	fi
+}
 
 src_configure() {
 	local GMX_DEV="OFF" GMX_DOUBLE="OFF" extra
@@ -58,6 +75,7 @@ src_configure() {
 		$(cmake-utils_use_with gromacs GMX)
 		-DWITH_GMX_DEVEL="${GMX_DEV}"
 		-DGMX_DOUBLE="${GMX_DOUBLE}"
+		-DCMAKE_INSTALL_RPATH="\\\$ORIGIN/../$(get_libdir)"
 		${extra}
 		-DWITH_RC_FILES=OFF
 		-DLIB=$(get_libdir)
@@ -69,17 +87,24 @@ src_install() {
 	newbashcomp scripts/csg-completion.bash ${PN}
 	cmake-utils_src_install
 	if use doc; then
-		if [ -n "${PV##*9999}" ]; then
+		if [[ ${PV} = *9999* ]]; then
+			pushd "${WORKDIR}"/manual
+			[[ ${CHOST} = *-darwin* ]] && \
+				export DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}${DYLD_LIBRARY_PATH:+:}${ED}/usr/$(get_libdir)"
+			emake PATH="${PATH}${PATH:+:}${ED}/usr/bin"
+			newdoc manual.pdf "${PN}-manual-${PV}.pdf"
+			popd > /dev/null
+		else
 			dodoc "${DISTDIR}/${PN}-manual-${PV}.pdf"
 		fi
 		cd "${CMAKE_BUILD_DIR}" || die
 		emake html
 		dohtml -r share/doc/html/*
 	fi
-	if use examples && [ -n "${PV##*9999}" ]; then
+	if use examples; then
 		insinto "/usr/share/doc/${PF}/tutorials"
 		docompress -x "/usr/share/doc/${PF}/tutorials"
-		doins -r "${WORKDIR}/${PN}-tutorials-${PV}"/*
+		doins -r "${WORKDIR}/${PN}"-tutorials*/*
 	fi
 }
 

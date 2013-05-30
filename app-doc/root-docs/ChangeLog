@@ -1,6 +1,20 @@
 # ChangeLog for app-doc/root-docs
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*root-docs-5.34.07 (28 May 2013)
+
+  28 May 2013; Andrew Savchenko <bircoph@gmail.com> -root-docs-5.34.05.ebuild,
+  +root-docs-5.34.07.ebuild, -files/root-docs-5.32-makehtml.patch:
+  Fix sandbox violation on DRI systems: use addpredict instead of
+  switching to Xong GL interface. Remove old.
+
+*root-docs-5.34.05 (23 Feb 2013)
+
+  23 Feb 2013; Andrew Savchenko <bircoph@gmail.com> -root-docs-5.32.04.ebuild,
+  -root-docs-5.34.03.ebuild, +root-docs-5.34.05.ebuild, root-docs-9999.ebuild:
+  Version bump. Remove old. Do not compress files (mostly headers) as
+  this renders them unusable from html pages.
 
 *root-docs-5.34.03 (25 Oct 2012)
 

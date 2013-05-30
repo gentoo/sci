@@ -1,8 +1,9 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=4
+
 AUTOTOOLS_AUTORECONF=1
 
 inherit autotools-utils fortran-2
@@ -28,7 +29,7 @@ DOCS=( AUTHORS ChangeLog README )
 PATCHES=( "${FILESDIR}"/${P}-gentoo.patch )
 
 src_install() {
- 	autotools-utils_src_install
+	autotools-utils_src_install
 	if use examples ; then
 		insinto /usr/share/doc/${PF}/examples
 		doins examples/*.{f90,cl}

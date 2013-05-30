@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header:  $
 
@@ -25,9 +25,9 @@ RDEPEND="opengl?  ( virtual/opengl )
 		 >=sci-misc/salome-gui-${PV}
 		 >=dev-python/omniorbpy-3.4
 		 >=net-misc/omniORB-4.1.4
-		 >=x11-libs/qt-core-4.5.2
-		 >=x11-libs/qt-gui-4.5.2
-		 >=x11-libs/qt-opengl-4.5.2
+		 >=dev-qt/qtcore-4.5.2
+		 >=dev-qt/qtgui-4.5.2
+		 >=dev-qt/qtopengl-4.5.2
 		 >=sci-libs/opencascade-6.3
 		 >=dev-libs/boost-1.40.0
 		 >=sci-libs/vtk-5.0[python]
@@ -85,7 +85,7 @@ src_configure() {
 }
 
 src_compile() {
-	MAKEOPTS="-j1" emake || die "emake failed"
+	MAKEOPTS+=" -j1" emake || die "emake failed"
 }
 
 src_install() {

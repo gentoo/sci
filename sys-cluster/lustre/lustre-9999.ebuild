@@ -1,13 +1,13 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
 WANT_AUTOCONF="2.5"
-WANT_AUTOMAKE="1.9"
+WANT_AUTOMAKE="1.10"
 
-inherit git-2 autotools linux-mod linux-info toolchain-funcs
+inherit git-2 autotools linux-mod toolchain-funcs udev
 
 DESCRIPTION="Lustre is a parallel distributed file system"
 HOMEPAGE="http://wiki.whamcloud.com/"
@@ -17,51 +17,100 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="utils"
+IUSE="+client +utils server liblustre readline tests tcpd +urandom"
 
-DEPEND=""
+DEPEND="
+	virtual/awk
+	virtual/linux-sources
+	readline? ( sys-libs/readline )
+	tcpd? ( sys-apps/tcp-wrappers )
+	server? (
+		>=sys-kernel/spl-0.6.1
+		>=sys-fs/zfs-kmod-0.6.1
+		sys-fs/zfs
+	)
+	"
 RDEPEND="${DEPEND}"
 
-BUILD_PARAMS="-C ${KV_DIR} SUBDIRS=${S}"
-
 PATCHES=(
-"${FILESDIR}/2.4/0001-LU-1337-vfs-kernel-3.1-renames-lock-manager-ops.patch"
-"${FILESDIR}/2.4/0002-LU-1337-vfs-kernel-3.1-kills-inode-i_alloc_sem.patch"
-"${FILESDIR}/2.4/0003-LU-1337-vfs-kernel-3.1-changes-open_to_namei_flags.patch"
-"${FILESDIR}/2.4/0004-LU-1337-vfs-provides-ll_get_acl-to-i_op-get_acl.patch"
-"${FILESDIR}/2.4/0005-LU-1337-block-kernel-3.2-make_request_fn-returns-voi.patch"
-"${FILESDIR}/2.4/0006-LU-1337-vfs-kernel-3.2-protects-inode-i_nlink.patch"
-"${FILESDIR}/2.4/0007-LU-1337-vfs-3.3-changes-super_operations-inode_opera.patch"
-"${FILESDIR}/2.4/0008-LU-1337-kernel-remove-unnecessary-includings-of-syst.patch"
-"${FILESDIR}/2.4/0009-LU-1337-vfs-kernel-3.4-touch_atime-switchs-to-1-argu.patch"
-"${FILESDIR}/2.4/0010-LU-1337-vfs-kernel-3.4-converts-d_alloc_root-to-d_ma.patch"
-"${FILESDIR}/2.4/0011-LU-1337-kernel-v3.5-defines-INVALID_UID.patch"
-"${FILESDIR}/2.4/0012-LU-1337-llite-kernel-3.5-renames-end_writeback-to-cl.patch"
-"${FILESDIR}/2.4/0013-LU-1337-kernel-3.5-kernel-encode_fh-passes-in-parent.patch"
+	"${FILESDIR}/0001-LU-1812-kernel-3.7-FC18-server-patches.patch"
+	"${FILESDIR}/0002-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch"
+	"${FILESDIR}/0003-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch"
+	"${FILESDIR}/0004-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch"
+	"${FILESDIR}/0005-LU-2800-llite-introduce-local-getname.patch"
+	"${FILESDIR}/0006-LU-2987-llite-rcu-free-inode.patch"
+	"${FILESDIR}/0007-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
+	"${FILESDIR}/0008-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
+	"${FILESDIR}/0009-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
+	"${FILESDIR}/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
+	"${FILESDIR}/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
+	"${FILESDIR}/0012-LU-3179-build-fix-compilation-error-with-gcc-4.7.2.patch"
 )
 
 pkg_setup() {
 	linux-mod_pkg_setup
-	linux-info_pkg_setup
 	ARCH="$(tc-arch-kernel)"
 	ABI="${KERNEL_ABI}"
 }
 
 src_prepare() {
 	epatch ${PATCHES[@]}
-	apply_user_patches
-	sh ./autogen.sh
+	# replace upstream autogen.sh by our src_prepare()
+	local DIRS="libcfs lnet lustre snmp"
+	local ACLOCAL_FLAGS
+	for dir in $DIRS ; do
+		ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $dir/autoconf"
+	done
+	eaclocal -I config $ACLOCAL_FLAGS
+	eautoheader
+	eautomake
+	eautoconf
+	# now walk in configure dirs
+	einfo "Reconfiguring source in libsysio"
+	cd libsysio
+	eaclocal
+	eautomake
+	eautoconf
+	cd ..
+	einfo "Reconfiguring source in lustre-iokit"
+	cd lustre-iokit
+	eaclocal
+	eautomake
+	eautoconf
+	cd ..
+	einfo "Reconfiguring source in ldiskfs"
+	cd ldiskfs
+	eaclocal -I config
+	eautoheader
+	eautomake -W no-portability
+	eautoconf
+	cd ..
 }
 
 src_configure() {
+	local myconf
+	if use server; then
+		SPL_PATH=$(basename $(echo "${EROOT}usr/src/spl-"*)) \
+			myconf="${myconf} --with-spl=${EROOT}usr/src/${SPL_PATH} \
+							--with-spl-obj=${EROOT}usr/src/${SPL_PATH}/${KV_FULL}"
+		ZFS_PATH=$(basename $(echo "${EROOT}usr/src/zfs-"*)) \
+			myconf="${myconf} --with-zfs=${EROOT}usr/src/${ZFS_PATH} \
+							--with-zfs-obj=${EROOT}usr/src/${ZFS_PATH}/${KV_FULL}"
+	fi
 	econf \
-		--enable-client \
-		--disable-server \
+		${myconf} \
 		--without-ldiskfs \
 		--disable-ldiskfs-build \
 		--with-linux="${KERNEL_DIR}" \
-		--with-linux-release=${KV_FULL} \
-		$(use_enable utils)
+		--with-linux-release="${KV_FULL}" \
+		$(use_enable client) \
+		$(use_enable utils) \
+		$(use_enable server) \
+		$(use_enable liblustre) \
+		$(use_enable readline) \
+		$(use_enable tcpd libwrap) \
+		$(use_enable urandom) \
+		$(use_enable tests)
 }
 
 src_compile() {

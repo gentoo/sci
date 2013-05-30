@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit eutils flag-o-matic toolchain-funcs versionator multilib fortran-2
+inherit eutils flag-o-matic fortran-2 multilib toolchain-funcs versionator
 
 DESCRIPTION="Extra Precise Basic Linear Algebra Subroutines"
 HOMEPAGE="http://www.netlib.org/xblas"
@@ -76,7 +76,7 @@ src_install() {
 	dodoc README README.devel
 	use doc && dodoc doc/report.ps
 
-	# pkg-config file for our multliple blas stuff
+	# pkg-config file for our multliple numeric stuff
 	cat > ${PN}.pc <<-EOF
 		prefix=${EPREFIX}/usr
 		libdir=\${prefix}/$(get_libdir)

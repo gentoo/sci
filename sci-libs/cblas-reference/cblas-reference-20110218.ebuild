@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils alternatives-2 flag-o-matic toolchain-funcs versionator multilib
+inherit eutils alternatives-2 flag-o-matic toolchain-funcs versionator multilib fortran-2
 
 MYPN="${PN/-reference/}"
 
@@ -17,8 +17,7 @@ SLOT="0"
 IUSE="static-libs"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
 
-RDEPEND="virtual/blas
-	virtual/fortran"
+RDEPEND="virtual/blas"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
@@ -55,7 +54,7 @@ src_prepare() {
 		-e 's:make:$(MAKE):g' '{}' \;
 	append-cflags -DADD_
 	cat > Makefile.in <<-EOF
-		BLLIB=$(pkg-config --libs blas)
+		BLLIB=$($(tc-getPKG_CONFIG) --libs blas)
 		FC=$(tc-getFC)
 		CC=$(tc-getCC)
 		CBLIB=../lib/lib${LIBNAME}.a

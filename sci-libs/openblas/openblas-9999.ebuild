@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
 	_SCM=git-2
@@ -12,10 +12,9 @@ if [[ ${PV} == "9999" ]] ; then
 else
 	SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos ~ppc-macos ~x64-macos"
-	CID="4933d61" # commit ID
 fi
 
-inherit eutils toolchain-funcs alternatives-2 multilib ${_SCM}
+inherit eutils toolchain-funcs alternatives-2 multilib fortran-2 ${_SCM}
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
@@ -25,10 +24,13 @@ SLOT="0"
 
 IUSE="+incblas int64 dynamic openmp static-libs threads"
 
-RDEPEND="virtual/fortran"
+RDEPEND=""
 DEPEND="${RDEPEND}"
 
-S="${WORKDIR}/xianyi-OpenBLAS-${CID}"
+src_unpack() {
+	unpack ${A}
+	mv "${WORKDIR}"/*OpenBLAS* "${S}" || die
+}
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-{sharedlibs-0.2,aliasing}.patch
@@ -100,8 +102,8 @@ src_install() {
 		Description: ${DESCRIPTION}
 		Version: ${PV}
 		URL: ${HOMEPAGE}
-		Libs: -L\${libdir} -lopenblas ${threads}
-		Libs.private: -lm
+		Libs: -L\${libdir} -lopenblas
+		Libs.private: -lm ${threads}
 	EOF
 
 	alternatives_for blas ${profname} 0 \

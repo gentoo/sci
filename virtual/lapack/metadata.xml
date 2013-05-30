@@ -4,6 +4,7 @@
 <herd>sci</herd>
 <longdescription lang="en">
   Gentoo virtual package for the Linear Algebra PACKAge
-  FORTRAN 77 implementation.
+  FORTRAN 77 implementation. The version number corresponds to the
+  version of the LAPACK reference implementation.
 </longdescription>
 </pkgmetadata>

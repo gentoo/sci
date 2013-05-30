@@ -15,8 +15,8 @@
 		<email>sci@gentoo.org</email>
 	</maintainer>
 	<use>
-		<flag name="apron">?apron?</flag>
+		<flag name="doc">?doc?</flag>
 		<flag name="gtk">?gtk?</flag>
-		<flag name="why">?why?</flag>
+		<flag name="ocamlopt">?ocamlopt?</flag>
 	</use>
 </pkgmetadata>

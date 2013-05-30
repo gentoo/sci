@@ -14,6 +14,7 @@ DESCRIPTION="Astrophysical Simulation Analysis and Vizualization package"
 HOMEPAGE="http://yt-project.org/"
 SRC_URI=""
 EHG_REPO_URI="https://bitbucket.org/yt_analysis/yt"
+EHG_REVISION="yt"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -25,7 +26,7 @@ CDEPEND="media-libs/freetype
 	sci-libs/hdf5"
 DEPEND="${CDEPEND}
 	dev-python/cython
-	dev-python/setuptools"
+	>=dev-python/setuptools-0.6.32"
 RDEPEND="${CDEPEND}
 	dev-python/ipython[notebook]
 	dev-python/pyx

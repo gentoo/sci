@@ -1,0 +1,17 @@
+diff -ru libgeodecomp-0.1.0/src/util.cmake libgeodecomp-0.1.0-nju/src/util.cmake
+--- libgeodecomp-0.1.0/src/util.cmake	2012-06-27 12:26:46.000000000 +0200
++++ libgeodecomp-0.1.0-nju/src/util.cmake	2013-01-29 20:52:43.306376967 +0100
+@@ -54,11 +54,11 @@
+     endforeach(i)
+ 
+     if(STRIPPED_SOURCES)
+-      list(SORT STRIPPED_SOURCES ${STRIPPED_SOURCES})
++      list(SORT STRIPPED_SOURCES)
+     endif(STRIPPED_SOURCES)
+     
+     if(STRIPPED_HEADERS)
+-      list(SORT STRIPPED_HEADERS ${STRIPPED_HEADERS})
++      list(SORT STRIPPED_HEADERS)
+     endif(STRIPPED_HEADERS)
+ 
+     set(MY_AUTO "set(SOURCES \${SOURCES}\n")

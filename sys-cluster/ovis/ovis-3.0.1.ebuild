@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,8 +21,8 @@ RDEPEND="
 	dev-libs/libevent
 	>=dev-libs/qjson-0.7.1
 	sys-libs/readline
-	>=x11-libs/qt-assistant-4.7.4[compat]
-	>=x11-libs/qt-gui-4.7.4
+	>=dev-qt/qthelp-4.7.4[compat]
+	>=dev-qt/qtgui-4.7.4
 	avahi? ( >=net-dns/avahi-0.6.27 )"
 DEPEND="${RDEPEND}
 	avahi? ( >=net-dns/avahi-0.6.27 )"

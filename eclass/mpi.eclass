@@ -9,11 +9,11 @@ inherit multilib
 #	Justin Bronder <jsbronder@gentoo.org>
 # @BLURB:  Common functions for mpi-pkg.eclass and mpi-imp.eclass
 
-# History:  
-# 	2009-06-26 (jsbronder):  Add ability to require common use flags.
+# History:
+#	2009-06-26 (jsbronder):  Add ability to require common use flags.
 #		Remove dep on eselect-mpi (it's in sys-cluster/empi)
 #		Use virtual/$class to get imp dep in mpi_pkg_deplist.
-# 	2008-11-20 (jsbronder):  Initial rewrite from old mpi.eclass
+#	2008-11-20 (jsbronder):  Initial rewrite from old mpi.eclass
 
 
 #####################
@@ -216,7 +216,7 @@ mpi_imp_deplist() {
 }
 
 mpi_imp_add_eselect() {
-	mpi_classed || return 0	
+	mpi_classed || return 0
 	local c=$(mpi_class)
 	cp "${FILESDIR}"/${MPI_ESELECT_FILE} ${T}/${c}.eselect || die
 	sed -i \
@@ -357,7 +357,7 @@ mpi_pkg_fc()  { _mpi_pkg_compiler "MPI_FC"  "f90 fc";  }
 # @USAGE:
 # @DESCRIPTION:  Adds the correct path(s) to the end of LD_LIBRARY_PATH.  Does
 # nothing if the build is unclassed.
-mpi_pkg_set_ld_library_path() { 
+mpi_pkg_set_ld_library_path() {
 	if mpi_classed; then
 		export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:$(_get_eselect_var LD_LIBRARY_PATH)"
 	fi
@@ -404,7 +404,7 @@ mpi_pkg_set_env() {
 # @FUNCTION: mpi_pkg_restore_env
 # @USAGE:
 # @DESCRIPTION:  Attempts to undo the damage done by mpi_pkg_set_env
-mpi_pkg_restore_env() {	
+mpi_pkg_restore_env() {
 	if mpi_classed; then
 		export CC=$_mpi_oCC
 		export CXX=$_mpi_oCXX

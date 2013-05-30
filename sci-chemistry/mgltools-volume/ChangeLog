@@ -1,6 +1,26 @@
 # ChangeLog for sci-chemistry/mgltools-volume
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  14 Apr 2013; Justin Lecher <jlec@gentoo.org> mgltools-volume-1.5.4-r1.ebuild,
+  mgltools-volume-1.5.6.ebuild:
+  Correct license
+
+  14 Apr 2013; Justin Lecher <jlec@gentoo.org> mgltools-volume-1.5.6.ebuild:
+  Fix SRC_URI
+
+*mgltools-volume-1.5.6 (12 Apr 2013)
+
+  12 Apr 2013; Justin Lecher <jlec@gentoo.org>
+  -mgltools-volume-1.5.6_rc2.ebuild, -mgltools-volume-1.5.6_rc3.ebuild,
+  +mgltools-volume-1.5.6.ebuild:
+  Version Bump; drop old
+
+*mgltools-volume-1.5.6_rc3 (27 Jan 2013)
+
+  27 Jan 2013; Justin Lecher <jlec@gentoo.org>
+  +mgltools-volume-1.5.6_rc3.ebuild, metadata.xml:
+  Version Bump; move to distutils-r1.eclass
 
   27 Apr 2012; Justin Lecher <jlec@gentoo.org> mgltools-volume-1.5.4-r1.ebuild,
   mgltools-volume-1.5.6_rc2.ebuild:

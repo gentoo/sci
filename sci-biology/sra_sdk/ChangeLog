@@ -1,6 +1,18 @@
 # ChangeLog for sci-biology/sra_sdk
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> sra_sdk-2.1.9.ebuild,
+  sra_sdk-2.2.2a.ebuild, metadata.xml:
+  Drop useless blank line
+
+*sra_sdk-2.2.2a (28 Dec 2012)
+
+  28 Dec 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +sra_sdk-2.2.2a.ebuild:
+  sci-biology/sra_sdk-2.2.2a: a version bump, still requires MAKEOPTS=-j1 and
+  copies softlinks to binaries and libraries as files, so everything is in 3
+  physical copies
 
   15 Mar 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   sra_sdk-2.1.9.ebuild:
@@ -53,4 +65,3 @@
   sra_sdk-2.0.1.ebuild:
   backbone of a new package, should probably use a lot of stuff from
   ncbi-tools++ ebuild
-

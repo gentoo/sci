@@ -1,0 +1,14 @@
+--- src/build-system/Makefile.in.top.old	2013-01-07 23:07:29.970141951 +0100
++++ src/build-system/Makefile.in.top	2013-01-07 23:08:37.940990190 +0100
+@@ -39,7 +39,10 @@
+ 	-$(RMDIR) $(pincludedir)
+ 	$(INSTALL) -d $(bindir) $(libdir) $(pincludedir)
+ 	$(INSTALL) $(lbindir)/* $(bindir)
+-	$(INSTALL) -m 644 $(llibdir)/* $(libdir)
++	$(INSTALL) -m 644 $(llibdir)/*.* $(libdir)
++	if test -d $(llibdir)/ncbi; then \
++	    cp -pPR $(llibdir)/ncbi $(libdir)/; \
++	fi
+ 	-rm -f $(libdir)/lib*-static.a
+ 	cd $(libdir)  && \
+ 	    for x in *.a; do ln -s "$$x" "`basename \"$$x\" .a`-static.a"; done

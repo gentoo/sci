@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/espresso/espresso-3.1.0.ebuild,v 1.5 2012/05/06 23:08:00 ottxor Exp $
 
@@ -12,6 +12,7 @@ HOMEPAGE="http://www.espressomd.org"
 if [[ ${PV} = 9999 ]]; then
 	EGIT_REPO_URI="git://git.savannah.nongnu.org/espressomd.git"
 	EGIT_BRANCH="master"
+	AUTOTOOLS_AUTORECONF=1
 	inherit git-2
 else
 	SRC_URI="mirror://nongnu/${PN}md/${P}.tar.gz"
@@ -42,16 +43,6 @@ DEPEND="${RDEPEND}
 
 DOCS=( AUTHORS NEWS README ChangeLog )
 
-src_prepare() {
-	autotools-utils_src_prepare
-	eautoreconf
-	restore_config myconfig.h
-	if [[ ${CHOST} == *-darwin* ]]; then
-		#tclline uses stty, which has different exit code on Darwin
-		sed -i '/source.*tclline/s/^/#/' "scripts/init.tcl" || die
-	fi
-}
-
 src_configure() {
 	myeconfargs=(
 		$(use_with fftw) \
@@ -60,6 +51,7 @@ src_configure() {
 		$(use_with X x)
 	)
 	autotools-utils_src_configure
+	restore_config myconfig.h
 }
 
 src_compile() {

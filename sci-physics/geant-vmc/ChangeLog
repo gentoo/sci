@@ -1,0 +1,13 @@
+# ChangeLog for sci-physics/geant-vmc
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  21 Jan 2013; Sébastien Fabbro <bicatali@gentoo.org> geant-vmc-4.2.14.ebuild:
+  sci-physics/geant-vmc: source geant4 shell script before compiling
+
+*geant-vmc-3.1.14 (18 Jan 2013)
+*geant-vmc-4.2.14 (18 Jan 2013)
+
+  18 Jan 2013; Sébastien Fabbro <bicatali@gentoo.org> +geant-vmc-3.1.14.ebuild,
+  +geant-vmc-4.2.14.ebuild, +metadata.xml:
+  sci-physics/geant-vmc: Initial import

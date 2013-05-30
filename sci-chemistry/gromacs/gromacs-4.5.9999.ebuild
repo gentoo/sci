@@ -1,14 +1,13 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/gromacs/gromacs-4.5.7.ebuild,v 1.2 2013/05/05 17:31:09 ottxor Exp $
 
 EAPI="4"
 
 TEST_PV="4.0.4"
-MANUAL_PV="4.5.4"
+MANUAL_PV="4.5.6"
 
-#to find external blas/lapack
-CMAKE_MIN_VERSION="2.8.5-r2"
+FORTRAN_NEEDED=fkernels
 
 inherit bash-completion-r1 cmake-utils eutils fortran-2 multilib toolchain-funcs
 
@@ -20,7 +19,9 @@ if [ "${PV%9999}" != "${PV}" ]; then
 	EGIT_BRANCH="release-4-5-patches"
 	inherit git-2
 else
-	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz"
+	SRC_URI="${SRC_URI} ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
+		sse2? ( http://dev.gentoo.org/~alexxy/gromacs/0001-Make-stack-non-executable-for-GAS-assembly.patch.gz )
+		sse2? ( http://dev.gentoo.org/~alexxy/gromacs/0002-Make-stack-non-executable-for-ATT-assembly.patch.gz )"
 fi
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
@@ -28,7 +29,7 @@ HOMEPAGE="http://www.gromacs.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 IUSE="X altivec blas doc -double-precision +fftw fkernels gsl lapack
 mpi +single-precision sse2 test +threads xml zsh-completion"
 REQUIRED_USE="fkernels? ( !threads )"
@@ -41,7 +42,6 @@ CDEPEND="
 		)
 	blas? ( virtual/blas )
 	fftw? ( sci-libs/fftw:3.0 )
-	fkernels? ( virtual/fortran )
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mpi? ( virtual/mpi )
@@ -53,10 +53,6 @@ RDEPEND="${CDEPEND}
 
 RESTRICT="test"
 
-pkg_setup() {
-	use fkernels && fortran-2_pkg_setup
-}
-
 src_prepare() {
 	#add user patches from /etc/portage/patches/sci-chemistry/gromacs
 	epatch_user
@@ -66,6 +62,14 @@ src_prepare() {
 		elog "use of mpi over threads, so a mpi-version of mdrun will"
 		elog "be compiled. If you want to run mdrun on shared memory"
 		elog "machines only, you can safely disable mpi"
+	fi
+
+	if [[ ${PV} != *9999 ]] && use sse2; then
+		# Add patches for non-exec stack - qa issue
+		epatch "${WORKDIR}/0001-Make-stack-non-executable-for-GAS-assembly.patch"
+		epatch "${WORKDIR}/0002-Make-stack-non-executable-for-ATT-assembly.patch"
+		#alexxy patches, renamve kernel from .s to .S
+		epatch "${FILESDIR}/${P}-cmake-cpp-asm.patch"
 	fi
 
 	GMX_DIRS=""

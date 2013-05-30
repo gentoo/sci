@@ -1,6 +1,15 @@
 # ChangeLog for sci-chemistry/mgltools-stride
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  14 Apr 2013; Justin Lecher <jlec@gentoo.org> mgltools-stride-1.5.4-r1.ebuild:
+  Fix license, thanks ulm looking for correct licensing
+
+  14 Apr 2013; Justin Lecher <jlec@gentoo.org> mgltools-stride-1.5.4-r1.ebuild:
+  Correct license
+
+  27 Jan 2013; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Version Bump; move to distutils-r1.eclass
 
   27 Apr 2012; Justin Lecher <jlec@gentoo.org> mgltools-stride-1.5.4-r1.ebuild:
   Add 2.7-pypy-* to RESTRICT_PYTHON_ABIS
