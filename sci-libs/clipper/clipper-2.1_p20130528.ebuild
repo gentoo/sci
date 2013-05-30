@@ -2,11 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/clipper/clipper-2.1_p100511-r1.ebuild,v 1.1 2013/05/28 18:15:50 jlec Exp $
 
-EAPI=4
+EAPI=5
 
-#AUTOTOOLS_AUTORECONF=true
-
-inherit autotools-utils eutils flag-o-matic
+inherit autotools-utils flag-o-matic
 
 MY_PV=${PV/_p/.}
 MY_P="${PN}-${MY_PV}"
@@ -17,18 +15,16 @@ SRC_URI="ftp://ftp.ccp4.ac.uk/opensource/${MY_P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="cctbx fortran static-libs"
 
 RDEPEND="
-	sci-libs/ccp4-libs
-	sci-libs/fftw
+	sci-libs/libccp4
+	sci-libs/fftw:2.1
 	sci-libs/mmdb"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${MY_P}
-
-#PATCHES=()
 
 src_configure() {
 	# Recommended on ccp4bb/coot ML to fix crashes when calculating maps
