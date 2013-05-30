@@ -1,6 +1,12 @@
 # ChangeLog for sci-chemistry/molrep
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/molrep/ChangeLog,v 1.21 2012/10/19 09:56:23 jlec Exp $
+
+*molrep-11.2.01 (30 May 2013)
+
+  30 May 2013; Justin Lecher <jlec@gentoo.org> -molrep-11.0.05.ebuild,
+  +molrep-11.2.01.ebuild, metadata.xml:
+  Version BUmp
 
 *molrep-11.0.05 (10 Dec 2012)
 
