@@ -13,7 +13,7 @@ SRC_URI="ftp://ftp.ccp4.ac.uk/opensource/${P}.tar.bz2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="LGPL-3"
-IUSE="ccp4 static-libs"
+IUSE="+ccp4 static-libs"
 
 RDEPEND="
 	ccp4? ( sci-libs/libccp4[fortran] )"

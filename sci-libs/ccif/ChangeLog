@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 May 2013; Justin Lecher <jlec@gentoo.org> ccif-0.4.20120917.ebuild:
+  add USE=ccp4 to be default
+
 *ccif-0.4.20120917 (30 May 2013)
 
   30 May 2013; Justin Lecher <jlec@gentoo.org> -ccif-0.3.20111209.ebuild,
