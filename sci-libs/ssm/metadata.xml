@@ -3,7 +3,7 @@
 <pkgmetadata>
   <herd>sci</herd>
   <maintainer>
-    <email>sci@gentoo.org</email>
+    <email>jlec@gentoo.org</email>
   </maintainer>
   <use>
     <flag name="ccp4">Enable necessary ouput to use superpose with ccp4</flag>
