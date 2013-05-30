@@ -5,6 +5,5 @@
 	<use>
 		<flag name="cmkopt">Enable CMK optimisation</flag>
 		<flag name="tcp">Use TCP (instead of UPD) for socket communication</flag>
-		<flag name="charmshared">Build shared libraries</flag>
 	</use>
 </pkgmetadata>

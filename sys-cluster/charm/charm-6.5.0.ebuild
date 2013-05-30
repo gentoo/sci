@@ -13,7 +13,7 @@ SRC_URI="http://charm.cs.uiuc.edu/distrib/${P}.tar.gz"
 LICENSE="charm"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cmkopt charmshared tcp smp doc examples"
+IUSE="cmkopt doc examples smp static-libs tcp"
 
 DEPEND="
 	doc? (
@@ -22,31 +22,23 @@ DEPEND="
 	virtual/tex-base )"
 RDEPEND=""
 
-case ${ARCH} in
-	x86)
-		CHARM_ARCH="net-linux" ;;
-
-	amd64)
-		CHARM_ARCH="net-linux-amd64" ;;
-esac
-
 FORTRAN_STANDARD="90"
 
 src_prepare() {
 	#epatch "${FILESDIR}"/${P}-gcc-4.7.patch
 
 	# For production, disable debugging features.
-	CHARM_OPTS="--with-production"
+	CHARM_OPTS="--with-production --build-shared"
 
 	# TCP instead of default UDP for socket comunication
 	# protocol
 	if use tcp; then
-		CHARM_OPTS="${CHARM_OPTS} tcp"
+		CHARM_OPTS+=" tcp"
 	fi
 
 	# enable direct SMP support using shared memory
 	if use smp; then
-		CHARM_OPTS="${CHARM_OPTS} smp"
+		CHARM_OPTS+=" smp"
 	fi
 
 	# CMK optimization
@@ -55,24 +47,24 @@ src_prepare() {
 	fi
 
 	sed \
-		-e "/CMK_CF90/s:f90:${FC}:g" \
+		-e "/CMK_CF90/s:f90:$(tc-getFC):g" \
 		-e "/CMK_CXX/s:g++:$(tc-getCXX):g" \
 		-e "/CMK_CC/s:gcc:$(tc-getCC):g" \
 		-e '/CMK_F90_MODINC/s:-p:-I:g' \
 		-e "/CMK_LD/s:\"$: ${LDFLAGS} \":g" \
-		-i src/arch/net-linux*/*sh
+		-i src/arch/net-linux*/*sh || die
 
 	sed \
-		-e "s:\(-o conv-cpm\):${LDFLAGS} \1:g" \
-		-e "s:\(-o charmxi\):${LDFLAGS} \1:g" \
-		-e "s:\(-o charmrun-silent\):${LDFLAGS} \1:g" \
-		-e "s:\(-o charmrun-notify\):${LDFLAGS} \1:g" \
-		-e "s:\(-o charmrun\):${LDFLAGS} \1:g" \
-		-e "s:\(-o charmd_faceless\):${LDFLAGS} \1:g" \
-		-e "s:\(-o charmd\):${LDFLAGS} \1:g" \
+		-e "s:-o conv-cpm:${LDFLAGS} &:g" \
+		-e "s:-o charmxi:${LDFLAGS} &:g" \
+		-e "s:-o charmrun-silent:${LDFLAGS} &:g" \
+		-e "s:-o charmrun-notify:${LDFLAGS} &:g" \
+		-e "s:-o charmrun:${LDFLAGS} &:g" \
+		-e "s:-o charmd_faceless:${LDFLAGS} &:g" \
+		-e "s:-o charmd:${LDFLAGS} &:g" \
 		-i \
 		src/scripts/Makefile \
-		src/arch/net/charmrun/Makefile
+		src/arch/net/charmrun/Makefile || die
 
 	append-cflags -DALLOCA_H
 
@@ -81,7 +73,7 @@ src_prepare() {
 
 src_compile() {
 	# build charmm++ first
-	./build charm++ ${CHARM_ARCH} ${CHARM_OPTS} ${MAKEOPTS} ${CFLAGS} || \
+	./build charm++ net-linux$( use amd64 && echo "-amd64" ) ${CHARM_OPTS} ${MAKEOPTS} ${CFLAGS} || \
 		die "Failed to build charm++"
 
 	# make charmc play well with gentoo before
@@ -104,43 +96,43 @@ src_install() {
 	# In the following, some of the files are symlinks to ../tmp which we need
 	# to dereference first (see bug 432834).
 
+	local i
+
 	# Install binaries.
 	for i in bin/*; do
-		if [ -L $i ]; then
-			i=$( readlink -e $i )
-		else
-			i=$i
+		if [[ -L ${i} ]]; then
+			i=$( readlink -e "${i}" ) || die
 		fi
-		dobin $i
+		dobin "${i}"
 	done
 
 	# Install headers.
 	insinto /usr/include/${P}
 	for i in include/*; do
-		if [ -L $i ]; then
-			i=$( readlink -e $i )
-		else
-			i=$i
+		if [[ -L ${i} ]]; then
+			i=$( readlink -e "${i}" ) || die
 		fi
-		doins $i
+		doins "${i}"
 	done
 
-	# Install static libs.  Charm has a lot of .o "libs" that it requires at
+	# Install static libs. Charm has a lot of .o "libs" that it requires at
 	# runtime.
-	for i in lib/*.{a,o}; do
-		if [ -L $i ]; then
-			i=$( readlink -e $i )
-		else
-			i=$i
-		fi
-		dolib $i
-	done
+	if use static-libs; then
+		for i in lib/*.{a,o}; do
+			if [[ -L ${i} ]]; then
+				i=$( readlink -e "${i}" ) || die
+			fi
+			dolib "${i}"
+		done
+	fi
 
 	# Install shared libs.
-	if use charmshared; then
-		cd "${S}"/lib_so
-		dolib.so *.so*
-	fi
+	for i in lib_so/*; do
+		if [[ -L ${i} ]]; then
+			i=$( readlink -e "${i}" ) || die
+		fi
+		dolib.so "${i}"
+	done
 
 	# Basic docs.
 	dodoc CHANGES README
@@ -170,9 +162,7 @@ src_install() {
 }
 
 pkg_postinst() {
-	echo
 	einfo "Please test your charm installation by copying the"
 	einfo "content of /usr/share/doc/${PF}/examples to a"
 	einfo "temporary location and run 'make test'."
-	echo
 }
