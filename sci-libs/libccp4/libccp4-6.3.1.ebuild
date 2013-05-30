@@ -4,6 +4,8 @@
 
 EAPI=5
 
+FORTRAN_NEEDED=fortran
+
 inherit autotools-utils fortran-2
 
 DESCRIPTION="CCP4 lib"
