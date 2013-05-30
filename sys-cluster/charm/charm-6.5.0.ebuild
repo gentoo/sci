@@ -13,7 +13,7 @@ SRC_URI="http://charm.cs.uiuc.edu/distrib/${P}.tar.gz"
 LICENSE="charm"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cmkopt charmshared tcp smp doc"
+IUSE="cmkopt charmshared tcp smp doc examples"
 
 DEPEND="
 	doc? (
@@ -146,14 +146,16 @@ src_install() {
 	dodoc CHANGES README
 
 	# Install examples.
-	find examples/ -name 'Makefile' | xargs sed \
-		-r "s:(../)+bin/charmc:/usr/bin/charmc:" -i || \
-		die "Failed to fix examples"
-	find examples/ -name 'Makefile' | xargs sed \
-		-r "s:./charmrun:./charmrun ++local:" -i || \
-		die "Failed to fix examples"
-	insinto /usr/share/doc/${PF}/examples
-	doins -r examples/charm++/*
+	if use examples; then
+		find examples/ -name 'Makefile' | xargs sed \
+			-r "s:(../)+bin/charmc:/usr/bin/charmc:" -i || \
+			die "Failed to fix examples"
+		find examples/ -name 'Makefile' | xargs sed \
+			-r "s:./charmrun:./charmrun ++local:" -i || \
+			die "Failed to fix examples"
+		insinto /usr/share/doc/${PF}/examples
+		doins -r examples/charm++/*
+	fi
 
 	# Install pdf/html docs
 	if use doc; then
