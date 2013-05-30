@@ -8,14 +8,14 @@ AUTOTOOLS_AUTORECONF=1
 
 FORTRAN_STANDARD=90
 
-inherit autotools-utils fortran-2 git-2
+inherit autotools-utils fortran-2
+
+REAL_PN="${PN}-beta"
+REAL_PV="${PV//./-}"
 
 DESCRIPTION="an experimental suite of programs for linear scaling quantum chemistry."
 HOMEPAGE="http://www.freeon.org"
-SRC_URI=""
-
-EGIT_REPO_URI="http://git.savannah.gnu.org/r/freeon.git"
-EGIT_BOOTSTRAP="fix_localversion.sh"
+SRC_URI="http://download.savannah.gnu.org/releases/${PN}/${REAL_PN}-${REAL_PV}.tar.bz2"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -30,11 +30,13 @@ RDEPEND="
 DEPEND="${DEPEND}
 	virtual/pkgconfig"
 
+S="${WORKDIR}/${REAL_PN}-${REAL_PV}"
+
 src_prepare() {
 	# Get rid of the obsolete internal hdf5
-	rm -r "${S}"/Modules/hdf5-1.8.3
+	rm -r "${S}"/hdf5-1.8.3
 	# as well as of the internal lapack
-	rm -r "${S}"/Modules/lapack
+	rm -r "${S}"/lapack
 	epatch "${FILESDIR}"/"${P}"-no_internal_libs.patch
 	eautoreconf
 }
