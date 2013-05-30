@@ -1,0 +1,49 @@
+ Makefile.am  |  3 +++
+ configure.ac |  5 ++++-
+ ssm.pc.in    | 12 ++++++++++++
+ 3 files changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index ae84dd1..018b4d1 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,5 +1,8 @@
+ ACLOCAL_AMFLAGS = -I m4
+ 
++pkgconfigdir = $(libdir)/pkgconfig
++pkgconfig_DATA = ssm.pc
++
+ lib_LTLIBRARIES = libssm.la
+ libssm_la_SOURCES = ssm_superpose.cpp ssm_csia.cpp ssm_vxedge.cpp \
+ 		    ssm_align.cpp ssm_malign.cpp ssm_graph.cpp
+diff --git a/configure.ac b/configure.ac
+index 25fc0ab..2d73ac4 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -33,4 +33,7 @@ if test "x$enable_ccp4" = "xyes"; then
+ fi
+ AM_CONDITIONAL([USE_LIBCCP4], [test "x$enable_ccp4" = "xyes"])
+ 
+-AC_OUTPUT([Makefile])
++AC_OUTPUT([
++	Makefile
++	ssm.pc
++])
+diff --git a/ssm.pc.in b/ssm.pc.in
+new file mode 100644
+index 0000000..a6ac635
+--- /dev/null
++++ b/ssm.pc.in
+@@ -0,0 +1,12 @@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@/ssm
++
++Name: ssm
++Description: Macromolecular superposition library
++Version: @VERSION@
++Requires: mmdb
++Conflicts:
++Libs: -L${libdir} -lssm
++Cflags: -I${includedir}
