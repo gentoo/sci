@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit java-pkg-2 java-ant-2
 
@@ -27,7 +27,7 @@ S="${WORKDIR}"/${MY_PN}.${PV}
 
 src_compile() {
 	sed 's:makefile::g' -i Makefile || die
-	emake
+	default
 }
 
 src_install() {
