@@ -3,6 +3,9 @@
 # $Header: $
 
   31 May 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.0.ebuild:
+  Added src_test().
+
+  31 May 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.0.ebuild:
   The "-DALLOCA_H" compiler flag appears to be unnecessary...
 
   30 May 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.0.ebuild,
