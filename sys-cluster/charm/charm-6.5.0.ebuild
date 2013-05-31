@@ -70,13 +70,9 @@ src_prepare() {
 }
 
 src_compile() {
-	# build charmm++ first
+	# Build charmm++ first.
 	./build charm++ net-linux$( use amd64 && echo "-amd64" ) ${CHARM_OPTS} ${MAKEOPTS} ${CFLAGS} || \
 		die "Failed to build charm++"
-
-	# make charmc play well with gentoo before
-	# we move it into /usr/bin
-	epatch "${FILESDIR}/charm-6.5.0-charmc-gentoo.patch"
 
 	# make pdf/html docs
 	if use doc; then
@@ -85,7 +81,14 @@ src_compile() {
 	fi
 }
 
+src_test() {
+	make -C tests/charm++ test TESTOPTS="++local"
+}
+
 src_install() {
+	# Make charmc play well with gentoo before we move it into /usr/bin.
+	epatch "${FILESDIR}/charm-6.5.0-charmc-gentoo.patch"
+
 	sed -e "s|gentoo-include|${P}|" \
 		-e "s|gentoo-libdir|$(get_libdir)|g" \
 		-e "s|VERSION|${P}/VERSION|" \
