@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>cluster</herd>
-	<maintainer>
-		<email>spock@gentoo.org</email>
-		<name>Michał Januszewski</name>
-	</maintainer>
-	<use>
-		<flag name='profiler'>
+  <herd>cluster</herd>
+  <maintainer>
+    <email>spock@gentoo.org</email>
+    <name>Michał Januszewski</name>
+  </maintainer>
+  <use>
+    <flag name="profiler">
 			Installs the NVIDIA CUDA visual profiler.
 		</flag>
-		<flag name="debugger">
+    <flag name="debugger">
 			Installs the CUDA debugger.
 		</flag>
-		<flag name="eclipse">Install the <pkg>dev-util/eclipse-sdk</pkg> plugins</flag>
-	</use>
+    <flag name="eclipse">Install the <pkg>dev-util/eclipse-sdk</pkg> plugins</flag>
+  </use>
 </pkgmetadata>
-
