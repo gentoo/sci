@@ -66,9 +66,7 @@ src_prepare() {
 		src/scripts/Makefile \
 		src/arch/net/charmrun/Makefile || die
 
-	append-cflags -DALLOCA_H
-
-	echo "charm opts: ${CHARM_OPTS}"
+	einfo "charm opts: ${CHARM_OPTS}"
 }
 
 src_compile() {
