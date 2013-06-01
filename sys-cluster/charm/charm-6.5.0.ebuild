@@ -82,7 +82,7 @@ src_compile() {
 }
 
 src_test() {
-	make -C tests/charm++ test TESTOPTS="++local"
+	make -C tests/charm++ test TESTOPTS="++local" || die
 }
 
 src_install() {
