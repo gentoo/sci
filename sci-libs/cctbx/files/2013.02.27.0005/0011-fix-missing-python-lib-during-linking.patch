@@ -1,0 +1,47 @@
+From: Radostan Riedel <raybuntu@googlemail.com>
+Date: Thu, 19 Jul 2012 23:26:30 +0200
+Subject: fix missing python lib during linking
+
+---
+ cctbx_sources/libtbx/SConscript              |    4 ++--
+ cctbx_sources/scitbx/boost_python/SConscript |    2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/cctbx_sources/libtbx/SConscript b/cctbx_sources/libtbx/SConscript
+index 58bdd30..53e1512 100644
+--- a/cctbx_sources/libtbx/SConscript
++++ b/cctbx_sources/libtbx/SConscript
+@@ -54,9 +54,11 @@ def set_python_include_and_libs(env_etc):
+   env_etc.python_include = libtbx.env_config.python_include_path()
+   if (sys.platform == "win32"):
+     env_etc.libs_python = ["python" + sys.version[0] + sys.version[2]]
++    env_etc.py_lib = 'python%s%s'%(sys.version[0], sys.version[2])
+     env_etc.libpath_python = [sys.prefix + r"\libs"]
+   else:
+     env_etc.libs_python = []
++    env_etc.py_lib = 'python%s.%s'%(sys.version[0], sys.version[2])
+     env_etc.libpath_python = []
+   if (env_etc.compiler.startswith("darwin_")):
+     env_etc.python_framework = "/".join(
+@@ -1034,8 +1036,6 @@ def check_syslib(lib, extra_libs=None):
+     return True
+ env_etc.check_syslib = check_syslib
+ 
+-env_etc.py_lib = 'python%s.%s'%(sys.version[0], sys.version[2])
+-
+ if (libtbx.env.build_options.use_system_libs):
+   env_etc.use_system_libs = True
+ 
+diff --git a/cctbx_sources/scitbx/boost_python/SConscript b/cctbx_sources/scitbx/boost_python/SConscript
+index 1f396e5..b906eb3 100644
+--- a/cctbx_sources/scitbx/boost_python/SConscript
++++ b/cctbx_sources/scitbx/boost_python/SConscript
+@@ -7,7 +7,7 @@ env_etc.enable_more_warnings(env=env)
+ env.Append(CXXFLAGS=env_etc.cxxflags_bpl_defines_base)
+ env.Append(SHCXXFLAGS=env_etc.cxxflags_bpl_defines_base)
+ env.Append(LIBPATH=env_etc.libpath_python)
+-env.Append(LIBS=[env_etc.boost_python] + env_etc.libs_python)
++env.Append(LIBS=[env_etc.boost_python] + [env_etc.py_lib,] + env_etc.libs_python)
+ env_etc.include_registry.append(
+   env=env,
+   paths=env_etc.scitbx_common_includes + [env_etc.python_include])

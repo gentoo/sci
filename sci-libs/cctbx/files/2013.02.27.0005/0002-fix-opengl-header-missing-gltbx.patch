@@ -1,0 +1,51 @@
+From: =?UTF-8?q?Picca=20Fr=C3=A9d=C3=A9ric-Emmanuel?= <picca@debian.org>
+Date: Sat, 30 Jun 2012 15:51:06 +0200
+Subject: fix-opengl-header-missing-gltbx
+
+---
+ cctbx_sources/gltbx/SConscript |   32 ++++++++++++++++----------------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/cctbx_sources/gltbx/SConscript b/cctbx_sources/gltbx/SConscript
+index d02e7a5..4b2213d 100644
+--- a/cctbx_sources/gltbx/SConscript
++++ b/cctbx_sources/gltbx/SConscript
+@@ -45,22 +45,22 @@ if (not env_etc.no_boost_python):
+     env=env,
+     paths=env_etc.gltbx_common_includes + [env_etc.python_include])
+   #
+-  env_etc.gltbx_has_usable_opengl = False
+-  conf = trial_env.Configure()
+-  flag, output = conf.TryRun("""
+-#include <gltbx/include_opengl.h>
+-#include <iostream>
+-int main() { std::cout << GL_POINT << std::endl; return 0; }
+-""", extension=".cpp")
+-  conf.Finish()
+-  if (flag and len(output.strip()) != 0):
+-    conf = env.Configure()
+-    if (conf.TryCompile("""
+-#include <gltbx/include_opengl.h>
+-""", extension=".cpp")):
+-      env_etc.gltbx_has_usable_opengl = True
+-    conf.Finish()
+-  #
++  env_etc.gltbx_has_usable_opengl = True
++#  conf = trial_env.Configure()
++#  flag, output = conf.TryRun("""
++##include <gltbx/include_opengl.h>
++##include <iostream>
++#int main() { std::cout << GL_POINT << std::endl; return 0; }
++#""", extension=".cpp")
++#  conf.Finish()
++#  if (flag and len(output.strip()) != 0):
++#    conf = env.Configure()
++#    if (conf.TryCompile("""
++##include <gltbx/include_opengl.h>
++#""", extension=".cpp")):
++#      env_etc.gltbx_has_usable_opengl = True
++#    conf.Finish()
++#  #
+   if (not env_etc.gltbx_has_usable_opengl):
+     print "gltbx: OpenGL headers and/or libraries not available."
+     print "gltbx: Compilation skipped."

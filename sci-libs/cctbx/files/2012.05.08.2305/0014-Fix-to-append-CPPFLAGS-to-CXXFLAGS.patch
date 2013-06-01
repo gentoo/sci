@@ -1,0 +1,21 @@
+From: Radostan Riedel <raybuntu@googlemail.com>
+Date: Wed, 25 Jul 2012 01:44:36 +0200
+Subject: Fix to append CPPFLAGS to CXXFLAGS.
+
+---
+ cctbx_sources/libtbx/SConscript |    2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/cctbx_sources/libtbx/SConscript b/cctbx_sources/libtbx/SConscript
+index 7d51d4a..11a7810 100644
+--- a/cctbx_sources/libtbx/SConscript
++++ b/cctbx_sources/libtbx/SConscript
+@@ -798,6 +798,8 @@ else:
+       env_etc.ccflags_base = flg
+     flg = opts.env_cppflags.split(" ")
+     env_etc.ccflags_base.extend(flg)
++    # Need to append CPPFLAGS to cxxflags_base too!
++    env_etc.cxxflags_base.extend(flg)
+ 
+ """ ************************ Custom Builders and Emitters ********************************* """
+ 

@@ -1,0 +1,27 @@
+From: Radostan Riedel <raybuntu@googlemail.com>
+Date: Thu, 19 Jul 2012 11:29:57 +0200
+Subject: build libann statically
+
+---
+ cctbx_sources/annlib_adaptbx/SConscript |    8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/cctbx_sources/annlib_adaptbx/SConscript b/cctbx_sources/annlib_adaptbx/SConscript
+index 31b4da6..f217b3f 100644
+--- a/cctbx_sources/annlib_adaptbx/SConscript
++++ b/cctbx_sources/annlib_adaptbx/SConscript
+@@ -29,9 +29,11 @@ if (libtbx.manual_date_stamp < 20090819):
+   env.Replace(CXXFLAGS=env_etc.cxxflags_base)
+   env.Replace(SHCXXFLAGS=env_etc.cxxflags_base)
+ 
+-if (env_etc.static_libraries): builder = env.StaticLibrary
+-else:                          builder = env.SharedLibrary
+-builder(target='#lib/ann',
++#if (env_etc.static_libraries): builder = env.StaticLibrary
++#else:                          builder = env.SharedLibrary
++# Create a static library since the changes are incompatiple
++# with debian's libann
++env.StaticLibrary(target='#lib/ann',
+   source = ["../annlib/src/ANN.cpp",
+             "../annlib/src/bd_fix_rad_search.cpp",
+             "../annlib/src/bd_pr_search.cpp",

@@ -1,0 +1,15 @@
+ cctbx_sources/iotbx/mtz/object.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/cctbx_sources/iotbx/mtz/object.cpp b/cctbx_sources/iotbx/mtz/object.cpp
+index c6ce383..1975a44 100644
+--- a/cctbx_sources/iotbx/mtz/object.cpp
++++ b/cctbx_sources/iotbx/mtz/object.cpp
+@@ -1,5 +1,5 @@
+-#include <cvecmat.h>
+-#include <ccp4_spg.h>
++#include <ccp4/cvecmat.h>
++#include <ccp4/ccp4_spg.h>
+ #include <scitbx/math/utils.h>
+ #include <iotbx/mtz/batch.h>
+ #include <iotbx/mtz/column.h>

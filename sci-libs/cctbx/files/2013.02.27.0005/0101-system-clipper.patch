@@ -1,0 +1,185 @@
+ cctbx_sources/clipper/clipper/cctbx/clipper_cctbx.h        |  2 +-
+ cctbx_sources/clipper/clipper/contrib/Makefile.dep         | 14 +++++++-------
+ cctbx_sources/clipper/clipper/contrib/edcalc.cpp           |  2 +-
+ cctbx_sources/clipper/clipper/contrib/fffear.cpp           |  2 +-
+ .../clipper/clipper/contrib/function_object_bases.h        |  6 +++---
+ cctbx_sources/clipper/clipper/contrib/sfcalc.cpp           |  2 +-
+ cctbx_sources/clipper/clipper/contrib/sfcalc_obs.cpp       |  4 ++--
+ cctbx_sources/clipper/clipper/contrib/sfweight.cpp         |  4 ++--
+ cctbx_sources/clipper/clipper/contrib/skeleton.cpp         |  2 +-
+ cctbx_sources/clipper_adaptbx/clipper/SConscript           |  1 -
+ 10 files changed, 19 insertions(+), 20 deletions(-)
+
+diff --git a/cctbx_sources/clipper/clipper/cctbx/clipper_cctbx.h b/cctbx_sources/clipper/clipper/cctbx/clipper_cctbx.h
+index bd9f7d2..079958d 100644
+--- a/cctbx_sources/clipper/clipper/cctbx/clipper_cctbx.h
++++ b/cctbx_sources/clipper/clipper/cctbx/clipper_cctbx.h
+@@ -47,7 +47,7 @@
+ #define CLIPPER_CCTBX
+ 
+ 
+-#include "../core/hkl_datatypes.h"
++#include "clipper/core/hkl_datatypes.h"
+ 
+ #include <cctbx/sgtbx/space_group.h>
+ #include <cctbx/hendrickson_lattman.h>
+diff --git a/cctbx_sources/clipper/clipper/contrib/Makefile.dep b/cctbx_sources/clipper/clipper/contrib/Makefile.dep
+index 98251b1..0fe7bb3 100644
+--- a/cctbx_sources/clipper/clipper/contrib/Makefile.dep
++++ b/cctbx_sources/clipper/clipper/contrib/Makefile.dep
+@@ -1,27 +1,27 @@
+ 
+-function_object_bases.h:	../core/hkl_datatypes.h ../core/xmap.h ../core/nxmap_operator.h 
++function_object_bases.h:	clipper/core/hkl_datatypes.h clipper/core/xmap.h clipper/core/nxmap_operator.h 
+ 
+ function_object_bases.o:	function_object_bases.cpp function_object_bases.h 
+ 
+ sfcalc.h:               	function_object_bases.h 
+ 
+-sfcalc.o:               	sfcalc.cpp sfcalc.h ../core/atomsf.h 
++sfcalc.o:               	sfcalc.cpp sfcalc.h clipper/core/atomsf.h 
+ 
+ edcalc.h:               	function_object_bases.h 
+ 
+-edcalc.o:               	edcalc.cpp edcalc.h ../core/atomsf.h 
++edcalc.o:               	edcalc.cpp edcalc.h clipper/core/atomsf.h 
+ 
+ sfcalc_obs.h:           	function_object_bases.h 
+ 
+-sfcalc_obs.o:           	sfcalc_obs.cpp sfcalc_obs.h edcalc.h ../core/hkl_compute.h ../core/resol_targetfn.h 
++sfcalc_obs.o:           	sfcalc_obs.cpp sfcalc_obs.h edcalc.h clipper/core/hkl_compute.h clipper/core/resol_targetfn.h 
+ 
+ sfweight.h:             	function_object_bases.h 
+ 
+-sfweight.o:             	sfweight.cpp sfweight.h ../core/hkl_operators.h ../core/resol_targetfn.h 
++sfweight.o:             	sfweight.cpp sfweight.h clipper/core/hkl_operators.h clipper/core/resol_targetfn.h 
+ 
+ fffear.h:               	function_object_bases.h 
+ 
+-fffear.o:               	fffear.cpp fffear.h ../core/map_interp.h 
++fffear.o:               	fffear.cpp fffear.h clipper/core/map_interp.h 
+ 
+ mapfilter.h:            	function_object_bases.h 
+ 
+@@ -29,7 +29,7 @@ mapfilter.o:            	mapfilter.cpp mapfilter.h
+ 
+ skeleton.h:             	function_object_bases.h 
+ 
+-skeleton.o:             	skeleton.cpp skeleton.h ../core/map_utils.h 
++skeleton.o:             	skeleton.cpp skeleton.h clipper/core/map_utils.h 
+ 
+ originmatch.h:          	function_object_bases.h 
+ 
+diff --git a/cctbx_sources/clipper/clipper/contrib/edcalc.cpp b/cctbx_sources/clipper/clipper/contrib/edcalc.cpp
+index f5df7b2..cc031bc 100644
+--- a/cctbx_sources/clipper/clipper/contrib/edcalc.cpp
++++ b/cctbx_sources/clipper/clipper/contrib/edcalc.cpp
+@@ -43,7 +43,7 @@
+ 
+ #include "edcalc.h"
+ 
+-#include "../core/atomsf.h"
++#include "clipper/core/atomsf.h"
+ 
+ 
+ namespace clipper {
+diff --git a/cctbx_sources/clipper/clipper/contrib/fffear.cpp b/cctbx_sources/clipper/clipper/contrib/fffear.cpp
+index 9a728f7..189855a 100644
+--- a/cctbx_sources/clipper/clipper/contrib/fffear.cpp
++++ b/cctbx_sources/clipper/clipper/contrib/fffear.cpp
+@@ -42,7 +42,7 @@
+ 
+ #include "fffear.h"
+ 
+-#include "../core/map_interp.h"
++#include "clipper/core/map_interp.h"
+ 
+ 
+ namespace clipper {
+diff --git a/cctbx_sources/clipper/clipper/contrib/function_object_bases.h b/cctbx_sources/clipper/clipper/contrib/function_object_bases.h
+index e6c98c7..4a40c73 100644
+--- a/cctbx_sources/clipper/clipper/contrib/function_object_bases.h
++++ b/cctbx_sources/clipper/clipper/contrib/function_object_bases.h
+@@ -48,9 +48,9 @@
+ #define CLIPPER_FUNCTION_OBJECT_BASES
+ 
+ 
+-#include "../core/hkl_datatypes.h"
+-#include "../core/xmap.h"
+-#include "../core/nxmap_operator.h"
++#include "clipper/core/hkl_datatypes.h"
++#include "clipper/core/xmap.h"
++#include "clipper/core/nxmap_operator.h"
+ 
+ 
+ namespace clipper {
+diff --git a/cctbx_sources/clipper/clipper/contrib/sfcalc.cpp b/cctbx_sources/clipper/clipper/contrib/sfcalc.cpp
+index 48c0d9c..a3c63f0 100644
+--- a/cctbx_sources/clipper/clipper/contrib/sfcalc.cpp
++++ b/cctbx_sources/clipper/clipper/contrib/sfcalc.cpp
+@@ -43,7 +43,7 @@
+ 
+ #include "sfcalc.h"
+ 
+-#include "../core/atomsf.h"
++#include "clipper/core/atomsf.h"
+ 
+ 
+ namespace clipper {
+diff --git a/cctbx_sources/clipper/clipper/contrib/sfcalc_obs.cpp b/cctbx_sources/clipper/clipper/contrib/sfcalc_obs.cpp
+old mode 100755
+new mode 100644
+index de47e09..0f67585
+--- a/cctbx_sources/clipper/clipper/contrib/sfcalc_obs.cpp
++++ b/cctbx_sources/clipper/clipper/contrib/sfcalc_obs.cpp
+@@ -43,8 +43,8 @@
+ 
+ #include "sfcalc_obs.h"
+ #include "edcalc.h"
+-#include "../core/hkl_compute.h"
+-#include "../core/resol_targetfn.h"
++#include "clipper/core/hkl_compute.h"
++#include "clipper/core/resol_targetfn.h"
+ 
+ 
+ namespace clipper {
+diff --git a/cctbx_sources/clipper/clipper/contrib/sfweight.cpp b/cctbx_sources/clipper/clipper/contrib/sfweight.cpp
+old mode 100755
+new mode 100644
+index 1b2d4dc..6ec98c2
+--- a/cctbx_sources/clipper/clipper/contrib/sfweight.cpp
++++ b/cctbx_sources/clipper/clipper/contrib/sfweight.cpp
+@@ -42,8 +42,8 @@
+ 
+ 
+ #include "sfweight.h"
+-#include "../core/hkl_operators.h"
+-#include "../core/resol_targetfn.h"
++#include "clipper/core/hkl_operators.h"
++#include "clipper/core/resol_targetfn.h"
+ 
+ 
+ namespace clipper {
+diff --git a/cctbx_sources/clipper/clipper/contrib/skeleton.cpp b/cctbx_sources/clipper/clipper/contrib/skeleton.cpp
+index bff1049..14ebf55 100644
+--- a/cctbx_sources/clipper/clipper/contrib/skeleton.cpp
++++ b/cctbx_sources/clipper/clipper/contrib/skeleton.cpp
+@@ -42,7 +42,7 @@
+ 
+ #include "skeleton.h"
+ 
+-#include "../core/map_utils.h"
++#include "clipper/core/map_utils.h"
+ 
+ 
+ namespace clipper {
+diff --git a/cctbx_sources/clipper_adaptbx/clipper/SConscript b/cctbx_sources/clipper_adaptbx/clipper/SConscript
+index 1911eb1..df03808 100644
+--- a/cctbx_sources/clipper_adaptbx/clipper/SConscript
++++ b/cctbx_sources/clipper_adaptbx/clipper/SConscript
+@@ -11,5 +11,4 @@ env.SharedLibrary(
+     "clipper_ext.cpp",
+     "hendrickson_lattman_bpl.cpp",
+     "sigmaa_bpl.cpp",
+-    "../../clipper/clipper/contrib/sfweight.cpp",
+     "../../clipper/clipper/cctbx/clipper_cctbx.cpp"]+clipper_contrib_files)

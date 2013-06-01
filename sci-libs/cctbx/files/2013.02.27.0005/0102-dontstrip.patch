@@ -1,0 +1,25 @@
+ cctbx_sources/libtbx/SConscript | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/cctbx_sources/libtbx/SConscript b/cctbx_sources/libtbx/SConscript
+index debf569..46ab8d8 100644
+--- a/cctbx_sources/libtbx/SConscript
++++ b/cctbx_sources/libtbx/SConscript
+@@ -471,7 +471,7 @@ libtbx.scons: Warning: compiling with /MDd:
+     elif libtbx.env.build_options.debug_symbols:
+       lkfl = ["-rdynamic"]
+     else:
+-      lkfl = ["-s"]
++      lkfl = []
+     env_etc.shlinkflags = ["-shared"]
+     if (libtbx.env.build_options.mode == "profile"):
+       env_base.Prepend(LINKFLAGS=["-pg"])
+@@ -589,7 +589,7 @@ else:
+       lkfl = ["-rdynamic"]
+ 
+     else:
+-      lkfl = ["-s"]
++      lkfl = []
+     env_etc.shlinkflags = ["-shared"]
+     if (libtbx.env.build_options.mode == "profile"):
+       env_base.Prepend(LINKFLAGS=["-pg"])

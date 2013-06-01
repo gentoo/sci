@@ -1,0 +1,1099 @@
+ cctbx_sources/boost_adaptbx/SConscript             |  19 +-
+ cctbx_sources/cbflib_adaptbx/SConscript            |  89 +++---
+ .../detectors/boost_python/SConscript              |   4 +-
+ cctbx_sources/ccp4io_adaptbx/SConscript            | 303 +++++++++++----------
+ cctbx_sources/cctbx/SConscript                     |   2 +-
+ cctbx_sources/clipper_adaptbx/SConscript           |  94 ++++---
+ cctbx_sources/clipper_adaptbx/clipper/SConscript   |  10 +-
+ cctbx_sources/gltbx/SConscript                     |  20 +-
+ cctbx_sources/iotbx/cif/boost_python/SConscript    |  13 +-
+ cctbx_sources/iotbx/mtz/SConscript                 |   3 +-
+ cctbx_sources/iotbx/pdb/SConscript                 |   2 +-
+ cctbx_sources/libtbx/SConscript                    |  84 ++++++
+ cctbx_sources/libtbx/env_config.py                 |  34 +++
+ cctbx_sources/mmtbx/cablam/SConscript              |   2 +-
+ cctbx_sources/mmtbx/den/SConscript                 |   2 +-
+ cctbx_sources/mmtbx/geometry_restraints/SConscript |   2 +-
+ cctbx_sources/mmtbx/secondary_structure/SConscript |   2 +-
+ cctbx_sources/rstbx/SConscript                     |   2 +-
+ cctbx_sources/scitbx/SConscript                    |   2 +-
+ cctbx_sources/scitbx/boost_python/SConscript       |   4 +-
+ .../smtbx/refinement/boost_python/SConscript       |   4 +-
+ .../refinement/constraints/boost_python/SConscript |   4 +-
+ cctbx_sources/spotfinder/SConscript                |   2 +-
+ cctbx_sources/xfel/SConscript                      |   2 +-
+ 24 files changed, 443 insertions(+), 262 deletions(-)
+
+diff --git a/cctbx_sources/boost_adaptbx/SConscript b/cctbx_sources/boost_adaptbx/SConscript
+index e4d5994..7f96c04 100644
+--- a/cctbx_sources/boost_adaptbx/SConscript
++++ b/cctbx_sources/boost_adaptbx/SConscript
+@@ -9,7 +9,13 @@ import sys, os
+ op = os.path
+ Import("env_base", "env_etc")
+ env_etc.boost_dist = libtbx.env.dist_path("boost")
+-env_etc.boost_include = env_etc.boost_dist
++if not env_etc.check_syslib(env_etc.boost_python, extra_libs=env_etc.py_lib)\
++    or not env_etc.check_syslib('boost_thread'):
++  env_etc.boost_include = env_etc.boost_dist
++else:
++  # This way the compiler looks in the standard location for includes
++  # should work on all platforms.
++  env_etc.boost_include = ''
+ env_etc.boost_adaptbx_dist = libtbx.env.dist_path("boost_adaptbx")
+ env_etc.boost_adaptbx_include = os.path.dirname(env_etc.boost_adaptbx_dist)
+ 
+@@ -28,7 +34,7 @@ if (not env_etc.no_boost_python):
+   env_no_includes_boost_python_ext = env_base.Clone(
+     SHLINKFLAGS=env_etc.shlinkflags_bpl,
+     SHLIBPREFIX="",
+-    LIBS=["boost_python"] + env_etc.libs_python + env_etc.libm)
++    LIBS=[env_etc.boost_python] + env_etc.libs_python + env_etc.libm)
+   env_no_includes_boost_python_ext.Append(
+     LIBPATH=env_etc.libpath_python)
+   env_no_includes_boost_python_ext.Append(
+@@ -215,10 +221,11 @@ object/function_doc_signature.cpp
+   bpl_dll_sources = [os.path.join(prefix, path) for path in bpl_dll_sources]
+   #
+   env.Repository(os.path.dirname(env_etc.boost_dist))
+-  if (env_etc.static_bpl):
+-    env.StaticLibrary(target="#lib/boost_python", source=bpl_dll_sources)
+-  else:
+-    env.SharedLibrary(target="#lib/boost_python", source=bpl_dll_sources)
++  if not env_etc.check_syslib(env_etc.boost_python, extra_libs=env_etc.py_lib):
++    if (env_etc.static_bpl):
++      env.StaticLibrary(target="#lib/boost_python", source=bpl_dll_sources)
++    else:
++      env.SharedLibrary(target="#lib/boost_python", source=bpl_dll_sources)
+   if (bool(int(ARGUMENTS.get("boost_python_tests", "0")))):
+     warn_if_unexpected_md5_hexdigest(
+       path=libtbx.env.under_dist("boost", "libs/python/test/Jamfile.v2"),
+diff --git a/cctbx_sources/cbflib_adaptbx/SConscript b/cctbx_sources/cbflib_adaptbx/SConscript
+index 4ac6717..334cfc2 100644
+--- a/cctbx_sources/cbflib_adaptbx/SConscript
++++ b/cctbx_sources/cbflib_adaptbx/SConscript
+@@ -3,9 +3,14 @@ import os
+ Import("env_base","env_etc")
+ 
+ env_etc.cbflib_dist = libtbx.env.dist_path("cbflib")
+-env_etc.cbflib_include = [env_etc.norm_join(env_etc.cbflib_dist,"examples"),
+-                          env_etc.norm_join(env_etc.cbflib_dist,"include"),
+-                          ]
++if not env_etc.check_syslib('cbf'):
++  env_etc.cbflib_include = [env_etc.norm_join(env_etc.cbflib_dist,"examples"),
++                            env_etc.norm_join(env_etc.cbflib_dist,"include"),
++                            ]
++else:
++  env_etc.cbflib_include = [env_etc.norm_join(env_etc.cbflib_dist,"examples"),
++                            "",
++                            ]
+ env_etc.cbflib_adaptbx_dist = libtbx.env.dist_path("cbflib_adaptbx")
+ 
+ env_etc.cbflib_common_includes = [
+@@ -34,39 +39,47 @@ cbflib_092_forward = []
+ if os.path.isfile( os.path.join(env_etc.cbflib_dist,"src","cbf_ws.c") ):
+   cbflib_092_forward.append("src/cbf_ws.c")
+ 
+-env.StaticLibrary(target='#lib/cbf',
+-  source = [prefix+"/"+s for s in [
+-    "examples/img.c",
+-    "src/cbf.c",
+-    "src/cbf_alloc.c",
+-    "src/cbf_ascii.c",
+-    "src/cbf_binary.c",
+-    "src/cbf_byte_offset.c",
+-    "src/cbf_canonical.c",
+-    "src/cbf_codes.c",
+-    "src/cbf_compress.c",
+-    "src/cbf_context.c",
+-    "src/cbf_file.c",
+-    "src/cbf_lex.c",
+-    "src/cbf_packed.c",
+-    "src/cbf_predictor.c",
+-    "src/cbf_read_binary.c",
+-    "src/cbf_read_mime.c",
+-    "src/cbf_simple.c",
+-    "src/cbf_string.c",
+-    "src/cbf_stx.c",
+-    "src/cbf_tree.c",
+-    "src/cbf_uncompressed.c",
+-    "src/cbf_write.c",
+-    "src/cbf_write_binary.c",
+-    "src/md5c.c",
+-  ] + cbflib_092_forward ] + [
+-    "detectors/mar_adaptor.cpp",
+-    "detectors/cbf_adaptor.cpp",
+-    "detectors/cbf_byte_offset_optimized.cpp",
+-    "detectors/buffer_based_service.cpp",
+-  ],
+-  CPPPATH=env_etc.cbflib_common_includes )
++cbflib_src = ["src/cbf.c",
++              "src/cbf_alloc.c",
++              "src/cbf_ascii.c",
++              "src/cbf_binary.c",
++              "src/cbf_byte_offset.c",
++              "src/cbf_canonical.c",
++              "src/cbf_codes.c",
++              "src/cbf_compress.c",
++              "src/cbf_context.c",
++              "src/cbf_file.c",
++              "src/cbf_lex.c",
++              "src/cbf_packed.c",
++              "src/cbf_predictor.c",
++              "src/cbf_read_binary.c",
++              "src/cbf_read_mime.c",
++              "src/cbf_simple.c",
++              "src/cbf_string.c",
++              "src/cbf_stx.c",
++              "src/cbf_tree.c",
++              "src/cbf_uncompressed.c",
++              "src/cbf_write.c",
++              "src/cbf_write_binary.c",
++              "src/md5c.c",
++             ]
++adaptor_src = ["detectors/mar_adaptor.cpp",
++               "detectors/cbf_adaptor.cpp",
++               "detectors/cbf_byte_offset_optimized.cpp",
++               "detectors/buffer_based_service.cpp",
++              ]
++if not env_etc.check_syslib('cbf'):
++  env.StaticLibrary(target='#lib/cbf',
++    source = [prefix+"/"+s for s in [
++      "examples/img.c"] + cbflib_src + cbflib_092_forward] + adaptor_src,
++    CPPPATH=env_etc.cbflib_common_includes )
++  env_etc.cbf_lib = ['cbf',]
++else:
++  env.StaticLibrary(target='#lib/cbf_adaptor',
++    source = [prefix+"/"+s for s in [
++      "examples/img.c"]] + adaptor_src,
++    CPPPATH=env_etc.cbflib_common_includes )
++  env_etc.cbf_lib = ['cbf','cbf_adaptor']
+ 
+ if (not env_etc.no_boost_python):
+   Import("env_no_includes_boost_python_ext")
+@@ -80,7 +93,7 @@ if (not env_etc.no_boost_python):
+   env_cbflib_boost_python_ext.SharedLibrary(
+     target='#lib/_pycbf',
+     source=[prefix+"/pycbf/pycbf_wrap.c"],
+-    LIBS=["cbf"]+env_etc.libs_python+env_etc.libm)
++    LIBS=env_etc.cbf_lib+env_etc.libs_python+env_etc.libm)
+ 
+   Export("env_cbflib_boost_python_ext")
+ 
+@@ -89,7 +102,7 @@ if (not env_etc.no_boost_python):
+ env_standalone = env.Clone(
+   LIBS = [env_etc.libm,],CPPPATH=env_etc.cbflib_common_includes
+ )
+-env_standalone.Prepend(LIBS=["cbf",])
++env_standalone.Prepend(LIBS=env_etc.cbf_lib)
+ 
+ for source in ["detectors/tst_memory",]:
+   target = "cbflib."+os.path.basename(source)
+diff --git a/cctbx_sources/cbflib_adaptbx/detectors/boost_python/SConscript b/cctbx_sources/cbflib_adaptbx/detectors/boost_python/SConscript
+index 2027439..8e987cc 100644
+--- a/cctbx_sources/cbflib_adaptbx/detectors/boost_python/SConscript
++++ b/cctbx_sources/cbflib_adaptbx/detectors/boost_python/SConscript
+@@ -1,6 +1,6 @@
+-Import("env_cbflib_boost_python_ext")
++Import("env_cbflib_boost_python_ext", "env_etc")
+ env = env_cbflib_boost_python_ext.Clone()
+-env.Prepend(LIBS=["cbf",])
++env.Prepend(LIBS=env_etc.cbf_lib)
+ env.SharedLibrary(
+   target="#lib/cbflib_ext",
+   source=["cbflib_ext.cpp",])
+diff --git a/cctbx_sources/ccp4io_adaptbx/SConscript b/cctbx_sources/ccp4io_adaptbx/SConscript
+index 0356403..856115a 100644
+--- a/cctbx_sources/ccp4io_adaptbx/SConscript
++++ b/cctbx_sources/ccp4io_adaptbx/SConscript
+@@ -43,122 +43,167 @@ else:
+   # clean out after completely removing support for
+   # old CCP4 directory structure above
+ 
+-build_ccp4io_adaptbx = libtbx.env.under_build("ccp4io_adaptbx")
+-if (not op.isdir(build_ccp4io_adaptbx)):
+-  os.mkdir(build_ccp4io_adaptbx)
+-  assert op.isdir(build_ccp4io_adaptbx)
+-
+-def replace_printf(file_name):
+-  full_path = op.join(path_lib_src, file_name)
+-  if (not op.isfile(full_path)):
+-    full_path = op.join(op.dirname(path_lib_src), "fortran", file_name)
+-  result = ["#include <ccp4io_adaptbx/printf_wrappers.h>"]
+-  for line in open(full_path).read().splitlines():
+-    for key in ["printf", "fprintf"]:
+-      matches = list(re.finditer(
+-        pattern="[^A-Za-z0-9_]%s[^A-Za-z0-9_]" % key, string=line))
+-      if (len(matches) != 0):
+-        for m in reversed(matches):
+-          s,e = m.start(), m.end()
+-          line = line[:s] \
+-               + line[s:e].replace(key, "ccp4io_%s" % key) \
+-               + line[e:]
+-    result.append(line)
+-  return "\n".join(result)
+-
+-env = env_base.Clone(
+-  SHLINKFLAGS=env_etc.shlinkflags)
+-env.Append(CCFLAGS=env_etc.ccp4io_defines)
+-env.Append(SHCCFLAGS=env_etc.ccp4io_defines)
+-env_etc.include_registry.append(
+-  env=env,
+-  paths=[
+-    "#",
+-    op.dirname(env_etc.ccp4io_include),
+-    env_etc.ccp4io_include,
+-    op.join(env_etc.ccp4io_dist, "lib", mmdb_src),
+-    op.join(env_etc.ccp4io_dist, "lib", mmdb_src, "mmdb")])
+-env.Append(LIBS=env_etc.libm)
+-# XXX 2012-06-16: is this actually necessary here, or just in code that links to
+-# ccp4io.lib?
+-if (os.name == "nt") :
+-  env.Prepend(LIBS=["Advapi32"])
+-if (   op.normcase(op.dirname(env_etc.ccp4io_dist))
+-    != op.normcase("ccp4io")):
+-  env.Repository(op.dirname(env_etc.ccp4io_dist))
+ source = []
+-
+ c_files = []
+-c_files.extend(["%s/%s" % (ccp4_src, bn ) for bn in """\
+-library_err.c
+-library_file.c
+-library_utils.c
+-ccp4_array.c
+-ccp4_parser.c
+-ccp4_unitcell.c
+-cvecmat.c
+-cmtzlib.c
+-""".splitlines()])
+-open(op.join(build_ccp4io_adaptbx, "csymlib.c"), "w").write(
+-  open(op.join(path_lib_src, "csymlib.c")).read()
+-    .replace(
+-      "static int reported_syminfo = 0",
+-      "static int reported_syminfo = 1"))
+-source.append(op.join("#ccp4io_adaptbx", "csymlib.c"))
++if not env_etc.check_syslib('ccp4c')\
++  or not env_etc.check_syslib('mmdb'):
++  build_ccp4io_adaptbx = libtbx.env.under_build("ccp4io_adaptbx")
++  if (not op.isdir(build_ccp4io_adaptbx)):
++    os.mkdir(build_ccp4io_adaptbx)
++    assert op.isdir(build_ccp4io_adaptbx)
++
++  def replace_printf(file_name):
++    full_path = op.join(path_lib_src, file_name)
++    if (not op.isfile(full_path)):
++      full_path = op.join(op.dirname(path_lib_src), "fortran", file_name)
++    result = ["#include <ccp4io_adaptbx/printf_wrappers.h>"]
++    for line in open(full_path).read().splitlines():
++      for key in ["printf", "fprintf"]:
++        matches = list(re.finditer(
++          pattern="[^A-Za-z0-9_]%s[^A-Za-z0-9_]" % key, string=line))
++        if (len(matches) != 0):
++          for m in reversed(matches):
++            s,e = m.start(), m.end()
++            line = line[:s] \
++                 + line[s:e].replace(key, "ccp4io_%s" % key) \
++                 + line[e:]
++      result.append(line)
++    return "\n".join(result)
++  env = env_base.Clone(
++    SHLINKFLAGS=env_etc.shlinkflags)
++  env.Append(CCFLAGS=env_etc.ccp4io_defines)
++  env.Append(SHCCFLAGS=env_etc.ccp4io_defines)
++  env_etc.include_registry.append(
++    env=env,
++    paths=[
++      "#",
++      op.dirname(env_etc.ccp4io_include),
++      env_etc.ccp4io_include,
++      op.join(env_etc.ccp4io_dist, "lib", mmdb_src),
++      op.join(env_etc.ccp4io_dist, "lib", mmdb_src, "mmdb")])
++
++  env.Append(LIBS=env_etc.libm)
++  # XXX 2012-06-16: is this actually necessary here, or just in code that links to
++  # ccp4io.lib?
++  if (os.name == "nt") :
++    env.Prepend(LIBS=["Advapi32"])
++  if (   op.normcase(op.dirname(env_etc.ccp4io_dist))
++      != op.normcase("ccp4io")):
++    env.Repository(op.dirname(env_etc.ccp4io_dist))
+ 
+-probe_file_name = op.join(path_lib_src, "cmaplib.h")
+-env_etc.ccp4io_has_cmaplib = op.isfile(probe_file_name)
+-if (env_etc.ccp4io_has_cmaplib):
+   c_files.extend(["%s/%s" % (ccp4_src, bn ) for bn in """\
+-cmap_accessor.c
+-cmap_close.c
+-cmap_data.c
+-cmap_header.c
+-cmap_labels.c
+-cmap_open.c
+-cmap_skew.c
+-cmap_stats.c
+-cmap_symop.c
+-""".splitlines()])
++  library_err.c
++  library_file.c
++  library_utils.c
++  ccp4_array.c
++  ccp4_parser.c
++  ccp4_unitcell.c
++  cvecmat.c
++  cmtzlib.c
++  """.splitlines()])
++  open(op.join(build_ccp4io_adaptbx, "csymlib.c"), "w").write(
++    open(op.join(path_lib_src, "csymlib.c")).read()
++      .replace(
++        "static int reported_syminfo = 0",
++        "static int reported_syminfo = 1"))
++  source.append(op.join("#ccp4io_adaptbx", "csymlib.c"))
+ 
+-c_files.extend(["%s/mmdb/%s.cpp" % ( mmdb_src, bn ) for bn in """\
+-bfgs_min
+-file_
+-hybrid_36
+-linalg_
+-machine_
+-math_
+-mattype_
+-mmdb_align
+-mmdb_atom
+-mmdb_bondmngr
+-mmdb_chain
+-mmdb_cifdefs
+-mmdb_coormngr
+-mmdb_cryst
+-mmdb_ficif
+-mmdb_file
+-mmdb_graph
+-mmdb_manager
+-mmdb_mask
+-mmdb_mmcif
+-mmdb_model
+-mmdb_rwbrook
+-mmdb_sbase
+-mmdb_sbase0
+-mmdb_selmngr
+-mmdb_symop
+-mmdb_tables
+-mmdb_title
+-mmdb_uddata
+-mmdb_utils
+-mmdb_xml
+-random_n
+-stream_
+-""".splitlines()])
+-prefix = "#"+op.join(op.basename(env_etc.ccp4io_dist), "lib")
+-for file_name in c_files:
+-  source.append(op.join(prefix, file_name))
++  probe_file_name = op.join(path_lib_src, "cmaplib.h")
++  env_etc.ccp4io_has_cmaplib = op.isfile(probe_file_name)
++  if (env_etc.ccp4io_has_cmaplib):
++    c_files.extend(["%s/%s" % (ccp4_src, bn ) for bn in """\
++  cmap_accessor.c
++  cmap_close.c
++  cmap_data.c
++  cmap_header.c
++  cmap_labels.c
++  cmap_open.c
++  cmap_skew.c
++  cmap_stats.c
++  cmap_symop.c
++  """.splitlines()])
++
++  c_files.extend(["%s/mmdb/%s.cpp" % ( mmdb_src, bn ) for bn in """\
++  bfgs_min
++  file_
++  hybrid_36
++  linalg_
++  machine_
++  math_
++  mattype_
++  mmdb_align
++  mmdb_atom
++  mmdb_bondmngr
++  mmdb_chain
++  mmdb_cifdefs
++  mmdb_coormngr
++  mmdb_cryst
++  mmdb_ficif
++  mmdb_file
++  mmdb_graph
++  mmdb_manager
++  mmdb_mask
++  mmdb_mmcif
++  mmdb_model
++  mmdb_rwbrook
++  mmdb_sbase
++  mmdb_sbase0
++  mmdb_selmngr
++  mmdb_symop
++  mmdb_tables
++  mmdb_title
++  mmdb_uddata
++  mmdb_utils
++  mmdb_xml
++  random_n
++  stream_
++  """.splitlines()])
++  prefix = "#"+op.join(op.basename(env_etc.ccp4io_dist), "lib")
++  for file_name in c_files:
++    source.append(op.join(prefix, file_name))
++
++  ssm_prefix = "#"+op.join(op.basename(env_etc.ccp4io_dist), "lib", "ssm")
++  ssm_sources = """\
++  ss_csia.cpp
++  ss_graph.cpp
++  ss_vxedge.cpp
++  ssm_align.cpp
++  ssm_superpose.cpp
++  """.splitlines()
++  source.extend( [ op.join( ssm_prefix, f ) for f in ssm_sources ] )
++
++  need_f_c = (
++       libtbx.env.has_module("solve_resolve")
++    or libtbx.env.find_in_repositories(relative_path="mosflm_fable"))
++  if (need_f_c or os.name != "nt"):
++    source.append(op.join("#ccp4io_adaptbx", "fortran_call_stubs.c"))
++    for file_name in """\
++  ccp4_diskio_f.c
++  ccp4_general.c
++  ccp4_general_f.c
++  ccp4_parser_f.c
++  ccp4_program.c
++  ccp4_unitcell_f.c
++  cmaplib_f.c
++  cmtzlib_f.c
++  csymlib_f.c
++  library_f.c
++  """.splitlines():
++      open(op.join(build_ccp4io_adaptbx, file_name), "w").write(
++        replace_printf(file_name=file_name))
++      source.append(op.join("#ccp4io_adaptbx", file_name))
++    source.append(op.join("#ccp4io_adaptbx", "printf_wrappers.c"))
++  env_etc.ccp4io_lib = "ccp4io"
++  mmdb_path= [ os.path.join( env_etc.ccp4io_dist, "lib", mmdb_src ),
++               os.path.join( env_etc.ccp4io_dist, "lib", mmdb_src, "mmdb" ),
++             ]
++else:
++  env = env_base.Clone(
++    SHLINKFLAGS=env_etc.shlinkflags)
++  env.Append(CCFLAGS=env_etc.ccp4io_defines)
++  env.Append(SHCCFLAGS=env_etc.ccp4io_defines)
++  env_etc.ccp4io_lib = ["ccp4io", "mmdb", "ccp4c"]
++  mmdb_path= []
+ 
+ ssm_prefix = "#"+op.join(op.basename(env_etc.ccp4io_dist), "lib", "ssm")
+ ssm_sources = """\
+@@ -170,46 +215,20 @@ ssm_superpose.cpp
+ """.splitlines()
+ source.extend( [ op.join( ssm_prefix, f ) for f in ssm_sources ] )
+ 
+-need_f_c = (
+-     libtbx.env.has_module("solve_resolve")
+-  or libtbx.env.find_in_repositories(relative_path="mosflm_fable"))
+-if (need_f_c or os.name != "nt"):
+-  source.append(op.join("#ccp4io_adaptbx", "fortran_call_stubs.c"))
+-  for file_name in """\
+-ccp4_diskio_f.c
+-ccp4_general.c
+-ccp4_general_f.c
+-ccp4_parser_f.c
+-ccp4_program.c
+-ccp4_unitcell_f.c
+-cmaplib_f.c
+-cmtzlib_f.c
+-csymlib_f.c
+-library_f.c
+-""".splitlines():
+-    open(op.join(build_ccp4io_adaptbx, file_name), "w").write(
+-      replace_printf(file_name=file_name))
+-    source.append(op.join("#ccp4io_adaptbx", file_name))
+-  source.append(op.join("#ccp4io_adaptbx", "printf_wrappers.c"))
+-
+ # static library for solve_resolve
+ env.StaticLibrary(target='#lib/ccp4io', source=source)
+-env_etc.ccp4io_lib = "ccp4io"
+ 
+ if (    libtbx.env.has_module("boost")
+     and not env_etc.no_boost_python):
+   Import( "env_no_includes_boost_python_ext" )
+   sources = [ "#ccp4io_adaptbx/ext.cpp" ]
+   env_ext = env_no_includes_boost_python_ext.Clone()
+-  env_ext.Prepend( LIBS = "ccp4io" )
++  env_ext.Prepend( LIBS = env_etc.ccp4io_lib )
+   env_etc.include_registry.append(
+     env = env_ext,
+-    paths = [
+-      os.path.join( env_etc.ccp4io_dist, "lib", mmdb_src ),
+-      os.path.join( env_etc.ccp4io_dist, "lib", mmdb_src, "mmdb" ),
+-      os.path.join( env_etc.ccp4io_dist, "lib", "ssm"),
+-      env_etc.boost_include,
+-      env_etc.python_include,
+-      ]
++    paths = mmdb_path + [ os.path.join( env_etc.ccp4io_dist, "lib", "ssm"),
++                          env_etc.boost_include,
++                          env_etc.python_include,
++                        ]
+     )
+   env_ext.SharedLibrary( target = "#lib/ccp4io_adaptbx_ext", source = sources )
+diff --git a/cctbx_sources/cctbx/SConscript b/cctbx_sources/cctbx/SConscript
+index 162f019..1321069 100644
+--- a/cctbx_sources/cctbx/SConscript
++++ b/cctbx_sources/cctbx/SConscript
+@@ -108,7 +108,7 @@ if (not env_etc.no_boost_python):
+   Import("env_no_includes_boost_python_ext")
+ 
+   env_cctbx_boost_python_ext = env_no_includes_boost_python_ext.Clone()
+-  env_cctbx_boost_python_ext.Prepend(LIBS=["scitbx_boost_python"])
++  env_cctbx_boost_python_ext.Prepend(LIBS=[env_etc.scitbx_boost_python])
+   env_etc.include_registry.append(
+     env=env_cctbx_boost_python_ext,
+     paths=env_etc.cctbx_common_includes + [env_etc.python_include])
+diff --git a/cctbx_sources/clipper_adaptbx/SConscript b/cctbx_sources/clipper_adaptbx/SConscript
+index 9cce49e..c39047f 100644
+--- a/cctbx_sources/clipper_adaptbx/SConscript
++++ b/cctbx_sources/clipper_adaptbx/SConscript
+@@ -3,54 +3,63 @@ Import("env_base", "env_etc")
+ 
+ env_etc.clipper_dist = libtbx.env.dist_path("clipper")
+ env_etc.clipper_include = env_etc.clipper_dist
++# This way the compiler looks in the standard location for includes
++# should work on all platforms
++env_etc.clipper_sysinclude = ''
+ 
+ env = env_base.Clone(
+   SHLINKFLAGS=env_etc.shlinkflags,
+   LIBS=env_etc.libm)
+-env.Prepend(CPPPATH=[env_etc.clipper_include])
+-
+-if (env_etc.static_libraries): builder = env.StaticLibrary
+-else:                          builder = env.SharedLibrary
+-builder(target='#lib/clipper',
+-  source = ["../clipper/clipper/core/"+file_name for file_name in """
+-  atomsf.cpp
+-  cell.cpp
+-  clipper_memory.cpp
+-  clipper_message.cpp
+-  clipper_stats.cpp
+-  clipper_types.cpp
+-  clipper_util.cpp
+-  container.cpp
+-  container_hkl.cpp
+-  container_map.cpp
+-  container_types.cpp
+-  coords.cpp
+-  derivs.cpp
+-  hkl_compute.cpp
+-  hkl_data.cpp
+-  hkl_datatypes.cpp
+-  hkl_info.cpp
+-  hkl_lookup.cpp
+-  hkl_operators.cpp
+-  map_interp.cpp
+-  map_utils.cpp
+-  nxmap.cpp
+-  nxmap_operator.cpp
+-  ramachandran.cpp
+-  resol_basisfn.cpp
+-  resol_fn.cpp
+-  resol_targetfn.cpp
+-  rotation.cpp
+-  spacegroup.cpp
+-  spacegroup_data.cpp
+-  symop.cpp
+-  xmap.cpp
+-""".split()])
+-# fftmap_sparse.cpp
+-# fftmap.cpp
++if env_etc.check_syslib('clipper-core') and \
++    env_etc.check_syslib('clipper-contrib'):
++  env.Prepend(CPPPATH=[env_etc.clipper_sysinclude])
++  env_etc.clipper_libs=['clipper-core', 'clipper-contrib']
++  env_etc.has_clipper_contrib = True
++else:
++  env.Prepend(CPPPATH=[env_etc.clipper_include])
++  env_etc.clipper_libs=['clipper',]
++  if (env_etc.static_libraries): builder = env.StaticLibrary
++  else:                          builder = env.SharedLibrary
++  builder(target='#lib/'+env_etc.clipper_libs[0],
++    source = ["../clipper/clipper/core/"+file_name for file_name in """
++    atomsf.cpp
++    cell.cpp
++    clipper_memory.cpp
++    clipper_message.cpp
++    clipper_stats.cpp
++    clipper_types.cpp
++    clipper_util.cpp
++    container.cpp
++    container_hkl.cpp
++    container_map.cpp
++    container_types.cpp
++    coords.cpp
++    derivs.cpp
++    hkl_compute.cpp
++    hkl_data.cpp
++    hkl_datatypes.cpp
++    hkl_info.cpp
++    hkl_lookup.cpp
++    hkl_operators.cpp
++    map_interp.cpp
++    map_utils.cpp
++    nxmap.cpp
++    nxmap_operator.cpp
++    ramachandran.cpp
++    resol_basisfn.cpp
++    resol_fn.cpp
++    resol_targetfn.cpp
++    rotation.cpp
++    spacegroup.cpp
++    spacegroup_data.cpp
++    symop.cpp
++    xmap.cpp
++  """.split()])
++  # fftmap_sparse.cpp
++  # fftmap.cpp
+ 
+ env_exe = env.Clone()
+-env_exe.Prepend(LIBS=["clipper"])
++env_exe.Prepend(LIBS=[env_etc.clipper_libs[0]])
+ 
+ exe = env_exe.Program(
+   target='#exe_dev/'+env["PROGPREFIX"]+'clipper.symtest'
+@@ -77,6 +86,7 @@ if (hasattr(env_etc, "cctbx_include")):
+       env=env_clipper_boost_python_ext,
+       paths=[
+         env_etc.clipper_include,
++        env_etc.clipper_sysinclude,
+         env_etc.libtbx_include,
+         env_etc.cctbx_include,
+         env_etc.scitbx_include,
+diff --git a/cctbx_sources/clipper_adaptbx/clipper/SConscript b/cctbx_sources/clipper_adaptbx/clipper/SConscript
+index 9f79f83..1911eb1 100644
+--- a/cctbx_sources/clipper_adaptbx/clipper/SConscript
++++ b/cctbx_sources/clipper_adaptbx/clipper/SConscript
+@@ -1,6 +1,10 @@
+-Import("env_clipper_boost_python_ext")
++Import("env_clipper_boost_python_ext", "env_etc")
+ env = env_clipper_boost_python_ext.Clone()
+-env.Prepend(LIBS=["clipper", "cctbx"])
++env.Prepend(LIBS=env_etc.clipper_libs+["cctbx"])
++if (env_etc.has_clipper_contrib):
++  clipper_contrib_files = []
++else:
++  clipper_contrib_files = ["../../clipper/clipper/contrib/sfweight.cpp",]
+ env.SharedLibrary(
+   target="#lib/clipper_ext",
+   source=[
+@@ -8,4 +12,4 @@ env.SharedLibrary(
+     "hendrickson_lattman_bpl.cpp",
+     "sigmaa_bpl.cpp",
+     "../../clipper/clipper/contrib/sfweight.cpp",
+-    "../../clipper/clipper/cctbx/clipper_cctbx.cpp"])
++    "../../clipper/clipper/cctbx/clipper_cctbx.cpp"]+clipper_contrib_files)
+diff --git a/cctbx_sources/gltbx/SConscript b/cctbx_sources/gltbx/SConscript
+index d02e7a5..e90f6c3 100644
+--- a/cctbx_sources/gltbx/SConscript
++++ b/cctbx_sources/gltbx/SConscript
+@@ -12,14 +12,15 @@ env_etc.gltbx_common_includes = [
+   env_etc.scitbx_include,
+   env_etc.boost_include,
+ ]
+-if (gl2ps_path is not None):
+-  env_etc.gltbx_common_includes.append(gl2ps_path)
++if not env_etc.check_syslib('gl2ps', extra_libs='GL'):
++  if (gl2ps_path is not None):
++    env_etc.gltbx_common_includes.append(gl2ps_path)
+ 
+ if (not env_etc.no_boost_python):
+   Import("env_base", "env_no_includes_boost_python_ext")
+   trial_env = env_base.Clone()
+   env = env_no_includes_boost_python_ext.Clone()
+-  env.Prepend(LIBS=["scitbx_boost_python"])
++  env.Prepend(LIBS=[env_etc.scitbx_boost_python])
+   if (env_etc.compiler == "win32_cl"):
+     for e in [trial_env, env]:
+       e.Append(LIBS=["glu32", "opengl32"])
+@@ -79,10 +80,15 @@ int main() { std::cout << GL_POINT << std::endl; return 0; }
+         source=source)
+     env_util = env
+     source = ["util_ext.cpp"]
+-    if (gl2ps_path is not None):
+-      source.append("#gui_resources/gl2ps/gl2ps.c")
+-      env_util = env.Clone()
+-      env_util.Append(SHCXXFLAGS=["-DGLTBX_HAVE_GL2PS"])
++    if not env_etc.check_syslib('gl2ps', extra_libs='GL'):
++      if (gl2ps_path is not None):
++        source.append("#gui_resources/gl2ps/gl2ps.c")
++        env_util = env.Clone()
++        env_util.Append(SHCXXFLAGS=["-DGLTBX_HAVE_GL2PS"])
++    else:
++        env_util = env.Clone()
++        env_util.Append(SHCXXFLAGS=["-DGLTBX_HAVE_GL2PS"])
++        env_util.Append(LIBS=["gl2ps"])
+     env_util.SharedLibrary(
+       target="#lib/gltbx_util_ext",
+       source=source)
+diff --git a/cctbx_sources/iotbx/cif/boost_python/SConscript b/cctbx_sources/iotbx/cif/boost_python/SConscript
+index 49837af..2833ff1 100644
+--- a/cctbx_sources/iotbx/cif/boost_python/SConscript
++++ b/cctbx_sources/iotbx/cif/boost_python/SConscript
+@@ -34,15 +34,18 @@ antlr3_src_files = [
+ ]
+ 
+ prefix = "#ucif/antlr3/src"
+-source = [os.path.join(prefix, file_name) for file_name in antlr3_src_files]
++if not env_etc.check_syslib('antlr3c'):
++  source = [os.path.join(prefix, file_name) for file_name in antlr3_src_files]
++  env_etc.include_registry.append(
++    env=env,
++    paths=[antlr3_include, antlr3_dist])
++else:
++  source = []
++  env.Append(LIBS=['antlr3c'])
+ source.extend([
+   "cif_ext.cpp",
+   "#ucif/cifParser.cpp",
+   "#ucif/cifLexer.cpp",
+ ])
+ 
+-env_etc.include_registry.append(
+-  env=env,
+-  paths=[antlr3_include, antlr3_dist])
+-
+ env.SharedLibrary(target="#lib/iotbx_cif_ext", source=source)
+diff --git a/cctbx_sources/iotbx/mtz/SConscript b/cctbx_sources/iotbx/mtz/SConscript
+index 76fb87c..4019731 100644
+--- a/cctbx_sources/iotbx/mtz/SConscript
++++ b/cctbx_sources/iotbx/mtz/SConscript
+@@ -23,7 +23,8 @@ if (not env_etc.no_boost_python):
+   env = env_iotbx_boost_python_ext.Clone()
+   env.Append(CXXFLAGS=env_etc.ccp4io_defines)
+   env.Append(SHCXXFLAGS=env_etc.ccp4io_defines)
+-  env.Prepend(LIBS=["iotbx_mtz", "cctbx", ccp4io_lib, "scitbx_boost_python"])
++  env.Prepend(LIBS=["iotbx_mtz", "cctbx", ccp4io_lib,
++                     env_etc.scitbx_boost_python])
+   if (os.name == "nt") :
+     env.Prepend(LIBS=["Advapi32"])
+   env_etc.enable_more_warnings(env=env)
+diff --git a/cctbx_sources/iotbx/pdb/SConscript b/cctbx_sources/iotbx/pdb/SConscript
+index 6af2664..9b89fe1 100644
+--- a/cctbx_sources/iotbx/pdb/SConscript
++++ b/cctbx_sources/iotbx/pdb/SConscript
+@@ -33,7 +33,7 @@ env.Program(target="hybrid_36_fem", source=["hybrid_36_fem.cpp"])
+ if (not env_etc.no_boost_python):
+   Import("env_iotbx_boost_python_ext")
+   env = env_iotbx_boost_python_ext.Clone()
+-  env.Prepend(LIBS=["iotbx_pdb", "cctbx", "scitbx_boost_python"])
++  env.Prepend(LIBS=["iotbx_pdb", "cctbx", env_etc.scitbx_boost_python])
+   env_etc.enable_more_warnings(env=env)
+   env.SharedLibrary(
+     target="#lib/iotbx_pdb_ext",
+diff --git a/cctbx_sources/libtbx/SConscript b/cctbx_sources/libtbx/SConscript
+index c273536..5aced44 100644
+--- a/cctbx_sources/libtbx/SConscript
++++ b/cctbx_sources/libtbx/SConscript
+@@ -1071,4 +1071,88 @@ def enable_cuda_if_possible():
+ enable_openmp_if_possible()
+ enable_cuda_if_possible()
+ 
++env_etc.use_system_libs = False
++def check_syslib(lib, extra_libs=None):
++  """ Check if a system library is available """
++  if not env_etc.use_system_libs:
++    return False
++  env_syslib = env_base.Clone(LIBS=extra_libs)
++  conf = env_syslib.Configure()
++  if not conf.CheckLib(library=lib):
++    print 'Could not find %s library!'%(lib)
++    conf.Finish()
++    return False
++  else:
++    conf.Finish()
++    return True
++env_etc.check_syslib = check_syslib
++
++env_etc.py_lib = 'python%s.%s'%(sys.version[0], sys.version[2])
++
++if (libtbx.env.build_options.use_system_libs):
++  env_etc.use_system_libs = True
++
++deb_py_str = '-py%s%s'%(sys.version[0], sys.version[2])
++gentoo_py_str = '-%s.%s'%(sys.version[0], sys.version[2])
++# This list can be extended by other distro's
++py_str_lst = [deb_py_str, gentoo_py_str]
++
++for py_str in py_str_lst:
++  if env_etc.check_syslib('boost_python%s'%py_str,
++      extra_libs=env_etc.py_lib):
++    env_etc.boost_python = 'boost_python%s'%py_str
++    env_etc.scitbx_boost_python = 'scitbx_boost_python%s'%py_str
++    break
++  else:
++    env_etc.boost_python = 'boost_python'
++    env_etc.scitbx_boost_python = 'scitbx_boost_python'
++
++env_etc.prefix = libtbx.env.build_options.install_prefix
++env_etc.destdir = libtbx.env.build_options.install_destdir
++env_etc.libdir = libtbx.env.build_options.libdir
++env_etc.install_path = os.path.abspath(env_etc.destdir + '/' + env_etc.prefix)
++env_etc.binpath = os.path.join(env_etc.install_path, 'bin')
++env_etc.libpath = os.path.abspath(env_etc.install_path + '/' + env_etc.libdir)
++env_etc.inclpath = os.path.join(env_etc.install_path, 'include')
++env_etc.rpath = os.path.join(env_etc.prefix, 'lib')
++
++def create_install_targets():
++  cwd = os.getcwd()
++  rp = libtbx.env.repository_paths
++  lib_dir = '%s%s'%(abs(libtbx.env.lib_path), env_etc.rpath)
++  exe_dev = libtbx.env.under_build("exe_dev")
++  include_path = libtbx.env.include_path
++  if not os.path.exists(lib_dir):
++    os.makedirs(lib_dir)
++  rp = list(rp)
++  rp.append(lib_dir)
++  rp.append(include_path)
++  for p in rp:
++    if isinstance(p, str):
++      src_dir = p
++    else:
++      src_dir = abs(p)
++    os.chdir(src_dir)
++    dest = None
++    for root, dirnames, filenames in os.walk('.'):
++      for filename in filenames:
++        if re.match('^lib.*\.(so.*|dylib.*|la|a)$', filename, flags=re.IGNORECASE):
++          dest = os.path.join(env_etc.libpath, root)
++          src = os.path.join(src_dir, root, filename)
++          env_base.Install(dest, src)
++          env_base.Alias("install-shlib", dest)
++        if re.match('^.*\.(h|hpp)$', filename, flags=re.IGNORECASE):
++          dest = os.path.join(env_etc.inclpath, root)
++          src = os.path.join(src_dir, root, filename)
++          env_base.Install(dest, src)
++          env_base.Alias("install-header", dest)
++  dest = env_etc.binpath
++  env_base.Install(dest, Glob('%s/*'%(exe_dev)))
++  env_base.Alias("install-bin", dest)
++  Alias('install', ['install-header', 'install-shlib', 'install-bin'])
++  os.chdir(cwd)
++
++if 'install' in COMMAND_LINE_TARGETS:
++  create_install_targets()
++
+ Export("env_base", "env_etc")
+diff --git a/cctbx_sources/libtbx/env_config.py b/cctbx_sources/libtbx/env_config.py
+index 41b6f91..ddf2848 100644
+--- a/cctbx_sources/libtbx/env_config.py
++++ b/cctbx_sources/libtbx/env_config.py
+@@ -740,6 +740,10 @@ Wait for the command to finish, then try again.""" % vars())
+         precompile_headers=command_line.options.precompile_headers,
+         static_libraries=command_line.options.static_libraries,
+         static_exe=command_line.options.static_exe,
++        use_system_libs=command_line.options.use_system_libs,
++        install_prefix=command_line.options.install_prefix,
++        libdir=command_line.options.libdir,
++        install_destdir=command_line.options.install_destdir,
+         scan_boost=command_line.options.scan_boost,
+         write_full_flex_fwd_h=command_line.options.write_full_flex_fwd_h,
+         boost_python_no_py_signatures
+@@ -1799,6 +1803,10 @@ class build_options:
+         warning_level,
+         static_libraries,
+         static_exe,
++        use_system_libs,
++        install_prefix,
++        libdir,
++        install_destdir,
+         scan_boost,
+         write_full_flex_fwd_h=default_write_full_flex_fwd_h,
+         build_boost_python_extensions=default_build_boost_python_extensions,
+@@ -1860,6 +1868,10 @@ class build_options:
+       self.boost_python_bool_int_strict
+     print >> f, "Enable OpenMP if possible:", self.enable_openmp_if_possible
+     print >> f, "Enable CUDA:", self.enable_cuda
++    print >> f, "Use System Libraries:", self.use_system_libs
++    print >> f, "Install Prefix:", self.install_prefix
++    print >> f, "Libdir:", self.libdir
++    print >> f, "Install Destdir:", self.install_destdir
+     print >> f, "Use opt_resources if available:", self.opt_resources
+     print >> f, "Use environment flags:", self.use_environment_flags
+     if( self.use_environment_flags ):
+@@ -1983,6 +1995,28 @@ class pre_process_args:
+         action="store_true",
+         default=False,
+         help="link all executables statically (implies --static_libraries)")
++      parser.option(None, "--use_system_libs",
++        action="store_true",
++        default=False,
++        help="Use system Libraries to build.")
++      parser.option(None, "--install_destdir",
++        type="string",
++        action="store",
++        default="",
++        help="sets the destdir for the install targets.",
++        metavar="DIRECTORY")
++      parser.option(None, "--libdir",
++        type="string",
++        action="store",
++        default="lib",
++        help="sets the libdir relative to the PREFIX for the install targets. Default: lib",
++        metavar="DIRECTORY")
++      parser.option(None, "--install_prefix",
++        type="string",
++        action="store",
++        default="/usr/local",
++        help="sets the prefix for the install targets. Default: /usr/local",
++        metavar="DIRECTORY")
+       parser.option(None, "--scan_boost",
+         action="store_true",
+         default=False,
+diff --git a/cctbx_sources/mmtbx/cablam/SConscript b/cctbx_sources/mmtbx/cablam/SConscript
+index 67b1edb..36a11bc 100644
+--- a/cctbx_sources/mmtbx/cablam/SConscript
++++ b/cctbx_sources/mmtbx/cablam/SConscript
+@@ -3,7 +3,7 @@ Import("env_etc")
+ if (not env_etc.no_boost_python):
+   Import("env_iotbx_boost_python_ext")
+   env = env_iotbx_boost_python_ext.Clone()
+-  env.Prepend(LIBS=["cctbx", "scitbx_boost_python"])
++  env.Prepend(LIBS=["cctbx", env_etc.scitbx_boost_python])
+   env_etc.enable_more_warnings(env=env)
+   env.SharedLibrary(
+     target="#lib/mmtbx_cablam_align_utils_ext",
+diff --git a/cctbx_sources/mmtbx/den/SConscript b/cctbx_sources/mmtbx/den/SConscript
+index 2d3ce36..1a2b171 100644
+--- a/cctbx_sources/mmtbx/den/SConscript
++++ b/cctbx_sources/mmtbx/den/SConscript
+@@ -3,7 +3,7 @@ Import("env_etc")
+ if (not env_etc.no_boost_python):
+   Import("env_iotbx_boost_python_ext")
+   env = env_iotbx_boost_python_ext.Clone()
+-  env.Prepend(LIBS=["cctbx", "scitbx_boost_python"])
++  env.Prepend(LIBS=["cctbx", env_etc.scitbx_boost_python])
+   env_etc.enable_more_warnings(env=env)
+   env.SharedLibrary(
+     target="#lib/mmtbx_den_restraints_ext",
+diff --git a/cctbx_sources/mmtbx/geometry_restraints/SConscript b/cctbx_sources/mmtbx/geometry_restraints/SConscript
+index b9ee02c..72af551 100644
+--- a/cctbx_sources/mmtbx/geometry_restraints/SConscript
++++ b/cctbx_sources/mmtbx/geometry_restraints/SConscript
+@@ -3,7 +3,7 @@ Import("env_etc")
+ if (not env_etc.no_boost_python):
+   Import("env_iotbx_boost_python_ext")
+   env = env_iotbx_boost_python_ext.Clone()
+-  env.Prepend(LIBS=["cctbx", "scitbx_boost_python"])
++  env.Prepend(LIBS=["cctbx", env_etc.scitbx_boost_python])
+   env_etc.enable_more_warnings(env=env)
+   env.SharedLibrary(
+     target="#lib/mmtbx_hbond_restraints_ext",
+diff --git a/cctbx_sources/mmtbx/secondary_structure/SConscript b/cctbx_sources/mmtbx/secondary_structure/SConscript
+index 7e82b43..5698af5 100644
+--- a/cctbx_sources/mmtbx/secondary_structure/SConscript
++++ b/cctbx_sources/mmtbx/secondary_structure/SConscript
+@@ -3,7 +3,7 @@ Import("env_etc")
+ if (not env_etc.no_boost_python):
+   Import("env_iotbx_boost_python_ext")
+   env = env_iotbx_boost_python_ext.Clone()
+-  env.Prepend(LIBS=["cctbx", "scitbx_boost_python"])
++  env.Prepend(LIBS=["cctbx", env_etc.scitbx_boost_python])
+   env_etc.enable_more_warnings(env=env)
+   env.SharedLibrary(
+     target="#lib/mmtbx_secondary_structure_ext",
+diff --git a/cctbx_sources/rstbx/SConscript b/cctbx_sources/rstbx/SConscript
+index d79b762..a049b88 100644
+--- a/cctbx_sources/rstbx/SConscript
++++ b/cctbx_sources/rstbx/SConscript
+@@ -39,7 +39,7 @@ if (not env_etc.no_boost_python):
+   Import("env_boost_python_ext")
+   env_rstbx_boost_python_ext = env_boost_python_ext.Clone()
+   env_rstbx_boost_python_ext.Prepend(
+-                 LIBS=["rstbx", "cctbx", "scitbx_boost_python"])
++                 LIBS=["rstbx", "cctbx", env_etc.scitbx_boost_python])
+   env_rstbx_boost_python_ext.SharedLibrary(
+                  target="#lib/rstbx_ext", source="ext.cpp")
+   env_rstbx_boost_python_ext.SharedLibrary(
+diff --git a/cctbx_sources/scitbx/SConscript b/cctbx_sources/scitbx/SConscript
+index 9199ae0..6045fbc 100644
+--- a/cctbx_sources/scitbx/SConscript
++++ b/cctbx_sources/scitbx/SConscript
+@@ -28,7 +28,7 @@ SConscript("sparse/tests/SConscript")
+ if (not env_etc.no_boost_python):
+   Import("env_no_includes_boost_python_ext")
+   env_scitbx_boost_python_ext = env_no_includes_boost_python_ext.Clone()
+-  env_scitbx_boost_python_ext.Prepend(LIBS=["scitbx_boost_python"])
++  env_scitbx_boost_python_ext.Prepend(LIBS=[env_etc.scitbx_boost_python])
+   env_etc.include_registry.append(
+     env=env_scitbx_boost_python_ext,
+     paths=env_etc.scitbx_common_includes + [env_etc.python_include])
+diff --git a/cctbx_sources/scitbx/boost_python/SConscript b/cctbx_sources/scitbx/boost_python/SConscript
+index eda7b03..1f396e5 100644
+--- a/cctbx_sources/scitbx/boost_python/SConscript
++++ b/cctbx_sources/scitbx/boost_python/SConscript
+@@ -7,7 +7,7 @@ env_etc.enable_more_warnings(env=env)
+ env.Append(CXXFLAGS=env_etc.cxxflags_bpl_defines_base)
+ env.Append(SHCXXFLAGS=env_etc.cxxflags_bpl_defines_base)
+ env.Append(LIBPATH=env_etc.libpath_python)
+-env.Append(LIBS=["boost_python"] + env_etc.libs_python)
++env.Append(LIBS=[env_etc.boost_python] + env_etc.libs_python)
+ env_etc.include_registry.append(
+   env=env,
+   paths=env_etc.scitbx_common_includes + [env_etc.python_include])
+@@ -20,5 +20,5 @@ lib_scitbx_boost_python_sources = [
+ if (env_etc.static_libraries): builder = env.StaticLibrary
+ else:                          builder = env.SharedLibrary
+ builder(
+-  target="#lib/scitbx_boost_python",
++  target="#lib/%s"%env_etc.scitbx_boost_python,
+   source=lib_scitbx_boost_python_sources)
+diff --git a/cctbx_sources/smtbx/refinement/boost_python/SConscript b/cctbx_sources/smtbx/refinement/boost_python/SConscript
+index 0387e1d..5144996 100644
+--- a/cctbx_sources/smtbx/refinement/boost_python/SConscript
++++ b/cctbx_sources/smtbx/refinement/boost_python/SConscript
+@@ -1,6 +1,6 @@
+-Import("env_smtbx_boost_python_ext")
++Import("env_smtbx_boost_python_ext", "env_etc")
+ env = env_smtbx_boost_python_ext.Clone()
+-env.Prepend(LIBS=["smtbx_refinement_constraints", "scitbx_boost_python"])
++env.Prepend(LIBS=["smtbx_refinement_constraints", env_etc.scitbx_boost_python])
+ env.SharedLibrary(target="#lib/smtbx_refinement_least_squares_ext", source=[
+   "least_squares_ext.cpp",
+   "weighting_schemes.cpp",
+diff --git a/cctbx_sources/smtbx/refinement/constraints/boost_python/SConscript b/cctbx_sources/smtbx/refinement/constraints/boost_python/SConscript
+index 009d288..1eb176b 100644
+--- a/cctbx_sources/smtbx/refinement/constraints/boost_python/SConscript
++++ b/cctbx_sources/smtbx/refinement/constraints/boost_python/SConscript
+@@ -1,5 +1,5 @@
+-Import("env_smtbx_boost_python_ext")
++Import("env_smtbx_boost_python_ext", "env_etc")
+ env = env_smtbx_boost_python_ext.Clone()
+-env.Prepend(LIBS=["smtbx_refinement_constraints", "scitbx_boost_python"])
++env.Prepend(LIBS=["smtbx_refinement_constraints", env_etc.scitbx_boost_python])
+ env.SharedLibrary(target="#lib/smtbx_refinement_constraints_ext",
+                   source=Glob("*.cpp"))
+diff --git a/cctbx_sources/spotfinder/SConscript b/cctbx_sources/spotfinder/SConscript
+index 1d280d4..1d73677 100644
+--- a/cctbx_sources/spotfinder/SConscript
++++ b/cctbx_sources/spotfinder/SConscript
+@@ -54,7 +54,7 @@ if (not env_etc.no_boost_python):
+   Import("env_no_includes_boost_python_ext")
+ 
+   env_spotfinder_boost_python_ext = env_no_includes_boost_python_ext.Clone()
+-  env_spotfinder_boost_python_ext.Prepend(LIBS=[ "scitbx_boost_python"])
++  env_spotfinder_boost_python_ext.Prepend(LIBS=[ env_etc.scitbx_boost_python ])
+   env_etc.include_registry.append(
+     env=env_spotfinder_boost_python_ext,
+     paths=env_etc.spotfinder_common_includes + [env_etc.python_include])
+diff --git a/cctbx_sources/xfel/SConscript b/cctbx_sources/xfel/SConscript
+index e680f73..3397762 100644
+--- a/cctbx_sources/xfel/SConscript
++++ b/cctbx_sources/xfel/SConscript
+@@ -31,7 +31,7 @@ if (not env_etc.no_boost_python):
+   Import("env_boost_python_ext")
+   env_xfel_boost_python_ext = env_boost_python_ext.Clone()
+   env_xfel_boost_python_ext.Prepend(
+-                 LIBS=["cctbx", "scitbx_boost_python"])
++                 LIBS=["cctbx", env_etc.scitbx_boost_python])
+   env_xfel_boost_python_ext.SharedLibrary(
+                  target="#lib/xfel_ext", source="ext.cpp")
+   env_xfel_boost_python_ext.SharedLibrary(

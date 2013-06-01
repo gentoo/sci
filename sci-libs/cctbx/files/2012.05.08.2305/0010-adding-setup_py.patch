@@ -1,0 +1,662 @@
+From: Baptiste Carvello <devel@baptiste-carvello.net>
+Date: Tue, 21 Aug 2012 16:10:19 +0200
+Subject: adding-setup_py
+
+---
+ cctbx_sources/stdlib.py |    4 +
+ sconsutils.py           |  485 +++++++++++++++++++++++++++++++++++++++++++++++
+ setup.py                |  136 +++++++++++++
+ 3 files changed, 625 insertions(+)
+ create mode 100755 cctbx_sources/stdlib.py
+ create mode 100644 sconsutils.py
+ create mode 100755 setup.py
+
+diff --git a/cctbx_sources/stdlib.py b/cctbx_sources/stdlib.py
+new file mode 100755
+index 0000000..759f689
+--- /dev/null
++++ b/cctbx_sources/stdlib.py
+@@ -0,0 +1,4 @@
++from libtbx.forward_compatibility import stdlib_import
++
++math = stdlib_import("math")
++random = stdlib_import("random")
+diff --git a/sconsutils.py b/sconsutils.py
+new file mode 100644
+index 0000000..322585b
+--- /dev/null
++++ b/sconsutils.py
+@@ -0,0 +1,485 @@
++from distutils.sysconfig import get_python_lib, get_config_var
++from distutils.command.build_ext import build_ext as _build_ext
++from distutils.command.build_py import build_py as _build_py
++from distutils.command.install_lib import install_lib as _install_lib
++from distutils.command.install_data import install_data as _install_data
++from distutils.command.clean import clean as _clean
++from distutils.cmd import Command as _Command
++from distutils.dir_util import remove_tree
++from distutils.util import change_root, convert_path
++from distutils.errors import DistutilsExecError
++from distutils import log
++import sys, os
++import SCons.Script
++import libtbx
++import libtbx.env_config
++from libtbx.path import relocatable_path, absolute_path
++from libtbx.path import relpath    # don't use relpath from os.path, introduced in 2.6
++from libtbx.utils import import_python_object
++import threading
++import pickle
++
++opj = os.path.join
++configure_list = []
++scons_buildargv = []
++scons_installargv = []
++SRCDIR=''
++
++class Command(_Command):
++    def run_scons(self, argv):
++        cwd = os.getcwd()
++        builddir = opj(os.path.abspath(self.build_temp), 'cctbx-build')    # build_temp must be set by subclass
++        if not os.path.exists(builddir):
++            if not os.path.exists(os.path.abspath(self.build_temp)):
++                os.mkdir(os.path.abspath(self.build_temp))
++            os.mkdir(builddir)
++        elif not os.path.isdir(builddir):
++            raise RuntimeError(("Build directory '%s' cannot be created "
++                                "because of existing file") % builddir)
++        os.chdir(builddir)
++        if '%PREFIX%' in configure_list:
++            idx=configure_list.index('%PREFIX%')
++            configure_list[idx] = self.prefix    # prefix must be set by subclass
++        libtbx.env_config.cold_start(configure_list)
++        os.environ["LIBTBX_BUILD"] = builddir
++        os.environ['PYTHONPATH'] = ':'.join(sys.path)
++        self.spawn(argv)
++        os.chdir(cwd)
++
++class build_ext(_build_ext, Command):
++    user_options = _build_ext.user_options + [
++        ('prefix=', None, "installation prefix (default: python installation prefix")
++    ]
++    def initialize_options(self):
++        _build_ext.initialize_options(self)
++        self.prefix = None
++    def finalize_options(self):
++        _build_ext.finalize_options(self)
++        if not self.prefix:
++            self.prefix = get_config_var('prefix')    # on Debian: 'usr'
++    def run(self):
++        builddir = opj(os.path.abspath(self.build_temp), 'cctbx-build')    # build_temp set by _build_ext
++        self.run_scons(scons_buildargv)
++        for ext in self.extensions:
++            if len(ext.sources) != 1 or  ext.sources[0] != '%SCONSLIB%':
++                log.warn("Don't know how to build extension '%s' -- skipping",
++                    ext.name)
++                continue
++            dst = self.get_ext_fullpath(ext.name)
++            bld = opj(builddir, 'lib', os.path.basename(dst))
++            if os.path.isfile(bld):
++                self.copy_file(bld, dst)
++
++class build_py(_build_py):
++    def build_module (self, module, module_file, package):
++        if type(package) is str:
++            package = package.split('.')
++        elif type(package) not in (list, tuple):
++            raise TypeError, \
++                  "'package' must be a string (dot-separated), list, or tuple"
++
++        # Now put the module source file into the "build" area -- this is
++        # easy, we just copy it somewhere under self.build_lib (the build
++        # directory for Python source).
++        outfile = self.get_module_outfile(self.build_lib, package, module)
++        dir = os.path.dirname(outfile)
++        self.mkpath(dir)
++        # If the module contains non-blank, non-comment/docstring lines, and doesn't have
++        # the __future__ import, add it before the first non-comment/docstring line
++        empty = True
++        found = False
++        docstring = None
++        file_obj = open(module_file)
++        for line in file_obj:
++            if docstring:
++                if (line.count(docstring) % 2) == 1:
++                    # FIXME this logic will fail with lines such as """ + ''',
++                    # but nobody with a sane mind would do that, would they ?
++                    docstring = None
++                continue
++            if line == "from __future__ import division\n":
++                found = True
++                break
++            if line.isspace() or line.startswith('#'):
++                continue
++            if line.startswith('"""') and (line.count('"""') % 2) == 1:
++                docstring = '"""'
++                continue
++            if line.startswith('"'):
++                continue
++            if line.startswith("'''") and (line.count("'''") % 2) == 1:
++                docstring = "'''"
++                continue
++            if line.startswith("'"):
++                continue
++            empty = False
++            break
++        file_obj.close()
++        if empty or found:
++            return self.copy_file(module_file, outfile, preserve_mode=0)
++        elif self.dry_run:
++            if os.path.isdir(outfile):
++                outfile = opj(outfile, os.path.basename(module_file))
++            log.info("copying with modification %s -> %s", module_file, outfile)
++            return outfile, True
++        else:
++            if os.path.isdir(outfile):
++                outfile = opj(outfile, os.path.basename(module_file))
++            log.info("copying with modification %s -> %s", module_file, outfile)
++            file_obj = open(module_file)
++            outfile_obj = open(outfile, 'w')
++            written = False
++            docstring = None
++            for line in file_obj:
++                if not written:
++                    if docstring:
++                        if (line.count(docstring) % 2) == 1:
++                            docstring = None
++                        outfile_obj.write(line)
++                        continue
++                    if line.isspace() or line.startswith('#'):
++                        outfile_obj.write(line)
++                        continue
++                    if line.startswith('"""') and (line.count('"""') % 2) == 1:
++                        docstring = '"""'
++                        outfile_obj.write(line)
++                        continue
++                    if line.startswith('"'):
++                        outfile_obj.write(line)
++                        continue
++                    if line.startswith("'''") and (line.count("'''") % 2) == 1:
++                        docstring = "'''"
++                        outfile_obj.write(line)
++                        continue
++                    if line.startswith("'"):
++                        outfile_obj.write(line)
++                        continue
++                    outfile_obj.write("from __future__ import division\n")
++                    written = True
++                outfile_obj.write(line)
++            outfile_obj.close()
++            file_obj.close()
++            return outfile, True
++
++class test(_Command):
++    description = "runs the tests in the distutils build directory"
++    user_options = [
++        ('build-lib=', None,
++         "distutils build directory (default: 'build.build-lib')"),
++        ('build-temp=', 't',
++         "directory for temporary files (default: 'build.build-temp')")
++    ]
++    def initialize_options(self):
++        self.build_lib = None
++        self.build_temp = None
++    def finalize_options(self):
++        self.set_undefined_options('build',
++                                   ('build_lib', 'build_lib'),
++                                   ('build_temp', 'build_temp'))
++    def run(self):
++        libdir = os.path.abspath(os.path.abspath(self.build_lib))
++        builddir = opj(os.path.abspath(self.build_temp), 'cctbx-build')
++        testdir = opj(os.path.abspath(self.build_temp), 'cctbx-test')
++        self.setup_test_env(builddir, libdir, testdir)
++        os.environ["LIBTBX_BUILD"] = testdir
++        env = libtbx.env_config.unpickle()
++        os.environ['PYTHONPATH'] = ':'.join([libdir] + sys.path[5:])
++        llp = os.environ.get('LD_LIBRARY_PATH')
++        if llp is not None:
++            os.environ['LD_LIBRARY_PATH'] = ':'.join([opj(builddir, 'lib', '.libs'), llp])
++        else:
++            os.environ['LD_LIBRARY_PATH'] = opj(builddir, 'lib', '.libs')
++        os.chdir(testdir)
++        failed = []
++        for m in env.module_list:
++            for (module_name,dist_path) in m.name_and_dist_path_pairs():
++                try:
++#                    tst_list = import_python_object(
++#                            import_path="%s.run_tests.tst_list" % module_name,    Does not work yet
++#                            error_prefix="",
++#                            target_must_be="",
++#                            where_str="").object 
++                    run_func = import_python_object(
++                            import_path="%s.run_tests.run" % module_name,
++                            error_prefix="",
++                            target_must_be="",
++                            where_str="").object
++                    tst_mod = file(opj(abs(dist_path), "run_tests.py"))    # Ugly, temporary
++                    tst_lines = [l.strip() for l in tst_mod]
++                    tst_mod.close()
++                    tst_code = " ".join(["("] +
++                                        tst_lines[(tst_lines.index("tst_list = (")+1)
++                                                 :(tst_lines.index(")")+1)]
++                                        )
++                    tst_list = eval(tst_code)
++
++                except Exception:
++                    continue
++                for tst in tst_list:    # adapted from libtbx.test_utils.iter_tests_cmd
++                    cmd_args = []
++                    if (type(tst) == type([])):
++#                        cmd_args = tst[1:]    FIXME why only in quick mode?
++                        tst = tst[0]
++                    if (tst.startswith("$B")):
++                        tst_path = tst.replace("$B", builddir)
++                    else:
++                        tst_path = tst.replace("$D", abs(dist_path))
++                    if "$" in tst_path or '"' in tst_path:
++                        log.warn("Could not run test '%s':\n%s", tst, "Unexpected '$' in test path")
++                        failed.append([module_name,tst,AssertionError("Unexpected '$' in test path")])
++                        continue
++                    if '"' in tst_path:
++                        log.warn("Could not run test '%s':\n%s", tst, "Unexpected '\"' in test path")
++                        failed.append([module_name,tst,AssertionError("Unexpected '\"' in test path")])
++                        continue
++                    tst_path = os.path.normpath(tst_path)
++                    if (tst_path.endswith(".py")):
++                        cmd = [sys.executable, tst_path] + cmd_args
++                    else:
++                        cmd = [tst_path] + cmd_args
++                    try:
++                        self.spawn(cmd)
++                    except DistutilsExecError, e:
++                        log.warn("Failure in test '%s':\n%s", tst, str(e))
++                        failed.append([module_name,tst,e])
++                    except Exception, e:
++                        log.warn("Exception in test '%s':\n%s", tst, str(e))
++                        failed.append([module_name,tst,e])
++        if failed:
++            log.warn("Some tests failed:")
++            for n,t,e in failed:
++                log.warn("    module %s, test %s" % (n,t))
++            raise RuntimeError("Test failures")
++
++    def setup_test_env(self, builddir, libdir, testdir):
++        """ Create the test directory and the temporary libtbx_env pickle object """
++        if not os.path.exists(testdir):
++            if not os.path.exists(os.path.abspath(self.build_temp)):
++                os.mkdir(os.path.abspath(self.build_temp))
++            os.mkdir(testdir)
++        elif not os.path.isdir(testdir):
++            raise RuntimeError(("Test directory '%s' cannot be created "
++                                "because of existing file") % testdir)
++        os.environ["LIBTBX_BUILD"] = builddir
++        env = libtbx.env_config.unpickle()
++        module_dist_paths = {}
++        for key, value in env.module_dist_paths.items():
++            head, module = os.path.split(abs(value))
++            module_dist_paths[key] = relocatable_path(absolute_path(libdir), module)
++        env.module_dist_paths = module_dist_paths
++        for module in env.module_list:
++            paths = []
++            for path in module.dist_paths:
++                if path != None:
++                    head, tail = os.path.split(abs(path))
++                    rp = relocatable_path(absolute_path(libdir), tail)
++                    paths.append(rp)
++                else:
++                    paths.append(None)
++            module.dist_paths = paths
++        file_obj = open(opj(testdir,'libtbx_env'), 'wb')
++        pickle.dump(env, file_obj, 0)
++        file_obj.close()
++
++class install_lib(_install_lib, Command):
++    user_options = _install_lib.user_options + [
++        ('build-temp=', 't',
++         "directory for temporary files (default: 'build.build-temp')"),
++        ('prefix=', None, "installation prefix (default: 'install.prefix')"),
++        ('root=', None,
++         "install everything relative to this alternate root directory (default: 'install.root')")
++    ]
++    def initialize_options(self):
++        _install_lib.initialize_options(self)
++        self.build_temp = None
++        self.prefix = None
++        self.root = None
++    def finalize_options(self):
++        _install_lib.finalize_options(self)
++        self.set_undefined_options('build',
++                                   ('build_temp', 'build_temp'))
++        self.set_undefined_options('install',
++                                   ('prefix', 'prefix'),
++                                   ('root', 'root'))
++    def run(self):
++        _install_lib.run(self)
++        if self.root != None:
++            ip = '--install_destdir'
++            if ip not in configure_list:
++                configure_list.extend([ip, self.root])
++        self.run_scons(scons_installargv)
++
++class install_data(_install_data, Command):
++    user_options = _install_data.user_options + [
++        ('build-temp=', 't',
++         "directory for temporary files (default: 'build.build-temp')"),
++        ('prefix=', None, "installation prefix (default: 'install.prefix')")
++    ]
++    def initialize_options(self):
++        _install_data.initialize_options(self)
++        self.build_temp = None
++        self.prefix = None
++    def finalize_options(self):
++        _install_data.finalize_options(self)
++        self.set_undefined_options('build',
++                                   ('build_temp', 'build_temp'))
++        self.set_undefined_options('install',
++                                   ('prefix', 'prefix'))
++    def run(self):
++        # filter the list
++        newdf = []
++        libtbx_env_path = None
++        for f in self.data_files:
++            if type(f) is str:
++                newdf.append(f)
++                continue
++            if '%LIBTBXENV%' in f[1]:
++                f = (f[0], [p for p in f[1] if p != '%LIBTBXENV%'])
++                libtbx_env_path = opj(convert_path(f[0]), 'libtbx_env')
++                if not os.path.isabs(libtbx_env_path):    # mimic the logic in install_data
++                    libtbx_env_path = opj(self.install_dir, libtbx_env_path)
++                elif self.root:
++                    libtbx_env_path = change_root(self.root, libtbx_env_path)
++                # we leave the directory in, so that distutils will create it
++            newdf.append(f)
++        self.data_files = newdf
++        _install_data.run(self)
++        if libtbx_env_path is not None:
++            self.install_libtbx_env(libtbx_env_path)
++            self.outfiles.append(libtbx_env_path)
++
++    def install_libtbx_env(self, libtbx_env_path):
++        """ Modify libtbx_env pickle object to set the correct paths. """
++        builddir = opj(os.path.abspath(self.build_temp), 'cctbx-build')
++        os.environ["LIBTBX_BUILD"] = builddir
++        env = libtbx.env_config.unpickle()
++        env.build_path = absolute_path(self.prefix)
++        build_path = env.build_path
++        python_lib = get_python_lib()
++        rel_path = opj(python_lib, 'cctbx')
++        env.bin_path = relocatable_path(build_path, 'bin')
++        env.lib_path = relocatable_path(build_path, 'lib')
++        env.include_path = relocatable_path(build_path, 'include')
++        env.repository_paths = relocatable_path(build_path, rel_path)
++        env.scons_dist_path = None
++        env.pythonpath = None
++        env.exe_path = env.bin_path
++        env.python_exe = relocatable_path(build_path, sys.executable)
++        env.path_utility = relocatable_path(build_path,
++                opj(rel_path, 'libtbx', 'command_line', 'path_utility.py'))
++        module_dist_paths = {}
++        for key, value in env.module_dist_paths.items():
++            head, module = os.path.split(abs(value))
++            module_dist_paths[key] = relocatable_path(build_path,
++                    opj(rel_path, module))
++        env.module_dist_paths = module_dist_paths
++        for module in env.module_list:
++            paths = []
++            for path in module.dist_paths:
++                if path != None:
++                    head, tail = os.path.split(abs(path))
++                    rp = relocatable_path(build_path, opj(rel_path, tail))
++                    paths.append(rp)
++                else:
++                    paths.append(None)
++            module.dist_paths = paths
++        _dispatcher_registry={}
++        for key, value in env._dispatcher_registry.items():
++            new_key = relocatable_path(anchor=build_path,
++                                       relocatable=key.relocatable)
++            rel = relpath(abs(value), SRCDIR)
++            new_val = relocatable_path(anchor=absolute_path(rel_path),
++                                       relocatable=rel)
++            _dispatcher_registry[new_key] = new_val
++        env._dispatcher_registry = _dispatcher_registry
++        # install the environment file in the data dir
++        file_obj = open(libtbx_env_path, 'wb')
++        pickle.dump(env, file_obj, 0)
++        file_obj.close()
++
++class clean(_clean):
++    def run(self):
++        # remove the scons build dir
++        builddir = opj(os.path.abspath(self.build_temp), 'cctbx-build')
++        if os.path.exists(builddir):
++            remove_tree(builddir, dry_run=self.dry_run)
++        else:
++            log.debug("'%s' does not exist -- can't clean it",
++                      builddir)
++        # remove the scons test dir
++        testdir = opj(os.path.abspath(self.build_temp), 'cctbx-test')
++        if os.path.exists(testdir):
++            remove_tree(testdir, dry_run=self.dry_run)
++        else:
++            log.debug("'%s' does not exist -- can't clean it",
++                      testdir)
++        # call the base class to remove the distutils dirs
++        _clean.run(self)
++
++# adapted from setuptools
++# authors: Phillip J. Eby, Tarek Ziade and the distutils SIG
++# licence: PSF or ZPL
++
++from distutils.util import convert_path
++import re
++
++EXTPAT1 = re.compile(r"^from (\S+_ext) import")
++EXTPAT2 = re.compile(r"^import (\S+_ext)$")
++EXTPAT3 = re.compile(r"boost.python.import_ext\(['\"](\S+_ext)['\"]\)$")
++EXTPAT4 = re.compile(r"import_ext\(['\"](\S+_ext)['\"]\)$")    # in module boost.python!
++
++def find_packages_and_extensions(where='.', exclude=()):
++    """Return a list all Python packages found within directory 'where'
++    and a list all extensions that need to be installed inside those packages
++
++    'where' should be supplied as a "cross-platform" (i.e. URL-style) path; it
++    will be converted to the appropriate local path syntax.  'exclude' is a
++    sequence of package names to exclude; '*' can be used as a wildcard in the
++    names, such that 'foo.*' will exclude all subpackages of 'foo' (but not
++    'foo' itself).
++    """
++    out = []
++    outext = set()
++    stack=[(convert_path(where), '')]
++
++    while stack:
++
++        where,prefix = stack.pop(0)
++        for name in os.listdir(where):
++
++            fn = opj(where,name)
++            if ('.' not in name and os.path.isdir(fn) and
++                os.path.isfile(opj(fn,'__init__.py'))
++            ):
++
++                out.append(prefix+name); stack.append((fn,prefix+name+'.'))
++
++            if name.endswith('.py'):
++
++                f = open(opj(where, name))
++                for l in f:
++
++                    m = EXTPAT1.match(l)
++                    if m is not None:
++                        outext.add(m.group(1))
++
++                    m = EXTPAT2.match(l)
++                    if m is not None:
++                        outext.add(m.group(1))
++
++                    m = EXTPAT3.search(l)
++                    if m is not None:
++                        outext.add(m.group(1))
++
++                    if name == 'python.py' and prefix.endswith('boost.'):
++                        m = EXTPAT4.search(l)
++                        if m is not None:
++                            outext.add(m.group(1))
++
++                f.close()
++
++    for pat in list(exclude)+['ez_setup', 'distribute_setup']:
++        from fnmatch import fnmatchcase
++        out = [item for item in out if not fnmatchcase(item,pat)]
++
++    return out, list(outext)
+diff --git a/setup.py b/setup.py
+new file mode 100755
+index 0000000..033dc9e
+--- /dev/null
++++ b/setup.py
+@@ -0,0 +1,142 @@
++from distutils.core import setup, Extension
++import sys, os, shutil
++
++# General settings
++opj = os.path.join
++CURDIR = os.getcwd()
++SRCDIR = opj(CURDIR, 'cctbx_sources')
++py_vers = sys.version_info
++py_major = py_vers[0]
++py_minor = py_vers[1]
++py_str = 'python%s.%s'%(py_major, py_minor)
++clipper = opj('clipper_adaptbx','clipper')
++boost = opj('boost_adaptbx','boost')
++libtbx_pypath = opj('libtbx','pythonpath')
++scons_exe = '/usr/bin/scons'    # FIXME platform dependent path
++scons_path = '/usr/lib/scons/'
++PATHLIST= [ SRCDIR,
++            opj(SRCDIR, libtbx_pypath),
++            opj(SRCDIR, clipper),
++            opj(SRCDIR, boost),
++            scons_path,
++          ]
++for p in PATHLIST:
++    if p not in sys.path:
++        # we need to insert at the front, in case cctbx is already installed
++        sys.path.insert(0,p)
++
++import sconsutils
++from sconsutils import find_packages_and_extensions, build_ext, build_py, test, install_lib, install_data, clean
++
++sconsutils.SRCDIR = SRCDIR
++
++# Debian Multiarch magic
++multiarch = os.environ.get('DEB_HOST_MULTIARCH')
++libdir = os.environ.get('MULTILIBDIR')
++if multiarch == None:
++    multiarch = ''
++else:
++    libdir = 'lib/' + multiarch
++
++if libdir == None:
++    libdir = 'lib'
++# Configure settings
++# We need this directory to get env_config.cold_start to run!
++# trailing slash is important
++init_dir = opj(SRCDIR, 'libtbx')+os.sep    # the separator is needed for dirname to do the right thing
++build_opts = [ '--libtoolize',
++               '--use_system_libs',
++               '--use-environment-flags',
++               '--libdir', libdir,
++               '--install_prefix', '%PREFIX%',    # prefix will be replaced at run time
++             ]
++conf_modules = [ 'annlib_adaptbx',
++                 'boost_adaptbx',
++                 'cbflib_adaptbx',
++                 'ccp4io_adaptbx',
++                 'cctbx',
++                 'chiltbx',
++                 'clipper_adaptbx',
++                 'crys3d',
++                 'fable',
++                 'fftw3tbx',
++                 'gltbx',
++                 'iotbx',
++                 'libtbx',
++                 'mmtbx',
++                 'omptbx',
++                 'rstbx',
++                 'scitbx',
++                 'smtbx',
++                 'spotfinder',
++                 'tbxx',
++                 'tntbx',
++                 'ucif',
++                 'wxtbx',
++               ]
++sconsutils.configure_list = [init_dir]
++sconsutils.configure_list.extend(build_opts)
++sconsutils.configure_list.extend(conf_modules)
++
++# Build settings
++sconsutils.scons_buildargv = [sys.executable, scons_exe]
++
++# Install settings
++sconsutils.scons_installargv = [sys.executable, scons_exe, 'install']
++
++# Setup settings
++
++NAME = 'cctbx'
++VERSION = '2012.05.08.2305'
++DESCRIPTION = 'cctbx'
++AUTHOR = 'cctbx'
++AUTHOR_EMAIL = 'cctbx@cci.lbl.gov'
++URL = 'http://cctbx.sourceforge.net/'
++LICENSE = 'CCTBX 2.0'
++KEYWORDS = 'crystallography'
++SCRIPTS = []
++PKG_DATA = {}
++EXTRA_PATH = 'cctbx'
++
++MODS = ['stdlib']
++
++PACKDIR = { 'boost' : 'cctbx_sources/boost_adaptbx/boost',    # in setup, paths must stay in unix syntax
++            'clipper' : 'cctbx_sources/clipper_adaptbx/clipper',    # also, let's keep them relative
++            'optik' : 'cctbx_sources/libtbx/pythonpath/optik',    # FIXME installs incompatible fork to global path
++            'tntbx' : 'cctbx_sources/tntbx/tntbx',
++            '' : 'cctbx_sources',
++          }
++
++PACKS = []
++EXT_MODULES = []
++for key, value in PACKDIR.items():
++    p, e = find_packages_and_extensions(value)
++    PACKS.extend(p)
++    EXT_MODULES.extend(e)
++    if key != '':
++        PACKS.append(key)
++
++EXT_MODULES = [ Extension(e, ['%SCONSLIB%']) for e in EXT_MODULES ]    # special treatment from install_lib
++
++setup(name=NAME,
++      version = VERSION,
++      author = AUTHOR,
++      author_email = AUTHOR_EMAIL,
++      url = URL,
++      description = DESCRIPTION,
++      license = LICENSE,
++      keywords = KEYWORDS,
++      extra_path = EXTRA_PATH,
++      scripts = SCRIPTS,
++      py_modules = MODS,
++      package_dir = PACKDIR,
++      packages = PACKS,
++      ext_modules = EXT_MODULES,
++      data_files = [('share/cctbx/%s'%(py_str), ['%LIBTBXENV%'])],    # special treatment from install_data
++      cmdclass = {'build_ext': build_ext,
++                  'build_py': build_py,
++                  'test': test,
++                  'install_lib': install_lib,
++                  'install_data': install_data,
++                  'clean': clean},
++     )

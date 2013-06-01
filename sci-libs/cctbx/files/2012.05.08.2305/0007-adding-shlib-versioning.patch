@@ -1,0 +1,208 @@
+From: Radostan Riedel <raybuntu@googlemail.com>
+Date: Mon, 23 Jul 2012 18:33:07 +0200
+Subject: adding-shlib-versioning
+
+---
+ cctbx_sources/boost_adaptbx/SConscript |    3 +
+ cctbx_sources/libtbx/SConscript        |  115 +++++++++++++++++++++++++++++---
+ cctbx_sources/libtbx/env_config.py     |    7 ++
+ 3 files changed, 116 insertions(+), 9 deletions(-)
+
+diff --git a/cctbx_sources/boost_adaptbx/SConscript b/cctbx_sources/boost_adaptbx/SConscript
+index 68cac89..dedbb05 100644
+--- a/cctbx_sources/boost_adaptbx/SConscript
++++ b/cctbx_sources/boost_adaptbx/SConscript
+@@ -58,6 +58,9 @@ if (not env_etc.no_boost_python):
+     SHLINKFLAGS=env_etc.shlinkflags_bpl,
+     SHLIBPREFIX="",
+     LIBS=[env_etc.boost_python] + env_etc.libs_python + env_etc.libm)
++  if (libtbx.env.build_options.libtoolize):
++    # Need to unset libtool since it does not support linking python-ext
++    env_etc.unset_libtool(env_no_includes_boost_python_ext)
+   env_no_includes_boost_python_ext.Append(
+     LIBPATH=env_etc.libpath_python)
+   env_no_includes_boost_python_ext.Append(
+diff --git a/cctbx_sources/libtbx/SConscript b/cctbx_sources/libtbx/SConscript
+index 429c44b..58bdd30 100644
+--- a/cctbx_sources/libtbx/SConscript
++++ b/cctbx_sources/libtbx/SConscript
+@@ -1061,16 +1061,99 @@ env_etc.install_path = os.path.abspath(env_etc.destdir + '/' + env_etc.prefix)
+ env_etc.binpath = os.path.join(env_etc.install_path, 'bin')
+ env_etc.libpath = os.path.abspath(env_etc.install_path + '/' + env_etc.libdir)
+ env_etc.inclpath = os.path.join(env_etc.install_path, 'include')
+-env_etc.rpath = os.path.join(env_etc.prefix, 'lib')
++env_etc.rpath = os.path.abspath(env_etc.prefix + '/' + env_etc.libdir)
++
++def set_libtool(env):
++  # Versioning can be provided by appending "-version-info 3:12:1" to SHLINKFLAGS
++  # Please see:
++  # http://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html
++  # for reference. Otherwise it will be set to 0:0:0
++  env_etc.shobjsuffix_save = env['SHOBJSUFFIX']
++  env_etc.SharedLibBuilder_save = env['BUILDERS']['SharedLibrary']
++  env.Replace(
++    SHLINKFLAGS='-rpath ' + env_etc.rpath,
++    SHOBJSUFFIX='.lo',
++    SHLIBSUFFIX='.la',
++  )
++  LIBTOOLCOM = 'libtool  --mode=compile --tag='
++  LIBTOOLCCOM = LIBTOOLCOM + 'CC '
++  LIBTOOLCXXCOM = LIBTOOLCOM + 'CXX '
++  LIBTOOLLINK = 'libtool  --mode=link --tag=CXX '
++  ShCAction = SCons.Action.Action(LIBTOOLCCOM + "$SHCCCOM", "$SHCCCOMSTR")
++  ShCXXAction = SCons.Action.Action(LIBTOOLCXXCOM + "$SHCXXCOM", "$SHCXXCOMSTR")
++  ShLinkAction = SCons.Action.Action(LIBTOOLLINK + "$SHLINKCOM", "$SHLINKCOMSTR")
++  libtool_install = 'libtool --mode=install install -D ${TARGET.abspath} %s%s/${TARGET.file}'%(abs(libtbx.env.lib_path), env_etc.rpath)
++
++  action_list = [ SCons.Defaults.SharedCheck,
++                  ShLinkAction,
++                  libtool_install,
++                ]
++  CSuffixes = SCons.Tool.cc.CSuffixes
++  # Can't import SCons.Tool.c++.CSuffixes because of that 'c++'
++  CXXSuffixes = ['.cpp', '.cc', '.cxx', '.c++', '.C++', '.mm']
++  shared_obj = SCons.Builder.Builder(action = {},
++                                     emitter = {},
++                                     prefix = '$SHOBJPREFIX',
++                                     suffix = '$SHOBJSUFFIX',
++                                     src_builder = ['CFile', 'CXXFile'],
++                                     source_scanner = SourceFileScanner,
++                                     single_source = 1)
++  for suffix in CXXSuffixes:
++      shared_obj.add_action(suffix, ShCXXAction)
++      shared_obj.add_emitter(suffix, SCons.Defaults.SharedObjectEmitter)
++  for suffix in CSuffixes:
++      shared_obj.add_action(suffix, ShCAction)
++      shared_obj.add_emitter(suffix, SCons.Defaults.SharedObjectEmitter)
++
++  LibtoolBuilder = SCons.Builder.Builder(action = action_list,
++                                     emitter = "$SHLIBEMITTER",
++                                     prefix = '$SHLIBPREFIX',
++                                     suffix = '$SHLIBSUFFIX',
++                                     target_scanner = ProgramScanner,
++                                     src_suffix = '$SHOBJSUFFIX',
++                                     src_builder = shared_obj)
++
++  from SCons.Tool.install import add_targets_to_INSTALLED_FILES
++  LibtoolInstall = SCons.Builder.Builder(
++                        action         = 'libtool --mode=install install -D ${SOURCE.abspath} ${TARGET.abspath}',
++                        target_factory = env.fs.Entry,
++                        source_factory = env.fs.Entry,
++                        multi          = 1,
++                        emitter        = [ add_targets_to_INSTALLED_FILES, ],
++                        name           = 'LibtoolInstall')
++
++  env['BUILDERS']['LibtoolInstall'] = LibtoolInstall
++
++  lib_dir = '%s%s'%(abs(libtbx.env.lib_path), env_etc.rpath)
++  if not os.path.exists(lib_dir):
++    os.makedirs(lib_dir)
++  libtool_install_path = '#lib' + env_etc.rpath
++  env.Append(LIBPATH=libtool_install_path)
++  env['BUILDERS']['SharedLibrary'] = LibtoolBuilder
++env_etc.set_libtool = set_libtool
++
++def unset_libtool(env):
++  env['BUILDERS']['SharedLibrary'] = env_etc.SharedLibBuilder_save
++  env.Replace(
++  SHOBJSUFFIX=env_etc.shobjsuffix_save,
++  )
++env_etc.unset_libtool = unset_libtool
++
++if (libtbx.env.build_options.libtoolize):
++  env_etc.shlibsuffix = ".la"
++  env_base.Append(LIBSUFFIXES=[env_etc.shlibsuffix])
++  rpath_link = ['-rpath', env_etc.rpath]
++  env_etc.shlinkflags.extend(rpath_link)
++  if '-shared' in env_etc.shlinkflags:
++    env_etc.shlinkflags.remove('-shared')
++  env_etc.set_libtool(env_base)
+ 
+ def create_install_targets():
+   cwd = os.getcwd()
+   rp = libtbx.env.repository_paths
+-  lib_dir = '%s%s'%(abs(libtbx.env.lib_path), env_etc.rpath)
++  lib_dir = abs(libtbx.env.lib_path)
+   exe_dev = libtbx.env.under_build("exe_dev")
+   include_path = libtbx.env.include_path
+-  if not os.path.exists(lib_dir):
+-    os.makedirs(lib_dir)
+   rp = list(rp)
+   rp.append(lib_dir)
+   rp.append(include_path)
+@@ -1082,17 +1165,31 @@ def create_install_targets():
+     os.chdir(src_dir)
+     dest = None
+     for root, dirnames, filenames in os.walk('.'):
++      # exclude .libs dir
++      if '.libs' in dirnames:
++        dirnames.remove('.libs')
+       for filename in filenames:
+-        if re.match('^lib.*\.(so.*|dylib.*|la|a)$', filename, flags=re.IGNORECASE):
+-          dest = os.path.join(env_etc.libpath, root)
+-          src = os.path.join(src_dir, root, filename)
+-          env_base.Install(dest, src)
+-          env_base.Alias("install-shlib", dest)
++        if not (libtbx.env.build_options.libtoolize):
++          if re.match('^lib.*\.(so|dylib|a)$', filename, flags=re.IGNORECASE):
++            dest = os.path.join(env_etc.libpath, root)
++            src = os.path.join(src_dir, root, filename)
++            env_base.Install(dest, src)
++            env_base.Alias("install-shlib", dest)
++        else:
++          if re.match('^lib.*\.la$', filename, flags=re.IGNORECASE):
++            dest = os.path.join(env_etc.libpath, root, filename)
++            src = os.path.join(src_dir, root, filename)
++            env_base.LibtoolInstall(dest, src)
++            env_base.Alias("install-shlib", dest)
+         if re.match('^.*\.(h|hpp)$', filename, flags=re.IGNORECASE):
+           dest = os.path.join(env_etc.inclpath, root)
+           src = os.path.join(src_dir, root, filename)
+           env_base.Install(dest, src)
+           env_base.Alias("install-header", dest)
++      if src_dir == lib_dir:
++        break
++
++  env_base.Alias("install-shlib", dest)
+   dest = env_etc.binpath
+   env_base.Install(dest, Glob('%s/*'%(exe_dev)))
+   env_base.Alias("install-bin", dest)
+diff --git a/cctbx_sources/libtbx/env_config.py b/cctbx_sources/libtbx/env_config.py
+index 0885527..3d9133e 100644
+--- a/cctbx_sources/libtbx/env_config.py
++++ b/cctbx_sources/libtbx/env_config.py
+@@ -705,6 +705,7 @@ Wait for the command to finish, then try again.""" % vars())
+         install_prefix=command_line.options.install_prefix,
+         libdir=command_line.options.libdir,
+         install_destdir=command_line.options.install_destdir,
++        libtoolize=command_line.options.libtoolize,
+         scan_boost=command_line.options.scan_boost,
+         write_full_flex_fwd_h=command_line.options.write_full_flex_fwd_h,
+         boost_python_no_py_signatures
+@@ -1767,6 +1768,7 @@ class build_options:
+         install_prefix,
+         libdir,
+         install_destdir,
++        libtoolize,
+         scan_boost,
+         write_full_flex_fwd_h=default_write_full_flex_fwd_h,
+         build_boost_python_extensions=default_build_boost_python_extensions,
+@@ -1830,6 +1832,7 @@ class build_options:
+     print >> f, "Boost threads enabled:", self.enable_boost_threads
+     print >> f, "Enable OpenMP if possible:", self.enable_openmp_if_possible
+     print >> f, "Enable CUDA:", self.enable_cuda
++    print >> f, "Libtoolize:", self.libtoolize
+     print >> f, "Use System Libraries:", self.use_system_libs
+     print >> f, "Install Prefix:", self.install_prefix
+     print >> f, "Libdir:", self.libdir
+@@ -1974,6 +1977,10 @@ class pre_process_args:
+         default="/usr/local",
+         help="sets the prefix for the install targets. Default: /usr/local",
+         metavar="DIRECTORY")
++      parser.option(None, "--libtoolize",
++        action="store_true",
++        default=False,
++        help="build all shared libraries with libtool.")
+       parser.option(None, "--scan_boost",
+         action="store_true",
+         default=False,

@@ -1,0 +1,90 @@
+From: Radostan Riedel <raybuntu@googlemail.com>
+Date: Tue, 24 Jul 2012 17:12:30 +0200
+Subject: fix to support LDFLAGS in use_enviroment_flags
+
+---
+ cctbx_sources/libtbx/SConscript    |   11 ++++++++++-
+ cctbx_sources/libtbx/env_config.py |    7 ++++++-
+ 2 files changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/cctbx_sources/libtbx/SConscript b/cctbx_sources/libtbx/SConscript
+index 53e1512..7d51d4a 100644
+--- a/cctbx_sources/libtbx/SConscript
++++ b/cctbx_sources/libtbx/SConscript
+@@ -777,11 +777,15 @@ else:
+   # user options for any compiler from the environment variables
+   # at the time of configure
+   opts = libtbx.env.build_options
++  env_etc.ldflags_base = []
+   if( opts.use_environment_flags ):
+     print "libtbx.scons: using flags from initial environment: "
+     print "              CXXFLAGS = ", opts.env_cxxflags
+     print "              CFLAGS = ", opts.env_cflags
+     print "              CPPFLAGS = ", opts.env_cppflags
++    print "              LDFLAGS = ", opts.env_ldflags
++    flg = opts.env_ldflags.split(" ")
++    env_etc.ldflags_base = flg
+     flg = opts.env_cxxflags.split(" ")
+     if( hasattr(env_etc, "cxxflags_base") ):
+       env_etc.cxxflags_base.extend(flg)
+@@ -853,6 +857,9 @@ def env_base_sync_with_env_etc():
+     SHCFLAGS=env_etc.cflags_base,
+     SHCCFLAGS=env_etc.ccflags_base,
+     SHCXXFLAGS=env_etc.cxxflags_base)
++  env_base.Prepend(LINKFLAGS=env_etc.ldflags_base)
++  env_etc.shlinkflags.extend(env_etc.ldflags_base)
++  env_etc.shlinkflags_bpl.extend(env_etc.ldflags_base)
+ env_base_sync_with_env_etc()
+ 
+ if (static_exe):
+@@ -1070,8 +1077,10 @@ def set_libtool(env):
+   # for reference. Otherwise it will be set to 0:0:0
+   env_etc.shobjsuffix_save = env['SHOBJSUFFIX']
+   env_etc.SharedLibBuilder_save = env['BUILDERS']['SharedLibrary']
++  sh_flg = list(env_etc.ldflags_base)
++  sh_flg.extend(['-rpath', env_etc.rpath])
+   env.Replace(
+-    SHLINKFLAGS='-rpath ' + env_etc.rpath,
++    SHLINKFLAGS=sh_flg,
+     SHOBJSUFFIX='.lo',
+     SHLIBSUFFIX='.la',
+   )
+diff --git a/cctbx_sources/libtbx/env_config.py b/cctbx_sources/libtbx/env_config.py
+index 3d9133e..d8fb063 100644
+--- a/cctbx_sources/libtbx/env_config.py
++++ b/cctbx_sources/libtbx/env_config.py
+@@ -1803,6 +1803,7 @@ class build_options:
+       self.env_cxxflags = ""
+       self.env_cflags = ""
+       self.env_cppflags = ""
++      self.env_ldflags = ""
+       flg = os.environ.get("CXXFLAGS")
+       if flg is not None:
+         self.env_cxxflags = flg
+@@ -1812,6 +1813,9 @@ class build_options:
+       flg = os.environ.get("CPPFLAGS")
+       if flg is not None:
+         self.env_cppflags = flg
++      flg = os.environ.get("LDFLAGS")
++      if flg is not None:
++        self.env_ldflags = flg
+ 
+   def report(self, f=None):
+     if (f is None): f = sys.stdout
+@@ -1843,6 +1847,7 @@ class build_options:
+       print >>f, "  CXXFLAGS = ", self.env_cxxflags
+       print >>f, "  CFLAGS = ", self.env_cflags
+       print >>f, "  CPPFLAGS = ", self.env_cppflags
++      print >>f, "  LDFLAGS = ", self.env_ldflags
+ 
+ class include_registry:
+ 
+@@ -2000,7 +2005,7 @@ class pre_process_args:
+         action="store_true",
+         default=False,
+         help="add compiler flags from environment variables: CXXFLAGS, CFLAGS,"
+-             " CPPFLAGS")
++             " CPPFLAGS, LDFLAGS")
+       parser.option(None, "--force_32bit",
+         action="store_true",
+         default=False,

@@ -1,0 +1,52 @@
+From: Radostan Riedel <raybuntu@googlemail.com>
+Date: Tue, 7 Aug 2012 18:19:02 +0200
+Subject: Fix to skip build of clipper examples
+
+---
+ cctbx_sources/clipper_adaptbx/SConscript |   33 +++++++++++++++---------------
+ 1 file changed, 17 insertions(+), 16 deletions(-)
+
+diff --git a/cctbx_sources/clipper_adaptbx/SConscript b/cctbx_sources/clipper_adaptbx/SConscript
+index c39047f..b0699ad 100644
+--- a/cctbx_sources/clipper_adaptbx/SConscript
++++ b/cctbx_sources/clipper_adaptbx/SConscript
+@@ -61,22 +61,23 @@ else:
+ env_exe = env.Clone()
+ env_exe.Prepend(LIBS=[env_etc.clipper_libs[0]])
+ 
+-exe = env_exe.Program(
+-  target='#exe_dev/'+env["PROGPREFIX"]+'clipper.symtest'
+-                    +env["PROGSUFFIX"],
+-  source = ["../clipper/examples/symtest.cpp",
+-           ])
+-libtbx.env.write_dispatcher_in_bin(
+-  source_file=exe[0].get_abspath(),
+-  target_file="clipper.symtest")
+-exe = env_exe.Program(
+-  target='#exe_dev/'+env["PROGPREFIX"]+'clipper.sanity_check'
+-                    +env["PROGSUFFIX"],
+-  source = ["sanity_check.cpp",
+-           ])
+-libtbx.env.write_dispatcher_in_bin(
+-  source_file=exe[0].get_abspath(),
+-  target_file="clipper.sanity_check")
++# Skip building clipper examples in Debian
++#exe = env_exe.Program(
++#  target='#exe_dev/'+env["PROGPREFIX"]+'clipper.symtest'
++#                    +env["PROGSUFFIX"],
++#  source = ["../clipper/examples/symtest.cpp",
++#           ])
++#libtbx.env.write_dispatcher_in_bin(
++#  source_file=exe[0].get_abspath(),
++#  target_file="clipper.symtest")
++#exe = env_exe.Program(
++#  target='#exe_dev/'+env["PROGPREFIX"]+'clipper.sanity_check'
++#                    +env["PROGSUFFIX"],
++#  source = ["sanity_check.cpp",
++#           ])
++#libtbx.env.write_dispatcher_in_bin(
++#  source_file=exe[0].get_abspath(),
++#  target_file="clipper.sanity_check")
+ 
+ if (hasattr(env_etc, "cctbx_include")):
+   if (not env_etc.no_boost_python):

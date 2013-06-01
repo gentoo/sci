@@ -1,0 +1,24 @@
+From: =?UTF-8?q?Picca=20Fr=C3=A9d=C3=A9ric-Emmanuel?= <picca@debian.org>
+Date: Sat, 30 Jun 2012 15:50:22 +0200
+Subject: remove-hardcoded-libtbx_build-env
+
+---
+ cctbx_sources/libtbx/env_config.py |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/cctbx_sources/libtbx/env_config.py b/cctbx_sources/libtbx/env_config.py
+index 9c01e0f..8a62446 100644
+--- a/cctbx_sources/libtbx/env_config.py
++++ b/cctbx_sources/libtbx/env_config.py
+@@ -2147,7 +2147,10 @@ def cold_start(args):
+   env.refresh()
+ 
+ def unpickle():
+-  build_path = os.environ["LIBTBX_BUILD"]
++  if os.environ.has_key("LIBTBX_BUILD"):
++    build_path = os.environ["LIBTBX_BUILD"]
++  else:
++    build_path = "/usr/share/cctbx/python%d.%d"%(sys.version_info[:2])
+   set_preferred_sys_prefix_and_sys_executable(build_path=build_path)
+   libtbx_env = open(op.join(build_path, "libtbx_env"), "rb")
+   env = pickle.load(libtbx_env)

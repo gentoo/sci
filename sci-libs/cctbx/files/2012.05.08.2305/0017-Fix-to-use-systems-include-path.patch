@@ -1,0 +1,128 @@
+From: Radostan Riedel <raybuntu@googlemail.com>
+Date: Tue, 7 Aug 2012 18:15:43 +0200
+Subject: Fix to use systems include path
+
+---
+ .../cbflib_adaptbx/detectors/boost_python/cbf_binary_adaptor.h   |    4 ++--
+ .../cbflib_adaptbx/detectors/boost_python/general_cbf_write.h    |    4 ++--
+ cctbx_sources/cbflib_adaptbx/detectors/cbf_adaptor.h             |    4 ++--
+ .../cbflib_adaptbx/detectors/cbf_byte_offset_optimized.cpp       |    6 +++---
+ cctbx_sources/cbflib_adaptbx/detectors/tst_memory.cpp            |    4 ++--
+ cctbx_sources/ccp4io_adaptbx/ext.cpp                             |    2 +-
+ cctbx_sources/iotbx/mtz/ext.cpp                                  |    2 +-
+ cctbx_sources/iotbx/mtz/object.h                                 |    6 +++---
+ 8 files changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/cctbx_sources/cbflib_adaptbx/detectors/boost_python/cbf_binary_adaptor.h b/cctbx_sources/cbflib_adaptbx/detectors/boost_python/cbf_binary_adaptor.h
+index 66677bd..516b319 100644
+--- a/cctbx_sources/cbflib_adaptbx/detectors/boost_python/cbf_binary_adaptor.h
++++ b/cctbx_sources/cbflib_adaptbx/detectors/boost_python/cbf_binary_adaptor.h
+@@ -3,8 +3,8 @@
+ #include <cbflib_adaptbx/detectors/cbf_adaptor.h>
+ #include <cbflib_adaptbx/detectors/cbf_byte_offset_optimized.h>
+ #include <cbflib_adaptbx/detectors/buffer_based_service.h>
+-#include <include/cbf_binary.h>
+-#include <include/cbf_compress.h>
++#include <cbf/cbf_binary.h>
++#include <cbf/cbf_compress.h>
+ 
+ namespace iotbx {
+   namespace detectors {
+diff --git a/cctbx_sources/cbflib_adaptbx/detectors/boost_python/general_cbf_write.h b/cctbx_sources/cbflib_adaptbx/detectors/boost_python/general_cbf_write.h
+index c6c1afb..f45b4d1 100644
+--- a/cctbx_sources/cbflib_adaptbx/detectors/boost_python/general_cbf_write.h
++++ b/cctbx_sources/cbflib_adaptbx/detectors/boost_python/general_cbf_write.h
+@@ -1,8 +1,8 @@
+ #ifndef GENERAL_CBF_WRITE_H
+ #define GENERAL_CBF_WRITE_H
+ #include <cbflib_adaptbx/detectors/cbf_adaptor.h>
+-#include "cbf_binary.h"
+-#include "cbf_compress.h"
++#include "cbf/cbf_binary.h"
++#include "cbf/cbf_compress.h"
+ 
+ namespace iotbx {
+   namespace detectors {
+diff --git a/cctbx_sources/cbflib_adaptbx/detectors/cbf_adaptor.h b/cctbx_sources/cbflib_adaptbx/detectors/cbf_adaptor.h
+index b5cc407..3787c7b 100644
+--- a/cctbx_sources/cbflib_adaptbx/detectors/cbf_adaptor.h
++++ b/cctbx_sources/cbflib_adaptbx/detectors/cbf_adaptor.h
+@@ -8,8 +8,8 @@
+ #include <exception>
+ #include <scitbx/array_family/flex_types.h>
+ #include <scitbx/array_family/versa_matrix.h>
+-#include <include/cbf.h>
+-#include <include/cbf_simple.h>
++#include <cbf/cbf.h>
++#include <cbf/cbf_simple.h>
+ #include <cbflib_adaptbx/detectors/basic.h>
+ 
+ #undef cbf_failnez
+diff --git a/cctbx_sources/cbflib_adaptbx/detectors/cbf_byte_offset_optimized.cpp b/cctbx_sources/cbflib_adaptbx/detectors/cbf_byte_offset_optimized.cpp
+index 2edbfb5..526556f 100644
+--- a/cctbx_sources/cbflib_adaptbx/detectors/cbf_byte_offset_optimized.cpp
++++ b/cctbx_sources/cbflib_adaptbx/detectors/cbf_byte_offset_optimized.cpp
+@@ -244,9 +244,9 @@ extern "C" {
+ #include <limits.h>
+ #include <ctype.h>
+ 
+-#include "cbf.h"
+-#include "cbf_file.h"
+-#include "cbf_byte_offset.h"
++#include "cbf/cbf.h"
++#include "cbf/cbf_file.h"
++#include "cbf/cbf_byte_offset.h"
+ #include <cbflib_adaptbx/detectors/cbf_byte_offset_optimized.h>
+ 
+ /* Changes made in the byte-offset algorithm
+diff --git a/cctbx_sources/cbflib_adaptbx/detectors/tst_memory.cpp b/cctbx_sources/cbflib_adaptbx/detectors/tst_memory.cpp
+index 5f5d9b1..d121530 100644
+--- a/cctbx_sources/cbflib_adaptbx/detectors/tst_memory.cpp
++++ b/cctbx_sources/cbflib_adaptbx/detectors/tst_memory.cpp
+@@ -1,5 +1,5 @@
+-#include <include/cbf.h>
+-#include <include/cbf_simple.h>
++#include <cbf/cbf.h>
++#include <cbf/cbf_simple.h>
+ #include <cstdio>
+ #include <string>
+ #include <exception>
+diff --git a/cctbx_sources/ccp4io_adaptbx/ext.cpp b/cctbx_sources/ccp4io_adaptbx/ext.cpp
+index ce21568..e507515 100644
+--- a/cctbx_sources/ccp4io_adaptbx/ext.cpp
++++ b/cctbx_sources/ccp4io_adaptbx/ext.cpp
+@@ -1,5 +1,5 @@
+ #include <boost/python.hpp>
+-#include <mmdb_manager.h>
++#include <mmdb/mmdb_manager.h>
+ #include <ssm_align.h>
+ 
+ namespace ccp4io_adaptbx { namespace boost_python {
+diff --git a/cctbx_sources/iotbx/mtz/ext.cpp b/cctbx_sources/iotbx/mtz/ext.cpp
+index b1a0db7..6aa416a 100644
+--- a/cctbx_sources/iotbx/mtz/ext.cpp
++++ b/cctbx_sources/iotbx/mtz/ext.cpp
+@@ -1,5 +1,5 @@
+ #include <boost/python/module.hpp>
+-#include <ccp4_errno.h>
++#include <ccp4/ccp4_errno.h>
+ 
+ namespace iotbx { namespace mtz { namespace boost_python {
+ 
+diff --git a/cctbx_sources/iotbx/mtz/object.h b/cctbx_sources/iotbx/mtz/object.h
+index da35fcf..b593534 100644
+--- a/cctbx_sources/iotbx/mtz/object.h
++++ b/cctbx_sources/iotbx/mtz/object.h
+@@ -6,9 +6,9 @@
+ # include <math.h>
+ #endif
+ 
+-#include <cmtzlib.h>
+-#include <ccp4_array.h>
+-#include <ccp4_errno.h>
++#include <ccp4/cmtzlib.h>
++#include <ccp4/ccp4_array.h>
++#include <ccp4/ccp4_errno.h>
+ #include <cctbx/sgtbx/space_group.h>
+ #include <cctbx/hendrickson_lattman.h>
+ #include <boost/shared_ptr.hpp>

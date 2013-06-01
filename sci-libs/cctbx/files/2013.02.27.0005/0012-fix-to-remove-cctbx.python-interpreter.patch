@@ -1,0 +1,20 @@
+From: Radostan Riedel <raybuntu@googlemail.com>
+Date: Mon, 23 Jul 2012 23:58:46 +0200
+Subject: fix to remove cctbx.python interpreter
+
+---
+ cctbx_sources/rstbx/bpcx/uc1_2.py       |    2 +-
+ cctbx_sources/rstbx/bpcx/uc1_2_reeke.py |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/cctbx_sources/rstbx/bpcx/uc1_2.py b/cctbx_sources/rstbx/bpcx/uc1_2.py
+index 95ee9cd..1abf8e1 100644
+--- a/cctbx_sources/rstbx/bpcx/uc1_2.py
++++ b/cctbx_sources/rstbx/bpcx/uc1_2.py
+@@ -1,5 +1,5 @@
+ from __future__ import division
+-#!/usr/bin/env cctbx.python
++#!/usr/bin/env python
+ #
+ # Biostruct-X Data Reduction Use Case 1.2:
+ #

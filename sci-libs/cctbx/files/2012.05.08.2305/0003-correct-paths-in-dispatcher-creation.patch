@@ -1,0 +1,85 @@
+From: =?UTF-8?q?Picca=20Fr=C3=A9d=C3=A9ric-Emmanuel?= <picca@debian.org>
+Date: Sat, 30 Jun 2012 16:01:20 +0200
+Subject: correct-paths-in-dispatcher-creation
+
+---
+ cctbx_sources/libtbx/env_config.py |   48 ++++++++++++++++++------------------
+ 1 file changed, 24 insertions(+), 24 deletions(-)
+
+diff --git a/cctbx_sources/libtbx/env_config.py b/cctbx_sources/libtbx/env_config.py
+index 8a62446..c3e1c7d 100644
+--- a/cctbx_sources/libtbx/env_config.py
++++ b/cctbx_sources/libtbx/env_config.py
+@@ -894,26 +894,26 @@ Wait for the command to finish, then try again.""" % vars())
+       print >> f, '# command at the end.'
+     print >> f, '#'
+     write_do_not_edit(f=f)
+-    print >> f, '# To customize this auto-generated script create'
++    #print >> f, '# To customize this auto-generated script create'
+     print >> f, '#'
+-    print >> f, '#   dispatcher_include*.sh'
++    #print >> f, '#   dispatcher_include*.sh'
+     print >> f, '#'
+-    print >> f, '# files in %s and run' % show_string(abs(self.build_path))
++    #print >> f, '# files in %s and run' % show_string(abs(self.build_path))
+     print >> f, '#'
+-    print >> f, '#   libtbx.refresh'
++    #print >> f, '#   libtbx.refresh'
+     print >> f, '#'
+     print >> f, '# to re-generate the dispatchers (libtbx.refresh is a subset'
+     print >> f, '# of the functionality of the libtbx/configure.py command).'
+     print >> f, '#'
+-    print >> f, '# See also:'
+-    print >> f, '#   %s' \
+-      % show_string(self.under_build("dispatcher_include_template.sh"))
++    #print >> f, '# See also:'
++    #print >> f, '#   %s' \
++    #  % show_string(self.under_build("dispatcher_include_template.sh"))
+     print >> f, '#'
+     print >> f, 'unset PYTHONHOME'
+     print >> f, 'LC_ALL=C'
+     print >> f, 'export LC_ALL'
+-    print >> f, 'LIBTBX_BUILD="$(cd "$(dirname "$0")" && cd .. && pwd -P)"'
+-    print >> f, 'export LIBTBX_BUILD'
++    #print >> f, 'LIBTBX_BUILD="$(cd "$(dirname "$0")" && cd .. && pwd -P)"'
++    #print >> f, 'export LIBTBX_BUILD'
+     print >> f, 'LIBTBX_PYEXE_BASENAME="%s"' % self.python_exe.basename()
+     print >> f, 'export LIBTBX_PYEXE_BASENAME'
+     source_is_py = False
+@@ -930,21 +930,21 @@ Wait for the command to finish, then try again.""" % vars())
+         source_is_py = True
+     for line in self.dispatcher_include(where="at_start"):
+       print >> f, line
+-    essentials = [("PYTHONPATH", self.pythonpath)]
+-    essentials.append((
+-      ld_library_path_var_name(),
+-      self.ld_library_path_additions()))
+-    essentials.append(("PATH", [self.bin_path]))
+-    for n,v in essentials:
+-      if (len(v) == 0): continue
+-      v = ":".join([p.sh_value() for p in v])
+-      print >> f, 'if [ -n "$%s" ]; then' % n
+-      print >> f, '  %s="%s:$%s"' % (n, v, n)
+-      print >> f, '  export %s' % n
+-      print >> f, 'else'
+-      print >> f, '  %s="%s"' % (n, v)
+-      print >> f, '  export %s' % n
+-      print >> f, 'fi'
++    # essentials = [("PYTHONPATH", self.pythonpath)]
++    # essentials.append((
++    #   ld_library_path_var_name(),
++    #   self.ld_library_path_additions()))
++    # essentials.append(("PATH", [self.bin_path]))
++    # for n,v in essentials:
++    #   if (len(v) == 0): continue
++    #   v = ":".join([p.sh_value() for p in v])
++    #   print >> f, 'if [ -n "$%s" ]; then' % n
++    #   print >> f, '  %s="%s:$%s"' % (n, v, n)
++    #   print >> f, '  export %s' % n
++    #   print >> f, 'else'
++    #   print >> f, '  %s="%s"' % (n, v)
++    #   print >> f, '  export %s' % n
++    #   print >> f, 'fi'
+     precall_commands = self.dispatcher_precall_commands()
+     if (precall_commands is not None):
+       for line in precall_commands:

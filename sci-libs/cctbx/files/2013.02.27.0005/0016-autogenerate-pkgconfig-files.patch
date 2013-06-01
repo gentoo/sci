@@ -1,0 +1,305 @@
+From: Radostan Riedel <raybuntu@googlemail.com>
+Date: Mon, 6 Aug 2012 13:50:30 +0200
+Subject: autogenerate pkgconfig files
+
+---
+ cctbx_sources/cctbx/SConscript                     |    7 ++--
+ .../cctbx/sgtbx/direct_space_asu/proto/SConscript  |    5 ++-
+ cctbx_sources/iotbx/mtz/SConscript                 |    6 +++-
+ cctbx_sources/iotbx/pdb/SConscript                 |    5 ++-
+ cctbx_sources/libtbx/SConscript                    |   37 +++++++++++++++++++-
+ cctbx_sources/mmtbx/masks/SConscript               |    5 ++-
+ cctbx_sources/omptbx/SConscript                    |    5 ++-
+ cctbx_sources/rstbx/SConscript                     |    5 ++-
+ cctbx_sources/scitbx/boost_python/SConscript       |    5 ++-
+ cctbx_sources/scitbx/minpack/SConscript            |    5 ++-
+ cctbx_sources/scitbx/slatec/SConscript             |    5 ++-
+ .../smtbx/refinement/constraints/SConscript        |    5 ++-
+ cctbx_sources/spotfinder/SConscript                |    5 ++-
+ 13 files changed, 86 insertions(+), 14 deletions(-)
+
+diff --git a/cctbx_sources/cctbx/SConscript b/cctbx_sources/cctbx/SConscript
+index 6ce770c..378cb36 100644
+--- a/cctbx_sources/cctbx/SConscript
++++ b/cctbx_sources/cctbx/SConscript
+@@ -96,9 +96,12 @@ lib_cctbx_sources = [
+ ]
+ if (env_etc.static_libraries): builder = envlm.StaticLibrary
+ else:                          builder = envlm.SharedLibrary
++name='cctbx'
+ builder(
+-  target="#lib/cctbx",
+-  source=lib_cctbx_sources)
++        target="#lib/"+name,
++        source=lib_cctbx_sources)
++desc='Library for general crystallographic applications'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
+ 
+ SConscript("examples/SConscript")
+ 
+diff --git a/cctbx_sources/cctbx/sgtbx/direct_space_asu/proto/SConscript b/cctbx_sources/cctbx/sgtbx/direct_space_asu/proto/SConscript
+index 5a5cfbd..4328794 100644
+--- a/cctbx_sources/cctbx/sgtbx/direct_space_asu/proto/SConscript
++++ b/cctbx_sources/cctbx/sgtbx/direct_space_asu/proto/SConscript
+@@ -16,9 +16,12 @@ lib_asu_sources = [
+ if (env_etc.static_libraries): builder = env.StaticLibrary
+ else:                          builder = env.SharedLibrary
+ 
++name='cctbx_sgtbx_asu'
+ builder(
+-  target="#lib/cctbx_sgtbx_asu",
++  target="#lib/"+name,
+   source=lib_asu_sources)
++desc='Direct space asymmetric unit class library'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
+ 
+ env = env.Clone()
+ env.Prepend(LIBS=["cctbx_sgtbx_asu"])
+diff --git a/cctbx_sources/iotbx/mtz/SConscript b/cctbx_sources/iotbx/mtz/SConscript
+index cd539e6..f7d22b8 100644
+--- a/cctbx_sources/iotbx/mtz/SConscript
++++ b/cctbx_sources/iotbx/mtz/SConscript
+@@ -9,13 +9,17 @@ env.Append(SHCXXFLAGS=env_etc.ccp4io_defines)
+ env_etc.enable_more_warnings(env=env)
+ if (env_etc.static_libraries): builder = env.StaticLibrary
+ else:                          builder = env.SharedLibrary
++name='iotbx_mtz'
+ builder(
+-  target="#lib/iotbx_mtz",
++  target="#lib/"+name,
+   source=[
+     "object.cpp",
+     "crystal.cpp",
+     "dataset.cpp",
+     "column.cpp"])
++desc='Wrapper Library to work with CCP4 MTZ files'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
++
+ 
+ if (not env_etc.no_boost_python):
+   Import("env_iotbx_boost_python_ext")
+diff --git a/cctbx_sources/iotbx/pdb/SConscript b/cctbx_sources/iotbx/pdb/SConscript
+index 9b89fe1..8a83058 100644
+--- a/cctbx_sources/iotbx/pdb/SConscript
++++ b/cctbx_sources/iotbx/pdb/SConscript
+@@ -9,8 +9,9 @@ env_etc.include_registry.append(
+   paths=env_etc.iotbx_common_includes)
+ if (env_etc.static_libraries): builder = env.StaticLibrary
+ else:                          builder = env.SharedLibrary
++name='iotbx_pdb'
+ builder(
+-  target="#lib/iotbx_pdb",
++  target="#lib/"+name,
+   source=[
+     "hybrid_36_c.c",
+     "hybrid_36_cpp.cpp",
+@@ -25,6 +26,8 @@ builder(
+     "atom_selection.cpp",
+     "input.cpp",
+     "input_write.cpp"])
++desc='Fast comprehensive PDB handling library'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
+ 
+ env = env.Clone()
+ env_etc.include_registry.append(env=env, paths=[env_etc.fable_include])
+diff --git a/cctbx_sources/libtbx/SConscript b/cctbx_sources/libtbx/SConscript
+index 11a7810..1e91202 100644
+--- a/cctbx_sources/libtbx/SConscript
++++ b/cctbx_sources/libtbx/SConscript
+@@ -1070,8 +1070,34 @@ env_etc.install_path = os.path.abspath(env_etc.destdir + '/' + env_etc.prefix)
+ env_etc.binpath = os.path.join(env_etc.install_path, 'bin')
+ env_etc.libpath = os.path.abspath(env_etc.install_path + '/' + env_etc.libdir)
+ env_etc.inclpath = os.path.join(env_etc.install_path, 'include')
++env_etc.pkgpath = os.path.join(env_etc.install_path, 'lib/pkgconfig')
+ env_etc.rpath = os.path.abspath(env_etc.prefix + '/' + env_etc.libdir)
+ 
++def create_pc_file(name, version, desc, requires=None, requires_private=None,
++                   conflicts=None, libs_private=None):
++  """ Create pkg-config file. """
++  fpath = '%s/%s.pc'%(abs(libtbx.env.lib_path), name)
++  pc = open(fpath, 'w')
++  pc.write('prefix=%s\n'%env_etc.prefix)
++  pc.write('exec_prefix=${prefix}\n')
++  pc.write('libdir=${prefix}/%s\n'%env_etc.libdir)
++  pc.write('includedir=${prefix}/include\n\n')
++  pc.write('Name: %s\n'%name)
++  pc.write('Description: %s\n'%desc)
++  pc.write('Version: %s\n'%version)
++  if requires != None:
++    pc.write('Requires: %s\n'%requires)
++  if requires_private != None:
++    pc.write('Requires.private: %s\n'%requires_private)
++  if conflicts != None:
++    pc.write('Conflicts: %s\n'%conflicts)
++  pc.write('Libs: -L${libdir} -l%s\n'%name)
++  if libs_private != None:
++    pc.write('Libs.private: %s\n'%libs_private)
++  pc.write('Cflags: -I${includedir}')
++  pc.close()
++env_etc.create_pc_file = create_pc_file
++
+ def set_libtool(env):
+   # Versioning can be provided by appending "-version-info 3:12:1" to SHLINKFLAGS
+   # Please see:
+@@ -1197,6 +1223,11 @@ def create_install_targets():
+           src = os.path.join(src_dir, root, filename)
+           env_base.Install(dest, src)
+           env_base.Alias("install-header", dest)
++        if re.match('^.*\.pc$', filename, flags=re.IGNORECASE):
++          dest = os.path.join(env_etc.pkgpath, root)
++          src = os.path.join(src_dir, root, filename)
++          env_base.Install(dest, src)
++          env_base.Alias("install-pkgconfig", dest)
+       if src_dir == lib_dir:
+         break
+ 
+@@ -1204,7 +1235,11 @@ def create_install_targets():
+   dest = env_etc.binpath
+   env_base.Install(dest, Glob('%s/*'%(exe_dev)))
+   env_base.Alias("install-bin", dest)
+-  Alias('install', ['install-header', 'install-shlib', 'install-bin'])
++  Alias('install', ['install-header',
++                    'install-shlib',
++                    'install-bin',
++                    'install-pkgconfig',
++                   ])
+   os.chdir(cwd)
+ 
+ if 'install' in COMMAND_LINE_TARGETS:
+diff --git a/cctbx_sources/mmtbx/masks/SConscript b/cctbx_sources/mmtbx/masks/SConscript
+index ef93088..a6187cc 100644
+--- a/cctbx_sources/mmtbx/masks/SConscript
++++ b/cctbx_sources/mmtbx/masks/SConscript
+@@ -13,9 +13,12 @@ lib_sources = [
+ if (env_etc.static_libraries): builder = env.StaticLibrary
+ else:                          builder = env.SharedLibrary
+ 
++name='mmtbx_masks'
+ builder(
+-  target="#lib/mmtbx_masks",
++  target="#lib/"+name,
+   source=lib_sources)
++desc='Masks for bulk solvent modelling'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
+ 
+ env = env.Clone()
+ env.Prepend(LIBS=["mmtbx_masks", "iotbx_pdb"])
+diff --git a/cctbx_sources/omptbx/SConscript b/cctbx_sources/omptbx/SConscript
+index 43aac91..76bb923 100644
+--- a/cctbx_sources/omptbx/SConscript
++++ b/cctbx_sources/omptbx/SConscript
+@@ -12,9 +12,12 @@ env_etc.include_registry.append(
+   paths=[env_etc.omptbx_include])
+ if (env_etc.static_libraries): builder = env.StaticLibrary
+ else:                          builder = env.SharedLibrary
++name='omptbx'
+ builder(
+-  target="#lib/omptbx",
++  target="#lib/"+name,
+   source=["stubs.cpp"])
++desc='OpenMP interface for CCTBX'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
+ 
+ if (not env_etc.no_boost_python):
+   Import("env_boost_python_ext")
+diff --git a/cctbx_sources/rstbx/SConscript b/cctbx_sources/rstbx/SConscript
+index e2958a1..6d66476 100644
+--- a/cctbx_sources/rstbx/SConscript
++++ b/cctbx_sources/rstbx/SConscript
+@@ -26,14 +26,17 @@ env_etc.include_registry.append(
+   paths=env_etc.rstbx_common_includes)
+ if (env_etc.static_libraries): builder = env.StaticLibrary
+ else:                          builder = env.SharedLibrary
++name='rstbx'
+ builder(
+-  target="#lib/rstbx",
++  target="#lib/"+name,
+   source=["dps_core/dps_core.cpp",
+           "dps_core/directional_fft.cpp",
+           "dps_core/direction.cpp",
+           "diffraction/ewald_sphere.cpp",
+           "diffraction/partial_spot_position_partial_H.cpp"
+   ])
++desc='Library for calculations in reciprocal space'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
+ 
+ if (not env_etc.no_boost_python):
+   Import("env_boost_python_ext")
+diff --git a/cctbx_sources/scitbx/boost_python/SConscript b/cctbx_sources/scitbx/boost_python/SConscript
+index b906eb3..0b81d9a 100644
+--- a/cctbx_sources/scitbx/boost_python/SConscript
++++ b/cctbx_sources/scitbx/boost_python/SConscript
+@@ -19,6 +19,9 @@ lib_scitbx_boost_python_sources = [
+ ]
+ if (env_etc.static_libraries): builder = env.StaticLibrary
+ else:                          builder = env.SharedLibrary
++name=env_etc.scitbx_boost_python
+ builder(
+-  target="#lib/%s"%env_etc.scitbx_boost_python,
++  target="#lib/"+name,
+   source=lib_scitbx_boost_python_sources)
++desc='#TODO'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
+diff --git a/cctbx_sources/scitbx/minpack/SConscript b/cctbx_sources/scitbx/minpack/SConscript
+index 7c325cb..ee7509e 100644
+--- a/cctbx_sources/scitbx/minpack/SConscript
++++ b/cctbx_sources/scitbx/minpack/SConscript
+@@ -9,7 +9,10 @@ env_etc.include_registry.append(
+ env.Append(LIBS=env_etc.libm)
+ if (env_etc.static_libraries): builder = env.StaticLibrary
+ else:                          builder = env.SharedLibrary
+-builder(target='#lib/scitbx_minpack', source=["raw.cpp"])
++name='scitbx_minpack'
++builder(target='#lib/'+name, source=["raw.cpp"])
++desc='C++ port of files in MINPACK'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
+ 
+ if (not env_etc.no_boost_python):
+   Import("env_scitbx_boost_python_ext")
+diff --git a/cctbx_sources/scitbx/slatec/SConscript b/cctbx_sources/scitbx/slatec/SConscript
+index ca9b6da..39e38e1 100644
+--- a/cctbx_sources/scitbx/slatec/SConscript
++++ b/cctbx_sources/scitbx/slatec/SConscript
+@@ -6,4 +6,7 @@ env_etc.enable_more_warnings(env=env)
+ env.Append(LIBS=env_etc.libm)
+ if (env_etc.static_libraries): builder = env.StaticLibrary
+ else:                          builder = env.SharedLibrary
+-builder(target='#lib/scitbx_slatec', source=["lib_c.c"])
++name='scitbx_slatec'
++builder(target='#lib/'+name, source=["lib_c.c"])
++desc='C port of files in SLATEC'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
+diff --git a/cctbx_sources/smtbx/refinement/constraints/SConscript b/cctbx_sources/smtbx/refinement/constraints/SConscript
+index 67d99dc..306d1a4 100644
+--- a/cctbx_sources/smtbx/refinement/constraints/SConscript
++++ b/cctbx_sources/smtbx/refinement/constraints/SConscript
+@@ -4,7 +4,10 @@ env_etc.include_registry.append(env=env,
+                                 paths=["."] + env_etc.smtbx_common_includes)
+ if (env_etc.static_libraries): builder = env.StaticLibrary
+ else:                          builder = env.SharedLibrary
+-builder(target="#lib/smtbx_refinement_constraints", source=Glob("*.cpp"))
++name='smtbx_refinement_constraints'
++builder(target="#lib/"+name, source=Glob("*.cpp"))
++desc='Library for small molecule crystallography constraints'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
+ 
+ env_program = env.Clone()
+ env_program.Prepend(LIBS=[ "cctbx", "smtbx_refinement_constraints" ])
+diff --git a/cctbx_sources/spotfinder/SConscript b/cctbx_sources/spotfinder/SConscript
+index 1d73677..a63c6d9 100644
+--- a/cctbx_sources/spotfinder/SConscript
++++ b/cctbx_sources/spotfinder/SConscript
+@@ -46,9 +46,12 @@ lib_spotfinder_sources = [
+ 
+ if (env_etc.static_libraries): builder = envlm.StaticLibrary
+ else:                          builder = envlm.SharedLibrary
++name='spotfinder'
+ builder(
+-    target="#lib/spotfinder",
++    target="#lib/"+name,
+     source=lib_spotfinder_sources)
++desc='Library for locating Bragg-Spots on x-ray diffraction images'
++env_etc.create_pc_file(name=name, version='0.0.0', desc=desc)
+ 
+ if (not env_etc.no_boost_python):
+   Import("env_no_includes_boost_python_ext")
