@@ -51,6 +51,7 @@ pkg_nofetch() {
 
 src_prepare() {
 	epatch "${FILESDIR}/terminal.patch"
+	echo "andi ${FILESDIR}"
 }
 
 src_install() {
@@ -97,4 +98,5 @@ y
 	./install <<EOF
 ${command}
 EOF
+	patch -p0 <"${FILESDIR}/glibc.patch"
 }
