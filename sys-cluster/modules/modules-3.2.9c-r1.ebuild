@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -25,6 +25,10 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${P%[a-z]}"
 
 DOCS=(ChangeLog README NEWS TODO)
+
+src_prepare() {
+	epatch "${FILESDIR}"/errorline.patch
+}
 
 src_configure() {
 	local myeconfargs=(
