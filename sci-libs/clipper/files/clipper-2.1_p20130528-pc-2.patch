@@ -1,0 +1,36 @@
+ configure.ac | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 7a56297..8173052 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -67,17 +67,17 @@ case $host_os in
+     ;;
+ esac
+ 
+-CLIPPER_LIBS="clipper-core"
+-test "x$enable_contrib" != xno && CLIPPER_LIBS="clipper-contrib $CLIPPER_LIBS"
+-test "x$enable_phs" != xno     && CLIPPER_LIBS="clipper-phs $CLIPPER_LIBS"
+-test "x$enable_cns" != xno     && CLIPPER_LIBS="clipper-cns $CLIPPER_LIBS"
+-test "x$enable_mmdb" = xyes    && CLIPPER_LIBS="clipper-mmdb $CLIPPER_LIBS"
+-test "x$enable_mmdbold" = xyes && CLIPPER_LIBS="clipper-mmdbold $CLIPPER_LIBS"
+-test "x$enable_minimol" = xyes && CLIPPER_LIBS="clipper-minimol $CLIPPER_LIBS"
+-test "x$enable_cif" = xyes     && CLIPPER_LIBS="clipper-cif $CLIPPER_LIBS"
+-test "x$enable_ccp4" = xyes    && CLIPPER_LIBS="clipper-ccp4 $CLIPPER_LIBS"
+-#test "x$enable_cctbx" = xyes   && CLIPPER_LIBS="clipper-cctbx $CLIPPER_LIBS"
+-test "x$enable_fortran" = xyes && CLIPPER_LIBS="clipper-fortran $CLIPPER_LIBS"
++CLIPPER_LIBS="-lclipper-core"
++test "x$enable_contrib" != xno && CLIPPER_LIBS="-lclipper-contrib $CLIPPER_LIBS"
++test "x$enable_phs" != xno     && CLIPPER_LIBS="-lclipper-phs $CLIPPER_LIBS"
++test "x$enable_cns" != xno     && CLIPPER_LIBS="-lclipper-cns $CLIPPER_LIBS"
++test "x$enable_mmdb" = xyes    && CLIPPER_LIBS="-lclipper-mmdb $CLIPPER_LIBS"
++test "x$enable_mmdbold" = xyes && CLIPPER_LIBS="-lclipper-mmdbold $CLIPPER_LIBS"
++test "x$enable_minimol" = xyes && CLIPPER_LIBS="-lclipper-minimol $CLIPPER_LIBS"
++test "x$enable_cif" = xyes     && CLIPPER_LIBS="-lclipper-cif $CLIPPER_LIBS"
++test "x$enable_ccp4" = xyes    && CLIPPER_LIBS="-lclipper-ccp4 $CLIPPER_LIBS"
++#test "x$enable_cctbx" = xyes   && CLIPPER_LIBS="-lclipper-cctbx $CLIPPER_LIBS"
++test "x$enable_fortran" = xyes && CLIPPER_LIBS="-lclipper-fortran $CLIPPER_LIBS"
+ 
+ if test "x$enable_mmdb" = "xyes" -o "x$enable_mmdbold" = "xyes" -o \
+         "x$enable_minimol" = "xyes" -o "x$enable_cif" = "xyes"; then

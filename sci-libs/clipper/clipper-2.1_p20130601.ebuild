@@ -4,8 +4,6 @@
 
 EAPI=5
 
-AUTOTOOLS_AUTORECONF=true
-
 inherit autotools-utils flag-o-matic
 
 MY_PV=${PV/_p/.}
@@ -27,10 +25,6 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${MY_P}
-
-PATCHES=(
-	"${FILESDIR}"/${P}-pc.patch
-	"${FILESDIR}"/${P}-pc-2.patch )
 
 src_configure() {
 	# Recommended on ccp4bb/coot ML to fix crashes when calculating maps

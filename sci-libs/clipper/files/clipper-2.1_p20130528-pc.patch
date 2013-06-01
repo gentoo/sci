@@ -1,0 +1,16 @@
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 3f9096d..7a56297 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -93,7 +93,7 @@ if test "x$enable_ccp4" = "xyes"; then
+     AC_CHECK_LIB(ccp4c, ccp4_banner, :, AC_MSG_WARN(ccp4c library not found))
+     AC_CHECK_HEADER(ccp4/ccp4_general.h, :,
+                                        AC_MSG_ERROR(libccp4 headers not found))
+-    CLIPPER_REQUIRES="ccp4c $CLIPPER_REQUIRES"
++    CLIPPER_REQUIRES="libccp4c $CLIPPER_REQUIRES"
+ fi
+ 
+ if test "x$enable_cctbx" = "xyes"; then
