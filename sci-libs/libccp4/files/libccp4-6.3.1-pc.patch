@@ -1,0 +1,15 @@
+ libccp4f.pc.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libccp4f.pc.in b/libccp4f.pc.in
+index 34dd547..57480e8 100644
+--- a/libccp4f.pc.in
++++ b/libccp4f.pc.in
+@@ -6,6 +6,6 @@ includedir=@includedir@
+ Name: libccp4f
+ Description: CCP4 core FORTRAN libraries
+ Version: @VERSION@
+-Requires.private: ccp4c mmdb
++Requires.private: libccp4c mmdb
+ Libs: -L${libdir} -lccp4f
+ Cflags: -I${includedir}

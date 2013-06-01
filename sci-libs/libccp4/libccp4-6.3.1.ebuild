@@ -5,6 +5,7 @@
 EAPI=5
 
 FORTRAN_NEEDED=fortran
+AUTOTOOLS_AUTORECONF=true
 
 inherit autotools-utils fortran-2
 
@@ -21,6 +22,8 @@ RDEPEND="sci-libs/mmdb"
 DEPEND="${RDEPEND}"
 
 AUTOTOOLS_IN_SOURCE_BUILD=1
+
+PATCHES=( "${FILESDIR}"/${P}-pc.patch )
 
 pkg_setup() {
 	use fortran && fortran-2_pkg_setup
