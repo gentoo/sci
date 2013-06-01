@@ -1,0 +1,39 @@
+diff -ru pgi-a/install pgi/install
+--- pgi-a/install	2013-06-01 01:24:11.522714654 +0200
++++ pgi/install	2013-06-01 01:27:36.372713265 +0200
+@@ -83,7 +83,7 @@
+ else 
+   licensefile=$SRC/common/BETA_LICENSE
+ fi
+-more $licensefile
++#more $licensefile
+ echo
+ echo -n 'Do you accept these terms? (accept,decline) '
+ read x
+@@ -296,7 +296,7 @@
+   echo
+   echo 'In order to install the ACML software, please read and accept the'
+   echo 'following license.'
+-  more $SRC/common/LICENSE_ACML.txt
++  #more $SRC/common/LICENSE_ACML.txt
+   echo
+   echo -n 'Do you accept these terms? (accept,decline) '
+   read x
+@@ -342,7 +342,7 @@
+   echo
+   echo 'In order to install the CUDA software, please read and accept the'
+   echo 'following license.'
+-  more $SRC/common/LICENSE_NVIDIA_CUDA.txt
++  #more $SRC/common/LICENSE_NVIDIA_CUDA.txt
+   echo
+   echo -n 'Do you accept these terms? (accept,decline) '
+   read x
+@@ -398,7 +398,7 @@
+   echo
+   echo 'In order to install the JAVA software, please read and accept the'
+   echo 'following license.'
+-  more $SRC/common/LICENSE_JRE_6U21.txt
++  #more $SRC/common/LICENSE_JRE_6U21.txt
+   echo
+   echo -n 'Do you accept these terms? (accept,decline) '
+   read x
