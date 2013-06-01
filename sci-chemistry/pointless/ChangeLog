@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/pointless/ChangeLog,v 1.34 2012/10/19 15:19:34 jlec Exp $
 
+  01 Jun 2013; Justin Lecher <jlec@gentoo.org> pointless-1.8.2.ebuild:
+  Use tc-getPKG_CONFIG
+
 *pointless-1.8.2 (01 Jun 2013)
 
   01 Jun 2013; Justin Lecher <jlec@gentoo.org> +pointless-1.8.2.ebuild,

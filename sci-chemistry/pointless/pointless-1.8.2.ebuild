@@ -37,12 +37,12 @@ src_compile() {
 		LFLAGS="${LDFLAGS}" \
 		CLIB="${EPREFIX}/usr/$(get_libdir)" \
 		CCTBX_VERSION=2013 \
-		ICCP4="$(pkg-config --cflags libccp4c libccp4f mmdb)" \
-		ICLPR="$(pkg-config --cflags clipper)" \
-		ITBX="$(pkg-config --cflags cctbx)" \
-		LCCP4="$(pkg-config --libs libccp4c libccp4f mmdb)"\
-		LCLPR="$(pkg-config --libs clipper)" \
-		LTBX="$(pkg-config --libs cctbx)" \
+		ICCP4="$(tc-getPKG_CONFIG --cflags libccp4c libccp4f mmdb)" \
+		ICLPR="$(tc-getPKG_CONFIG --cflags clipper)" \
+		ITBX="$(tc-getPKG_CONFIG --cflags cctbx)" \
+		LCCP4="$(tc-getPKG_CONFIG --libs libccp4c libccp4f mmdb)"\
+		LCLPR="$(tc-getPKG_CONFIG --libs clipper)" \
+		LTBX="$(tc-getPKG_CONFIG --libs cctbx)" \
 		SLIB=""
 }
 
