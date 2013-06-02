@@ -9,9 +9,10 @@ inherit eutils
 DESCRIPTION="PGI compiler suite"
 HOMEPAGE="http://www.pgroup.com/"
 SRC_URI="pgilinux-2013-135.tar.gz"
+
 LICENSE="PGI"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="acml cuda java"
 
 RESTRICT="mirror strip"
@@ -51,7 +52,6 @@ pkg_nofetch() {
 
 src_prepare() {
 	epatch "${FILESDIR}/terminal.patch"
-	echo "andi ${FILESDIR}"
 }
 
 src_install() {
