@@ -15,6 +15,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="acml cuda java"
 
+RDEPEND="net-misc/curl"
+
 RESTRICT="mirror strip"
 
 QA_PREBUILT="
@@ -98,5 +100,16 @@ y
 	./install <<EOF
 ${command}
 EOF
-	patch -p0 <"${FILESDIR}/glibc.patch"
+	# fix problems with PGI's C++ compiler and current glibc:
+	cd "${ED}"
+	patch -p0 <"${FILESDIR}/glibc.patch" || die "patch failed"
+
+	# java symlink might be broken if useflag is disabled:
+	use java || rm opt/pgi/linux86-64/13.5/jre
+
+	# replace PGI's curl with the stock version:
+	dodir /opt/pgi/linux86-64/13.5/etc/pgi_license_tool
+	dosym /usr/bin/curl /opt/pgi/linux86-64/13.5/etc/pgi_license_tool/curl
+	dodir /opt/pgi/linux86/13.5/etc/pgi_license_tool
+	dosym /usr/bin/curl /opt/pgi/linux86/13.5/etc/pgi_license_tool/curl
 }
