@@ -37,9 +37,9 @@ SCIDEPS="
 	>=sci-libs/gsl-1.3
 	>=sci-libs/mmdb-1.23
 	sci-libs/ssm
-	<sci-libs/monomer-db-1
+	sci-libs/monomer-db
 	sci-chemistry/reduce
-	<sci-chemistry/refmac-5.6
+	sci-chemistry/refmac
 	sci-chemistry/probe"
 
 XDEPS="
@@ -82,21 +82,19 @@ pkg_setup() {
 	python-single-r1_pkg_setup
 }
 
-PATCHES=(
-	"${FILESDIR}"/${PV}-clipper-config.patch
-	"${FILESDIR}"/${PV}-goocanvas.patch
-	"${FILESDIR}"/${PV}-mmdb-config.patch
-	"${FILESDIR}"/${PV}-ssm.patch
-	)
+PATCHES=( "${FILESDIR}"/${PV}-pc.patch	)
 
 src_unpack() {
 	subversion_src_unpack
-	use test && unpack ${A}
+	if use test; then
+		unpack ${A}
+		ln -sf . "${S}"/coot-ccp4
+	fi
 }
 
 src_prepare() {
 	sed \
-		-e "s:AM_COOT_SYS_BUILD_TYPE:COOT_SYS_BUILD_TYPE=Gentoo-Linux-${PYTHON}-gtk2 ; AC_MSG_RESULT([\$COOT_SYS_BUILD_TYPE]); AC_SUBST(COOT_SYS_BUILD_TYPE):g" \
+		-e "s:AM_COOT_SYS_BUILD_TYPE:COOT_SYS_BUILD_TYPE=Gentoo-Linux-${EPYTHON}-gtk2 ; AC_MSG_RESULT([\$COOT_SYS_BUILD_TYPE]); AC_SUBST(COOT_SYS_BUILD_TYPE):g" \
 		-i configure.in || die
 
 	autotools-utils_src_prepare
@@ -128,7 +126,7 @@ src_configure() {
 
 src_compile() {
 	autotools-utils_src_compile
-	python_fix_shebang "${S}"/src/coot_gtk2.py "${S}"/python-tests/coot_unittest.py
+	python_fix_shebang "${S}"/src/coot_gtk2.py
 	cp "${S}"/src/coot_gtk2.py python/coot.py || die
 }
 
