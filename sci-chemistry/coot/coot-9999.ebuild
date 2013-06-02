@@ -96,7 +96,7 @@ src_unpack() {
 
 src_prepare() {
 	sed \
-		-e "s:AM_COOT_SYS_BUILD_TYPE:COOT_SYS_BUILD_TYPE=Gentoo-Linux-$(PYTHON)-gtk2 ; AC_MSG_RESULT([\$COOT_SYS_BUILD_TYPE]); AC_SUBST(COOT_SYS_BUILD_TYPE):g" \
+		-e "s:AM_COOT_SYS_BUILD_TYPE:COOT_SYS_BUILD_TYPE=Gentoo-Linux-${PYTHON}-gtk2 ; AC_MSG_RESULT([\$COOT_SYS_BUILD_TYPE]); AC_SUBST(COOT_SYS_BUILD_TYPE):g" \
 		-i configure.in || die
 
 	autotools-utils_src_prepare
@@ -128,7 +128,7 @@ src_configure() {
 
 src_compile() {
 	autotools-utils_src_compile
-	python_fix_shebang "${S}"/src/coot_gtk2.py
+	python_fix_shebang "${S}"/src/coot_gtk2.py "${S}"/python-tests/coot_unittest.py
 	cp "${S}"/src/coot_gtk2.py python/coot.py || die
 }
 
