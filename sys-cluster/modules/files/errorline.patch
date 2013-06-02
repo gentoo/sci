@@ -1,14 +1,15 @@
-diff -ru modules-3.2.9-a/cmdModule.c modules-3.2.9-b/cmdModule.c
---- modules-3.2.9-a/cmdModule.c	2010-11-11 19:23:18.000000000 +0100
-+++ modules-3.2.9-b/cmdModule.c	2013-05-31 20:48:34.000000000 +0200
+diff -ru modules-3.2.9-old/cmdModule.c modules-3.2.9/cmdModule.c
+--- modules-3.2.9-old/cmdModule.c	2013-06-02 22:46:09.196302980 +0200
++++ modules-3.2.9/cmdModule.c	2013-06-02 22:53:36.706298800 +0200
 @@ -640,8 +640,8 @@
              case TCL_OK:	gotPartial = 0;
  			        continue;	/** while **/
  	    
 -            case TCL_ERROR:	interp->errorLine = ((linenum-1)-gotPartial) +
 -				    interp->errorLine;
-+	    case TCL_ERROR:	//interp->errorLine = ((linenum-1)-gotPartial) +
-+			//	    interp->errorLine;
++		case TCL_ERROR:	Tcl_SetErrorLine(interp, ((linenum-1)-gotPartial) +
++										 Tcl_GetErrorLine(interp));
  	    			/* FALLTHROUGH */
  
              case TCL_LEVEL0_RETURN:
+Nur in modules-3.2.9: cmdModule.c~.
