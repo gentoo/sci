@@ -1,0 +1,131 @@
+--- a/src/xdl_laue_sim.c
++++ b/src/xdl_laue_sim.c
+@@ -790,8 +790,8 @@
+    if (gnomr>0.1)
+    {
+       gd->gnom = 1;
+-      thg = piov2 - 0.5*atanf(gnomr/ctof);
+-      gd->gdist = filmr/tanf(thg);
++      thg = piov2 - 0.5*atan(gnomr/ctof);
++      gd->gdist = filmr/tan(thg);
+       gd->gnomr = gnomr;
+    }
+ 
+@@ -891,12 +891,12 @@
+    {
+       if (gd->gnom)
+       {
+-         r1 = sqrtf (gd->xf[i]*gd->xf[i]+gd->yf[i]*gd->yf[i]);
++         r1 = sqrt (gd->xf[i]*gd->xf[i]+gd->yf[i]*gd->yf[i]);
+          if (r1>=gnomr)
+ 	 {
+-            twoth = atanf (r1/gd->ctof);
++            twoth = atan (r1/gd->ctof);
+             thg = piov2 - 0.5*twoth;
+-            r2 = gd->gdist*tanf(thg);
++            r2 = gd->gdist*tan(thg);
+             ratio = r2/r1;
+             d = ratio*((gd->xf[i]/gd->filmr)*(float)gd->half_size);
+             gd->xpix[i] = gd->half_size + ((d>0.0)?(int)(d+0.5):(int)(d-0.5));
+@@ -4330,11 +4330,11 @@
+                ratio = 1.0;
+                if (gd->gnom)
+ 	       {
+-                  r1 = sqrtf (gd->xf[k]*gd->xf[k]+gd->yf[k]*gd->yf[k]);
++                  r1 = sqrt (gd->xf[k]*gd->xf[k]+gd->yf[k]*gd->yf[k]);
+                   if (r1<gd->gnomr) continue;
+-                  twoth = atanf (r1/gd->ctof);
++                  twoth = atan (r1/gd->ctof);
+                   thg = piov2 - 0.5*twoth;
+-                  r2 = gd->gdist*tanf(thg);
++                  r2 = gd->gdist*tan(thg);
+                   ratio = r2/r1;
+                }
+                xs = ratio*gd->ps_scal*gd->xf[k]*gd->mm_to_p + gd->ps_xc;
+@@ -4421,11 +4421,11 @@
+                ratio = 1.0;
+                if (gd->gnom)
+ 	       {
+-                  r1 = sqrtf (gd->xf[k]*gd->xf[k]+gd->yf[k]*gd->yf[k]);
++                  r1 = sqrt (gd->xf[k]*gd->xf[k]+gd->yf[k]*gd->yf[k]);
+                   if (r1<gd->gnomr) continue;
+-                  twoth = atanf (r1/gd->ctof);
++                  twoth = atan (r1/gd->ctof);
+                   thg = piov2 - 0.5*twoth;
+-                  r2 = gd->gdist*tanf(thg);
++                  r2 = gd->gdist*tan(thg);
+                   ratio = r2/r1;
+                }
+                xs = ratio*gd->ps_scal*gd->xf[k]*gd->mm_to_p + gd->ps_xc;
+@@ -4502,11 +4502,11 @@
+                ratio = 1.0;
+                if (gd->gnom)
+ 	       {
+-                  r1 = sqrtf (gd->xf[k]*gd->xf[k]+gd->yf[k]*gd->yf[k]);
++                  r1 = sqrt (gd->xf[k]*gd->xf[k]+gd->yf[k]*gd->yf[k]);
+                   if (r1<gd->gnomr) continue;
+-                  twoth = atanf (r1/gd->ctof);
++                  twoth = atan (r1/gd->ctof);
+                   thg = piov2 - 0.5*twoth;
+-                  r2 = gd->gdist*tanf(thg);
++                  r2 = gd->gdist*tan(thg);
+                   ratio = r2/r1;
+                }
+                xs = ratio*gd->ps_scal*gd->xf[k]*gd->mm_to_p + gd->ps_xc;
+@@ -4733,11 +4733,11 @@
+       ratio = 1.0;
+       if (gd->gnom)
+       {
+-         r1 = sqrtf (gd->xf[i]*gd->xf[i]+gd->yf[i]*gd->yf[i]);
++         r1 = sqrt (gd->xf[i]*gd->xf[i]+gd->yf[i]*gd->yf[i]);
+          if (r1<gd->gnomr) continue;
+-         twoth = atanf (r1/gd->ctof);
++         twoth = atan (r1/gd->ctof);
+          thg = piov2 - 0.5*twoth;
+-         r2 = gd->gdist*tanf(thg);
++         r2 = gd->gdist*tan(thg);
+          ratio = r2/r1;
+       }
+       xs = ratio*gd->ps_scal*gd->xf[i]*gd->mm_to_p + gd->ps_xc;
+@@ -5015,11 +5015,11 @@
+    ratio = 1.0;
+    if (gd->gnom)
+    {
+-      r1 = sqrtf (gd->xf[lt->idx]*gd->xf[lt->idx]
++      r1 = sqrt (gd->xf[lt->idx]*gd->xf[lt->idx]
+                   +gd->yf[lt->idx]*gd->yf[lt->idx]);
+-      twoth = atanf (r1/gd->ctof);
++      twoth = atan (r1/gd->ctof);
+       thg = piov2 - 0.5*twoth;
+-      r2 = gd->gdist*tanf(thg);
++      r2 = gd->gdist*tan(thg);
+       ratio = r2/r1;
+    }
+    xsp = ratio*gd->ps_scal*gd->xf[lt->idx]*gd->mm_to_p + gd->ps_xc;
+@@ -5408,8 +5408,8 @@
+    if (gnomr>0.1)
+    {
+       gd->gnom = 1;
+-      thg = piov2 - 0.5*atanf(gnomr/ctof);
+-      gd->gdist = filmr/tanf(thg);
++      thg = piov2 - 0.5*atan(gnomr/ctof);
++      gd->gdist = filmr/tan(thg);
+       gd->gnomr = gnomr;
+    }
+ 
+@@ -5419,12 +5419,12 @@
+    {
+       if (gd->gnom)
+       {
+-         r1 = sqrtf (gd->xf[i]*gd->xf[i]+gd->yf[i]*gd->yf[i]);
++         r1 = sqrt (gd->xf[i]*gd->xf[i]+gd->yf[i]*gd->yf[i]);
+          if (r1>=gnomr)
+ 	 {
+-            twoth = atanf (r1/gd->ctof);
++            twoth = atan (r1/gd->ctof);
+             thg = piov2 - 0.5*twoth;
+-            r2 = gd->gdist*tanf(thg);
++            r2 = gd->gdist*tan(thg);
+             ratio = r2/r1;
+             d = ratio*((gd->xf[i]/gd->filmr)*(float)gd->half_size);
+             gd->xpix[i] = gd->half_size + ((d>0.0)?(int)(d+0.5):(int)(d-0.5));
