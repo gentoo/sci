@@ -1,0 +1,20 @@
+--- a/libjwc_f-1.1/libjwc_f/rpf_dstar.f
++++ b/libjwc_f-1.1/libjwc_f/rpf_dstar.f
+@@ -376,8 +376,7 @@
+              INR_FLAG = 2
+              PHIW = 0.0
+           END IF
+-          RETURN
+-        ENDIF
++        ELSE
+ C
+ C---- Calculate distance of edge of spot from sphere at end of rotation
+ Crotgen.for
+@@ -419,6 +418,7 @@
+             INR_FLAG = 4
+  40         RETURN
+           END IF
++        END IF
+       END IF
+       RETURN
+       END
