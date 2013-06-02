@@ -7,7 +7,7 @@ EAPI=5
 DISTUTILS_SINGLE_IMPL=true
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit  distutils-r1 eutils fortran-2 multilib toolchain-funcs
+inherit  distutils-r1 eutils multilib toolchain-funcs
 
 MY_PV="${PV//./_}"
 
@@ -36,14 +36,11 @@ MY_S="${WORKDIR}"/cctbx_sources
 MY_B="${WORKDIR}"/cctbx_build
 
 pkg_setup() {
-	use openmp && FORTRAN_NEED_OPENMP="1"
-	if use openmp && ! tc-has-openmp; then
+	if ! tc-has-openmp; then
 		ewarn "You are using gcc and OpenMP is only available with gcc >= 4.2 and icc"
 		ewarn "If you want to build ${PN} with OpenMP, abort now,"
 		ewarn "and switch CC to an OpenMP capable compiler"
-		FORTRAN_NEED_OPENMP=1
 	fi
-	fortran-2_pkg_setup
 	python-single-r1_pkg_setup
 }
 

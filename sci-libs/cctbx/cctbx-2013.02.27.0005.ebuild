@@ -36,14 +36,11 @@ MY_S="${WORKDIR}"/cctbx_sources
 MY_B="${WORKDIR}"/cctbx_build
 
 pkg_setup() {
-	use openmp && FORTRAN_NEED_OPENMP="1"
-	if use openmp && ! tc-has-openmp; then
+	if ! tc-has-openmp; then
 		ewarn "You are using gcc and OpenMP is only available with gcc >= 4.2 and icc"
 		ewarn "If you want to build ${PN} with OpenMP, abort now,"
 		ewarn "and switch CC to an OpenMP capable compiler"
-		FORTRAN_NEED_OPENMP=1
 	fi
-	fortran-2_pkg_setup
 	python-single-r1_pkg_setup
 }
 
