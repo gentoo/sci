@@ -1,0 +1,262 @@
+PGI End-User License Agreement
+
+NOTICE: PLEASE READ THIS DOCUMENT CAREFULLY BEFORE DOWNLOADING, COPYING OR
+USING THE LICENSED SOFTWARE.  THIS END-USER LICENSE AGREEMENT ("ELA") IS A
+LEGAL AGREEMENT BETWEEN YOU, THE LICENSEE (A SINGLE PERSON, INSTITUTION, OR
+LEGAL ENTITY) ("YOU"), AND STMICROELECTRONICS, N.V., A DUTCH CORPORATION,
+HAVING ITS PRINCIPAL PLACE OF BUSINESS AT STRAWINSKYLAAN 1725, TOWER B 17TH
+FLOOR, 1077 XX AMSTERDAM, THE NETHERLANDS, ACTING FOR THE PURPOSE OF THIS
+ELA THROUGH ITS SWISS BRANCH, 39, CHEMIN DU CHAMP DES FILLES, C. P. 21, CH
+1228 PLAN-LES-OUATES, GENEVA, SWITZERLAND ("ST") FOR THE LICENSED SOFTWARE,
+ASSOCIATED MEDIA, PRINTED MATERIAL, ELECTRONIC DOCUMENTATION OR ANY PORTION
+THEREOF ("SOFTWARE").  ST IS WILLING TO LICENSE THE SOFTWARE TO YOU ONLY
+UPON THE CONDITION THAT YOU ACCEPT ALL OF THE TERMS CONTAINED IN THIS ELA.
+PLEASE READ THE ELA CAREFULLY.  BY DOWNLOADING OR INSTALLING THIS SOFTWARE,
+YOU ACCEPT ALL OF THE TERMS OF THE ELA. PLEASE INDICATE YOUR ACCEPTANCE OF
+ALL OF THE THESE TERMS BY SELECTING THE "ACCEPT" BUTTON AT THE BOTTOM OF
+THE ELA. IF YOU ARE UNWILLING TO BE BOUND BY ALL OF THE TERMS, PLEASE
+SELECT THE "DECLINE" BUTTON AT THE BOTTOM OF THE ELA AND THE DOWNLOAD OR
+INSTALL PROCESS WILL STOP.
+
+
+1)	Ownership
+
+	The Software distributed and licensed to You hereunder, including, if
+	and when provided, any updates furnished to You for free or for
+	additional fees, is proprietary to ST or its licensors (ST and
+	licensors hereafter referred to as "Licensor").  The Licensors retain
+	title to and ownership of the Software, including the copy provided
+	herein, and reserve all rights not expressly granted in this ELA.
+
+2)	Granting of License
+
+2A)	Except as set forth in Sections 3 and 4 below, under the terms and
+	conditions of this ELA, You are hereby granted a limited, revocable,
+	nontransferable, and nonexclusive license to use the Software subject
+	to the restrictions and other terms within.  That use must be
+	(i)	only by You,
+	(ii)	only on a computer system running a specific operating system
+		on which the Software is designed to run and for which portions
+		of the Software and subsequent components in the compilation
+		process are intended to produce an executable image ("Target
+		Systems") for which the corresponding fee has been paid,
+	(iii)	only on the network(s) and only by the number of users for
+		which the corresponding fee has been paid, and
+	(iv)	only to target no more than the maximum number of CPUs, or
+		the maximum number of processes, for which the corresponding
+		fee has been paid.
+	Except as set forth in Section 2B below, any other use of the
+	Software is strictly prohibited.
+
+2B)	You may distribute an end-user application that You build with the
+	Software that provides significant functionality distinct from that
+	included with the Software ("End-User Application") to users within
+	Your organization as well as third party users outside Your
+	organization ("Sublicensees") for only such uses and/or Target
+	Systems for which the Software was designed and	intended.  You agree
+	that any sublicense shall not relieve You from Your obligations under
+	this ELA.  The Software includes the run-time files, libraries and
+	executables ("Run-Time Files") that are bound into Your application
+	by the linker or otherwise required by Your application.  You may
+	also distribute separate dynamically-linked or executable Run-Time
+	Files required during the execution of Your End-User Application.
+	Whenever an End-User Application is used internally within Your
+	organization or by outside third parties, You shall contractually
+	require that all Sublicensees abide by the following restrictions:
+	(i)	they shall not use the "PGI", "The Portland Group", "ST", or
+		"STMicroelectronics" name, logo, or trademarks in marketing the
+		End-User Application without prior written permission from ST,
+	(ii)	they will maintain a valid copyright on the End-User
+		Application,
+	(iii)	they will, without limitation, indemnify, hold harmless, and
+		defend ST and other applicable Licensors and their respective
+		affiliates and suppliers from and against any and all claims,
+		lawsuits, costs, and expenses, including attorney's fees, that
+		arise or result from their use or distribution of the End-User
+		Application, and
+	(iv)	they shall strictly prohibit the further distribution of the
+		Run-Time Files by the user of the End-User Application.
+	Notwithstanding the above, the only Run-Time Files that may be
+	distributed as noted in this Section 2B are in the folders or
+	directories whose names begin with "REDIST".
+
+3)	Software from Microsoft
+	
+	You acknowledge that as part of the Software You may receive Run-Time
+	Files in the form of Microsoft Foundation Classes ("MFCs"), Active
+	Template Libraries ("ATLs"), and/or "C" Runtime files ("CRTs") in
+	binary form only ("Microsoft Distributable Code").  Notwithstanding
+	any other provision of this ELA, You acknowledge and agree
+	(A)	that You have a limited right to use the Microsoft
+		Distributable Code to design,	develop, or test for use with the
+		Software only,
+	(B)	that You or Your end-users of the Microsoft Distributable Code
+		may only use it to create programs that run natively on
+		Microsoft platforms, and
+	(C)	to the following restrictions: You and Your end-users:
+		(i)   will not alter any copyright, trademark, patent, or other
+		      legal notice or disclaimer in the Microsoft Distributable
+		      Code,
+		(ii)  will not run the Microsoft Distributable Code on a
+		      platform other than a Microsoft platform, and
+		(iii) will not include Microsoft Distributable Code in
+		      malicious, deceptive, or unlawful programs.
+	Further, You will require end	users of the Microsoft Distributable
+	Code to agree to terms at least as protective as this ELA.
+
+4)	Software from Sun Microsystems and/or Oracle America, Inc.
+
+	You acknowledge that as part of the Software you are receiving access
+	to Java(tm) 2 Runtime Environment (J2RE), version 1.4.2 or subsequent
+	versions ("Java Code").  Notwithstanding any other provision of this
+	ELA, You are hereby granted a limited, revocable, nontransferable,
+	and nonexclusive license, without the right to sublicense, to use the
+	Java Code complete and unmodified for the sole purpose of running
+	Java applets and applications intended to run on the JavaTM 2
+	Platform Standard Edition 5.0 (J2SE 5.0) or subsequent versions on
+	Java-enabled general purpose desktop computers and servers.
+
+5)	Restrictions
+      
+5A)	You may make one (1) copy of the Software in machine-readable form,
+	solely for archival or backup purposes, provided the copyright notice
+	and other proprietary legends on the Software are included on any
+	archival/backup copies.  You may not modify, adapt, translate,
+	reverse engineer, de-compile, disassemble, or create derivative
+	works, in whole or in part, based on the Software.  You may not rent,
+	lease, loan, share, or electronically transfer the Software to
+	others.
+
+5B)	The term "proprietary" as used in this ELA or in the Software does
+	not establish a confidential relationship between the Licensor and
+	You and does not in itself provide You any rights to the Software.
+	You acknowledge that the  Licensors have valuable intellectual
+	property rights in the Software and agree to respect and protect such
+	intellectual property rights.  No right, title, or interest in or to
+	any trademark, service mark, logo or trade name of the Licensors is
+	granted under this ELA.
+
+5C)	You acknowledge and agree that the Software is not designed or
+	intended for use in nuclear activities or life support systems.  The
+	Licensors disclaim any express or implied warranty of fitness for
+	such uses.
+      
+5D)	You will not modify or distribute any of the Software so that any
+	part of it becomes subject to an Excluded License.  As used in this
+	ELA, an "Excluded License" is one that requires, as a condition of
+	use, modification, or distribution, that
+	(i)	the Software be disclosed or distributed in source code form; or
+	(ii)	others have a right to modify it, or
+	(iii)	the Software loses its proprietary nature.
+	Therefore, without the prior written permission of the applicable
+	Licensors, You may not modify the Software directly in any way.  In
+	particular, You may not introduce or commingle with the Software any
+	source or object code that is governed by an open source or public
+	license of any kind.
+
+6)	Limited Warranty  
+
+	THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.  TO
+	THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSORS FURTHER
+	DISCLAIM ALL WARRANTIES, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+	WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+	NONINFRINGEMENT.  THE ENTIRE RISK ARISING OUT OF THE USE OR
+	PERFORMANCE OF THE SOFTWARE AND DOCUMENTATION REMAINS WITH YOU. TO
+	THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW,  IN NO EVENT SHALL
+	THE LICENSORS BE LIABLE FOR ANY CONSEQUENTIAL, INCIDENTAL, INDIRECT,
+	SPECIAL, PUNITIVE, OR OTHER DAMAGES WHATSOEVER (INCLUDING, WITHOUT
+	LIMITATION, DAMAGES FOR	LOSS OF BUSINESS PROFITS, BUSINESS
+	INTERRUPTION, LOSS OF BUSINESS INFORMATION, LOSS OF DATA OR OTHER
+	PECUNIARY LOSS) ARISING OUT OF THIS ELA OR THE USE OF OR INABILITY TO
+	USE THE SOFTWARE, EVEN IF THE LICENSORS HAVE BEEN ADVISED OF THE
+	POSSIBILITY OF SUCH DAMAGES. NOTWITHSTANDING THE FOREGOING, TO THE
+	EXTENT THAT ST MAY BE HELD LEGALLY LIABLE TO YOU BY A COURT OF
+	COMPETENT JURISDICTION UNDER CONTRACT, TORT, OR ANY OTHER LEGAL
+	THEORY, THE MAXIMUM LIABILITY OF THE LICENSORS SHALL NOT EXCEED THE
+	APPLICABLE PURCHASE PRICE OF THE SOFTWARE OR ONE THOUSAND DOLLARS
+	($1,000), WHICHEVER IS GREATER.
+
+7)	Indemnity and Audit
+
+7A)	You agree to indemnify, defend, and hold the Licensors harmless from
+	and against any and all claims, liabilities, damages, penalties,
+	settlements, and costs and expenses (including, without limitation,
+	reasonable attorneys' fees and court or arbitration costs), asserted
+	by any and all third parties (collectively "Claims") against the
+	Licensors, and their respective employees, directors, officers, and
+	agents alleging or resulting from:
+	(i)	Your breach of any term or condition of this ELA;
+	(ii)	alleged or actual infringement of the intellectual property or
+		other proprietary rights of a third party by You or Your
+		sublicensees; unauthorized alteration of the Software or
+		derivative products by You or Your sublicensees;
+	(iii)	combination of the Software or derivative products with other
+		software, products or materials not in accordance with the
+		terms	of this ELA; or
+	(iv)	any acts or omissions by You, Your employees, directors,
+		officers, and agents or sublicensees either under this ELA or
+		outside its scope, including personal injury, death, or
+		property damage to anyone or anything.
+
+7B)	ST reserves the right, upon reasonable prior written notice to You
+	and during Your normal business hours, to audit Your use of the
+	Software and any derivative products made therefrom to confirm Your
+	compliance with the terms of this ELA.
+
+8)	Software Export
+
+	All Software and technical data delivered under this ELA are subject
+	to US export control laws and may be subject to export or import
+	regulations in other countries.  You agree to comply strictly with
+	all such laws and regulations and acknowledge that You have the
+	responsibility to obtain such licenses to export, re-export, or
+	import as may be required after delivery to You.
+
+9)	Software Manuals
+
+	All proprietary documentation provided with the Software is copyrighted
+	and may not be copied, photographed, reproduced, translated or reduced
+	to any electronic medium or machine-readable form in whole or in part
+	without the express, written, prior approval of ST.
+
+10)	Government Use 
+
+	The Software is a "commercial item," as that term is defined at 48
+	C.F.R. 2.101 (OCT 1995), consisting of "commercial computer software"
+	and "commercial computer software documentation," as such terms are
+	used in 48 C.F.R. 12.212 (SEPT 1995) and is provided to the U.S.
+	Government only as a commercial end item.  Consistent with 48 C.F.R.
+	12.212 and 48 C.F.R. 227.7202-1 through 227.7202-4 (JUNE 1995), all
+	U.S. Government licensees and end users acquire the Software with
+	only those rights set forth herein. 
+
+11)	Termination  
+
+	The license granted to You in this ELA is effective until terminated.
+	The license may be terminated by ST at any time without prior notice.
+	You may terminate the license at any time by returning and/or
+	destroying the Software together with all copies.  Upon termination
+	of the license for any reason, you agree to destroy all copies of the
+	Software.
+      
+12)	Surviving Terms
+
+	In the event this ELA is terminated for any reason, the following
+	provisions shall survive termination and shall remain in full force
+	and effect: 1, 5, 6, 7, 8, 9, 10, 12, and 13.
+
+13)	Controlling Law and Complete Agreement  
+
+	This Agreement shall be construed and interpreted under the laws of
+	the state of New York, not including its conflict of laws principles.
+	If any provision of this ELA, or portion thereof, is found to be
+	unenforceable, that provision shall be enforced to the maximum extent
+	possible and the remainder of this ELA shall continue in full force
+	and effect.
+
+YOU ACKNOWLEDGE THAT YOU HAVE READ THIS ELA AND AGREE TO BE BOUND BY ITS
+TERMS.  YOU FURTHER AGREE THAT IT IS THE COMPLETE AND EXCLUSIVE STATEMENT
+OF AGREEMENT BETWEEN YOU AND ST AND THAT IT SUPERSEDES ANY PRIOR AGREEMENT,
+ORAL OR WRITTEN, ANY PROPOSAL, AND ANY OTHER COMMUNICATIONS BETWEEN YOU AND
+ST RELATING TO THE SUBJECT MATTER OF THIS ELA.
+
