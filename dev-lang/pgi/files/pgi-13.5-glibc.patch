@@ -1,0 +1,31 @@
+diff -ru opt/pgi/linux86/13.5/include/bits/types.h opt/pgi-b/linux86/13.5/include/bits/types.h
+--- opt/pgi/linux86/13.5/include/bits/types.h	2013-05-07 21:45:39.000000000 +0200
++++ opt/pgi-b/linux86/13.5/include/bits/types.h	2013-06-02 01:24:19.000000000 +0200
+@@ -136,6 +136,7 @@
+ #include <bits/typesizes.h>	/* Defines __*_T_TYPE macros.  */
+ 
+ 
++__STD_TYPE __SQUAD_TYPE __syscall_slong_t;
+ __STD_TYPE __DEV_T_TYPE __dev_t;	/* Type of device numbers.  */
+ __STD_TYPE __UID_T_TYPE __uid_t;	/* Type of user identifications.  */
+ __STD_TYPE __GID_T_TYPE __gid_t;	/* Type of group identifications.  */
+diff -ru opt/pgi/linux86-64/13.5/include/bits/types.h opt/pgi-b/linux86-64/13.5/include/bits/types.h
+--- opt/pgi/linux86-64/13.5/include/bits/types.h	2013-05-07 21:45:39.000000000 +0200
++++ opt/pgi-b/linux86-64/13.5/include/bits/types.h	2013-06-02 01:23:51.000000000 +0200
+@@ -135,7 +135,7 @@
+ #endif
+ #include <bits/typesizes.h>	/* Defines __*_T_TYPE macros.  */
+ 
+-
++__STD_TYPE __SQUAD_TYPE __syscall_slong_t;
+ __STD_TYPE __DEV_T_TYPE __dev_t;	/* Type of device numbers.  */
+ __STD_TYPE __UID_T_TYPE __uid_t;	/* Type of user identifications.  */
+ __STD_TYPE __GID_T_TYPE __gid_t;	/* Type of group identifications.  */
+@@ -156,7 +156,6 @@
+ __STD_TYPE __SUSECONDS_T_TYPE __suseconds_t; /* Signed count of microseconds.  */
+ 
+ __STD_TYPE __DADDR_T_TYPE __daddr_t;	/* The type of a disk address.  */
+-__STD_TYPE __SWBLK_T_TYPE __swblk_t;	/* Type of a swap block maybe?  */
+ __STD_TYPE __KEY_T_TYPE __key_t;	/* Type of an IPC key.  */
+ 
+ /* Clock ID used in clock and timer functions.  */
