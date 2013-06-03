@@ -53,7 +53,7 @@ pkg_nofetch() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/terminal.patch"
+	epatch "${FILESDIR}/${P}-terminal.patch"
 }
 
 src_install() {
@@ -102,7 +102,7 @@ ${command}
 EOF
 	# fix problems with PGI's C++ compiler and current glibc:
 	cd "${ED}"
-	patch -p0 <"${FILESDIR}/glibc.patch" || die "patch failed"
+	patch -p0 <"${FILESDIR}/${P}-glibc.patch" || die "patch failed"
 
 	# java symlink might be broken if useflag is disabled:
 	use java || rm opt/pgi/linux86-64/13.5/jre
