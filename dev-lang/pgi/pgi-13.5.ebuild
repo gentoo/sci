@@ -102,7 +102,7 @@ ${command}
 EOF
 	# fix problems with PGI's C++ compiler and current glibc:
 	cd "${ED}"
-	patch -p0 <"${FILESDIR}/${P}-glibc.patch" || die "patch failed"
+	epatch "${FILESDIR}/${P}-glibc.patch"
 
 	# java symlink might be broken if useflag is disabled:
 	use java || rm opt/pgi/linux86-64/13.5/jre
