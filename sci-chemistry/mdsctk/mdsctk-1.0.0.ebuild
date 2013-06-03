@@ -12,11 +12,11 @@ SRC_URI="http://cnls.lanl.gov/~jphillips/wp-content/uploads/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~amd64-linux"
 IUSE="examples R"
 
 DEPEND="
-	sci-chemistry/gromacs
+	sci-chemistry/gromacs:=
 	sci-libs/gsl
 	sys-libs/db[cxx]
 	virtual/blas

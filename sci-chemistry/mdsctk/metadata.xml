@@ -7,6 +7,6 @@
 		<name>Christoph Junghans</name>
 	</maintainer>
 	<use>
-		<flag name="R">Install <pkg>dev-lang/R</pkg> as well</flag>
+		<flag name="R">Install <pkg>dev-lang/R</pkg> scripts as well</flag>
 	</use>
 </pkgmetadata>
