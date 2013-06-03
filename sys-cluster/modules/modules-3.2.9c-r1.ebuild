@@ -27,7 +27,7 @@ S="${WORKDIR}/${P%[a-z]}"
 DOCS=(ChangeLog README NEWS TODO)
 
 src_prepare() {
-	epatch "${FILESDIR}"/errorline.patch
+	epatch "${FILESDIR}/${P}-errorline.patch"
 }
 
 src_configure() {
