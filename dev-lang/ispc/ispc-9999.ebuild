@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-lang/ispc/ispc-1.3.0.ebuild,v 1.2 2012/07/20 19:58:21 ottxor Exp $
+# $Header: $
 
 EAPI=5
 
@@ -29,6 +29,7 @@ RDEPEND="
 	"
 DEPEND="
 	${RDEPEND}
+	${PYTHON_DEPS}
 	sys-devel/bison
 	sys-devel/flex
 	"
