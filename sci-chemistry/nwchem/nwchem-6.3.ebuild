@@ -18,6 +18,8 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="mpi doc examples nwchem-tests python"
 
+REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+
 RDEPEND="sys-fs/sysfsutils
 	python? ( ${PYTHON_DEPS} )"
 DEPEND="${RDEPEND}
