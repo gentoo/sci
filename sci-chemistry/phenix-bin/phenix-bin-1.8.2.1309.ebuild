@@ -23,7 +23,9 @@ LICENSE="phenix"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
-RDEPEND="
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+RDEPEND="${PYTHON_DEPS}
 	app-arch/bzip2
 	dev-db/sqlite:3
 	dev-libs/atk
@@ -59,7 +61,7 @@ RDEPEND="
 	x11-libs/libXrender
 	x11-libs/libXxf86vm
 	sys-libs/zlib"
-DEPEND=""
+DEPEND="${PYTHON_DEPS}"
 
 RESTRICT="fetch"
 
