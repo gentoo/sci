@@ -11,7 +11,7 @@ inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Annotations for Concurrency"
 HOMEPAGE="http://www.jcip.net/"
-SRC_URI="http://www.jcip.net/${PN}-src.jar"
+SRC_URI="http://jcip.net.s3-website-us-east-1.amazonaws.com/${PN}-src.jar"
 
 LICENSE="CC-BY-SA-2.5"
 #Confirm license before entering tree.
