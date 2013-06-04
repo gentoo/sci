@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  04 Jun 2013; Justin Lecher <jlec@gentoo.org> root-5.34.07.ebuild:
+  Fix for correct usage of new python eclasses
+
 *root-5.34.07 (28 May 2013)
 
   28 May 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.34.05.ebuild,

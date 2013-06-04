@@ -41,6 +41,13 @@ IUSE="+X afs avahi -c++0x doc emacs examples fits fftw graphviz htmldoc
 	kerberos ldap +math mpi mysql odbc +opengl openmp oracle postgres prefix
 	pythia6 pythia8 python qt4 +reflex ruby ssl xinetd xml xrootd"
 
+REQUIRED_USE="
+	!X? ( !opengl !qt4 )
+	htmldoc? ( doc )
+	mpi? ( math !openmp )
+	openmp? ( math !mpi )
+	python? ( ${PYTHON_REQUIRED_USE} )"
+
 CDEPEND="
 	app-arch/xz-utils
 	>=dev-lang/cfortran-4.4-r2
@@ -104,12 +111,6 @@ RDEPEND="${CDEPEND}
 	xinetd? ( sys-apps/xinetd )"
 
 PDEPEND="htmldoc? ( ~app-doc/root-docs-${PV} )"
-
-REQUIRED_USE="
-	!X? ( !opengl !qt4 )
-	htmldoc? ( doc )
-	mpi? ( math !openmp )
-	openmp? ( math !mpi )"
 
 S="${WORKDIR}/${PN}"
 
