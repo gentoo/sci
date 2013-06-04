@@ -22,6 +22,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 S="${WORKDIR}"/${PN}_source_${PV/_/}
 
 for plug in ${PLUGINS}; do
@@ -29,12 +31,13 @@ for plug in ${PLUGINS}; do
 done
 
 RDEPEND="${PLUG_DEP}
+	${PYTHON_DEPS}
 	dev-lang/tk
 	sci-libs/msms
 	dev-python/pmw[${PYTHON_USEDEP}]
-	dev-python/simpy
-	dev-python/imaging[tk]
-	dev-python/numpy"
+	dev-python/simpy[${PYTHON_USEDEP}]
+	dev-python/imaging[tk,${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}"
 
 src_install() {
