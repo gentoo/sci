@@ -2,6 +2,10 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/clipper/ChangeLog,v 1.22 2013/05/28 18:15:50 jlec Exp $
 
+  05 Jun 2013; Justin Lecher <jlec@gentoo.org> clipper-2.1_p20130601.ebuild,
+  +files/clipper-2.1_p20130601-pkgconfig.patch:
+  Add patch for detection of dependencies using pkg-config
+
 *clipper-2.1_p20130601 (01 Jun 2013)
 
   01 Jun 2013; Justin Lecher <jlec@gentoo.org> clipper-2.1_p20130528.ebuild,

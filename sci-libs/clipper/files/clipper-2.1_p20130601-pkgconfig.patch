@@ -1,0 +1,164 @@
+ clipper/Makefile.am | 12 ++++-----
+ configure.ac        | 78 +++++++++++++++++++++++++++++++----------------------
+ 2 files changed, 52 insertions(+), 38 deletions(-)
+
+diff --git a/clipper/Makefile.am b/clipper/Makefile.am
+index d5d0197..f16e39b 100644
+--- a/clipper/Makefile.am
++++ b/clipper/Makefile.am
+@@ -18,7 +18,7 @@ lib_LTLIBRARIES =
+ if BUILD_MMDB
+ lib_LTLIBRARIES += mmdb/libclipper-mmdb.la
+ mmdb_libclipper_mmdb_la_LDFLAGS = @VERSION_INFO@
+-mmdb_libclipper_mmdb_la_LIBADD = core/libclipper-core.la -lmmdb
++mmdb_libclipper_mmdb_la_LIBADD = core/libclipper-core.la @MMDB_LIBS@
+ mmdb_libclipper_mmdb_la_SOURCES = mmdb/clipper_mmdb.cpp
+ mmdb_includedir=$(pkgincludedir)/mmdb
+ mmdb_include_HEADERS = mmdb/clipper_mmdb.h
+@@ -30,7 +30,7 @@ minimol_libclipper_minimol_la_LDFLAGS = @VERSION_INFO@
+ # minimol uses libmmdb directly (although <mmdb/mmdb_manager.h> is included
+ # indirectly, via clipper/clipper-mmdb.h)
+ minimol_libclipper_minimol_la_LIBADD = core/libclipper-core.la \
+-				       mmdb/libclipper-mmdb.la -lmmdb
++				       mmdb/libclipper-mmdb.la @MMDB_LIBS@
+ minimol_libclipper_minimol_la_SOURCES = \
+  minimol/minimol.cpp    minimol/container_minimol.cpp minimol/minimol_data.cpp \
+  minimol/minimol_io.cpp minimol/minimol_seq.cpp       minimol/minimol_utils.cpp
+@@ -52,7 +52,7 @@ endif
+ if BUILD_CIF
+ lib_LTLIBRARIES += cif/libclipper-cif.la
+ cif_libclipper_cif_la_LDFLAGS = @VERSION_INFO@
+-cif_libclipper_cif_la_LIBADD = core/libclipper-core.la -lmmdb
++cif_libclipper_cif_la_LIBADD = core/libclipper-core.la @MMDB_LIBS@
+ cif_libclipper_cif_la_SOURCES = cif/cif_data_io.cpp
+ cif_includedir=$(pkgincludedir)/cif
+ cif_include_HEADERS = cif/cif_data_io.h
+@@ -61,7 +61,7 @@ endif
+ if BUILD_MMDBOLD
+ lib_LTLIBRARIES += mmdbold/libclipper-mmdbold.la
+ mmdbold_libclipper_mmdbold_la_LDFLAGS = @VERSION_INFO@
+-mmdbold_libclipper_mmdbold_la_LIBADD = core/libclipper-core.la -lmmdb
++mmdbold_libclipper_mmdbold_la_LIBADD = core/libclipper-core.la @MMDB_LIBS@
+ mmdbold_libclipper_mmdbold_la_SOURCES = \
+         mmdbold/clipper_mmdb.cpp        mmdbold/clipper_mmdb_wrapper.cpp \
+        	mmdbold/clipper_mmdb_types.cpp  mmdbold/container_mmdb.cpp
+@@ -75,7 +75,7 @@ endif
+ if BUILD_CCP4
+ lib_LTLIBRARIES += ccp4/libclipper-ccp4.la
+ ccp4_libclipper_ccp4_la_LDFLAGS = @VERSION_INFO@
+-ccp4_libclipper_ccp4_la_LIBADD = core/libclipper-core.la -lccp4c
++ccp4_libclipper_ccp4_la_LIBADD = core/libclipper-core.la @CCP4_LIBS@
+ ccp4_libclipper_ccp4_la_SOURCES = \
+         ccp4/ccp4_mtz_types.cpp         ccp4/ccp4_mtz_io.cpp \
+         ccp4/ccp4_map_io.cpp            ccp4/ccp4_utils.cpp
+@@ -88,7 +88,7 @@ endif
+ if BUILD_CCTBX
+ lib_LTLIBRARIES += cctbx/libclipper-cctbx.la
+ cctbx_libclipper_cctbx_la_LDFLAGS = @VERSION_INFO@
+-cctbx_libclipper_cctbx_la_LIBADD = core/libclipper-core.la -lsgtbx -luctbx
++cctbx_libclipper_cctbx_la_LIBADD = core/libclipper-core.la @CCTBX_LIBS@
+ cctbx_libclipper_cctbx_la_SOURCES = cctbx/clipper_cctbx.cpp
+ cctbx_includedir=$(pkgincludedir)/cctbx
+ cctbx_include_HEADERS = cctbx/clipper_cctbx.h
+diff --git a/configure.ac b/configure.ac
+index 73131bc..cdee003 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,4 +1,4 @@
+-
++<
+ AC_INIT(clipper, 2.1.20130601)
+ 
+ AC_CONFIG_AUX_DIR(build-aux)
+@@ -50,10 +50,53 @@ AM_CONDITIONAL([BUILD_CCP4],    [test "x$enable_ccp4" = xyes])
+ AM_CONDITIONAL([BUILD_CCTBX],   [test "x$enable_cctbx" = xyes])
+ AM_CONDITIONAL([BUILD_FORTRAN], [test "x$enable_fortran" = xyes])
+ 
+-if test "x$enable_fortran" = "xyes"; then
++if test "x$enable_mmdb" = "xyes" -o "x$enable_mmdbold" = "xyes" -o \
++        "x$enable_minimol" = "xyes" -o "x$enable_cif" = "xyes"; then
++    PKG_CHECK_MODULES([MMDB], [mmdb],,[
++        AC_LANG_PUSH(C++)
++        AC_CHECK_LIB(mmdb, MMDB_CCIF_Init, :,
++                                        AC_MSG_WARN(mmdb library not found))
++        AC_CHECK_HEADER(mmdb/mmdb_manager.h, :,
++                                        AC_MSG_ERROR(mmdb headers not found))
++        AC_LANG_POP(C++)
++        CLIPPER_REQUIRES="mmdb"
++        MMDB_LIBS="-lmmdb"
++        AC_SUBST([MMDB_LIBS])
++    ])
++fi
++
++AM_COND_IF([BUILD_CCP4],[
++    PKG_CHECK_MODULES([CCP4], [libccp4c],,[
++        AC_CHECK_LIB(ccp4c, ccp4_banner, :,
++                                        AC_MSG_WARN(ccp4c library not found))
++        AC_CHECK_HEADER(ccp4/ccp4_general.h, :,
++                                        AC_MSG_ERROR(libccp4 headers not found))
++        CLIPPER_REQUIRES="libccp4c $CLIPPER_REQUIRES"
++        CCP4_LIBS="-lccp4c"
++        AC_SUBST([CCP4_LIBS])
++    ])
++])
++
++AM_COND_IF([BUILD_CCTBX],[
++    PKG_CHECK_MODULES([CCTBX], [cctbx cctbx_sgtbx_asu],,[
++        AC_LANG_PUSH(C++)
++        AC_CHECK_HEADER(cctbx/miller.h, :, AC_MSG_ERROR(cctbx headers not found))
++        AC_MSG_CHECKING(for cctbx)
++        AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <cctbx/miller.h>],
++                                        [cctbx::Miller::Index a])],
++                       AC_MSG_RESULT(yes),
++                       [AC_MSG_RESULT(no)
++                        AC_MSG_WARN(cctbx library not found)])
++        AC_LANG_POP(C++)
++        CCTBX_LIBS="-lsgtbx -luctbx"
++        AC_SUBST([CCTBX_LIBS])
++    ])
++])
++
++AM_COND_IF([BUILD_FORTRAN],[
+     AC_PROG_F77
+     AC_F77_WRAPPERS
+-fi
++	])
+ 
+ AC_SEARCH_LIBS(cos, m, , AC_MSG_ERROR([math library not found.]))
+ SINGLE_FFTW
+@@ -79,35 +122,6 @@ test "x$enable_ccp4" = xyes    && CLIPPER_LIBS="-lclipper-ccp4 $CLIPPER_LIBS"
+ #test "x$enable_cctbx" = xyes   && CLIPPER_LIBS="-lclipper-cctbx $CLIPPER_LIBS"
+ test "x$enable_fortran" = xyes && CLIPPER_LIBS="-lclipper-fortran $CLIPPER_LIBS"
+ 
+-if test "x$enable_mmdb" = "xyes" -o "x$enable_mmdbold" = "xyes" -o \
+-        "x$enable_minimol" = "xyes" -o "x$enable_cif" = "xyes"; then
+-    AC_LANG_PUSH(C++)
+-    AC_CHECK_LIB(mmdb, MMDB_CCIF_Init, :, AC_MSG_WARN(mmdb library not found))
+-    AC_CHECK_HEADER(mmdb/mmdb_manager.h, :,
+-                                         AC_MSG_ERROR(mmdb headers not found))
+-    AC_LANG_POP(C++)
+-    CLIPPER_REQUIRES="mmdb"
+-fi
+-
+-if test "x$enable_ccp4" = "xyes"; then
+-    AC_CHECK_LIB(ccp4c, ccp4_banner, :, AC_MSG_WARN(ccp4c library not found))
+-    AC_CHECK_HEADER(ccp4/ccp4_general.h, :,
+-                                       AC_MSG_ERROR(libccp4 headers not found))
+-    CLIPPER_REQUIRES="libccp4c $CLIPPER_REQUIRES"
+-fi
+-
+-if test "x$enable_cctbx" = "xyes"; then
+-    AC_LANG_PUSH(C++)
+-    AC_CHECK_HEADER(cctbx/miller.h, :, AC_MSG_ERROR(cctbx headers not found))
+-    AC_MSG_CHECKING(for cctbx)
+-    AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <cctbx/miller.h>],
+-                                    [cctbx::Miller::Index a])],
+-                   AC_MSG_RESULT(yes),
+-                   [AC_MSG_RESULT(no)
+-                    AC_MSG_WARN(cctbx library not found)])
+-    AC_LANG_POP(C++)
+-fi
+-
+ VERSION_INFO="-version-info 2:1"
+ AC_SUBST(VERSION_INFO)
+ AC_SUBST(CLIPPER_LIBS)
