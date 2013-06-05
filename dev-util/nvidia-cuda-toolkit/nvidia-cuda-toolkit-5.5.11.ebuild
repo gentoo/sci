@@ -36,6 +36,8 @@ S="${WORKDIR}"
 
 QA_PREBUILT="opt/cuda/*"
 
+RESTRICT="fetch"
+
 pkg_nofetch() {
 	einfo "NVIDIA doesn't provide direct download links yet. If you're a"
 	einfo "registered developer, then please download ${ARCHIVE} from"
