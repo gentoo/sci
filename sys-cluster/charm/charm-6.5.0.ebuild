@@ -13,7 +13,7 @@ SRC_URI="http://charm.cs.uiuc.edu/distrib/${P}.tar.gz"
 LICENSE="charm"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cmkopt doc examples smp static-libs tcp"
+IUSE="charmdebug cmkopt doc examples smp static-libs tcp"
 
 DEPEND="
 	doc? (
@@ -22,13 +22,19 @@ DEPEND="
 	virtual/tex-base )"
 RDEPEND=""
 
+REQUIRED_USE="charmdebug? ( !cmkopt )"
+
 FORTRAN_STANDARD="90"
 
 src_prepare() {
-	#epatch "${FILESDIR}"/${P}-gcc-4.7.patch
+	# Build shared libraries by default.
+	CHARM_OPTS="--build-shared"
 
-	# For production, disable debugging features.
-	CHARM_OPTS="--with-production --build-shared"
+	if use charmdebug; then
+		CHARM_OPTS+=" --with-charmdebug"
+	else
+		CHARM_OPTS+=" --with-production"
+	fi
 
 	# TCP instead of default UDP for socket comunication
 	# protocol
@@ -43,7 +49,7 @@ src_prepare() {
 
 	# CMK optimization
 	if use cmkopt; then
-		append-flags -DCMK_OPTIMIZE=1
+		append-cppflags -DCMK_OPTIMIZE=1
 	fi
 
 	sed \
