@@ -5,7 +5,7 @@
 EAPI=4
 
 FORTRAN_STANDARD="77 90"
-inherit eutils fortran-2 multilib toolchain-funcs versionator
+inherit cuda eutils fortran-2 multilib toolchain-funcs versionator
 
 DESCRIPTION="Matrix Algebra on GPU and Multicore Architectures"
 HOMEPAGE="http://icl.cs.utk.edu/magma/"
