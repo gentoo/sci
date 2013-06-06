@@ -21,6 +21,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="+minimal static-libs"
 
 RDEPEND="
+	dev-libs/antlr-c
 	>=dev-libs/boost-1.48[python,${PYTHON_USEDEP}]
 	sci-libs/clipper
 	sci-libs/fftw:2.1
@@ -29,6 +30,7 @@ RDEPEND="
 		sci-chemistry/cns
 		sci-chemistry/shelx )"
 DEPEND="${RDEPEND}
+	!!<sci-libs/cctbx-${PV}
 	!prefix? ( >=dev-util/scons-1.2[${PYTHON_USEDEP}] )"
 
 S="${WORKDIR}"
