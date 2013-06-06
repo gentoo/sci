@@ -18,7 +18,7 @@ SRC_URI="http://cci.lbl.gov/cctbx_build/results/${MY_PV}/${PN}_bundle.tar.gz -> 
 LICENSE="cctbx-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="+minimal"
+IUSE="+minimal static-libs"
 
 RDEPEND="
 	>=dev-libs/boost-1.48[python,${PYTHON_USEDEP}]
@@ -75,4 +75,13 @@ python_prepare_all() {
 	fi
 
 	distutils-r1_python_prepare_all
+}
+
+python_install_all() {
+	distutils-r1_python_install_all
+
+	if ! use static-libs; then
+		find "${ED}" -type f -name "*.a" -delete || die
+	fi
+	prune_libtool_files
 }
