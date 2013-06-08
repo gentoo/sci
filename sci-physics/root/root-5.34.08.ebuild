@@ -26,7 +26,7 @@ PATCH_PV3=5.34.05
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
 SRC_URI="${SRC_URI}
-	doc? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuide.pdf -> ROOTUsersGuide-${PV}.pdf
+	doc? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuideA4.pdf -> ROOTUsersGuide-${PV}.pdf
 		math? (
 			ftp://root.cern.ch/${PN}/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
 			http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf )
@@ -112,7 +112,7 @@ RDEPEND="${CDEPEND}
 
 PDEPEND="htmldoc? ( ~app-doc/root-docs-${PV} )"
 
-S="${WORKDIR}/${PN}"
+S="${WORKDIR}/${PN}-v5-34-00-patches"
 
 pkg_setup() {
 	fortran-2_pkg_setup
