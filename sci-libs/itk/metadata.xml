@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>no-herd</herd>
+<maintainer>
+  <email>maintainer-needed@gentoo.org</email>
+</maintainer>
+<longdescription lang="en">
+  ITK is a library that provides developers with an extensive suite of tools for image analysis.
+</longdescription>
+<use>
+        <flag name="shared">Build shared libraries</flag>
+	<flag name="itkv3compat">Use review statistics</flag>
+        <flag name="patented">Compile patented algorithms</flag>
+	<flag name="review">Enable compilation of mehods under review</flag>
+</use>
+</pkgmetadata>
+
