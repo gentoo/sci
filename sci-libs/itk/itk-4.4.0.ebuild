@@ -1,4 +1,4 @@
-# Copyright 2010 Gentoo Foundation
+# Copyright 2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,7 +15,7 @@ RESTRICT="primaryuri"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="debug examples fftw +shared test python hdf5 itkv3compat review"
+IUSE="debug examples fftw +shared test python hdf5 itkv3compat review patented"
 
 RDEPEND="sys-libs/zlib
 	fftw? ( sci-libs/fftw )
@@ -61,12 +61,12 @@ src_configure() {
 		$(cmake-utils_use shared BUILD_SHARED_LIBS)
 		$(cmake-utils_use test BUILD_TESTING)
 		$(cmake-utils_use review ITK_USE_REVIEW)
+		$(cmake-utils_use patented ITK_USE_PATENTED)
 		)
 
 	if use itkv3compat; then
 		mycmakeargs+=( -DITKV3_COMPATIBILITY=ON  )
 	fi
-
 
 	if use fftw; then
 		mycmakeargs+=(
