@@ -43,7 +43,7 @@ python_compile_all() {
 }
 
 python_test() {
-	${PYTHON} testsolar.py || die
+	${PYTHON} Pysolar/testsolar.py || die
 }
 
 python_install_all() {
