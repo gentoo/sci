@@ -3,6 +3,7 @@
 <pkgmetadata>
 	<herd>sci</herd>
 	<use>
+		<flag name="charmdebug">Enable the charm debugger</flag>
 		<flag name="cmkopt">Enable CMK optimisation</flag>
 		<flag name="tcp">Use TCP (instead of UPD) for socket communication</flag>
 	</use>

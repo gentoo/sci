@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_5,2_6,2_7} )
+PYTHON_COMPAT=( python{2_6,2_7} )
 PYTHON_REQ_USE="tk"
 
 inherit distutils-r1 eutils
@@ -24,8 +24,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	dev-python/imaging[tk,${PYTHON_USEDEP}]
-	dev-python/zsi
+	virtual/python-imaging[tk,${PYTHON_USEDEP}]
+	dev-python/zsi[${PYTHON_USEDEP}]
 	sci-chemistry/autodock
 	sci-chemistry/mgltools-dejavu[${PYTHON_USEDEP}]
 	sci-chemistry/mgltools-geomutils[${PYTHON_USEDEP}]

@@ -19,7 +19,7 @@ IUSE="doc examples vgm"
 
 RDEPEND="
 	sci-physics/root
-	sci-physics/geant:4[opengl,geant3,examples?]
+	>=sci-physics/geant-4.9.6[opengl,geant3,examples?]
 	vgm? ( sci-physics/vgm )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
