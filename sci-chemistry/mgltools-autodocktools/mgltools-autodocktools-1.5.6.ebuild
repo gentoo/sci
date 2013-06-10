@@ -24,8 +24,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	dev-python/imaging[tk,${PYTHON_USEDEP}]
-	dev-python/zsi
+	virtual/python-imaging[tk,${PYTHON_USEDEP}]
+	dev-python/zsi[${PYTHON_USEDEP}]
 	sci-chemistry/autodock
 	sci-chemistry/mgltools-dejavu[${PYTHON_USEDEP}]
 	sci-chemistry/mgltools-geomutils[${PYTHON_USEDEP}]

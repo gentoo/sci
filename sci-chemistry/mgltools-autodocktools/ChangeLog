@@ -3,6 +3,10 @@
 # $Header: $
 
   10 Jun 2013; Justin Lecher <jlec@gentoo.org>
+  mgltools-autodocktools-1.5.6.ebuild:
+  Add missing python use dep, move to virtual/python-imaging
+
+  10 Jun 2013; Justin Lecher <jlec@gentoo.org>
   -mgltools-autodocktools-1.5.4-r2.ebuild, mgltools-autodocktools-1.5.6.ebuild:
   Drop old
 
