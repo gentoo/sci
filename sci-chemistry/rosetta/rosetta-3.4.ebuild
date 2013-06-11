@@ -13,12 +13,12 @@ MY_P="${PN}${PV}_source"
 
 DESCRIPTION="Prediction and design of protein structures, folding mechanisms, and protein-protein interactions"
 HOMEPAGE="http://www.rosettacommons.org/"
-SRC_URI="${MY_P}.tgz"
+SRC_URI="${MY_P}.tgz patch_rosetta3.4_to_CSROSETTA3_ver1.3.txt"
 
 LICENSE="|| ( rosetta-academic rosetta-commercial )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="boinc +boost custom-cflags debug doc float mpi +openmp X"
+IUSE="boinc +boost custom-cflags debug doc float +lange mpi +openmp X"
 
 REQUIRED_USE="?? ( mpi boinc )"
 
@@ -51,13 +51,19 @@ src_prepare() {
 	use custom-cflags || \
 		export CXXFLAGS="-O3 -ffast-math -funroll-loops -finline-functions -finline-limit=20000 -pipe"
 
+	export LD_LIBRARY_PATH=""
+	use lange && \
+		epatch \
+			"${DISTDIR}"/patch_${PN}${PV}_to_CSROSETTA3_ver1.3.txt \
+			"${FILESDIR}"/${P}-lange-fix.patch
+
 	epatch \
 		"${FILESDIR}"/${P}-platform.patch \
 		"${FILESDIR}"/${P}-user-settings.patch \
 		"${FILESDIR}"/${P}-fix-valgrind.patch \
 		"${FILESDIR}"/${P}-boinc.patch \
 		"${FILESDIR}"/${P}-boost.patch \
-		"${FILESDIR}"/${P}-gcc4.7.patch
+		"${FILESDIR}"/${P}-gcc4.78.patch
 
 	eprefixify tools/build/*
 
