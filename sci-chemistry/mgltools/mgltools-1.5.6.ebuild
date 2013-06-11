@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_5,2_6,2_7} )
+PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit python-r1
 
@@ -36,7 +36,7 @@ RDEPEND="${PLUG_DEP}
 	sci-libs/msms
 	dev-python/pmw[${PYTHON_USEDEP}]
 	dev-python/simpy[${PYTHON_USEDEP}]
-	dev-python/imaging[tk,${PYTHON_USEDEP}]
+	virtual/python-imaging[tk,${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}"
 
