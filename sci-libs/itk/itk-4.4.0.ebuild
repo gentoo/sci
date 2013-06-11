@@ -85,11 +85,8 @@ src_configure() {
 		$(cmake-utils_use_build test TESTING)
 		$(cmake-utils_use hdf5 ITK_USE_SYSTEM_HDF5)
 		$(cmake-utils_use review ITK_USE_REVIEW)
+		$(cmake-utils_use itkv3compat ITKV3_COMPATIBILITY)
 		)
-
-	if use itkv3compat; then
-		mycmakeargs+=( -DITKV3_COMPATIBILITY=ON  )
-	fi
 
 	if use fftw; then
 		mycmakeargs+=(
