@@ -6,7 +6,7 @@ EAPI="5"
 
 PYTHON_COMPAT=( python{2_5,2_6,2_7} )
 
-inherit eutils toolchain-funcs cmake-utils  python‑single‑r1
+inherit eutils toolchain-funcs cmake-utils  python-single-r1
 
 DESCRIPTION="NLM Insight Segmentation and Registration Toolkit"
 HOMEPAGE="http://www.itk.org"
@@ -18,7 +18,7 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="debug examples fftw hdf5 itkv3compat patented python  review test"
 
-RDEPEND="fftw? ( sci-libs/fftw:3 )
+RDEPEND="fftw? ( sci-libs/fftw:3.0 )
 	 hdf5? ( sci-libs/hdf5[cxx] )
 		virtual/jpeg
 		media-libs/libpng
