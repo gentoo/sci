@@ -3,23 +3,23 @@
 # $Header: $
 
 EAPI="5"
-PYTHON_DEPEND="2:2.6"
 
-inherit eutils toolchain-funcs cmake-utils
+PYTHON_COMPAT=( python{2_5,2_6,2_7} )
+
+inherit eutils toolchain-funcs cmake-utils  python‑single‑r1
 
 DESCRIPTION="NLM Insight Segmentation and Registration Toolkit"
 HOMEPAGE="http://www.itk.org"
 SRC_URI="mirror://sourceforge/itk/InsightToolkit-${PV}.tar.gz"
 RESTRICT="primaryuri"
 
-LICENSE="BSD"
+LICENSE="APACHE-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="debug examples fftw +shared test python hdf5 itkv3compat review patented"
+IUSE="debug examples fftw hdf5 itkv3compat patented python  review test"
 
-RDEPEND="sys-libs/zlib
-	fftw? ( sci-libs/fftw )
-	hdf5?  ( sci-libs/hdf5[cxx] )
+RDEPEND="fftw? ( sci-libs/fftw:3 )
+	 hdf5? ( sci-libs/hdf5[cxx] )
 		virtual/jpeg
 		media-libs/libpng
 		media-libs/tiff:0
@@ -33,9 +33,9 @@ DEPEND="${RDEPEND}
 MY_PN=InsightToolkit
 S="${WORKDIR}/${MY_PN}-${PV}"
 
-src_prepare() {
-	epatch "${FILESDIR}/itk-4.4-v3compat_I2VI_const-fix.patch"
-}
+PATCHES=(
+	"${FILESDIR}/itk-4.4-v3compat_I2VI_const-fix.patch"
+)
 
 src_configure() {
 	if [ "x$ITK_COMPUTER_MEMORY_SIZE" = "x" ]; then
@@ -56,10 +56,10 @@ src_configure() {
 		 -DITK_BUILD_ALL_MODULES=ON
 		 -DITK_USE_SYSTEM_GCCXML=ON
 		 -DITK_USE_SYSTEM_SWIG=ON
+                 -DBUILD_SHARED_LIBS=ON
+		$(cmake-utils_use_build examples)
+		$(cmake-utils_use_build test TESTING)
 		$(cmake-utils_use hdf5 ITK_USE_SYSTEM_HDF5)
-		$(cmake-utils_use examples BUILD_EXAMPLES)
-		$(cmake-utils_use shared BUILD_SHARED_LIBS)
-		$(cmake-utils_use test BUILD_TESTING)
 		$(cmake-utils_use review ITK_USE_REVIEW)
 		$(cmake-utils_use patented ITK_USE_PATENTED)
 		)
@@ -104,21 +104,20 @@ src_install() {
 		rm -rf $(find "Examples" -type d -a -name "CMakeFiles") \; || \
 			 die "Failed remove build files"
 
-		dodir /usr/share/${MY_PN}/examples ||	\
-			die "Failed to create examples directory"
+		dodir /usr/share/${MY_PN}/examples 
 
 		pushd "${S}"
-		# remove CVS directories from examples folder
-		rm -rf $(find "Examples" -type d -name CVS ) ||\
-			die "Failed to remove CVS folders"
+
+
 		cp -pPR "Examples" "${D}/usr/share/${MY_PN}/examples/src" || \
 			die "Failed to copy example files"
 
 		popd
 
 		# copy binary examples
-		cp -pPR "bin" "${D}/usr/share/${MY_PN}/examples" || \
-			die "Failed to copy binary example files"
+                insinto /usr/share/${MY_PN}/examples
+                doins -r bin    
+
 		rm -rf "${D}"/usr/share/"${MY_PN}"/examples/bin/*.so* || \
 			die "Failed to remove libraries from examples directory"
 
@@ -132,9 +131,9 @@ src_install() {
 	fi
 	popd
 
-	echo "ITK_DATA_ROOT=/usr/share/${PN}/data" > ${T}/40${PN}
+	echo "ITK_DATA_ROOT=${EPREFIX}/usr/share/${PN}/data" > ${T}/40${PN}
 
-	LDPATH="/usr/lib/InsightToolkit"
+	LDPATH="/usr/$(get_libdir)/InsightToolkit"
 
 	if use python; then
 	   echo "PYTHONPATH=/usr/lib/InsightToolkit/WrapITK/Python" >> ${T}/40${PN}
