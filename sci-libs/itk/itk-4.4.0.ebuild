@@ -67,12 +67,6 @@ pkg_pretend() {
 }
 
 src_configure() {
-	if [ "x$ITK_COMPUTER_MEMORY_SIZE" = "x" ]; then
-		ITK_COMPUTER_MEMORY_SIZE=4
-	fi
-	if [ "x$ITK_WRAP_DIMS" = "x" ]; then
-		ITK_WRAP_DIMS=2,3
-	fi
 
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_PREFIX:PATH=/usr
