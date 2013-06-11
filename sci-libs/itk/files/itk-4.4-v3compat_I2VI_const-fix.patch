@@ -10,4 +10,3 @@ diff -ru InsightToolkit-4.4.0/Modules/Compatibility/V3Compatibility/include/itkI
      if ( !input )
        {
        itkExceptionMacro(<< "Input " << i << " not set!");
-Only in InsightToolkit-4.4.0.new/Modules/Compatibility/V3Compatibility/include: itkImageToVectorImageFilter.hxx~
