@@ -13,7 +13,7 @@ HOMEPAGE="http://www.itk.org"
 SRC_URI="mirror://sourceforge/itk/InsightToolkit-${PV}.tar.gz"
 RESTRICT="primaryuri"
 
-LICENSE="APACHE-2.0"
+LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="debug examples fftw hdf5 itkv3compat patented python  review test"
@@ -37,6 +37,35 @@ PATCHES=(
 	"${FILESDIR}/itk-4.4-v3compat_I2VI_const-fix.patch"
 )
 
+pkg_pretend() {
+	bailout=no
+	if [ "x$ITK_COMPUTER_MEMORY_SIZE" = "x" ]; then
+		eerror "To tune ITK to make the best use ouf working memory you must set"
+		eerror "ITK_COMPUTER_MEMORY_SIZE in /etc/make.conf to the size of the "
+		eerror "memory installed in your machine. For example for 4GB you do:"
+		eerror ""
+		eerror "   echo 'ITK_COMPUTER_MEMORY_SIZE=4' >> /etc/make.conf"
+		eerror ""
+		bailout=yes
+	fi
+
+	if use python ; then
+		if [ "x$ITK_WRAP_DIMS" = "x" ]; then
+			eerror "For Python language bindings it is necessary to "
+			eerror "define the dimensions you want to create bindings for"
+			eerror "by setting in ITK_WRAP_DIMS in /etc/make.conf."
+			eerror "For example, to provide bindings for 2D and 3D data do:"
+			eerror ""
+			eerror "  echo 'ITK_WRAP_DIMS=2;3' >> /etc/make.conf"
+			eerror ""
+			bailout=yes
+		fi
+	fi
+	if [ "x$bailout" = "xyes" ]; then
+		die "Please add the missing variables to /etc/make.conf and then restart emerge"
+	fi
+}
+
 src_configure() {
 	if [ "x$ITK_COMPUTER_MEMORY_SIZE" = "x" ]; then
 		ITK_COMPUTER_MEMORY_SIZE=4
@@ -56,7 +85,8 @@ src_configure() {
 		 -DITK_BUILD_ALL_MODULES=ON
 		 -DITK_USE_SYSTEM_GCCXML=ON
 		 -DITK_USE_SYSTEM_SWIG=ON
-                 -DBUILD_SHARED_LIBS=ON
+		 -DBUILD_SHARED_LIBS=ON
+		 -DITK_COMPUTER_MEMORY_SIZE="$ITK_COMPUTER_MEMORY_SIZE"
 		$(cmake-utils_use_build examples)
 		$(cmake-utils_use_build test TESTING)
 		$(cmake-utils_use hdf5 ITK_USE_SYSTEM_HDF5)
@@ -81,7 +111,10 @@ src_configure() {
 	fi
 
 	if use python; then
-		mycmakeargs+=( -DITK_WRAP_PYTHON=ON)
+		mycmakeargs+=(
+			-DITK_WRAP_PYTHON=ON
+			-DITK_WRAP_DIMS="$ITK_WRAP_DIMS"
+		)
 	fi
 
 	cmake-utils_src_configure
@@ -104,10 +137,9 @@ src_install() {
 		rm -rf $(find "Examples" -type d -a -name "CMakeFiles") \; || \
 			 die "Failed remove build files"
 
-		dodir /usr/share/${MY_PN}/examples 
+		dodir /usr/share/${MY_PN}/examples
 
 		pushd "${S}"
-
 
 		cp -pPR "Examples" "${D}/usr/share/${MY_PN}/examples/src" || \
 			die "Failed to copy example files"
@@ -115,8 +147,8 @@ src_install() {
 		popd
 
 		# copy binary examples
-                insinto /usr/share/${MY_PN}/examples
-                doins -r bin    
+				insinto /usr/share/${MY_PN}/examples
+				doins -r bin
 
 		rm -rf "${D}"/usr/share/"${MY_PN}"/examples/bin/*.so* || \
 			die "Failed to remove libraries from examples directory"
