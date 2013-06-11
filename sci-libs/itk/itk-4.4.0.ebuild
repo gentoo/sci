@@ -16,7 +16,7 @@ RESTRICT="primaryuri"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="debug examples fftw hdf5 itkv3compat patented python  review test"
+IUSE="debug examples fftw hdf5 itkv3compat python  review test"
 
 RDEPEND="fftw? ( sci-libs/fftw:3.0 )
 	 hdf5? ( sci-libs/hdf5[cxx] )
@@ -27,7 +27,7 @@ RDEPEND="fftw? ( sci-libs/fftw:3.0 )
 		"
 DEPEND="${RDEPEND}
 		  >=dev-util/cmake-2.8
-	python? ( >=dev-lang/python-2.5 >=dev-lang/swig-2.0 >=dev-cpp/gccxml-0.9.0_pre20120309 )
+	python? ( ${PYTHON_DEPS}  >=dev-lang/swig-2.0 >=dev-cpp/gccxml-0.9.0_pre20120309 )
 	"
 
 MY_PN=InsightToolkit
@@ -75,23 +75,22 @@ src_configure() {
 	fi
 
 	local mycmakeargs=(
-		 -DCMAKE_INSTALL_PREFIX:PATH=/usr
-		 -DWRAP_ITK_JAVA=OFF
-		 -DWRAP_ITK_TCL=OFF
-		 -DITK_USE_SYSTEM_JPEG=ON
-		 -DITK_USE_SYSTEM_PNG=ON
-		 -DITK_USE_SYSTEM_TIFF=ON
-		 -DITK_USE_SYSTEM_ZLIB=ON
-		 -DITK_BUILD_ALL_MODULES=ON
-		 -DITK_USE_SYSTEM_GCCXML=ON
-		 -DITK_USE_SYSTEM_SWIG=ON
-		 -DBUILD_SHARED_LIBS=ON
-		 -DITK_COMPUTER_MEMORY_SIZE="$ITK_COMPUTER_MEMORY_SIZE"
+		-DCMAKE_INSTALL_PREFIX:PATH=/usr
+		-DWRAP_ITK_JAVA=OFF
+		-DWRAP_ITK_TCL=OFF
+		-DITK_USE_SYSTEM_JPEG=ON
+		-DITK_USE_SYSTEM_PNG=ON
+		-DITK_USE_SYSTEM_TIFF=ON
+		-DITK_USE_SYSTEM_ZLIB=ON
+		-DITK_BUILD_ALL_MODULES=ON
+		-DITK_USE_SYSTEM_GCCXML=ON
+		-DITK_USE_SYSTEM_SWIG=ON
+		-DBUILD_SHARED_LIBS=ON
+		-DITK_COMPUTER_MEMORY_SIZE="$ITK_COMPUTER_MEMORY_SIZE"
 		$(cmake-utils_use_build examples)
 		$(cmake-utils_use_build test TESTING)
 		$(cmake-utils_use hdf5 ITK_USE_SYSTEM_HDF5)
 		$(cmake-utils_use review ITK_USE_REVIEW)
-		$(cmake-utils_use patented ITK_USE_PATENTED)
 		)
 
 	if use itkv3compat; then
@@ -119,11 +118,6 @@ src_configure() {
 
 	cmake-utils_src_configure
 }
-
-#src_compile() {
-#	cd "${WORKDIR}/${PN}-${PV}_build"
-#        emake || die "emake failed"
-#}
 
 src_install() {
 
@@ -174,16 +168,5 @@ src_install() {
 	echo "LDPATH=${LDPATH}" >> $T/40${PN}
 
 	doenvd "${T}/40${PN}"
-
-}
-
-pkg_postinst() {
-
-	if use patented; then
-		ewarn "Using patented code in ITK may require a license."
-		ewarn "For more information, please read:"
-		ewarn "http://www.itk.org/HTML/Copyright.htm"
-		ewarn "http://www.itk.org/Wiki/ITK_Patent_Bazaar"
-	fi
 
 }
