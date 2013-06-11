@@ -26,7 +26,7 @@ RDEPEND="fftw? ( sci-libs/fftw:3.0 )
 		sys-libs/zlib
 		"
 DEPEND="${RDEPEND}
-		  >=dev-util/cmake-2.8
+	>=dev-util/cmake-2.8
 	python? ( ${PYTHON_DEPS}  >=dev-lang/swig-2.0 >=dev-cpp/gccxml-0.9.0_pre20120309 )
 	"
 
@@ -141,8 +141,8 @@ src_install() {
 		popd
 
 		# copy binary examples
-				insinto /usr/share/${MY_PN}/examples
-				doins -r bin
+		insinto /usr/share/${MY_PN}/examples
+		doins -r bin
 
 		rm -rf "${D}"/usr/share/"${MY_PN}"/examples/bin/*.so* || \
 			die "Failed to remove libraries from examples directory"
@@ -162,11 +162,10 @@ src_install() {
 	LDPATH="/usr/$(get_libdir)/InsightToolkit"
 
 	if use python; then
-	   echo "PYTHONPATH=/usr/lib/InsightToolkit/WrapITK/Python" >> ${T}/40${PN}
-	   LDPATH="${LDPATH}:/usr/lib/InsightToolkit/WrapITK/lib"
-		fi
+		echo "PYTHONPATH=/usr/lib/InsightToolkit/WrapITK/Python" >> ${T}/40${PN}
+		LDPATH="${LDPATH}:/usr/lib/InsightToolkit/WrapITK/lib"
+	fi
 	echo "LDPATH=${LDPATH}" >> $T/40${PN}
 
 	doenvd "${T}/40${PN}"
-
 }
