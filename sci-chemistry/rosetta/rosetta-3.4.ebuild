@@ -145,8 +145,13 @@ src_install() {
 		newbin ${BIN} ${BIN%%.*} || die "could not install rosetta program files"
 	done
 
-	[[ -e "${ED}"/usr/bin/cluster ]] && ( mv "${ED}"/usr/bin/cluster{,-${PN}} || die )
-	[[ -e "${ED}"/usr/bin/benchmark ]] && ( mv "${ED}"/usr/bin/benchmark{,-${PN}} || die )
+	if [[ -e "${ED}"/usr/bin/cluster ]]; then
+		mv "${ED}"/usr/bin/cluster{,-${PN}} || die
+	fi
+
+	if [[ -e "${ED}"/usr/bin/benchmark ]]; then
+		mv "${ED}"/usr/bin/benchmark{,-${PN}} || die
+	fi
 }
 
 my_filter_option() {
