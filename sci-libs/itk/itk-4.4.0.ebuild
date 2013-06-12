@@ -19,7 +19,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="debug examples fftw hdf5 itkv3compat python  review test"
 
 RDEPEND="fftw? ( sci-libs/fftw:3.0 )
-	 hdf5? ( sci-libs/hdf5[cxx] )
+	hdf5? ( sci-libs/hdf5[cxx] )
 		virtual/jpeg
 		media-libs/libpng
 		media-libs/tiff:0
@@ -40,24 +40,24 @@ PATCHES=(
 pkg_pretend() {
 	bailout=no
 	if [ "x$ITK_COMPUTER_MEMORY_SIZE" = "x" ]; then
-		eerror "To tune ITK to make the best use ouf working memory you must set"
-		eerror "ITK_COMPUTER_MEMORY_SIZE in /etc/make.conf to the size of the "
-		eerror "memory installed in your machine. For example for 4GB you do:"
-		eerror ""
-		eerror "   echo 'ITK_COMPUTER_MEMORY_SIZE=4' >> /etc/make.conf"
-		eerror ""
+		elog "To tune ITK to make the best use ouf working memory you must set"
+		elog "ITK_COMPUTER_MEMORY_SIZE in /etc/make.conf to the size of the "
+		elog "memory installed in your machine. For example for 4GB you do:"
+		elog ""
+		elog "   echo 'ITK_COMPUTER_MEMORY_SIZE=4' >> /etc/make.conf"
+		elog ""
 		bailout=yes
 	fi
 
 	if use python ; then
 		if [ "x$ITK_WRAP_DIMS" = "x" ]; then
-			eerror "For Python language bindings it is necessary to "
-			eerror "define the dimensions you want to create bindings for"
-			eerror "by setting in ITK_WRAP_DIMS in /etc/make.conf."
-			eerror "For example, to provide bindings for 2D and 3D data do:"
-			eerror ""
-			eerror "  echo 'ITK_WRAP_DIMS=2;3' >> /etc/make.conf"
-			eerror ""
+			elog "For Python language bindings it is necessary to "
+			elog "define the dimensions you want to create bindings for"
+			elog "by setting in ITK_WRAP_DIMS in /etc/make.conf."
+			elog "For example, to provide bindings for 2D and 3D data do:"
+			elog ""
+			elog "  echo 'ITK_WRAP_DIMS=2;3' >> /etc/make.conf"
+			elog ""
 			bailout=yes
 		fi
 	fi
