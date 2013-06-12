@@ -30,10 +30,38 @@
 
 #--- END OF EXAMPLES ---
 
-# Justin Lecher <jlec@gentoo.org> (03 March 2013)
-# Mask for missing license
-sci-biology/lastz
-sci-biology/phylobayes
+# Live ebuilds go here
+# keep this on top
+>=sci-chemistry/freeon-9999
+>=sci-astronomy/eye-9999
+>=sci-astronomy/missfits-9999
+>=sci-astronomy/psfex-9999
+>=sci-astronomy/scamp-9999
+>=sci-astronomy/sextractor-9999
+>=sci-astronomy/skymaker-9999
+>=sci-astronomy/stiff-9999
+>=sci-astronomy/stuff-9999
+>=sci-astronomy/swarp-9999
+>=sci-astronomy/weightwatcher-9999
+>=dev-lang/ispc-9999
+>=media-gfx/librecad-9999
+>=media-gfx/brlcad-9999
+>=dev-lang/path64-9999
+>=sys-cluster/nullmpi-9999
+>=sci-physics/espresso-9999
+>=sci-physics/espresso++-9999
+>=sci-chemistry/gromacs-4.5.9999
+>=sci-chemistry/gromacs-4.6.9999
+>=sci-chemistry/gromacs-9999
+>=sci-libs/votca-tools-9999
+>=sci-chemistry/votca-csg-9999
+>=sci-chemistry/votca-csgapps-9999
+~sci-visualization/gnuplot-4.6.9999
+~sci-visualization/gnuplot-4.7.9999
+~sci-chemistry/burrow-owl-9999_pre15
+>=sci-chemistry/pymol-apbs-plugin-9999
+>=sci-chemistry/coot-9999
+>=sci-chemistry/pymol-9999
 
 # Justin Lecher <jlec@gentoo.org> (03 March 2013)
 # Missing deps
@@ -42,38 +70,9 @@ sci-mathematics/surfer
 dev-python/pymvpa
 sci-biology/artemis-bin
 
-# Nicolas Bock <nicolasbock@gmail.com> (05 July 2012)
-# live ebuild
-=sci-chemistry/freeon-9999
-
-# Sebastien Fabbro <bicatali@gentoo.org> (04 July 2012)
-# live ebuilds
-=sci-astronomy/eye-9999
-=sci-astronomy/missfits-9999
-=sci-astronomy/psfex-9999
-=sci-astronomy/scamp-9999
-=sci-astronomy/sextractor-9999
-=sci-astronomy/skymaker-9999
-=sci-astronomy/stiff-9999
-=sci-astronomy/stuff-9999
-=sci-astronomy/swarp-9999
-=sci-astronomy/weightwatcher-9999
-
-# Christoph Junghans <ottxor@gentoo.org> (14 May 2012)
-# live ebuild
-=dev-lang/ispc-9999
-
 # Justin Lecher <jlec@gentoo.org> (28 Apr 2012)
 # Doesn't install pkg-config files, which many packages rely on
 =sci-libs/mmdb-1.24.20111208
-
-# Andrea Arteaga <andyspiros@gmail.com> (22 Apr 2012)
-# Masked for testing
-sys-cluster/ovis
-
-# Andrea Arteaga <andyspiros@gmail.com> (8 Apr 2012)
-# Masked for testing
-sci-libs/trilinos
 
 # Sebasien Fabbro <bicatali@gentoo.org> (10 Mar 2012)
 # incompatible API with previous versions of metis (4)
@@ -103,18 +102,6 @@ sci-biology/embassy-topo
 sci-biology/embassy-vienna
 sci-biology/embassy-clustalomega
 
-# Dongxu Li <dongxuli2011@gmail.com> (10 Aug 2011)
-# Mask live version of librecad
->=media-gfx/librecad-9999
-
-# Dongxu Li <dongxuli2011@gmail.com> (10 Aug 2011)
-# Mask live version of brlcad
->=media-gfx/brlcad-9999
-
-# Alexey Shvetsov <alexxy@gentoo.org> (30 Jul 2011)
-# Mask live version of path64
-~dev-lang/path64-9999
-
 # Justin Lecher <jlec@gentoo.org> (24 Jun 2011)
 # paraview dep is masked
 sci-visualization/vtkPOFFReader
@@ -124,47 +111,11 @@ sci-visualization/vtkPOFFReader
 # new blas/lapack framework
 =sci-libs/blas-reference-20070226*
 
-# Christoph Junghans <ottxor@gentoo.org> (20 Apr 2011)
-# mask live ebuild
-=sci-physics/espresso-9999
-=sci-physics/espresso++-9999
-
-# Christoph Junghans <ottxor@gentoo.org> (23 Jan 2011)
-# mask live ebuild
-=sys-cluster/nullmpi-9999
-
 # Francois Bissey (kiwifb) (29 Oct 2010)
 # f.r.bissey@massey.ac.nz
 # mask paraview-3.8.* as there are no stable versions in the tree
 # Avoid accidental upgrade
 >=sci-visualization/paraview-3.8.0
-
-# Christoph Junghans <ottxor@gentoo.org> (31 Jul 2010)
-# mask live ebuilds
-=sci-chemistry/gromacs-4.5.9999
-=sci-chemistry/gromacs-4.6.9999
-=sci-chemistry/gromacs-9999
-
-# Christoph Junghans <ottxor@gentoo.org> (04 Nov 2011)
-# mask live ebuilds
-=sci-libs/votca-tools-9999
-=sci-chemistry/votca-csg-9999
-=sci-chemistry/votca-csgapps-9999
-
-# Christoph Junghans <ottxor@gentoo.org> (02 Nov 2009)
-# live cvs ebuild, deps changing constantly
-=sci-visualization/gnuplot-4.6.9999
-=sci-visualization/gnuplot-4.7.9999
-
-# Justin Lecher <jlec@gentoo.org> (1 Aug 2009)
-# mask live ebuild
-=sci-chemistry/burrow-owl-9999_pre15
-
-# Justin Lecher <jlec@gentoo.org> (08 Jun 2009)
-# mask live ebuilds
-=sci-chemistry/pymol-apbs-plugin-9999
-=sci-chemistry/coot-9999
-=sci-chemistry/pymol-9999
 
 # Justin Lecher <jlec@gentoo.org> (11 May 2009)
 # work in progress 
