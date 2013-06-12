@@ -105,7 +105,6 @@ src_prepare() {
 
 	tc-export CXX CC
 
-
 #	cd src/build-system || die
 #	eaclocal -I.
 #	eautoconf

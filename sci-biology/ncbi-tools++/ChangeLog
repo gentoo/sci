@@ -3,6 +3,9 @@
 # $Header: $
 
   12 Jun 2013; Justin Lecher <jlec@gentoo.org> ncbi-tools++-9.0.0-r1.ebuild:
+  Drop empty line
+
+  12 Jun 2013; Justin Lecher <jlec@gentoo.org> ncbi-tools++-9.0.0-r1.ebuild:
   Drop autotools.eclass
 
   01 Apr 2013; Justin Lecher <jlec@gentoo.org> ncbi-tools++-9.0.0-r1.ebuild:
