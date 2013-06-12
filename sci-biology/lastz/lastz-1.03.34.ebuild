@@ -1,27 +1,33 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
+
+inherit eutils flag-o-matic toolchain-funcs
 
 DESCRIPTION="A pairwise DNA sequence aligner (also chromosome to chromosome), a BLASTZ replacement"
 HOMEPAGE="http://www.bx.psu.edu/~rsharris/lastz/"
-SRC_URI="http://www.bx.psu.edu/miller_lab/dist/lastz-"${PV}".tar.gz
-		http://www.bx.psu.edu/miller_lab/dist/lav_format.html"
+SRC_URI="http://www.bx.psu.edu/~rsharris/lastz/newer/${P}.tar.gz"
 
-LICENSE=""
 SLOT="0"
-#KEYWORDS="~amd64 ~x86"
-KEYWORDS=""
+LICENSE="all-rights-reserved"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
 S="${WORKDIR}"/lastz-distrib-"${PV}"
+
+RESTRICT="mirror"
+
+src_prepare() {
+	append-lfs-flags
+	epatch "${FILESDIR}"/${P}-build.patch
+
+	tc-export CC
+}
 
 src_install(){
 	dobin src/lastz src/lastz_D
 	dodoc README.lastz.html
-	dodoc "${DISTDIR}"/lav_format.html
+	dohtml lav_format.html
 }
