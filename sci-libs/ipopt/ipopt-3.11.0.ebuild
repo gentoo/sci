@@ -4,27 +4,30 @@
 
 EAPI=5
 
+AUTOTOOLS_IN_SOURCE_BUILD=yes
 inherit autotools-utils multilib toolchain-funcs
 
 MYPN=Ipopt
+MYP=${MYPN}-${PV}
 
 DESCRIPTION="Interior-Point Optimizer for large-scale nonlinear optimization"
 HOMEPAGE="https://projects.coin-or.org/Ipopt/"
-SRC_URI="http://www.coin-or.org/download/source/${MYPN}/${MYPN}-${PV}.tgz"
+SRC_URI="http://www.coin-or.org/download/source/${MYPN}/${MYP}.tgz"
 
-LICENSE="EPL-1.0"
+LICENSE="EPL-1.0 hsl? ( HSL )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="doc examples lapack mumps static-libs test"
+IUSE="doc examples hsl lapack mumps static-libs test"
 
 RDEPEND="
 	virtual/blas
+	hsl? ( sci-libs/coinhsl )
 	lapack? ( virtual/lapack )
 	mumps? ( sci-libs/mumps )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	doc? ( app-doc/doxygen[dot] )
-	test? ( sci-libs/coinor-sample )"
+	test? ( sci-libs/coinor-sample sci-libs/coinhsl )"
 
 S="${WORKDIR}/${MYPN}-${PV}/${MYPN}"
 
@@ -48,6 +51,7 @@ src_configure() {
 		--with-blas-lib="$($(tc-getPKG_CONFIG) --libs blas)"
 		$(use_with doc dot)
 	)
+
 	if use lapack; then
 		myeconfargs+=( --with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)" )
 	else
@@ -59,6 +63,13 @@ src_configure() {
 			--with-mumps-lib="-lmumps_common -ldmumps -lzmumps -lsmumps -lcmumps" )
 	else
 		myeconfargs+=( --without-mumps )
+	fi
+	if use hsl; then
+		myeconfargs+=(
+			--with-hsl-incdir="${EPREFIX}"/usr/include
+			--with-hsl-lib="$($(tc-getPKG_CONFIG) --libs coinhsl)" )
+	else
+		myeconfargs+=( --without-hsl )
 	fi
 	PKG_CONFIG_PATH+="${ED}"/usr/$(get_libdir)/pkgconfig \
 		autotools-utils_src_configure
