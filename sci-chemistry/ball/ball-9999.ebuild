@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="python? 2"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit cmake-utils git-2 python
+inherit cmake-utils git-2 python-single-r1
 
 DESCRIPTION="Biochemical Algorithms Library"
 HOMEPAGE="http://www.ball-project.org/"
@@ -36,6 +36,7 @@ RDEPEND="
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	mpi? ( virtual/mpi )
 	sql? ( dev-qt/qtsql )
+	python? ( ${PYTHON_DEPS} )
 	webkit? ( dev-qt/qtwebkit )"
 DEPEND="${RDEPEND}
 	dev-python/sip
@@ -48,9 +49,7 @@ PATCHES=(
 	)
 
 pkg_setup() {
-	use python \
-		&& python_set_active_version 2 \
-		&& python_pkg_setup
+	use python && python-single-r1_pkg_setup
 }
 
 src_configure() {
