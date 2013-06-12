@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
-inherit qt4-r2 eutils git-2 flag-o-matic
+EAPI=5
+inherit qt4-r2 eutils git-2
 
-DESCRIPTION="An generic 2D CAD program"
+DESCRIPTION="Generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
 LICENSE="GPL-2"
 SLOT="0"
@@ -26,17 +26,14 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	#sed -i -e "s:\\\$\+system(git describe --tags):9999:" src/src.pro
 	#enable C++11 by default
-	sed -i -e '/RS_VECTOR2D/ s/^#//' librecad/src/src.pro
+	sed -i -e '/RS_VECTOR2D/ s/^#//' librecad/src/src.pro || die
 }
 
-src_install()
-{
+src_install() {
 	dobin unix/librecad
-	insinto /usr/share/"${PN}"
+	insinto /usr/share/${PN}
 	doins -r unix/resources/*
-	if use doc ; then
-	dohtml -r support/doc/*
-	fi
-	doicon librecad/res/main/"${PN}".png
-	make_desktop_entry "${PN}" LibreCAD "${PN}" Graphics
+	use doc && dohtml -r librecad/support/doc/*
+	doicon librecad/res/main/${PN}.png
+	make_desktop_entry ${PN} LibreCAD ${PN} Graphics
 }
