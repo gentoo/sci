@@ -31,9 +31,6 @@ src_prepare() {
 	sed \
 		-e "s: ar :$(tc-getAR):g" \
 		-i MinLib/Makefile || die
-	sed \
-		-e 's:ccp4_mtz_io.o::' \
-		-i Makefile.make || die
 }
 
 src_compile() {

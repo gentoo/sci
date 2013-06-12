@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*aimless-0.2.1 (12 Jun 2013)
+
+  12 Jun 2013; Justin Lecher <jlec@gentoo.org> -aimless-0.1.30.ebuild,
+  +aimless-0.2.1.ebuild:
+  Version Bump
+
 *aimless-0.1.30 (01 Jun 2013)
 
   01 Jun 2013; Justin Lecher <jlec@gentoo.org> +aimless-0.1.30.ebuild,
