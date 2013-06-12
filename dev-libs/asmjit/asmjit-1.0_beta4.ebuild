@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
 inherit cmake-utils versionator
 
@@ -15,8 +15,8 @@ DESCRIPTION="complete x86/x64 JIT-Assembler for C++ language"
 HOMEPAGE="http://code.google.com/p/asmjit/"
 SRC_URI="http://${PN}.googlecode.com/files/${MY_P}.zip"
 
-LICENSE="as-is"
 SLOT="0"
+LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
