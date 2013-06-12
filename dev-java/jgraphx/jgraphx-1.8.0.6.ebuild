@@ -1,24 +1,28 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
+
 JAVA_PKG_IUSE="doc source"
+
 inherit java-pkg-2 java-ant-2 versionator
 
 MY_PV=$(replace_all_version_separators '_')
 
 DESCRIPTION="Open-source graph component for Java"
-SRC_URI="http://www.jgraph.com/downloads/jgraphx/archive/${PN}-${MY_PV}.zip\
-		-> ${P}.zip"
 HOMEPAGE="http://www.jgraph.com"
+SRC_URI="http://www.jgraph.com/downloads/jgraphx/archive/${PN}-${MY_PV}.zip -> ${P}.zip"
+
+SLOT="1.8"
+LICENSE="BSD"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc examples source"
-DEPEND=">=virtual/jdk-1.5
+
+DEPEND="
+	>=virtual/jdk-1.5
 	app-arch/unzip"
 RDEPEND=">=virtual/jre-1.5"
-LICENSE="as-is"
-SLOT="1.8"
-KEYWORDS="~amd64 ~x86"
 
 S="${WORKDIR}/${PN}"
 
