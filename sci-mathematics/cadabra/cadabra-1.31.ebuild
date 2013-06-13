@@ -9,15 +9,13 @@ inherit eutils texlive-common
 DESCRIPTION="Field-theory motivated computer algebra system"
 HOMEPAGE="http://cadabra.phi-sci.com"
 SRC_URI="http://cadabra.phi-sci.com/${P}.tar.gz"
-#### Remove the following line when moving this ebuild to the main tree!
-RESTRICT="mirror"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc examples X"
 
-DEPEND="
+CDEPEND="
 	sci-libs/modglue
 	sci-mathematics/lie
 	dev-libs/gmp[cxx]
@@ -26,10 +24,12 @@ DEPEND="
 		x11-libs/gtk+:2
 		dev-cpp/gtkmm:2.4
 		dev-cpp/pangomm:1.4
-		app-text/dvipng )
-	doc? ( app-doc/doxygen
+		app-text/dvipng )"
+DEPEND="${CDEPEND}
+	doc? (
+		app-doc/doxygen
 		|| ( app-text/texlive-core dev-tex/pdftex ) )"
-RDEPEND="${DEPEND}
+RDEPEND="${CDEPEND}
 	virtual/latex-base
 	dev-tex/mh"
 
@@ -43,7 +43,7 @@ src_configure(){
 }
 
 src_compile() {
-	emake
+	default
 
 	if use doc; then
 		cd "${S}/doc"
