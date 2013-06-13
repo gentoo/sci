@@ -1,23 +1,21 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=5
 
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils
+inherit distutils-r1
 
 DESCRIPTION="Generation of arbitrary order instances of the Lagrange elements on lines, triangles, and tetrahedra"
 HOMEPAGE="http://launchpad.net/fiat"
-SRC_URI="http://launchpad.net/${PN}/trunk/${PV}/+download/${P}.tar.gz"
+SRC_URI="https://launchpad.net/fiat/1.1.x/release-1.1/+download/${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64"
-
 IUSE=""
 
 DEPEND=""
-RDEPEND="dev-python/scientificpython"
+RDEPEND="dev-python/scientificpython[${PYTHON_USEDEP}]"
