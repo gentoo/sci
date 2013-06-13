@@ -4,19 +4,19 @@
 
 EAPI=5
 
-# inherit
-
 DESCRIPTION="The BLAST NR database"
 HOMEPAGE="http://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=ProgSelectionGuide"
 SRC_URI=""
 
 SLOT="0"
-LICENSE="alrights-resevered"
+LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 RDEPEND=""
-DEPEND="${RDEPEND}"
+DEPEND="sci-biology/ncbi-tools++"
+
+RESTRICT="binchecks strip"
 
 src_unpack() {
 	if [[ -n ${ESLEEP} ]]; then
