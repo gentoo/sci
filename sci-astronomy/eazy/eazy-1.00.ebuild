@@ -1,15 +1,16 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
+
 inherit eutils
 
 DESCRIPTION="Photometric redshift estimator for galaxies"
 HOMEPAGE="http://www.astro.yale.edu/eazy/?home"
 SRC_URI="http://www.astro.yale.edu/eazy/download/${P}.tar.gz"
 
-LICENSE="as-is"
+LICENSE="all-rights-reserved"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc examples"
@@ -23,12 +24,8 @@ src_prepare() {
 }
 
 src_compile() {
-	cd src
-	emake
-	if use doc; then
-		cd ../doc
-		emake
-	fi
+	emake -C src
+	use doc && emake -C doc
 }
 
 src_test() {
@@ -48,6 +45,5 @@ src_install() {
 		rm templates
 		insinto /usr/share/doc/${PF}
 		doins -r *
-		dosym /usr/share/eazy/templates templates
 	fi
 }
