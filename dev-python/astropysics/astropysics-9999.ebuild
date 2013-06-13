@@ -1,53 +1,40 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
+PYTHON_COMPAT=( python2_7 )
 
-EGIT_REPO_URI="git://github.com/eteq/${PN}.git"
-EGIT_BRANCH="master"
-
-inherit distutils git-2
+inherit distutils-r1 git-2
 
 DESCRIPTION="General purpose python library for professional astronomers/astrophysicists"
 HOMEPAGE="http://packages.python.org/Astropysics/"
 SRC_URI=""
+EGIT_REPO_URI="git://github.com/eteq/${PN}.git"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="doc"
 
-DEPEND="doc? ( dev-python/sphinx )"
-RDEPEND="dev-python/chaco
-	dev-python/ipython
-	dev-python/matplotlib
-	dev-python/networkx
-	dev-python/pygraphviz
-	dev-python/atpy[fits,votable]
+DEPEND="doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )"
+RDEPEND="
+	dev-python/chaco[${PYTHON_USEDEP}]
+	dev-python/ipython[${PYTHON_USEDEP}]
+	dev-python/matplotlib[${PYTHON_USEDEP}]
+	dev-python/networkx[${PYTHON_USEDEP}]
+	dev-python/pygraphviz[${PYTHON_USEDEP}]
+	dev-python/atpy[fits,votable,${PYTHON_USEDEP}]
 	sci-astronomy/sextractor
-	sci-visualization/mayavi
-	sci-libs/scipy"
+	sci-visualization/mayavi[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]"
 
-RESTRICT_PYTHON_ABIS="3.*"
-
-src_compile() {
-	distutils_src_compile
-	if use doc; then
-		cd docs
-		emake html || die
-	fi
+python_compile_all() {
+	use doc && emake -C docs html
 }
 
-src_install() {
-	distutils_src_install
-	if use doc; then
-		cd docs/_build
-		insinto /usr/share/doc/${PF}
-		doins -r html || die
-		cd ../..
-	fi
+python_install_all() {
+	use doc && HTML_DOCS=( docs/_build/html/. )
+	distutils-r1_python_install_all
 }
