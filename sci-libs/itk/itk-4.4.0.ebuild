@@ -16,15 +16,15 @@ RESTRICT="primaryuri"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="debug examples fftw hdf5 itkv3compat python  review test"
+IUSE="debug examples fftw itkv3compat python  review sse2 test"
 
 RDEPEND="fftw? ( sci-libs/fftw:3.0 )
-	hdf5? ( sci-libs/hdf5[cxx] )
-		virtual/jpeg
-		media-libs/libpng
-		media-libs/tiff:0
-		sys-libs/zlib
-		"
+	sci-libs/hdf5[cxx]
+	virtual/jpeg
+	media-libs/libpng
+	media-libs/tiff:0
+	sys-libs/zlib
+	"
 DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.8
 	python? ( ${PYTHON_DEPS}  >=dev-lang/swig-2.0 >=dev-cpp/gccxml-0.9.0_pre20120309 )
@@ -38,31 +38,33 @@ PATCHES=(
 )
 
 pkg_pretend() {
-	bailout=no
+	missing_memsize="no"
 	if [ "x$ITK_COMPUTER_MEMORY_SIZE" = "x" ]; then
-		elog "To tune ITK to make the best use ouf working memory you must set"
+		elog "To tune ITK to make the best use ouf working memory you should set"
 		elog "ITK_COMPUTER_MEMORY_SIZE in /etc/make.conf to the size of the "
 		elog "memory installed in your machine. For example for 4GB you do:"
 		elog ""
 		elog "   echo 'ITK_COMPUTER_MEMORY_SIZE=4' >> /etc/make.conf"
-		elog ""
-		bailout=yes
+		elog "---"
+		missing_memsize="ITK_COMPUTER_MEMORY_SIZE and"
 	fi
 
 	if use python ; then
+
 		if [ "x$ITK_WRAP_DIMS" = "x" ]; then
-			elog "For Python language bindings it is necessary to "
-			elog "define the dimensions you want to create bindings for"
-			elog "by setting in ITK_WRAP_DIMS in /etc/make.conf."
-			elog "For example, to provide bindings for 2D and 3D data do:"
-			elog ""
-			elog "  echo 'ITK_WRAP_DIMS=2;3' >> /etc/make.conf"
-			elog ""
-			bailout=yes
+			eerror "For Python language bindings it is necessary to "
+			eerror "define the dimensions you want to create bindings for"
+			eerror "by setting in ITK_WRAP_DIMS in /etc/make.conf."
+			eerror "For example, to provide bindings for 2D and 3D data do:"
+			eerror ""
+			eerror "  echo 'ITK_WRAP_DIMS=2;3' >> /etc/make.conf"
+			eerror ""
+			# Compiling with python support takes very long, therefore it is better
+			# to bailout here if one or both of above variables are not set, and ask
+			# the user to provide the values.
+			die "Missing value for ITK_WRAP_DIMS"
+
 		fi
-	fi
-	if [ "x$bailout" = "xyes" ]; then
-		die "Please add the missing variables to /etc/make.conf and then restart emerge"
 	fi
 }
 
@@ -80,13 +82,21 @@ src_configure() {
 		-DITK_USE_SYSTEM_GCCXML=ON
 		-DITK_USE_SYSTEM_SWIG=ON
 		-DBUILD_SHARED_LIBS=ON
-		-DITK_COMPUTER_MEMORY_SIZE="$ITK_COMPUTER_MEMORY_SIZE"
+		-DITK_USE_SYSTEM_HDF5=ON
 		$(cmake-utils_use_build examples)
 		$(cmake-utils_use_build test TESTING)
-		$(cmake-utils_use hdf5 ITK_USE_SYSTEM_HDF5)
 		$(cmake-utils_use review ITK_USE_REVIEW)
 		$(cmake-utils_use itkv3compat ITKV3_COMPATIBILITY)
+		$(cmake-utils_use sse2 VNL_CONFIG_ENABLE_SSE2)
 		)
+
+	# if this is not set, it defaults to 1GB, should be okay for most people.
+	#
+	if [ "x$ITK_COMPUTER_MEMORY_SIZE" != "x" ]; then
+		mycmakeargs+=(
+			-DITK_COMPUTER_MEMORY_SIZE="$ITK_COMPUTER_MEMORY_SIZE"
+		)
+	fi
 
 	if use fftw; then
 		mycmakeargs+=(
