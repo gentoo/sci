@@ -1,6 +1,12 @@
 # ChangeLog for dev-python/ffc
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*ffc-1.2.0 (13 Jun 2013)
+
+  13 Jun 2013; Justin Lecher <jlec@gentoo.org> -ffc-0.9.4.ebuild,
+  +ffc-1.2.0.ebuild, metadata.xml:
+  Version Bump; Bump to EAPI=5 and distutils-r1.eclass
 
 *ffc-0.9.4 (14 Dec 2010)
 
