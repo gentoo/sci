@@ -16,20 +16,22 @@ LICENSE="GPL-2"
 SLOT="0"
 
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="examples"
+IUSE="examples extra python"
 
 RDEPEND="
 	dev-python/numpy
-	media-libs/libpng
-	media-libs/netpbm
 	sci-astronomy/wcslib
 	sci-libs/cfitsio
 	sci-libs/gsl
 	sys-libs/zlib
-	virtual/jpeg
 	virtual/pyfits
-	x11-libs/cairo"
+	extra? (
+		media-libs/libpng
+		media-libs/netpbm
+		virtual/jpeg
+		x11-libs/cairo )"
 DEPEND="${RDEPEND}
+	dev-lang/swig
 	virtual/pkgconfig"
 
 S="${WORKDIR}/${MYP}"
@@ -45,17 +47,31 @@ src_compile() {
 	emake \
 		CC=$(tc-getCC) \
 		RANLIB=$(tc-getRANLIB) \
-		AR=$(tc-getAR)
-	emake \
-		CC=$(tc-getCC) \
-		RANLIB=$(tc-getRANLIB) \
 		AR=$(tc-getAR) \
-		extra
+		all report.txt
+	if use extra; then
+		emake \
+			CC=$(tc-getCC) \
+			RANLIB=$(tc-getRANLIB) \
+			AR=$(tc-getAR) \
+			extra
+	fi
+	# TODO: work it out for multiple python abi
+	if use python; then
+		emake \
+			CC=$(tc-getCC) \
+			RANLIB=$(tc-getRANLIB) \
+			AR=$(tc-getAR) \
+			py
+	fi
 }
 
 src_install() {
+	# TODO: install in standard directories to respect FHS
 	export INSTALL_DIR="${ED}"/usr/astrometry
-	emake install
+	emake install-core
+	use extra && emake -C blind install-extras
+
 	# remove cfitsio duplicates
 	rm ${INSTALL_DIR}/bin/{fitscopy,imcopy,listhead} || die
 
@@ -66,6 +82,6 @@ src_install() {
 	if use examples; then
 		mv ${INSTALL_DIR}/examples "${ED}"/usr/share/doc/${PF} || die
 	else
-		rm -r ${INSTALL_DIR}/examples
+		rm -r ${INSTALL_DIR}/examples || die
 	fi
 }
