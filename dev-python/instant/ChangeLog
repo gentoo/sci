@@ -1,6 +1,12 @@
 # ChangeLog for dev-python/instant
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*instant-1.2.0 (14 Jun 2013)
+
+  14 Jun 2013; Justin Lecher <jlec@gentoo.org> -instant-0.9.8.ebuild,
+  +instant-1.2.0.ebuild, metadata.xml:
+  Version Bump; Bump to EAPI=5 and distutils-r1.eclass
 
 *instant-0.9.8 (14 Dec 2010)
 
