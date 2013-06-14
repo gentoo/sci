@@ -4,9 +4,9 @@
 
 EAPI=5
 
-PYTHON_DEPEND="2:2.6"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit cmake-utils python
+inherit cmake-utils python-single-r1
 
 DESCRIPTION="extensible, flexible, fast and parallel simulation software for soft matter research"
 HOMEPAGE="https://www.espresso-pp.de"
@@ -24,25 +24,19 @@ CMAKE_REMOVE_MODULES_LIST="FindBoost"
 
 LICENSE="GPL-3 !system-boost? ( Boost-1.0 )"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
+KEYWORDS=""
 IUSE="-system-boost"
 
-RDEPEND="
-	system-boost? ( dev-libs/boost[python,mpi] )
-	virtual/mpi
-	"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
+RDEPEND="${PYTHON_DEPS}
+	virtual/mpi
+	system-boost? ( dev-libs/boost[python,mpi,${PYTHON_USEDEP}] )"
 DEPEND="${RDEPEND}"
 
 DOCS=( AUTHORS NEWS README )
 
-pkg_setup() {
-	python_set_active_version 2
-}
-
 src_configure() {
-	mycmakeargs=(
-		$(cmake-utils_use system-boost EXTERNAL_BOOST)
-	)
+	mycmakeargs=( $(cmake-utils_use system-boost EXTERNAL_BOOST) )
 	cmake-utils_src_configure
 }
