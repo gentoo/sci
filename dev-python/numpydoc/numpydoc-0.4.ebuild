@@ -1,13 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
-PYTHON_DEPEND="2:2.5"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+EAPI=5
 
-inherit distutils
+PYTHON_COMPAT=( python{2_6,2_7} )
+
+inherit distutils-r1
 
 DESCRIPTION="Sphinx extension to support docstrings in Numpy format"
 HOMEPAGE="
@@ -20,12 +19,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
-DEPEND="test? ( >=dev-python/sphinx-0.5 )"
-RDEPEND=">=dev-python/sphinx-0.5"
+DEPEND="test? ( >=dev-python/sphinx-0.5[${PYTHON_USEDEP}] )"
+RDEPEND=">=dev-python/sphinx-0.5[${PYTHON_USEDEP}]"
 
-src_test() {
-	testing() {
-		PYTHONPATH="build-${PYTHON_ABI}/abi" "$(PYTHON)" tests/test_docscrape.py
-	}
-	python_execute_function testing
+python_test() {
+	${PYTHON} tests/test_docscrape.py || die
 }
