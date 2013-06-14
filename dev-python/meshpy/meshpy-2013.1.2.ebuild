@@ -1,13 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils
+inherit distutils-r1
 
 MY_PN="MeshPy"
 
@@ -21,16 +20,20 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	dev-libs/boost[python]
-	dev-python/pyvtk"
-DEPEND="
-	${RDEPEND}
-	dev-python/setuptools"
+	dev-libs/boost[python,${PYTHON_USEDEP}]
+	dev-python/pyvtk[${PYTHON_USEDEP}]"
+DEPEND="${RDEPEND}
+	dev-python/setuptools[${PYTHON_USEDEP}]"
 
 S="${WORKDIR}/${MY_PN}-${PV}"
 
-src_prepare() {
+python_prepare_all() {
 	sed 's: delay = 10: delay = 1:g' -i aksetup_helper.py || die
-	echo "BOOST_PYTHON_LIBNAME = ['boost_python-mt']">> siteconf.py
-	distutils_src_prepare
+	distutils-r1_python_prepare_all
+}
+
+python_compile() {
+	mkdir "${BUILD_DIR}" || die
+	echo "BOOST_PYTHON_LIBNAME = [\'boost_${EPYTHON}-mt\']">> "${BUILD_DIR}"/siteconf.py
+	distutils-r1_python_compile
 }
