@@ -64,7 +64,7 @@ src_install() {
 	dodoc ${INSTALL_DIR}/doc/*
 	rm -r ${INSTALL_DIR}/doc || die
 	if use examples; then
-		mv ${INSTALL_DIR}/examples ${ED}/usr/share/doc/${PF} || die
+		mv ${INSTALL_DIR}/examples "${ED}"/usr/share/doc/${PF} || die
 	else
 		rm -r ${INSTALL_DIR}/examples
 	fi
