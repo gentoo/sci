@@ -11,7 +11,7 @@ ESVN_REPO_URI="https://brlcad.svn.sourceforge.net/svnroot/${PN}/${PN}/trunk"
 
 LICENSE="LGPL-2 BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="benchmarks debug doc examples java opengl smp"
 
 RDEPEND="media-libs/libpng
