@@ -3,16 +3,18 @@
 # $Header: $
 
 EAPI=5
+
 inherit qt4-r2 eutils git-2
 
 DESCRIPTION="Generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
+SRC_URI=""
+EGIT_REPO_URI="https://github.com/LibreCAD/LibreCAD.git"
+
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="debug doc"
-
-EGIT_REPO_URI="https://github.com/LibreCAD/LibreCAD.git"
 
 DEPEND="${RDEPEND}
 	dev-qt/qtgui:4
@@ -20,8 +22,7 @@ DEPEND="${RDEPEND}
 	dev-qt/qtsvg:4
 	dev-libs/boost
 	dev-cpp/muParser
-	media-libs/freetype
-"
+	media-libs/freetype"
 
 src_prepare() {
 	#sed -i -e "s:\\\$\+system(git describe --tags):9999:" src/src.pro
