@@ -20,7 +20,7 @@ fi
 
 LICENSE="BSD BSD-2 UoI-NCSA"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="examples"
 
 RDEPEND="
