@@ -1,17 +1,14 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="2:2.5"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
 AUTHOR=pingswept
-GIT_HASH=42d1abd
 
-inherit distutils python
+inherit distutils-r1 vcs-snapshot
 
 DESCRIPTION="A collection of Python libraries for simulating the Sun's irradiation"
 HOMEPAGE="http://pysolar.org/ http://pypi.python.org/pypi/Pysolar/"
@@ -24,43 +21,32 @@ IUSE="doc"
 
 DEPEND="doc? ( dev-python/numpydoc )"
 RDEPEND="
-	dev-python/imaging
-	dev-python/matplotlib
-	dev-python/numpy
-	dev-python/pygtk:2
-	dev-python/pytz
-	sci-libs/scipy"
+	virtual/python-imaging[${PYTHON_USEDEP}]
+	dev-python/matplotlib[${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-python/pygtk:2[${PYTHON_USEDEP}]
+	dev-python/pytz[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]"
 
-S=${WORKDIR}/${AUTHOR}-${PN}-${GIT_HASH}
-
-PYTHON_MODNAME="constants.py horizon.py julian.py \
-	poly.py query_usno.py radiation.py shade.py \
-	simulate.py solar.py util.py"
-
-src_prepare() {
+python_prepare_all() {
 	sed \
 		-e "s:'testsolar', ::" \
 		-e "s:'shade_test', ::" \
 		-i setup.py || die # don't install tests
-	distutils_src_prepare
+	distutils-r1_python_prepare_all
 }
 
-src_compile() {
-	distutils_src_compile
-
+python_compile_all() {
 	if use doc; then
 		PYTHONPATH=".." emake -C doc html
 	fi
 }
 
-src_test() {
-	testing() {
-		PYTHONPATH="build-${PYTHON_ABI}/abi" "$(PYTHON)" testsolar.py
-	}
-	python_execute_function testing
+python_test() {
+	${PYTHON} testsolar.py || die
 }
 
-src_install() {
-	distutils_src_install
-	use doc && dohtml -r doc/.build/html/*
+python_install_all() {
+	use doc && HTML_DOSC=( doc/.build/html/. )
+	distutils-r1_python_install_all
 }

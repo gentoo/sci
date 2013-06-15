@@ -19,9 +19,8 @@ SLOT="0"
 KEYWORDS=""
 IUSE="+client +utils server liblustre readline tests tcpd +urandom"
 
-DEPEND="
+RDEPEND="
 	virtual/awk
-	virtual/linux-sources
 	readline? ( sys-libs/readline )
 	tcpd? ( sys-apps/tcp-wrappers )
 	server? (
@@ -30,7 +29,8 @@ DEPEND="
 		sys-fs/zfs
 	)
 	"
-RDEPEND="${DEPEND}"
+DEPEND="${RDEPEND}
+	virtual/linux-sources"
 
 PATCHES=(
 	"${FILESDIR}/0001-LU-1812-kernel-3.7-FC18-server-patches.patch"

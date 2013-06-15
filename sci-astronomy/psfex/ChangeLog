@@ -1,6 +1,9 @@
 # ChangeLog for sci-astronomy/psfex
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  14 Jun 2013; Justin Lecher <jlec@gentoo.org> psfex-9999.ebuild, metadata.xml:
+  Drop KEYWORDS of live ebuilds
 
   29 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> psfex-3.9.1-r1.ebuild:
   sci-astronomy/psfex: fixed for newer plplot

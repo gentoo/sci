@@ -30,6 +30,15 @@ RDEPEND="
 DEPEND="${DEPEND}
 	virtual/pkgconfig"
 
+src_prepare() {
+	# Get rid of the obsolete internal hdf5
+	rm -r "${S}"/Modules/hdf5-1.8.3
+	# as well as of the internal lapack
+	rm -r "${S}"/Modules/lapack
+	epatch "${FILESDIR}"/"${P}"-no_internal_libs.patch
+	eautoreconf
+}
+
 src_configure() {
 	local myeconfargs=(
 		--disable-internal-hdf5

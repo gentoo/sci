@@ -1,21 +1,19 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils
+inherit distutils-r1
 
 DESCRIPTION="Python API for swish-e"
 HOMEPAGE="http://py-swish-e.berlios.de/"
 SRC_URI="mirror://berlios/${PN}/${P/py-/}.tar.gz"
 
-LICENSE="BSD"
 SLOT="0"
+LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 

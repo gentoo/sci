@@ -1,0 +1,22 @@
+ tools/build/setup.py | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/tools/build/setup.py b/tools/build/setup.py
+index 4e57ff6..d8a2a08 100644
+--- a/tools/build/setup.py
++++ b/tools/build/setup.py
+@@ -354,7 +354,13 @@ what SCons will use to build the system.
+             symbols = setting.appends.symbols()
+             if symbols.has_key("ENV"):
+                 for key, value in symbols["ENV"].items():
+-                    env["ENV"][key] += value
++                    if key == "PATH":
++                        env["ENV"][key] = value
++                    else:
++                        try:
++                            env["ENV"][key] += value
++                        except:
++                            print key, value
+                 del symbols["ENV"]
+             env.Append(**symbols)
+         if setting.prepends:

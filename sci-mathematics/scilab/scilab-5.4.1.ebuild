@@ -48,17 +48,17 @@ CDEPEND="dev-libs/libpcre
 		dev-java/avalon-framework:4.2
 		dev-java/batik:1.7
 		dev-java/commons-io:1
-		>=dev-java/flexdock-1.2.2:0
+		>=dev-java/flexdock-1.2.3:0
 		dev-java/fop:0
 		dev-java/gluegen:2
 		dev-java/javahelp:0
 		dev-java/jeuclid-core:0
 		dev-java/jgoodies-looks:2.0
 		dev-java/jgraphx:1.8
-		dev-java/jlatexmath:1
+		>=dev-java/jlatexmath-1.0.2:1
 		dev-java/jogl:2
 		>=dev-java/jrosetta-1.0.4:0
-		dev-java/scirenderer:1
+		>=dev-java/scirenderer-1.1.0:1
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:1.5
 		virtual/opengl

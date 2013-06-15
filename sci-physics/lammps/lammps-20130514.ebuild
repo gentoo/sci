@@ -65,8 +65,11 @@ src_install() {
 	newbin "src/lmp_serial" "lmp"
 	if use examples; then
 		insinto "/usr/share/doc/${PF}"
-		doins -r "examples"
+		doins -r examples
 	fi
 	dodoc README
-	use doc && dodoc "doc/Manual.pdf"
+	if use doc; then
+		dodoc doc/Manual.pdf
+		dohtml -r doc
+	fi
 }

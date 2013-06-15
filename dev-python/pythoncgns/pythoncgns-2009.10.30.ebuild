@@ -1,14 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
-PYTHON_MODNAME="CGNS"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils
+inherit distutils-r1
 
 MY_PN="CGNS"
 MY_P="${MY_PN}-${PV}"

@@ -18,15 +18,15 @@ SRC_URI="
 	examples? ( ${CURI}/${MYPN}-ex.tar.gz )
 	test? ( ${CURI}/${MYPN}-ex.tar.gz )"
 
-RESTRICT="mirror"
-
-LICENSE="as-is"
+LICENSE="all-rights-reserved"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples test"
 
 RDEPEND="sys-libs/ncurses[tinfo]"
 DEPEND=""
+
+RESTRICT="mirror"
 
 S="${WORKDIR}"
 

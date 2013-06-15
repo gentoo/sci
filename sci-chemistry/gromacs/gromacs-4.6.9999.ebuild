@@ -4,8 +4,8 @@
 
 EAPI=5
 
-TEST_PV="4.6.1"
-MANUAL_PV="4.6.1"
+TEST_PV="4.6.2"
+MANUAL_PV="4.6.2"
 
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
@@ -70,8 +70,7 @@ REQUIRED_USE="
 	|| ( single-precision double-precision )
 	cuda? ( single-precision )
 	openmm? ( single-precision )
-	mkl? ( !blas !fftw !lapack )
-	!openmm" #broken, but https://gerrit.gromacs.org/#/c/2087/
+	mkl? ( !blas !fftw !lapack )"
 
 DOCS=( AUTHORS README )
 HTML_DOCS=( "${ED}"/usr/share/gromacs/html/ )

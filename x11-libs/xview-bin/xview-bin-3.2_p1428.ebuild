@@ -12,7 +12,7 @@ SRC_URI="mirror://debian/pool/main/x/xview/xviewg_${DEBVER}_i386.deb"
 
 LICENSE="XVIEW"
 SLOT="0"
-KEYWORDS="-*"
+KEYWORDS=""
 IUSE="static-libs"
 
 S=${WORKDIR}

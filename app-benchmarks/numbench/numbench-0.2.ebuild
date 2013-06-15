@@ -1,10 +1,12 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
-inherit eutils distutils
+PYTHON_COMPAT=( python{2_6,2_7} )
+
+inherit distutils-r1 vcs-snapshot
 
 DESCRIPTION="Automated benchmarks suite"
 HOMEPAGE="http://soc.dev.gentoo.org/~spiros"
@@ -17,19 +19,17 @@ KEYWORDS="~amd64 ~x86"
 
 IUSE=""
 
-RDEPEND="!app-admin/eselect-blas
-	 !app-admin/eselect-cblas
-	 !app-admin/eselect-lapack
-	 >=dev-python/matplotlib-1.0.0
-	 >=app-admin/eselect-1.3.2-r100"
+RDEPEND="
+	!app-admin/eselect-blas
+	!app-admin/eselect-cblas
+	!app-admin/eselect-lapack
+	>=dev-python/matplotlib-1.0.0
+	>=app-admin/eselect-1.3.2-r100"
 
-S="${WORKDIR}/andyspiros-numbench-${CID}"
+python_install_all() {
+	distutils-r1_python_install_all
 
-src_install() {
-	distutils_src_install
-
-	chmod +x exec.py
-	newbin exec.py numbench
+	python_parallel_foreach_impl python_newscript exec.py numbench
 
 	insinto /usr/share/numbench/samples
 	doins samples/*.xml

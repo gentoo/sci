@@ -1,13 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils eutils
+inherit distutils-r1
 
 # A much more robust code is at https://github.com/ntamas/biopython in Bio/GO subdir
 # When that gets incorporated into biopython the go-parser should be dropped altogether.
@@ -18,11 +17,7 @@ SRC_URI="http://bazaar.launchpad.net/~ntamas/+junk/go-parser/tarball/7?start_rev
 
 LICENSE="MIT"
 SLOT="0"
-#KEYWORDS="~amd64 ~x86"
 KEYWORDS=""
 IUSE=""
-
-DEPEND=""
-RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/~ntamas/+junk/go-parser
