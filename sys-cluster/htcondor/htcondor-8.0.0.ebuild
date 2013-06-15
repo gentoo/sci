@@ -5,7 +5,7 @@
 EAPI=5
 PYTHON_COMPAT=( python{2_5,2_6,2_7} )
 
-inherit cmake-utils python-r1 python-single-r1
+inherit cmake-utils python-single-r1
 
 DESCRIPTION="Workload management system for compute-intensive jobs"
 HOMEPAGE="http://www.cs.wisc.edu/htcondor/"
@@ -41,6 +41,11 @@ RDEPEND="${DEPEND}
 RESTRICT=fetch
 
 S="${WORKDIR}/condor-${PV}"
+
+pkg_setup() {
+	enewgroup condor
+	enewuser condor -1 "${ROOT}"bin/bash "${ROOT}var/lib/condor" condor
+}
 
 src_configure() {
 	local mycmakeargs="
