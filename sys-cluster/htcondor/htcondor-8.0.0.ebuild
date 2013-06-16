@@ -49,20 +49,20 @@ pkg_setup() {
 
 src_configure() {
 	local mycmakeargs="
-		$(cmake-utils_use_have boinc backfill)
+		$(cmake-utils_use_have boinc BACKFILL)
 		$(cmake-utils_use_have boinc)
-		$(cmake-utils_use_with cgroup libcgroup)
+		$(cmake-utils_use_with cgroup LIBCGROUP)
 		$(cmake-utils_use_want contrib)
 		$(cmake-utils_use_have dmtcp)
-		$(cmake-utils_use_want doc man_pages)
+		$(cmake-utils_use_want doc MAN_PAGES)
 		$(cmake-utils_use_with libvirt)
 		$(cmake-utils_use_have kbdd)
-		$(cmake-utils_use_with kerberos krb5)
-		$(cmake-utils_use_with postgres postgresql)
-		$(cmake-utils_use_with python python_bindings)
+		$(cmake-utils_use_with kerberos KRB5)
+		$(cmake-utils_use_with postgres POSTGRESQL)
+		$(cmake-utils_use_with python PYTHON_BINDINGS)
 		$(cmake-utils_use_with management)
 		$(cmake-utils_use_with soap gsoap)
-		$(cmake-utils_use_with ssl openssl)
-		$(cmake-utils_use_with xml libxml2)"
+		$(cmake-utils_use_with ssl OPENSSL)
+		$(cmake-utils_use_with xml LIBXML2)"
 	cmake-utils_src_configure
 }
