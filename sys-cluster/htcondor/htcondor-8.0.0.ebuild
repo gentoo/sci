@@ -23,16 +23,16 @@ DEPEND="sys-libs/zlib
 	>=dev-libs/boost-1.49.0[${PYTHON_USEDEP}]
 	boinc? ( sci-misc/boinc )
 	cgroup? ( >=dev-libs/libcgroup-0.37 )
-	curl? ( >=net-misc/curl-7.19.6-p1[ssl?] )
+	curl? ( >=net-misc/curl-7.19.7[ssl?] )
 	dmtcp? ( sys-apps/dmtcp )
 	libvirt? ( >=app-emulation/libvirt-0.6.2 )
 	kerberos? ( virtual/krb5 )
 	kbdd? ( x11-libs/libX11 )
 	management? ( net-libs/qmf )
-	postgres? ( >=dev-db/postgresql-base-8.2.3-p1 )
+	postgres? ( >=dev-db/postgresql-base-8.2.4 )
 	python? ( ${PYTHON_DEPS} )
-	soap? ( >=net-libs/gsoap-2.7.10-p5[ssl?] )
-	ssl? ( >=dev-libs/openssl-0.9.8h-p2 )
+	soap? ( >=net-libs/gsoap-2.7.11[ssl?] )
+	ssl? ( >=dev-libs/openssl-0.9.8i )
 	test? ( dev-util/valgrind )
 	xml? ( >=dev-libs/libxml2-2.7.3 )"
 
