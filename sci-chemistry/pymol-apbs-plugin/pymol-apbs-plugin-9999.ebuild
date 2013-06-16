@@ -17,7 +17,7 @@ ESVN_REPO_URI="https://pymolapbsplugin.svn.sourceforge.net/svnroot/pymolapbsplug
 
 SLOT="0"
 LICENSE="pymol"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
 IUSE=""
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
