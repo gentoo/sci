@@ -1,15 +1,18 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
-inherit java-pkg-2 python
+PYTHON_COMPAT=( python{2_6,2_7} )
+
+inherit java-pkg-2 python-r1
 
 DESCRIPTION="Viewer of next generation sequence assemblies and alignments."
 HOMEPAGE="http://bioinf.scri.ac.uk/tablet/"
-SRC_URI="http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x86_1_11_05_03.sh
-		http://bioinf.scri.ac.uk/tablet/additional/coveragestats.py"
+SRC_URI="
+	http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x86_$(replace_all_version_separators _).sh -> ${P}.sh
+	http://bioinf.scri.ac.uk/tablet/additional/coveragestats.py"
 
 # Upstream says regarding source code unavailability:
 # Tablet uses a modified version of the BSD License which has been edited to
@@ -28,16 +31,26 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=""
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+DEPEND="${PYTHON_DEPS}"
 RDEPEND="${DEPEND}
-		virtual/jre
-		dev-lang/python"
+		virtual/jre"
+
+S="${WORKDIR}"
+
+src_unpack() {
+	local file
+	for file in ${A}; do
+		cp "${DISTDIR}"/${file} "${WORKDIR}" || die
+	done
+}
 
 src_install() {
 	# In theory it seems this binary package could be installed through ant
 	# instead of the install4j package which is not easy to be forced
 	# non-interactive. The below approach via install4j is not ideal but works.
-	sed "s#\"\${D}\"#"${D}"#g" "${FILESDIR}"/response.varfile > "${DISTDIR}"/response.varfile || die "sed failed"
+	sed "s#\"\${D}\"#\"${D}\"#g" "${FILESDIR}"/response.varfile > "${WORKDIR}"/response.varfile || die "sed failed"
 
 	# the intallation script somehow does not pickup
 	# -varfile="${DISTDIR}"/response.varfile from the commandline and therefore
@@ -47,16 +60,30 @@ src_install() {
 	# disable the installation process to symlink from /usr/local/bin/table to
 	# /opt/Tablet/tablet. That was logged in that file with the following line:
 	#
-	# /var/tmp/portage/sci-biology/tablet-bin-1.11.02.18/image/opt/Tablet/.install4j/installation.log: Variable changed: sys.symlinkDir=/usr/local/bin[class java.lang.String]
+	# /var/tmp/portage/sci-biology/tablet-bin-1.11.02.18/image/opt/Tablet/.install4j/installation.log:
+	#	Variable changed: sys.symlinkDir=/usr/local/bin[class java.lang.String]
 	#
 	# The file is then left on the installed system in "${D}"/opt/Tablet/.install4j/response.varfile
-	mkdir -p "${D}"/opt/Tablet/.install4j || die "Cannot pre-create	"${D}"/opt/Tablet/.install4j/"
-	cat "${DISTDIR}"/response.varfile >	"${D}"/opt/Tablet/.install4j/response.varfile || die "Cannot write	"${D}"/opt/Tablet/.install4j/response.varfile"
+	dodir /opt/Tablet/.install4j
+	cat "${WORKDIR}"/response.varfile > "${ED}"/opt/Tablet/.install4j/response.varfile || die
 
 	# make sure we force java to point a to $HOME which is inside our sanbox
 	# directory area. We force -Duser.home . It seems also -Dinstall4j.userHome
 	# could be done based on the figure shown at http://resources.ej-technologies.com/install4j/help/doc/
-	sed "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${D}"/../temp -Dinstall4j.jvmDir#" -i "${DISTDIR}"/tablet_linux_x86_1_11_05_03.sh || die "failed to set userHome value"
-	sh "${DISTDIR}"/tablet_linux_x86_1_11_05_03.sh -q -overwrite -varfile="${DISTDIR}"/response.varfile --destination="${D}"/opt/Tablet -dir "${D}"/opt/Tablet || die "Failed to run the self-extracting exe file"
-	dobin "${DISTDIR}"/coveragestats.py
+	sed \
+		-e "s#/bin/java\" -Dinstall4j.jvmDir#/bin/java\" -Duser.home="${TMPDIR}" -Dinstall4j.jvmDir#" \
+		-i "${WORKDIR}"/${P}.sh || die
+	sh \
+		"${WORKDIR}"/${P}.sh \
+		-q -overwrite \
+		-varfile="${DISTDIR}"/response.varfile \
+		--destination="${ED}"/opt/Tablet \
+		-dir "${ED}"/opt/Tablet || die
+
+	rm -rf "${ED}"/opt/Tablet/jre || die
+
+	python_foreach_impl python_doscript "${WORKDIR}"/coveragestats.py
+
+	echo "PATH=${EPREFIX}/opt/Tablet" > 99Tablet
+	doenvd 99Tablet || die
 }
