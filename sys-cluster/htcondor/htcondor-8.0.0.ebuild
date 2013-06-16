@@ -14,26 +14,27 @@ SRC_URI="condor_src-${PV}-all-all.tar.gz"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="boinc cgroup contrib curl dmtcp doc kbdd kerberos libvirt management postgres python soap ssl xml"
+IUSE="boinc cgroup contrib curl dmtcp doc kbdd kerberos libvirt management minimal postgres python soap ssl test xml"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 DEPEND="sys-libs/zlib
-	dev-libs/libpcre
-	dev-libs/boost[${PYTHON_USEDEP}]
+	>=dev-libs/libpcre-7.6
+	>=dev-libs/boost-1.49.0[${PYTHON_USEDEP}]
 	boinc? ( sci-misc/boinc )
-	cgroup? ( dev-libs/libcgroup )
-	curl? ( net-misc/curl[ssl?] )
+	cgroup? ( >=dev-libs/libcgroup-0.37 )
+	curl? ( >=net-misc/curl-7.19.6-p1[ssl?] )
 	dmtcp? ( sys-apps/dmtcp )
-	libvirt? ( app-emulation/libvirt )
+	libvirt? ( >=app-emulation/libvirt-0.6.2 )
 	kerberos? ( virtual/krb5 )
 	kbdd? ( x11-libs/libX11 )
 	management? ( net-libs/qmf )
-	postgres? ( dev-db/postgresql-base )
+	postgres? ( >=dev-db/postgresql-base-8.2.3-p1 )
 	python? ( ${PYTHON_DEPS} )
-	soap? ( net-libs/gsoap[ssl?] )
-	ssl? ( dev-libs/openssl )
-	xml? ( dev-libs/libxml2 )"
+	soap? ( >=net-libs/gsoap-2.7.10-p5[ssl?] )
+	ssl? ( >=dev-libs/openssl-0.9.8h-p2 )
+	test? ( dev-util/valgrind )
+	xml? ( >=dev-libs/libxml2-2.7.3 )"
 
 RDEPEND="${DEPEND}
 	mail-client/mailx"
@@ -48,11 +49,27 @@ pkg_setup() {
 }
 
 src_configure() {
+	# All the hard coded -DWITH_X=OFF flags are for packages that aren't in portage
 	local mycmakeargs="
+		-DCONDOR_PACKAGE_BUILD=OFF
+		-DWITH_AVIARY=OFF
+		-DWITH_BLAHP=OFF
+		-DWITH_CAMPUSFACTORY=OFF
+		-DWITH_CLUSTER_RA=OFF
+		-DWITH_COREDUMPER=OFF
+		-DWITH_CREAM=OFF
+		-DWITH_GLOBUS=OFF
+		-DWITH_LIBDELTACLOUD=OFF
+		-DWITH_BLAHP=OFF
+		-DWITH_QPID=OFF
+		-DWITH_UNICOREGAHP=OFF
+		-DWITH_VOMS=OFF
+		-DWITH_WSO2=OFF
 		$(cmake-utils_use_have boinc BACKFILL)
 		$(cmake-utils_use_have boinc)
 		$(cmake-utils_use_with cgroup LIBCGROUP)
 		$(cmake-utils_use_want contrib)
+		$(cmake-utils_use_with curl)
 		$(cmake-utils_use_have dmtcp)
 		$(cmake-utils_use_want doc MAN_PAGES)
 		$(cmake-utils_use_with libvirt)
@@ -61,8 +78,10 @@ src_configure() {
 		$(cmake-utils_use_with postgres POSTGRESQL)
 		$(cmake-utils_use_with python PYTHON_BINDINGS)
 		$(cmake-utils_use_with management)
-		$(cmake-utils_use_with soap gsoap)
+		$(cmake-utils_use minimal CLIPPED)
+		$(cmake-utils_use_with soap GSOAP)
 		$(cmake-utils_use_with ssl OPENSSL)
+		$(cmake-utils_use_build test TESTING)
 		$(cmake-utils_use_with xml LIBXML2)"
 	cmake-utils_src_configure
 }
