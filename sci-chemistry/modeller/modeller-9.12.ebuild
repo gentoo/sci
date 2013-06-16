@@ -1,19 +1,17 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=5
 
-PYTHON_DEPEND="2:2.6"
+PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils eutils versionator
-
-MY_PV="$(replace_all_version_separators v)"
-MY_P="${PN}-${MY_PV}"
+inherit distutils-r1 eutils versionator
 
 DESCRIPTION="Homology or comparative modeling of protein three-dimensional structures"
-SRC_URI="http://salilab.org/${PN}/${MY_PV}/${PN}-${MY_PV}.tar.gz"
 HOMEPAGE="http://salilab.org/modeller/"
+SRC_URI="http://salilab.org/${PN}/${PV}/${P}.tar.gz"
 
 LICENSE="modeller"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -25,82 +23,77 @@ RESTRICT="mirror"
 DEPEND=">=dev-lang/swig-1.3"
 RDEPEND=""
 
-S="${WORKDIR}/${MY_P}"
-
 INPATH="${EPREFIX}"/opt/modeller${ver}
 
-QA_TEXTRELS="${INPATH#/}/*"
-QA_EXECSTACK="${INPATH#/}/*"
-QA_PRESTRIPPED="${INPATH#/}/bin/.* ${INPATH#/}/lib/*/.*"
-QA_DT_HASH="
-	${INPATH#/}/bin/.*
-	${INPATH#/}/lib/*/.*"
+QA_PREBUILT="/opt/*"
+
+DISTUTILS_NO_PARALLEL_BUILD=true
 
 pkg_setup() {
-	python_set_active_version 2
-
 	case ${ARCH} in
-		x86)	EXECTYPE="i386-intel8";;
-		amd64)	EXECTYPE="x86_64-intel8";;
-		*)		ewarn "Your arch "${ARCH}" does not appear supported at this time."||\
-				die "Unsupported Arch";;
+		x86)
+			EXECTYPE="i386-intel8";;
+		amd64)
+			EXECTYPE="x86_64-intel8";;
+		*)
+			die "Your arch "${ARCH}" does not appear supported at this time.";;
 	esac
 }
 
-src_prepare(){
+python_prepare_all(){
 	sed "s:i386-intel8:${EXECTYPE}:g" -i src/swig/setup.py || die
 }
 
-src_compile(){
+python_compile(){
 	cd src/swig
-	swig -python -keyword -nodefaultctor -nodefaultdtor -noproxy modeller.i
-	distutils_src_compile
+	swig -python -keyword -nodefaultctor -nodefaultdtor -noproxy modeller.i || die
+	distutils-r1_python_compile
 }
 
-src_install(){
+python_install() {
+	cd src/swig
+	distutils-r1_python_install
+}
+
+python_install_all(){
+	cd "${S}"
 	sed \
-		-e "s:EXECUTABLE_TYPE${MY_PV}=xxx:EXECUTABLE_TYPE${MY_PV}=${EXECTYPE}:g" \
-		-e "s:MODINSTALL${MY_PV}=xxx:MODINSTALL${MY_PV}=\"${INPATH}\":g" \
-		bin/modscript > "${T}/mod${MY_PV}"
+		-e "/^EXECUTABLE_TYPE/s:xxx:${EXECTYPE}:g" \
+		-e "/MODINSTALL/s:xxx:\"${INPATH}\":g" \
+		-i bin/modscript || die
 
 	sed -e "s;@TOPDIR\@;\"${INPATH}\";" \
 		-e "s;@EXETYPE\@;${EXECTYPE};" \
 		bin/modpy.sh.in > "${T}/modpy.sh"
 
 	insinto ${INPATH}
-	doins -r modlib || die
+	doins -r modlib
+	python_foreach_impl python_domodule modlib/modeller
 
 	insinto ${INPATH}/bin
-	doins -r bin/{lib,*top} || die
+	doins -r bin/{lib,*top}
+
 	exeinto ${INPATH}/bin
-	doexe bin/{modslave.py,mod${MY_PV}_${EXECTYPE}} || die
-	doexe "${T}/mod${MY_PV}" || die
-	doexe "${T}/modpy.sh" || die
-	dosym ${INPATH}/bin/mod${MY_PV} /opt/bin/mod${MY_PV} || die
-	dosym ${INPATH}/bin/modpy.sh /opt/bin/modpy.sh || die
+	doexe bin/{modscript,mod${PV}_${EXECTYPE}} "${T}"/modpy.sh
+
+	python_foreach_impl python_doscript bin/modslave.py
+	dosym ${INPATH}/bin/modscript /opt/bin/mod${PV}
+	dosym ${INPATH}/bin/modpy.sh /opt/bin/modpy.sh
 
 	exeinto ${INPATH}/lib/${EXECTYPE}/
-	doexe lib/${EXECTYPE}/lib* || die
-	dosym libmodeller.so.5 ${INPATH}/lib/${EXECTYPE}/libmodeller.so || die
-	doexe src/swig/build/lib.linux-$(uname -m)-$(python_get_version)/_modeller.so || die
+	doexe lib/${EXECTYPE}/lib*
+	dosym libmodeller.so.5 ${INPATH}/lib/${EXECTYPE}/libmodeller.so
 
-	dodoc README INSTALLATION || die
-	if use doc; then
-		dohtml doc/* || die
-	fi
+	use doc && HTML_DOCS=( doc/. )
+	distutils-r1_python_install_all
+
 	if use examples; then
 		insinto /usr/share/${PN}/
-		doins -r examples || die
+		doins -r examples
 	fi
-
-	dosym ${INPATH}/lib/${EXECTYPE}/_modeller.so \
-		  $(python_get_sitedir)/_modeller.so || die
-	dosym _modeller.so $(python_get_sitedir)/modeller.so || die
 }
 
 pkg_postinst() {
-	python_mod_optimize "${INPATH}/"
-
 	if [[ ! -e "${INPATH}/modlib/modeller/config.py" ]]; then
 		echo install_dir = \"${INPATH}/\"> ${INPATH}/modlib/modeller/config.py
 	fi
@@ -117,7 +110,6 @@ pkg_postinst() {
 }
 
 pkg_postrm() {
-	python_mod_cleanup "${INPATH}/"
 	ewarn "This package leaves a license Key file in ${INPATH}/modlib/modeller/config.py"
 	ewarn "that you need to remove to completely get rid of modeller."
 }
