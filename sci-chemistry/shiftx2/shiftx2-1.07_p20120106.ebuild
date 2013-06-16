@@ -19,7 +19,7 @@ SRC_URI="http://shiftx2.wishartlab.com/download/${MY_P}-${MY_PATCH}.tgz"
 SLOT="0"
 LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE=""
+IUSE="debug"
 
 CDEPEND="dev-util/weka"
 
@@ -31,44 +31,74 @@ DEPEND="${CDEPEND}
 
 S="${WORKDIR}"/${MY_P}
 
+src_prepare() {
+	epatch "${FILESDIR}/gentoo-fixes.patch"
+	rm "${S}"/src/FeatureRanges.java || die
+
+	shared=$(echo "/usr/share/${PN}" | sed -e 's/\//\\\//g')
+	sed -i -e "s/PUT_GENTOO_SHARE_PATH_HERE/${shared}/g" "${S}/src/ShiftXp.java" || die
+
+	if use debug; then
+		sed -i -e 's/DEBUG = false/DEBUG = true/g' "${S}/src/ShiftXp.java" || die
+	fi
+
+	# hack alert!
+	sed '/-o/s:$: -lm:g' -i "${S}/modules/resmf/Makefile" || die
+}
+
 src_compile() {
 	mkdir "${S}"/build || die
-	ejavac -classpath "$(java-pkg_getjars weka)" -nowarn -d "${S}"/build $(find src/ -name "*.java")
+	ejavac -classpath "$(java-pkg_getjars weka)" -nowarn \
+		-d "${S}"/build $(find src/ -name "*.java")
 	jar cf "${PN}.jar" -C "${S}"/build . || die
-	ejavac -cp $(java-pkg_getjars weka):. -Xlint ShiftXp.java
 
-
+	einfo "Building module angles"
 	cd "${S}"/modules/angles || die
 	emake clean
 	emake CFLAGS="${CFLAGS}" GCC=$(tc-getCC) LINK="${LDFLAGS}" get_angles phipsi
 
+	einfo "Building module resmf"
+	cd "${S}"/modules/resmf || die
+	emake clean
+	emake CFLAGS="${CFLAGS}" GCC=$(tc-getCC) LINK="${LDFLAGS}" resmf
+
+	einfo "Building module effects"
+	cd "${S}"/modules/effects || die
+	emake clean
+	emake CFLAGS="${CFLAGS}" GCC=$(tc-getCC) LINK="${LDFLAGS}" all
 }
 
 src_install() {
-	java-pkg_dolauncher ${PN} --main "ShiftXp"
+	java-pkg_dojar "${PN}.jar"
+	java-pkg_dolauncher ${PN} --main "ShiftXp" --pkg_args "-dir ${EPREFIX}/usr/bin"
 
+	insinto /usr/share/${PN}
+	doins "${S}"/lib/{limitedcshift.dat,RandomCoil.csv,data-header.arff}
+	doins -r "${S}"/lib/predmodels
+
+	insinto /usr/share/${PN}/vader
+	doins -r "${S}"/modules/resmf/lib/*
 
 	local instdir="/opt/${PN}"
 	dodoc README 1UBQ.pdb
-	python_parallel_foreach_impl python_doscript *py
+	python_parallel_foreach_impl python_doscript "${S}"/*py
 
 	# modules/angles
 	cd "${S}"/modules/angles || die
 	dobin get_angles phipsi
 
+	# other modules
+	dobin "${S}"/modules/resmf/resmf "${S}"/modules/effects/caleffect
 
 	# script
 	python_scriptinto ${instdir}/script
-	python_parallel_foreach_impl python_doscript script/*py
+	python_parallel_foreach_impl python_doscript "${S}"/script/*py
 	exeinto ${instdir}/script
-	doexe script/*.r
-
+	doexe "${S}"/script/*.r
 
 	# shifty3
-	insinto ${instdir}
-	doins -r shifty3
 	python_scriptinto ${instdir}/shifty3
-	python_parallel_foreach_impl python_doscript shifty3/*py
+	python_parallel_foreach_impl python_doscript "${S}"/shifty3/*py
 	exeinto ${instdir}/shifty3
-	doexe shifty3/xalign_x
+	doexe "${S}"/shifty3/xalign_x
 }
