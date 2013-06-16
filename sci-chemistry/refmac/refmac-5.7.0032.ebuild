@@ -1,10 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/refmac/refmac-5.6.0119.ebuild,v 1.2 2012/10/19 10:25:51 jlec Exp $
 
-EAPI=4
+EAPI=5
 
-inherit fortran-2 flag-o-matic toolchain-funcs versionator
+inherit eutils fortran-2 flag-o-matic toolchain-funcs versionator
 
 MY_PV="$(get_version_component_range 1-2)_source_v${PV}"
 
@@ -32,9 +32,7 @@ FORTRAN_STANDARD="77 90"
 
 S="${WORKDIR}"
 
-PATCHES=(
-	"${FILESDIR}"/${P}-allow-dynamic-linking.patch
-	)
+PATCHES=( "${FILESDIR}"/${P}-allow-dynamic-linking.patch )
 
 src_prepare() {
 	epatch "${PATCHES[@]}"

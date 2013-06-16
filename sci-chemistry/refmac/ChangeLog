@@ -1,6 +1,10 @@
 # ChangeLog for sci-chemistry/refmac
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/refmac/ChangeLog,v 1.50 2012/10/19 10:25:51 jlec Exp $
+
+  16 Jun 2013; Justin Lecher <jlec@gentoo.org> refmac-5.7.0032.ebuild,
+  metadata.xml:
+  Bump EAPI=5 and add missing eutils.eclass
 
 *refmac-5.7.0032 (10 Dec 2012)
 
