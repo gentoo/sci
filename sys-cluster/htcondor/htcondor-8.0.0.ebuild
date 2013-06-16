@@ -72,7 +72,6 @@ src_configure() {
 		$(cmake-utils_use_with cgroup LIBCGROUP)
 		$(cmake-utils_use_want contrib)
 		$(cmake-utils_use_with curl)
-		$(cmake-utils_use_has dmtcp)
 		$(cmake-utils_use_want doc MAN_PAGES)
 		$(cmake-utils_use_with libvirt)
 		$(cmake-utils_use_has kbdd)
