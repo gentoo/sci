@@ -3,6 +3,7 @@
 # $Header: $
 
 EAPI=5
+CMAKE_MIN_VERSION=2.8
 PYTHON_COMPAT=( python{2_5,2_6,2_7} )
 
 inherit cmake-utils python-single-r1
