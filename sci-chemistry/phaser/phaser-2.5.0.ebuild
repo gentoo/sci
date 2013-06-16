@@ -2,27 +2,31 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
-inherit base flag-o-matic python
+PYTHON_COMPAT=( python{2_6,2_7} )
+
+inherit base flag-o-matic python-any-r1
+
+CCP4_VERSION="6.3.0"
+CCP4_TAG="ccp4-${CCP4_VERSION}"
 
 DESCRIPTION="A program for phasing macromolecular crystal structures"
 HOMEPAGE="http://www-structmed.cimr.cam.ac.uk/phaser"
-SRC_URI="ftp://ftp.ccp4.ac.uk/ccp4/6.1.1/${PN}-${PV}-cctbx-src.tar.gz"
+SRC_URI="ftp://ftp.ccp4.ac.uk/ccp4/${CCP4_VERSION}/${CCP4_TAG}-${PN}-cctbx-src.tar.gz -> ${P}-${CCP4_TAG}.tar.gz"
 
 LICENSE="|| ( phaser phaser-com ccp4 )"
-
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-
 IUSE="openmp"
-RDEPEND=""
+
+RDEPEND="${PYTHON_DEPS}"
 DEPEND="${RDEPEND}
-		  app-shells/tcsh"
+	app-shells/tcsh"
 
-S="${WORKDIR}"/ccp4-6.1.1
+S="${WORKDIR}"/${CCP4_TAG}
 
-PATCHES=(
+_PATCHES=(
 	"${FILESDIR}"/phaser-2.1.4-chmod.patch
 	)
 
@@ -80,8 +84,7 @@ src_compile() {
 	# frequently.  Perhaps better to link statically to the bundled
 	# cctbx.
 	einfo "Configuring phaser components"
-	python_version
-	${python} "libtbx/configure.py" \
+	${PYTHON} "libtbx/configure.py" \
 		--build=release \
 		--compiler=${compiler} \
 		--repository="${S}"/src/${PN}/source \
@@ -113,7 +116,7 @@ src_compile() {
 #	einfo "Creating env.sh"
 	cat >> "${T}"/53${PN} <<- EOF
 
-	PHASER="/usr/bin"
+	PHASER="${EPREFIX}/usr/bin"
 	PHASER_ENVIRONMENT="1"
 	PHASER_MTYPE="${mtype}"
 	PHASER_MVERSION="${mversion}"
@@ -127,8 +130,8 @@ src_compile() {
 # cctbx ebuild tests.
 src_test() {
 	cd "${S}//build" && \
-	source setpaths.sh && \
-	csh ./run_tests.csh || die "run_test.csh failed"
+		source setpaths.sh && \
+		csh ./run_tests.csh || die "run_test.csh failed"
 }
 
 # This is a bit thin.  Maybe install other files from the distribution
