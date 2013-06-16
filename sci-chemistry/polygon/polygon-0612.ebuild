@@ -1,6 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=5
 
 inherit eutils
 
@@ -15,23 +17,27 @@ SRC_URI="
 "
 
 SLOT="0"
+LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86"
-LICENSE="as-is"
 IUSE=""
 
 RDEPEND="dev-lang/tcl"
 DEPEND="app-arch/unzip"
 
+S="${WORKDIR}"
+
 src_unpack() {
 	unpack ${DB}.zip
-	cp "${DISTDIR}"/${MY_P}.tcl "${WORKDIR}"
-	cd "${WORKDIR}"
+	cp "${DISTDIR}"/${MY_P}.tcl "${S}" || die
+}
+
+src_prepare() {
 	epatch "${FILESDIR}"/${PV}-db.patch
 }
 
 src_install() {
 	edos2unix ${MY_P}.tcl
-	newbin ${MY_P}.tcl ${PN} || die
+	newbin ${MY_P}.tcl ${PN}
 	insinto /usr/share/${PN}
-	doins ${DB}.txt || die
+	doins ${DB}.txt
 }
