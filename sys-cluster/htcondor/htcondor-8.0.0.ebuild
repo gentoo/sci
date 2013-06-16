@@ -22,6 +22,7 @@ REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 DEPEND="sys-libs/zlib
 	>=dev-libs/libpcre-7.6
 	>=dev-libs/boost-1.49.0[${PYTHON_USEDEP}]
+	net-nds/openldap
 	boinc? ( sci-misc/boinc )
 	cgroup? ( >=dev-libs/libcgroup-0.37 )
 	curl? ( >=net-misc/curl-7.19.7[ssl?] )
