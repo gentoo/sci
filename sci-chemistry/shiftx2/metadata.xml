@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci</herd>
-	<longdescription>
+  <herd>sci</herd>
+  <longdescription>
 		SHIFTX2 predicts both the backbone and side chain 1H, 13C and 15N chemical
 		shifts for proteins using their structural (PDB) coordinates as input.
 		SHIFTX2 combines ensemble machine learning methods with sequence
@@ -33,7 +33,7 @@
 		prediction. Journal of Biomolecular NMR, Volume 50, Number 1, 43-57.
 		doi: 10.1007/s10858-011-9478-4.
 	</longdescription>
-	<use>
-		<flag name='debug'>Enables debug output in the shiftx2 java part</flag>
-	</use>
+  <use>
+    <flag name="debug">Enables debug output in the shiftx2 java part</flag>
+  </use>
 </pkgmetadata>

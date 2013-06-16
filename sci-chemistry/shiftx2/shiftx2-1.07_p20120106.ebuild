@@ -25,11 +25,14 @@ CDEPEND="dev-util/weka"
 
 RDEPEND="${CDEPEND}
 	dev-lang/R
+	sci-chemistry/reduce
 	>=virtual/jre-1.5"
 DEPEND="${CDEPEND}
 	>=virtual/jdk-1.5"
 
 S="${WORKDIR}"/${MY_P}
+
+QA_PREBUILT="/opt/.*"
 
 src_prepare() {
 	epatch "${FILESDIR}/gentoo-fixes.patch"
@@ -43,7 +46,12 @@ src_prepare() {
 	fi
 
 	# hack alert!
-	sed '/-o/s:$: -lm:g' -i "${S}/modules/resmf/Makefile" || die
+	sed \
+		-e '/-o/s:$(GCC):$(GCC) $(LDFLAGS):g' \
+		-e '/-o/s:$(CC):$(CC) $(LDFLAGS):g' \
+		-i modules/*/Makefile || die
+
+	sed -e '/-o/s:$: -lm:g' -i "${S}/modules/resmf/Makefile" || die
 }
 
 src_compile() {
@@ -65,7 +73,7 @@ src_compile() {
 	einfo "Building module effects"
 	cd "${S}"/modules/effects || die
 	emake clean
-	emake CFLAGS="${CFLAGS}" GCC=$(tc-getCC) LINK="${LDFLAGS}" all
+	emake CFLAGS="${CFLAGS}" CC=$(tc-getCC) LINK="${LDFLAGS}" all
 }
 
 src_install() {
@@ -83,12 +91,11 @@ src_install() {
 	dodoc README 1UBQ.pdb
 	python_parallel_foreach_impl python_doscript "${S}"/*py
 
-	# modules/angles
-	cd "${S}"/modules/angles || die
-	dobin get_angles phipsi
-
 	# other modules
-	dobin "${S}"/modules/resmf/resmf "${S}"/modules/effects/caleffect
+	dobin \
+		"${S}"/modules/angles/{get_angles,phipsi} \
+		"${S}"/modules/resmf/resmf \
+		"${S}"/modules/effects/caleffect
 
 	# script
 	python_scriptinto ${instdir}/script
@@ -101,4 +108,5 @@ src_install() {
 	python_parallel_foreach_impl python_doscript "${S}"/shifty3/*py
 	exeinto ${instdir}/shifty3
 	doexe "${S}"/shifty3/xalign_x
+	dosym ../${PN}/shifty3/xalign_x /opt/bin/xalign_x
 }
