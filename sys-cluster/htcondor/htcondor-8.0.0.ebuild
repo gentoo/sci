@@ -65,15 +65,15 @@ src_configure() {
 		-DWITH_UNICOREGAHP=OFF
 		-DWITH_VOMS=OFF
 		-DWITH_WSO2=OFF
-		$(cmake-utils_use_have boinc BACKFILL)
-		$(cmake-utils_use_have boinc)
+		$(cmake-utils_use_has boinc BACKFILL)
+		$(cmake-utils_use_has boinc)
 		$(cmake-utils_use_with cgroup LIBCGROUP)
 		$(cmake-utils_use_want contrib)
 		$(cmake-utils_use_with curl)
-		$(cmake-utils_use_have dmtcp)
+		$(cmake-utils_use_has dmtcp)
 		$(cmake-utils_use_want doc MAN_PAGES)
 		$(cmake-utils_use_with libvirt)
-		$(cmake-utils_use_have kbdd)
+		$(cmake-utils_use_has kbdd)
 		$(cmake-utils_use_with kerberos KRB5)
 		$(cmake-utils_use_with postgres POSTGRESQL)
 		$(cmake-utils_use_with python PYTHON_BINDINGS)
