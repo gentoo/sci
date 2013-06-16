@@ -1,63 +1,51 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/sci-chemistry/pymol-plugins-ezviz/pymol-plugins-ezviz-1.0.2005.ebuild,v 1.2 2010/04/08 18:47:57 jlec dead $
 
-EAPI="3"
+EAPI=5
 
-SUPPORT_PYTHON_ABIS="1"
+PYTHON_COMPAT=( python2_7 )
 
-inherit eutils python
+inherit eutils python-r1
 
-DESCRIPTION="assistance tool for the difficult to understand user interface of PyMOL"
+DESCRIPTION="Assistance tool for the difficult to understand user interface of PyMOL"
 HOMEPAGE="http://www.rit.edu/cos/ezviz/index.html"
-SRC_URI="
-	mirror://gentoo/${P}.zip
-	mirror://gentoo/${P}.zip"
+SRC_URI="http://www.rit.edu/cos/ezviz/EZ_Viz.zip -> ${P}.zip"
 
 SLOT="0"
+LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86"
-LICENSE="as-is"
 IUSE="doc"
 
-RDEPEND="sci-chemistry/pymol"
-DEPEND="
-	app-arch/unzip
-	${RDEPEND}"
-
-RESTRICT_PYTHON_ABIS="3.*"
+RDEPEND="sci-chemistry/pymol[${PYTHON_USEDEP}]"
+DEPEND="app-arch/unzip"
 
 S="${WORKDIR}/EZ_Viz Folder"
 
 src_prepare() {
 	edos2unix ez-viz.py
+	epatch "${FILESDIR}"/gentoo.patch
+	for gif in *.GIF; do
+		mv ${gif} ${gif/.GIF/.gif} || die
+	done
 	python_copy_sources
 	preperation() {
-		epatch "${FILESDIR}"/gentoo.patch
+		cd "${BUILD_DIR}" || die
 		sed \
 			-e "s:GENTOOPYMOL:${EPREFIX}/$(python_get_sitedir):g" \
 			-i ez-viz.py || die
 	}
-	python_execute_function -s preperation
+	python_foreach_impl preperation
 }
 
 src_install() {
 	installation() {
-		insinto $(python_get_sitedir)/pmg_tk/startup/
-		doins *.py || die
-		insinto $(python_get_sitedir)/pmg_tk/startup/ez-viz/
-		doins *.gif || die
-		for gif in *.GIF; do
-			newins ${gif} ${gif/.GIF/.gif} || die
-		done
+		python_moduleinto pmg_tk/startup/
+		python_domodule *.py
+		python_moduleinto pmg_tk/startup/ez-viz/
+		python_domodule *.gif
 	}
-	python_execute_function -s installation
-	dodoc readme.txt || die
-}
-
-pkg_postinst() {
-	python_mod_optimize pmg_tk/startup
-}
-
-pkg_postrm() {
-	python_mod_cleanup pmg_tk/startup
+	python_foreach_impl installation
+	python_parallel_foreach_impl python_optimize
+	dodoc readme.txt
 }
