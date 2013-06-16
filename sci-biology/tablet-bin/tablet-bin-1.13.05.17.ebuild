@@ -42,21 +42,15 @@ S="${WORKDIR}"
 src_unpack() {
 	local file
 	for file in ${A}; do
-		cp "${DISTDIR}"/${file} ${WORKDIR} || die
+		cp "${DISTDIR}"/${file} "${WORKDIR}" || die
 	done
-}
-
-pkg_setup() {
-	einfo "Fixing java access violations ..."
-	# bug 387227
-	addpredict /proc/self/coredump_filter
 }
 
 src_install() {
 	# In theory it seems this binary package could be installed through ant
 	# instead of the install4j package which is not easy to be forced
 	# non-interactive. The below approach via install4j is not ideal but works.
-	sed "s#\"\${D}\"#"${D}"#g" "${FILESDIR}"/response.varfile > "${WORKDIR}"/response.varfile || die "sed failed"
+	sed "s#\"\${D}\"#\"${D}\"#g" "${FILESDIR}"/response.varfile > "${WORKDIR}"/response.varfile || die "sed failed"
 
 	# the intallation script somehow does not pickup
 	# -varfile="${DISTDIR}"/response.varfile from the commandline and therefore
@@ -86,8 +80,7 @@ src_install() {
 		--destination="${ED}"/opt/Tablet \
 		-dir "${ED}"/opt/Tablet || die
 
-	rm -rvf "${ED}"/opt/Tablet/jre || die
-
+	rm -rf "${ED}"/opt/Tablet/jre || die
 
 	python_foreach_impl python_doscript "${WORKDIR}"/coveragestats.py
 
