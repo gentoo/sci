@@ -1,14 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit eutils fortran-2 python toolchain-funcs
+inherit eutils fortran-2 python-r1 toolchain-funcs
 
 MY_PN="SMMP"
 MY_P="${MY_PN}-${PV}"
@@ -18,13 +16,11 @@ HOMEPAGE="http://smmp.berlios.de/"
 SRC_URI="mirror://berlios/${PN}/${MY_P}.tar.bz2"
 
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
 LICENSE="GPL-2"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc mpi test"
 
-RDEPEND="
-	virtual/fortran
-	mpi? ( virtual/mpi )"
+RDEPEND="mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
@@ -42,31 +38,22 @@ src_compile() {
 		target="${PN}"
 	fi
 
-	tc-export FC
-
-	emake ${target} || die
+	emake ${target}
 }
 
 src_test() {
-	emake examples || die
+	emake examples
 	cd EXAMPLES
 	bash smmp.cmd || die
 }
 
 src_install() {
-	dobin ${PN} || die
+	dobin ${PN}
 	installation() {
-		insinto $(python_get_sitedir)/${PN}
-		doins *.py || die
+		python_moduleinto ${PN}
+		python_domodule *.py
+		python_optimize
 	}
-	python_execute_function installation
-	dodoc README || die
-}
-
-pkg_postinst() {
-	python_mod_optimize ${PN}
-}
-
-pkg_postrm() {
-	python_mod_cleanup ${PN}
+	python_foreach_impl installation
+	dodoc README
 }

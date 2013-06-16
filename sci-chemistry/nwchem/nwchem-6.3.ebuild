@@ -5,11 +5,12 @@
 EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
+
 inherit eutils fortran-2 multilib python-single-r1 toolchain-funcs
 
 DATE="2013-05-17"
 
-DESCRIPTION="NWChem: Delivering High-Performance Computational Chemistry to Science"
+DESCRIPTION="Delivering High-Performance Computational Chemistry to Science"
 HOMEPAGE="http://www.nwchem-sw.org/index.php/Main_Page"
 SRC_URI="http://www.nwchem-sw.org/images/Nwchem-${PV}-src.${DATE}.tar.gz"
 
@@ -20,13 +21,14 @@ IUSE="mpi doc examples nwchem-tests python"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
-RDEPEND="sys-fs/sysfsutils
+RDEPEND="
+	sys-fs/sysfsutils
 	python? ( ${PYTHON_DEPS} )"
 DEPEND="${RDEPEND}
-	virtual/fortran
 	app-shells/tcsh
 	mpi? ( virtual/mpi[fortran] )
-	doc? ( dev-texlive/texlive-latex
+	doc? (
+		dev-texlive/texlive-latex
 		dev-tex/latex2html )"
 
 S="${WORKDIR}/${P}-src.${DATE}"
