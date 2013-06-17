@@ -52,6 +52,7 @@ pkg_setup() {
 
 src_configure() {
 	# All the hard coded -DWITH_X=OFF flags are for packages that aren't in portage
+	# I also haven't included support for HAVE_VMWARE because I don't know what it requires
 	local mycmakeargs="
 		-DCONDOR_PACKAGE_BUILD=OFF
 		-DWITH_AVIARY=OFF
@@ -80,6 +81,7 @@ src_configure() {
 		$(cmake-utils_use_with python PYTHON_BINDINGS)
 		$(cmake-utils_use_with management)
 		$(cmake-utils_use minimal CLIPPED)
+		$(cmake-utils_use_with soap AVIARY)
 		$(cmake-utils_use_with soap GSOAP)
 		$(cmake-utils_use_with ssl OPENSSL)
 		$(cmake-utils_use_build test TESTING)
