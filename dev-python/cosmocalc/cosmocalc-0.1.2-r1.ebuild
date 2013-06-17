@@ -1,29 +1,24 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-SUPPORT_PYTHON_ABIS="1"
-DISTUTILS_USE_SEPARATE_SOURCE_DIRECTORIES="1"
+PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
 
-inherit distutils
+inherit distutils-r1
 
 DESCRIPTION="Simple cosmology python module"
 HOMEPAGE="http://cxc.harvard.edu/contrib/cosmocalc/ http://pypi.python.org/pypi/cosmocalc/"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+SRC_URI="http://cxc.harvard.edu/contrib/cosmocalc/downloads/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-src_prepare() {
-	distutils_src_prepare
-
-	2to3_conversion() {
-		[[ "${PYTHON_ABI}" == 2.* ]] && return
-		2to3-${PYTHON_ABI} -nw --no-diffs ${PN}.py
-	}
-	python_execute_function -s 2to3_conversion
+python_compile() {
+	distutils-r1_python_compile
+	[[ "${PYTHON}" =~ python2 ]] && return
+	2to3 -nw --no-diffs "${BUILD_DIR}" || die
 }

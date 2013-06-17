@@ -4,7 +4,7 @@
 
 # Versioning is output of nmrPipe -help
 
-EAPI=4
+EAPI=5
 
 inherit eutils virtualx
 
@@ -25,7 +25,7 @@ SRC_URI="
 	"
 
 SLOT="0"
-LICENSE="as-is"
+LICENSE="all-rights-reserved"
 # Right now, precompiled executables are only available for Linux on the
 # x86 architecture. The maintainer chose to keep the sources closed, but
 # says he will gladly provide precompiled executables for other platforms

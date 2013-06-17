@@ -1,28 +1,25 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
-DISTUTILS_SRC_TEST="nosetests"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils flag-o-matic fortran-2 toolchain-funcs
+inherit distutils-r1 flag-o-matic fortran-2
 
 DESCRIPTION="Collection of Python modules for statistical inference"
 HOMEPAGE="http://inference.astro.cornell.edu/"
 SRC_URI="${HOMEPAGE}/${P}.tar.gz"
 
 SLOT="0"
-LICENSE="as-is"
+LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="sci-libs/scipy"
+DEPEND="sci-libs/scipy[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}
-	dev-python/matplotlib"
+	dev-python/matplotlib[${PYTHON_USEDEP}]"
 
 # buggy tests
 RESTRICT="test"
@@ -31,18 +28,22 @@ pkg_setup() {
 	fortran-2_pkg_setup
 }
 
-src_prepare() {
+python_prepare_all() {
 	# The usual numpy.distutils hacks when fortran is used
 	append-ldflags -shared
 	append-fflags -fPIC
 	export NUMPY_FCONFIG="config_fc --noopt --noarch"
-	distutils_src_prepare
+	distutils-r1_python_prepare_all
 }
 
-src_compile() {
-	distutils_src_compile ${NUMPY_CONFIG}
+python_compile() {
+	distutils-r1_python_compile ${NUMPY_CONFIG}
 }
 
-src_install() {
-	distutils_src_install ${NUMPY_FCONFIG}
+python_test() {
+	nosetests --verbose --verbosity=3
+}
+
+python_install() {
+	distutils-r1_python_install ${NUMPY_FCONFIG}
 }

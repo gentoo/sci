@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <longdescription lang="en">
 MeshPy offers quality triangular and tetrahedral mesh generation for Python. 
 Meshes of this type are chiefly used in finite-element simulation codes, but 
 also have many other applications ranging from computer graphics to robotics.
@@ -11,4 +11,3 @@ to two well-regarded mesh generators, Triangle by J. Shewchuk and TetGen by
 Hang Si. Both are included in the package in slightly modified versions.
 </longdescription>
 </pkgmetadata>
-

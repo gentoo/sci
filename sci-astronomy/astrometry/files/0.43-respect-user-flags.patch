@@ -1,0 +1,14 @@
+Respect user optimization flags
+bicatali@gentoo.org - 06/2013
+
+--- astrometry.net-0.38.orig/util/makefile.common	2010-08-26 14:43:44.000000000 +0100
++++ astrometry.net-0.38/util/makefile.common	2012-05-09 23:21:10.000000000 +0100
+@@ -145,8 +145,6 @@
+ 
+ ifeq ($(OPTIMIZE),yes)
+   # speedy!
+-  FLAGS_DEF += -O3
+-  FLAGS_DEF += -fomit-frame-pointer
+   # turn off asserts:
+   FLAGS_DEF += -DNDEBUG
+ 

@@ -1,40 +1,29 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils
-[ "$PV" == "9999" ] && inherit git-2
+inherit distutils-r1 git-2
 
 DESCRIPTION="A simple library for making your data dimensionful"
 HOMEPAGE="https://github.com/caseywstark/dimensionful"
-
-if [ "$PV" == "9999" ]; then
-	EGIT_REPO_URI="git://github.com/caseywstark/dimensionful.git"
-	KEYWORDS=""
-else
-	SRC_URI=""
-	KEYWORDS="~amd64 ~x86"
-fi
+SRC_URI=""
+EGIT_REPO_URI="git://github.com/caseywstark/dimensionful.git"
 
 LICENSE="BSD-2"
 SLOT="0"
+KEYWORDS=""
 IUSE=""
 
 DEPEND=""
-RDEPEND="dev-python/sympy"
+RDEPEND="dev-python/sympy[${PYTHON_USEDEP}]"
 
-src_test() {
-	testing() {
-		local t
-		for t in test/test_*.py; do
-			PYTHONPATH="$(ls -d build-${PYTHON_ABI}/lib*)"  "$(PYTHON)" "${t}" || die
-		done
-	}
-	python_execute_function testing
+python_test() {
+	local t
+	for t in test/test_*.py; do
+		${EPYTHON} "${t}" || die
+	done
 }

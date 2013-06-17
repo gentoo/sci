@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci</herd>
-	<maintainer>
-		<email>gorkypl@gmail.com</email>
-		<name>Paweł Rumian</name>
-	</maintainer>
-	<use>
-		<flag name="szip">Allow to use <pkg>sci-libs/szip</pkg> for SZIP compression method in SDsetcompress()</flag>
-	</use>
+  <herd>sci</herd>
+  <maintainer>
+    <email>gorkypl@gmail.com</email>
+    <name>Paweł Rumian</name>
+  </maintainer>
+  <use>
+    <flag name="szip">Allow to use <pkg>sci-libs/szip</pkg> for SZIP compression method in SDsetcompress()</flag>
+  </use>
 </pkgmetadata>

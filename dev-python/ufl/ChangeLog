@@ -1,6 +1,9 @@
 # ChangeLog for dev-python/ufl
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  14 Jun 2013; Justin Lecher <jlec@gentoo.org> ufl-0.5.4.ebuild, metadata.xml:
+  Bump to EAPI=5 and distutils-r1.eclass
 
 *ufl-0.5.4 (14 Dec 2010)
 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>cluster</herd>
-<longdescription>
+  <herd>cluster</herd>
+  <longdescription>
 Lustre is a parallel distributed file system, generally used for large scale cluster computing
 </longdescription>
-<use>
-	<flag name='client'>Enable kernel client modules</flag>
-	<flag name='server'>Enable kernels server modules</flag>
-	<flag name='utils'>Enable lustre utils</flag>
-	<flag name='liblustre'>Enable building of liblustre</flag>
-	<flag name='tests'>Enable installation of tests</flag>
-	<flag name='urandom'>Enable use of urandom</flag>
-</use>
+  <use>
+    <flag name="client">Enable kernel client modules</flag>
+    <flag name="server">Enable kernels server modules</flag>
+    <flag name="utils">Enable lustre utils</flag>
+    <flag name="liblustre">Enable building of liblustre</flag>
+    <flag name="tests">Enable installation of tests</flag>
+    <flag name="urandom">Enable use of urandom</flag>
+  </use>
 </pkgmetadata>
