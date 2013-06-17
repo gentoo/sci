@@ -4,9 +4,9 @@
 
 EAPI=5
 CMAKE_MIN_VERSION=2.8
-PYTHON_COMPAT=( python{2_5,2_6,2_7} )
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit cmake-utils python-single-r1
+inherit cmake-utils python-single-r1 user
 
 DESCRIPTION="Workload management system for compute-intensive jobs"
 HOMEPAGE="http://www.cs.wisc.edu/htcondor/"
@@ -15,11 +15,11 @@ SRC_URI="condor_src-${PV}-all-all.tar.gz"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="boinc cgroup contrib curl dmtcp doc kbdd kerberos libvirt management minimal postgres python soap ssl test xml"
+IUSE="boinc cgroup contrib curl dmtcp doc kerberos libvirt management minimal postgres python soap ssl test X xml"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
-DEPEND="sys-libs/zlib
+CDEPEND="sys-libs/zlib
 	>=dev-libs/libpcre-7.6
 	>=dev-libs/boost-1.49.0[${PYTHON_USEDEP}]
 	net-nds/openldap
@@ -29,16 +29,18 @@ DEPEND="sys-libs/zlib
 	dmtcp? ( sys-apps/dmtcp )
 	libvirt? ( >=app-emulation/libvirt-0.6.2 )
 	kerberos? ( virtual/krb5 )
-	kbdd? ( x11-libs/libX11 )
+	X? ( x11-libs/libX11 )
 	management? ( net-libs/qmf )
 	postgres? ( >=dev-db/postgresql-base-8.2.4 )
 	python? ( ${PYTHON_DEPS} )
 	soap? ( >=net-libs/gsoap-2.7.11[ssl?] )
 	ssl? ( >=dev-libs/openssl-0.9.8i )
-	test? ( dev-util/valgrind )
 	xml? ( >=dev-libs/libxml2-2.7.3 )"
 
-RDEPEND="${DEPEND}
+DEPEND="${CDEPEND}
+	test? ( dev-util/valgrind )"
+
+RDEPEND="${CDEPEND}
 	mail-client/mailx"
 
 RESTRICT=fetch
@@ -80,7 +82,7 @@ src_configure() {
 		$(cmake-utils_use_with curl)
 		$(cmake-utils_use_want doc MAN_PAGES)
 		$(cmake-utils_use_with libvirt)
-		$(cmake-utils_use_has kbdd)
+		$(cmake-utils_use_has X KBDD)
 		$(cmake-utils_use_with kerberos KRB5)
 		$(cmake-utils_use_with postgres POSTGRESQL)
 		$(cmake-utils_use_with python PYTHON_BINDINGS)

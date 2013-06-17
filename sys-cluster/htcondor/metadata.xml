@@ -17,10 +17,13 @@
   different grid toolkits.
 </longdescription>
   <use>
-    <flag name="classads">Enable the Condor's classified advertisement language</flag>
-    <flag name="drmaa">Enable the Distributed Resource Management
-  Application API</flag>
-    <flag name="gcb">Enable condor to communicate over firewall/NAT</flag>
-    <flag name="kbdd">Enable the Condor Keyboard Daemon to monitor logged in X users for activity</flag>
+    <flag name="boinc">Enable backfill with BOINC jobs when the cluster is not being used</flag>
+    <flag name="cgroup">Use <pkg>dev-libs/libcgroup</pkg> for kernel control groups</flag>
+    <flag name="contrib">Build contrib modules</flag>
+    <flag name="dmtcp">Use <pkg>sys-apps/dmtcp</pkg> for checkpointing</flag>
+    <flag name="libvirt">Use <pkg>app-emulation/libvirt</pkg> for virtualisation</flag>
+    <flag name="management">Use <pkg>net-libs/qmf</pkg> for management</flag>
+    <flag name="minimal">Don't support standard universe jobs</flag>
+    <flag name="X">Enable the Condor Keyboard Daemon to monitor logged in X users for activity</flag>
   </use>
 </pkgmetadata>
