@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Jun 2013; Nicolas Bock <nicolasbock@gmail.com> jabref-2.10_beta.ebuild:
+  Fixed bug in jabref ebuild.
+
 *jabref-2.10_beta (17 Jun 2013)
 
   17 Jun 2013; Nicolas Bock <nicolasbock@gmail.com> +jabref-2.10_beta.ebuild,

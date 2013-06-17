@@ -7,9 +7,11 @@ EAPI=5
 EANT_DOC_TARGET=javadocs
 inherit java-pkg-2 java-ant-2
 
+SFVERSION="2.10b"
+
 DESCRIPTION="Java GUI for managing BibTeX and other bibliographies"
 HOMEPAGE="http://jabref.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/JabRef-2.10b-src.tar.bz2"
+SRC_URI="mirror://sourceforge/${PN}/JabRef-${SFVERSION}-src.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -21,10 +23,10 @@ EANT_BUILD_TARGET="jars"
 DEPEND=">=virtual/jdk-1.7"
 RDEPEND=">=virtual/jre-1.7"
 
-S="${WORKDIR}/${PN}-2.10b"
+S="${WORKDIR}/${PN}-${SFVERSION}"
 
 src_install() {
-	java-pkg_newjar build/lib/JabRef-${PV}.jar
+	java-pkg_newjar build/lib/JabRef-${SFVERSION}.jar
 	use doc && java-pkg_dojavadoc build/docs/API
 	dodoc src/txt/README
 	java-pkg_dolauncher ${PN} --main net.sf.jabref.JabRef
