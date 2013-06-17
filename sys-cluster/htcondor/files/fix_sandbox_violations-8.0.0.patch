@@ -1,5 +1,5 @@
---- src/condor_scripts/CMakeLists.txt.orig      2013-06-17 21:20:57.968455000 +0100
-+++ src/condor_scripts/CMakeLists.txt   2013-06-17 21:23:15.039802000 +0100
+--- a/src/condor_scripts/CMakeLists.txt      2013-06-17 21:20:57.968455000 +0100
++++ b/src/condor_scripts/CMakeLists.txt   2013-06-17 21:23:15.039802000 +0100
 @@ -27,9 +27,9 @@
          install ( FILES condor_configure DESTINATION ${C_SBIN} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
          install ( FILES condor_configure DESTINATION ${C_SBIN} RENAME condor_install PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
@@ -13,8 +13,8 @@
      endif(WANT_FULL_DEPLOYMENT)
  
         install ( FILES condor_ssh sshd.sh DESTINATION ${C_LIBEXEC} PERMISSIONS ${CONDOR_SCRIPT_PERMS} )
---- src/condor_tools/CMakeLists.txt.orig        2013-06-17 21:44:18.391088000 +0100
-+++ src/condor_tools/CMakeLists.txt     2013-06-17 21:46:09.950286000 +0100
+--- a/src/condor_tools/CMakeLists.txt        2013-06-17 21:44:18.391088000 +0100
++++ b/src/condor_tools/CMakeLists.txt     2013-06-17 21:46:09.950286000 +0100
 @@ -102,13 +102,13 @@
  if ( LINUX AND NOT CONDOR_PACKAGE_BUILD )
         set( SRC_DIR ${CMAKE_SOURCE_DIR} )
