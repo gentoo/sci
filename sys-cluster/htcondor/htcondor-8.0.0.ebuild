@@ -100,6 +100,7 @@ src_configure() {
 src_install() {
 	cmake-utils_src_install
 
+	dodir /var/lib/condor
 	dodir /var/log/condor
 	dodir /var/run/condor
 	dodir /var/lock/condor
