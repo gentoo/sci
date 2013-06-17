@@ -53,7 +53,8 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/condor_shadow_dlopen-${PV}.patch"
+	epatch	"${FILESDIR}/condor_shadow_dlopen-${PV}.patch" \
+		"${FILESDIR}/fix_sandbox_violations-${PV}.patch"
 	cmake-utils_src_prepare
 }
 
@@ -61,7 +62,6 @@ src_configure() {
 	# All the hard coded -DWITH_X=OFF flags are for packages that aren't in portage
 	# I also haven't included support for HAVE_VMWARE because I don't know what it requires
 	local mycmakeargs="
-		-DCMAKE_INSTALL_PREFIX='${ED}'
 		-DCONDOR_PACKAGE_BUILD=OFF
 		-DWITH_AVIARY=OFF
 		-DWITH_BLAHP=OFF
