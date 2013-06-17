@@ -17,5 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=""
+DEPEND="
+	dev-python/numpy
+	sci-libs/mmtk
+"
 RDEPEND="${DEPEND}"
