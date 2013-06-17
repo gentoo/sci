@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit autotools-utils fortran-2 multilib
 
@@ -15,7 +15,7 @@ SRC_URI="http://www.tddft.org/programs/octopus/download/${PN}/${P}.tar.gz"
 LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux"
-IUSE="fortran static-libs"
+IUSE="fortran static-libs -test"
 
 S="${WORKDIR}"/${MY_P}
 
@@ -36,18 +36,19 @@ src_configure() {
 
 ## Upstream recommends not running the test suite because it requires
 ## human expert interpretation to determine whether output is an error or
-## expected under certain circumstances.
-# src_test() { :; }
+## expected under certain circumstances. Nevertheless, experts might want the option.
+# The autotools src_test function modified not to die. Runs emake check in build directory.
+src_test() {
+	debug-print-function ${FUNCNAME} "$@"
+
+	_check_build_dir
+	pushd "${BUILD_DIR}" > /dev/null || die
+	make check || ewarn "Make check failed. See above for details."
+	einfo "emake check done"
+	popd > /dev/null || die
+}
 
 src_install() {
 	autotools-utils_src_install
 
-	if use fortran; then
-		# argument for this: --with-moduledir from etsf_io/bigdft
-		insinto /usr/$(get_libdir)/finclude
-		pushd "${AUTOTOOLS_BUILD_DIR}"/src >/dev/null
-		doins *.mod || die
-		rm -f "${D}"/usr/include/*.mod || die
-		popd >/dev/null
-	fi
 }

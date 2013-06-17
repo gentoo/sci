@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit autotools-utils eutils fortran-2 multilib toolchain-funcs
 
@@ -17,12 +17,12 @@ SRC_URI="
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc libxc"
+IUSE="doc libxc test"
 
 RDEPEND="
 	virtual/blas
 	virtual/lapack
-	libxc? ( sci-libs/libxc[fortran] )"
+	libxc? ( >=sci-libs/libxc-1.2.0-r1[fortran] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
@@ -44,13 +44,12 @@ src_prepare() {
 }
 
 src_configure() {
-	local modules="-I/usr/$(get_libdir)/finclude"
 	local myeconfargs=(
 		$(use_enable libxc)
 		--with-linalg-flavor=atlas
 		--with-linalg-libs="$($(tc-getPKG_CONFIG) --libs lapack)"
-		--with-libxc-incs="-I/usr/include ${modules}"
-		--with-libxc-libs="${libs} -lxc"
+		--with-libxc-incs="-I/usr/include $($(tc-getPKG_CONFIG) --cflags libxc)"
+		--with-libxc-libs="$($(tc-getPKG_CONFIG) --libs libxc)"
 		FC="$(tc-getFC)" FCFLAGS="${FCFLAGS}"
 		CC="$(tc-getCC)" LDFLAGS="${LDFLAGS}"
 	)
