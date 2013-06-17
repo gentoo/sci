@@ -9,7 +9,7 @@ inherit java-pkg-2 java-ant-2
 
 DESCRIPTION="Java GUI for managing BibTeX and other bibliographies"
 HOMEPAGE="http://jabref.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/JabRef-${PV}-src.tar.bz2"
+SRC_URI="mirror://sourceforge/${PN}/JabRef-2.10b-src.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -20,6 +20,8 @@ EANT_BUILD_TARGET="jars"
 
 DEPEND=">=virtual/jdk-1.7"
 RDEPEND=">=virtual/jre-1.7"
+
+S="${WORKDIR}/${PN}-2.10b"
 
 src_install() {
 	java-pkg_newjar build/lib/JabRef-${PV}.jar
