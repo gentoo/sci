@@ -2,6 +2,13 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openmx-3.7.3 (18 Jun 2013)
+
+  18 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz> +openmx-3.7.3.ebuild,
+  +files/3.7-fortran_objects.patch:
+  Added 3.7.3 version, played a bit with the detection of the openMP support,
+  struggled with the linking of C code with Fortran bits when using MPI.
+
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> openmx-3.6.ebuild:
   Move to EAPI=5 and shorten DESCRIPTION
 
