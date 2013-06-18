@@ -15,8 +15,10 @@ LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="examples"
 
-RDEPEND=">=virtual/jre-1.5"
-DEPEND="${RDEPEND}"
+DEPEND=">=virtual/jre-1.5"
+RDEPEND="${DEPEND}
+	app-shells/tcsh
+	sci-biology/ncbi-tools"
 
 S="${WORKDIR}"
 
@@ -26,6 +28,12 @@ src_prepare() {
 	local s64
 	use amd64 || s64="_x64"
 	rm -f bin/TALOSN.{linux,mac,static.*,winxp,linux9${s64}} || die
+
+	sed \
+		-e '/setenv TALOSN_DIR/d' \
+		-e "/set BLAST/s:=.*:= \"${EPREFIX}/usr/bin/blastpgp\":g" \
+		-e '/set NR_DBNAME/s:=.*:= ${BLASTDB}:g' \
+		-i talosn_ss || die
 }
 
 src_install() {
@@ -54,6 +62,7 @@ src_install() {
 
 	cat >> "${T}"/40talosn <<- EOF
 	TALOSN_DIR="${EPREFIX}/${TALOSN}"
+	#BLASTDB=
 	EOF
 	doenvd "${T}"/40talosn
 }
