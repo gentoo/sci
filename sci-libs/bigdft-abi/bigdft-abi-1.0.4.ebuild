@@ -19,7 +19,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE="cuda doc etsf_io mpi netcdf openmp opencl test"
 
 RDEPEND="
-	>=sci-libs/libxc-2.0.1[fortran]
+	>=sci-libs/libxc-1.2.0-r1[fortran]
 	virtual/blas
 	virtual/fortran
 	virtual/lapack
@@ -75,9 +75,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-# 	epatch \
-# 		"${FILESDIR}"/"${P}"-nolib_mods.patch
-#
 	tar -xjf "${FILESDIR}"/"${P}"-tests.tar.bz2 -C "${S}"/tests/DFT/
 	eautoreconf
 }

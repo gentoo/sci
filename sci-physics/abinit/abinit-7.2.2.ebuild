@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="cuda cuda-double -debug +etsf_io +fftw +fftw-threads +fox gsl gui +hdf5 libabinit mpi +netcdf openmp python -test +threads -vdwxc"
 
 RDEPEND="~sci-libs/bigdft-abi-1.0.4
-	>=sci-libs/libxc-2.0.1[fortran]
+	>=sci-libs/libxc-1.2.0-r1[fortran]
 	>=sci-physics/atompaw-3.0.1.9-r1[libxc]
 	etsf_io? ( >=sci-libs/etsf_io-1.0.3-r2 )
 	fox? ( >=sci-libs/fox-4.1.2-r2[sax] )
