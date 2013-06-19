@@ -4,6 +4,10 @@
 
   19 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
   bigdft-1.7_pre24.ebuild:
+  Filter LDFLAGS for cuda use not to break nvcc.
+
+  19 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  bigdft-1.7_pre24.ebuild:
   Added dev-util/gdbus-codegen to dependencies.
 
   18 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>

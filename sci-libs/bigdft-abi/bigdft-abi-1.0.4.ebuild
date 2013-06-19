@@ -105,6 +105,7 @@ src_configure() {
 	filter-flags '-m*' '-O*' "-pipe"
 	local nvcflags="${CFLAGS}"
 	_filter-var nvcflags '-m*' '-O*' "-pipe" "-W*"
+	use cuda && filter-ldflags '-m*' '-O*' "-pipe" "-W*"
 	local myeconfargs=(
 		$(use_enable mpi)
 		--enable-optimised-convolution
