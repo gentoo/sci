@@ -87,8 +87,8 @@ src_configure() {
 		local _fc=$(tc-getFC)
 
 		cat <<- EOF > "${fcode}"
-			   call omp_get_num_threads
-			   end
+		1     call omp_get_num_threads
+		2     end
 		EOF
 
 		for openmp in -fopenmp -xopenmp -openmp -mp -omp -qsmp=omp; do
