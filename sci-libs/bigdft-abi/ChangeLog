@@ -4,6 +4,10 @@
 
   19 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
   bigdft-abi-1.0.4.ebuild:
+  Added dev-util/gdbus-codegen to dependencies.
+
+  19 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  bigdft-abi-1.0.4.ebuild:
   Spaces in the testing snippet of fortran code in
   sci-libs/bigdft-abi-1.0.4.ebuild protected from reformatting.
 

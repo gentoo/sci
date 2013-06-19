@@ -40,6 +40,7 @@ DEPEND="${RDEPEND}
 	doc? ( virtual/latex-base )
 	${PYTHON_DEPS}
 	dev-python/pyyaml[libyaml]
+	dev-util/gdbus-codegen
 	app-arch/tar
 	app-arch/gzip"
 
