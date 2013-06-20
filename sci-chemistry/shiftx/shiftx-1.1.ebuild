@@ -17,7 +17,9 @@ IUSE=""
 
 S="${WORKDIR}"/${PN}
 
-PATCHES=( "${FILESDIR}"/${PV}-Makefile.patch )
+PATCHES=(
+	"${FILESDIR}"/${PV}-Makefile.patch
+	"${FILESDIR}"/${PV}-bfr-overflow.patch )
 
 DOCS="README FEATURES *.pdb *.out"
 
