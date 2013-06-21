@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit java-pkg-2 java-pkg-simple python-r1 versionator
+inherit java-pkg-2 java-pkg-simple prefix python-r1 versionator
 
 MY_PV="$(delete_all_version_separators $(get_version_component_range 1-2))"
 MY_PATCH="20120106"
@@ -25,6 +25,7 @@ CDEPEND="dev-util/weka"
 
 RDEPEND="${CDEPEND}
 	dev-lang/R
+	sci-biology/ncbi-tools
 	sci-chemistry/reduce
 	>=virtual/jre-1.5"
 DEPEND="${CDEPEND}
@@ -35,10 +36,13 @@ S="${WORKDIR}"/${MY_P}
 QA_PREBUILT="/opt/.*"
 
 src_prepare() {
-	epatch "${FILESDIR}/gentoo-fixes.patch"
+	epatch \
+		"${FILESDIR}"/${P}-java.patch \
+		"${FILESDIR}"/${P}-system.patch
+
 	rm "${S}"/src/FeatureRanges.java || die
 
-	shared=$(echo "/usr/share/${PN}" | sed -e 's/\//\\\//g')
+	shared=$(echo "${EPREFIX}/usr/share/${PN}" | sed -e 's/\//\\\//g')
 	sed -i -e "s/PUT_GENTOO_SHARE_PATH_HERE/${shared}/g" "${S}/src/ShiftXp.java" || die
 
 	if use debug; then
@@ -52,6 +56,8 @@ src_prepare() {
 		-i modules/*/Makefile || die
 
 	sed -e '/-o/s:$: -lm:g' -i "${S}/modules/resmf/Makefile" || die
+
+	eprefixify ${PN}.py
 }
 
 src_compile() {
@@ -78,7 +84,7 @@ src_compile() {
 
 src_install() {
 	java-pkg_dojar "${PN}.jar"
-	java-pkg_dolauncher ${PN} --main "ShiftXp" --pkg_args "-dir ${EPREFIX}/usr/bin"
+	java-pkg_dolauncher j${PN} --main "ShiftXp" --pkg_args "-dir ${EPREFIX}/usr/bin"
 
 	insinto /usr/share/${PN}
 	doins "${S}"/lib/{limitedcshift.dat,RandomCoil.csv,data-header.arff}
@@ -89,7 +95,11 @@ src_install() {
 
 	local instdir="/opt/${PN}"
 	dodoc README 1UBQ.pdb
-	python_parallel_foreach_impl python_doscript "${S}"/*py
+	python_parallel_foreach_impl python_newscript ${PN}.py ${PN}
+	mv shiftx2_util.py shiftx2util.py || die
+	python_moduleinto ${PN}
+	touch __init__.py
+	python_parallel_foreach_impl python_domodule natsorted.py shiftx2util.py __init__.py
 
 	# other modules
 	dobin \
@@ -98,15 +108,19 @@ src_install() {
 		"${S}"/modules/effects/caleffect
 
 	# script
-	python_scriptinto ${instdir}/script
 	python_parallel_foreach_impl python_doscript "${S}"/script/*py
 	exeinto ${instdir}/script
 	doexe "${S}"/script/*.r
 
 	# shifty3
-	python_scriptinto ${instdir}/shifty3
-	python_parallel_foreach_impl python_doscript "${S}"/shifty3/*py
+	python_parallel_foreach_impl python_newscript "${S}"/shifty3/*py shifty3
 	exeinto ${instdir}/shifty3
 	doexe "${S}"/shifty3/xalign_x
 	dosym ../${PN}/shifty3/xalign_x /opt/bin/xalign_x
+
+	insinto ${instdir}/shifty3
+	doins -r "${S}"/shifty3/{blastdb,refdb,xalign.parms,wt.rbo}
+
+	python_parallel_foreach_impl python_doscript "${S}"/shifty3/utils/*py
+	dobin "${S}"/shifty3/utils/create_blastdb.sh
 }
