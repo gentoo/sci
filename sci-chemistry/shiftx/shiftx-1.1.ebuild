@@ -17,6 +17,9 @@ IUSE=""
 
 S="${WORKDIR}"/${PN}
 
+DEPEND=""
+RDEPEND="sci-chemistry/shiftx2"
+
 PATCHES=(
 	"${FILESDIR}"/${PV}-Makefile.patch
 	"${FILESDIR}"/${PV}-bfr-overflow.patch )
