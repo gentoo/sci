@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit autotools-utils multilib toolchain-funcs
+inherit autotools-utils eutils multilib toolchain-funcs
 
 MYPN=Clp
 
@@ -39,7 +39,7 @@ src_prepare() {
 	sed -i \
 		-e 's:\(libClp_la_LIBADD.*=\).*:\1 @CLPLIB_LIBS@:g' \
 		src/Makefile.in || die
-
+	epatch "${FILESDIR}"/${P}-mpi-header.patch
 	if has_version sci-libs/mumps[-mpi]; then
 		ln -s "${EPREFIX}"/usr/include/mpiseq/mpi.h src/mpi.h
 	elif has_version sci-libs/mumps[mpi]; then

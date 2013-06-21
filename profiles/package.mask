@@ -68,6 +68,12 @@
 >=sci-chemistry/coot-9999
 >=sci-chemistry/pymol-9999
 
+# Honza Macháček <Hloupy.Honza@centrum.cz> (17 June 2013)
+# bigdft moved from sci-libs to sci-physics
+# sci-physics/abinit now uses sci-libs/bigdft-abi instead
+# sci-libs/bigdft should be deleted in 30 days
+sci-libs/bigdft
+
 # Justin Lecher <jlec@gentoo.org> (03 March 2013)
 # Missing deps
 sci-biology/gbrowse

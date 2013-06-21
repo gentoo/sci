@@ -33,11 +33,8 @@ DEPEND="${DEPEND}
 S="${WORKDIR}/${REAL_PN}-${REAL_PV}"
 
 src_prepare() {
-	# Get rid of the obsolete internal hdf5
-	rm -r "${S}"/hdf5-1.8.3
-	# as well as of the internal lapack
-	rm -r "${S}"/lapack
-	epatch "${FILESDIR}"/"${P}"-no_internal_libs.patch
+	# Prevent the obsolete internal hdf5 breaking autoconf
+	epatch "${FILESDIR}"/"${P}"-no_internal_hdf5.patch
 	eautoreconf
 }
 

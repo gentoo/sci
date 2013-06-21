@@ -156,7 +156,7 @@ src_configure() {
 		$(use_with svga linux-vga) \
 		$(use_with X x) \
 		--enable-stats \
-		$(use_enable qt4 qt) \
+		$(use_with qt4 qt qt4) \
 		$(use_enable thin-splines) \
 		$(use_enable wxwidgets) \
 		DIST_CONTACT="http://bugs.gentoo.org/" \

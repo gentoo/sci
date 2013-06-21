@@ -82,7 +82,7 @@ python_install_all(){
 
 	exeinto ${INPATH}/lib/${EXECTYPE}/
 	doexe lib/${EXECTYPE}/lib*
-	dosym libmodeller.so.5 ${INPATH}/lib/${EXECTYPE}/libmodeller.so
+	dosym libmodeller.so.8 ${INPATH}/lib/${EXECTYPE}/libmodeller.so
 
 	use doc && HTML_DOCS=( doc/. )
 	distutils-r1_python_install_all

@@ -2,6 +2,15 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  freeon-2012.05.03.ebuild, freeon-9999.ebuild,
+  +files/freeon-2012.05.03-no_internal_hdf5.patch,
+  -files/freeon-2012.05.03-no_internal_libs.patch,
+  +files/freeon-9999-no_internal_hdf5.patch,
+  -files/freeon-9999-no_internal_libs.patch:
+  Intrusion reduced. Only the descent to obsolete autoconf files in the
+  directory of the internal old hdf5 copy patched off.
+
 *freeon-2012.05.03 (30 May 2013)
 
   30 May 2013; Honza Macháček <Hloupy.Honza@centrum.cz>

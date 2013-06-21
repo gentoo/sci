@@ -6,10 +6,10 @@ diff -Naur tmp-old/Makefile tmp-new/Makefile
  #
  install: objsdir $(BUILD_TARGETS)
 -	$(MKDIR_P) $(install_prefix)/lib $(install_prefix)/finclude $(install_prefix)/bin
-+	$(MKDIR_P) $(install_prefix)/lib $(install_prefix)/lib/finclude $(install_prefix)/bin
++	$(MKDIR_P) $(install_prefix)/lib $(install_prefix)/include $(install_prefix)/bin
  	$(INSTALL) objs/lib/* $(install_prefix)/lib
 -	$(INSTALL) -m 644 objs/finclude/* $(install_prefix)/finclude
-+	$(INSTALL) -m 644 objs/finclude/* $(install_prefix)/lib/finclude
++	$(INSTALL) -m 644 objs/finclude/* $(install_prefix)/include
  	$(INSTALL) FoX-config $(install_prefix)/bin
  #
  examples_build:

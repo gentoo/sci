@@ -17,7 +17,12 @@ IUSE=""
 
 S="${WORKDIR}"/${PN}
 
-PATCHES=( "${FILESDIR}"/${PV}-Makefile.patch )
+DEPEND=""
+RDEPEND="sci-chemistry/shiftx2"
+
+PATCHES=(
+	"${FILESDIR}"/${PV}-Makefile.patch
+	"${FILESDIR}"/${PV}-bfr-overflow.patch )
 
 DOCS="README FEATURES *.pdb *.out"
 

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit autotools-utils eutils flag-o-matic fortran-2 multilib toolchain-funcs
 
@@ -15,11 +15,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="cuda cuda-double -debug +etsf_io +fftw +fftw-threads +fox gsl gui +hdf5 libabinit mpi +netcdf openmp python -test +threads -vdwxc"
 
-RDEPEND="~sci-libs/bigdft-1.7_pre12
-	=sci-libs/libxc-1*[fortran]
-	sci-physics/atompaw[libxc]
-	etsf_io? ( sci-libs/etsf_io )
-	fox? ( >=sci-libs/fox-4.1.2-r1[sax] )
+RDEPEND="~sci-libs/bigdft-abi-1.0.4
+	>=sci-libs/libxc-1.2.0-r1[fortran]
+	>=sci-physics/atompaw-3.0.1.9-r1[libxc]
+	etsf_io? ( >=sci-libs/etsf_io-1.0.3-r2 )
+	fox? ( >=sci-libs/fox-4.1.2-r2[sax] )
 	netcdf? (
 		|| (
 			sci-libs/netcdf[fortran]
@@ -30,7 +30,7 @@ RDEPEND="~sci-libs/bigdft-1.7_pre12
 			  )
 		)
 	hdf5? ( sci-libs/hdf5[fortran] )
-	sci-libs/wannier90
+	>=sci-libs/wannier90-1.2-r1
 	virtual/blas
 	virtual/lapack
 	gsl? ( sci-libs/gsl )
@@ -79,10 +79,29 @@ pkg_setup() {
 	# Preprocesor macross can make some lines really long
 	append-fflags -ffree-line-length-none
 
+	# This should be correct.
+	#   It is gcc-centric because toolchain-funcs.eclass is gcc-centric.
+	#   Should a bug be filed against toolchain-funcs.eclass?
+	# if use openmp; then
+	#         tc-has-openmp || \
+	#                 die "Please select an openmp capable compiler like gcc[openmp]"
+	# fi
+	#
+	# This is completely wrong.
+	#   If other compilers than Gnu Compiler Collection can be used by portage,
+	#   their support of OpenMP should be properly tested. This code limits the test
+	#   to gcc, and blindly supposes that other compilers do support OpenMP.
+	# if use openmp && [[ $(tc-getCC)$ == *gcc* ]] &&	! tc-has-openmp; then
+	# 	die "Please select an openmp capable compiler like gcc[openmp]"
+	# fi
+	#
+	# Luckily Abinit is a fortran package.
+	#   fortran-2.eclass has its own test for OpenMP support,
+	#   more general than toolchain-funcs.eclass
+	#   The test itself proceeds inside fortran-2_pkg_setup
+	if use openmp; then FORTRAN_NEED_OPENMP=1; fi
+
 	fortran-2_pkg_setup
-	if use openmp && [[ $(tc-getCC)$ == *gcc* ]] &&	! tc-has-openmp; then
-		die "Please select an openmp capable compiler like gcc[openmp]"
-	fi
 
 	# Sort out some USE options
 	if use fftw-threads && ! use fftw; then
@@ -139,9 +158,24 @@ src_prepare() {
 
 src_configure() {
 	local openmp=""
-	use openmp && openmp="-fopenmp"
+	if use openmp; then
+		# based on _fortran-has-openmp() of fortran-2.eclass
+		local fcode=ebuild-openmp-flags.f
+		local _fc=$(tc-getFC)
+
+		cat <<- EOF > "${fcode}"
+		1     call omp_get_num_threads
+		2     end
+		EOF
+
+		for openmp in -fopenmp -xopenmp -openmp -mp -omp -qsmp=omp; do
+			${_fc} ${openmp} "${fcode}" -o "${fcode}.x" && break
+		done
+
+		rm -f "${fcode}.*"
+	fi
 	local libs=""
-	local modules="-I/usr/$(get_libdir)/finclude $(FoX-config --sax --fcflags)"
+	local modules="$(FoX-config --sax --fcflags)"
 	local FoX_libs="${libs} $(FoX-config --sax --libs)"
 	local trio_flavor=""
 	use etsf_io && trio_flavor="${trio_flavor}+etsf_io"
@@ -162,20 +196,11 @@ src_configure() {
 	# for now.
 	if use fftw-threads; then
 		fft_flavor="fftw3-threads"
-		if has_version '>=sci-libs/fftw-3.3'; then
-			# pkg-config files for fftw-3.3 are broken
-			# All the parallel stuff is separated
-			# from the main body of common routines,
-			# and -lfftw3 must be always included alongside.
-			# Until version 3.3 this used to be masked by
-			# .la files.
-			# Bug 384645
-			fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3_threads) $($(tc-getPKG_CONFIG) --libs fftw3)"
-		else
-			fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3_threads)"
-		fi
+		fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3_threads)"
+		fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3f_threads)"
 	else
 		fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3)"
+		fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3f)"
 	fi
 	local gpu_flavor="none"
 	if use cuda; then
@@ -345,7 +370,7 @@ src_install() {
 	fi
 
 	# Remove libtool files and unnecessary static libs
-	remove_libtool_files
+	prune_libtool_files
 }
 
 pkg_postinst() {

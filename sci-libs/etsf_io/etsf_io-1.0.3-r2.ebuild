@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit fortran-2 multilib
 
@@ -32,5 +32,5 @@ src_configure() {
 		$(use_enable examples build-tutorials) \
 		--prefix="${EPREFIX}/usr" \
 		--with-netcdf-ldflags="-L${EPREFIX}/usr/$(get_libdir) -lnetcdff" \
-		--with-moduledir="${EPREFIX}/usr/$(get_libdir)/finclude"
+		--with-moduledir="${EPREFIX}/usr/include"
 }
