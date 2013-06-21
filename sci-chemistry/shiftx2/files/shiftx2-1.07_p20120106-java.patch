@@ -182,13 +182,46 @@ index 505a3f6..920f420 100755
      // Loading only one time, that's why these are here 
      static RandomCoil rcoil = new RandomCoil();
      static LimitedCShift chkcshift = new LimitedCShift();
-@@ -140,8 +140,7 @@ public class ShiftXp {
+@@ -41,7 +41,7 @@ public class ShiftXp {
+         buf.append("Detail information: http://www.shiftx2.ca or http://redpoll.pharmacy.ualberta.ca\n");
+         buf.append("--------------------------------------------------------------------------------\n\n");
  
-         // check execute directory 
-         // 2011.08.31 changed shiftx2_main.py --> shiftx2.py
+-        buf.append("SYNOPSIS\n\t java -Xmx1500m -cp <SHIFTX+ dir>/bin:<SHIFTX+ dir>/lib/weka.jar ShiftXp [options]\n");
++        buf.append("SYNOPSIS\n\t jshiftx2 [options]\n");
+ 
+         buf.append("OPTIONS:\n");
+         buf.append("\t -i [<directory/> infile.pdb | ALLPDB]\n");
+@@ -54,10 +54,10 @@ public class ShiftXp {
+         buf.append("\t -temp <number>        Temperature, default=298\n");
+         buf.append("\t -d [TRUE | FALSE]  Deuterated pdb, default=FALSE \n"); 
+         buf.append("\t -r [TRUE | FALSE]  Print randon coild shift (only for CSV format), default=FALSE \n"); 
+-        buf.append("\t -dir <SHIFTX+ directory>  The installed directory of SHIFTX+/SHIFTX2\n\n");
++//        buf.append("\t -dir <SHIFTX+ directory>  The installed directory of SHIFTX+/SHIFTX2\n\n");
+ 
+         buf.append("EXAMPLE:\n");
+-        buf.append("\t java -Xmx1500m -cp ~/shiftx2/bin:~/shiftx2/lib/weka.jar ShiftXp -i 1ubq.pdb\n\n");
++        buf.append("\t jshiftx2 -i 1ubq.pdb\n\n");
+         buf.append("\n");
+ 
+         System.out.println( buf );
+@@ -138,20 +138,6 @@ public class ShiftXp {
+            }     
+         }
+ 
+-        // check execute directory 
+-        // 2011.08.31 changed shiftx2_main.py --> shiftx2.py
 -        if ( !( new File( SHIFTX2_DIR + "/shiftx2.py").exists() 
 -             &&  new File(SHIFTX2_DIR + "/lib/weka.jar").exists() )  )  {
-+        if (!new File(SHIFTX2_DIR + "/shiftx2.py").exists()) {
- 
+-
+-           System.err.println("\n********************************************************************************");
+-           System.err.println("[Error]\t Required: When the SHIFTX2 execute on other directory,\n"
+-                             +"\t it should be set as a parameter. Use '-dir' option.");
+-           System.err.println("> Current directory: "+System.getProperty("user.dir"));
+-           System.err.println("********************************************************************************\n");
+-
+-           usage();
+-        }
+-
+         if ( inPDBFile == null || inPDBFile.length() < 1)  {
             System.err.println("\n********************************************************************************");
-            System.err.println("[Error]\t Required: When the SHIFTX2 execute on other directory,\n"
+            System.err.println("[Error] Required: There is no input PDB filename.");

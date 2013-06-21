@@ -81,7 +81,7 @@ index 0a171c8..72ecbfe 100755
              sys.path.append(SHIFTX2ROOT+"/shifty3")
              os.chdir(SHIFTX2ROOT+"/shifty3")
 -            shifty_cmd = "python shifty3.py -i " + \
-+            shifty_cmd = "shifty3.py -i " + \
++            shifty_cmd = "shifty3 -i " + \
                  infile + " -o " + infile + ".shifty -c 40 "
              if DEUTERATED:
                  shifty_cmd = shifty_cmd + " -d"
@@ -125,7 +125,7 @@ index 0a171c8..72ecbfe 100755
          sys.path.append( SHIFTX2ROOT + "/shifty3")
          os.chdir(SHIFTX2ROOT + "/shifty3")
 -        shifty_cmd = "python shifty3.py -i " + infile + \
-+        shifty_cmd = "shifty3.py -i " + infile + \
++        shifty_cmd = "shifty3 -i " + infile + \
              " -o " + infile + ".shifty -c 40 "
          if DEUTERATED:
              shifty_cmd = shifty_cmd + " -d"
@@ -176,7 +176,7 @@ index 0a171c8..72ecbfe 100755
          sys.path.append(SHIFTX2ROOT + "/shifty3")
          os.chdir(SHIFTX2ROOT +"/shifty3")
 -        shifty_cmd = "python shifty3.py -i " + inputfile + " -o " + sy_outfile + " -c 40 "
-+        shifty_cmd = "shifty3.py -i " + inputfile + " -o " + sy_outfile + " -c 40 "
++        shifty_cmd = "shifty3 -i " + inputfile + " -o " + sy_outfile + " -c 40 "
          if DEUTERATED:
              shifty_cmd = shifty_cmd + " -d"
          if VERBOSE:
