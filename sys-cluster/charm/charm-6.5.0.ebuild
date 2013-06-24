@@ -13,14 +13,18 @@ SRC_URI="http://charm.cs.uiuc.edu/distrib/${P}.tar.gz"
 LICENSE="charm"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="charmdebug cmkopt doc examples smp static-libs tcp"
+IUSE="charmdebug cmkopt doc examples mpi smp static-libs tcp"
 
 DEPEND="
 	doc? (
 	>=app-text/poppler-0.12.3-r3[utils]
 	dev-tex/latex2html
-	virtual/tex-base )"
-RDEPEND=""
+	virtual/tex-base )
+	mpi? (
+	virtual/mpi )"
+RDEPEND="
+	mpi? (
+	virtual/mpi )"
 
 REQUIRED_USE="charmdebug? ( !cmkopt )"
 
@@ -53,12 +57,12 @@ src_prepare() {
 	fi
 
 	sed \
-		-e "/CMK_CF90/s:f90:$(tc-getFC):g" \
-		-e "/CMK_CXX/s:g++:$(tc-getCXX):g" \
-		-e "/CMK_CC/s:gcc:$(tc-getCC):g" \
+		-e "/CMK_CF90/s:f90:$( use mpi && echo "mpif90" || echo $(tc-getFC)):g" \
+		-e "/CMK_CXX/s:g++:$( use mpi && echo "mpic++" || echo $(tc-getCXX)):g" \
+		-e "/CMK_CC/s:gcc:$( use mpi && echo "mpicc" || echo $(tc-getCC)):g" \
 		-e '/CMK_F90_MODINC/s:-p:-I:g' \
 		-e "/CMK_LD/s:\"$: ${LDFLAGS} \":g" \
-		-i src/arch/net-linux*/*sh || die
+		-i src/arch/$( use mpi && echo "mpi" || echo "net" )-linux*/*sh || die
 
 	sed \
 		-e "s:-o conv-cpm:${LDFLAGS} &:g" \
@@ -77,8 +81,8 @@ src_prepare() {
 
 src_compile() {
 	# Build charmm++ first.
-	./build charm++ net-linux$( use amd64 && echo "-amd64" ) ${CHARM_OPTS} ${MAKEOPTS} ${CFLAGS} || \
-		die "Failed to build charm++"
+	./build charm++ $( use mpi && echo "mpi" || echo "net" )-linux$( use amd64 && echo "-amd64" ) \
+		${CHARM_OPTS} ${MAKEOPTS} ${CFLAGS} || die "Failed to build charm++"
 
 	# make pdf/html docs
 	if use doc; then
