@@ -15,16 +15,16 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="charmdebug cmkopt doc examples mpi smp static-libs tcp"
 
+MPIDEPEND="
+	mpi? (
+	virtual/mpi )"
 DEPEND="
 	doc? (
 	>=app-text/poppler-0.12.3-r3[utils]
 	dev-tex/latex2html
 	virtual/tex-base )
-	mpi? (
-	virtual/mpi )"
-RDEPEND="
-	mpi? (
-	virtual/mpi )"
+	${MPIDEPEND}"
+RDEPEND="${MPIDEPEND}"
 
 REQUIRED_USE="charmdebug? ( !cmkopt )"
 
