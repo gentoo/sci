@@ -6,7 +6,7 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=y
 
-inherit autotools-utils
+inherit autotools-utils flag-o-matic
 
 DESCRIPTION="The USF program suite"
 HOMEPAGE="http://xray.bmc.uu.se/usf/"
@@ -29,4 +29,15 @@ src_unpack() {
 	unpack ${P}.tar.gz
 	cd "${S}"
 	unpack mark-20110912.tgz
+}
+
+src_prepare() {
+	local src
+	append-fflags -ffixed-line-length-132
+	for src in \
+		ave coma comap comdem dataman essens imp lsqman mama mapfix \
+		mapman mave ncs6d o2d prof solex spancsi; do
+			mv ${src}/${src}.{f,F} || die
+	done
+	autotools-utils_src_prepare
 }

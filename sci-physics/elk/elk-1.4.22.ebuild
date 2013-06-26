@@ -19,7 +19,7 @@ RDEPEND="
 	lapack? (
 		virtual/blas
 		virtual/lapack )
-	libxc? ( =sci-libs/libxc-1*[fortran] )
+	libxc? ( >=sci-libs/libxc-1.2.0-r1[fortran] )
 	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
 	perl? ( dev-lang/perl )

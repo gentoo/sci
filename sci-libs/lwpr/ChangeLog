@@ -1,6 +1,12 @@
 # ChangeLog for sci-libs/lwpr
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*lwpr-1.2.5 (25 Jun 2013)
+
+  25 Jun 2013; Sébastien Fabbro <bicatali@gentoo.org> +lwpr-1.2.5.ebuild,
+  -files/lwpr-1.2.2-setup.py.patch, -lwpr-1.2.2.ebuild, metadata.xml:
+  sci-libs/lwpr: Version bump. Removed python flag, should be a split package
 
   29 Jun 2010; Justin Lecher <jlec@gentoo.org> lwpr-1.2.2.ebuild:
   Python ABI fixes
@@ -11,4 +17,3 @@
   +files/lwpr-1.2.2-setup.py.patch, +metadata.xml:
   Initial import, ebuild based on bug #288032, initially submitted by
   Florent Teichteil
-

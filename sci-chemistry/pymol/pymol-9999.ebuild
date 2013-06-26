@@ -12,7 +12,7 @@ inherit distutils-r1 fdo-mime subversion versionator
 DESCRIPTION="A Python-extensible molecular graphics system"
 HOMEPAGE="http://pymol.sourceforge.net/"
 SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${PN}-icons.tar.xz"
-ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
+ESVN_REPO_URI="svn://svn.code.sf.net/p/pymol/code/trunk/pymol"
 
 LICENSE="PSF-2.2"
 SLOT="0"

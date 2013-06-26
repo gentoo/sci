@@ -1,6 +1,18 @@
 # ChangeLog for sci-libs/fox
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  20 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  files/4.1.2-r2-install-customizations.patch:
+  The announced, but forgotten, change actually done.
+
+*fox-4.1.2-r2 (17 Jun 2013)
+
+  17 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz> -fox-4.1.2-r1.ebuild,
+  +fox-4.1.2-r2.ebuild, -files/4.0.4-install-customizations.patch,
+  +files/4.1.2-r2-install-customizations.patch:
+  Usage of LIBDIR/finclude abandoned in favour of /usr/include, as used by most
+  other packages.
 
   22 Jun 2012; Alexey Shvetsov <alexxy@gentoo.org> fox-4.1.2-r1.ebuild:
   [sci-libs/fox] make it prefix aware

@@ -2,6 +2,23 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Jun 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.0.ebuild:
+  Beautify.
+
+  26 Jun 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.0.ebuild,
+  metadata.xml:
+  Added new package: projections  A performance analysis framework for Charm++
+  applications
+
+  26 Jun 2013; Christoph Junghans <ottxor@gentoo.org> charm-6.5.0.ebuild:
+  make use of usex
+
+  24 Jun 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.0.ebuild:
+  sys-cluster/charm-6.5.0: Reorganized DEPENDs.
+
+  24 Jun 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.0.ebuild:
+  sys-cluster/charm-6.5.0: Added mpi use flag.
+
   31 May 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.0.ebuild:
   Added die to test.
 

@@ -3,9 +3,6 @@
 <pkgmetadata>
   <herd>sci</herd>
   <maintainer>
-    <email>sci@gentoo.org</email>
-  </maintainer>
-  <maintainer>
     <email>dongxuli2011@gmail.com</email>
   </maintainer>
   <use>

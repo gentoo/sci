@@ -14,13 +14,14 @@ HOMEPAGE="http://ispc.github.com/"
 if [[ ${PV} = *9999 ]]; then
 	inherit git-2
 	EGIT_REPO_URI="git://github.com/ispc/ispc.git"
+	KEYWORDS=""
 else
 	SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~amd64 ~x86"
 fi
 
 LICENSE="BSD BSD-2 UoI-NCSA"
 SLOT="0"
-KEYWORDS=""
 IUSE="examples"
 
 RDEPEND="

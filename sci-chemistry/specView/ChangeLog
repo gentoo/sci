@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Jun 2013; Justin Lecher <jlec@gentoo.org> specView-1.0.2.ebuild:
+  Bump to EAPI=5 and python-single-r1.eclass
+
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> specView-1.0.2.ebuild,
   metadata.xml:
   Fix quoting

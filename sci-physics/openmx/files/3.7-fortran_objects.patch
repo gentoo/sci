@@ -1,0 +1,15 @@
+diff -Naurp openmx3.7.orig/source/makefile openmx3.7/source/makefile
+--- openmx3.7.orig/source/makefile	2013-06-18 11:22:23.000000000 +0000
++++ openmx3.7/source/makefile	2013-06-18 11:36:31.118716378 +0000
+@@ -818,8 +818,8 @@ TRAN_Set_SurfOverlap_NC.o: TRAN_Set_Surf
+ 
+ 
+ elpa1.o: elpa1.f90 
+-	$(FC) -c elpa1.f90
++	$(FC) -c elpa1.f90 -o elpa1.o
+ solve_evp_real.o: solve_evp_real.f90 
+-	$(FC) -c solve_evp_real.f90 
++	$(FC) -c solve_evp_real.f90 -o solve_evp_real.o
+ solve_evp_complex.o: solve_evp_complex.f90 
+-	$(FC) -c solve_evp_complex.f90
++	$(FC) -c solve_evp_complex.f90 -o solve_evp_complex.o
