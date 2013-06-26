@@ -3,6 +3,10 @@
 # $Header: $
 
   26 Jun 2013; Nicolas Bock <nicolasbock@gmail.com> lammps-20130526.ebuild:
+  Bashified package name mangling.  Thanks to ottxor for suggesting and helpful
+  discussions.
+
+  26 Jun 2013; Nicolas Bock <nicolasbock@gmail.com> lammps-20130526.ebuild:
   Fixed missing use flag.
 
   26 Jun 2013; Christoph Junghans <ottxor@gentoo.org> lammps-20130526.ebuild:
