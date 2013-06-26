@@ -26,9 +26,9 @@ S="${WORKDIR}/${P%[a-z]}"
 
 DOCS=(ChangeLog README NEWS TODO)
 
-#src_prepare() {
-#	epatch "${FILESDIR}/${P}-errorline.patch"
-#}
+src_prepare() {
+	has_version ">=dev-lang/tcl-8.6.0" && epatch "${FILESDIR}/${P}-errorline.patch"
+}
 
 src_configure() {
 	local myeconfargs=(
