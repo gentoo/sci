@@ -12,4 +12,3 @@ diff -ru modules-3.2.9-old/cmdModule.c modules-3.2.9/cmdModule.c
  	    			/* FALLTHROUGH */
  
              case TCL_LEVEL0_RETURN:
-Nur in modules-3.2.9: cmdModule.c~.
