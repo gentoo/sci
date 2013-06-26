@@ -15,16 +15,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="charmdebug cmkopt doc examples mpi smp static-libs tcp"
 
-MPIDEPEND="
-	mpi? (
-	virtual/mpi )"
+RDEPEND="mpi? ( virtual/mpi )"
 DEPEND="
+	${RDEPEND}
 	doc? (
-	>=app-text/poppler-0.12.3-r3[utils]
-	dev-tex/latex2html
-	virtual/tex-base )
-	${MPIDEPEND}"
-RDEPEND="${MPIDEPEND}"
+		>=app-text/poppler-0.12.3-r3[utils]
+		dev-tex/latex2html
+		virtual/tex-base
+	)"
 
 REQUIRED_USE="charmdebug? ( !cmkopt )"
 
@@ -33,36 +31,25 @@ FORTRAN_STANDARD="90"
 src_prepare() {
 	# Build shared libraries by default.
 	CHARM_OPTS="--build-shared"
-
-	if use charmdebug; then
-		CHARM_OPTS+=" --with-charmdebug"
-	else
-		CHARM_OPTS+=" --with-production"
-	fi
+	CHARM_OPTS+=" --with-$(usex charmdebug charmdebug production)"
 
 	# TCP instead of default UDP for socket comunication
 	# protocol
-	if use tcp; then
-		CHARM_OPTS+=" tcp"
-	fi
+	CHARM_OPTS+="$(usex tcp ' tcp' '')"
 
 	# enable direct SMP support using shared memory
-	if use smp; then
-		CHARM_OPTS+=" smp"
-	fi
+	CHARM_OPTS+="$(usex smp ' smp' '')"
 
 	# CMK optimization
-	if use cmkopt; then
-		append-cppflags -DCMK_OPTIMIZE=1
-	fi
+	use cmkopt && append-cppflags -DCMK_OPTIMIZE=1
 
 	sed \
-		-e "/CMK_CF90/s:f90:$( use mpi && echo "mpif90" || echo $(tc-getFC)):g" \
-		-e "/CMK_CXX/s:g++:$( use mpi && echo "mpic++" || echo $(tc-getCXX)):g" \
-		-e "/CMK_CC/s:gcc:$( use mpi && echo "mpicc" || echo $(tc-getCC)):g" \
+		-e "/CMK_CF90/s:f90:$(usex mpi "mpif90" "$(tc-getFC)"):g" \
+		-e "/CMK_CXX/s:g++:$(usex mpi "mpic++" "$(tc-getCXX)"):g" \
+		-e "/CMK_CC/s:gcc:$(usex mpi "mpicc" "$(tc-getCC)"):g" \
 		-e '/CMK_F90_MODINC/s:-p:-I:g' \
 		-e "/CMK_LD/s:\"$: ${LDFLAGS} \":g" \
-		-i src/arch/$( use mpi && echo "mpi" || echo "net" )-linux*/*sh || die
+		-i src/arch/$(usex mpi && "mpi" "net")-linux*/*sh || die
 
 	sed \
 		-e "s:-o conv-cpm:${LDFLAGS} &:g" \
@@ -81,7 +68,7 @@ src_prepare() {
 
 src_compile() {
 	# Build charmm++ first.
-	./build charm++ $( use mpi && echo "mpi" || echo "net" )-linux$( use amd64 && echo "-amd64" ) \
+	./build charm++ $(usex mpi "mpi" "net")-linux$(usex amd64 "-amd64" '') \
 		${CHARM_OPTS} ${MAKEOPTS} ${CFLAGS} || die "Failed to build charm++"
 
 	# make pdf/html docs
@@ -112,7 +99,7 @@ src_install() {
 	# Install binaries.
 	for i in bin/*; do
 		if [[ -L ${i} ]]; then
-			i=$( readlink -e "${i}" ) || die
+			i=$(readlink -e "${i}") || die
 		fi
 		dobin "${i}"
 	done
@@ -121,7 +108,7 @@ src_install() {
 	insinto /usr/include/${P}
 	for i in include/*; do
 		if [[ -L ${i} ]]; then
-			i=$( readlink -e "${i}" ) || die
+			i=$(readlink -e "${i}") || die
 		fi
 		doins "${i}"
 	done
@@ -131,7 +118,7 @@ src_install() {
 	if use static-libs; then
 		for i in lib/*.{a,o}; do
 			if [[ -L ${i} ]]; then
-				i=$( readlink -e "${i}" ) || die
+				i=$(readlink -e "${i}") || die
 			fi
 			dolib "${i}"
 		done
@@ -140,7 +127,7 @@ src_install() {
 	# Install shared libs.
 	for i in lib_so/*; do
 		if [[ -L ${i} ]]; then
-			i=$( readlink -e "${i}" ) || die
+			i=$(readlink -e "${i}") || die
 		fi
 		dolib.so "${i}"
 	done
