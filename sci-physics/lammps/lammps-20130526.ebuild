@@ -26,7 +26,7 @@ S="${WORKDIR}/${MY_P}"
 
 lmp_emake() {
 	local LAMMPS_INCLUDEFLAGS="$(usex gzip '-DLAMMPS_GZIP' '')"
-	LAMMPS_INCLUDEFLAGS+="$(usex ' -DLAMMPS_MEMALIGN' '')"
+	LAMMPS_INCLUDEFLAGS+="$(usex lammps-memalign ' -DLAMMPS_MEMALIGN' '')"
 
 	# Note: The lammps makefile uses CC to indicate the C++ compiler.
 	emake \
