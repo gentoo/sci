@@ -7,7 +7,7 @@ EAPI=5
 PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils-r1 eutils versionator
+inherit distutils-r1 eutils multilib versionator
 
 DESCRIPTION="Homology or comparative modeling of protein three-dimensional structures"
 HOMEPAGE="http://salilab.org/modeller/"
@@ -83,6 +83,7 @@ python_install_all(){
 	exeinto ${INPATH}/lib/${EXECTYPE}/
 	doexe lib/${EXECTYPE}/lib*
 	dosym libmodeller.so.8 ${INPATH}/lib/${EXECTYPE}/libmodeller.so
+	dosym ../../${INPATH}/lib/${EXECTYPE}/libmodeller.so.8 /usr/$(get_libdir)/libmodeller.so.8
 
 	use doc && HTML_DOCS=( doc/. )
 	distutils-r1_python_install_all
