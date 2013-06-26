@@ -13,7 +13,7 @@ SRC_URI="http://charm.cs.uiuc.edu/distrib/${P}.tar.gz"
 LICENSE="charm"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="charmdebug cmkopt doc examples mpi smp static-libs tcp"
+IUSE="charmdebug charmtracing charmproduction cmkopt doc examples mpi smp static-libs tcp"
 
 RDEPEND="mpi? ( virtual/mpi )"
 DEPEND="
@@ -31,7 +31,17 @@ FORTRAN_STANDARD="90"
 src_prepare() {
 	# Build shared libraries by default.
 	CHARM_OPTS="--build-shared"
-	CHARM_OPTS+=" --with-$(usex charmdebug charmdebug production)"
+	if use charmproduction; then
+		CHARM_OPTS+=" --with-production"
+	else
+		if use charmdebug; then
+			CHARM_OPTS+=" --with-charmdebug"
+		fi
+
+		if use charmtracing; then
+			CHARM_OPTS+=" --with-tracing --with-tracing-commthread"
+		fi
+	fi
 
 	# TCP instead of default UDP for socket comunication
 	# protocol
@@ -49,7 +59,7 @@ src_prepare() {
 		-e "/CMK_CC/s:gcc:$(usex mpi "mpicc" "$(tc-getCC)"):g" \
 		-e '/CMK_F90_MODINC/s:-p:-I:g' \
 		-e "/CMK_LD/s:\"$: ${LDFLAGS} \":g" \
-		-i src/arch/$(usex mpi && "mpi" "net")-linux*/*sh || die
+		-i src/arch/$(usex mpi "mpi" "net")-linux*/*sh || die
 
 	sed \
 		-e "s:-o conv-cpm:${LDFLAGS} &:g" \
