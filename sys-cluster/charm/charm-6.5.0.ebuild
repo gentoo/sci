@@ -24,7 +24,9 @@ DEPEND="
 		virtual/tex-base
 	)"
 
-REQUIRED_USE="charmdebug? ( !cmkopt )"
+REQUIRED_USE="
+	cmkopt? ( !charmdebug !charmtracing )
+	charmproduction? ( !charmdebug !charmtracing )"
 
 FORTRAN_STANDARD="90"
 
