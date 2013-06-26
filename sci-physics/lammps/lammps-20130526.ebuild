@@ -8,40 +8,39 @@ FORTRAN_NEEDED="package-meam"
 
 inherit eutils fortran-2
 
-LAMMPSDATE="26May13"
+MY_P="${PN}-$(date -d "${PV}" +"%d%b%y")"
 
 DESCRIPTION="Large-scale Atomic/Molecular Massively Parallel Simulator"
 HOMEPAGE="http://lammps.sandia.gov/"
-SRC_URI="http://lammps.sandia.gov/tars/lammps-${LAMMPSDATE}.tar.gz"
+SRC_URI="http://lammps.sandia.gov/tars/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="doc examples gzip lammps-memalign mpi package-dipole package-meam package-rigid"
 
 DEPEND="mpi? ( virtual/mpi )"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${PN}-${LAMMPSDATE}"
+S="${WORKDIR}/${MY_P}"
 
 lmp_emake() {
-	local LAMMPS_INCLUDEFLAGS=
-	use gzip && LAMMPS_INCLUDEFLAGS+=" -DLAMMPS_GZIP"
-	use lammps-memalign && LAMMPS_INCLUDEFLAGS+=" -DLAMMPS_MEMALIGN"
+	local LAMMPS_INCLUDEFLAGS="$(usex gzip '-DLAMMPS_GZIP' '')"
+	LAMMPS_INCLUDEFLAGS+="$(usex ' -DLAMMPS_MEMALIGN' '')"
 
 	# Note: The lammps makefile uses CC to indicate the C++ compiler.
 	emake \
 		ARCHIVE=$(tc-getAR) \
-		CC=$(use mpi && echo mpic++ || echo $(tc-getCXX)) \
-		F90=$(use mpi && echo mpif90 || echo $(tc-getFC)) \
-		LINK=$(use mpi && echo mpic++ || echo $(tc-getCXX)) \
+		CC=$(usex mpi "mpic++" "$(tc-getCXX)") \
+		F90=$(usex mpi "mpif90" "$(tc-getFC)") \
+		LINK=$(usex mpi "mpic++" "$(tc-getCXX)") \
 		CCFLAGS="${CXXFLAGS}" \
 		F90FLAGS="${FCFLAGS}" \
 		LINKFLAGS="${LDFLAGS}" \
 		LMP_INC="${LAMMPS_INCLUDEFLAGS}" \
-		MPI_INC=$(use mpi || echo -I../STUBS) \
-		MPI_PATH=$(use mpi || echo -L../STUBS) \
-		MPI_LIB=$(use mpi || echo -lmpi_stubs) \
+		MPI_INC=$(usex mpi '' "-I../STUBS") \
+		MPI_PATH=$(usex mpi '' '-L../STUBS') \
+		MPI_LIB=$(usex mpi '' '-lmpi_stubs') \
  		"$@"
 }
 
