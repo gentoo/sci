@@ -18,7 +18,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
-RDEPEND=">=virtual/jre-1.6"
+RDEPEND="
+	>=virtual/jre-1.6
+	sys-cluster/charm[charmdebug]"
 
 src_install() {
 	java-pkg_newjar ${PN}.jar
