@@ -76,6 +76,9 @@ pkg_setup() {
 }
 
 src_prepare() {
+	epatch \
+		"${FILESDIR}"/"${P}"-CUDA_gethostname.patch
+
 	tar -xjf "${FILESDIR}"/"${P}"-tests.tar.bz2 -C "${S}"/tests/DFT/
 	eautoreconf
 }
