@@ -4,6 +4,10 @@
 
 EAPI=5
 
+inherit multilib
+
+AMD_CL=usr/$(get_libdir)/OpenCL/vendors/amd/
+
 X86_AT="AMD-APP-SDK-v${PV}-lnx32.tgz"
 AMD64_AT="AMD-APP-SDK-v${PV}-lnx64.tgz"
 
@@ -51,12 +55,16 @@ src_unpack() {
 }
 
 src_compile() {
-	use examples && emake
+	use examples && make -j1
 }
 
 src_install() {
 	dodir /opt/AMDAPP
 	cp -R "${S}/"* "${ED}/opt/AMDAPP" || die "Install failed!"
+
+	dodir "${AMD_CL}"
+	dosym "/opt/AMDAPP/lib/`arch`/libOpenCL.so"   "${AMD_CL}"
+	dosym "/opt/AMDAPP/lib/`arch`/libOpenCL.so.1" "${AMD_CL}"
 
 	insinto /etc/OpenCL/vendors/
 	doins ../etc/OpenCL/vendors/*
