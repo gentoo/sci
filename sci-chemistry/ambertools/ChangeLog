@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-chemistry/ambertools/ChangeLog,v 1.2 2011/08/02 14:42:37 alexxy Exp $
 
+  28 Jun 2013; Christoph Junghans <ottxor@gentoo.org> ambertools-12.ebuild:
+  fixed deps
+
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> ambertools-1.5-r4.ebuild:
   Add missing multilib.eclass
 
@@ -69,4 +72,3 @@
   28 Jul 2011; Alexey Shvetsov <alexxy@gentoo.org> +ambertools-1.5-r1.ebuild,
   +files/ambertools-1.5-gentoo.patch, +metadata.xml:
   Initial import to tree
-
