@@ -54,7 +54,8 @@ pkg_setup() {
 
 src_prepare() {
 	epatch	"${FILESDIR}/condor_shadow_dlopen-${PV}.patch" \
-		"${FILESDIR}/fix_sandbox_violations-${PV}.patch"
+		"${FILESDIR}/packaging_directories-${PV}.patch" \
+		"${FILESDIR}/fix_sandbox_violations-${PV}.patch" 
 	cmake-utils_src_prepare
 }
 
