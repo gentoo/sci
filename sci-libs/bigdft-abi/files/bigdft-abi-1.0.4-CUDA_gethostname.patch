@@ -1,0 +1,22 @@
+diff -Naurp bigdft-abi-1.0.4-orig/S_GPU/src/class_utils.h bigdft-abi-1.0.4/S_GPU/src/class_utils.h
+--- bigdft-abi-1.0.4-orig/S_GPU/src/class_utils.h	2012-07-09 14:43:33.000000000 +0000
++++ bigdft-abi-1.0.4/S_GPU/src/class_utils.h	2013-06-27 09:52:17.000000000 +0000
+@@ -32,6 +32,7 @@
+ #include <config.h>
+ #endif
+ 
++#include <unistd.h>
+ #include <sstream>
+ 
+ class deleter
+diff -Naurp bigdft-abi-1.0.4-orig/src/CUDA/check_cuda.h bigdft-abi-1.0.4/src/CUDA/check_cuda.h
+--- bigdft-abi-1.0.4-orig/src/CUDA/check_cuda.h	2012-07-09 14:43:33.000000000 +0000
++++ bigdft-abi-1.0.4/src/CUDA/check_cuda.h	2013-06-27 09:51:50.000000000 +0000
+@@ -1,6 +1,7 @@
+ #ifndef __checkcuda__
+ #define __checkcuda__
+ 
++#include <unistd.h>
+ #include <string>
+ #include <sstream>
+ 
