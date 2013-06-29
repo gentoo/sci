@@ -63,7 +63,7 @@ src_configure() {
 	# All the hard coded -DWITH_X=OFF flags are for packages that aren't in portage
 	# I also haven't included support for HAVE_VMWARE because I don't know what it requires
 	local mycmakeargs="
-		-DCONDOR_PACKAGE_BUILD=OFF
+		-DCONDOR_PACKAGE_BUILD=ON
 		-DWITH_AVIARY=OFF
 		-DWITH_BLAHP=OFF
 		-DWITH_CAMPUSFACTORY=OFF
