@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 JAVA_PKG_IUSE="doc source test"
 inherit eutils java-pkg-2 java-ant-2
 
@@ -12,7 +12,7 @@ SRC_URI="http://heasarc.gsfc.nasa.gov/docs/heasarc/${PN}/java/v1.0/v${PV}/${PN}_
 
 LICENSE="public-domain"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 CDEPEND="dev-java/junit:4"

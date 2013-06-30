@@ -25,7 +25,7 @@ SLOT="0"
 LICENSE="LGPL-2.1"
 IUSE=""
 
-S="${WORKDIR}/${ROOT_PN}-v5-34-00-patches"
+S="${WORKDIR}/${ROOT_PN}"
 VIRTUALX_REQUIRED="always"
 
 DEPEND="

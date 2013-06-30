@@ -22,6 +22,7 @@
     <flag name="htmldoc">Generate html documentation</flag>
     <flag name="llvm">Build the new cling interactive interpreter based on <pkg>sys-devel/llvm</pkg></flag>
     <flag name="math">Build all math related libraries plugins, needs <pkg>sci-libs/gsl</pkg> </flag>
+    <flag name="metric">Default to A4 paper size and metric measurement</flag>
     <flag name="pythia6">Build the interface for <pkg>sci-physics/pythia</pkg> version 6.x </flag>
     <flag name="pythia8">Build the interface for <pkg>sci-physics/pythia</pkg> version 8.x </flag>
     <flag name="reflex">Build the reflection database for the C++ interpreter</flag>
