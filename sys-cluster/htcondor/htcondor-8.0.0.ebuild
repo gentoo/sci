@@ -64,6 +64,7 @@ src_configure() {
 	# I also haven't included support for HAVE_VMWARE because I don't know what it requires
 	local mycmakeargs="
 		-DCONDOR_PACKAGE_BUILD=ON
+		-DCMAKE_INSTALL_PREFIX=/
 		-DWITH_AVIARY=OFF
 		-DWITH_BLAHP=OFF
 		-DWITH_CAMPUSFACTORY=OFF
@@ -110,7 +111,4 @@ src_install() {
 	fperms 755 /var/run/condor
 	fperms 0775 /var/lock/condor
 	fowners condor:condor /var/lib/condor /var/log/condor /var/run/condor
-
-	newconfd "${FILESDIR}"/condor.confd condor || die
-	newinitd "${FILESDIR}"/condor.initd condor || die
 }
