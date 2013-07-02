@@ -10,7 +10,6 @@ inherit multilib
 # @BLURB:  Common functions for mpi-pkg.eclass and mpi-imp.eclass
 
 # History:
-#   2013-07-01 (jsbronder):  Workaround OpenMPI build issue #462602
 #	2009-06-26 (jsbronder):  Add ability to require common use flags.
 #		Remove dep on eselect-mpi (it's in sys-cluster/empi)
 #		Use virtual/$class to get imp dep in mpi_pkg_deplist.
@@ -399,10 +398,6 @@ mpi_pkg_set_env() {
 		export FC=$(mpi_pkg_fc)
 		export PKG_CONFIG_PATH="$(mpi_root)$(get_libdir)/pkgconfig:${PKG_CONFIG_PATH}"
 		mpi_pkg_set_ld_library_path
-
-		if [ "$(mpi_pkg_base_imp)" == "openmpi" ]; then
-			export FAKEROOTKEY=1
-		fi
 	fi
 }
 
@@ -417,10 +412,6 @@ mpi_pkg_restore_env() {
 		export FC=$_mpi_oFC
 		export PKG_CONFIG_PATH=$_mpi_oPCP
 		export LD_LIBRARY_PATH=$_mpi_oLLP
-
-		if [ "$(mpi_pkg_base_imp)" == "openmpi" ]; then
-			unset FAKEROOTKEY
-		fi
 	fi
 }
 
