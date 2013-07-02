@@ -40,6 +40,7 @@ src_prepare() {
 
 src_install() {
 	installation() {
+		cd "${BUILD_DIR}" || die
 		python_moduleinto pmg_tk/startup/
 		python_domodule *.py
 		python_moduleinto pmg_tk/startup/ez-viz/
