@@ -2,9 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
+
 inherit eutils
 
-DESCRIPTION="empi"
+DESCRIPTION="Handling Multiple MPI Implementations"
 HOMEPAGE="http://dev.gentoo.org/~jsbronder/empi.xml"
 SRC_URI=""
 
@@ -16,12 +18,12 @@ DEPEND="app-admin/eselect"
 RDEPEND="${DEPEND}"
 
 src_install() {
-	newbin "${FILESDIR}"/${P} ${PN} || die
-	dodoc "${FILESDIR}"/README.txt || die
-	dodoc "${FILESDIR}"/ChangeLog-${PV} || die
+	newbin "${FILESDIR}"/${P} ${PN}
+	dodoc "${FILESDIR}"/README.txt
+	dodoc "${FILESDIR}"/ChangeLog-${PV}
 
 	insinto /usr/share/eselect/modules
-	newins "${FILESDIR}"/eselect.mpi-${PV} mpi.eselect || die
+	newins "${FILESDIR}"/eselect.mpi-${PV} mpi.eselect
 	exeinto /etc/profile.d
 	doexe "${FILESDIR}"/mpi.sh
 	doexe "${FILESDIR}"/mpi.csh
