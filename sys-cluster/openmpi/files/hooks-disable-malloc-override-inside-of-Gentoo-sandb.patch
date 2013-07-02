@@ -1,4 +1,4 @@
-From 094de74dc5e518a931c495692143ea3282553674 Mon Sep 17 00:00:00 2001
+From 3bd5897c7ca8ab61fb024957aeae891e204b3e3f Mon Sep 17 00:00:00 2001
 From: Justin Bronder <jsbronder@gmail.com>
 Date: Mon, 1 Jul 2013 20:37:17 -0400
 Subject: [PATCH] hooks:  disable malloc override inside of Gentoo sandbox
@@ -15,7 +15,7 @@ See https://bugs.gentoo.org/show_bug.cgi?id=462602
  1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/opal/mca/memory/linux/hooks.c b/opal/mca/memory/linux/hooks.c
-index 6a1646f..ce91e76 100644
+index 6a1646f..5ded08c 100644
 --- a/opal/mca/memory/linux/hooks.c
 +++ b/opal/mca/memory/linux/hooks.c
 @@ -747,9 +747,16 @@ static void opal_memory_linux_malloc_init_hook(void)
@@ -27,13 +27,13 @@ index 6a1646f..ce91e76 100644
 +
 +       This is also an issue when using Gentoo's version of 'fakeroot',
 +       sandbox v2.5.  Sandbox environments can also be detected fairly
-+       easily by looking for SANDBOX_PID.
++       easily by looking for SANDBOX_ON.
 +    */
 +
      if (getenv("FAKEROOTKEY") != NULL ||
 -        getenv("FAKED_MODE") != NULL) {
 +        getenv("FAKED_MODE") != NULL ||
-+        getenv("SANDBOX_PID") != NULL ) {
++        getenv("SANDBOX_ON") != NULL ) {
          return;
      }
  
