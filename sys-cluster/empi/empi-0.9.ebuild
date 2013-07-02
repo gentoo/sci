@@ -17,6 +17,8 @@ IUSE=""
 DEPEND="app-admin/eselect"
 RDEPEND="${DEPEND}"
 
+S="${WORKDIR}"
+
 src_install() {
 	newbin "${FILESDIR}"/${P} ${PN}
 	dodoc "${FILESDIR}"/README.txt
