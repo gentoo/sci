@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.07.ebuild,v 1.1 2013/05/23 23:52:31 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.08.ebuild,v 1.2 2013/06/11 16:29:51 bicatali Exp $
 
 EAPI=5
 
@@ -26,10 +26,12 @@ PATCH_PV3=5.34.05
 DESCRIPTION="C++ data analysis framework and interpreter from CERN"
 HOMEPAGE="http://root.cern.ch/"
 SRC_URI="${SRC_URI}
-	doc? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuideA4.pdf -> ROOTUsersGuide-${PV}.pdf
+	doc? (
 		math? (
 			ftp://root.cern.ch/${PN}/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
 			http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf )
+		metric? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuideA4.pdf -> ROOTUsersGuideA4-${PV}.pdf )
+	   !metric? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuideLetter.pdf -> ROOTUsersGuideLetter-${PV}.pdf )
 		htmldoc? (
 			http://root.cern.ch/drupal/sites/default/files/rootdrawing-logo.png
 			http://root.cern.ch/drupal/sites/all/themes/newsflash/images/blue/root-banner.png
@@ -38,8 +40,8 @@ SRC_URI="${SRC_URI}
 SLOT="0"
 LICENSE="LGPL-2.1"
 IUSE="+X afs avahi -c++0x doc emacs examples fits fftw graphviz htmldoc
-	kerberos ldap +math mpi mysql odbc +opengl openmp oracle postgres prefix
-	pythia6 pythia8 python qt4 +reflex ruby ssl xinetd xml xrootd"
+	kerberos ldap +math +metric mpi mysql odbc +opengl openmp oracle postgres
+	prefix pythia6 pythia8 python qt4 +reflex ruby ssl xinetd xml xrootd"
 
 REQUIRED_USE="
 	!X? ( !opengl !qt4 )
@@ -112,7 +114,7 @@ RDEPEND="${CDEPEND}
 
 PDEPEND="htmldoc? ( ~app-doc/root-docs-${PV} )"
 
-S="${WORKDIR}/${PN}-v5-34-00-patches"
+S="${WORKDIR}/${PN}"
 
 pkg_setup() {
 	fortran-2_pkg_setup
@@ -289,7 +291,8 @@ doc_install() {
 	cd "${S}"
 	if use doc; then
 		einfo "Installing user's guides"
-		dodoc "${DISTDIR}"/ROOTUsersGuide-${PV}.pdf
+		use metric && dodoc "${DISTDIR}"/ROOTUsersGuideA4-${PV}.pdf || \
+			dodoc "${DISTDIR}"/ROOTUsersGuideLetter-${PV}.pdf
 		use math && dodoc \
 			"${DISTDIR}"/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf \
 			"${DISTDIR}"/TMVAUsersGuide-v${TMVA_DOC_PV}.pdf

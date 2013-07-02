@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=0.8
+VERSION=0.9
 
 source /etc/init.d/functions.sh
 
@@ -356,7 +356,7 @@ add_packages(){
         fi
 
         # I don't know about this, but do you have a better idea?
-        deps="$(emerge --color=n --onlydeps -p --quiet ${TARGETS[i]})"
+        deps="$(emerge --color=n --onlydeps -p --quiet ${TARGETS[i]} | grep '^\[')"
         if [[ $? -ne 0 ]]; then
             emerge --onlydeps -p ${TARGETS[i]}
             die "Unable to calculate deps for ${TARGETS[i]}"

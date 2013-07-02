@@ -26,7 +26,7 @@ RDEPEND="
 	sci-libs/cifparse-obj
 	sci-chemistry/mopac7
 	sci-libs/netcdf
-	sci-libs/fftw:3.0
+	>=sci-libs/fftw-3.3:3.0
 	sci-chemistry/reduce"
 DEPEND="${RDEPEND}
 	app-shells/tcsh
