@@ -8,9 +8,9 @@
 +
 +		#Directory overrides
 +		set( C_BIN			usr/bin )
-+		set( C_LIB			usr/lib/condor )
-+		set( C_LIB_PUBLIC		usr/lib )
-+		set( C_LIB32		usr/lib/condor )
++		set( C_LIB			usr/lib\${LIB_SUFFIX}/condor )
++		set( C_LIB_PUBLIC		usr/lib\${LIB_SUFFIX} )
++		set( C_LIB32		usr/lib\${LIB_SUFFIX}/condor )
 +		set( C_SBIN			usr/sbin )
 +		set( C_INCLUDE		usr/include/condor )
 +		set( C_INCLUDE_PUBLIC		usr/include )
@@ -21,10 +21,10 @@
 +		set( C_ETC			etc/condor )
 +		set( C_CONFIGD		etc/condor/config.d )
 +
-+		set( C_ETC_EXAMPLES	usr/share/doc/condor/etc/examples )
-+		set( C_SHARE_EXAMPLES usr/share/doc/condor)
-+		set( C_DOC			usr/share/doc/condor )
-+		set( C_LIBEXEC		usr/lib/condor/libexec )
++		set( C_ETC_EXAMPLES	usr/share/doc/\${PF}/etc/examples )
++		set( C_SHARE_EXAMPLES usr/share/doc/\${PF} )
++		set( C_DOC			usr/share/doc/\${PF} )
++		set( C_LIBEXEC		usr/lib\${LIB_SUFFIX}/condor/libexec )
 +		set( C_SYSCONFIG	etc/default )
 +
  	endif()
