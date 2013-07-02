@@ -21,9 +21,9 @@
 +		set( C_ETC			etc/condor )
 +		set( C_CONFIGD		etc/condor/config.d )
 +
-+		set( C_ETC_EXAMPLES	usr/share/doc/\${PF}/etc/examples )
-+		set( C_SHARE_EXAMPLES usr/share/doc/\${PF} )
-+		set( C_DOC			usr/share/doc/\${PF} )
++		set( C_ETC_EXAMPLES	usr/share/doc/htcondor-${VERSION}/etc/examples )
++		set( C_SHARE_EXAMPLES usr/share/doc/htcondor-${VERSION} )
++		set( C_DOC			usr/share/doc/htcondor-${VERSION} )
 +		set( C_LIBEXEC		usr/lib\${LIB_SUFFIX}/condor/libexec )
 +		set( C_SYSCONFIG	etc/default )
 +
