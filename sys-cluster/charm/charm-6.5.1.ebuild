@@ -75,6 +75,9 @@ src_prepare() {
 		src/scripts/Makefile \
 		src/arch/net/charmrun/Makefile || die
 
+	# Fix QA notice.
+	append-cflags -DALLOCA_H
+
 	einfo "charm opts: ${CHARM_OPTS}"
 }
 
