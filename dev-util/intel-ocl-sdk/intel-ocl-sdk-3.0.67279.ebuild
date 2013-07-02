@@ -6,8 +6,6 @@ EAPI=5
 
 inherit rpm multilib
 
-INTEL_CL=usr/$(get_libdir)/OpenCL/vendors/intel/
-
 DESCRIPTION="Intel's implementation of the OpenCL standard optimized for Intel processors"
 HOMEPAGE="http://software.intel.com/en-us/articles/opencl-sdk/"
 SRC_URI="http://registrationcenter.intel.com/irc_nas/3142/intel_sdk_for_ocl_applications_2013_xe_sdk_${PV}_x64.tgz"
@@ -43,6 +41,10 @@ src_unpack() {
 	cd "${S}"
 	rpm_unpack "./opencl-1.2-base-${PV}-1.x86_64.rpm" "./opencl-1.2-devel-${PV}-1.x86_64.rpm" "./opencl-1.2-intel-cpu-${PV}-1.x86_64.rpm" "./opencl-1.2-intel-devel-${PV}-1.x86_64.rpm"
 	use mic && rpm_unpack "./opencl-1.2-intel-mic-${PV}-1.x86_64.rpm"
+}
+
+src_prepare() {
+	INTEL_CL=usr/$(get_libdir)/OpenCL/vendors/intel/
 }
 
 src_install() {

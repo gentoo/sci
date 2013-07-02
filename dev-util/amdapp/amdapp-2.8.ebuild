@@ -55,7 +55,8 @@ src_unpack() {
 }
 
 src_compile() {
-	use examples && make -j1
+	MAKEOPTS+=" -j1"
+	use examples && cd samples/opencl && emake
 }
 
 src_install() {
