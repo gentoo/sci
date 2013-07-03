@@ -13,7 +13,7 @@ SRC_URI="http://charm.cs.uiuc.edu/distrib/${P}.tar.gz"
 LICENSE="charm"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="charmdebug charmtracing charmproduction cmkopt doc examples mpi smp static-libs tcp"
+IUSE="charmdebug charmtracing charmproduction cmkopt doc examples mlogft mpi numa smp static-libs syncft tcp"
 
 RDEPEND="mpi? ( virtual/mpi )"
 DEPEND="
@@ -30,20 +30,8 @@ REQUIRED_USE="
 
 FORTRAN_STANDARD="90"
 
-src_prepare() {
-	# Build shared libraries by default.
-	CHARM_OPTS="--build-shared"
-	if use charmproduction; then
-		CHARM_OPTS+=" --with-production"
-	else
-		if use charmdebug; then
-			CHARM_OPTS+=" --with-charmdebug"
-		fi
-
-		if use charmtracing; then
-			CHARM_OPTS+=" --with-tracing --with-tracing-commthread"
-		fi
-	fi
+get_opts() {
+	local CHARM_OPTS
 
 	# TCP instead of default UDP for socket comunication
 	# protocol
@@ -52,9 +40,29 @@ src_prepare() {
 	# enable direct SMP support using shared memory
 	CHARM_OPTS+="$(usex smp ' smp' '')"
 
-	# CMK optimization
-	use cmkopt && append-cppflags -DCMK_OPTIMIZE=1
+	CHARM_OPTS+="$(usex mlogft ' mlogft' '')"
+	CHARM_OPTS+="$(usex syncft ' syncft' '')"
 
+	# Build shared libraries by default.
+	CHARM_OPTS+=" --build-shared"
+
+	if use charmproduction; then
+		CHARM_OPTS+=" --with-production"
+	else
+		if use charmdebug; then
+			CHARM_OPTS+=" --enable-charmdebug"
+		fi
+
+		if use charmtracing; then
+			CHARM_OPTS+=" --enable-tracing --enable-tracing-commthread"
+		fi
+	fi
+
+	CHARM_OPTS+="$(usex numa ' --with-numa' '')"
+	echo $CHARM_OPTS
+}
+
+src_prepare() {
 	sed \
 		-e "/CMK_CF90/s:f90:$(usex mpi "mpif90" "$(tc-getFC)"):g" \
 		-e "/CMK_CXX/s:g++:$(usex mpi "mpic++" "$(tc-getCXX)"):g" \
@@ -75,16 +83,18 @@ src_prepare() {
 		src/scripts/Makefile \
 		src/arch/net/charmrun/Makefile || die
 
-	# Fix QA notice.
-	append-cflags -DALLOCA_H
+	# CMK optimization
+	use cmkopt && append-cppflags -DCMK_OPTIMIZE=1
 
-	einfo "charm opts: ${CHARM_OPTS}"
+	# Fix QA notice. Filed report with upstream.
+	append-cflags -DALLOCA_H
 }
 
 src_compile() {
 	# Build charmm++ first.
+	einfo "running ./build charm++ $(usex mpi 'mpi' 'net')-linux$(usex amd64 '-amd64' '') $(get_opts) ${MAKEOPTS} ${CFLAGS}"
 	./build charm++ $(usex mpi "mpi" "net")-linux$(usex amd64 "-amd64" '') \
-		${CHARM_OPTS} ${MAKEOPTS} ${CFLAGS} || die "Failed to build charm++"
+		$(get_opts) ${MAKEOPTS} ${CFLAGS} || die "Failed to build charm++"
 
 	# make pdf/html docs
 	if use doc; then
