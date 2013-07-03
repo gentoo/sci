@@ -6,8 +6,6 @@ EAPI=5
 
 inherit multilib
 
-AMD_CL=usr/$(get_libdir)/OpenCL/vendors/amd/
-
 X86_AT="AMD-APP-SDK-v${PV}-lnx32.tgz"
 AMD64_AT="AMD-APP-SDK-v${PV}-lnx64.tgz"
 
@@ -52,6 +50,10 @@ src_unpack() {
 	default
 	unpack ./${MY_P}.tgz
 	unpack ./icd-registration.tgz
+}
+
+src_prepare() {
+	AMD_CL=usr/$(get_libdir)/OpenCL/vendors/amd/
 }
 
 src_compile() {
