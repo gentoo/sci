@@ -1,17 +1,15 @@
---- Make.inc.orig	2013-03-03 09:36:52.508027474 -0800
-+++ Make.inc	2013-03-03 09:51:50.846633962 -0800
-@@ -3,25 +3,16 @@
- OS = $(shell uname)
- ARCH = $(shell uname -m)
+--- Make.inc.orig	2013-07-02 22:11:50.789319117 -0400
++++ Make.inc	2013-07-02 22:15:03.526313473 -0400
+@@ -2,24 +2,15 @@
+ 
+ OS := $(shell uname)
  
 -FC = gfortran
 -FFLAGS += -O3
-+CFLAGS_add += -std=c99 -Wall -I$(OPENLIBM_HOME) -I$(OPENLIBM_HOME)/include -I$(OPENLIBM_HOME)/ld80 -I$(OPENLIBM_HOME)/$(ARCH) -I$(OPENLIBM_HOME)/src -DASSEMBLER -D__BSD_VISIBLE -Wno-implicit-function-declaration
  
 -USEGCC = 1
 -USECLANG = 0
 -
--CFLAGS_add += -std=c99 -Wall -O3 -I$(OPENLIBM_HOME) -I$(OPENLIBM_HOME)/include -I$(OPENLIBM_HOME)/ld80 -I$(OPENLIBM_HOME)/$(ARCH) -I$(OPENLIBM_HOME)/src -DASSEMBLER -D__BSD_VISIBLE -Wno-implicit-function-declaration
 -
 -ifeq ($(USECLANG),1)
 -USEGCC = 0
@@ -26,7 +24,7 @@
  CFLAGS_add += -fno-gnu89-inline
  endif
 -AR = ar
-+AR := ar
++AR = :ar
  
- default: all
- 
+ ARCH := $(shell $(CC) -dumpmachine | sed "s/\([^-]*\).*$$/\1/")
+ ifeq ($(ARCH),mingw32)
