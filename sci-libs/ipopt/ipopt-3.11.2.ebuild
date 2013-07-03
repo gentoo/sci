@@ -6,7 +6,7 @@ EAPI=5
 
 AUTOTOOLS_IN_SOURCE_BUILD=yes
 FORTRAN_NEEDED="mumps"
-inherit autotools-utils multilib toolchain-funcs fortran-2
+inherit eutils autotools-utils multilib toolchain-funcs fortran-2
 
 MYPN=Ipopt
 MYP=${MYPN}-${PV}
@@ -18,34 +18,34 @@ SRC_URI="http://www.coin-or.org/download/source/${MYPN}/${MYP}.tgz"
 LICENSE="EPL-1.0 hsl? ( HSL )"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="doc examples hsl lapack mumps static-libs test"
+IUSE="doc examples hsl lapack mpi mumps static-libs test"
 
 RDEPEND="
 	virtual/blas
 	hsl? ( sci-libs/coinhsl )
 	lapack? ( virtual/lapack )
-	mumps? ( sci-libs/mumps )"
+	mumps? ( sci-libs/mumps[mpi=] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	doc? ( app-doc/doxygen[dot] )
-	test? ( sci-libs/coinor-sample sci-libs/coinhsl )"
+	test? ( sci-libs/coinor-sample sci-libs/mumps )"
 
 S="${WORKDIR}/${MYPN}-${PV}/${MYPN}"
 
 src_prepare() {
+	epatch "${FILESDIR}"/${P}-mpi-header.patch
+
 	# as-needed fix
 	# hack to avoid eautoreconf (coinor has its own weird autotools)
 	sed -i \
 		-e 's:\(libipopt_la_LIBADD.*=.*\)$:\1 @IPOPTLIB_LIBS@:g' \
 		src/Interfaces/Makefile.in || die
 
-	if use mumps; then
-		if has_version sci-libs/mumps[-mpi]; then
-			ln -s "${EPREFIX}"/usr/include/mpiseq/mpi.h \
-				src/Algorithm/LinearSolvers/
-		elif has_version sci-libs/mumps[mpi]; then
-			export CXX=mpicxx FC=mpif77 F77=mpif77 CC=mpicc
-		fi
+	if use mumps && ! use mpi; then
+		ln -s "${EPREFIX}"/usr/include/mpiseq/mpi.h \
+			src/Algorithm/LinearSolvers/
+	elif use mpi; then
+		export CXX=mpicxx FC=mpif77 F77=mpif77 CC=mpicc
 	fi
 }
 
@@ -83,7 +83,7 @@ src_compile() {
 }
 
 src_test() {
-	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null || die
+	pushd "${BUILD_DIR}" > /dev/null || die
 	emake test
 	popd > /dev/null || die
 }
