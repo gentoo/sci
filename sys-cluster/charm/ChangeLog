@@ -2,6 +2,13 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Jul 2013; Nicolas Bock <nicolasbock@gmail.com> metadata.xml:
+  Beautification.
+
+  03 Jul 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.1.ebuild,
+  metadata.xml:
+  Added more use flags, and fixed a few typos.
+
   02 Jul 2013; Nicolas Bock <nicolasbock@gmail.com>
   +files/charm-6.5.0-charmc-gentoo.patch, charm-6.5.1.ebuild:
   Added missing patch.
