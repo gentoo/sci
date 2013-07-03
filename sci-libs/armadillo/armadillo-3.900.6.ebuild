@@ -31,7 +31,7 @@ PDEPEND="${RDEPEND}
 	tbb? ( dev-cpp/tbb )"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-{hdf5,example-makefile}.patch
+	epatch "${FILESDIR}"/${PN}-3.820.1-{hdf5,example-makefile}.patch
 	# avoid the automagic cmake macros
 	sed -i -e '/ARMA_Find/d' CMakeLists.txt || die
 }
