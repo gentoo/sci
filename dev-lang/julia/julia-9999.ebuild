@@ -27,6 +27,7 @@ RDEPEND=">=sys-devel/llvm-3.0
 	>=dev-libs/double-conversion-1.1.1
 	>=sys-libs/libunwind-1.1
 	dev-libs/libpcre
+	sci-libs/openlibm
 	sci-mathematics/glpk
 	sys-libs/zlib
 	virtual/blas
@@ -36,7 +37,7 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_prepare() {
-	epatch "${FILESDIR}/julia-nopatchelf.patch"
+	#epatch "${FILESDIR}/julia-nopatchelf.patch"
 	# Folder /usr/include/suitesparse does not exists, everything should be in /usr/include
 	sed -e "s|SUITESPARSE_INC = -I /usr/include/suitesparse|SUITESPARSE_INC = |g" \
 	-i deps/Makefile
@@ -48,6 +49,8 @@ src_prepare() {
 
 	sed -i \
 			-e 's|\(USE_SYSTEM_.*\)=.*|\1=1|g' \
+			-e 's|\(USE_SYSTEM_LIBUV\)=.*|\1=0|g' \
+			-e 's|\(USE_SYSTEM_LIBM\)=.*|\1=0|g' \
 			-e "s|-lblas|$($(tc-getPKG_CONFIG) --libs blas)|" \
 			-e "s|-llapack|$($(tc-getPKG_CONFIG) --libs lapack)|" \
 			-e "s|liblapack|${lapackname}|" \
