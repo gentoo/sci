@@ -6,9 +6,10 @@ EAPI=5
 
 inherit rpm multilib
 
-DESCRIPTION="Intel's implementation of the OpenCL standard optimized for Intel processors"
+DESCRIPTION="Intel's implementation of the OpenCL standard"
 HOMEPAGE="http://software.intel.com/en-us/articles/opencl-sdk/"
-SRC_URI="http://registrationcenter.intel.com/irc_nas/3142/intel_sdk_for_ocl_applications_2013_xe_sdk_${PV}_x64.tgz"
+SRC_URI="http://registrationcenter.intel.com/irc_nas/3142/\
+intel_sdk_for_ocl_applications_2013_xe_sdk_${PV}_x64.tgz"
 
 LICENSE="Intel-SDP"
 SLOT="0"
@@ -39,7 +40,10 @@ S="${WORKDIR}/intel_sdk_for_ocl_applications_2013_xe_sdk_${PV}_x64"
 src_unpack() {
 	default
 	cd "${S}"
-	rpm_unpack "./opencl-1.2-base-${PV}-1.x86_64.rpm" "./opencl-1.2-devel-${PV}-1.x86_64.rpm" "./opencl-1.2-intel-cpu-${PV}-1.x86_64.rpm" "./opencl-1.2-intel-devel-${PV}-1.x86_64.rpm"
+	rpm_unpack "./opencl-1.2-base-${PV}-1.x86_64.rpm"
+	rpm_unpack "./opencl-1.2-devel-${PV}-1.x86_64.rpm"
+	rpm_unpack "./opencl-1.2-intel-cpu-${PV}-1.x86_64.rpm"
+	rpm_unpack "./opencl-1.2-intel-devel-${PV}-1.x86_64.rpm"
 	use mic && rpm_unpack "./opencl-1.2-intel-mic-${PV}-1.x86_64.rpm"
 }
 

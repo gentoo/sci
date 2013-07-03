@@ -12,7 +12,8 @@ AMD64_AT="AMD-APP-SDK-v${PV}-lnx64.tgz"
 MY_P="AMD-APP-SDK-v2.8-RC-lnx64"
 
 DESCRIPTION="AMD Accelerated Parallel Processing (APP) SDK"
-HOMEPAGE="http://developer.amd.com/tools/heterogeneous-computing/amd-accelerated-parallel-processing-app-sdk"
+HOMEPAGE="http://developer.amd.com/tools/heterogeneous-computing/\
+amd-accelerated-parallel-processing-app-sdk"
 SRC_URI="
 		amd64? ( ${AMD64_AT} )
 		x86? ( ${X86_AT} )"
@@ -28,7 +29,8 @@ RDEPEND="
 	sys-devel/gcc
 	media-libs/mesa
 	media-libs/freeglut
-	|| ( dev-util/opencl-headers dev-util/nvidia-cuda-toolkit >=x11-drivers/ati-drivers-11.12[opencl] )
+	|| ( dev-util/opencl-headers dev-util/nvidia-cuda-toolkit
+		>=x11-drivers/ati-drivers-11.12[opencl] )
 	examples? ( media-libs/glew )
 	app-admin/eselect-opencl"
 DEPEND="
