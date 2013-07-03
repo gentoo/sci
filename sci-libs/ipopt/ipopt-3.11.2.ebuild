@@ -5,7 +5,8 @@
 EAPI=5
 
 AUTOTOOLS_IN_SOURCE_BUILD=yes
-inherit autotools-utils multilib toolchain-funcs
+FORTRAN_NEEDED="mumps"
+inherit autotools-utils multilib toolchain-funcs fortran-2
 
 MYPN=Ipopt
 MYP=${MYPN}-${PV}
@@ -38,11 +39,13 @@ src_prepare() {
 		-e 's:\(libipopt_la_LIBADD.*=.*\)$:\1 @IPOPTLIB_LIBS@:g' \
 		src/Interfaces/Makefile.in || die
 
-	if has_version sci-libs/mumps[-mpi]; then
-		ln -s "${EPREFIX}"/usr/include/mpiseq/mpi.h \
-			src/Algorithm/LinearSolvers/
-	elif has_version sci-libs/mumps[mpi]; then
-		export CXX=mpicxx
+	if use mumps; then
+		if has_version sci-libs/mumps[-mpi]; then
+			ln -s "${EPREFIX}"/usr/include/mpiseq/mpi.h \
+				src/Algorithm/LinearSolvers/
+		elif has_version sci-libs/mumps[mpi]; then
+			export CXX=mpicxx FC=mpif77 F77=mpif77 CC=mpicc
+		fi
 	fi
 }
 
