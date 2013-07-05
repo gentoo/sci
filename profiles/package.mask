@@ -55,9 +55,9 @@
 >=sys-cluster/nullmpi-9999
 >=sci-physics/espresso-9999
 >=sci-physics/espresso++-9999
->=sci-chemistry/gromacs-4.5.9999
->=sci-chemistry/gromacs-4.6.9999
->=sci-chemistry/gromacs-9999
+~sci-chemistry/gromacs-4.5.9999
+~sci-chemistry/gromacs-4.6.9999
+~sci-chemistry/gromacs-9999
 >=sci-libs/votca-tools-9999
 >=sci-chemistry/votca-csg-9999
 >=sci-chemistry/votca-csgapps-9999
