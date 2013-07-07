@@ -2,6 +2,11 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  07 Jul 2013; Christoph Junghans <ottxor@gentoo.org>
+  +files/ccache-3.1.9-test-gcc-4.8.patch, ccache-3.1.9-r1.ebuild,
+  files/ccache-config-2:
+  added mpi use, sync with gx86
+
 *ccache-3.1.9-r1 (18 Feb 2013)
 
   18 Feb 2013; Christoph Junghans <ottxor@gentoo.org> +ccache-3.1.9-r1.ebuild,
