@@ -21,9 +21,9 @@ inherit multilib
 #####################
 
 # All known mpi implementations
-__MPI_ALL_IMPLEMENTATION_PNS="mpich2 openmpi lam-mpi openib-mvapich2"
+__MPI_ALL_IMPLEMENTATION_PNS="mpich mpich2 openmpi lam-mpi openib-mvapich2"
 # All mpi implentations that can be classed.
-__MPI_ALL_CLASSABLE_PNS="openmpi mpich2 lam-mpi"
+__MPI_ALL_CLASSABLE_PNS="mpich openmpi mpich2 lam-mpi"
 
 
 
