@@ -97,7 +97,7 @@ src_install() {
 	local LAMMPS_POTENTIALS="/usr/share/${PF}/potentials"
 	insinto "${LAMMPS_POTENTIALS}"
 	doins potentials/*
-    echo "LAMMPS_POTENTIALS=${LAMMPS_POTENTIALS}" > 99lammps
+	echo "LAMMPS_POTENTIALS=${LAMMPS_POTENTIALS}" > 99lammps
 	doenvd 99lammps
 
 	if use examples; then
