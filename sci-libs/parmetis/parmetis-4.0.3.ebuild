@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit eutils cmake-utils toolchain-funcs
 
 # Check metis version bundled in parmetis tar ball
 # by diff of metis and parmetis tar ball
-METISPV=5.0.2
+METISPV=5.1.0
 METISP=metis-${METISPV}
 
 DESCRIPTION="Parallel (MPI) unstructured graph partitioning library"
@@ -19,7 +19,7 @@ SRC_URI="
 	examples? ( http://glaros.dtc.umn.edu/gkhome/fetch/sw/metis/${METISP}.tar.gz )"
 
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 LICENSE="free-noncomm"
 IUSE="doc double-precision examples int64 mpi openmp pcre static-libs"
 
@@ -99,7 +99,7 @@ src_install() {
 	insinto /usr/include
 	doins metis/include/metis.h
 
-	newdoc metis/Changelog{,.metis}
+	newdoc metis/Changelog Changelog.metis}
 	use doc && dodoc "${WORKDIR}/${METISP}"/manual/manual.pdf
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples/metis
