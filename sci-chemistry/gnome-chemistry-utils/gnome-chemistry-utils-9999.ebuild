@@ -5,19 +5,20 @@
 EAPI="5"
 
 GCONF_DEBUG="no"
-inherit eutils gnome2 versionator
+inherit autotools flag-o-matic gnome2 versionator subversion
 
 DESCRIPTION="Programs and library containing GTK widgets and C++ classes related to chemistry"
 HOMEPAGE="http://gchemutils.nongnu.org/"
-SRC_URI="http://download.savannah.gnu.org/releases/gchemutils/$(get_version_component_range 1-2)/${P}.tar.bz2"
+SRC_URI=""
+ESVN_REPO_URI="svn://svn.savannah.nongnu.org/gchemutils/trunk/gchemutils"
 
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 LICENSE="GPL-3 FDL-1.3"
 IUSE="gnumeric nls"
 
 RDEPEND="
-	>=dev-libs/glib-2.26.0:2
+	>=dev-libs/glib-2.36.0:2
 	>=dev-libs/libxml2-2.4.16:2
 	>=gnome-extra/libgsf-1.14.9
 	>=sci-chemistry/bodr-5
@@ -35,10 +36,10 @@ DEPEND="
 
 RESTRICT="mirror"
 
-PATCHES=( "${FILESDIR}"/${P}-extern-c.patch )
+ESVN_BOOTSTRAP="eautoreconf"
 
 src_prepare() {
-	epatch "${PATCHES[@]}"
+	subversion_src_prepare
 	gnome2_src_prepare
 }
 

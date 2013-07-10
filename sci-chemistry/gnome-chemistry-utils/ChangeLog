@@ -2,6 +2,14 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*gnome-chemistry-utils-9999 (10 Jul 2013)
+
+  10 Jul 2013; Justin Lecher <jlec@gentoo.org>
+  gnome-chemistry-utils-0.14.2.ebuild, +gnome-chemistry-utils-9999.ebuild,
+  +files/gnome-chemistry-utils-0.14.2-extern-c.patch:
+  Add live ebuild, fix extern C problems, #474498 and
+  https://github.com/gentoo-science/sci/issues/84
+
   21 Jun 2013; Justin Lecher <jlec@gentoo.org>
   gnome-chemistry-utils-0.14.2.ebuild, metadata.xml:
   Fix min version of openbabel
