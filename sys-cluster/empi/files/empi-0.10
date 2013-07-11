@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=0.9
+VERSION=0.10
 
 source /etc/init.d/functions.sh
 
@@ -431,6 +431,7 @@ DO_EMERGE=1
 EMERGE_OPTS="-u"  # Packages can be recompiled by hand if necessary.
 TARGETS=""
 DEFAULT_MPI_OVERLAY_DIR=/var/cache/overlays/mpi
+MAKE_CONF=/etc/make.conf
 
 PORTDIR_OVERLAY=""
 PKGDIR=""
@@ -468,11 +469,15 @@ done
 
 [[ ${UID} -ne 0 ]] && die "You must be root to preform any actions."
 
+if [ -s /etc/portage/make.conf ]; then
+    MAKE_CONF=/etc/portage/make.conf
+fi
+
 : ${MPI_OVERLAY_DIR:=$(portageq envvar MPI_OVERLAY_DIR)}
 if [ -z "${MPI_OVERLAY_DIR}" ]; then
     MPI_OVERLAY_DIR=${DEFAULT_MPI_OVERLAY_DIR}
-    einfo "MPI_OVERLAY_DIR not set, defaulting to ${MPI_OVERLAY_DIR} and updating /etc/make.conf"
-    echo "MPI_OVERLAY_DIR=\"${MPI_OVERLAY_DIR}\"" >> /etc/make.conf
+    einfo "MPI_OVERLAY_DIR not set, defaulting to ${MPI_OVERLAY_DIR} and updating make.conf"
+    echo "MPI_OVERLAY_DIR=\"${MPI_OVERLAY_DIR}\"" >> ${MAKE_CONF}
 fi
 
 if [ ! -d "${MPI_OVERLAY_DIR}" ]; then

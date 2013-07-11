@@ -1,4 +1,57 @@
-commit a17e4452cb93014e2a4d5f7615e5d09f2df9c6a2 (HEAD, tag: v0.8, origin/master, origin/HEAD, master)
+commit ab2dc2e2210f81d24b42180359d0842eb33f994a (HEAD, tag: v0.10, origin/master, origin/HEAD, master)
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Wed Jul 10 20:22:13 2013 -0400
+
+    empi-0.10
+
+commit d84c6ce3949f9eeeb1bab816e3e25eef0dd75661
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Tue Jul 9 18:48:01 2013 -0400
+
+    empi:  support make.conf move
+    
+    Later versions of portage moved /etc/make.conf to /etc/portage/make.conf
+    by default while still supporting the old location.
+
+commit 914c277799fd0f44266864fa16fef338046be5f6
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Tue Jul 9 18:12:50 2013 -0400
+
+    eclass: add sys-cluster/mpich
+    
+    upstream renamed mpich2 to mpich.
+
+commit 5c80290f4f0d90fe84fa0f18f2264052c544c008
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Mon Jul 1 22:16:04 2013 -0400
+
+    Revert "eclass:  workaround OpenMPI build issue #462602"
+    
+    This reverts commit 5e9b1be531ca02607e730a5b43765850eae9a0c5.
+
+commit a5d63455bf53a1ca6ab0220e3f308707a852b0cc (tag: v0.9)
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Mon Jul 1 20:06:50 2013 -0400
+
+    empi-0.9
+
+commit 4540a319542ddc7c0fbcea47174fe85e1810561c
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Mon Jul 1 20:05:35 2013 -0400
+
+    empi:  better filtering of emerge output
+    
+    Ignore extra information spit out by emerge, like news.
+
+commit 5e9b1be531ca02607e730a5b43765850eae9a0c5
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Mon Jul 1 20:04:58 2013 -0400
+
+    eclass:  workaround OpenMPI build issue #462602
+    
+    export FAKEROOTKEY=1 to stop OpenMPI from replacing malloc.
+
+commit a17e4452cb93014e2a4d5f7615e5d09f2df9c6a2 (tag: v0.8)
 Author: Justin Bronder <jsbronder@gmail.com>
 Date:   Thu Feb 21 22:56:27 2013 -0500
 
