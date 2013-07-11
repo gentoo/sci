@@ -154,15 +154,15 @@ src_prepare() {
 
 	if use prefix; then
 		sed \
-			-e "s: sh : \"${EPREFIX}\"/bin/sh :g" \
-			-e "s: csh : \"${EPREFIX}\"/bin/csh :g" \
-			-e "s: bash : \"${EPREFIX}\"/bin/bash :g" \
-			-e "s:appTerm -e:appTerm -e \"${EPREFIX}\"/bin/csh:g" \
+			-e "s: sh : \"${EPREFIX}/bin/sh\" :g" \
+			-e "s: csh : \"${EPREFIX}/bin/csh\" :g" \
+			-e "s: bash : \"${EPREFIX}/bin/bash\" :g" \
+			-e "s:appTerm -e:appTerm -e \"${EPREFIX}/bin/csh\":g" \
 			-i com/* || die
 
 		ebegin "Setting RPATH in binaries"
 		for bin in $(find nmrbin.linux9/ -type f -maxdepth 1); do
-			patchelf --set-rpath "${EPREFIX}"/usr/lib/ ${bin}
+			patchelf --set-rpath "${EPREFIX}/usr/lib/" ${bin}
 		done
 		eend $?
 	fi
