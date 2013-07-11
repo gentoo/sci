@@ -33,18 +33,10 @@ DEPEND="${RDEPEND}
 	virtual/linux-sources"
 
 PATCHES=(
-	"${FILESDIR}/0001-LU-1812-kernel-3.7-FC18-server-patches.patch"
-	"${FILESDIR}/0002-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch"
-	"${FILESDIR}/0003-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch"
-	"${FILESDIR}/0004-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch"
-	"${FILESDIR}/0005-LU-2800-llite-introduce-local-getname.patch"
-	"${FILESDIR}/0006-LU-2987-llite-rcu-free-inode.patch"
-	"${FILESDIR}/0007-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch"
-	"${FILESDIR}/0008-LU-2850-kernel-3.8-upstream-kills-daemonize.patch"
-	"${FILESDIR}/0009-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
-	"${FILESDIR}/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
-	"${FILESDIR}/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
-	"${FILESDIR}/0012-LU-3179-build-fix-compilation-error-with-gcc-4.7.2.patch"
+	"${FILESDIR}/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
+	"${FILESDIR}/0002-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch"
+	"${FILESDIR}/0003-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
+	"${FILESDIR}/0004-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
 )
 
 pkg_setup() {

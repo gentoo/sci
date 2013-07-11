@@ -1,22 +1,22 @@
-From 025fda5f3a44942e7c87f180fc7275529e5405fa Mon Sep 17 00:00:00 2001
+From 1359b3ff29d39aae651457e39942b5ff61092d6c Mon Sep 17 00:00:00 2001
 From: yangsheng <yang.sheng@intel.com>
-Date: Mon, 8 Apr 2013 21:04:22 +0800
-Subject: [PATCH 03/12] LU-2686 kernel: Kernel update for 3.7.2-201.fc18
+Date: Wed, 10 Jul 2013 13:52:41 +0800
+Subject: [PATCH 2/4] LU-2686 kernel: Kernel update for 3.7.2-201.fc18
 
-Add uapi header to include search path.
+Add uapi header to include search path
 
 Signed-off-by: yang sheng <yang.sheng@intel.com>
+Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: Id90e091fef63ebf5bb8e7765969aa3148cc31aa2
 ---
  autoMakefile.am                 |  2 +-
- config/lustre-build-linux.m4    | 21 +++++++++++++--------
- ldiskfs/config/ldiskfs-build.m4 | 22 ++++++++++++++--------
- lustre/autoconf/lustre-core.m4  |  1 +
+ config/lustre-build-linux.m4    | 19 ++++++++++++-------
+ ldiskfs/config/ldiskfs-build.m4 | 20 +++++++++++++-------
  lustre/scripts/version_tag.pl   |  4 +++-
- 5 files changed, 32 insertions(+), 18 deletions(-)
+ 4 files changed, 29 insertions(+), 16 deletions(-)
 
 diff --git a/autoMakefile.am b/autoMakefile.am
-index 1cc3b48..7b8a096 100644
+index 9b6dcfd..71d8db4 100644
 --- a/autoMakefile.am
 +++ b/autoMakefile.am
 @@ -84,7 +84,7 @@ all-am: modules
@@ -24,12 +24,12 @@ index 1cc3b48..7b8a096 100644
  	$(MAKE) CC="$(CC)" $(CROSS_VARS) -C $(LINUX_OBJ)	     \
  	-f $(PWD)/build/Makefile LUSTRE_LINUX_CONFIG=$(LINUX_CONFIG) \
 -	LINUXINCLUDE='$(EXTRA_LNET_INCLUDE) -I$$(srctree)/arch/$$(SRCARCH)/include -I$$(srctree)/arch/$$(SRCARCH)/include/generated -Iinclude $$(if $$(KBUILD_SRC),-Iinclude2 -I$$(srctree)/include) -include $(CONFIG_INCLUDE)' \
-+        LINUXINCLUDE='$(EXTRA_LNET_INCLUDE) -I$$(srctree)/arch/$$(SRCARCH)/include -I$$(srctree)/arch/$$(SRCARCH)/include/generated -Iinclude $$(if $$(KBUILD_SRC),-Iinclude2 -I$$(srctree)/include) -I$$(srctree)/arch/$$(SRCARCH)/include/uapi -Iarch/$$(SRCARCH)/include/generated/uapi -I$$(srctree)/include/uapi -Iinclude/generated/uapi -include $(CONFIG_INCLUDE)' \
++	LINUXINCLUDE='$(EXTRA_LNET_INCLUDE) -I$$(srctree)/arch/$$(SRCARCH)/include -I$$(srctree)/arch/$$(SRCARCH)/include/generated -Iinclude $$(if $$(KBUILD_SRC),-Iinclude2 -I$$(srctree)/include) -I$$(srctree)/arch/$$(SRCARCH)/include/uapi -Iarch/$$(SRCARCH)/include/generated/uapi -I$$(srctree)/include/uapi -Iinclude/generated/uapi -include $(CONFIG_INCLUDE)' \
  	$(MODULE_TARGET)=$(PWD) -o tmp_include_depends -o scripts -o \
  	include/config/MARKER $@
  endif # LINUX
 diff --git a/config/lustre-build-linux.m4 b/config/lustre-build-linux.m4
-index b08ae65..a78bfe3 100644
+index de9df76..8849f14 100644
 --- a/config/lustre-build-linux.m4
 +++ b/config/lustre-build-linux.m4
 @@ -44,7 +44,7 @@ AC_MSG_CHECKING([for Linux release])
@@ -59,23 +59,21 @@ index b08ae65..a78bfe3 100644
  	],[
  		#ifndef RHEL_RELEASE_CODE
  		#error "not redhat kernel"
-@@ -222,9 +222,13 @@ LB_CHECK_FILE([$LINUX_OBJ/include/generated/autoconf.h],[AUTOCONF_HDIR=generated
+@@ -222,8 +222,12 @@ LB_CHECK_FILE([$LINUX_OBJ/include/generated/autoconf.h],[AUTOCONF_HDIR=generated
          [LB_CHECK_FILE([$LINUX_OBJ/include/linux/autoconf.h],[AUTOCONF_HDIR=linux],
  	[AC_MSG_ERROR([Run make config in $LINUX.])])])
          AC_SUBST(AUTOCONF_HDIR)
 -LB_CHECK_FILE([$LINUX_OBJ/include/linux/version.h],[],
 -	[AC_MSG_ERROR([Run make config in $LINUX.])])
--
 +LB_CHECK_FILE([$LINUX_OBJ/include/linux/version.h], [VERSION_HDIR=linux],
 +	[LB_CHECK_FILE([$LINUX_OBJ/include/generated/uapi/linux/version.h],
 +		[VERSION_HDIR=generated/uapi/linux],
 +		[AC_MSG_ERROR([Run make config in $LINUX.])])
 +	])
-+        AC_SUBST(VERSION_HDIR)
-+ 
++	AC_SUBST(VERSION_HDIR)
+ 
  # ----------- kconfig.h exists ---------------
  # kernel 3.1, $LINUX/include/linux/kconfig.h is added
- # see kernel commit 2a11c8ea20bf850b3a2c60db8c2e7497d28aba99
 @@ -240,7 +244,7 @@ LB_CHECK_FILE([$LINUX_OBJ/include/linux/kconfig.h],
  # tarred up the tree and ran make dep etc. in it, then
  # version.h gets overwritten with a standard linux one.
@@ -85,7 +83,7 @@ index b08ae65..a78bfe3 100644
  	# This is a clean kernel-source tree, we need to
  	# enable extensive workarounds to get this to build
  	# modules
-@@ -344,7 +348,8 @@ $2
+@@ -352,7 +356,8 @@ $2
  AC_DEFUN([LB_LINUX_COMPILE_IFELSE],
  [m4_ifvaln([$1], [AC_LANG_CONFTEST([$1])])dnl
  rm -f build/conftest.o build/conftest.mod.c build/conftest.ko
@@ -96,36 +94,35 @@ index b08ae65..a78bfe3 100644
  	[_AC_MSG_LOG_CONFTEST
  m4_ifvaln([$5],[$5])dnl])
 diff --git a/ldiskfs/config/ldiskfs-build.m4 b/ldiskfs/config/ldiskfs-build.m4
-index be144de..a978bcf 100644
+index 38fce59..8a00872 100644
 --- a/ldiskfs/config/ldiskfs-build.m4
 +++ b/ldiskfs/config/ldiskfs-build.m4
-@@ -4,12 +4,12 @@ AC_DEFUN([LDISKFS_AC_LINUX_VERSION], [
- 	utsrelease1=${LINUX_OBJ}/include/linux/version.h
- 	utsrelease2=${LINUX_OBJ}/include/linux/utsrelease.h
- 	utsrelease3=${LINUX_OBJ}/include/generated/utsrelease.h
--	AS_IF([test -r ${utsrelease1} && fgrep -q UTS_RELEASE ${utsrelease1}], [
--		utsrelease=linux/version.h
-+	AS_IF([test -r ${utsrelease3} && fgrep -q UTS_RELEASE ${utsrelease3}], [
-+		utsrelease=generated/utsrelease.h
- 	], [test -r ${utsrelease2} && fgrep -q UTS_RELEASE ${utsrelease2}], [
- 		utsrelease=linux/utsrelease.h
--	], [test -r ${utsrelease3} && fgrep -q UTS_RELEASE ${utsrelease3}], [
--		utsrelease=generated/utsrelease.h
-+	], [test -r ${utsrelease1} && fgrep -q UTS_RELEASE ${utsrelease1}], [
-+		utsrelease=linux/version.h
- 	])
+@@ -1,9 +1,9 @@
+ AC_DEFUN([LDISKFS_AC_LINUX_VERSION], [
+ 	AC_MSG_CHECKING([kernel source version])
  
- 	AS_IF([test "${utsrelease}"], [
-@@ -64,7 +64,7 @@ AC_SUBST(RELEASE)
+-	utsrelease1=${LINUX_OBJ}/include/linux/version.h
++	utsrelease1=${LINUX_OBJ}/include/generated/utsrelease.h
+ 	utsrelease2=${LINUX_OBJ}/include/linux/utsrelease.h
+-	utsrelease3=${LINUX_OBJ}/include/generated/utsrelease.h
++	utsrelease3=${LINUX_OBJ}/include/linux/version.h
+ 	AS_IF([test -r ${utsrelease1} && fgrep -q UTS_RELEASE ${utsrelease1}], [
+ 		utsrelease=${utsrelease1}
+ 	], [test -r ${utsrelease2} && fgrep -q UTS_RELEASE ${utsrelease2}], [
+@@ -60,10 +60,10 @@ AC_SUBST(RELEASE)
+ 
  # check is redhat/suse kernels
- AC_MSG_CHECKING([that RedHat kernel])
- LB_LINUX_TRY_COMPILE([
--		#include <linux/version.h>
-+		#include <$VERSION_HDIR/version.h>
- 	],[
- 		#ifndef RHEL_RELEASE_CODE
- 		#error "not redhat kernel"
-@@ -190,8 +190,14 @@ LB_CHECK_FILE([$LINUX_OBJ/include/generated/autoconf.h],[AUTOCONF_HDIR=generated
+ AC_MSG_CHECKING([for RedHat kernel version])
+-	AS_IF([fgrep -q RHEL_RELEASE ${LINUX_OBJ}/include/linux/version.h], [
++	AS_IF([fgrep -q RHEL_RELEASE ${LINUX_OBJ}/include/$VERSION_HDIR/version.h], [
+ 		RHEL_KERNEL="yes"
+ 		RHEL_RELEASE=$(expr 0$(awk -F \" '/ RHEL_RELEASE / { print [$]2 }' \
+-		               ${LINUX_OBJ}/include/linux/version.h) + 1)
++		               ${LINUX_OBJ}/include/$VERSION_HDIR/version.h) + 1)
+ 		KERNEL_VERSION=$(sed -e 's/\(@<:@23@:>@\.@<:@0-9@:>@*\.@<:@0-9@:>@*\).*/\1/' <<< ${LINUXRELEASE})
+ 		RHEL_KERNEL_VERSION=${KERNEL_VERSION}-${RHEL_RELEASE}
+ 		AC_SUBST(RHEL_KERNEL_VERSION)
+@@ -184,8 +184,14 @@ LB_CHECK_FILE([$LINUX_OBJ/include/generated/autoconf.h],[AUTOCONF_HDIR=generated
          [LB_CHECK_FILE([$LINUX_OBJ/include/linux/autoconf.h],[AUTOCONF_HDIR=linux],
  	[AC_MSG_ERROR([Run make config in $LINUX.])])])
          AC_SUBST(AUTOCONF_HDIR)
@@ -133,16 +130,16 @@ index be144de..a978bcf 100644
 -	[AC_MSG_ERROR([Run make config in $LINUX.])])
 +LB_CHECK_FILE([$LINUX_OBJ/include/linux/version.h], [VERSION_HDIR=linux],
 +       [LB_CHECK_FILE([$LINUX_OBJ/include/generated/uapi/linux/version.h],
-+               [VERSION_HDIR=generated/uapi/linux],
-+               [AC_MSG_ERROR([Run make config in $LINUX.])])
++	       [VERSION_HDIR=generated/uapi/linux],
++	       [AC_MSG_ERROR([Run make config in $LINUX.])])
 +       ])
 +       AC_SUBST(VERSION_HDIR)
-+ 
++
 +
  
  # ----------- kconfig.h exists ---------------
  # kernel 3.1, $LINUX/include/linux/kconfig.h is added
-@@ -208,7 +214,7 @@ LB_CHECK_FILE([$LINUX_OBJ/include/linux/kconfig.h],
+@@ -202,7 +208,7 @@ LB_CHECK_FILE([$LINUX_OBJ/include/linux/kconfig.h],
  # tarred up the tree and ran make dep etc. in it, then
  # version.h gets overwritten with a standard linux one.
  
@@ -151,20 +148,8 @@ index be144de..a978bcf 100644
  	# This is a clean kernel-source tree, we need to
  	# enable extensive workarounds to get this to build
  	# modules
-diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 7ac2b22..1972e17 100644
---- a/lustre/autoconf/lustre-core.m4
-+++ b/lustre/autoconf/lustre-core.m4
-@@ -328,6 +328,7 @@ AC_TRY_RUN([
-         #define __LINUX_POSIX_ACL_H
- 
-         #ifdef CONFIG_FS_POSIX_ACL
-+        struct user_namespace;
-         # include <linux/posix_acl_xattr.h>
-         #endif
- 
 diff --git a/lustre/scripts/version_tag.pl b/lustre/scripts/version_tag.pl
-index 61796c9..07cbdf8 100644
+index 61796c9..4d2bb4a 100644
 --- a/lustre/scripts/version_tag.pl
 +++ b/lustre/scripts/version_tag.pl
 @@ -43,8 +43,10 @@ sub get_kernver($$)
@@ -173,9 +158,9 @@ index 61796c9..07cbdf8 100644
      my $ver = new IO::File;
 -    if (!$ver->open("$objdir/include/linux/utsrelease.h") &&
 +    if (!$ver->open("$objdir/include/generated/utsrelease.h") &&
-+        !$ver->open("$objdir/include/linux/utsrelease.h") &&
++	!$ver->open("$objdir/include/linux/utsrelease.h") &&
          !$ver->open("$objdir/include/linux/version.h") &&
-+        !$ver->open("$dir/include/generated/utsrelease.h") &&
++	!$ver->open("$dir/include/generated/utsrelease.h") &&
          !$ver->open("$dir/include/linux/utsrelease.h") &&
          !$ver->open("$dir/include/linux/version.h")) {
              die "Run make dep on '$dir'\n";
