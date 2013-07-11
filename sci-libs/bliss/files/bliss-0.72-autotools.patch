@@ -136,7 +136,7 @@ diff -Naur bliss-0.72-fedora/Makefile.am bliss-0.72/Makefile.am
 +	defs.cc graph.cc partition.cc orbit.cc uintseqhash.cc heap.cc \
 +	timer.cc utils.cc bliss_C.cc
 +
-+include_HEADERS = \
++pkginclude_HEADERS = \
 +	bignum.hh bliss_C.h defs.hh graph.hh heap.hh kqueue.hh kstack.hh \
 +	orbit.hh partition.hh timer.hh uintseqhash.hh utils.hh
 +

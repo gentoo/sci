@@ -1,4 +1,8 @@
 
+  11 Jul 2013; Christoph Junghans <ottxor@gentoo.org>
+  files/bliss-0.72-autotools.patch:
+  install heads into a bliss subdir
+
   28 Apr 2013; Christoph Junghans <ottxor@gentoo.org> bliss-0.72.ebuild:
   remove la files, added static-libs use flag
 
