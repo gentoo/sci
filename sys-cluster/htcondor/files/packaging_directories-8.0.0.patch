@@ -1,0 +1,32 @@
+--- build/cmake/CondorPackageConfig.cmake.orig	2013-06-29 22:54:28.964316000 +0100
++++ build/cmake/CondorPackageConfig.cmake	2013-06-29 22:56:26.258961000 +0100
+@@ -401,6 +401,29 @@
+ 		set(CMAKE_INSTALL_PREFIX "")
+ 		set(CPACK_SET_DESTDIR "ON")
+ 
++	else()
++
++		#Directory overrides
++		set( C_BIN			usr/bin )
++		set( C_LIB			usr/lib\${LIB_SUFFIX}/condor )
++		set( C_LIB_PUBLIC		usr/lib\${LIB_SUFFIX} )
++		set( C_LIB32		usr/lib\${LIB_SUFFIX}/condor )
++		set( C_SBIN			usr/sbin )
++		set( C_INCLUDE		usr/include/condor )
++		set( C_INCLUDE_PUBLIC		usr/include )
++		set( C_MAN			usr/share/man )
++		set( C_SRC			usr/src)
++		set( C_SQL			usr/share/condor/sql)
++		set( C_INIT			etc/init.d )
++		set( C_ETC			etc/condor )
++		set( C_CONFIGD		etc/condor/config.d )
++
++		set( C_ETC_EXAMPLES	usr/share/doc/htcondor-${VERSION}/etc/examples )
++		set( C_SHARE_EXAMPLES usr/share/doc/htcondor-${VERSION} )
++		set( C_DOC			usr/share/doc/htcondor-${VERSION} )
++		set( C_LIBEXEC		usr/lib\${LIB_SUFFIX}/condor/libexec )
++		set( C_SYSCONFIG	etc/default )
++
+ 	endif()
+ 
+ 	set( EXTERNALS_LIB "${C_LIB}" )

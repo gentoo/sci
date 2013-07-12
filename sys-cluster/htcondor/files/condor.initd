@@ -1,0 +1,64 @@
+#!/sbin/runscript
+# Copyright 1999-2010 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+CONDOR_USER=condor
+
+CONDOR_CONFIG_LOCAL=$(condor_config_val LOCAL_CONFIG_FILE)
+CONDOR_MASTER=$(condor_config_val MASTER)
+CONDOR_RUN=$(condor_config_val RUN)
+CONDOR_LOCK=$(condor_config_val LOCK)
+
+depend() {
+    need net
+    use logger
+}
+
+setup_central_manager() {
+    # delete current condor host, replace it with central manager
+    sed -e '/CONDOR_HOST/d' \
+	/etc/condor/condor_config.local > ${CONDOR_CONFIG_LOCAL}
+    echo "CONDOR_HOST=${CONDOR_CENTRAL_MANAGER}" >> ${CONDOR_CONFIG_LOCAL}	
+    chown ${CONDOR_USER}:${CONDOR_USER} ${CONDOR_CONFIG_LOCAL}
+}
+
+# set up condor ccb if only private networking is available (assumes ifconfig)
+setup_ccb() {
+    /sbin/ifconfig | grep "inet addr" | egrep -v "addr:127.|addr:192.|addr:172.|addr:10." > /dev/null
+    retval=$?
+    if [ ${retval} -ne 0 ]; then # all addresses are local
+	echo \
+	    "$(/sbin/ifconfig | grep "inet addr" | grep -v 127. | awk '{print $2}' | sed s/addr://)" \
+	    "$(hostname)" \
+	    "# Added for Condor CCB" \
+	    >> /etc/hosts
+    fi
+}
+
+cleanup_ccb() {
+    sed -i '/# Added for Condor CCB/d' /etc/hosts
+}
+
+start() {
+    ebegin "Starting condor"
+    setup_central_manager
+    setup_ccb
+    start-stop-daemon --start --quiet --user ${CONDOR_USER} \
+	--pidfile ${CONDOR_RUN}/condor.pid \
+	--exec ${CONDOR_MASTER} -- ${CONDOR_OPTS}
+    retval=$?
+    [ $retval -eq 0 ] && touch /var/lock/subsys/condor
+    eend ${retval}
+}
+
+stop() {
+    ebegin "Stopping condor"
+    cleanup_ccb
+    start-stop-daemon --stop --quiet \
+	--pidfile ${CONDOR_RUN}/condor.pid \
+	--exec ${CONDOR_MASTER}
+    retval=$?
+    [ ${retval} -eq 0 ] && rm -f /var/lock/subsys/condor
+    eend ${retval}
+}
