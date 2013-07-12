@@ -10,13 +10,13 @@ SRC_URI=""
 LICENSE=""
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="cxx fortran romio"
+IUSE="cxx fortran romio threads"
 
 RDEPEND="|| (
-	sys-cluster/openmpi[cxx?,fortran?,romio?]
-	sys-cluster/mpich[cxx?,fortran?,romio?]
-	sys-cluster/mpich2[cxx?,fortran?,romio?]
-	sys-cluster/mvapich2[cxx?,fortran?,romio?]
+	sys-cluster/openmpi[cxx?,fortran?,romio?,threads?]
+	sys-cluster/mpich[cxx?,fortran?,romio?,threads?]
+	sys-cluster/mpich2[cxx?,fortran?,romio?,threads?]
+	sys-cluster/mvapich2[cxx?,fortran?,romio?,threads?]
 	sys-cluster/nullmpi
 	sys-cluster/native-mpi
 )"
