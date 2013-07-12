@@ -250,11 +250,22 @@ MPI_PKG_USE_CXX="${MPI_PKG_USE_CXX:-0}"
 # This feature requires EAPI 2 style use dependencies
 MPI_PKG_USE_FC="${MPI_PKG_USE_FC:-0}"
 
-
 # @ECLASS-VARIABLE: MPI_PKG_USE_ROMIO
 # @DESCRIPTION: Require a mpi implementation with romio enabled.
 # This feature requires EAPI 2 style use dependencies
 MPI_PKG_USE_ROMIO="${MPI_PKG_USE_ROMIO:-0}"
+
+# @ECLASS-VARIABLE: MPI_PKG_USE_THREADS
+# @DESCRIPTION: Require a mpi implementation with threads enabled.
+# This feature requires EAPI 2 style use dependencies
+MPI_PKG_USE_THREADS="${MPI_PKG_USE_THREADS:-0}"
+
+# @ECLASS-VARIABLE: MPI_PKG_USE_DEPS
+# @DESCRIPTION: Set the use deps for the virtual mpi package
+# directly.  For instance, if set to 'fortran=,threads?' then a dep on
+# virtual/mpi[fortran=,threads?] will be added.
+# This feature requires EAPI 2 style use dependencies
+MPI_PKG_USE_DEPS="${MPI_PKG_USE_DEPS}"
 
 
 # @FUNCTION: mpi_pkg_deplist
@@ -265,13 +276,17 @@ mpi_pkg_deplist() {
 	local pn pn2 ver usedeps invalid_imps inval
 
 	case "${EAPI}" in
-		2|3|4)
+		2|3|4|5)
 			[[ ${MPI_PKG_USE_CXX} -ne 0 ]] \
 				&& usedeps=",cxx"
 			[[ ${MPI_PKG_USE_FC} -ne 0 ]] \
-				&& usedeps="${use_deps},fortran"
+				&& usedeps="${usedeps},fortran"
 			[[ ${MPI_PKG_USE_ROMIO} -ne 0 ]] \
-				&& usedeps="${use_deps},romio"
+				&& usedeps="${usedeps},romio"
+			[[ "${MPI_PKG_USE_THREADS}" -ne 0 ]] \
+				&& usedeps="${usedeps},threads"
+			[ -n "${MPI_PKG_USE_DEPS}" ] \
+				&& usedeps="${usedeps},${MPI_PKG_USE_DEPS}"
 			;;
 		*)
 			;;
