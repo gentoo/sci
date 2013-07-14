@@ -63,12 +63,6 @@ DEPEND="${RDEPEND}
 		app-text/ghostscript-gpl )
 	!emacs? ( xemacs? ( app-xemacs/texinfo ) )"
 
-if [[ -z ${PV%%*9999} ]]; then
-	# The live ebuild always needs an Emacs for building of gnuplot.texi
-	DEPEND="${DEPEND}
-	|| ( virtual/emacs app-xemacs/texinfo )"
-fi
-
 S="${WORKDIR}/${MY_P}"
 
 GP_VERSION="${PV%.*}"
@@ -131,13 +125,6 @@ src_configure() {
 	else
 		emacs=no
 		lispdir=""
-		if [[ -z ${PV%%*9999} ]]; then
-			# Live ebuild needs an Emacs to build gnuplot.texi
-			if has_version virtual/emacs; then emacs=emacs
-			elif has_version app-xemacs/texinfo; then emacs=xemacs; fi
-			# with emtpy lispdir info cannot be build
-			lispdir="${T}"
-		fi
 	fi
 
 	econf \
@@ -171,7 +158,7 @@ src_compile() {
 	# In case of problems file a bug report at bugs.gentoo.org.
 	#addwrite /dev/svga:/dev/mouse:/dev/tts/0
 
-	emake all info
+	emake all
 
 	if use doc; then
 		# Avoid sandbox violation in epstopdf/ghostscript
