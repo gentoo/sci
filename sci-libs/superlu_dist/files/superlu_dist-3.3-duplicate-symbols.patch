@@ -1,0 +1,70 @@
+diff -Nur SRC.orig/dcomplex.c SRC/dcomplex.c
+--- SRC.orig/dcomplex.c	2013-07-15 13:31:52.013335511 -0700
++++ SRC/dcomplex.c	2013-07-15 13:41:52.346722312 -0700
+@@ -11,6 +11,7 @@
+ 
+ #include <math.h>
+ #include <stdio.h>
++#include <stdlib.h>
+ #include "dcomplex.h"
+ 
+ 
+diff -Nur SRC.orig/dreadtriple.c SRC/dreadtriple.c
+--- SRC.orig/dreadtriple.c	2013-07-15 13:31:52.015335487 -0700
++++ SRC/dreadtriple.c	2013-07-15 13:32:57.202697327 -0700
+@@ -150,21 +150,4 @@
+ }
+ 
+ 
+-void dreadrhs(int m, double *b)
+-{
+-    FILE *fp, *fopen();
+-    int i, j;
+-
+-    if ( !(fp = fopen("b.dat", "r")) ) {
+-        fprintf(stderr, "dreadrhs: file does not exist\n");
+-	exit(-1);
+-    }
+-    for (i = 0; i < m; ++i)
+-      fscanf(fp, "%lf\n", &b[i]);
+-      /*fscanf(fp, "%d%lf\n", &j, &b[i]);*/
+-    /*        readpair_(j, &b[i]);*/
+-
+-    fclose(fp);
+-}
+-
+ 
+diff -Nur SRC.orig/xerbla.c SRC/xerbla.c
+--- SRC.orig/xerbla.c	2013-07-15 13:31:52.016335478 -0700
++++ SRC/xerbla.c	2013-07-15 13:51:47.522154563 -0700
+@@ -8,6 +8,7 @@
+        September 30, 1994   
+ </pre> 
+ */
++#include <stdio.h>
+ #include "Cnames.h"
+ 
+ /* Subroutine */ 
+diff -Nur SRC.orig/zreadtriple.c SRC/zreadtriple.c
+--- SRC.orig/zreadtriple.c	2013-07-15 13:31:52.014335499 -0700
++++ SRC/zreadtriple.c	2013-07-15 13:33:27.409864866 -0700
+@@ -149,19 +149,5 @@
+ }
+ 
+ 
+-void zreadrhs(int m, doublecomplex *b)
+-{
+-    FILE *fp, *fopen();
+-    int i, j;
+-
+-    if ( !(fp = fopen("b.dat", "r")) ) {
+-        fprintf(stderr, "zreadrhs: file does not exist\n");
+-	exit(-1);
+-    }
+-    for (i = 0; i < m; ++i)
+-      fscanf(fp, "%lf%lf\n", &(b[i].r), &(b[i].i));
+-
+-    fclose(fp);
+-}
+ 
+ 
