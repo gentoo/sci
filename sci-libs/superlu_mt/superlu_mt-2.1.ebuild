@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc openmp threads examples static-libs test"
 
 RDEPEND="
-	virtual/cblas"
+	virtual/blas"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	test? ( app-shells/tcsh )"
