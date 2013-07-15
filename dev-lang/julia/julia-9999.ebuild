@@ -5,6 +5,7 @@
 EAPI=5
 
 EGIT_REPO_URI="git://github.com/JuliaLang/julia.git"
+EGIT_HAS_SUBMODULES=yes
 
 inherit git-2 elisp-common eutils multilib
 
