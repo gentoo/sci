@@ -1,0 +1,900 @@
+diff -Nur SRC.orig/cmatgen.c SRC/cmatgen.c
+--- SRC.orig/cmatgen.c	2013-07-15 11:47:52.512735420 -0700
++++ SRC/cmatgen.c	2013-07-15 11:49:05.149137948 -0700
+@@ -93,76 +93,4 @@
+     xa[n] = lasta;
+ }
+ 
+-double dlaran_(int *iseed)
+-{
+-/*  -- LAPACK auxiliary routine (version 2.0) --   
+-       Univ. of Tennessee, Univ. of California Berkeley, NAG Ltd.,   
+-       Courant Institute, Argonne National Lab, and Rice University   
+-       February 29, 1992   
+-
+-    Purpose   
+-    =======   
+-
+-    DLARAN returns a random real number from a uniform (0,1)   
+-    distribution.   
+-
+-    Arguments   
+-    =========   
+-
+-    ISEED   (input/output) INT array, dimension (4)   
+-            On entry, the seed of the random number generator; the array 
+-  
+-            elements must be between 0 and 4095, and ISEED(4) must be   
+-            odd.   
+-            On exit, the seed is updated.   
+-
+-    Further Details   
+-    ===============   
+-
+-    This routine uses a multiplicative congruential method with modulus   
+-    2**48 and multiplier 33952834046453 (see G.S.Fishman,   
+-    'Multiplicative congruential random number generators with modulus   
+-    2**b: an exhaustive analysis for b = 32 and a partial analysis for   
+-    b = 48', Math. Comp. 189, pp 331-344, 1990).   
+-
+-    48-bit integers are stored in 4 integer array elements with 12 bits   
+-    per element. Hence the routine is portable across machines with   
+-    integers of 32 bits or more.   
+-
+-    ===================================================================== 
+-*/
+-    
+-    /* Local variables */
+-    int it1, it2, it3, it4;
+-
+-    --iseed;
+-
+-    /* multiply the seed by the multiplier modulo 2**48 */
+-    it4 = iseed[4] * 2549;
+-    it3 = it4 / 4096;
+-    it4 -= it3 << 12;
+-    it3 = it3 + iseed[3] * 2549 + iseed[4] * 2508;
+-    it2 = it3 / 4096;
+-    it3 -= it2 << 12;
+-    it2 = it2 + iseed[2] * 2549 + iseed[3] * 2508 + iseed[4] * 322;
+-    it1 = it2 / 4096;
+-    it2 -= it1 << 12;
+-    it1 = it1 + iseed[1] * 2549 + iseed[2] * 2508 + iseed[3] * 322 + iseed[4] 
+-	    * 494;
+-    it1 %= 4096;
+-
+-   /* return updated seed */
+-
+-    iseed[1] = it1;
+-    iseed[2] = it2;
+-    iseed[3] = it3;
+-    iseed[4] = it4;
+-
+-   /* convert 48-bit integer to a real number in the interval (0,1) */
+-
+-    return ((double) it1 +
+-	    ((double) it2 + ((double) it3 + (double) it4 * 2.44140625e-4) *
+-	     2.44140625e-4) * 2.44140625e-4) * 2.44140625e-4;
+-
+-} /* dlaran_ */
+ 
+diff -Nur SRC.orig/cmyblas2.c SRC/cmyblas2.c
+--- SRC.orig/cmyblas2.c	2013-07-15 11:47:52.509735400 -0700
++++ SRC/cmyblas2.c	2013-07-15 11:49:05.149137948 -0700
+@@ -183,3 +183,127 @@
+ 	
+ }
+ 
++/*
++ * Performs dense matrix-vector multiply with 2 vectors:
++ *        y0 = y0 + A * x0
++ *        y1 = y1 + A * x1
++ */
++void cmatvec2 (
++               int lda,     /* leading dimension of A */
++               int m,
++               int n,
++               complex *A,   /* in - size m-by-n */
++               complex *x0,  /* in - size n-by-1 */
++               complex *x1,  /* in - size n-by-1 */
++               complex *y0,  /* out - size n-by-1 */
++               complex *y1   /* out - size n-by-1 */
++               )
++
++{
++    complex v00, v10, v20, v30, v40, v50, v60, v70,
++                    v01, v11, v21, v31, v41, v51, v61, v71;
++    complex t0, t1, t2, t3, t4, t5, t6, t7;
++    complex f0, f1;
++    complex *Mki0, *Mki1, *Mki2, *Mki3, *Mki4, *Mki5, *Mki6, *Mki7;
++    register int firstcol = 0;
++    complex *M0, temp;
++    int k;
++
++    M0 = &A[0];
++
++    while ( firstcol < n - 7 ) {        /* Do 8 columns */
++
++        Mki0 = M0;
++        Mki1 = Mki0 + lda;
++        Mki2 = Mki1 + lda;
++        Mki3 = Mki2 + lda;
++        Mki4 = Mki3 + lda;
++        Mki5 = Mki4 + lda;
++        Mki6 = Mki5 + lda;
++        Mki7 = Mki6 + lda;
++
++        v00 = x0[firstcol];   v01 = x1[firstcol++];
++        v10 = x0[firstcol];   v11 = x1[firstcol++];
++        v20 = x0[firstcol];   v21 = x1[firstcol++];
++        v30 = x0[firstcol];   v31 = x1[firstcol++];
++        v40 = x0[firstcol];   v41 = x1[firstcol++];
++        v50 = x0[firstcol];   v51 = x1[firstcol++];
++        v60 = x0[firstcol];   v61 = x1[firstcol++];
++        v70 = x0[firstcol];   v71 = x1[firstcol++];
++
++        for (k = 0; k < m; k++) {
++            f0 = y0[k];
++            f1 = y1[k];
++            t0 = Mki0[k];  cc_mult(&temp, &v00, &t0);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v01,&t0);c_add(&f1,&f1,&temp);
++            t1 = Mki1[k];  cc_mult(&temp,&v10,&t1);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v11,&t1);c_add(&f1,&f1,&temp);
++            t2 = Mki2[k];  cc_mult(&temp,&v20,&t2);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v21,&t2);c_add(&f1,&f1,&temp);
++            t3 = Mki3[k];  cc_mult(&temp,&v30,&t3);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v31,&t3);c_add(&f1,&f1,&temp);
++            t4 = Mki4[k];  cc_mult(&temp,&v40,&t4);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v41,&t4);c_add(&f1,&f1,&temp);
++            t5 = Mki5[k];  cc_mult(&temp,&v50,&t5);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v51,&t5);c_add(&f1,&f1,&temp);
++            t6 = Mki6[k];  cc_mult(&temp,&v60,&t6);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v61,&t6);c_add(&f1,&f1,&temp);
++            t7 = Mki7[k];  cc_mult(&temp,&v70,&t7);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v71,&t7);c_add(&f1,&f1,&temp);
++            y0[k] = f0;
++            y1[k] = f1;
++        }
++
++        M0 += 8 * lda;
++    }
++
++    while ( firstcol < n - 3 ) {        /* Do 4 columns */
++        Mki0 = M0;
++        Mki1 = Mki0 + lda;
++        Mki2 = Mki1 + lda;
++        Mki3 = Mki2 + lda;
++
++        v00 = x0[firstcol];   v01 = x1[firstcol++];
++        v10 = x0[firstcol];   v11 = x1[firstcol++];
++        v20 = x0[firstcol];   v21 = x1[firstcol++];
++        v30 = x0[firstcol];   v31 = x1[firstcol++];
++
++        for (k = 0; k < m; k++) {
++            f0 = y0[k];
++            f1 = y1[k];
++            t0 = Mki0[k];  cc_mult(&temp,&v00,&t0);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v01,&t0);c_add(&f1,&f1,&temp);
++            t1 = Mki1[k];  cc_mult(&temp,&v10,&t1);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v11,&t1);c_add(&f1,&f1,&temp);
++            t2 = Mki2[k];  cc_mult(&temp,&v20,&t2);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v21,&t2);c_add(&f1,&f1,&temp);
++            t3 = Mki3[k];  cc_mult(&temp,&v30,&t3);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v31,&t3);c_add(&f1,&f1,&temp);
++            y0[k] = f0;
++            y1[k] = f1;
++        }
++
++        M0 += 4 * lda;
++
++    }
++
++    while ( firstcol < n ) {            /* Do 1 column */
++        Mki0 = M0;
++        v00 = x0[firstcol];   v01 = x1[firstcol++];
++
++        for (k = 0; k < m; k++) {
++            f0 = y0[k];
++            f1 = y1[k];
++            t0 = Mki0[k];
++            cc_mult(&temp,&v00,&t0);c_add(&f0,&f0,&temp);
++            cc_mult(&temp,&v01,&t0);c_add(&f1,&f1,&temp);
++            y0[k] = f0;
++            y1[k] = f1;
++        }
++
++        M0 += lda;
++    }
++
++}
++
++
+diff -Nur SRC.orig/cmyblas2.c.orig SRC/cmyblas2.c.orig
+--- SRC.orig/cmyblas2.c.orig	1969-12-31 16:00:00.000000000 -0800
++++ SRC/cmyblas2.c.orig	2013-07-15 11:49:05.149137948 -0700
+@@ -0,0 +1,185 @@
++
++/*
++ * -- SuperLU routine (version 2.0) --
++ * Lawrence Berkeley National Lab, Univ. of California Berkeley,
++ * and Xerox Palo Alto Research Center.
++ * September 10, 2007
++ *
++ */
++/*
++ * File name:		cmyblas2.c
++ * Purpose:
++ *     Level 2 BLAS operations: solves and matvec, written in C.
++ * Note:
++ *     This is only used when the system lacks an efficient BLAS library.
++ */
++#include "slu_scomplex.h"
++
++
++/*
++ * Solves a dense UNIT lower triangular system. The unit lower 
++ * triangular matrix is stored in a 2D array M(1:nrow,1:ncol). 
++ * The solution will be returned in the rhs vector.
++ */
++void clsolve ( int ldm, int ncol, complex *M, complex *rhs )
++{
++    int k;
++    complex x0, x1, x2, x3, temp;
++    complex *M0;
++    complex *Mki0, *Mki1, *Mki2, *Mki3;
++    register int firstcol = 0;
++
++    M0 = &M[0];
++
++
++    while ( firstcol < ncol - 3 ) { /* Do 4 columns */
++      	Mki0 = M0 + 1;
++      	Mki1 = Mki0 + ldm + 1;
++      	Mki2 = Mki1 + ldm + 1;
++      	Mki3 = Mki2 + ldm + 1;
++
++      	x0 = rhs[firstcol];
++      	cc_mult(&temp, &x0, Mki0); Mki0++;
++      	c_sub(&x1, &rhs[firstcol+1], &temp);
++      	cc_mult(&temp, &x0, Mki0); Mki0++;
++	c_sub(&x2, &rhs[firstcol+2], &temp);
++	cc_mult(&temp, &x1, Mki1); Mki1++;
++	c_sub(&x2, &x2, &temp);
++      	cc_mult(&temp, &x0, Mki0); Mki0++;
++	c_sub(&x3, &rhs[firstcol+3], &temp);
++	cc_mult(&temp, &x1, Mki1); Mki1++;
++	c_sub(&x3, &x3, &temp);
++	cc_mult(&temp, &x2, Mki2); Mki2++;
++	c_sub(&x3, &x3, &temp);
++
++ 	rhs[++firstcol] = x1;
++      	rhs[++firstcol] = x2;
++      	rhs[++firstcol] = x3;
++      	++firstcol;
++    
++      	for (k = firstcol; k < ncol; k++) {
++	    cc_mult(&temp, &x0, Mki0); Mki0++;
++	    c_sub(&rhs[k], &rhs[k], &temp);
++	    cc_mult(&temp, &x1, Mki1); Mki1++;
++	    c_sub(&rhs[k], &rhs[k], &temp);
++	    cc_mult(&temp, &x2, Mki2); Mki2++;
++	    c_sub(&rhs[k], &rhs[k], &temp);
++	    cc_mult(&temp, &x3, Mki3); Mki3++;
++	    c_sub(&rhs[k], &rhs[k], &temp);
++	}
++
++        M0 += 4 * ldm + 4;
++    }
++
++    if ( firstcol < ncol - 1 ) { /* Do 2 columns */
++        Mki0 = M0 + 1;
++        Mki1 = Mki0 + ldm + 1;
++
++        x0 = rhs[firstcol];
++	cc_mult(&temp, &x0, Mki0); Mki0++;
++	c_sub(&x1, &rhs[firstcol+1], &temp);
++
++      	rhs[++firstcol] = x1;
++      	++firstcol;
++    
++      	for (k = firstcol; k < ncol; k++) {
++	    cc_mult(&temp, &x0, Mki0); Mki0++;
++	    c_sub(&rhs[k], &rhs[k], &temp);
++	    cc_mult(&temp, &x1, Mki1); Mki1++;
++	    c_sub(&rhs[k], &rhs[k], &temp);
++	} 
++    }
++    
++}
++
++/*
++ * Solves a dense upper triangular system. The upper triangular matrix is
++ * stored in a 2-dim array M(1:ldm,1:ncol). The solution will be returned
++ * in the rhs vector.
++ */
++void
++cusolve (
++int ldm,	/* in */
++int ncol,	/* in */
++complex *M,	/* in */
++complex *rhs	/* modified */
++)
++{
++    complex xj, temp;
++    int jcol, j, irow;
++
++    jcol = ncol - 1;
++
++    for (j = 0; j < ncol; j++) {
++
++	c_div(&xj, &rhs[jcol], &M[jcol + jcol*ldm]); /* M(jcol, jcol) */
++	rhs[jcol] = xj;
++	
++	for (irow = 0; irow < jcol; irow++) {
++	    cc_mult(&temp, &xj, &M[irow+jcol*ldm]); /* M(irow, jcol) */
++	    c_sub(&rhs[irow], &rhs[irow], &temp);
++	}
++
++	jcol--;
++
++    }
++}
++
++
++/*
++ * Performs a dense matrix-vector multiply: Mxvec = Mxvec + M * vec.
++ * The input matrix is M(1:nrow,1:ncol); The product is returned in Mxvec[].
++ */
++void cmatvec (
++int ldm,	/* in -- leading dimension of M */
++int nrow,	/* in */ 
++int ncol,	/* in */
++complex *M,	/* in */
++complex *vec,	/* in */
++complex *Mxvec	/* in/out */
++)
++{
++    complex vi0, vi1, vi2, vi3;
++    complex *M0, temp;
++    complex *Mki0, *Mki1, *Mki2, *Mki3;
++    register int firstcol = 0;
++    int k;
++
++    M0 = &M[0];
++
++    while ( firstcol < ncol - 3 ) {	/* Do 4 columns */
++	Mki0 = M0;
++	Mki1 = Mki0 + ldm;
++	Mki2 = Mki1 + ldm;
++	Mki3 = Mki2 + ldm;
++
++	vi0 = vec[firstcol++];
++	vi1 = vec[firstcol++];
++	vi2 = vec[firstcol++];
++	vi3 = vec[firstcol++];	
++	for (k = 0; k < nrow; k++) {
++	    cc_mult(&temp, &vi0, Mki0); Mki0++;
++	    c_add(&Mxvec[k], &Mxvec[k], &temp);
++	    cc_mult(&temp, &vi1, Mki1); Mki1++;
++	    c_add(&Mxvec[k], &Mxvec[k], &temp);
++	    cc_mult(&temp, &vi2, Mki2); Mki2++;
++	    c_add(&Mxvec[k], &Mxvec[k], &temp);
++	    cc_mult(&temp, &vi3, Mki3); Mki3++;
++	    c_add(&Mxvec[k], &Mxvec[k], &temp);
++	}
++
++	M0 += 4 * ldm;
++    }
++
++    while ( firstcol < ncol ) {		/* Do 1 column */
++ 	Mki0 = M0;
++	vi0 = vec[firstcol++];
++	for (k = 0; k < nrow; k++) {
++	    cc_mult(&temp, &vi0, Mki0); Mki0++;
++	    c_add(&Mxvec[k], &Mxvec[k], &temp);
++	}
++	M0 += ldm;
++    }
++	
++}
++
+diff -Nur SRC.orig/Makefile SRC/Makefile
+--- SRC.orig/Makefile	2013-07-15 11:47:52.511735412 -0700
++++ SRC/Makefile	2013-07-15 11:53:15.393528085 -0700
+@@ -31,7 +31,7 @@
+ #
+ #######################################################################
+ 
+-ALLAUX = superlu_timer.o dclock.o sp_ienv.o lsame.o xerbla.o \
++ALLAUX = superlu_timer.o sp_ienv.o lsame.o xerbla.o \
+ 	util.o pmemory.o qrnzcnt.o await.o \
+ 	get_perm_c.o mmd.o colamd.o sp_coletree.o \
+ 	pxgstrf_scheduler.o sp_colorder.o \
+diff -Nur SRC.orig/smatgen.c SRC/smatgen.c
+--- SRC.orig/smatgen.c	2013-07-15 11:47:52.512735420 -0700
++++ SRC/smatgen.c	2013-07-15 11:49:05.149137948 -0700
+@@ -93,76 +93,3 @@
+     xa[n] = lasta;
+ }
+ 
+-double dlaran_(int *iseed)
+-{
+-/*  -- LAPACK auxiliary routine (version 2.0) --   
+-       Univ. of Tennessee, Univ. of California Berkeley, NAG Ltd.,   
+-       Courant Institute, Argonne National Lab, and Rice University   
+-       February 29, 1992   
+-
+-    Purpose   
+-    =======   
+-
+-    DLARAN returns a random real number from a uniform (0,1)   
+-    distribution.   
+-
+-    Arguments   
+-    =========   
+-
+-    ISEED   (input/output) INT array, dimension (4)   
+-            On entry, the seed of the random number generator; the array 
+-  
+-            elements must be between 0 and 4095, and ISEED(4) must be   
+-            odd.   
+-            On exit, the seed is updated.   
+-
+-    Further Details   
+-    ===============   
+-
+-    This routine uses a multiplicative congruential method with modulus   
+-    2**48 and multiplier 33952834046453 (see G.S.Fishman,   
+-    'Multiplicative congruential random number generators with modulus   
+-    2**b: an exhaustive analysis for b = 32 and a partial analysis for   
+-    b = 48', Math. Comp. 189, pp 331-344, 1990).   
+-
+-    48-bit integers are stored in 4 integer array elements with 12 bits   
+-    per element. Hence the routine is portable across machines with   
+-    integers of 32 bits or more.   
+-
+-    ===================================================================== 
+-*/
+-    
+-    /* Local variables */
+-    int it1, it2, it3, it4;
+-
+-    --iseed;
+-
+-    /* multiply the seed by the multiplier modulo 2**48 */
+-    it4 = iseed[4] * 2549;
+-    it3 = it4 / 4096;
+-    it4 -= it3 << 12;
+-    it3 = it3 + iseed[3] * 2549 + iseed[4] * 2508;
+-    it2 = it3 / 4096;
+-    it3 -= it2 << 12;
+-    it2 = it2 + iseed[2] * 2549 + iseed[3] * 2508 + iseed[4] * 322;
+-    it1 = it2 / 4096;
+-    it2 -= it1 << 12;
+-    it1 = it1 + iseed[1] * 2549 + iseed[2] * 2508 + iseed[3] * 322 + iseed[4] 
+-	    * 494;
+-    it1 %= 4096;
+-
+-   /* return updated seed */
+-
+-    iseed[1] = it1;
+-    iseed[2] = it2;
+-    iseed[3] = it3;
+-    iseed[4] = it4;
+-
+-   /* convert 48-bit integer to a real number in the interval (0,1) */
+-
+-    return ((double) it1 +
+-	    ((double) it2 + ((double) it3 + (double) it4 * 2.44140625e-4) *
+-	     2.44140625e-4) * 2.44140625e-4) * 2.44140625e-4;
+-
+-} /* dlaran_ */
+-
+diff -Nur SRC.orig/xerbla.c SRC/xerbla.c
+--- SRC.orig/xerbla.c	2013-07-15 11:47:52.513735427 -0700
++++ SRC/xerbla.c	2013-07-15 11:49:05.150137959 -0700
+@@ -1,3 +1,4 @@
++#include <stdio.h>
+ /* Subroutine */ int xerbla_(char *srname, int *info)
+ {
+ /*  -- LAPACK auxiliary routine (version 2.0) --   
+diff -Nur SRC.orig/zmatgen.c SRC/zmatgen.c
+--- SRC.orig/zmatgen.c	2013-07-15 11:47:52.513735427 -0700
++++ SRC/zmatgen.c	2013-07-15 11:49:05.150137959 -0700
+@@ -93,76 +93,3 @@
+     xa[n] = lasta;
+ }
+ 
+-double dlaran_(int *iseed)
+-{
+-/*  -- LAPACK auxiliary routine (version 2.0) --   
+-       Univ. of Tennessee, Univ. of California Berkeley, NAG Ltd.,   
+-       Courant Institute, Argonne National Lab, and Rice University   
+-       February 29, 1992   
+-
+-    Purpose   
+-    =======   
+-
+-    DLARAN returns a random real number from a uniform (0,1)   
+-    distribution.   
+-
+-    Arguments   
+-    =========   
+-
+-    ISEED   (input/output) INT array, dimension (4)   
+-            On entry, the seed of the random number generator; the array 
+-  
+-            elements must be between 0 and 4095, and ISEED(4) must be   
+-            odd.   
+-            On exit, the seed is updated.   
+-
+-    Further Details   
+-    ===============   
+-
+-    This routine uses a multiplicative congruential method with modulus   
+-    2**48 and multiplier 33952834046453 (see G.S.Fishman,   
+-    'Multiplicative congruential random number generators with modulus   
+-    2**b: an exhaustive analysis for b = 32 and a partial analysis for   
+-    b = 48', Math. Comp. 189, pp 331-344, 1990).   
+-
+-    48-bit integers are stored in 4 integer array elements with 12 bits   
+-    per element. Hence the routine is portable across machines with   
+-    integers of 32 bits or more.   
+-
+-    ===================================================================== 
+-*/
+-    
+-    /* Local variables */
+-    int it1, it2, it3, it4;
+-
+-    --iseed;
+-
+-    /* multiply the seed by the multiplier modulo 2**48 */
+-    it4 = iseed[4] * 2549;
+-    it3 = it4 / 4096;
+-    it4 -= it3 << 12;
+-    it3 = it3 + iseed[3] * 2549 + iseed[4] * 2508;
+-    it2 = it3 / 4096;
+-    it3 -= it2 << 12;
+-    it2 = it2 + iseed[2] * 2549 + iseed[3] * 2508 + iseed[4] * 322;
+-    it1 = it2 / 4096;
+-    it2 -= it1 << 12;
+-    it1 = it1 + iseed[1] * 2549 + iseed[2] * 2508 + iseed[3] * 322 + iseed[4] 
+-	    * 494;
+-    it1 %= 4096;
+-
+-   /* return updated seed */
+-
+-    iseed[1] = it1;
+-    iseed[2] = it2;
+-    iseed[3] = it3;
+-    iseed[4] = it4;
+-
+-   /* convert 48-bit integer to a real number in the interval (0,1) */
+-
+-    return ((double) it1 +
+-	    ((double) it2 + ((double) it3 + (double) it4 * 2.44140625e-4) *
+-	     2.44140625e-4) * 2.44140625e-4) * 2.44140625e-4;
+-
+-} /* dlaran_ */
+-
+diff -Nur SRC.orig/zmyblas2.c SRC/zmyblas2.c
+--- SRC.orig/zmyblas2.c	2013-07-15 11:47:52.511735412 -0700
++++ SRC/zmyblas2.c	2013-07-15 11:49:05.150137959 -0700
+@@ -183,3 +183,127 @@
+ 	
+ }
+ 
++/*
++ * Performs dense matrix-vector multiply with 2 vectors:
++ *        y0 = y0 + A * x0
++ *        y1 = y1 + A * x1
++ */
++void zmatvec2 (
++               int lda,     /* leading dimension of A */
++               int m,
++               int n,
++               doublecomplex *A,   /* in - size m-by-n */
++               doublecomplex *x0,  /* in - size n-by-1 */
++               doublecomplex *x1,  /* in - size n-by-1 */
++               doublecomplex *y0,  /* out - size n-by-1 */
++               doublecomplex *y1   /* out - size n-by-1 */
++               )
++
++{
++    doublecomplex v00, v10, v20, v30, v40, v50, v60, v70,
++                    v01, v11, v21, v31, v41, v51, v61, v71;
++    doublecomplex t0, t1, t2, t3, t4, t5, t6, t7;
++    doublecomplex f0, f1;
++    doublecomplex *Mki0, *Mki1, *Mki2, *Mki3, *Mki4, *Mki5, *Mki6, *Mki7;
++    register int firstcol = 0;
++    doublecomplex *M0, temp;
++    int k;
++
++    M0 = &A[0];
++
++    while ( firstcol < n - 7 ) {        /* Do 8 columns */
++
++        Mki0 = M0;
++        Mki1 = Mki0 + lda;
++        Mki2 = Mki1 + lda;
++        Mki3 = Mki2 + lda;
++        Mki4 = Mki3 + lda;
++        Mki5 = Mki4 + lda;
++        Mki6 = Mki5 + lda;
++        Mki7 = Mki6 + lda;
++
++        v00 = x0[firstcol];   v01 = x1[firstcol++];
++        v10 = x0[firstcol];   v11 = x1[firstcol++];
++        v20 = x0[firstcol];   v21 = x1[firstcol++];
++        v30 = x0[firstcol];   v31 = x1[firstcol++];
++        v40 = x0[firstcol];   v41 = x1[firstcol++];
++        v50 = x0[firstcol];   v51 = x1[firstcol++];
++        v60 = x0[firstcol];   v61 = x1[firstcol++];
++        v70 = x0[firstcol];   v71 = x1[firstcol++];
++
++        for (k = 0; k < m; k++) {
++            f0 = y0[k];
++            f1 = y1[k];
++            t0 = Mki0[k];  zz_mult(&temp,&v00,&t0);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v01,&t0);z_add(&f1,&f1,&temp);
++            t1 = Mki1[k];  zz_mult(&temp,&v10,&t1);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v11,&t1);z_add(&f1,&f1,&temp);
++            t2 = Mki2[k];  zz_mult(&temp,&v20,&t2);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v21,&t2);z_add(&f1,&f1,&temp);
++            t3 = Mki3[k];  zz_mult(&temp,&v30,&t3);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v31,&t3);z_add(&f1,&f1,&temp);
++            t4 = Mki4[k];  zz_mult(&temp,&v40,&t4);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v41,&t4);z_add(&f1,&f1,&temp);
++            t5 = Mki5[k];  zz_mult(&temp,&v50,&t5);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v51,&t5);z_add(&f1,&f1,&temp);
++            t6 = Mki6[k];  zz_mult(&temp,&v60,&t6);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v61,&t6);z_add(&f1,&f1,&temp);
++            t7 = Mki7[k];  zz_mult(&temp,&v70,&t7);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v71,&t7);z_add(&f1,&f1,&temp);
++            y0[k] = f0;
++            y1[k] = f1;
++        }
++
++        M0 += 8 * lda;
++    }
++
++    while ( firstcol < n - 3 ) {        /* Do 4 columns */
++        Mki0 = M0;
++        Mki1 = Mki0 + lda;
++        Mki2 = Mki1 + lda;
++        Mki3 = Mki2 + lda;
++
++        v00 = x0[firstcol];   v01 = x1[firstcol++];
++        v10 = x0[firstcol];   v11 = x1[firstcol++];
++        v20 = x0[firstcol];   v21 = x1[firstcol++];
++        v30 = x0[firstcol];   v31 = x1[firstcol++];
++
++        for (k = 0; k < m; k++) {
++            f0 = y0[k];
++            f1 = y1[k];
++            t0 = Mki0[k];  zz_mult(&temp,&v00,&t0);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v01,&t0);z_add(&f1,&f1,&temp);
++            t1 = Mki1[k];  zz_mult(&temp,&v10,&t1);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v11,&t1);z_add(&f1,&f1,&temp);
++            t2 = Mki2[k];  zz_mult(&temp,&v20,&t2);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v21,&t2);z_add(&f1,&f1,&temp);
++            t3 = Mki3[k];  zz_mult(&temp,&v30,&t3);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v31,&t3);z_add(&f1,&f1,&temp);
++            y0[k] = f0;
++            y1[k] = f1;
++        }
++
++        M0 += 4 * lda;
++
++    }
++
++    while ( firstcol < n ) {            /* Do 1 column */
++        Mki0 = M0;
++        v00 = x0[firstcol];   v01 = x1[firstcol++];
++
++        for (k = 0; k < m; k++) {
++            f0 = y0[k];
++            f1 = y1[k];
++            t0 = Mki0[k];
++            zz_mult(&temp,&v00,&t0);z_add(&f0,&f0,&temp);
++            zz_mult(&temp,&v01,&t0);z_add(&f1,&f1,&temp);
++            y0[k] = f0;
++            y1[k] = f1;
++        }
++
++        M0 += lda;
++    }
++
++}
++
++
+diff -Nur SRC.orig/zmyblas2.c.orig SRC/zmyblas2.c.orig
+--- SRC.orig/zmyblas2.c.orig	1969-12-31 16:00:00.000000000 -0800
++++ SRC/zmyblas2.c.orig	2013-07-15 11:49:05.150137959 -0700
+@@ -0,0 +1,185 @@
++
++/*
++ * -- SuperLU routine (version 2.0) --
++ * Lawrence Berkeley National Lab, Univ. of California Berkeley,
++ * and Xerox Palo Alto Research Center.
++ * September 10, 2007
++ *
++ */
++/*
++ * File name:		zmyblas2.c
++ * Purpose:
++ *     Level 2 BLAS operations: solves and matvec, written in C.
++ * Note:
++ *     This is only used when the system lacks an efficient BLAS library.
++ */
++#include "slu_dcomplex.h"
++
++
++/*
++ * Solves a dense UNIT lower triangular system. The unit lower 
++ * triangular matrix is stored in a 2D array M(1:nrow,1:ncol). 
++ * The solution will be returned in the rhs vector.
++ */
++void zlsolve ( int ldm, int ncol, doublecomplex *M, doublecomplex *rhs )
++{
++    int k;
++    doublecomplex x0, x1, x2, x3, temp;
++    doublecomplex *M0;
++    doublecomplex *Mki0, *Mki1, *Mki2, *Mki3;
++    register int firstcol = 0;
++
++    M0 = &M[0];
++
++
++    while ( firstcol < ncol - 3 ) { /* Do 4 columns */
++      	Mki0 = M0 + 1;
++      	Mki1 = Mki0 + ldm + 1;
++      	Mki2 = Mki1 + ldm + 1;
++      	Mki3 = Mki2 + ldm + 1;
++
++      	x0 = rhs[firstcol];
++      	zz_mult(&temp, &x0, Mki0); Mki0++;
++      	z_sub(&x1, &rhs[firstcol+1], &temp);
++      	zz_mult(&temp, &x0, Mki0); Mki0++;
++	z_sub(&x2, &rhs[firstcol+2], &temp);
++	zz_mult(&temp, &x1, Mki1); Mki1++;
++	z_sub(&x2, &x2, &temp);
++      	zz_mult(&temp, &x0, Mki0); Mki0++;
++	z_sub(&x3, &rhs[firstcol+3], &temp);
++	zz_mult(&temp, &x1, Mki1); Mki1++;
++	z_sub(&x3, &x3, &temp);
++	zz_mult(&temp, &x2, Mki2); Mki2++;
++	z_sub(&x3, &x3, &temp);
++
++ 	rhs[++firstcol] = x1;
++      	rhs[++firstcol] = x2;
++      	rhs[++firstcol] = x3;
++      	++firstcol;
++    
++      	for (k = firstcol; k < ncol; k++) {
++	    zz_mult(&temp, &x0, Mki0); Mki0++;
++	    z_sub(&rhs[k], &rhs[k], &temp);
++	    zz_mult(&temp, &x1, Mki1); Mki1++;
++	    z_sub(&rhs[k], &rhs[k], &temp);
++	    zz_mult(&temp, &x2, Mki2); Mki2++;
++	    z_sub(&rhs[k], &rhs[k], &temp);
++	    zz_mult(&temp, &x3, Mki3); Mki3++;
++	    z_sub(&rhs[k], &rhs[k], &temp);
++	}
++
++        M0 += 4 * ldm + 4;
++    }
++
++    if ( firstcol < ncol - 1 ) { /* Do 2 columns */
++        Mki0 = M0 + 1;
++        Mki1 = Mki0 + ldm + 1;
++
++        x0 = rhs[firstcol];
++	zz_mult(&temp, &x0, Mki0); Mki0++;
++	z_sub(&x1, &rhs[firstcol+1], &temp);
++
++      	rhs[++firstcol] = x1;
++      	++firstcol;
++    
++      	for (k = firstcol; k < ncol; k++) {
++	    zz_mult(&temp, &x0, Mki0); Mki0++;
++	    z_sub(&rhs[k], &rhs[k], &temp);
++	    zz_mult(&temp, &x1, Mki1); Mki1++;
++	    z_sub(&rhs[k], &rhs[k], &temp);
++	} 
++    }
++    
++}
++
++/*
++ * Solves a dense upper triangular system. The upper triangular matrix is
++ * stored in a 2-dim array M(1:ldm,1:ncol). The solution will be returned
++ * in the rhs vector.
++ */
++void
++zusolve (
++int ldm,	/* in */
++int ncol,	/* in */
++doublecomplex *M,	/* in */
++doublecomplex *rhs	/* modified */
++)
++{
++    doublecomplex xj, temp;
++    int jcol, j, irow;
++
++    jcol = ncol - 1;
++
++    for (j = 0; j < ncol; j++) {
++
++	z_div(&xj, &rhs[jcol], &M[jcol + jcol*ldm]); /* M(jcol, jcol) */
++	rhs[jcol] = xj;
++	
++	for (irow = 0; irow < jcol; irow++) {
++	    zz_mult(&temp, &xj, &M[irow+jcol*ldm]); /* M(irow, jcol) */
++	    z_sub(&rhs[irow], &rhs[irow], &temp);
++	}
++
++	jcol--;
++
++    }
++}
++
++
++/*
++ * Performs a dense matrix-vector multiply: Mxvec = Mxvec + M * vec.
++ * The input matrix is M(1:nrow,1:ncol); The product is returned in Mxvec[].
++ */
++void zmatvec (
++int ldm,	/* in -- leading dimension of M */
++int nrow,	/* in */ 
++int ncol,	/* in */
++doublecomplex *M,	/* in */
++doublecomplex *vec,	/* in */
++doublecomplex *Mxvec	/* in/out */
++)
++{
++    doublecomplex vi0, vi1, vi2, vi3;
++    doublecomplex *M0, temp;
++    doublecomplex *Mki0, *Mki1, *Mki2, *Mki3;
++    register int firstcol = 0;
++    int k;
++
++    M0 = &M[0];
++
++    while ( firstcol < ncol - 3 ) {	/* Do 4 columns */
++	Mki0 = M0;
++	Mki1 = Mki0 + ldm;
++	Mki2 = Mki1 + ldm;
++	Mki3 = Mki2 + ldm;
++
++	vi0 = vec[firstcol++];
++	vi1 = vec[firstcol++];
++	vi2 = vec[firstcol++];
++	vi3 = vec[firstcol++];	
++	for (k = 0; k < nrow; k++) {
++	    zz_mult(&temp, &vi0, Mki0); Mki0++;
++	    z_add(&Mxvec[k], &Mxvec[k], &temp);
++	    zz_mult(&temp, &vi1, Mki1); Mki1++;
++	    z_add(&Mxvec[k], &Mxvec[k], &temp);
++	    zz_mult(&temp, &vi2, Mki2); Mki2++;
++	    z_add(&Mxvec[k], &Mxvec[k], &temp);
++	    zz_mult(&temp, &vi3, Mki3); Mki3++;
++	    z_add(&Mxvec[k], &Mxvec[k], &temp);
++	}
++
++	M0 += 4 * ldm;
++    }
++
++    while ( firstcol < ncol ) {		/* Do 1 column */
++ 	Mki0 = M0;
++	vi0 = vec[firstcol++];
++	for (k = 0; k < nrow; k++) {
++	    zz_mult(&temp, &vi0, Mki0); Mki0++;
++	    z_add(&Mxvec[k], &Mxvec[k], &temp);
++	}
++	M0 += ldm;
++    }
++	
++}
++
