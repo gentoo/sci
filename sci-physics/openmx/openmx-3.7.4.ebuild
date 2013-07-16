@@ -158,6 +158,6 @@ src_install() {
 	cd ../source
 	dodir /usr/bin
 	emake DESTDIR="${D}/usr/bin" install
-	dodoc "${S}/${PN}${PV}.pdf"
+	dodoc "${S}/${PN}${PV%.?}.pdf"
 	use test && dodoc "${S}"/work/runtest.result
 }
