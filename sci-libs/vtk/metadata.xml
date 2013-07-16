@@ -12,6 +12,7 @@
     <flag name="chemistry">Add chemistry support</flag>
     <flag name="cg">Use nvidia's cg shaders</flag>
     <flag name="patented">Build patented classes</flag>
+    <flag name="offscreen">Offscreen rendering through OSMesa</flag>
     <flag name="R">Enable support for dev-lang/R</flag>
   </use>
 </pkgmetadata>

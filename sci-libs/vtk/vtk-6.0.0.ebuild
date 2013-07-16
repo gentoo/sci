@@ -23,9 +23,14 @@ SRC_URI="
 LICENSE="BSD LGPL-2"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 SLOT="0"
-IUSE="boost chemistry cg doc examples ffmpeg java mpi mysql odbc patented postgres python qt4 R test theora threads tk video_cards_nvidia X"
+IUSE="
+	boost chemistry cg doc examples ffmpeg java mpi mysql odbc offscreen
+	patented postgres python qt4 R test theora threads tk
+	video_cards_nvidia X"
 
-REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+REQUIRED_USE="
+	python? ( ${PYTHON_REQUIRED_USE} )
+	^^ ( X offscreen )"
 
 RDEPEND="
 	dev-libs/expat
@@ -38,6 +43,7 @@ RDEPEND="
 	sys-libs/zlib
 	virtual/jpeg
 	virtual/opengl
+	x11-libs/gl2ps
 	x11-libs/libX11
 	x11-libs/libXmu
 	x11-libs/libXt
@@ -50,6 +56,7 @@ RDEPEND="
 	mpi? ( virtual/mpi[cxx,romio] )
 	mysql? ( virtual/mysql )
 	odbc? ( dev-db/unixODBC )
+	offscreen? ( media-libs/mesa[osmesa] )
 	postgres? ( dev-db/postgresql-base )
 	python? (
 		${PYTHON_DEPS}
@@ -68,22 +75,15 @@ RDEPEND="
 	video_cards_nvidia? ( media-video/nvidia-settings )
 	R? ( dev-lang/R )"
 DEPEND="${RDEPEND}
-		java? ( >=virtual/jdk-1.5 )
-		boost? ( >=dev-libs/boost-1.40.0[mpi?] )
-		dev-util/cmake"
+	boost? ( >=dev-libs/boost-1.40.0[mpi?] )
+	doc? ( app-doc/doxygen )
+	java? ( >=virtual/jdk-1.5 )
+	dev-util/cmake"
 
 S="${WORKDIR}"/VTK${PV/_rc/.rc}
 
 PATCHES=(
 	"${FILESDIR}"/${P}-cg-path.patch
-#	"${FILESDIR}"/${PN}-5.6.0-cg-path.patch
-#	"${FILESDIR}"/${PN}-5.2.0-tcl-install.patch
-#	"${FILESDIR}"/${PN}-5.8.0-R.patch
-#	"${FILESDIR}"/${PN}-5.6.0-odbc.patch
-#	"${FILESDIR}"/${PN}-5.6.1-ffmpeg.patch
-#	"${FILESDIR}"/${PN}-5.6.1-libav-0.8.patch
-#	"${FILESDIR}"/${PN}-5.10.1-tcl8.6.patch
-#	"${FILESDIR}"/${PN}-5.10.1-ffmpeg-1.patch
 	)
 
 pkg_setup() {
@@ -132,13 +132,13 @@ src_configure() {
 		-DVTK_USE_HYBRID=ON
 		-DVTK_USE_GL2PS=ON
 		-DVTK_USE_RENDERING=ON
-		-DLD_LIBRARY_PATCH="${BUILD_DIR}/lib"
 	)
 
 	# use flag triggered options
 	mycmakeargs+=(
 		$(cmake-utils_use boost VTK_USE_BOOST)
 		$(cmake-utils_use cg VTK_USE_CG_SHADERS)
+		$(cmake-utils_use chemistry VTK_USE_CHEMISTRY)
 		$(cmake-utils_use doc DOCUMENTATION_HTML_HELP)
 		$(cmake-utils_use_build doc DOCUMENTATION)
 		$(cmake-utils_use java VTK_USE_JAVA)
@@ -147,6 +147,8 @@ src_configure() {
 		$(cmake-utils_use patented VTK_USE_PATENTED)
 		$(cmake-utils_use postgres VTK_USE_POSTGRES)
 		$(cmake-utils_use odbc VTK_USE_ODBC)
+		$(cmake-utils_use offscreen VTK_OPENGL_HAS_OSMESA)
+		$(cmake-utils_use offscreen VTK_OPENGL_HAS_OSMESA)
 		$(cmake-utils_use qt4 VTK_USE_QT)
 		$(cmake-utils_use theora VTK_USE_OGGTHEORA_ENCODER)
 		$(cmake-utils_use ffmpeg VTK_USE_FFMPEG_ENCODER)
@@ -156,7 +158,6 @@ src_configure() {
 		$(cmake-utils_use X VTK_USE_X)
 		$(cmake-utils_use X VTK_USE_GUISUPPORT)
 		$(cmake-utils_use R VTK_USE_GNU_R)
-		$(cmake-utils_use chemistry VTK_USE_CHEMISTRY)
 	)
 
 	use tk &&
@@ -233,23 +234,22 @@ src_configure() {
 }
 
 src_install() {
-	cmake-utils_src_install
-
 	# install docs
-	dohtml "${S}"/README.html || die "Failed to install docs"
+	HTML_DOCS=( "${S}"/README.html )
+
+	cmake-utils_src_install
 
 	# install Tcl docs
 	docinto vtk_tcl
-	dodoc "${S}"/Wrapping/Tcl/README || \
-		die "Failed to install Tcl docs"
+	dodoc "${S}"/Wrapping/Tcl/README
 
 	# install examples
 	if use examples; then
 		insinto /usr/share/${PN}
-		mv -v Examples examples
-		doins -r examples || die
-		mv -v "${WORKDIR}"/{VTKData${PV},data} || die
-		doins -r "${WORKDIR}"/data || die
+		mv -v Examples examples || die
+		doins -r examples
+		mv -v "${WORKDIR}"/{VTKDATA${PV},data} || die
+		doins -r "${WORKDIR}"/data
 	fi
 
 	#install big docs
@@ -258,7 +258,7 @@ src_install() {
 		rm -f *.md5 || die "Failed to remove superfluous hashes"
 		einfo "Installing API docs. This may take some time."
 		insinto "/usr/share/doc/${PF}/api-docs"
-		doins -r ./* || die "Failed to install docs"
+		doins -r ./*
 	fi
 
 	# environment

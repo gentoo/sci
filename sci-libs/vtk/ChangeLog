@@ -2,6 +2,20 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/vtk/ChangeLog,v 1.108 2013/06/05 01:21:35 lu_zero Exp $
 
+  16 Jul 2013; Justin Lecher <jlec@gentoo.org> vtk-6.0.0.ebuild,
+  -files/vtk-5.2.0-tcl-install.patch,
+  -files/vtk-5.4.2-boost-property_map.patch, -files/vtk-5.4.2-cg-path.patch,
+  -files/vtk-5.4.2-libpng14.patch, -files/vtk-5.6.0-R.patch,
+  -files/vtk-5.6.0-boost-property_map.patch, -files/vtk-5.6.0-cg-path.patch,
+  -files/vtk-5.6.0-ffmpeg.patch, -files/vtk-5.6.0-libpng14.patch,
+  -files/vtk-5.6.0-odbc.patch, -files/vtk-5.6.1-ffmpeg.patch,
+  -files/vtk-5.6.1-gcc-46.patch, -files/vtk-5.6.1-libav-0.8.patch,
+  -files/vtk-5.6.1-libpng15.patch, -files/vtk-5.8.0-R.patch,
+  -files/vtk-5.8.0-boost.patch, -files/vtk-5.10.1-ffmpeg-1.patch,
+  -files/vtk-5.10.1-libav-9.patch, -files/vtk-5.10.1-tcl8.6.patch,
+  metadata.xml:
+  Version BUmp
+
 *vtk-6.0.0 (11 Jul 2013)
 
   11 Jul 2013; Justin Lecher <jlec@gentoo.org> +vtk-6.0.0.ebuild,
