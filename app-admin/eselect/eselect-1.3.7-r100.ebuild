@@ -2,15 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit autotools eutils bash-completion-r1
 
 DESCRIPTION="Gentoo's multi-purpose configuration and management tool"
-HOMEPAGE="http://www.gentoo.org/proj/en/eselect/"
+HOMEPAGE="https://wiki.gentoo.org/wiki/Project:Eselect"
 SRC_URI="mirror://gentoo/${P}.tar.xz"
 
-LICENSE="GPL-2+"
+LICENSE="GPL-2+ || ( GPL-2+ CC-BY-SA-2.5 )"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~ppc-aix ~amd64-fbsd ~sparc-fbsd ~x86-fbsd ~x64-freebsd ~x86-freebsd ~hppa-hpux ~ia64-hpux ~x86-interix ~amd64-linux ~arm-linux ~ia64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 IUSE="doc" # emacs vim-syntax
@@ -29,8 +29,8 @@ RDEPEND="!app-admin/eselect-news
 	sys-apps/file
 	sys-libs/ncurses"
 
-#PDEPEND="emacs? ( app-emacs/eselect-mode )
-#	vim-syntax? ( app-vim/eselect-syntax )"
+PDEPEND="emacs? ( app-emacs/eselect-mode )
+	vim-syntax? ( app-vim/eselect-syntax )"
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PN}-alternatives.patch
