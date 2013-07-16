@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/openlibm-extras-soname.patch, -files/openlibmextras-soname.patch,
+  files/openlibm-respect-toolchain.patch, files/openlibm-soname.patch,
+  openlibm-9999.ebuild:
+  sci-libs/openlibm: Updated patches with new upstream
+
 *openlibm-9999 (03 Mar 2013)
 
   03 Mar 2013; Sébastien Fabbro <bicatali@gentoo.org>

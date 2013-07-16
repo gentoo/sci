@@ -1,30 +1,42 @@
---- Make.inc.orig	2013-07-02 22:11:50.789319117 -0400
-+++ Make.inc	2013-07-02 22:15:03.526313473 -0400
-@@ -2,24 +2,15 @@
+--- Make.inc.orig	2013-07-16 15:50:21.227405299 -0700
++++ Make.inc	2013-07-16 15:52:17.539087715 -0700
+@@ -2,26 +2,18 @@
  
  OS := $(shell uname)
  
 -FC = gfortran
 -FFLAGS += -O3
++FC := gfortran
  
 -USEGCC = 1
 -USECLANG = 0
--
--
--ifeq ($(USECLANG),1)
+ 
+-ifeq ($(OS), Darwin)
 -USEGCC = 0
--CC = clang
+-USECLANG = 1
+-endif
+-
+-AR = ar
++AR := ar
+ 
+-ifeq ($(USECLANG),1)
 +ifneq (,$(findstring clang,$(CC)))
+ USEGCC = 0
+ CC = clang
  CFLAGS_add += -fno-builtin
  endif
  
 -ifeq ($(USEGCC),1)
--CC = gcc
 +ifneq (,$(findstring gcc,$(CC)))
+ CC = gcc
  CFLAGS_add += -fno-gnu89-inline
  endif
--AR = ar
-+AR = :ar
+@@ -31,7 +23,7 @@
+ $(error "the mingw32 compiler you are using fails the openblas testsuite. please see the Julia README.windows.md document for a replacement")
+ endif
  
- ARCH := $(shell $(CC) -dumpmachine | sed "s/\([^-]*\).*$$/\1/")
- ifeq ($(ARCH),mingw32)
+-CFLAGS_add += -std=c99 -Wall -O3 -I$(OPENLIBM_HOME) -I$(OPENLIBM_HOME)/include -I$(OPENLIBM_HOME)/ld80 -I$(OPENLIBM_HOME)/$(ARCH) -I$(OPENLIBM_HOME)/src -DASSEMBLER -D__BSD_VISIBLE -Wno-implicit-function-declaration
++CFLAGS_add += -std=c99 -Wall -I$(OPENLIBM_HOME) -I$(OPENLIBM_HOME)/include -I$(OPENLIBM_HOME)/ld80 -I$(OPENLIBM_HOME)/$(ARCH) -I$(OPENLIBM_HOME)/src -DASSEMBLER -D__BSD_VISIBLE -Wno-implicit-function-declaration
+ 
+ default: all
+ 

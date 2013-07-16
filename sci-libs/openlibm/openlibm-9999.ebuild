@@ -22,9 +22,9 @@ DEPEND="${RDEPEND}"
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}/${PN}-respect-toolchain.patch" \
-		"${FILESDIR}/${PN}-soname.patch" \
-		"${FILESDIR}/${PN}extras-soname.patch"
+		"${FILESDIR}"/${PN}-respect-toolchain.patch \
+		"${FILESDIR}"/${PN}-soname.patch \
+		"${FILESDIR}"/${PN}-extras-soname.patch
 }
 
 src_compile() {
