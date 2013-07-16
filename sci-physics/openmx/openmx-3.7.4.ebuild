@@ -6,11 +6,13 @@ EAPI=5
 
 inherit eutils multilib toolchain-funcs fortran-2
 
+PATCHDATE="13July03"
+
 DESCRIPTION="Material eXplorer using DFT, NC pseudopotentials, and pseudo-atomic localized basis functions"
 HOMEPAGE="http://www.openmx-square.org/"
 SRC_URI="
 	http://www.openmx-square.org/${PN}${PV%.[0-9]}.tar.gz
-	http://www.openmx-square.org/bugfixed/13June03/patch${PV}.tar.gz"
+	http://www.openmx-square.org/bugfixed/${PATCHDATE}/patch${PV}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -149,13 +151,13 @@ src_test() {
 
 src_install() {
 	insinto /usr/share/${P}
-	doins -r DFT_DATA11
+	doins -r DFT_DATA13
 	cd work
 	insinto /usr/share/${P}/examples
 	doins -r *
 	cd ../source
 	dodir /usr/bin
 	emake DESTDIR="${D}/usr/bin" install
-	dodoc "${S}/${PN}${PV}.pdf"
+	dodoc "${S}/${PN}${PV%.?}.pdf"
 	use test && dodoc "${S}"/work/runtest.result
 }
