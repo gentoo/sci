@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*coinor-cbc-2.8.3 (17 Jul 2013)
+
+  17 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> +coinor-cbc-2.8.3.ebuild,
+  -coinor-cbc-2.8.2.ebuild:
+  sci-libs/coinor-cbc: Version bump
+
 *coinor-cbc-2.8.2 (03 Jul 2013)
 
   03 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> +coinor-cbc-2.8.2.ebuild,
