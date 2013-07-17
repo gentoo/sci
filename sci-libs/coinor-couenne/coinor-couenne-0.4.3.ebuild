@@ -50,7 +50,7 @@ src_compile() {
 	autotools-utils_src_compile
 	# resolve as-needed
 	# circular dependencies between libCouenne and libBonCouenne :(
-	pushd ${AUTOTOOLS_BUILD_DIR}/src > /dev/null
+	pushd ${BUILD_DIR}/src > /dev/null
 	rm libCouenne.la main/libBonCouenne.la || die
 	emake LIBS+="-Lmain/.libs -lBonCouenne" libCouenne.la
 	emake -C main

@@ -39,13 +39,13 @@ src_compile() {
 }
 
 src_test() {
-	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null || die
+	pushd "${BUILD_DIR}" > /dev/null || die
 	emake check test
 	popd > /dev/null || die
 }
 
 src_install() {
-	use doc && HTML_DOC=( "${AUTOTOOLS_BUILD_DIR}"/doxydocs/html/. )
+	use doc && HTML_DOC=( "${BUILD_DIR}"/doxydocs/html/. )
 	autotools-utils_src_install
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples

@@ -56,13 +56,13 @@ src_compile() {
 }
 
 src_test() {
-	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null || die
+	pushd "${BUILD_DIR}" > /dev/null || die
 	emake test
 	popd > /dev/null || die
 }
 
 src_install() {
-	use doc && HTML_DOC=("${AUTOTOOLS_BUILD_DIR}/doxydocs/html/")
+	use doc && HTML_DOC=("${BUILD_DIR}/doxydocs/html/")
 	autotools-utils_src_install
 	# already installed
 	rm "${ED}"/usr/share/coin/doc/${MYPN}/{README,AUTHORS,LICENSE} || die

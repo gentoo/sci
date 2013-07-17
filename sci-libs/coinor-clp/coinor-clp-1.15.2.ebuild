@@ -93,13 +93,13 @@ src_compile() {
 }
 
 src_test() {
-	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null || die
+	pushd "${BUILD_DIR}" > /dev/null || die
 	emake test
 	popd > /dev/null || die
 }
 
 src_install() {
-	use doc && HTML_DOC=("${AUTOTOOLS_BUILD_DIR}/doxydocs/html/")
+	use doc && HTML_DOC=("${BUILD_DIR}/doxydocs/html/")
 	# hack for parallel install, to overcome not patching Makefile.am above
 	autotools-utils_src_install -C src install-am
 	autotools-utils_src_install

@@ -70,7 +70,7 @@ src_compile() {
 }
 
 src_test() {
-	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null || die
+	pushd "${BUILD_DIR}" > /dev/null || die
 	emake test
 	popd > /dev/null || die
 }
