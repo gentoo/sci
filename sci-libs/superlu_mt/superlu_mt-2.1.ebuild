@@ -8,7 +8,7 @@ inherit eutils fortran-2 toolchain-funcs
 
 MYPN=SuperLU_MT
 
-DESCRIPTION="Sparse LU factorization library multithreading library"
+DESCRIPTION="Multithreaded sparse LU factorization library"
 HOMEPAGE="http://crd.lbl.gov/~xiaoye/SuperLU/"
 SRC_URI="${HOMEPAGE}/${PN}_${PV}.tar.gz"
 
@@ -102,4 +102,9 @@ src_install() {
 		insinto /usr/share/doc/${PF}/examples
 		doins -r EXAMPLE/* make.inc
 	fi
+}
+
+pkg_postinst() {
+	elog "${PN} has been designed to work with a single-threaded blas library"
+	elog "Make sure to eselect one (openblas/atlas) when using superlu_mt"
 }
