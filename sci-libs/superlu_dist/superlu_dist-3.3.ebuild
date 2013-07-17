@@ -8,7 +8,7 @@ inherit eutils toolchain-funcs
 
 MYPN=SuperLU_DIST
 
-DESCRIPTION="Sparse LU factorization library distributed library"
+DESCRIPTION="MPI distributed sparse LU factorization library"
 HOMEPAGE="http://crd.lbl.gov/~xiaoye/SuperLU/"
 SRC_URI="${HOMEPAGE}/${PN}_${PV}.tar.gz"
 
