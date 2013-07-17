@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*coinor-blis-0.93.5 (17 Jul 2013)
+
+  17 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  +coinor-blis-0.93.5.ebuild, -coinor-blis-0.93.4.ebuild:
+  sci-libs/coinor-blis: Version bump
+
   29 Jan 2013; Sébastien Fabbro <bicatali@gentoo.org> coinor-blis-0.93.4.ebuild:
   sci-libs/coinor-blis: Add missing coinor-bcps dependency
 
