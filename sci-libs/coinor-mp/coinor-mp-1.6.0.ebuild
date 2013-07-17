@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -37,7 +37,7 @@ src_configure() {
 }
 
 src_test() {
-	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null || die
+	pushd "${BUILD_DIR}" > /dev/null || die
 	emake test
 	popd > /dev/null || die
 }
@@ -47,7 +47,7 @@ src_install() {
 	# already installed
 	rm "${ED}"/usr/share/coin/doc/${MYPN}/{README,AUTHORS,LICENSE} || die
 	# left overs...
-	rm -rf "${ED}"/var
+	rm -rf "${D}"/var
 	if use examples; then
 		insinto /usr/share/doc/${PF}
 		doins -r examples
