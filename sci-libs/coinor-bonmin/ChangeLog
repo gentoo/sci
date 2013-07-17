@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*coinor-bonmin-1.7.0 (17 Jul 2013)
+
+  17 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  +coinor-bonmin-1.7.0.ebuild, -coinor-bonmin-1.6.0.ebuild:
+  sci-libs/coinor-bonmin: Version bump
+
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Add unocumented USE to metadata.xml
 
