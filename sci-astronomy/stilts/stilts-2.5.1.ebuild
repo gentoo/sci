@@ -4,11 +4,13 @@
 
 EAPI=5
 
-inherit java-pkg-2
+inherit java-pkg-2 versionator
+
+MYPV=$(replace_version_separator 2 '-')
 
 DESCRIPTION="Command line tools to process astronomical tables"
 HOMEPAGE="http://www.star.bris.ac.uk/~mbt/stilts/"
-SRC_URI="ftp://andromeda.star.bris.ac.uk/pub/star/${PN}/v${PV}/${PN}.jar -> ${P}.jar"
+SRC_URI="ftp://andromeda.star.bris.ac.uk/pub/star/${PN}/v${MYPV}/${PN}.jar -> ${P}.jar"
 
 LICENSE="GPL-2"
 SLOT="0"
