@@ -9,11 +9,11 @@ MYPN=galfit
 inherit multilib
 
 DESCRIPTION="Galaxy morphology fitting program"
-HOMEPAGE="http://www.csua.berkeley.edu/~cyp/work/galfit/galfit.html"
-CURI="http://www.csua.berkeley.edu/~cyp/work/${MYPN}"
+HOMEPAGE="http://users.obs.carnegiescience.edu/peng/work/galfit/galfit.html"
+CURI="http://users.obs.carnegiescience.edu/peng/work/${MYPN}"
 SRC_URI="
-	amd64? ( ${CURI}/${MYPN}3-debian64.tar.gz )
-	x86? ( ${CURI}/${MYPN}3-debian32.tar.gz )
+	amd64? ( ${CURI}/${MYPN}3-debian64.tar.gz -> ${P}-amd64.tar.gz )
+	x86? ( ${CURI}/${MYPN}3-debian32.tar.gz -> ${P}-x86.tar.gz )
 	doc? ( ${CURI}/README.pdf -> ${MYPN}.pdf )
 	examples? ( ${CURI}/${MYPN}-ex.tar.gz )
 	test? ( ${CURI}/${MYPN}-ex.tar.gz )"
@@ -38,7 +38,6 @@ src_test() {
 
 src_install () {
 	dobin ${MYPN}
-
 	use doc && newdoc "${DISTDIR}"/${MYPN}.pdf README.pdf
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
