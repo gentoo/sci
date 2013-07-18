@@ -26,7 +26,7 @@ RDEPEND="
 	>=sci-chemistry/openbabel-2.3.0
 	>=x11-libs/cairo-1.6.0
 	>=x11-libs/gdk-pixbuf-2.22.0
-	>=x11-libs/goffice-0.10.0
+	>=x11-libs/goffice-0.10.4
 	x11-libs/gtk+:3
 	>=x11-libs/libX11-1.0.0
 	gnumeric? ( >=app-office/gnumeric-1.11.6 )"
