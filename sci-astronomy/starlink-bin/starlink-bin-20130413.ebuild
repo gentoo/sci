@@ -1,11 +1,11 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 SP=starlink
-SR=kapuahi
+SR=hikianalia
 SRC_COM="http://ftp.jach.hawaii.edu/${SP}/${SR}/${SP}-${SR}"
 
 DESCRIPTION="Astronomical data processing software suite"
@@ -25,6 +25,6 @@ S="${WORKDIR}"
 src_install () {
 	dodir /usr
 	mv star-${SR} "${ED}"/usr || die
-	echo >> 99starlink "STARLINK_DIR=${EPREFIX}/usr/star-${SR}"
+	echo >> 99starlink "STARLINK_DIR=${EROOT%/}/usr/star-${SR}"
 	doenvd 99starlink
 }
