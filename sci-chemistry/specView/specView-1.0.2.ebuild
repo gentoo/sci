@@ -32,19 +32,19 @@ S="${WORKDIR}"/ccpnmr/ccpnmr3.0/
 
 src_prepare() {
 	sed \
-		-e "s|/usr|"${EPREFIX}"/usr|g" \
+		-e "s|/usr|\"${EPREFIX}/usr\"|g" \
 		-e "s|^\(CC =\).*|\1 $(tc-getCC)|g" \
 		-e '/^MALLOC_FLAG/s:^:#:g' \
 		-e "/^OPT_FLAG/s:=.*$:= ${CFLAGS}:g" \
 		-e "/^LINK_FLAGS/s:$: ${LDFLAGS}:g" \
-		-e "/^PYTHON_DIR/s:=.*:= "${EPREFIX}"/usr:g" \
+		-e "/^PYTHON_DIR/s:=.*:= \"${EPREFIX}/usr\":g" \
 		-e "/^PYTHON_LIB/s:=.*:= $(python_get_LIBS):g" \
-		-e "/^PYTHON_INCLUDE_FLAGS/s:=.*:= -I"${EPREFIX}"$(python_get_includedir) -I"${EPREFIX}"$(python_get_sitedir)/numpy/core/include/numpy:g" \
-		-e "/^PYTHON_LIB_FLAGS/s:=.*:= -L"${EPREFIX}"/usr/$(get_libdir):g" \
+		-e "/^PYTHON_INCLUDE_FLAGS/s:=.*:= -I\"$(python_get_includedir)\" -I\"$(python_get_sitedir)/numpy/core/include/numpy\":g" \
+		-e "/^PYTHON_LIB_FLAGS/s:=.*:= -L\"${EPREFIX}/usr/$(get_libdir)\":g" \
 		-e "/^SHARED_FLAGS/s:=.*:= -shared:g" \
-		-e "/^GL_DIR/s:=.*:= "${EPREFIX}"/usr/$(get_libdir):g" \
-		-e "/^GL_INCLUDE_FLAGS/s:=.*:= -I"${EPREFIX}"/usr/include:g" \
-		-e "/^GL_LIB_FLAGS/s:=.*:= -L"${EPREFIX}"/usr/$(get_libdir):g" \
+		-e "/^GL_DIR/s:=.*:= \"${EPREFIX}/usr/$(get_libdir)\":g" \
+		-e "/^GL_INCLUDE_FLAGS/s:=.*:= -I\"${EPREFIX}/usr/include\":g" \
+		-e "/^GL_LIB_FLAGS/s:=.*:= -L\"${EPREFIX}/usr/$(get_libdir)\":g" \
 		cNg/environment_default.txt > cNg/environment.txt || die
 	echo "SHARED_LINK_PARM = ${LDFLAGS}" >> cNg/environment.txt || die
 
@@ -72,7 +72,7 @@ src_install() {
 		-e "s|gentootk|${EPREFIX}/usr/${libdir}/tk${tkver}|g" \
 		-e "s|gentootcl|${EPREFIX}/usr/${libdir}/tclk${tkver}|g" \
 		-e "s|gentoopython|${PYTHON}|g" \
-		-e "s|gentoousr|${EPREFIX}/usr|g" \
+		-e "s|gentoousr|\"${EPREFIX}/usr\"|g" \
 		-e "s|//|/|g" \
 		"${FILESDIR}"/${PN} > "${ED}"/usr/bin/${PN} || die
 	fperms 755 /usr/bin/${PN}
