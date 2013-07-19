@@ -35,11 +35,6 @@ DEPEND="
 
 RESTRICT="mirror"
 
-src_prepare() {
-	epatch "${PATCHES[@]}"
-	gnome2_src_prepare
-}
-
 src_configure() {
 	local myeconfargs=(
 		$(use_enable nls)
