@@ -463,7 +463,7 @@ index cec561d..c207a43 100644
 +CLIPPER_CFLAGS = -I$(CLIPPER)/include -I$(MCCP4)/include 
  
 -INCLUDES = $(CLIPPER_CXXFLAGS) $(MCCP4_CFLAGS) $(MMDB_CXXFLAGS) -I../mini-mol
-+INCLUDES = $(CLIPPER_CFLAGS) $(MCCP4_CFLAGS) $(MMDB_CFLAGS) -I../mini-mol
++INCLUDES = $(CLIPPER_CFLAGS) $(MCCP4_CFLAGS) $(MMDB_CFLAGS) -I$(top_srcdir)/mini-mol
  
  CXXFLAGS = -g $(INCLUDES)
  LDFLAGS = -static -L../mini-mol -lcoot-mini-mol $(CLIPPER_LIBS) $(MMDB_LIBS) 
