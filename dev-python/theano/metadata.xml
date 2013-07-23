@@ -7,4 +7,7 @@
   computations are expressed using a NumPy-like syntax and compiled to
   run efficiently on either CPU or GPU architectures.
 </longdescription>
+<upstream>
+  <remote-id type="pypi">Theano</remote-id>
+</upstream>
 </pkgmetadata>
