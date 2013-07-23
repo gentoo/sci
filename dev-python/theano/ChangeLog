@@ -1,0 +1,9 @@
+# ChangeLog for dev-python/theano
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*theano-0.6.0_rc3 (23 Jul 2013)
+
+  23 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +theano-0.6.0_rc3.ebuild:
+  dev-python/theano: Initial import
