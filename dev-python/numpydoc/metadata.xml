@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
-  <longdescription lang="en">
-	Sphinx extension to support docstrings in Numpy format.
+<herd>sci</herd>
+<longdescription lang="en">
+  Sphinx extension to support docstrings in Numpy format.
 </longdescription>
+<upstream>
+  <remote-id type="pypi">numpydoc</remote-id>
+</upstream>
 </pkgmetadata>
