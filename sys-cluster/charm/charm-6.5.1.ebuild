@@ -88,6 +88,8 @@ src_prepare() {
 
 	# Fix QA notice. Filed report with upstream.
 	append-cflags -DALLOCA_H
+
+	epatch "${FILESDIR}/charm-6.5.1-cleanup-config.patch"
 }
 
 src_compile() {
