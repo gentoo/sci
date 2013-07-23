@@ -8,11 +8,11 @@ PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit eutils fortran-2 multilib python-single-r1 toolchain-funcs
 
-DATE="2013-05-17"
+DATE="2013-05-28"
 
 DESCRIPTION="Delivering High-Performance Computational Chemistry to Science"
 HOMEPAGE="http://www.nwchem-sw.org/index.php/Main_Page"
-SRC_URI="http://www.nwchem-sw.org/images/Nwchem-${PV}-src.${DATE}.tar.gz"
+SRC_URI="http://www.nwchem-sw.org/images/Nwchem-${PV}.revision${PR#r}-src.${DATE}.tar.gz"
 
 LICENSE="ECL-2.0"
 SLOT="0"
@@ -44,7 +44,7 @@ src_prepare() {
 		"${FILESDIR}"/nwchem-6.1.1-nwchemrc.patch \
 		"${FILESDIR}"/nwchem-6.1.1-adjust-dir-length.patch
 	use python && epatch "${FILESDIR}"/nwchem-6.1.1-python_makefile.patch
-	use doc && epatch "${FILESDIR}"/nwchem-6.3-html_doc.patch
+	use doc && epatch "${FILESDIR}"/nwchem-6.3-r1-html_doc.patch
 
 	sed \
 		-e "s:DBASIS_LIBRARY=\"'\$(SRCDIR)'\":DBASIS_LIBRARY=\"'${EPREFIX}/usr/share/NWChem'\":g" \
@@ -90,7 +90,7 @@ src_compile() {
 			export USE_PYTHON64=yes
 		fi
 		export PYTHONHOME=/usr
-		export PYTHONVERSION=$(eselect python show|awk -Fpython '{ print $2 }')
+		export PYTHONVERSION=$(eselect python show --python2 |awk -Fpython '{ print $2 }')
 		export PYTHONPATH="./:${S}/contrib/python/"
 		export NWCHEM_MODULES="all python"
 	else
@@ -137,7 +137,7 @@ src_install() {
 	use doc && \
 		insinto /usr/share/doc/"${P}" && \
 		doins -r doc/nwahtml && \
-		doins -r html
+		doins -r web
 
 }
 
