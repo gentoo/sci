@@ -340,13 +340,13 @@ intel-sdp_pkg_setup() {
 	INTEL_RPMS=()
 	INTEL_RPMS_FULL=()
 	for p in ${INTEL_BIN_RPMS}; do
-		if [ ${p} == $(basename ${p}) ]; then
-			for a in ${arch}; do
+		for a in ${arch}; do
+			if [ ${p} == $(basename ${p}) ]; then
 				INTEL_RPMS+=( intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm )
-			done
-		else
-			INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm )
-		fi
+			else
+				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm )
+			fi
+		done
 	done
 	for p in ${INTEL_DAT_RPMS}; do
 		if [ ${p} == $(basename ${p}) ]; then
