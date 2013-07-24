@@ -8,7 +8,6 @@
 </longdescription>
 <use>
   <flag name='int64'>Build the 64 bits integer library</flag>
-  <flag name='incblas'>Build the CBLAS interface</flag>
   <flag name='dynamic'>Build dynamic architecture detection at run time (for multi targets)</flag>
 </use>
 </pkgmetadata>
