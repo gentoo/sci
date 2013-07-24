@@ -46,6 +46,7 @@ python_prepare_all() {
 	sed \
 		-e "s:\"/usr:\"${EPREFIX}/usr:g" \
 		-e "/ext_comp_args/s:=\[.*\]$:= \[\]:g" \
+		-e "/import/s:argparse:argparseX:g" \
 		-i setup.py || die
 
 	rm ./modules/pmg_tk/startup/apbs_tools.py || die
