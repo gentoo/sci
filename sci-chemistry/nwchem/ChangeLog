@@ -2,6 +2,16 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nwchem-6.3-r1 (23 Jul 2013)
+
+  23 Jul 2013; Honza Macháček <Hloupy.Honza@centrum.cz> -nwchem-6.3.ebuild,
+  +nwchem-6.3-r1.ebuild, files/nwchem-6.1.1-adjust-dir-length.patch,
+  files/nwchem-6.1.1-makefile.patch, files/nwchem-6.1.1-nwchemrc.patch,
+  files/nwchem-6.1.1-python_makefile.patch, -files/nwchem-6.3-html_doc.patch,
+  +files/nwchem-6.3-r1-html_doc.patch:
+  Updated to 6.3-r1, python makefile patch cosmetically improved, the python
+  support linked properly to python2.
+
   16 Jun 2013; Justin Lecher <jlec@gentoo.org> -nwchem-6.1.1.ebuild,
   nwchem-6.3.ebuild:
   Drop old; drop virtual/fortran as the eclass depends on it

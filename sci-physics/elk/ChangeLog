@@ -2,6 +2,13 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*elk-2.1.25 (23 Jul 2013)
+
+  23 Jul 2013; Honza Macháček <Hloupy.Honza@centrum.cz> +elk-2.1.25.ebuild,
+  metadata.xml:
+  Version bump to 2.1.25. OpenMP detection improved, python script installation
+  added, obsolete usage of LIBDIR/finclude removed.
+
   18 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz> elk-1.4.22.ebuild:
   The dependency on sci-libs/libxc adapted to its recent change in the upgrade
   of sci-physics/abinit & friends.
