@@ -86,7 +86,7 @@ src_compile() {
 	elif use openmp; then
 		openblas_flags+=" USE_THREAD=0 USE_OPENMP=1"
 	fi
-	openblas_compile openblas-int64
+	openblas_compile openblas
 	mv libs/lib* . || die
 }
 
