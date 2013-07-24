@@ -102,6 +102,11 @@
 #
 # e.g. CLI_install/rpm/intel-vtune-amplifier-xe-cli-common
 
+# @ECLASS-VARIABLE: INTEL_SINGLE_ARCH
+# @DESCRIPTION:
+# Unset, if only the multilib package will be provided by intel
+: ${INTEL_SINGLE_ARCH:=true}
+
 # @ECLASS-VARIABLE: INTEL_SDP_DB
 # @DESCRIPTION:
 # Full path to intel registry db
@@ -115,10 +120,14 @@ _INTEL_PV3=$(get_version_component_range 3)
 _INTEL_PV4=$(get_version_component_range 4)
 _INTEL_URI="http://registrationcenter-download.intel.com/irc_nas/${INTEL_DID}/${INTEL_DPN}"
 
-SRC_URI="
-	amd64? ( multilib? ( ${_INTEL_URI}_${INTEL_DPV}.${INTEL_TARX} ) )
-	amd64? ( !multilib? ( ${_INTEL_URI}_${INTEL_DPV}_intel64.${INTEL_TARX} ) )
-	x86?	( ${_INTEL_URI}_${INTEL_DPV}_ia32.${INTEL_TARX} )"
+if [ ${INTEL_SINGLE_ARCH} == true ]; then
+	SRC_URI="
+		amd64? ( multilib? ( ${_INTEL_URI}_${INTEL_DPV}.${INTEL_TARX} ) )
+		amd64? ( !multilib? ( ${_INTEL_URI}_${INTEL_DPV}_intel64.${INTEL_TARX} ) )
+		x86?	( ${_INTEL_URI}_${INTEL_DPV}_ia32.${INTEL_TARX} )"
+else
+	SRC_URI="${_INTEL_URI}_${INTEL_DPV}.${INTEL_TARX}"
+fi
 
 LICENSE="Intel-SDP"
 # Future work, #394411
