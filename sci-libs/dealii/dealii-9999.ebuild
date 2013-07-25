@@ -31,7 +31,7 @@ IUSE="arpack avx +debug doc +examples hdf5 +lapack mesh_converter metis mpi mump
 REQUIRED_USE="
 	mumps? ( mpi lapack )
 	p4est? ( mpi )
-	trilinos ( mpi )
+	trilinos? ( mpi )
 "
 
 RDEPEND="
