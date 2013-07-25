@@ -1,4 +1,4 @@
-# Copyright 2012 Gentoo Foundation
+# Copyright 2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -104,12 +104,9 @@ src_configure() {
 }
 
 src_install() {
-	dodoc LICENSE README
+	dodoc README
 
-	if use !doc; then
-		# install some minimalistic bits of the html documentation:
-		dohtml doc/authors.html doc/license.html doc/screen.css
-	else
+	if use doc; then
 		if [[ ${PV} != "9999" ]] ; then
 			# copy missing images to the build directory:
 			cp -r "${WORKDIR}"/doc/doxygen/deal.II/images "${WORKDIR}"/${P}_build/doc/doxygen/deal.II
