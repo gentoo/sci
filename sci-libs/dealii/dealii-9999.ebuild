@@ -87,7 +87,7 @@ src_configure() {
 		$(cmake-utils_use petsc DEAL_II_WITH_PETSC)
 		$(cmake-utils_use sparse DEAL_II_WITH_UMFPACK)
 		$(cmake-utils_use sse2 DEAL_II_HAVE_SSE2)
-		$(if use static-libs; then echo -DBUILD_SHARED_LIBS=OFF;fi)
+		$(cmake-utils_use !static-libs BUILD_SHARED_LIBS)
 		$(cmake-utils_use static-libs DEAL_II_PREFER_STATIC_LIBS)
 		$(cmake-utils_use tbb DEAL_II_WITH_THREADS)
 		$(cmake-utils_use trilinos DEAL_II_WITH_TRILINOS)
