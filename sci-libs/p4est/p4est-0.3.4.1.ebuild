@@ -17,7 +17,8 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="GPL-2+"
 SLOT="0"
 
-IUSE="debug doc examples mpi static-libs"
+IUSE="debug doc examples mpi romio static-libs"
+REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
 	dev-lang/lua
@@ -25,7 +26,7 @@ RDEPEND="
 	sys-libs/zlib
 	virtual/blas
 	virtual/lapack
-	mpi? ( virtual/mpi )"
+	mpi? ( virtual/mpi[romio?] )"
 
 DEPEND="
     ${RDEPEND}
@@ -40,7 +41,7 @@ src_configure() {
 	local myeconfargs=(
         $(use_enable debug)
 		$(use_enable mpi)
-		$(use_enable mpi mpiio)
+		$(use_enable romio mpiio)
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
 		--with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)"
 	)
