@@ -109,11 +109,11 @@ src_install() {
 	if use doc; then
 		if [[ ${PV} != "9999" ]] ; then
 			# copy missing images to the build directory:
-			cp -r "${WORKDIR}"/doc/doxygen/deal.II/images "${WORKDIR}"/${P}_build/doc/doxygen/deal.II
+			cp -r "${WORKDIR}"/doc/doxygen/deal.II/images "${BUILD_DIR}"/doc/doxygen/deal.II
 			# replace links:
 			sed -i \
 				's#"http://www.dealii.org/images/steps/developer/\(step-.*\)"#"images/\1"#g' \
-				"${WORKDIR}"/${P}_build/doc/doxygen/deal.II/step_*.html || die "sed failed"
+				"${BUILD_DIR}"/doc/doxygen/deal.II/step_*.html || die "sed failed"
 		fi
 	fi
 	cmake-utils_src_install
