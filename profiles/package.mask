@@ -122,11 +122,6 @@ sci-visualization/vtkPOFFReader
 # new blas/lapack framework
 =sci-libs/blas-reference-20070226*
 
-# Francois Bissey (kiwifb) (29 Oct 2010)
-# f.r.bissey@massey.ac.nz
-# mask paraview-3.8.* as there are no stable versions in the tree
-# Avoid accidental upgrade
->=sci-visualization/paraview-3.8.0
 
 # Justin Lecher <jlec@gentoo.org> (11 May 2009)
 # work in progress 
