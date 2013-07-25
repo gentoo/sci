@@ -31,13 +31,11 @@ RDEPEND="
     ${DEPEND}
     virtual/pkgconfig"
 
-DOCS=(AUTHORS ChangeLog COPYING NEWS README)
+DOCS=(AUTHORS ChangeLog NEWS README)
 
 src_configure() {
 	local myeconfargs=(
         $(use_enable debug)
-		--enable-shared
-		$(use_enable static-libs static)
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
 		--with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)"
 	)
@@ -47,30 +45,23 @@ src_configure() {
 src_install() {
 	autotools-utils_src_install
 
-	if use doc
-	then
-		cp -r "${S}"/doc/* "${D}${EPREFIX}"/usr/share/doc/${PF}/
-	fi
+	use doc && dodoc -r "${S}"/doc/*
 
 	if use examples
 	then
-		mkdir -p "${D}${EPREFIX}"/usr/share/${PN}/examples
-		cp -r "${S}"/example/* "${D}${EPREFIX}"/usr/share/${PN}/examples
+		insinto /usr/share/${PN}/examples
+		doins -r "${S}"/example/*
 	else
 		# Remove the compiled example binaries in case of -examples:
-		rm -r "${D}${EPREFIX}"/usr/bin
+		rm -r "${ED}"/usr/bin
 	fi
 
-	if ! use static-libs
-	then
-		# *sigh* The build system apparently ignores --enable/disable-static
-		rm "${D}${EPREFIX}"/$(get_libdir)/*.a
-	fi
+	# *sigh* The build system apparently ignores --disable-static
+	use static-libs || rm "${ED}"/usr/$(get_libdir)/*.a
 
 	# Fix up some wrong installation pathes:
-	mkdir -p "${D}${EPREFIX}"/usr/share/p4est
-	mv "${D}${EPREFIX}"/usr/share/data "${D}${EPREFIX}"/usr/share/p4est/data
-	mv "${D}${EPREFIX}"/etc/* "${D}${EPREFIX}"/usr/share/p4est
-	rmdir "${D}${EPREFIX}"/etc/
+	dodir /usr/share/p4est
+	mv "${ED}"/usr/share/data "${ED}"/usr/share/p4est/data
+	mv "${ED}"/etc/* "${ED}"/usr/share/p4est
+	rmdir "${ED}"/etc/
 }
-
