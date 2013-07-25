@@ -26,12 +26,11 @@ fi
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
-IUSE="arpack avx +debug doc +examples hdf5 +lapack mesh_converter metis mpi mumps netcdf p4est parameter_gui petsc sse2 +threads trilinos +umfpack +zlib"
+IUSE="arpack avx +debug doc +examples hdf5 +lapack mesh_converter metis mpi mumps netcdf p4est parameter_gui petsc +sparse sse2 static-libs +tbb trilinos +zlib"
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
 
-DEPEND="
+RDEPEND="
 	dev-libs/boost
-	sys-libs/zlib
 	arpack? ( sci-libs/arpack[mpi?] )
 	doc? ( app-doc/doxygen[dot] dev-lang/perl )
 	hdf5? ( sci-libs/hdf5[mpi?] )
@@ -43,12 +42,16 @@ DEPEND="
 	p4est? ( sci-libs/p4est[mpi?] )
 	parameter_gui? ( dev-qt/qtgui )
 	petsc? ( sci-mathematics/petsc[mpi?] )
-	threads? ( dev-cpp/tbb )
+	sparse? ( sci-libs/umfpack )
+	tbb? ( dev-cpp/tbb )
 	trilinos? ( sci-libs/trilinos )
-	umfpack? ( sci-libs/umfpack )
 	zlib? ( sys-libs/zlib )
 "
-RDEPEND="${DEPEND}"
+
+DEPEND="
+	${RDEPEND}
+	virtual/pkgconfig
+"
 
 src_configure() {
 
@@ -82,10 +85,12 @@ src_configure() {
 		$(cmake-utils_use p4est DEAL_II_WITH_P4EST)
 		$(cmake-utils_use parameter_gui DEAL_II_COMPONENT_PARAMETER_GUI)
 		$(cmake-utils_use petsc DEAL_II_WITH_PETSC)
+		$(cmake-utils_use sparse DEAL_II_WITH_UMFPACK)
 		$(cmake-utils_use sse2 DEAL_II_HAVE_SSE2)
-		$(cmake-utils_use threads DEAL_II_WITH_THREADS)
+		$(if use static-libs; then echo -DBUILD_SHARED_LIBS=OFF;fi)
+		$(cmake-utils_use static-libs DEAL_II_PREFER_STATIC_LIBS)
+		$(cmake-utils_use tbb DEAL_II_WITH_THREADS)
 		$(cmake-utils_use trilinos DEAL_II_WITH_TRILINOS)
-		$(cmake-utils_use umfpack DEAL_II_WITH_UMFPACK)
 		$(cmake-utils_use zlib DEAL_II_WITH_ZLIB)
 		"-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF"
 		"-DDEAL_II_COMPONENT_COMPAT_FILES=OFF"
