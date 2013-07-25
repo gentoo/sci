@@ -4,6 +4,8 @@
 
 EAPI=5
 
+WANT_AUTOMAKE=1.11
+
 inherit autotools-utils toolchain-funcs eutils multilib
 
 DESCRIPTION="Scalable Algorithms for Parallel Adaptive Mesh Refinement on Forests of Octrees"
@@ -31,6 +33,9 @@ DEPEND="
 
 DOCS=(AUTHORS ChangeLog NEWS README)
 
+PATCHES=( "${FILESDIR}/${PN}-libtool-fix.patch" )
+AUTOTOOLS_AUTORECONF=true
+
 src_configure() {
 	local myeconfargs=(
         $(use_enable debug)
@@ -55,9 +60,6 @@ src_install() {
 		# Remove the compiled example binaries in case of -examples:
 		rm -r "${ED}"/usr/bin || die "rm failed"
 	fi
-
-	# *sigh* The build system apparently ignores --disable-static
-	use static-libs || rm "${ED}"/usr/$(get_libdir)/*.a
 
 	# Fix up some wrong installation pathes:
 	dodir /usr/share/p4est
