@@ -1,0 +1,11 @@
+--- Makefile.am.orig	2013-07-25 11:23:27.508614398 +0200
++++ Makefile.am	2013-07-25 11:30:12.508912973 +0200
+@@ -37,7 +37,7 @@
+         config/p4est_include.m4
+ 
+ # install p4est data files in the correct directory
+-p4estdatadir = $(datadir)/data
++p4estdatadir = $(datadir)/p4est/data
+ 
+ # set test environment
+ TESTS_ENVIRONMENT = @P4EST_MPI_TESTS_ENVIRONMENT@
