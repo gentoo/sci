@@ -55,8 +55,9 @@ src_install() {
 
 	if use examples
 	then
-		insinto /usr/share/${PN}/examples
-		doins -r example/*
+		docinto examples
+		dodoc -r example/*
+		docompress -x /usr/share/doc/${PF}/examples
 	else
 		# Remove the compiled example binaries in case of -examples:
 		rm -r "${ED}"/usr/bin || die "rm failed"
