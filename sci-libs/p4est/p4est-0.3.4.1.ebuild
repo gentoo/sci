@@ -34,6 +34,8 @@ DOCS=(AUTHORS ChangeLog NEWS README)
 src_configure() {
 	local myeconfargs=(
         $(use_enable debug)
+		$(use_enable mpi)
+		$(use_enable mpi mpiio)
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
 		--with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)"
 	)
