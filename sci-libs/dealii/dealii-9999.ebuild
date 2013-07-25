@@ -31,6 +31,7 @@ IUSE="arpack avx +debug doc +examples hdf5 +lapack mesh_converter metis mpi mump
 REQUIRED_USE="
 	mumps? ( mpi lapack )
 	p4est? ( mpi )
+	trilinos ( mpi )
 "
 
 RDEPEND="
@@ -48,7 +49,7 @@ RDEPEND="
 	petsc? ( sci-mathematics/petsc[mpi=] )
 	sparse? ( sci-libs/umfpack )
 	tbb? ( dev-cpp/tbb )
-	trilinos? ( sci-libs/trilinos[mpi=] )
+	trilinos? ( sci-libs/trilinos )
 	zlib? ( sys-libs/zlib )
 "
 
