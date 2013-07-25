@@ -28,23 +28,27 @@ LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="arpack avx +debug doc +examples hdf5 +lapack mesh_converter metis mpi mumps netcdf p4est parameter_gui petsc +sparse sse2 static-libs +tbb trilinos +zlib"
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
+REQUIRED_USE="
+	mumps? ( mpi lapack )
+	p4est? ( mpi )
+"
 
 RDEPEND="
 	dev-libs/boost
-	arpack? ( sci-libs/arpack[mpi?] )
+	arpack? ( sci-libs/arpack[mpi=] )
 	doc? ( app-doc/doxygen[dot] dev-lang/perl )
-	hdf5? ( sci-libs/hdf5[mpi?] )
+	hdf5? ( sci-libs/hdf5[mpi=] )
 	lapack? ( virtual/lapack )
-	metis? ( >=sci-libs/parmetis-4[mpi?] )
+	metis? ( >=sci-libs/parmetis-4 )
 	mpi? ( virtual/mpi )
-	mumps? ( sci-libs/mumps[mpi?] )
+	mumps? ( sci-libs/mumps[mpi] )
 	netcdf? ( || ( <sci-libs/netcdf-4.2[cxx] sci-libs/netcdf-cxx ) )
-	p4est? ( sci-libs/p4est[mpi?] )
+	p4est? ( sci-libs/p4est[mpi] )
 	parameter_gui? ( dev-qt/qtgui )
-	petsc? ( sci-mathematics/petsc[mpi?] )
+	petsc? ( sci-mathematics/petsc[mpi=] )
 	sparse? ( sci-libs/umfpack )
 	tbb? ( dev-cpp/tbb )
-	trilinos? ( sci-libs/trilinos )
+	trilinos? ( sci-libs/trilinos[mpi=] )
 	zlib? ( sys-libs/zlib )
 "
 
