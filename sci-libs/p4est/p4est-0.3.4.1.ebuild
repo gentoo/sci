@@ -17,7 +17,7 @@ SLOT="0"
 
 IUSE="debug doc examples mpi static-libs"
 
-DEPEND="
+RDEPEND="
 	dev-lang/lua
 	sys-apps/util-linux
 	sys-libs/zlib
@@ -25,8 +25,8 @@ DEPEND="
 	virtual/lapack
 	mpi? ( virtual/mpi )"
 
-RDEPEND="
-    ${DEPEND}
+DEPEND="
+    ${RDEPEND}
     virtual/pkgconfig"
 
 DOCS=(AUTHORS ChangeLog NEWS README)
@@ -45,15 +45,15 @@ src_configure() {
 src_install() {
 	autotools-utils_src_install
 
-	use doc && dodoc -r "${S}"/doc/*
+	use doc && dodoc -r doc/*
 
 	if use examples
 	then
 		insinto /usr/share/${PN}/examples
-		doins -r "${S}"/example/*
+		doins -r example/*
 	else
 		# Remove the compiled example binaries in case of -examples:
-		rm -r "${ED}"/usr/bin
+		rm -r "${ED}"/usr/bin || die "rm failed"
 	fi
 
 	# *sigh* The build system apparently ignores --disable-static
