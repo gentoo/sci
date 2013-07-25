@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<maintainer>
+  <email>tamiko+GENTOO@kyomu.43-1.org</email>
+  <name>Matthias Maier</name>
+</maintainer>
+<longdescription lang="en">
+  The p4est software library enables the dynamic management of a collection
+  of adaptive octrees, conveniently called a forest of octrees. p4est is
+  designed to work in parallel and scale to hundreds of thousands of
+  processor cores.
+</longdescription>
+</pkgmetadata>
