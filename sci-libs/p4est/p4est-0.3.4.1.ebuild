@@ -4,8 +4,6 @@
 
 EAPI=5
 
-WANT_AUTOMAKE="1.11"
-
 inherit autotools-utils toolchain-funcs eutils multilib
 
 DESCRIPTION="Scalable Algorithms for Parallel Adaptive Mesh Refinement on Forests of Octrees"
