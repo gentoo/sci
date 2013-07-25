@@ -101,7 +101,7 @@ src_configure() {
 		"-DDEAL_II_CMAKE_MACROS_RELDIR=share/${PN}/cmake/macros"
 		"-DDEAL_II_DOCHTML_RELDIR=share/doc/${PF}/html"
 		"-DDEAL_II_DOCREADME_RELDIR=share/doc/${PF}/"
-		"-DDEAL_II_EXAMPLES_RELDIR=share/${PN}/examples"
+		"-DDEAL_II_EXAMPLES_RELDIR=share/doc/${PF}/examples"
 		"-DDEAL_II_LIBRARY_RELDIR=$(get_libdir)"
 		)
 	cmake-utils_src_configure
@@ -121,4 +121,7 @@ src_install() {
 		fi
 	fi
 	cmake-utils_src_install
+
+	# unpack the installed example sources:
+	use examples && docompress -x /usr/share/doc/${PF}/examples
 }
