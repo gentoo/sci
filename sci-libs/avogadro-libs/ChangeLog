@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/avogadro-libs
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*avogadro-libs-0.6.0 (23 Jul 2013)
+
+  23 Jul 2013; Justin Lecher <jlec@gentoo.org> +avogadro-libs-0.6.0.ebuild,
+  +metadata.xml:
+  New addition written by me
+

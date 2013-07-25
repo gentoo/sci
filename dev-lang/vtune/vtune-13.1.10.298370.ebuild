@@ -4,10 +4,12 @@
 
 EAPI=5
 
-INTEL_DPN=parallel_studio_xe
-INTEL_DID=3266
-INTEL_DPV=2013_update4
+INTEL_DPN=vtune_amplifier_xe
+INTEL_DID=3290
+INTEL_DPV=2013_update10
 INTEL_SUBDIR=vtune_amplifier_xe
+INTEL_TARX=tar.gz
+INTEL_SINGLE_ARCH=false
 
 inherit intel-sdp multilib
 
@@ -17,22 +19,16 @@ HOMEPAGE="http://software.intel.com/en-us/articles/intel-vtune-amplifier-xe/"
 IUSE=""
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
-INTEL_BIN_RPMS="vtune-amplifier-xe-gui"
-INTEL_DAT_RPMS="vtune-amplifier-xe-gui-common"
-#INTEL_RPMS_DIRS="rpm CLI_install/rpm"
-
-create_bin_symlink() {
-	_libdir=$(get_libdir)
-	_arch=${_libdir/lib/}
-	dosym /${INTEL_SDP_DIR}/bin${_arch}/${1} /opt/bin/${1}
-}
+INTEL_BIN_RPMS="vtune-amplifier-xe-gui CLI_install/rpm/intel-vtune-amplifier-xe-cli"
+INTEL_DAT_RPMS="vtune-amplifier-xe-gui-common CLI_install/rpm/intel-vtune-amplifier-xe-cli-common"
 
 src_install() {
 	intel-sdp_src_install
 
-	# Create symbolic links
-	create_bin_symlink amplxe-gui
-	create_bin_symlink amplxe-configurator
+	cat >> "${T}"/50vtune <<- EOF
+	PATH=${INTEL_SDP_EDIR}/bin64:${INTEL_SDP_EDIR}/bin32
+	EOF
+	doenvd "${T}"/50vtune
 
 	make_desktop_entry amplxe-gui "VTune Amplifier XE" "" "Development;Debugger"
 }

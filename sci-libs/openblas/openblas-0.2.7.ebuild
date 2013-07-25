@@ -4,15 +4,13 @@
 
 EAPI=5
 
-EGIT_REPO_URI="https://github.com/xianyi/OpenBLAS.git"
-EGIT_MASTER="develop"
-
-inherit eutils toolchain-funcs alternatives-2 multilib fortran-2 git-2
+inherit eutils toolchain-funcs alternatives-2 multilib fortran-2
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
-KEYWORDS=""
-SRC_URI="http://dev.gentoo.org/~bicatali/distfiles/${PN}-gentoo.patch"
+SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz
+	http://dev.gentoo.org/~bicatali/distfiles/${PN}-gentoo.patch"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos ~ppc-macos ~x64-macos"
 
 LICENSE="BSD"
 SLOT="0"
@@ -21,6 +19,12 @@ IUSE="int64 dynamic openmp static-libs threads"
 
 RDEPEND=""
 DEPEND="${RDEPEND}"
+
+src_unpack() {
+	default
+	find "${WORKDIR}" -maxdepth 1 -type d -name \*OpenBLAS\* && \
+		mv "${WORKDIR}"/*OpenBLAS* "${S}"
+}
 
 src_prepare() {
 	# openblas already does multi-jobs
@@ -82,7 +86,7 @@ src_compile() {
 	elif use openmp; then
 		openblas_flags+=" USE_THREAD=0 USE_OPENMP=1"
 	fi
-	openblas_compile openblas-int64
+	openblas_compile openblas
 	mv libs/lib* . || die
 }
 
