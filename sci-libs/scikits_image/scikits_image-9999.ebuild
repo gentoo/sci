@@ -42,9 +42,7 @@ S="${WORKDIR}/${MYPN}-${PV}"
 DOCS=( CONTRIBUTORS.txt DEPENDS.txt RELEASE.txt TASKS.txt )
 
 python_test() {
-	distutils_install_for_testing.py \
-		install --root="${T}/test-${EPYTHON}" \
-		--no-compile || die "install test failed"
+	distutils_install_for_testing.py
 	cd "${T}/test-${EPYTHON}/$(python_get_sitedir)" || die
 	echo "backend: Agg" > matplotlibrc
 	MPLCONFIGDIR=. PYTHONPATH=. nosetests-"${EPYTHON}" || die
