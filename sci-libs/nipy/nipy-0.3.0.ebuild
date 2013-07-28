@@ -4,9 +4,10 @@
 
 EAPI="5"
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python{2_5,2_6,2_7,3_2,3_3} )
+DISTUTILS_NO_PARALLEL_BUILD=true
 
-inherit distutils-r1 eutils
+inherit distutils-r1 eutils multilib flag-o-matic
 
 MY_P="nipy-${PV}"
 
@@ -26,6 +27,12 @@ RDEPEND="
 DEPEND="
 	"
 
-python_install_all() {
-	distutils-r1_python_install_all
+python_prepare_all() {
+	# bug #397605
+	[[ ${CHOST} == *-darwin* ]] \
+		&& append-ldflags -bundle "-undefined dynamic_lookup" \
+		|| append-ldflags -shared
+
+	# nipy uses the horrible numpy.distutils automagic
+	export SCIPY_FCONFIG="config_fc --noopt --noarch"
 }
