@@ -33,6 +33,6 @@ python_prepare_all() {
 		&& append-ldflags -bundle "-undefined dynamic_lookup" \
 		|| append-ldflags -shared
 
-	# scikits-learn now uses the horrible numpy.distutils automagic
+	# nipy uses the horrible numpy.distutils automagic
 	export SCIPY_FCONFIG="config_fc --noopt --noarch"
 }
