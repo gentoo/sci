@@ -22,6 +22,9 @@ fi
 
 CMAKE_REMOVE_MODULES_LIST="FindBoost"
 
+EHP_OPTS="--config hostfingerprints.hg.berlios.de=f4:79:d2:17:f8:0c:9b:c2:6e:65:60:2a:49:0e:09:79:85:6d:4b:e3"
+EHG_CLONE_CMD="hg clone ${EHG_QUIET_CMD_OPT} ${EHP_OPTS} --pull --noupdate"
+EHG_PULL_CMD="hg pull ${EHG_QUIET_CMD_OPT} ${EHP_OPTS}"
 LICENSE="GPL-3 !system-boost? ( Boost-1.0 )"
 SLOT="0"
 KEYWORDS=""
