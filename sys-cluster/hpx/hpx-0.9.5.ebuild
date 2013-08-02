@@ -21,6 +21,7 @@ DEPEND=">=dev-libs/boost-1.48"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}"
+PATCHES=( "${FILESDIR}/hpx-0.9.5-install-path.patch" )
 
 src_configure() {
 	CMAKE_BUILD_TYPE=Release
