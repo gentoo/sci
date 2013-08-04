@@ -65,11 +65,10 @@
 # Possibility to skip the mandatory check for licenses. Only set this if there
 # is really no fix.
 
-# @ECLASS-VARIABLE: INTEL_RPMS_DIRS
+# @ECLASS-VARIABLE: INTEL_RPMS_DIR
 # @DESCRIPTION:
-# List of subdirectories in the main archive which contains the
-# rpms to extract.
-: ${INTEL_RPMS_DIRS:=rpm}
+# Main subdirectory which contains the rpms to extract.
+: ${INTEL_RPMS_DIR:=rpm}
 
 # @ECLASS-VARIABLE: INTEL_X86
 # @DESCRIPTION:
@@ -84,6 +83,11 @@
 # Functional name of rpm without any version/arch tag
 #
 # e.g. compilerprof
+#
+# if the rpm is located in a directory different to INTEL_RPMS_DIR you can
+# specify the full path
+#
+# e.g. CLI_install/rpm/intel-vtune-amplifier-xe-cli
 
 # @ECLASS-VARIABLE: INTEL_DAT_RPMS
 # @DEFAULT_UNSET
@@ -92,6 +96,16 @@
 # without any version tag
 #
 # e.g. openmp
+#
+# if the rpm is located in a directory different to INTEL_RPMS_DIR you can
+# specify the full path
+#
+# e.g. CLI_install/rpm/intel-vtune-amplifier-xe-cli-common
+
+# @ECLASS-VARIABLE: INTEL_SINGLE_ARCH
+# @DESCRIPTION:
+# Unset, if only the multilib package will be provided by intel
+: ${INTEL_SINGLE_ARCH:=true}
 
 # @ECLASS-VARIABLE: INTEL_SDP_DB
 # @DESCRIPTION:
@@ -106,10 +120,14 @@ _INTEL_PV3=$(get_version_component_range 3)
 _INTEL_PV4=$(get_version_component_range 4)
 _INTEL_URI="http://registrationcenter-download.intel.com/irc_nas/${INTEL_DID}/${INTEL_DPN}"
 
-SRC_URI="
-	amd64? ( multilib? ( ${_INTEL_URI}_${INTEL_DPV}.${INTEL_TARX} ) )
-	amd64? ( !multilib? ( ${_INTEL_URI}_${INTEL_DPV}_intel64.${INTEL_TARX} ) )
-	x86?	( ${_INTEL_URI}_${INTEL_DPV}_ia32.${INTEL_TARX} )"
+if [ ${INTEL_SINGLE_ARCH} == true ]; then
+	SRC_URI="
+		amd64? ( multilib? ( ${_INTEL_URI}_${INTEL_DPV}.${INTEL_TARX} ) )
+		amd64? ( !multilib? ( ${_INTEL_URI}_${INTEL_DPV}_intel64.${INTEL_TARX} ) )
+		x86?	( ${_INTEL_URI}_${INTEL_DPV}_ia32.${INTEL_TARX} )"
+else
+	SRC_URI="${_INTEL_URI}_${INTEL_DPV}.${INTEL_TARX}"
+fi
 
 LICENSE="Intel-SDP"
 # Future work, #394411
@@ -328,22 +346,22 @@ intel-sdp_pkg_setup() {
 			INTEL_ARCH="intel64 ia32"
 		fi
 	fi
-	INTEL_RPMS=""
-	INTEL_RPMS_FULL=""
+	INTEL_RPMS=()
+	INTEL_RPMS_FULL=()
 	for p in ${INTEL_BIN_RPMS}; do
-		if [ ${p} == $(basename ${p}) ]; then
-			for a in ${arch}; do
-				INTEL_RPMS+=" intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm"
-			done
-		else
-			INTEL_RPMS_FULL+=" ${p} "
-		fi
+		for a in ${arch}; do
+			if [ ${p} == $(basename ${p}) ]; then
+				INTEL_RPMS+=( intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm )
+			else
+				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm )
+			fi
+		done
 	done
 	for p in ${INTEL_DAT_RPMS}; do
 		if [ ${p} == $(basename ${p}) ]; then
-			INTEL_RPMS+=" intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.noarch.rpm"
+			INTEL_RPMS+=( intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.noarch.rpm )
 		else
-			INTEL_RPMS_FULL+=" ${p} "
+			INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.noarch.rpm )
 		fi
 	done
 
@@ -356,22 +374,22 @@ intel-sdp_pkg_setup() {
 # @DESCRIPTION:
 # Unpacking necessary rpms from tarball, extract them and rearrange the output.
 intel-sdp_src_unpack() {
-	local l r subdir rb t list=()
+	local l r subdir rb t list=() debug_list
 
 	for t in ${A}; do
-		for r in ${INTEL_RPMS}; do
-			for subdir in ${INTEL_RPMS_DIRS}; do
-				rpmdir=${t%%.*}/${subdir}
-				debug-print "Adding to decompression list: ${rpmdir}/${r}"
-				list+=( ${rpmdir}/${r})
-			done
+		for r in ${INTEL_RPMS[@]}; do
+			rpmdir=${t%%.*}/${INTEL_RPMS_DIR}
+			list+=( ${rpmdir}/${r} )
 		done
 
-		for r in ${INTEL_RPMS_FULL}; do
-			debug-print "Adding to decompression list: ${r}"
-			list+=( ${r})
+		for r in ${INTEL_RPMS_FULL[@]}; do
+			list+=( ${t%%.*}/${r} )
 		done
 
+		debug_list="$(IFS=$'\n'; echo ${list[@]} )"
+
+		debug-print "Adding to decompression list:"
+		debug-print ${debug_list}
 
 		tar xvf "${DISTDIR}"/${t} ${list[@]} &> "${T}"/rpm-extraction.log
 
@@ -380,7 +398,7 @@ intel-sdp_src_unpack() {
 			l=.${rb}_$(date +'%d%m%y_%H%M%S').log
 			einfo "Unpacking ${rb}"
 			rpm2tar -O ${r} | tar xvf - | sed -e \
-				"s:^\.:${EROOT#/}:g" > ${l} || die "unpacking ${r} failed"
+				"s:^\.:${EROOT#/}:g" > ${l}; assert "unpacking ${r} failed"
 			mv ${l} opt/intel/ || die "failed moving extract log file"
 		done
 	done

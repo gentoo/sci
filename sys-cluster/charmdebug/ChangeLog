@@ -2,6 +2,10 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  31 Jul 2013; Nicolas Bock <nicolasbock@gmail.com> charmdebug-6.2.0.ebuild:
+  sys-cluster/charmdebug: Added USE flag conditional.  charmdebug does not work
+  for SMP compiled charm.
+
   26 Jun 2013; Nicolas Bock <nicolasbock@gmail.com> charmdebug-6.2.0.ebuild:
   Beautify
 

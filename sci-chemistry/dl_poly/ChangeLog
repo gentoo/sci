@@ -1,0 +1,14 @@
+# ChangeLog for sci-chemistry/dl_poly
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*dl_poly-4.05 (02 Aug 2013)
+
+  02 Aug 2013; Christoph Junghans <ottxor@gentoo.org> +dl_poly-4.05.ebuild:
+  added newest version
+
+*dl_poly-1.9 (01 Aug 2013)
+
+  01 Aug 2013; Christoph Junghans <ottxor@gentoo.org> +dl_poly-1.9.ebuild,
+  +metadata.xml:
+  initial commit

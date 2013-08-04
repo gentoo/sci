@@ -10,13 +10,13 @@ AUTHOR=pingswept
 
 inherit distutils-r1 vcs-snapshot
 
-DESCRIPTION="A collection of Python libraries for simulating the Sun's irradiation"
-HOMEPAGE="http://pysolar.org/ http://pypi.python.org/pypi/Pysolar/"
+DESCRIPTION="Collection of Python libraries for simulating the irradiation by the sun"
+HOMEPAGE="http://pysolar.org/"
 SRC_URI="https://github.com/${AUTHOR}/${PN}/tarball/${PV} -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc"
 
 DEPEND="doc? ( dev-python/numpydoc )"
@@ -37,16 +37,14 @@ python_prepare_all() {
 }
 
 python_compile_all() {
-	if use doc; then
-		PYTHONPATH=".." emake -C doc html
-	fi
+	use doc && PYTHONPATH=".." emake -C doc html
 }
 
 python_test() {
-	${PYTHON} Pysolar/testsolar.py || die
+	${EPYTHON} Pysolar/testsolar.py || die
 }
 
 python_install_all() {
-	use doc && HTML_DOSC=( doc/.build/html/. )
+	use doc && HTML_DOCS=( doc/.build/html/. )
 	distutils-r1_python_install_all
 }

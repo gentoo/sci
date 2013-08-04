@@ -20,7 +20,7 @@ IUSE=""
 DEPEND=""
 RDEPEND="
 	>=virtual/jre-1.6
-	sys-cluster/charm[charmdebug]"
+	sys-cluster/charm[charmdebug,-smp]"
 
 src_install() {
 	java-pkg_newjar ${PN}.jar

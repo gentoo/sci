@@ -77,7 +77,7 @@ src_install() {
 		"${FILESDIR}"/${PN} > "${ED}"/usr/bin/${PN} || die
 	fperms 755 /usr/bin/${PN}
 
-	dodir ${in_path}/cNg
+	dodir "${in_path#${EPREFIX}}/cNg"
 	rm -rf cNg || die
 
 	ebegin "Installing main files"
