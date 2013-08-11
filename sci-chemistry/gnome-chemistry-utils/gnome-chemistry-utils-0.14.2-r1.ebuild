@@ -17,6 +17,7 @@ LICENSE="GPL-3 FDL-1.3"
 IUSE="gnumeric nls"
 
 RDEPEND="
+	>=app-text/gnome-doc-utils-0.3.2
 	>=dev-libs/glib-2.26.0:2
 	>=dev-libs/libxml2-2.4.16:2
 	>=gnome-extra/libgsf-1.14.9
