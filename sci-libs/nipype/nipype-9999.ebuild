@@ -16,12 +16,11 @@ EGIT_REPO_URI="https://github.com/nipy/nipype"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 RDEPEND="
 	>=sci-libs/scipy-0.7.0[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-1.2[${PYTHON_USEDEP}]
-	dev-python/traits
-	dev-python/networkx"
+	dev-python/traits[${PYTHON_USEDEP}]
+	dev-python/networkx[${PYTHON_USEDEP}]"
 DEPEND="
 	"

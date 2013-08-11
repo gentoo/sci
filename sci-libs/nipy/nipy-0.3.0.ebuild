@@ -34,5 +34,4 @@ python_prepare_all() {
 		|| append-ldflags -shared
 
 	# nipy uses the horrible numpy.distutils automagic
-	export SCIPY_FCONFIG="config_fc --noopt --noarch"
 }

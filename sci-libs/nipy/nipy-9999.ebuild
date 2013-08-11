@@ -15,7 +15,6 @@ EGIT_REPO_URI="https://github.com/nipy/nipy"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 RDEPEND="
 	>=dev-python/numpy-1.2[${PYTHON_USEDEP}]
@@ -32,5 +31,4 @@ python_prepare_all() {
 		|| append-ldflags -shared
 
 	# nipy uses the horrible numpy.distutils automagic
-	export SCIPY_FCONFIG="config_fc --noopt --noarch"
 }

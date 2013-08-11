@@ -14,8 +14,7 @@ EGIT_REPO_URI="https://github.com/nipy/nibabel.git"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="doc test dicom"
+IUSE="dicom doc test"
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
@@ -33,5 +32,5 @@ python_test() {
 	distutils_install_for_testing.py
 	cd "${T}/test-${EPYTHON}/$(python_get_sitedir)" || die
 	echo "backend: Agg" > matplotlibrc
-	MPLCONFIGDIR=. PYTHONPATH=. nosetests-"${EPYTHON}" || die
+	MPLCONFIGDIR=. nosetests-"${EPYTHON}" || die
 }
