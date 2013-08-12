@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<longdescription>
+ Anti-Grain Geometry (AGG) is a general purpose graphical toolkit
+ written completely in standard and platform independent C++. It can be used
+ in many areas of computer programming where high quality 2D graphics is an
+ essential part of the project.  
+</longdescription>
+<use>
+  <flag name="gpc">Enable gpc polygon clipper library</flag>
+</use>
+</pkgmetadata>

@@ -8,8 +8,7 @@ inherit eutils toolchain-funcs alternatives-2 multilib fortran-2
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
-SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz
-	http://dev.gentoo.org/~bicatali/distfiles/${PN}-gentoo.patch"
+SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos ~ppc-macos ~x64-macos"
 
 LICENSE="BSD"
@@ -24,13 +23,6 @@ src_unpack() {
 	default
 	find "${WORKDIR}" -maxdepth 1 -type d -name \*OpenBLAS\* && \
 		mv "${WORKDIR}"/*OpenBLAS* "${S}"
-}
-
-src_prepare() {
-	# openblas already does multi-jobs
-	MAKEOPTS+=" -j1"
-	cd "${S}"
-	epatch "${DISTDIR}"/${PN}-gentoo.patch
 }
 
 src_configure() {
@@ -51,12 +43,12 @@ openblas_compile() {
 	unset CFLAGS
 	emake clean
 	emake libs shared ${openblas_flags}
-	mkdir -p libs && mv lib* libs/
+	mkdir -p libs && mv libopenblas* libs/
 	# avoid pic when compiling static libraries, so re-compiling
 	if use static-libs; then
 		emake clean
 		emake libs ${openblas_flags} NO_SHARED=1 NEED_PIC=
-		mv lib* libs/
+		mv libopenblas* libs/
 	fi
 	cat <<-EOF > ${profname}.pc
 		prefix=${EPREFIX}/usr
@@ -73,21 +65,28 @@ openblas_compile() {
 }
 
 src_compile() {
+	# openblas already does multi-jobs
+	MAKEOPTS+=" -j1"
 	openblas_flags=""
+	local openblas_name=openblas
 	use dynamic && \
+		openblas_name+="-dynamic" && \
 		openblas_flags+=" DYNAMIC_ARCH=1 TARGET=GENERIC NUM_THREADS=64 NO_AFFINITY=1"
 	use int64 && \
+		openblas_name+="-int64" && \
 		openblas_flags+=" INTERFACE64=1"
 
 	# choose posix threads over openmp when the two are set
 	# yet to see the need of having the two profiles simultaneously
 	if use threads; then
+		openblas_name+="-threads"
 		openblas_flags+=" USE_THREAD=1 USE_OPENMP=0"
 	elif use openmp; then
+		openblas_name+="-openmp"
 		openblas_flags+=" USE_THREAD=0 USE_OPENMP=1"
 	fi
-	openblas_compile openblas
-	mv libs/lib* . || die
+	openblas_compile ${openblas_name}
+	mv libs/libopenblas* . || die
 }
 
 src_test() {
