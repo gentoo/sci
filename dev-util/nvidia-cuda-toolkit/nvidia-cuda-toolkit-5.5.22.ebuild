@@ -10,11 +10,11 @@ MYD=$(get_version_component_range 1)_$(get_version_component_range 2)
 
 DESCRIPTION="NVIDIA CUDA Toolkit (compiler and friends)"
 HOMEPAGE="http://developer.nvidia.com/cuda"
-CURI="http://developer.download.nvidia.com/compute/cuda/${MYD}/rel-update-1/installers/"
+CURI="http://developer.download.nvidia.com/compute/cuda/${MYD}/rel/installers/"
 SRC_URI=""
 SRC_URI="
-	amd64? ( ${CURI}/cuda-${PV}_linux_64.run )
-	x86? ( ${CURI}/cuda-${PV}-linux_32.run )"
+	amd64? ( ${CURI}/cuda_${PV}_linux_64.run )
+	x86? ( ${CURI}/cuda_${PV}_linux_32.run )"
 
 SLOT="0/${PV}"
 LICENSE="NVIDIA-r1"
@@ -35,8 +35,6 @@ RDEPEND="${DEPEND}
 S="${WORKDIR}"
 
 QA_PREBUILT="opt/cuda/*"
-
-RESTRICT="fetch"
 
 pkg_nofetch() {
 	einfo "NVIDIA doesn't provide direct download links yet. If you're a"
