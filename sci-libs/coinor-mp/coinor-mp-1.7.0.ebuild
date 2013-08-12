@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit autotools-utils multilib
 
@@ -47,7 +47,7 @@ src_install() {
 	# already installed
 	rm "${ED}"/usr/share/coin/doc/${MYPN}/{README,AUTHORS,LICENSE} || die
 	# left overs...
-	rm -rf "${D}"/var
+	rm -r "${D}"/var || die
 	if use examples; then
 		insinto /usr/share/doc/${PF}
 		doins -r examples
