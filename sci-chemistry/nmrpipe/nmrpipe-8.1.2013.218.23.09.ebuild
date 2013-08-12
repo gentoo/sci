@@ -25,7 +25,7 @@ SRC_URI="
 	"
 
 SLOT="0"
-LICENSE="all-rights-reserved"
+LICENSE="nmrpipe"
 # Right now, precompiled executables are only available for Linux on the
 # x86 architecture. The maintainer chose to keep the sources closed, but
 # says he will gladly provide precompiled executables for other platforms
