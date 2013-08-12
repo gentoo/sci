@@ -36,12 +36,6 @@ S="${WORKDIR}"
 
 QA_PREBUILT="opt/cuda/*"
 
-pkg_nofetch() {
-	einfo "NVIDIA doesn't provide direct download links yet. If you're a"
-	einfo "registered developer, then please download ${ARCHIVE} from"
-	einfo "https://developer.nvidia.com/rdp/cuda-55-release-candidate-installers"
-}
-
 pkg_setup() {
 	# We don't like to run cuda_pkg_setup as it depends on us
 	:
