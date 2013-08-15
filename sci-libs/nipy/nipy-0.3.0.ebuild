@@ -4,14 +4,14 @@
 
 EAPI="5"
 
-PYTHON_COMPAT=( python{2_5,2_6,2_7,3_2,3_3} )
+PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
 DISTUTILS_NO_PARALLEL_BUILD=true
 
 inherit distutils-r1 eutils multilib flag-o-matic
 
 MY_P="nipy-${PV}"
 
-DESCRIPTION="Neuroimaging tools for Python."
+DESCRIPTION="Neuroimaging tools for Python"
 HOMEPAGE="http://nipy.org/"
 SRC_URI="https://pypi.python.org/packages/source/n/nipy/nipy-0.3.0.tar.gz"
 

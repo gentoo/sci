@@ -4,11 +4,11 @@
 
 EAPI="5"
 
-PYTHON_COMPAT=( python{2_5,2_6,2_7,3_2,3_3} )
+PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
 
 inherit distutils-r1 git-2
 
-DESCRIPTION="Access a cacophony of neuro-imaging file formats."
+DESCRIPTION="Access a cacophony of neuro-imaging file formats"
 HOMEPAGE="http://http://nipy.org/nibabel/"
 EGIT_REPO_URI="https://github.com/nipy/nibabel.git"
 
@@ -33,7 +33,7 @@ RDEPEND="
 	${COMMONDEP}"
 
 python_test() {
-	distutils_install_for_testing.py
+	distutils_install_for_testing
 	cd "${T}/test-${EPYTHON}/$(python_get_sitedir)" || die
 	echo "backend: Agg" > matplotlibrc
 	MPLCONFIGDIR=. nosetests-"${EPYTHON}" || die

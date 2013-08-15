@@ -4,12 +4,12 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_5,2_6,2_7,3_2,3_3} )
+PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
 DISTUTILS_NO_PARALLEL_BUILD=true
 
 inherit distutils-r1 multilib git-2 flag-o-matic
 
-DESCRIPTION="Neuroimaging tools for Python."
+DESCRIPTION="Neuroimaging tools for Python"
 HOMEPAGE="http://nipy.org/"
 EGIT_REPO_URI="https://github.com/nipy/nipy"
 
