@@ -2,13 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-AUTOTOOLS_AUTORECONF=true
+AUTOTOOLS_AUTORECONF=1
 
 inherit alternatives-2 autotools-utils eutils toolchain-funcs
 
-DESCRIPTION="The GNU Scientific Library"
+DESCRIPTION="GNU Scientific Library"
 HOMEPAGE="http://www.gnu.org/software/gsl/"
 SRC_URI="mirror://gnu/${PN}/${P}.tar.gz"
 
@@ -21,14 +21,16 @@ RDEPEND="cblas-external? ( virtual/cblas )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
-PATCHES=( "${FILESDIR}"/${P}-cblas.patch )
-DOCS=( AUTHORS BUGS ChangeLog NEWS README THANKS TODO )
+PATCHES=( "${FILESDIR}"/${P}-cblas-external.patch )
 
 src_configure() {
 	if use cblas-external; then
 		export CBLAS_LIBS="$($(tc-getPKG_CONFIG) --libs cblas)"
 		export CBLAS_CFLAGS="$($(tc-getPKG_CONFIG) --cflags cblas)"
 	fi
+	local myeconfargs=(
+		$(use_with cblas-external)
+	)
 	autotools-utils_src_configure
 }
 
@@ -45,6 +47,7 @@ src_install() {
 		Version: ${PV}
 		URL: ${HOMEPAGE}
 		Libs: -L\${libdir} -l${libname}
+		Libs.private: -lm
 		Cflags: -I\${includedir}
 	EOF
 	insinto /usr/$(get_libdir)/pkgconfig
