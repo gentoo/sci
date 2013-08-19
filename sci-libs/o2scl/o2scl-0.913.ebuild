@@ -17,6 +17,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="debug doc examples hdf5 static-libs"
 
 RDEPEND="
+	dev-libs/boost
 	sci-libs/gsl
 	hdf5? ( sci-libs/hdf5 )"
 DEPEND="${RDEPEND}"
@@ -38,7 +39,7 @@ src_test() {
 src_install() {
 	autotools-utils_src_install
 	rm -r "${ED}"/usr/doc || die
-	use doc && dohtml doc/o2scl/html/*
+	use doc && dohtml -r doc/o2scl/html/*
 	if use examples; then
 		insinto /usr/share/doc/${PF}
 		doins -r examples
