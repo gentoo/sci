@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Jul 2013; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
+  Fx stupid argparse import
+
   26 Jun 2013; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
   Update repo uri
 

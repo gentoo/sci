@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<maintainer>
+  <email>tamiko+GENTOO@kyomu.43-1.org</email>
+  <name>Matthias Maier</name>
+</maintainer>
+<longdescription lang="en">
+  deal.II is a C++ program library targeted at the computational solution
+  of partial differential equations using adaptive finite elements. It uses
+  state-of-the-art programming techniques to offer you a modern interface
+  to the complex data structures and algorithms required.
+</longdescription>
+<use>
+  <flag name="arpack">Adds support for ARPACK (<pkg>sci-libs/arpack</pkg>)</flag>
+  <flag name="avx">Use Advanced Vector Extensions for AVX capable chips</flag>
+  <flag name="debug">Build an additional debug library with extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see &lt;http://www.gentoo.org/proj/en/qa/backtraces.xml&gt;</flag>
+  <flag name="mesh_converter">Build and install the mesh_converter executable</flag>
+  <flag name="metis">Add support for metis (<pkg>sci-libs/metis</pkg>)</flag>
+  <flag name="mumps">Add support for mumps (<pkg>sci-libs/mumps</pkg>)</flag>
+  <flag name="p4est">Add support for p4est (<pkg>sci-mathematics/p4est</pkg>)</flag>
+  <flag name="parameter_gui">Build and install the parameter_gui executable</flag>
+  <flag name="petsc">Add support for petsc (<pkg>sci-libs/petsc</pkg>)</flag>
+  <flag name="tbb">Add threading support with the help of the tbb library (<pkg>dev-cpp/tbb</pkg>)</flag>
+  <flag name="trilinos">Add support for trilinos (<pkg>sci-libs/trilinos</pkg>)</flag>
+</use>
+</pkgmetadata>
