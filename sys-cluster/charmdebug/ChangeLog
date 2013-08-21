@@ -2,6 +2,21 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*charmdebug-6.2.0-r1 (13 Aug 2013)
+
+  13 Aug 2013; Nicolas Bock <nicolasbock@gmail.com> +charmdebug-6.2.0-r1.ebuild,
+  -charmdebug-6.2.0.ebuild:
+  sys-cluster/charmdebug: Updated manifest.  The Charm++ developers replaced the
+  tar file on their webpage with a bug fix release with the same filename and
+  version as before (6.2.0). I updated the manifest and bumped the ebuild so
+  that users will get the benefit of this new version. Since the old tar file is
+  not available anymore from the charm download page, I renamed the ebuild
+  instead of copying it.
+
+  31 Jul 2013; Nicolas Bock <nicolasbock@gmail.com> charmdebug-6.2.0.ebuild:
+  sys-cluster/charmdebug: Added USE flag conditional.  charmdebug does not work
+  for SMP compiled charm.
+
   26 Jun 2013; Nicolas Bock <nicolasbock@gmail.com> charmdebug-6.2.0.ebuild:
   Beautify
 

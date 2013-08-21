@@ -17,7 +17,7 @@ RDEPEND="|| (
 		>=sci-libs/cblas-reference-20110218
 		sci-libs/openblas
 		>=sci-libs/gsl-1.15-r3[-cblas-external]
-		>=sci-libs/gotoblas2-1.13[incblas]
+		>=sci-libs/gotoblas2-1.13
 		>=sci-libs/atlas-3.9.34
 		>=sci-libs/mkl-10.3
 	)"

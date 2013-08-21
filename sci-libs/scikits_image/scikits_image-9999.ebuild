@@ -22,7 +22,6 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc freeimage gtk qt4 test"
 
 RDEPEND="
-	sci-libs/scikits[${PYTHON_USEDEP}]
 	sci-libs/scipy[sparse,${PYTHON_USEDEP}]
 	freeimage? ( media-libs/freeimage )
 	gtk? ( dev-python/pygtk[$(python_gen_usedep 'python2*')] )
@@ -42,13 +41,10 @@ S="${WORKDIR}/${MYPN}-${PV}"
 DOCS=( CONTRIBUTORS.txt DEPENDS.txt RELEASE.txt TASKS.txt )
 
 python_test() {
-<<<<<<< HEAD
-	distutils_install_for_testing.py \
+	esetup.py \
 		install --root="${T}/test-${EPYTHON}" \
 		--no-compile || die "install test failed"
-=======
-	distutils_install_for_testing.py
->>>>>>> e20cf96b7230e5bd7e2d5a7531754a84ba6a67df
+	#distutils_install_for_testing
 	cd "${T}/test-${EPYTHON}/$(python_get_sitedir)" || die
 	echo "backend: Agg" > matplotlibrc
 	MPLCONFIGDIR=. PYTHONPATH=. nosetests-"${EPYTHON}" || die

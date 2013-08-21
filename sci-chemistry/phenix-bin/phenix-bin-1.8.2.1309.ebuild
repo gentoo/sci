@@ -36,7 +36,6 @@ RDEPEND="${PYTHON_DEPS}
 	media-gfx/nvidia-cg-toolkit
 	media-libs/fontconfig
 	media-libs/freetype
-	media-libs/jpeg:62
 	media-libs/libpng:1.2
 	sys-libs/db:4.8
 	sys-libs/gdbm
@@ -60,7 +59,8 @@ RDEPEND="${PYTHON_DEPS}
 	x11-libs/libXrandr
 	x11-libs/libXrender
 	x11-libs/libXxf86vm
-	sys-libs/zlib"
+	sys-libs/zlib
+	virtual/jpeg:62"
 DEPEND="${PYTHON_DEPS}"
 
 RESTRICT="fetch"

@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*o2scl-0.913 (19 Aug 2013)
+
+  19 Aug 2013; Sébastien Fabbro <bicatali@gentoo.org> +o2scl-0.913.ebuild,
+  -o2scl-0.912.ebuild:
+  sci-libs/o2scl: Version bump. Add boost as dependency
+
 *o2scl-0.912 (03 Mar 2013)
 
   03 Mar 2013; Sébastien Fabbro <bicatali@gentoo.org> +o2scl-0.912.ebuild,
