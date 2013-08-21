@@ -42,7 +42,7 @@ S="${WORKDIR}/${MYPN}-${PV}"
 DOCS=( CONTRIBUTORS.txt DEPENDS.txt RELEASE.txt TASKS.txt )
 
 python_test() {
-	esetup.py \
+	distutils_install_for_testing.py \
 		install --root="${T}/test-${EPYTHON}" \
 		--no-compile || die "install test failed"
 	cd "${T}/test-${EPYTHON}/$(python_get_sitedir)" || die
