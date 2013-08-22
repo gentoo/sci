@@ -28,6 +28,7 @@ DEPEND="
 	"
 
 python_prepare_all() {
+	distutils-r1_python_prepare_all
 	# bug #397605
 	[[ ${CHOST} == *-darwin* ]] \
 		&& append-ldflags -bundle "-undefined dynamic_lookup" \
