@@ -13,12 +13,11 @@ SRC_URI="http://samba.org/ftp/ccache/${P}.tar.xz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris ~x64-solaris ~x86-solaris"
-IUSE="clang icc mpi"
+IUSE="clang icc"
 
 RDEPEND="sys-libs/zlib
 	clang? ( sys-devel/clang )
-	icc? ( dev-lang/icc )
-	mpi? ( virtual/mpi )"
+	icc? ( dev-lang/icc )"
 DEPEND="${RDEPEND}
 	app-arch/xz-utils"
 
@@ -55,7 +54,6 @@ pkg_postinst() {
 	"${EROOT}"/usr/bin/ccache-config --install-links ${CHOST}
 	use icc && "${EROOT}"/usr/bin/ccache-config --install-links icc
 	use clang && "${EROOT}"/usr/bin/ccache-config --install-links clang
-	use mpi && "${EROOT}"/usr/bin/ccache-config --install-links mpicc
 
 	# nuke broken symlinks from previous versions that shouldn't exist
 	rm -f "${EROOT}/usr/$(get_libdir)/ccache/bin/${CHOST}-cc"
