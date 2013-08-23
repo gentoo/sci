@@ -13,7 +13,7 @@ MY_P="nipy-${PV}"
 
 DESCRIPTION="Neuroimaging tools for Python"
 HOMEPAGE="http://nipy.org/"
-SRC_URI="https://pypi.python.org/packages/source/n/nipy/nipy-0.3.0.tar.gz"
+SRC_URI="mirror://pypi/${P:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
