@@ -7,9 +7,13 @@ sci
 <maintainer><email>h.chr@mail.ru</email></maintainer>
 </herd>
 <longdescription lang="en">
-  The package provides read and write access to some common medical and neuroimaging file formats, including: ANALYZE (plain, SPM99, SPM2), GIFTI, NIfTI1, MINC, MGH and ECAT as well as PAR/REC. It can read and write Freesurfer geometry, and read Freesurfer morphometry and annotation files. There is some very limited support for DICOM. NiBabel is the successor of PyNIfTI.
+  The package provides read and write access to some common medical and
+  neuroimaging file formats, including: ANALYZE (plain, SPM99, SPM2), GIFTI,
+  NIfTI1, MINC, MGH and ECAT as well as PAR/REC. It can read and write Freesurfer
+  geometry, and read Freesurfer morphometry and annotation files. There is some
+  very limited support for DICOM. NiBabel is the successor of PyNIfTI.
 </longdescription>
 <use>
-  <flag name='dicom'>Adds limited read support for teh DICOM imaging format</flag>
+  <flag name='dicom'>Adds limited read support for the DICOM imaging format</flag>
 </use>
 </pkgmetadata>
