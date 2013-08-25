@@ -20,7 +20,17 @@ SLOT="0"
 RDEPEND="
 	>=sci-libs/scipy-0.7.0[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-1.2[${PYTHON_USEDEP}]
+	>=dev-python/numpy-0.7[${PYTHON_USEDEP}]
 	dev-python/traits[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]"
 DEPEND="
 	"
+
+
+python_test() {
+	distutils-r1_install_for_testing
+	cd "${BUILD_DIR}" || die
+	nosetests --with-doctest /software/nipy-repo/masternipype/nipype --exclude=external --exclude=testing
+}
+
+
