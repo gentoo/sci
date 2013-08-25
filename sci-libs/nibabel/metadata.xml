@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8">
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <herd>
@@ -14,6 +14,6 @@ sci
   very limited support for DICOM. NiBabel is the successor of PyNIfTI.
 </longdescription>
 <use>
-  <flag name='dicom'>Adds limited read support for the DICOM imaging format</flag>
+  <flag name='dicom'>Adds limited read support for the DICOM imaging format.</flag>
 </use>
 </pkgmetadata>
