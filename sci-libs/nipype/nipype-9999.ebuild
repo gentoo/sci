@@ -26,11 +26,8 @@ RDEPEND="
 DEPEND="
 	"
 
-
 python_test() {
-	distutils-r1_install_for_testing
-	cd "${BUILD_DIR}" || die
-	nosetests --with-doctest /software/nipy-repo/masternipype/nipype --exclude=external --exclude=testing
+	nosetests -v || die
 }
 
 
