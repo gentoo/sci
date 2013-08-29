@@ -9,7 +9,7 @@ HOMEPAGE="http://manatee.sourceforge.net/igs"
 SRC_URI="http://sourceforge.net/projects/manatee/files/igs_manatee/"${PV}"/manatee-"${PV}"_linux.tgz
 		http://manatee.sourceforge.net/igs/docs/README_Linux.txt"
 
-LICENSE="Artistic-Manatee-IGS"
+LICENSE="Artistic-Manatee"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
