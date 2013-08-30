@@ -16,7 +16,7 @@ SRC_URI="http://psychopy.googlecode.com/files/${MY_P}.zip"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 RDEPEND="
