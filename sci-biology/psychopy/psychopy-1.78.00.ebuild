@@ -12,11 +12,11 @@ MY_P="PsychoPy-${PV}"
 
 DESCRIPTION="Python experimental psychology toolkit"
 HOMEPAGE="http://www.psychopy.org/"
-SRC_URI="http://psychopy.googlecode.com/files/${MY_P}.zip"
+SRC_URI="http://sourceforge.net/projects/psychpy/files/PsychoPy/${MY_P}.zip"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 RDEPEND="
