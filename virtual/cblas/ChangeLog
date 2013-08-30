@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/virtual/cblas/ChangeLog,v 1.6 2010/01/11 10:56:05 ulm Exp $
 
+  11 Aug 2013; Justin Lecher <jlec@gentoo.org> cblas-2.0.ebuild, metadata.xml:
+  Drop obsolete USE dep for openblas, #478130
+
   25 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> cblas-2.0.ebuild:
   virtual/cblas: Adapted for new openblas
 

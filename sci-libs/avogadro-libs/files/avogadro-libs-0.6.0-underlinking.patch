@@ -1,0 +1,14 @@
+ avogadro/qtplugins/vanderwaalsao/CMakeLists.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/avogadro/qtplugins/vanderwaalsao/CMakeLists.txt b/avogadro/qtplugins/vanderwaalsao/CMakeLists.txt
+index 291dc9e..8547406 100644
+--- a/avogadro/qtplugins/vanderwaalsao/CMakeLists.txt
++++ b/avogadro/qtplugins/vanderwaalsao/CMakeLists.txt
+@@ -5,3 +5,6 @@ avogadro_plugin(VanDerWaalsAO
+   VanDerWaalsAO
+   vanderwaalsao.cpp
+   "")
++
++target_link_libraries(VanDerWaalsAO AvogadroRendering)
++

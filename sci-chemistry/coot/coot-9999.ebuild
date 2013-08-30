@@ -175,3 +175,9 @@ src_test() {
 	"${S}"/src/coot-real --no-graphics --script command-line-greg.scm || die
 	"${S}"/src/coot-real --no-graphics --script python-tests/coot_unittest.py || die
 }
+
+src_install() {
+	autotools-utils_src_install
+	insinto /usr/share/${PN}
+	doins syminfo.lib
+}

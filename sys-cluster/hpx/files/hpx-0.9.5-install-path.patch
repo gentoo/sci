@@ -1,0 +1,39 @@
+diff -ur hpx_0.9.5/CMakeLists.txt hpx_0.9.5-new/CMakeLists.txt
+--- hpx_0.9.5/CMakeLists.txt	2013-01-16 21:35:07.000000000 +0100
++++ hpx_0.9.5-new/CMakeLists.txt	2013-07-31 10:42:52.841425520 +0200
+@@ -1207,12 +1207,14 @@
+     foreach(script ${scripts})
+       get_filename_component(script_name ${script} NAME)
+       get_filename_component(script_name_we ${script} NAME_WE)
+-      install(CODE
+-        "set(bindir \"${CMAKE_INSTALL_PREFIX}/bin/\")
+-         execute_process(
+-           COMMAND \"\${CMAKE_COMMAND}\" -E create_symlink
+-                   \"${script_name}\" \"${script_name_we}\"
+-           WORKING_DIRECTORY \"\${bindir}\")")
++
++	  message("andi sez: ${script_name} ${script_name_we} ${CMAKE_INSTALL_PREFIX}")
++
++      execute_process(
++		COMMAND "${CMAKE_COMMAND}" -E create_symlink "${script_name}" "${script_name_we}"
++        WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/python/scripts")
++
++      install(FILES "python/scripts/${script_name_we}" DESTINATION "bin")
+     endforeach()
+   endif()
+ 
+@@ -1224,12 +1226,8 @@
+     PATTERN ".git" EXCLUDE)
+ 
+   # create a symlink in share pointing to the latest HPX installation
+-  install(CODE
+-    "set(sharedir \"${CMAKE_INSTALL_PREFIX}/share/\")
+-     execute_process(
+-     COMMAND \"\${CMAKE_COMMAND}\" -E create_symlink
+-             \"hpx-${HPX_VERSION}\" \"hpx\"
+-     WORKING_DIRECTORY \"\${sharedir}\")")
++  execute_process(COMMAND "${CMAKE_COMMAND}" -E create_symlink "hpx-${HPX_VERSION}" "hpx" WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/src")
++  install(FILES "src/hpx" DESTINATION "share")
+ 
+   install( # install external dependencies
+     DIRECTORY external/cache/boost

@@ -39,7 +39,7 @@ index 46f6362..fd3fd9a 100644
  
  	* surface/CXXSphereNode.h: removed the ; again!
 diff --git a/analysis/Makefile.am b/analysis/Makefile.am
-index 8754df4..1174dfd 100644
+index 8a873dc..ef4a9cf 100644
 --- a/analysis/Makefile.am
 +++ b/analysis/Makefile.am
 @@ -8,8 +8,8 @@ pkgincludedir = $(includedir)/coot/analysis
@@ -51,7 +51,7 @@ index 8754df4..1174dfd 100644
 +	$(CLIPPER_CFLAGS)		\
 +	$(MMDB_CFLAGS)
  
- libcoot_analysis_la_SOURCES = bfkurt.cc mogul.cc kolmogorov.cc
+ libcoot_analysis_la_SOURCES = bfkurt.cc mogul.cc kolmogorov.hh kolmogorov.cc cablam.hh cablam.cc
  
 diff --git a/angles/Makefile.am b/angles/Makefile.am
 index b89276d..935ce06 100644
@@ -313,7 +313,7 @@ index 399f453..3d2ff55 100755
  #	$(WITH_SCRIPT_CFLAGS) 
  
 diff --git a/configure.in b/configure.in
-index d99d280..eca9b91 100644
+index 5928c3c..9e235b5 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -108,14 +108,18 @@ esac
@@ -338,7 +338,7 @@ index d99d280..eca9b91 100644
  
  # we set default coot_guile to true
  coot_guile=true
-@@ -189,11 +193,15 @@ AM_PATH_LIBGLADE
+@@ -186,11 +190,15 @@ AM_PATH_LIBGLADE
  
  dnl =========================== GooCanvas ================================
  
@@ -443,7 +443,7 @@ index 3a85b9e..1a11cdf 100644
  pkginclude_HEADERS = db-main.hh db-strands.hh
  pkgincludedir = $(includedir)/coot/db-main
 diff --git a/db-main/Makefile.simple b/db-main/Makefile.simple
-index cec561d..c207a43 100644
+index cec561d..31d35a0 100644
 --- a/db-main/Makefile.simple
 +++ b/db-main/Makefile.simple
 @@ -19,7 +19,7 @@ CLIPPER = $(HOME)/crystal
@@ -848,29 +848,34 @@ index 30fdcb9..3e4c0c6 100644
  ifelse([$1], , :, [$1])
  
 diff --git a/macros/mmdb-ssm.m4 b/macros/mmdb-ssm.m4
-index 1937a16..26101d3 100644
+index 25dc502..fcfde1d 100644
 --- a/macros/mmdb-ssm.m4
 +++ b/macros/mmdb-ssm.m4
-@@ -32,7 +32,7 @@ AC_MSG_CHECKING([for SSMLib])
+@@ -31,14 +31,13 @@ AC_ARG_WITH(ssmlib-prefix,
+ AC_MSG_CHECKING([for ssm library])
  
  if test x$with_ssmlib_prefix != x; then
+-
+    if test -r "$with_ssmlib_prefix/include/ssm/ssm_superpose.h"; then
  
--   MMDBSSM_CXXFLAGS="-DHAVE_SSMLIB"
+-      MMDBSSM_CXXFLAGS="-DHAVE_SSMLIB"
 +   MMDBSSM_CFLAGS="-DHAVE_SSMLIB"
-    MMDBSSM_LIBS="-L$with_ssmlib_prefix/$acl_libdirstem -lssm"
+       # AFAICS, ssm does not put its libs in $acl_libdirstem
+       # MMDBSSM_LIBS="-L$with_ssmlib_prefix/$acl_libdirstem -lssm"
+       MMDBSSM_LIBS="-L$with_ssmlib_prefix/lib -lssm"
+-      ac_MMDBSSM_CXXFLAGS="-I$with_ssmlib_prefix/include"
++      ac_MMDBSSM_CFLAGS="-I$with_ssmlib_prefix/include"
  
- ac_mmdb_dirs='
-@@ -47,16 +47,16 @@ lib/src/mmdb'
+       # saved_LIBS="$LIBS"
+       # saved_CPPFLAGS="$CPPFLAGS"
+@@ -49,12 +48,13 @@ if test x$with_ssmlib_prefix != x; then
  
-    for ac_dir in $ac_mmdb_dirs; do
-       if test -r "$with_ssmlib_prefix/$ac_dir/ssm_superpose.h"; then
--         ac_MMDBSSM_CXXFLAGS="-I$with_ssmlib_prefix/$ac_dir"
-+         ac_MMDBSSM_CFLAGS="-I$with_ssmlib_prefix/$ac_dir"
-          break
-       fi
-    done
- 
--  MMDBSSM_CXXFLAGS="$MMDBSSM_CXXFLAGS $ac_MMDBSSM_CXXFLAGS"
+    else 
+       AC_MSG_FAILURE([ --with-ssmlib-prefix specified but include files not found])
+-   fi
+-   MMDBSSM_CXXFLAGS="$MMDBSSM_CXXFLAGS $ac_MMDBSSM_CXXFLAGS"
++      fi
++
 +  MMDBSSM_CFLAGS="$MMDBSSM_CFLAGS $ac_MMDBSSM_CFLAGS"
    
  else 
@@ -880,7 +885,7 @@ index 1937a16..26101d3 100644
     MMDBSSM_LIBS=""
     with_ssmlib_prefix=no 
  
-@@ -64,6 +64,6 @@ fi
+@@ -62,6 +62,6 @@ fi
  
  AC_MSG_RESULT([$with_ssmlib_prefix])
  
