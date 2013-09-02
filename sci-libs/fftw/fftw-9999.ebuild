@@ -40,6 +40,7 @@ MULTILIB_WRAPPED_HEADERS=(
 	/usr/include/fftw3-mpi.h
 	/usr/include/fftw3l-mpi.f03
 	/usr/include/fftw3-mpi.f03
+	/usr/include/fftw3l.f03
 	/usr/include/fftw3q.f03
 )
 
@@ -90,7 +91,14 @@ src_configure() {
 		multilib_is_native_abi || enable_mpi="--disable-mpi"
 
 		#jlec reported USE=quad on abi_x86_32 has too less registers
-		multilib_is_native_abi || [[ $x != quad ]] || return 0
+		#stub Makefiles
+		if use amd64 && ! multilib_is_native_abi && [[ $x = quad ]]; then
+			mkdir -p "${BUILD_DIR}/tests" || die
+			echo "all: ;" > "${BUILD_DIR}/Makefile" || die
+			echo "install: ;" >> "${BUILD_DIR}/Makefile" || die
+			echo "smallcheck: ;" > "${BUILD_DIR}/tests/Makefile" || die
+			return 0
+		fi
 
 		myeconfargs=(
 			$(use_enable fma)
@@ -140,14 +148,8 @@ src_configure() {
 	multibuild_foreach_variant my_abi_configure
 }
 
-abi_has_precision() {
-	#not all abi have all precisions
-	[[ -f ${BUILD_DIR}/Makefile ]] || return 0
-	"$@"
-}
-
 src_compile() {
-	multibuild_foreach_variant multilib_foreach_abi abi_has_precision autotools-utils_src_compile
+	multibuild_foreach_variant autotools-multilib_src_compile
 }
 
 src_test () {
@@ -156,7 +158,7 @@ src_test () {
 	# Do not increase the number of threads, it will not help your performance
 	#local testbase="perl check.pl --nthreads=1 --estimate"
 	#		${testbase} -${p}d || die "Failure: $n"
-	multibuild_foreach_variant multilib_foreach_abi abi_has_precision autotools-utils_src_compile -C tests smallcheck
+	multibuild_foreach_variant autotools-multilib_src_compile -C tests smallcheck
 }
 
 src_install () {
@@ -166,19 +168,13 @@ src_install () {
 
 	#copied from autotools-multilib_secure_install
 	my_abi_src_install() {
-		my_abi_secure_install() {
-			autotools-utils_src_install
-			if [[ ${#MULTIBUILD_VARIANTS[@]} -gt 1 ]]; then
-				multilib_prepare_wrappers
-				multilib_check_headers
-			fi
-		}
-
-		multilib_foreach_abi abi_has_precision my_abi_secure_install
-		#don't mix checksum	of different precisions
-		rm -f "${T}"/.multilib_header_cksum
+		autotools-utils_src_install
+		if [[ ${#MULTIBUILD_VARIANTS[@]} -gt 1 ]]; then
+			multilib_prepare_wrappers
+			multilib_check_headers
+		fi
 	}
-	multibuild_foreach_variant my_abi_src_install
+	multibuild_foreach_variant multilib_foreach_abi my_abi_src_install
 	multilib_install_wrappers
 
 	if use doc; then
