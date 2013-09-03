@@ -28,13 +28,15 @@ RDEPEND="
 	dev-python/wxpython[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/lxml[${PYTHON_USEDEP}]
-	app-admin/eselect
 	dev-python/pyglet[${PYTHON_USEDEP}]
-	dev-python/pygame[${PYTHON_USEDEP}]"
+	dev-python/pygame[${PYTHON_USEDEP}]
+	"
 
-DEPEND="app-arch/unzip
+DEPEND="app-admin/eselect
+	app-arch/unzip
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	test? ( ${RDEPEND} )"
+	test? ( ${RDEPEND} )
+	"
 
 RESTRICT="test" # interactive, opens lots of windows
 

@@ -16,10 +16,11 @@ LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS=""
 
-DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
+DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]
+	app-admin/eselect
+	"
 
 RDEPEND="${DEPEND}
-	app-admin/eselect
 	virtual/python-imaging[${PYTHON_USEDEP}]
 	dev-python/lxml[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
@@ -28,7 +29,8 @@ RDEPEND="${DEPEND}
 	dev-python/pyglet[${PYTHON_USEDEP}]
 	dev-python/pyopengl[${PYTHON_USEDEP}]
 	dev-python/wxpython[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]"
+	sci-libs/scipy[${PYTHON_USEDEP}]
+	"
 
 python_install_all() {
 	distutils-r1_python_install_all
