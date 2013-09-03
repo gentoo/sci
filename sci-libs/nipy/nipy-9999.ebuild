@@ -15,6 +15,8 @@ EGIT_REPO_URI="https://github.com/nipy/nipy"
 
 LICENSE="BSD"
 SLOT="0"
+IUSE=""
+KEYWORDS=""
 
 RDEPEND="
 	>=dev-python/numpy-1.2[${PYTHON_USEDEP}]

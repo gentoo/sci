@@ -9,7 +9,6 @@ DISTUTILS_NO_PARALLEL_BUILD=true
 
 inherit distutils-r1 eutils multilib flag-o-matic
 
-MY_P="nipy-${PV}"
 
 DESCRIPTION="Neuroimaging tools for Python"
 HOMEPAGE="http://nipy.org/"
@@ -18,6 +17,7 @@ SRC_URI="mirror://pypi/${P:0:1}/${PN}/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+IUSE=""
 
 RDEPEND="
 	>=dev-python/numpy-1.2[${PYTHON_USEDEP}]

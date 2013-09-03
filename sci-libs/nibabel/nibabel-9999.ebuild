@@ -16,21 +16,21 @@ LICENSE="MIT"
 SLOT="0"
 IUSE="dicom doc test"
 
-COMMONDEP="
-	>=dev-python/numpy-1.2[${PYTHON_USEDEP}]
-	>=sci-libs/scipy-0.7.0[${PYTHON_USEDEP}]
-	>=dev-python/nose-0.11[${PYTHON_USEDEP}]
+RDEPEND="
+	dev-python/numpy[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]
+	dev-python/nose[${PYTHON_USEDEP}]
 	dicom? (
 		sci-libs/pydicom[${PYTHON_USEDEP}]
-		virtual/python-imaging[${PYTHON_USEDEP}] )"
+		virtual/python-imaging[${PYTHON_USEDEP}]
+		)
+	"
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
-	test? ( ${COMMONDEP} )
-	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )"
-
-RDEPEND="
-	${COMMONDEP}"
+	test? ( ${RDEPEND} )
+	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
+	"
 
 python_test() {
 	distutils-r1_install_for_testing
