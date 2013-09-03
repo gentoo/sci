@@ -43,7 +43,7 @@ S="${WORKDIR}/${MY_P}"
 python_install_all() {
 	distutils-r1_python_install_all
 	doicon psychopy/monitors/psychopy.ico
-	make_desktop_entry psychopyapp.py PsychoPy psychopy "Science;Biology"
+	make_desktop_entry psychopyapp.py PsychoPy psychopy
 }
 
 pkg_postinst() {

@@ -33,7 +33,7 @@ RDEPEND="${DEPEND}
 python_install_all() {
 	distutils-r1_python_install_all
 	newicon -s scalable psychopy/monitors/psychopy-icon.svg psychopy.svg
-	make_desktop_entry psychopyApp.py PsychoPy psychopy "Science;Biology"
+	make_desktop_entry psychopyApp.py PsychoPy psychopy
 }
 
 pkg_postinst() {
