@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
 
+  3 Sept 2013: Dongxu Li <dongxuli2011@gmail.com> +librecad-2.0.0_rc2.ebuild:
+  Version bump 2.0.0_rc2
+
   17 Jun 2013; Sébastien Fabbro <bicatali@gentoo.org>
   -files/1.0.0_rc2-gcc4.6.patch, -files/librecad-1.0.0_rc2-version.patch,
   -librecad-1.0.2.ebuild, -librecad-2.0.0_beta5.ebuild,
