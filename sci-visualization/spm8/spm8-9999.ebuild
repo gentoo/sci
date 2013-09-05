@@ -22,6 +22,8 @@ DEPEND="net-misc/wget
 RDEPEND=">=sci-mathematics/octave-3.6.4
 	"
 
+S=${WORKDIR}/${URI_BASE_NAME}
+
 src_unpack() {
 	# We have to do this inside of here, since it's a live ebuild. :-(
 	wget "${URI_BASE}${URI_BASE_NAME}.zip"
