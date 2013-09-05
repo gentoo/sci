@@ -1,0 +1,35 @@
+From f450afa1cc0bb962abecfc1ffdbef8e1f7b748e4 Mon Sep 17 00:00:00 2001
+From: Christoph Junghans <ottxor@gentoo.org>
+Date: Sat, 31 Aug 2013 21:21:28 -0600
+Subject: [PATCH] Only install f03 header of the active precision
+
+---
+ api/Makefile.am | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/api/Makefile.am b/api/Makefile.am
+index e4eaad7..bb6c042 100644
+--- a/api/Makefile.am
++++ b/api/Makefile.am
+@@ -4,8 +4,17 @@ AM_CFLAGS = $(STACK_ALIGN_CFLAGS)
+ 
+ EXTRA_DIST = f03api.sh genf03.pl fftw3.f03.in
+ 
+-include_HEADERS = fftw3.h fftw3.f fftw3l.f03 fftw3q.f03
++include_HEADERS = fftw3.h fftw3.f
++noinst_HEADERS = fftw3l.f03 fftw3q.f03
++if LDOUBLE
++include_HEADERS += fftw3l.f03
++else
++if QUAD
++include_HEADERS += fftw3q.f03
++else
+ nodist_include_HEADERS = fftw3.f03
++endif
++endif
+ noinst_LTLIBRARIES = libapi.la
+ 
+ # pkgincludedir = $(includedir)/fftw3@PREC_SUFFIX@
+-- 
+1.8.1.5
+

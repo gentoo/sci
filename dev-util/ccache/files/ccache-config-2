@@ -2,8 +2,8 @@
 #
 # ccache-config - helper script for ccache and its ebuild
 #
-# Copyright 2003-2013 Superlucidity Services, LLC
-# Copyright 2013 Gentoo Foundation
+# Copyright 1999-2013 Superlucidity Services, LLC
+# Copyright 2013-2013 Gentoo Foundation
 # This program licensed under the GNU GPL version 2.
 #
 # This script developed by Zachary T Welch at Superlucidity Services, LLC
@@ -71,7 +71,6 @@ cc_links() {
 	local a compilers="gcc cc c++ g++" 
 	[ "${2}" = icc ] && compilers="icc icpc" && set -- "$1"
 	[ "${2}" = clang ] && compilers="clang clang++" && set -- "$1"
-	[ "${2}" = mpicc ] && compilers="mpicc mpic++ mpiCC" && set -- "$1"
 	for a in ${compilers} ; do
 		if [ -n "${2}" ] ; then
 			# gcc-config doesnt install ${CHOST}-cc, so until
@@ -94,6 +93,6 @@ case "${1}" in
 		cc_links remove "${2}"
 		;;
 	* )
-		echo "usage: ${0} {--install-links|--remove-links} [ CHOST|clang|icc|mpicc ]"
+		echo "usage: ${0} {--install-links|--remove-links} [ CHOST|clang|icc ]"
 		;;
 esac

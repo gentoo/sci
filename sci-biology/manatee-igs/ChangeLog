@@ -2,6 +2,19 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Aug 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  manatee-igs-2.23.1.ebuild:
+  Both versions of manatee have same license, so rename unify the license
+  filename.
+
+  29 Aug 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  manatee-igs-2.23.1.ebuild:
+  Renamed the License file.
+
+  29 Aug 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  manatee-igs-2.23.1.ebuild:
+  Added dev-perl/Bio-DB-Das-Chado and improved description line.
+
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> manatee-igs-2.23.1.ebuild,
   metadata.xml:
   Shorten DESCRIPTION

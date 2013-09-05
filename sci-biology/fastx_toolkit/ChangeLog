@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/fastx_toolkit
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*fastx_toolkit-0.0.13.2 (29 Aug 2013)
+
+  29 Aug 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +fastx_toolkit-0.0.13.2.ebuild:
+  New package for FASTA/FASTQ preprocessing.
+
