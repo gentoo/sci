@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="5"
-
+EAPI=5
 PYTHON_COMPAT=( python2_7 )
 
+inherit distutils-r1
 
 DESCRIPTION="A pure python package for parsing DICOM files"
 HOMEPAGE="https://code.google.com/p/pydicom/"
@@ -16,8 +16,5 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="
-	dev-lang/python
-	"
-
+RDEPEND=""
 DEPEND=""
