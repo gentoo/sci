@@ -32,8 +32,8 @@ src_unpack() {
 
 src_install() {
 	cd ./${URI_BASE_NAME}/src
-	make distclean PLATFORM=octave
-	make PLATFORM=octave && make install PLATFORM=octave
-	make toolbox-distclean PLATFORM=octave
-	make toolbox PLATFORM=octave && make toolbox-install PLATFORM=octave
+	emake DESTDIR="${D}" distclean PLATFORM=octave
+	emake DESTDIR="${D}" PLATFORM=octave && emake DESTDIR="${D}" install PLATFORM=octave
+	emake DESTDIR="${D}" toolbox-distclean PLATFORM=octave
+	emake DESTDIR="${D}" toolbox PLATFORM=octave && emake DESTDIR="${D}" toolbox-install PLATFORM=octave
 	}
