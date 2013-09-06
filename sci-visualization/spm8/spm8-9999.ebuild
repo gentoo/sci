@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="5"
+EAPI=5
 
 inherit unpacker
 
@@ -31,7 +31,7 @@ src_unpack() {
 	}
 
 src_install() {
-	cd ./${URI_BASE_NAME}/src
+	cd src
 	emake DESTDIR="${D}" distclean PLATFORM=octave
 	emake DESTDIR="${D}" PLATFORM=octave && emake DESTDIR="${D}" install PLATFORM=octave
 	emake DESTDIR="${D}" toolbox-distclean PLATFORM=octave
