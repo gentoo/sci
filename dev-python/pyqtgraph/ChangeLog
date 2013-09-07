@@ -4,6 +4,10 @@
 
   07 Sep 2013; Guillaume Poulin <poulin.guillaume@gmail.com>
   pyqtgraph-0.9.7.ebuild:
+  remove untested keywords
+
+  07 Sep 2013; Guillaume Poulin <poulin.guillaume@gmail.com>
+  pyqtgraph-0.9.7.ebuild:
   add [${PYTHON_USEDEP}] to depencies to sastify python-r1
 
 *pyqtgraph-0.9.7 (07 Sep 2013)

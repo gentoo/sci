@@ -13,7 +13,7 @@ SRC_URI="http://www.pyqtgraph.org/downloads/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x64-macos ~x86-linux"
+KEYWORDS="~amd64 ~x86"
 IUSE="opengl example"
 
 DEPEND=""
