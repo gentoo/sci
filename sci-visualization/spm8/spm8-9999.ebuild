@@ -30,10 +30,20 @@ src_unpack() {
 	unpack "./${URI_BASE_NAME}.zip"
 	}
 
+src_prepare() {
+	cd "${S}"/src
+	emake distclean PLATFORM=octave
+	emake toolbox-distclean PLATFORM=octave
+}
+
+src_compile() {
+	cd "${S}"/src
+	emake -j1 PLATFORM=octave
+	emake toolbox PLATFORM=octave
+}
+
 src_install() {
-	cd src
-	emake DESTDIR="${D}" distclean PLATFORM=octave
-	emake -j1 DESTDIR="${D}" PLATFORM=octave && emake DESTDIR="${D}" install PLATFORM=octave
-	emake DESTDIR="${D}" toolbox-distclean PLATFORM=octave
-	emake DESTDIR="${D}" toolbox PLATFORM=octave && emake DESTDIR="${D}" toolbox-install PLATFORM=octave
-	}
+	cd "${S}"/src
+        emake DESTDIR="${D}" install PLATFORM=octave
+        emake DESTDIR="${D}" toolbox-install PLATFORM=octave
+}
