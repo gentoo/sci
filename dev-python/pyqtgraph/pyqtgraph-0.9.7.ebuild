@@ -18,10 +18,10 @@ IUSE="opengl example"
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	dev-python/numpy
-	sci-libs/scipy
-	opengl? ( dev-python/pyopengl )
-	|| ( >=dev-python/PyQt4-4.7.0 dev-python/pyside )"
+	dev-python/numpy[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]
+	opengl? ( dev-python/pyopengl[${PYTHON_USEDEP}] )
+	|| ( >=dev-python/PyQt4-4.7.0[${PYTHON_USEDEP}] dev-python/pyside[${PYTHON_USEDEP}] )"
 
 src_prepare() {
 	use opengl || rm -r pyqtgraph/opengl
