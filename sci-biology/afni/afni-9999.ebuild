@@ -18,6 +18,7 @@ RDEPEND="
 
 DEPEND="
 	x11-libs/motif[static-libs]
+	app-shells/tcsh
 	"
 
 S=${WORKDIR}/afni_src
