@@ -46,6 +46,7 @@ src_install() {
 	cd "${S}"/src
         emake -j1 install PLATFORM=octave
         emake -j1 toolbox-install PLATFORM=octave
-	dodir /opt/${P}; mv -rf "${S}"/* "${ED}"/opt/${P}
+	dodir /opt/${P}
+	mv "${S}"/* "${ED}"/opt/${P}
 	echo "installing to ${D}/usr/src/${P}..."
 }
