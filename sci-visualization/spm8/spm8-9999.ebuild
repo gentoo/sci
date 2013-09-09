@@ -44,6 +44,8 @@ src_compile() {
 
 src_install() {
 	cd "${S}"/src
-        emake DESTDIR="${D}" install PLATFORM=octave
-        emake DESTDIR="${D}" toolbox-install PLATFORM=octave
+        emake -j1 install PLATFORM=octave
+        emake -j1 toolbox-install PLATFORM=octave
+	cp ${S} ${D}/usr/src/${P}
+	pwd {D}/usr/src/${P}
 }
