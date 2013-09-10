@@ -6,7 +6,9 @@ EAPI=5
 
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"
-SRC_URI="http://afni.nimh.nih.gov/pub/dist/tgz/afni_src.tgz"
+URI_BASE="http://afni.nimh.nih.gov/pub/dist/tgz/"
+URI_BASE_NAME="afni_src"
+SRC_URI="" # SRC_URI is left blank on live ebuild
 
 LICENSE="GPL-3+"
 SLOT="0"
@@ -17,11 +19,16 @@ RDEPEND="
 	"
 
 DEPEND="
-	x11-libs/motif
+	x11-libs/motif[-static-libs]
 	app-shells/tcsh
 	"
 
-S=${WORKDIR}/afni_src
+S=${WORKDIR}/${URI_BASE_NAME}
+
+src_unpack() {
+	wget "${URI_BASE}${URI_BASE_NAME}.tgz"
+	unpack "./${URI_BASE_NAME}.tgz"
+	}
 
 src_compile() {
 	sed -e 's/-V 32//g' -i Makefile.linux_xorg7_64 # they provide somewhat problematic makefiles :(
