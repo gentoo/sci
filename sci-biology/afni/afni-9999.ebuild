@@ -17,7 +17,7 @@ RDEPEND="
 	"
 
 DEPEND="
-	x11-libs/motif[static-libs]
+	x11-libs/motif
 	app-shells/tcsh
 	"
 
@@ -25,5 +25,6 @@ S=${WORKDIR}/afni_src
 
 src_compile() {
 	sed -e 's/-V 32//g' -i Makefile.linux_xorg7_64 # they provide somewhat problematic makefiles :(
+	# sed -i 's/..\/MakeFile/.\/MakeFile/g' ./afni_src/ptaylor # they provide somewhat problematic makefiles :(
 	emake -j1 -f Makefile.linux_xorg7_64 totality suma XLIBS="-lXm -lXt" LGIFTI=-lexpat
 	}
