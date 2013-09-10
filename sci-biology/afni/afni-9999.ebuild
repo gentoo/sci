@@ -21,6 +21,8 @@ RDEPEND="
 DEPEND="
 	x11-libs/motif[-static-libs]
 	app-shells/tcsh
+	dev-libs/expat
+	x11-libs/libXpm
 	"
 
 S=${WORKDIR}/${URI_BASE_NAME}
