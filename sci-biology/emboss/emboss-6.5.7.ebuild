@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/emboss-6.3.1_p4.ebuild,v 1.2 2011/03/09 16:29:05 jlec Exp $
 
@@ -11,10 +11,12 @@ EBOV=${PV/_p*}
 
 DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
 SRC_URI="
-	ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-${EBOV}.tar.gz
-	http://dev.gentoo.org/~jlec/distfiles/${PF}.patch.bz2"
+	ftp://emboss.open-bio.org/pub/EMBOSS/old/6.5.0/EMBOSS-${EBOV}.tar.gz"
+# ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-6.6.0.tar.gz
+# ftp://emboss.open-bio.org/pub/EMBOSS/old/6.5.0/EMBOSS-6.5.7.tar.gz
+
 ##[[ -n ${EBO_PATCH} ]] && SRC_URI+=" ftp://${PN}.open-bio.org/pub/EMBOSS/fixes/patches/patch-1-${EBO_PATCH}.gz -> ${P}-upstream.patch.gz"
-[[ -n ${EBO_PATCH} ]] && SRC_URI+=" http://pkgs.fedoraproject.org/lookaside/pkgs/EMBOSS/patch-1-4.gz/7a42594c5eda4adc6457f33e4ab0d8f2/patch-1-${EBO_PATCH}.gz -> ${P}-upstream.patch.gz"
+#[[ -n ${EBO_PATCH} ]] && SRC_URI+=" http://pkgs.fedoraproject.org/lookaside/pkgs/EMBOSS/patch-1-4.gz/7a42594c5eda4adc6457f33e4ab0d8f2/patch-1-${EBO_PATCH}.gz -> ${P}-upstream.patch.gz"
 
 KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
 IUSE+=" minimal"
