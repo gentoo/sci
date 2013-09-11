@@ -2,6 +2,27 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
+  files/charm-6.5.1-fix-string-parsing.patch:
+  sys-cluster/charm-6.5.1-r1: Backported patch just added to correct upstream
+  version.
+
+  11 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
+  +files/charm-6.5.1-fix-string-parsing.patch, charm-6.5.1-r1.ebuild:
+  sys-cluster/charm-6.5.1-r1: Added patch from ticket 294.
+
+*charm-6.5.1-r1 (11 Sep 2013)
+
+  11 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +charm-6.5.1-r1.ebuild,
+  charm-6.5.1.ebuild:
+  Version bump to sys-cluster/charm-6.5.1-r1 to push CkMigrationMgr patch to
+  users.
+
+  11 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
+  +files/charm-6.5.1-CkReductionMgr.patch, charm-6.5.1.ebuild:
+  Added patch to fix bug in CkReductionMgr::reduceMessages().  This issues has
+  been reported upstream (issue #287).
+
   23 Jul 2013; Nicolas Bock <nicolasbock@gmail.com>
   +files/charm-6.5.1-cleanup-config.patch, charm-6.5.1.ebuild:
   sys-cluster/charm-6.5.1: Added patch to fix config.h  The added patch
