@@ -20,8 +20,6 @@ if [[ ${PV} = *9999 ]]; then
 else
 	SRC_URI="http://www.fftw.org/${P}.tar.gz"
 	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos"
-	PATCHES=( "${FILESDIR}/${P}-install-header.patch" )
-	AUTOTOOLS_AUTORECONF=1
 fi
 
 LICENSE="GPL-2"
@@ -40,7 +38,6 @@ MULTILIB_WRAPPED_HEADERS=(
 	/usr/include/fftw3-mpi.h
 	/usr/include/fftw3l-mpi.f03
 	/usr/include/fftw3-mpi.f03
-	/usr/include/fftw3l.f03
 	/usr/include/fftw3q.f03
 )
 
@@ -68,12 +65,10 @@ pkg_setup() {
 }
 
 src_prepare() {
-	local ext="info"
-	[[ ${PV} = *9999 ]] && ext="texi"
 	# fix info file for category directory
-	sed -i \
+	[[ ${PV} = *9999 ]] || sed -i \
 		-e 's/Texinfo documentation system/Libraries/' \
-		doc/fftw3."${ext}" || die "failed to fix info file"
+		doc/fftw3."info" || die "failed to fix info file"
 
 	autotools-utils_src_prepare
 }
@@ -85,7 +80,9 @@ src_configure() {
 	replace-flags -Os -O2
 
 	my_configure() {
-		local x=${FFTW_PRECISION}
+		#a bit hacky improve after #483758 is solved
+		local x=${BUILD_DIR%-${ABI}}
+		x=${x##*-}
 		# there is no abi_x86_32 port of virtual/mpi right now
 		local enable_mpi=$(use_enable mpi)
 		multilib_is_native_abi || enable_mpi="--disable-mpi"
@@ -138,14 +135,7 @@ src_configure() {
 		autotools-utils_src_configure
 	}
 
-	my_abi_configure() {
-		#multilib_parallel_foreach_abi changes MULTIBUILD_VARIANT
-		export FFTW_PRECISION=${MULTIBUILD_VARIANT}
-		multilib_parallel_foreach_abi my_configure
-		unset FFTW_PRECISION
-	}
-
-	multibuild_foreach_variant my_abi_configure
+	multibuild_foreach_variant multilib_parallel_foreach_abi my_configure
 }
 
 src_compile() {
@@ -169,6 +159,10 @@ src_install () {
 	#copied from autotools-multilib_secure_install
 	my_abi_src_install() {
 		autotools-utils_src_install
+		#https://github.com/FFTW/fftw3/pull/6
+		# f03 are installed unconditionally, not a big problem as the quad
+		# header is the only one to be wrapped.
+		[[ ${BUILD_DIR} = *-quad* ]] || rm -f "${ED}/usr/include/fftw3q.f03"
 		if [[ ${#MULTIBUILD_VARIANTS[@]} -gt 1 ]]; then
 			multilib_prepare_wrappers
 			multilib_check_headers
