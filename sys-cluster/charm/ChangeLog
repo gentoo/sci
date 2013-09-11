@@ -3,6 +3,11 @@
 # $Header: $
 
   11 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
+  files/charm-6.5.1-fix-string-parsing.patch:
+  sys-cluster/charm-6.5.1-r1: Backported patch just added to correct upstream
+  version.
+
+  11 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
   +files/charm-6.5.1-fix-string-parsing.patch, charm-6.5.1-r1.ebuild:
   sys-cluster/charm-6.5.1-r1: Added patch from ticket 294.
 
