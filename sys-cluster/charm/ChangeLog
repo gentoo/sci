@@ -2,6 +2,13 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*charm-6.5.1-r1 (11 Sep 2013)
+
+  11 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +charm-6.5.1-r1.ebuild,
+  charm-6.5.1.ebuild:
+  Version bump to sys-cluster/charm-6.5.1-r1 to push CkMigrationMgr patch to
+  users.
+
   11 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
   +files/charm-6.5.1-CkReductionMgr.patch, charm-6.5.1.ebuild:
   Added patch to fix bug in CkReductionMgr::reduceMessages().  This issues has

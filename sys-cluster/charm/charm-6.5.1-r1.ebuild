@@ -90,6 +90,7 @@ src_prepare() {
 	append-cflags -DALLOCA_H
 
 	epatch "${FILESDIR}/charm-6.5.1-cleanup-config.patch"
+	epatch "${FILESDIR}/charm-6.5.1-CkReductionMgr.patch"
 }
 
 src_compile() {
