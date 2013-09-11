@@ -91,6 +91,7 @@ src_prepare() {
 
 	epatch "${FILESDIR}/charm-6.5.1-cleanup-config.patch"
 	epatch "${FILESDIR}/charm-6.5.1-CkReductionMgr.patch"
+	epatch "${FILESDIR}/charm-6.5.1-fix-string-parsing.patch"
 }
 
 src_compile() {

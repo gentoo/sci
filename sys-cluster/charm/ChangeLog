@@ -2,6 +2,10 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
+  +files/charm-6.5.1-fix-string-parsing.patch, charm-6.5.1-r1.ebuild:
+  sys-cluster/charm-6.5.1-r1: Added patch from ticket 294.
+
 *charm-6.5.1-r1 (11 Sep 2013)
 
   11 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +charm-6.5.1-r1.ebuild,

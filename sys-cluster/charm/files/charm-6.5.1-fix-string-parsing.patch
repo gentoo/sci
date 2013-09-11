@@ -1,0 +1,83 @@
+From b74a077290b82b7a22010d78502a9e60e9e44c1f Mon Sep 17 00:00:00 2001
+From: Nicolas Bock <nicolasbock@gmail.com>
+Date: Wed, 11 Sep 2013 13:50:05 -0600
+Subject: [PATCH 2/2] charmrun.C: parsing of strings now parses "\n" into '\n'.
+
+Since gdb lacks anything like ';' to separate several commands in one line,
+the commands need to be separated by a newline character. I have added some
+parsing logic so that the string "\n" will now be translated into the
+character '\n'.
+---
+ src/arch/net/charmrun/charmrun.C     | 22 ++++++++++++++++++++--
+ src/arch/netlrts/charmrun/charmrun.C | 22 ++++++++++++++++++++--
+ 2 files changed, 40 insertions(+), 4 deletions(-)
+
+diff --git a/src/arch/net/charmrun/charmrun.C b/src/arch/net/charmrun/charmrun.C
+index a23baa2..2830b8f 100644
+--- a/src/arch/net/charmrun/charmrun.C
++++ b/src/arch/net/charmrun/charmrun.C
+@@ -451,8 +451,26 @@ static int pparam_setdef(ppdef def, char *value)
+       if (*p) return -1;
+       return 0;
+     case 's' :
+-      *def->where.s = strdup(value);
+-      return 0;
++      {
++        /* Parse input string and convert a literal "\n" into '\n'. */
++        *def->where.s = (char*) calloc(strlen(value)+1, sizeof(char));
++        char* parsed_value = (char*) *def->where.s;
++        for(int i = 0, j = 0; i < strlen(value); i++)
++        {
++          fprintf(stderr, "i = %d, j = %d, value[i] = \n", i, j);
++          if(i+1 < strlen(value))
++          {
++            if(value[i] == '\\' && value[i+1] == 'n')
++            {
++              parsed_value[j++] = '\n';
++              i++;
++              continue;
++            }
++          }
++          parsed_value[j++] = value[i];
++        }
++        return 0;
++      }
+     case 'f' :
+       *def->where.f = strtol(value, &p, 10);
+       if (*p) return -1;
+diff --git a/src/arch/netlrts/charmrun/charmrun.C b/src/arch/netlrts/charmrun/charmrun.C
+index 232bf5c..77a7950 100644
+--- a/src/arch/netlrts/charmrun/charmrun.C
++++ b/src/arch/netlrts/charmrun/charmrun.C
+@@ -451,8 +451,26 @@ static int pparam_setdef(ppdef def, char *value)
+       if (*p) return -1;
+       return 0;
+     case 's' :
+-      *def->where.s = strdup(value);
+-      return 0;
++      {
++        /* Parse input string and convert a literal "\n" into '\n'. */
++        *def->where.s = (char*) calloc(strlen(value)+1, sizeof(char));
++        char* parsed_value = (char*) *def->where.s;
++        for(int i = 0, j = 0; i < strlen(value); i++)
++        {
++          fprintf(stderr, "i = %d, j = %d, value[i] = \n", i, j);
++          if(i+1 < strlen(value))
++          {
++            if(value[i] == '\\' && value[i+1] == 'n')
++            {
++              parsed_value[j++] = '\n';
++              i++;
++              continue;
++            }
++          }
++          parsed_value[j++] = value[i];
++        }
++        return 0;
++      }
+     case 'f' :
+       *def->where.f = strtol(value, &p, 10);
+       if (*p) return -1;
+-- 
+1.8.1.5
+
