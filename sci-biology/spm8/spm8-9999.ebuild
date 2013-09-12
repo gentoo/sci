@@ -48,4 +48,15 @@ src_install() {
         emake -j1 toolbox-install PLATFORM=octave
 	dodir /opt/${P}
 	mv "${S}"/* "${ED}"/opt/${P}
+ewarn "SPM8 has _not_ been added to the octave path. If you wish to be able to
+run it directly from the octave shell please run the following from your
+octave shell:
+
+	addpath('/opt/spm8-9999/')
+
+You may make the path change persistent for your user by subsequently running:
+
+	savepath()
+ 
+"
 }
