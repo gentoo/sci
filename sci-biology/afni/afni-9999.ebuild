@@ -35,5 +35,6 @@ src_unpack() {
 src_compile() {
 	sed -e 's/-V 32//g' -i Makefile.linux_xorg7_64 # they provide somewhat problematic makefiles :(
 	# sed -i 's/..\/MakeFile/.\/MakeFile/g' ./afni_src/ptaylor # they provide somewhat problematic makefiles :(
-	emake -j1 -f Makefile.linux_xorg7_64 totality suma XLIBS="-lXm -lXt" LGIFTI=-lexpat
+	cp Makefile.linux_xorg7_64 Makefile # some Makefile under ptaylor looks for the parent makefile at "Makefile".
+	emake -j1 -f Makefile totality suma XLIBS="-lXm -lXt" LGIFTI=-lexpat
 	}
