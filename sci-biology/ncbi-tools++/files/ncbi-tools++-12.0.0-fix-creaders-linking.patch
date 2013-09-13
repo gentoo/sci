@@ -1,10 +1,11 @@
---- ncbi_cxx--9_0_0/src/objtools/alnmgr/demo/Makefile.alnmrg.app (revision 413271)
-+++ ncbi_cxx--9_0_0/src/objtools/alnmgr/demo/Makefile.alnmrg.app (working copy)
-@@ -4,7 +4,7 @@
- APP = alnmrg
+--- src/objtools/alnmgr/demo/Makefile.alnmrg.app.ori	2013-09-13 23:51:34.340031508 +0200
++++ src/objtools/alnmgr/demo/Makefile.alnmrg.app	2013-09-13 23:51:36.660031514 +0200
+@@ -5,7 +5,7 @@
  SRC = alnmrg
- LIB = xalnmgr xobjread ncbi_xloader_blastdb seqdb xobjutil submit blastdb \
+ 
+ LIB = xalnmgr $(OBJREAD_LIBS) ncbi_xloader_blastdb seqdb xobjutil submit blastdb \
 -      tables $(OBJMGR_LIBS)
 +      tables creaders $(OBJMGR_LIBS)
  
  LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
+ 

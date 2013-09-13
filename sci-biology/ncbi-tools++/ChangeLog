@@ -3,6 +3,26 @@
 # $Header: $
 
   13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-12.0.0.ebuild,
+  files/ncbi-tools++-9.0.0-fix-creaders-linking.patch,
+  +files/ncbi-tools++-12.0.0-fix-FreeTDS-upstream.patch,
+  files/ncbi-tools++-12.0.0-fix-creaders-linking.patch:
+  Added an upstream patch from:
+
+  Date: Wed, 28 Aug 2013 10:50:29 -0400
+  List cpp <cpp@ncbi.nlm.nih.gov>
+  Subject: Re: [C++] error building ncbi toolkit v.12.0.0
+
+  Fixed line offsets in the ncbi-tools++-12.0.0-fix-creaders-linking.patch
+  file.
+
+  Fixed file path in ncbi-tools++-9.0.0-fix-creaders-linking.patch header.
+
+  The patches copied blindly from ncbi-tools++-9.0.0-r1 under 12.0.0 need to be
+  adjusted still to have correct line numbers. They do NOT apply cleanly at the
+  moment.
+
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   ncbi-tools++-9.0.0-r1.ebuild, ncbi-tools++-12.0.0.ebuild,
   files/ncbi-tools++-9.0.0-as-needed.patch,
   +files/ncbi-tools++-9.0.0-fix-undef-reference-to-GenBankReaders_Register_Id1.

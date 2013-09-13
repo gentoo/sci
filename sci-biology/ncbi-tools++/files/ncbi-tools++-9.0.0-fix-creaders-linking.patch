@@ -1,5 +1,5 @@
---- ncbi_cxx--9_0_0/src/objtools/alnmgr/demo/Makefile.alnmrg.app (revision 413271)
-+++ ncbi_cxx--9_0_0/src/objtools/alnmgr/demo/Makefile.alnmrg.app (working copy)
+--- src/objtools/alnmgr/demo/Makefile.alnmrg.app (revision 413271)
++++ src/objtools/alnmgr/demo/Makefile.alnmrg.app (working copy)
 @@ -4,7 +4,7 @@
  APP = alnmrg
  SRC = alnmrg

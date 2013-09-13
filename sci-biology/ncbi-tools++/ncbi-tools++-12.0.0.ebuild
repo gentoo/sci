@@ -102,10 +102,13 @@ src_prepare() {
 
 #	use prefix && append-ldflags -Wl,-rpath,"${EPREFIX}/usr/$(get_libdir)/${PN}"
 
+
+# The conf-opts.patch and as-needed.patch need to be adjusted for 12.0.0 line numbers
 	local PATCHES=(
 		"${FILESDIR}"/${P}-conf-opts.patch
 		"${FILESDIR}"/${P}-as-needed.patch
 		"${FILESDIR}"/${P}-fix-creaders-linking.patch
+		"${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
 		)
 	epatch ${PATCHES[@]}
 
