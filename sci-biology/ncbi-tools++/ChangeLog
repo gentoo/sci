@@ -3,6 +3,22 @@
 # $Header: $
 
   13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-9.0.0-r1.ebuild, ncbi-tools++-12.0.0.ebuild,
+  files/ncbi-tools++-9.0.0-as-needed.patch,
+  +files/ncbi-tools++-9.0.0-fix-undef-reference-to-GenBankReaders_Register_Id1.
+  patch, files/ncbi-tools++-12.0.0-as-needed.patch:
+  files/ncbi-tools++-12.0.0-as-needed.patch
+  files/ncbi-tools++-9.0.0-as-needed.patch
+  
+  Remove redundant connect per message from Aaron Ucko <ucko@ncbi.nlm.nih.gov>:
+  
+  > +DLL_LIB  = xncbi xutil seqset connect xconnect xnetblast
+  Then simply remove connect, which is redundant with xconnect.  (connect
+  consists of code shared with NCBI's C Toolkit; xconnect adds a C++
+  layer.)
+
+
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   ncbi-tools++-12.0.0.ebuild,
   +files/ncbi-tools++-12.0.0-fix-creaders-linking.patch:
   No, the fix-creaders-linking is needed for 12.0.0 as well.
