@@ -2,6 +2,13 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-9.0.0-r1.ebuild,
+  +files/ncbi-tools++-9.0.0-fix-creaders-linking.patch:
+  add glew to dependencies inferrred via mesa
+  fix lib/libxobjread.so: undefined reference to 'AlignmentFileFree' message by
+  upstream patch
+
   12 Jun 2013; Justin Lecher <jlec@gentoo.org> ncbi-tools++-9.0.0-r1.ebuild:
   Drop empty line
 

@@ -38,11 +38,13 @@ DEPEND="
 	sqlite? ( dev-db/sqlite )
 	sqlite3? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
-	gnutls? ( net-libs/gnutls )
+	gnutls? ( net-libs/gnutls[lzo] )
 	ssl? ( dev-libs/openssl )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl )
-	mesa? ( media-libs/mesa )
+	mesa? ( media-libs/mesa
+		media-libs/glew
+	)
 	glut? ( media-libs/freeglut )
 	freetype? ( media-libs/freetype )
 	fastcgi? ( www-apache/mod_fastcgi )
@@ -66,6 +68,9 @@ DEPEND="
 	app-arch/bzip2
 	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
+
+
+# seems muParser is required, also glew is required. configure exitss otherwise
 
 RDEPEND="${DEPEND}"
 
@@ -100,6 +105,7 @@ src_prepare() {
 	local PATCHES=(
 		"${FILESDIR}"/${P}-conf-opts.patch
 		"${FILESDIR}"/${P}-as-needed.patch
+		"${FILESDIR}"/${P}-fix-creaders-linking.patch
 		)
 	epatch ${PATCHES[@]}
 
