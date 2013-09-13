@@ -106,6 +106,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-conf-opts.patch
 		"${FILESDIR}"/${P}-as-needed.patch
 		"${FILESDIR}"/${P}-fix-creaders-linking.patch
+		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
 		"${FILESDIR}"/${P}-fix-undef-reference-to-GenBankReaders_Register_Id1.patch
 		)
 	epatch ${PATCHES[@]}

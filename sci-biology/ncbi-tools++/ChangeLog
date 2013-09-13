@@ -3,6 +3,17 @@
 # $Header: $
 
   13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-9.0.0-r1.ebuild, ncbi-tools++-12.0.0.ebuild,
+  +files/ncbi-tools++-9.0.0-fix-svn-URL-upstream.patch,
+  +files/ncbi-tools++-12.0.0-fix-svn-URL-upstream.patch:
+  Fix URL to point to a public SVN repository (an upstream patch from email
+  list):
+
+  Date: Sun, 28 Jul 2013 22:05:34 -0400
+  CC: <cpp@ncbi.nlm.nih.gov>
+  Subject: Re: [C++] new project startup example needed
+
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   ncbi-tools++-12.0.0.ebuild,
   files/ncbi-tools++-9.0.0-fix-creaders-linking.patch,
   +files/ncbi-tools++-12.0.0-fix-FreeTDS-upstream.patch,
