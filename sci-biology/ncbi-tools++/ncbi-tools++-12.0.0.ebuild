@@ -8,7 +8,7 @@ inherit eutils flag-o-matic multilib toolchain-funcs
 
 MY_TAG="Jun_15_2010"
 MY_Y="${MY_TAG/*_/}"
-MY_PV="9_0_0"
+MY_PV="12_0_0"
 MY_P="ncbi_cxx--${MY_PV}"
 #ftp://ftp.ncbi.nlm.nih.gov/toolbox/ncbi_tools++/ARCHIVE/9_0_0/ncbi_cxx--9_0_0.tar.gz
 
