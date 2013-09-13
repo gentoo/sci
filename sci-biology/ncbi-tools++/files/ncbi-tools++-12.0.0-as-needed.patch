@@ -783,7 +783,7 @@ index 96325c4..5a72805 100644
  LIB = xnetblastcli
  SRC = blastclient blastclient_
 +
-+DLL_LIB  = xncbi xutil seqset connect xconnect xnetblast
++DLL_LIB  = xncbi xutil seqset xconnect xnetblast
 diff --git a/src/objects/blastdb/Makefile.blastdb.lib b/src/objects/blastdb/Makefile.blastdb.lib
 index be2c0d1..2884db2 100644
 --- a/src/objects/blastdb/Makefile.blastdb.lib
