@@ -3,6 +3,20 @@
 # $Header: $
 
   13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-12.0.0.ebuild,
+  +files/ncbi-tools++-12.0.0-fix-creaders-linking.patch:
+  No, the fix-creaders-linking is needed for 12.0.0 as well.
+
+*ncbi-tools++-12.0.0 (13 Sep 2013)
+
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +ncbi-tools++-12.0.0.ebuild, +files/ncbi-tools++-12.0.0-as-needed.patch,
+  +files/ncbi-tools++-12.0.0-conf-opts.patch:
+  Latest release which needs so far only the two Gentoo patches. Would
+  be better to drop ${PV} from their filename to avoid their duplication
+  I think.
+
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   ncbi-tools++-9.0.0-r1.ebuild,
   +files/ncbi-tools++-9.0.0-fix-creaders-linking.patch:
   add glew to dependencies inferrred via mesa

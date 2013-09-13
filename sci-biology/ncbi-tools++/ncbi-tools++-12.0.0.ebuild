@@ -105,6 +105,7 @@ src_prepare() {
 	local PATCHES=(
 		"${FILESDIR}"/${P}-conf-opts.patch
 		"${FILESDIR}"/${P}-as-needed.patch
+		"${FILESDIR}"/${P}-fix-creaders-linking.patch
 		)
 	epatch ${PATCHES[@]}
 
