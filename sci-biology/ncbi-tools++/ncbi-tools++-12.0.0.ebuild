@@ -8,7 +8,7 @@ inherit eutils flag-o-matic multilib toolchain-funcs
 
 MY_TAG="Jun_15_2010"
 MY_Y="${MY_TAG/*_/}"
-MY_PV="9_0_0"
+MY_PV="12_0_0"
 MY_P="ncbi_cxx--${MY_PV}"
 #ftp://ftp.ncbi.nlm.nih.gov/toolbox/ncbi_tools++/ARCHIVE/9_0_0/ncbi_cxx--9_0_0.tar.gz
 
@@ -24,7 +24,7 @@ IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif
-	glut gnutls hdf5 icu lzo jpeg mesa mysql muparser opengl pcre png python
+	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
@@ -38,7 +38,7 @@ DEPEND="
 	sqlite? ( dev-db/sqlite )
 	sqlite3? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
-	gnutls? ( net-libs/gnutls )
+	gnutls? ( net-libs/gnutls[lzo] )
 	ssl? ( dev-libs/openssl )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl )
@@ -102,13 +102,14 @@ src_prepare() {
 
 #	use prefix && append-ldflags -Wl,-rpath,"${EPREFIX}/usr/$(get_libdir)/${PN}"
 
+
+# The conf-opts.patch and as-needed.patch need to be adjusted for 12.0.0 line numbers
 	local PATCHES=(
-		"${FILESDIR}"/${P}-conf-opts.patch
-		"${FILESDIR}"/${P}-as-needed.patch
+		#"${FILESDIR}"/${P}-conf-opts.patch
+		#"${FILESDIR}"/${P}-as-needed.patch
 		"${FILESDIR}"/${P}-fix-creaders-linking.patch
 		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
-		"${FILESDIR}"/${P}-fix-undef-reference-to-GenBankReaders_Register_Id1.patch
-		"${FILESDIR}"/${P}-remove-LZO-definition-upstream.patch
+		"${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
 		)
 	epatch ${PATCHES[@]}
 
@@ -199,17 +200,7 @@ src_configure() {
 	--with-muparser="${EPREFIX}/usr"
 	--without-sybase
 	--with-autodep
-
-# due to \*-fix-undef-reference-to-GenBankReaders_Register_Id1.patch
-# ./configure ... --with-flat-makefile
-# cd .../build
-# make -f Makefile.flat
-#
-	--with-flat-makefile
 #	--with-3psw=std:netopt favor standard (system) builds of the above pkgs
-
-
-# TODO: should improve the ssl/openssl/gmutls logic like is in net-misc/vpnc
 	$(use_with debug)
 	$(use_with debug max-debug)
 	$(use_with debug symbols)
@@ -273,7 +264,6 @@ src_configure() {
 		--srcdir="${S}" \
 		--prefix="${EPREFIX}/usr" \
 		--libdir=/usr/lib64 \
-		${myconf} LDFLAGS="-Wl,-rpath-link,${S}_build/lib -Wl,--no-as-needed" \
 		${myconf[@]} || die
 #--without-debug \
 #		--with-bin-release \
@@ -294,14 +284,7 @@ src_compile() {
 	# emake all_r -C GCC*-Release*/build || die
 	# all_p with compile only selected/required components
 #	cd "${S}"_build &&\
-
-    # disabling this because we need to take the flat Makefile route
-	# emake all_p -C "${S}"_build/build
-
-	# take the flat Makefile route
-	emake -f Makefile.flat -C "${S}"_build/build
-
-
+	emake all_p -C "${S}"_build/build
 #	emake all_p -C GCC*-Release*/build || die "gcc-4.5.3 crashes at src/objects/valerr/ValidError.cpp:226:1: internal compiler error: Segmentation fault, right?"
 }
 
