@@ -29,7 +29,6 @@ index 6837712..bf370c1 100644
 +        int j = 0;
 +        for(i = 0; i < strlen(value); i++)
 +        {
-+          fprintf(stderr, "i = %d, j = %d, value[i] = \n", i, j);
 +          if(i+1 < strlen(value))
 +          {
 +            if(value[i] == '\\' && value[i+1] == 'n')

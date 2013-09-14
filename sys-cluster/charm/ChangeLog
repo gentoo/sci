@@ -2,6 +2,10 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
+  files/charm-6.5.1-fix-string-parsing.patch:
+  sys-cluster/charm-6.5.1: Small fix in patch to make printing less verbose.
+
   11 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
   files/charm-6.5.1-fix-string-parsing.patch:
   sys-cluster/charm-6.5.1: Fix patch for the last time.
