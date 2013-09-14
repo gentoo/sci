@@ -24,7 +24,7 @@ IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif
-	glut gnutls hdf5 icu jpeg mesa mysql muparser opengl pcre png python
+	glut gnutls hdf5 icu lzo jpeg mesa mysql muparser opengl pcre png python
 	sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
@@ -64,6 +64,7 @@ DEPEND="
 	png? ( media-libs/libpng )
 	tiff? ( media-libs/tiff )
 	xpm? ( x11-libs/libXpm )
+	dev-libs/lzo
 	app-arch/bzip2
 	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
@@ -206,6 +207,9 @@ src_configure() {
 #
 	--with-flat-makefile
 #	--with-3psw=std:netopt favor standard (system) builds of the above pkgs
+
+
+# TODO: should improve the ssl/openssl/gmutls logic like is in net-misc/vpnc
 	$(use_with debug)
 	$(use_with debug max-debug)
 	$(use_with debug symbols)
@@ -215,6 +219,7 @@ src_configure() {
 	$(use_with prefix runpath "${EPREFIX}/usr/$(get_libdir)/ncbi_cxx")
 	$(use_with test check)
 	$(use_with pch)
+	$(use_with lzo lzo "${EPREFIX}/usr")
 	$(use_with pcre pcre "${EPREFIX}/usr")
 	$(use_with gnutls gnutls "${EPREFIX}/usr")
 	$(use_with ssl openssl "${EPREFIX}/usr")

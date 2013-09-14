@@ -3,6 +3,12 @@
 # $Header: $
 
   14 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-9.0.0-r1.ebuild:
+  Support at least when user passes USE="gnutls -ssl -openssl" but what we
+  really want is to prefer gnutls over openssl if both are available on the
+  system.
+
+  14 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   ncbi-tools++-9.0.0-r1.ebuild,
   +files/ncbi-tools++-9.0.0-remove-LZO-definition-upstream.patch:
   Add upstream ncbi-tools++-9.0.0-remove-LZO-definition-upstream.patch with
