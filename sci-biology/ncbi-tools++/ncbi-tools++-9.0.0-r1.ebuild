@@ -24,7 +24,7 @@ IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif
-	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
+	glut gnutls hdf5 icu jpeg mesa mysql muparser opengl pcre png python
 	sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
@@ -38,7 +38,7 @@ DEPEND="
 	sqlite? ( dev-db/sqlite )
 	sqlite3? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
-	gnutls? ( net-libs/gnutls[lzo] )
+	gnutls? ( net-libs/gnutls )
 	ssl? ( dev-libs/openssl )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl )
@@ -64,7 +64,6 @@ DEPEND="
 	png? ( media-libs/libpng )
 	tiff? ( media-libs/tiff )
 	xpm? ( x11-libs/libXpm )
-	dev-libs/lzo
 	app-arch/bzip2
 	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
@@ -108,6 +107,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix-creaders-linking.patch
 		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
 		"${FILESDIR}"/${P}-fix-undef-reference-to-GenBankReaders_Register_Id1.patch
+		"${FILESDIR}"/${P}-remove-LZO-definition-upstream.patch
 		)
 	epatch ${PATCHES[@]}
 
@@ -215,7 +215,6 @@ src_configure() {
 	$(use_with prefix runpath "${EPREFIX}/usr/$(get_libdir)/ncbi_cxx")
 	$(use_with test check)
 	$(use_with pch)
-	$(use_with lzo lzo "${EPREFIX}/usr")
 	$(use_with pcre pcre "${EPREFIX}/usr")
 	$(use_with gnutls gnutls "${EPREFIX}/usr")
 	$(use_with ssl openssl "${EPREFIX}/usr")
