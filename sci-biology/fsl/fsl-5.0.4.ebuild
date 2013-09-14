@@ -17,14 +17,15 @@ RDEPEND=""
 
 DEPEND=""
 
+S=${WORKDIR}/${PN}
 
 src_unpack() {
 	unpack "${P}-sources.tar.gz"
 	}
 
 src_compile() {
-	export FSLDIR=`pwd`/fsl 
-	. ${FSLDIR}/etc/fslconf/fsl.sh
-	cd ${FSLDIR}
+	export FSLDIR=`pwd`
+	. etc/fslconf/fsl.sh
+	#cd ${FSLDIR}
 	./build	
 	}
