@@ -23,9 +23,9 @@ src_unpack() {
 	unpack "${P}-sources.tar.gz"
 	}
 
-src_configure() {
-	LDCONFIG="true" econf
-	}
+#src_configure() {   #throws an error about no configure script being found
+#	LDCONFIG="true" econf
+#	}
 
 src_compile() {
 	export FSLDIR=`pwd`
