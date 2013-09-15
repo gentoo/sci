@@ -30,21 +30,18 @@ src_unpack() {
 	}
 
 src_prepare() {
-	cd "${S}"/src
-	emake distclean PLATFORM=octave
-	emake toolbox-distclean PLATFORM=octave
+	emake -C src distclean PLATFORM=octave
+	emake -C src toolbox-distclean PLATFORM=octave
 }
 
 src_compile() {
-	cd "${S}"/src
-	emake -j1 PLATFORM=octave
-	emake toolbox PLATFORM=octave
+	emake -C src -j1 PLATFORM=octave
+	emake -C src toolbox PLATFORM=octave
 }
 
 src_install() {
-	cd "${S}"/src
-        emake -j1 install PLATFORM=octave
-        emake -j1 toolbox-install PLATFORM=octave
+        emake -C src -j1 install PLATFORM=octave
+        emake -C src -j1 toolbox-install PLATFORM=octave
 	dodir /opt/${PN}
 	mv "${S}"/* "${ED}"/opt/${PN}
 ewarn "SPM8 has _not_ been added to the octave path. If you wish to be able to
