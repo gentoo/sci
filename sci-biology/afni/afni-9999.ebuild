@@ -32,9 +32,13 @@ src_unpack() {
 	unpack "./${URI_BASE_NAME}.tgz"
 	}
 
-src_compile() {
+src_prepare() {
 	sed -e 's/-V 32//g' -i Makefile.linux_xorg7_64 # they provide somewhat problematic makefiles :(
 	# sed -i 's/..\/MakeFile/.\/MakeFile/g' ./afni_src/ptaylor # they provide somewhat problematic makefiles :(
-	cp other_builds/Makefile.linux_fedora_19_64 Makefile # some Makefile under ptaylor looks for the parent makefile at "Makefile".
+	cp other_builds/Makefile.linux_fedora_19_64 Makefile # some Makefile under ptaylor looks
+for the parent makefile at "Makefile".	
+	}
+
+src_compile() {
 	emake -j1 totality suma XLIBS="-lXm -lXt" LGIFTI=-lexpat
 	}
