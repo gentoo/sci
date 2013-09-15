@@ -25,12 +25,12 @@ AUTOTOOLS_IN_SOURCE_BUILD=1
 
 PATCHES=(
 	# Respect LDFLAGS
-	epatch "${FILESDIR}"/${P}-ldflags.patch
+	"${FILESDIR}"/${P}-ldflags.patch
 	# fix parallel make. test are made at the same time as the library??
-	epatch "${FILESDIR}"/${P}-parallelmake.patch
+	"${FILESDIR}"/${P}-parallelmake.patch
 	# take care of the lib/lib64 problem. Without this modglue installs
 	# stuff in /usr/usr/lib64 on 64bits systems.
-	epatch "${FILESDIR}"/${P}-lib64.patch
+	"${FILESDIR}"/${P}-lib64.patch
 )
 
 src_install() {

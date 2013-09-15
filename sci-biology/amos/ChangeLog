@@ -2,6 +2,15 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*amos-3.1.0-r1 (11 Sep 2013)
+
+  11 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +amos-3.1.0-r1.ebuild, +files/amos-3.1.0-gcc-4.7.patch,
+  +files/amos-3.1.0-goBambus2.py-indent-and-cleanup.patch:
+  Fix indentation error and remove unused import of string module (there could
+  be more cleanup as suggested by pychecker). Credits to
+  http://sourceforge.net/p/amos/support-requests/1/
+
   19 Mar 2013; Justin Lecher <jlec@gentoo.org> amos-9999.ebuild:
   Bump to latest git HEAD, fixes qt problems, #348031
 
@@ -10,4 +19,3 @@
 
   22 May 2012; Justin Lecher <jlec@gentoo.org> amos-9999.ebuild:
   Bump to EAPI=4, remove unnecessary bits
-

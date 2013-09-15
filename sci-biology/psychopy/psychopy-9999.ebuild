@@ -14,12 +14,13 @@ EGIT_REPO_URI="https://github.com/psychopy/psychopy.git"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
-DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
+DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]
+	app-admin/eselect
+	"
 
 RDEPEND="${DEPEND}
-	app-admin/eselect
 	virtual/python-imaging[${PYTHON_USEDEP}]
 	dev-python/lxml[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
@@ -28,12 +29,13 @@ RDEPEND="${DEPEND}
 	dev-python/pyglet[${PYTHON_USEDEP}]
 	dev-python/pyopengl[${PYTHON_USEDEP}]
 	dev-python/wxpython[${PYTHON_USEDEP}]
-	sci-libs/scipy[${PYTHON_USEDEP}]"
+	sci-libs/scipy[${PYTHON_USEDEP}]
+	"
 
 python_install_all() {
 	distutils-r1_python_install_all
 	newicon -s scalable psychopy/monitors/psychopy-icon.svg psychopy.svg
-	make_desktop_entry psychopyApp.py PsychoPy psychopy "Science;Biology"
+	make_desktop_entry psychopyApp.py PsychoPy psychopy
 }
 
 pkg_postinst() {

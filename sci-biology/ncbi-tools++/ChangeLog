@@ -2,6 +2,87 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-9.0.0-r1.ebuild:
+  Support at least when user passes USE="gnutls -ssl -openssl" but what we
+  really want is to prefer gnutls over openssl if both are available on the
+  system.
+
+  14 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-9.0.0-r1.ebuild,
+  +files/ncbi-tools++-9.0.0-remove-LZO-definition-upstream.patch:
+  Add upstream ncbi-tools++-9.0.0-remove-LZO-definition-upstream.patch with
+  line
+  offset changes.
+
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-9.0.0-r1.ebuild, ncbi-tools++-12.0.0.ebuild,
+  +files/ncbi-tools++-9.0.0-fix-svn-URL-upstream.patch,
+  +files/ncbi-tools++-12.0.0-fix-svn-URL-upstream.patch:
+  Fix URL to point to a public SVN repository (an upstream patch from email
+  list):
+
+  Date: Sun, 28 Jul 2013 22:05:34 -0400
+  CC: <cpp@ncbi.nlm.nih.gov>
+  Subject: Re: [C++] new project startup example needed
+
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-12.0.0.ebuild,
+  files/ncbi-tools++-9.0.0-fix-creaders-linking.patch,
+  +files/ncbi-tools++-12.0.0-fix-FreeTDS-upstream.patch,
+  files/ncbi-tools++-12.0.0-fix-creaders-linking.patch:
+  Added an upstream patch from:
+
+  Date: Wed, 28 Aug 2013 10:50:29 -0400
+  List cpp <cpp@ncbi.nlm.nih.gov>
+  Subject: Re: [C++] error building ncbi toolkit v.12.0.0
+
+  Fixed line offsets in the ncbi-tools++-12.0.0-fix-creaders-linking.patch
+  file.
+
+  Fixed file path in ncbi-tools++-9.0.0-fix-creaders-linking.patch header.
+
+  The patches copied blindly from ncbi-tools++-9.0.0-r1 under 12.0.0 need to be
+  adjusted still to have correct line numbers. They do NOT apply cleanly at the
+  moment.
+
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-9.0.0-r1.ebuild, ncbi-tools++-12.0.0.ebuild,
+  files/ncbi-tools++-9.0.0-as-needed.patch,
+  +files/ncbi-tools++-9.0.0-fix-undef-reference-to-GenBankReaders_Register_Id1.
+  patch, files/ncbi-tools++-12.0.0-as-needed.patch:
+  files/ncbi-tools++-12.0.0-as-needed.patch
+  files/ncbi-tools++-9.0.0-as-needed.patch
+  
+  Remove redundant connect per message from Aaron Ucko <ucko@ncbi.nlm.nih.gov>:
+  
+  > +DLL_LIB  = xncbi xutil seqset connect xconnect xnetblast
+  Then simply remove connect, which is redundant with xconnect.  (connect
+  consists of code shared with NCBI's C Toolkit; xconnect adds a C++
+  layer.)
+
+
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-12.0.0.ebuild,
+  +files/ncbi-tools++-12.0.0-fix-creaders-linking.patch:
+  No, the fix-creaders-linking is needed for 12.0.0 as well.
+
+*ncbi-tools++-12.0.0 (13 Sep 2013)
+
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +ncbi-tools++-12.0.0.ebuild, +files/ncbi-tools++-12.0.0-as-needed.patch,
+  +files/ncbi-tools++-12.0.0-conf-opts.patch:
+  Latest release which needs so far only the two Gentoo patches. Would
+  be better to drop ${PV} from their filename to avoid their duplication
+  I think.
+
+  13 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  ncbi-tools++-9.0.0-r1.ebuild,
+  +files/ncbi-tools++-9.0.0-fix-creaders-linking.patch:
+  add glew to dependencies inferrred via mesa
+  fix lib/libxobjread.so: undefined reference to 'AlignmentFileFree' message by
+  upstream patch
+
   12 Jun 2013; Justin Lecher <jlec@gentoo.org> ncbi-tools++-9.0.0-r1.ebuild:
   Drop empty line
 
