@@ -2,6 +2,13 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*freeon-2013.09.12 (15 Sep 2013)
+
+  15 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +freeon-2013.09.12.ebuild,
+  -freeon-20130912.ebuild:
+  sci-chemistry/freeon-2013.09.12 Changed versioning of package to avoid mask
+  collision with the live package.
+
 *freeon-20130912 (14 Sep 2013)
 
   14 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +freeon-20130912.ebuild:
