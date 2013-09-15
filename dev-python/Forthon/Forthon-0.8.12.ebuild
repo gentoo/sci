@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=5
-PYTHON_COMPAT=( python{2_5,2_6,2_7,3_1,3_2,3_3} )
+PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
 
 inherit eutils distutils-r1
 
@@ -18,7 +18,6 @@ IUSE="examples"
 
 python_prepare_all() {
 	sed -i -e "/data_files/ s/'License.txt',//" setup.py || die
-	epatch "${FILESDIR}"/${P}-fix_options_parser.patch
 	distutils-r1_python_prepare_all
 }
 
@@ -26,7 +25,7 @@ python_install_all() {
 	dohtml docs/index.html
 	if use examples ; then
 		docinto /usr/share/doc/${PF}
-		dodoc -r {example,example2,simpleexample}
+		dodoc -r {example,simpleexample}
 	fi
 	distutils-r1_python_install_all
 }
