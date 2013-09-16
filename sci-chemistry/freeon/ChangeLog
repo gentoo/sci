@@ -2,6 +2,15 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> freeon-2013.09.16.ebuild:
+  sci-chemistry/freeon-2013.09.16: Removed dependency on sys-libs/zlib. This
+  dependency should come in through hdf5.
+
+*freeon-2013.09.16 (16 Sep 2013)
+
+  16 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +freeon-2013.09.16.ebuild:
+  sci-chemistry/freeon-2013.09.16: Version bump.
+
 *freeon-2013.09.12 (15 Sep 2013)
 
   15 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +freeon-2013.09.12.ebuild,
