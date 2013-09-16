@@ -22,7 +22,6 @@ KEYWORDS="~amd64 ~x86"
 IUSE="static-libs"
 
 RDEPEND="
-	sys-libs/zlib
 	sci-libs/hdf5
 	virtual/blas
 	virtual/lapack"
