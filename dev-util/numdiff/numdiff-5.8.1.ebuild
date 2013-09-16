@@ -39,8 +39,6 @@ src_install() {
 	rm -r "${ED}"/usr/share/locale
 
 	#Fix up some wrong installation pathes:
-	mv "${ED}"/usr/share/doc/${P}/numdiff/numdiff.html "${ED}"/usr/share/doc/${P}
-	mv "${ED}"/usr/share/doc/${P}/numdiff/numdiff.pdf "${ED}"/usr/share/doc/${P}
-	mv "${ED}"/usr/share/doc/${P}/numdiff/numdiff.txt.bz2 "${ED}"/usr/share/doc/${P}
-	rm -r "${ED}"/usr/share/doc/${P}/numdiff
+	mv "${ED}"/usr/share/doc/${P}/{numdiff/numdiff.{html,pdf,txt*},} || die
+	rm -r "${ED}"/usr/share/doc/${P}/numdiff || die
 }
