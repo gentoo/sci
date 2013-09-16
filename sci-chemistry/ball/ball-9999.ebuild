@@ -11,7 +11,7 @@ inherit cmake-utils git-2 python-single-r1
 DESCRIPTION="Biochemical Algorithms Library"
 HOMEPAGE="http://www.ball-project.org/"
 SRC_URI=""
-EGIT_REPO_URI="http://ball-git.bioinf.uni-sb.de/BALL.git"
+EGIT_REPO_URI="https://bitbucket.org/ball/ball.git"
 
 SLOT="0"
 LICENSE="LGPL-2 GPL-3"
@@ -28,16 +28,15 @@ RDEPEND="
 	sci-mathematics/lpsolve
 	virtual/opengl
 	x11-libs/libX11
-	dev-qt/qtcore
-	dev-qt/qtgui
-	dev-qt/qtopengl
-	dev-qt/qttest
-	dev-qt/qtwebkit
+	dev-qt/qtcore:4
+	dev-qt/qtgui:4
+	dev-qt/qtopengl:4
+	dev-qt/qttest:4
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	mpi? ( virtual/mpi )
-	sql? ( dev-qt/qtsql )
+	sql? ( dev-qt/qtsql:4 )
 	python? ( ${PYTHON_DEPS} )
-	webkit? ( dev-qt/qtwebkit )"
+	webkit? ( dev-qt/qtwebkit:4 )"
 DEPEND="${RDEPEND}
 	dev-python/sip
 	sys-devel/bison
