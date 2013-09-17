@@ -82,7 +82,7 @@ CDEPEND="
 	graphviz? ( media-gfx/graphviz )
 	kerberos? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
-	llvm? ( =sys-devel/clang-9999 =sys-devel/llvm-9999 )
+	llvm? ( >=sys-devel/clang-9999 =sys-devel/llvm-9999 )
 	math? ( sci-libs/gsl sci-mathematics/unuran mpi? ( virtual/mpi ) )
 	mysql? ( virtual/mysql )
 	odbc? ( || ( dev-db/libiodbc dev-db/unixODBC ) )
