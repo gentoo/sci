@@ -6,8 +6,11 @@ EAPI="4"
 
 inherit emboss eutils
 
-EBO_PATCH="4"
-EBOV=${PV/_p*}
+#EBO_PATCH="4"
+#EBOV=${PV/_p*}
+
+EBO_PATCH=""
+EBOV=${PV}
 
 DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
 SRC_URI="
@@ -18,7 +21,8 @@ SRC_URI="
 ##[[ -n ${EBO_PATCH} ]] && SRC_URI+=" ftp://${PN}.open-bio.org/pub/EMBOSS/fixes/patches/patch-1-${EBO_PATCH}.gz -> ${P}-upstream.patch.gz"
 #[[ -n ${EBO_PATCH} ]] && SRC_URI+=" http://pkgs.fedoraproject.org/lookaside/pkgs/EMBOSS/patch-1-4.gz/7a42594c5eda4adc6457f33e4ab0d8f2/patch-1-${EBO_PATCH}.gz -> ${P}-upstream.patch.gz"
 
-KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
+#KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
+KEYWORDS=""
 IUSE+=" minimal"
 
 RDEPEND+=" !sys-devel/cons"
@@ -40,8 +44,8 @@ DOCS+=" FAQ THANKS"
 
 src_prepare() {
 	[[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}-upstream.patch
-	epatch "${WORKDIR}"/${PF}.patch
-	epatch "${FILESDIR}/${PF}_plcol.patch"
+	# epatch "${WORKDIR}"/${PF}.patch
+	#epatch "${FILESDIR}/${PF}_plcol.patch"
 	emboss_src_prepare
 }
 
