@@ -2,6 +2,17 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*freeon-1.0 (17 Sep 2013)
+
+  17 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +freeon-1.0.ebuild,
+  freeon-9999.ebuild:
+  sci-chemistry/freeon-1.0 Version bump.  The versioning scheme changed from a
+  date based version to a more common versioning scheme. Portage considers the
+  latest release, 1.0, to be a downgrade. I masked the older versions to every
+  so gently suggest an upgrade. The live version's URI is fixed now, the code
+  moved from savannah to github, and it is slotted to "live" so that both live
+  and release versions can be installed simulataneously.
+
   16 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> freeon-2013.09.16.ebuild:
   sci-chemistry/freeon-2013.09.16: Removed dependency on sys-libs/zlib. This
   dependency should come in through hdf5.

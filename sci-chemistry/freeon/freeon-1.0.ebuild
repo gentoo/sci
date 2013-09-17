@@ -8,17 +8,14 @@ AUTOTOOLS_AUTORECONF=1
 
 FORTRAN_STANDARD=90
 
-inherit autotools-utils fortran-2 git-2
+inherit autotools-utils fortran-2
 
 DESCRIPTION="An experimental suite of programs for linear scaling quantum chemistry."
 HOMEPAGE="http://www.freeon.org"
-SRC_URI=""
-
-EGIT_REPO_URI="https://github.com/FreeON/freeon.git"
-EGIT_BOOTSTRAP="fix_localversion.sh"
+SRC_URI="http://download.savannah.gnu.org/releases/${PN}/${PN}-${PV}.tar.bz2"
 
 LICENSE="GPL-3"
-SLOT="live"
+SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="static-libs"
 
