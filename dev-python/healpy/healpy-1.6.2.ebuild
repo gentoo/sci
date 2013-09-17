@@ -27,8 +27,8 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 python_test() {
-	cd "${BUILD_DIR}"/lib*
-	echo "backend: Agg" > matplotlibrc
-	MPLCONFIGDIR=. PYTHONPATH=. nosetests-"${EPYTHON}" || die
-	rm matplotlibrc
+	cd "${BUILD_DIR}"/lib || die
+	echo "backend: Agg" > matplotlibrc || die
+	MPLCONFIGDIR=. nosetests || die
+	rm matplotlibrc || die
 }
