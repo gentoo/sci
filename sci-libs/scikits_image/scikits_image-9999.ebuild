@@ -16,7 +16,7 @@ EGIT_REPO_URI="https://github.com/scikit-image/scikit-image.git"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
 IUSE="doc freeimage gtk qt4 test"
 
 RDEPEND="
