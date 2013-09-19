@@ -1,0 +1,14 @@
+--- src/Makefile.in.orig	2013-09-04 14:20:05.437329795 +1200
++++ src/Makefile.in	2013-09-04 14:25:11.533806416 +1200
+@@ -21,9 +21,9 @@
+ LTRELEASE = `echo ${RELEASE} | sed -e "s/\./:/g"`
+ 
+ CPHASE = ${LIBTOOL} --tag=CXX --mode=compile @CXX@ -c @CFLAGS@
+-LPHASE = ${LIBTOOL} --tag=CXX --mode=link @CXX@ -version-info ${LTRELEASE} -rpath @prefix@@libdir@ @LIBS@
++LPHASE = ${LIBTOOL} --tag=CXX --mode=link @CXX@ -version-info ${LTRELEASE} @LDFLAGS@ -rpath @libdir@ @LIBS@
+ #LPHASE = ${LIBTOOL} --tag=CXX --mode=link @CXX@ -version-info ${LTRELEASE} @LIBS@
+-MPHASE = ${LIBTOOL} --tag=CXX --mode=link @CXX@
++MPHASE = ${LIBTOOL} --tag=CXX --mode=link @CXX@ @LDFLAGS@
+ IPHASE = ${LIBTOOL} --mode=install @INSTALL@
+ FPHASE = ${LIBTOOL} --mode=finish @prefix@/@libdir@
+ 

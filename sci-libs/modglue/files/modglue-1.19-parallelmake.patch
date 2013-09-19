@@ -1,17 +1,17 @@
---- Makefile.in.orig	2010-08-21 22:04:51.877629329 +1200
-+++ Makefile.in	2010-08-21 22:06:12.887628815 +1200
-@@ -7,7 +7,7 @@
- #examples
+--- Makefile.in.orig	2013-09-04 14:12:33.436620240 +1200
++++ Makefile.in	2013-09-04 14:13:31.051711085 +1200
+@@ -8,7 +8,7 @@
  
  library:
+ 	echo @libdir@
 -	( cd src && $(MAKE) );
 +	( cd src && $(MAKE) library tools );
  
  static:
  	( cd src && $(MAKE) static );
---- src/Makefile.in.orig	2010-08-21 22:05:26.411630332 +1200
-+++ src/Makefile.in	2010-08-21 22:08:20.961629492 +1200
-@@ -49,21 +49,21 @@
+--- src/Makefile.in.orig	2013-09-04 14:13:46.820735926 +1200
++++ src/Makefile.in	2013-09-04 14:15:46.020923434 +1200
+@@ -56,21 +56,21 @@
  
  #------- Tests ----------------------------------------
  
@@ -36,9 +36,9 @@
 -prompt: prompt.o
 +prompt: library prompt.o
  	${MPHASE} -o prompt prompt.o `pkg-config sigc++-2.0 --libs` libmodglue.la 
+ #	chrpath -d .libs/prompt
  
- prompt_static: prompt.cc library
-@@ -77,10 +77,10 @@
+@@ -85,10 +85,10 @@
  endif
  
  

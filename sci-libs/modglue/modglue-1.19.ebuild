@@ -24,14 +24,14 @@ DEPEND="${RDEPEND}
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
 PATCHES=(
-	# Respect LDFLAGS
-	"${FILESDIR}"/${P}-ldflags.patch
+	# Respect LDFLAGS (and a last bit of 64bit problem)
+	"${FILESDIR}"/${PN}-1.19-ldflags.patch
 	# fix parallel make. test are made at the same time as the library??
-	"${FILESDIR}"/${P}-parallelmake.patch
+	"${FILESDIR}"/${PN}-1.19-parallelmake.patch
 	# take care of the lib/lib64 problem. Without this modglue installs
 	# stuff in /usr/usr/lib64 on 64bits systems.
-	"${FILESDIR}"/${P}-lib64.patch
-)
+	"${FILESDIR}"/${PN}-1.16-lib64.patch
+	)
 
 src_install() {
 	use doc && HTML_DOCS=( "${S}"/doc/. )
