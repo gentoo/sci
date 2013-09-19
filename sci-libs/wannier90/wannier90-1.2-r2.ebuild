@@ -48,7 +48,10 @@ src_configure() {
 src_compile() {
 	emake -j1 wannier
 	emake -j1 lib
-	use doc & emake -j1 doc
+	if use doc; then
+		VARTEXFONTS="${T}/fonts"
+		emake -j1 doc
+	fi
 }
 
 src_test() {
