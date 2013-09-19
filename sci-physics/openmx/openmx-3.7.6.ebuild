@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils multilib toolchain-funcs fortran-2
 
-PATCHDATE="13July03"
+PATCHDATE="13Sep01"
 
 DESCRIPTION="Material eXplorer using DFT, NC pseudopotentials, and pseudo-atomic localized basis functions"
 HOMEPAGE="http://www.openmx-square.org/"
@@ -34,6 +34,14 @@ MAKEOPTS+=" -j1"
 FORTRAN_STANDARD=90
 
 pkg_setup() {
+	# Link in the GNU Fortran library for Fortran code.
+	# Other compilers may need other hacks.
+	FC_LIB=""
+	if [[ $(tc-getCC)$ == *gcc* ]]; then
+		FC_LIB="-lgfortran"
+	fi
+	export FC_LIB
+
 	if use mpi; then
 		export CC="mpicc"
 		export FC="mpif90"
@@ -136,7 +144,7 @@ src_configure() {
 	sed \
 		-e "s%^CC *=.*$%CC  = ${CC} ${CFLAGS}%" \
 		-e "s%^FC *=.*$%FC  = ${FC} ${FCFLAGS}%" \
-		-e "s%^LIB *=.*$%LIB = ${MX_LIB}%" \
+		-e "s%^LIB *=.*$%LIB = ${MX_LIB} ${FC_LIB}%" \
 		-i source/makefile || die
 }
 
