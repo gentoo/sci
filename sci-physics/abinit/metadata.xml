@@ -29,7 +29,10 @@ ABINIT code, different utility programs are provided.
   </flag>
   </use>
   <use>
-    <flag name="etsf_io">This USE needs documentation</flag>
+    <flag name="etsf_io">
+      Enable support for reading and writing the European Theoretical
+      Spectroscopy facility (ETSF) file format.
+    </flag>
   </use>
   <use>
     <flag name="fftw-threads">
