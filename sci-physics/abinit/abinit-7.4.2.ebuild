@@ -4,7 +4,9 @@
 
 EAPI=5
 
-inherit autotools-utils eutils flag-o-matic fortran-2 multilib toolchain-funcs
+PYTHON_COMPAT=( python2_7 )
+
+inherit autotools-utils eutils flag-o-matic fortran-2 multilib python-single-r1 toolchain-funcs
 
 DESCRIPTION="Find total energy, charge density and electronic structure using density functional theory"
 HOMEPAGE="http://www.abinit.org/"
@@ -13,44 +15,46 @@ SRC_URI="http://ftp.abinit.org/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cuda cuda-double -debug +etsf_io +fftw +fftw-threads +fox gsl gui +hdf5 libabinit mpi +netcdf openmp python -test +threads -vdwxc"
+IUSE="atompaw bigdft cuda cuda-double -debug +etsf_io +fftw +fftw-threads +fox gsl +hdf5 levmar -libabinit libxc -lotf mpi +netcdf openmp python scripts -test +threads -vdwxc wannier"
 
-RDEPEND="~sci-libs/bigdft-abi-1.0.4
-	>=sci-libs/libxc-1.2.0-r1[fortran]
-	>=sci-physics/atompaw-3.0.1.9-r1[libxc]
-	etsf_io? ( >=sci-libs/etsf_io-1.0.3-r2 )
-	fox? ( >=sci-libs/fox-4.1.2-r2[sax] )
-	netcdf? (
-		|| (
-			sci-libs/netcdf[fortran]
-			sci-libs/netcdf-fortran
-			)
-		hdf5? (
-			  sci-libs/netcdf[hdf5]
-			  )
-		)
-	hdf5? ( sci-libs/hdf5[fortran] )
-	>=sci-libs/wannier90-1.2-r1
-	virtual/blas
+REQUIRED_USE="scripts? ( ${PYTHON_REQUIRED_USE} )
+	test? ( ${PYTHON_REQUIRED_USE} )"
+
+RDEPEND="virtual/blas
 	virtual/lapack
-	gsl? ( sci-libs/gsl )
+	atompaw? ( >=sci-physics/atompaw-3.0.1.9-r1[libxc?] )
+	bigdft? ( ~sci-libs/bigdft-abi-1.0.4 )
+	cuda? ( dev-util/nvidia-cuda-sdk )
+	etsf_io? ( >=sci-libs/etsf_io-1.0.3-r2 )
 	fftw? (
 		sci-libs/fftw:3.0
 		fftw-threads? ( sci-libs/fftw:3.0[threads] )
 		)
+	fox? ( >=sci-libs/fox-4.1.2-r2[sax] )
+	gsl? ( sci-libs/gsl )
+	hdf5? ( sci-libs/hdf5[fortran] )
+	levmar? ( sci-libs/levmar )
+	libxc? ( >=sci-libs/libxc-2.0.1[fortran] )
+	netcdf? (
+		sci-libs/netcdf[hdf5?]
+		|| (
+			sci-libs/netcdf[fortran]
+			sci-libs/netcdf-fortran
+			)
+		)
 	mpi? ( virtual/mpi )
-	python? ( dev-python/numpy )
-	cuda? ( dev-util/nvidia-cuda-sdk )"
+	python? (  ${PYTHON_DEPS}
+		dev-python/numpy )
+	scripts? ( ${PYTHON_DEPS}
+		dev-python/numpy
+		dev-python/PyQt4 )
+	wannier? ( >=sci-libs/wannier90-1.2-r1 )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	gui? ( >=virtual/jdk-1.6.0
-		app-arch/sharutils
-		sys-apps/gawk )
-	dev-perl/Text-Markdown"
+	dev-perl/Text-Markdown
+	test? ( ${PYTHON_DEPS} )"
 
 S=${WORKDIR}/${P%[a-z]}
-
-lat1loc=""
 
 DOCS=( AUTHORS ChangeLog COPYING INSTALL KNOWN_PROBLEMS NEWS PACKAGING
 	README README.ChangeLog README.GPU README.xlf RELNOTES THANKS )
@@ -79,7 +83,7 @@ pkg_setup() {
 	# Preprocesor macross can make some lines really long
 	append-fflags -ffree-line-length-none
 
-	# This should be correct.
+	# This should be correct:
 	#   It is gcc-centric because toolchain-funcs.eclass is gcc-centric.
 	#   Should a bug be filed against toolchain-funcs.eclass?
 	# if use openmp; then
@@ -87,7 +91,7 @@ pkg_setup() {
 	#                 die "Please select an openmp capable compiler like gcc[openmp]"
 	# fi
 	#
-	# This is completely wrong.
+	# This is completely wrong:
 	#   If other compilers than Gnu Compiler Collection can be used by portage,
 	#   their support of OpenMP should be properly tested. This code limits the test
 	#   to gcc, and blindly supposes that other compilers do support OpenMP.
@@ -103,6 +107,58 @@ pkg_setup() {
 
 	fortran-2_pkg_setup
 
+	if use openmp; then
+		# based on _fortran-has-openmp() of fortran-2.eclass
+		local code=ebuild-openmp-flags
+		local ret
+		local openmp
+
+		pushd "${T}"
+		cat <<- EOF > "${code}.c"
+		# include <omp.h>
+		main () {
+			int nthreads;
+			nthreads=omp_get_num_threads();
+		}
+		EOF
+
+		for openmp in -fopenmp -xopenmp -openmp -mp -omp -qsmp=omp; do
+			${CC} ${openmp} "${code}.c" -o "${code}.o" &>> "${T}"/_c_compile_test.log
+			ret=$?
+			(( ${ret} )) || break
+		done
+
+		rm -f "${code}.*"
+		popd
+
+		if (( ${ret} )); then
+			die "Please switch to an openmp compatible C compiler"
+		else
+			export CC="${CC} ${openmp}"
+		fi
+
+		pushd "${T}"
+		cat <<- EOF > "${code}.f"
+		1     call omp_get_num_threads
+		2     end
+		EOF
+
+		for openmp in -fopenmp -xopenmp -openmp -mp -omp -qsmp=omp; do
+			${FC} ${openmp} "${code}.f" -o "${code}.o" &>> "${T}"/_f_compile_test.log
+			ret=$?
+			(( ${ret} )) || break
+		done
+
+		rm -f "${code}.*"
+		popd
+
+		if (( ${ret} )); then
+			die "Please switch to an openmp compatible fortran compiler"
+		else
+			export FC="${FC} ${openmp}"
+		fi
+	fi
+
 	# Sort out some USE options
 	if use fftw-threads && ! use fftw; then
 		ewarn "fftw-threads set but fftw not used, ignored"
@@ -110,32 +166,9 @@ pkg_setup() {
 	if use cuda-double && ! use cuda; then
 		ewarn "cuda-double set but cuda not used, ignored"
 	fi
-	if use gui; then
-		lat1loc="$(locale |awk '/LC_CTYPE="(.*)"/{sub("LC_CTYPE=\"",""); sub("\" *$", ""); print}')"
-		if locale charmap |grep -i "\<iso885915\?\>"; then
-			einfo "Good, locale compatible with the GUI build"
-		else
-			ewarn "The locale ${lat1loc} incompatible with the GUI build"
-			if latloc=`locale -a| grep -i "\<iso885915\?\>"`; then
-				if echo "${latloc}" |grep -q "^fr"; then
-					lat1loc="$(echo "${latloc}" | grep -im1 "^fr")"
-				else
-					lat1loc="$(echo "${latloc}" | grep -im1 "iso88591")"
-				fi
-				einfo "Will use ${lat1loc} to build the GUI"
-			else
-				ewarn "No ISO-8859-1 nor ISO-8859-15 locale available, the GUI build may crash"
-			fi
-		fi
-	fi
-}
 
-src_unpack() {
-	default_src_unpack
-	if use gui; then
-		pushd "${S}" > /dev/null
-		tar -xjf "${FILESDIR}"/6.12.3-gui-makefiles.tbz
-		popd > /dev/null
+	if use scripts || use test; then
+		python-single-r1_pkg_setup
 	fi
 
 }
@@ -145,45 +178,32 @@ src_prepare() {
 		"${FILESDIR}"/6.2.2-change-default-directories.patch \
 		"${FILESDIR}"/6.12.1-autoconf.patch \
 		"${FILESDIR}"/6.12.1-xmalloc.patch \
-		"${FILESDIR}"/7.0.4-test_dirs.patch
+		"${FILESDIR}"/7.4.2-levmar_diag_scaling.patch \
+		"${FILESDIR}"/7.4.2-syntax.patch
 	eautoreconf
 	sed -e"s/\(grep '\^-\)\(\[LloW\]\)'/\1\\\(\2\\\|pthread\\\)'/g" -i configure
-
-	if use gui; then
-		pushd gui > /dev/null
-		eautoreconf
-		popd > /dev/null
-	fi
 }
 
 src_configure() {
-	local openmp=""
-	if use openmp; then
-		# based on _fortran-has-openmp() of fortran-2.eclass
-		local fcode=ebuild-openmp-flags.f
-		local _fc=$(tc-getFC)
-
-		cat <<- EOF > "${fcode}"
-		1     call omp_get_num_threads
-		2     end
-		EOF
-
-		for openmp in -fopenmp -xopenmp -openmp -mp -omp -qsmp=omp; do
-			${_fc} ${openmp} "${fcode}" -o "${fcode}.x" && break
-		done
-
-		rm -f "${fcode}.*"
-	fi
-	local libs=""
 	local modules="$(FoX-config --sax --fcflags)"
-	local FoX_libs="${libs} $(FoX-config --sax --libs)"
+	local FoX_libs="$(FoX-config --sax --libs)"
+
 	local trio_flavor=""
 	use etsf_io && trio_flavor="${trio_flavor}+etsf_io"
 	use fox && trio_flavor="${trio_flavor}+fox"
 	use netcdf && trio_flavor="${trio_flavor}+netcdf"
 	test "no${trio_flavor}" = "no" && trio_flavor="none"
+
 	local netcdff_libs="-lnetcdff"
 	use hdf5 && netcdff_libs="${netcdff_libs} -lhdf5_fortran"
+
+	local dft_flavor=""
+	use atompaw && dft_flavor="${dft_flavor}+atompaw"
+	use bigdft && dft_flavor="${dft_flavor}+bigdft"
+	use libxc && dft_flavor="${dft_flavor}+libxc"
+	use wannier && dft_flavor="${dft_flavor}+wannier90"
+	test "no${dft_flavor}" = "no" && dft_flavor="none"
+
 	local fft_flavor="fftw3"
 	local fft_libs=""
 	# The fftw threads support is protected by black magick.
@@ -202,6 +222,7 @@ src_configure() {
 		fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3)"
 		fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3f)"
 	fi
+
 	local gpu_flavor="none"
 	if use cuda; then
 		gpu_flavor="cuda-single"
@@ -213,18 +234,20 @@ src_configure() {
 	local myeconfargs=(
 		--enable-clib
 		--enable-exports
-		$(use_enable gui)
 		$(use_enable debug debug enhanced)
 		$(use_enable mpi)
 		$(use_enable mpi mpi-io)
 		$(use_enable openmp)
 		$(use_enable vdwxc)
+		$(use_enable lotf)
 		$(use_enable cuda gpu)
 		"$(use cuda && echo "--with-gpu-flavor=${gpu_flavor}")"
 		"$(use cuda && echo "--with-gpu-prefix=/opt/cuda/")"
 		"$(use gsl && echo "--with-math-flavor=gsl")"
 		"$(use gsl && echo "--with-math-incs=$($(tc-getPKG_CONFIG) --cflags gsl)")"
 		"$(use gsl && echo "--with-math-libs=$($(tc-getPKG_CONFIG) --libs gsl)")"
+		"$(use levmar && echo "--with-algo-flavor=levmar")"
+		"$(use levmar && echo "--with-algo-libs=-llevmar")"
 		--with-linalg-flavor="atlas"
 		--with-linalg-libs="$($(tc-getPKG_CONFIG) --libs lapack)"
 		--with-trio-flavor="${trio_flavor}"
@@ -233,36 +256,26 @@ src_configure() {
 		"$(use fox && echo "--with-fox-incs=${modules}")"
 		"$(use fox && echo "--with-fox-libs=${FoX_libs}")"
 		"$(use etsf_io && echo "--with-etsf-io-incs=${modules}")"
-		"$(use etsf_io && echo "--with-etsf-io-libs=${libs} -letsf_io -letsf_io_utils -letsf_io_low_level")"
-		--with-dft-flavor="libxc+bigdft+atompaw+wannier90"
-		--with-libxc-incs="${modules}"
-		--with-libxc-libs="${libs} -lxc"
-		--with-bigdft-incs="${modules}"
-		--with-bigdft-libs="$($(tc-getPKG_CONFIG) --libs bigdft)"
-		--with-atompaw-incs="${modules}"
-		--with-atompaw-libs="${libs} -latompaw"
-		--with-wannier90-bins="/usr/bin"
-		--with-wannier90-incs="${modules}"
-		--with-wannier90-libs="${libs} -lwannier $($(tc-getPKG_CONFIG) --libs lapack)"
+		"$(use etsf_io && echo "--with-etsf-io-libs=-letsf_io -letsf_io_utils -letsf_io_low_level")"
+		--with-dft-flavor="${dft_flavor}"
+		"$(use atompaw && echo "--with-atompaw-incs=${modules}")"
+		"$(use atompaw && echo "--with-atompaw-libs=-latompaw")"
+		"$(use bigdft && echo "--with-bigdft-incs=${modules}")"
+		"$(use bigdft && echo "--with-bigdft-libs=$($(tc-getPKG_CONFIG) --libs bigdft)")"
+		"$(use libxc && echo "--with-libxc-incs=${modules}")"
+		"$(use libxc && echo "--with-libxc-libs=-lxc")"
+		"$(use wannier && echo "--with-wannier90-bins=/usr/bin")"
+		"$(use wannier && echo "--with-wannier90-incs=${modules}")"
+		"$(use wannier && echo "--with-wannier90-libs=-lwannier $($(tc-getPKG_CONFIG) --libs lapack)")"
 		"$(use fftw && echo "--with-fft-flavor=${fft_flavor}")"
 		"$(use fftw && echo "--with-fft-incs=-I/usr/include")"
 		"$(use fftw && echo "--with-fft-libs=${fft_libs}")"
 		--with-timer-flavor="abinit"
 		LD="$(tc-getLD)"
-		FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}} ${openmp} ${modules} -I/usr/include"
+		FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}} ${modules} -I/usr/include"
 		)
 
 	MARKDOWN=Markdown.pl autotools-utils_src_configure
-
-	if use gui; then
-		# autotools-utils_src_configure() part expanded
-		_check_build_dir
-		pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
-		mkdir -p gui
-		cd gui
-		ECONF_SOURCE="${S}"/gui econf UUDECODE="uudecode"
-		popd > /dev/null
-	fi
 }
 
 src_compile() {
@@ -275,59 +288,22 @@ src_compile() {
 	# Can Abinit use external libabinit.a?
 	use libabinit && autotools-utils_src_compile libabinit.a
 
-	if use gui; then
-		#autotools-utils_src_compile() expanded
-		# _check_build_dir has already been called
-		pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
-		# now what the function cannot be called to do
-		cd gui
-		LC_CTYPE="${lat1loc}" emake || die "Making GUI failed"
-		popd > /dev/null
-	fi
-
 	sed -i -e's/libatlas/lapack/' "${AUTOTOOLS_BUILD_DIR}"/config.pc
 }
 
 src_test() {
-	einfo "The tests take quite a while, easily several hours"
+	einfo "The tests take quite a while, easily several hours or even days"
 	# autotools-utils_src_test() expanded
 	_check_build_dir
 	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
 	# again something the autotools-utils function cannot be called to do
 	# now quite a lot of work actually
-	cd tests
-	emake tests_acc || ewarn "Accuracy tests failed"
-	emake tests_paw || ewarn "PAW tests failed"
-	emake tests_gw || ewarn "GW tests failed"
-	emake tests_gw_paw || ewarn "GW-PAW tests failed"
-	emake tests_bs || ewarn "BSE tests failed"
-	emake tests_tddft || ewarn "TDDFT tests failed"
-	emake tests_eph || ewarn "Elphon tests failed"
+	mkdir -p tests
 
-	local REPORT
-	for REPORT in $(find . -name report); do
-		REPORT=${REPORT#*/}
-		elog "Parameters and unusual results for ${REPORT%%/*} tests"
-		echo "Parameters and unusual results for ${REPORT%%/*} tests" >>tests_summary.txt
-		while read line; do
-			elog "${line}"
-			echo "${line}" >>tests_summary.txt
-		done \
-			< <(grep -v -e succeeded -e passed ${REPORT})
-	done
+	python2 "${S}"/tests/runtests.py -w tests/ -b "${AUTOTOOLS_BUILD_DIR}"
 
-	local testdir
-	find . -name "tmp-test*" -print | \
-		while read testdir; do
-			if [ -e summary_of_tests.tar ]; then
-				tar rvf summary_of_tests.tar ${testdir}
-			else tar cvf summary_of_tests.tar ${testdir}
-			fi
-		done
 	popd > /dev/null
 
-	elog "The full test results will be installed as summary_of_tests.tar.bz2."
-	elog "Also a concise report tests_summary.txt is installed."
 }
 
 src_install() {
@@ -338,15 +314,9 @@ src_install() {
 
 	use libabinit && dolib libabinit.a
 
-	if use gui; then
-		pushd gui > /dev/null
-		emake DESTDIR="${D}" install || die "The GUI install failed"
-		popd > /dev/null
-	fi
-
 	if use test; then
-		for dc in tests_summary.txt summary_of_tests.tar; do
-			test -e tests/"${dc}" && dodoc tests/"${dc}" || ewarn "Copying tests results failed"
+		for dc in results.tar.gz results.txt suite_report.html; do
+			test -e tests/"${dc}" && dodoc tests/"${dc}" || ewarn "Copying tests results ${dc} failed"
 		done
 	fi
 
@@ -367,6 +337,11 @@ src_install() {
 	fi
 	if [[ ${HTML_DOCS} ]]; then
 		dohtml -r "${HTML_DOCS[@]}" || die "dohtml failed"
+	fi
+
+	if use scripts; then
+		insinto /usr/share/"${P}"
+		doins -r scripts
 	fi
 
 	# Remove libtool files and unnecessary static libs
