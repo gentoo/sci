@@ -9,4 +9,7 @@
     <email>nicolasbock@gmail.com</email>
     <name>Nicolas Bock</name>
   </maintainer>
+  <use>
+	  <flag name="standalone-BCSR">Enables a self-contained BCSR file format</flag>
+  </use>
 </pkgmetadata>
