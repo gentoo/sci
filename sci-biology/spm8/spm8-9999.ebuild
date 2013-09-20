@@ -6,7 +6,7 @@ EAPI=5
 
 inherit unpacker
 
-DESCRIPTION="Construction and assessment tool for spatially extended statistical processes used to test hypotheses about functional imaging data"
+DESCRIPTION="Analysis of brain imaging data sequences for Octave or Matlab"
 HOMEPAGE="http://www.fil.ion.ucl.ac.uk/spm/"
 URI_BASE="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/"
 SRC_URI="" # SRC_URI is left blank on live ebuild
