@@ -26,6 +26,8 @@ DEPEND="${DEPEND}
 	virtual/pkgconfig"
 
 src_configure() {
-	econf \
+	local myeconfargs=(
 		$(use_enable standalone-BCSR)
+	)
+	autotools-utils_src_configure
 }
