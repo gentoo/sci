@@ -16,7 +16,7 @@ EGIT_REPO_URI="https://github.com/scikit-image/scikit-image.git"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
 IUSE="doc freeimage gtk qt4 test"
 
 RDEPEND="
@@ -40,8 +40,8 @@ python_test() {
 	# distutils_install_for_testing not working here
 	esetup.py \
 		install --root="${T}/test-${EPYTHON}" \
-		--no-compile || die "install test failed"
+		--no-compile
 	cd "${T}/test-${EPYTHON}/$(python_get_sitedir)" || die
-	echo "backend: Agg" > matplotlibrc
+	echo "backend: Agg" > matplotlibrc || die
 	MPLCONFIGDIR=. nosetests -v skimage || die
 }

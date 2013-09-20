@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*wannier90-1.2-r2 (19 Sep 2013)
+
+  19 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -wannier90-1.2-r1.ebuild, +wannier90-1.2-r2.ebuild:
+  Avoid sandbox violation when generating TeX fonts.
+
 *wannier90-1.2-r1 (17 Jun 2013)
 
   17 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>

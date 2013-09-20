@@ -42,6 +42,7 @@ pkg_setup() {
 
 python_prepare_all(){
 	sed "s:i386-intel8:${EXECTYPE}:g" -i src/swig/setup.py || die
+	distutils-r1_python_prepare_all
 }
 
 python_compile(){
@@ -92,6 +93,12 @@ python_install_all(){
 		insinto /usr/share/${PN}/
 		doins -r examples
 	fi
+
+	insinto /etc/revdep-rebuild
+	cat >> "${T}"/40-${PN} <<- EOF
+	SEARCH_DIRS_MASK="${EPREFIX}/opt/modeller/lib/"
+	EOF
+	doins "${T}"/40-${PN}
 }
 
 pkg_postinst() {

@@ -2,6 +2,20 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz> metadata.xml:
+  The metadata of sci-physics/abinit augmented by the description of the etsf_io
+  USE flag.
+
+*abinit-7.4.2 (19 Sep 2013)
+
+  19 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz> -abinit-7.2.2.ebuild,
+  +abinit-7.4.2.ebuild, +files/7.4.2-levmar_diag_scaling.patch,
+  +files/7.4.2-syntax.patch, metadata.xml:
+  Updated to 7.4.2, the new way of testing adopted. Use of atompaw, bigdft,
+  libxc, and wannier90 made optional, driven by USE flags (atompaw, bigdft,
+  libxc, wannier). USE flag levmar for the new optional Levenberg-Marquardt
+  least-squares algorithm support added. Ebuild cleaned up a bit.
+
   20 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
   +files/6.12.3-gui-makefiles.tbz:
   files/6.12.3-gui-makefiles.tbz put back, its deletion was a mistake.
@@ -203,4 +217,3 @@
   An ebuild for abinit-6.4.2 using external dependencies as proper Gentoo
   packages. Based on bug 249493, still work in progress. With USE="smp"
   compiles, but crashes.
-
