@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<maintainer>
+	<email>h.chr@mail.ru</email>
+	<name>Horea Christian</name>
+</maintainer>
+<longdescription lang="en">
+	The package provides read and write access to some common medical and
+	neuroimaging file formats, including: ANALYZE (plain, SPM99, SPM2), GIFTI,
+	NIfTI1, MINC, MGH and ECAT as well as PAR/REC. It can read and write Freesurfer
+	geometry, and read Freesurfer morphometry and annotation files. There is some
+	very limited support for DICOM. NiBabel is the successor of PyNIfTI.
+</longdescription>
+<use>
+	<flag name="dicom">Adds limited read support for the DICOM imaging format.</flag>
+</use>
+</pkgmetadata>
