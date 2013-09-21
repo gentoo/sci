@@ -28,8 +28,9 @@ src_unpack() {
 #	}
 
 src_compile() {
-	export FSLDIR=`pwd`
+	export FSLDIR=${WORKDIR}/${PN}
 	. etc/fslconf/fsl.sh
 	#cd ${FSLDIR}
-	./build	
+	addpredict /etc/ld.so.conf
+	./build
 	}
