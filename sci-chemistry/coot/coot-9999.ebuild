@@ -18,7 +18,7 @@ MY_P=${PN}-${MY_PV}
 
 DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, completion and validation"
 HOMEPAGE="http://www.biop.ox.ac.uk/coot/"
-SRC_URI="test? ( http://www.biop.ox.ac.uk/coot/devel/greg-data.tar.gz )"
+SRC_URI="test? ( http://www2.mrc-lmb.cam.ac.uk/personal/pemsley/coot/data/greg-data.tar.gz )"
 ESVN_REPO_URI="http://coot.googlecode.com/svn/trunk"
 
 SLOT="0"
@@ -174,10 +174,4 @@ src_test() {
 
 	"${S}"/src/coot-real --no-graphics --script command-line-greg.scm || die
 	"${S}"/src/coot-real --no-graphics --script python-tests/coot_unittest.py || die
-}
-
-src_install() {
-	autotools-utils_src_install
-	insinto /usr/share/${PN}
-	doins syminfo.lib
 }

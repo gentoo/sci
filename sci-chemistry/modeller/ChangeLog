@@ -2,6 +2,10 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Sep 2013; Justin Lecher <jlec@gentoo.org> -modeller-9.12-r2.ebuild,
+  +modeller-9.12-r3.ebuild:
+  Mask lib dir for revdep-rebuild, #474696
+
   26 Jun 2013; Justin Lecher <jlec@gentoo.org> -modeller-9.12-r1.ebuild,
   +modeller-9.12-r2.ebuild:
   Fix lib position, #474696

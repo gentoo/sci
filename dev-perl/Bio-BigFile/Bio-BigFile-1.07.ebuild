@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 MODULE_AUTHOR="LDS"
 
@@ -15,7 +15,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND="sci-biology/ucsc-genome-browser"
+RDEPEND="
+	dev-perl/IO-String
+	sci-biology/bioperl
+	sci-biology/ucsc-genome-browser[static-libs]"
 DEPEND="${RDEPEND}
 	virtual/perl-Module-Build"
 
