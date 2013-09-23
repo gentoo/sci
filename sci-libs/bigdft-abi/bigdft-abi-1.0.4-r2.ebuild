@@ -148,7 +148,10 @@ src_compile() {
 	popd > /dev/null
 
 	#autotools-utils_src_compile
-	use doc && autotools-utils_src_compile doc
+	if use doc; then
+		VARTEXFONTS="${T}/fonts"
+		autotools-utils_src_compile doc
+	fi
 }
 
 src_test() {
