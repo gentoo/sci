@@ -13,7 +13,7 @@ SRC_URI="http://cadabra.phi-sci.com/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc examples X"
+IUSE="doc examples X test"
 
 CDEPEND="
 	sci-libs/modglue
@@ -28,18 +28,20 @@ CDEPEND="
 DEPEND="${CDEPEND}
 	doc? (
 		app-doc/doxygen
-		|| ( app-text/texlive-core dev-tex/pdftex ) )"
+		|| ( app-text/texlive-core dev-tex/pdftex ) )
+	test? ( sys-process/time )"
 RDEPEND="${CDEPEND}
 	virtual/latex-base
-	dev-tex/mh"
+	dev-texlive/texlive-latexrecommended"
 
 src_prepare(){
-	# xcadabra doesn't respect LDFLAGS (cadabra does!)
-	epatch "${FILESDIR}/${PN}-1.25-xcadabra-flags.patch"
+	# fixing the flag mess
+	epatch "${FILESDIR}/${PN}-1.33-FLAGS.patch"
 }
 
 src_configure(){
-	econf $(use_enable X gui)
+	econf $(use_enable X gui) \
+		--disable-runtime-dependency-check
 }
 
 src_compile() {
@@ -54,7 +56,9 @@ src_compile() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" DEVDESTDIR="${D}" install
+	# cadabra strip binaries unless you are on OS X. 
+	# So faking it to avoid outright stripping.
+	emake DESTDIR="${D}" DEVDESTDIR="${D}" MACTEST=1 install
 
 	dodoc AUTHORS ChangeLog INSTALL
 

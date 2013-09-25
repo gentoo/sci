@@ -8,11 +8,10 @@ PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
 
 inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs
 
-REAL_P="${P/_pre/-dev.}"
 
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
-HOMEPAGE="http://inac.cea.fr/L_Sim/BigDFT/"
-SRC_URI="http://forge.abinit.org/fallbacks/${REAL_P}.tar.gz"
+HOMEPAGE="http://www.abinit.org/downloads/plug-in-sources"
+SRC_URI="http://forge.abinit.org/fallbacks/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -20,20 +19,15 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE="cuda doc etsf_io mpi netcdf openmp opencl test"
 
 RDEPEND="
-	=sci-libs/libxc-1*[fortran]
+	>=sci-libs/libxc-1.2.0-r1[fortran]
 	virtual/blas
 	virtual/fortran
 	virtual/lapack
 	dev-libs/libyaml
 	mpi? ( virtual/mpi )
 	cuda? ( dev-util/nvidia-cuda-sdk )
-	opencl? (
-		|| (
-			dev-util/nvidia-cuda-sdk
-			dev-util/amdstream
-			)
-		)
-	etsf_io? ( sci-libs/etsf_io )
+	opencl? ( virtual/opencl )
+	etsf_io? ( >=sci-libs/etsf_io-1.0.3-r2 )
 	netcdf? ( || (
 				sci-libs/netcdf[fortran]
 				sci-libs/netcdf-fortran
@@ -43,12 +37,11 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	>=sys-devel/autoconf-2.59
 	doc? ( virtual/latex-base )
-	cuda? ( ${PYTHON_DEPS} )
-	opencl? ( ${PYTHON_DEPS} )
+	${PYTHON_DEPS}
+	dev-python/pyyaml[libyaml]
+	dev-util/gdbus-codegen
 	app-arch/tar
 	app-arch/gzip"
-
-S="${WORKDIR}/${REAL_P}"
 
 DOCS=( README INSTALL ChangeLog AUTHORS NEWS )
 
@@ -64,30 +57,58 @@ pkg_setup() {
 		tc-export FC F77 CC
 	fi
 
+	# This should be correct.
+	#   It is gcc-centric because toolchain-funcs.eclass is gcc-centric.
+	#   Should a bug be filed against toolchain-funcs.eclass?
+	# if use openmp; then
+		#         tc-has-openmp || \
+		#                 die "Please select an openmp capable compiler like gcc[openmp]"
+		# fi
+	#
+	# Luckily Abinit is a fortran package.
+	#   fortran-2.eclass has its own test for OpenMP support,
+	#   more general than toolchain-funcs.eclass
+	#   The test itself proceeds inside fortran-2_pkg_setup
+	if use openmp; then FORTRAN_NEED_OPENMP=1; fi
+
 	fortran-2_pkg_setup
-	if use openmp && [[ $(tc-getCC)$ == *gcc* ]] &&	! tc-has-openmp; then
-		die "Please select an openmp capable compiler like gcc[openmp]"
-	fi
 	python-any-r1_pkg_setup
 }
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/"${REAL_P}"-libxc_dir_include.patch \
-		"${FILESDIR}"/"${REAL_P}"-GPUlink.patch \
-		"${FILESDIR}"/"${REAL_P}"-nolib_mods.patch
-	tar -xjf "${FILESDIR}"/"${REAL_P}"-tests.tar.bz2 -C "${S}"/tests/DFT/postSCF/
+		"${FILESDIR}"/"${P}"-CUDA_gethostname.patch
+
+	tar -xjf "${FILESDIR}"/"${P}"-tests.tar.bz2 -C "${S}"/tests/DFT/
 	eautoreconf
 }
 
 src_configure() {
 	local openmp=""
-	use openmp && openmp="-fopenmp"
-	local modules="${EPREFIX}/usr/$(get_libdir)/finclude"
+	if use openmp; then
+		# based on _fortran-has-openmp() of fortran-2.eclass
+		local fcode=ebuild-openmp-flags.f
+		local _fc=$(tc-getFC)
+
+		cat <<- EOF > "${fcode}"
+		1     call omp_get_num_threads
+		2     end
+		EOF
+
+		for openmp in -fopenmp -xopenmp -openmp -mp -omp -qsmp=omp; do
+			${_fc} ${openmp} "${fcode}" -o "${fcode}.x" && break
+		done
+
+		rm -f "${fcode}.*"
+	fi
+	local modules="${EPREFIX}/usr/include"
+#	local Imodules="-I${modules}"
+	local Imodules=""
 	local netcdff_libs="-lnetcdff"
 	filter-flags '-m*' '-O*' "-pipe"
 	local nvcflags="${CFLAGS}"
-	_filter-var nvcflags '-m*' '-O*' "-pipe"
+	_filter-var nvcflags '-m*' '-O*' "-pipe" "-W*"
+	use cuda && filter-ldflags '-m*' '-O*' "-pipe" "-W*"
 	local myeconfargs=(
 		$(use_enable mpi)
 		--enable-optimised-convolution
@@ -102,16 +123,16 @@ src_configure() {
 			$($(tc-getPKG_CONFIG) --libs-only-l blas)"
 		--with-ext-linalg-path="$($(tc-getPKG_CONFIG) --libs-only-L lapack) \
 			$($(tc-getPKG_CONFIG) --libs-only-L blas)"
-		--enable-libxc
+		--with-libxc="yes"
 		--disable-internal-libxc
-		--with-libxc-include="${modules}"
 		$(use_enable cuda cuda-gpu)
 		$(use_with cuda cuda-path /opt/cuda)
 		$(use_with cuda nvcc-flags "${nvcflags}")
 		$(use_enable opencl)
 		$(use_with etsf_io etsf-io)
 		"$(use etsf_io && echo "--with-netcdf-libs=$($(tc-getPKG_CONFIG) --libs netcdf) ${netcdff_libs}")"
-		FCFLAGS="${FCFLAGS} ${openmp} -I${modules}"
+		PKG_CONFIG="$(tc-getPKG_CONFIG)"
+		FCFLAGS="${FCFLAGS} ${openmp} ${Imodules}"
 		LD="$(tc-getLD)"
 		CPP="$(tc-getCPP)"
 		)
@@ -127,7 +148,10 @@ src_compile() {
 	popd > /dev/null
 
 	#autotools-utils_src_compile
-	use doc && autotools-utils_src_compile doc
+	if use doc; then
+		VARTEXFONTS="${T}/fonts"
+		autotools-utils_src_compile doc
+	fi
 }
 
 src_test() {
@@ -143,5 +167,5 @@ src_test() {
 }
 
 src_install() {
-	autotools-utils_src_install HAVE_LIBXC=1
+	autotools-utils_src_install
 }
