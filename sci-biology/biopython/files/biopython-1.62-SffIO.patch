@@ -1,0 +1,36 @@
+--- Bio/SeqIO/SffIO.py.ori	2013-09-25 13:28:51.000000000 +0200
++++ Bio/SeqIO/SffIO.py	2013-09-25 13:37:44.000000000 +0200
+@@ -383,7 +383,14 @@
+         if padding:
+             padding = 8 - padding
+             if handle.read(padding).count(_null) != padding:
+-                raise ValueError("Post quality %i byte padding region contained data"
++                import warnings
++                from Bio import BiopythonParserWarning
++                warnings.warn("Your SFF file is valid but post quality %i byte "
++                              "padding region contains UNUSED data. Was the "
++                              "SFF file created by SRA sff-dump >2.1.7 and <2.1.10? "
++                              "It did not clear some internal buffer while writing "
++                              "out new data so that previous values remained in the"
++                              "output unless overwritten by new real values."
+                                  % padding)
+         #print read, name, record_offset
+         yield name, record_offset
+--- Bio/SeqIO/SffIO.py.ori	2013-09-25 14:07:14.000000000 +0200
++++ Bio/SeqIO/SffIO.py	2013-09-25 14:08:59.000000000 +0200
+@@ -596,7 +596,14 @@
+     if padding:
+         padding = 8 - padding
+         if handle.read(padding).count(_null) != padding:
+-            raise ValueError("Post quality %i byte padding region contained data"
++            import warnings
++            from Bio import BiopythonParserWarning
++            warnings.warn("Your SFF file is valid but post quality %i byte "
++                          "padding region contains UNUSED data. Was the "
++                          "SFF file created by SRA sff-dump >2.1.7 and <2.1.10? "
++                          "It did not clear some internal buffer while writing "
++                          "out new data so that previous values remained in the"
++                          "output unless overwritten by new real values."
+                              % padding)
+     #Follow Roche and apply most aggressive of qual and adapter clipping.
+     #Note Roche seems to ignore adapter clip fields when writing SFF,
