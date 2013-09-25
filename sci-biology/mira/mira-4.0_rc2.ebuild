@@ -44,9 +44,11 @@ src_prepare() {
 		-e "s:-funroll-loops::g" \
 		-i configure.ac || die
 
-	ln -s config/m4 .
-	AT_M4DIR="config/m4" eaclocal
-	AT_M4DIR="config/m4" eautoreconf
+	sed \
+		-e 's:m4:config/m4:g' \
+		-i Makefile.am configure.ac || die
+
+	eautoreconf
 }
 
 src_configure() {
