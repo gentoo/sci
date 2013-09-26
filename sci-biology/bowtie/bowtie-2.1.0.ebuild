@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils flag-o-matic toolchain-funcs
+inherit eutils toolchain-funcs
 
 DESCRIPTION="An ultrafast memory-efficient short read aligner"
 HOMEPAGE="http://bowtie-bio.sourceforge.net/"
@@ -12,23 +12,19 @@ SRC_URI="mirror://sourceforge/bowtie-bio/${P}-source.zip"
 
 LICENSE="GPL-3"
 SLOT="2"
-IUSE="sse2 examples"
+IUSE="examples"
 KEYWORDS="~amd64 ~x86"
 
-CDEPEND="dev-lang/perl"
-DEPEND="${CDEPEND} \
+RDEPEND="dev-lang/perl"
+DEPEND="${RDEPEND}
 		app-arch/unzip"
-RDEPEND="${CDEPEND}"
 
 S="${WORKDIR}/${PN}2-${PV}"
 
 pkg_pretend() {
-	if ! use sse2 ; then
-		ebegin
-		eerror "bowtie2 requires sse2 support. Please make sure your system supports"
-		eerror "sse2 and enable the sse2 use flag."
-		eend
-		die
+	grep "sse2" /proc/cpuinfo > /dev/null
+	if [[ $? -ne 0 ]] ; then
+		ewarn "Your processor does not support sse2. Bowtie will probably not work on this machine."
 	fi
 }
 
@@ -37,12 +33,11 @@ src_prepare() {
 }
 
 src_compile() {
-	use sse2 && append-cxxflags -msse2
 	emake \
 		CC="$(tc-getCC)" \
 		CPP="$(tc-getCXX)" \
 		EXTRA_FLAGS="${LDFLAGS}" \
-		RELEASE_FLAGS="${CXXFLAGS}"
+		RELEASE_FLAGS="${CXXFLAGS} -msse2"
 }
 
 src_install() {
