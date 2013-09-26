@@ -182,6 +182,7 @@ src_prepare() {
 		"${FILESDIR}"/7.4.2-syntax.patch
 	eautoreconf
 	sed -e"s/\(grep '\^-\)\(\[LloW\]\)'/\1\\\(\2\\\|pthread\\\)'/g" -i configure
+	python_fix_shebang "${S}"/tests
 }
 
 src_configure() {
@@ -234,6 +235,7 @@ src_configure() {
 	local myeconfargs=(
 		--enable-clib
 		--enable-exports
+		--enable-pkg-check
 		$(use_enable debug debug enhanced)
 		$(use_enable mpi)
 		$(use_enable mpi mpi-io)
@@ -263,7 +265,7 @@ src_configure() {
 		"$(use bigdft && echo "--with-bigdft-incs=${modules}")"
 		"$(use bigdft && echo "--with-bigdft-libs=$($(tc-getPKG_CONFIG) --libs bigdft)")"
 		"$(use libxc && echo "--with-libxc-incs=${modules}")"
-		"$(use libxc && echo "--with-libxc-libs=-lxc")"
+		"$(use libxc && echo "--with-libxc-libs=$($(tc-getPKG_CONFIG) --libs libxc)")"
 		"$(use wannier && echo "--with-wannier90-bins=/usr/bin")"
 		"$(use wannier && echo "--with-wannier90-incs=${modules}")"
 		"$(use wannier && echo "--with-wannier90-libs=-lwannier $($(tc-getPKG_CONFIG) --libs lapack)")"
@@ -293,17 +295,8 @@ src_compile() {
 
 src_test() {
 	einfo "The tests take quite a while, easily several hours or even days"
-	# autotools-utils_src_test() expanded
-	_check_build_dir
-	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
-	# again something the autotools-utils function cannot be called to do
-	# now quite a lot of work actually
-	mkdir -p tests
 
-	python2 "${S}"/tests/runtests.py -w tests/ -b "${AUTOTOOLS_BUILD_DIR}"
-
-	popd > /dev/null
-
+	autotools-utils_src_test
 }
 
 src_install() {

@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz> abinit-7.4.2.ebuild:
+  sci-physics/abinit-7.4.2 finally made to actually build and install (tests
+  have to be configured for their Makefile to be where it is looked for during
+  the installation). Testing scripts, written for Python 2, made to run in an
+  environment with Python 3 selected as the main interpreter.
+
   19 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz> metadata.xml:
   The metadata of sci-physics/abinit augmented by the description of the etsf_io
   USE flag.
