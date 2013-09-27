@@ -15,7 +15,7 @@ diff --git a/src/arch/net/charmrun/charmrun.c b/src/arch/net/charmrun/charmrun.c
 index 6837712..bf370c1 100644
 --- a/src/arch/net/charmrun/charmrun.c
 +++ b/src/arch/net/charmrun/charmrun.c
-@@ -454,8 +454,28 @@ static int pparam_setdef(def, value)
+@@ -454,8 +454,27 @@ static int pparam_setdef(def, value)
        if (*p) return -1;
        return 0;
      case 's' :
