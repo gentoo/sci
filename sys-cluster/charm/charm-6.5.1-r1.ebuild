@@ -23,6 +23,7 @@ DEPEND="
 		dev-tex/latex2html
 		virtual/tex-base
 		dev-python/beautifulsoup
+		media-libs/netpbm
 	)"
 
 REQUIRED_USE="
