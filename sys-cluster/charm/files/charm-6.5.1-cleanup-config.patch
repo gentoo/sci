@@ -1,7 +1,7 @@
-From 04639c20479564a2b5e662d90de953e3f37b0360 Mon Sep 17 00:00:00 2001
+From b0af812652269a59457ad1bbf57165c0543bcd07 Mon Sep 17 00:00:00 2001
 From: Nicolas Bock <nicolasbock@gmail.com>
-Date: Tue, 23 Jul 2013 11:19:22 -0600
-Subject: [PATCH] Commented out colliding defines in conv-autoconfig.h
+Date: Fri, 27 Sep 2013 10:49:52 -0600
+Subject: [PATCH 1/4] Commented out colliding defines in conv-autoconfig.h
 
 The colliding defines (bug #252) are commented out in configure.
 ---
@@ -10,7 +10,7 @@ The colliding defines (bug #252) are commented out in configure.
  2 files changed, 8 insertions(+)
 
 diff --git a/src/scripts/configure b/src/scripts/configure
-index 2629834..03dc778 100755
+index acd582c..faf268f 100755
 --- a/src/scripts/configure
 +++ b/src/scripts/configure
 @@ -1703,6 +1703,9 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
@@ -23,7 +23,7 @@ index 2629834..03dc778 100755
  CHARMINC="."
  test -r ./conv-config.sh && . ./conv-config.sh
  
-@@ -5201,6 +5204,7 @@ for ac_config_target in $ac_config_targets
+@@ -5259,6 +5262,7 @@ for ac_config_target in $ac_config_targets
  do
    case $ac_config_target in
      "conv-autoconfig.h") CONFIG_HEADERS="$CONFIG_HEADERS conv-autoconfig.h" ;;
@@ -31,7 +31,7 @@ index 2629834..03dc778 100755
      "libs/ck-libs/ampi/ampiCC") CONFIG_FILES="$CONFIG_FILES libs/ck-libs/ampi/ampiCC" ;;
      "libs/ck-libs/ampi/ampirun") CONFIG_FILES="$CONFIG_FILES libs/ck-libs/ampi/ampirun" ;;
      "default") CONFIG_COMMANDS="$CONFIG_COMMANDS default" ;;
-@@ -5754,6 +5758,7 @@ $as_echo "$as_me: executing $ac_file commands" >&6;}
+@@ -5812,6 +5816,7 @@ $as_echo "$as_me: executing $ac_file commands" >&6;}
  
  
    case $ac_file$ac_mode in
@@ -40,7 +40,7 @@ index 2629834..03dc778 100755
   ;;
  
 diff --git a/src/scripts/configure.in b/src/scripts/configure.in
-index 69e5318..2cb18b6 100644
+index d1285ed..cad9a42 100644
 --- a/src/scripts/configure.in
 +++ b/src/scripts/configure.in
 @@ -3,6 +3,9 @@ AC_INIT(./Makefile)

@@ -22,6 +22,7 @@ DEPEND="
 		>=app-text/poppler-0.12.3-r3[utils]
 		dev-tex/latex2html
 		virtual/tex-base
+		dev-python/beautifulsoup
 	)"
 
 REQUIRED_USE="
@@ -112,8 +113,10 @@ src_test() {
 }
 
 src_install() {
-	# Make charmc play well with gentoo before we move it into /usr/bin.
-	epatch "${FILESDIR}/charm-6.5.0-charmc-gentoo.patch"
+	# Make charmc play well with gentoo before we move it into /usr/bin. This
+	# patch cannot be applied during src_prepare() because the charmc wrapper
+	# is used during building.
+	epatch "${FILESDIR}/charm-6.5.1-charmc-gentoo.patch"
 
 	sed -e "s|gentoo-include|${P}|" \
 		-e "s|gentoo-libdir|$(get_libdir)|g" \

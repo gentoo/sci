@@ -1,7 +1,7 @@
-From f9cc5724818141201ba201e698c21aea62ecd362 Mon Sep 17 00:00:00 2001
+From 6b537784e9c345dee7f7cfd108c6abc779a969ae Mon Sep 17 00:00:00 2001
 From: Nicolas Bock <nicolasbock@gmail.com>
-Date: Thu, 5 Sep 2013 04:04:06 -0600
-Subject: [PATCH] Fixed bug in CkReductionMgr::reduceMessages().
+Date: Fri, 27 Sep 2013 10:50:45 -0600
+Subject: [PATCH 2/4] Fixed bug in CkReductionMgr::reduceMessages().
 
 The first contribution of a child node is a single message. In this case
 CkReductionMgr::reduceMessages() simply returns the message without calling
@@ -17,10 +17,10 @@ message.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/ck-core/ckreduction.C b/src/ck-core/ckreduction.C
-index f2ac8cd..d94f5b1 100644
+index 07853a2..ef3e906 100644
 --- a/src/ck-core/ckreduction.C
 +++ b/src/ck-core/ckreduction.C
-@@ -862,7 +862,7 @@ CkReductionMsg *CkReductionMgr::reduceMessages(void)
+@@ -850,7 +850,7 @@ CkReductionMsg *CkReductionMgr::reduceMessages(void)
    else
    {//Use the reducer to reduce the messages
  		//if there is only one msg to be reduced just return that message

@@ -1,21 +1,21 @@
-From 7a8bf20508f54a223c13e62c7c485a7de4aaeba0 Mon Sep 17 00:00:00 2001
+From 14f407a5d183cdac7029cc54a9d8ae6b0cb5cbcd Mon Sep 17 00:00:00 2001
 From: Nicolas Bock <nicolasbock@gmail.com>
-Date: Wed, 11 Sep 2013 14:13:30 -0600
-Subject: [PATCH] charmrun.c: parsing of strings now parses "\n" into '\n'
+Date: Fri, 27 Sep 2013 10:52:18 -0600
+Subject: [PATCH 3/4] charmrun.c: parsing of strings now parses "\n" into '\n'
 
 Since gdb lacks anything like ';' to separate several commands in one line,
 the commands need to be separated by a newline character. I have added some
 parsing logic so that the string "\n" will now be translated into the
 character '\n'.
 ---
- src/arch/net/charmrun/charmrun.c | 24 ++++++++++++++++++++++--
- 1 file changed, 22 insertions(+), 2 deletions(-)
+ src/arch/net/charmrun/charmrun.c | 23 +++++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/src/arch/net/charmrun/charmrun.c b/src/arch/net/charmrun/charmrun.c
-index 6837712..bf370c1 100644
+index 6837712..8818cf8 100644
 --- a/src/arch/net/charmrun/charmrun.c
 +++ b/src/arch/net/charmrun/charmrun.c
-@@ -454,8 +454,28 @@ static int pparam_setdef(def, value)
+@@ -454,8 +454,27 @@ static int pparam_setdef(def, value)
        if (*p) return -1;
        return 0;
      case 's' :
