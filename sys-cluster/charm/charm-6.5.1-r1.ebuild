@@ -4,6 +4,8 @@
 
 EAPI=5
 
+PYTHON_DEPEND="doc? 2"
+
 inherit eutils flag-o-matic fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="Message-passing parallel language and runtime system"

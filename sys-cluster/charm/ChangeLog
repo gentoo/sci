@@ -3,6 +3,9 @@
 # $Header: $
 
   27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.1-r1.ebuild:
+  sys-cluster/charm-6.5.1-r1: doc depends on python-2
+
+  27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.1-r1.ebuild:
   sys-cluster/charm-6.5.1-r1: Added another missing DEPEND.
 
   27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
