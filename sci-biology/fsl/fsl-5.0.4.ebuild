@@ -30,7 +30,7 @@ src_unpack() {
 src_compile() {
 	export FSLDIR=${WORKDIR}/${PN}
 	. etc/fslconf/fsl.sh
-	#cd ${FSLDIR}
 	addpredict /etc/ld.so.conf
+	addpredict /etc/ld.so.cache
 	./build
 	}
