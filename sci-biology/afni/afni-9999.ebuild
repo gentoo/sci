@@ -26,15 +26,26 @@ DEPEND="
 	"
 
 S=${WORKDIR}/${URI_BASE_NAME}
+BUILD="linux_fedora_19_64"
 
 src_unpack() {
 	wget "${URI_BASE}${URI_BASE_NAME}.tgz"
 	unpack "./${URI_BASE_NAME}.tgz"
 	}
 
+src_prepare() {
+	sed -e 's/-V 32//g' -i other_builds/Makefile.${BUILD} # they provide somewhat problematic makefiles :(
+	cp other_builds/Makefile.${BUILD} Makefile # some Makefile under ptaylor looks
+	# for the parent makefile at "Makefile".	
+	}
+
 src_compile() {
-	sed -e 's/-V 32//g' -i Makefile.linux_xorg7_64 # they provide somewhat problematic makefiles :(
-	# sed -i 's/..\/MakeFile/.\/MakeFile/g' ./afni_src/ptaylor # they provide somewhat problematic makefiles :(
-	cp Makefile.linux_xorg7_64 Makefile # some Makefile under ptaylor looks for the parent makefile at "Makefile".
-	emake -j1 totality suma XLIBS="-lXm -lXt" LGIFTI=-lexpat
+	emake -j1 totality # suma XLIBS="-lXm -lXt" LGIFTI=-lexpat
+	}
+
+src_install() {
+	insinto /opt/${PN}
+	doins -r "${S}/${BUILD}"/*
+	echo "LDPATH=/opt/afni" >> "${T}"/95${PN} || die "Can't write environment variable."
+	doenvd "${T}"/95${PN}
 	}
