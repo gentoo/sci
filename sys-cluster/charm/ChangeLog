@@ -10,6 +10,10 @@
   sys-clyster/charm-6.5.1-r1: Fix missing DEPEND.  This addresses bug 486202.
   The ebuild had a missing DEPEND using the doc USE flag.
 
+  27 Sep 2013; Christoph Junghans <ottxor@gentoo.org>
+  files/charm-6.5.1-fix-string-parsing.patch:
+  fix broken patch
+
   14 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
   files/charm-6.5.1-fix-string-parsing.patch:
   sys-cluster/charm-6.5.1: Small fix in patch to make printing less verbose.
