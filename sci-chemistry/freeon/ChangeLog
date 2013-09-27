@@ -2,6 +2,16 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*freeon-1.0.4 (27 Sep 2013)
+
+  27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +freeon-1.0.4.ebuild,
+  -files/freeon-2012.05.03-no_internal_hdf5.patch,
+  -files/freeon-9999-no_internal_hdf5.patch, -freeon-2012.05.03.ebuild,
+  -freeon-2013.09.12.ebuild, -freeon-2013.09.16.ebuild:
+  sci-chemistry/freeon-1.0.4: Version bump.  I also removed older versions from
+  before the new versioning scheme. This includes the patches, which are not
+  needed anymore.
+
   20 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> freeon-1.0.3.ebuild:
   sci-chemistry/freeon-1.0.3: Fixed broken ebuild.
 
