@@ -3,6 +3,10 @@
 # $Header: $
 
   27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.1-r1.ebuild:
+  sys-cluster/charm-6.5.1-r1: Added python dependencies  The documentation is
+  built partly with python2.x scripts. I added the necessary dependencies.
+
+  27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.1-r1.ebuild:
   sys-cluster/charm-6.5.1-r1: doc depends on python-2
 
   27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.1-r1.ebuild:

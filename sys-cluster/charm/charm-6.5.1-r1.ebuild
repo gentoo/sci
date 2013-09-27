@@ -4,9 +4,9 @@
 
 EAPI=5
 
-PYTHON_DEPEND="doc? 2"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit eutils flag-o-matic fortran-2 multilib toolchain-funcs
+inherit eutils flag-o-matic fortran-2 multilib toolchain-funcs python-single-r1
 
 DESCRIPTION="Message-passing parallel language and runtime system"
 HOMEPAGE="http://charm.cs.uiuc.edu/"
@@ -24,11 +24,13 @@ DEPEND="
 		>=app-text/poppler-0.12.3-r3[utils]
 		dev-tex/latex2html
 		virtual/tex-base
-		dev-python/beautifulsoup
+		>=dev-python/beautifulsoup-4
 		media-libs/netpbm
+		${PYTHON_DEPS}
 	)"
 
 REQUIRED_USE="
+    doc? ( ${PYTHON_REQUIRED_USE} )
 	cmkopt? ( !charmdebug !charmtracing )
 	charmproduction? ( !charmdebug !charmtracing )"
 
@@ -99,15 +101,19 @@ src_prepare() {
 }
 
 src_compile() {
+	local mybuildoptions="$(usex mpi "mpi" "net")-linux$(usex amd64 "-amd64" '') $(get_opts) ${MAKEOPTS} ${CFLAGS}"
+
 	# Build charmm++ first.
-	einfo "running ./build charm++ $(usex mpi 'mpi' 'net')-linux$(usex amd64 '-amd64' '') $(get_opts) ${MAKEOPTS} ${CFLAGS}"
-	./build charm++ $(usex mpi "mpi" "net")-linux$(usex amd64 "-amd64" '') \
-		$(get_opts) ${MAKEOPTS} ${CFLAGS} || die "Failed to build charm++"
+	einfo "running ./build charm++ ${mybuildoptions}"
+	./build charm++ ${mybuildoptions} || die "Failed to build charm++"
 
 	# make pdf/html docs
 	if use doc; then
-		cd "${S}"/doc
-		make doc || die "failed to create pdf/html docs"
+		python-single-r1_pkg_setup
+		python_fix_shebang ${S}/doc
+		einfo "forcing ${EPYTHON}"
+		einfo "running ./build doc ${mybuildoptions}"
+		./build doc ${mybuildoptions} || die "Failed to build charm++ documentation"
 	fi
 }
 
