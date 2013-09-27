@@ -21,12 +21,13 @@ DEPEND="${RDEPEND}
 RDEPEND=">=sci-mathematics/octave-3.6.4
 	"
 
-S=${WORKDIR}/${PN}
+S=${WORKDIR}/${PN}${PV}
 
 src_unpack() {
 	# We have to do this inside of here, since it's a live ebuild. :-(
 	wget "${URI_BASE}${PN}${PV}.zip" || die
 	unpack "./${PN}${PV}.zip"
+	echo "MEXOPTS += -v" >> src/Makefile.var
 	}
 
 src_prepare() {
@@ -42,6 +43,7 @@ src_compile() {
 src_install() {
         emake -C src -j1 install PLATFORM=octave
         emake -C src -j1 toolbox-install PLATFORM=octave
+	rm -rf src
 	insinto $(octave-config --m-site-dir)
 	doins -r "${S}"/*.m
 }
