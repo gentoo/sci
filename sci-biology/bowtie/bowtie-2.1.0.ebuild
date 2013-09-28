@@ -8,7 +8,7 @@ inherit eutils toolchain-funcs
 
 DESCRIPTION="An ultrafast memory-efficient short read aligner"
 HOMEPAGE="http://bowtie-bio.sourceforge.net/"
-SRC_URI="mirror://sourceforge/bowtie-bio/${P}-source.zip"
+SRC_URI="mirror://sourceforge/project/${PN}-bio/${PN}2/${PV}/${PN}2-${PV}-source.zip"
 
 LICENSE="GPL-3"
 SLOT="2"
@@ -41,11 +41,11 @@ src_compile() {
 }
 
 src_install() {
-	dobin bowtie2 bowtie2-*
+	dobin ${PN}2 ${PN}2-*
 	exeinto /usr/share/${PN}2/scripts
 	doexe scripts/*
 
-	newman MANUAL bowtie2.1
+	newman MANUAL ${PN}2.1
 	dodoc AUTHORS NEWS TUTORIAL
 	dohtml doc/manual.html doc/style.css
 
