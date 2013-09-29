@@ -8,7 +8,7 @@ inherit pax-utils
 
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"
-SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.tgz" # SRC_URI is left blank on live ebuild
+SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.tgz"
 
 LICENSE="GPL-3+"
 SLOT="0"
