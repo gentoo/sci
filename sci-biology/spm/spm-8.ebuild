@@ -39,9 +39,8 @@ src_compile() {
 }
 
 src_install() {
-        emake -C src -j1 install PLATFORM=octave
-        emake -C src -j1 toolbox-install PLATFORM=octave
-	rm -rf src
+	emake -C src -j1 install PLATFORM=octave
+	emake -C src -j1 toolbox-install PLATFORM=octave
 	insinto $(octave-config --m-site-dir)
 	doins -r "${S}"/*.m
 }
