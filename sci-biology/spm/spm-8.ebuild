@@ -4,8 +4,6 @@
 
 EAPI=5
 
-inherit unpacker
-
 DESCRIPTION="Analysis of brain imaging data sequences for Octave or Matlab"
 HOMEPAGE="http://www.fil.ion.ucl.ac.uk/spm/"
 URI_BASE="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/"
