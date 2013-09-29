@@ -29,8 +29,8 @@ S=${WORKDIR}/afni_src
 BUILD="linux_fedora_19_64"
 
 src_prepare() {
-	sed -e 's/-V 32//g' -i other_builds/Makefile.${BUILD} # they provide somewhat problematic makefiles :(
-	cp other_builds/Makefile.${BUILD} Makefile # some Makefile under ptaylor looks
+	sed -e 's/-V 32//g' -i other_builds/Makefile.${BUILD} || die # they provide somewhat problematic makefiles :(
+	cp other_builds/Makefile.${BUILD} Makefile || die # some Makefile under ptaylor looks
 	# for the parent makefile at "Makefile".	
 	}
 
