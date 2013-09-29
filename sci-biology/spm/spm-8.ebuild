@@ -7,28 +7,23 @@ EAPI=5
 DESCRIPTION="Analysis of brain imaging data sequences for Octave or Matlab"
 HOMEPAGE="http://www.fil.ion.ucl.ac.uk/spm/"
 URI_BASE="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/"
-SRC_URI="" # SRC_URI is left blank on live ebuild
+SRC_URI="${URI_BASE}${PN}${PV}.zip"
 
 LICENSE="GPL-2+"
 SLOT="8"
 KEYWORDS=""
 
-DEPEND="${RDEPEND}
-	"
-
 RDEPEND=">=sci-mathematics/octave-3.6.4
 	"
 
+DEPEND="${RDEPEND}
+	"
+
+
 S=${WORKDIR}/${PN}${PV}
 
-src_unpack() {
-	# We have to do this inside of here, since it's a live ebuild. :-(
-	wget "${URI_BASE}${PN}${PV}.zip" || die
-	unpack "./${PN}${PV}.zip"
-	echo "MEXOPTS += -v" >> src/Makefile.var
-	}
-
 src_prepare() {
+	echo "MEXOPTS += -v" >> src/Makefile.var
 	emake -C src distclean PLATFORM=octave
 	emake -C src toolbox-distclean PLATFORM=octave
 }
