@@ -35,7 +35,7 @@ src_prepare() {
 	}
 
 src_compile() {
-	emake -j1 totality # suma XLIBS="-lXm -lXt" LGIFTI=-lexpat
+	emake -j1 totality
 	}
 
 src_install() {
@@ -44,7 +44,6 @@ src_install() {
 	echo "LDPATH=/opt/afni" >> "${T}"/95${PN} || die "Can't write environment variable."
 	doenvd "${T}"/95${PN}
 
-	mkdir -p "${D}/usr/bin"
-	cp ${S}/${BUILD}/${PN} "${D}/usr/bin/${PN}"
+	dobin "${S}/${BUILD}/${PN}"
 	pax-mark m "${D}/usr/bin/${PN}"
 	}
