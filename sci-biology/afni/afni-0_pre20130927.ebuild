@@ -8,7 +8,7 @@ inherit pax-utils
 
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"
-SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.tgz" # SRC_URI is left blank on live ebuild
+SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.tgz"
 
 LICENSE="GPL-3+"
 SLOT="0"
@@ -33,13 +33,13 @@ S=${WORKDIR}/afni_src
 BUILD="linux_fedora_19_64"
 
 src_prepare() {
-	sed -e 's/-V 32//g' -i other_builds/Makefile.${BUILD} # they provide somewhat problematic makefiles :(
-	cp other_builds/Makefile.${BUILD} Makefile # some Makefile under ptaylor looks
+	sed -e 's/-V 32//g' -i other_builds/Makefile.${BUILD} || die # they provide somewhat problematic makefiles :(
+	cp other_builds/Makefile.${BUILD} Makefile || die # some Makefile under ptaylor looks
 	# for the parent makefile at "Makefile".	
 	}
 
 src_compile() {
-	emake -j1 totality # suma XLIBS="-lXm -lXt" LGIFTI=-lexpat
+	emake -j1 totality
 	}
 
 src_install() {
@@ -48,7 +48,6 @@ src_install() {
 	echo "LDPATH=/opt/afni" >> "${T}"/95${PN} || die "Can't write environment variable."
 	doenvd "${T}"/95${PN}
 
-	mkdir -p "${D}/usr/bin"
-	cp ${S}/${BUILD}/${PN} "${D}/usr/bin/${PN}"
+	dobin "${S}/${BUILD}/${PN}"
 	pax-mark m "${D}/usr/bin/${PN}"
 	}
