@@ -18,6 +18,10 @@ IUSE=""
 RDEPEND="
 	"
 
+# x11-libs/motif[static-libs] breaks the build. 
+# See upstream discussion 
+# http://afni.nimh.nih.gov/afni/community/board/read.php?1,85348,85348#msg-85348
+
 DEPEND="
 	x11-libs/motif[-static-libs]
 	app-shells/tcsh
