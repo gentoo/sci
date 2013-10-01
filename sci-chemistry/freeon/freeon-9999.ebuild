@@ -5,7 +5,6 @@
 EAPI=5
 
 AUTOTOOLS_AUTORECONF=1
-
 FORTRAN_STANDARD=90
 
 inherit autotools-utils fortran-2 git-2
@@ -20,7 +19,7 @@ EGIT_BOOTSTRAP="fix_localversion.sh"
 LICENSE="GPL-3"
 SLOT="live"
 KEYWORDS="~amd64 ~x86"
-IUSE="static-libs"
+IUSE="standalone-BCSR static-libs"
 
 RDEPEND="
 	sci-libs/hdf5
@@ -28,3 +27,10 @@ RDEPEND="
 	virtual/lapack"
 DEPEND="${DEPEND}
 	virtual/pkgconfig"
+
+src_configure() {
+	local myeconfargs=(
+		$(use_enable standalone-BCSR)
+	)
+	autotools-utils_src_configure
+}
