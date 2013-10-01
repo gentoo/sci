@@ -24,7 +24,8 @@ DEPEND="
 		>=app-text/poppler-0.12.3-r3[utils]
 		dev-tex/latex2html
 		virtual/tex-base
-		>=dev-python/beautifulsoup-4
+		>=dev-python/beautifulsoup-4[${PYTHON_USEDEP}]
+		dev-python/lxml[${PYTHON_USEDEP}]
 		media-libs/netpbm
 		${PYTHON_DEPS}
 	)"
