@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Software library containing image analysis and statistical tools for functional, structural and diffusion MRI brain imaging data"
+DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
 SRC_URI="http://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz"
 
@@ -19,7 +19,7 @@ RDEPEND="${COMMON_DEPEND}"
 
 S=${WORKDIR}/${PN}
 
-TARGET_PATH="/usr/lib/fsl"
+TARGET_PATH="/usr/lib64/fsl"
 
 src_compile() {
 
@@ -34,7 +34,7 @@ src_compile() {
 		ln -sfn linux_64-gcc4.4 linux_64-gcc4.7 && 
 		cd .. || die 
 
-	./build
+	./build || die
 }
 
 src_install() {
