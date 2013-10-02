@@ -13,24 +13,42 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-RDEPEND=""
-
-DEPEND=""
+COMMON_DEPEND="media-libs/glu"
+DEPEND="${COMMON_DEPEND}"
+RDEPEND="${COMMON_DEPEND}"
 
 S=${WORKDIR}/${PN}
 
-src_unpack() {
-	unpack "${P}-sources.tar.gz"
-	}
-
-#src_configure() {   #throws an error about no configure script being found
-#	LDCONFIG="true" econf
-#	}
+TARGET_PATH="/usr/lib/fsl"
 
 src_compile() {
+
 	export FSLDIR=${WORKDIR}/${PN}
-	. etc/fslconf/fsl.sh
+	source etc/fslconf/fsl.sh
 	addpredict /etc/ld.so.conf
 	addpredict /etc/ld.so.cache
+
+	# setting symbolic links for build configuration for gcc 4.6 and 4.7
+	cd config && 
+		ln -sfn linux_64-gcc4.4 linux_64-gcc4.6 && 
+		ln -sfn linux_64-gcc4.4 linux_64-gcc4.7 && 
+		cd .. || die 
+
 	./build
-	}
+}
+
+src_install() {
+	dodir "${TARGET_PATH}"
+
+	# install files 
+	COPY_DIRECTORIES="bin doc etc extras include lib refdoc tcl"
+	for DIR in ${COPY_DIRECTORIES}; do
+		cp -R "${S}/${DIR}" "${D}/${TARGET_PATH}/" || die "Install failed!"
+	done
+
+	# set up shell environment for all users
+	insinto /etc/profile.d
+	doins "${FILESDIR}"/fsl.sh || die
+	insinto /etc/env.d
+	doins "${FILESDIR}"/99fsl || die
+}

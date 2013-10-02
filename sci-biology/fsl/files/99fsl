@@ -1,0 +1,3 @@
+FSLDIR=/usr/lib/fsl
+PATH=${FSLDIR}/bin
+
