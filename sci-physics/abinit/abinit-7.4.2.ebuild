@@ -182,7 +182,7 @@ src_prepare() {
 		"${FILESDIR}"/7.4.2-syntax.patch
 	eautoreconf
 	sed -e"s/\(grep '\^-\)\(\[LloW\]\)'/\1\\\(\2\\\|pthread\\\)'/g" -i configure
-	python_fix_shebang "${S}"/tests
+	use test && python_fix_shebang "${S}"/tests
 }
 
 src_configure() {
