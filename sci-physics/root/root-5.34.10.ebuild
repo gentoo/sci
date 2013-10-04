@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.08.ebuild,v 1.2 2013/06/11 16:29:51 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.09.ebuild,v 1.2 2013/09/05 19:44:52 mgorny Exp $
 
 EAPI=5
 
@@ -14,7 +14,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-PYTHON_COMPAT=( python2_{5,6,7} )
+PYTHON_COMPAT=( python2_{6,7} )
 inherit elisp-common eutils fdo-mime fortran-2 multilib python-single-r1 toolchain-funcs user ${_GIT} versionator
 
 ROOFIT_DOC_PV=2.91-33
@@ -41,7 +41,7 @@ SLOT="0"
 LICENSE="LGPL-2.1"
 IUSE="+X afs avahi -c++0x doc emacs examples fits fftw graphviz htmldoc
 	kerberos ldap +math +metric mpi mysql odbc +opengl openmp oracle postgres
-	prefix pythia6 pythia8 python qt4 +reflex ruby ssl xinetd xml xrootd"
+	prefix pythia6 pythia8 python qt4 +reflex ruby sqlite ssl xinetd xml xrootd"
 
 REQUIRED_USE="
 	!X? ( !opengl !qt4 )
@@ -101,6 +101,7 @@ CDEPEND="
 	ruby? (
 			dev-lang/ruby
 			dev-ruby/rubygems )
+	sqlite? ( dev-db/sqlite:3 )
 	ssl? ( dev-libs/openssl )
 	xml? ( dev-libs/libxml2 )
 	xrootd? ( >=net-libs/xrootd-3.2.0 )"
@@ -272,6 +273,7 @@ src_configure() {
 		$(use_enable reflex cintex) \
 		$(use_enable reflex) \
 		$(use_enable ruby) \
+		$(use_enable sqlite) \
 		$(use_enable ssl) \
 		$(use_enable xml) \
 		$(use_enable xrootd) \
