@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_7,3_2,3_3} )
 
-inherit latex-package python-r1
+inherit latex-package python-single-r1
 
 S="${WORKDIR}/${PN}"
 LICENSE="LPPL-1.3 BSD"
@@ -24,6 +24,11 @@ RDEPEND="${DEPEND}
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
 TEXMF=/usr/share/texmf-site
+
+src_prepare() {
+	pwd
+	rm pythontex.sty
+}
 
 src_compile() {
 	ebegin "Compiling ${PN}"
