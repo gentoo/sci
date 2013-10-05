@@ -31,16 +31,27 @@ src_prepare() {
 
 src_compile() {
 	ebegin "Compiling ${PN}"
-	python_optimize .
-	python_fix_shebang .
 	latex ${PN}.ins extra >/dev/null || die "Building style from ${PN}.ins failed"
 	eend
 }
 
 src_install() {
+	python_optimize .
+	python_fix_shebang .
+
+	if python_is_python3; then 
+		python_newscript pythontex3.py pythontex.py
+		python_newscript depythontex3.py depythontex.py
+	fi
+
+	if ! python_is_python3; then 
+		python_newscript pythontex2.py pythontex.py
+		python_newscript depythontex2.py depythontex.py
+		python_doscript pythontex_2to3.py
+	fi
+	
 	latex-package_src_install
 
-	insinto ${TEXMF}/tex/latex/${PN}
-
+	#insinto ${TEXMF}/tex/latex/${PN}
 	dodoc README
 }
