@@ -40,7 +40,6 @@ src_install() {
 	latex-package_src_install
 
 	insinto ${TEXMF}/tex/latex/${PN}
-	doins *.cfg
 
 	dodoc README
 }
