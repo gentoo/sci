@@ -18,7 +18,7 @@ KEYWORDS="~amd64"
 IUSE="highlighting"
 
 DEPEND="app-text/texlive
-	dev-lang/python"
+	${PYTHON_DEPS}"
 
 RDEPEND="${DEPEND}
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
