@@ -26,13 +26,14 @@ RDEPEND="${DEPEND}
 TEXMF=/usr/share/texmf-site
 
 src_prepare() {
-	pwd
 	rm pythontex.sty
 }
 
 src_compile() {
 	ebegin "Compiling ${PN}"
-	latex ${PN}.ins || die
+	python_optimize .
+	python_fix_shebang .
+	latex ${PN}.ins extra >/dev/null || die "Building style from ${PN}.ins failed"
 	eend
 }
 
