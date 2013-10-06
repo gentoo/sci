@@ -41,28 +41,31 @@ src_compile() {
 src_install() {
 	python_optimize .
 	if python_is_python3; then 
+		python_scriptinto /usr/share/texmf-site/scripts/pythontex/
 		python_newscript pythontex3.py pythontex.py 
 		python_newscript depythontex3.py depythontex.py
-		python_scriptinto /usr/share/texmf-site/scripts/pythontex/
 	fi
 	
-	if ! python_is_python3; then 
+	if ! python_is_python3; then
+		python_scriptinto /usr/share/texmf-site/scripts/pythontex/
 		python_newscript pythontex2.py pythontex.py
 		python_doscript pythontex_2to3.py
 		python_newscript depythontex2.py depythontex.py
-		python_scriptinto /usr/share/texmf-site/scripts/pythontex/
 	fi
 	
-	doins pythontex_engines.py pythontex_utils.py
 	insinto /usr/share/texmf-site/scripts/pythontex/
-	
-	doins pythontex.sty
-	insinto /tex/latex/pythontex/
+	doins pythontex_engines.py pythontex_utils.py	
 
-	doins pythontex.dtx pythontex.ins
-	insinto /source/latex/pythontex/
-		
+	insinto /usr/share/texmf-site/tex/latex/pythontex/
+	doins pythontex.sty
+
+	insinto /usr/share/texmf-site/source/latex/pythontex/
+	doins pythontex.dtx pythontex.ins	
+	
 	latex-package_src_install
+	
+	echo "LDPATH=/usr/share/texmf-site/scripts/pythontex/" >> "${T}"/99${PN} || die "Can't write environment variable."
+	doenvd "${T}"/99${PN}
 
 	dodoc README
 
