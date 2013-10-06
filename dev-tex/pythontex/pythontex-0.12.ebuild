@@ -46,7 +46,7 @@ src_install() {
 		python_doscript pythontex_2to3.py
 		python_newscript depythontex2.py depythontex.py
 	fi
-	python_fix_shebang
+	python_fix_shebang .
 	python_optimize .
 		
 	latex-package_src_install
