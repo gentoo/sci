@@ -33,24 +33,37 @@ src_compile() {
 	ebegin "Compiling ${PN}"
 	latex ${PN}.ins extra >/dev/null || die "Building style from ${PN}.ins failed"
 	eend
+	sed -i -e '1i#!/usr/bin/env python' depythontex.py || die "adding shebang failed!"
+	sed -i -e '1i#!/usr/bin/env python' depythontex2.py || die "adding shebang failed!"
+	sed -i -e '1i#!/usr/bin/env python' depythontex3.py || die "adding shebang failed!"
 }
 
 src_install() {
+	python_optimize .
 	if python_is_python3; then 
-		python_newscript pythontex3.py pythontex.py
-		#python_newscript depythontex3.py depythontex.py
+		python_newscript pythontex3.py pythontex.py 
+		python_newscript depythontex3.py depythontex.py
+		python_scriptinto /usr/share/texmf-site/scripts/pythontex/
 	fi
 	
 	if ! python_is_python3; then 
 		python_newscript pythontex2.py pythontex.py
 		python_doscript pythontex_2to3.py
-		#python_newscript depythontex2.py depythontex.py
+		python_newscript depythontex2.py depythontex.py
+		python_scriptinto /usr/share/texmf-site/scripts/pythontex/
 	fi
 	
-	python_optimize .
+	doins pythontex_engines.py pythontex_utils.py
+	insinto /usr/share/texmf-site/scripts/pythontex/
+	
+	doins pythontex.sty
+	insinto /tex/latex/pythontex/
+
+	doins pythontex.dtx pythontex.ins
+	insinto /source/latex/pythontex/
 		
 	latex-package_src_install
 
-	#insinto ${TEXMF}/tex/latex/${PN}
 	dodoc README
+
 }
