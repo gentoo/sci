@@ -36,6 +36,8 @@ src_compile() {
 }
 
 src_install() {
+
+	python_fix_shebang .
 	if python_is_python3; then 
 		python_newscript pythontex3.py pythontex.py
 		python_newscript depythontex3.py depythontex.py
@@ -46,7 +48,7 @@ src_install() {
 		python_doscript pythontex_2to3.py
 		python_newscript depythontex2.py depythontex.py
 	fi
-	python_fix_shebang .
+	
 	python_optimize .
 		
 	latex-package_src_install
