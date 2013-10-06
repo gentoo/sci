@@ -38,13 +38,13 @@ src_compile() {
 src_install() {
 	if python_is_python3; then 
 		python_newscript pythontex3.py pythontex.py
-		python_newscript depythontex3.py depythontex.py
+		#python_newscript depythontex3.py depythontex.py
 	fi
 	
 	if ! python_is_python3; then 
 		python_newscript pythontex2.py pythontex.py
 		python_doscript pythontex_2to3.py
-		python_newscript depythontex2.py depythontex.py
+		#python_newscript depythontex2.py depythontex.py
 	fi
 	
 	python_optimize .
@@ -53,5 +53,4 @@ src_install() {
 
 	#insinto ${TEXMF}/tex/latex/${PN}
 	dodoc README
-	python_fix_shebang ${D}
 }
