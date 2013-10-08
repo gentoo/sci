@@ -68,5 +68,7 @@ src_install() {
 	doenvd "${T}"/99${PN}
 
 	dodoc README
-
+	pwd
+	mktexlsr
+	pwd
 }
