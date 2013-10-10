@@ -44,7 +44,6 @@ DEPEND="${RDEPEND}
 
 PATCHES=(
 	"${FILESDIR}"/${P}-multilib.patch
-	"${FILESDIR}"/${P}-libsvm.patch
 	)
 
 pkg_setup() {
