@@ -75,7 +75,7 @@ src_install() {
 
 	latex-package_src_install
 
-	dosym /usr/share/texmf-site/scripts/${PN}/${PN}.py /usr/bin/${PN}
+	#dosym /usr/share/texmf-site/scripts/${PN}/${PN}.py /usr/bin/${PN}
 
 	echo "LDPATH=/usr/share/texmf-site/scripts/pythontex/" >> "${T}"/99${PN} || die "Can't write environment variable."
 	doenvd "${T}"/99${PN}
