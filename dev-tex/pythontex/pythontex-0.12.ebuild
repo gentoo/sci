@@ -25,6 +25,8 @@ RDEPEND="${DEPEND}
 
 TEXMF=/usr/share/texmf-site
 
+S="${WORKDIR}"/${PN}
+
 src_prepare() {
 	rm pythontex.sty
 }
@@ -44,6 +46,8 @@ src_install() {
 		python_scriptinto /usr/share/texmf-site/scripts/pythontex/
 		python_newscript pythontex3.py pythontex.py 
 		python_newscript depythontex3.py depythontex.py
+		insinto /usr/share/texmf-site/scripts/${PN}/
+		doins "${S}"/${PN}3.py
 	fi
 	
 	if ! python_is_python3; then
@@ -51,24 +55,31 @@ src_install() {
 		python_newscript pythontex2.py pythontex.py
 		python_doscript pythontex_2to3.py
 		python_newscript depythontex2.py depythontex.py
+		insinto /usr/share/texmf-site/scripts/${PN}/
+		doins "${S}"/${PN}2.py
 	fi
 	
 	insinto /usr/share/texmf-site/scripts/pythontex/
-	doins pythontex_engines.py pythontex_utils.py	
+	dolib "${S}"/pythontex_engines.py 
+	dolib "${S}"/pythontex_utils.py
 
 	insinto /usr/share/texmf-site/tex/latex/pythontex/
-	doins pythontex.sty
+	doins "${S}"/pythontex.sty
 
+	#insinto /usr/$(get_libdir)/python-exec
+	#doins "${S}"/pythontex_engines.py
+	
 	insinto /usr/share/texmf-site/source/latex/pythontex/
-	doins pythontex.dtx pythontex.ins	
-	
+	doins "${S}"/pythontex.dtx 
+	doins "${S}"/pythontex.ins	
+
 	latex-package_src_install
-	
+
+	dosym /usr/share/texmf-site/scripts/${PN}/${PN}.py /usr/bin/${PN}
+
 	echo "LDPATH=/usr/share/texmf-site/scripts/pythontex/" >> "${T}"/99${PN} || die "Can't write environment variable."
 	doenvd "${T}"/99${PN}
 
 	dodoc README
-	pwd
 	mktexlsr
-	pwd
 }
