@@ -11,12 +11,13 @@ SRC_URI="${URI_BASE}${PN}${PV}.zip"
 
 LICENSE="GPL-2+"
 SLOT="8"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 RDEPEND=">=sci-mathematics/octave-3.6.4
 	"
 
 DEPEND="${RDEPEND}
+	app-arch/unzip
 	"
 
 
