@@ -11,13 +11,13 @@ SRC_URI="" # SRC_URI is left blank on live ebuild
 
 LICENSE="GPL-2+"
 SLOT="8"
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 DEPEND="${RDEPEND}
+	app-arch/unzip
 	"
 
-RDEPEND=">=sci-mathematics/octave-3.6.4
-	"
+RDEPEND=">=sci-mathematics/octave-3.6.4"
 
 S=${WORKDIR}/${PN}${PV}
 
