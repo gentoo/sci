@@ -42,7 +42,7 @@ SLOT="0"
 LICENSE="LGPL-2.1"
 IUSE="+X afs avahi c++0x doc emacs examples fits fftw graphviz htmldoc
 	kerberos ldap +math +metric minimal mpi mysql odbc +opengl openmp oracle postgres
-	prefix pythia6 pythia8 python qt4 +reflex ruby sqlite ssl xinetd xml xrootd"
+	prefix pythia6 pythia8 python qt4 ruby sqlite ssl xinetd xml xrootd"
 
 REQUIRED_USE="
 	!X? ( !opengl !qt4 )
@@ -63,6 +63,8 @@ CDEPEND="
 	sys-libs/zlib
 	virtual/jpeg
 	virtual/shadow
+	>=sys-devel/clang-9999
+	=sys-devel/llvm-9999
 	X? (
 		media-libs/ftgl
 		media-libs/glew
@@ -116,7 +118,6 @@ DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 
 RDEPEND="${CDEPEND}
-	reflex? ( dev-cpp/gccxml )
 	xinetd? ( sys-apps/xinetd )"
 
 PDEPEND="htmldoc? ( ~app-doc/root-docs-${PV} )"
@@ -175,6 +176,7 @@ src_prepare() {
 		interpreter/cling/lib/Interpreter/LookupHelper.cpp
 
 	# make sure we use system libs and headers
+	rm -f $(find interpreter/llvm/src -type f | grep -v HackForDefaultTemplateArg.h)
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
 	rm -r graf2d/asimage/src/libAfterImage || die
 	rm -r graf3d/ftgl/{inc,src} || die
@@ -236,6 +238,7 @@ src_configure() {
 		--with-f77=$(tc-getFC) \
 		--with-ld=$(tc-getCXX) \
 		--nohowto
+		--with-llvm-config="${EPREFIX}"/usr/bin/llvm-config
 	"
 	if use minimal; then
 		./configure \
@@ -256,7 +259,6 @@ src_configure() {
 		--disable-builtin-pcre \
 		--disable-builtin-zlib \
 		--disable-builtin-lzma \
-		--disable-cling \
 		--enable-astiff \
 		--enable-explicitlink \
 		--enable-gdml \
@@ -296,8 +298,6 @@ src_configure() {
 		$(use_enable python) \
 		$(use_enable qt4 qt) \
 		$(use_enable qt4 qtgsi) \
-		$(use_enable reflex cintex) \
-		$(use_enable reflex) \
 		$(use_enable ruby) \
 		$(use_enable sqlite) \
 		$(use_enable ssl) \
@@ -369,6 +369,8 @@ src_install() {
 	emake DESTDIR="${D}" install
 
 	echo "LDPATH=${EPREFIX}/usr/$(get_libdir)/root" > 99root
+	# cling trys to find ROOT libs in $LD_LIBRARY_PATH
+	echo "LD_LIBRARY_PATH=${EPREFIX}/usr/$(get_libdir)/root" > 99root
 	if ! use minimal; then
 		use pythia8 && echo "PYTHIA8=${EPREFIX}/usr" >> 99root
 		if use python; then
@@ -393,13 +395,6 @@ src_install() {
 	# Cleanup of files either already distributed or unused on Gentoo
 	rm "${ED}"usr/share/doc/${PF}/{INSTALL,LICENSE,COPYING.CINT} || die
 	rm "${ED}"usr/share/root/fonts/LICENSE || die
-	pushd "${ED}"usr/$(get_libdir)/root/cint/cint/lib > /dev/null
-	rm posix/mktypes dll_stl/setup \
-		G__* dll_stl/G__* dll_stl/rootcint_* posix/exten.o || die
-	rm "${ED}"usr/$(get_libdir)/root/cint/cint/include/makehpib || die
-	rm "${ED}"/etc/root/proof/*.sample || die
-	rm -r "${ED}"/etc/root/daemons || die
-	popd > /dev/null
 	# these should be in PATH
 	mv "${ED}"etc/root/proof/utils/pq2/pq2* \
 		"${ED}"usr/bin/ || die
