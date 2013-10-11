@@ -9,11 +9,12 @@ PYTHON_COMPAT=( python{2_7,3_2,3_3} )
 inherit latex-package python-single-r1
 
 S="${WORKDIR}/${PN}"
-LICENSE="LPPL-1.3 BSD"
 DESCRIPTION="Fast Access to Python from within LaTeX"
 HOMEPAGE="https://github.com/gpoore/pythontex"
 SRC_URI="https://github.com/gpoore/pythontex/raw/master/package_downloads/${PN}_${PV}.zip https://github.com/gpoore/pythontex/raw/master/package_downloads/old_versions/${PN}_${PV}.zip"
+
 SLOT="0"
+LICENSE="LPPL-1.3 BSD"
 KEYWORDS="~amd64"
 IUSE="highlighting"
 
@@ -28,7 +29,7 @@ TEXMF=/usr/share/texmf-site
 S="${WORKDIR}"/${PN}
 
 src_prepare() {
-	rm pythontex.sty
+	rm pythontex.sty || die "Could not remove pythontex.sty!"
 }
 
 src_compile() {
@@ -48,9 +49,7 @@ src_install() {
 		python_newscript depythontex3.py depythontex.py
 		insinto /usr/share/texmf-site/scripts/${PN}/
 		doins "${S}"/${PN}3.py
-	fi
-	
-	if ! python_is_python3; then
+	else ! python_is_python3; 
 		python_scriptinto /usr/share/texmf-site/scripts/${PN}/
 		python_newscript pythontex2.py pythontex.py
 		python_doscript pythontex_2to3.py
