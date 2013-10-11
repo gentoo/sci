@@ -398,10 +398,16 @@ src_install() {
 	# these should be in PATH
 	mv "${ED}"etc/root/proof/utils/pq2/pq2* \
 		"${ED}"usr/bin/ || die
+	# ROOT searchs it's headers in $etcdir/../include which is /etc/include
+	# This is a temporary fix:
+	dosym ${EPREFIX}/usr/include/root ${EPREFIX}/etc/include || die
 }
 
 pkg_postinst() {
 	fdo-mime_desktop_database_update
+	elog "If this is a first time installation, run"
+	elog "    sudo env-update && source /etc/profile"
+	elog "first, to let LD_LIBRARY_PATH work."
 }
 
 pkg_postrm() {
