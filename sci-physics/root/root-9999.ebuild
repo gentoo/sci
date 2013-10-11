@@ -273,7 +273,7 @@ src_configure() {
 		$(use_enable X xft) \
 		$(use_enable afs) \
 		$(use_enable avahi bonjour) \
-		$(use_enable c++0x c++11) \
+		$(use_enable c++0x cxx11) \
 		$(use_enable fits fitsio) \
 		$(use_enable fftw fftw3) \
 		$(use_enable graphviz gviz) \
