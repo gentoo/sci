@@ -160,13 +160,19 @@ pkg_setup() {
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-prop-flags.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV3}-nobyte-compile.patch \
+		"${FILESDIR}"/${PN}-${PV}-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-glibc212.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV}-unuran.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-afs.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-cfitsio.patch \
 		"${FILESDIR}"/${PN}-${PATCH_PV2}-chklib64.patch \
-		"${FILESDIR}"/${PN}-${PATCH_PV2}-dotfont.patch
+		"${FILESDIR}"/${PN}-${PV}-dotfont.patch
+
+	# use system LLVM header
+	sed -i 's/$(LLVMDIRI)/\/usr/' interpreter/cling/Module.mk
+	# support for newer clang
+	sed -i 's/void\* OldEntity/DeclContext\* OldEntity/' \
+		interpreter/cling/lib/Interpreter/LookupHelper.cpp
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
