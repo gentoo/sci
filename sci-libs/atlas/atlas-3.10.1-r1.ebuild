@@ -20,31 +20,20 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="fortran doc generic lapack static-libs threads"
 
 RDEPEND=""
-DEPEND="${RDEPEND}
-	!prefix? ( sys-power/cpufrequtils )"
+DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/ATLAS"
 
 pkg_setup() {
-	if [[ -n $(type -P cpufreq-info) ]]; then
-		[[ -z $(cpufreq-info -d) ]] && return
-		local ncpu=$(LANG=C cpufreq-info | grep -c "analyzing CPU")
-		local cpu=0
-		while [[ ${cpu} -lt ${ncpu} ]]; do
-			if ! $(LANG=C cpufreq-info -p -c ${cpu} | grep -q performance); then
-				ewarn "CPU $cpu is not set to performance"
-				ewarn "Run cpufreq-set -r -g performance as root"
-				die "${PN} needs all cpu set to performance"
+	local _cpufreq
+	for _cpufreq in /sys/devices/system/cpu/cpu*/_cpufreq/scaling_governor; do
+		if [ -f ${_cpufreq} ]; then
+			if grep -q performance ${_cpufreq}; then
+				echo 2> /dev/null performance > ${_cpufreq} || \
+					die "${PN} needs all cpu set to performance"
 			fi
-			cpu=$((cpu + 1))
-		done
-	else
-		ewarn "Please make sure to disable CPU throttling completely"
-		ewarn "during the compile of ${PN}. Otherwise, all ${PN}"
-		ewarn "generated timings will be completely random and the"
-		ewarn "performance of the resulting libraries will be degraded"
-		ewarn "considerably."
-	fi
+		fi
+	done
 	use fortran && fortran-2_pkg_setup
 }
 
