@@ -8,7 +8,6 @@ PYTHON_COMPAT=( python{2_7,3_2,3_3} )
 
 inherit latex-package python-single-r1
 
-S="${WORKDIR}/${PN}"
 DESCRIPTION="Fast Access to Python from within LaTeX"
 HOMEPAGE="https://github.com/gpoore/pythontex"
 SRC_URI="https://github.com/gpoore/pythontex/raw/master/package_downloads/${PN}_${PV}.zip https://github.com/gpoore/pythontex/raw/master/package_downloads/old_versions/${PN}_${PV}.zip"
@@ -27,7 +26,6 @@ RDEPEND="${DEPEND}
 TEXMF=/usr/share/texmf-site
 
 S="${WORKDIR}"/${PN}
-
 src_prepare() {
 	rm pythontex.sty || die "Could not remove pythontex.sty!"
 }
@@ -36,7 +34,6 @@ src_compile() {
 	ebegin "Compiling ${PN}"
 	latex ${PN}.ins extra >/dev/null || die "Building style from ${PN}.ins failed"
 	eend
-	sed -i -e '1i#!/usr/bin/env python' depythontex.py || die "adding shebang failed!"
 	sed -i -e '1i#!/usr/bin/env python' depythontex2.py || die "adding shebang failed!"
 	sed -i -e '1i#!/usr/bin/env python' depythontex3.py || die "adding shebang failed!"
 }
@@ -44,40 +41,25 @@ src_compile() {
 src_install() {
 	python_optimize .
 	if python_is_python3; then 
-		python_scriptinto /usr/share/texmf-site/scripts/${PN}/
 		python_newscript pythontex3.py pythontex.py 
 		python_newscript depythontex3.py depythontex.py
-		insinto /usr/share/texmf-site/scripts/${PN}/
-		doins "${S}"/${PN}3.py
-	else ! python_is_python3; 
-		python_scriptinto /usr/share/texmf-site/scripts/${PN}/
-		python_newscript pythontex2.py pythontex.py
+	else	python_newscript pythontex2.py pythontex.py
 		python_doscript pythontex_2to3.py
 		python_newscript depythontex2.py depythontex.py
-		insinto /usr/share/texmf-site/scripts/${PN}/
-		doins "${S}"/${PN}2.py
 	fi
 	
-	python_moduleinto /usr/share/texmf-site/scripts/pythontex/
+	python_moduleinto /usr/lib64/python-exec/python2.7
 	python_domodule "${S}"/pythontex_engines.py 
 	python_domodule "${S}"/pythontex_utils.py
 
 	insinto /usr/share/texmf-site/tex/latex/pythontex/
 	doins "${S}"/pythontex.sty
 
-	#insinto /usr/$(get_libdir)/python-exec
-	#doins "${S}"/pythontex_engines.py
-	
 	insinto /usr/share/texmf-site/source/latex/pythontex/
 	doins "${S}"/pythontex.dtx 
 	doins "${S}"/pythontex.ins	
 
 	latex-package_src_install
-
-	#which env-updatedosym /usr/share/texmf-site/scripts/${PN}/${PN}.py /usr/bin/${PN}
-
-	echo "PATH=/usr/share/texmf-site/scripts/pythontex/" >> "${T}"/99${PN} || die "Can't write environment variable."
-	doenvd "${T}"/99${PN}
 
 	dodoc README
 	mktexlsr
