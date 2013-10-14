@@ -2,6 +2,15 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*charm-6.5.1-r2 (14 Oct 2013)
+
+  14 Oct 2013; Nicolas Bock <nicolasbock@gmail.com> +charm-6.5.1-r2.ebuild,
+  +files/charm-6.5.1-static-library-fix.patch:
+  sys-cluster/charm-6.5.1-r2: Fixed shared library bug.  When charm is built
+  with --enable-shared, not all libraries are actually built as shared
+  libraries. I have reported this bug upstream and submitted a patch. I
+  backported this patch and added it to this revision.
+
   01 Oct 2013; Christoph Junghans <ottxor@gentoo.org> charm-6.5.1-r1.ebuild:
   fixed deps
 
