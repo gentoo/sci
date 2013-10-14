@@ -2,6 +2,25 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+*root-5.34.10-r2 (07 Oct 2013)
+
+  07 Oct 2013; Andrew Savchenko <bircoph@gmail.com> +root-5.34.10-r2.ebuild,
+  metadata.xml:
+  Add minimal USE flag for minimal and gminimal configurations. Use
+  nohouwto to remove useless messages.
+
+*root-5.34.10-r1 (06 Oct 2013)
+
+  06 Oct 2013; Andrew Savchenko <bircoph@gmail.com> +root-5.34.10-r1.ebuild:
+  Properly use c++0x and oracle deps.
+
+*root-5.34.10 (04 Oct 2013)
+
+  04 Oct 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.34.09.ebuild,
+  +root-5.34.10.ebuild:
+  Version bump per bug 486620 (changes by Oliver Freyermuth).
+  Remove old.
+
 *root-5.34.09 (29 Jun 2013)
 
   29 Jun 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.34.08.ebuild,

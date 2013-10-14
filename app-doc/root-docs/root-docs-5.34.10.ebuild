@@ -53,7 +53,8 @@ src_configure() {
 		--with-ld=$(tc-getCXX) \
 		--with-afs-shared=yes \
 		--with-llvm-config="${EPREFIX}"/usr/bin/llvm-config \
-		--with-sys-iconpath="${EPREFIX}"/usr/share/pixmaps
+		--with-sys-iconpath="${EPREFIX}"/usr/share/pixmaps \
+		--nohowto
 }
 
 src_compile() {

@@ -179,7 +179,8 @@ src_prepare() {
 		"${FILESDIR}"/6.12.1-autoconf.patch \
 		"${FILESDIR}"/6.12.1-xmalloc.patch \
 		"${FILESDIR}"/7.4.2-levmar_diag_scaling.patch \
-		"${FILESDIR}"/7.4.2-syntax.patch
+		"${FILESDIR}"/7.4.2-syntax.patch \
+		"${FILESDIR}"/7.4.2-cuda_link_stdc++.patch
 	eautoreconf
 	sed -e"s/\(grep '\^-\)\(\[LloW\]\)'/\1\\\(\2\\\|pthread\\\)'/g" -i configure
 	use test && python_fix_shebang "${S}"/tests
