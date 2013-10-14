@@ -11,9 +11,8 @@ LICENSE="namd"
 HOMEPAGE="http://www.ks.uiuc.edu/Research/namd/"
 
 MY_PN="NAMD"
-MY_PV="2.9"
 
-SRC_URI="${MY_PN}_${MY_PV}_Source.tar.gz"
+SRC_URI="${MY_PN}_${PV}_Source.tar.gz"
 
 SLOT="0"
 KEYWORDS="~amd64"
@@ -23,7 +22,7 @@ RESTRICT="fetch"
 
 DEPEND="
 	app-shells/tcsh
-	sys-cluster/charm[static-libs]
+	sys-cluster/charm
 	sci-libs/fftw:2.1
 	dev-lang/tcl"
 
@@ -33,15 +32,15 @@ NAMD_ARCH="Linux-x86_64-g++"
 
 NAMD_DOWNLOAD="http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD"
 
-S="${WORKDIR}/${MY_PN}_${MY_PV}_Source"
+S="${WORKDIR}/${MY_PN}_${PV}_Source"
 
 pkg_nofetch() {
 	echo
-	einfo "Please download ${MY_PN}_${MY_PV}_Source.tar.gz from"
+	einfo "Please download ${MY_PN}_${PV}_Source.tar.gz from"
 	einfo "${NAMD_DOWNLOAD}"
 	einfo "after agreeing to the license and then move it to"
 	einfo "${DISTDIR}"
-	einfo "Be sure to select the ${MY_PV} version!"
+	einfo "Be sure to select the ${PV} version!"
 	echo
 }
 
@@ -56,6 +55,7 @@ src_prepare() {
 		-e "s:charm-.\+:charm-${CHARM_VERSION}:" \
 		-i Make.charm || die
 
+	# Remove charm distribution. We don't need it.
 	rm -f charm-6.4.0.tar || die
 
 	# proper compiler and cflags
@@ -76,7 +76,7 @@ src_prepare() {
 
 src_configure() {
 	# configure
-	./config ${NAMD_ARCH} || die
+	./config ${NAMD_ARCH} --charm-arch . || die
 }
 
 src_compile() {
