@@ -3,7 +3,7 @@
 # $Header: $
 
   15 Oct 2013; Justin Lecher <jlec@gentoo.org> shiftx2-1.07_p20120106.ebuild:
-  Add missing PYTHON_DEPS and PYTHON_REQUIRED_USE
+  Add missing python-r1 stuff
 
   21 Jun 2013; johann@j-schmitz.net files/shiftx2-1.07_p20120106-java.patch,
   files/shiftx2-1.07_p20120106-system.patch:
