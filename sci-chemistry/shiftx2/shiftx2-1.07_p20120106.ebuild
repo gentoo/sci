@@ -21,7 +21,9 @@ LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="debug"
 
-CDEPEND="dev-util/weka"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+CDEPEND="dev-util/weka ${PYTHON_DEPS}"
 
 RDEPEND="${CDEPEND}
 	dev-lang/R
