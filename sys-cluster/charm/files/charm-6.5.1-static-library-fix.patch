@@ -1,7 +1,9 @@
-From 6557d011109dd6ad23cde0fbd26b620e92bc005f Mon Sep 17 00:00:00 2001
+From 3a7261ab3a00472dd4bde0619c145c69aecf80c3 Mon Sep 17 00:00:00 2001
 From: Nicolas Bock <nicolasbock@gmail.com>
 Date: Mon, 14 Oct 2013 07:15:14 -0600
-Subject: [PATCH] Enable full static linking of Charm++ applications.
+Subject: [PATCH] Some libraries are only built statically,
+
+preventing a Charm++ installation with only dynamic libraries.
 
 On a typical Linux system only shared libraries are installed, because of the
 usual security and bloat arguments. However, if I build charm with
@@ -13,8 +15,8 @@ targets libldb-*.o are renamed to libldb-*.a, and the charmc script now tests
 both .a and .so when linking the seed based load balancing code.
 ---
  src/scripts/Makefile | 136 +++++++++++++++++++++++++--------------------------
- src/scripts/charmc   |  42 +++++++++++-----
- 2 files changed, 97 insertions(+), 81 deletions(-)
+ src/scripts/charmc   |  37 ++++++++------
+ 2 files changed, 91 insertions(+), 82 deletions(-)
 
 diff --git a/src/scripts/Makefile b/src/scripts/Makefile
 index 51d0e7b..1550ed2 100644
@@ -289,10 +291,25 @@ index 51d0e7b..1550ed2 100644
  
  ###############################################################################
 diff --git a/src/scripts/charmc b/src/scripts/charmc
-index 4d37a6b..6957947 100755
+index 4d37a6b..ee4e76c 100755
 --- a/src/scripts/charmc
 +++ b/src/scripts/charmc
-@@ -1616,13 +1616,16 @@ then
+@@ -340,6 +340,14 @@ printVersion()
+ 	echo Charm++ Version $version
+ }
+ 
++getLibraryObject()
++{
++  if [[ -f "${CHARMLIB}/$1-$2.a" ]]; then
++    echo "${CHARMLIB}/$1-$2.a"
++  else
++    echo "${CHARMLIBSO}/$1-$2.so"
++  fi
++}
+ 
+ ##############################################################################
+ #
+@@ -1616,13 +1624,12 @@ then
  fi
  
  BAL_EXT=`getExtention $BALANCE`
@@ -302,11 +319,7 @@ index 4d37a6b..6957947 100755
 -    BAL_OBJ="$CHARMLIB/libldb-$BALANCE.o"
 +if [[ -z "$BAL_EXT" ]]; then
 +  # Balance has no extension-- is a library reference
-+  if [[ -f "${CHARMLIB}/libldb-$BALANCE.a" ]]; then
-+    BAL_OBJ="${CHARMLIB}/libldb-$BALANCE.a"
-+  else
-+    BAL_OBJ="${CHARMLIBSO}/libldb-$BALANCE.so"
-+  fi
++  BAL_OBJ=$(getLibraryObject "libldb" ${BALANCE})
  else
 -# Balance has some extention-- must be a .o or .a file
 -    BAL_OBJ="$BALANCE"
@@ -315,47 +328,48 @@ index 4d37a6b..6957947 100755
  fi
  
  Debug "Finished with BAL_OBJ=$BAL_OBJ, TRACEMODE=$TRACEMODE..."
-@@ -1641,7 +1644,11 @@ fi
+@@ -1638,10 +1645,11 @@ then
+ 	fi
+ fi
+ 
++Debug "Finished with BAL_OBJ=$BAL_OBJ, TRACEMODE=$TRACEMODE..."
  
  # Check for valid choice of MEMORY
  
 -MEM_OBJ="$CHARMLIB/libmemory-$MEMORY.o"
-+if [[ -f "${CHARMLIB}/libmemory-${MEMORY}.a" ]]; then
-+  MEM_OBJ="${CHARMLIB}/libmemory-${MEMORY}.a"
-+else
-+  MEM_OBJ="${CHARMLIBSO}/libmemory-${MEMORY}.so"
-+fi
++MEM_OBJ=$(getLibraryObject "libmemory" ${MEMORY})
  
  if [ ! -r $MEM_OBJ -o ! -s $MEM_OBJ ] 
  then
-@@ -1652,7 +1659,11 @@ fi
+@@ -1652,7 +1660,7 @@ fi
  # For memory wrapping around the OS allocator, need to add also the wrapper object
  case $MEMORY in
    os-*)
 -  MEM_OBJ=$MEM_OBJ" $CHARMLIB/libmemory-os-wrapper.o"
-+    if [[ -f "${CHARMLIB}/libmemory-os-wrapper.a" ]]; then
-+      MEM_OBJ=$MEM_OBJ" $CHARMLIB/libmemory-os-wrapper.a"
-+    else
-+      MEM_OBJ=$MEM_OBJ" $CHARMLIBSO/libmemory-os-wrapper.so"
-+    fi
++    MEM_OBJ="${MEM_OBJ} $(getLibraryObject 'libmemory' 'os-wrapper')"
    ;;
  esac
  
-@@ -1670,7 +1681,12 @@ then
+@@ -1670,7 +1678,8 @@ then
      THREAD=${THREAD}-tls
    fi
  fi
 -THREAD_OBJ="$CHARMLIB/libthreads-$THREAD.o"
 +
-+if [[ -f "${CHARMLIB}/libthreads-${THREAD}.o" ]]; then
-+  THREAD_OBJ="${CHARMLIB}/libthreads-${THREAD}.o"
-+else
-+  THREAD_OBJ="${CHARMLIBSO}/libthreads-${THREAD}.so"
-+fi
++THREAD_OBJ=$(getLibraryObject "libthreads" ${THREAD})
  
  if [ ! -r $THREAD_OBJ -o ! -s $THREAD_OBJ ] 
  then
-@@ -1848,17 +1864,17 @@ then
+@@ -1836,7 +1845,7 @@ esac
+ 
+ if [ "$BUILD_SHARE" = "0" ]
+ then
+-	MIDDLE_LIBS="$MEM_OBJ $THREAD_OBJ $MIDDLE_LIBS"
++	MIDDLE_LIBS="$MIDDLE_LIBS $MEM_OBJ $THREAD_OBJ"
+ fi
+ 
+ if [ "$CHARM_SHARED" = "1" ]
+@@ -1848,17 +1857,17 @@ then
    then
      LANG_LIBS="-L$CHARMLIBSO $OBJECTFILES $PRE_LIBRARIES"
    else
