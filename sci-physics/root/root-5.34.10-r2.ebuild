@@ -15,7 +15,7 @@ else
 fi
 
 PYTHON_COMPAT=( python2_{6,7} )
-inherit elisp-common eutils fdo-mime fortran-2 multilib python-single-r1 toolchain-funcs user ${_GIT} versionator
+inherit elisp-common eutils fdo-mime fortran-2 ${_GIT} multilib python-single-r1 toolchain-funcs user versionator
 
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
