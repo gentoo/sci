@@ -7,7 +7,7 @@ EAPI=5
 PYTHON_COMPAT=( python{2_6,2_7} )
 PYTHON_REQ_USE="sqlite"
 
-inherit cmake-utils python-single-r1 subversion eutils
+inherit cmake-utils gnome2-utils multilib python-single-r1 subversion eutils
 
 DESCRIPTION="User friendly Geographic Information System"
 HOMEPAGE="http://www.qgis.org/"
@@ -42,7 +42,10 @@ RDEPEND="
 			>=dev-db/postgresql-server-8.4
 		)
 	)
-	python? ( ${PYTHON_DEPS} dev-python/PyQt4[sql,svg] )
+	python? (
+		${PYTHON_DEPS}
+		dev-python/PyQt4[sql,svg,${PYTHON_USEDEP}]
+		dev-python/sip[${PYTHON_USEDEP}] )
 	sqlite? ( dev-db/sqlite:3 )"
 
 DEPEND="${RDEPEND}
@@ -68,24 +71,34 @@ src_configure() {
 		$(cmake-utils_use_with gps QWT)
 		$(cmake-utils_use_with gsl)
 		$(cmake-utils_use_with python BINDINGS)
-		$(cmake-utils_use_with sqlite SPATIALITE)
+		$(cmake-utils_use python BINDINGS_GLOBAL_INSTALL)
+		$(cmake-utils_use_with spatialite SPATIALITE)
+		$(cmake-utils_use_enable test TESTS)
+		$(usex grass "-DGRASS_PREFIX=/usr/" "")
 	)
-	use grass && mycmakeargs+=( "-DGRASS_PREFIX=/usr/" )
 
 	cmake-utils_src_configure
 }
 
 src_install() {
 	cmake-utils_src_install
-	dodoc AUTHORS BUGS ChangeLog README SPONSORS CONTRIBUTORS || die
+	dodoc BUGS ChangeLog CODING README
 
-	newicon images/icons/qgis-icon.png qgis.png || die
+	newicon -s 128 images/icons/qgis-icon.png qgis.png
 	make_desktop_entry qgis "Quantum GIS " qgis
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
-		doins -r "${WORKDIR}"/qgis_sample_data/* || die "Unable to install examples"
+		doins -r "${WORKDIR}"/qgis_sample_data/*
 	fi
+	python_fix_shebang "${D}"/usr/share/qgis/grass/scripts
+	python_optimize "${D}"/usr/share/qgis/python/plugins \
+		"${D}"/$(python_get_sitedir)/qgis \
+		"${D}"/usr/share/qgis/grass/scripts
+}
+
+pkg_preinst() {
+	gnome2_icon_savelist
 }
 
 pkg_postinst() {
@@ -94,4 +107,9 @@ pkg_postinst() {
 		elog "you should install:"
 		elog "   dev-db/postgis"
 	fi
+	gnome2_icon_cache_update
+}
+
+pkg_postrm() {
+	gnome2_icon_cache_update
 }
