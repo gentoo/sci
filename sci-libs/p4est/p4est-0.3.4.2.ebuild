@@ -10,20 +10,19 @@ inherit autotools-utils toolchain-funcs eutils multilib
 
 DESCRIPTION="Scalable Algorithms for Parallel Adaptive Mesh Refinement on Forests of Octrees"
 HOMEPAGE="http://www.p4est.org/"
-SRC_URI="http://burstedde.ins.uni-bonn.de/release/p4est-${PV}.tar.gz"
+SRC_URI="http://p4est.org/tarball/p4est-${PV}.tar.gz"
 
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 
 LICENSE="GPL-2+"
 SLOT="0"
 
-IUSE="debug doc examples mpi romio static-libs"
+IUSE="debug doc examples mpi romio static-libs +vtk-binary"
 REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
 	dev-lang/lua
 	sys-apps/util-linux
-	sys-libs/zlib
 	virtual/blas
 	virtual/lapack
 	mpi? ( virtual/mpi[romio?] )"
@@ -35,6 +34,8 @@ DEPEND="
 DOCS=(AUTHORS ChangeLog NEWS README)
 
 PATCHES=( "${FILESDIR}/${PN}-libtool-fix.patch" )
+
+AT_M4DIR="${WORKDIR}/${P}/sc/config"
 AUTOTOOLS_AUTORECONF=true
 
 src_configure() {
@@ -42,6 +43,7 @@ src_configure() {
         $(use_enable debug)
 		$(use_enable mpi)
 		$(use_enable romio mpiio)
+		$(use_enable vtk-binary)
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
 		--with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)"
 	)
