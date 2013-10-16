@@ -19,7 +19,7 @@ COMMON_DEPEND="media-libs/glu
 	sci-libs/gsl
 	sys-libs/zlib
 	dev-libs/boost
-	>=sci-libs/fftw-3
+	sci-libs/fftw:3.0
 	"
 DEPEND="${COMMON_DEPEND}"
 RDEPEND="${COMMON_DEPEND}
@@ -32,7 +32,6 @@ S=${WORKDIR}/${PN}
 TARGET_PATH="/usr/lib64/fsl"
 
 src_compile() {
-
 	export FSLDIR=${WORKDIR}/${PN}
 	source etc/fslconf/fsl.sh
 	addpredict /etc/ld.so.conf
@@ -57,8 +56,6 @@ src_install() {
 	done
 
 	# set up shell environment for all users
-	insinto /etc/profile.d
+	insinto ${EPREFIX}/usr/bin
 	doins "${FILESDIR}"/fsl.sh || die
-	insinto /etc/env.d
-	doins "${FILESDIR}"/99fsl || die
 }
