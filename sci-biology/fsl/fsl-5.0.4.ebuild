@@ -15,14 +15,14 @@ IUSE=""
 
 COMMON_DEPEND="media-libs/glu
 	media-libs/libpng
-	"
-DEPEND="${COMMON_DEPEND}"
-RDEPEND="${COMMON_DEPEND}
 	media-libs/gd
 	sci-libs/gsl
 	sys-libs/zlib
 	dev-libs/boost
 	>=sci-libs/fftw-3
+	"
+DEPEND="${COMMON_DEPEND}"
+RDEPEND="${COMMON_DEPEND}
 	dev-lang/tcl
 	dev-lang/tk
 	"
