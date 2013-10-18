@@ -176,7 +176,8 @@ src_prepare() {
 		interpreter/cling/lib/Interpreter/LookupHelper.cpp
 
 	# make sure we use system libs and headers
-	rm -f $(find interpreter/llvm/src -type f | grep -v HackForDefaultTemplateArg.h)
+	find interpreter/llvm/src/ -type f ! -name HackForDefaultTemplateArg.h \
+		-print0 | xargs -0 rm || die
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
 	rm -r graf2d/asimage/src/libAfterImage || die
 	rm -r graf3d/ftgl/{inc,src} || die
