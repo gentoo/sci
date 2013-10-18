@@ -12,4 +12,7 @@
   designed to work in parallel and scale to hundreds of thousands of
   processor cores.
 </longdescription>
+<use>
+  <flag name="vtk-binary">Enable binary vtk output. If disabled vtk files will be written in ASCII text format.</flag>
+</use>
 </pkgmetadata>
