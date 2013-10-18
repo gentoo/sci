@@ -2,6 +2,10 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Oct 2013; Christoph Junghans <ottxor@gentoo.org> -charm-6.5.1-r1.ebuild,
+  -charm-6.5.1.ebuild:
+  remove old
+
   15 Oct 2013; Nicolas Bock <nicolasbock@gmail.com>
   files/charm-6.5.1-static-library-fix.patch:
   sys-cluster/charm-6.5.1-r2: Updated static library patch with upstream patch.
