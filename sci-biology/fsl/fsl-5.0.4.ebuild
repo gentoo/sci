@@ -4,6 +4,8 @@
 
 EAPI=5
 
+inherit eutils toolchain-funcs
+
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
 SRC_URI="http://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz"
@@ -16,10 +18,8 @@ IUSE=""
 COMMON_DEPEND="media-libs/glu
 	media-libs/libpng
 	media-libs/gd
-	sci-libs/gsl
 	sys-libs/zlib
 	dev-libs/boost
-	>=sci-libs/fftw-3
 	"
 DEPEND="${COMMON_DEPEND}"
 RDEPEND="${COMMON_DEPEND}
@@ -31,18 +31,37 @@ S=${WORKDIR}/${PN}
 
 TARGET_PATH="/usr/lib64/fsl"
 
+src_prepare(){
+	epatch "${FILESDIR}/${P}"-setup.patch
+	epatch "${FILESDIR}/${P}"-headers.patch
+
+	sed -i \
+		-e "s:@@GENTOO_RANLIB@@:$(tc-getRANLIB):" \
+		-e "s:@@GENTOO_CC@@:$(tc-getCC):" \
+		-e "s:@@GENTOO_CXX@@:$(tc-getCXX):" \
+		config/generic/systemvars.mk
+
+	makefilelist=$(find src/ -name Makefile)
+
+	sed -i \
+		-e "s:-I\${INC_BOOST}::" \
+		-e "s:-I\${INC_ZLIB}::" \
+		-e "s:-I\${INC_GD}::" \
+		-e "s:-I\${INC_PNG}::" \
+		-e "s:-L\${LIB_GD}::" \
+		-e "s:-L\${LIB_PNG}::" \
+		-e "s:-L\${LIB_ZLIB}::" \
+		${makefilelist}
+}
+
 src_compile() {
-
 	export FSLDIR=${WORKDIR}/${PN}
-	source etc/fslconf/fsl.sh
-	addpredict /etc/ld.so.conf
-	addpredict /etc/ld.so.cache
+	export FSLCONDIR=${WORKDIR}/${PN}/config
+	export FSLMACHTYPE=generic
 
-	# setting symbolic links for build configuration for gcc 4.6 and 4.7
-	cd config && 
-		ln -sfn linux_64-gcc4.4 linux_64-gcc4.6 && 
-		ln -sfn linux_64-gcc4.4 linux_64-gcc4.7 && 
-		cd .. || die 
+	export USERLDFLAGS="${LDFLAGS}"
+	export USERCFLAGS="${CFLAGS}"
+	export USERCXXFLAGS="${CXXFLAGS}"
 
 	./build || die
 }
