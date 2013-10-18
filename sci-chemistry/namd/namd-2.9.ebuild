@@ -22,7 +22,7 @@ RESTRICT="fetch"
 
 DEPEND="
 	app-shells/tcsh
-	sys-cluster/charm
+	|| ( >=sys-cluster/charm-6.5.1-r2 <=sys-cluster/charm-6.5.1-r1[static-libs] )
 	sci-libs/fftw:2.1
 	dev-lang/tcl"
 
