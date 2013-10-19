@@ -114,7 +114,7 @@ src_compile() {
 
 	if use doc; then
 		cd "${S}"/doc
-		VARTEXFONTS="${T}/fonts"
+		export VARTEXFONTS="${T}/fonts"
 		emake \
 			DIAG=PAR \
 			NWCHEM_TOP="${S}" \
