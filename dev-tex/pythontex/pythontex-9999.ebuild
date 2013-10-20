@@ -47,7 +47,6 @@ src_install() {
 		python_newscript depythontex2.py depythontex.py
 	fi
 	
-	python_moduleinto /usr/lib64/python-exec/python2.7
 	python_domodule "${S}"/pythontex_engines.py 
 	python_domodule "${S}"/pythontex_utils.py
 
