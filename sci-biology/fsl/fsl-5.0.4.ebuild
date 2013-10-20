@@ -4,8 +4,6 @@
 
 EAPI=5
 
-inherit eutils toolchain-funcs prefix
-
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
 SRC_URI="http://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz"
@@ -18,8 +16,10 @@ IUSE=""
 COMMON_DEPEND="media-libs/glu
 	media-libs/libpng
 	media-libs/gd
+	sci-libs/gsl
 	sys-libs/zlib
 	dev-libs/boost
+	sci-libs/fftw:3.0
 	"
 DEPEND="${COMMON_DEPEND}"
 RDEPEND="${COMMON_DEPEND}
