@@ -31,8 +31,9 @@ src_prepare() {
 }
 
 src_compile() {
+	pwd
 	ebegin "Compiling ${PN}"
-	latex ${PN}.ins extra >/dev/null || die "Building style from ${PN}.ins failed"
+	latex ${PN}.ins extra >${T}/build-latex.log  || die "Building style from ${PN}.ins failed"
 	eend
 }
 

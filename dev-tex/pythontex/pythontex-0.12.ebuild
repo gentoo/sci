@@ -32,7 +32,7 @@ src_prepare() {
 
 src_compile() {
 	ebegin "Compiling ${PN}"
-	latex ${PN}.ins extra >/dev/null || die "Building style from ${PN}.ins failed"
+	latex ${PN}.ins extra >${T}/build-latex.log || die "Building style from ${PN}.ins failed"
 	eend
 	sed -i -e '1i#!/usr/bin/env python' depythontex2.py || die "adding shebang failed!"
 	sed -i -e '1i#!/usr/bin/env python' depythontex3.py || die "adding shebang failed!"
