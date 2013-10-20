@@ -4,6 +4,8 @@
 
 EAPI=5
 
+inherit multilib
+
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
 SRC_URI="http://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz"
@@ -29,7 +31,7 @@ RDEPEND="${COMMON_DEPEND}
 
 S=${WORKDIR}/${PN}
 
-TARGET_PATH="/usr/lib64/fsl"
+TARGET_PATH="/usr/lib64/$(get_libdir)"
 
 src_prepare(){
 	epatch "${FILESDIR}/${P}"-setup.patch
