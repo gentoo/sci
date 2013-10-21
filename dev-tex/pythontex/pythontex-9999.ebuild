@@ -24,6 +24,8 @@ DEPEND="app-text/texlive
 	${PYTHON_DEPS}"
 
 RDEPEND="${DEPEND}
+	dev-texlive/texlive-xetex
+	>=dev-python/matplotlib-1.2.0
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
 src_prepare() {
