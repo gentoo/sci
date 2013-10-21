@@ -38,7 +38,7 @@ src_prepare(){
 		-e "s:@@GENTOO_RANLIB@@:$(tc-getRANLIB):" \
 		-e "s:@@GENTOO_CC@@:$(tc-getCC):" \
 		-e "s:@@GENTOO_CXX@@:$(tc-getCXX):" \
-		config/generic/systemvars.mk
+		config/generic/systemvars.mk || die
 
 	eprefixify $(grep -rl GENTOO_PORTAGE_EPREFIX src/*) \
 		etc/js/label-div.html
@@ -53,7 +53,7 @@ src_prepare(){
 		-e "s:-L\${LIB_GD}::" \
 		-e "s:-L\${LIB_PNG}::" \
 		-e "s:-L\${LIB_ZLIB}::" \
-		${makefilelist}
+		${makefilelist} || die
 
 	sed -i "s:\${FSLDIR}/bin/::g" \
 		$(grep -rl "\${FSLDIR}/bin" src/*) \
@@ -99,7 +99,7 @@ src_compile() {
 src_install() {
 	doexe bin/*
 
-	insinto /usr/share/"${PN}"
+	insinto /usr/share/${PN}
 	doins -r doc data refdoc
 
 	insinto /usr/libexec/fsl
