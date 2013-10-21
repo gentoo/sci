@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit multilib
+inherit eutils toolchain-funcs prefix
 
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
@@ -18,10 +18,8 @@ IUSE=""
 COMMON_DEPEND="media-libs/glu
 	media-libs/libpng
 	media-libs/gd
-	sci-libs/gsl
 	sys-libs/zlib
 	dev-libs/boost
-	sci-libs/fftw:3.0
 	"
 DEPEND="${COMMON_DEPEND}"
 RDEPEND="${COMMON_DEPEND}
@@ -30,8 +28,6 @@ RDEPEND="${COMMON_DEPEND}
 	"
 
 S=${WORKDIR}/${PN}
-
-TARGET_PATH="/usr/lib64/$(get_libdir)"
 
 src_prepare(){
 	epatch "${FILESDIR}/${P}"-setup.patch
