@@ -18,6 +18,7 @@ SLOT="0"
 LICENSE="LPPL-1.3 BSD"
 KEYWORDS=""
 IUSE="highlighting"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="app-text/texlive
 	${PYTHON_DEPS}"
@@ -27,7 +28,6 @@ RDEPEND="${DEPEND}
 
 src_prepare() {
 	S="${WORKDIR}/${P}/${PN}"
-	cd ${S}
 }
 
 src_compile() {
