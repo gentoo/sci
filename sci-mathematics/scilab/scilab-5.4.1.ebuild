@@ -228,7 +228,8 @@ src_install() {
 	prune_libtool_files --all
 	rm -rf "${D}"/usr/share/scilab/modules/*/tests ||die
 	use bash-completion && dobashcomp "${FILESDIR}"/${PN}.bash_completion
-	echo "SEARCH_DIRS_MASK=${EPREFIX}/usr/$(get_libdir)/scilab" \
+	echo "LD_LIBRARY_MASK=libverify.so
+SEARCH_DIRS_MASK=${EPREFIX}/usr/$(get_libdir)/scilab" \
 		> 50-"${PN}"
 	insinto /etc/revdep-rebuild && doins "50-${PN}"
 }
