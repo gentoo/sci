@@ -33,4 +33,6 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	# don't do egg install
 	sed -i 's/self.do_egg_install()/_install.install.run(self)/' setup.py || die
+
+	epatch "${FILESDIR}/${P}-python-check.patch"
 }
