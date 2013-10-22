@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils-r1 git-2
+inherit cmake-utils distutils-r1 git-2
 
 DESCRIPTION="a library for developing parallel, discrete-event simulations in Python"
 HOMEPAGE="https://github.com/sim-x"
@@ -19,7 +19,8 @@ KEYWORDS=""
 IUSE=""
 
 RDEPEND=" virtual/mpi
-	dev-libs/boost[python] "
+	dev-libs/boost[python]
+	dev-python/greenlet"
 DEPEND="${RDEPEND}
 	dev-util/cmake"
 
