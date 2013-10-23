@@ -56,7 +56,7 @@ src_install() {
 	doins "${S}"/pythontex.sty
 	
 	insinto /usr/share/texmf-site/source/latex/pythontex/
-	doins "${S}"/pythontex.dtx  "${S}"/pythontex.ins	
+	doins "${S}"/pythontex.dtx "${S}"/pythontex.ins	
 
 	latex-package_src_install
 

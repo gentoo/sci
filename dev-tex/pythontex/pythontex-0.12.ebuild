@@ -53,15 +53,13 @@ src_install() {
 	python_export PYTHON_SCRIPTDIR
 	echo ${PYTHON_SCRIPTDIR}	
 	python_moduleinto ${PYTHON_SCRIPTDIR} # it looks for modules here, submitted a patch for future versions.
-	python_domodule "${S}"/pythontex_engines.py 
-	python_domodule "${S}"/pythontex_utils.py
+	python_domodule "${S}"/pythontex_engines.py "${S}"/pythontex_utils.py
 
 	insinto /usr/share/texmf-site/tex/latex/pythontex/
 	doins "${S}"/pythontex.sty
 
 	insinto /usr/share/texmf-site/source/latex/pythontex/
-	doins "${S}"/pythontex.dtx 
-	doins "${S}"/pythontex.ins	
+	doins "${S}"/pythontex.dtx "${S}"/pythontex.ins	
 
 	latex-package_src_install
 
