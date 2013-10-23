@@ -26,6 +26,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 CDEPEND="dev-util/weka ${PYTHON_DEPS}"
 
 RDEPEND="${CDEPEND}
+	${PYTHON_DEPS}
 	dev-lang/R
 	sci-biology/ncbi-tools
 	sci-chemistry/reduce
