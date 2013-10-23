@@ -25,7 +25,7 @@ DEPEND="app-text/texlive
 
 RDEPEND="${DEPEND}
 	dev-texlive/texlive-xetex
-	>=dev-python/matplotlib-1.2.0
+	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
 src_prepare() {
@@ -50,15 +50,13 @@ src_install() {
 		python_newscript depythontex2.py depythontex.py
 	fi
 	
-	python_domodule "${S}"/pythontex_engines.py 
-	python_domodule "${S}"/pythontex_utils.py
+	python_domodule "${S}"/pythontex_engines.py "${S}"/pythontex_utils.py
 
 	insinto /usr/share/texmf-site/tex/latex/pythontex/
 	doins "${S}"/pythontex.sty
 	
 	insinto /usr/share/texmf-site/source/latex/pythontex/
-	doins "${S}"/pythontex.dtx 
-	doins "${S}"/pythontex.ins	
+	doins "${S}"/pythontex.dtx  "${S}"/pythontex.ins	
 
 	latex-package_src_install
 

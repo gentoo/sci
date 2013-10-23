@@ -22,7 +22,7 @@ DEPEND="app-text/texlive
 
 RDEPEND="${DEPEND}
 	dev-texlive/texlive-xetex
-	>=dev-python/matplotlib-1.2.0
+	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
 TEXMF=/usr/share/texmf-site
