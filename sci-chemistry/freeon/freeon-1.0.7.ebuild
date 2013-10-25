@@ -16,11 +16,10 @@ SRC_URI="http://download.savannah.gnu.org/releases/${PN}/${PN}-${PV}.tar.bz2"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="standalone-BCSR static-libs"
+IUSE=""
 
 RDEPEND="
 	sci-libs/hdf5
 	virtual/blas
 	virtual/lapack"
-DEPEND="${DEPEND}
-	virtual/pkgconfig"
+DEPEND="${RDEPEND}"
