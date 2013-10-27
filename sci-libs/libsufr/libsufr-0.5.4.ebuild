@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit cmake-utils fortran-2
 
@@ -25,4 +25,4 @@ src_configure() {
 	cmake-utils_src_configure
 }
 
-DOCS="CHANGELOG README"
+DOCS="CHANGELOG README VERSION"
