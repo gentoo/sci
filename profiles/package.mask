@@ -69,6 +69,13 @@
 >=sci-chemistry/coot-9999
 >=sci-chemistry/pymol-9999
 
+# Guillaume Horel <guillaume.horel@gmail.com> (25 Oct 2013)
+# mask new version of scilab until release
+>=sci-mathematics/scilab-5.5.0
+>=dev-java/jgraphx-2.1
+>=dev-java/jogl-2.0.2
+
+
 # Honza Macháček <Hloupy.Honza@centrum.cz> (17 June 2013)
 # bigdft moved from sci-libs to sci-physics
 # sci-physics/abinit now uses sci-libs/bigdft-abi instead
@@ -128,10 +135,17 @@ sci-visualization/vtkPOFFReader
 # work in progress 
 =sci-chemistry/almost-1.0.3-r1
 
-# Nicolas Bock <nicolasbock@gmail.com> (17 Sep 2003)
+# Nicolas Bock <nicolasbock@gmail.com> (17 Sep 2013)
 # The versioning scheme of freeon changed from a date based version to a more
 # standard form. Now the latest release is considered a downgrade by portage.
 # Masking the date based releases to get users to upgrade.
 =sci-chemistry/freeon-2012.05.03
 =sci-chemistry/freeon-2013.09.12
 =sci-chemistry/freeon-2013.09.16
+
+# Nicolas Bock <nicolasbock@gmail.com> (24 Oct 2013)
+# Masking older version before removal.
+=sci-chemistry/freeon-1.0
+=sci-chemistry/freeon-1.0.1
+=sci-chemistry/freeon-1.0.2
+=sci-chemistry/freeon-1.0.3

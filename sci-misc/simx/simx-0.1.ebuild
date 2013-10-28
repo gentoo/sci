@@ -25,8 +25,8 @@ LICENSE="LGPL-2.1"
 IUSE=""
 
 RDEPEND=" virtual/mpi
-	dev-libs/boost[python]
-	dev-python/greenlet"
+	dev-libs/boost[python,${PYTHON_USEDEP}]
+	dev-python/greenlet[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}
 	dev-util/cmake"
 
