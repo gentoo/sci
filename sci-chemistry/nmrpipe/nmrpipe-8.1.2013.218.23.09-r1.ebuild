@@ -208,4 +208,7 @@ src_install() {
 
 	exeinto ${NMRBASE}/nmrbin.linux9
 	doexe "${T}"/nmrWish
+
+	insinto ${NMRBASE}/nmrtxt
+	doins "${FILESDIR}"/extract.M
 }
