@@ -10,7 +10,7 @@ VIRTUALX_REQUIRED="manual"
 inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
 	fortran-2 java-pkg-opt-2 toolchain-funcs virtualx
 
-MY_PV="${PV}"-beta-1
+MY_PV="${PV}-beta-1"
 MY_P="$PN"-"$MY_PV"
 
 # Things that don't work:
@@ -79,7 +79,7 @@ DEPEND="${CDEPEND}
 	gui? (
 		>=virtual/jdk-1.5
 		doc? ( app-text/docbook-xsl-stylesheets
-			   dev-java/xml-commons-external:1.4 
+			   dev-java/xml-commons-external:1.4
 			   dev-java/jlatexmath-fop:1 )
 		xcos? ( dev-lang/ocaml ) )
 	test? (
@@ -121,6 +121,7 @@ src_prepare() {
 		"${FILESDIR}/${P}-followlinks.patch" \
 		"${FILESDIR}/${P}-gluegen.patch" \
 		"${FILESDIR}/${P}-fix-random-runtime-failure.patch" \
+		"${FILESDIR}/${P}-disable-static-systemlib.patch" \
 		"${FILESDIR}/${P}-always-use-dynamic-stack.patch"
 
 	append-ldflags $(no-as-needed)
