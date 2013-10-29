@@ -30,9 +30,9 @@ RDEPEND="${COMMON_DEPEND}
 S=${WORKDIR}/${PN}
 
 src_prepare(){
-	epatch "${FILESDIR}/${P}"-setup.patch
-	epatch "${FILESDIR}/${P}"-headers.patch
-	epatch "${FILESDIR}/${P}"-fsldir_redux.patch
+	epatch "${FILESDIR}/${PN}"-5.0.4-setup.patch
+	epatch "${FILESDIR}/${PN}"-5.0.4-headers.patch
+	epatch "${FILESDIR}/${PN}"-5.0.4-fsldir_redux.patch
 
 	sed -i \
 		-e "s:@@GENTOO_RANLIB@@:$(tc-getRANLIB):" \
