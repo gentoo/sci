@@ -10,7 +10,7 @@ VIRTUALX_REQUIRED="manual"
 inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
 	fortran-2 java-pkg-opt-2 toolchain-funcs virtualx
 
-MY_PV="${PV}-beta-1"
+MY_PV="${PV/_beta1/-beta-1}"
 MY_P="$PN"-"$MY_PV"
 
 # Things that don't work:
@@ -51,7 +51,7 @@ CDEPEND="dev-libs/libpcre
 		dev-java/avalon-framework:4.2
 		dev-java/batik:1.7
 		dev-java/commons-io:1
-		>=dev-java/flexdock-1.2.3:0
+		>=dev-java/flexdock-1.2.4:0
 		dev-java/fop:0
 		dev-java/gluegen:2
 		dev-java/javahelp:0
@@ -66,7 +66,7 @@ CDEPEND="dev-libs/libpcre
 		virtual/opengl
 		doc? ( dev-java/saxon:9 )
 		xcos? ( dev-java/commons-logging:0 ) )
-	matio? ( <sci-libs/matio-1.5 )
+	matio? ( >=sci-libs/matio-1.5 )
 	tk? ( dev-lang/tk )
 	umfpack? ( sci-libs/umfpack )"
 
@@ -122,7 +122,8 @@ src_prepare() {
 		"${FILESDIR}/${P}-gluegen.patch" \
 		"${FILESDIR}/${P}-fix-random-runtime-failure.patch" \
 		"${FILESDIR}/${P}-disable-static-systemlib.patch" \
-		"${FILESDIR}/${P}-always-use-dynamic-stack.patch"
+		"${FILESDIR}/${P}-always-use-dynamic-stack.patch" \
+		"${FILESDIR}/${P}-accessviolation.patch"
 
 	append-ldflags $(no-as-needed)
 
