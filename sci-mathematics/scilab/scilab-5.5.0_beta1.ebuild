@@ -122,7 +122,8 @@ src_prepare() {
 		"${FILESDIR}/${P}-gluegen.patch" \
 		"${FILESDIR}/${P}-fix-random-runtime-failure.patch" \
 		"${FILESDIR}/${P}-disable-static-systemlib.patch" \
-		"${FILESDIR}/${P}-always-use-dynamic-stack.patch"
+		"${FILESDIR}/${P}-always-use-dynamic-stack.patch" \
+		"${FILESDIR}/${P}-accessviolation.patch"
 
 	append-ldflags $(no-as-needed)
 
