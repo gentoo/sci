@@ -10,7 +10,7 @@ inherit latex-package python-single-r1 git-2
 
 DESCRIPTION="Fast Access to Python from within LaTeX"
 HOMEPAGE="https://github.com/gpoore/pythontex"
-EGIT_REPO_URI="https://github.com/TheChymera/pythontex.git"
+EGIT_REPO_URI="https://github.com/gpoore/pythontex.git"
 SRC_URI=""
 
 
@@ -30,6 +30,8 @@ RDEPEND="${DEPEND}
 
 src_prepare() {
 	S="${WORKDIR}/${P}/${PN}"
+	cd ${S}
+	rm pythontex.sty || die "Could not remove pre-compiled pythontex.sty!"
 }
 
 src_compile() {
