@@ -14,7 +14,7 @@ HOMEPAGE="http://forge.scilab.org/index.php/p/scirenderer/"
 
 IUSE="doc source"
 DEPEND=">=virtual/jdk-1.5
-	dev-java/jogl:2
+	<=dev-java/jogl-2.0:2
 	dev-java/jlatexmath:1"
 RDEPEND=">=virtual/jre-1.5"
 
