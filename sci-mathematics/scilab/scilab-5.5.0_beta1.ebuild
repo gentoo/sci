@@ -236,7 +236,7 @@ src_install() {
 	default
 	prune_libtool_files --all
 	rm -rf "${D}"/usr/share/scilab/modules/*/tests ||die
-	use bash-completion && dobashcomp "${FILESDIR}"/${PN}.bash_completion
+	use bash-completion && newbashcomp "${FILESDIR}"/"${PN}".bash_completion "${PN}"
 	echo "SEARCH_DIRS_MASK=${EPREFIX}/usr/$(get_libdir)/scilab" \
 		> 50-"${PN}"
 	insinto /etc/revdep-rebuild && doins "50-${PN}"

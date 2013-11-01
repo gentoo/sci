@@ -240,7 +240,7 @@ src_install() {
 	dodoc ACKNOWLEDGEMENTS README_Unix Readme_Visual.txt
 	insinto /usr/share/mime/packages
 	doins "${FILESDIR}"/${PN}.xml
-	use bash-completion && dobashcomp "${FILESDIR}"/${PN}.bash_completion
+	use bash-completion && newbashcomp "${FILESDIR}"/"${PN}".bash_completion "${PN}"
 }
 
 pkg_postinst() {
