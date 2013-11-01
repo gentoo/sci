@@ -152,7 +152,7 @@ src_prepare() {
 	mkdir jar || die
 	pushd jar
 	java-pkg_jar-from jgraphx-2.1,jlatexmath-1,flexdock,skinlf
-	java-pkg_jar-from jgoodies-looks-2.0,jrosetta,scirenderer-1
+	java-pkg_jar-from jgoodies-looks-2.0,jrosetta
 	java-pkg_jar-from avalon-framework-4.2,jeuclid-core
 	java-pkg_jar-from xmlgraphics-commons-1.5,commons-io-1
 	java-pkg_jar-from jogl-2 jogl-all.jar jogl2.jar
