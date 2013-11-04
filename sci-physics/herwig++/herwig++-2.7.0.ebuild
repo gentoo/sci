@@ -16,21 +16,21 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="fastjet"
+IUSE="c++0x fastjet"
 
 DEPEND="dev-libs/boost
 	virtual/fortran
 	sci-libs/gsl
 	sci-physics/LoopTools
 	dev-lang/perl
-	=sci-physics/thepeg-1.8.3
+	=sci-physics/thepeg-1.9.0
 	fastjet? ( sci-physics/fastjet )"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MYP}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-looptools.patch"
+	epatch "${FILESDIR}/${PN}-2.6.3-looptools.patch"
 	find -name 'Makefile.am' -exec sed -i '1ipkgdatadir=$(datadir)/herwig++' {} \; \
 		|| die "changing pkgdatadir name failed"
 	eautoreconf
@@ -41,6 +41,7 @@ src_configure() {
 		--disable-silent-rules \
 		--with-boost="${EPREFIX}"/usr \
 		--with-thepeg="${EPREFIX}"/usr \
+		$(use_enable c++0x stdcxx11)
 		$(use_with fastjet fastjet "${EPREFIX}"/usr)
 }
 
