@@ -5,7 +5,7 @@
 EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
-JAVA_PKG_IUSE="gui"
+JAVA_PKG_OPT_USE="gui"
 
 inherit java-pkg-opt-2 python-single-r1
 
@@ -21,12 +21,11 @@ IUSE="gui test"
 
 RDEPEND="virtual/mpi
 	${PYTHON_DEPS}
-	gui? ( virtual/jdk dev-java/jython )"
+	gui? ( virtual/jdk dev-java/jython:0 )"
 DEPEND="${RDEPEND}"
 
 src_compile() {
 	default
-	addread /usr/share/jython
 	use gui && emake gui
 }
 
