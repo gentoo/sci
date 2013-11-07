@@ -48,7 +48,7 @@ src_prepare() {
 		|| die "changing pkgdatadir name failed"
 	sed -i '/dist_pkgdata_DATA = ThePEG.el/d' lib/Makefile.am \
 		|| die "preventing install ThePEG.el in pkgdatadir failed"
-	epatch "${FILESDIR}"/${P}-java.patch
+	epatch "${FILESDIR}"/${PN}-1.8.3-java.patch
 	eautoreconf
 
 	java-pkg-opt-2_src_prepare

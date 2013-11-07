@@ -2,6 +2,14 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*berkeley_upc_translator-2.18.0 (02 Nov 2013)
+
+  02 Nov 2013; Jauhien Piatlicki <piatlicki@gmail.com>
+  berkeley_upc_translator-2.16.2.ebuild,
+  +berkeley_upc_translator-2.18.0.ebuild,
+  +files/berkeley_upc_translator-2.16.2-check-abi.patch:
+  Version bump, ~amd64 keyword added, ABI detection fixed
+
 *berkeley_upc_translator-2.16.2 (14 May 2013)
 
   14 May 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
