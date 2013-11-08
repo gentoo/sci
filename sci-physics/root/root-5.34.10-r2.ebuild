@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.09.ebuild,v 1.2 2013/09/05 19:44:52 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.10-r2.ebuild,v 1.1 2013/10/29 17:00:37 bicatali Exp $
 
 EAPI=5
 
@@ -101,7 +101,7 @@ CDEPEND="
 		oracle? ( dev-db/oracle-instantclient-basic )
 		postgres? ( dev-db/postgresql-base )
 		pythia6? ( sci-physics/pythia:6 )
-		pythia8? ( sci-physics/pythia:8 )
+		pythia8? ( <sci-physics/pythia-8.1.80:8 )
 		python? ( ${PYTHON_DEPS} )
 		ruby? (
 				dev-lang/ruby
@@ -125,19 +125,19 @@ S="${WORKDIR}/${PN}"
 
 pkg_setup() {
 	fortran-2_pkg_setup
+	use python && python-single-r1_pkg_setup
 	echo
 	elog "There are extra options on packages not yet in Gentoo:"
 	elog "Afdsmgrd, AliEn, castor, Chirp, dCache, gfal, Globus, gLite,"
 	elog "HDFS, Monalisa, MaxDB/SapDB, SRP."
 	elog "You can use the env variable EXTRA_ECONF variable for this."
 	elog "For example, for SRP, you would set: "
-	elog "EXTRA_ECONF=\"--enable-srp --with-srp-libdir=/usr/$(get_libdir)\""
+	elog "EXTRA_ECONF=\"--enable-srp --with-srp-libdir=${EROOT%/}/usr/$(get_libdir)\""
 	echo
 	enewgroup rootd
 	enewuser rootd -1 -1 /var/spool/rootd rootd
 	use minimal && return
 
-	use python && python-single-r1_pkg_setup
 	if use math; then
 		if use openmp; then
 			if [[ $(tc-getCXX)$ == *g++* ]] && ! tc-has-openmp; then

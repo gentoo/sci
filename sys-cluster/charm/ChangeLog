@@ -2,6 +2,16 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*charm-6.5.1-r3 (08 Nov 2013)
+
+  08 Nov 2013; Nicolas Bock <nicolasbock@gmail.com> +charm-6.5.1-r3.ebuild,
+  +files/charm-6.5.1-fix-markupSanitizer.patch:
+  sys-cluster/charm-6.5.1-r3: Added patch to fix doc.  When building the
+  documentation, we used to have to force <python-3. The added patch makes this
+  unecessary, which simplifies the ebuild and reduces its dependencies. The
+  patch was submitted to upstream (Bug 328:
+  https://charm.cs.illinois.edu/redmine/issues/328).
+
   18 Oct 2013; Christoph Junghans <ottxor@gentoo.org> -charm-6.5.1-r1.ebuild,
   -charm-6.5.1.ebuild:
   remove old

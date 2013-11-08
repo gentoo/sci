@@ -59,7 +59,7 @@ CDEPEND="dev-libs/libpcre
 		dev-java/jgoodies-looks:2.0
 		dev-java/jgraphx:2.1
 		dev-java/jlatexmath:1
-		dev-java/jogl:2
+		>=dev-java/jogl-2.0.2:2
 		>=dev-java/jrosetta-1.0.4:0
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:1.5
