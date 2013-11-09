@@ -23,7 +23,7 @@ DEPEND="dev-libs/boost
 	sci-libs/gsl
 	sci-physics/LoopTools
 	dev-lang/perl
-	=sci-physics/thepeg-1.9.0
+	=sci-physics/thepeg-1.9.0*
 	fastjet? ( sci-physics/fastjet )"
 RDEPEND="${DEPEND}"
 
