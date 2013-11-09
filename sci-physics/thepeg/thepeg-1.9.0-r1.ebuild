@@ -20,11 +20,12 @@ LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="emacs hepmc java lhapdf test zlib"
+IUSE="emacs fastjet hepmc java lhapdf test zlib"
 
 RDEPEND="sci-libs/gsl
 	dev-lang/perl
 	emacs? ( virtual/emacs )
+	fastjet? ( sci-physics/fastjet )
 	hepmc? ( sci-physics/hepmc )
 	java? ( >=virtual/jre-1.5 )
 	lhapdf? ( sci-physics/lhapdf )
@@ -57,9 +58,10 @@ src_prepare() {
 src_configure() {
 	econf \
 		--disable-silent-rules \
+		$(use_with fastjet fastjet "${EPREFIX}"/usr) \
 		$(use_with hepmc hepmc "${EPREFIX}"/usr) \
 		$(use_with java javagui) \
-		$(use_with lhapdf LHAPDF "${EPREFIX}"/usr) \
+		$(use_with lhapdf lhapdf "${EPREFIX}"/usr) \
 		$(use_with zlib zlib "${EPREFIX}"/usr)
 }
 
