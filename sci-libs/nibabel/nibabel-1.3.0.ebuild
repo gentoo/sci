@@ -12,6 +12,8 @@ DESCRIPTION="Access a cacophony of neuro-imaging file formats"
 HOMEPAGE="http://nipy.org/nibabel/"
 SRC_URI="https://github.com/nipy/nibabel/archive/${PV}.zip"
 
+KEYWORDS="~amd64 ~x86"
+
 LICENSE="MIT"
 SLOT="0"
 IUSE="dicom doc test"
