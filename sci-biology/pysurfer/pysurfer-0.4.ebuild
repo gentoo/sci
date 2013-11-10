@@ -20,3 +20,9 @@ RDEPEND="sci-visualization/mayavi"
 DEPEND=""
 
 S="${WORKDIR}/PySurfer-${PV}"
+
+src_unpack() {
+    unpack ${A}
+    cd "${S}"
+    epatch "${FILESDIR}/${PV}-headless_build.patch"
+}
