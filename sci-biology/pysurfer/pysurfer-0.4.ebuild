@@ -16,13 +16,15 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-RDEPEND="sci-visualization/mayavi"
+RDEPEND="sci-visualization/mayavi
+         dev-python/matplotlib
+         sci-libs/nibabel
+         dev-python/numpy
+         sci-libs/scipy"
 DEPEND=""
 
 S="${WORKDIR}/PySurfer-${PV}"
 
-src_unpack() {
-    unpack ${A}
-    cd "${S}"
+src_prepare() {
     epatch "${FILESDIR}/${PV}-headless_build.patch"
 }
