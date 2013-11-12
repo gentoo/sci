@@ -2,6 +2,13 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  09 Nov 2013; Andrew Savchenko <bircoph@gmail.com> +root-5.32.04.ebuild,
+  +files/root-5.28.00b-asneeded.patch, +files/root-5.28.00b-prop-ldflags.patch,
+  +files/root-5.32.00-explicit-functions.patch,
+  +files/root-5.32.00-nobyte-compile.patch:
+  Update pythia8 dependency for 5.32 branch, migrate for
+  python-single-r1 and EAPI=5.
+
   08 Nov 2013; Andrew Savchenko <bircoph@gmail.com> root-5.34.10-r2.ebuild:
   Fix pythia dependency: versions >= 8.1.80 changed API and are no
   longer supported for this root verison.
