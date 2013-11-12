@@ -81,6 +81,10 @@ trilinos_enable() {
 	cmake-utils_use $1 TPL_ENABLE_${2:-${1^^}}
 }
 
+src_prepare() {
+	epatch "${FILESDIR}"/${P}-fix-install-paths.patch
+}
+
 src_configure() {
 
 	local mycmakeargs=(
@@ -89,6 +93,7 @@ src_configure() {
 		-DTrilinos_ENABLE_ALL_PACKAGES=ON
 		-DTrilinos_INSTALL_INCLUDE_DIR="${EPREFIX}/usr/include/trilinos"
 		-DTrilinos_INSTALL_LIB_DIR="${EPREFIX}/usr/$(get_libdir)/trilinos"
+		-DTrilinos_INSTALL_CONFIG_DIR="${EPREFIX}/usr/$(get_libdir)/cmake"
 		-DTPL_ENABLE_BinUtils=ON
 		-DTPL_ENABLE_MPI=ON
 		-DTPL_ENABLE_BLAS=ON
