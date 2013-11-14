@@ -24,7 +24,4 @@ RDEPEND="sci-visualization/mayavi[${PYTHON_USEDEP}]
 DEPEND=""
 
 S="${WORKDIR}/PySurfer-${PV}"
-
-src_prepare() {
-    epatch "${FILESDIR}/${PV}-headless_build.patch"
-}
+PATCHES=( "${FILESDIR}/${PV}-headless_build.patch" )
