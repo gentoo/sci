@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit python-r1
+inherit eutils python-r1
 
 PLUGINS="autodocktools bhtree cadd cmolkit dejavu geomutils gle mglutil molkit
 	networkeditor opengltk pmv pyautodock pybabel pyglf qslimlib scenario2 sff
@@ -41,6 +41,7 @@ RDEPEND="${PLUG_DEP}
 DEPEND="${RDEPEND}"
 
 src_install() {
+	ecvs_clean
 	insinto /usr/share/${PN}
 	doins -r Data
 }
