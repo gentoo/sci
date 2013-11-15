@@ -19,7 +19,7 @@ RESTRICT="primaryuri"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="debug examples fftw itkv3compat python review sse2 test"
+IUSE="debug examples fftw itkv3compat python review sse2 test vtkglue"
 
 RDEPEND="
 	sci-libs/hdf5[cxx]
@@ -28,6 +28,7 @@ RDEPEND="
 	media-libs/tiff:0
 	sys-libs/zlib
 	fftw? ( sci-libs/fftw:3.0 )
+	vtkglue? ( sci-libs/vtk )
 "
 DEPEND="${RDEPEND}
 	python? ( ${PYTHON_DEPS}
@@ -80,6 +81,11 @@ src_configure() {
 			-DITK_WRAP_vector_double=ON
 			-DITK_WRAP_covariant_vector_double=ON
 			-DITK_WRAP_complex_double=ON
+		)
+	fi
+	if use vtkglue; then
+		mycmakeargs+=(
+			-DModule_ITKVtkGlue=ON
 		)
 	fi
 	if use python; then
