@@ -105,8 +105,8 @@ src_install() {
 	cmake-utils_src_install
 
 	if use examples; then
-		insinto /usr/share/doc/${PF}/examples
-		docompress -x /usr/share/doc/${PF}/examples
+		insinto /usr/share/${PN}/examples
+		docompress -x /usr/share/${PN}/examples
 		doins -r "${S}"/Examples/*
 	fi
 
