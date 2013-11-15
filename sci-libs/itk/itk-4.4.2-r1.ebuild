@@ -8,18 +8,20 @@ PYTHON_COMPAT=( python{2_5,2_6,2_7} )
 
 inherit eutils toolchain-funcs cmake-utils python-single-r1
 
-MYP=InsightToolkit-${PV}
+MYPN=InsightToolkit
+MYP=${MYPN}-${PV}
 
 DESCRIPTION="NLM Insight Segmentation and Registration Toolkit"
 HOMEPAGE="http://www.itk.org"
-SRC_URI="mirror://sourceforge/${PN}/${MYP}.tar.gz"
-
+SRC_URI="
+	mirror://sourceforge/${PN}/${MYP}.tar.gz
+	doc? ( mirror://sourceforge/${PN}/Doxygen${MYPN}-4.4.0.tar.gz )"
 RESTRICT="primaryuri"
 
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="debug examples fftw itkv3compat python review sse2 test vtkglue"
+IUSE="debug doc examples fftw itkv3compat python review sse2 test vtkglue"
 
 RDEPEND="
 	sci-libs/hdf5[cxx]
@@ -34,6 +36,7 @@ DEPEND="${RDEPEND}
 	python? ( ${PYTHON_DEPS}
 			  >=dev-lang/swig-2.0
 			  >=dev-cpp/gccxml-0.9.0_pre20120309 )
+	doc? ( app-doc/doxygen )
 "
 
 S="${WORKDIR}/${MYP}"
@@ -117,6 +120,15 @@ src_install() {
 		ldpath="${ldpath}:${EROOT}/usr/$(get_libdir)/InsightToolkit/WrapITK/lib"
 	fi
 	echo "LDPATH=${ldpath}" >> ${T}/40${PN}
+
+	if use doc; then
+		insinto "/usr/share/doc/${PF}/api-docs"
+		cd "${WORKDIR}"/html
+		rm -f *.md5 || die "Failed to remove superfluous hashes"
+		einfo "Installing API docs. This may take some time."
+		insinto "/usr/share/doc/${PF}/api-docs"
+		doins -r ./* || die "Failed to install docs"
+	fi
 
 	doenvd "${T}"/40${PN}
 }
