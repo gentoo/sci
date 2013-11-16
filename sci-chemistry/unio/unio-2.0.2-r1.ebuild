@@ -18,8 +18,13 @@ IUSE=""
 
 RDEPEND="
 	app-shells/ksh
-	x11-libs/libX11[abi_x86_32]
-	x11-libs/libXext[abi_x86_32]"
+	|| (
+		(
+			x11-libs/libX11[abi_x86_32]
+			x11-libs/libXext[abi_x86_32]
+		)
+		app-emulation/emul-linux-x86-xlibs
+		)"
 DEPEND=""
 
 S="${WORKDIR}/UNIO_10"

@@ -19,7 +19,7 @@ EGIT_BOOTSTRAP="fix_localversion.sh"
 LICENSE="GPL-3"
 SLOT="live"
 KEYWORDS="~amd64 ~x86"
-IUSE="standalone-BCSR static-libs"
+IUSE=""
 
 RDEPEND="
 	sci-libs/hdf5
@@ -30,7 +30,7 @@ DEPEND="${DEPEND}
 
 src_configure() {
 	local myeconfargs=(
-		$(use_enable standalone-BCSR)
+		"--enable-git-tag"
 	)
 	autotools-utils_src_configure
 }

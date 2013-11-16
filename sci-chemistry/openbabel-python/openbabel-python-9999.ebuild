@@ -50,7 +50,6 @@ src_configure() {
 			-DBINDINGS_ONLY=ON
 			-DBABEL_SYSTEM_LIBRARY=${EPREFIX}/usr/$(get_libdir)/libopenbabel.so
 			-DOB_MODULE_PATH=${EPREFIX}/usr/$(get_libdir)/openbabel/${PV}
-			-DLIB_INSTALL_DIR=${ED}/usr/$(get_libdir)/${EPYTHON}/site-packages
 			-DPYTHON_BINDINGS=ON
 			-DPYTHON_EXECUTABLE=${PYTHON}
 			-DPYTHON_INCLUDE_DIR=${EPREFIX}/usr/include/${EPYTHON}
@@ -75,7 +74,7 @@ src_install() {
 	my_impl_src_install() {
 		cd "${BUILD_DIR}" || die
 
-		cmake -DCOMPONENT=bindings_python -P cmake_install.cmake
+		DESTDIR=${ED} cmake -DCOMPONENT=bindings_python -P cmake_install.cmake
 
 		python_optimize
 	}
