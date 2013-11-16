@@ -20,7 +20,7 @@ HOMEPAGE="http://jogamp.org/gluegen/www/"
 SRC_URI="http://jogamp.org/deployment/archive/rc/${MY_PV}/archive/Sources/${MY_P}.tar.7z"
 
 LICENSE="BSD"
-SLOT="2"
+SLOT="2.1"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
