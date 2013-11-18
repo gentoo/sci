@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Nov 2013; Reinis Danne <rei4dan@gmail.com> openbabel-9999.ebuild:
+  Adjust for README -> README.md rename.
+
 *openbabel-9999 (24 Sep 2013)
 
   24 Sep 2013; Reinis Danne <rei4dan@gmail.com> +openbabel-9999.ebuild,

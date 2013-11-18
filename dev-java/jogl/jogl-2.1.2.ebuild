@@ -20,8 +20,8 @@ HOMEPAGE="http://jogamp.org/jogl/www/"
 SRC_URI="http://jogamp.org/deployment/${MY_PV}/archive/Sources/${MY_P}.tar.7z"
 
 LICENSE="BSD"
-SLOT="2"
-KEYWORDS="~amd64"
+SLOT="2.1"
+KEYWORDS="~amd64 ~x86"
 IUSE="cg"
 
 COMMON_DEP="
