@@ -6,7 +6,7 @@ EAPI="5"
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils-r1 git-2 virtualx
+inherit distutils-r1 git-r3 virtualx
 
 DESCRIPTION="Python package for MEG and EEG data analysis"
 HOMEPAGE="http://martinos.org/mne/mne-python.html"
@@ -15,6 +15,7 @@ EGIT_REPO_URI="https://github.com/mne-tools/mne-python.git"
 LICENSE="BSD"
 SLOT="0"
 IUSE="test cuda"
+KEYWORDS=""
 
 RDEPEND="
     dev-python/numpy[${PYTHON_USEDEP}]
@@ -36,18 +37,17 @@ DEPEND="
 "
 
 run_test() {
-    PYTHONPATH=. MNE_SKIP_SAMPLE_DATASET_TESTS=1 nosetests-${EPYTHON} -v mne
+    PYTHONPATH=. MNE_SKIP_SAMPLE_DATASET_TESTS=1 nosetests -v mne
 }
 
 python_test() {
     distutils_install_for_testing
-    esetup.py install --root="${T}/test-${EPYTHON}" \
-        --no-compile || die
+    esetup.py install --root="${T}/test-${EPYTHON}" --no-compile
     # Link to test data that won't be included in the final installation
-    TEST_DIR="${T}/test-${EPYTHON}/$(python_get_sitedir)" || die
-    cd ${S}
-    find . -type d -name data -exec ln -s ${S}/{} ${TEST_DIR}/{} \;
-    cd ${TEST_DIR}
+    local TEST_DIR="${T}/test-${EPYTHON}/$(python_get_sitedir)"
+    cd ${S} || die
+    find . -type d -name data -exec ln -s ${S}/{} ${TEST_DIR}/{} \; || die
+    cd ${TEST_DIR} || die
     VIRTUALX_COMMAND="run_test"
-    virtualmake || die
+    virtualmake
 }
