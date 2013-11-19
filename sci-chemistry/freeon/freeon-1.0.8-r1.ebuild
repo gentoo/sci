@@ -8,7 +8,7 @@ AUTOTOOLS_AUTORECONF=1
 FORTRAN_STANDARD=90
 PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
 
-inherit autotools-utils fortran-2 python-r1
+inherit autotools-utils fortran-2 python-any-r1
 
 DESCRIPTION="An experimental suite of programs for linear scaling quantum chemistry."
 HOMEPAGE="http://www.freeon.org"
@@ -22,6 +22,6 @@ IUSE=""
 RDEPEND="
 	sci-libs/hdf5
 	virtual/blas
-	virtual/lapack
+	virtual/lapack"
+DEPEND="${RDEPEND}
 	${PYTHON_DEPS}"
-DEPEND="${RDEPEND}"
