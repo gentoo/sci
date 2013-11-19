@@ -6,8 +6,9 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=1
 FORTRAN_STANDARD=90
+PYTHON_COMPAT=( python{2_6,2_7,3_1,3_2} )
 
-inherit autotools-utils fortran-2 git-2
+inherit autotools-utils fortran-2 git-2 python-any-r1
 
 DESCRIPTION="An experimental suite of programs for linear scaling quantum chemistry."
 HOMEPAGE="http://www.freeon.org"
@@ -26,6 +27,7 @@ RDEPEND="
 	virtual/blas
 	virtual/lapack"
 DEPEND="${DEPEND}
+	${PYTHON_DEPS}
 	virtual/pkgconfig"
 
 src_configure() {
