@@ -32,22 +32,24 @@ src_prepare() {
 
 src_configure() {
 	econf \
-		--with-root="/usr" \
+		--with-root="${EPREFIX}/usr" \
 		--without-Pythia8 \
-		$(use_with hepmc HepMC "/usr")
+		$(use_with hepmc HepMC "${EPREFIX}/usr")
 }
 
 src_compile() {
 	emake
-	use doc && cd doc && make || die
+	use doc && cd doc && emake
 }
 
 src_install() {
 	emake PREFIX="${D}/usr" install
-	exeinto /usr/bin
-	newexe analyze/compare.sh mc-tester-compare
+	newbin analyze/compare.sh mc-tester-compare
+
 	insinto /usr/libexec/${PN}/analyze
-	doins analyze/*.C analyze/*.tex
+	doins analyze/*.C
+	insinto /usr/share/${PN}
+	doins analyze/*.tex
 
 	if use doc; then
 		dohtml doc/doxygenDocs/html/*

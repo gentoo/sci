@@ -1,6 +1,6 @@
 --- analyze/compare.sh
 +++ analyze/compare.sh
-@@ -6,13 +6,13 @@
+@@ -6,13 +6,14 @@
  #----------------------------------
  # Change these variables
  #----------------------------------
@@ -15,6 +15,16 @@
  
 -MCTESTER_ANALYZE_DIR=${MCTESTER_DIR}/analyze
 +MCTESTER_ANALYZE_DIR=${MCTESTER_DIR}/libexec/mc-tester/analyze
++MCTESTER_DATA_DIR=${MCTESTER_DIR}/share/mc-tester
  export MC_TESTER_LIBS_DIR=${MCTESTER_DIR}/lib
  
  WORKING_DIR=`pwd`
+@@ -24,7 +25,7 @@
+ cd $WORKING_DIR
+ 
+ #copy base .tex file needed for booklet and create
+-cp ${MCTESTER_ANALYZE_DIR}/tester.tex ./ 
++cp ${MCTESTER_DATA_DIR}/tester.tex ./ 
+ latex tester.tex
+ latex tester.tex 
+ latex tester.tex 
