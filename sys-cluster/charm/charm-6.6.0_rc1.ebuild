@@ -113,7 +113,7 @@ src_prepare() {
 	#epatch "${FILESDIR}/charm-6.5.1-fix-string-parsing.patch"
 	epatch "${FILESDIR}/charm-6.5.1-fix-navmenuGenerator.patch"
 	epatch "${FILESDIR}/charm-6.5.1-fix-markupSanitizer.patch"
-	#epatch "${FILESDIR}/charm-6.5.1-static-library-fix.patch"
+	epatch "${FILESDIR}/charm-6.6.0-static-library-fix.patch"
 }
 
 src_compile() {
