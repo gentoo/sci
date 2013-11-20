@@ -2,22 +2,17 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit eutils git-2 autotools python-r1
+inherit eutils vcs-snapshot autotools python-r1
 
 DESCRIPTION="An efficient theorem prover"
 HOMEPAGE="http://z3.codeplex.com/"
-EGIT_REPO_URI="https://git01.codeplex.com/z3"
-EGIT_COMMIT="v${PV}"
+SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.tar.xz"
 KEYWORDS="~amd64 ~x86"
 
 SLOT="0"
 IUSE=""
-# A new curl is needed because codeplex has a bug and early version of libcurl
-# will cause a failed git clone.
-DEPEND=">=net-misc/curl-7.33"
+DEPEND=""
 RDEPEND=""
-
-S="${WORKDIR}/z3"
 
 src_prepare() {
 	eautoreconf
