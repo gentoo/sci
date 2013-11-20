@@ -1,0 +1,20 @@
+--- analyze/compare.sh
++++ analyze/compare.sh
+@@ -6,13 +6,13 @@
+ #----------------------------------
+ # Change these variables
+ #----------------------------------
+-FILE1=mc-tester.root #first generation step file
+-FILE2=mc-tester2.root #second generation step file
+-MCTESTER_DIR= #location of MC-TESTER
++FILE1="${1}" #first generation step file
++FILE2="${2}" #second generation step file
++MCTESTER_DIR=/usr #location of MC-TESTER
+ 
+ #----------------------------------
+ 
+-MCTESTER_ANALYZE_DIR=${MCTESTER_DIR}/analyze
++MCTESTER_ANALYZE_DIR=${MCTESTER_DIR}/libexec/mc-tester/analyze
+ export MC_TESTER_LIBS_DIR=${MCTESTER_DIR}/lib
+ 
+ WORKING_DIR=`pwd`
