@@ -6,6 +6,8 @@
 		<email>jsbronder@gentoo.org</email>
 	</maintainer>
 	<use>
+		<flag name='cma'>Enable the CMA (Cross Memory Attach) MCA</flag>
+		<flag name='cuda'>Add GPU direct support</flag>
 		<flag name='heterogeneous'>Enable features required for heterogeneous
 		platform support</flag>
 		<flag name='romio'>Build the ROMIO MPI-IO component</flag>
