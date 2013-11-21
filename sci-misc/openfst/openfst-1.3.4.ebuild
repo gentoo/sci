@@ -11,23 +11,11 @@ HOMEPAGE="http://www.openfst.org"
 SRC_URI="http://www.openfst.org/twiki/pub/FST/FstDownload/${P}.tar.gz"
 
 LICENSE="Apache-2.0"
-
 SLOT="0"
-
 KEYWORDS="~amd64 ~x86"
 
-IUSE=""
-
-DEPEND=""
-RDEPEND="${DEPEND}"
-
 src_prepare() {
-	epatch "${FILESDIR}/kaldi.patch" || die "patch failed"
-}
-
-src_install() {
-	emake DESTDIR="${D}" install || die "install failed"
-	dodoc AUTHORS NEWS README || die "docs missing"
+	epatch "${FILESDIR}/kaldi.patch"
 }
 
 src_test() {
