@@ -53,7 +53,7 @@ MPI_UNCLASSED_DEP_STR="
 	)"
 
 RDEPEND="
-	amd64? ( cuda? ( dev-util/nvidia-cuda-toolkit ) )
+	cuda? ( dev-util/nvidia-cuda-toolkit )
 	dev-libs/libevent
 	>=sys-apps/hwloc-1.3
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
