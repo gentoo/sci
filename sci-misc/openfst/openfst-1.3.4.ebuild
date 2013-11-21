@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI="5"
+
 inherit eutils flag-o-matic multilib
 
 DESCRIPTION="Finite State Transducer tools by Google et al."
@@ -18,6 +20,10 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}"
+
+src_prepare() {
+	epatch "${FILESDIR}/kaldi.patch" || die "patch failed"
+}
 
 src_install() {
 	emake DESTDIR="${D}" install || die "install failed"
