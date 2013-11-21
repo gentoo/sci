@@ -4,24 +4,16 @@
 
 EAPI="5"
 
-inherit eutils flag-o-matic multilib
+inherit autotools eutils flag-o-matic multilib
 
 DESCRIPTION="A tool for the estimation, representation, and computation of statistical language models"
 HOMEPAGE="http://hlt.fbk.eu/en/irstlm"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tgz"
 
 LICENSE="LGPL-2.1"
-
 SLOT="0"
-
 KEYWORDS="~amd64 ~x86"
 
-IUSE=""
-
-DEPEND=""
-RDEPEND="${DEPEND}"
-
-src_configure() {
-	./regenerate-makefiles.sh
-	econf || die "configure failed"
+src_prepare() {
+	eautoreconf
 }
