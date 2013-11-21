@@ -26,7 +26,7 @@ sci-libs/dealii metis
 # Christoph Junghans <ottxor@gentoo.org> (05 Nov 2013)
 # gui sandbox error
 dev-lang/conceptual gui
- 
+
 # Kacper Kowalik <xarthisius@gentoo.org> (23 Jul 2011)
 # mask assembler as it currently doesn't work
 dev-lang/path64 assembler
