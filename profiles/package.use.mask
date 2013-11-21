@@ -16,6 +16,10 @@
 ## =media-video/mplayer-0.90_pre5-r1 foo
 #
 
+# Andreas Schäfer <gentryx@gmx.de> (21 Nov 2013)
+# cuda only works on x86 and amd64
+sys-cluster/openmpi -cuda
+
 # Christoph Junghans <ottxor@gentoo.org> (05 Nov 2013)
 # gui sandbox error
 dev-lang/conceptual gui
