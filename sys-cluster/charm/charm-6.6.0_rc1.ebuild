@@ -117,11 +117,14 @@ src_prepare() {
 }
 
 src_compile() {
-	local mybuildoptions="$(usex mpi "mpi" "net")-linux$(usex amd64 "-amd64" '') $(get_opts) ${MAKEOPTS} -j1 ${CFLAGS}"
+	local build_version="$(usex mpi "mpi" "net")-linux$(usex amd64 "-amd64" '')"
+	local build_options="$(get_opts)"
+	local build_charmc_options="${MAKEOPTS} -j1"
+	local build_commandline="${build_version} ${build_options} ${build_charmc_options}"
 
 	# Build charmm++ first.
-	einfo "running ./build charm++ ${mybuildoptions}"
-	./build charm++ ${mybuildoptions} || die "Failed to build charm++"
+	einfo "running ./build charm++ ${build_commandline}"
+	./build charm++ ${build_commandline} || die "Failed to build charm++"
 
 	# make pdf/html docs
 	if use doc; then
