@@ -14,12 +14,12 @@ SLOT="0"
 IUSE=""
 # A new curl is needed because codeplex has a bug and early version of libcurl
 # will cause a failed git clone.
-DEPEND=">=net-misc/curl-7.33"
-RDEPEND=""
+RDEPEND="${PYTHON_DEPS}"
+DEPEND="${RDEPEND}
+	>=net-misc/curl-7.33"
 
 src_prepare() {
 	eautoreconf
-	python-r1_src_prepare
 }
 
 src_configure() {

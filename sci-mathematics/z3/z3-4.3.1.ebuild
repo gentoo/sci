@@ -11,12 +11,11 @@ KEYWORDS="~amd64 ~x86"
 
 SLOT="0"
 IUSE=""
-DEPEND=""
-RDEPEND=""
+RDEPEND="${PYTHON_DEPS}"
+DEPEND="${RDEPEND}"
 
 src_prepare() {
 	eautoreconf
-	python-r1_src_prepare
 }
 
 src_configure() {
