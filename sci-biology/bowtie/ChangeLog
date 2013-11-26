@@ -1,0 +1,7 @@
+# ChangeLog for sci-biology/bowtie
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  28 Sep 2013; Justin Lecher <jlec@gentoo.org> bowtie-2.1.0.ebuild:
+  Exchange common variables, fix SRC_URI
+

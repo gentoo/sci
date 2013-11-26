@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-chemistry</herd>
+  <longdescription>
+    Open Babel is a chemical toolbox designed to speak the many languages of
+    chemical data. It's an open, collaborative project allowing anyone to
+    search, convert, analyze, or store data from molecular modeling, chemistry,
+    solid-state materials, biochemistry, or related areas.
+  </longdescription>
+    <use>
+      <flag name="doc">Install API dicumentation.</flag>
+      <flag name="openmp">Enable parallelization using OpenMP.</flag>
+      <flag name="java">Install Java bindings.</flag>
+      <flag name="perl">Install Perl bindings.</flag>
+      <flag name="python">Install Python bindings and PyBel.</flag>
+      <flag name="ruby">Install Ruby bindings.</flag>
+      <flag name="wxwidgets">Build Open Babel GUI.</flag>
+    </use>
+</pkgmetadata>

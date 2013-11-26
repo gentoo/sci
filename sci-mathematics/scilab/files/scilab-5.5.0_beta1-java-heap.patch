@@ -1,0 +1,13 @@
+--- etc/jvm_options.xml.orig	2013-07-08 22:46:24.092981137 -0400
++++ etc/jvm_options.xml	2013-07-08 22:50:23.788974118 -0400
+@@ -21,8 +21,8 @@
+     <option value="-Djava.util.logging.config.file=$SCILAB/etc/logging.properties"/>
+     <!-- ENABLE Just In Time java compiler -->
+     <option value="-Djava.compiler=JIT"/>
+-    <!-- Set Java Heap space to 256mb -->
+-    <option value="-Xmx256m"/>
++    <!-- Set Java Heap space to 512mb -->
++    <option value="-Xmx512m"/>
+     
+     <!-- Set Java space for direct buffer allocation -->
+     <!--

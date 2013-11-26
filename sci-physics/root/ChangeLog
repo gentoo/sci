@@ -2,6 +2,41 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  09 Nov 2013; Andrew Savchenko <bircoph@gmail.com> +root-5.32.04.ebuild,
+  +files/root-5.28.00b-asneeded.patch, +files/root-5.28.00b-prop-ldflags.patch,
+  +files/root-5.32.00-explicit-functions.patch,
+  +files/root-5.32.00-nobyte-compile.patch:
+  Update pythia8 dependency for 5.32 branch, migrate for
+  python-single-r1 and EAPI=5.
+
+  08 Nov 2013; Andrew Savchenko <bircoph@gmail.com> root-5.34.10-r2.ebuild:
+  Fix pythia dependency: versions >= 8.1.80 changed API and are no
+  longer supported for this root verison.
+
+  15 Oct 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.34.10.ebuild,
+  -root-5.34.10-r1.ebuild, root-5.34.10-r2.ebuild, root-9999.ebuild,
+  -files/root-5.32.00-nobyte-compile.patch, -files/root-9999-cling.patch:
+  Remove old versions and unused patches. WIP on live ebuild.
+
+*root-5.34.10-r2 (07 Oct 2013)
+
+  07 Oct 2013; Andrew Savchenko <bircoph@gmail.com> +root-5.34.10-r2.ebuild,
+  metadata.xml:
+  Add minimal USE flag for minimal and gminimal configurations. Use
+  nohouwto to remove useless messages.
+
+*root-5.34.10-r1 (06 Oct 2013)
+
+  06 Oct 2013; Andrew Savchenko <bircoph@gmail.com> +root-5.34.10-r1.ebuild:
+  Properly use c++0x and oracle deps.
+
+*root-5.34.10 (04 Oct 2013)
+
+  04 Oct 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.34.09.ebuild,
+  +root-5.34.10.ebuild:
+  Version bump per bug 486620 (changes by Oliver Freyermuth).
+  Remove old.
+
 *root-5.34.09 (29 Jun 2013)
 
   29 Jun 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.34.08.ebuild,

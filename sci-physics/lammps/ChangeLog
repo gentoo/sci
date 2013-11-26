@@ -2,6 +2,33 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*lammps-20131123 (22 Nov 2013)
+
+  22 Nov 2013; Nicolas Bock <nicolasbock@gmail.com> +lammps-20131123.ebuild:
+  sci-physics/lammps-20131123: Version bump.
+
+*lammps-20131111 (11 Nov 2013)
+
+  11 Nov 2013; Nicolas Bock <nicolasbock@gmail.com> +lammps-20131111.ebuild:
+  sci-physics/lammps-20131111: Version bump.
+
+*lammps-20130930 (16 Oct 2013)
+
+  16 Oct 2013; Nicolas Bock <nicolasbock@gmail.com> +lammps-20130930.ebuild:
+  sci-physics/lammps-20130930: Version bump.
+
+*lammps-20130923 (27 Sep 2013)
+
+  27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +lammps-20130923.ebuild,
+  -lammps-20130701.ebuild, -lammps-20130708.ebuild, -lammps-20130711.ebuild:
+  sci-physics/lammps-20130923: Version bump.  I also removed older versions to
+  clean up a bit.
+
+*lammps-20130917 (18 Sep 2013)
+
+  18 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +lammps-20130917.ebuild:
+  sci-physics/lammps-20130917: Version bump.
+
 *lammps-20130830 (02 Sep 2013)
 
   02 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> +lammps-20130830.ebuild:

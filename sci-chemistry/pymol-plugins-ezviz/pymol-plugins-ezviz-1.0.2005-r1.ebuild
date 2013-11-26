@@ -17,7 +17,11 @@ LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc"
 
-RDEPEND="sci-chemistry/pymol[${PYTHON_USEDEP}]"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+RDEPEND="
+	${PYTHON_DEPS}
+	sci-chemistry/pymol[${PYTHON_USEDEP}]"
 DEPEND="app-arch/unzip"
 
 S="${WORKDIR}/EZ_Viz Folder"

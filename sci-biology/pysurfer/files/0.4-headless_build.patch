@@ -1,0 +1,22 @@
+diff --git a/setup.py b/setup.py
+index c8681c2..41c21a5 100644
+--- a/setup.py
++++ b/setup.py
+@@ -10,8 +10,6 @@ import os
+ # deal with MPL sandbox violations during easy_install
+ os.environ['MPLCONFIGDIR'] = '.'
+ 
+-import surfer
+-
+ DISTNAME = 'pysurfer'
+ DESCRIPTION = descr
+ LONG_DESCRIPTION = descr
+@@ -20,7 +18,7 @@ MAINTAINER_EMAIL = 'mwaskom@stanford.edu'
+ URL = 'http://pysurfer.github.com'
+ LICENSE = 'BSD (3-clause)'
+ DOWNLOAD_URL = 'https://github.com/nipy/PySurfer'
+-VERSION = surfer.__version__
++VERSION = "0.4"
+ 
+ import setuptools  # we are using a setuptools namespace
+ from numpy.distutils.core import setup

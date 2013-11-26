@@ -1,0 +1,33 @@
+See https://bugzilla.redhat.com/show_bug.cgi?id=964307
+and http://bugzilla.scilab.org/show_bug.cgi?id=12625
+--- configure.ac.orig	2013-10-24 23:55:14.530698970 -0400
++++ configure.ac	2013-10-25 00:03:25.597684590 -0400
+@@ -698,15 +698,10 @@
+ SCILIBS_CXXFLAGS=''
+ SCILIBS_FFLAGS=''
+ 
+-if test $IS_64_BITS_CPU = true -o "$MACOSX" = "1"; then
+-   if test $f90compatible = false; then
+-      AC_MSG_ERROR([64 bits support needs a fortran 90 compiler (try --with-gfortran).])
+-   fi
+    AC_DEFINE([USE_DYNAMIC_STACK], [], [If we are building a 64 bits version])
+-fi
+ 
+ AM_CONDITIONAL(IS_64_BITS_CPU, test $IS_64_BITS_CPU = true)
+-AM_CONDITIONAL(USE_DYNAMIC_STACK, test $IS_64_BITS_CPU = true -o "$MACOSX" = "1")
++AM_CONDITIONAL(USE_DYNAMIC_STACK, true) 
+ 
+ ################
+ ## SSE
+@@ -1958,11 +1953,7 @@
+ AC_CONFIG_COMMANDS_POST([chmod +x $SCI_SRCDIR_FULL/modules/scicos_blocks/src/scripts/GenBlocks.sh $SCI_SRCDIR_FULL/modules/dynamic_link/src/scripts/scicompile.sh $SCI_SRCDIR_FULL/modules/dynamic_link/src/scripts/compilerDetection.sh $SCI_SRCDIR_FULL/modules/dynamic_link/src/scripts/configure])
+ 
+ # Generate stack.h
+-if test "$IS_64_BITS_CPU" = true -o "$MACOSX" = "1"; then
+    stack_h_cpp_flags=-DUSE_DYNAMIC_STACK
+-else
+-   stack_h_cpp_flags=
+-fi
+ 
+ AC_CONFIG_COMMANDS([modules/core/includes/stack.h],
+   [if ! $CPP $stack_h_cpp_flags - < $srcdir/modules/core/includes/stack.h.in |\

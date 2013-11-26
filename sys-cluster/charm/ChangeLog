@@ -2,6 +2,76 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Nov 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.6.0_rc1.ebuild:
+  sys-cluster/charm-6.6.0-rc1: Reorganized some variables.
+
+  20 Nov 2013; Nicolas Bock <nicolasbock@gmail.com>
+  +files/charm-6.6.0-static-library-fix.patch, charm-6.6.0_rc1.ebuild:
+  sys-cluster/charm-6.6.0_rc1: Rewrote patch to enable shared mode.  The patch
+  is targeted now for v6.7.0 by upstream.
+
+*charm-6.6.0_rc1 (20 Nov 2013)
+
+  20 Nov 2013; Nicolas Bock <nicolasbock@gmail.com> +charm-6.6.0_rc1.ebuild:
+  sys-cluster/charm-6.6.0_rc1: Version bump.
+
+*charm-6.5.1-r3 (08 Nov 2013)
+
+  08 Nov 2013; Nicolas Bock <nicolasbock@gmail.com> +charm-6.5.1-r3.ebuild,
+  +files/charm-6.5.1-fix-markupSanitizer.patch:
+  sys-cluster/charm-6.5.1-r3: Added patch to fix doc.  When building the
+  documentation, we used to have to force <python-3. The added patch makes this
+  unecessary, which simplifies the ebuild and reduces its dependencies. The
+  patch was submitted to upstream (Bug 328:
+  https://charm.cs.illinois.edu/redmine/issues/328).
+
+  18 Oct 2013; Christoph Junghans <ottxor@gentoo.org> -charm-6.5.1-r1.ebuild,
+  -charm-6.5.1.ebuild:
+  remove old
+
+  15 Oct 2013; Nicolas Bock <nicolasbock@gmail.com>
+  files/charm-6.5.1-static-library-fix.patch:
+  sys-cluster/charm-6.5.1-r2: Updated static library patch with upstream patch.
+
+*charm-6.5.1-r2 (14 Oct 2013)
+
+  14 Oct 2013; Nicolas Bock <nicolasbock@gmail.com> +charm-6.5.1-r2.ebuild,
+  +files/charm-6.5.1-static-library-fix.patch:
+  sys-cluster/charm-6.5.1-r2: Fixed shared library bug.  When charm is built
+  with --enable-shared, not all libraries are actually built as shared
+  libraries. I have reported this bug upstream and submitted a patch. I
+  backported this patch and added it to this revision.
+
+  01 Oct 2013; Christoph Junghans <ottxor@gentoo.org> charm-6.5.1-r1.ebuild:
+  fixed deps
+
+  01 Oct 2013; Nicolas Bock <nicolasbock@gmail.com>
+  +files/charm-6.5.1-fix-navmenuGenerator.patch, charm-6.5.1-r1.ebuild:
+  sys-cluster/charm-6.5.1-r1: Fix docs with -j1  Docs don't build when using
+  anything more than -j1.
+
+  27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.1-r1.ebuild:
+  sys-cluster/charm-6.5.1-r1: Added python dependencies  The documentation is
+  built partly with python2.x scripts. I added the necessary dependencies.
+
+  27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.1-r1.ebuild:
+  sys-cluster/charm-6.5.1-r1: doc depends on python-2
+
+  27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.5.1-r1.ebuild:
+  sys-cluster/charm-6.5.1-r1: Added another missing DEPEND.
+
+  27 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
+  +files/charm-6.5.1-charmc-gentoo.patch, charm-6.5.1-r1.ebuild,
+  files/charm-6.5.1-CkReductionMgr.patch,
+  files/charm-6.5.1-cleanup-config.patch,
+  files/charm-6.5.1-fix-string-parsing.patch:
+  sys-clyster/charm-6.5.1-r1: Fix missing DEPEND.  This addresses bug 486202.
+  The ebuild had a missing DEPEND using the doc USE flag.
+
+  27 Sep 2013; Christoph Junghans <ottxor@gentoo.org>
+  files/charm-6.5.1-fix-string-parsing.patch:
+  fix broken patch
+
   14 Sep 2013; Nicolas Bock <nicolasbock@gmail.com>
   files/charm-6.5.1-fix-string-parsing.patch:
   sys-cluster/charm-6.5.1: Small fix in patch to make printing less verbose.

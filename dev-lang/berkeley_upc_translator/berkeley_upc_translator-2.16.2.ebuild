@@ -12,11 +12,15 @@ SRC_URI="http://upc.lbl.gov/download/release/${P}.tar.gz"
 LICENSE="BSD-4"
 
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="app-shells/tcsh"
 RDEPEND="dev-lang/berkeley_upc"
+
+src_prepare() {
+	epatch $FILESDIR/${P}-check-abi.patch
+}
 
 src_compile() {
 	emake -j1

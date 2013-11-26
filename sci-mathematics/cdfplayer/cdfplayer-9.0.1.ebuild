@@ -15,7 +15,7 @@ SRC_URI="http://www.wolfram.com/cdf-player/${MY_SCRIPT}"
 LICENSE="cdfplayer"
 
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 
 RESTRICT="fetch test"
 

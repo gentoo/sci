@@ -2,6 +2,17 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  bigdft-abi-1.0.4-r2.ebuild, +metadata.xml:
+  Previously announced change actually done. Added a metadata file. Dealing
+  with more complaints of repoman posponed.
+
+*bigdft-abi-1.0.4-r2 (19 Sep 2013)
+
+  19 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -bigdft-abi-1.0.4-r1.ebuild, +bigdft-abi-1.0.4-r2.ebuild:
+  Avoid sandbox violation when generating TeX fonts.
+
 *bigdft-abi-1.0.4-r1 (27 Jun 2013)
 
   27 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>

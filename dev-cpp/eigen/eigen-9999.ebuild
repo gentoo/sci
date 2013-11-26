@@ -53,6 +53,7 @@ src_configure() {
 		$(cmake-utils_use test EIGEN_BUILD_TESTS)
 		$(cmake-utils_use !fortran EIGEN_TEST_NO_FORTRAN)
 	)
+	export VARTEXFONTS="${T}/fonts"
 	CMAKE_BUILD_TYPE="release" cmake-utils_src_configure
 	# lapack not ready yet?
 	use fortran && FORTRAN_LIBS="blas"
