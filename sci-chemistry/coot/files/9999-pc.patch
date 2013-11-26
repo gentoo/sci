@@ -262,9 +262,7 @@ index 7734f09..c58fe1d 100644
  
  libccp4mg_utils_la_SOURCES = geomutil.cc mgtree.cc cartesian.cc \
 diff --git a/ccp4mg-utils/mmut/Makefile.am b/ccp4mg-utils/mmut/Makefile.am
-old mode 100755
-new mode 100644
-index d0651db..d4e0bf8
+index d0651db..d4e0bf8 100755
 --- a/ccp4mg-utils/mmut/Makefile.am
 +++ b/ccp4mg-utils/mmut/Makefile.am
 @@ -70,9 +70,9 @@ INCLUDES = \
@@ -281,9 +279,7 @@ index d0651db..d4e0bf8
  #	$(WITH_SCRIPT_CFLAGS) 
  
 diff --git a/ccp4mg-utils/pygl/Makefile.am b/ccp4mg-utils/pygl/Makefile.am
-old mode 100755
-new mode 100644
-index a7e68b5..e26a6c8
+index a7e68b5..e26a6c8 100755
 --- a/ccp4mg-utils/pygl/Makefile.am
 +++ b/ccp4mg-utils/pygl/Makefile.am
 @@ -108,9 +108,9 @@ INCLUDES = \
@@ -300,9 +296,7 @@ index a7e68b5..e26a6c8
  #	$(WITH_SCRIPT_CFLAGS) 
  
 diff --git a/ccp4mg-utils/util/Makefile.am b/ccp4mg-utils/util/Makefile.am
-old mode 100755
-new mode 100644
-index 399f453..3d2ff55
+index 399f453..3d2ff55 100755
 --- a/ccp4mg-utils/util/Makefile.am
 +++ b/ccp4mg-utils/util/Makefile.am
 @@ -73,9 +73,9 @@ INCLUDES = \
@@ -546,10 +540,10 @@ index cf81182..3a2af5c 100644
  libcoot_high_res_la_SOURCES = high-res.cc coot-atom-graph.cc residue-distortions.cc \
  	sequence-assignment.cc
 diff --git a/ideal/Makefile.am b/ideal/Makefile.am
-index be4dc3e..f4cc8eb 100644
+index e52c271..c5c8e6a 100644
 --- a/ideal/Makefile.am
 +++ b/ideal/Makefile.am
-@@ -32,11 +32,11 @@ pkgincludedir = $(includedir)/coot/ideal
+@@ -33,11 +33,11 @@ pkgincludedir = $(includedir)/coot/ideal
  
  INCLUDES = \
  	-I$(top_srcdir) \
@@ -805,19 +799,20 @@ index de8ab65..4c1b418 100644
  
  ])
 diff --git a/macros/goo-canvas.m4 b/macros/goo-canvas.m4
-index e2494a5..cf96688 100644
+index e2494a5..89c908e 100644
 --- a/macros/goo-canvas.m4
 +++ b/macros/goo-canvas.m4
-@@ -35,7 +35,7 @@ if test x$goocanvas_prefix != x; then
+@@ -35,8 +35,7 @@ if test x$goocanvas_prefix != x; then
    # SGI compiler CC (CXX=CC) needs -lm to link maths library, but 
    # GCC c++ does not.
    #
 -  GOOCANVAS_LDOPTS="-L$goocanvas_prefix/lib -lgoocanvas"
+-
 +  GOOCANVAS_LIBS="-L$goocanvas_prefix/lib -lgoocanvas"
- 
  else
    # the compiler looks in the "standard" places for GOOCANVAS. (or uses pkgconfig)
-@@ -54,15 +54,15 @@ else
+ 
+@@ -54,18 +53,16 @@ else
      break;;
    esac
    if test -z "${PKG_CONFIG}"; then
@@ -834,9 +829,23 @@ index e2494a5..cf96688 100644
 -LIBS="$saved_LIBS $GOOCANVAS_LDOPTS $GTK_LIBS"
 +LIBS="$saved_LIBS $GOOCANVAS_LIBS $GTK_LIBS"
  CXXFLAGS="$saved_CXXFLAGS $GOOCANVAS_CFLAGS $GTK_CFLAGS"
+-
+-
+ dnl # 20130929: why do I do this?  I don't remember.  Using libtool 
+ dnl # in this way is not a good idea (configure makes libtool).
+ dnl #
+@@ -85,18 +82,15 @@ dnl     # note that we use ./libtool (running in the build dir) because $LIBTOOL
+ dnl     CXX="libtool --mode=link $CXX"
+ dnl     break;;
+ dnl esac
+-
+-
+ AC_LANG_PUSH(C++)
+ AC_TRY_LINK([#include "goocanvas.h"] ,[ GooCanvas *a;  ], have_goocanvas=yes, have_goocanvas=no)
+ AC_LANG_POP
+-
+ AC_MSG_RESULT($have_goocanvas)
  
- 
-@@ -96,7 +96,7 @@ AC_MSG_RESULT($have_goocanvas)
  if test x$have_goocanvas = xyes; then
  
   GOOCANVAS_CFLAGS="$GOOCANVAS_CFLAGS"
