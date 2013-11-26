@@ -64,6 +64,7 @@
 >=sci-chemistry/votca-csgapps-9999
 ~sci-visualization/gnuplot-4.6.9999
 ~sci-visualization/gnuplot-4.7.9999
+>=sci-visualization/yt-9999
 ~sci-chemistry/burrow-owl-9999_pre15
 >=sci-chemistry/pymol-apbs-plugin-9999
 >=sci-chemistry/coot-9999
