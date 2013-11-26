@@ -8,12 +8,12 @@ PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
 inherit eutils distutils-r1
 
 DESCRIPTION="Python interface generator for Fortran based codes"
-HOMEPAGE="http://hifweb.lbl.gov/Forthon http://pypi.python.org/pypi/Forthon"
+HOMEPAGE="http://hifweb.lbl.gov/Forthon"
 SRC_URI="http://hifweb.lbl.gov/${PN}/${P}.tgz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="examples"
 
 python_prepare_all() {
