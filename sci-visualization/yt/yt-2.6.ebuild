@@ -14,7 +14,7 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="test"
 
 CDEPEND="media-libs/freetype
@@ -35,11 +35,13 @@ DEPEND="${CDEPEND}
 		dev-python/nose[${PYTHON_USEDEP}]
 	)"
 
-src_prepare() {
+python_prepare_all() {
 	append-flags -fno-strict-aliasing
 	sed -i setup.py \
 		-e 's:build/lib:../../../&:' || die
-	distutils-r1_src_prepare
+	sed -i yt/utilities/setup.py \
+		-e "s:/usr:${EPREFIX}/usr:g"  || die
+	distutils-r1_python_prepare_all
 }
 
 # TODO
