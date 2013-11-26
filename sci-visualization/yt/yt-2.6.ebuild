@@ -3,21 +3,18 @@
 # $Header: $
 
 EAPI=5
-
 PYTHON_COMPAT=( python2_7 )
 DISTUTILS_IN_SOURCE_BUILD=1
-EHG_REPO_URI="https://bitbucket.org/yt_analysis/yt"
-EHG_REVISION="yt"
 
-inherit distutils-r1 mercurial
+inherit distutils-r1 flag-o-matic
 
 DESCRIPTION="Astrophysical Simulation Analysis and Vizualization package"
 HOMEPAGE="http://yt-project.org/"
-SRC_URI=""
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="test"
 
 CDEPEND="media-libs/freetype
