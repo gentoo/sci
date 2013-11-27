@@ -44,6 +44,7 @@ python_prepare_all() {
 		-e 's:build/lib:../../../&:' || die
 	sed -i yt/utilities/setup.py \
 		-e "s:/usr:${EPREFIX}/usr:g" || die
+	mv yt/utilities/kdtree/fKD.{f,F}90 || die # Forthon-0.8.13
 	distutils-r1_python_prepare_all
 }
 
