@@ -20,9 +20,9 @@ SLOT="0"
 KEYWORDS=""
 IUSE="test"
 
-CDEPEND="media-libs/freetype
-	media-libs/libpng
-	sci-libs/hdf5"
+CDEPEND="media-libs/freetype:2
+	media-libs/libpng:0=
+	sci-libs/hdf5:="
 RDEPEND="${CDEPEND}
 	dev-python/ipython[notebook,${PYTHON_USEDEP}]
 	dev-python/pyx[${PYTHON_USEDEP}]
@@ -38,11 +38,13 @@ DEPEND="${CDEPEND}
 		dev-python/nose[${PYTHON_USEDEP}]
 	)"
 
-src_prepare() {
+python_prepare_all() {
 	append-flags -fno-strict-aliasing
 	sed -i setup.py \
 		-e 's:build/lib:../../../&:' || die
-	distutils-r1_src_prepare
+	sed -i yt/utilities/setup.py \
+		-e "s:/usr:${EPREFIX}/usr:g" || die
+	distutils-r1_python_prepare_all
 }
 
 # TODO

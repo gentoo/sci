@@ -17,9 +17,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="test"
 
-CDEPEND="media-libs/freetype
-	media-libs/libpng
-	sci-libs/hdf5"
+CDEPEND="media-libs/freetype:2
+	media-libs/libpng:0=
+	sci-libs/hdf5:="
 RDEPEND="${CDEPEND}
 	dev-python/ipython[notebook,${PYTHON_USEDEP}]
 	dev-python/pyx[${PYTHON_USEDEP}]
