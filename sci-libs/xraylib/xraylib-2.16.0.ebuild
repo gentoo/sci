@@ -30,7 +30,7 @@ AUTOTOOLS_IN_SOURCE_BUILD=1
 
 S="${WORKDIR}/${PN}-${P}"
 
-DOCS=(AUTHORS BUGS ChangeLog README TODO)
+DOCS=(AUTHORS BUGS Changelog README TODO)
 
 src_prepare() {
 	eautoreconf
