@@ -5,7 +5,7 @@
 EAPI=5
 
 PYTHON_COMPAT=( python2_6 python2_7 python3_1 python3_2 python3_3 )
-inherit eutils autotools-utils python-r1
+inherit eutils autotools-utils python-r1 java-pkg-opt-2
 
 DESCRIPTION="A library for X-ray matter interaction cross sections for X-ray fluorescence applications"
 HOMEPAGE="https://github.com/tschoonj/xraylib"
