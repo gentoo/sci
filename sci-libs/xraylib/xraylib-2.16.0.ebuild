@@ -24,7 +24,11 @@ DEPEND="fortran? ( virtual/fortran )
 
 RDEPEND="${DEPEND}"
 
+AUTOTOOLS_IN_SOURCE_BUILD=1
+
 S="${WORKDIR}/${PN}-${P}"
+
+DOCS=(AUTHORS BUGS ChangeLog README TODO)
 
 src_configure() {
 	local myeconfargs=(
