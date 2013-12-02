@@ -1,10 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.03-r2.ebuild,v 1.5 2012/10/16 18:50:45 jlec Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.32.04.ebuild,v 1.2 2013/03/02 23:27:01 hwoarang Exp $
 
-EAPI=4
-
-PYTHON_DEPEND="python? 2"
+EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
 	_SVN=subversion
@@ -17,7 +15,8 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit elisp-common eutils fdo-mime fortran-2 multilib python toolchain-funcs user ${_SVN}
+PYTHON_COMPAT=( python2_{6,7} )
+inherit elisp-common eutils fdo-mime fortran-2 multilib python-single-r1 toolchain-funcs user ${_SVN}
 
 ROOFIT_DOC_PV=2.91-33
 TMVA_DOC_PV=4.03
@@ -66,12 +65,12 @@ CDEPEND="
 		)
 		opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps )
 		qt4? (
-			x11-libs/qt-gui:4
-			x11-libs/qt-opengl:4
-			x11-libs/qt-qt3support:4
-			x11-libs/qt-svg:4
-			x11-libs/qt-webkit:4
-			x11-libs/qt-xmlpatterns:4 )
+			dev-qt/qtgui:4
+			dev-qt/qtopengl:4
+			dev-qt/qt3support:4
+			dev-qt/qtsvg:4
+			dev-qt/qtwebkit:4
+			dev-qt/qtxmlpatterns:4 )
 		xft? ( x11-libs/libXft )
 		)
 	afs? ( net-fs/openafs )
@@ -89,7 +88,7 @@ CDEPEND="
 	oracle? ( dev-db/oracle-instantclient-basic )
 	postgres? ( dev-db/postgresql-base )
 	pythia6? ( sci-physics/pythia:6 )
-	pythia8? ( sci-physics/pythia:8 )
+	pythia8? ( <sci-physics/pythia-8.1.80:8 )
 	ruby? (
 			dev-lang/ruby
 			dev-ruby/rubygems )
@@ -115,7 +114,7 @@ S="${WORKDIR}/${PN}"
 
 pkg_setup() {
 	fortran-2_pkg_setup
-	python_pkg_setup
+	use python && python-single-r1_pkg_setup
 	echo
 	elog "There are extra options on packages not yet in Gentoo:"
 	elog "AliEn, castor, Chirp, dCache, gfal, gLite, Globus,"
@@ -337,7 +336,10 @@ src_install() {
 
 	echo "LDPATH=${EPREFIX}/usr/$(get_libdir)/root" > 99root
 	use pythia8 && echo "PYTHIA8=${EPREFIX}/usr" >> 99root
-	use python && echo "PYTHONPATH=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
+	if use python; then
+		echo "PYTHONPATH=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
+		python_optimize /usr/$(get_libdir)/root
+	fi
 	use ruby && echo "RUBYLIB=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
 	doenvd 99root
 
@@ -369,10 +371,8 @@ src_install() {
 
 pkg_postinst() {
 	fdo-mime_desktop_database_update
-	use python && python_mod_optimize /usr/$(get_libdir)/root
 }
 
 pkg_postrm() {
 	fdo-mime_desktop_database_update
-	use python && python_mod_cleanup /usr/$(get_libdir)/root
 }

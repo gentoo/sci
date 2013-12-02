@@ -11,7 +11,7 @@
   numerical simulations.
 </longdescription>
 <use>
-  <flag name='int64'>Build the 64 bits integer library (needed for > 2^31 vertices)</flag>
-  <flag name='double-precision'>Floating-point operation done as double precision</flag>
+  <flag name="int64">Build the 64 bits integer library (needed for &gt; 2^31 vertices)</flag>
+  <flag name="double-precision">Floating-point operation done as double precision</flag>
 </use>
 </pkgmetadata>

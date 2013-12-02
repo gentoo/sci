@@ -9,4 +9,7 @@
   calibration meta-data, plus lists of known objects falling inside
   the field of view.
 </longdescription>
+<use>
+  <flag name="extra">Add extra tools, specifically for plots</flag>
+</use>
 </pkgmetadata>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>cluster</herd>
+  <longdescription>
+    VampirTrace is an open source library that allows detailed logging of program execution for parallel applications using message passing (MPI) and threads (OpenMP), Pthreads). Besides these typical parallelization paradigms, VampirTrace is capable of tracing GPU accelerated applications and generates exact time stamps for all GPU related events.
+  </longdescription>
+  <maintainer>
+    <email>gentryx@gmx.de</email>
+  </maintainer>
+  <use>
+    <flag name="cuda">
+      Enable tracing of CUDA calls and GPU kernels.
+    </flag>
+  </use>
+</pkgmetadata>

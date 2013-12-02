@@ -1,6 +1,35 @@
 # ChangeLog for sci-libs/atlas
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  14 Oct 2013; Justin Lecher <jlec@gentoo.org> atlas-3.10.1-r1.ebuild:
+  Fix type _cpufreq -> cpufreq
+
+  13 Oct 2013; Justin Lecher <jlec@gentoo.org> atlas-3.10.1-r1.ebuild,
+  metadata.xml:
+  Set cpu freq governor without sys-power/cpufrequtils, #487882
+
+  22 May 2013; Sébastien Fabbro <bicatali@gentoo.org> -atlas-3.10.1.ebuild,
+  metadata.xml:
+  Cleanup
+
+  25 Feb 2013; Sébastien Fabbro <bicatali@gentoo.org> atlas-3.10.1-r1.ebuild:
+  sci-libs/atlas: Switched threads libraries to Libs.private in pkg-config files
+
+*atlas-3.10.1-r1 (20 Feb 2013)
+
+  20 Feb 2013; Sébastien Fabbro <bicatali@gentoo.org> +atlas-3.10.1-r1.ebuild:
+  sci-libs/atlas: Move -lm -latlas to Libs.private in all pkg-config files
+
+*atlas-3.10.1 (28 Jan 2013)
+
+  28 Jan 2013; Sébastien Fabbro <bicatali@gentoo.org> +atlas-3.10.1.ebuild,
+  -atlas-3.10.0.ebuild:
+  sci-libs/atlas: Version bump
+
+  12 Dec 2012; Sébastien Fabbro <bicatali@gentoo.org> -atlas-3.8.4.ebuild,
+  -files/3.9.39-bfr-overflow.patch, atlas-3.10.0.ebuild, metadata.xml:
+  sci-libs/atlas: Update for lapack-3.4.2
 
   27 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
   +files/atlas-3.10.0-x32-support.patch, -files/atlas-3.10-x32-support.patch,

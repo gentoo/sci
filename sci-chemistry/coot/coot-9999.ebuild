@@ -1,14 +1,14 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="2"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
 AUTOTOOLS_AUTORECONF="true"
 
-inherit autotools-utils python subversion toolchain-funcs versionator
+inherit autotools-utils python-single-r1 subversion toolchain-funcs versionator
 
 MY_S2_PV=$(replace_version_separator 2 - ${PV})
 MY_S2_P=${PN}-${MY_S2_PV/pre1/pre-1}
@@ -18,7 +18,7 @@ MY_P=${PN}-${MY_PV}
 
 DESCRIPTION="Crystallographic Object-Oriented Toolkit for model building, completion and validation"
 HOMEPAGE="http://www.biop.ox.ac.uk/coot/"
-SRC_URI="test? ( http://www.biop.ox.ac.uk/coot/devel/greg-data.tar.gz )"
+SRC_URI="test? ( http://www2.mrc-lmb.cam.ac.uk/personal/pemsley/coot/data/greg-data.tar.gz )"
 ESVN_REPO_URI="http://coot.googlecode.com/svn/trunk"
 
 SLOT="0"
@@ -26,18 +26,20 @@ LICENSE="GPL-3"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="+openmp static-libs test"
 
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
 SCIDEPS="
 	>=sci-libs/ccp4-libs-6.1
-	>=sci-libs/clipper-20090520
+	sci-libs/clipper
 	>=sci-libs/coot-data-2
 	>=sci-libs/gsl-1.3
 	>=sci-libs/mmdb-1.23
 	sci-libs/ssm
-	<sci-libs/monomer-db-1
+	sci-libs/monomer-db
 	sci-chemistry/reduce
-	<sci-chemistry/refmac-5.6
+	sci-chemistry/refmac
 	sci-chemistry/probe"
 
 XDEPS="
@@ -60,7 +62,8 @@ RDEPEND="
 	${SCIDEPS}
 	${XDEPS}
 	${SCHEMEDEPS}
-	dev-python/pygtk:2
+	${PYTHON_DEPS}
+	dev-python/pygtk:2[${PYTHON_USEDEP}]
 	>=dev-libs/gmp-4.2.2-r2
 	>=net-misc/curl-7.19.6
 	net-dns/libidn"
@@ -76,25 +79,22 @@ pkg_setup() {
 	if use openmp; then
 		tc-has-openmp || die "Please use an OPENMP capable compiler"
 	fi
-	python_set_active_version 2
-	python_pkg_setup
+	python-single-r1_pkg_setup
 }
 
-PATCHES=(
-	"${FILESDIR}"/${PV}-clipper-config.patch
-	"${FILESDIR}"/${PV}-goocanvas.patch
-	"${FILESDIR}"/${PV}-mmdb-config.patch
-	"${FILESDIR}"/${PV}-ssm.patch
-	)
+PATCHES=( "${FILESDIR}"/${PV}-pc.patch	)
 
 src_unpack() {
 	subversion_src_unpack
-	use test && unpack ${A}
+	if use test; then
+		unpack ${A}
+		ln -sf . "${S}"/coot-ccp4
+	fi
 }
 
 src_prepare() {
 	sed \
-		-e "s:AM_COOT_SYS_BUILD_TYPE:COOT_SYS_BUILD_TYPE=Gentoo-Linux-$(PYTHON)-gtk2 ; AC_MSG_RESULT([\$COOT_SYS_BUILD_TYPE]); AC_SUBST(COOT_SYS_BUILD_TYPE):g" \
+		-e "s:AM_COOT_SYS_BUILD_TYPE:COOT_SYS_BUILD_TYPE=Gentoo-Linux-${EPYTHON}-gtk2 ; AC_MSG_RESULT([\$COOT_SYS_BUILD_TYPE]); AC_SUBST(COOT_SYS_BUILD_TYPE):g" \
 		-i configure.in || die
 
 	autotools-utils_src_prepare
@@ -126,7 +126,7 @@ src_configure() {
 
 src_compile() {
 	autotools-utils_src_compile
-	python_convert_shebangs $(python_get_version) "${S}"/src/coot_gtk2.py
+	python_fix_shebang "${S}"/src/coot_gtk2.py
 	cp "${S}"/src/coot_gtk2.py python/coot.py || die
 }
 

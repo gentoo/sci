@@ -1,0 +1,20 @@
+X-Git-Url: http://gitweb.scilab.org/?p=scilab.git;a=blobdiff_plain;f=scilab%2Fm4%2Fcompiler.m4;h=150a283c5ba4f30a997dceb7fd4cb529283b3d54;hp=dbd0180faee5f4f491205e8bd97e7fc6082930d7;hb=3147468d32d010c01036ecfe4a86b2d9c6c12bf0;hpb=a9218e259ed573228e1aa6732c6ff7ea3c21fae4
+
+diff --git a/scilab/m4/compiler.m4 b/scilab/m4/compiler.m4
+index dbd0180..150a283 100644
+--- a/scilab/m4/compiler.m4
++++ b/scilab/m4/compiler.m4
+@@ -38,6 +38,13 @@ saved_LDFLAGS="$LDFLAGS"
+ compiler_manage_static_libs=no
+ USE_STATIC_SYSTEM_LIB=yes
+ 
++
++if test "x$enable_static_system_lib" == "xno"; then
++# The user ask for an explicit disable.
++   USE_STATIC_SYSTEM_LIB=no
++fi
++
++
+ LDFLAGS="$LDFLAGS -static-libstdc++ -static-libgcc"
+ AC_MSG_CHECKING([whether g++ accepts -static-libstdc++ -static-libgcc])
+ AC_LANG_PUSH(C++)

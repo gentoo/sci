@@ -1,0 +1,10 @@
+# ChangeLog for sys-cluster/mpich
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mpich-3.0.4 (09 Jul 2013)
+
+  09 Jul 2013; Justin Bronder <jsbronder@gentoo.org> +mpich-3.0.4.ebuild,
+  +.mpich-3.0.4.ebuild.swp, +files/eselect.mpi.mpich, +metadata.xml:
+  Initial commit, upstream package move from sys-cluster/mpich2 and bump
+

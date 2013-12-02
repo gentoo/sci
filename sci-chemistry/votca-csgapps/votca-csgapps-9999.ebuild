@@ -11,9 +11,7 @@ if [ "${PV}" != "9999" ]; then
 	RESTRICT="primaryuri"
 else
 	inherit mercurial
-	EHG_REPO_URI="https://csgapps.votca.googlecode.com/hg"
-	EHG_REVISION="default"
-	S="${WORKDIR}/${EHG_REPO_URI##*/}"
+	EHG_REPO_URI="https://code.google.com/p/votca.csgapps/"
 fi
 
 DESCRIPTION="Extra applications for votca-csg"

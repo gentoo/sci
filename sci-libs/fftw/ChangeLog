@@ -1,0 +1,22 @@
+# ChangeLog for sci-libs/fftw
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  17 Sep 2013; Christoph Junghans <ottxor@gentoo.org> -Manifest,
+  -fftw-3.3.3-r3.ebuild:
+  moved to gx86
+
+  07 Sep 2013; Christoph Junghans <ottxor@gentoo.org> fftw-3.3.3-r3.ebuild,
+  fftw-9999.ebuild:
+  final clean up
+
+  02 Sep 2013; Christoph Junghans <ottxor@gentoo.org> fftw-3.3.3-r3.ebuild,
+  fftw-9999.ebuild:
+  clean up
+
+*fftw-3.3.3-r3 (01 Sep 2013)
+*fftw-9999 (01 Sep 2013)
+
+  01 Sep 2013; Christoph Junghans <ottxor@gentoo.org> +fftw-3.3.3-r3.ebuild,
+  +fftw-9999.ebuild, +files/fftw-3.3.3-install-header.patch, +metadata.xml:
+  import from gx86

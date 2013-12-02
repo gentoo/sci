@@ -1,10 +1,21 @@
 # ChangeLog for virtual/mpi
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  12 Jul 2013; Christoph Junghans <ottxor@gentoo.org> mpi-2.0-r3.ebuild:
+  fix nullmpi use flags
+
+  12 Jul 2013; Justin Bronder <jsbronder@gentoo.org> mpi-2.0-r3.ebuild:
+  add threads as an optional use dep
+
+*mpi-2.0-r3 (09 Jul 2013)
+
+  09 Jul 2013; Justin Bronder <jsbronder@gentoo.org> -mpi-2.0-r2.ebuild,
+  +mpi-2.0-r3.ebuild:
+  Upstream package move from sys-cluster/mpich2 to sys-cluster/mpich
 
 *mpi-2.0-r2 (23 Jan 2011)
 
   23 Jan 2011; Christoph Junghans <kleiner_otti@gmx.de> +mpi-2.0-r2.ebuild,
   +metadata.xml:
   initial version with sys-cluster/nullmpi support
-

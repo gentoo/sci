@@ -1,6 +1,36 @@
 # ChangeLog for sci-libs/openblas
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*openblas-0.2.8 (06 Aug 2013)
+
+  06 Aug 2013; Sébastien Fabbro <bicatali@gentoo.org> +openblas-0.2.8.ebuild,
+  -openblas-0.2.7.ebuild, openblas-9999.ebuild:
+  sci-libs/openblas: Version bump
+
+*openblas-0.2.7 (24 Jul 2013)
+
+  24 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> +openblas-0.2.7.ebuild,
+  -files/openblas-aliasing.patch, -files/openblas-sharedlibs-0.2.patch,
+  -openblas-0.2.6.ebuild, metadata.xml, openblas-9999.ebuild:
+  sci-libs/openblas: Version bump. Rewrote ebuild to try to follow upstream
+  closer
+
+*openblas-0.2.6 (03 Mar 2013)
+
+  03 Mar 2013; Sébastien Fabbro <bicatali@gentoo.org> +openblas-0.2.6.ebuild,
+  -openblas-0.2.5.ebuild, openblas-9999.ebuild:
+  sci-libs/openblas: Version bump
+
+  25 Feb 2013; Sébastien Fabbro <bicatali@gentoo.org> openblas-9999.ebuild:
+  sci-libs/openblas: Move threads to Libs.private in pc file
+
+*openblas-0.2.5 (12 Dec 2012)
+
+  12 Dec 2012; Sébastien Fabbro <bicatali@gentoo.org> +openblas-0.2.5.ebuild,
+  -openblas-0.2.2.ebuild, -openblas-0.2.3.ebuild, -openblas-0.2.4-r1.ebuild,
+  -openblas-0.2.4.ebuild, openblas-9999.ebuild:
+  sci-libs/openblas: Version bump. Link latest version to live one
 
 *openblas-0.2.4-r1 (15 Oct 2012)
 
@@ -95,4 +125,3 @@
   23 Feb 2011; Sébastien Fabbro <bicatali@gentoo.org> +openblas-9999.ebuild,
   +files/openblas-sharedlibs.patch, +metadata.xml:
   Initial import
-

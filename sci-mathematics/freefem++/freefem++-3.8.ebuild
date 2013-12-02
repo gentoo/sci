@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit autotools eutils flag-o-matic mpi versionator
+inherit autotools eutils flag-o-matic mpi versionator toolchain-funcs
 
 MY_PV=$(replace_version_separator 2 '-')
 
@@ -15,11 +15,12 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="doc examples mpi opengl vim-syntax X"
 
-RDEPEND="sci-libs/fftw
+RDEPEND="
+	sci-libs/fftw
 	virtual/cblas
 	virtual/lapack
 	sci-libs/umfpack
-	>=sci-libs/arpack-96-r2
+	sci-libs/arpack
 	mpi? ( $(mpi_pkg_deplist) )
 	opengl? (
 		media-libs/freeglut
@@ -35,7 +36,7 @@ RDEPEND="sci-libs/fftw
 		)"
 
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	doc? (
 		|| (
 			(
@@ -78,12 +79,11 @@ src_compile() {
 		--disable-download \
 		--disable-optim \
 		--enable-generic \
-		--with-blas="$(pkg-config --libs blas)" \
-		--with-lapack="$(pkg-config --libs lapack)" \
+		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)" \
+		--with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)" \
 		$(use_enable opengl) \
 		$(use_with X x) \
-		${myconf} \
-		|| die "econf failed"
+		${myconf}
 
 	emake || die "emake failed"
 

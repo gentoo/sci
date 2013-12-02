@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit versionator toolchain-funcs flag-o-matic  multilib
 
@@ -65,7 +65,7 @@ src_prepare() {
 		append-cflags -DUSEOPENMP
 	fi
 	use amd64 && append-cflags -DBIT64
-	[[ $(pkg-config --libs blas) =~ -latlas ]] && append-cflags -DUSEATLAS
+	[[ $($(tc-getPKG_CONFIG) --libs blas) =~ -latlas ]] && append-cflags -DUSEATLAS
 	sed -i \
 		-e "s:-O3:${CFLAGS}:" \
 		-e "s:ar :$(tc-getAR) :" \
@@ -74,7 +74,7 @@ src_prepare() {
 
 src_compile() {
 	emake CFLAGS="${CFLAGS} -fPIC" -C lib
-	local libs="$(pkg-config --libs blas lapack)"
+	local libs="$($(tc-getPKG_CONFIG) --libs blas lapack)"
 	static_to_shared lib/libsdp.a ${libs}
 	use static-libs && emake -C lib clean && emake -C lib
 	emake -C solver LIBS="${libs} -L../lib -lsdp"

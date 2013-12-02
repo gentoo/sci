@@ -1,10 +1,12 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/espresso/espresso-3.1.0.ebuild,v 1.5 2012/05/06 23:08:00 ottxor Exp $
 
-EAPI=4
+EAPI=5
 
-inherit autotools-utils savedconfig
+PYTHON_COMPAT=( python{2_6,2_7} )
+
+inherit autotools-utils python-single-r1 savedconfig
 
 DESCRIPTION="Extensible Simulation Package for Research on Soft matter"
 HOMEPAGE="http://www.espressomd.org"
@@ -12,6 +14,7 @@ HOMEPAGE="http://www.espressomd.org"
 if [[ ${PV} = 9999 ]]; then
 	EGIT_REPO_URI="git://git.savannah.nongnu.org/espressomd.git"
 	EGIT_BRANCH="master"
+	AUTOTOOLS_AUTORECONF=1
 	inherit git-2
 else
 	SRC_URI="mirror://nongnu/${PN}md/${P}.tar.gz"
@@ -19,13 +22,16 @@ fi
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
+KEYWORDS=""
 IUSE="X doc examples fftw mpi packages test -tk"
-REQUIRED_USE="tk? ( X )"
+
+REQUIRED_USE="
+	${PYTHON_REQUIRED_USE}
+	tk? ( X )"
 
 RESTRICT="tk? ( test )"
 
-RDEPEND="
+RDEPEND="${PYTHON_DEPS}
 	dev-lang/tcl
 	fftw? ( sci-libs/fftw:3.0 )
 	mpi? ( virtual/mpi )
@@ -34,23 +40,12 @@ RDEPEND="
 	X? ( x11-libs/libX11 )"
 
 DEPEND="${RDEPEND}
-	dev-lang/python
 	doc? (
 		|| ( <app-doc/doxygen-1.7.6.1[-nodot] >=app-doc/doxygen-1.7.6.1[dot] )
 		dev-texlive/texlive-latexextra
 		virtual/latex-base )"
 
 DOCS=( AUTHORS NEWS README ChangeLog )
-
-src_prepare() {
-	autotools-utils_src_prepare
-	eautoreconf
-	restore_config myconfig.h
-	if [[ ${CHOST} == *-darwin* ]]; then
-		#tclline uses stty, which has different exit code on Darwin
-		sed -i '/source.*tclline/s/^/#/' "scripts/init.tcl" || die
-	fi
-}
 
 src_configure() {
 	myeconfargs=(
@@ -60,6 +55,7 @@ src_configure() {
 		$(use_with X x)
 	)
 	autotools-utils_src_configure
+	restore_config myconfig.h
 }
 
 src_compile() {
@@ -106,16 +102,16 @@ src_install() {
 }
 
 pkg_postinst() {
-	elog
+	echo
 	elog "Please read and cite:"
 	elog "ESPResSo, Comput. Phys. Commun. 174(9) ,704, 2006."
 	elog "http://dx.doi.org/10.1016/j.cpc.2005.10.005"
-	elog
+	echo
 	elog "If you need more features, change"
 	elog "/etc/portage/savedconfig/${CATEGORY}/${PF}"
 	elog "and reemerge with USE=savedconfig"
-	elog
+	echo
 	elog "For a full feature list see:"
 	elog "/usr/share/${PN}/myconfig-sample.h"
-	elog
+	echo
 }

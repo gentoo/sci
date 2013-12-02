@@ -1,10 +1,13 @@
 # ChangeLog for sci-chemistry/openbabel
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-*openbabel-2.3.2 (19 Oct 2012)
+  14 Nov 2013; Reinis Danne <rei4dan@gmail.com> openbabel-9999.ebuild:
+  Adjust for README -> README.md rename.
 
-  19 Oct 2012; Reinis Danne <rei4dan@gmail.com> +openbabel-2.3.2.ebuild,
-  +files/openbabel-2.3.2-test_lib_path.patch, +metadata.xml:
-  Bump to 2.3.2.
+*openbabel-9999 (24 Sep 2013)
+
+  24 Sep 2013; Reinis Danne <rei4dan@gmail.com> +openbabel-9999.ebuild,
+  +metadata.xml:
+  Add live ebuild with Java, Perl, Python and Ruby bindings.
 

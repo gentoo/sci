@@ -1,42 +1,44 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=4
 
-inherit autotools elisp-common eutils flag-o-matic python subversion
+inherit autotools elisp-common eutils flag-o-matic git-2 python toolchain-funcs
 
 IUSE="debug emacs optimization"
 
-ESVN_REPO_URI="svn://svn.macaulay2.com/Macaulay2/trunk/M2"
+EGIT_REPO_URI="git://github.com/Macaulay2/M2.git"
 
 # Those packages will be built internally.
-FACTORY="factory-3-1-4-1"
-LIBFAC="libfac-3-1-4"
+FACTORY="factory-3-1-6"
+LIBFAC="libfac-3-1-6"
 
 DESCRIPTION="Research tool for commutative algebra and algebraic geometry"
 HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
-SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${LIBFAC}.tar.gz
-		 ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/${FACTORY}.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/mpfr-3.0.1.tar.gz
-		 http://www.math.uiuc.edu/Macaulay2/Extra/gtest-1.6.0.tar.gz
-		 http://www.mathematik.uni-osnabrueck.de/normaliz/Normaliz2.8/Normaliz2.8.zip"
+SRC_URI="
+	ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${LIBFAC}.tar.gz
+	ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
+	http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/${FACTORY}.tar.gz
+	http://www.math.uiuc.edu/Macaulay2/Extra/gtest-1.6.0.tar.gz
+	http://www.mathematik.uni-osnabrueck.de/normaliz/Normaliz2.8/Normaliz2.8.zip"
 # Need normaliz for an up to date normaliz.m2
 
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS=""
 
-# Macaulay2 is broken with >=mpfr-3.1, to not force a downgrade on users
-# we let it built an internal copy :(
-# This dep was removed:
-# >=dev-libs/mpfr-3.0.0
-
 DEPEND="
+	sys-process/time
+	virtual/pkgconfig
+	app-arch/unzip
+	app-text/dos2unix"
+# Unzip and dos2unix just for normaliz
+
+RDEPEND="
 	sys-libs/gdbm
-	>=dev-libs/ntl-5.5.2
-	>=sci-mathematics/pari-2.3.4[gmp]
+	dev-libs/ntl
+	sci-mathematics/pari[gmp]
 	>=sys-libs/readline-6.1
 	dev-libs/libxml2:2
 	sci-mathematics/frobby
@@ -44,7 +46,8 @@ DEPEND="
 	sci-mathematics/nauty
 	>=sci-mathematics/normaliz-2.8
 	sci-mathematics/gfan
-	>=sci-libs/mpir-2.1.1[cxx]
+	sci-libs/mpir[cxx]
+	dev-libs/mpfr
 	sci-libs/cdd+
 	sci-libs/cddlib
 	sci-libs/lrslib[gmp]
@@ -52,26 +55,23 @@ DEPEND="
 	virtual/lapack
 	dev-util/ctags
 	sys-libs/ncurses
-	sys-process/time
 	>=dev-libs/boehm-gc-7.2_alpha6[threads]
 	dev-libs/libatomic_ops
-	emacs? ( virtual/emacs )
-	virtual/pkgconfig
-	app-arch/unzip
-	app-text/dos2unix"
-# Unzip and dos2unix just for normaliz
-
-RDEPEND="${DEPEND}"
+	emacs? ( virtual/emacs )"
 
 SITEFILE=70Macaulay2-gentoo.el
 
-S="${WORKDIR}/${PN}-${PV}"
+S="${WORKDIR}/${PN}-${PV}/"
 
 RESTRICT="mirror"
 
 src_unpack (){
 	unpack "Normaliz2.8.zip"
-	subversion_src_unpack
+	git-2_src_unpack
+	# Undo one level of directory until git allows to checkout
+	# subdirectories
+	mv "${S}"/M2/* "${S}" || die
+	rmdir "${S}"/M2 || die
 }
 
 pkg_setup () {
@@ -82,17 +82,15 @@ pkg_setup () {
 }
 
 src_prepare() {
+	tc-export PKG_CONFIG
 	# Put updated Normaliz.m2 in place
 	cp "${WORKDIR}/Normaliz2.8/Macaulay2/Normaliz.m2" \
 		"${S}/Macaulay2/packages" || die
-	dos2unix ${S}/Macaulay2/packages/Normaliz.m2 || die
+	dos2unix "${S}/Macaulay2/packages/Normaliz.m2" || die
 
 	# Patching .m2 files to look for external programs in
 	# /usr/bin
 	epatch "${FILESDIR}"/${PV}-paths-of-external-programs.patch
-
-	# Fixing make warnings about unavailable jobserver:
-	sed -i "s/\$(MAKE)/+ \$(MAKE)/g" "${S}"/distributions/Makefile.in
 
 	# Shortcircuit lapack tests
 	epatch "${FILESDIR}"/${PV}-lapack.patch
@@ -111,9 +109,6 @@ src_prepare() {
 	# same as the tested program.
 	cp "${DISTDIR}/gtest-1.6.0.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
-	# Temporary internal build of mpfr-3.0:
-	cp "${DISTDIR}/mpfr-3.0.1.tar.gz" "${S}/BUILD/tarfiles/" \
-		|| die "copy failed"
 
 	eautoreconf
 }
@@ -126,21 +121,22 @@ src_configure (){
 	fi
 
 	# configure instead of econf to enable install with --prefix
-	./configure --prefix="${D}/usr" \
+	./configure LIBS="$($(tc-getPKG_CONFIG) --libs lapack)" \
+		--prefix="${D}/usr" \
 		--disable-encap \
 		--disable-strip \
 		$(use_enable optimization optimize) \
 		$(use_enable debug) \
-		--enable-build-libraries="factory libfac mpfr" \
+		--enable-build-libraries="factory libfac" \
 		--with-unbuilt-programs="4ti2 gfan normaliz nauty cddplus lrslib" \
 		|| die "failed to configure Macaulay"
 }
 
 src_compile() {
 	# Parallel build not supported yet
-	emake -j1
+	# emake -j1
 	# For trunk builds we may wish to ignore example errors
-	# emake IgnoreExampleErrors=true -j1
+	emake IgnoreExampleErrors=true -j1
 
 	if use emacs; then
 		cd "${S}/Macaulay2/emacs"
@@ -156,7 +152,8 @@ src_test() {
 
 src_install () {
 	# Parallel install not supported yet
-	emake -j1 install
+	# NumericalAlgebraicGeometry fails (during install too?)
+	emake IgnoreExampleErrors=true -j1 install
 
 	# Remove emacs files and install them in the
 	# correct place if use emacs

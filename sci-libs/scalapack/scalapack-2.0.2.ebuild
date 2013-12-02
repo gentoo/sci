@@ -12,19 +12,17 @@ SRC_URI="${HOMEPAGE}/${P}.tgz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs test"
 
 RDEPEND="
 	virtual/lapack
 	virtual/mpi
 	!sci-libs/mpiblacs"
-
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_prepare() {
-	#epatch "${FILESDIR}"/${PN}-2.0.1-link.patch
 	# gentoo fix to avoid collision with other scalapack
 	sed -i \
 		-e 's:BINARY_DIR}/scalapack.pc:BINARY_DIR}/refscalapack.pc:g' \
@@ -38,8 +36,8 @@ src_configure() {
 	scalapack_configure() {
 		local mycmakeargs=(
 			-DUSE_OPTIMIZED_LAPACK_BLAS=ON
-			-DBLAS_LIBRARIES="$(pkg-config --libs blas)"
-			-DLAPACK_LIBRARIES="$(pkg-config --libs lapack)"
+			-DBLAS_LIBRARIES="$($(tc-getPKG_CONFIG) --libs blas)"
+			-DLAPACK_LIBRARIES="$($(tc-getPKG_CONFIG) --libs lapack)"
 			$(cmake-utils_use_build test TESTING)
 			$@
 		)

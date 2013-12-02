@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,7 +14,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE="doc"
 RDEPEND="|| (
 		>=sci-libs/blas-reference-20110417
-		>=dev-cpp/eigen-3.0.2-r1
+		>=dev-cpp/eigen-3.1.2
 		sci-libs/atlas[fortran]
 		sci-libs/openblas
 		>=sci-libs/acml-4.4

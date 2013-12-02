@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,7 +16,7 @@
 # It is suggested that you use the latest EAPI approved by the Council.
 # The PMS contains specifications for all EAPIs. Eclasses will test for this
 # variable if they need to use EAPI > 0 features.
-EAPI=4
+EAPI=5
 
 # inherit lists eclasses to inherit functions from. Almost all ebuilds should
 # inherit eutils, as a large amount of important functionality has been
@@ -81,8 +81,7 @@ KEYWORDS="~x86"
 
 # Comprehensive list of any and all USE flags leveraged in the ebuild,
 # with the exception of any ARCH specific flags, i.e. "ppc", "sparc",
-# "x86" and "alpha".  This is a required variable.  If the ebuild doesn't
-# use any USE flags, set to "".
+# "x86" and "alpha".  Not needed if the ebuild doesn't use any USE flags.
 IUSE="gnome X"
 
 # A space delimited list of portage features to restrict. man 5 ebuild

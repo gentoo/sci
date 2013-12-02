@@ -1,0 +1,257 @@
+--- a/src/condor_examples/condor_config.generic
++++ b/src/condor_examples/condor_config.generic
+@@ -1,12 +1,31 @@
+ ######################################################################
++######################################################################
++###                                                                ###
++###  N O T I C E:   D O   N O T   E D I T   T H I S   F I L E      ###
++###                                                                ###
++###      Customization should be done via the LOCAL_CONFIG_DIR.    ###
++###                                                                ###
++######################################################################
++######################################################################
++
++
++######################################################################
+ ##
+ ##  condor_config
+ ##
+ ##  This is the global configuration file for condor.  Any settings
+-##  made here may potentially be overridden in the local configuration
+-##  file.  KEEP THAT IN MIND!  To double-check that a variable is
+-##  getting set from the configuration file that you expect, use
+-##  condor_config_val -v <variable name>
++##  found here * * s h o u l d   b e   c u s t o m i z e d   i n
++##  a   l o c a l   c o n f i g u r a t i o n   f i l e. * *
++##
++##  The local configuration files are located in LOCAL_CONFIG_DIR, set
++##  below.
++##
++##  For a basic configuration, you may only want to start by
++##  customizing CONDOR_HOST and DAEMON_LIST.
++##
++##  Note: To double-check where a configuration variable is set from
++##  you can use condor_config_val -v -config <variable name>,
++##  e.g. condor_config_val -v -config CONDOR_HOST.
+ ##
+ ##  The file is divided into four main parts:
+ ##  Part 1:  Settings you likely want to customize 
+@@ -53,7 +72,7 @@
+ ##  Pathnames:
+ ##--------------------------------------------------------------------
+ ##  Where have you installed the bin, sbin and lib condor directories?   
+-RELEASE_DIR		= /usr/local/condor
++RELEASE_DIR		= /usr
+ 
+ ##  Where is the local condor directory for each host?  
+ ##  This is where the local config file(s), logs and
+@@ -61,17 +80,20 @@
+ LOCAL_DIR		= $(TILDE)
+ #LOCAL_DIR		= $(RELEASE_DIR)/hosts/$(HOSTNAME)
+ 
+-##  Where is the machine-specific local config file for each host?
+-LOCAL_CONFIG_FILE	= $(LOCAL_DIR)/condor_config.local
+-#LOCAL_CONFIG_FILE	= $(RELEASE_DIR)/etc/$(HOSTNAME).local
++## Looking for LOCAL_CONFIG_FILE? You will not find it here. Instead
++## put a file in the LOCAL_CONFIG_DIR below. It is a more extensible
++## means to manage configuration. The order in which configuration
++## files are read from the LOCAL_CONFIG_DIR is lexicographic. For
++## instance, config in 00MyConfig will be overridden by config in
++## 97MyConfig.
+ 
+ ##  Where are optional machine-specific local config files located?
+ ##  Config files are included in lexicographic order.
+-LOCAL_CONFIG_DIR	= $(LOCAL_DIR)/config
+-#LOCAL_CONFIG_DIR	= $(LOCAL_DIR)/config
++##  No default.
++LOCAL_CONFIG_DIR        = $(ETC)/config.d
+ 
+ ## Blacklist for file processing in the LOCAL_CONFIG_DIR
+-## LOCAL_CONFIG_DIR_EXCLUDE_REGEXP = ^((\..*)|(.*~)|(#.*)|(.*\.rpmsave)|(.*\.rpmnew))$
++LOCAL_CONFIG_DIR_EXCLUDE_REGEXP = ^((\..*)|(.*~)|(#.*)|(.*\.rpmsave)|(.*\.rpmnew))$
+ 
+ ## If the local config file is not present, is it an error?
+ ## WARNING: This is a potential security issue. 
+@@ -409,7 +431,22 @@
+ ##  condor account, it's probably condor.  Otherwise, it's whatever
+ ##  you've set in the CONDOR_IDS environment variable.  See the Admin
+ ##  manual for details on this.
+-LOCK		= $(LOG)
++LOCK = /var/lock/condor
++
++# Condor allows for creating surrogate lock files that always live on
++# local disk. This is useful for the times when Condor would otherwise
++# lock a file on a network filesystem, such as a UserLog.
++# CREATE_LOCKS_ON_LOCAL_DISK controls this feature, and
++# LOCAL_DISK_LOCK_DIR controls where the lock files are created. The
++# local dir must have tmp-like permissions (1777), because multiple
++# users, e.g. via condor_submit or condor_dagman, will need to
++# add/remove lock files.
++# NOTE: This will not provide proper locking if a shared file is
++# simultaneously accessed from multiple machines. However, that is not
++# a common event. One example where it is possible is remote
++# submission with condor_submit -remote.
++#CREATE_LOCKS_ON_LOCAL_DISK = TRUE
++LOCAL_DISK_LOCK_DIR = $(LOCK)/local
+ 
+ ##  If you don't use a fully qualified name in your /etc/hosts file
+ ##  (or NIS, etc.) for either your official hostname or as an alias,
+@@ -475,7 +512,8 @@
+ ##  the execute machine and just make sure the two strings match.  The
+ ##  default for this setting is False, since it is more secure this
+ ##  way.
+-#TRUST_UID_DOMAIN = False
++##   Default is False
++TRUST_UID_DOMAIN = True
+ 
+ ## If you would like to be informed in near real-time via condor_q when
+ ## a vanilla/standard/java job is in a suspension state, set this attribute to
+@@ -514,8 +552,9 @@
+ ## just disable it).
+ #NEGOTIATOR_IGNORE_USER_PRIORITIES = False
+ 
+-## This is a list of libraries containing ClassAd plug-in functions.
+-#CLASSAD_USER_LIBS =
++## These are the directories used to locate classad plug-in functions
++#CLASSAD_SCRIPT_DIRECTORY =
++#CLASSAD_LIB_PATH =
+ 
+ ## This setting tells Condor whether to delegate or copy GSI X509
+ ## credentials when sending them over the wire between daemons.
+@@ -605,6 +644,9 @@
+ MAX_HDFS_LOG            = 1000000
+ HDFS_DEBUG              =
+ 
++MAX_TRIGGERD_LOG	= 1000000
++TRIGGERD_DEBUG        	=
++
+ # High Availability Logs
+ MAX_HAD_LOG		= 1000000
+ HAD_DEBUG		=
+@@ -932,14 +974,18 @@ TESTINGMODE_CLAIM_WORKLIFE = 1200
+ ######################################################################
+ 
+ ##  Pathnames
+-LOG		= $(LOCAL_DIR)/log
++LOG         = /var/log/condor
+ SPOOL		= $(LOCAL_DIR)/spool
+ EXECUTE		= $(LOCAL_DIR)/execute
+ BIN		= $(RELEASE_DIR)/bin
+ LIB		= $(RELEASE_DIR)/lib
+-INCLUDE		= $(RELEASE_DIR)/include
++INCLUDE     = $(RELEASE_DIR)/include/condor
+ SBIN		= $(RELEASE_DIR)/sbin
+-LIBEXEC		= $(RELEASE_DIR)/libexec
++SHARE   = $(RELEASE_DIR)/share/condor
++RUN     = /var/run/condor
++DATA		= $(SPOOL)
++ETC     = /etc/condor
++LIBEXEC		= $(RELEASE_DIR)/libexec/condor
+ 
+ ## If you leave HISTORY undefined (comment it out), no history file
+ ## will be created. 
+@@ -963,6 +1009,7 @@ HAD_LOG		= $(LOG)/HADLog
+ REPLICATION_LOG	= $(LOG)/ReplicationLog
+ TRANSFERER_LOG	= $(LOG)/TransfererLog
+ HDFS_LOG	= $(LOG)/HDFSLog
++TRIGGERD_LOG	= $(LOG)/TriggerLog
+ 
+ ##  Lock files
+ SHADOW_LOCK	= $(LOCK)/ShadowLock
+@@ -1084,7 +1131,7 @@ DAEMON_LIST			= MASTER, STARTD, SCHEDD
+ #MASTER, STARTD, SCHEDD, KBDD, COLLECTOR, NEGOTIATOR, EVENTD, \
+ #VIEW_SERVER, CONDOR_VIEW, VIEW_COLLECTOR, HAWKEYE, CREDD, HAD, \
+ #DBMSD, QUILL, JOB_ROUTER, ROOSTER, LEASEMANAGER, HDFS, SHARED_PORT, \
+-#DEFRAG
++#DEFRAG TRIGGERD
+ 
+ 
+ ##  Where are the binaries for these daemons?
+@@ -1094,7 +1141,6 @@ SCHEDD				= $(SBIN)/condor_schedd
+ KBDD				= $(SBIN)/condor_kbdd
+ NEGOTIATOR			= $(SBIN)/condor_negotiator
+ COLLECTOR			= $(SBIN)/condor_collector
+-CKPT_SERVER			= $(SBIN)/condor_ckpt_server
+ STARTER_LOCAL			= $(SBIN)/condor_starter
+ JOB_ROUTER                      = $(LIBEXEC)/condor_job_router
+ ROOSTER                         = $(LIBEXEC)/condor_rooster
+@@ -1102,6 +1148,7 @@ HDFS				= $(SBIN)/condor_hdfs
+ SHARED_PORT			= $(LIBEXEC)/condor_shared_port
+ TRANSFERER			= $(LIBEXEC)/condor_transferer
+ DEFRAG                          = $(LIBEXEC)/condor_defrag
++TRIGGERD			= $(sbin)/condor_triggerd
+ 
+ ##  When the master starts up, it can place it's address (IP and port)
+ ##  into a file.  This way, tools running on the local machine don't
+@@ -1178,11 +1225,13 @@ PREEN_ARGS			= -m -r
+ ##--------------------------------------------------------------------
+ ## Address to which Condor will send a weekly e-mail with output of
+ ## condor_status.
+-#CONDOR_DEVELOPERS = condor-admin@cs.wisc.edu
++##  Default is condor-admin@cs.wisc.edu
++CONDOR_DEVELOPERS = NONE
+ 
+ ## Global Collector to periodically advertise basic information about
+ ## your pool.
+-#CONDOR_DEVELOPERS_COLLECTOR = condor.cs.wisc.edu
++##  Default is condor.cs.wisc.edu
++CONDOR_DEVELOPERS_COLLECTOR = NONE
+ 
+ ##  When the collector starts up, it can place it's address (IP and port)
+ ##  into a file.  This way, tools running on the local machine don't
+@@ -1199,6 +1248,7 @@ COLLECTOR_ADDRESS_FILE = $(LOG)/.collector_address
+ ## Determine if the Negotiator will honor SlotWeight attributes, which
+ ## may be used to give a slot greater weight when calculating usage.
+ #NEGOTIATOR_USE_SLOT_WEIGHTS = True
++NEGOTIATOR_USE_SLOT_WEIGHTS = True
+ 
+ 
+ ## How often the Negotaitor starts a negotiation cycle, defined in
+@@ -1668,7 +1718,7 @@ QUEUE_SUPER_USERS	= root, condor
+ ##  Such as when when Condor is running as a service.
+ ##   /s is delete subdirectories
+ ##   /c is continue on error
+-WINDOWS_RMDIR = $(SBIN)\condor_rmdir.exe
++#WINDOWS_RMDIR = $(SBIN)\condor_rmdir.exe
+ #WINDOWS_RMDIR_OPTIONS = /s /c
+ 
+ ##--------------------------------------------------------------------
+@@ -1689,13 +1739,15 @@ PROCD = $(SBIN)/condor_procd
+ #     UNIX); the name will be something like:
+ #         \\.\pipe\condor_procd
+ #
+-PROCD_ADDRESS = $(LOCK)/procd_pipe
++PROCD_ADDRESS = $(RUN)/procd_pipe
+ 
+-# Note that in other Condor daemons, turning on D_PROCFAMILY will
+-# result in that daemon logging all of its interactions with the
+-# ProcD.
++# The procd currently uses a very simplistic logging system. Since this
++# log will not be rotated like other Condor logs, it is only recommended
++# to set PROCD_LOG when attempting to debug a problem. In other Condor
++# daemons, turning on D_PROCFAMILY will result in that daemon logging
++# all of its interactions with the ProcD.
+ #
+-PROCD_LOG = $(LOG)/ProcLog
++#PROCD_LOG = $(LOG)/ProcLog
+ 
+ # This is the maximum period that the procd will use for taking
+ # snapshots (the actual period may be lower if a condor daemon registers
+@@ -1788,7 +1840,7 @@ JAVA = /usr/bin/java
+ ## them here.  However, do not remove the existing entries, as Condor
+ ## needs them.
+ 
+-JAVA_CLASSPATH_DEFAULT = $(LIB) $(LIB)/scimark2lib.jar .
++JAVA_CLASSPATH_DEFAULT = $(SHARE) $(SHARE)/scimark2lib.jar .
+ 
+ ##  JAVA_CLASSPATH_ARGUMENT describes the command-line parameter
+ ##  used to introduce a new classpath:
+@@ -2458,7 +2510,7 @@ KBDD_ADDRESS_FILE = $(LOG)/.kbdd_address
+ #SSH_TO_JOB_SSHD_ARGS = "-i -e -f %f"
+ 
+ # sshd configuration template used by condor_ssh_to_job_sshd_setup.
+-#SSH_TO_JOB_SSHD_CONFIG_TEMPLATE = $(LIB)/condor_ssh_to_job_sshd_config_template
++SSH_TO_JOB_SSHD_CONFIG_TEMPLATE = $(ETC)/condor_ssh_to_job_sshd_config_template
+ 
+ # Path to ssh-keygen
+ #SSH_TO_JOB_SSH_KEYGEN = /usr/bin/ssh-keygen

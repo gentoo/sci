@@ -1,32 +1,39 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-DESCRIPTION="A C++ template STATIC library of efficient implementations of common data structures and algorithms."
+AUTOTOOLS_IN_SOURCE_BUILD=1
+inherit autotools-utils eutils
+
+DESCRIPTION="C++ template static library of common data structures and algorithms"
 HOMEPAGE="https://lemon.cs.elte.hu/trac/lemon/"
-SRC_URI="http://lemon.cs.elte.hu/pub/sources/lemon-"${PV}".tar.gz"
+SRC_URI="http://lemon.cs.elte.hu/pub/sources/${P}.tar.gz"
 
 LICENSE="Boost-1.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="doc test"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+IUSE="coin doc static-libs test tools"
 
-DEPEND="sci-mathematics/glpk
-		doc? ( app-text/ghostscript-gpl
-				dev-lang/python )
-		test? ( dev-util/valgrind )"
-RDEPEND="${DEPEND}"
+RDEPEND="
+	sci-mathematics/glpk
+	coin? ( sci-libs/coinor-cbc sci-libs/coinor-clp )"
+DEPEND="${RDEPEND}
+	test? ( dev-util/valgrind )"
 
-src_prepare(){
-	if use test; then
-		MYOPTS="--enable-valgrind"
-	else
-		MYOPTS=""
-	fi
-	econf ${MYOPTS} || die
+PATCHES=( "${FILESDIR}"/${P}-gcc47.patch )
+
+src_configure() {
+	#	$(use_enable test valgrind)
+	local myeconfargs=(
+		$(use_enable tools)
+		$(use_with coin)
+	)
+	autotools-utils_src_configure
 }
 
-# a dynamic library can be built using
-# cmake -DBUILD_SHARED_LIBS=TRUE ..
+src_install() {
+	autotools-utils_src_install
+	use doc && emake DESTDIR="${D}" install-html
+}

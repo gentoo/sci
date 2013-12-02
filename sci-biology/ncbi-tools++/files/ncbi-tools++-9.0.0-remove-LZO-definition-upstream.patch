@@ -1,0 +1,10 @@
+--- src/connect/ncbi_gnutls.c	2013-09-14 09:49:41.260005353 +0200
++++ src/connect/ncbi_gnutls.c	2013-09-14 09:49:46.950005368 +0200
+@@ -112,7 +112,6 @@
+     0
+ };
+ static const int kGnuTlsCompPrio[] = {
+-    GNUTLS_COMP_LZO,
+     GNUTLS_COMP_ZLIB,
+     GNUTLS_COMP_NULL,
+     0

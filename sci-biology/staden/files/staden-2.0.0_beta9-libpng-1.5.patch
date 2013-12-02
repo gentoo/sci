@@ -1,0 +1,16 @@
+ tk_utils/tkTrace.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tk_utils/tkTrace.c b/tk_utils/tkTrace.c
+index beeb478..42a4e11 100644
+--- a/tk_utils/tkTrace.c
++++ b/tk_utils/tkTrace.c
+@@ -2123,7 +2123,7 @@ int drawable_to_png(DNATrace *t, FILE *fp, Display *disp, Drawable d,
+ 	goto error;
+ 
+     /* PNG requires setjmp/longjmp to be used */
+-    if (setjmp(png_ptr->jmpbuf))
++    if (setjmp (png_jmpbuf (png_ptr)))
+ 	goto error;
+ 
+     /* Create the info bits */

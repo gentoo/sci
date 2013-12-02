@@ -1,0 +1,497 @@
+#!/bin/bash
+VERSION=0.10
+
+source /etc/init.d/functions.sh
+
+die(){
+    if [ -n "${1}" ]; then
+        echo; eerror $1; echo
+    fi
+    exit 1
+}
+
+has() {
+    [[ " ${@:2} " == *" $1 "* ]]
+}
+
+usage(){
+    local rc=${1:-0}
+    shift
+cat <<-EOF
+empi-${VERSION}
+Usage: ${HILITE}empi${NORMAL} ${GOOD}[actions]${NORMAL} ${BRACKET}[options]${NORMAL}
+
+Actions:
+    ${GOOD}-c, --create${NORMAL} pkgspec        (Re)Initialize setup for mpi class.
+    ${GOOD}-a, --add${NORMAL} pkgspec(s)        Add packages using specified mpi class.
+    ${GOOD}-d, --delete${NORMAL} class          Remove everything related to specified class.
+
+Options:
+    ${GOOD}-C, --class${NORMAL} class           MPI class to use.
+    ${GOOD}-t, --tree${NORMAL} path             Path to portage tree to use ebuilds from.
+    ${GOOD}-o, --overlaydir${NORMAL} path       Directory to use for the empi portage overlay.
+                                Defaults to MPI_OVERLAY_DIR [${DEFAULT_MPI_OVERLAY_DIR}]
+    ${GOOD}    --noemerge${NORMAL}              Do not call emerge, only preform overlay setup.
+
+Notes:
+    ${HILITE}-${NORMAL} pkgspec is specified by a package string.  Without a version, the
+      portageq best_visible is used.  For example, all of the following
+      are valid: openmpi, sys-cluster/openmpi, =sys-cluster/openmpi-1.2.5.
+    ${HILITE}-${NORMAL} class (-c) is user defined but must be prefixed with "mpi-"
+
+Examples:
+${BRACKET}Create a new class based on openmpi.${NORMAL}
+    empi --create sys-cluster/openmpi --class mpi-ompi
+${BRACKET}Rebuild the above.${NORMAL}
+    emerge mpi-ompi/openmpi
+${BRACKET}Add hpl to mpi-ompi${NORMAL}
+    empi --class mpi-ompi --add sys-cluster/hpl
+EOF
+    [[ -n $* ]] && echo && eerror "Error: $*"
+    exit ${rc}
+}
+
+class_is_valid() {
+    [[ -z ${CLASS} ]] && usage 1 "No class defined."
+    [[ ${CLASS} != mpi-* ]] && usage 1 "Classes must be prefixed with mpi-"
+    [[ ${CLASS//./} != ${CLASS} ]] && usage 1 "Classes cannot contain . (period)"
+}
+
+is_class_category() {
+    local i
+    for i in $(eselect mpi list -p); do
+        [[ ${1} == ${i} ]] && return 0
+    done
+    return 1
+}
+
+split_atom() {
+    local cpv c pf pn pv
+    cpv=$(portageq best_visible / ${1})
+    if [[ -z ${cpv} || ${rc} -ne 0 ]]; then
+        cpv=$(portageq best_visible / =${1})
+        [[ -z ${cpv} || ${rc} -ne 0 ]] && return 1
+    fi
+    c=${cpv%/*}; pf=${cpv#${c}/}; pn=${pf%%-[0-9]*}; pv=${pf#${pn}-}
+    echo "${c} ${pn} ${pv}"
+}
+
+parse_pkgspecs() {
+    local atom i
+    for ((i=0; i<${#TARGETS[@]}; i++)); do
+        atom=($(split_atom ${TARGETS[i]}))
+        if [[ $? -ne 0 ]]; then
+            eerror "Unable to find a unique package or valid version for ${TARGETS[i]}"
+            eerror "Is the package unmasked and unblocked normally?"
+            die ""
+        fi
+        TARGETS[i]=${atom[0]}/${atom[1]}-${atom[2]}
+    done
+}
+
+# handle_etc_portage package_spec
+# parses /etc/portage/package.{keywords,use}.  If ${CLASS}/${pn} is seen, we don't
+# do a thing.  Otherwise copy any lines that have ${cat}/${pn} inserting them again
+# with the new category.  Also keywords virtual/${CLASS} if necessary.
+handle_etc_portage() {
+    local atom=( $(split_atom ${1}) )
+    local ext line gfiles f
+
+    for ext in "keywords" "use"; do
+        if [ -d /etc/portage/package.${ext} ]; then
+            gfiles="/etc/portage/package.${ext}/*"
+            f=/etc/portage/package.${ext}/${CLASS}
+        else
+            gfiles="/etc/portage/package.${ext}"
+            f=/etc/portage/package.${ext}
+        fi
+
+        if ! grep "^[>=<]*${CLASS}/${atom[1]}" ${gfiles} &>/dev/null; then
+            grep -h "^[>=<]*${atom[0]}/${atom[1]}" ${gfiles} 2>/dev/null \
+                | sed "s,${atom[0]},${CLASS}," \
+            | while read line; do
+               echo "${line}" >> ${f}
+                [[ ${VERBOSE} -ne 0 ]] \
+                    && einfo "Addition to ${f}: ${line}"
+            done
+        elif [[ ${VERBOSE} -ne 0 ]]; then
+            ewarn "Keys for ${CLASS}/${atom[1]} already exist in ${f}.  Will not replicate them."
+        fi
+
+        if ! grep "^${CLASS}/mpi" ${gfiles} &>/dev/null; then
+            grep -h "^virtual/mpi" ${gfiles} 2>/dev/null \
+                | sed "s,/mpi,/${CLASS}," \
+            | while read line; do
+                echo "${line}" >> ${f}
+            [[ ${VERBOSE} -ne 0 ]] \
+                && einfo "Addition to ${f}: ${line}"
+            done
+        elif [[ ${VERBOSE} -ne 0 ]]; then
+            ewarn "Keys for virtual/${CLASS} already exist.  Will not replicate."
+        fi
+    done
+}
+
+
+
+get_ebuild_dir() {
+    local d a
+    local want_uses_mpi=${2:-0}
+    local found=0
+
+    a=($(split_atom ${1}))
+    [[ $? -ne 0 ]] && die "Unable to find a unique package or valid version for ${1}."
+    is_class_category ${a[0]} && die "It makes no sense to build a new mpi-class from a current one."
+
+    if [[ -z ${PORTAGE_TREE} ]]; then
+        for d in $(portageq portdir_overlay) $(portageq portdir); do
+            if [[ ${want_uses_mpi} -ne 0 ]]; then
+                [[ -f "${d}/${a[0]}/${a[1]}/${a[1]}-${a[2]}.ebuild" ]] \
+                    && ebuild_uses_mpi ${d}/${a[0]}/${a[1]} ${a[1]}-${a[2]} \
+                    && found=1
+            else
+                [[ -f "${d}/${a[0]}/${a[1]}/${a[1]}-${a[2]}.ebuild" ]] && found=1
+            fi
+            [[ ${found} -ne 0 ]] && break
+        done
+        if [[ ${found} -ne 0 ]]; then
+            PORTAGE_TREE=${d}
+        else
+            die "Could not find an ebuild for ${a[0]}/${a[1]}-${a[2]}."
+        fi
+    fi
+
+    EBUILD_DIR="${PORTAGE_TREE}/${a[0]}/${a[1]}"
+}
+
+ebuild_uses_mpi() {
+    grep 'inherit .*mpi' "${1}/${2##*/}.ebuild" &>/dev/null
+}
+
+link_ebuild_dir() {
+    ln -snf "${EBUILD_DIR}" "${MPI_OVERLAY_DIR}"/${CLASS}/${EBUILD_DIR##*/} \
+        || die "Failed to link ${EBUILD_DIR} to ${MPI_OVERLAY_DIR}/${CLASS}/${EBUILD_DIR##*/}"
+}
+
+# TODO:  Needs to be called after get_ebuild_dir which sets $PORTAGE_TREE
+create_virtual_mpi() {
+    local d_dir="${MPI_OVERLAY_DIR}"/virtual/${CLASS}
+    local version d_file mpi_ebuild s_dir
+
+    # Try to get virtual/mpi from the same tree as the other ebuilds.
+    # Otherwise we fall back and get it from anywhere.
+    version=$(portageq best_visible / ${__VIRTUAL_MPI_VERSION})
+    version=${version#virtual/mpi-}
+
+    for s_dir in ${PORTAGE_TREE} $(portageq portdir_overlay) $(portageq portdir); do
+        mpi_ebuild="${s_dir}"/virtual/mpi/mpi-${version}.ebuild
+        [ -f "${mpi_ebuild}" ] && break;
+    done
+
+    [[ ! -f "${mpi_ebuild}" ]] \
+        && die "Cannot satisfy ${__VIRTUAL_MPI_VERSION}"
+
+    d_file=${CLASS}-${version}.ebuild
+
+    mkdir -p "${d_dir}" || die "Could not create ${d_dir}"
+
+    cp "${mpi_ebuild}" "${d_dir}"/${d_file} \
+        || die "Could not copy ${mpi_ebuild} to ${d_dir}/${d_file}"
+
+    sed -i "s,sys-cluster/,${CLASS}/," ${d_dir}/${d_file}
+    ebuild ${d_dir}/${d_file} digest > /dev/null \
+        || die "Failed to digest ${d_dir}/${d_file}"
+}
+
+set_metadata() {
+    # Snagged from crossdev:  http://git.overlays.gentoo.org/gitweb/?p=proj/crossdev.git
+    # 3cab8c394fec72f2353e209d98429dd1aaf1d337
+
+    # for people who have eclasses spread over their overlays, generate
+    # a layout.conf file so portage can find them.  this is a crapshoot
+    # when diff overlay sources have conflicting eclasses, but nothing
+    # we really can do about that.
+    local autogen_tag="# Autogenerated and managed by empi"
+    local meta=${MPI_OVERLAY_DIR}/metadata
+    local layout=${meta}/layout.conf
+    local d name masters thin_manifests="false"
+
+    mkdir -p "${meta}"
+    if [[ -e ${layout} ]] ; then
+        if ! grep -qs "^${autogen_tag}" "${layout}" ; then
+            einfo "leaving metadata/layout.conf alone in ${MPI_OVERLAY_DIR}"
+            return
+        fi
+
+        # We are managing it, so blow it away
+        rm -f "${layout}"
+    fi
+
+    # build up a list of possible repos where we can pull from
+    for d in ${PORTDIR_OVERLAY} "${PORTDIR}" ; do
+        [[ -z ${d} ]] && continue
+
+        name=
+        if [[ -e ${d}/profiles/repo_name ]] ; then
+            name=$(<"${d}"/profiles/repo_name)
+        fi
+        [[ -z ${name} ]] && continue
+
+        # If this repo has an eclass dir, mark it as a master.
+        # Note: portage reads the masters list in reverse order,
+        #       so we have to prepare it the same way.
+        if [[ -d ${d}/eclass ]] ; then
+            has ${name} ${masters} || masters="${name} ${masters}"
+        fi
+
+        # If one of the overlays uses thin manifests, then turn it on
+        if [[ -z ${this_manifests} ]] && has ${name} ${masters} && \
+            sed \
+                -e 's:#.*::' \
+                -e 's:^[[:space:]]*::' \
+                -e 's:[[:space:]]*$::' \
+                -e 's:[[:space:]]*=[[:space:]]*:=:' \
+                "${d}/metadata/layout.conf" 2>/dev/null | \
+            gawk -F= '{
+                    if ($1 == "use-manifests") um = $2
+                    if ($1 == "thin-manifests") tm = $2
+                }
+                END {
+                    exit !(um != "false" && tm == "true")
+                }'
+        then
+            einfo "enabling thin-manifests due to ${d}"
+            this_manifests="use-manifests = true\nthin-manifests = true"
+        fi
+    done
+
+    # write out that layout.conf!
+    cat <<-EOF > "${layout}"
+	${autogen_tag}
+	# Delete the above line if you want to manage this file yourself
+	masters = ${masters% }
+	$(printf '%b' "${this_manifests}")
+	EOF
+}
+
+do_emerge() {
+    [[ ${DO_EMERGE} -eq 0 ]] && return 0
+    einfo "Emerging $*"
+    emerge ${EMERGE_OPTS} $* || die "emerge failed!"
+}
+
+# We should have only one target here.
+create_class() {
+    local mpi_class_pkg d mpi_class_pn
+
+    [[ ${#TARGETS[@]} -ne 1 ]] && die "Can only create one class at a time."
+
+    for d in $(eselect mpi list -p); do
+        [ "${d}" == "${CLASS}" ] && die "${CLASS} has already been created."
+    done
+
+    # Prevent laziness
+    [[ ${TARGETS[0]} == ${TARGETS[0]##*/} ]] \
+        && TARGETS[0]="sys-cluster/${TARGETS[0]}"
+
+    parse_pkgspecs
+    get_ebuild_dir ${TARGETS[0]} 1
+    create_virtual_mpi
+    mpi_class_pn=${EBUILD_DIR##*/}
+    mpi_class_pkg=${TARGETS[0]}
+    handle_etc_portage ${TARGETS[0]}
+    TARGETS[0]="=${CLASS}/${TARGETS[0]##*/}"
+
+    # Refuse to break systems.  If there is already a class
+    # installed in that directory, we're not going to add another one as
+    # the eclass doesn't fix one problem just to introduce a bigger one.
+    for d in $(find ${MPI_OVERLAY_DIR}/${CLASS} -maxdepth 1 -mindepth 1 -type l 2>/dev/null);do
+        d=${d##*/}
+        [[ ${d} == ${mpi_class_pn} ]] && continue
+        for i in ${MPI_ALL_IMPS}; do
+            [[ ${i} == ${d} ]] \
+                && die "${CLASS} already has MPI implementation ${d}, refusing to add ${mpi_class_pn}"
+        done
+    done
+
+    if [[ -d "${MPI_OVERLAY_DIR}"/${CLASS} ]]; then
+        [[ ${VERBOSE} -ne 0 ]] && ewarn "Overlay for ${CLASS} has already been created."
+    else
+        mkdir -p ${MPI_OVERLAY_DIR}/${CLASS}
+        link_ebuild_dir
+		set_metadata
+    fi
+    if ! grep "^${CLASS}$" /etc/portage/categories &>/dev/null; then
+        echo "${CLASS}" >> /etc/portage/categories
+    fi
+
+
+cat << EOF
+Creating ${HILITE}${CLASS}${NORMAL}
+    Class:                  ${GOOD}${CLASS}${NORMAL}
+    MPI Implementation:     ${GOOD}${mpi_class_pkg}${NORMAL}
+    Source:                 ${GOOD}${EBUILD_DIR}${NORMAL}
+    Destination:            ${GOOD}${MPI_OVERLAY_DIR}/${CLASS}${NORMAL}
+EOF
+    do_emerge ${TARGETS[0]}
+}
+
+
+add_packages(){
+    local i j deps
+
+    [[ -d "${MPI_OVERLAY_DIR}"/${CLASS} ]] || die "Class ${CLASS} has not been created yet."
+    [[ ${#TARGETS[@]} -lt 1 ]] && die "You need to specify at least one package"
+
+    parse_pkgspecs
+    for ((i=0;i<${#TARGETS[@]};i++)); do
+        get_ebuild_dir ${TARGETS[i]}
+        create_virtual_mpi
+        if ebuild_uses_mpi ${EBUILD_DIR} ${TARGETS[i]}; then
+            link_ebuild_dir
+            handle_etc_portage ${TARGETS[i]}
+            TARGETS[i]="=${CLASS}/${TARGETS[i]##*/}"
+        else
+            TARGETS[i]="=${TARGETS[i]}"
+        fi
+
+        # I don't know about this, but do you have a better idea?
+        deps="$(emerge --color=n --onlydeps -p --quiet ${TARGETS[i]} | grep '^\[')"
+        if [[ $? -ne 0 ]]; then
+            emerge --onlydeps -p ${TARGETS[i]}
+            die "Unable to calculate deps for ${TARGETS[i]}"
+        fi
+        deps=( $(echo ${deps} | sed -e 's:\[[a-z]* [A-Z] \] :=:g') )
+        for ((j=0;j<${#deps[@]};j++)); do
+            get_ebuild_dir ${deps[j]}
+            if ebuild_uses_mpi ${deps[i]}; then
+                link_ebuild_dir
+            fi
+        done
+    done
+cat << EOF
+Adding packages to ${HILIGHT}${CLASS}${NORMAL}
+    Packages:       ${GOOD}${TARGETS[@]}${NORMAL}
+EOF
+    do_emerge ${TARGETS[@]}
+}
+
+
+delete_class() {
+    local pkgs=( $(ls /var/db/pkg/${CLASS}/ 2>/dev/null) )
+    local ext d i rc
+    [[ -d "${MPI_OVERLAY_DIR}"/${CLASS} ]] || die "Class ${CLASS} has not been created yet."
+    rc=0
+
+    for (( i=0; i<${#pkgs[@]}; i++)); do
+        pkgs[i]="=${CLASS}/${pkgs[i]}"
+    done
+
+    if [[ ${#pkgs[@]} -gt 0 ]] && ! emerge -C ${EMERGE_OPTS/-u/} ${pkgs[@]}; then
+        die "Failed to unmerge ${pkgs[@]}"
+    fi
+
+    for ext in "keywords" "use"; do
+        if [ -d /etc/portage/package.${ext} ]; then
+            rm /etc/portage/package.${ext}/${CLASS} &>/dev/null
+            rc=$((rc+$?))
+        elif [ -f /etc/portage/package.${ext} ]; then
+            sed -i -e "/^${CLASS}\//d" /etc/portage/package.${ext}
+            rc=$((rc+$?))
+        fi
+    done
+
+    [ ! -f /etc/portage/categories ] || sed -i -e "/^${CLASS}$/d" /etc/portage/categories
+    rc=$((rc+$?))
+
+   for d in $(ls "${MPI_OVERLAY_DIR}"/${CLASS}/ 2>/dev/null); do
+        rm "${MPI_OVERLAY_DIR}"/${CLASS}/${d}
+        rc=$((rc+$?))
+    done
+
+    for d in "${MPI_OVERLAY_DIR}/${CLASS}" /var/db/pkg/${CLASS}; do
+        [ ! -d "${d}" ] || rmdir "${d}"
+        rc=$((rc+$?))
+    done
+
+    [[ ${rc} -ne 0 ]] \
+        && ewarn "Errors were encountered during delete_class()"
+    return ${rc}
+}
+
+# Internal variables.
+__VIRTUAL_MPI_VERSION=">=virtual/mpi-2.0"
+
+ACTION=""
+CLASS=""
+PORTAGE_TREE=""
+MPI_OVERLAY_DIR=""
+VERBOSE=0
+DO_EMERGE=1
+EMERGE_OPTS="-u"  # Packages can be recompiled by hand if necessary.
+TARGETS=""
+DEFAULT_MPI_OVERLAY_DIR=/var/cache/overlays/mpi
+MAKE_CONF=/etc/make.conf
+
+PORTDIR_OVERLAY=""
+PKGDIR=""
+
+EBUILD_DIR=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            usage;;
+        -c|--create)
+            ACTION="${ACTION}create";;
+        -a|--add)
+            ACTION="${ACTION}add";;
+        -d|--delete)
+            ACTION="${ACTION}delete"
+            shift; CLASS=${1};;
+        -C|--class)
+            shift; CLASS=${1};;
+        -t|--tree)
+            shift; PORTAGE_TREE=${1};;
+        -o|--overlaydir)
+            shift; MPI_OVERLAY_DIR=${1};;
+        -v|--verbose)
+            VERBOSE=1;;
+        --noemerge)
+            DO_EMERGE=0;;
+        -*)
+            EMERGE_OPTS="${EMERGE_OPTS} ${1}";;
+        *)
+            TARGETS=( $(echo ${TARGETS[@]}) ${1} );;
+    esac
+    shift
+done
+
+[[ ${UID} -ne 0 ]] && die "You must be root to preform any actions."
+
+if [ -s /etc/portage/make.conf ]; then
+    MAKE_CONF=/etc/portage/make.conf
+fi
+
+: ${MPI_OVERLAY_DIR:=$(portageq envvar MPI_OVERLAY_DIR)}
+if [ -z "${MPI_OVERLAY_DIR}" ]; then
+    MPI_OVERLAY_DIR=${DEFAULT_MPI_OVERLAY_DIR}
+    einfo "MPI_OVERLAY_DIR not set, defaulting to ${MPI_OVERLAY_DIR} and updating make.conf"
+    echo "MPI_OVERLAY_DIR=\"${MPI_OVERLAY_DIR}\"" >> ${MAKE_CONF}
+fi
+
+if [ ! -d "${MPI_OVERLAY_DIR}" ]; then
+    mkdir -p "${MPI_OVERLAY_DIR}" || die "Failed to mkdir ${MPI_OVERLAY_DIR}"
+fi
+
+export PORTDIR_OVERLAY="${MPI_OVERLAY_DIR} $(portageq portdir_overlay)"
+export PKGDIR="$(portageq envvar PKGDIR)/mpi/${CLASS}"
+export PORTDIR="$(portageq envvar PORTDIR)"
+
+[[ -z ${ACTION} ]] && usage 1 "No action defined."
+class_is_valid
+
+set_metadata
+[[ ${ACTION} == *create* ]] && create_class
+[[ ${ACTION} == *add* ]]    && add_packages
+[[ ${ACTION} == *delete* ]] && delete_class

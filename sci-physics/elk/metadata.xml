@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-physics</herd>
-<longdescription lang="en">
+  <herd>sci-physics</herd>
+  <longdescription lang="en">
 Elk is an all-electron full-potential linearised augmented-plane wave (FP-LAPW) code with many advanced features. Written originally at Karl-Franzens-Universität Graz as a milestone of the EXCITING EU Research and Training Network, the code is designed to be as simple as possible so that new developments in the field of density functional theory (DFT) can be added quickly and reliably. The code is freely available under the GNU General Public License.
 </longdescription>
-<use>
-  <flag name="libxc">
+  <use>
+    <flag name="libxc">
    Use sci-libs/libxc library of exchange-correlation functionals by ETSF.
   </flag>
-</use>
+  </use>
+  <use>
+    <flag name="perl">
+   Install perl scripts.
+  </flag>
+  </use>
+  <use>
+    <flag name="python">
+   Install python scripts.
+  </flag>
+  </use>
 </pkgmetadata>

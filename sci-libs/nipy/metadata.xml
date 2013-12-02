@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<maintainer>
+	<email>h.chr@mail.ru</email>
+	<name>Horea Christian</name>
+</maintainer>
+<longdescription lang="en">
+	NIPY is a python project for analysis of structural and functional neuroimaging data.
+</longdescription>
+</pkgmetadata>

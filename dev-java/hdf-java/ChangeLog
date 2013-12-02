@@ -2,6 +2,17 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Nov 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  -files/hdf-java-2.7-shared.patch, -files/hdf-java-2.8-shared.patch,
+  -hdf-java-2.7.ebuild, -hdf-java-2.8.ebuild:
+  dev-java/hdf-java: cleaned for old version, buggy
+
+*hdf-java-2.9 (25 Nov 2012)
+
+  25 Nov 2012; Andrew Savchenko <bircoph@gmail.com> +hdf-java-2.9.ebuild,
+  +files/hdf-java-2.9-shared.patch:
+  Version bump. Sources for older versions are not available.
+
   23 May 2012; Sébastien Fabbro <bicatali@gentoo.org> hdf-java-2.8.ebuild:
   add hack for hdf5[mpi]
 
@@ -50,4 +61,3 @@
   22 Jan 2010; Sébastien Fabbro <bicatali@gentoo.org> +hdf-java-2.6.ebuild,
   +files/hdf-java-2.6-shared.patch, +metadata.xml:
   Initial import. Ebuild initially submitted by Guillaume Horel, bug #301049
-

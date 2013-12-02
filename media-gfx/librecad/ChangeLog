@@ -1,6 +1,36 @@
 # ChangeLog for media-gfx/librecad
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
+
+  14 Nov 2013: Dongxu Li <dongxuli2011@gmail.com> +librecad-1.0.4.ebuild +librecad-2.0.0_rc3.ebuild:
+  Version bump: 1.0.4, 2.0.0rc3
+  
+  3 Sept 2013: Dongxu Li <dongxuli2011@gmail.com> +librecad-2.0.0_rc2.ebuild:
+  Version bump 2.0.0_rc2
+
+  17 Jun 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  -files/1.0.0_rc2-gcc4.6.patch, -files/librecad-1.0.0_rc2-version.patch,
+  -librecad-1.0.2.ebuild, -librecad-2.0.0_beta5.ebuild,
+  librecad-2.0.0_rc1.ebuild, metadata.xml:
+  media-gfx/librecad: Cleanup and apply patch from bug #473388
+
+  14 Jun 2013; Justin Lecher <jlec@gentoo.org> librecad-9999.ebuild:
+  Drop KEYWORDS of live ebuilds
+
+  11 Jun 2013; Sébastien Fabbro <bicatali@gentoo.org> librecad-9999.ebuild:
+  media-gfx/librecad: Fixed bug #472472 and ebuild cleaning
+
+  8 Jun 2013; Dongxu Li <dongxuli2011@gmail.com> +librecad-2.0.0_rc1.ebuild:
+  Versions bumped to 2.0.0_rc1
+  
+  14 Apr 2013; Dongxu Li <dongxuli2011@gmail.com> +librecad-1.0.3.ebuild,
+  +librecad-2.0.0_alpha5.ebuild:
+  Versions bumped to 1.0.3 and 2.0.0beta5
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> -librecad-1.0.1.ebuild,
+  librecad-1.0.2.ebuild, -librecad-2.0.0_alpha3.ebuild,
+  librecad-2.0.0_alpha4.ebuild, librecad-9999.ebuild, metadata.xml:
+  Update to new qt deps names; drop old
 
   15 Ju1 2012; Dongxu Li <dongxuli2011@gmail.com> librecad-9999.ebuild,librecad-2.0.0alpha4.ebuild
   Dependency fix, bug#426730 

@@ -1,15 +1,13 @@
 # ChangeLog for sci-chemistry/openbabel-python
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  10 Nov 2012; Reinis Danne <rei4dan@gmail.com> openbabel-python-2.3.2.ebuild:
-  python-r1.eclass doesn't enter BUILD_DIR in python_foreach_impl, do it
-  manually where necessary.
+  14 Nov 2013; Reinis Danne <rei4dan@gmail.com> openbabel-python-9999.ebuild:
+  CMake now is able to find Python module target dir.
 
-*openbabel-python-2.3.2 (19 Oct 2012)
+*openbabel-python-9999 (26 Sep 2013)
 
-  19 Oct 2012; Reinis Danne <rei4dan@gmail.com> +openbabel-python-2.3.2.ebuild,
-  +files/openbabel-python-2.3.2-bindings_only.patch,
-  +files/openbabel-python-2.3.2-testpybel.patch, +metadata.xml:
-  Bump to 2.3.2.
+  26 Sep 2013; Reinis Danne <rei4dan@gmail.com> +openbabel-python-9999.ebuild,
+  +metadata.xml:
+  Add live ebuild.
 

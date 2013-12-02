@@ -1,0 +1,47 @@
+ src/core/pack/dunbrack/RotamericSingleResidueDunbrackLibrary.tmpl.hh   | 3 +--
+ .../pack/dunbrack/SemiRotamericSingleResidueDunbrackLibrary.tmpl.hh    | 3 +--
+ src/utility/io/zipstream.hpp                                           | 3 +--
+ 3 files changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/src/core/pack/dunbrack/RotamericSingleResidueDunbrackLibrary.tmpl.hh b/src/core/pack/dunbrack/RotamericSingleResidueDunbrackLibrary.tmpl.hh
+index 0aa44a6..299e0c5 100644
+--- a/src/core/pack/dunbrack/RotamericSingleResidueDunbrackLibrary.tmpl.hh
++++ b/src/core/pack/dunbrack/RotamericSingleResidueDunbrackLibrary.tmpl.hh
+@@ -402,8 +402,7 @@
+ #include <boost/function.hpp>
+ #include <boost/pool/detail/mutex.hpp>
+ #include <boost/pool/poolfwd.hpp>
+-#include <zlib/zlib.h>
+-#include <zlib/zutil.h>
++#include <zlib.h>
+ 
+ namespace core {
+ namespace pack {
+diff --git a/src/core/pack/dunbrack/SemiRotamericSingleResidueDunbrackLibrary.tmpl.hh b/src/core/pack/dunbrack/SemiRotamericSingleResidueDunbrackLibrary.tmpl.hh
+index 2396126..700e78d 100644
+--- a/src/core/pack/dunbrack/SemiRotamericSingleResidueDunbrackLibrary.tmpl.hh
++++ b/src/core/pack/dunbrack/SemiRotamericSingleResidueDunbrackLibrary.tmpl.hh
+@@ -405,8 +405,7 @@
+ #include <boost/function.hpp>
+ #include <boost/pool/detail/mutex.hpp>
+ #include <boost/pool/poolfwd.hpp>
+-#include <zlib/zlib.h>
+-#include <zlib/zutil.h>
++#include <zlib.h>
+ 
+ namespace core {
+ namespace pack {
+diff --git a/src/utility/io/zipstream.hpp b/src/utility/io/zipstream.hpp
+index adaf88c..c7d36d0 100644
+--- a/src/utility/io/zipstream.hpp
++++ b/src/utility/io/zipstream.hpp
+@@ -43,8 +43,7 @@
+ 
+ 
+ // Zlib headers
+-#include <zlib/zlib.h>
+-#include <zlib/zutil.h>
++#include <zlib.h>
+ 
+ 
+ 

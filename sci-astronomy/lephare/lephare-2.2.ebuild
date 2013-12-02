@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -24,7 +24,6 @@ S="${WORKDIR}/${PN}_dev/source"
 CHECKREQS_DISK_BUILD="400M"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-read-int.patch
 	export LEPHAREDIR="${WORKDIR}/${PN}_dev" LEPHAREWORK="${WORKDIR}"
 	# clean up mac left over crap
 	find . -name ._\* -delete

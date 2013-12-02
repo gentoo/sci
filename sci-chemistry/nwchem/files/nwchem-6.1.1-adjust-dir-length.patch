@@ -1,0 +1,22 @@
+--- src/nwpw/libraryps/GNUmakefile	2012-01-26 08:24:05.189490945 +0100
++++ src/nwpw/libraryps/GNUmakefile	2012-01-26 08:24:16.499490923 +0100
+@@ -10,7 +10,7 @@
+ 
+     USES_BLAS = 
+ 
+-   LONGNWTOP = $(shell if [ `echo $(SRCDIR) |wc -m` -gt 64 ]; then echo "Y"; fi  )
++   LONGNWTOP = $(shell if [ `echo $(SRCDIR) |wc -m` -gt 80 ]; then echo "Y"; fi  )
+ ifeq ($(LONGNWTOP),Y)
+ errorlongpwd:
+ 	@echo " "
+--- src/basis/GNUmakefile	2012-01-26 08:25:03.999490829 +0100
++++ src/basis/GNUmakefile	2012-01-26 08:25:15.549490805 +0100
+@@ -34,7 +34,7 @@
+ ########################################################
+ 
+    LIB_TARGETS = testbasis testbasis.o libcheck
+-   LONGNWTOP = $(shell if [ `echo $(SRCDIR) |wc -m` -gt 64 ]; then echo "Y"; fi  )
++   LONGNWTOP = $(shell if [ `echo $(SRCDIR) |wc -m` -gt 80 ]; then echo "Y"; fi  )
+ ifeq ($(LONGNWTOP),Y)
+ errorlongpwd:
+ 	@echo " "

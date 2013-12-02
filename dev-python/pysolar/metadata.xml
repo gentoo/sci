@@ -9,4 +9,7 @@
  calculate the location of the sun or the shading percentage as a
  function of time for a row of 2-axis tracked panels.
 </longdescription>
+<upstream>
+  <remote-id type="pypi">Pysolar</remote-id>
+</upstream>
 </pkgmetadata>

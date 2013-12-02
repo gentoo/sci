@@ -1,0 +1,13 @@
+diff -urN work-orig/build.xml work/build.xml
+--- work-orig/build.xml	2013-04-23 20:42:19.776644942 -0400
++++ work/build.xml	2013-04-23 20:42:36.821646638 -0400
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="ISO-8859-1"?>
+ <project name="jlatexmath-fop" basedir="." default="buildJar">
+-  <import file="${basedir}/../../version.xml"/>
+-  <property file="../../fop.properties"/>
++  <import file="${basedir}/version.xml"/>
++  <property file="fop.properties"/>
+ 
+   <path id="libs-build-classpath">
+     <pathelement location="${fop.jar}"/>

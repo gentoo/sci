@@ -12,9 +12,7 @@ if [ "${PV}" != "9999" ]; then
 else
 	SRC_URI=""
 	inherit mercurial
-	EHG_REPO_URI="https://tools.votca.googlecode.com/hg"
-	EHG_REVISION="default"
-	S="${WORKDIR}/${EHG_REPO_URI##*/}"
+	EHG_REPO_URI="https://code.google.com/p/votca.tools/"
 fi
 
 DESCRIPTION="Votca tools library"

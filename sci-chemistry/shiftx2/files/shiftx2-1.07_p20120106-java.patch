@@ -1,0 +1,227 @@
+diff --git a/shiftx2-v107-linux/src/LimitedCShift.java b/shiftx2-v107-linux/src/LimitedCShift.java
+index cd27fbf..9e72208 100755
+--- a/shiftx2-v107-linux/src/LimitedCShift.java
++++ b/shiftx2-v107-linux/src/LimitedCShift.java
+@@ -13,8 +13,8 @@ public class LimitedCShift {
+ 	public void loadLimitedCShift () {		
+                 // System.out.println("SHIFTX2_DIR: "+ShiftXp.SHIFTX2_DIR);
+ 
+-		String filename = ShiftXp.SHIFTX2_DIR + "/lib/limitedcshift.dat";
+-		String objFilename = ShiftXp.SHIFTX2_DIR + "/lib/limitedcshift.osf";
++		String filename = ShiftXp.GENTOO_SHARE_PATH + "/limitedcshift.dat";
++		String objFilename = ShiftXp.GENTOO_SHARE_PATH + "/limitedcshift.osf";
+ 		
+ 		File f = new File(objFilename);
+ 		if (f.exists()) {
+@@ -44,7 +44,7 @@ public class LimitedCShift {
+ 				br.close();
+ 				
+ 				// save object into object file format for speed up
+-				saveObjectFile(objFilename, limshift);
++				//saveObjectFile(objFilename, limshift);
+ 
+ 			} catch(IOException ex){
+ 				ex.printStackTrace();
+diff --git a/shiftx2-v107-linux/src/ModuleExecutor.java b/shiftx2-v107-linux/src/ModuleExecutor.java
+index 36cfeb1..704451f 100755
+--- a/shiftx2-v107-linux/src/ModuleExecutor.java
++++ b/shiftx2-v107-linux/src/ModuleExecutor.java
+@@ -22,12 +22,12 @@ public class ModuleExecutor {
+ 	// private static final String WORKING_DIR = "./wkdir/";
+ 	private static String WORKING_DIR = "";
+ 
+-	private static final String RESMF_EXE = "/modules/resmf/resmf";
+-	private static final String EFFECTS_EXE = "/modules/effects/caleffect"; 
+-	private static final String ANGLES_EXE = "/modules/angles/get_angles";	
+-	private static final String ANGLES_REDUCE_DIR = "/modules/angles";
++	private static final String RESMF_EXE = "resmf";
++	private static final String EFFECTS_EXE = "caleffect"; 
++	private static final String ANGLES_EXE = "get_angles";	
++	private static final String ANGLES_REDUCE_DIR = "angles";
+ 
+-    private static String SHIFTXP_DIR = ShiftXp.SHIFTX2_DIR;
++//    private static String SHIFTXP_DIR = ShiftXp.SHIFTX2_DIR;
+ 
+ 	private static final String REDUCE_FLAG = "1"; // 1 or 0
+ 
+@@ -80,8 +80,8 @@ public class ModuleExecutor {
+ 		if(DEBUG) System.out.println("> Processing [Major Features] with " + pdbfile);
+         // Update: add pdbdir both input pdbfile and output result, pdbId (2011.03.17)
+ 		// cmd = RESMF_EXE + " -f " + pdbdir +"/"+ pdbfile + " -o " + WORKING_DIR + pdbId + ".resmf";
+-		cmd = SHIFTXP_DIR + RESMF_EXE + " -f " + pdbdir + pdbfile + " -o " + WORKING_DIR + pdbId + ".resmf" 
+-                      + " -d " + SHIFTXP_DIR + "/modules/resmf/lib";
++		cmd = RESMF_EXE + " -f " + pdbdir + pdbfile + " -o " + WORKING_DIR + pdbId + ".resmf" 
++                      + " -d " + ShiftXp.GENTOO_SHARE_PATH + "/vader";
+ 
+ 		if(DEBUG){ System.out.println("\t"+cmd); }
+ 		execCode = execute_command(cmd); 
+@@ -93,7 +93,7 @@ public class ModuleExecutor {
+ 		
+ 		/* call effects for calculating ring current calculator */
+ 		if(DEBUG) System.out.println("> processing [Effects] with " + pdbfile);
+-		cmd = SHIFTXP_DIR + EFFECTS_EXE + " 1 " + pdbdir + pdbfile + " " + WORKING_DIR + pdbfile + ".dummy";
++		cmd = EFFECTS_EXE + " 1 " + pdbdir + pdbfile + " " + WORKING_DIR + pdbfile + ".dummy";
+ 
+ 		if(DEBUG){ System.out.println("\t"+cmd); }
+ 		execCode = execute_command(cmd); 
+@@ -106,7 +106,7 @@ public class ModuleExecutor {
+ 		/* call angle calculator : output must be redirected to file using PrintStream */
+ 		if(DEBUG) System.out.println("> Processing [Angle] with " + pdbfile);
+ 		// cmd = ANGLES_EXE + " " + ANGLES_REDUCE_DIR + " " + pdbfile ;
+-		cmd = SHIFTXP_DIR + ANGLES_EXE + " " + SHIFTXP_DIR + ANGLES_REDUCE_DIR + " " + pdbdir + pdbfile + " "+ REDUCE_FLAG;
++		cmd = ANGLES_EXE + " " + ShiftXp.GENTOO_SHARE_PATH + " " + pdbdir + pdbfile + " "+ REDUCE_FLAG;
+ 		String outpath = WORKING_DIR + pdbId + ".angles";
+ 
+ 		if(DEBUG){ System.out.println("\t"+cmd); }
+diff --git a/shiftx2-v107-linux/src/PredictionModels.java b/shiftx2-v107-linux/src/PredictionModels.java
+index a77d1cb..fb84666 100755
+--- a/shiftx2-v107-linux/src/PredictionModels.java
++++ b/shiftx2-v107-linux/src/PredictionModels.java
+@@ -13,9 +13,7 @@ public class PredictionModels {
+     private final static String MODEL_FILE_SIDECHAIN_ONLY = "predmodels_sidechain.sobj";
+ 
+     private final static String OBJECT_MODEL_DIRECTORY = "/lib";
+-    private final static String MODEL_DIRECTORY = "/lib/predmodels";
+-
+-    private static String SHIFTXP_DIR = ShiftXp.SHIFTX2_DIR;
++    private final static String MODEL_DIRECTORY = "predmodels";
+ 
+     HashMap<String, Classifier> hsmap_predmodel = new HashMap<String, Classifier>();
+ 
+@@ -36,7 +34,7 @@ public class PredictionModels {
+        // System.out.println("SHIFTXP_DIR:" + SHIFTXP_DIR+"\n\n");
+        // System.out.println("SHIFTX2_DIR:" + ShiftXp.SHIFTX2_DIR+"\n\n");
+ 
+-        String headerfilename = ShiftXp.SHIFTX2_DIR + "/lib/data-header.arff"; 
++        String headerfilename = ShiftXp.GENTOO_SHARE_PATH + "/data-header.arff"; 
+ 
+         try {
+             // assigned instance header from data-header.arff
+@@ -150,7 +148,7 @@ public class PredictionModels {
+             // if option is not sidechain only, put backbone models into modeling file 
+             if ( ! this.prediction_type.equals("SIDECHAIN") ) {
+                 for(int i=0; i < BACKBONE_MODEL_LENGTH; i++)  {
+-                    ois = new ObjectInputStream( new BufferedInputStream( new FileInputStream( ShiftXp.SHIFTX2_DIR + MODEL_DIRECTORY + "/" + modelFileArray[i]) ));
++                    ois = new ObjectInputStream( new BufferedInputStream( new FileInputStream( ShiftXp.GENTOO_SHARE_PATH + "/" + MODEL_DIRECTORY + "/" + modelFileArray[i]) ));
+                     classifier = (Classifier) ois.readObject();
+                     hsmap_predmodel.put(atomNameArray[i],classifier);
+                     ois.close();
+@@ -160,7 +158,7 @@ public class PredictionModels {
+             // if option is not backbone only, put/append sidechain models into modeling file
+             if ( ! this.prediction_type.equals("BACKBONE") ) {
+                 for(int i=BACKBONE_MODEL_LENGTH; i < (BACKBONE_MODEL_LENGTH + SIDECHAIN_MODEL_LENGTH); i++)  {
+-                    ois = new ObjectInputStream( new BufferedInputStream( new FileInputStream( ShiftXp.SHIFTX2_DIR + MODEL_DIRECTORY + "/" + modelFileArray[i]) ));
++                    ois = new ObjectInputStream( new BufferedInputStream( new FileInputStream( ShiftXp.GENTOO_SHARE_PATH + "/" + MODEL_DIRECTORY + "/" + modelFileArray[i]) ));
+                     classifier = (Classifier) ois.readObject();
+                     hsmap_predmodel.put(atomNameArray[i], classifier);
+                     ois.close();
+@@ -185,11 +183,11 @@ public class PredictionModels {
+         */
+ 
+         if ( this.prediction_type.equals("ALL") == true) {
+-            model_file = ShiftXp.SHIFTX2_DIR + OBJECT_MODEL_DIRECTORY + "/" + MODEL_FILE_ALLATOMS;
++            model_file = ShiftXp.GENTOO_SHARE_PATH + "/" + MODEL_FILE_ALLATOMS;
+         } else if ( this.prediction_type.equals("BACKBONE") == true) {
+-            model_file = ShiftXp.SHIFTX2_DIR + OBJECT_MODEL_DIRECTORY + "/" + MODEL_FILE_BACKBONE_ONLY;
++            model_file = ShiftXp.GENTOO_SHARE_PATH + "/" + MODEL_FILE_BACKBONE_ONLY;
+         } else if ( this.prediction_type.equals("SIDECHAIN") == true) {
+-            model_file = ShiftXp.SHIFTX2_DIR + OBJECT_MODEL_DIRECTORY + "/" + MODEL_FILE_SIDECHAIN_ONLY;
++            model_file = ShiftXp.GENTOO_SHARE_PATH + "/" + MODEL_FILE_SIDECHAIN_ONLY;
+         } 
+ 
+         File f = new File( model_file );
+@@ -198,7 +196,7 @@ public class PredictionModels {
+             readHashObjectPredModelFile( model_file );
+         } else {
+             setHashMap(); 
+-            saveHashObjectPredModelFile( model_file ); 
++//            saveHashObjectPredModelFile( model_file ); 
+         }
+     }
+ 
+diff --git a/shiftx2-v107-linux/src/RandomCoil.java b/shiftx2-v107-linux/src/RandomCoil.java
+index 25a8999..7442938 100755
+--- a/shiftx2-v107-linux/src/RandomCoil.java
++++ b/shiftx2-v107-linux/src/RandomCoil.java
+@@ -33,11 +33,9 @@ public class RandomCoil {
+ 	public void loadRandomCoil() {		
+ 
+         // change path as absolute path
+-        String SHIFTXP_DIR = ShiftXp.SHIFTX2_DIR;
+-
+-		String filename = SHIFTXP_DIR + "/lib/RandomCoil.csv";
+-		String objFilename = SHIFTXP_DIR + "/lib/RandomCoil.osf";
+-		String objAtomListname = SHIFTXP_DIR + "/lib/RCoilAtomlist.osf";
++		String filename = ShiftXp.GENTOO_SHARE_PATH + "/RandomCoil.csv";
++		String objFilename = ShiftXp.GENTOO_SHARE_PATH + "/RandomCoil.osf";
++		String objAtomListname = ShiftXp.GENTOO_SHARE_PATH + "/RCoilAtomlist.osf";
+ 		
+ 		
+ 		File f = new File(objFilename);
+@@ -85,8 +83,8 @@ public class RandomCoil {
+ 				br.close();
+ 				
+ 				// save object into object file format for speed up
+-				saveObjectFile(objFilename, rcoil);				
+-				saveObjectFile(objAtomListname, restypeAtomStringList);
++//				saveObjectFile(objFilename, rcoil);				
++//				saveObjectFile(objAtomListname, restypeAtomStringList);
+ 
+ 			} catch(IOException ex){
+ 				ex.printStackTrace();
+diff --git a/shiftx2-v107-linux/src/ShiftXp.java b/shiftx2-v107-linux/src/ShiftXp.java
+index 505a3f6..920f420 100755
+--- a/shiftx2-v107-linux/src/ShiftXp.java
++++ b/shiftx2-v107-linux/src/ShiftXp.java
+@@ -27,7 +27,7 @@ public class ShiftXp {
+     static final boolean DEBUG = false; 
+     static boolean RCOIL_PRINTOUT = false;
+     static String SHIFTX2_DIR = ".";  // to support running on other directory
+-
++    public static final String GENTOO_SHARE_PATH = "PUT_GENTOO_SHARE_PATH_HERE";
+     // Loading only one time, that's why these are here 
+     static RandomCoil rcoil = new RandomCoil();
+     static LimitedCShift chkcshift = new LimitedCShift();
+@@ -41,7 +41,7 @@ public class ShiftXp {
+         buf.append("Detail information: http://www.shiftx2.ca or http://redpoll.pharmacy.ualberta.ca\n");
+         buf.append("--------------------------------------------------------------------------------\n\n");
+ 
+-        buf.append("SYNOPSIS\n\t java -Xmx1500m -cp <SHIFTX+ dir>/bin:<SHIFTX+ dir>/lib/weka.jar ShiftXp [options]\n");
++        buf.append("SYNOPSIS\n\t jshiftx2 [options]\n");
+ 
+         buf.append("OPTIONS:\n");
+         buf.append("\t -i [<directory/> infile.pdb | ALLPDB]\n");
+@@ -54,10 +54,10 @@ public class ShiftXp {
+         buf.append("\t -temp <number>        Temperature, default=298\n");
+         buf.append("\t -d [TRUE | FALSE]  Deuterated pdb, default=FALSE \n"); 
+         buf.append("\t -r [TRUE | FALSE]  Print randon coild shift (only for CSV format), default=FALSE \n"); 
+-        buf.append("\t -dir <SHIFTX+ directory>  The installed directory of SHIFTX+/SHIFTX2\n\n");
++//        buf.append("\t -dir <SHIFTX+ directory>  The installed directory of SHIFTX+/SHIFTX2\n\n");
+ 
+         buf.append("EXAMPLE:\n");
+-        buf.append("\t java -Xmx1500m -cp ~/shiftx2/bin:~/shiftx2/lib/weka.jar ShiftXp -i 1ubq.pdb\n\n");
++        buf.append("\t jshiftx2 -i 1ubq.pdb\n\n");
+         buf.append("\n");
+ 
+         System.out.println( buf );
+@@ -138,20 +138,6 @@ public class ShiftXp {
+            }     
+         }
+ 
+-        // check execute directory 
+-        // 2011.08.31 changed shiftx2_main.py --> shiftx2.py
+-        if ( !( new File( SHIFTX2_DIR + "/shiftx2.py").exists() 
+-             &&  new File(SHIFTX2_DIR + "/lib/weka.jar").exists() )  )  {
+-
+-           System.err.println("\n********************************************************************************");
+-           System.err.println("[Error]\t Required: When the SHIFTX2 execute on other directory,\n"
+-                             +"\t it should be set as a parameter. Use '-dir' option.");
+-           System.err.println("> Current directory: "+System.getProperty("user.dir"));
+-           System.err.println("********************************************************************************\n");
+-
+-           usage();
+-        }
+-
+         if ( inPDBFile == null || inPDBFile.length() < 1)  {
+            System.err.println("\n********************************************************************************");
+            System.err.println("[Error] Required: There is no input PDB filename.");

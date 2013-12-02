@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-chemistry</herd>
+  <longdescription>
+		SHIFTX2 predicts both the backbone and side chain 1H, 13C and 15N chemical
+		shifts for proteins using their structural (PDB) coordinates as input.
+		SHIFTX2 combines ensemble machine learning methods with sequence
+		alignment-based methods to calculate protein chemical shifts for
+		backbone
+		and side chain atoms. SHIFTX2 has been trained on a carefully selected
+		set of
+		197 proteins and tested on a separate set of 61 proteins. Both the
+		training
+		and testing sets consisted of high resolution X-ray structures (less
+		2.1A)
+		with carefully verified chemical shifts assignments. SHIFTX2 is able to
+		attain
+		correlation coefficients between experimentally observed and predicted
+		backbone chemical shifts of 0.9800 (15N), 0.9959 (13CA), 0.9992 (13CB),
+		0.9676 (13CO), 0.9714 (1HN), 0.9744 (1HA) and RMS errors of 1.1169, 0.4412,
+		0.5163, 0.5330, 0.1711, and 0.1231 ppm, respectively. Comparisons to
+		other
+		chemical shift predictors using the same testing data set indicates that
+		SHIFTX2 is substantially more accurate (up to 26% better by
+		correlation
+		coefficient with an RMS error that is up to 3.3X smaller) than any other
+		program.
+
+		Please cite the following: Beomsoo Han, Yifeng Liu, Simon Ginzinger, and
+		David Wishart. (2011) SHIFTX2: significantly improved protein chemical
+		shift
+		prediction. Journal of Biomolecular NMR, Volume 50, Number 1, 43-57.
+		doi: 10.1007/s10858-011-9478-4.
+	</longdescription>
+  <use>
+    <flag name="debug">Enables debug output in the shiftx2 java part</flag>
+  </use>
+</pkgmetadata>

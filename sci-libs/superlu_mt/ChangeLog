@@ -1,0 +1,17 @@
+# ChangeLog for sci-libs/superlu_mt
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  17 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> superlu_mt-2.1.ebuild:
+  sci-libs/superlu_mt: Warn user for multi-threaded blas
+
+  15 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> superlu_mt-2.1.ebuild:
+  sci-libs/superlu_mt: Move cblas to blas dependency
+
+*superlu_mt-2.1 (15 Jul 2013)
+
+  15 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  +files/superlu_mt-2.1-duplicate-symbols.patch,
+  +files/superlu_mt-2.1-missing-includes.patch, +metadata.xml,
+  +superlu_mt-2.1.ebuild:
+  sci-libs/superlu_mt: Initial import

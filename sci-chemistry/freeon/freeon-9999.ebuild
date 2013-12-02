@@ -1,39 +1,37 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-
-inherit autotools-utils fortran-2 git-2
-
-DESCRIPTION="an experimental suite of programs for linear scaling quantum chemistry."
-HOMEPAGE="http://www.freeon.org"
-
-EGIT_REPO_URI="http://git.savannah.gnu.org/r/freeon.git"
-EGIT_BOOTSTRAP="fix_localversion.sh"
+EAPI=5
 
 AUTOTOOLS_AUTORECONF=1
-
 FORTRAN_STANDARD=90
+PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
+
+inherit autotools-utils fortran-2 git-2 python-any-r1
+
+DESCRIPTION="An experimental suite of programs for linear scaling quantum chemistry."
+HOMEPAGE="http://www.freeon.org"
+SRC_URI=""
+
+EGIT_REPO_URI="https://github.com/FreeON/freeon.git"
+EGIT_BOOTSTRAP="fix_localversion.sh"
 
 LICENSE="GPL-3"
-SLOT="0"
+SLOT="live"
 KEYWORDS="~amd64 ~x86"
-IUSE="static-libs"
+IUSE=""
 
-DEPEND="
-	sys-libs/zlib
+RDEPEND="
 	sci-libs/hdf5
-	virtual/fortran
+	virtual/blas
 	virtual/lapack"
-RDEPEND="${DEPEND}"
+DEPEND="${RDEPEND}
+	${PYTHON_DEPS}"
 
 src_configure() {
 	local myeconfargs=(
-		--disable-internal-hdf5
-		--disable-static-binaries
-		--disable-internal-lapack
+		"--enable-git-tag"
 	)
-	#TODO mv BasisSets from /usr to /usr/share/freeon/
 	autotools-utils_src_configure
 }

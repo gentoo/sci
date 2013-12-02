@@ -9,7 +9,7 @@ index c5f6fcf..25e328f 100644
 -INCLUDES = -I/usr/include/tcl8.5
 -LIBRARIES = -lm -lgslcblas -llapack -ltcl8.5
 +INCLUDES = -I@GENTOO_PORTAGE_EPREFIX@/usr/include/
-+BLASLIBS = `pkg-config --libs cblas lapack`
++BLASLIBS = `$(PKG_CONFIG) --libs cblas lapack`
 +LIBRARIES = -lm ${BLASLIBS} -ltcl
  
  FLAGS = -c -O3

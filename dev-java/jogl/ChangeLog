@@ -1,6 +1,16 @@
 # ChangeLog for dev-java/jogl
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> jogl-2.0_rc8-r1.ebuild,
+  metadata.xml:
+  Keyworded for ~x86
+
+*jogl-2.0_rc8-r1 (03 Feb 2013)
+
+  03 Feb 2013; Guillaume Horel <guillaume.horel@gmail.com>
+  +jogl-2.0_rc8-r1.ebuild:
+  import jogl:2 from java-overlay
 
   29 May 2012; Sébastien Fabbro <bicatali@gentoo.org> jogl-1.1.1.ebuild:
   adapted gluegen dependency

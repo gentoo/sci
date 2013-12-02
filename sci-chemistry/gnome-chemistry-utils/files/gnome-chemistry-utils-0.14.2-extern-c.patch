@@ -1,0 +1,84 @@
+ goffice/gchemutils-priv.h | 2 +-
+ goffice/gchemutils.cc     | 7 ++++---
+ goffice/gchemutils.h      | 6 +++---
+ goffice/gogcuapp.h        | 2 +-
+ 4 files changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/goffice/gchemutils-priv.h b/goffice/gchemutils-priv.h
+index 480e1a5..deb9687 100644
+--- a/goffice/gchemutils-priv.h
++++ b/goffice/gchemutils-priv.h
+@@ -23,12 +23,12 @@
+ #ifndef GOFFICE_GCHEMUTILS_PRIV_H
+ #define GOFFICE_GCHEMUTILS_PRIV_H
+ 
+-#include "gchemutils.h"
+ #include <gcu/chem3ddoc.h>
+ #include <gcu/structs.h>
+ #include <gogcuapp.h>
+ #include <gcu/document.h>
+ #include <gcugtk/window.h>
++#include "gchemutils.h"
+ 
+ struct _GOGChemUtilsComponent
+ {
+diff --git a/goffice/gchemutils.cc b/goffice/gchemutils.cc
+index 2aa85b5..a477b13 100644
+--- a/goffice/gchemutils.cc
++++ b/goffice/gchemutils.cc
+@@ -20,6 +20,10 @@
+  * USA
+  */
+ 
++#include <map>
++#include <string>
++#include <cstring>
++
+ #include "config.h"
+ #include "gchemutils-priv.h"
+ #include "gogcpapp.h"
+@@ -31,9 +35,6 @@
+ #include <goffice/app/module-plugin-defs.h>
+ #include <goffice/component/go-component-factory.h>
+ #include <glib/gi18n-lib.h>
+-#include <map>
+-#include <string>
+-#include <cstring>
+ 
+ //gcuGOfficeApplication *app;
+ 
+diff --git a/goffice/gchemutils.h b/goffice/gchemutils.h
+index 2f62aa5..8e6acb9 100644
+--- a/goffice/gchemutils.h
++++ b/goffice/gchemutils.h
+@@ -23,12 +23,12 @@
+ #ifndef GOFFICE_GCHEMPAINT_H
+ #define GOFFICE_GCHEMPAINT_H
+ 
+-#include <goffice/component/goffice-component.h>
+-#include <goffice/component/go-component.h>
+-
+ extern "C"
+ {
+ 
++#include <goffice/component/goffice-component.h>
++#include <goffice/component/go-component.h>
++
+ typedef struct _GOGChemUtilsComponent GOGChemUtilsComponent;
+ 
+ typedef GOComponentClass GOGChemUtilsComponentClass;
+diff --git a/goffice/gogcuapp.h b/goffice/gogcuapp.h
+index 0012931..0cad715 100644
+--- a/goffice/gogcuapp.h
++++ b/goffice/gogcuapp.h
+@@ -23,9 +23,9 @@
+ #ifndef GO_GCU_APP_H
+ #define GO_GCU_APP_H
+ 
+-#include "gchemutils.h"
+ #include <gcu/structs.h>
+ #include <string>
++#include "gchemutils.h"
+ 
+ namespace gcu {
+ 	class Document;

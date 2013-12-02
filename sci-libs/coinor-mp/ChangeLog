@@ -1,6 +1,15 @@
 # ChangeLog for sci-libs/coinor-mp
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*coinor-mp-1.7.0 (12 Aug 2013)
+
+  12 Aug 2013; Sébastien Fabbro <bicatali@gentoo.org> +coinor-mp-1.7.0.ebuild,
+  -coinor-mp-1.6.0.ebuild:
+  sci-libs/coinor-mp: Version bump
+
+  17 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> coinor-mp-1.6.0.ebuild:
+  sci-libs/coinor-mp: Removed out-of-prefix files
 
 *coinor-mp-1.6.0 (17 Jul 2012)
 

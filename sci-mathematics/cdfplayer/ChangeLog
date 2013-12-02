@@ -1,0 +1,25 @@
+# ChangeLog for sci-mathematics/cdfplayer
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*cdfplayer-9.0.1 (11 Mar 2013)
+
+  11 Mar 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  -cdfplayer-9.0.0.ebuild, -files/cdfplayer-9.0.0-installer.patch,
+  +cdfplayer-9.0.1.ebuild, +files/cdfplayer-9.0.1-installer.patch:
+  version bump
+
+*cdfplayer-9.0.0 (05 Jan 2013)
+
+  05 Jan 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  -cdfplayer-8.0.4.ebuild, -files/cdfplayer-8.0.4-installer.patch,
+  +cdfplayer-9.0.0.ebuild, +files/cdfplayer-9.0.0-installer.patch:
+  version bump
+
+*cdfplayer-8.0.4 (23 Nov 2012)
+
+  23 Nov 2012; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  +cdfplayer-8.0.4.ebuild, +files/cdfplayer-8.0.4-installer.patch,
+  +metadata.xml:
+  initial commit for bug #421019
+

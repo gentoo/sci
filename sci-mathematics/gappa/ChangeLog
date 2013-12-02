@@ -1,6 +1,16 @@
 # ChangeLog for sci-mathematics/gappa
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*gappa-1.0.0 (12 Aug 2013)
+
+  12 Aug 2013; Sébastien Fabbro <bicatali@gentoo.org> +gappa-1.0.0.ebuild,
+  -gappa-0.16.3.ebuild:
+  sci-mathematics/gappa: Version bump
+
+  14 Jan 2013; J.-C. Demay <jcdemay@gmail.com>
+  +gappa-0.16.3.ebuild, -gappa-0.15.1.ebuild:
+  version bump
 
   21 Dec 2011; J.-C. Demay <jcdemay@gmail.com>
   +gappa-0.15.1.ebuild, -gappa-0.14.0.ebuild:
@@ -22,4 +32,3 @@
   04 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
   +metadata.xml, +ChangeLog:
   QA fixes
-

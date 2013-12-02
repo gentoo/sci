@@ -1,0 +1,16 @@
+ gap5/zfio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/gap5/zfio.c b/gap5/zfio.c
+index 35da12a..1b628e4 100644
+--- a/gap5/zfio.c
++++ b/gap5/zfio.c
+@@ -51,7 +51,7 @@ int zfpeek(zfp *zf) {
+ 	if (c != EOF)
+ 	    ungetc(c, zf->fp);
+     } else {
+-	c = gzgetc(zf->gz);
++	c = gzgetc((gzFile)zf->gz);
+ 	if (c != EOF)
+ 	    gzungetc(c, zf->gz);
+     }

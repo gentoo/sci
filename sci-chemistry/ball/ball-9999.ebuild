@@ -1,17 +1,17 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="python? 2"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit cmake-utils git-2 python
+inherit cmake-utils git-2 python-single-r1
 
 DESCRIPTION="Biochemical Algorithms Library"
 HOMEPAGE="http://www.ball-project.org/"
 SRC_URI=""
-EGIT_REPO_URI="http://ball-git.bioinf.uni-sb.de/BALL.git"
+EGIT_REPO_URI="https://bitbucket.org/ball/ball.git"
 
 SLOT="0"
 LICENSE="LGPL-2 GPL-3"
@@ -28,15 +28,15 @@ RDEPEND="
 	sci-mathematics/lpsolve
 	virtual/opengl
 	x11-libs/libX11
-	x11-libs/qt-core
-	x11-libs/qt-gui
-	x11-libs/qt-opengl
-	x11-libs/qt-test
-	x11-libs/qt-webkit
+	dev-qt/qtcore:4
+	dev-qt/qtgui:4
+	dev-qt/qtopengl:4
+	dev-qt/qttest:4
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	mpi? ( virtual/mpi )
-	sql? ( x11-libs/qt-sql )
-	webkit? ( x11-libs/qt-webkit )"
+	sql? ( dev-qt/qtsql:4 )
+	python? ( ${PYTHON_DEPS} )
+	webkit? ( dev-qt/qtwebkit:4 )"
 DEPEND="${RDEPEND}
 	dev-python/sip
 	sys-devel/bison
@@ -48,9 +48,7 @@ PATCHES=(
 	)
 
 pkg_setup() {
-	use python \
-		&& python_set_active_version 2 \
-		&& python_pkg_setup
+	use python && python-single-r1_pkg_setup
 }
 
 src_configure() {

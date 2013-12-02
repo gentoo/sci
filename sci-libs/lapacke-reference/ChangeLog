@@ -1,6 +1,20 @@
 # ChangeLog for sci-libs/lapacke-reference
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*lapacke-reference-9999 (25 May 2013)
+
+  25 May 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  +lapacke-reference-9999.ebuild:
+  sci-libs/lapacke-reference: Moved to live-linked version
+
+  23 May 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  -files/lapack-3.4.1-cmake.patch, lapacke-reference-3.4.2.ebuild:
+  sci-libs/lapacke-reference: Switch to EAPI5
+
+  29 Nov 2012; Sébastien Fabbro <bicatali@gentoo.org>
+  -lapacke-reference-3.4.1.ebuild, lapacke-reference-3.4.2.ebuild, metadata.xml:
+  sci-libs/lapacke-reference: added tmg for testing, cleaning up ebuild
 
 *lapacke-reference-3.4.2 (26 Oct 2012)
 

@@ -1,0 +1,10 @@
+# ChangeLog for sci-chemistry/panav
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*panav-0.20130730 (30 Jul 2013)
+
+  30 Jul 2013; Justin Lecher <jlec@gentoo.org> +panav-0.20130730.ebuild,
+  +metadata.xml:
+  New addition written by me
+

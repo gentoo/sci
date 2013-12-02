@@ -1,6 +1,447 @@
 # ChangeLog for sys-cluster/lustre
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  11 Jul 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  +files/0002-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  +files/0003-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  +files/0004-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  -files/0001-LU-1812-kernel-3.7-FC18-server-patches.patch,
+  -files/0002-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch,
+  -files/0003-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  -files/0004-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  -files/0005-LU-2800-llite-introduce-local-getname.patch,
+  -files/0006-LU-2987-llite-rcu-free-inode.patch,
+  -files/0007-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  -files/0008-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  -files/0009-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  -files/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  -files/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  -files/0012-LU-3179-build-fix-compilation-error-with-gcc-4.7.2.patch,
+  lustre-9999.ebuild:
+  Update lustre patches
+
+  13 Jun 2013; Justin Lecher <jlec@gentoo.org> lustre-9999.ebuild,
+  metadata.xml:
+  Move virtual/linux-sources to build deps
+
+  07 May 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0009-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  +files/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  +files/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  +files/0012-LU-3179-build-fix-compilation-error-with-gcc-4.7.2.patch,
+  -files/0009-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  -files/0010-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  -files/0011-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  -files/0012-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  files/0001-LU-1812-kernel-3.7-FC18-server-patches.patch,
+  files/0002-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch,
+  files/0003-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  files/0004-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  files/0005-LU-2800-llite-introduce-local-getname.patch,
+  files/0006-LU-2987-llite-rcu-free-inode.patch,
+  files/0007-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0008-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  lustre-9999.ebuild:
+  Update lustre patches. zfs patches was merged
+
+  07 May 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Fix quotation issues with server
+
+  07 May 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-LU-1812-kernel-3.7-FC18-server-patches.patch,
+  +files/0002-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch,
+  +files/0003-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  +files/0004-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  +files/0005-LU-2800-llite-introduce-local-getname.patch,
+  +files/0006-LU-2987-llite-rcu-free-inode.patch,
+  +files/0007-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  +files/0008-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  +files/0009-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  +files/0010-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  +files/0011-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  +files/0012-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  -files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  -files/0002-LU-1812-kernel-3.0-SuSE-and-3.6-FC18-server-patches.patch,
+  -files/0003-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch,
+  -files/0004-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  -files/0005-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  -files/0006-LU-2800-llite-introduce-local-getname.patch,
+  -files/0007-LU-2987-llite-rcu-free-inode.patch,
+  -files/0008-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  -files/0009-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  -files/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  -files/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  -files/0012-LU-3179-fids-fix-compilation-error-with-gcc-4.7.2.patch,
+  -files/0013-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  lustre-9999.ebuild:
+  Update lustre patches
+
+  23 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0012-LU-3179-fids-fix-compilation-error-with-gcc-4.7.2.patch,
+  +files/0013-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  -files/0012-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  -files/0013-LU-3179-fids-fix-compilation-error-with-gcc-4.7.2.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0002-LU-1812-kernel-3.0-SuSE-and-3.6-FC18-server-patches.patch,
+  files/0003-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch,
+  files/0004-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  files/0005-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  files/0006-LU-2800-llite-introduce-local-getname.patch,
+  files/0007-LU-2987-llite-rcu-free-inode.patch,
+  files/0008-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0009-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  files/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  files/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  lustre-9999.ebuild:
+  Add rebased patches
+
+  22 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Fix zfs-osd build
+
+  22 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Disable liblustre by default
+
+  22 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0013-LU-3179-fids-fix-compilation-error-with-gcc-4.7.2.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0002-LU-1812-kernel-3.0-SuSE-and-3.6-FC18-server-patches.patch,
+  files/0003-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch,
+  files/0004-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  files/0005-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  files/0006-LU-2800-llite-introduce-local-getname.patch,
+  files/0007-LU-2987-llite-rcu-free-inode.patch,
+  files/0008-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0009-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  files/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  files/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  files/0012-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  lustre-9999.ebuild:
+  Update lustre patches
+
+  17 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Fix client build
+
+  17 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0009-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  +files/0010-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  +files/0011-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  +files/0012-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  -files/0009-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  -files/0010-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  -files/0011-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0002-LU-1812-kernel-3.0-SuSE-and-3.6-FC18-server-patches.patch,
+  files/0003-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch,
+  files/0004-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  files/0005-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  files/0006-LU-2800-llite-introduce-local-getname.patch,
+  files/0007-LU-2987-llite-rcu-free-inode.patch,
+  files/0008-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  lustre-9999.ebuild:
+  forget to add one patch
+
+  17 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0002-LU-1812-kernel-3.0-SuSE-and-3.6-FC18-server-patches.patch,
+  +files/0003-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch,
+  +files/0004-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  +files/0005-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  +files/0006-LU-2800-llite-introduce-local-getname.patch,
+  +files/0007-LU-2987-llite-rcu-free-inode.patch,
+  +files/0008-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  +files/0009-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  +files/0010-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  +files/0011-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  -files/0002-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch,
+  -files/0003-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  -files/0004-LU-2800-llite-introduce-local-getname.patch,
+  -files/0005-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  -files/0006-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  -files/0007-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  -files/0008-LU-2987-llite-rcu-free-inode.patch,
+  -files/0009-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  lustre-9999.ebuild:
+  Update lustre patches
+
+  16 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0002-LU-2686-kernel-sock_map_fd-replaced-by-sock_alloc_fi.patch,
+  +files/0005-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  +files/0009-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  -files/0002-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  -files/0005-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  -files/0009-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  -files/0010-LU-2850-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  -files/0011-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0003-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  files/0004-LU-2800-llite-introduce-local-getname.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0007-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  files/0008-LU-2987-llite-rcu-free-inode.patch, lustre-9999.ebuild:
+  Update lustre patches
+
+  16 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Update lustre deps
+
+  16 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Update lustre deps
+
+  16 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Update lustre deps
+
+  16 Apr 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0009-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  +files/0010-LU-2850-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  +files/0011-LU-3117-build-zfs-0.6.1-kmod-dkms-compatibility.patch,
+  -files/0009-LU-3011-ubuntu-Fix-build-failures-on-Ubuntu-12.04.patch,
+  -files/0010-LU-3077-build-fix-warnings-in-client-modules.patch,
+  -files/0011-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  -files/0012-LU-2850-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0002-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  files/0003-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  files/0004-LU-2800-llite-introduce-local-getname.patch,
+  files/0005-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0007-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  files/0008-LU-2987-llite-rcu-free-inode.patch, lustre-9999.ebuild:
+  Update lustre patches
+
+  31 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0010-LU-3077-build-fix-warnings-in-client-modules.patch,
+  +files/0011-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  +files/0012-LU-2850-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0002-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  files/0003-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  files/0004-LU-2800-llite-introduce-local-getname.patch,
+  files/0005-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0007-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  files/0008-LU-2987-llite-rcu-free-inode.patch,
+  files/0009-LU-3011-ubuntu-Fix-build-failures-on-Ubuntu-12.04.patch,
+  lustre-9999.ebuild:
+  Add patches for gcc-4.8 and linux-3.9
+
+  31 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild,
+  metadata.xml:
+  Enable more options
+
+  31 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0009-LU-3011-ubuntu-Fix-build-failures-on-Ubuntu-12.04.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0002-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  files/0003-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  files/0004-LU-2800-llite-introduce-local-getname.patch,
+  files/0005-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0007-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  files/0008-LU-2987-llite-rcu-free-inode.patch, lustre-9999.ebuild:
+  Add patch to fix as-needed issue
+
+  31 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  +files/0002-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  +files/0003-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  +files/0004-LU-2800-llite-introduce-local-getname.patch,
+  +files/0005-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  +files/0006-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  +files/0007-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  +files/0008-LU-2987-llite-rcu-free-inode.patch,
+  -files/0000-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  -files/0001-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  -files/0002-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  -files/0003-LU-2800-llite-introduce-local-getname.patch,
+  -files/0004-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  -files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  -files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  -files/0007-LU-2987-llite-rcu-free-inode.patch,
+  -files/0008-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  lustre-9999.ebuild:
+  Update rebased patches
+
+  27 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  +files/0003-LU-2800-llite-introduce-local-getname.patch,
+  +files/0004-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  +files/0008-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  -files/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  -files/0003-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  -files/0004-LU-2800-llite-introduce-local-getname.patch,
+  -files/0008-LU-2929-build-fix-unused-uninitilized-virables-error.patch,
+  -files/0009-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  files/0002-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  files/0007-LU-2987-llite-rcu-free-inode.patch, lustre-9999.ebuild:
+  Update patches
+
+  22 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0008-LU-2929-build-fix-unused-uninitilized-virables-error.patch,
+  +files/0009-LU-2850-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  -files/0007-LU-2984-build-Fix-warning-with-gcc-4.6-in-mdt_handle.patch,
+  files/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0002-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  files/0003-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  files/0004-LU-2800-llite-introduce-local-getname.patch,
+  files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  files/0007-LU-2987-llite-rcu-free-inode.patch, lustre-9999.ebuild:
+  Update patches for 3.9
+
+  22 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0002-LU-2850-compat-posix_acl_-to-from-_xattr-take-user_n.patch,
+  +files/0003-LU-2800-libcfs-use-sock_alloc_file-instead-of-sock_m.patch,
+  +files/0004-LU-2800-llite-introduce-local-getname.patch,
+  +files/0007-LU-2987-llite-rcu-free-inode.patch,
+  -files/0002-LU-2850-kernel-3.7-kernel-posix-acl-needs-userns.patch,
+  -files/0003-LU-2850-kernel-3.7-uneports-sock_map_fd.patch,
+  -files/0004-LU-2850-kernel-3.7-get-putname-uses-struct-filename.patch,
+  files/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  lustre-9999.ebuild:
+  Update patches for 3.8
+
+  19 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  $PWD dont needed in automake invocation
+
+  19 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Fix escape sequence
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0002-LU-2850-kernel-3.7-kernel-posix-acl-needs-userns.patch,
+  files/0003-LU-2850-kernel-3.7-uneports-sock_map_fd.patch,
+  files/0004-LU-2850-kernel-3.7-get-putname-uses-struct-filename.patch,
+  files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch:
+  Update patches
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Fix some install path
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Add gentoo style configure
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0007-LU-2984-build-Fix-warning-with-gcc-4.6-in-mdt_handle.patch,
+  lustre-9999.ebuild:
+  Fix error in mdt_handler.c
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0000-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch:
+  Update patch
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0000-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch:
+  Update patch
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0000-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  -files/LU-2982.patch, lustre-9999.ebuild:
+  Add patch sended upstream
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> files/LU-2982.patch:
+  Update patch
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> +files/LU-2982.patch,
+  lustre-9999.ebuild:
+  Fix sandbox violation during configure
+
+  18 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0002-LU-2850-kernel-3.7-kernel-posix-acl-needs-userns.patch,
+  files/0003-LU-2850-kernel-3.7-uneports-sock_map_fd.patch,
+  files/0004-LU-2850-kernel-3.7-get-putname-uses-struct-filename.patch,
+  files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  lustre-9999.ebuild:
+  Update lustre patches
+
+  16 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Update deps. thanks to Richard Yao
+
+  15 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Make client and utils as default flags
+
+  15 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Update to reflect latest zfs changes
+
+  14 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Drop Werror hack
+
+  14 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0002-LU-2850-kernel-3.7-kernel-posix-acl-needs-userns.patch,
+  files/0003-LU-2850-kernel-3.7-uneports-sock_map_fd.patch,
+  files/0004-LU-2850-kernel-3.7-get-putname-uses-struct-filename.patch,
+  files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch:
+  Now it builds and loads with 3.8
+
+  14 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch:
+  More updates to lustre patches
+
+  14 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0006-LU-2850-kernel-3.8-upstream-kills-daemonize.patch,
+  files/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  files/0002-LU-2850-kernel-3.7-kernel-posix-acl-needs-userns.patch,
+  files/0003-LU-2850-kernel-3.7-uneports-sock_map_fd.patch,
+  files/0004-LU-2850-kernel-3.7-get-putname-uses-struct-filename.patch,
+  files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  lustre-9999.ebuild:
+  Update lustre patches. Now it builds against linux 3.8
+
+  07 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Fix typo
+
+  06 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Realy add patches to ebuild
+
+  06 Mar 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-LU-2850-build-check-header-files-in-generated-uapi-d.patch,
+  +files/0002-LU-2850-kernel-3.7-kernel-posix-acl-needs-userns.patch,
+  +files/0003-LU-2850-kernel-3.7-uneports-sock_map_fd.patch,
+  +files/0004-LU-2850-kernel-3.7-get-putname-uses-struct-filename.patch,
+  +files/0005-LU-2850-kernel-3.8-upstream-removes-vmtruncate.patch,
+  lustre-9999.ebuild:
+  Add patches for kernels 3.7 and 3.8
+
+  10 Feb 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  -files/2.4/0001-LU-1994-llite-atomic_open-support.patch, lustre-9999.ebuild,
+  metadata.xml:
+  [sys-cluster/lustre] Update lustre ebuild  Also add server support =)
+
+  22 Dec 2012; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/2.4/0001-LU-1994-llite-atomic_open-support.patch, lustre-9999.ebuild:
+  [sys-cluster/lustre] Add missing patch
+
+  22 Dec 2012; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  [sys-cluster/lustre] Fix disabling
+
+  22 Dec 2012; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  [sys-cluster/lustre] Disable Werror
+
+  22 Dec 2012; Alexey Shvetsov <alexxy@gentoo.org>
+  -files/2.4/0001-LU-1337-vfs-kernel-3.1-renames-lock-manager-ops.patch,
+  -files/2.4/0002-LU-1337-vfs-kernel-3.1-kills-inode-i_alloc_sem.patch,
+  -files/2.4/0003-LU-1337-vfs-kernel-3.1-changes-open_to_namei_flags.patch,
+  -files/2.4/0004-LU-1337-vfs-provides-ll_get_acl-to-i_op-get_acl.patch,
+  -files/2.4/0005-LU-1337-block-kernel-3.2-make_request_fn-returns-voi.patch,
+  -files/2.4/0006-LU-1337-vfs-kernel-3.2-protects-inode-i_nlink.patch,
+  -files/2.4/0007-LU-1337-vfs-3.3-changes-super_operations-inode_opera.patch,
+  -files/2.4/0008-LU-1337-kernel-remove-unnecessary-includings-of-syst.patch,
+  -files/2.4/0009-LU-1337-vfs-kernel-3.4-touch_atime-switchs-to-1-argu.patch,
+  -files/2.4/0010-LU-1337-vfs-kernel-3.4-converts-d_alloc_root-to-d_ma.patch,
+  -files/2.4/0011-LU-1337-kernel-v3.5-defines-INVALID_UID.patch,
+  -files/2.4/0012-LU-1337-llite-kernel-3.5-renames-end_writeback-to-cl.patch,
+  -files/2.4/0013-LU-1337-kernel-3.5-kernel-encode_fh-passes-in-parent.patch,
+  lustre-9999.ebuild:
+  [sys-cluster/lustre] All patches for 3.6 was merge into mainline
 
   08 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org>
   +files/2.4/0001-LU-1337-vfs-kernel-3.1-renames-lock-manager-ops.patch,

@@ -1,17 +1,15 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils
+inherit distutils-r1
 
 DESCRIPTION="Managing astronomical coordinate systems"
-HOMEPAGE="https://trac6.assembla.com/astrolib/wiki/ http://www.scipy.org/AstroLib/"
+HOMEPAGE="https://trac6.assembla.com/astrolib/wiki/"
 SRC_URI="http://stsdas.stsci.edu/astrolib/${P}.tar.gz"
 
 LICENSE="AURA"
@@ -20,12 +18,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
-RDEPEND="dev-python/numpy"
+RDEPEND="dev-python/numpy[${PYTHON_USEDEP}]"
 
-src_test() {
-	testing() {
-		PYTHONPATH="$(ls -d build-${PYTHON_ABI}/lib.*)" "$(PYTHON)" -c "import coords as C; print C._test()"
-	}
-	# FIX ME: test fail on amd64, reported upstream
-	use amd64 || python_execute_function testing
+python_test() {
+	"${PYTHON}" -c "import coords as C; print C._test()" || die
 }

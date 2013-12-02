@@ -1,6 +1,73 @@
 # ChangeLog for sci-chemistry/nmrpipe
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  28 Oct 2013; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-8.1.2013.218.23.09.ebuild, +nmrpipe-8.1.2013.218.23.09-r1.ebuild,
+  +files/extract.M:
+  Add IBS extract.M macro
+
+  25 Oct 2013; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-8.1.2013.218.23.09.ebuild, +nmrpipe-8.1.2013.218.23.09-r1.ebuild,
+  +files/extract.M:
+  Add IBS extract.M macro
+
+  12 Aug 2013; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-7.9.2013.021.23.09-r3.ebuild, +nmrpipe-8.1.2013.218.23.09.ebuild,
+  -files/nmrpipe-7.9.2013.021.23.09-lib.patch,
+  +files/nmrpipe-8.1.2013.218.23.09-lib.patch:
+  Version Bump
+
+  11 Jul 2013; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-7.9.2013.021.23.09-r2.ebuild, +nmrpipe-7.9.2013.021.23.09-r3.ebuild:
+  Fix for prefix
+
+  16 Jun 2013; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-7.9.2013.021.23.09-r2.ebuild:
+  Bump to EAPI=5 and fix license
+
+  16 Jun 2013; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-7.9.2013.021.23.09-r2.ebuild:
+  Bump to EAPI=5 and fix license
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-7.9.2013.021.23.09-r2.ebuild:
+  Fix quoting
+
+*nmrpipe-7.9.2013.021.23.09-r2 (26 Feb 2013)
+
+  26 Feb 2013; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-7.9.2013.021.23.09-r1.ebuild, +nmrpipe-7.9.2013.021.23.09-r2.ebuild:
+  Fix broken Manifest, #458928
+
+*nmrpipe-7.9.2013.021.23.09-r1 (24 Jan 2013)
+
+  24 Jan 2013; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-7.9.2013.021.23.09.ebuild, +nmrpipe-7.9.2013.021.23.09-r1.ebuild:
+  Upstream changed tarballs
+
+*nmrpipe-7.9.2013.021.23.09 (23 Jan 2013)
+
+  23 Jan 2013; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-7.8.2012.295.14.58-r2.ebuild,
+  -files/nmrpipe-7.8.2012.295.14.58-lib.patch,
+  +nmrpipe-7.9.2013.021.23.09.ebuild,
+  +files/nmrpipe-7.9.2013.021.23.09-lib.patch:
+  Version BUmp; drop fetch restriction as upstream provides and promotes direct
+  access
+
+*nmrpipe-7.8.2012.295.14.58-r2 (14 Jan 2013)
+
+  14 Jan 2013; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-7.8.2012.295.14.58-r1.ebuild, +nmrpipe-7.8.2012.295.14.58-r2.ebuild,
+  metadata.xml:
+  Version Bump
+
+*nmrpipe-7.8.2012.295.14.58-r1 (26 Nov 2012)
+
+  26 Nov 2012; Justin Lecher <jlec@gentoo.org>
+  -nmrpipe-7.8.2012.295.14.58.ebuild, +nmrpipe-7.8.2012.295.14.58-r1.ebuild:
+  Version BUmp
 
 *nmrpipe-7.8.2012.295.14.58 (28 Oct 2012)
 

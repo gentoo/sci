@@ -1,6 +1,41 @@
 # ChangeLog for sci-biology/emboss
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/ChangeLog,v 1.61 2011/03/09 16:29:05 jlec Exp $
+
+  16 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  emboss-6.6.0.ebuild, +files/emboss-6.6.0_plcol.patch:
+  emboss-6.6.0.ebuild files/emboss-6.6.0_plcol.patch
+  Added the misisng patch, disabled searches for Gentoo-patches,
+  fixed patch-related variable values in the 6.6.0 ebuild, BUT
+  1) the ebuild does not work, configure exits after looking for
+  -lhpdf or later -lpng (that can be obeyed by omitting --with-hpdf
+  --with-pngdriver)
+  2) if one relies on whatever configure detects compilation aborts
+  while compiling embossversion.c or because -lexpat is not in LIBS.
+  Well, expat is not in configure flags at all.
+
+  Maybe something is caused by the --enable-systemlibs configure switch,
+  I think it actually enables inclusion of these from their bundled
+  copies in the EMBOSS tarball (and not use of the system-wide headers
+  and libs).
+
+*emboss-6.3.1_p4-r2 (11 Sep 2013)
+*emboss-6.5.7 (11 Sep 2013)
+*emboss-6.6.0 (11 Sep 2013)
+
+  11 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +emboss-6.3.1_p4-r2.ebuild, +emboss-6.5.7.ebuild, +emboss-6.6.0.ebuild,
+  +files/ax_lib_mysql.m4, +files/emboss-6.3.1_p4-r2_Makefile.patch,
+  +files/emboss-6.3.1_p4-r2_compilations-paths.patch,
+  +files/emboss-6.3.1_p4-r2_libtool.patch,
+  +files/emboss-6.3.1_p4-r2_plcol.patch, -emboss-6.3.1_p4-r1.ebuild,
+  -files/emboss-6.3.1_p4-r1_plcol.patch:
+  Partial success on removal of all crazy libraries and includes from CFLAGS and
+  LDFLAGS used throught EMBOSS sources. While compile commandline are now clean
+  still libtool is passed with LDFLAGS carrying over the many X11 and graphics
+  libraries. Seems the source is ltmain.sh which uses  on the linker lines but
+  editing m4/libtool.m4 is not the right way to do it. Same applies to ltmain.sh
+  in top-level directory. Any volunteers? Bug #394425
 
   19 Jul 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   +files/emboss-6.3.1_p4-r1_plcol.patch, emboss-6.3.1_p4-r1.ebuild:

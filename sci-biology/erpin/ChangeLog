@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/erpin
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  16 Jun 2013; Justin Lecher <jlec@gentoo.org> erpin-5.5b.ebuild, metadata.xml:
+  Bump to EAPI=5 and respect FLAGS / AR
 
   23 Nov 2009; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
   New package, ebuild written by me

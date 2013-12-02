@@ -1,4 +1,4 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/media-gfx/brlcad/brlcad-7.18.4.ebuild,v 1.1 2011/04/18 22:47:37 dilfridge Exp $
 
@@ -11,17 +11,13 @@ ESVN_REPO_URI="https://brlcad.svn.sourceforge.net/svnroot/${PN}/${PN}/trunk"
 
 LICENSE="LGPL-2 BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="benchmarks debug doc examples java opengl smp"
 
 RDEPEND="media-libs/libpng
 	sys-libs/zlib
 	>=sci-libs/tnt-3
 	sci-libs/jama
-	>=dev-lang/tcl-8.5
-	>=dev-lang/tk-8.5
-	=dev-tcltk/itcl-3.4*
-	=dev-tcltk/itk-3.4*
 	dev-tcltk/iwidgets
 	dev-tcltk/tkimg
 	dev-tcltk/tkpng
@@ -58,7 +54,7 @@ filter-flags -std=c++0x
 		-DBRLCAD_ENABLE_COMPILER_WARNINGS=OFF
 		-DBRLCAD_FLAGS_OPTIMIZATION=ON
 		-DBRLCAD_ENABLE_X11=ON
-		-DBRLCAD_BUNDLED_LIBS=System
+		-DBRLCAD_BUNDLED_LIBS=ON
 		)
 
 			# use flag triggered options
