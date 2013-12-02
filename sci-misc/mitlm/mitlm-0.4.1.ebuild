@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit autotools eutils flag-o-matic multilib
+inherit autotools
 
 DESCRIPTION="A set of tools designed for the efficient estimation of statistical n-gram language models"
 HOMEPAGE="https://code.google.com/p/mitlm/"
