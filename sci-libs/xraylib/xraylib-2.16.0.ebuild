@@ -30,6 +30,10 @@ S="${WORKDIR}/${PN}-${P}"
 
 DOCS=(AUTHORS BUGS ChangeLog README TODO)
 
+src_prepare() {
+	eautoreconf
+}
+
 src_configure() {
 	local myeconfargs=(
 		--disable-idl
