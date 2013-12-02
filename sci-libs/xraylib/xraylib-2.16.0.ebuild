@@ -15,7 +15,7 @@ SRC_URI="https://github.com/tschoonj/xraylib/archive/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="cxx examples fortran java lua perl php python ruby"
+IUSE="cxx examples fortran java lua perl python"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
@@ -43,13 +43,8 @@ src_configure() {
 		$(use_enable java)
 		$(use_enable lua)
 		$(use_enable perl)
-		$(use_enable perl perl-integration)
-		$(use_enable php)
-		$(use_enable php php-integration)
 		$(use_enable python)
 		$(use_enable python python-integration)
-		$(use_enable ruby)
-		$(use_enable ruby ruby-integration)
 	)
 	autotools-utils_src_configure
 }
