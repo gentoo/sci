@@ -1,27 +1,32 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=5
 
-inherit cmake-utils
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-DESCRIPTION="A dynamic Python binding for the Qt framework."
+inherit cmake-utils python-single-r1
+
+MY_PN="PythonQt"
+MY_P="${MY_PN}${PV}"
+
+DESCRIPTION="A dynamic Python binding for the Qt framework"
 HOMEPAGE="http://pythonqt.sourceforge.net/"
-SRC_URI="mirror://sourceforge/pythonqt/pythonqt/PythonQt-2.1/PythonQt2.1_Qt4.8.zip"
+SRC_URI="mirror://sourceforge/pythonqt/pythonqt/${MY_PN}-${PV}/${MY_P}_Qt4.8.zip"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-DEPEND=""
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+DEPEND="${PYTHON_DEPS}
+	dev-qt/qtcore:4
+	dev-qt/qtgui:4"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/PythonQt${PV}_Qt4.8"
-CMAKE_BUILD_DIR="${S}"
+S="${WORKDIR}/${MY_P}_Qt4.8"
 
-src_prepare()
-{
-	use amd64 && epatch "${FILESDIR}/${P}-lib_location.patch"
-}
+PATCHES=( "${FILESDIR}"/${P}-lib_location.patch )
