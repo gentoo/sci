@@ -4,8 +4,9 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_6 python2_7 python3_1 python3_2 python3_3 )
-inherit eutils autotools-utils python-r1 java-pkg-opt-2
+FORTRAN_NEEDED=fortran
+PYTHON_COMPAT=( python{2_6,2_7,3_1,3_2,3_3} )
+inherit eutils autotools-utils python-r1 java-pkg-opt-2 fortran-2
 
 DESCRIPTION="A library for X-ray matter interaction cross sections for X-ray fluorescence applications"
 HOMEPAGE="https://github.com/tschoonj/xraylib"
@@ -16,13 +17,14 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="cxx examples fortran java lua perl php python ruby"
 
-DEPEND="fortran? ( virtual/fortran )
+REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+
+RDEPEND="${PYTHON_DEPS}
 	java? ( virtual/jdk )
 	lua? ( dev-lang/lua )
-	perl? ( dev-lang/perl )
-	${PYTHON_DEPS}"
+	perl? ( dev-lang/perl )"
 
-RDEPEND="${DEPEND}"
+DEPEND="${RDEPEND}"
 
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
