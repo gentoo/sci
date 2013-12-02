@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit autotools eutils flag-o-matic multilib
+inherit autotools
 
 DESCRIPTION="A tool for the estimation, representation, and computation of statistical language models"
 HOMEPAGE="http://hlt.fbk.eu/en/irstlm"
