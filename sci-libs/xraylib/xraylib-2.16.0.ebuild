@@ -14,7 +14,7 @@ SRC_URI="https://github.com/tschoonj/xraylib/archive/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="cxx examples fortran java lua perl python"
+IUSE="cxx examples fortran java lua perl php python ruby"
 
 DEPEND="fortran? ( virtual/fortran )
 	java? ( virtual/jdk )
@@ -23,3 +23,21 @@ DEPEND="fortran? ( virtual/fortran )
 	${PYTHON_DEPS}"
 
 RDEPEND="${DEPEND}"
+
+src_configure() {
+	local myeconfargs=(
+		--disable-idl
+		$(use-enable fortran fortran2003)
+		$(use-enable java)
+		$(use-enable lua)
+		$(use-enable perl)
+		$(use-enable perl perl-integration)
+		$(use-enable php)
+		$(use-enable php php-integration)
+		$(use-enable python)
+		$(use-enable python python-integration)
+		$(use-enable ruby)
+		$(use-enable ruby ruby-integration)
+	)
+	autotools-utils_src_configure
+}
