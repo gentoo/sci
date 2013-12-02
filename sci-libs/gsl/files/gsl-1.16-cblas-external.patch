@@ -207,6 +207,19 @@ diff -Nur gsl-1.16.orig/Makefile.am gsl-1.16/Makefile.am
  	-e 's|@LIBS[@]|$(LIBS)|g' \
  	-e 's|@VERSION[@]|$(VERSION)|g'
  
+--- gsl-1.16.orig/multifit/Makefile.am	2013-07-18 06:04:26.000000000 +1000
++++ gsl-1.16/multifit/Makefile.am	2013-11-22 16:57:26.170330257 +1100
+@@ -13,8 +13,8 @@
+ TESTS = $(check_PROGRAMS)
+ 
+ test_SOURCES = test.c
+-test_LDADD = libgslmultifit.la ../linalg/libgsllinalg.la ../permutation/libgslpermutation.la ../blas/libgslblas.la ../cblas/libgslcblas.la ../matrix/libgslmatrix.la ../sort/libgslsort.la ../statistics/libgslstatistics.la ../vector/libgslvector.la ../block/libgslblock.la  ../complex/libgslcomplex.la ../ieee-utils/libgslieeeutils.la ../err/libgslerr.la ../test/libgsltest.la ../utils/libutils.la ../sys/libgslsys.la
++test_LDADD = libgslmultifit.la ../linalg/libgsllinalg.la ../permutation/libgslpermutation.la ../blas/libgslblas.la @CBLAS_LINK_LIBS@ ../matrix/libgslmatrix.la ../sort/libgslsort.la ../statistics/libgslstatistics.la ../vector/libgslvector.la ../block/libgslblock.la  ../complex/libgslcomplex.la ../ieee-utils/libgslieeeutils.la ../err/libgslerr.la ../test/libgsltest.la ../utils/libutils.la ../sys/libgslsys.la
+ 
+ #demo_SOURCES = demo.c
+-#demo_LDADD = libgslmultifit.la ../linalg/libgsllinalg.la ../permutation/libgslpermutation.la ../blas/libgslblas.la ../cblas/libgslcblas.la ../matrix/libgslmatrix.la ../vector/libgslvector.la ../block/libgslblock.la ../randist/libgslrandist.la ../rng/libgslrng.la ../complex/libgslcomplex.la ../ieee-utils/libgslieeeutils.la ../err/libgslerr.la ../test/libgsltest.la ../utils/libutils.la ../sys/libgslsys.la
++#demo_LDADD = libgslmultifit.la ../linalg/libgsllinalg.la ../permutation/libgslpermutation.la ../blas/libgslblas.la @CBLAS_LINK_LIBS@ ../matrix/libgslmatrix.la ../vector/libgslvector.la ../block/libgslblock.la ../randist/libgslrandist.la ../rng/libgslrng.la ../complex/libgslcomplex.la ../ieee-utils/libgslieeeutils.la ../err/libgslerr.la ../test/libgsltest.la ../utils/libutils.la ../sys/libgslsys.la
+ 
 diff -Nur gsl-1.16.orig/multimin/Makefile.am gsl-1.16/multimin/Makefile.am
 --- gsl-1.16.orig/multimin/Makefile.am	2013-07-17 13:04:26.000000000 -0700
 +++ gsl-1.16/multimin/Makefile.am	2013-08-19 15:25:27.729497736 -0700

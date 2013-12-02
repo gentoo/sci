@@ -3,21 +3,18 @@
 # $Header: $
 
 EAPI=5
-
 PYTHON_COMPAT=( python2_7 )
 DISTUTILS_IN_SOURCE_BUILD=1
-EHG_REPO_URI="https://bitbucket.org/yt_analysis/yt"
-EHG_REVISION="yt"
 
-inherit distutils-r1 mercurial
+inherit distutils-r1 flag-o-matic
 
 DESCRIPTION="Astrophysical Simulation Analysis and Vizualization package"
 HOMEPAGE="http://yt-project.org/"
-SRC_URI=""
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="test"
 
 CDEPEND="media-libs/freetype:2
@@ -43,7 +40,7 @@ python_prepare_all() {
 	sed -i setup.py \
 		-e 's:build/lib:../../../&:' || die
 	sed -i yt/utilities/setup.py \
-		-e "s:/usr:${EPREFIX}/usr:g" || die
+		-e "s:/usr:${EPREFIX}/usr:g"  || die
 	mv yt/utilities/kdtree/fKD.{f,F}90 || die # Forthon-0.8.13
 	distutils-r1_python_prepare_all
 }
