@@ -24,6 +24,8 @@ DEPEND="fortran? ( virtual/fortran )
 
 RDEPEND="${DEPEND}"
 
+S="${WORKDIR}/${PN}-${P}"
+
 src_configure() {
 	local myeconfargs=(
 		--disable-idl
