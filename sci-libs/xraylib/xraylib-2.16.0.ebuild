@@ -39,17 +39,26 @@ src_prepare() {
 src_configure() {
 	local myeconfargs=(
 		--disable-idl
-		$(use-enable fortran fortran2003)
-		$(use-enable java)
-		$(use-enable lua)
-		$(use-enable perl)
-		$(use-enable perl perl-integration)
-		$(use-enable php)
-		$(use-enable php php-integration)
-		$(use-enable python)
-		$(use-enable python python-integration)
-		$(use-enable ruby)
-		$(use-enable ruby ruby-integration)
+		$(use_enable fortran fortran2003)
+		$(use_enable java)
+		$(use_enable lua)
+		$(use_enable perl)
+		$(use_enable perl perl-integration)
+		$(use_enable php)
+		$(use_enable php php-integration)
+		$(use_enable python)
+		$(use_enable python python-integration)
+		$(use_enable ruby)
+		$(use_enable ruby ruby-integration)
 	)
 	autotools-utils_src_configure
+}
+
+src_compile() {
+	if use fortran
+	then # see https://github.com/tschoonj/xraylib/issues/11
+		emake -j1
+	else
+		emake
+	fi
 }
