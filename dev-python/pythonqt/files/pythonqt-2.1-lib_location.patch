@@ -5,7 +5,7 @@
  #
  set_target_properties(PythonQt  PROPERTIES
 -  INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib"
-+  INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib64"
++  INSTALL_NAME_DIR "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}"
    )
  
  target_link_libraries(PythonQt
@@ -15,8 +15,8 @@
          RUNTIME DESTINATION bin
 -        LIBRARY DESTINATION lib
 -        ARCHIVE DESTINATION lib)
-+        LIBRARY DESTINATION lib64
-+        ARCHIVE DESTINATION lib64)
++        LIBRARY DESTINATION lib${LIB_SUFFIX}
++        ARCHIVE DESTINATION lib${LIB_SUFFIX})
  install(FILES ${headers} DESTINATION include/PythonQt)
  
  MESSAGE(STATUS "<<< Gentoo configuration >>>
