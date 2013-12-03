@@ -58,7 +58,7 @@ src_configure() {
 }
 
 src_compile() {
-	if use fortran
+	if use fortran || use java
 	then # see https://github.com/tschoonj/xraylib/issues/11
 		emake -j1
 	else
