@@ -1,55 +1,53 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=5
 
-inherit autotools eutils qt4-r2 subversion python versionator
+PYTHON_COMPAT=( python{2_6,2_7} )
+
+inherit autotools eutils qt4-r2 subversion python-single-r1 versionator
 
 ELMER_ROOT="elmerfem"
 MY_PN=ElmerGUI
 
 DESCRIPTION="Elmer is a collection of finite element programs, libraries, and visualization tools, New Elmer pre-processor"
 HOMEPAGE="http://www.csc.fi/english/pages/elmer"
-#SRC_URI="http://elmerfem.svn.sourceforge.net/viewvc/${ELMER_ROOT}/release/${PV}/${MY_PN}/?view=tar -> ${P}.tar.gz"
 SRC_URI=""
-RESTRICT="mirror"
 ESVN_REPO_URI="https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk/${MY_PN}"
 ESVN_PROJECT="${MY_PN}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
-IUSE="debug bundled_netgen matc opencascade python qwt vtk"
+KEYWORDS=""
+IUSE="debug +bundled_netgen matc opencascade python qwt vtk"
 
 REQUIRED_USE="opencascade? ( vtk )"
 
-DEPEND="=sci-libs/elmer-eio-${PV}
-		!bundled_netgen? ( sci-mathematics/netgen )
-		virtual/glu
-		|| ( =sci-misc/elmer-post-${PV}
-			 >=sci-libs/vtk-5.0.0[qt4,python?]
+DEPEND="
+	~sci-libs/elmer-eio-${PV}
+	!bundled_netgen? ( sci-mathematics/netgen )
+	virtual/glu
+	|| (
+		~sci-misc/elmer-post-${PV}
+		>=sci-libs/vtk-5.0.0[qt4,python?]
 		)
-		matc? ( =sci-libs/matc-${PV} )
-		vtk? ( >=sci-libs/vtk-5.0.0[qt4,python?] )
-		opencascade? ( >=sci-libs/opencascade-6.3 )
-		python? ( <=dev-python/pythonqt-1.1 )
-		qwt? ( x11-libs/qwt:5 )
-		|| ( >=x11-libs/qt-core-4.3:4
-			 ( x11-libs/qt-core:5
-			   x11-libs/qt-xml:5
-			 )
-		)
-		>=x11-libs/qt-opengl-4.3
-		>=x11-libs/qt-script-4.3"
+	matc? ( ~sci-libs/matc-${PV} )
+	vtk? ( >=sci-libs/vtk-5.0.0[qt4,python?] )
+	opencascade? ( >=sci-libs/opencascade-6.3 )
+	python? ( dev-python/pythonqt )
+	qwt? ( x11-libs/qwt:5 )
+	>=dev-qt/qtcore-4.3:4
+	>=x11-libs/qt-opengl-4.3:4
+	>=x11-libs/qt-script-4.3:4"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
 	# Do not build bundled matc and PythonQt
-	sed -i \
+	sed \
 		-e 's/matc//' \
 		-e 's/PythonQt//' \
-		${MY_PN}.pro || die
+		-i ${MY_PN}.pro || die
 
 	# Ideally we would avoid buildling thirdparty code
 	# and use a separate package but this currently fails
@@ -58,19 +56,19 @@ src_prepare() {
 	# sci-mathematics/netgen
 	if use !bundled_netgen; then
 		   sed -i 's/netgen//' ${MY_PN}.pro || die
-		   sed -i \
-			   -e "s:INCLUDEPATH += ../netgen/libsrc/interface:INCLUDEPATH += ${EPREFIX}/usr/include:g" \
-			   -e "s:LIBPATH += ../netgen/ngcore:LIBPATH += ${EPREFIX}/usr/$(get_libdir):g" \
-			   -e "s:LIBS += -lng:LIBS += -lnglib:g" \
-			   Application/Application.pro || die
+		   sed \
+				-e "s:INCLUDEPATH += ../netgen/libsrc/interface:INCLUDEPATH += ${EPREFIX}/usr/include:g" \
+				-e "s:LIBPATH += ../netgen/ngcore:LIBPATH += ${EPREFIX}/usr/$(get_libdir):g" \
+				-e "s:LIBS += -lng:LIBS += -lnglib:g" \
+				-i Application/Application.pro || die
 
-		   eerror "${PN} currently fails to build against sci-mathematics/netgen."
+			eerror "${PN} currently fails to build against sci-mathematics/netgen."
 	fi
 
 	# Fix install path
-	sed -i \
-		 -e 's|unix: ELMER_HOME = /usr/local|unix: ELMER_HOME = /usr|g' \
-		 ${MY_PN}.pri || die
+	sed \
+		-e 's|unix: ELMER_HOME = /usr/local|unix: ELMER_HOME = /usr|g' \
+		-i ${MY_PN}.pri || die
 
 	if use amd64; then
 		   sed -i 's/32/64/' ${MY_PN}.pri || die

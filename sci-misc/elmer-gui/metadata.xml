@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-        <upstream>
-                <bugs-to>mailto:chr.paccolat@mycable.ch</bugs-to>
-                <changelog></changelog>
-                <doc>http://www.gentoo.org/doc/en/handbook/handbook-x86.xml?part=3</doc>
-        </upstream>
-        <maintainer><email>chr.paccolat@mycable.ch</email></maintainer>
-        <use>
-          <flag name="matc">Add support to evaluate mathematical expression in input files / postprocessor </flag>
-          <flag name="opencascade">Use OpenCASCADE to import CAD files</flag>
-          <flag name="python">Add support for python scripting in the pre-processor</flag>
-          <flag name="qwt">Pull-in QWT to enable the convergence monitor</flag>
-          <flag name="vtk">Add support for the VTK post-processor backend (visualization)</flag>
-        </use>
+  <herd>sci</herd>
 </pkgmetadata>
-
