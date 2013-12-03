@@ -6,20 +6,18 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=true
 
-inherit autotools-utils flag-o-matic multilib subversion toolchain-funcs
+inherit autotools-utils flag-o-matic multilib toolchain-funcs
 
 ELMER_ROOT="elmerfem"
 MY_PN=${PN/elmer-/}
 
 DESCRIPTION="Finite element programs, libraries, and visualization tools - elmerpost"
 HOMEPAGE="http://www.csc.fi/english/pages/elmer"
-SRC_URI=""
-ESVN_REPO_URI="https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk/${MY_PN}"
-ESVN_PROJECT="${MY_PN}"
+SRC_URI="http://elmerfem.svn.sourceforge.net/viewvc/${ELMER_ROOT}/release/${PV%_p*}/${MY_PN}/?view=tar&pathrev=4651 -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="debug opengl"
 
 RDEPEND="
@@ -36,11 +34,11 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/post"
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-6.0_p4651-oof.patch
-	"${FILESDIR}"/${PN}-6.0_p4651-underlinking.patch
-	"${FILESDIR}"/${PN}-6.0_p4651-tcltk8.6.patch
-	"${FILESDIR}"/${PN}-6.0_p4651-bfr-overflow.patch
-	"${FILESDIR}"/${PN}-6.0_p4651-impl-dec.patch
+	"${FILESDIR}"/${P}-oof.patch
+	"${FILESDIR}"/${P}-underlinking.patch
+	"${FILESDIR}"/${P}-tcltk8.6.patch
+	"${FILESDIR}"/${P}-bfr-overflow.patch
+	"${FILESDIR}"/${P}-impl-dec.patch
 )
 
 src_prepare() {
