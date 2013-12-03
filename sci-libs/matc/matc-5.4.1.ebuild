@@ -6,20 +6,20 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=true
 
-inherit autotools-utils subversion
+inherit autotools-utils
 
 ELMER_ROOT="elmerfem"
 MY_PN=${PN/elmer-/}
 
 DESCRIPTION="Finite element programs, libraries, and visualization tools - math C library"
 HOMEPAGE="http://www.csc.fi/english/pages/elmer"
-SRC_URI="doc? ( http://www.nic.funet.fi/pub/sci/physics/elmer/doc/MATCManual.pdf )"
-ESVN_REPO_URI="https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk/${MY_PN}"
-ESVN_PROJECT="${MY_PN}"
+SRC_URI="
+	http://elmerfem.svn.sourceforge.net/viewvc/${ELMER_ROOT}/release/${PV}/${MY_PN}/?view=tar -> ${P}.tar.gz
+	doc? ( http://www.nic.funet.fi/pub/sci/physics/elmer/doc/MATCManual.pdf )"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="doc debug static-libs"
 
 RDEPEND="
@@ -29,12 +29,7 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${PN}
 
-PATCHES=( "${FILESDIR}"/${PN}-5.4.1-shared.patch )
-
-src_prepare() {
-	subversion_src_prepare
-	autotools-utils_src_prepare
-}
+PATCHES=( "${FILESDIR}"/${P}-shared.patch )
 
 src_configure() {
 	local myeconfargs=(

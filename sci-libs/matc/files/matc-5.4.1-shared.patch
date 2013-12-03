@@ -1,0 +1,32 @@
+ configure.in    | 2 +-
+ src/Makefile.am | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index 3e5cd27..1d8b065 100755
+--- a/configure.in
++++ b/configure.in
+@@ -4,7 +4,7 @@ dnl TODO: get fortran name mangling sceme and use it in the fortran api (spfortr
+ dnl using the convenience macros provided by automake
+ 
+ AC_INIT(src/eig.c)
+-
++LT_INIT
+ AC_CANONICAL_HOST
+ AC_CANONICAL_TARGET
+ 
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 2e39c11..e10a91d 100755
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -45,7 +45,7 @@ matc_SOURCES = main.c
+ 
+ endif
+ 
+-matc_LDADD = libmatc.a
++matc_LDADD = libmatc.la
+ 
+-lib_LIBRARIES = libmatc.a
+-libmatc_a_SOURCES = $(COMMON_SRCS)
++lib_LTLIBRARIES = libmatc.la
++libmatc_la_SOURCES = $(COMMON_SRCS)
