@@ -6,16 +6,14 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=true
 
-inherit autotools-utils subversion
+inherit autotools-utils
 
 ELMER_ROOT="elmerfem"
 MY_PN=${PN/elmer-/}
 
 DESCRIPTION="Finite element programs, libraries, and visualization tools - meshgen2d"
 HOMEPAGE="http://www.csc.fi/english/pages/elmer"
-SRC_URI=""
-ESVN_REPO_URI="https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk/${MY_PN}"
-ESVN_PROJECT="${MY_PN}"
+SRC_URI="http://elmerfem.svn.sourceforge.net/viewvc/${ELMER_ROOT}/release/${PV%_p*}/${MY_PN}/?view=tar&pathrev=4651 -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -25,13 +23,8 @@ IUSE="debug"
 S="${WORKDIR}/meshgen2d"
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-6.0_p4651-oof.patch
+	"${FILESDIR}"/${P}-oof.patch
 )
-
-src_prepare() {
-	subversion_src_prepare
-	autotools-utils_src_prepare
-}
 
 src_configure() {
 	local myeconfargs=(
