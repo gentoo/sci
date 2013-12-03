@@ -8,8 +8,8 @@ AUTOTOOLS_IN_SOURCE_BUILD=1
 AUTOTOOLS_AUTORECONF=true
 FORTRAN_NEEDED=fortran
 FORTRAN_STANDARD=2003
-PYTHON_COMPAT=( python{2_6,2_7,3_1,3_2,3_3} )
-inherit eutils autotools-utils python-r1 java-pkg-opt-2 fortran-2
+PYTHON_COMPAT=( python{2_6,2_7} ) # python 3 supported by github master
+inherit eutils autotools-utils python-single-r1 java-pkg-opt-2 fortran-2
 
 DESCRIPTION="A library for X-ray matter interaction cross sections for X-ray fluorescence applications"
 HOMEPAGE="https://github.com/tschoonj/xraylib"
