@@ -23,11 +23,12 @@ IUSE="examples fortran java lua perl python"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="${PYTHON_DEPS}
-	java? ( virtual/jdk )
+	java? ( >=virtual/jre-1.4 )
 	lua? ( dev-lang/lua )
 	perl? ( dev-lang/perl )"
 
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	java? ( >=virtual/jdk-1.4 )"
 
 S="${WORKDIR}/${PN}-${P}"
 
