@@ -24,7 +24,12 @@ IUSE="debug static-libs"
 
 S="${WORKDIR}/eio"
 
-PATCHES=( "${FILESDIR}"/${P}-shared.patch )
+PATCHES=( "${FILESDIR}"/${PN}-6.0_p4651-shared.patch )
+
+src_prepare() {
+	subversion_src_prepare
+	autotools-utils_src_prepare
+}
 
 src_configure() {
 	local myeconfargs=(
