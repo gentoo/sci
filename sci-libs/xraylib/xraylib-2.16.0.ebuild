@@ -27,14 +27,11 @@ RDEPEND="${PYTHON_DEPS}
 DEPEND="${RDEPEND}"
 
 AUTOTOOLS_IN_SOURCE_BUILD=1
+AUTOTOOLS_AUTORECONF=true
 
 S="${WORKDIR}/${PN}-${P}"
 
 DOCS=(AUTHORS BUGS Changelog README TODO)
-
-src_prepare() {
-	eautoreconf
-}
 
 src_configure() {
 	local myeconfargs=(
