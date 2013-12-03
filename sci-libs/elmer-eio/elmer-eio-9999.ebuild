@@ -9,7 +9,7 @@ inherit autotools eutils subversion
 ELMER_ROOT="elmerfem"
 MY_PN=${PN/elmer-/}
 
-DESCRIPTION="Collection of finite element programs, libraries, and visualization tools"
+DESCRIPTION="Finite element programs, libraries, and visualization tools - elmer I/O library"
 HOMEPAGE="http://www.csc.fi/english/pages/elmer"
 SRC_URI=""
 ESVN_REPO_URI="https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk/${MY_PN}"
