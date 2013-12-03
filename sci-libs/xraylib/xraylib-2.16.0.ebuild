@@ -70,5 +70,6 @@ src_install() {
 		use lua && doins example/*.lua
 		use perl && doins example/*.pl
 		use python && doins example/*.py
+		docompress -x /usr/share/doc/${PF}/examples # Don't compress examples
 	fi
 }
