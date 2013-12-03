@@ -17,7 +17,7 @@ SRC_URI=""
 ESVN_REPO_URI="https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk/${MY_PN}"
 ESVN_PROJECT="${MY_PN}"
 
-LICENSE="LGPL-2.1"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
 IUSE="debug static-libs"
@@ -28,7 +28,12 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}"/hutiter
 
-PATCHES=( "${FILESDIR}"/${PN}-5.4.1-shared.patch )
+PATCHES=( "${FILESDIR}"/${PN}-6.0_p4651-shared.patch )
+
+src_prepare() {
+	subversion_src_prepare
+	autotools-utils_src_prepare
+}
 
 src_configure() {
 	local myeconfargs=(
