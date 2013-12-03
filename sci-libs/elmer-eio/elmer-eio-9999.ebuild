@@ -17,7 +17,7 @@ SRC_URI=""
 ESVN_REPO_URI="https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk/${MY_PN}"
 ESVN_PROJECT="${MY_PN}"
 
-LICENSE="LGPL-2.1"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
 IUSE="debug static-libs"
