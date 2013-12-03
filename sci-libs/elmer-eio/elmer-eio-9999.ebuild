@@ -4,7 +4,9 @@
 
 EAPI=5
 
-inherit autotools eutils subversion
+AUTOTOOLS_AUTORECONF=true
+
+inherit autotools-utils subversion
 
 ELMER_ROOT="elmerfem"
 MY_PN=${PN/elmer-/}
@@ -18,14 +20,16 @@ ESVN_PROJECT="${MY_PN}"
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS=""
-IUSE="debug"
+IUSE="debug static-libs"
 
 S="${WORKDIR}/eio"
 
-src_prepare() {
-	eautoreconf
-}
+PATCHES=( "${FILESDIR}"/${P}-shared.patch )
 
 src_configure() {
-	econf $(use_with debug)
+	local myeconfargs=(
+		--enable-shared
+		$(use_with debug)
+	)
+	autotools-utils_src_configure
 }

@@ -3,6 +3,10 @@
 # $Header: $
 
   03 Dec 2013; Justin Lecher <jlec@gentoo.org> elmer-eio-5.4.1.ebuild,
+  elmer-eio-9999.ebuild, +files/elmer-eio-5.4.1-shared.patch:
+  Use autotools-utils.eclass and handle static-libs
+
+  03 Dec 2013; Justin Lecher <jlec@gentoo.org> elmer-eio-5.4.1.ebuild,
   -elmer-eio-5.4.1-r1.ebuild, elmer-eio-9999.ebuild:
   Fix DESCRIPTION
 
