@@ -6,20 +6,18 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=true
 
-inherit autotools-utils toolchain-funcs subversion
+inherit autotools-utils toolchain-funcs
 
 ELMER_ROOT="elmerfem"
 MY_PN=${PN/elmer-/}
 
 DESCRIPTION="Finite element programs, libraries, and visualization tools - hutiter library"
 HOMEPAGE="http://www.csc.fi/english/pages/elmer"
-SRC_URI=""
-ESVN_REPO_URI="https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk/${MY_PN}"
-ESVN_PROJECT="${MY_PN}"
+SRC_URI="http://elmerfem.svn.sourceforge.net/viewvc/${ELMER_ROOT}/release/${PV}/${MY_PN}/?view=tar -> ${P}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="debug static-libs"
 
 RDEPEND="virtual/blas"
@@ -28,7 +26,7 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}"/hutiter
 
-PATCHES=( "${FILESDIR}"/${PN}-5.4.1-shared.patch )
+PATCHES=( "${FILESDIR}"/${P}-shared.patch )
 
 src_configure() {
 	local myeconfargs=(
