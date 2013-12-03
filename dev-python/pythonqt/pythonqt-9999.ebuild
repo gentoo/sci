@@ -29,6 +29,7 @@ DEPEND="${PYTHON_DEPS}
 RDEPEND="${DEPEND}"
 
 PATCHES=( "${FILESDIR}"/${P}-lib_location.patch )
+EPATCH_OPTS="--binary"
 
 src_prepare() {
 	subversion_src_prepare

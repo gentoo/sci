@@ -30,3 +30,4 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${MY_P}_Qt4.8"
 
 PATCHES=( "${FILESDIR}"/${P}-lib_location.patch )
+EPATCH_OPTS="--binary"
