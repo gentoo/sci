@@ -33,6 +33,10 @@ S="${WORKDIR}/${PN}-${P}"
 
 DOCS=(AUTHORS BUGS Changelog README TODO)
 
+src_prepare() {
+	autotools-utils_src_prepare
+}
+
 src_configure() {
 	local myeconfargs=(
 		--disable-idl
