@@ -34,11 +34,14 @@ S="${WORKDIR}/${PN}-${P}"
 DOCS=(AUTHORS BUGS Changelog README TODO)
 
 pkg_setup() {
+	fortran-2_pkg_setup
+	java-pkg-opt-2_pkg_setup
 	python-single-r1_pkg_setup
 }
 
 src_prepare() {
 	autotools-utils_src_prepare
+	java-pkg-opt-2_src_prepare
 }
 
 src_configure() {
@@ -64,8 +67,7 @@ src_compile() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
-	dodoc ${DOCS}
+	autotools-utils_src_install
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
