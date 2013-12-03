@@ -16,7 +16,7 @@ SRC_URI="https://github.com/tschoonj/xraylib/archive/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="cxx examples fortran java lua perl python"
+IUSE="examples fortran java lua perl python"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
@@ -53,5 +53,19 @@ src_compile() {
 		emake -j1
 	else
 		emake
+	fi
+}
+
+src_install() {
+	emake DESTDIR="${D}" install
+	dodoc ${DOCS}
+
+	if use examples; then
+		insinto /usr/share/doc/${PF}/examples
+		doins example/*.c example/*.cpp
+		use java && doins example/*.java
+		use lua && doins example/*.lua
+		use perl && doins example/*.pl
+		use python && doins example/*.py
 	fi
 }
