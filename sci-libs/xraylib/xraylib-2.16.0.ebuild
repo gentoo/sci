@@ -79,4 +79,6 @@ src_install() {
 		use python && doins example/*.py
 		docompress -x /usr/share/doc/${PF}/examples # Don't compress examples
 	fi
+
+	use java && java-pkg_regso /usr/share/xraylib/java/libxraylib.so
 }
