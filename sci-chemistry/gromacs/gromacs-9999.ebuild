@@ -184,15 +184,6 @@ src_configure() {
 			"$(use test && echo -DREGRESSIONTEST_PATH="${WORKDIR}/${P}_${x}/tests")"
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
-		if [[ ${x} = float ]] && use openmm; then
-			einfo "Configuring for openmm build"
-			mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
-				-DGMX_THREAD_MPI=OFF -DGMX_GPU=OFF -DGMX_OPENMM=ON
-				-DOpenMM_PLUGIN_DIR="${EPREFIX}/usr/$(get_libdir)/plugins"
-				-DGMX_BINARY_SUFFIX="_openmm" -DGMX_LIBS_SUFFIX="_openmm" )
-			BUILD_DIR="${WORKDIR}/${P}_openmm" \
-				OPENMM_ROOT_DIR="${EPREFIX}/usr" cmake-utils_src_configure
-		fi
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF

@@ -3,6 +3,9 @@
 # $Header: $
 
   03 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org> gromacs-9999.ebuild:
+  More updates to gmx live
+
+  03 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org> gromacs-9999.ebuild:
   Slightly update live ebuild for master branch
 
   01 Jun 2013; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild:
