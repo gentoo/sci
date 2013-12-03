@@ -187,7 +187,7 @@ src_configure() {
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF
-			-DGMX_MPI=ON ${cuda} -DGMX_OPENMM=OFF
+			-DGMX_MPI=ON ${cuda} -DGMX_OPENMM=OFF -DGMX_BUILD_MDRUN_ONLY=ON
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" CC="mpicc" cmake-utils_src_configure
 	done
@@ -201,7 +201,7 @@ src_compile() {
 		use mpi || continue
 		einfo "Compiling for ${x} precision with mpi"
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
-			cmake-utils_src_compile mdrun
+			cmake-utils_src_compile
 	done
 }
 
@@ -229,7 +229,7 @@ src_install() {
 		fi
 		use mpi || continue
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
-			DESTDIR="${D}" cmake-utils_src_make install-mdrun
+			cmake-utils_src_install
 	done
 
 	use doc && [[ $PV != *9999* ]] && dodoc "${DISTDIR}/${PN}-manual-${MANUAL_PV}.pdf"
