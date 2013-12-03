@@ -1,0 +1,16 @@
+ src/Makefile.am | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 01e3e48..894a547 100755
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -84,6 +84,8 @@ ElmerFront_SOURCES =  $(COMMON_SRCS)
+ 
+ endif
+ 
++ElmerFront_LDADD = -lX11
++
+ install-data-local:
+ 	@echo "Installing tcl scripts to ${prefix}/share/elmerfront/tcl"
+ 
