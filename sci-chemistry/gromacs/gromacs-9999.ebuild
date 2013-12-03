@@ -198,11 +198,6 @@ src_compile() {
 		einfo "Compiling for ${x} precision"
 		BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile
-		if [[ ${x} = float ]] && use openmm; then
-			einfo "Compiling for openmm build"
-			BUILD_DIR="${WORKDIR}/${P}_openmm"\
-				cmake-utils_src_compile mdrun
-		fi
 		use mpi || continue
 		einfo "Compiling for ${x} precision with mpi"
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
@@ -221,10 +216,6 @@ src_install() {
 	for x in ${GMX_DIRS}; do
 		BUILD_DIR="${WORKDIR}/${P}_${x}" \
 			cmake-utils_src_install
-		if [[ ${x} = float ]] && use openmm; then
-			BUILD_DIR="${WORKDIR}/${P}_openmm" \
-				DESTDIR="${D}" cmake-utils_src_make install-mdrun
-		fi
 		#manual can only be build after gromacs was installed once in image
 		if use doc && [[ $PV = *9999*  && ! -d ${WORKDIR}/manual_build ]]; then
 			mycmakeargs=( -DGMXBIN="${ED}"/usr/bin -DGMXSRC="${WORKDIR}/${P}" )
