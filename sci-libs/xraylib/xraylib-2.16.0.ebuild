@@ -33,6 +33,10 @@ S="${WORKDIR}/${PN}-${P}"
 
 DOCS=(AUTHORS BUGS Changelog README TODO)
 
+pkg_setup() {
+	python-single-r1_pkg_setup
+}
+
 src_prepare() {
 	autotools-utils_src_prepare
 }
