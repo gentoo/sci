@@ -60,7 +60,7 @@ src_configure() {
 src_compile() {
 	# see https://github.com/tschoonj/xraylib/issues/11
 	if use fortran || use java; then
-		MAKEOPTS+="-j1"
+		MAKEOPTS+=" -j1"
 	fi
 	autotools-utils_src_compile
 }
