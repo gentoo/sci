@@ -1,12 +1,12 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=1
+EAPI=5
 
-PYTHON_DEPEND="2"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit eutils python
+inherit eutils python-single-r1
 
 DESCRIPTION="A network server for robot control"
 HOMEPAGE="http://playerstage.sourceforge.net/index.php?src=player"
@@ -54,10 +54,10 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
 pkg_setup () {
-	python_set_active_version 2
+	python-single-r1_pkg_setup
 }
 
-src_compile() {
+src_configure() {
 	local drivers driver nodep_drivers
 
 	nodep_drivers="acoustics acts amcl amtecpowercube
@@ -96,25 +96,24 @@ src_compile() {
 		$(use_enable test tests) \
 		--with-playercc \
 		${drivers}
+}
 
+src_compile() {
 	# Parallel make will fail
-	emake -j1 || die "emake failed"
+	emake -j1
 
 	if use doc; then
-		pushd doc > /dev/null
-		emake doc || die "emake doc failed"
-		popd > /dev/null
+		cd doc || die
+		emake doc
 	fi
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
+	default
 
 	if use doc; then
-		cd doc
-		emake DESTDIR="${D}" doc-install || die "emake doc-install failed"
-		cd ..
+		cd doc || die
+		emake DESTDIR="${D}" doc-install
 	fi
 
-	dodoc AUTHORS ChangeLog NEWS README TODO || die
 }
