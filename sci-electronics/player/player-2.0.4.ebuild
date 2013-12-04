@@ -34,27 +34,30 @@ IUSE="ieee1394 imagemagick sphinx2 test v4l wifi
 	boost gnome gtk openssl festival
 	opengl glut gsl java python doc"
 
+REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+
 RDEPEND="
 	virtual/jpeg
-	opengl? ( virtual/opengl )
+	boost? ( dev-libs/boost )
+	festival? ( app-accessibility/festival )
+	gtk? ( x11-libs/gtk+:2 )
 	glut? ( media-libs/freeglut )
-	openssl? ( dev-libs/openssl )
-	imagemagick? ( media-gfx/imagemagick )
+	gnome? ( >=gnome-base/libgnomecanvas-2.0 )
 	gsl? ( sci-libs/gsl )
 	ieee1394? ( sys-libs/libraw1394 media-libs/libdc1394 )
+	imagemagick? ( media-gfx/imagemagick )
 	java? ( virtual/jdk )
-	gtk? ( x11-libs/gtk+:2 )
-	gnome? ( >=gnome-base/libgnomecanvas-2.0 )
-	boost? ( dev-libs/boost )
-	sphinx2? ( app-accessibility/sphinx2 )
-	festival? ( app-accessibility/festival )"
+	opengl? ( virtual/opengl )
+	openssl? ( dev-libs/openssl )
+	python? ( ${PYTHON_DEPS} )
+	sphinx2? ( app-accessibility/sphinx2 )"
 DEPEND="${RDEPEND}
-	python? ( dev-lang/swig )
+	doc? ( app-doc/doxygen )
 	java? ( dev-lang/swig )
-	doc? ( app-doc/doxygen )"
+	python? ( dev-lang/swig )"
 
 pkg_setup () {
-	python-single-r1_pkg_setup
+	use python && python-single-r1_pkg_setup
 	use java && java-pkg-opt-2_pkg_setup
 }
 
