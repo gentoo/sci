@@ -2,13 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit autotools elisp-common eutils flag-o-matic git-2 python toolchain-funcs
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-IUSE="debug emacs optimization"
-
-EGIT_REPO_URI="git://github.com/Macaulay2/M2.git"
+inherit autotools elisp-common eutils flag-o-matic git-r3 python-single-r1 toolchain-funcs
 
 # Those packages will be built internally.
 FACTORY="factory-3-1-6"
@@ -23,19 +21,23 @@ SRC_URI="
 	http://www.math.uiuc.edu/Macaulay2/Extra/gtest-1.6.0.tar.gz
 	http://www.mathematik.uni-osnabrueck.de/normaliz/Normaliz2.8/Normaliz2.8.zip"
 # Need normaliz for an up to date normaliz.m2
+EGIT_REPO_URI="git://github.com/Macaulay2/M2.git"
 
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS=""
+IUSE="debug emacs optimization"
 
-DEPEND="
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+DEPEND="${PYTHON_DEPS}
 	sys-process/time
 	virtual/pkgconfig
 	app-arch/unzip
 	app-text/dos2unix"
 # Unzip and dos2unix just for normaliz
 
-RDEPEND="
+RDEPEND="${PYTHON_DEPS}
 	sys-libs/gdbm
 	dev-libs/ntl
 	sci-mathematics/pari[gmp]
@@ -67,7 +69,7 @@ RESTRICT="mirror"
 
 src_unpack (){
 	unpack "Normaliz2.8.zip"
-	git-2_src_unpack
+	git-r3_src_unpack
 	# Undo one level of directory until git allows to checkout
 	# subdirectories
 	mv "${S}"/M2/* "${S}" || die
@@ -75,14 +77,13 @@ src_unpack (){
 }
 
 pkg_setup () {
-		tc-export CC CPP CXX
-		append-cppflags "-I/usr/include/frobby"
-		# gtest needs python:2
-		python_set_active_version 2
+	tc-export CC CPP CXX PKG_CONFIG
+	append-cppflags "-I/usr/include/frobby"
+	# gtest needs python:2
+	python-single-r1_pkg_setup
 }
 
 src_prepare() {
-	tc-export PKG_CONFIG
 	# Put updated Normaliz.m2 in place
 	cp "${WORKDIR}/Normaliz2.8/Macaulay2/Normaliz.m2" \
 		"${S}/Macaulay2/packages" || die
@@ -139,7 +140,7 @@ src_compile() {
 	emake IgnoreExampleErrors=true -j1
 
 	if use emacs; then
-		cd "${S}/Macaulay2/emacs"
+		cd "${S}/Macaulay2/emacs" || die
 		elisp-compile *.el
 	fi
 }
@@ -157,9 +158,9 @@ src_install () {
 
 	# Remove emacs files and install them in the
 	# correct place if use emacs
-	rm -rf "${D}"/usr/share/emacs/site-lisp
+	rm -rf "${ED}"/usr/share/emacs/site-lisp || die
 	if use emacs; then
-		cd "${S}/Macaulay2/emacs"
+		cd "${S}/Macaulay2/emacs" || die
 		elisp-install ${PN} *.elc *.el
 		elisp-site-file-install "${FILESDIR}/${SITEFILE}"
 	fi
