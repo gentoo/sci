@@ -4,7 +4,6 @@
 
 EAPI=5
 
-AUTOTOOLS_IN_SOURCE_BUILD=1
 AUTOTOOLS_AUTORECONF=true
 FORTRAN_NEEDED=fortran
 FORTRAN_STANDARD=2003
@@ -41,8 +40,8 @@ pkg_setup() {
 }
 
 src_prepare() {
-	autotools-utils_src_prepare
 	java-pkg-opt-2_src_prepare
+	autotools-utils_src_prepare
 }
 
 src_configure() {
@@ -59,12 +58,11 @@ src_configure() {
 }
 
 src_compile() {
-	if use fortran || use java
-	then # see https://github.com/tschoonj/xraylib/issues/11
-		emake -j1
-	else
-		emake
+	# see https://github.com/tschoonj/xraylib/issues/11
+	if use fortran || use java; then
+		MAKEOPTS+="-j1"
 	fi
+	autotools-utils_src_compile
 }
 
 src_install() {
