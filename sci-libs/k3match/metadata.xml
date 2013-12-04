@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci</herd>
-	<maintainer>
-		<email>AstroFloyd@gmail.com</email>
-		<name>AstroFloyd</name>
-	</maintainer>
-	<upstream>
-		<remote-id type="github">pschella/k3match</remote-id>
-	</upstream>
+  <herd>sci</herd>
+  <maintainer>
+    <email>AstroFloyd@gmail.com</email>
+    <name>AstroFloyd</name>
+  </maintainer>
+  <upstream>
+    <remote-id type="github">pschella/k3match</remote-id>
+  </upstream>
 </pkgmetadata>
