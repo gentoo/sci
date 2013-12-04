@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit eutils python-single-r1
+inherit eutils java-pkg-opt-2 python-single-r1
 
 DESCRIPTION="A network server for robot control"
 HOMEPAGE="http://playerstage.sourceforge.net/index.php?src=player"
@@ -55,6 +55,11 @@ DEPEND="${RDEPEND}
 
 pkg_setup () {
 	python-single-r1_pkg_setup
+	use java && java-pkg-opt-2_pkg_setup
+}
+
+src_prepare() {
+	use java && java-pkg-opt-2_src_prepare
 }
 
 src_configure() {
