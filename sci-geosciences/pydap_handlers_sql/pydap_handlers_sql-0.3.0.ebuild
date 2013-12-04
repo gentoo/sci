@@ -1,14 +1,12 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils
+inherit distutils-r1
 
 MY_PN=${PN//_/.}
 MY_P=${P//_/.}
@@ -22,14 +20,15 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="postgres mysql"
 
-DEPEND=">=dev-python/setuptools-0.6_rc3
-	>=dev-python/paver-1.0.4"
+DEPEND="
+	>=dev-python/setuptools-0.6_rc3[${PYTHON_USEDEP}]
+	>=dev-python/paver-1.0.4[${PYTHON_USEDEP}]"
 RDEPEND="
-	>=sci-geosciences/pydap-3.0_rc8
-	>=sci-geosciences/cdat-lite-5.2
-	>=dev-python/arrayterator-1.0.1
-	postgres? ( >=dev-python/psycopg-2 )
-	mysql? ( >=dev-python/mysql-python-1.2.3_rc1 )"
+	>=sci-geosciences/pydap-3.0_rc8[${PYTHON_USEDEP}]
+	>=sci-geosciences/cdat-lite-5.2[${PYTHON_USEDEP}]
+	>=dev-python/arrayterator-1.0.1[${PYTHON_USEDEP}]
+	postgres? ( >=dev-python/psycopg-2[${PYTHON_USEDEP}] )
+	mysql? ( >=dev-python/mysql-python-1.2.3_rc1[${PYTHON_USEDEP}] )"
 
 	# When cx_oracle is available...
 	# oracle? >=dev-python/cx_oracle
@@ -39,7 +38,7 @@ RDEPEND="
 
 S="$WORKDIR/$MY_P"
 
-src_prepare() {
+python_prepare_all() {
 	paver generate_setup || die
-	distutils_src_prepare
+	distutils-r1_python_prepare_all
 }
