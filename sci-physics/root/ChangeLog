@@ -2,6 +2,20 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+*root-5.34.13 (05 Dec 2013)
+
+  05 Dec 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.32.04.ebuild,
+  +root-5.34.13.ebuild, -files/root-5.28.00b-asneeded.patch,
+  -files/root-5.28.00b-prop-ldflags.patch,
+  -files/root-5.32.00-explicit-functions.patch,
+  -files/root-5.32.00-nobyte-compile.patch, +files/root-5.34.13-desktop.patch,
+  +files/root-5.34.13-pythia8.patch, +files/root-5.34.13-unuran.patch:
+  Version bump. Fix Pythia8 version requirements and fix Pythia8
+  build using patch from Oliver Freyermuth (see bug 490332 and
+  https://sft.its.cern.ch/jira/browse/ROOT-5667). Fix c++0x USE flag.
+  Fix installaton of python optimized modules. Fix desktop file to
+  conform currest standard. Remove old.
+
   09 Nov 2013; Andrew Savchenko <bircoph@gmail.com> +root-5.32.04.ebuild,
   +files/root-5.28.00b-asneeded.patch, +files/root-5.28.00b-prop-ldflags.patch,
   +files/root-5.32.00-explicit-functions.patch,
