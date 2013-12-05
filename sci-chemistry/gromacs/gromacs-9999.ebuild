@@ -18,17 +18,10 @@ if [[ $PV = *9999* ]]; then
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="master"
 	inherit git-2
-	LIVE_DEPEND="doc? (
-		dev-texlive/texlive-latex
-		dev-texlive/texlive-latexextra
-		media-gfx/imagemagick
-		sys-apps/coreutils
-	)"
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
 		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf -> ${PN}-manual-${MANUAL_PV}.pdf )
 		test? ( http://${PN}.googlecode.com/files/regressiontests-${TEST_PV}.tar.gz )"
-	LIVE_DEPEND=""
 fi
 
 ACCE_IUSE="sse2 sse4_1 avx128fma avx256"
@@ -42,7 +35,7 @@ HOMEPAGE="http://www.gromacs.org/"
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
 SLOT="0/${PV}"
 KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
-IUSE="X blas cuda doc -double-precision +fftw gsl lapack mkl mpi +offensive openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
+IUSE="X blas cuda +doc -double-precision +fftw gsl lapack mkl mpi +offensive openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
 	X? (
@@ -60,7 +53,11 @@ CDEPEND="
 	"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
-	${LIVE_DEPEND}"
+	doc? (
+		dev-texlive/texlive-latex
+		dev-texlive/texlive-latexextra
+		media-gfx/imagemagick
+	)"
 RDEPEND="${CDEPEND}"
 
 REQUIRED_USE="
@@ -82,12 +79,6 @@ src_unpack() {
 		default
 	else
 		git-2_src_unpack
-		if use doc; then
-			EGIT_REPO_URI="git://git.gromacs.org/manual.git" \
-			EGIT_BRANCH="release-4-6" EGIT_NOUNPACK="yes" EGIT_COMMIT="release-4-6" \
-			EGIT_SOURCEDIR="${WORKDIR}/manual"\
-				git-2_src_unpack
-		fi
 		if use test; then
 			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
 			EGIT_BRANCH="master" EGIT_NOUNPACK="yes" EGIT_COMMIT="master" \
@@ -158,6 +149,7 @@ src_configure() {
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use openmp GMX_OPENMP)
 		$(cmake-utils_use offensive GMX_COOL_QUOTES)
+		$(cmake-utils_use doc GMX_BUILD_MANUAL)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_ACCELERATION="$acce"
 		-DGMXLIB="$(get_libdir)"
@@ -165,6 +157,8 @@ src_configure() {
 		-DGMX_PREFIX_LIBMD=ON
 		-DGMX_X86_AVX_GCC_MASKLOAD_BUG=OFF
 		-DGMX_USE_GCC44_BUG_WORKAROUND=OFF
+		-DBUILD_TESTING=OFF
+		-DGMX_BUILD_UNITTESTS=OFF
 		${extra}
 	)
 
@@ -179,16 +173,29 @@ src_configure() {
 		local cuda=( "-DGMX_GPU=OFF" )
 		[[ ${x} = "float" ]] && use cuda && \
 			cuda=( -DGMX_GPU=ON )
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
-			$(cmake-utils_use threads GMX_THREAD_MPI) "${cuda[@]}" -DGMX_OPENMM=OFF
+		mycmakeargs=(
+			${mycmakeargs_pre[@]} ${p}
+			-DGMX_MPI=OFF
+			$(cmake-utils_use threads GMX_THREAD_MPI)
+			"${cuda[@]}"
+			-DGMX_OPENMM=OFF
 			"$(use test && echo -DREGRESSIONTEST_PATH="${WORKDIR}/${P}_${x}/tests")"
-			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
+			-DGMX_BINARY_SUFFIX="${suffix}"
+			-DGMX_LIBS_SUFFIX="${suffix}"
+			)
 		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
-		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF
-			-DGMX_MPI=ON ${cuda} -DGMX_OPENMM=OFF -DGMX_BUILD_MDRUN_ONLY=ON
-			-DGMX_BINARY_SUFFIX="_mpi${suffix}" -DGMX_LIBS_SUFFIX="_mpi${suffix}" )
+		mycmakeargs=(
+			${mycmakeargs_pre[@]} ${p}
+			-DGMX_THREAD_MPI=OFF
+			-DGMX_MPI=ON ${cuda}
+			-DGMX_OPENMM=OFF
+			-DGMX_BUILD_MDRUN_ONLY=ON
+			-DGMX_BUILD_MANUAL=OFF
+			-DGMX_BINARY_SUFFIX="_mpi${suffix}"
+			-DGMX_LIBS_SUFFIX="_mpi${suffix}"
+			)
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" CC="mpicc" cmake-utils_src_configure
 	done
 }
@@ -216,23 +223,14 @@ src_install() {
 	for x in ${GMX_DIRS}; do
 		BUILD_DIR="${WORKDIR}/${P}_${x}" \
 			cmake-utils_src_install
-		#manual can only be build after gromacs was installed once in image
-		if use doc && [[ $PV = *9999*  && ! -d ${WORKDIR}/manual_build ]]; then
-			mycmakeargs=( -DGMXBIN="${ED}"/usr/bin -DGMXSRC="${WORKDIR}/${P}" )
-			BUILD_DIR="${WORKDIR}"/manual_build \
-				CMAKE_USE_DIR="${WORKDIR}/manual" cmake-utils_src_configure
-			[[ ${CHOST} = *-darwin* ]] && \
-				export DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}${DYLD_LIBRARY_PATH:+:}${ED}/usr/$(get_libdir)"
-			BUILD_DIR="${WORKDIR}"/manual_build cmake-utils_src_make
-			[[ ${CHOST} = *-darwin* ]] && DYLD_LIBRARY_PATH="${ED}/usr/$(get_libdir)"
-			newdoc "${WORKDIR}"/manual_build/gromacs.pdf "${PN}-manual-${PV}.pdf"
+		if use doc; then
+			newdoc "${WORKDIR}"/manual/gromacs.pdf "${PN}-manual-${PV}.pdf"
 		fi
 		use mpi || continue
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
 			cmake-utils_src_install
 	done
 
-	use doc && [[ $PV != *9999* ]] && dodoc "${DISTDIR}/${PN}-manual-${MANUAL_PV}.pdf"
 	newbashcomp "${ED}"/usr/bin/completion.bash ${PN}
 	if use zsh-completion ; then
 		insinto /usr/share/zsh/site-functions
