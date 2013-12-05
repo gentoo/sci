@@ -66,7 +66,6 @@ REQUIRED_USE="
 	mkl? ( !blas !fftw !lapack )"
 
 DOCS=( AUTHORS README )
-HTML_DOCS=( "${ED}"/usr/share/gromacs/html/ )
 
 pkg_pretend() {
 	[[ $(gcc-version) == "4.1" ]] && die "gcc 4.1 is not supported by gromacs"
@@ -205,6 +204,10 @@ src_compile() {
 		einfo "Compiling for ${x} precision"
 		BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile
+		if use doc; then
+			BUILD_DIR="${WORKDIR}/${P}_${x}"\
+				cmake-utils_src_compile manual
+		fi
 		use mpi || continue
 		einfo "Compiling for ${x} precision with mpi"
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
@@ -224,7 +227,7 @@ src_install() {
 		BUILD_DIR="${WORKDIR}/${P}_${x}" \
 			cmake-utils_src_install
 		if use doc; then
-			newdoc "${WORKDIR}"/manual/gromacs.pdf "${PN}-manual-${PV}.pdf"
+			newdoc "${WORKDIR}/${P}_${x}"/manual/gromacs.pdf "${PN}-manual-${PV}.pdf"
 		fi
 		use mpi || continue
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
@@ -237,7 +240,6 @@ src_install() {
 		newins "${ED}"/usr/bin/completion.zsh _${PN}
 	fi
 	rm -f "${ED}"usr/bin/completion.*
-	rm -rf "${ED}"usr/share/gromacs/html
 	rm -f "${ED}"usr/bin/g_options*
 	rm -f "${ED}"usr/bin/GMXRC*
 
