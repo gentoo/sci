@@ -33,12 +33,6 @@ src_prepare() {
 	sed -i \
 		-e '/LINK/s/$(libCouenne_la_LIBADD)/@COUENNELIB_LIBS@ $(libCouenne_la_LIBADD)/' \
 		src/Makefile.in || die
-
-	# missing includes from Bonmin
-	ln -s ../../../Bonmin/src/Interfaces/BonExitCodes.hpp \
-		src/main/BonExitCodes.hpp
-	ln -s ../../../Bonmin/src/Algorithms/QuadCuts/BonLinearCutsGenerator.hpp \
-		src/main/BonLinearCutsGenerator.hpp
 }
 
 src_configure() {
