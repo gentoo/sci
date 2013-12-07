@@ -13,7 +13,7 @@ HOMEPAGE="http://arma.sourceforge.net/"
 SRC_URI="mirror://sourceforge/arma/${P}.tar.gz"
 
 LICENSE="MPL-2.0"
-SLOT="0"
+SLOT="0/3"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="atlas blas debug doc examples hdf5 int64 lapack tbb"
 
