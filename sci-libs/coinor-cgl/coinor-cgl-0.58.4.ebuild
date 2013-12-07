@@ -38,9 +38,9 @@ src_prepare() {
 		-e 's:\(libCgl_la_DEPENDENCIES.*=\).*:\1 $(CGL_SUBLIBS):' \
 		src/Makefile.in || die
 	# add missing include header (0.58.0)
-	sed -i \
-		-e 's:\(includecoin_HEADERS.*=.*\)$:\1 Cgl012cut.hpp:' \
-		src/CglZeroHalf/Makefile.in || die
+	#sed -i \
+	#	-e 's:\(includecoin_HEADERS.*=.*\)$:\1 Cgl012cut.hpp:' \
+	#	src/CglZeroHalf/Makefile.in || die
 }
 
 src_configure() {
