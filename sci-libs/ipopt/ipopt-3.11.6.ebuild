@@ -16,7 +16,7 @@ HOMEPAGE="https://projects.coin-or.org/Ipopt/"
 SRC_URI="http://www.coin-or.org/download/source/${MYPN}/${MYP}.tgz"
 
 LICENSE="EPL-1.0 hsl? ( HSL )"
-SLOT="0"
+SLOT="0/1"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples hsl lapack mpi mumps static-libs test"
 
@@ -33,7 +33,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MYPN}-${PV}/${MYPN}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-mpi-header.patch
+	#epatch "${FILESDIR}"/${P}-mpi-header.patch
 
 	# as-needed fix
 	# hack to avoid eautoreconf (coinor has its own weird autotools)

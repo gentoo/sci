@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ipopt-3.11.6 (07 Dec 2013)
+
+  07 Dec 2013; Sébastien Fabbro <bicatali@gentoo.org> +ipopt-3.11.6.ebuild,
+  -ipopt-3.11.2.ebuild:
+  sci-libs/ipopt: Version bump
+
   03 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org>
   +files/ipopt-3.11.2-mpi-header.patch, ipopt-3.11.2.ebuild:
   sci-libs/ipopt: patch for mpi builds, and better dependence on mumps and mpi
