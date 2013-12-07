@@ -13,7 +13,7 @@ HOMEPAGE="https://projects.coin-or.org/Osi/"
 SRC_URI="http://www.coin-or.org/download/source/${MYPN}/${MYPN}-${PV}.tgz"
 
 LICENSE="EPL-1.0"
-SLOT="0"
+SLOT="0/1"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples glpk static-libs test"
 
