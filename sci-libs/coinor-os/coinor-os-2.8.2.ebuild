@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit autotools-utils multilib
+inherit autotools-utils multilib flag-o-matic
 
 MYPN=OS
 
@@ -13,7 +13,7 @@ HOMEPAGE="https://projects.coin-or.org/OS/"
 SRC_URI="http://www.coin-or.org/download/source/${MYPN}/${MYPN}-${PV}.tgz"
 
 LICENSE="EPL-1.0"
-SLOT="0"
+SLOT="0/6"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples static-libs test"
 
@@ -32,12 +32,10 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen[dot] )
 	test? ( sci-libs/coinor-sample )"
 
-# fail because coinor-bonmin, couenne, needs hsl library (annoying registration)
-RESTRICT=test
-
 S="${WORKDIR}/${MYPN}-${PV}/${MYPN}"
 
 src_prepare() {
+	append-cppflags -DNDEBUG
 	# as-needed fix
 	# hack to avoid eautoreconf (coinor has its own weird autotools)
 	sed -i \
