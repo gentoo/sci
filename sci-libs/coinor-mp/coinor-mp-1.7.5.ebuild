@@ -13,7 +13,7 @@ HOMEPAGE="https://projects.coin-or.org/CoinMP/"
 SRC_URI="http://www.coin-or.org/download/source/${MYPN}/${MYPN}-${PV}.tgz"
 
 LICENSE="EPL-1.0"
-SLOT="0"
+SLOT="0/1"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="examples static-libs"
 
@@ -29,6 +29,9 @@ src_prepare() {
 	sed -i \
 		-e 's:\(libCoinMP_la_LIBADD.*=.*\)$:\1 @COINMP_LIBS@:' \
 		src/Makefile.in || die
+	sed -i \
+		-e '/addlibsdir/s/$(DESTDIR)//' \
+		Makefile.in || die
 }
 
 src_configure() {
@@ -46,8 +49,6 @@ src_install() {
 	autotools-utils_src_install
 	# already installed
 	rm "${ED}"/usr/share/coin/doc/${MYPN}/{README,AUTHORS,LICENSE} || die
-	# left overs...
-	rm -r "${D}"/var || die
 	if use examples; then
 		insinto /usr/share/doc/${PF}
 		doins -r examples
