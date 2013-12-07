@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit eutils alternatives-2 flag-o-matic toolchain-funcs versionator multilib fortran-2
 
@@ -61,7 +61,7 @@ src_prepare() {
 		LOADER=\$(FC)
 		ARCH=$(tc-getAR)
 		ARCHFLAGS=cr
-		RANLIB=$(tc-getRANLIB)
+	d	RANLIB=$(tc-getRANLIB)
 	EOF
 }
 
