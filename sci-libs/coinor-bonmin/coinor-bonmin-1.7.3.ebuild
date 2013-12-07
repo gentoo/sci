@@ -55,6 +55,13 @@ src_test() {
 
 src_install() {
 	autotools-utils_src_install
+	# add missing include files needed from coinor-couenne and others
+	insinto /usr/include/coin
+	doins \
+		src/Interfaces/BonCurvatureEstimator.hpp \
+		src/Interfaces/BonExitCodes.hpp \
+		src/Algorithms/QuadCuts/BonLinearCutsGenerator.hpp
+
 	use doc && dodoc doc/BONMIN_UsersManual.pdf
 	# already installed
 	rm "${ED}"/usr/share/coin/doc/${MYPN}/{README,AUTHORS,LICENSE} || die
