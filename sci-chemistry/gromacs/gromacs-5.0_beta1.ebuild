@@ -160,6 +160,7 @@ src_configure() {
 		-DGMX_USE_GCC44_BUG_WORKAROUND=OFF
 		-DBUILD_TESTING=OFF
 		-DGMX_BUILD_UNITTESTS=OFF
+		-DGMX_LIB_INSTALL_DIR=$(get_libdir)
 		${extra}
 	)
 
@@ -241,18 +242,18 @@ src_install() {
 		insinto /usr/share/zsh/site-functions
 		newins "${ED}"/usr/bin/completion.zsh _${PN}
 	fi
-	rm -f "${ED}"usr/bin/completion.*
-	rm -f "${ED}"usr/bin/g_options*
-	rm -f "${ED}"usr/bin/GMXRC*
+	rm -f "${ED}"usr/bin/completion.* || die
+	rm -f "${ED}"usr/bin/g_options* || die
+	rm -f "${ED}"usr/bin/GMXRC* || die
 
 	readme.gentoo_create_doc
 }
 
 pkg_postinst() {
-	einfo
+	echo
 	einfo  "Please read and cite:"
 	einfo  "Gromacs 4, J. Chem. Theory Comput. 4, 435 (2008). "
 	einfo  "http://dx.doi.org/10.1021/ct700301q"
-	einfo
+	echo
 	readme.gentoo_print_elog
 }
