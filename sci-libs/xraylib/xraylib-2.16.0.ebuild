@@ -8,6 +8,7 @@ AUTOTOOLS_AUTORECONF=true
 FORTRAN_NEEDED=fortran
 FORTRAN_STANDARD=2003
 PYTHON_COMPAT=( python{2_6,2_7} ) # python 3 supported by github master
+
 inherit eutils autotools-utils python-single-r1 java-pkg-opt-2 fortran-2
 
 DESCRIPTION="A library for X-ray matter interaction cross sections for X-ray fluorescence applications"
@@ -21,10 +22,11 @@ IUSE="examples fortran java lua perl python"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
-RDEPEND="${PYTHON_DEPS}
+RDEPEND="
 	java? ( >=virtual/jre-1.4 )
 	lua? ( dev-lang/lua )
-	perl? ( dev-lang/perl )"
+	perl? ( dev-lang/perl )
+	python? ( ${PYTHON_DEPS} )"
 
 DEPEND="${RDEPEND}
 	java? ( >=virtual/jdk-1.4 )"
@@ -36,7 +38,7 @@ DOCS=(AUTHORS BUGS Changelog README TODO)
 pkg_setup() {
 	fortran-2_pkg_setup
 	java-pkg-opt-2_pkg_setup
-	python-single-r1_pkg_setup
+	use python && python-single-r1_pkg_setup
 }
 
 src_prepare() {
