@@ -36,7 +36,7 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${MYP}"
 
-src_prepare() {
+psrc_prepare() {
 	# rename libraries to avoid collision with other lapacke
 	sed -i \
 		-e 's:BINARY_DIR}/lapacke.pc:BINARY_DIR}/reflapacke.pc:' \
@@ -45,10 +45,10 @@ src_prepare() {
 		-e '/LAPACK_LIBRARIES/s:lapacke:reflapacke:g' \
 		CMakeLists.txt || die
 	sed -i \
-		-e 's:(lapacke:(reflapacke:g' \
+		-e '/librar/s:(lapacke:(reflapacke:g' \
 		lapacke/CMakeLists.txt || die
 	sed -i \
-		-e 's:lapacke:reflapacke:g' \
+		-e '/librar/s:lapacke:reflapacke:g' \
 		lapacke/example/CMakeLists.txt || die
 	local tmgpc; use tmg && tmgpc=" -ltmglib"
 	sed -i \
