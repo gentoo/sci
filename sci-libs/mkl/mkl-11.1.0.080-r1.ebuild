@@ -5,9 +5,10 @@
 EAPI=5
 
 INTEL_DPN=parallel_studio_xe
-INTEL_DID=3266
-INTEL_DPV=2013_update4
+INTEL_DID=3447
+INTEL_DPV=2013_sp1
 INTEL_SUBDIR=composerxe
+INTEL_SINGLE_ARCH=false
 
 inherit intel-sdp multilib alternatives-2
 
@@ -22,8 +23,16 @@ RDEPEND=">=dev-libs/intel-common-13"
 
 CHECKREQS_DISK_BUILD=2500M
 
-INTEL_BIN_RPMS="mkl mkl-devel"
-INTEL_DAT_RPMS="mkl-common"
+INTEL_BIN_RPMS="
+	mkl mkl-devel
+	mkl-cluster mkl-cluster-devel
+	mkl-f95-devel
+	mkl-gnu mkl-gnu-devel
+	mkl-pgi mkl-pgi-devel"
+# single arch packages
+#	mkl-mic mkl-mic-devel
+#	mkl-sp2dp mkl-sp2dp-devel
+INTEL_DAT_RPMS="mkl-common mkl-cluster-common mkl-f95-common"
 
 src_prepare() {
 	chmod u+w -R opt
@@ -36,12 +45,13 @@ mkl_add_prof() {
 	cat <<-EOF > ${pcname}.pc
 		prefix=${INTEL_SDP_EDIR}/mkl
 		libdir=\${prefix}/lib/${IARCH}
+		libdir_comp=${INTEL_SDP_EDIR}/compiler/lib/${IARCH}
 		includedir=\${prefix}/include
 		Name: ${pcname}
 		Description: ${DESCRIPTION}
 		Version: ${PV}
 		URL: ${HOMEPAGE}
-		Libs: -L\${libdir} ${libs}
+		Libs: -L\${libdir} -L\${libdir_comp} ${libs}
 		Cflags: -I\${includedir} ${cflags}
 	EOF
 	insinto /usr/$(get_libdir)/pkgconfig

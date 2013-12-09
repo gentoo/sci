@@ -2,6 +2,11 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Dec 2013; Justin Lecher <jlec@gentoo.org> -mkl-11.0.3.163.ebuild,
+  -mkl-11.0.5.192.ebuild, -mkl-11.1.0.080.ebuild, +mkl-11.1.0.080-r1.ebuild:
+  Fix linking problems with openmp support, #492802; thanks Andrew Savchenko
+  for the patch
+
 *mkl-11.1.0.080 (02 Oct 2013)
 
   02 Oct 2013; Justin Lecher <jlec@gentoo.org> +mkl-11.1.0.080.ebuild:

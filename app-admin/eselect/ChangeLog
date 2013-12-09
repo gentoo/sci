@@ -2,6 +2,11 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/app-admin/eselect/ChangeLog,v 1.179 2011/01/22 21:38:52 ulm Exp $
 
+*eselect-1.4-r100 (08 Dec 2013)
+
+  08 Dec 2013; Justin Lecher <jlec@gentoo.org> +eselect-1.4-r100.ebuild:
+  Version BUmp
+
   12 Sep 2013; Sébastien Fabbro <bicatali@gentoo.org> eselect-1.3.7-r100.ebuild,
   eselect-1.3.8-r100.ebuild:
   sync with tree
