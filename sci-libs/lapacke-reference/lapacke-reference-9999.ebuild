@@ -36,7 +36,7 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${MYP}"
 
-psrc_prepare() {
+src_prepare() {
 	# rename libraries to avoid collision with other lapacke
 	sed -i \
 		-e 's:BINARY_DIR}/lapacke.pc:BINARY_DIR}/reflapacke.pc:' \
