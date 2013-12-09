@@ -9,7 +9,7 @@ inherit eutils
 DESCRIPTION="ACL2 industrial strength theorem prover"
 HOMEPAGE="http://www.cs.utexas.edu/users/moore/acl2/"
 SRC_URI="http://www.cs.utexas.edu/users/moore/${PN}/v${PV/\./-}/distrib/${PN}.tar.gz -> ${P}.tar.gz
-	 books? ( https://acl2-books.googlecode.com/files/books-${PV}.tar.gz
+	books? ( https://acl2-books.googlecode.com/files/books-${PV}.tar.gz
 		workshops? ( http://acl2-books.googlecode.com/files/workshops-${PV}.tar.gz ) )"
 SLOT="0"
 LICENSE="GPL-2"
@@ -24,7 +24,7 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${PN}-sources"
 
 src_unpack() {
-	unpack ${A}
+	default
 	if use books; then
 		mv "${WORKDIR}/books" ${S}/
 		use workshops && mv "${WORKDIR}/workshops" "${S}/books/"
@@ -32,13 +32,13 @@ src_unpack() {
 }
 
 src_compile() {
-	emake LISP="sbcl --noinform --noprint" || die "emake failed"
+	emake LISP="sbcl --noinform --noprint"
 
 	if use books; then
-		einfo
+		echo
 		einfo "Building certificates ..."
 		einfo "(this may take hours to finish)"
-		emake regression || die "verify books failed"
+		emake regression
 	fi
 }
 
@@ -51,14 +51,13 @@ src_install() {
 	dobin saved_acl2
 
 	insinto /usr/share/acl2
-	insopts -m0644
-	doins TAGS saved_acl2.core || die
+	doins TAGS saved_acl2.core
 	if use books; then
 		doins -r books
 	fi
 
 	if use html; then
-		dohtml -r doc/HTML || die
+		dohtml -r doc/HTML
 	fi
-	doinfo doc/EMACS/* || die
+	doinfo doc/EMACS/*
 }
