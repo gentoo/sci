@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Dec 2013; Sébastien Fabbro <bicatali@gentoo.org> plasma-2.5.2.ebuild:
+  sci-libs/plasma: Version bump
+
 *plasma-2.5.1 (12 Jul 2013)
 
   12 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> +plasma-2.5.1.ebuild:
