@@ -30,9 +30,16 @@ SRC_URI="${SRC_URI}
 	!minimal? ( doc? (
 		math? (
 			ftp://root.cern.ch/${PN}/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
-			http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf )
-		metric? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuideA4.pdf -> ROOTUsersGuideA4-${PV}.pdf )
-	   !metric? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuideLetter.pdf -> ROOTUsersGuideLetter-${PV}.pdf )
+			http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf
+			metric? ( ftp://root.cern.ch/root/doc/spectrum/Spectrum.pdf -> Spectrum-${PV}.pdf )
+			!metric? ( ftp://root.cern.ch/root/doc/spectrum/SpectrumLetter.pdf -> SpectrumLetter-${PV}.pdf )
+		)
+		metric? (
+			ftp://root.cern.ch/${PN}/doc/ROOTUsersGuideA4.pdf -> ROOTUsersGuideA4-${PV}.pdf
+			ftp://root.cern.ch/root/doc/primer/ROOTPrimer.pdf -> ROOTPrimer-${PV}.pdf )
+	   !metric? (
+			ftp://root.cern.ch/${PN}/doc/ROOTUsersGuideLetter.pdf -> ROOTUsersGuideLetter-${PV}.pdf
+			ftp://root.cern.ch/root/doc/primer/ROOTPrimerLetter.pdf -> ROOTPrimerLetter-${PV}.pdf )
 		htmldoc? (
 			http://root.cern.ch/drupal/sites/default/files/rootdrawing-logo.png
 			http://root.cern.ch/drupal/sites/all/themes/newsflash/images/blue/root-banner.png
@@ -315,8 +322,15 @@ doc_install() {
 	cd "${S}"
 	if use doc && ! use minimal; then
 		einfo "Installing user's guides"
-		use metric && dodoc "${DISTDIR}"/ROOTUsersGuideA4-${PV}.pdf || \
+		if use metric; then
+			dodoc "${DISTDIR}"/ROOTUsersGuideA4-${PV}.pdf
+			dodoc "${DISTDIR}"/ROOTPrimer-${PV}.pdf
+			use math && dodoc "${DISTDIR}"/Spectrum-${PV}.pdf
+		else
 			dodoc "${DISTDIR}"/ROOTUsersGuideLetter-${PV}.pdf
+			dodoc "${DISTDIR}"/ROOTPrimerLetter-${PV}.pdf
+			use math && dodoc "${DISTDIR}"/SpectrumLetter-${PV}.pdf
+		fi
 		use math && dodoc \
 			"${DISTDIR}"/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf \
 			"${DISTDIR}"/TMVAUsersGuide-v${TMVA_DOC_PV}.pdf

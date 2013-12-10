@@ -14,9 +14,9 @@ SRC_URI="
 	workshops? ( http://acl2-books.googlecode.com/files/workshops-${PV}.tar.gz ) )"
 
 SLOT="0"
-LICENSE="GPL-2"
+LICENSE="BSD"
 KEYWORDS="~amd64 ~x86"
-IUSE="books workshops html"
+IUSE="+books workshops html"
 
 REQUIRED_USE="workshops? ( books )"
 
