@@ -323,12 +323,12 @@ doc_install() {
 	if use doc && ! use minimal; then
 		einfo "Installing user's guides"
 		if use metric; then
-		    dodoc "${DISTDIR}"/ROOTUsersGuideA4-${PV}.pdf
-		    dodoc "${DISTDIR}"/ROOTPrimer-${PV}.pdf
+			dodoc "${DISTDIR}"/ROOTUsersGuideA4-${PV}.pdf
+			dodoc "${DISTDIR}"/ROOTPrimer-${PV}.pdf
 			use math && dodoc "${DISTDIR}"/Spectrum-${PV}.pdf
 		else
 			dodoc "${DISTDIR}"/ROOTUsersGuideLetter-${PV}.pdf
-		    dodoc "${DISTDIR}"/ROOTPrimerLetter-${PV}.pdf
+			dodoc "${DISTDIR}"/ROOTPrimerLetter-${PV}.pdf
 			use math && dodoc "${DISTDIR}"/SpectrumLetter-${PV}.pdf
 		fi
 		use math && dodoc \
