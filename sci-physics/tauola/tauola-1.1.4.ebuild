@@ -11,18 +11,20 @@ MYPN=TAUOLA
 DESCRIPTION="tau decay Monte Carlo generator"
 HOMEPAGE="http://tauolapp.web.cern.ch/tauolapp/"
 SRC_URI="http://tauolapp.web.cern.ch/tauolapp/resources/${MYPN}.${PV}/${MYPN}.${PV}.tar.gz"
-LICENSE="CPC GPL-2+"
-#HepMC interface is licensed under GPL, other code under CPC
 
+#HepMC interface is licensed under GPL, other code under CPC
+LICENSE="CPC GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc examples hepmc tau-spinner"
 
-RDEPEND="hepmc? ( sci-physics/hepmc )
+RDEPEND="
+	hepmc? ( sci-physics/hepmc )
 	tau-spinner? ( sci-physics/lhapdf )
 "
 DEPEND="${RDEPEND}
-	doc? ( app-doc/doxygen
+	doc? (
+		app-doc/doxygen
 		app-text/ghostscript-gpl
 		app-text/texlive )
 "
@@ -30,7 +32,9 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${MYPN}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-makefile.patch" "${FILESDIR}/${PN}-1.1.3-tau-spinner-makefile.patch"
+	epatch \
+		"${FILESDIR}"/${P}-makefile.patch \
+		"${FILESDIR}"/${PN}-1.1.3-tau-spinner-makefile.patch
 }
 
 src_configure() {
@@ -44,8 +48,7 @@ src_configure() {
 
 src_compile() {
 	emake -j1
-	if use doc;
-	then
+	if use doc; then
 		cd "${S}/documentation/doxy_documentation" || die
 		emake
 		cd "${S}/documentation/latex_documentation" || die
@@ -61,8 +64,7 @@ src_install() {
 		dodoc documentation/latex_documentation/Tauola_interface_design.pdf
 	fi
 
-	if use examples;
-	then
+	if use examples; then
 		dodoc -r examples
 		use tau-spinner && docinto tau-spinner && dodoc -r TauSpinner/examples
 	fi
