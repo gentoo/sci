@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Dec 2013; Nicolas Bock <nicolasbock@gentoo.org> metadata.xml:
+  sys-cluster/charm: Updated maintainer email to gentoo.org.
+
   22 Nov 2013; Nicolas Bock <nicolasbock@gmail.com> charm-6.6.0_rc1.ebuild:
   sys-cluster/charm-6.6.0-rc1: Reorganized some variables.
 
