@@ -34,7 +34,8 @@ src_configure() {
 
 src_install() {
 	dodoc AUTHORS README.md
-	use R && dobin clustering_histogram.r  clustering_nmi.r  kmeans.r plot_histogram.r
+	use R && dobin clustering_nmi.r  clustering_pdf.r  density.r  entropy.r  kmeans.r  mdsctk.r  plot_pdf.r \
+		probability.r
 	insinto /usr/share/"${PN}"/examples
 	use examples && doins -r examples
 	cd "${BUILD_DIR}" || die
