@@ -3,7 +3,7 @@
 <pkgmetadata>
 	<herd>sci</herd>
 	<maintainer>
-		<email>nicolasbock@gmail.com</email>
+		<email>nicolasbock@gentoo.org</email>
 	</maintainer>
 	<use>
 		<flag name="charmdebug">Enable the charm debugger</flag>

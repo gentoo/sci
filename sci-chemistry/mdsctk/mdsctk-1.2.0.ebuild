@@ -7,8 +7,8 @@ EAPI=5
 inherit cmake-utils db-use toolchain-funcs
 
 DESCRIPTION="Molecular Dynamics Spectral Clustering Toolkit"
-HOMEPAGE="http://cnls.lanl.gov/~jphillips/?page_id=45"
-SRC_URI="http://cnls.lanl.gov/~jphillips/wp-content/uploads/${P}.tar.gz"
+HOMEPAGE="https://github.com/douradopalmares/mdsctk"
+SRC_URI="https://github.com/douradopalmares/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~amd64-linux"
 IUSE="examples R"
 
 DEPEND="
-	sci-chemistry/gromacs:=
+	=sci-chemistry/gromacs-4.6*:=
 	sci-libs/gsl
 	sys-libs/db[cxx]
 	virtual/blas
@@ -27,17 +27,15 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 src_configure() {
-	# all this hacking is due to the fact that check_include_file_cxx
-	# has no support for CMAKE_{SYSTEM_,}_INCLUDE_PATH, so we fake it
-	# using CMAKE_REQUIRED_INCLUDES and a symlink
-	local mycmakeargs=( -DCMAKE_REQUIRED_INCLUDES="$(db_includedir)" )
+	echo 'include_directories(${DB_CXX_INCLUDE_PATH})' >> CMakeLists.txt
+	local mycmakeargs=( -DDB_CXX_INCLUDE_PATH="$(db_includedir)" )
 	cmake-utils_src_configure
-	ln -s "$(db_includedir)"/db_cxx.h "${BUILD_DIR}" || die
 }
 
 src_install() {
-	dodoc AUTHORS README
-	use R && dobin clustering_histogram.r  clustering_nmi.r  kmeans.r plot_histogram.r
+	dodoc AUTHORS README.md
+	use R && dobin clustering_nmi.r  clustering_pdf.r  density.r  entropy.r  kmeans.r  mdsctk.r  plot_pdf.r \
+		probability.r
 	insinto /usr/share/"${PN}"/examples
 	use examples && doins -r examples
 	cd "${BUILD_DIR}" || die

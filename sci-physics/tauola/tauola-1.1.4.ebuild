@@ -34,7 +34,7 @@ S="${WORKDIR}/${MYPN}"
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${P}-makefile.patch \
-		"${FILESDIR}"/${P}-tau-spinner-makefile.patch
+		"${FILESDIR}"/${PN}-1.1.3-tau-spinner-makefile.patch
 }
 
 src_configure() {
@@ -47,7 +47,7 @@ src_configure() {
 }
 
 src_compile() {
-	emake
+	emake -j1
 	if use doc; then
 		cd "${S}/documentation/doxy_documentation" || die
 		emake
