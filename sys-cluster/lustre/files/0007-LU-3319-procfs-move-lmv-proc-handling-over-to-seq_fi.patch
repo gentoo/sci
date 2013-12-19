@@ -1,7 +1,7 @@
 From 4169735b41f2452d884e24c92581af0c4fbf6121 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Thu, 14 Nov 2013 09:32:29 -0500
-Subject: [PATCH 07/10] LU-3319 procfs: move lmv proc handling over to seq_file
+Subject: [PATCH 07/18] LU-3319 procfs: move lmv proc handling over to seq_file
 
 In order to support 3.10+ kernels for clients we adapt
 the lmv proc handling to using seq_files.

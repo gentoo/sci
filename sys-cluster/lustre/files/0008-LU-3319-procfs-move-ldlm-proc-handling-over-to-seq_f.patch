@@ -1,7 +1,7 @@
 From a464fd862a7876e1c4f679b32956904eee88d45e Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Tue, 17 Dec 2013 19:11:15 -0500
-Subject: [PATCH 08/10] LU-3319 procfs: move ldlm proc handling over to
+Subject: [PATCH 08/18] LU-3319 procfs: move ldlm proc handling over to
  seq_file
 
 In order to support 3.10+ kernels for clients we adapt

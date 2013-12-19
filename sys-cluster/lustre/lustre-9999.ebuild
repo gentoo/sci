@@ -42,6 +42,15 @@ PATCHES=(
 	"${FILESDIR}/0007-LU-3319-procfs-move-lmv-proc-handling-over-to-seq_fi.patch"
 	"${FILESDIR}/0008-LU-3319-procfs-move-ldlm-proc-handling-over-to-seq_f.patch"
 	"${FILESDIR}/0009-LU-3319-procfs-move-ost-proc-handling-over-to-seq_fi.patch"
+	"${FILESDIR}/0010-LU-3319-procfs-update-shared-server-side-core-proc-h.patch"
+	"${FILESDIR}/0011-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0012-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0013-LU-3319-procfs-move-ofd-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0014-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0015-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0016-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch"
+	"${FILESDIR}/0017-LU-3319-procfs-move-mdd-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0018-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch"
 )
 
 pkg_setup() {

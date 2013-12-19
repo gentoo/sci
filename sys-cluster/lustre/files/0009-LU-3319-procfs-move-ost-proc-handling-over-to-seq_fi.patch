@@ -1,7 +1,7 @@
 From 917c26236db7d3684733f693ccc579c3dd41f26c Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Thu, 14 Nov 2013 09:48:08 -0500
-Subject: [PATCH 09/10] LU-3319 procfs: move ost proc handling over to seq_file
+Subject: [PATCH 09/18] LU-3319 procfs: move ost proc handling over to seq_file
 
 Most of the current proc handling of the OST is already
 based on seq_file handling except for the reporting of

@@ -1,7 +1,7 @@
 From 01ce737ef8bba37c904d79f3aabe88a4ead20b74 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Thu, 5 Dec 2013 13:53:37 -0500
-Subject: [PATCH 06/10] LU-3319 procfs: move llite proc handling over to
+Subject: [PATCH 06/18] LU-3319 procfs: move llite proc handling over to
  seq_file
 
 For lustre clients a special abstract layer so a lustre
