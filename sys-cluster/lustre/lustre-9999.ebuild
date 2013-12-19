@@ -38,10 +38,13 @@ PATCHES=(
 	"${FILESDIR}/0003-LU-3974-llite-dentry-d_compare-changes-in-3.11.patch"
 	"${FILESDIR}/0004-LU-3974-llite-use-new-struct-dir_context.patch"
 	"${FILESDIR}/0005-LU-3974-llite-invalidatepage-api-changed.patch"
+	"${FILESDIR}/0006-LU-3319-procfs-move-llite-proc-handling-over-to-seq_.patch"
 )
 
 pkg_setup() {
-	setup-allowed-flags
+	filter-mfpmath sse
+	filter-mfpmath i386
+	filter-flags -msse* -mavx* -mmmx -m3dnow
 	linux-mod_pkg_setup
 	ARCH="$(tc-arch-kernel)"
 	ABI="${KERNEL_ABI}"
