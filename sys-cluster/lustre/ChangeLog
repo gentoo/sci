@@ -3,6 +3,12 @@
 # $Header: $
 
   19 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0016-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  files/0017-LU-3319-procfs-move-mdd-proc-handling-to-seq_files.patch,
+  files/0018-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch:
+  More... More.. Go^W patches
+
+  19 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org>
   +files/0010-LU-3319-procfs-update-shared-server-side-core-proc-h.patch,
   +files/0011-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
   +files/0012-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,

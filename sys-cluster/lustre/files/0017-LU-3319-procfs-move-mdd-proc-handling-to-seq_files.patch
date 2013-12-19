@@ -1,4 +1,4 @@
-From df4a9172881e4eac4f7ef511079c2f306d515bf7 Mon Sep 17 00:00:00 2001
+From f45e2a9cb1c481b8c8e91d6bdf6c5d1028ed0a47 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Mon, 2 Dec 2013 12:40:35 -0500
 Subject: [PATCH 17/18] LU-3319 procfs: move mdd proc handling to seq_files
