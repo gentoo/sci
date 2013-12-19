@@ -7,7 +7,7 @@ EAPI=5
 WANT_AUTOCONF="2.5"
 WANT_AUTOMAKE="1.10"
 
-inherit git-2 autotools linux-mod toolchain-funcs udev
+inherit git-2 autotools linux-mod toolchain-funcs udev flag-o-matic
 
 DESCRIPTION="Lustre is a parallel distributed file system"
 HOMEPAGE="http://wiki.whamcloud.com/"
@@ -41,6 +41,7 @@ PATCHES=(
 )
 
 pkg_setup() {
+	setup-allowed-flags
 	linux-mod_pkg_setup
 	ARCH="$(tc-arch-kernel)"
 	ABI="${KERNEL_ABI}"
