@@ -39,6 +39,9 @@ PATCHES=(
 	"${FILESDIR}/0004-LU-3974-llite-use-new-struct-dir_context.patch"
 	"${FILESDIR}/0005-LU-3974-llite-invalidatepage-api-changed.patch"
 	"${FILESDIR}/0006-LU-3319-procfs-move-llite-proc-handling-over-to-seq_.patch"
+	"${FILESDIR}/0007-LU-3319-procfs-move-lmv-proc-handling-over-to-seq_fi.patch"
+	"${FILESDIR}/0008-LU-3319-procfs-move-ldlm-proc-handling-over-to-seq_f.patch"
+	"${FILESDIR}/0009-LU-3319-procfs-move-ost-proc-handling-over-to-seq_fi.patch"
 )
 
 pkg_setup() {

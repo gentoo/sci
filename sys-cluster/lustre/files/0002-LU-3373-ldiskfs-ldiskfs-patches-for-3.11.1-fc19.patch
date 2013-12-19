@@ -1,7 +1,7 @@
 From e53207df22261a635315a62f1405eb8c7b700963 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Thu, 5 Dec 2013 09:05:22 -0500
-Subject: [PATCH 2/6] LU-3373 ldiskfs: ldiskfs patches for 3.11.1 fc19
+Subject: [PATCH 02/10] LU-3373 ldiskfs: ldiskfs patches for 3.11.1 fc19
 
 ldiskfs patches
 
