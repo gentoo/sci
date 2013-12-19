@@ -1,4 +1,4 @@
-From 1d427d5090964e00cda5f3f1318cb84ec0376752 Mon Sep 17 00:00:00 2001
+From 2110d1028da0bab44e1b3494ba4642155195a735 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Mon, 2 Dec 2013 12:36:06 -0500
 Subject: [PATCH 16/18] LU-3319 procfs: move mdt/mds proc handling to seq_files
@@ -13,13 +13,13 @@ Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 ---
  lustre/mdt/mdt_coordinator.c      | 246 +++++++---------
  lustre/mdt/mdt_handler.c          |  16 +-
- lustre/mdt/mdt_hsm_cdt_actions.c  |   3 -
+ lustre/mdt/mdt_hsm_cdt_actions.c  |   5 +-
  lustre/mdt/mdt_hsm_cdt_agent.c    |   5 +-
  lustre/mdt/mdt_hsm_cdt_requests.c |   5 +-
  lustre/mdt/mdt_internal.h         |  14 +-
  lustre/mdt/mdt_lproc.c            | 603 ++++++++++++++++++--------------------
  lustre/mdt/mdt_mds.c              |  12 +-
- 8 files changed, 400 insertions(+), 504 deletions(-)
+ 8 files changed, 401 insertions(+), 505 deletions(-)
 
 diff --git a/lustre/mdt/mdt_coordinator.c b/lustre/mdt/mdt_coordinator.c
 index 3915e21..eb05bdf 100644
@@ -501,7 +501,7 @@ index 8daf7e1..9f7d4ba 100644
  				LUSTRE_MDT_NAME, &mdt_device_type);
  	if (rc)
 diff --git a/lustre/mdt/mdt_hsm_cdt_actions.c b/lustre/mdt/mdt_hsm_cdt_actions.c
-index da7f5a9..3d88141 100644
+index da7f5a9..49c6b8b 100644
 --- a/lustre/mdt/mdt_hsm_cdt_actions.c
 +++ b/lustre/mdt/mdt_hsm_cdt_actions.c
 @@ -513,9 +513,6 @@ static int lprocfs_open_hsm_actions(struct inode *inode, struct file *file)
@@ -514,6 +514,15 @@ index da7f5a9..3d88141 100644
  	rc = seq_open(file, &mdt_hsm_actions_proc_ops);
  	if (rc)
  		RETURN(rc);
+@@ -532,7 +529,7 @@ static int lprocfs_open_hsm_actions(struct inode *inode, struct file *file)
+ 	/* mdt is saved in proc_dir_entry->data by
+ 	 * mdt_coordinator_procfs_init() calling lprocfs_register()
+ 	 */
+-	mdt = (struct mdt_device *)PDE(inode)->data;
++	mdt = (struct mdt_device *)PDE_DATA(inode);
+ 	aai->aai_mdt = mdt;
+ 	s = file->private_data;
+ 	s->private = aai;
 diff --git a/lustre/mdt/mdt_hsm_cdt_agent.c b/lustre/mdt/mdt_hsm_cdt_agent.c
 index 9a9ce6d..158cced 100644
 --- a/lustre/mdt/mdt_hsm_cdt_agent.c
