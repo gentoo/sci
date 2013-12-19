@@ -34,9 +34,10 @@ DEPEND="${RDEPEND}
 
 PATCHES=(
 	"${FILESDIR}/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
-	"${FILESDIR}/0002-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch"
-	"${FILESDIR}/0003-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
-	"${FILESDIR}/0004-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
+	"${FILESDIR}/0002-LU-3373-ldiskfs-ldiskfs-patches-for-3.11.1-fc19.patch"
+	"${FILESDIR}/0003-LU-3974-llite-dentry-d_compare-changes-in-3.11.patch"
+	"${FILESDIR}/0004-LU-3974-llite-use-new-struct-dir_context.patch"
+	"${FILESDIR}/0005-LU-3974-llite-invalidatepage-api-changed.patch"
 )
 
 pkg_setup() {
@@ -62,19 +63,6 @@ src_prepare() {
 	cd libsysio
 	eaclocal
 	eautomake
-	eautoconf
-	cd ..
-	einfo "Reconfiguring source in lustre-iokit"
-	cd lustre-iokit
-	eaclocal
-	eautomake
-	eautoconf
-	cd ..
-	einfo "Reconfiguring source in ldiskfs"
-	cd ldiskfs
-	eaclocal -I config
-	eautoheader
-	eautomake -W no-portability
 	eautoconf
 	cd ..
 }

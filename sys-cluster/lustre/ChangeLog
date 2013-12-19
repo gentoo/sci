@@ -2,6 +2,18 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0002-LU-3373-ldiskfs-ldiskfs-patches-for-3.11.1-fc19.patch,
+  +files/0003-LU-3974-llite-dentry-d_compare-changes-in-3.11.patch,
+  +files/0004-LU-3974-llite-use-new-struct-dir_context.patch,
+  +files/0005-LU-3974-llite-invalidatepage-api-changed.patch,
+  -files/0002-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  -files/0003-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  -files/0004-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  lustre-9999.ebuild:
+  Update lustre build for 3.11 for workstations =D
+
   11 Jul 2013; Alexey Shvetsov <alexxy@gentoo.org>
   +files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
   +files/0002-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
