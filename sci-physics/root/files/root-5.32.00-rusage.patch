@@ -1,0 +1,12 @@
+--- root/core/unix/src/TUnixSystem.cxx.orig	2012-05-09 14:59:38.000000000 +0400
++++ root/core/unix/src/TUnixSystem.cxx	2013-12-22 02:35:01.983262490 +0400
+@@ -4882,8 +4882,8 @@
+ 
+ //---- System, CPU and Memory info ---------------------------------------------
+ 
+-#if defined(R__MACOSX)
+ #include <sys/resource.h>
++#if defined(R__MACOSX)
+ #include <mach/mach.h>
+ #include <mach/mach_error.h>
+ 
