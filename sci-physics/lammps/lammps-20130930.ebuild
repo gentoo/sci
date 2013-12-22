@@ -102,7 +102,6 @@ src_install() {
 
 	if use examples; then
 		local LAMMPS_EXAMPLES="/usr/share/${PF}/examples"
-		elog "The examples can be found in ${LAMMPS_EXAMPLES}"
 		insinto "${LAMMPS_EXAMPLES}"
 		doins -r examples/*
 	fi
