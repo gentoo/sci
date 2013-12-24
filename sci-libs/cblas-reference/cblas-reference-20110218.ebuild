@@ -61,7 +61,7 @@ src_prepare() {
 		LOADER=\$(FC)
 		ARCH=$(tc-getAR)
 		ARCHFLAGS=cr
-	d	RANLIB=$(tc-getRANLIB)
+		RANLIB=$(tc-getRANLIB)
 	EOF
 }
 
