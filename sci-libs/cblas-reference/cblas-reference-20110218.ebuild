@@ -9,11 +9,11 @@ inherit eutils alternatives-2 flag-o-matic toolchain-funcs versionator multilib 
 MYPN="${PN/-reference/}"
 
 DESCRIPTION="C wrapper interface to the F77 reference BLAS implementation"
-LICENSE="public-domain"
 HOMEPAGE="http://www.netlib.org/blas/"
 SRC_URI="http://www.netlib.org/blas/blast-forum/${MYPN}.tgz -> ${P}.tgz"
 
 SLOT="0"
+LICENSE="public-domain"
 IUSE="static-libs"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
 
@@ -44,14 +44,14 @@ static_to_shared() {
 			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
 			"$@" -o ${libdir}/${soname} || die "${soname} failed"
 		[[ $(get_version_component_count) -gt 1 ]] && \
-			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version))
-		ln -s ${soname} ${libdir}/${libname}$(get_libname)
+			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version)) || die
+		ln -s ${soname} ${libdir}/${libname}$(get_libname) || die
 	fi
 }
 
 src_prepare() {
-	find . -name Makefile  -exec sed -i \
-		-e 's:make:$(MAKE):g' '{}' \;
+	find . -name Makefile -exec sed -i \
+		-e 's:make:$(MAKE):g' '{}' \; || die
 	append-cflags -DADD_
 	cat > Makefile.in <<-EOF
 		BLLIB=$($(tc-getPKG_CONFIG) --libs blas)
@@ -61,7 +61,7 @@ src_prepare() {
 		LOADER=\$(FC)
 		ARCH=$(tc-getAR)
 		ARCHFLAGS=cr
-	d	RANLIB=$(tc-getRANLIB)
+		RANLIB=$(tc-getRANLIB)
 	EOF
 }
 
@@ -79,7 +79,7 @@ src_compile() {
 }
 
 src_test() {
-	cd testing
+	cd testing || die
 	emake
 	emake run
 }
