@@ -2,10 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
+
+PYTHON_COMPAT=( python{2_6,2_7} )
 
 FORTRAN_STANDARD="77 90"
-inherit eutils fortran-2 multilib toolchain-funcs versionator
+
+inherit cuda eutils flag-o-matic fortran-2 multilib toolchain-funcs versionator python-any-r1
 
 DESCRIPTION="Matrix Algebra on GPU and Multicore Architectures"
 HOMEPAGE="http://icl.cs.utk.edu/magma/"
@@ -14,7 +17,9 @@ SRC_URI="http://icl.cs.utk.edu/projectsfiles/${PN}/downloads/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="fermi kepler static-libs"
+IUSE="fermi kepler static-libs test"
+
+REQUIRED_USE="?? ( fermi kepler )"
 
 RDEPEND="
 	dev-util/nvidia-cuda-toolkit
@@ -22,33 +27,16 @@ RDEPEND="
 	virtual/fortran
 	virtual/lapack"
 DEPEND="${RDEPEND}
-	virtual/pkgconfig"
+	virtual/pkgconfig
+	test? ( ${PYTHON_DEPS} )"
 
 # We have to have write acccess /dev/nvidia0 and /dev/nvidiactl and the portage
 # user is (usually) not in the video group
 RESTRICT="userpriv"
 
-static_to_shared() {
-	local libstatic=${1}; shift
-	local libname=$(basename ${libstatic%.a})
-	local soname=${libname}$(get_libname $(get_version_component_range 1-2))
-	local libdir=$(dirname ${libstatic})
-
-	einfo "Making ${soname} from ${libstatic}"
-	if [[ ${CHOST} == *-darwin* ]] ; then
-		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
-			-dynamiclib -install_name "${EPREFIX}"/usr/lib/"${soname}" \
-			-Wl,-all_load -Wl,${libstatic} \
-			"$@" -o ${libdir}/${soname} || die "${soname} failed"
-	else
-		${LINK:-$(tc-getCC)} ${LDFLAGS}  \
-			-shared -Wl,-soname=${soname} \
-			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
-			"$@" -o ${libdir}/${soname} || die "${soname} failed"
-		[[ $(get_version_component_count) -gt 1 ]] && \
-			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version))
-		ln -s ${soname} ${libdir}/${libname}$(get_libname)
-	fi
+pkg_setup() {
+	fortran-2_pkg_setup
+	use test && python-any-r1_pkg_setup
 }
 
 src_prepare() {
@@ -61,11 +49,23 @@ src_prepare() {
 		Description: ${DESCRIPTION}
 		Version: ${PV}
 		URL: ${HOMEPAGE}
-		Libs: -L\${libdir} -lmagma -lmagmablas
+		Libs: -L\${libdir} -lmagma
 		Libs.private: -lm -lpthread -ldl -lcublas -lcudart
 		Cflags: -I\${includedir}
 		Requires: cblas lapack
 	EOF
+
+	if [[ $(tc-getCC) =~ gcc ]]; then
+		local eopenmp=-fopenmp
+	elif [[ $(tc-getCC) =~ icc ]]; then
+		local eopenmp=-openmp
+	else
+		elog "Cannot detect compiler type so not setting openmp support"
+	fi
+	append-flags -fPIC ${eopenmp}
+	append-ldflags -Wl,-soname,lib${PN}.so.1.4 ${eopenmp}
+
+	cuda_src_prepare
 }
 
 src_configure() {
@@ -80,7 +80,8 @@ src_configure() {
 		OPTS = ${CFLAGS} -fPIC
 		FOPTS = ${FFLAGS} -fPIC -x f95-cpp-input
 		F77OPTS = ${FFLAGS} -fPIC
-		NVOPTS = -DADD_ --compiler-options '-fPIC ${CFLAGS}' -DUNIX
+		NVOPTS = -DADD_ -DUNIX ${NVCCFLAGS}
+		LDOPTS = ${LDFLAGS}
 		LOADER = $(tc-getFC)
 		LIBBLAS = $($(tc-getPKG_CONFIG) --libs cblas)
 		LIBLAPACK = $($(tc-getPKG_CONFIG) --libs lapack)
@@ -100,15 +101,18 @@ src_configure() {
 src_compile() {
 	emake lib
 	emake shared
+	mv lib/lib${PN}.so{,.1.4} || die
+	ln -sf lib${PN}.so.1.4 lib/lib${PN}.so.1 || die
+	ln -sf lib${PN}.so.1.4 lib/lib${PN}.so || die
 }
 
 src_test() {
 	emake test lapacktest
-	cd testing/lin
+	cd testing/lin || die
 	# we need to access this while running the tests
 	addwrite /dev/nvidiactl
 	addwrite /dev/nvidia0
-	LD_LIBRARY_PATH=${S}/lib python lapack_testing.py || die
+	LD_LIBRARY_PATH="${S}"/lib ${EPYTHON} lapack_testing.py || die
 }
 
 src_install() {

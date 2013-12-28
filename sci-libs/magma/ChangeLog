@@ -2,6 +2,16 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Dec 2013; Justin Lecher <jlec@gentoo.org> -magma-1.3.0.ebuild,
+  magma-1.4.0.ebuild:
+  Respect LDFLAGS and set soname, gh#166; use cuda support correctly; use
+  openmp uspport correctly; add missing quotes and die
+
+  28 Dec 2013; Justin Lecher <jlec@gentoo.org> -magma-1.3.0.ebuild,
+  magma-1.4.0.ebuild:
+  Respect LDFLAGS and set soname, gh#166; use cuda support correctly; use
+  openmp uspport correctly; add missing quotes and die
+
   22 Feb 2013; Justin Lecher <jlec@gentoo.org> -magma-1.2.1.ebuild,
   -files/magma-1.2.1-duplicate-symbols.patch, magma-1.3.0.ebuild, metadata.xml:
   Use tc-getPKG_CONFIG from toolchain-funcs.eclass instead of plain pkg-config;
