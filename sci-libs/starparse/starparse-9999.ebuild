@@ -10,7 +10,6 @@ inherit autotools-utils git-r3
 
 DESCRIPTION="Library for parsing NMR star files (peak-list format) and CIF files"
 HOMEPAGE="http://burrow-owl.sourceforge.net/"
-#SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
 EGIT_REPO_URI="git://burrow-owl.git.sourceforge.net/gitroot/burrow-owl/starparse"
 
 LICENSE="GPL-2"
@@ -18,10 +17,8 @@ SLOT="0"
 KEYWORDS=""
 IUSE="guile static-libs"
 
-RDEPEND="guile? ( dev-scheme/guile )"
+RDEPEND="guile? ( dev-scheme/guile:12 )"
 DEPEND="${RDEPEND}"
-
-AUTOTOOLS_IN_SOURCE_BUILD=1
 
 src_configure() {
 	local myeconfargs=( $(use_enable guile) )
