@@ -18,32 +18,30 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 CDEPEND="dev-java/junit:4"
-RDEPEND=">=virtual/jre-1.5
-	${CDEPEND}"
-DEPEND=">=virtual/jdk-1.5
-	test? (
-		dev-java/ant-junit4:0
-	)
-	${CDEPEND}"
+RDEPEND="${CDEPEND}
+	>=virtual/jre-1.5"
+DEPEND="${CDEPEND}
+	>=virtual/jdk-1.5
+	test? ( dev-java/ant-junit4:0 )"
 
 EANT_EXTRA_ARGS="-Dpackage.version=${PV}"
 JAVA_ANT_REWRITE_CLASSPATH="true"
 EANT_GENTOO_CLASSPATH="junit-4"
 
 src_unpack() {
-	mkdir -p ${P}/src && cd ${P}/src
+	mkdir -p ${P}/src && cd ${P}/src || die
 	unpack ${A}
 }
 
 java_prepare() {
-	cd "${S}"
+	cd "${S}" || die
 	cp "${FILESDIR}"/README.Gentoo "${FILESDIR}"/build.xml . || die
 	epatch \
 		"${FILESDIR}"/01-Use-getResource-to-access-CompressTest-data-for-unit.patch \
 		"${FILESDIR}"/02-Update-ArrayFuncsTest.java-to-JUnit-4.patch
 
 	if ! use test; then
-		find "${S}" -name "*Test.java" -o -name "*Tester.java" | xargs rm || die
+		find "${S}" \( -name "*Test.java" -o -name "*Tester.java" \) -print -delete || die
 	fi
 
 	# from http://heasarc.gsfc.nasa.gov/docs/heasarc/fits/java/v1.0/NOTE.v111.0:
