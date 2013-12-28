@@ -3,6 +3,9 @@
 # $Header: $
 
   28 Dec 2013; Justin Lecher <jlec@gentoo.org> starparse-9999.ebuild:
+  Add missing dep on pkgconfig
+
+  28 Dec 2013; Justin Lecher <jlec@gentoo.org> starparse-9999.ebuild:
   Fix guile SLOT and drop out-of-source workaround
 
   28 Dec 2013; Justin Lecher <jlec@gentoo.org> -starparse-1.0.ebuild,

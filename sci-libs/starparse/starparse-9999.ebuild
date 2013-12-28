@@ -18,7 +18,8 @@ KEYWORDS=""
 IUSE="guile static-libs"
 
 RDEPEND="guile? ( dev-scheme/guile:12 )"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	virtual/pkconfig"
 
 src_configure() {
 	local myeconfargs=( $(use_enable guile) )
