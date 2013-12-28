@@ -4,7 +4,7 @@
 
 EAPI=5
 
-AUTOTOOLS_AUTORECONF="true"
+AUTOTOOLS_AUTORECONF=yes
 
 inherit autotools-utils git-r3
 
@@ -15,11 +15,15 @@ EGIT_REPO_URI="git://burrow-owl.git.sourceforge.net/gitroot/burrow-owl/starparse
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="guile static-libs"
+IUSE="guile static-libs test"
+
+REQUIRED_USE="test? ( guile )"
 
 RDEPEND="guile? ( dev-scheme/guile:12 )"
 DEPEND="${RDEPEND}
-	virtual/pkconfig"
+	virtual/pkgconfig"
+
+PATCHES=( "${FILESDIR}"/${P}-guile1.8.patch )
 
 src_configure() {
 	local myeconfargs=( $(use_enable guile) )
