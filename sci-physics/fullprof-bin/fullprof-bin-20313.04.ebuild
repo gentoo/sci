@@ -6,7 +6,7 @@ EAPI=5
 
 DESCRIPTION="Crystallographic tools mainly for Rietveld analysis"
 HOMEPAGE="http://www.ill.eu/sites/fullprof/index.html"
-SRC_URI="http://www.ill.eu/sites/fullprof/downloads/FullProf_Suite_Nov2012_Lin.tgz"
+SRC_URI="http://www.ill.eu/sites/fullprof/downloads/FullProf_Suite_April2013_Lin.tgz"
 
 LICENSE="freedist HPND"
 # There is no clear license specified. But according to Docs/Readme_Fp_Suite.txt
