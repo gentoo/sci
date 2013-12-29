@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<longdescription lang="en">
+  <herd>sci-mathematics</herd>
+  <longdescription lang="en">
   OpenAxiom is an open source platform for symbolic, algebraic, and
   numerical computations. It offers an interactive environment, an expressive
   programming language, a compiler, a large set of mathematical libraries of
