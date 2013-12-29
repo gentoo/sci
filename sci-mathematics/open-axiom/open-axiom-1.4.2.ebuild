@@ -19,6 +19,8 @@ DEPEND="${RDEPEND}
 	app-text/noweb
 	>=dev-lisp/sbcl-1.0.22"
 
+DOCS="MAINTAINERS TODO STYLES"
+
 src_configure() {
 	# There is an option to compile with other lisps. However:
 	# - gcl is getting obsolete and unmaintained and is hard masked
@@ -32,9 +34,4 @@ src_compile() {
 	# unfortunately could not track down the broken parallel build
 	# -j5 ok but -j30 sbcl stalled
 	emake -j1
-}
-
-src_install() {
-	emake DESTDIR="${D}" install
-	dodoc ChangeLog* NEWS README AUTHORS MAINTAINERS TODO STYLES
 }
