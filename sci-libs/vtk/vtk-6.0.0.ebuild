@@ -39,7 +39,9 @@ RDEPEND="
 	media-libs/mesa
 	media-libs/libtheora
 	media-libs/tiff
+	sci-libs/exodusii
 	sci-libs/hdf5
+	sci-libs/netcdf-cxx
 	sys-libs/zlib
 	virtual/jpeg
 	virtual/opengl
@@ -85,12 +87,17 @@ S="${WORKDIR}"/VTK${PV}
 
 PATCHES=(
 	"${FILESDIR}"/${P}-cg-path.patch
+	"${FILESDIR}"/${P}-install.patch
+	"${FILESDIR}"/${P}-system.patch
+	"${FILESDIR}"/${P}-netcdf.patch
+	"${FILESDIR}"/${P}-vtkpython.patch
 	)
 
 pkg_setup() {
 	use java && java-pkg-opt-2_pkg_setup
 	use python && python-single-r1_pkg_setup
-	append-cppflags -D__STDC_CONSTANT_MACROS
+
+	append-cppflags -D__STDC_CONSTANT_MACROS -D_UNICODE
 }
 
 src_prepare() {
@@ -98,6 +105,12 @@ src_prepare() {
 		-e 's:libproj4:libproj:g' \
 		-e 's:lib_proj.h:lib_abi.h:g' \
 		-i CMake/FindLIBPROJ4.cmake || die
+
+	local x
+	for x in expat freetype gl2ps hdf5 jpeg libxml2 netcdf oggtheora png tiff zlib; do
+		rm -r ThirdParty/${x}/vtk${x} || die
+	done
+
 	cmake-utils_src_prepare
 }
 
@@ -110,6 +123,7 @@ src_configure() {
 		-DVTK_INSTALL_LIBRARY_DIR=$(get_libdir)
 		-DVTK_DATA_ROOT:PATH="${EPREFIX}/usr/share/${PN}/data"
 		-DCMAKE_INSTALL_PREFIX="${EPREFIX}/usr"
+		-DVTK_CUSTOM_LIBRARY_SUFFIX=""
 		-DBUILD_SHARED_LIBS=ON
 		-DVTK_USE_SYSTEM_EXPAT=ON
 		-DVTK_USE_SYSTEM_FREETYPE=ON
@@ -117,15 +131,17 @@ src_configure() {
 		-DVTK_USE_SYSTEM_GL2PS=ON
 		-DVTK_USE_SYSTEM_HDF5=ON
 		-DVTK_USE_SYSTEM_JPEG=ON
-#		-DVTK_USE_SYSTEM_LIBPROJ4=ON
+		-DVTK_USE_SYSTEM_LIBPROJ4=OFF
 #		-DLIBPROJ4_DIR="${EPREFIX}/usr"
 		-DVTK_USE_SYSTEM_LIBXML2=ON
 		-DVTK_USE_SYSTEM_LibXml2=ON
+		-DVTK_USE_SYSTEM_NETCDF=ON
 		-DVTK_USE_SYSTEM_OGGTHEORA=ON
 		-DVTK_USE_SYSTEM_PNG=ON
 		-DVTK_USE_SYSTEM_TIFF=ON
 #		-DVTK_USE_SYSTEM_XDMF2=ON
 		-DVTK_USE_SYSTEM_ZLIB=ON
+		-DVTK_USE_SYSTEM_LIBRARIES=ON
 		-DVTK_USE_GL2PS=ON
 		-DVTK_USE_PARALLEL=ON
 	)
@@ -163,7 +179,7 @@ src_configure() {
 		$(cmake-utils_use theora VTK_USE_OGGTHEORA_ENCODER)
 		$(cmake-utils_use ffmpeg VTK_USE_FFMPEG_ENCODER)
 		$(cmake-utils_use video_cards_nvidia VTK_USE_NVCONTROL)
-		$(cmake-utils_use R VTK_USE_GNU_R)
+		$(cmake-utils_use R Module_vtkFiltersStatisticsGnuR)
 		$(cmake-utils_use X VTK_USE_X)
 	)
 
@@ -182,7 +198,7 @@ src_configure() {
 			-DSIP_INCLUDE_DIR="$(python_get_includedir)"
 			-DVTK_PYTHON_INCLUDE_DIR="$(python_get_includedir)"
 			-DVTK_PYTHON_LIBRARY="$(python_get_library_path)"
-			-DVTK_PYTHON_SETUP_ARGS:STRING=--root="${D}"
+			-DVTK_PYTHON_SETUP_ARGS:STRING="--prefix=${PREFIX} --root=${D}"
 		)
 	fi
 
@@ -193,12 +209,21 @@ src_configure() {
 			-DVTK_USE_QVTK_QTOPENGL=ON
 			-DQT_WRAP_CPP=ON
 			-DQT_WRAP_UI=ON
-			-DVTK_INSTALL_QT_DIR=/$(get_libdir)/qt4/plugins/${PN}
+			-DVTK_INSTALL_QT_DIR=/$(get_libdir)/qt4/plugins/designer
 			-DDESIRED_QT_VERSION=4
 			-DQT_MOC_EXECUTABLE="${EPREFIX}/usr/bin/moc"
 			-DQT_UIC_EXECUTABLE="${EPREFIX}/usr/bin/uic"
 			-DQT_INCLUDE_DIR="${EPREFIX}/usr/include/qt4"
 			-DQT_QMAKE_EXECUTABLE="${EPREFIX}/usr/bin/qmake"
+		)
+	fi
+
+	if use R; then
+		mycmakeargs+=(
+#			-DR_LIBRARY_BLAS=$($(tc-getPKG_CONFIG) --libs blas)
+#			-DR_LIBRARY_LAPACK=$($(tc-getPKG_CONFIG) --libs lapack)
+			-DR_LIBRARY_BLAS=/usr/lib64/R/lib/libR.so
+			-DR_LIBRARY_LAPACK=/usr/lib64/R/lib/libR.so
 		)
 	fi
 
@@ -208,7 +233,7 @@ src_configure() {
 	#!${EPREFIX}/bin/bash
 
 	export LD_LIBRARY_PATH="${BUILD_DIR}"/lib
-	"${BUILD_DIR}"/bin/vtkProcessShader-${SPV} \$@
+	"${BUILD_DIR}"/bin/vtkProcessShader \$@
 	EOF
 	chmod 750 "${BUILD_DIR}"/Utilities/MaterialLibrary/ProcessShader.sh || die
 }
