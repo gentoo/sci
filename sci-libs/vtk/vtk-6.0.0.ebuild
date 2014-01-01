@@ -6,9 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-WANT_CMAKE="always"
-
-inherit eutils flag-o-matic java-pkg-opt-2 python-single-r1 qt4-r2 versionator toolchain-funcs cmake-utils
+inherit eutils flag-o-matic java-pkg-opt-2 python-single-r1 qt4-r2 versionator toolchain-funcs cmake-utils virtualx
 
 # Short package version
 SPV="$(get_version_component_range 1-2)"
@@ -24,13 +22,14 @@ LICENSE="BSD LGPL-2"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 SLOT="0"
 IUSE="
-	boost chemistry cg doc examples ffmpeg java mpi mysql odbc offscreen
-	patented postgres python qt4 R test theora threads tk
-	video_cards_nvidia X"
+	aqua boost cg doc examples imaging ffmpeg java mpi mysql odbc
+	offscreen postgres python qt4 rendering test theora tk tcl
+	video_cards_nvidia views R X"
 
 REQUIRED_USE="
 	python? ( ${PYTHON_REQUIRED_USE} )
-	^^ ( X offscreen )"
+	tk? ( tcl )
+	?? ( X aqua offscreen )"
 
 RDEPEND="
 	dev-libs/expat
@@ -38,6 +37,7 @@ RDEPEND="
 	media-libs/freetype
 	media-libs/libpng
 	media-libs/mesa
+	media-libs/libtheora
 	media-libs/tiff
 	sci-libs/hdf5
 	sys-libs/zlib
@@ -49,8 +49,9 @@ RDEPEND="
 	x11-libs/libXt
 	cg? ( media-gfx/nvidia-cg-toolkit )
 	examples? (
-		dev-qt/qtcore:4[qt3support]
-		dev-qt/qtgui:4[qt3support] )
+		dev-qt/qtcore:4
+		dev-qt/qtgui:4
+	)
 	ffmpeg? ( virtual/ffmpeg )
 	java? ( >=virtual/jre-1.5 )
 	mpi? ( virtual/mpi[cxx,romio] )
@@ -60,17 +61,17 @@ RDEPEND="
 	postgres? ( dev-db/postgresql-base )
 	python? (
 		${PYTHON_DEPS}
-		dev-python/sip[${PYTHON_USEDEP}] )
+		dev-python/sip[${PYTHON_USEDEP}]
+	)
 	qt4? (
 		dev-qt/qtcore:4
 		dev-qt/qtgui:4
 		dev-qt/qtopengl:4
 		dev-qt/qtsql:4
 		dev-qt/qtwebkit:4
-		python? ( dev-python/PyQt4[${PYTHON_USEDEP}]	)
+		python? ( dev-python/PyQt4[${PYTHON_USEDEP}] )
 		)
 	tk? ( dev-lang/tk )
-	theora? ( media-libs/libtheora )
 	tk? ( dev-lang/tk )
 	video_cards_nvidia? ( media-video/nvidia-settings )
 	R? ( dev-lang/R )"
@@ -80,26 +81,23 @@ DEPEND="${RDEPEND}
 	java? ( >=virtual/jdk-1.5 )
 	dev-util/cmake"
 
-S="${WORKDIR}"/VTK${PV/_rc/.rc}
+S="${WORKDIR}"/VTK${PV}
 
 PATCHES=(
 	"${FILESDIR}"/${P}-cg-path.patch
 	)
 
 pkg_setup() {
-	echo
-	einfo "Please note that the VTK build occasionally fails when"
-	einfo "using parallel make. Hence, if you experience a build"
-	einfo "failure please try re-emerging with MAKEOPTS=\"-j1\" first."
-	echo
-
-	java-pkg-opt-2_pkg_setup
-
+	use java && java-pkg-opt-2_pkg_setup
 	use python && python-single-r1_pkg_setup
 	append-cppflags -D__STDC_CONSTANT_MACROS
 }
 
 src_prepare() {
+	sed \
+		-e 's:libproj4:libproj:g' \
+		-e 's:lib_proj.h:lib_abi.h:g' \
+		-i CMake/FindLIBPROJ4.cmake || die
 	cmake-utils_src_prepare
 }
 
@@ -107,7 +105,6 @@ src_configure() {
 	# general configuration
 	local mycmakeargs=(
 		-Wno-dev
-#		-DVTK_INSTALL_PACKAGE_DIR=/$(get_libdir)/${PN}-${SPV}
 		-DCMAKE_SKIP_RPATH=YES
 		-DVTK_DIR="${S}"
 		-DVTK_INSTALL_LIBRARY_DIR=$(get_libdir)
@@ -115,100 +112,82 @@ src_configure() {
 		-DCMAKE_INSTALL_PREFIX="${EPREFIX}/usr"
 		-DBUILD_SHARED_LIBS=ON
 		-DVTK_USE_SYSTEM_EXPAT=ON
+		-DVTK_USE_SYSTEM_FREETYPE=ON
 		-DVTK_USE_SYSTEM_FreeType=ON
 		-DVTK_USE_SYSTEM_GL2PS=ON
 		-DVTK_USE_SYSTEM_HDF5=ON
 		-DVTK_USE_SYSTEM_JPEG=ON
 #		-DVTK_USE_SYSTEM_LIBPROJ4=ON
+#		-DLIBPROJ4_DIR="${EPREFIX}/usr"
+		-DVTK_USE_SYSTEM_LIBXML2=ON
 		-DVTK_USE_SYSTEM_LibXml2=ON
+		-DVTK_USE_SYSTEM_OGGTHEORA=ON
 		-DVTK_USE_SYSTEM_PNG=ON
 		-DVTK_USE_SYSTEM_TIFF=ON
+#		-DVTK_USE_SYSTEM_XDMF2=ON
 		-DVTK_USE_SYSTEM_ZLIB=ON
-#		-DVTK_USE_SYSTEM_xdmf2=ON
-		-DHDF5_LIBRARY="${EPREFIX}/usr/$(get_libdir)"
-		-DHDF5_INCLUDE_DIRS="${EPREFIX}/usr/include"
-		-DBUILD_TESTING=OFF
-		-DBUILD_EXAMPLES=OFF
-		-DVTK_USE_HYBRID=ON
 		-DVTK_USE_GL2PS=ON
-		-DVTK_USE_RENDERING=ON
+		-DVTK_USE_PARALLEL=ON
 	)
 
-	# use flag triggered options
+	mycmakeargs+=(
+		-DVTK_EXTRA_COMPILER_WARNINGS=ON
+		-DVTK_Group_StandAlone=ON
+	)
+
+	mycmakeargs+=(
+		$(cmake-utils_use_build doc DOCUMENTATION)
+		$(cmake-utils_use_build examples EXAMPLES)
+		$(cmake-utils_use_build test TESTING)
+		$(cmake-utils_use_build test VTK_BUILD_ALL_MODULES_FOR_TESTS)
+		$(cmake-utils_use doc DOCUMENTATION_HTML_HELP)
+		$(cmake-utils_use imaging VTK_Group_Imaging)
+		$(cmake-utils_use mpi VTK_Group_MPI)
+		$(cmake-utils_use qt4 VTK_Group_Qt)
+		$(cmake-utils_use rendering VTK_Group_Rendering)
+		$(cmake-utils_use tk VTK_Group_Tk)
+		$(cmake-utils_use views VTK_Group_Views)
+		$(cmake-utils_use java VTK_WRAP_JAVA)
+		$(cmake-utils_use python VTK_WRAP_PYTHON)
+		$(cmake-utils_use python VTK_WRAP_PYTHON_SIP)
+		$(cmake-utils_use tcl VTK_WRAP_TCL)
+#		-DVTK_BUILD_ALL_MODULES=ON
+	)
+
 	mycmakeargs+=(
 		$(cmake-utils_use boost VTK_USE_BOOST)
 		$(cmake-utils_use cg VTK_USE_CG_SHADERS)
-		$(cmake-utils_use chemistry VTK_USE_CHEMISTRY)
-		$(cmake-utils_use doc DOCUMENTATION_HTML_HELP)
-		$(cmake-utils_use_build doc DOCUMENTATION)
-		$(cmake-utils_use java VTK_USE_JAVA)
-		$(cmake-utils_use mpi VTK_USE_MPI)
-		$(cmake-utils_use mysql VTK_USE_MYSQL)
-		$(cmake-utils_use patented VTK_USE_PATENTED)
-		$(cmake-utils_use postgres VTK_USE_POSTGRES)
 		$(cmake-utils_use odbc VTK_USE_ODBC)
+		$(cmake-utils_use offscreen VTK_USE_OFFSCREEN)
 		$(cmake-utils_use offscreen VTK_OPENGL_HAS_OSMESA)
-		$(cmake-utils_use offscreen VTK_OPENGL_HAS_OSMESA)
-		$(cmake-utils_use qt4 VTK_USE_QT)
 		$(cmake-utils_use theora VTK_USE_OGGTHEORA_ENCODER)
 		$(cmake-utils_use ffmpeg VTK_USE_FFMPEG_ENCODER)
-		$(cmake-utils_use tk VTK_USE_TK)
-		$(cmake-utils_use threads VTK_USE_PARALLEL)
 		$(cmake-utils_use video_cards_nvidia VTK_USE_NVCONTROL)
-		$(cmake-utils_use X VTK_USE_X)
-		$(cmake-utils_use X VTK_USE_GUISUPPORT)
 		$(cmake-utils_use R VTK_USE_GNU_R)
+		$(cmake-utils_use X VTK_USE_X)
 	)
 
-	use tk &&
-		mycmakeargs+=(
-			-DVTK_WRAP_TCL=ON
-			-DVTK_WRAP_TK=ON
-			-DVTK_TCL_INCLUDE_DIR="${EPREFIX}/usr/include"
-			-DVTK_TCL_LIBRARY="${EPREFIX}/usr/$(get_libdir)"
-			-DVTK_TK_INCLUDE_DIR="${EPREFIX}/usr/include"
-			-DVTK_TK_LIBRARY="${EPREFIX}/usr/$(get_libdir)"
-			-DVTK_INSTALL_TCL_DIR="$(get_libdir)"
-		)
+	# Apple stuff, does it really work?
+	mycmakeargs+=(
+		$(cmake-utils_use aqua VTK_USE_COCOA)
+	)
 
-	use theora && mycmakeargs+=( -DVTK_USE_SYSTEM_OGGTHEORA=ON )
-
-	# mpi needs the parallel framework
-	if use mpi && use !threads; then
-		mycmakeargs+=( -DVTK_USE_PARALLEL=ON )
-	fi
-
-	if use java; then
-		mycmakeargs+=(
-			-DVTK_WRAP_JAVA=ON
-			-DJAVA_AWT_INCLUDE_PATH=`java-config -O`/include
-			-DJAVA_INCLUDE_PATH:PATH=`java-config -O`/include
-			-DJAVA_INCLUDE_PATH2:PATH=`java-config -O`/include/linux
-		)
-
-		if [ "${ARCH}" == "amd64" ]; then
-			mycmakeargs+=(-DJAVA_AWT_LIBRARY=`java-config -O`/jre/lib/${ARCH}/libjawt.so)
-		else
-			mycmakeargs+=(-DJAVA_AWT_LIBRARY:PATH=`java-config -O`/jre/lib/i386/libjawt.so)
-		fi
-	fi
+	use java && export JAVA_HOME=$(java-config -O)
 
 	if use python; then
 		mycmakeargs+=(
 			-DPYTHON_INCLUDE_DIR="$(python_get_includedir)"
 			-DPYTHON_LIBRARY="$(python_get_library_path)"
-			-DVTK_WRAP_PYTHON=ON
-			-DVTK_WRAP_PYTHON_SIP=ON
 			-DSIP_PYQT_DIR="${EPREFIX}/usr/share/sip"
 			-DSIP_INCLUDE_DIR="$(python_get_includedir)"
 			-DVTK_PYTHON_INCLUDE_DIR="$(python_get_includedir)"
 			-DVTK_PYTHON_LIBRARY="$(python_get_library_path)"
-			-DVTK_PYTHON_SETUP_ARGS:STRING=--root="${D}")
+			-DVTK_PYTHON_SETUP_ARGS:STRING=--root="${D}"
+		)
 	fi
 
-	if use qt4 ; then
+	if use qt4; then
 		mycmakeargs+=(
-			-DVTK_USE_GUISUPPORT=ON
 			-DVTK_USE_QVTK=ON
 			-DVTK_USE_QVTK_OPENGL=ON
 			-DVTK_USE_QVTK_QTOPENGL=ON
@@ -219,7 +198,8 @@ src_configure() {
 			-DQT_MOC_EXECUTABLE="${EPREFIX}/usr/bin/moc"
 			-DQT_UIC_EXECUTABLE="${EPREFIX}/usr/bin/uic"
 			-DQT_INCLUDE_DIR="${EPREFIX}/usr/include/qt4"
-			-DQT_QMAKE_EXECUTABLE="${EPREFIX}/usr/bin/qmake")
+			-DQT_QMAKE_EXECUTABLE="${EPREFIX}/usr/bin/qmake"
+		)
 	fi
 
 	cmake-utils_src_configure
@@ -233,15 +213,24 @@ src_configure() {
 	chmod 750 "${BUILD_DIR}"/Utilities/MaterialLibrary/ProcessShader.sh || die
 }
 
+src_test() {
+	ln -sf "${BUILD_DIR}"/lib  "${BUILD_DIR}"/lib/Release || die
+	export LD_LIBRARY_PATH="${BUILD_DIR}"/lib
+	local VIRTUALX_COMMAND="cmake-utils_src_test"
+	virtualmake
+}
+
 src_install() {
 	# install docs
 	HTML_DOCS=( "${S}"/README.html )
 
 	cmake-utils_src_install
 
-	# install Tcl docs
-	docinto vtk_tcl
-	dodoc "${S}"/Wrapping/Tcl/README
+	if use tcl; then
+		# install Tcl docs
+		docinto vtk_tcl
+		dodoc "${S}"/Wrapping/Tcl/README
+	fi
 
 	# install examples
 	if use examples; then
@@ -268,12 +257,4 @@ src_install() {
 	VTKHOME=${EPREFIX}/usr
 	EOF
 	doenvd "${T}"/40${PN}
-}
-
-pkg_postinst() {
-	if use patented; then
-		ewarn "Using patented code in VTK may require a license."
-		ewarn "For more information, please read:"
-		ewarn "http://public.kitware.com/cgi-bin/vtkfaq?req=show&file=faq07.005.htp"
-	fi
 }
