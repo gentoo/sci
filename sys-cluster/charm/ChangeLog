@@ -1,6 +1,10 @@
 # ChangeLog for sys-cluster/charm
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  02 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> -Manifest,
+  -charm-6.5.1-r2.ebuild, -charm-6.5.1-r3.ebuild:
+  sys-cluster/charm: Removing versions moved to x86.
 
   13 Dec 2013; Nicolas Bock <nicolasbock@gentoo.org> metadata.xml:
   sys-cluster/charm: Updated maintainer email to gentoo.org.
