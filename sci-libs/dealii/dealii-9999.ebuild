@@ -4,7 +4,7 @@
 
 EAPI=5
 
-if [[ ${PV} == "9999" ]] ; then
+if [[ "${PV}" == "9999" ]] ; then
 	inherit cmake-utils subversion eutils multilib
 else
 	inherit cmake-utils eutils multilib
@@ -13,7 +13,7 @@ fi
 DESCRIPTION="library for solving partial differential equations with the finite element method"
 HOMEPAGE="http://www.dealii.org/"
 
-if [[ ${PV} == "9999" ]] ; then
+if [[ "${PV}" == "9999" ]] ; then
 	ESVN_REPO_URI="https://svn.dealii.org/trunk/deal.II"
 	ESVN_OPTIONS="--trust-server-cert --non-interactive"
 	KEYWORDS=""
@@ -26,7 +26,12 @@ fi
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
-IUSE="arpack avx +debug doc +examples hdf5 +lapack mesh_converter metis mpi mumps netcdf p4est parameter_gui petsc +sparse sse2 static-libs +tbb trilinos +zlib"
+IUSE="
+  arpack avx +debug doc +examples hdf5 +lapack mesh_converter metis mpi
+  mumps netcdf p4est parameter_gui petsc +sparse sse2 static-libs +tbb
+  trilinos +zlib
+"
+
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
 REQUIRED_USE="
 	mumps? ( mpi lapack )
