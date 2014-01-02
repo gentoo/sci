@@ -1,0 +1,33 @@
+ src/Makefile.am | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index bdfb73f..8800d1a 100755
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -49,8 +49,9 @@ COMMON_SRCS =  \
+ 
+ 
+ 
+-lib_LIBRARIES = libhuti.a
+-libhuti_a_SOURCES = $(COMMON_SRCS)
++lib_LTLIBRARIES = libhuti.la
++libhuti_la_SOURCES = $(COMMON_SRCS)
++libhuti_la_LIBADD = 
+ 
+ #################################################################################
+ # If sources are missing generate them with the preprocessor.
+ configure.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.in b/configure.in
+index 5b25b28..7356ca4 100755
+--- a/configure.in
++++ b/configure.in
+@@ -1,5 +1,5 @@
+ AC_INIT(src/huti_cg.src)
+-
++LT_INIT
+ dnl AC_PREREQ(2.59c)
+ 
+ AC_CANONICAL_HOST

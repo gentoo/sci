@@ -1,0 +1,134 @@
+From 2725bc0f3bc5fa7706b9a475ccb0c191f21ca884 Mon Sep 17 00:00:00 2001
+From: James Simmons <uja.ornl@gmail.com>
+Date: Tue, 24 Sep 2013 12:29:47 -0400
+Subject: [PATCH 05/18] LU-3974 llite: invalidatepage api changed
+
+Until recently invalidating pages from the buffer cache
+was dependent only on the page passed in and the start
+in the page to invalidate. Starting with the 3.11 kernel
+you can also specify the length of the data in the page
+to invalidate. This patch enables us to handle the new
+case.
+
+Signed-off-by: James Simmons <uja.ornl@gmail.com>
+Change-Id: Iedf458b20b2604bc3099d5ae38bf0ad07df83bd3
+---
+ lustre/autoconf/lustre-core.m4                 | 20 ++++++++++++++++++++
+ lustre/include/linux/lustre_patchless_compat.h | 19 +++++++++++--------
+ lustre/llite/rw26.c                            | 24 +++++++++++++++++-------
+ 3 files changed, 48 insertions(+), 15 deletions(-)
+
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index 3ac55d6..ab94acd 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -1287,6 +1287,25 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
++# 3.11 invalidatepage requires the length of the range to invalidate
++#
++AC_DEFUN([LC_INVALIDATE_RANGE],
++[AC_MSG_CHECKING([if address_space_operations.invalidatepage requires 3 arguments])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/fs.h>
++],[
++	struct address_space_operations a_ops;
++
++	a_ops.invalidatepage(NULL,0,0);
++],[
++	AC_DEFINE(HAVE_INVALIDATE_RANGE, 1, [address_space_operations.invalidatepage needs 3 arguments])
++	AC_MSG_RESULT([yes])
++],[
++	AC_MSG_RESULT([no])
++])
++])
++
++#
+ # 3.11 readdir now takes the new struct dir_context
+ #
+ AC_DEFUN([LC_HAVE_DIR_CONTEXT],
+@@ -1442,6 +1461,7 @@ AC_DEFUN([LC_PROG_LINUX],
+ 	 LC_BLKDEV_RELEASE_RETURN_INT
+ 
+ 	 # 3.11
++	 LC_INVALIDATE_RANGE
+ 	 LC_HAVE_DIR_CONTEXT
+ 	 LC_D_COMPARE_5ARGS
+ 	 LC_HAVE_DCOUNT
+diff --git a/lustre/include/linux/lustre_patchless_compat.h b/lustre/include/linux/lustre_patchless_compat.h
+index 747bd4d..5b7bab6 100644
+--- a/lustre/include/linux/lustre_patchless_compat.h
++++ b/lustre/include/linux/lustre_patchless_compat.h
+@@ -78,15 +78,18 @@ static inline void ll_delete_from_page_cache(struct page *page)
+ static inline void
+ truncate_complete_page(struct address_space *mapping, struct page *page)
+ {
+-        if (page->mapping != mapping)
+-                return;
++	if (page->mapping != mapping)
++		return;
+ 
+-        if (PagePrivate(page))
+-                page->mapping->a_ops->invalidatepage(page, 0);
+-
+-        cancel_dirty_page(page, PAGE_SIZE);
+-        ClearPageMappedToDisk(page);
+-        ll_delete_from_page_cache(page);
++	if (PagePrivate(page))
++#ifdef HAVE_INVALIDATE_RANGE
++		page->mapping->a_ops->invalidatepage(page, 0, PAGE_CACHE_SIZE);
++#else
++		page->mapping->a_ops->invalidatepage(page, 0);
++#endif
++	cancel_dirty_page(page, PAGE_SIZE);
++	ClearPageMappedToDisk(page);
++	ll_delete_from_page_cache(page);
+ }
+ #endif /* !HAVE_TRUNCATE_COMPLETE_PAGE */
+ 
+diff --git a/lustre/llite/rw26.c b/lustre/llite/rw26.c
+index 9365c74..bee7996 100644
+--- a/lustre/llite/rw26.c
++++ b/lustre/llite/rw26.c
+@@ -76,7 +76,13 @@
+  * aligned truncate). Lustre leaves partially truncated page in the cache,
+  * relying on struct inode::i_size to limit further accesses.
+  */
+-static void ll_invalidatepage(struct page *vmpage, unsigned long offset)
++static void ll_invalidatepage(struct page *vmpage,
++#ifdef HAVE_INVALIDATE_RANGE
++				unsigned int offset, unsigned int length
++#else
++				unsigned long offset
++#endif
++			     )
+ {
+         struct inode     *inode;
+         struct lu_env    *env;
+@@ -88,12 +94,16 @@ static void ll_invalidatepage(struct page *vmpage, unsigned long offset)
+         LASSERT(PageLocked(vmpage));
+         LASSERT(!PageWriteback(vmpage));
+ 
+-        /*
+-         * It is safe to not check anything in invalidatepage/releasepage
+-         * below because they are run with page locked and all our io is
+-         * happening with locked page too
+-         */
+-        if (offset == 0) {
++	/*
++	 * It is safe to not check anything in invalidatepage/releasepage
++	 * below because they are run with page locked and all our io is
++	 * happening with locked page too
++	 */
++#ifdef HAVE_INVALIDATE_RANGE
++	if (offset == 0 && length == PAGE_CACHE_SIZE) {
++#else
++	if (offset == 0) {
++#endif
+                 env = cl_env_get(&refcheck);
+                 if (!IS_ERR(env)) {
+                         inode = vmpage->mapping->host;
+-- 
+1.8.5.1
+

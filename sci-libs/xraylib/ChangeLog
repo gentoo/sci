@@ -1,0 +1,7 @@
+# ChangeLog for sci-libs/xraylib
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  08 Dec 2013; Justin Lecher <jlec@gentoo.org> xraylib-2.16.0.ebuild:
+  Make python stuff optional under USE=python
+

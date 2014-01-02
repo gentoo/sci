@@ -1,0 +1,28 @@
+--- libsrc/occ/Partition_Spliter.cxx.old	2012-11-14 16:14:39.440625195 +0100
++++ libsrc/occ/Partition_Spliter.cxx	2012-11-14 16:15:20.035646075 +0100
+@@ -1169,8 +1169,8 @@
+           for (; j<=nbj && ok; ++j) {
+             if (Extrema.IsMin(j)) {
+ 	      hasMin = Standard_True;
+-	      ok = Extrema.Value(j) <= tol;  // V6.3
+-	      // ok = Extrema.SquareDistance(j) <= tol;  // V6.5
++	      // ok = Extrema.Value(j) <= tol;  // V6.3
++	      ok = Extrema.SquareDistance(j) <= tol;  // V6.5
+ 	    }
+           }
+         }
+--- libsrc/occ/Partition_Inter3d.cxx.old	2012-11-14 16:13:11.149581085 +0100
++++ libsrc/occ/Partition_Inter3d.cxx	2012-11-14 16:14:20.017615214 +0100
+@@ -243,9 +243,9 @@
+       Standard_Integer i, nbExt = anExtPS.NbExt();
+       Extrema_POnSurf aPOnSurf;
+       for (i = 1; i <= nbExt; ++i )
+-	if (anExtPS.Value( i ) <= TolE)               // V6.3
+-	  // if (anExtPS.SquareDistance( i ) <= TolE)   // V6.5
+-	  {
++	//	if (anExtPS.Value( i ) <= TolE)               // V6.3
++	if (anExtPS.SquareDistance( i ) <= TolE)   // V6.5
++	{
+           aPOnSurf = anExtPS.Point( i );
+           break;
+         }

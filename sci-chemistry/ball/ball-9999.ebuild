@@ -44,7 +44,6 @@ DEPEND="${RDEPEND}
 
 PATCHES=(
 	"${FILESDIR}"/${P}-multilib.patch
-	"${FILESDIR}"/${P}-libsvm.patch
 	)
 
 pkg_setup() {
@@ -54,10 +53,10 @@ pkg_setup() {
 src_configure() {
 	local mycmakeargs=(
 		$(cmake-utils_use_use threads FFTW_THREADS)
-		$(cmake-utils_use cuda MT_ENABLE_CUDA)
-		$(cmake-utils_use mpi MT_ENABLE_MPI)
-		$(cmake-utils_use sql BALL_HAS_QTSQL)
-		$(cmake-utils_use_use webkit USE_QTWEBKIT)
+		$(cmake-utils_use_use cuda CUDA)
+		$(cmake-utils_use_use mpi MPI)
+		$(cmake-utils_use_use sql QTSQL)
+		$(cmake-utils_use_use webkit QTWEBKIT)
 		$(cmake-utils_use python BALL_PYTHON_SUPPORT)
 	)
 	cmake-utils_src_configure

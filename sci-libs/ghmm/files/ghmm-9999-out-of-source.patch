@@ -1,0 +1,40 @@
+Index: tools/Makefile.am
+===================================================================
+--- tools/Makefile.am	(revision 2332)
++++ tools/Makefile.am	(working copy)
+@@ -12,7 +12,7 @@
+ MAINTAINERCLEANFILES = Makefile.in
+ 
+ BUILT_SOURCES = 
+-INCLUDES = -I$(top_srcdir)
++INCLUDES = -I$(top_srcdir) -I$(top_builddir)/ghmm
+ 
+ bin_PROGRAMS = probdist cluster scluster smix_hmm $(OBSOLETE_TOOLS)
+ EXTRA_PROGRAMS = smo2xml
+Index: tests/Makefile.am
+===================================================================
+--- tests/Makefile.am	(revision 2332)
++++ tests/Makefile.am	(working copy)
+@@ -15,7 +15,7 @@
+ MAINTAINERCLEANFILES = Makefile.in
+ # stuff from dejagnu
+ 
+-INCLUDES=-I$(top_srcdir)
++INCLUDES=-I$(top_srcdir) -I$(top_builddir)/ghmm
+ 
+ #these tests will not be installed
+ # in progress: test_sdfoba nullmodel ciscreen test_sdmodel 
+Index: ghmmwrapper/Makefile.am
+===================================================================
+--- ghmmwrapper/Makefile.am	(revision 2332)
++++ ghmmwrapper/Makefile.am	(working copy)
+@@ -47,7 +47,9 @@
+                  testdata/model_label.xml \
+                  testdata/tiny.txt.sqd
+ 
++INCLUDES=-I$(top_builddir)
+ 
++
+ EXTRA_DIST = ${SWIG_INTERFACE_FILES} ${EXTENSION_C_FILES} ${PYTHON_FILES} ${PYTHON_GATO_FILES} ${TESTDATA_FILES}
+ 
+ all: setup.py ghmm.py ${SWIG_INTERFACE_FILES}

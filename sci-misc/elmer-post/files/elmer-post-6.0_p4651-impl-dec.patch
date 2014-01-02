@@ -1,0 +1,15 @@
+ src/screensave.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/screensave.c b/src/screensave.c
+index ae4f577..810f54c 100755
+--- a/src/screensave.c
++++ b/src/screensave.c
+@@ -26,6 +26,7 @@
+ #include <math.h>
+ #include <stdlib.h>
+ #include <strings.h>
++#include <string.h>
+ 
+   
+ #include <GL/gl.h>

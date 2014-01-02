@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-biology</herd>
+<herd>sci</herd>
 <maintainer>
   <email>mmokrejs@fold.natur.cuni.cz</email>
   <name>Martin Mokrejs</name>
@@ -14,7 +14,10 @@
   networks.
 </longdescription>
 <use>
-  <flag name="coin">Enable the CoinOR-Clp and CoinOR-CBC graph algorithms</flag>
-  <flag name="tools">Build additional tools</flag>
+  <flag name="coin">Enable the <pkg>coinor-clp</pkg> and
+  <pkg>coinor-cbc</pkg> graph algorithms</flag>
+  <flag name='glpk'>Enable GNU Linear Programming Kit
+  <pkg>sci-mathematics/glpk</pkg> support</flag>
+  <flag name="tools">Build additional tools</flag>  
 </use>
 </pkgmetadata>

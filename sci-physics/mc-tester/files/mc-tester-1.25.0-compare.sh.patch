@@ -1,0 +1,30 @@
+--- analyze/compare.sh
++++ analyze/compare.sh
+@@ -6,13 +6,14 @@
+ #----------------------------------
+ # Change these variables
+ #----------------------------------
+-FILE1=mc-tester.root #first generation step file
+-FILE2=mc-tester2.root #second generation step file
+-MCTESTER_DIR= #location of MC-TESTER
++FILE1="${1}" #first generation step file
++FILE2="${2}" #second generation step file
++MCTESTER_DIR=/usr #location of MC-TESTER
+ 
+ #----------------------------------
+ 
+-MCTESTER_ANALYZE_DIR=${MCTESTER_DIR}/analyze
++MCTESTER_ANALYZE_DIR=${MCTESTER_DIR}/libexec/mc-tester/analyze
++MCTESTER_DATA_DIR=${MCTESTER_DIR}/share/mc-tester
+ export MC_TESTER_LIBS_DIR=${MCTESTER_DIR}/lib
+ 
+ WORKING_DIR=`pwd`
+@@ -24,7 +25,7 @@
+ cd $WORKING_DIR
+ 
+ #copy base .tex file needed for booklet and create
+-cp ${MCTESTER_ANALYZE_DIR}/tester.tex ./ 
++cp ${MCTESTER_DATA_DIR}/tester.tex ./ 
+ latex tester.tex
+ latex tester.tex 
+ latex tester.tex 

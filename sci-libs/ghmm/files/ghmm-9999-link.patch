@@ -1,0 +1,24 @@
+Index: tools/Makefile.am
+===================================================================
+--- tools/Makefile.am	(revision 2332)
++++ tools/Makefile.am	(working copy)
+@@ -23,5 +23,5 @@
+ smix_hmm_SOURCES = smix_hmm.c
+ smo2xml_SOURCES = smo2xml.c
+ 
+-LDADD = $(top_builddir)/ghmm/.libs/libghmm.a
++LDADD = $(top_builddir)/ghmm/libghmm.la
+ bin_SCRIPTS = ghmm-config
+Index: tests/Makefile.am
+===================================================================
+--- tests/Makefile.am	(revision 2332)
++++ tests/Makefile.am	(working copy)
+@@ -34,7 +34,7 @@
+ 		  read_fa \
+                   mcmc
+ 
+-LDADD = $(top_builddir)/ghmm/.libs/libghmm.a
++LDADD = $(top_builddir)/ghmm/libghmm.la
+ 
+ TESTS_ENVIRONMENT = GHMM_SILENT_TESTS
+ TESTS =           root_finder_test \

@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*coinor-symphony-5.5.6 (07 Dec 2013)
+
+  07 Dec 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  +coinor-symphony-5.5.6.ebuild, -coinor-symphony-5.5.0.ebuild:
+  sci-libs/coinor-symphony: Version bump
+
 *coinor-symphony-5.5.0 (17 Jul 2013)
 
   17 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org>
