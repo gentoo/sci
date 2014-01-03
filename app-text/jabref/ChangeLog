@@ -4,6 +4,10 @@
 
   03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>
   jabref-2.10_beta2-r1.ebuild:
+  app-text/jabref: Remove another bundled library.
+
+  03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>
+  jabref-2.10_beta2-r1.ebuild:
   app-text/jabref: Remove another bundled lib.
 
   03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> jabref-2.10_beta-r1.ebuild,
