@@ -20,7 +20,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc"
 
 COMMON_DEP="
-	dev-java/fontbox:0
+	dev-java/fontbox:1.7
 	dev-java/spin:0
 	"
 
@@ -44,9 +44,8 @@ java_prepare() {
 }
 
 src_compile() {
-	local EXTERNAL_JARS="fontbox,spin"
+	local EXTERNAL_JARS="fontbox:1.7,spin"
 	local CLASSPATH="$(java-pkg_getjars --with-dependencies ${EXTERNAL_JARS})"
-	#einfo "setting classpath to ${CLASSPATH}"
 	eant \
 		-verbose \
 		-Dgentoo.classpath=${CLASSPATH} \
