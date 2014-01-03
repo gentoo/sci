@@ -1,6 +1,10 @@
 # ChangeLog for dev-java/jogl
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Jan 2014; Justin Lecher <jlec@gentoo.org> -jogl-1.1.1.ebuild,
+  +jogl-1.1.1a.ebuild:
+  Bump away from vulnerable version, #330267
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> jogl-2.0_rc8-r1.ebuild,
   metadata.xml:
