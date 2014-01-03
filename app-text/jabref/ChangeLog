@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Jan 2014; Justin Lecher <jlec@gentoo.org> jabref-2.10_beta2-r1.ebuild,
+  metadata.xml:
+  Fix fontbox SLOT
+
 *jabref-2.10_beta2-r1 (02 Jan 2014)
 
   02 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>

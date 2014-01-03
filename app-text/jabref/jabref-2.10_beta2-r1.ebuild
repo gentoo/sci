@@ -20,7 +20,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc"
 
 COMMON_DEP="
-	dev-java/fontbox:1.7
+	dev-java/fontbox:0
 	dev-java/spin:0
 	"
 
