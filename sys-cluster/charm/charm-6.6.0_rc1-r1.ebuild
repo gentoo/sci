@@ -16,6 +16,7 @@ SRC_URI=""
 EGIT_REPO_URI="http://charm.cs.uiuc.edu/gerrit/charm"
 EGIT_BRANCH="charm"
 EGIT_COMMIT="57051a8f07496b9f8f696f59fad477c8a2bc3e4d"
+EGIT_NONSHALLOW="yes"
 
 LICENSE="charm"
 SLOT="0"
