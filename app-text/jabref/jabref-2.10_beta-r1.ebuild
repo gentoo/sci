@@ -44,7 +44,7 @@ java_prepare() {
 }
 
 src_compile() {
-	local EXTERNAL_JARS="fontbox:1.7,spin"
+	local EXTERNAL_JARS="fontbox-1.7,spin"
 	local CLASSPATH="$(java-pkg_getjars --with-dependencies ${EXTERNAL_JARS})"
 	eant \
 		-Dgentoo.classpath=${CLASSPATH} \
