@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*jabref-2.10_beta-r1 (03 Jan 2014)
+
+  03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>
+  +jabref-2.10_beta-r1.ebuild:
+  app-text/jabref-2.10_beta-r1: Adding revised ebuild for first beta.
+
   03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>
   jabref-2.10_beta2-r1.ebuild:
   app-text/jabref-2.10_beta2-r1: Added back slotted fontbox package, but fixed
