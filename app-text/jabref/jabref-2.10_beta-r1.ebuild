@@ -39,8 +39,9 @@ java_prepare() {
 	rm lib/fontbox*.jar || die
 	rm lib/spin.jar || die
 
-	# Remove unjarlib target.
-	sed -i -e 's:depends="build, unjarlib":depends="build":' build.xml
+	# Remove unjarlib target (do this only once we have removed all
+	# bundled dependencies in lib).
+	#sed -i -e 's:depends="build, unjarlib":depends="build":' build.xml
 }
 
 src_compile() {

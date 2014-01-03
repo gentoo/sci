@@ -4,6 +4,11 @@
 
   03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> jabref-2.10_beta-r1.ebuild,
   jabref-2.10_beta2-r1.ebuild:
+  app-text/jabref: Do not remove unjarlib target yet.  We need to first replace
+  all bundled libs with portage versions.
+
+  03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> jabref-2.10_beta-r1.ebuild,
+  jabref-2.10_beta2-r1.ebuild:
   app-text/jabref: Fix bug in java-pkg_getjars; use a '-' instead of ':' to
   specify slot.
 

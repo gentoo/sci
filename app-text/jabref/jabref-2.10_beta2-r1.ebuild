@@ -39,15 +39,15 @@ java_prepare() {
 	rm lib/fontbox*.jar || die
 	rm lib/spin.jar || die
 
-	# Remove unjarlib target.
-	sed -i -e 's:depends="build, unjarlib":depends="build":' build.xml
+	# Remove unjarlib target (do this only once we have removed all
+	# bundled dependencies in lib).
+	#sed -i -e 's:depends="build, unjarlib":depends="build":' build.xml
 }
 
 src_compile() {
 	local EXTERNAL_JARS="fontbox-1.7,spin"
 	local CLASSPATH="$(java-pkg_getjars --with-dependencies ${EXTERNAL_JARS})"
 	eant \
-		-verbose \
 		-Dgentoo.classpath=${CLASSPATH} \
 		jars \
 		$(usex doc docs "")
