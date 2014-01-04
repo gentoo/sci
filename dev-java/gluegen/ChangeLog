@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Jan 2014; Johann Schmitz <ercpe@gentoo.org>
+  +files/2.1.4_p1-dont-test-archive.patch:
+  Don't test the zip archive (thus avoid dep to 7z)
+
 *gluegen-2.1.4_p1 (04 Jan 2014)
 
   04 Jan 2014; Johann Schmitz <ercpe@gentoo.org>
