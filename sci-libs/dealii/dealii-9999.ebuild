@@ -1,24 +1,25 @@
-# Copyright 2013 Gentoo Foundation
+# Copyright 2013-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-if [[ ${PV} == "9999" ]] ; then
-	inherit cmake-utils subversion eutils multilib
+if [[ "${PV}" == "9999" ]] ; then
+	inherit cmake-utils eutils multilib subversion
 else
 	inherit cmake-utils eutils multilib
 fi
 
-DESCRIPTION="library for solving partial differential equations with the finite element method"
+DESCRIPTION="Solving partial differential equations with the finite element method"
 HOMEPAGE="http://www.dealii.org/"
 
-if [[ ${PV} == "9999" ]] ; then
+if [[ "${PV}" == "9999" ]] ; then
 	ESVN_REPO_URI="https://svn.dealii.org/trunk/deal.II"
 	ESVN_OPTIONS="--trust-server-cert --non-interactive"
 	KEYWORDS=""
 else
-	SRC_URI="https://dealii.googlecode.com/files/deal.II-${PV}.tar.gz
+	SRC_URI="
+		https://dealii.googlecode.com/files/deal.II-${PV}.tar.gz
 		doc? ( https://dealii.googlecode.com/files/deal.offlinedoc-${PV}.tar.gz )"
 	S="${WORKDIR}/deal.II"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -26,7 +27,12 @@ fi
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
-IUSE="arpack avx +debug doc +examples hdf5 +lapack mesh_converter metis mpi mumps netcdf p4est parameter_gui petsc +sparse sse2 static-libs +tbb trilinos +zlib"
+IUSE="
+	arpack avx +debug doc +examples hdf5 +lapack mesh_converter metis mpi
+	mumps netcdf p4est parameter_gui petsc +sparse sse2 static-libs +tbb
+	trilinos +zlib
+"
+
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
 REQUIRED_USE="
 	mumps? ( mpi lapack )
@@ -37,7 +43,6 @@ REQUIRED_USE="
 RDEPEND="
 	dev-libs/boost
 	arpack? ( sci-libs/arpack[mpi=] )
-	doc? ( app-doc/doxygen[dot] dev-lang/perl )
 	hdf5? ( sci-libs/hdf5[mpi=] )
 	lapack? ( virtual/lapack )
 	metis? ( >=sci-libs/parmetis-4 )
@@ -56,6 +61,7 @@ RDEPEND="
 DEPEND="
 	${RDEPEND}
 	virtual/pkgconfig
+	doc? ( app-doc/doxygen[dot] dev-lang/perl )
 "
 
 src_configure() {
@@ -73,9 +79,16 @@ src_configure() {
 
 	local mycmakeargs=(
 		${live_version}
-		"-DDEAL_II_ALLOW_AUTODETECTION=OFF"
-		"-DDEAL_II_ALLOW_BUNDLED=OFF"
-		"-DDEAL_II_ALLOW_PLATFORM_INTROSPECTION=OFF"
+		-DDEAL_II_ALLOW_AUTODETECTION=OFF
+		-DDEAL_II_ALLOW_BUNDLED=OFF
+		-DDEAL_II_ALLOW_PLATFORM_INTROSPECTION=OFF
+		-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF
+		-DDEAL_II_COMPONENT_COMPAT_FILES=OFF
+		-DDEAL_II_CMAKE_MACROS_RELDIR=share/${PN}/cmake/macros
+		-DDEAL_II_DOCHTML_RELDIR=share/doc/${PF}/html
+		-DDEAL_II_DOCREADME_RELDIR=share/doc/${PF}/
+		-DDEAL_II_EXAMPLES_RELDIR=share/doc/${PF}/examples
+		-DDEAL_II_LIBRARY_RELDIR=$(get_libdir)
 		$(cmake-utils_use arpack DEAL_II_WITH_ARPACK)
 		$(cmake-utils_use avx DEAL_II_HAVE_AVX)
 		$(cmake-utils_use doc DEAL_II_COMPONENT_DOCUMENTATION)
@@ -97,24 +110,17 @@ src_configure() {
 		$(cmake-utils_use tbb DEAL_II_WITH_THREADS)
 		$(cmake-utils_use trilinos DEAL_II_WITH_TRILINOS)
 		$(cmake-utils_use zlib DEAL_II_WITH_ZLIB)
-		"-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF"
-		"-DDEAL_II_COMPONENT_COMPAT_FILES=OFF"
-		"-DDEAL_II_CMAKE_MACROS_RELDIR=share/${PN}/cmake/macros"
-		"-DDEAL_II_DOCHTML_RELDIR=share/doc/${PF}/html"
-		"-DDEAL_II_DOCREADME_RELDIR=share/doc/${PF}/"
-		"-DDEAL_II_EXAMPLES_RELDIR=share/doc/${PF}/examples"
-		"-DDEAL_II_LIBRARY_RELDIR=$(get_libdir)"
 		)
 	cmake-utils_src_configure
 }
 
 src_install() {
-	dodoc README
+	DOCS=( README )
 
 	if use doc; then
 		if [[ ${PV} != "9999" ]] ; then
 			# copy missing images to the build directory:
-			cp -r "${WORKDIR}"/doc/doxygen/deal.II/images "${BUILD_DIR}"/doc/doxygen/deal.II
+			cp -r "${WORKDIR}"/doc/doxygen/deal.II/images "${BUILD_DIR}"/doc/doxygen/deal.II || die
 			# replace links:
 			sed -i \
 				's#"http://www.dealii.org/images/steps/developer/\(step-.*\)"#"images/\1"#g' \
