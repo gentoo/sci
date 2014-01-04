@@ -20,9 +20,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc"
 
 COMMON_DEP="
-	dev-java/antlr:3
 	dev-java/fontbox:1.7
-	dev-java/jempbox:1.7
 	dev-java/spin:0
 	"
 
@@ -38,9 +36,7 @@ S="${WORKDIR}/${PN}-${MY_PV}"
 
 java_prepare() {
 	# Remove bundled dependencies.
-	rm lib/antlr*.jar || die
 	rm lib/fontbox*.jar || die
-	rm lib/jempbox*.jar || die
 	rm lib/spin.jar || die
 
 	# Remove unjarlib target (do this only once we have removed all
@@ -49,7 +45,7 @@ java_prepare() {
 }
 
 src_compile() {
-	local EXTERNAL_JARS="antlr-3,fontbox-1.7,jempbox-1.7,spin"
+	local EXTERNAL_JARS="fontbox-1.7,spin"
 	local CLASSPATH="$(java-pkg_getjars --with-dependencies ${EXTERNAL_JARS})"
 	eant \
 		-Dgentoo.classpath=${CLASSPATH} \
