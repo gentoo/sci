@@ -1,6 +1,19 @@
 # ChangeLog for dev-java/gluegen
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  04 Jan 2014; Johann Schmitz <ercpe@gentoo.org>
+  +files/2.1.4_p1-dont-test-archive.patch:
+  Don't test the zip archive (thus avoid dep to 7z)
+
+*gluegen-2.1.4_p1 (04 Jan 2014)
+
+  04 Jan 2014; Johann Schmitz <ercpe@gentoo.org>
+  +files/2.1.4_p1-dont-copy-jars.patch, +files/2.1.4_p1-dont-strip.patch,
+  +gluegen-2.1.4_p1.ebuild:
+  Updated and polished ebuild for gluegen (dep of jogl) as per #171.  Someone
+  needs to burrow in the cpptasks stuff to get the user's LDFLAGS passed before
+  this ebuild can be added to the tree.
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> gluegen-2.0_rc8.ebuild,
   metadata.xml:
@@ -31,4 +44,3 @@
   14 May 2012; Sébastien Fabbro <bicatali@gentoo.org>
   +gluegen-20080421.ebuild, +metadata.xml:
   import from the java overlay
-
