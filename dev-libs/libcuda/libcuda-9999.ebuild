@@ -1,12 +1,10 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-EGIT_PROJECT="gdev"
-
-inherit base git-2
+inherit git-r3
 
 DESCRIPTION="Gdev is open-source GPGPU runtime"
 HOMEPAGE="https://github.com/shinpei0208/gdev"
@@ -28,26 +26,19 @@ DEPEND="
 	virtual/pkgconfig
 	${RDEPEND}"
 
-PATCHES=(	"${FILESDIR}/0001-Fix-detection-of-nouveau-in-case-its-builtin.patch"
-			"${FILESDIR}/0002-Fix-install-target-for-gdev-lib-userspace.patch"
-			"${FILESDIR}/0003-Fix-install-target-for-gdev-lib-userspace-part2.patch"
-			"${FILESDIR}/0004-Respect-extra-CFLAGS-and-LDFLAGS.patch"
-			"${FILESDIR}/0005-Fix-install-target-for-cuda-lib.patch"
-		)
-
 src_configure() {
-	cd cuda
-	mkdir build
-	cd build
-	../configure
+	cd cuda || die
+	mkdir build || die
+	cd build || die
+	../configure || die
 }
 
 src_compile() {
-	cd cuda/build
+	cd cuda/build || die
 	emake GDEVDIR="${EPREFIX}/usr"
 }
 
 src_install() {
-	cd cuda/build
+	cd cuda/build || die
 	emake GDEVDIR="${EPREFIX}/usr" DESTDIR="${D}" install
 }
