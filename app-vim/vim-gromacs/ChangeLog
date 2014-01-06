@@ -1,6 +1,10 @@
 # ChangeLog for app-vim/vim-gromacs
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> vim-gromacs-9999.ebuild,
+  metadata.xml:
+  Switch from git-2 to git-r3
 
   09 Oct 2012; Alexey Shvetsov <alexxy@gentoo.org> vim-gromacs-9999.ebuild:
   [app-vim/vim-gromacs] Fix typo
