@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -43,7 +43,7 @@ RDEPEND="
 	metis? ( || ( sci-libs/parmetis sci-libs/metis ) )
 	mumps? ( sci-libs/mumps )
 	netcdf? ( sci-libs/netcdf )
-	petsc? ( sci-libs/petsc )
+	petsc? ( sci-mathematics/petsc )
 	qd? ( sci-libs/qd )
 	qt4? ( dev-qt/qtgui:4 )
 	scalapack? ( virtual/scalapack )
