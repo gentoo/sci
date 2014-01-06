@@ -1,36 +1,31 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-EGIT_REPO_URI="https://github.com/xianyi/OpenBLAS.git"
-EGIT_MASTER="develop"
-
-inherit eutils toolchain-funcs alternatives-2 multilib fortran-2 git-2
+inherit alternatives-2 eutils fortran-2 git-r3 multilib toolchain-funcs
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
-KEYWORDS=""
 SRC_URI="http://dev.gentoo.org/~bicatali/distfiles/${PN}-gentoo.patch"
+EGIT_REPO_URI="https://github.com/xianyi/OpenBLAS.git"
+EGIT_BRANCH="develop"
 
 LICENSE="BSD"
 SLOT="0"
-
 IUSE="int64 dynamic openmp static-libs threads"
-
-RDEPEND=""
-DEPEND="${RDEPEND}"
+KEYWORDS=""
 
 src_configure() {
 	# lapack and lapacke are not modified from upstream lapack
-	sed -i \
+	sed \
 		-e "s:^#\s*\(CC\)\s*=.*:\1=$(tc-getCC):" \
 		-e "s:^#\s*\(FC\)\s*=.*:\1=$(tc-getFC):" \
 		-e "s:^#\s*\(COMMON_OPT\)\s*=.*:\1=${CFLAGS}:" \
 		-e "s:^#\s*\(NO_LAPACK\)\s*=.*:\1=1:" \
 		-e "s:^#\s*\(NO_LAPACKE\)\s*=.*:\1=1:" \
-		Makefile.rule || die
+		-i Makefile.rule || die
 }
 
 openblas_compile() {
