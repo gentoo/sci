@@ -1,22 +1,20 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit cmake-utils git-2
+inherit cmake-utils git-r3
 
 DESCRIPTION="A programmer's API and an end-user's toolkit for handling BAM files"
 HOMEPAGE="https://github.com/pezmaster31/bamtools"
+SRC_URI=""
 EGIT_REPO_URI="https://github.com/pezmaster31/bamtools.git"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
-
-DEPEND="sys-libs/zlib"
-RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/src
 

@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/bamtools
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> bamtools-9999.ebuild,
+  metadata.xml:
+  Switch from git-2 to git-r3
 
   09 Nov 2012; Justin Lecher <jlec@gentoo.org> -bamtools-1.0.2.ebuild,
   bamtools-9999.ebuild:
