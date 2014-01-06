@@ -1,8 +1,10 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit base toolchain-funcs
+EAPI=5
+
+inherit eutils toolchain-funcs
 
 DESCRIPTION="Converts CCP4 mtz-files containing anomalous data to Scalepack format"
 HOMEPAGE="http://shelx.uni-ac.gwdg.de/~tg/mtz2x/mtz2sca"
@@ -18,18 +20,17 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/
 
-PATCHES=(
-	"${FILESDIR}"/${PV}-gentoo.patch
-	)
+src_prepare() {
+	epatch "${FILESDIR}"/${PV}-gentoo.patch
+}
 
 src_compile() {
 	emake \
 		CXX=$(tc-getCXX) \
 		CFLAGS="${CFLAGS}" \
-		LDFLAGS="${LDFLAGS}" || \
-		die "compilation failed"
+		LDFLAGS="${LDFLAGS}"
 }
 
 src_install() {
-	dobin ${PN} || die "installation of ${PN} failed"
+	dobin ${PN}
 }
