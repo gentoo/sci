@@ -1,0 +1,277 @@
+ bem/Makefile.am                         |  5 +++--
+ calcCAP/Makefile.am                     |  3 ++-
+ calcRL/Makefile.am                      |  3 ++-
+ csdl/Makefile.am                        |  5 +++--
+ gui/Makefile.am                         | 12 +++---------
+ sppdgTcllib/Makefile.am                 |  3 ++-
+ sppdgTcllib/addressDialog/Makefile.am   |  3 ++-
+ sppdgTcllib/addressDialog/configure.ac  |  2 +-
+ sppdgTcllib/configure.ac                |  2 +-
+ sppdgTcllib/console/Makefile.am         |  7 +++----
+ sppdgTcllib/console/configure.ac        |  4 ++--
+ sppdgTcllib/getFilePreview/Makefile.am  |  3 ++-
+ sppdgTcllib/getFilePreview/configure.ac |  2 +-
+ sppdgTcllib/sgraph/Makefile.am          |  3 ++-
+ sppdgTcllib/sgraph/configure.ac         |  2 +-
+ units/Makefile.am                       |  3 ++-
+ 16 files changed, 32 insertions(+), 30 deletions(-)
+
+diff --git a/bem/Makefile.am b/bem/Makefile.am
+index c2af1cd..9b784ca 100755
+--- a/bem/Makefile.am
++++ b/bem/Makefile.am
+@@ -31,9 +31,10 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
+ #---------------------------------------------------------------
+ # tcl/tk scripts that may need to be installed.
+ #---------------------------------------------------------------
+-pkglib_SCRIPTS = \
++scriptsdir=${pkgdatadir}/scripts
++scripts_DATA = \
+         lib/bem.tcl \
+-	lib/bem_gpge.itcl \
++        lib/bem_gpge.itcl \
+         lib/bem_graphs.itcl \
+         lib/bem_iterate.tcl \
+         lib/bem_parameters.tcl \
+diff --git a/calcCAP/Makefile.am b/calcCAP/Makefile.am
+index 703cb0f..ce34995 100755
+--- a/calcCAP/Makefile.am
++++ b/calcCAP/Makefile.am
+@@ -30,7 +30,8 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
+ #---------------------------------------------------------------
+ # tcl/tk scripts that may need to be installed.
+ #---------------------------------------------------------------
+-pkglib_SCRIPTS = \
++scriptsdir=${pkgdatadir}/scripts
++scripts_DATA = \
+ 	lib/calcCAP_exe.tcl  \
+ 	lib/calcCAP.tcl \
+ 	lib/epl.bit \
+diff --git a/calcRL/Makefile.am b/calcRL/Makefile.am
+index 34dbb8d..9c2986c 100755
+--- a/calcRL/Makefile.am
++++ b/calcRL/Makefile.am
+@@ -31,7 +31,8 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
+ #---------------------------------------------------------------
+ # tcl/tk scripts that may need to be installed.
+ #---------------------------------------------------------------
+-pkglib_SCRIPTS = \
++scriptsdir=${pkgdatadir}/scripts
++scripts_SCRIPTS = \
+ 	lib/calcRL.tcl \
+ 	lib/calcRL_exe.tcl \
+ 	lib/pkgIndex.tcl
+diff --git a/csdl/Makefile.am b/csdl/Makefile.am
+index c49af20..2b74c89 100755
+--- a/csdl/Makefile.am
++++ b/csdl/Makefile.am
+@@ -31,7 +31,8 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
+ #---------------------------------------------------------------
+ # tcl/tk scripts that may need to be installed.
+ #---------------------------------------------------------------
+-pkglib_SCRIPTS = \
++scriptsdir=${pkgdatadir}/scripts
++scripts_DATA = \
+ 	csdl.tcl \
+ 	csdl_hlcsdl.itcl \
+ 	csdl_llcsdl.itcl \
+@@ -44,4 +45,4 @@ pkglib_SCRIPTS = \
+ #---------------------------------------------------------------
+ pkglibdir = $(libdir)/$(PACKAGE)$(PACKAGE_VERSION)
+ 
+-
++ 
+diff --git a/gui/Makefile.am b/gui/Makefile.am
+index 44a4308..df8c284 100755
+--- a/gui/Makefile.am
++++ b/gui/Makefile.am
+@@ -30,7 +30,8 @@ AUTOMAKE_OPTIONS = foreign
+ #---------------------------------------------------------------
+ # tcl/tk scripts to be installed.
+ #---------------------------------------------------------------
+-pkglib_SCRIPTS = \
++scriptsdir=${pkgdatadir}/scripts
++scripts_DATA = \
+ 	canvas_functions.tcl \
+ 	gui.tcl \
+ 	gui_build.tcl \
+@@ -41,14 +42,7 @@ pkglib_SCRIPTS = \
+ 	gui_xmission.tcl \
+ 	pkgIndex.tcl \
+ 	splash.tcl \
+-	style.tcl
+-
+-
+-
+-#---------------------------------------------------------------
+-#  Data files to be installed
+-#---------------------------------------------------------------
+-pkglib_DATA = \
++	style.tcl \
+ 	MayoSPPDGlogo.gif \
+ 	conductivity.list \
+ 	loss_tangent.list \
+diff --git a/sppdgTcllib/Makefile.am b/sppdgTcllib/Makefile.am
+index 589874b..e16b83e 100755
+--- a/sppdgTcllib/Makefile.am
++++ b/sppdgTcllib/Makefile.am
+@@ -33,7 +33,8 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
+ #---------------------------------------------------------------
+ #  Only one script that needs to be installed.
+ #---------------------------------------------------------------
+-pkglib_SCRIPTS = \
++scriptsdir=${pkgdatadir}/scripts
++scripts_DATA = \
+ 	pkgIndex.tcl
+ 
+ #---------------------------------------------------------------
+diff --git a/sppdgTcllib/addressDialog/Makefile.am b/sppdgTcllib/addressDialog/Makefile.am
+index 32fc525..47ef097 100755
+--- a/sppdgTcllib/addressDialog/Makefile.am
++++ b/sppdgTcllib/addressDialog/Makefile.am
+@@ -14,7 +14,8 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
+ #---------------------------------------------------------------
+ # tcl/tk scripts that may need to be installed.
+ #---------------------------------------------------------------
+-pkglib_SCRIPTS = \
++scriptsdir=${pkgdatadir}/scripts
++scripts_DATA = \
+ 	addressDialog.tcl \
+ 	pkgIndex.tcl
+ 
+diff --git a/sppdgTcllib/addressDialog/configure.ac b/sppdgTcllib/addressDialog/configure.ac
+index 488ed2c..288faf3 100755
+--- a/sppdgTcllib/addressDialog/configure.ac
++++ b/sppdgTcllib/addressDialog/configure.ac
+@@ -21,7 +21,7 @@ AC_INIT(ADDRESSDIALOG, 1.0, schrauf@mayo.edu)
+ #  we're going to use automake later.
+ #----------------------------------------------------------------
+ AC_CONFIG_SRCDIR
+-AM_INIT_AUTOMAKE(addressDialog, 1.0)
++AM_INIT_AUTOMAKE
+ 
+ 
+ #----------------------------------------------------------------
+diff --git a/sppdgTcllib/configure.ac b/sppdgTcllib/configure.ac
+index e4e8d54..6e010e1 100755
+--- a/sppdgTcllib/configure.ac
++++ b/sppdgTcllib/configure.ac
+@@ -28,7 +28,7 @@ AC_INIT(sppdgTcllib, 1.0, techentin.robert@mayo.edu)
+ #  we're going to use automake later.
+ #----------------------------------------------------------------
+ AC_CONFIG_SRCDIR
+-AM_INIT_AUTOMAKE(sppdgTcllib, 1.0)
++AM_INIT_AUTOMAKE
+ 
+ 
+ #---------------------------------------------------------------
+diff --git a/sppdgTcllib/console/Makefile.am b/sppdgTcllib/console/Makefile.am
+index 92d5a2f..9bbe657 100755
+--- a/sppdgTcllib/console/Makefile.am
++++ b/sppdgTcllib/console/Makefile.am
+@@ -33,13 +33,12 @@ AUTOMAKE_OPTIONS = foreign
+ #---------------------------------------------------------------
+ # tcl/tk scripts that may need to be installed.
+ #---------------------------------------------------------------
+-pkglib_SCRIPTS = \
++scriptsdir=${pkgdatadir}/scripts
++scripts_DATA = \
+ 	console.tcl \
+ 	console_demo.tcl \
+ 	tkcon.tcl \
+-	pkgIndex.tcl
+-
+-pkglib_DATA = \
++	pkgIndex.tcl \
+ 	README
+ 
+ #---------------------------------------------------------------
+diff --git a/sppdgTcllib/console/configure.ac b/sppdgTcllib/console/configure.ac
+index 1ce7a3c..bf4d12c 100755
+--- a/sppdgTcllib/console/configure.ac
++++ b/sppdgTcllib/console/configure.ac
+@@ -22,14 +22,14 @@
+ #  Declare the package name and version.
+ #  All the bouquets and brickbats go to Bob. :-)
+ #----------------------------------------------------------------
+-AC_INIT(console, 1.1, techentin.robert@mayo.edu)
++AC_INIT([console], [1.1], techentin.robert@mayo.edu)
+ 
+ #----------------------------------------------------------------
+ #  Give autoconf a point of reference, and tell it that
+ #  we're going to use automake later.
+ #----------------------------------------------------------------
+ AC_CONFIG_SRCDIR
+-AM_INIT_AUTOMAKE(console, 1.1)
++AM_INIT_AUTOMAKE
+ 
+ 
+ #----------------------------------------------------------------
+diff --git a/sppdgTcllib/getFilePreview/Makefile.am b/sppdgTcllib/getFilePreview/Makefile.am
+index 94394c3..c0c6394 100755
+--- a/sppdgTcllib/getFilePreview/Makefile.am
++++ b/sppdgTcllib/getFilePreview/Makefile.am
+@@ -32,7 +32,8 @@ AUTOMAKE_OPTIONS = foreign
+ #---------------------------------------------------------------
+ # tcl/tk scripts that may need to be installed.
+ #---------------------------------------------------------------
+-pkglib_SCRIPTS = \
++scriptsdir=${pkgdatadir}/scripts
++scripts_DATA = \
+ 	getFilePreview.tcl \
+ 	pkgIndex.tcl
+ 
+diff --git a/sppdgTcllib/getFilePreview/configure.ac b/sppdgTcllib/getFilePreview/configure.ac
+index ccf33a3..50b1838 100755
+--- a/sppdgTcllib/getFilePreview/configure.ac
++++ b/sppdgTcllib/getFilePreview/configure.ac
+@@ -28,7 +28,7 @@ AC_INIT(getFilePreview, 1.0, techentin.robert@mayo.edu)
+ #  we're going to use automake later.
+ #----------------------------------------------------------------
+ AC_CONFIG_SRCDIR
+-AM_INIT_AUTOMAKE(getFilePreview, 1.0)
++AM_INIT_AUTOMAKE
+ 
+ 
+ #----------------------------------------------------------------
+diff --git a/sppdgTcllib/sgraph/Makefile.am b/sppdgTcllib/sgraph/Makefile.am
+index b02a876..b1da3e1 100755
+--- a/sppdgTcllib/sgraph/Makefile.am
++++ b/sppdgTcllib/sgraph/Makefile.am
+@@ -32,7 +32,8 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
+ #---------------------------------------------------------------
+ # tcl/tk scripts that may need to be installed.
+ #---------------------------------------------------------------
+-pkglib_SCRIPTS = \
++scriptsdir=${pkgdatadir}/scripts
++scripts_DATA = \
+ 	sgraph.tcl \
+ 	pkgIndex.tcl
+ 
+diff --git a/sppdgTcllib/sgraph/configure.ac b/sppdgTcllib/sgraph/configure.ac
+index 8eb7ef7..e28b7dd 100755
+--- a/sppdgTcllib/sgraph/configure.ac
++++ b/sppdgTcllib/sgraph/configure.ac
+@@ -29,7 +29,7 @@ AC_INIT(SGRAPH, 1.0, zahn.sharon@mayo.edu)
+ #  we're going to use automake later.
+ #----------------------------------------------------------------
+ AC_CONFIG_SRCDIR
+-AM_INIT_AUTOMAKE(sgraph, 1.0)
++AM_INIT_AUTOMAKE
+ 
+ 
+ #----------------------------------------------------------------
+diff --git a/units/Makefile.am b/units/Makefile.am
+index c47ec3c..ea941a9 100755
+--- a/units/Makefile.am
++++ b/units/Makefile.am
+@@ -31,7 +31,8 @@ AUTOMAKE_OPTIONS = foreign subdir-objects
+ #---------------------------------------------------------------
+ # tcl/tk scripts that may need to be installed.
+ #---------------------------------------------------------------
+-pkglib_SCRIPTS = \
++scriptsdir=${pkgdatadir}/scripts
++scripts_DATA = \
+ 	units.tcl \
+ 	pkgIndex.tcl \
+ 	units.html
