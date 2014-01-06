@@ -18,9 +18,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="gsl kepler mpi nlopt python test"
 
+REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+
 RDEPEND="
 	dev-libs/boost[mpi?]
-	python? ( dev-libs/boost[${PYTHON_USEDEP}] )
+	python? (
+		${PYTHON_DEPS}
+		dev-libs/boost[${PYTHON_USEDEP}]
+		)
 	nlopt? ( sci-libs/nlopt )
 	gsl? ( sci-libs/gsl )"
 DEPEND="${RDEPEND}"
