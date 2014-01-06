@@ -1,17 +1,15 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-EGIT_REPO_URI="git://github.com/JuliaLang/julia.git"
-EGIT_HAS_SUBMODULES=yes
-
-inherit git-2 elisp-common eutils multilib
+inherit git-r3 elisp-common eutils multilib
 
 DESCRIPTION="High-performance programming language for technical computing"
 HOMEPAGE="http://julialang.org/"
 SRC_URI=""
+EGIT_REPO_URI="git://github.com/JuliaLang/julia.git"
 
 LICENSE="MIT"
 SLOT="0"
@@ -35,7 +33,6 @@ RDEPEND="
 	virtual/blas
 	virtual/lapack
 	emacs? ( !app-emacs/ess )"
-
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
