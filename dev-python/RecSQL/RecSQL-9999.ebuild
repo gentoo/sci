@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python{2_5,2_6,2_7} )
 PYTHON_REQ_USE="sqlite"
 
 if [[ $PV = *9999* ]]; then
-	scm_eclass=git-2
+	scm_eclass=git-r3
 	EGIT_REPO_URI="
 		git://github.com/orbeckst/${PN}.git
 		https://github.com/orbeckst/${PN}.git"
