@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/fastx_toolkit
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> fastx_toolkit-0.0.13.2.ebuild,
+  +metadata.xml:
+  Bump to EAPI=5 and add missing metadata.xml
 
 *fastx_toolkit-0.0.13.2 (29 Aug 2013)
 
