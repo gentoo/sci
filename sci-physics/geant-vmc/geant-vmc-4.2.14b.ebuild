@@ -34,23 +34,24 @@ src_compile() {
 	local d
 	source $(ls -1 "${EROOT}"usr/share/Geant4-*/geant4make/geant4make.sh) || die
 	for d in ${dirs}; do
-		pushd ${d} > /dev/null
+		pushd ${d} > /dev/null || die
 		emake
-		use doc && doxygen
+		if use doc; then
+			doxygen || die
+		fi
 		popd > /dev/null
 	done
 }
 
 src_test() {
-	cd examples
+	cd examples || die
 	emake
 	./run_suite.sh || die
 }
 
 src_install() {
 	dolib.so lib/tgt_*/{libg4root,libgeant4vmc}.so
-	insinto /usr
-	doins -r include
+	doheader include/*
 	dodoc README history version_number
 	use doc && dohtml -r Geant4VMC.html doc/*
 	if use examples; then
