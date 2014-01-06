@@ -1,6 +1,17 @@
 # ChangeLog for sci-physics/geant-vmc
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> geant-vmc-4.2.14b.ebuild,
+  geant-vmc-4.2.15.ebuild, metadata.xml:
+  Add missing die
+
+*geant-vmc-4.2.15 (06 Jan 2014)
+
+  06 Jan 2014; <o.freyermuth@googlemail.com> geant-vmc-4.2.14b.ebuild,
+  +geant-vmc-4.2.15.ebuild:
+  Version bump to 2.15 which builds with Geant 4.10.00 (note #360287 and
+  #496678), make 2.14b DEPEND on <sci-physics/geant-4.10.00 . 
 
 *geant-vmc-4.2.14b (26 Nov 2013)
 
