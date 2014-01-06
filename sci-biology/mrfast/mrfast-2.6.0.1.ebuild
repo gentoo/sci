@@ -1,10 +1,10 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/amos/amos-2.0.8-r1.ebuild,v 1.1 2010/02/11 16:47:31 weaver Exp $
 
-EAPI=4
+EAPI=5
 
-inherit base
+inherit eutils toolchain-funcs
 
 DESCRIPTION="Micro Read Fast Alignment Search Tool"
 HOMEPAGE="http://mrfast.sourceforge.net/"
@@ -15,16 +15,17 @@ SLOT="0"
 IUSE=""
 KEYWORDS="~amd64"
 
-DEPEND=""
-RDEPEND=""
-
-PATCHES=("${FILESDIR}"/${P}-*.patch)
-
 src_prepare() {
-	base_src_prepare
-	sed -i -e 's/CFLAGS =/CFLAGS +=/' -e 's/LDFLAGS =/LDFLAGS +=/' Makefile
+	sed \
+		-e '/^CC/s:=:?=:g' \
+		-e 's/CFLAGS =/CFLAGS +=/' \
+		-e 's/LDFLAGS/LIBS/g' \
+		-e 's:-O3.*::g' \
+		-e 's:$(CC) $(OBJECTS):$(CC) $(LDFLAGS) $(OBJECTS):g' \
+		-i Makefile || die
+	tc-export CC
 }
 
 src_install() {
-	dobin mrfast
+	dobin ${PN}
 }
