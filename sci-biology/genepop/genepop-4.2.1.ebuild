@@ -1,14 +1,14 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/ncbi-tools++/ncbi-tools++-2009.05.15-r1.ebuild,v 1.2 2009/08/19 08:00:26 weaver Exp $
 
-EAPI="2"
+EAPI=5
 
-inherit base toolchain-funcs
+inherit cmake-utils
 
 DESCRIPTION="Population genetics analysis"
 HOMEPAGE="http://genepop.curtin.edu.au/ http://kimura.univ-montp2.fr/~rousset/Genepop.htm"
-SRC_URI="mirror://gentoo/${P}.zip"
+SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.tar.gz"
 
 LICENSE="CeCILL-2"
 SLOT="0"
@@ -20,20 +20,15 @@ RDEPEND=""
 
 S="${WORKDIR}"
 
-src_unpack() {
-	base_src_unpack
-	unzip -d "${S}" sources.zip
-	mkdir "${S}/examples"
-	unzip -d "${S}/examples" examples.zip
-}
+src_prepare() {
+	cat >> CMakeLists.txt <<- EOF
+	cmake_minimum_required (VERSION 2.6)
+	project (${PN} CXX)
 
-src_compile() {
-	$(tc-getCXX) ${CFLAGS} -DNO_MODULES -o Genepop GenepopS.cpp -O3 || die
-}
+	set(CMAKE_CXX_FLAGS "\${CMAKE_CXX_FLAGS} -DNO_MODULES")
 
-src_install() {
-	dobin Genepop || die
-	insinto /usr/share/${PN}
-	doins -r examples || die
-	dodoc Genepop.pdf
+	add_executable(Genepop GenepopS.cpp)
+	install(TARGETS Genepop DESTINATION bin)
+	EOF
+	cmake-utils_src_prepare
 }
