@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/staden
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> staden-2.0.0_beta9.ebuild,
+  staden-9999.ebuild, metadata.xml:
+  Punt base.eclass; transfer changes to live ebuild
 
 *staden-2.0.0_beta9 (26 Nov 2012)
 
