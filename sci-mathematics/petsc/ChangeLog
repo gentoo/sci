@@ -1,6 +1,10 @@
 # ChangeLog for sci-mathematics/petsc
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> -petsc-3.3_p5.ebuild,
+  petsc-3.4.2.ebuild, metadata.xml:
+  Punt base.eclass
 
   22 Feb 2013; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Drop unused local USE-description: 'metis'

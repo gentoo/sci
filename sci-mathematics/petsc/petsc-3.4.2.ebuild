@@ -1,10 +1,10 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-inherit base flag-o-matic fortran-2 toolchain-funcs versionator
+inherit eutils flag-o-matic fortran-2 toolchain-funcs versionator
 
 MY_P="${PN}-$(replace_version_separator _ -)"
 
@@ -64,9 +64,9 @@ MAKEOPTS="${MAKEOPTS} -j1"
 
 S="${WORKDIR}/${MY_P}"
 
-PATCHES=(
-	"${FILESDIR}"/${P%_*}-disable-rpath.patch
-)
+src_prepare() {
+	epatch "${FILESDIR}"/${P%_*}-disable-rpath.patch
+}
 
 src_configure() {
 	# petsc uses --with-blah=1 and --with-blah=0 to en/disable options
@@ -160,12 +160,12 @@ src_configure() {
 		$(petsc_with X x) \
 		$(petsc_with X x11) \
 		$(petsc_with scotch ptscotch \
-		    /usr/include/scotch \
-	        [-lptesmumps,-lptscotch,-lptscotcherr,-lscotch,-lscotcherr]) \
+			/usr/include/scotch \
+		[-lptesmumps,-lptscotch,-lptscotcherr,-lscotch,-lscotcherr]) \
 		$(petsc_with mumps scalapack \
-		    /usr/include/scalapack -lscalapack) \
+			/usr/include/scalapack -lscalapack) \
 		$(petsc_with mumps mumps \
-		    /usr/include \
+			/usr/include \
 			[-lcmumps,-ldmumps,-lsmumps,-lzmumps,-lmumps_common,-lpord]) \
 		--with-imagemagick=0 \
 		--with-python=0 \
@@ -206,9 +206,9 @@ src_install() {
 	insinto /usr/include/${PN}/petsc-private
 	doins include/petsc-private/*.h
 
-	# fix configuration files: replace ${S} by installed location
+	# fix configuration files: replace "${S}" by installed location
 	sed -i \
-		-e "s:${S}::g" \
+		-e "s:"${S}"::g" \
 		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/include/petscconf.h \
 		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/conf/petscvariables || die
 	sed -i \
