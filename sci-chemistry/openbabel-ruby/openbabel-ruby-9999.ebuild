@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,10 +6,11 @@ EAPI=5
 
 USE_RUBY="ruby18 ruby19"
 
-inherit cmake-utils eutils ruby-ng git-2
+inherit cmake-utils eutils ruby-ng git-r3
 
 DESCRIPTION="Ruby bindings for OpenBabel"
 HOMEPAGE="http://openbabel.sourceforge.net/"
+SRC_URI=""
 EGIT_REPO_URI="https://github.com/openbabel/openbabel.git"
 
 LICENSE="GPL-2"
@@ -27,7 +28,7 @@ CMAKE_IN_SOURCE_BUILD=1
 
 src_unpack() {
 	all_ruby_unpack() {
-		git-2_src_unpack
+		git-r3_src_unpack
 	}
 
 	ruby-ng_src_unpack
