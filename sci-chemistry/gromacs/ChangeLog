@@ -6,6 +6,10 @@
   gromacs-5.0_beta1.ebuild, gromacs-9999.ebuild:
   Switch from git-2 to git-r3
 
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> gromacs-4.6.9999.ebuild,
+  gromacs-5.0_beta1.ebuild, gromacs-9999.ebuild:
+  Switch from git-2 to git-r3
+
   07 Dec 2013; Justin Lecher <jlec@gentoo.org> gromacs-5.0_beta1.ebuild,
   metadata.xml:
   Fix multilib-strict problems

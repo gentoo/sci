@@ -79,12 +79,12 @@ src_unpack() {
 	if [[ ${PV} != *9999 ]]; then
 		default
 	else
-		git-2_src_unpack
+		git-r3_src_unpack
 		if use test; then
 			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
 			EGIT_BRANCH="master" EGIT_NOUNPACK="yes" EGIT_COMMIT="master" \
 			EGIT_SOURCEDIR="${WORKDIR}/regressiontests"\
-				git-2_src_unpack
+				git-r3_src_unpack
 		fi
 	fi
 }
