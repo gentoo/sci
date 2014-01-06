@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,7 +16,7 @@ if [[ $PV = *9999* ]]; then
 		git://github.com/gromacs/gromacs.git
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="master"
-	inherit git-2
+	inherit git-r3
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${PN}-${PV/_/-}.tar.gz
 		test? ( http://${PN}.googlecode.com/files/regressiontests-${TEST_PV}.tar.gz )"
