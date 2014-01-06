@@ -1,9 +1,10 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
-DESCRIPTION="Elmer is a collection of finite element programs, libraries, and visualization tools"
+DESCRIPTION="Collection of finite element programs, libraries, and visualization tools"
+HOMEPAGE="http://www.csc.fi/english/pages/elmer"
 
 LICENSE="GPL-2"
 SLOT="0"
