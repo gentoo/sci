@@ -1,7 +1,11 @@
-diff --git a/source/DRAWshell44/Makefile b/source/DRAWshell44/Makefile
-index 2ab54d1..4e4e4ed 100644
---- a/source/DRAWshell44/Makefile
-+++ b/source/DRAWshell44/Makefile
+ source/DRAWshell45/Makefile | 14 ++++++--------
+ source/DRAWxtl45/Makefile   | 26 ++++++++++++--------------
+ 2 files changed, 18 insertions(+), 22 deletions(-)
+
+diff --git a/source/DRAWshell45/Makefile b/source/DRAWshell45/Makefile
+index 5a9c5d1..96dc51a 100644
+--- a/source/DRAWshell45/Makefile
++++ b/source/DRAWshell45/Makefile
 @@ -31,15 +31,15 @@ ifeq ($(OS),Linux)
    libdir          = /lib
  
@@ -41,11 +45,11 @@ index 2ab54d1..4e4e4ed 100644
  		$(LINKFLTKGL) $(GLDLIBS) 
  	$(POSTLINK) $@
  
-diff --git a/source/DRAWxtl44/Makefile b/source/DRAWxtl44/Makefile
-index 02a6f73..51721a3 100644
---- a/source/DRAWxtl44/Makefile
-+++ b/source/DRAWxtl44/Makefile
-@@ -23,21 +23,21 @@ EXEEXT =
+diff --git a/source/DRAWxtl45/Makefile b/source/DRAWxtl45/Makefile
+index 4417338..a78c9a4 100644
+--- a/source/DRAWxtl45/Makefile
++++ b/source/DRAWxtl45/Makefile
+@@ -31,21 +31,21 @@ EXEEXT =
  ifeq ($(OS),Linux)
  
    # compiler name
@@ -56,15 +60,15 @@ index 02a6f73..51721a3 100644
  
  # flags for C++ compiler:
 -  OPTIM  = -g -O  -Wunused  -fno-exceptions -Wall
--  CXXOPT = $(OPTIM)  -I/usr/X11R6/include
+-  CXXOPT = $(OPTIM) $(OPENGL) -I/usr/X11R6/include
 +  OPTIM  = $(CFLAGS)
-+  CXXOPT = $(CXXFLAGS)  -I/usr/X11R6/include
++  CXXOPT = $(CXXFLAGS) $(OPENGL) -I/usr/X11R6/include
  
    GLUTlib2 =
  
    # multiplatform gcc options
--  CCOPT = $(OPTIM) -c -Wuninitialized -Wreturn-type -Wmissing-prototypes -Wstrict-prototypes $(GLUTcopt)
-+  CCOPT = $(OPTIM) -c $(GLUTcopt)
+-  CCOPT = $(OPTIM) $(OPENGL) -c -Wuninitialized -Wreturn-type -Wmissing-prototypes -Wstrict-prototypes $(GLUTcopt)
++  CCOPT = $(OPTIM) $(OPENGL) -c $(GLUTcopt)
  
    # standard Linux GLut locations:
  
@@ -73,7 +77,7 @@ index 02a6f73..51721a3 100644
    GLUTlib = /usr/local/lib
    GLUTcopt = -I$(GLUTinclude)
    GLUTlib1 = -L$(GLUTlib) -lglut -lGLU -lGL -ldl -lm -L/usr/X11R6/lib -lX11 -lm -lXi
-@@ -53,7 +53,7 @@ ifeq ($(OS),CYGWIN)
+@@ -61,7 +61,7 @@ ifeq ($(OS),CYGWIN)
  # section to define the various symbols needed to build DRAWxtl for cygwin running on Windows
  
    prefix          = /usr/
@@ -82,7 +86,7 @@ index 02a6f73..51721a3 100644
    libdir          = 
  
  # compiler name:
-@@ -156,8 +156,6 @@ ifeq ($(OPTIM),error)
+@@ -164,8 +164,6 @@ ifeq ($(OPTIM),error)
    GLDLIBS = -lglut -lGLU -lGL
  endif
  
@@ -91,7 +95,7 @@ index 02a6f73..51721a3 100644
  
  # Build commands and filename extensions...
  .SUFFIXES:	.rc .cxx .c .h .o $(EXEEXT)
-@@ -168,7 +166,7 @@ endif
+@@ -176,7 +174,7 @@ endif
  
  .cxx.o:
  	echo Compiling $<...
@@ -100,7 +104,7 @@ index 02a6f73..51721a3 100644
  
  .c.o:
  	echo Compiling $<...
-@@ -207,8 +205,8 @@ clean:
+@@ -216,8 +214,8 @@ clean:
  .deps:  $(CXXFILES) $(CCFILES)
  	echo "Building dependencies..."
  	echo >.deps
@@ -111,7 +115,7 @@ index 02a6f73..51721a3 100644
  
  -include .deps
  
-@@ -216,12 +214,12 @@ clean:
+@@ -225,12 +223,12 @@ clean:
  
  $(TARGET) : $(OBJFILES) .deps
  	echo Linking $@...

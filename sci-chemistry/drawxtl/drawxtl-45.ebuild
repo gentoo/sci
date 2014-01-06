@@ -1,10 +1,10 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
-inherit base toolchain-funcs
+inherit eutils toolchain-funcs
 
 MY_PN="DRAWxtl"
 MY_P=${MY_PN}${PV}
@@ -18,7 +18,8 @@ SLOT="4"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples fltk opengl"
 
-DEPEND="opengl? (
+DEPEND="
+	opengl? (
 		virtual/opengl
 		media-libs/freeglut
 		)
@@ -27,49 +28,44 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_PN}"
 
-PATCHES=(
-	"${FILESDIR}"/${PV}-gentoo.patch
-	)
-
 src_prepare() {
-	base_src_prepare
-	cd "${S}"/source
+	epatch "${FILESDIR}"/${P}-gentoo.patch
+	cd "${S}"/source || die
 	if ! use opengl; then
 		sed -i -e 's:define OPENGL 1:undef OPENGL:' ${MY_P}/drawxtl.h || die "sed failed"
 		sed -i -e 's:$(GLUTlopt)::g' ${MY_P}/Makefile || die "sed failed"
 	fi
 
-	tc-export CC
-	tc-export CXX
+	tc-export CC CXX
 }
 
 src_compile() {
 	# that missing exe dir is required by the Makefile
 	mkdir exe || die "mkdir failed"
-	cd source/${MY_P}
-	emake clean || die
-	emake || die "Build of ${MY_PN} failed"
+	cd source/${MY_P} || die
+	emake clean
+	emake
 
 	if use fltk; then
-		cd "${S}"/source/DRAWshell${PV}
-		emake || die "Build of DRAWshell failed"
+		cd "${S}"/source/DRAWshell${PV} || die
+		emake
 	fi
 }
 
 src_install() {
-	dobin exe/${MY_P} || die "dobin failed"
+	dobin exe/${MY_P}
 
 	if use fltk; then
-		dobin exe/DRAWshell${PV} || die "dobin failed"
+		dobin exe/DRAWshell${PV}
 	fi
 
-	dodoc docs/readme.txt || die "dodoc failed"
+	dodoc docs/readme.txt
 	insinto /usr/share/doc/${P}
-	doins docs/*.pdf || die "doins failed"
+	doins docs/*.pdf
 
 	if use examples; then
 		docinto examples
-		dodoc examples/* || die "dodoc failed"
+		dodoc examples/*
 	fi
 }
 

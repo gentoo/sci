@@ -1,8 +1,11 @@
-diff --git a/source/DRAWxtl54/Makefile b/source/DRAWxtl54/Makefile
-index c6eea1e..d541630 100644
---- a/source/DRAWxtl54/Makefile
-+++ b/source/DRAWxtl54/Makefile
-@@ -37,19 +37,18 @@ ifeq ($(OS),Linux)
+ source/DRAWxtl55/Makefile | 27 ++++++++-------------------
+ 1 file changed, 8 insertions(+), 19 deletions(-)
+
+diff --git a/source/DRAWxtl55/Makefile b/source/DRAWxtl55/Makefile
+index 24b2bbc..a6e03b4 100644
+--- a/source/DRAWxtl55/Makefile
++++ b/source/DRAWxtl55/Makefile
+@@ -42,21 +42,20 @@ ifeq ($(OS),Linux)
    endif
  
  # compiler name:
@@ -11,23 +14,25 @@ index c6eea1e..d541630 100644
  
  # flags for C++ compiler:
 -  OPTIM           = -g -Wall -Wunused  -fno-exceptions
- # work around a bug in freeglut 2.4 - comment this line if using a different GLut
--  GLUT		  = -DFREEGLUT24
+ # work around a bug in freeglut 2.4 - only enable this if you have to use a version 
+ # of fltk before 1.1.8 AND exactly version 2.4 of freeglut
+-#  GLUT		  = -DFREEGLUT24
 -  CXXFLAGS        = $(OPTIM)  -I/usr/X11R6/include $(GLUT)
-+  GLUT		  = -DFREEGLUT26
++#  GLUT		  = -DFREEGLUT26
 + FLTKFLAGS        = -I/usr/X11R6/include $(GLUT) `fltk-config --cxxflags`
  
  # libraries to link with:
--  GLDLIBS  =  -L/usr/X11R6/lib  -lglut -lGLU -lGL -lXinerama -lXft -lpthread -lm  -lXext -lX11  -lXpm \
-+  GLDLIBS  =  -L/usr/X11R6/lib  -lglut -lGLU -lGL -lXft -lpthread -lm  -lXext -lX11  -lXpm
- 
+-  GLDLIBS  =  -L/usr/X11R6/lib  -lGLU -lGL -lXinerama -lXft -lpthread -lm  -lXext -lX11  -lXpm \
++  GLDLIBS  =  -L/usr/X11R6/lib  -lGLU -lGL -lXft -lpthread -lm  -lXext -lX11  -lXpm \
+ 		-lfltk \
+ # -lglut # only needed with old versions of fltk before 1.1.8
  #       -lXi -lgdkglext-x11-1.0a  # Fedora Core 2 needs these libraries
 -  LINKFLTKGL  = $(libdir)libfltk.a $(libdir)libfltk_gl.a
 +  LINKFLTKGL  = `fltk-config --ldflags` -lfltk_gl
  
  # The extension to use for executables...
    EXEEXT          =
-@@ -148,16 +147,6 @@ endif
+@@ -155,16 +154,6 @@ endif
  #
  ##################################################################################
  
@@ -44,7 +49,7 @@ index c6eea1e..d541630 100644
  # Build commands and filename extensions...
  .SUFFIXES:	.rc .cxx .h .o $(EXEEXT)
  
-@@ -167,7 +156,7 @@ endif
+@@ -174,7 +163,7 @@ endif
  
  .cxx.o:
  	echo Compiling $< ...
@@ -53,7 +58,7 @@ index c6eea1e..d541630 100644
  
  CPPFILES =\
  	CrystalView.cxx \
-@@ -208,7 +197,7 @@ clean:
+@@ -216,7 +205,7 @@ clean:
  .deps:  $(CPPFILES)
  	echo "Building dependencies..."
  	echo >.deps
@@ -62,7 +67,7 @@ index c6eea1e..d541630 100644
  
  -include .deps
  
-@@ -217,7 +206,7 @@ clean:
+@@ -225,7 +214,7 @@ clean:
  $(TARGET) : .deps $(OBJFILES) 
  	echo Linking $@...
  	mkdir -p ../../exe

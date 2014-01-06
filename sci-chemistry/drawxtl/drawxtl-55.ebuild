@@ -1,10 +1,10 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
-inherit base toolchain-funcs
+inherit eutils toolchain-funcs
 
 MY_PN="DRAWxtl"
 MY_P=${MY_PN}${PV}
@@ -18,7 +18,8 @@ SLOT="5"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
-DEPEND="virtual/opengl
+DEPEND="
+	virtual/opengl
 	>=media-libs/freeglut-2.6
 	virtual/opengl
 	x11-libs/fltk:1[opengl]"
@@ -26,28 +27,27 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_PN}"
 
-PATCHES=(
-	"${FILESDIR}"/${PV}-gentoo.patch
-	"${FILESDIR}"/${PV}-gcc44.patch
-	)
+src_prepare() {
+	epatch "${FILESDIR}"/${P}-gentoo.patch
+}
+
 src_compile() {
-	cd source/${MY_P}
+	cd source/${MY_P} || die
 	emake \
 		CXX=$(tc-getCXX) \
-		CXXFLAGS="${CXXFLAGS}" \
-		|| die "Build of ${MY_PN} failed"
+		CXXFLAGS="${CXXFLAGS}"
 }
 
 src_install() {
-	dobin exe/${MY_P} || die "dobin failed"
+	dobin exe/${MY_P}
 
-	dodoc docs/readme.txt || die "nothing to read"
+	dodoc docs/readme.txt
 	insinto /usr/share/doc/${P}
-	doins docs/*.pdf || die "doins failed"
+	doins docs/*.pdf
 
 	if use examples; then
 		docinto examples
-		dodoc examples/* || die "dodoc failed"
+		dodoc examples/*
 	fi
 }
 
