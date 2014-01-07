@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> charm-6.6.0_rc1-r1.ebuild:
+  sys-cluster/charm-6.6.0_rc1-r1: After ongoing problems with charm's git
+  repository, I packaged the rc as a tar file and serve it from my personal dev
+  webpage.
+
   03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> charm-6.6.0_rc1-r1.ebuild:
   sys-cluster/charm-6.6.0_rc1-r1: Add non-shallow option to git to avoid
   breakage of checked out repository.

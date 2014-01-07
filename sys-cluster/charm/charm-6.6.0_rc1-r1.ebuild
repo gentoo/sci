@@ -7,16 +7,11 @@ EAPI=5
 FORTRAN_STANDARD="90"
 PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
 
-inherit eutils flag-o-matic fortran-2 git-r3 multilib python-any-r1 toolchain-funcs
+inherit eutils flag-o-matic fortran-2 multilib python-any-r1 toolchain-funcs
 
 DESCRIPTION="Message-passing parallel language and runtime system"
 HOMEPAGE="http://charm.cs.uiuc.edu/"
-SRC_URI=""
-
-EGIT_REPO_URI="http://charm.cs.uiuc.edu/gerrit/charm"
-EGIT_BRANCH="charm"
-EGIT_COMMIT="57051a8f07496b9f8f696f59fad477c8a2bc3e4d"
-EGIT_NONSHALLOW="yes"
+SRC_URI="http://dev.gentoo.org/~nicolasbock/charm-${PV}.tar.bz2"
 
 LICENSE="charm"
 SLOT="0"
