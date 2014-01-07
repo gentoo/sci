@@ -15,7 +15,7 @@ SLOT="0"
 IUSE=""
 KEYWORDS="~amd64 ~x86"
 
-S="${WORKDIR}/MOSAIK-${PV}-source"
+S="${WORKDIR}"/MOSAIK-${PV}-source
 
 src_install() {
 	dobin "${WORKDIR}"/bin/*
