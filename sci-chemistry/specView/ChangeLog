@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/specView
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Jan 2014; Justin Lecher <jlec@gentoo.org> specView-1.0.3.ebuild:
+  Fix double prefix
 
 *specView-1.0.3 (07 Aug 2013)
 
