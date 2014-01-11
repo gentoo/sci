@@ -9,7 +9,7 @@ WANT_ANT_TASKS="ant-antlr ant-contrib dev-java/cpptasks:0"
 
 inherit java-pkg-2 java-ant-2
 
-MY_PV="${PV/_p/_rc0}"
+MY_PV="${PV/_rc/_rc0}"
 MY_P="${PN}-${MY_PV}"
 
 DESCRIPTION="A tool which automatically generates the JNI code necessary to call C libraries"
