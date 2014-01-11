@@ -1,0 +1,789 @@
+From a464fd862a7876e1c4f679b32956904eee88d45e Mon Sep 17 00:00:00 2001
+From: James Simmons <uja.ornl@gmail.com>
+Date: Tue, 17 Dec 2013 19:11:15 -0500
+Subject: [PATCH 08/18] LU-3319 procfs: move ldlm proc handling over to
+ seq_file
+
+In order to support 3.10+ kernels for clients we adapt
+the ldlm proc handling to using seq_files.
+
+Signed-off-by: James Simmons <uja.ornl@gmail.com>
+Change-Id: Iaedae5fe1e1cd2985a6240314810db9bba3cd747
+---
+ lustre/include/lustre_dlm.h |   5 +-
+ lustre/ldlm/ldlm_internal.h |  85 ++++++------
+ lustre/ldlm/ldlm_pool.c     | 197 +++++++++++++---------------
+ lustre/ldlm/ldlm_resource.c | 306 +++++++++++++++++++-------------------------
+ 4 files changed, 270 insertions(+), 323 deletions(-)
+
+diff --git a/lustre/include/lustre_dlm.h b/lustre/include/lustre_dlm.h
+index 30b70b5..d01b7e9 100644
+--- a/lustre/include/lustre_dlm.h
++++ b/lustre/include/lustre_dlm.h
+@@ -243,7 +243,7 @@ struct ldlm_pool_ops {
+  */
+ struct ldlm_pool {
+ 	/** Pool proc directory. */
+-	cfs_proc_dir_entry_t	*pl_proc_dir;
++	struct proc_dir_entry	*pl_proc_dir;
+ 	/** Pool name, must be long enough to hold compound proc entry name. */
+ 	char			pl_name[100];
+ 	/** Lock for protecting SLV/CLV updates. */
+@@ -400,6 +400,9 @@ struct ldlm_namespace {
+ 	/** Client side original connect flags supported by server. */
+ 	__u64			ns_orig_connect_flags;
+ 
++	/* namespace proc dir entry */
++	struct proc_dir_entry	*ns_proc_dir_entry;
++
+ 	/**
+ 	 * Position in global namespace list linking all namespaces on
+ 	 * the node.
+diff --git a/lustre/ldlm/ldlm_internal.h b/lustre/ldlm/ldlm_internal.h
+index 5077072..ffc528b 100644
+--- a/lustre/ldlm/ldlm_internal.h
++++ b/lustre/ldlm/ldlm_internal.h
+@@ -212,8 +212,8 @@ void ldlm_destroy_flock_export(struct obd_export *exp);
+ void l_check_ns_lock(struct ldlm_namespace *ns);
+ void l_check_no_ns_lock(struct ldlm_namespace *ns);
+ 
+-extern cfs_proc_dir_entry_t *ldlm_svc_proc_dir;
+-extern cfs_proc_dir_entry_t *ldlm_type_proc_dir;
++extern struct proc_dir_entry *ldlm_svc_proc_dir;
++extern struct proc_dir_entry *ldlm_type_proc_dir;
+ 
+ struct ldlm_state {
+         struct ptlrpc_service *ldlm_cb_service;
+@@ -252,42 +252,51 @@ enum ldlm_policy_res {
+ 
+ typedef enum ldlm_policy_res ldlm_policy_res_t;
+ 
+-#define LDLM_POOL_PROC_READER(var, type)                                    \
+-        static int lprocfs_rd_##var(char *page, char **start, off_t off,    \
+-                                    int count, int *eof, void *data)        \
+-        {                                                                   \
+-                struct ldlm_pool *pl = data;                                \
+-                type tmp;                                                   \
+-                                                                            \
+-		spin_lock(&pl->pl_lock);				    \
+-		tmp = pl->pl_##var;					    \
+-		spin_unlock(&pl->pl_lock);				    \
+-                                                                            \
+-                return lprocfs_rd_uint(page, start, off, count, eof, &tmp); \
+-        }                                                                   \
+-        struct __##var##__dummy_read {;} /* semicolon catcher */
+-
+-#define LDLM_POOL_PROC_WRITER(var, type)                                    \
+-        int lprocfs_wr_##var(struct file *file, const char *buffer,         \
+-                             unsigned long count, void *data)               \
+-        {                                                                   \
+-                struct ldlm_pool *pl = data;                                \
+-                type tmp;                                                   \
+-                int rc;                                                     \
+-                                                                            \
+-                rc = lprocfs_wr_uint(file, buffer, count, &tmp);            \
+-                if (rc < 0) {                                               \
+-                        CERROR("Can't parse user input, rc = %d\n", rc);    \
+-                        return rc;                                          \
+-                }                                                           \
+-                                                                            \
+-		spin_lock(&pl->pl_lock);				    \
+-		pl->pl_##var = tmp;					    \
+-		spin_unlock(&pl->pl_lock);				    \
+-                                                                            \
+-                return rc;                                                  \
+-        }                                                                   \
+-        struct __##var##__dummy_write {;} /* semicolon catcher */
++#define LDLM_POOL_PROC_READER_SEQ_SHOW(var, type)			\
++	static int lprocfs_##var##_seq_show(struct seq_file *m, void *v)\
++	{								\
++		struct ldlm_pool *pl = m->private;			\
++		type tmp;						\
++									\
++		spin_lock(&pl->pl_lock);				\
++		tmp = pl->pl_##var;					\
++		spin_unlock(&pl->pl_lock);				\
++									\
++		return lprocfs_uint_seq_show(m, &tmp);			\
++	}								\
++	struct __##var##__dummy_read {;} /* semicolon catcher */
++
++#define LDLM_POOL_PROC_WRITER(var, type)				\
++	int lprocfs_wr_##var(struct file *file, const char *buffer,	\
++			     unsigned long count, void *data)		\
++	{								\
++		struct ldlm_pool *pl = data;				\
++		type tmp;						\
++		int rc;							\
++									\
++		rc = lprocfs_wr_uint(file, buffer, count, &tmp);	\
++		if (rc < 0) {						\
++			CERROR("Can't parse user input, rc = %d\n", rc);\
++			return rc;					\
++		}							\
++									\
++		spin_lock(&pl->pl_lock);				\
++		pl->pl_##var = tmp;					\
++		spin_unlock(&pl->pl_lock);				\
++									\
++		return rc;						\
++	}								\
++	struct __##var##__dummy_write {;} /* semicolon catcher */
++
++static inline void
++ldlm_add_var(struct lprocfs_seq_vars *vars, struct proc_dir_entry *proc_dir,
++	     const char *name, void *data, const struct file_operations *ops)
++{
++	snprintf((char *)vars->name, MAX_STRING_SIZE, "%s", name);
++	vars->data = data;
++	vars->fops = ops;
++	lprocfs_seq_add_vars(proc_dir, vars, 0);
++}
+ 
+ static inline int is_granted_or_cancelled(struct ldlm_lock *lock)
+ {
+diff --git a/lustre/ldlm/ldlm_pool.c b/lustre/ldlm/ldlm_pool.c
+index 734b330..c1b7ac6 100644
+--- a/lustre/ldlm/ldlm_pool.c
++++ b/lustre/ldlm/ldlm_pool.c
+@@ -148,7 +148,7 @@
+ #define LDLM_POOL_SLV_SHIFT (10)
+ 
+ #ifdef __KERNEL__
+-extern cfs_proc_dir_entry_t *ldlm_ns_proc_dir;
++extern struct proc_dir_entry *ldlm_ns_proc_dir;
+ #endif
+ 
+ static inline __u64 dru(__u64 val, __u32 shift, int round_up)
+@@ -656,14 +656,13 @@ int ldlm_pool_setup(struct ldlm_pool *pl, int limit)
+ EXPORT_SYMBOL(ldlm_pool_setup);
+ 
+ #ifdef __KERNEL__
+-static int lprocfs_rd_pool_state(char *page, char **start, off_t off,
+-                                 int count, int *eof, void *data)
++static int lprocfs_pool_state_seq_show(struct seq_file *m, void *unused)
+ {
+-        int granted, grant_rate, cancel_rate, grant_step;
+-        int nr = 0, grant_speed, grant_plan, lvf;
+-        struct ldlm_pool *pl = data;
+-        __u64 slv, clv;
+-        __u32 limit;
++	int granted, grant_rate, cancel_rate, grant_step;
++	int grant_speed, grant_plan, lvf;
++	struct ldlm_pool *pl = m->private;
++	__u64 slv, clv;
++	__u32 limit;
+ 
+ 	spin_lock(&pl->pl_lock);
+         slv = pl->pl_server_lock_volume;
+@@ -678,35 +677,28 @@ static int lprocfs_rd_pool_state(char *page, char **start, off_t off,
+         grant_step = ldlm_pool_t2gsp(pl->pl_recalc_period);
+ 	spin_unlock(&pl->pl_lock);
+ 
+-        nr += snprintf(page + nr, count - nr, "LDLM pool state (%s):\n",
+-                       pl->pl_name);
+-        nr += snprintf(page + nr, count - nr, "  SLV: "LPU64"\n", slv);
+-        nr += snprintf(page + nr, count - nr, "  CLV: "LPU64"\n", clv);
+-        nr += snprintf(page + nr, count - nr, "  LVF: %d\n", lvf);
+-
+-        if (ns_is_server(ldlm_pl2ns(pl))) {
+-                nr += snprintf(page + nr, count - nr, "  GSP: %d%%\n",
+-                               grant_step);
+-                nr += snprintf(page + nr, count - nr, "  GP:  %d\n",
+-                               grant_plan);
+-        }
+-        nr += snprintf(page + nr, count - nr, "  GR:  %d\n",
+-                       grant_rate);
+-        nr += snprintf(page + nr, count - nr, "  CR:  %d\n",
+-                       cancel_rate);
+-        nr += snprintf(page + nr, count - nr, "  GS:  %d\n",
+-                       grant_speed);
+-        nr += snprintf(page + nr, count - nr, "  G:   %d\n",
+-                       granted);
+-        nr += snprintf(page + nr, count - nr, "  L:   %d\n",
+-                       limit);
+-        return nr;
++	seq_printf(m, "LDLM pool state (%s):\n"
++		      "  SLV: "LPU64"\n"
++		      "  CLV: "LPU64"\n"
++		      "  LVF: %d\n",
++		      pl->pl_name, slv, clv, lvf);
++
++	if (ns_is_server(ldlm_pl2ns(pl))) {
++		seq_printf(m, "  GSP: %d%%\n"
++			      "  GP:  %d\n",
++			      grant_step, grant_plan);
++	}
++	seq_printf(m, "  GR:  %d\n" "  CR:  %d\n" "  GS:  %d\n"
++		      "  G:   %d\n" "  L:   %d\n",
++		      grant_rate, cancel_rate, grant_speed,
++		      granted, limit);
++	return 0;
+ }
++LPROC_SEQ_FOPS_RO(lprocfs_pool_state);
+ 
+-static int lprocfs_rd_grant_speed(char *page, char **start, off_t off,
+-				  int count, int *eof, void *data)
++static int lprocfs_grant_speed_seq_show(struct seq_file *m, void *unused)
+ {
+-	struct ldlm_pool *pl = data;
++	struct ldlm_pool *pl = m->private;
+ 	int               grant_speed;
+ 
+ 	spin_lock(&pl->pl_lock);
+@@ -714,35 +706,50 @@ static int lprocfs_rd_grant_speed(char *page, char **start, off_t off,
+ 	grant_speed = cfs_atomic_read(&pl->pl_grant_rate) -
+ 			cfs_atomic_read(&pl->pl_cancel_rate);
+ 	spin_unlock(&pl->pl_lock);
+-	return lprocfs_rd_uint(page, start, off, count, eof, &grant_speed);
++	return lprocfs_uint_seq_show(m, &grant_speed);
+ }
+ 
+-LDLM_POOL_PROC_READER(grant_plan, int);
+-LDLM_POOL_PROC_READER(recalc_period, int);
++LDLM_POOL_PROC_READER_SEQ_SHOW(grant_plan, int);
++LPROC_SEQ_FOPS_RO(lprocfs_grant_plan);
++
++LDLM_POOL_PROC_READER_SEQ_SHOW(recalc_period, int);
+ LDLM_POOL_PROC_WRITER(recalc_period, int);
++static ssize_t lprocfs_recalc_period_seq_write(struct file *file, const char *buf,
++					       size_t len, loff_t *off)
++{
++	struct seq_file *seq = file->private_data;
++
++	return lprocfs_wr_recalc_period(file, buf, len, seq->private);
++}
++LPROC_SEQ_FOPS(lprocfs_recalc_period);
++
++LPROC_SEQ_FOPS_RO_TYPE(ldlm_pool, u64);
++LPROC_SEQ_FOPS_RO_TYPE(ldlm_pool, atomic);
++LPROC_SEQ_FOPS_RW_TYPE(ldlm_pool_rw, atomic);
++
++LPROC_SEQ_FOPS_RO(lprocfs_grant_speed);
+ 
+ static int ldlm_pool_proc_init(struct ldlm_pool *pl)
+ {
+-        struct ldlm_namespace *ns = ldlm_pl2ns(pl);
+-        struct proc_dir_entry *parent_ns_proc;
+-        struct lprocfs_vars pool_vars[2];
+-        char *var_name = NULL;
+-        int rc = 0;
+-        ENTRY;
++	struct ldlm_namespace *ns = ldlm_pl2ns(pl);
++	struct proc_dir_entry *parent_ns_proc;
++	struct lprocfs_seq_vars pool_vars[2];
++	char *var_name = NULL;
++	int rc = 0;
++	ENTRY;
+ 
+-        OBD_ALLOC(var_name, MAX_STRING_SIZE + 1);
+-        if (!var_name)
+-                RETURN(-ENOMEM);
++	OBD_ALLOC(var_name, MAX_STRING_SIZE + 1);
++	if (!var_name)
++		RETURN(-ENOMEM);
+ 
+-        parent_ns_proc = lprocfs_srch(ldlm_ns_proc_dir,
+-                                      ldlm_ns_name(ns));
+-        if (parent_ns_proc == NULL) {
+-                CERROR("%s: proc entry is not initialized\n",
+-                       ldlm_ns_name(ns));
+-                GOTO(out_free_name, rc = -EINVAL);
+-        }
+-        pl->pl_proc_dir = lprocfs_register("pool", parent_ns_proc,
+-                                           NULL, NULL);
++	parent_ns_proc = ns->ns_proc_dir_entry;
++	if (parent_ns_proc == NULL) {
++		CERROR("%s: proc entry is not initialized\n",
++		       ldlm_ns_name(ns));
++		GOTO(out_free_name, rc = -EINVAL);
++	}
++	pl->pl_proc_dir = lprocfs_seq_register("pool", parent_ns_proc,
++						NULL, NULL);
+ 	if (IS_ERR(pl->pl_proc_dir)) {
+ 		rc = PTR_ERR(pl->pl_proc_dir);
+ 		pl->pl_proc_dir = NULL;
+@@ -751,62 +758,30 @@ static int ldlm_pool_proc_init(struct ldlm_pool *pl)
+ 		GOTO(out_free_name, rc);
+ 	}
+ 
+-        var_name[MAX_STRING_SIZE] = '\0';
+-        memset(pool_vars, 0, sizeof(pool_vars));
+-        pool_vars[0].name = var_name;
+-
+-        snprintf(var_name, MAX_STRING_SIZE, "server_lock_volume");
+-        pool_vars[0].data = &pl->pl_server_lock_volume;
+-        pool_vars[0].read_fptr = lprocfs_rd_u64;
+-        lprocfs_add_vars(pl->pl_proc_dir, pool_vars, 0);
+-
+-        snprintf(var_name, MAX_STRING_SIZE, "limit");
+-        pool_vars[0].data = &pl->pl_limit;
+-        pool_vars[0].read_fptr = lprocfs_rd_atomic;
+-        pool_vars[0].write_fptr = lprocfs_wr_atomic;
+-        lprocfs_add_vars(pl->pl_proc_dir, pool_vars, 0);
+-
+-        snprintf(var_name, MAX_STRING_SIZE, "granted");
+-        pool_vars[0].data = &pl->pl_granted;
+-        pool_vars[0].read_fptr = lprocfs_rd_atomic;
+-        lprocfs_add_vars(pl->pl_proc_dir, pool_vars, 0);
+-
+-        snprintf(var_name, MAX_STRING_SIZE, "grant_speed");
+-        pool_vars[0].data = pl;
+-        pool_vars[0].read_fptr = lprocfs_rd_grant_speed;
+-        lprocfs_add_vars(pl->pl_proc_dir, pool_vars, 0);
+-
+-        snprintf(var_name, MAX_STRING_SIZE, "cancel_rate");
+-        pool_vars[0].data = &pl->pl_cancel_rate;
+-        pool_vars[0].read_fptr = lprocfs_rd_atomic;
+-        lprocfs_add_vars(pl->pl_proc_dir, pool_vars, 0);
+-
+-        snprintf(var_name, MAX_STRING_SIZE, "grant_rate");
+-        pool_vars[0].data = &pl->pl_grant_rate;
+-        pool_vars[0].read_fptr = lprocfs_rd_atomic;
+-        lprocfs_add_vars(pl->pl_proc_dir, pool_vars, 0);
+-
+-        snprintf(var_name, MAX_STRING_SIZE, "grant_plan");
+-        pool_vars[0].data = pl;
+-        pool_vars[0].read_fptr = lprocfs_rd_grant_plan;
+-        lprocfs_add_vars(pl->pl_proc_dir, pool_vars, 0);
+-
+-        snprintf(var_name, MAX_STRING_SIZE, "recalc_period");
+-        pool_vars[0].data = pl;
+-        pool_vars[0].read_fptr = lprocfs_rd_recalc_period;
+-        pool_vars[0].write_fptr = lprocfs_wr_recalc_period;
+-        lprocfs_add_vars(pl->pl_proc_dir, pool_vars, 0);
+-
+-        snprintf(var_name, MAX_STRING_SIZE, "lock_volume_factor");
+-        pool_vars[0].data = &pl->pl_lock_volume_factor;
+-        pool_vars[0].read_fptr = lprocfs_rd_atomic;
+-        pool_vars[0].write_fptr = lprocfs_wr_atomic;
+-        lprocfs_add_vars(pl->pl_proc_dir, pool_vars, 0);
+-
+-        snprintf(var_name, MAX_STRING_SIZE, "state");
+-        pool_vars[0].data = pl;
+-        pool_vars[0].read_fptr = lprocfs_rd_pool_state;
+-        lprocfs_add_vars(pl->pl_proc_dir, pool_vars, 0);
++	var_name[MAX_STRING_SIZE] = '\0';
++	memset(pool_vars, 0, sizeof(pool_vars));
++	pool_vars[0].name = var_name;
++
++	ldlm_add_var(&pool_vars[0], pl->pl_proc_dir, "server_lock_volume",
++		     &pl->pl_server_lock_volume, &ldlm_pool_u64_fops);
++	ldlm_add_var(&pool_vars[0], pl->pl_proc_dir, "limit", &pl->pl_limit,
++		     &ldlm_pool_rw_atomic_fops);
++	ldlm_add_var(&pool_vars[0], pl->pl_proc_dir, "granted",
++		     &pl->pl_granted, &ldlm_pool_atomic_fops);
++	ldlm_add_var(&pool_vars[0], pl->pl_proc_dir, "grant_speed", pl,
++		     &lprocfs_grant_speed_fops);
++	ldlm_add_var(&pool_vars[0], pl->pl_proc_dir, "cancel_rate",
++		     &pl->pl_cancel_rate, &ldlm_pool_atomic_fops);
++	ldlm_add_var(&pool_vars[0], pl->pl_proc_dir, "grant_rate",
++		     &pl->pl_grant_rate, &ldlm_pool_atomic_fops);
++	ldlm_add_var(&pool_vars[0], pl->pl_proc_dir, "grant_plan", pl,
++		     &lprocfs_grant_plan_fops);
++	ldlm_add_var(&pool_vars[0], pl->pl_proc_dir, "recalc_period",
++		     pl, &lprocfs_recalc_period_fops);
++	ldlm_add_var(&pool_vars[0], pl->pl_proc_dir, "lock_volume_factor",
++		     &pl->pl_lock_volume_factor, &ldlm_pool_rw_atomic_fops);
++	ldlm_add_var(&pool_vars[0], pl->pl_proc_dir, "state", pl,
++		     &lprocfs_pool_state_fops);
+ 
+         pl->pl_stats = lprocfs_alloc_stats(LDLM_POOL_LAST_STAT -
+                                            LDLM_POOL_FIRST_STAT, 0);
+diff --git a/lustre/ldlm/ldlm_resource.c b/lustre/ldlm/ldlm_resource.c
+index e1b8787..e504cff 100644
+--- a/lustre/ldlm/ldlm_resource.c
++++ b/lustre/ldlm/ldlm_resource.c
+@@ -66,9 +66,9 @@ CFS_LIST_HEAD(ldlm_cli_active_namespace_list);
+ /* Client namespaces that don't have any locks in them */
+ CFS_LIST_HEAD(ldlm_cli_inactive_namespace_list);
+ 
+-cfs_proc_dir_entry_t *ldlm_type_proc_dir = NULL;
+-cfs_proc_dir_entry_t *ldlm_ns_proc_dir = NULL;
+-cfs_proc_dir_entry_t *ldlm_svc_proc_dir = NULL;
++struct proc_dir_entry *ldlm_type_proc_dir = NULL;
++struct proc_dir_entry *ldlm_ns_proc_dir = NULL;
++struct proc_dir_entry *ldlm_svc_proc_dir = NULL;
+ 
+ extern unsigned int ldlm_cancel_unused_locks_before_replay;
+ 
+@@ -77,57 +77,64 @@ extern unsigned int ldlm_cancel_unused_locks_before_replay;
+ unsigned int ldlm_dump_granted_max = 256;
+ 
+ #ifdef LPROCFS
+-static int ldlm_proc_dump_ns(struct file *file, const char *buffer,
+-                             unsigned long count, void *data)
++static ssize_t
++lprocfs_dump_ns_seq_write(struct file *file, const char *buffer,
++			  size_t count, loff_t *off)
+ {
+-        ldlm_dump_all_namespaces(LDLM_NAMESPACE_SERVER, D_DLMTRACE);
+-        ldlm_dump_all_namespaces(LDLM_NAMESPACE_CLIENT, D_DLMTRACE);
+-        RETURN(count);
++	ldlm_dump_all_namespaces(LDLM_NAMESPACE_SERVER, D_DLMTRACE);
++	ldlm_dump_all_namespaces(LDLM_NAMESPACE_CLIENT, D_DLMTRACE);
++	RETURN(count);
+ }
++LPROC_SEQ_FOPS_WO_TYPE(ldlm, dump_ns);
++
++LPROC_SEQ_FOPS_RW_TYPE(ldlm_rw, uint);
++LPROC_SEQ_FOPS_RO_TYPE(ldlm, uint);
+ 
+ int ldlm_proc_setup(void)
+ {
+-        int rc;
+-        struct lprocfs_vars list[] = {
+-                { "dump_namespaces", NULL, ldlm_proc_dump_ns, NULL },
+-                { "dump_granted_max",
+-                  lprocfs_rd_uint, lprocfs_wr_uint,
+-                  &ldlm_dump_granted_max, NULL },
+-                { "cancel_unused_locks_before_replay",
+-                  lprocfs_rd_uint, lprocfs_wr_uint,
+-                  &ldlm_cancel_unused_locks_before_replay, NULL },
+-                { NULL }};
+-        ENTRY;
+-        LASSERT(ldlm_ns_proc_dir == NULL);
+-
+-        ldlm_type_proc_dir = lprocfs_register(OBD_LDLM_DEVICENAME,
+-                                              proc_lustre_root,
+-                                              NULL, NULL);
+-        if (IS_ERR(ldlm_type_proc_dir)) {
+-                CERROR("LProcFS failed in ldlm-init\n");
+-                rc = PTR_ERR(ldlm_type_proc_dir);
+-                GOTO(err, rc);
+-        }
++	int rc;
++	struct lprocfs_seq_vars list[] = {
++		{ .name	=	"dump_namespaces",
++		  .fops	=	&ldlm_dump_ns_fops,
++		  .proc_mode =	0222 },
++		{ .name	=	"dump_granted_max",
++		  .fops	=	&ldlm_rw_uint_fops,
++		  .data	=	&ldlm_dump_granted_max },
++		{ .name	=	"cancel_unused_locks_before_replay",
++		  .fops	=	&ldlm_rw_uint_fops,
++		  .data	=	&ldlm_cancel_unused_locks_before_replay },
++		{ NULL }};
++	ENTRY;
++	LASSERT(ldlm_ns_proc_dir == NULL);
++
++	ldlm_type_proc_dir = lprocfs_seq_register(OBD_LDLM_DEVICENAME,
++							proc_lustre_root,
++							NULL, NULL);
++	if (IS_ERR(ldlm_type_proc_dir)) {
++		CERROR("LProcFS failed in ldlm-init\n");
++		rc = PTR_ERR(ldlm_type_proc_dir);
++		GOTO(err, rc);
++	}
+ 
+-        ldlm_ns_proc_dir = lprocfs_register("namespaces",
+-                                            ldlm_type_proc_dir,
+-                                            NULL, NULL);
+-        if (IS_ERR(ldlm_ns_proc_dir)) {
+-                CERROR("LProcFS failed in ldlm-init\n");
+-                rc = PTR_ERR(ldlm_ns_proc_dir);
+-                GOTO(err_type, rc);
+-        }
++	ldlm_ns_proc_dir = lprocfs_seq_register("namespaces",
++						ldlm_type_proc_dir,
++						NULL, NULL);
++	if (IS_ERR(ldlm_ns_proc_dir)) {
++		CERROR("LProcFS failed in ldlm-init\n");
++		rc = PTR_ERR(ldlm_ns_proc_dir);
++		GOTO(err_type, rc);
++	}
+ 
+-        ldlm_svc_proc_dir = lprocfs_register("services",
+-                                            ldlm_type_proc_dir,
+-                                            NULL, NULL);
+-        if (IS_ERR(ldlm_svc_proc_dir)) {
+-                CERROR("LProcFS failed in ldlm-init\n");
+-                rc = PTR_ERR(ldlm_svc_proc_dir);
+-                GOTO(err_ns, rc);
+-        }
++	ldlm_svc_proc_dir = lprocfs_seq_register("services",
++						ldlm_type_proc_dir,
++						NULL, NULL);
++	if (IS_ERR(ldlm_svc_proc_dir)) {
++		CERROR("LProcFS failed in ldlm-init\n");
++		rc = PTR_ERR(ldlm_svc_proc_dir);
++		GOTO(err_ns, rc);
++	}
+ 
+-	rc = lprocfs_add_vars(ldlm_type_proc_dir, list, NULL);
++	rc = lprocfs_seq_add_vars(ldlm_type_proc_dir, list, NULL);
+ 	if (rc != 0) {
+ 		CERROR("LProcFS failed in ldlm-init\n");
+ 		GOTO(err_svc, rc);
+@@ -158,46 +165,45 @@ void ldlm_proc_cleanup(void)
+                 lprocfs_remove(&ldlm_type_proc_dir);
+ }
+ 
+-static int lprocfs_rd_ns_resources(char *page, char **start, off_t off,
+-                                   int count, int *eof, void *data)
++static int lprocfs_ns_resources_seq_show(struct seq_file *m, void *v)
+ {
+-        struct ldlm_namespace *ns  = data;
+-        __u64                  res = 0;
+-        cfs_hash_bd_t          bd;
+-        int                    i;
+-
+-        /* result is not strictly consistant */
+-        cfs_hash_for_each_bucket(ns->ns_rs_hash, &bd, i)
+-                res += cfs_hash_bd_count_get(&bd);
+-        return lprocfs_rd_u64(page, start, off, count, eof, &res);
++	struct ldlm_namespace	*ns  = m->private;
++	__u64			res = 0;
++	cfs_hash_bd_t		bd;
++	int			i;
++
++	/* result is not strictly consistant */
++	cfs_hash_for_each_bucket(ns->ns_rs_hash, &bd, i)
++		res += cfs_hash_bd_count_get(&bd);
++	return lprocfs_u64_seq_show(m, &res);
+ }
++LPROC_SEQ_FOPS_RO(lprocfs_ns_resources);
+ 
+-static int lprocfs_rd_ns_locks(char *page, char **start, off_t off,
+-                               int count, int *eof, void *data)
++static int lprocfs_ns_locks_seq_show(struct seq_file *m, void *v)
+ {
+-        struct ldlm_namespace *ns = data;
+-        __u64                  locks;
++	struct ldlm_namespace	*ns = m->private;
++	__u64			locks;
+ 
+-        locks = lprocfs_stats_collector(ns->ns_stats, LDLM_NSS_LOCKS,
+-                                        LPROCFS_FIELDS_FLAGS_SUM);
+-        return lprocfs_rd_u64(page, start, off, count, eof, &locks);
++	locks = lprocfs_stats_collector(ns->ns_stats, LDLM_NSS_LOCKS,
++					LPROCFS_FIELDS_FLAGS_SUM);
++	return lprocfs_u64_seq_show(m, &locks);
+ }
++LPROC_SEQ_FOPS_RO(lprocfs_ns_locks);
+ 
+-static int lprocfs_rd_lru_size(char *page, char **start, off_t off,
+-                               int count, int *eof, void *data)
++static int lprocfs_lru_size_seq_show(struct seq_file *m, void *v)
+ {
+-        struct ldlm_namespace *ns = data;
+-        __u32 *nr = &ns->ns_max_unused;
++	struct ldlm_namespace *ns = m->private;
++	__u32 *nr = &ns->ns_max_unused;
+ 
+-        if (ns_connect_lru_resize(ns))
+-                nr = &ns->ns_nr_unused;
+-        return lprocfs_rd_uint(page, start, off, count, eof, nr);
++	if (ns_connect_lru_resize(ns))
++		nr = &ns->ns_nr_unused;
++	return lprocfs_uint_seq_show(m, nr);
+ }
+ 
+-static int lprocfs_wr_lru_size(struct file *file, const char *buffer,
+-                               unsigned long count, void *data)
++static ssize_t lprocfs_lru_size_seq_write(struct file *file, const char *buffer,
++					  size_t count, loff_t *off)
+ {
+-        struct ldlm_namespace *ns = data;
++	struct ldlm_namespace *ns = ((struct seq_file *)file->private_data)->private;
+         char dummy[MAX_STRING_SIZE + 1], *end;
+         unsigned long tmp;
+         int lru_resize;
+@@ -280,20 +286,20 @@ static int lprocfs_wr_lru_size(struct file *file, const char *buffer,
+ 
+         return count;
+ }
++LPROC_SEQ_FOPS(lprocfs_lru_size);
+ 
+-static int lprocfs_rd_elc(char *page, char **start, off_t off,
+-			  int count, int *eof, void *data)
++static int lprocfs_elc_seq_show(struct seq_file *m, void *v)
+ {
+-	struct ldlm_namespace *ns = data;
++	struct ldlm_namespace *ns = m->private;
+ 	unsigned int supp = ns_connect_cancelset(ns);
+ 
+-	return lprocfs_rd_uint(page, start, off, count, eof, &supp);
++	return lprocfs_uint_seq_show(m, &supp);
+ }
+ 
+-static int lprocfs_wr_elc(struct file *file, const char *buffer,
+-			       unsigned long count, void *data)
++static ssize_t lprocfs_elc_seq_write(struct file *file, const char *buffer,
++				     size_t count, loff_t *off)
+ {
+-	struct ldlm_namespace *ns = data;
++	struct ldlm_namespace *ns = ((struct seq_file *)file->private_data)->private;
+ 	unsigned int supp = -1;
+ 	int rc;
+ 
+@@ -307,31 +313,38 @@ static int lprocfs_wr_elc(struct file *file, const char *buffer,
+ 		ns->ns_connect_flags |= OBD_CONNECT_CANCELSET;
+ 	return count;
+ }
++LPROC_SEQ_FOPS(lprocfs_elc);
+ 
+ void ldlm_namespace_proc_unregister(struct ldlm_namespace *ns)
+ {
+-        struct proc_dir_entry *dir;
+-
+-        dir = lprocfs_srch(ldlm_ns_proc_dir, ldlm_ns_name(ns));
+-        if (dir == NULL) {
++	if (ns->ns_proc_dir_entry == NULL)
+                 CERROR("dlm namespace %s has no procfs dir?\n",
+                        ldlm_ns_name(ns));
+-        } else {
+-                lprocfs_remove(&dir);
+-        }
++	else
++		lprocfs_remove(&ns->ns_proc_dir_entry);
+ 
+-        if (ns->ns_stats != NULL)
+-                lprocfs_free_stats(&ns->ns_stats);
++	if (ns->ns_stats != NULL)
++		lprocfs_free_stats(&ns->ns_stats);
+ }
+ 
+ int ldlm_namespace_proc_register(struct ldlm_namespace *ns)
+ {
+-        struct lprocfs_vars lock_vars[2];
++	struct lprocfs_seq_vars lock_vars[2];
+         char lock_name[MAX_STRING_SIZE + 1];
++	struct proc_dir_entry *ns_pde;
+ 
+         LASSERT(ns != NULL);
+         LASSERT(ns->ns_rs_hash != NULL);
+ 
++	if (ns->ns_proc_dir_entry != NULL) {
++		ns_pde = ns->ns_proc_dir_entry;
++	} else {
++		ns_pde = proc_mkdir(ldlm_ns_name(ns), ldlm_ns_proc_dir);
++		if (ns_pde == NULL)
++			return -ENOMEM;
++		ns->ns_proc_dir_entry = ns_pde;
++	}
++
+         ns->ns_stats = lprocfs_alloc_stats(LDLM_NSS_LAST, 0);
+         if (ns->ns_stats == NULL)
+                 return -ENOMEM;
+@@ -344,88 +357,35 @@ int ldlm_namespace_proc_register(struct ldlm_namespace *ns)
+         memset(lock_vars, 0, sizeof(lock_vars));
+         lock_vars[0].name = lock_name;
+ 
+-        snprintf(lock_name, MAX_STRING_SIZE, "%s/resource_count",
+-                 ldlm_ns_name(ns));
+-        lock_vars[0].data = ns;
+-        lock_vars[0].read_fptr = lprocfs_rd_ns_resources;
+-        lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-
+-        snprintf(lock_name, MAX_STRING_SIZE, "%s/lock_count",
+-                 ldlm_ns_name(ns));
+-        lock_vars[0].data = ns;
+-        lock_vars[0].read_fptr = lprocfs_rd_ns_locks;
+-        lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-
+-        if (ns_is_client(ns)) {
+-                snprintf(lock_name, MAX_STRING_SIZE, "%s/lock_unused_count",
+-                         ldlm_ns_name(ns));
+-                lock_vars[0].data = &ns->ns_nr_unused;
+-                lock_vars[0].read_fptr = lprocfs_rd_uint;
+-                lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-
+-                snprintf(lock_name, MAX_STRING_SIZE, "%s/lru_size",
+-                         ldlm_ns_name(ns));
+-                lock_vars[0].data = ns;
+-                lock_vars[0].read_fptr = lprocfs_rd_lru_size;
+-                lock_vars[0].write_fptr = lprocfs_wr_lru_size;
+-                lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-
+-                snprintf(lock_name, MAX_STRING_SIZE, "%s/lru_max_age",
+-                         ldlm_ns_name(ns));
+-                lock_vars[0].data = &ns->ns_max_age;
+-                lock_vars[0].read_fptr = lprocfs_rd_uint;
+-                lock_vars[0].write_fptr = lprocfs_wr_uint;
+-                lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-
+-		snprintf(lock_name, MAX_STRING_SIZE, "%s/early_lock_cancel",
+-			 ldlm_ns_name(ns));
+-		lock_vars[0].data = ns;
+-		lock_vars[0].read_fptr = lprocfs_rd_elc;
+-		lock_vars[0].write_fptr = lprocfs_wr_elc;
+-		lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-        } else {
+-                snprintf(lock_name, MAX_STRING_SIZE, "%s/ctime_age_limit",
+-                         ldlm_ns_name(ns));
+-                lock_vars[0].data = &ns->ns_ctime_age_limit;
+-                lock_vars[0].read_fptr = lprocfs_rd_uint;
+-                lock_vars[0].write_fptr = lprocfs_wr_uint;
+-                lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-
+-                snprintf(lock_name, MAX_STRING_SIZE, "%s/lock_timeouts",
+-                         ldlm_ns_name(ns));
+-                lock_vars[0].data = &ns->ns_timeouts;
+-                lock_vars[0].read_fptr = lprocfs_rd_uint;
+-                lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-
+-                snprintf(lock_name, MAX_STRING_SIZE, "%s/max_nolock_bytes",
+-                         ldlm_ns_name(ns));
+-                lock_vars[0].data = &ns->ns_max_nolock_size;
+-                lock_vars[0].read_fptr = lprocfs_rd_uint;
+-                lock_vars[0].write_fptr = lprocfs_wr_uint;
+-                lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-
+-                snprintf(lock_name, MAX_STRING_SIZE, "%s/contention_seconds",
+-                         ldlm_ns_name(ns));
+-                lock_vars[0].data = &ns->ns_contention_time;
+-                lock_vars[0].read_fptr = lprocfs_rd_uint;
+-                lock_vars[0].write_fptr = lprocfs_wr_uint;
+-                lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-
+-                snprintf(lock_name, MAX_STRING_SIZE, "%s/contended_locks",
+-                         ldlm_ns_name(ns));
+-                lock_vars[0].data = &ns->ns_contended_locks;
+-                lock_vars[0].read_fptr = lprocfs_rd_uint;
+-                lock_vars[0].write_fptr = lprocfs_wr_uint;
+-                lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-
+-                snprintf(lock_name, MAX_STRING_SIZE, "%s/max_parallel_ast",
+-                         ldlm_ns_name(ns));
+-                lock_vars[0].data = &ns->ns_max_parallel_ast;
+-                lock_vars[0].read_fptr = lprocfs_rd_uint;
+-                lock_vars[0].write_fptr = lprocfs_wr_uint;
+-                lprocfs_add_vars(ldlm_ns_proc_dir, lock_vars, 0);
+-        }
+-        return 0;
++	ldlm_add_var(&lock_vars[0], ns_pde, "resource_count", ns,
++		     &lprocfs_ns_resources_fops);
++	ldlm_add_var(&lock_vars[0], ns_pde, "lock_count", ns,
++		     &lprocfs_ns_locks_fops);
++
++	if (ns_is_client(ns)) {
++		ldlm_add_var(&lock_vars[0], ns_pde, "lock_unused_count",
++			     &ns->ns_nr_unused, &ldlm_uint_fops);
++		ldlm_add_var(&lock_vars[0], ns_pde, "lru_size", ns,
++			     &lprocfs_lru_size_fops);
++		ldlm_add_var(&lock_vars[0], ns_pde, "lru_max_age",
++			     &ns->ns_max_age, &ldlm_rw_uint_fops);
++		ldlm_add_var(&lock_vars[0], ns_pde, "early_lock_cancel",
++			     ns, &lprocfs_elc_fops);
++	} else {
++		ldlm_add_var(&lock_vars[0], ns_pde, "ctime_age_limit",
++			     &ns->ns_ctime_age_limit, &ldlm_rw_uint_fops);
++		ldlm_add_var(&lock_vars[0], ns_pde, "lock_timeouts",
++			     &ns->ns_timeouts, &ldlm_uint_fops);
++		ldlm_add_var(&lock_vars[0], ns_pde, "max_nolock_bytes",
++			     &ns->ns_max_nolock_size, &ldlm_rw_uint_fops);
++		ldlm_add_var(&lock_vars[0], ns_pde, "contention_seconds",
++			     &ns->ns_contention_time, &ldlm_rw_uint_fops);
++		ldlm_add_var(&lock_vars[0], ns_pde, "contended_locks",
++			     &ns->ns_contended_locks, &ldlm_rw_uint_fops);
++		ldlm_add_var(&lock_vars[0], ns_pde, "max_parallel_ast",
++			     &ns->ns_max_parallel_ast, &ldlm_rw_uint_fops);
++	}
++	return 0;
+ }
+ #undef MAX_STRING_SIZE
+ #else /* LPROCFS */
+-- 
+1.8.5.1
+

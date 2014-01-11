@@ -29,7 +29,7 @@ src_compile() {
 }
 
 src_install() {
-	dobin "${PN}"
+	newbin "${PN}" DLPOLY.Z
 	dodoc ../README
 	use doc && dodoc ../manual/USRMAN.pdf
 }

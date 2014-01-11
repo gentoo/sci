@@ -4,11 +4,9 @@
 
 EAPI=5
 
-[ "$PV" == "9999" ] && VCS=git-2
-
 AUTOTOOLS_AUTORECONF=true
 
-inherit autotools-utils ${VCS}
+inherit autotools-utils git-r3
 
 DESCRIPTION="Genome assembly package live cvs sources"
 HOMEPAGE="http://sourceforge.net/projects/amos"
@@ -24,5 +22,5 @@ DEPEND="
 	dev-libs/boost
 	dev-qt/qtcore:4"
 RDEPEND="${DEPEND}
-		dev-perl/DBI
-		sci-biology/mummer"
+	dev-perl/DBI
+	sci-biology/mummer"

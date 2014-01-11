@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,12 +7,12 @@ EAPI=5
 WANT_AUTOCONF="2.5"
 WANT_AUTOMAKE="1.10"
 
-inherit git-2 autotools linux-mod toolchain-funcs udev
+inherit git-r3 autotools linux-mod toolchain-funcs udev flag-o-matic
 
 DESCRIPTION="Lustre is a parallel distributed file system"
 HOMEPAGE="http://wiki.whamcloud.com/"
-EGIT_REPO_URI="git://git.whamcloud.com/fs/lustre-release.git"
 SRC_URI=""
+EGIT_REPO_URI="git://git.whamcloud.com/fs/lustre-release.git"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -34,12 +34,29 @@ DEPEND="${RDEPEND}
 
 PATCHES=(
 	"${FILESDIR}/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
-	"${FILESDIR}/0002-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch"
-	"${FILESDIR}/0003-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch"
-	"${FILESDIR}/0004-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch"
+	"${FILESDIR}/0002-LU-3373-ldiskfs-ldiskfs-patches-for-3.11.1-fc19.patch"
+	"${FILESDIR}/0003-LU-3974-llite-dentry-d_compare-changes-in-3.11.patch"
+	"${FILESDIR}/0004-LU-3974-llite-use-new-struct-dir_context.patch"
+	"${FILESDIR}/0005-LU-3974-llite-invalidatepage-api-changed.patch"
+	"${FILESDIR}/0006-LU-3319-procfs-move-llite-proc-handling-over-to-seq_.patch"
+	"${FILESDIR}/0007-LU-3319-procfs-move-lmv-proc-handling-over-to-seq_fi.patch"
+	"${FILESDIR}/0008-LU-3319-procfs-move-ldlm-proc-handling-over-to-seq_f.patch"
+	"${FILESDIR}/0009-LU-3319-procfs-move-ost-proc-handling-over-to-seq_fi.patch"
+	"${FILESDIR}/0010-LU-3319-procfs-update-shared-server-side-core-proc-h.patch"
+	"${FILESDIR}/0011-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0012-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0013-LU-3319-procfs-move-ofd-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0014-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0015-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0016-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch"
+	"${FILESDIR}/0017-LU-3319-procfs-move-mdd-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0018-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch"
 )
 
 pkg_setup() {
+	filter-mfpmath sse
+	filter-mfpmath i386
+	filter-flags -msse* -mavx* -mmmx -m3dnow
 	linux-mod_pkg_setup
 	ARCH="$(tc-arch-kernel)"
 	ABI="${KERNEL_ABI}"
@@ -62,19 +79,6 @@ src_prepare() {
 	cd libsysio
 	eaclocal
 	eautomake
-	eautoconf
-	cd ..
-	einfo "Reconfiguring source in lustre-iokit"
-	cd lustre-iokit
-	eaclocal
-	eautomake
-	eautoconf
-	cd ..
-	einfo "Reconfiguring source in ldiskfs"
-	cd ldiskfs
-	eaclocal -I config
-	eautoheader
-	eautomake -W no-portability
 	eautoconf
 	cd ..
 }

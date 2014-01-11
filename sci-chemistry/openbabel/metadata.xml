@@ -8,13 +8,13 @@
     search, convert, analyze, or store data from molecular modeling, chemistry,
     solid-state materials, biochemistry, or related areas.
   </longdescription>
-    <use>
-      <flag name="doc">Install API dicumentation.</flag>
-      <flag name="openmp">Enable parallelization using OpenMP.</flag>
-      <flag name="java">Install Java bindings.</flag>
-      <flag name="perl">Install Perl bindings.</flag>
-      <flag name="python">Install Python bindings and PyBel.</flag>
-      <flag name="ruby">Install Ruby bindings.</flag>
-      <flag name="wxwidgets">Build Open Babel GUI.</flag>
-    </use>
+  <use>
+    <flag name="doc">Install API dicumentation.</flag>
+    <flag name="openmp">Enable parallelization using OpenMP.</flag>
+    <flag name="java">Install Java bindings.</flag>
+    <flag name="perl">Install Perl bindings.</flag>
+    <flag name="python">Install Python bindings and PyBel.</flag>
+    <flag name="ruby">Install Ruby bindings.</flag>
+    <flag name="wxwidgets">Build Open Babel GUI.</flag>
+  </use>
 </pkgmetadata>

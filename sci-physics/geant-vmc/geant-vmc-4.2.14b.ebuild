@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,6 +20,7 @@ IUSE="doc examples vgm"
 RDEPEND="
 	sci-physics/root
 	>=sci-physics/geant-4.9.6[opengl,geant3,examples?]
+	<sci-physics/geant-4.10.00
 	vgm? ( sci-physics/vgm )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
@@ -33,23 +34,24 @@ src_compile() {
 	local d
 	source $(ls -1 "${EROOT}"usr/share/Geant4-*/geant4make/geant4make.sh) || die
 	for d in ${dirs}; do
-		pushd ${d} > /dev/null
+		pushd ${d} > /dev/null || die
 		emake
-		use doc && doxygen
+		if use doc; then
+			doxygen || die
+		fi
 		popd > /dev/null
 	done
 }
 
 src_test() {
-	cd examples
+	cd examples || die
 	emake
 	./run_suite.sh || die
 }
 
 src_install() {
 	dolib.so lib/tgt_*/{libg4root,libgeant4vmc}.so
-	insinto /usr
-	doins -r include
+	doheader include/*
 	dodoc README history version_number
 	use doc && dohtml -r Geant4VMC.html doc/*
 	if use examples; then

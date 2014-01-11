@@ -17,6 +17,7 @@
 </longdescription>
   <use>
     <flag name="c++0x"> Build ROOT using the C++11 standard. Requires <pkg>sys-devel/gcc</pkg>&gt;=4.7.0</flag>
+    <flag name="clarens"> Build the Clarens and PEAC plug-ins, to use in a GRID enabled analysis</flag>
     <flag name="fits">Support for images and data from FITS files with <pkg>sci-libs/cfitsio</pkg></flag>
     <flag name="geocad">Enable ROOT-CAD interface using <pkg>sci-libs/opencascade</pkg></flag>
     <flag name="htmldoc">Generate html documentation</flag>

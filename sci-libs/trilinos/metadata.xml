@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<maintainer>
-  <email>andyspiros@gmail.com</email>
-</maintainer>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <maintainer>
+    <email>andyspiros@gmail.com</email>
+  </maintainer>
+  <longdescription lang="en">
   The Trilinos Project is an effort to develop algorithms and enabling
   technologies within an object-oriented software framework for the solution 
   of large-scale, complex multi-physics engineering and scientific problems.
 </longdescription>
-<use>
-  <flag name="adolc">Undocumented USE</flag>
-  <flag name="arprec">Undocumented USE</flag>
-  <flag name="boost">Undocumented USE</flag>
-  <flag name="clp">Undocumented USE</flag>
-  <flag name="cppunit">Undocumented USE</flag>
-  <flag name="cuda">Undocumented USE</flag>
-  <flag name="eigen">Undocumented USE</flag>
-  <flag name="glpk">Undocumented USE</flag>
-  <flag name="gtest">Undocumented USE</flag>
-  <flag name="hwloc">Undocumented USE</flag>
-  <flag name="hypre">Undocumented USE</flag>
-  <flag name="metis">Undocumented USE</flag>
-  <flag name="mkl">Undocumented USE</flag>
-  <flag name="mumps">Undocumented USE</flag>
-  <flag name="petsc">Undocumented USE</flag>
-  <flag name="qd">Undocumented USE</flag>
-  <flag name="scalapack">Undocumented USE</flag>
-  <flag name="scotch">Undocumented USE</flag>
-  <flag name="sparse">Undocumented USE</flag>
-  <flag name="superlu">Undocumented USE</flag>
-  <flag name="taucs">Undocumented USE</flag>
-  <flag name="tbb">Undocumented USE</flag>
-  <flag name="tvmet">Undocumented USE</flag>
-  <flag name="umfpack">Undocumented USE</flag>
-  <flag name="yaml">Undocumented USE</flag>
-</use>
+  <use>
+    <flag name="adolc">Undocumented USE</flag>
+    <flag name="arprec">Undocumented USE</flag>
+    <flag name="boost">Undocumented USE</flag>
+    <flag name="clp">Undocumented USE</flag>
+    <flag name="cppunit">Undocumented USE</flag>
+    <flag name="cuda">Undocumented USE</flag>
+    <flag name="eigen">Undocumented USE</flag>
+    <flag name="glpk">Undocumented USE</flag>
+    <flag name="gtest">Undocumented USE</flag>
+    <flag name="hwloc">Undocumented USE</flag>
+    <flag name="hypre">Undocumented USE</flag>
+    <flag name="metis">Undocumented USE</flag>
+    <flag name="mkl">Undocumented USE</flag>
+    <flag name="mumps">Undocumented USE</flag>
+    <flag name="petsc">Undocumented USE</flag>
+    <flag name="qd">Undocumented USE</flag>
+    <flag name="scalapack">Undocumented USE</flag>
+    <flag name="scotch">Undocumented USE</flag>
+    <flag name="sparse">Undocumented USE</flag>
+    <flag name="superlu">Undocumented USE</flag>
+    <flag name="taucs">Undocumented USE</flag>
+    <flag name="tbb">Undocumented USE</flag>
+    <flag name="tvmet">Undocumented USE</flag>
+    <flag name="umfpack">Undocumented USE</flag>
+    <flag name="yaml">Undocumented USE</flag>
+  </use>
 </pkgmetadata>

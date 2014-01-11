@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,10 +6,11 @@ EAPI=5
 
 WX_GTK_VER="2.8"
 
-inherit cmake-utils eutils git-2 wxwidgets
+inherit cmake-utils eutils git-r3 wxwidgets
 
 DESCRIPTION="Interconverts file formats used in molecular modeling"
 HOMEPAGE="http://openbabel.sourceforge.net/"
+SRC_URI=""
 EGIT_REPO_URI="https://github.com/openbabel/openbabel.git"
 
 LICENSE="GPL-2"
@@ -23,7 +24,7 @@ RDEPEND="
 	!sci-chemistry/babel
 	sci-libs/inchi
 	sys-libs/zlib
-	wxwidgets? ( x11-libs/wxGTK:2.8[X] )"
+	wxwidgets? ( x11-libs/wxGTK:${WX_GTK_VER}[X] )"
 DEPEND="${RDEPEND}
 	>=dev-util/cmake-2.4.8
 	doc? ( app-doc/doxygen )"
@@ -33,7 +34,7 @@ PDEPEND="
 	python? ( sci-chemistry/openbabel-python )
 	ruby? ( sci-chemistry/openbabel-ruby )"
 
-DOCS="AUTHORS ChangeLog NEWS README.md THANKS doc/*.inc doc/README* doc/*.mol2"
+DOCS=( AUTHORS ChangeLog NEWS README.md THANKS doc/*.inc doc/README* doc/*.mol2 )
 
 pkg_setup() {
 	if use openmp; then

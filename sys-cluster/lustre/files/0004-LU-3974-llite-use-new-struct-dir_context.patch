@@ -1,0 +1,276 @@
+From 82f692de87cb6c7db8f050b3201d23f4852a404c Mon Sep 17 00:00:00 2001
+From: James Simmons <uja.ornl@gmail.com>
+Date: Mon, 2 Dec 2013 12:05:14 -0500
+Subject: [PATCH 04/18] LU-3974 llite: use new struct dir_context
+
+The readdir and nfs code over time has added more
+parameters to be passed to be processed. For the 3.11
+kernel a new struct dir_context was introduced to
+minimize the impact of future expansion. This patch
+addresses this change.
+
+Signed-off-by: James Simmons <uja.ornl@gmail.com>
+Change-Id: Ib42bf8cb06635a2a64e63b294d79e66ac82a1a5b
+---
+ lustre/autoconf/lustre-core.m4 | 20 ++++++++++
+ lustre/llite/dir.c             | 86 +++++++++++++++++++++++++++++-------------
+ lustre/llite/llite_internal.h  |  7 ++++
+ lustre/llite/llite_nfs.c       | 33 ++++++++++------
+ 4 files changed, 107 insertions(+), 39 deletions(-)
+
+diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
+index 7f9bb45..3ac55d6 100644
+--- a/lustre/autoconf/lustre-core.m4
++++ b/lustre/autoconf/lustre-core.m4
+@@ -1287,6 +1287,25 @@ LB_LINUX_TRY_COMPILE([
+ ])
+ 
+ #
++# 3.11 readdir now takes the new struct dir_context
++#
++AC_DEFUN([LC_HAVE_DIR_CONTEXT],
++[AC_MSG_CHECKING([if dir_context exist])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/fs.h>
++],[
++	struct dir_context ctx;
++
++	ctx.pos = 0;
++],[
++	AC_DEFINE(HAVE_DIR_CONTEXT, 1, [dir_context exist])
++	AC_MSG_RESULT([yes])
++],[
++	AC_MSG_RESULT([no])
++])
++])
++
++#
+ # 3.11 dentry_operations.d_compare() taken 5 arguments.
+ #
+ AC_DEFUN([LC_D_COMPARE_5ARGS],
+@@ -1423,6 +1442,7 @@ AC_DEFUN([LC_PROG_LINUX],
+ 	 LC_BLKDEV_RELEASE_RETURN_INT
+ 
+ 	 # 3.11
++	 LC_HAVE_DIR_CONTEXT
+ 	 LC_D_COMPARE_5ARGS
+ 	 LC_HAVE_DCOUNT
+ 
+diff --git a/lustre/llite/dir.c b/lustre/llite/dir.c
+index 2021897..e2546cc 100644
+--- a/lustre/llite/dir.c
++++ b/lustre/llite/dir.c
+@@ -477,19 +477,25 @@ fail:
+         goto out_unlock;
+ }
+ 
++#ifdef HAVE_DIR_CONTEXT
++int ll_dir_read(struct inode *inode, struct dir_context *ctx)
++{
++	__u64			pos	= ctx->pos;
++#else
+ int ll_dir_read(struct inode *inode, __u64 *_pos, void *cookie,
+ 		filldir_t filldir)
+ {
+-        struct ll_inode_info *info       = ll_i2info(inode);
+-        struct ll_sb_info    *sbi        = ll_i2sbi(inode);
+-	__u64                 pos        = *_pos;
+-        int                   api32      = ll_need_32bit_api(sbi);
+-        int                   hash64     = sbi->ll_flags & LL_SBI_64BIT_HASH;
+-        struct page          *page;
+-        struct ll_dir_chain   chain;
+-	int                   done = 0;
+-	int                   rc = 0;
+-        ENTRY;
++	__u64			pos	= *_pos;
++#endif
++	struct ll_inode_info	*info	= ll_i2info(inode);
++	struct ll_sb_info	*sbi	= ll_i2sbi(inode);
++	int			api32	= ll_need_32bit_api(sbi);
++	int			hash64	= sbi->ll_flags & LL_SBI_64BIT_HASH;
++	struct page		*page;
++	struct ll_dir_chain	chain;
++	int			done = 0;
++	int			rc = 0;
++	ENTRY;
+ 
+         ll_dir_chain_init(&chain);
+ 
+@@ -542,12 +548,18 @@ int ll_dir_read(struct inode *inode, __u64 *_pos, void *cookie,
+                                 fid_le_to_cpu(&fid, &ent->lde_fid);
+                                 ino = cl_fid_build_ino(&fid, api32);
+                                 type = ll_dirent_type_get(ent);
+-                                /* For 'll_nfs_get_name_filldir()', it will try
+-                                 * to access the 'ent' through its 'lde_name',
+-                                 * so the parameter 'name' for 'filldir()' must
+-                                 * be part of the 'ent'. */
+-                                done = filldir(cookie, ent->lde_name, namelen,
+-                                               lhash, ino, type);
++#ifdef HAVE_DIR_CONTEXT
++				ctx->pos = lhash;
++				/* For 'll_nfs_get_name_filldir()', it will try
++				 * to access the 'ent' through its 'lde_name',
++				 * so the parameter 'name' for 'filldir()' must
++				 * be part of the 'ent'. */
++				done = !dir_emit(ctx, ent->lde_name,
++							namelen, ino, type);
++#else
++				done = filldir(cookie, ent->lde_name, namelen,
++						lhash, ino, type);
++#endif
+                         }
+                         next = le64_to_cpu(dp->ldp_hash_end);
+                         if (!done) {
+@@ -588,12 +600,20 @@ int ll_dir_read(struct inode *inode, __u64 *_pos, void *cookie,
+                 }
+         }
+ 
++#ifdef HAVE_DIR_CONTEXT
++	ctx->pos = pos;
++#else
+ 	*_pos = pos;
++#endif
+ 	ll_dir_chain_fini(&chain);
+ 	RETURN(rc);
+ }
+ 
++#ifdef HAVE_DIR_CONTEXT
++static int ll_iterate(struct file *filp, struct dir_context *ctx)
++#else
+ static int ll_readdir(struct file *filp, void *cookie, filldir_t filldir)
++#endif
+ {
+ 	struct inode		*inode	= filp->f_dentry->d_inode;
+ 	struct ll_file_data	*lfd	= LUSTRE_FPRIVATE(filp);
+@@ -622,20 +642,28 @@ static int ll_readdir(struct file *filp, void *cookie, filldir_t filldir)
+ 		 */
+ 		GOTO(out, rc = 0);
+ 
++#ifdef HAVE_DIR_CONTEXT
++	ctx->pos = pos;
++	rc = ll_dir_read(inode, ctx);
++	pos = ctx->pos;
++#else
+ 	rc = ll_dir_read(inode, &pos, cookie, filldir);
++#endif
+ 	if (lfd != NULL)
+ 		lfd->lfd_pos = pos;
+-        if (pos == MDS_DIR_END_OFF) {
+-                if (api32)
+-                        filp->f_pos = LL_DIR_END_OFF_32BIT;
+-                else
+-                        filp->f_pos = LL_DIR_END_OFF;
+-        } else {
+-                if (api32 && hash64)
+-                        filp->f_pos = pos >> 32;
+-                else
+-                        filp->f_pos = pos;
++	if (pos == MDS_DIR_END_OFF) {
++		if (api32)
++			pos = LL_DIR_END_OFF_32BIT;
++		else
++			pos = LL_DIR_END_OFF;
++	} else if (api32 && hash64) {
++		pos >>= 32;
+         }
++#ifdef HAVE_DIR_CONTEXT
++	ctx->pos = pos;
++#else
++	filp->f_pos = pos;
++#endif
+ 	filp->f_version = inode->i_version;
+ #ifdef HAVE_TOUCH_ATIME_1ARG
+ #ifdef HAVE_F_PATH_MNT
+@@ -2020,7 +2048,11 @@ struct file_operations ll_dir_operations = {
+         .open     = ll_dir_open,
+         .release  = ll_dir_release,
+         .read     = generic_read_dir,
+-        .readdir  = ll_readdir,
++#ifdef HAVE_DIR_CONTEXT
++	.iterate	= ll_iterate,
++#else
++	.readdir	= ll_readdir,
++#endif
+         .unlocked_ioctl   = ll_dir_ioctl,
+         .fsync    = ll_fsync,
+ };
+diff --git a/lustre/llite/llite_internal.h b/lustre/llite/llite_internal.h
+index 9da81ca..283e106 100644
+--- a/lustre/llite/llite_internal.h
++++ b/lustre/llite/llite_internal.h
+@@ -91,6 +91,9 @@ extern struct file_operations ll_pgcache_seq_fops;
+ #define REMOTE_PERM_HASHSIZE 16
+ 
+ struct ll_getname_data {
++#ifdef HAVE_DIR_CONTEXT
++	struct dir_context	ctx;
++#endif
+         char            *lgd_name;      /* points to a buffer with NAME_MAX+1 size */
+         struct lu_fid    lgd_fid;       /* target fid we are looking for */
+         int              lgd_found;     /* inode matched? */
+@@ -722,8 +725,12 @@ extern struct file_operations ll_dir_operations;
+ extern struct inode_operations ll_dir_inode_operations;
+ struct page *ll_get_dir_page(struct inode *dir, __u64 hash,
+                              struct ll_dir_chain *chain);
++#ifdef HAVE_DIR_CONTEXT
++int ll_dir_read(struct inode *inode, struct dir_context *ctx);
++#else
+ int ll_dir_read(struct inode *inode, __u64 *_pos, void *cookie,
+ 		filldir_t filldir);
++#endif
+ 
+ int ll_get_mdt_idx(struct inode *inode);
+ /* llite/namei.c */
+diff --git a/lustre/llite/llite_nfs.c b/lustre/llite/llite_nfs.c
+index 2926caf..25b16e8 100644
+--- a/lustre/llite/llite_nfs.c
++++ b/lustre/llite/llite_nfs.c
+@@ -235,24 +235,33 @@ static int ll_nfs_get_name_filldir(void *cookie, const char *name, int namelen,
+ static int ll_get_name(struct dentry *dentry, char *name,
+                        struct dentry *child)
+ {
+-        struct inode *dir = dentry->d_inode;
+-        struct ll_getname_data lgd;
++	struct inode *dir = dentry->d_inode;
++	struct ll_getname_data lgd = {
++		.lgd_name = name,
++		.lgd_fid = ll_i2info(child->d_inode)->lli_fid,
++#ifdef HAVE_DIR_CONTEXT
++		.ctx.actor = ll_nfs_get_name_filldir,
++	};
++#else
++		.lgd_found = 0,
++	};
+ 	__u64 offset = 0;
+-        int rc;
+-        ENTRY;
+-
+-        if (!dir || !S_ISDIR(dir->i_mode))
+-                GOTO(out, rc = -ENOTDIR);
++#endif
++	int rc;
++	ENTRY;
+ 
+-        if (!dir->i_fop)
+-                GOTO(out, rc = -EINVAL);
++	if (!dir || !S_ISDIR(dir->i_mode))
++		GOTO(out, rc = -ENOTDIR);
+ 
+-        lgd.lgd_name = name;
+-        lgd.lgd_fid = ll_i2info(child->d_inode)->lli_fid;
+-        lgd.lgd_found = 0;
++	if (!dir->i_fop)
++		GOTO(out, rc = -EINVAL);
+ 
+ 	mutex_lock(&dir->i_mutex);
++#ifdef HAVE_DIR_CONTEXT
++	rc = ll_dir_read(dir, &lgd.ctx);
++#else
+ 	rc = ll_dir_read(dir, &offset, &lgd, ll_nfs_get_name_filldir);
++#endif
+ 	mutex_unlock(&dir->i_mutex);
+         if (!rc && !lgd.lgd_found)
+                 rc = -ENOENT;
+-- 
+1.8.5.1
+

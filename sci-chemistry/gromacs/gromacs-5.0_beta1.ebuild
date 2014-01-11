@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,7 +16,7 @@ if [[ $PV = *9999* ]]; then
 		git://github.com/gromacs/gromacs.git
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="master"
-	inherit git-2
+	inherit git-r3
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${PN}-${PV/_/-}.tar.gz
 		test? ( http://${PN}.googlecode.com/files/regressiontests-${TEST_PV}.tar.gz )"
@@ -79,12 +79,12 @@ src_unpack() {
 	if [[ ${PV} != *9999 ]]; then
 		default
 	else
-		git-2_src_unpack
+		git-r3_src_unpack
 		if use test; then
 			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
 			EGIT_BRANCH="master" EGIT_NOUNPACK="yes" EGIT_COMMIT="master" \
 			EGIT_SOURCEDIR="${WORKDIR}/regressiontests"\
-				git-2_src_unpack
+				git-r3_src_unpack
 		fi
 	fi
 }

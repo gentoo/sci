@@ -1,11 +1,11 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.09.ebuild,v 1.2 2013/09/05 19:44:52 mgorny Exp $
+# $Header: $
 
 EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
-	_GIT=git-2
+	_GIT=git-r3
 	EGIT_REPO_URI="http://root.cern.ch/git/root.git"
 	SRC_URI=""
 	KEYWORDS=""
@@ -32,7 +32,7 @@ SRC_URI="${SRC_URI}
 			ftp://root.cern.ch/${PN}/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
 			http://tmva.sourceforge.net/docu/TMVAUsersGuide.pdf -> TMVAUsersGuide-v${TMVA_DOC_PV}.pdf )
 		metric? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuideA4.pdf -> ROOTUsersGuideA4-${PV}.pdf )
-	   !metric? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuideLetter.pdf -> ROOTUsersGuideLetter-${PV}.pdf )
+		!metric? ( ftp://root.cern.ch/${PN}/doc/ROOTUsersGuideLetter.pdf -> ROOTUsersGuideLetter-${PV}.pdf )
 		htmldoc? (
 			http://root.cern.ch/drupal/sites/default/files/rootdrawing-logo.png
 			http://root.cern.ch/drupal/sites/all/themes/newsflash/images/blue/root-banner.png
@@ -103,7 +103,7 @@ CDEPEND="
 		oracle? ( dev-db/oracle-instantclient-basic )
 		postgres? ( dev-db/postgresql-base )
 		pythia6? ( sci-physics/pythia:6 )
-		pythia8? ( sci-physics/pythia:8 )
+		pythia8? ( >=sci-physics/pythia-8.1.80:8 )
 		python? ( ${PYTHON_DEPS} )
 		ruby? (
 				dev-lang/ruby
@@ -126,19 +126,19 @@ S="${WORKDIR}/${PN}"
 
 pkg_setup() {
 	fortran-2_pkg_setup
+	use python && python-single-r1_pkg_setup
 	echo
 	elog "There are extra options on packages not yet in Gentoo:"
 	elog "Afdsmgrd, AliEn, castor, Chirp, dCache, gfal, Globus, gLite,"
 	elog "HDFS, Monalisa, MaxDB/SapDB, SRP."
 	elog "You can use the env variable EXTRA_ECONF variable for this."
 	elog "For example, for SRP, you would set: "
-	elog "EXTRA_ECONF=\"--enable-srp --with-srp-libdir=/usr/$(get_libdir)\""
+	elog "EXTRA_ECONF=\"--enable-srp --with-srp-libdir=${EROOT%/}/usr/$(get_libdir)\""
 	echo
 	enewgroup rootd
 	enewuser rootd -1 -1 /var/spool/rootd rootd
 	use minimal && return
 
-	use python && python-single-r1_pkg_setup
 	if use math; then
 		if use openmp; then
 			if [[ $(tc-getCXX)$ == *g++* ]] && ! tc-has-openmp; then
@@ -311,8 +311,11 @@ doc_install() {
 	cd "${S}"
 	if use doc && ! use minimal; then
 		einfo "Installing user's guides"
-		use metric && dodoc "${DISTDIR}"/ROOTUsersGuideA4-${PV}.pdf || \
+		if use metric; then
+			dodoc "${DISTDIR}"/ROOTUsersGuideA4-${PV}.pdf
+		else
 			dodoc "${DISTDIR}"/ROOTUsersGuideLetter-${PV}.pdf
+		fi
 		use math && dodoc \
 			"${DISTDIR}"/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf \
 			"${DISTDIR}"/TMVAUsersGuide-v${TMVA_DOC_PV}.pdf
@@ -366,7 +369,7 @@ src_install() {
 		use pythia8 && echo "PYTHIA8=${EPREFIX}/usr" >> 99root
 		if use python; then
 			echo "PYTHONPATH=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
-			python_optimize /usr/$(get_libdir)/root
+			python_optimize "${ED}/usr/$(get_libdir)/root"
 		fi
 		use ruby && echo "RUBYLIB=${EPREFIX}/usr/$(get_libdir)/root" >> 99root
 	fi

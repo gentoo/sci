@@ -1,11 +1,13 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/app-text/jabref/jabref-2.9.2.ebuild,v 1.1 2013/12/19 01:54:09 nicolasbock Exp $
 
 EAPI=5
 
-EANT_DOC_TARGET=javadocs
-inherit java-pkg-2 java-ant-2
+EANT_DOC_TARGET="docs"
+EANT_BUILD_TARGET="jars"
+
+inherit eutils java-pkg-2 java-ant-2 java-utils-2
 
 DESCRIPTION="Java GUI for managing BibTeX and other bibliographies"
 HOMEPAGE="http://jabref.sourceforge.net/"
@@ -15,8 +17,6 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc"
-
-EANT_BUILD_TARGET="jars"
 
 DEPEND=">=virtual/jdk-1.6"
 RDEPEND=">=virtual/jre-1.6"
