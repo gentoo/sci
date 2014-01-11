@@ -1,0 +1,9 @@
+# ChangeLog for sci-chemistry/pesto
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pesto-9999 (11 Jan 2014)
+
+  11 Jan 2014; Christoph Junghans <ottxor@gentoo.org> +metadata.xml,
+  +pesto-9999.ebuild:
+  initial commit
