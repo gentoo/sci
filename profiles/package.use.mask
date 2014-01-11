@@ -16,6 +16,13 @@
 ## =media-video/mplayer-0.90_pre5-r1 foo
 #
 
+# Justin Lecher <jlec@gntoo.org> (06 Jan 2014)
+# Missing dep dev-python/scikits-cuda
+sci-biology/mne-python cuda
+
+# sci-libs/parmetis-4* is masked
+sci-libs/dealii metis
+
 # Christoph Junghans <ottxor@gentoo.org> (05 Nov 2013)
 # gui sandbox error
 dev-lang/conceptual gui

@@ -1,6 +1,14 @@
 # ChangeLog for sci-chemistry/gromacs
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> gromacs-4.6.9999.ebuild,
+  gromacs-5.0_beta1.ebuild, gromacs-9999.ebuild:
+  Switch from git-2 to git-r3
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> gromacs-4.6.9999.ebuild,
+  gromacs-5.0_beta1.ebuild, gromacs-9999.ebuild:
+  Switch from git-2 to git-r3
 
   07 Dec 2013; Justin Lecher <jlec@gentoo.org> gromacs-5.0_beta1.ebuild,
   metadata.xml:

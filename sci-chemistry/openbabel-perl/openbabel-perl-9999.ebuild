@@ -1,10 +1,10 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-inherit cmake-utils eutils git-2 perl-module
+inherit cmake-utils eutils git-r3 perl-module
 
 DESCRIPTION="Perl bindings for OpenBabel"
 HOMEPAGE="http://openbabel.sourceforge.net/"
@@ -25,7 +25,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/openbabel-${PV}"
 
 src_unpack() {
-	git-2_src_unpack
+	git-r3_src_unpack
 }
 
 src_configure() {

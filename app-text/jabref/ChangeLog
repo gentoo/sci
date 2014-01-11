@@ -1,6 +1,55 @@
 # ChangeLog for app-text/jabref
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>
+  jabref-2.10_beta2-r1.ebuild:
+  app-text/jabref: Remove another bundled library.
+
+  03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>
+  jabref-2.10_beta2-r1.ebuild:
+  app-text/jabref: Remove another bundled lib.
+
+  03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> jabref-2.10_beta-r1.ebuild,
+  jabref-2.10_beta2-r1.ebuild:
+  app-text/jabref: Do not remove unjarlib target yet.  We need to first replace
+  all bundled libs with portage versions.
+
+  03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> jabref-2.10_beta-r1.ebuild,
+  jabref-2.10_beta2-r1.ebuild:
+  app-text/jabref: Fix bug in java-pkg_getjars; use a '-' instead of ':' to
+  specify slot.
+
+*jabref-2.10_beta-r1 (03 Jan 2014)
+
+  03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>
+  +jabref-2.10_beta-r1.ebuild:
+  app-text/jabref-2.10_beta-r1: Adding revised ebuild for first beta.
+
+  03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>
+  jabref-2.10_beta2-r1.ebuild:
+  app-text/jabref-2.10_beta2-r1: Added back slotted fontbox package, but fixed
+  java-pkg_getjars.
+
+  03 Jan 2014; Justin Lecher <jlec@gentoo.org> jabref-2.10_beta2-r1.ebuild,
+  metadata.xml:
+  Fix fontbox SLOT
+
+*jabref-2.10_beta2-r1 (02 Jan 2014)
+
+  02 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>
+  +jabref-2.10_beta2-r1.ebuild:
+  app-text/jabref-2.10_beta2-r1: Started to remove bundled libraries.
+
+*jabref-2.10_beta2 (02 Jan 2014)
+
+  02 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> +jabref-2.10_beta2.ebuild:
+  app-text/jabref-2.10_beta2: Added new beta.
+
+*jabref-2.9.2-r1 (02 Jan 2014)
+
+  02 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> +jabref-2.9.2-r1.ebuild:
+  app-text/jabref-2.9.2-r1: Small cleanup.
 
   20 Dec 2013; Nicolas Bock <nicolasbock@gentoo.org> -jabref-2.9.2-r1.ebuild,
   -jabref-2.9.2.ebuild:

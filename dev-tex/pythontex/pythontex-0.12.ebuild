@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tex/envlab/envlab-1.2-r1.ebuild,v 1.18 2012/05/09 17:16:08 aballier Exp $
 
@@ -17,9 +17,10 @@ LICENSE="LPPL-1.3 BSD"
 KEYWORDS="~amd64"
 IUSE="highlighting"
 
-DEPEND="app-text/texlive
-	${PYTHON_DEPS}"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
+DEPEND="${PYTHON_DEPS}
+	app-text/texlive"
 RDEPEND="${DEPEND}
 	dev-texlive/texlive-xetex
 	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
@@ -34,7 +35,7 @@ src_prepare() {
 
 src_compile() {
 	ebegin "Compiling ${PN}"
-	latex ${PN}.ins extra >${T}/build-latex.log || die "Building style from ${PN}.ins failed"
+	latex ${PN}.ins extra > "${T}"/build-latex.log || die "Building style from ${PN}.ins failed"
 	eend
 	sed -i -e '1i#!/usr/bin/env python' depythontex2.py || die "adding shebang failed!"
 	sed -i -e '1i#!/usr/bin/env python' depythontex3.py || die "adding shebang failed!"
@@ -42,24 +43,25 @@ src_compile() {
 
 src_install() {
 	python_optimize .
-	if python_is_python3; then 
-		python_newscript pythontex3.py pythontex.py 
+	if python_is_python3; then
+		python_newscript pythontex3.py pythontex.py
 		python_newscript depythontex3.py depythontex.py
-	else	python_newscript pythontex2.py pythontex.py
+	else
+		python_newscript pythontex2.py pythontex.py
 		python_doscript pythontex_2to3.py
 		python_newscript depythontex2.py depythontex.py
 	fi
-	
+
 	python_export PYTHON_SCRIPTDIR
-	echo ${PYTHON_SCRIPTDIR}	
-	python_moduleinto ${PYTHON_SCRIPTDIR} # it looks for modules here, submitted a patch for future versions.
+
+	python_moduleinto ${PYTHON_SCRIPTDIR}
 	python_domodule "${S}"/pythontex_engines.py "${S}"/pythontex_utils.py
 
 	insinto /usr/share/texmf-site/tex/latex/pythontex/
 	doins "${S}"/pythontex.sty
 
 	insinto /usr/share/texmf-site/source/latex/pythontex/
-	doins "${S}"/pythontex.dtx "${S}"/pythontex.ins	
+	doins "${S}"/pythontex.dtx "${S}"/pythontex.ins
 
 	latex-package_src_install
 

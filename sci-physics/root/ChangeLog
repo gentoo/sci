@@ -1,6 +1,9 @@
 # ChangeLog for sci-physics/root
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> root-9999.ebuild:
+  Switch from git-2 to git-r3
 
   28 Dec 2013; Justin Lecher <jlec@gentoo.org> -root-5.32.03-r2.ebuild,
   -root-5.34.13.ebuild, root-9999.ebuild:
