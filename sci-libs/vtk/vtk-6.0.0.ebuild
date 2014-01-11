@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-libs/vtk/vtk-5.10.1.ebuild,v 1.6 2013/03/02 23:24:14 hwoarang Exp $
+# $Header: $
 
 EAPI=5
 
@@ -15,8 +15,7 @@ DESCRIPTION="The Visualization Toolkit"
 HOMEPAGE="http://www.vtk.org/"
 SRC_URI="
 	http://www.${PN}.org/files/release/${SPV}/${P/_rc/.rc}.tar.gz
-	doc? ( http://www.${PN}.org/files/release/${SPV}/${PN}DocHtml-${PV}.tar.gz )
-	examples? ( http://www.${PN}.org/files/release/${SPV}/${PN}data-${PV}.tar.gz )"
+	doc? ( http://www.${PN}.org/files/release/${SPV}/${PN}DocHtml-${PV}.tar.gz )"
 
 LICENSE="BSD LGPL-2"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -24,12 +23,15 @@ SLOT="0"
 IUSE="
 	aqua boost cg doc examples imaging ffmpeg java mpi mysql odbc
 	offscreen postgres python qt4 rendering test theora tk tcl
-	video_cards_nvidia views R X"
+	video_cards_nvidia views R +X"
 
 REQUIRED_USE="
+	java? ( qt4 )
 	python? ( ${PYTHON_REQUIRED_USE} )
+	tcl? ( rendering )
+	test? ( python )
 	tk? ( tcl )
-	?? ( X aqua offscreen )"
+	^^ ( X aqua offscreen )"
 
 RDEPEND="
 	dev-libs/expat
@@ -41,7 +43,7 @@ RDEPEND="
 	media-libs/tiff
 	sci-libs/exodusii
 	sci-libs/hdf5
-	sci-libs/netcdf-cxx
+	sci-libs/netcdf-cxx:3
 	sys-libs/zlib
 	virtual/jpeg
 	virtual/opengl
@@ -49,10 +51,12 @@ RDEPEND="
 	x11-libs/libX11
 	x11-libs/libXmu
 	x11-libs/libXt
+	boost? ( >=dev-libs/boost-1.40.0[mpi?] )
 	cg? ( media-gfx/nvidia-cg-toolkit )
 	examples? (
 		dev-qt/qtcore:4
 		dev-qt/qtgui:4
+		sci-libs/vtkdata
 	)
 	ffmpeg? ( virtual/ffmpeg )
 	java? ( >=virtual/jre-1.5 )
@@ -73,15 +77,14 @@ RDEPEND="
 		dev-qt/qtwebkit:4
 		python? ( dev-python/PyQt4[${PYTHON_USEDEP}] )
 		)
-	tk? ( dev-lang/tk )
+	tcl? ( dev-lang/tcl )
 	tk? ( dev-lang/tk )
 	video_cards_nvidia? ( media-video/nvidia-settings )
 	R? ( dev-lang/R )"
 DEPEND="${RDEPEND}
-	boost? ( >=dev-libs/boost-1.40.0[mpi?] )
 	doc? ( app-doc/doxygen )
 	java? ( >=virtual/jdk-1.5 )
-	dev-util/cmake"
+	test? ( sci-libs/vtkdata )"
 
 S="${WORKDIR}"/VTK${PV}
 
@@ -92,6 +95,8 @@ PATCHES=(
 	"${FILESDIR}"/${P}-netcdf.patch
 	"${FILESDIR}"/${P}-vtkpython.patch
 	)
+
+RESTRICT=test
 
 pkg_setup() {
 	use java && java-pkg-opt-2_pkg_setup
@@ -111,6 +116,18 @@ src_prepare() {
 		rm -r ThirdParty/${x}/vtk${x} || die
 	done
 
+	if use examples || use test; then
+		# Replace relative path ../../../VTKData with
+		# otherwise it will break on symlinks.
+		grep -rl '\.\./\.\./\.\./\.\./VTKData' . | xargs \
+			sed \
+				-e "s|\.\./\.\./\.\./\.\./VTKData|${EPREFIX}/usr/share/vtk/data|g" \
+				-e "s|\.\./\.\./\.\./\.\./\.\./VTKData|${EPREFIX}/usr/share/vtk/data|g" \
+				-i || die
+	fi
+
+	use java && export JAVA_HOME="${EPREFIX}/etc/java-config-2/current-system-vm"
+
 	cmake-utils_src_prepare
 }
 
@@ -118,7 +135,7 @@ src_configure() {
 	# general configuration
 	local mycmakeargs=(
 		-Wno-dev
-		-DCMAKE_SKIP_RPATH=YES
+#		-DCMAKE_SKIP_RPATH=YES
 		-DVTK_DIR="${S}"
 		-DVTK_INSTALL_LIBRARY_DIR=$(get_libdir)
 		-DVTK_DATA_ROOT:PATH="${EPREFIX}/usr/share/${PN}/data"
@@ -184,12 +201,25 @@ src_configure() {
 	)
 
 	# Apple stuff, does it really work?
-	mycmakeargs+=(
-		$(cmake-utils_use aqua VTK_USE_COCOA)
-	)
+	mycmakeargs+=( $(cmake-utils_use aqua VTK_USE_COCOA) )
 
-	use java && export JAVA_HOME=$(java-config -O)
-
+	if use java; then
+#		local _ejavahome=${EPREFIX}/etc/java-config-2/current-system-vm
+#
+#	mycmakeargs+=(
+#			-DJAVAC=${EPREFIX}/usr/bin/javac
+#			-DJAVAC=$(java-config -c)
+#			-DJAVA_AWT_INCLUDE_PATH=${JAVA_HOME}/include
+#			-DJAVA_INCLUDE_PATH:PATH=${JAVA_HOME}/include
+#			-DJAVA_INCLUDE_PATH2:PATH=${JAVA_HOME}/include/linux
+#		)
+#
+		if [ "${ARCH}" == "amd64" ]; then
+			mycmakeargs+=( -DJAVA_AWT_LIBRARY="${JAVA_HOME}/jre/lib/${ARCH}/libjawt.so;${JAVA_HOME}/jre/lib/${ARCH}/xawt/libmawt.so" )
+		else
+			mycmakeargs+=( -DJAVA_AWT_LIBRARY="${JAVA_HOME}/jre/lib/i386/libjawt.so;${JAVA_HOME}/jre/lib/i386/xawt/libmawt.so" )
+		fi
+	fi
 	if use python; then
 		mycmakeargs+=(
 			-DPYTHON_INCLUDE_DIR="$(python_get_includedir)"
@@ -239,9 +269,15 @@ src_configure() {
 }
 
 src_test() {
+	local tcllib
 	ln -sf "${BUILD_DIR}"/lib  "${BUILD_DIR}"/lib/Release || die
-	export LD_LIBRARY_PATH="${BUILD_DIR}"/lib
+	for tcllib in "${BUILD_DIR}"/lib/lib*TCL*so; do
+		ln -sf $(basename "${tcllib}").1 "${tcllib/.so/-${SPV}.so}" || die
+	done
+	export LD_LIBRARY_PATH="${BUILD_DIR}"/lib:"${JAVA_HOME}"/jre/lib/${ARCH}/:"${JAVA_HOME}"/jre/lib/${ARCH}/xawt/
 	local VIRTUALX_COMMAND="cmake-utils_src_test"
+#	local VIRTUALX_COMMAND="cmake-utils_src_test -R Java"
+#	local VIRTUALX_COMMAND="cmake-utils_src_test -I 364,365"
 	virtualmake
 }
 
@@ -250,6 +286,8 @@ src_install() {
 	HTML_DOCS=( "${S}"/README.html )
 
 	cmake-utils_src_install
+
+	use java && java-pkg_regjar "${ED}"/usr/$(get_libdir)/${PN}.jar
 
 	if use tcl; then
 		# install Tcl docs
@@ -262,13 +300,11 @@ src_install() {
 		insinto /usr/share/${PN}
 		mv -v Examples examples || die
 		doins -r examples
-		mv -v "${WORKDIR}"/{VTKDATA${PV},data} || die
-		doins -r "${WORKDIR}"/data
 	fi
 
 	#install big docs
 	if use doc; then
-		cd "${WORKDIR}"/html
+		cd "${WORKDIR}"/html || die
 		rm -f *.md5 || die "Failed to remove superfluous hashes"
 		einfo "Installing API docs. This may take some time."
 		insinto "/usr/share/doc/${PF}/api-docs"

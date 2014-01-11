@@ -1,6 +1,17 @@
 # ChangeLog for sci-libs/vtk
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/vtk/ChangeLog,v 1.108 2013/06/05 01:21:35 lu_zero Exp $
+
+  11 Jan 2014; Justin Lecher <jlec@gentoo.org> vtk-6.0.0.ebuild,
+  +files/vtk-6.0.0-install.patch, +files/vtk-6.0.0-netcdf.patch,
+  +files/vtk-6.0.0-system.patch, +files/vtk-6.0.0-vtkpython.patch,
+  metadata.xml:
+  First completely working version
+
+  11 Jan 2014; Justin Lecher <jlec@gentoo.org> vtk-6.0.0.ebuild,
+  +files/vtk-6.0.0-install.patch, +files/vtk-6.0.0-netcdf.patch,
+  +files/vtk-6.0.0-system.patch, +files/vtk-6.0.0-vtkpython.patch:
+  First completely working version
 
   16 Jul 2013; Justin Lecher <jlec@gentoo.org> vtk-6.0.0.ebuild,
   -files/vtk-5.2.0-tcl-install.patch,
