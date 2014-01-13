@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit cmake-utils multilib python-single-r1
+inherit cmake-utils multilib python-single-r1 virtualx
 
 DESCRIPTION="Library for chemistry applications"
 HOMEPAGE="http://www.chemkit.org/"
@@ -17,25 +17,26 @@ LICENSE="BSD"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="applications examples python test"
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}
+	test? ( applications python )"
 
-RDEPEND="${PYTHON_DEPS}
+RDEPEND="
 	dev-libs/boost
 	dev-cpp/eigen:3
+	applications? ( dev-qt/qtcore )
 	examples? (
 		x11-libs/libX11
 		x11-libs/libXext
-	)"
+	)
+	python? ( ${PYTHON_DEPS} )
+"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${PN}
 
-src_prepare() {
-	sed \
-		-e "/install/s:lib:$(get_libdir):g" \
-		-i CMakeLists.txt src/CMakeLists.txt src/plugins/CMakeLists.txt || die
-	cmake-utils_src_prepare
-}
+PATCHES=(
+	"${FILESDIR}"/${P}-multilib.patch
+	)
 
 src_configure() {
 	local mycmakeargs=(
@@ -48,6 +49,11 @@ src_configure() {
 		$(cmake-utils_use test CHEMKIT_BUILD_TESTS)
 	)
 	cmake-utils_src_configure
+}
+
+src_test() {
+	VIRTUALX_COMMAND="cmake-utils_src_test"
+	virtualmake
 }
 
 src_install() {
