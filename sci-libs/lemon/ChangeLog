@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Jan 2014; Justin Lecher <jlec@gentoo.org> -lemon-1.3.ebuild,
+  +lemon-1.3-r1.ebuild, +files/lemon-1.3-underlinking.patch:
+  Import latest tree changes
+
   13 Jan 2014; Justin Lecher <jlec@gentoo.org> lemon-1.3.ebuild,
   +files/lemon-1.3-multilib.patch, metadata.xml:
   Fix for multilib-strict
