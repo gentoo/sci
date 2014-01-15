@@ -3,6 +3,9 @@
 # $Header: $
 
   15 Jan 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
+  Readd argparse fix; fix icon installation
+
+  15 Jan 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
   Merge tree changes
 
   24 Jul 2013; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:

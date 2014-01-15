@@ -47,6 +47,7 @@ python_prepare_all() {
 	sed \
 		-e "s:\"/usr:\"${EPREFIX}/usr:g" \
 		-e "/ext_comp_args/s:=\[.*\]$:= \[\]:g" \
+		-e "/import/s:argparse:argparseX:g" \
 		-i setup.py || die
 
 	rm ./modules/pmg_tk/startup/apbs_tools.py || die
@@ -83,7 +84,7 @@ python_install_all() {
 
 	doenvd "${T}"/20pymol
 
-	newicon "${WORKDIR}"/${P}.png ${PN}.png
+	newicon "${WORKDIR}"/${PN}-1.7.0.0.png ${PN}.png
 	make_desktop_entry pymol PyMol ${PN} "Graphics;Education;Science;Chemistry" "MimeType=chemical/x-pdb;"
 
 	if ! use web; then
