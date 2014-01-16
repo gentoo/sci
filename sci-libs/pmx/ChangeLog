@@ -1,0 +1,10 @@
+# ChangeLog for sci-libs/pmx
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pmx-9999 (09 Jan 2014)
+
+  09 Jan 2014; Reinis Danne <rei4dan@gmail.com> +pmx-9999.ebuild,
+  +metadata.xml:
+  New ebuild.
+

@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,7 +17,7 @@ if [[ $PV = *9999* ]]; then
 		git://github.com/gromacs/gromacs.git
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-4-6"
-	inherit git-2
+	inherit git-r3
 	LIVE_DEPEND="doc? (
 		dev-texlive/texlive-latex
 		dev-texlive/texlive-latexextra
@@ -85,18 +85,18 @@ src_unpack() {
 	if [[ ${PV} != *9999 ]]; then
 		default
 	else
-		git-2_src_unpack
+		git-r3_src_unpack
 		if use doc; then
 			EGIT_REPO_URI="git://git.gromacs.org/manual.git" \
 			EGIT_BRANCH="release-4-6" EGIT_NOUNPACK="yes" EGIT_COMMIT="release-4-6" \
 			EGIT_SOURCEDIR="${WORKDIR}/manual"\
-				git-2_src_unpack
+				git-r3_src_unpack
 		fi
 		if use test; then
 			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
 			EGIT_BRANCH="master" EGIT_NOUNPACK="yes" EGIT_COMMIT="master" \
 			EGIT_SOURCEDIR="${WORKDIR}/regressiontests"\
-				git-2_src_unpack
+				git-r3_src_unpack
 		fi
 	fi
 }

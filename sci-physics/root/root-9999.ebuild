@@ -1,11 +1,11 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
-	_GIT=git-2
+	_GIT=git-r3
 	EGIT_REPO_URI="http://root.cern.ch/git/root.git"
 	SRC_URI=""
 	KEYWORDS=""

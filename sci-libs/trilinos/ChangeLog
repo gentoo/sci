@@ -1,6 +1,13 @@
 # ChangeLog for sci-libs/trilinos
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> trilinos-11.0.3.ebuild:
+  Don't use plain pkg-config
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> trilinos-11.4.2.ebuild,
+  metadata.xml:
+  Fix moced dep
 
 *trilinos-11.2.3 (19 Jun 2013)
 

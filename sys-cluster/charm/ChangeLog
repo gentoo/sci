@@ -1,6 +1,24 @@
 # ChangeLog for sys-cluster/charm
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> charm-6.6.0_rc1-r1.ebuild:
+  sys-cluster/charm-6.6.0_rc1-r1: After ongoing problems with charm's git
+  repository, I packaged the rc as a tar file and serve it from my personal dev
+  webpage.
+
+  03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> charm-6.6.0_rc1-r1.ebuild:
+  sys-cluster/charm-6.6.0_rc1-r1: Add non-shallow option to git to avoid
+  breakage of checked out repository.
+
+*charm-6.6.0_rc1-r1 (02 Jan 2014)
+
+  02 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> +charm-6.6.0_rc1-r1.ebuild:
+  sys-cluster/charm-6.6.0_rc1-r1: Cleanup of python deps.
+
+  02 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> -Manifest,
+  -charm-6.5.1-r2.ebuild, -charm-6.5.1-r3.ebuild:
+  sys-cluster/charm: Removing versions moved to x86.
 
   13 Dec 2013; Nicolas Bock <nicolasbock@gentoo.org> metadata.xml:
   sys-cluster/charm: Updated maintainer email to gentoo.org.
