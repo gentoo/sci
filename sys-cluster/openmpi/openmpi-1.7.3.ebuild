@@ -142,7 +142,7 @@ src_configure() {
 }
 
 src_install () {
-	emake DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install
 	# From USE=vt see #359917
 	rm "${ED}"/$(mpi_root)/usr/share/libtool &> /dev/null
 	# Avoid collisions with libevent
@@ -155,5 +155,5 @@ src_test() {
 	# Doesn't work with the default src_test as the dry run (-n) fails.
 
 	# Do not override malloc during build.  Works around #462602
-	emake -j1 check || die "emake check failed"
+	emake -j1 check
 }
