@@ -6,6 +6,6 @@
     <email>jlec@gentoo.org</email>
   </maintainer>
   <use>
-    <flag name="applications">Build also applications not only the libraries</flag>
+    <flag name="rpc">Enable RPC server</flag>
   </use>
 </pkgmetadata>

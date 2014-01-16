@@ -26,7 +26,10 @@ DEPEND="${RDEPEND}
 
 REQUIRED_USE="|| ( coin glpk )"
 
-PATCHES=( "${FILESDIR}"/${P}-multilib.patch )
+PATCHES=(
+	"${FILESDIR}"/${P}-multilib.patch
+	"${FILESDIR}"/${P}-underlinking.patch
+	)
 
 src_prepare() {
 	sed -i \
@@ -69,6 +72,8 @@ src_configure() {
 		$(cmake-utils_use doc LEMON_DOC_USE_MATHJAX)
 		$(cmake-utils_use coin LEMON_ENABLE_COIN)
 		$(cmake-utils_use glpk LEMON_ENABLE_GLPK)
+		-DLEMON_ENABLE_ILOG=NO
+		-DLEMON_ENABLE_SOPLEX=NO
 	)
 	cmake-utils_src_configure
 }

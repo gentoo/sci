@@ -18,16 +18,12 @@ IUSE="static-libs"
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/${PN}-respect-toolchain.patch \
-		"${FILESDIR}"/${PN}-soname.patch \
-		"${FILESDIR}"/${PN}-extras-soname.patch
+		"${FILESDIR}"/${PN}-respect-toolchain.patch
 }
 
 src_compile() {
 	emake libopenlibm.so
 	use static-libs && emake libopenlibm.a
-	emake -f Makefile.extras libopenlibm-extras.so
-	use static-libs && emake -f Makefile.extras libopenlibm-extras.a
 }
 
 src_test() {
@@ -35,8 +31,8 @@ src_test() {
 }
 
 src_install() {
-	dolib.so libopenlibm.so libopenlibm-extras.so
-	use static-libs && dolib.a libopenlibm.a liboenlibm-extras.a
+	dolib.so libopenlibm.so*
+	use static-libs && dolib.a libopenlibm.a
 	doheader include/{cdefs,types}-compat.h src/openlibm.h
 	dodoc README.md
 }
