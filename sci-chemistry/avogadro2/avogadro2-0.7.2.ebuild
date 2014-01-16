@@ -23,7 +23,7 @@ RDEPEND="
 	dev-qt/qtcore:4
 	dev-qt/qtgui:4
 	dev-qt/qtopengl:4
-	~sci-libs/avogadrolibs-${PV}
+	~sci-libs/avogadrolibs-${PV}[qt4,opengl]
 	sci-libs/hdf5
 	rpc? ( sci-chemistry/molequeue )
 "
@@ -32,6 +32,11 @@ DEPEND="${DEPEND}"
 RESTRICT=test
 
 S="${WORKDIR}"/${MY_P}
+
+src_prepare() {
+	sed '/COPYING/d' -i CMakeLists.txt || die
+	cmake-utils_src_prepare
+}
 
 src_configure() {
 	local mycmakeargs=(
