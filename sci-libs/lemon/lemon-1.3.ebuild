@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -25,6 +25,8 @@ DEPEND="${RDEPEND}
 		app-doc/doxygen )"
 
 REQUIRED_USE="|| ( coin glpk )"
+
+PATCHES=( "${FILESDIR}"/${P}-multilib.patch )
 
 src_prepare() {
 	sed -i \
@@ -56,6 +58,7 @@ src_prepare() {
 		-e '/ADD_TEST(lp_test lp_test)/d' \
 		-e '/ADD_DEPENDENCIES(check lp_test)/d' \
 		test/CMakeLists.txt || die
+	cmake-utils_src_prepare
 }
 
 src_configure() {
