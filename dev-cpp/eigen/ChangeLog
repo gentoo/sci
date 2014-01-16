@@ -1,6 +1,12 @@
 # ChangeLog for dev-cpp/eigen
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-cpp/eigen/ChangeLog,v 1.44 2011/03/25 16:01:28 jlec Exp $
+
+*eigen-3.2.0-r1 (16 Jan 2014)
+
+  16 Jan 2014; Justin Lecher <jlec@gentoo.org> +eigen-3.2.0-r1.ebuild,
+  metadata.xml:
+  Backport cmake fix
 
   20 Oct 2013; Honza Macháček <Hloupy.Honza@centrum.cz> eigen-9999.ebuild:
   Avoid creating TeX fonts out of the sandbox.
