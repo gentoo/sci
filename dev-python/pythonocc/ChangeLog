@@ -3,19 +3,19 @@
 # $Header: $
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> ChangeLog:
-  Version BUmp; change license; move to new python eclasses
+  Version Bump; change license; move to new python eclasses
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> ChangeLog:
-  Version BUmp; change license; move to new python eclasses
+  Version Bump; change license; move to new python eclasses
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> ChangeLog:
-  Version BUmp; change license; move to new python eclasses
+  Version Bump; change license; move to new python eclasses
 
 *pythonocc-0.5 (03 Mar 2013)
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> -pythonocc-0.4.ebuild,
   +pythonocc-0.5.ebuild, metadata.xml:
-  Version BUmp; change license; move to new python eclasses
+  Version Bump; change license; move to new python eclasses
 
   14 Mar 2011; Oliver Borm (boroli) <oli.borm@web.de> pythonocc-0.4.ebuild:
   dev-python/pythonocc: restrict to opencascade-6.3 dependency

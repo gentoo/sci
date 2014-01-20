@@ -6,7 +6,7 @@
 
   16 Jun 2013; Justin Lecher <jlec@gentoo.org> -sequin-20090722.ebuild,
   +sequin-20121202.ebuild:
-  Version BUmp; restrcit license; add QA_PREBUILT for binaries; install html
+  Version Bump; restrcit license; add QA_PREBUILT for binaries; install html
   files into sys path
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:

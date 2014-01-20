@@ -10,7 +10,7 @@
 
   15 Jun 2013; Justin Lecher <jlec@gentoo.org> -opal-client-2.2-r1.ebuild,
   +opal-client-2.4.1.ebuild, metadata.xml:
-  Version BUmp; BUmp to EAPI5 and python-r1.eclass
+  Version Bump; Bump to EAPI5 and python-r1.eclass
 
 *opal-client-2.2-r1 (02 Dec 2010)
 

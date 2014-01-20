@@ -37,7 +37,7 @@
 
   10 Dec 2012; Justin Lecher <jlec@gentoo.org> +mkl-11.0.1.117.ebuild,
   metadata.xml:
-  Version BUmp
+  Version Bump
 
   27 Oct 2012; Justin Lecher <jlec@gentoo.org> mkl-11.0.0.079.ebuild,
   metadata.xml:

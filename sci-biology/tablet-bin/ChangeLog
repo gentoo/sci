@@ -3,11 +3,11 @@
 # $Header: $
 
   16 Jun 2013; Justin Lecher <jlec@gentoo.org> tablet-bin-1.13.05.17.ebuild:
-  Version BUmp; BUmp to EAPI5 and python-r1.eclass; drop addpredict
+  Version Bump; Bump to EAPI5 and python-r1.eclass; drop addpredict
 
   16 Jun 2013; Justin Lecher <jlec@gentoo.org> -tablet-bin-1.11.05.03.ebuild,
   -tablet-bin-1.11.11.01.ebuild, +tablet-bin-1.13.05.17.ebuild, metadata.xml:
-  Version BUmp; BUmp to EAPI5 and python-r1.eclass
+  Version Bump; Bump to EAPI5 and python-r1.eclass
 
   07 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   tablet-bin-1.11.11.01.ebuild:

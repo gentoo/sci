@@ -6,7 +6,7 @@
 
   04 Dec 2013; Justin Lecher <jlec@gentoo.org> -pyslice-1.6.4-r1.ebuild,
   +pyslice-1.7.ebuild, metadata.xml:
-  Version BUmp; Bump to distutils-r1 eclass
+  Version Bump; Bump to distutils-r1 eclass
 
 *pyslice-1.6.4-r1 (13 Apr 2011)
 

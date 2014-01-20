@@ -9,7 +9,7 @@
 
   24 Jul 2013; Justin Lecher <jlec@gentoo.org> -vtune-13.1.4.270817.ebuild,
   -vtune-13.1.9.295420.ebuild, +vtune-13.1.10.298370.ebuild:
-  Version BUmp and fix missing libs, #472572
+  Version Bump and fix missing libs, #472572
 
 *vtune-13.1.9.295420 (14 Jul 2013)
 

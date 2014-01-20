@@ -5,7 +5,7 @@
   04 Dec 2013; Justin Lecher <jlec@gentoo.org>
   -pydap_handlers_hdf5-0.1.5.ebuild, +pydap_handlers_hdf5-0.1.7.ebuild,
   metadata.xml:
-  Version BUmp; Bump to distutils-r1 eclass
+  Version Bump; Bump to distutils-r1 eclass
 
 *pydap_handlers_hdf5-0.1.5 (11 Apr 2012)
 

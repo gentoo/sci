@@ -5,7 +5,7 @@
 *unio-2.0.3 (16 Jan 2014)
 
   16 Jan 2014; Justin Lecher <jlec@gentoo.org> +unio-2.0.3.ebuild:
-  Version BUmp
+  Version Bump
 
   08 Nov 2013; Justin Lecher <jlec@gentoo.org> unio-2.0.2-r1.ebuild:
   Allow emul packages

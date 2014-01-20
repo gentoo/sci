@@ -4,7 +4,7 @@
 
   16 Jun 2013; Justin Lecher <jlec@gentoo.org> -YASRA-2.1.ebuild,
   +YASRA-2.32.ebuild:
-  Version BUmp; add KEYWORDS
+  Version Bump; add KEYWORDS
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> YASRA-2.1.ebuild, metadata.xml:
   Drop keywords as deps are unkeyworded
