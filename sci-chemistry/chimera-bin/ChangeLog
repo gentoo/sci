@@ -5,13 +5,13 @@
 *chimera-bin-1.8.1 (16 Jan 2014)
 
   16 Jan 2014; Justin Lecher <jlec@gentoo.org> +chimera-bin-1.8.1.ebuild:
-  Version BUmp, #498154
+  Version Bump, #498154
 
 *chimera-bin-1.8 (16 Aug 2013)
 
   16 Aug 2013; Justin Lecher <jlec@gentoo.org> chimera-bin-1.6.2.ebuild,
   +chimera-bin-1.8.ebuild, metadata.xml:
-  Version and EAPI BUmp
+  Version and EAPI Bump
 
   14 Nov 2012; Justin Lecher <jlec@gentoo.org> chimera-bin-1.6.2.ebuild:
   Add dep on virtual/opengl

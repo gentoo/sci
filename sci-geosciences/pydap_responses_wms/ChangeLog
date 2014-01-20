@@ -7,7 +7,7 @@
   04 Dec 2013; Justin Lecher <jlec@gentoo.org>
   -pydap_responses_wms-0.4.6.ebuild, +pydap_responses_wms-0.5.4.ebuild,
   metadata.xml:
-  Version BUmp; Bump to distutils-r1 eclass
+  Version Bump; Bump to distutils-r1 eclass
 
 *pydap_responses_wms-0.4.6 (22 Nov 2010)
 

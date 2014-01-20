@@ -53,7 +53,7 @@
   -files/nmrpipe-7.8.2012.295.14.58-lib.patch,
   +nmrpipe-7.9.2013.021.23.09.ebuild,
   +files/nmrpipe-7.9.2013.021.23.09-lib.patch:
-  Version BUmp; drop fetch restriction as upstream provides and promotes direct
+  Version Bump; drop fetch restriction as upstream provides and promotes direct
   access
 
 *nmrpipe-7.8.2012.295.14.58-r2 (14 Jan 2013)
@@ -67,7 +67,7 @@
 
   26 Nov 2012; Justin Lecher <jlec@gentoo.org>
   -nmrpipe-7.8.2012.295.14.58.ebuild, +nmrpipe-7.8.2012.295.14.58-r1.ebuild:
-  Version BUmp
+  Version Bump
 
 *nmrpipe-7.8.2012.295.14.58 (28 Oct 2012)
 
@@ -210,7 +210,7 @@
   18 Jun 2011; Justin Lecher <jlec@gentoo.org>
   +files/5.91.2011.167.16.39-lib.patch, -files/5.91.2011.138.14.57-lib.patch,
   -nmrpipe-5.91.2011.138.14.57.ebuild, +nmrpipe-5.91.2011.167.16.39.ebuild:
-  Version BUmp, added missing die
+  Version Bump, added missing die
 
 *nmrpipe-5.91.2011.138.14.57 (20 May 2011)
 
@@ -224,7 +224,7 @@
   29 Apr 2011; Justin Lecher <jlec@gentoo.org>
   +files/5.8.2011.117.18.42-lib.patch, -files/5.8.2011.108.15.55-lib.patch,
   -nmrpipe-5.8.2011.108.15.55.ebuild, +nmrpipe-5.8.2011.117.18.42.ebuild:
-  Version BUmp
+  Version Bump
 
 *nmrpipe-5.8.2011.108.15.55 (28 Apr 2011)
 
@@ -359,7 +359,7 @@
 
   12 Jul 2010; Justin Lecher <jlec@gentoo.org>
   -nmrpipe-5.0.2010.176.15.02.ebuild, +nmrpipe-5.0.2010.190.16.49.ebuild:
-  Version BUmp
+  Version Bump
 
 *nmrpipe-5.0.2010.176.15.02 (28 Jun 2010)
 

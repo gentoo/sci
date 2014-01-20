@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Jan 2014; Justin Lecher <jlec@gentoo.org> avogadro2-0.7.2.ebuild:
+  fix USE deps; don't install license file
+
 *avogadro2-0.7.2 (16 Jan 2014)
 
   16 Jan 2014; Justin Lecher <jlec@gentoo.org> +avogadro2-0.7.2.ebuild,

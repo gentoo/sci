@@ -5,7 +5,7 @@
   04 Dec 2013; Justin Lecher <jlec@gentoo.org>
   -pydap_responses_kml-0.4.5.ebuild, +pydap_responses_kml-0.4.6.ebuild,
   metadata.xml:
-  Version BUmp; Bump to distutils-r1 eclass
+  Version Bump; Bump to distutils-r1 eclass
 
 *pydap_responses_kml-0.4.5 (22 Nov 2010)
 

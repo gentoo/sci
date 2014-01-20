@@ -7,7 +7,7 @@
   04 Dec 2013; Justin Lecher <jlec@gentoo.org>
   -pydap_responses_matlab-0.2.ebuild, +pydap_responses_matlab-0.2.1.ebuild,
   metadata.xml:
-  Version BUmp; Bump to distutils-r1 eclass
+  Version Bump; Bump to distutils-r1 eclass
 
 *pydap_responses_matlab-0.2 (11 Apr 2012)
 

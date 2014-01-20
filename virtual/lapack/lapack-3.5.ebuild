@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=5
 
 DESCRIPTION="Virtual for Linear Algebra Package FORTRAN 77 implementation"
 HOMEPAGE=""
@@ -19,3 +19,13 @@ RDEPEND="|| (
 	)
 	doc? ( >=app-doc/lapack-docs-3.3 )"
 DEPEND=""
+
+
+pkg_pretend() {
+	if [[ -e "${EROOT%/}"/usr/$(get_libdir)/lib${PN}.so ]]; then
+		ewarn "You have still the old ${PN} library symlink present"
+		ewarn "Please delete"
+		ewarn "${EROOT%/}/usr/$(get_libdir)/lib${PN}.so"
+		ewarn "to avoid problems with new ${PN} structure"
+	fi
+}

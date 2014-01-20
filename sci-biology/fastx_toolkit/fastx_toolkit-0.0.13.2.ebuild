@@ -13,9 +13,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=">=sci-biology/libgtextutils-0.6.1"
+DEPEND=""
 RDEPEND="${DEPEND}
 	dev-perl/PerlIO-gzip
 	dev-perl/GDGraph
 	sys-apps/sed
-	sci-visualization/gnuplot"
+	sci-visualization/gnuplot
+	sci-biology/libgtextutils"

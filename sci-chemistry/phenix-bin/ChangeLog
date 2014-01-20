@@ -17,7 +17,7 @@
 
   11 Mar 2013; Justin Lecher <jlec@gentoo.org> -phenix-bin-1.8.1.1168.ebuild,
   +phenix-bin-1.8.2.1309.ebuild:
-  Version BUmp
+  Version Bump
 
   17 Jan 2013; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.1.1168.ebuild,
   metadata.xml:

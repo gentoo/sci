@@ -6,7 +6,7 @@
 
   05 Nov 2013; Justin Lecher <jlec@gentoo.org> libxc-2.0.1.ebuild,
   +libxc-2.0.2.ebuild, metadata.xml:
-  Version BUmp; fix compilation problem with gcc-4.8, #488470
+  Version Bump; fix compilation problem with gcc-4.8, #488470
 
 *libxc-2.0.1 (17 Jun 2013)
 *libxc-1.2.0-r1 (17 Jun 2013)

@@ -5,5 +5,5 @@
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> -mrfast-2.1.0.3.ebuild,
   +mrfast-2.6.0.1.ebuild, -files/mrfast-2.1.0.3-disc_buffer_overflow.patch,
   metadata.xml:
-  Version BUmp; punt base.eclass
+  Version Bump; punt base.eclass
 

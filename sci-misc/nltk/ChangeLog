@@ -4,7 +4,7 @@
 
   04 Dec 2013; Justin Lecher <jlec@gentoo.org> -nltk-2.0.1_rc1.ebuild,
   +nltk-2.0.4.ebuild, metadata.xml:
-  Version BUmp; Bump to distutils-r1 eclass
+  Version Bump; Bump to distutils-r1 eclass
 
   25 Oct 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Removed no-herd from herd tag in metadata.xml

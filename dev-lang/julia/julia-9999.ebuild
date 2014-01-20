@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit git-r3 elisp-common eutils multilib
+inherit git-r3 elisp-common eutils multilib pax-utils
 
 DESCRIPTION="High-performance programming language for technical computing"
 HOMEPAGE="http://julialang.org/"
@@ -62,13 +62,27 @@ src_prepare() {
 		-e "s|-llapack|$($(tc-getPKG_CONFIG) --libs lapack)|" \
 		-e "s|liblapack|${lapackname}|" \
 		-e "s|libblas|${blasname}|" \
-		-e 's|\(JULIA_EXECUTABLE = \)\($(JULIAHOME)/julia\)|\1 LD_LIBRARY_PATH=$(BUILD)/lib \2|' \
+		-e 's|\(JULIA_EXECUTABLE = \)\($(JULIAHOME)/julia\)|\1 LD_LIBRARY_PATH=$(BUILD)/$(get_libdir) \2|' \
 		-e "s|-O3|${CFLAGS}|g" \
+		-e "s|LIBDIR = lib|LIBDIR = $(get_libdir)|" \
 		Make.inc || die
+
+	sed -i \
+		-e "s|\$(BUILD)/lib|\$(BUILD)/$(get_libdir)|" \
+		-e "s|\$(JL_LIBDIR),lib|\$(JL_LIBDIR),$(get_libdir)|" \
+		-e "s|\$(JL_PRIVATE_LIBDIR),lib|\$(JL_PRIVATE_LIBDIR),$(get_libdir)|" \
+		Makefile || die
 }
 
 src_compile() {
 	emake cleanall
+	mkdir -p usr/$(get_libdir) || die
+	pushd usr || die
+	ln -s $(get_libdir) lib || die
+	popd
+	emake julia-release
+	pax-mark m usr/bin/julia-readline
+	pax-mark m usr/bin/julia-basic
 	emake
 	use doc && emake -C doc html
 	use emacs && elisp-compile contrib/julia-mode.el

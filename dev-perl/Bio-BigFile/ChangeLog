@@ -4,7 +4,7 @@
 
   18 Sep 2013; Justin Lecher <jlec@gentoo.org> -Bio-BigFile-1.06.ebuild,
   +Bio-BigFile-1.07.ebuild, metadata.xml:
-  Version BUmp, fix deps
+  Version Bump, fix deps
 
   22 May 2012; Justin Lecher <jlec@gentoo.org> Bio-BigFile-1.06.ebuild:
   Add missing eutils.eclass, bump to EAPI=4, remove unnecessary bits
