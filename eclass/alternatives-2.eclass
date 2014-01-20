@@ -61,22 +61,26 @@ alternatives_for() {
 	local alternative=${1} provider=${2} importance=${3} index src target ret=0
 	shift 3
 
-	# make sure importance is a signed integer
+	# Make sure importance is a signed integer
 	if [[ -n ${importance} ]] && ! [[ ${importance} =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
 		eerror "Invalid importance (${importance}) detected"
 		((ret++))
 	fi
 
+	# Create alternative provider subdirectories under ALTERNATIVES_DIR if needed
 	[[ -d "${ED}${ALTERNATIVES_DIR}/${alternative}/${provider}" ]] || dodir "${ALTERNATIVES_DIR}/${alternative}/${provider}"
 
-	# keep track of provided alternatives for use in pkg_{postinst,prerm}. keep a mapping between importance and
-	# provided alternatives and make sure the former is set to only one value
+	# Keep track of provided alternatives for use in pkg_{postinst,prerm}.
+	# Keep a mapping between importance and provided alternatives
+	# and make sure the former is set to only one value.
 	if ! has "${alternative}:${provider}" "${ALTERNATIVES_PROVIDED[@]}"; then
+		# Add new provider and set its importance
 		index=${#ALTERNATIVES_PROVIDED[@]}
 		ALTERNATIVES_PROVIDED+=( "${alternative}:${provider}" )
 		ALTERNATIVES_IMPORTANCE[index]=${importance}
 		[[ -n ${importance} ]] && echo "${importance}" > "${ED}${ALTERNATIVES_DIR}/${alternative}/${provider}/_importance"
 	else
+		# Set importance for existing provider
 		for((index=0;index<${#ALTERNATIVES_PROVIDED[@]};index++)); do
 			if [[ ${alternative}:${provider} == ${ALTERNATIVES_PROVIDED[index]} ]]; then
 				if [[ -n ${ALTERNATIVES_IMPORTANCE[index]} ]]; then
@@ -92,6 +96,7 @@ alternatives_for() {
 		done
 	fi
 
+	# Process source-target pairs
 	while (( $# >= 2 )); do
 		src=${1//+(\/)/\/}; target=${2//+(\/)/\/}
 		if [[ ${src} != /* ]]; then
@@ -111,8 +116,9 @@ alternatives_for() {
 			dodir "${ALTERNATIVES_DIR}/${alternative}/${provider}${src%/*}"
 			dosym "${reltarget}" "${ALTERNATIVES_DIR}/${alternative}/${provider}${src}"
 
-			# say ${ED}/sbin/init exists and links to /bin/systemd (which doesn't exist yet)
-			# the -e test will fail, so check for -L also
+			# The -e test will fail if existing symlink points to non-existing target,
+			# so check for -L also.
+			# Say ${ED}/sbin/init exists and links to /bin/systemd (which doesn't exist yet).
 			if [[ -e ${ED}${src} || -L ${ED}${src} ]]; then
 				local fulltarget=${target}
 				[[ ${fulltarget} != /* ]] && fulltarget=${src%/*}/${fulltarget}
@@ -126,6 +132,7 @@ alternatives_for() {
 		shift 2
 	done
 
+	# Stop if there were any errors
 	[[ ${ret} -eq 0 ]] || die "Errors detected for ${provider}, provided for ${alternative}"
 }
 
