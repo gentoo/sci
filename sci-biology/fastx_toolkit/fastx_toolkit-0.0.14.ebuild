@@ -6,7 +6,7 @@ EAPI=5
 
 DESCRIPTION="Tools for Short Read FASTA/FASTQ file processing"
 HOMEPAGE="http://hannonlab.cshl.edu/fastx_toolkit"
-SRC_URI="http://hannonlab.cshl.edu/fastx_toolkit/fastx_toolkit-"${PV}".tar.bz2"
+SRC_URI="https://github.com/agordon/fastx_toolkit/releases/download/"${PV}"/"${P}".tar.bz2"
 
 LICENSE="AGPL-3"
 SLOT="0"

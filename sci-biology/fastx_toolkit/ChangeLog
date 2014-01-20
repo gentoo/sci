@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*fastx_toolkit-0.0.14 (20 Jan 2014)
+
+  20 Jan 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +fastx_toolkit-0.0.14.ebuild, -fastx_toolkit-0.0.13.2.ebuild:
+  Version bump, releases were moved to github
+
   20 Jan 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   fastx_toolkit-0.0.13.2.ebuild:
   Moved dependency on gtextlib
