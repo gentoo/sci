@@ -10,6 +10,17 @@
 # If your package provides pkg_postinst or pkg_prerm phases, you need to be
 # sure you explicitly run alternatives-2_pkg_{postinst,prerm} where appropriate.
 
+case "${EAPI:-0}" in
+	0|1|2|3)
+		die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}"
+		;;
+	4|5)
+		;;
+	*)
+		die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}"
+		;;
+esac
+
 ALTERNATIVES_DIR="/etc/env.d/alternatives"
 
 DEPEND=">=app-admin/eselect-1.4-r100"
