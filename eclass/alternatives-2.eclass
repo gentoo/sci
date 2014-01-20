@@ -22,7 +22,6 @@ EXPORT_FUNCTIONS pkg_postinst pkg_prerm
 
 # alternatives_for alternative provider importance source target [ source target [...]]
 alternatives_for() {
-	#echo alternatives_for "${@}"
 
 	(( $# >= 5 )) && (( ($#-3)%2 == 0)) || die "${FUNCNAME} requires exactly 3+N*2 arguments where N>=1"
 	local alternative=${1} provider=${2} importance=${3} index src target ret=0
@@ -115,7 +114,6 @@ alternatives-2_pkg_postinst() {
 		if [[ ! -f "${EROOT%/}/usr/share/eselect/modules/auto/${alt}.eselect" \
 			|| "$(source "${EROOT%/}/usr/share/eselect/modules/auto/${alt}.eselect" &>/dev/null; echo "${VERSION}")" \
 				-ne "${module_version}" ]]; then
-			#einfo "Creating alternatives module for ${alt}"
 			if [[ ! -d ${EROOT%/}/usr/share/eselect/modules/auto ]]; then
 				install -d "${EROOT%/}"/usr/share/eselect/modules/auto || eerror "Could not create eselect modules dir"
 			fi
@@ -132,7 +130,6 @@ alternatives-2_pkg_postinst() {
 			EOF
 		fi
 
-		#echo eselect "${alt}" update "${provider}"
 		einfo "Creating ${provider} alternative module for ${alt}"
 		eselect "${alt}" update "${provider}"
 
@@ -146,8 +143,6 @@ alternatives-2_pkg_prerm() {
 	for a in "${ALTERNATIVES_PROVIDED[@]}"; do
 		alt="${a%:*}"
 		provider="${a#*:}"
-		#echo "Making sure ${alt} has a valid provider"
-		#echo eselect "${alt}" update${ignore} "${provider}"
 		eselect "${alt}" update${ignore} "${provider}" && continue
 		einfo "Removing ${provider} alternative module for ${alt}, current is $(eselect ${alt} show)"
 		case $? in
