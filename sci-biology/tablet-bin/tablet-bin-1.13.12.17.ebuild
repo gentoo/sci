@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -11,7 +11,8 @@ inherit java-pkg-2 python-r1
 DESCRIPTION="Viewer of next generation sequence assemblies and alignments."
 HOMEPAGE="http://bioinf.scri.ac.uk/tablet/"
 SRC_URI="
-	http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x86_$(replace_all_version_separators _).sh -> ${P}.sh
+	x86? ( http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x86_$(replace_all_version_separators _).sh -> ${P}.sh )
+	amd64? ( http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x64_$(replace_all_version_separators _).sh -> ${P}.sh )
 	http://bioinf.scri.ac.uk/tablet/additional/coveragestats.py"
 
 # Upstream says regarding source code unavailability:
