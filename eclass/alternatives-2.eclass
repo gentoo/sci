@@ -145,7 +145,7 @@ cleanup_old_alternatives_module() {
 	if [[ -f "${old_module}" && "$(source "${old_module}" &>/dev/null; echo "${ALTERNATIVE}")" == "${alt}" ]]; then
 		local version="$(source "${old_module}" &>/dev/null; echo "${VERSION}")"
 		if [[ "${version}" == "0.1" || "${version}" == "20080924" ]]; then
-			echo rm "${old_module}"
+			echo "rm ${old_module}"
 			rm "${old_module}" || eerror "rm ${old_module} failed"
 		fi
 	fi
@@ -212,10 +212,10 @@ alternatives-2_pkg_prerm() {
 			2)
 				einfo "Cleaning up unused alternatives module for ${alt}"
 				rm "${EAUTO}/${alt}.eselect" || \
-					eerror rm "${EAUTO}/${alt}.eselect" failed
+					eerror "rm ${EAUTO}/${alt}.eselect failed"
 				;;
 			*)
-				eerror eselect "${alt}" update "${provider}" returned $?
+				eerror "eselect ${alt} update ${provider} returned $?"
 				;;
 		esac
 	done
