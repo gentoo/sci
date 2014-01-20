@@ -23,7 +23,7 @@ alternatives_for() {
 	#echo alternatives_for "${@}"
 
 	(( $# >= 5 )) && (( ($#-3)%2 == 0)) || die "${FUNCNAME} requires exactly 3+N*2 arguments where N>=1"
-	local x dupl alternative=${1} provider=${2} importance=${3} index unique src target ret=0
+	local alternative=${1} provider=${2} importance=${3} index src target ret=0
 	shift 3
 
 	# make sure importance is a signed integer
@@ -139,7 +139,7 @@ alternatives-2_pkg_postinst() {
 }
 
 alternatives-2_pkg_prerm() {
-	local a alt provider p ignore
+	local a alt provider ignore
 	[[ -n ${REPLACED_BY_ID} ]] || ignore=" --ignore"
 	for a in "${ALTERNATIVES_PROVIDED[@]}"; do
 		alt="${a%:*}"
