@@ -18,6 +18,8 @@ RDEPEND="${DEPEND}
 	!app-admin/eselect-cblas
 	!app-admin/eselect-lapack"
 
+EXPORT_FUNCTIONS pkg_postinst pkg_prerm
+
 # alternatives_for alternative provider importance source target [ source target [...]]
 alternatives_for() {
 	#echo alternatives_for "${@}"
@@ -161,5 +163,3 @@ alternatives-2_pkg_prerm() {
 		esac
 	done
 }
-
-EXPORT_FUNCTIONS pkg_postinst pkg_prerm
