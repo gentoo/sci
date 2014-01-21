@@ -142,8 +142,8 @@ alternatives_for() {
 # Remove old alternatives module.
 cleanup_old_alternatives_module() {
 	local alt=${1} old_module="${EROOT%/}/usr/share/eselect/modules/${alt}.eselect"
-	if [[ -f "${old_module}" && "$(source "${old_module}" &>/dev/null; echo "${ALTERNATIVE}")" == "${alt}" ]]; then
-		local version="$(source "${old_module}" &>/dev/null; echo "${VERSION}")"
+	if [[ -f "${old_module}" && $(grep 'ALTERNATIVE=' "${old_module}" | cut -d '=' -f 2) == "${alt}" ]]; then
+		local version="$(grep 'VERSION=' "${old_module}" | grep -o '[0-9.]\+')"
 		if [[ "${version}" == "0.1" || "${version}" == "20080924" ]]; then
 			echo "rm ${old_module}"
 			rm "${old_module}" || eerror "rm ${old_module} failed"
@@ -166,7 +166,7 @@ alternatives-2_pkg_postinst() {
 		alt="${a%:*}"
 		provider="${a#*:}"
 		if [[ ! -f "${EAUTO}/${alt}.eselect" \
-			|| "$(source "${EAUTO}/${alt}.eselect" &>/dev/null; echo "${VERSION}")" \
+			|| "$(grep '^VERSION=' "${EAUTO}/${alt}.eselect" | grep -o '[0-9]\+')" \
 				-ne "${module_version}" ]]; then
 			if [[ ! -d ${EAUTO} ]]; then
 				install -d "${EAUTO}" || eerror "Could not create eselect modules dir"
