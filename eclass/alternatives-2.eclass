@@ -147,13 +147,18 @@ alternatives-2_pkg_prerm() {
 		#echo "Making sure ${alt} has a valid provider"
 		#echo eselect "${alt}" update${ignore} "${provider}"
 		eselect "${alt}" update${ignore} "${provider}" && continue
-		einfo "Removed ${provider} alternative module for ${alt}, current is $(eselect ${alt} show)"
-		if [[ $? -eq 2 ]]; then
-			einfo "Cleaning up unused alternatives module for ${alt}"
-			echo rm "${EROOT%/}/usr/share/eselect/modules/auto/${alt}.eselect"
-			rm "${EROOT%/}/usr/share/eselect/modules/auto/${alt}.eselect" ||
-				eerror rm "${EROOT%/}/usr/share/eselect/modules/auto/${alt}.eselect" failed
-		fi
+		einfo "Removing ${provider} alternative module for ${alt}, current is $(eselect ${alt} show)"
+		case $? in
+			0) : ;;
+			2)
+				einfo "Cleaning up unused alternatives module for ${alt}"
+				rm "${EROOT%/}/usr/share/eselect/modules/auto/${alt}.eselect" || \
+					eerror rm "${EROOT%/}/usr/share/eselect/modules/auto/${alt}.eselect" failed
+				;;
+			*)
+				eerror eselect "${alt}" update "${provider}" returned $?
+				;;
+		esac
 	done
 }
 
