@@ -200,17 +200,21 @@ alternatives-2_pkg_postinst() {
 #
 # Provided alternatives are set up using alternatives_for().
 alternatives-2_pkg_prerm() {
-	local a alt provider ignore
+	local a alt provider ignore ret
 	local EAUTO="${EROOT%/}/usr/share/eselect/modules/auto"
-	[[ -n ${REPLACED_BY_ID} ]] || ignore=" --ignore"
+	# If we are uninstalling, update alternatives to valid provider
+	[[ -n ${REPLACED_BY_VERSION} ]] || ignore="--ignore"
 	for a in "${ALTERNATIVES_PROVIDED[@]}"; do
 		alt="${a%:*}"
 		provider="${a#*:}"
-		eselect "${alt}" update${ignore} "${provider}" && continue
-		einfo "Removing ${provider} alternative module for ${alt}, current is $(eselect ${alt} show)"
-		case $? in
+		eselect "${alt}" update ${ignore} "${provider}"
+		ret=$?
+		[[ -n ${REPLACED_BY_VERSION} ]] || \
+			einfo "Removing ${provider} alternative module for ${alt}, current is $(eselect ${alt} show)"
+		case ${ret} in
 			0) : ;;
 			2)
+				# This was last provider for the alternative, remove eselect module
 				einfo "Cleaning up unused alternatives module for ${alt}"
 				rm "${EAUTO}/${alt}.eselect" || \
 					eerror "rm ${EAUTO}/${alt}.eselect failed"
