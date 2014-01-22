@@ -220,7 +220,7 @@ alternatives-2_pkg_prerm() {
 					eerror "rm ${EAUTO}/${alt}.eselect failed"
 				;;
 			*)
-				eerror "eselect ${alt} update ${provider} returned $?"
+				eerror "eselect ${alt} update ${provider} returned ${ret}"
 				;;
 		esac
 	done
