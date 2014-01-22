@@ -5,7 +5,9 @@
 
 ###Requiered
 
-* Everybody who wants to contribute should own an account at [github](https://github.com/join). Please register yourself there.
+* **Account at [github](https://github.com/join)**
+
+Everybody who wants to contribute needs to own an account. Please register yourself there.
 
 ###Recommended
 * **Define echangelog user**
@@ -38,7 +40,7 @@ First clone the overlay
     hub clone gentoo-science/sci
 
 
-In order to send pull request and ask for inclusion of your changes you need to have your own fork of the overlay on github. You can do this by
+In order to send pull request and ask for inclusion of your changes you need to have your own fork of the overlay on github. You can do this by issuing
 
     cd sci
     hub fork
@@ -65,14 +67,14 @@ Next we push back the changes to our fork and send a pull-request to the overlay
     hub push YOUR_GITHUB_USER
     hub pull-request
 
-Lastly you need to wait for review comments and the merge of your work. In case you need to include some improvements, just commit your work again using repoman and push it again to your fork.
+Lastly you need to wait for review comments and the merge of your work. In case you need to include some improvements, just commit your work again using repoman and push it again to your fork. No need to send another pull-request as you new changes will be added the original one.
 
 ----
 ##For Maintainers
 
-**The merging of pull request should only be done by gentoo developers.**
+**The merging of pull request should only be done by gentoo developers!**
 
-If you feel that they are slacking, don't bother to ping them again.
+If you feel that they are slacking, don't bother to ping them again. If you like to become a dev yourself, prove some contribution and ping us via sci@gentoo.org or on irc in #gentoo-science @ freenode.
 
 ###Prerequisite
 
@@ -82,17 +84,18 @@ Make sure you have both repos (github & gentoo.org) as remotes defined.
 
 should give
 
-> github	git@github.com:gentoo-science/sci.git (fetch)
+>github	git@github.com:gentoo-science/sci.git (fetch)
 >
-> github	git@github.com:gentoo-science/sci.git (push)
+>github	git@github.com:gentoo-science/sci.git (push)
 >
-> origin	git+ssh://git@git.overlays.gentoo.org/proj/sci.git (fetch)
+>origin	git+ssh://git@git.overlays.gentoo.org/proj/sci.git (fetch)
 >
-> origin	git+ssh://git@git.overlays.gentoo.org/proj/sci.git (push)
+>origin	git+ssh://git@git.overlays.gentoo.org/proj/sci.git (push)
 
-In the beginning you should review the pull request on github directly and recommend as much improvements as possible. Once everything is fine or you like to fix the rest yourself, you can use the follow command to get the pull-request in a new branch in you repo.
 
-    hub checkout https://github.com/gentoo-science/sci/pull/176
+In the beginning you should review the pull request on github directly and recommend as much improvements as possible. Once everything is fine or you like to fix the rest yourself, simply can use the follow command to get the pull-request in a new branch in you repo.
+
+    hub checkout https://github.com/gentoo-science/sci/pull/PULLREQUEST-NUMBER
 
 Now check the package by building and installing it, and run *repoman* in the package dir. If this is also fine, merge the branch into the master
 
@@ -103,7 +106,9 @@ Finally use the script **merge-dualHEAD** from the *scripts* directory to merge 
 
 
 ---
-####.
+####Contribution to the document
+Justin Lecher <jlec@gentoo.org>
+
 This document is available under [Creative Commons Attribution ShareAlike 4.0](http://creativecommons.org/licenses/by-sa/4.0)
 
 ![ccsa-4 icon](http://i.creativecommons.org/l/by-sa/4.0/88x31.png)
