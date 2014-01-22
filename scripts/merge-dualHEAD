@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script is licensed under BSD-3
 
 if [[ -f /usr/lib64/portage/bin/isolated-functions.sh ]]; then
 	. /usr/lib64/portage/bin/isolated-functions.sh
