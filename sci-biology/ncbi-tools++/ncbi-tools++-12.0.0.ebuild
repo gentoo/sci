@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils flag-o-matic multilib toolchain-funcs
+inherit autotools eutils flag-o-matic multilib toolchain-funcs
 
 MY_TAG="Jun_15_2010"
 MY_Y="${MY_TAG/*_/}"
@@ -105,8 +105,8 @@ src_prepare() {
 
 # The conf-opts.patch and as-needed.patch need to be adjusted for 12.0.0 line numbers
 	local PATCHES=(
-		#"${FILESDIR}"/${P}-conf-opts.patch
-		#"${FILESDIR}"/${P}-as-needed.patch
+		"${FILESDIR}"/${P}-conf-opts.patch
+		"${FILESDIR}"/${P}-as-needed.patch
 		"${FILESDIR}"/${P}-fix-creaders-linking.patch
 		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
 		"${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
@@ -115,7 +115,8 @@ src_prepare() {
 
 	tc-export CXX CC
 
-#	cd src/build-system || die
+	cd src/build-system || die
+	eautoreconf
 #	eaclocal -I.
 #	eautoconf
 }
@@ -216,7 +217,7 @@ src_configure() {
 	$(use_with ssl openssl "${EPREFIX}/usr")
 	$(use_with ftds ftds "${EPREFIX}/usr")
 	$(use_with mysql mysql "${EPREFIX}/usr")
-	$(use_with fltk fltk "${EPREFIX}/usr")
+	$(usex fltk --with-fltk="${EPREFIX}/usr" "")
 	$(use_with opengl opengl "${EPREFIX}/usr")
 	$(use_with mesa mesa "${EPREFIX}/usr")
 	$(use_with opengl glut "${EPREFIX}/usr")
@@ -227,7 +228,7 @@ src_configure() {
 	$(use_with freetype freetype "${EPREFIX}/usr")
 	$(use_with fastcgi fastcgi "${EPREFIX}/usr")
 	$(use_with berkdb bdb "${EPREFIX}/usr")
-	$(use_with odbc odbc "${EPREFIX}/usr")
+	$(usex odbc --with-odbc="${EPREFIX}/usr" "")
 	$(use_with python python "${EPREFIX}/usr")
 	$(use_with boost boost "${EPREFIX}/usr")
 	$(use_with sqlite sqlite3 "${EPREFIX}/usr")
@@ -259,7 +260,6 @@ src_configure() {
 
 #	bash \
 #		./src/build-system/configure \
-#	cd src/build-system || die
 	econf \
 		--srcdir="${S}" \
 		--prefix="${EPREFIX}/usr" \

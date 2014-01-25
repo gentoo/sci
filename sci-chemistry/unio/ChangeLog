@@ -1,6 +1,11 @@
 # ChangeLog for sci-chemistry/unio
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*unio-2.0.3 (16 Jan 2014)
+
+  16 Jan 2014; Justin Lecher <jlec@gentoo.org> +unio-2.0.3.ebuild:
+  Version Bump
 
   08 Nov 2013; Justin Lecher <jlec@gentoo.org> unio-2.0.2-r1.ebuild:
   Allow emul packages

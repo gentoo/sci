@@ -1,6 +1,12 @@
 # ChangeLog for sci-libs/scalapack
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*scalapack-2.0.2-r1 (17 Jan 2014)
+
+  17 Jan 2014; Sébastien Fabbro <bicatali@gentoo.org>
+  +scalapack-2.0.2-r1.ebuild, -scalapack-2.0.2.ebuild:
+  sci-libs/scalapack: Revbump to use alternatives vs. tree
 
   12 Dec 2012; Sébastien Fabbro <bicatali@gentoo.org>
   -files/scalapack-2.0.1-link.patch, -files/scalapack-2.0.1-multipledefs.patch,

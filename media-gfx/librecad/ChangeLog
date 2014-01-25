@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
 
+  10 Jan 2014; Justin Lecher <jlec@gentoo.org> +librecad-2.0.2.ebuild:
+  Version bump: 2.0.2
+
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> librecad-9999.ebuild,
   metadata.xml:
   Switch from git-2 to git-r3

@@ -32,6 +32,7 @@
 
 # Live ebuilds go here
 # keep this on top
+>=app-admin/eselect-9999
 >=sci-libs/fftw-9999
 >=media-gfx/brlcad-9999
 >=dev-lang/path64-9999

@@ -8,7 +8,7 @@
 *specView-1.0.3 (07 Aug 2013)
 
   07 Aug 2013; Justin Lecher <jlec@gentoo.org> +specView-1.0.3.ebuild:
-  Version BUmp
+  Version Bump
 
   20 Jul 2013; Justin Lecher <jlec@gentoo.org> specView-1.0.2.ebuild:
   Last prefix bit

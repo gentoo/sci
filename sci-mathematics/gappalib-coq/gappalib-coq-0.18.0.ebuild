@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils
 
-DESCRIPTION="Allows the certificates Gappa generates to be imported by the Coq"
+DESCRIPTION="Allows the certificates Gappa generates to be imported by Coq"
 HOMEPAGE="http://gappa.gforge.inria.fr/"
 SRC_URI="http://gforge.inria.fr/frs/download.php/30081/${P}.tar.gz"
 

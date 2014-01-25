@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -43,8 +43,9 @@ static_to_shared() {
 			-shared -Wl,-soname=${soname} \
 			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
 			"$@" -o ${libdir}/${soname} || die "${soname} failed"
-		[[ $(get_version_component_count) -gt 1 ]] && \
+		if [[ $(get_version_component_count) -gt 1 ]]; then
 			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version)) || die
+		fi
 		ln -s ${soname} ${libdir}/${libname}$(get_libname) || die
 	fi
 }

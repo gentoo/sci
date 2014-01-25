@@ -5,7 +5,7 @@
   04 Dec 2013; Justin Lecher <jlec@gentoo.org>
   -pydap_handlers_netcdf-0.6.1.ebuild, +pydap_handlers_netcdf-0.6.4.ebuild,
   metadata.xml:
-  Version BUmp; Bump to distutils-r1 eclass
+  Version Bump; Bump to distutils-r1 eclass
 
 *pydap_handlers_netcdf-0.6.1 (11 Apr 2012)
 
