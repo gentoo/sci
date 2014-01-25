@@ -52,6 +52,7 @@ CDEPEND="
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
 	doc? (
+		app-doc/doxygen
 		dev-texlive/texlive-latex
 		dev-texlive/texlive-latexextra
 		media-gfx/imagemagick
