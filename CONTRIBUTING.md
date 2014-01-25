@@ -3,7 +3,7 @@
 ----
 ##Prerequisite
 
-###Requiered
+###Required
 
 * **Account at [github](https://github.com/join)**
 
@@ -67,14 +67,14 @@ Next we push back the changes to our fork and send a pull-request to the overlay
     hub push YOUR_GITHUB_USER
     hub pull-request
 
-Lastly you need to wait for review comments and the merge of your work. In case you need to include some improvements, just commit your work again using repoman and push it again to your fork. No need to send another pull-request as you new changes will be added the original one.
+Lastly you need to wait for review comments and the merge of your work. In case you need to include some improvements, just commit your work again using repoman and push it again to your fork. No need to send another pull-request as your new changes will be added to the original one.
 
 ----
 ##For Maintainers
 
 **The merging of pull request should only be done by gentoo developers!**
 
-If you feel that they are slacking, don't bother to ping them again. If you like to become a dev yourself, prove some contribution and ping us via sci@gentoo.org or on irc in #gentoo-science @ freenode.
+If you feel that they are slacking, don't bother to ping them again. If you would like to become a dev yourself, prove some contribution and ping us via sci@gentoo.org or on irc in #gentoo-science @ freenode.
 
 ###Prerequisite
 
@@ -107,6 +107,7 @@ Finally use the script **merge-dualHEAD** from the *scripts* directory to merge 
 
 ---
 ####Contribution to the document
+Sebastien Fabbro <bicatali@gentoo.org>
 Justin Lecher <jlec@gentoo.org>
 
 This document is available under [Creative Commons Attribution ShareAlike 4.0](http://creativecommons.org/licenses/by-sa/4.0)
