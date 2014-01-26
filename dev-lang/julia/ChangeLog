@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Jan 2014;  <xhochy@gentoo.org> julia-9999.ebuild:
+  Add missing dependency for utf8proc
+
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> julia-9999.ebuild, metadata.xml:
   Switch from git-2 to git-r3
 

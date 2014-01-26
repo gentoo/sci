@@ -20,6 +20,7 @@ RDEPEND="
 	dev-libs/double-conversion
 	dev-libs/gmp
 	dev-libs/libpcre
+	dev-libs/utf8proc
 	dev-util/patchelf
 	sci-libs/arpack
 	sci-libs/fftw
