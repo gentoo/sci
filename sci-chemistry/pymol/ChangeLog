@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Jan 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
+  Update HOMEPAGE
+
   15 Jan 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
   Readd argparse fix; fix icon installation
 

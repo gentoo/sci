@@ -10,7 +10,7 @@ PYTHON_REQ_USE="tk"
 inherit distutils-r1 fdo-mime subversion versionator
 
 DESCRIPTION="A Python-extensible molecular graphics system"
-HOMEPAGE="http://pymol.sourceforge.net/"
+HOMEPAGE="http://www.pymol.org/"
 SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${PN}-1.7.0.0.png.xz"
 ESVN_REPO_URI="svn://svn.code.sf.net/p/pymol/code/trunk/pymol"
 
