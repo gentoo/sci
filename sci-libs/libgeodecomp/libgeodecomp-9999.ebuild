@@ -32,7 +32,7 @@ RDEPEND="
 	mpi? ( virtual/mpi )
 	opencl? ( virtual/opencl )
 	opencv? ( media-libs/opencv )
-	qt4? ( dev-qt/qtgui )
+	qt4? ( dev-qt/qtgui:4 )
 	scotch? ( sci-libs/scotch )
 	visit? ( sci-visualization/visit )"
 DEPEND="${RDEPEND}
