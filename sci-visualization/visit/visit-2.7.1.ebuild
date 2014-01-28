@@ -5,18 +5,17 @@
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
 
-SRC_URI="http://portal.nersc.gov/svn/visit/trunk/releases/${PV}/visit${PV}.tar.gz"
-KEYWORDS="~amd64"
-S="${WORKDIR}/${PN}${PV}/src"
-
 inherit cmake-utils python-single-r1
 
 DESCRIPTION="A software that delivers parallel interactive visualizations"
 HOMEPAGE="https://wci.llnl.gov/codes/visit/home.html"
+SRC_URI="http://portal.nersc.gov/svn/visit/trunk/releases/${PV}/visit${PV}.tar.gz"
 
 SLOT="0"
 LICENSE="BSD"
+KEYWORDS="~amd64"
 IUSE="hdf5 tcmalloc cgns"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
 	sci-libs/silo
@@ -25,6 +24,8 @@ RDEPEND="
 	cgns? ( sci-libs/cgnslib )
 	>=sci-libs/vtk-6.0.0[imaging,python,rendering]"
 DEPEND="${RDEPEND}"
+
+S="${WORKDIR}/${PN}${PV}/src"
 
 src_prepare() {
 	epatch "${FILESDIR}/${P}-findpython.patch"

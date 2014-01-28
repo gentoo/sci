@@ -24,7 +24,7 @@
     <flag name="opencv">
 	  Some input components can read from cameras etc. via OpenCV
     </flag>
-    <flag name="qt">
+    <flag name="qt4">
 	  Adds the QTWidgetWriter, which allows in situ visualization of a
 	  running simulation.
     </flag>
