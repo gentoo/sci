@@ -5,7 +5,7 @@
 EAPI=5
 
 if [ ${PV} == "9999" ] ; then
-	inherit git-2
+	inherit git-3
 	EGIT_REPO_URI="https://github.com/STEllAR-GROUP/hpx.git"
 	SRC_URI=""
 	KEYWORDS=""
