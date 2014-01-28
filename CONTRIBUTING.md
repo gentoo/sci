@@ -1,10 +1,10 @@
 #Contributions to the Gentoo Science Overlay
 
-This guide summerizes the contribution and merging procedures for the Gentoo Science overlay on Github. For more information please visit the [Science Project page](https://wiki.gentoo.org/wiki/Project:Science/Contributing) in the [Gentoo wiki](https://wiki.gentoo.org/).
+This guide summarizes the contribution and merging procedures for the Gentoo Science overlay on Github. For more information please visit the [Science Project page](https://wiki.gentoo.org/wiki/Project:Science/Contributing) in the [Gentoo wiki](https://wiki.gentoo.org/).
 
 ----
 ##Prerequisite
-For the most convinient way to work with the overlay you should fulfill all prerequisites.
+For the most convenient way to work with the overlay you should fulfill all prerequisites.
 
 ###Required
 
@@ -44,7 +44,7 @@ Now git will sign your commits to the overlay by using the gpg key.
 
 * **Install [repo-commit](https://bitbucket.org/gentoo/repo-commit/)**, *A repository commit helper*
 
-*repo-commit* sanitizes your commit in a convinient way.
+*repo-commit* sanitizes your commit in a convenient way.
 
     emerge app-portage/repo-commit
 
@@ -69,7 +69,7 @@ It is always convenient for development as well as for the review and merging pr
     git checkout -b my-feature master
 
 ###Work on the package
-Now you are ready to work on your package of interest. Once you are finished you should _always_ use **[repoman](http://dev.gentoo.org/~zmedico/portage/doc/man/repoman.1.html)** to do a statical analysis of your work.
+Now you are ready to work on your package of interest. Once you are finished you should _always_ use **[repoman](http://dev.gentoo.org/~zmedico/portage/doc/man/repoman.1.html)** to do a static analysis of your work.
 
 This can be done with
 
