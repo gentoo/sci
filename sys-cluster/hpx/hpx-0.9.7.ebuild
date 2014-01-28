@@ -24,7 +24,6 @@ HOMEPAGE="http://stellar.cct.lsu.edu/tag/hpx/"
 
 SLOT="0"
 LICENSE="Boost-1.0"
-KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-libs/boost-1.48"
