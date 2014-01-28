@@ -16,14 +16,14 @@ else
 	S="${WORKDIR}/${P}"
 fi
 
-inherit cmake-utils ${_SCM}
+inherit cmake-utils cuda ${_SCM}
 
 DESCRIPTION="An auto-parallelizing library to speed up computer simulations"
 HOMEPAGE="http://www.libgeodecomp.org"
 
 SLOT="0"
 LICENSE="Boost-1.0"
-IUSE="cuda doc hpx mpi opencl opencv qt scotch threads visit"
+IUSE="cuda doc hpx mpi opencl opencv qt4 scotch threads visit"
 
 RDEPEND="
 	>=dev-libs/boost-1.48
@@ -32,7 +32,7 @@ RDEPEND="
 	mpi? ( virtual/mpi )
 	opencl? ( virtual/opencl )
 	opencv? ( media-libs/opencv )
-	qt? ( dev-qt/qtgui )
+	qt4? ( dev-qt/qtgui )
 	scotch? ( sci-libs/scotch )
 	visit? ( sci-visualization/visit )"
 DEPEND="${RDEPEND}
@@ -47,7 +47,7 @@ src_configure() {
 		$(cmake-utils_use_with mpi MPI)
 		$(cmake-utils_use_with opencl OPENCL)
 		$(cmake-utils_use_with opencv OPENCV)
-		$(cmake-utils_use_with qt QT)
+		$(cmake-utils_use_with qt4 QT)
 		$(cmake-utils_use_with scotch SCOTCH)
 		$(cmake-utils_use_with threads THREADS)
 		$(cmake-utils_use_with visit VISIT)
