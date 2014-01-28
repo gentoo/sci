@@ -23,6 +23,7 @@ COMMON_DEP="
 	dev-java/antlr:3
 	dev-java/fontbox:1.7
 	dev-java/jempbox:1.7
+	dev-java/log4j:0
 	dev-java/spin:0
 	"
 

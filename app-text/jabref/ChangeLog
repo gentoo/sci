@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Jan 2014; Justin Lecher <jlec@gentoo.org> -jabref-2.10_beta.ebuild,
+  -jabref-2.10_beta-r1.ebuild, -jabref-2.10_beta2.ebuild,
+  jabref-2.10_beta2-r1.ebuild:
+  Add missing dep
+
   03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>
   jabref-2.10_beta2-r1.ebuild:
   app-text/jabref: Remove another bundled library.
