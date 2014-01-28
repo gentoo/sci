@@ -19,6 +19,7 @@ if [[ $PV = *9999* ]]; then
 	EGIT_BRANCH="release-4-6"
 	inherit git-r3
 	LIVE_DEPEND="doc? (
+		app-doc/doxygen
 		dev-texlive/texlive-latex
 		dev-texlive/texlive-latexextra
 		media-gfx/imagemagick
@@ -63,7 +64,8 @@ CDEPEND="
 	)"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
-	${LIVE_DEPEND}"
+	${LIVE_DEPEND}
+	doc? ( app-doc/doxygen )"
 RDEPEND="${CDEPEND}"
 
 REQUIRED_USE="

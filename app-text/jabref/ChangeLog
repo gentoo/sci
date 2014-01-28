@@ -2,6 +2,16 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org> jabref-2.9.2-r1.ebuild:
+  app-text/jabref: Removed docs USE flag from jabref-2.9.2-r1  The documentation
+  build system in this version is broken. The current beta version (2.10_beta2)
+  fixes this issue.
+
+  28 Jan 2014; Justin Lecher <jlec@gentoo.org> -jabref-2.10_beta.ebuild,
+  -jabref-2.10_beta-r1.ebuild, -jabref-2.10_beta2.ebuild,
+  jabref-2.10_beta2-r1.ebuild:
+  Add missing dep
+
   03 Jan 2014; Nicolas Bock <nicolasbock@gentoo.org>
   jabref-2.10_beta2-r1.ebuild:
   app-text/jabref: Remove another bundled library.

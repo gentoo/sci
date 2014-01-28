@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Jan 2014; Justin Lecher <jlec@gentoo.org> gromacs-4.6.9999.ebuild,
+  gromacs-5.0_beta1.ebuild, gromacs-9999.ebuild:
+  Add missing dep for USE=doc
+
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> gromacs-4.6.9999.ebuild,
   gromacs-5.0_beta1.ebuild, gromacs-9999.ebuild:
   Switch from git-2 to git-r3
