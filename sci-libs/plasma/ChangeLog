@@ -1,6 +1,11 @@
 # ChangeLog for sci-libs/plasma
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*plasma-2.6.0 (28 Jan 2014)
+
+  28 Jan 2014; Sébastien Fabbro <bicatali@gentoo.org> +plasma-2.6.0.ebuild:
+  sci-libs/plasma: Version bump
 
   09 Dec 2013; Sébastien Fabbro <bicatali@gentoo.org> plasma-2.5.2.ebuild:
   sci-libs/plasma: Version bump
