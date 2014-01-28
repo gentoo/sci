@@ -1,4 +1,4 @@
-# Copyright 2013-2013 Gentoo Foundation
+# Copyright 2013-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -22,7 +22,7 @@ DESCRIPTION="An auto-parallelizing library to speed up computer simulations"
 HOMEPAGE="http://www.libgeodecomp.org"
 
 SLOT="0"
-LICENSE="LGPL-3"
+LICENSE="Boost-1.0"
 IUSE="cuda doc hpx mpi opencl opencv qt scotch threads visit"
 
 RDEPEND="

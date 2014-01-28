@@ -11,4 +11,28 @@
   <maintainer>
     <email>gentryx@gmx.de</email>
   </maintainer>
+  <use>
+    <flag name="cuda">
+	  Enables plugins for NVIDIA GPUs (e.g. CUDASimulator and CUDAStepper)
+    </flag>
+    <flag name="hpx">
+	  Activates the HPX backend as an alternative to the usual MPI backends.
+    </flag>
+    <flag name="opencl">
+	  Builds those plugins which can offload to OpenCL devices.
+    </flag>
+    <flag name="opencv">
+	  Some input components can read from cameras etc. via OpenCV
+    </flag>
+    <flag name="qt">
+	  Adds the QTWidgetWriter, which allows in situ visualization of a
+	  running simulation.
+    </flag>
+    <flag name="scotch">
+	  Optinally use Scotch for domain decomposition.
+    </flag>
+    <flag name="visit">
+	  Add in situ visualization for big simulations via VisIt.
+    </flag>
+  </use>
 </pkgmetadata>

@@ -1,4 +1,4 @@
-# Copyright 2013-2013 Gentoo Foundation
+# Copyright 2014-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -11,7 +11,7 @@ HOMEPAGE="http://www.libgeodecomp.org"
 SRC_URI="http://www.libgeodecomp.org/archive/${P}.tar.bz2"
 
 SLOT="0"
-LICENSE="LGPL-3"
+LICENSE="Boost-1.0"
 KEYWORDS="~amd64 ~ppc ~x86"
 IUSE="doc"
 
