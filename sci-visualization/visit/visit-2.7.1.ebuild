@@ -22,7 +22,7 @@ RDEPEND="
 	hdf5? ( sci-libs/hdf5 )
 	tcmalloc? ( dev-util/google-perftools )
 	cgns? ( sci-libs/cgnslib )
-	>=sci-libs/vtk-6.0.0[imaging,python,rendering]"
+	>=sci-libs/vtk-6.0.0[imaging,python,rendering,${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${PN}${PV}/src"
