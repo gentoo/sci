@@ -27,13 +27,12 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${PN}${PV}/src"
-
-src_prepare() {
-	epatch "${FILESDIR}/${P}-findpython.patch"
-	epatch "${FILESDIR}/${P}-findvtk.patch"
-	epatch "${FILESDIR}/${P}-vtklibs.patch"
-	epatch "${FILESDIR}/${P}-dont_symlink_visit_dir.patch"
-}
+PATCHES=(
+	"${FILESDIR}/${P}-findpython.patch"
+	"${FILESDIR}/${P}-findvtk.patch"
+	"${FILESDIR}/${P}-vtklibs.patch"
+	"${FILESDIR}/${P}-dont_symlink_visit_dir.patch"
+)
 
 src_configure() {
 	local mycmakeargs=(
