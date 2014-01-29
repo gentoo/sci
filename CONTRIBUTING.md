@@ -64,9 +64,9 @@ In order to send pull request and ask for inclusion of your changes you need to 
     hub fork
 
 ###Branch out for contribution
-It is always convenient for development as well as for the review and merging process, if the development is done in branches.
+It is always convenient for development as well as for the review and merging process, if the development is done in branches. Let's branch the overlay into a local branch named PACKAGE_NAME.
 
-    git checkout -b my-feature master
+    git checkout -b PACKAGE_NAME master
 
 For the fastest process during merging it is best to have a single branch per package.
 
@@ -83,9 +83,9 @@ Once *all* reported problems are resolved, you can commit it
     repo-commit "Here we write a comprehensible commit message"
 
 ###Push to Github and make a pull request
-Next we push back the changes to our fork and send a pull-request to the overlay maintainers.
+Next we push back the changes in the PACKAGE_NAME branch to our fork and send a pull-request to the overlay maintainers.
 
-    hub push YOUR_GITHUB_USER
+    hub push YOUR_GITHUB_USER PACKAGE_NAME
     hub pull-request
 
 Lastly you need to wait for review comments and the merge of your work. If you feel that they are slacking, don't bother to ping them again. In case you need to include some improvements, just commit your work again using *repo-commit* and push it again to your fork. No need to send another pull-request as your new changes will be added to the original one.
