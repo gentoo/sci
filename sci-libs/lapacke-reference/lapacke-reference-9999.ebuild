@@ -45,10 +45,10 @@ src_prepare() {
 		-e '/LAPACK_LIBRARIES/s:lapacke:reflapacke:g' \
 		CMakeLists.txt || die
 	sed -i \
-		-e 's:(lapacke:(reflapacke:g' \
+		-e '/librar/s:(lapacke:(reflapacke:g' \
 		lapacke/CMakeLists.txt || die
 	sed -i \
-		-e 's:lapacke:reflapacke:g' \
+		-e '/librar/s:lapacke:reflapacke:g' \
 		lapacke/example/CMakeLists.txt || die
 	local tmgpc; use tmg && tmgpc=" -ltmglib"
 	sed -i \

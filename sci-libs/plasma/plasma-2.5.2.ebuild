@@ -1,9 +1,9 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-inherit eutils fortran-2 toolchain-funcs versionator multilib
+EAPI=5
+inherit eutils fortran-2 toolchain-funcs versionator multilib flag-o-matic
 
 MYP=${PN}_${PV}
 
@@ -55,7 +55,15 @@ static_to_shared() {
 }
 
 src_prepare() {
-	# distributed pc file not so useful
+	# rename plasma to avoid collision (https://github.com/gentoo-science/sci/issues/34)
+	# lib name conflict with kde plasma, rename
+	PLASMA_LIBNAME=plasmca
+	sed -i \
+		-e "s/-lplasma/-l${PLASMA_LIBNAME}/g" \
+		-e "s/libplasma.a/lib${PLASMA_LIBNAME}.a/" \
+		Makefile.internal || die
+
+	# distributed pc file not so useful, so redo it
 	cat <<-EOF > ${PN}.pc
 		prefix=${EPREFIX}/usr
 		libdir=\${prefix}/$(get_libdir)
@@ -64,7 +72,7 @@ src_prepare() {
 		Description: ${DESCRIPTION}
 		Version: ${PV}
 		URL: ${HOMEPAGE}
-		Libs: -L\${libdir} -lplasma -lcoreblas -lquark
+		Libs: -L\${libdir} -l${PLASMA_LIBNAME} -lcoreblas -lquark
 		Libs.private: -lm
 		Cflags: -I\${includedir}
 		Requires: blas cblas lapack lapacke hwloc
@@ -78,12 +86,12 @@ src_configure() {
 		RANLIB = $(tc-getRANLIB)
 		CC = $(tc-getCC)
 		FC = $(tc-getFC)
-		CFLAGS = ${CFLAGS} -DADD_ -fPIC
+		CFLAGS = ${CFLAGS} -DADD_ -fPIC $(has_version ">=virtual/lapacke-3.5" && echo "-DDOXYGEN_SHOULD_SKIP_THIS=1")
 		FFLAGS = ${FFLAGS} -fPIC
 		LOADER = $(tc-getFC)
 		LIBBLAS = $($(tc-getPKG_CONFIG) --libs blas)
 		LIBCBLAS = $($(tc-getPKG_CONFIG) --libs cblas)
-		LIBLAPACK = $($(tc-getPKG_CONFIG) --libs lapack)
+		LIBLAPACK = $($(tc-getPKG_CONFIG) --libs lapack) -ltmglib
 		LIBCLAPACK = $($(tc-getPKG_CONFIG) --libs lapacke)
 		$(use fortran && echo "PLASMA_F90 = 1")
 	EOF
@@ -91,9 +99,10 @@ src_configure() {
 
 src_compile() {
 	emake lib
+	#mv lib/libplasma.a lib/lib${PLASMA_LIBNAME}.a || die
 	static_to_shared quark/libquark.a $($(tc-getPKG_CONFIG --libs hwloc)) -pthread
 	static_to_shared lib/libcoreblas.a quark/libquark.so $($(tc-getPKG_CONFIG --libs cblas lapacke))
-	static_to_shared lib/libplasma.a quark/libquark.so lib/libcoreblas.so
+	static_to_shared lib/lib${PLASMA_LIBNAME}.a quark/libquark.so lib/libcoreblas.so
 	if use static-libs; then
 		emake cleanall
 		sed 's/-fPIC//g' make.inc
@@ -122,4 +131,11 @@ src_install() {
 		insinto /usr/share/doc/${PF}
 		doins -r examples
 	fi
+}
+
+pkg_postinst() {
+	elog "The plasma linear algebra library file has been renamed ${PLASMA_LIBNAME}"
+	elog "to avoid collision with KDE plasma."
+	elog "Compile and link your programs using the following command:"
+	elog "     pkg-config --cflags --libs plasma"
 }

@@ -1,12 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-inherit multilib
-
-DESCRIPTION="Virtual for FORTRAN 77 BLAS implementation"
+DESCRIPTION="Virtual for Linear Algebra Package FORTRAN 77 implementation"
 HOMEPAGE=""
 SRC_URI=""
 
@@ -15,18 +13,13 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc"
 
-RDEPEND="
-	|| (
-		>=sci-libs/blas-reference-20110417
-		>=dev-cpp/eigen-3.1.2
-		sci-libs/atlas[fortran]
-		sci-libs/openblas
-		>=sci-libs/acml-4.4
-		sci-libs/gotoblas2
-		>=sci-libs/mkl-10.3
+RDEPEND="|| (
+		>=sci-libs/lapack-reference-${PV}
+		>=sci-libs/atlas-3.10.1[lapack]
 	)
-	doc? ( >=app-doc/blas-docs-3.2 )"
+	doc? ( >=app-doc/lapack-docs-3.3 )"
 DEPEND=""
+
 
 pkg_pretend() {
 	if [[ -e "${EROOT%/}"/usr/$(get_libdir)/lib${PN}.so ]]; then
