@@ -68,6 +68,8 @@ It is always convenient for development as well as for the review and merging pr
 
     git checkout -b my-feature master
 
+For the fastest process during merging it is best to have a single branch per package.
+
 ###Work on the package
 Now you are ready to work on your package of interest. Once you are finished you should _always_ use **[repoman](http://dev.gentoo.org/~zmedico/portage/doc/man/repoman.1.html)** to do a static analysis of your work.
 
