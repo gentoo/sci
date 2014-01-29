@@ -18,6 +18,7 @@ IUSE="hdf5 tcmalloc cgns"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
+	${PYTHON_DEPS}
 	sci-libs/silo
 	hdf5? ( sci-libs/hdf5 )
 	tcmalloc? ( dev-util/google-perftools )
