@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-biology/ncbi-tools++/ncbi-tools++-2009.05.15-r1.ebuild,v 1.2 2009/08/19 08:00:26 weaver Exp $
+# $Header: $
 
 EAPI=5
 

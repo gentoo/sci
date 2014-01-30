@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/emboss-6.3.1_p4.ebuild,v 1.2 2011/03/09 16:29:05 jlec Exp $
+# $Header: $
 
 EAPI="4"
 

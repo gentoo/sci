@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-astronomy/stiff/stiff-2.1.3.ebuild,v 1.1 2011/04/10 14:45:35 bicatali Exp $
+# $Header: $
 
 EAPI=5
 

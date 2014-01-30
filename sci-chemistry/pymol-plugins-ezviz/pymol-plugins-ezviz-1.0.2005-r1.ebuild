@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/sci-chemistry/pymol-plugins-ezviz/pymol-plugins-ezviz-1.0.2005.ebuild,v 1.2 2010/04/08 18:47:57 jlec dead $
+# $Header: $
 
 EAPI=5
 

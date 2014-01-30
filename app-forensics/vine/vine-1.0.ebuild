@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-libs/gmetadom/gmetadom-0.2.6.ebuild,v 1.9 2012/05/04 18:35:48 jdhore Exp $
+# $Header: $
 
 EAPI=5
 
