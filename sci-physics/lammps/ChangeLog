@@ -1,0 +1,11 @@
+# ChangeLog for sci-physics/lammps
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*lammps-20140201 (01 Feb 2014)
+
+  01 Feb 2014; Nicolas Bock <nicolasbock@gentoo.org> +lammps-20140201.ebuild,
+  +metadata.xml:
+  sci-physics/lammps: Upstream now releases a stable channel  I added Feb 1 2014
+  in the stable slot to indicate that upstream considers this version more
+  tested and stable than their normal frequent releases.
