@@ -14,5 +14,8 @@
     <flag name="cgns">
       Builds the reader for the CFD General Notation System file format.
     </flag>
+    <flag name="silo">
+      Adds support for reading .silo files.
+    </flag>
   </use>
 </pkgmetadata>
