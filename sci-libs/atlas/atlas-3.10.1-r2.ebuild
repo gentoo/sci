@@ -28,7 +28,7 @@ pkg_setup() {
 	local _cpufreq
 	for _cpufreq in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
 		if [ -f ${_cpufreq} ]; then
-			if grep -q performance ${_cpufreq}; then
+			if ! grep -q performance ${_cpufreq}; then
 				echo 2> /dev/null performance > ${_cpufreq} || \
 					die "${PN} needs all cpu set to performance"
 			fi
