@@ -50,7 +50,7 @@ src_test() {
 
 src_install() {
 	dolib.so lib/tgt_*/{libg4root,libgeant4vmc}.so
-	doheader include/*
+	doheader -r include/*
 	dodoc README history version_number
 	use doc && dohtml -r Geant4VMC.html doc/*
 	if use examples; then
