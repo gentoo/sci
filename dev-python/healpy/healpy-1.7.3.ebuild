@@ -20,7 +20,7 @@ IUSE=""
 RDEPEND="
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	dev-python/pyfits[${PYTHON_USEDEP}]
+	virtual/pyfits[${PYTHON_USEDEP}]
 	sci-astronomy/healpix_cxx
 	sci-libs/cfitsio"
 DEPEND="${RDEPEND}
