@@ -4,15 +4,13 @@
 
 EAPI=5
 
-AUTOTOOLS_AUTORECONF=1
 inherit autotools-utils
 
-MYP="Healpix_${PV}"
-MYPP="2013Apr24"
+MYP="Healpix_3.11"
 
 DESCRIPTION="Hierarchical Equal Area isoLatitude Pixelization of a sphere - C Library"
 HOMEPAGE="http://healpix.sourceforge.net/"
-SRC_URI="mirror://sourceforge/${PN}/${MYP}/${MYP}_${MYPP}.tar.gz"
+SRC_URI="mirror://sourceforge/healpix/${MYP}/autotools_packages/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -24,7 +22,3 @@ RDEPEND="
 	>=sci-libs/cfitsio-3"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
-
-S="${WORKDIR}/${MYP}/src/C/autotools"
-
-DOCS=( ../{README,CHANGES} )
