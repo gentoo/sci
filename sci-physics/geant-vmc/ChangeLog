@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Feb 2014; <o.freyermuth@googlemail.com> geant-vmc-4.2.14b.ebuild,
+  geant-vmc-4.2.15.ebuild:
+  Make header installation work again, include/ contains folders only so
+  doheader must recurse
+
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> geant-vmc-4.2.14b.ebuild,
   geant-vmc-4.2.15.ebuild, metadata.xml:
   Add missing die
