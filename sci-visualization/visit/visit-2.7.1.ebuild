@@ -46,12 +46,8 @@ src_configure() {
 		-DVISIT_VTK_SKIP_INSTALL=true
 		-DQT_BIN="${EPREFIX}/usr/bin"
 		-DVISIT_ZLIB_DIR="${EPREFIX}/usr"
+		$(cmake-utils_use threads VISIT_THREAD)
 	)
-    if use threads; then
-		mycmakeargs+=( -DVISIT_THREAD=true )
-    else
-		mycmakeargs+=( -DVISIT_THREAD=false )
-    fi
 	if use hdf5; then
 		mycmakeargs+=( -DHDF5_DIR="${EPREFIX}/usr" )
 	fi
