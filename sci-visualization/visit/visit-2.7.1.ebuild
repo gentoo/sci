@@ -14,7 +14,7 @@ SRC_URI="http://portal.nersc.gov/svn/visit/trunk/releases/${PV}/visit${PV}.tar.g
 SLOT="0"
 LICENSE="BSD"
 KEYWORDS="~amd64"
-IUSE="hdf5 tcmalloc cgns silo netcdf"
+IUSE="debug hdf5 tcmalloc cgns silo netcdf threads"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
@@ -44,10 +44,14 @@ src_configure() {
 		-DPYTHON_DIR="${EPREFIX}/usr"
 		-DVISIT_PYTHON_SKIP_INSTALL=true
 		-DVISIT_VTK_SKIP_INSTALL=true
-		-DVISIT_THREAD=true
 		-DQT_BIN="${EPREFIX}/usr/bin"
 		-DVISIT_ZLIB_DIR="${EPREFIX}/usr"
 	)
+    if use threads; then
+		mycmakeargs+=( -DVISIT_THREAD=true )
+    else
+		mycmakeargs+=( -DVISIT_THREAD=false )
+    fi
 	if use hdf5; then
 		mycmakeargs+=( -DHDF5_DIR="${EPREFIX}/usr" )
 	fi
