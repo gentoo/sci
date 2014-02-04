@@ -5,7 +5,7 @@
 EAPI=5
 inherit versionator
 
-DESCRIPTION="Software package to calibrate, image, and analyze radioastronomical data."
+DESCRIPTION="Software package to calibrate, image, and analyze radioastronomical data"
 HOMEPAGE="http://casa.nrao.edu/"
 MY_P=$(version_format_string '${PN%-bin}-$1$2.$3.prerelease-${4#pre}-${5#p}-64b')
 SRC_URI="https://svn.cv.nrao.edu/casa/linux_distro/prerelease/${MY_P}.tar.gz"
