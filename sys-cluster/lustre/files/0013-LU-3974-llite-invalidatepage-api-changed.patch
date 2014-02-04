@@ -1,7 +1,7 @@
-From 2725bc0f3bc5fa7706b9a475ccb0c191f21ca884 Mon Sep 17 00:00:00 2001
+From 48a712836dff9f15b8d17b9e34caa6acfebf22ce Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Tue, 24 Sep 2013 12:29:47 -0400
-Subject: [PATCH 05/18] LU-3974 llite: invalidatepage api changed
+Subject: [PATCH 13/13] LU-3974 llite: invalidatepage api changed
 
 Until recently invalidating pages from the buffer cache
 was dependent only on the page passed in and the start
@@ -19,10 +19,10 @@ Change-Id: Iedf458b20b2604bc3099d5ae38bf0ad07df83bd3
  3 files changed, 48 insertions(+), 15 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
-index 3ac55d6..ab94acd 100644
+index f44a277..5409fde 100644
 --- a/lustre/autoconf/lustre-core.m4
 +++ b/lustre/autoconf/lustre-core.m4
-@@ -1287,6 +1287,25 @@ LB_LINUX_TRY_COMPILE([
+@@ -1349,6 +1349,25 @@ LB_LINUX_TRY_COMPILE([
  ])
  
  #
@@ -48,7 +48,7 @@ index 3ac55d6..ab94acd 100644
  # 3.11 readdir now takes the new struct dir_context
  #
  AC_DEFUN([LC_HAVE_DIR_CONTEXT],
-@@ -1442,6 +1461,7 @@ AC_DEFUN([LC_PROG_LINUX],
+@@ -1542,6 +1561,7 @@ AC_DEFUN([LC_PROG_LINUX],
  	 LC_BLKDEV_RELEASE_RETURN_INT
  
  	 # 3.11
@@ -130,5 +130,5 @@ index 9365c74..bee7996 100644
                  if (!IS_ERR(env)) {
                          inode = vmpage->mapping->host;
 -- 
-1.8.5.1
+1.8.5.3
 

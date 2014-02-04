@@ -1,7 +1,7 @@
-From 40b657155058d824c3ef8e4f22955eacca5eeb79 Mon Sep 17 00:00:00 2001
+From 5a0b800373ce5e05f6ac64686e6381f7d2706044 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Thu, 14 Nov 2013 19:41:12 -0500
-Subject: [PATCH 18/18] LU-3319 procfs: update ldiskfs proc handling to
+Date: Fri, 31 Jan 2014 10:38:14 -0500
+Subject: [PATCH 10/13] LU-3319 procfs: update ldiskfs proc handling to
  seq_files
 
 Migrate all ldiskfs proc handling to using strictly
@@ -10,58 +10,103 @@ seq_files.
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: Ia296a4682e2feda02bcfbe0100de8a89404cd731
 ---
- lustre/osd-ldiskfs/osd_handler.c  |   7 +-
+ lustre/osd-ldiskfs/osd_compat.c   |   6 +-
+ lustre/osd-ldiskfs/osd_handler.c  |  16 +-
  lustre/osd-ldiskfs/osd_internal.h |   6 +-
- lustre/osd-ldiskfs/osd_lproc.c    | 321 +++++++++++++++++++-------------------
- lustre/osd-ldiskfs/osd_scrub.c    |  73 +++------
- 4 files changed, 192 insertions(+), 215 deletions(-)
+ lustre/osd-ldiskfs/osd_lproc.c    | 338 ++++++++++++++++++++------------------
+ lustre/osd-ldiskfs/osd_scrub.c    |  73 +++-----
+ 5 files changed, 222 insertions(+), 217 deletions(-)
 
+diff --git a/lustre/osd-ldiskfs/osd_compat.c b/lustre/osd-ldiskfs/osd_compat.c
+index b4a018c..6ca1304 100644
+--- a/lustre/osd-ldiskfs/osd_compat.c
++++ b/lustre/osd-ldiskfs/osd_compat.c
+@@ -1168,7 +1168,7 @@ int osd_obj_spec_update(struct osd_thread_info *info, struct osd_device *osd,
+ 			handle_t *th)
+ {
+ 	struct dentry	*root;
+-	char		*name;
++	char		*name = NULL;
+ 	int		 rc;
+ 	ENTRY;
+ 
+@@ -1189,7 +1189,7 @@ int osd_obj_spec_insert(struct osd_thread_info *info, struct osd_device *osd,
+ 			handle_t *th)
+ {
+ 	struct dentry	*root;
+-	char		*name;
++	char		*name = NULL;
+ 	int		 rc;
+ 	ENTRY;
+ 
+@@ -1211,7 +1211,7 @@ int osd_obj_spec_lookup(struct osd_thread_info *info, struct osd_device *osd,
+ 	struct dentry	*root;
+ 	struct dentry	*dentry;
+ 	struct inode	*inode;
+-	char		*name;
++	char		*name = NULL;
+ 	int		rc = -ENOENT;
+ 	ENTRY;
+ 
 diff --git a/lustre/osd-ldiskfs/osd_handler.c b/lustre/osd-ldiskfs/osd_handler.c
-index c13c682..7f8748d 100644
+index 9027533..dfaa542 100644
 --- a/lustre/osd-ldiskfs/osd_handler.c
 +++ b/lustre/osd-ldiskfs/osd_handler.c
-@@ -5820,19 +5820,18 @@ static struct obd_ops osd_obd_device_ops = {
- 
- static int __init osd_mod_init(void)
+@@ -5814,6 +5814,7 @@ static struct lu_device *osd_device_free(const struct lu_env *env,
+ static int osd_process_config(const struct lu_env *env,
+                               struct lu_device *d, struct lustre_cfg *cfg)
  {
--        struct lprocfs_static_vars lvars;
- 	int rc;
- 
- 	osd_oi_mod_init();
--	lprocfs_osd_init_vars(&lvars);
- 
- 	rc = lu_kmem_init(ldiskfs_caches);
++	struct obd_device		*obd = d->ld_obd;
+ 	struct osd_device		*o = osd_dev(d);
+ 	int				rc;
+ 	ENTRY;
+@@ -5828,12 +5829,12 @@ static int osd_process_config(const struct lu_env *env,
+ 		break;
+ 	case LCFG_PARAM:
+ 		LASSERT(&o->od_dt_dev);
+-		rc = class_process_proc_param(PARAM_OSD, lprocfs_osd_obd_vars,
+-					      cfg, &o->od_dt_dev);
++		rc = class_process_proc_seq_param(PARAM_OSD, obd->obd_vars,
++						  cfg, &o->od_dt_dev);
+ 		if (rc > 0 || rc == -ENOSYS)
+-			rc = class_process_proc_param(PARAM_OST,
+-						      lprocfs_osd_obd_vars,
+-						      cfg, &o->od_dt_dev);
++			rc = class_process_proc_seq_param(PARAM_OST,
++							  obd->obd_vars, cfg,
++							  &o->od_dt_dev);
+ 		break;
+ 	default:
+ 		rc = -ENOSYS;
+@@ -5981,9 +5982,10 @@ static int __init osd_mod_init(void)
  	if (rc)
  		return rc;
  
 -	rc = class_register_type(&osd_obd_device_ops, NULL, NULL,
+-#ifndef HAVE_ONLY_PROCFS_SEQ
 +	rc = class_register_type(&osd_obd_device_ops, NULL,
-+				lprocfs_osd_module_vars,
- #ifndef HAVE_ONLY_PROCFS_SEQ
--				lvars.module_vars,
+ 				lprocfs_osd_module_vars,
++#ifndef HAVE_ONLY_PROCFS_SEQ
 +				NULL,
  #endif
  				LUSTRE_OSD_LDISKFS_NAME, &osd_device_type);
  	if (rc)
 diff --git a/lustre/osd-ldiskfs/osd_internal.h b/lustre/osd-ldiskfs/osd_internal.h
-index 8d5ca40..35d1b10 100644
+index 8436d1f..c90147f 100644
 --- a/lustre/osd-ldiskfs/osd_internal.h
 +++ b/lustre/osd-ldiskfs/osd_internal.h
-@@ -623,11 +623,11 @@ static inline int __osd_xattr_set(struct osd_thread_info *info,
+@@ -623,8 +623,8 @@ static inline int __osd_xattr_set(struct osd_thread_info *info,
  
  #ifdef LPROCFS
  /* osd_lproc.c */
--void lprocfs_osd_init_vars(struct lprocfs_static_vars *lvars);
+-extern struct lprocfs_vars lprocfs_osd_obd_vars[];
+-extern struct lprocfs_vars lprocfs_osd_module_vars[];
++extern struct lprocfs_seq_vars lprocfs_osd_obd_vars[];
 +extern struct lprocfs_seq_vars lprocfs_osd_module_vars[];
-+
  int osd_procfs_init(struct osd_device *osd, const char *name);
  int osd_procfs_fini(struct osd_device *osd);
  void osd_brw_stats_update(struct osd_device *osd, struct osd_iobuf *iobuf);
--
- #endif
- int osd_statfs(const struct lu_env *env, struct dt_device *dev,
-                struct obd_statfs *sfs);
-@@ -678,7 +678,7 @@ int osd_oii_insert(struct osd_device *dev, struct osd_idmap_cache *oic,
+@@ -679,7 +679,7 @@ int osd_oii_insert(struct osd_device *dev, struct osd_idmap_cache *oic,
  		   int insert);
  int osd_oii_lookup(struct osd_device *dev, const struct lu_fid *fid,
  		   struct osd_inode_id *id);
@@ -71,16 +116,15 @@ index 8d5ca40..35d1b10 100644
  int osd_fld_lookup(const struct lu_env *env, struct osd_device *osd,
  		   obd_seq seq, struct lu_seq_range *range);
 diff --git a/lustre/osd-ldiskfs/osd_lproc.c b/lustre/osd-ldiskfs/osd_lproc.c
-index 83bb586..528f60e 100644
+index b9b4e3d..67f3423 100644
 --- a/lustre/osd-ldiskfs/osd_lproc.c
 +++ b/lustre/osd-ldiskfs/osd_lproc.c
-@@ -237,93 +237,45 @@ out:
+@@ -237,92 +237,46 @@ out:
          RETURN(result);
  }
  
 -int osd_procfs_init(struct osd_device *osd, const char *name)
 -{
--        struct lprocfs_static_vars lvars;
 -        struct obd_type     *type;
 -        int                  rc;
 -        ENTRY;
@@ -93,9 +137,9 @@ index 83bb586..528f60e 100644
 -        LASSERT(type != NULL);
 -
 -        /* Find the type procroot and add the proc entry for this device */
--        lprocfs_osd_init_vars(&lvars);
 -        osd->od_proc_entry = lprocfs_register(name, type->typ_procroot,
--                                              lvars.obd_vars, &osd->od_dt_dev);
+-					      lprocfs_osd_obd_vars,
+-					      &osd->od_dt_dev);
 -        if (IS_ERR(osd->od_proc_entry)) {
 -                rc = PTR_ERR(osd->od_proc_entry);
 -                CERROR("Error %d setting up lprocfs for %s\n",
@@ -155,7 +199,7 @@ index 83bb586..528f60e 100644
 +		return -EINPROGRESS;
  
 -	return snprintf(page, count, "%s\n", osd->od_mntdev);
-+	return seq_printf(m, "%s\n", osd->od_mntdev);
++	return seq_printf(m, "%u\n", osd->od_read_cache);
  }
 +LPROC_SEQ_FOPS_RO(ldiskfs_osd_mntdev);
  
@@ -178,17 +222,18 @@ index 83bb586..528f60e 100644
 -				unsigned long count, void *data)
 +static ssize_t
 +ldiskfs_osd_cache_seq_write(struct file *file, const char *buffer,
-+				size_t count, loff_t *off)
++			    size_t count, loff_t *off)
  {
 -	struct osd_device	*osd = osd_dt_dev(data);
 -	int			 val, rc;
-+	struct dt_device  *dt = ((struct seq_file *)file->private_data)->private;
++	struct seq_file *m = file->private_data;
++	struct dt_device  *dt = m->private;
 +	struct osd_device *osd = osd_dt_dev(dt);
 +	int		   val, rc;
  
  	LASSERT(osd != NULL);
  	if (unlikely(osd->od_mnt == NULL))
-@@ -336,24 +288,26 @@ static int lprocfs_osd_wr_cache(struct file *file, const char *buffer,
+@@ -335,24 +289,26 @@ static int lprocfs_osd_wr_cache(struct file *file, const char *buffer,
  	osd->od_read_cache = !!val;
  	return count;
  }
@@ -223,7 +268,7 @@ index 83bb586..528f60e 100644
  
  	LASSERT(osd != NULL);
  	if (unlikely(osd->od_mnt == NULL))
-@@ -366,14 +320,16 @@ static int lprocfs_osd_wr_wcache(struct file *file, const char *buffer,
+@@ -365,14 +321,16 @@ static int lprocfs_osd_wr_wcache(struct file *file, const char *buffer,
  	osd->od_writethrough_cache = !!val;
  	return count;
  }
@@ -246,7 +291,7 @@ index 83bb586..528f60e 100644
  
  	LASSERT(osd != NULL);
  	if (unlikely(osd->od_mnt == NULL))
-@@ -387,20 +343,18 @@ static int lprocfs_osd_wr_force_sync(struct file *file, const char *buffer,
+@@ -386,20 +344,18 @@ static int lprocfs_osd_wr_force_sync(struct file *file, const char *buffer,
  
  	return rc == 0 ? count : rc;
  }
@@ -274,7 +319,7 @@ index 83bb586..528f60e 100644
  
          rc = lprocfs_write_helper(buffer, count, &pdo);
          if (rc != 0)
-@@ -410,24 +364,25 @@ static int lprocfs_osd_wr_pdo(struct file *file, const char *buffer,
+@@ -409,24 +365,25 @@ static int lprocfs_osd_wr_pdo(struct file *file, const char *buffer,
  
          return count;
  }
@@ -308,7 +353,7 @@ index 83bb586..528f60e 100644
  	int val, rc;
  
  	LASSERT(dev != NULL);
-@@ -441,19 +396,18 @@ static int lprocfs_osd_wr_auto_scrub(struct file *file, const char *buffer,
+@@ -440,19 +397,18 @@ static int lprocfs_osd_wr_auto_scrub(struct file *file, const char *buffer,
  	dev->od_noscrub = !val;
  	return count;
  }
@@ -335,7 +380,7 @@ index 83bb586..528f60e 100644
  {
  	int     track_declares_assert;
  	int     rc;
-@@ -466,38 +420,39 @@ static int lprocfs_osd_wr_track_declares_assert(struct file *file,
+@@ -465,38 +421,39 @@ static int lprocfs_osd_wr_track_declares_assert(struct file *file,
  
  	return count;
  }
@@ -389,7 +434,7 @@ index 83bb586..528f60e 100644
  	__u64			 val;
  	int			 rc;
  
-@@ -513,24 +468,25 @@ int lprocfs_osd_wr_readcache(struct file *file, const char *buffer,
+@@ -512,24 +469,25 @@ int lprocfs_osd_wr_readcache(struct file *file, const char *buffer,
  					 OSD_MAX_CACHE_SIZE : val;
  	return count;
  }
@@ -423,7 +468,7 @@ index 83bb586..528f60e 100644
  	int		   val;
  	int		   rc;
  
-@@ -545,43 +501,86 @@ static int lprocfs_osd_wr_lma_self_repair(struct file *file, const char *buffer,
+@@ -544,38 +502,104 @@ static int lprocfs_osd_wr_lma_self_repair(struct file *file, const char *buffer,
  	dev->od_lma_self_repair = !!val;
  	return count;
  }
@@ -459,23 +504,39 @@ index 83bb586..528f60e 100644
 +LPROC_SEQ_FOPS_RO_TYPE(ldiskfs, dt_filestotal);
 +LPROC_SEQ_FOPS_RO_TYPE(ldiskfs, dt_filesfree);
 +
-+static struct lprocfs_seq_vars lprocfs_osd_obd_vars[] = {
-+	{ "blocksize",			&ldiskfs_dt_blksize_fops	},
-+	{ "kbytestotal",		&ldiskfs_dt_kbytestotal_fops	},
-+	{ "kbytesfree",			&ldiskfs_dt_kbytesfree_fops	},
-+	{ "kbytesavail",		&ldiskfs_dt_kbytesavail_fops	},
-+	{ "filestotal",			&ldiskfs_dt_filestotal_fops	},
-+	{ "filesfree",			&ldiskfs_dt_filesfree_fops	},
-+	{ "fstype",			&ldiskfs_osd_fstype_fops	},
-+	{ "mntdev",			&ldiskfs_osd_mntdev_fops	},
-+	{ "force_sync",			&ldiskfs_osd_force_sync_fops	},
-+	{ "pdo",			&ldiskfs_osd_pdo_fops		},
-+	{ "auto_scrub",			&ldiskfs_osd_auto_scrub_fops	},
-+	{ "oi_scrub",			&ldiskfs_osd_oi_scrub_fops	},
-+	{ "read_cache_enable",		&ldiskfs_osd_cache_fops		},
-+	{ "writethrough_cache_enable",	&ldiskfs_osd_wcache_fops	},
-+	{ "readcache_max_filesize",	&ldiskfs_osd_readcache_fops	},
-+	{ "lma_self_repair",		&ldiskfs_osd_lma_self_repair_fops },
++struct lprocfs_seq_vars lprocfs_osd_obd_vars[] = {
++	{ .name	=	"blocksize",
++	  .fops	=	&ldiskfs_dt_blksize_fops	},
++	{ .name	=	"kbytestotal",
++	  .fops	=	&ldiskfs_dt_kbytestotal_fops	},
++	{ .name	=	"kbytesfree",
++	  .fops	=	&ldiskfs_dt_kbytesfree_fops	},
++	{ .name	=	"kbytesavail",
++	  .fops	=	&ldiskfs_dt_kbytesavail_fops	},
++	{ .name	=	"filestotal",
++	  .fops	=	&ldiskfs_dt_filestotal_fops	},
++	{ .name	=	"filesfree",
++	  .fops	=	&ldiskfs_dt_filesfree_fops	},
++	{ .name	=	"fstype",
++	  .fops	=	&ldiskfs_osd_fstype_fops	},
++	{ .name	=	"mntdev",
++	  .fops	=	&ldiskfs_osd_mntdev_fops	},
++	{ .name	=	"force_sync",
++	  .fops	=	&ldiskfs_osd_force_sync_fops	},
++	{ .name	=	"pdo",
++	  .fops	=	&ldiskfs_osd_pdo_fops		},
++	{ .name	=	"auto_scrub",
++	  .fops	=	&ldiskfs_osd_auto_scrub_fops	},
++	{ .name	=	"oi_scrub",
++	  .fops	=	&ldiskfs_osd_oi_scrub_fops	},
++	{ .name	=	"read_cache_enable",
++	  .fops	=	&ldiskfs_osd_cache_fops		},
++	{ .name	=	"writethrough_cache_enable",
++	  .fops	=	&ldiskfs_osd_wcache_fops	},
++	{ .name	=	"readcache_max_filesize",
++	  .fops	=	&ldiskfs_osd_readcache_fops	},
++	{ .name	=	"lma_self_repair",
++	  .fops	=	&ldiskfs_osd_lma_self_repair_fops	},
  	{ 0 }
  };
  
@@ -486,11 +547,12 @@ index 83bb586..528f60e 100644
 -					0 },
 -        { 0 }
 +struct lprocfs_seq_vars lprocfs_osd_module_vars[] = {
-+	{ "track_declares_assert", &ldiskfs_osd_track_declares_assert_fops },
++	{ .name	=	"track_declares_assert",
++	  .fops	=	&ldiskfs_osd_track_declares_assert_fops		},
 +	{ 0 }
  };
  
--void lprocfs_osd_init_vars(struct lprocfs_static_vars *lvars)
++
 +int osd_procfs_init(struct osd_device *osd, const char *name)
 +{
 +	struct obd_type	*type;
@@ -509,12 +571,12 @@ index 83bb586..528f60e 100644
 +
 +	/* Find the type procroot and add the proc entry for this device */
 +	osd->od_proc_entry = lprocfs_seq_register(name, type->typ_procroot,
-+						lprocfs_osd_obd_vars,
-+						&osd->od_dt_dev);
++						  lprocfs_osd_obd_vars,
++						  &osd->od_dt_dev);
 +	if (IS_ERR(osd->od_proc_entry)) {
 +		rc = PTR_ERR(osd->od_proc_entry);
 +		CERROR("Error %d setting up lprocfs for %s\n",
-+			rc, name);
++		       rc, name);
 +		osd->od_proc_entry = NULL;
 +		GOTO(out, rc);
 +	}
@@ -529,9 +591,7 @@ index 83bb586..528f60e 100644
 +}
 +
 +int osd_procfs_fini(struct osd_device *osd)
- {
--        lvars->module_vars = lprocfs_osd_module_vars;
--        lvars->obd_vars = lprocfs_osd_obd_vars;
++{
 +	if (osd->od_stats)
 +		lprocfs_free_stats(&osd->od_stats);
 +
@@ -540,13 +600,13 @@ index 83bb586..528f60e 100644
 +		osd->od_proc_entry = NULL;
 +	}
 +	RETURN(0);
- }
++}
  #endif
 diff --git a/lustre/osd-ldiskfs/osd_scrub.c b/lustre/osd-ldiskfs/osd_scrub.c
-index 18a0a2a..38f5d29 100644
+index cce33af..1002913 100644
 --- a/lustre/osd-ldiskfs/osd_scrub.c
 +++ b/lustre/osd-ldiskfs/osd_scrub.c
-@@ -2508,80 +2508,69 @@ static const char *scrub_param_names[] = {
+@@ -2578,80 +2578,69 @@ static const char *scrub_param_names[] = {
  	NULL
  };
  
@@ -641,7 +701,7 @@ index 18a0a2a..38f5d29 100644
  		      "name: OI_scrub\n"
  		      "magic: 0x%x\n"
  		      "oi_files: %d\n"
-@@ -2591,51 +2580,48 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
+@@ -2661,51 +2650,48 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
  	if (rc <= 0)
  		goto out;
  
@@ -702,7 +762,7 @@ index 18a0a2a..38f5d29 100644
  		      "updated: "LPU64"\n"
  		      "failed: "LPU64"\n"
  		      "prior_updated: "LPU64"\n"
-@@ -2648,8 +2634,6 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
+@@ -2718,8 +2704,6 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
  	if (rc <= 0)
  		goto out;
  
@@ -711,7 +771,7 @@ index 18a0a2a..38f5d29 100644
  	speed = checked;
  	if (thread_is_running(&scrub->os_thread)) {
  		cfs_duration_t duration = cfs_time_current() -
-@@ -2662,8 +2646,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
+@@ -2732,8 +2716,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
  			do_div(new_checked, duration);
  		if (rtime != 0)
  			do_div(speed, rtime);
@@ -721,7 +781,7 @@ index 18a0a2a..38f5d29 100644
  			      "average_speed: "LPU64" objects/sec\n"
  			      "real-time_speed: "LPU64" objects/sec\n"
  			      "current_position: %u\n"
-@@ -2676,8 +2659,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
+@@ -2746,8 +2729,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
  	} else {
  		if (sf->sf_run_time != 0)
  			do_div(speed, sf->sf_run_time);
@@ -731,7 +791,7 @@ index 18a0a2a..38f5d29 100644
  			      "average_speed: "LPU64" objects/sec\n"
  			      "real-time_speed: N/A\n"
  			      "current_position: N/A\n"
-@@ -2689,10 +2671,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
+@@ -2759,10 +2741,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
  	}
  	if (rc <= 0)
  		goto out;
@@ -744,5 +804,5 @@ index 18a0a2a..38f5d29 100644
  out:
  	up_read(&scrub->os_rwsem);
 -- 
-1.8.5.1
+1.8.5.3
 

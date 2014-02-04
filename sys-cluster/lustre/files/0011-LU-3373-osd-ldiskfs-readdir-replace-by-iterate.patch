@@ -1,0 +1,140 @@
+From 508cde3f8347e7d6a6d299cbdfce537ebc29650c Mon Sep 17 00:00:00 2001
+From: yangsheng <yang.sheng@intel.com>
+Date: Fri, 8 Nov 2013 22:31:36 +0800
+Subject: [PATCH 11/13] LU-3373 osd-ldiskfs: readdir replace by iterate
+
+Use iterate instead of readdir callback in iop.
+
+Signed-off-by: yang sheng <yang.sheng@intel.com>
+Change-Id: Icb08292009c965ca693814e854ae2e77b3e7a4f0
+---
+ lustre/osd-ldiskfs/osd_handler.c | 32 +++++++++++++++++++++++++-------
+ lustre/osd-ldiskfs/osd_scrub.c   | 18 +++++++++++++++++-
+ 2 files changed, 42 insertions(+), 8 deletions(-)
+
+diff --git a/lustre/osd-ldiskfs/osd_handler.c b/lustre/osd-ldiskfs/osd_handler.c
+index dfaa542..f635394 100644
+--- a/lustre/osd-ldiskfs/osd_handler.c
++++ b/lustre/osd-ldiskfs/osd_handler.c
+@@ -4733,6 +4733,12 @@ static void osd_it_ea_put(const struct lu_env *env, struct dt_it *di)
+ {
+ }
+ 
++struct osd_filldir_cbs {
++#ifdef HAVE_DIR_CONTEXT
++	struct dir_context ctx;
++#endif
++	struct osd_it_ea  *it;
++};
+ /**
+  * It is called internally by ->readdir(). It fills the
+  * iterator's in-memory data structure with required
+@@ -4744,11 +4750,11 @@ static void osd_it_ea_put(const struct lu_env *env, struct dt_it *di)
+  * \retval 0 on success
+  * \retval 1 on buffer full
+  */
+-static int osd_ldiskfs_filldir(char *buf, const char *name, int namelen,
++static int osd_ldiskfs_filldir(void *buf, const char *name, int namelen,
+                                loff_t offset, __u64 ino,
+                                unsigned d_type)
+ {
+-        struct osd_it_ea        *it   = (struct osd_it_ea *)buf;
++	struct osd_it_ea	*it   = ((struct osd_filldir_cbs *)buf)->it;
+ 	struct osd_object	*obj  = it->oie_obj;
+         struct osd_it_ea_dirent *ent  = it->oie_dirent;
+         struct lu_fid           *fid  = &ent->oied_fid;
+@@ -4811,7 +4817,14 @@ static int osd_ldiskfs_it_fill(const struct lu_env *env,
+         struct osd_object  *obj   = it->oie_obj;
+         struct inode       *inode = obj->oo_inode;
+         struct htree_lock  *hlock = NULL;
+-        int                 result = 0;
++	struct file	   *filp  = &it->oie_file;
++	int                 rc = 0;
++	struct osd_filldir_cbs buf = {
++#ifdef HAVE_DIR_CONTEXT
++		.ctx.actor = osd_ldiskfs_filldir,
++#endif
++		.it = it
++	};
+ 
+         ENTRY;
+         it->oie_dirent = it->oie_buf;
+@@ -4825,8 +4838,13 @@ static int osd_ldiskfs_it_fill(const struct lu_env *env,
+ 		down_read(&obj->oo_ext_idx_sem);
+         }
+ 
+-        result = inode->i_fop->readdir(&it->oie_file, it,
+-                                       (filldir_t) osd_ldiskfs_filldir);
++#ifdef HAVE_DIR_CONTEXT
++	buf.ctx.pos = filp->f_pos;
++	rc = inode->i_fop->iterate(filp, &buf.ctx);
++	filp->f_pos = buf.ctx.pos;
++#else
++	rc = inode->i_fop->readdir(filp, &buf, osd_ldiskfs_filldir);
++#endif
+ 
+         if (hlock != NULL)
+                 ldiskfs_htree_unlock(hlock);
+@@ -4834,13 +4852,13 @@ static int osd_ldiskfs_it_fill(const struct lu_env *env,
+ 		up_read(&obj->oo_ext_idx_sem);
+ 
+         if (it->oie_rd_dirent == 0) {
+-                result = -EIO;
++		rc = -EIO;
+         } else {
+                 it->oie_dirent = it->oie_buf;
+                 it->oie_it_dirent = 1;
+         }
+ 
+-        RETURN(result);
++	RETURN(rc);
+ }
+ 
+ /**
+diff --git a/lustre/osd-ldiskfs/osd_scrub.c b/lustre/osd-ldiskfs/osd_scrub.c
+index 1002913..8d19c1e 100644
+--- a/lustre/osd-ldiskfs/osd_scrub.c
++++ b/lustre/osd-ldiskfs/osd_scrub.c
+@@ -1465,6 +1465,10 @@ struct osd_ios_item {
+ };
+ 
+ struct osd_ios_filldir_buf {
++#ifdef HAVE_DIR_CONTEXT
++	/* please keep it as first member */
++	struct dir_context	 ctx;
++#endif
+ 	struct osd_thread_info	*oifb_info;
+ 	struct osd_device	*oifb_dev;
+ 	struct dentry		*oifb_dentry;
+@@ -1760,7 +1764,13 @@ static int
+ osd_ios_general_scan(struct osd_thread_info *info, struct osd_device *dev,
+ 		     struct dentry *dentry, filldir_t filldir)
+ {
+-	struct osd_ios_filldir_buf    buf   = { info, dev, dentry };
++	struct osd_ios_filldir_buf    buf   = {
++#ifdef HAVE_DIR_CONTEXT
++						.ctx.actor = filldir,
++#endif
++						.oifb_info = info,
++						.oifb_dev = dev,
++						.oifb_dentry = dentry };
+ 	struct file		     *filp  = &info->oti_it_ea.oie_file;
+ 	struct inode		     *inode = dentry->d_inode;
+ 	const struct file_operations *fops  = inode->i_fop;
+@@ -1777,7 +1787,13 @@ osd_ios_general_scan(struct osd_thread_info *info, struct osd_device *dev,
+ 	filp->private_data = NULL;
+ 	set_file_inode(filp, inode);
+ 
++#ifdef HAVE_DIR_CONTEXT
++	buf.ctx.pos = filp->f_pos;
++	rc = fops->iterate(filp, &buf.ctx);
++	filp->f_pos = buf.ctx.pos;
++#else
+ 	rc = fops->readdir(filp, &buf, filldir);
++#endif
+ 	fops->release(inode, filp);
+ 
+ 	RETURN(rc);
+-- 
+1.8.5.3
+

@@ -1,7 +1,7 @@
-From fa5fde4522b64dfc2e5695d88dca0ae99910cb1f Mon Sep 17 00:00:00 2001
+From 223f07785cbb8d28ef563bfba382b101a064a928 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Tue, 17 Dec 2013 12:24:40 -0500
-Subject: [PATCH 12/18] LU-3319 procfs: move mgs proc handling to seq_files
+Date: Fri, 3 Jan 2014 09:58:53 -0500
+Subject: [PATCH 04/13] LU-3319 procfs: move mgs proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the mgs
@@ -10,17 +10,17 @@ layer proc entries over to using seq_files.
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: I1a12dd9b1fc8f139116a8f3a684956a5ba88f055
 ---
- lustre/mgs/lproc_mgs.c    | 197 ++++++++++++++++++++++------------------------
+ lustre/mgs/lproc_mgs.c    | 202 +++++++++++++++++++++++-----------------------
  lustre/mgs/mgs_handler.c  |   5 +-
  lustre/mgs/mgs_internal.h |  13 +--
  lustre/mgs/mgs_nids.c     |  11 ++-
- 4 files changed, 105 insertions(+), 121 deletions(-)
+ 4 files changed, 110 insertions(+), 121 deletions(-)
 
 diff --git a/lustre/mgs/lproc_mgs.c b/lustre/mgs/lproc_mgs.c
-index ffa2d0d..746d1c1 100644
+index ffa2d0d..f0ea956 100644
 --- a/lustre/mgs/lproc_mgs.c
 +++ b/lustre/mgs/lproc_mgs.c
-@@ -126,19 +126,105 @@ static int mgsself_srpc_seq_show(struct seq_file *seq, void *v)
+@@ -126,19 +126,110 @@ static int mgsself_srpc_seq_show(struct seq_file *seq, void *v)
  
          return 0;
  }
@@ -107,11 +107,16 @@ index ffa2d0d..746d1c1 100644
 +LPROC_SEQ_FOPS_RW_TYPE(mgs, ir_timeout);
 +
 +struct lprocfs_seq_vars lprocfs_mgs_obd_vars[] = {
-+	{ "uuid",		&mgs_uuid_fops		},
-+	{ "num_exports",	&mgs_num_exports_fops	},
-+	{ "hash_stats",		&mgs_hash_fops		},
-+	{ "evict_client",	&mgs_evict_client_fops	},
-+	{ "ir_timeout",		&mgs_ir_timeout_fops	},
++	{ .name	=	"uuid",
++	  .fops	=	&mgs_uuid_fops		},
++	{ .name	=	"num_exports",
++	  .fops	=	&mgs_num_exports_fops	},
++	{ .name	=	"hash_stats",
++	  .fops	=	&mgs_hash_fops		},
++	{ .name	=	"evict_client",
++	  .fops	=	&mgs_evict_client_fops	},
++	{ .name	=	"ir_timeout",
++	  .fops	=	&mgs_ir_timeout_fops	},
 +	{ 0 }
 +};
 +
@@ -130,7 +135,7 @@ index ffa2d0d..746d1c1 100644
  	if (rc != 0)
  		GOTO(out, rc);
  
-@@ -152,17 +238,17 @@ int lproc_mgs_setup(struct mgs_device *mgs, const char *osd_name)
+@@ -152,17 +243,17 @@ int lproc_mgs_setup(struct mgs_device *mgs, const char *osd_name)
  	if (rc != 0)
  		GOTO(out, rc);
  
@@ -153,7 +158,7 @@ index ffa2d0d..746d1c1 100644
          if (IS_ERR(obd->obd_proc_exports_entry)) {
                  rc = PTR_ERR(obd->obd_proc_exports_entry);
                  obd->obd_proc_exports_entry = NULL;
-@@ -215,7 +301,6 @@ void lproc_mgs_cleanup(struct mgs_device *mgs)
+@@ -215,7 +306,6 @@ void lproc_mgs_cleanup(struct mgs_device *mgs)
  
  	if (mgs->mgs_proc_live != NULL) {
  		/* Should be no live entries */
@@ -161,7 +166,7 @@ index ffa2d0d..746d1c1 100644
  		lprocfs_remove(&mgs->mgs_proc_live);
  		mgs->mgs_proc_live = NULL;
  	}
-@@ -226,92 +311,6 @@ void lproc_mgs_cleanup(struct mgs_device *mgs)
+@@ -226,92 +316,6 @@ void lproc_mgs_cleanup(struct mgs_device *mgs)
          lprocfs_free_md_stats(obd);
  }
  
@@ -254,7 +259,7 @@ index ffa2d0d..746d1c1 100644
  void mgs_counter_incr(struct obd_export *exp, int opcode)
  {
          lprocfs_counter_incr(exp->exp_obd->obd_stats, opcode);
-@@ -329,10 +328,4 @@ void mgs_stats_counter_init(struct lprocfs_stats *stats)
+@@ -329,10 +333,4 @@ void mgs_stats_counter_init(struct lprocfs_stats *stats)
          lprocfs_counter_init(stats, LPROC_MGS_TARGET_REG, 0, "tgtreg", "reqs");
          lprocfs_counter_init(stats, LPROC_MGS_TARGET_DEL, 0, "tgtdel", "reqs");
  }
@@ -266,10 +271,10 @@ index ffa2d0d..746d1c1 100644
 -}
  #endif
 diff --git a/lustre/mgs/mgs_handler.c b/lustre/mgs/mgs_handler.c
-index 560dd19..a294237 100644
+index 5be9040..4bb842c 100644
 --- a/lustre/mgs/mgs_handler.c
 +++ b/lustre/mgs/mgs_handler.c
-@@ -1376,12 +1376,9 @@ static struct obd_ops mgs_obd_device_ops = {
+@@ -1434,12 +1434,9 @@ static struct obd_ops mgs_obd_device_ops = {
  
  static int __init mgs_init(void)
  {
@@ -284,10 +289,10 @@ index 560dd19..a294237 100644
  					LUSTRE_MGS_NAME, &mgs_device_type);
  }
 diff --git a/lustre/mgs/mgs_internal.h b/lustre/mgs/mgs_internal.h
-index 514dc23..497ad9d 100644
+index ca2846e..d3baacd 100644
 --- a/lustre/mgs/mgs_internal.h
 +++ b/lustre/mgs/mgs_internal.h
-@@ -225,10 +225,10 @@ int  mgs_get_ir_logs(struct ptlrpc_request *req);
+@@ -229,10 +229,10 @@ int  mgs_get_ir_logs(struct ptlrpc_request *req);
  int  lprocfs_wr_ir_state(struct file *file, const char *buffer,
                             unsigned long count, void *data);
  int  lprocfs_rd_ir_state(struct seq_file *seq, void *data);
@@ -302,7 +307,7 @@ index 514dc23..497ad9d 100644
  void mgs_fsc_cleanup(struct obd_export *exp);
  void mgs_fsc_cleanup_by_fsdb(struct fs_db *fsdb);
  int  mgs_fsc_attach(const struct lu_env *env, struct obd_export *exp,
-@@ -246,7 +246,6 @@ int lproc_mgs_setup(struct mgs_device *mgs, const char *osd_name);
+@@ -250,7 +250,6 @@ int lproc_mgs_setup(struct mgs_device *mgs, const char *osd_name);
  void lproc_mgs_cleanup(struct mgs_device *mgs);
  int lproc_mgs_add_live(struct mgs_device *mgs, struct fs_db *fsdb);
  int lproc_mgs_del_live(struct mgs_device *mgs, struct fs_db *fsdb);
@@ -310,7 +315,7 @@ index 514dc23..497ad9d 100644
  #else
  static inline int lproc_mgs_setup(struct mgs_device *mgs, const char *osd_name)
  {return 0;}
-@@ -256,10 +255,6 @@ static inline int lproc_mgs_add_live(struct mgs_device *mgs, struct fs_db *fsdb)
+@@ -260,10 +259,6 @@ static inline int lproc_mgs_add_live(struct mgs_device *mgs, struct fs_db *fsdb)
  {return 0;}
  static inline int lproc_mgs_del_live(struct mgs_device *mgs, struct fs_db *fsdb)
  {return 0;}
@@ -322,7 +327,7 @@ index 514dc23..497ad9d 100644
  
  /* mgs/lproc_mgs.c */
 diff --git a/lustre/mgs/mgs_nids.c b/lustre/mgs/mgs_nids.c
-index 4d53969..73a4576 100644
+index a2bae59..3248387 100644
 --- a/lustre/mgs/mgs_nids.c
 +++ b/lustre/mgs/mgs_nids.c
 @@ -838,15 +838,14 @@ int lprocfs_rd_ir_state(struct seq_file *seq, void *data)
@@ -347,5 +352,5 @@ index 4d53969..73a4576 100644
          return lprocfs_wr_uint(file, buffer, count, &ir_timeout);
  }
 -- 
-1.8.5.1
+1.8.5.3
 

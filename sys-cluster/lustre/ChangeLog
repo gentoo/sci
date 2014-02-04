@@ -2,6 +2,40 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0002-LU-3319-lprocfs-client-side-cleanups.patch,
+  +files/0003-LU-3319-procfs-fix-symlink-handling.patch,
+  +files/0004-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  +files/0005-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  +files/0006-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  +files/0007-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  +files/0008-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  +files/0009-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  +files/0010-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  +files/0011-LU-3373-osd-ldiskfs-readdir-replace-by-iterate.patch,
+  +files/0012-LU-3974-llite-use-new-struct-dir_context.patch,
+  +files/0013-LU-3974-llite-invalidatepage-api-changed.patch,
+  -files/0002-LU-3373-ldiskfs-ldiskfs-patches-for-3.11.1-fc19.patch,
+  -files/0003-LU-3974-llite-dentry-d_compare-changes-in-3.11.patch,
+  -files/0004-LU-3974-llite-use-new-struct-dir_context.patch,
+  -files/0005-LU-3974-llite-invalidatepage-api-changed.patch,
+  -files/0006-LU-3319-procfs-move-llite-proc-handling-over-to-seq_.patch,
+  -files/0007-LU-3319-procfs-move-lmv-proc-handling-over-to-seq_fi.patch,
+  -files/0008-LU-3319-procfs-move-ldlm-proc-handling-over-to-seq_f.patch,
+  -files/0009-LU-3319-procfs-move-ost-proc-handling-over-to-seq_fi.patch,
+  -files/0010-LU-3319-procfs-update-shared-server-side-core-proc-h.patch,
+  -files/0011-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  -files/0012-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  -files/0013-LU-3319-procfs-move-ofd-proc-handling-to-seq_files.patch,
+  -files/0014-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  -files/0015-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  -files/0016-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  -files/0017-LU-3319-procfs-move-mdd-proc-handling-to-seq_files.patch,
+  -files/0018-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  lustre-9999.ebuild:
+  Make lustre build with 3.11 kernel
+
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> lustre-9999.ebuild:
   Switch from git-2 to git-r3
 

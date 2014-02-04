@@ -1,7 +1,7 @@
-From 2110d1028da0bab44e1b3494ba4642155195a735 Mon Sep 17 00:00:00 2001
+From 44996aad332f6a30634b651c6e5fe92c01923090 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Mon, 2 Dec 2013 12:36:06 -0500
-Subject: [PATCH 16/18] LU-3319 procfs: move mdt/mds proc handling to seq_files
+Date: Fri, 31 Jan 2014 10:47:37 -0500
+Subject: [PATCH 08/13] LU-3319 procfs: move mdt/mds proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the mdt/mds
@@ -9,20 +9,19 @@ layer proc entries over to using seq_files.
 
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: Icbafdcd2c2fe3959a51dda3f9c715b0ff8d95742
-Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 ---
- lustre/mdt/mdt_coordinator.c      | 246 +++++++---------
+ lustre/mdt/mdt_coordinator.c      | 259 +++++++--------
  lustre/mdt/mdt_handler.c          |  16 +-
  lustre/mdt/mdt_hsm_cdt_actions.c  |   5 +-
  lustre/mdt/mdt_hsm_cdt_agent.c    |   5 +-
  lustre/mdt/mdt_hsm_cdt_requests.c |   5 +-
  lustre/mdt/mdt_internal.h         |  14 +-
- lustre/mdt/mdt_lproc.c            | 603 ++++++++++++++++++--------------------
+ lustre/mdt/mdt_lproc.c            | 639 ++++++++++++++++++--------------------
  lustre/mdt/mdt_mds.c              |  12 +-
- 8 files changed, 401 insertions(+), 505 deletions(-)
+ 8 files changed, 442 insertions(+), 513 deletions(-)
 
 diff --git a/lustre/mdt/mdt_coordinator.c b/lustre/mdt/mdt_coordinator.c
-index 3915e21..eb05bdf 100644
+index 037bcbd..9bbcbd4 100644
 --- a/lustre/mdt/mdt_coordinator.c
 +++ b/lustre/mdt/mdt_coordinator.c
 @@ -46,7 +46,7 @@
@@ -52,7 +51,7 @@ index 3915e21..eb05bdf 100644
  {
  	return lprocfs_mdt_hsm_vars;
  }
-@@ -1769,22 +1769,17 @@ static __u64 hsm_policy_str2bit(const char *name)
+@@ -1786,22 +1786,17 @@ static __u64 hsm_policy_str2bit(const char *name)
   * \param hexa [IN] print mask before bit names
   * \param buffer [OUT] string
   * \param count [IN] size of buffer
@@ -81,7 +80,7 @@ index 3915e21..eb05bdf 100644
  	for (i = 0; i < CDT_POLICY_SHIFT_COUNT; i++) {
  		bit = (1ULL << i);
  
-@@ -1793,48 +1788,34 @@ static int hsm_policy_bit2str(const __u64 mask, const bool hexa, char *buffer,
+@@ -1810,48 +1805,34 @@ static int hsm_policy_bit2str(const __u64 mask, const bool hexa, char *buffer,
  				break;
  		}
  		if (bit & mask)
@@ -141,7 +140,7 @@ index 3915e21..eb05bdf 100644
  	int			 rc;
  	ENTRY;
  
-@@ -1867,18 +1848,10 @@ static int lprocfs_wr_hsm_policy(struct file *file, const char *buffer,
+@@ -1884,18 +1865,10 @@ static int lprocfs_wr_hsm_policy(struct file *file, const char *buffer,
  
  		policy = hsm_policy_str2bit(token);
  		if (policy == 0) {
@@ -163,7 +162,7 @@ index 3915e21..eb05bdf 100644
  			GOTO(out, rc = -EINVAL);
  		}
  		switch (sign) {
-@@ -1917,25 +1890,24 @@ out:
+@@ -1934,25 +1907,24 @@ out:
  	OBD_FREE(buf, count + 1);
  	RETURN(rc);
  }
@@ -198,7 +197,7 @@ index 3915e21..eb05bdf 100644
  	struct coordinator	*cdt = &mdt->mdt_coordinator;		\
  	int			 val;					\
  	int			 rc;					\
-@@ -1949,7 +1921,7 @@ static int lprocfs_wr_hsm_##VAR(struct file *file, const char *buffer,	\
+@@ -1966,7 +1938,7 @@ static int lprocfs_wr_hsm_##VAR(struct file *file, const char *buffer,	\
  		RETURN(count);						\
  	}								\
  	RETURN(-EINVAL);						\
@@ -207,7 +206,7 @@ index 3915e21..eb05bdf 100644
  
  GENERATE_PROC_METHOD(cdt_loop_period)
  GENERATE_PROC_METHOD(cdt_grace_delay)
-@@ -1967,10 +1939,11 @@ GENERATE_PROC_METHOD(cdt_default_archive_id)
+@@ -1984,10 +1956,11 @@ GENERATE_PROC_METHOD(cdt_default_archive_id)
  #define CDT_PURGE_CMD    "purge"
  #define CDT_HELP_CMD     "help"
  
@@ -222,7 +221,7 @@ index 3915e21..eb05bdf 100644
  	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
  	struct coordinator	*cdt = &(mdt->mdt_coordinator);
  	int			 rc, usage = 0;
-@@ -2024,83 +1997,71 @@ int lprocfs_wr_hsm_cdt_control(struct file *file, const char *buffer,
+@@ -2041,83 +2014,71 @@ int lprocfs_wr_hsm_cdt_control(struct file *file, const char *buffer,
  	RETURN(count);
  }
  
@@ -328,7 +327,7 @@ index 3915e21..eb05bdf 100644
  }
  
  static inline enum hsm_copytool_action
-@@ -2120,9 +2081,9 @@ hsm_copytool_name2action(const char *name)
+@@ -2137,9 +2098,9 @@ hsm_copytool_name2action(const char *name)
  		return -1;
  }
  
@@ -341,7 +340,7 @@ index 3915e21..eb05bdf 100644
  {
  	char *buf, *pos, *name;
  	size_t buf_size;
-@@ -2166,69 +2127,60 @@ out:
+@@ -2183,69 +2144,73 @@ out:
  	RETURN(rc);
  }
  
@@ -434,25 +433,38 @@ index 3915e21..eb05bdf 100644
 +LPROC_SEQ_FOPS(mdt_hsm_other_request_mask);
 +
 +static struct lprocfs_seq_vars lprocfs_mdt_hsm_vars[] = {
-+	{ "agents",		&mdt_hsm_agent_fops			},
-+	{ "actions",		&mdt_hsm_actions_fops, NULL,	0444	},
-+	{ "default_archive_id",	&mdt_hsm_cdt_default_archive_id_fops	},
-+	{ "grace_delay",	&mdt_hsm_cdt_grace_delay_fops		},
-+	{ "loop_period",	&mdt_hsm_cdt_loop_period_fops		},
-+	{ "max_requests",	&mdt_hsm_cdt_max_requests_fops		},
-+	{ "policy",		&mdt_hsm_policy_fops			},
-+	{ "active_request_timeout",&mdt_hsm_cdt_active_req_timeout_fops	},
-+	{ "active_requests",	&mdt_hsm_active_requests_fops		},
-+	{ "user_request_mask",	&mdt_hsm_user_request_mask_fops,	},
-+	{ "group_request_mask",	&mdt_hsm_group_request_mask_fops,	},
-+	{ "other_request_mask",	&mdt_hsm_other_request_mask_fops,	},
++	{ .name	=	"agents",
++	  .fops	=	&mdt_hsm_agent_fops			},
++	{ .name	=	"actions",
++	  .fops	=	&mdt_hsm_actions_fops,
++	  .proc_mode =	0444					},
++	{ .name	=	"default_archive_id",
++	  .fops	=	&mdt_hsm_cdt_default_archive_id_fops	},
++	{ .name	=	"grace_delay",
++	  .fops	=	&mdt_hsm_cdt_grace_delay_fops		},
++	{ .name	=	"loop_period",
++	  .fops	=	&mdt_hsm_cdt_loop_period_fops		},
++	{ .name	=	"max_requests",
++	  .fops	=	&mdt_hsm_cdt_max_requests_fops		},
++	{ .name	=	"policy",
++	  .fops	=	&mdt_hsm_policy_fops			},
++	{ .name	=	"active_request_timeout",
++	  .fops	=	&mdt_hsm_cdt_active_req_timeout_fops	},
++	{ .name	=	"active_requests",
++	  .fops	=	&mdt_hsm_active_requests_fops		},
++	{ .name	=	"user_request_mask",
++	  .fops	=	&mdt_hsm_user_request_mask_fops,	},
++	{ .name	=	"group_request_mask",
++	  .fops	=	&mdt_hsm_group_request_mask_fops,	},
++	{ .name	=	"other_request_mask",
++	  .fops	=	&mdt_hsm_other_request_mask_fops,	},
  	{ 0 }
  };
 diff --git a/lustre/mdt/mdt_handler.c b/lustre/mdt/mdt_handler.c
-index 8daf7e1..9f7d4ba 100644
+index 4c386b1..273cb80 100644
 --- a/lustre/mdt/mdt_handler.c
 +++ b/lustre/mdt/mdt_handler.c
-@@ -4508,7 +4508,6 @@ static int mdt_process_config(const struct lu_env *env,
+@@ -4538,7 +4538,6 @@ static int mdt_process_config(const struct lu_env *env,
  
  	switch (cfg->lcfg_command) {
  	case LCFG_PARAM: {
@@ -460,7 +472,7 @@ index 8daf7e1..9f7d4ba 100644
  		struct obd_device	   *obd = d->ld_obd;
  
  		/* For interoperability */
-@@ -4543,14 +4542,13 @@ static int mdt_process_config(const struct lu_env *env,
+@@ -4573,14 +4572,13 @@ static int mdt_process_config(const struct lu_env *env,
  			}
  		}
  
@@ -480,7 +492,7 @@ index 8daf7e1..9f7d4ba 100644
  			if (rc > 0 || rc == -ENOSYS)
  				/* we don't understand; pass it on */
  				rc = next->ld_ops->ldo_process_config(env, next,
-@@ -5725,7 +5723,6 @@ static struct lu_device_type mdt_device_type = {
+@@ -5759,7 +5757,6 @@ static struct lu_device_type mdt_device_type = {
  
  static int __init mdt_mod_init(void)
  {
@@ -488,7 +500,7 @@ index 8daf7e1..9f7d4ba 100644
  	int rc;
  
  	CLASSERT(sizeof("0x0123456789ABCDEF:0x01234567:0x01234567") ==
-@@ -5740,10 +5737,9 @@ static int __init mdt_mod_init(void)
+@@ -5774,10 +5771,9 @@ static int __init mdt_mod_init(void)
  	if (rc)
  		GOTO(lu_fini, rc);
  
@@ -566,10 +578,10 @@ index 796cbea..7bbc771 100644
  	RETURN(rc);
  }
 diff --git a/lustre/mdt/mdt_internal.h b/lustre/mdt/mdt_internal.h
-index dd36201..43cf9eb 100644
+index d548988..e30d78d 100644
 --- a/lustre/mdt/mdt_internal.h
 +++ b/lustre/mdt/mdt_internal.h
-@@ -778,9 +778,6 @@ void mdt_thread_info_init(struct ptlrpc_request *req,
+@@ -784,9 +784,6 @@ void mdt_thread_info_init(struct ptlrpc_request *req,
  void mdt_thread_info_fini(struct mdt_thread_info *mti);
  struct mdt_thread_info *tsi2mdt_info(struct tgt_session_info *tsi);
  
@@ -579,7 +591,7 @@ index dd36201..43cf9eb 100644
  int mdt_hsm_attr_set(struct mdt_thread_info *info, struct mdt_object *obj,
  		     const struct md_hsm *mh);
  
-@@ -913,13 +910,12 @@ int mdt_hsm_cdt_fini(struct mdt_device *mdt);
+@@ -919,13 +916,12 @@ int mdt_hsm_cdt_fini(struct mdt_device *mdt);
  int mdt_hsm_cdt_wakeup(struct mdt_device *mdt);
  
  /* coordinator control /proc interface */
@@ -597,7 +609,7 @@ index dd36201..43cf9eb 100644
  /* md_hsm helpers */
  struct mdt_object *mdt_hsm_get_md_hsm(struct mdt_thread_info *mti,
  				      const struct lu_fid *fid,
-@@ -1087,8 +1083,6 @@ enum {
+@@ -1065,8 +1061,6 @@ enum {
  };
  void mdt_counter_incr(struct ptlrpc_request *req, int opcode);
  void mdt_stats_counter_init(struct lprocfs_stats *stats);
@@ -605,9 +617,9 @@ index dd36201..43cf9eb 100644
 -void lprocfs_mds_init_vars(struct lprocfs_static_vars *lvars);
  int mdt_procfs_init(struct mdt_device *mdt, const char *name);
  void mdt_procfs_fini(struct mdt_device *mdt);
- void mdt_rename_counter_tally(struct mdt_thread_info *info,
+ 
 diff --git a/lustre/mdt/mdt_lproc.c b/lustre/mdt/mdt_lproc.c
-index 4abb532..236b6c2 100644
+index 0ee5148..658f00d 100644
 --- a/lustre/mdt/mdt_lproc.c
 +++ b/lustre/mdt/mdt_lproc.c
 @@ -156,7 +156,6 @@ static ssize_t mdt_rename_stats_seq_write(struct file *file, const char *buf,
@@ -623,7 +635,8 @@ index 4abb532..236b6c2 100644
  }
  
 -int mdt_procfs_init(struct mdt_device *mdt, const char *name)
--{
++static int mdt_identity_expire_seq_show(struct seq_file *m, void *data)
+ {
 -	struct obd_device		*obd = mdt2obd_dev(mdt);
 -	struct lprocfs_static_vars	 lvars;
 -	int				 rc;
@@ -687,8 +700,7 @@ index 4abb532..236b6c2 100644
 -
 -static int lprocfs_rd_identity_expire(char *page, char **start, off_t off,
 -                                      int count, int *eof, void *data)
-+static int mdt_identity_expire_seq_show(struct seq_file *m, void *data)
- {
+-{
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 +	struct obd_device *obd = m->private;
@@ -838,6 +850,15 @@ index 4abb532..236b6c2 100644
  	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
  	struct identity_downcall_data *param;
  	int size = sizeof(*param), rc, checked = 0;
+@@ -415,7 +348,7 @@ static int lprocfs_wr_identity_info(struct file *file, const char *buffer,
+ again:
+ 	if (count < size) {
+ 		CERROR("%s: invalid data count = %lu, size = %d\n",
+-		       mdt_obd_name(mdt), count, size);
++		       mdt_obd_name(mdt), (unsigned long) count, size);
+ 		return -EINVAL;
+ 	}
+ 
 @@ -468,23 +401,24 @@ out:
  
  	return rc ? rc : count;
@@ -1235,7 +1256,7 @@ index 4abb532..236b6c2 100644
  	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
  	__u32 val;
  	int rc;
-@@ -957,97 +899,46 @@ static int lprocfs_wr_enable_remote_dir_gid(struct file *file,
+@@ -957,97 +899,72 @@ static int lprocfs_wr_enable_remote_dir_gid(struct file *file,
  	mdt->mdt_enable_remote_dir_gid = val;
  	return count;
  }
@@ -1344,36 +1365,85 @@ index 4abb532..236b6c2 100644
 +LPROC_SEQ_FOPS(mdt_hsm_cdt_control);
 +
 +static struct lprocfs_seq_vars lprocfs_mdt_obd_vars[] = {
-+	{ "uuid",			&mdt_uuid_fops			},
-+	{ "recovery_status",		&mdt_recovery_status_fops	},
-+	{ "num_exports",		&mdt_num_exports_fops		},
-+	{ "identity_expire",		&mdt_identity_expire_fops	},
-+	{ "identity_acquire_expire",	&mdt_identity_acquire_expire_fops },
-+	{ "identity_upcall",		&mdt_identity_upcall_fops	},
-+	{ "identity_flush",		&mdt_identity_flush_fops	},
-+	{ "identity_info",		&mdt_identity_info_fops		},
-+	{ "capa",			&mdt_capa_fops			},
-+	{ "capa_timeout",		&mdt_capa_timeout_fops		},
-+	{ "capa_key_timeout",		&mdt_ck_timeout_fops		},
-+	{ "capa_count",			&mdt_capa_count_fops		},
-+	{ "site_stats",			&mdt_site_stats_fops		},
-+	{ "evict_client",		&mdt_mds_evict_client_fops	},
-+	{ "hash_stats",			&mdt_hash_fops			},
-+	{ "sec_level",			&mdt_sec_level_fops		},
-+	{ "commit_on_sharing",		&mdt_cos_fops			},
-+	{ "root_squash",		&mdt_root_squash_fops		},
-+	{ "nosquash_nids",		&mdt_nosquash_nids_fops		},
-+	{ "som",			&mdt_som_fops			},
-+	{ "instance",			&mdt_target_instance_fops	},
-+	{ "ir_factor",			&mdt_ir_factor_fops		},
-+	{ "job_cleanup_interval",	&mdt_job_interval_fops		},
-+	{ "enable_remote_dir",		&mdt_enable_remote_dir_fops	},
-+	{ "enable_remote_dir_gid",	&mdt_enable_remote_dir_gid_fops	},
-+	{ "hsm_control",		&mdt_hsm_cdt_control_fops	},
++	{ .name	=	"uuid",
++	  .fops	=	&mdt_uuid_fops				},
++	{ .name	=	"recovery_status",
++	  .fops	=	&mdt_recovery_status_fops		},
++	{ .name	=	"num_exports",
++	  .fops	=	&mdt_num_exports_fops			},
++	{ .name	=	"identity_expire",
++	  .fops	=	&mdt_identity_expire_fops		},
++	{ .name	=	"identity_acquire_expire",
++	  .fops	=	&mdt_identity_acquire_expire_fops	},
++	{ .name	=	"identity_upcall",
++	  .fops	=	&mdt_identity_upcall_fops		},
++	{ .name	=	"identity_flush",
++	  .fops	=	&mdt_identity_flush_fops		},
++	{ .name	=	"identity_info",
++	  .fops	=	&mdt_identity_info_fops			},
++	{ .name	=	"capa",
++	  .fops	=	&mdt_capa_fops				},
++	{ .name	=	"capa_timeout",
++	  .fops	=	&mdt_capa_timeout_fops			},
++	{ .name	=	"capa_key_timeout",
++	  .fops	=	&mdt_ck_timeout_fops			},
++	{ .name	=	"capa_count",
++	  .fops	=	&mdt_capa_count_fops			},
++	{ .name	=	"site_stats",
++	  .fops	=	&mdt_site_stats_fops			},
++	{ .name	=	"evict_client",
++	  .fops	=	&mdt_mds_evict_client_fops		},
++	{ .name	=	"hash_stats",
++	  .fops	=	&mdt_hash_fops				},
++	{ .name	=	"sec_level",
++	  .fops	=	&mdt_sec_level_fops			},
++	{ .name	=	"commit_on_sharing",
++	  .fops	=	&mdt_cos_fops				},
++	{ .name	=	"root_squash",
++	  .fops	=	&mdt_root_squash_fops			},
++	{ .name	=	"nosquash_nids",
++	  .fops	=	&mdt_nosquash_nids_fops			},
++	{ .name	=	"som",
++	  .fops	=	&mdt_som_fops				},
++	{ .name	=	"instance",
++	  .fops	=	&mdt_target_instance_fops		},
++	{ .name	=	"ir_factor",
++	  .fops	=	&mdt_ir_factor_fops			},
++	{ .name	=	"job_cleanup_interval",
++	  .fops	=	&mdt_job_interval_fops			},
++	{ .name	=	"enable_remote_dir",
++	  .fops	=	&mdt_enable_remote_dir_fops		},
++	{ .name	=	"enable_remote_dir_gid",
++	  .fops	=	&mdt_enable_remote_dir_gid_fops		},
++	{ .name	=	"hsm_control",
++	  .fops	=	&mdt_hsm_cdt_control_fops		},
  	{ 0 }
  };
  
-@@ -1087,3 +978,67 @@ void mdt_stats_counter_init(struct lprocfs_stats *stats)
+@@ -1085,21 +1002,15 @@ int lprocfs_mdt_open_files_seq_show(struct seq_file *seq, void *v)
+ 
+ int lprocfs_mdt_open_files_seq_open(struct inode *inode, struct file *file)
+ {
+-	struct proc_dir_entry	*dp = PDE(inode);
+ 	struct seq_file		*seq;
+-	struct nid_stat		*tmp;
+ 	int			rc;
+ 
+-	if (LPROCFS_ENTRY_CHECK(dp))
+-		return -ENOENT;
+-
+-	tmp = dp->data;
+ 	rc = single_open(file, &lprocfs_mdt_open_files_seq_show, NULL);
+ 	if (rc != 0)
+ 		return rc;
+ 
+ 	seq = file->private_data;
+-	seq->private = tmp;
++	seq->private = PDE_DATA(inode);
+ 
+ 	return 0;
+ }
+@@ -1140,3 +1051,67 @@ void mdt_stats_counter_init(struct lprocfs_stats *stats)
          lprocfs_counter_init(stats, LPROC_MDT_CROSSDIR_RENAME, 0,
                               "crossdir_rename", "reqs");
  }
@@ -1479,5 +1549,5 @@ index 367f659..4fa66c3 100644
  					LUSTRE_MDS_NAME, &mds_device_type);
  }
 -- 
-1.8.5.1
+1.8.5.3
 
