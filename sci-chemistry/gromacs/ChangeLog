@@ -3,6 +3,9 @@
 # $Header: $
 
   05 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org> gromacs-9999.ebuild:
+  Bash completion changes are comming =D
+
+  05 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org> gromacs-9999.ebuild:
   Revert back to git-2 since git-r2  gives problems
 
   25 Jan 2014; Justin Lecher <jlec@gentoo.org> gromacs-4.6.9999.ebuild,

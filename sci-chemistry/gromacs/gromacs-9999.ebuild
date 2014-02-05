@@ -237,12 +237,12 @@ src_install() {
 			cmake-utils_src_install
 	done
 
-	newbashcomp "${ED}"/usr/bin/completion.bash ${PN}
-	if use zsh-completion ; then
-		insinto /usr/share/zsh/site-functions
-		newins "${ED}"/usr/bin/completion.zsh _${PN}
-	fi
-	rm -f "${ED}"usr/bin/completion.*
+	#newbashcomp "${ED}"/usr/bin/completion.bash ${PN}
+	#if use zsh-completion ; then
+	#	insinto /usr/share/zsh/site-functions
+	#	newins "${ED}"/usr/bin/completion.zsh _${PN}
+	#fi
+	#rm -f "${ED}"usr/bin/completion.*
 	rm -f "${ED}"usr/bin/g_options*
 	rm -f "${ED}"usr/bin/GMXRC*
 
