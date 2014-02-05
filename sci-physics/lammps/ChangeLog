@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Feb 2014; Christoph Junghans <ottxor@gentoo.org> lammps-20140201.ebuild:
+  block slot=0
+
 *lammps-20140201 (01 Feb 2014)
 
   01 Feb 2014; Nicolas Bock <nicolasbock@gentoo.org> +lammps-20140201.ebuild,

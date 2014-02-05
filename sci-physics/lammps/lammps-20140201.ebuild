@@ -51,7 +51,8 @@ KEYWORDS="~amd64"
 IUSE="doc examples gzip lammps-memalign mpi package-dipole package-meam package-rigid"
 
 DEPEND="mpi? ( virtual/mpi )"
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	!${CATEGORY}/${PN}:0"
 
 S="${WORKDIR}/${MY_P}"
 
