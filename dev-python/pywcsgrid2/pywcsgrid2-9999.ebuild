@@ -14,7 +14,7 @@ EGIT_REPO_URI="https://github.com/leejjoon/pywcsgrid2.git"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 RDEPEND="
