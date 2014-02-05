@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org> gromacs-9999.ebuild:
+  Revert back to git-2 since git-r2  gives problems
+
   25 Jan 2014; Justin Lecher <jlec@gentoo.org> gromacs-4.6.9999.ebuild,
   gromacs-5.0_beta1.ebuild, gromacs-9999.ebuild:
   Add missing dep for USE=doc
