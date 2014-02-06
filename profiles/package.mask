@@ -38,6 +38,7 @@
 >=dev-lang/path64-9999
 >=dev-lang/julia-9999
 >=dev-lang/ispc-9999
+>=dev-python/pywcsgrid2-9999
 >=app-benchmarks/btl-9999
 >=sci-chemistry/freeon-9999
 >=sci-astronomy/eye-9999
