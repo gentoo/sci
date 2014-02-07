@@ -8,14 +8,21 @@ PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit cmake-utils distutils-r1
 
+if [ "${PV}" = "9999" ]; then
+	EGIT_REPO_URI="git://github.com/sim-x/${PN}.git http://github.com/sim-x/${PN}.git"
+	inherit git-2
+	KEYWORDS=""
+else
+	SRC_URI="https://github.com/sim-x/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~amd64"
+fi
+
 DESCRIPTION="a library for developing parallel, discrete-event simulations in Python"
 HOMEPAGE="https://github.com/sim-x"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="LGPL-2.1"
 IUSE=""
-KEYWORDS="~amd64"
 
 RDEPEND="
 	virtual/mpi
@@ -27,6 +34,4 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	# don't do egg install
 	sed -i 's/self.do_egg_install()/_install.install.run(self)/' setup.py || die
-
-	epatch "${FILESDIR}/${P}-python-check.patch"
 }

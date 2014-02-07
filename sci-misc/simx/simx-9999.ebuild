@@ -6,16 +6,23 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit cmake-utils distutils-r1 git-r3
+inherit cmake-utils distutils-r1
+
+if [ "${PV}" = "9999" ]; then
+	EGIT_REPO_URI="git://github.com/sim-x/${PN}.git http://github.com/sim-x/${PN}.git"
+	inherit git-2
+	KEYWORDS=""
+else
+	SRC_URI="https://github.com/sim-x/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~amd64"
+fi
 
 DESCRIPTION="a library for developing parallel, discrete-event simulations in Python"
 HOMEPAGE="https://github.com/sim-x"
-SRC_URI=""
 
 SLOT="0"
 LICENSE="LGPL-2.1"
 IUSE=""
-KEYWORDS=""
 
 RDEPEND="
 	virtual/mpi
