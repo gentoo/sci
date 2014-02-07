@@ -20,34 +20,26 @@ else
 	SRC_URI="https://espressopp.mpip-mainz.mpg.de/Download/${PN//+/p}-${PV}.tgz"
 	S="${WORKDIR}/${PN//+/p}-${PV}"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
-	PATCHES=( "${FILESDIR}/${P}-multilib.patch" )
 fi
-
-CMAKE_REMOVE_MODULES_LIST="FindBoost"
 
 EHP_OPTS="--config hostfingerprints.hg.berlios.de=f4:79:d2:17:f8:0c:9b:c2:6e:65:60:2a:49:0e:09:79:85:6d:4b:e3"
 EHG_CLONE_CMD="hg clone ${EHG_QUIET_CMD_OPT} ${EHP_OPTS} --pull --noupdate"
 EHG_PULL_CMD="hg pull ${EHG_QUIET_CMD_OPT} ${EHP_OPTS}"
-LICENSE="GPL-3 !system-boost? ( Boost-1.0 )"
+LICENSE="GPL-3"
 SLOT="0"
-IUSE="-system-boost"
+IUSE=""
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}
 	virtual/mpi
-	system-boost? ( dev-libs/boost[python,mpi,${PYTHON_USEDEP}] )"
+	dev-libs/boost[python,mpi,${PYTHON_USEDEP}]
+	dev-python/mpi4py"
 DEPEND="${RDEPEND}"
 
 DOCS=( AUTHORS NEWS README )
 
 src_configure() {
-	mycmakeargs=( $(cmake-utils_use system-boost EXTERNAL_BOOST) -DLIB="$(get_libdir)" )
+	mycmakeargs=( -DEXTERNAL_BOOST=ON -DEXTERNAL_MPI4PY=ON -DLIB="$(get_libdir)" )
 	cmake-utils_src_configure
-}
-
-src_install() {
-	cmake-utils_src_install
-	rm "${ED}/usr/bin/ESPRC" || die
-	rmdir "${ED}/usr/bin" || die
 }
