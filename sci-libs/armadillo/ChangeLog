@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/armadillo
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Feb 2014; Reinis Danne <rei4dan@gmail.com> armadillo-3.930.0.ebuild:
+  Fix cblas, clapack include dir.
 
 *armadillo-3.930.0 (07 Dec 2013)
 

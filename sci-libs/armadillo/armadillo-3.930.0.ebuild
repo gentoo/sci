@@ -63,7 +63,8 @@ src_configure() {
 		mycmakeargs+=(
 			-DCBLAS_FOUND=ON
 			-DCLAPACK_FOUND=ON
-			-DATLAS_INCLUDE_DIR="$($(tc-getPKG_CONFIG) --cflags ${c} | sed 's/-I//')"
+			-DCBLAS_INCLUDE_DIR="$($(tc-getPKG_CONFIG) --cflags-only-I ${c} | sed 's/-I//')"
+			-DCLAPACK_INCLUDE_DIR="$($(tc-getPKG_CONFIG) --cflags-only-I ${l} | sed 's/-I//')"
 			-DCBLAS_LIBRARIES="$($(tc-getPKG_CONFIG) --libs ${c})"
 			-DCLAPACK_LIBRARIES="$($(tc-getPKG_CONFIG) --libs ${l})"
 		)
