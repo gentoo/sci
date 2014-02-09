@@ -94,7 +94,7 @@ src_test() {
 }
 
 src_install() {
-	emake install PREFIX="${D}/usr"
+	emake install prefix="${D}/usr"
 	cat > 99julia <<-EOF
 		LDPATH=${EROOT%/}/usr/$(get_libdir)/julia
 	EOF

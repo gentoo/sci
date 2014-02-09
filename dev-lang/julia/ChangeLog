@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Feb 2014;  <xhochy@gentoo.org> julia-9999.ebuild:
+  PREFIX is now prefix
+
   26 Jan 2014;  <xhochy@gentoo.org> julia-9999.ebuild:
   Add missing dependency for utf8proc
 
