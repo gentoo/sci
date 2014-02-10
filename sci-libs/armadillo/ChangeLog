@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> armadillo-4.000.3.ebuild:
+  sci-libs/armadillo: removed int64 flag, it is only for revdep at compile time
+
   09 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml:
   sci-libs/armadillo: add use flag description
 
