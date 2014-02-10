@@ -1,6 +1,12 @@
 # ChangeLog for sci-libs/mlpack
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*mlpack-1.0.8 (10 Feb 2014)
+
+  10 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> +mlpack-1.0.8.ebuild,
+  -mlpack-1.0.7.ebuild:
+  sci-libs/mlpack: Version bump
 
 *mlpack-1.0.7 (07 Dec 2013)
 

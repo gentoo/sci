@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit cmake-utils eutils
+inherit cmake-utils eutils toolchain-funcs
 
 DESCRIPTION="Scalable c++ machine learning library"
 HOMEPAGE="http://www.mlpack.org/"
@@ -22,6 +22,7 @@ RDEPEND="
 
 DEPEND="${DEPEND}
 	app-text/txt2man
+	dev-util/pkgconfig
 	doc? ( app-doc/doxygen )"
 
 DOCS=( HISTORY.txt )
@@ -32,6 +33,9 @@ src_prepare() {
 		-e "s:share/doc/mlpack:share/doc/${PF}:" \
 		-e 's/-O3//g' \
 		CMakeLists.txt || die
+	sed -i \
+		-e "s|\(set(ARMADILLO_LIBRARIES\)|\1 $($(tc-getPKG_CONFIG) --libs blas lapack)|" \
+		CMake/FindArmadillo.cmake || die
 }
 
 src_configure() {
