@@ -1,7 +1,7 @@
-From 44996aad332f6a30634b651c6e5fe92c01923090 Mon Sep 17 00:00:00 2001
+From 1013b4b997343de8530c4d4ef5380220d57f155a Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Fri, 31 Jan 2014 10:47:37 -0500
-Subject: [PATCH 08/13] LU-3319 procfs: move mdt/mds proc handling to seq_files
+Date: Sun, 9 Feb 2014 11:04:31 -0500
+Subject: [PATCH 09/13] LU-3319 procfs: move mdt/mds proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the mdt/mds
@@ -461,10 +461,10 @@ index 037bcbd..9bbcbd4 100644
  	{ 0 }
  };
 diff --git a/lustre/mdt/mdt_handler.c b/lustre/mdt/mdt_handler.c
-index 4c386b1..273cb80 100644
+index 064fef1..c850356 100644
 --- a/lustre/mdt/mdt_handler.c
 +++ b/lustre/mdt/mdt_handler.c
-@@ -4538,7 +4538,6 @@ static int mdt_process_config(const struct lu_env *env,
+@@ -4539,7 +4539,6 @@ static int mdt_process_config(const struct lu_env *env,
  
  	switch (cfg->lcfg_command) {
  	case LCFG_PARAM: {
@@ -472,7 +472,7 @@ index 4c386b1..273cb80 100644
  		struct obd_device	   *obd = d->ld_obd;
  
  		/* For interoperability */
-@@ -4573,14 +4572,13 @@ static int mdt_process_config(const struct lu_env *env,
+@@ -4574,14 +4573,13 @@ static int mdt_process_config(const struct lu_env *env,
  			}
  		}
  
@@ -492,7 +492,7 @@ index 4c386b1..273cb80 100644
  			if (rc > 0 || rc == -ENOSYS)
  				/* we don't understand; pass it on */
  				rc = next->ld_ops->ldo_process_config(env, next,
-@@ -5759,7 +5757,6 @@ static struct lu_device_type mdt_device_type = {
+@@ -5762,7 +5760,6 @@ static struct lu_device_type mdt_device_type = {
  
  static int __init mdt_mod_init(void)
  {
@@ -500,7 +500,7 @@ index 4c386b1..273cb80 100644
  	int rc;
  
  	CLASSERT(sizeof("0x0123456789ABCDEF:0x01234567:0x01234567") ==
-@@ -5774,10 +5771,9 @@ static int __init mdt_mod_init(void)
+@@ -5777,10 +5774,9 @@ static int __init mdt_mod_init(void)
  	if (rc)
  		GOTO(lu_fini, rc);
  
@@ -557,7 +557,7 @@ index 9a9ce6d..158cced 100644
  	RETURN(rc);
  }
 diff --git a/lustre/mdt/mdt_hsm_cdt_requests.c b/lustre/mdt/mdt_hsm_cdt_requests.c
-index 796cbea..7bbc771 100644
+index 1300861..3125dcc 100644
 --- a/lustre/mdt/mdt_hsm_cdt_requests.c
 +++ b/lustre/mdt/mdt_hsm_cdt_requests.c
 @@ -569,15 +569,12 @@ static int lprocfs_open_hsm_active_requests(struct inode *inode,

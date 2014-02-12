@@ -2,6 +2,29 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-LU-4554-lfsck-old-single-OI-MDT-always-scrubbed.patch,
+  +files/0002-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  +files/0003-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  +files/0005-LU-3319-procfs-fix-symlink-handling.patch,
+  +files/0008-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  +files/0009-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  +files/0011-LU-3319-lprocfs-client-side-cleanups.patch,
+  -files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  -files/0002-LU-3319-lprocfs-client-side-cleanups.patch,
+  -files/0003-LU-3319-procfs-fix-symlink-handling.patch,
+  -files/0005-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  -files/0008-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  -files/0009-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  -files/0011-LU-3373-osd-ldiskfs-readdir-replace-by-iterate.patch,
+  files/0004-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  files/0006-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  files/0007-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  files/0010-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  files/0012-LU-3974-llite-use-new-struct-dir_context.patch,
+  files/0013-LU-3974-llite-invalidatepage-api-changed.patch, lustre-9999.ebuild:
+  Update lustre patches
+
   04 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org>
   +files/0002-LU-3319-lprocfs-client-side-cleanups.patch,
   +files/0003-LU-3319-procfs-fix-symlink-handling.patch,

@@ -1,7 +1,7 @@
-From 03643a33bd4d6a6fc3f8412f3e5f7f9a4bbd445b Mon Sep 17 00:00:00 2001
+From 247c87f4a981fd26bfaf219930193b1a35865736 Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Mon, 18 Mar 2013 16:22:27 +0400
-Subject: [PATCH 01/13] LU-2982 build: make AC check for linux arch sandbox
+Subject: [PATCH 02/13] LU-2982 build: make AC check for linux arch sandbox
  friendly
 
 this commit makes AC check for linux kernel arch sandbox friendly

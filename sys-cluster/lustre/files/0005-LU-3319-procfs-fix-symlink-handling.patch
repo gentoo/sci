@@ -1,7 +1,7 @@
-From ce693d2759e274a114a668e477264d1af8181159 Mon Sep 17 00:00:00 2001
+From 8f24a0e29b5f4b18193742c9aecd960c6b6102ff Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Fri, 31 Jan 2014 11:37:53 -0500
-Subject: [PATCH 03/13] LU-3319 procfs: fix symlink handling
+Date: Sun, 9 Feb 2014 09:37:44 -0500
+Subject: [PATCH 05/13] LU-3319 procfs: fix symlink handling
 
 While working on symlink handling for seq files I noticed a
 long outstanding bug. Code was developed to link osc obds
@@ -17,11 +17,11 @@ only happens once.
 Change-Id: Ib158ec4444ed7abc0f3c3e820ee4a333631a58d1
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 ---
- lustre/include/obd.h     |  17 ++++----
- lustre/lmv/lmv_obd.c     |  49 +++++++++--------------
- lustre/lov/lov_obd.c     | 100 +++++++++++++++++++++++++++--------------------
- lustre/obdclass/genops.c |   3 ++
- 4 files changed, 87 insertions(+), 82 deletions(-)
+ lustre/include/obd.h     | 17 +++++----
+ lustre/lmv/lmv_obd.c     | 48 ++++++++---------------
+ lustre/lov/lov_obd.c     | 99 +++++++++++++++++++++++++++---------------------
+ lustre/obdclass/genops.c | 17 +++++----
+ 4 files changed, 91 insertions(+), 90 deletions(-)
 
 diff --git a/lustre/include/obd.h b/lustre/include/obd.h
 index c18052b..8fd2ce7 100644
@@ -59,7 +59,7 @@ index c18052b..8fd2ce7 100644
  	struct lprocfs_stats	*obd_svc_stats;
  	struct lprocfs_seq_vars	*obd_vars;
 diff --git a/lustre/lmv/lmv_obd.c b/lustre/lmv/lmv_obd.c
-index e0941c9..7e1738e 100644
+index e0941c9..93db311 100644
 --- a/lustre/lmv/lmv_obd.c
 +++ b/lustre/lmv/lmv_obd.c
 @@ -242,9 +242,6 @@ static int lmv_connect(const struct lu_env *env,
@@ -97,20 +97,20 @@ index e0941c9..7e1738e 100644
  	}
  #endif
  
-@@ -302,9 +296,9 @@ static int lmv_connect(const struct lu_env *env,
+@@ -302,10 +296,8 @@ static int lmv_connect(const struct lu_env *env,
                  rc = lmv_check_connect(obd);
  
  #ifdef __KERNEL__
 -	if (rc && lmv_proc_dir) {
 -		lprocfs_remove(&lmv_proc_dir);
 -		obd->obd_proc_private = NULL;
-+	if (rc && obd->obd_type->typ_procsym != NULL) {
+-	}
++	if (rc && obd->obd_type->typ_procsym != NULL)
 +		lprocfs_remove(&obd->obd_type->typ_procsym);
-+		obd->obd_type->typ_procsym = NULL;
- 	}
  #endif
          RETURN(rc);
-@@ -384,9 +378,6 @@ static int lmv_init_ea_size(struct obd_export *exp, int easize,
+ }
+@@ -384,9 +376,6 @@ static int lmv_init_ea_size(struct obd_export *exp, int easize,
  
  int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
  {
@@ -120,7 +120,7 @@ index e0941c9..7e1738e 100644
          struct lmv_obd          *lmv = &obd->u.lmv;
          struct obd_uuid         *cluuid = &lmv->cluuid;
          struct obd_uuid          lmv_mdc_uuid = { "LMV_MDC_UUID" };
-@@ -466,14 +457,13 @@ int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
+@@ -466,14 +455,13 @@ int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
                  cfs_atomic_read(&obd->obd_refcount));
  
  #ifdef __KERNEL__
@@ -137,18 +137,17 @@ index e0941c9..7e1738e 100644
  						  "../../../%s/%s",
  						  mdc_obd->obd_type->typ_name,
  						  mdc_obd->obd_name);
-@@ -482,8 +472,8 @@ int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
+@@ -482,8 +470,7 @@ int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
  			       "/proc/fs/lustre/%s/%s/target_obds/%s.",
  			       obd->obd_type->typ_name, obd->obd_name,
  			       mdc_obd->obd_name);
 -			lprocfs_remove(&lmv_proc_dir);
 -			obd->obd_proc_private = NULL;
 +			lprocfs_remove(&obd->obd_type->typ_procsym);
-+			obd->obd_type->typ_procsym = NULL;
  		}
  	}
  #endif
-@@ -675,9 +665,6 @@ int lmv_check_connect(struct obd_device *obd)
+@@ -675,9 +662,6 @@ int lmv_check_connect(struct obd_device *obd)
  
  static int lmv_disconnect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
  {
@@ -158,7 +157,7 @@ index e0941c9..7e1738e 100644
          struct lmv_obd         *lmv = &obd->u.lmv;
          struct obd_device      *mdc_obd;
          int                     rc;
-@@ -695,9 +682,9 @@ static int lmv_disconnect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
+@@ -695,9 +679,9 @@ static int lmv_disconnect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
          }
  
  #ifdef __KERNEL__
@@ -171,7 +170,7 @@ index e0941c9..7e1738e 100644
  #endif
  	rc = obd_fid_fini(tgt->ltd_exp->exp_obd);
  	if (rc)
-@@ -747,8 +734,8 @@ static int lmv_disconnect(struct obd_export *exp)
+@@ -747,8 +731,8 @@ static int lmv_disconnect(struct obd_export *exp)
          }
  
  #ifdef __KERNEL__
@@ -183,7 +182,7 @@ index e0941c9..7e1738e 100644
  		CERROR("/proc/fs/lustre/%s/%s/target_obds missing\n",
  		       obd->obd_type->typ_name, obd->obd_name);
 diff --git a/lustre/lov/lov_obd.c b/lustre/lov/lov_obd.c
-index 286cd15..b52a263 100644
+index 286cd15..a3310fd 100644
 --- a/lustre/lov/lov_obd.c
 +++ b/lustre/lov/lov_obd.c
 @@ -127,19 +127,16 @@ static int lov_notify(struct obd_device *obd, struct obd_device *watched,
@@ -215,7 +214,7 @@ index 286cd15..b52a263 100644
  
          tgt_uuid = &lov->lov_tgts[index]->ltd_uuid;
          tgt_obd = lov->lov_tgts[index]->ltd_obd;
-@@ -195,27 +192,26 @@ int lov_connect_obd(struct obd_device *obd, __u32 index, int activate,
+@@ -195,27 +192,25 @@ int lov_connect_obd(struct obd_device *obd, __u32 index, int activate,
                 obd_uuid2str(tgt_uuid), tgt_obd->obd_name, activate ? "":"in");
  
  #ifdef __KERNEL__
@@ -257,11 +256,10 @@ index 286cd15..b52a263 100644
 +			       obd->obd_type->typ_name, obd->obd_name,
 +			       osc_obd->obd_name);
 +			lprocfs_remove(&obd->obd_type->typ_procsym);
-+			obd->obd_type->typ_procsym = NULL;
                  }
          }
  #endif
-@@ -250,6 +246,17 @@ static int lov_connect(const struct lu_env *env,
+@@ -250,6 +245,17 @@ static int lov_connect(const struct lu_env *env,
          if (data)
                  lov->lov_ocd = *data;
  
@@ -279,7 +277,7 @@ index 286cd15..b52a263 100644
          obd_getref(obd);
          for (i = 0; i < lov->desc.ld_tgt_count; i++) {
                  tgt = lov->lov_tgts[i];
-@@ -280,7 +287,6 @@ static int lov_connect(const struct lu_env *env,
+@@ -280,7 +286,6 @@ static int lov_connect(const struct lu_env *env,
  
  static int lov_disconnect_obd(struct obd_device *obd, struct lov_tgt_desc *tgt)
  {
@@ -287,7 +285,7 @@ index 286cd15..b52a263 100644
          struct lov_obd *lov = &obd->u.lov;
          struct obd_device *osc_obd;
          int rc;
-@@ -296,18 +302,18 @@ static int lov_disconnect_obd(struct obd_device *obd, struct lov_tgt_desc *tgt)
+@@ -296,18 +301,18 @@ static int lov_disconnect_obd(struct obd_device *obd, struct lov_tgt_desc *tgt)
                  tgt->ltd_exp->exp_obd->obd_inactive = 1;
          }
  
@@ -317,7 +315,7 @@ index 286cd15..b52a263 100644
          }
  
          obd_register_observer(osc_obd, NULL);
-@@ -353,6 +359,14 @@ static int lov_disconnect(struct obd_export *exp)
+@@ -353,6 +358,14 @@ static int lov_disconnect(struct obd_export *exp)
          }
          obd_putref(obd);
  
@@ -333,17 +331,32 @@ index 286cd15..b52a263 100644
          rc = class_disconnect(exp); /* bz 9811 */
          RETURN(rc);
 diff --git a/lustre/obdclass/genops.c b/lustre/obdclass/genops.c
-index c9d8a4e..b9606bb 100644
+index c9d8a4e..a4a981c 100644
 --- a/lustre/obdclass/genops.c
 +++ b/lustre/obdclass/genops.c
-@@ -220,6 +220,7 @@ int class_register_type(struct obd_ops *dt_ops, struct md_ops *md_ops,
- 		type->typ_procroot = NULL;
- 		GOTO (failed, rc);
- 	}
-+	type->typ_procsym = NULL;
- #endif
-         if (ldt != NULL) {
-                 type->typ_lu = ldt;
+@@ -181,14 +181,15 @@ int class_register_type(struct obd_ops *dt_ops, struct md_ops *md_ops,
+                 RETURN(-EEXIST);
+         }
+ 
+-        rc = -ENOMEM;
+-        OBD_ALLOC(type, sizeof(*type));
+-        if (type == NULL)
+-                RETURN(rc);
++	rc = -ENOMEM;
++	OBD_ALLOC(type, sizeof(*type));
++	if (type == NULL)
++		RETURN(rc);
++	memset(type, 0, sizeof(*type));
+ 
+-        OBD_ALLOC_PTR(type->typ_dt_ops);
+-        OBD_ALLOC_PTR(type->typ_md_ops);
+-        OBD_ALLOC(type->typ_name, strlen(name) + 1);
++	OBD_ALLOC_PTR(type->typ_dt_ops);
++	OBD_ALLOC_PTR(type->typ_md_ops);
++	OBD_ALLOC(type->typ_name, strlen(name) + 1);
+ 
+         if (type->typ_dt_ops == NULL ||
+             type->typ_md_ops == NULL ||
 @@ -242,6 +243,8 @@ int class_register_type(struct obd_ops *dt_ops, struct md_ops *md_ops,
          if (type->typ_dt_ops != NULL)
                  OBD_FREE_PTR(type->typ_dt_ops);

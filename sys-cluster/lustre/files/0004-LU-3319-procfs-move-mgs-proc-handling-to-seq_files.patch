@@ -1,4 +1,4 @@
-From 223f07785cbb8d28ef563bfba382b101a064a928 Mon Sep 17 00:00:00 2001
+From b262846027fbf96a5a80b81cfe86da53ce6e6f9f Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Fri, 3 Jan 2014 09:58:53 -0500
 Subject: [PATCH 04/13] LU-3319 procfs: move mgs proc handling to seq_files

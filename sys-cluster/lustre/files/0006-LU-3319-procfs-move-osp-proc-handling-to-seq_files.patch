@@ -1,6 +1,6 @@
-From 0af5f0dce053b1623b18bec48731d20c0a80b7b5 Mon Sep 17 00:00:00 2001
+From cfafe91ff9caf648f144c1a162112b7d1485aae4 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Fri, 31 Jan 2014 12:50:59 -0500
+Date: Sun, 9 Feb 2014 17:10:18 -0500
 Subject: [PATCH 06/13] LU-3319 procfs: move osp proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
@@ -10,14 +10,14 @@ layer proc entries over to using seq_files.
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: Id8f77d72fd35755f1b7b1c17fcf27e0731bd5ac1
 ---
- lustre/osp/lproc_osp.c    | 374 ++++++++++++++++++++++++----------------------
+ lustre/osp/lproc_osp.c    | 373 ++++++++++++++++++++++++----------------------
  lustre/osp/lwp_dev.c      |  18 +--
  lustre/osp/osp_dev.c      |  48 +++---
  lustre/osp/osp_internal.h |   2 -
- 4 files changed, 223 insertions(+), 219 deletions(-)
+ 4 files changed, 222 insertions(+), 219 deletions(-)
 
 diff --git a/lustre/osp/lproc_osp.c b/lustre/osp/lproc_osp.c
-index 75ebeb1..3dc5ec7 100644
+index 75ebeb1..1ec40fc 100644
 --- a/lustre/osp/lproc_osp.c
 +++ b/lustre/osp/lproc_osp.c
 @@ -45,24 +45,23 @@
@@ -574,7 +574,7 @@ index 75ebeb1..3dc5ec7 100644
  					       obd->obd_type->typ_procroot,
  					       lprocfs_osp_osd_vars,
  					       &osp->opd_dt_dev);
-@@ -502,34 +528,30 @@ void osp_lprocfs_init(struct osp_device *osp)
+@@ -502,34 +528,29 @@ void osp_lprocfs_init(struct osp_device *osp)
  		return;
  	}
  
@@ -618,7 +618,6 @@ index 75ebeb1..3dc5ec7 100644
 +		CERROR("could not register OSC symlink for "
 +			"/proc/fs/lustre/osp/%s.", obd->obd_name);
 +		lprocfs_remove(&obd->obd_type->typ_procsym);
-+		obd->obd_type->typ_procsym = NULL;
 +	} else {
 +		osp->opd_symlink = symlink;
  	}

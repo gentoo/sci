@@ -1,6 +1,6 @@
-From 9260e5e777af25ebc1a94113ede31667c5f10e97 Mon Sep 17 00:00:00 2001
+From 82953bddbc3c7b9aa044d9eecc796bc12638f476 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Fri, 31 Jan 2014 12:46:28 -0500
+Date: Sun, 9 Feb 2014 11:08:45 -0500
 Subject: [PATCH 07/13] LU-3319 procfs: move lod proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
@@ -13,8 +13,8 @@ Change-Id: Iaa0f617fcd430e91f12afbc0faf6906fd275a7a5
  lustre/lod/lod_dev.c      |  39 ++++---
  lustre/lod/lod_internal.h |   1 -
  lustre/lod/lod_pool.c     |   7 +-
- lustre/lod/lproc_lod.c    | 252 ++++++++++++++++++++++++----------------------
- 4 files changed, 153 insertions(+), 146 deletions(-)
+ lustre/lod/lproc_lod.c    | 251 ++++++++++++++++++++++++----------------------
+ 4 files changed, 152 insertions(+), 146 deletions(-)
 
 diff --git a/lustre/lod/lod_dev.c b/lustre/lod/lod_dev.c
 index 02a1e1e..b0ad1fd 100644
@@ -133,7 +133,7 @@ index 98b2416..1849e5d 100644
  						       &pool_proc_operations);
  	if (IS_ERR(new_pool->pool_proc_entry)) {
 diff --git a/lustre/lod/lproc_lod.c b/lustre/lod/lproc_lod.c
-index e976063..6e20b36 100644
+index e976063..e420a5e 100644
 --- a/lustre/lod/lproc_lod.c
 +++ b/lustre/lod/lproc_lod.c
 @@ -42,23 +42,22 @@
@@ -556,7 +556,7 @@ index e976063..6e20b36 100644
  	if (IS_ERR(lod->lod_pool_proc_entry)) {
  		rc = PTR_ERR(lod->lod_pool_proc_entry);
  		lod->lod_pool_proc_entry = NULL;
-@@ -514,14 +514,19 @@ int lod_procfs_init(struct lod_device *lod)
+@@ -514,14 +514,18 @@ int lod_procfs_init(struct lod_device *lod)
  		GOTO(out, rc);
  	}
  
@@ -577,13 +577,12 @@ index e976063..6e20b36 100644
 +			CERROR("could not register LOV symlink for "
 +				"/proc/fs/lustre/lod/%s.", obd->obd_name);
 +			lprocfs_remove(&obd->obd_type->typ_procsym);
-+			obd->obd_type->typ_procsym = NULL;
 +		}
 +	}
  	RETURN(0);
  
  out:
-@@ -542,6 +547,9 @@ void lod_procfs_fini(struct lod_device *lod)
+@@ -542,6 +546,9 @@ void lod_procfs_fini(struct lod_device *lod)
  		lod->lod_pool_proc_entry = NULL;
  	}
  

@@ -1,11 +1,12 @@
-From 5a0b800373ce5e05f6ac64686e6381f7d2706044 Mon Sep 17 00:00:00 2001
+From adf3be9fe382564c4760b83a5843b7d5502bbe48 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Fri, 31 Jan 2014 10:38:14 -0500
+Date: Sun, 9 Feb 2014 10:45:37 -0500
 Subject: [PATCH 10/13] LU-3319 procfs: update ldiskfs proc handling to
  seq_files
 
 Migrate all ldiskfs proc handling to using strictly
-seq_files.
+seq_files. Also include a fix with newer gcc complaining
+certain variables are initialized.
 
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: Ia296a4682e2feda02bcfbe0100de8a89404cd731
@@ -13,9 +14,9 @@ Change-Id: Ia296a4682e2feda02bcfbe0100de8a89404cd731
  lustre/osd-ldiskfs/osd_compat.c   |   6 +-
  lustre/osd-ldiskfs/osd_handler.c  |  16 +-
  lustre/osd-ldiskfs/osd_internal.h |   6 +-
- lustre/osd-ldiskfs/osd_lproc.c    | 338 ++++++++++++++++++++------------------
- lustre/osd-ldiskfs/osd_scrub.c    |  73 +++-----
- 5 files changed, 222 insertions(+), 217 deletions(-)
+ lustre/osd-ldiskfs/osd_lproc.c    | 336 ++++++++++++++++++++------------------
+ lustre/osd-ldiskfs/osd_scrub.c    |  73 +++------
+ 5 files changed, 220 insertions(+), 217 deletions(-)
 
 diff --git a/lustre/osd-ldiskfs/osd_compat.c b/lustre/osd-ldiskfs/osd_compat.c
 index b4a018c..6ca1304 100644
@@ -116,7 +117,7 @@ index 8436d1f..c90147f 100644
  int osd_fld_lookup(const struct lu_env *env, struct osd_device *osd,
  		   obd_seq seq, struct lu_seq_range *range);
 diff --git a/lustre/osd-ldiskfs/osd_lproc.c b/lustre/osd-ldiskfs/osd_lproc.c
-index b9b4e3d..67f3423 100644
+index b9b4e3d..947a4b9 100644
 --- a/lustre/osd-ldiskfs/osd_lproc.c
 +++ b/lustre/osd-ldiskfs/osd_lproc.c
 @@ -237,92 +237,46 @@ out:
@@ -468,7 +469,7 @@ index b9b4e3d..67f3423 100644
  	int		   val;
  	int		   rc;
  
-@@ -544,38 +502,104 @@ static int lprocfs_osd_wr_lma_self_repair(struct file *file, const char *buffer,
+@@ -544,38 +502,102 @@ static int lprocfs_osd_wr_lma_self_repair(struct file *file, const char *buffer,
  	dev->od_lma_self_repair = !!val;
  	return count;
  }
@@ -595,10 +596,8 @@ index b9b4e3d..67f3423 100644
 +	if (osd->od_stats)
 +		lprocfs_free_stats(&osd->od_stats);
 +
-+	if (osd->od_proc_entry) {
++	if (osd->od_proc_entry)
 +		lprocfs_remove(&osd->od_proc_entry);
-+		osd->od_proc_entry = NULL;
-+	}
 +	RETURN(0);
 +}
  #endif

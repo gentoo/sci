@@ -1,4 +1,4 @@
-From 48a712836dff9f15b8d17b9e34caa6acfebf22ce Mon Sep 17 00:00:00 2001
+From 4e78aa55c404914cdc2d01060fb73fc1b0a6b63e Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Tue, 24 Sep 2013 12:29:47 -0400
 Subject: [PATCH 13/13] LU-3974 llite: invalidatepage api changed
@@ -88,7 +88,7 @@ index 747bd4d..5b7bab6 100644
  #endif /* !HAVE_TRUNCATE_COMPLETE_PAGE */
  
 diff --git a/lustre/llite/rw26.c b/lustre/llite/rw26.c
-index 9365c74..bee7996 100644
+index 447dc43..77151de 100644
 --- a/lustre/llite/rw26.c
 +++ b/lustre/llite/rw26.c
 @@ -76,7 +76,13 @@
