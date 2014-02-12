@@ -1,7 +1,7 @@
 From 2790709429e9aaf4b11fca12e3f2e9d70f6608ce Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Fri, 31 Jan 2014 14:00:32 -0500
-Subject: [PATCH 08/13] LU-3319 procfs: move mdd/ofd proc handling to seq_files
+Subject: [PATCH 07/12] LU-3319 procfs: move mdd/ofd proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the mdd/ofd

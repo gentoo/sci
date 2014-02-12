@@ -1,7 +1,7 @@
 From 1013b4b997343de8530c4d4ef5380220d57f155a Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Sun, 9 Feb 2014 11:04:31 -0500
-Subject: [PATCH 09/13] LU-3319 procfs: move mdt/mds proc handling to seq_files
+Subject: [PATCH 08/12] LU-3319 procfs: move mdt/mds proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the mdt/mds

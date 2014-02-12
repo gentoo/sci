@@ -1,7 +1,7 @@
 From cd81037fa6ecc7f6b36d3c49205a3d6f3e7aa0de Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Tue, 21 Jan 2014 12:06:59 -0500
-Subject: [PATCH 11/13] LU-3319 lprocfs: client side cleanups
+Subject: [PATCH 10/12] LU-3319 lprocfs: client side cleanups
 
 Now that all the client side seq_file patches it is
 time to handle the issue that people pointed out but
