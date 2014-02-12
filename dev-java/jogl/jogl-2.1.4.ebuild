@@ -9,12 +9,12 @@ WANT_ANT_TASKS="ant-antlr ant-contrib dev-java/cpptasks:0"
 
 inherit java-pkg-2 java-ant-2
 
-MY_PV="${PV/_rc/_rc0}"
-MY_P="${PN}-${MY_PV}"
+#MY_PV="${PV/_rc/_rc0}"
+#MY_P="${PN}-${MY_PV}"
 
 DESCRIPTION="Java(TM) Binding fot the OpenGL(TM) API"
 HOMEPAGE="http://jogamp.org/jogl/www/"
-SRC_URI="https://github.com/sgothel/jogl/archive/v${MY_PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/sgothel/jogl/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="2.1"
@@ -39,8 +39,6 @@ DEPEND="${CDEPEND}
 # our test classpath...
 RESTRICT="test"
 
-S=${WORKDIR}/${MY_P}
-
 JAVA_PKG_BSFIX_NAME+=" build-jogl.xml build-nativewindow.xml build-newt.xml"
 JAVA_ANT_REWRITE_CLASSPATH="yes"
 EANT_BUILD_XML="make/build.xml"
@@ -51,10 +49,11 @@ EANT_GENTOO_CLASSPATH_EXTRA="${S}/build/${PN}/*.jar:${S}/build/nativewindow/*.ja
 EANT_NEEDS_TOOLS="yes"
 
 java_prepare() {
-	find -name '*.jar' -exec rm -v {} + || die
+	#we keep make/lib/plugin3/puglin3-public.jar
+	find -name 'make/lib/swt/*.jar' -delete -print || die
 
 	# Empty filesets are never out of date!
-	sed -i -e 's/<outofdate>/<outofdate force="true">/' make/build*xml || die
+	sed -i -e 's/<outofdate>/<outofdate force="true">/'  make/build*xml || die
 
 	EANT_EXTRA_ARGS+=" -Dcommon.gluegen.build.done=true"
 	EANT_EXTRA_ARGS+=" -Dgluegen.root=/usr/share/gluegen-${SLOT}/"
@@ -65,9 +64,8 @@ java_prepare() {
 }
 
 src_install() {
-	java-pkg_dojar build/jogl/*.jar
-	java-pkg_dojar build/nativewindow/*.jar
-	java-pkg_doso build/nativewindow/obj/*.so
+	java-pkg_dojar build/jar/*.jar
+	java-pkg_doso build/lib/*.so
 
 	use doc && dodoc -r doc
 	use source && java-pkg_dosrc src/jogl/classes/*
