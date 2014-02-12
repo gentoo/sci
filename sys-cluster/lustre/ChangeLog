@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0011-LU-3974-llite-use-new-struct-dir_context.patch,
+  files/0012-LU-3974-llite-invalidatepage-api-changed.patch:
+  Fix build v2
+
   12 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
   Drop unneded patch v2
 

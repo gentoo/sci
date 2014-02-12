@@ -1,4 +1,4 @@
-From da6a877ec27753ce11499d1bde68d392f90179c4 Mon Sep 17 00:00:00 2001
+From 5d386e041277db90dc2dc8c890d0f90705e443a7 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Mon, 20 Jan 2014 21:23:00 -0500
 Subject: [PATCH 11/12] LU-3974 llite: use new struct dir_context
@@ -16,11 +16,11 @@ Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: Ib42bf8cb06635a2a64e63b294d79e66ac82a1a5b
 Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 ---
- lustre/autoconf/lustre-core.m4 | 20 +++++++++++++
- lustre/llite/dir.c             | 65 ++++++++++++++++++++++++++++++++++--------
- lustre/llite/llite_internal.h  | 14 +++++++--
- lustre/llite/llite_nfs.c       | 17 +++++++----
- 4 files changed, 96 insertions(+), 20 deletions(-)
+ lustre/autoconf/lustre-core.m4 | 20 ++++++++++++++++
+ lustre/llite/dir.c             | 54 ++++++++++++++++++++++++++++++++----------
+ lustre/llite/llite_internal.h  | 14 ++++++++---
+ lustre/llite/llite_nfs.c       | 17 +++++++++----
+ 4 files changed, 85 insertions(+), 20 deletions(-)
 
 diff --git a/lustre/autoconf/lustre-core.m4 b/lustre/autoconf/lustre-core.m4
 index e6207c9..f44a277 100644
@@ -61,24 +61,13 @@ index e6207c9..f44a277 100644
  	 LC_HAVE_DCOUNT
  
 diff --git a/lustre/llite/dir.c b/lustre/llite/dir.c
-index dc5d623..5009934 100644
+index dc5d623..eb09ef8 100644
 --- a/lustre/llite/dir.c
 +++ b/lustre/llite/dir.c
-@@ -195,9 +195,27 @@ struct lu_dirent *ll_dir_entry_next(struct inode *dir,
+@@ -195,9 +195,16 @@ struct lu_dirent *ll_dir_entry_next(struct inode *dir,
  	return entry;
  }
  
-+void ll_dir_entry_end(struct inode *dir, struct md_op_data *op_data,
-+		      struct lu_dirent *ent)
-+{
-+	struct lu_dirent *entry;
-+	struct md_callback cb_op;
-+
-+	cb_op.md_blocking_ast = ll_md_blocking_ast;
-+	op_data->op_cli_flags = CLI_READENT_END;
-+	md_read_entry(ll_i2mdexp(dir), op_data, &cb_op, &entry);
-+	return;
-+}
 +
 +#ifdef HAVE_DIR_CONTEXT
 +int ll_dir_read(struct inode *inode, struct md_op_data *op_data,
@@ -92,7 +81,7 @@ index dc5d623..5009934 100644
  	struct ll_sb_info	*sbi = ll_i2sbi(inode);
  	struct ll_dir_chain	chain;
  	struct lu_dirent	*ent;
-@@ -241,12 +259,17 @@ int ll_dir_read(struct inode *inode, struct md_op_data *op_data,
+@@ -241,12 +248,17 @@ int ll_dir_read(struct inode *inode, struct md_op_data *op_data,
  		fid_le_to_cpu(&fid, &ent->lde_fid);
  		ino = cl_fid_build_ino(&fid, api32);
  		type = ll_dirent_type_get(ent);
@@ -110,7 +99,7 @@ index dc5d623..5009934 100644
  		if (done) {
  			if (op_data->op_hash_offset != MDS_DIR_END_OFF)
  				op_data->op_hash_offset = last_hash;
-@@ -268,7 +291,11 @@ int ll_dir_read(struct inode *inode, struct md_op_data *op_data,
+@@ -268,7 +280,11 @@ int ll_dir_read(struct inode *inode, struct md_op_data *op_data,
  	RETURN(rc);
  }
  
@@ -122,7 +111,7 @@ index dc5d623..5009934 100644
  {
  	struct inode		*inode	= filp->f_dentry->d_inode;
  	struct ll_file_data	*lfd	= LUSTRE_FPRIVATE(filp);
-@@ -305,22 +332,32 @@ static int ll_readdir(struct file *filp, void *cookie, filldir_t filldir)
+@@ -305,22 +321,32 @@ static int ll_readdir(struct file *filp, void *cookie, filldir_t filldir)
  
  	op_data->op_hash_offset = pos;
  	op_data->op_max_pages = sbi->ll_md_brw_size >> PAGE_CACHE_SHIFT;
@@ -160,7 +149,7 @@ index dc5d623..5009934 100644
  	ll_finish_md_op_data(op_data);
  	filp->f_version = inode->i_version;
  #ifdef HAVE_TOUCH_ATIME_1ARG
-@@ -1702,11 +1739,15 @@ int ll_dir_release(struct inode *inode, struct file *file)
+@@ -1702,11 +1728,15 @@ int ll_dir_release(struct inode *inode, struct file *file)
  }
  
  struct file_operations ll_dir_operations = {
