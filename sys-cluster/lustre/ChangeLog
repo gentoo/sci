@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  12 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Drop unneded patch v2
+
   12 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org>
   +files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
   +files/0002-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,

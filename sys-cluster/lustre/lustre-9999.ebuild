@@ -33,19 +33,18 @@ DEPEND="${RDEPEND}
 	virtual/linux-sources"
 
 PATCHES=(
-	"${FILESDIR}/0001-LU-4554-lfsck-old-single-OI-MDT-always-scrubbed.patch"
-	"${FILESDIR}/0002-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
-	"${FILESDIR}/0003-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch"
-	"${FILESDIR}/0004-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch"
-	"${FILESDIR}/0005-LU-3319-procfs-fix-symlink-handling.patch"
-	"${FILESDIR}/0006-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch"
-	"${FILESDIR}/0007-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch"
-	"${FILESDIR}/0008-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
-	"${FILESDIR}/0009-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch"
-	"${FILESDIR}/0010-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch"
-	"${FILESDIR}/0011-LU-3319-lprocfs-client-side-cleanups.patch"
-	"${FILESDIR}/0012-LU-3974-llite-use-new-struct-dir_context.patch"
-	"${FILESDIR}/0013-LU-3974-llite-invalidatepage-api-changed.patch"
+	"${FILESDIR}/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch"
+	"${FILESDIR}/0002-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0003-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0004-LU-3319-procfs-fix-symlink-handling.patch"
+	"${FILESDIR}/0005-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0006-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0007-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
+	"${FILESDIR}/0008-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch"
+	"${FILESDIR}/0009-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch"
+	"${FILESDIR}/0010-LU-3319-lprocfs-client-side-cleanups.patch"
+	"${FILESDIR}/0011-LU-3974-llite-use-new-struct-dir_context.patch"
+	"${FILESDIR}/0012-LU-3974-llite-invalidatepage-api-changed.patch"
 )
 
 pkg_setup() {
