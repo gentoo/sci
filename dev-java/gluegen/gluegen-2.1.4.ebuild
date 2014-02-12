@@ -9,12 +9,9 @@ WANT_ANT_TASKS="ant-antlr ant-contrib dev-java/cpptasks:0"
 
 inherit java-pkg-2 java-ant-2
 
-MY_PV="${PV/_rc/_rc0}"
-MY_P="${PN}-${MY_PV}"
-
 DESCRIPTION="A tool which automatically generates the JNI code necessary to call C libraries"
 HOMEPAGE="http://jogamp.org/gluegen/www/"
-SRC_URI="https://github.com/sgothel/gluegen/archive/v${MY_PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/sgothel/gluegen/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="2.1"
@@ -35,8 +32,6 @@ DEPEND="${COMMON_DEP}
 		dev-java/junit:4
 		dev-java/ant-junit4
 	)"
-
-S=${WORKDIR}/${MY_P}
 
 JAVA_ANT_REWRITE_CLASSPATH="yes"
 EANT_BUILD_XML="make/build.xml"
