@@ -4,7 +4,7 @@
 
 EAPI=5
 
-USE_RUBY="ruby18 ruby19"
+USE_RUBY="ruby18 ruby19 ruby20 ruby21"
 
 inherit cmake-utils eutils ruby-ng git-r3
 
