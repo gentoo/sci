@@ -26,6 +26,8 @@ RDEPEND="${RDEPEND}
 
 CMAKE_IN_SOURCE_BUILD=1
 
+EGIT_CHECKOUT_DIR="${WORKDIR}/all"
+
 src_unpack() {
 	all_ruby_unpack() {
 		git-r3_src_unpack
@@ -45,7 +47,7 @@ all_ruby_prepare() {
 }
 
 each_ruby_configure() {
-	CMAKE_USE_DIR="${WORKDIR}/${environment}/${P}"
+	CMAKE_USE_DIR="${WORKDIR}/${environment}"
 	local mycmakeargs="${mycmakeargs}
 		-DCMAKE_INSTALL_RPATH=
 		-DBINDINGS_ONLY=ON
@@ -61,19 +63,19 @@ each_ruby_configure() {
 }
 
 each_ruby_compile() {
-	CMAKE_USE_DIR="${WORKDIR}/${environment}/${P}"
+	CMAKE_USE_DIR="${WORKDIR}/${environment}"
 	cmake-utils_src_make bindings_ruby
 }
 
 each_ruby_test() {
 	for i in scripts/ruby/examples/*
 	do
-		einfo "Running test: ${WORKDIR}/${environment}/${P}/${i}"
-		${RUBY} -I"${WORKDIR}/${environment}/${P}/$(get_libdir)" "${i}" || die
+		einfo "Running test: ${WORKDIR}/${environment}/${i}"
+		${RUBY} -I"${WORKDIR}/${environment}/$(get_libdir)" "${i}" || die
 	done
 }
 
 each_ruby_install() {
-	CMAKE_USE_DIR="${WORKDIR}/${environment}/${P}"
+	CMAKE_USE_DIR="${WORKDIR}/${environment}"
 	cmake -DCOMPONENT=bindings_ruby -P cmake_install.cmake
 }
