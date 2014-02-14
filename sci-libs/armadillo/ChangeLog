@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Feb 2014; Reinis Danne <rei4dan@gmail.com> armadillo-4.000.3.ebuild,
+  +files/armadillo-opt_wrapper.patch:
+  Add patch to make the wrapper optional at consumer compile time.
+
   10 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> armadillo-4.000.3.ebuild:
   sci-libs/armadillo: removed int64 flag, it is only for revdep at compile time
 

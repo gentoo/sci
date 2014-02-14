@@ -1,0 +1,15 @@
+--- include/armadillo_bits/config.hpp.cmake	2014-02-14 02:22:31.792051878 +0200
++++ include/armadillo_bits/config.hpp.cmake	2014-02-14 02:24:56.423587416 +0200
+@@ -29,10 +29,12 @@
+ //// ARPACK is required for eigendecompositions of sparse matrices, eg. eigs_sym() 
+ #endif
+ 
++#if !defined(ARMA_NO_WRAPPER)
+ #cmakedefine ARMA_USE_WRAPPER
+ //// Comment out the above line if you're getting linking errors when compiling your programs,
+ //// or if you prefer to directly link with LAPACK, BLAS or ARPACK.
+ //// You will then need to link your programs directly with -llapack -lblas instead of -larmadillo
++#endif
+ 
+ // #define ARMA_BLAS_CAPITALS
+ //// Uncomment the above line if your BLAS and LAPACK libraries have capitalised function names (eg. ACML on 64-bit Windows)
