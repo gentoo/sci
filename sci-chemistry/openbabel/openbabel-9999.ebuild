@@ -34,7 +34,7 @@ PDEPEND="
 	python? ( sci-chemistry/openbabel-python )
 	ruby? ( sci-chemistry/openbabel-ruby )"
 
-DOCS=( AUTHORS ChangeLog NEWS README.md THANKS doc/*.inc doc/README* doc/*.mol2 )
+DOCS="AUTHORS NEWS README.md THANKS doc/*.inc doc/README* doc/*.mol2"
 
 pkg_setup() {
 	if use openmp; then
