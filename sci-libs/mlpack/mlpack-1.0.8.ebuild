@@ -28,7 +28,9 @@ DEPEND="${DEPEND}
 DOCS=( HISTORY.txt )
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PN}-1.0.4-libdir.patch
+	epatch \
+		"${FILESDIR}/${PN}-1.0.4-libdir.patch" \
+		"${FILESDIR}/${PN}-1.0.8-uint32_t.patch"
 	sed -i \
 		-e "s:share/doc/mlpack:share/doc/${PF}:" \
 		-e 's/-O3//g' \

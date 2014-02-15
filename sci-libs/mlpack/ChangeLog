@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Feb 2014; Reinis Danne <rei4dan@gmail.com> mlpack-1.0.8.ebuild,
+  +files/mlpack-1.0.8-uint32_t.patch:
+  Add patch to fix build failure with FEATURES=test.
+
 *mlpack-1.0.8 (10 Feb 2014)
 
   10 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> +mlpack-1.0.8.ebuild,
