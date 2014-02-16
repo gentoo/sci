@@ -7,7 +7,7 @@ EAPI=5
 PYTHON_COMPAT=( python{2_6,2_7} )
 
 if [ ${PV} == "9999" ] ; then
-	inherit git-3
+	inherit git-r3
 	EGIT_REPO_URI="https://github.com/STEllAR-GROUP/hpx.git"
 	SRC_URI=""
 	KEYWORDS=""
@@ -15,7 +15,7 @@ if [ ${PV} == "9999" ] ; then
 	CMAKE_USE_DIR="${S}"
 else
 	SRC_URI="http://stellar.cct.lsu.edu/files/${PN}_${PV}.7z"
-	KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 	S="${WORKDIR}/${PN}_${PV}"
 fi
 

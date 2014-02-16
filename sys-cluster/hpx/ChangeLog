@@ -1,0 +1,7 @@
+# ChangeLog for sys-cluster/hpx
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  16 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> hpx-0.9.7.ebuild,
+  hpx-9999.ebuild, metadata.xml:
+  sys-cluster/hpx: Version bump

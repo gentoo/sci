@@ -15,7 +15,7 @@ if [ ${PV} == "9999" ] ; then
 	CMAKE_USE_DIR="${S}"
 else
 	SRC_URI="http://stellar.cct.lsu.edu/files/${PN}_${PV}.7z"
-	KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 	S="${WORKDIR}/${PN}_${PV}"
 fi
 
@@ -37,6 +37,7 @@ RDEPEND="
 	>=sys-apps/hwloc-1.8
 	>=sys-libs/libunwind-1
 	sys-libs/zlib
+	jemalloc? ( dev-libs/jemalloc )
 	papi? ( dev-libs/papi )
 	perftools? ( >=dev-util/google-perftools-1.7.1 )
 	tbb? ( dev-cpp/tbb )

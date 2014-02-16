@@ -14,4 +14,12 @@
 <maintainer>
   <email>gentryx@gmx.de</email>
 </maintainer>
+<use>
+  <flag name="jemalloc">Use <pkg>dev-libs/jemalloc</pkg> for memory allocation</flag>
+  <flag name="perftools">Use <pkg>dev-util/google-perftools</pkg> for
+  memory allocation</flag>
+  <flag name="tbb">Use <pkg>dev-cpp/tbb</pkg> for memory
+  allocation</flag>
+  <flag name="papi">Use <pkg>dev-libs/papi</pkg> for NaCl</flag>
+</use>
 </pkgmetadata>
