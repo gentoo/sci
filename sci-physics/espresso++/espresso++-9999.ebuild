@@ -40,6 +40,11 @@ DEPEND="${RDEPEND}"
 DOCS=( AUTHORS NEWS README )
 
 src_configure() {
-	mycmakeargs=( -DEXTERNAL_BOOST=ON -DEXTERNAL_MPI4PY=ON -DLIB="$(get_libdir)" )
+	mycmakeargs=(
+		-DEXTERNAL_BOOST=ON
+		-DEXTERNAL_MPI4PY=ON
+		-DLIB="$(get_libdir)"
+		-DWITH_RC_FILES=OFF
+	)
 	cmake-utils_src_configure
 }
