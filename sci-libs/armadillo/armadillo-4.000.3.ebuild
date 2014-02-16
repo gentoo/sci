@@ -40,7 +40,6 @@ PDEPEND="${RDEPEND}
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/${PN}-4.000.3-hdf5.patch \
-		"${FILESDIR}"/${PN}-opt_wrapper.patch \
 		"${FILESDIR}"/${PN}-3.820.1-example-makefile.patch
 	# avoid the automagic cmake macros
 	sed -i -e '/ARMA_Find/d' CMakeLists.txt || die
