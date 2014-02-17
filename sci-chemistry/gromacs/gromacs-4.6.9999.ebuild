@@ -17,7 +17,7 @@ if [[ $PV = *9999* ]]; then
 		git://github.com/gromacs/gromacs.git
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-4-6"
-	inherit git-r3
+	inherit git-2
 	LIVE_DEPEND="doc? (
 		app-doc/doxygen
 		dev-texlive/texlive-latex
@@ -87,18 +87,18 @@ src_unpack() {
 	if [[ ${PV} != *9999 ]]; then
 		default
 	else
-		git-r3_src_unpack
+		git-2_src_unpack
 		if use doc; then
 			EGIT_REPO_URI="git://git.gromacs.org/manual.git" \
 			EGIT_BRANCH="release-4-6" EGIT_NOUNPACK="yes" EGIT_COMMIT="release-4-6" \
 			EGIT_SOURCEDIR="${WORKDIR}/manual"\
-				git-r3_src_unpack
+				git-2_src_unpack
 		fi
 		if use test; then
 			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
-			EGIT_BRANCH="master" EGIT_NOUNPACK="yes" EGIT_COMMIT="master" \
+			EGIT_BRANCH="master" EGIT_NOUNPACK="yes" EGIT_COMMIT="release-4-6" \
 			EGIT_SOURCEDIR="${WORKDIR}/regressiontests"\
-				git-r3_src_unpack
+				git-2_src_unpack
 		fi
 	fi
 }
