@@ -60,7 +60,6 @@ pkg_setup() {
 src_configure() {
 	CMAKE_BUILD_TYPE=Release
 	local mycmakeargs=(
-		-Wno-dev
 		-DHPX_BUILD_EXAMPLES=OFF
 		$(cmake-utils_use doc HPX_BUILD_DOCUMENTATION)
 		$(cmake-utils_use jemalloc HPX_JEMALLOC)
