@@ -18,7 +18,7 @@ IUSE=""
 src_prepare() {
 	epatch "${FILESDIR}/${P}-paths.patch"
 	epatch "${FILESDIR}/${P}-shared_lib.patch"
-	sed -i -e "s:/usr/local:${D}/usr:" config.mk || die "Couldn't set prefix!"
+	sed -i -e "s:/usr/local:${ED}/usr:" config.mk || die "Couldn't set prefix!"
 }
 
 src_compile() {
