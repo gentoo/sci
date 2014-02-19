@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Feb 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  Thanks to sfabbro: dodoc should be outside the function, they do not change
+
   18 Feb 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
   multibuild openblas when USE=int64 is specified.
 

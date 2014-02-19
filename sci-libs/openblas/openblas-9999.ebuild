@@ -158,9 +158,6 @@ src_install() {
 			doins ${pcfile}
 		done
 
-		dodoc GotoBLAS_{01Readme,03FAQ,04FAQ,05LargePage,06WeirdPerformance}.txt
-		dodoc *md Changelog.txt
-
 		if [[ ${CHOST} == *-darwin* ]] ; then
 			cd "${ED}"/usr/$(get_libdir)
 			local d
@@ -172,4 +169,7 @@ src_install() {
 		fi
 	}
 	multibuild_foreach_variant run_in_build_dir my_src_install
+
+	dodoc GotoBLAS_{01Readme,03FAQ,04FAQ,05LargePage,06WeirdPerformance}.txt
+	dodoc *md Changelog.txt
 }
