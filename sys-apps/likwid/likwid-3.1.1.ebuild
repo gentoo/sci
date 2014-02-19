@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="Command line tools for developing high performance multi threaded programs"
 HOMEPAGE="http://code.google.com/p/likwid/"
-SRC_URI="http://likwid.googlecode.com/files/${P}.tar.gz"
+SRC_URI="http://gentryx.de/~gentryx/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="GPL-3"
@@ -18,7 +18,8 @@ IUSE=""
 src_prepare() {
 	epatch "${FILESDIR}/${P}-paths.patch"
 	epatch "${FILESDIR}/${P}-shared_lib.patch"
-	sed -i -e "s:/usr/local:${D}/usr:" config.mk || die "Couldn't set prefix!"
+	sed -i -e "s:PREFIX_MARKER:${EPREFIX}/usr/bin:" config.mk || die "Couldn't replace daemon dir!"
+	sed -i -e "s:/usr/local:${ED}/usr:" config.mk || die "Couldn't set prefix!"
 }
 
 src_compile() {
