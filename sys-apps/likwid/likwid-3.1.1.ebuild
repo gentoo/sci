@@ -13,12 +13,11 @@ SRC_URI="http://likwid.googlecode.com/files/${P}.tar.gz"
 SLOT="0"
 LICENSE="GPL-3"
 KEYWORDS="~amd64"
-IUSE="uncore"
+IUSE=""
 
 src_prepare() {
 	epatch "${FILESDIR}/${P}-paths.patch"
 	epatch "${FILESDIR}/${P}-shared_lib.patch"
-	use uncore        && epatch "${FILESDIR}/use_uncore.patch"
 	sed -i -e "s:/usr/local:${D}/usr:" config.mk || die "Couldn't set prefix!"
 }
 
