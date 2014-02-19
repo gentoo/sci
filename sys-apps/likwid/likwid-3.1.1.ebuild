@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="Command line tools for developing high performance multi threaded programs"
 HOMEPAGE="http://code.google.com/p/likwid/"
-SRC_URI="http://likwid.googlecode.com/files/${P}.tar.gz"
+SRC_URI="http://gentryx.de/~gentryx/${P}.tar.gz"
 
 SLOT="0"
 LICENSE="GPL-3"
