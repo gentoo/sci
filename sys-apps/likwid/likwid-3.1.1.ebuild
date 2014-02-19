@@ -18,6 +18,7 @@ IUSE=""
 src_prepare() {
 	epatch "${FILESDIR}/${P}-paths.patch"
 	epatch "${FILESDIR}/${P}-shared_lib.patch"
+	sed -i -e "s:PREFIX_MARKER:${EPREFIX}/usr/bin:" config.mk || die "Couldn't replace daemon dir!"
 	sed -i -e "s:/usr/local:${ED}/usr:" config.mk || die "Couldn't set prefix!"
 }
 
