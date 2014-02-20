@@ -153,7 +153,7 @@ src_configure() {
 		$(cmake-utils_use offensive GMX_COOL_QUOTES)
 		$(cmake-utils_use doc GMX_BUILD_MANUAL)
 		-DGMX_DEFAULT_SUFFIX=off
-		-DGMX_ACCELERATION="$acce"
+		-DGMX_SIMD="$acce"
 		-DGMXLIB="$(get_libdir)"
 		-DGMX_VMD_PLUGIN_PATH="${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/"
 		-DGMX_PREFIX_LIBMD=ON
