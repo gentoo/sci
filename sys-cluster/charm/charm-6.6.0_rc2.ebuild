@@ -117,8 +117,8 @@ src_prepare() {
 src_compile() {
 	local build_version="$(usex mpi "mpi" "net")-linux$(usex amd64 "-amd64" '')"
 	local build_options="$(get_opts)"
-	local build_charmc_options="${MAKEOPTS} -j1"
-	local build_commandline="${build_version} ${build_options} ${build_charmc_options}"
+	#parallel build broken, just ignore MAKEOPTS
+	local build_commandline="${build_version} ${build_options}"
 
 	# Build charmm++ first.
 	einfo "running ./build charm++ ${build_commandline}"
