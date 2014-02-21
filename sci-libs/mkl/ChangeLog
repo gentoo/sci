@@ -1,6 +1,11 @@
 # ChangeLog for sci-libs/mkl
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*mkl-11.1.1.106 (21 Feb 2014)
+
+  21 Feb 2014; Justin Lecher <jlec@gentoo.org> +mkl-11.1.1.106.ebuild:
+  Version Bump, #500386
 
   08 Dec 2013; Justin Lecher <jlec@gentoo.org> -mkl-11.0.3.163.ebuild,
   -mkl-11.0.5.192.ebuild, -mkl-11.1.0.080.ebuild, +mkl-11.1.0.080-r1.ebuild:
