@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit alternatives-2 eutils fortran-2 git-r3 multilib multibuild toolchain-funcs
+inherit alternatives-2 eutils fortran-2 git-r3 multibuild multilib-build toolchain-funcs
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
@@ -19,6 +19,12 @@ KEYWORDS=""
 
 INT64_SUFFIX="int64"
 BASE_PROFNAME="openblas"
+
+MULTILIB_WRAPPED_HEADERS=(
+	/usr/include/openblas/cblas.h
+	/usr/include/openblas/f77blas.h
+	/usr/include/openblas/openblas_config.h
+)
 
 get_openblas_flags() {
 	local openblas_flags=""
@@ -54,23 +60,66 @@ get_profname() {
 	echo "${profname}"
 }
 
-pkg_setup() {
+get_libname() {
+	local libname="${BASE_PROFNAME}"
+	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
+		libname+="_${INT64_SUFFIX}"
+	fi
+	echo "${libname}"
+}
+
+int64_multilib_get_enabled_abis() {
 	# The file /usr/include/openblas/openblas_config.h is generated during the install.
 	# By listing the int64 variant first, the int64 variant /usr/include/openblas/openblas_config.h
 	# will be overwritten by the normal variant in the install, which removes the
 	# #define OPENBLAS_USE64BITINT for us.  We then specify it in Cflags in the
 	# /usr/lib64/pkg-config/openblas-int64-{threads,openmp}.pc file.
-	MULTIBUILD_VARIANTS=()
+	local MULTIBUILD_VARIANTS=( )
 	use int64 && \
 		MULTIBUILD_VARIANTS+=( ${BASE_PROFNAME}_${INT64_SUFFIX} )
-	MULTIBUILD_VARIANTS+=( ${BASE_PROFNAME} )
+	MULTIBUILD_VARIANTS+=( $(multilib_get_enabled_abis) )
+	echo "${MULTIBUILD_VARIANTS[*]}"
 }
 
-src_prepare() {
+# @FUNCTION: _int64_multilib_multibuild_wrapper
+# @USAGE: <argv>...
+# @INTERNAL
+# @DESCRIPTION:
+# Initialize the environment for ABI selected for multibuild.
+_int64_multilib_multibuild_wrapper() {
+	debug-print-function ${FUNCNAME} "${@}"
+
+	if [[ ! "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
+		local ABI=${MULTIBUILD_VARIANT}
+		multilib_toolchain_setup "${ABI}"
+		export FC="$(tc-getFC) $(get_abi_CFLAGS)"
+		export F77="$(tc-getF77) $(get_abi_CFLAGS)"
+	fi
+	"${@}"
+}
+
+# @FUNCTION: int64_multilib_copy_sources
+# @DESCRIPTION:
+# Create a single copy of the package sources for each enabled ABI.
+#
+# The sources are always copied from initial BUILD_DIR (or S if unset)
+# to ABI-specific build directory matching BUILD_DIR used by
+# multilib_foreach_abi().
+int64_multilib_copy_sources() {
+	debug-print-function ${FUNCNAME} "${@}"
+
+	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
 	multibuild_copy_sources
 }
 
+src_prepare() {
+	epatch "${FILESDIR}/${PN}-9999-cpuid_x86.patch"
+	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
+	int64_multilib_copy_sources
+}
+
 src_configure() {
+	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
 	my_configure() {
 		# lapack and lapacke are not modified from upstream lapack
 		sed \
@@ -81,15 +130,17 @@ src_configure() {
 			-e "s:^#\s*\(NO_LAPACKE\)\s*=.*:\1=1:" \
 			-i Makefile.rule || die
 	}
-	multibuild_foreach_variant run_in_build_dir my_configure
+	multibuild_foreach_variant run_in_build_dir _int64_multilib_multibuild_wrapper my_configure
 }
 
 src_compile() {
+	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
 	# openblas already does multi-jobs
 	MAKEOPTS+=" -j1"
 	my_src_compile () {
 		local openblas_flags=$(get_openblas_flags)
 		local profname=$(get_profname)
+		local libname=$(get_libname)
 		einfo "Compiling profile ${profname}"
 		# cflags already defined twice
 		unset CFLAGS
@@ -110,7 +161,7 @@ src_compile() {
 			Description: ${DESCRIPTION}
 			Version: ${PV}
 			URL: ${HOMEPAGE}
-			Libs: -L\${libdir} -l${MULTIBUILD_ID}
+			Libs: -L\${libdir} -l${libname}
 			Libs.private: -lm
 		EOF
 		if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
@@ -126,18 +177,20 @@ src_compile() {
 		fi
 		mv libs/libopenblas* . || die
 	}
-	multibuild_foreach_variant run_in_build_dir my_src_compile
+	multibuild_foreach_variant run_in_build_dir _int64_multilib_multibuild_wrapper my_src_compile
 }
 
 src_test() {
+	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
 	my_src_test () {
 		local openblas_flags=$(get_openblas_flags)
 		emake tests ${openblas_flags}
 	}
-	multibuild_foreach_variant run_in_build_dir my_src_test
+	multibuild_foreach_variant run_in_build_dir _int64_multilib_multibuild_wrapper my_src_test
 }
 
 src_install() {
+	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
 	my_src_install () {
 		local openblas_flags=$(get_openblas_flags)
 		local profname=$(get_profname)
@@ -167,8 +220,13 @@ src_install() {
 				eend $?
 			done
 		fi
+		if [[ ${#MULTIBUILD_VARIANTS[@]} -gt 1 ]]; then
+			multilib_prepare_wrappers
+			multilib_check_headers
+		fi
 	}
-	multibuild_foreach_variant run_in_build_dir my_src_install
+	multibuild_foreach_variant run_in_build_dir _int64_multilib_multibuild_wrapper my_src_install
+	multilib_install_wrappers
 
 	dodoc GotoBLAS_{01Readme,03FAQ,04FAQ,05LargePage,06WeirdPerformance}.txt
 	dodoc *md Changelog.txt
