@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -27,9 +27,8 @@ src_unpack() {
 }
 
 src_compile() {
-	rm -r *.tar.gz
-	rm debian-binary
-	mv usr opt
+	rm *.tar.gz debian-binary || die
+	mv usr opt || die
 }
 
 src_install() {
