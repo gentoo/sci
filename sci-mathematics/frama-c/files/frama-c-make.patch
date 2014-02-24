@@ -1,0 +1,12 @@
+--- frama-c-Oxygen-20120901/configure.in.orig	2012-09-19 15:56:17.000000000 +0400
++++ frama-c-Oxygen-20120901/configure.in	2014-02-24 19:02:44.616467203 +0400
+@@ -61,7 +61,8 @@
+ MAKE_MAJOR=`$MAKE -v | sed -n  -f bin/sed_get_make_major `
+ MAKE_MINOR=`$MAKE -v | sed -n -f bin/sed_get_make_minor `
+ echo $ECHO_N "make version is $MAKE_DISTRIB Make $MAKE_MAJOR.$MAKE_MINOR: $ECHO_C"
+-if test "$MAKE_DISTRIB" != GNU -o "$MAKE_MAJOR" -lt 3 -o "$MAKE_MINOR" -lt 81;
++if test "$MAKE_DISTRIB" != GNU -o \( "$MAKE_MAJOR" -eq 3 -a "$MAKE_MINOR" -lt 81 \)
++    -o "$MAKE_MAJOR" -lt 3;
+ then
+    echo "${ECHO_T}"
+    AC_MSG_ERROR([unsupported version; GNU Make version 3.81
