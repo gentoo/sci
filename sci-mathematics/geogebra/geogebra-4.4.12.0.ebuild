@@ -19,12 +19,12 @@ RDEPEND="$DEPEND"
 
 src_unpack() {
 	unpack $A || die "Unpacking $A failed"
-	d "$WORKDIR"
-	ar -xf "data.tar.gz"
+	cd "$WORKDIR"
+	tar -xf "data.tar.gz"
 }
 
 src_install() {
-	p -r "$WORKDIR" "$D"
-	v "$D/work/"* "$D"
-	m -r "$D/work/" "$D/control.tar.gz" "$D/data.tar.gz" "$D/debian-binary"
+	cp -r "$WORKDIR" "$D"
+	mv "$D/work/"* "$D"
+	rm -r "$D/work/" "$D/control.tar.gz" "$D/data.tar.gz" "$D/debian-binary"
 }
