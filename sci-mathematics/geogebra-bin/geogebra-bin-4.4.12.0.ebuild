@@ -2,6 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
+inherit eutils
+
 DESCRIPTION="Free mathematics software for learning and teaching"
 HOMEPAGE="http://geogebra.org/"
 SRC_URI="
@@ -17,18 +20,18 @@ IUSE=""
 DEPEND=">=virtual/jre-1.6.0"
 RDEPEND="$DEPEND"
 
-inherit eutils
+S="${WORKDIR}"
 
 src_unpack() {
-	unpack $A || die "Unpacking $A failed"
-	cd "${WORKDIR}"
+	default
+	cd "${WORKDIR}" || die
 	unpack ./data.tar.gz
-	epatch "$FILESDIR/geogebra_use_opt.patch"
 }
 
-src_compile() {
+src_prepare(){
 	rm *.tar.gz debian-binary || die
 	mv usr opt || die
+	epatch "$FILESDIR/geogebra_use_opt.patch"
 }
 
 src_install() {
