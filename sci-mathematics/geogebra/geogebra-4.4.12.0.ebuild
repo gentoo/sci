@@ -11,20 +11,27 @@ SRC_URI="
 
 LICENSE="GeoGebra"
 SLOT="0"
-KEYWORDS="x86 amd64"
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 DEPEND=">=virtual/jre-1.6.0"
 RDEPEND="$DEPEND"
 
+inherit eutils
+
 src_unpack() {
 	unpack $A || die "Unpacking $A failed"
-	cd "$WORKDIR"
-	tar -xf "data.tar.gz"
+	cd "${WORKDIR}"
+	unpack ./data.tar.gz
+	epatch "$FILESDIR/geogebra_use_opt.patch"
+}
+
+src_compile() {
+	rm -r *.tar.gz
+	rm debian-binary
+	mv usr opt
 }
 
 src_install() {
-	cp -r "$WORKDIR" "$D"
-	mv "$D/work/"* "$D"
-	rm -r "$D/work/" "$D/control.tar.gz" "$D/data.tar.gz" "$D/debian-binary"
+	cp -r "${WORKDIR}"/* "${D}" || die
 }
