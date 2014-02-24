@@ -122,7 +122,7 @@
      else {
 -      const char *fsldir_ptr = getenv("FSLDIR");
 -      string eref_fname = string(fsldir_ptr) + string("/data/standard/") + ref_fname;
-+      string eref_fname = string("@GENTOO_PORTAGE_EPREFIX/usr/share/fsl/data/standard/") + ref_fname;
++      string eref_fname = string("@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/data/standard/") + ref_fname;
        if (NEWIMAGE::fsl_imageexists(eref_fname)) return(eref_fname);
        else return(string(""));
      }
@@ -241,7 +241,7 @@
 -	       	<< "<BODY BACKGROUND=\"file:" << getenv("FSLDIR") 
 -	    		<< "/doc/images/fsl-bg.jpg\">" << endl 
 +	       	<< "<BODY BACKGROUND=\"file:"  
-+	    		<< "@GENTOO_PORTAGE_EPREFIX/usr/share/fsl/doc/images/fsl-bg.jpg\">" << endl 
++	    		<< "@GENTOO_PORTAGE_EPREFIX@/usr/share/fsl/doc/images/fsl-bg.jpg\">" << endl 
  	     		<< "<hr><CENTER><H1>MELODIC Component " << num2str(cnum)
  	       	<< "</H1>"<< endl;
  	
