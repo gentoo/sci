@@ -74,11 +74,15 @@ int64_multilib_get_enabled_abis() {
 	# will be overwritten by the normal variant in the install, which removes the
 	# #define OPENBLAS_USE64BITINT for us.  We then specify it in Cflags in the
 	# /usr/lib64/pkg-config/openblas-int64-{threads,openmp}.pc file.
+	local MULTILIB_VARIANTS=( $(multilib_get_enabled_abis) )
 	local MULTIBUILD_VARIANTS=( )
-	use int64 && \
-		MULTIBUILD_VARIANTS+=( ${BASE_PROFNAME}_${INT64_SUFFIX} )
-	MULTIBUILD_VARIANTS+=( $(multilib_get_enabled_abis) )
-	echo "${MULTIBUILD_VARIANTS[*]}"
+	for i in "${MULTILIB_VARIANTS[@]}"; do
+		if use int64 && [[ "${i}" =~ 64$ ]]; then
+			MULTIBUILD_VARIANTS+=( "${i}_${INT64_SUFFIX}" )
+		fi
+		MULTIBUILD_VARIANTS+=( "${i}" )
+	done
+	echo "${MULTIBUILD_VARIANTS[@]}"
 }
 
 # @FUNCTION: _int64_multilib_multibuild_wrapper
@@ -89,12 +93,10 @@ int64_multilib_get_enabled_abis() {
 _int64_multilib_multibuild_wrapper() {
 	debug-print-function ${FUNCNAME} "${@}"
 
-	if [[ ! "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
-		local ABI=${MULTIBUILD_VARIANT}
-		multilib_toolchain_setup "${ABI}"
-		export FC="$(tc-getFC) $(get_abi_CFLAGS)"
-		export F77="$(tc-getF77) $(get_abi_CFLAGS)"
-	fi
+	local ABI="${MULTIBUILD_VARIANT/_${INT64_SUFFIX}/}"
+	multilib_toolchain_setup "${ABI}"
+	export FC="$(tc-getFC) $(get_abi_CFLAGS)"
+	export F77="$(tc-getF77) $(get_abi_CFLAGS)"
 	"${@}"
 }
 
@@ -191,7 +193,7 @@ src_test() {
 
 src_install() {
 	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
-	my_src_install () {
+	my_src_install() {
 		local openblas_flags=$(get_openblas_flags)
 		local profname=$(get_profname)
 		local pcfile
