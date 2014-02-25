@@ -3,7 +3,7 @@
 # $Header: $
 
 EAPI=5
-inherit fortran-2 cmake-utils multibuild alternatives-2 toolchain-funcs
+inherit fortran-2 cmake-utils multibuild alternatives-2 multilib-build toolchain-funcs
 
 if [[ ${PV} == "9999" ]] ; then
 	# The master ESVN_REPO_URI is difficult to access, the git mirror is easier
@@ -59,6 +59,7 @@ get_variant_suffix() {
 get_blas_profname() {
 	local profname="${1:-$(get_profname)}"
 	local variant_suffix=$(get_variant_suffix "${profname}")
+	local blas_profile=$(eselect blas show)
 	local selected_blas_profile="${blas_profile}"
 	local blas_no_int64="${selected_blas_profile/-int64/}"
 	local blas_base="${blas_no_int64%-*}"
@@ -66,18 +67,40 @@ get_blas_profname() {
 	echo "${blas_name}"
 }
 
-pkg_setup() {
-	blas_profile=$(eselect blas show)
-	MULTIBUILD_VARIANTS=( )
-	use static-libs && MULTIBUILD_VARIANTS+=( ${BASE_PROFNAME}_${STATIC_SUFFIX} )
-	if use int64; then
-		MULTIBUILD_VARIANTS+=( ${BASE_PROFNAME}_${INT64_SUFFIX} )
-		use static-libs && MULTIBUILD_VARIANTS+=( ${BASE_PROFNAME}_${INT64_SUFFIX}_${STATIC_SUFFIX} )
-	fi
-	MULTIBUILD_VARIANTS+=( ${BASE_PROFNAME} )
+int64_multilib_get_enabled_abis() {
+	local MULTILIB_VARIANTS=( $(multilib_get_enabled_abis) )
+	local MULTILIB_INT64_VARIANTS=()
+	for i in "${MULTILIB_VARIANTS[@]}"; do
+		if use int64 && [[ "${i}" =~ 64$ ]]; then
+			MULTILIB_INT64_VARIANTS+=( "${i}_${INT64_SUFFIX}" )
+		fi
+		MULTILIB_INT64_VARIANTS+=( "${i}" )
+	done
+	local MULTIBUILD_VARIANTS=()
+	for j in "${MULTILIB_INT64_VARIANTS[@]}"; do
+		use static-libs && MULTIBUILD_VARIANTS+=( "${j}_${STATIC_SUFFIX}" )
+		MULTIBUILD_VARIANTS+=( "${j}" )
+	done
+	echo "${MULTIBUILD_VARIANTS[@]}"
+}
+
+# @FUNCTION: _int64_multilib_multibuild_wrapper
+# @USAGE: <argv>...
+# @INTERNAL
+# @DESCRIPTION:
+# Initialize the environment for ABI selected for multibuild.
+_int64_multilib_multibuild_wrapper() {
+	debug-print-function ${FUNCNAME} "${@}"
+	local v="${MULTIBUILD_VARIANT/_${INT64_SUFFIX}/}"
+	local ABI="${v/_${STATIC_SUFFIX}/}"
+	multilib_toolchain_setup "${ABI}"
+	export FC="$(tc-getFC) $(get_abi_CFLAGS)"
+	export F77="$(tc-getF77) $(get_abi_CFLAGS)"
+	"${@}"
 }
 
 src_prepare() {
+	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
 	if use int64; then
 		local blas_int64_profname=$(get_blas_profname "${BASE_PROFNAME}-${INT64_SUFFIX}")
 		pkg-config --exists "${blas_int64_profname}" || die "Use int64 requires ${blas_int64_profname}"
@@ -115,11 +138,11 @@ src_prepare() {
 }
 
 src_configure() {
+	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
 	my_src_configure() {
 		local profname=$(get_profname)
 		local libname="${profname//-/_}"
 		local blas_profname=$(get_blas_profname)
-		echo "profname: ${profname}, blas_profname: ${blas_profname}"
 		local mycmakeargs=(
 			-DPROFNAME="${profname}"
 			-DBLAS_PROFNAME="${blas_profname}"
@@ -141,10 +164,6 @@ src_configure() {
 				-DLAPACK_PKGCONFIG_FFLAGS=""
 			)
 		fi
-		mycmakeargs+=(
-			-DCMAKE_C_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) ${CFLAGS}"
-			-DCMAKE_CXX_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) ${CXXFLAGS}"
-		)
 		if [[ "${MULTIBUILD_ID}" =~ "_${STATIC_SUFFIX}" ]]; then
 			mycmakeargs+=(
 				-DBUILD_SHARED_LIBS=OFF
@@ -156,20 +175,27 @@ src_configure() {
 				-DBUILD_STATIC_LIBS=OFF
 			)
 		fi
+		mycmakeargs+=(
+			-DCMAKE_C_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) ${CFLAGS}"
+			-DCMAKE_CXX_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) ${CXXFLAGS}"
+		)
 		cmake-utils_src_configure
 	}
-	multibuild_foreach_variant my_src_configure
+	multibuild_foreach_variant _int64_multilib_multibuild_wrapper my_src_configure
 }
 
 src_compile() {
-	multibuild_foreach_variant cmake-utils_src_compile
+	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
+	multibuild_foreach_variant _int64_multilib_multibuild_wrapper cmake-utils_src_compile
 }
 
 src_test() {
-	multibuild_foreach_variant cmake-utils_src_test
+	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
+	multibuild_foreach_variant _int64_multilib_multibuild_wrapper cmake-utils_src_test
 }
 
 src_install() {
+	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
 	my_src_install()  {
 		cmake-utils_src_install
 		if [[ ! "${MULTIBUILD_ID}" =~ "_${STATIC_SUFFIX}" ]]; then
@@ -178,5 +204,5 @@ src_install() {
 				/usr/$(get_libdir)/pkgconfig/lapack.pc ${profname}.pc
 		fi
 	}
-	multibuild_foreach_variant my_src_install
+	multibuild_foreach_variant _int64_multilib_multibuild_wrapper my_src_install
 }
