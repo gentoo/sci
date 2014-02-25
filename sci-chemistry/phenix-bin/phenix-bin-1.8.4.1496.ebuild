@@ -6,7 +6,9 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit python-single-r1 versionator
+WX_GTK_VER=2.8
+
+inherit python-single-r1 versionator wxwidgets
 
 MY_PV="$(replace_version_separator 3 -)"
 MY_P="phenix-installer-${MY_PV}"
@@ -59,6 +61,7 @@ RDEPEND="${PYTHON_DEPS}
 	x11-libs/libXrandr
 	x11-libs/libXrender
 	x11-libs/libXxf86vm
+	x11-libs/wxGTK:${WX_GTK_VER}[X]
 	sys-libs/zlib
 	virtual/jpeg:62"
 DEPEND="${PYTHON_DEPS}"
@@ -94,6 +97,7 @@ src_install() {
 			foo/phenix-${MY_PV}/build/intel-linux-2.6-*/base/etc/{gtk*,pango}/* \
 			foo/phenix-${MY_PV}/phenix_env* \
 			|| die
+
 	dodir /opt
 	mv "${S}/foo/phenix-${MY_PV}" "${ED}/opt/"
 
@@ -101,6 +105,7 @@ src_install() {
 	#!${EPREFIX}/bin/bash
 
 	source "${EPREFIX}/opt/phenix-${MY_PV}/phenix_env.sh"
+	export LD_LIBRARY_PATH="${EPREFIX}"/usr/$(get_libdir)
 	exec phenix
 	EOF
 	dobin phenix
