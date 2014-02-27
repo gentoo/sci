@@ -1,4 +1,4 @@
-From 8f24a0e29b5f4b18193742c9aecd960c6b6102ff Mon Sep 17 00:00:00 2001
+From 4bc21601224ea84152d9c3cc83eee33af8eb8cb2 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Sun, 9 Feb 2014 09:37:44 -0500
 Subject: [PATCH 04/12] LU-3319 procfs: fix symlink handling
@@ -24,7 +24,7 @@ Signed-off-by: James Simmons <uja.ornl@gmail.com>
  4 files changed, 91 insertions(+), 90 deletions(-)
 
 diff --git a/lustre/include/obd.h b/lustre/include/obd.h
-index c18052b..8fd2ce7 100644
+index ac80412..42266da 100644
 --- a/lustre/include/obd.h
 +++ b/lustre/include/obd.h
 @@ -183,13 +183,15 @@ struct obd_info {
@@ -59,10 +59,10 @@ index c18052b..8fd2ce7 100644
  	struct lprocfs_stats	*obd_svc_stats;
  	struct lprocfs_seq_vars	*obd_vars;
 diff --git a/lustre/lmv/lmv_obd.c b/lustre/lmv/lmv_obd.c
-index e0941c9..93db311 100644
+index ee5f3a7..66a9448 100644
 --- a/lustre/lmv/lmv_obd.c
 +++ b/lustre/lmv/lmv_obd.c
-@@ -242,9 +242,6 @@ static int lmv_connect(const struct lu_env *env,
+@@ -263,9 +263,6 @@ static int lmv_connect(const struct lu_env *env,
                         struct obd_uuid *cluuid, struct obd_connect_data *data,
                         void *localdata)
  {
@@ -72,7 +72,7 @@ index e0941c9..93db311 100644
          struct lmv_obd        *lmv = &obd->u.lmv;
          struct lustre_handle  conn = { 0 };
          int                    rc = 0;
-@@ -277,18 +274,15 @@ static int lmv_connect(const struct lu_env *env,
+@@ -298,18 +295,15 @@ static int lmv_connect(const struct lu_env *env,
                  lmv->conn_data = *data;
  
  #ifdef __KERNEL__
@@ -97,7 +97,7 @@ index e0941c9..93db311 100644
  	}
  #endif
  
-@@ -302,10 +296,8 @@ static int lmv_connect(const struct lu_env *env,
+@@ -323,10 +317,8 @@ static int lmv_connect(const struct lu_env *env,
                  rc = lmv_check_connect(obd);
  
  #ifdef __KERNEL__
@@ -110,7 +110,7 @@ index e0941c9..93db311 100644
  #endif
          RETURN(rc);
  }
-@@ -384,9 +376,6 @@ static int lmv_init_ea_size(struct obd_export *exp, int easize,
+@@ -405,9 +397,6 @@ static int lmv_init_ea_size(struct obd_export *exp, int easize,
  
  int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
  {
@@ -120,7 +120,7 @@ index e0941c9..93db311 100644
          struct lmv_obd          *lmv = &obd->u.lmv;
          struct obd_uuid         *cluuid = &lmv->cluuid;
          struct obd_uuid          lmv_mdc_uuid = { "LMV_MDC_UUID" };
-@@ -466,14 +455,13 @@ int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
+@@ -487,14 +476,13 @@ int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
                  cfs_atomic_read(&obd->obd_refcount));
  
  #ifdef __KERNEL__
@@ -137,7 +137,7 @@ index e0941c9..93db311 100644
  						  "../../../%s/%s",
  						  mdc_obd->obd_type->typ_name,
  						  mdc_obd->obd_name);
-@@ -482,8 +470,7 @@ int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
+@@ -503,8 +491,7 @@ int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
  			       "/proc/fs/lustre/%s/%s/target_obds/%s.",
  			       obd->obd_type->typ_name, obd->obd_name,
  			       mdc_obd->obd_name);
@@ -147,7 +147,7 @@ index e0941c9..93db311 100644
  		}
  	}
  #endif
-@@ -675,9 +662,6 @@ int lmv_check_connect(struct obd_device *obd)
+@@ -696,9 +683,6 @@ int lmv_check_connect(struct obd_device *obd)
  
  static int lmv_disconnect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
  {
@@ -157,7 +157,7 @@ index e0941c9..93db311 100644
          struct lmv_obd         *lmv = &obd->u.lmv;
          struct obd_device      *mdc_obd;
          int                     rc;
-@@ -695,9 +679,9 @@ static int lmv_disconnect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
+@@ -716,9 +700,9 @@ static int lmv_disconnect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
          }
  
  #ifdef __KERNEL__
@@ -170,7 +170,7 @@ index e0941c9..93db311 100644
  #endif
  	rc = obd_fid_fini(tgt->ltd_exp->exp_obd);
  	if (rc)
-@@ -747,8 +731,8 @@ static int lmv_disconnect(struct obd_export *exp)
+@@ -768,8 +752,8 @@ static int lmv_disconnect(struct obd_export *exp)
          }
  
  #ifdef __KERNEL__
@@ -331,7 +331,7 @@ index 286cd15..a3310fd 100644
          rc = class_disconnect(exp); /* bz 9811 */
          RETURN(rc);
 diff --git a/lustre/obdclass/genops.c b/lustre/obdclass/genops.c
-index c9d8a4e..a4a981c 100644
+index 20cd0a0..00bf342 100644
 --- a/lustre/obdclass/genops.c
 +++ b/lustre/obdclass/genops.c
 @@ -181,14 +181,15 @@ int class_register_type(struct obd_ops *dt_ops, struct md_ops *md_ops,

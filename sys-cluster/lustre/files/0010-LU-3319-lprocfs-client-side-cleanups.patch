@@ -1,4 +1,4 @@
-From cd81037fa6ecc7f6b36d3c49205a3d6f3e7aa0de Mon Sep 17 00:00:00 2001
+From 48d1258335516d5335567f11f5be91ceafbbac4e Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Tue, 21 Jan 2014 12:06:59 -0500
 Subject: [PATCH 10/12] LU-3319 lprocfs: client side cleanups
@@ -251,10 +251,10 @@ index 648b6e5..f818def 100644
  };
  #endif /* LPROCFS */
 diff --git a/lustre/obdclass/lprocfs_status.c b/lustre/obdclass/lprocfs_status.c
-index f9cb944..abe5d71 100644
+index 5b72a5a..551f629 100644
 --- a/lustre/obdclass/lprocfs_status.c
 +++ b/lustre/obdclass/lprocfs_status.c
-@@ -2581,7 +2581,6 @@ void lprocfs_init_ldlm_stats(struct lprocfs_stats *ldlm_stats)
+@@ -2583,7 +2583,6 @@ void lprocfs_init_ldlm_stats(struct lprocfs_stats *ldlm_stats)
  EXPORT_SYMBOL(lprocfs_init_ldlm_stats);
  
  #ifdef HAVE_SERVER_SUPPORT
@@ -395,7 +395,7 @@ index b9d1b71..f95fb55 100644
  
  static int osc_process_config(struct obd_device *obd, obd_count len, void *buf)
 diff --git a/lustre/ost/ost_handler.c b/lustre/ost/ost_handler.c
-index d4da00d..d20a30f 100644
+index a39381f..d5458b2 100644
 --- a/lustre/ost/ost_handler.c
 +++ b/lustre/ost/ost_handler.c
 @@ -75,7 +75,8 @@ static struct cfs_cpt_table	*ost_io_cptable;

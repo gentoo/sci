@@ -1,4 +1,4 @@
-From 82953bddbc3c7b9aa044d9eecc796bc12638f476 Mon Sep 17 00:00:00 2001
+From 2670599090a754d9fa8c7d952b530bc8fb88d56e Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Sun, 9 Feb 2014 11:08:45 -0500
 Subject: [PATCH 06/12] LU-3319 procfs: move lod proc handling to seq_files
@@ -17,10 +17,10 @@ Change-Id: Iaa0f617fcd430e91f12afbc0faf6906fd275a7a5
  4 files changed, 152 insertions(+), 146 deletions(-)
 
 diff --git a/lustre/lod/lod_dev.c b/lustre/lod/lod_dev.c
-index 02a1e1e..b0ad1fd 100644
+index a451462..8776aa3 100644
 --- a/lustre/lod/lod_dev.c
 +++ b/lustre/lod/lod_dev.c
-@@ -297,12 +297,10 @@ static int lod_process_config(const struct lu_env *env,
+@@ -289,12 +289,10 @@ static int lod_process_config(const struct lu_env *env,
  	}
  
  	case LCFG_PARAM: {
@@ -36,7 +36,7 @@ index 02a1e1e..b0ad1fd 100644
  		if (rc > 0)
  			rc = 0;
  		GOTO(out, rc);
-@@ -916,19 +914,16 @@ static struct obd_ops lod_obd_device_ops = {
+@@ -890,19 +888,16 @@ static struct obd_ops lod_obd_device_ops = {
  
  static int __init lod_mod_init(void)
  {
@@ -59,7 +59,7 @@ index 02a1e1e..b0ad1fd 100644
  #endif
  				LUSTRE_LOD_NAME, &lod_device_type);
  	if (rc) {
-@@ -937,23 +932,25 @@ static int __init lod_mod_init(void)
+@@ -911,23 +906,25 @@ static int __init lod_mod_init(void)
  	}
  
  	/* create "lov" entry in procfs for compatibility purposes */
@@ -96,10 +96,10 @@ index 02a1e1e..b0ad1fd 100644
  	lu_kmem_fini(lod_caches);
  }
 diff --git a/lustre/lod/lod_internal.h b/lustre/lod/lod_internal.h
-index 6d99ad5..9299a91 100644
+index 2a00890..65ba47a 100644
 --- a/lustre/lod/lod_internal.h
 +++ b/lustre/lod/lod_internal.h
-@@ -376,7 +376,6 @@ int qos_add_tgt(struct lod_device*, struct lod_tgt_desc *);
+@@ -431,7 +431,6 @@ int qos_add_tgt(struct lod_device*, struct lod_tgt_desc *);
  int qos_del_tgt(struct lod_device *, struct lod_tgt_desc *);
  
  /* lproc_lod.c */

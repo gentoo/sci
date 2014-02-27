@@ -1,4 +1,4 @@
-From 1013b4b997343de8530c4d4ef5380220d57f155a Mon Sep 17 00:00:00 2001
+From 9ab620dbc6aae86b9d39d97ba50912dc93b6e4e2 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Sun, 9 Feb 2014 11:04:31 -0500
 Subject: [PATCH 08/12] LU-3319 procfs: move mdt/mds proc handling to seq_files
@@ -461,10 +461,10 @@ index 037bcbd..9bbcbd4 100644
  	{ 0 }
  };
 diff --git a/lustre/mdt/mdt_handler.c b/lustre/mdt/mdt_handler.c
-index 064fef1..c850356 100644
+index 17b7605..2b08be9 100644
 --- a/lustre/mdt/mdt_handler.c
 +++ b/lustre/mdt/mdt_handler.c
-@@ -4539,7 +4539,6 @@ static int mdt_process_config(const struct lu_env *env,
+@@ -4584,7 +4584,6 @@ static int mdt_process_config(const struct lu_env *env,
  
  	switch (cfg->lcfg_command) {
  	case LCFG_PARAM: {
@@ -472,7 +472,7 @@ index 064fef1..c850356 100644
  		struct obd_device	   *obd = d->ld_obd;
  
  		/* For interoperability */
-@@ -4574,14 +4573,13 @@ static int mdt_process_config(const struct lu_env *env,
+@@ -4619,14 +4618,13 @@ static int mdt_process_config(const struct lu_env *env,
  			}
  		}
  
@@ -492,7 +492,7 @@ index 064fef1..c850356 100644
  			if (rc > 0 || rc == -ENOSYS)
  				/* we don't understand; pass it on */
  				rc = next->ld_ops->ldo_process_config(env, next,
-@@ -5762,7 +5760,6 @@ static struct lu_device_type mdt_device_type = {
+@@ -5825,7 +5823,6 @@ static struct lu_device_type mdt_device_type = {
  
  static int __init mdt_mod_init(void)
  {
@@ -500,7 +500,7 @@ index 064fef1..c850356 100644
  	int rc;
  
  	CLASSERT(sizeof("0x0123456789ABCDEF:0x01234567:0x01234567") ==
-@@ -5777,10 +5774,9 @@ static int __init mdt_mod_init(void)
+@@ -5840,10 +5837,9 @@ static int __init mdt_mod_init(void)
  	if (rc)
  		GOTO(lu_fini, rc);
  
@@ -578,10 +578,10 @@ index 1300861..3125dcc 100644
  	RETURN(rc);
  }
 diff --git a/lustre/mdt/mdt_internal.h b/lustre/mdt/mdt_internal.h
-index d548988..e30d78d 100644
+index c3d4f7f..7b0381a 100644
 --- a/lustre/mdt/mdt_internal.h
 +++ b/lustre/mdt/mdt_internal.h
-@@ -784,9 +784,6 @@ void mdt_thread_info_init(struct ptlrpc_request *req,
+@@ -787,9 +787,6 @@ void mdt_thread_info_init(struct ptlrpc_request *req,
  void mdt_thread_info_fini(struct mdt_thread_info *mti);
  struct mdt_thread_info *tsi2mdt_info(struct tgt_session_info *tsi);
  
@@ -591,7 +591,7 @@ index d548988..e30d78d 100644
  int mdt_hsm_attr_set(struct mdt_thread_info *info, struct mdt_object *obj,
  		     const struct md_hsm *mh);
  
-@@ -919,13 +916,12 @@ int mdt_hsm_cdt_fini(struct mdt_device *mdt);
+@@ -924,13 +921,12 @@ int mdt_hsm_cdt_fini(struct mdt_device *mdt);
  int mdt_hsm_cdt_wakeup(struct mdt_device *mdt);
  
  /* coordinator control /proc interface */
@@ -609,7 +609,7 @@ index d548988..e30d78d 100644
  /* md_hsm helpers */
  struct mdt_object *mdt_hsm_get_md_hsm(struct mdt_thread_info *mti,
  				      const struct lu_fid *fid,
-@@ -1065,8 +1061,6 @@ enum {
+@@ -1070,8 +1066,6 @@ enum {
  };
  void mdt_counter_incr(struct ptlrpc_request *req, int opcode);
  void mdt_stats_counter_init(struct lprocfs_stats *stats);

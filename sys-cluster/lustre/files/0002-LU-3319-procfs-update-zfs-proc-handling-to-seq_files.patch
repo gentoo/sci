@@ -1,4 +1,4 @@
-From c05c0be01814527d8d3762963c7a6d4c28189d2d Mon Sep 17 00:00:00 2001
+From 699242b35f07c7c64959dca02cc359d389c7f568 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Fri, 3 Jan 2014 09:55:26 -0500
 Subject: [PATCH 02/12] LU-3319 procfs: update zfs proc handling to seq_files
@@ -14,10 +14,10 @@ Change-Id: I6dc7e65c3e74e7934a17939815ec3c334fac58c7
  3 files changed, 57 insertions(+), 47 deletions(-)
 
 diff --git a/lustre/osd-zfs/osd_handler.c b/lustre/osd-zfs/osd_handler.c
-index d4193cd..36bf6a4 100644
+index 1025be9..c9bf49a 100644
 --- a/lustre/osd-zfs/osd_handler.c
 +++ b/lustre/osd-zfs/osd_handler.c
-@@ -745,6 +745,7 @@ static int osd_device_init(const struct lu_env *env, struct lu_device *d,
+@@ -748,6 +748,7 @@ static int osd_device_init(const struct lu_env *env, struct lu_device *d,
  static int osd_process_config(const struct lu_env *env,
  			      struct lu_device *d, struct lustre_cfg *cfg)
  {
@@ -25,7 +25,7 @@ index d4193cd..36bf6a4 100644
  	struct osd_device	*o = osd_dev(d);
  	int			rc;
  	ENTRY;
-@@ -758,12 +759,12 @@ static int osd_process_config(const struct lu_env *env,
+@@ -761,12 +762,12 @@ static int osd_process_config(const struct lu_env *env,
  		break;
  	case LCFG_PARAM: {
  		LASSERT(&o->od_dt_dev);
@@ -43,7 +43,7 @@ index d4193cd..36bf6a4 100644
  		break;
  	}
  	default:
-@@ -911,7 +912,7 @@ int __init osd_init(void)
+@@ -914,7 +915,7 @@ int __init osd_init(void)
  
  	rc = class_register_type(&osd_obd_device_ops, NULL, NULL,
  #ifndef HAVE_ONLY_PROCFS_SEQ
