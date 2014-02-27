@@ -29,7 +29,7 @@ IUSE="doc threads plplot"
 RDEPEND="
 	sci-libs/atlas[lapack,threads=]
 	sci-libs/fftw:3.0
-	plplot? ( sci-libs/plplot )"
+	plplot? ( sci-libs/plplot:= )"
 DEPEND="${RDEPEND}"
 
 src_prepare() {
