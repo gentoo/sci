@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
 	_SVN=subversion
@@ -14,7 +14,10 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit ${_SVN} autotools
+AUTOTOOLS_AUTORECONF=1
+AUTOTOOLS_IN_SOURCE_BUILD=1
+
+inherit ${_SVN} autotools-utils
 
 DESCRIPTION="Combine weight maps and polygon for astronomical images weighting"
 HOMEPAGE="http://www.astromatic.net/software/weightwatcher/"
@@ -26,11 +29,7 @@ IUSE="doc"
 RDEPEND=""
 DEPEND="${RDEPEND}"
 
-src_prepare() {
-	eautoreconf
-}
-
 src_install () {
-	default
+	autotools-utils_src_install
 	use doc && dodoc doc/*
 }
