@@ -16,7 +16,7 @@ ESVN_REPO_URI="svn://svn.code.sf.net/p/pymol/code/trunk/pymol"
 
 LICENSE="PSF-2.2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
+KEYWORDS=""
 IUSE="apbs web"
 
 DEPEND="

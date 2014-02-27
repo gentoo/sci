@@ -19,7 +19,7 @@ ESVN_PROJECT="${MY_PN}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="debug"
 
 S="${WORKDIR}/meshgen2d"

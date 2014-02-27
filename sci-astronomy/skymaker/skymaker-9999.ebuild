@@ -24,7 +24,6 @@ HOMEPAGE="http://www.astromatic.net/software/skymaker"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="threads"
 
 RDEPEND="sci-libs/fftw:3.0"

@@ -23,7 +23,7 @@ ESVN_REPO_URI="http://coot.googlecode.com/svn/trunk"
 
 SLOT="0"
 LICENSE="GPL-3"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
 IUSE="+openmp static-libs test"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
