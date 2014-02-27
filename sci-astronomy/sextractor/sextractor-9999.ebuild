@@ -16,7 +16,7 @@ fi
 
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
-inherit ${_SVN} autotools-utils
+inherit ${_SVN} autotools-utils multilib
 
 DESCRIPTION="Extract catalogs of sources from astronomical FITS images"
 HOMEPAGE="http://www.astromatic.net/software/sextractor"
