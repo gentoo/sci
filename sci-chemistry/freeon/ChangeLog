@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Feb 2014; Nicolas Bock <nicolasbock@gentoo.org> -freeon-1.0.4.ebuild,
+  -freeon-1.0.5.ebuild, -freeon-1.0.6.ebuild, -freeon-1.0.7.ebuild:
+  sci-chemistry/freeon: Removing old versions.
+
   28 Feb 2014; Nicolas Bock <nicolasbock@gentoo.org> freeon-9999.ebuild:
   sci-chemistry/freeon-9999: Change slotting to 0.
 
