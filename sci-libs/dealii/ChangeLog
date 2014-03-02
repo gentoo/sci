@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Mar 2014; Matthias Maier <tamiko+GENTOO@kyomu.43-1.org>
+  dealii-8.1.0.ebuild, dealii-9999.ebuild, metadata.xml:
+  Let version 8.0.0 and 8.1.0 depend on <sci-libs/p4est-0.3.5; provide
+  local USE description for suite use flag.
+
   04 Jan 2014; Justin Lecher <jlec@gentoo.org> dealii-9999.ebuild,
   metadata.xml:
   Add missing die; shorten DESCRIPTION; add dummy locel USE description; Fix

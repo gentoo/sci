@@ -4,26 +4,14 @@
 
 EAPI=5
 
-if [[ "${PV}" == "9999" ]] ; then
-	inherit cmake-utils eutils multilib subversion
-else
-	inherit cmake-utils eutils multilib
-fi
+inherit cmake-utils eutils multilib subversion
 
 DESCRIPTION="Solving partial differential equations with the finite element method"
 HOMEPAGE="http://www.dealii.org/"
 
-if [[ "${PV}" == "9999" ]] ; then
-	ESVN_REPO_URI="https://svn.dealii.org/trunk/deal.II"
-	ESVN_OPTIONS="--trust-server-cert --non-interactive"
-	KEYWORDS=""
-else
-	SRC_URI="
-		https://dealii.googlecode.com/files/deal.II-${PV}.tar.gz
-		doc? ( https://dealii.googlecode.com/files/deal.offlinedoc-${PV}.tar.gz )"
-	S="${WORKDIR}/deal.II"
-	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-fi
+ESVN_REPO_URI="https://svn.dealii.org/trunk/deal.II"
+ESVN_OPTIONS="--trust-server-cert --non-interactive"
+KEYWORDS=""
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
@@ -66,10 +54,8 @@ DEPEND="
 
 src_configure() {
 
-	if [[ ${PV} == "9999" ]] ; then
-		subversion_wc_info
-		local live_version="-DDEAL_II_PACKAGE_VERSION=99.99.svn${ESVN_WC_REVISION}"
-	fi
+	subversion_wc_info
+	local live_version="-DDEAL_II_PACKAGE_VERSION=99.99.svn${ESVN_WC_REVISION}"
 
 	if use debug; then
 		CMAKE_BUILD_TYPE="DebugRelease"
@@ -117,16 +103,6 @@ src_configure() {
 src_install() {
 	DOCS=( README )
 
-	if use doc; then
-		if [[ ${PV} != "9999" ]] ; then
-			# copy missing images to the build directory:
-			cp -r "${WORKDIR}"/doc/doxygen/deal.II/images "${BUILD_DIR}"/doc/doxygen/deal.II || die
-			# replace links:
-			sed -i \
-				's#"http://www.dealii.org/images/steps/developer/\(step-.*\)"#"images/\1"#g' \
-				"${BUILD_DIR}"/doc/doxygen/deal.II/step_*.html || die "sed failed"
-		fi
-	fi
 	cmake-utils_src_install
 
 	# unpack the installed example sources:
