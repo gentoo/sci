@@ -8,19 +8,19 @@ WANT_AUTOMAKE=1.11
 
 inherit autotools-utils toolchain-funcs eutils multilib
 
-DESCRIPTION="Scalable Algorithms for Parallel Adaptive Mesh Refinement on Forests of Octrees"
+DESCRIPTION="The SC Library provides support for parallel scientific applications."
 HOMEPAGE="http://www.p4est.org/"
-SRC_URI="http://p4est.org/tarball/p4est-${PV}.tar.gz"
-
+SRC_URI="https://github.com/cburstedde/libsc/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 
-LICENSE="GPL-2+"
+LICENSE="LGPL-2.1+"
 SLOT="0"
 
-IUSE="debug doc examples mpi romio static-libs +vtk-binary"
+IUSE="debug examples mpi romio static-libs"
 REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
+    !<sci-libs/p4est-0.3.5
 	dev-lang/lua
 	sys-apps/util-linux
 	virtual/blas
@@ -31,19 +31,28 @@ DEPEND="
     ${RDEPEND}
     virtual/pkgconfig"
 
-DOCS=(AUTHORS ChangeLog NEWS README)
+DOCS=(AUTHORS NEWS README)
 
-PATCHES=( "${FILESDIR}/${P}-libtool-fix.patch" )
-
-AT_M4DIR="${WORKDIR}/${P}/sc/config"
 AUTOTOOLS_AUTORECONF=true
+
+src_prepare() {
+	# Use libtool's -release option so that we end up with a valid SONAME
+	# and library version symlinks:
+	sed -i \
+		"s/^\(src_libsc_la_CPPFLAGS.*\)\$/\1\nsrc_libsc_la_LDFLAGS = -release ${PV}/" \
+		"${S}"/src/Makefile.am || die "sed failed"
+
+	# Inject a version number into the build system
+	echo "${PV}" > ${S}/.tarball-version
+
+	autotools-utils_src_prepare
+}
 
 src_configure() {
 	local myeconfargs=(
         $(use_enable debug)
 		$(use_enable mpi)
 		$(use_enable romio mpiio)
-		$(use_enable vtk-binary)
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
 		--with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)"
 	)
@@ -52,8 +61,6 @@ src_configure() {
 
 src_install() {
 	autotools-utils_src_install
-
-	use doc && dodoc -r doc/*
 
 	if use examples
 	then
@@ -66,8 +73,7 @@ src_install() {
 	fi
 
 	# Fix up some wrong installation paths:
-	dodir /usr/share/p4est
-	mv "${ED}"/usr/share/data "${ED}"/usr/share/p4est/data
-	mv "${ED}"/etc/* "${ED}"/usr/share/p4est
+	dodir /usr/share/libsc
+	mv "${ED}"/etc/* "${ED}"/usr/share/libsc
 	rmdir "${ED}"/etc/
 }

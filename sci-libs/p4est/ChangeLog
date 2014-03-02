@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/p4est
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*p4est-0.3.5 (02 Mar 2014)
+
+  02 Mar 2014; Matthias Maier <tamiko+GENTOO@kyomu.43-1.org>
+  -files/p4est-libtool-fix.patch, +files/p4est-0.3.4.2-libtool-fix.patch,
+  +files/p4est-0.3.5-add_missing_autotools_files.patch,
+  p4est-0.3.4.2.ebuild, +p4est-0.3.5.ebuild:
+  Bump to version 0.3.5, debundle libsc, correct sonaming.

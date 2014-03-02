@@ -10,7 +10,7 @@ inherit autotools-utils toolchain-funcs eutils multilib
 
 DESCRIPTION="Scalable Algorithms for Parallel Adaptive Mesh Refinement on Forests of Octrees"
 HOMEPAGE="http://www.p4est.org/"
-SRC_URI="http://p4est.org/tarball/p4est-${PV}.tar.gz"
+SRC_URI="https://github.com/cburstedde/p4est/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 
@@ -21,6 +21,7 @@ IUSE="debug doc examples mpi romio static-libs +vtk-binary"
 REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
+    sci-libs/libsc
 	dev-lang/lua
 	sys-apps/util-linux
 	virtual/blas
@@ -31,14 +32,31 @@ DEPEND="
     ${RDEPEND}
     virtual/pkgconfig"
 
-DOCS=(AUTHORS ChangeLog NEWS README)
+DOCS=( AUTHORS NEWS README )
 
-PATCHES=( "${FILESDIR}/${P}-libtool-fix.patch" )
+PATCHES=( "${FILESDIR}/${P}-add_missing_autotools_files.patch" )
 
-AT_M4DIR="${WORKDIR}/${P}/sc/config"
+AT_M4DIR="${WORKDIR}/${P}/config ${WORKDIR}/${P}/sc/config"
 AUTOTOOLS_AUTORECONF=true
 
+src_prepare() {
+	# Use libtool's -release option so that we end up with a valid SONAME
+	# and library version symlinks:
+	sed -i \
+		"s/^\(src_libp4est_la_CPPFLAGS.*\)\$/\1\nsrc_libp4est_la_LDFLAGS = -release ${PV}/" \
+		"${S}"/src/Makefile.am || die "sed failed"
+
+	# Inject a version number into the build system
+	echo "${PV}" > ${S}/.tarball-version
+
+	autotools-utils_src_prepare
+}
+
 src_configure() {
+	# Manually inject libsc.
+	# Somehow --with-sc=$EPREFIX/usr does not work...
+	LDFLAGS="${LDFLAGS} -lsc"
+
 	local myeconfargs=(
         $(use_enable debug)
 		$(use_enable mpi)
@@ -46,6 +64,7 @@ src_configure() {
 		$(use_enable vtk-binary)
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
 		--with-lapack="$($(tc-getPKG_CONFIG) --libs lapack)"
+		--without-sc
 	)
 	autotools-utils_src_configure
 }
