@@ -25,7 +25,7 @@
     <flag name="p4est">Add support for p4est (<pkg>sci-mathematics/p4est</pkg>)</flag>
     <flag name="parameter_gui">Build and install the parameter_gui executable</flag>
     <flag name="petsc">Add support for petsc (<pkg>sci-libs/petsc</pkg>)</flag>
-    <flag name="sparse">A nice USE flag</flag>
+	<flag name="sparse">Add support for suitesparse (<pkg>sci-libs/suitesparse</pkg>)</flag>
     <flag name="tbb">Add threading support with the help of the tbb library (<pkg>dev-cpp/tbb</pkg>)</flag>
     <flag name="trilinos">Add support for trilinos (<pkg>sci-libs/trilinos</pkg>)</flag>
   </use>
