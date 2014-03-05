@@ -154,7 +154,7 @@ src_configure() {
 		$(cmake-utils_use doc GMX_BUILD_MANUAL)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_SIMD="$acce"
-		-DGMXLIB="$(get_libdir)"
+		-DGMX_LIB_INSTALL_DIR="$(get_libdir)"
 		-DGMX_VMD_PLUGIN_PATH="${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/"
 		-DGMX_PREFIX_LIBMD=ON
 		-DGMX_X86_AVX_GCC_MASKLOAD_BUG=OFF
