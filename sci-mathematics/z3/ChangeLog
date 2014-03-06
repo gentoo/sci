@@ -5,6 +5,9 @@
   06 Mar 2014; Justin Lecher <jlec@gentoo.org> z3-9999.ebuild:
   Adopt to recent changes in git-r3.eclass
 
+  06 Mar 2014; Justin Lecher <jlec@gentoo.org> z3-9999.ebuild:
+  Adopt to recent changes in git-r3.eclass
+
   02 Dec 2013; Justin Lecher <jlec@gentoo.org> z3-4.3.1.ebuild, z3-9999.ebuild,
   +metadata.xml:
   Make build verbose; respect CXX, CXXFLAGS, LDFLAGS; use EPYTHON instead of a

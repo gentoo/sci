@@ -12,6 +12,7 @@ DESCRIPTION="An efficient theorem prover"
 HOMEPAGE="http://z3.codeplex.com/"
 SRC_URI=""
 EGIT_REPO_URI="https://git01.codeplex.com/z3"
+EGIT_MIN_CLONE_TYPE=single
 
 SLOT="0"
 LICENSE="MSR-LA"
