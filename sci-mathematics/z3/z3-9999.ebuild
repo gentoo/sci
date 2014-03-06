@@ -27,8 +27,6 @@ RDEPEND="${PYTHON_DEPS}
 DEPEND="${RDEPEND}
 	>=net-misc/curl-7.33"
 
-EGIT_NONSHALLOW=1
-
 pkg_setup() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
 		if [[ $(tc-getCXX)$ == *g++* ]] && ! tc-has-openmp; then
