@@ -17,7 +17,18 @@ SRC_URI="http://downloads.sourceforge.net/project/${PN}/${PN}/${PN}-${MY_PV}/${P
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
+IUSE="openmp"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
+
+PATCHES=( "${FILESDIR}/${PN}-openmp.patch" )
+
+src_configure() {
+	local myconf=$(use_enable openmp)
+	econf ${myconf}
+}
+
+src_compile() {
+	emake
+}
