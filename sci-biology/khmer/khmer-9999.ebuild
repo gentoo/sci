@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1 git-r3
+inherit distutils git-r3
 
 DESCRIPTION="In-memory K-mer counting in DNA/RNA/protein sequences"
 HOMEPAGE="https://github.com/ged-lab/khmer"
