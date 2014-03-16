@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/samstat
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*samstat-20130708 (16 Mar 2014)
+
+  16 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +samstat-20130708.ebuild:
+  sci-biology/samstat: new package
