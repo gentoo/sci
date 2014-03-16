@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/khmer
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*khmer-9999 (16 Mar 2014)
+
+  16 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +khmer-9999.ebuild,
+  +metadata.xml:
+  sci-biology/khmer: new package
