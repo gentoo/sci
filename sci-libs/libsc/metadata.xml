@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<maintainer>
+  <email>tamiko+GENTOO@kyomu.43-1.org</email>
+  <name>Matthias Maier</name>
+</maintainer>
+<longdescription lang="en">
+  The SC Library provides support for parallel scientific applications.
+  This support library is primarily used by the p4est library.
+</longdescription>
+<use>
+</use>
+</pkgmetadata>

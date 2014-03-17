@@ -1,4 +1,4 @@
-From 9ade0a01cf77e4ec0cbe26cd38c9c32d727fa74e Mon Sep 17 00:00:00 2001
+From 95cacafafbc5bc0ec28bbf7898df28bb0f0295e6 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Tue, 24 Sep 2013 12:29:47 -0400
 Subject: [PATCH 12/12] LU-3974 llite: invalidatepage api changed

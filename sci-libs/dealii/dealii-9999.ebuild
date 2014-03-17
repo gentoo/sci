@@ -4,33 +4,21 @@
 
 EAPI=5
 
-if [[ "${PV}" == "9999" ]] ; then
-	inherit cmake-utils eutils multilib subversion
-else
-	inherit cmake-utils eutils multilib
-fi
+inherit cmake-utils eutils multilib subversion
 
 DESCRIPTION="Solving partial differential equations with the finite element method"
 HOMEPAGE="http://www.dealii.org/"
 
-if [[ "${PV}" == "9999" ]] ; then
-	ESVN_REPO_URI="https://svn.dealii.org/trunk/deal.II"
-	ESVN_OPTIONS="--trust-server-cert --non-interactive"
-	KEYWORDS=""
-else
-	SRC_URI="
-		https://dealii.googlecode.com/files/deal.II-${PV}.tar.gz
-		doc? ( https://dealii.googlecode.com/files/deal.offlinedoc-${PV}.tar.gz )"
-	S="${WORKDIR}/deal.II"
-	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-fi
+ESVN_REPO_URI="https://svn.dealii.org/trunk/deal.II"
+ESVN_OPTIONS="--trust-server-cert --non-interactive"
+KEYWORDS=""
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
-	arpack avx +debug doc +examples hdf5 +lapack mesh_converter metis mpi
-	mumps netcdf p4est parameter_gui petsc +sparse sse2 static-libs +tbb
-	trilinos +zlib
+	arpack avx c++11 +debug doc +examples hdf5 +lapack mesh_converter metis
+	mpi mumps muparser netcdf p4est parameter_gui petsc +sparse sse2
+	static-libs +tbb trilinos +zlib
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
@@ -48,6 +36,7 @@ RDEPEND="
 	metis? ( >=sci-libs/parmetis-4 )
 	mpi? ( virtual/mpi )
 	mumps? ( sci-libs/mumps[mpi] )
+	muparser? ( dev-cpp/muParser )
 	netcdf? ( || ( <sci-libs/netcdf-4.2[cxx] sci-libs/netcdf-cxx ) )
 	p4est? ( sci-libs/p4est[mpi] )
 	parameter_gui? ( dev-qt/qtgui )
@@ -66,10 +55,7 @@ DEPEND="
 
 src_configure() {
 
-	if [[ ${PV} == "9999" ]] ; then
-		subversion_wc_info
-		local live_version="-DDEAL_II_PACKAGE_VERSION=99.99.svn${ESVN_WC_REVISION}"
-	fi
+	subversion_wc_info
 
 	if use debug; then
 		CMAKE_BUILD_TYPE="DebugRelease"
@@ -78,7 +64,7 @@ src_configure() {
 	fi
 
 	local mycmakeargs=(
-		${live_version}
+		-DDEAL_II_PACKAGE_VERSION=99.99.svn${ESVN_WC_REVISION}
 		-DDEAL_II_ALLOW_AUTODETECTION=OFF
 		-DDEAL_II_ALLOW_BUNDLED=OFF
 		-DDEAL_II_ALLOW_PLATFORM_INTROSPECTION=OFF
@@ -91,6 +77,7 @@ src_configure() {
 		-DDEAL_II_LIBRARY_RELDIR=$(get_libdir)
 		$(cmake-utils_use arpack DEAL_II_WITH_ARPACK)
 		$(cmake-utils_use avx DEAL_II_HAVE_AVX)
+		$(cmake-utils_use c++11 DEAL_II_WITH_CXX11)
 		$(cmake-utils_use doc DEAL_II_COMPONENT_DOCUMENTATION)
 		$(cmake-utils_use examples DEAL_II_COMPONENT_EXAMPLES)
 		$(cmake-utils_use hdf5 DEAL_II_WITH_HDF5)
@@ -99,6 +86,7 @@ src_configure() {
 		$(cmake-utils_use metis DEAL_II_WITH_METIS)
 		$(cmake-utils_use mpi DEAL_II_WITH_MPI)
 		$(cmake-utils_use mumps DEAL_II_WITH_MUMPS)
+		$(cmake-utils_use muparser DEAL_II_WITH_MUPARSER)
 		$(cmake-utils_use netcdf DEAL_II_WITH_NETCDF)
 		$(cmake-utils_use p4est DEAL_II_WITH_P4EST)
 		$(cmake-utils_use parameter_gui DEAL_II_COMPONENT_PARAMETER_GUI)
@@ -117,16 +105,6 @@ src_configure() {
 src_install() {
 	DOCS=( README )
 
-	if use doc; then
-		if [[ ${PV} != "9999" ]] ; then
-			# copy missing images to the build directory:
-			cp -r "${WORKDIR}"/doc/doxygen/deal.II/images "${BUILD_DIR}"/doc/doxygen/deal.II || die
-			# replace links:
-			sed -i \
-				's#"http://www.dealii.org/images/steps/developer/\(step-.*\)"#"images/\1"#g' \
-				"${BUILD_DIR}"/doc/doxygen/deal.II/step_*.html || die "sed failed"
-		fi
-	fi
 	cmake-utils_src_install
 
 	# unpack the installed example sources:

@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/phenix-bin
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Feb 2014; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.4.1496.ebuild:
+  Fix prefix problems
 
 *phenix-bin-1.8.4.1496 (09 Oct 2013)
 

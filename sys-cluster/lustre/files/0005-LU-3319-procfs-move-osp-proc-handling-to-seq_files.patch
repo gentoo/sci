@@ -1,4 +1,4 @@
-From cfafe91ff9caf648f144c1a162112b7d1485aae4 Mon Sep 17 00:00:00 2001
+From e9786df9c5618c2cff7d81088548fefee874468a Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Sun, 9 Feb 2014 17:10:18 -0500
 Subject: [PATCH 05/12] LU-3319 procfs: move osp proc handling to seq_files
@@ -624,10 +624,10 @@ index 75ebeb1..1ec40fc 100644
  }
  
 diff --git a/lustre/osp/lwp_dev.c b/lustre/osp/lwp_dev.c
-index 9560504..d6ae965 100644
+index dc4f978..b6e84e1 100644
 --- a/lustre/osp/lwp_dev.c
 +++ b/lustre/osp/lwp_dev.c
-@@ -186,25 +186,13 @@ const struct lu_device_operations lwp_lu_ops = {
+@@ -184,25 +184,13 @@ const struct lu_device_operations lwp_lu_ops = {
  	.ldo_process_config	= lwp_process_config,
  };
  
@@ -654,7 +654,7 @@ index 9560504..d6ae965 100644
  	int			   rc;
  	ENTRY;
  
-@@ -233,8 +221,8 @@ int lwp_init0(const struct lu_env *env, struct lwp_device *lwp,
+@@ -231,8 +219,8 @@ int lwp_init0(const struct lu_env *env, struct lwp_device *lwp,
  		RETURN(rc);
  	}
  
@@ -666,10 +666,10 @@ index 9560504..d6ae965 100644
  
  	RETURN(0);
 diff --git a/lustre/osp/osp_dev.c b/lustre/osp/osp_dev.c
-index 5828d88..7d45fa1 100644
+index a8d75ea..336b9f0 100644
 --- a/lustre/osp/osp_dev.c
 +++ b/lustre/osp/osp_dev.c
-@@ -371,7 +371,7 @@ static int osp_process_config(const struct lu_env *env,
+@@ -366,7 +366,7 @@ static int osp_process_config(const struct lu_env *env,
  			      struct lu_device *dev, struct lustre_cfg *lcfg)
  {
  	struct osp_device		*d = lu2osp_dev(dev);
@@ -678,7 +678,7 @@ index 5828d88..7d45fa1 100644
  	int				 rc;
  
  	ENTRY;
-@@ -385,11 +385,9 @@ static int osp_process_config(const struct lu_env *env,
+@@ -380,11 +380,9 @@ static int osp_process_config(const struct lu_env *env,
  		rc = osp_shutdown(env, d);
  		break;
  	case LCFG_PARAM:
@@ -693,7 +693,7 @@ index 5828d88..7d45fa1 100644
  		if (rc > 0)
  			rc = 0;
  		if (rc == -ENOSYS) {
-@@ -842,6 +840,9 @@ static struct lu_device *osp_device_fini(const struct lu_env *env,
+@@ -844,6 +842,9 @@ static struct lu_device *osp_device_fini(const struct lu_env *env,
  			OBD_FREE_PTR(cli->cl_rpc_lock);
  			cli->cl_rpc_lock = NULL;
  		}
@@ -703,7 +703,7 @@ index 5828d88..7d45fa1 100644
  	}
  
  	rc = client_obd_cleanup(m->opd_obd);
-@@ -1220,33 +1221,26 @@ struct llog_operations osp_mds_ost_orig_logops;
+@@ -1233,33 +1234,26 @@ struct llog_operations osp_mds_ost_orig_logops;
  
  static int __init osp_mod_init(void)
  {
@@ -741,7 +741,7 @@ index 5828d88..7d45fa1 100644
  #endif
  				LUSTRE_LWP_NAME, &lwp_device_type);
  	if (rc != 0) {
-@@ -1260,21 +1254,23 @@ static int __init osp_mod_init(void)
+@@ -1273,21 +1267,23 @@ static int __init osp_mod_init(void)
  	osp_mds_ost_orig_logops.lop_add = llog_cat_add_rec;
  	osp_mds_ost_orig_logops.lop_declare_add = llog_cat_declare_add_rec;
  
@@ -775,10 +775,10 @@ index 5828d88..7d45fa1 100644
  	class_unregister_type(LUSTRE_OSP_NAME);
  	lu_kmem_fini(osp_caches);
 diff --git a/lustre/osp/osp_internal.h b/lustre/osp/osp_internal.h
-index 0871d8d..0cc608b 100644
+index 2af16c0..84eca11 100644
 --- a/lustre/osp/osp_internal.h
 +++ b/lustre/osp/osp_internal.h
-@@ -433,7 +433,6 @@ int osp_write_last_oid_seq_files(struct lu_env *env, struct osp_device *osp,
+@@ -526,7 +526,6 @@ int osp_write_last_oid_seq_files(struct lu_env *env, struct osp_device *osp,
  int osp_init_pre_fid(struct osp_device *osp);
  
  /* lproc_osp.c */
@@ -786,7 +786,7 @@ index 0871d8d..0cc608b 100644
  void osp_lprocfs_init(struct osp_device *osp);
  
  /* osp_sync.c */
-@@ -447,7 +446,6 @@ int osp_sync_fini(struct osp_device *d);
+@@ -540,7 +539,6 @@ int osp_sync_fini(struct osp_device *d);
  void __osp_sync_check_for_work(struct osp_device *d);
  
  /* lwp_dev.c */

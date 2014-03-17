@@ -18,7 +18,7 @@ EGIT_REPO_URI="git://github.com/mdp-toolkit/mdp-toolkit.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 DEPEND=""

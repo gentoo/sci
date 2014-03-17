@@ -24,7 +24,7 @@ HOMEPAGE="http://www.votca.org"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
+KEYWORDS=""
 
 RDEPEND="=sci-libs/votca-tools-${PV}
 	gromacs? ( sci-chemistry/gromacs:= )

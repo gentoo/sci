@@ -1,6 +1,9 @@
 # ChangeLog for sci-astronomy/swarp
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-astronomy/swarp/ChangeLog,v 1.6 2011/08/04 18:33:44 bicatali Exp $
+
+  27 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> swarp-9999.ebuild:
+  sci-astronomy/swarp: EAPI-5, autotools-utils
 
 *swarp-9999 (04 Jul 2012)
 

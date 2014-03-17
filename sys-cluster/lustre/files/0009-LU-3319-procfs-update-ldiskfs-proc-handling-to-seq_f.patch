@@ -1,4 +1,4 @@
-From adf3be9fe382564c4760b83a5843b7d5502bbe48 Mon Sep 17 00:00:00 2001
+From 98a6eee60a100d445d7533eeba907e4e75c36f18 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Sun, 9 Feb 2014 10:45:37 -0500
 Subject: [PATCH 09/12] LU-3319 procfs: update ldiskfs proc handling to
@@ -19,10 +19,10 @@ Change-Id: Ia296a4682e2feda02bcfbe0100de8a89404cd731
  5 files changed, 220 insertions(+), 217 deletions(-)
 
 diff --git a/lustre/osd-ldiskfs/osd_compat.c b/lustre/osd-ldiskfs/osd_compat.c
-index b4a018c..6ca1304 100644
+index e693e8d..3fb6783 100644
 --- a/lustre/osd-ldiskfs/osd_compat.c
 +++ b/lustre/osd-ldiskfs/osd_compat.c
-@@ -1168,7 +1168,7 @@ int osd_obj_spec_update(struct osd_thread_info *info, struct osd_device *osd,
+@@ -1164,7 +1164,7 @@ int osd_obj_spec_update(struct osd_thread_info *info, struct osd_device *osd,
  			handle_t *th)
  {
  	struct dentry	*root;
@@ -31,7 +31,7 @@ index b4a018c..6ca1304 100644
  	int		 rc;
  	ENTRY;
  
-@@ -1189,7 +1189,7 @@ int osd_obj_spec_insert(struct osd_thread_info *info, struct osd_device *osd,
+@@ -1185,7 +1185,7 @@ int osd_obj_spec_insert(struct osd_thread_info *info, struct osd_device *osd,
  			handle_t *th)
  {
  	struct dentry	*root;
@@ -40,7 +40,7 @@ index b4a018c..6ca1304 100644
  	int		 rc;
  	ENTRY;
  
-@@ -1211,7 +1211,7 @@ int osd_obj_spec_lookup(struct osd_thread_info *info, struct osd_device *osd,
+@@ -1207,7 +1207,7 @@ int osd_obj_spec_lookup(struct osd_thread_info *info, struct osd_device *osd,
  	struct dentry	*root;
  	struct dentry	*dentry;
  	struct inode	*inode;
@@ -50,10 +50,10 @@ index b4a018c..6ca1304 100644
  	ENTRY;
  
 diff --git a/lustre/osd-ldiskfs/osd_handler.c b/lustre/osd-ldiskfs/osd_handler.c
-index 9027533..dfaa542 100644
+index 4e1ec4a..1d9a2ba 100644
 --- a/lustre/osd-ldiskfs/osd_handler.c
 +++ b/lustre/osd-ldiskfs/osd_handler.c
-@@ -5814,6 +5814,7 @@ static struct lu_device *osd_device_free(const struct lu_env *env,
+@@ -5824,6 +5824,7 @@ static struct lu_device *osd_device_free(const struct lu_env *env,
  static int osd_process_config(const struct lu_env *env,
                                struct lu_device *d, struct lustre_cfg *cfg)
  {
@@ -61,7 +61,7 @@ index 9027533..dfaa542 100644
  	struct osd_device		*o = osd_dev(d);
  	int				rc;
  	ENTRY;
-@@ -5828,12 +5829,12 @@ static int osd_process_config(const struct lu_env *env,
+@@ -5838,12 +5839,12 @@ static int osd_process_config(const struct lu_env *env,
  		break;
  	case LCFG_PARAM:
  		LASSERT(&o->od_dt_dev);
@@ -79,7 +79,7 @@ index 9027533..dfaa542 100644
  		break;
  	default:
  		rc = -ENOSYS;
-@@ -5981,9 +5982,10 @@ static int __init osd_mod_init(void)
+@@ -5991,9 +5992,10 @@ static int __init osd_mod_init(void)
  	if (rc)
  		return rc;
  
@@ -93,10 +93,10 @@ index 9027533..dfaa542 100644
  				LUSTRE_OSD_LDISKFS_NAME, &osd_device_type);
  	if (rc)
 diff --git a/lustre/osd-ldiskfs/osd_internal.h b/lustre/osd-ldiskfs/osd_internal.h
-index 8436d1f..c90147f 100644
+index dc52885..7d54162 100644
 --- a/lustre/osd-ldiskfs/osd_internal.h
 +++ b/lustre/osd-ldiskfs/osd_internal.h
-@@ -623,8 +623,8 @@ static inline int __osd_xattr_set(struct osd_thread_info *info,
+@@ -616,8 +616,8 @@ static inline int __osd_xattr_set(struct osd_thread_info *info,
  
  #ifdef LPROCFS
  /* osd_lproc.c */
@@ -107,7 +107,7 @@ index 8436d1f..c90147f 100644
  int osd_procfs_init(struct osd_device *osd, const char *name);
  int osd_procfs_fini(struct osd_device *osd);
  void osd_brw_stats_update(struct osd_device *osd, struct osd_iobuf *iobuf);
-@@ -679,7 +679,7 @@ int osd_oii_insert(struct osd_device *dev, struct osd_idmap_cache *oic,
+@@ -672,7 +672,7 @@ int osd_oii_insert(struct osd_device *dev, struct osd_idmap_cache *oic,
  		   int insert);
  int osd_oii_lookup(struct osd_device *dev, const struct lu_fid *fid,
  		   struct osd_inode_id *id);
@@ -602,10 +602,10 @@ index b9b4e3d..947a4b9 100644
 +}
  #endif
 diff --git a/lustre/osd-ldiskfs/osd_scrub.c b/lustre/osd-ldiskfs/osd_scrub.c
-index cce33af..1002913 100644
+index e558163..b5b91c8 100644
 --- a/lustre/osd-ldiskfs/osd_scrub.c
 +++ b/lustre/osd-ldiskfs/osd_scrub.c
-@@ -2578,80 +2578,69 @@ static const char *scrub_param_names[] = {
+@@ -2551,80 +2551,69 @@ static const char *scrub_param_names[] = {
  	NULL
  };
  
@@ -700,7 +700,7 @@ index cce33af..1002913 100644
  		      "name: OI_scrub\n"
  		      "magic: 0x%x\n"
  		      "oi_files: %d\n"
-@@ -2661,51 +2650,48 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
+@@ -2634,51 +2623,48 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
  	if (rc <= 0)
  		goto out;
  
@@ -761,7 +761,7 @@ index cce33af..1002913 100644
  		      "updated: "LPU64"\n"
  		      "failed: "LPU64"\n"
  		      "prior_updated: "LPU64"\n"
-@@ -2718,8 +2704,6 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
+@@ -2691,8 +2677,6 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
  	if (rc <= 0)
  		goto out;
  
@@ -770,7 +770,7 @@ index cce33af..1002913 100644
  	speed = checked;
  	if (thread_is_running(&scrub->os_thread)) {
  		cfs_duration_t duration = cfs_time_current() -
-@@ -2732,8 +2716,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
+@@ -2705,8 +2689,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
  			do_div(new_checked, duration);
  		if (rtime != 0)
  			do_div(speed, rtime);
@@ -780,7 +780,7 @@ index cce33af..1002913 100644
  			      "average_speed: "LPU64" objects/sec\n"
  			      "real-time_speed: "LPU64" objects/sec\n"
  			      "current_position: %u\n"
-@@ -2746,8 +2729,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
+@@ -2719,8 +2702,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
  	} else {
  		if (sf->sf_run_time != 0)
  			do_div(speed, sf->sf_run_time);
@@ -790,7 +790,7 @@ index cce33af..1002913 100644
  			      "average_speed: "LPU64" objects/sec\n"
  			      "real-time_speed: N/A\n"
  			      "current_position: N/A\n"
-@@ -2759,10 +2741,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
+@@ -2732,10 +2714,7 @@ int osd_scrub_dump(struct osd_device *dev, char *buf, int len)
  	}
  	if (rc <= 0)
  		goto out;

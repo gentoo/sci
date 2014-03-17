@@ -13,7 +13,8 @@ EGIT_REPO_URI="git://github.com/JuliaLang/openlibm.git"
 
 LICENSE="MIT freedist public-domain BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
+
 IUSE="static-libs"
 
 src_prepare() {

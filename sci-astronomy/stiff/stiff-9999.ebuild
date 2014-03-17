@@ -14,7 +14,8 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-AUTOTOOLS_AUTORECONF=true
+AUTOTOOLS_AUTORECONF=1
+AUTOTOOLS_IN_SOURCE_BUILD=1
 
 inherit ${_SVN} autotools-utils
 

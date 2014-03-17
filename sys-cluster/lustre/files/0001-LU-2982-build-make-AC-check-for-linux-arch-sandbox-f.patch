@@ -1,4 +1,4 @@
-From 247c87f4a981fd26bfaf219930193b1a35865736 Mon Sep 17 00:00:00 2001
+From f384f155612fb8b3fa6a12c4c969e29629f82027 Mon Sep 17 00:00:00 2001
 From: Alexey Shvetsov <alexxy@gentoo.org>
 Date: Mon, 18 Mar 2013 16:22:27 +0400
 Subject: [PATCH 01/12] LU-2982 build: make AC check for linux arch sandbox

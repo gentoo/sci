@@ -1,6 +1,10 @@
 # ChangeLog for sci-astronomy/skymaker
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  27 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> -Manifest,
+  -files/skymaker-configure.patch, -skymaker-3.3.3.ebuild, skymaker-9999.ebuild:
+  sci-astronomy/skymaker: EAPI-5, autotools-utils
 
 *skymaker-9999 (04 Jul 2012)
 
@@ -23,4 +27,3 @@
 
   20 Apr 2007; Sébastien Fabbro <bicatali@gentoo.org> ChangeLog:
   Initial import
-

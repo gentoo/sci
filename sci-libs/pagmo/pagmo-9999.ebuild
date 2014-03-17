@@ -15,7 +15,7 @@ EGIT_REPO_URI="git://pagmo.git.sourceforge.net/gitroot/pagmo/pagmo"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="gsl kepler mpi nlopt python test"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"

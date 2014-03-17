@@ -33,7 +33,7 @@ DEPEND="
 
 DOCS=(AUTHORS ChangeLog NEWS README)
 
-PATCHES=( "${FILESDIR}/${PN}-libtool-fix.patch" )
+PATCHES=( "${FILESDIR}/${P}-libtool-fix.patch" )
 
 AT_M4DIR="${WORKDIR}/${P}/sc/config"
 AUTOTOOLS_AUTORECONF=true
@@ -65,7 +65,7 @@ src_install() {
 		rm -r "${ED}"/usr/bin || die "rm failed"
 	fi
 
-	# Fix up some wrong installation pathes:
+	# Fix up some wrong installation paths:
 	dodir /usr/share/p4est
 	mv "${ED}"/usr/share/data "${ED}"/usr/share/p4est/data
 	mv "${ED}"/etc/* "${ED}"/usr/share/p4est

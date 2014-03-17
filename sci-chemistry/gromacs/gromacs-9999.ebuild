@@ -32,7 +32,7 @@ HOMEPAGE="http://www.gromacs.org/"
 #        base,    vmd plugins, fftpack from numpy,  blas/lapck from netlib,        memtestG80 library,  mpi_thread lib
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
 SLOT="0/${PV}"
-KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
+KEYWORDS=""
 IUSE="X blas cuda +doc -double-precision +fftw gsl lapack mkl mpi +offensive openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
@@ -153,8 +153,8 @@ src_configure() {
 		$(cmake-utils_use offensive GMX_COOL_QUOTES)
 		$(cmake-utils_use doc GMX_BUILD_MANUAL)
 		-DGMX_DEFAULT_SUFFIX=off
-		-DGMX_ACCELERATION="$acce"
-		-DGMXLIB="$(get_libdir)"
+		-DGMX_SIMD="$acce"
+		-DGMX_LIB_INSTALL_DIR="$(get_libdir)"
 		-DGMX_VMD_PLUGIN_PATH="${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/"
 		-DGMX_PREFIX_LIBMD=ON
 		-DGMX_X86_AVX_GCC_MASKLOAD_BUG=OFF
