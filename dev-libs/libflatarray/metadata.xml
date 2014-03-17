@@ -13,7 +13,7 @@
   </maintainer>
   <use>
     <flag name="cuda">
-	  Enables plugins for NVIDIA GPUs (e.g. CUDASimulator and CUDAStepper)
+	  Enables plugins for NVIDIA GPUs (e.g. CUDAAllocator)
     </flag>
   </use>
 </pkgmetadata>
