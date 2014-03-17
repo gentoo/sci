@@ -1,6 +1,9 @@
 # ChangeLog for sci-astronomy/astrometry
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  17 Mar 2014; Joseph Jon Booker <joe@neoturbine.net> astrometry-0.43.ebuild:
+  Use python-single-r1 and fix typo for USE=extra
 
   14 Jun 2013; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml:
   sci-astronomy/astrometry: Added extra use flag to plot
