@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*khmer-0.8 (18 Mar 2014)
+
+  18 Mar 2014; Justin Lecher <jlec@gentoo.org> +khmer-0.8.ebuild,
+  khmer-9999.ebuild:
+  Unbundle zlib and bzpi2; bump to disturils-r1; respect CFLAGS
+
   16 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> khmer-9999.ebuild:
   sci-biology/khmer: revert to distutils to obey sandbox violation
 
