@@ -31,6 +31,7 @@ python_prepare_all(){
 
 	sed \
 		-e "/extra_objects/d" \
+		-e "s:'nose >= 1.0', ::g" \
 		-e '/libraries/s:, ]:, "z", "bz2", ]:g' \
 		-e "s:'-O3',::g" \
 		-i setup.py || die
