@@ -5,7 +5,7 @@
 EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
-	_SVN=subversion
+	inherit subversion
 	ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
 	SRC_URI=""
 	KEYWORDS=""
@@ -17,7 +17,7 @@ fi
 AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
-inherit ${_SVN} autotools-utils multilib
+inherit autotools-utils multilib
 
 DESCRIPTION="Extracts models of the Point Spread Function from FITS images"
 HOMEPAGE="http://www.astromatic.net/software/psfex"
