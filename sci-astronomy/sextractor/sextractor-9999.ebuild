@@ -5,7 +5,7 @@
 EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
-	_SVN=subversion
+	inherit subversion
 	ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
 	SRC_URI=""
 	KEYWORDS=""
@@ -16,7 +16,7 @@ fi
 
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
-inherit ${_SVN} autotools-utils multilib
+inherit autotools-utils multilib
 
 DESCRIPTION="Extract catalogs of sources from astronomical FITS images"
 HOMEPAGE="http://www.astromatic.net/software/sextractor"
@@ -69,5 +69,5 @@ src_install () {
 
 pkg_postinst() {
 	elog "SExtractor examples configuration files are located in"
-	elog "${EROOT}/${CONFDIR} and are not loaded anymore by default."
+	elog "${EROOT%/}/${CONFDIR} and are not loaded anymore by default."
 }
