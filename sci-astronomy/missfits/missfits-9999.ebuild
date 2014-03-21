@@ -5,17 +5,17 @@
 EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
-	_SVN=subversion
+	inherit subversion
 	ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
 	SRC_URI=""
 	KEYWORDS=""
+	AUTOTOOLS_AUTORECONF=1
 else
 	SRC_URI="http://www.astromatic.net/download/${PN}/${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-AUTOTOOLS_AUTORECONF=1
-inherit ${_SVN} autotools-utils
+inherit autotools-utils
 
 DESCRIPTION="Performs basic maintenance and packaging tasks on FITS files"
 HOMEPAGE="http://www.astromatic.net/software/missfits/"
