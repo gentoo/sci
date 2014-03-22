@@ -2,10 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  22 Mar 2014; <olifre@gentoo.org> genfit-02.00.00.ebuild:
-  Use zip'ed snapshot instead of tag from repository. 
+  22 Mar 2014; <o.freyermuth@googlemail.com> genfit-02.00.00.ebuild:
+  Fix incorrect working directory (adapt to zipped file)
 
-  22 Mar 2014; <olifre@gentoo.org> genfit-02.00.00.ebuild:
+  22 Mar 2014; <o.freyermuth@googlemail.com> genfit-02.00.00.ebuild:
   Use zip'ed snapshot instead of tag from repository. 
 
   22 Mar 2014; <o.freyermuth@googlemail.com> genfit-02.00.00.ebuild, metadata.xml:

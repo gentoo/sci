@@ -9,9 +9,11 @@ inherit cmake-utils versionator
 #ESVN_REPO_URI="https://svn.code.sf.net/p/${PN}/code/tags/v$(replace_all_version_separators '-')"
 #ESVN_PROJECT="${PN}.${PV}"
 
+TAG_VER=${PN}-code-1688-tags-v$(replace_all_version_separators '-')
+
 DESCRIPTION="a generic toolkit for track reconstruction for experiments in particle and nuclear physics"
 HOMEPAGE="http://genfit.sourceforge.net/Main.html"
-SRC_URI="http://sourceforge.net/code-snapshots/svn/g/ge/genfit/code/genfit-code-1688-tags-v$(replace_all_version_separators '-').zip"
+SRC_URI="http://sourceforge.net/code-snapshots/svn/g/ge/genfit/code/${TAG_VER}.zip"
 
 LICENSE="LGPL-3"
 SLOT="0"
@@ -23,6 +25,8 @@ RDEPEND="
 	dev-libs/boost"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen[dot] )"
+
+S=${WORKDIR}/${TAG_VER}
 
 src_compile() {
 	cmake-utils_src_compile
