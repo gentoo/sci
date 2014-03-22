@@ -4,14 +4,14 @@
 
 EAPI=5
 
-inherit cmake-utils versionator subversion
+inherit cmake-utils versionator
 
-ESVN_REPO_URI="https://svn.code.sf.net/p/${PN}/code/tags/v$(replace_all_version_separators '-')"
-ESVN_PROJECT="${PN}.${PV}"
+#ESVN_REPO_URI="https://svn.code.sf.net/p/${PN}/code/tags/v$(replace_all_version_separators '-')"
+#ESVN_PROJECT="${PN}.${PV}"
 
 DESCRIPTION="a generic toolkit for track reconstruction for experiments in particle and nuclear physics"
 HOMEPAGE="http://genfit.sourceforge.net/Main.html"
-SRC_URI=""
+SRC_URI="http://sourceforge.net/code-snapshots/svn/g/ge/genfit/code/genfit-code-1688-tags-v$(replace_all_version_separators '-').zip"
 
 LICENSE="LGPL-3"
 SLOT="0"
