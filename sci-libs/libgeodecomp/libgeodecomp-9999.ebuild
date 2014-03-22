@@ -40,8 +40,7 @@ DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
 src_prepare() {
-	rm -rf lib/libflatarray
-	rm -rf src/libflatarray
+	rm -rf {lib,src}/libflatarray || die
 }
 
 src_configure() {
