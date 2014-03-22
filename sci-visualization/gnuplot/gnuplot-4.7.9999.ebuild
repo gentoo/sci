@@ -26,7 +26,7 @@ fi
 LICENSE="gnuplot bitmap? ( free-noncomm )"
 SLOT="0"
 KEYWORDS=""
-IUSE="aqua bitmap cairo doc examples +gd ggi latex lua qt4 readline svga thin-splines wxwidgets X"
+IUSE="aqua bitmap cairo doc examples +gd ggi latex libcaca lua qt4 readline svga wxwidgets X"
 
 RDEPEND="
 	cairo? (
@@ -39,6 +39,7 @@ RDEPEND="
 		lua? (
 			dev-tex/pgf
 			>=dev-texlive/texlive-latexrecommended-2008-r2 ) )
+	libcaca? ( media-libs/libcaca )
 	lua? ( dev-lang/lua )
 	qt4? ( >=dev-qt/qtcore-4.5:4
 		>=dev-qt/qtgui-4.5:4
@@ -118,12 +119,12 @@ src_configure() {
 		$(use_with gd) \
 		"$(use_with ggi ggi "${EPREFIX}/usr/$(get_libdir)")" \
 		"$(use_with ggi xmi "${EPREFIX}/usr/$(get_libdir)")" \
+		"$(use_with libcaca caca "${EPREFIX}/usr/$(get_libdir)")" \
 		$(use_with lua) \
 		$(use_with svga linux-vga) \
 		$(use_with X x) \
 		--enable-stats \
 		$(use_with qt4 qt qt4) \
-		$(use_enable thin-splines) \
 		$(use_enable wxwidgets) \
 		DIST_CONTACT="http://bugs.gentoo.org/" \
 		EMACS=no
