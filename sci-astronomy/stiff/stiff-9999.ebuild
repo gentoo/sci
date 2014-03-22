@@ -5,7 +5,7 @@
 EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
-	_SVN=subversion
+	inherit subversion
 	ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
 	SRC_URI=""
 	KEYWORDS=""
@@ -14,10 +14,10 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-AUTOTOOLS_AUTORECONF=1
+#AUTOTOOLS_AUTORECONF=1
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
-inherit ${_SVN} autotools-utils
+inherit autotools-utils
 
 DESCRIPTION="Converts astronomical FITS images to the TIFF format"
 HOMEPAGE="http://astromatic.iap.fr/software/stiff"
@@ -27,9 +27,9 @@ SLOT="0"
 IUSE="doc threads"
 
 RDEPEND="
-	media-libs/tiff
+	media-libs/tiff:0=
 	virtual/jpeg
-	sys-libs/zlib"
+	sys-libs/zlib:0="
 DEPEND="${RDEPEND}"
 
 src_configure() {

@@ -5,7 +5,7 @@
 EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
-	_SVN=subversion
+	inherit subversion
 	ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
 	SRC_URI=""
 	KEYWORDS=""
@@ -17,7 +17,7 @@ fi
 
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
-inherit ${_SVN} autotools-utils
+inherit autotools-utils
 
 DESCRIPTION="Resample and coadd astronomical FITS images"
 HOMEPAGE="http://astromatic.iap.fr/software/swarp"
