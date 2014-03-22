@@ -26,12 +26,8 @@ DEPEND="${RDEPEND}
 
 src_compile() {
 	cmake-utils_src_compile
-	if use doc; then
-		cmake-utils_src_compile doc || die
-	fi
-	if use examples; then
-		cmake-utils_src_compile tests || die
-	fi
+	use doc      && cmake-utils_src_compile doc
+	use examples && cmake-utils_src_compile tests
 }
 
 src_install() {
@@ -42,13 +38,13 @@ src_install() {
 		doins "${S}/test/makeGeom.C"
 		doins "${S}/test/README"
 	fi
-	cd doc
+	cd doc || die
 	use doc && dohtml -r "${S}/doc/html/"*
-        echo
-        elog "Note that there is no support in this ebuild for RAVE yet,"
+	echo
+	elog "Note that there is no support in this ebuild for RAVE yet,"
 	elog "which is also not in portage."
 	elog "It should be possible to use a local installation of RAVE"
 	elog "and set:"
 	elog "  export RAVEPATH=<yourRaveDirectory>"
-        echo
+	echo
 }

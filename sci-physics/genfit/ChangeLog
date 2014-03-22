@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Mar 2014; <o.freyermuth@googlemail.com> genfit-02.00.00.ebuild, metadata.xml:
+  Address ebuild issues found in review (indentation, missing and superfluous
+  die's). 
+
 *genfit-02.00.00 (22 Mar 2014)
 
   22 Mar 2014; <o.freyermuth@googlemail.com> +genfit-02.00.00.ebuild, +metadata.xml:
