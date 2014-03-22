@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit elisp-common eutils flag-o-matic multilib readme.gentoo toolchain-funcs wxwidgets
+inherit eutils flag-o-matic multilib readme.gentoo toolchain-funcs wxwidgets
 
 DESCRIPTION="Command-line driven interactive plotting program"
 HOMEPAGE="http://www.gnuplot.info/"
@@ -23,19 +23,15 @@ else
 	SRC_URI="mirror://sourceforge/gnuplot/${MY_P}.tar.gz"
 fi
 
-LICENSE="gnuplot GPL-2 bitmap? ( free-noncomm )"
+LICENSE="gnuplot bitmap? ( free-noncomm )"
 SLOT="0"
 KEYWORDS=""
-IUSE="aqua bitmap cairo doc emacs examples +gd ggi latex lua qt4 readline svga thin-splines wxwidgets X xemacs"
+IUSE="aqua bitmap cairo doc examples +gd ggi latex lua qt4 readline svga thin-splines wxwidgets X"
 
 RDEPEND="
 	cairo? (
 		x11-libs/cairo
 		x11-libs/pango )
-	emacs? ( virtual/emacs )
-	!emacs? ( xemacs? (
-		app-editors/xemacs
-		app-xemacs/xemacs-base ) )
 	gd? ( >=media-libs/gd-2.0.35-r3[png] )
 	ggi? ( media-libs/libggi )
 	latex? (
@@ -60,8 +56,7 @@ DEPEND="${RDEPEND}
 	doc? (
 		virtual/latex-base
 		dev-texlive/texlive-latexextra
-		app-text/ghostscript-gpl )
-	!emacs? ( xemacs? ( app-xemacs/texinfo ) )"
+		app-text/ghostscript-gpl )"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -113,26 +108,10 @@ src_configure() {
 
 	tc-export CC CXX			#453174
 
-	local emacs lispdir
-	if use emacs; then
-		emacs=emacs
-		lispdir="${EPREFIX}${SITELISP}/${PN}"
-		use xemacs \
-			&& ewarn "USE flag \"xemacs\" ignored (superseded by \"emacs\")"
-	elif use xemacs; then
-		emacs=xemacs
-		lispdir="${EPREFIX}/usr/lib/xemacs/site-packages/${PN}"
-	else
-		emacs=no
-		lispdir=""
-	fi
-
 	econf \
 		--without-pdf \
 		--with-texdir="${TEXMF}/tex/latex/${PN}" \
 		--with-readline=$(usex readline gnu builtin) \
-		--with-lispdir="${lispdir}" \
-		--with$([[ -z ${lispdir} ]] && echo out)-lisp-files \
 		$(use_with bitmap bitmap-terminals) \
 		$(use_with cairo) \
 		$(use_with doc tutorial) \
@@ -147,7 +126,7 @@ src_configure() {
 		$(use_enable thin-splines) \
 		$(use_enable wxwidgets) \
 		DIST_CONTACT="http://bugs.gentoo.org/" \
-		EMACS="${emacs}"
+		EMACS=no
 }
 
 src_compile() {
@@ -165,19 +144,11 @@ src_compile() {
 		addpredict /var/cache/fontconfig
 		emake -C docs pdf
 		emake -C tutorial pdf
-		use emacs || use xemacs && emake -C lisp pdf
 	fi
 }
 
 src_install () {
 	emake DESTDIR="${D}" install
-
-	if use emacs; then
-		# Gentoo Emacs site-lisp configuration
-		echo "(add-to-list 'load-path \"@SITELISP@\")" > ${E_SITEFILE}
-		sed '/^;; move/,+3 d' lisp/dotemacs >> ${E_SITEFILE} || die
-		elisp-site-file-install ${E_SITEFILE} || die
-	fi
 
 	dodoc BUGS ChangeLog NEWS PGPKEYS PORTING README*
 	newdoc term/PostScript/README README-ps
@@ -200,12 +171,6 @@ src_install () {
 		docinto psdoc
 		dodoc docs/psdoc/{*.doc,*.tex,*.ps,*.gpi,README}
 	fi
-
-	if use emacs || use xemacs; then
-		docinto emacs
-		dodoc lisp/ChangeLog lisp/README
-		use doc && dodoc lisp/gpelcard.pdf
-	fi
 }
 
 src_test() {
@@ -213,12 +178,10 @@ src_test() {
 }
 
 pkg_postinst() {
-	use emacs && elisp-site-regen
 	use latex && texmf-update
 	readme.gentoo_print_elog
 }
 
 pkg_postrm() {
-	use emacs && elisp-site-regen
 	use latex && texmf-update
 }
