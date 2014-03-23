@@ -7,7 +7,8 @@ EAPI=3
 inherit java-pkg-2 eutils
 
 DESCRIPTION="Bambino / BAMview / bam_utils to display SAM/BAM files and for SNP/indel detection, report coverage in .wig files"
-HOMEPAGE="https://cgwb.nci.nih.gov/goldenPath/bamview/documentation/index.html"
+HOMEPAGE="https://cgwb.nci.nih.gov/goldenPath/bamview/documentation/index.html
+	https://cgwb.nci.nih.gov/goldenPath/bamview/documentation/bam_utils.html"
 
 # bug #377305
 SRC_URI="https://cgwb.nci.nih.gov/cgi-bin/bambino?download_bambino_jar=bundle -> bambino_core_1.02.jar
