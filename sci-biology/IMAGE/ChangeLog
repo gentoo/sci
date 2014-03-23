@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/IMAGE
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*IMAGE-2.4.1 (23 Mar 2014)
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +IMAGE-2.4.1.ebuild, +metadata.xml:
+  a skeleton for a new package
+
