@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  artemis-bin-16.0.6.ebuild:
+  sci-biology/artemis-bin: documented dependences
+
 *artemis-bin-16.0.6 (23 Mar 2014)
 
   23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>

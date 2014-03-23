@@ -19,7 +19,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="sci-biology/samtools
-		sci-biology/bambino" # aka BamView
+		sci-biology/BamView"
 RDEPEND="${DEPEND}
 		>=virtual/jre-1.6"
 
