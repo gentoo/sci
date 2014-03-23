@@ -1,6 +1,12 @@
 # ChangeLog for sci-biology/artemis-bin
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*artemis-bin-16.0.6 (23 Mar 2014)
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +artemis-bin-16.0.6.ebuild, -artemis-bin-13.2.12.ebuild:
+  sci-biology/artemis-bin: version bump, added a link to INSTALL docs
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> artemis-bin-13.2.12.ebuild,
   metadata.xml:
@@ -11,4 +17,3 @@
   08 Jan 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   +artemis-bin-13.2.12.ebuild, +metadata.xml:
   initial, not yet working ebuild
-
