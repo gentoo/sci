@@ -1,0 +1,8 @@
+# ChangeLog for sci-biology/MaSuRCA
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> ChangeLog:
+  new package but with a missing LICENSE and needs tweak to get all configure's
+  running
+
