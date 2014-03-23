@@ -19,11 +19,13 @@ IUSE=""
 # uses its own BamView
 DEPEND="
 	sci-biology/samtools
-	>=virtual/jdk-1.5
+	>=virtual/jdk-1.6
 	dev-java/ant-core"
 RDEPEND="${DEPEND}
-	>=virtual/jre-1.5"
+	>=virtual/jre-1.6"
 
 # http://www.mail-archive.com/artemis-users@sanger.ac.uk/msg00551.html
 # http://www.mail-archive.com/artemis-users@sanger.ac.uk/msg00561.html
 # http://gmod.org/wiki/Artemis-Chado_Integration_Tutorial
+
+# ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/artemis.pdf
