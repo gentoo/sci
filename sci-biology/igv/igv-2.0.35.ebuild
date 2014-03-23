@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 #ESVN_REPO_URI="http://igv.googlecode.com/svn/trunk"
 ESVN_REPO_URI="http://igv.googlecode.com/svn/tags/Version_${PV}"
@@ -92,7 +92,7 @@ src_install() {
 	cd lib || die
 	rm AbsoluteLayout.jar Jama*.jar batik*.jar commons-logging*.jar commons-math*.jar concurrent*.jar jcommon*.jar jfreechart*.jar jhdf*.jar jlfgr*.jar junit*.jar log4j*.jar sam*.jar swing*.jar vcf*.jar
 	cd ..
-	
+
 	for i in lib/*.jar; do java-pkg_dojar $i; done
 
 	java-pkg_dolauncher igv --jar igv.jar --main org.broad.igv.ui.Main

@@ -3,6 +3,9 @@
 # $Header: $
 
   23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> igv-2.0.35.ebuild:
+  API bumped, whitespace removal
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> igv-2.0.35.ebuild:
   added some dev-java dependencies and removed some bundled .jar files
 
 *igv-2.0.35 (23 Mar 2014)
