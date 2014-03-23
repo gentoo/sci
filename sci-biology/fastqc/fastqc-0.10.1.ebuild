@@ -25,5 +25,6 @@ src_install(){
 	dobin fastqc
 	
 	# TODO: need to compile java in uk/ac/babraham/FastQC/
-	# and decide whether jbzip2-0.9.jar and sam-1.32.jar are standard java libs and from samtools or whetehr not
+	# and decide whether jbzip2-0.9.jar is a standard java lib or not
+	# ignore the sam-1.32.jar, that is likely library already in sci-biology/picard
 }
