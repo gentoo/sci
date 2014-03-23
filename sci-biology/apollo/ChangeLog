@@ -1,7 +1,9 @@
 # ChangeLog for sci-biology/apollo
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> apollo-9999.ebuild:
+  sci-biology/apollo: a skeleton for a new package, needs help
 
   07 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> apollo-9999.ebuild:
   initial ebuild
-
