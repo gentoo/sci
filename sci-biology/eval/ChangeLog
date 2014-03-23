@@ -1,0 +1,11 @@
+# ChangeLog for sci-biology/eval
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*eval-2.2.8 (23 Mar 2014)
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +eval-2.2.8.ebuild,
+  +metadata.xml:
+  new package; needs perl team help to install this evil package with Eval.pm
+  into PERL_PATH
+
