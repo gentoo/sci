@@ -4,14 +4,16 @@
 
 EAPI=5
 
-inherit cmake-utils versionator subversion
+inherit cmake-utils versionator
 
-ESVN_REPO_URI="https://vgm.svn.sourceforge.net/svnroot/${PN}/tags/v$(replace_all_version_separators '-')/${PN}"
-ESVN_PROJECT="${PN}.${PV}"
+#ESVN_REPO_URI="https://vgm.svn.sourceforge.net/svnroot/${PN}/tags/v$(replace_all_version_separators '-')/${PN}"
+#ESVN_PROJECT="${PN}.${PV}"
 
-DESCRIPTION="Virtual Geometry Model for High Enegery Physics Experiments"
+TAG_VER="${PN}-code-731-tags-v$(replace_all_version_separators '-')"
+
+DESCRIPTION="Virtual Geometry Model for High Energy Physics Experiments"
 HOMEPAGE="http://ivana.home.cern.ch/ivana/VGM.html"
-SRC_URI=""
+SRC_URI="http://sourceforge.net/code-snapshots/svn/v/vg/vgm/code/${TAG_VER}.zip"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -26,6 +28,8 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen[dot] )
 	test? ( geant4? ( xml? ( >=sci-physics/geant-4.9.6[gdml] ) ) )"
+
+S=${WORKDIR}/${TAG_VER}/${PN}
 
 src_configure() {
 	local mycmakeargs=(
@@ -58,7 +62,7 @@ src_install() {
 		insinto /usr/share/doc/${PF}
 		doins -r examples
 	fi
-	cd doc
+	cd doc || die
 	dodoc README todo.txt VGMhistory.txt VGM.html VGMversions.html
 	use doc && dohtml -r html/*
 }
