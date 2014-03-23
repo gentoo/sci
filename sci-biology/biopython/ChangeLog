@@ -2,6 +2,14 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  -biopython-1.62-r3.ebuild, -biopython-1.62-r4.ebuild, -biopython-1.63.ebuild,
+  -files/SeqRecord.py.patch, -files/adjust-trimpoints.patch,
+  biopython-1.63-r1.ebuild:
+  sci-biology/biopython-1.63-r1: added missing deps on dev-python/rdflib to sync
+  with official sci-biology/biopython-1.63; dropping sci-biology/biopython-1.63
+  from overlay
+
 *biopython-1.62-r3 (23 Mar 2014)
 *biopython-1.62-r4 (23 Mar 2014)
 *biopython-1.63-r1 (23 Mar 2014)
