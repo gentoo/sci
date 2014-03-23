@@ -3,6 +3,9 @@
 # $Header: $
 
   23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> artemis-9999.ebuild:
+  sci-biology/artemis: documented dependences
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> artemis-9999.ebuild:
   sci-biology/artemis: fixed JVM dependency, added a link to INSTALL docs
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> artemis-9999.ebuild,

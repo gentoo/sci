@@ -29,3 +29,5 @@ RDEPEND="${DEPEND}
 # http://gmod.org/wiki/Artemis-Chado_Integration_Tutorial
 
 # ftp://ftp.sanger.ac.uk/pub/resources/software/artemis/artemis.pdf
+
+# BamView is at http://bamview.sourceforge.net/
