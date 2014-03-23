@@ -27,6 +27,7 @@ IUSE="cuda doc hpx mpi opencl opencv qt4 scotch threads visit"
 
 RDEPEND="
 	>=dev-libs/boost-1.48
+	=dev-libs/libflatarray-9999
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	hpx? ( =sys-cluster/hpx-9999 )
 	mpi? ( virtual/mpi )
@@ -37,6 +38,10 @@ RDEPEND="
 	visit? ( sci-visualization/visit )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
+
+src_prepare() {
+	rm -rf {lib,src}/libflatarray || die
+}
 
 src_configure() {
 	local mycmakeargs=(

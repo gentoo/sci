@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*missfits-2.8.0 (21 Mar 2014)
+
+  21 Mar 2014; Sébastien Fabbro <bicatali@gentoo.org> +missfits-2.8.0.ebuild,
+  missfits-9999.ebuild:
+  sci-astronomy/missfits: Add new version linked to live one
+
   27 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> -Manifest,
   -files/missfits-2.4.0-configure.patch, -missfits-2.4.0.ebuild,
   missfits-9999.ebuild:
