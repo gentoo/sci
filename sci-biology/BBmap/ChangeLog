@@ -1,0 +1,11 @@
+# ChangeLog for sci-biology/BBmap
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*BBmap-31.40 (23 Mar 2014)
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +BBmap-31.40.ebuild, +metadata.xml:
+  sci-biology/BBmap: a skeleton for a new package, needs help from java team
+  for sure
+
