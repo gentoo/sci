@@ -1,7 +1,11 @@
 # ChangeLog for sci-biology/igv
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*igv-2.0.35 (23 Mar 2014)
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +igv-2.0.35.ebuild:
+  sci-biology/igv-2.0.35: version bump
 
   08 Jan 2012; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
   New package, ebuild written by me
-
