@@ -28,6 +28,7 @@ PDEPEND+="
 		sci-biology/prosite
 		sci-biology/rebase
 		sci-biology/transfac
+		sci-libs/plplot
 		)"
 
 S="${WORKDIR}"/EMBOSS-${EBOV}
@@ -47,9 +48,13 @@ src_prepare() {
 	epatch "${FILESDIR}/${PF}"_libtool.patch
 }
 
-src_compile() {
-	epatch "${FILESDIR}/${PF}"_Makefile.patch
-}
+#src_compile() {
+#	# epatch "${FILESDIR}/${PF}"_Makefile.patch
+#	sed -i -e "s#GD_LIBS = .*#GD_LIBS =#" Makefile
+#	sed -i -e "s#^LIBS = .*#LIBS =#" Makefile
+#	sed -i -e "s#^PLPLOT_LIBS = .*#PLPLOT_LIBS =#" Makefile
+#	sed -i -e "s#^libnucleus_la_LDFLAGS = .*#libnucleus_la_LDFLAGS = \$(LDFLAGS)#" Makefile
+#}
 
 src_install() {
 	default
