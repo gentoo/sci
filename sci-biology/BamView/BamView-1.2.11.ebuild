@@ -12,7 +12,7 @@ SRC_URI="http://bamview.sourceforge.net/v"${PV}"/BamView_v"${PV}".jar"
 
 LICENSE=""
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 DEPEND="virtual/jdk"
