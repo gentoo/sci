@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Mar 2014; Justin Lecher <jlec@gentoo.org> khmer-0.8.ebuild,
+  khmer-9999.ebuild:
+  Also drop sphinx as build requirement
+
   20 Mar 2014; Justin Lecher <jlec@gentoo.org> khmer-0.8.ebuild,
   khmer-9999.ebuild:
   Drop nose requirement during build
