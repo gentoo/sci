@@ -11,7 +11,7 @@ inherit autotools-utils flag-o-matic fortran-2 multilib subversion
 DESCRIPTION="DNA sequence assembly (gap4, gap5), editing and analysis tools (Spin)"
 HOMEPAGE="http://sourceforge.net/projects/staden/"
 SRC_URI=""
-ESVN_REPO_URI="https://staden.svn.sourceforge.net/svnroot/staden/staden/trunk"
+ESVN_REPO_URI="https://staden.svn.sourceforge.net/svnroot/staden/staden/trunk/src"
 
 LICENSE="staden"
 SLOT="0"
@@ -37,8 +37,6 @@ RDEPEND="${DEPEND}
 	>=dev-tcltk/iwidgets-4.0
 	tcl? ( >=dev-tcltk/itcl-3.2 )
 	tk? ( >=dev-tcltk/itk-3.2 )"
-
-S="${WORKDIR}"/"${P}"/src/
 
 AUTOTOOLS_IN_SOURCE_BUILD=1
 
