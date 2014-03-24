@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/BamView
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*BamView-1.2.11 (24 Mar 2014)
+
+  24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +BamView-1.2.11.ebuild:
+  not sure if we need a separate package; is said to be part of Artemis bundle
+
