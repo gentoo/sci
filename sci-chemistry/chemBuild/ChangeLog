@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*chemBuild-1.0.4 (26 Mar 2014)
+
+  26 Mar 2014; Justin Lecher <jlec@gentoo.org> +chemBuild-1.0.4.ebuild:
+  Version Bump
+
   08 Jan 2014; Justin Lecher <jlec@gentoo.org> chemBuild-1.0.3.ebuild:
   Fix double prefix
 
