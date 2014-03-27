@@ -22,7 +22,7 @@ IUSE="doc examples +geant4 +root test xml"
 
 RDEPEND="
 	sci-physics/clhep
-	root? ( sci-physics/root )
+	root? ( sci-physics/root:= )
 	geant4? ( >=sci-physics/geant-4.9.6[examples?] )
 	xml? ( dev-libs/xerces-c )"
 DEPEND="${RDEPEND}
