@@ -1,0 +1,12 @@
+# ChangeLog for sci-biology/tablet
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*tablet-1.13.12.17 (28 Mar 2014)
+*tablet-9999 (28 Mar 2014)
+
+  28 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/response.varfile, +metadata.xml, +tablet-1.13.12.17.ebuild,
+  +tablet-9999.ebuild:
+  sci-biology/tablet: skeleton for a new package eventually to replace current
+  tablet-bin package
