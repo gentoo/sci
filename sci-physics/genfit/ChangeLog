@@ -2,6 +2,18 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  genfit-02.00.00.ebuild, genfit-9999.ebuild:
+  Unify the specialties between live and non-live ebuild so only one if-clause
+  is needed. 
+
+*genfit-9999 (25 Mar 2014)
+
+  25 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  genfit-02.00.00.ebuild, +genfit-9999.ebuild:
+  Add live-ebuild, add subslot-dependency on sci-physics/root (depends on
+  #505358 to become effective) and dev-libs/boost .
+
   22 Mar 2014; <o.freyermuth@googlemail.com> genfit-02.00.00.ebuild:
   Fix incorrect working directory (adapt to zipped file)
 
