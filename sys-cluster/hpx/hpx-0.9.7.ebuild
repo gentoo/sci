@@ -7,7 +7,7 @@ EAPI=5
 PYTHON_COMPAT=( python{2_6,2_7} )
 
 if [ ${PV} == "9999" ] ; then
-	inherit git-3
+	inherit git-r3
 	EGIT_REPO_URI="https://github.com/STEllAR-GROUP/hpx.git"
 	SRC_URI=""
 	KEYWORDS=""
