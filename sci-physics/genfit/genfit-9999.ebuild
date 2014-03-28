@@ -5,6 +5,7 @@
 EAPI=5
 
 inherit cmake-utils versionator
+
 if [[ ${PV} == *9999* ]]; then
 	inherit subversion
 	ESVN_REPO_URI="https://svn.code.sf.net/p/${PN}/code/trunk"
@@ -12,6 +13,8 @@ if [[ ${PV} == *9999* ]]; then
 else
 	TAG_VER=${PN}-code-1688-tags-v$(replace_all_version_separators '-')
 	SRC_URI="http://sourceforge.net/code-snapshots/svn/g/ge/genfit/code/${TAG_VER}.zip"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+	S=${WORKDIR}/${TAG_VER}
 fi
 
 DESCRIPTION="a generic toolkit for track reconstruction for experiments in particle and nuclear physics"
@@ -19,7 +22,6 @@ HOMEPAGE="http://genfit.sourceforge.net/Main.html"
 
 LICENSE="LGPL-3"
 SLOT="0"
-[[ ${PV} == *9999* ]] || KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples"
 
 RDEPEND="
@@ -27,8 +29,6 @@ RDEPEND="
 	dev-libs/boost:="
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen[dot] )"
-
-[[ ${PV} == *9999* ]] || S=${WORKDIR}/${TAG_VER}
 
 src_compile() {
 	cmake-utils_src_compile
