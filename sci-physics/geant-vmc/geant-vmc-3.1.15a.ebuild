@@ -19,7 +19,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="examples"
 
 RDEPEND="
-	sci-physics/root[pythia6]
+	sci-physics/root[pythia6]:=
 	!sci-physics/geant:3"
 DEPEND="${RDEPEND}"
 

@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc examples vgm"
 
 RDEPEND="
-	sci-physics/root
+	sci-physics/root:=
 	>=sci-physics/geant-4.9.6[opengl,geant3,examples?]
 	vgm? ( sci-physics/vgm )"
 DEPEND="${RDEPEND}
