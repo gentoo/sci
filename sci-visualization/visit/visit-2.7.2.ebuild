@@ -71,6 +71,7 @@ src_install() {
 
 	cat > "${T}"/99visit <<- EOF
 		PATH=${EPREFIX}/opt/visit/bin
+		PYTHONPATH=/opt/visit/${PV}/linux-`arch`/lib/site-packages
 	EOF
 	doenvd "${T}"/99visit
 }
