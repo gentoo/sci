@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*geant-vmc-4.2.15a (31 Mar 2014)
+
+  31 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  +geant-vmc-4.2.15a.ebuild:
+  Version bump
+
   27 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
   geant-vmc-3.1.15a.ebuild, geant-vmc-4.2.14b.ebuild, geant-vmc-4.2.15.ebuild:
   Add subslot-dependency on sci-physics/root, rebuilding is needed on each ROOT
