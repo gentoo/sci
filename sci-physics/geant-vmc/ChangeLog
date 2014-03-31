@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  31 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  geant-vmc-3.1.15a.ebuild:
+  Fix syntax bug in dependency atom
+
 *geant-vmc-4.2.15a (31 Mar 2014)
 
   31 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
