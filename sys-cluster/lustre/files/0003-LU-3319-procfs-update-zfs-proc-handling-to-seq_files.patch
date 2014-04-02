@@ -1,7 +1,7 @@
-From 699242b35f07c7c64959dca02cc359d389c7f568 Mon Sep 17 00:00:00 2001
+From abe827ebe8722336c55affd8388dacfbb38b49f1 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Fri, 3 Jan 2014 09:55:26 -0500
-Subject: [PATCH 02/12] LU-3319 procfs: update zfs proc handling to seq_files
+Date: Tue, 18 Feb 2014 18:44:22 -0500
+Subject: [PATCH 3/9] LU-3319 procfs: update zfs proc handling to seq_files
 
 Migrate all zfs proc handling to using strictly seq_files.
 
@@ -9,68 +9,61 @@ Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: I6dc7e65c3e74e7934a17939815ec3c334fac58c7
 ---
  lustre/osd-zfs/osd_handler.c  | 13 ++++---
- lustre/osd-zfs/osd_internal.h |  3 --
- lustre/osd-zfs/osd_lproc.c    | 88 ++++++++++++++++++++++++-------------------
- 3 files changed, 57 insertions(+), 47 deletions(-)
+ lustre/osd-zfs/osd_internal.h |  3 +-
+ lustre/osd-zfs/osd_lproc.c    | 90 +++++++++++++++++++++++++------------------
+ 3 files changed, 60 insertions(+), 46 deletions(-)
 
 diff --git a/lustre/osd-zfs/osd_handler.c b/lustre/osd-zfs/osd_handler.c
-index 1025be9..c9bf49a 100644
+index 47bbc76..05820e0 100644
 --- a/lustre/osd-zfs/osd_handler.c
 +++ b/lustre/osd-zfs/osd_handler.c
-@@ -748,6 +748,7 @@ static int osd_device_init(const struct lu_env *env, struct lu_device *d,
- static int osd_process_config(const struct lu_env *env,
- 			      struct lu_device *d, struct lustre_cfg *cfg)
- {
-+	struct obd_device	*obd = d->ld_obd;
- 	struct osd_device	*o = osd_dev(d);
- 	int			rc;
- 	ENTRY;
-@@ -761,12 +762,12 @@ static int osd_process_config(const struct lu_env *env,
+@@ -761,12 +761,13 @@ static int osd_process_config(const struct lu_env *env,
  		break;
  	case LCFG_PARAM: {
  		LASSERT(&o->od_dt_dev);
 -		rc = class_process_proc_param(PARAM_OSD, lprocfs_osd_obd_vars,
 -					      cfg, &o->od_dt_dev);
-+		rc = class_process_proc_seq_param(PARAM_OSD, obd->obd_vars,
-+						  cfg, &o->od_dt_dev);
++		rc = class_process_proc_seq_param(PARAM_OSD,
++						  lprocfs_osd_obd_vars, cfg,
++						  &o->od_dt_dev);
  		if (rc > 0 || rc == -ENOSYS)
 -			rc = class_process_proc_param(PARAM_OST,
 -						      lprocfs_osd_obd_vars,
 -						      cfg, &o->od_dt_dev);
 +			rc = class_process_proc_seq_param(PARAM_OST,
-+							  obd->obd_vars, cfg,
-+							  &o->od_dt_dev);
++							  lprocfs_osd_obd_vars,
++							  cfg, &o->od_dt_dev);
  		break;
  	}
  	default:
 @@ -914,7 +915,7 @@ int __init osd_init(void)
  
- 	rc = class_register_type(&osd_obd_device_ops, NULL, NULL,
+ 	rc = class_register_type(&osd_obd_device_ops, NULL, true, NULL,
  #ifndef HAVE_ONLY_PROCFS_SEQ
--				lprocfs_osd_module_vars,
-+				NULL,
+-				 lprocfs_osd_module_vars,
++				 NULL,
  #endif
- 				LUSTRE_OSD_ZFS_NAME, &osd_device_type);
+ 				 LUSTRE_OSD_ZFS_NAME, &osd_device_type);
  	if (rc)
 diff --git a/lustre/osd-zfs/osd_internal.h b/lustre/osd-zfs/osd_internal.h
-index bc51cb1..77b118f 100644
+index bc51cb1..3dc4881 100644
 --- a/lustre/osd-zfs/osd_internal.h
 +++ b/lustre/osd-zfs/osd_internal.h
-@@ -402,9 +402,6 @@ enum {
+@@ -402,8 +402,7 @@ enum {
  };
  
  /* osd_lproc.c */
 -extern struct lprocfs_vars lprocfs_osd_obd_vars[];
 -extern struct lprocfs_vars lprocfs_osd_module_vars[];
--
++extern struct lprocfs_seq_vars lprocfs_osd_obd_vars[];
+ 
  int osd_procfs_init(struct osd_device *osd, const char *name);
  int osd_procfs_fini(struct osd_device *osd);
- 
 diff --git a/lustre/osd-zfs/osd_lproc.c b/lustre/osd-zfs/osd_lproc.c
-index 0854ce6..a7ce60d 100644
+index 0854ce6..bed08e9 100644
 --- a/lustre/osd-zfs/osd_lproc.c
 +++ b/lustre/osd-zfs/osd_lproc.c
-@@ -107,27 +107,26 @@ out:
+@@ -107,27 +107,27 @@ out:
  	RETURN(result);
  }
  
@@ -105,11 +98,12 @@ index 0854ce6..a7ce60d 100644
 +				size_t count, loff_t *off)
  {
 -	struct dt_device  *dt = data;
-+	struct dt_device  *dt = ((struct seq_file *)file->private_data)->private;
++	struct seq_file	  *m = file->private_data;
++	struct dt_device  *dt = m->private;
  	struct lu_env      env;
  	int rc;
  
-@@ -139,20 +138,21 @@ static int lprocfs_osd_wr_force_sync(struct file *file, const char *buffer,
+@@ -139,20 +139,22 @@ static int lprocfs_osd_wr_force_sync(struct file *file, const char *buffer,
  
  	return rc == 0 ? count : rc;
  }
@@ -133,12 +127,13 @@ index 0854ce6..a7ce60d 100644
 +						size_t count, loff_t *off)
  {
 -	struct osd_device *osd = osd_dt_dev((struct dt_device *)data);
-+	struct dt_device  *dt = ((struct seq_file *)file->private_data)->private;
++	struct seq_file	  *m = file->private_data;
++	struct dt_device  *dt = m->private;
 +	struct osd_device *osd = osd_dt_dev(dt);
  	int                rc, val;
  
  	LASSERT(osd != NULL);
-@@ -165,24 +165,36 @@ static int lprocfs_osd_wr_iused_est(struct file *file, const char *buffer,
+@@ -165,24 +167,36 @@ static int lprocfs_osd_wr_iused_est(struct file *file, const char *buffer,
  
  	return count;
  }
@@ -193,7 +188,7 @@ index 0854ce6..a7ce60d 100644
  	{ 0 }
  };
  
-@@ -202,7 +214,7 @@ int osd_procfs_init(struct osd_device *osd, const char *name)
+@@ -202,7 +216,7 @@ int osd_procfs_init(struct osd_device *osd, const char *name)
  	LASSERT(name != NULL);
  	LASSERT(type != NULL);
  
@@ -203,5 +198,5 @@ index 0854ce6..a7ce60d 100644
  	if (IS_ERR(osd->od_proc_entry)) {
  		rc = PTR_ERR(osd->od_proc_entry);
 -- 
-1.8.5.3
+1.9.1
 

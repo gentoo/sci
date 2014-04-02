@@ -1,7 +1,7 @@
-From 9ab620dbc6aae86b9d39d97ba50912dc93b6e4e2 Mon Sep 17 00:00:00 2001
+From 039e3e44e07b59923d94bea976173d9e3cbd0ba9 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Sun, 9 Feb 2014 11:04:31 -0500
-Subject: [PATCH 08/12] LU-3319 procfs: move mdt/mds proc handling to seq_files
+Date: Tue, 25 Mar 2014 11:10:33 -0400
+Subject: [PATCH 7/9] LU-3319 procfs: move mdt/mds proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the mdt/mds
@@ -10,21 +10,21 @@ layer proc entries over to using seq_files.
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: Icbafdcd2c2fe3959a51dda3f9c715b0ff8d95742
 ---
- lustre/mdt/mdt_coordinator.c      | 259 +++++++--------
+ lustre/mdt/mdt_coordinator.c      | 269 +++++++---------
  lustre/mdt/mdt_handler.c          |  16 +-
  lustre/mdt/mdt_hsm_cdt_actions.c  |   5 +-
  lustre/mdt/mdt_hsm_cdt_agent.c    |   5 +-
  lustre/mdt/mdt_hsm_cdt_requests.c |   5 +-
  lustre/mdt/mdt_internal.h         |  14 +-
- lustre/mdt/mdt_lproc.c            | 639 ++++++++++++++++++--------------------
+ lustre/mdt/mdt_lproc.c            | 659 +++++++++++++++++++-------------------
  lustre/mdt/mdt_mds.c              |  12 +-
- 8 files changed, 442 insertions(+), 513 deletions(-)
+ 8 files changed, 469 insertions(+), 516 deletions(-)
 
 diff --git a/lustre/mdt/mdt_coordinator.c b/lustre/mdt/mdt_coordinator.c
-index 037bcbd..9bbcbd4 100644
+index a9ee560..062f6cc 100644
 --- a/lustre/mdt/mdt_coordinator.c
 +++ b/lustre/mdt/mdt_coordinator.c
-@@ -46,7 +46,7 @@
+@@ -45,7 +45,7 @@
  #include <lustre_log.h>
  #include "mdt_internal.h"
  
@@ -33,7 +33,7 @@ index 037bcbd..9bbcbd4 100644
  
  /**
   * get obj and HSM attributes on a fid
-@@ -393,7 +393,7 @@ int hsm_cdt_procfs_init(struct mdt_device *mdt)
+@@ -392,7 +392,7 @@ int hsm_cdt_procfs_init(struct mdt_device *mdt)
  	ENTRY;
  
  	/* init /proc entries, failure is not critical */
@@ -42,7 +42,7 @@ index 037bcbd..9bbcbd4 100644
  					     mdt2obd_dev(mdt)->obd_proc_entry,
  					     lprocfs_mdt_hsm_vars, mdt);
  	if (IS_ERR(cdt->cdt_proc_dir)) {
-@@ -425,7 +425,7 @@ void  hsm_cdt_procfs_fini(struct mdt_device *mdt)
+@@ -424,7 +424,7 @@ void  hsm_cdt_procfs_fini(struct mdt_device *mdt)
   * \param none
   * \retval var vector
   */
@@ -51,7 +51,7 @@ index 037bcbd..9bbcbd4 100644
  {
  	return lprocfs_mdt_hsm_vars;
  }
-@@ -1786,22 +1786,17 @@ static __u64 hsm_policy_str2bit(const char *name)
+@@ -1785,22 +1785,17 @@ static __u64 hsm_policy_str2bit(const char *name)
   * \param hexa [IN] print mask before bit names
   * \param buffer [OUT] string
   * \param count [IN] size of buffer
@@ -80,7 +80,7 @@ index 037bcbd..9bbcbd4 100644
  	for (i = 0; i < CDT_POLICY_SHIFT_COUNT; i++) {
  		bit = (1ULL << i);
  
-@@ -1810,48 +1805,34 @@ static int hsm_policy_bit2str(const __u64 mask, const bool hexa, char *buffer,
+@@ -1809,48 +1804,37 @@ static int hsm_policy_bit2str(const __u64 mask, const bool hexa, char *buffer,
  				break;
  		}
  		if (bit & mask)
@@ -95,10 +95,12 @@ index 037bcbd..9bbcbd4 100644
 -		count -= sz;
 +			seq_printf(m, "%s ", hsm_policy_names[j].name);
  	}
--	/* remove last ' ' */
+ 	/* remove last ' ' */
 -	*ptr = '\0';
 -	ptr--;
 -	RETURN(ptr - buffer);
++	m->count--;
++	seq_putc(m, '\0');
  }
  
  /* methods to read/write HSM policy flags */
@@ -140,7 +142,7 @@ index 037bcbd..9bbcbd4 100644
  	int			 rc;
  	ENTRY;
  
-@@ -1884,18 +1865,10 @@ static int lprocfs_wr_hsm_policy(struct file *file, const char *buffer,
+@@ -1883,18 +1867,10 @@ static int lprocfs_wr_hsm_policy(struct file *file, const char *buffer,
  
  		policy = hsm_policy_str2bit(token);
  		if (policy == 0) {
@@ -156,13 +158,13 @@ index 037bcbd..9bbcbd4 100644
 -			      "supported policies are: %s\n", mdt_obd_name(mdt),
 -			      token, msg);
 -			OBD_FREE(msg, sz);
-+				"supported policies are: \n", mdt_obd_name(mdt),
-+				token);
++			      "supported policies are:\n", mdt_obd_name(mdt),
++			      token);
 +			hsm_policy_bit2str(m, 0, false);
  			GOTO(out, rc = -EINVAL);
  		}
  		switch (sign) {
-@@ -1934,25 +1907,24 @@ out:
+@@ -1933,25 +1909,25 @@ out:
  	OBD_FREE(buf, count + 1);
  	RETURN(rc);
  }
@@ -193,11 +195,12 @@ index 037bcbd..9bbcbd4 100644
  									\
  {									\
 -	struct mdt_device	*mdt = data;				\
-+	struct mdt_device	*mdt = ((struct seq_file *)file->private_data)->private;\
++	struct seq_file		*m = file->private_data;		\
++	struct mdt_device	*mdt = m->private;			\
  	struct coordinator	*cdt = &mdt->mdt_coordinator;		\
  	int			 val;					\
  	int			 rc;					\
-@@ -1966,7 +1938,7 @@ static int lprocfs_wr_hsm_##VAR(struct file *file, const char *buffer,	\
+@@ -1965,7 +1941,7 @@ static int lprocfs_wr_hsm_##VAR(struct file *file, const char *buffer,	\
  		RETURN(count);						\
  	}								\
  	RETURN(-EINVAL);						\
@@ -206,7 +209,7 @@ index 037bcbd..9bbcbd4 100644
  
  GENERATE_PROC_METHOD(cdt_loop_period)
  GENERATE_PROC_METHOD(cdt_grace_delay)
-@@ -1984,10 +1956,11 @@ GENERATE_PROC_METHOD(cdt_default_archive_id)
+@@ -1983,10 +1959,12 @@ GENERATE_PROC_METHOD(cdt_default_archive_id)
  #define CDT_PURGE_CMD    "purge"
  #define CDT_HELP_CMD     "help"
  
@@ -217,11 +220,12 @@ index 037bcbd..9bbcbd4 100644
 +			      size_t count, loff_t *off)
  {
 -	struct obd_device	*obd = data;
-+	struct obd_device	*obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*obd = m->private;
  	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
  	struct coordinator	*cdt = &(mdt->mdt_coordinator);
  	int			 rc, usage = 0;
-@@ -2041,83 +2014,71 @@ int lprocfs_wr_hsm_cdt_control(struct file *file, const char *buffer,
+@@ -2040,83 +2018,71 @@ int lprocfs_wr_hsm_cdt_control(struct file *file, const char *buffer,
  	RETURN(count);
  }
  
@@ -327,7 +331,7 @@ index 037bcbd..9bbcbd4 100644
  }
  
  static inline enum hsm_copytool_action
-@@ -2137,9 +2098,9 @@ hsm_copytool_name2action(const char *name)
+@@ -2136,9 +2102,9 @@ hsm_copytool_name2action(const char *name)
  		return -1;
  }
  
@@ -340,7 +344,7 @@ index 037bcbd..9bbcbd4 100644
  {
  	char *buf, *pos, *name;
  	size_t buf_size;
-@@ -2183,69 +2144,73 @@ out:
+@@ -2182,69 +2148,76 @@ out:
  	RETURN(rc);
  }
  
@@ -352,7 +356,8 @@ index 037bcbd..9bbcbd4 100644
 +					size_t count, loff_t *off)
  {
 -	struct mdt_device *mdt = data;
-+	struct mdt_device *mdt = ((struct seq_file *)file->private_data)->private;
++	struct seq_file		*m = file->private_data;
++	struct mdt_device	*mdt = m->private;
  	struct coordinator *cdt = &mdt->mdt_coordinator;
  
 -	return lprocfs_wr_hsm_request_mask(file, buf, count,
@@ -368,8 +373,10 @@ index 037bcbd..9bbcbd4 100644
 +					size_t count, loff_t *off)
  {
 -	struct mdt_device *mdt = data;
-+	struct mdt_device *mdt = ((struct seq_file *)file->private_data)->private;
- 	struct coordinator *cdt = &mdt->mdt_coordinator;
+-	struct coordinator *cdt = &mdt->mdt_coordinator;
++	struct seq_file		*m = file->private_data;
++	struct mdt_device	*mdt = m->private;
++	struct coordinator	*cdt = &mdt->mdt_coordinator;
  
 -	return lprocfs_wr_hsm_request_mask(file, buf, count,
 +	return mdt_write_hsm_request_mask(file, buf, count,
@@ -384,8 +391,10 @@ index 037bcbd..9bbcbd4 100644
 +					size_t count, loff_t *off)
  {
 -	struct mdt_device *mdt = data;
-+	struct mdt_device *mdt = ((struct seq_file *)file->private_data)->private;
- 	struct coordinator *cdt = &mdt->mdt_coordinator;
+-	struct coordinator *cdt = &mdt->mdt_coordinator;
++	struct seq_file		*m = file->private_data;
++	struct mdt_device	*mdt = m->private;
++	struct coordinator	*cdt = &mdt->mdt_coordinator;
  
 -	return lprocfs_wr_hsm_request_mask(file, buf, count,
 +	return mdt_write_hsm_request_mask(file, buf, count,
@@ -461,10 +470,10 @@ index 037bcbd..9bbcbd4 100644
  	{ 0 }
  };
 diff --git a/lustre/mdt/mdt_handler.c b/lustre/mdt/mdt_handler.c
-index 17b7605..2b08be9 100644
+index 69b1c30..8b4634f 100644
 --- a/lustre/mdt/mdt_handler.c
 +++ b/lustre/mdt/mdt_handler.c
-@@ -4584,7 +4584,6 @@ static int mdt_process_config(const struct lu_env *env,
+@@ -4644,7 +4644,6 @@ static int mdt_process_config(const struct lu_env *env,
  
  	switch (cfg->lcfg_command) {
  	case LCFG_PARAM: {
@@ -472,7 +481,7 @@ index 17b7605..2b08be9 100644
  		struct obd_device	   *obd = d->ld_obd;
  
  		/* For interoperability */
-@@ -4619,14 +4618,13 @@ static int mdt_process_config(const struct lu_env *env,
+@@ -4679,14 +4678,13 @@ static int mdt_process_config(const struct lu_env *env,
  			}
  		}
  
@@ -492,7 +501,7 @@ index 17b7605..2b08be9 100644
  			if (rc > 0 || rc == -ENOSYS)
  				/* we don't understand; pass it on */
  				rc = next->ld_ops->ldo_process_config(env, next,
-@@ -5825,7 +5823,6 @@ static struct lu_device_type mdt_device_type = {
+@@ -5885,7 +5883,6 @@ static struct lu_device_type mdt_device_type = {
  
  static int __init mdt_mod_init(void)
  {
@@ -500,17 +509,17 @@ index 17b7605..2b08be9 100644
  	int rc;
  
  	CLASSERT(sizeof("0x0123456789ABCDEF:0x01234567:0x01234567") ==
-@@ -5840,10 +5837,9 @@ static int __init mdt_mod_init(void)
+@@ -5900,10 +5897,9 @@ static int __init mdt_mod_init(void)
  	if (rc)
  		GOTO(lu_fini, rc);
  
 -	lprocfs_mdt_init_vars(&lvars);
- 	rc = class_register_type(&mdt_obd_device_ops, NULL, NULL,
+ 	rc = class_register_type(&mdt_obd_device_ops, NULL, true, NULL,
  #ifndef HAVE_ONLY_PROCFS_SEQ
--				lvars.module_vars,
-+				NULL,
+-				 lvars.module_vars,
++				 NULL,
  #endif
- 				LUSTRE_MDT_NAME, &mdt_device_type);
+ 				 LUSTRE_MDT_NAME, &mdt_device_type);
  	if (rc)
 diff --git a/lustre/mdt/mdt_hsm_cdt_actions.c b/lustre/mdt/mdt_hsm_cdt_actions.c
 index da7f5a9..49c6b8b 100644
@@ -578,10 +587,10 @@ index 1300861..3125dcc 100644
  	RETURN(rc);
  }
 diff --git a/lustre/mdt/mdt_internal.h b/lustre/mdt/mdt_internal.h
-index c3d4f7f..7b0381a 100644
+index 7970b86..8fb96c8 100644
 --- a/lustre/mdt/mdt_internal.h
 +++ b/lustre/mdt/mdt_internal.h
-@@ -787,9 +787,6 @@ void mdt_thread_info_init(struct ptlrpc_request *req,
+@@ -785,9 +785,6 @@ void mdt_thread_info_init(struct ptlrpc_request *req,
  void mdt_thread_info_fini(struct mdt_thread_info *mti);
  struct mdt_thread_info *tsi2mdt_info(struct tgt_session_info *tsi);
  
@@ -591,7 +600,7 @@ index c3d4f7f..7b0381a 100644
  int mdt_hsm_attr_set(struct mdt_thread_info *info, struct mdt_object *obj,
  		     const struct md_hsm *mh);
  
-@@ -924,13 +921,12 @@ int mdt_hsm_cdt_fini(struct mdt_device *mdt);
+@@ -925,13 +922,12 @@ int mdt_hsm_cdt_fini(struct mdt_device *mdt);
  int mdt_hsm_cdt_wakeup(struct mdt_device *mdt);
  
  /* coordinator control /proc interface */
@@ -609,7 +618,7 @@ index c3d4f7f..7b0381a 100644
  /* md_hsm helpers */
  struct mdt_object *mdt_hsm_get_md_hsm(struct mdt_thread_info *mti,
  				      const struct lu_fid *fid,
-@@ -1070,8 +1066,6 @@ enum {
+@@ -1071,8 +1067,6 @@ enum {
  };
  void mdt_counter_incr(struct ptlrpc_request *req, int opcode);
  void mdt_stats_counter_init(struct lprocfs_stats *stats);
@@ -619,7 +628,7 @@ index c3d4f7f..7b0381a 100644
  void mdt_procfs_fini(struct mdt_device *mdt);
  
 diff --git a/lustre/mdt/mdt_lproc.c b/lustre/mdt/mdt_lproc.c
-index 0ee5148..658f00d 100644
+index 0ee5148..a895d57 100644
 --- a/lustre/mdt/mdt_lproc.c
 +++ b/lustre/mdt/mdt_lproc.c
 @@ -156,7 +156,6 @@ static ssize_t mdt_rename_stats_seq_write(struct file *file, const char *buf,
@@ -630,13 +639,12 @@ index 0ee5148..658f00d 100644
  LPROC_SEQ_FOPS(mdt_rename_stats);
  
  static int lproc_mdt_attach_rename_seqstat(struct mdt_device *mdt)
-@@ -213,143 +212,73 @@ void mdt_rename_counter_tally(struct mdt_thread_info *info,
+@@ -213,143 +212,76 @@ void mdt_rename_counter_tally(struct mdt_thread_info *info,
                                (unsigned int)ma->ma_attr.la_size);
  }
  
 -int mdt_procfs_init(struct mdt_device *mdt, const char *name)
-+static int mdt_identity_expire_seq_show(struct seq_file *m, void *data)
- {
+-{
 -	struct obd_device		*obd = mdt2obd_dev(mdt);
 -	struct lprocfs_static_vars	 lvars;
 -	int				 rc;
@@ -682,7 +690,8 @@ index 0ee5148..658f00d 100644
 -}
 -
 -void mdt_procfs_fini(struct mdt_device *mdt)
--{
++static int mdt_identity_expire_seq_show(struct seq_file *m, void *data)
+ {
 -	struct obd_device *obd = mdt2obd_dev(mdt);
 -
 -	if (obd->obd_proc_exports_entry != NULL) {
@@ -721,7 +730,8 @@ index 0ee5148..658f00d 100644
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        int rc, val;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
 +	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 +	int rc, val;
  
@@ -752,7 +762,7 @@ index 0ee5148..658f00d 100644
 -        *eof = 1;
 -        return snprintf(page, count, "%u\n",
 -                        mdt->mdt_identity_cache->uc_acquire_expire);
-+	return seq_printf(m,"%u\n", mdt->mdt_identity_cache->uc_acquire_expire);
++	return seq_printf(m, "%u\n", mdt->mdt_identity_cache->uc_acquire_expire);
  }
  
 -static int lprocfs_wr_identity_acquire_expire(struct file *file,
@@ -766,7 +776,8 @@ index 0ee5148..658f00d 100644
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        int rc, val;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
 +	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 +	int rc, val;
  
@@ -812,11 +823,12 @@ index 0ee5148..658f00d 100644
 +				size_t count, loff_t *off)
  {
 -	struct obd_device	*obd = data;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*obd = m->private;
  	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
  	struct upcall_cache	*hash = mdt->mdt_identity_cache;
  	int			 rc;
-@@ -388,11 +317,13 @@ static int lprocfs_wr_identity_upcall(struct file *file, const char *buffer,
+@@ -388,11 +320,14 @@ static int lprocfs_wr_identity_upcall(struct file *file, const char *buffer,
  		OBD_FREE(kernbuf, count + 1);
  	RETURN(rc);
  }
@@ -829,11 +841,12 @@ index 0ee5148..658f00d 100644
 +				 size_t count, void *data)
  {
 -        struct obd_device *obd = data;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
          struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
          int rc, uid;
  
-@@ -403,11 +334,13 @@ static int lprocfs_wr_identity_flush(struct file *file, const char *buffer,
+@@ -403,11 +338,14 @@ static int lprocfs_wr_identity_flush(struct file *file, const char *buffer,
          mdt_flush_identity(mdt->mdt_identity_cache, uid);
          return count;
  }
@@ -846,11 +859,12 @@ index 0ee5148..658f00d 100644
 +				size_t count, void *data)
  {
 -	struct obd_device *obd = data;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
  	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
  	struct identity_downcall_data *param;
  	int size = sizeof(*param), rc, checked = 0;
-@@ -415,7 +348,7 @@ static int lprocfs_wr_identity_info(struct file *file, const char *buffer,
+@@ -415,7 +353,7 @@ static int lprocfs_wr_identity_info(struct file *file, const char *buffer,
  again:
  	if (count < size) {
  		CERROR("%s: invalid data count = %lu, size = %d\n",
@@ -859,7 +873,7 @@ index 0ee5148..658f00d 100644
  		return -EINVAL;
  	}
  
-@@ -468,23 +401,24 @@ out:
+@@ -468,23 +406,25 @@ out:
  
  	return rc ? rc : count;
  }
@@ -887,11 +901,12 @@ index 0ee5148..658f00d 100644
 +			size_t count, loff_t *off)
  {
 -	struct obd_device *obd = data;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
  	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
  	int val, rc;
  
-@@ -521,64 +455,65 @@ static int lprocfs_wr_capa(struct file *file, const char *buffer,
+@@ -521,64 +461,67 @@ static int lprocfs_wr_capa(struct file *file, const char *buffer,
  		      mdt->mdt_lut.lut_oss_capa ? "enabled" : "disabled");
  	return count;
  }
@@ -945,7 +960,8 @@ index 0ee5148..658f00d 100644
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        int val, rc;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
 +	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 +	int val, rc;
  
@@ -987,13 +1003,14 @@ index 0ee5148..658f00d 100644
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        int val, rc;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
-+	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*obd = m->private;
++	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
 +	int val, rc;
  
          rc = lprocfs_write_helper(buffer, count, &val);
          if (rc)
-@@ -588,11 +523,13 @@ static int lprocfs_wr_ck_timeout(struct file *file, const char *buffer,
+@@ -588,11 +531,13 @@ static int lprocfs_wr_ck_timeout(struct file *file, const char *buffer,
          mdt->mdt_capa_conf = 1;
          return count;
  }
@@ -1009,16 +1026,17 @@ index 0ee5148..658f00d 100644
  {
          char *kbuf;
          char *tmpbuf;
-@@ -614,7 +551,7 @@ static int lprocfs_mdt_wr_evict_client(struct file *file, const char *buffer,
+@@ -614,7 +559,8 @@ static int lprocfs_mdt_wr_evict_client(struct file *file, const char *buffer,
          tmpbuf = cfs_firststr(kbuf, min_t(unsigned long, BUFLEN - 1, count));
  
          if (strncmp(tmpbuf, "nid:", 4) != 0) {
 -                count = lprocfs_wr_evict_client(file, buffer, count, data);
-+		count = lprocfs_evict_client_seq_write(file, buffer, count, off);
++		count = lprocfs_evict_client_seq_write(file, buffer, count,
++						       off);
                  goto out;
          }
  
-@@ -627,21 +564,21 @@ out:
+@@ -627,21 +573,22 @@ out:
  
  #undef BUFLEN
  
@@ -1044,13 +1062,14 @@ index 0ee5148..658f00d 100644
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        int val, rc;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
-+	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*obd = m->private;
++	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
 +	int val, rc;
  
          rc = lprocfs_write_helper(buffer, count, &val);
          if (rc)
-@@ -659,22 +596,23 @@ static int lprocfs_wr_sec_level(struct file *file, const char *buffer,
+@@ -659,22 +606,24 @@ static int lprocfs_wr_sec_level(struct file *file, const char *buffer,
  	mdt->mdt_lut.lut_sec_level = val;
  	return count;
  }
@@ -1078,13 +1097,14 @@ index 0ee5148..658f00d 100644
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        int val, rc;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
-+	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*obd = m->private;
++	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
 +	int val, rc;
  
          rc = lprocfs_write_helper(buffer, count, &val);
          if (rc)
-@@ -682,15 +620,15 @@ static int lprocfs_wr_cos(struct file *file, const char *buffer,
+@@ -682,15 +631,15 @@ static int lprocfs_wr_cos(struct file *file, const char *buffer,
          mdt_enable_cos(mdt, val);
          return count;
  }
@@ -1106,7 +1126,7 @@ index 0ee5148..658f00d 100644
  }
  
  static int safe_strtoul(const char *str, char **endp, unsigned long *res)
-@@ -708,10 +646,11 @@ static int safe_strtoul(const char *str, char **endp, unsigned long *res)
+@@ -708,11 +657,13 @@ static int safe_strtoul(const char *str, char **endp, unsigned long *res)
          return 0;
  }
  
@@ -1117,11 +1137,14 @@ index 0ee5148..658f00d 100644
 +			  size_t count, loff_t *off)
  {
 -	struct obd_device *obd = data;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
- 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+-	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*obd = m->private;
++	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
  	int rc;
  	char kernbuf[50], *tmp, *end, *errmsg;
-@@ -765,22 +704,23 @@ failed:
+ 	unsigned long uid, gid;
+@@ -765,23 +716,25 @@ failed:
  	      mdt_obd_name(mdt), buffer, errmsg, rc);
  	RETURN(rc);
  }
@@ -1151,11 +1174,14 @@ index 0ee5148..658f00d 100644
 +			    size_t count, loff_t *off)
  {
 -	struct obd_device *obd = data;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
- 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+-	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*obd = m->private;
++	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
  	int rc;
  	char *kernbuf, *errmsg;
-@@ -842,25 +782,26 @@ failed:
+ 	cfs_list_t tmp;
+@@ -842,25 +795,27 @@ failed:
  		OBD_FREE(kernbuf, count + 1);
  	RETURN(rc);
  }
@@ -1187,7 +1213,8 @@ index 0ee5148..658f00d 100644
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        char kernbuf[16];
 -        unsigned long val = 0;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
 +	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 +	struct obd_export *exp;
 +	char kernbuf[16];
@@ -1195,7 +1222,7 @@ index 0ee5148..658f00d 100644
  
          if (count > (sizeof(kernbuf) - 1))
                  return -EINVAL;
-@@ -902,20 +843,21 @@ static int lprocfs_wr_mdt_som(struct file *file, const char *buffer,
+@@ -902,20 +857,22 @@ static int lprocfs_wr_mdt_som(struct file *file, const char *buffer,
  
          return count;
  }
@@ -1220,11 +1247,12 @@ index 0ee5148..658f00d 100644
 +				size_t count, loff_t *off)
  {
 -	struct obd_device *obd = data;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
  	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
  	__u32 val;
  	int rc;
-@@ -930,22 +872,22 @@ static int lprocfs_wr_enable_remote_dir(struct file *file, const char *buffer,
+@@ -930,22 +887,23 @@ static int lprocfs_wr_enable_remote_dir(struct file *file, const char *buffer,
  	mdt->mdt_enable_remote_dir = val;
  	return count;
  }
@@ -1252,11 +1280,12 @@ index 0ee5148..658f00d 100644
 +				    size_t count, loff_t *off)
  {
 -	struct obd_device *obd = data;
-+	struct obd_device *obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
  	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
  	__u32 val;
  	int rc;
-@@ -957,97 +899,72 @@ static int lprocfs_wr_enable_remote_dir_gid(struct file *file,
+@@ -957,97 +915,72 @@ static int lprocfs_wr_enable_remote_dir_gid(struct file *file,
  	mdt->mdt_enable_remote_dir_gid = val;
  	return count;
  }
@@ -1420,7 +1449,7 @@ index 0ee5148..658f00d 100644
  	{ 0 }
  };
  
-@@ -1085,21 +1002,15 @@ int lprocfs_mdt_open_files_seq_show(struct seq_file *seq, void *v)
+@@ -1085,21 +1018,15 @@ int lprocfs_mdt_open_files_seq_show(struct seq_file *seq, void *v)
  
  int lprocfs_mdt_open_files_seq_open(struct inode *inode, struct file *file)
  {
@@ -1443,7 +1472,7 @@ index 0ee5148..658f00d 100644
  
  	return 0;
  }
-@@ -1140,3 +1051,67 @@ void mdt_stats_counter_init(struct lprocfs_stats *stats)
+@@ -1140,3 +1067,67 @@ void mdt_stats_counter_init(struct lprocfs_stats *stats)
          lprocfs_counter_init(stats, LPROC_MDT_CROSSDIR_RENAME, 0,
                               "crossdir_rename", "reqs");
  }
@@ -1512,7 +1541,7 @@ index 0ee5148..658f00d 100644
 +	lprocfs_job_stats_fini(obd);
 +}
 diff --git a/lustre/mdt/mdt_mds.c b/lustre/mdt/mdt_mds.c
-index 367f659..4fa66c3 100644
+index 390164f..424ddf5 100644
 --- a/lustre/mdt/mdt_mds.c
 +++ b/lustre/mdt/mdt_mds.c
 @@ -464,6 +464,13 @@ static struct lu_device *mds_device_free(const struct lu_env *env,
@@ -1541,13 +1570,13 @@ index 367f659..4fa66c3 100644
  		l = ERR_PTR(rc);
 @@ -541,7 +549,7 @@ int mds_mod_init(void)
  
- 	return class_register_type(&mds_obd_device_ops, NULL, NULL,
+ 	return class_register_type(&mds_obd_device_ops, NULL, true, NULL,
  #ifndef HAVE_ONLY_PROCFS_SEQ
--					lprocfs_mds_module_vars,
-+					NULL,
+-				   lprocfs_mds_module_vars,
++				   NULL,
  #endif
- 					LUSTRE_MDS_NAME, &mds_device_type);
+ 				   LUSTRE_MDS_NAME, &mds_device_type);
  }
 -- 
-1.8.5.3
+1.9.1
 

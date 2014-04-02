@@ -1,7 +1,7 @@
-From 2670599090a754d9fa8c7d952b530bc8fb88d56e Mon Sep 17 00:00:00 2001
+From 1394aacb441c3ba07b24a4b465f2496af8eb3c73 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Sun, 9 Feb 2014 11:08:45 -0500
-Subject: [PATCH 06/12] LU-3319 procfs: move lod proc handling to seq_files
+Date: Wed, 26 Mar 2014 19:57:44 -0400
+Subject: [PATCH 6/9] LU-3319 procfs: move lod proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the lod
@@ -10,14 +10,14 @@ layer proc entries over to using seq_files.
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: Iaa0f617fcd430e91f12afbc0faf6906fd275a7a5
 ---
- lustre/lod/lod_dev.c      |  39 ++++---
+ lustre/lod/lod_dev.c      |  23 ++--
  lustre/lod/lod_internal.h |   1 -
  lustre/lod/lod_pool.c     |   7 +-
- lustre/lod/lproc_lod.c    | 251 ++++++++++++++++++++++++----------------------
- 4 files changed, 152 insertions(+), 146 deletions(-)
+ lustre/lod/lproc_lod.c    | 267 +++++++++++++++++++++++++---------------------
+ 4 files changed, 157 insertions(+), 141 deletions(-)
 
 diff --git a/lustre/lod/lod_dev.c b/lustre/lod/lod_dev.c
-index a451462..8776aa3 100644
+index a653d6a..1baeb37 100644
 --- a/lustre/lod/lod_dev.c
 +++ b/lustre/lod/lod_dev.c
 @@ -289,12 +289,10 @@ static int lod_process_config(const struct lu_env *env,
@@ -36,70 +36,56 @@ index a451462..8776aa3 100644
  		if (rc > 0)
  			rc = 0;
  		GOTO(out, rc);
-@@ -890,19 +888,16 @@ static struct obd_ops lod_obd_device_ops = {
+@@ -891,7 +889,6 @@ static struct obd_ops lod_obd_device_ops = {
  
  static int __init lod_mod_init(void)
  {
 -	struct lprocfs_static_vars  lvars = { 0 };
--	cfs_proc_dir_entry_t       *lov_proc_dir;
--	int			    rc;
-+	struct obd_type *lod, *lov;
-+	int rc;
+ 	struct obd_type	*type;
+ 	int rc;
  
- 	rc = lu_kmem_init(lod_caches);
+@@ -899,11 +896,9 @@ static int __init lod_mod_init(void)
  	if (rc)
  		return rc;
  
 -	lprocfs_lod_init_vars(&lvars);
 -
- 	rc = class_register_type(&lod_obd_device_ops, NULL, NULL,
+ 	rc = class_register_type(&lod_obd_device_ops, NULL, true, NULL,
  #ifndef HAVE_ONLY_PROCFS_SEQ
--				lvars.module_vars,
-+				NULL,
+-				 lvars.module_vars,
++				 NULL,
  #endif
- 				LUSTRE_LOD_NAME, &lod_device_type);
+ 				 LUSTRE_LOD_NAME, &lod_device_type);
  	if (rc) {
-@@ -911,23 +906,25 @@ static int __init lod_mod_init(void)
- 	}
+@@ -917,18 +912,18 @@ static int __init lod_mod_init(void)
+ 		return rc;
  
- 	/* create "lov" entry in procfs for compatibility purposes */
--	lov_proc_dir = lprocfs_srch(proc_lustre_root, "lov");
--	if (lov_proc_dir == NULL) {
--		lov_proc_dir = lprocfs_register("lov", proc_lustre_root,
--						NULL, NULL);
--		if (IS_ERR(lov_proc_dir))
-+	lod = class_search_type(LUSTRE_LOD_NAME);
-+	lov = class_search_type(LUSTRE_LOV_NAME);
-+	if (lov == NULL) {
-+		lod->typ_procsym = lprocfs_seq_register("lov", proc_lustre_root,
-+							NULL, NULL);
-+		if (IS_ERR(lod->typ_procsym)) {
- 			CERROR("lod: can't create compat entry \"lov\": %d\n",
--			       (int)PTR_ERR(lov_proc_dir));
-+			       (int)PTR_ERR(lod->typ_procsym));
-+			lod->typ_procsym = NULL;
-+		}
-+	} else {
-+		/* Map lov proc root to lod symlink */
-+		lod->typ_procsym = lov->typ_procroot;
- 	}
--
+ 	type = class_search_type(LUSTRE_LOD_NAME);
+-	type->typ_procsym = lprocfs_register("lov", proc_lustre_root,
+-					     NULL, NULL);
+-	if (IS_ERR(type->typ_procsym))
++	type->typ_procsym = lprocfs_seq_register("lov", proc_lustre_root,
++						 NULL, NULL);
++	if (IS_ERR(type->typ_procsym)) {
+ 		CERROR("lod: can't create compat entry \"lov\": %d\n",
+ 		       (int)PTR_ERR(type->typ_procsym));
++		type->typ_procsym = NULL;
++	}
  	return rc;
  }
  
  static void __exit lod_mod_exit(void)
  {
--
 -	lprocfs_try_remove_proc_entry("lov", proc_lustre_root);
 -
  	class_unregister_type(LUSTRE_LOD_NAME);
  	lu_kmem_fini(lod_caches);
  }
 diff --git a/lustre/lod/lod_internal.h b/lustre/lod/lod_internal.h
-index 2a00890..65ba47a 100644
+index c3b1bc3..fc18f3d 100644
 --- a/lustre/lod/lod_internal.h
 +++ b/lustre/lod/lod_internal.h
-@@ -431,7 +431,6 @@ int qos_add_tgt(struct lod_device*, struct lod_tgt_desc *);
+@@ -432,7 +432,6 @@ int qos_add_tgt(struct lod_device*, struct lod_tgt_desc *);
  int qos_del_tgt(struct lod_device *, struct lod_tgt_desc *);
  
  /* lproc_lod.c */
@@ -133,10 +119,10 @@ index 98b2416..1849e5d 100644
  						       &pool_proc_operations);
  	if (IS_ERR(new_pool->pool_proc_entry)) {
 diff --git a/lustre/lod/lproc_lod.c b/lustre/lod/lproc_lod.c
-index e976063..e420a5e 100644
+index e976063..1598658 100644
 --- a/lustre/lod/lproc_lod.c
 +++ b/lustre/lod/lproc_lod.c
-@@ -42,23 +42,22 @@
+@@ -42,23 +42,23 @@
  #include <lustre_param.h>
  
  #ifdef LPROCFS
@@ -163,11 +149,12 @@ index e976063..e420a5e 100644
 +			 size_t count, loff_t *off)
  {
 -	struct obd_device *dev = (struct obd_device *)data;
-+	struct obd_device *dev = ((struct seq_file *)file->private_data)->private;
++	struct seq_file   *m = file->private_data;
++	struct obd_device *dev = m->private;
  	struct lod_device *lod;
  	__u64 val;
  	int rc;
-@@ -73,24 +72,24 @@ static int lod_wr_stripesize(struct file *file, const char *buffer,
+@@ -73,24 +73,25 @@ static int lod_wr_stripesize(struct file *file, const char *buffer,
  	lod->lod_desc.ld_default_stripe_size = val;
  	return count;
  }
@@ -196,11 +183,12 @@ index e976063..e420a5e 100644
 +			   size_t count, loff_t *off)
  {
 -	struct obd_device *dev = (struct obd_device *)data;
-+	struct obd_device *dev = ((struct seq_file *)file->private_data)->private;
++	struct seq_file   *m = file->private_data;
++	struct obd_device *dev = m->private;
  	struct lod_device *lod;
  	__u64 val;
  	int rc;
-@@ -104,23 +103,23 @@ static int lod_wr_stripeoffset(struct file *file, const char *buffer,
+@@ -104,23 +105,24 @@ static int lod_wr_stripeoffset(struct file *file, const char *buffer,
  	lod->lod_desc.ld_default_stripe_offset = val;
  	return count;
  }
@@ -228,11 +216,12 @@ index e976063..e420a5e 100644
 +			 size_t count, loff_t *off)
  {
 -	struct obd_device *dev = (struct obd_device *)data;
-+	struct obd_device *dev = ((struct seq_file *)file->private_data)->private;
++	struct seq_file   *m = file->private_data;
++	struct obd_device *dev = m->private;
  	struct lod_device *lod;
  	int val, rc;
  
-@@ -134,24 +133,24 @@ static int lod_wr_stripetype(struct file *file, const char *buffer,
+@@ -134,24 +136,25 @@ static int lod_wr_stripetype(struct file *file, const char *buffer,
  	lod->lod_desc.ld_pattern = val;
  	return count;
  }
@@ -261,11 +250,12 @@ index e976063..e420a5e 100644
 +			  size_t count, loff_t *off)
  {
 -	struct obd_device *dev = (struct obd_device *)data;
-+	struct obd_device *dev = ((struct seq_file *)file->private_data)->private;
++	struct seq_file   *m = file->private_data;
++	struct obd_device *dev = m->private;
  	struct lod_device *lod;
  	int val, rc;
  
-@@ -165,62 +164,57 @@ static int lod_wr_stripecount(struct file *file, const char *buffer,
+@@ -165,62 +168,58 @@ static int lod_wr_stripecount(struct file *file, const char *buffer,
  	lod->lod_desc.ld_default_stripe_count = val;
  	return count;
  }
@@ -293,7 +283,7 @@ index e976063..e420a5e 100644
 +static int lod_activeobd_seq_show(struct seq_file *m, void *v)
  {
 -	struct obd_device* dev = (struct obd_device*)data;
-+	struct obd_device* dev = m->private;
++	struct obd_device *dev = m->private;
  	struct lod_device *lod;
  
  	LASSERT(dev != NULL);
@@ -344,11 +334,12 @@ index e976063..e420a5e 100644
 +			   size_t count, loff_t *off)
  {
 -	struct obd_device *dev = (struct obd_device *)data;
-+	struct obd_device *dev = ((struct seq_file *)file->private_data)->private;
++	struct seq_file   *m = file->private_data;
++	struct obd_device *dev = m->private;
  	struct lod_device *lod;
  	int val, rc;
  
-@@ -238,24 +232,24 @@ static int lod_wr_qos_priofree(struct file *file, const char *buffer,
+@@ -238,24 +237,25 @@ static int lod_wr_qos_priofree(struct file *file, const char *buffer,
  	lod->lod_qos.lq_reset = 1;
  	return count;
  }
@@ -377,11 +368,12 @@ index e976063..e420a5e 100644
 +			      size_t count, loff_t *off)
  {
 -	struct obd_device *dev = (struct obd_device *)data;
-+	struct obd_device *dev = ((struct seq_file *)file->private_data)->private;
++	struct seq_file   *m = file->private_data;
++	struct obd_device *dev = m->private;
  	struct lod_device *lod;
  	int val, rc;
  
-@@ -273,23 +267,23 @@ static int lod_wr_qos_thresholdrr(struct file *file, const char *buffer,
+@@ -273,23 +273,24 @@ static int lod_wr_qos_thresholdrr(struct file *file, const char *buffer,
  	lod->lod_qos.lq_dirty = 1;
  	return count;
  }
@@ -409,11 +401,12 @@ index e976063..e420a5e 100644
 +			 size_t count, loff_t *off)
  {
 -	struct obd_device	*dev = (struct obd_device *)data;
-+	struct obd_device *dev = ((struct seq_file *)file->private_data)->private;
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*dev = m->private;
  	struct lustre_cfg_bufs	 bufs;
  	struct lod_device	*lod;
  	struct lu_device	*next;
-@@ -327,6 +321,7 @@ static int lod_wr_qos_maxage(struct file *file, const char *buffer,
+@@ -327,6 +328,7 @@ static int lod_wr_qos_maxage(struct file *file, const char *buffer,
  
  	return count;
  }
@@ -421,7 +414,7 @@ index e976063..e420a5e 100644
  
  static void *lod_osts_seq_start(struct seq_file *p, loff_t *pos)
  {
-@@ -414,56 +409,63 @@ static const struct seq_operations lod_osts_sops = {
+@@ -414,56 +416,63 @@ static const struct seq_operations lod_osts_sops = {
  
  static int lod_osts_seq_open(struct inode *inode, struct file *file)
  {
@@ -452,6 +445,16 @@ index e976063..e420a5e 100644
 -	{ "qos_prio_free",lod_rd_qos_priofree,    lod_wr_qos_priofree, 0 },
 -	{ "qos_threshold_rr",  lod_rd_qos_thresholdrr, lod_wr_qos_thresholdrr, 0 },
 -	{ "qos_maxage",   lod_rd_qos_maxage,      lod_wr_qos_maxage, 0 },
+-	{ 0 }
+-};
+-
+-static struct lprocfs_vars lprocfs_lod_osd_vars[] = {
+-	{ "blocksize",    lprocfs_dt_rd_blksize, 0, 0 },
+-	{ "kbytestotal",  lprocfs_dt_rd_kbytestotal, 0, 0 },
+-	{ "kbytesfree",   lprocfs_dt_rd_kbytesfree, 0, 0 },
+-	{ "kbytesavail",  lprocfs_dt_rd_kbytesavail, 0, 0 },
+-	{ "filestotal",   lprocfs_dt_rd_filestotal, 0, 0 },
+-	{ "filesfree",    lprocfs_dt_rd_filesfree, 0, 0 },
 +LPROC_SEQ_FOPS_RO_TYPE(lod, uuid);
 +
 +LPROC_SEQ_FOPS_RO_TYPE(lod, dt_blksize);
@@ -487,13 +490,8 @@ index e976063..e420a5e 100644
  	{ 0 }
  };
  
--static struct lprocfs_vars lprocfs_lod_osd_vars[] = {
--	{ "blocksize",    lprocfs_dt_rd_blksize, 0, 0 },
--	{ "kbytestotal",  lprocfs_dt_rd_kbytestotal, 0, 0 },
--	{ "kbytesfree",   lprocfs_dt_rd_kbytesfree, 0, 0 },
--	{ "kbytesavail",  lprocfs_dt_rd_kbytesavail, 0, 0 },
--	{ "filestotal",   lprocfs_dt_rd_filestotal, 0, 0 },
--	{ "filesfree",    lprocfs_dt_rd_filesfree, 0, 0 },
+-static struct lprocfs_vars lprocfs_lod_module_vars[] = {
+-	{ "num_refs",     lprocfs_rd_numrefs,     0, 0 },
 +static struct lprocfs_seq_vars lprocfs_lod_osd_vars[] = {
 +	{ "blocksize",		&lod_dt_blksize_fops		},
 +	{ "kbytestotal",	&lod_dt_kbytestotal_fops	},
@@ -504,11 +502,6 @@ index e976063..e420a5e 100644
  	{ 0 }
  };
  
--static struct lprocfs_vars lprocfs_lod_module_vars[] = {
--	{ "num_refs",     lprocfs_rd_numrefs,     0, 0 },
--	{ 0 }
--};
--
 -void lprocfs_lod_init_vars(struct lprocfs_static_vars *lvars)
 -{
 -	lvars->module_vars	= lprocfs_lod_module_vars;
@@ -518,13 +511,18 @@ index e976063..e420a5e 100644
  static const struct file_operations lod_proc_target_fops = {
  	.owner   = THIS_MODULE,
  	.open    = lod_osts_seq_open,
-@@ -475,20 +477,18 @@ static const struct file_operations lod_proc_target_fops = {
+@@ -474,21 +483,21 @@ static const struct file_operations lod_proc_target_fops = {
+ 
  int lod_procfs_init(struct lod_device *lod)
  {
- 	struct obd_device *obd = lod2obd(lod);
+-	struct obd_device *obd = lod2obd(lod);
 -	struct lprocfs_static_vars lvars;
 -	cfs_proc_dir_entry_t *lov_proc_dir;
- 	int rc;
+-	int rc;
++	struct obd_device	*obd = lod2obd(lod);
++	struct proc_dir_entry	*lov_proc_dir = NULL;
++	struct obd_type		*type;
++	int			 rc;
  
 -	lprocfs_lod_init_vars(&lvars);
 -	rc = lprocfs_obd_setup(obd, lvars.obd_vars);
@@ -543,7 +541,7 @@ index e976063..e420a5e 100644
  	if (rc) {
  		CERROR("%s: cannot setup procfs entry: %d\n",
  		       obd->obd_name, rc);
-@@ -503,9 +503,9 @@ int lod_procfs_init(struct lod_device *lod)
+@@ -503,9 +512,9 @@ int lod_procfs_init(struct lod_device *lod)
  		GOTO(out, rc);
  	}
  
@@ -556,42 +554,38 @@ index e976063..e420a5e 100644
  	if (IS_ERR(lod->lod_pool_proc_entry)) {
  		rc = PTR_ERR(lod->lod_pool_proc_entry);
  		lod->lod_pool_proc_entry = NULL;
-@@ -514,14 +514,18 @@ int lod_procfs_init(struct lod_device *lod)
+@@ -514,14 +523,24 @@ int lod_procfs_init(struct lod_device *lod)
  		GOTO(out, rc);
  	}
  
 -	/* for compatibility we link old procfs's OSC entries to osp ones */
 -	lov_proc_dir = lprocfs_srch(proc_lustre_root, "lov");
 -	if (lov_proc_dir != NULL && strstr(obd->obd_name, "lov") != NULL)
-+	/* for compatibility we link old procfs's LOV entries to lod ones */
-+	if (obd->obd_type->typ_procsym != NULL) {
- 		lod->lod_symlink = lprocfs_add_symlink(obd->obd_name,
+-		lod->lod_symlink = lprocfs_add_symlink(obd->obd_name,
 -						       lov_proc_dir,
 -						       "../lod/%s",
 -						       obd->obd_name);
--
-+							obd->obd_type->typ_procsym,
-+							"../lod/%s",
-+							obd->obd_name);
-+		if (lod->lod_symlink == NULL) {
-+			CERROR("could not register LOV symlink for "
-+				"/proc/fs/lustre/lod/%s.", obd->obd_name);
-+			lprocfs_remove(&obd->obd_type->typ_procsym);
-+		}
-+	}
++	/* If the real LOV is present which is the case for setups
++	 * with both server and clients on the same node then use
++	 * the LOV's proc root */
++	type = class_search_type(LUSTRE_LOV_NAME);
++	if (type != NULL && type->typ_procroot != NULL)
++		lov_proc_dir = type->typ_procroot;
++	else
++		lov_proc_dir = obd->obd_type->typ_procsym;
++
++	if (lov_proc_dir == NULL)
++		RETURN(0);
+ 
++	/* for compatibility we link old procfs's LOV entries to lod ones */
++	lod->lod_symlink = lprocfs_add_symlink(obd->obd_name, lov_proc_dir,
++					       "../lod/%s", obd->obd_name);
++	if (lod->lod_symlink == NULL)
++		CERROR("could not register LOV symlink for "
++			"/proc/fs/lustre/lod/%s.", obd->obd_name);
  	RETURN(0);
  
  out:
-@@ -542,6 +546,9 @@ void lod_procfs_fini(struct lod_device *lod)
- 		lod->lod_pool_proc_entry = NULL;
- 	}
- 
-+	if (obd->obd_type->typ_procsym != NULL)
-+		lprocfs_remove(&obd->obd_type->typ_procsym);
-+
- 	lprocfs_obd_cleanup(obd);
- }
- 
 -- 
-1.8.5.3
+1.9.1
 

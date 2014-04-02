@@ -1,0 +1,123 @@
+From 7dbddd98e60ab73580ea52c8b53274da2283d624 Mon Sep 17 00:00:00 2001
+From: James Simmons <uja.ornl@gmail.com>
+Date: Tue, 25 Feb 2014 12:54:05 -0500
+Subject: [PATCH 2/9] LU-3319 procfs: Move NRS TBF proc handling to seq_files
+
+With newer kernels moving their proc file system handling
+to seq_files this patch migrates the proc handling for NRS
+TBF to this new approach.
+
+Change-Id: I121755b611296bf7b9527de65d0e6cf8c4980151
+Signed-off-by: James Simmons <uja.ornl@gmail.com>
+---
+ lustre/ptlrpc/nrs_tbf.c | 35 ++++++++++++++---------------------
+ 1 file changed, 14 insertions(+), 21 deletions(-)
+
+diff --git a/lustre/ptlrpc/nrs_tbf.c b/lustre/ptlrpc/nrs_tbf.c
+index 96eac30..09ab0e7 100644
+--- a/lustre/ptlrpc/nrs_tbf.c
++++ b/lustre/ptlrpc/nrs_tbf.c
+@@ -1572,30 +1572,26 @@ static void nrs_tbf_req_stop(struct ptlrpc_nrs_policy *policy,
+  */
+ #define LPROCFS_NRS_RATE_MAX		65535
+ 
+-static int ptlrpc_lprocfs_rd_nrs_tbf_rule(char *page, char **start,
+-					   off_t off, int count, int *eof,
+-					   void *data)
++static int
++ptlrpc_lprocfs_nrs_tbf_rule_seq_show(struct seq_file *m, void *data)
+ {
+-	struct ptlrpc_service	    *svc = data;
++	struct ptlrpc_service	    *svc = m->private;
+ 	int			     rc;
+ 	int			     rc2;
+ 	struct nrs_tbf_dump	     dump;
+ 
+-	rc2 = snprintf(page, count, "regular_requests:\n");
++	rc2 = seq_printf(m, "regular_requests:\n");
+ 	/**
+ 	 * Perform two separate calls to this as only one of the NRS heads'
+ 	 * policies may be in the ptlrpc_nrs_pol_state::NRS_POL_STATE_STARTED or
+ 	 * ptlrpc_nrs_pol_state::NRS_POL_STATE_STOPPING state.
+ 	 */
+ 	dump.td_length = 0;
+-	dump.td_buff = page + rc2;
+-	dump.td_size = count - rc2;
+ 	rc = ptlrpc_nrs_policy_control(svc, PTLRPC_NRS_QUEUE_REG,
+ 				       NRS_POL_NAME_TBF,
+ 				       NRS_CTL_TBF_RD_RULE,
+ 				       false, &dump);
+ 	if (rc == 0) {
+-		*eof = 1;
+ 		rc2 += dump.td_length;
+ 		/**
+ 		 * Ignore -ENODEV as the regular NRS head's policy may be in the
+@@ -1608,16 +1604,13 @@ static int ptlrpc_lprocfs_rd_nrs_tbf_rule(char *page, char **start,
+ 	if (!nrs_svc_has_hp(svc))
+ 		goto no_hp;
+ 
+-	rc2 += snprintf(page + rc2, count - rc2, "high_priority_requests:\n");
++	rc2 += seq_printf(m, "high_priority_requests:\n");
+ 	dump.td_length = 0;
+-	dump.td_buff = page + rc2;
+-	dump.td_size = count - rc2;
+ 	rc = ptlrpc_nrs_policy_control(svc, PTLRPC_NRS_QUEUE_HP,
+ 				       NRS_POL_NAME_TBF,
+ 				       NRS_CTL_TBF_RD_RULE,
+ 				       false, &dump);
+ 	if (rc == 0) {
+-		*eof = 1;
+ 		rc2 += dump.td_length;
+ 		/**
+ 		 * Ignore -ENODEV as the high priority NRS head's policy may be
+@@ -1762,11 +1755,12 @@ out:
+ 
+ extern struct nrs_core nrs_core;
+ #define LPROCFS_WR_NRS_TBF_MAX_CMD (4096)
+-static int ptlrpc_lprocfs_wr_nrs_tbf_rule(struct file *file,
+-					  const char *buffer,
+-					  unsigned long count, void *data)
++static ssize_t
++ptlrpc_lprocfs_nrs_tbf_rule_seq_write(struct file *file, const char *buffer,
++				      size_t count, loff_t *off)
+ {
+-	struct ptlrpc_service	  *svc = data;
++	struct seq_file		  *m = file->private_data;
++	struct ptlrpc_service	  *svc = m->private;
+ 	char			  *kernbuf;
+ 	char			  *val;
+ 	int			   rc;
+@@ -1830,7 +1824,7 @@ out_free_kernbuff:
+ out:
+ 	return rc ? rc : count;
+ }
+-
++LPROC_SEQ_FOPS(ptlrpc_lprocfs_nrs_tbf_rule);
+ 
+ /**
+  * Initializes a TBF policy's lprocfs interface for service \a svc
+@@ -1843,10 +1837,9 @@ out:
+ int nrs_tbf_lprocfs_init(struct ptlrpc_service *svc)
+ {
+ 	int	rc;
+-	struct lprocfs_vars nrs_tbf_lprocfs_vars[] = {
++	struct lprocfs_seq_vars nrs_tbf_lprocfs_vars[] = {
+ 		{ .name		= "nrs_tbf_rule",
+-		  .read_fptr	= ptlrpc_lprocfs_rd_nrs_tbf_rule,
+-		  .write_fptr	= ptlrpc_lprocfs_wr_nrs_tbf_rule,
++		  .fops		= &ptlrpc_lprocfs_nrs_tbf_rule_fops,
+ 		  .data = svc },
+ 		{ NULL }
+ 	};
+@@ -1854,7 +1847,7 @@ int nrs_tbf_lprocfs_init(struct ptlrpc_service *svc)
+ 	if (svc->srv_procroot == NULL)
+ 		return 0;
+ 
+-	rc = lprocfs_add_vars(svc->srv_procroot, nrs_tbf_lprocfs_vars, NULL);
++	rc = lprocfs_seq_add_vars(svc->srv_procroot, nrs_tbf_lprocfs_vars, NULL);
+ 
+ 	return rc;
+ }
+-- 
+1.9.1
+
