@@ -13,14 +13,15 @@ S="${WORKDIR}/${PN}-v${PV}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="static-libs"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-soname.patch \
+	epatch \
+		"${FILESDIR}"/${P}-soname.patch \
 		"${FILESDIR}"/${P}-buildflags.patch
 }
 
