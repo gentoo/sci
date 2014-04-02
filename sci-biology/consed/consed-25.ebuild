@@ -65,6 +65,7 @@ src_install() {
 		solexa_example_answer selectRegions selectRegionsAnswer || die
 	echo 'CONSED_HOME='${EPREFIX}'/usr' > "${S}/99consed"
 	doenvd "${S}/99consed" || die
+	sed -e "s#/usr/local/genome#${EPREFIX}/usr#" -i "${D}"/usr/bin/*.perl || die
 	dodoc README.txt *_announcement.txt || die
 }
 

@@ -1,7 +1,7 @@
-From e9786df9c5618c2cff7d81088548fefee874468a Mon Sep 17 00:00:00 2001
+From ab793e8472447314f6428025175f80afc26339ac Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Sun, 9 Feb 2014 17:10:18 -0500
-Subject: [PATCH 05/12] LU-3319 procfs: move osp proc handling to seq_files
+Date: Wed, 26 Mar 2014 19:59:18 -0400
+Subject: [PATCH 05/10] LU-3319 procfs: move osp proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the osp
@@ -10,17 +10,17 @@ layer proc entries over to using seq_files.
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: Id8f77d72fd35755f1b7b1c17fcf27e0731bd5ac1
 ---
- lustre/osp/lproc_osp.c    | 373 ++++++++++++++++++++++++----------------------
- lustre/osp/lwp_dev.c      |  18 +--
- lustre/osp/osp_dev.c      |  48 +++---
+ lustre/osp/lproc_osp.c    | 402 +++++++++++++++++++++++++---------------------
+ lustre/osp/lwp_dev.c      |  19 +--
+ lustre/osp/osp_dev.c      |  32 ++--
  lustre/osp/osp_internal.h |   2 -
- 4 files changed, 222 insertions(+), 219 deletions(-)
+ 4 files changed, 228 insertions(+), 227 deletions(-)
 
 diff --git a/lustre/osp/lproc_osp.c b/lustre/osp/lproc_osp.c
-index 75ebeb1..1ec40fc 100644
+index 75ebeb1..1271b7c 100644
 --- a/lustre/osp/lproc_osp.c
 +++ b/lustre/osp/lproc_osp.c
-@@ -45,24 +45,23 @@
+@@ -45,24 +45,24 @@
  #include "osp_internal.h"
  
  #ifdef LPROCFS
@@ -48,12 +48,13 @@ index 75ebeb1..1ec40fc 100644
  {
 -	struct obd_device	*dev = data;
 -	int			 val, rc;
-+	struct obd_device *dev = ((struct seq_file *)file->private_data)->private;
++	struct seq_file   *m = file->private_data;
++	struct obd_device *dev = m->private;
 +	int		   val, rc;
  
  	rc = lprocfs_write_helper(buffer, count, &val);
  	if (rc)
-@@ -81,67 +80,60 @@ static int osp_wr_active(struct file *file, const char *buffer,
+@@ -81,67 +81,61 @@ static int osp_wr_active(struct file *file, const char *buffer,
  	LPROCFS_CLIMP_EXIT(dev);
  	return count;
  }
@@ -137,11 +138,12 @@ index 75ebeb1..1ec40fc 100644
 +				size_t count, loff_t *off)
  {
 -	struct obd_device	*dev = data;
-+	struct obd_device	*dev = ((struct seq_file *)file->private_data)->private;
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*dev = m->private;
  	struct osp_device	*osp = lu2osp_dev(dev->obd_lu_dev);
  	int			 val, rc;
  
-@@ -158,25 +150,24 @@ static int osp_wr_max_rpcs_in_flight(struct file *file, const char *buffer,
+@@ -158,25 +152,25 @@ static int osp_wr_max_rpcs_in_flight(struct file *file, const char *buffer,
  	osp->opd_syn_max_rpc_in_flight = val;
  	return count;
  }
@@ -171,11 +173,12 @@ index 75ebeb1..1ec40fc 100644
 +				size_t count, loff_t *off)
  {
 -	struct obd_device	*dev = data;
-+	struct obd_device	*dev = ((struct seq_file *)file->private_data)->private;
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*dev = m->private;
  	struct osp_device	*osp = lu2osp_dev(dev->obd_lu_dev);
  	int			 val, rc;
  
-@@ -194,23 +185,24 @@ static int osp_wr_max_rpcs_in_prog(struct file *file, const char *buffer,
+@@ -194,23 +188,25 @@ static int osp_wr_max_rpcs_in_prog(struct file *file, const char *buffer,
  
  	return count;
  }
@@ -203,11 +206,12 @@ index 75ebeb1..1ec40fc 100644
 +				size_t count, loff_t *off)
  {
 -	struct obd_device	*obd = data;
-+	struct obd_device	*obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*obd = m->private;
  	struct osp_device	*osp = lu2osp_dev(obd->obd_lu_dev);
  	int			 val, rc, i;
  
-@@ -242,23 +234,24 @@ static int osp_wr_create_count(struct file *file, const char *buffer,
+@@ -242,23 +238,25 @@ static int osp_wr_create_count(struct file *file, const char *buffer,
  
  	return count;
  }
@@ -235,11 +239,12 @@ index 75ebeb1..1ec40fc 100644
 +				size_t count, loff_t *off)
  {
 -	struct obd_device	*obd = data;
-+	struct obd_device	*obd = ((struct seq_file *)file->private_data)->private;
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*obd = m->private;
  	struct osp_device	*osp = lu2osp_dev(obd->obd_lu_dev);
  	int			 val, rc;
  
-@@ -281,89 +274,85 @@ static int osp_wr_max_create_count(struct file *file, const char *buffer,
+@@ -281,89 +279,86 @@ static int osp_wr_max_create_count(struct file *file, const char *buffer,
  
  	return count;
  }
@@ -353,11 +358,12 @@ index 75ebeb1..1ec40fc 100644
 +			size_t count, loff_t *off)
  {
 -	struct obd_device	*dev = data;
-+	struct obd_device	*dev = ((struct seq_file *)file->private_data)->private;
++	struct seq_file		*m = file->private_data;
++	struct obd_device	*dev = m->private;
  	struct osp_device	*osp = lu2osp_dev(dev->obd_lu_dev);
  	int			 val, rc;
  
-@@ -381,25 +370,23 @@ static int osp_wr_maxage(struct file *file, const char *buffer,
+@@ -381,25 +376,23 @@ static int osp_wr_maxage(struct file *file, const char *buffer,
  
  	return count;
  }
@@ -390,7 +396,7 @@ index 75ebeb1..1ec40fc 100644
  	struct osp_device *osp = lu2osp_dev(dev->obd_lu_dev);
  
  	if (osp == NULL)
-@@ -411,87 +398,126 @@ static int osp_rd_destroys_in_flight(char *page, char **start, off_t off,
+@@ -411,126 +404,161 @@ static int osp_rd_destroys_in_flight(char *page, char **start, off_t off,
  	 * - sync changes are zero - no llog records
  	 * - sync in progress are zero - no RPCs in flight
  	 */
@@ -566,31 +572,49 @@ index 75ebeb1..1ec40fc 100644
  {
  	struct obd_device	*obd = osp->opd_obd;
 -	struct proc_dir_entry	*osc_proc_dir;
-+	struct proc_dir_entry	*symlink = NULL;
++	struct proc_dir_entry	*osc_proc_dir = NULL;
++	struct obd_type		*type;
  	int			 rc;
  
 -	obd->obd_proc_entry = lprocfs_register(obd->obd_name,
-+	obd->obd_proc_entry = lprocfs_seq_register(obd->obd_name,
- 					       obd->obd_type->typ_procroot,
- 					       lprocfs_osp_osd_vars,
- 					       &osp->opd_dt_dev);
-@@ -502,34 +528,29 @@ void osp_lprocfs_init(struct osp_device *osp)
+-					       obd->obd_type->typ_procroot,
+-					       lprocfs_osp_osd_vars,
+-					       &osp->opd_dt_dev);
+-	if (IS_ERR(obd->obd_proc_entry)) {
+-		CERROR("%s: can't register in lprocfs: %ld\n",
+-		       obd->obd_name, PTR_ERR(obd->obd_proc_entry));
+-		obd->obd_proc_entry = NULL;
++	obd->obd_vars = lprocfs_osp_obd_vars;
++	if (lprocfs_seq_obd_setup(obd) != 0)
  		return;
- 	}
+-	}
  
 -	rc = lprocfs_add_vars(obd->obd_proc_entry, lprocfs_osp_obd_vars, obd);
-+	rc = lprocfs_seq_add_vars(obd->obd_proc_entry, lprocfs_osp_obd_vars, obd);
++	rc = lprocfs_seq_add_vars(obd->obd_proc_entry, lprocfs_osp_osd_vars,
++				  &osp->opd_dt_dev);
  	if (rc) {
- 		CERROR("%s: can't register in lprocfs: %ld\n",
- 		       obd->obd_name, PTR_ERR(obd->obd_proc_entry));
+-		CERROR("%s: can't register in lprocfs: %ld\n",
+-		       obd->obd_name, PTR_ERR(obd->obd_proc_entry));
++		CERROR("%s: can't register in lprocfs, rc %d\n",
++		       obd->obd_name, rc);
  		return;
  	}
-+	obd->obd_vars = lprocfs_osp_obd_vars;
  
  	ptlrpc_lprocfs_register_obd(obd);
  
-+	if (osp->opd_connect_mdt || obd->obd_type->typ_procsym == NULL ||
-+	    !strstr(obd->obd_name, "osc"))
++	if (osp->opd_connect_mdt || !strstr(obd->obd_name, "osc"))
++		return;
++
++	/* If the real OSC is present which is the case for setups
++	 * with both server and clients on the same node then use
++	 * the OSC's proc root */
++	type = class_search_type(LUSTRE_OSC_NAME);
++	if (type != NULL && type->typ_procroot != NULL)
++		osc_proc_dir = type->typ_procroot;
++	else
++		osc_proc_dir = obd->obd_type->typ_procsym;
++
++	if (osc_proc_dir == NULL)
 +		return;
 +
  	/* for compatibility we link old procfs's OSC entries to osp ones */
@@ -612,31 +636,28 @@ index 75ebeb1..1ec40fc 100644
 -			OBD_FREE(name, strlen(obd->obd_name) + 1);
 -			osp->opd_symlink = symlink;
 -		}
-+	symlink = lprocfs_add_symlink(obd->obd_name, obd->obd_type->typ_procsym,
-+				      "../osp/%s", obd->obd_name);
-+	if (symlink == NULL) {
+-	}
++	osp->opd_symlink = lprocfs_add_symlink(obd->obd_name, osc_proc_dir,
++					       "../osp/%s", obd->obd_name);
++	if (osp->opd_symlink == NULL)
 +		CERROR("could not register OSC symlink for "
 +			"/proc/fs/lustre/osp/%s.", obd->obd_name);
-+		lprocfs_remove(&obd->obd_type->typ_procsym);
-+	} else {
-+		osp->opd_symlink = symlink;
- 	}
  }
  
+ #endif /* LPROCFS */
 diff --git a/lustre/osp/lwp_dev.c b/lustre/osp/lwp_dev.c
-index dc4f978..b6e84e1 100644
+index a73973a..c115ee6 100644
 --- a/lustre/osp/lwp_dev.c
 +++ b/lustre/osp/lwp_dev.c
-@@ -184,25 +184,13 @@ const struct lu_device_operations lwp_lu_ops = {
+@@ -184,25 +184,9 @@ const struct lu_device_operations lwp_lu_ops = {
  	.ldo_process_config	= lwp_process_config,
  };
  
 -static struct lprocfs_vars lprocfs_lwp_module_vars[] = {
 -	{ "num_refs",		lprocfs_rd_numrefs, 0, 0 },
-+static struct lprocfs_seq_vars lprocfs_lwp_obd_vars[] = {
- 	{ 0 }
- };
- 
+-	{ 0 }
+-};
+-
 -static struct lprocfs_vars lprocfs_lwp_obd_vars[] = {
 -	{ 0 }
 -};
@@ -654,19 +675,18 @@ index dc4f978..b6e84e1 100644
  	int			   rc;
  	ENTRY;
  
-@@ -231,8 +219,8 @@ int lwp_init0(const struct lu_env *env, struct lwp_device *lwp,
+@@ -231,8 +215,7 @@ int lwp_init0(const struct lu_env *env, struct lwp_device *lwp,
  		RETURN(rc);
  	}
  
 -	lprocfs_lwp_init_vars(&lvars);
 -	if (lprocfs_obd_setup(lwp->lpd_obd, lvars.obd_vars) == 0)
-+	lwp->lpd_obd->obd_vars = lprocfs_lwp_obd_vars;
 +	if (lprocfs_seq_obd_setup(lwp->lpd_obd) == 0)
  		ptlrpc_lprocfs_register_obd(lwp->lpd_obd);
  
  	RETURN(0);
 diff --git a/lustre/osp/osp_dev.c b/lustre/osp/osp_dev.c
-index a8d75ea..336b9f0 100644
+index 60bf8ef..b0c68ad 100644
 --- a/lustre/osp/osp_dev.c
 +++ b/lustre/osp/osp_dev.c
 @@ -366,7 +366,7 @@ static int osp_process_config(const struct lu_env *env,
@@ -693,24 +713,13 @@ index a8d75ea..336b9f0 100644
  		if (rc > 0)
  			rc = 0;
  		if (rc == -ENOSYS) {
-@@ -844,6 +842,9 @@ static struct lu_device *osp_device_fini(const struct lu_env *env,
- 			OBD_FREE_PTR(cli->cl_rpc_lock);
- 			cli->cl_rpc_lock = NULL;
- 		}
-+	} else {
-+		if (m->opd_obd->obd_type->typ_procsym != NULL)
-+			lprocfs_remove(&m->opd_obd->obd_type->typ_procsym);
- 	}
- 
- 	rc = client_obd_cleanup(m->opd_obd);
-@@ -1233,33 +1234,26 @@ struct llog_operations osp_mds_ost_orig_logops;
+@@ -1238,33 +1236,27 @@ struct llog_operations osp_mds_ost_orig_logops;
  
  static int __init osp_mod_init(void)
  {
 -	struct lprocfs_static_vars	 lvars;
--	cfs_proc_dir_entry_t		*osc_proc_dir;
+ 	struct obd_type *type;
 -	int				 rc;
-+	struct obd_type *type;
 +	int rc;
  
  	rc = lu_kmem_init(osp_caches);
@@ -718,13 +727,13 @@ index a8d75ea..336b9f0 100644
  		return rc;
  
 -	lprocfs_osp_init_vars(&lvars);
--
- 	rc = class_register_type(&osp_obd_device_ops, NULL, NULL,
+ 
+ 	rc = class_register_type(&osp_obd_device_ops, NULL, true, NULL,
  #ifndef HAVE_ONLY_PROCFS_SEQ
--				lvars.module_vars,
-+				NULL,
+-				 lvars.module_vars,
++				 NULL,
  #endif
- 				LUSTRE_OSP_NAME, &osp_device_type);
+ 				 LUSTRE_OSP_NAME, &osp_device_type);
 -
 -	/* create "osc" entry in procfs for compatibility purposes */
  	if (rc != 0) {
@@ -734,36 +743,27 @@ index a8d75ea..336b9f0 100644
  
 -	lprocfs_lwp_init_vars(&lvars);
 -
- 	rc = class_register_type(&lwp_obd_device_ops, NULL, NULL,
+ 	rc = class_register_type(&lwp_obd_device_ops, NULL, true, NULL,
  #ifndef HAVE_ONLY_PROCFS_SEQ
--				lvars.module_vars,
-+				NULL,
+-				 lvars.module_vars,
++				 NULL,
  #endif
- 				LUSTRE_LWP_NAME, &lwp_device_type);
+ 				 LUSTRE_LWP_NAME, &lwp_device_type);
  	if (rc != 0) {
-@@ -1273,21 +1267,23 @@ static int __init osp_mod_init(void)
- 	osp_mds_ost_orig_logops.lop_add = llog_cat_add_rec;
- 	osp_mds_ost_orig_logops.lop_declare_add = llog_cat_declare_add_rec;
+@@ -1284,18 +1276,18 @@ static int __init osp_mod_init(void)
+ 		return rc;
  
--	osc_proc_dir = lprocfs_srch(proc_lustre_root, "osc");
--	if (osc_proc_dir == NULL) {
--		osc_proc_dir = lprocfs_register("osc", proc_lustre_root, NULL,
--						NULL);
--		if (IS_ERR(osc_proc_dir))
--			CERROR("osp: can't create compat entry \"osc\": %d\n",
--			       (int) PTR_ERR(osc_proc_dir));
-+	type = class_search_type(LUSTRE_OSC_NAME);
-+	if (type)
-+		return rc;
-+
-+	type = class_search_type(LUSTRE_OSP_NAME);
+ 	type = class_search_type(LUSTRE_OSP_NAME);
+-	type->typ_procsym = lprocfs_register("osc", proc_lustre_root,
+-					     NULL, NULL);
+-	if (IS_ERR(type->typ_procsym))
 +	type->typ_procsym = lprocfs_seq_register("osc", proc_lustre_root,
 +						 NULL, NULL);
 +	if (IS_ERR(type->typ_procsym)) {
-+		CERROR("osp: can't create compat entry \"osc\": %d\n",
-+		       (int) PTR_ERR(type->typ_procsym));
+ 		CERROR("osp: can't create compat entry \"osc\": %d\n",
+ 		       (int) PTR_ERR(type->typ_procsym));
 +		type->typ_procsym = NULL;
- 	}
++	}
  	return rc;
  }
  
@@ -775,10 +775,10 @@ index a8d75ea..336b9f0 100644
  	class_unregister_type(LUSTRE_OSP_NAME);
  	lu_kmem_fini(osp_caches);
 diff --git a/lustre/osp/osp_internal.h b/lustre/osp/osp_internal.h
-index 2af16c0..84eca11 100644
+index 1291374..66ad203 100644
 --- a/lustre/osp/osp_internal.h
 +++ b/lustre/osp/osp_internal.h
-@@ -526,7 +526,6 @@ int osp_write_last_oid_seq_files(struct lu_env *env, struct osp_device *osp,
+@@ -530,7 +530,6 @@ int osp_write_last_oid_seq_files(struct lu_env *env, struct osp_device *osp,
  int osp_init_pre_fid(struct osp_device *osp);
  
  /* lproc_osp.c */
@@ -786,7 +786,7 @@ index 2af16c0..84eca11 100644
  void osp_lprocfs_init(struct osp_device *osp);
  
  /* osp_sync.c */
-@@ -540,7 +539,6 @@ int osp_sync_fini(struct osp_device *d);
+@@ -544,7 +543,6 @@ int osp_sync_fini(struct osp_device *d);
  void __osp_sync_check_for_work(struct osp_device *d);
  
  /* lwp_dev.c */
@@ -795,5 +795,5 @@ index 2af16c0..84eca11 100644
  extern struct lu_device_type lwp_device_type;
  
 -- 
-1.8.5.3
+1.9.1
 
