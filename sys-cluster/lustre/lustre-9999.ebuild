@@ -42,6 +42,8 @@ PATCHES=(
 	"${FILESDIR}/0007-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch"
 	"${FILESDIR}/0008-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
 	"${FILESDIR}/0009-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch"
+	"${FILESDIR}/0010-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch"
+	"${FILESDIR}/lustre-readline6.3_fix.patch"
 )
 
 pkg_setup() {

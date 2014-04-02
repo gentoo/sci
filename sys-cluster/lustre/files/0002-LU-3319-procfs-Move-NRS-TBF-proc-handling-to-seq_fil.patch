@@ -1,7 +1,7 @@
 From 7dbddd98e60ab73580ea52c8b53274da2283d624 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Tue, 25 Feb 2014 12:54:05 -0500
-Subject: [PATCH 2/9] LU-3319 procfs: Move NRS TBF proc handling to seq_files
+Subject: [PATCH 02/10] LU-3319 procfs: Move NRS TBF proc handling to seq_files
 
 With newer kernels moving their proc file system handling
 to seq_files this patch migrates the proc handling for NRS

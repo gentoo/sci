@@ -1,7 +1,7 @@
 From 4c418e7208a62c7bb7d61c1f97cf300675215bd4 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Fri, 28 Mar 2014 11:19:07 -0400
-Subject: [PATCH 1/9] LU-3319 procfs: fix symlink handling
+Subject: [PATCH 01/10] LU-3319 procfs: fix symlink handling
 
 While working on symlink handling for seq files I noticed a
 long outstanding bug. Code was developed to link osc obds

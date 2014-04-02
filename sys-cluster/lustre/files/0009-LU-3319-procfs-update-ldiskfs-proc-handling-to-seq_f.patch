@@ -1,7 +1,8 @@
 From 671de4e9a7ec811db225a763b88e48379d5a4daf Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Tue, 25 Mar 2014 12:37:41 -0400
-Subject: [PATCH 9/9] LU-3319 procfs: update ldiskfs proc handling to seq_files
+Subject: [PATCH 09/10] LU-3319 procfs: update ldiskfs proc handling to
+ seq_files
 
 Migrate all ldiskfs proc handling to using strictly
 seq_files. Also include a fix with newer gcc complaining
