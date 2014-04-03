@@ -69,9 +69,13 @@ src_configure() {
 src_install() {
 	cmake-utils_src_install
 
+	cd ${ED}/opt/visit/${PV}/linux-`arch`/lib/site-packages
+	for i in *; do
+		dosym "/opt/visit/${PV}/linux-`arch`/lib/site-packages/${i}" "$(python_get_sitedir)/$i"
+	done
+
 	cat > "${T}"/99visit <<- EOF
 		PATH=${EPREFIX}/opt/visit/bin
-		PYTHONPATH=/opt/visit/${PV}/linux-`arch`/lib/site-packages
 	EOF
 	doenvd "${T}"/99visit
 }
