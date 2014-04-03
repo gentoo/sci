@@ -11,8 +11,11 @@ if [[ ${PV} == *9999* ]]; then
 	ESVN_REPO_URI="https://svn.code.sf.net/p/${PN}/code/trunk"
 	ESVN_PROJECT="${PN}.${PV}"
 else
+	# .zip-snapshot can be recreated by visiting
+	# http://sourceforge.net/p/${PN}/code/${COMMIT}/tarball?path=/tags/v$(replace_all_version_separators '-')
 	TAG_VER=${PN}-code-1688-tags-v$(replace_all_version_separators '-')
-	SRC_URI="http://sourceforge.net/code-snapshots/svn/g/ge/genfit/code/${TAG_VER}.zip"
+	#SRC_URI="http://sourceforge.net/code-snapshots/svn/g/ge/genfit/code/${TAG_VER}.zip"
+	SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${TAG_VER}.zip"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 	S=${WORKDIR}/${TAG_VER}
 fi

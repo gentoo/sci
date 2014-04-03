@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Apr 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  genfit-02.00.00.ebuild:
+  Use zip-snapshot mirrored by jlec, sourceforge cannot automatically recreate
+  them and changes CRC each time
+
   28 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
   genfit-02.00.00.ebuild, genfit-9999.ebuild:
   Unify the specialties between live and non-live ebuild so only one if-clause
@@ -28,4 +33,3 @@
 
   22 Mar 2014; <o.freyermuth@googlemail.com> +genfit-02.00.00.ebuild, +metadata.xml:
   Initial ebuild. 
-
