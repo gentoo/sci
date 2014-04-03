@@ -1,0 +1,11 @@
+#install4j response file for Tablet x.xx.xx.xx
+#Mon Jan 24 11:35:29 GMT 2011
+executeLauncherAction$Boolean=false
+sys.programGroupDisabled$Boolean=true
+# somehow, this happens: ln -s /scratch/var/tmp/portage/sci-biology/tablet-bin-1.11.02.18/image/opt/Tablet/tablet /usr/local/bin/tablet
+# # that happens because /scratch/var/tmp/portage/sci-biology/tablet-bin-1.11.02.18/image/opt/Tablet/.install4j/response.varfile does not reflect our values
+sys.symlinkDir="${D}"usr/bin
+#sys.symlinkDir=/scratch/var/tmp/portage/sci-biology/tablet-bin-1.11.02.18/image/usr/bin
+sys.languageId=en
+sys.userHome="${D}"/../temp
+sys.installationDir="${D}"opt/Tablet

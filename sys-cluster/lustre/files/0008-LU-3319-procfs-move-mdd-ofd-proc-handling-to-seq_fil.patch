@@ -1,41 +1,36 @@
-From 6af3bd54359520829a6199e81171fd849a6656f4 Mon Sep 17 00:00:00 2001
-From: Alexey Shvetsov <alexxy@gentoo.org>
-Date: Thu, 27 Feb 2014 16:06:08 +0400
-Subject: [PATCH 07/12] LU-3319 procfs: move mdd/ofd proc handling to seq_files
+From c6c3f4063e244cea365940adc0fd1a1c35d0b525 Mon Sep 17 00:00:00 2001
+From: James Simmons <uja.ornl@gmail.com>
+Date: Wed, 26 Mar 2014 20:01:52 -0400
+Subject: [PATCH 08/10] LU-3319 procfs: move mdd/ofd proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the mdd/ofd
 layer proc entries over to using seq_files.
 
-Conflicts:
-	lustre/mdd/mdd_lproc.c
-	lustre/lfsck/lfsck_layout.c
-
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
-Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 Change-Id: I61b7df6bfd5efd0f12e3ca1a1813b7b62d493168
 ---
  lustre/include/lustre_lfsck.h    |   6 +-
  lustre/lfsck/lfsck_internal.h    |   9 +-
- lustre/lfsck/lfsck_layout.c      | 101 ++-------
- lustre/lfsck/lfsck_lib.c         |  77 +++----
+ lustre/lfsck/lfsck_layout.c      | 104 +++------
+ lustre/lfsck/lfsck_lib.c         |  88 +++-----
  lustre/lfsck/lfsck_namespace.c   |  75 ++-----
  lustre/mdd/mdd_device.c          |  25 +--
  lustre/mdd/mdd_internal.h        |   1 -
- lustre/mdd/mdd_lproc.c           | 300 ++++++++++++---------------
+ lustre/mdd/mdd_lproc.c           | 302 +++++++++++--------------
  lustre/obdclass/lprocfs_status.c |   9 +-
- lustre/ofd/lproc_ofd.c           | 436 ++++++++++++++++++++-------------------
- lustre/ofd/ofd_dev.c             |  48 ++---
+ lustre/ofd/lproc_ofd.c           | 467 ++++++++++++++++++++-------------------
+ lustre/ofd/ofd_dev.c             |  80 +++----
  lustre/ofd/ofd_internal.h        |   6 +-
  lustre/osd-ldiskfs/osd_handler.c |   1 +
  lustre/osd-zfs/osd_handler.c     |   1 +
- 14 files changed, 462 insertions(+), 633 deletions(-)
+ 14 files changed, 517 insertions(+), 657 deletions(-)
 
 diff --git a/lustre/include/lustre_lfsck.h b/lustre/include/lustre_lfsck.h
-index 1209bc2..bdb0955 100644
+index 0d6f666..5adbffe 100644
 --- a/lustre/include/lustre_lfsck.h
 +++ b/lustre/include/lustre_lfsck.h
-@@ -158,12 +158,12 @@ int lfsck_in_notify(const struct lu_env *env, struct dt_device *key,
+@@ -148,12 +148,12 @@ int lfsck_in_notify(const struct lu_env *env, struct dt_device *key,
  int lfsck_query(const struct lu_env *env, struct dt_device *key,
  		struct lfsck_request *lr);
  
@@ -52,10 +47,10 @@ index 1209bc2..bdb0955 100644
  static inline void lfsck_pack_rfa(struct lfsck_request *lr,
  				  const struct lu_fid *fid)
 diff --git a/lustre/lfsck/lfsck_internal.h b/lustre/lfsck/lfsck_internal.h
-index 9f20729..48d3d82 100644
+index 4f84c3b..c4e6430 100644
 --- a/lustre/lfsck/lfsck_internal.h
 +++ b/lustre/lfsck/lfsck_internal.h
-@@ -293,8 +293,7 @@ struct lfsck_operations {
+@@ -299,8 +299,7 @@ struct lfsck_operations {
  
  	int (*lfsck_dump)(const struct lu_env *env,
  			  struct lfsck_component *com,
@@ -65,7 +60,7 @@ index 9f20729..48d3d82 100644
  
  	int (*lfsck_double_scan)(const struct lu_env *env,
  				 struct lfsck_component *com);
-@@ -571,10 +570,10 @@ void lfsck_component_cleanup(const struct lu_env *env,
+@@ -586,10 +585,10 @@ void lfsck_component_cleanup(const struct lu_env *env,
  			     struct lfsck_component *com);
  void lfsck_instance_cleanup(const struct lu_env *env,
  			    struct lfsck_instance *lfsck);
@@ -80,10 +75,19 @@ index 9f20729..48d3d82 100644
  void lfsck_pos_fill(const struct lu_env *env, struct lfsck_instance *lfsck,
  		    struct lfsck_position *pos, bool init);
 diff --git a/lustre/lfsck/lfsck_layout.c b/lustre/lfsck/lfsck_layout.c
-index f77ee87..27394e2 100644
+index de96726..c3b4458 100644
 --- a/lustre/lfsck/lfsck_layout.c
 +++ b/lustre/lfsck/lfsck_layout.c
-@@ -3657,69 +3657,53 @@ static int lfsck_layout_slave_post(const struct lu_env *env,
+@@ -471,7 +471,7 @@ static struct lfsck_rbtree_node *lfsck_rbtree_new(const struct lu_env *env,
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
+-	rb_init_node(&lrn->lrn_node);
++	RB_CLEAR_NODE(&lrn->lrn_node);
+ 	lrn->lrn_seq = fid_seq(fid);
+ 	lrn->lrn_first_oid = fid_oid(fid) & ~LFSCK_RBTREE_BITMAP_MASK;
+ 	atomic_set(&lrn->lrn_known_count, 0);
+@@ -4798,69 +4798,53 @@ static int lfsck_layout_slave_post(const struct lu_env *env,
  }
  
  static int lfsck_layout_dump(const struct lu_env *env,
@@ -152,17 +156,17 @@ index f77ee87..27394e2 100644
  		      lo->ll_pos_first_inconsistent);
 -	if (rc <= 0)
 -		goto out;
--
+ 
 -	buf += rc;
 -	len -= rc;
- 
+-
 -	rc = snprintf(buf, len,
 -		      "success_count: %u\n"
 +	seq_printf(m, "success_count: %u\n"
  		      "repaired_dangling: "LPU64"\n"
  		      "repaired_unmatched_pair: "LPU64"\n"
  		      "repaired_multiple_referenced: "LPU64"\n"
-@@ -3739,11 +3723,6 @@ static int lfsck_layout_dump(const struct lu_env *env,
+@@ -4880,11 +4864,6 @@ static int lfsck_layout_dump(const struct lu_env *env,
  		      lo->ll_objs_skipped,
  		      lo->ll_objs_failed_phase1,
  		      lo->ll_objs_failed_phase2);
@@ -174,7 +178,7 @@ index f77ee87..27394e2 100644
  
  	if (lo->ll_status == LS_SCANNING_PHASE1) {
  		__u64 pos;
-@@ -3760,8 +3739,7 @@ static int lfsck_layout_dump(const struct lu_env *env,
+@@ -4901,8 +4880,7 @@ static int lfsck_layout_dump(const struct lu_env *env,
  			do_div(new_checked, duration);
  		if (rtime != 0)
  			do_div(speed, rtime);
@@ -184,7 +188,7 @@ index f77ee87..27394e2 100644
  			      "checked_phase2: "LPU64"\n"
  			      "run_time_phase1: %u seconds\n"
  			      "run_time_phase2: %u seconds\n"
-@@ -3775,11 +3753,6 @@ static int lfsck_layout_dump(const struct lu_env *env,
+@@ -4916,11 +4894,6 @@ static int lfsck_layout_dump(const struct lu_env *env,
  			      lo->ll_run_time_phase2,
  			      speed,
  			      new_checked);
@@ -196,29 +200,24 @@ index f77ee87..27394e2 100644
  
  		LASSERT(lfsck->li_di_oit != NULL);
  
-@@ -3792,47 +3765,7 @@ static int lfsck_layout_dump(const struct lu_env *env,
+@@ -4933,12 +4906,8 @@ static int lfsck_layout_dump(const struct lu_env *env,
  		pos = iops->store(env, lfsck->li_di_oit);
  		if (!lfsck->li_current_oit_processed)
  			pos--;
 -		rc = snprintf(buf, len, "current_position: "LPU64"\n", pos);
 -		if (rc <= 0)
 -			goto out;
--
++		seq_printf(m, "current_position: "LPU64"\n", pos);
+ 
 -		buf += rc;
 -		len -= rc;
--	} else if (lo->ll_status == LS_SCANNING_PHASE2) {
--		cfs_duration_t duration = cfs_time_current() -
--					  lfsck->li_time_last_checkpoint;
--		__u64 checked = lo->ll_objs_checked_phase1 + com->lc_new_checked;
--		__u64 speed = checked;
--		__u64 new_checked = com->lc_new_checked * HZ;
--		__u32 rtime = lo->ll_run_time_phase1 +
--			      cfs_duration_sec(duration + HALF_SEC);
--
--		if (duration != 0)
--			do_div(new_checked, duration);
--		if (rtime != 0)
--			do_div(speed, rtime);
+ 	} else if (lo->ll_status == LS_SCANNING_PHASE2) {
+ 		cfs_duration_t duration = cfs_time_current() -
+ 					  lfsck->li_time_last_checkpoint;
+@@ -4952,28 +4921,25 @@ static int lfsck_layout_dump(const struct lu_env *env,
+ 			do_div(new_checked, duration);
+ 		if (rtime != 0)
+ 			do_div(speed, rtime);
 -		rc = snprintf(buf, len,
 -			      "checked_phase1: "LPU64"\n"
 -			      "checked_phase2: "LPU64"\n"
@@ -237,15 +236,31 @@ index f77ee87..27394e2 100644
 -			      new_checked,
 -			      PFID(&com->lc_fid_latest_scanned_phase2));
 -		if (rc <= 0)
--			goto out;
--
++		rc = seq_printf(m, "checked_phase1: "LPU64"\n"
++				"checked_phase2: "LPU64"\n"
++				"run_time_phase1: %u seconds\n"
++				"run_time_phase2: %u seconds\n"
++				"average_speed_phase1: "LPU64" items/sec\n"
++				"average_speed_phase2: N/A\n"
++				"real-time_speed_phase1: "LPU64" items/sec\n"
++				"real-time_speed_phase2: N/A\n"
++				"current_position: "DFID"\n",
++				checked,
++				lo->ll_objs_checked_phase2,
++				rtime,
++				lo->ll_run_time_phase2,
++				speed,
++				new_checked,
++				PFID(&com->lc_fid_latest_scanned_phase2));
++		if (rc < 0)
+ 			goto out;
+ 
 -		buf += rc;
 -		len -= rc;
-+		seq_printf(m, "current_position: "LPU64"\n", pos);
  	} else {
  		__u64 speed1 = lo->ll_objs_checked_phase1;
  		__u64 speed2 = lo->ll_objs_checked_phase2;
-@@ -3841,8 +3774,7 @@ static int lfsck_layout_dump(const struct lu_env *env,
+@@ -4982,8 +4948,7 @@ static int lfsck_layout_dump(const struct lu_env *env,
  			do_div(speed1, lo->ll_run_time_phase1);
  		if (lo->ll_run_time_phase2 != 0)
  			do_div(speed2, lo->ll_run_time_phase2);
@@ -255,7 +270,7 @@ index f77ee87..27394e2 100644
  			      "checked_phase2: "LPU64"\n"
  			      "run_time_phase1: %u seconds\n"
  			      "run_time_phase2: %u seconds\n"
-@@ -3857,18 +3789,11 @@ static int lfsck_layout_dump(const struct lu_env *env,
+@@ -4998,18 +4963,11 @@ static int lfsck_layout_dump(const struct lu_env *env,
  			      lo->ll_run_time_phase2,
  			      speed1,
  			      speed2);
@@ -276,10 +291,10 @@ index f77ee87..27394e2 100644
  
  static int lfsck_layout_master_double_scan(const struct lu_env *env,
 diff --git a/lustre/lfsck/lfsck_lib.c b/lustre/lfsck/lfsck_lib.c
-index de7b849..d358ca1 100644
+index 3b1fe0c..84ffc08 100644
 --- a/lustre/lfsck/lfsck_lib.c
 +++ b/lustre/lfsck/lfsck_lib.c
-@@ -426,77 +426,52 @@ static inline int lfsck_instance_add(struct lfsck_instance *lfsck)
+@@ -899,21 +899,15 @@ static inline int lfsck_instance_add(struct lfsck_instance *lfsck)
  	return 0;
  }
  
@@ -291,8 +306,9 @@ index de7b849..d358ca1 100644
  	int flag;
 -	int rc;
  	int i;
+ 	bool newline = (bits != 0 ? false : true);
  
--	rc = snprintf(*buf, *len, "%s:%c", prefix, bits != 0 ? ' ' : '\n');
+-	rc = snprintf(*buf, *len, "%s:%c", prefix, newline ? '\n' : ' ');
 -	if (rc <= 0)
 -		return -ENOSPC;
 +	seq_printf(m, "%s:%c", prefix, bits != 0 ? ' ' : '\n');
@@ -302,20 +318,35 @@ index de7b849..d358ca1 100644
  	for (i = 0, flag = 1; bits != 0; i++, flag = 1 << i) {
  		if (flag & bits) {
  			bits &= ~flag;
- 			if (names[i] != NULL) {
+@@ -921,69 +915,43 @@ int lfsck_bits_dump(char **buf, int *len, int bits, const char *names[],
+ 				if (bits == 0)
+ 					newline = true;
+ 
 -				rc = snprintf(*buf, *len, "%s%c", names[i],
--					      bits != 0 ? ',' : '\n');
+-					      newline ? '\n' : ',');
 -				if (rc <= 0)
 -					return -ENOSPC;
 -
 -				*buf += rc;
 -				*len -= rc;
 +				seq_printf(m, "%s%c", names[i],
-+					   bits != 0 ? ',' : '\n');
++					   newline ? '\n' : ',');
  			}
  		}
  	}
+ 
+-	if (!newline) {
+-		rc = snprintf(*buf, *len, "\n");
+-		if (rc <= 0)
+-			return -ENOSPC;
+-
+-		*buf += rc;
+-		*len -= rc;
+-	}
+-
 -	return save - *len;
++	if (!newline)
++		seq_printf(m, "\n");
 +	return 0;
  }
  
@@ -328,7 +359,7 @@ index de7b849..d358ca1 100644
 -		rc = snprintf(*buf, *len, "%s: "LPU64" seconds\n", prefix,
 -			      cfs_time_current_sec() - time);
 +		seq_printf(m, "%s: "LPU64" seconds\n", prefix,
-+			   cfs_time_current_sec() - time);
++			  cfs_time_current_sec() - time);
  	else
 -		rc = snprintf(*buf, *len, "%s: N/A\n", prefix);
 -	if (rc <= 0)
@@ -376,7 +407,7 @@ index de7b849..d358ca1 100644
  }
  
  void lfsck_pos_fill(const struct lu_env *env, struct lfsck_instance *lfsck,
-@@ -1149,7 +1124,7 @@ int lfsck_async_request(const struct lu_env *env, struct obd_export *exp,
+@@ -1658,7 +1626,7 @@ int lfsck_async_request(const struct lu_env *env, struct obd_export *exp,
  
  /* external interfaces */
  
@@ -385,7 +416,7 @@ index de7b849..d358ca1 100644
  {
  	struct lu_env		env;
  	struct lfsck_instance  *lfsck;
-@@ -1162,8 +1137,7 @@ int lfsck_get_speed(struct dt_device *key, void *buf, int len)
+@@ -1671,8 +1639,7 @@ int lfsck_get_speed(struct dt_device *key, void *buf, int len)
  
  	lfsck = lfsck_instance_find(key, true, false);
  	if (likely(lfsck != NULL)) {
@@ -394,8 +425,8 @@ index de7b849..d358ca1 100644
 +		seq_printf(m, "%u\n", lfsck->li_bookmark_ram.lb_speed_limit);
  		lfsck_instance_put(&env, lfsck);
  	} else {
- 		rc = -ENODEV;
-@@ -1203,7 +1177,7 @@ int lfsck_set_speed(struct dt_device *key, int val)
+ 		rc = -ENXIO;
+@@ -1712,7 +1679,7 @@ int lfsck_set_speed(struct dt_device *key, int val)
  }
  EXPORT_SYMBOL(lfsck_set_speed);
  
@@ -404,7 +435,7 @@ index de7b849..d358ca1 100644
  {
  	struct lu_env		env;
  	struct lfsck_instance  *lfsck;
-@@ -1216,8 +1190,7 @@ int lfsck_get_windows(struct dt_device *key, void *buf, int len)
+@@ -1725,8 +1692,7 @@ int lfsck_get_windows(struct dt_device *key, void *buf, int len)
  
  	lfsck = lfsck_instance_find(key, true, false);
  	if (likely(lfsck != NULL)) {
@@ -413,8 +444,8 @@ index de7b849..d358ca1 100644
 +		seq_printf(m, "%u\n", lfsck->li_bookmark_ram.lb_async_windows);
  		lfsck_instance_put(&env, lfsck);
  	} else {
- 		rc = -ENODEV;
-@@ -1267,7 +1240,7 @@ int lfsck_set_windows(struct dt_device *key, int val)
+ 		rc = -ENXIO;
+@@ -1776,7 +1742,7 @@ int lfsck_set_windows(struct dt_device *key, int val)
  }
  EXPORT_SYMBOL(lfsck_set_windows);
  
@@ -423,7 +454,7 @@ index de7b849..d358ca1 100644
  {
  	struct lu_env		env;
  	struct lfsck_instance  *lfsck;
-@@ -1283,7 +1256,7 @@ int lfsck_dump(struct dt_device *key, void *buf, int len, enum lfsck_type type)
+@@ -1792,7 +1758,7 @@ int lfsck_dump(struct dt_device *key, void *buf, int len, enum lfsck_type type)
  	if (likely(lfsck != NULL)) {
  		com = lfsck_component_find(lfsck, type);
  		if (likely(com != NULL)) {
@@ -433,7 +464,7 @@ index de7b849..d358ca1 100644
  		} else {
  			rc = -ENOTSUPP;
 diff --git a/lustre/lfsck/lfsck_namespace.c b/lustre/lfsck/lfsck_namespace.c
-index 6fc08fb..2abad67 100644
+index c80fb48..bcbfb8e 100644
 --- a/lustre/lfsck/lfsck_namespace.c
 +++ b/lustre/lfsck/lfsck_namespace.c
 @@ -1088,65 +1088,56 @@ static int lfsck_namespace_post(const struct lu_env *env,
@@ -604,10 +635,10 @@ index 6fc08fb..2abad67 100644
  
  static int lfsck_namespace_double_scan_main(void *args)
 diff --git a/lustre/mdd/mdd_device.c b/lustre/mdd/mdd_device.c
-index 40a4ee3..b0acecb 100644
+index 0fe590e..f1c76d6 100644
 --- a/lustre/mdd/mdd_device.c
 +++ b/lustre/mdd/mdd_device.c
-@@ -812,16 +812,16 @@ static int mdd_process_config(const struct lu_env *env,
+@@ -884,16 +884,16 @@ static int mdd_process_config(const struct lu_env *env,
          ENTRY;
  
          switch (cfg->lcfg_command) {
@@ -634,7 +665,7 @@ index 40a4ee3..b0acecb 100644
          case LCFG_SETUP:
                  rc = next->ld_ops->ldo_process_config(env, next, cfg);
                  if (rc)
-@@ -1497,11 +1497,8 @@ LU_CONTEXT_KEY_DEFINE(mdd, LCT_MD_THREAD);
+@@ -1564,11 +1564,8 @@ LU_CONTEXT_KEY_DEFINE(mdd, LCT_MD_THREAD);
  
  static int __init mdd_mod_init(void)
  {
@@ -646,20 +677,20 @@ index 40a4ee3..b0acecb 100644
  	rc = lu_kmem_init(mdd_caches);
  	if (rc)
  		return rc;
-@@ -1517,7 +1514,7 @@ static int __init mdd_mod_init(void)
+@@ -1584,7 +1581,7 @@ static int __init mdd_mod_init(void)
  
- 	rc = class_register_type(&mdd_obd_device_ops, NULL, NULL,
+ 	rc = class_register_type(&mdd_obd_device_ops, NULL, true, NULL,
  #ifndef HAVE_ONLY_PROCFS_SEQ
--				lvars.module_vars,
-+				NULL,
+-				 lvars.module_vars,
++				 NULL,
  #endif
- 				LUSTRE_MDD_NAME, &mdd_device_type);
+ 				 LUSTRE_MDD_NAME, &mdd_device_type);
  	if (rc)
 diff --git a/lustre/mdd/mdd_internal.h b/lustre/mdd/mdd_internal.h
-index 0bfb2a2..bccef77 100644
+index b536821..8e67fa1 100644
 --- a/lustre/mdd/mdd_internal.h
 +++ b/lustre/mdd/mdd_internal.h
-@@ -342,7 +342,6 @@ int orph_declare_index_delete(const struct lu_env *, struct mdd_object *,
+@@ -346,7 +346,6 @@ int orph_declare_index_delete(const struct lu_env *, struct mdd_object *,
                                struct thandle *);
  
  /* mdd_lproc.c */
@@ -668,7 +699,7 @@ index 0bfb2a2..bccef77 100644
  int mdd_procfs_fini(struct mdd_device *mdd);
  
 diff --git a/lustre/mdd/mdd_lproc.c b/lustre/mdd/mdd_lproc.c
-index de379b3..5714ee6 100644
+index de379b3..7ac4afa 100644
 --- a/lustre/mdd/mdd_lproc.c
 +++ b/lustre/mdd/mdd_lproc.c
 @@ -49,56 +49,14 @@
@@ -711,10 +742,7 @@ index de379b3..5714ee6 100644
 -}
 -
 -int mdd_procfs_fini(struct mdd_device *mdd)
-+static ssize_t
-+mdd_atime_diff_seq_write(struct file *file, const char *buffer,
-+			 size_t count, loff_t *off)
- {
+-{
 -        if (mdd->mdd_proc_entry) {
 -                 lprocfs_remove(&mdd->mdd_proc_entry);
 -                 mdd->mdd_proc_entry = NULL;
@@ -724,7 +752,10 @@ index de379b3..5714ee6 100644
 -
 -static int lprocfs_wr_atime_diff(struct file *file, const char *buffer,
 -                                 unsigned long count, void *data)
--{
++static ssize_t
++mdd_atime_diff_seq_write(struct file *file, const char *buffer,
++			 size_t count, loff_t *off)
+ {
 -        struct mdd_device *mdd = data;
 -        char kernbuf[20], *end;
 -        unsigned long diff = 0;
@@ -867,7 +898,7 @@ index de379b3..5714ee6 100644
  
  	llog_cat_process(&env, ctxt->loc_handle, lprocfs_changelog_users_cb,
 -			 &cucb, 0, 0);
-+			 &m, 0, 0);
++			 m, 0, 0);
  
  	lu_env_fini(&env);
  	llog_ctxt_put(ctxt);
@@ -968,7 +999,7 @@ index de379b3..5714ee6 100644
  	__u32		   val;
  	int		   rc;
  
-@@ -320,54 +255,77 @@ static int lprocfs_wr_lfsck_async_windows(struct file *file, const char *buffer,
+@@ -320,54 +255,87 @@ static int lprocfs_wr_lfsck_async_windows(struct file *file, const char *buffer,
  
  	return rc != 0 ? rc : count;
  }
@@ -989,46 +1020,22 @@ index de379b3..5714ee6 100644
 -	return rc;
 +	return lfsck_dump(m, mdd->mdd_bottom, LT_NAMESPACE);
  }
++LPROC_SEQ_FOPS_RO(mdd_lfsck_namespace);
  
 -static int lprocfs_rd_lfsck_layout(char *page, char **start, off_t off,
 -				   int count, int *eof, void *data)
--{
++static int mdd_lfsck_layout_seq_show(struct seq_file *m, void *data)
+ {
 -	struct mdd_device *mdd = data;
-+LPROC_SEQ_FOPS_RO(mdd_lfsck_namespace);
-+
-+static struct lprocfs_seq_vars lprocfs_mdd_obd_vars[] = {
-+	{ .name =	"atime_diff",
-+	  .fops =	&mdd_atime_diff_fops		},
-+	{ .name =	"changelog_mask",
-+	  .fops =	&mdd_changelog_mask_fops	},
-+	{ .name =	"changelog_users",
-+	  .fops =	&mdd_changelog_users_fops	},
-+	{ .name =	"sync_permission",
-+	  .fops =	&mdd_sync_perm_fops		},
-+	{ .name =	"lfsck_speed_limit",
-+	  .fops =	&mdd_lfsck_speed_limit_fops	},
-+	{ .name	=	"lfsck_async_windows",
-+	  .fops	=	&mdd_lfsck_async_windows_fops	},
-+	{ .name =       "lfsck_namespace",
-+	  .fops =       &mdd_lfsck_namespace_fops       },
-+	{ 0 }
-+};
++	struct mdd_device *mdd = m->private;
  
--	LASSERT(mdd != NULL);
+ 	LASSERT(mdd != NULL);
 -	*eof = 1;
-+int mdd_procfs_init(struct mdd_device *mdd, const char *name)
-+{
-+	struct obd_device *obd = class_name2obd(name);
-+	struct obd_type   *type;
-+	int		   rc;
-+	ENTRY;
  
 -	return lfsck_dump(mdd->mdd_bottom, page, count, LT_LAYOUT);
--}
-+	/* at the moment there is no linkage between lu_type
-+	 * and obd_type, so we lookup obd_type this way */
-+	type = class_search_type(LUSTRE_MDD_NAME);
- 
++	return lfsck_dump(m, mdd->mdd_bottom, LT_LAYOUT);
+ }
+-
 -static struct lprocfs_vars lprocfs_mdd_obd_vars[] = {
 -        { "atime_diff",      lprocfs_rd_atime_diff, lprocfs_wr_atime_diff, 0 },
 -        { "changelog_mask",  lprocfs_rd_changelog_mask,
@@ -1041,8 +1048,47 @@ index de379b3..5714ee6 100644
 -				 lprocfs_wr_lfsck_async_windows, 0 },
 -	{ "lfsck_namespace", lprocfs_rd_lfsck_namespace, 0, 0 },
 -	{ "lfsck_layout", lprocfs_rd_lfsck_layout, 0, 0 },
--	{ 0 }
++LPROC_SEQ_FOPS_RO(mdd_lfsck_layout);
++
++static struct lprocfs_seq_vars lprocfs_mdd_obd_vars[] = {
++	{ .name =	"atime_diff",
++	  .fops =	&mdd_atime_diff_fops		},
++	{ .name =	"changelog_mask",
++	  .fops =	&mdd_changelog_mask_fops	},
++	{ .name =	"changelog_users",
++	  .fops =	&mdd_changelog_users_fops	},
++	{ .name =	"sync_permission",
++	  .fops =	&mdd_sync_perm_fops		},
++	{ .name =	"lfsck_speed_limit",
++	  .fops =	&mdd_lfsck_speed_limit_fops	},
++	{ .name =	"lfsck_async_windows",
++	  .fops =	&mdd_lfsck_async_windows_fops	},
++	{ .name =	"lfsck_namespace",
++	  .fops =	&mdd_lfsck_namespace_fops	},
++	{ .name	=	"lfsck_layout",
++	  .fops	=	&mdd_lfsck_layout_fops		},
+ 	{ 0 }
+ };
+ 
+-static struct lprocfs_vars lprocfs_mdd_module_vars[] = {
+-        { "num_refs",   lprocfs_rd_numrefs, 0, 0 },
+-        { 0 }
 -};
+-
+-void lprocfs_mdd_init_vars(struct lprocfs_static_vars *lvars)
++int mdd_procfs_init(struct mdd_device *mdd, const char *name)
+ {
+-        lvars->module_vars  = lprocfs_mdd_module_vars;
+-        lvars->obd_vars     = lprocfs_mdd_obd_vars;
++	struct obd_device *obd = class_name2obd(name);
++	struct obd_type   *type;
++	int		   rc;
++	ENTRY;
++
++	/* at the moment there is no linkage between lu_type
++	 * and obd_type, so we lookup obd_type this way */
++	type = class_search_type(LUSTRE_MDD_NAME);
++
 +	LASSERT(name != NULL);
 +	LASSERT(type != NULL);
 +	LASSERT(obd  != NULL);
@@ -1059,32 +1105,23 @@ index de379b3..5714ee6 100644
 +		GOTO(out, rc);
 +	}
 +	rc = 0;
- 
--static struct lprocfs_vars lprocfs_mdd_module_vars[] = {
--        { "num_refs",   lprocfs_rd_numrefs, 0, 0 },
--        { 0 }
--};
 +	EXIT;
 +out:
 +	if (rc)
 +		mdd_procfs_fini(mdd);
 +	return rc;
-+}
+ }
  
--void lprocfs_mdd_init_vars(struct lprocfs_static_vars *lvars)
 +int mdd_procfs_fini(struct mdd_device *mdd)
- {
--        lvars->module_vars  = lprocfs_mdd_module_vars;
--        lvars->obd_vars     = lprocfs_mdd_obd_vars;
++{
 +	if (mdd->mdd_proc_entry) {
 +		lprocfs_remove(&mdd->mdd_proc_entry);
 +		mdd->mdd_proc_entry = NULL;
 +	}
 +	RETURN(0);
- }
--
++}
 diff --git a/lustre/obdclass/lprocfs_status.c b/lustre/obdclass/lprocfs_status.c
-index 0ca58c5..5b72a5a 100644
+index 30d9f59..5e479c8 100644
 --- a/lustre/obdclass/lprocfs_status.c
 +++ b/lustre/obdclass/lprocfs_status.c
 @@ -388,11 +388,10 @@ EXPORT_SYMBOL(lprocfs_evict_client_seq_write);
@@ -1104,7 +1141,7 @@ index 0ca58c5..5b72a5a 100644
  EXPORT_SYMBOL(lprocfs_evict_client_fops);
  #endif
 diff --git a/lustre/ofd/lproc_ofd.c b/lustre/ofd/lproc_ofd.c
-index e303fd6..1759a7d 100644
+index 000d4ae..eb6bef0 100644
 --- a/lustre/ofd/lproc_ofd.c
 +++ b/lustre/ofd/lproc_ofd.c
 @@ -47,80 +47,75 @@
@@ -1600,7 +1637,7 @@ index e303fd6..1759a7d 100644
  	struct ofd_device	*ofd = ofd_dev(obd->obd_lu_dev);
  	__u32			 val;
  	int			 rc;
-@@ -516,84 +512,108 @@ static int lprocfs_wr_lfsck_speed_limit(struct file *file, const char *buffer,
+@@ -516,37 +512,34 @@ static int lprocfs_wr_lfsck_speed_limit(struct file *file, const char *buffer,
  
  	return rc != 0 ? rc : count;
  }
@@ -1611,13 +1648,55 @@ index e303fd6..1759a7d 100644
 +static int ofd_lfsck_layout_seq_show(struct seq_file *m, void *data)
  {
 -	struct obd_device	*obd = data;
+-	struct ofd_device	*ofd = ofd_dev(obd->obd_lu_dev);
+-
+-	*eof = 1;
++	struct obd_device *obd = m->private;
++	struct ofd_device *ofd = ofd_dev(obd->obd_lu_dev);
+ 
+-	return lfsck_dump(ofd->ofd_osd, page, count, LT_LAYOUT);
++	return lfsck_dump(m, ofd->ofd_osd, LT_LAYOUT);
+ }
++LPROC_SEQ_FOPS_RO(ofd_lfsck_layout);
+ 
+-static int lprocfs_rd_lfsck_verify_pfid(char *page, char **start, off_t off,
+-					int count, int *eof, void *data)
++static int ofd_lfsck_verify_pfid_seq_show(struct seq_file *m, void *data)
+ {
+-	struct obd_device	*obd = data;
+-	struct ofd_device	*ofd = ofd_dev(obd->obd_lu_dev);
+-
+-	*eof = 1;
++	struct obd_device *obd = m->private;
++	struct ofd_device *ofd = ofd_dev(obd->obd_lu_dev);
+ 
+-	return snprintf(page, count,
+-			"switch: %s\ndetected: "LPU64"\nrepaired: "LPU64"\n",
+-			ofd->ofd_lfsck_verify_pfid ? "on" : "off",
+-			ofd->ofd_inconsistency_self_detected,
+-			ofd->ofd_inconsistency_self_repaired);
++	return seq_printf(m, "switch: %s\ndetected: "LPU64"\nrepaired: "LPU64"\n",
++			  ofd->ofd_lfsck_verify_pfid ? "on" : "off",
++			  ofd->ofd_inconsistency_self_detected,
++			  ofd->ofd_inconsistency_self_repaired);
+ }
+ 
+-static int lprocfs_wr_lfsck_verify_pfid(struct file *file, const char *buffer,
+-					unsigned long count, void *data)
++static ssize_t
++ofd_lfsck_verify_pfid_seq_write(struct file *file, const char *buffer,
++				size_t count, loff_t *off)
+ {
+-	struct obd_device	*obd = data;
++	struct seq_file		*m = file->private_data;
 +	struct obd_device	*obd = m->private;
  	struct ofd_device	*ofd = ofd_dev(obd->obd_lu_dev);
+ 	__u32			 val;
+ 	int			 rc;
+@@ -559,75 +552,101 @@ static int lprocfs_wr_lfsck_verify_pfid(struct file *file, const char *buffer,
  
--	*eof = 1;
--
--	return lfsck_dump(ofd->ofd_osd, page, count, LT_LAYOUT);
--}
+ 	return count;
+ }
 -
 -static struct lprocfs_vars lprocfs_ofd_obd_vars[] = {
 -	{ "uuid",		 lprocfs_rd_uuid, 0, 0 },
@@ -1671,14 +1750,14 @@ index e303fd6..1759a7d 100644
 -	{ "lfsck_speed_limit",	lprocfs_rd_lfsck_speed_limit,
 -				lprocfs_wr_lfsck_speed_limit, 0 },
 -	{ "lfsck_layout",	lprocfs_rd_lfsck_layout, 0, 0 },
+-	{ "lfsck_verify_pfid",	lprocfs_rd_lfsck_verify_pfid,
+-				lprocfs_wr_lfsck_verify_pfid, 0 },
 -	{ 0 }
 -};
 -
 -static struct lprocfs_vars lprocfs_ofd_module_vars[] = {
 -	{ "num_refs",	  lprocfs_rd_numrefs,	0, 0 },
-+	return lfsck_dump(m, ofd->ofd_osd, LT_LAYOUT);
-+}
-+LPROC_SEQ_FOPS_RO(ofd_lfsck_layout);
++LPROC_SEQ_FOPS(ofd_lfsck_verify_pfid);
 +
 +LPROC_SEQ_FOPS_RO_TYPE(ofd, uuid);
 +LPROC_SEQ_FOPS_RO_TYPE(ofd, blksize);
@@ -1764,10 +1843,12 @@ index e303fd6..1759a7d 100644
 +	  .fops =	&ofd_job_interval_fops		},
 +	{ .name =	"soft_sync_limit",
 +	  .fops =	&ofd_soft_sync_limit_fops	},
-+	{ .name	=	"lfsck_speed_limit",
-+	  .fops	=	&ofd_lfsck_speed_limit_fops	},
-+	{ .name	=	"lfsck_layout",
-+	  .fops	=	&ofd_lfsck_layout_fops		},
++	{ .name =	"lfsck_speed_limit",
++	  .fops =	&ofd_lfsck_speed_limit_fops	},
++	{ .name =	"lfsck_layout",
++	  .fops =	&ofd_lfsck_layout_fops		},
++	{ .name	=	"lfsck_verify_pfid",
++	  .fops	=	&ofd_lfsck_verify_pfid_fops	},
  	{ 0 }
  };
  
@@ -1781,7 +1862,7 @@ index e303fd6..1759a7d 100644
  {
  	LASSERT(stats && stats->ls_num >= LPROC_OFD_STATS_LAST);
 diff --git a/lustre/ofd/ofd_dev.c b/lustre/ofd/ofd_dev.c
-index 9900bed..a9cc81f 100644
+index 5d7f0b4..f75ffe1 100644
 --- a/lustre/ofd/ofd_dev.c
 +++ b/lustre/ofd/ofd_dev.c
 @@ -240,8 +240,7 @@ static int ofd_process_config(const struct lu_env *env, struct lu_device *d,
@@ -1827,16 +1908,17 @@ index 9900bed..a9cc81f 100644
  	if (rc) {
  		CERROR("%s: lprocfs_obd_setup failed: %d.\n",
  		       obd->obd_name, rc);
-@@ -524,7 +523,7 @@ static int ofd_procfs_init(struct ofd_device *ofd)
+@@ -524,7 +523,8 @@ static int ofd_procfs_init(struct ofd_device *ofd)
  
  	obd->obd_uses_nid_stats = 1;
  
 -	entry = lprocfs_register("exports", obd->obd_proc_entry, NULL, NULL);
-+	entry = lprocfs_seq_register("exports", obd->obd_proc_entry, NULL, NULL);
++	entry = lprocfs_seq_register("exports", obd->obd_proc_entry, NULL,
++				     NULL);
  	if (IS_ERR(entry)) {
  		rc = PTR_ERR(entry);
  		CERROR("%s: error %d setting up lprocfs for %s\n",
-@@ -534,8 +533,10 @@ static int ofd_procfs_init(struct ofd_device *ofd)
+@@ -534,8 +534,10 @@ static int ofd_procfs_init(struct ofd_device *ofd)
  	obd->obd_proc_exports_entry = entry;
  
  	entry = lprocfs_add_simple(obd->obd_proc_exports_entry, "clear",
@@ -1849,7 +1931,7 @@ index 9900bed..a9cc81f 100644
  	if (IS_ERR(entry)) {
  		rc = PTR_ERR(entry);
  		CERROR("%s: add proc entry 'clear' failed: %d.\n",
-@@ -551,7 +552,7 @@ static int ofd_procfs_init(struct ofd_device *ofd)
+@@ -551,7 +553,7 @@ static int ofd_procfs_init(struct ofd_device *ofd)
  		GOTO(remove_entry_clear, rc);
  	RETURN(0);
  remove_entry_clear:
@@ -1858,42 +1940,59 @@ index 9900bed..a9cc81f 100644
  obd_cleanup:
  	lprocfs_obd_cleanup(obd);
  	lprocfs_free_obd_stats(obd);
-@@ -564,29 +565,28 @@ static void ofd_procfs_add_brw_stats_symlink(struct ofd_device *ofd)
+@@ -563,47 +565,36 @@ static void ofd_procfs_add_brw_stats_symlink(struct ofd_device *ofd)
+ {
  	struct obd_device	*obd = ofd_obd(ofd);
  	struct obd_device	*osd_obd = ofd->ofd_osd_exp->exp_obd;
- 	cfs_proc_dir_entry_t	*osd_root = osd_obd->obd_type->typ_procroot;
+-	cfs_proc_dir_entry_t	*osd_root = osd_obd->obd_type->typ_procroot;
 -	cfs_proc_dir_entry_t	*osd_dir;
-+	cfs_proc_dir_entry_t	*osd_dir = osd_obd->obd_type->typ_procsym;
++	struct proc_dir_entry	*osd_dir = osd_obd->obd_type->typ_procsym;
  
 -	osd_dir = lprocfs_srch(osd_root, obd->obd_name);
  	if (osd_dir == NULL)
  		return;
  
 -	if (lprocfs_srch(osd_dir, "brw_stats") != NULL)
-+	//if (lprocfs_srch(osd_dir, "brw_stats") != NULL)
- 		lprocfs_add_symlink("brw_stats", obd->obd_proc_entry,
- 				    "../../%s/%s/brw_stats",
- 				    osd_root->name, osd_dir->name);
- 
+-		lprocfs_add_symlink("brw_stats", obd->obd_proc_entry,
+-				    "../../%s/%s/brw_stats",
+-				    osd_root->name, osd_dir->name);
+-
 -	if (lprocfs_srch(osd_dir, "read_cache_enable") != NULL)
-+	//if (lprocfs_srch(osd_dir, "read_cache_enable") != NULL)
- 		lprocfs_add_symlink("read_cache_enable", obd->obd_proc_entry,
- 				    "../../%s/%s/read_cache_enable",
- 				    osd_root->name, osd_dir->name);
- 
+-		lprocfs_add_symlink("read_cache_enable", obd->obd_proc_entry,
+-				    "../../%s/%s/read_cache_enable",
+-				    osd_root->name, osd_dir->name);
+-
 -	if (lprocfs_srch(osd_dir, "readcache_max_filesize") != NULL)
-+	//if (lprocfs_srch(osd_dir, "readcache_max_filesize") != NULL)
- 		lprocfs_add_symlink("readcache_max_filesize",
- 				    obd->obd_proc_entry,
- 				    "../../%s/%s/readcache_max_filesize",
- 				    osd_root->name, osd_dir->name);
- 
+-		lprocfs_add_symlink("readcache_max_filesize",
+-				    obd->obd_proc_entry,
+-				    "../../%s/%s/readcache_max_filesize",
+-				    osd_root->name, osd_dir->name);
+-
 -	if (lprocfs_srch(osd_dir, "writethrough_cache_enable") != NULL)
-+	//if (lprocfs_srch(osd_dir, "writethrough_cache_enable") != NULL)
- 		lprocfs_add_symlink("writethrough_cache_enable",
- 				    obd->obd_proc_entry,
- 				    "../../%s/%s/writethrough_cache_enable",
-@@ -597,13 +597,8 @@ static void ofd_procfs_fini(struct ofd_device *ofd)
+-		lprocfs_add_symlink("writethrough_cache_enable",
+-				    obd->obd_proc_entry,
+-				    "../../%s/%s/writethrough_cache_enable",
+-				    osd_root->name, osd_dir->name);
++	lprocfs_add_symlink("brw_stats", obd->obd_proc_entry,
++			    "../../%s/%s/brw_stats",
++			    osd_obd->obd_type->typ_name, obd->obd_name);
++
++	lprocfs_add_symlink("read_cache_enable", obd->obd_proc_entry,
++			    "../../%s/%s/read_cache_enable",
++			    osd_obd->obd_type->typ_name, obd->obd_name);
++
++	lprocfs_add_symlink("readcache_max_filesize",
++			    obd->obd_proc_entry,
++			    "../../%s/%s/readcache_max_filesize",
++			    osd_obd->obd_type->typ_name, obd->obd_name);
++
++	lprocfs_add_symlink("writethrough_cache_enable",
++			    obd->obd_proc_entry,
++			    "../../%s/%s/writethrough_cache_enable",
++			    osd_obd->obd_type->typ_name, obd->obd_name);
+ }
+ 
+ static void ofd_procfs_fini(struct ofd_device *ofd)
  {
  	struct obd_device *obd = ofd_obd(ofd);
  
@@ -1909,7 +2008,7 @@ index 9900bed..a9cc81f 100644
  	lprocfs_free_per_client_stats(obd);
  	lprocfs_obd_cleanup(obd);
  	lprocfs_free_obd_stats(obd);
-@@ -2368,7 +2363,6 @@ static struct lu_device_type ofd_device_type = {
+@@ -2379,7 +2370,6 @@ static struct lu_device_type ofd_device_type = {
  
  int __init ofd_init(void)
  {
@@ -1917,24 +2016,24 @@ index 9900bed..a9cc81f 100644
  	int				rc;
  
  	rc = lu_kmem_init(ofd_caches);
-@@ -2381,11 +2375,9 @@ int __init ofd_init(void)
+@@ -2392,11 +2382,9 @@ int __init ofd_init(void)
  		return(rc);
  	}
  
 -	lprocfs_ofd_init_vars(&lvars);
 -
- 	rc = class_register_type(&ofd_obd_ops, NULL, NULL,
+ 	rc = class_register_type(&ofd_obd_ops, NULL, true, NULL,
  #ifndef HAVE_ONLY_PROCFS_SEQ
--				lvars.module_vars,
-+				NULL,
+-				 lvars.module_vars,
++				 NULL,
  #endif
- 				LUSTRE_OST_NAME, &ofd_device_type);
+ 				 LUSTRE_OST_NAME, &ofd_device_type);
  	return rc;
 diff --git a/lustre/ofd/ofd_internal.h b/lustre/ofd/ofd_internal.h
-index ab041ce..60cfb50 100644
+index 3aae6dd..1bdcb80 100644
 --- a/lustre/ofd/ofd_internal.h
 +++ b/lustre/ofd/ofd_internal.h
-@@ -392,13 +392,9 @@ int ofd_txn_stop_cb(const struct lu_env *env, struct thandle *txn,
+@@ -403,13 +403,9 @@ int ofd_txn_stop_cb(const struct lu_env *env, struct thandle *txn,
  
  /* lproc_ofd.c */
  #ifdef LPROCFS
@@ -1950,10 +2049,10 @@ index ab041ce..60cfb50 100644
  #endif
  
 diff --git a/lustre/osd-ldiskfs/osd_handler.c b/lustre/osd-ldiskfs/osd_handler.c
-index a8022f0..4e1ec4a 100644
+index e0da7e6..14808ee 100644
 --- a/lustre/osd-ldiskfs/osd_handler.c
 +++ b/lustre/osd-ldiskfs/osd_handler.c
-@@ -5892,6 +5892,7 @@ static int osd_obd_connect(const struct lu_env *env, struct obd_export **exp,
+@@ -5921,6 +5921,7 @@ static int osd_obd_connect(const struct lu_env *env, struct obd_export **exp,
  	osd->od_connects++;
  	spin_unlock(&osd->od_osfs_lock);
  
@@ -1962,7 +2061,7 @@ index a8022f0..4e1ec4a 100644
  }
  
 diff --git a/lustre/osd-zfs/osd_handler.c b/lustre/osd-zfs/osd_handler.c
-index c9bf49a..bd2463a 100644
+index 05820e0..e711727 100644
 --- a/lustre/osd-zfs/osd_handler.c
 +++ b/lustre/osd-zfs/osd_handler.c
 @@ -816,6 +816,7 @@ static int osd_obd_connect(const struct lu_env *env, struct obd_export **exp,
@@ -1974,5 +2073,5 @@ index c9bf49a..bd2463a 100644
  }
  
 -- 
-1.8.5.3
+1.9.1
 

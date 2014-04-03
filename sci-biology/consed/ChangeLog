@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Apr 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> consed-20-r1.ebuild,
+  consed-21.ebuild, consed-22.ebuild, consed-23.ebuild, consed-24.ebuild,
+  consed-25.ebuild, consed-26.ebuild, consed-27.ebuild:
+  sci-biology/consed: replace hardcoded CONSED_HOME path in installed perl
+  scripts to fix situations when user has for some reason an empty CONSED_HOME
+
 *consed-27 (23 Mar 2014)
 *consed-26 (23 Mar 2014)
 *consed-25 (23 Mar 2014)
@@ -22,4 +28,3 @@
   renamed dependency from openmotif to motif consed-20-r1.ebuild,
   added some extra patches files/nLine.h.patch,
   files/nextPhredPipeline.cpp.patch
-

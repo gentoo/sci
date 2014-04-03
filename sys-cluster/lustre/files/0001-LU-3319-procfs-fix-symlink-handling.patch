@@ -1,0 +1,1132 @@
+From 4c418e7208a62c7bb7d61c1f97cf300675215bd4 Mon Sep 17 00:00:00 2001
+From: James Simmons <uja.ornl@gmail.com>
+Date: Fri, 28 Mar 2014 11:19:07 -0400
+Subject: [PATCH 01/10] LU-3319 procfs: fix symlink handling
+
+While working on symlink handling for seq files I noticed a
+long outstanding bug. Code was developed to link osc obds
+to target_obds of the lov layer. The target_obds directory
+was never created for the symlinks. This patch enables this
+long forgotten feature. Also addressed is the race condition
+experinced with server side code ported to seq_files that
+used symlinks. To avoid the race the handle obd_proc_private
+was moved from struct obd_device to struct obd_type which
+now allows earlier registeration that only happens once.
+The second problem addressed is the module loading race.
+Several modules share the same top proc directory entry which
+can become a issue if a client exist on a server node since
+the linux proc system allows multiple directories of the same
+name. Original Lustre had a lprocfs_srch but that doesn't
+work if you use the kernels internal cache for the proc
+system so you need to keep track of who grabs the proc root
+first and then use the first one registered for when the
+next module loads.
+
+Change-Id: Ib158ec4444ed7abc0f3c3e820ee4a333631a58d1
+Signed-off-by: James Simmons <uja.ornl@gmail.com>
+---
+ lustre/include/lprocfs_status.h  |   4 +-
+ lustre/include/obd.h             |  17 +++--
+ lustre/include/obd_class.h       |   5 +-
+ lustre/lmv/lmv_obd.c             |  65 +++++-----------
+ lustre/lod/lod_dev.c             |  28 +++----
+ lustre/lov/lov_obd.c             | 156 ++++++++++++++++++++++++---------------
+ lustre/mdc/mdc_request.c         |   6 +-
+ lustre/mdd/mdd_device.c          |   6 +-
+ lustre/mdt/mdt_handler.c         |   6 +-
+ lustre/mdt/mdt_mds.c             |   6 +-
+ lustre/mgc/libmgc.c              |   6 +-
+ lustre/mgc/mgc_request.c         |   6 +-
+ lustre/mgs/mgs_handler.c         |   6 +-
+ lustre/obdclass/genops.c         |  55 ++++++++------
+ lustre/obdclass/llog_test.c      |   6 +-
+ lustre/obdclass/lprocfs_status.c |   1 -
+ lustre/obdecho/echo_client.c     |  10 +--
+ lustre/ofd/ofd_dev.c             |   6 +-
+ lustre/osc/osc_request.c         |  49 +++++++++---
+ lustre/osd-ldiskfs/osd_handler.c |   6 +-
+ lustre/osd-zfs/osd_handler.c     |   6 +-
+ lustre/osp/osp_dev.c             |  33 +++++----
+ lustre/ost/ost_handler.c         |   6 +-
+ lustre/quota/qmt_dev.c           |   6 +-
+ 24 files changed, 277 insertions(+), 224 deletions(-)
+
+diff --git a/lustre/include/lprocfs_status.h b/lustre/include/lprocfs_status.h
+index 978b10c..0d6fd4c 100644
+--- a/lustre/include/lprocfs_status.h
++++ b/lustre/include/lprocfs_status.h
+@@ -1145,12 +1145,10 @@ static inline int lprocfs_seq_add_vars(cfs_proc_dir_entry_t *root,
+ 				       struct lprocfs_seq_vars *var,
+ 				       void *data)
+ { return 0; }
+-#ifndef HAVE_ONLY_PROCFS_SEQ
+ static inline cfs_proc_dir_entry_t *
+ lprocfs_seq_register(const char *name, cfs_proc_dir_entry_t *parent,
+-		     struct lprocfs_vars *list, void *data)
++		     struct lprocfs_seq_vars *list, void *data)
+ { return NULL; }
+-#endif
+ static inline void lprocfs_remove(cfs_proc_dir_entry_t **root)
+ { return; }
+ static inline void lprocfs_remove_proc_entry(const char *name,
+diff --git a/lustre/include/obd.h b/lustre/include/obd.h
+index bb67e43..5353524 100644
+--- a/lustre/include/obd.h
++++ b/lustre/include/obd.h
+@@ -190,13 +190,15 @@ struct obd_info {
+ };
+ 
+ struct obd_type {
+-        cfs_list_t typ_chain;
+-        struct obd_ops *typ_dt_ops;
+-        struct md_ops *typ_md_ops;
+-        cfs_proc_dir_entry_t *typ_procroot;
+-        char *typ_name;
+-        int  typ_refcnt;
+-        struct lu_device_type *typ_lu;
++	struct list_head typ_chain;
++	struct obd_ops *typ_dt_ops;
++	struct md_ops *typ_md_ops;
++	struct proc_dir_entry *typ_procroot;
++	struct proc_dir_entry *typ_procsym;
++	__u32 typ_sym_filter;
++	char *typ_name;
++	int  typ_refcnt;
++	struct lu_device_type *typ_lu;
+ 	spinlock_t obd_type_lock;
+ };
+ 
+@@ -834,7 +836,6 @@ struct obd_device {
+ 
+ 	struct proc_dir_entry	*obd_proc_entry;
+ 	struct proc_dir_entry	*obd_proc_exports_entry;
+-	void			*obd_proc_private;	/* type private PDEs */
+ 	struct proc_dir_entry	*obd_svc_procroot;
+ 	struct lprocfs_stats	*obd_svc_stats;
+ 	struct lprocfs_seq_vars	*obd_vars;
+diff --git a/lustre/include/obd_class.h b/lustre/include/obd_class.h
+index aeb94ba..5de7cd7 100644
+--- a/lustre/include/obd_class.h
++++ b/lustre/include/obd_class.h
+@@ -86,13 +86,12 @@ struct lu_device_type;
+ 
+ /* genops.c */
+ struct obd_export *class_conn2export(struct lustre_handle *);
+-int class_register_type(struct obd_ops *, struct md_ops *,
++int class_register_type(struct obd_ops *, struct md_ops *, bool enable_proc,
+ 			struct lprocfs_seq_vars *module_vars,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+ 			struct lprocfs_vars *,
+ #endif
+-			const char *nm,
+-			struct lu_device_type *ldt);
++			const char *nm, struct lu_device_type *ldt);
+ int class_unregister_type(const char *nm);
+ 
+ struct obd_device *class_newdev(const char *type_name, const char *name);
+diff --git a/lustre/lmv/lmv_obd.c b/lustre/lmv/lmv_obd.c
+index 8f26e6c..cd16eaf 100644
+--- a/lustre/lmv/lmv_obd.c
++++ b/lustre/lmv/lmv_obd.c
+@@ -270,9 +270,6 @@ static int lmv_connect(const struct lu_env *env,
+                        struct obd_uuid *cluuid, struct obd_connect_data *data,
+                        void *localdata)
+ {
+-#ifdef __KERNEL__
+-        struct proc_dir_entry *lmv_proc_dir;
+-#endif
+         struct lmv_obd        *lmv = &obd->u.lmv;
+         struct lustre_handle  conn = { 0 };
+         int                    rc = 0;
+@@ -304,21 +301,16 @@ static int lmv_connect(const struct lu_env *env,
+         if (data)
+                 lmv->conn_data = *data;
+ 
+-#ifdef __KERNEL__
+-	if (obd->obd_proc_private != NULL) {
+-		lmv_proc_dir = obd->obd_proc_private;
+-	} else {
+-		lmv_proc_dir = lprocfs_seq_register("target_obds",
+-						    obd->obd_proc_entry,
+-						    NULL, NULL);
+-		if (IS_ERR(lmv_proc_dir)) {
++	if (obd->obd_type->typ_procsym == NULL) {
++		obd->obd_type->typ_procsym = lprocfs_seq_register("target_obds",
++							 obd->obd_proc_entry,
++							 NULL, NULL);
++		if (IS_ERR(obd->obd_type->typ_procsym)) {
+ 			CERROR("could not register /proc/fs/lustre/%s/%s/target_obds.",
+ 			       obd->obd_type->typ_name, obd->obd_name);
+-			lmv_proc_dir = NULL;
++			obd->obd_type->typ_procsym = NULL;
+ 		}
+-		obd->obd_proc_private = lmv_proc_dir;
+ 	}
+-#endif
+ 
+         /*
+          * All real clients should perform actual connection right away, because
+@@ -329,12 +321,8 @@ static int lmv_connect(const struct lu_env *env,
+ 	if (data != NULL && (data->ocd_connect_flags & OBD_CONNECT_REAL))
+                 rc = lmv_check_connect(obd);
+ 
+-#ifdef __KERNEL__
+-	if (rc && lmv_proc_dir) {
+-		lprocfs_remove(&lmv_proc_dir);
+-		obd->obd_proc_private = NULL;
+-	}
+-#endif
++	if (rc && obd->obd_type->typ_procsym != NULL)
++		lprocfs_remove(&obd->obd_type->typ_procsym);
+         RETURN(rc);
+ }
+ 
+@@ -416,9 +404,6 @@ static int lmv_init_ea_size(struct obd_export *exp, int easize,
+ 
+ int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
+ {
+-#ifdef __KERNEL__
+-        struct proc_dir_entry   *lmv_proc_dir;
+-#endif
+         struct lmv_obd          *lmv = &obd->u.lmv;
+         struct obd_uuid         *cluuid = &lmv->cluuid;
+         struct obd_uuid          lmv_mdc_uuid = { "LMV_MDC_UUID" };
+@@ -497,15 +482,13 @@ int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
+ 		mdc_obd->obd_name, mdc_obd->obd_uuid.uuid,
+ 		atomic_read(&obd->obd_refcount));
+ 
+-#ifdef __KERNEL__
+-	lmv_proc_dir = obd->obd_proc_private;
+-	if (lmv_proc_dir) {
++	if (obd->obd_type->typ_procsym != NULL) {
+ 		struct proc_dir_entry *mdc_symlink;
+ 
+ 		LASSERT(mdc_obd->obd_type != NULL);
+ 		LASSERT(mdc_obd->obd_type->typ_name != NULL);
+ 		mdc_symlink = lprocfs_add_symlink(mdc_obd->obd_name,
+-						  lmv_proc_dir,
++						  obd->obd_type->typ_procsym,
+ 						  "../../../%s/%s",
+ 						  mdc_obd->obd_type->typ_name,
+ 						  mdc_obd->obd_name);
+@@ -514,11 +497,9 @@ int lmv_connect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
+ 			       "/proc/fs/lustre/%s/%s/target_obds/%s.",
+ 			       obd->obd_type->typ_name, obd->obd_name,
+ 			       mdc_obd->obd_name);
+-			lprocfs_remove(&lmv_proc_dir);
+-			obd->obd_proc_private = NULL;
++			lprocfs_remove(&obd->obd_type->typ_procsym);
+ 		}
+ 	}
+-#endif
+ 	RETURN(0);
+ }
+ 
+@@ -706,9 +687,6 @@ int lmv_check_connect(struct obd_device *obd)
+ 
+ static int lmv_disconnect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
+ {
+-#ifdef __KERNEL__
+-        struct proc_dir_entry  *lmv_proc_dir;
+-#endif
+         struct lmv_obd         *lmv = &obd->u.lmv;
+         struct obd_device      *mdc_obd;
+         int                     rc;
+@@ -725,11 +703,10 @@ static int lmv_disconnect_mdc(struct obd_device *obd, struct lmv_tgt_desc *tgt)
+                 mdc_obd->obd_no_recov = obd->obd_no_recov;
+         }
+ 
+-#ifdef __KERNEL__
+-	lmv_proc_dir = obd->obd_proc_private;
+-	if (lmv_proc_dir)
+-		lprocfs_remove_proc_entry(mdc_obd->obd_name, lmv_proc_dir);
+-#endif
++	if (obd->obd_type->typ_procsym != NULL)
++		lprocfs_remove_proc_entry(mdc_obd->obd_name,
++					  obd->obd_type->typ_procsym);
++
+ 	rc = obd_fid_fini(tgt->ltd_exp->exp_obd);
+ 	if (rc)
+ 		CERROR("Can't finanize fids factory\n");
+@@ -777,13 +754,11 @@ static int lmv_disconnect(struct obd_export *exp)
+ 		lmv_disconnect_mdc(obd, lmv->tgts[i]);
+         }
+ 
+-#ifdef __KERNEL__
+-	if (obd->obd_proc_private)
+-		lprocfs_remove((struct proc_dir_entry **)&obd->obd_proc_private);
++	if (obd->obd_type->typ_procsym != NULL)
++		lprocfs_remove(&obd->obd_type->typ_procsym);
+ 	else
+ 		CERROR("/proc/fs/lustre/%s/%s/target_obds missing\n",
+ 		       obd->obd_type->typ_name, obd->obd_name);
+-#endif
+ 
+ out_local:
+         /*
+@@ -3423,11 +3398,11 @@ struct md_ops lmv_md_ops = {
+ 
+ int __init lmv_init(void)
+ {
+-	return class_register_type(&lmv_obd_ops, &lmv_md_ops, NULL,
++	return class_register_type(&lmv_obd_ops, &lmv_md_ops, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-					NULL,
++				   NULL,
+ #endif
+-					LUSTRE_LMV_NAME, NULL);
++				   LUSTRE_LMV_NAME, NULL);
+ }
+ 
+ #ifdef __KERNEL__
+diff --git a/lustre/lod/lod_dev.c b/lustre/lod/lod_dev.c
+index 1d4849f..a653d6a 100644
+--- a/lustre/lod/lod_dev.c
++++ b/lustre/lod/lod_dev.c
+@@ -892,8 +892,8 @@ static struct obd_ops lod_obd_device_ops = {
+ static int __init lod_mod_init(void)
+ {
+ 	struct lprocfs_static_vars  lvars = { 0 };
+-	cfs_proc_dir_entry_t       *lov_proc_dir;
+-	int			    rc;
++	struct obd_type	*type;
++	int rc;
+ 
+ 	rc = lu_kmem_init(lod_caches);
+ 	if (rc)
+@@ -901,32 +901,32 @@ static int __init lod_mod_init(void)
+ 
+ 	lprocfs_lod_init_vars(&lvars);
+ 
+-	rc = class_register_type(&lod_obd_device_ops, NULL, NULL,
++	rc = class_register_type(&lod_obd_device_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				lvars.module_vars,
++				 lvars.module_vars,
+ #endif
+-				LUSTRE_LOD_NAME, &lod_device_type);
++				 LUSTRE_LOD_NAME, &lod_device_type);
+ 	if (rc) {
+ 		lu_kmem_fini(lod_caches);
+ 		return rc;
+ 	}
+ 
+ 	/* create "lov" entry in procfs for compatibility purposes */
+-	lov_proc_dir = lprocfs_srch(proc_lustre_root, "lov");
+-	if (lov_proc_dir == NULL) {
+-		lov_proc_dir = lprocfs_register("lov", proc_lustre_root,
+-						NULL, NULL);
+-		if (IS_ERR(lov_proc_dir))
+-			CERROR("lod: can't create compat entry \"lov\": %d\n",
+-			       (int)PTR_ERR(lov_proc_dir));
+-	}
++	type = class_search_type(LUSTRE_LOV_NAME);
++	if (type != NULL && type->typ_procroot != NULL)
++		return rc;
+ 
++	type = class_search_type(LUSTRE_LOD_NAME);
++	type->typ_procsym = lprocfs_register("lov", proc_lustre_root,
++					     NULL, NULL);
++	if (IS_ERR(type->typ_procsym))
++		CERROR("lod: can't create compat entry \"lov\": %d\n",
++		       (int)PTR_ERR(type->typ_procsym));
+ 	return rc;
+ }
+ 
+ static void __exit lod_mod_exit(void)
+ {
+-
+ 	lprocfs_try_remove_proc_entry("lov", proc_lustre_root);
+ 
+ 	class_unregister_type(LUSTRE_LOD_NAME);
+diff --git a/lustre/lov/lov_obd.c b/lustre/lov/lov_obd.c
+index 9d47ec5..78c11fb 100644
+--- a/lustre/lov/lov_obd.c
++++ b/lustre/lov/lov_obd.c
+@@ -124,19 +124,16 @@ static int lov_notify(struct obd_device *obd, struct obd_device *watched,
+ int lov_connect_obd(struct obd_device *obd, __u32 index, int activate,
+                     struct obd_connect_data *data)
+ {
+-        struct lov_obd *lov = &obd->u.lov;
+-        struct obd_uuid *tgt_uuid;
+-        struct obd_device *tgt_obd;
+-        static struct obd_uuid lov_osc_uuid = { "LOV_OSC_UUID" };
+-        struct obd_import *imp;
+-#ifdef __KERNEL__
+-	struct proc_dir_entry *lov_proc_dir;
+-#endif
+-        int rc;
+-        ENTRY;
++	struct lov_obd *lov = &obd->u.lov;
++	struct obd_uuid *tgt_uuid;
++	struct obd_device *tgt_obd;
++	static struct obd_uuid lov_osc_uuid = { "LOV_OSC_UUID" };
++	struct obd_import *imp;
++	int rc;
++	ENTRY;
+ 
+-        if (!lov->lov_tgts[index])
+-                RETURN(-EINVAL);
++	if (lov->lov_tgts[index] == NULL)
++		RETURN(-EINVAL);
+ 
+         tgt_uuid = &lov->lov_tgts[index]->ltd_uuid;
+         tgt_obd = lov->lov_tgts[index]->ltd_obd;
+@@ -191,32 +188,29 @@ int lov_connect_obd(struct obd_device *obd, __u32 index, int activate,
+         CDEBUG(D_CONFIG, "Connected tgt idx %d %s (%s) %sactive\n", index,
+                obd_uuid2str(tgt_uuid), tgt_obd->obd_name, activate ? "":"in");
+ 
+-#ifdef __KERNEL__
+-	lov_proc_dir = obd->obd_proc_private;
+-        if (lov_proc_dir) {
+-                struct obd_device *osc_obd = lov->lov_tgts[index]->ltd_exp->exp_obd;
++	if (obd->obd_type->typ_procsym != NULL) {
+ 		struct proc_dir_entry *osc_symlink;
+-
+-                LASSERT(osc_obd != NULL);
+-                LASSERT(osc_obd->obd_magic == OBD_DEVICE_MAGIC);
+-                LASSERT(osc_obd->obd_type->typ_name != NULL);
+-
+-                osc_symlink = lprocfs_add_symlink(osc_obd->obd_name,
+-                                                  lov_proc_dir,
+-                                                  "../../../%s/%s",
+-                                                  osc_obd->obd_type->typ_name,
+-                                                  osc_obd->obd_name);
+-                if (osc_symlink == NULL) {
+-                        CERROR("could not register LOV target "
+-                                "/proc/fs/lustre/%s/%s/target_obds/%s.",
+-                                obd->obd_type->typ_name, obd->obd_name,
+-                                osc_obd->obd_name);
+-                        lprocfs_remove(&lov_proc_dir);
+-			obd->obd_proc_private = NULL;
++		struct obd_device *osc_obd;
++
++		osc_obd = lov->lov_tgts[index]->ltd_exp->exp_obd;
++
++		LASSERT(osc_obd != NULL);
++		LASSERT(osc_obd->obd_magic == OBD_DEVICE_MAGIC);
++		LASSERT(osc_obd->obd_type->typ_name != NULL);
++
++		osc_symlink = lprocfs_add_symlink(osc_obd->obd_name,
++						  obd->obd_type->typ_procsym,
++						  "../../../%s/%s",
++						  osc_obd->obd_type->typ_name,
++						  osc_obd->obd_name);
++		if (osc_symlink == NULL) {
++			CERROR("could not register LOV target "
++			       "/proc/fs/lustre/%s/%s/target_obds/%s.",
++			       obd->obd_type->typ_name, obd->obd_name,
++			       osc_obd->obd_name);
++			lprocfs_remove(&obd->obd_type->typ_procsym);
+                 }
+         }
+-#endif
+-
+         RETURN(0);
+ }
+ 
+@@ -247,6 +241,15 @@ static int lov_connect(const struct lu_env *env,
+         if (data)
+                 lov->lov_ocd = *data;
+ 
++	obd->obd_type->typ_procsym = lprocfs_seq_register("target_obds",
++						 obd->obd_proc_entry,
++						 NULL, NULL);
++	if (IS_ERR(obd->obd_type->typ_procsym)) {
++		CERROR("%s: could not register /proc/fs/lustre/%s/%s/target_obds.",
++		       obd->obd_name, obd->obd_type->typ_name, obd->obd_name);
++		obd->obd_type->typ_procsym = NULL;
++	}
++
+         obd_getref(obd);
+         for (i = 0; i < lov->desc.ld_tgt_count; i++) {
+                 tgt = lov->lov_tgts[i];
+@@ -277,7 +280,6 @@ static int lov_connect(const struct lu_env *env,
+ 
+ static int lov_disconnect_obd(struct obd_device *obd, struct lov_tgt_desc *tgt)
+ {
+-	struct proc_dir_entry *lov_proc_dir;
+         struct lov_obd *lov = &obd->u.lov;
+         struct obd_device *osc_obd;
+         int rc;
+@@ -293,19 +295,19 @@ static int lov_disconnect_obd(struct obd_device *obd, struct lov_tgt_desc *tgt)
+                 tgt->ltd_exp->exp_obd->obd_inactive = 1;
+         }
+ 
+-	lov_proc_dir = obd->obd_proc_private;
+-	if (lov_proc_dir)
+-		lprocfs_remove_proc_entry(osc_obd->obd_name, lov_proc_dir);
++	if (osc_obd) {
++		/* Pass it on to our clients.
++		 * XXX This should be an argument to disconnect,
++		 * XXX not a back-door flag on the OBD.  Ah well.
++		 */
++		osc_obd->obd_force = obd->obd_force;
++		osc_obd->obd_fail = obd->obd_fail;
++		osc_obd->obd_no_recov = obd->obd_no_recov;
+ 
+-        if (osc_obd) {
+-                /* Pass it on to our clients.
+-                 * XXX This should be an argument to disconnect,
+-                 * XXX not a back-door flag on the OBD.  Ah well.
+-                 */
+-                osc_obd->obd_force = obd->obd_force;
+-                osc_obd->obd_fail = obd->obd_fail;
+-                osc_obd->obd_no_recov = obd->obd_no_recov;
+-        }
++		if (obd->obd_type->typ_procsym)
++			lprocfs_remove_proc_entry(osc_obd->obd_name,
++						  obd->obd_type->typ_procsym);
++	}
+ 
+         obd_register_observer(osc_obd, NULL);
+ 
+@@ -350,6 +352,9 @@ static int lov_disconnect(struct obd_export *exp)
+         }
+         obd_putref(obd);
+ 
++	if (obd->obd_type->typ_procsym)
++		lprocfs_remove(&obd->obd_type->typ_procsym);
++
+ out:
+         rc = class_disconnect(exp); /* bz 9811 */
+         RETURN(rc);
+@@ -779,6 +784,9 @@ int lov_setup(struct obd_device *obd, struct lustre_cfg *lcfg)
+ {
+ 	struct lov_desc *desc;
+ 	struct lov_obd *lov = &obd->u.lov;
++#ifdef LPROCFS
++	struct obd_type *type;
++#endif
+ 	int rc;
+ 	ENTRY;
+ 
+@@ -834,15 +842,41 @@ int lov_setup(struct obd_device *obd, struct lustre_cfg *lcfg)
+ 
+ #ifdef LPROCFS
+ 	obd->obd_vars = lprocfs_lov_obd_vars;
+-	lprocfs_seq_obd_setup(obd);
+-	rc = lprocfs_seq_create(obd->obd_proc_entry, "target_obd", 0444,
+-				&lov_proc_target_fops, obd);
+-	if (rc)
+-		CWARN("Error adding the target_obd file\n");
++	/* If this is true then both client (lov) and server
++	 * (lod) are on the same node. The lod layer if loaded
++	 * first will register the lov proc directory. In that
++	 * case obd->obd_type->typ_procroot will be not set.
++	 * Instead we use type->typ_procsym as the parent. */
++	type = class_search_type(LUSTRE_LOD_NAME);
++	if (type != NULL && type->typ_procsym != NULL) {
++		obd->obd_proc_entry = lprocfs_seq_register(obd->obd_name,
++							   type->typ_procsym,
++							   obd->obd_vars, obd);
++		if (IS_ERR(obd->obd_proc_entry)) {
++			rc = PTR_ERR(obd->obd_proc_entry);
++			CERROR("error %d setting up lprocfs for %s\n", rc,
++			       obd->obd_name);
++			obd->obd_proc_entry = NULL;
++		}
++	} else {
++		rc = lprocfs_seq_obd_setup(obd);
++	}
++
++	if (rc == 0) {
++		rc = lprocfs_seq_create(obd->obd_proc_entry, "target_obd",
++					0444, &lov_proc_target_fops, obd);
++		if (rc)
++			CWARN("Error adding the target_obd file\n");
+ 
+-	lov->lov_pool_proc_entry = lprocfs_seq_register("pools",
++		lov->lov_pool_proc_entry = lprocfs_seq_register("pools",
+ 							obd->obd_proc_entry,
+ 							NULL, NULL);
++		if (IS_ERR(lov->lov_pool_proc_entry)) {
++			rc = PTR_ERR(lov->lov_pool_proc_entry);
++			CERROR("error %d setting up lprocfs for pools\n", rc);
++			lov->lov_pool_proc_entry = NULL;
++		}
++	}
+ #endif
+ 	RETURN(0);
+ 
+@@ -2365,8 +2399,10 @@ extern struct lu_kmem_descr lov_caches[];
+ 
+ int __init lov_init(void)
+ {
++	bool enable_proc = true;
++	struct obd_type *type;
+ 	int rc;
+-        ENTRY;
++	ENTRY;
+ 
+         /* print an address of _any_ initialized kernel symbol from this
+          * module, to allow debugging with gdb that doesn't support data
+@@ -2385,11 +2421,15 @@ int __init lov_init(void)
+                 return -ENOMEM;
+         }
+ 
+-	rc = class_register_type(&lov_obd_ops, NULL, NULL,
++	type = class_search_type(LUSTRE_LOD_NAME);
++	if (type != NULL && type->typ_procsym != NULL)
++		enable_proc = false;
++
++	rc = class_register_type(&lov_obd_ops, NULL, enable_proc, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				NULL,
++				 NULL,
+ #endif
+-				LUSTRE_LOV_NAME, &lov_device_type);
++				 LUSTRE_LOV_NAME, &lov_device_type);
+ 
+         if (rc) {
+ 		kmem_cache_destroy(lov_oinfo_slab);
+diff --git a/lustre/mdc/mdc_request.c b/lustre/mdc/mdc_request.c
+index ee3a654..cea78ac 100644
+--- a/lustre/mdc/mdc_request.c
++++ b/lustre/mdc/mdc_request.c
+@@ -3429,11 +3429,11 @@ struct md_ops mdc_md_ops = {
+ 
+ int __init mdc_init(void)
+ {
+-	return class_register_type(&mdc_obd_ops, &mdc_md_ops, NULL,
++	return class_register_type(&mdc_obd_ops, &mdc_md_ops, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-					NULL,
++				   NULL,
+ #endif
+-					LUSTRE_MDC_NAME, NULL);
++				   LUSTRE_MDC_NAME, NULL);
+ }
+ 
+ #ifdef __KERNEL__
+diff --git a/lustre/mdd/mdd_device.c b/lustre/mdd/mdd_device.c
+index fe9de80..0fe590e 100644
+--- a/lustre/mdd/mdd_device.c
++++ b/lustre/mdd/mdd_device.c
+@@ -1582,11 +1582,11 @@ static int __init mdd_mod_init(void)
+ 	hsm_actions_logops.lop_add = llog_cat_add_rec;
+ 	hsm_actions_logops.lop_declare_add = llog_cat_declare_add_rec;
+ 
+-	rc = class_register_type(&mdd_obd_device_ops, NULL, NULL,
++	rc = class_register_type(&mdd_obd_device_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				lvars.module_vars,
++				 lvars.module_vars,
+ #endif
+-				LUSTRE_MDD_NAME, &mdd_device_type);
++				 LUSTRE_MDD_NAME, &mdd_device_type);
+ 	if (rc)
+ 		lu_kmem_fini(mdd_caches);
+ 	return rc;
+diff --git a/lustre/mdt/mdt_handler.c b/lustre/mdt/mdt_handler.c
+index 0e1f0f6..69b1c30 100644
+--- a/lustre/mdt/mdt_handler.c
++++ b/lustre/mdt/mdt_handler.c
+@@ -5901,11 +5901,11 @@ static int __init mdt_mod_init(void)
+ 		GOTO(lu_fini, rc);
+ 
+ 	lprocfs_mdt_init_vars(&lvars);
+-	rc = class_register_type(&mdt_obd_device_ops, NULL, NULL,
++	rc = class_register_type(&mdt_obd_device_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				lvars.module_vars,
++				 lvars.module_vars,
+ #endif
+-				LUSTRE_MDT_NAME, &mdt_device_type);
++				 LUSTRE_MDT_NAME, &mdt_device_type);
+ 	if (rc)
+ 		GOTO(mds_fini, rc);
+ lu_fini:
+diff --git a/lustre/mdt/mdt_mds.c b/lustre/mdt/mdt_mds.c
+index 367f659..390164f 100644
+--- a/lustre/mdt/mdt_mds.c
++++ b/lustre/mdt/mdt_mds.c
+@@ -539,11 +539,11 @@ int mds_mod_init(void)
+ 		mds_num_threads = mdt_num_threads;
+ 	}
+ 
+-	return class_register_type(&mds_obd_device_ops, NULL, NULL,
++	return class_register_type(&mds_obd_device_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-					lprocfs_mds_module_vars,
++				   lprocfs_mds_module_vars,
+ #endif
+-					LUSTRE_MDS_NAME, &mds_device_type);
++				   LUSTRE_MDS_NAME, &mds_device_type);
+ }
+ 
+ void mds_mod_exit(void)
+diff --git a/lustre/mgc/libmgc.c b/lustre/mgc/libmgc.c
+index 49a329a..ec915c7 100644
+--- a/lustre/mgc/libmgc.c
++++ b/lustre/mgc/libmgc.c
+@@ -158,9 +158,9 @@ struct obd_ops mgc_obd_ops = {
+ 
+ int __init mgc_init(void)
+ {
+-	return class_register_type(&mgc_obd_ops, NULL, NULL,
++	return class_register_type(&mgc_obd_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-					NULL,
++				   NULL,
+ #endif
+-					LUSTRE_MGC_NAME, NULL);
++				   LUSTRE_MGC_NAME, NULL);
+ }
+diff --git a/lustre/mgc/mgc_request.c b/lustre/mgc/mgc_request.c
+index 8935814..7741bbf 100644
+--- a/lustre/mgc/mgc_request.c
++++ b/lustre/mgc/mgc_request.c
+@@ -2022,11 +2022,11 @@ struct obd_ops mgc_obd_ops = {
+ 
+ int __init mgc_init(void)
+ {
+-        return class_register_type(&mgc_obd_ops, NULL, NULL,
++	return class_register_type(&mgc_obd_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-					NULL,
++				   NULL,
+ #endif
+-					LUSTRE_MGC_NAME, NULL);
++				   LUSTRE_MGC_NAME, NULL);
+ }
+ 
+ #ifdef __KERNEL__
+diff --git a/lustre/mgs/mgs_handler.c b/lustre/mgs/mgs_handler.c
+index 8961fc3..85b219c 100644
+--- a/lustre/mgs/mgs_handler.c
++++ b/lustre/mgs/mgs_handler.c
+@@ -1516,11 +1516,11 @@ static int __init mgs_init(void)
+ 	struct lprocfs_static_vars lvars;
+ 
+ 	lprocfs_mgs_init_vars(&lvars);
+-	return class_register_type(&mgs_obd_device_ops, NULL, NULL,
++	return class_register_type(&mgs_obd_device_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-					lvars.module_vars,
++				   lvars.module_vars,
+ #endif
+-					LUSTRE_MGS_NAME, &mgs_device_type);
++				   LUSTRE_MGS_NAME, &mgs_device_type);
+ }
+ 
+ static void /*__exit*/ mgs_exit(void)
+diff --git a/lustre/obdclass/genops.c b/lustre/obdclass/genops.c
+index bf8b6ce..98dbcce 100644
+--- a/lustre/obdclass/genops.c
++++ b/lustre/obdclass/genops.c
+@@ -162,7 +162,7 @@ EXPORT_SYMBOL(class_put_type);
+ #define CLASS_MAX_NAME 1024
+ 
+ int class_register_type(struct obd_ops *dt_ops, struct md_ops *md_ops,
+-			struct lprocfs_seq_vars *module_vars,
++			bool enable_proc, struct lprocfs_seq_vars *module_vars,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+ 			struct lprocfs_vars *vars,
+ #endif
+@@ -202,22 +202,24 @@ int class_register_type(struct obd_ops *dt_ops, struct md_ops *md_ops,
+ 	spin_lock_init(&type->obd_type_lock);
+ 
+ #ifdef LPROCFS
++	if (enable_proc) {
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-	if (vars) {
+-		type->typ_procroot = lprocfs_register(type->typ_name,
+-							proc_lustre_root,
+-							vars, type);
+-	} else
++		if (vars) {
++			type->typ_procroot = lprocfs_register(type->typ_name,
++							      proc_lustre_root,
++							      vars, type);
++		} else
+ #endif
+-	{
+-		type->typ_procroot = lprocfs_seq_register(type->typ_name,
+-							proc_lustre_root,
+-							module_vars, type);
+-	}
+-	if (IS_ERR(type->typ_procroot)) {
+-		rc = PTR_ERR(type->typ_procroot);
+-		type->typ_procroot = NULL;
+-		GOTO (failed, rc);
++		{
++			type->typ_procroot = lprocfs_seq_register(type->typ_name,
++								  proc_lustre_root,
++								  module_vars, type);
++		}
++		if (IS_ERR(type->typ_procroot)) {
++			rc = PTR_ERR(type->typ_procroot);
++			type->typ_procroot = NULL;
++			GOTO(failed, rc);
++		}
+ 	}
+ #endif
+         if (ldt != NULL) {
+@@ -233,18 +235,20 @@ int class_register_type(struct obd_ops *dt_ops, struct md_ops *md_ops,
+ 
+         RETURN (0);
+ 
+- failed:
+-#ifdef LPROCFS
++failed:
+ 	if (type->typ_name != NULL) {
++#ifdef LPROCFS
++		if (type->typ_procroot != NULL) {
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-		lprocfs_try_remove_proc_entry(type->typ_name, proc_lustre_root);
++			lprocfs_try_remove_proc_entry(type->typ_name,
++						      proc_lustre_root);
+ #else
+-		remove_proc_subtree(type->typ_name, proc_lustre_root);
++			remove_proc_subtree(type->typ_name, proc_lustre_root);
+ #endif
+-	}
++		}
+ #endif
+-        if (type->typ_name != NULL)
+                 OBD_FREE(type->typ_name, strlen(name) + 1);
++	}
+         if (type->typ_md_ops != NULL)
+                 OBD_FREE_PTR(type->typ_md_ops);
+         if (type->typ_dt_ops != NULL)
+@@ -278,11 +282,16 @@ int class_unregister_type(const char *name)
+ 	 * we can't reference pointer as it can get invalided when another
+ 	 * module removes the entry */
+ #ifdef LPROCFS
++	if (type->typ_procroot != NULL) {
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-	lprocfs_try_remove_proc_entry(type->typ_name, proc_lustre_root);
++		lprocfs_try_remove_proc_entry(type->typ_name, proc_lustre_root);
+ #else
+-	remove_proc_subtree(type->typ_name, proc_lustre_root);
++		remove_proc_subtree(type->typ_name, proc_lustre_root);
+ #endif
++	}
++
++	if (type->typ_procsym != NULL)
++		lprocfs_remove(&type->typ_procsym);
+ #endif
+         if (type->typ_lu)
+                 lu_device_type_fini(type->typ_lu);
+diff --git a/lustre/obdclass/llog_test.c b/lustre/obdclass/llog_test.c
+index a1051c2..18d5843 100644
+--- a/lustre/obdclass/llog_test.c
++++ b/lustre/obdclass/llog_test.c
+@@ -1261,11 +1261,11 @@ static struct obd_ops llog_obd_ops = {
+ 
+ static int __init llog_test_init(void)
+ {
+-	return class_register_type(&llog_obd_ops, NULL, NULL,
++	return class_register_type(&llog_obd_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-					NULL,
++				   NULL,
+ #endif
+-					"llog_test", NULL);
++				   "llog_test", NULL);
+ }
+ 
+ static void __exit llog_test_exit(void)
+diff --git a/lustre/obdclass/lprocfs_status.c b/lustre/obdclass/lprocfs_status.c
+index 9956ada..30d9f59 100644
+--- a/lustre/obdclass/lprocfs_status.c
++++ b/lustre/obdclass/lprocfs_status.c
+@@ -1936,7 +1936,6 @@ lprocfs_seq_obd_setup(struct obd_device *obd)
+ 	int rc = 0;
+ 
+ 	LASSERT(obd != NULL);
+-	LASSERT(obd->obd_vars != NULL);
+ 	LASSERT(obd->obd_magic == OBD_DEVICE_MAGIC);
+ 	LASSERT(obd->obd_type->typ_procroot != NULL);
+ 
+diff --git a/lustre/obdecho/echo_client.c b/lustre/obdecho/echo_client.c
+index 38cff00..632bf52 100644
+--- a/lustre/obdecho/echo_client.c
++++ b/lustre/obdecho/echo_client.c
+@@ -3169,12 +3169,12 @@ int echo_client_init(void)
+ 
+ 	rc = lu_kmem_init(echo_caches);
+ 	if (rc == 0) {
+-		rc = class_register_type(&echo_client_obd_ops, NULL, NULL,
++		rc = class_register_type(&echo_client_obd_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-					NULL,
++					 NULL,
+ #endif
+-					LUSTRE_ECHO_CLIENT_NAME,
+-					&echo_device_type);
++					 LUSTRE_ECHO_CLIENT_NAME,
++					 &echo_device_type);
+ 		if (rc)
+ 			lu_kmem_fini(echo_caches);
+ 	}
+@@ -3202,7 +3202,7 @@ static int __init obdecho_init(void)
+         if (rc != 0)
+                 goto failed_0;
+ 
+-	rc = class_register_type(&echo_obd_ops, NULL, NULL,
++	rc = class_register_type(&echo_obd_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+ 				NULL,
+ #endif
+diff --git a/lustre/ofd/ofd_dev.c b/lustre/ofd/ofd_dev.c
+index 4cafa48..5d7f0b4 100644
+--- a/lustre/ofd/ofd_dev.c
++++ b/lustre/ofd/ofd_dev.c
+@@ -2394,11 +2394,11 @@ int __init ofd_init(void)
+ 
+ 	lprocfs_ofd_init_vars(&lvars);
+ 
+-	rc = class_register_type(&ofd_obd_ops, NULL, NULL,
++	rc = class_register_type(&ofd_obd_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				lvars.module_vars,
++				 lvars.module_vars,
+ #endif
+-				LUSTRE_OST_NAME, &ofd_device_type);
++				 LUSTRE_OST_NAME, &ofd_device_type);
+ 	return rc;
+ }
+ 
+diff --git a/lustre/osc/osc_request.c b/lustre/osc/osc_request.c
+index 2b60765..076dcf6 100644
+--- a/lustre/osc/osc_request.c
++++ b/lustre/osc/osc_request.c
+@@ -3091,9 +3091,10 @@ static int brw_queue_work(const struct lu_env *env, void *data)
+ 
+ int osc_setup(struct obd_device *obd, struct lustre_cfg *lcfg)
+ {
+-	struct client_obd          *cli = &obd->u.cli;
+-	void                       *handler;
+-	int                        rc;
++	struct client_obd *cli = &obd->u.cli;
++	struct obd_type	  *type;
++	void		  *handler;
++	int		   rc;
+ 	ENTRY;
+ 
+ 	rc = ptlrpcd_addref();
+@@ -3119,10 +3120,32 @@ int osc_setup(struct obd_device *obd, struct lustre_cfg *lcfg)
+ 		GOTO(out_ptlrpcd_work, rc);
+ 
+ 	cli->cl_grant_shrink_interval = GRANT_SHRINK_INTERVAL;
++
+ #ifdef LPROCFS
+ 	obd->obd_vars = lprocfs_osc_obd_vars;
+ #endif
+-	if (lprocfs_seq_obd_setup(obd) == 0) {
++	/* If this is true then both client (osc) and server (osp) are on the
++	 * same node. The osp layer if loaded first will register the osc proc
++	 * directory. In that case this obd_device will be attached its proc
++	 * tree to type->typ_procsym instead of obd->obd_type->typ_procroot. */
++	type = class_search_type(LUSTRE_OSP_NAME);
++	if (type && type->typ_procsym) {
++		obd->obd_proc_entry = lprocfs_seq_register(obd->obd_name,
++							   type->typ_procsym,
++							   obd->obd_vars, obd);
++		if (IS_ERR(obd->obd_proc_entry)) {
++			rc = PTR_ERR(obd->obd_proc_entry);
++			CERROR("error %d setting up lprocfs for %s\n", rc,
++			       obd->obd_name);
++			obd->obd_proc_entry = NULL;
++		}
++	} else {
++		rc = lprocfs_seq_obd_setup(obd);
++	}
++
++	/* If the basic OSC proc tree construction succeeded then
++	 * lets do the rest. */
++	if (rc == 0) {
+ 		lproc_osc_attach_seqstat(obd);
+ 		sptlrpc_lprocfs_cliobd_attach(obd);
+ 		ptlrpc_lprocfs_register_obd(obd);
+@@ -3140,7 +3163,7 @@ int osc_setup(struct obd_device *obd, struct lustre_cfg *lcfg)
+ 
+ 	CFS_INIT_LIST_HEAD(&cli->cl_grant_shrink_list);
+ 	ns_register_cancel(obd->obd_namespace, osc_cancel_weight);
+-	RETURN(rc);
++	RETURN(0);
+ 
+ out_ptlrpcd_work:
+ 	if (cli->cl_writeback_work != NULL) {
+@@ -3282,8 +3305,10 @@ extern struct lock_class_key osc_ast_guard_class;
+ 
+ int __init osc_init(void)
+ {
+-        int rc;
+-        ENTRY;
++	bool enable_proc = true;
++	struct obd_type *type;
++	int rc;
++	ENTRY;
+ 
+         /* print an address of _any_ initialized kernel symbol from this
+          * module, to allow debugging with gdb that doesn't support data
+@@ -3294,11 +3319,15 @@ int __init osc_init(void)
+ 	if (rc)
+ 		RETURN(rc);
+ 
+-	rc = class_register_type(&osc_obd_ops, NULL, NULL,
++	type = class_search_type(LUSTRE_OSP_NAME);
++	if (type != NULL && type->typ_procsym != NULL)
++		enable_proc = false;
++
++	rc = class_register_type(&osc_obd_ops, NULL, enable_proc, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				NULL,
++				 NULL,
+ #endif
+-				LUSTRE_OSC_NAME, &osc_device_type);
++				 LUSTRE_OSC_NAME, &osc_device_type);
+         if (rc) {
+                 lu_kmem_fini(osc_caches);
+                 RETURN(rc);
+diff --git a/lustre/osd-ldiskfs/osd_handler.c b/lustre/osd-ldiskfs/osd_handler.c
+index 7461f9d..e0da7e6 100644
+--- a/lustre/osd-ldiskfs/osd_handler.c
++++ b/lustre/osd-ldiskfs/osd_handler.c
+@@ -6019,11 +6019,11 @@ static int __init osd_mod_init(void)
+ 	if (rc)
+ 		return rc;
+ 
+-	rc = class_register_type(&osd_obd_device_ops, NULL, NULL,
++	rc = class_register_type(&osd_obd_device_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				lprocfs_osd_module_vars,
++				 lprocfs_osd_module_vars,
+ #endif
+-				LUSTRE_OSD_LDISKFS_NAME, &osd_device_type);
++				 LUSTRE_OSD_LDISKFS_NAME, &osd_device_type);
+ 	if (rc)
+ 		lu_kmem_fini(ldiskfs_caches);
+ 	return rc;
+diff --git a/lustre/osd-zfs/osd_handler.c b/lustre/osd-zfs/osd_handler.c
+index 1025be9..47bbc76 100644
+--- a/lustre/osd-zfs/osd_handler.c
++++ b/lustre/osd-zfs/osd_handler.c
+@@ -912,11 +912,11 @@ int __init osd_init(void)
+ 	if (rc)
+ 		return rc;
+ 
+-	rc = class_register_type(&osd_obd_device_ops, NULL, NULL,
++	rc = class_register_type(&osd_obd_device_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				lprocfs_osd_module_vars,
++				 lprocfs_osd_module_vars,
+ #endif
+-				LUSTRE_OSD_ZFS_NAME, &osd_device_type);
++				 LUSTRE_OSD_ZFS_NAME, &osd_device_type);
+ 	if (rc)
+ 		lu_kmem_fini(osd_caches);
+ 	return rc;
+diff --git a/lustre/osp/osp_dev.c b/lustre/osp/osp_dev.c
+index 550ba5e..60bf8ef 100644
+--- a/lustre/osp/osp_dev.c
++++ b/lustre/osp/osp_dev.c
+@@ -1239,7 +1239,7 @@ struct llog_operations osp_mds_ost_orig_logops;
+ static int __init osp_mod_init(void)
+ {
+ 	struct lprocfs_static_vars	 lvars;
+-	cfs_proc_dir_entry_t		*osc_proc_dir;
++	struct obd_type *type;
+ 	int				 rc;
+ 
+ 	rc = lu_kmem_init(osp_caches);
+@@ -1248,11 +1248,11 @@ static int __init osp_mod_init(void)
+ 
+ 	lprocfs_osp_init_vars(&lvars);
+ 
+-	rc = class_register_type(&osp_obd_device_ops, NULL, NULL,
++	rc = class_register_type(&osp_obd_device_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				lvars.module_vars,
++				 lvars.module_vars,
+ #endif
+-				LUSTRE_OSP_NAME, &osp_device_type);
++				 LUSTRE_OSP_NAME, &osp_device_type);
+ 
+ 	/* create "osc" entry in procfs for compatibility purposes */
+ 	if (rc != 0) {
+@@ -1262,11 +1262,11 @@ static int __init osp_mod_init(void)
+ 
+ 	lprocfs_lwp_init_vars(&lvars);
+ 
+-	rc = class_register_type(&lwp_obd_device_ops, NULL, NULL,
++	rc = class_register_type(&lwp_obd_device_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				lvars.module_vars,
++				 lvars.module_vars,
+ #endif
+-				LUSTRE_LWP_NAME, &lwp_device_type);
++				 LUSTRE_LWP_NAME, &lwp_device_type);
+ 	if (rc != 0) {
+ 		class_unregister_type(LUSTRE_OSP_NAME);
+ 		lu_kmem_fini(osp_caches);
+@@ -1278,14 +1278,17 @@ static int __init osp_mod_init(void)
+ 	osp_mds_ost_orig_logops.lop_add = llog_cat_add_rec;
+ 	osp_mds_ost_orig_logops.lop_declare_add = llog_cat_declare_add_rec;
+ 
+-	osc_proc_dir = lprocfs_srch(proc_lustre_root, "osc");
+-	if (osc_proc_dir == NULL) {
+-		osc_proc_dir = lprocfs_register("osc", proc_lustre_root, NULL,
+-						NULL);
+-		if (IS_ERR(osc_proc_dir))
+-			CERROR("osp: can't create compat entry \"osc\": %d\n",
+-			       (int) PTR_ERR(osc_proc_dir));
+-	}
++	/* create "osc" entry in procfs for compatibility purposes */
++	type = class_search_type(LUSTRE_OSC_NAME);
++	if (type != NULL && type->typ_procroot != NULL)
++		return rc;
++
++	type = class_search_type(LUSTRE_OSP_NAME);
++	type->typ_procsym = lprocfs_register("osc", proc_lustre_root,
++					     NULL, NULL);
++	if (IS_ERR(type->typ_procsym))
++		CERROR("osp: can't create compat entry \"osc\": %d\n",
++		       (int) PTR_ERR(type->typ_procsym));
+ 	return rc;
+ }
+ 
+diff --git a/lustre/ost/ost_handler.c b/lustre/ost/ost_handler.c
+index f7448d4..d8897cc 100644
+--- a/lustre/ost/ost_handler.c
++++ b/lustre/ost/ost_handler.c
+@@ -470,11 +470,11 @@ static int __init ost_init(void)
+ 
+ 	ENTRY;
+ 
+-	rc = class_register_type(&ost_obd_ops, NULL, NULL,
++	rc = class_register_type(&ost_obd_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				NULL,
++				 NULL,
+ #endif
+-				LUSTRE_OSS_NAME, NULL);
++				 LUSTRE_OSS_NAME, NULL);
+ 
+         if (ost_num_threads != 0 && oss_num_threads == 0) {
+                 LCONSOLE_INFO("ost_num_threads module parameter is deprecated, "
+diff --git a/lustre/quota/qmt_dev.c b/lustre/quota/qmt_dev.c
+index 02ec55b..28783a0 100644
+--- a/lustre/quota/qmt_dev.c
++++ b/lustre/quota/qmt_dev.c
+@@ -466,11 +466,11 @@ int qmt_glb_init(void)
+ 	int rc;
+ 	ENTRY;
+ 
+-	rc = class_register_type(&qmt_obd_ops, NULL, NULL,
++	rc = class_register_type(&qmt_obd_ops, NULL, true, NULL,
+ #ifndef HAVE_ONLY_PROCFS_SEQ
+-				NULL,
++				 NULL,
+ #endif
+-				LUSTRE_QMT_NAME, &qmt_device_type);
++				 LUSTRE_QMT_NAME, &qmt_device_type);
+ 	RETURN(rc);
+ }
+ 
+-- 
+1.9.1
+
