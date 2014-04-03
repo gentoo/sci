@@ -9,11 +9,14 @@ inherit cmake-utils versionator
 #ESVN_REPO_URI="https://vgm.svn.sourceforge.net/svnroot/${PN}/tags/v$(replace_all_version_separators '-')/${PN}"
 #ESVN_PROJECT="${PN}.${PV}"
 
+# .zip-snapshot can be recreated by visiting
+# http://sourceforge.net/p/${PN}/code/${COMMIT}/tarball?path=/tags/v$(replace_all_version_separators '-')
 TAG_VER="${PN}-code-731-tags-v$(replace_all_version_separators '-')"
 
 DESCRIPTION="Virtual Geometry Model for High Energy Physics Experiments"
 HOMEPAGE="http://ivana.home.cern.ch/ivana/VGM.html"
-SRC_URI="http://sourceforge.net/code-snapshots/svn/v/vg/vgm/code/${TAG_VER}.zip"
+#SRC_URI="http://sourceforge.net/code-snapshots/svn/v/vg/vgm/code/${TAG_VER}.zip"
+SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${TAG_VER}.zip"
 
 LICENSE="GPL-2"
 SLOT="0"
