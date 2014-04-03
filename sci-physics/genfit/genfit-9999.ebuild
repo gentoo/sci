@@ -10,14 +10,18 @@ if [[ ${PV} == *9999* ]]; then
 	inherit subversion
 	ESVN_REPO_URI="https://svn.code.sf.net/p/${PN}/code/trunk"
 	ESVN_PROJECT="${PN}.${PV}"
+	KEYWORDS=""
 else
+	# .zip-snapshot can be recreated by visiting
+	# http://sourceforge.net/p/${PN}/code/${COMMIT}/tarball?path=/tags/v$(replace_all_version_separators '-')
 	TAG_VER=${PN}-code-1688-tags-v$(replace_all_version_separators '-')
-	SRC_URI="http://sourceforge.net/code-snapshots/svn/g/ge/genfit/code/${TAG_VER}.zip"
+	#SRC_URI="http://sourceforge.net/code-snapshots/svn/g/ge/genfit/code/${TAG_VER}.zip"
+	SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${TAG_VER}.zip"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 	S=${WORKDIR}/${TAG_VER}
 fi
 
-DESCRIPTION="a generic toolkit for track reconstruction for experiments in particle and nuclear physics"
+DESCRIPTION="Generic toolkit for track reconstruction in physics experiments"
 HOMEPAGE="http://genfit.sourceforge.net/Main.html"
 
 LICENSE="LGPL-3"
@@ -41,11 +45,10 @@ src_install() {
 	if use examples; then
 		insinto /usr/share/doc/${PF}
 		doins -r "${BUILD_DIR}/bin"
-		doins "${S}/test/makeGeom.C"
-		doins "${S}/test/README"
+		doins test/makeGeom.C
+		doins test/README
 	fi
-	cd doc || die
-	use doc && dohtml -r "${S}/doc/html/"*
+	use doc && dohtml -r doc/html/*
 	echo
 	elog "Note that there is no support in this ebuild for RAVE yet,"
 	elog "which is also not in portage."

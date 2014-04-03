@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Apr 2014; Sebastien Fabbro <fabbros@gentoo.org> genfit-9999.ebuild,
+  metadata.xml:
+  Link fixed version ebuild to live one, add no keyword to live version
+
   03 Apr 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
   genfit-02.00.00.ebuild:
   Use zip-snapshot mirrored by jlec, sourceforge cannot automatically recreate
