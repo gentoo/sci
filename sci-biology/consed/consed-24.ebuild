@@ -64,6 +64,9 @@ src_install() {
 		align454reads align454reads_answer solexa_example \
 		solexa_example_answer selectRegions selectRegionsAnswer || die
 	echo 'CONSED_HOME='${EPREFIX}'/usr' > "${S}/99consed"
+	echo 'CONSED_PARAMETERS='${EPREFIX}'/etc/consedrc' >> "${S}/99consed"
+	mkdir -p "${D}"/etc/consedrc
+	touch "${D}"/etc/consedrc
 	doenvd "${S}/99consed" || die
 	sed -e "s#/usr/local/genome#${EPREFIX}/usr#" -i "${D}"/usr/bin/*.perl "${D}"/usr/bin/phredPhrap "${D}"/usr/bin/phredPhrapWithPhdBalls || die
 	sed -e 's#niceExe = "/bin/nice"#niceExe = "/usr/bin/nice"#' -i "${D}"/usr/bin/phredPhrap || die
