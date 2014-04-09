@@ -1,0 +1,76 @@
+From 873af0c229b92e5ceba62e5a3f78180a18b395d4 Mon Sep 17 00:00:00 2001
+From: Joerg Riesmeier <dicom@jriesmeier.com>
+Date: Fri, 5 Apr 2013 11:40:36 +0200
+Subject: [PATCH] Use non-throwing new and delete operator.
+
+Use a non-throwing new and delete operator for large memory buffers
+(e.g. pixel data) in order to avoid exceptions.
+---
+ CHANGES.361                               |    7 +++++++
+ dcmimgle/include/dcmtk/dcmimgle/diinpxt.h |   26 +++++++++++++++++++++++---
+ 2 files changed, 30 insertions(+), 3 deletions(-)
+
+Index: dcmtk-3.6.0/dcmimgle/include/dcmtk/dcmimgle/diinpxt.h
+===================================================================
+--- dcmtk-3.6.0.orig/dcmimgle/include/dcmtk/dcmimgle/diinpxt.h	2010-10-14 15:16:26.000000000 +0200
++++ dcmtk-3.6.0/dcmimgle/include/dcmtk/dcmimgle/diinpxt.h	2013-05-28 14:47:03.782871278 +0200
+@@ -172,7 +172,12 @@
+      */
+     virtual ~DiInputPixelTemplate()
+     {
++#if defined(HAVE_STD__NOTHROW) && defined(HAVE_NOTHROW_DELETE)
++        /* use a non-throwing delete (if available) */
++        operator delete[] (Data, std::nothrow);
++#else
+         delete[] Data;
++#endif
+     }
+ 
+     /** determine minimum and maximum pixel value
+@@ -382,7 +387,12 @@
+ #endif
+             /* allocate temporary buffer, even number of bytes required for getUncompressedFrame() */
+             const Uint32 extraByte = ((sizeof(T1) == 1) && (count_T1 & 1)) ? 1 : 0;
++#ifdef HAVE_STD__NOTHROW
++            /* use a non-throwing new here (if available) because the allocated buffer can be huge */
++            pixel = new (std::nothrow) T1[count_T1 + extraByte];
++#else
+             pixel = new T1[count_T1 + extraByte];
++#endif
+             if (pixel != NULL)
+             {
+                 if (uncompressed)
+@@ -444,7 +454,12 @@
+ //          # old code: Count = ((lengthBytes * 8) + bitsAllocated - 1) / bitsAllocated;
+             Count = 8 * length_B1 + (8 * length_B2 + bitsAllocated - 1) / bitsAllocated;
+             register unsigned long i;
++#ifdef HAVE_STD__NOTHROW
++            /* use a non-throwing new here (if available) because the allocated buffer can be huge */
++            Data = new (std::nothrow) T2[Count];
++#else
+             Data = new T2[Count];
++#endif
+             if (Data != NULL)
+             {
+                 DCMIMGLE_TRACE("Input length: " << lengthBytes << " bytes, Pixel count: " << Count
+@@ -609,13 +624,18 @@
+                 }
+             }
+         } else {
+-            // in case of error, reset pixel count variable
++            /* in case of error, reset pixel count variable */
+             Count = 0;
+         }
+         if (deletePixel)
+         {
+-            // delete temporary buffer
++            /* delete temporary buffer */
++#if defined(HAVE_STD__NOTHROW) && defined(HAVE_NOTHROW_DELETE)
++            /* use a non-throwing delete (if available) */
++            operator delete[] (pixel, std::nothrow);
++#else
+             delete[] pixel;
++#endif
+         }
+     }
+ 
