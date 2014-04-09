@@ -15,7 +15,7 @@ if [[ $PV = *9999* ]]; then
 		https://gerrit.gromacs.org/gromacs.git
 		git://github.com/gromacs/gromacs.git
 		http://repo.or.cz/r/gromacs.git"
-	EGIT_BRANCH="master"
+	EGIT_BRANCH="release-5-0"
 	inherit git-r3
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${PN}-${PV/_/-}.tar.gz
