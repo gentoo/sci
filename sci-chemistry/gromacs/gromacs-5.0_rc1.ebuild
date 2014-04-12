@@ -4,7 +4,7 @@
 
 EAPI=5
 
-TEST_PV="5.0-beta1"
+TEST_PV="5.0-rc1"
 
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
@@ -15,14 +15,14 @@ if [[ $PV = *9999* ]]; then
 		https://gerrit.gromacs.org/gromacs.git
 		git://github.com/gromacs/gromacs.git
 		http://repo.or.cz/r/gromacs.git"
-	EGIT_BRANCH="master"
+	EGIT_BRANCH="release-5-0"
 	inherit git-r3
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${PN}-${PV/_/-}.tar.gz
-		test? ( http://${PN}.googlecode.com/files/regressiontests-${TEST_PV}.tar.gz )"
+		test? ( http://gerrit.gromacs.org/download/regressiontests-${TEST_PV}.tar.gz )"
 fi
 
-ACCE_IUSE="sse2 sse4_1 avx128fma avx256"
+ACCE_IUSE="sse2 sse4_1 avx_128_fma avx_256 avx2_256"
 
 DESCRIPTION="The ultimate molecular dynamics simulation package"
 HOMEPAGE="http://www.gromacs.org/"
@@ -32,8 +32,8 @@ HOMEPAGE="http://www.gromacs.org/"
 #        base,    vmd plugins, fftpack from numpy,  blas/lapck from netlib,        memtestG80 library,  mpi_thread lib
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
 SLOT="0/${PV}"
-KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
-IUSE="X blas cuda +doc -double-precision +fftw gsl lapack mkl mpi +offensive openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+IUSE="X blas boost cuda +doc -double-precision +fftw lapack mkl mpi +offensive openmp +single-precision test +threads +tng ${ACCE_IUSE}"
 
 CDEPEND="
 	X? (
@@ -42,9 +42,9 @@ CDEPEND="
 		x11-libs/libICE
 		)
 	blas? ( virtual/blas )
+	boost? ( >=dev-libs/boost-1.55 )
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-4.2.9-r1 )
 	fftw? ( sci-libs/fftw:3.0 )
-	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mkl? ( sci-libs/mkl )
 	mpi? ( virtual/mpi )
@@ -119,8 +119,9 @@ src_configure() {
 	local acce="None"
 	use sse2 && acce="SSE2"
 	use sse4_1 && acce="SSE4.1"
-	use avx128fma && acce="AVX_128_FMA"
-	use avx256 && acce="AVX_256"
+	use avx_128_fma && acce="AVX_128_FMA"
+	use avx_256 && acce="AVX_256"
+	use avx2_256 && acee="AVX2_256"
 
 	#to create man pages, build tree binaries are executed (bug #398437)
 	[[ ${CHOST} = *-darwin* ]] && \
@@ -147,21 +148,20 @@ src_configure() {
 		"${fft_opts[@]}"
 		$(cmake-utils_use X GMX_X11)
 		$(cmake-utils_use blas GMX_EXTERNAL_BLAS)
-		$(cmake-utils_use gsl GMX_GSL)
 		$(cmake-utils_use lapack GMX_EXTERNAL_LAPACK)
 		$(cmake-utils_use openmp GMX_OPENMP)
 		$(cmake-utils_use offensive GMX_COOL_QUOTES)
+		$(cmake-utils_use boost GMX_EXTERNAL_BOOST)
+		$(cmake-utils_use tng GMX_USE_TNG)
 		$(cmake-utils_use doc GMX_BUILD_MANUAL)
 		-DGMX_DEFAULT_SUFFIX=off
-		-DGMX_ACCELERATION="$acce"
-		-DGMXLIB="$(get_libdir)"
+		-DGMX_SIMD="$acce"
+		-DGMX_LIB_INSTALL_DIR="$(get_libdir)"
 		-DGMX_VMD_PLUGIN_PATH="${EPREFIX}/usr/$(get_libdir)/vmd/plugins/*/molfile/"
-		-DGMX_PREFIX_LIBMD=ON
 		-DGMX_X86_AVX_GCC_MASKLOAD_BUG=OFF
 		-DGMX_USE_GCC44_BUG_WORKAROUND=OFF
 		-DBUILD_TESTING=OFF
 		-DGMX_BUILD_UNITTESTS=OFF
-		-DGMX_LIB_INSTALL_DIR=$(get_libdir)
 		${extra}
 	)
 
@@ -195,6 +195,7 @@ src_configure() {
 			-DGMX_MPI=ON ${cuda}
 			-DGMX_OPENMM=OFF
 			-DGMX_BUILD_MDRUN_ONLY=ON
+			-DBUILD_SHARED_LIBS=OFF
 			-DGMX_BUILD_MANUAL=OFF
 			-DGMX_BINARY_SUFFIX="_mpi${suffix}"
 			-DGMX_LIBS_SUFFIX="_mpi${suffix}"
@@ -208,6 +209,9 @@ src_compile() {
 		einfo "Compiling for ${x} precision"
 		BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile
+		# generate bash completion
+		BUILD_DIR="${WORKDIR}/${P}_${x}"\
+			cmake-utils_src_compile completion
 		if use doc; then
 			BUILD_DIR="${WORKDIR}/${P}_${x}"\
 				cmake-utils_src_compile manual
@@ -233,28 +237,24 @@ src_install() {
 		if use doc; then
 			newdoc "${WORKDIR}/${P}_${x}"/manual/gromacs.pdf "${PN}-manual-${PV}.pdf"
 		fi
+		newbashcomp "${WORKDIR}/${P}_${x}"/src/programs/completion/gmx-completion.bash gromacs
 		use mpi || continue
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
 			cmake-utils_src_install
 	done
-
-	newbashcomp "${ED}"/usr/bin/completion.bash ${PN}
-	if use zsh-completion ; then
-		insinto /usr/share/zsh/site-functions
-		newins "${ED}"/usr/bin/completion.zsh _${PN}
-	fi
-	rm -f "${ED}"usr/bin/completion.* || die
-	rm -f "${ED}"usr/bin/g_options* || die
-	rm -f "${ED}"usr/bin/GMXRC* || die
+	# drop non needed staff
+	rm -f "${ED}"usr/bin/gmx-completion*
+	rm -f "${ED}"usr/bin/g_options*
+	rm -f "${ED}"usr/bin/GMXRC*
 
 	readme.gentoo_create_doc
 }
 
 pkg_postinst() {
-	echo
+	einfo
 	einfo  "Please read and cite:"
 	einfo  "Gromacs 4, J. Chem. Theory Comput. 4, 435 (2008). "
 	einfo  "http://dx.doi.org/10.1021/ct700301q"
-	echo
+	einfo
 	readme.gentoo_print_elog
 }

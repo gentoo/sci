@@ -1,0 +1,36 @@
+From 904d810a9d62ab0e1e0aac857371b936f0b70289 Mon Sep 17 00:00:00 2001
+From: Joerg Riesmeier <dicom@jriesmeier.com>
+Date: Fri, 5 Apr 2013 12:32:52 +0200
+Subject: [PATCH] Fixed two possible memory leaks.
+
+These leaks were found by static code analysis, e.g. using cppcheck.
+---
+ CHANGES.361            |    4 ++++
+ dcmnet/libsrc/assoc.cc |   14 +++++++++++---
+ 2 files changed, 15 insertions(+), 3 deletions(-)
+
+Index: dcmtk-3.6.0/dcmnet/libsrc/assoc.cc
+===================================================================
+--- dcmtk-3.6.0.orig/dcmnet/libsrc/assoc.cc	2010-12-01 09:26:35.000000000 +0100
++++ dcmtk-3.6.0/dcmnet/libsrc/assoc.cc	2013-05-28 14:47:09.770871207 +0200
+@@ -1740,10 +1740,18 @@
+     if (cond.bad()) return cond;
+ 
+     cond = ASC_setTransportLayerType(params, useSecureLayer);
+-    if (cond.bad()) return cond;
++    if (cond.bad())
++    {
++        ASC_destroyAssociationParameters(&params);
++        return cond;
++    }
+ 
+     *assoc = (T_ASC_Association *) malloc(sizeof(**assoc));
+-    if (*assoc == NULL) return EC_MemoryExhausted;
++    if (*assoc == NULL)
++    {
++        ASC_destroyAssociationParameters(&params);
++        return EC_MemoryExhausted;
++    }
+     bzero((char*)*assoc, sizeof(**assoc));
+ 
+     (*assoc)->params = params;
