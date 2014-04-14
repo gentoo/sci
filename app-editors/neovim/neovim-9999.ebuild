@@ -26,4 +26,5 @@ IUSE=""
 RDEPEND="app-admin/eselect-vi
 	sys-libs/ncurses"
 DEPEND="${RDEPEND}
+	dev-lang/luajit
 	>=dev-libs/libuv-0.11.19"
