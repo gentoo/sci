@@ -33,7 +33,7 @@ HOMEPAGE="http://www.gromacs.org/"
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
 SLOT="0/${PV}"
 KEYWORDS=""
-IUSE="X blas boost cuda +doc -double-precision +fftw lapack mkl mpi +offensive openmp +single-precision test +threads +tng ${ACCE_IUSE}"
+IUSE="X blas boost cuda +doc -double-precision +fftw lapack +make-symlinks mkl mpi +offensive openmp +single-precision test +threads +tng ${ACCE_IUSE}"
 
 CDEPEND="
 	X? (
@@ -154,6 +154,7 @@ src_configure() {
 		$(cmake-utils_use boost GMX_EXTERNAL_BOOST)
 		$(cmake-utils_use tng GMX_USE_TNG)
 		$(cmake-utils_use doc GMX_BUILD_MANUAL)
+		$(cmake-utils_use make-symlinks GMX_SYMLINK_OLD_BINARY_NAMES)
 		-DGMX_DEFAULT_SUFFIX=off
 		-DGMX_SIMD="$acce"
 		-DGMX_LIB_INSTALL_DIR="$(get_libdir)"
@@ -242,10 +243,17 @@ src_install() {
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
 			cmake-utils_src_install
 	done
-	# drop non needed staff
+	# drop unneeded stuff
 	rm -f "${ED}"usr/bin/gmx-completion*
 	rm -f "${ED}"usr/bin/g_options*
 	rm -f "${ED}"usr/bin/GMXRC*
+	rm -f "${ED}"usr/lib*/libtng*.a
+
+	#workaround for libtng
+	if [[ $(get_libdir) != lib ]]; then
+		mv "${ED}"usr/lib/libtng* "${ED}usr/$(get_libdir)" || die
+		rmdir "${ED}"usr/lib || die
+	fi
 
 	readme.gentoo_create_doc
 }
