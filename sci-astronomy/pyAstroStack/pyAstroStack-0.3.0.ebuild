@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python{2_7,3_2,3_3} )
 
 inherit distutils-r1
 
-DESCRIPTION="PyAstroStack is a stacking software for astronomical images"
+DESCRIPTION="Stacking software for astronomical images"
 HOMEPAGE="https://bitbucket.org/mikko_laine/pyastrostack/"
 SRC_URI="http://bitbucket.org/mikko_laine/pyastrostack/downloads/${P}.tar.gz"
 
@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="opencl"
 
 DEPEND=">=dev-python/numpy-1.8.0[${PYTHON_USEDEP}]
-    dev-python/cython"
+    dev-python/cython[${PYTHON_USEDEP}]"
 
 RDEPEND=">=dev-python/pillow-2.3.0[${PYTHON_USEDEP}]
 	python_targets_python2_7? ( dev-python/configparser )
@@ -27,7 +27,7 @@ RDEPEND=">=dev-python/pillow-2.3.0[${PYTHON_USEDEP}]
 	sci-astronomy/sextractor
 	media-gfx/dcraw
 	media-libs/exiftool
-	dev-python/astropy
+	dev-python/astropy[${PYTHON_USEDEP}]
 	>=sci-libs/cfitsio-3.350
 	opencl? ( >=dev-python/pyopencl-2013.1[${PYTHON_USEDEP}] )"
 
