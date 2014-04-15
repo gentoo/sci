@@ -19,7 +19,7 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	>=sci-biology/bioperl-1.4
 	>=sci-biology/velvet-0.7.5.1
-	>=dev-lang/perl-5.8"
+	>=dev-lang/perl-5.8[ithreads]"
 
 src_install(){
 	dobin VelvetOptimiser.pl
