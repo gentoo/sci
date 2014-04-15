@@ -27,7 +27,7 @@ FORTRAN_STANDARD="90"
 
 src_configure() {
 	# fortran 90 uses FCFLAGS
-	export FCFLAGS="${FFLAGS:--O2} -fPIC"
+	export FCFLAGS="${FFLAGS:--O2}"
 	econf \
 		$(use_enable examples build-tutorials) \
 		--prefix="${EPREFIX}/usr" \
