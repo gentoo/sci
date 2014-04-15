@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/VelvetOptimiser
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*VelvetOptimiser-2.2.5 (15 Apr 2014)
+
+  15 Apr 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +VelvetOptimiser-2.2.5.ebuild, +metadata.xml:
+  sci-biology/VelvetOptimiser: new package
