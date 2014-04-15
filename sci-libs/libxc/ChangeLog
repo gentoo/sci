@@ -1,6 +1,16 @@
 # ChangeLog for sci-libs/libxc
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libxc-2.2.0 (15 Apr 2014)
+*libxc-2.1.0 (15 Apr 2014)
+*libxc-2.0.3 (15 Apr 2014)
+
+  15 Apr 2014; Honza Macháček <Hloupy.Honza@centrum.cz> +libxc-2.0.3.ebuild,
+  +libxc-2.1.0.ebuild, +libxc-2.2.0.ebuild:
+  Version bump to 2.0.3. Versions 2.1.0 and 2.2.0 added; they have a new
+  testsuite and pass it but compatibility with dependent packages not tested
+  yet, especially for 2.2.0 that separates fortran bindings.
 
 *libxc-2.0.2 (05 Nov 2013)
 
