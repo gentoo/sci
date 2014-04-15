@@ -69,6 +69,12 @@ src_configure() {
 src_install() {
 	cmake-utils_src_install
 
+	PACKAGES_DIR="/opt/visit/${PV}/linux-$(arch)/lib/site-packages"
+	cd "${ED}${PACKAGES_DIR}"
+	for i in *; do
+		dosym "${PACKAGES_DIR}/${i}" "$(python_get_sitedir)/$i"
+	done
+
 	cat > "${T}"/99visit <<- EOF
 		PATH=${EPREFIX}/opt/visit/bin
 	EOF

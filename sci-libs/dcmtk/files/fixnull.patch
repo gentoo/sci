@@ -1,0 +1,36 @@
+From 9fc7bd358d1791a14afdd14c81ce9266b7e12b8a Mon Sep 17 00:00:00 2001
+From: Michael Onken <dicom@offis.de>
+Date: Mon, 27 May 2013 14:52:57 +0200
+Subject: [PATCH] Make sure memcpy does not copy to NULL destination. Thanks to Francesco Gigante
+ for the report.
+
+---
+ CHANGES.361              |    6 ++++++
+ dcmdata/libsrc/dcelem.cc |    7 ++++---
+ 2 files changed, 10 insertions(+), 3 deletions(-)
+
+Index: dcmtk-3.6.0/dcmdata/libsrc/dcelem.cc
+===================================================================
+--- dcmtk-3.6.0.orig/dcmdata/libsrc/dcelem.cc	2010-11-05 10:34:14.000000000 +0100
++++ dcmtk-3.6.0/dcmdata/libsrc/dcelem.cc	2013-05-28 14:11:47.534895101 +0200
+@@ -112,7 +112,8 @@
+         if (pad && fValue)
+             fValue[getLengthField()] = 0;
+ 
+-        memcpy(fValue, elem.fValue, size_t(getLengthField() + pad));
++        if (fValue)
++            memcpy(fValue, elem.fValue, size_t(getLengthField() + pad));
+     }
+ 
+     if (elem.fLoadValue)
+@@ -179,8 +180,8 @@
+ 
+         if (pad && fValue)
+             fValue[getLengthField()] = 0;
+-
+-        memcpy(fValue, obj.fValue, size_t(getLengthField()+pad));
++        if (fValue)
++            memcpy(fValue, obj.fValue, size_t(getLengthField()+pad));
+     }
+ 
+     if (obj.fLoadValue)

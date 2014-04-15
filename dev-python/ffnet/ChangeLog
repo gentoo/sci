@@ -1,6 +1,10 @@
 # ChangeLog for dev-python/ffnet
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  09 Apr 2014; Justin Lecher <jlec@gentoo.org> -ffnet-0.6.2.ebuild,
+  +ffnet-0.7.1.ebuild, metadata.xml:
+  Version BUmp; fix distutils-r1 eclass usage
 
   25 Oct 2012; Justin Lecher <jlec@gentoo.org> ffnet-0.6.2.ebuild,
   metadata.xml:

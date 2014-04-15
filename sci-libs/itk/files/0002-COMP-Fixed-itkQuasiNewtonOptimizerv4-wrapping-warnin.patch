@@ -1,0 +1,28 @@
+From 66d2955fbe5528d9df216c639277d1d2686447e5 Mon Sep 17 00:00:00 2001
+From: Michka Popoff <michkapopoff@gmail.com>
+Date: Fri, 7 Feb 2014 19:24:49 +0100
+Subject: [PATCH 2/3] COMP: Fixed itkQuasiNewtonOptimizerv4 wrapping warnings
+
+The warning :
+/scratch/dashboards/Linux-x86_64-gcc4.4-WrapITK/ITK-build/Wrapping/Modules/ITKOptimizersv4/itkQuasiNewtonOptimizerv4.xml: warning(5): Unknown type type: itk::QuasiNewtonOptimizerv4 [typedef]
+/scratch/dashboards/Linux-x86_64-gcc4.4-WrapITK/ITK-build/Wrapping/Modules/ITKOptimizersv4/itkQuasiNewtonOptimizerv4.xml: warning(4): ITK type not wrapped, or currently not known: itk::QuasiNewtonOptimizerv4Template< double >
+---
+ .../Numerics/Optimizersv4/wrapping/itkQuasiNewtonOptimizerv4.wrap | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/Modules/Numerics/Optimizersv4/wrapping/itkQuasiNewtonOptimizerv4.wrap b/Modules/Numerics/Optimizersv4/wrapping/itkQuasiNewtonOptimizerv4.wrap
+index 4a43dd4..7eed11c 100644
+--- a/Modules/Numerics/Optimizersv4/wrapping/itkQuasiNewtonOptimizerv4.wrap
++++ b/Modules/Numerics/Optimizersv4/wrapping/itkQuasiNewtonOptimizerv4.wrap
+@@ -1 +1,7 @@
+-itk_wrap_simple_class("itk::QuasiNewtonOptimizerv4" POINTER)
++set(WRAPPER_AUTO_INCLUDE_HEADERS OFF)
++itk_wrap_include("itkQuasiNewtonOptimizerv4.h")
++itk_wrap_class("itk::QuasiNewtonOptimizerv4Template" POINTER)
++  foreach(t ${WRAP_ITK_REAL})
++    itk_wrap_template("${ITKM_${t}}" "${ITKT_${t}}")
++  endforeach(t)
++itk_end_wrap_class()
+-- 
+1.8.5.3
+

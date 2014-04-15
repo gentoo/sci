@@ -9,11 +9,17 @@
   <use>
     <flag name="cuda">Enable cuda non-bonded kernels</flag>
     <flag name="double-precision">More precise calculations at the expense of speed</flag>
-    <flag name="single-precision">Single precision version of gromacs (default)</flag>
+	<flag name="single-precision">Single precision version of gromacs (default)</flag>
+	<flag name="boost">Enable external boost library</flag>
+	<flag name="tng">Enable new trajectory format - tng</flag>
+	<flag name="make-symlinks">Create symbolic links for pre-5.0 binary names</flag>
     <!-- acceleration optimization flags -->
     <flag name="sse4_1">Enable sse4.1 acceleration</flag>
-    <flag name="avx128fma">Enable 128bit avx with fma (e.g. AMD BullDozer)</flag>
-    <flag name="avx256">Enable 256bit avx (e.g. Intel Sandy Bridge)</flag>
+	<flag name="avx128fma">Enable 128bit avx with fma (e.g. AMD BullDozer)</flag>
+	<flag name="avx_128_fma">Enable 128bit avx with fma (e.g. AMD BullDozer)</flag>
+	<flag name="avx256">Enable 256bit avx (e.g. Intel Sandy Bridge)</flag>
+	<flag name="avx_256">Enable 256bit avx (e.g. Intel Sandy Bridge)</flag>
+	<flag name="avx2_256">Enable 256bit avx2 (e.g. Intel Haswell)</flag>
     <flag name="offensive">Enable gromacs partly offensive quotes</flag>
     <flag name="openmm">Add acceleration through <pkg>sci-libs/openmm</pkg></flag>
     <flag name="mkl">Use <pkg>sci-libs/mkl</pkg> for fft, blas, lapack routines</flag>

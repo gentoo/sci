@@ -4,10 +4,7 @@
 
 EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.* *-pypy-*"
-PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
+PYTHON_COMPAT=( python2_{6,7} )
 
 inherit distutils-r1 flag-o-matic fortran-2 toolchain-funcs
 
@@ -21,26 +18,26 @@ KEYWORDS="~x86 ~amd64"
 IUSE="examples graphviz matplotlib"
 
 DEPEND="${PYTHON_DEPS}
-	dev-python/networkx
-	dev-python/numpy
-	sci-libs/scipy
-	matplotlib? ( dev-python/matplotlib )
-	graphviz? ( dev-python/pygraphviz )"
+	dev-python/networkx[${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]
+	matplotlib? ( dev-python/matplotlib[${PYTHON_USEDEP}] )
+	graphviz? ( dev-python/pygraphviz[${PYTHON_USEDEP}] )"
 RDEPEND="${DEPEND}"
 
-src_prepare() {
+python_prepare_all() {
 	export FCONFIG="config_fc --noopt --noarch"
 	append-ldflags -shared
 	append-fflags -fPIC
-	distutils-r1_src_prepare
+	distutils-r1_python_prepare_all
 }
 
 src_compile() {
 	distutils-r1_src_compile ${FCONFIG}
 }
 
-src_install() {
-	distutils-r1_src_install
+python_install_all() {
+	distutils-r1_python_install_all
 	if use examples; then
 		insinto /usr/share/doc/${PF}
 		doins -r examples
