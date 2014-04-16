@@ -22,13 +22,13 @@ DEPEND=">=dev-python/numpy-1.8.0[${PYTHON_USEDEP}]
 
 RDEPEND=">=dev-python/pillow-2.3.0[${PYTHON_USEDEP}]
 	python_targets_python2_7? ( dev-python/configparser )
+	dev-python/configparser[$(python_gen_usedep python2_7)]
 	sci-libs/scikits_image[${PYTHON_USEDEP}]
 	>media-gfx/imagemagick-6.8.0.0
 	sci-astronomy/sextractor
 	media-gfx/dcraw
 	media-libs/exiftool
 	dev-python/astropy[${PYTHON_USEDEP}]
-	>=sci-libs/cfitsio-3.350
 	opencl? ( >=dev-python/pyopencl-2013.1[${PYTHON_USEDEP}] )"
 
 DOCS=( CHANGES.txt README.txt )
