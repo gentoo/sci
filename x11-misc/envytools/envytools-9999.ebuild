@@ -9,8 +9,8 @@ inherit cmake-utils git-r3
 DESCRIPTION="Tools for people envious of nvidia's blob driver"
 HOMEPAGE="https://github.com/pathscale/envytools"
 EGIT_REPO_URI="
-	git://github.com/pathscale/envytools.git
-	https://github.com/pathscale/envytools.git"
+	git://github.com/envytools/envytools.git
+	https://github.com/envytools/envytools.git"
 
 LICENSE="MIT"
 SLOT="0"
