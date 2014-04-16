@@ -10,7 +10,11 @@ inherit cmake-utils python-single-r1 user
 
 DESCRIPTION="Workload management system for compute-intensive jobs"
 HOMEPAGE="http://www.cs.wisc.edu/htcondor/"
-SRC_URI="condor_src-${PV}-all-all.tar.gz"
+COMMIT=e23e62fe73d71f3e09549a87d37de95651f08f02
+SHORTCOMMIT="${COMMIT:0:7}"
+SRC_URI="https://github.com/${PN}/${PN}/archive/${COMMIT}/${P}-${SHORTCOMMIT}.tar.gz"
+#SHORTCOMMIT="minimal documentation for new transaction() python binding."
+#SRC_URI="https://github.com/htcondor/htcondor/archive/V8_1_5.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -43,7 +47,7 @@ DEPEND="${CDEPEND}
 RDEPEND="${CDEPEND}
 	mail-client/mailx"
 
-RESTRICT=fetch
+RESTRICT=mirror
 
 S="${WORKDIR}/condor-${PV}"
 
