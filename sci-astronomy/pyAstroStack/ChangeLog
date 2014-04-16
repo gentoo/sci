@@ -3,6 +3,9 @@
 # $Header: $
 
   16 Apr 2014; Mikko Laine <mikko.laine@gmail.com> pyAstroStack-0.3.0.ebuild:
+  sci-overlay/sci: more DEPEND fixes about configparser
+
+  16 Apr 2014; Mikko Laine <mikko.laine@gmail.com> pyAstroStack-0.3.0.ebuild:
   sci-overlay/sci: DEPEND fixes about configparser
 
   14 Apr 2014; Mikko Laine <mikko.laine@gmail.com> pyAstroStack-0.3.0.ebuild:
