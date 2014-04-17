@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit toolchain-funcs
+inherit eutils toolchain-funcs
 
 MYP=Montage_v${PV}
 
@@ -28,12 +28,15 @@ DEPEND="${RDEPEND}"
 S="${WORKDIR}/${MYP}"
 
 src_prepare() {
+	epatch "${FILESDIR}"/${P}-gcc48.patch
 	use doc && mv "${WORKDIR}"/docs/* docs/
-	sed -i \
-		-e "/CC.*=/s:\(gcc\|cc\):$(tc-getCC):g" \
-		-e "/CFLAGS.*=/s:-g:${CFLAGS}:g" \
-		-e "s:ar q:$(tc-getAR) q:g" \
-		$(find . -name Makefile) || die
+	tc-export CC AR
+
+	find . -name Makefile\* | xargs sed -i \
+		-e "/^CC.*=/s:\(gcc\|cc\):$(tc-getCC):g" \
+		-e "/^CFLAGS.*=/s:-g:${CFLAGS}:g" \
+		-e "s:ar q:$(tc-getAR) q:g"  || die
+
 	if use mpi; then
 		sed -i \
 			-e 's:# MPICC:MPICC:' \
