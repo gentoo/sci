@@ -2,6 +2,17 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*biopython-1.62-r3 (18 Apr 2014)
+*biopython-1.62-r4 (18 Apr 2014)
+
+  18 Apr 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +biopython-1.62-r3.ebuild, +biopython-1.62-r4.ebuild,
+  +files/SeqRecord.py.patch, +files/SffIO_broken_padding.patch,
+  +files/adjust-trimpoints.patch, biopython-1.63-r1.ebuild,
+  files/SffIO_error_in_check_eof.patch, files/biopython-1.51-flex.patch,
+  files/biopython-1.62-SffIO.patch:
+  sci-biology/biopython: upstream patch to downgrade an assert to a warning
+
   23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   -biopython-1.62-r3.ebuild, -biopython-1.62-r4.ebuild, -biopython-1.63.ebuild,
   -files/SeqRecord.py.patch, -files/adjust-trimpoints.patch,

@@ -23,7 +23,6 @@ RDEPEND="${PYTHON_DEPS}
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
-	dev-python/rdflib[${PYTHON_USEDEP}]
 	dev-python/pygraphviz[${PYTHON_USEDEP}]
 	dev-python/reportlab[${PYTHON_USEDEP}]
 	media-gfx/pydot[${PYTHON_USEDEP}]
@@ -35,9 +34,10 @@ DEPEND="${RDEPEND}
 DOCS=( CONTRIB DEPRECATED NEWS README Doc/. )
 
 src_prepare() {
+	distutils-r1_src_prepare
+	epatch "${FILESDIR}/${PN}-1.62-SffIO.patch"
 	epatch "${FILESDIR}/SffIO_error_in_check_eof.patch"
 	epatch "${FILESDIR}/SffIO_broken_padding.patch"
-	distutils-r1_src_prepare
 }
 
 python_test() {
