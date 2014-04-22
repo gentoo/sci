@@ -30,13 +30,6 @@
 
 #--- END OF EXAMPLES ---
 
-# Guillaume Horel <guillaume.horel@gmail.com> (25 Oct 2013)
-# mask new version of scilab until release
->=sci-mathematics/scilab-5.5.0
->=dev-java/jgraphx-2.1
->=dev-java/jogl-2.0.2
-
-
 # Honza Macháček <Hloupy.Honza@centrum.cz> (17 June 2013)
 # bigdft moved from sci-libs to sci-physics
 # sci-physics/abinit now uses sci-libs/bigdft-abi instead
