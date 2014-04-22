@@ -1,7 +1,6 @@
-diff -urN scilab-orig/m4/java.m4 scilab/m4/java.m4
---- scilab-orig/m4/java.m4	2012-07-07 18:39:39.036716695 -0400
-+++ scilab/m4/java.m4	2012-07-07 18:40:54.479721514 -0400
-@@ -846,7 +846,7 @@
+--- m4/java.m4.orig	2014-02-11 23:43:03.030430258 -0500
++++ m4/java.m4	2014-02-11 23:43:54.008428766 -0500
+@@ -839,7 +839,7 @@
        for jar in "$jardir/$1.jar" "$jardir/lib$1.jar" "$jardir/lib$1-java.jar" "$jardir/$1*.jar"; do
  
  # TODO check the behaviour when spaces

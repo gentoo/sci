@@ -10,21 +10,17 @@ VIRTUALX_REQUIRED="manual"
 inherit eutils autotools bash-completion-r1 check-reqs fdo-mime flag-o-matic \
 	fortran-2 java-pkg-opt-2 toolchain-funcs virtualx
 
-MY_PV="${PV/_beta1/-beta-1}"
-MY_P="$PN"-"$MY_PV"
-
 # Things that don't work:
 # - tests
-# - can't build without docs (-doc) 
 
 DESCRIPTION="Scientific software package for numerical computations"
 HOMEPAGE="http://www.scilab.org/"
-SRC_URI="http://www.scilab.org/download/${MY_PV}/${MY_P}-src.tar.gz"
+SRC_URI="http://www.scilab.org/download/${PV}/${P}-src.tar.gz"
 
 LICENSE="CeCILL-2.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="bash-completion debug +doc fftw +gui +matio mpi nls openmp
+IUSE="bash-completion debug doc emf fftw +gui +matio mpi nls openmp
 	static-libs test tk +umfpack +xcos"
 REQUIRED_USE="xcos? ( gui ) doc? ( gui )"
 
@@ -43,6 +39,7 @@ CDEPEND="dev-libs/libpcre
 	sys-libs/ncurses
 	sys-libs/readline
 	virtual/lapack
+	emf? ( dev-java/freehep-graphicsio-emf )
 	fftw? ( sci-libs/fftw:3.0 )
 	gui? (
 		dev-java/avalon-framework:4.2
@@ -51,13 +48,13 @@ CDEPEND="dev-libs/libpcre
 		dev-java/commons-logging:0
 		>=dev-java/flexdock-1.2.4:0
 		dev-java/fop:0
-		=dev-java/gluegen-2.1.2:2.1
+		=dev-java/gluegen-2.1.4:2.1
 		dev-java/javahelp:0
 		dev-java/jeuclid-core:0
 		dev-java/jgoodies-looks:2.0
 		dev-java/jlatexmath:1
 		dev-java/jlatexmath-fop:1
-		=dev-java/jogl-2.1.2:2.1
+		=dev-java/jogl-2.1.4:2.1
 		>=dev-java/jrosetta-1.0.4:0
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:1.5
@@ -78,14 +75,12 @@ DEPEND="${CDEPEND}
 			   dev-java/xml-commons-external:1.4
 			   dev-java/saxon:9 )
 		xcos? ( dev-lang/ocaml
-				dev-java/jgraphx:2.1 ) )
+				dev-java/jgraphx:2.5 ) )
 	test? (
 		dev-java/junit:4
 		gui? ( ${VIRTUALX_DEPEND} ) )"
 
 DOCS=( "ACKNOWLEDGEMENTS" "README_Unix" "Readme_Visual.txt" )
-
-S="${WORKDIR}"/"${MY_P}"
 
 pkg_pretend() {
 	use doc && CHECKREQS_MEMORY="512M" check-reqs_pkg_pretend
@@ -101,6 +96,8 @@ pkg_setup() {
 	fi
 	FORTRAN_STANDARD="77 90"
 	fortran-2_pkg_setup
+	#bug 8053
+	unset F77
 	java-pkg-opt-2_pkg_setup
 
 	ALL_LINGUAS="en_US"
@@ -119,8 +116,6 @@ src_prepare() {
 		"${FILESDIR}/${P}-followlinks.patch" \
 		"${FILESDIR}/${P}-gluegen.patch" \
 		"${FILESDIR}/${P}-fix-random-runtime-failure.patch" \
-		"${FILESDIR}/${P}-disable-static-systemlib.patch" \
-		"${FILESDIR}/${P}-always-use-dynamic-stack.patch" \
 		"${FILESDIR}/${P}-accessviolation.patch" \
 		"${FILESDIR}/${P}-nogui.patch"
 
@@ -162,8 +157,12 @@ src_prepare() {
 		java-pkg_jar-from javahelp jhall.jar
 		java-pkg_jar-from jlatexmath-fop-1
 		java-pkg_jar-from xml-commons-external-1.4 xml-apis-ext.jar
-		use xcos &&	java-pkg_jar-from jgraphx-2.1
+		use xcos &&	java-pkg_jar-from jgraphx-2.5
 		use doc && java-pkg_jar-from saxon-9 saxon.jar saxon9he.jar
+	fi
+	if use emf; then
+		java-pkg_jar-from freehep-graphicsio-emf,freehep-graphics2d
+		java-pkg_jar-from freehep-graphicsio,freehep-io,freehep-util
 	fi
 	if use test; then
 		java-pkg_jar-from junit-4 junit.jar junit4.jar
@@ -203,6 +202,7 @@ src_configure() {
 		$(use_enable nls build-localization) \
 		$(use_enable static-libs static) \
 		$(use_enable test compilation-tests) \
+		$(use_with emf) \
 		$(use_with fftw) \
 		$(use_with gui) \
 		$(use_with gui javasci) \

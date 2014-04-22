@@ -9,7 +9,7 @@
 -    if test ! -z "$NVIDIA_GLX_VENDOR"; then
 -        EGL_DRIVER=egl_glx
 -        export EGL_DRIVER
-+if test $SCILAB_MODE != "nw" -a $SCILAB_MODE != "nwni"; then
++if test $SCILAB_MODE != "nw"; then
 +    if test -x /usr/bin/glxinfo; then
 +    	NVIDIA_GLX_VENDOR=$(/usr/bin/glxinfo |grep "NVIDIA Corporation")
 +    	if test ! -z "$NVIDIA_GLX_VENDOR"; then
