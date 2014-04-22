@@ -16,8 +16,8 @@ IUSE="doc examples source"
 DEPEND=">=virtual/jdk-1.5
 	app-arch/unzip"
 RDEPEND=">=virtual/jre-1.5"
-LICENSE="as-is"
-SLOT="2.1"
+LICENSE="BSD"
+SLOT="2.5"
 KEYWORDS="~amd64 ~x86"
 
 S="${WORKDIR}/${PN}"
