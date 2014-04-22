@@ -23,17 +23,19 @@ HOMEPAGE="http://eigen.tuxfamily.org/"
 
 SLOT="3"
 LICENSE="MPL-2.0"
-IUSE="adolc doc fortran fftw gmp mkl sparse static-libs test"
+IUSE="adolc doc fortran fftw gmp metis mkl sparse static-libs test"
 
 # TODO: support for pastix
 CDEPEND="
 	adolc? ( sci-libs/adolc[sparse?] )
-	fftw? ( >=sci-libs/fftw-3 )
+	fftw? ( sci-libs/fftw:3.0 )
 	gmp? ( dev-libs/gmp dev-libs/mpfr )
+	metis? ( sci-libs/metis )
 	mkl? ( sci-libs/mkl )
 	sparse? (
 		dev-cpp/sparsehash
-		sci-libs/cholmod[metis]
+		sci-libs/cholmod[metis?]
+		sci-libs/spqr
 		sci-libs/superlu
 		sci-libs/umfpack )"
 DEPEND="
@@ -50,7 +52,7 @@ src_configure() {
 	local mycmakeargs=(
 		-DEIGEN_BUILD_BTL=OFF
 		-DEIGEN_TEST_NO_OPENGL=ON
-		$(cmake-utils_use test EIGEN_BUILD_TESTS)
+		$(cmake-utils_use test BUILD_TESTING)
 		$(cmake-utils_use !fortran EIGEN_TEST_NO_FORTRAN)
 	)
 	export VARTEXFONTS="${T}/fonts"
@@ -62,7 +64,7 @@ src_configure() {
 src_compile() {
 	local targets="${FORTRAN_LIBS}"
 	use doc && targets+=" doc"
-	use test && targets+=" buildtests"
+	use test && targets+=" check"
 	cmake-utils_src_compile ${targets}
 }
 
