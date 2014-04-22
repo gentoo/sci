@@ -1,4 +1,4 @@
-From aaafceb14e7eaa2a8171dc99172d20311fd05db2 Mon Sep 17 00:00:00 2001
+From 61588b698d08017b497f7a93fcf8626ddef9ceb5 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Wed, 26 Mar 2014 20:01:52 -0400
 Subject: [PATCH 6/7] LU-3319 procfs: move mdd/ofd proc handling to seq_files
@@ -13,7 +13,7 @@ Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 ---
  lustre/include/lustre_lfsck.h    |   6 +-
  lustre/lfsck/lfsck_internal.h    |   9 +-
- lustre/lfsck/lfsck_layout.c      |  69 ++----
+ lustre/lfsck/lfsck_layout.c      |  71 ++----
  lustre/lfsck/lfsck_lib.c         |  88 +++-----
  lustre/lfsck/lfsck_namespace.c   |  75 ++-----
  lustre/mdd/mdd_device.c          |  25 +--
@@ -25,7 +25,7 @@ Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
  lustre/ofd/ofd_internal.h        |   6 +-
  lustre/osd-ldiskfs/osd_handler.c |   1 +
  lustre/osd-zfs/osd_handler.c     |   1 +
- 14 files changed, 500 insertions(+), 639 deletions(-)
+ 14 files changed, 501 insertions(+), 640 deletions(-)
 
 diff --git a/lustre/include/lustre_lfsck.h b/lustre/include/lustre_lfsck.h
 index 0d6f666..5adbffe 100644
@@ -76,7 +76,7 @@ index 4f84c3b..c4e6430 100644
  void lfsck_pos_fill(const struct lu_env *env, struct lfsck_instance *lfsck,
  		    struct lfsck_position *pos, bool init);
 diff --git a/lustre/lfsck/lfsck_layout.c b/lustre/lfsck/lfsck_layout.c
-index c808808..2430fc0 100644
+index c808808..9f2d9d6 100644
 --- a/lustre/lfsck/lfsck_layout.c
 +++ b/lustre/lfsck/lfsck_layout.c
 @@ -471,7 +471,7 @@ static struct lfsck_rbtree_node *lfsck_rbtree_new(const struct lu_env *env,
@@ -215,6 +215,15 @@ index c808808..2430fc0 100644
  	} else if (lo->ll_status == LS_SCANNING_PHASE2) {
  		cfs_duration_t duration = cfs_time_current() -
  					  lfsck->li_time_last_checkpoint;
+@@ -4957,7 +4926,7 @@ static int lfsck_layout_dump(const struct lu_env *env,
+ 			do_div(speed1, lo->ll_run_time_phase1);
+ 		if (rtime != 0)
+ 			do_div(speed2, rtime);
+-		rc = snprintf(buf, len,
++		rc = seq_printf(m,
+ 			      "checked_phase1: "LPU64"\n"
+ 			      "checked_phase2: "LPU64"\n"
+ 			      "run_time_phase1: %u seconds\n"
 @@ -4978,8 +4947,6 @@ static int lfsck_layout_dump(const struct lu_env *env,
  		if (rc <= 0)
  			goto out;

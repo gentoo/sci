@@ -3,6 +3,11 @@
 # $Header: $
 
   22 Apr 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0006-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  files/0007-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch:
+  Update lustre patches
+
+  22 Apr 2014; Alexey Shvetsov <alexxy@gentoo.org>
   +files/0001-LU-3319-procfs-Move-NRS-TBF-proc-handling-to-seq_fil.patch,
   +files/0002-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
   +files/0003-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
