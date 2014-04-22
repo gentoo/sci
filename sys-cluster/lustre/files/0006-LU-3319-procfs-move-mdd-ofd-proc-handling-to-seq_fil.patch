@@ -1,7 +1,7 @@
-From c6c3f4063e244cea365940adc0fd1a1c35d0b525 Mon Sep 17 00:00:00 2001
+From 61588b698d08017b497f7a93fcf8626ddef9ceb5 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Wed, 26 Mar 2014 20:01:52 -0400
-Subject: [PATCH 08/10] LU-3319 procfs: move mdd/ofd proc handling to seq_files
+Subject: [PATCH 6/7] LU-3319 procfs: move mdd/ofd proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the mdd/ofd
@@ -9,10 +9,11 @@ layer proc entries over to using seq_files.
 
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: I61b7df6bfd5efd0f12e3ca1a1813b7b62d493168
+Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 ---
  lustre/include/lustre_lfsck.h    |   6 +-
  lustre/lfsck/lfsck_internal.h    |   9 +-
- lustre/lfsck/lfsck_layout.c      | 104 +++------
+ lustre/lfsck/lfsck_layout.c      |  71 ++----
  lustre/lfsck/lfsck_lib.c         |  88 +++-----
  lustre/lfsck/lfsck_namespace.c   |  75 ++-----
  lustre/mdd/mdd_device.c          |  25 +--
@@ -24,7 +25,7 @@ Change-Id: I61b7df6bfd5efd0f12e3ca1a1813b7b62d493168
  lustre/ofd/ofd_internal.h        |   6 +-
  lustre/osd-ldiskfs/osd_handler.c |   1 +
  lustre/osd-zfs/osd_handler.c     |   1 +
- 14 files changed, 517 insertions(+), 657 deletions(-)
+ 14 files changed, 501 insertions(+), 640 deletions(-)
 
 diff --git a/lustre/include/lustre_lfsck.h b/lustre/include/lustre_lfsck.h
 index 0d6f666..5adbffe 100644
@@ -75,7 +76,7 @@ index 4f84c3b..c4e6430 100644
  void lfsck_pos_fill(const struct lu_env *env, struct lfsck_instance *lfsck,
  		    struct lfsck_position *pos, bool init);
 diff --git a/lustre/lfsck/lfsck_layout.c b/lustre/lfsck/lfsck_layout.c
-index de96726..c3b4458 100644
+index c808808..9f2d9d6 100644
 --- a/lustre/lfsck/lfsck_layout.c
 +++ b/lustre/lfsck/lfsck_layout.c
 @@ -471,7 +471,7 @@ static struct lfsck_rbtree_node *lfsck_rbtree_new(const struct lu_env *env,
@@ -156,10 +157,10 @@ index de96726..c3b4458 100644
  		      lo->ll_pos_first_inconsistent);
 -	if (rc <= 0)
 -		goto out;
- 
+-
 -	buf += rc;
 -	len -= rc;
--
+ 
 -	rc = snprintf(buf, len,
 -		      "success_count: %u\n"
 +	seq_printf(m, "success_count: %u\n"
@@ -178,7 +179,7 @@ index de96726..c3b4458 100644
  
  	if (lo->ll_status == LS_SCANNING_PHASE1) {
  		__u64 pos;
-@@ -4901,8 +4880,7 @@ static int lfsck_layout_dump(const struct lu_env *env,
+@@ -4902,8 +4881,7 @@ static int lfsck_layout_dump(const struct lu_env *env,
  			do_div(new_checked, duration);
  		if (rtime != 0)
  			do_div(speed, rtime);
@@ -188,7 +189,7 @@ index de96726..c3b4458 100644
  			      "checked_phase2: "LPU64"\n"
  			      "run_time_phase1: %u seconds\n"
  			      "run_time_phase2: %u seconds\n"
-@@ -4916,11 +4894,6 @@ static int lfsck_layout_dump(const struct lu_env *env,
+@@ -4917,11 +4895,6 @@ static int lfsck_layout_dump(const struct lu_env *env,
  			      lo->ll_run_time_phase2,
  			      speed,
  			      new_checked);
@@ -200,7 +201,7 @@ index de96726..c3b4458 100644
  
  		LASSERT(lfsck->li_di_oit != NULL);
  
-@@ -4933,12 +4906,8 @@ static int lfsck_layout_dump(const struct lu_env *env,
+@@ -4934,12 +4907,8 @@ static int lfsck_layout_dump(const struct lu_env *env,
  		pos = iops->store(env, lfsck->li_di_oit);
  		if (!lfsck->li_current_oit_processed)
  			pos--;
@@ -214,45 +215,17 @@ index de96726..c3b4458 100644
  	} else if (lo->ll_status == LS_SCANNING_PHASE2) {
  		cfs_duration_t duration = cfs_time_current() -
  					  lfsck->li_time_last_checkpoint;
-@@ -4952,28 +4921,25 @@ static int lfsck_layout_dump(const struct lu_env *env,
- 			do_div(new_checked, duration);
+@@ -4957,7 +4926,7 @@ static int lfsck_layout_dump(const struct lu_env *env,
+ 			do_div(speed1, lo->ll_run_time_phase1);
  		if (rtime != 0)
- 			do_div(speed, rtime);
+ 			do_div(speed2, rtime);
 -		rc = snprintf(buf, len,
--			      "checked_phase1: "LPU64"\n"
--			      "checked_phase2: "LPU64"\n"
--			      "run_time_phase1: %u seconds\n"
--			      "run_time_phase2: %u seconds\n"
--			      "average_speed_phase1: "LPU64" items/sec\n"
--			      "average_speed_phase2: N/A\n"
--			      "real-time_speed_phase1: "LPU64" items/sec\n"
--			      "real-time_speed_phase2: N/A\n"
--			      "current_position: "DFID"\n",
--			      checked,
--			      lo->ll_objs_checked_phase2,
--			      rtime,
--			      lo->ll_run_time_phase2,
--			      speed,
--			      new_checked,
--			      PFID(&com->lc_fid_latest_scanned_phase2));
--		if (rc <= 0)
-+		rc = seq_printf(m, "checked_phase1: "LPU64"\n"
-+				"checked_phase2: "LPU64"\n"
-+				"run_time_phase1: %u seconds\n"
-+				"run_time_phase2: %u seconds\n"
-+				"average_speed_phase1: "LPU64" items/sec\n"
-+				"average_speed_phase2: N/A\n"
-+				"real-time_speed_phase1: "LPU64" items/sec\n"
-+				"real-time_speed_phase2: N/A\n"
-+				"current_position: "DFID"\n",
-+				checked,
-+				lo->ll_objs_checked_phase2,
-+				rtime,
-+				lo->ll_run_time_phase2,
-+				speed,
-+				new_checked,
-+				PFID(&com->lc_fid_latest_scanned_phase2));
-+		if (rc < 0)
++		rc = seq_printf(m,
+ 			      "checked_phase1: "LPU64"\n"
+ 			      "checked_phase2: "LPU64"\n"
+ 			      "run_time_phase1: %u seconds\n"
+@@ -4978,8 +4947,6 @@ static int lfsck_layout_dump(const struct lu_env *env,
+ 		if (rc <= 0)
  			goto out;
  
 -		buf += rc;
@@ -260,7 +233,7 @@ index de96726..c3b4458 100644
  	} else {
  		__u64 speed1 = lo->ll_objs_checked_phase1;
  		__u64 speed2 = lo->ll_objs_checked_phase2;
-@@ -4982,8 +4948,7 @@ static int lfsck_layout_dump(const struct lu_env *env,
+@@ -4988,8 +4955,7 @@ static int lfsck_layout_dump(const struct lu_env *env,
  			do_div(speed1, lo->ll_run_time_phase1);
  		if (lo->ll_run_time_phase2 != 0)
  			do_div(speed2, lo->ll_run_time_phase2);
@@ -270,7 +243,7 @@ index de96726..c3b4458 100644
  			      "checked_phase2: "LPU64"\n"
  			      "run_time_phase1: %u seconds\n"
  			      "run_time_phase2: %u seconds\n"
-@@ -4998,18 +4963,11 @@ static int lfsck_layout_dump(const struct lu_env *env,
+@@ -5004,18 +4970,11 @@ static int lfsck_layout_dump(const struct lu_env *env,
  			      lo->ll_run_time_phase2,
  			      speed1,
  			      speed2);
@@ -291,7 +264,7 @@ index de96726..c3b4458 100644
  
  static int lfsck_layout_master_double_scan(const struct lu_env *env,
 diff --git a/lustre/lfsck/lfsck_lib.c b/lustre/lfsck/lfsck_lib.c
-index 3b1fe0c..84ffc08 100644
+index c1304b5..43b09b7 100644
 --- a/lustre/lfsck/lfsck_lib.c
 +++ b/lustre/lfsck/lfsck_lib.c
 @@ -899,21 +899,15 @@ static inline int lfsck_instance_add(struct lfsck_instance *lfsck)
@@ -407,7 +380,7 @@ index 3b1fe0c..84ffc08 100644
  }
  
  void lfsck_pos_fill(const struct lu_env *env, struct lfsck_instance *lfsck,
-@@ -1658,7 +1626,7 @@ int lfsck_async_request(const struct lu_env *env, struct obd_export *exp,
+@@ -1655,7 +1623,7 @@ int lfsck_async_request(const struct lu_env *env, struct obd_export *exp,
  
  /* external interfaces */
  
@@ -416,7 +389,7 @@ index 3b1fe0c..84ffc08 100644
  {
  	struct lu_env		env;
  	struct lfsck_instance  *lfsck;
-@@ -1671,8 +1639,7 @@ int lfsck_get_speed(struct dt_device *key, void *buf, int len)
+@@ -1668,8 +1636,7 @@ int lfsck_get_speed(struct dt_device *key, void *buf, int len)
  
  	lfsck = lfsck_instance_find(key, true, false);
  	if (likely(lfsck != NULL)) {
@@ -426,7 +399,7 @@ index 3b1fe0c..84ffc08 100644
  		lfsck_instance_put(&env, lfsck);
  	} else {
  		rc = -ENXIO;
-@@ -1712,7 +1679,7 @@ int lfsck_set_speed(struct dt_device *key, int val)
+@@ -1709,7 +1676,7 @@ int lfsck_set_speed(struct dt_device *key, int val)
  }
  EXPORT_SYMBOL(lfsck_set_speed);
  
@@ -435,7 +408,7 @@ index 3b1fe0c..84ffc08 100644
  {
  	struct lu_env		env;
  	struct lfsck_instance  *lfsck;
-@@ -1725,8 +1692,7 @@ int lfsck_get_windows(struct dt_device *key, void *buf, int len)
+@@ -1722,8 +1689,7 @@ int lfsck_get_windows(struct dt_device *key, void *buf, int len)
  
  	lfsck = lfsck_instance_find(key, true, false);
  	if (likely(lfsck != NULL)) {
@@ -445,7 +418,7 @@ index 3b1fe0c..84ffc08 100644
  		lfsck_instance_put(&env, lfsck);
  	} else {
  		rc = -ENXIO;
-@@ -1776,7 +1742,7 @@ int lfsck_set_windows(struct dt_device *key, int val)
+@@ -1773,7 +1739,7 @@ int lfsck_set_windows(struct dt_device *key, int val)
  }
  EXPORT_SYMBOL(lfsck_set_windows);
  
@@ -454,7 +427,7 @@ index 3b1fe0c..84ffc08 100644
  {
  	struct lu_env		env;
  	struct lfsck_instance  *lfsck;
-@@ -1792,7 +1758,7 @@ int lfsck_dump(struct dt_device *key, void *buf, int len, enum lfsck_type type)
+@@ -1789,7 +1755,7 @@ int lfsck_dump(struct dt_device *key, void *buf, int len, enum lfsck_type type)
  	if (likely(lfsck != NULL)) {
  		com = lfsck_component_find(lfsck, type);
  		if (likely(com != NULL)) {
@@ -687,10 +660,10 @@ index 0fe590e..f1c76d6 100644
  				 LUSTRE_MDD_NAME, &mdd_device_type);
  	if (rc)
 diff --git a/lustre/mdd/mdd_internal.h b/lustre/mdd/mdd_internal.h
-index b536821..8e67fa1 100644
+index a95a42c..64183e3 100644
 --- a/lustre/mdd/mdd_internal.h
 +++ b/lustre/mdd/mdd_internal.h
-@@ -346,7 +346,6 @@ int orph_declare_index_delete(const struct lu_env *, struct mdd_object *,
+@@ -347,7 +347,6 @@ int orph_declare_index_delete(const struct lu_env *, struct mdd_object *,
                                struct thandle *);
  
  /* mdd_lproc.c */
@@ -1862,7 +1835,7 @@ index 000d4ae..eb6bef0 100644
  {
  	LASSERT(stats && stats->ls_num >= LPROC_OFD_STATS_LAST);
 diff --git a/lustre/ofd/ofd_dev.c b/lustre/ofd/ofd_dev.c
-index 5d7f0b4..f75ffe1 100644
+index 9b82e51..126f29e 100644
 --- a/lustre/ofd/ofd_dev.c
 +++ b/lustre/ofd/ofd_dev.c
 @@ -240,8 +240,7 @@ static int ofd_process_config(const struct lu_env *env, struct lu_device *d,
@@ -2008,7 +1981,7 @@ index 5d7f0b4..f75ffe1 100644
  	lprocfs_free_per_client_stats(obd);
  	lprocfs_obd_cleanup(obd);
  	lprocfs_free_obd_stats(obd);
-@@ -2379,7 +2370,6 @@ static struct lu_device_type ofd_device_type = {
+@@ -2387,7 +2378,6 @@ static struct lu_device_type ofd_device_type = {
  
  int __init ofd_init(void)
  {
@@ -2016,7 +1989,7 @@ index 5d7f0b4..f75ffe1 100644
  	int				rc;
  
  	rc = lu_kmem_init(ofd_caches);
-@@ -2392,11 +2382,9 @@ int __init ofd_init(void)
+@@ -2400,11 +2390,9 @@ int __init ofd_init(void)
  		return(rc);
  	}
  
@@ -2049,10 +2022,10 @@ index 3aae6dd..1bdcb80 100644
  #endif
  
 diff --git a/lustre/osd-ldiskfs/osd_handler.c b/lustre/osd-ldiskfs/osd_handler.c
-index e0da7e6..14808ee 100644
+index 4b5370a..3767f3f 100644
 --- a/lustre/osd-ldiskfs/osd_handler.c
 +++ b/lustre/osd-ldiskfs/osd_handler.c
-@@ -5921,6 +5921,7 @@ static int osd_obd_connect(const struct lu_env *env, struct obd_export **exp,
+@@ -5931,6 +5931,7 @@ static int osd_obd_connect(const struct lu_env *env, struct obd_export **exp,
  	osd->od_connects++;
  	spin_unlock(&osd->od_osfs_lock);
  
@@ -2061,10 +2034,10 @@ index e0da7e6..14808ee 100644
  }
  
 diff --git a/lustre/osd-zfs/osd_handler.c b/lustre/osd-zfs/osd_handler.c
-index 05820e0..e711727 100644
+index 29a3617..ad8908a 100644
 --- a/lustre/osd-zfs/osd_handler.c
 +++ b/lustre/osd-zfs/osd_handler.c
-@@ -816,6 +816,7 @@ static int osd_obd_connect(const struct lu_env *env, struct obd_export **exp,
+@@ -822,6 +822,7 @@ static int osd_obd_connect(const struct lu_env *env, struct obd_export **exp,
  	osd->od_connects++;
  	spin_unlock(&osd->od_objset.lock);
  

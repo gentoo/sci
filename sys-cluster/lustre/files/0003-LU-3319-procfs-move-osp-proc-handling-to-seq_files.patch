@@ -1,7 +1,7 @@
-From ab793e8472447314f6428025175f80afc26339ac Mon Sep 17 00:00:00 2001
+From 9028aafc0c8651d6a840d9066ca7d950106fbdc5 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Wed, 26 Mar 2014 19:59:18 -0400
-Subject: [PATCH 05/10] LU-3319 procfs: move osp proc handling to seq_files
+Subject: [PATCH 3/7] LU-3319 procfs: move osp proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the osp

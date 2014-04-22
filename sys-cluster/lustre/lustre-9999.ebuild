@@ -7,6 +7,14 @@ EAPI=5
 WANT_AUTOCONF="2.5"
 WANT_AUTOMAKE="1.10"
 
+if [[ $PV = *9999* ]]; then
+	KEYWORDS=""
+	EGIT_BRANCH="master"
+else
+	KEYWORDS="~amd64"
+	EGIT_TAG="${PV}"
+fi
+
 inherit git-r3 autotools linux-mod toolchain-funcs udev flag-o-matic
 
 DESCRIPTION="Lustre is a parallel distributed file system"
@@ -16,7 +24,6 @@ EGIT_REPO_URI="git://git.whamcloud.com/fs/lustre-release.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
 IUSE="+client +utils server liblustre readline tests tcpd +urandom"
 
 RDEPEND="
@@ -33,16 +40,13 @@ DEPEND="${RDEPEND}
 	virtual/linux-sources"
 
 PATCHES=(
-	"${FILESDIR}/0001-LU-3319-procfs-fix-symlink-handling.patch"
-	"${FILESDIR}/0002-LU-3319-procfs-Move-NRS-TBF-proc-handling-to-seq_fil.patch"
-	"${FILESDIR}/0003-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch"
-	"${FILESDIR}/0004-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch"
-	"${FILESDIR}/0005-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch"
-	"${FILESDIR}/0006-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch"
-	"${FILESDIR}/0007-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch"
-	"${FILESDIR}/0008-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
-	"${FILESDIR}/0009-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch"
-	"${FILESDIR}/0010-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch"
+	"${FILESDIR}/0001-LU-3319-procfs-Move-NRS-TBF-proc-handling-to-seq_fil.patch"
+	"${FILESDIR}/0002-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0003-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0004-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch"
+	"${FILESDIR}/0005-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch"
+	"${FILESDIR}/0006-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
+	"${FILESDIR}/0007-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch"
 	"${FILESDIR}/lustre-readline6.3_fix.patch"
 )
 
