@@ -1,7 +1,7 @@
-From 7dbddd98e60ab73580ea52c8b53274da2283d624 Mon Sep 17 00:00:00 2001
+From b0d57f2b81f5ec6f1f2cad9914cdb01960377f01 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Tue, 25 Feb 2014 12:54:05 -0500
-Subject: [PATCH 02/10] LU-3319 procfs: Move NRS TBF proc handling to seq_files
+Subject: [PATCH 1/7] LU-3319 procfs: Move NRS TBF proc handling to seq_files
 
 With newer kernels moving their proc file system handling
 to seq_files this patch migrates the proc handling for NRS
@@ -14,7 +14,7 @@ Signed-off-by: James Simmons <uja.ornl@gmail.com>
  1 file changed, 14 insertions(+), 21 deletions(-)
 
 diff --git a/lustre/ptlrpc/nrs_tbf.c b/lustre/ptlrpc/nrs_tbf.c
-index 96eac30..09ab0e7 100644
+index 80fa9ff..93b9103 100644
 --- a/lustre/ptlrpc/nrs_tbf.c
 +++ b/lustre/ptlrpc/nrs_tbf.c
 @@ -1572,30 +1572,26 @@ static void nrs_tbf_req_stop(struct ptlrpc_nrs_policy *policy,

@@ -1,7 +1,7 @@
-From abe827ebe8722336c55affd8388dacfbb38b49f1 Mon Sep 17 00:00:00 2001
+From 2c8c53a01d77519c8de108bbe69734e5931f41d8 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Tue, 18 Feb 2014 18:44:22 -0500
-Subject: [PATCH 03/10] LU-3319 procfs: update zfs proc handling to seq_files
+Subject: [PATCH 2/7] LU-3319 procfs: update zfs proc handling to seq_files
 
 Migrate all zfs proc handling to using strictly seq_files.
 
@@ -14,10 +14,10 @@ Change-Id: I6dc7e65c3e74e7934a17939815ec3c334fac58c7
  3 files changed, 60 insertions(+), 46 deletions(-)
 
 diff --git a/lustre/osd-zfs/osd_handler.c b/lustre/osd-zfs/osd_handler.c
-index 47bbc76..05820e0 100644
+index 0dc8c2e..29a3617 100644
 --- a/lustre/osd-zfs/osd_handler.c
 +++ b/lustre/osd-zfs/osd_handler.c
-@@ -761,12 +761,13 @@ static int osd_process_config(const struct lu_env *env,
+@@ -767,12 +767,13 @@ static int osd_process_config(const struct lu_env *env,
  		break;
  	case LCFG_PARAM: {
  		LASSERT(&o->od_dt_dev);
@@ -36,7 +36,7 @@ index 47bbc76..05820e0 100644
  		break;
  	}
  	default:
-@@ -914,7 +915,7 @@ int __init osd_init(void)
+@@ -920,7 +921,7 @@ int __init osd_init(void)
  
  	rc = class_register_type(&osd_obd_device_ops, NULL, true, NULL,
  #ifndef HAVE_ONLY_PROCFS_SEQ
@@ -46,10 +46,10 @@ index 47bbc76..05820e0 100644
  				 LUSTRE_OSD_ZFS_NAME, &osd_device_type);
  	if (rc)
 diff --git a/lustre/osd-zfs/osd_internal.h b/lustre/osd-zfs/osd_internal.h
-index bc51cb1..3dc4881 100644
+index 63f680c..740dba7 100644
 --- a/lustre/osd-zfs/osd_internal.h
 +++ b/lustre/osd-zfs/osd_internal.h
-@@ -402,8 +402,7 @@ enum {
+@@ -420,8 +420,7 @@ enum {
  };
  
  /* osd_lproc.c */

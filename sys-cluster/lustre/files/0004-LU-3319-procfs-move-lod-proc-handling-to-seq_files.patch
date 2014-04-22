@@ -1,7 +1,7 @@
-From 1394aacb441c3ba07b24a4b465f2496af8eb3c73 Mon Sep 17 00:00:00 2001
+From d13a2c80d2a861b1c9fe98e5db3ae1af06a1103a Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Wed, 26 Mar 2014 19:57:44 -0400
-Subject: [PATCH 06/10] LU-3319 procfs: move lod proc handling to seq_files
+Subject: [PATCH 4/7] LU-3319 procfs: move lod proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the lod
@@ -17,7 +17,7 @@ Change-Id: Iaa0f617fcd430e91f12afbc0faf6906fd275a7a5
  4 files changed, 157 insertions(+), 141 deletions(-)
 
 diff --git a/lustre/lod/lod_dev.c b/lustre/lod/lod_dev.c
-index a653d6a..1baeb37 100644
+index 8a6743d..e63c6ed 100644
 --- a/lustre/lod/lod_dev.c
 +++ b/lustre/lod/lod_dev.c
 @@ -289,12 +289,10 @@ static int lod_process_config(const struct lu_env *env,
@@ -94,7 +94,7 @@ index c3b1bc3..fc18f3d 100644
  void lod_procfs_fini(struct lod_device *lod);
  
 diff --git a/lustre/lod/lod_pool.c b/lustre/lod/lod_pool.c
-index 98b2416..1849e5d 100644
+index 149507f..810e1aa 100644
 --- a/lustre/lod/lod_pool.c
 +++ b/lustre/lod/lod_pool.c
 @@ -283,7 +283,7 @@ static int pool_proc_open(struct inode *inode, struct file *file)
