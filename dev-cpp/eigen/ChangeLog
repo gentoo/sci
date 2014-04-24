@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/dev-cpp/eigen/ChangeLog,v 1.44 2011/03/25 16:01:28 jlec Exp $
 
+*eigen-3.2.1-r2 (24 Apr 2014)
+
+  24 Apr 2014; Sébastien Fabbro <bicatali@gentoo.org> +eigen-3.2.1-r2.ebuild,
+  -eigen-3.2.1-r1.ebuild, metadata.xml:
+  dev-cpp/eigen: Bump and add pastix description
+
   24 Apr 2014; Sébastien Fabbro <bicatali@gentoo.org> eigen-9999.ebuild:
   dev-cpp/eigen: Added pastix support, restrict static libs for blas, configure
   with test enabled
