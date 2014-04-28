@@ -4,22 +4,23 @@
 
 EAPI=5
 
-inherit multilib versionator
+inherit multilib
 
-MYP=${PN}-$(replace_all_version_separators '-')
+MYP=${PN}-${PV}-lin64
 
 DESCRIPTION="Optimized libm replacement from AMD for x86_64 architectures"
 HOMEPAGE="http://developer.amd.com/tools/cpu-development/libm/"
-SRC_URI="${PN}${PV}lin64.tar.gz"
+SRC_URI="${MYP}.tar.gz"
 LICENSE="AMD"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~amd64-linux"
-IUSE="examples"
+IUSE="examples static-libs"
 RESTRICT="fetch strip"
 
 S="${WORKDIR}/${MYP}"
 
-QA_PREBUILT="/opt/${PN}/lib64/lib${PN}.so"
+QA_PREBUILT="opt/${PN}/$(get_libdir)/lib${PN}.so"
+QA_TEXTRELS="${QA_PREBUILT}"
 
 pkg_nofetch() {
 	einfo "The package's license prohibits redistribution."
@@ -29,16 +30,16 @@ pkg_nofetch() {
 }
 
 src_prepare() {
-	cat <<- EOF > "${T}/99${PN}"
+	cat <<- EOF > "${T}"/99${PN}
 		LDPATH="${EROOT%/}/opt/${PN}/$(get_libdir)"
 	EOF
 
-	cat <<- EOF > "${T}/${PN}.pc"
+	cat <<- EOF > "${T}"/${PN}.pc
 		prefix=${EROOT%/}/opt/${PN}
 		exec_prefix=\${prefix}
 		libdir=\${prefix}/$(get_libdir)
 		includedir=\${prefix}/include
-		Name: amdlibm
+		Name: ${PN}
 		Description: ${DESCRIPTION}
 		Version: ${PV}
 		Libs: -L\${libdir} -l${PN}
@@ -67,6 +68,6 @@ src_install() {
 	fi
 
 	insinto /usr/$(get_libdir)/pkgconfig
-	doins "${T}/${PN}.pc"
-	doenvd "${T}/99${PN}"
+	doins "${T}"/${PN}.pc
+	doenvd "${T}"/99${PN}
 }
