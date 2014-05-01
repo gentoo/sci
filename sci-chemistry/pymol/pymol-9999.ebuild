@@ -30,7 +30,6 @@ DEPEND="
 	sys-libs/zlib
 	media-libs/freeglut
 	apbs? (
-		dev-libs/maloc
 		sci-chemistry/apbs
 		sci-chemistry/pdb2pqr
 		sci-chemistry/pymol-apbs-plugin[${PYTHON_USEDEP}]

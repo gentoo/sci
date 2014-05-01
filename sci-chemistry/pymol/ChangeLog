@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  01 May 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
+  Drop unneeded dep
+
   26 Jan 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
   Update HOMEPAGE
 
