@@ -1,12 +1,12 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="2"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit python toolchain-funcs
+inherit python-single-r1 toolchain-funcs
 
 DESCRIPTION="Graphical tool to construct chemical compound definitions for NMR"
 HOMEPAGE="http://www.ccpn.ac.uk/software/chembuild"
@@ -17,7 +17,9 @@ LICENSE="|| ( CCPN LGPL-2.1 )"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
-RDEPEND="dev-python/pyside[webkit]"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+RDEPEND="dev-python/pyside[webkit,${PYTHON_USEDEP}]"
 DEPEND=""
 
 S="${WORKDIR}"/ccpnmr/ccpnmr3.0/
@@ -27,11 +29,6 @@ S="${WORKDIR}"/ccpnmr/ccpnmr3.0/
 #unbundle data model
 #unbundle inchi
 #parallel build
-
-pkg_setup() {
-	python_set_active_version 2
-	python_pkg_setup
-}
 
 src_install() {
 	local in_path=$(python_get_sitedir)/${PN}
@@ -44,25 +41,17 @@ src_install() {
 	-e "s|gentoolibdir|${EPREFIX}/usr/${libdir}|g" \
 	-e "s|gentootk|${EPREFIX}/usr/${libdir}/tk${tkver}|g" \
 	-e "s|gentootcl|${EPREFIX}/usr/${libdir}/tclk${tkver}|g" \
-	-e "s|gentoopython|$(PYTHON -a)|g" \
+	-e "s|gentoopython|${PYTHON}|g" \
 	-e "s|gentoousr|${EPREFIX}/usr|g" \
 	-e "s|//|/|g" \
 		"${FILESDIR}"/${PN} > "${ED}"/usr/bin/${PN} || die
 	fperms 755 /usr/bin/${PN}
 
-	insinto ${in_path}
-
 	rm -rf cNg license || die
 
 	ebegin "Installing main files"
-		doins -r *
+	python_moduleinto ${PN}
+	python_domodule *
+	python_optimize
 	eend
-}
-
-pkg_postinst() {
-	python_mod_optimize ${PN}
-}
-
-pkg_postrm() {
-	python_mod_cleanup ${PN}
 }

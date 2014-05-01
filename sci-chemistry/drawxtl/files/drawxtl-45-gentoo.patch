@@ -1,0 +1,132 @@
+ source/DRAWshell45/Makefile | 14 ++++++--------
+ source/DRAWxtl45/Makefile   | 26 ++++++++++++--------------
+ 2 files changed, 18 insertions(+), 22 deletions(-)
+
+diff --git a/source/DRAWshell45/Makefile b/source/DRAWshell45/Makefile
+index 5a9c5d1..96dc51a 100644
+--- a/source/DRAWshell45/Makefile
++++ b/source/DRAWshell45/Makefile
+@@ -31,15 +31,15 @@ ifeq ($(OS),Linux)
+   libdir          = /lib
+ 
+ # compiler name:
+-  CXX             = g++
++  CXX             ?= g++
+ 
+ # flags for C++ compiler:
+-  OPTIM           = -g -O2 -Wall -Wunused  -fno-exceptions
+-  CXXFLAGS        = $(OPTIM)  -I/usr/X11R6/include
++  OPTIM  = $(CFLAGS) `fltk-config --cxxflags`
++  CXXOPT = $(CXXFLAGS)  -I/usr/X11R6/include
+ 
+ # libraries to link with:
+-  GLDLIBS  =  -L/usr/X11R6/lib  -lglut -lGLU -lGL -lXinerama -lXft -lpthread -lm  -lXext -lX11 -lXpm
+-  LINKFLTKGL  = -L$(libdir) -lfltk_gl -lfltk
++  GLDLIBS  =  -L/usr/X11R6/lib  -lglut -lGLU -lGL -lXft -lpthread -lm  -lXext -lX11 -lXpm
++  LINKFLTKGL  = -L$(libdir) `fltk-config --ldflags`
+ 
+ # The extension to use for executables...
+   EXEEXT          =
+@@ -142,8 +142,6 @@ ifeq ($(OPTIM),error)
+   GLDLIBS=-lfltk_gl -lfltk -lglut -lGLU -lGL
+ endif
+ 
+-# Be quiet when building...
+-.SILENT:
+ 
+ # Build commands and filename extensions...
+ .SUFFIXES:	.rc .cxx .h .o $(EXEEXT)
+@@ -172,7 +170,7 @@ draw_shell.o: draw_shell.cxx draw_shell.h DRAWxtl.xpm
+ 
+ $(TARGET) : $(OBJFILES) 
+ 	echo Linking $@...
+-	$(CXX) $(CXXFLAGS) -o $@ $(OBJFILES) \
++	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o $@ $(OBJFILES) \
+ 		$(LINKFLTKGL) $(GLDLIBS) 
+ 	$(POSTLINK) $@
+ 
+diff --git a/source/DRAWxtl45/Makefile b/source/DRAWxtl45/Makefile
+index 4417338..a78c9a4 100644
+--- a/source/DRAWxtl45/Makefile
++++ b/source/DRAWxtl45/Makefile
+@@ -31,21 +31,21 @@ EXEEXT =
+ ifeq ($(OS),Linux)
+ 
+   # compiler name
+-  CC  = gcc
+-  CXX = g++
++  CC  ?= gcc
++  CXX ?= g++
+ 
+ # flags for C++ compiler:
+-  OPTIM  = -g -O  -Wunused  -fno-exceptions -Wall
+-  CXXOPT = $(OPTIM) $(OPENGL) -I/usr/X11R6/include
++  OPTIM  = $(CFLAGS)
++  CXXOPT = $(CXXFLAGS) $(OPENGL) -I/usr/X11R6/include
+ 
+   GLUTlib2 =
+ 
+   # multiplatform gcc options
+-  CCOPT = $(OPTIM) $(OPENGL) -c -Wuninitialized -Wreturn-type -Wmissing-prototypes -Wstrict-prototypes $(GLUTcopt)
++  CCOPT = $(OPTIM) $(OPENGL) -c $(GLUTcopt)
+ 
+   # standard Linux GLut locations:
+ 
+-  GLUTinclude = /usr/local/include
++  GLUTinclude = /usr/include
+   GLUTlib = /usr/local/lib
+   GLUTcopt = -I$(GLUTinclude)
+   GLUTlib1 = -L$(GLUTlib) -lglut -lGLU -lGL -ldl -lm -L/usr/X11R6/lib -lX11 -lm -lXi
+@@ -61,7 +61,7 @@ ifeq ($(OS),CYGWIN)
+ # section to define the various symbols needed to build DRAWxtl for cygwin running on Windows
+ 
+   prefix          = /usr/
+-  includedir      = 
++  includedir      = /usr/include
+   libdir          = 
+ 
+ # compiler name:
+@@ -164,8 +164,6 @@ ifeq ($(OPTIM),error)
+   GLDLIBS = -lglut -lGLU -lGL
+ endif
+ 
+-# Be quiet when building...
+-.SILENT:
+ 
+ # Build commands and filename extensions...
+ .SUFFIXES:	.rc .cxx .c .h .o $(EXEEXT)
+@@ -176,7 +174,7 @@ endif
+ 
+ .cxx.o:
+ 	echo Compiling $<...
+-	$(CXX) -I$(includedir) $(CXXOPT) -c $<
++	$(CXX) $(CXXOPT) -c $<
+ 
+ .c.o:
+ 	echo Compiling $<...
+@@ -216,8 +214,8 @@ clean:
+ .deps:  $(CXXFILES) $(CCFILES)
+ 	echo "Building dependencies..."
+ 	echo >.deps
+-	for i in $(CXXFILES); do gcc -MM $$i >>.deps; done
+-	for i in $(CCFILES); do gcc -MM $$i >>.deps; done
++	for i in $(CXXFILES); do $(CXX) -MM $$i >>.deps; done
++	for i in $(CCFILES); do $(CC) -MM $$i >>.deps; done
+ 
+ -include .deps
+ 
+@@ -225,12 +223,12 @@ clean:
+ 
+ $(TARGET) : $(OBJFILES) .deps
+ 	echo Linking $@...
+-	$(CXX) $(LINKopt) -o $@ $(OBJFILES) $(GLUTlopt) 
++	$(CXX) $(LDFLAGS) -o $@ $(OBJFILES) $(GLUTlopt) 
+ 	$(POSTLINK) $@
+ 
+ static: $(OBJFILES) .deps
+ 	echo Linking $@_s ...
+-	$(CXX) $(LINKopt) -static -o $@_s $(OBJFILES) \
++	$(CXX) $(LDFLAGS) -static -o $@_s $(OBJFILES) \
+ 		$(GLUTsopt) -lXxf86vm -ldl
+ 	strip $@_s
+ 

@@ -1,0 +1,44 @@
+diff -Nur TESTING.orig/MATGEN/clatb4.c TESTING/MATGEN/clatb4.c
+--- TESTING.orig/MATGEN/clatb4.c	2013-07-15 11:48:34.285967038 -0700
++++ TESTING/MATGEN/clatb4.c	2013-07-15 11:49:05.150137959 -0700
+@@ -3,6 +3,7 @@
+ 	-lf2c -lm   (in that order)
+ */
+ 
++#include <string.h>
+ #include "f2c.h"
+ 
+ /* Table of constant values */
+diff -Nur TESTING.orig/MATGEN/dlatb4.c TESTING/MATGEN/dlatb4.c
+--- TESTING.orig/MATGEN/dlatb4.c	2013-07-15 11:48:34.288966998 -0700
++++ TESTING/MATGEN/dlatb4.c	2013-07-15 11:49:05.150137959 -0700
+@@ -3,6 +3,7 @@
+ 	-lf2c -lm   (in that order)
+ */
+ 
++#include <string.h>
+ #include "f2c.h"
+ 
+ /* Table of constant values */
+diff -Nur TESTING.orig/MATGEN/slatb4.c TESTING/MATGEN/slatb4.c
+--- TESTING.orig/MATGEN/slatb4.c	2013-07-15 11:48:34.288966998 -0700
++++ TESTING/MATGEN/slatb4.c	2013-07-15 11:49:05.150137959 -0700
+@@ -3,6 +3,7 @@
+ 	-lf2c -lm   (in that order)
+ */
+ 
++#include <string.h>
+ #include "f2c.h"
+ 
+ /* Table of constant values */
+diff -Nur TESTING.orig/MATGEN/zlatb4.c TESTING/MATGEN/zlatb4.c
+--- TESTING.orig/MATGEN/zlatb4.c	2013-07-15 11:48:34.288966998 -0700
++++ TESTING/MATGEN/zlatb4.c	2013-07-15 11:49:05.150137959 -0700
+@@ -3,6 +3,7 @@
+ 	-lf2c -lm   (in that order)
+ */
+ 
++#include <string.h>
+ #include "f2c.h"
+ 
+ /* Table of constant values */

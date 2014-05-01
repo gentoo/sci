@@ -6,7 +6,10 @@
 	</longdescription>
   <herd>sci-chemistry</herd>
   <maintainer>
-    <email>nicolasbock@gmail.com</email>
+    <email>nicolasbock@gentoo.org</email>
     <name>Nicolas Bock</name>
   </maintainer>
+  <use>
+    <flag name="standalone-BCSR">Enables a self-contained BCSR file format</flag>
+  </use>
 </pkgmetadata>

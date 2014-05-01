@@ -1,0 +1,2 @@
+CONDOR_CENTRAL_MANAGER="$(cat /etc/condor/central_manager)"
+CONDOR_OPTS=""

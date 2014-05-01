@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -19,7 +19,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
 IUSE="ssl"
 
-DEPEND="
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+DEPEND="${PYTHON_DEPS}
 	>=net-misc/omniORB-4.1.3
 	ssl? ( dev-libs/openssl )"
 RDEPEND=${DEPEND}
@@ -61,5 +63,5 @@ src_install() {
 	dodoc doc/tex/*
 
 	insinto /usr/share/doc/${PF}/
-	doins -r examples || die
+	doins -r examples
 }

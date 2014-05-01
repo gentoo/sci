@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,11 +12,15 @@ SRC_URI="http://upc.lbl.gov/download/release/${P}.tar.gz"
 LICENSE="BSD-4"
 
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="app-shells/tcsh"
 RDEPEND="dev-lang/berkeley_upc"
+
+src_prepare() {
+	epatch $FILESDIR/${P}-check-abi.patch
+}
 
 src_compile() {
 	emake -j1

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-chemistry</herd>
+  <maintainer>
+    <email>jlec@gentoo.org</email>
+  </maintainer>
+  <longdescription>
+It has been estimated that more than 20% of the proteins in the BMRB are 
+improperly referenced and that about 1% of all chemical shift assignments are 
+mis-assigned. These statistics also reflect the likelihood that any newly 
+assigned protein will have shift assignment or shift referencing errors. The 
+relatively high frequency of these errors continues to be a concern for the 
+biomolecular NMR community. While several programs do exist to detect and/or 
+correct chemical shift mis-referencing or chemical shift mis-assignments, most 
+can only do one, or the other. The one program (SHIFTCOR) that is capable of 
+handling both chemical shift mis-referencing and mis-assignments, requires the 
+3D structure coordinates of the target protein. Given that chemical shift 
+mis-assignments and chemical shift re-referencing issues should ideally be 
+addressed prior to 3D structure determination, there is a clear need to develop 
+a structure-independent approach. Here, we present a new structure-independent 
+protocol, which is based on using residue-specific and secondary 
+structure-specific chemical shift distributions calculated over 
+small (3–6 residue) fragments to identify mis-assigned resonances. The method 
+is also able to identify and re-reference mis-referenced chemical shift 
+ assignments. Comparisons against existing re-referencing or mis-assignment 
+ detection programs show that the method is as good or superior to existing 
+ approaches.
+</longdescription>
+</pkgmetadata>

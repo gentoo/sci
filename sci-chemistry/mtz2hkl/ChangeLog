@@ -1,6 +1,10 @@
 # ChangeLog for sci-chemistry/mtz2hkl
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> mtz2hkl-0.3.ebuild,
+  metadata.xml:
+  Punt base.eclass
 
 *mtz2hkl-0.3 (16 Jul 2009)
 

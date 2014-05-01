@@ -2,6 +2,14 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cadabra-1.33 (19 Sep 2013)
+
+  19 Sep 2013; François Bissey <francois.bissey@canterbury.ac.nz>
+  +cadabra-1.33.ebuild, +files/cadabra-1.33-FLAGS.patch, -cadabra-1.31.ebuild,
+  -files/cadabra-1.21-no-stripping.patch,
+  -files/cadabra-1.25-xcadabra-flags.patch:
+  Bump to 1.33 and solve issue #113
+
   13 Jun 2013; Justin Lecher <jlec@gentoo.org> -cadabra-1.25.ebuild,
   -cadabra-1.28.ebuild, -cadabra-1.29.ebuild, cadabra-1.31.ebuild,
   metadata.xml:

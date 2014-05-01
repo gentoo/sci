@@ -1,99 +1,47 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-if [[ ${PV} == "9999" ]] ; then
-	_SCM=git-2
-	EGIT_REPO_URI="https://github.com/xianyi/OpenBLAS.git"
-	SRC_URI=""
-	KEYWORDS=""
-else
-	SRC_URI="http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos ~ppc-macos ~x64-macos"
-fi
-
-inherit eutils toolchain-funcs alternatives-2 multilib fortran-2 ${_SCM}
+inherit alternatives-2 eutils fortran-2 git-r3 multilib toolchain-funcs
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
+SRC_URI="http://dev.gentoo.org/~bicatali/distfiles/${PN}-gentoo.patch"
+EGIT_REPO_URI="https://github.com/xianyi/OpenBLAS.git"
+EGIT_BRANCH="develop"
 
 LICENSE="BSD"
 SLOT="0"
-
-IUSE="+incblas int64 dynamic openmp static-libs threads"
-
-RDEPEND=""
-DEPEND="${RDEPEND}"
-
-src_unpack() {
-	unpack ${A}
-	mv "${WORKDIR}"/*OpenBLAS* "${S}" || die
-}
-
-src_prepare() {
-	epatch "${FILESDIR}"/${PN}-{sharedlibs-0.2,aliasing}.patch
-	# respect LDFLAGS
-	sed -i -e '/^LDFLAGS\s*=/d' Makefile.* || die
-	# respect CFLAGS only if dynamic flag not enabled
-	if ! use dynamic; then
-		sed -i \
-			-e "/^COMMON_OPT/s/-O2/${CFLAGS}/" \
-			Makefile.rule || die
-	fi
-	# fix executable stacks
-	local i
-	for i in $(find . -name \*.S); do
-		cat >> ${i} <<-EOF
-			#if defined(__ELF__)
-			.section .note.GNU-stack,"",%progbits
-			#endif
-		EOF
-	done
-}
+IUSE="int64 dynamic openmp static-libs threads"
+KEYWORDS=""
 
 src_configure() {
-	local use_openmp=$(use openmp && echo 1)
-	use threads && use openmp && use_openmp="" && \
-		einfo "openmp and threads enabled: using threads"
-	sed -i \
-		-e "s:^#\s*\(NO_LAPACK\)\s*=.*:\1=1:" \
-		-e "s:^#\s*\(NO_LAPACKE\)\s*=.*:\1=1:" \
+	# lapack and lapacke are not modified from upstream lapack
+	sed \
 		-e "s:^#\s*\(CC\)\s*=.*:\1=$(tc-getCC):" \
 		-e "s:^#\s*\(FC\)\s*=.*:\1=$(tc-getFC):" \
-		-e "s:^#\s*\(USE_THREAD\)\s*=.*:\1=$(use threads && echo 1 || echo 0):" \
-		-e "s:^#\s*\(USE_OPENMP\)\s*=.*:\1=${use_openmp}:" \
-		-e "s:^#\s*\(DYNAMIC_ARCH\)\s*=.*:\1=$(use dynamic && echo 1):" \
-		-e "s:^#\s*\(INTERFACE64\)\s*=.*:\1=$(use int64 && echo 1):" \
-		-e "s:^#\s*\(NO_CBLAS\)\s*=.*:\1=$(use incblas || echo 1):" \
-		Makefile.rule || die
+		-e "s:^#\s*\(COMMON_OPT\)\s*=.*:\1=${CFLAGS}:" \
+		-e "s:^#\s*\(NO_LAPACK\)\s*=.*:\1=1:" \
+		-e "s:^#\s*\(NO_LAPACKE\)\s*=.*:\1=1:" \
+		-i Makefile.rule || die
 }
 
-src_compile() {
-	mkdir solibs
-	emake libs shared && mv *$(get_libname) solibs/
-	use static-libs && emake clean && emake libs NEED_PIC=
-}
-
-src_test() {
-	emake tests
-}
-
-src_install() {
-	local profname=${PN} threads
-	use int64 && profname=${profname}-int64
-	if use threads; then
-		threads="-pthread"
-		profname=${profname}-threads
-	elif use openmp; then
-		profname=${profname}-openmp
+openblas_compile() {
+	local profname=$1
+	einfo "Compiling profile ${profname}"
+	# cflags already defined twice
+	unset CFLAGS
+	emake clean
+	emake libs shared ${openblas_flags}
+	mkdir -p libs && mv libopenblas* libs/
+	# avoid pic when compiling static libraries, so re-compiling
+	if use static-libs; then
+		emake clean
+		emake libs ${openblas_flags} NO_SHARED=1 NEED_PIC=
+		mv libopenblas* libs/
 	fi
-
-	dolib.so solibs/lib*$(get_libname)
-	use static-libs && dolib.a lib*.a
-
-	# create pkg-config file and associated eselect file
 	cat <<-EOF > ${profname}.pc
 		prefix=${EPREFIX}/usr
 		libdir=\${prefix}/$(get_libdir)
@@ -103,27 +51,64 @@ src_install() {
 		Version: ${PV}
 		URL: ${HOMEPAGE}
 		Libs: -L\${libdir} -lopenblas
-		Libs.private: -lm ${threads}
+		Libs.private: -lm
+		Cflags: -I\${includedir}/${PN}
 	EOF
+}
 
-	alternatives_for blas ${profname} 0 \
-		/usr/$(get_libdir)/pkgconfig/blas.pc ${profname}.pc
+src_compile() {
+	# openblas already does multi-jobs
+	MAKEOPTS+=" -j1"
+	openblas_flags=""
+	local openblas_name=openblas
+	use dynamic && \
+		openblas_name+="-dynamic" && \
+		openblas_flags+=" DYNAMIC_ARCH=1 TARGET=GENERIC NUM_THREADS=64 NO_AFFINITY=1"
+	use int64 && \
+		openblas_name+="-int64" && \
+		openblas_flags+=" INTERFACE64=1"
 
-	if use incblas; then
-		echo >> ${profname}.pc "Cflags: -I\${includedir}/${PN}"
-		insinto /usr/include/${PN}
-		doins cblas.h common*.h config.h param.h
-		alternatives_for cblas ${profname} 0 \
-			/usr/$(get_libdir)/pkgconfig/cblas.pc ${profname}.pc \
-			/usr/include/cblas.h ${PN}/cblas.h
+	# choose posix threads over openmp when the two are set
+	# yet to see the need of having the two profiles simultaneously
+	if use threads; then
+		openblas_name+="-threads"
+		openblas_flags+=" USE_THREAD=1 USE_OPENMP=0"
+	elif use openmp; then
+		openblas_name+="-openmp"
+		openblas_flags+=" USE_THREAD=0 USE_OPENMP=1"
 	fi
+	openblas_compile ${openblas_name}
+	mv libs/libopenblas* . || die
+}
 
-	insinto /usr/$(get_libdir)/pkgconfig
-	doins ${profname}.pc
+src_test() {
+	emake tests ${openblas_flags}
+}
+
+src_install() {
+	local pcfile
+	for pcfile in *.pc; do
+		local profname=${pcfile%.pc}
+		emake install \
+			PREFIX="${ED}"usr ${openblas_flags} \
+			OPENBLAS_INCLUDE_DIR="${ED}"usr/include/${PN} \
+			OPENBLAS_LIBRARY_DIR="${ED}"usr/$(get_libdir)
+		use static-libs || rm "${ED}"usr/$(get_libdir)/lib*.a
+		alternatives_for blas ${profname} 0 \
+			/usr/$(get_libdir)/pkgconfig/blas.pc ${pcfile}
+		alternatives_for cblas ${profname} 0 \
+			/usr/$(get_libdir)/pkgconfig/cblas.pc ${pcfile} \
+			/usr/include/cblas.h ${PN}/cblas.h
+		insinto /usr/$(get_libdir)/pkgconfig
+		doins ${pcfile}
+	done
+
 	dodoc GotoBLAS_{01Readme,03FAQ,04FAQ,05LargePage,06WeirdPerformance}.txt
+	dodoc *md Changelog.txt
 
 	if [[ ${CHOST} == *-darwin* ]] ; then
 		cd "${ED}"/usr/$(get_libdir)
+		local d
 		for d in *.dylib ; do
 			ebegin "Correcting install_name of ${d}"
 			install_name_tool -id "${EPREFIX}/usr/$(get_libdir)/${d}" "${d}"

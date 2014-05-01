@@ -1,18 +1,16 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit distutils eutils
+inherit distutils-r1
 
 DESCRIPTION="GUI for the Crystallography and NMR System"
 HOMEPAGE="http://cnsface.sourceforge.net"
-SRC_URI="mirror://sourceforge/${P}-altoona.tar.gz"
+SRC_URI="mirror://sourceforge/project/cnsface/cnsface/Altoona/${P}-altoona.tar.gz"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -20,13 +18,10 @@ LICENSE="GPL-2"
 IUSE=""
 
 RDEPEND="
-	dev-python/wxpython:2.8
+	dev-python/wxpython:2.8[${PYTHON_USEDEP}]
 	sci-chemistry/cns"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${P}-altoona
 
-src_prepare() {
-	epatch "${FILESDIR}"/${PV}-binary.patch
-	distutils_src_prepare
-}
+PATCHES=( "${FILESDIR}"/${PV}-binary.patch )

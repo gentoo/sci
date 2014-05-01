@@ -1,6 +1,10 @@
 # ChangeLog for sci-mathematics/kayali
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  04 Dec 2013; Justin Lecher <jlec@gentoo.org> kayali-0.3.2.ebuild,
+  metadata.xml:
+  Bump EAPI to 5; Bump to python-single-r1 eclass
 
   14 Oct 2010; François Bissey <f.r.bissey@massey.ac.nz>
   kayali-0.3.2.ebuild:

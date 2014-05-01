@@ -1,0 +1,27 @@
+diff -Naur tmp-old/Makefile tmp-new/Makefile
+--- Makefile	2009-03-07 22:44:12.000000000 +0000
++++ Makefile	2009-03-07 22:42:59.000000000 +0000
+@@ -9,9 +9,9 @@
+ 	mkdir -p objs/lib objs/finclude
+ #
+ install: objsdir $(BUILD_TARGETS)
+-	$(MKDIR_P) $(install_prefix)/lib $(install_prefix)/finclude $(install_prefix)/bin
++	$(MKDIR_P) $(install_prefix)/lib $(install_prefix)/include $(install_prefix)/bin
+ 	$(INSTALL) objs/lib/* $(install_prefix)/lib
+-	$(INSTALL) -m 644 objs/finclude/* $(install_prefix)/finclude
++	$(INSTALL) -m 644 objs/finclude/* $(install_prefix)/include
+ 	$(INSTALL) FoX-config $(install_prefix)/bin
+ #
+ examples_build:
+diff -Naur tmp-old/arch.make.in tmp-new/arch.make.in
+--- arch.make.in	2009-03-07 22:44:19.000000000 +0000
++++ arch.make.in	2009-03-07 22:43:07.000000000 +0000
+@@ -5,7 +5,7 @@
+ 
+ VPATH=@VPATH@
+ compile_prefix=@OBJSDIR@
+-install_prefix=@prefix@
++install_prefix=$(DESTDIR)/@prefix@
+ LIB_DIR=$(compile_prefix)/lib
+ MOD_DIR=$(compile_prefix)/finclude
+ 

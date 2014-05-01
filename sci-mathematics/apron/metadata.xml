@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci</herd>
-	<longdescription>
-		The APRON library is dedicated to the static analysis of the numerical
-		variables of a program by Abstract Interpretation. The aim of such an
-		analysis is to infer invariants about these variables. The APRON library
-		is intended to be a common interface to various underlying
-		libraries/abstract domains and to provide additional services that can
-		be implemented independently from the underlying library/abstract
-		domain, as shown by the poster on the right (presented at the SAS 2007
-		conference.
-	</longdescription>
-	<maintainer>
-		<email>sci@gentoo.org</email>
-	</maintainer>
-	<use>
-		<flag name="ppl">Enable optional interface to the Parma Polyhedra Library</flag>
-	</use>
+<herd>sci-mathematics</herd>
+<longdescription>
+  The APRON library is dedicated to the static analysis of the numerical
+  variables of a program by Abstract Interpretation. The aim of such an
+  analysis is to infer invariants about these variables. The APRON library
+  is intended to be a common interface to various underlying
+  libraries/abstract domains and to provide additional services that can
+  be implemented independently from the underlying library/abstract
+  domain, as shown by the poster on the right (presented at the SAS 2007
+  conference.
+</longdescription>
+<use>
+  <flag name="ppl">Enable optional interface to the Parma Polyhedra Library</flag>
+</use>
 </pkgmetadata>

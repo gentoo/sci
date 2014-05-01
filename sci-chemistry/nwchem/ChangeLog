@@ -2,6 +2,31 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Oct 2013; Honza Macháček <Hloupy.Honza@centrum.cz> nwchem-6.3-r2.ebuild:
+  Arranged for the TeX fonts creation in the sandbox. This time really.
+
+*nwchem-6.3-r2 (19 Oct 2013)
+
+  19 Oct 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  +nwchem-6.3-r2.ebuild:
+  Updated to 6.3 revision 2. The source directory name shortened to fit under
+  the length restrictions in the makefiles. Arranged for the TeX fonts creation
+  in the sandbox.
+
+*nwchem-6.3-r1 (23 Jul 2013)
+
+  23 Jul 2013; Honza Macháček <Hloupy.Honza@centrum.cz> -nwchem-6.3.ebuild,
+  +nwchem-6.3-r1.ebuild, files/nwchem-6.1.1-adjust-dir-length.patch,
+  files/nwchem-6.1.1-makefile.patch, files/nwchem-6.1.1-nwchemrc.patch,
+  files/nwchem-6.1.1-python_makefile.patch, -files/nwchem-6.3-html_doc.patch,
+  +files/nwchem-6.3-r1-html_doc.patch:
+  Updated to 6.3-r1, python makefile patch cosmetically improved, the python
+  support linked properly to python2.
+
+  16 Jun 2013; Justin Lecher <jlec@gentoo.org> -nwchem-6.1.1.ebuild,
+  nwchem-6.3.ebuild:
+  Drop old; drop virtual/fortran as the eclass depends on it
+
   04 Jun 2013; Justin Lecher <jlec@gentoo.org> nwchem-6.3.ebuild:
   Fix for correct usage of new python eclasses
 

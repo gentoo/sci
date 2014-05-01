@@ -1,0 +1,2535 @@
+diff --git a/p4est-0.3.5/Makefile.am b/p4est-0.3.5/Makefile.am
+index c844c89..f36c5d6 100644
+--- a/p4est-0.3.5/Makefile.am
++++ b/p4est-0.3.5/Makefile.am
+@@ -2,7 +2,7 @@
+ # This file is part of p4est.
+ # Makefile.am in toplevel directory
+ 
+-ACLOCAL_AMFLAGS = -I config @P4EST_SC_AMFLAGS@
++ACLOCAL_AMFLAGS = -I config
+ 
+ # initialize empty variables
+ AM_CPPFLAGS =
+diff --git a/p4est-0.3.5/bootstrap b/p4est-0.3.5/bootstrap
+deleted file mode 100755
+index 1b5271d..0000000
+--- a/p4est-0.3.5/bootstrap
++++ /dev/null
+@@ -1,27 +0,0 @@
+-#! /bin/sh
+-
+-# override by option argument
+-SC_CONFIG="sc/config"
+-if test -n "$1" ; then
+-  SC_CONFIG="$1"
+-  if test ! -d "$SC_CONFIG" ; then
+-    echo "Cannot find directory $SC_CONFIG"
+-    exit 1
+-  fi
+-fi
+-# convert into an absolute path
+-SC_CONFIG=`cd "$SC_CONFIG" && pwd`
+-
+-if test -x "sc/bootstrap" ; then
+-  echo "Running bootstrap in directory sc"
+-  (cd sc && ./bootstrap)
+-fi
+-
+-echo "--- This is the bootstrap script for p4est ---"
+-echo "Current directory is $PWD"
+-
+-aclocal -Wall -I config -I "$SC_CONFIG"
+-autoconf -Wall --force
+-autoheader -Wall --force
+-libtoolize --automake --force --copy
+-automake -Wall --add-missing --copy
+diff --git a/p4est-0.3.5/configure.ac b/p4est-0.3.5/configure.ac
+index 19c896a..fae1ba4 100644
+--- a/p4est-0.3.5/configure.ac
++++ b/p4est-0.3.5/configure.ac
+@@ -230,18 +230,6 @@ P4EST_SC_SUBDIR=
+ P4EST_SC_MK_INCLUDE=
+ P4EST_SC_USE_MK="no"
+ P4EST_SC_ENABLE_CHECKS="no"
+-if test "$P4EST_WITH_PROVIDE_SC" = yes ; then
+-  # case 1
+-  AC_CONFIG_SUBDIRS([sc])
+-  P4EST_SC_SUBDIR=sc
+-  P4EST_SC_DIR="\$(top_srcdir)/sc"
+-  P4EST_SC_AMFLAGS="-I $P4EST_SC_DIR/config"
+-  P4EST_SC_CPPFLAGS="-I\$(top_builddir)/sc/src -I\$(top_srcdir)/sc/src"
+-  P4EST_SC_LDADD="\$(top_builddir)/sc/src/libsc.$P4EST_LIB_SUFFIX"
+-  P4EST_SC_MK_INCLUDE="include \${sysconfdir}/Makefile.sc.mk"
+-  P4EST_SC_ENABLE_CHECKS="yes"
+-  P4EST_DEPENDENCIES="$P4EST_DEPENDENCIES $P4EST_SC_LDADD"
+-else
+   if test "$P4EST_WITH_PROVIDE_SC" != no ; then
+     # case 2 and 3
+     P4EST_SC_DIR="$P4EST_WITH_PROVIDE_SC"
+@@ -265,7 +253,6 @@ else
+     # case 4
+     P4EST_DIST_ALLOW="no"
+   fi
+-fi
+ AC_SUBST([P4EST_SC_SUBDIR])
+ AC_SUBST([P4EST_SC_AMFLAGS])
+ AC_SUBST([P4EST_SC_CPPFLAGS])
+diff --git a/p4est-0.3.5/sc/.__autoconf_trace_data b/p4est-0.3.5/sc/.__autoconf_trace_data
+new file mode 100644
+index 0000000..e69de29
+diff --git a/p4est-0.3.5/sc/config/ax_prefix_config_h.m4 b/p4est-0.3.5/sc/config/ax_prefix_config_h.m4
+new file mode 100644
+index 0000000..43a3906
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/ax_prefix_config_h.m4
+@@ -0,0 +1,209 @@
++# ===========================================================================
++#    http://www.gnu.org/software/autoconf-archive/ax_prefix_config_h.html
++# ===========================================================================
++#
++# SYNOPSIS
++#
++#   AX_PREFIX_CONFIG_H [(OUTPUT-HEADER [,PREFIX [,ORIG-HEADER]])]
++#
++# DESCRIPTION
++#
++#   This is a new variant from ac_prefix_config_ this one will use a
++#   lowercase-prefix if the config-define was starting with a
++#   lowercase-char, e.g. "#define const", "#define restrict", or "#define
++#   off_t", (and this one can live in another directory, e.g.
++#   testpkg/config.h therefore I decided to move the output-header to be the
++#   first arg)
++#
++#   takes the usual config.h generated header file; looks for each of the
++#   generated "#define SOMEDEF" lines, and prefixes the defined name (ie.
++#   makes it "#define PREFIX_SOMEDEF". The result is written to the output
++#   config.header file. The PREFIX is converted to uppercase for the
++#   conversions.
++#
++#   Defaults:
++#
++#     OUTPUT-HEADER = $PACKAGE-config.h
++#     PREFIX = $PACKAGE
++#     ORIG-HEADER, from AM_CONFIG_HEADER(config.h)
++#
++#   Your configure.ac script should contain both macros in this order, and
++#   unlike the earlier variations of this prefix-macro it is okay to place
++#   the AX_PREFIX_CONFIG_H call before the AC_OUTPUT invokation.
++#
++#   Example:
++#
++#     AC_INIT(config.h.in)        # config.h.in as created by "autoheader"
++#     AM_INIT_AUTOMAKE(testpkg, 0.1.1)    # makes #undef VERSION and PACKAGE
++#     AM_CONFIG_HEADER(config.h)          # prep config.h from config.h.in
++#     AX_PREFIX_CONFIG_H(mylib/_config.h) # prep mylib/_config.h from it..
++#     AC_MEMORY_H                         # makes "#undef NEED_MEMORY_H"
++#     AC_C_CONST_H                        # makes "#undef const"
++#     AC_OUTPUT(Makefile)                 # creates the "config.h" now
++#                                         # and also mylib/_config.h
++#
++#   if the argument to AX_PREFIX_CONFIG_H would have been omitted then the
++#   default outputfile would have been called simply "testpkg-config.h", but
++#   even under the name "mylib/_config.h" it contains prefix-defines like
++#
++#     #ifndef TESTPKG_VERSION
++#     #define TESTPKG_VERSION "0.1.1"
++#     #endif
++#     #ifndef TESTPKG_NEED_MEMORY_H
++#     #define TESTPKG_NEED_MEMORY_H 1
++#     #endif
++#     #ifndef _testpkg_const
++#     #define _testpkg_const _const
++#     #endif
++#
++#   and this "mylib/_config.h" can be installed along with other
++#   header-files, which is most convenient when creating a shared library
++#   (that has some headers) where some functionality is dependent on the
++#   OS-features detected at compile-time. No need to invent some
++#   "mylib-confdefs.h.in" manually. :-)
++#
++#   Note that some AC_DEFINEs that end up in the config.h file are actually
++#   self-referential - e.g. AC_C_INLINE, AC_C_CONST, and the AC_TYPE_OFF_T
++#   say that they "will define inline|const|off_t if the system does not do
++#   it by itself". You might want to clean up about these - consider an
++#   extra mylib/conf.h that reads something like:
++#
++#     #include <mylib/_config.h>
++#     #ifndef _testpkg_const
++#     #define _testpkg_const const
++#     #endif
++#
++#   and then start using _testpkg_const in the header files. That is also a
++#   good thing to differentiate whether some library-user has starting to
++#   take up with a different compiler, so perhaps it could read something
++#   like this:
++#
++#     #ifdef _MSC_VER
++#     #include <mylib/_msvc.h>
++#     #else
++#     #include <mylib/_config.h>
++#     #endif
++#     #ifndef _testpkg_const
++#     #define _testpkg_const const
++#     #endif
++#
++# LICENSE
++#
++#   Copyright (c) 2008 Guido U. Draheim <guidod@gmx.de>
++#   Copyright (c) 2008 Marten Svantesson
++#   Copyright (c) 2008 Gerald Point <Gerald.Point@labri.fr>
++#
++#   This program is free software; you can redistribute it and/or modify it
++#   under the terms of the GNU General Public License as published by the
++#   Free Software Foundation; either version 3 of the License, or (at your
++#   option) any later version.
++#
++#   This program is distributed in the hope that it will be useful, but
++#   WITHOUT ANY WARRANTY; without even the implied warranty of
++#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
++#   Public License for more details.
++#
++#   You should have received a copy of the GNU General Public License along
++#   with this program. If not, see <http://www.gnu.org/licenses/>.
++#
++#   As a special exception, the respective Autoconf Macro's copyright owner
++#   gives unlimited permission to copy, distribute and modify the configure
++#   scripts that are the output of Autoconf when processing the Macro. You
++#   need not follow the terms of the GNU General Public License when using
++#   or distributing such scripts, even though portions of the text of the
++#   Macro appear in them. The GNU General Public License (GPL) does govern
++#   all other use of the material that constitutes the Autoconf Macro.
++#
++#   This special exception to the GPL applies to versions of the Autoconf
++#   Macro released by the Autoconf Archive. When you make and distribute a
++#   modified version of the Autoconf Macro, you may extend this special
++#   exception to the GPL to apply to your modified version as well.
++
++#serial 11
++
++AC_DEFUN([AX_PREFIX_CONFIG_H],[dnl
++AC_PREREQ([2.62])
++AC_BEFORE([AC_CONFIG_HEADERS],[$0])dnl
++AC_CONFIG_COMMANDS([ifelse($1,,$PACKAGE-config.h,$1)],[dnl
++AS_VAR_PUSHDEF([_OUT],[ac_prefix_conf_OUT])dnl
++AS_VAR_PUSHDEF([_DEF],[ac_prefix_conf_DEF])dnl
++AS_VAR_PUSHDEF([_PKG],[ac_prefix_conf_PKG])dnl
++AS_VAR_PUSHDEF([_LOW],[ac_prefix_conf_LOW])dnl
++AS_VAR_PUSHDEF([_UPP],[ac_prefix_conf_UPP])dnl
++AS_VAR_PUSHDEF([_INP],[ac_prefix_conf_INP])dnl
++m4_pushdef([_script],[conftest.prefix])dnl
++m4_pushdef([_symbol],[m4_cr_Letters[]m4_cr_digits[]_])dnl
++_OUT=`echo ifelse($1, , $PACKAGE-config.h, $1)`
++_DEF=`echo _$_OUT | sed -e "y:m4_cr_letters:m4_cr_LETTERS[]:" -e "s/@<:@^m4_cr_Letters@:>@/_/g"`
++_PKG=`echo ifelse($2, , $PACKAGE, $2)`
++_LOW=`echo _$_PKG | sed -e "y:m4_cr_LETTERS-:m4_cr_letters[]_:"`
++_UPP=`echo $_PKG | sed -e "y:m4_cr_letters-:m4_cr_LETTERS[]_:"  -e "/^@<:@m4_cr_digits@:>@/s/^/_/"`
++_INP=`echo "ifelse($3,,,$3)" | sed -e 's/ *//'`
++if test ".$_INP" = "."; then
++   for ac_file in : $CONFIG_HEADERS; do test "_$ac_file" = _: && continue
++     case "$ac_file" in
++        *.h) _INP=$ac_file ;;
++        *)
++     esac
++     test ".$_INP" != "." && break
++   done
++fi
++if test ".$_INP" = "."; then
++   case "$_OUT" in
++      */*) _INP=`basename "$_OUT"`
++      ;;
++      *-*) _INP=`echo "$_OUT" | sed -e "s/@<:@_symbol@:>@*-//"`
++      ;;
++      *) _INP=config.h
++      ;;
++   esac
++fi
++if test -z "$_PKG" ; then
++   AC_MSG_ERROR([no prefix for _PREFIX_PKG_CONFIG_H])
++else
++  if test ! -f "$_INP" ; then if test -f "$srcdir/$_INP" ; then
++     _INP="$srcdir/$_INP"
++  fi fi
++  AC_MSG_NOTICE(creating $_OUT - prefix $_UPP for $_INP defines)
++  if test -f $_INP ; then
++    AS_ECHO(["s/^@%:@undef  *\\(@<:@m4_cr_LETTERS[]_@:>@\\)/@%:@undef $_UPP""_\\1/"]) > _script
++    AS_ECHO(["s/^@%:@undef  *\\(@<:@m4_cr_letters@:>@\\)/@%:@undef $_LOW""_\\1/"]) >> _script
++    AS_ECHO(["s/^@%:@def[]ine  *\\(@<:@m4_cr_LETTERS[]_@:>@@<:@_symbol@:>@*\\)\\(.*\\)/@%:@ifndef $_UPP""_\\1\\"]) >> _script
++    AS_ECHO(["@%:@def[]ine $_UPP""_\\1\\2\\"]) >> _script
++    AS_ECHO(["@%:@endif/"]) >> _script
++    AS_ECHO(["s/^@%:@def[]ine  *\\(@<:@m4_cr_letters@:>@@<:@_symbol@:>@*\\)\\(.*\\)/@%:@ifndef $_LOW""_\\1\\"]) >> _script
++    AS_ECHO(["@%:@define $_LOW""_\\1\\2\\"]) >> _script
++    AS_ECHO(["@%:@endif/"]) >> _script
++    # now executing _script on _DEF input to create _OUT output file
++    echo "@%:@ifndef $_DEF"      >$tmp/pconfig.h
++    echo "@%:@def[]ine $_DEF 1" >>$tmp/pconfig.h
++    echo ' ' >>$tmp/pconfig.h
++    echo /'*' $_OUT. Generated automatically at end of configure. '*'/ >>$tmp/pconfig.h
++
++    sed -f _script $_INP >>$tmp/pconfig.h
++    echo ' ' >>$tmp/pconfig.h
++    echo '/* once:' $_DEF '*/' >>$tmp/pconfig.h
++    echo "@%:@endif" >>$tmp/pconfig.h
++    if cmp -s $_OUT $tmp/pconfig.h 2>/dev/null; then
++      AC_MSG_NOTICE([$_OUT is unchanged])
++    else
++      ac_dir=`AS_DIRNAME(["$_OUT"])`
++      AS_MKDIR_P(["$ac_dir"])
++      rm -f "$_OUT"
++      mv $tmp/pconfig.h "$_OUT"
++    fi
++    cp _script _configs.sed
++  else
++    AC_MSG_ERROR([input file $_INP does not exist - skip generating $_OUT])
++  fi
++  rm -f conftest.*
++fi
++m4_popdef([_symbol])dnl
++m4_popdef([_script])dnl
++AS_VAR_POPDEF([_INP])dnl
++AS_VAR_POPDEF([_UPP])dnl
++AS_VAR_POPDEF([_LOW])dnl
++AS_VAR_POPDEF([_PKG])dnl
++AS_VAR_POPDEF([_DEF])dnl
++AS_VAR_POPDEF([_OUT])dnl
++],[PACKAGE="$PACKAGE"])])
+diff --git a/p4est-0.3.5/sc/config/ax_split_version.m4 b/p4est-0.3.5/sc/config/ax_split_version.m4
+new file mode 100644
+index 0000000..02737c3
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/ax_split_version.m4
+@@ -0,0 +1,38 @@
++# ===========================================================================
++#     http://www.gnu.org/software/autoconf-archive/ax_split_version.html
++# ===========================================================================
++#
++# SYNOPSIS
++#
++#   AX_SPLIT_VERSION
++#
++# DESCRIPTION
++#
++#   Splits a version number in the format MAJOR.MINOR.POINT into its
++#   separate components.
++#
++#   Sets the variables.
++#
++# LICENSE
++#
++#   Copyright (c) 2008 Tom Howard <tomhoward@users.sf.net>
++#
++#   Copying and distribution of this file, with or without modification, are
++#   permitted in any medium without royalty provided the copyright notice
++#   and this notice are preserved. This file is offered as-is, without any
++#   warranty.
++
++#serial 9
++
++AC_DEFUN([AX_SPLIT_VERSION],[
++    AC_REQUIRE([AC_PROG_SED])
++    AX_MAJOR_VERSION=`echo "$VERSION" | $SED 's/\([[^.]][[^.]]*\).*/\1/'`
++    AX_MINOR_VERSION=`echo "$VERSION" | $SED 's/[[^.]][[^.]]*.\([[^.]][[^.]]*\).*/\1/'`
++    AX_POINT_VERSION=`echo "$VERSION" | $SED 's/[[^.]][[^.]]*.[[^.]][[^.]]*.\(.*\)/\1/'`
++    AC_MSG_CHECKING([Major version])
++    AC_MSG_RESULT([$AX_MAJOR_VERSION])
++    AC_MSG_CHECKING([Minor version])
++    AC_MSG_RESULT([$AX_MINOR_VERSION])
++    AC_MSG_CHECKING([Point version])
++    AC_MSG_RESULT([$AX_POINT_VERSION])
++])
+diff --git a/p4est-0.3.5/sc/config/git-version-gen b/p4est-0.3.5/sc/config/git-version-gen
+new file mode 100755
+index 0000000..ac90270
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/git-version-gen
+@@ -0,0 +1,158 @@
++#!/bin/sh
++# Print a version string.
++scriptversion=2008-04-08.07
++
++# Copyright (C) 2007-2008 Free Software Foundation
++#
++# This program is free software; you can redistribute it and/or modify
++# it under the terms of the GNU General Public License as published by
++# the Free Software Foundation; either version 3, or (at your option)
++# any later version.
++#
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++#
++# You should have received a copy of the GNU General Public License
++# along with this program; if not, write to the Free Software
++# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
++# 02110-1301, USA.
++
++# This script is derived from GIT-VERSION-GEN from GIT: http://git.or.cz/.
++# It may be run two ways:
++# - from a git repository in which the "git describe" command below
++#   produces useful output (thus requiring at least one signed tag)
++# - from a non-git-repo directory containing a .tarball-version file, which
++#   presumes this script is invoked like "./git-version-gen .tarball-version".
++
++# In order to use intra-version strings in your project, you will need two
++# separate generated version string files:
++#
++# .tarball-version - present only in a distribution tarball, and not in
++#   a checked-out repository.  Created with contents that were learned at
++#   the last time autoconf was run, and used by git-version-gen.  Must not
++#   be present in either $(srcdir) or $(builddir) for git-version-gen to
++#   give accurate answers during normal development with a checked out tree,
++#   but must be present in a tarball when there is no version control system.
++#   Therefore, it cannot be used in any dependencies.  GNUmakefile has
++#   hooks to force a reconfigure at distribution time to get the value
++#   correct, without penalizing normal development with extra reconfigures.
++#
++# .version - present in a checked-out repository and in a distribution
++#   tarball.  Usable in dependencies, particularly for files that don't
++#   want to depend on config.h but do want to track version changes.
++#   Delete this file prior to any autoconf run where you want to rebuild
++#   files to pick up a version string change; and leave it stale to
++#   minimize rebuild time after unrelated changes to configure sources.
++#
++# It is probably wise to add these two files to .gitignore, so that you
++# don't accidentally commit either generated file.
++#
++# Use the following line in your configure.ac, so that $(VERSION) will
++# automatically be up-to-date each time configure is run (and note that
++# since configure.ac no longer includes a version string, Makefile rules
++# should not depend on configure.ac for version updates).
++#
++# AC_INIT([GNU project],
++#         m4_esyscmd([build-aux/git-version-gen .tarball-version]),
++#         [bug-project@example])
++#
++# Then use the following lines in your Makefile.am, so that .version
++# will be present for dependencies, and so that .tarball-version will
++# exist in distribution tarballs.
++#
++# BUILT_SOURCES = $(top_srcdir)/.version
++# $(top_srcdir)/.version:
++#	echo $(VERSION) > $@-t && mv $@-t $@
++# dist-hook:
++#	echo $(VERSION) > $(distdir)/.tarball-version
++
++case $# in
++  1) ;;
++  *) echo 1>&2 "Usage: $0 \$srcdir/.tarball-version"; exit 1;;
++esac
++
++srcdir=`dirname $1`
++tarball_version_file=`basename $1`
++nl='
++'
++
++# Change directory into the srcdir.  This should allow
++# for out of source make dist.
++cd $srcdir
++
++# First see if there is a tarball-only version file.
++# then try "git describe", then default.
++if test -f $tarball_version_file
++then
++  v=`cat $tarball_version_file` || exit 1
++  case $v in
++    *$nl*) v= ;; # reject multi-line output
++    [0-9]*) ;;
++    *) v= ;;
++  esac
++  test -z "$v" \
++  && echo "$0: WARNING: $tarball_version_file seems to be damaged" 1>&2
++fi
++
++
++if test -n "$v"
++then
++  : # use $v
++elif test -d .git \
++  && v=`git describe --abbrev=4 --match='v*' HEAD 2>/dev/null \
++  || git describe --abbrev=4 HEAD 2>/dev/null` \
++  && case $v in
++  v[0-9]*) ;;
++  *) (exit 1) ;;
++esac
++then
++  # Is this a new git that lists number of commits since the last
++  # tag or the previous older version that did not?
++  #   Newer: v6.10-77-g0f8faeb
++  #   Older: v6.10-g0f8faeb
++  case $v in
++    *-*-*) : git describe is okay three part flavor ;;
++    *-*)
++    : git describe is older two part flavor
++    # Recreate the number of commits and rewrite such that the
++    # result is the same as if we were using the newer version
++    # of git describe.
++    vtag=`echo "$v" | sed 's/-.*//'`
++    numcommits=`git rev-list "$vtag"..HEAD | wc -l`
++    v=`echo "$v" | sed "s/\(.*\)-\(.*\)/\1-$numcommits-\2/"`;
++    ;;
++  esac
++
++    # Change the first '-' to a '.', so version-comparing tools work properly.
++    # Remove the "g" in git describe's output string, to save a byte.
++    v=`echo "$v" | sed 's/-/./;s/\(.*\)-g/\1-/'`;
++else
++    v=UNKNOWN
++fi
++
++v=`echo "$v" |sed 's/^v//'`
++
++# Don't declare a version "dirty" merely because a time stamp has changed.
++git status > /dev/null 2>&1
++
++dirty=`sh -c 'git diff-index --name-only HEAD' 2>/dev/null` || dirty=
++case "$dirty" in
++  '') ;;
++  *) # Append the suffix only if there isn't one already.
++  case $v in
++    *-dirty) ;;
++    *) v="$v-dirty" ;;
++  esac ;;
++esac
++
++# Omit the trailing newline, so that m4_esyscmd can use the result directly.
++echo "$v" | tr -d '\012'
++
++# Local variables:
++# eval: (add-hook 'write-file-hooks 'time-stamp)
++# time-stamp-start: "scriptversion="
++# time-stamp-format: "%:y-%02m-%02d.%02H"
++# time-stamp-end: "$"
++# End:
+diff --git a/p4est-0.3.5/sc/config/git2cl b/p4est-0.3.5/sc/config/git2cl
+new file mode 100755
+index 0000000..aa1e8c1
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/git2cl
+@@ -0,0 +1,308 @@
++#!/usr/bin/perl
++
++# Copyright (C) 2007 Simon Josefsson.
++#
++# The functions mywrap, last_line_len, wrap_log_entry are derived from
++# the cvs2cl tool, see <http://www.red-bean.com/cvs2cl/>:
++# Copyright (C) 2001,2002,2003,2004 Martyn J. Pearce <fluffy@cpan.org>
++# Copyright (C) 1999 Karl Fogel <kfogel@red-bean.com>
++#
++# git2cl is free software; you can redistribute it and/or modify it
++# under the terms of the GNU General Public License as published by
++# the Free Software Foundation; either version 2, or (at your option)
++# any later version.
++#
++# git2cl is distributed in the hope that it will be useful, but
++# WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++# General Public License for more details.
++#
++# You should have received a copy of the GNU General Public License
++# along with git2cl; see the file COPYING.  If not, write to the Free
++# Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
++# 02111-1307, USA.
++
++use strict;
++use Date::Parse qw(strptime);
++use POSIX qw(strftime);
++use Text::Wrap qw(wrap);
++
++use constant EMPTY_LOG_MESSAGE => '*** empty log message ***';
++
++sub mywrap {
++    my ($indent1, $indent2, @text) = @_;
++    # If incoming text looks preformatted, don't get clever
++    my $text = Text::Wrap::wrap($indent1, $indent2, @text);
++    if ( grep /^\s+/m, @text ) {
++	return $text;
++    }
++    my @lines = split /\n/, $text;
++    $indent2 =~ s!^((?: {8})+)!"\t" x (length($1)/8)!e;
++    $lines[0] =~ s/^$indent1\s+/$indent1/;
++    s/^$indent2\s+/$indent2/
++	for @lines[1..$#lines];
++    my $newtext = join "\n", @lines;
++    $newtext .= "\n"
++	if substr($text, -1) eq "\n";
++    return $newtext;
++}
++
++sub last_line_len {
++    my $files_list = shift;
++    my @lines = split (/\n/, $files_list);
++    my $last_line = pop (@lines);
++    return length ($last_line);
++}
++
++# A custom wrap function, sensitive to some common constructs used in
++# log entries.
++sub wrap_log_entry {
++    my $text = shift;                  # The text to wrap.
++    my $left_pad_str = shift;          # String to pad with on the left.
++
++    # These do NOT take left_pad_str into account:
++    my $length_remaining = shift;      # Amount left on current line.
++    my $max_line_length  = shift;      # Amount left for a blank line.
++
++    my $wrapped_text = '';             # The accumulating wrapped entry.
++    my $user_indent = '';              # Inherited user_indent from prev line.
++
++    my $first_time = 1;                # First iteration of the loop?
++    my $suppress_line_start_match = 0; # Set to disable line start checks.
++
++    my @lines = split (/\n/, $text);
++    while (@lines)   # Don't use `foreach' here, it won't work.
++    {
++	my $this_line = shift (@lines);
++	chomp $this_line;
++
++	if ($this_line =~ /^(\s+)/) {
++	    $user_indent = $1;
++	}
++	else {
++	    $user_indent = '';
++	}
++
++	# If it matches any of the line-start regexps, print a newline now...
++	if ($suppress_line_start_match)
++	{
++	    $suppress_line_start_match = 0;
++	}
++	elsif (($this_line =~ /^(\s*)\*\s+[a-zA-Z0-9]/)
++	       || ($this_line =~ /^(\s*)\* [a-zA-Z0-9_\.\/\+-]+/)
++	       || ($this_line =~ /^(\s*)\([a-zA-Z0-9_\.\/\+-]+(\)|,\s*)/)
++	       || ($this_line =~ /^(\s+)(\S+)/)
++	       || ($this_line =~ /^(\s*)- +/)
++	       || ($this_line =~ /^()\s*$/)
++	       || ($this_line =~ /^(\s*)\*\) +/)
++	       || ($this_line =~ /^(\s*)[a-zA-Z0-9](\)|\.|\:) +/))
++	{
++	    $length_remaining = $max_line_length - (length ($user_indent));
++	}
++
++	# Now that any user_indent has been preserved, strip off leading
++	# whitespace, so up-folding has no ugly side-effects.
++	$this_line =~ s/^\s*//;
++
++	# Accumulate the line, and adjust parameters for next line.
++	my $this_len = length ($this_line);
++	if ($this_len == 0)
++	{
++	    # Blank lines should cancel any user_indent level.
++	    $user_indent = '';
++	    $length_remaining = $max_line_length;
++	}
++	elsif ($this_len >= $length_remaining) # Line too long, try breaking it.
++	{
++	    # Walk backwards from the end.  At first acceptable spot, break
++	    # a new line.
++	    my $idx = $length_remaining - 1;
++	    if ($idx < 0) { $idx = 0 };
++	    while ($idx > 0)
++	    {
++		if (substr ($this_line, $idx, 1) =~ /\s/)
++		{
++		    my $line_now = substr ($this_line, 0, $idx);
++		    my $next_line = substr ($this_line, $idx);
++		    $this_line = $line_now;
++
++		    # Clean whitespace off the end.
++		    chomp $this_line;
++
++		    # The current line is ready to be printed.
++		    $this_line .= "\n${left_pad_str}";
++
++		    # Make sure the next line is allowed full room.
++		    $length_remaining = $max_line_length - (length ($user_indent));
++
++		    # Strip next_line, but then preserve any user_indent.
++		    $next_line =~ s/^\s*//;
++
++		    # Sneak a peek at the user_indent of the upcoming line, so
++		    # $next_line (which will now precede it) can inherit that
++		    # indent level.  Otherwise, use whatever user_indent level
++		    # we currently have, which might be none.
++		    my $next_next_line = shift (@lines);
++		    if ((defined ($next_next_line)) && ($next_next_line =~ /^(\s+)/)) {
++			$next_line = $1 . $next_line if (defined ($1));
++			# $length_remaining = $max_line_length - (length ($1));
++			$next_next_line =~ s/^\s*//;
++		    }
++		    else {
++			$next_line = $user_indent . $next_line;
++		    }
++		    if (defined ($next_next_line)) {
++			unshift (@lines, $next_next_line);
++		    }
++		    unshift (@lines, $next_line);
++
++		    # Our new next line might, coincidentally, begin with one of
++		    # the line-start regexps, so we temporarily turn off
++		    # sensitivity to that until we're past the line.
++		    $suppress_line_start_match = 1;
++
++		    last;
++		}
++		else
++		{
++		    $idx--;
++		}
++	    }
++
++	    if ($idx == 0)
++	    {
++		# We bottomed out because the line is longer than the
++		# available space.  But that could be because the space is
++		# small, or because the line is longer than even the maximum
++		# possible space.  Handle both cases below.
++
++		if ($length_remaining == ($max_line_length - (length ($user_indent))))
++		{
++		    # The line is simply too long -- there is no hope of ever
++		    # breaking it nicely, so just insert it verbatim, with
++		    # appropriate padding.
++		    $this_line = "\n${left_pad_str}${this_line}";
++		}
++		else
++		{
++		    # Can't break it here, but may be able to on the next round...
++		    unshift (@lines, $this_line);
++		    $length_remaining = $max_line_length - (length ($user_indent));
++		    $this_line = "\n${left_pad_str}";
++		}
++	    }
++	}
++	else  # $this_len < $length_remaining, so tack on what we can.
++	{
++	    # Leave a note for the next iteration.
++	    $length_remaining = $length_remaining - $this_len;
++
++	    if ($this_line =~ /\.$/)
++	    {
++		$this_line .= "  ";
++		$length_remaining -= 2;
++	    }
++	    else  # not a sentence end
++	    {
++		$this_line .= " ";
++		$length_remaining -= 1;
++	    }
++	}
++
++	# Unconditionally indicate that loop has run at least once.
++	$first_time = 0;
++
++	$wrapped_text .= "${user_indent}${this_line}";
++    }
++
++    # One last bit of padding.
++    $wrapped_text .= "\n";
++
++    return $wrapped_text;
++}
++
++# main
++
++my @date;
++my $author;
++my @files;
++my $comment;
++my $merge;
++
++my $state; # 0-header 1-comment 2-files
++my $done = 0;
++
++$state = 0;
++
++while (<>) {
++    #print STDERR "debug ($state, " . (@date ? (strftime "%Y-%m-%d", @date) : "") . "): `$_'\n";
++
++    if ($state == 0) {
++	if (m,^Author: (.*),) {
++	    $author = $1;
++	}
++	if (m,^Date: (.*),) {
++	    @date = strptime($1);
++	}
++	if (m,^Merge: (.*),) {
++	    $merge = 1;
++	}
++	$state = 1 if (m,^$,);
++    } elsif ($state == 1) {
++	$state = 2 if (m,^$,);
++	s/^    //g;
++	s/\n/ /g;
++	$comment = $comment . $_;
++    } elsif ($state == 2 && $merge) {
++	$done = 1;
++    } elsif ($state == 2) {
++	if (m,^([-0-9]+)\t([-0-9]+)\t(.*)$,) {
++	    push @files, $3;
++	} elsif (m,^[^ ],) {
++	    # No file changes.
++	    $done = 1;
++	}
++	$done = 1 if (m,^$,);
++    }
++
++    if ($done && @date == ()) {
++	print STDERR "warning: could not parse entry\n";
++    } elsif ($done) {
++	print (strftime "%Y-%m-%d  $author\n\n", @date);
++
++	my $files = join (", ", @files);
++	$files = mywrap ("\t", "\t", "* $files"), ": ";
++
++	if (index($comment, EMPTY_LOG_MESSAGE) > -1 ) {
++	    $comment = "[no log message]\n";
++	}
++
++	my $files_last_line_len = 0;
++	$files_last_line_len = last_line_len($files) + 1;
++	my $msg = wrap_log_entry($comment, "\t", 69-$files_last_line_len, 69);
++
++	$msg =~ s/[ \t]+\n/\n/g;
++
++	if ($merge) {
++	    print "\t$msg\n";
++	} else {
++	    print "$files: $msg\n";
++	}
++
++	@date = ();
++	$author = "";
++	@files = ();
++	$comment = "";
++	$merge = 0;
++
++	$state = 0;
++	$done = 0;
++    }
++}
++
++if (@files) {
++    print (strftime "%Y-%m-%d  $author\n\n", @date);
++    my $msg = wrap_log_entry($comment, "\t", 69, 69);
++    $msg =~ s/[ \t]+\n/\n/g;
++    print "\t* $msg\n";
++}
+diff --git a/p4est-0.3.5/sc/config/lualist b/p4est-0.3.5/sc/config/lualist
+new file mode 100755
+index 0000000..a9c357f
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/lualist
+@@ -0,0 +1,7 @@
++#! /bin/sh
++
++find lua -wholename 'lua/src/*.c' | sort
++echo
++find lua -wholename 'lua/src/*.h' | sort
++echo
++find lua | grep -vE '^lua/src/.*(\.c|\.h)$' | sort
+diff --git a/p4est-0.3.5/sc/config/sc_blas.m4 b/p4est-0.3.5/sc/config/sc_blas.m4
+new file mode 100644
+index 0000000..b9e48c5
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_blas.m4
+@@ -0,0 +1,255 @@
++dnl This is a modified version of the Teuchos config dir from Trilinos
++dnl with the following license.
++dnl
++dnl ***********************************************************************
++dnl
++dnl                    Teuchos: Common Tools Package
++dnl                 Copyright (2004) Sandia Corporation
++dnl
++dnl Under terms of Contract DE-AC04-94AL85000, there is a non-exclusive
++dnl license for use of this work by or on behalf of the U.S. Government.
++dnl
++dnl This library is free software; you can redistribute it and/or modify
++dnl it under the terms of the GNU Lesser General Public License as
++dnl published by the Free Software Foundation; either version 2.1 of the
++dnl License, or (at your option) any later version.
++dnl
++dnl This library is distributed in the hope that it will be useful, but
++dnl WITHOUT ANY WARRANTY; without even the implied warranty of
++dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++dnl Lesser General Public License for more details.
++dnl
++dnl You should have received a copy of the GNU Lesser General Public
++dnl License along with this library; if not, write to the Free Software
++dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
++dnl USA
++dnl Questions? Contact Michael A. Heroux (maherou@sandia.gov)
++dnl
++dnl ***********************************************************************
++dnl
++dnl @synopsis SC_BLAS(PREFIX, DGEMM-FUNCTION,
++dnl                   [ACTION-IF-FOUND[, ACTION-IF-NOT-FOUND]])
++dnl
++dnl This macro looks for a library that implements the BLAS
++dnl linear-algebra interface (see http://www.netlib.org/blas/).
++dnl On success, it sets the BLAS_LIBS output variable to
++dnl hold the requisite library linkages.
++dnl
++dnl To link with BLAS, you should link with:
++dnl
++dnl 	$BLAS_LIBS $LIBS $FLIBS
++dnl
++dnl in that order.  FLIBS is the output variable of the
++dnl AC_F77_LIBRARY_LDFLAGS macro (called if necessary by SC_BLAS),
++dnl and is sometimes necessary in order to link with F77 libraries.
++dnl Users will also need to use AC_F77_DUMMY_MAIN (see the autoconf
++dnl manual), for the same reason.
++dnl
++dnl Many libraries are searched for, from ATLAS to CXML to ESSL.
++dnl The user may also use --with-blas=<lib> in order to use some
++dnl specific BLAS library <lib>.  In order to link successfully,
++dnl however, be aware that you will probably need to use the same
++dnl Fortran compiler (which can be set via the F77 env. var.) as
++dnl was used to compile the BLAS library.
++dnl
++dnl ACTION-IF-FOUND is a list of shell commands to run if a BLAS
++dnl library is found, and ACTION-IF-NOT-FOUND is a list of commands
++dnl to run it if it is not found.  If ACTION-IF-FOUND is not specified,
++dnl the default action will define HAVE_BLAS.
++dnl
++dnl This macro requires autoconf 2.50 or later.
++dnl
++dnl @version $Id: acx_blas.m4,v 1.3 2006/04/21 02:29:27 jmwille Exp $
++dnl @author Steven G. Johnson <stevenj@alum.mit.edu>
++dnl
++dnl Edited by Jim Willenbring on 5-14-2004 to check for dgemm instead of
++dnl sgemm.
++dnl Edited by Jim Willenbring on 4-17-2006 to stop looking for BLAS if
++dnl a specific BLAS library specified by a user cannot be used.
++
++dnl Edited by Carsten Burstedde <carsten@ices.utexas.edu>
++dnl Expect the F77_ autoconf macros to be called outside of this file.
++dnl Take as argument a mangled DGEMM function to check for.
++dnl This way the SC_BLAS macro can be called multiple times
++dnl with different Fortran environments to minimize F77 dependencies.
++dnl Replaced obsolete AC_TRY_LINK_FUNC macro.
++dnl Disabled the PhiPack test since it requires BLAS_LIBS anyway.
++dnl Fixed buggy generic Mac OS X library test.
++
++dnl The first argument of this macro should be the package prefix.
++dnl The second argument of this macro should be a mangled DGEMM function.
++AC_DEFUN([SC_BLAS], [
++AC_PREREQ(2.50)
++dnl Expect this to be called already.
++dnl AC_REQUIRE([AC_F77_LIBRARY_LDFLAGS])
++dnl AC_REQUIRE([AC_F77_WRAPPERS])
++sc_blas_ok=no
++user_spec_blas_failed=no
++
++AC_ARG_WITH([blas], [AS_HELP_STRING([--with-blas=<lib>],
++            [change default BLAS library to <lib>
++             or specify --without-blas to use no BLAS and LAPACK at all])],,
++	     [withval="yes"])
++SC_ARG_OVERRIDE_WITH([$1], [BLAS])
++case $withval in
++	yes | "") ;;
++	no) sc_blas_ok=disable ;;
++	-* | */* | *.a | *.so | *.so.* | *.o) BLAS_LIBS="$withval" ;;
++	*) BLAS_LIBS="-l$withval" ;;
++esac
++
++dnl Expect the mangled DGEMM function name to be in $2.
++sc_blas_func="$2"
++
++sc_blas_save_LIBS="$LIBS"
++LIBS="$LIBS $FLIBS"
++
++# First, check BLAS_LIBS environment variable
++if test "$sc_blas_ok" = no; then
++if test "x$BLAS_LIBS" != x; then
++	save_LIBS="$LIBS"; LIBS="$BLAS_LIBS $LIBS"
++	AC_MSG_CHECKING([for $sc_blas_func in $BLAS_LIBS])
++	AC_LINK_IFELSE([AC_LANG_CALL([], [$sc_blas_func])],
++                       [sc_blas_ok=yes], [user_spec_blas_failed=yes])
++	AC_MSG_RESULT($sc_blas_ok)
++	LIBS="$save_LIBS"
++fi
++fi
++
++# If the user specified a blas library that could not be used we will
++# halt the search process rather than risk finding a blas library that
++# the user did not specify.
++
++if test "x$user_spec_blas_failed" != xyes; then
++
++# BLAS linked to by default?  (happens on some supercomputers)
++if test $sc_blas_ok = no; then
++	AC_CHECK_FUNC($sc_blas_func, [sc_blas_ok=yes])
++fi
++
++# BLAS in ATLAS library? (http://math-atlas.sourceforge.net/)
++if test $sc_blas_ok = no; then
++	AC_CHECK_LIB(atlas, ATL_xerbla,
++		[AC_CHECK_LIB(f77blas, $sc_blas_func,
++		[AC_CHECK_LIB(cblas, cblas_dgemm,
++			[sc_blas_ok=yes
++			 BLAS_LIBS="-lcblas -lf77blas -latlas"],
++			[], [-lf77blas -latlas])],
++			[], [-latlas])])
++fi
++
++# BLAS in PhiPACK libraries? (requires generic BLAS lib, too)
++# Disabled since we might want more than sgemm and dgemm.
++if test $sc_blas_ok = no -a -z 1 ; then
++	AC_CHECK_LIB(blas, $dgemm,
++		[AC_CHECK_LIB(dgemm, $dgemm,
++		[AC_CHECK_LIB(sgemm, $sgemm,
++			[sc_blas_ok=yes; BLAS_LIBS="-lsgemm -ldgemm -lblas"],
++			[], [-lblas])],
++			[], [-lblas])])
++fi
++
++# BLAS in Intel MKL library?
++if test $sc_blas_ok = no; then
++	AC_CHECK_LIB(mkl, $sc_blas_func, [sc_blas_ok=yes;BLAS_LIBS="-lmkl"])
++fi
++
++# BLAS in Apple vecLib library?
++if test $sc_blas_ok = no; then
++	save_LIBS="$LIBS"; LIBS="-framework vecLib $LIBS"
++	AC_CHECK_FUNC($sc_blas_func, [sc_blas_ok=yes;BLAS_LIBS="-framework vecLib"])
++	LIBS="$save_LIBS"
++fi
++
++# BLAS in Alpha CXML library?
++if test $sc_blas_ok = no; then
++	AC_CHECK_LIB(cxml, $sc_blas_func, [sc_blas_ok=yes;BLAS_LIBS="-lcxml"])
++fi
++
++# BLAS in Alpha DXML library? (now called CXML, see above)
++if test $sc_blas_ok = no; then
++	AC_CHECK_LIB(dxml, $sc_blas_func, [sc_blas_ok=yes;BLAS_LIBS="-ldxml"])
++fi
++
++# BLAS in Sun Performance library?
++if test $sc_blas_ok = no; then
++	if test "x$GCC" != xyes; then # only works with Sun CC
++		AC_CHECK_LIB(sunmath, acosp,
++			[AC_CHECK_LIB(sunperf, $sc_blas_func,
++                                [BLAS_LIBS="-xlic_lib=sunperf -lsunmath"
++                                 sc_blas_ok=yes],[],[-lsunmath])])
++	fi
++fi
++
++# BLAS in SCSL library?  (SGI/Cray Scientific Library)
++if test $sc_blas_ok = no; then
++	AC_CHECK_LIB(scs, $sc_blas_func, [sc_blas_ok=yes; BLAS_LIBS="-lscs"])
++fi
++
++# BLAS in SGIMATH library?
++if test $sc_blas_ok = no; then
++	AC_CHECK_LIB(complib.sgimath, $sc_blas_func,
++		     [sc_blas_ok=yes; BLAS_LIBS="-lcomplib.sgimath"])
++fi
++
++# BLAS in IBM ESSL library? (requires generic BLAS lib, too)
++if test $sc_blas_ok = no; then
++	AC_CHECK_LIB(blas, $sc_blas_func,
++		[AC_CHECK_LIB(essl, $sc_blas_func,
++			[sc_blas_ok=yes; BLAS_LIBS="-lessl -lblas"],
++			[], [-lblas $FLIBS])])
++fi
++
++# Generic Mac OS X library?
++if test $sc_blas_ok = no; then
++	save_LIBS="$LIBS"; LIBS="-framework Accelerate $LIBS"
++	AC_CHECK_FUNC($sc_blas_func, [sc_blas_ok=yes
++                               BLAS_LIBS="-framework Accelerate"])
++	LIBS="$save_LIBS"
++fi
++
++# Generic BLAS library?
++if test $sc_blas_ok = no; then
++	AC_CHECK_LIB(blas, $sc_blas_func, [sc_blas_ok=yes; BLAS_LIBS="-lblas"])
++fi
++
++AC_SUBST(BLAS_LIBS)
++
++fi # If the user specified library wasn't found, we skipped the remaining
++   # checks.
++
++LIBS="$sc_blas_save_LIBS"
++
++# Test link and run a BLAS program
++if test "$sc_blas_ok" = yes ; then
++        sc_blas_save_run_LIBS="$LIBS"
++        LIBS="$BLAS_LIBS $LIBS $FLIBS"
++        AC_MSG_CHECKING([for BLAS by linking a C program])
++        AC_LINK_IFELSE([AC_LANG_PROGRAM(dnl
++[[#ifdef __cplusplus
++extern "C"
++void $sc_blas_func (char *, char *, int *, int *, int *, double *, double *,
++                    int *, double *, int *, double *, double *, int *);
++#endif
++]],[[
++int     i = 1;
++double  alpha = 1., beta = 1.;
++double  A = 1., B = 1., C = 1.;
++$sc_blas_func ("N", "N", &i, &i, &i, &alpha, &A, &i, &B, &i, &beta, &C, &i);
++]])],
++[AC_MSG_RESULT([successful])],
++[AC_MSG_RESULT([failed]); sc_blas_ok=no])
++        LIBS="$sc_blas_save_run_LIBS"
++fi
++
++# Finally, execute ACTION-IF-FOUND/ACTION-IF-NOT-FOUND:
++if test "$sc_blas_ok" = yes ; then
++        ifelse([$3],,
++               [AC_DEFINE(HAVE_BLAS,1,[Define if you have a BLAS library.])],[$3])
++        :
++elif test "$sc_blas_ok" != disable ; then
++        sc_blas_ok=no
++        $4
++fi
++
++])
+diff --git a/p4est-0.3.5/sc/config/sc_builtin.m4 b/p4est-0.3.5/sc/config/sc_builtin.m4
+new file mode 100644
+index 0000000..a6afbda
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_builtin.m4
+@@ -0,0 +1,160 @@
++
++dnl sc_builtin.m4 - custom macros for distributing third-party software
++dnl
++dnl This file is part of the SC Library.
++dnl The SC library provides support for parallel scientific applications.
++dnl
++dnl Copyright (C) 2008,2009 Carsten Burstedde, Lucas Wilcox.
++
++dnl Documentation for macro names: brackets indicate optional arguments
++
++dnl SC_ARG_WITH_BUILTIN_PREFIX(NAME, TOKEN, PREFIX)
++dnl Check for --without-NAME using shell variable PREFIX_WITH_TOKEN
++dnl Only allowed values are yes or no, default is yes
++dnl
++AC_DEFUN([SC_ARG_WITH_BUILTIN_PREFIX],
++[
++AC_ARG_WITH([$1],
++            [AS_HELP_STRING([--without-$1], [assume external $1 code is found])
++AS_HELP_STRING(, [(default: check and use builtin if necessary)])],,
++            [withval=yes])
++SC_ARG_OVERRIDE_WITH([$3], [$2])
++if test "$withval" != "yes" -a "$withval" != "no" ; then
++  AC_MSG_ERROR([Please use --without-$1 without an argument])
++fi
++])
++AC_DEFUN([SC_ARG_WITH_BUILTIN],
++         [SC_ARG_WITH_BUILTIN_PREFIX([$1], [$2], [SC])])
++
++dnl SC_ARG_WITH_BUILTIN_ALL_PREFIX(PREFIX)
++dnl Aggregate all libsc builtin option queries for convenience.
++dnl
++AC_DEFUN([SC_ARG_WITH_BUILTIN_ALL_PREFIX],
++[
++SC_ARG_WITH_BUILTIN_PREFIX([getopt], [GETOPT], [$1])
++SC_ARG_WITH_BUILTIN_PREFIX([obstack], [OBSTACK], [$1])
++SC_ARG_WITH_BUILTIN_PREFIX([zlib], [ZLIB], [$1])
++SC_ARG_WITH_BUILTIN_PREFIX([lua], [LUA], [$1])
++])
++AC_DEFUN([SC_ARG_WITH_BUILTIN_ALL], [SC_ARG_WITH_BUILTIN_ALL_PREFIX([SC])])
++
++dnl SC_BUILTIN_GETOPT_PREFIX(PREFIX)
++dnl This function only activates if PREFIX_WITH_GETOPT is "yes".
++dnl This function checks if getopt_long can be compiled.
++dnl The shell variable PREFIX_PROVIDE_GETOPT is set to "yes" or "no".
++dnl Both a define and automake conditional are set.
++dnl
++AC_DEFUN([SC_BUILTIN_GETOPT_PREFIX],
++[
++$1_PROVIDE_GETOPT="no"
++if test "$$1_WITH_GETOPT" = "yes" ; then
++  AC_MSG_CHECKING([for getopt])
++  AC_LINK_IFELSE([AC_LANG_PROGRAM(
++[[#include <getopt.h>]], [[
++int oi;
++struct option lo;
++getopt_long (0, 0, "abc:", &lo, &oi);
++]])], [AC_MSG_RESULT([successful])], [
++    AC_MSG_RESULT([failed])
++    AC_MSG_NOTICE([did not find getopt. Activating builtin])
++    $1_PROVIDE_GETOPT="yes"
++    AC_DEFINE([PROVIDE_GETOPT], 1, [Use builtin getopt])
++  ])
++fi
++AM_CONDITIONAL([$1_PROVIDE_GETOPT], [test "$$1_PROVIDE_GETOPT" = "yes"])
++])
++AC_DEFUN([SC_BUILTIN_GETOPT], [SC_BUILTIN_GETOPT_PREFIX([SC])])
++
++dnl SC_BUILTIN_OBSTACK_PREFIX(PREFIX)
++dnl This function only activates if PREFIX_WITH_OBSTACK is "yes".
++dnl This function checks if a simple obstack program can be compiled.
++dnl The shell variable PREFIX_PROVIDE_OBSTACK is set to "yes" or "no".
++dnl Both a define and automake conditional are set.
++dnl
++AC_DEFUN([SC_BUILTIN_OBSTACK_PREFIX],
++[
++$1_PROVIDE_OBSTACK="no"
++if test "$$1_WITH_OBSTACK" = "yes" ; then
++  AC_MSG_CHECKING([for obstack])
++  AC_LINK_IFELSE([AC_LANG_PROGRAM(
++[[#include <obstack.h>]], [[
++struct obstack ob;
++static void        *(*obstack_chunk_alloc) (size_t) = 0;
++static void         (*obstack_chunk_free) (void *) = 0;
++obstack_init (&ob);
++obstack_free (&ob, 0);
++]])], [AC_MSG_RESULT([successful])], [
++    AC_MSG_RESULT([failed])
++    AC_MSG_NOTICE([did not find obstack. Activating builtin])
++    $1_PROVIDE_OBSTACK="yes"
++    AC_DEFINE([PROVIDE_OBSTACK], 1, [Use builtin obstack])
++  ])
++fi
++AM_CONDITIONAL([$1_PROVIDE_OBSTACK], [test "$$1_PROVIDE_OBSTACK" = "yes"])
++])
++AC_DEFUN([SC_BUILTIN_OBSTACK], [SC_BUILTIN_OBSTACK_PREFIX([SC])])
++
++dnl SC_BUILTIN_ZLIB_PREFIX(PREFIX)
++dnl This function only activates if PREFIX_WITH_ZLIB is "yes".
++dnl This function checks if adler32_combine can be linked against.
++dnl The shell variable PREFIX_PROVIDE_ZLIB is set to "yes" or "no".
++dnl Both a define and automake conditional are set.
++dnl
++AC_DEFUN([SC_BUILTIN_ZLIB_PREFIX],
++[
++$1_PROVIDE_ZLIB="no"
++if test "$$1_WITH_ZLIB" = "yes" ; then
++  AC_MSG_NOTICE([Using builtin zlib 1.2.4 until that version is commonplace])
++  $1_PROVIDE_ZLIB="yes"
++  AC_DEFINE([PROVIDE_ZLIB], 1, [Use builtin zlib])
++  dnl AC_SEARCH_LIBS([adler32_combine], [z],, [
++  dnl   AC_MSG_NOTICE([did not find a recent zlib. Activating builtin])
++  dnl   $1_PROVIDE_ZLIB="yes"
++  dnl   AC_DEFINE([PROVIDE_ZLIB], 1, [Use builtin zlib])
++  dnl ])
++fi
++AM_CONDITIONAL([$1_PROVIDE_ZLIB], [test "$$1_PROVIDE_ZLIB" = "yes"])
++])
++AC_DEFUN([SC_BUILTIN_ZLIB], [SC_BUILTIN_ZLIB_PREFIX([SC])])
++
++dnl SC_BUILTIN_LUA_PREFIX(PREFIX)
++dnl This function only activates if PREFIX_WITH_LUA is "yes".
++dnl This function checks if lua_createtable can be linked against.
++dnl The shell variable PREFIX_PROVIDE_LUA is set to "yes" or "no".
++dnl Both a define and automake conditional are set.
++dnl Must not be called conditionally since it uses AM_CONDITIONAL.
++dnl
++AC_DEFUN([SC_BUILTIN_LUA_PREFIX],
++[
++$1_PROVIDE_LUA="no"
++if test "$$1_WITH_LUA" = "yes" ; then
++  AC_CHECK_HEADERS([lua.h lua5.1/lua.h], [break])
++  AC_SEARCH_LIBS([lua_createtable], [lua lua5 lua51 lua5.1],, [
++    AC_MSG_NOTICE([did not find a recent lua. Activating builtin])
++    $1_PROVIDE_LUA="yes"
++    AC_DEFINE([PROVIDE_LUA], 1, [Use builtin lua])
++  ])
++fi
++AM_CONDITIONAL([$1_PROVIDE_LUA], [test "$$1_PROVIDE_LUA" = "yes"])
++])
++AC_DEFUN([SC_BUILTIN_LUA], [SC_BUILTIN_LUA_PREFIX([SC])])
++
++dnl SC_BUILTIN_ALL_PREFIX(PREFIX, CONDITION)
++dnl Aggregate all checks from this file for convenience.
++dnl If CONDITION is false, the PREFIX_WITH_* variables are set to "no".
++dnl Must not be called conditionally since it uses AM_CONDITIONAL.
++dnl
++AC_DEFUN([SC_BUILTIN_ALL_PREFIX],
++[
++if !($2) ; then
++  $1_WITH_GETOPT=no
++  $1_WITH_OBSTACK=no
++  $1_WITH_ZLIB=no
++  $1_WITH_LUA=no
++fi
++SC_BUILTIN_GETOPT_PREFIX([$1])
++SC_BUILTIN_OBSTACK_PREFIX([$1])
++SC_BUILTIN_ZLIB_PREFIX([$1])
++SC_BUILTIN_LUA_PREFIX([$1])
++])
++AC_DEFUN([SC_BUILTIN_ALL], [SC_BUILTIN_ALL_PREFIX([SC], [$1])])
+diff --git a/p4est-0.3.5/sc/config/sc_c_check_flag.m4 b/p4est-0.3.5/sc/config/sc_c_check_flag.m4
+new file mode 100644
+index 0000000..783cd72
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_c_check_flag.m4
+@@ -0,0 +1,90 @@
++# ===========================================================================
++#            http://autoconf-archive.cryp.to/ax_c_check_flag.html
++# and renamed by Carsten Burstedde <carsten@ices.utexas.edu>
++# ===========================================================================
++#
++# SYNOPSIS
++#
++#   SC_C_CHECK_FLAG(FLAG-TO-CHECK,
++#                   [PROLOGUE],[BODY],[ACTION-IF-SUCCESS],[ACTION-IF-FAILURE])
++#
++# DESCRIPTION
++#
++#   This macro tests if the C compiler supports the flag FLAG-TO-CHECK. If
++#   successfull execute ACTION-IF-SUCCESS otherwise ACTION-IF-FAILURE.
++#   PROLOGUE and BODY are optional and should be used as in AC_LANG_PROGRAM
++#   macro.
++#
++#   This code is inspired from KDE_CHECK_COMPILER_FLAG macro. Thanks to
++#   Bogdan Drozdowski <bogdandr@op.pl> for testing and bug fixes.
++#
++# LAST MODIFICATION
++#
++#   2009-02-09
++#
++# COPYLEFT
++#
++#   Copyright (c) 2008 Francesco Salvestrini <salvestrini@users.sourceforge.net>
++#
++#   This program is free software; you can redistribute it and/or modify it
++#   under the terms of the GNU General Public License as published by the
++#   Free Software Foundation; either version 2 of the License, or (at your
++#   option) any later version.
++#
++#   This program is distributed in the hope that it will be useful, but
++#   WITHOUT ANY WARRANTY; without even the implied warranty of
++#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
++#   Public License for more details.
++#
++#   You should have received a copy of the GNU General Public License along
++#   with this program. If not, see <http://www.gnu.org/licenses/>.
++#
++#   As a special exception, the respective Autoconf Macro's copyright owner
++#   gives unlimited permission to copy, distribute and modify the configure
++#   scripts that are the output of Autoconf when processing the Macro. You
++#   need not follow the terms of the GNU General Public License when using
++#   or distributing such scripts, even though portions of the text of the
++#   Macro appear in them. The GNU General Public License (GPL) does govern
++#   all other use of the material that constitutes the Autoconf Macro.
++#
++#   This special exception to the GPL applies to versions of the Autoconf
++#   Macro released by the Autoconf Macro Archive. When you make and
++#   distribute a modified version of the Autoconf Macro, you may extend this
++#   special exception to the GPL to apply to your modified version as well.
++
++AC_DEFUN([SC_C_CHECK_FLAG],[
++  AC_PREREQ([2.61])
++  AC_REQUIRE([AC_PROG_CC])
++  AC_REQUIRE([AC_PROG_SED])
++
++  flag=`echo "$1" | $SED 'y% .=/+-(){}<>:*,%_______________%'`
++
++  AC_CACHE_CHECK([whether the C compiler accepts the $1 flag],
++    [sc_cv_c_check_flag_$flag],[
++
++    AC_LANG_PUSH([C])
++
++    save_CFLAGS="$CFLAGS"
++    CFLAGS="$CFLAGS $1"
++    AC_COMPILE_IFELSE([
++      AC_LANG_PROGRAM([$2],[$3])
++    ],[
++      eval "sc_cv_c_check_flag_$flag=yes"
++    ],[
++      eval "sc_cv_c_check_flag_$flag=no"
++    ])
++
++    CFLAGS="$save_CFLAGS"
++
++    AC_LANG_POP
++
++  ])
++
++  AS_IF([eval "test \"`echo '$sc_cv_c_check_flag_'$flag`\" = yes"],[
++    :
++    $4
++  ],[
++    :
++    $5
++  ])
++])
+diff --git a/p4est-0.3.5/sc/config/sc_c_version.m4 b/p4est-0.3.5/sc/config/sc_c_version.m4
+new file mode 100644
+index 0000000..663ac4f
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_c_version.m4
+@@ -0,0 +1,89 @@
++# ===========================================================================
++#            From: http://autoconf-archive.cryp.to/ax_gcc_version.html
++# and renamed by Carsten Burstedde <carsten@ices.utexas.edu>
++# ===========================================================================
++#
++# SYNOPSIS
++#
++#   SC_C_VERSION  (Extension of AX_GCC_VERSION to more C compilers)
++#
++# DESCRIPTION
++#
++#   This macro retrieves the cc version and returns it in the C_VERSION
++#   variable if available, an empty string otherwise.
++#
++# LAST MODIFICATION
++#
++#   2009-02-09
++#
++# COPYLEFT
++#
++#   Copyright (c) 2008 Lucas Wilcox <lucasw@ices.utexas.edu>
++#   Copyright (c) 2008 Francesco Salvestrini <salvestrini@users.sourceforge.net>
++#
++#   This program is free software; you can redistribute it and/or modify it
++#   under the terms of the GNU General Public License as published by the
++#   Free Software Foundation; either version 2 of the License, or (at your
++#   option) any later version.
++#
++#   This program is distributed in the hope that it will be useful, but
++#   WITHOUT ANY WARRANTY; without even the implied warranty of
++#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
++#   Public License for more details.
++#
++#   You should have received a copy of the GNU General Public License along
++#   with this program. If not, see <http://www.gnu.org/licenses/>.
++#
++#   As a special exception, the respective Autoconf Macro's copyright owner
++#   gives unlimited permission to copy, distribute and modify the configure
++#   scripts that are the output of Autoconf when processing the Macro. You
++#   need not follow the terms of the GNU General Public License when using
++#   or distributing such scripts, even though portions of the text of the
++#   Macro appear in them. The GNU General Public License (GPL) does govern
++#   all other use of the material that constitutes the Autoconf Macro.
++#
++#   This special exception to the GPL applies to versions of the Autoconf
++#   Macro released by the Autoconf Macro Archive. When you make and
++#   distribute a modified version of the Autoconf Macro, you may extend this
++#   special exception to the GPL to apply to your modified version as well.
++
++AC_DEFUN([SC_C_VERSION], [
++  C_VERSION=""
++  AS_IF([test "x$C_VERSION" = "x"],[
++    SC_C_CHECK_FLAG([-V],[],[],[
++      sc_pgcc_version_option=yes
++    ],[
++      sc_pgcc_version_option=no
++    ])
++    AS_IF([test "x$sc_pgcc_version_option" != "xno"],[
++      AC_CACHE_CHECK([pgcc version],[sc_cv_pgcc_version],[
++        # The sed part removes all new lines
++        sc_cv_pgcc_version="`$CC -V 2>/dev/null | sed -e :a -e '$!N; s/\n/ /; ta'`"
++        AS_IF([test "x$sc_cv_pgcc_version" = "x"],[
++          sc_cv_pgcc_version=""
++          ])
++        ])
++      C_VERSION=$sc_cv_pgcc_version
++    ])
++  ])
++
++  AS_IF([test "x$C_VERSION" = "x"],[
++    SC_C_CHECK_FLAG([-dumpversion],[],[],[
++      sc_gcc_version_option=yes
++    ],[
++      sc_gcc_version_option=no
++    ])
++    AS_IF([test "x$sc_gcc_version_option" != "xno"],[
++      AC_CACHE_CHECK([gcc version],[sc_cv_gcc_version],[
++        # The sed part removes all new lines
++        sc_cv_gcc_version="`$CC -dumpversion | sed -e :a -e '$!N; s/\n/ /; ta'`"
++        AS_IF([test "x$sc_cv_gcc_version" = "x"],[
++          sc_cv_gcc_version=""
++        ])
++      ])
++      C_VERSION=$sc_cv_gcc_version
++    ])
++  ])
++
++  AC_SUBST([C_VERSION])
++])
+diff --git a/p4est-0.3.5/sc/config/sc_cuda.m4 b/p4est-0.3.5/sc/config/sc_cuda.m4
+new file mode 100644
+index 0000000..9e37a68
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_cuda.m4
+@@ -0,0 +1,42 @@
++
++dnl This macro attempts to insert cuda rules into the Makefiles.
++dnl This happens only when --with-nvcc[=NAME] is used on the configure line.
++dnl
++dnl SC_CUDA(PREFIX)
++dnl Figure out if cuda should be used.
++dnl Defines automake conditional SC_CUDA and activates Makefile rule.
++dnl
++AC_DEFUN([SC_CUDA],
++[
++# check --with-nvcc[=NAME] command line option
++SC_ARG_WITH_PREFIX([nvcc], [enable CUDA and specify compiler (default: nvcc)],
++                   [CUDA], [$1], [[[=NAME]]])
++if test "$withval" != "no" ; then
++  # determine name of CUDA compiler in variable PREFIX_NVCC_NAME
++  $1_NVCC_NAME="nvcc"
++  if test "$withval" != "yes" ; then
++    $1_NVCC_NAME="$withval"
++  fi
++
++  # find location of CUDA compiler in PATH
++  AC_PATH_PROG([$1_NVCC], [nvcc], [no])
++  if test "$$1_NVCC" = "no" ; then
++    AC_MSG_ERROR([CUDA compiler $1_NVCC_NAME not found])
++  fi
++
++  # cuda does not yet work with libtool
++  if test -n "$$1_ENABLE_SHARED" -a "$$1_ENABLE_SHARED" != "no" ; then
++    AC_MSG_ERROR([--with-nvcc does not yet work with --enable-shared])
++  fi
++
++  # print some variables
++  AC_MSG_NOTICE([$1_NVCC_NAME is $$1_NVCC_NAME])
++  AC_MSG_NOTICE([$1_NVCC is $$1_NVCC])
++  AC_MSG_NOTICE([NVCCFLAGS is $NVCCFLAGS])
++  AC_MSG_NOTICE([NVCCLIBS is $NVCCLIBS])
++fi
++
++AC_SUBST([$1_NVCC])
++AC_SUBST([NVCCFLAGS])
++AC_SUBST([NVCCLIBS])
++])
+diff --git a/p4est-0.3.5/sc/config/sc_include.m4 b/p4est-0.3.5/sc/config/sc_include.m4
+new file mode 100644
+index 0000000..f5cfb91
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_include.m4
+@@ -0,0 +1,294 @@
++
++dnl sc_include.m4 - general custom macros
++dnl
++dnl This file is part of the SC Library.
++dnl The SC library provides support for parallel scientific applications.
++dnl
++dnl Copyright (C) 2008,2009 Carsten Burstedde, Lucas Wilcox.
++
++dnl Documentation for macro names: brackets indicate optional arguments
++
++dnl SC_VERSION(PREFIX)
++dnl Expose major, minor, and point version numbers as CPP defines.
++dnl The PREFIX is currently unused since we rely on ax_prefix_config_h.m4.
++dnl
++AC_DEFUN([SC_VERSION],
++[
++  AX_SPLIT_VERSION
++  AC_DEFINE_UNQUOTED([VERSION_MAJOR],[$AX_MAJOR_VERSION],[Package major version])
++  AC_DEFINE_UNQUOTED([VERSION_MINOR],[$AX_MINOR_VERSION],[Package minor version])
++  AC_DEFINE_UNQUOTED([VERSION_POINT],[$AX_POINT_VERSION],[Package point version])
++])
++
++dnl The shell variable PREFIX_ARG_NOT_GIVEN_DEFAULT can be set.
++dnl If the argument is not given and PREFIX_ARG_NOT_GIVEN_DEFAULT is nonempty,
++dnl it will override the enableval/withval variable.
++dnl PREFIX_ARG_NOT_GIVEN_DEFAULT is unset at the end of each SC_ARG_* macro.
++dnl
++dnl Here is an internal helper function to shorten the macros below.
++dnl SC_ARG_NOT_GIVEN(PREFIX, VALUE)
++dnl
++AC_DEFUN([SC_ARG_NOT_GIVEN],
++[
++if test -z "$$1_ARG_NOT_GIVEN_DEFAULT" ; then
++  $1_ARG_NOT_GIVEN_DEFAULT="$2"
++fi
++])
++
++dnl SC_ARG_OVERRIDE_ENABLE(PREFIX, TOKEN)
++dnl This function checks for the environment variable PREFIX_ENABLE_TOKEN
++dnl and if present uses it to override $enableval.
++dnl Otherwise PREFIX_ENABLE_TOKEN is set to $enableval.
++dnl Make sure to set enableval in action-if-not-given beforehand.
++dnl This macro survives multiple invocation.
++dnl
++AC_DEFUN([SC_ARG_OVERRIDE_ENABLE],
++[
++if test -z "$$1_ENABLE_$2" -o "$$1_ENABLE_$2_OVERRIDE" = "no" ; then
++  $1_ENABLE_$2="$enableval"
++  $1_ENABLE_$2_OVERRIDE="no"
++else
++  enableval="$$1_ENABLE_$2"
++  echo "Option override $1_ENABLE_$2=$enableval"
++fi
++])
++
++dnl SC_ARG_OVERRIDE_WITH(PREFIX, TOKEN)
++dnl This function checks for the environment variable PREFIX_WITH_TOKEN
++dnl and if present uses it to override $withval.
++dnl Otherwise PREFIX_WITH_TOKEN is set to $withval.
++dnl Make sure to set withval in action-if-not-given beforehand.
++dnl This macro survives multiple invocation.
++dnl
++AC_DEFUN([SC_ARG_OVERRIDE_WITH],
++[
++if test -z "$$1_WITH_$2" -o "$$1_WITH_$2_OVERRIDE" = "no" ; then
++  $1_WITH_$2="$withval"
++  $1_WITH_$2_OVERRIDE="no"
++else
++  withval="$$1_WITH_$2"
++  echo "Option override $1_WITH_$2=$withval"
++fi
++])
++
++dnl SC_ARG_ENABLE_PREFIX(NAME, COMMENT, TOKEN, PREFIX, HELPEXTRA)
++dnl Check for --enable/disable-NAME using shell variable PREFIX_ENABLE_TOKEN
++dnl If shell variable is set beforehand it overrides the option
++dnl If enabled, define TOKEN to 1 and set conditional PREFIX_ENABLE_TOKEN
++dnl Default is disabled
++dnl
++AC_DEFUN([SC_ARG_ENABLE_PREFIX],
++[
++SC_ARG_NOT_GIVEN([$4], [no])
++AC_ARG_ENABLE([$1],
++              [AS_HELP_STRING([--enable-$1$5], [$2])],,
++              [enableval="$$4_ARG_NOT_GIVEN_DEFAULT"])
++SC_ARG_OVERRIDE_ENABLE([$4], [$3])
++if test "$enableval" != "no" ; then
++  AC_DEFINE([$3], 1, [$2])
++fi
++AM_CONDITIONAL([$4_ENABLE_$3], [test "$enableval" != "no"])
++$4_ARG_NOT_GIVEN_DEFAULT=
++])
++AC_DEFUN([SC_ARG_ENABLE],
++         [SC_ARG_ENABLE_PREFIX([$1], [$2], [$3], [SC], [$4])])
++
++dnl SC_ARG_DISABLE_PREFIX(NAME, COMMENT, TOKEN, PREFIX, HELPEXTRA)
++dnl Check for --enable/disable-NAME using shell variable PREFIX_ENABLE_TOKEN
++dnl If shell variable is set beforehand it overrides the option
++dnl If enabled, define TOKEN to 1 and set conditional PREFIX_ENABLE_TOKEN
++dnl Default is enabled
++dnl
++AC_DEFUN([SC_ARG_DISABLE_PREFIX],
++[
++SC_ARG_NOT_GIVEN([$4], [yes])
++AC_ARG_ENABLE([$1],
++              [AS_HELP_STRING([--disable-$1$5], [$2])],,
++              [enableval="$$4_ARG_NOT_GIVEN_DEFAULT"])
++SC_ARG_OVERRIDE_ENABLE([$4], [$3])
++if test "$enableval" != "no" ; then
++  AC_DEFINE([$3], 1, [Undefine if: $2])
++fi
++AM_CONDITIONAL([$4_ENABLE_$3], [test "$enableval" != "no"])
++$4_ARG_NOT_GIVEN_DEFAULT=
++])
++AC_DEFUN([SC_ARG_DISABLE],
++         [SC_ARG_DISABLE_PREFIX([$1], [$2], [$3], [SC], [$4])])
++
++dnl SC_ARG_WITH_PREFIX(NAME, COMMENT, TOKEN, PREFIX, HELPEXTRA)
++dnl Check for --with/without-NAME using shell variable PREFIX_WITH_TOKEN
++dnl If shell variable is set beforehand it overrides the option
++dnl If with, define TOKEN to 1 and set conditional PREFIX_WITH_TOKEN
++dnl Default is without
++dnl
++AC_DEFUN([SC_ARG_WITH_PREFIX],
++[
++SC_ARG_NOT_GIVEN([$4], [no])
++AC_ARG_WITH([$1],
++            [AS_HELP_STRING([--with-$1$5], [$2])],,
++            [withval="$$4_ARG_NOT_GIVEN_DEFAULT"])
++SC_ARG_OVERRIDE_WITH([$4], [$3])
++if test "$withval" != "no" ; then
++  AC_DEFINE([$3], 1, [$2])
++fi
++AM_CONDITIONAL([$4_WITH_$3], [test "$withval" != "no"])
++$4_ARG_NOT_GIVEN_DEFAULT=
++])
++AC_DEFUN([SC_ARG_WITH],
++         [SC_ARG_WITH_PREFIX([$1], [$2], [$3], [SC], [$4])])
++
++dnl SC_ARG_WITHOUT_PREFIX(NAME, COMMENT, TOKEN, PREFIX, HELPEXTRA)
++dnl Check for --with/without-NAME using shell variable PREFIX_WITH_TOKEN
++dnl If shell variable is set beforehand it overrides the option
++dnl If with, define TOKEN to 1 and set conditional PREFIX_WITH_TOKEN
++dnl Default is with
++dnl
++AC_DEFUN([SC_ARG_WITHOUT_PREFIX],
++[
++SC_ARG_NOT_GIVEN([$4], [yes])
++AC_ARG_WITH([$1],
++            [AS_HELP_STRING([--without-$1$5], [$2])],,
++            [withval="$$4_ARG_NOT_GIVEN_DEFAULT"])
++SC_ARG_OVERRIDE_WITH([$4], [$3])
++if test "$withval" != "no" ; then
++  AC_DEFINE([$3], 1, [Undefine if: $2])
++fi
++AM_CONDITIONAL([$4_WITH_$3], [test "$withval" != "no"])
++$4_ARG_NOT_GIVEN_DEFAULT=
++])
++AC_DEFUN([SC_ARG_WITHOUT],
++         [SC_ARG_WITHOUT_PREFIX([$1], [$2], [$3], [SC], [$4])])
++
++dnl SC_ARG_WITH_YES_PREFIX(NAME, COMMENT, TOKEN, PREFIX, HELPEXTRA)
++dnl Check for --with/without-NAME using shell variable PREFIX_WITH_TOKEN
++dnl If shell variable is set beforehand it overrides the option
++dnl If with = yes, define TOKEN to 1 and set conditional PREFIX_WITH_TOKEN
++dnl Default is no
++dnl
++AC_DEFUN([SC_ARG_WITH_YES_PREFIX],
++[
++SC_ARG_NOT_GIVEN([$4], [no])
++AC_ARG_WITH([$1],
++            [AS_HELP_STRING([--with-$1$5], [$2])],,
++            [withval="$$4_ARG_NOT_GIVEN_DEFAULT"])
++SC_ARG_OVERRIDE_WITH([$4], [$3])
++if test "$withval" = "yes" ; then
++  AC_DEFINE([$3], 1, [$2])
++fi
++AM_CONDITIONAL([$4_WITH_$3], [test "$withval" = "yes"])
++$4_ARG_NOT_GIVEN_DEFAULT=
++])
++AC_DEFUN([SC_ARG_WITH_YES],
++         [SC_ARG_WITH_YES_PREFIX([$1], [$2], [$3], [SC], [$4])])
++
++dnl SC_ARG_WITHOUT_YES_PREFIX(NAME, COMMENT, TOKEN, PREFIX, HELPEXTRA)
++dnl Check for --with/without-NAME using shell variable PREFIX_WITH_TOKEN
++dnl If shell variable is set beforehand it overrides the option
++dnl If with = yes, define TOKEN to 1 and set conditional PREFIX_WITH_TOKEN
++dnl Default is yes
++dnl
++AC_DEFUN([SC_ARG_WITHOUT_YES_PREFIX],
++[
++SC_ARG_NOT_GIVEN([$4], [yes])
++AC_ARG_WITH([$1],
++            [AS_HELP_STRING([--without-$1$5], [$2])],,
++            [withval="$$4_ARG_NOT_GIVEN_DEFAULT"])
++SC_ARG_OVERRIDE_WITH([$4], [$3])
++if test "$withval" = "yes" ; then
++  AC_DEFINE([$3], 1, [Undefine if: $2])
++fi
++AM_CONDITIONAL([$4_WITH_$3], [test "$withval" = "yes"])
++$4_ARG_NOT_GIVEN_DEFAULT=
++])
++AC_DEFUN([SC_ARG_WITHOUT_YES],
++         [SC_ARG_WITHOUT_YES_PREFIX([$1], [$2], [$3], [SC], [$4])])
++
++dnl SC_REQUIRE_LIB(LIBRARY LIST, FUNCTION)
++dnl Check for FUNCTION in LIBRARY, exit with error if not found
++dnl
++AC_DEFUN([SC_REQUIRE_LIB],
++    [AC_SEARCH_LIBS([$2], [$1],,
++      [AC_MSG_ERROR([Could not find function $2 in $1])])])
++
++dnl SC_REQUIRE_FUNCS(FUNCTION LIST)
++dnl Check for all functions in FUNCTION LIST, exit with error if not found
++dnl
++AC_DEFUN([SC_REQUIRE_FUNCS],
++[
++m4_foreach_w([sc_thefunc], [$1],
++             [AC_CHECK_FUNC([sc_thefunc], ,
++                            [AC_MSG_ERROR([\
++Could not find function sc_thefunc])])])
++])
++
++dnl SC_DETERMINE_INSTALL(PREFIX)
++dnl This function throws an error if the variable PREFIX_DIR does not exist.
++dnl Looks for PREFIX_DIR/{include,lib,bin} to determine installation status.
++dnl Set the shell variable PREFIX_INSTALL to "yes" or "no".
++dnl
++AC_DEFUN([SC_DETERMINE_INSTALL],
++[
++if test ! -d "$$1_DIR" ; then
++  AC_MSG_ERROR([Directory "$$1_DIR" does not exist])
++fi
++if test -d "$$1_DIR/include" -o -d "$$1_DIR/lib" -o \
++        -d "$$1_DIR/bin" -o -d "$$1_DIR/share/aclocal" ; then
++  $1_INSTALL="yes"
++else
++  $1_INSTALL="no"
++fi
++])
++
++dnl SC_DETERMINE_INCLUDE_PATH(PREFIX, CPPFLAGS)
++dnl This function expects the variable PREFIX_DIR to exist.
++dnl Looks for PREFIX_DIR/include and then PREFIX_DIR/src.
++dnl If neither is found, throws an error.
++dnl Otherwise, set the shell variable PREFIX_CPPFLAGS to -I<dir> CPPFLAGS.
++dnl
++AC_DEFUN([SC_DETERMINE_INCLUDE_PATH],
++[
++$1_INC="$$1_DIR/include"
++if test ! -d "$$1_INC" ; then
++  $1_INC="$$1_DIR/src"
++fi
++if test ! -d "$$1_INC" ; then
++  AC_MSG_ERROR([Include directories based on $$1_DIR not found])
++fi
++$1_CPPFLAGS="-I$$1_INC $2"
++])
++
++dnl SC_DETERMINE_LIBRARY_PATH(PREFIX, LIBS)
++dnl This function expects the variable PREFIX_DIR to exist.
++dnl Looks for PREFIX_DIR/lib and then PREFIX_DIR/src.
++dnl If neither is found, throws an error.
++dnl Otherwise, set the shell variable PREFIX_LDADD to -L<dir> LIBS.
++dnl
++AC_DEFUN([SC_DETERMINE_LIBRARY_PATH],
++[
++$1_LIB="$$1_DIR/lib"
++if test ! -d "$$1_LIB" ; then
++  $1_LIB="$$1_DIR/src"
++fi
++if test ! -d "$$1_LIB" ; then
++  AC_MSG_ERROR([Library directories based on $$1_DIR not found])
++fi
++$1_LDADD="-L$$1_LIB $2"
++])
++
++dnl SC_DETERMINE_CONFIG_PATH(PREFIX)
++dnl This function expects the variable PREFIX_DIR to exist.
++dnl Looks for PREFIX_DIR/share/aclocal and then PREFIX_DIR/src.
++dnl If neither is found, throws an error.
++dnl Sets shell variables PREFIX_CONFIG and PREFIX_AMFLAGS.
++dnl
++AC_DEFUN([SC_DETERMINE_CONFIG_PATH],
++[
++$1_CONFIG="$$1_DIR/share/aclocal"
++if test ! -d "$$1_CONFIG" ; then
++  $1_CONFIG="$$1_DIR/config"
++fi
++if test ! -d "$$1_CONFIG" ; then
++  AC_MSG_ERROR([Config directories based on $$1_DIR not found])
++fi
++$1_AMFLAGS="-I $$1_CONFIG"
++])
+diff --git a/p4est-0.3.5/sc/config/sc_lapack.m4 b/p4est-0.3.5/sc/config/sc_lapack.m4
+new file mode 100644
+index 0000000..62535de
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_lapack.m4
+@@ -0,0 +1,180 @@
++dnl This is a modified version of the Teuchos config dir from Trilinos
++dnl with the following license.
++dnl
++dnl ***********************************************************************
++dnl
++dnl                    Teuchos: Common Tools Package
++dnl                 Copyright (2004) Sandia Corporation
++dnl
++dnl Under terms of Contract DE-AC04-94AL85000, there is a non-exclusive
++dnl license for use of this work by or on behalf of the U.S. Government.
++dnl
++dnl This library is free software; you can redistribute it and/or modify
++dnl it under the terms of the GNU Lesser General Public License as
++dnl published by the Free Software Foundation; either version 2.1 of the
++dnl License, or (at your option) any later version.
++dnl
++dnl This library is distributed in the hope that it will be useful, but
++dnl WITHOUT ANY WARRANTY; without even the implied warranty of
++dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++dnl Lesser General Public License for more details.
++dnl
++dnl You should have received a copy of the GNU Lesser General Public
++dnl License along with this library; if not, write to the Free Software
++dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
++dnl USA
++dnl Questions? Contact Michael A. Heroux (maherou@sandia.gov)
++dnl
++dnl ***********************************************************************
++dnl
++dnl @synopsis SC_LAPACK(PREFIX, DGECON_FUNCTION,
++dnl                     [ACTION-IF-FOUND[, ACTION-IF-NOT-FOUND]])
++dnl
++dnl This macro looks for a library that implements the LAPACK
++dnl linear-algebra interface (see http://www.netlib.org/lapack/).
++dnl On success, it sets the LAPACK_LIBS output variable to
++dnl hold the requisite library linkages.
++dnl
++dnl To link with LAPACK, you should link with:
++dnl
++dnl     $LAPACK_LIBS $BLAS_LIBS $LIBS $FLIBS
++dnl
++dnl in that order.  BLAS_LIBS is the output variable of the SC_BLAS
++dnl macro, called automatically.  FLIBS is the output variable of the
++dnl AC_F77_LIBRARY_LDFLAGS macro (called if necessary by SC_BLAS),
++dnl and is sometimes necessary in order to link with F77 libraries.
++dnl Users will also need to use AC_F77_DUMMY_MAIN (see the autoconf
++dnl manual), for the same reason.
++dnl
++dnl The user may also use --with-lapack=<lib> in order to use some
++dnl specific LAPACK library <lib>.  In order to link successfully,
++dnl however, be aware that you will probably need to use the same
++dnl Fortran compiler (which can be set via the F77 env. var.) as
++dnl was used to compile the LAPACK and BLAS libraries.
++dnl
++dnl ACTION-IF-FOUND is a list of shell commands to run if a LAPACK
++dnl library is found, and ACTION-IF-NOT-FOUND is a list of commands
++dnl to run it if it is not found.  If ACTION-IF-FOUND is not specified,
++dnl the default action will define HAVE_LAPACK.
++dnl
++dnl @version $Id: acx_lapack.m4,v 1.3 2006/04/21 02:29:27 jmwille Exp $
++dnl @author Steven G. Johnson <stevenj@alum.mit.edu>
++dnl edited by Jim Willenbring <jmwille@sandia.gov> to check for sgecon
++dnl rather than cheev because by default (as of 8-13-2002) Trilinos
++dnl does not build the complex portions of the lapack library.  Edited
++dnl again on 5-13-2004 to check for dgecon instead of sgecon.
++dnl Edited by Jim Willenbring on 4-17-2006 to stop looking for LAPACK if
++dnl a specific LAPACK library specified by a user cannot be used.
++
++dnl Edited by Carsten Burstedde <carsten@ices.utexas.edu>
++dnl Expect the F77_ autoconf macros to be called outside of this file.
++dnl Take as argument a mangled DGECON function to check for.
++dnl This way the SC_LAPACK macro can be called multiple times
++dnl with different Fortran environments to minimize F77 dependencies.
++dnl Replaced obsolete AC_TRY_LINK_FUNC macro.
++
++dnl The first argument of this macro should be the package prefix.
++dnl The second argument of this macro should be a mangled DGECON function.
++AC_DEFUN([SC_LAPACK], [
++AC_REQUIRE([SC_BLAS])
++sc_lapack_ok=no
++user_spec_lapack_failed=no
++
++AC_ARG_WITH([lapack], [AS_HELP_STRING([--with-lapack=<lib>],
++            [change default LAPACK library to <lib>
++             or specify --without-lapack to use no LAPACK at all])],,
++	     [withval="yes"])
++SC_ARG_OVERRIDE_WITH([$1], [LAPACK])
++case $withval in
++        yes | "") ;;
++        no) sc_lapack_ok=disable ;;
++        -* | */* | *.a | *.so | *.so.* | *.o) LAPACK_LIBS="$withval" ;;
++        *) LAPACK_LIBS="-l$withval" ;;
++esac
++
++dnl Expect the mangled DGECON function name to be in $2.
++sc_lapack_func="$2"
++
++# We cannot use LAPACK if BLAS is not found
++if test "$sc_blas_ok" = disable ; then
++        sc_lapack_ok=disable
++elif test "$sc_blas_ok" != yes; then
++        sc_lapack_ok=noblas
++fi
++
++# First, check LAPACK_LIBS environment variable
++if test "$sc_lapack_ok" = no; then
++if test "x$LAPACK_LIBS" != x; then
++        save_LIBS="$LIBS"; LIBS="$LAPACK_LIBS $BLAS_LIBS $LIBS $FLIBS"
++        AC_MSG_CHECKING([for $sc_lapack_func in $LAPACK_LIBS])
++	AC_LINK_IFELSE([AC_LANG_CALL([], [$sc_lapack_func])],
++                       [sc_lapack_ok=yes], [user_spec_lapack_failed=yes])
++        AC_MSG_RESULT($sc_lapack_ok)
++        LIBS="$save_LIBS"
++        if test sc_lapack_ok = no; then
++                LAPACK_LIBS=""
++        fi
++fi
++fi
++
++# If the user specified a LAPACK library that could not be used we will
++# halt the search process rather than risk finding a LAPACK library that
++# the user did not specify.
++
++if test "x$user_spec_lapack_failed" != xyes; then
++
++# LAPACK linked to by default?  (is sometimes included in BLAS lib)
++if test $sc_lapack_ok = no; then
++        save_LIBS="$LIBS"; LIBS="$BLAS_LIBS $LIBS $FLIBS"
++        AC_CHECK_FUNC($sc_lapack_func, [sc_lapack_ok=yes])
++        LIBS="$save_LIBS"
++fi
++
++# Generic LAPACK library?
++for lapack in lapack lapack_rs6k; do
++        if test $sc_lapack_ok = no; then
++                save_LIBS="$LIBS"; LIBS="$BLAS_LIBS $LIBS"
++                AC_CHECK_LIB($lapack, $sc_lapack_func,
++                    [sc_lapack_ok=yes; LAPACK_LIBS="-l$lapack"], [], [$FLIBS])
++                LIBS="$save_LIBS"
++        fi
++done
++
++AC_SUBST(LAPACK_LIBS)
++
++fi # If the user specified library wasn't found, we skipped the remaining
++   # checks.
++
++# Test link and run a LAPACK program
++if test "$sc_lapack_ok" = yes ; then
++        sc_lapack_save_run_LIBS="$LIBS"
++        LIBS="$LAPACK_LIBS $BLAS_LIBS $LIBS $FLIBS"
++        AC_MSG_CHECKING([for LAPACK by linking a C program])
++        AC_LINK_IFELSE([AC_LANG_PROGRAM(dnl
++[[#ifdef __cplusplus
++extern "C"
++void $sc_lapack_func (char *, int *, double *, int *, double *,
++                      double *, double *, int *, int *);
++#endif
++]],[[
++int     i = 1, info = 0, iwork[1];
++double  anorm = 1., rcond;
++double  A = 1., work[4];
++$sc_lapack_func ("1", &i, &A, &i, &anorm, &rcond, work, iwork, &info);
++]])],
++[AC_MSG_RESULT([successful])],
++[AC_MSG_RESULT([failed]); sc_lapack_ok=no])
++        LIBS="$sc_lapack_save_run_LIBS"
++fi
++
++# Finally, execute ACTION-IF-FOUND/ACTION-IF-NOT-FOUND:
++if test "$sc_lapack_ok" = yes; then
++        ifelse([$3],,
++               [AC_DEFINE(HAVE_LAPACK,1,[Define if you have LAPACK library.])],[$3])
++        :
++elif test "$sc_lapack_ok" != disable ; then
++        sc_lapack_ok=no
++        $4
++fi
++
++])
+diff --git a/p4est-0.3.5/sc/config/sc_lint.m4 b/p4est-0.3.5/sc/config/sc_lint.m4
+new file mode 100644
+index 0000000..1e24921
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_lint.m4
+@@ -0,0 +1,90 @@
++dnl
++dnl Copyright 2005-2006 Sun Microsystems, Inc.  All rights reserved.
++dnl
++dnl Permission is hereby granted, free of charge, to any person obtaining a
++dnl copy of this software and associated documentation files (the
++dnl "Software"), to deal in the Software without restriction, including
++dnl without limitation the rights to use, copy, modify, merge, publish,
++dnl distribute, and/or sell copies of the Software, and to permit persons
++dnl to whom the Software is furnished to do so, provided that the above
++dnl copyright notice(s) and this permission notice appear in all copies of
++dnl the Software and that both the above copyright notice(s) and this
++dnl permission notice appear in supporting documentation.
++dnl
++dnl THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
++dnl OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++dnl MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
++dnl OF THIRD PARTY RIGHTS. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
++dnl HOLDERS INCLUDED IN THIS NOTICE BE LIABLE FOR ANY CLAIM, OR ANY SPECIAL
++dnl INDIRECT OR CONSEQUENTIAL DAMAGES, OR ANY DAMAGES WHATSOEVER RESULTING
++dnl FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
++dnl NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION
++dnl WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
++dnl
++dnl Except as contained in this notice, the name of a copyright holder
++dnl shall not be used in advertising or otherwise to promote the sale, use
++dnl or other dealings in this Software without prior written authorization
++dnl of the copyright holder.
++dnl
++dnl Renamed by Carsten Burstedde <carsten@ices.utexas.edu>
++
++# SC_PROG_LINT()
++# ----------------
++# Minimum version: 1.1.0
++#
++# Sets up flags for source checkers such as lint and sparse if --with-lint
++# is specified.   (Use --with-lint=sparse for sparse.)
++# Sets $LINT to name of source checker passed with --with-lint (default: splint)
++# Sets $LINT_FLAGS to flags to pass to source checker
++# Sets LINT automake conditional if enabled (default: disabled)
++#
++# Note that MPI_INCLUDE_PATH should be defined before this function is called.
++#
++AC_DEFUN([SC_PROG_LINT],[
++
++# Allow checking code with lint, sparse, etc.
++AC_ARG_WITH([lint], [AS_HELP_STRING([--with-lint],
++            [use static source code checker (default: splint)])],
++            [use_lint=$withval], [use_lint=yes])
++if test "$use_lint" = yes ; then
++  use_lint="splint"
++fi
++if test "$use_lint" != no ; then
++  AC_PATH_PROG([LINT], [$use_lint], [no])
++  if test "$LINT" = no ; then
++    AC_MSG_WARN([Static source code checker $use_lint not found])
++    use_lint="no"
++  fi
++fi
++
++if test "$use_lint" != no ; then
++
++if test "$LINT_FLAGS" = "" ; then
++    case $LINT in
++      lint|*/lint)
++        case $host_os in
++          solaris*)
++            LINT_FLAGS="-u -b -h -erroff=E_INDISTING_FROM_TRUNC2"
++            ;;
++        esac
++        ;;
++      splint|*/splint)
++        LINT_FLAGS="-weak -fixedformalarray -badflag -preproc -unixlib"
++        ;;
++    esac
++fi
++
++case $LINT in
++  splint|*/splint)
++    LINT_FLAGS="$LINT_FLAGS -DSC_SPLINT \
++                -systemdirs /usr/include:$MPI_INCLUDE_PATH"
++    ;;
++esac
++
++fi
++
++AC_SUBST(LINT)
++AC_SUBST(LINT_FLAGS)
++AM_CONDITIONAL(LINT, [test "$use_lint" != no])
++
++])
+diff --git a/p4est-0.3.5/sc/config/sc_mpi.m4 b/p4est-0.3.5/sc/config/sc_mpi.m4
+new file mode 100644
+index 0000000..1689c10
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_mpi.m4
+@@ -0,0 +1,227 @@
++dnl
++dnl SC_MPI_CONFIG(PREFIX[, true])
++dnl
++dnl If the second argument is given, also includes configuration for C++.
++dnl Checks the configure options
++dnl --enable-mpi    If enabled, set AC_DEFINE and AC_CONDITIONAL.
++dnl                 If enabled and CC is not set, do export CC=mpicc.
++dnl                 This may be "too late" if AC_PROG_CC was called earlier.
++dnl                 In that case you need to set CC=mpicc (or other compiler)
++dnl                 on the configure command line. Same for F77, CXX.
++dnl --enable-mpiio  Enables AC_DEFINE and test for MPI I/O.
++dnl --with-mpitest=...  Specify alternate test driver (default mpirun -np 2).
++dnl
++dnl SC_MPI_ENGAGE(PREFIX)
++dnl
++dnl Relies on SC_MPI_CONFIG to be called before.
++dnl Calls AC_PROG_CC and AC_PROG_CXX if C++ configuration is enabled.
++dnl Does compile tests for MPI and MPI I/O if this is enabled.
++dnl
++dnl These macros are separate because AC_REQUIRE(AC_PROG_CC) will expand
++dnl the AC_PROG_CC macro before entering SC_MPI_ENGAGE.
++
++AC_DEFUN([SC_MPI_CONFIG],
++[
++HAVE_PKG_MPI=no
++HAVE_PKG_MPIIO=no
++m4_ifval([$2], [m4_define([SC_CHECK_MPI_CXX], [yes])])
++
++dnl The shell variable SC_ENABLE_MPI is set
++dnl unless it is provided by the environment.
++dnl Therefore all further checking uses the HAVE_PKG_MPI shell variable
++dnl and neither AC_DEFINE nor AM_CONDITIONAL are invoked at this point.
++AC_ARG_ENABLE([mpi],
++              [AS_HELP_STRING([--enable-mpi], [enable MPI])],,
++              [enableval=no])
++SC_ARG_OVERRIDE_ENABLE([$1], [MPI])
++if test "$enableval" = yes ; then
++  HAVE_PKG_MPI=yes
++elif test "$enableval" != no ; then
++  AC_MSG_ERROR([Please use --enable-mpi without an argument])
++fi
++AC_MSG_CHECKING([whether we are using MPI])
++AC_MSG_RESULT([$HAVE_PKG_MPI])
++
++dnl The shell variable SC_ENABLE_MPIIO is set
++dnl unless it is provided by the environment.
++dnl If enabled, MPI I/O will be verified by a compile/link test below.
++AC_ARG_ENABLE([mpiio],
++              [AS_HELP_STRING([--enable-mpiio], [enable MPI I/O])],,
++              [enableval=no])
++SC_ARG_OVERRIDE_ENABLE([$1], [MPIIO])
++if test "$enableval" = yes ; then
++  if test "$HAVE_PKG_MPI" = yes ; then
++    HAVE_PKG_MPIIO=yes
++  fi
++elif test "$enableval" != no ; then
++  AC_MSG_ERROR([Please use --enable-mpiio without an argument])
++fi
++AC_MSG_CHECKING([whether we are using MPI I/O])
++AC_MSG_RESULT([$HAVE_PKG_MPIIO])
++
++dnl Potentially override the MPI test environment
++SC_ARG_NOT_GIVEN_DEFAULT="yes"
++SC_ARG_WITH([mpitest], [use DRIVER to run MPI tests (default: mpirun -np 2)],
++            [MPI_TESTS], [[[=DRIVER]]])
++if test "$HAVE_PKG_MPI" = yes ; then
++  if test "$withval" = yes ; then
++    withval="mpirun -np 2"
++  elif test "$withval" = no ; then
++    withval=""
++  fi
++  AC_SUBST([$1_MPI_TESTS_ENVIRONMENT], [$withval])
++fi
++
++dnl Set compilers if not already set and set define and conditionals
++if test "$HAVE_PKG_MPI" = yes ; then
++  if test -z "$CC" ; then
++    export CC=mpicc
++  fi
++AC_MSG_NOTICE([                             CC set to $CC])
++m4_ifset([SC_CHECK_MPI_CXX], [
++  if test -z "$CXX" ; then
++    export CXX=mpicxx
++  fi
++AC_MSG_NOTICE([                            CXX set to $CXX])
++])
++  if test -z "$F77" ; then
++    export F77=mpif77
++  fi
++AC_MSG_NOTICE([                            F77 set to $F77])
++  AC_DEFINE([MPI], 1, [Define to 1 if we are using MPI])
++  if test "$HAVE_PKG_MPIIO" = yes ; then
++    AC_DEFINE([MPIIO], 1, [Define to 1 if we are using MPI I/O])
++  fi
++fi
++AM_CONDITIONAL([$1_MPI], [test "$HAVE_PKG_MPI" = yes])
++AM_CONDITIONAL([$1_MPIIO], [test "$HAVE_PKG_MPIIO" = yes])
++])
++
++dnl SC_MPI_C_COMPILE_AND_LINK([action-if-successful], [action-if-failed])
++dnl Compile and link an MPI C test program
++dnl
++AC_DEFUN([SC_MPI_C_COMPILE_AND_LINK],
++[
++AC_MSG_CHECKING([compile/link for MPI C program])
++AC_LINK_IFELSE([AC_LANG_PROGRAM(
++[[
++#undef MPI
++#include <mpi.h>
++]], [[
++MPI_Init ((int *) 0, (char ***) 0);
++MPI_Finalize ();
++]])],
++[AC_MSG_RESULT([successful])
++ $1],
++[AC_MSG_RESULT([failed])
++ $2])
++])
++
++dnl SC_MPI_CXX_COMPILE_AND_LINK([action-if-successful], [action-if-failed])
++dnl Compile and link an MPI CXX test program
++dnl
++AC_DEFUN([SC_MPI_CXX_COMPILE_AND_LINK],
++[
++AC_MSG_CHECKING([compile/link for MPI CXX program])
++AC_LINK_IFELSE([AC_LANG_PROGRAM(
++[[
++#undef MPI
++#include <mpi.h>
++#include <iostream>
++]], [[
++std::cout << "Hello C++ MPI" << std::endl;
++MPI_Init ((int *) 0, (char ***) 0);
++MPI_Finalize ();
++]])],
++[AC_MSG_RESULT([successful])
++ $1],
++[AC_MSG_RESULT([failed])
++ $2])
++])
++
++dnl SC_MPIIO_C_COMPILE_AND_LINK([action-if-successful], [action-if-failed])
++dnl Compile and link an MPI I/O test program
++dnl
++AC_DEFUN([SC_MPIIO_C_COMPILE_AND_LINK],
++[
++AC_MSG_CHECKING([compile/link for MPI I/O C program])
++AC_LINK_IFELSE([AC_LANG_PROGRAM(
++[[
++#undef MPI
++#include <mpi.h>
++]], [[
++MPI_File fh;
++MPI_Init ((int *) 0, (char ***) 0);
++MPI_File_open (MPI_COMM_WORLD, "filename",
++               MPI_MODE_WRONLY | MPI_MODE_APPEND,
++               MPI_INFO_NULL, &fh);
++MPI_File_close (&fh);
++MPI_Finalize ();
++]])],
++[AC_MSG_RESULT([successful])
++ $1],
++[AC_MSG_RESULT([failed])
++ $2])
++])
++
++dnl SC_MPI_INCLUDES
++dnl Call the compiler with various --show* options
++dnl to figure out the MPI_INCLUDES and MPI_INCLUDE_PATH varables
++dnl
++AC_DEFUN([SC_MPI_INCLUDES],
++[
++MPI_INCLUDES=
++MPI_INCLUDE_PATH=
++if test "$HAVE_PKG_MPI" = yes ; then
++  AC_MSG_NOTICE([Trying to determine MPI_INCLUDES])
++  for SHOW in -showme:compile -showme:incdirs -showme -show ; do
++    if test -z "$MPI_INCLUDES" ; then
++      AC_MSG_CHECKING([$SHOW])
++      if MPI_CC_RESULT=`$CC $SHOW 2> /dev/null` ; then
++        AC_MSG_RESULT([Successful])
++        for CCARG in $MPI_CC_RESULT ; do
++          MPI_INCLUDES="$MPI_INCLUDES `echo $CCARG | grep '^-I'`"
++        done
++      else
++        AC_MSG_RESULT([Failed])
++      fi
++    fi
++  done
++  if test -n "$MPI_INCLUDES" ; then
++    MPI_INCLUDES=`echo $MPI_INCLUDES | sed -e 's/^ *//' -e 's/  */ /g'`
++    AC_MSG_NOTICE([   Found MPI_INCLUDES $MPI_INCLUDES])
++  fi
++  if test -n "$MPI_INCLUDES" ; then
++    MPI_INCLUDE_PATH=`echo $MPI_INCLUDES | sed -e 's/^-I//'`
++    MPI_INCLUDE_PATH=`echo $MPI_INCLUDE_PATH | sed -e 's/-I/:/g'`
++    AC_MSG_NOTICE([   Found MPI_INCLUDE_PATH $MPI_INCLUDE_PATH])
++  fi
++fi
++AC_SUBST([MPI_INCLUDES])
++AC_SUBST([MPI_INCLUDE_PATH])
++])
++
++AC_DEFUN([SC_MPI_ENGAGE],
++[
++dnl determine compilers
++AC_REQUIRE([AC_PROG_CC])
++m4_ifset([SC_CHECK_MPI_CXX], [AC_REQUIRE([AC_PROG_CXX])])
++
++dnl compile and link tests must be done after the AC_PROC_CC lines
++if test "$HAVE_PKG_MPI" = yes ; then
++  SC_MPI_C_COMPILE_AND_LINK(, [AC_MSG_ERROR([MPI C test failed])])
++  m4_ifset([SC_CHECK_MPI_CXX], [
++    AC_LANG_PUSH([C++])
++    SC_MPI_CXX_COMPILE_AND_LINK(, [AC_MSG_ERROR([MPI CXX test failed])])
++    AC_LANG_POP([C++])
++  ])
++  if test "$HAVE_PKG_MPIIO" = yes ; then
++    SC_MPIIO_C_COMPILE_AND_LINK(
++      [AC_DEFINE([MPIIO], 1, [Define to 1 if we are using MPI I/O])],
++      [AC_MSG_ERROR([MPI I/O specified but not found])])
++  fi
++fi
++
++dnl figure out the MPI include directories
++SC_MPI_INCLUDES
++])
+diff --git a/p4est-0.3.5/sc/config/sc_package.m4 b/p4est-0.3.5/sc/config/sc_package.m4
+new file mode 100644
+index 0000000..0723d0e
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_package.m4
+@@ -0,0 +1,53 @@
++
++dnl sc_package.m4 - general custom macros
++dnl
++dnl This file is part of the SC Library.
++dnl The SC library provides support for parallel scientific applications.
++dnl
++dnl Copyright (C) 2008,2009 Carsten Burstedde, Lucas Wilcox.
++
++dnl Documentation for macro names: brackets indicate optional arguments
++
++dnl SC_PACKAGE_SPECIFY(PREFIX, REQUIRE_INCLUDE, REQUIRE_LDADD,
++dnl                    REQUIRE_CONFIG, REQUIRE_ETC)
++dnl The REQUIRE_* arguments can be either "true" or "false" (without quotes).
++dnl This function throws an error if the variable PREFIX_DIR does not exist.
++dnl Looks for PREFIX_DIR/src to identify a source distribution.
++dnl If not found, package must have been `make install`ed, in this case
++dnl optionally require include, lib, config and etc directories.
++dnl Set the shell variable PREFIX_INSTALL to "yes" or "no".
++dnl
++AC_DEFUN([SC_CHECK_PACKAGE],
++[
++if test ! -d "$$1_DIR" ; then
++  AC_MSG_ERROR([Directory "$$1_DIR" does not exist])
++fi
++if test -d "$$1_DIR/src" ; then
++  $1_INSTALL="no"
++  $1_INC="$$1_DIR/src"
++  $1_LIB="$$1_DIR/src"
++  $1_CFG="$$1_DIR/config"
++  $1_ETC=
++  if $4 && test ! -d "$$1_CFG" ; then
++    AC_MSG_ERROR([Specified source path $$1_CFG not found])
++  fi
++else
++  $1_INSTALL="yes"
++  $1_INC="$$1_DIR/include"
++  $1_LIB="$$1_DIR/lib"
++  $1_CFG="$$1_DIR/share/aclocal"
++  $1_ETC="$$1_DIR/etc"
++  if $2 && test ! -d "$$1_INC" ; then
++    AC_MSG_ERROR([Specified installation path $$1_INC not found])
++  fi
++  if $3 && test ! -d "$$1_LIB" ; then
++    AC_MSG_ERROR([Specified installation path $$1_LIB not found])
++  fi
++  if $4 && test ! -d "$$1_CFG" ; then
++    AC_MSG_ERROR([Specified installation path $$1_CFG not found])
++  fi
++  if $5 && test ! -d "$$1_ETC" ; then
++    AC_MSG_ERROR([Specified installation path $$1_ETC not found])
++  fi
++fi
++])
+diff --git a/p4est-0.3.5/sc/config/sc_shared.m4 b/p4est-0.3.5/sc/config/sc_shared.m4
+new file mode 100644
+index 0000000..1221618
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_shared.m4
+@@ -0,0 +1,31 @@
++
++dnl sc_shared.m4 - macros to support shared libraries
++dnl
++dnl This file is part of the SC Library.
++dnl The SC library provides support for parallel scientific applications.
++dnl
++dnl Copyright (C) 2009 Carsten Burstedde, Lucas Wilcox.
++
++dnl SC_LIBTOOL(PREFIX)
++dnl Initialize libtool and check for --enable-shared option.
++dnl Shared builds are disabled by default.
++dnl This seems to call AC_PROG_CC. Call this macro after CC has been set.
++dnl
++AC_DEFUN([SC_LIBTOOL],
++[
++LT_INIT([disable-shared])
++if test "$enable_shared" != no ; then
++  $1_ENABLE_SHARED="yes"
++  $1_LIB_SUFFIX="la"
++  if test "$enable_static" == no; then
++    $1_ENABLE_STATIC="no"
++  fi
++else
++  $1_ENABLE_STATIC="yes"
++  $1_ENABLE_SHARED="no"
++  $1_LIB_SUFFIX="a"
++fi
++AC_SUBST([$1_LIB_SUFFIX])   dnl use with care: confuses automake dependencies
++AM_CONDITIONAL([$1_ENABLE_SHARED], [test "$enable_shared" != no])
++AM_CONDITIONAL([$1_ENABLE_STATIC], [test "$enable_static" != no])
++])
+diff --git a/p4est-0.3.5/sc/config/sc_trilinos.m4 b/p4est-0.3.5/sc/config/sc_trilinos.m4
+new file mode 100644
+index 0000000..b986b7c
+--- /dev/null
++++ b/p4est-0.3.5/sc/config/sc_trilinos.m4
+@@ -0,0 +1,122 @@
++
++dnl trilinos.m4 - general custom macros
++dnl
++dnl This file is part of the SC Library.
++dnl The SC library provides support for parallel scientific applications.
++dnl
++dnl Copyright (C) 2008-2010 Carsten Burstedde, Lucas Wilcox.
++
++dnl Documentation for macro names: brackets indicate optional arguments
++
++dnl SC_TRILINOS_CHECK_MK(package, Package, PACKAGE, PREFIX)
++dnl Check for the Makefile of a trilinos package
++dnl Requires variable SC_TRILINOS_DIR pointing to a trilinos installation
++dnl
++AC_DEFUN([SC_TRILINOS_CHECK_MK],
++[
++dnl Trilinos <= 9
++$4_TRILINOS_MK_$3="$$4_TRILINOS_DIR/include/Makefile.export.$1"
++if test ! -f "$$4_TRILINOS_MK_$3" ; then
++  dnl Trilinos 10
++  $4_TRILINOS_MK_$3="$$4_TRILINOS_DIR/include/Makefile.export.$2"
++  if test ! -f "$$4_TRILINOS_MK_$3" ; then
++    AC_MSG_ERROR([$$4_TRILINOS_MK_$3 not found])
++  fi
++fi
++AC_SUBST([$4_TRILINOS_MK_$3])
++])
++
++dnl SC_TRILINOS_PACKAGE_DEFS([Package], [PACKAGE], [PREFIX])
++dnl define PREFIX_PACKAGE_{CPPFLAGS,LDFLAGS,LIBS} for use with Trilinos export
++dnl Makefiles
++AC_DEFUN([SC_TRILINOS_PACKAGE_DEFS],
++[
++dnl for Trilinos 9, use PACKAGE_{INCLUDES,LIBS}
++  if test "$$3_TRILINOS_VERSION" = "9" ; then
++    $3_$2_CPPFLAGS="\$($2_INCLUDES)"
++    $3_$2_LDFLAGS=""
++    $3_$2_LIBS="\$($2_LIBS)"
++  else
++    AC_MSG_NOTICE([TRILINOS_MINOR_VERSION $$3_TRILINOS_MINOR_VERSION])
++    case "$$3_TRILINOS_MINOR_VERSION" in
++dnl 0 and 2 are the only official releases with all-caps
++    0[[0-2]])
++      $3_$2_CPPFLAGS="\$($2_INCLUDE_DIRS) \$($2_TPL_INCLUDE_DIRS)"
++      $3_$2_LDFLAGS="\$($2_SHARED_LIB_RPATH_COMMAND) \$($2_EXTRA_LD_FLAGS) "\
++"\$($2_LIBRARY_DIRS) \$($2_TPL_LIBRARY_DIRS)"
++      $3_$2_LIBS="\$($2_LIBRARIES)"
++      ;;
++    *)
++      $3_$2_CPPFLAGS="\$($1_INCLUDE_DIRS) \$($1_TPL_INCLUDE_DIRS)"
++      $3_$2_LDFLAGS="\$($1_SHARED_LIB_RPATH_COMMAND) \$($1_EXTRA_LD_FLAGS) "\
++"\$($1_LIBRARY_DIRS) \$($1_TPL_LIBRARY_DIRS)"
++      $3_$2_LIBS="\$($1_LIBRARIES)"
++      ;;
++    esac
++  fi
++  AC_SUBST([$3_$2_CPPFLAGS])
++  AC_SUBST([$3_$2_LDFLAGS])
++  AC_SUBST([$3_$2_LIBS])
++])
++
++dnl SC_TRILINOS([PREFIX], [EXTRA_PACKAGES])
++dnl EXTRA_PACKAGES can be empty or contain a comma-separated list
++dnl of trilinos packages in uppercase.
++dnl Currently only ML is recognized.
++dnl
++AC_DEFUN([SC_TRILINOS],
++[
++$1_TRILINOS_VERSION=
++SC_ARG_WITH_PREFIX([trilinos], [set <dir> to Trilinos installation],
++                   [TRILINOS], [$1], [=<dir>])
++if test "$$1_WITH_TRILINOS" != "no" ; then
++  if test "$$1_WITH_TRILINOS" = "yes" ; then
++    AC_MSG_ERROR([Please specify Trilinos installation --with-trilinos=<dir>])
++  else
++    AC_MSG_CHECKING([Trilinos include directory and Makefiles])
++    $1_TRILINOS_DIR="$$1_WITH_TRILINOS"
++    if test ! -d "$$1_TRILINOS_DIR" ; then
++      AC_MSG_ERROR([$$1_TRILINOS_DIR not found])
++    fi
++    if test ! -d "$$1_TRILINOS_DIR/include" ; then
++      AC_MSG_ERROR([$$1_TRILINOS_DIR/include not found])
++    fi
++    if test ! -d "$$1_TRILINOS_DIR/lib" ; then
++      AC_MSG_ERROR([$$1_TRILINOS_DIR/lib not found])
++    fi
++    TRILINOS_HEADER="$$1_TRILINOS_DIR/include/Trilinos_version.h"
++    if test ! -f "$TRILINOS_HEADER" ; then
++      AC_MSG_ERROR([Header file $TRILINOS_HEADER not found])
++    fi
++    if grep -qs 'TRILINOS_MAJOR_VERSION[[[:space:]+]]10' "$TRILINOS_HEADER"
++    then
++      $1_TRILINOS_VERSION=10
++      $1_TRILINOS_CPPFLAGS="-I$$1_TRILINOS_DIR/include"
++      AC_SUBST([$1_TRILINOS_CPPFLAGS])
++      $1_TRILINOS_LDFLAGS="-L$$1_TRILINOS_DIR/lib"
++      AC_SUBST([$1_TRILINOS_LDFLAGS])
++      $1_TRILINOS_MINOR_VERSION=`grep -o 'TRILINOS_MAJOR_MINOR_VERSION 10[[0-9]]\{2\}' "$TRILINOS_HEADER" | sed "s/.* 10//"`
++      AC_MSG_NOTICE([TRILINOS_MINOR_VERSION $$1_TRILINOS_MINOR_VERSION])
++    elif grep -qs 'TRILINOS_MAJOR_VERSION[[[:space:]+]]9' "$TRILINOS_HEADER"
++    then
++      $1_TRILINOS_VERSION=9
++    else
++      AC_MSG_ERROR([Trilinos version not recognized])
++    fi
++    SC_TRILINOS_CHECK_MK([epetra], [Epetra], [EPETRA], [$1])
++    SC_TRILINOS_CHECK_MK([teuchos], [Teuchos], [TEUCHOS], [$1])
++    SC_TRILINOS_PACKAGE_DEFS([Epetra], [EPETRA], [$1])
++    SC_TRILINOS_PACKAGE_DEFS([Teuchos], [TEUCHOS], [$1])
++    m4_foreach([PKG], [$2], [
++      if test "PKG" = "ML" ; then
++        SC_TRILINOS_CHECK_MK([ml], [ML], [ML], [$1])
++        SC_TRILINOS_PACKAGE_DEFS([ML], [ML], [$1])
++      fi
++    ])
++    AC_MSG_RESULT([version $$1_TRILINOS_VERSION])
++  fi
++fi
++AM_CONDITIONAL([$1_TRILINOS_9], [test "$$1_TRILINOS_VERSION" = 9])
++AM_CONDITIONAL([$1_TRILINOS_10], [test "$$1_TRILINOS_VERSION" = 10])
++AM_CONDITIONAL([$1_TRILINOS_ML], [test -n "$$1_TRILINOS_MK_ML"])
++])

@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/Atlas2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*Atlas2-1.4.3 (23 Mar 2014)
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +Atlas2-1.4.3.ebuild, +metadata.xml:
+  a skeleton for a new package, needs help from ruby team
+

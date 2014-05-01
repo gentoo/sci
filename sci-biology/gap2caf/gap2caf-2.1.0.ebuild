@@ -1,26 +1,25 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
 inherit autotools eutils
 
 DESCRIPTION="GAP4 file format to CAF v2 format converter for genomic assembly data"
 HOMEPAGE="http://www.sanger.ac.uk/resources/software/caf/"
-SRC_URI="ftp://ftp.sanger.ac.uk/pub/PRODUCTION_SOFTWARE/src/gap2caf-2.1.0.tar.gz
-		http://downloads.sourceforge.net/staden/staden-2.0.0b8.tar.gz"
+SRC_URI="
+	ftp://ftp.sanger.ac.uk/pub/PRODUCTION_SOFTWARE/src/gap2caf-2.1.0.tar.gz
+	http://downloads.sourceforge.net/staden/staden-2.0.0b8.tar.gz"
 
-LICENSE="as-is staden"
+LICENSE="GRL staden"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
-DEPEND="sci-biology/staden
-		>=dev-lang/tcl-8.5"
+DEPEND="
+	sci-biology/staden
+	>=dev-lang/tcl-8.5"
 RDEPEND="${DEPEND}"
 
 #src_prepare(){
@@ -29,13 +28,14 @@ RDEPEND="${DEPEND}"
 
 src_prepare(){
 	sed -i 's:/include/tcl8.4:/include:' configure.ac || die
-	sed -i 's:libtcl8.4:libtcl8.5:' configure.ac || die
-	sed -i 's:tcl8.4:tcl8.5:' src/Makefile.am || die
-	eaclocal
-	eautomake
-	eautoconf
-	sed -i 's:/include/tcl8.4:/include:' configure
-	sed -i 's:libtcl8.4:libtcl8.5:' configure
+	sed -i 's:libtcl8.4:libtcl:' configure.ac || die
+	sed \
+		-e 's:tcl8.4:tcl:' \
+		-e 's:pkglib_PROGRAMS:pkglibexec_PROGRAMS:g' \
+		-i src/Makefile.am || die
+	eautoreconf
+	sed -i 's:/include/tcl8.4:/include:' configure || die
+	sed -i 's:libtcl8.4:libtcl:' configure || die
 }
 
 src_configure(){
@@ -45,12 +45,13 @@ src_configure(){
 	#LDFLAGS="$LDFLAGS -L/usr/lib/staden -lmutlib -lprimer3 -lg -lmisc" \
 	# STADENROOT=/usr/share/staden \
 	# STADENSRC="${WORKDIR}"/staden-2.0.0b8-src \
-	econf --with-stadenroot=/usr \
-	--with-tcl=/usr \
-	--with-stadensrc="${WORKDIR}"/staden-2.0.0b8-src || die
+	econf \
+		--with-stadenroot=/usr \
+		--with-tcl=/usr \
+		--with-stadensrc="${WORKDIR}"/staden-2.0.0b8-src
 	#sed -i 's:prefix = /usr:prefix = $(DESTDIR)/usr:' Makefile || die
 	#sed -i 's:prefix = /usr:prefix = $(DESTDIR)/usr:' src/Makefile || die
-	sed -i 's:tcl8.4:tcl8.5:' src/Makefile || die
+	sed -i 's:tcl8.4:tcl:' src/Makefile || die
 
 	# The below tricks in overall do not help, only for -ltk_utils somehow
 	sed -i 's:-ltk_utils:-Wl,--enable-new-dtags -Wl,-rpath,/usr/lib/staden -ltk_utils -rpath-link:' src/Makefile || die
@@ -68,7 +69,7 @@ src_install(){
 	#
 	# Instead, we rely on sci-biology/staden providind /etc/env.d/99staden file providing LDPATH=/usr/lib/staden
 	dobin src/gap2caf
-	dodoc README || die
+	dodoc README
 }
 
 # BUG #259848

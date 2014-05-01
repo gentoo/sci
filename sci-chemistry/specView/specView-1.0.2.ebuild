@@ -1,12 +1,12 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="2"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit python toolchain-funcs
+inherit multilib python-single-r1 toolchain-funcs
 
 DESCRIPTION="Fast way to visualise NMR spectrum and peak data"
 HOMEPAGE="http://www.ccpn.ac.uk/software/specview"
@@ -18,8 +18,8 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 RDEPEND="
-	dev-python/pyopengl
-	dev-python/pyside[webkit]"
+	dev-python/pyopengl[${PYTHON_USEDEP}]
+	dev-python/pyside[webkit,${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/ccpnmr/ccpnmr3.0/
@@ -30,26 +30,21 @@ S="${WORKDIR}"/ccpnmr/ccpnmr3.0/
 #unbundle inchi
 #parallel build
 
-pkg_setup() {
-	python_set_active_version 2
-	python_pkg_setup
-}
-
 src_prepare() {
 	sed \
-		-e "s|/usr|"${EPREFIX}"/usr|g" \
+		-e "s|/usr|\"${EPREFIX}/usr\"|g" \
 		-e "s|^\(CC =\).*|\1 $(tc-getCC)|g" \
 		-e '/^MALLOC_FLAG/s:^:#:g' \
 		-e "/^OPT_FLAG/s:=.*$:= ${CFLAGS}:g" \
 		-e "/^LINK_FLAGS/s:$: ${LDFLAGS}:g" \
-		-e "/^PYTHON_DIR/s:=.*:= "${EPREFIX}"/usr:g" \
-		-e "/^PYTHON_LIB/s:=.*:= $(python_get_library -l):g" \
-		-e "/^PYTHON_INCLUDE_FLAGS/s:=.*:= -I"${EPREFIX}"$(python_get_includedir) -I"${EPREFIX}"$(python_get_sitedir)/numpy/core/include/numpy:g" \
-		-e "/^PYTHON_LIB_FLAGS/s:=.*:= -L"${EPREFIX}"/usr/$(get_libdir):g" \
+		-e "/^PYTHON_DIR/s:=.*:= \"${EPREFIX}/usr\":g" \
+		-e "/^PYTHON_LIB/s:=.*:= $(python_get_LIBS):g" \
+		-e "/^PYTHON_INCLUDE_FLAGS/s:=.*:= -I\"$(python_get_includedir)\" -I\"$(python_get_sitedir)/numpy/core/include/numpy\":g" \
+		-e "/^PYTHON_LIB_FLAGS/s:=.*:= -L\"${EPREFIX}/usr/$(get_libdir)\":g" \
 		-e "/^SHARED_FLAGS/s:=.*:= -shared:g" \
-		-e "/^GL_DIR/s:=.*:= "${EPREFIX}"/usr/$(get_libdir):g" \
-		-e "/^GL_INCLUDE_FLAGS/s:=.*:= -I"${EPREFIX}"/usr/include:g" \
-		-e "/^GL_LIB_FLAGS/s:=.*:= -L"${EPREFIX}"/usr/$(get_libdir):g" \
+		-e "/^GL_DIR/s:=.*:= \"${EPREFIX}/usr/$(get_libdir)\":g" \
+		-e "/^GL_INCLUDE_FLAGS/s:=.*:= -I\"${EPREFIX}/usr/include\":g" \
+		-e "/^GL_LIB_FLAGS/s:=.*:= -L\"${EPREFIX}/usr/$(get_libdir)\":g" \
 		cNg/environment_default.txt > cNg/environment.txt || die
 	echo "SHARED_LINK_PARM = ${LDFLAGS}" >> cNg/environment.txt || die
 
@@ -72,37 +67,22 @@ src_install() {
 	find . -name "*.pyc" -type f -delete
 	dodir /usr/bin
 	sed \
-	-e "s|gentoo_sitedir|${EPREFIX}$(python_get_sitedir)|g" \
-	-e "s|gentoolibdir|${EPREFIX}/usr/${libdir}|g" \
-	-e "s|gentootk|${EPREFIX}/usr/${libdir}/tk${tkver}|g" \
-	-e "s|gentootcl|${EPREFIX}/usr/${libdir}/tclk${tkver}|g" \
-	-e "s|gentoopython|$(PYTHON -a)|g" \
-	-e "s|gentoousr|${EPREFIX}/usr|g" \
-	-e "s|//|/|g" \
+		-e "s|gentoo_sitedir|${EPREFIX}$(python_get_sitedir)|g" \
+		-e "s|gentoolibdir|${EPREFIX}/usr/${libdir}|g" \
+		-e "s|gentootk|${EPREFIX}/usr/${libdir}/tk${tkver}|g" \
+		-e "s|gentootcl|${EPREFIX}/usr/${libdir}/tclk${tkver}|g" \
+		-e "s|gentoopython|${PYTHON}|g" \
+		-e "s|gentoousr|\"${EPREFIX}/usr\"|g" \
+		-e "s|//|/|g" \
 		"${FILESDIR}"/${PN} > "${ED}"/usr/bin/${PN} || die
 	fperms 755 /usr/bin/${PN}
 
-	insinto ${in_path}
-
-	dodir ${in_path}/cNg
+	dodir "${in_path#${EPREFIX}}/cNg"
 	rm -rf cNg || die
 
 	ebegin "Installing main files"
-		doins -r *
+	python_moduleinto ${PN}
+	python_domodule *
 	eend
-
-	ebegin "Adjusting permissions"
-
-	for _file in $(find "${ED}" -type f -name "*so"); do
-		chmod 755 ${_file}
-	done
-	eend
-}
-
-pkg_postinst() {
-	python_mod_optimize ${PN}
-}
-
-pkg_postrm() {
-	python_mod_cleanup ${PN}
+	python_optimize
 }

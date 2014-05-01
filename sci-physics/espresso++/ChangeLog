@@ -1,6 +1,19 @@
 # ChangeLog for sci-physics/espresso++
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  16 Feb 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
+  live ebuild update
+
+  07 Feb 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild,
+  metadata.xml:
+  live ebuild update
+
+  09 Oct 2013; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
+  sync with gx86
+
+  02 Aug 2013; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
+  added hostfingerprint
 
   14 Jun 2013; Justin Lecher <jlec@gentoo.org> espresso++-9999.ebuild,
   metadata.xml:

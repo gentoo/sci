@@ -1,0 +1,10 @@
+--- src/objtools/data_loaders/genbank/Makefile.ncbi_xloader_genbank.lib	2013-09-13 21:58:59.420013862 +0200
++++ src/objtools/data_loaders/genbank/Makefile.ncbi_xloader_genbank.lib	2013-09-13 21:59:56.060014010 +0200
+@@ -10,6 +10,6 @@
+ LIB_OR_DLL = both
+ 
+ # Dependencies for shared library
+-DLL_LIB = ncbi_xreader$(DLL)
++DLL_LIB = ncbi_xreader$(DLL) $(GENBANK_LDEP)
+ 
+ WATCHERS = vasilche

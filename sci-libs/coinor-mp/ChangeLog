@@ -1,9 +1,0 @@
-# ChangeLog for sci-libs/coinor-mp
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*coinor-mp-1.6.0 (17 Jul 2012)
-
-  17 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> +coinor-mp-1.6.0.ebuild,
-  +metadata.xml:
-  sci-libs/coinor-mp: Initial import

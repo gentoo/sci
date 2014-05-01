@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<longdescription lang="en">
+  <longdescription lang="en">
 		The Gnome Chemistry Utils provide some programs and library containing
 		GTK widgets and some C++ classes related to chemistry. 
 	</longdescription>
-	<use>
-		<flag name="gnumeric">Build pluging for gnumeric</flag>
-	</use>
+  <use>
+    <flag name="gnumeric">Build pluging for gnumeric</flag>
+  </use>
 </pkgmetadata>

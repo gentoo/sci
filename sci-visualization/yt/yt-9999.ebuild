@@ -1,42 +1,54 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="2"
-SUPPORT_PYTHON_ABIS="1"
-RESTRICT_PYTHON_ABIS="3.*"
+PYTHON_COMPAT=( python2_7 )
+DISTUTILS_IN_SOURCE_BUILD=1
+EHG_REPO_URI="https://bitbucket.org/yt_analysis/yt"
+EHG_REVISION="yt"
 
-inherit distutils mercurial
+inherit distutils-r1 mercurial
 
 DESCRIPTION="Astrophysical Simulation Analysis and Vizualization package"
 HOMEPAGE="http://yt-project.org/"
 SRC_URI=""
-EHG_REPO_URI="https://bitbucket.org/yt_analysis/yt"
-EHG_REVISION="yt"
 
-LICENSE="GPL-3"
+LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="test"
 
-CDEPEND="media-libs/freetype
-	media-libs/libpng
-	sci-libs/hdf5"
-DEPEND="${CDEPEND}
-	dev-python/cython
-	>=dev-python/setuptools-0.6.32"
+CDEPEND="media-libs/freetype:2
+	media-libs/libpng:0=
+	sci-libs/hdf5:="
 RDEPEND="${CDEPEND}
-	dev-python/ipython[notebook]
-	dev-python/pyx
-	dev-python/numpy
-	dev-python/h5py
-	dev-python/matplotlib"
+	dev-python/ipython[notebook,${PYTHON_USEDEP}]
+	dev-python/pyx[${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP}]
+	dev-python/h5py[${PYTHON_USEDEP}]
+	dev-python/matplotlib[${PYTHON_USEDEP}]
+	dev-python/sympy[${PYTHON_USEDEP}]"
+DEPEND="${CDEPEND}
+	dev-python/Forthon[${PYTHON_USEDEP}]
+	>=dev-python/cython-0.19[${PYTHON_USEDEP}]
+	>=dev-python/setuptools-0.7[${PYTHON_USEDEP}]
+	test? ( ${RDEPEND}
+		dev-python/nose[${PYTHON_USEDEP}]
+	)"
 
-pkg_setup() {
-	export PNG_DIR="${EPREFIX}"/usr
-	export FTYPE_DIR="${EPREFIX}"/usr
-	export HDF5_DIR="${EPREFIX}"/usr
-	python_pkg_setup
+python_prepare_all() {
+	append-flags -fno-strict-aliasing
+	sed -i setup.py \
+		-e 's:build/lib:../../../&:' || die
+	sed -i yt/utilities/setup.py \
+		-e "s:/usr:${EPREFIX}/usr:g" || die
+	mv yt/utilities/kdtree/fKD.{f,F}90 || die # Forthon-0.8.13
+	distutils-r1_python_prepare_all
 }
+
+# TODO
+#python_test() {
+#	nosetests || die
+#}

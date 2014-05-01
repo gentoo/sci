@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*galfit-bin-3.0.5 (18 Jul 2013)
+
+  18 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  -galfit-bin-3.0.4.ebuild, +galfit-bin-3.0.5.ebuild:
+  Version bump
+
   13 Jun 2013; Justin Lecher <jlec@gentoo.org> galfit-bin-3.0.4.ebuild:
   Fix license
 

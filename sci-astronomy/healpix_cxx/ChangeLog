@@ -1,0 +1,15 @@
+# ChangeLog for sci-astronomy/healpix_cxx
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*healpix_cxx-3.11.2 (03 Feb 2014)
+
+  03 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org>
+  +healpix_cxx-3.11.2.ebuild, -healpix_cxx-3.11.ebuild:
+  sci-astronomy/healpix_cxx: Version bump
+
+*healpix_cxx-3.11 (16 Jun 2013)
+
+  16 Jun 2013; Sébastien Fabbro <bicatali@gentoo.org> +healpix_cxx-3.11.ebuild,
+  +metadata.xml:
+  sci-astronomy/healpix_cxx: Initial import

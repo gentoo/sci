@@ -1,0 +1,15 @@
+# ChangeLog for sci-biology/fastqc
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  fastqc-0.10.1.ebuild:
+  sci-biology/fastqc: reverse-engineered where sam-1.32.jar is likely coming
+  from
+
+*fastqc-0.10.1 (23 Mar 2014)
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +fastqc-0.10.1.ebuild, +metadata.xml:
+  sci-biology/fastqc: a skeleton for a new perl wrapper calling java libs, need
+  help

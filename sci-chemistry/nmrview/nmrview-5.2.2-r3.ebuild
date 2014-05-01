@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 DESCRIPTION="Visualisation and analysis of processed NMR data"
 HOMEPAGE="http://www.onemoonscientific.com/nmrview/"
@@ -11,7 +11,7 @@ SRC_URI="
 	${PN}${PV//./_}_01_linux.gz"
 
 SLOT="0"
-LICENSE="as-is"
+LICENSE="all-rights-reserved"
 IUSE=""
 KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
 
@@ -38,19 +38,14 @@ pkg_nofetch() {
 	echo
 }
 
-src_compile() {
-	echo
-	einfo "Nothing to compile."
-	echo
-}
-
 src_install() {
 	insinto ${INSTDIR}
 
 	sed \
 		-e "s:/opt:${EPREFIX}/opt:g" \
 		"${FILESDIR}"/${PN}.sh-r1 \
-		> "${T}"/${PN}
+		> "${T}"/${PN} || die
+
 	dobin "${T}"/${PN}
 	exeinto ${INSTDIR}
 	doexe ${PN}${PV//./_}_01_linux

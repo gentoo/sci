@@ -1,0 +1,757 @@
+From 4112e3a2aefcae89181bbddaf704855f69c8de23 Mon Sep 17 00:00:00 2001
+From: yangsheng <yang.sheng@intel.com>
+Date: Fri, 28 Feb 2014 20:30:18 +0800
+Subject: [PATCH 7/7] LU-4416 mm: Backport shrinker changes from upstream
+
+Convert shrinker to new count/scan API.
+--ptlrpc shrinker
+--lu_object shrinker
+--ldlm pool shrinker
+
+Signed-off-by: Peng Tao <tao.peng@emc.com>
+Signed-off-by: Andreas Dilger <andreas.dilger@intel.com>
+Signed-off-by: yang sheng <yang.sheng@intel.com>
+Change-Id: Idbd7cd3b7488202e5e8f6fdf757ae6d20e28d642
+---
+ libcfs/autoconf/lustre-libcfs.m4        |  22 ++++
+ libcfs/include/libcfs/linux/linux-mem.h |  34 ++++-
+ libcfs/include/libcfs/posix/libcfs.h    |  13 +-
+ lustre/ldlm/ldlm_pool.c                 | 222 ++++++++++++++++++++------------
+ lustre/obdclass/lu_object.c             | 134 +++++++++++--------
+ lustre/ptlrpc/sec_bulk.c                |  80 +++++++++---
+ 6 files changed, 342 insertions(+), 163 deletions(-)
+
+diff --git a/libcfs/autoconf/lustre-libcfs.m4 b/libcfs/autoconf/lustre-libcfs.m4
+index 815f082..a6b728a 100644
+--- a/libcfs/autoconf/lustre-libcfs.m4
++++ b/libcfs/autoconf/lustre-libcfs.m4
+@@ -295,6 +295,26 @@ fi
+ ])
+ 
+ #
++# FC19 3.12 kernel struct shrinker change
++#
++AC_DEFUN([LIBCFS_SHRINKER_COUNT],
++[AC_MSG_CHECKING([shrinker has count_objects])
++LB_LINUX_TRY_COMPILE([
++	#include <linux/mmzone.h>
++	#include <linux/shrinker.h>
++],[
++	((struct shrinker*)0)->count_objects(NULL, NULL);
++],[
++	AC_MSG_RESULT(yes)
++	AC_DEFINE(HAVE_SHRINKER_COUNT, 1,
++		[shrinker has count_objects memeber])
++],[
++	AC_MSG_RESULT(no)
++],[
++])
++])
++
++#
+ # LIBCFS_PROG_LINUX
+ #
+ # LNet linux kernel checks
+@@ -328,6 +348,8 @@ LIBCFS_HAVE_CRC32
+ LIBCFS_ENABLE_CRC32_ACCEL
+ # 3.10
+ LIBCFS_ENABLE_CRC32C_ACCEL
++# 3.12
++LIBCFS_SHRINKER_COUNT
+ ])
+ 
+ #
+diff --git a/libcfs/include/libcfs/linux/linux-mem.h b/libcfs/include/libcfs/linux/linux-mem.h
+index 6109645..ce20cb8 100644
+--- a/libcfs/include/libcfs/linux/linux-mem.h
++++ b/libcfs/include/libcfs/linux/linux-mem.h
+@@ -108,13 +108,16 @@ extern void *cfs_mem_cache_cpt_alloc(struct kmem_cache *cachep,
+ /*
+  * Shrinker
+  */
+-
+ #ifdef HAVE_SHRINK_CONTROL
+ # define SHRINKER_ARGS(sc, nr_to_scan, gfp_mask)  \
+                        struct shrinker *shrinker, \
+                        struct shrink_control *sc
+ # define shrink_param(sc, var) ((sc)->var)
+ #else
++struct shrink_control {
++	gfp_t gfp_mask;
++	unsigned long nr_to_scan;
++};
+ # ifdef HAVE_SHRINKER_WANT_SHRINK_PTR
+ #  define SHRINKER_ARGS(sc, nr_to_scan, gfp_mask)  \
+                         struct shrinker *shrinker, \
+@@ -123,13 +126,31 @@ extern void *cfs_mem_cache_cpt_alloc(struct kmem_cache *cachep,
+ #  define SHRINKER_ARGS(sc, nr_to_scan, gfp_mask)  \
+                         int nr_to_scan, gfp_t gfp_mask
+ # endif
++	/* avoid conflict with spl mm_compat.h */
++# define HAVE_SHRINK_CONTROL_STRUCT 1
+ # define shrink_param(sc, var) (var)
+ #endif
+ 
+-typedef int (*shrinker_t)(SHRINKER_ARGS(sc, nr_to_scan, gfp_mask));
++#ifdef HAVE_SHRINKER_COUNT
++struct shrinker_var {
++	unsigned long (*count)(struct shrinker *,
++			       struct shrink_control *sc);
++	unsigned long (*scan)(struct shrinker *,
++			      struct shrink_control *sc);
++};
++# define DEF_SHRINKER_VAR(name, shrink, count_obj, scan_obj) \
++	    struct shrinker_var name = { .count = count_obj, .scan = scan_obj }
++#else
++struct shrinker_var {
++	int (*shrink)(SHRINKER_ARGS(sc, nr_to_scan, gfp_mask));
++};
++# define DEF_SHRINKER_VAR(name, shrinker, count, scan) \
++	    struct shrinker_var name = { .shrink = shrinker }
++# define SHRINK_STOP (~0UL)
++#endif
+ 
+ static inline
+-struct shrinker *set_shrinker(int seek, shrinker_t func)
++struct shrinker *set_shrinker(int seek, struct shrinker_var *var)
+ {
+         struct shrinker *s;
+ 
+@@ -137,7 +158,12 @@ struct shrinker *set_shrinker(int seek, shrinker_t func)
+         if (s == NULL)
+                 return (NULL);
+ 
+-        s->shrink = func;
++#ifdef HAVE_SHRINKER_COUNT
++	s->count_objects = var->count;
++	s->scan_objects = var->scan;
++#else
++	s->shrink = var->shrink;
++#endif
+         s->seeks = seek;
+ 
+         register_shrinker(s);
+diff --git a/libcfs/include/libcfs/posix/libcfs.h b/libcfs/include/libcfs/posix/libcfs.h
+index 6a16be3..c839486 100644
+--- a/libcfs/include/libcfs/posix/libcfs.h
++++ b/libcfs/include/libcfs/posix/libcfs.h
+@@ -269,12 +269,19 @@ struct shrinker {
+ #endif
+ };
+ 
+-#define DEFAULT_SEEKS (0)
++struct shrinker_var {
++#ifndef __INTEL_COMPILER
++	;
++#endif
++};
++
++#define DEF_SHRINKER_VAR(name, shrink, count, scan) \
++		struct shrinker_var name = {};
+ 
+-typedef int (*shrinker_t)(int, unsigned int);
++#define DEFAULT_SEEKS (0)
+ 
+ static inline
+-struct shrinker *set_shrinker(int seeks, shrinker_t shrink)
++struct shrinker *set_shrinker(int seeks, struct shrinker_var *var)
+ {
+ 	return (struct shrinker *)0xdeadbea1; /* Cannot return NULL here */
+ }
+diff --git a/lustre/ldlm/ldlm_pool.c b/lustre/ldlm/ldlm_pool.c
+index 6cf50f2..b3eaf1c 100644
+--- a/lustre/ldlm/ldlm_pool.c
++++ b/lustre/ldlm/ldlm_pool.c
+@@ -531,7 +531,7 @@ static int ldlm_cli_pool_shrink(struct ldlm_pool *pl,
+                                 int nr, unsigned int gfp_mask)
+ {
+         struct ldlm_namespace *ns;
+-        int canceled = 0, unused;
++	int unused;
+ 
+         ns = ldlm_pl2ns(pl);
+ 
+@@ -550,17 +550,14 @@ static int ldlm_cli_pool_shrink(struct ldlm_pool *pl,
+ 	unused = ns->ns_nr_unused;
+ 	spin_unlock(&ns->ns_lock);
+ 
+-        if (nr) {
+-		canceled = ldlm_cancel_lru(ns, nr, LCF_ASYNC,
+-					   LDLM_CANCEL_SHRINK);
+-        }
+ #ifdef __KERNEL__
+-        /*
+-         * Return the number of potentially reclaimable locks.
+-         */
+-        return ((unused - canceled) / 100) * sysctl_vfs_cache_pressure;
++	if (nr == 0)
++		return (unused / 100) * sysctl_vfs_cache_pressure;
++	else
++		return ldlm_cancel_lru(ns, nr, LCF_ASYNC, LDLM_CANCEL_SHRINK);
+ #else
+-        return unused - canceled;
++	return unused - (nr ? ldlm_cancel_lru(ns, nr, LCF_ASYNC,
++					      LDLM_CANCEL_SHRINK) : 0);
+ #endif
+ }
+ 
+@@ -1045,41 +1042,36 @@ static struct shrinker *ldlm_pools_cli_shrinker;
+ static struct completion ldlm_pools_comp;
+ 
+ /*
+- * Cancel \a nr locks from all namespaces (if possible). Returns number of
+- * cached locks after shrink is finished. All namespaces are asked to
+- * cancel approximately equal amount of locks to keep balancing.
+- */
+-static int ldlm_pools_shrink(ldlm_side_t client, int nr,
+-                             unsigned int gfp_mask)
++* count locks from all namespaces (if possible). Returns number of
++* cached locks.
++*/
++static unsigned long ldlm_pools_count(ldlm_side_t client, unsigned int gfp_mask)
+ {
+-	unsigned int total = 0, cached = 0;
+-	int nr_ns;
+-        struct ldlm_namespace *ns;
++	int total = 0, nr_ns;
++	struct ldlm_namespace *ns;
+ 	struct ldlm_namespace *ns_old = NULL; /* loop detection */
+-        void *cookie;
++	void *cookie;
+ 
+-        if (client == LDLM_NAMESPACE_CLIENT && nr != 0 &&
+-            !(gfp_mask & __GFP_FS))
+-                return -1;
++	if (client == LDLM_NAMESPACE_CLIENT && !(gfp_mask & __GFP_FS))
++		return 0;
+ 
+-        CDEBUG(D_DLMTRACE, "Request to shrink %d %s locks from all pools\n",
+-               nr, client == LDLM_NAMESPACE_CLIENT ? "client" : "server");
++	CDEBUG(D_DLMTRACE, "Request to count %s locks from all pools\n",
++	       client == LDLM_NAMESPACE_CLIENT ? "client" : "server");
+ 
+-        cookie = cl_env_reenter();
++	cookie = cl_env_reenter();
+ 
+-        /*
+-         * Find out how many resources we may release.
+-         */
++	/*
++	 * Find out how many resources we may release.
++	 */
+ 	for (nr_ns = ldlm_namespace_nr_read(client);
+-	     nr_ns > 0; nr_ns--)
+-        {
++	     nr_ns > 0; nr_ns--) {
+ 		mutex_lock(ldlm_namespace_lock(client));
+-                if (cfs_list_empty(ldlm_namespace_list(client))) {
++		if (list_empty(ldlm_namespace_list(client))) {
+ 			mutex_unlock(ldlm_namespace_lock(client));
+-                        cl_env_reexit(cookie);
+-                        return 0;
+-                }
+-                ns = ldlm_namespace_first_locked(client);
++			cl_env_reexit(cookie);
++			return 0;
++		}
++		ns = ldlm_namespace_first_locked(client);
+ 
+ 		if (ns == ns_old) {
+ 			mutex_unlock(ldlm_namespace_lock(client));
+@@ -1095,57 +1087,117 @@ static int ldlm_pools_shrink(ldlm_side_t client, int nr,
+ 		if (ns_old == NULL)
+ 			ns_old = ns;
+ 
+-                ldlm_namespace_get(ns);
+-                ldlm_namespace_move_to_active_locked(ns, client);
++		ldlm_namespace_get(ns);
++		ldlm_namespace_move_to_active_locked(ns, client);
+ 		mutex_unlock(ldlm_namespace_lock(client));
+-                total += ldlm_pool_shrink(&ns->ns_pool, 0, gfp_mask);
+-                ldlm_namespace_put(ns);
+-        }
++		total += ldlm_pool_shrink(&ns->ns_pool, 0, gfp_mask);
++		ldlm_namespace_put(ns);
++	}
+ 
+-        if (nr == 0 || total == 0) {
+-                cl_env_reexit(cookie);
+-                return total;
+-        }
++	cl_env_reexit(cookie);
++	return total;
++}
+ 
+-        /*
+-         * Shrink at least ldlm_namespace_nr(client) namespaces.
+-         */
+-	for (nr_ns = ldlm_namespace_nr_read(client) - nr_ns;
+-	     nr_ns > 0; nr_ns--)
+-        {
+-		__u64 cancel;
+-		unsigned int nr_locks;
++static unsigned long ldlm_pools_scan(ldlm_side_t client, int nr,
++				     unsigned int gfp_mask)
++{
++	unsigned long freed = 0;
++	int tmp, nr_ns;
++	struct ldlm_namespace *ns;
++	void *cookie;
+ 
+-                /*
+-                 * Do not call shrink under ldlm_namespace_lock(client)
+-                 */
++	if (client == LDLM_NAMESPACE_CLIENT && !(gfp_mask & __GFP_FS))
++		return -1;
++
++	cookie = cl_env_reenter();
++
++	/*
++	 * Shrink at least ldlm_namespace_nr_read(client) namespaces.
++	 */
++	for (tmp = nr_ns = ldlm_namespace_nr_read(client);
++	     tmp > 0; tmp--) {
++		int cancel, nr_locks;
++
++		/*
++		 * Do not call shrink under ldlm_namespace_lock(client)
++		*/
+ 		mutex_lock(ldlm_namespace_lock(client));
+-                if (cfs_list_empty(ldlm_namespace_list(client))) {
++		if (list_empty(ldlm_namespace_list(client))) {
+ 			mutex_unlock(ldlm_namespace_lock(client));
+-                        /*
+-                         * If list is empty, we can't return any @cached > 0,
+-                         * that probably would cause needless shrinker
+-                         * call.
+-                         */
+-                        cached = 0;
+-                        break;
+-                }
+-                ns = ldlm_namespace_first_locked(client);
+-                ldlm_namespace_get(ns);
+-                ldlm_namespace_move_to_active_locked(ns, client);
++			break;
++		}
++		ns = ldlm_namespace_first_locked(client);
++		ldlm_namespace_get(ns);
++		ldlm_namespace_move_to_active_locked(ns, client);
+ 		mutex_unlock(ldlm_namespace_lock(client));
+ 
+-                nr_locks = ldlm_pool_granted(&ns->ns_pool);
+-		cancel = (__u64)nr_locks * nr;
+-		do_div(cancel, total);
+-		ldlm_pool_shrink(&ns->ns_pool, 1 + cancel, gfp_mask);
+-                cached += ldlm_pool_granted(&ns->ns_pool);
+-                ldlm_namespace_put(ns);
+-        }
+-        cl_env_reexit(cookie);
+-        /* we only decrease the SLV in server pools shrinker, return -1 to
+-         * kernel to avoid needless loop. LU-1128 */
+-        return (client == LDLM_NAMESPACE_SERVER) ? -1 : cached;
++		nr_locks = ldlm_pool_granted(&ns->ns_pool);
++		/*
++		 * We use to shrink propotionally but with new shrinker API,
++		 * we lost the total number of freeable locks.
++		 */
++		cancel = 1 + min_t(int, nr_locks, nr / nr_ns);
++		freed += ldlm_pool_shrink(&ns->ns_pool, cancel, gfp_mask);
++		ldlm_namespace_put(ns);
++	}
++	cl_env_reexit(cookie);
++	/*
++	 * we only decrease the SLV in server pools shrinker, return
++	 * SHRINK_STOP to kernel to avoid needless loop. LU-1128
++	 */
++	return (client == LDLM_NAMESPACE_SERVER) ? SHRINK_STOP : freed;
++}
++
++#ifdef HAVE_SHRINKER_COUNT
++static unsigned long ldlm_pools_srv_count(struct shrinker *s,
++					  struct shrink_control *sc)
++{
++	return ldlm_pools_count(LDLM_NAMESPACE_SERVER, sc->gfp_mask);
++}
++
++static unsigned long ldlm_pools_srv_scan(struct shrinker *s,
++					 struct shrink_control *sc)
++{
++	return ldlm_pools_scan(LDLM_NAMESPACE_SERVER, sc->nr_to_scan,
++			       sc->gfp_mask);
++}
++
++static unsigned long ldlm_pools_cli_count(struct shrinker *s, struct shrink_control *sc)
++{
++	return ldlm_pools_count(LDLM_NAMESPACE_CLIENT, sc->gfp_mask);
++}
++
++static unsigned long ldlm_pools_cli_scan(struct shrinker *s,
++					 struct shrink_control *sc)
++{
++	return ldlm_pools_scan(LDLM_NAMESPACE_CLIENT, sc->nr_to_scan,
++			       sc->gfp_mask);
++}
++
++#else
++/*
++ * Cancel \a nr locks from all namespaces (if possible). Returns number of
++ * cached locks after shrink is finished. All namespaces are asked to
++ * cancel approximately equal amount of locks to keep balancing.
++ */
++static int ldlm_pools_shrink(ldlm_side_t client, int nr,
++			     unsigned int gfp_mask)
++{
++	unsigned int total = 0;
++
++	if (client == LDLM_NAMESPACE_CLIENT && nr != 0 &&
++	    !(gfp_mask & __GFP_FS))
++		return -1;
++
++	CDEBUG(D_DLMTRACE, "Request to shrink %d %s locks from all pools\n",
++	       nr, client == LDLM_NAMESPACE_CLIENT ? "client" : "server");
++
++	total = ldlm_pools_count(client, gfp_mask);
++
++	if (nr == 0 || total == 0)
++		return total;
++
++	return ldlm_pools_scan(client, nr, gfp_mask);
+ }
+ 
+ static int ldlm_pools_srv_shrink(SHRINKER_ARGS(sc, nr_to_scan, gfp_mask))
+@@ -1162,6 +1214,8 @@ static int ldlm_pools_cli_shrink(SHRINKER_ARGS(sc, nr_to_scan, gfp_mask))
+                                  shrink_param(sc, gfp_mask));
+ }
+ 
++#endif /* HAVE_SHRINKER_COUNT */
++
+ int ldlm_pools_recalc(ldlm_side_t client)
+ {
+         __u32 nr_l = 0, nr_p = 0, l;
+@@ -1418,16 +1472,18 @@ static void ldlm_pools_thread_stop(void)
+ int ldlm_pools_init(void)
+ {
+ 	int rc;
++	DEF_SHRINKER_VAR(shsvar, ldlm_pools_srv_shrink,
++			 ldlm_pools_srv_count, ldlm_pools_srv_scan);
++	DEF_SHRINKER_VAR(shcvar, ldlm_pools_cli_shrink,
++			 ldlm_pools_cli_count, ldlm_pools_cli_scan);
+ 	ENTRY;
+ 
+ 	rc = ldlm_pools_thread_start();
+ 	if (rc == 0) {
+ 		ldlm_pools_srv_shrinker =
+-			set_shrinker(DEFAULT_SEEKS,
+-					 ldlm_pools_srv_shrink);
++			set_shrinker(DEFAULT_SEEKS, &shsvar);
+ 		ldlm_pools_cli_shrinker =
+-			set_shrinker(DEFAULT_SEEKS,
+-					 ldlm_pools_cli_shrink);
++			set_shrinker(DEFAULT_SEEKS, &shcvar);
+ 	}
+ 	RETURN(rc);
+ }
+diff --git a/lustre/obdclass/lu_object.c b/lustre/obdclass/lu_object.c
+index 1304e95..0850b2a 100644
+--- a/lustre/obdclass/lu_object.c
++++ b/lustre/obdclass/lu_object.c
+@@ -1884,6 +1884,69 @@ static void lu_site_stats_get(cfs_hash_t *hs,
+ 
+ #ifdef __KERNEL__
+ 
++static unsigned long lu_cache_shrink_count(struct shrinker *sk,
++					   struct shrink_control *sc)
++{
++	lu_site_stats_t stats;
++	struct lu_site *s;
++	struct lu_site *tmp;
++	unsigned long cached = 0;
++
++	if (!(sc->gfp_mask & __GFP_FS))
++		return 0;
++
++	mutex_lock(&lu_sites_guard);
++	list_for_each_entry_safe(s, tmp, &lu_sites, ls_linkage) {
++		memset(&stats, 0, sizeof(stats));
++		lu_site_stats_get(s->ls_obj_hash, &stats, 0);
++		cached += stats.lss_total - stats.lss_busy;
++	}
++	mutex_unlock(&lu_sites_guard);
++
++	cached = (cached / 100) * sysctl_vfs_cache_pressure;
++	CDEBUG(D_INODE, "%ld objects cached\n", cached);
++	return cached;
++}
++
++static unsigned long lu_cache_shrink_scan(struct shrinker *sk,
++					  struct shrink_control *sc)
++{
++	struct lu_site *s;
++	struct lu_site *tmp;
++	unsigned long remain = sc->nr_to_scan, freed = 0;
++	LIST_HEAD(splice);
++
++	if (!(sc->gfp_mask & __GFP_FS))
++		/* We must not take the lu_sites_guard lock when
++		 * __GFP_FS is *not* set because of the deadlock
++		 * possibility detailed above. Additionally,
++		 * since we cannot determine the number of
++		 * objects in the cache without taking this
++		 * lock, we're in a particularly tough spot. As
++		 * a result, we'll just lie and say our cache is
++		 * empty. This _should_ be ok, as we can't
++		 * reclaim objects when __GFP_FS is *not* set
++		 * anyways.
++		 */
++		return SHRINK_STOP;
++
++	mutex_lock(&lu_sites_guard);
++	list_for_each_entry_safe(s, tmp, &lu_sites, ls_linkage) {
++		freed = lu_site_purge(&lu_shrink_env, s, remain);
++		remain -= freed;
++		/*
++		 * Move just shrunk site to the tail of site list to
++		 * assure shrinking fairness.
++		 */
++		list_move_tail(&s->ls_linkage, &splice);
++	}
++	list_splice(&splice, lu_sites.prev);
++	mutex_unlock(&lu_sites_guard);
++
++	return sc->nr_to_scan - remain;
++}
++
++#ifndef HAVE_SHRINKER_COUNT
+ /*
+  * There exists a potential lock inversion deadlock scenario when using
+  * Lustre on top of ZFS. This occurs between one of ZFS's
+@@ -1904,59 +1967,29 @@ static void lu_site_stats_get(cfs_hash_t *hs,
+  */
+ static int lu_cache_shrink(SHRINKER_ARGS(sc, nr_to_scan, gfp_mask))
+ {
+-        lu_site_stats_t stats;
+-        struct lu_site *s;
+-        struct lu_site *tmp;
+         int cached = 0;
+-        int remain = shrink_param(sc, nr_to_scan);
+-        CFS_LIST_HEAD(splice);
+-
+-	if (!(shrink_param(sc, gfp_mask) & __GFP_FS)) {
+-		if (remain != 0)
+-                        return -1;
+-		else
+-			/* We must not take the lu_sites_guard lock when
+-			 * __GFP_FS is *not* set because of the deadlock
+-			 * possibility detailed above. Additionally,
+-			 * since we cannot determine the number of
+-			 * objects in the cache without taking this
+-			 * lock, we're in a particularly tough spot. As
+-			 * a result, we'll just lie and say our cache is
+-			 * empty. This _should_ be ok, as we can't
+-			 * reclaim objects when __GFP_FS is *not* set
+-			 * anyways.
+-			 */
+-			return 0;
+-        }
++	struct shrink_control scv = {
++		 .nr_to_scan = shrink_param(sc, nr_to_scan),
++		 .gfp_mask   = shrink_param(sc, gfp_mask)
++	};
++#if !defined(HAVE_SHRINKER_WANT_SHRINK_PTR) && !defined(HAVE_SHRINK_CONTROL)
++	struct shrinker* shrinker = NULL;
++#endif
+ 
+-	CDEBUG(D_INODE, "Shrink %d objects\n", remain);
+ 
+-	mutex_lock(&lu_sites_guard);
+-        cfs_list_for_each_entry_safe(s, tmp, &lu_sites, ls_linkage) {
+-                if (shrink_param(sc, nr_to_scan) != 0) {
+-                        remain = lu_site_purge(&lu_shrink_env, s, remain);
+-                        /*
+-                         * Move just shrunk site to the tail of site list to
+-                         * assure shrinking fairness.
+-                         */
+-                        cfs_list_move_tail(&s->ls_linkage, &splice);
+-                }
++	CDEBUG(D_INODE, "Shrink %lu objects\n", scv.nr_to_scan);
+ 
+-                memset(&stats, 0, sizeof(stats));
+-                lu_site_stats_get(s->ls_obj_hash, &stats, 0);
+-                cached += stats.lss_total - stats.lss_busy;
+-                if (shrink_param(sc, nr_to_scan) && remain <= 0)
+-                        break;
+-        }
+-        cfs_list_splice(&splice, lu_sites.prev);
+-	mutex_unlock(&lu_sites_guard);
++	lu_cache_shrink_scan(shrinker, &scv);
+ 
+-        cached = (cached / 100) * sysctl_vfs_cache_pressure;
+-        if (shrink_param(sc, nr_to_scan) == 0)
+-                CDEBUG(D_INODE, "%d objects cached\n", cached);
+-        return cached;
++	cached = lu_cache_shrink_count(shrinker, &scv);
++	if (scv.nr_to_scan == 0)
++		CDEBUG(D_INODE, "%d objects cached\n", cached);
++	return cached;
+ }
+ 
++#endif /* HAVE_SHRINKER_COUNT */
++
++
+ /*
+  * Debugging stuff.
+  */
+@@ -2005,11 +2038,6 @@ void lu_context_keys_dump(void)
+         }
+ }
+ EXPORT_SYMBOL(lu_context_keys_dump);
+-#else  /* !__KERNEL__ */
+-static int lu_cache_shrink(int nr, unsigned int gfp_mask)
+-{
+-        return 0;
+-}
+ #endif /* __KERNEL__ */
+ 
+ /**
+@@ -2018,6 +2046,8 @@ static int lu_cache_shrink(int nr, unsigned int gfp_mask)
+ int lu_global_init(void)
+ {
+         int result;
++	DEF_SHRINKER_VAR(shvar, lu_cache_shrink,
++			 lu_cache_shrink_count, lu_cache_shrink_scan);
+ 
+         CDEBUG(D_INFO, "Lustre LU module (%p).\n", &lu_keys);
+ 
+@@ -2046,7 +2076,7 @@ int lu_global_init(void)
+          * inode, one for ea. Unfortunately setting this high value results in
+          * lu_object/inode cache consuming all the memory.
+          */
+-	lu_site_shrinker = set_shrinker(DEFAULT_SEEKS, lu_cache_shrink);
++	lu_site_shrinker = set_shrinker(DEFAULT_SEEKS, &shvar);
+         if (lu_site_shrinker == NULL)
+                 return -ENOMEM;
+ 
+diff --git a/lustre/ptlrpc/sec_bulk.c b/lustre/ptlrpc/sec_bulk.c
+index bb1e782..9da60ad 100644
+--- a/lustre/ptlrpc/sec_bulk.c
++++ b/lustre/ptlrpc/sec_bulk.c
+@@ -232,30 +232,46 @@ static void enc_pools_release_free_pages(long npages)
+ }
+ 
+ /*
+- * could be called frequently for query (@nr_to_scan == 0).
+  * we try to keep at least PTLRPC_MAX_BRW_PAGES pages in the pool.
+  */
+-static int enc_pools_shrink(SHRINKER_ARGS(sc, nr_to_scan, gfp_mask))
++static unsigned long enc_pools_shrink_count(struct shrinker *s,
++					    struct shrink_control *sc)
+ {
+-	if (unlikely(shrink_param(sc, nr_to_scan) != 0)) {
++	/*
++	 * if no pool access for a long time, we consider it's fully idle.
++	 * a little race here is fine.
++	 */
++	if (unlikely(cfs_time_current_sec() - page_pools.epp_last_access >
++		     CACHE_QUIESCENT_PERIOD)) {
+ 		spin_lock(&page_pools.epp_lock);
+-                shrink_param(sc, nr_to_scan) = min_t(unsigned long,
+-                                                   shrink_param(sc, nr_to_scan),
+-                                                   page_pools.epp_free_pages -
+-                                                   PTLRPC_MAX_BRW_PAGES);
+-                if (shrink_param(sc, nr_to_scan) > 0) {
+-                        enc_pools_release_free_pages(shrink_param(sc,
+-                                                                  nr_to_scan));
+-                        CDEBUG(D_SEC, "released %ld pages, %ld left\n",
+-                               (long)shrink_param(sc, nr_to_scan),
+-                               page_pools.epp_free_pages);
+-
+-                        page_pools.epp_st_shrinks++;
+-                        page_pools.epp_last_shrink = cfs_time_current_sec();
+-                }
++		page_pools.epp_idle_idx = IDLE_IDX_MAX;
+ 		spin_unlock(&page_pools.epp_lock);
+ 	}
+ 
++	LASSERT(page_pools.epp_idle_idx <= IDLE_IDX_MAX);
++	return max((int)page_pools.epp_free_pages - PTLRPC_MAX_BRW_PAGES, 0) *
++		(IDLE_IDX_MAX - page_pools.epp_idle_idx) / IDLE_IDX_MAX;
++}
++
++/*
++ * we try to keep at least PTLRPC_MAX_BRW_PAGES pages in the pool.
++ */
++static unsigned long enc_pools_shrink_scan(struct shrinker *s,
++					   struct shrink_control *sc)
++{
++	spin_lock(&page_pools.epp_lock);
++	sc->nr_to_scan = min_t(unsigned long, sc->nr_to_scan,
++			      page_pools.epp_free_pages - PTLRPC_MAX_BRW_PAGES);
++	if (sc->nr_to_scan > 0) {
++		enc_pools_release_free_pages(sc->nr_to_scan);
++		CDEBUG(D_SEC, "released %ld pages, %ld left\n",
++		       (long)sc->nr_to_scan, page_pools.epp_free_pages);
++
++		page_pools.epp_st_shrinks++;
++		page_pools.epp_last_shrink = cfs_time_current_sec();
++	}
++	spin_unlock(&page_pools.epp_lock);
++
+ 	/*
+ 	 * if no pool access for a long time, we consider it's fully idle.
+ 	 * a little race here is fine.
+@@ -268,10 +284,31 @@ static int enc_pools_shrink(SHRINKER_ARGS(sc, nr_to_scan, gfp_mask))
+ 	}
+ 
+ 	LASSERT(page_pools.epp_idle_idx <= IDLE_IDX_MAX);
+-	return max((int)page_pools.epp_free_pages - PTLRPC_MAX_BRW_PAGES, 0) *
+-		(IDLE_IDX_MAX - page_pools.epp_idle_idx) / IDLE_IDX_MAX;
++	return sc->nr_to_scan;
++}
++
++#ifndef HAVE_SHRINKER_COUNT
++/*
++ * could be called frequently for query (@nr_to_scan == 0).
++ * we try to keep at least PTLRPC_MAX_BRW_PAGES pages in the pool.
++ */
++static int enc_pools_shrink(SHRINKER_ARGS(sc, nr_to_scan, gfp_mask))
++{
++	struct shrink_control scv = {
++		.nr_to_scan = shrink_param(sc, nr_to_scan),
++		.gfp_mask   = shrink_param(sc, gfp_mask)
++	};
++#if !defined(HAVE_SHRINKER_WANT_SHRINK_PTR) && !defined(HAVE_SHRINK_CONTROL)
++	struct shrinker* shrinker = NULL;
++#endif
++
++	enc_pools_shrink_scan(shrinker, &scv);
++
++	return enc_pools_shrink_count(shrinker, &scv);
+ }
+ 
++#endif /* HAVE_SHRINKER_COUNT */
++
+ static inline
+ int npages_to_npools(unsigned long npages)
+ {
+@@ -706,6 +743,8 @@ static inline void enc_pools_free(void)
+ 
+ int sptlrpc_enc_pool_init(void)
+ {
++	DEF_SHRINKER_VAR(shvar, enc_pools_shrink,
++			 enc_pools_shrink_count, enc_pools_shrink_scan);
+ 	/*
+ 	 * maximum capacity is 1/8 of total physical memory.
+ 	 * is the 1/8 a good number?
+@@ -741,8 +780,7 @@ int sptlrpc_enc_pool_init(void)
+         if (page_pools.epp_pools == NULL)
+                 return -ENOMEM;
+ 
+-	pools_shrinker = set_shrinker(pools_shrinker_seeks,
+-                                          enc_pools_shrink);
++	pools_shrinker = set_shrinker(pools_shrinker_seeks, &shvar);
+         if (pools_shrinker == NULL) {
+                 enc_pools_free();
+                 return -ENOMEM;
+-- 
+1.9.1
+

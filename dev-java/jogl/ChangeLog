@@ -1,6 +1,21 @@
 # ChangeLog for dev-java/jogl
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*jogl-2.1.4 (12 Feb 2014)
+
+  12 Feb 2014; Guillaume Horel <guillaume.horel@gmail.com> +jogl-2.1.4.ebuild,
+  -jogl-2.1.4_rc1.ebuild:
+  dev-java/jogl: dev-java/jogl version bump
+
+*jogl-2.1.4_rc1 (07 Jan 2014)
+
+  07 Jan 2014; Johann Schmitz <ercpe@gentoo.org> +jogl-2.1.4_rc1.ebuild:
+  Version bump of jogl
+
+  03 Jan 2014; Justin Lecher <jlec@gentoo.org> -jogl-1.1.1.ebuild,
+  +jogl-1.1.1a.ebuild:
+  Bump away from vulnerable version, #330267
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> jogl-2.0_rc8-r1.ebuild,
   metadata.xml:
@@ -27,4 +42,3 @@
   +files/1.1.0/fix-solaris-compiler.patch, +files/1.1.0/uncouple-gluegen.patch,
   +jogl-1.1.1.ebuild, +metadata.xml:
   import from the java overlay
-

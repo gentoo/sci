@@ -1,0 +1,11 @@
+# ChangeLog for sci-biology/ngs_backbone
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ngs_backbone-9999 (24 Mar 2014)
+
+  24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +ngs_backbone-9999.ebuild, +metadata.xml:
+  Initial ebuild, external optional but highly recommended dependency on
+  blast2GO aka b2g4pipe is not resolved
+

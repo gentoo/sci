@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,33 +7,39 @@ EAPI=5
 FORTRAN_NEEDED=fortran
 
 if [[ ${PV} == "9999" ]] ; then
-	_SCM=mercurial
+	inherit mercurial
 	EHG_REPO_URI="https://bitbucket.org/eigen/eigen"
 	SRC_URI=""
 	KEYWORDS=""
 else
-	SRC_URI="http://bitbucket.org/eigen/eigen/get/${PV}.tar.bz2 -> ${P}.tar.bz2"
+	SRC_URI="
+		http://bitbucket.org/eigen/eigen/get/${PV}.tar.bz2 -> ${P}.tar.bz2
+		https://bitbucket.org/eigen/eigen/commits/1d71b1341c03a7c485289be2c8bd906a259c0487/raw/ -> ${P}-cmake.patch
+		"
+	PATCHES=( "${DISTDIR}"/${P}-cmake.patch	)
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit alternatives-2 cmake-utils fortran-2 multilib vcs-snapshot ${_SCM}
+inherit alternatives-2 cmake-utils fortran-2 multilib vcs-snapshot
 
 DESCRIPTION="C++ template library for linear algebra"
 HOMEPAGE="http://eigen.tuxfamily.org/"
 
 SLOT="3"
 LICENSE="MPL-2.0"
-IUSE="adolc doc fortran fftw gmp mkl sparse static-libs test"
+IUSE="adolc doc fortran fftw gmp metis mkl pastix sparse static-libs test"
 
-# TODO: support for pastix
 CDEPEND="
 	adolc? ( sci-libs/adolc[sparse?] )
-	fftw? ( >=sci-libs/fftw-3 )
+	fftw? ( sci-libs/fftw:3.0 )
 	gmp? ( dev-libs/gmp dev-libs/mpfr )
+	metis? ( sci-libs/metis )
 	mkl? ( sci-libs/mkl )
+	pastix? ( sci-libs/pastix )
 	sparse? (
 		dev-cpp/sparsehash
-		sci-libs/cholmod[metis]
+		sci-libs/cholmod[metis?]
+		sci-libs/spqr
 		sci-libs/superlu
 		sci-libs/umfpack )"
 DEPEND="
@@ -44,36 +50,52 @@ RDEPEND="
 	!dev-cpp/eigen:0
 	${CDEPEND}"
 
-src_configure() {
+src_prepare() {
+	sed -i \
+		-e "s:/usr:${EPREFIX}/usr:g" \
+		-e "s:/bin/bash:${EPREFIX}/bin/bash:g" \
+		cmake/*.cmake || die
+	sed -i \
+		-e "/DESTINATION/s:lib:$(get_libdir):g" \
+		{blas,lapack}/CMakeLists.txt || die
+
 	# TOFIX: static-libs for blas are always built with PIC
+	use static-libs || sed -i \
+		-e "/add_dependencies/s/eigen_[a-z]*_static//g" \
+		-e "/TARGETS/s/eigen_[a-z]*_static//g" \
+		-e "/add_library(eigen_[a-z]*_static/d" \
+		-e "/target_link_libraries(eigen_[a-z]*_static/d" \
+		{blas,lapack}/CMakeLists.txt || die
+	cmake-utils_src_prepare
+}
+
+src_configure() {
 	# TOFIX: is it worth fixing all the automagic given no library is built?
+	# cmake has buggy disable_testing feature, so leave it for now
 	local mycmakeargs=(
+		-DDART_TESTING_TIMEOUT=300
 		-DEIGEN_BUILD_BTL=OFF
-		-DEIGEN_TEST_NO_OPENGL=ON
-		$(cmake-utils_use test EIGEN_BUILD_TESTS)
-		$(cmake-utils_use !fortran EIGEN_TEST_NO_FORTRAN)
 	)
+	export VARTEXFONTS="${T}/fonts"
 	CMAKE_BUILD_TYPE="release" cmake-utils_src_configure
-	# lapack not ready yet?
+	# use fortran && FORTRAN_LIBS="blas lapack" not ready
 	use fortran && FORTRAN_LIBS="blas"
 }
 
 src_compile() {
 	local targets="${FORTRAN_LIBS}"
 	use doc && targets+=" doc"
-	use test && targets+=" buildtests"
+	use test && targets+=" check"
 	cmake-utils_src_compile ${targets}
 }
 
 src_install() {
 	cmake-utils_src_install
-	use doc && dohtml -r "${CMAKE_BUILD_DIR}"/doc/html/*
+	use doc && dohtml -r "${BUILD_DIR}"/doc/html/*
 	local x
 	for x in ${FORTRAN_LIBS}; do
 		local libname="eigen_${x}"
-		cd "${CMAKE_BUILD_DIR}"/${x}
-		dolib.so lib${libname}.so
-		use static-libs && newlib.a lib${libname}_static.a lib${libname}.a
+		emake DESTDIR="${D}" -C "${BUILD_DIR}/${x}" install ${libname}
 		cat > ${libname}.pc <<-EOF
 			prefix=${EPREFIX}/usr
 			libdir=\${prefix}/$(get_libdir)

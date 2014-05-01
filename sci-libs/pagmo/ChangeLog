@@ -1,6 +1,12 @@
 # ChangeLog for sci-libs/pagmo
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> pagmo-9999.ebuild:
+  Add missing python deps
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> pagmo-9999.ebuild, metadata.xml:
+  Switch from git-2 to git-r3; use python-single-r1.eclass
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> pagmo-9999.ebuild, metadata.xml:
   migrate from 'git' to 'git-2'

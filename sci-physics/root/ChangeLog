@@ -1,6 +1,83 @@
 # ChangeLog for sci-physics/root
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> root-9999.ebuild:
+  Switch from git-2 to git-r3
+
+  28 Dec 2013; Justin Lecher <jlec@gentoo.org> -root-5.32.03-r2.ebuild,
+  -root-5.34.13.ebuild, root-9999.ebuild:
+  Import tree changes, drop old
+
+  22 Dec 2013; Andrew Savchenko <bircoph@gmail.com> +root-5.32.03-r2.ebuild,
+  +files/root-5.28.00b-asneeded.patch, +files/root-5.28.00b-prop-ldflags.patch,
+  +files/root-5.28.00b-unuran.patch,
+  +files/root-5.32.00-explicit-functions.patch,
+  +files/root-5.32.00-nobyte-compile.patch,
+  +files/root-5.32.00-rmkdepend.patch, +files/root-5.32.00-rusage.patch,
+  metadata.xml:
+  Fix 494642 for 5.32.03: xft is always needed. Also fix build with
+  recent postgresql and glibc (rmkdepend and rusage patches).
+
+  10 Dec 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.34.10-r2.ebuild,
+  root-5.34.13.ebuild, -files/root-5.28.00b-unuran.patch:
+  Add ROOTPrimer and Spectrum user guides.
+  Remove old versions.
+
+*root-5.34.13 (05 Dec 2013)
+
+  05 Dec 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.32.04.ebuild,
+  +root-5.34.13.ebuild, -files/root-5.28.00b-asneeded.patch,
+  -files/root-5.28.00b-prop-ldflags.patch,
+  -files/root-5.32.00-explicit-functions.patch,
+  -files/root-5.32.00-nobyte-compile.patch, +files/root-5.34.13-desktop.patch,
+  +files/root-5.34.13-pythia8.patch, +files/root-5.34.13-unuran.patch:
+  Version bump. Fix Pythia8 version requirements and fix Pythia8
+  build using patch from Oliver Freyermuth (see bug 490332 and
+  https://sft.its.cern.ch/jira/browse/ROOT-5667). Fix c++0x USE flag.
+  Fix installaton of python optimized modules. Fix desktop file to
+  conform currest standard. Remove old.
+
+  09 Nov 2013; Andrew Savchenko <bircoph@gmail.com> +root-5.32.04.ebuild,
+  +files/root-5.28.00b-asneeded.patch, +files/root-5.28.00b-prop-ldflags.patch,
+  +files/root-5.32.00-explicit-functions.patch,
+  +files/root-5.32.00-nobyte-compile.patch:
+  Update pythia8 dependency for 5.32 branch, migrate for
+  python-single-r1 and EAPI=5.
+
+  08 Nov 2013; Andrew Savchenko <bircoph@gmail.com> root-5.34.10-r2.ebuild:
+  Fix pythia dependency: versions >= 8.1.80 changed API and are no
+  longer supported for this root verison.
+
+  15 Oct 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.34.10.ebuild,
+  -root-5.34.10-r1.ebuild, root-5.34.10-r2.ebuild, root-9999.ebuild,
+  -files/root-5.32.00-nobyte-compile.patch, -files/root-9999-cling.patch:
+  Remove old versions and unused patches. WIP on live ebuild.
+
+*root-5.34.10-r2 (07 Oct 2013)
+
+  07 Oct 2013; Andrew Savchenko <bircoph@gmail.com> +root-5.34.10-r2.ebuild,
+  metadata.xml:
+  Add minimal USE flag for minimal and gminimal configurations. Use
+  nohouwto to remove useless messages.
+
+*root-5.34.10-r1 (06 Oct 2013)
+
+  06 Oct 2013; Andrew Savchenko <bircoph@gmail.com> +root-5.34.10-r1.ebuild:
+  Properly use c++0x and oracle deps.
+
+*root-5.34.10 (04 Oct 2013)
+
+  04 Oct 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.34.09.ebuild,
+  +root-5.34.10.ebuild:
+  Version bump per bug 486620 (changes by Oliver Freyermuth).
+  Remove old.
+
+*root-5.34.09 (29 Jun 2013)
+
+  29 Jun 2013; Andrew Savchenko <bircoph@gmail.com> -root-5.34.08.ebuild,
+  +root-5.34.09.ebuild:
+  Version bump.
 
 *root-5.34.08 (08 Jun 2013)
 

@@ -1,0 +1,8 @@
+MPI_CC=@ROOT@usr/bin/mpicc
+MPI_CXX=@ROOT@usr/bin/mpicxx
+MPI_F77=@ROOT@usr/bin/mpif77
+MPI_FC=@ROOT@usr/bin/mpif90
+CLASS_BASE_MPI_IMP=@BASE_IMP@
+PATH=@ROOT@usr/bin
+MANPATH=@ROOT@usr/share/man
+LD_LIBRARY_PATH=@ROOT@usr/@LIBDIR@

@@ -1,0 +1,16 @@
+ Display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Display.c b/Display.c
+index 671d3ee..9a03c48 100644
+--- a/Display.c
++++ b/Display.c
+@@ -85,7 +85,7 @@ DISPLAY_DATA   *CreateDisplayData( int len, int prop, int nuc )
+ void  display_selected_nucleus( DISPLAY_DATA *d )
+ {
+   int   i, j;
+-  char  nucleus[5];
++  char  nucleus[8];
+ 
+   /* Print Header Information */
+ 

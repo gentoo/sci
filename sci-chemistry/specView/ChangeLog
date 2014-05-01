@@ -1,6 +1,36 @@
 # ChangeLog for sci-chemistry/specView
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*specView-1.0.4 (25 Apr 2014)
+
+  25 Apr 2014; Justin Lecher <jlec@gentoo.org> +specView-1.0.4.ebuild:
+  Version BUmp
+
+*specView-1.0.3_p2 (26 Mar 2014)
+
+  26 Mar 2014; Justin Lecher <jlec@gentoo.org> +specView-1.0.3_p2.ebuild:
+  Version BUmp
+
+  08 Jan 2014; Justin Lecher <jlec@gentoo.org> specView-1.0.3.ebuild:
+  Fix double prefix
+
+*specView-1.0.3 (07 Aug 2013)
+
+  07 Aug 2013; Justin Lecher <jlec@gentoo.org> +specView-1.0.3.ebuild:
+  Version Bump
+
+  20 Jul 2013; Justin Lecher <jlec@gentoo.org> specView-1.0.2.ebuild:
+  Last prefix bit
+
+  19 Jul 2013; Justin Lecher <jlec@gentoo.org> specView-1.0.2.ebuild:
+  Last prefix bit
+
+  19 Jul 2013; Justin Lecher <jlec@gentoo.org> specView-1.0.2.ebuild:
+  Prefix love
+
+  16 Jun 2013; Justin Lecher <jlec@gentoo.org> specView-1.0.2.ebuild:
+  Bump to EAPI=5 and python-single-r1.eclass
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> specView-1.0.2.ebuild,
   metadata.xml:

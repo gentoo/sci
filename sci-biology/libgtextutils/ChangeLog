@@ -1,6 +1,12 @@
 # ChangeLog for sci-biology/libgtextutils
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*libgtextutils-0.6.1 (29 Aug 2013)
+
+  29 Aug 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  -libgtextutils-0.6.ebuild, +libgtextutils-0.6.1.ebuild:
+  Version bump.
 
 *libgtextutils-0.6 (16 Jan 2012)
 

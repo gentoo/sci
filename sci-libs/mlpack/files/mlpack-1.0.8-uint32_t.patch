@@ -1,0 +1,16 @@
+--- src/mlpack/core/math/random.hpp	2014-02-15 20:47:24.897408021 +0200
++++ src/mlpack/core/math/random.hpp	2014-02-15 20:49:36.190907865 +0200
+@@ -26,10 +26,13 @@
+ #include <float.h>
+ 
+ #include <boost/random.hpp>
++#include <boost/cstdint.hpp>
+ 
+ namespace mlpack {
+ namespace math /** Miscellaneous math routines. */ {
+ 
++using boost::uint32_t;
++
+ // Annoying Boost versioning issues.
+ #include <boost/version.hpp>
+ 

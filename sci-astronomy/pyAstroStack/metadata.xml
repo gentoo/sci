@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer>
+    <email>mikko.laine@gmail.com</email>
+    <name>Mikko Laine</name>
+  </maintainer>
+  <longdescription>
+    An open source stacking software for astronomical images taken with a DSLR
+    camera. PyAstroStack can calibrate, debayer, register, align and stack photos
+    taken with modern DSLR's from Canon. It has a command line user interface
+    inspired by AstroSurf IRIS.
+  </longdescription>
+  <use>
+    <flag name="opencl">Enables OpenCL support and pulls in pyopencl. This makes
+    some operations much faster but requires specific hardware and drivers.</flag>
+  </use>
+</pkgmetadata>

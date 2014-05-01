@@ -1,0 +1,19 @@
+# ChangeLog for sci-chemistry/openbabel-python
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  14 Feb 2014; Reinis Danne <rei4dan@gmail.com> openbabel-python-9999.ebuild:
+  Fix move to git-r3.
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> openbabel-python-9999.ebuild:
+  Switch from git-2 to git-r3
+
+  14 Nov 2013; Reinis Danne <rei4dan@gmail.com> openbabel-python-9999.ebuild:
+  CMake now is able to find Python module target dir.
+
+*openbabel-python-9999 (26 Sep 2013)
+
+  26 Sep 2013; Reinis Danne <rei4dan@gmail.com> +openbabel-python-9999.ebuild,
+  +metadata.xml:
+  Add live ebuild.
+

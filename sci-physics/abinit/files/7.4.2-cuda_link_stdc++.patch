@@ -1,0 +1,21 @@
+diff -Naur abinit-7.4.2.orig/src/98_main/Makefile.am abinit-7.4.2/src/98_main/Makefile.am
+--- src/98_main/Makefile.am	2013-09-08 07:27:21.000000000 +0000
++++ src/98_main/Makefile.am	2013-10-10 12:20:26.678606398 +0000
+@@ -37,7 +37,7 @@
+ LIB_12_HIDE_MPI = $(top_builddir)/src/12_hide_mpi/lib12_hide_mpi.a
+ LIB_14_HIDEWRITE = $(top_builddir)/src/14_hidewrite/lib14_hidewrite.a
+ if DO_BUILD_15_GPU_TOOLBOX
+- LIB_15_GPU_TOOLBOX = $(top_builddir)/src/15_gpu_toolbox/lib15_gpu_toolbox.a
++ LIB_15_GPU_TOOLBOX = $(top_builddir)/src/15_gpu_toolbox/lib15_gpu_toolbox.a -lstdc++
+ else
+  LIB_15_GPU_TOOLBOX =
+ endif
+@@ -59,7 +59,7 @@
+ LIB_51_MANAGE_MPI = $(top_builddir)/src/51_manage_mpi/lib51_manage_mpi.a
+ LIB_52_FFT_MPI_NOABIRULE = $(top_builddir)/src/52_fft_mpi_noabirule/lib52_fft_mpi_noabirule.a
+ if DO_BUILD_52_MANAGE_CUDA
+- LIB_52_MANAGE_CUDA = $(top_builddir)/src/52_manage_cuda/lib52_manage_cuda.a
++ LIB_52_MANAGE_CUDA = $(top_builddir)/src/52_manage_cuda/lib52_manage_cuda.a -lstdc++
+ else
+  LIB_52_MANAGE_CUDA =
+ endif

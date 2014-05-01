@@ -1,17 +1,22 @@
---- Makefile	2004-08-03 20:33:20.000000000 +0200
-+++ Makefile.new	2009-06-14 10:49:40.000000000 +0200
+ Makefile | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 5401c07..ffd8157 100644
+--- a/Makefile
++++ b/Makefile
 @@ -6,8 +6,8 @@
  # E-Mail:   anip@redpoll.pharmacy.ualberta.ca
  #
  #CC=gcc -Xcpluscomm -cckr
 -CC=/usr/bin/gcc
--CFLAGS=-O3
+-CFLAGS=-O
 +#CC=/usr/bin/gcc
-+#CFLAGS=-O3
++#CFLAGS=-O
  SYSLIB=
  INCLUDES=-I/usr/include
  LIBS=$(SYSLIB) -lm 
-@@ -25,7 +25,7 @@
+@@ -25,7 +25,7 @@ OBJS=Main.o Nn.o Ssbond.o Residue.o Hetatm.o Vector.o Torison.o Cs.o Phipsi.o \
  all: shiftx
  
  shiftx:	$(OBJS)

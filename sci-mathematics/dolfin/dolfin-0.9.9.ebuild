@@ -1,12 +1,12 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-PYTHON_DEPEND="python? 2"
+PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit cmake-utils eutils python
+inherit cmake-utils eutils python-single-r1
 
 DESCRIPTION="C++/Python interface of FEniCS"
 HOMEPAGE="https://launchpad.net/dolfin/"
@@ -18,21 +18,25 @@ KEYWORDS="~amd64"
 IUSE="cgal cholmod gmp mpi parmetis python scotch umfpack zlib"
 # scotch and parmetis require mpi; wait for EAPI 4
 
+REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+
 DEPEND="
 	dev-libs/boost
 	dev-libs/libxml2:2
 	sci-libs/armadillo
 	sci-mathematics/ufc
 	python? (
-		dev-python/ufl
-		dev-python/ffc
-		dev-python/fiat
-		dev-python/instant
-		dev-python/viper )"
+		${PYTHON_DEPS}
+		dev-python/ufl[${PYTHON_USEDEP}]
+		dev-python/ffc[${PYTHON_USEDEP}]
+		dev-python/fiat[${PYTHON_USEDEP}]
+		dev-python/instant[${PYTHON_USEDEP}]
+		dev-python/viper[${PYTHON_USEDEP}]
+		)"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
-	use python && python_set_active_version 2
+	use python && python-single-r1_pkg_setup
 }
 
 src_prepare() {

@@ -1,8 +1,10 @@
-# Copyright 2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
+
+inherit multilib
 
 X86_AT="AMD-APP-SDK-v${PV}-lnx32.tgz"
 AMD64_AT="AMD-APP-SDK-v${PV}-lnx64.tgz"
@@ -10,7 +12,8 @@ AMD64_AT="AMD-APP-SDK-v${PV}-lnx64.tgz"
 MY_P="AMD-APP-SDK-v2.8-RC-lnx64"
 
 DESCRIPTION="AMD Accelerated Parallel Processing (APP) SDK"
-HOMEPAGE="http://developer.amd.com/tools/heterogeneous-computing/amd-accelerated-parallel-processing-app-sdk"
+HOMEPAGE="http://developer.amd.com/tools/heterogeneous-computing/\
+amd-accelerated-parallel-processing-app-sdk"
 SRC_URI="
 		amd64? ( ${AMD64_AT} )
 		x86? ( ${X86_AT} )"
@@ -26,7 +29,8 @@ RDEPEND="
 	sys-devel/gcc
 	media-libs/mesa
 	media-libs/freeglut
-	|| ( dev-util/opencl-headers dev-util/nvidia-cuda-toolkit >=x11-drivers/ati-drivers-11.12[opencl] )
+	|| ( dev-util/opencl-headers dev-util/nvidia-cuda-toolkit
+		>=x11-drivers/ati-drivers-11.12[opencl] )
 	examples? ( media-libs/glew )
 	app-admin/eselect-opencl"
 DEPEND="
@@ -50,13 +54,22 @@ src_unpack() {
 	unpack ./icd-registration.tgz
 }
 
+src_prepare() {
+	AMD_CL=usr/$(get_libdir)/OpenCL/vendors/amd/
+}
+
 src_compile() {
-	use examples && emake
+	MAKEOPTS+=" -j1"
+	use examples && cd samples/opencl && emake
 }
 
 src_install() {
 	dodir /opt/AMDAPP
 	cp -R "${S}/"* "${ED}/opt/AMDAPP" || die "Install failed!"
+
+	dodir "${AMD_CL}"
+	dosym "/opt/AMDAPP/lib/`arch`/libOpenCL.so"   "${AMD_CL}"
+	dosym "/opt/AMDAPP/lib/`arch`/libOpenCL.so.1" "${AMD_CL}"
 
 	insinto /etc/OpenCL/vendors/
 	doins ../etc/OpenCL/vendors/*

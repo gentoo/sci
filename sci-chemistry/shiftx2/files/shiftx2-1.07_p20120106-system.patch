@@ -1,0 +1,231 @@
+ natsorted.py         |  1 -
+ script/combine_cs.py |  2 +-
+ shiftx2.py           | 39 +++++++++++++++++++--------------------
+ shiftx2_util.py      |  3 +--
+ shifty3/shifty3.py   |  2 +-
+ 5 files changed, 22 insertions(+), 25 deletions(-)
+
+diff --git a/natsorted.py b/natsorted.py
+index 415b393..6fc909e 100755
+--- a/natsorted.py
++++ b/natsorted.py
+@@ -1,4 +1,3 @@
+-#!/usr/bin/env python
+ ############################################################
+ # functions for performing natural sort
+ ############################################################
+diff --git a/script/combine_cs.py b/script/combine_cs.py
+index 4d1dd4f..5182958 100755
+--- a/script/combine_cs.py
++++ b/script/combine_cs.py
+@@ -9,7 +9,7 @@
+ # last updated: Jan 06st, 2012 (by Beomsoo Han)
+ #################################################################################
+ import sys, re, os
+-from natsorted import *
++from shiftx2.natsorted import *
+ from math import exp  ## add for new combine rule
+ # from numpy import *
+ tablerows = {} # a hash table for all rows in the table, mapping from residue number to table entry object
+diff --git a/shiftx2.py b/shiftx2.py
+index 0a171c8..72ecbfe 100755
+--- a/shiftx2.py
++++ b/shiftx2.py
+@@ -14,7 +14,7 @@
+ #######################################################################
+ import os, sys, getopt, re, fnmatch
+ from optparse import OptionParser
+-from shiftx2_util import *
++from shiftx2.shiftx2util import *
+ 
+ DEUTERATED = None
+ NOSHIFTY = None
+@@ -26,7 +26,7 @@ CHAINID = None
+ EXPLICIT = None
+ SHIFTTYPE = None
+ 
+-SHIFTX2ROOT = ""
++SHIFTX2ROOT = "@GENTOO_PORTAGE_EPREFIX@/opt/shiftx2"
+ 
+ # temporary file name
+ 
+@@ -136,8 +136,7 @@ def batch_mode(pattern_str):
+         print "## Running SHIFTX+ modules ..."  ## Add by B HAN
+ 
+         ## switch os.path.abspath("") with SHIFTX2ROOT (set from sys.path[0]) by B HAN
+-        cmd_prefix = "java -cp " + SHIFTX2ROOT + "/bin:" + SHIFTX2ROOT + \
+-            "/lib/weka.jar ShiftXp -b " + "'" +  BATCH + "'" + " -atoms " + options.atoms + \
++        cmd_prefix = "jshiftx2" + " -b " + "'" +  BATCH + "'" + " -atoms " + options.atoms + \
+             " -ph " + str(options.ph) + " -temp " + str(options.temp) 
+         if DEUTERATED:
+             cmd_prefix = cmd_prefix + " -d TRUE"
+@@ -154,14 +153,14 @@ def batch_mode(pattern_str):
+         for infile in pdb_list:
+             # run SHIFTX
+             ## cmd_prefix = "modules/shiftx/shiftx 1 " + os.path.abspath("") + "/" + \
+-            cmd_prefix = SHIFTX2ROOT + "/modules/shiftx/shiftx 1 " + infile + " " + infile + ".sx"
++            cmd_prefix = "shiftx 1 " + infile + " " + infile + ".sx"
+             os.system(cmd_prefix)
+             if VERBOSE:
+                 print cmd_prefix
+             # convert from table format to CSV
+             ## cmd_prefix = "python script/shiftx2shiftxp.py " + os.path.abspath("") + "/" + \
+             ##    infile + ".sx " + os.path.abspath("") + "/" + infile + ".sxp"
+-            cmd_prefix = "python "+ SHIFTX2ROOT +"/script/shiftx2shiftxp.py " + \
++            cmd_prefix = "shiftx2shiftxp.py " + \
+                 infile + ".sx " +  infile + ".sxp"
+             ## switched by B HAN
+             ## infile + ".sx " + os.path.abspath("") + "/" + infile.split('.')[0] + ".sxp"
+@@ -180,7 +179,7 @@ def batch_mode(pattern_str):
+             ## os.chdir(os.path.abspath("shifty3"))
+             sys.path.append(SHIFTX2ROOT+"/shifty3")
+             os.chdir(SHIFTX2ROOT+"/shifty3")
+-            shifty_cmd = "python shifty3.py -i " + \
++            shifty_cmd = "shifty3 -i " + \
+                 infile + " -o " + infile + ".shifty -c 40 "
+             if DEUTERATED:
+                 shifty_cmd = shifty_cmd + " -d"
+@@ -207,7 +206,7 @@ def batch_mode(pattern_str):
+             errmsg = "Error: SHIFTX+ cannot make a prediction file."
+             return errmsg
+ 
+-        combine_cmd = "python " + SHIFTX2ROOT +"/script/combine_cs.py " + sx_outfile + " " + infile + ".shifty " 
++        combine_cmd = "combine_cs.py " + sx_outfile + " " + infile + ".shifty " 
+         if not options.outfile:
+             combine_cmd = combine_cmd + infile + ".cs" 
+         else:
+@@ -248,7 +247,7 @@ def model_batch(pattern_str):
+     # run shiftx1 or shiftx+
+     if not SHIFTX1:
+         # run SHIFTX+ 
+-        cmd_prefix = "java -cp " + SHIFTX2ROOT + "/bin:" + SHIFTX2ROOT + "/lib/weka.jar ShiftXp -b " + \
++        cmd_prefix = "jshiftx2 -b " + \
+             "'" +  pattern_str + "'" + " -atoms " + options.atoms + \
+             " -ph " + str(options.ph) + " -temp " + str(options.temp) 
+         if DEUTERATED:
+@@ -263,14 +262,14 @@ def model_batch(pattern_str):
+     else:
+         for infile in pdb_list:
+             # run SHIFTX
+-            cmd_prefix = SHIFTX2ROOT + "/modules/shiftx/shiftx 1 " + infile + \
++            cmd_prefix = "shiftx 1 " + infile + \
+                 " " + infile + ".sx"
+             os.system(cmd_prefix)
+             if VERBOSE:
+                 print cmd_prefix
+ 
+             # convert from table format to CSV
+-            cmd_prefix = "python "+ SHIFTX2ROOT +"/script/shiftx2shiftxp.py " + \
++            cmd_prefix = "shiftx2shiftxp.py " + \
+                 infile + ".sx " + infile + ".sxp"
+ 
+             os.system(cmd_prefix)
+@@ -328,7 +327,7 @@ def nmr_mode(infile, obs_cs):
+     if not NOSHIFTY:
+         sys.path.append( SHIFTX2ROOT + "/shifty3")
+         os.chdir(SHIFTX2ROOT + "/shifty3")
+-        shifty_cmd = "python shifty3.py -i " + infile + \
++        shifty_cmd = "shifty3 -i " + infile + \
+             " -o " + infile + ".shifty -c 40 "
+         if DEUTERATED:
+             shifty_cmd = shifty_cmd + " -d"
+@@ -350,7 +349,7 @@ def nmr_mode(infile, obs_cs):
+         return errmsg
+ 
+     # combine result
+-    combine_cmd = "python "+ SHIFTX2ROOT + "/script/combine_cs.py " + infile_prefix + ".sxp " + infile + ".shifty " 
++    combine_cmd = "combine_cs.py " + infile_prefix + ".sxp " + infile + ".shifty " 
+     if not options.outfile:
+         combine_cmd = combine_cmd + infile + ".cs" 
+         ## add by B HAN; if it does not exist, error message will occur
+@@ -367,7 +366,7 @@ def nmr_mode(infile, obs_cs):
+     # should be accomplished in a function
+     if obs_cs!= None:
+         # calculate correlation
+-        cmd = "python " + SHIFTX2ROOT +"/script/model_corr.py " + obs_cs + " " + infile_prefix + ".modelcorr " + ' '.join(model_outfiles)
++        cmd = "model_corr.py " + obs_cs + " " + infile_prefix + ".modelcorr " + ' '.join(model_outfiles)
+         os.system(cmd)
+                
+         # plot correlation graphs, plot line graph but no barplots
+@@ -456,7 +455,7 @@ def single_mode(infile, outfile):
+     
+     if not SHIFTX1:
+         # run SHIFTX+ 
+-        cmd_prefix = "java -cp " + SHIFTX2ROOT + "/bin:" + SHIFTX2ROOT + "/lib/weka.jar ShiftXp -i " + inputfile \
++        cmd_prefix = "jshiftx2 -i " + inputfile \
+                    + " -atoms " + options.atoms + " -ph " + str(options.ph) + " -temp " + str(options.temp) 
+         if DEUTERATED:
+             cmd_prefix = cmd_prefix + " -d TRUE"
+@@ -476,12 +475,12 @@ def single_mode(infile, outfile):
+             sys.exit(-1)
+     else:
+         # run SHIFTX
+-        cmd_prefix = SHIFTX2ROOT + "/modules/shiftx/shiftx 1 " + inputfile + " " + sx1_outfile
++        cmd_prefix = "shiftx 1 " + inputfile + " " + sx1_outfile
+         os.system(cmd_prefix)
+         if VERBOSE:
+             print cmd_prefix
+         # convert from table format to CSV
+-        cmd_prefix = "python " + SHIFTX2ROOT + "/script/shiftx2shiftxp.py " + sx1_outfile + "  " + sxp_outfile
++        cmd_prefix = "shiftx2shiftxp.py " + sx1_outfile + "  " + sxp_outfile
+         os.system(cmd_prefix)
+         if VERBOSE:
+             print cmd_prefix
+@@ -490,7 +489,7 @@ def single_mode(infile, outfile):
+     if not NOSHIFTY:
+         sys.path.append(SHIFTX2ROOT + "/shifty3")
+         os.chdir(SHIFTX2ROOT +"/shifty3")
+-        shifty_cmd = "python shifty3.py -i " + inputfile + " -o " + sy_outfile + " -c 40 "
++        shifty_cmd = "shifty3 -i " + inputfile + " -o " + sy_outfile + " -c 40 "
+         if DEUTERATED:
+             shifty_cmd = shifty_cmd + " -d"
+         if VERBOSE:
+@@ -513,7 +512,7 @@ def single_mode(infile, outfile):
+         return errmsg
+     
+     # combine result
+-    combine_cmd = "python script/combine_cs.py " + sxp_outfile + " " + sy_outfile + " "
++    combine_cmd = "combine_cs.py " + sxp_outfile + " " + sy_outfile + " "
+     combine_cmd = combine_cmd + outfile # specify output file name
+ 
+     combine_cmd = add_atom_format_option(combine_cmd)
+@@ -543,7 +542,7 @@ def cleanup_tempfiles(files):
+ if __name__ == '__main__':
+     print "## SHIFTX2 Ver 1.07 (Released 4 Jan. 2012) ##"
+     
+-    SHIFTX2ROOT = sys.path[0]
++    #SHIFTX2ROOT = sys.path[0]
+ 
+     #if len(sys.argv)<3:
+     #    print "Usage: python shiftx2_main.py [input.pdb] [-atoms: all]"
+diff --git a/shiftx2_util.py b/shiftx2_util.py
+index d357a8e..6ce5e6c 100755
+--- a/shiftx2_util.py
++++ b/shiftx2_util.py
+@@ -1,4 +1,3 @@
+-#!/usr/bin/env python
+ ####################################################################
+ # shiftx2_util.py: utility functions supporting shiftx2_main.py
+ # 
+@@ -6,7 +5,7 @@
+ # date: April 13th, 2011
+ ####################################################################
+ import sys, os
+-from natsorted import *
++from shiftx2.natsorted import *
+ 
+ # FUNCTIONS FOR SPLITING PDB FILE WITH MULTIPLE NMR MODELS
+ 
+diff --git a/shifty3/shifty3.py b/shifty3/shifty3.py
+index 796af32..9360b87 100755
+--- a/shifty3/shifty3.py
++++ b/shifty3/shifty3.py
+@@ -12,7 +12,7 @@ import sys, os, re, datetime, time
+ ###############################################################
+ # path for xalign and blast executibles and blast databases
+ XALIGN_EXE = "xalign_x" # executable for xalign
+-BLASTP_EXE = "./blast/bin/blastall -p blastp" # executable for blast
++BLASTP_EXE = "blastall -p blastp" # executable for blast
+ 
+ BLASTDB = "blastdb" # folder containing the blast database
+ SHIFTDB = "refdb" # folder containing the BMRB shift database

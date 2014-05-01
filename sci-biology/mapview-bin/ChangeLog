@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/mapview-bin
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mapview-bin-3.4.1 (24 Mar 2014)
+
+  24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +mapview-bin-3.4.1.ebuild, +metadata.xml:
+  initial ebuild, missing LICENSE, upstream website is down
+

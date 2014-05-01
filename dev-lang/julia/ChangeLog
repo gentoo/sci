@@ -1,7 +1,27 @@
 # ChangeLog for dev-lang/julia
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Apr 2014; Sebastien Fabbro <fabbros@gentoo.org> julia-9999.ebuild,
+  metadata.xml:
+  various consistent fixes for main tree
+
+  08 Feb 2014;  <xhochy@gentoo.org> julia-9999.ebuild:
+  PREFIX is now prefix
+
+  26 Jan 2014;  <xhochy@gentoo.org> julia-9999.ebuild:
+  Add missing dependency for utf8proc
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> julia-9999.ebuild, metadata.xml:
+  Switch from git-2 to git-r3
+
+  17 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> julia-9999.ebuild,
+  metadata.xml:
+  dev-lang/julia: Small fixes and cleanup, use system patchelf
+
+  14 Jul 2013; James Cloos <cloos@jhcloos.com> julia-9999.ebuild:
+  Julia uses submodules, so set EGIT_HAS_SUBMODULES=yes
+  
   14 Jun 2013; Justin Lecher <jlec@gentoo.org> julia-9999.ebuild, metadata.xml:
   Drop KEYWORDS of live ebuilds
 
@@ -15,4 +35,3 @@
   +metadata.xml:
   Initial import. Ebuild written with help from Nicolas Bigaouette and 
   Sébastien Fabbro.
-

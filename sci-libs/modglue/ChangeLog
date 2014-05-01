@@ -2,6 +2,24 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Sep 2013; François Bissey <francois.bissey@canterbury.ac.nz>
+  +files/modglue-1.19-Makefiles.patch, -files/modglue-1.16-lib64.patch,
+  -files/modglue-1.19-ldflags.patch, -files/modglue-1.19-parallelmake.patch,
+  modglue-1.19.ebuild:
+  Fixing sandbox violations
+
+*modglue-1.19 (18 Sep 2013)
+
+  18 Sep 2013; François Bissey <francois.bissey@canterbury.ac.nz>
+  +files/modglue-1.19-ldflags.patch, +files/modglue-1.19-parallelmake.patch,
+  +modglue-1.19.ebuild, -files/modglue-1.16-ldflags.patch,
+  -files/modglue-1.16-parallelmake.patch, -modglue-1.16.ebuild:
+  Bump modglue to 1.19
+
+  03 Sep 2013; François Bissey <francois.bissey@canterbury.ac.nz>
+  modglue-1.16.ebuild:
+  Fix PATCHES definition, it shouldn't include 'epatch'
+
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> modglue-1.16.ebuild,
   metadata.xml:
   Move to EPAI=5 and virtual/pkgconfig; clean usage of autotools-utils.eclass
@@ -39,4 +57,3 @@
 
   03 Apr 2009; Francois Bissey <f.r.bissey@massey.ac.nz> ChangeLog:
   Initial import for the science overlay
-

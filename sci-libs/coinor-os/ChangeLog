@@ -1,9 +1,0 @@
-# ChangeLog for sci-libs/coinor-os
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*coinor-os-2.6.0 (19 Jul 2012)
-
-  19 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> +coinor-os-2.6.0.ebuild,
-  +metadata.xml:
-  sci-libs/coinor-os: Initial import

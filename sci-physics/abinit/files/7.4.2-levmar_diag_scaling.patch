@@ -1,0 +1,21 @@
+diff -Naurp abinit-7.4.2.orig/src/02_clib/calling_levmar.c abinit-7.4.2/src/02_clib/calling_levmar.c
+--- abinit-7.4.2.orig/src/02_clib/calling_levmar.c	2013-09-08 07:24:13.000000000 +0000
++++ abinit-7.4.2/src/02_clib/calling_levmar.c	2013-09-16 14:59:06.574702521 +0000
+@@ -149,7 +149,7 @@ double opts[LM_OPTS_SZ], info[LM_INFO_SZ
+   //  if (coeffs[i+2]>-1E-16){ 
+       /* invoke the optimisation function with box boundaries*/
+       ret=dlevmar_bc_dif(dim_screening, coeffs, yvals, c_ncoeffs, c_nvals, \
+-           lower_bounds, upper_bounds, 3000, opts, info, NULL, NULL, \
++           lower_bounds, upper_bounds, NULL, 3000, opts, info, NULL, NULL, \
+            (void *)&adata); // Box boundary conditions without Jacobian
+     //}
+   //}
+@@ -219,7 +219,7 @@ double opts[LM_OPTS_SZ], info[LM_INFO_SZ
+   //  if (coeffs[i+2]>-1E-16){ 
+       /* invoke the optimisation function with box boundaries*/
+       ret=dlevmar_bc_dif(dre_and_im_screening, coeffs, yvals, c_ncoeffs, c_nvals, \
+-           lower_bounds, upper_bounds, 1000, opts, info, NULL, NULL, \
++           lower_bounds, upper_bounds, NULL, 1000, opts, info, NULL, NULL, \
+            (void *)&adata); // Box boundary conditions without Jacobian
+     //}
+   //}

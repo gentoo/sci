@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
-  <longdescription>
-		While Gappa is intended to be used directly, it can also act as a
-		backend prover for the Why software verification plateform or as an
-		automatic tactic for the Coq proof assistant.
-	</longdescription>
-  <maintainer>
-    <email>sci@gentoo.org</email>
-  </maintainer>
+<herd>sci-mathematics</herd>
+<longdescription>
+  While Gappa is intended to be used directly, it can also act as a
+  backend prover for the Why software verification plateform or as an
+  automatic tactic for the Coq proof assistant.
+</longdescription>
 </pkgmetadata>

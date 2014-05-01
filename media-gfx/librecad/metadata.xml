@@ -8,8 +8,11 @@
     <description>Package maintainer and upstream developer</description>
   </maintainer>
   <longdescription>
-LibreCAD is a 2D CAD drawing tool based on the community edition of QCad
-(www.qcad.org). LibreCAD has been re-structured and ported to qt4 and 
-works natively cross platform.
+  LibreCAD is a 2D CAD drawing tool based on the community edition of QCad
+  (www.qcad.org). LibreCAD has been re-structured and ported to qt4 and 
+  works natively cross platform.
 </longdescription>
+  <use>
+    <flag name="3d">Use 3D vectors</flag>
+  </use>
 </pkgmetadata>

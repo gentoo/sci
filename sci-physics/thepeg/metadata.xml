@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
+<herd>sci-physics</herd>
 <maintainer>
   <email>piatlicki@gmail.com</email>
 </maintainer>
@@ -13,6 +13,7 @@
   of the toolkit and which can be used by any event generator model.
 </longdescription>
 <use>
+  <flag name='fastjet'>Adds support for <pkg>sci-physics/fastjet</pkg></flag>
   <flag name='hepmc'>Adds support for High Energy Physics Monte Carlo
 	  Generators <pkg>sci-physics/hepmc</pkg></flag>
   <flag name='lhapdf'>Adds support for <pkg>sci-physics/lhapdf</pkg></flag>

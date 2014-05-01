@@ -1,0 +1,13 @@
+diff -Naurp old/doc/update_www new/doc/update_www
+--- doc/update_www	2013-05-18 00:40:51.000000000 +0000
++++ doc/update_www	2013-05-22 12:15:27.543414281 +0000
+@@ -16,7 +16,8 @@ set document = $argv[1]
+ echo Updating WWW pages for $document.tex
+ #...............   public 
+ #foreach WWWDIR (/msrc/www/pub/docs/nwchem/doc)
+-foreach WWWDIR (/msrc/emslweb/docs/nwchem/doc)
++#foreach WWWDIR (/msrc/emslweb/docs/nwchem/doc)
++foreach WWWDIR ("${NWCHEM_TOP}"/web)
+ #
+ # Now copy the revised source into the EMSL public WWW tree
+   echo "update_www: Public pages .. "

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-physics</herd>
+  <longdescription lang="en">
+BigDFT is a package whose main program allows one to find the total energy, 
+charge density and electronic structure of systems made of electrons and nuclei 
+(molecules and periodic solids) within Density Functional Theory (DFT), using 
+pseudopotentials and a wavelets basis. BigDFT-ABI is its fork by ABINIT developers
+to serve as a library for sci-physics/abinit.
+</longdescription>
+  <use>
+    <flag name="cuda">Enable support for nVidia CUDA</flag>
+  </use>
+  <use>
+    <flag name="etsf_io">
+      Enable support for reading and writing the European Theoretical
+      Spectroscopy facility (ETSF) file format.
+    </flag>
+  </use>
+  <use>
+    <flag name="opencl">Enable support for OpenCL GPU acceleration.</flag>
+  </use>
+</pkgmetadata>

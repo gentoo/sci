@@ -1,9 +1,0 @@
-# ChangeLog for sci-libs/coinor-bcps
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*coinor-bcps-0.93.4 (16 Jul 2012)
-
-  16 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org>
-  +coinor-bcps-0.93.4.ebuild, +metadata.xml:
-  sci-libs/coinor-bcps: Initial import

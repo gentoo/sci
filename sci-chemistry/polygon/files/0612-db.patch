@@ -1,0 +1,11 @@
+--- polygon0612.tcl	2009-10-15 16:11:36.000000000 +0200
++++ polygon0612.tcl.new	2009-10-23 17:59:32.723500534 +0200
+@@ -22,7 +22,7 @@
+ #
+ #database name
+ #
+-set currentFile1 pdb_2009-04-29_ord.txt
++set currentFile1 /usr/share/polygon/pdb_2009-04-29_ord.txt
+ 
+ # numcol - number of columns in the database
+   set numcol 63

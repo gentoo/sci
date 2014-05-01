@@ -1,0 +1,23 @@
+# ChangeLog for sci-chemistry/shiftx2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  19 Mar 2014; Justin Lecher <jlec@gentoo.org> shiftx2-1.07_p20120106.ebuild:
+  Drop python2.6 support
+
+  23 Oct 2013; Justin Lecher <jlec@gentoo.org> shiftx2-1.07_p20120106.ebuild:
+  Add missing PYTHON_DEPS
+
+  15 Oct 2013; Justin Lecher <jlec@gentoo.org> shiftx2-1.07_p20120106.ebuild:
+  Add missing python-r1 stuff
+
+  21 Jun 2013; johann@j-schmitz.net files/shiftx2-1.07_p20120106-java.patch,
+  files/shiftx2-1.07_p20120106-system.patch:
+  Completly removed the directory check in the java source (we have everything
+  under control in gentoo). Removed the .py extension from the -system.patch to
+  make that part working again (it's installed without extensions to
+  /usr/bin/!).
+
+  16 Jun 2013; Justin Lecher <jlec@gentoo.org> shiftx2-1.07_p20120106.ebuild,
+  metadata.xml:
+  Respect FLAGS

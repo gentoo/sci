@@ -1,6 +1,24 @@
 # ChangeLog for sci-libs/openblas
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> openblas-9999.ebuild,
+  metadata.xml:
+  Switch from git-2 to git-r3
+
+*openblas-0.2.8 (06 Aug 2013)
+
+  06 Aug 2013; Sébastien Fabbro <bicatali@gentoo.org> +openblas-0.2.8.ebuild,
+  -openblas-0.2.7.ebuild, openblas-9999.ebuild:
+  sci-libs/openblas: Version bump
+
+*openblas-0.2.7 (24 Jul 2013)
+
+  24 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> +openblas-0.2.7.ebuild,
+  -files/openblas-aliasing.patch, -files/openblas-sharedlibs-0.2.patch,
+  -openblas-0.2.6.ebuild, metadata.xml, openblas-9999.ebuild:
+  sci-libs/openblas: Version bump. Rewrote ebuild to try to follow upstream
+  closer
 
 *openblas-0.2.6 (03 Mar 2013)
 

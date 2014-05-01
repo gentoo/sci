@@ -1,6 +1,10 @@
 # ChangeLog for sci-chemistry/cnsface
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  16 Jun 2013; Justin Lecher <jlec@gentoo.org> cnsface-0.0.12.ebuild,
+  metadata.xml:
+  Bump to EAPI5 and distutils-r1.eclass
 
 *cnsface-0.0.12 (01 Dec 2010)
 

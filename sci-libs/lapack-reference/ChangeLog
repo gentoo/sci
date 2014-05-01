@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
 
+*lapack-reference-3.5.0 (08 Dec 2013)
+
+  08 Dec 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  +lapack-reference-3.5.0.ebuild:
+  sci-libs/lapack-reference: Version bump
+
   22 May 2013; Sébastien Fabbro <bicatali@gentoo.org>
   lapack-reference-9999.ebuild, metadata.xml:
   sci-libs/lapack-reference: Switch to EAPI5, merge live ebuild

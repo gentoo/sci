@@ -2,6 +2,26 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openmpi-1.6.5 (11 Jul 2013)
+
+  11 Jul 2013; Justin Bronder <jsbronder@gentoo.org> -openmpi-1.6.4-r1.ebuild,
+  +openmpi-1.6.5.ebuild:
+  bump
+
+  02 Jul 2013; Justin Bronder <jsbronder@gentoo.org>
+  files/hooks-disable-malloc-override-inside-of-Gentoo-sandb.patch:
+  Update patch per sandbox team
+
+  02 Jul 2013; Justin Bronder <jsbronder@gentoo.org> -openmpi-1.6.4.ebuild:
+  Remove old
+
+*openmpi-1.6.4-r1 (02 Jul 2013)
+
+  02 Jul 2013; Justin Bronder <jsbronder@gentoo.org>
+  +files/hooks-disable-malloc-override-inside-of-Gentoo-sandb.patch,
+  +openmpi-1.6.4-r1.ebuild:
+  Do not override malloc when in a sandbox environment.  Resolves #462602.
+
 *openmpi-1.6.4 (09 Apr 2013)
 
   09 Apr 2013; Justin Bronder <jsbronder@gentoo.org> -openmpi-1.6.3.ebuild,
@@ -137,4 +157,3 @@
 
   20 Jan 2009; Alexey Shvetsov <alexxy@gentoo.org> +openmpi-1.3.ebuild:
   Version bump
-

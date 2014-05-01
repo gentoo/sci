@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,18 +10,19 @@ PYTHON_REQ_USE="tk"
 inherit distutils-r1 fdo-mime subversion versionator
 
 DESCRIPTION="A Python-extensible molecular graphics system"
-HOMEPAGE="http://pymol.sourceforge.net/"
-SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${PN}-icons.tar.xz"
-ESVN_REPO_URI="https://pymol.svn.sourceforge.net/svnroot/pymol/trunk/pymol"
+HOMEPAGE="http://www.pymol.org/"
+SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${PN}-1.7.0.0.png.xz"
+ESVN_REPO_URI="svn://svn.code.sf.net/p/pymol/code/trunk/pymol"
 
 LICENSE="PSF-2.2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
+KEYWORDS=""
 IUSE="apbs web"
 
 DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pmw[${PYTHON_USEDEP}]
+	dev-python/pyopengl[${PYTHON_USEDEP}]
 	media-libs/freetype:2
 	media-libs/glew
 	media-libs/libpng
@@ -29,12 +30,11 @@ DEPEND="
 	sys-libs/zlib
 	media-libs/freeglut
 	apbs? (
-		dev-libs/maloc
 		sci-chemistry/apbs
 		sci-chemistry/pdb2pqr
-		sci-chemistry/pymol-apbs-plugin
+		sci-chemistry/pymol-apbs-plugin[${PYTHON_USEDEP}]
 	)
-	web? ( !dev-python/webpy )"
+	web? ( !dev-python/webpy[${PYTHON_USEDEP}] )"
 RDEPEND="${DEPEND}"
 
 src_unpack() {
@@ -46,6 +46,7 @@ python_prepare_all() {
 	sed \
 		-e "s:\"/usr:\"${EPREFIX}/usr:g" \
 		-e "/ext_comp_args/s:=\[.*\]$:= \[\]:g" \
+		-e "/import/s:argparse:argparseX:g" \
 		-i setup.py || die
 
 	rm ./modules/pmg_tk/startup/apbs_tools.py || die
@@ -82,11 +83,11 @@ python_install_all() {
 
 	doenvd "${T}"/20pymol
 
-	doicon "${WORKDIR}"/${PN}.{xpm,png}
+	newicon "${WORKDIR}"/${PN}-1.7.0.0.png ${PN}.png
 	make_desktop_entry pymol PyMol ${PN} "Graphics;Education;Science;Chemistry" "MimeType=chemical/x-pdb;"
 
 	if ! use web; then
-		rm -rvf "${D}/$(python_get_sitedir)/web" || die
+		rm -rf "${D}/$(python_get_sitedir)/web" || die
 	fi
 
 	rm -f "${ED}"/usr/share/${PN}/LICENSE || die

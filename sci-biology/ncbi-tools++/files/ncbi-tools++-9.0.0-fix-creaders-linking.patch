@@ -1,0 +1,10 @@
+--- src/objtools/alnmgr/demo/Makefile.alnmrg.app (revision 413271)
++++ src/objtools/alnmgr/demo/Makefile.alnmrg.app (working copy)
+@@ -4,7 +4,7 @@
+ APP = alnmrg
+ SRC = alnmrg
+ LIB = xalnmgr xobjread ncbi_xloader_blastdb seqdb xobjutil submit blastdb \
+-      tables $(OBJMGR_LIBS)
++      tables creaders $(OBJMGR_LIBS)
+ 
+ LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)

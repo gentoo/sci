@@ -1,0 +1,15 @@
+# ChangeLog for sci-astronomy/chealpix
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*chealpix-3.11.2 (03 Feb 2014)
+
+  03 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> +chealpix-3.11.2.ebuild,
+  -chealpix-3.11.ebuild:
+  sci-astronomy/chealpix: Version bump
+
+*chealpix-3.11 (16 Jun 2013)
+
+  16 Jun 2013; Sébastien Fabbro <bicatali@gentoo.org> +chealpix-3.11.ebuild,
+  +metadata.xml:
+  sci-astronomy/chealpix: Initial import

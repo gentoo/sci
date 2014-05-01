@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/pastix
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pastix-5.2.2_p9 (24 Apr 2014)
+
+  24 Apr 2014; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml,
+  +pastix-5.2.2_p9.ebuild:
+  sci-libs/pastix: Initial import

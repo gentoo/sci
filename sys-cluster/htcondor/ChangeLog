@@ -1,0 +1,40 @@
+# ChangeLog for sys-cluster/condor
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*condor-7.5.4 (08 Jan 2011)
+
+  08 Jan 2011; Sébastien Fabbro <bicatali@gentoo.org> +condor-7.5.4.ebuild:
+  Version bump
+
+  22 Jun 2010; Sébastien Fabbro <bicatali@gentoo.org> condor-7.5.2.ebuild,
+  files/condor.initd:
+  More initd fixes, now local config will reside in /var/lib
+
+*condor-7.5.2 (21 Jun 2010)
+
+  21 Jun 2010; Sébastien Fabbro <bicatali@gentoo.org> -condor-7.4.1.ebuild,
+  -files/condor-7.4.1-config_generic.patch, +condor-7.5.2.ebuild,
+  -files/chkconfig_off.patch, files/condor.confd, files/condor.initd,
+  -files/condor_config.generic.patch, -files/log_lock_run.patch,
+  -files/no_basename.patch, -files/no_rpmdb_query.patch,
+  -files/stdsoap2.h.patch.patch, -condor-7.2.4.ebuild:
+  Version bump, developer version. Too many changes
+
+*condor-7.4.1 (12 Feb 2010)
+
+  12 Feb 2010; Sébastien Fabbro <bicatali@gentoo.org> +condor-7.4.1.ebuild,
+  +files/condor-7.4.1-config_generic.patch, files/condor.confd,
+  files/condor.initd, files/condor_config.local:
+  Version bump. libvirt added as dependency, still need to check whether
+  absolutely necessary
+
+*condor-7.2.4 (17 Nov 2009)
+
+  17 Nov 2009; Sébastien Fabbro <bicatali@gentoo.org> +condor-7.2.4.ebuild,
+  +files/chkconfig_off.patch, +files/condor.confd, +files/condor.initd,
+  +files/condor_config.generic.patch, +files/condor_config.local,
+  +files/log_lock_run.patch, +files/no_basename.patch,
+  +files/no_rpmdb_query.patch, +files/stdsoap2.h.patch.patch, +metadata.xml:
+  Initial import
+

@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
-  <longdescription>
-		Why is a software verification platform. It contains a general-purpose
-		verification condition generator (VCG) which is used as a back-end
-		by other verification tools but it can also be used directly to verify
-		programs. It also provides Krakatoa, a tool or the verification of Java
-		programs and Caduceus, a tool for the verification of C programs.
-	</longdescription>
-  <maintainer>
-    <email>sci@gentoo.org</email>
-  </maintainer>
-  <use>
-    <flag name="apron">?apron?</flag>
-    <flag name="coq">?coq?</flag>
-    <flag name="gappa">?gappa?</flag>
-    <flag name="jessie">?jessie?</flag>
-    <flag name="gtk">?gtk?</flag>
-    <flag name="pff">?pff?</flag>
+<herd>sci-mathematics</herd>
+<longdescription>
+  Why is a software verification platform. It contains a general-purpose
+  verification condition generator (VCG) which is used as a back-end
+  by other verification tools but it can also be used directly to verify
+  programs. It also provides Krakatoa, a tool or the verification of Java
+  programs and Caduceus, a tool for the verification of C programs.
+</longdescription>
+<use>
+  <flag name="apron">Support for <pkg>sci-mathematics/apron</pkg></flag>
+  <flag name="coq">Support for <pkg>sci-mathematics/coq</pkg></flag>
+  <flag name="gappa">Support for <pkg>sci-mathematics/gappa</pkg></flag>
+  <flag name="jessie">Support for <pkg>sci-mathematics/frama-c</pkg></flag>
+  <flag name="pff">Support for <pkg>sci-mathematics/pff</pkg></flag>
   </use>
 </pkgmetadata>

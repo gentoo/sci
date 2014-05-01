@@ -15,6 +15,12 @@ Many-Body Perturbation Theory (the GW approximation). In addition to the main
 ABINIT code, different utility programs are provided.
 </longdescription>
   <use>
+    <flag name="atompaw">Enable support for atompaw, a Projector Augmented Waves atomic data generator</flag>
+  </use>
+  <use>
+    <flag name="bigdft">Enable support for BigDFT, DFT package using wavelet basis set</flag>
+  </use>
+  <use>
     <flag name="cuda">Enable support for nVidia CUDA</flag>
   </use>
   <use>
@@ -23,7 +29,10 @@ ABINIT code, different utility programs are provided.
   </flag>
   </use>
   <use>
-    <flag name="etsf_io">This USE needs documentation</flag>
+    <flag name="etsf_io">
+      Enable support for reading and writing the European Theoretical
+      Spectroscopy facility (ETSF) file format.
+    </flag>
   </use>
   <use>
     <flag name="fftw-threads">
@@ -34,7 +43,16 @@ ABINIT code, different utility programs are provided.
     <flag name="fox">Enable support for FoX Fortran XML library</flag>
   </use>
   <use>
-    <flag name="gui">Build the abinit GUI (requires java)</flag>
+    <flag name="gui">
+      Build the abinit GUI (requires java);
+      since 7.4.x a separate package
+    </flag>
+  </use>
+  <use>
+    <flag name="levmar">
+      Enable support for <pkg>sci-libs/levmar</pkg>,
+      the Levenberg-Marquardt least-squares optimisation
+    </flag>
   </use>
   <use>
     <flag name="libabinit">
@@ -43,6 +61,18 @@ ABINIT code, different utility programs are provided.
   </flag>
   </use>
   <use>
-    <flag name="vdwxc">Activate van der Waals exchange-correlation</flag>
+    <flag name="libxc">Enable support for libxc, an exchange-correlation potentials library</flag>
+  </use>
+  <use>
+    <flag name="lotf">Activate the Learn on The Fly method (LOTF) for Molecular Dynamics</flag>
+  </use>
+  <use>
+    <flag name="scripts">Install helper scripts, mostly Python</flag>
+  </use>
+  <use>
+    <flag name="vdwxc">Activate van der Waals exchange-correlation correction</flag>
+  </use>
+  <use>
+    <flag name="wannier">Enable support for wannier90, a maximally localized Wannier functions (MLWFs) calculator</flag>
   </use>
 </pkgmetadata>

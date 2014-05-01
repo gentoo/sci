@@ -2,6 +2,10 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> -pysolar-0.4.4.ebuild,
+  metadata.xml, pysolar-0.5.ebuild:
+  dev-python/pysolar: Fixed syntax, removed old, keyword for prefix
+
 *pysolar-0.5 (10 Jun 2013)
 
   10 Jun 2013; Justin Lecher <jlec@gentoo.org> -pysolar-0.4.3.ebuild,
@@ -25,4 +29,3 @@
   24 Jul 2010; Kacper Kowalik <xarthisius@gentoo.org> +pysolar-0.4.2.ebuild,
   +metadata.xml:
   Initial import
-

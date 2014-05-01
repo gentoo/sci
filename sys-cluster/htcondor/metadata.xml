@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>cluster</herd>
+  <maintainer>
+    <email>cjk34@cam.ac.uk</email>
+  </maintainer>
+  <longdescription lang="en">
+  HTCondor is a open-source, specialized workload management system for
+  compute-intensive jobs. Like other full-featured batch systems, HTCondor
+  provides a job queueing mechanism, scheduling policy, priority scheme,
+  resource monitoring, and resource management. Users submit their serial
+  or parallel jobs to HTCondor, HTCondor places them into a queue, chooses
+  when and where to run the jobs based upon a policy, carefully monitors
+  their progress, and ultimately informs the user upon completion. HTCondor
+  also contains mechanisms to submit jobs to grid-sites and supports many
+  different grid toolkits.
+</longdescription>
+  <use>
+    <flag name="boinc">Enable backfill with BOINC jobs when the cluster is not being used</flag>
+    <flag name="cgroup">Use <pkg>dev-libs/libcgroup</pkg> for kernel control groups</flag>
+    <flag name="contrib">Build contrib modules</flag>
+    <flag name="dmtcp">Use <pkg>sys-apps/dmtcp</pkg> for checkpointing</flag>
+    <flag name="libvirt">Use <pkg>app-emulation/libvirt</pkg> for virtualisation</flag>
+    <flag name="management">Use <pkg>net-libs/qmf</pkg> for management</flag>
+    <flag name="minimal">Don't support standard universe jobs</flag>
+    <flag name="X">Enable the HTCondor Keyboard Daemon to monitor logged in X users for activity</flag>
+  </use>
+</pkgmetadata>

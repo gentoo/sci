@@ -2,6 +2,19 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*wannier90-1.2-r2 (19 Sep 2013)
+
+  19 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -wannier90-1.2-r1.ebuild, +wannier90-1.2-r2.ebuild:
+  Avoid sandbox violation when generating TeX fonts.
+
+*wannier90-1.2-r1 (17 Jun 2013)
+
+  17 Jun 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -wannier90-1.2.ebuild, +wannier90-1.2-r1.ebuild:
+  Usage of LIBDIR/finclude abandoned in favour of /usr/include, as used by most
+  packages.
+
   22 Feb 2013; Justin Lecher <jlec@gentoo.org> wannier90-1.2.ebuild,
   metadata.xml:
   Use tc-getPKG_CONFIG from toolchain-funcs.eclass instead of plain pkg-config;

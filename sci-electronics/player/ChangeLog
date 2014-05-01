@@ -1,6 +1,15 @@
 # ChangeLog for sci-electronics/player
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  04 Dec 2013; Justin Lecher <jlec@gentoo.org> player-2.0.4.ebuild:
+  Fix deps
+
+  04 Dec 2013; Justin Lecher <jlec@gentoo.org> player-2.0.4.ebuild:
+  Fix java support
+
+  04 Dec 2013; Justin Lecher <jlec@gentoo.org> player-2.0.4.ebuild:
+  Bump EAPI to 5; Bump to python-single-r1 eclass
 
   14 Mar 2011; Justin Lecher <jlec@gentoo.org> player-2.0.4.ebuild:
   Moved media-libs/jpeg -> virtual/jpeg

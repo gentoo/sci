@@ -1,0 +1,18 @@
+--- front/src/Makefile.am.old	2012-11-12 13:25:34.331046988 +0100
++++ front/src/Makefile.am	2012-11-12 13:27:36.055100527 +0100
+@@ -85,13 +85,13 @@
+ endif
+ 
+ install-data-local:
+-	@echo "Installing tcl scripts to ${prefix}/share/elmerfront/tcl"
++	@echo "Installing tcl scripts to ${DESTDIR}${prefix}/share/elmerfront/tcl"
+ 
+ 	mkdir -p "$(DESTDIR)${prefix}/share/elmerfront/tcl"
+ 	cp -r ./tcl/* "$(DESTDIR)${prefix}/share/elmerfront/tcl"
+ 	rm -rf `find $(DESTDIR)$(prefix)/share/elmerfront/tcl -name .svn`
+ 
+-	@echo "Installing *.edf *.rgb to ${prefix}/share/elmerfront/lib"
++	@echo "Installing *.edf *.rgb to ${DESTDIR}${prefix}/share/elmerfront/lib"
+ 	mkdir -p "$(DESTDIR)${prefix}/share/elmerfront/lib"
+ 	cp -r ./lib/* "$(DESTDIR)${prefix}/share/elmerfront/lib"
+ 	rm -rf `find $(DESTDIR)$(prefix)/share/elmerfront/lib -name .svn`

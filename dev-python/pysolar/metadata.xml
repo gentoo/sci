@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci-astronomy</herd>
-  <longdescription lang="en">
+<herd>sci-astronomy</herd>
+<longdescription lang="en">
  Pysolar is a collection of Python libraries for simulating the
  irradiation of any point on earth by the sun. It includes code for
  extremely precise ephemeris calculations, and more. Pysolar can
  calculate the location of the sun or the shading percentage as a
  function of time for a row of 2-axis tracked panels.
 </longdescription>
+<upstream>
+  <remote-id type="pypi">Pysolar</remote-id>
+</upstream>
 </pkgmetadata>

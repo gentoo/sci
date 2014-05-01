@@ -1,6 +1,9 @@
 # ChangeLog for sci-libs/mumps
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  17 Jun 2013; Justin Bronder <jsbronder@gentoo.org> mumps-4.10.0-r2.ebuild:
+  Don't let openmpi override malloc, works around sandbox issue in #462602
 
 *mumps-4.10.0-r2 (11 Dec 2012)
 

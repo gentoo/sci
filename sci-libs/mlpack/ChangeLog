@@ -1,6 +1,28 @@
 # ChangeLog for sci-libs/mlpack
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  15 Feb 2014; Reinis Danne <rei4dan@gmail.com> mlpack-1.0.8.ebuild,
+  +files/mlpack-1.0.8-uint32_t.patch:
+  Add patch to fix build failure with FEATURES=test.
+
+*mlpack-1.0.8 (10 Feb 2014)
+
+  10 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> +mlpack-1.0.8.ebuild,
+  -mlpack-1.0.7.ebuild:
+  sci-libs/mlpack: Version bump
+
+*mlpack-1.0.7 (07 Dec 2013)
+
+  07 Dec 2013; Sébastien Fabbro <bicatali@gentoo.org> +mlpack-1.0.7.ebuild,
+  -mlpack-1.0.6.ebuild:
+  sci-libs/mlpack: Version bump
+
+*mlpack-1.0.6 (03 Jul 2013)
+
+  03 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> +mlpack-1.0.6.ebuild,
+  -mlpack-1.0.5.ebuild:
+  sci-libs/mlpack: Version bump
 
 *mlpack-1.0.5 (25 May 2013)
 

@@ -1,11 +1,11 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
-	_SVN=subversion
+	inherit subversion
 	ESVN_REPO_URI="https://astromatic.net/pubsvn/software/${PN}/trunk"
 	SRC_URI=""
 	KEYWORDS=""
@@ -14,17 +14,20 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit ${_SVN} autotools
+AUTOTOOLS_IN_SOURCE_BUILD=1
+
+inherit autotools-utils multilib
 
 DESCRIPTION="Extract catalogs of sources from astronomical FITS images"
 HOMEPAGE="http://www.astromatic.net/software/sextractor"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+
 IUSE="doc modelfit threads"
 
-RDEPEND="modelfit? ( sci-libs/atlas[lapack] sci-libs/fftw:3.0 )"
+RDEPEND="
+	modelfit? ( sci-libs/atlas[lapack,threads=] sci-libs/fftw:3.0 )"
 DEPEND="${RDEPEND}"
 
 src_prepare() {
@@ -42,19 +45,22 @@ src_prepare() {
 			-e "s/-llapack/-l${myclapack}/g" \
 			-e "s/AC_CHECK_LIB(lapack/AC_CHECK_LIB(${myclapack}/g" \
 			acx_atlas.m4 || die
-		eautoreconf
+		AUTOTOOLS_AUTORECONF=1
 	fi
+	autotools-utils_src_prepare
 }
 
 src_configure() {
-	econf \
-		--with-atlas-incdir="${EPREFIX}/usr/include/atlas" \
-		$(use_enable modelfit model-fitting) \
+	local myeconfargs=(
+		--with-atlas-incdir="${EPREFIX}/usr/include/atlas"
+		$(use_enable modelfit model-fitting)
 		$(use_enable threads)
+	)
+	autotools-utils_src_configure
 }
 
 src_install () {
-	default
+	autotools-utils_src_install
 	CONFDIR=/usr/share/sextractor
 	insinto ${CONFDIR}
 	doins config/*
@@ -63,5 +69,5 @@ src_install () {
 
 pkg_postinst() {
 	elog "SExtractor examples configuration files are located in"
-	elog "${EROOT}/${CONFDIR} and are not loaded anymore by default."
+	elog "${EROOT%/}/${CONFDIR} and are not loaded anymore by default."
 }

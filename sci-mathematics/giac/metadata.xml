@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <herd>sci</herd>
-  <longdescription>
-		Giac is a free computer algebra system that can be used to perform
-		computer algebra, function graphs, interactive geometry (2-d and 3-d),
-		spreadsheet and statistics, programmation. It may be used as a replacement
-		for high end graphic calculators for example on netbooks (for about
-		the same price as a calculator but with much more performances).
-	</longdescription>
-  <maintainer>
-    <email>sci@gentoo.org</email>
-  </maintainer>
-  <use>
-    <flag name="doc">?doc?</flag>
-    <flag name="examples">?examples?</flag>
-    <flag name="fltk">?fltk?</flag>
-  </use>
+<herd>sci</herd>
+<longdescription>
+  Giac is a free computer algebra system that can be used to perform
+  computer algebra, function graphs, interactive geometry (2-d and 3-d),
+  spreadsheet and statistics, programmation. It may be used as a replacement
+  for high end graphic calculators for example on netbooks (for about
+  the same price as a calculator but with much more performances).
+</longdescription>
 </pkgmetadata>

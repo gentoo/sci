@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -56,7 +56,7 @@ CDEPEND="dev-libs/libpcre
 		dev-java/jgoodies-looks:2.0
 		dev-java/jgraphx:1.8
 		>=dev-java/jlatexmath-1.0.2:1
-		dev-java/jogl:2
+		=dev-java/jogl-2.0_rc8-r1:2
 		>=dev-java/jrosetta-1.0.4:0
 		>=dev-java/scirenderer-1.1.0:1
 		dev-java/skinlf:0
@@ -227,8 +227,9 @@ src_install() {
 	default
 	prune_libtool_files --all
 	rm -rf "${D}"/usr/share/scilab/modules/*/tests ||die
-	use bash-completion && dobashcomp "${FILESDIR}"/${PN}.bash_completion
-	echo "SEARCH_DIRS_MASK=${EPREFIX}/usr/$(get_libdir)/scilab" \
+	use bash-completion && newbashcomp "${FILESDIR}"/"${PN}".bash_completion "${PN}"
+	echo "LD_LIBRARY_MASK=libverify.so
+SEARCH_DIRS_MASK=${EPREFIX}/usr/$(get_libdir)/scilab" \
 		> 50-"${PN}"
 	insinto /etc/revdep-rebuild && doins "50-${PN}"
 }

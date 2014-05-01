@@ -30,38 +30,11 @@
 
 #--- END OF EXAMPLES ---
 
-# Live ebuilds go here
-# keep this on top
->=sci-chemistry/freeon-9999
->=sci-astronomy/eye-9999
->=sci-astronomy/missfits-9999
->=sci-astronomy/psfex-9999
->=sci-astronomy/scamp-9999
->=sci-astronomy/sextractor-9999
->=sci-astronomy/skymaker-9999
->=sci-astronomy/stiff-9999
->=sci-astronomy/stuff-9999
->=sci-astronomy/swarp-9999
->=sci-astronomy/weightwatcher-9999
->=dev-lang/ispc-9999
->=media-gfx/librecad-9999
->=media-gfx/brlcad-9999
->=dev-lang/path64-9999
->=sys-cluster/nullmpi-9999
->=sci-physics/espresso-9999
->=sci-physics/espresso++-9999
->=sci-chemistry/gromacs-4.5.9999
->=sci-chemistry/gromacs-4.6.9999
->=sci-chemistry/gromacs-9999
->=sci-libs/votca-tools-9999
->=sci-chemistry/votca-csg-9999
->=sci-chemistry/votca-csgapps-9999
-~sci-visualization/gnuplot-4.6.9999
-~sci-visualization/gnuplot-4.7.9999
-~sci-chemistry/burrow-owl-9999_pre15
->=sci-chemistry/pymol-apbs-plugin-9999
->=sci-chemistry/coot-9999
->=sci-chemistry/pymol-9999
+# Honza Macháček <Hloupy.Honza@centrum.cz> (17 June 2013)
+# bigdft moved from sci-libs to sci-physics
+# sci-physics/abinit now uses sci-libs/bigdft-abi instead
+# sci-libs/bigdft should be deleted in 30 days
+sci-libs/bigdft
 
 # Justin Lecher <jlec@gentoo.org> (03 March 2013)
 # Missing deps
@@ -111,11 +84,6 @@ sci-visualization/vtkPOFFReader
 # new blas/lapack framework
 =sci-libs/blas-reference-20070226*
 
-# Francois Bissey (kiwifb) (29 Oct 2010)
-# f.r.bissey@massey.ac.nz
-# mask paraview-3.8.* as there are no stable versions in the tree
-# Avoid accidental upgrade
->=sci-visualization/paraview-3.8.0
 
 # Justin Lecher <jlec@gentoo.org> (11 May 2009)
 # work in progress 

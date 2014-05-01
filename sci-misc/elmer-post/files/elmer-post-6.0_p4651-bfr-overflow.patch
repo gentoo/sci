@@ -1,0 +1,16 @@
+ src/sico2elmer/sico2elmerc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/sico2elmer/sico2elmerc.c b/src/sico2elmer/sico2elmerc.c
+index 1522030..6ae875c 100755
+--- a/src/sico2elmer/sico2elmerc.c
++++ b/src/sico2elmer/sico2elmerc.c
+@@ -27,7 +27,7 @@ void STDCALLBULL FC_FUNC(postgrid,POSTGRID) (float  *xi, /* unscaled x coordinat
+   int   imax, jmax, kcmax, ktmax;
+   float *staggered_grid[2];
+   float actual_scaled_coord[3];
+-  char  groupid[4], filename[80], yes_no, *suffix=".ep";
++  char  groupid[8], filename[80], yes_no, *suffix=".ep";
+   FILE  *ptFile;
+   
+   /* constants */

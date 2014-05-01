@@ -1,10 +1,10 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI="5"
 
-inherit cmake-utils
+inherit cmake-utils toolchain-funcs
 
 DESCRIPTION="Scientific library collection for large scale problems"
 HOMEPAGE="http://trilinos.sandia.gov/"
@@ -35,7 +35,8 @@ RDEPEND="
 	taucs? ( sci-libs/taucs )
 	tbb? ( dev-cpp/tbb )
 	umfpack? ( sci-libs/umfpack )"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	virtual/pkgconfig"
 
 S="${WORKDIR}/${P}-Source"
 
@@ -48,7 +49,7 @@ pkg_nofetch() {
 
 function trilinos_alternatives {
 	alt_dirs=""
-	for d in $(pkg-config --libs-only-L $1); do
+	for d in $($(tc-getPKG_CONFIG) --libs-only-L $1); do
 		alt_dirs="${alt_dirs};${d:2}"
 	done
 	arg="-D${2}_LIBRARY_DIRS=${alt_dirs:1}"
@@ -57,7 +58,7 @@ function trilinos_alternatives {
 	)
 
 	alt_libs=""
-	for d in $(pkg-config --libs-only-l $1); do
+	for d in $($(tc-getPKG_CONFIG) --libs-only-l $1); do
 		alt_libs="${alt_libs};${d:2}"
 	done
 	arg="-D${2}_LIBRARY_NAMES=${alt_libs:1}"

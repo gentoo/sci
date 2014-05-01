@@ -1,8 +1,8 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
 	_SVN=subversion
@@ -14,7 +14,10 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit ${_SVN} autotools
+AUTOTOOLS_AUTORECONF=1
+#AUTOTOOLS_IN_SOURCE_BUILD=1
+
+inherit ${_SVN} autotools-utils
 
 DESCRIPTION="Enhance astronomical object extraction with neural network filters"
 HOMEPAGE="http://www.astromatic.net/software/eye"
@@ -26,15 +29,12 @@ IUSE="doc threads"
 RDEPEND=""
 DEPEND="${RDEPEND}"
 
-src_prepare() {
-	eautoreconf
-}
-
 src_configure() {
-	econf $(use_enable threads)
+	local myeconfargs=( $(use_enable threads) )
+	autotools-utils_src_configure
 }
 
 src_install () {
-	default
+	autotools-utils_src_install
 	use doc && dodoc doc/*
 }

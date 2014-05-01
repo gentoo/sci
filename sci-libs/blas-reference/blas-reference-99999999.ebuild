@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,7 @@ EAPI=5
 inherit fortran-2 cmake-utils alternatives-2
 
 LPN=lapack
-LPV=3.4.2
+LPV=3.5.0
 
 if [[ ${PV} == "99999999" ]] ; then
 	ESVN_REPO_URI="https://icl.cs.utk.edu/svn/lapack-dev/${LPN}/trunk"

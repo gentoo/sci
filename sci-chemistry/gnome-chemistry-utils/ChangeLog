@@ -2,6 +2,31 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  11 Aug 2013; Justin Lecher <jlec@gentoo.org>
+  gnome-chemistry-utils-0.14.2-r1.ebuild:
+  Add missing dep on app-text/gnome-doc-utils, #479536
+
+  19 Jul 2013; Justin Lecher <jlec@gentoo.org>
+  gnome-chemistry-utils-0.14.2-r1.ebuild:
+  We don't have any patches
+
+  18 Jul 2013; Justin Lecher <jlec@gentoo.org>
+  -gnome-chemistry-utils-0.14.2.ebuild,
+  +gnome-chemistry-utils-0.14.2-r1.ebuild, gnome-chemistry-utils-9999.ebuild:
+  Drop unneeded patch and fix goffice dep
+
+*gnome-chemistry-utils-9999 (10 Jul 2013)
+
+  10 Jul 2013; Justin Lecher <jlec@gentoo.org>
+  gnome-chemistry-utils-0.14.2.ebuild, +gnome-chemistry-utils-9999.ebuild,
+  +files/gnome-chemistry-utils-0.14.2-extern-c.patch:
+  Add live ebuild, fix extern C problems, #474498 and
+  https://github.com/gentoo-science/sci/issues/84
+
+  21 Jun 2013; Justin Lecher <jlec@gentoo.org>
+  gnome-chemistry-utils-0.14.2.ebuild, metadata.xml:
+  Fix min version of openbabel
+
   06 Apr 2013; Karl Linden (lilrc) <lilrc@users.sourceforge.net>
   gnome-chemistry-utils-0.14.2.ebuild:
   Migrate to gnome2 eclass.

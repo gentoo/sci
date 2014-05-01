@@ -1,0 +1,121 @@
+commit ab2dc2e2210f81d24b42180359d0842eb33f994a (HEAD, tag: v0.10, origin/master, origin/HEAD, master)
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Wed Jul 10 20:22:13 2013 -0400
+
+    empi-0.10
+
+commit d84c6ce3949f9eeeb1bab816e3e25eef0dd75661
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Tue Jul 9 18:48:01 2013 -0400
+
+    empi:  support make.conf move
+    
+    Later versions of portage moved /etc/make.conf to /etc/portage/make.conf
+    by default while still supporting the old location.
+
+commit 914c277799fd0f44266864fa16fef338046be5f6
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Tue Jul 9 18:12:50 2013 -0400
+
+    eclass: add sys-cluster/mpich
+    
+    upstream renamed mpich2 to mpich.
+
+commit 5c80290f4f0d90fe84fa0f18f2264052c544c008
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Mon Jul 1 22:16:04 2013 -0400
+
+    Revert "eclass:  workaround OpenMPI build issue #462602"
+    
+    This reverts commit 5e9b1be531ca02607e730a5b43765850eae9a0c5.
+
+commit a5d63455bf53a1ca6ab0220e3f308707a852b0cc (tag: v0.9)
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Mon Jul 1 20:06:50 2013 -0400
+
+    empi-0.9
+
+commit 4540a319542ddc7c0fbcea47174fe85e1810561c
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Mon Jul 1 20:05:35 2013 -0400
+
+    empi:  better filtering of emerge output
+    
+    Ignore extra information spit out by emerge, like news.
+
+commit 5e9b1be531ca02607e730a5b43765850eae9a0c5
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Mon Jul 1 20:04:58 2013 -0400
+
+    eclass:  workaround OpenMPI build issue #462602
+    
+    export FAKEROOTKEY=1 to stop OpenMPI from replacing malloc.
+
+commit a17e4452cb93014e2a4d5f7615e5d09f2df9c6a2 (tag: v0.8)
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Thu Feb 21 22:56:27 2013 -0500
+
+    empi-0.8
+
+commit b38f48aa70933858d410abce58964e55708471c9
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Thu Feb 21 22:54:28 2013 -0500
+
+    empi:  manage overlay metadata
+    
+    Add overlay metadata management.  Snagged from crossdev.
+    http://git.overlays.gentoo.org/gitweb/?p=proj/crossdev.git
+
+commit 4305d879c232acd663a8bb13505e5cfa403c5df5
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Thu Feb 21 21:05:19 2013 -0500
+
+    empi:  provide and set overlay default
+    
+    Set default overlay path to /var/cache/overlays/mpi
+
+commit fd7eed35034cb54dbe0d8f553c57abceee3c0eea
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Thu Feb 21 20:40:36 2013 -0500
+
+    empi:  allow all users to see usage screen
+
+commit 84aa3a41dbbf2924dc223614c267ff6e79bfce2e
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Fri Jan 11 16:43:08 2013 -0500
+
+    rename MPI_PORTDIR and pull it from the portage env
+
+commit 77318d28462f05b4a8a6f1ac7b270aa07b5ebc8a
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Fri Jan 11 16:07:14 2013 -0500
+
+    rename global variables to be obvious
+
+commit 07beb4baf6af2a45bd382d6b7ba87d8bcbeda7a7
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Fri Jan 11 15:44:50 2013 -0500
+
+    sanitize whitespace
+
+commit 7c7fb4f0669d554a5301e70a46ae82e584685aff
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Tue Mar 22 10:27:53 2011 -0400
+
+    mpi.eclass:  Improve handling of unclassed dep strings
+    
+    Instead of requiring a list of packages to block when calculating the
+    dep list for an unclassed ebuild, simply inject a dep string.  This
+    will allow the use of USE-conditional blockers.
+
+commit 0319e9cac8325bda7440f0f48eeac30056658b7e
+Author: Nicolas Bigaouette <nbigaouette@gmail.com>
+Date:   Wed Nov 24 22:42:49 2010 -0500
+
+    Typo: 'classs' to 'classes'
+
+commit 7f0ce9ea97ee8f72dc275ebdf3ce7ab44ad6538a
+Author: Justin Bronder <jsbronder@gmail.com>
+Date:   Mon Nov 29 11:51:31 2010 -0500
+
+    Initial import to git.

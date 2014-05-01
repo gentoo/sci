@@ -1,10 +1,6 @@
-effort to link with gsl installed from system
-to be applied after the as-needed patch
-bicatali@gentoo.org - 06/2013
-
 diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind/Makefile
---- astrometry.net-0.43.as-needed/blind/Makefile	2013-06-13 15:54:15.915430597 -0700
-+++ astrometry.net-0.43/blind/Makefile	2013-06-13 17:09:54.247653801 -0700
+--- astrometry.net-0.43.as-needed/blind/Makefile	2013-06-14 10:25:20.789175016 -0700
++++ astrometry.net-0.43/blind/Makefile	2013-06-14 10:25:58.643379797 -0700
 @@ -56,7 +56,7 @@
  LDFLAGS += -fPIC
  
@@ -19,7 +15,7 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  	quadcenters startree2rdls
  
 -ANLIBS := $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+ANLIBS := $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++ANLIBS := $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  BACKEND_LIB := libbackend.a
  
@@ -30,7 +26,7 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
 -$(BACKEND_SO): $(BACKEND_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(LIBKD_LIB) \
 -		$(QFITS_LIB) $(GSL_LIB)
 -	$(CC) $(SHAREDLIBFLAGS) $^ -o $@
-+$(BACKEND_SO): $(BACKEND_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(LIBKD_LIB) \
++$(BACKEND_SO): $(BACKEND_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) \
 +		$(QFITS_LIB) 
 +	$(CC) $(LDFLAGS) $(SHAREDLIBFLAGS) $^ $(GSL_LIB) -o $@
  
@@ -68,19 +64,19 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  #../util/cutest.o \
  
 -test_2mass: 2mass.o 2mass-fits.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+test_2mass: 2mass.o 2mass-fits.o $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++test_2mass: 2mass.o 2mass-fits.o $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_TEST_EXTRA_OBJS += 2mass-fits.o 2mass.o
  
 -test_usnob: usnob-fits.o usnob.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+test_usnob: usnob-fits.o usnob.o $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++test_usnob: usnob-fits.o usnob.o $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_TEST_EXTRA_OBJS += usnob-fits.o usnob.o
  
 -test_nomad: nomad-fits.o nomad.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+test_nomad: nomad-fits.o nomad.o $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++test_nomad: nomad-fits.o nomad.o $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_TEST_EXTRA_OBJS += nomad-fits.o nomad.o
  
 -test_matchfile: matchfile.o matchobj.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+test_matchfile: matchfile.o matchobj.o $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++test_matchfile: matchfile.o matchobj.o $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_TEST_EXTRA_OBJS += matchfile.o matchobj.o
  
 -test_blindutils: blindutils.o $(ANUTILS_LIB) $(GSL_LIB)
@@ -91,19 +87,19 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  ALL_TEST_EXTRA_OBJS += dcen3x3.o
  
 -test_simplexy: $(SIMPLEXY_OBJ) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+test_simplexy: $(SIMPLEXY_OBJ) $(ANUTILS_LIB)  $(QFITS_LIB)
++test_simplexy: $(SIMPLEXY_OBJ) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_TEST_EXTRA_OBJS += $(SIMPLEXY_OBJ)
  
 -test_resort-xylist: resort-xylist.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+test_resort-xylist: resort-xylist.o $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++test_resort-xylist: resort-xylist.o $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_TEST_EXTRA_OBJS += resort-xylist.o
  
 -test_tweak: test_tweak.o tweak.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+test_tweak: test_tweak.o tweak.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++test_tweak: test_tweak.o tweak.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_TEST_EXTRA_OBJS += tweak.o
  
 -ALL_TEST_LIBS += $(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) 
-+ALL_TEST_LIBS += $(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB) 
++ALL_TEST_LIBS += $(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB) 
  
  include $(COMMON)/makefile.tests
  
@@ -113,7 +109,7 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  demo_dsmooth: demo_dsmooth.o dsmooth.o \
 -	$(COMMON)/cairoutils.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) 
 -	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) -pg $(LDLIBS) -o $@
-+	$(COMMON)/cairoutils.o $(ANUTILS_LIB)  $(QFITS_LIB) 
++	$(COMMON)/cairoutils.o $(ANUTILS_LIB) $(QFITS_LIB) 
 +	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) -pg $(GSL_LIB) $(LDLIBS) -o $@
  
  control-program: control-program.o \
@@ -125,41 +121,41 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  # qfits is only needed for writing debugging images...
 -image2xy: image2xy-main.o image2xy-files.o $(SIMPLEXY_OBJ) $(CFITS_DEP) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
 -	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(CFITS_LIB) $(LDLIBS) -o $@
-+image2xy: image2xy-main.o image2xy-files.o $(SIMPLEXY_OBJ) $(CFITS_DEP) $(ANUTILS_LIB)  $(QFITS_LIB)
++image2xy: image2xy-main.o image2xy-files.o $(SIMPLEXY_OBJ) $(CFITS_DEP) $(ANUTILS_LIB) $(QFITS_LIB)
 +	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(CFITS_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  
  ALL_OBJ += image2xy-main.o image2xy-files.o
  
 -new-wcs: new-wcs-main.o new-wcs.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+new-wcs: new-wcs-main.o new-wcs.o $(ANUTILS_LIB)  $(QFITS_LIB)
++new-wcs: new-wcs-main.o new-wcs.o $(ANUTILS_LIB) $(QFITS_LIB)
  
  ALL_OBJ += new-wcs-main.o
  
  rdls2hpls: rdls2hpls.o \
 -		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  rdlstohealpix: rdlstohealpix.o \
 -		$(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(ANUTILS_LIB)  $(QFITS_LIB)
++		$(ANUTILS_LIB) $(QFITS_LIB)
  
  xylist2fits: xylist2fits.o \
 -		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  certifiable: certifiable.o matchfile.o matchobj.o solvedfile.o \
 -		$(UTILS_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTILS_LIB) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTILS_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  fits-guess-scale: fits-guess-scale-main.o fits-guess-scale.o \
 -		$(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(ANUTILS_LIB)  $(QFITS_LIB)
++		$(ANUTILS_LIB) $(QFITS_LIB)
  
  ALL_OBJ += fits-guess-scale-main.o
  
  get-wcs: get-wcs.o \
 -		$(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(ANUTILS_LIB)  $(QFITS_LIB)
++		$(ANUTILS_LIB) $(QFITS_LIB)
  
  
  ifdef WCSTOOLS_EXISTS
@@ -169,14 +165,14 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  wcs-xy2rd: wcs-xy2rd-main.o wcs-xy2rd.o $(UTIL_OBJS) \
 -		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(WCS_LIB_DEP)
 -	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(WCS_LIB) $(LDLIBS) -o $@
-+		$(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB) $(WCS_LIB_DEP)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(WCS_LIB_DEP)
 +	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(WCS_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  ALL_OBJ += wcs-xy2rd-main.o
  
  wcs-rd2xy: wcs-rd2xy-main.o wcs-rd2xy.o $(UTIL_OBJS) \
 -		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(WCS_LIB_DEP)
 -	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(WCS_LIB) $(LDLIBS) -o $@
-+		$(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB) $(WCS_LIB_DEP)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(WCS_LIB_DEP)
 +	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(WCS_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  ALL_OBJ += wcs-rd2xy-main.o
  
@@ -204,93 +200,93 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  
  nomadtofits: nomadtofits.o nomad-fits.o nomad.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  ucac3tofits: ucac3tofits.o ucac3-fits.o ucac3.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
 -	$(CC) $^ $(LDFLAGS) -lbz2 $(LDLIBS) -o $@
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
 +	$(CC) $^ $(LDFLAGS) -lbz2 $(GSL_LIB) $(LDLIBS) -o $@
  
  read_nomad: read_nomad.o nomad.o
  
 -2masstofits: $(2MASSOBJ) $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
 -	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(ZLIB_LIB) $(LDLIBS) -o $@
-+2masstofits: $(2MASSOBJ) $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++2masstofits: $(2MASSOBJ) $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
 +	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(ZLIB_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  
  diffractionFlag_check: diffractionFlag_check.o usnob-fits.o usnob.o \
 -		$(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANUTILS_LIB) $(QFITS_LIB)
  
  project-usnob: project-usnob.o usnob-fits.o usnob.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  usnobtofits: usnobtofits.o usnob-fits.o usnob.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
 -hpowned: hpowned.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+hpowned: hpowned.o $(UTIL_OBJS) $(ANUTILS_LIB)  $(QFITS_LIB)
++hpowned: hpowned.o $(UTIL_OBJS) $(ANUTILS_LIB) $(QFITS_LIB)
  
  build-an-catalog: build-an-catalog.o usnob-fits.o usnob.o \
  		2mass-fits.o 2mass.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  cut-an: cut-an.o catalog.o usnob.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  startree: startree.o catalog.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  startree2: startree2-main.o startree2.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_OBJ += startree2-main.o startree2.o
  
  uniformize-catalog: uniformize-catalog-main.o uniformize-catalog.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_OBJ += uniformize-catalog-main.o uniformize-catalog.o
  
  build-index: build-index-main.o build-index.o uniformize-catalog.o startree2.o hpquads.o \
  		quad-builder.o quad-utils.o codefile.o codetree.o unpermute-stars.o \
  		unpermute-quads.o merge-index.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_OBJ += build-index-main.o build-index.o uniformize-catalog.o quad-utils.o
  
  hpquads: hpquads-main.o hpquads.o quad-builder.o quad-utils.o codefile.o pnpoly.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_OBJ += hpquads-main.o quad-builder.o hpquads.o
  
  allquads: allquads-main.o allquads.o quad-builder.o quad-utils.o codefile.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  codetree: codetree-main.o codetree.o codefile.o quad-utils.o \
 -		$(UTIL_OBJS) $(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_OBJ += codetree-main.o
  
  unpermute-stars: unpermute-stars-main.o unpermute-stars.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_OBJ += unpermute-stars-main.o
  
  unpermute-quads: unpermute-quads-main.o unpermute-quads.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_OBJ += unpermute-quads-main.o
  
  merge-index: merge-index-main.o merge-index.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  ALL_OBJ += merge-index-main.o
  
  local-index: local-index.o build-index.o codetree.o startree2.o codetree.o \
@@ -298,13 +294,13 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  		quad-builder.o quad-utils.o codefile.o wcs-xy2rd.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
 -	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(WCSLIB_LIB) $(LDLIBS) -o $@
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
 +	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(WCSLIB_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  ALL_OBJ += local-index.o
  
  index-to-table: index-to-table.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  threadtest: threadtest.o $(BACKEND_LIB) \
 -		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB)
@@ -332,7 +328,7 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  dstnthing: dstnthing.o tweak2.o tweak.o matchfile.o matchobj.o verify.o scamp.o $(PLOTSTUFF) \
 -		$(COMMON)/cairoutils.o $(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB) 
 -	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(LDLIBS) -o $@
-+		$(COMMON)/cairoutils.o $(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB)  
++		$(COMMON)/cairoutils.o $(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB)
 +	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  ALL_OBJ += dstnthing.o
  
@@ -343,7 +339,7 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  		scamp.o \
 -		$(SIMPLEXY_OBJ) $(CFITS_DEP) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
 -	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(WCSLIB_LIB) $(CFITS_LIB) $(LDLIBS) -o $@
-+		$(SIMPLEXY_OBJ) $(CFITS_DEP) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(SIMPLEXY_OBJ) $(CFITS_DEP) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
 +	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(WCSLIB_LIB) $(CFITS_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  
  ALL_OBJ += scamp.o cut-table.o
@@ -362,7 +358,7 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  		$(UTIL_OBJS) \
 -		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB)
 -	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@.tmp
-+		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) 
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB)
 +	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(GSL_LIB) $(LDLIBS) -o $@.tmp
  	mv $@.tmp $@
  
@@ -379,7 +375,7 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  		$(PLOTSTUFF) $(COMMON)/cairoutils.o $(CATS_LIB) \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB) $(GSL_LIB) 
 -	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(LDLIBS) -o $@
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB)  
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) $(QFITS_LIB)
 +	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  ALL_OBJ += whynot.o
  
@@ -389,20 +385,20 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  
  agreeable: agreeable.o matchfile.o matchobj.o solvedfile.o solvedclient.o verify.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(LIBKD_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB) $(LIBKD_LIB) $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(LIBKD_LIB) $(QFITS_LIB)
  
 -rdlsinfo: rdlsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+rdlsinfo: rdlsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++rdlsinfo: rdlsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
 -xylsinfo: xylsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+xylsinfo: xylsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++xylsinfo: xylsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  wcsinfo: wcsinfo.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) \
 -		$(QFITS_LIB) $(GSL_LIB)
 +		$(QFITS_LIB) 
  
 -index-info: index-info.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+index-info: index-info.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++index-info: index-info.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  subwcs: subwcs.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) \
 -		$(QFITS_LIB) $(GSL_LIB)
@@ -410,27 +406,27 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  ALL_OBJS += subwcs.o
  
 -wcs-grab: wcs-grab.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) \
-+wcs-grab: wcs-grab.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  \
++wcs-grab: wcs-grab.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) \
  		$(QFITS_LIB)
  
 -printsolved: printsolved.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) 
-+printsolved: printsolved.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB)  $(QFITS_LIB) 
++printsolved: printsolved.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB) $(QFITS_LIB) 
  
 -setsolved: setsolved.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) 
-+setsolved: setsolved.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB)  $(QFITS_LIB) 
++setsolved: setsolved.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB) $(QFITS_LIB) 
  
 -mergesolved: mergesolved.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+mergesolved: mergesolved.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB)  $(QFITS_LIB)
++mergesolved: mergesolved.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB) $(QFITS_LIB)
  
 -solvedserver: solvedserver.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) \
-+solvedserver: solvedserver.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB)  \
++solvedserver: solvedserver.o solvedfile.o $(UTIL_OBJS) $(ANUTILS_LIB) \
  		$(QFITS_LIB)
 -	$(CC) $(CFLAGS) $^ $(LDLIBS) -o $@
 +	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(GSL_LIB) $(LDLIBS) -o $@
  
  plotcat: plotcat.o 2mass-fits.o 2mass.o nomad-fits.o nomad.o catalog.o usnob-fits.o usnob.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(LIBKD_LIB) \
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(LIBKD_LIB) \
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(LIBKD_LIB) \
  		$(QFITS_LIB)
  
  plotquad.o: plotquad.c 
@@ -444,13 +440,13 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  plotquad: plotquad.o matchfile.o matchobj.o $(COMMON)/cairoutils.o \
 -		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) 
 -	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(LDLIBS) -o $@
-+		$(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB) 
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB) 
 +	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  
  plot-xy-and-quad: plot-xy-and-quad.o matchfile.o $(COMMON)/cairoutils.o \
 -		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) 
 -	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(LDLIBS) -o $@
-+		$(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB) 
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB) 
 +	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  
  plot-constellations.o: plot-constellations.c
@@ -459,16 +455,16 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  plot-constellations: plot-constellations.o $(CATS_LIB) $(COMMON)/cairoutils.o \
 -		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
 -	$(CC) $(LDFLAGS) $^ $(CAIRO_LIB) $(NETPBM_LIB) $(PNG_LIB) $(JPEG_LIB) $(LDLIBS) -o $@
-+		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
 +	$(CC) $(LDFLAGS) $^ $(CAIRO_LIB) $(NETPBM_LIB) $(PNG_LIB) $(JPEG_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  
  catalog-dists: catalog-dists.o 2mass-fits.o usnob-fits.o usnob.o \
 -		$(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(LIBKD_LIB) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
 -add-text: add-text.o $(COMMON)/cairoutils.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
 -	$(CC) $(LDFLAGS) $^ $(CAIRO_LIB) $(NETPBM_LIB) $(PNG_LIB) $(JPEG_LIB) $(LDLIBS) -o $@
-+add-text: add-text.o $(COMMON)/cairoutils.o $(ANUTILS_LIB)  $(QFITS_LIB)
++add-text: add-text.o $(COMMON)/cairoutils.o $(ANUTILS_LIB) $(QFITS_LIB)
 +	$(CC) $(LDFLAGS) $^ $(CAIRO_LIB) $(NETPBM_LIB) $(PNG_LIB) $(JPEG_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  
  PYTHON_EXECS := plotann.py
@@ -479,7 +475,7 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  
 -plotstuff: plotstuff-main.o $(PLOTSTUFF) $(CATS_LIB) $(COMMON)/cairoutils.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
 -	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(LDLIBS) -o $@
-+plotstuff: plotstuff-main.o $(PLOTSTUFF) $(CATS_LIB) $(COMMON)/cairoutils.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++plotstuff: plotstuff-main.o $(PLOTSTUFF) $(CATS_LIB) $(COMMON)/cairoutils.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
 +	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  ALL_OBJ += plotstuff-main.o
  
@@ -489,7 +485,7 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  _plotstuff_c.so: plotstuff_wrap.c setup.py $(PLOTSTUFF) $(CATS_LIB) \
  		$(COMMON)/cairoutils.o \
 -		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  	python setup.py build --force --build-base build --build-platlib build/lib
  	cp build/lib/_plotstuff_c.so $@
  
@@ -499,13 +495,13 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  plotxy: plotxy-main.o $(PLOTSTUFF) $(CATS_LIB) $(COMMON)/cairoutils.o \
 -		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
 -	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(LDLIBS) -o $@
-+		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
 +	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  ALL_OBJ += plotxy-main.o
  
 -test_plotstuff: test_plotstuff-main.o test_plotstuff.o $(COMMON)/cutest.o $(PLOTSTUFF) $(COMMON)/cairoutils.o $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
 -	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(LDLIBS) -o $@
-+test_plotstuff: test_plotstuff-main.o test_plotstuff.o $(COMMON)/cutest.o $(PLOTSTUFF) $(COMMON)/cairoutils.o $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++test_plotstuff: test_plotstuff-main.o test_plotstuff.o $(COMMON)/cutest.o $(PLOTSTUFF) $(COMMON)/cairoutils.o $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
 +	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(WCSLIB_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  test_plotstuff-main.c: test_plotstuff.c
  	$(AN_SHELL) $(MAKE_TESTS) $^ > $@
@@ -514,7 +510,7 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  ALL_OBJ += query-starkd.o
  
 -quadidx: quadidx.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+quadidx: quadidx.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++quadidx: quadidx.o $(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  codeprojections: codeprojections.o $(UTIL_OBJS) $(ANLIBS)
  
@@ -534,46 +530,60 @@ diff -Nur astrometry.net-0.43.as-needed/blind/Makefile astrometry.net-0.43/blind
  		$(QFITS_LIB)
  
 -fitsgetext: fitsgetext.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+fitsgetext: fitsgetext.o $(ANUTILS_LIB)  $(QFITS_LIB)
++fitsgetext: fitsgetext.o $(ANUTILS_LIB) $(QFITS_LIB)
  
 -fits-dedup: fits-dedup.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+fits-dedup: fits-dedup.o $(ANUTILS_LIB)  $(QFITS_LIB)
++fits-dedup: fits-dedup.o $(ANUTILS_LIB) $(QFITS_LIB)
  
 -subtable: subtable.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+subtable: subtable.o $(UTIL_OBJS) $(ANUTILS_LIB)  $(QFITS_LIB)
++subtable: subtable.o $(UTIL_OBJS) $(ANUTILS_LIB) $(QFITS_LIB)
  
 -tabsort: tabsort-main.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+tabsort: tabsort-main.o $(UTIL_OBJS) $(ANUTILS_LIB)  $(QFITS_LIB)
++tabsort: tabsort-main.o $(UTIL_OBJS) $(ANUTILS_LIB) $(QFITS_LIB)
  
  ALL_OBJ += tabsort-main.o
  
 -column-merge: column-merge.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+column-merge: column-merge.o $(UTIL_OBJS) $(ANUTILS_LIB)  $(QFITS_LIB)
++column-merge: column-merge.o $(UTIL_OBJS) $(ANUTILS_LIB) $(QFITS_LIB)
  
  resort-xylist: resort-xylist-main.o resort-xylist.o $(UTIL_OBJS) \
 -		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  ALL_OBJ += resort-xylist-main.o
  
 -bgsubtract: bgsubtract.o ctmf.o $(COMMON)/cairoutils.o $(UTIL_OBJS) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
 -	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(LDLIBS) -o $@
-+bgsubtract: bgsubtract.o ctmf.o $(COMMON)/cairoutils.o $(UTIL_OBJS) $(ANUTILS_LIB)  $(QFITS_LIB)
++bgsubtract: bgsubtract.o ctmf.o $(COMMON)/cairoutils.o $(UTIL_OBJS) $(ANUTILS_LIB) $(QFITS_LIB)
 +	$(CC) $^ $(LDFLAGS) $(CAIRO_LIB) $(PNG_LIB) $(NETPBM_LIB) $(JPEG_LIB) $(GSL_LIB) $(LDLIBS) -o $@
  
  usnob-scamp-catalog: usnob-scamp-catalog.o usnob-fits.o usnob.o $(UTIL_OBJS) \
 -		$(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  create-scamp-catalog: create-scamp-catalog.o \
 -		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB)
-+		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB)  $(QFITS_LIB)
++		$(UTIL_OBJS) $(ANFILES_LIB) $(ANUTILS_LIB) $(QFITS_LIB)
  
  DEP_OBJ := $(ALL_OBJ)
  DEP_PREREQS := $(QFITS_LIB)
+diff -Nur astrometry.net-0.43.as-needed/blind/setup.py astrometry.net-0.43/blind/setup.py
+--- astrometry.net-0.43.as-needed/blind/setup.py	2013-06-14 10:25:20.786175152 -0700
++++ astrometry.net-0.43/blind/setup.py	2013-06-14 10:34:33.657232232 -0700
+@@ -68,9 +68,8 @@
+ 						 '../libkd/libkd.a',
+ 						 '../util/libanutils.a',
+ 						 '../qfits-an/lib/libqfits.a',
+-						 '../gsl-an/libgsl-an.a',
+ 						 ],
+-					 libraries=reduce(lambda x,y: x+y, [get_libs(x,req) for x,req in [('cairo',True), ('wcslib',False)]]) + ['jpeg'] + extra_link_libs,
++					 libraries=reduce(lambda x,y: x+y, [get_libs(x,req) for x,req in [('cairo',True), ('wcslib',False)]]) + ['jpeg'] + ['gsl'] + extra_link_libs,
+ 					 library_dirs=reduce(lambda x,y: x+y, [get_lib_dirs(x,req) for x,req in [('cairo',True), ('wcslib',False)]]) + extra_link_dirs,
+ 		     extra_compile_args=compile_args,
+ 		     extra_link_args=link_args,
 diff -Nur astrometry.net-0.43.as-needed/Makefile astrometry.net-0.43/Makefile
---- astrometry.net-0.43.as-needed/Makefile	2013-06-13 15:54:15.934430711 -0700
-+++ astrometry.net-0.43/Makefile	2013-06-13 15:56:14.795089358 -0700
+--- astrometry.net-0.43.as-needed/Makefile	2013-06-14 10:25:20.809174220 -0700
++++ astrometry.net-0.43/Makefile	2013-06-14 10:26:38.497600024 -0700
 @@ -67,7 +67,7 @@
  	$(MAKE) -C qfits-an/src
  
@@ -583,9 +593,25 @@ diff -Nur astrometry.net-0.43.as-needed/Makefile astrometry.net-0.43/Makefile
  
  .PHONY: subdirs thirdparty qfits-an gsl-an
  
+@@ -81,7 +81,6 @@
+ # Targets that create python bindings (requiring swig)
+ py:
+ 	$(MAKE) -C qfits-an
+-	$(MAKE) -C gsl-an
+ 	$(MAKE) -C catalogs
+ 	$(MAKE) -C util pyutil
+ 	$(MAKE) -C util cairoutils.o
+@@ -91,7 +90,6 @@
+ 
+ pyutil:
+ 	$(MAKE) -C qfits-an
+-	$(MAKE) -C gsl-an
+ 	$(MAKE) -C util pyutil
+ 
+ install: all report.txt
 diff -Nur astrometry.net-0.43.as-needed/util/Makefile astrometry.net-0.43/util/Makefile
---- astrometry.net-0.43.as-needed/util/Makefile	2013-06-13 17:05:10.551069687 -0700
-+++ astrometry.net-0.43/util/Makefile	2013-06-13 17:10:31.830861262 -0700
+--- astrometry.net-0.43.as-needed/util/Makefile	2013-06-14 10:25:20.813174107 -0700
++++ astrometry.net-0.43/util/Makefile	2013-06-14 10:30:57.575032667 -0700
 @@ -181,7 +181,7 @@
  
  resample: resample-main.o \
@@ -595,7 +621,7 @@ diff -Nur astrometry.net-0.43.as-needed/util/Makefile astrometry.net-0.43/util/M
  ALL_OBJ += resampe.o
  
  tycho2tofits: tycho2tofits.o \
-@@ -194,18 +194,18 @@
+@@ -194,17 +194,17 @@
  
  _sip.so: sip-utils.o gslutils.o sip.o starutil.o mathutil.o sip_qfits.o \
  		fitsioutils.o errors.o ioutils.o bl.o os-features.o an-endian.o \
@@ -613,12 +639,10 @@ diff -Nur astrometry.net-0.43.as-needed/util/Makefile astrometry.net-0.43/util/M
  
  _util.so: util_wrap.c setup-util.py \
 -		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(GSL_LIB)
--	WCSLIB_LIB="$(WCSLIB_LIB)" GSL_LIB="$(GSL_LIB)" \
 +		$(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB) 
-+	WCSLIB_LIB="$(WCSLIB_LIB)" GSL_LIB="" \
+ 	WCSLIB_LIB="$(WCSLIB_LIB)" GSL_LIB="$(GSL_LIB)" \
  	python setup-util.py build --force --build-base build --build-platlib build/lib
  	cp build/lib/_util.so $@
- 
 @@ -224,23 +224,23 @@
  	cp build/lib/_index_c.so _index_c.so
  	cp build/lib/_index_util.so _index_util.so
@@ -631,13 +655,13 @@ diff -Nur astrometry.net-0.43.as-needed/util/Makefile astrometry.net-0.43/util/M
  
 -wcs-resample: wcs-resample-main.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(WCS_LIB_DEP)
 -	$(CC) $^ $(LDFLAGS) $(WCS_LIB) $(LDLIBS) -o $@
-+wcs-resample: wcs-resample-main.o $(ANUTILS_LIB)  $(QFITS_LIB) $(WCS_LIB_DEP)
++wcs-resample: wcs-resample-main.o $(ANUTILS_LIB) $(QFITS_LIB) $(WCS_LIB_DEP)
 +	$(CC) $(LDFLAGS) $^ $(GSL_LIB) $(WCS_LIB) $(LDLIBS) -o $@
  ALL_OBJ += wcs-resample-main.o
  
 -fit-wcs: fit-wcs-main.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(WCS_LIB_DEP)
 -	$(CC) $^ $(LDFLAGS) $(WCS_LIB) $(LDLIBS) -o $@
-+fit-wcs: fit-wcs-main.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB)  $(QFITS_LIB) $(WCS_LIB_DEP)
++fit-wcs: fit-wcs-main.o $(ANFILES_LIB) $(LIBKD_LIB) $(ANUTILS_LIB) $(QFITS_LIB) $(WCS_LIB_DEP)
 +	$(CC) $^ $(LDFLAGS) $(GSL_LIB) $(WCS_LIB) $(LDLIBS) -o $@
  ALL_OBJ += fit-wcs-main.o
  
@@ -647,7 +671,7 @@ diff -Nur astrometry.net-0.43.as-needed/util/Makefile astrometry.net-0.43/util/M
  
 -wcs-to-tan: wcs-to-tan.o $(ANUTILS_LIB) $(GSL_LIB) $(QFITS_LIB) $(WCS_LIB_DEP)
 -	$(CC) $^ $(LDFLAGS) $(WCS_LIB) $(LDLIBS) -o $@
-+wcs-to-tan: wcs-to-tan.o $(ANUTILS_LIB)  $(QFITS_LIB) $(WCS_LIB_DEP)
++wcs-to-tan: wcs-to-tan.o $(ANUTILS_LIB) $(QFITS_LIB) $(WCS_LIB_DEP)
 +	$(CC) $^ $(LDFLAGS) $(GSL_LIB) $(WCS_LIB) $(LDLIBS) -o $@
  ALL_OBJ += wcs-to-tan.o
  
@@ -687,8 +711,8 @@ diff -Nur astrometry.net-0.43.as-needed/util/Makefile astrometry.net-0.43/util/M
  ### /TESTS
  
 diff -Nur astrometry.net-0.43.as-needed/util/makefile.gsl astrometry.net-0.43/util/makefile.gsl
---- astrometry.net-0.43.as-needed/util/makefile.gsl	2013-06-13 15:54:15.937430729 -0700
-+++ astrometry.net-0.43/util/makefile.gsl	2013-06-13 15:54:33.183525063 -0700
+--- astrometry.net-0.43.as-needed/util/makefile.gsl	2013-06-14 10:25:20.812174131 -0700
++++ astrometry.net-0.43/util/makefile.gsl	2013-06-14 10:25:58.643379797 -0700
 @@ -14,10 +14,5 @@
  # along with the Astrometry.net suite ; if not, write to the Free Software
  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
@@ -702,3 +726,17 @@ diff -Nur astrometry.net-0.43.as-needed/util/makefile.gsl astrometry.net-0.43/ut
 -
 +GSL_INC ?= $(shell pkg-config --cflags gsl 2>/dev/null)
 +GSL_LIB ?= $(shell pkg-config --libs gsl 2>/dev/null)
+diff -Nur astrometry.net-0.43.as-needed/util/setup-util.py astrometry.net-0.43/util/setup-util.py
+--- astrometry.net-0.43.as-needed/util/setup-util.py	2013-06-14 10:25:20.814174084 -0700
++++ astrometry.net-0.43/util/setup-util.py	2013-06-14 10:39:45.250959084 -0700
+@@ -22,9 +22,8 @@
+ 							  '../libkd/libkd.a',
+ 							  'libanutils.a',
+ 							  '../qfits-an/lib/libqfits.a',
+-							  '../gsl-an/libgsl-an.a',
+ 							  ],
+-						  extra_link_args=[os.environ.get('WCSLIB_LIB', ''),
++						  extra_link_args=[os.environ.get('WCSLIB_LIB') + ' ' + os.environ.get('GSL_LIB'),
+ #os.environ.get('GSL_LIB', ''),
+ #'-O0 -g'
+ 										   ],

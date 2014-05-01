@@ -1,0 +1,14 @@
+# ChangeLog for sci-biology/pileup
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> pileup-0.6.ebuild,
+  metadata.xml:
+  dropped KEYWORDS due to misisng LICENSE
+
+*pileup-0.6 (24 Mar 2014)
+
+  24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +pileup-0.6.ebuild,
+  +metadata.xml:
+  new package; a pileup pipeline used along SSAHA2
+

@@ -1,6 +1,48 @@
 # ChangeLog for app-admin/eselect
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/app-admin/eselect/ChangeLog,v 1.179 2011/01/22 21:38:52 ulm Exp $
+
+*eselect-1.4.1-r100 (15 Feb 2014)
+
+  15 Feb 2014; Justin Lecher <jlec@gentoo.org> +eselect-1.4.1-r100.ebuild,
+  eselect-9999.ebuild:
+  Bump to follow tree package
+
+*eselect-9999 (21 Jan 2014)
+
+  21 Jan 2014; Sébastien Fabbro <bicatali@gentoo.org> +eselect-9999.ebuild:
+  app-admin/eselect: Added eselect alternatives branch live
+
+*eselect-1.4-r100 (08 Dec 2013)
+
+  08 Dec 2013; Justin Lecher <jlec@gentoo.org> +eselect-1.4-r100.ebuild:
+  Version Bump
+
+  12 Sep 2013; Sébastien Fabbro <bicatali@gentoo.org> eselect-1.3.7-r100.ebuild,
+  eselect-1.3.8-r100.ebuild:
+  sync with tree
+
+*eselect-1.3.8-r100 (02 Sep 2013)
+
+  02 Sep 2013; Andrew Savchenko <bircoph@gmail.com> +eselect-1.3.8-r100.ebuild,
+  +files/eselect-1.3.8-alternatives.patch:
+  Bump to latest eselect.
+
+  18 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> eselect-1.3.7-r100.ebuild:
+  app-admin/eselect: Re-add emacs and vim flags
+
+  16 Jul 2013; Justin Lecher <jlec@gentoo.org> +eselect-1.3.7-r100.ebuild:
+  Bump to latest eselect
+
+  08 Jul 2013; Justin Lecher <jlec@gentoo.org> -eselect-1.3.5-r100.ebuild,
+  +eselect-1.3.6-r100.ebuild, metadata.xml:
+  Bump to latest eselect
+
+*eselect-1.3.5-r100 (24 Jun 2013)
+
+  24 Jun 2013; Sébastien Fabbro <bicatali@gentoo.org>
+  +eselect-1.3.5-r100.ebuild, -eselect-1.3.4-r100.ebuild:
+  app-admin/eselect: Version bump
 
   24 Jan 2013; Sébastien Fabbro <bicatali@gentoo.org>
   -eselect-1.3.2-r100.ebuild, -eselect-1.3.3-r100.ebuild,
@@ -23,7 +65,7 @@
 
   15 Sep 2012; Justin Lecher <jlec@gentoo.org> +eselect-1.3.2-r1.ebuild,
   +files/eselect-1.3.2-eroot.patch:
-  Version BUmp
+  Version Bump
 
   04 Jun 2012; Justin Lecher <jlec@gentoo.org> eselect-1.3.1-r1.ebuild,
   metadata.xml:

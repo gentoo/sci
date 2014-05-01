@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,7 +15,7 @@ SRC_URI="http://www.hepforge.org/archive/herwig/${MYP}.tar.bz2"
 LICENSE="GPL-2"
 
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="fastjet"
 
 DEPEND="dev-libs/boost
@@ -23,7 +23,7 @@ DEPEND="dev-libs/boost
 	sci-libs/gsl
 	sci-physics/LoopTools
 	dev-lang/perl
-	sci-physics/thepeg
+	=sci-physics/thepeg-1.8.3
 	fastjet? ( sci-physics/fastjet )"
 RDEPEND="${DEPEND}"
 

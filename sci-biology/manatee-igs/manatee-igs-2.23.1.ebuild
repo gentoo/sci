@@ -1,15 +1,15 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=3
 
-DESCRIPTION="IGS-modified version of the genome annotation tool"
+DESCRIPTION="IGS-modified version of the genome annotation tool using Chado database schema"
 HOMEPAGE="http://manatee.sourceforge.net/igs"
 SRC_URI="http://sourceforge.net/projects/manatee/files/igs_manatee/"${PV}"/manatee-"${PV}"_linux.tgz
 		http://manatee.sourceforge.net/igs/docs/README_Linux.txt"
 
-LICENSE="Artistic-IGS"
+LICENSE="Artistic-Manatee"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
@@ -18,6 +18,7 @@ DEPEND="
 		>=dev-libs/expat-1.95.8
 		>=media-libs/gd-2.0.34
 		virtual/perl-CGI
+		dev-perl/Bio-DB-Das-Chado
 		dev-perl/DBI
 		dev-perl/DBD-mysql
 		dev-perl/XML-Parser

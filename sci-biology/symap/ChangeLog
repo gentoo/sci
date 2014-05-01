@@ -1,0 +1,12 @@
+# ChangeLog for sci-biology/symap
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> symap-4.0.ebuild, +metadata.xml:
+  Fix wrong license
+
+*symap-4.0 (29 Aug 2013)
+
+  29 Aug 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +symap-4.0.ebuild:
+  Not yet working.
+

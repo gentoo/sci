@@ -1,0 +1,30 @@
+ src/Makefile.am | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+old mode 100755
+new mode 100644
+index 894a547..dc7c77b
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -87,15 +87,16 @@ endif
+ ElmerFront_LDADD = -lX11
+ 
+ install-data-local:
+-	@echo "Installing tcl scripts to ${prefix}/share/elmerfront/tcl"
++	@echo "Installing tcl scripts to ${DESTDIR}${prefix}/share/elmerfront/tcl"
+ 
+ 	mkdir -p "$(DESTDIR)${prefix}/share/elmerfront/tcl"
+-	cp -r ./tcl/* "$(DESTDIR)${prefix}/share/elmerfront/tcl"
++	cp -r "${srcdir}"/tcl/* "$(DESTDIR)${prefix}/share/elmerfront/tcl"
++	cp -r "${builddir}"/tcl/* "$(DESTDIR)${prefix}/share/elmerfront/tcl"
+ 	rm -rf `find $(DESTDIR)$(prefix)/share/elmerfront/tcl -name .svn`
+ 
+-	@echo "Installing *.edf *.rgb to ${prefix}/share/elmerfront/lib"
++	@echo "Installing *.edf *.rgb to ${DESTDIR}${prefix}/share/elmerfront/lib"
+ 	mkdir -p "$(DESTDIR)${prefix}/share/elmerfront/lib"
+-	cp -r ./lib/* "$(DESTDIR)${prefix}/share/elmerfront/lib"
++	cp -r "${srcdir}"/lib/* "$(DESTDIR)${prefix}/share/elmerfront/lib"
+ 	rm -rf `find $(DESTDIR)$(prefix)/share/elmerfront/lib -name .svn`
+ 
+ 

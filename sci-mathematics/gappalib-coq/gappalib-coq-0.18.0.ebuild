@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils
 
-DESCRIPTION="Allows the certificates Gappa generates to be imported by the Coq"
+DESCRIPTION="Allows the certificates Gappa generates to be imported by Coq"
 HOMEPAGE="http://gappa.gforge.inria.fr/"
 SRC_URI="http://gforge.inria.fr/frs/download.php/30081/${P}.tar.gz"
 

@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -122,6 +122,9 @@ src_configure() {
 }
 
 src_compile() {
+	# Workaround #462602
+	export FAKEROOTKEY=1
+
 	# -j1 because of static archive race
 	emake -j1 alllib PIC="-fPIC"
 	if ! use mpi; then

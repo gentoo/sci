@@ -1,8 +1,8 @@
-Index: ChangeLog
-===================================================================
---- ChangeLog	(revision 4651)
-+++ ChangeLog	(working copy)
-@@ -1959,7 +1959,7 @@
+diff --git a/ChangeLog b/ChangeLog
+index 46f6362..fd3fd9a 100644
+--- a/ChangeLog
++++ b/ChangeLog
+@@ -1963,7 +1963,7 @@
  2005-01-29  Paul Emsley  <paulemsley@ysbl.york.ac.uk>
  
  	* macros/mmdb-ssm.m4 (AM_WITH_MMDBSSM): use $with_ssmlib_prefix in
@@ -11,7 +11,7 @@ Index: ChangeLog
  	Bard and Joseph Toth.
  
  	* src/graphics-info-pick.cc: (symmetry_atom_pick): tried to add
-@@ -2252,14 +2252,14 @@
+@@ -2256,14 +2256,14 @@
  
  2004-11-20  Paul Emsley  <paulemsley@ysbl.york.ac.uk>
  
@@ -29,7 +29,7 @@ Index: ChangeLog
  
  2004-11-16  Paul Emsley  <emsley@localhost>
  
-@@ -2269,7 +2269,7 @@
+@@ -2273,7 +2273,7 @@
   
  2004-11-15  Paul Emsley  <emsley@localhost>
  
@@ -38,38 +38,38 @@ Index: ChangeLog
            Joseph Toth].
  
  	* surface/CXXSphereNode.h: removed the ; again!
-Index: analysis/Makefile.am
-===================================================================
---- analysis/Makefile.am	(revision 4651)
-+++ analysis/Makefile.am	(working copy)
-@@ -11,8 +11,8 @@
- 	-I$(top_srcdir)/coot-utils   	\
- 	-I$(top_srcdir)/mini-mol   	\
- 	-I$(top_srcdir)/utils   	\
+diff --git a/analysis/Makefile.am b/analysis/Makefile.am
+index 8a873dc..ef4a9cf 100644
+--- a/analysis/Makefile.am
++++ b/analysis/Makefile.am
+@@ -8,8 +8,8 @@ pkgincludedir = $(includedir)/coot/analysis
+ 
+ INCLUDES = \
+ 	-I$(top_srcdir) \
 -	$(CLIPPER_CXXFLAGS)		\
 -	$(MMDB_CXXFLAGS)
 +	$(CLIPPER_CFLAGS)		\
 +	$(MMDB_CFLAGS)
  
- libcoot_analysis_la_SOURCES = bfkurt.cc mogul.cc 
+ libcoot_analysis_la_SOURCES = bfkurt.cc mogul.cc kolmogorov.hh kolmogorov.cc cablam.hh cablam.cc
  
-Index: angles/Makefile.am
-===================================================================
---- angles/Makefile.am	(revision 4651)
-+++ angles/Makefile.am	(working copy)
-@@ -6,7 +6,7 @@
- 
- include_HEADERS = AngleInfo.h ncube.h wrapped-ncube.h
+diff --git a/angles/Makefile.am b/angles/Makefile.am
+index b89276d..935ce06 100644
+--- a/angles/Makefile.am
++++ b/angles/Makefile.am
+@@ -7,7 +7,7 @@ EXTRA_DIST = \
+ pkginclude_HEADERS = AngleInfo.h ncube.h wrapped-ncube.h
+ pkgincludedir = $(includedir)/coot/angles
  
 -INCLUDES = $(CLIPPER_CXXFLAGS)
 +INCLUDES = $(CLIPPER_CFLAGS)
  
  libcoot_AngleInfo_a_sources = AngleInfo.cc AngleInfo.h  \
  	AngleInfo-angle-torsions-autogen.cc AngleInfo-theta_2-autogen.cc
-Index: auxil/catcheck/Makefile.am
-===================================================================
---- auxil/catcheck/Makefile.am	(revision 4651)
-+++ auxil/catcheck/Makefile.am	(working copy)
+diff --git a/auxil/catcheck/Makefile.am b/auxil/catcheck/Makefile.am
+index 41e1766..69e6091 100644
+--- a/auxil/catcheck/Makefile.am
++++ b/auxil/catcheck/Makefile.am
 @@ -1,7 +1,7 @@
  
  EXTRA_DIST = Makefile.simple
@@ -79,10 +79,10 @@ Index: auxil/catcheck/Makefile.am
  
  check_PROGRAMS = catcheck
  
-Index: auxil/catcheck/Makefile.simple
-===================================================================
---- auxil/catcheck/Makefile.simple	(revision 4651)
-+++ auxil/catcheck/Makefile.simple	(working copy)
+diff --git a/auxil/catcheck/Makefile.simple b/auxil/catcheck/Makefile.simple
+index 5157398..0e25fb2 100644
+--- a/auxil/catcheck/Makefile.simple
++++ b/auxil/catcheck/Makefile.simple
 @@ -1,17 +1,17 @@
  
 -# CLIPPER_CXXFLAGS = -I/Users/paulemsley/ccp4/ysbl-distro-based/include
@@ -105,10 +105,10 @@ Index: auxil/catcheck/Makefile.simple
  LDLIBS = $(CLIPPER_LIBS)
  
  catcheck: catcheck.cc catcheck.hh
-Index: auxil/rama/Makefile.am
-===================================================================
---- auxil/rama/Makefile.am	(revision 4651)
-+++ auxil/rama/Makefile.am	(working copy)
+diff --git a/auxil/rama/Makefile.am b/auxil/rama/Makefile.am
+index cdbb54e..12c6731 100644
+--- a/auxil/rama/Makefile.am
++++ b/auxil/rama/Makefile.am
 @@ -1,7 +1,7 @@
  
  EXTRA_DIST = Makefile.simple fit-rama.scm run.scm test-arr.scm
@@ -118,10 +118,10 @@ Index: auxil/rama/Makefile.am
  
  
  check_PROGRAMS = rama-data rama-doughnut 
-Index: auxil/rama/Makefile.simple
-===================================================================
---- auxil/rama/Makefile.simple	(revision 4651)
-+++ auxil/rama/Makefile.simple	(working copy)
+diff --git a/auxil/rama/Makefile.simple b/auxil/rama/Makefile.simple
+index 10fe22e..715a270 100644
+--- a/auxil/rama/Makefile.simple
++++ b/auxil/rama/Makefile.simple
 @@ -1,12 +1,12 @@
  
 -CLIPPER_CXXFLAGS = -I/Users/paulemsley/ccp4/ysbl-distro-based/include
@@ -137,10 +137,10 @@ Index: auxil/rama/Makefile.simple
  LDLIBS = $(CLIPPER_LIBS)
  
  rama-data: rama-data.cc
-Index: auxil/sec-str/Makefile.am
-===================================================================
---- auxil/sec-str/Makefile.am	(revision 4651)
-+++ auxil/sec-str/Makefile.am	(working copy)
+diff --git a/auxil/sec-str/Makefile.am b/auxil/sec-str/Makefile.am
+index 81f79e8..bfef73a 100644
+--- a/auxil/sec-str/Makefile.am
++++ b/auxil/sec-str/Makefile.am
 @@ -1,6 +1,6 @@
  
  EXTRA_DIST = Makefile.simple sec-str-dist-check.cc sec-str-dist-check.hh
@@ -149,10 +149,10 @@ Index: auxil/sec-str/Makefile.am
  
  #check_PROGRAMS = sec-str-dist-check
  
-Index: auxil/sec-str/Makefile.simple
-===================================================================
---- auxil/sec-str/Makefile.simple	(revision 4651)
-+++ auxil/sec-str/Makefile.simple	(working copy)
+diff --git a/auxil/sec-str/Makefile.simple b/auxil/sec-str/Makefile.simple
+index eb6db20..8b22930 100644
+--- a/auxil/sec-str/Makefile.simple
++++ b/auxil/sec-str/Makefile.simple
 @@ -1,27 +1,27 @@
  
 -#CLIPPER_CXXFLAGS = -I/Users/paulemsley/ccp4/ysbl-distro-based/include
@@ -186,11 +186,11 @@ Index: auxil/sec-str/Makefile.simple
  LDLIBS = $(CLIPPER_LIBS)
  
  sec-str-dist-check: sec-str-dist-check.cc sec-str-dist-check.hh
-Index: auxil/strand-analysis/Makefile.am
-===================================================================
---- auxil/strand-analysis/Makefile.am	(revision 4651)
-+++ auxil/strand-analysis/Makefile.am	(working copy)
-@@ -3,8 +3,8 @@
+diff --git a/auxil/strand-analysis/Makefile.am b/auxil/strand-analysis/Makefile.am
+index 11686ba..9c24b3b 100644
+--- a/auxil/strand-analysis/Makefile.am
++++ b/auxil/strand-analysis/Makefile.am
+@@ -3,8 +3,8 @@ EXTRA_DIST = Makefile.simple strand-analysis.cc
  
  
  INCLUDES = -I$(top_srcdir)/auxil/sec-str \
@@ -201,10 +201,10 @@ Index: auxil/strand-analysis/Makefile.am
  
  
  check_PROGRAMS = 
-Index: auxil/strand-analysis/Makefile.simple
-===================================================================
---- auxil/strand-analysis/Makefile.simple	(revision 4651)
-+++ auxil/strand-analysis/Makefile.simple	(working copy)
+diff --git a/auxil/strand-analysis/Makefile.simple b/auxil/strand-analysis/Makefile.simple
+index d5c21a4..2f58b8d 100644
+--- a/auxil/strand-analysis/Makefile.simple
++++ b/auxil/strand-analysis/Makefile.simple
 @@ -2,13 +2,13 @@
  
  CLIPPER = /Users/paulemsley/ccp4/ysbl-distro-based
@@ -221,10 +221,10 @@ Index: auxil/strand-analysis/Makefile.simple
  LDLIBS = $(CLIPPER_LIBS)
  
  .cc:
-Index: auxil/vectors/Makefile.am
-===================================================================
---- auxil/vectors/Makefile.am	(revision 4651)
-+++ auxil/vectors/Makefile.am	(working copy)
+diff --git a/auxil/vectors/Makefile.am b/auxil/vectors/Makefile.am
+index 8826587..4a8d72e 100644
+--- a/auxil/vectors/Makefile.am
++++ b/auxil/vectors/Makefile.am
 @@ -1,6 +1,6 @@
  
  EXTRA_DIST = Makefile.simple diff-vec.cc
@@ -233,14 +233,14 @@ Index: auxil/vectors/Makefile.am
  check_PROGRAMS = 
  
  #diff_vec_SOURCES = diff-vec.cc
-Index: build/Makefile.am
-===================================================================
---- build/Makefile.am	(revision 4651)
-+++ build/Makefile.am	(working copy)
-@@ -24,8 +24,8 @@
+diff --git a/build/Makefile.am b/build/Makefile.am
+index 6afe5a3..748341b 100644
+--- a/build/Makefile.am
++++ b/build/Makefile.am
+@@ -25,8 +25,8 @@ pkgincludedir = $(includedir)/coot/build
  
  INCLUDES =  \
- 	-I$(top_srcdir)/angles \
+ 	-I$(top_srcdir) \
 -	$(CLIPPER_CXXFLAGS) \
 -	$(MMDB_CXXFLAGS)
 +	$(CLIPPER_CFLAGS) \
@@ -248,11 +248,11 @@ Index: build/Makefile.am
  
  noinst_PROGRAMS = testcabuild
  
-Index: ccp4mg-utils/Makefile.am
-===================================================================
---- ccp4mg-utils/Makefile.am	(revision 4651)
-+++ ccp4mg-utils/Makefile.am	(working copy)
-@@ -25,7 +25,7 @@
+diff --git a/ccp4mg-utils/Makefile.am b/ccp4mg-utils/Makefile.am
+index 7734f09..c58fe1d 100644
+--- a/ccp4mg-utils/Makefile.am
++++ b/ccp4mg-utils/Makefile.am
+@@ -26,7 +26,7 @@ pkgincludedir = $(includedir)/coot/ccp4mg-utils
  EXTRA_DIST = convert.sh get-new-utils.sh
  
  INCLUDES =  \
@@ -261,11 +261,11 @@ Index: ccp4mg-utils/Makefile.am
  	$(LIBPNG_CFLAGS)
  
  libccp4mg_utils_la_SOURCES = geomutil.cc mgtree.cc cartesian.cc \
-Index: ccp4mg-utils/mmut/Makefile.am
-===================================================================
---- ccp4mg-utils/mmut/Makefile.am	(revision 4651)
-+++ ccp4mg-utils/mmut/Makefile.am	(working copy)
-@@ -70,9 +70,9 @@
+diff --git a/ccp4mg-utils/mmut/Makefile.am b/ccp4mg-utils/mmut/Makefile.am
+index d0651db..d4e0bf8 100755
+--- a/ccp4mg-utils/mmut/Makefile.am
++++ b/ccp4mg-utils/mmut/Makefile.am
+@@ -70,9 +70,9 @@ INCLUDES = \
  	$(LIBGLADE_CFLAGS)		\
  	@GTK_CFLAGS@ 			\
  	$(GLUT_CFLAGS)			\
@@ -278,11 +278,11 @@ Index: ccp4mg-utils/mmut/Makefile.am
  
  #	$(WITH_SCRIPT_CFLAGS) 
  
-Index: ccp4mg-utils/pygl/Makefile.am
-===================================================================
---- ccp4mg-utils/pygl/Makefile.am	(revision 4651)
-+++ ccp4mg-utils/pygl/Makefile.am	(working copy)
-@@ -108,9 +108,9 @@
+diff --git a/ccp4mg-utils/pygl/Makefile.am b/ccp4mg-utils/pygl/Makefile.am
+index a7e68b5..e26a6c8 100755
+--- a/ccp4mg-utils/pygl/Makefile.am
++++ b/ccp4mg-utils/pygl/Makefile.am
+@@ -108,9 +108,9 @@ INCLUDES = \
  	$(LIBGLADE_CFLAGS)		\
  	@GTK_CFLAGS@ 			\
  	$(GLUT_CFLAGS)			\
@@ -295,11 +295,11 @@ Index: ccp4mg-utils/pygl/Makefile.am
  
  #	$(WITH_SCRIPT_CFLAGS) 
  
-Index: ccp4mg-utils/util/Makefile.am
-===================================================================
---- ccp4mg-utils/util/Makefile.am	(revision 4651)
-+++ ccp4mg-utils/util/Makefile.am	(working copy)
-@@ -73,9 +73,9 @@
+diff --git a/ccp4mg-utils/util/Makefile.am b/ccp4mg-utils/util/Makefile.am
+index 399f453..3d2ff55 100755
+--- a/ccp4mg-utils/util/Makefile.am
++++ b/ccp4mg-utils/util/Makefile.am
+@@ -73,9 +73,9 @@ INCLUDES = \
  	$(LIBGLADE_CFLAGS)		\
  	@GTK_CFLAGS@ 			\
  	$(GLUT_CFLAGS)			\
@@ -312,11 +312,11 @@ Index: ccp4mg-utils/util/Makefile.am
  
  #	$(WITH_SCRIPT_CFLAGS) 
  
-Index: configure.in
-===================================================================
---- configure.in	(revision 4651)
-+++ configure.in	(working copy)
-@@ -108,14 +108,18 @@
+diff --git a/configure.in b/configure.in
+index cc549a5..d56f856 100644
+--- a/configure.in
++++ b/configure.in
+@@ -108,14 +108,18 @@ esac
  
  
  dnl Check for MMDB.
@@ -338,7 +338,7 @@ Index: configure.in
  
  # we set default coot_guile to true
  coot_guile=true
-@@ -189,11 +193,15 @@
+@@ -186,11 +190,15 @@ AM_PATH_LIBGLADE
  
  dnl =========================== GooCanvas ================================
  
@@ -357,42 +357,45 @@ Index: configure.in
 +		fi
 +	])
  
- AC_ARG_WITH(enterprise-tools, [ --with-enterprise-tools with optional complicated/experimental ligand-related dependencies ],
-  coot_enterprise_additions="true",
-Index: coords/Makefile.am
-===================================================================
---- coords/Makefile.am	(revision 4651)
-+++ coords/Makefile.am	(working copy)
-@@ -34,7 +34,7 @@
- 	-I$(top_srcdir)/compat     \
- 	$(ENTERPRISE_TOOLS_CFLAGS)      \
+ AC_ARG_WITH(enhanced-ligand-tools, [ --with-enhanced-ligand-tools with optional complicated/experimental ligand-related dependencies ],
+  coot_enhanced_ligand_additions="true",
+diff --git a/coords/Makefile.am b/coords/Makefile.am
+index 05fdf70..1e1c5d2 100644
+--- a/coords/Makefile.am
++++ b/coords/Makefile.am
+@@ -29,7 +29,7 @@ INCLUDES = \
+ 	-I$(top_srcdir) \
+ 	$(ENHANCED_LIGAND_TOOLS_CFLAGS)      \
  	$(RDKIT_CXXFLAGS) 		\
 -	$(CLIPPER_CXXFLAGS) $(MMDB_CXXFLAGS)
 +	$(CLIPPER_CFLAGS) $(MMDB_CFLAGS)
  
  AM_CXXFLAGS = \
  	-DPKGDATADIR='"$(pkgdatadir)"' \
-Index: coot-surface/Makefile.am
-===================================================================
---- coot-surface/Makefile.am	(revision 4651)
-+++ coot-surface/Makefile.am	(working copy)
-@@ -21,7 +21,7 @@
- INCLUDES = -I$(top_srcdir)/surface \
-            -I$(top_srcdir)/coot-utils \
-            -I$(top_srcdir)/mini-mol \
+diff --git a/coot-surface/Makefile.am b/coot-surface/Makefile.am
+index d2243d6..2434219 100644
+--- a/coot-surface/Makefile.am
++++ b/coot-surface/Makefile.am
+@@ -19,7 +19,7 @@
+ # 02110-1301, USA
+ 
+ INCLUDES = -I$(top_srcdir) \
 -	$(MMDB_CXXFLAGS) $(CLIPPER_CXXFLAGS) $(GTKGL_CFLAGS) $(GLUT_CFLAGS)
 +	$(MMDB_CFLAGS) $(CLIPPER_CFLAGS) $(GTKGL_CFLAGS) $(GLUT_CFLAGS)
  
  lib_LTLIBRARIES = libcoot-surface.la
  
-Index: coot-utils/Makefile.am
-===================================================================
---- coot-utils/Makefile.am	(revision 4651)
-+++ coot-utils/Makefile.am	(working copy)
-@@ -38,8 +38,8 @@
- 	-I$(top_srcdir)/geometry	\
- 	-I$(top_srcdir)/compat		\
- 	-I$(top_srcdir)/mini-mol	\
+diff --git a/coot-utils/Makefile.am b/coot-utils/Makefile.am
+index 87810dc..c5b05b4 100644
+--- a/coot-utils/Makefile.am
++++ b/coot-utils/Makefile.am
+@@ -34,11 +34,10 @@ pkginclude_HEADERS = peak-search.hh coot-trim.hh \
+ 	read-sm-cif.hh bonded-pairs.hh tree.hh helix-analysis.hh elastic.hh 
+ pkgincludedir = $(includedir)/coot/coot-utils
+ 
+-
+ INCLUDES = \
+ 	-I$(top_srcdir)	\
 -	$(CLIPPER_CXXFLAGS) 		\
 -	$(MMDB_CXXFLAGS) 		\
 +	$(CLIPPER_CFLAGS) 		\
@@ -400,10 +403,10 @@ Index: coot-utils/Makefile.am
  	$(GSL_CFLAGS)			\
  	$(WITH_GUILE_CFLAGS)		\
  	$(WITH_PYTHON_CFLAGS)
-Index: cootaneer/Makefile.am
-===================================================================
---- cootaneer/Makefile.am	(revision 4651)
-+++ cootaneer/Makefile.am	(working copy)
+diff --git a/cootaneer/Makefile.am b/cootaneer/Makefile.am
+index 3a1d720..cfca0fd 100644
+--- a/cootaneer/Makefile.am
++++ b/cootaneer/Makefile.am
 @@ -20,7 +20,7 @@
  EXTRA_DIST = 		\
  	cootaneer-llk-2.40.dat
@@ -413,10 +416,10 @@ Index: cootaneer/Makefile.am
  
  cootaneer_demo_SOURCES = cootaneer-demo.cpp
  
-Index: cootilus/Makefile.am
-===================================================================
---- cootilus/Makefile.am	(revision 4651)
-+++ cootilus/Makefile.am	(working copy)
+diff --git a/cootilus/Makefile.am b/cootilus/Makefile.am
+index 7e4169d..4492014 100644
+--- a/cootilus/Makefile.am
++++ b/cootilus/Makefile.am
 @@ -20,7 +20,7 @@
  EXTRA_DIST = 		\
  	nautilus_lib.pdb
@@ -426,24 +429,24 @@ Index: cootilus/Makefile.am
  
  cootilus_demo_SOURCES = cootilus-demo.cpp
  
-Index: db-main/Makefile.am
-===================================================================
---- db-main/Makefile.am	(revision 4651)
-+++ db-main/Makefile.am	(working copy)
-@@ -6,7 +6,7 @@
+diff --git a/db-main/Makefile.am b/db-main/Makefile.am
+index 3a85b9e..1a11cdf 100644
+--- a/db-main/Makefile.am
++++ b/db-main/Makefile.am
+@@ -6,7 +6,7 @@ AM_CXXFLAGS = \
  	-DDATADIR='"$(datadir)"'
  
- INCLUDES = -I$(top_srcdir)/utils -I$(top_srcdir)/coot-utils -I$(top_srcdir)/mini-mol \
+ INCLUDES = -I$(top_srcdir) \
 -   $(MMDB_CXXFLAGS) $(CLIPPER_CXXFLAGS)
 +   $(MMDB_CFLAGS) $(CLIPPER_CFLAGS)
  
- include_HEADERS = db-main.hh db-strands.hh
- 
-Index: db-main/Makefile.simple
-===================================================================
---- db-main/Makefile.simple	(revision 4651)
-+++ db-main/Makefile.simple	(working copy)
-@@ -19,7 +19,7 @@
+ pkginclude_HEADERS = db-main.hh db-strands.hh
+ pkgincludedir = $(includedir)/coot/db-main
+diff --git a/db-main/Makefile.simple b/db-main/Makefile.simple
+index cec561d..c207a43 100644
+--- a/db-main/Makefile.simple
++++ b/db-main/Makefile.simple
+@@ -19,7 +19,7 @@ CLIPPER = $(HOME)/crystal
  MCCP4   = $(HOME)/crystal
  
  CXX = g++
@@ -452,7 +455,7 @@ Index: db-main/Makefile.simple
  FFTW_LIBS = -L$(FFTW)/lib -lrfftw -lfftw
  
  MMDB_LIBS = -L$(MMDB)/lib -lmmdb 
-@@ -28,9 +28,9 @@
+@@ -28,9 +28,9 @@ CLIPPER_LIBS = -L$(CLIPPER)/lib -lclipper-contrib \
  	-L$(CLIPPER)lib -L/h/paule/mapview/lib $(FFTW_LIBS)
  
  MCCP4_CFLAGS = -I$(MCCP4)/include
@@ -464,43 +467,43 @@ Index: db-main/Makefile.simple
  
  CXXFLAGS = -g $(INCLUDES)
  LDFLAGS = -static -L../mini-mol -lcoot-mini-mol $(CLIPPER_LIBS) $(MMDB_LIBS) 
-@@ -44,4 +44,4 @@
+@@ -44,4 +44,4 @@ libcoot-db-main.a: db-main.o
  db-main.o: db-main.cc db-main.hh
  
  testmmdbbits: testmmdbbits.cc
 -	$(CXX) $(MMDB_CXXFLAGS) $(MMDB_LIBS) $? -o $@
 +	$(CXX) $(MMDB_CFLAGS) $(MMDB_LIBS) $? -o $@
-Index: density-contour/Makefile.am
-===================================================================
---- density-contour/Makefile.am	(revision 4651)
-+++ density-contour/Makefile.am	(working copy)
+diff --git a/density-contour/Makefile.am b/density-contour/Makefile.am
+index 7f705e8..f5dcc00 100644
+--- a/density-contour/Makefile.am
++++ b/density-contour/Makefile.am
 @@ -20,7 +20,7 @@
  
- COORD_INCLUDES = -I$(top_srcdir)/coords
+ COORD_INCLUDES = -I$(top_srcdir)
  
 -INCLUDES = $(COORD_INCLUDES) $(CLIPPER_CXXFLAGS) 
 +INCLUDES = $(COORD_INCLUDES) $(CLIPPER_CFLAGS) 
  
  lib_LTLIBRARIES = libcoot-isosurface.la
  
-Index: geometry/Makefile.am
-===================================================================
---- geometry/Makefile.am	(revision 4651)
-+++ geometry/Makefile.am	(working copy)
-@@ -29,7 +29,7 @@
- 	   -I$(top_srcdir)/mini-mol   \
- 	   -I$(top_srcdir)/coot-utils \
- 	   -I$(top_srcdir)/compat     \
+diff --git a/geometry/Makefile.am b/geometry/Makefile.am
+index 6dd665f..57aaa04 100644
+--- a/geometry/Makefile.am
++++ b/geometry/Makefile.am
+@@ -26,7 +26,7 @@ pkginclude_HEADERS =  protein-geometry.hh read-sbase.hh lbg-graph.hh srs-interfa
+ pkgincludedir = $(includedir)/coot/geometry
+ 
+ INCLUDES = -I$(top_srcdir) \
 -	 $(CLIPPER_CXXFLAGS) $(CCP4SRS_CXXFLAGS) $(MMDB_CXXFLAGS)
 +	 $(CLIPPER_CFLAGS) $(CCP4SRS_CXXFLAGS) $(MMDB_CFLAGS)
  
  AM_CXXFLAGS = \
  	-DDATADIR='"$(datadir)"'       \
-Index: geometry/Makefile.simple
-===================================================================
---- geometry/Makefile.simple	(revision 4651)
-+++ geometry/Makefile.simple	(working copy)
-@@ -46,7 +46,7 @@
+diff --git a/geometry/Makefile.simple b/geometry/Makefile.simple
+index 370b2fa..c3b0106 100644
+--- a/geometry/Makefile.simple
++++ b/geometry/Makefile.simple
+@@ -46,7 +46,7 @@ MCCP4   = $(HOME)/mapview
  
  
  CXX = g++
@@ -509,7 +512,7 @@ Index: geometry/Makefile.simple
  FFTW_LIBS = -L$(FFTW)/lib -lrfftw -lfftw
  
  MMDB_LIBS = -L$(MMDB)/lib -lmmdb 
-@@ -55,9 +55,9 @@
+@@ -55,9 +55,9 @@ CLIPPER_LIBS = -L$(CLIPPER)/lib -lclipper-contrib \
  	-L$(CLIPPER)lib -L/h/paule/mapview/lib $(FFTW_LIBS)
  
  MCCP4_CFLAGS = -I$(MCCP4)/include
@@ -521,14 +524,14 @@ Index: geometry/Makefile.simple
  
  top_srcdir = ..
  
-Index: high-res/Makefile.am
-===================================================================
---- high-res/Makefile.am	(revision 4651)
-+++ high-res/Makefile.am	(working copy)
-@@ -36,8 +36,8 @@
- 	-I$(top_srcdir)/coot-utils   \
- 	-I$(top_srcdir)/lidia-core   \
- 	-I$(top_srcdir)/compat       \
+diff --git a/high-res/Makefile.am b/high-res/Makefile.am
+index cf81182..3a2af5c 100644
+--- a/high-res/Makefile.am
++++ b/high-res/Makefile.am
+@@ -29,8 +29,8 @@ AM_CXXFLAGS = $(COOT_GSL_FLAGS) $(GSL_CFLAGS)
+ 
+ INCLUDES = \
+ 	-I$(top_srcdir)   \
 -	$(MMDB_CXXFLAGS)  \
 -	$(CLIPPER_CXXFLAGS)
 +	$(MMDB_CFLAGS)  \
@@ -536,14 +539,14 @@ Index: high-res/Makefile.am
  
  libcoot_high_res_la_SOURCES = high-res.cc coot-atom-graph.cc residue-distortions.cc \
  	sequence-assignment.cc
-Index: ideal/Makefile.am
-===================================================================
---- ideal/Makefile.am	(revision 4651)
-+++ ideal/Makefile.am	(working copy)
-@@ -37,11 +37,11 @@
- 	-I$(top_srcdir)/coot-utils \
- 	-I$(top_srcdir)/mini-mol   \
- 	-I$(top_srcdir)/geometry   \
+diff --git a/ideal/Makefile.am b/ideal/Makefile.am
+index e52c271..c5c8e6a 100644
+--- a/ideal/Makefile.am
++++ b/ideal/Makefile.am
+@@ -33,11 +33,11 @@ pkgincludedir = $(includedir)/coot/ideal
+ 
+ INCLUDES = \
+ 	-I$(top_srcdir) \
 -	$(CLIPPER_CXXFLAGS)        \
 -	$(MMDB_CXXFLAGS)
 +	$(CLIPPER_CFLAGS)        \
@@ -555,11 +558,11 @@ Index: ideal/Makefile.am
  AM_LDFLAGS = $(GSL_LIBS) $(MMDB_LIBS) $(CLIPPER_LIBS)
  
  
-Index: ideal/Makefile.simple
-===================================================================
---- ideal/Makefile.simple	(revision 4651)
-+++ ideal/Makefile.simple	(working copy)
-@@ -44,7 +44,7 @@
+diff --git a/ideal/Makefile.simple b/ideal/Makefile.simple
+index 3c32c3c..0abd514 100644
+--- a/ideal/Makefile.simple
++++ b/ideal/Makefile.simple
+@@ -44,7 +44,7 @@ MMDB    = $(HOME)/mapview
  
  
  CXX = g++
@@ -568,7 +571,7 @@ Index: ideal/Makefile.simple
  FFTW_LIBS = -L$(FFTW)/lib -lrfftw -lfftw
  
  MMDB_LIBS = -L$(MMDB)/lib -lmmdb 
-@@ -53,9 +53,9 @@
+@@ -53,9 +53,9 @@ CLIPPER_LIBS = -L$(CLIPPER)/lib -lclipper-contrib \
  	-L$(CLIPPER)lib -L/h/paule/mapview/lib $(FFTW_LIBS)
  
  MCCP4_CFLAGS = -I$(MCCP4)/include
@@ -580,24 +583,24 @@ Index: ideal/Makefile.simple
  	-I$(top_srcdir)/coords  \
  	-I$(top_srcdir)/geometry
  
-Index: lbg/Makefile.am
-===================================================================
---- lbg/Makefile.am	(revision 4651)
-+++ lbg/Makefile.am	(working copy)
-@@ -11,7 +11,7 @@
+diff --git a/lbg/Makefile.am b/lbg/Makefile.am
+index df74b90..7f54567 100644
+--- a/lbg/Makefile.am
++++ b/lbg/Makefile.am
+@@ -6,7 +6,7 @@ INCLUDES = \
          $(GSL_CFLAGS) \
          $(GOOCANVAS_CFLAGS) \
          $(GTK_CFLAGS) \
 -	$(CLIPPER_CXXFLAGS) $(CCP4SRS_CXXFLAGS) $(MMDB_CXXFLAGS) \
 +	$(CLIPPER_CFLAGS) $(CCP4SRS_CXXFLAGS) $(MMDB_CFLAGS) \
  	$(COOT_WINDOWS_CFLAGS) \
- 	$(ENTERPRISE_TOOLS_CFLAGS)      \
+ 	$(ENHANCED_LIGAND_TOOLS_CFLAGS)      \
  	$(RDKIT_CXXFLAGS) \
-Index: lbg/Makefile.simple
-===================================================================
---- lbg/Makefile.simple	(revision 4651)
-+++ lbg/Makefile.simple	(working copy)
-@@ -24,11 +24,11 @@
+diff --git a/lbg/Makefile.simple b/lbg/Makefile.simple
+index 48d091b..5b148b4 100644
+--- a/lbg/Makefile.simple
++++ b/lbg/Makefile.simple
+@@ -24,11 +24,11 @@ GSL_LDFLAGS=$(CRYST)/lib/libgsl.la  $(CRYST)/lib/libgslcblas.la -lm
  MMDB=$(CRYST)
  # MMDB=$(HOME)/test/mmdb
  
@@ -611,7 +614,7 @@ Index: lbg/Makefile.simple
  CLIPPER_LDFLAGS=$(CLIPPER)/lib/libclipper-core.la \
          $(CLIPPER)/lib/librfftw.la \
          $(CLIPPER)/lib/libfftw.la
-@@ -40,7 +40,7 @@
+@@ -40,7 +40,7 @@ LIDIA_CORE_CXXFLAGS = -I ../lidia-core
  LIDIA_CORE_LDFLAGS = $(COOT_INSTALLED)/lib/libcoot-lidia-core.la
  
  
@@ -620,11 +623,11 @@ Index: lbg/Makefile.simple
      -I$(top_srcdir)/compat
  
  lbg:  lbg.o wmolecule.o lbg-callbacks.o lbg-search.o some-coot-utils.o residue-circles.o
-Index: lidia-core/Makefile.am
-===================================================================
---- lidia-core/Makefile.am	(revision 4651)
-+++ lidia-core/Makefile.am	(working copy)
-@@ -22,7 +22,7 @@
+diff --git a/lidia-core/Makefile.am b/lidia-core/Makefile.am
+index 72b28ca..2a184b4 100644
+--- a/lidia-core/Makefile.am
++++ b/lidia-core/Makefile.am
+@@ -24,13 +24,13 @@ pkgincludedir = $(includedir)/coot/lidia-core
  
  #  20110408 I add a CResidue,dictionary_residue_restraints_t constructor to molfile_molecule_t
  # simple
@@ -632,34 +635,32 @@ Index: lidia-core/Makefile.am
 +#INCLUDES = $(CLIPPER_CFLAGS)
  #
  INCLUDES = \
- 	 -I$(top_srcdir)/geometry       \
-@@ -31,7 +31,7 @@
- 	 -I$(top_srcdir)/utils          \
- 	$(ENTERPRISE_TOOLS_CFLAGS)      \
+ 	 -I$(top_srcdir) \
+ 	$(ENHANCED_LIGAND_TOOLS_CFLAGS)      \
  	$(RDKIT_CXXFLAGS) 		\
 -        $(CLIPPER_CXXFLAGS) $(MMDB_CXXFLAGS)
 +        $(CLIPPER_CFLAGS) $(MMDB_CFLAGS)
  
  libcoot_lidia_core_la_SOURCES = lbg-shared.cc lbg-molfile.cc lig-build.cc rdkit-interface.cc \
  	cod-types.cc
-Index: ligand/Makefile.am
-===================================================================
---- ligand/Makefile.am	(revision 4651)
-+++ ligand/Makefile.am	(working copy)
-@@ -36,7 +36,7 @@
- 	-I$(top_srcdir)/db-main \
+diff --git a/ligand/Makefile.am b/ligand/Makefile.am
+index 202979e..5173204 100644
+--- a/ligand/Makefile.am
++++ b/ligand/Makefile.am
+@@ -27,7 +27,7 @@ INCLUDES = \
+ 	-I$(top_srcdir) \
  	$(COOT_GSL_FLAGS)		\
  	$(GSL_CFLAGS)			\
 -	$(CLIPPER_CXXFLAGS) $(MMDB_CXXFLAGS) 
 +	$(CLIPPER_CFLAGS) $(MMDB_CFLAGS) 
  
- include_HEADERS = ligand.hh residue_by_phi_psi.hh wligand.hh monomer-utils.hh \
+ pkginclude_HEADERS = ligand.hh residue_by_phi_psi.hh wligand.hh monomer-utils.hh \
  	chi-angles.hh dunbrack.hh helix-placement.hh fast-ss-search.hh        \
-Index: macros/clipper.m4
-===================================================================
---- macros/clipper.m4	(revision 4651)
-+++ macros/clipper.m4	(working copy)
-@@ -56,7 +56,7 @@
+diff --git a/macros/clipper.m4 b/macros/clipper.m4
+index da11e74..ad2af81 100644
+--- a/macros/clipper.m4
++++ b/macros/clipper.m4
+@@ -56,7 +56,7 @@ if test x$clipper_prefix != x; then
   #
   # should use clipper-config --cflags
   #
@@ -668,7 +669,7 @@ Index: macros/clipper.m4
   # -I$clipper_prefix/cctbx
   
   # yes, libmmtz.a is in -L$clipper_prefix/umtz!
-@@ -75,7 +75,7 @@
+@@ -75,7 +75,7 @@ if test x$clipper_prefix != x; then
   #
   ccp4c=ccp4c
  
@@ -677,7 +678,7 @@ Index: macros/clipper.m4
   # -L$clipper_prefix/boost/lib -lclipper-cctbx -L$clipper_prefix/cctbx/lib -lsgtbx -luctbx 
  
  
-@@ -102,8 +102,8 @@
+@@ -102,8 +102,8 @@ else
   # this needs to be 'configured' - typically either s or blank.
   fftw_pre=
  
@@ -688,7 +689,7 @@ Index: macros/clipper.m4
  fi
  
  # BL: workaround needed for new MinGW
-@@ -113,17 +113,17 @@
+@@ -113,17 +113,17 @@ ac_cv_build_alias=${ac_cv_build_alias:=$build_alias}
  case $ac_cv_build_alias in
          # BL says:: same as for cygwin in mingw
          MINGW*|Mingw*|*mingw*|Cygwin*|CYGWIN*|*cygwin*)
@@ -710,7 +711,7 @@ Index: macros/clipper.m4
  	# AC_TRY_LINK uses the c compiler, so we will temporarily 
  	# reassign $CC to the c++ compiler.
   	#
-@@ -140,7 +140,7 @@
+@@ -140,7 +140,7 @@ if test x$have_clipper = xyes; then
  
   LIBS="$saved_LIBS"
   CFLAGS="$saved_CFLAGS"
@@ -719,7 +720,7 @@ Index: macros/clipper.m4
   ifelse([$1], , :, [$1])
  
  else
-@@ -148,12 +148,12 @@
+@@ -148,12 +148,12 @@ else
   LIBS="$saved_LIBS"
   CFLAGS="$saved_CFLAGS"
   CLIPPER_LIBS=""
@@ -734,11 +735,11 @@ Index: macros/clipper.m4
  AC_SUBST(CLIPPER_LIBS)
  
  ])
-Index: macros/clipper.m4.old
-===================================================================
---- macros/clipper.m4.old	(revision 4651)
-+++ macros/clipper.m4.old	(working copy)
-@@ -34,7 +34,7 @@
+diff --git a/macros/clipper.m4.old b/macros/clipper.m4.old
+index de8ab65..4c1b418 100644
+--- a/macros/clipper.m4.old
++++ b/macros/clipper.m4.old
+@@ -34,7 +34,7 @@ if test x$clipper_prefix != x; then
   # should ideally be CLIPPER_CFLAGS="-I$clipper_prefix/include", and the like
   # when clipper and dependencies get installed.
   #  
@@ -747,7 +748,7 @@ Index: macros/clipper.m4.old
  # -I$clipper_prefix/cctbx
   
   # yes, libmmtz.a is in -L$clipper_prefix/umtz!
-@@ -45,20 +45,20 @@
+@@ -45,20 +45,20 @@ if test x$clipper_prefix != x; then
   # HACK! FIXME
   # added lz, we should have proper autoconf check for this.
   #
@@ -773,7 +774,7 @@ Index: macros/clipper.m4.old
  	# AC_TRY_LINK uses the c compiler, so we will temporarily 
  	# reassign $CC to the c++ compiler.
   	#
-@@ -72,7 +72,7 @@
+@@ -72,7 +72,7 @@ if test x$have_clipper = xyes; then
  
   LIBS="$saved_LIBS"
   CFLAGS="$saved_CFLAGS"
@@ -782,7 +783,7 @@ Index: macros/clipper.m4.old
   ifelse([$1], , :, [$1])
  
  else
-@@ -80,12 +80,12 @@
+@@ -80,12 +80,12 @@ else
   LIBS="$saved_LIBS"
   CFLAGS="$saved_CFLAGS"
   CLIPPER_LIBS=""
@@ -797,36 +798,29 @@ Index: macros/clipper.m4.old
  AC_SUBST(CLIPPER_LIBS)
  
  ])
-Index: macros/goo-canvas.m4
-===================================================================
---- macros/goo-canvas.m4	(revision 4651)
-+++ macros/goo-canvas.m4	(working copy)
-@@ -36,9 +36,9 @@
+diff --git a/macros/goo-canvas.m4 b/macros/goo-canvas.m4
+index e2494a5..89c908e 100644
+--- a/macros/goo-canvas.m4
++++ b/macros/goo-canvas.m4
+@@ -35,8 +35,7 @@ if test x$goocanvas_prefix != x; then
+   # SGI compiler CC (CXX=CC) needs -lm to link maths library, but 
    # GCC c++ does not.
    #
-   if test -e $goocanvas_prefix/lib/libgoocanvas.la ; then
--    GOOCANVAS_LDOPTS="$goocanvas_prefix/lib/libgoocanvas.la"
-+    GOOCANVAS_LIBS="$goocanvas_prefix/lib/libgoocanvas.la"
-   else
--    GOOCANVAS_LDOPTS="-L$goocanvas_prefix/lib -lgoocanvas"
-+    GOOCANVAS_LIBS="-L$goocanvas_prefix/lib -lgoocanvas"
-   fi
+-  GOOCANVAS_LDOPTS="-L$goocanvas_prefix/lib -lgoocanvas"
+-
++  GOOCANVAS_LIBS="-L$goocanvas_prefix/lib -lgoocanvas"
  else
    # the compiler looks in the "standard" places for GOOCANVAS. (or uses pkgconfig)
-@@ -57,19 +57,19 @@
+ 
+@@ -54,18 +53,16 @@ else
      break;;
    esac
-   if test -e /usr/lib/libgoocanvas.la ; then
--    GOOCANVAS_LDOPTS="libgoocanvas.la"
-+    GOOCANVAS_LIBS="libgoocanvas.la"
+   if test -z "${PKG_CONFIG}"; then
+-     GOOCANVAS_LDOPTS="-lgoocanvas"
++     GOOCANVAS_LIBS="-lgoocanvas"
    else
-     if test -z "${PKG_CONFIG}"; then
--      GOOCANVAS_LDOPTS="-lgoocanvas"
-+      GOOCANVAS_LIBS="-lgoocanvas"
-     else
--      GOOCANVAS_LDOPTS=`$PKG_CONFIG goocanvas --libs`
-+      GOOCANVAS_LIBS=`$PKG_CONFIG goocanvas --libs`
-     fi
+-     GOOCANVAS_LDOPTS=`$PKG_CONFIG goocanvas --libs`
++     GOOCANVAS_LIBS=`$PKG_CONFIG goocanvas --libs`
    fi
  fi
  
@@ -835,9 +829,23 @@ Index: macros/goo-canvas.m4
 -LIBS="$saved_LIBS $GOOCANVAS_LDOPTS $GTK_LIBS"
 +LIBS="$saved_LIBS $GOOCANVAS_LIBS $GTK_LIBS"
  CXXFLAGS="$saved_CXXFLAGS $GOOCANVAS_CFLAGS $GTK_CFLAGS"
- #
- # AC_TRY_LINK uses the c compiler (set by AC_LANG), so we will
-@@ -95,7 +95,7 @@
+-
+-
+ dnl # 20130929: why do I do this?  I don't remember.  Using libtool 
+ dnl # in this way is not a good idea (configure makes libtool).
+ dnl #
+@@ -85,18 +82,15 @@ dnl     # note that we use ./libtool (running in the build dir) because $LIBTOOL
+ dnl     CXX="libtool --mode=link $CXX"
+ dnl     break;;
+ dnl esac
+-
+-
+ AC_LANG_PUSH(C++)
+ AC_TRY_LINK([#include "goocanvas.h"] ,[ GooCanvas *a;  ], have_goocanvas=yes, have_goocanvas=no)
+ AC_LANG_POP
+-
+ AC_MSG_RESULT($have_goocanvas)
+ 
  if test x$have_goocanvas = xyes; then
  
   GOOCANVAS_CFLAGS="$GOOCANVAS_CFLAGS"
@@ -846,31 +854,30 @@ Index: macros/goo-canvas.m4
  
  ifelse([$1], , :, [$1])
  
-Index: macros/mmdb-ssm.m4
-===================================================================
---- macros/mmdb-ssm.m4	(revision 4651)
-+++ macros/mmdb-ssm.m4	(working copy)
-@@ -32,7 +32,7 @@
+diff --git a/macros/mmdb-ssm.m4 b/macros/mmdb-ssm.m4
+index 25dc502..21646a5 100644
+--- a/macros/mmdb-ssm.m4
++++ b/macros/mmdb-ssm.m4
+@@ -34,11 +34,11 @@ if test x$with_ssmlib_prefix != x; then
  
- if test x$with_ssmlib_prefix != x; then
+    if test -r "$with_ssmlib_prefix/include/ssm/ssm_superpose.h"; then
  
--   MMDBSSM_CXXFLAGS="-DHAVE_SSMLIB"
-+   MMDBSSM_CFLAGS="-DHAVE_SSMLIB"
-    MMDBSSM_LIBS="-L$with_ssmlib_prefix/$acl_libdirstem -lssm"
+-      MMDBSSM_CXXFLAGS="-DHAVE_SSMLIB"
++      MMDBSSM_CFLAGS="-DHAVE_SSMLIB"
+       # AFAICS, ssm does not put its libs in $acl_libdirstem
+       # MMDBSSM_LIBS="-L$with_ssmlib_prefix/$acl_libdirstem -lssm"
+       MMDBSSM_LIBS="-L$with_ssmlib_prefix/lib -lssm"
+-      ac_MMDBSSM_CXXFLAGS="-I$with_ssmlib_prefix/include"
++      ac_MMDBSSM_CFLAGS="-I$with_ssmlib_prefix/include"
  
- ac_mmdb_dirs='
-@@ -47,16 +47,16 @@
- 
-    for ac_dir in $ac_mmdb_dirs; do
-       if test -r "$with_ssmlib_prefix/$ac_dir/ssm_superpose.h"; then
--         ac_MMDBSSM_CXXFLAGS="-I$with_ssmlib_prefix/$ac_dir"
-+         ac_MMDBSSM_CFLAGS="-I$with_ssmlib_prefix/$ac_dir"
-          break
-       fi
-    done
- 
--  MMDBSSM_CXXFLAGS="$MMDBSSM_CXXFLAGS $ac_MMDBSSM_CXXFLAGS"
-+  MMDBSSM_CFLAGS="$MMDBSSM_CFLAGS $ac_MMDBSSM_CFLAGS"
+       # saved_LIBS="$LIBS"
+       # saved_CPPFLAGS="$CPPFLAGS"
+@@ -50,11 +50,11 @@ if test x$with_ssmlib_prefix != x; then
+    else 
+       AC_MSG_FAILURE([ --with-ssmlib-prefix specified but include files not found])
+    fi
+-   MMDBSSM_CXXFLAGS="$MMDBSSM_CXXFLAGS $ac_MMDBSSM_CXXFLAGS"
++   MMDBSSM_CFLAGS="$MMDBSSM_CFLAGS $ac_MMDBSSM_CFLAGS"
    
  else 
  
@@ -879,7 +886,7 @@ Index: macros/mmdb-ssm.m4
     MMDBSSM_LIBS=""
     with_ssmlib_prefix=no 
  
-@@ -64,6 +64,6 @@
+@@ -62,6 +62,6 @@ fi
  
  AC_MSG_RESULT([$with_ssmlib_prefix])
  
@@ -887,11 +894,11 @@ Index: macros/mmdb-ssm.m4
 +AC_SUBST(MMDBSSM_CFLAGS)
  AC_SUBST(MMDBSSM_LIBS)
  ])
-Index: macros/mmdb.m4
-===================================================================
---- macros/mmdb.m4	(revision 4651)
-+++ macros/mmdb.m4	(working copy)
-@@ -55,7 +55,7 @@
+diff --git a/macros/mmdb.m4 b/macros/mmdb.m4
+index 7c1cbcf..72613f3 100644
+--- a/macros/mmdb.m4
++++ b/macros/mmdb.m4
+@@ -55,7 +55,7 @@ if test x$mmdb_prefix != x; then
  	# --with-mmdb=/some/thing
  	#
  
@@ -900,7 +907,7 @@ Index: macros/mmdb.m4
   # when MMDB and dependencies get installed - we infact, include both
   # directories.
   #  
-@@ -69,7 +69,7 @@
+@@ -69,7 +69,7 @@ lib/src
  lib/src/mmdb'
  for ac_dir in $ac_mmdb_dirs; do
     if test -r "$mmdb_prefix/$ac_dir/mmdb/mmdb_manager.h"; then
@@ -909,7 +916,7 @@ Index: macros/mmdb.m4
        break
     fi
  done
-@@ -82,14 +82,14 @@
+@@ -82,14 +82,14 @@ else
   # the compiler looks in the "standard" places for MMDB.  In real life,
   # it would be quite unlikely that MMDB would be installed in /usr/include, 
   # /usr/lib etc. so this code will not usually find the right dependencies.
@@ -926,7 +933,7 @@ Index: macros/mmdb.m4
  	#
  	# AC_TRY_LINK uses the c compiler (set by AC_LANG), so we will
  	# temporarily reassign $CC to the c++ compiler.
-@@ -118,7 +118,7 @@
+@@ -118,7 +118,7 @@ if test x$have_mmdb = xyes; then
      CLINKR_FLAG=-DMMDB_WITHOUT_LINKR
   fi
   CXXFLAGS="$saved_CXXFLAGS"
@@ -935,7 +942,7 @@ Index: macros/mmdb.m4
   MMDB_LIBS="$ac_MMDB_LDOPTS"
  ifelse([$1], , :, [$1])
  
-@@ -134,12 +134,12 @@
+@@ -134,12 +134,12 @@ else
   LIBS="$saved_LIBS"
   CXXFLAGS="$saved_CXXFLAGS"
   MMDB_LIBS=""
@@ -950,14 +957,14 @@ Index: macros/mmdb.m4
  AC_SUBST(MMDB_LIBS)
  
  ])
-Index: mini-mol/Makefile.am
-===================================================================
---- mini-mol/Makefile.am	(revision 4651)
-+++ mini-mol/Makefile.am	(working copy)
-@@ -25,8 +25,8 @@
+diff --git a/mini-mol/Makefile.am b/mini-mol/Makefile.am
+index 2f6e3a3..4865b0b 100644
+--- a/mini-mol/Makefile.am
++++ b/mini-mol/Makefile.am
+@@ -25,8 +25,8 @@ pkgincludedir = $(includedir)/coot/mini-mol
+ 
  INCLUDES =  \
- 	-I$(top_srcdir)/coot-utils \
- 	-I$(top_srcdir)/compat \
+ 	-I$(top_srcdir) \
 -	$(CLIPPER_CXXFLAGS)    \
 -	$(MMDB_CXXFLAGS)
 +	$(CLIPPER_CFLAGS)    \
@@ -965,10 +972,10 @@ Index: mini-mol/Makefile.am
  
  AM_CXXFLAGS = $(COOT_WINDOWS_CFLAGS)
  
-Index: protein_db/Makefile.am
-===================================================================
---- protein_db/Makefile.am	(revision 4651)
-+++ protein_db/Makefile.am	(working copy)
+diff --git a/protein_db/Makefile.am b/protein_db/Makefile.am
+index 268fcf6..cdd5c9e 100644
+--- a/protein_db/Makefile.am
++++ b/protein_db/Makefile.am
 @@ -19,7 +19,7 @@
  
  lib_LTLIBRARIES=libcoot-protein-db.la
@@ -976,13 +983,13 @@ Index: protein_db/Makefile.am
 -INCLUDES= $(CLIPPER_CXXFLAGS)  $(MMDB_CXXFLAGS)
 +INCLUDES= $(CLIPPER_CFLAGS)  $(MMDB_CFLAGS)
  
- include_HEADERS=protein_db.h  protein_db_utils.h rna_db.h
- 
-Index: sequence-view/Makefile.am
-===================================================================
---- sequence-view/Makefile.am	(revision 4651)
-+++ sequence-view/Makefile.am	(working copy)
-@@ -55,9 +55,9 @@
+ pkginclude_HEADERS=protein_db.h  protein_db_utils.h rna_db.h
+ pkgincludedir = $(includedir)/coot/protein_db
+diff --git a/sequence-view/Makefile.am b/sequence-view/Makefile.am
+index 7af6384..742e6d7 100644
+--- a/sequence-view/Makefile.am
++++ b/sequence-view/Makefile.am
+@@ -55,9 +55,9 @@ INCLUDES = \
  	-I$(top_srcdir)/analysis	\
  	-I$(top_srcdir)/cootaneer	\
  	-I$(top_srcdir)/src     	\
@@ -995,24 +1002,24 @@ Index: sequence-view/Makefile.am
  	$(GLUT_CFLAGS)			\
  	$(CANVAS_CFLAGS) 		\
  	$(GTKGL_CONTEXT_CFLAGS)		\
-Index: skeleton/Makefile.am
-===================================================================
---- skeleton/Makefile.am	(revision 4651)
-+++ skeleton/Makefile.am	(working copy)
-@@ -28,7 +28,7 @@
-           -I$(top_srcdir)/angles     \
-           -I$(top_srcdir)/coot-utils \
- 	  -I$(top_srcdir)/compat     \
+diff --git a/skeleton/Makefile.am b/skeleton/Makefile.am
+index 54872fe..bef7d0e 100644
+--- a/skeleton/Makefile.am
++++ b/skeleton/Makefile.am
+@@ -23,7 +23,7 @@ lib_LTLIBRARIES=libcoot-skeleton.la
+ 
+ INCLUDES = \
+ 	  -I$(top_srcdir) \
 -	 $(MMDB_CXXFLAGS) $(CLIPPER_CXXFLAGS) 
 +	 $(MMDB_CFLAGS) $(CLIPPER_CFLAGS) 
  
  AM_CXXFLAGS = $(COOT_WINDOWS_CFLAGS)
  
-Index: src/Makefile.am
-===================================================================
---- src/Makefile.am	(revision 4651)
-+++ src/Makefile.am	(working copy)
-@@ -220,11 +220,11 @@
+diff --git a/src/Makefile.am b/src/Makefile.am
+index af5276b..d0ab482 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -195,11 +195,11 @@ INCLUDES = \
          $(GOOCANVAS_CFLAGS)             \
  	@GTK_CFLAGS@ 			\
  	$(GLUT_CFLAGS)			\
@@ -1027,10 +1034,10 @@ Index: src/Makefile.am
  	$(PYGTK_CFLAGS)                 \
  	$(GLOB_CFLAGS)                 \
  	$(CURL_CFLAGS)                 
-Index: surface/Makefile.am
-===================================================================
---- surface/Makefile.am	(revision 4651)
-+++ surface/Makefile.am	(working copy)
+diff --git a/surface/Makefile.am b/surface/Makefile.am
+index 3de5953..2461f58 100644
+--- a/surface/Makefile.am
++++ b/surface/Makefile.am
 @@ -1,5 +1,5 @@
  
 -INCLUDES = -I$(top_srcdir)/coot-utils $(MMDB_CXXFLAGS) $(CLIPPER_CXXFLAGS) $(FFTW_CXXFLAGS)

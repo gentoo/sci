@@ -2,6 +2,19 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/www/viewcvs.gentoo.org/raw_cvs/gentoo-x86/sci-chemistry/pymol-plugins-ezviz/ChangeLog,v 1.2 2010/04/08 18:47:57 jlec dead $
 
+  15 Oct 2013; Justin Lecher <jlec@gentoo.org>
+  pymol-plugins-ezviz-1.0.2005-r1.ebuild:
+  Add missing PYTHON_DEPS and PYTHON_REQUIRED_USE
+
+  02 Jul 2013; Justin Lecher <jlec@gentoo.org>
+  -pymol-plugins-ezviz-1.0.2005.ebuild,
+  +pymol-plugins-ezviz-1.0.2005-r1.ebuild:
+  Fix path fixation
+
+  16 Jun 2013; Justin Lecher <jlec@gentoo.org>
+  pymol-plugins-ezviz-1.0.2005.ebuild:
+  Bump to EAPI=5 and bump to python-r1.eclass
+
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Fix missing DOCTYPE
 

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci-biology</herd>
-	<maintainer>
-		<email>mmokrejs@fold.natur.cuni.cz</email>
-		<name>Martin Mokrejs</name>
-	</maintainer>
-	<longdescription>CAF is a text format for describing sequence assemblies. It is acedb-compliant and is an extension of the ace-file format used earlier, but with support for base quality measures and a more extensive description of the Sequence data.</longdescription>
+  <herd>sci-biology</herd>
+  <maintainer>
+    <email>mmokrejs@fold.natur.cuni.cz</email>
+    <name>Martin Mokrejs</name>
+  </maintainer>
+  <longdescription>
+  CAF is a text format for describing sequence assemblies. It is acedb-compliant
+  and is an extension of the ace-file format used earlier, but with support for 
+  base quality measures and a more extensive description of the Sequence data.
+  </longdescription>
 </pkgmetadata>

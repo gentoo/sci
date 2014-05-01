@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang='en'>
+  <herd>sci</herd>
+  <longdescription lang="en">
   Java library which provides I/O for FITS images and binary tables. The Java
   libraries support all basic FITS formats and gzip compressed
   files. Support for access to data subsets is included and the

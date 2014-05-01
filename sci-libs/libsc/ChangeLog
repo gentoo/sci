@@ -1,0 +1,9 @@
+# ChangeLog for sci-libs/libsc
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*libsc-0.7.3 (02 Mar 2014)
+
+  02 Mar 2014; Matthias Maier <tamiko+GENTOO@kyomu.43-1.org>
+  +libsc-0.7.3.ebuild, +metadata.xml:
+  Initial import.

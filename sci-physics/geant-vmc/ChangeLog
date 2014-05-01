@@ -1,6 +1,43 @@
 # ChangeLog for sci-physics/geant-vmc
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  31 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  geant-vmc-3.1.15a.ebuild:
+  Fix syntax bug in dependency atom
+
+*geant-vmc-4.2.15a (31 Mar 2014)
+
+  31 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  +geant-vmc-4.2.15a.ebuild:
+  Version bump
+
+  27 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  geant-vmc-3.1.15a.ebuild, geant-vmc-4.2.14b.ebuild, geant-vmc-4.2.15.ebuild:
+  Add subslot-dependency on sci-physics/root, rebuilding is needed on each ROOT
+  version string change. For more details c.f. #505358 .
+
+  02 Feb 2014; <o.freyermuth@googlemail.com> geant-vmc-4.2.14b.ebuild,
+  geant-vmc-4.2.15.ebuild:
+  Make header installation work again, include/ contains folders only so
+  doheader must recurse
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> geant-vmc-4.2.14b.ebuild,
+  geant-vmc-4.2.15.ebuild, metadata.xml:
+  Add missing die
+
+*geant-vmc-4.2.15 (06 Jan 2014)
+
+  06 Jan 2014; <o.freyermuth@googlemail.com> geant-vmc-4.2.14b.ebuild,
+  +geant-vmc-4.2.15.ebuild:
+  Version bump to 2.15 which builds with Geant 4.10.00 (note #360287 and
+  #496678), make 2.14b DEPEND on <sci-physics/geant-4.10.00 . 
+
+*geant-vmc-4.2.14b (26 Nov 2013)
+
+  26 Nov 2013; Sébastien Fabbro <bicatali@gentoo.org> +geant-vmc-4.2.14b.ebuild,
+  -geant-vmc-4.2.14a.ebuild:
+  sci-physics/geant-vmc: Version bump
 
 *geant-vmc-3.1.15a (05 Jun 2013)
 *geant-vmc-4.2.14a (05 Jun 2013)

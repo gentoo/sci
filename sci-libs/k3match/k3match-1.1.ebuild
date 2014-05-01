@@ -1,13 +1,13 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-PYTHON_DEPEND="*:2.6"
-PYTHON_USE_WITH="threads"
-SUPPORT_PYTHON_ABIS="1"
+EAPI=5
 
-inherit distutils
+PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_REQ_USE="threads"
+
+inherit distutils-r1
 
 DESCRIPTION="Fast matching of large sets of points in 3D space, in O(N log N) time"
 HOMEPAGE="http://pschella.github.com/k3match/"
@@ -18,5 +18,5 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=" "
 
-DEPEND=">=dev-python/numpy-1.4.0"
+DEPEND=">=dev-python/numpy-1.4.0[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}"
