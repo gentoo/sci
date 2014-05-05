@@ -52,8 +52,8 @@ CDEPEND="dev-libs/libpcre
 		dev-java/javahelp:0
 		dev-java/jeuclid-core:0
 		dev-java/jgoodies-looks:2.0
-		dev-java/jlatexmath:1
-		dev-java/jlatexmath-fop:1
+		>=dev-java/jlatexmath-1.0.3:1
+		>=dev-java/jlatexmath-fop-1.0.3:1
 		=dev-java/jogl-2.1.4:2.1
 		>=dev-java/jrosetta-1.0.4:0
 		dev-java/skinlf:0
