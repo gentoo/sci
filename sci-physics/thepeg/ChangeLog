@@ -1,6 +1,11 @@
 # ChangeLog for sci-physics/thepeg
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*thepeg-1.9.1 (06 May 2014)
+
+  06 May 2014; Sébastien Fabbro <bicatali@gentoo.org> +thepeg-1.9.1.ebuild:
+  sci-physics/thepeg: Version bump
 
 *thepeg-1.9.0-r1 (09 Nov 2013)
 
@@ -39,4 +44,3 @@
   07 Sep 2012; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
   +thepeg-1.8.0.ebuild, +files/thepeg-1.8.0-java.patch, +metadata.xml:
   New Ebuild for bug #424003 thanks to hasufell, mgorny and xarthisius.
-
