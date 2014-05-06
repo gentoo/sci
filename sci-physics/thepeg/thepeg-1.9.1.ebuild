@@ -23,7 +23,7 @@ SRC_URI="http://www.hepforge.org/archive/thepeg/${MYP}.tar.bz2
 	   ${TEST_URI}/MRST2001nlo.LHgrid ) )"
 LICENSE="GPL-2"
 
-SLOT="0"
+SLOT="0/18"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="emacs fastjet hepmc java lhapdf rivet static-libs test zlib"
 
@@ -46,7 +46,11 @@ PATCHES=( "${FILESDIR}"/${PN}-1.8.3-java.patch )
 src_prepare() {
 	find -name 'Makefile.am' -exec \
 		sed -i -e '1ipkgdatadir=$(datadir)/thepeg' {} \; || die
-	sed -i -e '/dist_pkgdata_DATA = ThePEG.el/d' lib/Makefile.am || die
+	# trick to force c++ linking
+	sed -i \
+		-e '1inodist_EXTRA_libThePEG_la_SOURCES = dummy.cxx' \
+		-e '/dist_pkgdata_DATA = ThePEG.el/d' \
+		lib/Makefile.am || die
 	autotools-utils_src_prepare
 	java-pkg-opt-2_src_prepare
 }

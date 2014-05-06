@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 May 2014; Sébastien Fabbro <bicatali@gentoo.org> thepeg-1.9.1.ebuild:
+  sci-physics/thepeg: Properly link with c++
+
 *thepeg-1.9.1 (06 May 2014)
 
   06 May 2014; Sébastien Fabbro <bicatali@gentoo.org> +thepeg-1.9.1.ebuild:
