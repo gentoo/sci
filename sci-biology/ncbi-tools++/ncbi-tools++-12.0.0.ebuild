@@ -60,7 +60,7 @@ DEPEND="
 	muparser? ( dev-cpp/muParser )
 	hdf5? ( sci-libs/hdf5 )
 	gif? ( media-libs/giflib )
-	jpeg? ( media-libs/jpeg || ( media-libs/libjpeg-turbo ) )
+	jpeg? ( virtual/jpeg )
 	png? ( media-libs/libpng )
 	tiff? ( media-libs/tiff )
 	xpm? ( x11-libs/libXpm )
@@ -70,7 +70,7 @@ DEPEND="
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
 
 
-# seems muParser is required, also glew is required. configure exitss otherwise
+# seems muParser is required, also glew is required. configure exits otherwise
 
 RDEPEND="${DEPEND}"
 
@@ -116,9 +116,8 @@ src_prepare() {
 	tc-export CXX CC
 
 	cd src/build-system || die
-	eautoreconf
-#	eaclocal -I.
-#	eautoconf
+#	eautoreconf
+	eautoconf
 }
 
 src_configure() {
@@ -258,9 +257,10 @@ src_configure() {
 
 	einfo "bash ./src/build-system/configure --srcdir="${S}" --prefix="${EPREFIX}/usr" --libdir=/usr/lib64 ${myconf[@]}"
 
-#	bash \
-#		./src/build-system/configure \
-	econf \
+#	ECONF_SOURCE="src/build-system" \
+#		econf \
+	bash \
+		./src/build-system/configure \
 		--srcdir="${S}" \
 		--prefix="${EPREFIX}/usr" \
 		--libdir=/usr/lib64 \
