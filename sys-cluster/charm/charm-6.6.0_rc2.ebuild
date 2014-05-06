@@ -199,6 +199,7 @@ src_install() {
 			die "Failed to fix examples"
 		insinto /usr/share/doc/${PF}/examples
 		doins -r examples/charm++/*
+		docompress -x /usr/share/doc/${PF}/examples
 	fi
 
 	# Install pdf/html docs

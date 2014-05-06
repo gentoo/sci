@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 May 2014; Christoph Junghans <ottxor@gentoo.org> charm-6.6.0_rc2.ebuild:
+  do not compress examples
+
   20 Feb 2014; Christoph Junghans <ottxor@gentoo.org> charm-6.6.0_rc2.ebuild:
   fixed build, gcc doesn't understand -j1
 
