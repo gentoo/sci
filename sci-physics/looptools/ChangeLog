@@ -1,6 +1,10 @@
-# ChangeLog for sci-physics/LoopTools
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sci-physics/looptools
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  07 May 2014; Sébastien Fabbro <bicatali@gentoo.org>
+  files/looptools-2.8-makefile.patch, looptools-2.8.ebuild, metadata.xml:
+  sci-physics/looptools: Renamed, add soname, doc and static-libs use flags
 
   09 Jan 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
   LoopTools-2.8.ebuild:
@@ -25,4 +29,3 @@
   05 Jul 2012; Jauhien Piatlicki (jauhien) piatlicki@gmail.com
   +LoopTools-2.7.ebuild, +files/LoopTools-2.7-makefile.patch, +metadata.xml:
   Initial release, new ebuild for bug#424860
-

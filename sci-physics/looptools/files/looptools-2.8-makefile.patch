@@ -90,7 +90,7 @@
  	-$(RANLIB) $(LIB)
  
 +$(REALNAME): $(OBJS)
-+	$(CC) $(CFLAGS) $(LDFLAGS) -shared -o $@ $?
++	$(XFC) $(LDFLAGS) -shared -Wl,--soname,$(REALNAME) -o $@ $?
  
  $(FE): lt.F $(LTINC) $(LIB)
  	$(XFC) -o $(FE) lt.F $(LIB)
