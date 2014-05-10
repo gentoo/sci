@@ -1,0 +1,10 @@
+# ChangeLog for dev-lua/cmsgpack
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*cmsgpack-0.3.0 (10 May 2014)
+*cmsgpack-9999 (10 May 2014)
+
+  10 May 2014; Jelte Fennema <github@jeltef.nl> +cmsgpack-0.3.0.ebuild,
+  +cmsgpack-9999.ebuild, +metadata.xml:
+  Initial commit for dev-lua/cmsgpack, this is a new dependency for neovim.
