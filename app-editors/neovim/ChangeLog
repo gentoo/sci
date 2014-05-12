@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 May 2014; Jelte Fennema <github@jeltef.nl> neovim-9999.ebuild:
+  Add new cmsgpack and lpeg dependencies to neovim.
+
 *neovim-9999 (11 Mar 2014)
 
   11 Mar 2014; Christoph Junghans <ottxor@gentoo.org> +metadata.xml,
