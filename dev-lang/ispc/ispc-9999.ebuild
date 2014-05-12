@@ -6,17 +6,23 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit git-r3 toolchain-funcs python-any-r1
+inherit toolchain-funcs python-any-r1
 
 DESCRIPTION="Intel SPMD Program Compiler"
 HOMEPAGE="http://ispc.github.com/"
-SRC_URI=""
-EGIT_REPO_URI="git://github.com/ispc/ispc.git"
+
+if [[ ${PV} = *9999 ]]; then
+	inherit git-r3
+	EGIT_REPO_URI="git://github.com/ispc/ispc.git"
+	KEYWORDS=""
+else
+	SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~amd64 ~x86"
+fi
 
 LICENSE="BSD BSD-2 UoI-NCSA"
 SLOT="0"
 IUSE="examples"
-KEYWORDS=""
 
 RDEPEND="
 	>=sys-devel/clang-3.0
