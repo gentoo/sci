@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 May 2014; Justin Lecher <jlec@gentoo.org> -phenix-bin-1.9.1690.ebuild,
+  +phenix-bin-1.9.1692.ebuild:
+  Version Bump
+
 *phenix-bin-1.9.1690 (06 May 2014)
 
   06 May 2014; Justin Lecher <jlec@gentoo.org> +phenix-bin-1.9.1690.ebuild:

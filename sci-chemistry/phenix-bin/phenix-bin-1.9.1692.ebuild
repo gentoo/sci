@@ -17,11 +17,12 @@ DESCRIPTION="Python-based Hierarchical ENvironment for Integrated Xtallography"
 HOMEPAGE="http://phenix-online.org/"
 SRC_URI="
 	amd64? ( phenix-installer-${MY_PV}-intel-linux-2.6-x86_64-fc12.tar )
+	x86? ( phenix-installer-${MY_PV}-intel-linux-2.6-centos5.tar )
 "
 
 SLOT="0"
 LICENSE="phenix"
-KEYWORDS="~amd64 ~amd64-linux"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
