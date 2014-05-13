@@ -6,7 +6,7 @@ EAPI=5
 
 DESCRIPTION="AMBER99SBnmr1-ILDN force field (Lindorff-Larsen et al., Proteins 78, 1950-58, 2010)"
 HOMEPAGE="https://research.chemistry.ohio-state.edu/bruschweiler/protein-force-field/"
-SRC_URI="http://research.chemistry.ohio-state.edu/bruschweiler/files/2013/09/nmr1.tar -> ${P}.tar"
+SRC_URI="http://research.chemistry.ohio-state.edu/bruschweiler/files/2013/09/nmr1-ildn.tar -> ${P}.tar"
 
 SLOT="0"
 LICENSE="all-rights-reserved"
