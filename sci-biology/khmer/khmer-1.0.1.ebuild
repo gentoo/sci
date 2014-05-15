@@ -29,12 +29,35 @@ python_prepare_all(){
 		-i lib/read_parsers.hh lib/counting.cc || die
 
 	sed \
-		-e "/extra_objects/d" \
-		-e "s:'nose >= 1.0', ::g" \
-		-e "s:'sphinx',::g" \
-		-e '/libraries/s:, ]:, "z", "bz2", ]:g' \
-		-e "s:'-O3',::g" \
+		-e "/^EXTRA_COMPILE_ARGS/s:=.*:=[]:g" \
 		-i setup.py || die
 
+	cat > setup.cfg <<- EOF
+	[nosetests]
+	verbosity = 2
+	stop = TRUE
+	attr = !known_failing
+
+	[build_ext]
+	undef = NO_UNIQUE_RC
+	libraries = z,bz2
+	## if using system libraries
+	include-dirs = lib:lib/zlib:lib/bzip2
+	# include-dirs = lib
+	## if using system libraries (broken)
+
+	define = NDEBUG
+	# is not needed for most Linux installs
+	# see the OPT line in /usr/lib/python2.7/config/Makefile which gets included
+	# in distutils version of CFLAGS
+
+	[easy_install]
+
+	EOF
+
 	distutils-r1_python_prepare_all
+}
+
+python_test() {
+	esetup.py nosetests || die
 }
