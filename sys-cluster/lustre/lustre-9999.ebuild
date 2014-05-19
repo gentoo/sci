@@ -45,8 +45,9 @@ PATCHES=(
 	"${FILESDIR}/0003-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch"
 	"${FILESDIR}/0004-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch"
 	"${FILESDIR}/0005-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch"
-	"${FILESDIR}/0006-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
-	"${FILESDIR}/0007-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch"
+	"${FILESDIR}/0006-LU-2096-lprocfs-symlinks-for-forward-compatibility.patch"
+	"${FILESDIR}/0007-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
+	"${FILESDIR}/0008-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch"
 	"${FILESDIR}/lustre-readline6.3_fix.patch"
 )
 

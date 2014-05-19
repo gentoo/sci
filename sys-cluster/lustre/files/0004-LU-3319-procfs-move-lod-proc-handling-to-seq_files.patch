@@ -1,7 +1,7 @@
-From d13a2c80d2a861b1c9fe98e5db3ae1af06a1103a Mon Sep 17 00:00:00 2001
+From e4533607955d7358071e906746eed32e5c25a90f Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Wed, 26 Mar 2014 19:57:44 -0400
-Subject: [PATCH 4/7] LU-3319 procfs: move lod proc handling to seq_files
+Subject: [PATCH 4/8] LU-3319 procfs: move lod proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the lod
@@ -82,10 +82,10 @@ index 8a6743d..e63c6ed 100644
  	lu_kmem_fini(lod_caches);
  }
 diff --git a/lustre/lod/lod_internal.h b/lustre/lod/lod_internal.h
-index c3b1bc3..fc18f3d 100644
+index 4eab8cd..d4928c7 100644
 --- a/lustre/lod/lod_internal.h
 +++ b/lustre/lod/lod_internal.h
-@@ -432,7 +432,6 @@ int qos_add_tgt(struct lod_device*, struct lod_tgt_desc *);
+@@ -441,7 +441,6 @@ int qos_add_tgt(struct lod_device*, struct lod_tgt_desc *);
  int qos_del_tgt(struct lod_device *, struct lod_tgt_desc *);
  
  /* lproc_lod.c */
@@ -587,5 +587,5 @@ index e976063..1598658 100644
  
  out:
 -- 
-1.9.1
+1.9.3
 

@@ -1,7 +1,7 @@
-From 9028aafc0c8651d6a840d9066ca7d950106fbdc5 Mon Sep 17 00:00:00 2001
+From 8128e9daa5f394f97bcfcc3f1da0b8285754c5c4 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Wed, 26 Mar 2014 19:59:18 -0400
-Subject: [PATCH 3/7] LU-3319 procfs: move osp proc handling to seq_files
+Date: Thu, 24 Apr 2014 12:04:57 -0400
+Subject: [PATCH 3/8] LU-3319 procfs: move osp proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the osp
@@ -10,14 +10,14 @@ layer proc entries over to using seq_files.
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: Id8f77d72fd35755f1b7b1c17fcf27e0731bd5ac1
 ---
- lustre/osp/lproc_osp.c    | 402 +++++++++++++++++++++++++---------------------
- lustre/osp/lwp_dev.c      |  19 +--
+ lustre/osp/lproc_osp.c    | 431 ++++++++++++++++++++++++----------------------
+ lustre/osp/lwp_dev.c      |  19 +-
  lustre/osp/osp_dev.c      |  32 ++--
  lustre/osp/osp_internal.h |   2 -
- 4 files changed, 228 insertions(+), 227 deletions(-)
+ 4 files changed, 242 insertions(+), 242 deletions(-)
 
 diff --git a/lustre/osp/lproc_osp.c b/lustre/osp/lproc_osp.c
-index 75ebeb1..1271b7c 100644
+index 118c4df..c23ce18 100644
 --- a/lustre/osp/lproc_osp.c
 +++ b/lustre/osp/lproc_osp.c
 @@ -45,24 +45,24 @@
@@ -396,13 +396,14 @@ index 75ebeb1..1271b7c 100644
  	struct osp_device *osp = lu2osp_dev(dev->obd_lu_dev);
  
  	if (osp == NULL)
-@@ -411,126 +404,161 @@ static int osp_rd_destroys_in_flight(char *page, char **start, off_t off,
+@@ -411,43 +404,40 @@ static int osp_rd_destroys_in_flight(char *page, char **start, off_t off,
  	 * - sync changes are zero - no llog records
  	 * - sync in progress are zero - no RPCs in flight
  	 */
 -	return snprintf(page, count, "%lu\n",
+-			osp->opd_syn_rpc_in_progress + osp->opd_syn_changes);
 +	return seq_printf(m, "%lu\n",
- 			osp->opd_syn_rpc_in_progress + osp->opd_syn_changes);
++			  osp->opd_syn_rpc_in_progress + osp->opd_syn_changes);
  }
 +LPROC_SEQ_FOPS_RO(osp_destroys_in_flight);
  
@@ -423,6 +424,44 @@ index 75ebeb1..1271b7c 100644
 +	return seq_printf(m, "%d\n", osp->opd_syn_prev_done);
  }
 +LPROC_SEQ_FOPS_RO(osp_old_sync_processed);
+ 
+-static int osp_rd_lfsck_max_rpcs_in_flight(char *page, char **start, off_t off,
+-					   int count, int *eof, void *data)
++static int
++osp_lfsck_max_rpcs_in_flight_seq_show(struct seq_file *m, void *data)
+ {
+-	struct obd_device *dev = data;
++	struct obd_device *dev = m->private;
+ 	__u32 max;
+-	int rc;
+ 
+-	*eof = 1;
+ 	max = obd_get_max_rpcs_in_flight(&dev->u.cli);
+-	rc = snprintf(page, count, "%u\n", max);
+-
+-	return rc;
++	return seq_printf(m, "%u\n", max);
+ }
+ 
+-static int osp_wr_lfsck_max_rpcs_in_flight(struct file *file,
+-					   const char *buffer,
+-					   unsigned long count, void *data)
++static ssize_t
++osp_lfsck_max_rpcs_in_flight_seq_write(struct file *file,
++				       const char __user *buffer,
++				       size_t count, loff_t *off)
+ {
+-	struct obd_device *dev = data;
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *dev = m->private;
+ 	int val;
+ 	int rc;
+ 
+@@ -460,111 +450,148 @@ static int osp_wr_lfsck_max_rpcs_in_flight(struct file *file,
+ 
+ 	return count;
+ }
++LPROC_SEQ_FOPS(osp_lfsck_max_rpcs_in_flight);
  
 -static struct lprocfs_vars lprocfs_osp_obd_vars[] = {
 -	{ "uuid",		lprocfs_rd_uuid, 0, 0 },
@@ -461,6 +500,8 @@ index 75ebeb1..1271b7c 100644
  
 -	/* for compatibility reasons */
 -	{ "destroys_in_flight",	osp_rd_destroys_in_flight, 0, 0 },
+-	{ "lfsck_max_rpcs_in_flight", osp_rd_lfsck_max_rpcs_in_flight,
+-				      osp_wr_lfsck_max_rpcs_in_flight, 0 },
 -	{ 0 }
 -};
 +static int osp_max_pages_per_rpc_seq_show(struct seq_file *m, void *v)
@@ -474,55 +515,55 @@ index 75ebeb1..1271b7c 100644
 +LPROC_SEQ_FOPS_RO_TYPE(osp, state);
 +
 +static struct lprocfs_seq_vars lprocfs_osp_obd_vars[] = {
-+	{ .name	=	"uuid",
-+	  .fops	=	&osp_uuid_fops			},
-+	{ .name	=	"ping",
-+	  .fops	=	&osp_ping_fops,
++	{ .name =	"uuid",
++	  .fops =	&osp_uuid_fops			},
++	{ .name =	"ping",
++	  .fops =	&osp_ping_fops,
 +	  .proc_mode =	0222				},
-+	{ .name	=	"connect_flags",
-+	  .fops	=	&osp_connect_flags_fops		},
-+	{ .name	=	"ost_server_uuid",
-+	  .fops	=	&osp_server_uuid_fops		},
-+	{ .name	=	"ost_conn_uuid",
-+	  .fops	=	&osp_conn_uuid_fops		},
-+	{ .name	=	"active",
-+	  .fops	=	&osp_active_fops		},
-+	{ .name	=	"max_rpcs_in_flight",
-+	  .fops	=	&osp_max_rpcs_in_flight_fops	},
-+	{ .name	=	"max_rpcs_in_progress",
-+	  .fops	=	&osp_max_rpcs_in_prog_fops	},
-+	{ .name	=	"create_count",
-+	  .fops	=	&osp_create_count_fops		},
-+	{ .name	=	"max_create_count",
-+	  .fops	=	&osp_max_create_count_fops	},
-+	{ .name	=	"prealloc_next_id",
-+	  .fops	=	&osp_prealloc_next_id_fops	},
-+	{ .name	=	"prealloc_next_seq",
-+	  .fops	=	&osp_prealloc_next_seq_fops	},
-+	{ .name	=	"prealloc_last_id",
-+	  .fops	=	&osp_prealloc_last_id_fops	},
-+	{ .name	=	"prealloc_last_seq",
-+	  .fops	=	&osp_prealloc_last_seq_fops	},
-+	{ .name	=	"prealloc_reserved",
-+	  .fops	=	&osp_prealloc_reserved_fops	},
-+	{ .name	=	"timeouts",
-+	  .fops	=	&osp_timeouts_fops		},
-+	{ .name	=	"import",
-+	  .fops	=	&osp_import_fops		},
-+	{ .name	=	"state",
-+	  .fops	=	&osp_state_fops			},
-+	{ .name	=	"maxage",
-+	  .fops	=	&osp_maxage_fops		},
-+	{ .name	=	"prealloc_status",
-+	  .fops	=	&osp_pre_status_fops		},
-+	{ .name	=	"sync_changes",
-+	  .fops	=	&osp_syn_changes_fops		},
-+	{ .name	=	"sync_in_flight",
-+	  .fops	=	&osp_syn_in_flight_fops		},
-+	{ .name	=	"sync_in_progress",
-+	  .fops	=	&osp_syn_in_prog_fops		},
-+	{ .name	=	"old_sync_processed",
-+	  .fops	=	&osp_old_sync_processed_fops	},
++	{ .name =	"connect_flags",
++	  .fops =	&osp_connect_flags_fops		},
++	{ .name =	"ost_server_uuid",
++	  .fops =	&osp_server_uuid_fops		},
++	{ .name =	"ost_conn_uuid",
++	  .fops =	&osp_conn_uuid_fops		},
++	{ .name =	"active",
++	  .fops =	&osp_active_fops		},
++	{ .name =	"max_rpcs_in_flight",
++	  .fops =	&osp_max_rpcs_in_flight_fops	},
++	{ .name =	"max_rpcs_in_progress",
++	  .fops =	&osp_max_rpcs_in_prog_fops	},
++	{ .name =	"create_count",
++	  .fops =	&osp_create_count_fops		},
++	{ .name =	"max_create_count",
++	  .fops =	&osp_max_create_count_fops	},
++	{ .name =	"prealloc_next_id",
++	  .fops =	&osp_prealloc_next_id_fops	},
++	{ .name =	"prealloc_next_seq",
++	  .fops =	&osp_prealloc_next_seq_fops	},
++	{ .name =	"prealloc_last_id",
++	  .fops =	&osp_prealloc_last_id_fops	},
++	{ .name =	"prealloc_last_seq",
++	  .fops =	&osp_prealloc_last_seq_fops	},
++	{ .name =	"prealloc_reserved",
++	  .fops =	&osp_prealloc_reserved_fops	},
++	{ .name =	"timeouts",
++	  .fops =	&osp_timeouts_fops		},
++	{ .name =	"import",
++	  .fops =	&osp_import_fops		},
++	{ .name =	"state",
++	  .fops =	&osp_state_fops			},
++	{ .name =	"maxage",
++	  .fops =	&osp_maxage_fops		},
++	{ .name =	"prealloc_status",
++	  .fops =	&osp_pre_status_fops		},
++	{ .name =	"sync_changes",
++	  .fops =	&osp_syn_changes_fops		},
++	{ .name =	"sync_in_flight",
++	  .fops =	&osp_syn_in_flight_fops		},
++	{ .name =	"sync_in_progress",
++	  .fops =	&osp_syn_in_prog_fops		},
++	{ .name =	"old_sync_processed",
++	  .fops =	&osp_old_sync_processed_fops	},
  
 -static struct lprocfs_vars lprocfs_osp_osd_vars[] = {
 -	{ "blocksize",		lprocfs_dt_rd_blksize, 0, 0 },
@@ -532,8 +573,10 @@ index 75ebeb1..1271b7c 100644
 -	{ "filestotal",		lprocfs_dt_rd_filestotal, 0, 0 },
 -	{ "filesfree",		lprocfs_dt_rd_filesfree, 0, 0 },
 +	/* for compatibility reasons */
-+	{ .name	=	"destroys_in_flight",
-+	  .fops	=	&osp_destroys_in_flight_fops	},
++	{ .name =	"destroys_in_flight",
++	  .fops =	&osp_destroys_in_flight_fops		},
++	{ .name	=	"lfsck_max_rpcs_in_flight",
++	  .fops	=	&osp_lfsck_max_rpcs_in_flight_fops	},
  	{ 0 }
  };
  
@@ -547,18 +590,18 @@ index 75ebeb1..1271b7c 100644
 +LPROC_SEQ_FOPS_RO_TYPE(osp, dt_filesfree);
 +
 +static struct lprocfs_seq_vars lprocfs_osp_osd_vars[] = {
-+	{ .name	=	"blocksize",
-+	  .fops	=	&osp_dt_blksize_fops		},
-+	{ .name	=	"kbytestotal",
-+	  .fops	=	&osp_dt_kbytestotal_fops	},
-+	{ .name	=	"kbytesfree",
-+	  .fops	=	&osp_dt_kbytesfree_fops		},
-+	{ .name	=	"kbytesavail",
-+	  .fops	=	&osp_dt_kbytesavail_fops	},
-+	{ .name	=	"filestotal",
-+	  .fops	=	&osp_dt_filestotal_fops		},
-+	{ .name	=	"filesfree",
-+	  .fops	=	&osp_dt_filesfree_fops		},
++	{ .name =	"blocksize",
++	  .fops =	&osp_dt_blksize_fops		},
++	{ .name =	"kbytestotal",
++	  .fops =	&osp_dt_kbytestotal_fops	},
++	{ .name =	"kbytesfree",
++	  .fops =	&osp_dt_kbytesfree_fops		},
++	{ .name =	"kbytesavail",
++	  .fops =	&osp_dt_kbytesavail_fops	},
++	{ .name =	"filestotal",
++	  .fops =	&osp_dt_filestotal_fops		},
++	{ .name =	"filesfree",
++	  .fops =	&osp_dt_filesfree_fops		},
  	{ 0 }
  };
  
@@ -641,7 +684,7 @@ index 75ebeb1..1271b7c 100644
 +					       "../osp/%s", obd->obd_name);
 +	if (osp->opd_symlink == NULL)
 +		CERROR("could not register OSC symlink for "
-+			"/proc/fs/lustre/osp/%s.", obd->obd_name);
++		       "/proc/fs/lustre/osp/%s.", obd->obd_name);
  }
  
  #endif /* LPROCFS */
@@ -686,10 +729,10 @@ index a73973a..c115ee6 100644
  
  	RETURN(0);
 diff --git a/lustre/osp/osp_dev.c b/lustre/osp/osp_dev.c
-index 60bf8ef..b0c68ad 100644
+index 0a1cafa..27e3011 100644
 --- a/lustre/osp/osp_dev.c
 +++ b/lustre/osp/osp_dev.c
-@@ -366,7 +366,7 @@ static int osp_process_config(const struct lu_env *env,
+@@ -367,7 +367,7 @@ static int osp_process_config(const struct lu_env *env,
  			      struct lu_device *dev, struct lustre_cfg *lcfg)
  {
  	struct osp_device		*d = lu2osp_dev(dev);
@@ -698,7 +741,7 @@ index 60bf8ef..b0c68ad 100644
  	int				 rc;
  
  	ENTRY;
-@@ -380,11 +380,9 @@ static int osp_process_config(const struct lu_env *env,
+@@ -381,11 +381,9 @@ static int osp_process_config(const struct lu_env *env,
  		rc = osp_shutdown(env, d);
  		break;
  	case LCFG_PARAM:
@@ -713,7 +756,7 @@ index 60bf8ef..b0c68ad 100644
  		if (rc > 0)
  			rc = 0;
  		if (rc == -ENOSYS) {
-@@ -1238,33 +1236,27 @@ struct llog_operations osp_mds_ost_orig_logops;
+@@ -1241,33 +1239,27 @@ struct llog_operations osp_mds_ost_orig_logops;
  
  static int __init osp_mod_init(void)
  {
@@ -750,7 +793,7 @@ index 60bf8ef..b0c68ad 100644
  #endif
  				 LUSTRE_LWP_NAME, &lwp_device_type);
  	if (rc != 0) {
-@@ -1284,18 +1276,18 @@ static int __init osp_mod_init(void)
+@@ -1287,18 +1279,18 @@ static int __init osp_mod_init(void)
  		return rc;
  
  	type = class_search_type(LUSTRE_OSP_NAME);
@@ -775,10 +818,10 @@ index 60bf8ef..b0c68ad 100644
  	class_unregister_type(LUSTRE_OSP_NAME);
  	lu_kmem_fini(osp_caches);
 diff --git a/lustre/osp/osp_internal.h b/lustre/osp/osp_internal.h
-index 1291374..66ad203 100644
+index e220914..d8d4a2b 100644
 --- a/lustre/osp/osp_internal.h
 +++ b/lustre/osp/osp_internal.h
-@@ -530,7 +530,6 @@ int osp_write_last_oid_seq_files(struct lu_env *env, struct osp_device *osp,
+@@ -586,7 +586,6 @@ int osp_write_last_oid_seq_files(struct lu_env *env, struct osp_device *osp,
  int osp_init_pre_fid(struct osp_device *osp);
  
  /* lproc_osp.c */
@@ -786,7 +829,7 @@ index 1291374..66ad203 100644
  void osp_lprocfs_init(struct osp_device *osp);
  
  /* osp_sync.c */
-@@ -544,7 +543,6 @@ int osp_sync_fini(struct osp_device *d);
+@@ -600,7 +599,6 @@ int osp_sync_fini(struct osp_device *d);
  void __osp_sync_check_for_work(struct osp_device *d);
  
  /* lwp_dev.c */
@@ -795,5 +838,5 @@ index 1291374..66ad203 100644
  extern struct lu_device_type lwp_device_type;
  
 -- 
-1.9.1
+1.9.3
 

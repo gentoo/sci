@@ -1,7 +1,7 @@
-From dfc3f832947083639506d38c032e8b237198fee2 Mon Sep 17 00:00:00 2001
+From 333393612d269600a68c672af1f1848e865f9e20 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
-Date: Tue, 25 Mar 2014 11:10:33 -0400
-Subject: [PATCH 5/7] LU-3319 procfs: move mdt/mds proc handling to seq_files
+Date: Fri, 9 May 2014 16:30:46 -0400
+Subject: [PATCH 5/8] LU-3319 procfs: move mdt/mds proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the mdt/mds
@@ -10,18 +10,18 @@ layer proc entries over to using seq_files.
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: Icbafdcd2c2fe3959a51dda3f9c715b0ff8d95742
 ---
- lustre/mdt/mdt_coordinator.c      | 269 +++++++---------
+ lustre/mdt/mdt_coordinator.c      | 269 +++++++-------
  lustre/mdt/mdt_handler.c          |  16 +-
  lustre/mdt/mdt_hsm_cdt_actions.c  |   5 +-
  lustre/mdt/mdt_hsm_cdt_agent.c    |   5 +-
  lustre/mdt/mdt_hsm_cdt_requests.c |   5 +-
  lustre/mdt/mdt_internal.h         |  14 +-
- lustre/mdt/mdt_lproc.c            | 659 +++++++++++++++++++-------------------
+ lustre/mdt/mdt_lproc.c            | 713 +++++++++++++++++++-------------------
  lustre/mdt/mdt_mds.c              |  12 +-
- 8 files changed, 469 insertions(+), 516 deletions(-)
+ 8 files changed, 495 insertions(+), 544 deletions(-)
 
 diff --git a/lustre/mdt/mdt_coordinator.c b/lustre/mdt/mdt_coordinator.c
-index a9ee560..062f6cc 100644
+index 651ed7a..1617eeb 100644
 --- a/lustre/mdt/mdt_coordinator.c
 +++ b/lustre/mdt/mdt_coordinator.c
 @@ -45,7 +45,7 @@
@@ -127,8 +127,8 @@ index a9ee560..062f6cc 100644
 -static int lprocfs_wr_hsm_policy(struct file *file, const char *buffer,
 -				 unsigned long count, void *data)
 +static ssize_t
-+mdt_hsm_policy_seq_write(struct file *file, const char *buffer,
-+				size_t count, loff_t *off)
++mdt_hsm_policy_seq_write(struct file *file, const char __user *buffer,
++			 size_t count, loff_t *off)
  {
 -	struct mdt_device	*mdt = data;
 +	struct seq_file		*m = file->private_data;
@@ -190,7 +190,7 @@ index a9ee560..062f6cc 100644
 -static int lprocfs_wr_hsm_##VAR(struct file *file, const char *buffer,	\
 -				unsigned long count, void *data)	\
 +static ssize_t								\
-+mdt_hsm_##VAR##_seq_write(struct file *file, const char *buffer,	\
++mdt_hsm_##VAR##_seq_write(struct file *file, const char __user *buffer,	\
 +			  size_t count, loff_t *off)			\
  									\
  {									\
@@ -209,14 +209,14 @@ index a9ee560..062f6cc 100644
  
  GENERATE_PROC_METHOD(cdt_loop_period)
  GENERATE_PROC_METHOD(cdt_grace_delay)
-@@ -1983,10 +1959,12 @@ GENERATE_PROC_METHOD(cdt_default_archive_id)
- #define CDT_PURGE_CMD    "purge"
+@@ -1984,10 +1960,12 @@ GENERATE_PROC_METHOD(cdt_default_archive_id)
  #define CDT_HELP_CMD     "help"
+ #define CDT_MAX_CMD_LEN  10
  
--int lprocfs_wr_hsm_cdt_control(struct file *file, const char *buffer,
+-int lprocfs_wr_hsm_cdt_control(struct file *file, const char __user *buffer,
 -			       unsigned long count, void *data)
 +ssize_t
-+mdt_hsm_cdt_control_seq_write(struct file *file, const char *buffer,
++mdt_hsm_cdt_control_seq_write(struct file *file, const char __user *buffer,
 +			      size_t count, loff_t *off)
  {
 -	struct obd_device	*obd = data;
@@ -225,7 +225,7 @@ index a9ee560..062f6cc 100644
  	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
  	struct coordinator	*cdt = &(mdt->mdt_coordinator);
  	int			 rc, usage = 0;
-@@ -2040,83 +2018,71 @@ int lprocfs_wr_hsm_cdt_control(struct file *file, const char *buffer,
+@@ -2051,83 +2029,71 @@ int lprocfs_wr_hsm_cdt_control(struct file *file, const char __user *buffer,
  	RETURN(count);
  }
  
@@ -331,7 +331,7 @@ index a9ee560..062f6cc 100644
  }
  
  static inline enum hsm_copytool_action
-@@ -2136,9 +2102,9 @@ hsm_copytool_name2action(const char *name)
+@@ -2147,9 +2113,9 @@ hsm_copytool_name2action(const char *name)
  		return -1;
  }
  
@@ -344,7 +344,7 @@ index a9ee560..062f6cc 100644
  {
  	char *buf, *pos, *name;
  	size_t buf_size;
-@@ -2182,69 +2148,76 @@ out:
+@@ -2193,69 +2159,76 @@ out:
  	RETURN(rc);
  }
  
@@ -470,10 +470,10 @@ index a9ee560..062f6cc 100644
  	{ 0 }
  };
 diff --git a/lustre/mdt/mdt_handler.c b/lustre/mdt/mdt_handler.c
-index 329c5fc..3f46d6e 100644
+index 6b0c683..013cea2 100644
 --- a/lustre/mdt/mdt_handler.c
 +++ b/lustre/mdt/mdt_handler.c
-@@ -4672,7 +4672,6 @@ static int mdt_process_config(const struct lu_env *env,
+@@ -4666,7 +4666,6 @@ static int mdt_process_config(const struct lu_env *env,
  
  	switch (cfg->lcfg_command) {
  	case LCFG_PARAM: {
@@ -481,7 +481,7 @@ index 329c5fc..3f46d6e 100644
  		struct obd_device	   *obd = d->ld_obd;
  
  		/* For interoperability */
-@@ -4707,14 +4706,13 @@ static int mdt_process_config(const struct lu_env *env,
+@@ -4701,14 +4700,13 @@ static int mdt_process_config(const struct lu_env *env,
  			}
  		}
  
@@ -501,7 +501,7 @@ index 329c5fc..3f46d6e 100644
  			if (rc > 0 || rc == -ENOSYS)
  				/* we don't understand; pass it on */
  				rc = next->ld_ops->ldo_process_config(env, next,
-@@ -5913,7 +5911,6 @@ static struct lu_device_type mdt_device_type = {
+@@ -5905,7 +5903,6 @@ static struct lu_device_type mdt_device_type = {
  
  static int __init mdt_mod_init(void)
  {
@@ -509,7 +509,7 @@ index 329c5fc..3f46d6e 100644
  	int rc;
  
  	CLASSERT(sizeof("0x0123456789ABCDEF:0x01234567:0x01234567") ==
-@@ -5928,10 +5925,9 @@ static int __init mdt_mod_init(void)
+@@ -5920,10 +5917,9 @@ static int __init mdt_mod_init(void)
  	if (rc)
  		GOTO(lu_fini, rc);
  
@@ -522,7 +522,7 @@ index 329c5fc..3f46d6e 100644
  				 LUSTRE_MDT_NAME, &mdt_device_type);
  	if (rc)
 diff --git a/lustre/mdt/mdt_hsm_cdt_actions.c b/lustre/mdt/mdt_hsm_cdt_actions.c
-index da7f5a9..49c6b8b 100644
+index 0f5e0fe..6b1acf0 100644
 --- a/lustre/mdt/mdt_hsm_cdt_actions.c
 +++ b/lustre/mdt/mdt_hsm_cdt_actions.c
 @@ -513,9 +513,6 @@ static int lprocfs_open_hsm_actions(struct inode *inode, struct file *file)
@@ -587,10 +587,10 @@ index 1300861..3125dcc 100644
  	RETURN(rc);
  }
 diff --git a/lustre/mdt/mdt_internal.h b/lustre/mdt/mdt_internal.h
-index 5b8cea1..cb52ef4 100644
+index 116d98f..d1a3b66 100644
 --- a/lustre/mdt/mdt_internal.h
 +++ b/lustre/mdt/mdt_internal.h
-@@ -759,9 +759,6 @@ void mdt_thread_info_init(struct ptlrpc_request *req,
+@@ -756,9 +756,6 @@ void mdt_thread_info_init(struct ptlrpc_request *req,
  void mdt_thread_info_fini(struct mdt_thread_info *mti);
  struct mdt_thread_info *tsi2mdt_info(struct tgt_session_info *tsi);
  
@@ -600,7 +600,7 @@ index 5b8cea1..cb52ef4 100644
  int mdt_hsm_attr_set(struct mdt_thread_info *info, struct mdt_object *obj,
  		     const struct md_hsm *mh);
  
-@@ -899,13 +896,12 @@ int mdt_hsm_cdt_fini(struct mdt_device *mdt);
+@@ -896,13 +893,12 @@ int mdt_hsm_cdt_fini(struct mdt_device *mdt);
  int mdt_hsm_cdt_wakeup(struct mdt_device *mdt);
  
  /* coordinator control /proc interface */
@@ -618,7 +618,7 @@ index 5b8cea1..cb52ef4 100644
  /* md_hsm helpers */
  struct mdt_object *mdt_hsm_get_md_hsm(struct mdt_thread_info *mti,
  				      const struct lu_fid *fid,
-@@ -1045,8 +1041,6 @@ enum {
+@@ -1042,8 +1038,6 @@ enum {
  };
  void mdt_counter_incr(struct ptlrpc_request *req, int opcode);
  void mdt_stats_counter_init(struct lprocfs_stats *stats);
@@ -628,10 +628,22 @@ index 5b8cea1..cb52ef4 100644
  void mdt_procfs_fini(struct mdt_device *mdt);
  
 diff --git a/lustre/mdt/mdt_lproc.c b/lustre/mdt/mdt_lproc.c
-index 0ee5148..a895d57 100644
+index 70eba85..ff7a260 100644
 --- a/lustre/mdt/mdt_lproc.c
 +++ b/lustre/mdt/mdt_lproc.c
-@@ -156,7 +156,6 @@ static ssize_t mdt_rename_stats_seq_write(struct file *file, const char *buf,
+@@ -144,8 +144,9 @@ static int mdt_rename_stats_seq_show(struct seq_file *seq, void *v)
+         return 0;
+ }
+ 
+-static ssize_t mdt_rename_stats_seq_write(struct file *file, const char *buf,
+-                                          size_t len, loff_t *off)
++static ssize_t
++mdt_rename_stats_seq_write(struct file *file, const char __user *buf,
++			   size_t len, loff_t *off)
+ {
+         struct seq_file *seq = file->private_data;
+         struct mdt_device *mdt = seq->private;
+@@ -156,7 +157,6 @@ static ssize_t mdt_rename_stats_seq_write(struct file *file, const char *buf,
  
          return len;
  }
@@ -639,12 +651,13 @@ index 0ee5148..a895d57 100644
  LPROC_SEQ_FOPS(mdt_rename_stats);
  
  static int lproc_mdt_attach_rename_seqstat(struct mdt_device *mdt)
-@@ -213,143 +212,76 @@ void mdt_rename_counter_tally(struct mdt_thread_info *info,
+@@ -213,145 +213,77 @@ void mdt_rename_counter_tally(struct mdt_thread_info *info,
                                (unsigned int)ma->ma_attr.la_size);
  }
  
 -int mdt_procfs_init(struct mdt_device *mdt, const char *name)
--{
++static int mdt_identity_expire_seq_show(struct seq_file *m, void *data)
+ {
 -	struct obd_device		*obd = mdt2obd_dev(mdt);
 -	struct lprocfs_static_vars	 lvars;
 -	int				 rc;
@@ -685,73 +698,45 @@ index 0ee5148..a895d57 100644
 -	if (rc)
 -		CERROR("%s: MDT can not create rename stats rc = %d\n",
 -		       mdt_obd_name(mdt), rc);
--
++	struct obd_device *obd = m->private;
++	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 
 -	RETURN(rc);
--}
--
++	return seq_printf(m, "%u\n", mdt->mdt_identity_cache->uc_entry_expire);
+ }
+ 
 -void mdt_procfs_fini(struct mdt_device *mdt)
-+static int mdt_identity_expire_seq_show(struct seq_file *m, void *data)
++static ssize_t
++mdt_identity_expire_seq_write(struct file *file, const char __user *buffer,
++			      size_t count, loff_t *off)
  {
 -	struct obd_device *obd = mdt2obd_dev(mdt);
--
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
++	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
++	int rc, val;
+ 
 -	if (obd->obd_proc_exports_entry != NULL) {
 -		lprocfs_remove_proc_entry("clear", obd->obd_proc_exports_entry);
 -		obd->obd_proc_exports_entry = NULL;
 -	}
--
++	rc = lprocfs_write_helper(buffer, count, &val);
++	if (rc)
++		return rc;
+ 
 -	lprocfs_free_per_client_stats(obd);
 -	hsm_cdt_procfs_fini(mdt);
 -	lprocfs_obd_cleanup(obd);
 -	lprocfs_free_md_stats(obd);
 -	lprocfs_free_obd_stats(obd);
 -	lprocfs_job_stats_fini(obd);
--}
--
--static int lprocfs_rd_identity_expire(char *page, char **start, off_t off,
--                                      int count, int *eof, void *data)
--{
--        struct obd_device *obd = data;
--        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
-+	struct obd_device *obd = m->private;
-+	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
- 
--        *eof = 1;
--        return snprintf(page, count, "%u\n",
--                        mdt->mdt_identity_cache->uc_entry_expire);
-+	return seq_printf(m, "%u\n", mdt->mdt_identity_cache->uc_entry_expire);
- }
- 
--static int lprocfs_wr_identity_expire(struct file *file, const char *buffer,
--                                      unsigned long count, void *data)
-+static ssize_t
-+mdt_identity_expire_seq_write(struct file *file, const char *buffer,
-+				size_t count, loff_t *off)
- {
--        struct obd_device *obd = data;
--        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
--        int rc, val;
-+	struct seq_file	  *m = file->private_data;
-+	struct obd_device *obd = m->private;
-+	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
-+	int rc, val;
- 
--        rc = lprocfs_write_helper(buffer, count, &val);
--        if (rc)
--                return rc;
-+	rc = lprocfs_write_helper(buffer, count, &val);
-+	if (rc)
-+		return rc;
- 
--        mdt->mdt_identity_cache->uc_entry_expire = val;
--        return count;
 +	mdt->mdt_identity_cache->uc_entry_expire = val;
 +	return count;
  }
 +LPROC_SEQ_FOPS(mdt_identity_expire);
  
--static int lprocfs_rd_identity_acquire_expire(char *page, char **start,
--                                              off_t off, int count, int *eof,
--                                              void *data)
+-static int lprocfs_rd_identity_expire(char *page, char **start, off_t off,
+-                                      int count, int *eof, void *data)
 +static int mdt_identity_acquire_expire_seq_show(struct seq_file *m, void *data)
  {
 -        struct obd_device *obd = data;
@@ -761,18 +746,46 @@ index 0ee5148..a895d57 100644
  
 -        *eof = 1;
 -        return snprintf(page, count, "%u\n",
--                        mdt->mdt_identity_cache->uc_acquire_expire);
+-                        mdt->mdt_identity_cache->uc_entry_expire);
 +	return seq_printf(m, "%u\n", mdt->mdt_identity_cache->uc_acquire_expire);
  }
  
--static int lprocfs_wr_identity_acquire_expire(struct file *file,
--                                              const char *buffer,
--                                              unsigned long count,
--                                              void *data)
+-static int lprocfs_wr_identity_expire(struct file *file,
 +static ssize_t
-+mdt_identity_acquire_expire_seq_write(struct file *file, const char *buffer,
-+					size_t count, loff_t *off)
++mdt_identity_acquire_expire_seq_write(struct file *file,
+ 				      const char __user *buffer,
+-				      unsigned long count, void *data)
+-{
+-        struct obd_device *obd = data;
+-        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+-        int rc, val;
+-
+-        rc = lprocfs_write_helper(buffer, count, &val);
+-        if (rc)
+-                return rc;
+-
+-        mdt->mdt_identity_cache->uc_entry_expire = val;
+-        return count;
+-}
+-
+-static int lprocfs_rd_identity_acquire_expire(char *page, char **start,
+-                                              off_t off, int count, int *eof,
+-                                              void *data)
++				      size_t count, loff_t *off)
  {
+-        struct obd_device *obd = data;
+-        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+-
+-        *eof = 1;
+-        return snprintf(page, count, "%u\n",
+-                        mdt->mdt_identity_cache->uc_acquire_expire);
+-}
+-
+-static int lprocfs_wr_identity_acquire_expire(struct file *file,
+-					      const char __user *buffer,
+-					      unsigned long count,
+-					      void *data)
+-{
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        int rc, val;
@@ -816,11 +829,12 @@ index 0ee5148..a895d57 100644
 +	return 0;
  }
  
--static int lprocfs_wr_identity_upcall(struct file *file, const char *buffer,
+-static int lprocfs_wr_identity_upcall(struct file *file,
+-				      const char __user *buffer,
 -				      unsigned long count, void *data)
 +static ssize_t
-+mdt_identity_upcall_seq_write(struct file *file, const char *buffer,
-+				size_t count, loff_t *off)
++mdt_identity_upcall_seq_write(struct file *file, const char __user *buffer,
++			      size_t count, loff_t *off)
  {
 -	struct obd_device	*obd = data;
 +	struct seq_file		*m = file->private_data;
@@ -828,34 +842,46 @@ index 0ee5148..a895d57 100644
  	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
  	struct upcall_cache	*hash = mdt->mdt_identity_cache;
  	int			 rc;
-@@ -388,11 +320,14 @@ static int lprocfs_wr_identity_upcall(struct file *file, const char *buffer,
+@@ -390,28 +322,32 @@ static int lprocfs_wr_identity_upcall(struct file *file,
  		OBD_FREE(kernbuf, count + 1);
  	RETURN(rc);
  }
 +LPROC_SEQ_FOPS(mdt_identity_upcall);
  
--static int lprocfs_wr_identity_flush(struct file *file, const char *buffer,
--                                     unsigned long count, void *data)
+-static int lprocfs_wr_identity_flush(struct file *file,
+-				     const char __user *buffer,
+-				     unsigned long count, void *data)
 +static ssize_t
-+lprocfs_identity_flush_seq_write(struct file *file, const char *buffer,
++lprocfs_identity_flush_seq_write(struct file *file, const char __user *buffer,
 +				 size_t count, void *data)
  {
 -        struct obd_device *obd = data;
-+	struct seq_file	  *m = file->private_data;
+-        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+-        int rc, uid;
++	struct seq_file   *m = file->private_data;
 +	struct obd_device *obd = m->private;
-         struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
-         int rc, uid;
++	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
++	int rc, uid;
  
-@@ -403,11 +338,14 @@ static int lprocfs_wr_identity_flush(struct file *file, const char *buffer,
-         mdt_flush_identity(mdt->mdt_identity_cache, uid);
-         return count;
+-        rc = lprocfs_write_helper(buffer, count, &uid);
+-        if (rc)
+-                return rc;
++	rc = lprocfs_write_helper(buffer, count, &uid);
++	if (rc)
++		return rc;
+ 
+-        mdt_flush_identity(mdt->mdt_identity_cache, uid);
+-        return count;
++	mdt_flush_identity(mdt->mdt_identity_cache, uid);
++	return count;
  }
 +LPROC_SEQ_FOPS_WO_TYPE(mdt, identity_flush);
  
--static int lprocfs_wr_identity_info(struct file *file, const char *buffer,
+-static int lprocfs_wr_identity_info(struct file *file,
+-				    const char __user *buffer,
 -				    unsigned long count, void *data)
 +static ssize_t
-+lprocfs_identity_info_seq_write(struct file *file, const char *buffer,
++lprocfs_identity_info_seq_write(struct file *file, const char __user *buffer,
 +				size_t count, void *data)
  {
 -	struct obd_device *obd = data;
@@ -864,7 +890,7 @@ index 0ee5148..a895d57 100644
  	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
  	struct identity_downcall_data *param;
  	int size = sizeof(*param), rc, checked = 0;
-@@ -415,7 +353,7 @@ static int lprocfs_wr_identity_info(struct file *file, const char *buffer,
+@@ -419,7 +355,7 @@ static int lprocfs_wr_identity_info(struct file *file,
  again:
  	if (count < size) {
  		CERROR("%s: invalid data count = %lu, size = %d\n",
@@ -873,7 +899,7 @@ index 0ee5148..a895d57 100644
  		return -EINVAL;
  	}
  
-@@ -468,23 +406,25 @@ out:
+@@ -472,23 +408,25 @@ out:
  
  	return rc ? rc : count;
  }
@@ -889,24 +915,26 @@ index 0ee5148..a895d57 100644
  	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
  
 -	return snprintf(page, count, "capability on: %s %s\n",
+-			mdt->mdt_lut.lut_oss_capa ? "oss" : "",
+-			mdt->mdt_lut.lut_mds_capa ? "mds" : "");
 +	return seq_printf(m, "capability on: %s %s\n",
- 			mdt->mdt_lut.lut_oss_capa ? "oss" : "",
- 			mdt->mdt_lut.lut_mds_capa ? "mds" : "");
++			  mdt->mdt_lut.lut_oss_capa ? "oss" : "",
++			  mdt->mdt_lut.lut_mds_capa ? "mds" : "");
  }
  
--static int lprocfs_wr_capa(struct file *file, const char *buffer,
+-static int lprocfs_wr_capa(struct file *file, const char __user *buffer,
 -			   unsigned long count, void *data)
 +static ssize_t
-+mdt_capa_seq_write(struct file *file, const char *buffer,
-+			size_t count, loff_t *off)
++mdt_capa_seq_write(struct file *file, const char __user *buffer,
++		   size_t count, loff_t *off)
  {
 -	struct obd_device *obd = data;
-+	struct seq_file	  *m = file->private_data;
++	struct seq_file   *m = file->private_data;
 +	struct obd_device *obd = m->private;
  	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
  	int val, rc;
  
-@@ -521,64 +461,67 @@ static int lprocfs_wr_capa(struct file *file, const char *buffer,
+@@ -525,82 +463,87 @@ static int lprocfs_wr_capa(struct file *file, const char __user *buffer,
  		      mdt->mdt_lut.lut_oss_capa ? "enabled" : "disabled");
  	return count;
  }
@@ -951,16 +979,16 @@ index 0ee5148..a895d57 100644
 +	return seq_printf(m, "%lu\n", mdt->mdt_capa_timeout);
  }
  
--static int lprocfs_wr_capa_timeout(struct file *file, const char *buffer,
--                                   unsigned long count, void *data)
+-static int lprocfs_wr_capa_timeout(struct file *file, const char __user *buffer,
+-				   unsigned long count, void *data)
 +static ssize_t
-+mdt_capa_timeout_seq_write(struct file *file, const char *buffer,
++mdt_capa_timeout_seq_write(struct file *file, const char __user *buffer,
 +			   size_t count, loff_t *off)
  {
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        int val, rc;
-+	struct seq_file	  *m = file->private_data;
++	struct seq_file   *m = file->private_data;
 +	struct obd_device *obd = m->private;
 +	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 +	int val, rc;
@@ -994,39 +1022,54 @@ index 0ee5148..a895d57 100644
 +	return seq_printf(m, "%lu\n", mdt->mdt_ck_timeout);
  }
  
--static int lprocfs_wr_ck_timeout(struct file *file, const char *buffer,
--                                 unsigned long count, void *data)
+-static int lprocfs_wr_ck_timeout(struct file *file, const char __user *buffer,
+-				 unsigned long count, void *data)
 +static ssize_t
-+mdt_ck_timeout_seq_write(struct file *file, const char *buffer,
++mdt_ck_timeout_seq_write(struct file *file, const char __user *buffer,
 +			 size_t count, loff_t *off)
  {
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        int val, rc;
-+	struct seq_file		*m = file->private_data;
-+	struct obd_device	*obd = m->private;
-+	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
++	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 +	int val, rc;
  
-         rc = lprocfs_write_helper(buffer, count, &val);
-         if (rc)
-@@ -588,11 +531,13 @@ static int lprocfs_wr_ck_timeout(struct file *file, const char *buffer,
-         mdt->mdt_capa_conf = 1;
-         return count;
+-        rc = lprocfs_write_helper(buffer, count, &val);
+-        if (rc)
+-                return rc;
++	rc = lprocfs_write_helper(buffer, count, &val);
++	if (rc)
++		return rc;
+ 
+-        mdt->mdt_ck_timeout = (unsigned long)val;
+-        mdt->mdt_capa_conf = 1;
+-        return count;
++	mdt->mdt_ck_timeout = (unsigned long)val;
++	mdt->mdt_capa_conf = 1;
++	return count;
  }
 +LPROC_SEQ_FOPS(mdt_ck_timeout);
  
  #define BUFLEN (UUID_MAX + 4)
  
--static int lprocfs_mdt_wr_evict_client(struct file *file, const char *buffer,
--                                       unsigned long count, void *data)
+-static int lprocfs_mdt_wr_evict_client(struct file *file,
+-				       const char __user *buffer,
+-				       unsigned long count, void *data)
 +static ssize_t
-+lprocfs_mds_evict_client_seq_write(struct file *file, const char *buffer,
++lprocfs_mds_evict_client_seq_write(struct file *file,
++				   const char __user *buffer,
 +				   size_t count, loff_t *off)
  {
-         char *kbuf;
-         char *tmpbuf;
-@@ -614,7 +559,8 @@ static int lprocfs_mdt_wr_evict_client(struct file *file, const char *buffer,
+-        char *kbuf;
+-        char *tmpbuf;
++	char *kbuf;
++	char *tmpbuf;
+ 
+         OBD_ALLOC(kbuf, BUFLEN);
+         if (kbuf == NULL)
+@@ -619,7 +562,8 @@ static int lprocfs_mdt_wr_evict_client(struct file *file,
          tmpbuf = cfs_firststr(kbuf, min_t(unsigned long, BUFLEN - 1, count));
  
          if (strncmp(tmpbuf, "nid:", 4) != 0) {
@@ -1036,7 +1079,7 @@ index 0ee5148..a895d57 100644
                  goto out;
          }
  
-@@ -627,21 +573,22 @@ out:
+@@ -632,21 +576,22 @@ out:
  
  #undef BUFLEN
  
@@ -1053,23 +1096,23 @@ index 0ee5148..a895d57 100644
 +	return seq_printf(m, "%d\n", mdt->mdt_lut.lut_sec_level);
  }
  
--static int lprocfs_wr_sec_level(struct file *file, const char *buffer,
--                                unsigned long count, void *data)
+-static int lprocfs_wr_sec_level(struct file *file, const char __user *buffer,
+-				unsigned long count, void *data)
 +static ssize_t
-+mdt_sec_level_seq_write(struct file *file, const char *buffer,
++mdt_sec_level_seq_write(struct file *file, const char __user *buffer,
 +			size_t count, loff_t *off)
  {
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        int val, rc;
-+	struct seq_file		*m = file->private_data;
-+	struct obd_device	*obd = m->private;
-+	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
++	struct seq_file	  *m = file->private_data;
++	struct obd_device *obd = m->private;
++	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 +	int val, rc;
  
          rc = lprocfs_write_helper(buffer, count, &val);
          if (rc)
-@@ -659,22 +606,24 @@ static int lprocfs_wr_sec_level(struct file *file, const char *buffer,
+@@ -664,102 +609,110 @@ static int lprocfs_wr_sec_level(struct file *file, const char __user *buffer,
  	mdt->mdt_lut.lut_sec_level = val;
  	return count;
  }
@@ -1088,102 +1131,108 @@ index 0ee5148..a895d57 100644
 +	return seq_printf(m, "%u\n", mdt_cos_is_enabled(mdt));
  }
  
--static int lprocfs_wr_cos(struct file *file, const char *buffer,
--                                  unsigned long count, void *data)
+-static int lprocfs_wr_cos(struct file *file, const char __user *buffer,
+-			  unsigned long count, void *data)
 +static ssize_t
-+mdt_cos_seq_write(struct file *file, const char *buffer,
++mdt_cos_seq_write(struct file *file, const char __user *buffer,
 +		  size_t count, loff_t *off)
  {
 -        struct obd_device *obd = data;
 -        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 -        int val, rc;
-+	struct seq_file		*m = file->private_data;
-+	struct obd_device	*obd = m->private;
-+	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
++	struct seq_file   *m = file->private_data;
++	struct obd_device *obd = m->private;
++	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
 +	int val, rc;
  
-         rc = lprocfs_write_helper(buffer, count, &val);
-         if (rc)
-@@ -682,15 +631,15 @@ static int lprocfs_wr_cos(struct file *file, const char *buffer,
-         mdt_enable_cos(mdt, val);
-         return count;
+-        rc = lprocfs_write_helper(buffer, count, &val);
+-        if (rc)
+-                return rc;
+-        mdt_enable_cos(mdt, val);
+-        return count;
++	rc = lprocfs_write_helper(buffer, count, &val);
++	if (rc)
++		return rc;
++	mdt_enable_cos(mdt, val);
++	return count;
  }
 +LPROC_SEQ_FOPS(mdt_cos);
  
--static int lprocfs_rd_root_squash(char *page, char **start, off_t off,
--                                  int count, int *eof, void *data)
+-static int lprocfs_rd_mdt_root_squash(char *page, char **start, off_t off,
+-				      int count, int *eof, void *data)
 +static int mdt_root_squash_seq_show(struct seq_file *m, void *data)
  {
--        struct obd_device *obd = data;
--        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+-	struct obd_device *obd = data;
 +	struct obd_device *obd = m->private;
-+	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 	struct root_squash_info *squash = &mdt->mdt_squash;
  
--        return snprintf(page, count, "%u:%u\n", mdt->mdt_squash_uid,
--                        mdt->mdt_squash_gid);
-+	return seq_printf(m, "%u:%u\n", mdt->mdt_squash_uid,
-+			  mdt->mdt_squash_gid);
+-	return snprintf(page, count, "%u:%u\n", squash->rsi_uid,
+-			squash->rsi_gid);
++	return seq_printf(m, "%u:%u\n", squash->rsi_uid,
++			  squash->rsi_gid);
  }
  
- static int safe_strtoul(const char *str, char **endp, unsigned long *res)
-@@ -708,11 +657,13 @@ static int safe_strtoul(const char *str, char **endp, unsigned long *res)
-         return 0;
- }
- 
--static int lprocfs_wr_root_squash(struct file *file, const char *buffer,
--				  unsigned long count, void *data)
+-static int lprocfs_wr_mdt_root_squash(struct file *file,
+-				      const char __user *buffer,
+-				      unsigned long count, void *data)
 +static ssize_t
-+mdt_root_squash_seq_write(struct file *file, const char *buffer,
++mdt_root_squash_seq_write(struct file *file, const char __user *buffer,
 +			  size_t count, loff_t *off)
  {
 -	struct obd_device *obd = data;
--	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
-+	struct seq_file		*m = file->private_data;
-+	struct obd_device	*obd = m->private;
-+	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
- 	int rc;
- 	char kernbuf[50], *tmp, *end, *errmsg;
- 	unsigned long uid, gid;
-@@ -765,23 +716,25 @@ failed:
- 	      mdt_obd_name(mdt), buffer, errmsg, rc);
- 	RETURN(rc);
++	struct seq_file   *m = file->private_data;
++	struct obd_device *obd = m->private;
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 	struct root_squash_info *squash = &mdt->mdt_squash;
+ 
+ 	return lprocfs_wr_root_squash(buffer, count, squash,
+ 				      mdt_obd_name(mdt));
  }
 +LPROC_SEQ_FOPS(mdt_root_squash);
  
--static int lprocfs_rd_nosquash_nids(char *page, char **start, off_t off,
--                                    int count, int *eof, void *data)
+-static int lprocfs_rd_mdt_nosquash_nids(char *page, char **start, off_t off,
+-					int count, int *eof, void *data)
 +static int mdt_nosquash_nids_seq_show(struct seq_file *m, void *data)
  {
--        struct obd_device *obd = data;
--        struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+-	struct obd_device *obd = data;
 +	struct obd_device *obd = m->private;
-+	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 	struct root_squash_info *squash = &mdt->mdt_squash;
+-	int rc;
++	int len = 0, rc;
  
--        if (mdt->mdt_nosquash_str)
--                return snprintf(page, count, "%s\n", mdt->mdt_nosquash_str);
--        return snprintf(page, count, "NONE\n");
-+	if (mdt->mdt_nosquash_str)
-+		return seq_printf(m, "%s\n", mdt->mdt_nosquash_str);
-+	return seq_printf(m, "NONE\n");
+ 	down_read(&squash->rsi_sem);
+ 	if (!list_empty(&squash->rsi_nosquash_nids)) {
+-		rc = cfs_print_nidlist(page, count, &squash->rsi_nosquash_nids);
+-		rc += snprintf(page + rc, count - rc, "\n");
++		len = cfs_print_nidlist(m->buf + m->count, m->size - m->count,
++					&squash->rsi_nosquash_nids);
++		m->count += len;
++		rc = seq_printf(m, "\n");
+ 	} else
+-		rc = snprintf(page, count, "NONE\n");
++		rc = seq_printf(m, "NONE\n");
+ 	up_read(&squash->rsi_sem);
+ 
+ 	return rc;
  }
  
--static int lprocfs_wr_nosquash_nids(struct file *file, const char *buffer,
--				    unsigned long count, void *data)
+-static int lprocfs_wr_mdt_nosquash_nids(struct file *file,
+-					const char __user *buffer,
+-					unsigned long count, void *data)
 +static ssize_t
-+mdt_nosquash_nids_seq_write(struct file *file, const char *buffer,
++mdt_nosquash_nids_seq_write(struct file *file, const char __user *buffer,
 +			    size_t count, loff_t *off)
  {
 -	struct obd_device *obd = data;
--	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
-+	struct seq_file		*m = file->private_data;
-+	struct obd_device	*obd = m->private;
-+	struct mdt_device	*mdt = mdt_dev(obd->obd_lu_dev);
- 	int rc;
- 	char *kernbuf, *errmsg;
- 	cfs_list_t tmp;
-@@ -842,25 +795,27 @@ failed:
- 		OBD_FREE(kernbuf, count + 1);
- 	RETURN(rc);
++	struct seq_file   *m = file->private_data;
++	struct obd_device *obd = m->private;
+ 	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
+ 	struct root_squash_info *squash = &mdt->mdt_squash;
+ 
+ 	return lprocfs_wr_nosquash_nids(buffer, count, squash,
+ 					mdt_obd_name(mdt));
  }
 +LPROC_SEQ_FOPS(mdt_nosquash_nids);
  
@@ -1202,10 +1251,10 @@ index 0ee5148..a895d57 100644
 +			  mdt->mdt_som_conf ? "en" : "dis");
  }
  
--static int lprocfs_wr_mdt_som(struct file *file, const char *buffer,
--                              unsigned long count, void *data)
+-static int lprocfs_wr_mdt_som(struct file *file, const char __user *buffer,
+-			      unsigned long count, void *data)
 +static ssize_t
-+mdt_som_seq_write(struct file *file, const char *buffer,
++mdt_som_seq_write(struct file *file, const char __user *buffer,
 +		  size_t count, loff_t *off)
  {
 -        struct obd_export *exp;
@@ -1222,7 +1271,7 @@ index 0ee5148..a895d57 100644
  
          if (count > (sizeof(kernbuf) - 1))
                  return -EINVAL;
-@@ -902,20 +857,22 @@ static int lprocfs_wr_mdt_som(struct file *file, const char *buffer,
+@@ -801,21 +754,22 @@ static int lprocfs_wr_mdt_som(struct file *file, const char __user *buffer,
  
          return count;
  }
@@ -1240,19 +1289,20 @@ index 0ee5148..a895d57 100644
 +	return seq_printf(m, "%u\n", mdt->mdt_enable_remote_dir);
  }
  
--static int lprocfs_wr_enable_remote_dir(struct file *file, const char *buffer,
+-static int lprocfs_wr_enable_remote_dir(struct file *file,
+-					const char __user *buffer,
 -					unsigned long count, void *data)
 +static ssize_t
-+mdt_enable_remote_dir_seq_write(struct file *file, const char *buffer,
++mdt_enable_remote_dir_seq_write(struct file *file, const char __user *buffer,
 +				size_t count, loff_t *off)
  {
 -	struct obd_device *obd = data;
-+	struct seq_file	  *m = file->private_data;
++	struct seq_file   *m = file->private_data;
 +	struct obd_device *obd = m->private;
  	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
  	__u32 val;
  	int rc;
-@@ -930,22 +887,23 @@ static int lprocfs_wr_enable_remote_dir(struct file *file, const char *buffer,
+@@ -830,22 +784,24 @@ static int lprocfs_wr_enable_remote_dir(struct file *file,
  	mdt->mdt_enable_remote_dir = val;
  	return count;
  }
@@ -1273,19 +1323,20 @@ index 0ee5148..a895d57 100644
  }
  
 -static int lprocfs_wr_enable_remote_dir_gid(struct file *file,
--					    const char *buffer,
+-					    const char __user *buffer,
 -					    unsigned long count, void *data)
 +static ssize_t
-+mdt_enable_remote_dir_gid_seq_write(struct file *file, const char *buffer,
++mdt_enable_remote_dir_gid_seq_write(struct file *file,
++				    const char __user *buffer,
 +				    size_t count, loff_t *off)
  {
 -	struct obd_device *obd = data;
-+	struct seq_file	  *m = file->private_data;
++	struct seq_file   *m = file->private_data;
 +	struct obd_device *obd = m->private;
  	struct mdt_device *mdt = mdt_dev(obd->obd_lu_dev);
  	__u32 val;
  	int rc;
-@@ -957,97 +915,72 @@ static int lprocfs_wr_enable_remote_dir_gid(struct file *file,
+@@ -857,97 +813,72 @@ static int lprocfs_wr_enable_remote_dir_gid(struct file *file,
  	mdt->mdt_enable_remote_dir_gid = val;
  	return count;
  }
@@ -1332,11 +1383,11 @@ index 0ee5148..a895d57 100644
 -					NULL, NULL, 0 },
 -	{ "commit_on_sharing",		lprocfs_rd_cos, lprocfs_wr_cos,
 -					NULL, NULL, 0 },
--	{ "root_squash",		lprocfs_rd_root_squash,
--					lprocfs_wr_root_squash,
+-	{ "root_squash",		lprocfs_rd_mdt_root_squash,
+-					lprocfs_wr_mdt_root_squash,
 -					NULL, NULL, 0 },
--	{ "nosquash_nids",		lprocfs_rd_nosquash_nids,
--					lprocfs_wr_nosquash_nids,
+-	{ "nosquash_nids",		lprocfs_rd_mdt_nosquash_nids,
+-					lprocfs_wr_mdt_nosquash_nids,
 -					NULL, NULL, 0 },
 -	{ "som",			lprocfs_rd_mdt_som,
 -					lprocfs_wr_mdt_som,
@@ -1394,62 +1445,62 @@ index 0ee5148..a895d57 100644
 +LPROC_SEQ_FOPS(mdt_hsm_cdt_control);
 +
 +static struct lprocfs_seq_vars lprocfs_mdt_obd_vars[] = {
-+	{ .name	=	"uuid",
-+	  .fops	=	&mdt_uuid_fops				},
-+	{ .name	=	"recovery_status",
-+	  .fops	=	&mdt_recovery_status_fops		},
-+	{ .name	=	"num_exports",
-+	  .fops	=	&mdt_num_exports_fops			},
-+	{ .name	=	"identity_expire",
-+	  .fops	=	&mdt_identity_expire_fops		},
-+	{ .name	=	"identity_acquire_expire",
-+	  .fops	=	&mdt_identity_acquire_expire_fops	},
-+	{ .name	=	"identity_upcall",
-+	  .fops	=	&mdt_identity_upcall_fops		},
-+	{ .name	=	"identity_flush",
-+	  .fops	=	&mdt_identity_flush_fops		},
-+	{ .name	=	"identity_info",
-+	  .fops	=	&mdt_identity_info_fops			},
-+	{ .name	=	"capa",
-+	  .fops	=	&mdt_capa_fops				},
-+	{ .name	=	"capa_timeout",
-+	  .fops	=	&mdt_capa_timeout_fops			},
-+	{ .name	=	"capa_key_timeout",
-+	  .fops	=	&mdt_ck_timeout_fops			},
-+	{ .name	=	"capa_count",
-+	  .fops	=	&mdt_capa_count_fops			},
-+	{ .name	=	"site_stats",
-+	  .fops	=	&mdt_site_stats_fops			},
-+	{ .name	=	"evict_client",
-+	  .fops	=	&mdt_mds_evict_client_fops		},
-+	{ .name	=	"hash_stats",
-+	  .fops	=	&mdt_hash_fops				},
-+	{ .name	=	"sec_level",
-+	  .fops	=	&mdt_sec_level_fops			},
-+	{ .name	=	"commit_on_sharing",
-+	  .fops	=	&mdt_cos_fops				},
-+	{ .name	=	"root_squash",
-+	  .fops	=	&mdt_root_squash_fops			},
-+	{ .name	=	"nosquash_nids",
-+	  .fops	=	&mdt_nosquash_nids_fops			},
-+	{ .name	=	"som",
-+	  .fops	=	&mdt_som_fops				},
-+	{ .name	=	"instance",
-+	  .fops	=	&mdt_target_instance_fops		},
-+	{ .name	=	"ir_factor",
-+	  .fops	=	&mdt_ir_factor_fops			},
-+	{ .name	=	"job_cleanup_interval",
-+	  .fops	=	&mdt_job_interval_fops			},
-+	{ .name	=	"enable_remote_dir",
-+	  .fops	=	&mdt_enable_remote_dir_fops		},
-+	{ .name	=	"enable_remote_dir_gid",
-+	  .fops	=	&mdt_enable_remote_dir_gid_fops		},
-+	{ .name	=	"hsm_control",
-+	  .fops	=	&mdt_hsm_cdt_control_fops		},
++	{ .name =	"uuid",
++	  .fops =	&mdt_uuid_fops				},
++	{ .name =	"recovery_status",
++	  .fops =	&mdt_recovery_status_fops		},
++	{ .name =	"num_exports",
++	  .fops =	&mdt_num_exports_fops			},
++	{ .name =	"identity_expire",
++	  .fops =	&mdt_identity_expire_fops		},
++	{ .name =	"identity_acquire_expire",
++	  .fops =	&mdt_identity_acquire_expire_fops	},
++	{ .name =	"identity_upcall",
++	  .fops =	&mdt_identity_upcall_fops		},
++	{ .name =	"identity_flush",
++	  .fops =	&mdt_identity_flush_fops		},
++	{ .name =	"identity_info",
++	  .fops =	&mdt_identity_info_fops			},
++	{ .name =	"capa",
++	  .fops =	&mdt_capa_fops				},
++	{ .name =	"capa_timeout",
++	  .fops =	&mdt_capa_timeout_fops			},
++	{ .name =	"capa_key_timeout",
++	  .fops =	&mdt_ck_timeout_fops			},
++	{ .name =	"capa_count",
++	  .fops =	&mdt_capa_count_fops			},
++	{ .name =	"site_stats",
++	  .fops =	&mdt_site_stats_fops			},
++	{ .name =	"evict_client",
++	  .fops =	&mdt_mds_evict_client_fops		},
++	{ .name =	"hash_stats",
++	  .fops =	&mdt_hash_fops				},
++	{ .name =	"sec_level",
++	  .fops =	&mdt_sec_level_fops			},
++	{ .name =	"commit_on_sharing",
++	  .fops =	&mdt_cos_fops				},
++	{ .name =	"root_squash",
++	  .fops =	&mdt_root_squash_fops			},
++	{ .name =	"nosquash_nids",
++	  .fops =	&mdt_nosquash_nids_fops			},
++	{ .name =	"som",
++	  .fops =	&mdt_som_fops				},
++	{ .name =	"instance",
++	  .fops =	&mdt_target_instance_fops		},
++	{ .name =	"ir_factor",
++	  .fops =	&mdt_ir_factor_fops			},
++	{ .name =	"job_cleanup_interval",
++	  .fops =	&mdt_job_interval_fops			},
++	{ .name =	"enable_remote_dir",
++	  .fops =	&mdt_enable_remote_dir_fops		},
++	{ .name =	"enable_remote_dir_gid",
++	  .fops =	&mdt_enable_remote_dir_gid_fops		},
++	{ .name =	"hsm_control",
++	  .fops =	&mdt_hsm_cdt_control_fops		},
  	{ 0 }
  };
  
-@@ -1085,21 +1018,15 @@ int lprocfs_mdt_open_files_seq_show(struct seq_file *seq, void *v)
+@@ -985,21 +916,15 @@ int lprocfs_mdt_open_files_seq_show(struct seq_file *seq, void *v)
  
  int lprocfs_mdt_open_files_seq_open(struct inode *inode, struct file *file)
  {
@@ -1472,7 +1523,7 @@ index 0ee5148..a895d57 100644
  
  	return 0;
  }
-@@ -1140,3 +1067,67 @@ void mdt_stats_counter_init(struct lprocfs_stats *stats)
+@@ -1040,3 +965,67 @@ void mdt_stats_counter_init(struct lprocfs_stats *stats)
          lprocfs_counter_init(stats, LPROC_MDT_CROSSDIR_RENAME, 0,
                               "crossdir_rename", "reqs");
  }
@@ -1489,14 +1540,14 @@ index 0ee5148..a895d57 100644
 +	rc = lprocfs_seq_obd_setup(obd);
 +	if (rc) {
 +		CERROR("%s: cannot create proc entries: rc = %d\n",
-+			mdt_obd_name(mdt), rc);
++		       mdt_obd_name(mdt), rc);
 +		return rc;
 +	}
 +
 +	rc = hsm_cdt_procfs_init(mdt);
 +	if (rc) {
 +		CERROR("%s: cannot create hsm proc entries: rc = %d\n",
-+			mdt_obd_name(mdt), rc);
++		       mdt_obd_name(mdt), rc);
 +		return rc;
 +	}
 +
@@ -1578,5 +1629,5 @@ index 390164f..424ddf5 100644
  				   LUSTRE_MDS_NAME, &mds_device_type);
  }
 -- 
-1.9.1
+1.9.3
 
