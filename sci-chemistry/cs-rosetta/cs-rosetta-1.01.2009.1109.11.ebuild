@@ -20,7 +20,7 @@ IUSE="custom-cflags"
 
 RDEPEND="
 	dev-lang/perl
-	sci-biology/ncbi-tools++
+	|| ( sci-biology/update-blastdb sci-biology/ncbi-tools++ )
 	sci-biology/profphd
 	sci-biology/psipred
 	sci-biology/samtools
