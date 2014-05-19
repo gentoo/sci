@@ -12,7 +12,7 @@ DESCRIPTION="extensible, flexible, fast and parallel simulation software for sof
 HOMEPAGE="https://www.espresso-pp.de"
 
 if [[ ${PV} = 9999 ]]; then
-	EHG_REPO_URI="https://hg.berlios.de/repos/espressopp"
+	EHG_REPO_URI="https://bitbucket.org/${PN//+/p}/${PN//+/p}"
 	EHG_REVISION="default"
 	inherit mercurial
 	KEYWORDS=
@@ -22,9 +22,6 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
 fi
 
-EHP_OPTS="--config hostfingerprints.hg.berlios.de=f4:79:d2:17:f8:0c:9b:c2:6e:65:60:2a:49:0e:09:79:85:6d:4b:e3"
-EHG_CLONE_CMD="hg clone ${EHG_QUIET_CMD_OPT} ${EHP_OPTS} --pull --noupdate"
-EHG_PULL_CMD="hg pull ${EHG_QUIET_CMD_OPT} ${EHP_OPTS}"
 LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
