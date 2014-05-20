@@ -1,7 +1,7 @@
-From 8128e9daa5f394f97bcfcc3f1da0b8285754c5c4 Mon Sep 17 00:00:00 2001
+From 63f3f2e29c2745b3491712a4a3f7a868ec6ece8d Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Thu, 24 Apr 2014 12:04:57 -0400
-Subject: [PATCH 3/8] LU-3319 procfs: move osp proc handling to seq_files
+Subject: [PATCH 3/6] LU-3319 procfs: move osp proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the osp
@@ -818,7 +818,7 @@ index 0a1cafa..27e3011 100644
  	class_unregister_type(LUSTRE_OSP_NAME);
  	lu_kmem_fini(osp_caches);
 diff --git a/lustre/osp/osp_internal.h b/lustre/osp/osp_internal.h
-index e220914..d8d4a2b 100644
+index 3a5d0a6..f183955 100644
 --- a/lustre/osp/osp_internal.h
 +++ b/lustre/osp/osp_internal.h
 @@ -586,7 +586,6 @@ int osp_write_last_oid_seq_files(struct lu_env *env, struct osp_device *osp,

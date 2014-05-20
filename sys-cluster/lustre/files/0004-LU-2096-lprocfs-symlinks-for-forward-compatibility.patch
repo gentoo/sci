@@ -1,7 +1,7 @@
-From c12b96a679cfc5132b68e61c38e7756b9d02a59c Mon Sep 17 00:00:00 2001
+From ae21b1ad797973ad686dfc1c0cad8d313ddaf4d7 Mon Sep 17 00:00:00 2001
 From: Andreas Dilger <andreas.dilger@intel.com>
 Date: Tue, 6 May 2014 09:51:45 -0400
-Subject: [PATCH 6/8] LU-2096 lprocfs: symlinks for forward compatibility
+Subject: [PATCH 4/6] LU-2096 lprocfs: symlinks for forward compatibility
 
 Currently, the "ofd" device is still named "obdfilter" in the Lustre
 configuration and in /proc/fs/lustre.  It would be better to name it
@@ -36,7 +36,7 @@ Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
  6 files changed, 49 insertions(+), 7 deletions(-)
 
 diff --git a/lustre/include/obd.h b/lustre/include/obd.h
-index b161c115..78b5563 100644
+index 3abcc4d..a79c901 100644
 --- a/lustre/include/obd.h
 +++ b/lustre/include/obd.h
 @@ -516,8 +516,8 @@ struct niobuf_local {
@@ -51,10 +51,10 @@ index b161c115..78b5563 100644
  #define LUSTRE_LOV_NAME         "lov"
  #define LUSTRE_MGS_NAME         "mgs"
 diff --git a/lustre/mgs/mgs_llog.c b/lustre/mgs/mgs_llog.c
-index 55ffe90..c19ba7b4 100644
+index aca72e3..cd1174d 100644
 --- a/lustre/mgs/mgs_llog.c
 +++ b/lustre/mgs/mgs_llog.c
-@@ -2469,7 +2469,7 @@ static int mgs_write_log_ost(const struct lu_env *env,
+@@ -2450,7 +2450,7 @@ static int mgs_write_log_ost(const struct lu_env *env,
          }
  
          /*
@@ -63,7 +63,7 @@ index 55ffe90..c19ba7b4 100644
          setup /dev/loop2 ldiskfs f|n errors=remount-ro,user_xattr
          */
          if (class_find_param(ptr, PARAM_FAILMODE, &ptr) == 0)
-@@ -2485,7 +2485,7 @@ static int mgs_write_log_ost(const struct lu_env *env,
+@@ -2466,7 +2466,7 @@ static int mgs_write_log_ost(const struct lu_env *env,
                  snprintf(mti->mti_uuid, sizeof(mti->mti_uuid),
                           "%s_UUID", mti->mti_svname);
  	rc = record_attach(env, llh, mti->mti_svname,

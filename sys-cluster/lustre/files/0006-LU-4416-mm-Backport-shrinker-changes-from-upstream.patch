@@ -1,7 +1,7 @@
-From cec7352d2cf74e8124a499aac74b246baa888c3c Mon Sep 17 00:00:00 2001
+From 54b05aa8e43dd1c0ce1d7c78c8fea11e64bef099 Mon Sep 17 00:00:00 2001
 From: Yang Sheng <yang.sheng@intel.com>
 Date: Thu, 24 Apr 2014 11:43:09 +0800
-Subject: [PATCH 8/8] LU-4416 mm: Backport shrinker changes from upstream
+Subject: [PATCH 6/6] LU-4416 mm: Backport shrinker changes from upstream
 
 Convert shrinker to new count/scan API.
 --ptlrpc shrinker
@@ -22,7 +22,7 @@ Change-Id: Idbd7cd3b7488202e5e8f6fdf757ae6d20e28d642
  6 files changed, 338 insertions(+), 163 deletions(-)
 
 diff --git a/libcfs/autoconf/lustre-libcfs.m4 b/libcfs/autoconf/lustre-libcfs.m4
-index dba971d..840fcd5 100644
+index ac5c413..81c6d7f 100644
 --- a/libcfs/autoconf/lustre-libcfs.m4
 +++ b/libcfs/autoconf/lustre-libcfs.m4
 @@ -290,6 +290,22 @@ No crc32c pclmulqdq crypto api found, enable internal pclmulqdq based crc32c
