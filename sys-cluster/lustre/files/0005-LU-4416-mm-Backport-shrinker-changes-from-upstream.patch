@@ -1,7 +1,7 @@
-From 54b05aa8e43dd1c0ce1d7c78c8fea11e64bef099 Mon Sep 17 00:00:00 2001
+From 1d943d37d99ba9503561c341fc9cff5fcaa37441 Mon Sep 17 00:00:00 2001
 From: Yang Sheng <yang.sheng@intel.com>
 Date: Thu, 24 Apr 2014 11:43:09 +0800
-Subject: [PATCH 6/6] LU-4416 mm: Backport shrinker changes from upstream
+Subject: [PATCH 5/5] LU-4416 mm: Backport shrinker changes from upstream
 
 Convert shrinker to new count/scan API.
 --ptlrpc shrinker

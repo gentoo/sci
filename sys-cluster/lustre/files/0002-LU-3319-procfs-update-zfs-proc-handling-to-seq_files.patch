@@ -1,7 +1,7 @@
 From c16260bdb1cd63a50d37f2161279fc71b9e03efb Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Wed, 23 Apr 2014 09:31:09 -0400
-Subject: [PATCH 2/6] LU-3319 procfs: update zfs proc handling to seq_files
+Subject: [PATCH 2/5] LU-3319 procfs: update zfs proc handling to seq_files
 
 Migrate all zfs proc handling to using strictly seq_files.
 

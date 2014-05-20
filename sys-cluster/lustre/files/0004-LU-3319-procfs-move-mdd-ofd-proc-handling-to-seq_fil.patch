@@ -1,7 +1,7 @@
-From c96c9b415fa5863d1c0a64530d6df87cd67e8b9a Mon Sep 17 00:00:00 2001
+From 46c87e9a30b44d31a2551217da6818ffbb5eed02 Mon Sep 17 00:00:00 2001
 From: James Simmons <uja.ornl@gmail.com>
 Date: Mon, 5 May 2014 10:02:21 -0400
-Subject: [PATCH 5/6] LU-3319 procfs: move mdd/ofd proc handling to seq_files
+Subject: [PATCH 4/5] LU-3319 procfs: move mdd/ofd proc handling to seq_files
 
 With 3.10 linux kernel and above proc handling now only
 uses struct seq_files. This patch migrates the mdd/ofd
@@ -9,7 +9,6 @@ layer proc entries over to using seq_files.
 
 Signed-off-by: James Simmons <uja.ornl@gmail.com>
 Change-Id: I61b7df6bfd5efd0f12e3ca1a1813b7b62d493168
-Signed-off-by: Alexey Shvetsov <alexxy@gentoo.org>
 ---
  lustre/include/lustre_lfsck.h  |   6 +-
  lustre/lfsck/lfsck_internal.h  |   9 +-
@@ -1879,7 +1878,7 @@ index 359b373..fcde82a 100644
  {
  	LASSERT(stats && stats->ls_num >= LPROC_OFD_STATS_LAST);
 diff --git a/lustre/ofd/ofd_dev.c b/lustre/ofd/ofd_dev.c
-index b597b03..e186c41 100644
+index 0f0d51a..6172913 100644
 --- a/lustre/ofd/ofd_dev.c
 +++ b/lustre/ofd/ofd_dev.c
 @@ -239,8 +239,7 @@ static int ofd_process_config(const struct lu_env *env, struct lu_device *d,
@@ -2038,15 +2037,15 @@ index b597b03..e186c41 100644
  	lprocfs_free_per_client_stats(obd);
  	lprocfs_obd_cleanup(obd);
  	lprocfs_free_obd_stats(obd);
-@@ -2389,7 +2388,6 @@ static struct proc_dir_entry *ofd_symlink;
+@@ -2377,7 +2376,6 @@ static struct lu_device_type ofd_device_type = {
  
  int __init ofd_init(void)
  {
 -	struct lprocfs_static_vars	lvars;
- 	struct obd_type *type;
- 	int rc;
+ 	int				rc;
  
-@@ -2403,11 +2401,9 @@ int __init ofd_init(void)
+ 	rc = lu_kmem_init(ofd_caches);
+@@ -2390,11 +2388,9 @@ int __init ofd_init(void)
  		return(rc);
  	}
  
@@ -2058,12 +2057,12 @@ index b597b03..e186c41 100644
 +				 NULL,
  #endif
  				 LUSTRE_OST_NAME, &ofd_device_type);
- 
+ 	return rc;
 diff --git a/lustre/ofd/ofd_internal.h b/lustre/ofd/ofd_internal.h
-index 98a5cba..a630a9c 100644
+index 4f12506..2e75de5 100644
 --- a/lustre/ofd/ofd_internal.h
 +++ b/lustre/ofd/ofd_internal.h
-@@ -405,13 +405,9 @@ int ofd_txn_stop_cb(const struct lu_env *env, struct thandle *txn,
+@@ -403,13 +403,9 @@ int ofd_txn_stop_cb(const struct lu_env *env, struct thandle *txn,
  
  /* lproc_ofd.c */
  #ifdef LPROCFS
