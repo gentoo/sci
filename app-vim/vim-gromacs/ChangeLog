@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  21 May 2014; Reinis Danne <rei4dan@gmail.com> vim-gromacs-9999.ebuild:
+  Remove unnecessary pkg_preinst().
+
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> vim-gromacs-9999.ebuild,
   metadata.xml:
   Switch from git-2 to git-r3

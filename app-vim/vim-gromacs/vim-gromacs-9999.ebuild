@@ -21,8 +21,3 @@ IUSE=""
 
 VIM_PLUGIN_MESSAGES="filetype"
 
-pkg_preinst () {
-	# Remove git files
-	rm "${ED}/usr/share/vim/vimfiles/.gitignore" || die
-	rm -r "${ED}/usr/share/vim/vimfiles/.git" || die
-}
