@@ -33,7 +33,7 @@ PDEPEND="emacs? ( app-emacs/eselect-mode )
 	vim-syntax? ( app-vim/eselect-syntax )"
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-1.4.2-alternatives.patch
+	epatch "${FILESDIR}"/${P}-alternatives.patch
 	AT_M4DIR="." eautoreconf
 }
 
