@@ -6,6 +6,7 @@ EAPI=5
 
 WANT_AUTOCONF="2.5"
 WANT_AUTOMAKE="1.10"
+WANT_LIBTOOL="latest"
 
 if [[ $PV = *9999* ]]; then
 	KEYWORDS=""
@@ -63,6 +64,7 @@ src_prepare() {
 	for dir in $DIRS ; do
 		ACLOCAL_FLAGS="$ACLOCAL_FLAGS -I $dir/autoconf"
 	done
+	_elibtoolize -q
 	eaclocal -I config $ACLOCAL_FLAGS
 	eautoheader
 	eautomake

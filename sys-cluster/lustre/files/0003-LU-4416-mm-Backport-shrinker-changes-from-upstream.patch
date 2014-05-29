@@ -1,4 +1,4 @@
-From f11e6773afec21cd6976bad86b12b5de791ccda7 Mon Sep 17 00:00:00 2001
+From 871751ab815067744064132b76aaf4857c720fc9 Mon Sep 17 00:00:00 2001
 From: Yang Sheng <yang.sheng@intel.com>
 Date: Thu, 24 Apr 2014 11:43:09 +0800
 Subject: [PATCH 3/3] LU-4416 mm: Backport shrinker changes from upstream
