@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/ugene
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ugene-1.13.3 (01 Jun 2014)
+
+  01 Jun 2014; Alexey Shvetsov <alexxy@gentoo.org> +metadata.xml,
+  +ugene-1.13.3.ebuild:
+  Add new ebuild
