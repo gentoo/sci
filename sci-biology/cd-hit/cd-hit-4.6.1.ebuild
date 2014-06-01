@@ -27,7 +27,7 @@ pkg_setup() {
 src_prepare() {
 	tc-export CXX
 	use openmp || append-flags -DNO_OPENMP
-	#epatch "${FILESDIR}"/${PV}-gentoo.patch
+	epatch "${FILESDIR}"/${PV}-gentoo.patch
 }
 
 src_compile() {
