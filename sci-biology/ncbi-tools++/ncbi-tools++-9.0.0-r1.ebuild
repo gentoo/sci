@@ -18,6 +18,9 @@ SRC_URI="
 	ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools++/ARCHIVE/${MY_PV}/ncbi_cxx--${MY_PV}.tar.gz"
 #	http://dev.gentoo.org/~jlec/distfiles/${PN}-${PV#0.}-asneeded.patch.xz"
 
+# should also install ftp://ftp.ncbi.nlm.nih.gov/blast/db/taxdb.tar.gz
+# see http://www.biostars.org/p/76551/ and http://blastedbio.blogspot.cz/2012/05/blast-tabular-missing-descriptions.html
+
 LICENSE="public-domain"
 SLOT="0"
 IUSE="
@@ -281,6 +284,7 @@ src_configure() {
 #		--without-static \
 #		--with-dll \
 #		--with-mt \
+#		--with-openmp \
 #		--with-lfs \
 #		--prefix="${ED}"/usr \
 #		--libdir="${ED}"/usr/$(get_libdir)/"${PN}" \
