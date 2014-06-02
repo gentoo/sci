@@ -34,6 +34,7 @@ S="${WORKDIR}/${PN}"
 ESVN_BOOTSTRAP="autotools-utils_src_prepare"
 
 PATCHES=(
+	"${FILESDIR}"/${P}-clapack.patch
 	"${FILESDIR}"/${P}-out-of-source.patch
 	"${FILESDIR}"/${P}-link.patch
 	"${FILESDIR}"/${P}-respect.patch
