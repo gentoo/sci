@@ -17,9 +17,9 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="debug doc examples hdf5 static-libs"
 
 RDEPEND="
-	dev-libs/boost
-	sci-libs/gsl
-	hdf5? ( sci-libs/hdf5 )"
+	dev-libs/boost:0=
+	sci-libs/gsl:0=
+	hdf5? ( sci-libs/hdf5:0= )"
 DEPEND="${RDEPEND}"
 
 src_configure() {
