@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mkl-11.1.3.174 (02 Jun 2014)
+
+  02 Jun 2014; Justin Lecher <jlec@gentoo.org> +mkl-11.1.3.174.ebuild:
+  Version Bump
+
 *mkl-11.1.2.144 (24 Mar 2014)
 
   24 Mar 2014; Justin Lecher <jlec@gentoo.org> +mkl-11.1.2.144.ebuild:
