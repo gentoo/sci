@@ -2,6 +2,13 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*armadillo-4.300.8 (02 Jun 2014)
+
+  02 Jun 2014; Sébastien Fabbro <bicatali@gentoo.org> +armadillo-4.300.8.ebuild,
+  -armadillo-3.930.0.ebuild, -armadillo-4.100.2.ebuild,
+  -armadillo-4.300.0.ebuild, -files/armadillo-3.820.1-hdf5.patch:
+  Version bump
+
 *armadillo-4.300.0 (06 May 2014)
 
   06 May 2014; Sébastien Fabbro <bicatali@gentoo.org> +armadillo-4.300.0.ebuild:
