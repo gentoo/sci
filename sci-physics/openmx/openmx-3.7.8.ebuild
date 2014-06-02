@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils multilib toolchain-funcs fortran-2
 
-PATCHDATE="13Sep01"
+PATCHDATE="14Feb17"
 
 DESCRIPTION="Material eXplorer using DFT, NC pseudopotentials, and pseudo-atomic localized basis functions"
 HOMEPAGE="http://www.openmx-square.org/"

@@ -19,7 +19,7 @@ DEPEND="app-shells/tcsh"
 RDEPEND="dev-lang/berkeley_upc"
 
 src_prepare() {
-	epatch $FILESDIR/${P}-check-abi.patch
+	epatch "$FILESDIR/${P}-check-abi.patch"
 }
 
 src_compile() {
