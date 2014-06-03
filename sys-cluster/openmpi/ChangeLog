@@ -1,6 +1,11 @@
 # ChangeLog for sys-cluster/openmpi
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*openmpi-1.8.1 (03 Jun 2014)
+
+  03 Jun 2014; Justin Bronder <jsbronder@gentoo.org> +openmpi-1.8.1.ebuild:
+  Bump (#511018). Add dep on zlib and drop la files (#402095)
 
 *openmpi-1.6.5 (11 Jul 2013)
 
