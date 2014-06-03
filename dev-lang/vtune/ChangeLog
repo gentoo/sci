@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*vtune-13.1.17.353306 (02 Jun 2014)
+
+  02 Jun 2014; Justin Lecher <jlec@gentoo.org> +vtune-13.1.17.353306.ebuild:
+  Version BUmp
+
 *vtune-13.1.13.313935 (21 Feb 2014)
 
   21 Feb 2014; Justin Lecher <jlec@gentoo.org> +vtune-13.1.13.313935.ebuild:
