@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/biopython
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*biopython-1.63-r2 (03 Jun 2014)
+*biopython-1.64 (03 Jun 2014)
+
+  03 Jun 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +biopython-1.63-r2.ebuild, +biopython-1.64.ebuild, +metadata.xml:
+  sci-biology/biopython-1.64: version bump with some notable bugfixes
