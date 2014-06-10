@@ -11,3 +11,5 @@ Ask for help on irc in #gentoo-science @ freenode.
 
 Report bugs on the [github issues site](https://github.com/gentoo-science/sci/issues)
 
+
+[![Build Status](https://travis-ci.org/gentoo-science/sci.svg?branch=master)](https://travis-ci.org/gentoo-science/sci)
