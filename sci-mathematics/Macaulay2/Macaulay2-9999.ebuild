@@ -9,13 +9,11 @@ PYTHON_COMPAT=( python{2_6,2_7} )
 inherit autotools elisp-common eutils flag-o-matic git-r3 python-single-r1 toolchain-funcs
 
 # Those packages will be built internally.
-FACTORY="factory-3-1-6"
-LIBFAC="libfac-3-1-6"
+FACTORY="factory-4.0.0"
 
 DESCRIPTION="Research tool for commutative algebra and algebraic geometry"
 HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
 SRC_URI="
-	ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Libfac/${LIBFAC}.tar.gz
 	ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
 	ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/${FACTORY}.tar.gz
 	http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/gtest-1.7.0.tar.gz"
@@ -97,13 +95,11 @@ src_prepare() {
 	# Shortcircuit lapack tests
 	epatch "${FILESDIR}"/${PV}-lapack.patch
 
-	# Factory, and libfac are statically linked libraries which (in this flavor) are not used by any
-	# other program. We build them internally and don't install them
+	# Factory is a statically linked library which (in this flavor) are not used by any
+	# other program. We build it internally and don't install it.
 	cp "${DISTDIR}/${FACTORY}.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
 	cp "${DISTDIR}/factory-gftables.tar.gz" "${S}/BUILD/tarfiles/" \
-		|| die "copy failed"
-	cp "${DISTDIR}/${LIBFAC}.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
 	# Macaulay2 developers want that gtest is built internally because
 	# the documentation says it may fail if build with options not the
@@ -129,7 +125,7 @@ src_configure (){
 		--with-issue=Gentoo \
 		$(use_enable optimization optimize) \
 		$(use_enable debug) \
-		--enable-build-libraries="factory libfac" \
+		--enable-build-libraries="factory" \
 		--with-unbuilt-programs="4ti2 gfan normaliz nauty cddplus lrslib" \
 		|| die "failed to configure Macaulay"
 }
