@@ -8,17 +8,16 @@ PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit autotools elisp-common eutils flag-o-matic git-r3 python-single-r1 toolchain-funcs
 
-# Those packages will be built internally.
-FACTORY="factory-4.0.0"
+FACTORY="factory-4.0.0+m4"
+FACTORY_GFTABLES="factory.4.0.1-gftables"
 
 DESCRIPTION="Research tool for commutative algebra and algebraic geometry"
 HOMEPAGE="http://www.math.uiuc.edu/Macaulay2/"
+BASE_URI="http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk"
 SRC_URI="
-	ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/factory-gftables.tar.gz
-	ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/${FACTORY}.tar.gz
-	http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/trunk/gtest-1.7.0.tar.gz"
-#	http://www.mathematik.uni-osnabrueck.de/normaliz/Normaliz2.8/Normaliz2.8.zip"
-# Need normaliz for an up to date normaliz.m2
+	${BASE_URI}/${FACTORY}.tar.gz
+	${BASE_URI}/${FACTORY_GFTABLES}.tar.gz
+	${BASE_URI}/gtest-1.7.0.tar.gz"
 EGIT_REPO_URI="git://github.com/Macaulay2/M2.git"
 
 SLOT="0"
@@ -99,7 +98,7 @@ src_prepare() {
 	# other program. We build it internally and don't install it.
 	cp "${DISTDIR}/${FACTORY}.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
-	cp "${DISTDIR}/factory-gftables.tar.gz" "${S}/BUILD/tarfiles/" \
+	cp "${DISTDIR}/${FACTORY_GFTABLES}.tar.gz" "${S}/BUILD/tarfiles/" \
 		|| die "copy failed"
 	# Macaulay2 developers want that gtest is built internally because
 	# the documentation says it may fail if build with options not the
