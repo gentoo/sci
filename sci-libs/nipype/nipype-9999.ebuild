@@ -27,7 +27,8 @@ DEPEND="
 RDEPEND="
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-python/traits[${PYTHON_USEDEP}]
-	dev-python/networkx[${PYTHON_USEDEP}]"
+	dev-python/networkx[${PYTHON_USEDEP}]
+	dev-python/pygraphviz[${PYTHON_USEDEP}]"
 
 python_test() {
 	nosetests -v || die
