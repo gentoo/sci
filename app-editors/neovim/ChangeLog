@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Jun 2014; Jelte Fennema (JelteF) <github-tech@jeltef.nl>
+  neovim-9999.ebuild:
+  Use CFLAGS needed to get a working executable
+
   10 May 2014; Jelte Fennema <github@jeltef.nl> neovim-9999.ebuild:
   Add new cmsgpack and lpeg dependencies to neovim.
 

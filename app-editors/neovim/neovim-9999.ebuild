@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit cmake-utils
+inherit cmake-utils flag-o-matic
 
 if [ "${PV}" = "9999" ]; then
 	EGIT_REPO_URI="git://github.com/neovim/neovim.git"
@@ -22,6 +22,11 @@ LICENSE="vim"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
+
+src_configure()  {
+	append-flags "-DNDEBUG -Wno-error -D_FORTIFY_SOURCE=1"
+	cmake-utils_src_configure
+}
 
 RDEPEND="app-admin/eselect-vi
 	sys-libs/ncurses"
