@@ -8,16 +8,17 @@ inherit eutils
 
 DESCRIPTION="Alt-Ergo is an automatic theorem prover"
 HOMEPAGE="http://alt-ergo.lri.fr"
-SRC_URI="http://alt-ergo.lri.fr/http/${P}/${P}.tar.gz"
+SRC_URI="http://dev.gentoo.org/~jauhien/distfiles/${P}.tar.gz"
 
 LICENSE="CeCILL-C"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="+ocamlopt gtk"
 
 DEPEND="
 	>=dev-lang/ocaml-3.10.2[ocamlopt?]
 	>=dev-ml/ocamlgraph-1.8.2[gtk?,ocamlopt?]
+	dev-ml/zarith
 	gtk? (
 		x11-libs/gtksourceview:2.0
 		>=dev-ml/lablgtk-2.14[sourceview,ocamlopt?]

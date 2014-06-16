@@ -1,6 +1,12 @@
 # ChangeLog for sci-mathematics/alt-ergo
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*alt-ergo-0.95.2 (16 Jun 2014)
+
+  16 Jun 2014; Jauhien Piatlicki <jauhien@gentoo.org> -alt-ergo-0.95.1.ebuild,
+  +alt-ergo-0.95.2.ebuild:
+  fix bug #479994: move sources to my dev space
 
 *alt-ergo-0.95.1 (25 Aug 2013)
 
