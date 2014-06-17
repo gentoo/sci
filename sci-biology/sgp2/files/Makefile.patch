@@ -1,0 +1,88 @@
+--- Makefile.ori	2014-06-17 12:24:40.000000000 +0200
++++ Makefile	2014-06-17 12:26:47.000000000 +0200
+@@ -39,12 +39,12 @@
+ #
+ ### PATHS
+ 
+-       BBIN = /bin
+-       UBIN = /usr/bin
+-       LBIN = /usr/local/bin
++       BBIN = $(DESTDIR)/bin
++       UBIN = $(DESTDIR)/usr/bin
++       LBIN = $(DESTDIR)/usr/local/bin
+  #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  #  REMEMBER: INSTALLDIR is the only variable that should be modified
+- INSTALLDIR = $(LBIN)
++ INSTALLDIR = $(UBIN)
+  #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+ #
+@@ -97,19 +97,19 @@
+ 
+        SGP2 = sgp2
+  PARSEBLAST = parseblast
+-     GENEID = geneid
++#     GENEID = geneid
+    #  HSP2SR = blast2gff
+ 
+ 
+-     GENEIDD = $(SRC)/geneid
++#     GENEIDD = $(SRC)/geneid
+  #    HSP2SRD = $(SRC)/blast2gff
+ 
+-   GENEIDSRC = $(wildcard $(addprefix $(GENEIDD)/src/, *.c)) \
+-               $(wildcard $(addprefix $(GENEIDD)/include/, *.h))
++#   GENEIDSRC = $(wildcard $(addprefix $(GENEIDD)/src/, *.c)) \
++#               $(wildcard $(addprefix $(GENEIDD)/include/, *.h))
+ #   HSP2SRSRC = $(wildcard $(addprefix $(HSP2SRD)/src/, *.c)) \
+  #              $(wildcard $(addprefix $(HSP2SRD)/include/, *.h))
+ 
+-     SRCCODE = $(GENEID)-sgp  $(PARSEBLAST) \
++     SRCCODE = $(PARSEBLAST) \
+                $(SGP2)
+ #    SRCCODE = $(GENEID)-sgp  $(PARSEBLAST) \
+ #              $(HSP2SR) $(SGP2)
+@@ -134,9 +134,9 @@
+ cleanbin :
+ 	-@$(RM) -f $(wildcard $(BIN)/*);
+ 	rmdir $(BIN);
+-	@echo "### Cleaning GENEID..."
+-	@cd $(GENEIDD); \
+-	 $(MAKE) clean;
++#	@echo "### Cleaning GENEID..."
++#	@cd $(GENEIDD); \
++#	 $(MAKE) clean;
+ #	@echo "### Cleaning HSP2SR..."
+ #	@cd $(HSP2SRD); \
+ #	 $(MAKE) clean;
+@@ -147,6 +147,7 @@
+ 
+ installbin : $(BINCODE)
+ 	@echo "### COPYING BIN FILES TO $(INSTALLDIR)...";
++	mkdir -p $(INSTALLDIR);
+ 	@$(CP) -p $^ $(INSTALLDIR)/;
+ 
+ #
+@@ -155,14 +156,14 @@
+ $(BIN) :
+ 	mkdir $(BIN);
+ 
+-$(addprefix $(BIN)/, $(GENEID)-sgp) : $(addprefix $(GENEIDD)/bin/, $(GENEID))
+-	@${CP} $(addprefix $(GENEIDD)/bin/, $(GENEID)) \
+-           $(addprefix $(BIN)/, $(GENEID)-sgp)
+-
+-$(addprefix $(GENEIDD)/bin/, $(GENEID)) : $(GENEIDSRC)
+-	@echo "### Making GENEID..."
+-	@cd $(GENEIDD); \
+-	 $(MAKE) -f ./Makefile;
++#$(addprefix $(BIN)/, $(GENEID)-sgp) : $(addprefix $(GENEIDD)/bin/, $(GENEID))
++#	@${CP} $(addprefix $(GENEIDD)/bin/, $(GENEID)) \
++#           $(addprefix $(BIN)/, $(GENEID)-sgp)
++
++#$(addprefix $(GENEIDD)/bin/, $(GENEID)) : $(GENEIDSRC)
++#	@echo "### Making GENEID..."
++#	@cd $(GENEIDD); \
++#	 $(MAKE) -f ./Makefile;
+ 
+ #$(addprefix $(BIN)/, $(HSP2SR)) : $(addprefix $(HSP2SRD)/bin/, $(HSP2SR))
+ #	@${CP} $(addprefix $(HSP2SRD)/bin/, $(HSP2SR)) \
