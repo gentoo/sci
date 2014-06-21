@@ -31,6 +31,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="${PYTHON_DEPS}
 	virtual/mpi
 	dev-libs/boost[python,mpi,${PYTHON_USEDEP}]
+	sci-libs/fftw:3.0
 	dev-python/mpi4py"
 DEPEND="${RDEPEND}"
 
