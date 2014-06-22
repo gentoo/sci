@@ -3,12 +3,12 @@
 # $Header: $
 
   21 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
-  -frama-c-20130601.ebuild, +frama-c-20140301.ebuild:
+  -frama-c-20130601.ebuild,-files/frama-c-ocaml-4.01.patch, -files/frama-c-make.patch, +frama-c-20140301.ebuild:
   version bump
 
-  19 Jul 2013; Jonathan-Christofer Demay <jcdemay@gmail.com>
-  -frama-c-20120901.ebuild, +frama-c-20130601.ebuild:
-  version bump
+  24 Feb 2014; Andrew Savchenko <bircoph@gmail.com>
+  +frama-c-20130601.ebuild, +files/frama-c-ocaml-4.01.patch, +files/frama-c-make.patch:
+  Version bump. Fix build with make >= 4.x, add ocaml-4.01 support.
 
   14 Jan 2013; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -frama-c-20111001.ebuild, +frama-c-20120901.ebuild:

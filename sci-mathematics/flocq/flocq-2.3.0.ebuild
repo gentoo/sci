@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="5"
 
 DESCRIPTION="A floating-point formalization for the Coq system"
 HOMEPAGE="http://flocq.gforge.inria.fr/"
@@ -14,6 +14,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="sci-mathematics/coq"
+RDEPEND="${DEPEND}"
 
 src_prepare() {
 	sed -i Remakefile.in \

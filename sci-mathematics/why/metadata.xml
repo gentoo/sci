@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci</herd>
-	<longdescription>
-		Why is a software verification platform. It contains a general-purpose
-		verification condition generator (VCG) which is used as a back-end
-		by other verification tools but it can also be used directly to verify
-		programs. It also provides Krakatoa, a tool or the verification of Java
-		programs and Caduceus, a tool for the verification of C programs.
-	</longdescription>
-	<maintainer>
-		<email>sci@gentoo.org</email>
-	</maintainer>
-	<use>
-		<flag name="apron">?apron?</flag>
-		<flag name="coq">?coq?</flag>
-		<flag name="gappa">?gappa?</flag>
-		<flag name="frama-c">?frama-c?</flag>
-		<flag name="gtk">?gtk?</flag>
-		<flag name="pff">?pff?</flag>
-		<flag name="why3">?why3?</flag>
-	</use>
+<herd>sci</herd>
+<longdescription>
+  Why is a software verification platform. It contains a general-purpose
+  verification condition generator (VCG) which is used as a back-end
+  by other verification tools but it can also be used directly to verify
+  programs. It also provides Krakatoa, a tool or the verification of Java
+  programs and Caduceus, a tool for the verification of C programs.
+</longdescription>
 </pkgmetadata>

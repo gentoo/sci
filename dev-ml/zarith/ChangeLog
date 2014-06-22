@@ -5,7 +5,7 @@
   22 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
   zarith-1.2.1.ebuild:
   fix regression of pkg_setup
-  
+
   10 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -zarith-1.1.ebuild, +zarith-1.2.1.ebuild:
   version bump
@@ -14,7 +14,14 @@
   zarith-1.1.ebuild, metadata.xml:
   Clean wrong space and blank lines; move EAPI=5
 
-  14 Jan 2013; Jonathan-Christofer Demay <jcdemay@gmail.com>
-  +zarith-1.1.ebuild:
-  initial commit
+  11 Aug 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  zarith-1.1.ebuild:
+  fix license and depend on multilib eclass
 
+  30 Mar 2012; Guillaume Horel <guillaume.horel@gmail.com>
+  -zarith-1.0.ebuild, -files/zarith-1.0-bytecode.patch, -files/zarith-1.0-optnotrequired.patch, +zarith-1.1.ebuild:
+  version bump
+
+  02 Mar 2012; Guillaume Horel <guillaume.horel@gmail.com> +zarith-1.0.ebuild,
+  +files/zarith-1.0-bytecode.patch, +files/zarith-1.0-optnotrequired.patch, +metadata.xml:
+  initial import

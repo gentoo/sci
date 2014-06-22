@@ -6,6 +6,10 @@
   -flocq-2.1.0.ebuild, +flocq-2.3.0.ebuild:
   version bump
 
+  Mar 2013; Justin Lecher <jlec@gentoo.org>
+  flocq-2.1.0.ebuild, metadata.xml:
+  Move to EAPI=5; assign RDEPEND explicitatly
+
   14 Jan 2013; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -flocq-1.4.0.ebuild, +flocq-2.1.0.ebuild:
   version bump

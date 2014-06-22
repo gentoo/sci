@@ -3,8 +3,12 @@
 # $Header: $
 
   21 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
-  -gappa-0.16.6.ebuild, +gappa-1.1.1.ebuild:
+  -gappa-1.0.0.ebuild, +gappa-1.1.1.ebuild:
   version bump
+
+  12 Aug 2013; Sebastien Fabbro <bicatali@gentoo.org>
+  -gappa-0.16.3.ebuild, +gappa-1.0.0.ebuild:
+  sci-mathematics/gappa: Version bump
 
   11 Dec 2013; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -gappa-0.16.3.ebuild, +gappa-0.16.6.ebuild:

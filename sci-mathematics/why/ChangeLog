@@ -6,6 +6,10 @@
   -why-2.30.ebuild, -files/why-2.30.patch, +why-2.34.ebuild, +why-flocq23.patch:
   version bump
 
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org>
+  why-2.30.ebuild, metadata.xml:
+  Drop ppc as deps are not keyworded; move to EAPI=5 and autotools-utils.eclass
+
   21 Dec 2011; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -why-2.29.ebuild, -files/why_jessie-carbon.patch, +why-2.30.ebuild, +files/why-2.30.patch:
   version bump

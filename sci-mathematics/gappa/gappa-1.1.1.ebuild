@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="5"
 
 DESCRIPTION="A tool to help verifying and proving properties on floating-point or fixed-point arithmetic"
 HOMEPAGE="http://gappa.gforge.inria.fr/"
@@ -21,12 +21,12 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	sed -i Remakefile.in \
-		-e "s:mkdir -p @bindir@:mkdir -p \$(DESTDIR)@bindir@:g" \
-		-e "s:cp src/gappa @bindir@:cp src/gappa \$(DESTDIR)@bindir@:g"
+		-e "s:mkdir -p @bindir@:mkdir -p \${DESTDIR}@bindir@:g" \
+		-e "s:cp src/gappa @bindir@:cp src/gappa \${DESTDIR}@bindir@:g"
 }
 
 src_compile() {
-	./remake || die "emake failed"
+	./remake -d ${MAKEOPTS} || die "emake failed"
 	if use doc; then
 		./remake doc/html/index.html
 	fi
@@ -35,8 +35,6 @@ src_compile() {
 src_install() {
 	DESTDIR="${D}" ./remake install || die "emake install failed"
 	dodoc NEWS README AUTHORS ChangeLog
-	if use doc; then
-		dohtml -A png -r doc/html/*
-	fi
+	use doc && dohtml -A png -r doc/html/*
 }
 

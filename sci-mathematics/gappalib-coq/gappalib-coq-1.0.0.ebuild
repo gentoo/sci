@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="5"
 
 DESCRIPTION="Allows the certificates Gappa generates to be imported by the Coq"
 HOMEPAGE="http://gappa.gforge.inria.fr/"

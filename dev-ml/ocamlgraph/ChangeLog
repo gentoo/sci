@@ -18,6 +18,10 @@
   -ocamlgraph-1.7.ebuild, +ocamlgraph-1.8.1.ebuild:
   version bump
 
+  24 Jun 2011; Justin Lecher <jlec@gentoo.org>
+  ocamlgraph-1.7.ebuild:
+  Sort inherit and/or USE
+
   06 May 2011; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -ocamlgraph-1.6.ebuild, +ocamlgraph-1.7.ebuild:
   version bump

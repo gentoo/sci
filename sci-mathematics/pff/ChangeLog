@@ -6,6 +6,10 @@
   pff-8.4.ebuild:
   install fixes
 
+  Mar 2013; Justin Lecher <jlec@gentoo.org>
+  pff-8.4.ebuild, metadata.xml:
+  Drop pcc and sparc keywords as deps are not keyworded; move to EAPI=5
+
   14 Jan 2013; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -pff-8.3.ebuild, +pff-8.4.ebuild:
   version bump

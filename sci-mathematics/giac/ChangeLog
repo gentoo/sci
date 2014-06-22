@@ -6,6 +6,9 @@
   -giac-1.0.0.ebuild, +giac-1.1.0.ebuild:
   version bump
 
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org> giac-1.0.0.ebuild, metadata.xml:
+  Drop useless blank line
+
   14 Jan 2013; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -giac-0.9.2.ebuild, +giac-1.0.0.ebuild:
   version bump
