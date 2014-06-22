@@ -6,22 +6,20 @@ EAPI="4"
 
 DESCRIPTION="A free C++ CAS (Computer Algebra System) library and its interfaces"
 HOMEPAGE="http://www-fourier.ujf-grenoble.fr/~parisse/giac.html"
-SRC_URI="http://www-fourier.ujf-grenoble.fr/~parisse/giac/giac_frozen.tgz -> ${P}.tar.gz"
+SRC_URI="http://www-fourier.ujf-grenoble.fr/~parisse/${PN}/${P}.tar.bz2"
 LICENSE="GPL-2"
 
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc examples fltk"
 
-RDEPEND="
-	>=dev-libs/gmp-3
-	>=sys-libs/readline-4.2
-	dev-libs/mpfr
-	sci-libs/gsl
-	>=sci-mathematics/pari-2.3
-	>=dev-libs/ntl-5.2
-	fltk? ( >=x11-libs/fltk-1.1.9 )"
-DEPEND="${RDEPEND}"
+RDEPEND=">=dev-libs/gmp-3
+		>=sys-libs/readline-4.2
+		fltk? ( >=x11-libs/fltk-1.1.9 )
+		dev-libs/mpfr
+		sci-libs/gsl
+		>=sci-mathematics/pari-2.3
+		>=dev-libs/ntl-5.2"
 
 src_prepare(){
 	sed -e "s:\$(prefix)/share:\$(DESTDIR)\$(prefix)/share:g" \
@@ -35,25 +33,26 @@ src_prepare(){
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
-	mv "${D}"/usr/bin/{aide,giac-help}
-	rm "${D}"/usr/bin/*cas_help
-	dodoc AUTHORS ChangeLog INSTALL NEWS README TROUBLES
+	DESTDIR="${D}" emake install || die "emake install failed"
+	mv ${D}/usr/bin/{aide,giac-help}
+	rm ${D}/usr/bin/*cas_help
+	dodoc AUTHORS ChangeLog COPYING INSTALL NEWS README TROUBLES
 	if use !fltk; then
-		rm "${D}"/usr/bin/x*
+		rm ${D}/usr/bin/x*
 	fi
 	if use !doc; then
-		rm -R "${D}"/usr/share/doc/giac "${D}"/usr/share/giac/doc/
+		rm -R ${D}/usr/share/doc/giac ${D}/usr/share/giac/doc/
 	else
 		for LANG in el en es fr pt; do
 			if echo ${LINGUAS} | grep -v $LANG &> /dev/null; then
-				rm -R "${D}"/usr/share/giac/doc/$LANG
+				rm -R ${D}/usr/share/giac/doc/$LANG
 			else
-				ln "${D}"/usr/share/giac/doc/aide_cas "${D}"/usr/share/giac/doc/$LANG/aide_cas
+				ln ${D}/usr/share/giac/doc/aide_cas ${D}/usr/share/giac/doc/$LANG/aide_cas
 			fi
 		done
 	fi
 	if use !examples; then
-		rm -R "${D}"/usr/share/giac/examples
+		rm -R ${D}/usr/share/giac/examples
 	fi
 }
+

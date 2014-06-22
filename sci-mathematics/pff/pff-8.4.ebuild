@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI="2"
 
 DESCRIPTION="Library for reasoning about floating point numbers in coq"
 HOMEPAGE="http://lipforge.ens-lyon.fr/www/pff/"
@@ -19,12 +19,16 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/Float${PV}"
 
 src_prepare() {
-	sed \
-		-e "s|\`\$(COQC) -where\`/user-contrib| \
-		\$(DESTDIR)/\`\$(COQC) -where\`/user-contrib|g" \
-		-i Makefile || die
+	sed -i Makefile \
+		-e "s|\`\$(COQC) -where\`/user-contrib|\$(DSTROOT)/\`\$(COQC) -where\`/user-contrib|g" \
+		-e "s|VOFILESINC=\$(filter \$(wildcard \./\*),\$(VOFILES))|VOFILESINC:=\$(filter-out ,\$(VOFILES))|g"
 }
 
 src_compile(){
-	emake DESTDIR="/"
+	emake || die "emake failed"
 }
+
+src_install(){
+	emake install DSTROOT="${D}" || die "emake install failed"
+}
+

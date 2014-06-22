@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,13 +6,13 @@ EAPI=3
 
 inherit cmake-utils
 
-DESCRIPTION="SimCList is a high quality C (C++ embeddable) library for handling lists."
+DESCRIPTION="SimCList is a high quality C (C++ embeddable) library for handling lists"
 HOMEPAGE="http://mij.oltrelinux.com/devel/simclist"
 SRC_URI="${HOMEPAGE}/${P/_/}.tar.bz2"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~sparc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc examples"
 
 S="${WORKDIR}/${P/_/}"

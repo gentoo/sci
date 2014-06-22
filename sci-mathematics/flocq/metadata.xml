@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<longdescription>
-  Flocq (Floats for Coq) is a floating-point formalization for the Coq
-  system. It provides a comprehensive library of theorems on a multi-radix
-  multi-precision arithmetic. It also supports efficient numerical
-  computations inside Coq.
-</longdescription>
+	<herd>sci</herd>
+	<longdescription>
+		Flocq (Floats for Coq) is a floating-point formalization for the Coq
+		system. It provides a comprehensive library of theorems on a multi-radix
+		multi-precision arithmetic. It also supports efficient numerical
+		computations inside Coq.
+	</longdescription>
+	<maintainer>
+		<email>sci@gentoo.org</email>
+	</maintainer>
 </pkgmetadata>

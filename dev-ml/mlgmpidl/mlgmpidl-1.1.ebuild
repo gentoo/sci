@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,7 +12,7 @@ SRC_URI="https://gforge.inria.fr/frs/download.php/20228/${PN}-${PV}.tgz"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc +mpfr"
 
 DEPEND=">=dev-lang/ocaml-3.09
@@ -49,7 +49,7 @@ src_compile() {
 }
 
 src_install(){
-	emake install DESTDIR="${D}" || die "emake install failed"
+	DESTDIR="${D}" emake install || die "emake install failed"
 	dodoc README
 
 	if use doc; then

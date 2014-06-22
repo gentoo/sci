@@ -2,7 +2,7 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  03 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  03 Jul 2010; Jonathan-Christofer Demay <jcdemay@gmail.com>
   mlgmpidl-1.1.ebuild, +files/mlgmpidl-1.1-mpfr-3_compat.patch:
   dev-libs/mpfr-3.0.0 compatibility
 

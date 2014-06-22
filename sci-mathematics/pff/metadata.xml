@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<longdescription>
-  PFF (Preuves Formelles sur les Flottants = Formal Proofs about Floats)
-  is a repository of a Coq library about floating-point arithmetic. It
-  contains both definitions and proofs of basic facts, old and new
-  properties and algorithms.
-</longdescription>
+	<herd>sci</herd>
+	<longdescription>
+		PFF (Preuves Formelles sur les Flottants = Formal Proofs about Floats)
+		is a repository of a Coq library about floating-point arithmetic. It
+		contains both definitions and proofs of basic facts, old and new
+		properties and algorithms.
+	</longdescription>
+	<maintainer>
+		<email>sci@gentoo.org</email>
+	</maintainer>
 </pkgmetadata>

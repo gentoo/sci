@@ -1,25 +1,26 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="5"
+EAPI="3"
 
 inherit autotools eutils
 
 DESCRIPTION="Framework for analysis of source codes written in C"
 HOMEPAGE="http://frama-c.com"
-NAME="Fluorine"
+NAME="Neon"
 SRC_URI="http://frama-c.com/download/${PN/-c/-c-$NAME}-${PV/_/-}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc gtk +ocamlopt"
 RESTRICT="strip"
 
-DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
-		>=dev-ml/ocamlgraph-1.8.2[gtk?,ocamlopt?]
+DEPEND=">=dev-lang/ocaml-3.12.1[ocamlopt?]
+		>=dev-ml/ocamlgraph-1.8.5[gtk?,ocamlopt?]
 		dev-ml/zarith
+		sci-mathematics/coq
 		sci-mathematics/ltl2ba
 		sci-mathematics/alt-ergo
 		gtk? ( >=x11-libs/gtksourceview-2.8
@@ -30,11 +31,9 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${PN/-c/-c-$NAME}-${PV/_/-}"
 
 src_prepare(){
-	rm share/libc/test.c
 	touch config_file
-	epatch "${FILESDIR}/${PN}-make.patch" \
-	       "${FILESDIR}/${PN}-ocaml-4.01.patch"
-
+	rm -f ocamlgraph.tar.gz
+	epatch "${FILESDIR}/ocamlgraph185_compat.patch"
 	eautoreconf
 }
 
@@ -44,22 +43,26 @@ src_configure(){
 	else
 		myconf="--disable-gui"
 	fi
-
-	econf ${myconf}
+	econf ${myconf} || die "econf failed"
 }
 
 src_compile(){
 	# dependencies can not be processed in parallel,
 	# this is the intended behavior.
-	emake -j1 depend
-	emake all top DESTDIR="/"
+	emake -j1 depend || die "emake depend failed"
+	DESTDIR="/" emake all top || die "emake failed"
+
+	if use doc; then
+		emake -j1 doc doc-tgz
+		tar -xzf frama-c-api.tar.gz -C doc/
+	fi
 }
 
 src_install(){
-	emake install DESTDIR="${D}"
-	dodoc Changelog doc/README
+	DESTDIR="${D}" emake install || die "emake install failed"
+	dodoc Changelog
 
 	if use doc; then
-		dodoc doc/manuals/*.pdf
+		dohtml -A svg -r doc/frama-c-api/*
 	fi
 }

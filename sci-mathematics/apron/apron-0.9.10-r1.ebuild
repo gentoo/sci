@@ -13,19 +13,16 @@ SRC_URI="http://apron.cri.ensmp.fr/library/${P}.tgz"
 LICENSE="LGPL-2 GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cxx doc ocaml ppl"
+IUSE="doc ocaml"
 
 RDEPEND="ocaml? ( >=dev-lang/ocaml-3.09
 				dev-ml/camlidl
 				dev-ml/mlgmpidl )
 		dev-libs/gmp
-		dev-libs/mpfr
-		ppl? ( dev-libs/ppl )"
+		dev-libs/mpfr"
 DEPEND="${RDEPEND}
 		doc? ( app-text/texlive
-				app-text/ghostscript-gpl
-				cxx? ( app-doc/doxygen
-						dev-tex/rubber ) )"
+				app-text/ghostscript-gpl )"
 
 src_prepare() {
 	mv Makefile.config.model Makefile.config
@@ -53,16 +50,6 @@ src_prepare() {
 	fi
 	if use !ocaml; then
 		sed -i -e "s/HAS_OCAML = 1/#HAS_OCAML = 0/g" Makefile.config
-	fi
-	if use ppl; then
-		sed -i -e "s/# HAS_PPL = 1/HAS_PPL = 1/g" Makefile.config
-	fi
-	if use cxx; then
-		if use ppl; then
-			sed -i -e "s/# HAS_CPP = 1/HAS_CPP = 1/g" Makefile.config
-		else
-			die "USE flag 'cxx' needs USE flag 'ppl' set"
-		fi
 	fi
 }
 

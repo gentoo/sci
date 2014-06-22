@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription>
-  SimCList is a high quality C (C++ embeddable) library for handling
-  lists. It exploits several advanced techniques for improving
-  performance, including freelists, sentinels, automatic sort algorithm
-  selection, sort randomization, mid pointer and optional multithreading.
-</longdescription>
+	<herd>sci</herd>
+	<longdescription>
+		SimCList is a high quality C (C++ embeddable) library for handling
+		lists. It exploits several advanced techniques for improving
+		performance, including freelists, sentinels, automatic sort algorithm
+		selection, sort randomization, mid pointer and optional multithreading.
+	</longdescription>
+	<maintainer>
+		<email>sci@gentoo.org</email>
+	</maintainer>
 </pkgmetadata>

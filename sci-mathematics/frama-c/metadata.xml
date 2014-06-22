@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<longdescription>
-  Frama-C is a suite of tools dedicated to the analysis of the source code
-  of software written in C. It gathers several static analysis techniques
-  in a single collaborative framework. The collaborative approach of
-  Frama-C allows static analyzers to build upon the results already
-  computed by other analyzers in the framework. Thanks to this approach,
-  Frama-C provides sophisticated tools, such as a slicer and dependency
-  analysis.
-</longdescription>
+	<herd>sci</herd>
+	<longdescription>
+		Frama-C is a suite of tools dedicated to the analysis of the source code
+		of software written in C. It gathers several static analysis techniques
+		in a single collaborative framework. The collaborative approach of
+		Frama-C allows static analyzers to build upon the results already
+		computed by other analyzers in the framework. Thanks to this approach,
+		Frama-C provides sophisticated tools, such as a slicer and dependency
+		analysis.
+	</longdescription>
+	<maintainer>
+		<email>sci@gentoo.org</email>
+	</maintainer>
+	<use>
+		<flag name="doc">?doc?</flag>
+		<flag name="gtk">?gtk?</flag>
+		<flag name="ocamlopt">?ocamlopt?</flag>
+	</use>
 </pkgmetadata>

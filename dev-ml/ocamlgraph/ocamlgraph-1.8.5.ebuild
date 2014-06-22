@@ -7,12 +7,12 @@ EAPI="2"
 inherit eutils autotools
 
 DESCRIPTION="A graph library for Objective Caml"
-HOMEPAGE="http://ocamlgraph.lri.fr/"
-SRC_URI="http://ocamlgraph.lri.fr/download/${P}.tar.gz"
+HOMEPAGE="http://ocamlgraph.lri.fr"
+SRC_URI="${HOMEPAGE}/download/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~sparc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc examples gtk +ocamlopt"
 
 DEPEND=">=dev-lang/ocaml-3.10.2[ocamlopt?]
@@ -21,11 +21,15 @@ RDEPEND="${DEPEND}"
 
 src_prepare() {
 	epatch "${FILESDIR}/${PN}-makefile.patch"
+
+	#dirty fix for doc building
+	sed -i Makefile.in -e "s/-d doc -html \$(DGRAPH_INCLUDES) \$(DOC_SRC)/-d doc -html \$(DGRAPH_INCLUDES) \$(DOC_SRC:src\/merge.mli=)/g"
+
 	eautoreconf
 }
 
 src_compile() {
-	emake -j1 DESTDIR="/" || die "emake failed"
+	DESTDIR="/" emake -j1 || die "emake failed"
 
 	if use doc; then
 		emake doc || die "emake doc failed"
@@ -33,7 +37,7 @@ src_compile() {
 }
 
 src_install() {
-	emake install DESTDIR="${D}" || die "emake install failed"
+	DESTDIR="${D}" emake install || die "emake install failed"
 	dodoc CHANGES CREDITS FAQ README
 
 	if use doc; then
