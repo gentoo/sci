@@ -20,14 +20,19 @@ DEPEND=">=dev-lang/ocaml-3.12.1[ocamlopt?]
 		mpir? ( sci-libs/mpir )"
 RDEPEND="${DEPEND}"
 
+pkg_setup() {
+         OCAMLDIR=$(ocamlc -where)
+}
+
 src_prepare(){
-	sed -i ${S}/project.mak -e "s:(OCAMLFIND) install:(OCAMLFIND) install -ldconf \$(INSTALLDIR)/ld.conf:g"
+	sed -e "s:(OCAMLFIND) install:(OCAMLFIND) install -ldconf \$(INSTALLDIR)/ld.conf:g" \
+		-i ${S}/project.mak
 }
 
 src_configure(){
-	MY_OPTS="-ocamllibdir /usr/$(get_libdir) -installdir ${D}/usr/$(get_libdir)/ocaml"
+	MY_OPTS="-ocamllibdir /usr/$(get_libdir) -installdir ${D}/${OCAMLDIR}"
 	use mpir && MY_OPTS="${MY_OPTS} -mpir"
-	./configure ${MY_OPTS}|| die || die "configure failed"
+	./configure ${MY_OPTS} || die "configure failed"
 }
 
 src_compile(){
@@ -37,9 +42,9 @@ src_compile(){
 
 src_install(){
 	findlib_src_preinst
-	cp /usr/$(get_libdir)/ocaml/ld.conf ${D}/usr/$(get_libdir)/ocaml/ld.conf
+	cp ${OCAMLDIR}/ld.conf ${D}/${OCAMLDIR}/ld.conf
 	emake install || die "emake install failed"
-	rm -f ${D}/usr/$(get_libdir)/ocaml/ld.conf
+	rm -f ${D}/${OCAMLDIR}/ld.conf
 	dodoc Changes README
 	use doc && dodoc -r html/
 }

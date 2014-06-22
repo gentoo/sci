@@ -2,9 +2,17 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
+  zarith-1.2.1.ebuild:
+  fix regression of pkg_setup
+  
   10 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -zarith-1.1.ebuild, +zarith-1.2.1.ebuild:
   version bump
+
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org>
+  zarith-1.1.ebuild, metadata.xml:
+  Clean wrong space and blank lines; move EAPI=5
 
   14 Jan 2013; Jonathan-Christofer Demay <jcdemay@gmail.com>
   +zarith-1.1.ebuild:
