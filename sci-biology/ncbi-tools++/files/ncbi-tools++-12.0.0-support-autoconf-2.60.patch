@@ -1,0 +1,1660 @@
+--- ncbi_cxx--12_0_0/src/build-system/configure.ac.ori	2014-06-23 17:35:47.000000000 +0200
++++ ncbi_cxx--12_0_0/src/build-system/configure.ac	2014-06-23 17:36:41.000000000 +0200
+@@ -1,5 +1,5 @@
+ #############################################################################
+-#  $Id: configure.ac 398256 2013-05-03 19:14:07Z rafanovi $
++#  $Id$
+ #  Derived from configure.in version 1.173.
+ # ==========================================================================
+ #
+@@ -38,7 +38,7 @@
+ #
+ #############################################################################
+ 
+-AC_PREREQ(2.59)
++AC_PREREQ(2.60)
+ 
+ dnl Early setup, most crucially for locking.  The diversion magic lets
+ dnl this occur before AC_INIT, which already interferes with other
+@@ -71,7 +71,7 @@
+                      python, perl, jni, sqlite3, mimetic, sge, icu, sp, expat,
+                      sablot, libxml, libxslt, libexslt, xerces, xalan, zorba,
+                      oechem, muparser, hdf5, gif, jpeg, png, tiff, xpm,
+-                     magic, curl],
++                     magic, curl, gsoap, mongodb],
+         [if test "${[with_]X-no}" != "no"; then
+             AC_MSG_ERROR([incompatible options: --with-]X[ but --without-3psw])
+          else
+@@ -143,6 +143,8 @@
+    [ --with-bin-release      build executables suitable for public release])
+ AC_ARG_WITH(mt,
+    [ --with-mt               compile in a MultiThread-safe manner])
++AC_ARG_WITH(openmp,
++   [ --with-openmp           enable OpenMP extensions for all projects])
+ AC_ARG_WITH(64,
+    [ --with-64               compile to 64-bit code])
+ AC_ARG_WITH(universal,
+@@ -220,11 +222,15 @@
+ 
+ ## NCBI packages
+ AC_ARG_WITH(ncbi-c,
++   [ --with-ncbi-c=DIR       use NCBI C Toolkit installation in DIR])
++AC_ARG_WITH(ncbi-c2,
+    [ --without-ncbi-c        do not use NCBI C Toolkit])
+ AC_ARG_WITH(sss,
++   [ --with-sss=DIR          use NCBI SSS installation in DIR])
++AC_ARG_WITH(sss2,
+    [ --without-sss           do not use NCBI SSS libraries])
+ AC_ARG_WITH(sssutils,
+-   [ --without-sssutils      do not use NCBI SSS UTIL library])
++   [ --without-utils         do not use NCBI SSS UTIL library])
+ AC_ARG_WITH(sssdb,
+    [ --without-sssdb         do not use NCBI SSS DB library])
+ AC_ARG_WITH(included-sss,
+@@ -439,6 +445,14 @@
+    [ --with-mimetic=DIR      use libmimetic installation in DIR])
+ AC_ARG_WITH(mimetic2,
+    [ --without-mimetic       do not use libmimetic])
++AC_ARG_WITH(gsoap,
++   [ --with-gsoap=DIR        use gSOAP++ installation in DIR])
++AC_ARG_WITH(gsoap2,
++   [ --without-gsoap         do not use gSOAP++])
++AC_ARG_WITH(mongodb,
++   [ --with-mongodb=DIR      use MongoDB installation in DIR])
++AC_ARG_WITH(mongodb2,
++   [ --without-mongodb       do not use MongoDB])
+ AC_ARG_WITH(3psw,
+    [ --with-3psw=std:netopt  favor standard (system) builds of the above pkgs.])
+ AC_ARG_WITH(3psw2,
+@@ -479,24 +493,28 @@
+    [***** See also HTML documentation in ./doc/index.html *****])
+ 
+ 
++AC_DIVERT_PUSH(PARSE_ARGS)
++dnl As of Autoconf 2.60, this needs to run too early for config.log,
++dnl to which AC_MSG_ERROR normally copies its output, to be available.
++m4_rename([AS_MESSAGE_LOG_FD], [NCBI_ORIG_ASMLFD])
+ #### Check the passed arguments against the list of available ones
+ x_with_list="\
+ debug max-debug symbols optimization profiling tcheck dll static static-exe \
+ plugin-auto-load bundles bin-release mt 64 universal exe runpath hard-runpath \
+-lfs limited-linker \
++lfs limited-linker openmp \
+ autodep suffix hostspec version execopy bincopy lib-rebuilds lib-rebuilds=ask \
+ deactivation makefile-auto-update projects flat-makefile configure-dialog \
+ check ncbi-public strip pch caution ccache distcc \
+ ncbi-c wxwidgets wxwidgets-ucs fastcgi sss sssdb sssutils included-sss \
+ geo included-geo \
+ z bz2 lzo pcre gcrypt gnutls openssl krb5 sybase sybase-local sybase-new \
+-ftds mysql orbacus odbc freetype ftgl opengl mesa glut glew glew-mx \
++ftds mysql orbacus freetype ftgl opengl mesa glut glew glew-mx \
+ bdb python perl jni sqlite3 icu boost boost-tag \
+ sp expat sablot libxml libxslt libexslt xerces xalan zorba \
+ oechem sge muparser hdf5 \
+-gif jpeg tiff png xpm magic curl mimetic 3psw \
++gif jpeg tiff png xpm magic curl mimetic gsoap mongodb 3psw \
+ local-lbsm ncbi-crypt connext \
+-serial objects dbapi app ctools gui algo internal gbench x"
++serial objects dbapi app ctools gui algo internal gbench"
+ 
+ changequote(, )dnl
+ x_with_list=`echo "$x_with_list" | sed 's/\([^ ][^ ]*\)/--with-\1 --without-\1/g'`
+@@ -522,7 +540,6 @@
+    case "$x_arg" in
+       --with-extra-action= | --exec-prefix= | --with-projects= | --srcdir= \
+       | --cache-file= | --build= | --host= | --target= | --with-runpath= \
+-      | --mandir= | --infodir= | --datadir= | --sysconfdir= | --localstatedir= \
+       | --with-relative-runpath= | --x-includes= | --x-libraries= )
+       AC_MSG_ERROR([$x_arg:  requires value;  use --help to show usage])
+       ;;
+@@ -533,12 +550,11 @@
+       | --with-universal=* | --with-tcheck=* \
+       | --cache-file=* | --build=* | --host=* | --prefix=* | --exec-prefix=* \
+       | --libdir=* | --bindir=* | --includedir=* | --srcdir=* \
+-      | --mandir=* | --infodir=* | --datadir=* | --sysconfdir=* | --localstatedir=* \
+       | [[A-Z]*=*] \
+       | --with-z=* | --with-bz2=* | --with-lzo=* \
+-      | --with-pcre=* \
++      | --with-pcre=* | --with-ncbi-c=* | --with-sss=* \
+       | --with-gcrypt=* | --with-gnutls=* | --with-openssl=* \
+-      | --with-krb5=* | --with-curl=* \
++      | --with-krb5=* | --with-curl=* | --with-gsoap=* | --with-mongodb=* \
+       | --with-sybase-local=* | --with-wxwidgets=* | --with-mimetic=* \
+       | --with-ftds=* | --with-mysql=* | --with-fastcgi=* \
+       | --with-sqlite3=* | --with-expat=* | --with-sablot=* \
+@@ -552,7 +568,7 @@
+       | --with-muparser=* | --with-hdf5=* | --with-jni=* | --with-magic=* \
+       | --x-includes=* | --x-libraries=* | --with-3psw=* \
+       | --target=* | --with-runpath=* | --with-relative-runpath=* \
+-      | --no-create | --no-recursion)
++      | --help | --no-create | --no-recursion)
+       ;;
+ 
+       * )
+@@ -560,6 +576,8 @@
+       ;;
+    esac
+ done
++m4_rename([NCBI_ORIG_ASMLFD], [AS_MESSAGE_LOG_FD])
++AC_DIVERT_POP
+ 
+ 
+ if test "$with_gbench" = "yes" ; then
+@@ -604,6 +622,13 @@
+     : ${with_optimization=no}
+ fi
+ 
++if test "$with_openmp" = yes; then
++   if test "$with_mt" = no; then
++      AC_MSG_ERROR([incompatible options: --without-mt but --with-openmp])
++   fi
++   : ${with_mt=yes} 
++fi
++
+ #### Check for special options
+ if test "$with_extra_action" = "yes" ; then
+    AC_MSG_ERROR([--with-extra-action must have a value after =])
+@@ -649,15 +674,10 @@
+       *\ -O* | *\ -xO* ) skip_fast_flags=yes ;;
+    esac
+ fi
+-if test -n "$with_projects"; then
+-   case "$with_projects" in
+-      /* ) abs_projects=$with_projects         ;;
+-      yes) abs_projects=$srcdir/projects       ;;
+-      *  ) abs_projects=$srcdir/$with_projects ;;
+-   esac
+-   test -r "$abs_projects"  ||  \
+-      AC_MSG_ERROR([unable to read requested projects file "$abs_projects".])
+-fi
++# Generally save any originally specified flags.
++USER_CFLAGS=$CFLAGS
++USER_CXXFLAGS=$CXXFLAGS
++USER_LDFLAGS=$LDFLAGS
+ 
+ #### Always define this
+ AC_DEFINE(NCBI_CXX_TOOLKIT, 1, [This is the NCBI C++ Toolkit.])
+@@ -675,6 +695,23 @@
+ #### Make some provisions for traditional operation
+ AC_PROG_INSTALL
+ 
++#### Point ICC at a suitable GCC version ASAP.
++case "/$CXX" in
++   */icpc )
++      if test -d /usr/local/gcc; then
++         case "`$CXX -dumpversion`:$host_cpu" in
++            *:i?86)           v=4.4.5 ;;
++            ?.* | 1[[01]].* ) v=4.0.1 ;;
++            *)                v=4.4.2 ;;
++         esac
++         gcc=/usr/local/gcc/$v/bin/gcc
++         if test -x $gcc; then
++            CC="$CC -gcc-name=$gcc"
++            CXX="$CXX -gcc-name=$gcc"
++         fi
++      fi
++      ;;
++esac
+ 
+ #### C and C++ compilers
+ AC_LANG(C++)
+@@ -987,6 +1024,30 @@
+         ;;
+      * ) NCBIATOMIC_LIB=xncbi ;;
+    esac
++   case "$compiler" in
++      GCC )
++         if $CC -v | grep clang >/dev/null; then
++            :
++            # Will allegedly support -openmp at some point, but as of 3.4,
++            # just parses it as specifying an output filename: -o penmp.
++         else
++            case "$compiler_version" in
++               [[123]]?? | 4[[01]]? ) ;;
++               * ) : ${OPENMP_FLAGS=-fopenmp} ;;
++            esac
++         fi
++         ;;
++      ICC )
++         : ${OPENMP_FLAGS=-openmp}
++         ;;
++      WorkShop* )
++         : ${OPENMP_FLAGS=-xopenmp=parallel}
++         ;;
++   esac
++   if test "$with_openmp" = yes; then
++      MT_FLAG="$MT_FLAG $OPENMP_FLAGS"
++      OPENMP_FLAGS=
++   fi
+    mt_sfx="MT"
+    NCBI_FEATURE(MT)
+ else
+@@ -994,6 +1055,7 @@
+    MT_FLAG=
+    THREAD_LIBS=
+    NCBIATOMIC_LIB=
++   OPENMP_FLAGS=
+    mt_sfx=""
+ fi
+ MT_SFX="${mt_sfx}"
+@@ -1006,6 +1068,9 @@
+ APP_LDFLAGS=
+ DLL_LDFLAGS=
+ 
++### Should go before any test compiler runs
++AC_GNU_SOURCE
++
+ case "$host_os:$compiler" in
+    darwin*:GCC )
+       AC_CACHE_CHECK([whether $CC supports -Wl,-rpath],
+@@ -1047,6 +1112,47 @@
+       ;;
+ esac
+ 
++case "$compiler:$compiler_version" in
++   GCC:4[[0-6]]? | ICC:1[[01]]?? )
++     ncbi_cv_prog_cxx_11=no
++     ncbi_cv_prog_c_99=no
++     ;;
++   ICC:* )
++     ncbi_cv_prog_c_99='-std=gnu99 -fgnu89-inline'
++     ;;
++esac
++
++AC_CACHE_CHECK([how to enable C++ '11 features in $CXX],
++   ncbi_cv_prog_cxx_11,
++   [orig_CXX=$CXX
++    ncbi_cv_prog_cxx_11=no
++    for x in -std=gnu++11 -std=gnu++0x; do
++       CXX="$orig_CXX $x"
++       AC_LINK_IFELSE([AC_LANG_PROGRAM([], [])],
++          [ncbi_cv_prog_cxx_11=$x])
++          test "x$ncbi_cv_prog_cxx_11" = "xno"  ||  break
++       done
++       CXX=$orig_CXX])
++test "$ncbi_cv_prog_cxx_11" = no  ||  CXX="$CXX $ncbi_cv_prog_cxx_11"
++
++AC_LANG_PUSH(C)
++AC_CACHE_CHECK([how to enable C '11 or at least '99 features in $CC],
++   ncbi_cv_prog_c_99,
++   [orig_CC=$CC
++    ncbi_cv_prog_c_99=no
++    for x in -xc99=all "-std=gnu11 -fgnu89-inline" \
++             "-std=gnu1x -fgnu89-inline" \
++             "-std=gnu99 -fgnu89-inline" \
++             "-std=gnu9x -fgnu89-inline"; do
++       CC="$orig_CC $x"
++       AC_LINK_IFELSE([AC_LANG_PROGRAM([], [])],
++          [ncbi_cv_prog_c_99=$x])
++          test "x$ncbi_cv_prog_c_99" = "xno"  ||  break
++       done
++       CC=$orig_CC])
++AC_LANG_POP(C)
++test "$ncbi_cv_prog_c_99" = no  ||  CC="$CC $ncbi_cv_prog_c_99"
++
+ #### Provide default environment setup for known platforms/compilers
+ DEPFLAGS="-M"
+ DEPFLAGS_POST="" # Needed for VisualAge
+@@ -1059,7 +1165,15 @@
+    ;;
+ 
+  solaris*:GCC )
+-   CPPFLAGS="-D_XOPEN_SOURCE=500 $CPPFLAGS"
++   # On Solaris, GCC defaults to setting _XOPEN_SOURCE (to 500) only
++   # in C++ mode.  Set it for C code as well to ensure consistent
++   # header behavior, taking care to match the C standard version
++   # (as enforced by <sys/feature_tests.h>).
++   case "$ncbi_cv_prog_c_99" in
++      no) CC="$CC -D_XOPEN_SOURCE=500" ;;
++      *)  CC="$CC -D_XOPEN_SOURCE=600" ;;
++   esac
++
+    STRIP="@:"
+    ;;
+ 
+@@ -1202,11 +1316,19 @@
+       LDFLAGS="-flat_namespace $LDFLAGS"
+ 
+       if test "$with_ncbi_public" = yes; then
++         sdks='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk'
++         case "$host_os" in
++            darwin?.* | darwin10.* ) # Mac OS X 10.6.x or older
+          TARGET='-mmacosx-version-min=10.5'
+-         sdks='/Developer/SDKs/MacOSX10.6.sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk'
++               sdks="/Developer/SDKs/MacOSX10.6.sdk"
+          if test "$with_64:${with_universal-no}" != "yes:no"; then
+             sdks="/Developer/SDKs/MacOSX10.5.sdk $sdks"
+          fi
++               ;;
++            * )
++               TARGET='-mmacosx-version-min=10.7'
++               ;;
++         esac
+          for sdk in $sdks; do
+             if test -d "$sdk"; then 
+                TARGET="-isysroot $sdk $TARGET"
+@@ -1487,8 +1609,8 @@
+         ;;
+       GCC:* )
+         DEF_FAST_FLAGS="-O3 -finline-functions -fstrict-aliasing"
+-        case "$host_os" in
+-           freebsd* ) ;;
++        case "$host_os:$host_cpu:$compiler_version" in
++           freebsd* | solaris*:*86*:* | *:4[[5-9]]? | *:[[5-9]]?? ) ;;
+            * )        DEF_FAST_FLAGS="$DEF_FAST_FLAGS -ffast-math" ;;
+         esac
+         if test "$with_profiling" != "yes"; then
+@@ -1587,13 +1709,9 @@
+     solaris* )
+       CONF_f_runpath="-R"
+       ;;
+-    linux*:GCC | *bsd*:GCC | cygwin*:GCC | osf*:GCC )
++    linux*:[[GI]]CC | *bsd*:GCC | cygwin*:GCC | osf*:GCC )
+       CONF_f_runpath="-Wl,-rpath,"
+       ;;
+-    linux*:ICC )
+-      # trying to use "-Wl,-rpath," here sends "ld" to endless 100% CPU loop
+-      CONF_f_runpath="-Xlinker -rpath -Xlinker "
+-      ;;
+     irix*:* | linux*:KCC | *:Compaq )
+       CONF_f_runpath="-rpath "
+       ;;
+@@ -1697,8 +1815,11 @@
+     LINK="$LINK -Kc++"
+     ;;
+   ICC:1???:* )
+-    APP_LDFLAGS="-static-intel $APP_LDFLAGS"
+-    DLL_LDFLAGS="-static-intel -nodefaultlibs $DLL_LDFLAGS"
++    # Suppress "warning #10237: -lcilkrts linked in dynamically, static
++    # library not available" which is not a problem in practice due to
++    # as-needed linkage.
++    APP_LDFLAGS="-static-intel -diag-disable 10237 $APP_LDFLAGS"
++    DLL_LDFLAGS="-static-intel -diag-disable 10237 -nodefaultlibs $DLL_LDFLAGS"
+     # Redundant for apps, but necessary for plugins to be adequately
+     # self-contained, at least on 32-bit Linux.
+     LIBS="$LIBS -lstdc++"
+@@ -1817,18 +1938,6 @@
+ 
+ #### Intel compiler::  common flags and definitions
+ if test "$compiler" = "ICC" ; then
+-   if test -d /usr/local/gcc; then
+-      case "$compiler_version:$HOST_CPU" in
+-         *:i?86)               v=4.4.5 ;;
+-         ???:* | 1[[01]]??:* ) v=4.0.1 ;;
+-         *)                    v=4.4.2 ;;
+-      esac
+-      gcc=/usr/local/gcc/$v/bin/gcc
+-      if test -x $gcc; then
+-         CC="$CC -gcc-name=$gcc"
+-         CXX="$CXX -gcc-name=$gcc"
+-      fi
+-   fi
+    if test -n "$icc_license" ; then
+       icc_CC="$CC"
+       icc_CXX="$CXX"
+@@ -2073,6 +2182,7 @@
+ fi
+ 
+ AC_PATH_PROG(TOUCH, touch, [], /bin:/usr/bin:$PATH)
++dnl AC_PATH_PROG(GREP, grep)
+ AC_PROG_EGREP
+ AC_MSG_CHECKING([how to run $EGREP quietly])
+ if test -z "`echo foo | $EGREP -q fo+ 2>>config.log || echo $?`"; then
+@@ -2086,6 +2196,16 @@
+ 
+ AC_CHECK_PROG(VALGRIND_PATH, valgrind, valgrind)
+ 
++AC_PATH_PROG(LDD, ldd)
++if test -n "$LDD"; then
++   AC_MSG_CHECKING([whether $LDD accepts -r])
++   if $LDD -r /bin/ls >/dev/null 2>&1; then
++      AC_MSG_RESULT(yes)
++      LDD_R="$LDD -r"
++   else
++      AC_MSG_RESULT(no)
++   fi
++fi
+ 
+ #### Check if "${build_root}" is defined;  provide a default one
+ if test -n "${with_build_root}" ; then
+@@ -2170,9 +2290,6 @@
+ fi
+ 
+ 
+-### Should go before any test compiler runs
+-AC_GNU_SOURCE
+-
+ #### Determine whether this is implicitly a 64-bit platform
+ AC_TYPE_SIZE_T
+ if test "${with_universal-no}" = "no"; then
+@@ -2342,7 +2459,7 @@
+       fi
+       ;;
+     *:ICC )
+-      runpath="$runpath -Xlinker -rpath-link -Xlinker \$(libdir)"
++      runpath="$runpath -Wl,-rpath-link,\$(libdir)"
+       ;;
+    esac
+ elif test "$with_runpath" = "yes"  -o  "$with_dll" != "no" ; then
+@@ -2658,15 +2775,30 @@
+    dbgrx1="$wsrx-g[^cx$wschars]*$wsrx"
+    dbgrx2="$wsrx-gx*coff[0-9+]*$wsrx"
+    optrx="$wsrx-x*O[0-9s]*$wsrx"
++   NDEB_CFLAGS=`  echo " $CFLAGS "   | sed "s/$dbgrx1/ /g; s/$dbgrx2/ /g"`
++   NDEB_CXXFLAGS=`echo " $CXXFLAGS " | sed "s/$dbgrx1/ /g; s/$dbgrx2/ /g"`
++   NDEB_LDFLAGS=` echo " $LDFLAGS "  | sed "s/$dbgrx1/ /g; s/$dbgrx2/ /g"`
+    if test "$with_symbols" = "no" ; then
+-      CFLAGS=`  echo " $CFLAGS "   | sed "s/$dbgrx1/ /g; s/$dbgrx2/ /g"`
+-      CXXFLAGS=`echo " $CXXFLAGS " | sed "s/$dbgrx1/ /g; s/$dbgrx2/ /g"`
+-      LDFLAGS=` echo " $LDFLAGS "  | sed "s/$dbgrx1/ /g; s/$dbgrx2/ /g"`
++      CFLAGS=$NDEB_CFLAGS
++      CXXFLAGS=$NDEB_CXXFLAGS
++      LDFLAGS=$NDEB_LDFLAGS
+    else
+       echo " $CFLAGS "  | $EGREP_Q "$dbgrx1|$dbgrx2" || CFLAGS="$CFLAGS -g"
+       echo " $CXXFLAGS "| $EGREP_Q "$dbgrx1|$dbgrx2" || CXXFLAGS="$CXXFLAGS -g" 
+       echo " $LDFLAGS " | $EGREP_Q "$dbgrx1|$dbgrx2" || LDFLAGS="$LDFLAGS -g"
+       STRIP="@:"
++      case "$compiler:$compiler_version" in
++         GCC:4[89]? | GCC:[5-9]? | GCC:???? )
++            # GCC 4.8 defaults to DWARF 4, which Totalview for one
++            # can't handle; roll back to version 3 by default.
++            echo " $USER_CFLAGS " | $EGREP_Q "$dbgrx1|$dbgrx2" || \
++               CFLAGS="$NDEB_CFLAGS -gdwarf-3"
++            echo " $USER_CXXFLAGS " | $EGREP_Q "$dbgrx1|$dbgrx2" || \
++               CXXFLAGS="$NDEB_CXXFLAGS -gdwarf-3"
++            echo " $USER_LDFLAGS " | $EGREP_Q "$dbgrx1|$dbgrx2" || \
++               LDFLAGS="$NDEB_LDFLAGS -gdwarf-3"
++            ;;
++      esac
+    fi
+ 
+    NOPT_CFLAGS=`  echo " $CFLAGS "    | sed "s/$optrx/ /g"`
+@@ -3024,9 +3156,9 @@
+ ### Check for other standard library functions
+ 
+ AC_FUNC_VPRINTF
+-AC_CHECK_FUNCS(euidaccess atoll basename lchown fseeko getpagesize \
+-               getpass getpassphrase getpwuid getrusage gettimeofday \
+-               getuid memrchr readpassphrase readv usleep \
++AC_CHECK_FUNCS(euidaccess atoll basename lchown fseeko getgrouplist \
++               getpagesize getpass getpassphrase getpwuid getrusage \
++               gettimeofday getuid memrchr readpassphrase readv usleep \
+                asprintf vasprintf vsnprintf select statfs statvfs \
+                strcasecmp strlcat strlcpy strdup strndup strtok_r \
+                sysmp timegm utimes lutimes writev)
+@@ -3253,17 +3385,6 @@
+ fi
+ 
+ 
+-AC_CACHE_CHECK([for std::is_sorted<> in <algorithm>], ncbi_cv_func_is_sorted,
+-   [AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+-       [[#include <algorithm>]],
+-       [[int a[2]; return std::is_sorted(a, a+2) ? 0 : 1;]])],
+-       [ncbi_cv_func_is_sorted=yes], [ncbi_cv_func_is_sorted=no])])
+-if test "$ncbi_cv_func_is_sorted" = yes; then
+-   AC_DEFINE(HAVE_IS_SORTED, 1,
+-             [Define to 1 if <algorithm> supplies `std::is_sorted<>'.])
+-fi
+-
+-
+ 
+ AC_CACHE_CHECK([for SysV semaphores], ncbi_cv_sys_semaphores,
+    AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <sys/types.h>
+@@ -3400,7 +3521,7 @@
+ AC_CACHE_CHECK([whether the C compiler supports C99 restrict],
+    ncbi_cv_c_restrict,
+    [ncbi_cv_c_restrict=no
+-    for restrict in restrict __restrict__ __restrict; do
++    for restrict in __restrict__ __restrict restrict; do
+        test "$ncbi_cv_c_restrict" = "no" || break
+        AC_COMPILE_IFELSE([AC_LANG_SOURCE([void f(int * $restrict p);])],
+           [ncbi_cv_c_restrict=$restrict], [])
+@@ -3420,7 +3541,7 @@
+ AC_CACHE_CHECK([whether the C++ compiler supports C99 restrict],
+    ncbi_cv_cxx_restrict,
+    [ncbi_cv_cxx_restrict=no
+-    for restrict in restrict __restrict__ __restrict; do
++    for restrict in __restrict__ __restrict restrict; do
+        test "$ncbi_cv_cxx_restrict" = "no" || break
+        AC_COMPILE_IFELSE([AC_LANG_SOURCE([void f(int * $restrict p);])],
+           [ncbi_cv_cxx_restrict=$restrict], [])
+@@ -3525,14 +3646,6 @@
+               unaligned addresses.])
+ fi
+ 
+-AC_CACHE_CHECK([whether $CXX supports C++0x nullptr], ncbi_cv_cxx_nullptr,
+-   [AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[void * p = nullptr;]])],
+-       [ncbi_cv_cxx_nullptr=yes], [ncbi_cv_cxx_nullptr=no])])
+-if test "$ncbi_cv_cxx_nullptr" = yes; then
+-   AC_DEFINE(HAVE_NULLPTR, 1,
+-      [Define to 1 if your C++ compiler supports the C++0x `nullptr' keyword.])
+-fi
+-
+ ### Check for the availability of other packages
+ ### --------------------------------------------
+ 
+@@ -3630,7 +3743,16 @@
+ dnl NCBI_CHECK_LIBS(FUSE, fuse, fuse_loop)
+ AC_SEARCH_LIBS(fuse_loop, fuse, [NCBI_PACKAGE(FUSE)])
+ LIBS=$orig_LIBS
++# Temporarily drop OpenMP flags for this test, as some toolchains count
++# its support library's indirect use of librt when building applications
++# but not when building shared libraries with --no-undefined.
++orig_CXXFLAGS=$CXXFLAGS
++orig_LDFLAGS=$LDFLAGS
++CXXFLAGS=`echo $CXXFLAGS | sed -e 's/[[^ ]]*openmp[[^ ]]*//g'`
++LDFLAGS=`echo $LDFLAGS | sed -e 's/[[^ ]]*openmp[[^ ]]*//g'`
+ NCBI_CHECK_LIBS(RT, rt posix4, clock_gettime)
++CXXFLAGS=$orig_CXXFLAGS
++LDFLAGS=$orig_LDFLAGS
+ NCBI_CHECK_LIBS(DEMANGLE, demangle, cplus_demangle)
+ # Add to (orig_)LIBS if present for the sake of corelib and the
+ # following call to AC_CHECK_FUNCS.
+@@ -3734,7 +3856,6 @@
+    NCBI_PACKAGE(LocalBZ2)
+ fi
+ 
+-: ${LZO_PATH=$NCBI/lzo2}
+ if test -d "$LZO_PATH"; then
+    NCBI_FIX_DIR(LZO_PATH)
+ fi
+@@ -3767,7 +3888,7 @@
+ ## SSL/TLS libraries
+ case "$with_gcrypt" in
+    no )       ac_cv_path_LIBGCRYPT_CONFIG=no ;;
+-   yes | '' ) : ${GCRYPT_PATH=$NCBI/gcrypt}  ;;
++   yes | '' )                                ;;
+    * )        GCRYPT_PATH=$with_gcrypt       ;;
+ esac
+ if test -d "$GCRYPT_PATH"; then
+@@ -3802,13 +3923,16 @@
+ 
+ case "$with_gnutls" in
+    no )       ac_cv_path_LIBGNUTLS_CONFIG=no ;;
+-   yes | '' ) : ${GNUTLS_PATH=$NCBI/gnutls}  ;;
++   yes | '' )                                ;;
+    * )        GNUTLS_PATH=$with_gnutls       ;;
+ esac
+ if test -d "$GNUTLS_PATH"; then
+    NCBI_FIX_DIR(GNUTLS_PATH)
++   gnutls_config_path=${GNUTLS_BIN-$GNUTLS_PATH/${compiler_vpfx}${DEBUG_SFX}${mt_sfx}${bit64_sfx}/bin}:$GNUTLS_PATH/bin${bit64_sfx}:$GNUTLS_PATH/bin
++else
++   gnutls_config_path=$PATH
+ fi
+-AC_PATH_PROG(LIBGNUTLS_CONFIG, libgnutls-config, [], [${GNUTLS_BIN-$GNUTLS_PATH/${compiler_vpfx}${DEBUG_SFX}${mt_sfx}${bit64_sfx}/bin}:$GNUTLS_PATH/bin${bit64_sfx}:$GNUTLS_PATH/bin:$PATH])
++AC_PATH_PROG(LIBGNUTLS_CONFIG, libgnutls-config, [], [$gnutls_config_path])
+ 
+ if test "x$with_gnutls" != xno; then
+    if test -x "$LIBGNUTLS_CONFIG"; then
+@@ -3817,7 +3941,7 @@
+          test "x$p" = "x/usr"  ||  GNUTLS_PATH=$p
+       fi
+    else
+-      LIBGNUTLS_CONFIG="eval PKG_CONFIG_PATH=\"$GNUTLS_PATH/lib/pkgconfig\" pkg-config gnutls"
++      LIBGNUTLS_CONFIG="eval PKG_CONFIG_PATH=\"$GNUTLS_PATH/lib/pkgconfig\" pkg-config gnutls --static"
+       $LIBGNUTLS_CONFIG --exists >/dev/null 2>&1 ||  LIBGNUTLS_CONFIG=no
+    fi
+    case "$LIBGNUTLS_CONFIG" in
+@@ -3846,6 +3970,10 @@
+  $GNUTLS_CONFIG_LIBS $GCRYPT_LIBS)
+ if test "x$with_gnutls" != xno -a -n "$GNUTLS_CONFIG_LIBS"; then
+    NCBI_RPATHIFY_OUTPUT(GNUTLS_LIBS, [echo $GNUTLS_CONFIG_LIBS], [$no_usr_lib])
++   # Conservatively build against gcrypt if available even when gnutls
++   # uses nettle instead, because gcrypt needs explicit initialization
++   # to be thread-safe, but gnutls's headers don't indicate which
++   # underlying crypto library it's actually using.
+    case "$GNUTLS_INCLUDE" in
+        *$GCRYPT_INCLUDE* ) ;;
+        *                 ) GNUTLS_INCLUDE="$GNUTLS_INCLUDE $GCRYPT_INCLUDE" ;;
+@@ -4108,7 +4236,8 @@
+    SYBASE_DBLIBS="$SYBASE_LPATH $SYBASE_DBLIBS"
+    SYBASE_DLLS="$SYBASE_DLLLIST"
+ 
+-   AC_CACHE_CHECK([for Sybase in $SYBASE_PATH], ncbi_cv_lib_sybase,
++   AC_CACHE_CHECK([for Sybase${SYBASE_PATH:+ in $SYBASE_PATH}],
++      ncbi_cv_lib_sybase,
+       [CPPFLAGS="$SYBASE_INCLUDE $orig_CPPFLAGS"
+        LIBS="$SYBASE_LIBS $SYBASE_DLLS $SYBASE_NETWORK_LIBS $DL_LIBS $orig_LIBS"
+        AC_LINK_IFELSE([AC_LANG_PROGRAM(
+@@ -4216,7 +4345,8 @@
+       AC_MSG_NOTICE([Using bundled FreeTDS (version $ftds_ver) from $FTDS_PATH])
+    else
+       FTDS_LIBS="$FTDS_CTLIBS"
+-      AC_CACHE_CHECK([for FreeTDS in $FTDS_PATH], ncbi_cv_lib_freetds,
++      AC_CACHE_CHECK([for FreeTDS${FTDS_PATH:+ in $FTDS_PATH}],
++         ncbi_cv_lib_freetds,
+          [CPPFLAGS="$FTDS_INCLUDE $orig_CPPFLAGS"
+           LIBS="$FTDS_LIBS $NETWORK_LIBS $orig_LIBS"
+           AC_LINK_IFELSE([AC_LANG_PROGRAM(
+@@ -4281,7 +4411,7 @@
+       # Kill off single quotes, due to later requoting
+       : ${MYSQL_INCLUDE=`$mysql_config --include | tr -d \'`}
+       NCBI_RPATHIFY_OUTPUT_COND(MYSQL_LIBS, $mysql_config --libs${mt_sfx:+_r},
+-         [s/'//g; ])
++         [s/'//g; $no_usr_lib])
+       AC_CACHE_CHECK([whether MySQL works], ncbi_cv_lib_mysql,
+          [CPPFLAGS="$MYSQL_INCLUDE $orig_CPPFLAGS"
+           LIBS="$MYSQL_LIBS $orig_LIBS"
+@@ -4310,7 +4440,6 @@
+ if test "$with_bdb" != "no" ; then
+    case "$with_bdb" in
+       yes | "" )
+-         : ${BERKELEYDB_PATH:="$NCBI/BerkeleyDB"}
+          ;;
+       */*)
+           BERKELEYDB_PATH=$with_bdb
+@@ -4351,7 +4480,8 @@
+    else
+       BERKELEYDB_STATIC_LIBS=${BERKELEYDB_LIBS}
+    fi
+-   AC_CACHE_CHECK([for Berkeley DB libraries in $BERKELEYDB_PATH],
++   AC_CACHE_CHECK(
++      [for Berkeley DB libraries${BERKELEYDB_PATH:+ in $BERKELEYDB_PATH}],
+       ncbi_cv_lib_berkeley_db,
+       [CPPFLAGS="$BERKELEYDB_INCLUDE $orig_CPPFLAGS"
+        LIBS="$BERKELEYDB_LIBS $orig_LIBS"
+@@ -4450,7 +4580,8 @@
+    NCBI_RPATHIFY(ODBC_LIBS, ${ODBC_LIBPATH}, [ -lodbc -lodbcinst])
+    CPPFLAGS="$ODBC_INCLUDE $orig_CPPFLAGS"
+    LIBS="$ODBC_LIBS $orig_LIBS"
+-   AC_CACHE_CHECK([for ODBC libraries in $ODBC_PATH], ncbi_cv_lib_odbc,
++   AC_CACHE_CHECK([for ODBC libraries${ODBC_PATH:+ in $ODBC_PATH}],
++      ncbi_cv_lib_odbc,
+       [AC_LINK_IFELSE([AC_LANG_PROGRAM(
+           [[#include <sql.h>]],
+           [[SQLHDBC hdbc;  SQLCHAR* cp = (SQLCHAR*) "x";
+@@ -4542,7 +4673,7 @@
+    AC_PATH_PROG(PERL, perl, [], [$PERL_PATH/bin:$PATH])
+    if test -x "$PERL"; then
+       PERL_ARCHLIB=`$PERL -MConfig -e 'print \$Config{archlibexp};'`
+-      PERL_FLAGS=`$PERL -MConfig -e 'print \$Config{cppflags};'`
++      PERL_FLAGS=`$PERL -MConfig -e 'print join " ", grep /^-[[DI]]/, split /\\s+/, \$Config{cppflags};'`
+       PERL_INCLUDE="-I$PERL_ARCHLIB/CORE $PERL_FLAGS"
+       PERL_DEPS=`$PERL -MConfig -e 'print \$Config{libs};'`
+       NCBI_RPATHIFY(PERL_LIBS, $PERL_ARCHLIB/CORE, [ -lperl $PERL_DEPS])
+@@ -4603,9 +4734,7 @@
+ 
+ ## Boost
+ if test "$with_boost" != "no"; then
+-   if test "${with_boost-yes}" = yes; then
+-      : ${BOOST_PATH=$NCBI/boost}
+-   else
++   if test "${with_boost-yes}" != yes; then
+       BOOST_PATH=$with_boost
+    fi
+    if test -d "$BOOST_PATH"; then
+@@ -4644,17 +4773,22 @@
+    if test -d `echo $BOOST_INCLUDE | sed -e 's/^-I//'`/boost-${ncbi_cv_lib_boost_version}/boost; then
+       BOOST_INCLUDE=$BOOST_INCLUDE/boost-${ncbi_cv_lib_boost_version}
+    fi
+-   case "$ncbi_compiler" in
+-      MIPSPRO)
++   case "$compiler:$ncbi_compiler_ver" in
++      MIPSpro*)
+          BOOST_INCLUDE="$BOOST_INCLUDE $BOOST_INCLUDE/boost/compatibility/cpp_c_headers"
+          ;;
+-      WORKSHOP)
++      WorkShop*)
+          # Boost.Test's macros yield a *lot* of spurious "should not initialize
+          # a non-const reference with a temporary" warnings, to the point of
+          # overwhelming the compiler in some cases; turn them off altogether
+          # when using Boost at all.
+          BOOST_INCLUDE="$BOOST_INCLUDE -erroff=reftotemp"
+          ;;
++      GCC*:4[[7-9]]* | GCC*:5*)
++         # Some portions of Boost also have a lot of "unused" typedefs
++         # from concept checking.
++         BOOST_INCLUDE="$BOOST_INCLUDE -Wno-unused-local-typedefs"
++         ;;
+    esac
+    case "$ncbi_cv_lib_boost_version" in
+       0_* | 1_[[0-9]] | 1_[[0-9]]_* | 1_[[0-2]][[0-9]] | 1_[[0-2]][[0-9]]_* ) ;;
+@@ -4666,7 +4800,7 @@
+          fi
+          with_boost=no
+          ;;
+-      1_3[[5-9]] | 1_3[[5-9]]_* | 1_4* | 1_5[[0-2]] | 1_5[[0-2]]_* ) ;;
++      1_3[[5-9]] | 1_3[[5-9]]_* | 1_4* | 1_5[[0-3]] | 1_5[[0-3]]_* ) ;;
+       '' ) with_boost=no ;;
+       * )
+          AC_MSG_WARN(
+@@ -4751,7 +4885,9 @@
+        BOOST_REGEX_STATIC_LIBS=$BOOST_REGEX_LIBS
+    fi
+ 
+-   AC_CACHE_CHECK([for Boost.Regex in $BOOST_PATH], ncbi_cv_lib_boost_regex,
++   in_path=${BOOST_PATH:+ in $BOOST_PATH}
++
++   AC_CACHE_CHECK([for Boost.Regex$in_path], ncbi_cv_lib_boost_regex,
+       CPPFLAGS="$BOOST_INCLUDE $orig_CPPFLAGS"
+       LIBS="$BOOST_LIBPATH $BOOST_REGEX_LIBS $RT_LIBS $orig_LIBS"
+       [AC_LINK_IFELSE(
+@@ -4759,7 +4895,7 @@
+               [[throw boost::regex_error(boost::regex_constants::error_stack);]])],
+           [ncbi_cv_lib_boost_regex=yes], [ncbi_cv_lib_boost_regex=no])])
+ 
+-   AC_CACHE_CHECK([for Boost.Spirit in $BOOST_PATH], ncbi_cv_lib_boost_spirit,
++   AC_CACHE_CHECK([for Boost.Spirit$in_path], ncbi_cv_lib_boost_spirit,
+       CPPFLAGS="$BOOST_INCLUDE $orig_CPPFLAGS"
+       LIBS="$RT_LIBS $orig_LIBS"
+       [AC_LINK_IFELSE(
+@@ -4774,7 +4910,7 @@
+        BOOST_SYSTEM_STATIC_LIBS=$BOOST_SYSTEM_LIBS
+    fi
+ 
+-   AC_CACHE_CHECK([for Boost.System in $BOOST_PATH], ncbi_cv_lib_boost_system,
++   AC_CACHE_CHECK([for Boost.System$in_path], ncbi_cv_lib_boost_system,
+       CPPFLAGS="$BOOST_INCLUDE $orig_CPPFLAGS"
+       LIBS="$BOOST_LIBPATH $BOOST_SYSTEM_LIBS $RT_LIBS $orig_LIBS"
+       [AC_LINK_IFELSE(
+@@ -4785,6 +4921,24 @@
+            BOOST_SYSTEM_LIBS=
+            BOOST_SYSTEM_STATIC_LIBS=])])
+ 
++   boost_fs_lib=-lboost_filesystem${BOOST_TAG}
++   if test -f "$BOOST_LIBPATH_/libboost_filesystem${BOOST_TAG}-static.a"; then
++       boost_fs_static_lib=-lboost_filesystem${BOOST_TAG}-static
++   else
++       boost_fs_static_lib=$boost_fs_lib
++   fi
++   BOOST_FILESYSTEM_LIBS="$boost_fs_lib $BOOST_SYSTEM_LIBS"
++   BOOST_FILESYSTEM_STATIC_LIBS="$boost_fs_static_lib $BOOST_SYSTEM_STATIC_LIBS"
++
++   AC_CACHE_CHECK([for Boost.Filesystem$in_path], ncbi_cv_lib_boost_filesystem,
++      CPPFLAGS="$BOOST_INCLUDE $orig_CPPFLAGS"
++      LIBS="$BOOST_LIBPATH $BOOST_FILESYSTEM_LIBS $RT_LIBS $orig_LIBS"
++      [AC_LINK_IFELSE(
++          [AC_LANG_PROGRAM([[#include <boost/filesystem.hpp>]],
++              [[return boost::filesystem::portable_name("foo");]])],
++          [ncbi_cv_lib_boost_filesystem=yes],
++          [ncbi_cv_lib_boost_filesystem=no])])
++
+    BOOST_TEST_PEM_LIBS=-lboost_prg_exec_monitor${BOOST_TAG}
+    if test -f "$BOOST_LIBPATH_/libboost_prg_exec_monitor${BOOST_TAG}-static.a"; then
+        BOOST_TEST_PEM_STATIC_LIBS=-lboost_prg_exec_monitor${BOOST_TAG}-static
+@@ -4813,7 +4967,7 @@
+    BOOST_TEST_TEM_LIBS=$BOOST_TEST_TEM_STATIC_LIBS
+    BOOST_TEST_UTF_LIBS=$BOOST_TEST_UTF_STATIC_LIBS
+ 
+-   AC_CACHE_CHECK([for Boost.Test in $BOOST_PATH], ncbi_cv_lib_boost_test,
++   AC_CACHE_CHECK([for Boost.Test$in_path], ncbi_cv_lib_boost_test,
+       CPPFLAGS="$BOOST_INCLUDE $orig_CPPFLAGS"
+       LIBS="$RT_LIBS $orig_LIBS"
+       found=
+@@ -4853,7 +5007,7 @@
+        BOOST_THREAD_STATIC_LIBS=$BOOST_THREAD_LIBS
+    fi
+ 
+-   AC_CACHE_CHECK([for Boost.Threads in $BOOST_PATH], ncbi_cv_lib_boost_thread,
++   AC_CACHE_CHECK([for Boost.Threads$in_path], ncbi_cv_lib_boost_thread,
+       CPPFLAGS="$BOOST_INCLUDE $orig_CPPFLAGS"
+       LIBS="$BOOST_LIBPATH $BOOST_THREAD_LIBS $RT_LIBS $orig_LIBS"
+       [AC_LINK_IFELSE(
+@@ -4864,12 +5018,25 @@
+    BOOST_INCLUDE=
+    BOOST_LIBPATH=
+    BOOST_TAG=
++   ncbi_cv_lib_boost_filesystem=no
+    ncbi_cv_lib_boost_regex=no
+    ncbi_cv_lib_boost_spirit=no
++   ncbi_cv_lib_boost_system=no
+    ncbi_cv_lib_boost_test=no
+    ncbi_cv_lib_boost_thread=no
+ fi
+ 
++if test "$ncbi_cv_lib_boost_filesystem" != "no"; then
++   dnl AC_DEFINE(HAVE_BOOST_FILESYSTEM, 1,
++   dnl           [Define to 1 if the `Boost.Filesystem' library is available.])
++   NCBI_PACKAGE(Boost.Filesystem)
++else
++   boost_fs_lib=
++   boost_fs_static_lib=
++   BOOST_FILESYSTEM_LIBS=
++   BOOST_FILESYSTEM_STATIC_LIBS=
++fi
++
+ if test "$ncbi_cv_lib_boost_regex" != "no"; then
+    AC_DEFINE(HAVE_BOOST_REGEX, 1,
+              [Define to 1 if the `Boost.Regex' library is available.])
+@@ -4927,7 +5094,10 @@
+ 
+ ## NCBI C Toolkit
+ if test "$with_ncbi_c" != "no" ; then
+-   NCBI_C_PATH=${NCBI_C_PATH:="$NCBI"}
++   if test "${with_ncbi_c-yes}" != yes; then
++      NCBI_C_PATH=$with_ncbi_c
++   fi
++   : ${NCBI_C_PATH="$NCBI"}
+    if test "$ncbi_compiler" = ICC -a -d "$NCBI_C_PATH/ncbi_icc"; then
+       NCBI_C_PATH=$NCBI_C_PATH/ncbi_icc
+    fi
+@@ -4949,7 +5119,8 @@
+      NCBI_C_ncbi="-lncbi"
+    fi
+    NCBI_C_LIBPATH="-L$NCBI_C_LIBPATH"
+-   AC_CACHE_CHECK([for the NCBI C toolkit in $NCBI_C_PATH], ncbi_cv_lib_ctools,
++   AC_CACHE_CHECK([for the NCBI C toolkit${NCBI_C_PATH:+ in $NCBI_C_PATH}],
++      ncbi_cv_lib_ctools,
+       [CPPFLAGS="$NCBI_C_INCLUDE $orig_CPPFLAGS"
+        LIBS="$NCBI_C_LIBPATH $NCBI_C_ncbi $NETWORK_LIBS $orig_LIBS"
+        AC_LINK_IFELSE([AC_LANG_PROGRAM(
+@@ -5000,11 +5171,7 @@
+ 
+ ## OpenGL
+ if test "$with_opengl" != "no"; then
+-   if test "${with_opengl-yes}" = yes; then
+-      if test -d $NCBI/MesaGL; then
+-         : ${OPENGL_PATH=$NCBI/MesaGL}
+-      fi
+-   else
++   if test "${with_opengl-yes}" != yes; then
+       OPENGL_PATH=$with_opengl
+    fi
+    if test -d "$OPENGL_PATH"; then
+@@ -5101,7 +5268,6 @@
+    else
+       OSMESA_STATIC_LIBS=$OSMESA_LIBS
+    fi
+-   : ${GLUT_PATH=$NCBI/glut}
+    if test "$with_glut" != "no"; then
+       if test "${with_glut-yes}" != "yes"; then
+          GLUT_PATH=$with_glut
+@@ -5121,7 +5287,6 @@
+          NCBI_MISSING_PACKAGE(glut)
+       fi
+    fi
+-   : ${GLEW_PATH=$NCBI/glew}
+    if test "$with_glew" != "no"; then
+       if test "${with_glew-yes}" != "yes"; then
+          GLEW_PATH=$with_glew
+@@ -5214,7 +5379,7 @@
+ : ${with_wxwidgets_ucs=no}
+ if test "$with_wxwidgets" != "no" ; then
+    case "$with_wxwidgets" in
+-      yes | "" ) : ${WXWIDGETS_PATH=$NCBI/wxwidgets} ;;
++      yes | "" ) ;;
+       *        ) WXWIDGETS_PATH=$with_wxwidgets ;;
+    esac
+    if test -d "$WXWIDGETS_PATH/${compiler_vpfx}${DEBUG_SFX}${mt_sfx}${bit64_sfx}/lib" \
+@@ -5283,12 +5448,13 @@
+          libsed=$basesed
+          ;;
+    esac
+-   AC_CACHE_CHECK([for wxWidgets in $WXWIDGETS_ARCH_PATH],
++   AC_CACHE_CHECK(
++      [for wxWidgets${WXWIDGETS_ARCH_PATH:+ in $WXWIDGETS_ARCH_PATH}],
+       ncbi_cv_lib_wxwidgets,
+       [if test -x "$wxconf" ; then
+           WXWIDGETS_INCLUDE="$baseflags `"$wxconf" $wxcfflags --cflags`"
+           NCBI_RPATHIFY_OUTPUT(WXWIDGETS_LIBS, ["$wxconf" $wxcfflags --libs],
+-             [$libsed; ])
++             [$libsed; s/ -lm / /g;])
+ 
+           CPPFLAGS="$WXWIDGETS_INCLUDE $orig_CPPFLAGS"
+           LIBS="$WXWIDGETS_LIBS $orig_LIBS"
+@@ -5315,12 +5481,12 @@
+ else
+    NCBI_PACKAGE(wxWidgets)
+    case "`"$wxconf" $wxcfflags --version`" in
+-      2.[[89]].* | 2.[[0-9]][[0-9]]* )
+-         NCBI_PACKAGE(wx2.8)
+-         wxlibs=std,richtext,aui
++      1.* | 2.[[0-7]].*)
++         wxlibs=std
+          ;;
+       *)
+-         wxlibs=std
++         NCBI_PACKAGE(wx2.8)
++         wxlibs=std,richtext,aui,propgrid
+          ;;
+    esac
+    # The "yes" may have been cached; get the actual settings again if needed
+@@ -5328,9 +5494,9 @@
+       WXWIDGETS_INCLUDE="$baseflags `"$wxconf" $wxcfflags --cflags`"
+    fi
+    NCBI_RPATHIFY_OUTPUT(WXWIDGETS_LIBS, [$wxconf $wxcfflags --libs $wxlibs],
+-      [$libsed; ])
++      [$libsed; s/ -lm / /g;])
+    WXWIDGETS_STATIC_LIBS=`"$wxconf" $wxcfflags --libs --static $wxlibs \
+-      2>/dev/null | sed -e "$basesed"`
++      2>/dev/null | sed -e "$basesed; s/ -lm / /g;"`
+    if test -n "$WXWIDGETS_STATIC_LIBS"; then
+       # Allow direct use of underlying libraries with strict linkers
+       WXWIDGETS_LIBS="$WXWIDGETS_LIBS `echo $WXWIDGETS_STATIC_LIBS | sed -e 's/.*\.a *//'`"
+@@ -5350,7 +5516,7 @@
+ ## In-house Fast-CGI library
+ if test "$with_fastcgi" != "no" ; then
+    case "$with_fastcgi" in
+-      yes | "" ) : ${FASTCGI_PATH:="$NCBI/fcgi-current"} ;;
++      yes | "" ) ;;
+       */*      ) FASTCGI_PATH=$with_fastcgi              ;;
+       *        ) FASTCGI_PATH=$NCBI/fcgi-${with_fastcgi} ;;
+    esac
+@@ -5366,7 +5532,8 @@
+    NCBI_RPATHIFY(FASTCGI_LIBS, $FASTCGI_LIBDIR, [ -lfcgi $NETWORK_LIBS])
+    FASTCGI_OBJS="fcgibuf"
+    LIBS="$FASTCGI_LIBS $orig_LIBS"
+-   AC_CACHE_CHECK([for FastCGI libraries in $FASTCGI_PATH], ncbi_cv_lib_fcgi,
++   AC_CACHE_CHECK([for FastCGI libraries${FASTCGI_PATH:+ in $FASTCGI_PATH}],
++      ncbi_cv_lib_fcgi,
+       [CPPFLAGS="$FASTCGI_INCLUDE $orig_CPPFLAGS"
+        AC_LINK_IFELSE([AC_LANG_PROGRAM(
+           [[#include <fcgiapp.h>]],
+@@ -5416,7 +5583,11 @@
+    else
+       with_included_sss=no
+    fi
++   if test "${with_sss-yes}" = yes; then
+    NCBI_SSS_PATH=${NCBI_SSS_PATH:="$NCBI/sss/BUILD"}
++   else
++      NCBI_SSS_PATH=$with_sss
++   fi
+    NCBI_SSS_INCLUDE=${NCBI_SSS_INCLUDE:="$NCBI_SSS_PATH/include"}
+    if test -z "$NCBI_SSS_LIBPATH" ; then
+       NCBI_SSS_LIBPATH="${NCBI_SSS_PATH}/lib/${compiler_vpfx}${DEBUG_SFX}${bit64_sfx}"
+@@ -5424,7 +5595,8 @@
+          NCBI_SSS_LIBPATH="${NCBI_SSS_LIBPATH}mt"
+       fi
+    fi
+-   AC_MSG_CHECKING([for NCBI SSS directories in $NCBI_SSS_PATH])
++   AC_MSG_CHECKING(
++      [for NCBI SSS directories${NCBI_SSS_PATH:+ in $NCBI_SSS_PATH}])
+    if test "$with_included_sss" = "yes"; then
+       AC_MSG_RESULT([yes]) # duh
+    elif test ! -d "${NCBI_SSS_LIBPATH}"  -o  ! -d "${NCBI_SSS_INCLUDE}" ; then
+@@ -5510,7 +5682,6 @@
+ 
+ # SP
+ if test "$with_sp" != "no" ; then
+-   SP_PATH=${SP_PATH:="$NCBI/SP"}
+    if test -n "$SP_INCLUDE"; then
+       SP_GENERIC="$SP_INCLUDE/../generic"
+    else
+@@ -5520,7 +5691,7 @@
+    if test -z "$SP_LIBPATH" ; then
+       SP_LIBPATH="${SP_PATH}/${compiler_vpfx}${DEBUG_SFX}${mt_sfx}${bit64_sfx}"
+    fi
+-   AC_MSG_CHECKING([for SP directories in $SP_PATH])
++   AC_MSG_CHECKING([for SP directories${SP_PATH:+ in $SP_PATH}])
+    if test ! -d "${SP_LIBPATH}"  -o  ! -d "${SP_INCLUDE}" ; then
+       AC_MSG_RESULT([no])
+       NCBI_MISSING_PACKAGE(sp)
+@@ -5558,19 +5729,13 @@
+ 
+ 
+ ## ORBacus CORBA
+-if test "${with_orbacus:-yes}" = yes; then
+-   if test -d $NCBI/corba/${compiler_vpfx}Release${bit64_sfx}MT; then
+-      : ${ORBACUS_PATH=$NCBI/corba/${compiler_vpfx}Release${bit64_sfx}MT}
+-   else
+-      : ${ORBACUS_PATH=$NCBI/corba/OB-4.0.1}
+-   fi
+-elif test "$with_orbacus" != no; then
++if test "$with_orbacus" != no; then
++   if test "$with_orbacus" != yes; then
+     ORBACUS_PATH=$with_orbacus
+ fi
+ if test -d "$ORBACUS_PATH"; then
+    NCBI_FIX_DIR(ORBACUS_PATH)
+ fi
+-if test "$with_orbacus" != no; then
+    fullpath=${ORBACUS_PATH}/${DEBUG_SFX}${mt_sfx}${bit64_sfx}
+    if test -f ${fullpath}/inc/OB/Config.h ; then
+       : ${ORBACUS_INCLUDE="-I$ORBACUS_PATH/include -I$fullpath/inc"}
+@@ -5594,7 +5759,8 @@
+          LIBIMR=
+          ;;
+    esac
+-   AC_CACHE_CHECK([for ORBacus in $ORBACUS_PATH], ncbi_cv_lib_orbacus,
++   AC_CACHE_CHECK([for ORBacus${ORBACUS_PATH:+ in $ORBACUS_PATH}],
++      ncbi_cv_lib_orbacus,
+       [CPPFLAGS="$ORBACUS_INCLUDE $orig_CPPFLAGS"
+        LIBS="$ORBACUS_LIBPATH $LIBOB $NETWORK_LIBS $DL_LIBS $orig_LIBS"
+        AC_LINK_IFELSE([AC_LANG_PROGRAM(
+@@ -5633,7 +5799,7 @@
+ 
+ if test "$with_icu" != "no" ; then
+    case "$with_icu" in
+-      yes | "" ) : ${ICU_PATH=$NCBI/icu} ;;
++      yes | "" ) ;;
+       *        ) ICU_PATH=$with_icu ;;
+    esac
+    if test -d "$ICU_PATH/${compiler_vpfx}${DEBUG_SFX}${bit64_sfx}${mt_sfx}/lib" \
+@@ -5648,7 +5814,8 @@
+    ICU_BINPATH=${ICU_BINPATH:="$ICU_ARCH_PATH/bin"}
+    ICU_LIBPATH=${ICU_LIBPATH:="$ICU_ARCH_PATH/lib"}
+    ICU_INCLUDE=
+-   AC_CACHE_CHECK([for ICU in $ICU_ARCH_PATH], ncbi_cv_lib_icu,
++   AC_CACHE_CHECK([for ICU${ICU_ARCH_PATH:+ in $ICU_ARCH_PATH}],
++      ncbi_cv_lib_icu,
+       [ICU_CONFIG=`$ICU_BINPATH/icu-config --bindir 2>/dev/null`/icu-config
+        if test -x "$ICU_CONFIG" ; then
+           ICU_INCLUDE=`$ICU_CONFIG --cppflags-searchpath`
+@@ -5690,9 +5857,6 @@
+ 
+ 
+ ### XML/XSL libraries
+-if test -d "$NCBI/expat/include"; then
+-   : ${EXPAT_PATH=$NCBI/expat}
+-fi
+ NCBI_CHECK_THIRD_PARTY_LIB(expat,
+  AC_LANG_PROGRAM([#include <expat.h>],
+     [XML_Parser parser = XML_ParserCreate("utf-8");]))
+@@ -5701,7 +5865,6 @@
+ else
+    EXPAT_STATIC_LIBS=${EXPAT_LIBS}
+ fi
+-: ${SABLOT_PATH=$NCBI/Sablot}
+ vpath="$SABLOT_PATH/${compiler_vpfx}build"
+ test -d "$vpath"  &&  SABLOT_PATH=$vpath
+ if test -d "$SABLOT_PATH"; then
+@@ -5718,7 +5881,6 @@
+    SABLOT_STATIC_LIBS=${SABLOT_LIBS}
+ fi
+ 
+-: ${LIBXML_PATH=$NCBI/libxml}
+ # test -d "$LIBXML_PATH" || LIBXML_PATH=`xml2-config --prefix 2>/dev/null`
+ if test "$with_libxml" != "no"; then
+    case "$with_libxml" in
+@@ -5813,7 +5975,6 @@
+    LIBEXSLT_STATIC_LIBS=${LIBEXSLT_LIBS}
+ fi
+ 
+-: ${XERCES_PATH=$NCBI/xerces}
+ if test "$with_xerces" != no; then
+    if test "${with_xerces-yes}" != yes; then
+       XERCES_PATH=$with_xerces
+@@ -5838,7 +5999,7 @@
+          NCBI_FIX_DIR(XERCES_LIBPATH)
+       fi
+    fi
+-   if test -d $XERCES_PATH; then
++   if test -d "$XERCES_PATH"; then
+       in_path=" in $XERCES_PATH"
+       : ${XERCES_INCLUDE=-I$XERCES_PATH/include}
+       : ${XERCES_LIBPATH=$XERCES_PATH/lib}
+@@ -5875,7 +6036,6 @@
+    XERCES_STATIC_LIBS=
+ fi
+ 
+-: ${XALAN_PATH=$NCBI/xalan}
+ if test "$with_xalan" != no; then
+    if test "${with_xalan-yes}" != yes; then
+       XALAN_PATH=$with_xalan
+@@ -5900,7 +6060,7 @@
+          NCBI_FIX_DIR(XALAN_LIBPATH)
+       fi
+    fi
+-   if test -d $XALAN_PATH; then
++   if test -d "$XALAN_PATH"; then
+       in_path=" in $XALAN_PATH"
+       : ${XALAN_INCLUDE=-I$XALAN_PATH/include}
+       : ${XALAN_LIBPATH=$XALAN_PATH/lib}
+@@ -5937,7 +6097,6 @@
+ 
+ test -d SunWS_cache  &&  rm -r SunWS_cache
+ 
+-: ${ZORBA_PATH=$NCBI/zorba}
+ if test "$with_zorba" != no; then
+    if test "${with_zorba-yes}" != yes; then
+       ZORBA_PATH=$with_zorba
+@@ -5967,7 +6126,7 @@
+       ZORBA_PATH=`$ZORBA_CONFIG --prefix`
+       : ${ZORBA_INCLUDE=`$ZORBA_CONFIG --cppflags`}
+    fi
+-   if test -d $ZORBA_PATH; then
++   if test -d "$ZORBA_PATH"; then
+       in_path=" in $ZORBA_PATH"
+       : ${ZORBA_INCLUDE=-I$ZORBA_PATH/include}
+       : ${ZORBA_LIBPATH=$ZORBA_PATH/lib}
+@@ -6010,7 +6169,7 @@
+ 
+ ### SQLite
+ case "$with_sqlite3" in
+-   yes | '' ) : ${SQLITE3_PATH=$NCBI/sqlite3} ;;
++   yes | '' ) ;;
+    *        ) SQLITE3_PATH=$with_sqlite3 ;;
+ esac
+ 
+@@ -6048,7 +6207,6 @@
+ ### OEChem
+ # somewhat kludgish, as we now wanto to add in oeiupac and oedepict,
+ # which depend on oechem....
+-: ${OECHEM_PATH=$NCBI/oechem}
+ NCBI_CHECK_THIRD_PARTY_LIB(oechem,
+  AC_LANG_PROGRAM([#include <oechem.h>],
+     [OEChem::OEMol mol; OEChem::OEConfBase* c = mol.GetActive();]),
+@@ -6091,7 +6249,7 @@
+ 
+ ### muParser
+ case "$with_muparser" in
+-   yes | '' ) : ${MUPARSER_PATH=$NCBI/muParser} ;;
++   yes | '' ) ;;
+    *        ) MUPARSER_PATH=$with_muparser ;;
+ esac
+ 
+@@ -6111,7 +6269,7 @@
+ 
+ ### hdf5
+ case "$with_hdf5" in
+-   yes | '' ) : ${HDF5_PATH=$NCBI/hdf5} ;;
++   yes | '' ) ;;
+    *        ) HDF5_PATH=$with_hdf5 ;;
+ esac
+ 
+@@ -6176,7 +6334,7 @@
+    GIF_LIBS=$UNGIF_LIBS
+ fi
+ 
+-test -n "$x_libraries"  &&  : ${XPM_PATH=`dirname "$x_libraries"`}
++case "$x_libraries" in */*) : ${XPM_PATH=`dirname "$x_libraries"`} ;; esac
+ NCBI_CHECK_THIRD_PARTY_LIB(Xpm,
+  AC_LANG_PROGRAM([#include <X11/xpm.h>],
+     [XpmImage image; XpmInfo info;
+@@ -6241,7 +6399,7 @@
+ fi
+ 
+ case "$with_ftgl" in
+-   yes | '' ) : ${FTGL_PATH=$NCBI/ftgl} ;;
++   yes | '' ) ;;
+    *        ) FTGL_PATH=$with_ftgl ;;
+ esac
+ 
+@@ -6268,7 +6426,7 @@
+ 
+ # Mimetic
+ case "$with_mimetic" in
+-   yes | '' ) : ${MIMETIC_PATH=$NCBI/mimetic} ;;
++   yes | '' ) ;;
+    *        ) MIMETIC_PATH=$with_mimetic ;;
+ esac
+ if test -d "$MIMETIC_PATH"; then
+@@ -6293,6 +6451,88 @@
+        [mimetic::MimeEntity me;])])
+ 
+ 
++# gSOAP++
++case "$with_gsoap" in
++   yes | '' ) ;;
++   *        ) GSOAP_PATH=$with_gsoap ;;
++esac
++if test -d "$GSOAP_PATH"; then
++   NCBI_FIX_DIR(GSOAP_PATH)
++fi
++for d in "$GSOAP_LIBDIR" \
++         "$GSOAP_PATH/${compiler_vpfx}${DEBUG_SFX}${mt_sfx}${bit64_sfx}/lib" \
++         "$GSOAP_PATH/${compiler_pfx}${DEBUG_SFX}${mt_sfx}${bit64_sfx}/lib" \
++         "$GSOAP_PATH/lib${bit64_sfx}" \
++         "$GSOAP_PATH/${compiler_vpfx}${DEBUG_SFX}${mt_sfx}/lib" \
++         "$GSOAP_PATH/${compiler_pfx}${DEBUG_SFX}${mt_sfx}/lib" \
++         "$GSOAP_PATH/lib"; do
++   if test -d "$d"; then
++      GSOAP_LIBDIR=$d
++      NCBI_FIX_DIR(GSOAP_LIBDIR)
++      break
++   fi
++done
++NCBI_RPATHIFY(GSOAP_LIBPATH, $GSOAP_LIBDIR)
++
++: ${GSOAP_BINDIR=`dirname "$GSOAP_LIBDIR"`/bin}
++AC_PATH_PROG(GSOAP_SOAPCPP2, soapcpp2, [], $GSOAP_BINDIR:$PATH)
++AC_PATH_PROG(GSOAP_WSDL2H,   wsdl2h,   [], $GSOAP_BINDIR:$PATH)
++
++NCBI_CHECK_THIRD_PARTY_LIB_EX(gsoap, GSOAP, gsoapssl++,
++   [AC_LANG_PROGRAM([#include <stdsoap2.h>
++        SOAP_FMAC3 const char** SOAP_FMAC4 soap_faultcode(struct soap*)
++        { return NULL; }
++        SOAP_FMAC3 const char** SOAP_FMAC4 soap_faultsubcode(struct soap*)
++        { return NULL; }
++        SOAP_FMAC3 const char** SOAP_FMAC4 soap_faultstring(struct soap*)
++        { return NULL; }
++        SOAP_FMAC3 const char** SOAP_FMAC4 soap_faultdetail(struct soap*)
++        { return NULL; }
++        SOAP_FMAC3 const char* SOAP_FMAC4 soap_check_faultsubcode(struct soap*)
++        { return NULL; }
++        SOAP_FMAC3 const char* SOAP_FMAC4 soap_check_faultdetail(struct soap*)
++        { return NULL; }
++        SOAP_FMAC3 void SOAP_FMAC4 soap_serializeheader(struct soap*) { }
++        SOAP_FMAC3 int SOAP_FMAC4 soap_putheader(struct soap*) { return 0; }
++        SOAP_FMAC3 int SOAP_FMAC4 soap_getheader(struct soap*) { return 0; }
++        SOAP_FMAC3 void SOAP_FMAC4 soap_serializefault(struct soap*) { }
++        SOAP_FMAC3 int SOAP_FMAC4 soap_putfault(struct soap*) { return 0; }
++        SOAP_FMAC3 int SOAP_FMAC4 soap_getfault(struct soap*) { return 0; }],
++       [soap s;])],
++   $OPENSSL_LIBS $Z_LIBS)
++
++case "$with_sqlite3" in
++   yes | '' ) ;;
++   *        ) SQLITE3_PATH=$with_sqlite3 ;;
++esac
++
++
++# MongoDB
++if test -d "$MONGODB_PATH"; then
++   NCBI_FIX_DIR(MONGODB_PATH)
++fi
++if test -d $MONGODB_PATH/lib${bit64_sfx}; then
++   MONGODB_LIBDIR=$MONGODB_PATH/lib${bit64_sfx}
++else
++   MONGODB_LIBDIR=$MONGODB_PATH/lib
++fi
++# need Boost rpath
++NCBI_RPATHIFY(MONGODB_LIBPATH, $MONGODB_LIBDIR)
++NCBI_CHECK_THIRD_PARTY_LIB_EX(mongodb, MONGODB, mongoclient,
++   [AC_LANG_PROGRAM([#include <mongo/client/dbclient.h>],
++      [std::vector<mongo::HostAndPort> v;
++       mongo::DBClientReplicaSet client("foo", v);
++       client.connect();])],
++   [$BOOST_LIBPATH $boost_fs_lib $BOOST_THREAD_LIBS], [],
++   [$BOOST_INCLUDE])
++# MongoDB's own library is normally static, but its supporting Boost
++# libraries might not be by default.
++if test -n "$MONGODB_LIBS"; then
++   MONGODB_STATIC_LIBS="$MONGODB_LIBPATH -lmongodb $BOOST_LIBPATH $boost_fs_static_lib $BOOST_THREAD_STATIC_LIBS"
++else
++   MONGODB_STATIC_LIBS=
++fi
++
+ ### Restore original compiler/linker flags
+ LIBS="$orig_LIBS"
+ CPPFLAGS="$orig_CPPFLAGS"
+@@ -6499,16 +6739,6 @@
+ fi
+ 
+ 
+-## Sequence Read Archive SDK, which may be attached on either the
+-## public or the internal side
+-
+-if test -f "${real_srcdir}/src/sra/sdk/Makefile.sra_macros.mk"; then
+-   sra=sra
+-else
+-   sra=
+-fi
+-
+-
+ ## `internal' project cluster
+ 
+ if test "$with_internal" = "no"  \
+@@ -6781,6 +7011,7 @@
+ AC_SUBST(C_LINK)
+ AC_SUBST(TAIL_N)
+ AC_SUBST(EGREP_Q)
++AC_SUBST(LDD_R)
+ 
+ AC_SUBST(CFLAGS)
+ AC_SUBST(FAST_CFLAGS)
+@@ -6829,7 +7060,6 @@
+ AC_SUBST(algo)
+ AC_SUBST(app)
+ AC_SUBST(internal)
+-AC_SUBST(sra)
+ 
+ AC_SUBST(check)
+ AC_SUBST(CHECK_ARG)
+@@ -6865,6 +7095,7 @@
+ 
+ AC_SUBST(THREAD_LIBS)
+ AC_SUBST(NCBIATOMIC_LIB)
++AC_SUBST(OPENMP_FLAGS)
+ AC_SUBST(NETWORK_LIBS)
+ AC_SUBST(NETWORK_PURE_LIBS)
+ AC_SUBST(RESOLVER_LIBS)
+@@ -6902,6 +7133,8 @@
+ AC_SUBST(BOOST_INCLUDE)
+ AC_SUBST(BOOST_LIBPATH)
+ AC_SUBST(BOOST_TAG)
++AC_SUBST(BOOST_FILESYSTEM_LIBS)
++AC_SUBST(BOOST_FILESYSTEM_STATIC_LIBS)
+ AC_SUBST(BOOST_REGEX_LIBS)
+ AC_SUBST(BOOST_REGEX_STATIC_LIBS)
+ AC_SUBST(BOOST_SYSTEM_LIBS)
+@@ -6968,6 +7201,8 @@
+ AC_SUBST(SQLITE3_STATIC_LIBS)
+ AC_SUBST(FREETYPE_INCLUDE)
+ AC_SUBST(FREETYPE_LIBS)
++AC_SUBST(GSOAP_PATH)
++AC_SUBST(MONGODB_STATIC_LIBS)
+ AC_SUBST(ncbi_xreader_pubseqos)
+ AC_SUBST(ncbi_xreader_pubseqos2)
+ AC_SUBST(UNLESS_PUBSEQOS)
+@@ -7194,7 +7429,9 @@
+ 
+ cat << EOCONF
+ ===============================================================================
+-NCBI C++ Toolkit documentation:  doc/index.html,  doc/config.html#ref_Running
++NCBI C++ Toolkit documentation:
++  Online:   http://www.ncbi.nlm.nih.gov/toolkit/doc/book/
++  Local:    ./doc/public/index.html
+ For the available configuration flags run:  ./configure --help
+ 
+ CFLAGS   = $CFLAGS
+--- ncbi_cxx--12_0_0/src/build-system/aclocal.m4.ori	2014-06-23 17:36:18.000000000 +0200
++++ ncbi_cxx--12_0_0/src/build-system/aclocal.m4	2014-06-23 17:36:59.000000000 +0200
+@@ -1,126 +1,45 @@
+-# Hacked up in various ways, since Autoconf's version doesn't quite
+-# suit our (unusual) conventions.  (Originally from status.m4)
+-m4_define([_AC_SRCPATHS],
+-[#ac_builddir=. # Useless!
+-ac_builddir=$builddir
+-dnl Base source directories on path to *input* file.
+-if test -n "$ac_file_in"; then
+-   ac_dir_in=`AS_DIRNAME(["$ac_file_in"])`
++# Autoconf's _AC_SRCDIRS (from status.m4; historically _AC_SRCPATHS)
++# doesn't quite suit the C++ Toolkit's conventions; tweak it accordingly.
++m4_copy([_AC_SRCDIRS], [NCBI_ORIG__AC_SRCDIRS])
++m4_define([_AC_SRCDIRS],
++[# Base source directories on path to *input* file.
++if test -n "$ac_f"; then
++   ac_dir_in=`AS_DIRNAME(["$ac_f"])`
+ else
+    ac_dir_in=$1
+ fi
+ 
+-if test $ac_dir_in != .; then
+-  ac_dir_suffix=`echo $ac_dir_in | sed 's,^\.[[\\/]],,'`
+-  # A "../" for each directory in $ac_dir_suffix.
+-  ac_top_builddir=../`echo "$ac_dir_suffix" | sed 's,/[[^\\/]]*,../,g'`
+-else
+-  ac_dir_suffix= ac_top_builddir=
+-fi
++NCBI_ORIG__AC_SRCDIRS(["$ac_dir_in"])
+ 
+-case $srcdir in
+-  .)  # No --srcdir option.  We are building in place.
+-    ac_srcdir=.
+-    if test -z "$ac_top_builddir"; then
+-       ac_top_srcdir=.
+-    else
+-       ac_top_srcdir=`echo $ac_top_builddir | sed 's,/$,,'`
+-    fi ;;
+-  [[\\/]]* | ?:[[\\/]]* )  # Absolute path.
+-    ac_srcdir=$srcdir/$ac_dir_suffix;
+-    ac_top_srcdir=$srcdir ;;
+-  *) # Relative path.
+-    ac_srcdir=$ac_top_builddir$srcdir/$ac_dir_suffix
+-    ac_top_srcdir=$ac_top_builddir$srcdir ;;
+-esac
+-# Do not use `cd foo && pwd` to compute absolute paths, because
+-# the directories may not exist.
+-AS_SET_CATFILE([ac_abs_builddir],   [$builddir],        [$1])
+-AS_SET_CATFILE([ac_abs_top_builddir],
+-                                    [$ac_abs_builddir], [${ac_top_builddir}.])
+ AS_SET_CATFILE([ac_abs_top_srcdir], [$ac_dir_in],       [$real_srcdir])
+-AS_SET_CATFILE([ac_abs_srcdir],     [$ac_abs_top_srcdir], [$ac_dir_suffix])
+-])# _AC_SRCPATHS
+-
++ac_builddir=$builddir
++])
+ 
+-# Copied from autoconf 2.59 (m4sh.m4), but rearranged to make bash a
+-# last resort due to issues with sourcing .bashrc.
+-m4_define([_AS_LINENO_PREPARE],
+-[_AS_LINENO_WORKS || {
+-  # Find who we are.  Look in the path if we contain no path at all
+-  # relative or not.
+-  case $[0] in
+-    *[[\\/]]* ) as_myself=$[0] ;;
+-    *) _AS_PATH_WALK([],
+-                   [test -r "$as_dir/$[0]" && as_myself=$as_dir/$[0] && break])
+-       ;;
+-  esac
+-  # We did not find ourselves, most probably we were run as `sh COMMAND'
+-  # in which case we are not to be found in the path.
+-  if test "x$as_myself" = x; then
+-    as_myself=$[0]
+-  fi
+-  if test ! -f "$as_myself"; then
+-    AS_ERROR([cannot find myself; rerun with an absolute path])
+-  fi
+-  case $CONFIG_SHELL in
+-  '')
+-    AS_UNSET(ZSH_VERSION)
+-    for as_base in sh ksh sh5 bash; do
+-      _AS_PATH_WALK([/bin$PATH_SEPARATOR/usr/bin$PATH_SEPARATOR$PATH],
+-         [case $as_dir in
+-         /*)
+-           if ("$as_dir/$as_base" -c \
+-                 'test -z "$ZSH_VERSION" && { _AS_LINENO_WORKS; }') 2>/dev/null
+-           then
+-             AS_UNSET(BASH_ENV)
+-             AS_UNSET(ENV)
+-             CONFIG_SHELL=$as_dir/$as_base
+-             export CONFIG_SHELL
+-             exec "$CONFIG_SHELL" "$[0]" ${1+"$[@]"}
+-           fi;;
+-         esac
+-       done]);;
+-  esac
+ 
+-  # Create $as_me.lineno as a copy of $as_myself, but with $LINENO
+-  # uniformly replaced by the line number.  The first 'sed' inserts a
+-  # line-number line before each line; the second 'sed' does the real
+-  # work.  The second script uses 'N' to pair each line-number line
+-  # with the numbered line, and appends trailing '-' during
+-  # substitution so that $LINENO is not a special case at line end.
+-  # (Raja R Harinath suggested sed '=', and Paul Eggert wrote the
+-  # second 'sed' script.  Blame Lee E. McMahon for sed's syntax.  :-)
+-  sed '=' <$as_myself |
+-    sed '
+-      N
+-      s,$,-,
+-      : loop
+-      s,^\([['$as_cr_digits']]*\)\(.*\)[[$]]LINENO\([[^'$as_cr_alnum'_]]\),\1\2\1\3,
+-      t loop
+-      s,-$,,
+-      s,^[['$as_cr_digits']]*\n,,
+-    ' >$as_me.lineno &&
+-  chmod +x $as_me.lineno ||
+-    AS_ERROR([cannot create $as_me.lineno; rerun with a POSIX shell])
+-
+-  # Don't try to exec as it changes $[0], causing all sort of problems
+-  # (the dirname of $[0] is not the place where we might find the
+-  # original and so on.  Autoconf is especially sensible to this).
+-  . ./$as_me.lineno
+-  # Exit status is that of the last command.
+-  exit
+-}
+-])# _AS_LINENO_PREPARE
++# _AS_DETECT_BETTER_SHELL and its helper _AS_RUN (from m4sh.m4; both
++# historically part of _AS_LINENO_PREPARE) also need tweaking, to make
++# bash a last resort due to issues with sourcing .bashrc while entirely
++# avoiding zsh, which passes itself off as ksh on some systems but runs
++# parent shells' exit handlers from subshells, resulting in premature
++# cleanup of temporary files (notably confdefs.h).
++m4_copy([_AS_DETECT_BETTER_SHELL], [NCBI_ORIG__AS_DETECT_BETTER_SHELL])
++m4_copy([_AS_RUN], [NCBI_ORIG___AS_RUN])
++
++m4_define([_AS_DETECT_BETTER_SHELL],
++  [patsubst(m4_defn([NCBI_ORIG__AS_DETECT_BETTER_SHELL]),
++     [sh bash ksh sh5], [sh ksh sh5 bash])])
++m4_define([_AS_RUN],
++[m4_divert_once([M4SH-SANITIZE], [AS_UNSET(ZSH_VERSION)])dnl
++NCBI_ORIG___AS_RUN([test -z "${ZSH_VERSION+set}" || exit $?; $1], [$2])])
+ 
+ 
+ # One more hack: suppress PACKAGE_*, as we don't use them and some
+ # third-party libraries expose their corresponding settings, leading
+ # to preprocessor warnings.
+-m4_define([NCBI_ORIG_ACDU], m4_defn([AC_DEFINE_UNQUOTED]))
++m4_copy([AC_DEFINE_UNQUOTED], [NCBI_ORIG_AC_DEFINE_UNQUOTED])
+ m4_define([AC_DEFINE_UNQUOTED],
+    [ifelse(m4_substr([$1], 0, 8), [PACKAGE_], [],
+-       [NCBI_ORIG_ACDU($@)])])
++       [NCBI_ORIG_AC_DEFINE_UNQUOTED($@)])])
+ 
+ 
+ AC_DEFUN(NCBI_FIX_DIR,
+@@ -158,7 +77,7 @@
+        AC_MSG_WARN([Proceeding without questions per --without-caution]) ;;
+     * )
+        echo "$1 [[y/N]]"
+-       read answer
++       read answer <& AS_ORIGINAL_STDIN_FD
+        case "$answer" in
+          [[Yy]]* )  AC_MSG_WARN([Proceeding at your own risk...]) ;;
+          *       )  AC_MSG_ERROR([Configuration has been canceled by user.]) ;;
+--- ncbi_cxx--12_0_0/src/build-system/config.h.in.ori	2014-06-23 17:38:56.000000000 +0200
++++ ncbi_cxx--12_0_0/src/build-system/config.h.in	2014-06-23 17:39:04.000000000 +0200
+@@ -98,6 +98,9 @@
+ /* Define to 1 if you have the `getaddrinfo' function. */
+ #undef HAVE_GETADDRINFO
+ 
++/* Define to 1 if you have the `getgrouplist' function. */
++#undef HAVE_GETGROUPLIST
++
+ /* If you have the `gethostbyaddr_r' function, define to the number of
+    arguments it takes (normally 7 or 8). */
+ #undef HAVE_GETHOSTBYADDR_R
+@@ -176,9 +179,6 @@
+ /* Define to 1 if you have `ios(_base)::register_callback'. */
+ #undef HAVE_IOS_REGISTER_CALLBACK
+ 
+-/* Define to 1 if <algorithm> supplies `std::is_sorted<>'. */
+-#undef HAVE_IS_SORTED
+-
+ /* Define to 1 if you have the `lchown' function. */
+ #undef HAVE_LCHOWN
+ 
+@@ -234,6 +234,9 @@
+ /* Define to 1 if libgnutls is available. */
+ #undef HAVE_LIBGNUTLS
+ 
++/* Define to 1 if libgsoapssl++ is available. */
++#undef HAVE_LIBGSOAP
++
+ /* Define to 1 if libhdf5_cpp is available. */
+ #undef HAVE_LIBHDF5
+ 
+@@ -260,6 +263,9 @@
+ /* Define to 1 if libmimetic is available. */
+ #undef HAVE_LIBMIMETIC
+ 
++/* Define to 1 if libmongoclient is available. */
++#undef HAVE_LIBMONGODB
++
+ /* Define to 1 if libmuparser is available. */
+ #undef HAVE_LIBMUPARSER
+ 
+@@ -382,9 +388,6 @@
+ /* Define to 1 if `min'/`max' templates are not implemented. */
+ #undef HAVE_NO_MINMAX_TEMPLATE
+ 
+-/* Define to 1 if your C++ compiler supports the C++0x `nullptr' keyword. */
+-#undef HAVE_NULLPTR
+-
+ /* Define to 1 if ODBC libraries are available. */
+ #undef HAVE_ODBC
+ 
+@@ -799,37 +802,37 @@
+    by a signal. */
+ #undef SELECT_UPDATES_TIMEOUT
+ 
+-/* The size of a `char', as computed by sizeof. */
++/* The size of `char', as computed by sizeof. */
+ #undef SIZEOF_CHAR
+ 
+-/* The size of a `double', as computed by sizeof. */
++/* The size of `double', as computed by sizeof. */
+ #undef SIZEOF_DOUBLE
+ 
+-/* The size of a `float', as computed by sizeof. */
++/* The size of `float', as computed by sizeof. */
+ #undef SIZEOF_FLOAT
+ 
+-/* The size of a `int', as computed by sizeof. */
++/* The size of `int', as computed by sizeof. */
+ #undef SIZEOF_INT
+ 
+-/* The size of a `long', as computed by sizeof. */
++/* The size of `long', as computed by sizeof. */
+ #undef SIZEOF_LONG
+ 
+-/* The size of a `long double', as computed by sizeof. */
++/* The size of `long double', as computed by sizeof. */
+ #undef SIZEOF_LONG_DOUBLE
+ 
+-/* The size of a `long long', as computed by sizeof. */
++/* The size of `long long', as computed by sizeof. */
+ #undef SIZEOF_LONG_LONG
+ 
+-/* The size of a `short', as computed by sizeof. */
++/* The size of `short', as computed by sizeof. */
+ #undef SIZEOF_SHORT
+ 
+-/* The size of a `size_t', as computed by sizeof. */
++/* The size of `size_t', as computed by sizeof. */
+ #undef SIZEOF_SIZE_T
+ 
+-/* The size of a `void*', as computed by sizeof. */
++/* The size of `void*', as computed by sizeof. */
+ #undef SIZEOF_VOIDP
+ 
+-/* The size of a `__int64', as computed by sizeof. */
++/* The size of `__int64', as computed by sizeof. */
+ #undef SIZEOF___INT64
+ 
+ /* Define to 1 if the stack grows down. */
+@@ -870,5 +873,5 @@
+ /* Define to empty if `const' does not conform to ANSI C. */
+ #undef const
+ 
+-/* Define to `unsigned' if <sys/types.h> does not define. */
++/* Define to `unsigned int' if <sys/types.h> does not define. */
+ #undef size_t
+--- ncbi_cxx--12_0_0/include/common/config/ncbiconf_xcode.h.ori	2014-06-23 17:40:40.000000000 +0200
++++ ncbi_cxx--12_0_0/include/common/config/ncbiconf_xcode.h	2014-06-23 17:40:57.000000000 +0200
+@@ -1,4 +1,4 @@
+-/* $Id: ncbiconf_xcode.h 361821 2012-05-04 14:28:13Z ucko $
++/* $Id$
+  * By Vlad Lebedev, NCBI (lebedev@ncbi.nlm.nih.gov)
+  *
+  * Mac OS X - xCode Build
+@@ -258,9 +258,6 @@
+ /* Define to 1 if you have `ios(_base)::register_callback'. */
+ #define HAVE_IOS_REGISTER_CALLBACK 1
+ 
+-/* Define to 1 if <algorithm> supplies `std::is_sorted<>'. */
+-/* #undef HAVE_IS_SORTED */
+-
+ /* Define to 1 if you have the `lchown' function. */
+ /* #undef HAVE_LCHOWN */
+ 
+@@ -358,6 +355,9 @@
+ /* Define to 1 if you have the `lutimes' function. */
+ /* #undef HAVE_LUTIMES */
+ 
++/* Define to 1 if you have the `madvise' function. */
++#define HAVE_MADVISE 1
++
+ /* Define to 1 if you have the <malloc.h> header file. */
+ /* #undef HAVE_MALLOC_H */
+ 
+@@ -589,15 +589,15 @@
+ /* Define to 1 if you have the <windows.h> header file. */
+ /* #undef HAVE_WINDOWS_H */
+ 
++/* Define to 1 if you have the `writev' function. */
++#define HAVE_WRITEV 1
++
+ /* Define to 1 if the system has the type `wstring'. */
+ #define HAVE_WSTRING 1
+ 
+ /* Define to 1 if wxWidgets is available. */
+ /* #undef HAVE_WXWIDGETS */
+ 
+-/* Define to 1 if nullptr keyword is available. */
+-/* #undef HAVE_NULLPTR */
+-
+ /* Define as const if the declaration of iconv() needs const. */
+ #if MAC_OS_X_VERSION_MIN_REQUIRED >= 1050 /* MAC_OS_X_VERSION_10_5 */
+ #  define ICONV_CONST
+@@ -694,7 +694,7 @@
+ /* Define to empty if `const' does not conform to ANSI C. */
+ /* #undef const */
+ 
+-/* Define to `unsigned' if <sys/types.h> does not define. */
++/* Define to `unsigned int' if <sys/types.h> does not define. */
+ /* #undef size_t */
+ 
+ /*

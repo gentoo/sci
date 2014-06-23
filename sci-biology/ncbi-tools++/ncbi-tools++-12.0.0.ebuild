@@ -26,12 +26,14 @@ IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif
-	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
+	glut hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
+# removed IUSE=gnutls due to Gentoo bug #421777
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
 
 # sys-libs/db should be compiled with USE=cxx
+# dropped 'gnutls? ( net-libs/gnutls[lzo] )' from DEPEND due to Gentoo bug #421777
 DEPEND="
 	berkdb? ( sys-libs/db:4.3[cxx] )
 	ftds? ( dev-db/freetds )
@@ -40,7 +42,6 @@ DEPEND="
 	sqlite? ( dev-db/sqlite )
 	sqlite3? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
-	gnutls? ( net-libs/gnutls[lzo] )
 	ssl? ( dev-libs/openssl )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl )
@@ -112,6 +113,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix-creaders-linking.patch
 		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
 		"${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
+		"${FILESDIR}"/${P}-support-autoconf-2.60.patch
 		)
 	epatch ${PATCHES[@]}
 
@@ -120,8 +122,10 @@ src_prepare() {
 	cd src/build-system || die
 #	eautoreconf
 	eautoconf
+	# beware 12.0.0. and previous required autoconf-2.59, a patch for 12.0.0 brings autoconf-2.60 support
 }
 
+# possibly place modified contents of ${W}/src/build-system/config.site.ncbi and {W}/src/build-system/config.site.ex into ${W}/src/build-system/config.site
 src_configure() {
 	local myconf=()
 	#--without-optimization  turn off optimization flags in non-debug mode
@@ -214,7 +218,7 @@ src_configure() {
 	$(use_with pch)
 	$(use_with lzo lzo "${EPREFIX}/usr")
 	$(use_with pcre pcre "${EPREFIX}/usr")
-	$(use_with gnutls gnutls "${EPREFIX}/usr")
+#	$(use_with gnutls gnutls "${EPREFIX}/usr")
 	$(use_with ssl openssl "${EPREFIX}/usr")
 	$(use_with ftds ftds "${EPREFIX}/usr")
 	$(use_with mysql mysql "${EPREFIX}/usr")
