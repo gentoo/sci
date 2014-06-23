@@ -1,6 +1,13 @@
 # ChangeLog for sci-biology/ncbi-tools++
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  23 Jun 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> ChangeLog:
+  add patches for 12.0.0 to support autoconf-2.60 (so far 2.59 was needed),
+  patches from upstream:
+  http://www.ncbi.nlm.nih.gov/viewvc/v1?view=revision&revision=62745
+  http://www.ncbi.nlm.nih.gov/viewvc/v1?view=revision&revision=62750
+  http://www.ncbi.nlm.nih.gov/viewvc/v1?view=revision&revision=62760
 
   14 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   ncbi-tools++-9.0.0-r1.ebuild:
