@@ -26,14 +26,12 @@ IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif
-	glut hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
+	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
-# removed IUSE=gnutls due to Gentoo bug #421777
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
 
 # sys-libs/db should be compiled with USE=cxx
-# dropped 'gnutls? ( net-libs/gnutls[lzo] )' from DEPEND due to Gentoo bug #421777
 DEPEND="
 	berkdb? ( sys-libs/db:4.3[cxx] )
 	ftds? ( dev-db/freetds )
@@ -51,6 +49,7 @@ DEPEND="
 	glut? ( media-libs/freeglut )
 	freetype? ( media-libs/freetype )
 	fastcgi? ( www-apache/mod_fastcgi )
+	gnutls? ( net-libs/gnutls[lzo] )
 	python? ( dev-lang/python )
 	cppunit? ( dev-util/cppunit )
 	icu? ( dev-libs/icu )
@@ -114,14 +113,19 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
 		"${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
 		"${FILESDIR}"/${P}-support-autoconf-2.60.patch
+		"${FILESDIR}"/${P}-configure.patch
 		)
 	epatch ${PATCHES[@]}
+	# make sure this one is the last one and contains the actual patches applied unless we can have autoconf-2.59 or 2.60
+	# https://bugs.gentoo.org/show_bug.cgi?id=514706
 
 	tc-export CXX CC
 
 	cd src/build-system || die
 #	eautoreconf
-	eautoconf
+
+	# Temporarily disabling eautoconf because we patch configure via ${P}-support-autoconf-2.60.patch
+	#eautoconf
 	# beware 12.0.0. and previous required autoconf-2.59, a patch for 12.0.0 brings autoconf-2.60 support
 }
 
@@ -218,7 +222,7 @@ src_configure() {
 	$(use_with pch)
 	$(use_with lzo lzo "${EPREFIX}/usr")
 	$(use_with pcre pcre "${EPREFIX}/usr")
-#	$(use_with gnutls gnutls "${EPREFIX}/usr")
+	$(use_with gnutls gnutls "${EPREFIX}/usr")
 	$(use_with ssl openssl "${EPREFIX}/usr")
 	$(use_with ftds ftds "${EPREFIX}/usr")
 	$(use_with mysql mysql "${EPREFIX}/usr")
@@ -251,7 +255,7 @@ src_configure() {
 	$(use_with xpm xpm "${EPREFIX}/usr")
 	$(use_with curl curl "${EPREFIX}/usr")
 #	$(use_with X x "${EPREFIX}/usr")
-	$(use_with X x)
+#	$(use_with X x) # there is no --with-x option
 	)
 
 	# http://www.ncbi.nlm.nih.gov/books/NBK7167/
