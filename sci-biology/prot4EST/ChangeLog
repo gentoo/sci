@@ -1,0 +1,7 @@
+# ChangeLog for sci-biology/prot4EST
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  24 Jun 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml:
+  sci-biology/prot4EST: new package, missing LICENSE, missing dev-perl/ deps
+
