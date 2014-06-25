@@ -344,7 +344,7 @@ index 872b92e..78261eb 100644
  CXXFLAGS = $(FAST_CXXFLAGS)
  LDFLAGS  = $(FAST_LDFLAGS)
 +
-+DLL_LIB = xutil omssa pepXML xcompress xconnect seqdb xblast xregexp
++DLL_LIB = xutil omssa pepXML xcompress xconnect seqdb blast xregexp
 diff --git a/src/algo/phy_tree/Makefile.xalgophytree.lib b/src/algo/phy_tree/Makefile.xalgophytree.lib
 index c7e2778..51ebe9d 100644
 --- a/src/algo/phy_tree/Makefile.xalgophytree.lib

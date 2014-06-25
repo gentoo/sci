@@ -108,14 +108,18 @@ src_prepare() {
 # The conf-opts.patch and as-needed.patch need to be adjusted for 12.0.0 line numbers
 	local PATCHES=(
 		"${FILESDIR}"/${P}-conf-opts.patch
-		"${FILESDIR}"/${P}-as-needed.patch
-		"${FILESDIR}"/${P}-fix-creaders-linking.patch
 		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
-		"${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
+		"${FILESDIR}"/${P}-linkage-tuneups.patch
 		"${FILESDIR}"/${P}-more-patches.patch
-		"${FILESDIR}"/${P}-linking.patch
-		"${FILESDIR}"/${P}-linking2.patch
+		"${FILESDIR}"/${P}-linkage-tuneups-addons.patch
 		)
+#       "${FILESDIR}"/${P}-as-needed.patch
+#       "${FILESDIR}"/${P}-fix-creaders-linking.patch
+#       "${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
+# replaced by -linkage-tuneups.patch
+#		"${FILESDIR}"/${P}-linking.patch
+#		"${FILESDIR}"/${P}-linking2.patch
+#		)
 		# "${FILESDIR}"/${P}-support-autoconf-2.60.patch
 		# "${FILESDIR}"/${P}-configure.patch
 	epatch ${PATCHES[@]}

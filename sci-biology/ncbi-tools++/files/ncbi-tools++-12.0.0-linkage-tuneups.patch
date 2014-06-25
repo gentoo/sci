@@ -1,0 +1,421 @@
+Index: src/algo/blast/format/Makefile.xblastformat.lib
+===================================================================
+--- src/algo/blast/format/Makefile.xblastformat.lib	(revision 439078)
++++ src/algo/blast/format/Makefile.xblastformat.lib	(working copy)
+@@ -7,6 +7,6 @@
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLASTFORMAT $(ORIG_CPPFLAGS)
+ 
+-DLL_LIB = align_format blastxml xhtml xcgi
++DLL_LIB = align_format xblast xnetblast blastxml xhtml xcgi
+ 
+ WATCHERS = jianye zaretska madden camacho fongah2
+Index: src/app/compart/Makefile.compart.app
+===================================================================
+--- src/app/compart/Makefile.compart.app	(revision 439078)
++++ src/app/compart/Makefile.compart.app	(working copy)
+@@ -5,11 +5,11 @@
+ APP = compart
+ SRC = compart
+ 
+-LIB =  xalgoalignutil xalgoalignsplign xalgoalignnw xqueryparse xalnmgr \
+-       $(BLAST_LIBS:%=%$(STATIC)) \
+-       $(OBJMGR_LIBS:%=%$(STATIC))
++LIB =  xalgoalignutil xalgoalignsplign xalgoalignnw xalgoseq \
++       taxon1 xalnmgr xqueryparse xregexp $(PCRE_LIB) \
++       $(BLAST_LIBS:%=%$(STATIC)) $(OBJMGR_LIBS:%=%$(STATIC))
+ 
+-LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
++LIBS = $(PCRE_LIBS) $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
+ CXXFLAGS = $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)
+Index: src/app/compart/Makefile.compartp.app
+===================================================================
+--- src/app/compart/Makefile.compartp.app	(revision 439078)
++++ src/app/compart/Makefile.compartp.app	(working copy)
+@@ -5,7 +5,8 @@
+ APP = compartp
+ SRC = compartp
+ 
+-LIB = prosplign  xalgoalignutil $(BLAST_LIBS)  xqueryparse $(OBJMGR_LIBS)
++LIB = prosplign xalgoalignutil xalgoseq taxon1 $(BLAST_LIBS) \
++      xqueryparse xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ 
+ LIBS = $(CMPRS_LIBS) $(PCRE_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
+Index: src/app/grid/util/Makefile.ncfetch.app
+===================================================================
+--- src/app/grid/util/Makefile.ncfetch.app	(revision 439078)
++++ src/app/grid/util/Makefile.ncfetch.app	(working copy)
+@@ -5,7 +5,7 @@
+ APP = ncfetch.cgi
+ SRC = ncfetch
+ 
+-LIB = xcgi xconnserv xconnect xutil xncbi
++LIB = xcgi xconnserv xthrserv xconnect xutil xncbi
+ LIBS = $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
+ WATCHERS = kazimird
+Index: src/app/hfilter/Makefile.hfilter.app
+===================================================================
+--- src/app/hfilter/Makefile.hfilter.app	(revision 439078)
++++ src/app/hfilter/Makefile.hfilter.app	(working copy)
+@@ -5,9 +5,10 @@
+ APP = hfilter
+ SRC = hitfilter_app
+ 
+-LIB = xalgoalignutil $(BLAST_LIBS) xqueryparse $(OBJMGR_LIBS)
++LIB = xalgoalignutil xalgoseq taxon1 $(BLAST_LIBS) xqueryparse \
++      xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ 
+-LIBS = $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
++LIBS = $(PCRE_LIBS) $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
+ CXXFLAGS = $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)
+Index: src/app/speedtest/Makefile.speedtest.app
+===================================================================
+--- src/app/speedtest/Makefile.speedtest.app	(revision 439078)
++++ src/app/speedtest/Makefile.speedtest.app	(working copy)
+@@ -8,7 +8,7 @@
+ 
+ APP = speedtest
+ SRC = speedtest
+-LIB = prosplign xalgoalignutil xcleanup submit $(BLAST_LIBS) \
++LIB = prosplign xalgoalignutil xalgoseq xcleanup taxon1 submit $(BLAST_LIBS) \
+       xqueryparse xregexp $(PCRE_LIB) $(OBJMGR_LIBS:%=%$(STATIC))
+ 
+ LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+Index: src/app/splign/Makefile.splign.app
+===================================================================
+--- src/app/splign/Makefile.splign.app	(revision 439078)
++++ src/app/splign/Makefile.splign.app	(working copy)
+@@ -12,7 +12,7 @@
+ LIB = xalgoalignsplign xalgoalignutil xalgoalignnw \
+       $(BLAST_DB_DATA_LOADER_LIBS) \
+       ncbi_xloader_lds2 lds2 sqlitewrapp \
+-      xqueryparse xalgoseq $(PCRE_LIB) \
++      xqueryparse xalgoseq taxon1 xregexp $(PCRE_LIB) \
+       $(BLAST_LIBS:%=%$(STATIC)) submit \
+       $(OBJMGR_LIBS:%=%$(STATIC))
+ 
+Index: src/connect/services/test/Makefile.test_nsstorage.app
+===================================================================
+--- src/connect/services/test/Makefile.test_nsstorage.app	(revision 439078)
++++ src/connect/services/test/Makefile.test_nsstorage.app	(working copy)
+@@ -2,7 +2,7 @@
+ 
+ APP = test_nsstorage
+ SRC = test_nsstorage
+-LIB = xconnserv xconnect xutil xncbi
++LIB = xconnserv xthrserv xconnect xutil xncbi
+ 
+ LIBS = $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
+Index: src/misc/hgvs/test/Makefile.hgvs2variation.app
+===================================================================
+--- src/misc/hgvs/test/Makefile.hgvs2variation.app	(revision 439078)
++++ src/misc/hgvs/test/Makefile.hgvs2variation.app	(working copy)
+@@ -6,7 +6,7 @@
+ 
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(BOOST_INCLUDE)
+ 
+-LIB_ = hgvs variation \
++LIB_ = hgvs objcoords variation \
+        entrez2cli entrez2 xregexp $(PCRE_LIB) xobjutil $(OBJMGR_LIBS)
+ LIB = $(LIB_:%=%$(STATIC))
+ 
+Index: src/misc/hgvs/test/Makefile.test_hgvs_parser.app
+===================================================================
+--- src/misc/hgvs/test/Makefile.test_hgvs_parser.app	(revision 439078)
++++ src/misc/hgvs/test/Makefile.test_hgvs_parser.app	(working copy)
+@@ -5,7 +5,7 @@
+ 
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(BOOST_INCLUDE)
+ 
+-LIB_ = hgvs variation test_boost xregexp $(PCRE_LIB) xobjutil \
++LIB_ = hgvs objcoords variation test_boost xregexp $(PCRE_LIB) xobjutil \
+        entrez2cli entrez2 $(OBJMGR_LIBS)
+ 
+ LIB = $(LIB_:%=%$(STATIC))
+Index: src/objects/biblio/Makefile.biblio.lib
+===================================================================
+--- src/objects/biblio/Makefile.biblio.lib	(revision 439078)
++++ src/objects/biblio/Makefile.biblio.lib	(working copy)
+@@ -1,2 +1,4 @@
+ LIB = biblio
+ SRC = biblio__ biblio___ citation_base
++
++DLL_LIB = general
+Index: src/objects/blast/Makefile.blast.lib
+===================================================================
+--- src/objects/blast/Makefile.blast.lib	(revision 439078)
++++ src/objects/blast/Makefile.blast.lib	(working copy)
+@@ -1,4 +1,6 @@
+ LIB = xnetblast
+ SRC = blast__ blast___ names
+ 
++DLL_LIB = scoremat seqset
++
+ WATCHERS = camacho
+Index: src/objects/blast/Makefile.xnetblastcli.lib
+===================================================================
+--- src/objects/blast/Makefile.xnetblastcli.lib	(revision 439078)
++++ src/objects/blast/Makefile.xnetblastcli.lib	(working copy)
+@@ -2,3 +2,5 @@
+ 
+ LIB = xnetblastcli
+ SRC = blastclient blastclient_
++
++DLL_LIB = xnetblast xconnect
+Index: src/objects/blastdb/Makefile.blastdb.lib
+===================================================================
+--- src/objects/blastdb/Makefile.blastdb.lib	(revision 439078)
++++ src/objects/blastdb/Makefile.blastdb.lib	(working copy)
+@@ -1,2 +1,4 @@
+ LIB = blastdb
+ SRC = blastdb__ blastdb___
++
++DLL_LIB = seq
+Index: src/objects/general/Makefile.general.lib
+===================================================================
+--- src/objects/general/Makefile.general.lib	(revision 439078)
++++ src/objects/general/Makefile.general.lib	(working copy)
+@@ -1,2 +1,4 @@
+ LIB = general
+ SRC = general__ general___ uoconv
++
++DLL_LIB = xser
+Index: src/objects/medline/Makefile.medline.lib
+===================================================================
+--- src/objects/medline/Makefile.medline.lib	(revision 439078)
++++ src/objects/medline/Makefile.medline.lib	(working copy)
+@@ -1,2 +1,4 @@
+ LIB = medline
+ SRC = medline__ medline___
++
++DLL_LIB = biblio general
+Index: src/objects/pub/Makefile.pub.lib
+===================================================================
+--- src/objects/pub/Makefile.pub.lib	(revision 439078)
++++ src/objects/pub/Makefile.pub.lib	(working copy)
+@@ -1,2 +1,4 @@
+ LIB = pub
+ SRC = pub__ pub___
++
++DLL_LIB = medline biblio
+Index: src/objects/scoremat/Makefile.scoremat.lib
+===================================================================
+--- src/objects/scoremat/Makefile.scoremat.lib	(revision 439078)
++++ src/objects/scoremat/Makefile.scoremat.lib	(working copy)
+@@ -1,2 +1,4 @@
+ LIB = scoremat
+ SRC = scoremat__ scoremat___
++
++DLL_LIB = seqset
+Index: src/objects/seq/Makefile.seq.lib
+===================================================================
+--- src/objects/seq/Makefile.seq.lib	(revision 439078)
++++ src/objects/seq/Makefile.seq.lib	(working copy)
+@@ -13,3 +13,5 @@
+       seq_loc_from_string seq_loc_reverse_complementer
+ 
+ WATCHERS = vasilche grichenk
++
++DLL_LIB = seqcode pub biblio general xser sequtil
+Index: src/objects/seqset/Makefile.seqset.lib
+===================================================================
+--- src/objects/seqset/Makefile.seqset.lib	(revision 439078)
++++ src/objects/seqset/Makefile.seqset.lib	(working copy)
+@@ -1,2 +1,4 @@
+ LIB = seqset
+ SRC = seqset__ seqset___ gb_release_file
++
++DLL_LIB = xser
+Index: src/objects/taxon1/Makefile.taxon1.lib
+===================================================================
+--- src/objects/taxon1/Makefile.taxon1.lib	(revision 439078)
++++ src/objects/taxon1/Makefile.taxon1.lib	(working copy)
+@@ -3,4 +3,6 @@
+ LIB = taxon1
+ SRC = taxon1__ taxon1___ taxon1 cache utils ctreecont
+ 
++DLL_LIB = xconnect
++
+ WATCHERS = domrach
+Index: src/objmgr/util/Makefile.util.lib
+===================================================================
+--- src/objmgr/util/Makefile.util.lib	(revision 439078)
++++ src/objmgr/util/Makefile.util.lib	(working copy)
+@@ -8,5 +8,7 @@
+ SRC = weight sequence feature seqtitle create_defline obj_sniff seq_loc_util seq_align_util
+ LIB = xobjutil
+ 
++DLL_LIB = xobjmgr
++
+ WATCHERS = ucko vasilche
+ 
+Index: src/objtools/blast/seqdb_reader/Makefile.seqdb.lib
+===================================================================
+--- src/objtools/blast/seqdb_reader/Makefile.seqdb.lib	(revision 439078)
++++ src/objtools/blast/seqdb_reader/Makefile.seqdb.lib	(working copy)
+@@ -29,4 +29,6 @@
+ CXXFLAGS = $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)
+ 
++DLL_LIB = xobjmgr blastdb
++
+ WATCHERS = maning camacho
+Index: src/objtools/blast/services/Makefile.blast_services.lib
+===================================================================
+--- src/objtools/blast/services/Makefile.blast_services.lib	(revision 439078)
++++ src/objtools/blast/services/Makefile.blast_services.lib	(working copy)
+@@ -13,3 +13,4 @@
+ CXXFLAGS = $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)
+ 
++DLL_LIB = xnetblastcli xconnect
+Index: src/objtools/data_loaders/blastdb/Makefile.ncbi_xloader_blastdb.lib
+===================================================================
+--- src/objtools/data_loaders/blastdb/Makefile.ncbi_xloader_blastdb.lib	(revision 439078)
++++ src/objtools/data_loaders/blastdb/Makefile.ncbi_xloader_blastdb.lib	(working copy)
+@@ -7,4 +7,6 @@
+ 
+ ASN_DEP = blastdb seqset
+ 
++DLL_LIB = seqdb
++
+ WATCHERS = camacho
+Index: src/objtools/data_loaders/blastdb/Makefile.ncbi_xloader_blastdb_rmt.lib
+===================================================================
+--- src/objtools/data_loaders/blastdb/Makefile.ncbi_xloader_blastdb_rmt.lib	(revision 439078)
++++ src/objtools/data_loaders/blastdb/Makefile.ncbi_xloader_blastdb_rmt.lib	(working copy)
+@@ -7,4 +7,6 @@
+ 
+ ASN_DEP = blastdb xnetblast
+ 
++DLL_LIB = blast_services
++
+ WATCHERS = camacho
+Index: src/objtools/lds2/Makefile.lds2.lib
+===================================================================
+--- src/objtools/lds2/Makefile.lds2.lib	(revision 439078)
++++ src/objtools/lds2/Makefile.lds2.lib	(working copy)
+@@ -8,9 +8,9 @@
+ SRC = lds2 lds2_db lds2_handlers
+ 
+ # Dependencies for shared library
+-#DLL_LIB = sqlitewrapp
++DLL_LIB = sqlitewrapp $(COMPRESS_LIBS)
+ 
+-LIBS = $(CMPRS_LIBS) $(ORIG_LIBS)
++LIBS = $(SQLITE3_LIBS) $(CMPRS_LIBS) $(ORIG_LIBS)
+ 
+ CPPFLAGS = $(SQLITE3_INCLUDE) $(CMPRS_INCLUDE) $(ORIG_CPPFLAGS)
+ 
+Index: src/objtools/readers/Makefile.xobjread.lib
+===================================================================
+--- src/objtools/readers/Makefile.xobjread.lib	(revision 439078)
++++ src/objtools/readers/Makefile.xobjread.lib	(working copy)
+@@ -19,5 +19,6 @@
+       best_feat_finder source_mod_parser fasta_exception
+ 
+ 
+-DLL_LIB = creaders
++DLL_LIB = seqset $(SEQ_LIBS) pub general creaders xutil
+ 
++
+Index: src/sample/app/cgi/Makefile.cgi_session_sample.app
+===================================================================
+--- src/sample/app/cgi/Makefile.cgi_session_sample.app	(revision 439078)
++++ src/sample/app/cgi/Makefile.cgi_session_sample.app	(working copy)
+@@ -11,7 +11,7 @@
+ # the lines reading "### BEGIN/END COPIED SETTINGS" in any way.
+ 
+ ### BEGIN COPIED SETTINGS
+-LIB = xgridcgi xcgi xhtml xconnserv xconnect xutil xncbi
++LIB = xgridcgi xcgi xhtml xconnserv xthrserv xconnect xutil xncbi
+ 
+ LIBS = $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
+Index: src/sample/app/netcache/Makefile.netcache_cgi_sample.app
+===================================================================
+--- src/sample/app/netcache/Makefile.netcache_cgi_sample.app	(revision 439078)
++++ src/sample/app/netcache/Makefile.netcache_cgi_sample.app	(working copy)
+@@ -4,7 +4,7 @@
+ SRC = netcache_cgi_sample
+ 
+ ### BEGIN COPIED SETTINGS
+-LIB = xconnserv xconnect xcgi xhtml xutil xncbi
++LIB = xconnserv xthrserv xconnect xcgi xhtml xutil xncbi
+ 
+ LIBS = $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ ### END COPIED SETTINGS
+Index: src/serial/Makefile.serial.lib
+===================================================================
+--- src/serial/Makefile.serial.lib	(revision 439078)
++++ src/serial/Makefile.serial.lib	(working copy)
+@@ -19,3 +19,5 @@
+ LIB    = xser
+ 
+ WATCHERS = gouriano
++
++DLL_LIB = xutil xncbi
+Index: src/sra/data_loaders/bam/test/Makefile.test_bam_loader.app
+===================================================================
+--- src/sra/data_loaders/bam/test/Makefile.test_bam_loader.app	(revision 439078)
++++ src/sra/data_loaders/bam/test/Makefile.test_bam_loader.app	(working copy)
+@@ -7,7 +7,8 @@
+ 
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(BOOST_INCLUDE)
+ 
+-LIB = ncbi_xloader_bam bamread $(BAM_LIBS) xobjreadex xobjutil test_boost $(OBJMGR_LIBS)
++LIB = ncbi_xloader_bam bamread $(BAM_LIBS) \
++      xobjreadex $(OBJREAD_LIBS) xobjutil test_boost $(OBJMGR_LIBS)
+ 
+ LIBS = $(SRA_SDK_SYSLIBS) $(CMPRS_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
+ 
+Index: src/sra/data_loaders/csra/test/Makefile.test_csra_loader.app
+===================================================================
+--- src/sra/data_loaders/csra/test/Makefile.test_csra_loader.app	(revision 439078)
++++ src/sra/data_loaders/csra/test/Makefile.test_csra_loader.app	(working copy)
+@@ -5,7 +5,8 @@
+ 
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(BOOST_INCLUDE)
+ 
+-LIB = ncbi_xloader_csra $(SRAREAD_LIBS) xobjreadex xobjutil test_boost $(OBJMGR_LIBS)
++LIB = ncbi_xloader_csra $(SRAREAD_LIBS) xobjreadex $(OBJREAD_LIBS) xobjutil \
++      test_boost $(OBJMGR_LIBS)
+ 
+ LIBS = $(SRA_SDK_SYSLIBS) $(CMPRS_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
+ 
+Index: src/sra/readers/bam/test/Makefile.bam_test.app
+===================================================================
+--- src/sra/readers/bam/test/Makefile.bam_test.app	(revision 439078)
++++ src/sra/readers/bam/test/Makefile.bam_test.app	(working copy)
+@@ -9,7 +9,8 @@
+ APP = bam_test
+ SRC = bam_test
+ 
+-LIB =   bamread xobjreadex xobjutil xobjsimple $(OBJMGR_LIBS) $(BAM_LIBS)
++LIB =   bamread $(BAM_LIBS) xobjreadex $(OBJREAD_LIBS) xobjutil xobjsimple \
++        $(OBJMGR_LIBS)
+ LIBS =  $(SRA_SDK_SYSLIBS) $(CMPRS_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
+ 
+ REQUIRES = objects
+Index: src/sra/sdk/libs/vfs/Makefile.vfs.lib
+===================================================================
+--- src/sra/sdk/libs/vfs/Makefile.vfs.lib	(revision 16076)
++++ src/sra/sdk/libs/vfs/Makefile.vfs.lib	(working copy)
+@@ -8,6 +8,9 @@
+ CPPFLAGS = -I$(srcdir) $(SRA_INCLUDE) $(Z_INCLUDE) $(BZ2_INCLUDE) \
+            $(SRA_INTERNAL_CPPFLAGS) -D_LIBRARY -DALWAYS_ADD_EXE $(ORIG_CPPFLAGS)
+ 
+-DLL_LIB = srapath$(DLL) kurl$(DLL) krypto$(DLL) kfg$(DLL) kfs$(DLL) klib$(DLL)
++DLL_LIB = srapath$(FORCE_STATIC) kurl$(FORCE_STATIC) \
++          krypto$(DLL) kfg$(DLL) kfs$(DLL) klib$(DLL)
+ 
++LIBS = $(SRA_SDK_SYSLIBS)
++
+ LIB_OR_DLL = both
