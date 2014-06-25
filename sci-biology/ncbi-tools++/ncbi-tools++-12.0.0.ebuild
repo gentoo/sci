@@ -339,8 +339,12 @@ src_install() {
 #	doheader "${S}"_build/inc/*
 
 	# File collisions with sci-biology/ncbi-tools
-	rm -f "${ED}"/usr/bin/{asn2asn,rpsblast,test_regexp}
-	mv "${ED}"/usr/bin/seedtop "${ED}"/usr/bin/seedtop2
+	#rm -f "${ED}"/usr/bin/{asn2asn,rpsblast,test_regexp,vecscreen}
+	mv "${ED}"/usr/bin/asn2asn "${ED}"/usr/bin/asn2asn+
+	mv "${ED}"/usr/bin/rpsblast "${ED}"/usr/bin/rpsblast+
+	mv "${ED}"/usr/bin/test_regexp "${ED}"/usr/bin/test_regexp+
+	mv "${ED}"/usr/bin/vecscreen "${ED}"/usr/bin/vecscreen+
+	mv "${ED}"/usr/bin/seedtop "${ED}"/usr/bin/seedtop+
 
 	echo "LDPATH=${EPREFIX}/usr/$(get_libdir)/${PN}" > ${S}/99${PN}
 	doenvd "${S}/99${PN}"
