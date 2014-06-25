@@ -42,7 +42,7 @@ DEPEND="
 	mysql? ( virtual/mysql )
 	ssl? ( dev-libs/openssl )
 	fltk? ( x11-libs/fltk )
-	opengl? ( virtual/opengl )
+	opengl? ( virtual/opengl media-libs/glew )
 	mesa? ( media-libs/mesa
 		media-libs/glew
 	)
@@ -72,7 +72,7 @@ DEPEND="
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
 
 
-# seems muParser is required, also glew is required. configure exits otherwise
+# seems muParser is required, also glew is required. configure exits otherwise if these are explicitly passed to it (due to USE flag enabled)
 
 RDEPEND="${DEPEND}"
 
@@ -117,9 +117,6 @@ src_prepare() {
 #       "${FILESDIR}"/${P}-as-needed.patch
 #       "${FILESDIR}"/${P}-fix-creaders-linking.patch
 #       "${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
-# replaced by -linkage-tuneups.patch
-#		"${FILESDIR}"/${P}-linking.patch
-#		"${FILESDIR}"/${P}-linking2.patch
 #		)
 		# "${FILESDIR}"/${P}-support-autoconf-2.60.patch
 	epatch ${PATCHES[@]}
