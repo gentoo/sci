@@ -112,9 +112,12 @@ src_prepare() {
 		"${FILESDIR}"/${P}-fix-creaders-linking.patch
 		"${FILESDIR}"/${P}-fix-svn-URL-upstream.patch
 		"${FILESDIR}"/${P}-fix-FreeTDS-upstream.patch
-		"${FILESDIR}"/${P}-support-autoconf-2.60.patch
-		"${FILESDIR}"/${P}-configure.patch
+		"${FILESDIR}"/${P}-more-patches.patch
+		"${FILESDIR}"/${P}-linking.patch
+		"${FILESDIR}"/${P}-linking2.patch
 		)
+		# "${FILESDIR}"/${P}-support-autoconf-2.60.patch
+		# "${FILESDIR}"/${P}-configure.patch
 	epatch ${PATCHES[@]}
 	# make sure this one is the last one and contains the actual patches applied unless we can have autoconf-2.59 or 2.60
 	# https://bugs.gentoo.org/show_bug.cgi?id=514706
@@ -248,7 +251,8 @@ src_configure() {
 	$(use_with xerces xerces "${EPREFIX}/usr")
 	$(use_with hdf5 hdf5 "${EPREFIX}/usr")
 	$(use_with xalan xalan "${EPREFIX}/usr")
-#	$(use_with gif gif "${EPREFIX}/usr")
+#	$(use_with gif gif "${EPREFIX}/usr") # prevent compilation failure in "ncbi-tools++-12.0.0/src/util/image/image_io_gif.cpp:351: error: 'QuantizeBuffer' was not declared in this scope"
+	--without-gif
 	$(use_with jpeg jpeg "${EPREFIX}/usr")
 	$(use_with tiff tiff "${EPREFIX}/usr")
 	$(use_with png png "${EPREFIX}/usr")
@@ -263,7 +267,7 @@ src_configure() {
 
 	# TODO
 	# copy optimization -O options from CXXFLAGS to DEF_FAST_FLAGS and pass that also to configure
-	# otherwise your -O2 will be dropped in some subdirectories and repalced by e.g. -O9
+	# otherwise your -O2 will be dropped in some subdirectories and replaced by e.g. -O9
 
 	einfo "bash ./src/build-system/configure --srcdir="${S}" --prefix="${EPREFIX}/usr" --libdir=/usr/lib64 ${myconf[@]}"
 
@@ -274,6 +278,7 @@ src_configure() {
 		--srcdir="${S}" \
 		--prefix="${EPREFIX}/usr" \
 		--libdir=/usr/lib64 \
+		--with-flat-makefile \
 		${myconf[@]} || die
 #--without-debug \
 #		--with-bin-release \
@@ -291,12 +296,33 @@ src_configure() {
 }
 
 src_compile() {
-	# all_r would ignore the --with-projects contents and build more
-	# emake all_r -C GCC*-Release*/build || die
-	# all_p with compile only selected/required components
-#	cd "${S}"_build &&\
-	emake all_p -C "${S}"_build/build
-#	emake all_p -C GCC*-Release*/build || die "gcc-4.5.3 crashes at src/objects/valerr/ValidError.cpp:226:1: internal compiler error: Segmentation fault, right?"
+	## all_r would ignore the --with-projects contents and build more
+	## emake all_r -C GCC*-Release*/build || die
+	## all_p with compile only selected/required components
+	##cd "${S}"_build &&\
+	##emake all_p -C GCC*-Release*/build || die "gcc-4.5.3 crashes at src/objects/valerr/ValidError.cpp:226:1: internal compiler error: Segmentation fault, right?"
+	#emake all_p -C "${S}"_build/build
+
+	#
+	# Re: /usr/lib64/ncbi-tools++/libdbapi_driver.so: undefined reference to `ncbi::NcbiGetlineEOL(std::istream&, std::string&)'
+	#
+	# The next release should automatically address such underlinking, albeit
+	# only in --with-flat-makefile configurations.  For now (12.0.0), you'll need to
+	# add or extend more DLL_LIB settings, to which end you may find the
+	# resources at http://www.ncbi.nlm.nih.gov/IEB/ToolBox/CPP_DOC/depgraphs/
+	# helpful.  For instance, 
+	# 
+	# http://www.ncbi.nlm.nih.gov/IEB/ToolBox/CPP_DOC/depgraphs/dbapi_driver.html
+	# 
+	# indicates that src/dbapi/driver/Makefile.dbapi_driver.lib should set
+	# 
+	# DLL_LIB = xncbi
+	# 
+	# (You can find the path to that makefile by examining
+	# .../status/.dbapi_driver.dep or .../build/Makefile.flat.)
+	# 
+	# To take full advantage of --with-flat-makefile, you'll need the following (instead of 'emake all_p -C "${S}"_build/build') and call configure --with-flat-makefile:
+	emake -C "${S}"_build/build -f Makefile.flat
 }
 
 src_install() {

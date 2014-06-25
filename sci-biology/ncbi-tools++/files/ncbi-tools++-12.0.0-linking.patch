@@ -1,0 +1,52 @@
+--- ncbi_cxx--12_0_0/src/objtools/data_loaders/genbank/Makefile.ncbi_xloader_genbank.lib.ori   (revision 400707)
++++ ncbi_cxx--12_0_0/src/objtools/data_loaders/genbank/Makefile.ncbi_xloader_genbank.lib   (working copy)
+@@ -10,6 +10,6 @@
+ LIB_OR_DLL = both
+ 
+ # Dependencies for shared library
+-DLL_LIB = ncbi_xreader$(DLL)
++DLL_LIB = $(GENBANK_LDEP)
+ 
+ WATCHERS = vasilche
+--- ncbi_cxx--12_0_0/src/app/grid/util/Makefile.ncfetch.app.ori  (revision 400707)
++++ ncbi_cxx--12_0_0/src/app/grid/util/Makefile.ncfetch.app  (working copy)
+@@ -5,7 +5,7 @@
+ APP = ncfetch.cgi
+ SRC = ncfetch
+ 
+-LIB = xcgi xconnserv xconnect xutil xncbi
++LIB = xcgi xconnserv xthrserv xconnect xutil xncbi
+ LIBS = $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
+ WATCHERS = kazimird
+--- ncbi_cxx--12_0_0/src/sample/app/netcache/Makefile.netcache_cgi_sample.app.ori    (revision 400707)
++++ ncbi_cxx--12_0_0/src/sample/app/netcache/Makefile.netcache_cgi_sample.app    (working copy)
+@@ -4,7 +4,7 @@
+ SRC = netcache_cgi_sample
+ 
+ ### BEGIN COPIED SETTINGS
+-LIB = xconnserv xconnect xcgi xhtml xutil xncbi
++LIB = xconnserv xthrserv xconnect xcgi xhtml xutil xncbi
+ 
+ LIBS = $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ ### END COPIED SETTINGS
+--- ncbi_cxx--12_0_0/src/misc/grid_cgi/Makefile.xgridcgi.lib.ori        2014-06-24 21:42:11.000000000 +0200
++++ ncbi_cxx--12_0_0/src/misc/grid_cgi/Makefile.xgridcgi.lib    2014-06-24 21:42:29.000000000 +0200
+@@ -10,4 +10,4 @@
+
+ WATCHERS = vakatov
+
+-DLL_LIB = xncbi xcgi xconnserv xhtml
++DLL_LIB = xhtml xcgi xconnserv
+--- ncbi_cxx--12_0_0/src/sra/sdk/libs/vfs/Makefile.vfs.lib.ori	2014-06-24 22:54:55.000000000 +0200
++++ ncbi_cxx--12_0_0/src/sra/sdk/libs/vfs/Makefile.vfs.lib	2014-06-24 22:55:05.000000000 +0200
+@@ -8,6 +8,7 @@
+ CPPFLAGS = -I$(srcdir) $(SRA_INCLUDE) $(Z_INCLUDE) $(BZ2_INCLUDE) \
+            $(SRA_INTERNAL_CPPFLAGS) -D_LIBRARY -DALWAYS_ADD_EXE $(ORIG_CPPFLAGS)
+ 
+-DLL_LIB = srapath$(DLL) kurl$(DLL) krypto$(DLL) kfg$(DLL) kfs$(DLL) klib$(DLL)
++DLL_LIB = srapath$(FORCE_STATIC) kurl$(FORCE_STATIC) krypto$(DLL) \
++          kfg$(DLL) kfs$(DLL) klib$(DLL)
+ 
+ LIB_OR_DLL = both
+
