@@ -112,6 +112,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-linkage-tuneups.patch
 		"${FILESDIR}"/${P}-more-patches.patch
 		"${FILESDIR}"/${P}-linkage-tuneups-addons.patch
+		"${FILESDIR}"/${P}-configure.patch
 		)
 #       "${FILESDIR}"/${P}-as-needed.patch
 #       "${FILESDIR}"/${P}-fix-creaders-linking.patch
@@ -121,7 +122,6 @@ src_prepare() {
 #		"${FILESDIR}"/${P}-linking2.patch
 #		)
 		# "${FILESDIR}"/${P}-support-autoconf-2.60.patch
-		# "${FILESDIR}"/${P}-configure.patch
 	epatch ${PATCHES[@]}
 	# make sure this one is the last one and contains the actual patches applied unless we can have autoconf-2.59 or 2.60
 	# https://bugs.gentoo.org/show_bug.cgi?id=514706
@@ -132,7 +132,7 @@ src_prepare() {
 #	eautoreconf
 
 	# Temporarily disabling eautoconf because we patch configure via ${P}-support-autoconf-2.60.patch
-	#eautoconf
+	# eautoconf # keep it disabled until we can ensure 2.59 is installed
 	# beware 12.0.0. and previous required autoconf-2.59, a patch for 12.0.0 brings autoconf-2.60 support
 }
 
