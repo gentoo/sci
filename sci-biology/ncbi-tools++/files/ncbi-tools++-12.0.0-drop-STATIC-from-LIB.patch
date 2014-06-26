@@ -1,0 +1,22 @@
+--- ncbi_cxx--12_0_0/src/app/speedtest/Makefile.speedtest.app.ori	2014-06-26 16:46:27.000000000 +0200
++++ ncbi_cxx--12_0_0/src/app/speedtest/Makefile.speedtest.app	2014-06-26 16:47:26.000000000 +0200
+@@ -9,7 +9,7 @@
+ APP = speedtest
+ SRC = speedtest
+ LIB = prosplign xalgoalignutil xalgoseq xcleanup taxon1 submit $(BLAST_LIBS) \
+-      xqueryparse xregexp $(PCRE_LIB) $(OBJMGR_LIBS:%=%$(STATIC))
++      xqueryparse xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ 
+ LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+--- ncbi_cxx--12_0_0/src/app/compart/Makefile.compart.app.ori	2014-06-26 16:47:53.000000000 +0200
++++ ncbi_cxx--12_0_0/src/app/compart/Makefile.compart.app	2014-06-26 16:48:07.000000000 +0200
+@@ -7,7 +7,7 @@
+ 
+ LIB =  xalgoalignutil xalgoalignsplign xalgoalignnw xalgoseq \
+        taxon1 xalnmgr xqueryparse xregexp $(PCRE_LIB) \
+-       $(BLAST_LIBS:%=%$(STATIC)) $(OBJMGR_LIBS:%=%$(STATIC))
++       $(BLAST_LIBS:%=%$(STATIC)) $(OBJMGR_LIBS)
+ 
+ LIBS = $(PCRE_LIBS) $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
