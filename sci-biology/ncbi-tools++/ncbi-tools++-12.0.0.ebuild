@@ -42,7 +42,7 @@ DEPEND="
 	mysql? ( virtual/mysql )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl media-libs/glew )
-	mesa? ( media-libs/mesa )
+	mesa? ( media-libs/mesa[osmesa] )
 	glut? ( media-libs/freeglut )
 	freetype? ( media-libs/freetype )
 	fastcgi? ( www-apache/mod_fastcgi )

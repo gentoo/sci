@@ -43,7 +43,7 @@ DEPEND="
 	gnutls? ( net-libs/gnutls )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl )
-	mesa? ( media-libs/mesa
+	mesa? ( media-libs/mesa[osmesa]
 		media-libs/glew
 	)
 	glut? ( media-libs/freeglut )
