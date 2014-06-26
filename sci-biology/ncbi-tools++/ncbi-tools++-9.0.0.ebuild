@@ -23,7 +23,7 @@ SRC_URI="
 
 LICENSE="public-domain"
 SLOT="0"
-IUSE="berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
+IUSE="berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
 
@@ -36,7 +36,6 @@ DEPEND="berkdb? ( sys-libs/db:4.3 )
 	sqlite3? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
 	gnutls? ( net-libs/gnutls )
-	ssl? ( dev-libs/openssl )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl )
 	mesa? ( media-libs/mesa )
@@ -59,7 +58,7 @@ DEPEND="berkdb? ( sys-libs/db:4.3 )
 	png? ( media-libs/libpng )
 	tiff? ( media-libs/tiff )
 	xpm? ( x11-libs/libXpm )
-	dev-libs/lzo
+	lzo? ( dev-libs/lzo )
 	app-arch/bzip2
 	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
@@ -181,11 +180,6 @@ src_configure() {
 		myconf="--with-gnutls"
 	else
 		myconf="--without-gnutls"
-	fi
-	if use ssl; then
-		myconf="--with-openssl"
-	else
-		myconf="--without-openssl"
 	fi
 	if ! use sqlite; then
 		myconf="--without-sqlite"

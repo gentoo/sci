@@ -28,7 +28,7 @@ IUSE="
 	test wxwidgets odbc
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif
 	glut gnutls hdf5 icu lzo jpeg mesa mysql muparser opengl pcre png python
-	sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
+	sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
 
@@ -42,7 +42,6 @@ DEPEND="
 	sqlite3? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
 	gnutls? ( net-libs/gnutls )
-	ssl? ( dev-libs/openssl )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl )
 	mesa? ( media-libs/mesa
@@ -67,7 +66,7 @@ DEPEND="
 	png? ( media-libs/libpng )
 	tiff? ( media-libs/tiff )
 	xpm? ( x11-libs/libXpm )
-	dev-libs/lzo
+	lzo? ( dev-libs/lzo )
 	app-arch/bzip2
 	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
@@ -212,7 +211,7 @@ src_configure() {
 #	--with-3psw=std:netopt favor standard (system) builds of the above pkgs
 
 
-# TODO: should improve the ssl/openssl/gmutls logic like is in net-misc/vpnc
+# Note: only care about gnutls, nothing actually uses openssl except a forgotten configure test
 	$(use_with debug)
 	$(use_with debug max-debug)
 	$(use_with debug symbols)
@@ -225,7 +224,6 @@ src_configure() {
 	$(use_with lzo lzo "${EPREFIX}/usr")
 	$(use_with pcre pcre "${EPREFIX}/usr")
 	$(use_with gnutls gnutls "${EPREFIX}/usr")
-	$(use_with ssl openssl "${EPREFIX}/usr")
 	$(use_with ftds ftds "${EPREFIX}/usr")
 	$(use_with mysql mysql "${EPREFIX}/usr")
 	$(use_with fltk fltk "${EPREFIX}/usr")
