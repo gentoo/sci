@@ -26,8 +26,8 @@ SLOT="0"
 IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
-	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif
-	glut gnutls hdf5 icu lzo jpeg mesa mysql muparser opengl pcre png python
+	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif
+	glut gnutls hdf5 icu lzo jpeg osmesa mysql muparser opengl pcre png python
 	sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
@@ -35,7 +35,6 @@ KEYWORDS=""
 # sys-libs/db should be compiled with USE=cxx
 DEPEND="
 	berkdb? ( sys-libs/db:4.3[cxx] )
-	ftds? ( dev-db/freetds )
 	boost? ( dev-libs/boost )
 	curl? ( net-misc/curl )
 	sqlite? ( dev-db/sqlite )
@@ -44,7 +43,7 @@ DEPEND="
 	gnutls? ( net-libs/gnutls )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl )
-	mesa? ( media-libs/mesa
+	osmesa? ( media-libs/osmesa
 		media-libs/glew
 	)
 	glut? ( media-libs/freeglut )
@@ -70,6 +69,8 @@ DEPEND="
 	app-arch/bzip2
 	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
+# Intentionally omitted USE flags:
+#	ftds? ( dev-db/freetds ) # useless, no real apps use it outside NCBI
 
 
 # seems muParser is required, also glew is required. configure exitss otherwise
@@ -154,7 +155,6 @@ src_configure() {
 	#--with-ncbi-public      ensure compatibility for all in-house platforms
 	#--with-sybase-local=DIR use local SYBASE install (DIR is optional)
 	#--with-sybase-new       use newer SYBASE install (12.5 rather than 12.0)
-	#--without-ftds-renamed  do not rename Sybase DBLIB symbols in built-in FTDS
 	#--without-sp            do not use SP libraries
 	#--without-orbacus       do not use ORBacus CORBA libraries
 	#--with-orbacus=DIR      use ORBacus installation in DIR
@@ -224,11 +224,10 @@ src_configure() {
 	$(use_with lzo lzo "${EPREFIX}/usr")
 	$(use_with pcre pcre "${EPREFIX}/usr")
 	$(use_with gnutls gnutls "${EPREFIX}/usr")
-	$(use_with ftds ftds "${EPREFIX}/usr")
 	$(use_with mysql mysql "${EPREFIX}/usr")
 	$(use_with fltk fltk "${EPREFIX}/usr")
 	$(use_with opengl opengl "${EPREFIX}/usr")
-	$(use_with mesa mesa "${EPREFIX}/usr")
+	$(use_with osmesa mesa "${EPREFIX}/usr")
 	$(use_with opengl glut "${EPREFIX}/usr")
 	$(use_with opengl glew "${EPREFIX}/usr")
 	$(use_with opengl glew-mx)

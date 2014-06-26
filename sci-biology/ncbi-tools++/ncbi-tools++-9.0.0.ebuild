@@ -23,13 +23,12 @@ SRC_URI="
 
 LICENSE="public-domain"
 SLOT="0"
-IUSE="berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
+IUSE="berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif glut gnutls hdf5 icu jpeg lzo osmesa mysql muparser opengl pcre png python sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
 
 # sys-libs/db should be compiled with USE=cxx
 DEPEND="berkdb? ( sys-libs/db:4.3 )
-	ftds? ( dev-db/freetds )
 	boost? ( dev-libs/boost )
 	curl? ( net-misc/curl )
 	sqlite? ( dev-db/sqlite )
@@ -38,7 +37,7 @@ DEPEND="berkdb? ( sys-libs/db:4.3 )
 	gnutls? ( net-libs/gnutls )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl )
-	mesa? ( media-libs/mesa )
+	osmesa? ( media-libs/mesa )
 	glut? ( media-libs/freeglut )
 	freetype? ( media-libs/freetype )
 	fastcgi? ( www-apache/mod_fastcgi )
@@ -62,6 +61,8 @@ DEPEND="berkdb? ( sys-libs/db:4.3 )
 	app-arch/bzip2
 	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
+# Intentionally omitted USE flags:
+#   ftds? ( dev-db/freetds ) # useless, no real apps use it outside NCBI
 
 # configure options, may want to expose some
 #  --without-debug         build non-debug versions of libs and apps
@@ -171,11 +172,6 @@ src_configure() {
 	if ! use curl; then
 		myconf="--without-curl"
 	fi
-	if use ftds; then
-		myconf="--with-ftds"
-	else
-		myconf="--without-ftds"
-	fi
 	if use gnutls; then
 		myconf="--with-gnutls"
 	else
@@ -196,7 +192,7 @@ src_configure() {
 	if ! use opengl; then
 		myconf="--without-opengl"
 	fi
-	if ! use mesa; then
+	if ! use osmesa; then
 		myconf="--without-mesa"
 	fi
 	if ! use glut; then
