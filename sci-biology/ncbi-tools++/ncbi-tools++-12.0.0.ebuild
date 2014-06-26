@@ -26,7 +26,7 @@ IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif
-	glut gnutls hdf5 icu jpeg lzo osmesa mysql muparser opengl pcre png python
+	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
 	sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
@@ -42,9 +42,7 @@ DEPEND="
 	mysql? ( virtual/mysql )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl media-libs/glew )
-	osmesa? ( media-libs/mesa
-		media-libs/glew
-	)
+	mesa? ( media-libs/mesa )
 	glut? ( media-libs/freeglut )
 	freetype? ( media-libs/freetype )
 	fastcgi? ( www-apache/mod_fastcgi )
@@ -231,7 +229,7 @@ src_configure() {
 	$(use_with mysql mysql "${EPREFIX}/usr")
 	$(usex fltk --with-fltk="${EPREFIX}/usr" "")
 	$(use_with opengl opengl "${EPREFIX}/usr")
-	$(use_with osmesa mesa "${EPREFIX}/usr")
+	$(use_with mesa mesa "${EPREFIX}/usr")
 	$(use_with opengl glut "${EPREFIX}/usr")
 	$(use_with opengl glew "${EPREFIX}/usr")
 	$(use_with opengl glew-mx)

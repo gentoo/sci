@@ -23,7 +23,7 @@ SRC_URI="
 
 LICENSE="public-domain"
 SLOT="0"
-IUSE="berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif glut gnutls hdf5 icu jpeg lzo osmesa mysql muparser opengl pcre png python sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
+IUSE="berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
 
@@ -37,7 +37,7 @@ DEPEND="berkdb? ( sys-libs/db:4.3 )
 	gnutls? ( net-libs/gnutls )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl )
-	osmesa? ( media-libs/mesa )
+	mesa? ( media-libs/mesa )
 	glut? ( media-libs/freeglut )
 	freetype? ( media-libs/freetype )
 	fastcgi? ( www-apache/mod_fastcgi )
@@ -192,7 +192,7 @@ src_configure() {
 	if ! use opengl; then
 		myconf="--without-opengl"
 	fi
-	if ! use osmesa; then
+	if ! use mesa; then
 		myconf="--without-mesa"
 	fi
 	if ! use glut; then
