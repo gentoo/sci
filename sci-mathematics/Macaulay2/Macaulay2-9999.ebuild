@@ -40,6 +40,7 @@ RDEPEND="${PYTHON_DEPS}
 	sci-mathematics/pari[gmp]
 	>=sys-libs/readline-6.1
 	dev-libs/libxml2:2
+	sci-mathematics/flint[gc]
 	sci-mathematics/frobby
 	sci-mathematics/4ti2
 	sci-mathematics/nauty
