@@ -27,7 +27,7 @@ IUSE="
 	test wxwidgets odbc
 	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
-	sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
+	sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
 
