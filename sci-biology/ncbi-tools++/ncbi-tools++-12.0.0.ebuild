@@ -33,6 +33,7 @@ KEYWORDS=""
 
 # sys-libs/db should be compiled with USE=cxx
 DEPEND="
+	!sci-biology/sra_sdk
 	berkdb? ( sys-libs/db:4.3[cxx] )
 	ftds? ( dev-db/freetds )
 	boost? ( dev-libs/boost )
