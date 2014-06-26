@@ -68,7 +68,10 @@ DEPEND="
 	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
 # Intentionally omitted USE flags:
-#   ftds? ( dev-db/freetds ) # useless, no real apps use it outside NCBI
+#   ftds? ( dev-db/freetds ) # support for outside FreeTDS installations is currently broken.
+#                              The default (heavily patched) embedded copy should work, or you can
+#                              leave it off altogether -- the only public apps that make use of it are
+#                              samples and tests, since NCBI's database servers are of course firewalled.
 
 # seems muParser is required, also glew is required. configure exits otherwise if these are explicitly passed to it (due to USE flag enabled)
 
