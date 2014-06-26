@@ -112,6 +112,7 @@ src_prepare() {
 		"${FILESDIR}"/${P}-more-patches.patch
 		"${FILESDIR}"/${P}-linkage-tuneups-addons.patch
 		"${FILESDIR}"/${P}-configure.patch
+		"${FILESDIR}"/${P}-drop-STATIC-from-LIB.patch
 		)
 #       "${FILESDIR}"/${P}-as-needed.patch
 #       "${FILESDIR}"/${P}-fix-creaders-linking.patch
