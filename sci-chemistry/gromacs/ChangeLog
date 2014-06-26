@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Jun 2014; Christoph Junghans <ottxor@gentoo.org> gromacs-5.0.9999.ebuild:
+  live ebuild update
+
   14 Apr 2014; Christoph Junghans <ottxor@gentoo.org> gromacs-5.0.9999.ebuild,
   gromacs-5.0_rc1.ebuild, gromacs-9999.ebuild, metadata.xml:
   added make-symlinks use flag, multilib-strict fix
