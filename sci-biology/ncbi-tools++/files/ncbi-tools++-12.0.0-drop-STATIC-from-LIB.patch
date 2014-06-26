@@ -16,7 +16,7 @@
  LIB =  xalgoalignutil xalgoalignsplign xalgoalignnw xalgoseq \
         taxon1 xalnmgr xqueryparse xregexp $(PCRE_LIB) \
 -       $(BLAST_LIBS:%=%$(STATIC)) $(OBJMGR_LIBS:%=%$(STATIC))
-+       $(BLAST_LIBS:%=%$(STATIC)) $(OBJMGR_LIBS)
++       $(BLAST_LIBS) $(OBJMGR_LIBS)
  
  LIBS = $(PCRE_LIBS) $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
 
