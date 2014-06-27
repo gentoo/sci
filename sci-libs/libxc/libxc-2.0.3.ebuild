@@ -24,7 +24,11 @@ S="${WORKDIR}"/${MY_P}
 MAKEOPTS+=" -j1"
 
 pkg_setup() {
-	use fortran && fortran-2_pkg_setup
+	if use fortran; then
+		fortran-2_pkg_setup
+		tc-export FC F77 CC CXX CPP
+		export FCCPP="$(tc-getCPP)"
+	fi
 }
 
 src_prepare() {
