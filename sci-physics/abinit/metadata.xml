@@ -36,7 +36,12 @@ ABINIT code, different utility programs are provided.
   </use>
   <use>
     <flag name="fftw-threads">
-   Use the threaded version of <pkg>sci-libs/fftw</pkg>
+   Use the threaded (openMP or pthreads) version of <pkg>sci-libs/fftw</pkg>
+  </flag>
+  </use>
+  <use>
+    <flag name="fftw-mpi">
+   Use the MPI version of <pkg>sci-libs/fftw</pkg> (always with either openMP or pthreads too)
   </flag>
   </use>
   <use>
@@ -45,7 +50,7 @@ ABINIT code, different utility programs are provided.
   <use>
     <flag name="gui">
       Build the abinit GUI (requires java);
-      since 7.4.x a separate package
+      since 7.4.0 a separate package
     </flag>
   </use>
   <use>
@@ -67,12 +72,22 @@ ABINIT code, different utility programs are provided.
     <flag name="lotf">Activate the Learn on The Fly method (LOTF) for Molecular Dynamics</flag>
   </use>
   <use>
+    <flag name="scalapack">
+      Use ScaLAPACK, a subset of LAPACK routines redesigned for heterogenous computing
+    </flag>
+  </use>
+  <use>
     <flag name="scripts">Install helper scripts, mostly Python</flag>
   </use>
   <use>
-    <flag name="vdwxc">Activate van der Waals exchange-correlation correction</flag>
+    <flag name="vdwxc">
+      Activate van der Waals exchange-correlation correction. Since 7.4.0
+      no longer optional
+    </flag>
   </use>
   <use>
-    <flag name="wannier">Enable support for wannier90, a maximally localized Wannier functions (MLWFs) calculator</flag>
+    <flag name="wannier">
+      Enable support for wannier90, a maximally localized Wannier functions (MLWFs) calculator
+    </flag>
   </use>
 </pkgmetadata>
