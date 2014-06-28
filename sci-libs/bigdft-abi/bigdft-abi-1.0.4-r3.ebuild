@@ -16,7 +16,7 @@ SRC_URI="http://forge.abinit.org/fallbacks/${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux"
-IUSE="cuda doc etsf_io mpi netcdf openmp opencl test"
+IUSE="cuda doc etsf_io glib mpi netcdf openmp opencl scalapack test"
 
 RDEPEND="
 	>=sci-libs/libxc-1.2.0-r1[fortran]
@@ -27,12 +27,14 @@ RDEPEND="
 	mpi? ( virtual/mpi )
 	cuda? ( dev-util/nvidia-cuda-sdk )
 	opencl? ( virtual/opencl )
+	glib? ( >=dev-libs/glib-2.22 )
 	etsf_io? ( >=sci-libs/etsf_io-1.0.3-r2 )
 	netcdf? ( || (
 				sci-libs/netcdf[fortran]
 				sci-libs/netcdf-fortran
 				)
-			)"
+			)
+	scalapack? ( virtual/scalapack )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	>=sys-devel/autoconf-2.59
@@ -72,43 +74,54 @@ pkg_setup() {
 	if use openmp; then FORTRAN_NEED_OPENMP=1; fi
 
 	fortran-2_pkg_setup
-	python-any-r1_pkg_setup
-}
 
-src_prepare() {
-	epatch \
-		"${FILESDIR}"/"${P}"-CUDA_gethostname.patch
-
-	tar -xjf "${FILESDIR}"/"${P}"-tests.tar.bz2 -C "${S}"/tests/DFT/
-	eautoreconf
-}
-
-src_configure() {
-	local openmp=""
 	if use openmp; then
 		# based on _fortran-has-openmp() of fortran-2.eclass
+		local openmp=""
 		local fcode=ebuild-openmp-flags.f
 		local _fc=$(tc-getFC)
 
+		pushd "${T}"
 		cat <<- EOF > "${fcode}"
 		1     call omp_get_num_threads
 		2     end
 		EOF
 
 		for openmp in -fopenmp -xopenmp -openmp -mp -omp -qsmp=omp; do
-			${_fc} ${openmp} "${fcode}" -o "${fcode}.x" && break
+			"${_fc}" "${openmp}" "${fcode}" -o "${fcode}.x" && break
 		done
 
 		rm -f "${fcode}.*"
+		popd
+
+		append-flags "${openmp}"
 	fi
+
+	python-any-r1_pkg_setup
+}
+
+src_prepare() {
+	epatch \
+		"${FILESDIR}"/"${P}"-0002.patch \
+		"${FILESDIR}"/"${P}"-0003.patch \
+		"${FILESDIR}"/"${P}"-0004.patch \
+		"${FILESDIR}"/"${P}"-0005.patch \
+		"${FILESDIR}"/"${P}"-0006.patch \
+		"${FILESDIR}"/"${P}"-0007.patch \
+		"${FILESDIR}"/"${P}"-CUDA_gethostname.patch
+
+	eautoreconf
+}
+
+src_configure() {
 	local modules="${EPREFIX}/usr/include"
-#	local Imodules="-I${modules}"
-	local Imodules=""
 	local netcdff_libs="-lnetcdff"
 	filter-flags '-m*' '-O*' "-pipe"
 	local nvcflags="${CFLAGS}"
 	_filter-var nvcflags '-m*' '-O*' "-pipe" "-W*"
 	use cuda && filter-ldflags '-m*' '-O*' "-pipe" "-W*"
+	local mylapack="lapack"
+	use scalapack && mylapack="scalapack"
 	local myeconfargs=(
 		$(use_enable mpi)
 		--enable-optimised-convolution
@@ -119,10 +132,8 @@ src_configure() {
 		--disable-internal-libyaml
 		--enable-internal-libabinit
 		--with-moduledir="${modules}"
-		--with-ext-linalg="$($(tc-getPKG_CONFIG) --libs-only-l lapack) \
-			$($(tc-getPKG_CONFIG) --libs-only-l blas)"
-		--with-ext-linalg-path="$($(tc-getPKG_CONFIG) --libs-only-L lapack) \
-			$($(tc-getPKG_CONFIG) --libs-only-L blas)"
+		--with-ext-linalg="$($(tc-getPKG_CONFIG) --libs-only-l "${mylapack}")"
+		--with-ext-linalg-path="$($(tc-getPKG_CONFIG) --libs-only-L "${mylapack}")"
 		--with-libxc="yes"
 		--disable-internal-libxc
 		$(use_enable cuda cuda-gpu)
@@ -131,8 +142,13 @@ src_configure() {
 		$(use_enable opencl)
 		$(use_with etsf_io etsf-io)
 		"$(use etsf_io && echo "--with-netcdf-libs=$($(tc-getPKG_CONFIG) --libs netcdf) ${netcdff_libs}")"
+		$(use_with glib gobject)
+		$(use_with scalapack)
+		$(use_with scalapack scalapack-path "${EPREFIX}/usr/$(get_libdir)")
+		$(use_with scalapack blacs)
+		$(use_with scalapack blacs-path "${EPREFIX}/usr/$(get_libdir)")
 		PKG_CONFIG="$(tc-getPKG_CONFIG)"
-		FCFLAGS="${FCFLAGS} ${openmp} ${Imodules}"
+		FCFLAGS="${FCFLAGS}"
 		LD="$(tc-getLD)"
 		CPP="$(tc-getCPP)"
 		)
@@ -155,15 +171,7 @@ src_compile() {
 }
 
 src_test() {
-	if use test; then
-		#autotools-utils_src_test() expanded
-		_check_build_dir
-		pushd "${BUILD_DIR}" > /dev/null || die
-		# Run default src_test as defined in ebuild.sh
-		cd tests
-		emake -j1 check
-		popd > /dev/null
-	fi
+	ewarn "The tests broken upstream. NOT testing"
 }
 
 src_install() {

@@ -25,31 +25,28 @@ SLOT="0"
 IUSE="
 	debug static-libs static threads pch
 	test wxwidgets odbc
-	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif
+	berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif
 	glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python
-	sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
+	sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
 
 # sys-libs/db should be compiled with USE=cxx
 DEPEND="
+	!sci-biology/sra_sdk
 	berkdb? ( sys-libs/db:4.3[cxx] )
-	ftds? ( dev-db/freetds )
 	boost? ( dev-libs/boost )
 	curl? ( net-misc/curl )
 	sqlite? ( dev-db/sqlite )
 	sqlite3? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
-	ssl? ( dev-libs/openssl )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl media-libs/glew )
-	mesa? ( media-libs/mesa
-		media-libs/glew
-	)
+	mesa? ( media-libs/mesa[osmesa] )
 	glut? ( media-libs/freeglut )
 	freetype? ( media-libs/freetype )
 	fastcgi? ( www-apache/mod_fastcgi )
-	gnutls? ( net-libs/gnutls[lzo] )
+	gnutls? ( net-libs/gnutls )
 	python? ( dev-lang/python )
 	cppunit? ( dev-util/cppunit )
 	icu? ( dev-libs/icu )
@@ -70,7 +67,11 @@ DEPEND="
 	app-arch/bzip2
 	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
-
+# Intentionally omitted USE flags:
+#   ftds? ( dev-db/freetds ) # support for outside FreeTDS installations is currently broken.
+#                              The default (heavily patched) embedded copy should work, or you can
+#                              leave it off altogether -- the only public apps that make use of it are
+#                              samples and tests, since NCBI's database servers are of course firewalled.
 
 # seems muParser is required, also glew is required. configure exits otherwise if these are explicitly passed to it (due to USE flag enabled)
 
@@ -113,6 +114,8 @@ src_prepare() {
 		"${FILESDIR}"/${P}-more-patches.patch
 		"${FILESDIR}"/${P}-linkage-tuneups-addons.patch
 		"${FILESDIR}"/${P}-configure.patch
+		"${FILESDIR}"/${P}-drop-STATIC-from-LIB.patch
+		"${FILESDIR}"/${P}-fix-install.patch
 		)
 #       "${FILESDIR}"/${P}-as-needed.patch
 #       "${FILESDIR}"/${P}-fix-creaders-linking.patch
@@ -167,7 +170,6 @@ src_configure() {
 	#--with-ncbi-public      ensure compatibility for all in-house platforms
 	#--with-sybase-local=DIR use local SYBASE install (DIR is optional)
 	#--with-sybase-new       use newer SYBASE install (12.5 rather than 12.0)
-	#--without-ftds-renamed  do not rename Sybase DBLIB symbols in built-in FTDS
 	#--without-sp            do not use SP libraries
 	#--without-orbacus       do not use ORBacus CORBA libraries
 	#--with-orbacus=DIR      use ORBacus installation in DIR
@@ -227,8 +229,6 @@ src_configure() {
 	$(use_with lzo lzo "${EPREFIX}/usr")
 	$(use_with pcre pcre "${EPREFIX}/usr")
 	$(use_with gnutls gnutls "${EPREFIX}/usr")
-	$(use_with ssl openssl "${EPREFIX}/usr")
-	$(use_with ftds ftds "${EPREFIX}/usr")
 	$(use_with mysql mysql "${EPREFIX}/usr")
 	$(usex fltk --with-fltk="${EPREFIX}/usr" "")
 	$(use_with opengl opengl "${EPREFIX}/usr")
@@ -336,10 +336,9 @@ src_install() {
 #	doheader "${S}"_build/inc/*
 
 	# File collisions with sci-biology/ncbi-tools
-	#rm -f "${ED}"/usr/bin/{asn2asn,rpsblast,test_regexp,vecscreen}
 	mv "${ED}"/usr/bin/asn2asn "${ED}"/usr/bin/asn2asn+
 	mv "${ED}"/usr/bin/rpsblast "${ED}"/usr/bin/rpsblast+
-	mv "${ED}"/usr/bin/test_regexp "${ED}"/usr/bin/test_regexp+
+	mv -f "${ED}"/usr/bin/test_regexp "${ED}"/usr/bin/test_regexp+ # drop the eventually mistakenly compiled binaries
 	mv "${ED}"/usr/bin/vecscreen "${ED}"/usr/bin/vecscreen+
 	mv "${ED}"/usr/bin/seedtop "${ED}"/usr/bin/seedtop+
 

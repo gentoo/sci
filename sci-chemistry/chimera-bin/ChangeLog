@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*chimera-bin-1.9 (27 Jun 2014)
+
+  27 Jun 2014; Alexey Shvetsov <alexxy@gentoo.org> +chimera-bin-1.9.ebuild:
+  Update chimera to new version
+
 *chimera-bin-1.8.1 (16 Jan 2014)
 
   16 Jan 2014; Justin Lecher <jlec@gentoo.org> +chimera-bin-1.8.1.ebuild:
@@ -30,4 +35,3 @@
   20 Sep 2012; Justin Lecher <jlec@gentoo.org> +chimera-bin-1.6.2.ebuild,
   +metadata.xml:
   New addition
-

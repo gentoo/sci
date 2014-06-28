@@ -23,23 +23,21 @@ SRC_URI="
 
 LICENSE="public-domain"
 SLOT="0"
-IUSE="berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype ftds gif glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python sablotron sqlite sqlite3 ssl tiff xerces xalan xml xpm xslt X"
+IUSE="berkdb boost bzip2 cppunit curl expat fastcgi fltk freetype gif glut gnutls hdf5 icu jpeg lzo mesa mysql muparser opengl pcre png python sablotron sqlite sqlite3 tiff xerces xalan xml xpm xslt X"
 #KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 KEYWORDS=""
 
 # sys-libs/db should be compiled with USE=cxx
 DEPEND="berkdb? ( sys-libs/db:4.3 )
-	ftds? ( dev-db/freetds )
 	boost? ( dev-libs/boost )
 	curl? ( net-misc/curl )
 	sqlite? ( dev-db/sqlite )
 	sqlite3? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
 	gnutls? ( net-libs/gnutls )
-	ssl? ( dev-libs/openssl )
 	fltk? ( x11-libs/fltk )
 	opengl? ( virtual/opengl )
-	mesa? ( media-libs/mesa )
+	mesa? ( media-libs/mesa[osmesa] )
 	glut? ( media-libs/freeglut )
 	freetype? ( media-libs/freetype )
 	fastcgi? ( www-apache/mod_fastcgi )
@@ -59,10 +57,12 @@ DEPEND="berkdb? ( sys-libs/db:4.3 )
 	png? ( media-libs/libpng )
 	tiff? ( media-libs/tiff )
 	xpm? ( x11-libs/libXpm )
-	dev-libs/lzo
+	lzo? ( dev-libs/lzo )
 	app-arch/bzip2
 	dev-libs/libpcre"
 # USE flags which should be added somehow: wxWindows wxWidgets SP ORBacus ODBC OEChem sge
+# Intentionally omitted USE flags:
+#   ftds? ( dev-db/freetds ) # useless, no real apps use it outside NCBI
 
 # configure options, may want to expose some
 #  --without-debug         build non-debug versions of libs and apps
@@ -172,20 +172,10 @@ src_configure() {
 	if ! use curl; then
 		myconf="--without-curl"
 	fi
-	if use ftds; then
-		myconf="--with-ftds"
-	else
-		myconf="--without-ftds"
-	fi
 	if use gnutls; then
 		myconf="--with-gnutls"
 	else
 		myconf="--without-gnutls"
-	fi
-	if use ssl; then
-		myconf="--with-openssl"
-	else
-		myconf="--without-openssl"
 	fi
 	if ! use sqlite; then
 		myconf="--without-sqlite"

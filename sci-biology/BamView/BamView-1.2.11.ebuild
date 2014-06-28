@@ -15,6 +15,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="virtual/jdk"
+DEPEND=">=virtual/jdk-1.6
+	dev-java/ant-core"
 RDEPEND="${DEPEND}
-	virtual/jre"
+	>=virtual/jre-1.6"

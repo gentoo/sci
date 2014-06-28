@@ -1,0 +1,44 @@
+--- ncbi_cxx--12_0_0/src/app/speedtest/Makefile.speedtest.app.ori	2014-06-26 16:46:27.000000000 +0200
++++ ncbi_cxx--12_0_0/src/app/speedtest/Makefile.speedtest.app	2014-06-26 16:47:26.000000000 +0200
+@@ -9,7 +9,7 @@
+ APP = speedtest
+ SRC = speedtest
+ LIB = prosplign xalgoalignutil xalgoseq xcleanup taxon1 submit $(BLAST_LIBS) \
+-      xqueryparse xregexp $(PCRE_LIB) $(OBJMGR_LIBS:%=%$(STATIC))
++      xqueryparse xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+ 
+ LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(PCRE_LIBS) $(ORIG_LIBS)
+ 
+--- ncbi_cxx--12_0_0/src/app/compart/Makefile.compart.app.ori	2014-06-26 16:47:53.000000000 +0200
++++ ncbi_cxx--12_0_0/src/app/compart/Makefile.compart.app	2014-06-26 16:48:07.000000000 +0200
+@@ -7,7 +7,7 @@
+ 
+ LIB =  xalgoalignutil xalgoalignsplign xalgoalignnw xalgoseq \
+        taxon1 xalnmgr xqueryparse xregexp $(PCRE_LIB) \
+-       $(BLAST_LIBS:%=%$(STATIC)) $(OBJMGR_LIBS:%=%$(STATIC))
++       $(BLAST_LIBS) $(OBJMGR_LIBS)
+ 
+ LIBS = $(PCRE_LIBS) $(CMPRS_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+
+--- ncbi_cxx--12_0_0/src/app/igblast/Makefile.igblastp.app.ori	2014-06-26 17:45:11.000000000 +0200
++++ ncbi_cxx--12_0_0/src/app/igblast/Makefile.igblastp.app	2014-06-26 17:48:26.000000000 +0200
+@@ -3,7 +3,7 @@
+ APP = igblastp
+ SRC = igblastp_app
+ LIB_ = $(BLAST_INPUT_LIBS) $(BLAST_LIBS) $(OBJMGR_LIBS)
+-LIB = blast_app_util igblast $(LIB_:%=%$(STATIC))
++LIB = blast_app_util igblast $(LIB_)
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+ CFLAGS   = $(FAST_CFLAGS:ppc=i386)
+--- ncbi_cxx--12_0_0/src/app/igblast/Makefile.igblastn.app.ori	2014-06-26 17:47:53.000000000 +0200
++++ ncbi_cxx--12_0_0/src/app/igblast/Makefile.igblastn.app	2014-06-26 17:49:31.000000000 +0200
+@@ -3,7 +3,7 @@
+ APP = igblastn
+ SRC = igblastn_app
+ LIB_ = $(BLAST_INPUT_LIBS)  xalgoalignutil xqueryparse $(BLAST_LIBS) $(OBJMGR_LIBS) 
+-LIB = blast_app_util igblast $(LIB_:%=%$(STATIC))
++LIB = blast_app_util igblast $(LIB_)
+ 
+ # De-universalize Mac builds to work around a PPC toolchain limitation
+ CFLAGS   = $(FAST_CFLAGS:ppc=i386)

@@ -32,6 +32,7 @@ S="${WORKDIR}"/"p4e3.1b"
 src_install(){
 	mydoc="README"
 	perl-module_src_install
+	mv bin/prot4EST*.pl bin/prot4EST.pl
 	dobin bin/*.pl
 	dodoc doc/*
 }

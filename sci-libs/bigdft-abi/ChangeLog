@@ -1,6 +1,16 @@
 # ChangeLog for sci-libs/bigdft-abi
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*bigdft-abi-1.0.4-r3 (27 Jun 2014)
+
+  27 Jun 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
+  +bigdft-abi-1.0.4-r3.ebuild:
+  The Abinit patches incorporated in sci-libs/bigdft-abi-1.0.4-r3.ebuild. When
+  compiling against sci-libs/scalapack, made to use ScaLAPACK as BLACS as well,
+  not to break sci-physics/abinit by defining fake BLACS routines. Testing removed
+  to appease repoman and avoid copying of all the old test suite over the current
+  broken version.
 
   23 Sep 2013; Honza Macháček <Hloupy.Honza@centrum.cz>
   bigdft-abi-1.0.4-r2.ebuild, +metadata.xml:
