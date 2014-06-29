@@ -2,6 +2,32 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+*root-6.00.01 (29 Jun 2014)
+
+  29 Jun 2014; Andrew Savchenko <bircoph@gmail.com> +root-6.00.01.ebuild,
+  -files/root-5.28.00b-asneeded.patch, -files/root-5.28.00b-prop-ldflags.patch,
+  -files/root-5.28.00b-unuran.patch, -files/root-5.32.00-dotfont.patch,
+  -files/root-5.32.00-explicit-functions.patch,
+  -files/root-5.32.00-htmldoc.patch, -files/root-5.32.00-nobyte-compile.patch,
+  -files/root-5.32.00-prop-flags.patch, -files/root-5.32.00-rmkdepend.patch,
+  -files/root-5.32.00-rusage.patch, -files/root-5.34.05-nobyte-compile.patch,
+  -files/root-5.34.13-pythia8.patch, +files/root-6.00.01-dotfont.patch,
+  +files/root-6.00.01-geocad.patch, +files/root-6.00.01-llvm.patch,
+  +files/root-6.00.01-nobyte-compile.patch,
+  +files/root-6.00.01-prop-flags.patch, -files/root-9999-dotfont.patch,
+  metadata.xml:
+  ROOT-6 version bump. Live version updated.
+  - Removed:
+  cint, reflex (forever);
+  ruby (not yet ported);
+  - C++11 is now enabled and mandatory,c ompatible gcc-4.8, clang and
+  icc compilers are supported.
+  - Added geocad, http, vc and vdt support.
+  - Builtins used:
+  LLVM as API incompatible with upstream.
+  libAfterImage as root with stand-alone version segfaults badly
+  and it looks like upstream is dead for a long time.
+
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> root-9999.ebuild:
   Switch from git-2 to git-r3
 

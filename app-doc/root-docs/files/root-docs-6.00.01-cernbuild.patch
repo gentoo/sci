@@ -1,0 +1,16 @@
+diff --git a/tutorials/tree/cernbuild.C b/tutorials/tree/cernbuild.C
+index ba516b6..793ecb5 100644
+--- a/tutorials/tree/cernbuild.C
++++ b/tutorials/tree/cernbuild.C
+@@ -2,6 +2,11 @@
+ // see also a variant in staff.C
+ // Author: Rene Brun
+    
++#include "TFile.h"
++#include "TSystem.h"
++#include "TString.h"
++#include "TTree.h"
++
+ TFile *cernbuild(Int_t get=0, Int_t print=1) {
+ 
+    Int_t           Category;

@@ -1,6 +1,8 @@
---- root/config/Makefile.in.orig	2013-01-21 22:04:43.011452938 +0400
-+++ root/config/Makefile.in	2013-01-21 22:04:18.027352209 +0400
-@@ -25,9 +25,9 @@
+diff --git a/config/Makefile.in b/config/Makefile.in
+index dd89044..4fc7de3 100644
+--- a/config/Makefile.in
++++ b/config/Makefile.in
+@@ -64,9 +64,9 @@ HOST           := @host@
  USECONFIG      := @useconfig@
  MKLIBOPTIONS   := @mkliboption@
  
@@ -10,6 +12,6 @@
 +EXTRA_CFLAGS   := -Iinclude @cflags@ $(CFLAGS)
 +EXTRA_CXXFLAGS := -Iinclude @cflags@ $(CXXFLAGS)
 +EXTRA_LDFLAGS  := @ldflags@ $(LDFLAGS)
+ WERROR         := @werror@
  WINRTDEBUG     := @winrtdebug@
- 
- GLBPATCHFLAGS  := @glbpatchcflags@
+ CTORSINITARRAY := @ctorsinitarray@
