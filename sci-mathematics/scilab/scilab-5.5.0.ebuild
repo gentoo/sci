@@ -117,7 +117,8 @@ src_prepare() {
 		"${FILESDIR}/${P}-gluegen.patch" \
 		"${FILESDIR}/${P}-fix-random-runtime-failure.patch" \
 		"${FILESDIR}/${P}-accessviolation.patch" \
-		"${FILESDIR}/${P}-nogui.patch"
+		"${FILESDIR}/${P}-nogui.patch" \
+		"${FILESDIR}/${P}-jdk1.8.patch"
 
 	append-ldflags $(no-as-needed)
 

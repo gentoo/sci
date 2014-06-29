@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Jun 2014; Guillaume Horel <guillaume.horel@gmail.com>
+  +files/scilab-5.5.0-jdk1.8.patch, scilab-5.5.0.ebuild:
+  sci-mathematics/scilab: support jdk1.8
+
   05 May 2014; Quentin Minster <quentin@minster.io> scilab-5.5.0.ebuild:
   sci-mathematics/scilab: Fix minimum version dependency for jlatexmath
 
