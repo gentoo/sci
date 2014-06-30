@@ -54,6 +54,8 @@ src_unpack() {
 	if [[ ${PV} == "9999" ]] ; then
 		# we need to force sci-physics/root checkout here
 		git-r3_checkout "${EGIT_REPO_URI}" "${WORKDIR}/${P}" "sci-physics/root/0"
+	else
+		default
 	fi
 }
 
