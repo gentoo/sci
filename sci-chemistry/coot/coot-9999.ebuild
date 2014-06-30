@@ -82,7 +82,10 @@ pkg_setup() {
 	python-single-r1_pkg_setup
 }
 
-PATCHES=( "${FILESDIR}"/${PV}-pc.patch	)
+PATCHES=(
+	"${FILESDIR}"/${PV}-pc.patch
+	"${FILESDIR}"/${P}-sandbox-icons.patch
+)
 
 src_unpack() {
 	subversion_src_unpack
