@@ -86,7 +86,9 @@ src_test() {
 }
 
 src_install() {
-	dolib.so lib/lib${LIBNAME}$(get_libname)*
+	# On linux dynamic libraries are of the form .so.${someversion}
+	# On  OS X dynamic libraries are of the form ${someversion}.dylib
+	dolib.so lib/lib${LIBNAME}*$(get_libname)*
 	use static-libs && dolib.a lib/lib${LIBNAME}.a
 	insinto /usr/include/cblas
 	doins include/cblas.h
