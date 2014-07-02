@@ -77,6 +77,7 @@ src_install() {
 
 	cat > "${T}"/99visit <<- EOF
 		PATH=${EPREFIX}/opt/visit/bin
+		LDPATH=${EPREFIX}/opt/visit/${PV}/linux-$(arch)/lib/
 	EOF
 	doenvd "${T}"/99visit
 }
