@@ -5,6 +5,7 @@
 EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
+CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit cmake-utils multilib python-single-r1
 
