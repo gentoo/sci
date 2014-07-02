@@ -200,7 +200,8 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-6.00.01-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-6.00.01-prop-flags.patch \
 		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
-		"${FILESDIR}"/${PN}-6.00.01-geocad.patch
+		"${FILESDIR}"/${PN}-6.00.01-geocad.patch \
+		"${FILESDIR}"/${PN}-6.00.01-cling.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
@@ -426,13 +427,6 @@ src_install() {
 
 pkg_postinst() {
 	fdo-mime_desktop_database_update
-	if [[ -z ${REPLACING_VERSIONS} ||
-		$(get_major_version ${REPLACING_VERSIONS}) -lt 6 ]]; then
-		ewarn "ROOT-6 uses Cling instead of CINT. Cling follows the C++ standard much more"
-		ewarn "strictly than CINT, in particular in requires headers to be included and"
-		ewarn "libraries to be properly loaded. Please carefully follow a migration guide:"
-		ewarn "http://root.cern.ch/root/htmldoc/notes/release-notes.html#cling-vs-cint"
-	fi
 }
 
 pkg_postrm() {
