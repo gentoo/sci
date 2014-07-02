@@ -46,8 +46,8 @@ static_to_shared() {
 		if [[ $(get_version_component_count) -gt 1 ]]; then
 			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version)) || die
 		fi
-		ln -s ${soname} ${libdir}/${libname}$(get_libname) || die
 	fi
+	ln -s ${soname} ${libdir}/${libname}$(get_libname) || die
 }
 
 src_prepare() {
