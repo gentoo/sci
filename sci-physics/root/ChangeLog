@@ -2,6 +2,24 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  02 Jul 2014; Andrew Savchenko <bircoph@gmail.com> root-6.00.01-r1.ebuild,
+  root-9999.ebuild, files/root-6.00.01-tutorials-path.patch:
+  Do not compress files required for .credits, .demo, .license
+  commands. Fix tutorials patch.
+
+  02 Jul 2014; Andrew Savchenko <bircoph@gmail.com> root-6.00.01-r1.ebuild,
+  +files/root-6.00.01-tutorials-path.patch:
+  Honor --tutdir from .demos CLI command.
+  Install files for .license and .credits commands to work.
+  Disable compression for files needed by commands above.
+
+*root-6.00.01-r1 (02 Jul 2014)
+
+  02 Jul 2014; Andrew Savchenko <bircoph@gmail.com> -root-6.00.01.ebuild,
+  +root-6.00.01-r1.ebuild, +files/root-6.00.01-cling.patch:
+  Fix Cling when prefix setup is used (see bug ROOT-6410).
+  Remove warning message because with bug fixed it is meaningless.
+
 *root-6.00.01 (29 Jun 2014)
 
   29 Jun 2014; Andrew Savchenko <bircoph@gmail.com> +root-6.00.01.ebuild,
