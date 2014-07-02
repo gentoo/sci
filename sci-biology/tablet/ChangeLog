@@ -2,6 +2,14 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*tablet-1.14.04.10 (02 Jul 2014)
+
+  02 Jul 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +tablet-1.14.04.10.ebuild, -Manifest, tablet-1.13.12.17.ebuild,
+  tablet-9999.ebuild:
+  sci-biology/tablet: cleaned up the ebuilds, they compile and install but the
+  bundled samtools-*.jar is not found
+
 *tablet-1.13.12.17 (28 Mar 2014)
 *tablet-9999 (28 Mar 2014)
 
