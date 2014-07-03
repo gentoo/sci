@@ -21,7 +21,7 @@
 
   14 Jul 2013; James Cloos <cloos@jhcloos.com> julia-9999.ebuild:
   Julia uses submodules, so set EGIT_HAS_SUBMODULES=yes
-  
+
   14 Jun 2013; Justin Lecher <jlec@gentoo.org> julia-9999.ebuild, metadata.xml:
   Drop KEYWORDS of live ebuilds
 
