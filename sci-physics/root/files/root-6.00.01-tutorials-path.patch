@@ -10,6 +10,18 @@ index 5950401..e4fbfbf 100644
  #define ROOTSRCDIR    "@srcdir@"
  #define ROOTICONPATH  "@iconpath@"
  #define EXTRAICONPATH "@extraiconpath@"
+diff --git a/configure b/configure
+index 131df92..2c8ea95 100755
+--- a/configure
++++ b/configure
+@@ -7537,6 +7537,7 @@ sed \
+     -e "s|@prefix@|$prefix|"               \
+     -e "s|@srcdir@|$srcdir|"               \
+     -e "s|@ttffontdir@|$fontdir|"          \
++    -e "s|@tutdir@|$tutdir|"               \
+     -e "s|@setresuid@|$setresuid|"         \
+     -e "s|@hasmathmore@|$hasmathmore|"     \
+     -e "s|@haspthread@|$haspthread|"       \
 diff --git a/core/base/src/TApplication.cxx b/core/base/src/TApplication.cxx
 index 1c1809a..7d7ed37 100644
 --- a/core/base/src/TApplication.cxx

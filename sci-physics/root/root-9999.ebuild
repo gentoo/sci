@@ -422,6 +422,11 @@ src_install() {
 	daemon_install
 	desktop_install
 	cleanup_install
+
+	# do not copress files used by ROOT's CLI (.credit, .demo, .license)
+	docompress -x "${DOC_DIR}"/{CREDITS,LICENSE,examples/tutorials}
+	# needed for .license command to work
+	dosym "${ED}"usr/portage/licenses/LGPL-2.1 "${DOC_DIR}/LICENSE"
 }
 
 pkg_postinst() {
