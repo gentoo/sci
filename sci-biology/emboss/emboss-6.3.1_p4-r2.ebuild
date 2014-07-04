@@ -42,6 +42,7 @@ src_prepare() {
 	epatch "${WORKDIR}"/${PF}.patch
 	epatch "${FILESDIR}/${PF}"_plcol.patch
 	epatch "${FILESDIR}/${PF}"_compilations-paths.patch
+	epatch "${FILESDIR}/${PF}"_rename_plwid_to_plwidth.patch
 	# cp "${FILESDIR}"/ax_lib_mysql.m4 "${S}"/m4/mysql.m4
 	emboss_src_prepare
 	autoreconf -vfi
