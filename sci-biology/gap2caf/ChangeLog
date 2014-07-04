@@ -1,8 +1,11 @@
 # ChangeLog for sci-biology/gap2caf
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  04 Jul 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  gap2caf-2.1.0.ebuild:
+  sci-biology/gap2caf: remove -rpath-link from src/Makefile
 
   16 Jun 2013; Justin Lecher <jlec@gentoo.org> gap2caf-2.1.0.ebuild,
   metadata.xml:
   Bump to EAPI=5 and fix license; make it build with eautoreconf
-
