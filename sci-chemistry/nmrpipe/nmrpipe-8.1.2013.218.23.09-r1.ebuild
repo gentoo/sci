@@ -39,6 +39,7 @@ RESTRICT="strip"
 DEPEND="app-shells/tcsh"
 RDEPEND="${DEPEND}
 	app-editors/nedit
+	dev-lang/tk
 	dev-tcltk/blt
 	media-fonts/font-sun-misc
 	!sci-chemistry/sparta+
@@ -48,11 +49,9 @@ RDEPEND="${DEPEND}
 	|| ( x11-libs/xview x11-libs/xview-bin )
 	|| (
 		(
-			dev-lang/tk[abi_x86_32(-)]
 			x11-libs/libX11[abi_x86_32(-)]
 		)
 		(
-			app-emulation/emul-linux-x86-baselibs[-abi_x86_32(-)]
 			app-emulation/emul-linux-x86-xlibs[-abi_x86_32(-)]
 		)
 	)

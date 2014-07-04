@@ -6,6 +6,10 @@
   nmrpipe-8.1.2013.218.23.09-r1.ebuild:
   Fix emul-linux deps for modern multilib
 
+  04 Jul 2014; Justin Lecher <jlec@gentoo.org>
+  nmrpipe-8.1.2013.218.23.09-r1.ebuild:
+  Fix emul-linux deps for modern multilib
+
   28 Oct 2013; Justin Lecher <jlec@gentoo.org>
   -nmrpipe-8.1.2013.218.23.09.ebuild, +nmrpipe-8.1.2013.218.23.09-r1.ebuild,
   +files/extract.M:
