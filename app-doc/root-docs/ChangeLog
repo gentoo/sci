@@ -2,6 +2,13 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/app-doc/root-docs/ChangeLog,v 1.42 2014/03/28 18:48:01 bicatali Exp $
 
+*root-docs-6.00.02 (05 Jul 2014)
+
+  05 Jul 2014; Andrew Savchenko <bircoph@gmail.com>
+  root-docs-6.00.01-r1.ebuild, +root-docs-6.00.02.ebuild,
+  +files/root-docs-6.00.01-fillpatterns.patch:
+  Version bump. Fix bug with TAttFill generation.
+
 *root-docs-6.00.01-r1 (02 Jul 2014)
 
   02 Jul 2014; Andrew Savchenko <bircoph@gmail.com> -root-docs-6.00.01.ebuild,
