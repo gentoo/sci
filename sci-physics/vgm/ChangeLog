@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Jul 2014; Oliver Freyermuth <o.freyermuth@googlemail.com> vgm-3.06.ebuild:
+  Add subslot dependency on clhep, we need to rebuild for each clhep subslot
+  change.
+
 *vgm-9999 (06 Jul 2014)
 
   06 Jul 2014; Oliver Freyermuth <o.freyermuth@googlemail.com> +vgm-9999.ebuild:
