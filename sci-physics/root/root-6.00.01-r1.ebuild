@@ -24,7 +24,7 @@ HOMEPAGE="http://root.cern.ch/"
 DOC_URI="ftp://root.cern.ch/${PN}/doc"
 
 SLOT="0/$(get_version_component_range 1-3 ${PV})"
-LICENSE="LGPL-2.1 freedist GPL-2 MSttfEULA LGPL-3 libpng UoI-NCSA"
+LICENSE="LGPL-2.1 freedist MSttfEULA LGPL-3 libpng UoI-NCSA"
 IUSE="+X afs avahi doc emacs examples fits fftw geocad graphviz
 	http kerberos ldap +math minimal mpi mysql odbc +opengl openmp
 	oracle postgres	prefix pythia6 pythia8 python qt4 sqlite ssl

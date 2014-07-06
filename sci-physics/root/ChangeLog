@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  06 Jul 2014; Andrew Savchenko <bircoph@gmail.com> root-6.00.01-r1.ebuild,
+  root-6.00.02.ebuild, root-9999.ebuild:
+  Update LICENSE: GPL-2 code is not used during compilation.
+
 *root-6.00.02 (05 Jul 2014)
 
   05 Jul 2014; Andrew Savchenko <bircoph@gmail.com> +root-6.00.02.ebuild:
