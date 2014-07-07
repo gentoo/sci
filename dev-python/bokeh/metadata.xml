@@ -9,4 +9,7 @@
   style of Protovis/D3, while delivering high-performance
   interactivity over large data to thin clients.
 </longdescription>
+<use>
+  <flag name="chaco">Enable interface for implementing qplot and ggplot like functionality using chaco</flag>
+</use>
 </pkgmetadata>

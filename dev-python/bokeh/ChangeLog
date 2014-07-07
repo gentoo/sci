@@ -1,0 +1,11 @@
+# ChangeLog for dev-python/bokeh
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*bokeh-0.4.4 (07 Jul 2014)
+
+  07 Jul 2014; Witold Pilat (fau) <witold.pilat@gmail.com> +bokeh-0.4.4.ebuild,
+  +files/bokeh-0.4.4-fix_test_object.patch, -ChangeLog, -Manifest,
+  -bokeh-0.4.2.ebuild, metadata.xml:
+  dev-python/bokeh: dev-python/bokeh: New version with python3 support for bug
+  #516052
