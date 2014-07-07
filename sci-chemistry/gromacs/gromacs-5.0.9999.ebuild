@@ -17,9 +17,11 @@ if [[ $PV = *9999* ]]; then
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-5-0"
 	inherit git-r3
+	KEYWORDS=""
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${PN}-${PV/_/-}.tar.gz
 		test? ( http://gerrit.gromacs.org/download/regressiontests-${TEST_PV}.tar.gz )"
+	KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 fi
 
 ACCE_IUSE="sse2 sse4_1 avx_128_fma avx_256 avx2_256"
@@ -32,7 +34,6 @@ HOMEPAGE="http://www.gromacs.org/"
 #        base,    vmd plugins, fftpack from numpy,  blas/lapck from netlib,        memtestG80 library,  mpi_thread lib
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
 SLOT="0/${PV}"
-KEYWORDS=""
 IUSE="X blas boost cuda +doc -double-precision +fftw lapack +make-symlinks mkl mpi +offensive openmp +single-precision test +threads +tng ${ACCE_IUSE}"
 
 CDEPEND="
@@ -83,8 +84,8 @@ src_unpack() {
 		git-r3_src_unpack
 		if use test; then
 			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
-			EGIT_BRANCH="master" EGIT_NOUNPACK="yes" EGIT_COMMIT="master" \
-			EGIT_SOURCEDIR="${WORKDIR}/regressiontests"\
+			EGIT_BRANCH="master" EGIT_COMMIT="master" \
+			EGIT_CHECKOUT_DIR="${WORKDIR}/regressiontests"\
 				git-r3_src_unpack
 		fi
 	fi
