@@ -1,0 +1,32 @@
+commit 9606ae037dbd9ee888f9763a1bd9c6d7fc3b5824
+Author: Bryan Van de Ven <bryanv@continuum.io>
+Date:   Sat Apr 19 10:05:35 2014 -0500
+
+    fix #548
+
+diff --git a/bokeh/plotobject.py b/bokeh/plotobject.py
+index 7485d27..92ae2dd 100644
+--- a/bokeh/plotobject.py
++++ b/bokeh/plotobject.py
+@@ -220,7 +220,7 @@ class PlotObject(HasProps):
+ 
+     def references(self):
+         """Returns all ``PlotObjects`` that this object has references to. """
+-        return self.collect_plot_objects(self)
++        return set(self.collect_plot_objects(self))
+ 
+     #---------------------------------------------------------------------
+     # View Model connection methods
+diff --git a/bokeh/tests/test_objects.py b/bokeh/tests/test_objects.py
+index 1a17f69..75d5678 100644
+--- a/bokeh/tests/test_objects.py
++++ b/bokeh/tests/test_objects.py
+@@ -242,7 +242,7 @@ class TestPlotObject(unittest.TestCase):
+         x2 = X2(y=y, z2=z2)
+ 
+         # TODO: self.assertEqual(x1.references(), [t1, y, t2,     x1])
+-        self.assertEqual(x2.references(), [t1, y, t2, z2, x2])
++        self.assertEqual(x2.references(), set([t1, y, t2, z2, x2]))
+ 
+ if __name__ == "__main__":
+     unittest.main()
