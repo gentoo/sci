@@ -20,6 +20,7 @@ COMMON_DEPEND="media-libs/glu
 	media-libs/gd
 	sys-libs/zlib
 	dev-libs/boost
+	media-gfx/graphviz
 	"
 DEPEND="${COMMON_DEPEND}"
 RDEPEND="${COMMON_DEPEND}
@@ -113,4 +114,5 @@ src_install() {
 	#fi
 
 	doenvd "${FILESDIR}"/99fsl
+	rm "${D}"/usr/bin/cluster
 }
