@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*gnuplot-5.0.9999 (13 Jul 2014)
+
+  13 Jul 2014; Christoph Junghans <ottxor@gentoo.org> +gnuplot-5.0.9999.ebuild,
+  -gnuplot-4.7.9999.ebuild:
+  version bump
+
   22 Mar 2014; Ulrich Müller <ulm@gentoo.org> gnuplot-4.7.9999.ebuild:
   Add libcaca USE flag, thanks to James Cloos <cloos@jhcloos.com>, bug 504354.
   Remove thin-splines USE flag and configure option.
