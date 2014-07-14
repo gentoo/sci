@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Jul 2014; Christoph Junghans <ottxor@gentoo.org>
+  +files/libcerf-1.3-autotools.patch, libcerf-1.3.ebuild:
+  fix make install/check
+
 *libcerf-1.3 (14 Jul 2014)
 
   14 Jul 2014; Christoph Junghans <ottxor@gentoo.org> +libcerf-1.3.ebuild,
