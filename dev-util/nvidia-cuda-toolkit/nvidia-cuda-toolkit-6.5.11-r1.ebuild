@@ -115,13 +115,14 @@ src_install() {
 	mv * "${ED}"${cudadir}
 
 	cat > "${T}"/99cuda <<- EOF
-		PATH=${ecudadir}/bin:${ecudadir}/libnvvp
+		PATH=${ecudadir}/bin$(use profiler && echo ":${ecudadir}/libnvvp")
 		ROOTPATH=${ecudadir}/bin
 		LDPATH=${ecudadir}/lib$(use amd64 && echo "64:${ecudadir}/lib")
 	EOF
 	doenvd "${T}"/99cuda
 
-	make_wrapper nvprof "${EPREFIX}"${cudadir}/bin/nvprof "." ${ecudadir}/lib$(use amd64 && echo "64:${ecudadir}/lib")
+	use profiler && \
+		make_wrapper nvprof "${EPREFIX}"${cudadir}/bin/nvprof "." ${ecudadir}/lib$(use amd64 && echo "64:${ecudadir}/lib")
 
 	dobin "${T}"/cuda-config
 }
