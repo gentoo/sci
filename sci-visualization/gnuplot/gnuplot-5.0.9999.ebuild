@@ -45,6 +45,7 @@ RDEPEND="
 		>=dev-qt/qtgui-4.5:4
 		>=dev-qt/qtsvg-4.5:4 )
 	readline? ( sys-libs/readline )
+	sci-libs/libcerf
 	svga? ( media-libs/svgalib )
 	wxwidgets? (
 		x11-libs/wxGTK:2.8[X]
