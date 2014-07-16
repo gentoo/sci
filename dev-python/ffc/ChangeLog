@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Jul 2014; Andrew Reisner <andrew@reisner.co> ffc-1.3.0.ebuild:
+  fixed dependency issue
+
 *ffc-1.4.0 (16 Jul 2014)
 
   16 Jul 2014; Andrew Reisner <andrew@reisner.co> +ffc-1.4.0.ebuild,
