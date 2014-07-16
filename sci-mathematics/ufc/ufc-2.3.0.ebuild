@@ -12,7 +12,7 @@ SRC_URI="https://bitbucket.org/fenics-project/${PN}-deprecated/downloads/${P}.ta
 
 LICENSE="public-domain"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
