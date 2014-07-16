@@ -17,8 +17,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPPEND="
-	>=sci-mathematics/ufc-1.4.2
+RDEPEND="
+	!sci-mathematics/ufc
 	=dev-python/ufl-${PV}[${PYTHON_USEDEP}]
 	=dev-python/instant-${PV}[${PYTHON_USEDEP}]
 	=dev-python/fiat-${PV}[${PYTHON_USEDEP}]
