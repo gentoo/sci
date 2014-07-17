@@ -54,12 +54,7 @@ src_prepare() {
 }
 
 src_compile() {
-	#damn crappy Makefile
-	emake || emake || die "emake failed"
-
-	if use doc && use cxx; then
-		emake -C apronxx doc || "emake doc failed"
-	fi
+	emake -j1 || die "emake failed"
 }
 
 src_install(){
@@ -70,10 +65,6 @@ src_install(){
 		dodoc apron/apron.pdf
 		if use ocaml; then
 			dodoc mlapronidl/mlapronidl.pdf
-		fi
-		if use cxx; then
-			mv apronxx/doc/latex/refman.pdf apronxx/apronxx.pdf
-			dodoc ./apronxx/apronxx.pdf
 		fi
 	fi
 }
