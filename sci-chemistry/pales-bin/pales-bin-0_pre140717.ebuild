@@ -22,5 +22,5 @@ src_unpack() {
 
 src_install() {
 	exeinto /opt/bin
-	doexe ${PN}
+	newexe ${PN} ${PN%-bin}
 }
