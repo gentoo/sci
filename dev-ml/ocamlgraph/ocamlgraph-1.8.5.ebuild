@@ -29,7 +29,7 @@ src_prepare() {
 }
 
 src_compile() {
-	DESTDIR="/" emake -j1 || die "emake failed"
+	emake -j1 DESTDIR="/" || die "emake failed"
 
 	if use doc; then
 		emake doc || die "emake doc failed"
@@ -37,7 +37,7 @@ src_compile() {
 }
 
 src_install() {
-	DESTDIR="${D}" emake install || die "emake install failed"
+	emake install DESTDIR="${D}" || die "emake install failed"
 	dodoc CHANGES CREDITS FAQ README
 
 	if use doc; then

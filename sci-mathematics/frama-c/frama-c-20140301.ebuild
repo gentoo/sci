@@ -50,7 +50,7 @@ src_compile(){
 	# dependencies can not be processed in parallel,
 	# this is the intended behavior.
 	emake -j1 depend || die "emake depend failed"
-	DESTDIR="/" emake all top || die "emake failed"
+	emake all top DESTDIR="/" || die "emake failed"
 
 	if use doc; then
 		emake -j1 doc doc-tgz
@@ -59,7 +59,7 @@ src_compile(){
 }
 
 src_install(){
-	DESTDIR="${D}" emake install || die "emake install failed"
+	emake install DESTDIR="${D}" || die "emake install failed"
 	dodoc Changelog
 
 	if use doc; then

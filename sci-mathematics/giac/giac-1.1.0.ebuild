@@ -33,7 +33,7 @@ src_prepare(){
 }
 
 src_install() {
-	DESTDIR="${D}" emake install || die "emake install failed"
+	emake install DESTDIR="${D}" || die "emake install failed"
 	mv ${D}/usr/bin/{aide,giac-help}
 	rm ${D}/usr/bin/*cas_help
 	dodoc AUTHORS ChangeLog COPYING INSTALL NEWS README TROUBLES

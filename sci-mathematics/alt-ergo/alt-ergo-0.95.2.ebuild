@@ -25,7 +25,7 @@ RDEPEND="${DEPEND}"
 src_prepare(){
 	sed \
 		-e "s: /usr/share/: \$(DESTDIR)/usr/share/:g" \
-		-e "s:cp -f altgr-ergo.opt:mkdir -p \$(DESTDIR)/usr/share/gtksourceview-2.0/language-specs/\n\tcp -f altgr-ergo.opt:g"
+		-e "s:cp -f altgr-ergo.opt:mkdir -p \$(DESTDIR)/usr/share/gtksourceview-2.0/language-specs/\n\tcp -f altgr-ergo.opt:g" \
 		-i ${S}/Makefile.in || die
 }
 src_compile(){
@@ -34,6 +34,6 @@ src_compile(){
 }
 
 src_install(){
-	DESTDIR="${D}" emake install || die "emake install failed"
+	emake install DESTDIR="${D}" || die "emake install failed"
 	dodoc README.md CHANGES
 }
