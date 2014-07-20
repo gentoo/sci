@@ -30,7 +30,9 @@ src_prepare(){
 }
 src_compile(){
 	emake || die "emake failed"
-	use gtk && emake gui || die "emake gui failed"
+	if use gtk; then
+		emake gui || die "emake gui failed"
+	fi
 }
 
 src_install(){
