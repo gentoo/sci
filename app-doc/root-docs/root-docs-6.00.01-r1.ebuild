@@ -62,7 +62,7 @@ src_unpack() {
 src_prepare() {
 	use api && epatch \
 		"${FILESDIR}/${PN}-6.00.01-makehtml.patch" \
-		"${FILESDIR}/${PN}-6.00.01-cernbuild.patch"
+		"${FILESDIR}/${PN}-6.00.01-fillpatterns.patch"
 	# prefixify the configure script
 	sed -i \
 		-e "s:/usr:${EPREFIX}/usr:g" \

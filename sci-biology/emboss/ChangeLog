@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/ChangeLog,v 1.61 2011/03/09 16:29:05 jlec Exp $
 
+  04 Jul 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/emboss-6.3.1_p4-r2_rename_plwid_to_plwidth.patch,
+  emboss-6.3.1_p4-r2.ebuild:
+  sci-biology/emboss-6.3.1_p4-r2: added a patch for 'undefined reference to
+  c_plwid' bug #493724
+
   24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   emboss-6.3.1_p4-r2.ebuild:
   sci-biology/emboss-6.3.1_p4-r2: add plplot dependency, trying to get rid of a

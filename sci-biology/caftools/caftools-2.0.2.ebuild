@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils
 
-DESCRIPTION="CAF is a text format for describing sequence assemblies"
+DESCRIPTION="Manipulate CAF files and convert to GAP4 format (not GAP5), ACE, PHRAP"
 HOMEPAGE="http://www.sanger.ac.uk/resources/software/caf/"
 SRC_URI="
 	ftp://ftp.sanger.ac.uk/pub/PRODUCTION_SOFTWARE/src/${P}.tar.gz

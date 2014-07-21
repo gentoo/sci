@@ -4,8 +4,8 @@
 
 EAPI=5
 
-TEST_PV="4.6.2"
-MANUAL_PV="4.6.2"
+TEST_PV="4.6.6"
+MANUAL_PV="4.6.6"
 
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
@@ -17,7 +17,7 @@ if [[ $PV = *9999* ]]; then
 		git://github.com/gromacs/gromacs.git
 		http://repo.or.cz/r/gromacs.git"
 	EGIT_BRANCH="release-4-6"
-	inherit git-2
+	inherit git-r3
 	LIVE_DEPEND="doc? (
 		app-doc/doxygen
 		dev-texlive/texlive-latex
@@ -25,11 +25,13 @@ if [[ $PV = *9999* ]]; then
 		media-gfx/imagemagick
 		sys-apps/coreutils
 	)"
+	KEYWORDS=""
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${P}.tar.gz
 		doc? ( ftp://ftp.gromacs.org/pub/manual/manual-${MANUAL_PV}.pdf -> ${PN}-manual-${MANUAL_PV}.pdf )
-		test? ( http://${PN}.googlecode.com/files/regressiontests-${TEST_PV}.tar.gz )"
+		test? ( http://gerrit.gromacs.org/download/regressiontests-${TEST_PV}.tar.gz )"
 	LIVE_DEPEND=""
+	KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
 fi
 
 ACCE_IUSE="sse2 sse4_1 avx128fma avx256"
@@ -42,7 +44,6 @@ HOMEPAGE="http://www.gromacs.org/"
 #        base,    vmd plugins, fftpack from numpy,  blas/lapck from netlib,        memtestG80 library,  mpi_thread lib
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
 SLOT="0/${PV}"
-KEYWORDS=""
 IUSE="X blas cuda doc -double-precision +fftw gsl lapack mkl mpi +offensive openmm openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
@@ -87,18 +88,18 @@ src_unpack() {
 	if [[ ${PV} != *9999 ]]; then
 		default
 	else
-		git-2_src_unpack
+		git-r3_src_unpack
 		if use doc; then
 			EGIT_REPO_URI="git://git.gromacs.org/manual.git" \
-			EGIT_BRANCH="release-4-6" EGIT_NOUNPACK="yes" EGIT_COMMIT="release-4-6" \
-			EGIT_SOURCEDIR="${WORKDIR}/manual"\
-				git-2_src_unpack
+			EGIT_BRANCH="release-4-6" EGIT_COMMIT="release-4-6" \
+			EGIT_CHECKOUT_DIR="${WORKDIR}/manual"\
+				git-r3_src_unpack
 		fi
 		if use test; then
 			EGIT_REPO_URI="git://git.gromacs.org/regressiontests.git" \
-			EGIT_BRANCH="master" EGIT_NOUNPACK="yes" EGIT_COMMIT="release-4-6" \
-			EGIT_SOURCEDIR="${WORKDIR}/regressiontests"\
-				git-2_src_unpack
+			EGIT_BRANCH="release-4-6" EGIT_COMMIT="release-4-6" \
+			EGIT_CHECKOUT_DIR="${WORKDIR}/regressiontests"\
+				git-r3_src_unpack
 		fi
 	fi
 }

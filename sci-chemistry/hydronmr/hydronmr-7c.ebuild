@@ -28,9 +28,6 @@ LICENSE="all-rights-reserved"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="examples"
 
-DEPEND=""
-RDEPEND="amd64? ( app-emulation/emul-linux-x86-baselibs )"
-
 QA_PREBUILT="opt/bin/.*"
 
 src_unpack() {

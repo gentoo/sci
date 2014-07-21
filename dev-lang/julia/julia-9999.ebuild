@@ -24,13 +24,14 @@ RDEPEND="
 	dev-libs/mpfr:0=
 	dev-libs/utf8proc:0=
 	sci-libs/arpack:0=
+	sci-libs/camd:0=
 	sci-libs/cholmod:0=
 	sci-libs/fftw:3.0=
 	sci-libs/openlibm:0=
 	sci-libs/spqr:0=
 	sci-libs/umfpack:0=
 	sci-mathematics/glpk:0=
-	>=sys-devel/llvm-3.3
+	=sys-devel/llvm-3.3*
 	>=sys-libs/libunwind-1.1:7=
 	sys-libs/readline:0=
 	sys-libs/zlib:0=
@@ -62,6 +63,7 @@ src_prepare() {
 		-e "s|/usr/include|${EPREFIX}/usr/include|" \
 		-e "s|\$(BUILD)/lib|\$(BUILD)/$(get_libdir)|" \
 		-e "s|^JULIA_COMMIT = .*|JULIA_COMMIT = v${PV}|" \
+		-e '/MARCH = /d' \
 		Make.inc || die
 
 	sed -i \
@@ -103,17 +105,17 @@ src_configure() {
 		USE_SYSTEM_ZLIB=1
 		VERBOSE=1
 	EOF
-}
-
-src_compile() {
-	emake cleanall
+	emake -j1 cleanall
 	if [[ $(get_libdir) != lib ]]; then
 		mkdir -p usr/$(get_libdir) || die
 		ln -s $(get_libdir) usr/lib || die
 	fi
-	emake julia-release
+}
+
+src_compile() {
+	emake -j1 julia-release
 	pax-mark m $(file usr/bin/julia-* | awk -F : '/ELF/ {print $1}')
-	emake
+	emake -j1
 	use doc && emake -C doc html
 	use emacs && elisp-compile contrib/julia-mode.el
 }
@@ -123,7 +125,7 @@ src_test() {
 }
 
 src_install() {
-	emake install PREFIX="${D}/usr"
+	emake install PREFIX="${ED}/usr"
 	cat > 99julia <<-EOF
 		LDPATH=${EROOT%/}/usr/$(get_libdir)/julia
 	EOF

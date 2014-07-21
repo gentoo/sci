@@ -9,4 +9,7 @@
 		spaces and defining expressions for weak forms in a notation close to
 		mathematical notation.
 	</longdescription>
+	<use>
+		<flag name="scipy">Adds support for evaluating Bessel functions using <pkg>dev-python/scipy</pkg></flag>
+	</use>
 </pkgmetadata>

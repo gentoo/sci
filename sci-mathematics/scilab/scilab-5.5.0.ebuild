@@ -241,6 +241,10 @@ src_install() {
 
 pkg_postinst() {
 	fdo-mime_mime_database_update
+	einfo "If you are using the NVIDIA binary drivers, and run into graphics"
+	einfo "crashes, you may try to run scilab as follows:"
+	einfo "EGL_DRIVER=egl_glx scilab"
+	einfo "See upstream http://bugzilla.scilab.org/show_bug.cgi?id=12940"
 }
 
 pkg_postrm() {
