@@ -18,7 +18,7 @@ else
 	S="${WORKDIR}/${PN}_${PV}"
 fi
 
-inherit cmake-utils fortran-2 python-single-r1
+inherit cmake-utils fortran-2 multilib python-single-r1
 
 DESCRIPTION="C++ runtime system for parallel and distributed applications"
 HOMEPAGE="http://stellar.cct.lsu.edu/tag/hpx/"
@@ -41,6 +41,7 @@ RDEPEND="
 	tbb? ( dev-cpp/tbb )
 "
 DEPEND="${RDEPEND}
+	app-arch/p7zip
 	virtual/pkgconfig
 	test? ( dev-lang/python )
 "
@@ -53,8 +54,9 @@ pkg_setup() {
 src_configure() {
 	CMAKE_BUILD_TYPE=Release
 	local mycmakeargs=(
-		-Wno-dev
 		-DHPX_BUILD_EXAMPLES=OFF
+		-DLIB=$(get_libdir)
+		-Dcmake_dir=cmake
 		$(cmake-utils_use doc HPX_BUILD_DOCUMENTATION)
 		$(cmake-utils_use jemalloc HPX_JEMALLOC)
 		$(cmake-utils_use test BUILD_TESTING)
