@@ -11,7 +11,6 @@ if [ ${PV} == "9999" ] ; then
 	EGIT_REPO_URI="https://github.com/STEllAR-GROUP/hpx.git"
 	SRC_URI=""
 	KEYWORDS=""
-	S="${WORKDIR}/${P}"
 	CMAKE_USE_DIR="${S}"
 else
 	SRC_URI="http://stellar.cct.lsu.edu/files/${PN}_${PV}.7z"
