@@ -46,11 +46,14 @@ RDEPEND="${DEPEND}
 	!sci-chemistry/talos+
 	sys-libs/ncurses
 	x11-apps/xset
-	x11-libs/libX11
 	|| ( x11-libs/xview x11-libs/xview-bin )
-	amd64? (
-		app-emulation/emul-linux-x86-baselibs
-		app-emulation/emul-linux-x86-xlibs
+	|| (
+		(
+			x11-libs/libX11[abi_x86_32(-)]
+		)
+		(
+			app-emulation/emul-linux-x86-xlibs[-abi_x86_32(-)]
+		)
 	)
 	prefix? ( dev-util/patchelf )"
 

@@ -44,14 +44,12 @@ index a94e790..8b4589d 100755
  fi
  cd $dir
  
-@@ -20,7 +20,9 @@ echo ""
+@@ -20,7 +20,7 @@ echo ""
  
  # To generate the full documentation, we do need to
  # use the graphics engine, so do not use '-b'.
 -$ROOT -n -l <<makedoc
 +$ROOT -n -l <<makedoc || exit 1
-+    #include "THtml.h"
-+    gSystem->Load("libHtml");
      THtml h;
      h.LoadAllLibs();
      h.MakeAll();

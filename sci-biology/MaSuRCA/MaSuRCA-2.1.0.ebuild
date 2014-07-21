@@ -16,7 +16,8 @@ IUSE=""
 
 DEPEND="dev-lang/perl
 		app-arch/bzip2"
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	sci-biology/quorum"
 
 # the ebuild mimics "${S}"/install.sh
 src_configure(){

@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/cblas-reference/ChangeLog,v 1.33 2010/03/07 19:14:51 jlec Exp $
 
+  02 Jul 2014; François Bissey <francois.bissey@canterbury.ac.nz>
+  cblas-reference-20110218.ebuild:
+  More fix for macos. We need to create the link for both linux and macos.
+
   30 Jun 2014; François Bissey <francois.bissey@canterbury.ac.nz>
   cblas-reference-20110218.ebuild:
   Tweak src_install for OS X support. Added documentation in the ebuild itself.

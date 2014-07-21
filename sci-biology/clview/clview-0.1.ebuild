@@ -64,7 +64,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="x11-libs/fox"
+DEPEND="=x11-libs/fox-1.6*"
 RDEPEND="${DEPEND}"
 
 S=${WORKDIR}
