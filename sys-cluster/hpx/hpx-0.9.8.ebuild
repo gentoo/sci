@@ -9,14 +9,17 @@ PYTHON_COMPAT=( python{2_6,2_7} )
 if [ ${PV} == "9999" ] ; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/STEllAR-GROUP/hpx.git"
-	SRC_URI=""
 	KEYWORDS=""
 	S="${WORKDIR}/${PN}"
-	CMAKE_USE_DIR="${S}"
 else
 	SRC_URI="http://stellar.cct.lsu.edu/files/${PN}_${PV}.7z"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 	S="${WORKDIR}/${PN}_${PV}"
+	PATCHES=(
+		"${FILESDIR}"/${P}-install-path.patch
+		"${FILESDIR}"/${P}-multilib.patch
+		"${FILESDIR}"/${P}-cmake_dir.patch
+	)
 fi
 
 inherit cmake-utils fortran-2 multilib python-single-r1
@@ -47,12 +50,6 @@ DEPEND="${RDEPEND}
 	test? ( dev-lang/python )
 "
 REQUIRED_USE="test? ( ${PYTHON_REQUIRED_USE} )"
-
-PATCHES=(
-	"${FILESDIR}"/hpx-0.9.8-install-path.patch
-	"${FILESDIR}"/hpx-0.9.8-multilib.patch
-	"${FILESDIR}"/hpx-0.9.8-cmake_dir.patch
-)
 
 pkg_setup() {
 	use test && python-single-r1_pkg_setup

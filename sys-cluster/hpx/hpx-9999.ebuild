@@ -9,9 +9,7 @@ PYTHON_COMPAT=( python{2_6,2_7} )
 if [ ${PV} == "9999" ] ; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/STEllAR-GROUP/hpx.git"
-	SRC_URI=""
 	KEYWORDS=""
-	CMAKE_USE_DIR="${S}"
 else
 	SRC_URI="http://stellar.cct.lsu.edu/files/${PN}_${PV}.7z"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
