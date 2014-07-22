@@ -18,8 +18,8 @@ RDEPEND="${DEPEND}"
 
 src_prepare() {
 	sed -i Remakefile.in \
-		-e "s:mkdir -p @libdir@:mkdir -p \$(DESTDIR)@libdir@:g" \
-		-e "s:cp \$f @libdir@:cp \$f \$(DESTDIR)@libdir@:g"
+		-e "s:mkdir -p @libdir@:mkdir -p \${DESTDIR}@libdir@:g" \
+		-e "s:cp \$f @libdir@:cp \$f \${DESTDIR}@libdir@:g"
 }
 
 src_configure() {

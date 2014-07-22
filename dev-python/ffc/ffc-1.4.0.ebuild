@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	>=sci-mathematics/ufc-2.3.0
+	!sci-mathematics/ufc
 	=dev-python/ufl-${PV}[${PYTHON_USEDEP}]
 	=dev-python/instant-${PV}[${PYTHON_USEDEP}]
 	=dev-python/fiat-${PV}[${PYTHON_USEDEP}]

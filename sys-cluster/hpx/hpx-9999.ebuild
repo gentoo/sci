@@ -9,17 +9,14 @@ PYTHON_COMPAT=( python{2_6,2_7} )
 if [ ${PV} == "9999" ] ; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/STEllAR-GROUP/hpx.git"
-	SRC_URI=""
 	KEYWORDS=""
-	S="${WORKDIR}/${PN}"
-	CMAKE_USE_DIR="${S}"
 else
 	SRC_URI="http://stellar.cct.lsu.edu/files/${PN}_${PV}.7z"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 	S="${WORKDIR}/${PN}_${PV}"
 fi
 
-inherit cmake-utils fortran-2 python-single-r1
+inherit cmake-utils fortran-2 multilib python-single-r1
 
 DESCRIPTION="C++ runtime system for parallel and distributed applications"
 HOMEPAGE="http://stellar.cct.lsu.edu/tag/hpx/"
@@ -42,14 +39,11 @@ RDEPEND="
 	tbb? ( dev-cpp/tbb )
 "
 DEPEND="${RDEPEND}
+	app-arch/p7zip
 	virtual/pkgconfig
 	test? ( dev-lang/python )
 "
 REQUIRED_USE="test? ( ${PYTHON_REQUIRED_USE} )"
-
-PATCHES=(
-	"${FILESDIR}"/hpx-0.9.5-install-path.patch
-)
 
 pkg_setup() {
 	use test && python-single-r1_pkg_setup
@@ -58,8 +52,9 @@ pkg_setup() {
 src_configure() {
 	CMAKE_BUILD_TYPE=Release
 	local mycmakeargs=(
-		-Wno-dev
 		-DHPX_BUILD_EXAMPLES=OFF
+		-DLIB=$(get_libdir)
+		-Dcmake_dir=cmake
 		$(cmake-utils_use doc HPX_BUILD_DOCUMENTATION)
 		$(cmake-utils_use jemalloc HPX_JEMALLOC)
 		$(cmake-utils_use test BUILD_TESTING)

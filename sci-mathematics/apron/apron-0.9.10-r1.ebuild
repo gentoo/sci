@@ -31,8 +31,8 @@ src_prepare() {
 	sed -i Makefile.config \
 		-e "s/FLAGS = \\\/FLAGS += \\\/g" \
 		-e "s/-O3 -DNDEBUG/-DNDEBUG/g" \
-		-e "s/APRON_PREFIX =.*/APRON_PREFIX = \${DESTDIR}\/usr/g" \
-		-e "s/MLGMPIDL_PREFIX =.*/MLGMPIDL_PREFIX = \${DESTDIR}\/usr/g"
+		-e "s/APRON_PREFIX =.*/APRON_PREFIX = \$(DESTDIR)\/usr/g" \
+		-e "s/MLGMPIDL_PREFIX =.*/MLGMPIDL_PREFIX = \$(DESTDIR)\/usr/g"
 
 	#fix doc building process
 	sed -i Makefile -e "s/; make html/; make/g"
@@ -41,9 +41,6 @@ src_prepare() {
 	sed -i apronxx/doc/Doxyfile \
 		-e "s/OUTPUT_DIRECTORY       = \/.*/OUTPUT_DIRECTORY       = .\//g" \
 		-e "s/STRIP_FROM_PATH        = \/.*/STRIP_FROM_PATH        = .\//g"
-
-	#fix ppl install for 32 platforms
-	sed -i ppl/Makefile -e "s/libap_ppl_caml\*\./libap_ppl\*\./g"
 
 	if [[ "$(gcc-major-version)" == "4" ]]; then
 		sed -i -e "s/# HAS_LONG_DOUBLE = 1/HAS_LONG_DOUBLE = 1/g" Makefile.config
@@ -54,26 +51,17 @@ src_prepare() {
 }
 
 src_compile() {
-	#damn crappy Makefile
-	emake || emake || die "emake failed"
-
-	if use doc && use cxx; then
-		emake -C apronxx doc || "emake doc failed"
-	fi
+	emake -j1 || die "emake failed"
 }
 
 src_install(){
-	DESTDIR="${D}" emake install || die "emake install failed"
+	emake install DESTDIR="${D}" || die "emake install failed"
 	dodoc AUTHORS Changes README
 
 	if use doc; then
 		dodoc apron/apron.pdf
 		if use ocaml; then
 			dodoc mlapronidl/mlapronidl.pdf
-		fi
-		if use cxx; then
-			mv apronxx/doc/latex/refman.pdf apronxx/apronxx.pdf
-			dodoc ./apronxx/apronxx.pdf
 		fi
 	fi
 }

@@ -13,16 +13,17 @@ SRC_URI="http://why.lri.fr/download/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="apron coq doc examples gappa frama-c gtk pff why3"
+IUSE="apron coq doc examples float gappa frama-c gtk pff why3"
 
 DEPEND=">=dev-lang/ocaml-3.12.1
-		>=dev-ml/ocamlgraph-1.2
+		>=dev-ml/ocamlgraph-1.5
 		gtk? ( >=dev-ml/lablgtk-2.14 )
 		apron? ( sci-mathematics/apron )
 		coq? ( sci-mathematics/coq )
 		gappa? ( sci-mathematics/gappalib-coq )
 		pff? ( sci-mathematics/pff )
 		frama-c? ( >=sci-mathematics/frama-c-20140301 )
+		float? ( sci-mathematics/flocq )
 		why3? ( sci-mathematics/why3 )"
 RDEPEND="${DEPEND}"
 
@@ -47,11 +48,11 @@ src_configure() {
 }
 
 src_compile(){
-	DESTDIR="/" emake -j1 || die "emake failed"
+	emake -j1 DESTDIR="/" || die "emake failed"
 }
 
 src_install(){
-	DESTDIR="${D}" emake install || die "emake install failed"
+	emake install DESTDIR="${D}" || die "emake install failed"
 	dodoc CHANGES README Version
 	doman doc/why.1
 
