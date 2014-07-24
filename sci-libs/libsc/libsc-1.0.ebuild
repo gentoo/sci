@@ -20,7 +20,7 @@ IUSE="debug examples mpi romio static-libs"
 REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
-	!<sci-libs/p4est-0.3.5
+	!<sci-libs/p4est-1.0
 	dev-lang/lua
 	sys-apps/util-linux
 	virtual/blas
@@ -36,12 +36,6 @@ DOCS=(AUTHORS NEWS README)
 AUTOTOOLS_AUTORECONF=true
 
 src_prepare() {
-	# Use libtool's -release option so that we end up with a valid SONAME
-	# and library version symlinks:
-	sed -i \
-		"s/^\(src_libsc_la_CPPFLAGS.*\)\$/\1\nsrc_libsc_la_LDFLAGS = -release ${PV}/" \
-		"${S}"/src/Makefile.am || die "sed failed"
-
 	# Inject a version number into the build system
 	echo "${PV}" > ${S}/.tarball-version
 
