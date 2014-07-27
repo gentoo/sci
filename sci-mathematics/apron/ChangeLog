@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Jul 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
+  apron-0.9.10-r1.ebuild:
+  force j1 option for make
+
   21 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
   +apron-0.9.10-r1.ebuild:
   dropping cxx and ppl support

@@ -13,18 +13,19 @@ SRC_URI="https://gforge.inria.fr/frs/download.php/33490/${P}.tar.gz"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="frama-c doc examples"
+IUSE="float frama-c doc examples"
 
 DEPEND=">=dev-lang/ocaml-3.12.1
 		dev-ml/zarith
 		sci-mathematics/coq
 		frama-c? ( >=sci-mathematics/frama-c-20140301 )
+		float? ( sci-mathematics/flocq )
 		doc? ( dev-tex/rubber )"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
 	mv doc/why.1 doc/why3.1
-    sed -i configure.in -e "s/\"pvs\"/\"sri-pvs\"/g"
+	sed -i configure.in -e "s/\"pvs\"/\"sri-pvs\"/g"
 	sed -i configure -e "s/\"pvs\"/\"sri-pvs\"/g"
 	sed -i Makefile.in -e "s:DESTDIR =::g" \
 		-e "s:\$(RUBBER) --warn all --pdf manual.tex:makeindex manual.tex; \$(RUBBER) --warn all --pdf manual.tex; cd ..:g"
@@ -42,7 +43,7 @@ src_compile() {
 }
 
 src_install(){
-	DESTDIR="${D}" emake install || die "emake install failed"
+	emake install DESTDIR="${D}" || die "emake install failed"
 	dodoc CHANGES README Version
 	doman doc/why3.1
 	if use doc; then

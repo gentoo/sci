@@ -31,7 +31,7 @@ src_prepare() {
 	sed -i Makefile.config \
 		-e "s/FLAGS = \\\/FLAGS += \\\/g" \
 		-e "s/-O3 -UNDEBUG/-DUDEBUG/g" \
-		-e "s/MLGMPIDL_PREFIX = /MLGMPIDL_PREFIX = \${DESTDIR}\/usr/g"
+		-e "s/MLGMPIDL_PREFIX = /MLGMPIDL_PREFIX = \$(DESTDIR)\/usr/g"
 
 	if use !mpfr; then
 		sed -i -e "s/HAS_MPFR=1/#HAS_MPFR=0/g" Makefile.config
@@ -49,7 +49,7 @@ src_compile() {
 }
 
 src_install(){
-	DESTDIR="${D}" emake install || die "emake install failed"
+	emake install DESTDIR="${D}" || die "emake install failed"
 	dodoc README
 
 	if use doc; then

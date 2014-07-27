@@ -37,7 +37,9 @@ src_configure(){
 
 src_compile(){
 	emake || die "emake failed"
-	use doc && emake doc || die "emake doc failed"
+	if use doc; then
+		emake doc || die "emake doc failed"
+	fi
 }
 
 src_install(){

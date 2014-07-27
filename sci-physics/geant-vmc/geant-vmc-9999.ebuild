@@ -20,7 +20,7 @@ HOMEPAGE="http://root.cern.ch/root/vmc/VirtualMC.html"
 
 LICENSE="GPL-2"
 SLOT="4"
-IUSE="doc examples geant3 +g4root +mtroot vgm"
+IUSE="doc examples geant3 +g4root +mtroot vgm test"
 
 RDEPEND="
 	sci-physics/root:=
@@ -35,6 +35,7 @@ src_configure() {
 			$(cmake-utils_use geant3 Geant4VMC_USE_GEANT4_G3TOG4)
 			$(cmake-utils_use g4root Geant4VMC_USE_G4Root)
 			$(cmake-utils_use mtroot Geant4VMC_USE_MTRoot)
+			$(cmake-utils_use test Geant4VMC_BUILD_EXAMPLES)
 			$(cmake-utils_use examples Geant4VMC_INSTALL_EXAMPLES)
 			)
 	cmake-utils_src_configure
@@ -42,7 +43,7 @@ src_configure() {
 
 src_compile() {
 	cmake-utils_src_compile
-	local dirs="g4root mtroot source"
+	local dirs="source"
 	use g4root && dirs+=" g4root "
 	use mtroot && dirs+=" mtroot "
 	use examples && dirs+=" examples "
@@ -58,18 +59,8 @@ src_compile() {
 
 src_test() {
 	cd examples || die
-	local origDir=${CMAKE_USE_DIR}
-	CMAKE_USE_DIR=${CMAKE_USE_DIR}/examples
-	CMAKE_IN_SOURCE_BUILD=1
-	CMAKE_MODULE_PATH=../cmake
-	local mycmakeargs=(
-			-DCMAKE_MODULE_PATH=${origDir}/cmake
-			)
-	cmake-utils_src_configure
-	cmake-utils_src_compile
-	./run_suite.sh || die
-	CMAKE_IN_SOURCE_BUILD=0
-	CMAKE_USE_DIR=$origDir
+	./test_suite.sh --g3=off --builddir="${BUILD_DIR}" || die
+	./test_suite_exe.sh --g3=off --builddir="${BUILD_DIR}" || die
 }
 
 src_install() {

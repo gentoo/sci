@@ -20,7 +20,7 @@ IUSE="debug examples mpi romio static-libs"
 REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
-    !<sci-libs/p4est-0.3.5
+	!<sci-libs/p4est-0.3.5
 	dev-lang/lua
 	sys-apps/util-linux
 	virtual/blas
@@ -28,8 +28,8 @@ RDEPEND="
 	mpi? ( virtual/mpi[romio?] )"
 
 DEPEND="
-    ${RDEPEND}
-    virtual/pkgconfig"
+	${RDEPEND}
+	virtual/pkgconfig"
 
 DOCS=(AUTHORS NEWS README)
 
@@ -50,7 +50,7 @@ src_prepare() {
 
 src_configure() {
 	local myeconfargs=(
-        $(use_enable debug)
+		$(use_enable debug)
 		$(use_enable mpi)
 		$(use_enable romio mpiio)
 		--with-blas="$($(tc-getPKG_CONFIG) --libs blas)"
