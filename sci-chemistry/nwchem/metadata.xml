@@ -7,6 +7,9 @@
     <name>Alexey Shvetsov</name>
   </maintainer>
   <use>
+    <flag name="mrcc">Compile the MRCC module</flag>
+  </use>
+  <use>
     <flag name="nwchem-tests">Install qa tests data</flag>
   </use>
 </pkgmetadata>
