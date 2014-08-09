@@ -1,10 +1,10 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-python/aplpy/aplpy-0.9.11.ebuild,v 1.1 2014/01/28 17:53:13 bicatali Exp $
+# $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7,3_3,3_4} )
+PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 inherit distutils-r1
 
 if [ ${PV} == "9999" ] ; then
