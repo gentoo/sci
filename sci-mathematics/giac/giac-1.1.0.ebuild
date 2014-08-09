@@ -13,6 +13,9 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc examples fltk"
 
+AUTOTOOLS_IN_SOURCE_BUILD=true
+inherit autotools-utils flag-o-matic
+
 RDEPEND=">=dev-libs/gmp-3
 		>=sys-libs/readline-4.2
 		fltk? ( >=x11-libs/fltk-1.1.9 )
@@ -30,6 +33,19 @@ src_prepare(){
 	if use !fltk; then
 		sed -e "s: gl2ps\.[chlo]*::g" -i src/Makefile.*
 	fi
+}
+
+src_configure(){
+	if use fltk
+	then
+		append-cppflags -I$(fltk-config --includedir)
+		append-lfs-flags
+		append-libs $(fltk-config --ldflags | sed -e 's/\(-L\S*\)\s.*/\1/')
+	fi
+	local myeconfargs=(
+		user_enable fltk gui
+	)
+        autotools-utils_src_configure || die "configuring failed"
 }
 
 src_install() {
