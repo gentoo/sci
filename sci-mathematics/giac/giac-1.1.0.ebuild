@@ -43,7 +43,7 @@ src_configure(){
 		append-libs $(fltk-config --ldflags | sed -e 's/\(-L\S*\)\s.*/\1/')
 	fi
 	local myeconfargs=(
-		user_enable fltk gui
+		$(use_enable fltk gui)
 	)
         autotools-utils_src_configure || die "configuring failed"
 }
