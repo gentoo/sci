@@ -3,7 +3,7 @@
 # $Header: $
 
   09 Aug 2014; Dominik Schmidt <das1993@hotmail.com>
-  Fixed fltk handling
+  Fixed fltk handling, added PAX-checks and exception.
 
   21 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -giac-1.0.0.ebuild, +giac-1.1.0.ebuild:

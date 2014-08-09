@@ -14,7 +14,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="doc examples fltk"
 
 AUTOTOOLS_IN_SOURCE_BUILD=true
-inherit autotools-utils flag-o-matic
+inherit autotools-utils flag-o-matic pax-utils
 
 RDEPEND=">=dev-libs/gmp-3
 		>=sys-libs/readline-4.2
@@ -55,6 +55,8 @@ src_install() {
 	dodoc AUTHORS ChangeLog COPYING INSTALL NEWS README TROUBLES
 	if use !fltk; then
 		rm ${D}/usr/bin/x*
+	elif host-is-pax; then
+		pax-mark -m ${D}/usr/bin/x*
 	fi
 	if use !doc; then
 		rm -R ${D}/usr/share/doc/giac ${D}/usr/share/giac/doc/
