@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
 DESCRIPTION="A free C++ CAS (Computer Algebra System) library and its interfaces"
 HOMEPAGE="http://www-fourier.ujf-grenoble.fr/~parisse/giac.html"
@@ -12,6 +12,9 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="doc examples fltk"
+
+AUTOTOOLS_IN_SOURCE_BUILD=true
+inherit autotools-utils flag-o-matic pax-utils
 
 RDEPEND=">=dev-libs/gmp-3
 		>=sys-libs/readline-4.2
@@ -32,6 +35,19 @@ src_prepare(){
 	fi
 }
 
+src_configure(){
+	if use fltk
+	then
+		append-cppflags -I$(fltk-config --includedir)
+		append-lfs-flags
+		append-libs $(fltk-config --ldflags | sed -e 's/\(-L\S*\)\s.*/\1/')
+	fi
+	local myeconfargs=(
+		$(use_enable fltk gui)
+	)
+        autotools-utils_src_configure || die "configuring failed"
+}
+
 src_install() {
 	emake install DESTDIR="${D}" || die "emake install failed"
 	mv ${D}/usr/bin/{aide,giac-help}
@@ -39,6 +55,8 @@ src_install() {
 	dodoc AUTHORS ChangeLog COPYING INSTALL NEWS README TROUBLES
 	if use !fltk; then
 		rm ${D}/usr/bin/x*
+	elif host-is-pax; then
+		pax-mark -m ${D}/usr/bin/x*
 	fi
 	if use !doc; then
 		rm -R ${D}/usr/share/doc/giac ${D}/usr/share/giac/doc/
