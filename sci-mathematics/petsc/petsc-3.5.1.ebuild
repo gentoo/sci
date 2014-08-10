@@ -165,7 +165,7 @@ src_configure() {
 		--with-imagemagick=0 \
 		--with-python=0 \
 		$(petsc_with boost) \
-		$(petsc_with fftw) \
+		$(petsc_with fftw)
 
 # not yet tested:
 #		python bindings, netcdf, fftw
@@ -188,7 +188,7 @@ src_install() {
 	doins ${PETSC_ARCH}/include/*
 	if use fortran; then
 		insinto /usr/include/${PN}/finclude
-		doins include/finclude/*.h
+		doins -r include/finclude/*
 	fi
 	if ! use mpi ; then
 		insinto /usr/include/${PN}/mpiuni
@@ -219,6 +219,7 @@ src_install() {
 	doenvd 99petsc
 
 	dolib.so ${PETSC_ARCH}/lib/*.so
+	dolib.so ${PETSC_ARCH}/lib/*.so.*
 
 	if use doc ; then
 		einfo "installing documentation (this could take a while)"
