@@ -38,7 +38,7 @@ src_install() {
 		_exe=./linux_64/${PN}
 	fi
 
-	patchelf --set-rpath "${EPREFIX}/opt/${PN}:${EPREFIX}/usr/$(get_libdir)/gcc/x86_64-pc-linux-gnu/4.1.2/" ${_exe}
+	patchelf --set-rpath "${EPREFIX}/opt/${PN}:$(gcc-config -L):${EPREFIX}/usr/$(get_libdir)/gcc/x86_64-pc-linux-gnu/4.1.2/" ${_exe} || die
 
 	doexe batch_curve curveplot ${_exe}
 
