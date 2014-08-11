@@ -3,6 +3,9 @@
 # $Header: $
 
   11 Aug 2014; Joseph Jon Booker <joe@neoturbine.net> astropy-9999.ebuild:
+  dev-python/astropy: Fix python deps
+
+  11 Aug 2014; Joseph Jon Booker <joe@neoturbine.net> astropy-9999.ebuild:
   dev-python/astropy: Update astropy live ebuild deps and python support
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> astropy-9999.ebuild:

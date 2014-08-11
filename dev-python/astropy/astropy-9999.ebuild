@@ -31,8 +31,8 @@ DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	virtual/pkgconfig
 	doc? (
-		dev-python/matplotlib
-		dev-python/sphinx
+		dev-python/matplotlib[${PYTHON_USEDEP}]
+		dev-python/sphinx[${PYTHON_USEDEP}]
 		media-gfx/graphviz
 	)
 	test? (
