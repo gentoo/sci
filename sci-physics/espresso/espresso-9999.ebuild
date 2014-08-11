@@ -1,12 +1,12 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/espresso/espresso-3.3.0.ebuild,v 1.1 2014/08/11 21:33:08 ottxor Exp $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
-inherit autotools-utils python-any-r1 savedconfig
+inherit autotools-utils python-single-r1 savedconfig
 
 DESCRIPTION="Extensible Simulation Package for Research on Soft matter"
 HOMEPAGE="http://www.espressomd.org"
@@ -16,23 +16,30 @@ if [[ ${PV} = 9999 ]]; then
 	EGIT_BRANCH="master"
 	AUTOTOOLS_AUTORECONF=1
 	inherit git-r3
+	KEYWORDS=""
 else
 	SRC_URI="mirror://nongnu/${PN}md/${P}.tar.gz"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
 fi
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
-IUSE="X doc examples fftw mpi packages test -tk"
+IUSE="X cuda doc examples +fftw mpi packages python test -tk"
 
 REQUIRED_USE="
-	${PYTHON_REQUIRED_USE}
+	python? ( ${PYTHON_REQUIRED_USE} )
 	tk? ( X )"
 
 RESTRICT="tk? ( test )"
 
-RDEPEND="${PYTHON_DEPS}
+RDEPEND="
+	python? (
+		${PYTHON_DEPS}
+		dev-python/cython[${PYTHON_USEDEP}]
+		dev-python/numpy[${PYTHON_USEDEP}]
+	)
 	dev-lang/tcl
+	cuda? ( >=dev-util/nvidia-cuda-toolkit-4.2.9-r1 )
 	fftw? ( sci-libs/fftw:3.0 )
 	mpi? ( virtual/mpi )
 	packages? ( dev-tcltk/tcllib )
@@ -47,15 +54,26 @@ DEPEND="${RDEPEND}
 
 DOCS=( AUTHORS NEWS README ChangeLog )
 
+pkg_setup() {
+	use python && python-single-r1_pkg_setup
+}
+
+src_prepare() {
+	use cuda && cuda_src_prepare
+	autotools-utils_src_prepare
+}
+
 src_configure() {
 	myeconfargs=(
 		$(use_with fftw) \
+		$(use_with cuda) \
+		$(use_with python python-interface) \
 		$(use_with mpi) \
 		$(use_with tk) \
 		$(use_with X x)
 	)
-	autotools-utils_src_configure
-	restore_config myconfig.h
+	CXX=$(usex mpi "mpic++" "$(tc-getCXX)") autotools-utils_src_configure
+	restore_config myconfig.hpp
 }
 
 src_compile() {
@@ -70,9 +88,9 @@ src_install() {
 	autotools-utils_src_install
 
 	insinto /usr/share/${PN}
-	doins ${AUTOTOOLS_BUILD_DIR}/myconfig-sample.h
+	doins ${AUTOTOOLS_BUILD_DIR}/myconfig-sample.hpp
 
-	save_config ${AUTOTOOLS_BUILD_DIR}/src/myconfig-final.h
+	save_config ${AUTOTOOLS_BUILD_DIR}/src/core/myconfig-final.hpp
 
 	if use doc; then
 		if [[ ${PV} = 9999 ]] ; then

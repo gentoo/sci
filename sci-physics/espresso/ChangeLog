@@ -1,6 +1,10 @@
 # ChangeLog for sci-physics/espresso
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  11 Aug 2014; Christoph Junghans <ottxor@gentoo.org> espresso-9999.ebuild,
+  metadata.xml:
+  sync with gx86
 
   11 Dec 2013; Justin Lecher <jlec@gentoo.org> espresso-9999.ebuild:
   fix python handling
