@@ -48,7 +48,7 @@ src_install() {
 
 	setenv MDD_NMR "${EPREFIX}/opt/${PN}"
 	setenv MDD_NMRbin "${EPREFIX}/opt/${PN}/bin/"
-	set path=( . "$MDD_NMRbin"  "${MDD_NMR}/com" \$path )
+	set path=( . "\$MDD_NMRbin"  "\${MDD_NMR}/com" \$path )
 
 	csh "${EPREFIX}/opt/${PN}/GUI/qMDD"
 	EOF
