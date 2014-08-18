@@ -27,6 +27,7 @@ DEPEND="${CDEPEND}
 	virtual/pkgconfig"
 
 src_prepare() {
+	epatch "${FILESDIR}"/${P}-buildsystem.patch
 	sed -i 's~/software/bin/python~/usr/bin/env python~' "${S}"/misc/varfilter.py || die
 
 	tc-export CC AR
@@ -34,6 +35,7 @@ src_prepare() {
 
 src_compile() {
 	emake
+	emake dylib
 }
 
 src_install() {
@@ -41,8 +43,8 @@ src_install() {
 
 	python_replicate_script "${ED}"/usr/bin/varfilter.py
 
-	dolib.so libbam.a
-	dosym libbam.a /usr/$(get_libdir)/libbam$(get_libname)
+	dolib.so libbam$(get_libname 1)
+	dosym libbam$(get_libname 1) /usr/$(get_libdir)/libbam$(get_libname)
 
 	insinto /usr/include/bam
 	doins *.h
