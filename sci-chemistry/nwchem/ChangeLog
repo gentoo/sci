@@ -1,6 +1,16 @@
 # ChangeLog for sci-chemistry/nwchem
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*nwchem-6.3_p2-r1 (07 Aug 2014)
+
+  07 Aug 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -nwchem-6.3-r1.ebuild, -nwchem-6.3-r2.ebuild, +nwchem-6.3_p2-r1.ebuild:
+  Changed versioning to use the package patchlevel versus the ebuild revision
+  properly. Compilation without MPI support tested and corrected. Options added
+  to compile with OpenMP (not sure if it has any effect, setting the compiler
+  flag only), to compile the large MRCC module skipped by default, and to build
+  against system BLAS.
 
   19 Oct 2013; Honza Macháček <Hloupy.Honza@centrum.cz> nwchem-6.3-r2.ebuild:
   Arranged for the TeX fonts creation in the sandbox. This time really.

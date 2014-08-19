@@ -1,6 +1,9 @@
 # ChangeLog for sci-chemistry/curvefit
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  11 Aug 2014; Justin Lecher <jlec@gentoo.org> curvefit-1.40.ebuild:
+  Fix missing libs on prefix
 
   15 May 2013; Justin Lecher <jlec@gentoo.org> curvefit-1.40.ebuild:
   Add missing eclass inherit

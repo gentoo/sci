@@ -35,9 +35,9 @@ src_install() {
 
 	exeinto /opt/${PN}/bin
 	if use amd64; then
-		doexe binLinux64Static/*
+		doexe binXeonE5mkl/*
 	elif use x86; then
-		doexe binLinux32Static/*
+		doexe binUbuntu32Static/*
 	fi
 
 	insinto /opt/${PN}/
@@ -48,7 +48,7 @@ src_install() {
 
 	setenv MDD_NMR "${EPREFIX}/opt/${PN}"
 	setenv MDD_NMRbin "${EPREFIX}/opt/${PN}/bin/"
-	setenv path=( . "$MDD_NMRbin"  "${MDD_NMR}/com" )
+	set path=( . "\$MDD_NMRbin"  "\${MDD_NMR}/com" \$path )
 
 	csh "${EPREFIX}/opt/${PN}/GUI/qMDD"
 	EOF

@@ -2,8 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  19 Aug 2014; Christoph Junghans <ottxor@gentoo.org> espresso-9999.ebuild:
-  use fftw by default
+  11 Aug 2014; Christoph Junghans <ottxor@gentoo.org> espresso-9999.ebuild,
+  metadata.xml:
+  sync with gx86
 
   11 Dec 2013; Justin Lecher <jlec@gentoo.org> espresso-9999.ebuild:
   fix python handling

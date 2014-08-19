@@ -6,18 +6,18 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit eutils fortran-2 multilib python-single-r1 toolchain-funcs
+inherit eutils flag-o-matic fortran-2 multilib python-single-r1 toolchain-funcs
 
 DATE="2013-10-17"
 
 DESCRIPTION="Delivering High-Performance Computational Chemistry to Science"
 HOMEPAGE="http://www.nwchem-sw.org/index.php/Main_Page"
-SRC_URI="http://www.nwchem-sw.org/images/Nwchem-${PV}.revision${PR#r}-src.${DATE}.tar.gz"
+SRC_URI="http://www.nwchem-sw.org/images/Nwchem-${PV%_p*}.revision${PV#*_p}-src.${DATE}.tar.gz"
 
 LICENSE="ECL-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="mpi doc examples nwchem-tests python"
+IUSE="blas mpi doc examples nwchem-tests openmp mrcc python"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
@@ -31,11 +31,46 @@ DEPEND="${RDEPEND}
 		dev-texlive/texlive-latex
 		dev-tex/latex2html )"
 
-LONG_S="${WORKDIR}/${P}.revision${PR#r}-src.${DATE}"
+LONG_S="${WORKDIR}/${PN}-${PV%_p*}.revision${PV#*_p}-src.${DATE}"
 S="${WORKDIR}/${PN}"
 
 pkg_setup() {
+	# fortran-2.eclass does not handle mpi wrappers
+	if use mpi; then
+		export FC="mpif90"
+		export F77="mpif77"
+		export CC="mpicc"
+		export CXX="mpic++"
+	else
+		tc-export FC F77 CC CXX
+	fi
+
+	use openmp && FORTRAN_NEED_OPENMP=1
+
 	fortran-2_pkg_setup
+
+	if use openmp; then
+		# based on _fortran-has-openmp() of fortran-2.eclass
+		local openmp=""
+		local fcode=ebuild-openmp-flags.f
+		local _fc=$(tc-getFC)
+
+		pushd "${T}"
+		cat <<- EOF > "${fcode}"
+		1     call omp_get_num_threads
+		2     end
+		EOF
+
+		for openmp in -fopenmp -xopenmp -openmp -mp -omp -qsmp=omp; do
+			"${_fc}" "${openmp}" "${fcode}" -o "${fcode}.x" && break
+		done
+
+		rm -f "${fcode}.*"
+		popd
+
+		append-flags "${openmp}"
+	fi
+
 	use python && python-single-r1_pkg_setup
 }
 
@@ -74,11 +109,17 @@ src_compile() {
 	export USE_SUBGROUPS=yes
 	if use mpi ; then
 		export MSG_COMMS=MPI
-		export USE_MPI=yes
-		export MPI_LOC=/usr
+		export USE_MPI=y
+		export USE_MPIF=y
+		export MPI_LOC="${EPREFIX}"/usr
 		export MPI_INCLUDE=$MPI_LOC/include
 		export MPI_LIB=$MPI_LOC/$(get_libdir)
 		export LIBMPI="$(mpif90 -showme:link)"
+	else
+		unset USE_MPI
+		unset USE_MPIF
+		export MSG_COMMS=TCGMSG
+		export ARMCI_NETWORK=SOCKETS
 	fi
 	if [ "$ARCH" = "amd64" ]; then
 		export NWCHEM_TARGET=LINUX64
@@ -102,6 +143,15 @@ src_compile() {
 	else
 		export NWCHEM_MODULES="all"
 	fi
+	use mrcc && export MRCC_THEORY="TRUE"	
+	if use blas; then
+		export HAS_BLAS=yes
+		export BLASOPT="$(pkg-config --libs blas)"
+	else
+		unset HAS_BLAS
+		unset BLASOPT
+	fi
+	export LARGE_FILES="TRUE"
 
 	cd src
 	emake \
