@@ -23,7 +23,7 @@ fi
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
-IUSE="X doc examples fftw mpi packages test -tk"
+IUSE="X doc examples +fftw mpi packages test -tk"
 
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
