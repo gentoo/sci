@@ -2,6 +2,13 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nvidia-cuda-toolkit-6.5.11-r1 (14 Jul 2014)
+
+  14 Jul 2014; Marius Brehler <marbre@linux.sungazer.de>
+  +nvidia-cuda-toolkit-6.5.11-r1.ebuild, -nvidia-cuda-toolkit-6.5.11.ebuild:
+  dev-util/nvidia-cuda-toolkit: Add profiler specific paths only with
+  USE=profiler, #512160
+
 *nvidia-cuda-toolkit-6.5.11 (10 Jul 2014)
 
   10 Jul 2014; Marius Brehler <marbre@linux.sungazer.de> +files/cuda-config.in,
