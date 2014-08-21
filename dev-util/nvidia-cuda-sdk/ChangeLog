@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nvidia-cuda-sdk-6.5.14 (20 Aug 2014)
+
+  20 Aug 2014; Marius Brehler <marbre@linux.sungazer.de>
+  +nvidia-cuda-sdk-6.5.14.ebuild:
+  Version Bump
+
 *nvidia-cuda-sdk-6.5.11 (10 Jul 2014)
 
   10 Jul 2014; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
