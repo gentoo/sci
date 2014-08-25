@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit cmake-utils multilib python-single-r1
@@ -18,8 +18,9 @@ if [[ ${PV} = 9999 ]]; then
 	inherit mercurial
 	KEYWORDS=
 else
-	SRC_URI="https://espressopp.mpip-mainz.mpg.de/Download/${PN//+/p}-${PV}.tgz"
-	S="${WORKDIR}/${PN//+/p}-${PV}"
+	inherit vcs-snapshot
+	#SRC_URI="https://espressopp.mpip-mainz.mpg.de/Download/${PN//+/p}-${PV}.tgz"
+	SRC_URI="https://bitbucket.org/${PN//+/p}/${PN//+/p}/get/v${PV}.tar.bz2 -> ${P}.tar.bz2"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
 fi
 
