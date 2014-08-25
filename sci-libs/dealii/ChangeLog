@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Jul 2014; Matthias Maier <tamiko@gentoo.org> dealii-9999.ebuild,
+  metadata.xml:
+  Update repository to github, fix readme file change, add forgotten use-flag to
+  metadata.xml, fix tabstops
+
   02 Mar 2014; Matthias Maier <tamiko+GENTOO@kyomu.43-1.org>
   dealii-9999.ebuild:
   Add use flag muparser and c++11 to reflect latest live build changes.
@@ -15,4 +20,3 @@
   metadata.xml:
   Add missing die; shorten DESCRIPTION; add dummy locel USE description; Fix
   RDEPEND.suspect
-

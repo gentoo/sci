@@ -4,13 +4,12 @@
 
 EAPI=5
 
-inherit cmake-utils eutils multilib subversion
+inherit cmake-utils eutils multilib git-r3
 
 DESCRIPTION="Solving partial differential equations with the finite element method"
 HOMEPAGE="http://www.dealii.org/"
 
-ESVN_REPO_URI="https://svn.dealii.org/trunk/deal.II"
-ESVN_OPTIONS="--trust-server-cert --non-interactive"
+EGIT_REPO_URI="git://github.com/dealii/dealii.git"
 KEYWORDS=""
 
 LICENSE="LGPL-2.1+"
@@ -55,8 +54,6 @@ DEPEND="
 
 src_configure() {
 
-	subversion_wc_info
-
 	if use debug; then
 		CMAKE_BUILD_TYPE="DebugRelease"
 	else
@@ -64,7 +61,7 @@ src_configure() {
 	fi
 
 	local mycmakeargs=(
-		-DDEAL_II_PACKAGE_VERSION=99.99.svn${ESVN_WC_REVISION}
+		-DDEAL_II_PACKAGE_VERSION=99.99
 		-DDEAL_II_ALLOW_AUTODETECTION=OFF
 		-DDEAL_II_ALLOW_BUNDLED=OFF
 		-DDEAL_II_ALLOW_PLATFORM_INTROSPECTION=OFF
@@ -103,7 +100,7 @@ src_configure() {
 }
 
 src_install() {
-	DOCS=( README )
+	DOCS=( README.md )
 
 	cmake-utils_src_install
 
