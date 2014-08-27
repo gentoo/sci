@@ -26,7 +26,7 @@ RDEPEND="
 	sci-libs/arpack:0=
 	sci-libs/camd:0=
 	sci-libs/cholmod:0=
-	sci-libs/fftw:3.0=
+	sci-libs/fftw:3.0=[threads]
 	sci-libs/openlibm:0=
 	sci-libs/spqr:0=
 	sci-libs/umfpack:0=
@@ -58,7 +58,7 @@ src_prepare() {
 	sed -i \
 		-e "s|\(JULIA_EXECUTABLE = \)\(\$(JULIAHOME)/julia\)|\1 LD_LIBRARY_PATH=\$(BUILD)/$(get_libdir) \2|" \
 		-e "s|-O3|${CFLAGS}|g" \
-		-e "s|LIBDIR = lib|LIBDIR = $(get_libdir)|" \
+		-e "s|libdir = \$(prefix)/lib|libdir = \$(prefix)/$(get_libdir)|" \
 		-e "s|/usr/lib|${EPREFIX}/usr/$(get_libdir)|" \
 		-e "s|/usr/include|${EPREFIX}/usr/include|" \
 		-e "s|\$(BUILD)/lib|\$(BUILD)/$(get_libdir)|" \
@@ -83,6 +83,7 @@ src_configure() {
 		LIBBLASNAME=$($(tc-getPKG_CONFIG) --libs blas | sed -e "s/-l\([a-z0-9]*\).*/lib\1/")
 		LIBLAPACK=$($(tc-getPKG_CONFIG) --libs lapack)
 		LIBLAPACKNAME=$($(tc-getPKG_CONFIG) --libs lapack | sed -e "s/-l\([a-z0-9]*\).*/lib\1/")
+		USE_BLAS64=0
 		USE_LLVM_SHLIB=1
 		USE_SYSTEM_ARPACK=1
 		USE_SYSTEM_BLAS=1
@@ -125,7 +126,7 @@ src_test() {
 }
 
 src_install() {
-	emake install PREFIX="${ED}/usr"
+	emake install prefix="${ED}/usr"
 	cat > 99julia <<-EOF
 		LDPATH=${EROOT%/}/usr/$(get_libdir)/julia
 	EOF
