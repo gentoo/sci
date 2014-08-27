@@ -4,6 +4,10 @@
 
   27 Aug 2014; François Bissey <francois.bissey@canterbury.ac.nz>
   julia-9999.ebuild:
+  Bump dependency on llvm as in 0.3
+
+  27 Aug 2014; François Bissey <francois.bissey@canterbury.ac.nz>
+  julia-9999.ebuild:
   Few fixes: julia wants threaded fftw; multilib-strict install; Added
   USE_BLAS64=0 to Make.user, some proprietary blas/lapack may be  suitable for
   the other setting but we cannot count on julia to recognize support just based
