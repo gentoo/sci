@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit cmake-utils fortran-2 toolchain-funcs
 
@@ -33,6 +33,10 @@ RDEPEND="
 	petsc? ( sci-mathematics/petsc )
 	mpi? ( virtual/mpi[cxx] )
 	taucs? ( sci-libs/taucs )
+	"
+
+REQUIRED_USE="
+	taucs? ( || ( metis ) )
 	"
 
 DEPEND="${RDEPEND}

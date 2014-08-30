@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
 inherit cmake-utils flag-o-matic fortran-2 toolchain-funcs
 
@@ -32,9 +32,9 @@ RDEPEND="
 	mpi? ( virtual/mpi[cxx] )
 	taucs? ( sci-libs/taucs )"
 
-# taucs needs metis enabled.
-# Wait for the REQUIRED_USE syntax in EAPI4.
-# http://www.gentoo.org/proj/en/council/meeting-logs/20101130-summary.txt
+REQUIRED_USE="
+	taucs? ( || ( metis ) )
+	"
 
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
