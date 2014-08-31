@@ -2,6 +2,15 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*thepeg-1.9.1-r1 (31 Aug 2014)
+*thepeg-1.9.0-r2 (31 Aug 2014)
+*thepeg-1.8.3-r1 (31 Aug 2014)
+
+  31 Aug 2014; Jauhien Piatlicki <jauhien@gentoo.org> -thepeg-1.8.3.ebuild,
+  +thepeg-1.8.3-r1.ebuild, -thepeg-1.9.0-r1.ebuild, +thepeg-1.9.0-r2.ebuild,
+  -thepeg-1.9.1.ebuild, +thepeg-1.9.1-r1.ebuild, metadata.xml:
+  Add libraries to LD_LIBRARY_PATH, add rivet USE description
+
   06 May 2014; Sébastien Fabbro <bicatali@gentoo.org> thepeg-1.9.1.ebuild:
   sci-physics/thepeg: Properly link with c++
 

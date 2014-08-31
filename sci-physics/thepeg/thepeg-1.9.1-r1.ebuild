@@ -80,6 +80,11 @@ src_install() {
 	autotools-utils_src_install
 	use emacs && elisp-install ${PN} lib/ThePEG.el{,c}
 	use java && java-pkg_newjar java/ThePEG.jar
+
+	cat <<-EOF > "${T}"/50${PN}
+	LDPATH="${EPREFIX}/usr/$(get_libdir)/ThePEG"
+	EOF
+	doenvd "${T}"/50${PN}
 }
 
 pkg_postinst() {
