@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*thepeg-1.9.2 (31 Aug 2014)
+
+  31 Aug 2014; Jauhien Piatlicki <jauhien@gentoo.org> +thepeg-1.9.2.ebuild,
+  metadata.xml:
+  version bump
+
 *thepeg-1.9.1-r1 (31 Aug 2014)
 *thepeg-1.9.0-r2 (31 Aug 2014)
 *thepeg-1.8.3-r1 (31 Aug 2014)
