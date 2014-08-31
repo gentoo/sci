@@ -24,7 +24,7 @@ IUSE="c++0x fastjet static-libs"
 RDEPEND="
 	dev-libs/boost:0=
 	sci-libs/gsl:0=
-	sci-physics/looptools:0=
+	<=sci-physics/looptools-2.8:0=
 	>=sci-physics/thepeg-1.9.1:0=
 	fastjet? ( sci-physics/fastjet:0= )"
 DEPEND="${RDEPEND}

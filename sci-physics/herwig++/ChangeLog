@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  31 Aug 2014; Jauhien Piatlicki <jauhien@gentoo.org> herwig++-2.7.0-r1.ebuild:
+  fix dependency on sci-physics/looptools
+
 *herwig++-2.7.0-r1 (07 May 2014)
 
   07 May 2014; Sébastien Fabbro <bicatali@gentoo.org> +herwig++-2.7.0-r1.ebuild,
