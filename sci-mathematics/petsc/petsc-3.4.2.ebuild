@@ -216,6 +216,10 @@ src_install() {
 		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/include/petscconf.h \
 		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/conf/petscvariables || die
 	sed -i \
+		-e "s:-I/include:-I${EPREFIX}/usr/include/${PN}:g" \
+		-e "s:-I/linux-gnu-cxx-opt/include:-I${EPREFIX}/usr/include/${PN}/${PETSC_ARCH}/include/:g" \
+		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/conf/petscvariables || die
+	sed -i \
 		-e "s:usr/lib:usr/$(get_libdir):g" \
 		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/include/petscconf.h || die
 
