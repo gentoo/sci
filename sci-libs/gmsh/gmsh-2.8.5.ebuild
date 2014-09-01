@@ -27,7 +27,7 @@ RDEPEND="
 	med? ( >=sci-libs/med-2.3.4 )
 	opencascade? ( sci-libs/opencascade )
 	png? ( media-libs/libpng )
-	petsc? ( sci-mathematics/petsc )
+	petsc? ( <=sci-mathematics/petsc-3.4.2 )
 	zlib? ( sys-libs/zlib )
 	mpi? ( virtual/mpi[cxx] )
 	taucs? ( sci-libs/taucs )"

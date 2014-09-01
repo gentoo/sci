@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  01 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> gmsh-2.8.5.ebuild:
+  fix sci-mathematics/petsc dependency
+
 *gmsh-2.5.0-r2 (30 Aug 2014)
 *gmsh-2.8.5 (30 Aug 2014)
 
