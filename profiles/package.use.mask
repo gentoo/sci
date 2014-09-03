@@ -16,6 +16,10 @@
 ## =media-video/mplayer-0.90_pre5-r1 foo
 #
 
+# Jauhien Piatlicki <jauhien@gentoo.org> (03 sep 2014)
+# Building of docs fails for this version
+=sci-physics/tauola-1.1.5 doc
+
 # Justin Lecher <jlec@gntoo.org> (06 Jan 2014)
 # Missing dep dev-python/scikits-cuda
 sci-biology/mne-python cuda
