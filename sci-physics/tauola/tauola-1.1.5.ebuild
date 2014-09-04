@@ -33,6 +33,7 @@ S="${WORKDIR}/${MYPN}"
 
 src_prepare() {
 	epatch \
+		"${FILESDIR}"/${P}-doc.patch \
 		"${FILESDIR}"/${PN}-1.1.4-makefile.patch \
 		"${FILESDIR}"/${PN}-1.1.3-tau-spinner-makefile.patch
 }
