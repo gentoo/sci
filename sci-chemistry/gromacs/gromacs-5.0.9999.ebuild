@@ -21,7 +21,7 @@ if [[ $PV = *9999* ]]; then
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${PN}-${PV/_/-}.tar.gz
 		test? ( http://gerrit.gromacs.org/download/regressiontests-${TEST_PV}.tar.gz )"
-	KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
+	KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
 fi
 
 ACCE_IUSE="sse2 sse4_1 avx_128_fma avx_256 avx2_256"
@@ -189,6 +189,8 @@ src_configure() {
 			-DGMX_LIBS_SUFFIX="${suffix}"
 			)
 		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
+		[[ ${CHOST} != *-darwin* ]] || \
+		  sed -i '/SET(CMAKE_INSTALL_NAME_DIR/s/^/#/' "${WORKDIR}/${P}_${x}/gentoo_rules.cmake" || die
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
 		mycmakeargs=(
@@ -203,6 +205,8 @@ src_configure() {
 			-DGMX_LIBS_SUFFIX="_mpi${suffix}"
 			)
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" CC="mpicc" cmake-utils_src_configure
+		[[ ${CHOST} != *-darwin* ]] || \
+		  sed -i '/SET(CMAKE_INSTALL_NAME_DIR/s/^/#/' "${WORKDIR}/${P}_${x}_mpi/gentoo_rules.cmake" || die
 	done
 }
 
