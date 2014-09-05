@@ -8,16 +8,15 @@ PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
 
 inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs
 
-REAL_PV="${PV/_pre/-dev.}"
 
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
 HOMEPAGE="http://bigdft.org/"
-SRC_URI="http://launchpad.net/${PN}/master/${REAL_PV}/+download/${PN}-${REAL_PV}.tar.gz"
+SRC_URI="http://launchpad.net/${PN}/${PV%.*}/${PV}/+download/${P}.tar.xz"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux"
-IUSE="cuda doc etsf_io mpi netcdf openmp opencl test"
+IUSE="cuda doc etsf_io glib mpi netcdf openmp opencl scalapack test"
 
 RDEPEND="
 	>=sci-libs/libxc-1.2.0-r1[fortran]
@@ -28,12 +27,14 @@ RDEPEND="
 	mpi? ( virtual/mpi )
 	cuda? ( dev-util/nvidia-cuda-sdk )
 	opencl? ( virtual/opencl )
-	etsf_io? ( sci-libs/etsf_io )
+	glib? ( >=dev-libs/glib-2.22 )
+	etsf_io? ( >=sci-libs/etsf_io-1.0.3-r2 )
 	netcdf? ( || (
 				sci-libs/netcdf[fortran]
 				sci-libs/netcdf-fortran
 				)
-			)"
+			)
+	scalapack? ( virtual/scalapack )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	>=sys-devel/autoconf-2.59
@@ -43,8 +44,6 @@ DEPEND="${RDEPEND}
 	dev-util/gdbus-codegen
 	app-arch/tar
 	app-arch/gzip"
-
-S="${WORKDIR}/${PN}-${REAL_PV}"
 
 DOCS=( README INSTALL ChangeLog AUTHORS NEWS )
 
@@ -56,47 +55,70 @@ pkg_setup() {
 		export FC="mpif90"
 		export F77="mpif77"
 		export CC="mpicc"
+		export CXX="mpic++"
 	else
-		tc-export FC F77 CC
+		tc-export FC F77 CC CXX
 	fi
 
+	use openmp && FORTRAN_NEED_OPENMP=1
+
 	fortran-2_pkg_setup
-	if use openmp && [[ $(tc-getCC)$ == *gcc* ]] &&	! tc-has-openmp; then
-		die "Please select an openmp capable compiler like gcc[openmp]"
+
+	if use openmp; then
+		# based on _fortran-has-openmp() of fortran-2.eclass
+		local openmp=""
+		local fcode=ebuild-openmp-flags.f
+		local _fc=$(tc-getFC)
+
+		pushd "${T}"
+		cat <<- EOF > "${fcode}"
+		1     call omp_get_num_threads
+		2     end
+		EOF
+
+		for openmp in -fopenmp -xopenmp -openmp -mp -omp -qsmp=omp; do
+			"${_fc}" "${openmp}" "${fcode}" -o "${fcode}.x" && break
+		done
+
+		rm -f "${fcode}.*"
+		popd
+
+		append-flags "${openmp}"
 	fi
+
 	python-any-r1_pkg_setup
 }
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/"${PN}-${REAL_PV}"-nolib_mods.patch
+		"${FILESDIR}"/"${P}"-pkgconfig.patch \
+		"${FILESDIR}"/"${P}"-dynamic_memory.patch
 
 	eautoreconf
 }
 
 src_configure() {
-	local openmp=""
-	use openmp && openmp="-fopenmp"
 	local modules="${EPREFIX}/usr/include"
 	local netcdff_libs="-lnetcdff"
 	filter-flags '-m*' '-O*' "-pipe"
 	local nvcflags="${CFLAGS}"
 	_filter-var nvcflags '-m*' '-O*' "-pipe" "-W*"
 	use cuda && filter-ldflags '-m*' '-O*' "-pipe" "-W*"
+	local mylapack="lapack"
+	use scalapack && mylapack="scalapack"
 	local myeconfargs=(
 		$(use_enable mpi)
 		--enable-optimised-convolution
 		--enable-pseudo
 		--enable-libbigdft
 		--enable-binaries
+		--disable-bindings
 		--disable-minima-hopping
 		--disable-internal-libyaml
 		--enable-internal-libabinit
 		--with-moduledir="${modules}"
-		--with-ext-linalg="$($(tc-getPKG_CONFIG) --libs-only-l lapack) \
-			$($(tc-getPKG_CONFIG) --libs-only-l blas)"
-		--with-ext-linalg-path="$($(tc-getPKG_CONFIG) --libs-only-L lapack) \
-			$($(tc-getPKG_CONFIG) --libs-only-L blas)"
+		--with-ext-linalg="$($(tc-getPKG_CONFIG) --libs-only-l "${mylapack}")"
+		--with-ext-linalg-path="$($(tc-getPKG_CONFIG) --libs-only-L "${mylapack}")"
 		--with-libxc="yes"
 		--disable-internal-libxc
 		$(use_enable cuda cuda-gpu)
@@ -105,8 +127,13 @@ src_configure() {
 		$(use_enable opencl)
 		$(use_with etsf_io etsf-io)
 		"$(use etsf_io && echo "--with-netcdf-libs=$($(tc-getPKG_CONFIG) --libs netcdf) ${netcdff_libs}")"
+		$(use_with glib gobject)
+		$(use_with scalapack)
+		$(use_with scalapack scalapack-path "${EPREFIX}/usr/$(get_libdir)")
+		$(use_with scalapack blacs)
+		$(use_with scalapack blacs-path "${EPREFIX}/usr/$(get_libdir)")
 		PKG_CONFIG="$(tc-getPKG_CONFIG)"
-		FCFLAGS="${FCFLAGS} ${openmp} -I${modules}"
+		FCFLAGS="${FCFLAGS} -I${modules}"
 		LD="$(tc-getLD)"
 		CPP="$(tc-getCPP)"
 		)
@@ -122,7 +149,10 @@ src_compile() {
 	popd > /dev/null
 
 	#autotools-utils_src_compile
-	use doc && autotools-utils_src_compile doc
+	if use doc; then
+		VARTEXFONTS="${T}/fonts"
+		autotools-utils_src_compile doc
+	fi
 }
 
 src_test() {
@@ -138,5 +168,12 @@ src_test() {
 }
 
 src_install() {
-	autotools-utils_src_install HAVE_LIBXC=1
+	autotools-utils_src_install
+	if use test; then
+		_check_build_dir
+		pushd "${BUILD_DIR}" > /dev/null || die
+		insinto /usr/share/"${P}"
+		doins -r tests
+		popd > /dev/null
+	fi
 }
