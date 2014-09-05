@@ -1,0 +1,11 @@
+--- documentation/latex_documentation/Tauola_interface_design.tex
++++ documentation/latex_documentation/Tauola_interface_design.tex
+@@ -2652,6 +2652,7 @@
+         there is a mismatch in the {\tt TAUOLA} version number given,
+         but otherwise all information on the generated sample, 
+         as explained eg. in \cite{Jadach:1990mz,Jezabek:1991qp,Jadach:1993hs}, is printed correctly. 
++  }
+ \end{itemize}
+ 
+ 
+

@@ -8,4 +8,8 @@
   arithmetic over big integers. Small integers are represented as Caml
   unboxed integers, for speed and space economy.
 </longdescription>
+<use>
+  <flag name='mpir'>Use <pkg>sci-libs/mpir</pkg> for arbitrary
+  precision integer arithmetic</flag>
+</use>
 </pkgmetadata>
