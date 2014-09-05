@@ -1,6 +1,14 @@
 # ChangeLog for sci-libs/calculix-ccx
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*calculix-ccx-2.7 (05 Sep 2014)
+
+  05 Sep 2014; Rongcui Dong <carldong76@gmail.com> +calculix-ccx-2.7.ebuild,
+  +files/01_ccx_2.7_Makefile_custom_cc_flags_spooles_arpack.patch,
+  +files/01_ccx_2.7_lapack.patch, -calculix-ccx-2.2.ebuild,
+  -files/01_ccx_2.2_Makefile.patch, -files/01_ccx_2.2_lapack.patch:
+  Version Bump
 
   22 Feb 2013; Justin Lecher <jlec@gentoo.org> calculix-ccx-2.2.ebuild,
   metadata.xml:
@@ -39,4 +47,3 @@
   +files/01_ccx_1.8_Makefile.patch, +files/01_ccx_1.8_lapack.patch,
   +calculix-ccx-1.8.ebuild, +metadata.xml:
   Reworked ebuild for bug 125773, thanks to pva
-
