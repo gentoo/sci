@@ -1,17 +1,29 @@
---- CalculiX/cgx_2.0/src/Makefile.orig	2009-08-28 10:24:52.000000000 +0200
-+++ CalculiX/cgx_2.0/src/Makefile	2009-08-28 10:26:39.000000000 +0200
-@@ -7,8 +7,8 @@
-   -I/usr/X11/include 
+diff -rupN CalculiX/cgx_2.7/src/Makefile CalculiX.patched/cgx_2.7/src/Makefile
+--- CalculiX/cgx_2.7/src/Makefile	2014-02-18 13:47:05.000000000 -0500
++++ CalculiX.patched/cgx_2.7/src/Makefile	2014-09-04 17:08:58.043266103 -0400
+@@ -1,15 +1,15 @@
+-CFLAGS = -O3 -Wall \
++CFLAGS := -O3 -Wall \
+   -I./ \
+   -I/usr/include \
+   -I/usr/include/GL \
+   -I../../libSNL/src \
+   -I../../glut-3.5/src \
+-  -I/usr/X11/include 
++  -I/usr/X11/include $(CFLAGS)
  
- LFLAGS = \
+-LFLAGS = \
 -  -L/usr/lib64 -lGL -lGLU \
--  -L/usr/X11R6/lib64 -lX11 -lXext -lXi -lXmu -lXt -lSM -lICE \
+-  -L/usr/X11R6/lib64 -lX11 -lXi -lXmu -lXext -lXt -lSM -lICE \
+-  -lm -lpthread -lrt
++LFLAGS := \
 +  -L/usr/lib -lGL -lGLU -lglut \
-+  -L/usr/X11R6/lib $(PTHREAD) -lX11 -lXext -lXi -lXmu -lXt -lSM -lICE \
-   -lm 
++  -L/usr/X11R6/lib -lX11 -lXi -lXmu -lXext -lXt -lSM -lICE \
++  -lm $(PTHREAD) -lrt $(LFLAGS)
+ 
  
  # on 32bit systems change lib64 to lib
-@@ -18,41 +18,6 @@
+@@ -19,41 +19,6 @@ LFLAGS = \
  include Makefile.inc
  
  SUTIL = \
@@ -51,5 +63,14 @@
 - ../../glut-3.5/src/glut_init.c \
 - ../../glut-3.5/src/glut_util.c \
   uselibSNL.cpp \
+  generateTet.cpp \
   ../../libSNL/src/*.cpp
+@@ -62,7 +27,7 @@ OLIB = $(SLIB:.c=.o)
+ OUTIL = $(SUTIL:.c=.o)
+ 
+ cgx: $(OLIB) $(OUTIL)
+-	g++   $(OLIB) $(OUTIL)  $(CFLAGS) $(LFLAGS) -o  $@
++	$(CXX)   $(OLIB) $(OUTIL)  $(CFLAGS) $(LFLAGS) -o  $@
+ 
+ 
  

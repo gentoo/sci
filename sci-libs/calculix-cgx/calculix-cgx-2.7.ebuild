@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=5
 
 inherit eutils
 
@@ -11,14 +11,15 @@ MY_P=cgx_${PV}
 DESCRIPTION="A Free Software Three-Dimensional Structural Finite Element Program"
 HOMEPAGE="http://www.calculix.de/"
 SRC_URI="http://www.dhondt.de/${MY_P}.all.tar.bz2
-	doc? ( http://www.dhondt.de/${MY_P}.ps.bz2 )"
+	doc? ( http://www.dhondt.de/${MY_P}.pdf )"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc examples nptl"
+# nptl removed since I cannot work around it
+IUSE="doc examples"
 
-RDEPEND="media-libs/mesa[nptl=]
+RDEPEND="media-libs/mesa[nptl]
 	>=media-libs/freeglut-1.0"
 DEPEND="${RDEPEND}
 	doc? ( app-text/ghostscript-gpl )"
@@ -26,15 +27,16 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}/CalculiX/${MY_P}/src/
 
 src_prepare() {
-	epatch "${FILESDIR}"/01_${MY_P}_Makefile.patch
+	epatch "${FILESDIR}"/01_${MY_P}_Makefile_custom_cxx_flags.patch
 }
 
 src_configure () {
-	if use nptl; then
-		export PTHREAD="-lpthread"
-	else
-		export PTHREAD=""
-	fi
+	# Does not compile without -lpthread
+	#if use nptl; then
+	export PTHREAD="-lpthread"
+	#else
+	#	export PTHREAD=""
+	#fi
 }
 
 src_install () {
@@ -42,7 +44,6 @@ src_install () {
 
 	if use doc; then
 		cd "${WORKDIR}"
-		ps2pdf ${MY_P}.ps ${MY_P}.pdf
 		dodoc ${MY_P}.pdf
 	fi
 
