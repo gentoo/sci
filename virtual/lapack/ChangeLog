@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/virtual/lapack/ChangeLog,v 1.5 2010/01/11 11:04:19 ulm Exp $
 
+*lapack-3.5-r2 (26 Apr 2014)
+
+  26 Apr 2014; Mark Wright <gienah@gentoo.org> +lapack-3.5-r2.ebuild,
+  metadata.xml:
+  Add int64 use flag for separate eselect modules for int64 providers
+
   11 Feb 2014; Justin Lecher <jlec@gentoo.org> -lapack-3.5.ebuild,
   +lapack-3.5-r1.ebuild:
   Add missing inherite from multilib.eclass, thanks dev-zero spotting this

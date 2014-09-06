@@ -7,4 +7,8 @@
   FORTRAN 77 implementation. The version number corresponds to the
   version of the LAPACK reference implementation.
 </longdescription>
+<use>
+  <flag name="int64">Add eselect module for lapack libraries built with 64 bits
+  integer ABI</flag>
+</use>
 </pkgmetadata>
