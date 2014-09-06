@@ -4,18 +4,30 @@
 
 EAPI=5
 
-inherit alternatives-2 eutils fortran-2 git-r3 multibuild multilib-build toolchain-funcs
+inherit alternatives-2 eutils fortran-2 multibuild multilib-build toolchain-funcs
+
+SRC_URI+="http://dev.gentoo.org/~gienah/distfiles/${PN}-0.2.11-gentoo.patch"
+if [[ ${PV} == "9999" ]] ; then
+	EGIT_REPO_URI="https://github.com/xianyi/OpenBLAS.git"
+	EGIT_BRANCH="develop"
+	inherit git-r3
+	KEYWORDS=""
+else
+	SRC_URI+=" http://github.com/xianyi/OpenBLAS/tarball/v${PV} -> ${P}.tar.gz"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~x86-macos ~ppc-macos ~x64-macos"
+fi
 
 DESCRIPTION="Optimized BLAS library based on GotoBLAS2"
 HOMEPAGE="http://xianyi.github.com/OpenBLAS/"
-SRC_URI="http://dev.gentoo.org/~bicatali/distfiles/${PN}-gentoo.patch"
-EGIT_REPO_URI="https://github.com/xianyi/OpenBLAS.git"
-EGIT_BRANCH="develop"
-
 LICENSE="BSD"
 SLOT="0"
 IUSE="dynamic int64 openmp static-libs threads"
-KEYWORDS=""
+
+RDEPEND="
+	>=virtual/blas-2.1-r2[int64?]
+	>=virtual/cblas-2.0-r1[int64?]"
+DEPEND="${RDEPEND}
+	virtual/pkgconfig"
 
 INT64_SUFFIX="int64"
 BASE_PROFNAME="openblas"
@@ -60,7 +72,23 @@ get_profname() {
 	echo "${profname}"
 }
 
-get_libname() {
+get_blas_module() {
+	local module_name="blas"
+	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
+		module_name+="-${INT64_SUFFIX}"
+	fi
+	echo "${module_name}"
+}
+
+get_cblas_module() {
+	local module_name="cblas"
+	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
+		module_name+="-${INT64_SUFFIX}"
+	fi
+	echo "${module_name}"
+}
+
+get_openblas_libname() {
 	local libname="${BASE_PROFNAME}"
 	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
 		libname+="_${INT64_SUFFIX}"
@@ -69,11 +97,6 @@ get_libname() {
 }
 
 int64_multilib_get_enabled_abis() {
-	# The file /usr/include/openblas/openblas_config.h is generated during the install.
-	# By listing the int64 variant first, the int64 variant /usr/include/openblas/openblas_config.h
-	# will be overwritten by the normal variant in the install, which removes the
-	# #define OPENBLAS_USE64BITINT for us.  We then specify it in Cflags in the
-	# /usr/lib64/pkg-config/openblas-int64-{threads,openmp}.pc file.
 	local MULTILIB_VARIANTS=( $(multilib_get_enabled_abis) )
 	local MULTIBUILD_VARIANTS=( )
 	for i in "${MULTILIB_VARIANTS[@]}"; do
@@ -114,8 +137,26 @@ int64_multilib_copy_sources() {
 	multibuild_copy_sources
 }
 
+src_unpack() {
+	if [[ ${PV} == "9999" ]] ; then
+		git-r3_src_unpack
+	else
+		default
+		if [[ ${PV} != "9999" ]] ; then
+			find "${WORKDIR}" -maxdepth 1 -type d -name \*OpenBLAS\* && \
+				mv "${WORKDIR}"/*OpenBLAS* "${S}"
+		fi
+	fi
+}
+
 src_prepare() {
-	epatch "${FILESDIR}/${PN}-9999-cpuid_x86.patch"
+	epatch "${DISTDIR}/${PN}-0.2.11-gentoo.patch"
+	epatch "${FILESDIR}/${PN}-0.2.11-openblas_config_header_same_between_ABIs.patch"
+	# lapack and lapacke are not modified from upstream lapack
+	sed \
+		-e "s:^#\s*\(NO_LAPACK\)\s*=.*:\1=1:" \
+		-e "s:^#\s*\(NO_LAPACKE\)\s*=.*:\1=1:" \
+		-i Makefile.rule || die
 	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
 	int64_multilib_copy_sources
 }
@@ -123,13 +164,10 @@ src_prepare() {
 src_configure() {
 	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
 	my_configure() {
-		# lapack and lapacke are not modified from upstream lapack
 		sed \
-			-e "s:^#\s*\(CC\)\s*=.*:\1=$(tc-getCC):" \
-			-e "s:^#\s*\(FC\)\s*=.*:\1=$(tc-getFC):" \
+			-e "s:^#\s*\(CC\)\s*=.*:\1=$(tc-getCC) $(get_abi_CFLAGS):" \
+			-e "s:^#\s*\(FC\)\s*=.*:\1=$(tc-getFC) $(get_abi_CFLAGS):" \
 			-e "s:^#\s*\(COMMON_OPT\)\s*=.*:\1=${CFLAGS}:" \
-			-e "s:^#\s*\(NO_LAPACK\)\s*=.*:\1=1:" \
-			-e "s:^#\s*\(NO_LAPACKE\)\s*=.*:\1=1:" \
 			-i Makefile.rule || die
 	}
 	multibuild_foreach_variant run_in_build_dir _int64_multilib_multibuild_wrapper my_configure
@@ -142,7 +180,7 @@ src_compile() {
 	my_src_compile () {
 		local openblas_flags=$(get_openblas_flags)
 		local profname=$(get_profname)
-		local libname=$(get_libname)
+		local libname=$(get_openblas_libname)
 		einfo "Compiling profile ${profname}"
 		# cflags already defined twice
 		unset CFLAGS
@@ -166,14 +204,20 @@ src_compile() {
 			Libs: -L\${libdir} -l${libname}
 			Libs.private: -lm
 		EOF
+		local openblas_abi_defs=""
+		if [[ "${ABI}" == "x86" ]]; then
+			openblas_abi_defs="-DOPENBLAS_ARCH_X86=1 -DOPENBLAS___32BIT__=1"
+		else
+			openblas_abi_defs="-DOPENBLAS_ARCH_X86_64=1 -DOPENBLAS___64BIT__=1"
+		fi
 		if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
 			cat <<-EOF >> ${profname}.pc
-				Cflags: -DOPENBLAS_USE64BITINT -I\${includedir}/${PN}
+				Cflags: -DOPENBLAS_USE64BITINT ${openblas_abi_defs} -I\${includedir}/${PN}
 				Fflags=-fdefault-integer-8
 			EOF
 		else
 			cat <<-EOF >> ${profname}.pc
-				Cflags: -I\${includedir}/${PN}
+				Cflags: -I\${includedir}/${PN} ${openblas_abi_defs}
 				Fflags=
 			EOF
 		fi
@@ -199,15 +243,25 @@ src_install() {
 		local pcfile
 		for pcfile in *.pc; do
 			local profname=${pcfile%.pc}
+			# The file /usr/include/openblas/openblas_config.h is generated during the install.
+			# The sed on config_last.h removes the #define's OPENBLAS_USE64BITINT
+			# OPENBLASS__32BIT__ OPENBLASS__64BIT__ OPENBLAS__ARCH_X86 OPENBLAS__ARCH_X86_64
+			# from /usr/include/openblas/openblas_config.h.  We then specify it in Cflags in
+			# the /usr/lib64/pkg-config/openblas-int64-{threads,openmp}.pc file.
+			sed -e '/#define USE64BITINT/d' \
+				-e '/#define ARCH_X86/d' \
+				-e '/#define __\(32\|64\)BIT__/d' \
+				-i config_last.h \
+				|| die "Could not ensure there is no definition of USE64BITINT in config_last.h"
 			emake install \
 				PREFIX="${ED}"usr ${openblas_flags} \
 				OPENBLAS_INCLUDE_DIR="${ED}"usr/include/${PN} \
 				OPENBLAS_LIBRARY_DIR="${ED}"usr/$(get_libdir)
 			use static-libs || rm "${ED}"usr/$(get_libdir)/lib*.a
-			alternatives_for blas ${profname} 0 \
-				/usr/$(get_libdir)/pkgconfig/blas.pc ${pcfile}
-			alternatives_for cblas ${profname} 0 \
-				/usr/$(get_libdir)/pkgconfig/cblas.pc ${pcfile} \
+			alternatives_for $(get_blas_module) ${profname} 0 \
+				/usr/$(get_libdir)/pkgconfig/$(get_blas_module).pc ${pcfile}
+			alternatives_for $(get_cblas_module) ${profname} 0 \
+				/usr/$(get_libdir)/pkgconfig/$(get_cblas_module).pc ${pcfile} \
 				/usr/include/cblas.h ${PN}/cblas.h
 			insinto /usr/$(get_libdir)/pkgconfig
 			doins ${pcfile}

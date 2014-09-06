@@ -2,6 +2,24 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Sep 2014; Mark Wright <gienah@gentoo.org> +openblas-0.2.11.ebuild,
+  openblas-9999.ebuild,
+  +files/openblas-0.2.11-openblas_config_header_same_between_ABIs.patch,
+  -files/openblas-9999-cpuid_x86.patch:
+  Remove openblas-9999-cpuid_x86.patch as a similar change has been applied by
+  upstream.  Tweak the openblas_config.h file to be the same between ABIs.
+
+*openblas-0.2.11 (30 Aug 2014)
+
+  30 Aug 2014; Mark Wright <gienah@gentoo.org> +openblas-0.2.11.ebuild,
+  openblas-9999.ebuild:
+  Bump to 0.2.11 using multi build
+
+  26 Apr 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  Add >=virtual/blas-2.1-r2[int64?] and >=virtual/cblas-2.0-r1[int64?] to
+  RDEPEND. Use separate eselect modules for blas, blas-int64, cblas and
+  cblas-int64.
+
   19 Feb 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
   Thanks to sfabbro: dodoc should be outside the function, they do not change
 
