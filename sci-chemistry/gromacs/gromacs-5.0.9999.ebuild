@@ -4,8 +4,6 @@
 
 EAPI=5
 
-TEST_PV="5.0-rc1"
-
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit bash-completion-r1 cmake-utils cuda eutils multilib readme.gentoo toolchain-funcs
@@ -20,7 +18,7 @@ if [[ $PV = *9999* ]]; then
 	KEYWORDS=""
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${PN}-${PV/_/-}.tar.gz
-		test? ( http://gerrit.gromacs.org/download/regressiontests-${TEST_PV}.tar.gz )"
+		test? ( http://gerrit.gromacs.org/download/regressiontests-${PV}.tar.gz )"
 	KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
 fi
 
@@ -249,10 +247,7 @@ src_install() {
 			cmake-utils_src_install
 	done
 	# drop unneeded stuff
-	rm -f "${ED}"usr/bin/gmx-completion*
-	rm -f "${ED}"usr/bin/g_options*
-	rm -f "${ED}"usr/bin/GMXRC*
-	rm -f "${ED}"usr/$(get_libdir)/libtng*.a
+	rm "${ED}"usr/bin/GMXRC* || die
 
 	readme.gentoo_create_doc
 }
