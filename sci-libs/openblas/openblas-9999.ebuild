@@ -151,6 +151,9 @@ src_unpack() {
 
 src_prepare() {
 	epatch "${DISTDIR}/${PN}-0.2.11-gentoo.patch"
+	if [[ ${PV} != "9999" ]] ; then
+		epatch "${FILESDIR}/${PN}-0.2.11-cpuid_x86.patch"
+	fi
 	epatch "${FILESDIR}/${PN}-0.2.11-openblas_config_header_same_between_ABIs.patch"
 	# lapack and lapacke are not modified from upstream lapack
 	sed \
