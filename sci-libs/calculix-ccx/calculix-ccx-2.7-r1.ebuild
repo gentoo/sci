@@ -50,6 +50,7 @@ src_configure() {
 	if use arpack; then
 		export ARPACK="-DARPACK"
 		export ARPACKLIB=$($(tc-getPKG_CONFIG) --libs arpack)
+		append-cflags "${ARPACK}"
 	fi
 	export CC="$(tc-getCC)"
 	export FC="$(tc-getFC)"
