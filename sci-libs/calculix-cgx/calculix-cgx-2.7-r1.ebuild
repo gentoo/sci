@@ -26,8 +26,13 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/CalculiX/${MY_P}/src/
 
+src_unpack() {
+	default
+	cp "${DISTDIR}/${MY_P}.pdf" "${S}"
+}
 src_prepare() {
 	epatch "${FILESDIR}"/01_${MY_P}_Makefile_custom_cxx_flags.patch
+	epatch "${FILESDIR}"/02_${MY_P}_menu_fix-freeglut_2.8.1.patch
 }
 
 src_configure () {
@@ -43,7 +48,6 @@ src_install () {
 	dobin cgx
 
 	if use doc; then
-		cd "${WORKDIR}"
 		dodoc ${MY_P}.pdf
 	fi
 
