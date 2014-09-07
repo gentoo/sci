@@ -213,9 +213,11 @@ src_compile() {
 		einfo "Compiling for ${x} precision"
 		BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile
-		# generate bash completion
+		# generate bash completion, not 100% necessary for
+		# rel ebuilds as bundled
 		BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile completion
+		# not 100% necessary for rel ebuilds as available from website
 		if use doc; then
 			BUILD_DIR="${WORKDIR}/${P}_${x}"\
 				cmake-utils_src_compile manual
@@ -241,13 +243,24 @@ src_install() {
 		if use doc; then
 			newdoc "${WORKDIR}/${P}_${x}"/docs/manual/gromacs.pdf "${PN}-manual-${PV}.pdf"
 		fi
-		newbashcomp "${WORKDIR}/${P}_${x}"/src/programs/completion/gmx-completion.bash gromacs
+		#release ebuild does this automatically
+		if [[ $PV = *9999* ]]; then
+			cp "${WORKDIR}/${P}_${x}"/src/programs/completion/gmx-completion.bash "${ED}/usr/bin" || die
+			echo "complete -o nospace -F _gmx_compl gmx" > "${ED}/usr/bin/gmx-completion-gmx.bash" || die
+		fi
 		use mpi || continue
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
 			cmake-utils_src_install
 	done
 	# drop unneeded stuff
 	rm "${ED}"usr/bin/GMXRC* || die
+	#concatenate all gmx-completion*, starting with gmx-completion.bash (fct defs)
+	#little hacckery as some gmx-completion* newlines ,so cat won't work
+	for x in "${ED}"usr/bin/gmx-completion{,?*}.bash ; do
+		echo $(<${x})
+	done > "${T}"/gmx-bashcomp || die
+	newbashcomp "${T}"/gmx-bashcomp gromacs
+	rm "${ED}"usr/bin/gmx-completion{,?*}.bash || die
 
 	readme.gentoo_create_doc
 }

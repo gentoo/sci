@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  07 Sep 2014; Christoph Junghans <ottxor@gentoo.org> gromacs-5.0.9999.ebuild:
+  fix completion install
+
   06 Sep 2014; Christoph Junghans <ottxor@gentoo.org> gromacs-5.0.9999.ebuild:
   sync with gx86
 
