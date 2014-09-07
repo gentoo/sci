@@ -5,8 +5,9 @@
 EAPI="3"
 
 DESCRIPTION="Validate, compare and draw summary statistics for GTF files"
+HOMEPAGE="http://mblab.wustl.edu/software.html"
 
-LICENSE=""
+LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS=""
 IUSE=""

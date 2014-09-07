@@ -12,4 +12,7 @@
   domain, as shown by the poster on the right (presented at the SAS 2007
   conference.
 </longdescription>
+<use>
+  <flag name='ppl'>Add support for <pkg>dev-libs/ppl</pkg></flag>
+</use>
 </pkgmetadata>

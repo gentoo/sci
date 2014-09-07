@@ -2,6 +2,14 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  01 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> petsc-3.4.2.ebuild,
+  petsc-3.5.1.ebuild:
+  fix INCLUDE dirs in petscvariables
+
+  01 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> petsc-3.4.2.ebuild,
+  petsc-3.5.1.ebuild:
+  make configure work on systems with default python3 interpreter
+
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> -petsc-3.3_p5.ebuild,
   petsc-3.4.2.ebuild, metadata.xml:
   Punt base.eclass

@@ -1,6 +1,13 @@
 # ChangeLog for sci-libs/calculix-cgx
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*calculix-cgx-2.7 (05 Sep 2014)
+
+  05 Sep 2014; Rongcui Dong <carldong76@gmail.com> +calculix-cgx-2.7.ebuild,
+  +files/01_cgx_2.7_Makefile_custom_cxx_flags.patch, -calculix-cgx-2.2.ebuild,
+  -files/01_cgx_2.2_Makefile.patch:
+  Version bump
 
 *calculix-cgx-2.2 (29 Oct 2010)
 
@@ -30,4 +37,3 @@
   15 Oct 2008; Oliver Borm (boroli) <oli.borm@web.de>
   +files/01_cgx_1.8_Makefile.patch, +calculix-cgx-1.8.ebuild, +metadata.xml:
   Reworked ebuild for bug 125775, thanks to pva
-

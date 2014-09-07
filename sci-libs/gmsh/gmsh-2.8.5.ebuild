@@ -2,20 +2,20 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
-inherit cmake-utils flag-o-matic fortran-2 subversion toolchain-funcs
+inherit cmake-utils flag-o-matic fortran-2 toolchain-funcs
 
 DESCRIPTION="A three-dimensional finite element mesh generator with built-in pre- and post-processing facilities"
 HOMEPAGE="http://www.geuz.org/gmsh/"
-ESVN_REPO_URI="https://geuz.org/svn/gmsh/trunk"
-ESVN_USER="gmsh"
-ESVN_PASSWORD="gmsh"
+SRC_URI="http://www.geuz.org/gmsh/src/${P}-source.tgz"
 
+## gmsh comes with its own copies of (at least) metis, netgen and tetgen, therefore inform the user of their special licenses
 LICENSE="GPL-3 free-noncomm"
 SLOT="0"
-KEYWORDS=""
-IUSE="blas cgns chaco doc examples jpeg med metis mpi opencascade png taucs X zlib"
+KEYWORDS="~amd64 ~x86"
+## cgns is not compiling ATM, maybe fix cgns lib first
+IUSE="blas cgns chaco doc examples jpeg lua med metis mpi netgen opencascade petsc png taucs tetgen X zlib"
 
 RDEPEND="
 	virtual/fortran
@@ -23,22 +23,28 @@ RDEPEND="
 	blas? ( virtual/blas virtual/lapack sci-libs/fftw:3.0 )
 	cgns? ( sci-libs/cgnslib )
 	jpeg? ( virtual/jpeg )
+	lua? ( dev-lang/lua )
 	med? ( >=sci-libs/med-2.3.4 )
-	mpi? ( sys-cluster/openmpi[cxx] )
 	opencascade? ( sci-libs/opencascade )
 	png? ( media-libs/libpng )
+	petsc? ( <=sci-mathematics/petsc-3.4.2 )
 	zlib? ( sys-libs/zlib )
+	mpi? ( virtual/mpi[cxx] )
 	taucs? ( sci-libs/taucs )"
 
+REQUIRED_USE="
+	taucs? ( || ( metis ) )
+	"
+
 DEPEND="${RDEPEND}
+	virtual/pkgconfig
 	dev-util/cmake
-	dev-vcs/subversion
 	doc? ( virtual/latex-base )"
+
+S=${WORKDIR}/${P}-source
 
 pkg_setup() {
 	fortran-2_pkg_setup
-	use taucs && ! use metis && \
-		die "taucs USE flag requires metis USE flag to be enabled"
 }
 
 src_configure() {
@@ -57,12 +63,12 @@ src_configure() {
 		$(cmake-utils_use_enable X GRAPHICS)
 		$(cmake-utils_use_enable med MED)
 		$(cmake-utils_use_enable metis METIS)
+		$(cmake-utils_use_enable netgen NETGEN)
 		$(cmake-utils_use_enable taucs TAUCS)
-		$(cmake-utils_use_enable opencascade OCC)"
-
-#    I'm not sure if this is needed, but it seems to help in some circumstances
-#    see http://bugs.gentoo.org/show_bug.cgi?id=195980#c18
-	append-ldflags -ldl -lmpi
+		$(cmake-utils_use_enable tetgen TETGEN)
+		$(cmake-utils_use_enable opencascade OCC)
+		$(cmake-utils_use_enable petsc PETSC)"
+# 		$(cmake-utils_use_enable tetgen TETGEN_NEW)
 
 	cmake-utils_src_configure ${mycmakeargs} \
 		|| die "cmake configuration failed"
@@ -71,13 +77,12 @@ src_configure() {
 src_install() {
 	cmake-utils_src_install
 
-	cd "${WORKDIR}"/"${PF}"
-
+	# TODO: tutorials get installed twice ATM
 	if use doc ; then
-	    cd ${CMAKE_BUILD_DIR}
+		cd "${CMAKE_BUILD_DIR}"
 		emake pdf || die "failed to build documentation"
-	    cd "${WORKDIR}"/"${PF}"
-		dodoc doc/*.txt doc/texinfo/gmsh.pdf
+		cd "${S}"
+		dodoc doc/texinfo/gmsh.pdf
 	fi
 
 	if use examples ; then

@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils toolchain-funcs
+inherit eutils toolchain-funcs flag-o-matic
 
 MY_P=ccx_${PV}
 
@@ -18,7 +18,7 @@ SRC_URI="
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="arpack doc examples lapack threads"
+IUSE="arpack doc examples lapack"
 
 RDEPEND="
 	arpack? ( sci-libs/arpack )
@@ -32,7 +32,8 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}/CalculiX/${MY_P}/src
 
 src_prepare() {
-	epatch "${FILESDIR}"/01_${MY_P}_Makefile.patch
+	#epatch "${FILESDIR}"/01_${MY_P}_Makefile_spooles_arpack.patch
+	epatch "${FILESDIR}"/01_${MY_P}_Makefile_custom_cc_flags_spooles_arpack.patch
 	use lapack && epatch "${FILESDIR}"/01_${MY_P}_lapack.patch
 }
 
@@ -41,17 +42,17 @@ src_configure() {
 
 	export BLAS=$($(tc-getPKG_CONFIG) --libs blas)
 
-	export SPOOLESINC="-I/usr/include/spooles -DSPOOLES"
-	export SPOOLESLIB="-lspooles"
-	if use threads; then
-		export USE_MT="-DUSE_MT"
-		export SPOOLESLIB="-lspooles -lpthread"
-	fi
+	#export SPOOLESINC="-I/usr/include/spooles -DSPOOLES"
+	append-cflags "-I/usr/include/spooles -DSPOOLES"
+	#export SPOOLESLIB="-lspooles -lpthread"
+	export USE_MT="-DUSE_MT"
 
 	if use arpack; then
 		export ARPACK="-DARPACK"
 		export ARPACKLIB=$($(tc-getPKG_CONFIG) --libs arpack)
 	fi
+	export CC="$(tc-getCC)"
+	export FC="$(tc-getFC)"
 }
 
 src_install () {

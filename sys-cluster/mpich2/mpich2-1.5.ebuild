@@ -14,7 +14,7 @@ HOMEPAGE="http://www.mcs.anl.gov/research/projects/mpich2/index.php"
 SRC_URI="http://www.mcs.anl.gov/research/projects/mpich2/downloads/tarballs/${MY_PV}/${PN}-${MY_PV}.tar.gz"
 
 SLOT="0"
-LICENSE="as-is"
+LICENSE="mpich2"
 KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86"
 IUSE="+cxx doc fortran mpi-threads romio threads"
 

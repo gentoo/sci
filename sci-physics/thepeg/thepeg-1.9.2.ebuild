@@ -25,7 +25,7 @@ LICENSE="GPL-2"
 
 SLOT="0/18"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="emacs fastjet hepmc java lhapdf rivet static-libs test zlib"
+IUSE="c++0x emacs fastjet hepmc java lhapdf rivet static-libs test zlib"
 
 RDEPEND="
 	sci-libs/gsl:0=
@@ -57,6 +57,7 @@ src_prepare() {
 
 src_configure() {
 	local myeconfargs=(
+		$(use_enable c++0x stdcxx11)
 		$(use_with fastjet fastjet "${EPREFIX}"/usr)
 		$(use_with hepmc hepmc "${EPREFIX}"/usr)
 		$(use_with java javagui)
@@ -80,6 +81,11 @@ src_install() {
 	autotools-utils_src_install
 	use emacs && elisp-install ${PN} lib/ThePEG.el{,c}
 	use java && java-pkg_newjar java/ThePEG.jar
+
+	cat <<-EOF > "${T}"/50${PN}
+	LDPATH="${EPREFIX}/usr/$(get_libdir)/ThePEG"
+	EOF
+	doenvd "${T}"/50${PN}
 }
 
 pkg_postinst() {

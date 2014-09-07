@@ -2,6 +2,15 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*looptools-2.11 (31 Aug 2014)
+*looptools-2.10 (31 Aug 2014)
+*looptools-2.9 (31 Aug 2014)
+
+  31 Aug 2014; Jauhien Piatlicki <jauhien@gentoo.org> +looptools-2.9.ebuild,
+  +looptools-2.10.ebuild, +looptools-2.11.ebuild,
+  +files/looptools-2.10-makefile.patch:
+  version bump
+
   07 May 2014; Sébastien Fabbro <bicatali@gentoo.org>
   files/looptools-2.8-makefile.patch, looptools-2.8.ebuild, metadata.xml:
   sci-physics/looptools: Renamed, add soname, doc and static-libs use flags
