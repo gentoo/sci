@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*calculix-cgx-2.7-r1 (07 Sep 2014)
+
+  07 Sep 2014; Rongcui Dong <carldong76@gmail.com> +calculix-cgx-2.7-r1.ebuild,
+  +files/02_cgx_2.7_menu_fix-freeglut_2.8.1.patch, -calculix-cgx-2.7.ebuild:
+  Fixed documentation install and support for freeglut-2.8.1
+
 *calculix-cgx-2.7 (05 Sep 2014)
 
   05 Sep 2014; Rongcui Dong <carldong76@gmail.com> +calculix-cgx-2.7.ebuild,
