@@ -18,12 +18,12 @@ SRC_URI="
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="arpack doc examples lapack"
+IUSE="arpack doc examples threads"
 
 RDEPEND="
-	arpack? ( sci-libs/arpack )
-	lapack? ( virtual/lapack )
-	>=sci-libs/spooles-2.2
+	arpack? ( >=sci-libs/arpack-3.1.3 )
+	>=sci-libs/spooles-2.2[threads=]
+	virtual/lapack
 	virtual/blas"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
@@ -32,25 +32,23 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}/CalculiX/${MY_P}/src
 
 src_prepare() {
-	#epatch "${FILESDIR}"/01_${MY_P}_Makefile_spooles_arpack.patch
 	epatch "${FILESDIR}"/01_${MY_P}_Makefile_custom_cc_flags_spooles_arpack.patch
-	use lapack && epatch "${FILESDIR}"/01_${MY_P}_lapack.patch
+	epatch "${FILESDIR}"/01_${MY_P}_lapack.patch
 }
 
 src_configure() {
-	use lapack && export LAPACK=$($(tc-getPKG_CONFIG) --libs lapack)
+	# Technically we currently only need this when arpack is not used.
+	# Keeping things this way in case we change pkgconfig for arpack
+	export LAPACK=$($(tc-getPKG_CONFIG) --libs lapack)
 
-	export BLAS=$($(tc-getPKG_CONFIG) --libs blas)
-
-	#export SPOOLESINC="-I/usr/include/spooles -DSPOOLES"
 	append-cflags "-I/usr/include/spooles -DSPOOLES"
-	#export SPOOLESLIB="-lspooles -lpthread"
-	export USE_MT="-DUSE_MT"
+	if use threads; then
+		append-cflags "-DUSE_MT"
+	fi
 
 	if use arpack; then
-		export ARPACK="-DARPACK"
 		export ARPACKLIB=$($(tc-getPKG_CONFIG) --libs arpack)
-		append-cflags "${ARPACK}"
+		append-cflags "-DARPACK"
 	fi
 	export CC="$(tc-getCC)"
 	export FC="$(tc-getFC)"

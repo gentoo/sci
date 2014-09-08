@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Sep 2014; François Bissey <francois.bissey@canterbury.ac.nz>
+  calculix-ccx-2.7-r1.ebuild,
+  files/01_ccx_2.7_Makefile_custom_cc_flags_spooles_arpack.patch:
+  Fixing issue #264 and giving it a serious look over and clean. Enabled
+  threading. More could be done.
+
 *calculix-ccx-2.7-r1 (07 Sep 2014)
 
   07 Sep 2014; Rongcui Dong <carldong76@gmail.com> +calculix-ccx-2.7-r1.ebuild,
