@@ -1,6 +1,9 @@
 # ChangeLog for profile directory
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  09 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> package.mask:
+  www-apps/py-swish-e: masked because of masked dependency
 
   09 Jul 2012; Sébastien Fabbro <bicatali@gentoo.org> package.mask:
   more sci-astronomy live ebuild masking
