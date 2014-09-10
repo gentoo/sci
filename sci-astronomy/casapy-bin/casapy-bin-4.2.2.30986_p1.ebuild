@@ -8,7 +8,7 @@ inherit versionator
 DESCRIPTION="Software package to calibrate, image, and analyze radioastronomical data"
 HOMEPAGE="http://casa.nrao.edu/"
 
-MY_P=$(version_format_string '${PN%-bin}-$1$2.$3.$4-$5-${6#p}-64b')
+MY_P=$(version_format_string '${PN%-bin}-$1$2.$3.$4-${5#p}-64b')
 SRC_URI="https://svn.cv.nrao.edu/casa/linux_distro/${MY_P}.tar.gz"
 
 LICENSE="LGPL-2.1+"
