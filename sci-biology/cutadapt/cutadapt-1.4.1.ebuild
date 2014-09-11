@@ -16,7 +16,7 @@ if [ "$PV" == "9999" ]; then
 	EGIT_REPO_URI="https://github.com/marcelm/cutadapt"
 	KEYWORDS=""
 else
-	SRC_URI="https://pypi.python.org/packages/source/c/cutadapt/"${PN}"-"${PV}".tar.gz"
+	SRC_URI="mirror://pypi/c/${PN}/${P}.tar.gz"
 	KEYWORDS="~amd64 ~x86"
 fi
 
