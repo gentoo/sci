@@ -16,4 +16,4 @@ before_script:
     - cd travis-overlay
     - sed -i 's/fcmd=fcmd/fcmd=("%s -q" % fcmd)/' ./../portage-2.2.10/bin/repoman
 script: 
-    - "./../portage-2.2.10/bin/repoman full -d"
+    - "./../portage-2.2.10/bin/repoman full -d -v"
