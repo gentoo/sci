@@ -17,7 +17,7 @@ if [ "$PV" == "9999" ]; then
 	KEYWORDS=""
 else
 	SRC_URI="http://bioinf.comav.upv.es/_downloads/"${P}".tar.gz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="~amd64"
 fi
 
 LICENSE="GPL-3"
@@ -147,7 +147,6 @@ RDEPEND="${DEPEND}
 #/usr/lib64/python2.7/site-packages/ext/bin/linux/64bit/tblastx
 #/usr/lib64/python2.7/site-packages/ext/bin/linux/64bit/trimpoly
 #/usr/lib64/python2.7/site-packages/ext/bin/linux/64bit/water
-
 
 pkg_postinst(){
 	einfo "It is highly recommended to install blast2GO. Either the commercial version with GUI"
