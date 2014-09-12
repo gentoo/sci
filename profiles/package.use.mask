@@ -16,6 +16,10 @@
 ## =media-video/mplayer-0.90_pre5-r1 foo
 #
 
+# Christoph Junghans <ottxor@gentoo.org> (12 Sep 2014)
+# icc and ifc don't work on no-multilib
+sci-biology/estscan icc ifc
+
 # Justin Lecher <jlec@gntoo.org> (06 Jan 2014)
 # Missing dep dev-python/scikits-cuda
 sci-biology/mne-python cuda
