@@ -50,6 +50,11 @@ RDEPEND="
 	!dev-cpp/eigen:0
 	${CDEPEND}"
 
+src_unpack() {
+	mercurial_src_unpack
+	vcs-snapshot_src_unpack
+}
+
 src_prepare() {
 	sed -i \
 		-e "s:/usr:${EPREFIX}/usr:g" \
