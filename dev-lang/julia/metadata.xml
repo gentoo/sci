@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription>
+  <herd>sci</herd>
+  <longdescription>
   Julia is a high-level, high-performance dynamic programming language for
   technical computing, with syntax that is familiar to users of other
   technical computing environments. It provides a sophisticated compiler,
@@ -14,4 +14,8 @@
   around defining functions, and overloading them for different combinations
   of argument types (which can also be user-defined).
 </longdescription>
+<use>
+  <flag name="int64">Build with 64 bits integer blas and lapack (needs
+  <pkg>sci-libs/openblas</pkg> and <pkg>sci-libs/lapack-reference</pkg>)</flag>
+</use>
 </pkgmetadata>
