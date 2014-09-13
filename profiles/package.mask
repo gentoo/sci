@@ -30,6 +30,12 @@
 
 #--- END OF EXAMPLES ---
 
+# Jauhien Piatlicki <jauhien@gentoo.org> (13 Sep 2014)
+# dev-python/pythonocc-0.5 works only with sci-libs/opencascade-6.3
+# which is not available in the tree, see bug #522678
+# mask until bug is not fixed
+dev-python/pythonocc
+
 # Christoph Junghans <ottxor@gentoo.org> (12 Sep 2014)
 # gcc:4.1 not available on no-multilib, selinux
 sci-chemistry/cpmgfit
