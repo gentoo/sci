@@ -2,6 +2,17 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Sep 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  Remove the setting of the FC and F77 environment variables, instead sed the
+  COMMON_OPT in Makefile.rule to include the $(get_abi_CFLAGS). Add
+  get_openblas_abi_cflags and get_openblas_abi_fflags, call them to create the
+  pkg-config ${profname}.pc files. Call get_openblas_abi_cflags to obtain the
+  defines, then remove the OPENBLAS_ at the start, and sed these into
+  COMMON_OPT in Makefile.rule, as USE64BITINT was removed by the patch
+  openblas-0.2.11-openblas_config_header_same_between_ABIs.patch that is
+  required to ensure the openblas_config.h header file is the same between
+  ABIs.
+
   06 Sep 2014; Mark Wright <gienah@gentoo.org> +openblas-0.2.11.ebuild,
   openblas-9999.ebuild,
   +files/openblas-0.2.11-openblas_config_header_same_between_ABIs.patch,

@@ -55,6 +55,27 @@ get_openblas_flags() {
 	echo "${openblas_flags}"
 }
 
+get_openblas_abi_cflags() {
+	local openblas_abi_cflags=""
+	if [[ "${ABI}" == "x86" ]]; then
+		openblas_abi_cflags="-DOPENBLAS_ARCH_X86=1 -DOPENBLAS___32BIT__=1"
+	else
+		openblas_abi_cflags="-DOPENBLAS_ARCH_X86_64=1 -DOPENBLAS___64BIT__=1"
+	fi
+	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
+		openblas_abi_cflags+=" -DOPENBLAS_USE64BITINT"
+	fi
+	echo "${openblas_abi_cflags}"
+}
+
+get_openblas_abi_fflags() {
+	local openblas_abi_fflags=""
+	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
+		openblas_abi_fflags+="-fdefault-integer-8"
+	fi
+	echo "${openblas_abi_fflags}"
+}
+
 get_profname() {
 	local profname="${BASE_PROFNAME}"
 	use dynamic && \
@@ -118,8 +139,6 @@ _int64_multilib_multibuild_wrapper() {
 
 	local ABI="${MULTIBUILD_VARIANT/_${INT64_SUFFIX}/}"
 	multilib_toolchain_setup "${ABI}"
-	export FC="$(tc-getFC) $(get_abi_CFLAGS)"
-	export F77="$(tc-getF77) $(get_abi_CFLAGS)"
 	"${@}"
 }
 
@@ -167,10 +186,12 @@ src_prepare() {
 src_configure() {
 	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
 	my_configure() {
+		local openblas_abi_cflags="$(get_openblas_abi_cflags)"
+		local internal_openblas_abi_cflags="${openblas_abi_cflags//OPENBLAS_}"
 		sed \
 			-e "s:^#\s*\(CC\)\s*=.*:\1=$(tc-getCC) $(get_abi_CFLAGS):" \
 			-e "s:^#\s*\(FC\)\s*=.*:\1=$(tc-getFC) $(get_abi_CFLAGS):" \
-			-e "s:^#\s*\(COMMON_OPT\)\s*=.*:\1=${CFLAGS}:" \
+			-e "s:^#\s*\(COMMON_OPT\)\s*=.*:\1=${CFLAGS} ${internal_openblas_abi_cflags}:" \
 			-i Makefile.rule || die
 	}
 	multibuild_foreach_variant run_in_build_dir _int64_multilib_multibuild_wrapper my_configure
@@ -207,23 +228,12 @@ src_compile() {
 			Libs: -L\${libdir} -l${libname}
 			Libs.private: -lm
 		EOF
-		local openblas_abi_defs=""
-		if [[ "${ABI}" == "x86" ]]; then
-			openblas_abi_defs="-DOPENBLAS_ARCH_X86=1 -DOPENBLAS___32BIT__=1"
-		else
-			openblas_abi_defs="-DOPENBLAS_ARCH_X86_64=1 -DOPENBLAS___64BIT__=1"
-		fi
-		if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
-			cat <<-EOF >> ${profname}.pc
-				Cflags: -DOPENBLAS_USE64BITINT ${openblas_abi_defs} -I\${includedir}/${PN}
-				Fflags=-fdefault-integer-8
-			EOF
-		else
-			cat <<-EOF >> ${profname}.pc
-				Cflags: -I\${includedir}/${PN} ${openblas_abi_defs}
-				Fflags=
-			EOF
-		fi
+		local openblas_abi_cflags=$(get_openblas_abi_cflags)
+		local openblas_abi_fflags=$(get_openblas_abi_fflags)
+		cat <<-EOF >> ${profname}.pc
+			Cflags: -I\${includedir}/${PN} ${openblas_abi_cflags}
+			Fflags=${openblas_abi_fflags}
+		EOF
 		mv libs/libopenblas* . || die
 	}
 	multibuild_foreach_variant run_in_build_dir _int64_multilib_multibuild_wrapper my_src_compile
