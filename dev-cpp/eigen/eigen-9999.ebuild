@@ -12,6 +12,7 @@ if [[ ${PV} == "9999" ]] ; then
 	SRC_URI=""
 	KEYWORDS=""
 else
+	inherit vcs-snapshot
 	SRC_URI="
 		http://bitbucket.org/eigen/eigen/get/${PV}.tar.bz2 -> ${P}.tar.bz2
 		https://bitbucket.org/eigen/eigen/commits/1d71b1341c03a7c485289be2c8bd906a259c0487/raw/ -> ${P}-cmake.patch
@@ -20,7 +21,7 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit alternatives-2 cmake-utils fortran-2 multilib vcs-snapshot
+inherit alternatives-2 cmake-utils fortran-2 multilib
 
 DESCRIPTION="C++ template library for linear algebra"
 HOMEPAGE="http://eigen.tuxfamily.org/"
@@ -49,11 +50,6 @@ DEPEND="
 RDEPEND="
 	!dev-cpp/eigen:0
 	${CDEPEND}"
-
-src_unpack() {
-	mercurial_src_unpack
-	vcs-snapshot_src_unpack
-}
 
 src_prepare() {
 	sed -i \
