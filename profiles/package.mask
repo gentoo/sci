@@ -42,10 +42,6 @@ sci-chemistry/cpmgfit
 sci-chemistry/curvefit
 sci-chemistry/modelfree
 
-# Christoph Junghans <ottxor@gentoo.org> (12 Sep 2014)
-# due to www-apps/py-swish-e being masked
-sci-chemistry/chimera-bin
-
 # Jauhien Piatlicki <jauhien@gentoo.org> (09 Sep 2014)
 # www-apps/swish-e masked in tree for removal
 # www-apps/py-swish-e should be masked until
