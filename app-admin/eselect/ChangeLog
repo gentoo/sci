@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/app-admin/eselect/ChangeLog,v 1.179 2011/01/22 21:38:52 ulm Exp $
 
+*eselect-1.4.3-r100 (15 Sep 2014)
+
+  15 Sep 2014; Justin Lecher <jlec@gentoo.org> +eselect-1.4.3-r100.ebuild:
+  Bump to latest release
+
   26 May 2014; Justin Lecher <jlec@gentoo.org> eselect-1.4.2-r100.ebuild:
   Fix patch name
 
