@@ -36,12 +36,6 @@
 # mask until bug is not fixed
 dev-python/pythonocc
 
-# Christoph Junghans <ottxor@gentoo.org> (12 Sep 2014)
-# gcc:4.1 not available on no-multilib, selinux
-sci-chemistry/cpmgfit
-sci-chemistry/curvefit
-sci-chemistry/modelfree
-
 # Jauhien Piatlicki <jauhien@gentoo.org> (09 Sep 2014)
 # www-apps/swish-e masked in tree for removal
 # www-apps/py-swish-e should be masked until
