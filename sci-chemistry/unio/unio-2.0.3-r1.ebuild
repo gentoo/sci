@@ -12,7 +12,7 @@ HOMEPAGE="http://perso.ens-lyon.fr/torsten.herrmann/Herrmann/Software.html"
 SRC_URI="${MY_P}.tar.gz"
 
 SLOT="0"
-KEYWORDS="~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="unio"
 IUSE=""
 
