@@ -31,6 +31,6 @@ src_compile() {
 }
 
 src_install() {
-	DESTDIR="${D}" ./remake install
+	DESTDIR="${D}" ./remake install || die
 	dodoc NEWS README AUTHORS ChangeLog
 }

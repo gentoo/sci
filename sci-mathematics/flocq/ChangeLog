@@ -3,6 +3,9 @@
 # $Header: $
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> flocq-2.3.0.ebuild:
+  readded die on remake
+
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> flocq-2.3.0.ebuild:
   clean up
 
   21 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
