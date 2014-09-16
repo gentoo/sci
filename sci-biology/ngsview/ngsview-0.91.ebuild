@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
-DESCRIPTION="Display and edit next-gen sequence alignment (BED, BLAST, Eland, mapview processed MAQ, Corona formats)"
+DESCRIPTION="Display, edit next-gen sequence alignment (BED, BLAST, Eland, mapview processed MAQ, Corona formats)"
 HOMEPAGE="http://sourceforge.net/projects/ngsview"
 SRC_URI="http://sourceforge.net/projects/ngsview/files/ngsview/ngsview-0.91.tar.gz"
 
