@@ -16,7 +16,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="virtual/jdk
-        ${COMMON_DEPS}"
+	${COMMON_DEPS}"
 RDEPEND="virtual/jre"
 
 S="${WORKDIR}"/genomeview-"${PV}"
