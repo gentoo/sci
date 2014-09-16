@@ -83,7 +83,7 @@ src_install() {
 
 	rm -rf "${ED}"/opt/Tablet/jre || die
 
-    # this dies with tablet-bin-1.14.04.10 with
+	# this dies with tablet-bin-1.14.04.10 with
 	#  * python2_7: running python_doscript /mnt/1TB/var/tmp/portage/sci-biology/tablet-bin-1.14.04.10/work/coveragestats.py
 	#  * The file has incompatible shebang:
 	#  *   file: /usr/lib/python-exec/python2.7/coveragestats.py
