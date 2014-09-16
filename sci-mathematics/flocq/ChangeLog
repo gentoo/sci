@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> flocq-2.3.0.ebuild:
+  clean up
+
   21 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -flocq-2.1.0.ebuild, +flocq-2.3.0.ebuild:
   version bump
@@ -21,4 +24,3 @@
   13 Feb 2011; Jonathan-Christofer Demay <jcdemay@gmail.com>
   +metadata.xml, +ChangeLog:
   QA fixes
-
