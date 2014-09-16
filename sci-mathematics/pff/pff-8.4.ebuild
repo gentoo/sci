@@ -25,10 +25,9 @@ src_prepare() {
 }
 
 src_compile(){
-	emake || die "emake failed"
+	emake
 }
 
 src_install(){
-	emake install DSTROOT="${D}" || die "emake install failed"
+	emake install DSTROOT="${D}"
 }
-
