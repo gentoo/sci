@@ -8,7 +8,6 @@ PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
 
 inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs
 
-
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
 HOMEPAGE="http://bigdft.org/"
 SRC_URI="http://launchpad.net/${PN}/${PV%.*}/${PV}/+download/${P}.tar.xz"

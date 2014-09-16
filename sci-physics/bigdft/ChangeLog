@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> bigdft-1.7.5.ebuild:
+  remove blank line
+
 *bigdft-1.7.5 (05 Sep 2014)
 
   05 Sep 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
@@ -166,4 +169,3 @@
   +files/bigdft-1.2.0.2-0004.patch, +files/bigdft-1.2.0.2-testH.patch:
   A bigDFT ebuild for sci-physics/abinit; not the latest version but the abinit
   compatible one.
-
