@@ -8,7 +8,7 @@ DESCRIPTION="Speed up bacterial genome assemblies by artemis and compare chromos
 HOMEPAGE="http://contiguator.sourceforge.net"
 SRC_URI="http://downloads.sourceforge.net/project/contiguator/CONTIGuator_v2.7.tar.gz"
 
-LICENSE=""
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
