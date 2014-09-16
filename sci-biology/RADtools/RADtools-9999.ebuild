@@ -34,4 +34,3 @@ src_install() {
 	mydoc="CHANGELOG RADmanual.pdf RADmanual.tex README"
 	perl-module_src_install DESTDIR="${D}" # install  RADtools.pm into @INC path
 }
-
