@@ -11,7 +11,7 @@ inherit autotools eutils qt4-r2 subversion python-single-r1 versionator
 ELMER_ROOT="elmerfem"
 MY_PN=ElmerGUI
 
-DESCRIPTION="Elmer is a collection of finite element programs, libraries, and visualization tools, New Elmer pre-processor"
+DESCRIPTION="a collection of finite element programs, libraries, and visualization tools, New Elmer pre-processor"
 HOMEPAGE="http://www.csc.fi/english/pages/elmer"
 SRC_URI=""
 ESVN_REPO_URI="https://elmerfem.svn.sourceforge.net/svnroot/elmerfem/trunk/${MY_PN}"
@@ -38,8 +38,8 @@ DEPEND="
 	python? ( dev-python/pythonqt )
 	qwt? ( x11-libs/qwt:5 )
 	>=dev-qt/qtcore-4.3:4
-	>=x11-libs/qt-opengl-4.3:4
-	>=x11-libs/qt-script-4.3:4"
+	>=dev-qt/qtopengl-4.3:4
+	>=dev-qt/qtscript-4.3:4"
 RDEPEND="${DEPEND}"
 
 src_prepare() {
