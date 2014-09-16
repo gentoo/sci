@@ -126,6 +126,7 @@ src_configure() {
 		"$(use_with ggi ggi "${EPREFIX}/usr/$(get_libdir)")" \
 		"$(use_with ggi xmi "${EPREFIX}/usr/$(get_libdir)")" \
 		"$(use_with libcaca caca "${EPREFIX}/usr/$(get_libdir)")" \
+		$(use_with libcerf) \
 		$(use_with lua) \
 		$(use_with svga linux-vga) \
 		$(use_with X x) \
