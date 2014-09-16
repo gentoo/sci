@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> bambino-1.02.ebuild,
+  bambino-1.06.ebuild:
+  fixed DESCRIPTION
+
   23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> bambino-1.02.ebuild,
   bambino-1.06.ebuild:
   sci-biology/bambino: added more relevant homepage with some INSTALL info
