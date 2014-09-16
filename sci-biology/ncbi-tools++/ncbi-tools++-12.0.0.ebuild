@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit autotools eutils flag-o-matic multilib toolchain-funcs
+inherit eutils flag-o-matic multilib toolchain-funcs
 
 MY_TAG="Jun_15_2010"
 MY_Y="${MY_TAG/*_/}"
@@ -104,7 +104,6 @@ src_prepare() {
 #		"${FILESDIR}"/${PN}-${PV#0.}-glibc-214.patch
 
 #	use prefix && append-ldflags -Wl,-rpath,"${EPREFIX}/usr/$(get_libdir)/${PN}"
-
 
 # The conf-opts.patch and as-needed.patch need to be adjusted for 12.0.0 line numbers
 	local PATCHES=(
