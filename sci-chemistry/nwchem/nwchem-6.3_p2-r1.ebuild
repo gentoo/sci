@@ -75,7 +75,7 @@ pkg_setup() {
 }
 
 src_unpack() {
-	unpack "${A}"
+	unpack ${A}
 	mv "${LONG_S}" "${S}"
 }
 
@@ -143,7 +143,7 @@ src_compile() {
 	else
 		export NWCHEM_MODULES="all"
 	fi
-	use mrcc && export MRCC_THEORY="TRUE"	
+	use mrcc && export MRCC_THEORY="TRUE"
 	if use blas; then
 		export HAS_BLAS=yes
 		export BLASOPT="$(pkg-config --libs blas)"
