@@ -15,7 +15,7 @@ HOMEPAGE="http://www.nmr.gu.se/~mdd/"
 SRC_URI="http://pc8.nmr.gu.se/~mdd/Downloads/${MY_P}.tgz"
 
 SLOT="0"
-KEYWORDS="~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="mddnmr"
 IUSE=""
 
