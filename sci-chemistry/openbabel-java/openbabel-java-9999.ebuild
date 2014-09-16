@@ -27,19 +27,20 @@ RDEPEND="${COMMON_DEP}
 CMAKE_IN_SOURCE_BUILD=1
 
 src_configure() {
-	local mycmakeargs="${mycmakeargs}
+	local mycmakeargs=(
 		-DCMAKE_INSTALL_RPATH=
 		-DBINDINGS_ONLY=ON
-		-DBABEL_SYSTEM_LIBRARY=${EPREFIX}/usr/$(get_libdir)/libopenbabel.so
-		-DOB_MODULE_PATH=${EPREFIX}/usr/$(get_libdir)/openbabel/${PV}
-		-DLIB_INSTALL_DIR=${S}/$(get_libdir)
+		-DBABEL_SYSTEM_LIBRARY="${EPREFIX}"/usr/$(get_libdir)/libopenbabel.so
+		-DOB_MODULE_PATH="${EPREFIX}"/usr/$(get_libdir)/openbabel/"${PV}"
+		-DLIB_INSTALL_DIR="${S}"/$(get_libdir)
 		-DJAVA_BINDINGS=ON
-		-DJAVA_INCLUDE_PATH=${EPREFIX}/etc/java-config-2/current-system-vm/include
-		-DJAVA_INCLUDE_PATH2=${EPREFIX}/etc/java-config-2/current-system-vm/include/linux
-		-DJAVA_AWT_INCLUDE_PATH=${EPREFIX}/etc/java-config-2/current-system-vm/include
-		-DJAVA_AWT_LIBRARY=${EPREFIX}/etc/java-config-2/current-system-vm/jre/lib/${ABI}/libjawt.so
-		-DJAVA_JVM_LIBRARY=${EPREFIX}/etc/java-config-2/current-system-vm/jre/lib/${ABI}/server/libjvm.so
-		-DRUN_SWIG=ON"
+		-DJAVA_INCLUDE_PATH="${EPREFIX}"/etc/java-config-2/current-system-vm/include
+		-DJAVA_INCLUDE_PATH2="${EPREFIX}"/etc/java-config-2/current-system-vm/include/linux
+		-DJAVA_AWT_INCLUDE_PATH="${EPREFIX}"/etc/java-config-2/current-system-vm/include
+		-DJAVA_AWT_LIBRARY="${EPREFIX}"/etc/java-config-2/current-system-vm/jre/lib/"${ABI}"/libjawt.so
+		-DJAVA_JVM_LIBRARY="${EPREFIX}"/etc/java-config-2/current-system-vm/jre/lib/"${ABI}"/server/libjvm.so
+		-DRUN_SWIG=ON
+	)
 
 	cmake-utils_src_configure
 }
