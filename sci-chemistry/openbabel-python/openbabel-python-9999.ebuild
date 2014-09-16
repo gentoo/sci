@@ -44,16 +44,17 @@ src_prepare() {
 
 src_configure() {
 	my_impl_src_configure() {
-		local mycmakeargs="${mycmakeargs}
+		local mycmakeargs=(
 			-DCMAKE_INSTALL_RPATH=
 			-DBINDINGS_ONLY=ON
-			-DBABEL_SYSTEM_LIBRARY=${EPREFIX}/usr/$(get_libdir)/libopenbabel.so
-			-DOB_MODULE_PATH=${EPREFIX}/usr/$(get_libdir)/openbabel/${PV}
+			-DBABEL_SYSTEM_LIBRARY="${EPREFIX}"/usr/$(get_libdir)/libopenbabel.so
+			-DOB_MODULE_PATH="${EPREFIX}"/usr/$(get_libdir)/openbabel/${PV}
 			-DPYTHON_BINDINGS=ON
-			-DPYTHON_EXECUTABLE=${PYTHON}
-			-DPYTHON_INCLUDE_DIR=${EPREFIX}/usr/include/${EPYTHON}
-			-DPYTHON_LIBRARY=${EPREFIX}/usr/$(get_libdir)/lib${EPYTHON}.so
-			-DENABLE_TESTS=ON"
+			-DPYTHON_EXECUTABLE="${PYTHON}"
+			-DPYTHON_INCLUDE_DIR="${EPREFIX}"/usr/include/"${EPYTHON}"
+			-DPYTHON_LIBRARY="${EPREFIX}"/usr/$(get_libdir)/lib"${EPYTHON}".so
+			-DENABLE_TESTS=ON
+		)
 
 		cmake-utils_src_configure
 	}
