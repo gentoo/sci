@@ -11,7 +11,7 @@ HOMEPAGE="http://sourceforge.net/projects/bbmap/"
 SRC_URI="http://sourceforge.net/projects/bbmap/files/BBMap_31.40_java7.tar.gz"
 #SRC_URI="http://sourceforge.net/projects/bbmap/files/BBMap_31.40_java6.tar.gz"
 
-LICENSE=""
+LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
