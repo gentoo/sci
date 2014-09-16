@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> vim-gromacs-9999.ebuild:
+  removed empty line
+
   21 May 2014; Reinis Danne <rei4dan@gmail.com> vim-gromacs-9999.ebuild:
   Remove unnecessary pkg_preinst().
 

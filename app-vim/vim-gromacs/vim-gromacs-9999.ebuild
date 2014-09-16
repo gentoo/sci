@@ -20,4 +20,3 @@ KEYWORDS=""
 IUSE=""
 
 VIM_PLUGIN_MESSAGES="filetype"
-
