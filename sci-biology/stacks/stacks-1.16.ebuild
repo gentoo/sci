@@ -8,7 +8,7 @@ AUTOTOOLS_AUTORECONF=yes
 
 inherit flag-o-matic eutils perl-module webapp
 
-DESCRIPTION="Analyze Restriction enzyme-based data, draw genetic maps, population genomics (RAD-seq Illumina sequencing)"
+DESCRIPTION="Analyze Restriction enzyme data, draw gen. maps, population genomics (RAD-seq Illumina sequencing)"
 HOMEPAGE="http://creskolab.uoregon.edu/stacks"
 SRC_URI="http://creskolab.uoregon.edu/stacks/source/stacks-1.16.tar.gz"
 
@@ -42,7 +42,6 @@ src_install() {
 	perl-module_src_install DESTDIR="${D}"
 	webapp_src_install || die "Failed running webapp_src_install"
 }
-
 
 pkg_postinst() {
 	webapp_pkg_postinst || die "webapp_pkg_postinst failed"
