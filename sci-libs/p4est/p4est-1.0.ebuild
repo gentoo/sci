@@ -65,7 +65,7 @@ src_configure() {
 	LDFLAGS="${LDFLAGS} -lsc"
 
 	local myeconfargs=(
-        $(use_enable debug)
+		$(use_enable debug)
 		$(use_enable mpi)
 		$(use_enable romio mpiio)
 		$(use_enable vtk-binary)
