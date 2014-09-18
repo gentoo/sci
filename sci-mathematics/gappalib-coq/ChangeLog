@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> gappalib-coq-1.0.0.ebuild:
+  remove last line
+
   21 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -gappalib-coq-0.18.0.ebuild, -files/gappalib-coq-coq84.patch, gappalib-coq-1.0.0.ebuild:
   version bump
@@ -29,4 +32,3 @@
   04 Jul 2010; Jonathan-Christofer Demay <jcdemay@gmail.com>
   +metadata.xml, +ChangeLog:
   QA fixes
-

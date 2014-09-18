@@ -45,32 +45,31 @@ src_configure(){
 	local myeconfargs=(
 		$(use_enable fltk gui)
 	)
-        autotools-utils_src_configure || die "configuring failed"
+	autotools-utils_src_configure || die "configuring failed"
 }
 
 src_install() {
 	emake install DESTDIR="${D}" || die "emake install failed"
-	mv ${D}/usr/bin/{aide,giac-help}
-	rm ${D}/usr/bin/*cas_help
-	dodoc AUTHORS ChangeLog COPYING INSTALL NEWS README TROUBLES
+	mv "${D}"/usr/bin/{aide,giac-help}
+	rm "${D}"/usr/bin/*cas_help
+	dodoc AUTHORS ChangeLog INSTALL NEWS README TROUBLES
 	if use !fltk; then
-		rm ${D}/usr/bin/x*
+		rm "${D}"/usr/bin/x*
 	elif host-is-pax; then
-		pax-mark -m ${D}/usr/bin/x*
+		pax-mark -m "${D}"/usr/bin/x*
 	fi
 	if use !doc; then
-		rm -R ${D}/usr/share/doc/giac ${D}/usr/share/giac/doc/
+		rm -R "${D}"/usr/share/doc/giac "${D}"/usr/share/giac/doc/
 	else
 		for LANG in el en es fr pt; do
-			if echo ${LINGUAS} | grep -v $LANG &> /dev/null; then
-				rm -R ${D}/usr/share/giac/doc/$LANG
+			if echo ${LINGUAS} | grep -v "$LANG" &> /dev/null; then
+				rm -R "${D}"/usr/share/giac/doc/"$LANG"
 			else
-				ln ${D}/usr/share/giac/doc/aide_cas ${D}/usr/share/giac/doc/$LANG/aide_cas
+				ln "${D}"/usr/share/giac/doc/aide_cas "${D}"/usr/share/giac/doc/"$LANG"/aide_cas
 			fi
 		done
 	fi
 	if use !examples; then
-		rm -R ${D}/usr/share/giac/examples
+		rm -R "${D}"/usr/share/giac/examples
 	fi
 }
-

@@ -37,7 +37,6 @@ RDEPEND="
 	virtual/jpeg
 	virtual/glu
 	virtual/opengl
-	www-apps/swish-e
 	x11-libs/libX11
 	x11-libs/libICE
 	x11-libs/libXext

@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> petsc-3.4.2.ebuild:
+  remove whitespace
+
   01 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> petsc-3.4.2.ebuild,
   petsc-3.5.1.ebuild:
   fix INCLUDE dirs in petscvariables
@@ -129,4 +132,3 @@
   13 Sep 2010; Thomas Kahle <tom111@gmx.de> +petsc-3.1_p4.ebuild,
   +files/fix-configure-pic.patch, +files/fix-mpiuni.patch, +metadata.xml:
   New package. Ebuild by J. M. Gottfried. Corresponding bug is 53386.
-

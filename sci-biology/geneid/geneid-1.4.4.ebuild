@@ -26,7 +26,7 @@ src_prepare() {
 
 src_install() {
 	dobin bin/geneid
-	dohtml docs/*.html 
+	dohtml docs/*.html
 	dohtml -r docs/chapter*
 	dohtml -r docs/images
 }

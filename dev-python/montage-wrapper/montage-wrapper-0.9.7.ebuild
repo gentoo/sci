@@ -12,7 +12,6 @@ DESCRIPTION="Python wrapper for the Montage mosaicking toolkit"
 HOMEPAGE="http://www.astropy.org/montage-wrapper/"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
-
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
@@ -25,7 +24,6 @@ DEPEND="
 	dev-python/astropy[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	test? ( sci-astronomy/montage )"
-
 
 python_compile_all() {
 	use doc && PYTHONPATH=".." emake -C docs html

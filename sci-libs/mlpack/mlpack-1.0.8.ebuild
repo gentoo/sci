@@ -22,7 +22,7 @@ RDEPEND="
 
 DEPEND="${DEPEND}
 	app-text/txt2man
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	doc? ( app-doc/doxygen )"
 
 DOCS=( HISTORY.txt )

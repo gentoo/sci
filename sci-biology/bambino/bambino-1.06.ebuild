@@ -2,11 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
 inherit java-pkg-2 eutils
 
-DESCRIPTION="Bambino / BAMview / bam_utils to display SAM/BAM files and for SNP/indel detection, report coverage in .wig files"
+DESCRIPTION="display SAM/BAM files and for SNP/indel detection, report coverage in .wig files"
 HOMEPAGE="https://cgwb.nci.nih.gov/goldenPath/bamview/documentation/index.html
 	https://cgwb.nci.nih.gov/goldenPath/bamview/documentation/bam_utils.html"
 

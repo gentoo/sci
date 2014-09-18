@@ -31,7 +31,6 @@ src_compile() {
 }
 
 src_install() {
-	DESTDIR="${D}" ./remake install || die "emake install failed"
+	DESTDIR="${D}" ./remake install || die
 	dodoc NEWS README AUTHORS ChangeLog
 }
-

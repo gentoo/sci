@@ -6,7 +6,7 @@ EAPI=5
 
 inherit java-pkg-2
 
-DESCRIPTION="Variant detection (germline, multi-sample, somatic mutations, somatic copy number alterations (CNA)), SNP calls"
+DESCRIPTION="Variant detection (germline, multi-sample, somatic mut., som. cp nr alterations (CNA)), SNP calls"
 HOMEPAGE="http://varscan.sourceforge.net/"
 SRC_URI="http://downloads.sourceforge.net/project/varscan/VarScan.v2.3.6.jar"
 

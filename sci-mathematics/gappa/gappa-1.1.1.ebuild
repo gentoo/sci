@@ -37,4 +37,3 @@ src_install() {
 	dodoc NEWS README AUTHORS ChangeLog
 	use doc && dohtml -A png -r doc/html/*
 }
-

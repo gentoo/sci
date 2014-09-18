@@ -13,7 +13,7 @@ DESCRIPTION="Multiple experiment Viewer for genomic data analysis"
 HOMEPAGE="http://mev-tm4.sourceforge.net"
 SRC_URI="http://downloads.sourceforge.net/project/mev-tm4/mev-tm4/MeV%204.8.1/MeV_4_8_1_r2727_linux.tar.gz"
 
-LICENSE=""
+LICENSE="Artistic-2"
 SLOT="0"
 KEYWORDS=""
 IUSE=""

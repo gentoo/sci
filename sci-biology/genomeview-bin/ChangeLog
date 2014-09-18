@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org>
+  genomeview-bin-2450.ebuild:
+  clean up
+
 *genomeview-bin-2450 (23 Mar 2014)
 
   23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>

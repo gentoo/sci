@@ -2,6 +2,20 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org>
+  -files/ncbi-tools++-12.0.0-as-needed.patch,
+  -files/ncbi-tools++-9.0.0-as-needed.patch,
+  -files/ncbi-tools++-9.0.0-conf-opts.patch,
+  -files/ncbi-tools++-9.0.0-disable_test_compress.patch,
+  -files/ncbi-tools++-9.0.0-fix-creaders-linking.patch,
+  -files/ncbi-tools++-9.0.0-fix-order-of-libs.patch,
+  -files/ncbi-tools++-9.0.0-fix-svn-URL-upstream.patch, -files/ncbi-tools++-9.0.
+  0-fix-undef-reference-to-GenBankReaders_Register_Id1.patch,
+  -files/ncbi-tools++-9.0.0-remove-LZO-definition-upstream.patch,
+  -ncbi-tools++-9.0.0-r1.ebuild, -ncbi-tools++-9.0.0.ebuild, metadata.xml,
+  ncbi-tools++-12.0.0.ebuild:
+  major clean, drop old version and unused patches
+
   23 Jun 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> ChangeLog:
   add patches for 12.0.0 to support autoconf-2.60 (so far 2.59 was needed),
   patches from upstream:
@@ -112,4 +126,3 @@
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> +metadata.xml:
   Add metadata.xml
-

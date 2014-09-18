@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="opencl"
 
 DEPEND=">=dev-python/numpy-1.8.0[${PYTHON_USEDEP}]
-    dev-python/cython[${PYTHON_USEDEP}]"
+	dev-python/cython[${PYTHON_USEDEP}]"
 
 RDEPEND=">=dev-python/pillow-2.3.0[${PYTHON_USEDEP}]
 	dev-python/configparser[$(python_gen_usedep python2_7)]

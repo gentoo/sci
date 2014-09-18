@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Sep 2014; Christoph Junghans <ottxor@gentoo.org> metadata.xml:
+  updated metadata.xml
+
   10 Jul 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
   +files/7.6.3-libabinit_options.patch:
   Added forgotten patch file 7.6.3-libabinit_options.patch for sci-

@@ -28,14 +28,15 @@ src_unpack() {
 
 src_configure() {
 	perl_set_version
-	local mycmakeargs="${mycmakeargs}
+	local mycmakeargs=(
 		-DCMAKE_INSTALL_RPATH=
 		-DBINDINGS_ONLY=ON
-		-DBABEL_SYSTEM_LIBRARY=${EPREFIX}/usr/$(get_libdir)/libopenbabel.so
-		-DOB_MODULE_PATH=${EPREFIX}/usr/$(get_libdir)/openbabel/${PV}
-		-DLIB_INSTALL_DIR=${ED}/${VENDOR_ARCH}
+		-DBABEL_SYSTEM_LIBRARY="${EPREFIX}"/usr/$(get_libdir)/libopenbabel.so
+		-DOB_MODULE_PATH="${EPREFIX}"/usr/$(get_libdir)/openbabel/${PV}
+		-DLIB_INSTALL_DIR="${ED}/${VENDOR_ARCH}"
 		-DPERL_BINDINGS=ON
-		-DRUN_SWIG=ON"
+		-DRUN_SWIG=ON
+	)
 
 	cmake-utils_src_configure
 }

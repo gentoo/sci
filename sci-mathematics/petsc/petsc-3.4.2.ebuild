@@ -172,7 +172,7 @@ src_configure() {
 			/usr/include \
 			[-lcmumps,-ldmumps,-lsmumps,-lzmumps,-lmumps_common,-lpord]) \
 		--with-imagemagick=0 \
-		--with-python=0 \
+		--with-python=0
 
 # not yet tested:
 #		python bindings, netcdf

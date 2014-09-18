@@ -4,7 +4,7 @@
 
 EAPI=5
 
-USE_RUBY="ruby18 ruby19 ruby20 ruby21"
+USE_RUBY="ruby19 ruby20 ruby21"
 
 inherit cmake-utils eutils ruby-ng git-r3
 
@@ -48,16 +48,17 @@ all_ruby_prepare() {
 
 each_ruby_configure() {
 	CMAKE_USE_DIR="${WORKDIR}/${environment}"
-	local mycmakeargs="${mycmakeargs}
+	local mycmakeargs=(
 		-DCMAKE_INSTALL_RPATH=
 		-DBINDINGS_ONLY=ON
-		-DBABEL_SYSTEM_LIBRARY=${EPREFIX}/usr/$(get_libdir)/libopenbabel.so
-		-DOB_MODULE_PATH=${EPREFIX}/usr/$(get_libdir)/openbabel/${PV}
-		-DLIB_INSTALL_DIR=${ED}/$(ruby_rbconfig_value sitearchdir)
+		-DBABEL_SYSTEM_LIBRARY="${EPREFIX}"/usr/$(get_libdir)/libopenbabel.so
+		-DOB_MODULE_PATH="${EPREFIX}"/usr/$(get_libdir)/openbabel/"${PV}"
+		-DLIB_INSTALL_DIR="${ED}"/$(ruby_rbconfig_value sitearchdir)
 		-DRUBY_BINDINGS=ON
-		-DRUBY_EXECUTABLE=${RUBY}
+		-DRUBY_EXECUTABLE="${RUBY}"
 		-DRUBY_INCLUDE_DIR=$(ruby_get_hdrdir) -I$(ruby_get_hdrdir)/$(ruby_rbconfig_value sitearch)
-		-DRUBY_LIBRARY=$(ruby_get_libruby)"
+		-DRUBY_LIBRARY=$(ruby_get_libruby)
+	)
 
 	cmake-utils_src_configure
 }

@@ -48,12 +48,6 @@ ABINIT code, different utility programs are provided.
     <flag name="fox">Enable support for FoX Fortran XML library</flag>
   </use>
   <use>
-    <flag name="gui">
-      Build the abinit GUI (requires java);
-      since 7.4.0 a separate package
-    </flag>
-  </use>
-  <use>
     <flag name="levmar">
       Enable support for <pkg>sci-libs/levmar</pkg>,
       the Levenberg-Marquardt least-squares optimisation
