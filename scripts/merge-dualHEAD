@@ -1,10 +1,10 @@
 #!/bin/bash
 # This script is licensed under BSD-3
 
-if [[ -f /usr/lib64/portage/bin/isolated-functions.sh ]]; then
-	. /usr/lib64/portage/bin/isolated-functions.sh
-elif [[ -f /usr/lib/portage/bin/isolated-functions.sh ]]; then
-	. /usr/lib/portage/bin/isolated-functions.sh
+export PORTAGE_BIN_PATH="/usr/lib64/portage/python2.7"
+
+if [[ -f "${PORTAGE_BIN_PATH}"/isolated-functions.sh ]]; then
+	. "${PORTAGE_BIN_PATH}"/isolated-functions.sh
 else
 	alias ebegin=echo
 	alias eend=true
