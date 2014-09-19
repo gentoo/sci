@@ -32,6 +32,8 @@ src_prepare() {
 
 src_install() {
 	dobin unix/librecad
+	insinto /usr/share
+	doins -r unix/appdata
 	insinto /usr/share/${PN}
 	doins -r unix/resources/*
 	use doc && dohtml -r librecad/support/doc/*
