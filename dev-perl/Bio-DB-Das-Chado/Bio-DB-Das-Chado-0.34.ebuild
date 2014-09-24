@@ -2,9 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
 MODULE_AUTHOR="SCAIN"
+
 inherit perl-module
 
 DESCRIPTION="A Chado database interface for Gbrowse-2"
