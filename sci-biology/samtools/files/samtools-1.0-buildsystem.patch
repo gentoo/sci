@@ -1,0 +1,41 @@
+--- /homes/schubert/Makefile.orig	2014-08-18 20:18:56.116153000 +0100
++++ /homes/schubert/Makefile	2014-08-18 20:24:43.742999000 +0100
+@@ -23,7 +23,7 @@
+ 
+ CC       = gcc
+ CPPFLAGS = $(DFLAGS) $(INCLUDES)
+-CFLAGS   = -g -Wall -O2
++CFLAGS   = -g -Wall -O2 -fPIC
+ LDFLAGS  =
+ LDLIBS   =
+ DFLAGS=     -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE -D_CURSES_LIB=1
+@@ -115,6 +115,20 @@ version.h:
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+ 
+ 
++libbam.1.dylib-local:$(LOBJS)
++	libtool -dynamic $(LOBJS) -o libbam.1.dylib -lc -lz
++
++libbam.so.1-local:$(LOBJS)
++	$(CC) $(LDFLAGS) -shared -Wl,-soname,libbam.so -o libbam.so.1 $(LOBJS) -lc -lz -lm -lpthread
++
++dylib:
++	@$(MAKE) cleanlocal; \
++	case `uname` in \
++		Linux) $(MAKE) CFLAGS="$(CFLAGS) -fPIC" libbam.so.1-local;; \
++		Darwin) $(MAKE) CFLAGS="$(CFLAGS) -fPIC" libbam.1.dylib-local;; \
++		*) echo 'Unknown OS';; \
++	esac
++
+ lib:libbam.a
+ 
+ libbam.a:$(LOBJS)
+@@ -274,7 +288,7 @@ mostlyclean: testclean
+ 	-rm -f *.o misc/*.o test/*.o test/*/*.o version.h
+ 
+ clean: mostlyclean
+-	-rm -f $(PROGRAMS) libbam.a $(BUILT_MISC_PROGRAMS) $(BUILT_TEST_PROGRAMS)
++	-rm -f $(PROGRAMS) libbam.a *.so *.so.* *.dylib $(BUILT_MISC_PROGRAMS) $(BUILT_TEST_PROGRAMS)
+ 
+ distclean: clean
+ 	-rm -f TAGS
