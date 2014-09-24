@@ -9,8 +9,7 @@ MY_PV="$(replace_all_version_separators _)"
 
 DESCRIPTION="SmartGIT"
 HOMEPAGE="http://www.syntevo.com/smartgit"
-#SRC_URI="${PN}-generic-${MY_PV}.tar.gz"
-SRC_URI="http://www.syntevo.com/download/smartgithg/smartgithg-generic-6_0_6.tar.gz"
+SRC_URI="http://www.syntevo.com/download/${PN}hg/${MY_P}.tar.gz"
 
 SLOT="0"
 LICENSE="smartgit"
