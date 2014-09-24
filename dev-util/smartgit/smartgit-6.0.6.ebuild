@@ -2,6 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
 inherit eutils java-utils-2 versionator
 
 MY_PV="$(replace_all_version_separators _)"
@@ -24,7 +25,7 @@ S="${WORKDIR}"/smartgit-${MY_PV}
 
 pkg_nofetch(){
 	einfo "Please download ${MY_P}.tar.gz from:"
-	einfo "http://www.syntevo.com/smartgit/early-access.html"
+	einfo "http://www.syntevo.com/download/smartgithg/"
 	einfo "and move/copy to ${DISTDIR}"
 }
 
