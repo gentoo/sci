@@ -1,6 +1,9 @@
 # ChangeLog for dev-perl/BTLib
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  24 Sep 2014; Justin Lecher <jlec@gentoo.org> BTLib-0.19.ebuild, metadata.xml:
+  Bump to EAPI=5
 
 *BTLib-0.19 (30 Jul 2011)
 
