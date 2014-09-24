@@ -5,7 +5,8 @@
 EAPI=5
 inherit eutils java-utils-2 versionator
 
-MY_PV="$(replace_all_version_separators _)"
+
+MY_PV="$(smartgit-6.0.6)"
 
 DESCRIPTION="SmartGIT"
 HOMEPAGE="http://www.syntevo.com/smartgit"
