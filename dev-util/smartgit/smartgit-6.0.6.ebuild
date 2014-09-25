@@ -1,48 +1,37 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
-EAPI=5
-inherit eutils java-utils-2 versionator
+EAPI="5"
 
+inherit java-utils-2
 
-MY_PV="$(smartgit-6.0.6)"
-
-DESCRIPTION="SmartGIT"
+DESCRIPTION="Git client with support for GitHub Pull Requests+Comments, SVN and Mercurial"
 HOMEPAGE="http://www.syntevo.com/smartgit"
-SRC_URI="http://www.syntevo.com/download/${PN}hg/${MY_P}.tar.gz"
+SRC_URI="http://www.syntevo.com/download/smartgithg/smartgithg-generic-6_0_6.tar.gz -> ${P}.tar.gz"
+
+RESTRICT="mirror"
 
 SLOT="0"
 LICENSE="smartgit"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="*"
 IUSE=""
 
-RESTRICT="fetch"
+RDEPEND=">=virtual/jre-1.7"
 
-RDEPEND="virtual/jre"
-
-S="${WORKDIR}"/smartgit-${MY_PV}
-
-pkg_nofetch(){
-	einfo "Please download ${MY_P}.tar.gz from:"
-	einfo "http://www.syntevo.com/download/smartgithg/"
-	einfo "and move/copy to ${DISTDIR}"
-}
+S="${WORKDIR}/smartgithg-${PV//./_}"
 
 src_install() {
-	local rdir="/opt/${PN}"
-	insinto ${rdir}
-	doins -r * || die "cannot install needed files"
+	insinto "/opt/${PN}"
+	doins -r "${S}"/*
 
-	java-pkg_regjar "${D}"/${rdir}/lib/*.jar
+	java-pkg_regjar "${D}/opt/${PN}"/lib/*.jar
 
-	java-pkg_dolauncher ${PN} --java_args "-Xmx256M -Dsmartgit.vm-xmx=256m" --jar ${PN}.jar
+	java-pkg_dolauncher "${PN}" --jar "bootloader.jar"
 
-	for X in 32 64 128
-	do
-		insinto /usr/share/icons/hicolor/${X}x${X}/apps
-		newins "${S}/bin/smartsvn-${X}.png" "${PN}.png" || die "cannot install needed files"
-	done
+	for i in 32 48 64 128 256
+		do
+			insinto "/usr/share/icons/hicolor/${i}x${i}/apps"
+			newins "${S}/bin/smartgithg-${i}.png" "${PN}.png"
+		done
 
-	make_desktop_entry "${PN}" "SmartGIT" ${PN}.png "Development;RevisionControl"
+	make_desktop_entry "${PN}" "SmartGIT" "${PN}" "Development;RevisionControl"
 }
