@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/lapack-reference
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
+
+  25 Sep 2014; François Bissey <francois.bissey@canterbury.ac.nz>
+  lapack-reference-9999.ebuild:
+  Add xblas to the .pc file when it is in use see bug#523388
 
 *lapack-reference-3.5.0 (08 Dec 2013)
 
