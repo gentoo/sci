@@ -12,13 +12,15 @@ HOMEPAGE="https://software.intel.com/en-us/articles/intel-concurrent-collections
 if [[ $PV = 9999 ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/icnc/icnc.git"
+	KEYWORDS=
 else
-	SRC_URI="mirror://sourceforge/${PN}/${PV}/l_cnc_b_${PV}.tgz"
+	#SRC_URI="mirror://sourceforge/${PN}/${PV}/l_cnc_b_${PV}.tgz"
+	SRC_URI="https://github.com/martine/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~amd64"
 fi
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
@@ -29,13 +31,9 @@ RDEPEND="${DEPEND}"
 
 src_configure() {
 #TODO has mpi support but broken with virtual/mpi
-# 	local mycmakeargs=(
 # 		$(cmake-utils_use mpi BUILD_LIBS_FOR_MPI)
-# 	)
+	local mycmakeargs=(
+		-DLIB=$(get_libdir)
+	)
 	cmake-utils_src_configure
-}
-
-src_install() {
-	cmake-utils_src_install
-	mv "${ED}"/usr/{lib,$(get_libdir)} || die
 }
