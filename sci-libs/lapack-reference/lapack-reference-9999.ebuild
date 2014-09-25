@@ -26,7 +26,7 @@ IUSE="static-libs test xblas"
 
 RDEPEND="
 	virtual/blas
-	xblas? ( sci-libs/xblas )"
+	xblas? ( sci-libs/xblas[fortran] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
