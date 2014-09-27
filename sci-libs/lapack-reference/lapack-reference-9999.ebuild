@@ -114,8 +114,6 @@ _int64_multilib_multibuild_wrapper() {
 	local v="${MULTIBUILD_VARIANT/_${INT64_SUFFIX}/}"
 	local ABI="${v/_${STATIC_SUFFIX}/}"
 	multilib_toolchain_setup "${ABI}"
-	export FC="$(tc-getFC) $(get_abi_CFLAGS)"
-	export F77="$(tc-getF77) $(get_abi_CFLAGS)"
 	"${@}"
 }
 
@@ -175,12 +173,12 @@ src_configure() {
 		)
 		if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
 			mycmakeargs+=(
-				-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) -fdefault-integer-8"
+				-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS) -fdefault-integer-8"
 				-DLAPACK_PKGCONFIG_FFLAGS="-fdefault-integer-8"
 			)
 		else
 			mycmakeargs+=(
-				-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname})"
+				-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS)"
 				-DLAPACK_PKGCONFIG_FFLAGS=""
 			)
 		fi

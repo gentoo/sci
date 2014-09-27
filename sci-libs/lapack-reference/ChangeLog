@@ -11,6 +11,11 @@
   lapack-reference-9999.ebuild:
   Add xblas to the .pc file when it is in use see bug#523388
 
+  07 Sep 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
+  Remove the lines changing the setting of the FC and F77 environment
+  variables, instead pass the $(get_abi_CFLAGS) to cmake in the setting of the
+  -DCMAKE_Fortran_FLAGS variable.
+
   26 Apr 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
   Add >=virtual/blas-2.1-r2[int64?] and >=virtual/lapack-3.5-r2[int64?] to
   RDEPEND. Use separate eselect modules for lapack and lapack-int64.
