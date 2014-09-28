@@ -26,7 +26,7 @@ IUSE="static-libs test xblas"
 
 RDEPEND="
 	virtual/blas
-	xblas? ( sci-libs/xblas )"
+	xblas? ( sci-libs/xblas[fortran] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
@@ -55,6 +55,12 @@ src_prepare() {
 	sed -i \
 		-e '/lapack_install_library(tmglib)/d' \
 		TESTING/MATGEN/CMakeLists.txt || die
+	# if xblas is used add it in the .pc file
+	if use xblas ; then
+		sed -i \
+			-e '/Requires/s:blas:blas xblas:' \
+			lapack.pc.in || die
+	fi
 }
 
 src_configure() {
