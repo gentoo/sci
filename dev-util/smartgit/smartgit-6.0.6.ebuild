@@ -9,7 +9,7 @@ inherit eutils java-utils-2 versionator
 MY_PV="$(replace_all_version_separators _)"
 MY_P="${PN}hg-generic-${MY_PV}"
 
-DESCRIPTION="SmartGIT"
+DESCRIPTION="Git client with support for GitHub Pull Requests+Comments, SVN and Mercurial"
 HOMEPAGE="http://www.syntevo.com/smartgit"
 SRC_URI="http://www.syntevo.com/download/${PN}hg/${MY_P}.tar.gz"
 
@@ -32,7 +32,7 @@ pkg_nofetch(){
 }
 
 src_install() {
-	local rdir="/opt/${PN}"
+	local rdir="/opt/${PN}" X
 	insinto ${rdir}
 	doins -r *
 
@@ -40,8 +40,7 @@ src_install() {
 
 	java-pkg_dolauncher ${PN} --java_args "-Dsun.io.useCanonCaches=false -Xmx256M -Xverify:none -Dsmartgit.vm-xmx=256m" --jar bootloader.jar
 
-	for X in 32 64 128
-	do
+	for X in 32 64 128; do
 		insinto /usr/share/icons/hicolor/${X}x${X}/apps
 		newins "${S}"/bin/smartgithg-${X}.png ${PN}.png
 	done
