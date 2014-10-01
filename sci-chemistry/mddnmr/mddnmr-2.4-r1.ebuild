@@ -4,9 +4,10 @@
 
 EAPI=5
 
-PYTHON_DEPEND="2"
+PYTHON_COMPAT=( python2_7 )
 
-REL="24Sep2012"
+inherit python-single-r1
+
 MY_P="${PN}${PV}"
 
 DESCRIPTION="Program for processing of non-uniformly sampled (NUS) multidimensional NMR spectra"
@@ -18,7 +19,10 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 LICENSE="mddnmr"
 IUSE=""
 
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 RDEPEND="
+	${PYTHON_DEPS}
 	app-shells/tcsh
 	sci-chemistry/nmrpipe"
 DEPEND=""
@@ -46,6 +50,7 @@ src_install() {
 	cat >> "${T}"/qMDD <<- EOF
 	#!${EPREFIX}/bin/csh
 
+	setenv LD_LIBRARY_PATH $(grep LDPATH "${EPREFIX}"/etc/env.d/35intelsdp | sed 's:LDAPATH=::g')"
 	setenv MDD_NMR "${EPREFIX}/opt/${PN}"
 	setenv MDD_NMRbin "${EPREFIX}/opt/${PN}/bin/"
 	set path=( . "\$MDD_NMRbin"  "\${MDD_NMR}/com" \$path )
@@ -56,4 +61,6 @@ src_install() {
 	dobin "${T}"/qMDD
 
 	dodoc *pdf
+
+	python_optimize "${ED}"
 }

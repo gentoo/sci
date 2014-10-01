@@ -8,7 +8,7 @@ inherit eutils
 
 [ "$PV" == "9999" ] && inherit git-2
 
-DESCRIPTION="Bayesian genetic variant detector designed to find small polymorphisms: SNPs, indels, MNPs and complex events"
+DESCRIPTION="Bayesian gen. variant detector to find small polymorphisms: SNPs, indels, MNPs and complex events"
 HOMEPAGE="https://github.com/ekg/freebayes"
 EGIT_REPO_URI="git://github.com/ekg/freebayes.git"
 

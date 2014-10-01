@@ -201,7 +201,8 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-6.00.01-prop-flags.patch \
 		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
 		"${FILESDIR}"/${PN}-6.00.01-geocad.patch \
-		"${FILESDIR}"/${PN}-6.00.01-tutorials-path.patch
+		"${FILESDIR}"/${PN}-6.00.01-tutorials-path.patch \
+		"${FILESDIR}"/${PN}-6.00.02-tm_zone.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die

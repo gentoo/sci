@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Sep 2014; Christoph Junghans <ottxor@gentoo.org>
+  -files/p4est-0.3.4.2-libtool-fix.patch,
+  -files/p4est-0.3.5-add_missing_autotools_files.patch, -p4est-0.3.4.2.ebuild,
+  -p4est-0.3.5.ebuild, p4est-1.0.ebuild:
+  remove old
+
 *p4est-1.0 (23 Jul 2014)
 
   23 Jul 2014; Matthias Maier <tamiko@gentoo.org> +p4est-1.0.ebuild,

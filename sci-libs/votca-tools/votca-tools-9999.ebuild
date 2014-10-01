@@ -2,17 +2,20 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
+
+CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit cmake-utils eutils multilib
 
 if [ "${PV}" != "9999" ]; then
-	SRC_URI="http://votca.googlecode.com/files/${PF}.tar.gz"
-	RESTRICT="primaryuri"
+	SRC_URI="http://downloads.votca.googlecode.com/hg/${P}_pristine.tar.gz"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-macos"
 else
 	SRC_URI=""
 	inherit mercurial
 	EHG_REPO_URI="https://code.google.com/p/votca.tools/"
+	KEYWORDS=""
 fi
 
 DESCRIPTION="Votca tools library"
@@ -20,7 +23,6 @@ HOMEPAGE="http://www.votca.org"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS=""
 IUSE="doc +fftw +gsl sqlite"
 
 RDEPEND="fftw? ( sci-libs/fftw:3.0 )
@@ -51,7 +53,7 @@ src_install() {
 	cmake-utils_src_install
 	if use doc; then
 		cd "${CMAKE_BUILD_DIR}"
-		emake html
+		cmake-utils_src_make html
 		dohtml -r share/doc/html/*
 	fi
 }

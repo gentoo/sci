@@ -14,4 +14,8 @@
   automated extraction mechanism. WhyML is also used as an intermediate
   language for the verification of C, Java, or Ada programs.
 </longdescription>
+<use>
+  <flag name='float'>Add <pkg>sci-mathematics/flocq</pkg> support</flag>
+  <flag name='frama-c'>Enable Frama-C plugin</flag>
+</use>
 </pkgmetadata>

@@ -1,0 +1,15 @@
+# ChangeLog for dev-cpp/icnc
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  30 Sep 2014; Christoph Junghans <ottxor@gentoo.org> icnc-9999.ebuild:
+  live ebuild update
+
+  25 Sep 2014; Christoph Junghans <ottxor@gentoo.org> icnc-9999.ebuild:
+  live ebuild update
+
+*icnc-9999 (25 Sep 2014)
+
+  25 Sep 2014; Christoph Junghans <ottxor@gentoo.org> +icnc-9999.ebuild,
+  +metadata.xml:
+  initial commit

@@ -2,12 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
+
 inherit perl-module perl-app
 
-DESCRIPTION="convert whole CONSED dataset to a GAP4 project"
+DESCRIPTION="Convert whole CONSED dataset to a GAP4 project"
 HOMEPAGE="http://genome.imb-jena.de/software/consed2gap/"
-SRC_URI="http://genome.imb-jena.de/software/consed2gap/consed2gap.tgz"
+SRC_URI="http://genome.imb-jena.de/software/consed2gap/consed2gap.tgz -> ${P}.tgz"
 
 LICENSE="FLI-Jena"
 SLOT="0"
@@ -16,13 +17,12 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-		dev-lang/perl
-		sci-libs/io_lib
-		sci-biology/caftools
-		sci-biology/align_to_scf"
+	dev-lang/perl:=
+	sci-libs/io_lib
+	sci-biology/caftools
+	sci-biology/align_to_scf"
 
-MY_P="consed2gap"
-S="${WORKDIR}/${MY_P}"
+S="${WORKDIR}/${PN}"
 
 src_prepare(){
 	sed -i 's#/usr/local/bin/perl#/usr/bin/env perl#' bin/phrap2caf || die
@@ -30,9 +30,9 @@ src_prepare(){
 }
 
 src_install(){
-	dobin bin/consed2gap bin/phrap2caf bin/badgerGetOpt.pl || die
-	mkdir -p "${D}"/usr/share/"${PN}" || die
-	cp -r example "${D}"/usr/share/"${PN}" || die
+	dobin bin/consed2gap bin/phrap2caf bin/badgerGetOpt.pl
+	dodir /usr/share/"${PN}"
+	mv example "${ED}"/usr/share/"${PN}"/ || die
 
 	cd bin && perl-module_src_install
 }

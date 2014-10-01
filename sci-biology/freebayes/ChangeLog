@@ -2,9 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> freebayes-9999.ebuild:
+  fixed DESCRIPTION
+
 *freebayes-9999 (24 Mar 2014)
 
   24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   +freebayes-9999.ebuild, +metadata.xml:
   a new package skeleton; need to retrive from git in a recursive way
-

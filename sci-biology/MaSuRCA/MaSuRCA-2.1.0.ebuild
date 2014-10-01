@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -9,15 +9,15 @@ HOMEPAGE="http://www.genome.umd.edu/masurca.html"
 SRC_URI="ftp://ftp.genome.umd.edu/pub/MaSuRCA/MaSuRCA-"${PV}".tar.gz
 		ftp://ftp.genome.umd.edu/pub/MaSuRCA/MaSuRCA_QuickStartGuide.pdf"
 
-LICENSE=""
+LICENSE="BSD GPL-2 GPL-3"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
 
 DEPEND="dev-lang/perl
 		app-arch/bzip2"
-RDEPEND="${DEPEND}
-	sci-biology/quorum"
+RDEPEND="${DEPEND}"
+	#sci-biology/quorum"
 
 # the ebuild mimics "${S}"/install.sh
 src_configure(){

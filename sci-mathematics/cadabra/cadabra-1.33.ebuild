@@ -28,6 +28,7 @@ CDEPEND="
 DEPEND="${CDEPEND}
 	doc? (
 		app-doc/doxygen
+		dev-texlive/texlive-latexextra
 		|| ( app-text/texlive-core dev-tex/pdftex ) )
 	test? ( sys-process/time )"
 RDEPEND="${CDEPEND}
@@ -56,7 +57,7 @@ src_compile() {
 }
 
 src_install() {
-	# cadabra strip binaries unless you are on OS X. 
+	# cadabra strip binaries unless you are on OS X.
 	# So faking it to avoid outright stripping.
 	emake DESTDIR="${D}" DEVDESTDIR="${D}" MACTEST=1 install
 

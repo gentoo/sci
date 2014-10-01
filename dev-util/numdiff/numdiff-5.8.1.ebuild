@@ -6,7 +6,7 @@ EAPI=5
 
 inherit autotools-utils eutils multilib
 
-DESCRIPTION="program that can be used to compare putatively similar files, ignoring small numeric differences or/and different numeric formats"
+DESCRIPTION="compares putatively similar files, ignoring small numeric differences and formats"
 HOMEPAGE="http://www.nongnu.org/numdiff/"
 SRC_URI="http://savannah.nongnu.org/download/numdiff/${P}.tar.gz"
 
@@ -24,12 +24,12 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 src_configure() {
-    local myeconfargs=(
-        $(use_enable gmp)
-        $(use_enable nls)
+	local myeconfargs=(
+		$(use_enable gmp)
+		$(use_enable nls)
 	    --enable-optimization
-    )
-    autotools-utils_src_configure
+	)
+	autotools-utils_src_configure
 }
 
 src_install() {

@@ -10,7 +10,8 @@ DESCRIPTION="Predict proteins from EST sequences overcoming errors in ORFs"
 HOMEPAGE="http://www.compsysbio.org/lab/?q=prot4EST"
 SRC_URI="http://www.compsysbio.org/lab/james/prot4EST_rl3.1b.tgz"
 
-LICENSE=""
+#http://www.biomedcentral.com/1471-2105/5/187
+LICENSE="GPL-1"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
@@ -18,12 +19,12 @@ IUSE=""
 DEPEND="sci-biology/emboss
 	sci-biology/estscan
 	sci-biology/bioperl
-	dev-perl/Algorithm-Loops
 	perl-core/File-Path
-	dev-perl/File-Copy
 	perl-core/Getopt-Long
 	dev-perl/Statistics-Descriptive
 	dev-perl/Tie-IxHash"
+	#dev-perl/Algorithm-Loops
+	#dev-perl/File-Copy
 
 RDEPEND="${DEPEND}"
 

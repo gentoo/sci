@@ -1,0 +1,106 @@
+diff -Naurp bigdft-1.7.5_orig/src/wavelib/i-o-etsf.f90 bigdft-1.7.5/src/wavelib/i-o-etsf.f90
+--- bigdft-1.7.5_orig/src/wavelib/i-o-etsf.f90	2014-07-09 12:56:18.000000000 +0000
++++ bigdft-1.7.5/src/wavelib/i-o-etsf.f90	2014-09-04 07:05:36.256646737 +0000
+@@ -178,6 +178,7 @@ module internal_etsf
+    subroutine etsf_gcoordToLocreg(n1, n2, n3, nvctr_c, nvctr, gcoord, lr)
+       use module_defs
+       use module_types
++      use dynamic_memory
+ 
+       implicit none
+ 
+@@ -401,6 +402,7 @@ subroutine read_waves_from_list_etsf(ipr
+       &   wfd,psi,norb,nspinor,iorbparr,isorb,eval)
+    use module_base
+    use module_types
++   use dynamic_memory
+    use etsf_io_low_level
+    use etsf_io
+    use internal_etsf
+@@ -744,11 +746,18 @@ subroutine read_waves_etsf(iproc,filenam
+    character(len = *), intent(in) :: filename
+    ! Local variables
+    integer :: i
++   real(wp), dimension(:), allocatable :: eval
++
++   eval = f_malloc(size(orbs%eval),id='eval')
++   eval = orbs%eval
+ 
+    i = 0
+    call read_waves_from_list_etsf(iproc,filename,n1,n2,n3,hx,hy,hz,at,rxyz_old,rxyz, & 
+       &   wfd,psi,orbs%norbp,orbs%nspinor,(/ (i, i=1, orbs%norbp*orbs%nspinor) /), &
+-      & orbs%isorb,orbs%eval(orbs%isorb + 1))
++      & orbs%isorb,eval(orbs%isorb + 1))
++
++   orbs%eval = eval
++   call f_free(eval)
+ END SUBROUTINE read_waves_etsf
+ 
+ subroutine read_one_wave_etsf(iproc,filename,iorbp,isorb,nspinor,n1,n2,n3,&
+@@ -765,14 +774,16 @@ subroutine read_one_wave_etsf(iproc,file
+    real(gp), dimension(3,at%astruct%nat), intent(out) :: rxyz_old
+    real(wp), dimension(wfd%nvctr_c+7*wfd%nvctr_f,nspinor), intent(out) :: psi
+    character(len = *), intent(in) :: filename
++   real(wp), dimension(1) :: eval1
+ 
+    if (nspinor == 1) then
+       call read_waves_from_list_etsf(iproc,filename,n1,n2,n3,hx,hy,hz,at,rxyz_old,rxyz, & 
+-         &   wfd,psi,1,nspinor,(/ iorbp /),isorb,eval)
++         &   wfd,psi,1,nspinor,(/ iorbp /),isorb,eval1)
+    else
+       call read_waves_from_list_etsf(iproc,filename,n1,n2,n3,hx,hy,hz,at,rxyz_old,rxyz, & 
+-         &   wfd,psi,1,nspinor,(/ 2 * iorbp - 1, 2 * iorbp /),isorb,eval)
++         &   wfd,psi,1,nspinor,(/ 2 * iorbp - 1, 2 * iorbp /),isorb,eval1)
+    end if
++   eval = eval1(1)
+ END SUBROUTINE read_one_wave_etsf
+ 
+ subroutine write_psi_compress_etsf(ncid, iorbp, orbs, nvctr, wfd, psi)
+@@ -1062,7 +1073,7 @@ subroutine write_waves_etsf(iproc,filena
+       end do
+       znucl = f_malloc(at%astruct%ntypes,id='znucl')
+       znucl = real(at%nzatom)
+-      spnames = f_malloc(at%astruct%ntypes,id='spnames')
++      spnames = f_malloc_str(etsf_chemlen,at%astruct%ntypes,id='spnames')
+       do iat = 1, at%astruct%ntypes, 1
+          !call nzsymbol(at%nzatom(iat), spnames(iat))
+          call atomic_info(at%nzatom(iat),at%nelpsp(iat),symbol=spnames(iat))
+@@ -1080,7 +1091,7 @@ subroutine write_waves_etsf(iproc,filena
+       if (.not. lstat) call etsf_error(error)
+       call f_free(xred)
+       call f_free(znucl)
+-      call f_free(spnames)
++      call f_free_str(etsf_chemlen,spnames)
+       ! The eigenvalues & occupation.
+       if (dims%number_of_spins == 1) then
+          elec%eigenvalues%data1D => orbs%eval
+@@ -1138,6 +1149,8 @@ subroutine write_waves_etsf(iproc,filena
+    END SUBROUTINE etsf_write_global
+ 
+    subroutine build_grid(n1,n2,n3,nvctr, gcoord, wfd)
++      use dynamic_memory
++
+       integer, intent(in) :: n1, n2, n3
+       type(wavefunctions_descriptors), intent(in) :: wfd
+       integer, intent(out) :: nvctr(wfd%nvctr_c)
+diff -Naurp bigdft-1.7.5_orig/src/wavelib/plotting-etsf.f90 bigdft-1.7.5/src/wavelib/plotting-etsf.f90
+--- bigdft-1.7.5_orig/src/wavelib/plotting-etsf.f90	2014-06-05 14:07:35.000000000 +0000
++++ bigdft-1.7.5/src/wavelib/plotting-etsf.f90	2014-09-04 07:04:42.335813661 +0000
+@@ -141,7 +141,7 @@ subroutine write_etsf_density(filename,m
+   end do
+   znucl = f_malloc(at%astruct%ntypes,id='znucl')
+   znucl = real(at%nzatom)
+-  spnames = f_malloc(at%astruct%ntypes,id='spnames')
++  spnames = f_malloc_str(etsf_chemlen,at%astruct%ntypes,id='spnames')
+   do iat = 1, at%astruct%ntypes, 1
+      !call nzsymbol(at%nzatom(iat), spnames(iat))
+      call atomic_info(at%nzatom(iat),at%nelpsp(iat),symbol=spnames(iat))
+@@ -159,7 +159,7 @@ subroutine write_etsf_density(filename,m
+   end if
+   call f_free(xred)
+   call f_free(znucl)
+-  call f_free(spnames)
++  call f_free_str(etsf_chemlen,spnames)
+ 
+   ! We switch to write mode.
+   call etsf_io_low_set_write_mode(ncid, lstat, error_data = error)

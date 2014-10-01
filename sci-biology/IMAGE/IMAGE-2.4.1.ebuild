@@ -4,11 +4,12 @@
 
 EAPI=5
 
-DESCRIPTION="Iterative Mapping and Assembly for Gap Elimination - close gaps in assemblies using Illumina paired end reads"
+DESCRIPTION="Iterative Mapping and Assembly for Gap Elimination"
 HOMEPAGE="https://sourceforge.net/apps/mediawiki/image2"
 SRC_URI="http://sourceforge.net/projects/image2/files/IMAGE_version2.4.1_64bit.zip"
 
-LICENSE=""
+#http://genomebiology.com/2010/11/4/R41
+LICENSE="CC-BY-2.0"
 SLOT="0"
 KEYWORDS=""
 IUSE=""

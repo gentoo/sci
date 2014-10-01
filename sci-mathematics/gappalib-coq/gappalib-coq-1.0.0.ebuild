@@ -32,4 +32,3 @@ src_install() {
 	DESTDIR="${D}" ./remake install || die "emake install failed"
 	dodoc NEWS README AUTHORS ChangeLog
 }
-

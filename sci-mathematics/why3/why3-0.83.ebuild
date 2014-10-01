@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit autotools eutils
+inherit eutils
 
 DESCRIPTION=" Why3 is a platform for deductive program verification"
 HOMEPAGE="http://why3.lri.fr/"

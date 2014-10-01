@@ -2,9 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org>
+  scaffold_builder-20130403.ebuild:
+  added license
+
 *scaffold_builder-20130403 (23 Mar 2014)
 
   23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   +scaffold_builder-20130403.ebuild, +metadata.xml:
   new package but with a missing LICENSE
-

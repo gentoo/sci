@@ -4,8 +4,6 @@
 
 EAPI=5
 
-TEST_PV="5.0-rc1"
-
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit bash-completion-r1 cmake-utils cuda eutils multilib readme.gentoo toolchain-funcs
@@ -20,8 +18,8 @@ if [[ $PV = *9999* ]]; then
 	KEYWORDS=""
 else
 	SRC_URI="ftp://ftp.gromacs.org/pub/${PN}/${PN}-${PV/_/-}.tar.gz
-		test? ( http://gerrit.gromacs.org/download/regressiontests-${TEST_PV}.tar.gz )"
-	KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x86-macos"
+		test? ( http://gerrit.gromacs.org/download/regressiontests-${PV}.tar.gz )"
+	KEYWORDS="~alpha ~amd64 ~arm ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
 fi
 
 ACCE_IUSE="sse2 sse4_1 avx_128_fma avx_256 avx2_256"
@@ -189,6 +187,8 @@ src_configure() {
 			-DGMX_LIBS_SUFFIX="${suffix}"
 			)
 		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
+		[[ ${CHOST} != *-darwin* ]] || \
+		  sed -i '/SET(CMAKE_INSTALL_NAME_DIR/s/^/#/' "${WORKDIR}/${P}_${x}/gentoo_rules.cmake" || die
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
 		mycmakeargs=(
@@ -203,6 +203,8 @@ src_configure() {
 			-DGMX_LIBS_SUFFIX="_mpi${suffix}"
 			)
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" CC="mpicc" cmake-utils_src_configure
+		[[ ${CHOST} != *-darwin* ]] || \
+		  sed -i '/SET(CMAKE_INSTALL_NAME_DIR/s/^/#/' "${WORKDIR}/${P}_${x}_mpi/gentoo_rules.cmake" || die
 	done
 }
 
@@ -211,9 +213,11 @@ src_compile() {
 		einfo "Compiling for ${x} precision"
 		BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile
-		# generate bash completion
+		# generate bash completion, not 100% necessary for
+		# rel ebuilds as bundled
 		BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile completion
+		# not 100% necessary for rel ebuilds as available from website
 		if use doc; then
 			BUILD_DIR="${WORKDIR}/${P}_${x}"\
 				cmake-utils_src_compile manual
@@ -237,18 +241,26 @@ src_install() {
 		BUILD_DIR="${WORKDIR}/${P}_${x}" \
 			cmake-utils_src_install
 		if use doc; then
-			newdoc "${WORKDIR}/${P}_${x}"/manual/gromacs.pdf "${PN}-manual-${PV}.pdf"
+			newdoc "${WORKDIR}/${P}_${x}"/docs/manual/gromacs.pdf "${PN}-manual-${PV}.pdf"
 		fi
-		newbashcomp "${WORKDIR}/${P}_${x}"/src/programs/completion/gmx-completion.bash gromacs
+		#release ebuild does this automatically
+		if [[ $PV = *9999* ]]; then
+			cp "${WORKDIR}/${P}_${x}"/src/programs/completion/gmx-completion.bash "${ED}/usr/bin" || die
+			echo "complete -o nospace -F _gmx_compl gmx" > "${ED}/usr/bin/gmx-completion-gmx.bash" || die
+		fi
 		use mpi || continue
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi" \
 			cmake-utils_src_install
 	done
 	# drop unneeded stuff
-	rm -f "${ED}"usr/bin/gmx-completion*
-	rm -f "${ED}"usr/bin/g_options*
-	rm -f "${ED}"usr/bin/GMXRC*
-	rm -f "${ED}"usr/$(get_libdir)/libtng*.a
+	rm "${ED}"usr/bin/GMXRC* || die
+	#concatenate all gmx-completion*, starting with gmx-completion.bash (fct defs)
+	#little hacckery as some gmx-completion* newlines ,so cat won't work
+	for x in "${ED}"usr/bin/gmx-completion{,?*}.bash ; do
+		echo $(<${x})
+	done > "${T}"/gmx-bashcomp || die
+	newbashcomp "${T}"/gmx-bashcomp gromacs
+	rm "${ED}"usr/bin/gmx-completion{,?*}.bash || die
 
 	readme.gentoo_create_doc
 }

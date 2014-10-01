@@ -10,7 +10,7 @@ DESCRIPTION="Windowed adaptive adaptor trimming tool for FASTQ data from Illumin
 HOMEPAGE="https://github.com/najoshi/sickle"
 EGIT_REPO_URI="https://github.com/najoshi/sickle"
 
-LICENSE="sickle"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""

@@ -18,15 +18,17 @@ if [[ -z ${PV%%*9999} ]]; then
 	ECVS_CVS_OPTIONS="-dP"
 	MY_P="${PN}"
 	SRC_URI=""
+	KEYWORDS=""
 else
 	MY_P="${P/_/.}"
 	SRC_URI="mirror://sourceforge/gnuplot/${MY_P}.tar.gz"
+	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris ~x64-solaris ~x86-solaris"
+	inherit autotools
 fi
 
 LICENSE="gnuplot bitmap? ( free-noncomm )"
 SLOT="0"
-KEYWORDS=""
-IUSE="aqua bitmap cairo doc examples +gd ggi latex libcaca lua qt4 readline svga wxwidgets X"
+IUSE="aqua bitmap cairo doc examples +gd ggi latex libcaca libcerf lua qt4 readline svga wxwidgets X"
 
 RDEPEND="
 	cairo? (
@@ -45,7 +47,7 @@ RDEPEND="
 		>=dev-qt/qtgui-4.5:4
 		>=dev-qt/qtsvg-4.5:4 )
 	readline? ( sys-libs/readline )
-	sci-libs/libcerf
+	libcerf? ( sci-libs/libcerf )
 	svga? ( media-libs/svgalib )
 	wxwidgets? (
 		x11-libs/wxGTK:2.8[X]
@@ -72,6 +74,9 @@ src_prepare() {
 		for dir in config demo m4 term tutorial; do
 			emake -C "$dir" -f Makefile.am.in Makefile.am
 		done
+		eautoreconf
+	else
+		epatch "${FILESDIR}/${PN}-5.0_rc1-libcerf.patch"
 		eautoreconf
 	fi
 
@@ -121,6 +126,7 @@ src_configure() {
 		"$(use_with ggi ggi "${EPREFIX}/usr/$(get_libdir)")" \
 		"$(use_with ggi xmi "${EPREFIX}/usr/$(get_libdir)")" \
 		"$(use_with libcaca caca "${EPREFIX}/usr/$(get_libdir)")" \
+		$(use_with libcerf) \
 		$(use_with lua) \
 		$(use_with svga linux-vga) \
 		$(use_with X x) \
@@ -144,7 +150,7 @@ src_compile() {
 	if use doc; then
 		# Avoid sandbox violation in epstopdf/ghostscript
 		addpredict /var/cache/fontconfig
-		emake -C docs pdf
+		emake -C docs gnuplot.pdf
 		emake -C tutorial pdf
 	fi
 }

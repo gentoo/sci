@@ -10,7 +10,8 @@ DESCRIPTION="Display read alignments in BAM files, is a part of Artemis"
 HOMEPAGE="http://bamview.sourceforge.net/"
 SRC_URI="http://bamview.sourceforge.net/v"${PV}"/BamView_v"${PV}".jar"
 
-LICENSE=""
+#http://www.ncbi.nlm.nih.gov/pubmed/20071372
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
 IUSE=""

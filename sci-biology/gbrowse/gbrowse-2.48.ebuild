@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit eutils perl-module webapp
 
@@ -37,7 +37,7 @@ S="${WORKDIR}/${MY_P}"
 # how about mod_fcgi and dev-libs/fcgi and mod_scgi?
 DEPEND="!!sci-biology/GBrowse
 	>=perl-core/Module-Build-0.380.0
-	>=dev-lang/perl-5.8.8
+	>=dev-lang/perl-5.8.8:=
 	dev-perl/Capture-Tiny
 	>=sci-biology/bioperl-1.6.901
 	>=dev-perl/GD-2.07

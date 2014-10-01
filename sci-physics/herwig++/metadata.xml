@@ -3,7 +3,7 @@
 <pkgmetadata>
 <herd>sci-physics</herd>
 <maintainer>
-  <email>piatlicki@gmail.com</email>
+  <email>jauhien@gentoo.org</email>
 </maintainer>
 <longdescription>
   Herwig++ is a completely new event generator, written in C++.

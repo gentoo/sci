@@ -21,12 +21,12 @@ DEPEND=">=dev-lang/ocaml-3.12.1[ocamlopt?]
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
-         OCAMLDIR=$(ocamlc -where)
+	OCAMLDIR=$(ocamlc -where)
 }
 
 src_prepare(){
-	sed -e "s:(OCAMLFIND) install:(OCAMLFIND) install -ldconf \$(INSTALLDIR)/ld.conf:g" \
-		-i ${S}/project.mak
+	sed -e 's:(OCAMLFIND) install:(OCAMLFIND) install -ldconf $(INSTALLDIR)/ld.conf:g' \
+		-i "${S}"/project.mak
 }
 
 src_configure(){
@@ -36,17 +36,15 @@ src_configure(){
 }
 
 src_compile(){
-	emake || die "emake failed"
-	if use doc; then
-		emake doc || die "emake doc failed"
-	fi
+	emake
+	use doc && emake doc
 }
 
 src_install(){
 	findlib_src_preinst
-	cp ${OCAMLDIR}/ld.conf ${D}/${OCAMLDIR}/ld.conf
-	emake install || die "emake install failed"
-	rm -f ${D}/${OCAMLDIR}/ld.conf
+	cp "${OCAMLDIR}"/ld.conf "${D}/${OCAMLDIR}"/ld.conf
+	emake install
+	rm -f "${D}/${OCAMLDIR}"/ld.conf
 	dodoc Changes README
 	use doc && dodoc -r html/
 }

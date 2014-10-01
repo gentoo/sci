@@ -4,7 +4,9 @@
 
 EAPI=5
 
-inherit eutils flag-o-matic fortran-2 toolchain-funcs versionator
+PYTHON_COMPAT=( python2_7 )
+
+inherit eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs versionator
 
 MY_P="${PN}-$(replace_version_separator _ -)"
 
@@ -49,6 +51,7 @@ RDEPEND="
 #	imagemagick? ( media-gfx/imagemagick )
 
 DEPEND="${RDEPEND}
+	${PYTHON_DEPS}
 	virtual/pkgconfig
 	dev-util/cmake
 "
@@ -66,6 +69,7 @@ S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
 	epatch "${FILESDIR}"/${P%_*}-disable-rpath.patch
+	sed -i -e 's%/usr/bin/env python%/usr/bin/env python2%' configure || die
 }
 
 src_configure() {
@@ -168,7 +172,7 @@ src_configure() {
 			/usr/include \
 			[-lcmumps,-ldmumps,-lsmumps,-lzmumps,-lmumps_common,-lpord]) \
 		--with-imagemagick=0 \
-		--with-python=0 \
+		--with-python=0
 
 # not yet tested:
 #		python bindings, netcdf
@@ -210,6 +214,10 @@ src_install() {
 	sed -i \
 		-e "s:"${S}"::g" \
 		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/include/petscconf.h \
+		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/conf/petscvariables || die
+	sed -i \
+		-e "s:-I/include:-I${EPREFIX}/usr/include/${PN}:g" \
+		-e "s:-I/linux-gnu-cxx-opt/include:-I${EPREFIX}/usr/include/${PN}/${PETSC_ARCH}/include/:g" \
 		"${ED}"/usr/include/${PN}/${PETSC_ARCH}/conf/petscvariables || die
 	sed -i \
 		-e "s:usr/lib:usr/$(get_libdir):g" \

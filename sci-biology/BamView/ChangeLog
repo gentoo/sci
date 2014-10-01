@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> +metadata.xml,
+  BamView-1.2.11.ebuild:
+  added metadata.xml
+
   24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   BamView-1.2.11.ebuild:
   dropped KEYWORDS
@@ -11,4 +15,3 @@
   24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   +BamView-1.2.11.ebuild:
   not sure if we need a separate package; is said to be part of Artemis bundle
-

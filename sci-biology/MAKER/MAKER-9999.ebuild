@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 DESCRIPTION="A genome annotation viewer and pipeline for small eukaryota and prokaryota"
 HOMEPAGE="http://www.yandell-lab.org/software/maker.html"
@@ -12,11 +12,10 @@ RESTRICT="fetch"
 
 # for academia: GPL-v2 or Artistic-2
 # for commercial: ask
-LICENSE=""
+LICENSE="|| ( GPL-2 Artistic-2 )"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}"
-
