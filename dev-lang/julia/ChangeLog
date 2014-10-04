@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Sep 2014; Mark Wright <gienah@gentoo.org> julia-9999.ebuild:
+  Add int64 use flag to julia-9999.ebuild. Depend on
+  >=virtual/blas-2.1-r2[int64?] and >=virtual/lapack-3.5-r2[int64?]. Fixes
+  dev-lang/julia wont compile against openblas -int64 #102.
+
   27 Aug 2014; François Bissey <francois.bissey@canterbury.ac.nz>
   julia-9999.ebuild:
   Bump dependency on llvm as in 0.3

@@ -13,6 +13,7 @@
   Algebra Subprogram (BLAS).
 </longdescription>
 <use>
+  <flag name="int64">Build the 64 bits integer library</flag>
   <flag name="xblas">Build LAPACK with extra precision (needs
   <pkg>sci-libs/xblas</pkg>)</flag>
 </use>

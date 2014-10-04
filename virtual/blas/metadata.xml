@@ -6,4 +6,8 @@
   Gentoo virtual package for the Basic Linear Algebra Subprograms
   FORTRAN 77 implementation.
 </longdescription>
+<use>
+  <flag name="int64">Add eselect module for blas libraries built with 64 bits
+  integer ABI</flag>
+</use>
 </pkgmetadata>
