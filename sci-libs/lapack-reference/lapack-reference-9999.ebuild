@@ -173,12 +173,12 @@ src_configure() {
 		)
 		if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
 			mycmakeargs+=(
-				-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS) -fdefault-integer-8"
+				-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS) -fdefault-integer-8 ${FCFLAGS}"
 				-DLAPACK_PKGCONFIG_FFLAGS="-fdefault-integer-8"
 			)
 		else
 			mycmakeargs+=(
-				-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS)"
+				-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS) ${FCFLAGS}"
 				-DLAPACK_PKGCONFIG_FFLAGS=""
 			)
 		fi
