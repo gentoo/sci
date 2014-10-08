@@ -17,9 +17,10 @@ IUSE="doc int64"
 
 RDEPEND="
 	|| (
-		>=sci-libs/lapack-reference-${PV}
+		>=sci-libs/lapack-reference-${PV}[int64?]
 		>=sci-libs/atlas-3.10.1[lapack]
 	)
+	int64? ( >=sci-libs/lapack-reference-${PV}[int64] )
 	doc? ( >=app-doc/lapack-docs-3.3 )"
 DEPEND=""
 
