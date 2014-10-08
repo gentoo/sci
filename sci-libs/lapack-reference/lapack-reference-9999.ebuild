@@ -32,7 +32,6 @@ IUSE="int64 static-libs test xblas"
 
 RDEPEND="
 	>=virtual/blas-2.1-r1[int64?]
-	>=virtual/lapack-3.5-r2[int64?]
 	xblas? ( sci-libs/xblas[fortran] )"
 
 DEPEND="${RDEPEND}

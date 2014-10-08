@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
 
+  08 Oct 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
+  lapack-reference-9999.ebuild:
+  The circular dependency on virtual/lapack removed.
+
   06 Oct 2014; Justin Lecher <jlec@gentoo.org> lapack-reference-9999.ebuild,
   metadata.xml:
   respect flags
