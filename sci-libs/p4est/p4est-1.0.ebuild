@@ -42,7 +42,7 @@ AUTOTOOLS_AUTORECONF=true
 src_prepare() {
 	# Inject libsc to get  all parts of the build system...
 	rmdir "${S}/sc" || die "rmdir failed"
-	mv "${WORKDIR}/libsc-1.0" "${S}/sc" || die "mv failed"
+	mv "${WORKDIR}/libsc-${PV}" "${S}/sc" || die "mv failed"
 
 	# Inject a version number into the build system
 	echo "${PV}" > ${S}/.tarball-version
@@ -60,7 +60,6 @@ src_prepare() {
 }
 
 src_configure() {
-	T_SC_DIR/
 	# Somehow --with-sc=$EPREFIX/usr does not work...
 	LDFLAGS="${LDFLAGS} -lsc"
 
