@@ -23,7 +23,7 @@ IUSE="debug doc examples mpi romio static-libs +vtk-binary"
 REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
-	>=sci-libs/libsc-1.0
+	>=sci-libs/libsc-1.0[mpi,romio]
 	dev-lang/lua
 	sys-apps/util-linux
 	virtual/blas
@@ -32,6 +32,7 @@ RDEPEND="
 
 DEPEND="
 	${RDEPEND}
+	sys-devel/automake:1.11
 	virtual/pkgconfig"
 
 DOCS=( AUTHORS NEWS README )

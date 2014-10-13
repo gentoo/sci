@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Oct 2014; Matthias Maier <tamiko@gentoo.org> p4est-1.0.ebuild:
+  sci-libs/p4est: Fix build dependencies
+
 *p4est-1.1 (13 Oct 2014)
 
   13 Oct 2014; Matthias Maier <tamiko@gentoo.org> +p4est-1.1.ebuild,
