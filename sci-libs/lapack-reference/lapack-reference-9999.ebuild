@@ -79,6 +79,7 @@ src_configure() {
 		local libname="${profname//-/_}"
 		local blas_profname=$(fortran-int64_get_blas_profname)
 		local xblas_profname=$(fortran-int64_get_xblas_profname)
+		local xblas_libname="${xblas_profname//-/_}"
 		local blas_requires="${blas_profname}"
 		use xblas && \
 			blas_requires+=" ${xblas_profname}"
@@ -94,6 +95,7 @@ src_configure() {
 			-DCMAKE_CXX_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) ${CXXFLAGS}"
 			-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS) $(fortran-int64_get_fortran_int64_abi_fflags) ${FCFLAGS}"
 			-DLAPACK_PKGCONFIG_FFLAGS="$(fortran-int64_get_fortran_int64_abi_fflags)"
+			-DXBLAS_LIBRARY:FILEPATH="${ROOT}usr/$(get_libdir)/lib${xblas_libname}.so"
 		)
 		if $(fortran-int64_is_static_build); then
 			mycmakeargs+=(

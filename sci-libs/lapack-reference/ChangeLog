@@ -3,6 +3,12 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
 
   13 Oct 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
+  Specify the xblas library location to cmake -
+  sci-libs/lapack-reference-9999::science USE="int64 static-libs {test*}
+  xblas*" ABI_X86="32 (64) (-x32)" builds and passes tests with eselect blas
+  show = reference
+
+  13 Oct 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
   Refactor to lapack-reference use the fortran-int64.eclass. Add the virtual to
   PDEPEND. Call fortran-int64_ensure_blas to check the blas pkg-config file is
   available, and the blas-int64 pkg-config file if the int64 USE flag is
