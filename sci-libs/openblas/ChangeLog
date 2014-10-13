@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Oct 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  Refactor openblas to use the fortran-int64.eclass. Move the virtuals from
+  RDEPEND to PDEPEND to avoid circular dependencies. Specify the pkg-config
+  module name in openblas
+
   13 Sep 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
   Remove the setting of the FC and F77 environment variables, instead sed the
   COMMON_OPT in Makefile.rule to include the $(get_abi_CFLAGS). Add
