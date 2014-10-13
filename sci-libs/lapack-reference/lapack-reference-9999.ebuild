@@ -136,7 +136,7 @@ src_prepare() {
 		SRC/CMakeLists.txt || die
 	sed -i \
 		-e 's:-llapack:-l${LIBNAME}:g' \
-		-e 's/Requires: blas/Requires: ${BLAS_PROFNAME}\nFflags=${LAPACK_PKGCONFIG_FFLAGS}/' \
+		-e 's/Requires: blas/Requires: ${BLAS_PROFNAME} ${XBLASPC}\nFflags=${LAPACK_PKGCONFIG_FFLAGS}/' \
 		lapack.pc.in || die
 	# some string does not get passed properly
 	sed -i \
@@ -146,12 +146,6 @@ src_prepare() {
 	sed -i \
 		-e '/lapack_install_library(tmglib)/d' \
 		TESTING/MATGEN/CMakeLists.txt || die
-	# if xblas is used add it in the .pc file
-	if use xblas ; then
-		sed -i \
-			-e '/Requires/s:blas:blas xblas:' \
-			lapack.pc.in || die
-	fi
 }
 
 src_configure() {
@@ -160,6 +154,7 @@ src_configure() {
 		local profname=$(get_profname)
 		local libname="${profname//-/_}"
 		local blas_profname=$(get_blas_profname)
+		local xblaspc=""
 		local mycmakeargs=(
 			-DPROFNAME="${profname}"
 			-DBLAS_PROFNAME="${blas_profname}"
@@ -167,18 +162,23 @@ src_configure() {
 			-DUSE_OPTIMIZED_BLAS=ON
 			-DBLAS_LIBRARIES="$($(tc-getPKG_CONFIG) --libs ${blas_profname})"
 			$(cmake-utils_use_build test TESTING)
-			$(cmake-utils_use_use xblas XBLAS)
 			$@
 		)
+		# xblas is only available for 32bit integers
 		if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
 			mycmakeargs+=(
 				-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS) -fdefault-integer-8 ${FCFLAGS}"
 				-DLAPACK_PKGCONFIG_FFLAGS="-fdefault-integer-8"
+				-DXBLASPC=""
+				-DUSE_XBLAS=OFF
 			)
 		else
+			use xblas && xblaspc="xblas"
 			mycmakeargs+=(
 				-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS) ${FCFLAGS}"
 				-DLAPACK_PKGCONFIG_FFLAGS=""
+				-DXBLASPC="${xblaspc}"
+				$(cmake-utils_use_use xblas XBLAS)
 			)
 		fi
 		if [[ "${MULTIBUILD_ID}" =~ "_${STATIC_SUFFIX}" ]]; then
