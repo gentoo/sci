@@ -25,13 +25,25 @@ esac
 inherit multilib-build toolchain-funcs
 
 # @ECLASS-VARIABLE: EBASE_PROFNAME
-# @DESCRIPTION:
+# @DESCRIPTION: The base pkg-config module name of the package being built.
+# EBASE_PROFNAME is used by the fortran-int64_get_profname function to
+# determine the pkg-config module name based on whether the package
+# has dynamic, threads or openmp USE flags and if so, if the user has
+# turned them or, and if the current multibuild is a int64 build or not.
+# @CODE
+# EBASE_PROFNAME="openblas"
+# inherit ... fortran-int64
+# @CODE
 : ${EBASE_PROFNAME:=blas}
 
 # @ECLASS-VARIABLE: ESTATIC_MULTIBUILD
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # If this is set, then do separate static multibuilds.
+# @CODE
+# ESTATIC_MULTIBUILD=1
+# inherit ... fortran-int64
+# @CODE
 
 INT64_SUFFIX="int64"
 STATIC_SUFFIX="static"
