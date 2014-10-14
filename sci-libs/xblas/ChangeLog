@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Oct 2014; Mark Wright <gienah@gentoo.org> xblas-1.0.248-r1.ebuild:
+  Thanks to tamiko for testing and the fix to the problem: sci-libs/xblas is
+  missing sys-devel/m4 as build time dependency (at least the configure script
+  checks for it and barfs).
+
 *xblas-1.0.248-r1 (13 Oct 2014)
 
   13 Oct 2014; Mark Wright <gienah@gentoo.org> +xblas-1.0.248-r1.ebuild,

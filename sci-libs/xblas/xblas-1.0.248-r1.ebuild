@@ -17,7 +17,8 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc fortran int64 static-libs"
 
 RDEPEND="fortran? ( virtual/fortran )"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	sys-devel/m4"
 
 static_to_shared() {
 	local libstatic=${1}; shift
