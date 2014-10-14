@@ -39,7 +39,7 @@ RDEPEND="
 	mpi? ( virtual/mpi )
 	mumps? ( sci-libs/mumps[mpi] )
 	netcdf? ( || ( <sci-libs/netcdf-4.2[cxx] sci-libs/netcdf-cxx ) )
-	p4est? ( <sci-libs/p4est-0.3.5[mpi] )
+	p4est? ( sci-libs/p4est[mpi] )
 	parameter_gui? ( dev-qt/qtgui )
 	petsc? ( sci-mathematics/petsc[mpi=] )
 	sparse? ( sci-libs/umfpack )
@@ -53,6 +53,10 @@ DEPEND="
 	virtual/pkgconfig
 	doc? ( app-doc/doxygen[dot] dev-lang/perl )
 "
+
+src_prepare() {
+	epatch "${FILESDIR}"/dealii-8.1.0-p4est1.0-support.patch
+}
 
 src_configure() {
 
