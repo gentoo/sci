@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
 
+  14 Oct 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
+  Thanks to tamiko for testing - the earlier fix for xblas,
+  -DXBLAS_LIBRARY:FILEPATH="${ROOT}usr/$(get_libdir)/lib${xblas_libname}.so",
+  breaks the build with USE=-xblas, so only do this when use xblas.
+
   13 Oct 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
   Specify the xblas library location to cmake -
   sci-libs/lapack-reference-9999::science USE="int64 static-libs {test*}

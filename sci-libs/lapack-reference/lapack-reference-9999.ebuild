@@ -33,8 +33,8 @@ SLOT="0"
 IUSE="int64 static-libs test xblas"
 
 RDEPEND="
-	>=virtual/blas-2.1-r1[int64?]
-	xblas? ( sci-libs/xblas[fortran] )"
+	>=virtual/blas-2.1-r3[int64?]
+	xblas? ( sci-libs/xblas[fortran,int64?] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 PDEPEND="
@@ -95,8 +95,9 @@ src_configure() {
 			-DCMAKE_CXX_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) ${CXXFLAGS}"
 			-DCMAKE_Fortran_FLAGS="$($(tc-getPKG_CONFIG) --cflags ${blas_profname}) $(get_abi_CFLAGS) $(fortran-int64_get_fortran_int64_abi_fflags) ${FCFLAGS}"
 			-DLAPACK_PKGCONFIG_FFLAGS="$(fortran-int64_get_fortran_int64_abi_fflags)"
-			-DXBLAS_LIBRARY:FILEPATH="${ROOT}usr/$(get_libdir)/lib${xblas_libname}.so"
 		)
+		use xblas && \
+			mycmakeargs+=( -DXBLAS_LIBRARY:FILEPATH="${ROOT}usr/$(get_libdir)/lib${xblas_libname}.so" )
 		if $(fortran-int64_is_static_build); then
 			mycmakeargs+=(
 				-DBUILD_SHARED_LIBS=OFF
