@@ -3,6 +3,10 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
 
   14 Oct 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
+  Thanks to kiwifb for reviewing and the fix: change ROOT to EROOT to support
+  Gentoo prefix.
+
+  14 Oct 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
   Thanks to tamiko for testing - the earlier fix for xblas,
   -DXBLAS_LIBRARY:FILEPATH="${ROOT}usr/$(get_libdir)/lib${xblas_libname}.so",
   breaks the build with USE=-xblas, so only do this when use xblas.

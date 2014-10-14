@@ -97,7 +97,7 @@ src_configure() {
 			-DLAPACK_PKGCONFIG_FFLAGS="$(fortran-int64_get_fortran_int64_abi_fflags)"
 		)
 		use xblas && \
-			mycmakeargs+=( -DXBLAS_LIBRARY:FILEPATH="${ROOT}usr/$(get_libdir)/lib${xblas_libname}.so" )
+			mycmakeargs+=( -DXBLAS_LIBRARY:FILEPATH="${EROOT}usr/$(get_libdir)/lib${xblas_libname}.so" )
 		if $(fortran-int64_is_static_build); then
 			mycmakeargs+=(
 				-DBUILD_SHARED_LIBS=OFF
