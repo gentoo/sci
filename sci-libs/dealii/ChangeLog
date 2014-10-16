@@ -2,6 +2,13 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*dealii-8.1.0-r1 (14 Oct 2014)
+
+  14 Oct 2014; Matthias Maier <tamiko@gentoo.org> +dealii-8.1.0-r1.ebuild,
+  +files/dealii-8.1.0-p4est1.0-support.patch, -dealii-8.0.0.ebuild,
+  -dealii-8.1.0.ebuild:
+  fix p4est dependency; drop old
+
   24 Jul 2014; Matthias Maier <tamiko@gentoo.org> dealii-9999.ebuild,
   metadata.xml:
   Update repository to github, fix readme file change, add forgotten use-flag to
