@@ -45,7 +45,7 @@ src_unpack() {
 python_prepare_all() {
 	sed \
 		-e "s:\"/usr:\"${EPREFIX}/usr:g" \
-		-e "/ext_comp_args/s:=\[.*\]$:= \[\]:g" \
+		-e "/ext_comp_args.*+=/s:\[.*\]$:\[\]:g" \
 		-e "/import/s:argparse:argparseX:g" \
 		-i setup.py || die
 
@@ -84,7 +84,9 @@ python_install_all() {
 	doenvd "${T}"/20pymol
 
 	newicon "${WORKDIR}"/${PN}-1.7.0.0.png ${PN}.png
-	make_desktop_entry pymol PyMol ${PN} "Graphics;Education;Science;Chemistry" "MimeType=chemical/x-pdb;"
+	make_desktop_entry ${PN} PyMol ${PN} \
+		"Graphics;Education;Science;Chemistry;" \
+		"MimeType=chemical/x-pdb;chemical/x-mdl-molfile;chemical/x-mol2;chemical/seq-aa-fasta;chemical/seq-na-fasta;chemical/x-xyz;chemical/x-mdl-sdf;"
 
 	if ! use web; then
 		rm -rf "${D}/$(python_get_sitedir)/web" || die
