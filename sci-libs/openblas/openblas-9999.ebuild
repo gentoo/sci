@@ -4,7 +4,8 @@
 
 EAPI=5
 
-inherit alternatives-2 eutils fortran-2 multibuild multilib-build toolchain-funcs
+EBASE_PROFNAME="openblas"
+inherit alternatives-2 eutils fortran-2 multibuild multilib-build toolchain-funcs fortran-int64
 
 SRC_URI+="http://dev.gentoo.org/~gienah/distfiles/${PN}-0.2.11-gentoo.patch"
 if [[ ${PV} == "9999" ]] ; then
@@ -23,14 +24,12 @@ LICENSE="BSD"
 SLOT="0"
 IUSE="dynamic int64 openmp static-libs threads"
 
-RDEPEND="
-	>=virtual/blas-2.1-r2[int64?]
-	>=virtual/cblas-2.0-r1[int64?]"
+RDEPEND=""
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
-
-INT64_SUFFIX="int64"
-BASE_PROFNAME="openblas"
+PDEPEND="
+	>=virtual/blas-2.1-r2[int64?]
+	>=virtual/cblas-2.0-r1[int64?]"
 
 MULTILIB_WRAPPED_HEADERS=(
 	/usr/include/openblas/cblas.h
@@ -42,9 +41,8 @@ get_openblas_flags() {
 	local openblas_flags=""
 	use dynamic && \
 		openblas_flags+=" DYNAMIC_ARCH=1 TARGET=GENERIC NUM_THREADS=64 NO_AFFINITY=1"
-	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
+	$(fortran-int64_is_int64_build) && \
 		openblas_flags+=" INTERFACE64=1 LIBNAMESUFFIX=${INT64_SUFFIX}"
-	fi
 	# choose posix threads over openmp when the two are set
 	# yet to see the need of having the two profiles simultaneously
 	if use threads; then
@@ -62,98 +60,9 @@ get_openblas_abi_cflags() {
 	else
 		openblas_abi_cflags="-DOPENBLAS_ARCH_X86_64=1 -DOPENBLAS___64BIT__=1"
 	fi
-	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
+	$(fortran-int64_is_int64_build) && \
 		openblas_abi_cflags+=" -DOPENBLAS_USE64BITINT"
-	fi
 	echo "${openblas_abi_cflags}"
-}
-
-get_openblas_abi_fflags() {
-	local openblas_abi_fflags=""
-	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
-		openblas_abi_fflags+="-fdefault-integer-8"
-	fi
-	echo "${openblas_abi_fflags}"
-}
-
-get_profname() {
-	local profname="${BASE_PROFNAME}"
-	use dynamic && \
-		profname+="-dynamic"
-	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
-		profname+="-${INT64_SUFFIX}"
-	fi
-	# choose posix threads over openmp when the two are set
-	# yet to see the need of having the two profiles simultaneously
-	if use threads; then
-		profname+="-threads"
-	elif use openmp; then
-		profname+="-openmp"
-	fi
-	echo "${profname}"
-}
-
-get_blas_module() {
-	local module_name="blas"
-	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
-		module_name+="-${INT64_SUFFIX}"
-	fi
-	echo "${module_name}"
-}
-
-get_cblas_module() {
-	local module_name="cblas"
-	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
-		module_name+="-${INT64_SUFFIX}"
-	fi
-	echo "${module_name}"
-}
-
-get_openblas_libname() {
-	local libname="${BASE_PROFNAME}"
-	if [[ "${MULTIBUILD_ID}" =~ "_${INT64_SUFFIX}" ]]; then
-		libname+="_${INT64_SUFFIX}"
-	fi
-	echo "${libname}"
-}
-
-int64_multilib_get_enabled_abis() {
-	local MULTILIB_VARIANTS=( $(multilib_get_enabled_abis) )
-	local MULTIBUILD_VARIANTS=( )
-	for i in "${MULTILIB_VARIANTS[@]}"; do
-		if use int64 && [[ "${i}" =~ 64$ ]]; then
-			MULTIBUILD_VARIANTS+=( "${i}_${INT64_SUFFIX}" )
-		fi
-		MULTIBUILD_VARIANTS+=( "${i}" )
-	done
-	echo "${MULTIBUILD_VARIANTS[@]}"
-}
-
-# @FUNCTION: _int64_multilib_multibuild_wrapper
-# @USAGE: <argv>...
-# @INTERNAL
-# @DESCRIPTION:
-# Initialize the environment for ABI selected for multibuild.
-_int64_multilib_multibuild_wrapper() {
-	debug-print-function ${FUNCNAME} "${@}"
-
-	local ABI="${MULTIBUILD_VARIANT/_${INT64_SUFFIX}/}"
-	multilib_toolchain_setup "${ABI}"
-	"${@}"
-}
-
-# @FUNCTION: int64_multilib_copy_sources
-# @DESCRIPTION:
-# Create a single copy of the package sources for each enabled ABI.
-#
-# The sources are always copied from initial BUILD_DIR (or S if unset)
-# to ABI-specific build directory matching BUILD_DIR used by
-# multilib_foreach_abi().
-int64_multilib_copy_sources() {
-	debug-print-function ${FUNCNAME} "${@}"
-
-	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
-	multibuild_copy_sources
 }
 
 src_unpack() {
@@ -169,6 +78,7 @@ src_unpack() {
 }
 
 src_prepare() {
+	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
 	epatch "${DISTDIR}/${PN}-0.2.11-gentoo.patch"
 	if [[ ${PV} != "9999" ]] ; then
 		epatch "${FILESDIR}/${PN}-0.2.11-cpuid_x86.patch"
@@ -179,12 +89,11 @@ src_prepare() {
 		-e "s:^#\s*\(NO_LAPACK\)\s*=.*:\1=1:" \
 		-e "s:^#\s*\(NO_LAPACKE\)\s*=.*:\1=1:" \
 		-i Makefile.rule || die
-	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
-	int64_multilib_copy_sources
+	multibuild_copy_sources
 }
 
 src_configure() {
-	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
+	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
 	my_configure() {
 		local openblas_abi_cflags="$(get_openblas_abi_cflags)"
 		local internal_openblas_abi_cflags="${openblas_abi_cflags//OPENBLAS_}"
@@ -194,17 +103,17 @@ src_configure() {
 			-e "s:^#\s*\(COMMON_OPT\)\s*=.*:\1=${CFLAGS} ${internal_openblas_abi_cflags}:" \
 			-i Makefile.rule || die
 	}
-	multibuild_foreach_variant run_in_build_dir _int64_multilib_multibuild_wrapper my_configure
+	multibuild_foreach_variant run_in_build_dir fortran-int64_multilib_multibuild_wrapper my_configure
 }
 
 src_compile() {
-	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
+	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
 	# openblas already does multi-jobs
 	MAKEOPTS+=" -j1"
 	my_src_compile () {
 		local openblas_flags=$(get_openblas_flags)
-		local profname=$(get_profname)
-		local libname=$(get_openblas_libname)
+		local profname=$(fortran-int64_get_profname)
+		local libname="${profname//-/_}"
 		einfo "Compiling profile ${profname}"
 		# cflags already defined twice
 		unset CFLAGS
@@ -221,7 +130,7 @@ src_compile() {
 			prefix=${EPREFIX}/usr
 			libdir=\${prefix}/$(get_libdir)
 			includedir=\${prefix}/include
-			Name: ${PN}
+			Name: ${profname}
 			Description: ${DESCRIPTION}
 			Version: ${PV}
 			URL: ${HOMEPAGE}
@@ -229,30 +138,30 @@ src_compile() {
 			Libs.private: -lm
 		EOF
 		local openblas_abi_cflags=$(get_openblas_abi_cflags)
-		local openblas_abi_fflags=$(get_openblas_abi_fflags)
+		local openblas_abi_fflags=$(fortran-int64_get_fortran_int64_abi_fflags)
 		cat <<-EOF >> ${profname}.pc
 			Cflags: -I\${includedir}/${PN} ${openblas_abi_cflags}
 			Fflags=${openblas_abi_fflags}
 		EOF
 		mv libs/libopenblas* . || die
 	}
-	multibuild_foreach_variant run_in_build_dir _int64_multilib_multibuild_wrapper my_src_compile
+	multibuild_foreach_variant run_in_build_dir fortran-int64_multilib_multibuild_wrapper my_src_compile
 }
 
 src_test() {
-	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
+	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
 	my_src_test () {
 		local openblas_flags=$(get_openblas_flags)
 		emake tests ${openblas_flags}
 	}
-	multibuild_foreach_variant run_in_build_dir _int64_multilib_multibuild_wrapper my_src_test
+	multibuild_foreach_variant run_in_build_dir fortran-int64_multilib_multibuild_wrapper my_src_test
 }
 
 src_install() {
-	local MULTIBUILD_VARIANTS=( $(int64_multilib_get_enabled_abis) )
+	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
 	my_src_install() {
 		local openblas_flags=$(get_openblas_flags)
-		local profname=$(get_profname)
+		local profname=$(fortran-int64_get_profname)
 		local pcfile
 		for pcfile in *.pc; do
 			local profname=${pcfile%.pc}
@@ -271,10 +180,10 @@ src_install() {
 				OPENBLAS_INCLUDE_DIR="${ED}"usr/include/${PN} \
 				OPENBLAS_LIBRARY_DIR="${ED}"usr/$(get_libdir)
 			use static-libs || rm "${ED}"usr/$(get_libdir)/lib*.a
-			alternatives_for $(get_blas_module) ${profname} 0 \
-				/usr/$(get_libdir)/pkgconfig/$(get_blas_module).pc ${pcfile}
-			alternatives_for $(get_cblas_module) ${profname} 0 \
-				/usr/$(get_libdir)/pkgconfig/$(get_cblas_module).pc ${pcfile} \
+			alternatives_for $(fortran-int64_get_blas_provider) ${profname} 0 \
+				/usr/$(get_libdir)/pkgconfig/$(fortran-int64_get_blas_provider).pc ${pcfile}
+			alternatives_for $(fortran-int64_get_cblas_provider) ${profname} 0 \
+				/usr/$(get_libdir)/pkgconfig/$(fortran-int64_get_cblas_provider).pc ${pcfile} \
 				/usr/include/cblas.h ${PN}/cblas.h
 			insinto /usr/$(get_libdir)/pkgconfig
 			doins ${pcfile}
@@ -294,7 +203,7 @@ src_install() {
 			multilib_check_headers
 		fi
 	}
-	multibuild_foreach_variant run_in_build_dir _int64_multilib_multibuild_wrapper my_src_install
+	multibuild_foreach_variant run_in_build_dir fortran-int64_multilib_multibuild_wrapper my_src_install
 	multilib_install_wrappers
 
 	dodoc GotoBLAS_{01Readme,03FAQ,04FAQ,05LargePage,06WeirdPerformance}.txt

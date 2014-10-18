@@ -2,6 +2,35 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-libs/lapack-reference/ChangeLog,v 1.51 2010/10/02 20:49:51 grobian Exp $
 
+  14 Oct 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
+  Thanks to kiwifb for reviewing and the fix: change ROOT to EROOT to support
+  Gentoo prefix.
+
+  14 Oct 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
+  Thanks to tamiko for testing - the earlier fix for xblas,
+  -DXBLAS_LIBRARY:FILEPATH="${ROOT}usr/$(get_libdir)/lib${xblas_libname}.so",
+  breaks the build with USE=-xblas, so only do this when use xblas.
+
+  13 Oct 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
+  Specify the xblas library location to cmake -
+  sci-libs/lapack-reference-9999::science USE="int64 static-libs {test*}
+  xblas*" ABI_X86="32 (64) (-x32)" builds and passes tests with eselect blas
+  show = reference
+
+  13 Oct 2014; Mark Wright <gienah@gentoo.org> lapack-reference-9999.ebuild:
+  Refactor to lapack-reference use the fortran-int64.eclass. Add the virtual to
+  PDEPEND. Call fortran-int64_ensure_blas to check the blas pkg-config file is
+  available, and the blas-int64 pkg-config file if the int64 USE flag is
+  specified. Remove the sed -e /export/s:lapack::g line for CMakeLists.txt, as
+  I do not wish to change this line: "export(TARGETS ${ALL_TARGETS} FILE
+  lapack-targets.cmake)". Change the addition of the xblas library to the
+  Requires of the pkg-config file to allow for using an int64 build of xblas,
+  by renaming BLAS_PROFNAME to BLAS_REQUIRES then including xblas in the
+  -DBLAS_REQUIRES in src_configure. Try to fix
+  https://github.com/gentoo-science/sci/issues/275 and Bug 524830 -
+  sci-libs/arpack - configure: ld: cannot find -llapack_rs6k by calculating the
+  blas pkg-config file to add to the Requires - needs testing.
+
   08 Oct 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
   lapack-reference-9999.ebuild:
   The circular dependency on virtual/lapack removed.

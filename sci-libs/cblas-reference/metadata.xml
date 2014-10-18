@@ -12,4 +12,7 @@
   example. This packages implements the reference C library as a wrapper
   to the FORTRAN 77 BLAS library.
 </longdescription>
+  <use>
+    <flag name="int64">Build the 64 bits integer library</flag>
+  </use>
 </pkgmetadata>
