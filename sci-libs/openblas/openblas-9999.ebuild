@@ -125,6 +125,16 @@ src_compile() {
 			emake libs ${openblas_flags} NO_SHARED=1 NEED_PIC=
 			mv libopenblas* libs/
 		fi
+		# Fix Bug 524612 - [science overlay] sci-libs/openblas-0.2.11 - Assembler messages:
+		# ../kernel/x86_64/gemm_kernel_8x4_barcelona.S:451: Error: missing ')'
+		# The problem is applying this patch in src_prepare() causes build failures on
+		# assembler code as the assembler does not understand sizeof(float).  So
+		# delay applying the patch until after building the libraries.
+		epatch "${FILESDIR}/${PN}-0.2.11-openblas_config_header_same_between_ABIs.patch"
+		rm -f config.h config_last.h
+		# Note: prints this spurious warning: make: Nothing to be done for 'config.h'.
+		emake config.h
+		cp config.h config_last.h || die
 		cat <<-EOF > ${profname}.pc
 			prefix=${EPREFIX}/usr
 			libdir=\${prefix}/$(get_libdir)
@@ -159,12 +169,6 @@ src_test() {
 src_install() {
 	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
 	my_src_install() {
-		# Fix Bug 524612 - [science overlay] sci-libs/openblas-0.2.11 - Assembler messages:
-		# ../kernel/x86_64/gemm_kernel_8x4_barcelona.S:451: Error: missing ')'
-		# The problem is applying this patch in src_prepare() causes build failures on
-		# assembler code as the assembler does not understand sizeof(float).  So
-		# delay applying the patch until src_install().
-		epatch "${FILESDIR}/${PN}-0.2.11-openblas_config_header_same_between_ABIs.patch"
 		local openblas_flags=$(get_openblas_flags)
 		local profname=$(fortran-int64_get_profname)
 		local pcfile

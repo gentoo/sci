@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Oct 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  The fix for Bug 524612 failed in src_install building openblas from git. The
+  fix is to move applying the patch to src_compile after building the library,
+  then remove config.h and config_last.h; make config.h - ignoring the spurious
+  warning; then cp config.h to config_last.h.
+
 *openblas-0.2.12 (19 Oct 2014)
 
   19 Oct 2014; Mark Wright <gienah@gentoo.org> +openblas-0.2.12.ebuild,
