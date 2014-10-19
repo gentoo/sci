@@ -2,6 +2,19 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openblas-0.2.12 (19 Oct 2014)
+
+  19 Oct 2014; Mark Wright <gienah@gentoo.org> +openblas-0.2.12.ebuild,
+  openblas-9999.ebuild:
+  Fix Bug 524612 - [science overlay] sci-libs/openblas-0.2.11 - Assembler
+  messages: ../kernel/x86_64/gemm_kernel_8x4_barcelona.S:451: Error: missing
+  ')', thanks to Juergen Rose, Jean-Francis Roy and Steven Trogdon for
+  reporting. The problem was that applying the
+  -0.2.11-openblas_config_header_same_between_ABIs.patch patch in src_prepare()
+  causes build failures on assembler code as the assembler does not understand
+  sizeof(float). So delay applying the patch until src_install(). Bump openblas
+  to 0.2.12.
+
   13 Oct 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
   Refactor openblas to use the fortran-int64.eclass. Move the virtuals from
   RDEPEND to PDEPEND to avoid circular dependencies. Specify the pkg-config

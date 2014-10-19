@@ -80,10 +80,9 @@ src_unpack() {
 src_prepare() {
 	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
 	epatch "${DISTDIR}/${PN}-0.2.11-gentoo.patch"
-	if [[ ${PV} != "9999" ]] ; then
+	if [[ ${PV} == "0.2.11" ]] ; then
 		epatch "${FILESDIR}/${PN}-0.2.11-cpuid_x86.patch"
 	fi
-	epatch "${FILESDIR}/${PN}-0.2.11-openblas_config_header_same_between_ABIs.patch"
 	# lapack and lapacke are not modified from upstream lapack
 	sed \
 		-e "s:^#\s*\(NO_LAPACK\)\s*=.*:\1=1:" \
@@ -160,6 +159,12 @@ src_test() {
 src_install() {
 	local MULTIBUILD_VARIANTS=( $(fortran-int64_multilib_get_enabled_abis) )
 	my_src_install() {
+		# Fix Bug 524612 - [science overlay] sci-libs/openblas-0.2.11 - Assembler messages:
+		# ../kernel/x86_64/gemm_kernel_8x4_barcelona.S:451: Error: missing ')'
+		# The problem is applying this patch in src_prepare() causes build failures on
+		# assembler code as the assembler does not understand sizeof(float).  So
+		# delay applying the patch until src_install().
+		epatch "${FILESDIR}/${PN}-0.2.11-openblas_config_header_same_between_ABIs.patch"
 		local openblas_flags=$(get_openblas_flags)
 		local profname=$(fortran-int64_get_profname)
 		local pcfile
