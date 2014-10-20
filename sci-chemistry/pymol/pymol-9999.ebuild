@@ -39,6 +39,7 @@ RDEPEND="${DEPEND}"
 
 PATCHES=(
 	"${FILESDIR}"/${P}-options.patch
+	"${FILESDIR}"/${P}-listing.patch
 )
 
 src_unpack() {
