@@ -37,6 +37,10 @@ DEPEND="
 	web? ( !dev-python/webpy[${PYTHON_USEDEP}] )"
 RDEPEND="${DEPEND}"
 
+PATCHES=(
+	"${FILESDIR}"/${P}-options.patch
+)
+
 src_unpack() {
 	unpack ${A}
 	subversion_src_unpack

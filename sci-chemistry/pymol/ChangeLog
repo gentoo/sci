@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Oct 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
+  +files/pymol-9999-options.patch:
+  Fix upstream buildsystem
+
   17 Oct 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
   Import tree changes
 
