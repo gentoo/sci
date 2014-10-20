@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Oct 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  Thanks to kiwifb for reporting
+  https://github.com/gentoo-science/sci/issues/280 - Fix openblas: discrepancy
+  between installed libraries and .pc file.
+
   19 Oct 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
   The fix for Bug 524612 failed in src_install building openblas from git. The
   fix is to move applying the patch to src_compile after building the library,
