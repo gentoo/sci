@@ -42,13 +42,20 @@ get_openblas_flags() {
 	use dynamic && \
 		openblas_flags+=" DYNAMIC_ARCH=1 TARGET=GENERIC NUM_THREADS=64 NO_AFFINITY=1"
 	$(fortran-int64_is_int64_build) && \
-		openblas_flags+=" INTERFACE64=1 LIBNAMESUFFIX=${INT64_SUFFIX}"
+		openblas_flags+=" INTERFACE64=1"
 	# choose posix threads over openmp when the two are set
 	# yet to see the need of having the two profiles simultaneously
 	if use threads; then
 		openblas_flags+=" USE_THREAD=1 USE_OPENMP=0"
 	elif use openmp; then
 		openblas_flags+=" USE_THREAD=0 USE_OPENMP=1"
+	fi
+	local profname=$(fortran-int64_get_profname)
+	local libname="${profname//-/_}"
+	local underscoresuffix="${libname#${PN}}"
+	if [[ "${underscoresuffix}" != "_" ]]; then
+		local libnamesuffix="${underscoresuffix#_}"
+		openblas_flags+=" LIBNAMESUFFIX=${libnamesuffix}"
 	fi
 	echo "${openblas_flags}"
 }
