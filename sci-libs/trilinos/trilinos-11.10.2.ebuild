@@ -82,7 +82,7 @@ trilinos_enable() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${P}-fix-install-paths.patch
+	epatch "${FILESDIR}"/${PN}-11.4.2-fix-install-paths.patch
 }
 
 src_configure() {
