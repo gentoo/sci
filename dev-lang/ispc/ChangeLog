@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Oct 2014; Christoph Junghans <ottxor@gentoo.org> ispc-9999.ebuild:
+  sync with gx86
+
   12 May 2014; Christoph Junghans <ottxor@gentoo.org> ispc-9999.ebuild:
   sync with gx86
 
