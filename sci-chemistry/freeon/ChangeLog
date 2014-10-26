@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  26 Oct 2014; Justin Lecher <jlec@gentoo.org> ChangeLog:
+  Drop obsolete versions
+
   17 Sep 2014; Christoph Junghans <ottxor@gentoo.org> metadata.xml:
   updated metadata.xml
 
