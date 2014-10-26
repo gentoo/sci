@@ -11,4 +11,7 @@
   development of high quality linear algebra software, LAPACK for
   example. This packages implements the reference FORTRAN 77 library.
 </longdescription>
+  <use>
+    <flag name="int64">Build the 64 bits integer library</flag>
+  </use>
 </pkgmetadata>

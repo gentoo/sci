@@ -1,0 +1,10 @@
+# ChangeLog for layman/science
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  06 Sep 2014; Mark Wright <gienah@gentoo.org>
+  sci-libs/openblas/openblas-9999.ebuild, openblas-9999.ebuild,
+  +sci-libs/openblas/files/openblas-0.2.11-cpuid_x86.patch,
+  -sci-libs/openblas/files/openblas-9999-cpuid_x86.patch:
+  openblas-0.2.11 requires the cpuid_x86 patch
+

@@ -20,7 +20,6 @@ IUSE="debug examples mpi romio static-libs"
 REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
-	!<sci-libs/p4est-1.0
 	dev-lang/lua
 	sys-apps/util-linux
 	virtual/blas

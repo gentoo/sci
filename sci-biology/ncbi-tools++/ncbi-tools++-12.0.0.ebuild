@@ -57,7 +57,7 @@ DEPEND="
 	xerces? ( dev-libs/xerces-c )
 	xalan? ( dev-libs/xalan-c )
 	muparser? ( dev-cpp/muParser )
-	hdf5? ( sci-libs/hdf5 )
+	hdf5? ( sci-libs/hdf5[cxx] )
 	gif? ( media-libs/giflib )
 	jpeg? ( virtual/jpeg )
 	png? ( media-libs/libpng )
@@ -212,7 +212,6 @@ src_configure() {
 #	--with-included-sss
 	--with-z="${EPREFIX}/usr"
 	--with-bz2="${EPREFIX}/usr"
-	--with-muparser="${EPREFIX}/usr"
 	--without-sybase
 	--with-autodep
 #	--with-3psw=std:netopt favor standard (system) builds of the above pkgs
@@ -222,13 +221,14 @@ src_configure() {
 	$(use_with static-libs static)
 	$(use_with static static-exe)
 	$(use_with threads mt)
-	$(use_with prefix runpath "${EPREFIX}/usr/$(get_libdir)/ncbi_cxx")
+	$(use_with prefix runpath "${EPREFIX}/usr/$(get_libdir)/${PN}")
 	$(use_with test check)
 	$(use_with pch)
 	$(use_with lzo lzo "${EPREFIX}/usr")
 	$(use_with pcre pcre "${EPREFIX}/usr")
 	$(use_with gnutls gnutls "${EPREFIX}/usr")
 	$(use_with mysql mysql "${EPREFIX}/usr")
+	$(use_with muparser muparser "${EPREFIX}/usr")
 	$(usex fltk --with-fltk="${EPREFIX}/usr" "")
 	$(use_with opengl opengl "${EPREFIX}/usr")
 	$(use_with mesa mesa "${EPREFIX}/usr")

@@ -2,6 +2,15 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  25 Oct 2014; Matthias Maier <tamiko@gentoo.org> root-5.34.18-r2.ebuild,
+  root-6.00.01-r1.ebuild, root-6.00.02.ebuild, root-9999.ebuild:
+  sci-physics/root: Fix compilation with USE="mysql" wrt bug #523996; fix
+  die_compiler message
+
+  29 Sep 2014; Justin Lecher <jlec@gentoo.org> root-6.00.02.ebuild,
+  +files/root-6.00.02-tm_zone.patch, metadata.xml:
+  Backport fix for build failure
+
 *root-5.34.18-r2 (06 Jul 2014)
 
   06 Jul 2014; Andrew Savchenko <bircoph@gmail.com> +root-5.34.18-r2.ebuild,

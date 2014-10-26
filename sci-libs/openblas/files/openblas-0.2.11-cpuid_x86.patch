@@ -1,0 +1,27 @@
+--- openblas-9999-orig/cpuid_x86.c	2014-02-23 15:25:22.199394761 +1100
++++ openblas-9999/cpuid_x86.c	2014-02-23 16:41:02.727372869 +1100
+@@ -57,9 +57,23 @@
+ void cpuid(int op, int *eax, int *ebx, int *ecx, int *edx);
+ #else
+ static inline void cpuid(int op, int *eax, int *ebx, int *ecx, int *edx){
++#if __x86_64
+   __asm__ __volatile__
+     ("cpuid": "=a" (*eax), "=b" (*ebx), "=c" (*ecx), "=d" (*edx) : "a" (op) : "cc");
+-
++#else
++  __asm volatile(
++    "push %%ebx\n\t"
++    "cpuid\n\t"
++    "mov %%ebx, (%4)\n\t"
++    "pop %%ebx"
++    :"=a" (*eax),
++    "=c" (*ecx),
++    "=d" (*edx)
++    :"a" (op),
++    "cc"
++    "S" (ebx)
++    :"memory");
++#endif
+ }
+ #endif
+ 

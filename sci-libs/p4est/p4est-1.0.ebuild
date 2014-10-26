@@ -23,7 +23,7 @@ IUSE="debug doc examples mpi romio static-libs +vtk-binary"
 REQUIRED_USE="romio? ( mpi )"
 
 RDEPEND="
-	>=sci-libs/libsc-1.0
+	>=sci-libs/libsc-1.0[mpi,romio]
 	dev-lang/lua
 	sys-apps/util-linux
 	virtual/blas
@@ -32,6 +32,7 @@ RDEPEND="
 
 DEPEND="
 	${RDEPEND}
+	sys-devel/automake:1.11
 	virtual/pkgconfig"
 
 DOCS=( AUTHORS NEWS README )
@@ -42,7 +43,7 @@ AUTOTOOLS_AUTORECONF=true
 src_prepare() {
 	# Inject libsc to get  all parts of the build system...
 	rmdir "${S}/sc" || die "rmdir failed"
-	mv "${WORKDIR}/libsc-1.0" "${S}/sc" || die "mv failed"
+	mv "${WORKDIR}/libsc-${PV}" "${S}/sc" || die "mv failed"
 
 	# Inject a version number into the build system
 	echo "${PV}" > ${S}/.tarball-version
@@ -60,7 +61,6 @@ src_prepare() {
 }
 
 src_configure() {
-	T_SC_DIR/
 	# Somehow --with-sc=$EPREFIX/usr does not work...
 	LDFLAGS="${LDFLAGS} -lsc"
 

@@ -14,8 +14,7 @@ if [[ $PV = 9999 ]]; then
 	EGIT_REPO_URI="https://github.com/icnc/icnc.git"
 	KEYWORDS=
 else
-	#SRC_URI="mirror://sourceforge/${PN}/${PV}/l_cnc_b_${PV}.tgz"
-	SRC_URI="https://github.com/martine/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+	SRC_URI="https://github.com/${PN}/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64"
 fi
 
@@ -24,7 +23,7 @@ SLOT="0"
 IUSE=""
 
 DEPEND="
-	>=dev-cpp/tbb-4.2[debug]
+	>=dev-cpp/tbb-4.2
 	sys-libs/glibc
 	"
 RDEPEND="${DEPEND}"

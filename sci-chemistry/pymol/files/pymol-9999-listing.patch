@@ -1,0 +1,17 @@
+ pymol/modules/pymol/plugins/repository.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/pymol/modules/pymol/plugins/repository.py b/pymol/modules/pymol/plugins/repository.py
+index 9697f68..9820fac 100644
+--- a/pymol/modules/pymol/plugins/repository.py
++++ b/pymol/modules/pymol/plugins/repository.py
+@@ -182,7 +182,8 @@ class GithubRepository(HttpRepository):
+ 
+     def fetchjson(self, url):
+         handle = urlopen('https://api.github.com' + url)
+-        return eval(handle.read())
++        ret = handle.read().replace("false", "False")
++        return eval(ret)
+ 
+ class LocalRepository(Repository):
+     def __init__(self, url):

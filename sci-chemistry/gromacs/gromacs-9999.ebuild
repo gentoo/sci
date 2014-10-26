@@ -236,7 +236,7 @@ src_install() {
 		BUILD_DIR="${WORKDIR}/${P}_${x}" \
 			cmake-utils_src_install
 		if use doc; then
-			newdoc "${WORKDIR}/${P}_${x}"/manual/gromacs.pdf "${PN}-manual-${PV}.pdf"
+			newdoc "${WORKDIR}/${P}_${x}"/docs/manual/gromacs.pdf "${PN}-manual-${PV}.pdf"
 		fi
 		newbashcomp "${WORKDIR}/${P}_${x}"/src/programs/completion/gmx-completion.bash gromacs
 		use mpi || continue

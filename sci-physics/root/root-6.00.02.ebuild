@@ -128,10 +128,10 @@ PDEPEND="doc? ( ~app-doc/root-docs-${PV}[http=,math=] )"
 DOC_DIR="/usr/share/doc/${P}"
 
 die_compiler() {
-	die "Need one of the following C++11 capable compilers:"
-	die "    >=sys-devel/gcc[cxx]-4.8"
-	die "    >=sys-devel/clang-3.4"
-	die "    >=dev-lang/icc-13"
+	die "Need one of the following C++11 capable compilers:"\
+		"    >=sys-devel/gcc[cxx]-4.8"\
+		"    >=sys-devel/clang-3.4"\
+		"    >=dev-lang/icc-13"
 }
 
 pkg_setup() {
@@ -201,7 +201,8 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-6.00.01-prop-flags.patch \
 		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
 		"${FILESDIR}"/${PN}-6.00.01-geocad.patch \
-		"${FILESDIR}"/${PN}-6.00.01-tutorials-path.patch
+		"${FILESDIR}"/${PN}-6.00.01-tutorials-path.patch \
+		"${FILESDIR}"/${PN}-6.00.02-tm_zone.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
@@ -321,6 +322,8 @@ src_configure() {
 			$(use_enable math vdt)
 			$(use_enable math unuran)
 			$(use_enable mysql)
+			$(usex mysql \
+				"--with-mysql-incdir=${EPREFIX}/usr/include/mysql" "")
 			$(use_enable odbc)
 			$(use_enable opengl)
 			$(use_enable oracle)

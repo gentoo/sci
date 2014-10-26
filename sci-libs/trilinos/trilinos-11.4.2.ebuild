@@ -23,7 +23,7 @@ IUSE="
 "
 
 # TODO: fix export cmake function for tests
-RESTRICT="test"
+RESTRICT="test fetch"
 
 RDEPEND="
 	virtual/blas
