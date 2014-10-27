@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit autotools
+inherit autotools eutils
 
 DESCRIPTION="A tool for the estimation, representation, and computation of statistical language models"
 HOMEPAGE="https://hlt.fbk.eu/technologies/irstlm"
