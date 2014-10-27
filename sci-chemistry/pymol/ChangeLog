@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Oct 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
+  Add missing PYTHON_USEDEP
+
   21 Oct 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild:
   Patch included upstream
 

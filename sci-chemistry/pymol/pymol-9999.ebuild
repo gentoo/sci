@@ -30,8 +30,8 @@ DEPEND="
 	sys-libs/zlib
 	media-libs/freeglut
 	apbs? (
-		sci-chemistry/apbs
-		sci-chemistry/pdb2pqr
+		sci-chemistry/apbs[${PYTHON_USEDEP}]
+		sci-chemistry/pdb2pqr[${PYTHON_USEDEP}]
 		sci-chemistry/pymol-apbs-plugin[${PYTHON_USEDEP}]
 	)
 	web? ( !dev-python/webpy[${PYTHON_USEDEP}] )"
