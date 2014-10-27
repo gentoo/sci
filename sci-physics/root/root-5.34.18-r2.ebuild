@@ -260,6 +260,8 @@ src_configure() {
 			$(use_enable math tmva)
 			$(use_enable math unuran)
 			$(use_enable mysql)
+			$(usex mysql \
+				"--with-mysql-incdir=${EPREFIX}/usr/include/mysql" "")
 			$(use_enable odbc)
 			$(use_enable opengl)
 			$(use_enable oracle)

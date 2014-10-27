@@ -36,6 +36,7 @@ DEPEND="
 	"
 
 src_compile() {
+	sed -i '/^\t@/s/@//' Makefile || die #make all slient commands ("@") verbose
 	emake LDFLAGS="${LDFLAGS}" OPT="${CXXFLAGS}" CXX="$(tc-getCXX)" CPP="$(tc-getCPP)"
 }
 

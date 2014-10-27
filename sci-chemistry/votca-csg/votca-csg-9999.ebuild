@@ -86,8 +86,12 @@ src_configure() {
 }
 
 src_install() {
-	newbashcomp scripts/csg-completion.bash ${PN}
 	cmake-utils_src_install
+	newbashcomp scripts/csg-completion.bash csg_call
+	for i in "${ED}"/usr/bin/csg_*; do
+		[[ ${i} = *csg_call ]] && continue
+		bashcomp_alias csg_call "${i##*/}"
+	done
 	if use doc; then
 		if [[ ${PV} = *9999* ]]; then
 			pushd "${WORKDIR}"/manual
