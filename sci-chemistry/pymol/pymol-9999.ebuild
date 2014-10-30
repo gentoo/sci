@@ -32,10 +32,12 @@ DEPEND="
 	apbs? (
 		sci-chemistry/apbs[${PYTHON_USEDEP}]
 		sci-chemistry/pdb2pqr[${PYTHON_USEDEP}]
-		sci-chemistry/pymol-apbs-plugin[${PYTHON_USEDEP}]
+		!sci-chemistry/pymol-apbs-plugin[${PYTHON_USEDEP}]
 	)
 	web? ( !dev-python/webpy[${PYTHON_USEDEP}] )"
 RDEPEND="${DEPEND}"
+
+PATCHES=( "${FILESDIR}"/${P}-tk8.6.patch )
 
 src_unpack() {
 	unpack ${A}
@@ -48,8 +50,6 @@ python_prepare_all() {
 		-e "/ext_comp_args.*+=/s:\[.*\]$:\[\]:g" \
 		-e "/import/s:argparse:argparseX:g" \
 		-i setup.py || die
-
-	rm ./modules/pmg_tk/startup/apbs_tools.py || die
 
 	sed \
 		-e "s:/opt/local:${EPREFIX}/usr:g" \
@@ -66,17 +66,28 @@ src_prepare() {
 
 python_install() {
 	distutils-r1_python_install --pymol-path="${EPREFIX}/usr/share/pymol"
+
+	sed \
+		-e '1d' \
+		-e "/APBS_BINARY_LOCATION/s:None:\"${EPREFIX}/usr/bin/apbs\":g" \
+		-e "/APBS_PSIZE_LOCATION/s:None:\"$(python_get_sitedir)/pdb2pqr/src/\":g" \
+		-e "/APBS_PDB2PQR_LOCATION/s:None:\"$(python_get_sitedir)/pdb2pqr/\":g" \
+		-i "${D}/$(python_get_sitedir)"/pmg_tk/startup/apbs_tools.py || die
 }
 
 python_install_all() {
 	distutils-r1_python_install_all
 
-	python_export python2_7 EPYTHON
+	sed \
+		-e '1i#!/usr/bin/env python' \
+		"${D}/$(python_get_sitedir)"/pymol/__init__.py > "${T}"/${PN} || die
+
+	python_foreach_impl python_doscript "${T}"/${PN}
 
 	# These environment variables should not go in the wrapper script, or else
 	# it will be impossible to use the PyMOL libraries from Python.
 	cat >> "${T}"/20pymol <<- EOF
-		PYMOL_PATH="$(python_get_sitedir)/${PN}"
+		PYMOL_PATH="${EPREFIX}/usr/share/pymol"
 		PYMOL_DATA="${EPREFIX}/usr/share/pymol/data"
 		PYMOL_SCRIPTS="${EPREFIX}/usr/share/pymol/scripts"
 	EOF
