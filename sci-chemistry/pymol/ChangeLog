@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  31 Oct 2014; Justin Lecher <jlec@gentoo.org> files/pymol-9999-tk8.6.patch:
+  Update patch to upstream suggestion
+
   30 Oct 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
   +files/pymol-9999-tk8.6.patch:
   Make it really multi py ABI ready; use internal apbs plugin
