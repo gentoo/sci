@@ -1,6 +1,9 @@
 # ChangeLog for dev-perl/Lab-Tools
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  01 Nov 2014; Justin Lecher <jlec@gentoo.org> Lab-Tools-1.4.ebuild:
+  Bump to EAPI=5
 
   25 Oct 2011; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Removed no-herd from herd tag in metadata.xml
