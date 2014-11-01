@@ -2,10 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
+
 DESCRIPTION="Documentation reference and man pages for blas implementations"
 HOMEPAGE="http://www.netlib.org/blas/"
-SRC_URI="http://dev.gentoo.org/~bicatali/lapack-man-${PV}.tar.gz
+SRC_URI="
+	http://dev.gentoo.org/~bicatali/lapack-man-${PV}.tar.gz
 	http://www.netlib.org/blas/blasqr.pdf
 	http://www.netlib.org/blas/blast-forum/blas-report.pdf"
 
@@ -22,7 +24,7 @@ src_install() {
 	local f t
 	for f in blas/man/manl/*.l; do
 		t="${f%%.l}.n"
-		mv "${f}" "${t}"
+		mv "${f}" "${t}" || die
 	done
 	doman blas/man/manl/*.n
 	dodoc README "${DISTDIR}"/blas{-report,qr}.pdf
