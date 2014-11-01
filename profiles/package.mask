@@ -30,6 +30,14 @@
 
 #--- END OF EXAMPLES ---
 
+# Andreas K. Huettel <dilfridge@gentoo.org> (1 Nov 2014)
+# Lab::Instrument and Lab::Tools provided as separate packages
+# are way outdated. These are now supplied as parts of the package
+# Lab::Measurement (dev-perl/Lab-Measurement in the main portage
+# tree). Masked for removal.
+dev-perl/Lab-Instrument
+dev-perl/Lab-Tools
+
 # Jauhien Piatlicki <jauhien@gentoo.org> (13 Sep 2014)
 # dev-python/pythonocc-0.5 works only with sci-libs/opencascade-6.3
 # which is not available in the tree, see bug #522678
