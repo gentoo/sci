@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>bryan.d.green@nasa.gov</email>
-		<name>Bryan Green</name>
-	</maintainer>
-	<longdescription>
+  <maintainer>
+    <email>bryan.d.green@nasa.gov</email>
+    <name>Bryan Green</name>
+  </maintainer>
+  <longdescription>
 		Growler-Thread is a pthread wrapper library used by Growler. It provides
 		support for creating threads, and for common multithreading tasks
 	</longdescription>
