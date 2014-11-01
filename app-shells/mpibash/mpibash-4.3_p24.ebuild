@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-shells/bash/bash-4.3_p24.ebuild,v 1.1 2014/08/24 17:53:01 polynomial-c Exp $
 
-EAPI="4"
+EAPI=5
 
 inherit autotools eutils flag-o-matic toolchain-funcs multilib
 
@@ -38,17 +38,17 @@ SRC_URI="mirror://gnu/bash/${MY_P}.tar.gz $(patches)"
 
 LICENSE="GPL-3"
 SLOT="0"
+KEYWORDS=""
 #KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd ~sparc-fbsd ~x86-fbsd"
 IUSE="afs bashlogger examples mem-scramble +net nls plugins +readline vanilla"
 
-DEPEND=">=sys-libs/ncurses-5.2-r2
+DEPEND="
+	sys-libs/ncurses
 	readline? ( >=sys-libs/readline-${READLINE_VER} )
 	nls? ( virtual/libintl )"
 RDEPEND="${DEPEND}
 	virtual/mpi
-	sys-cluster/libcircle
-	!<sys-apps/portage-2.1.6.7_p1
-	!<sys-apps/paludis-0.26.0_alpha5"
+	sys-cluster/libcircle"
 # we only need yacc when the .y files get patched (bash42-005)
 DEPEND+=" virtual/yacc"
 
@@ -76,7 +76,7 @@ src_prepare() {
 
 	# Clean out local libs so we know we use system ones w/releases.
 	if [[ ${PV} != *_rc* ]] ; then
-		rm -rf lib/{readline,termcap}/*
+		rm -rf lib/{readline,termcap}/* || die
 		touch lib/{readline,termcap}/Makefile.in # for config.status
 		sed -ri -e 's:\$[(](RL|HIST)_LIBSRC[)]/[[:alpha:]]*.h::g' Makefile.in || die
 	fi
@@ -85,10 +85,11 @@ src_prepare() {
 	sed -i -r '/^(HS|RL)USER/s:=.*:=:' doc/Makefile.in || die
 	touch -r . doc/*
 
-	epatch "${FILESDIR}"/${PN#mpi}-4.3-compat-lvl.patch
-	epatch "${FILESDIR}"/${PN#mpi}-4.3-parse-time-keyword.patch
-	epatch "${FILESDIR}"/${PN#mpi}-4.3-append-process-segfault.patch
-	epatch "${FILESDIR}"/${PN}-4.3.patch
+	epatch \
+		"${FILESDIR}"/${PN#mpi}-4.3-compat-lvl.patch \
+		"${FILESDIR}"/${PN#mpi}-4.3-parse-time-keyword.patch \
+		"${FILESDIR}"/${PN#mpi}-4.3-append-process-segfault.patch \
+		"${FILESDIR}"/${PN}-4.3.patch
 
 	epatch_user
 
@@ -140,7 +141,8 @@ src_configure() {
 	else
 		# Disable the plugins logic by hand since bash doesn't
 		# provide a way of doing it.
-		export ac_cv_func_dl{close,open,sym}=no \
+		export \
+			ac_cv_func_dl{close,open,sym}=no \
 			ac_cv_lib_dl_dlopen=no ac_cv_header_dlfcn_h=no
 		sed -i \
 			-e '/LOCAL_LDFLAGS=/s:-rdynamic::' \
@@ -164,11 +166,9 @@ src_configure() {
 }
 
 src_compile() {
-	emake
+	default
 
-	if use plugins ; then
-		emake -C examples/loadables all others
-	fi
+	use plugins && emake -C examples/loadables all others
 }
 
 src_install() {
@@ -176,7 +176,7 @@ src_install() {
 
 	default
 
-	find "${ED}" -name "bashbug*" -delete
+	find "${ED}" -name "bashbug*" -delete || die
 	mv "${ED}"/usr/share/man/man1/{,mpi}bash.1 || die
 	mv "${ED}"/usr/share/info/{,mpi}bash.info || die
 	return 0
@@ -245,8 +245,8 @@ pkg_preinst() {
 		# missing even temporarily causes a fatal error with paludis.
 		local target=$(readlink "${EROOT}"/bin/sh)
 		local tmp=$(emktemp "${EROOT}"/bin)
-		ln -sf "${target}" "${tmp}"
-		mv -f "${tmp}" "${EROOT}"/bin/sh
+		ln -sf "${target}" "${tmp}" || die
+		mv -f "${tmp}" "${EROOT}"/bin/sh || die
 	fi
 }
 
@@ -254,6 +254,6 @@ pkg_postinst() {
 	return 0
 	# If /bin/sh does not exist, provide it
 	if [[ ! -e ${EROOT}/bin/sh ]] ; then
-		ln -sf bash "${EROOT}"/bin/sh
+		ln -sf bash "${EROOT}"/bin/sh || die
 	fi
 }
