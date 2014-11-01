@@ -4,7 +4,7 @@
 
 # Upstream is dead.
 
-EAPI=2
+EAPI=5
 
 WANT_AUTOCONF="2.1"
 
@@ -17,37 +17,36 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~ppc ~sparc ~alpha ~amd64 ~hppa ~mips ~ppc64 ~ia64"
 IUSE="tcpd"
-RDEPEND="dev-libs/glib:1
+RDEPEND="
+	dev-libs/glib:1
 	!<x11-base/xorg-x11-7"
 DEPEND="${RDEPEND}
 	sys-apps/texinfo
 	tcpd? ( >=sys-apps/tcp-wrappers-7.6 )"
 
+DOCS=( ANNOUNCE ChangeLog FAQ NEWS NOTES README STATUS TODO Version )
+
 src_prepare() {
-	epatch "${FILESDIR}"/"${P}"-gs-time_.h-gentoo.diff
-	epatch "${FILESDIR}"/"${P}"-tcpd-gentoo.diff
-	epatch "${FILESDIR}"/"${P}"-gcc-3.4.diff
-	epatch "${FILESDIR}"/"${PV}"-workaround-include-in-comments.patch
-	epatch "${FILESDIR}"/"${PN}"-fix-as-needed.patch
+	epatch \
+		"${FILESDIR}"/${P}-gs-time_.h-gentoo.diff \
+		"${FILESDIR}"/${P}-tcpd-gentoo.diff \
+		"${FILESDIR}"/${P}-gcc-3.4.diff \
+		"${FILESDIR}"/${PV}-workaround-include-in-comments.patch \
+		"${FILESDIR}"/${PN}-fix-as-needed.patch
 
 	eautoconf
+	export MAKEOPTS+=" -j1"
 }
 
 src_configure() {
-	econf --with-x $(use_enable tcpd) || die "econf failed"
-}
-
-src_compile() {
-	emake -j1 || die "emake failed"
+	econf --with-x $(use_enable tcpd)
 }
 
 src_install() {
-	einstall || die "einstall failed"
+	default
 
-	rm -rf "${D}"/usr/share/man/manm
+	rm -rf "${D}"/usr/share/man/manm || die
 	newman "${S}"/DPS/demos/xepsf/xepsf.man xepsf.1
 	newman "${S}"/DPS/demos/dpsexec/dpsexec.man dpsexec.1
 	newman "${S}"/DPS/clients/makepsres/makepsres.man makepsres.1
-
-	dodoc ANNOUNCE ChangeLog FAQ NEWS NOTES README STATUS TODO Version
 }
