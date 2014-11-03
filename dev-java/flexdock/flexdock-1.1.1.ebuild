@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 JAVA_PKG_IUSE="doc source"
 
@@ -18,7 +18,8 @@ KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 RDEPEND=">=virtual/jre-1.4"
-DEPEND="app-arch/unzip
+DEPEND="
+	app-arch/unzip
 	dev-java/skinlf
 	dev-java/jgoodies-looks:2.0
 	>=virtual/jdk-1.4"
