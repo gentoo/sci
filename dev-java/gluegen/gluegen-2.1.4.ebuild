@@ -9,7 +9,7 @@ WANT_ANT_TASKS="ant-antlr ant-contrib dev-java/cpptasks:0"
 
 inherit java-pkg-2 java-ant-2
 
-DESCRIPTION="A tool which automatically generates the JNI code necessary to call C libraries"
+DESCRIPTION="Automatically generate the JNI code necessary to call C libraries"
 HOMEPAGE="http://jogamp.org/gluegen/www/"
 SRC_URI="https://github.com/sgothel/gluegen/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
@@ -21,7 +21,6 @@ IUSE=""
 COMMON_DEP="
 	dev-java/ant-core:0
 	dev-java/antlr:0"
-
 RDEPEND="${COMMON_DEP}
 	>=virtual/jre-1.5"
 
