@@ -37,8 +37,6 @@ DEPEND="
 	web? ( !dev-python/webpy[${PYTHON_USEDEP}] )"
 RDEPEND="${DEPEND}"
 
-PATCHES=( "${FILESDIR}"/${P}-tk8.6.patch )
-
 src_unpack() {
 	unpack ${A}
 	subversion_src_unpack

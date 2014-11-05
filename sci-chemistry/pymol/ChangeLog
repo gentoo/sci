@@ -2,6 +2,11 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Nov 2014; Justin Lecher <jlec@gentoo.org> pymol-9999.ebuild,
+  -files/pymol-9999-listing.patch, -files/pymol-9999-options.patch,
+  -files/pymol-9999-tk8.6.patch:
+  Drop obsolete patches
+
   31 Oct 2014; Justin Lecher <jlec@gentoo.org> files/pymol-9999-tk8.6.patch:
   Update patch to upstream suggestion
 
