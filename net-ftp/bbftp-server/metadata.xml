@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription>
+  <herd>sci</herd>
+  <longdescription>
 bbFTP is a file transfer software. It implements its own transfer protocol,
 which is optimized for large files (larger than 2GB) and secure as it does not
 read the password in a file and encrypts the connection information.
