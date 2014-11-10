@@ -198,7 +198,6 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-5.34.13-desktop.patch \
 		"${FILESDIR}"/${PN}-6.00.01-dotfont.patch \
 		"${FILESDIR}"/${PN}-6.00.01-nobyte-compile.patch \
-		"${FILESDIR}"/${PN}-6.00.01-prop-flags.patch \
 		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
 		"${FILESDIR}"/${PN}-6.00.01-geocad.patch
 
@@ -299,6 +298,8 @@ src_configure() {
 			--enable-soversion
 			--enable-table
 			--fail-on-missing
+			--cflags='${CFLAGS}'
+			--cxxflags='${CXXFLAGS}'
 			$(use_enable X x11)
 			$(use_enable X asimage)
 			$(use_enable X xft)
