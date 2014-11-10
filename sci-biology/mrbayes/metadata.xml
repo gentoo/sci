@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>sci-biology</herd>
-	<longdescription>
+  <herd>sci-biology</herd>
+  <longdescription>
 MrBayes is a program for the Bayesian estimation of phylogeny.
 Bayesian inference of phylogeny is based upon a quantity called the
 posterior probability distribution of trees, which is the probability of a

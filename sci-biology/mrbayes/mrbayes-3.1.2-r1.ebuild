@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
+
 inherit eutils mpi toolchain-funcs
 
 DESCRIPTION="Bayesian Inference of Phylogeny"
@@ -18,9 +20,7 @@ DEPEND="
 	readline? ( sys-libs/readline )"
 RDEPEND="${DEPEND}"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+src_prepare() {
 	sed \
 		-e "s:OPTFLAGS ?= -O3:CFLAGS = ${CFLAGS}:" \
 		-e "s:CC = gcc:CC = $(tc-getCC):" \
@@ -42,9 +42,9 @@ src_unpack() {
 
 src_compile() {
 	mpi_pkg_set_env
-	emake || die
+	emake
 }
 
 src_install() {
-	mpi_dobin mb || die "Installation failed."
+	mpi_dobin mb
 }
