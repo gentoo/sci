@@ -2,6 +2,12 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  10 Nov 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  root-9999.ebuild:
+  Drop prop-flags patch for root-9999, patch fails starting from 5.34.23 and
+  ROOT 6 master. Upstream offers configure-flags to set proper flags starting
+  now. 
+
   25 Oct 2014; Matthias Maier <tamiko@gentoo.org> root-5.34.18-r2.ebuild,
   root-6.00.01-r1.ebuild, root-6.00.02.ebuild, root-9999.ebuild:
   sci-physics/root: Fix compilation with USE="mysql" wrt bug #523996; fix
