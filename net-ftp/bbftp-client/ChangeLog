@@ -1,6 +1,10 @@
 # ChangeLog for net-ftp/bbftp-client
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  10 Nov 2014; Justin Lecher <jlec@gentoo.org> -bbftp-client-3.2.0.ebuild,
+  +bbftp-client-3.2.1.ebuild, metadata.xml:
+  Bump EAPI; respect CC; version Bump
 
   23 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   bbftp-client-3.2.0.ebuild:
