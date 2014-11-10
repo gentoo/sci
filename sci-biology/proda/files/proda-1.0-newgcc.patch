@@ -1,0 +1,136 @@
+ AlignedFragment.cc | 1 +
+ AlignedFragment.h  | 2 ++
+ Assert.cc          | 2 +-
+ Assert.h           | 4 ++--
+ Block.cc           | 1 +
+ Main.cc            | 1 +
+ MultiSequence.cc   | 2 +-
+ PairAligner.cc     | 2 ++
+ ProbModel.cc       | 3 ++-
+ 9 files changed, 13 insertions(+), 5 deletions(-)
+
+diff --git a/AlignedFragment.cc b/AlignedFragment.cc
+index b553862..9c734b9 100644
+--- a/AlignedFragment.cc
++++ b/AlignedFragment.cc
+@@ -2,6 +2,7 @@
+ //
+ //////////////////////////////////////////////////////////////////////
+ 
++#include <stdlib.h>
+ #include "AlignedFragment.h"
+ #include "Assert.h"
+ #include "Utilities.h"
+diff --git a/AlignedFragment.h b/AlignedFragment.h
+index ffc4642..17ae615 100644
+--- a/AlignedFragment.h
++++ b/AlignedFragment.h
+@@ -8,6 +8,8 @@
+ #define ALIGNFRAGMENT_H
+ 
+ #include <vector>
++#include <string.h>
++#include <stdio.h>
+ 
+ class Fragment;
+ class AlignedFragment;
+diff --git a/Assert.cc b/Assert.cc
+index ac9a7df..449e00a 100644
+--- a/Assert.cc
++++ b/Assert.cc
+@@ -10,7 +10,7 @@
+ // Write out assertion error message
+ //////////////////////////////////////////////////////////////////////
+ 
+-int _ASSERT_FAILED (char *filename, int line_number, const char *error_msg){
++int _ASSERT_FAILED (const char *filename, int line_number, const char *error_msg){
+   fprintf (stderr, "Assertion failed in file \"%s\", line %d: %s\n",
+ 	   filename, line_number, error_msg);
+   abort();
+diff --git a/Assert.h b/Assert.h
+index 0222d17..069705b 100644
+--- a/Assert.h
++++ b/Assert.h
+@@ -10,9 +10,9 @@
+ int _ASSERT_FAILED (char *filename, int line_number, const char *error_msg);
+ 
+ #ifdef NDEBUG
+-#define ASSERT(test,error_msg)
++#define ASSERT(test, error_msg)
+ #else
+-#define ASSERT(test,error_msg) (test ? 0 : _ASSERT_FAILED(__FILE__, __LINE__, error_msg))
++#define ASSERT(test, error_msg) (test ? 0 : _ASSERT_FAILED(__FILE__, __LINE__, error_msg))
+ #endif
+   
+ #endif
+diff --git a/Block.cc b/Block.cc
+index 35b050d..a24ad0e 100644
+--- a/Block.cc
++++ b/Block.cc
+@@ -2,6 +2,7 @@
+ //
+ //////////////////////////////////////////////////////////////////////
+ 
++#include <stdlib.h>
+ #include "Block.h"
+ #include "AlignedFragment.h"
+ #include "Sequence.h"
+diff --git a/Main.cc b/Main.cc
+index 8ceded3..7cf1b75 100644
+--- a/Main.cc
++++ b/Main.cc
+@@ -5,6 +5,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <limits.h>
+ #include <vector>
+ #include "Assert.h"
+ #include "MultiSequence.h"
+diff --git a/MultiSequence.cc b/MultiSequence.cc
+index 86e493f..2b70723 100644
+--- a/MultiSequence.cc
++++ b/MultiSequence.cc
+@@ -386,7 +386,7 @@ void MultiSequence::WriteMFA (FILE *file) const {
+ //////////////////////////////////////////////////////////////////////
+ 
+ const char MultiSequence::ComputeAnnotation (const char *data, const int size) const {
+-  static char *groups[47] = {
++  static const char *groups[47] = {
+     
+     // Identities
+     "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
+diff --git a/PairAligner.cc b/PairAligner.cc
+index 7fdc21f..8bbc4a5 100644
+--- a/PairAligner.cc
++++ b/PairAligner.cc
+@@ -4,6 +4,8 @@
+ // Implementation of PairAligner class
+ ////////////////////////////////////////////////////////////////////
+ 
++#include <string.h>
++#include <stdlib.h>
+ #include "PairAligner.h"
+ #include "Utilities.h"
+ #include "LocalAlign.h"
+diff --git a/ProbModel.cc b/ProbModel.cc
+index 6d74e3d..5d5a838 100644
+--- a/ProbModel.cc
++++ b/ProbModel.cc
+@@ -4,6 +4,7 @@
+ 
+ #include <stdio.h>
+ #include <ctype.h>
++#include <string.h>
+ #include "ProbModel.h"
+ #include "Utilities.h"
+ 
+@@ -30,7 +31,7 @@ const int TRANSITIONS[NUM_STATES][NUM_STATES] = {
+   { 0, 0, 0, 0, 0, 0, 1 }
+ };
+ 
+-char *ALPHABET = "ARNDCQEGHILKMFPSTWYV";
++const char *ALPHABET = "ARNDCQEGHILKMFPSTWYV";
+ 
+ 
+ float INIT_A = 0.9860202074;
