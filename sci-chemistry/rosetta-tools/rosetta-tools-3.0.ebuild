@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
+
 MY_PN="BioTools"
 MY_P="${MY_PN}-${PV}"
 
@@ -13,14 +15,17 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-RESTRICT="fetch"
 
+DEPEND=""
 RDEPEND="dev-lang/perl"
+
+RESTRICT="fetch"
 
 S="${WORKDIR}/${MY_PN}"
 
 src_install() {
+	local x
 	for x in $(ls *.pl); do
-		newbin ${x} ${x%.pl} || die "failed to install ${x}"
+		newbin ${x} ${x%.pl}
 	done
 }
