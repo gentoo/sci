@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
+
 DESCRIPTION="convert dssp to pdb"
 HOMEPAGE="http://structure.usc.edu/dssp2pdb/"
 SRC_URI="http://dev.gentooexperimental.org/~jlec/distfiles/${P}.tar"
@@ -17,5 +19,5 @@ RDEPEND="
 DEPEND=""
 
 src_install() {
-	dobin ${PN} || die
+	dobin ${PN}
 }
