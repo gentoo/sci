@@ -2,14 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit eutils fortran-2 multilib toolchain-funcs
 
 DESCRIPTION="A suite for carrying out complete molecular mechanics investigations"
 HOMEPAGE="http://ambermd.org/#AmberTools"
 SRC_URI="
-	AmberTools-${PV}.tar.bz2"
+	AmberTools${PV%_p*}.tar.bz2
+	http://dev.gentoo.org/~jlec/distfiles/${PN}-bugfixes-${PV}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -26,18 +27,20 @@ RDEPEND="
 	sci-libs/cifparse-obj
 	sci-chemistry/mopac7
 	sci-libs/netcdf
-	sci-libs/fftw:2.1
-	sci-chemistry/reduce
-	virtual/fortran"
+	>=sci-libs/fftw-3.3:3.0
+	sci-chemistry/reduce"
 DEPEND="${RDEPEND}
+	app-shells/tcsh
 	dev-util/byacc
 	dev-libs/libf2c
 	sys-devel/ucpp"
-S="${WORKDIR}/amber11"
+
+S="${WORKDIR}/amber12"
 
 pkg_nofetch() {
-	einfo "Go to ${HOMEPAGE} and get ${A}"
-	einfo "Place it in ${DISTDIR}"
+	einfo "Go to ${HOMEPAGE} and get AmberTools${PV%_p*}.tar.bz2"
+	einfo "and download http://dev.gentoo.org/~jlec/distfiles/${PN}-bugfixes-${PV}.tar.xz"
+	einfo "Place both into ${DISTDIR}"
 }
 
 pkg_setup() {
@@ -46,111 +49,114 @@ pkg_setup() {
 		tc-has-openmp || \
 			die "Please select an openmp capable compiler like gcc[openmp]"
 	fi
-	AMBERHOME="${S}"
+	export AMBERHOME="${S}"
 }
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}/${P}-bugfix_1-21.patch" \
-		"${FILESDIR}/${P}-bugfix_22-27.patch" \
-		"${FILESDIR}/${P}-bugfix_28.patch" \
-		"${FILESDIR}/${P}-gentoo2.patch" \
-		"${FILESDIR}/${P}-overflow.patch"
-	cd "${S}"/AmberTools/src
+		"${FILESDIR}"/${PN}-12-gentoo.patch \
+		"${WORKDIR}"/bugfixes/bugfix.{14..38}
+	cd "${S}"/AmberTools/src || die
 	rm -r \
 		arpack \
 		blas \
 		byacc \
 		lapack \
-		fftw-2.1.5 \
-		fftw-3.2.2 \
+		fftw-3.3 \
 		c9x-complex \
 		cifparse \
 		netcdf \
-		pnetcdf \
 		reduce \
 		ucpp-1.3 \
 		|| die
 }
 
 src_configure() {
-	cd "${S}"/AmberTools/src
-	sed -e "s:\\\\\$(LIBDIR)/arpack.a:-larpack:g" \
+	cd "${S}"/AmberTools/src || die
+	sed \
+		-e "s:\\\\\$(LIBDIR)/arpack.a:-larpack:g" \
 		-e "s:\\\\\$(LIBDIR)/lapack.a:$($(tc-getPKG_CONFIG) lapack --libs) -lclapack:g" \
+		-e "s:-llapack:$($(tc-getPKG_CONFIG) lapack --libs) -lclapack:g" \
 		-e "s:\\\\\$(LIBDIR)/blas.a:$($(tc-getPKG_CONFIG) blas cblas --libs):g" \
-		-e "s:\\\\\$(LIBDIR)/libdrfftw.a:${EPREFIX}/usr/$(get_libdir)/libdrfftw.a:g" \
-		-e "s:\\\\\$(LIBDIR)/libdfftw.a:${EPREFIX}/usr/$(get_libdir)/libdrfftw.a:g" \
+		-e "s:-lblas:$($(tc-getPKG_CONFIG) blas cblas --libs):g" \
 		-e "s:GENTOO_CFLAGS:${CFLAGS} -DBINTRAJ :g" \
 		-e "s:GENTOO_CXXFLAGS:${CXXFLAGS}:g" \
 		-e "s:GENTOO_FFLAGS:${FFLAGS}:g" \
 		-e "s:GENTOO_LDFLAGS:${LDFLAGS}:g" \
+		-e "s:GENTOO_INCLUDE:${EPREFIX}/usr/include:g" \
+		-e "s:GENTOO_FFTW3_LIBS:$($(tc-getPKG_CONFIG) fftw3 --libs):" \
 		-e "s:fc=g77:fc=$(tc-getFC):g" \
-		-e "s:\$netcdflib:$($(tc-getPKG_CONFIG) netcdf --libs):g" \
+		-e "s:\$netcdfflag:$($(tc-getPKG_CONFIG) netcdf --libs):g" \
 		-e "s:NETCDF=\$netcdf:NETCDF=netcdf.mod:g" \
-		-i configure || die
-	sed -e "s:arsecond_:arscnd_:g" \
-		-i sff/time.c \
-		-i sff/sff.h \
-		-i sff/sff.c || die
-	sed -e "s:\$(NAB):\$(NAB) -lrfftw:g" \
-		-i nss/Makefile || die
+		-i configure2 || die
 
-	local myconf
+	sed \
+		-e "s:arsecond_:arscnd_:g" \
+		-i sff/time.c sff/sff.h sff/sff.c || die
+
+	local myconf="--no-updates"
 
 	use X || myconf="${myconf} -noX11"
 
 	use openmp && myconf="${myconf} -openmp"
 
+	cd "${S}" || die
+
+	sed \
+		-e '/patch_amber.py/d' \
+		-i configure || die
+
 	./configure \
 		${myconf} \
 		-nobintraj \
-		-nomdgx \
 		-nomtkpp \
-		-nopython \
-		-nosleap \
-		gnu
-}
-
-src_compile() {
-	cd "${S}"/AmberTools/src
-	emake || die
+		gnu || die
 }
 
 src_test() {
-	cd "${S}"/AmberTools/test
-	make test || die
+	# Get the number of physical cores
+	local ncpus=$(grep "^core id" /proc/cpuinfo | sort -u | wc -l)
+	# Limit number of OpenMP threads
+	use openmp && export OMP_NUM_THREADS=$((1+${ncpus}/2))
+
+	emake test
+}
+
+src_compile() {
+	emake \
+		CC=$(tc-getCC) \
+		FC=$(tc-getFC)
 }
 
 src_install() {
-	rm -r bin/chemistry bin/MMPBSA_mods
-	rm bin/ante-MMPBSA.py bin/extractFrcmod.py
+	rm bin/*.py || die
 
 	for x in bin/*
-		do dobin ${x} || die
+	do
+		[ ! -d ${x} ] && dobin ${x}
 	done
 
 	dobin AmberTools/src/antechamber/mopac.sh
-	sed -e "s:\$AMBERHOME/bin/mopac:mopac7:g" \
+	sed \
+		-e "s:\$AMBERHOME/bin/mopac:mopac7:g" \
 		-i "${ED}/usr/bin/mopac.sh" || die
 
 	# Make symlinks untill binpath for amber will be fixed
 	dodir /usr/share/${PN}/bin
-	cd "${ED}/usr/bin"
+	cd "${ED}/usr/bin" || die
 	for x in *
-		do dosym /usr/bin/${x} /usr/share/${PN}/bin/${x}
+		do dosym /usr/bin/${x} ../share/${PN}/bin/${x}
 	done
-	cd "${S}"
+	cd "${S}" || die
 
-	dodoc doc/AmberTools.pdf doc/leap_pg.pdf
+	dodoc doc/AmberTools12.pdf
 	dolib.a lib/*
 	insinto /usr/include/${PN}
 	doins include/*
 	insinto /usr/share/${PN}
 	doins -r dat
-	cd AmberTools
-	doins -r benchmarks
-	doins -r examples
-	doins -r test
+	cd AmberTools || die
+	doins -r benchmarks examples test
 
 	cat >> "${T}"/99ambertools <<- EOF
 	AMBERHOME="${EPREFIX}/usr/share/ambertools"
