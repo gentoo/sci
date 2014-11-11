@@ -7,9 +7,37 @@
     <name>Alexey Shvetsov</name>
   </maintainer>
   <use>
-    <flag name="mrcc">Compile the MRCC module</flag>
+    <flag name="blas">
+      Use external BLAS library instead of the internal routines
+    </flag>
+  </use>
+  <use>
+    <flag name="cuda">
+      Enable CUDA GPU support for the Tensor Contraction Engine generated
+      methods (CI, MBPT, CC)
+    </flag>
+  </use>
+  <use>
+    <flag name="int64">
+      Use 64 bits integers
+    </flag>
+  </use>
+  <use>
+    <flag name="lapack">
+      Use external LAPACK library instead of the internal routines
+    </flag>
+  </use>
+  <use>
+    <flag name="mrcc">
+      Compile the routines for Multi Reference Coupled Clusters theory
+    </flag>
   </use>
   <use>
     <flag name="nwchem-tests">Install qa tests data</flag>
+  </use>
+  <use>
+    <flag name="scalapack">
+      Use external SCALAPACK library
+    </flag>
   </use>
 </pkgmetadata>

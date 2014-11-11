@@ -2,6 +2,14 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nwchem-6.5_p26243 (11 Nov 2014)
+
+  11 Nov 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
+  +nwchem-6.5_p26243.ebuild, +files/nwchem-6.5-python_makefile.patch:
+  Version bump to sci-chemistry/nwchem-6.5_p26243. IUSE options expanded,
+  including those fore 64 bit integers and CUDA support. CCSDTQ and linear
+  response for CCSDT+ methods selected unconditionally for now.
+
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> nwchem-6.3_p2-r1.ebuild:
   clean up
 
