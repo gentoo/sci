@@ -102,7 +102,9 @@ src_install() {
 	use static-libs || \
 		find "${ED}" -type f -name "*.a" -delete
 
-	cd "${S}"/doc
+	mv "${ED}"/usr/man "${ED}"/usr/share/ || die
+
+	cd "${S}"/doc || die
 	dodoc README xview-info olgx_api.txt olgx_api.ps sel_api.txt dnd_api.txt whats_new.ps
 	rm -rf "${ED}"/usr/X11R6/share/doc/xview "${ED}"/usr/X11R6/share/doc "${ED}"/usr/bin || die
 }
