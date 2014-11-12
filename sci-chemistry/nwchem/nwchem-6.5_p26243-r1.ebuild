@@ -30,7 +30,9 @@ IUSE="blas cuda infiniband lapack mpi doc examples int64 nwchem-tests openmp mrc
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )
 	infiniband? ( mpi )
-	scalapack? ( !int64 )"
+	scalapack? ( !int64 )
+	lapack? ( blas )
+	scalapack? ( blas )"
 
 RDEPEND="
 	sys-fs/sysfsutils
@@ -182,19 +184,9 @@ src_compile() {
 	export CCSDTQ="TRUE"
 	export CCSDTLR="TRUE"
 	unset BLASOPT
-	use blas && BLASOPT="$(pkg-config --libs blas)"
-	use lapack && BLASOPT+="$(pkg-config --libs lapack)"
-	use scalapack && BLASOPT+="$(pkg-config --libs scalapack)"
-	export BLASOPT
-	if use int64; then
-		BLAS_SIZE=8
-		LAPACK_SIZE=8
-		SCALAPACK_SIZE=8
-	else
-		BLAS_SIZE=4
-		LAPACK_SIZE=4
-		SCALAPACK_SIZE=4
-	fi
+	use blas && export BLASOPT="$(pkg-config --libs blas)"
+	use lapack && export BLASOPT+="$(pkg-config --libs lapack)"
+	use scalapack && export BLASOPT+="$(pkg-config --libs scalapack)"
 	if use cuda; then
 		export TCE_CUDA=Y
 		export CUDA_PATH=/opt/cuda
@@ -206,6 +198,23 @@ src_compile() {
 	export LARGE_FILES="TRUE"
 
 	cd src
+	if use int64; then
+		export BLAS_SIZE=8
+		export LAPACK_SIZE=8
+		export SCALAPACK_SIZE=8
+	else
+		export BLAS_SIZE=4
+		export LAPACK_SIZE=4
+		export SCALAPACK_SIZE=4
+		export USE_64TO32=y
+		emake \
+			DIAG=PAR \
+			FC=$(tc-getFC) \
+			CC=$(tc-getCC) \
+			CXX=$(tc-getCXX) \
+			NWCHEM_TOP="${S}" \
+			64_to_32
+	fi
 	emake \
 		DIAG=PAR \
 		FC=$(tc-getFC) \
