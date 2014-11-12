@@ -1,6 +1,10 @@
 # ChangeLog for sci-mathematics/libsfmt
-# Copyright 1999-2008 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  12 Nov 2014; Justin Lecher <jlec@gentoo.org> libsfmt-1.3.0.ebuild,
+  metadata.xml:
+  Bump to EAPI=5
 
   19 Jun 2008; Sébastien Fabbro <bicatali@gentoo.org>
   +libsfmt-1.3.0.ebuild:
