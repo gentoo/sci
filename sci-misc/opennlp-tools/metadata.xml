@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>flammie@gentoo.org</email>
-	</maintainer>
-	<longdescription>
+  <maintainer>
+    <email>flammie@gentoo.org</email>
+  </maintainer>
+  <longdescription>
   Open source natural language processing toolkit containing lots of differents
   text processing tools and an API. 
 </longdescription>
-	<use>
-		<flag name="models">Automatically generated description for models</flag>
-	</use>
+  <use>
+    <flag name="models">Automatically generated description for models</flag>
+  </use>
 </pkgmetadata>
