@@ -4,14 +4,16 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
+PYTHON_COMPAT=( python2_7 )
 
 inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs
 
-
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
 HOMEPAGE="http://www.abinit.org/downloads/plug-in-sources"
-SRC_URI="http://forge.abinit.org/fallbacks/${P}.tar.gz"
+SRC_URI="
+	http://forge.abinit.org/fallbacks/${P}.tar.gz
+	https://raw.githubusercontent.com/gentoo-science/sci/master/patches/bigdft-abi-1.0.4-0005.patch
+	"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -29,11 +31,12 @@ RDEPEND="
 	opencl? ( virtual/opencl )
 	glib? ( >=dev-libs/glib-2.22 )
 	etsf_io? ( >=sci-libs/etsf_io-1.0.3-r2 )
-	netcdf? ( || (
-				sci-libs/netcdf[fortran]
-				sci-libs/netcdf-fortran
-				)
+	netcdf? (
+		|| (
+			sci-libs/netcdf[fortran]
+			sci-libs/netcdf-fortran
 			)
+		)
 	scalapack? ( virtual/scalapack )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
@@ -102,13 +105,13 @@ pkg_setup() {
 
 src_prepare() {
 	epatch \
-		"${FILESDIR}"/"${P}"-0002.patch \
-		"${FILESDIR}"/"${P}"-0003.patch \
-		"${FILESDIR}"/"${P}"-0004.patch \
-		"${FILESDIR}"/"${P}"-0005.patch \
-		"${FILESDIR}"/"${P}"-0006.patch \
-		"${FILESDIR}"/"${P}"-0007.patch \
-		"${FILESDIR}"/"${P}"-CUDA_gethostname.patch
+		"${FILESDIR}"/${P}-0002.patch \
+		"${FILESDIR}"/${P}-0003.patch \
+		"${FILESDIR}"/${P}-0004.patch \
+		"${DISTDIR}"/${P}-0005.patch \
+		"${FILESDIR}"/${P}-0006.patch \
+		"${FILESDIR}"/${P}-0007.patch \
+		"${FILESDIR}"/${P}-CUDA_gethostname.patch
 
 	eautoreconf
 }
@@ -160,7 +163,7 @@ src_compile() {
 	_check_build_dir
 	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
 	emake -j1
-	sed -i -e's%\$(top_builddir)/[^ ]*/lib\([^ /$-]*\)\.a%-l\1%g' bigdft.pc
+	sed -i -e's%\$(top_builddir)/[^ ]*/lib\([^ /$-]*\)\.a%-l\1%g' bigdft.pc || die
 	popd > /dev/null
 
 	#autotools-utils_src_compile
