@@ -30,7 +30,7 @@ LICENSE="nmrpipe"
 # x86 architecture. The maintainer chose to keep the sources closed, but
 # says he will gladly provide precompiled executables for other platforms
 # if there are such requests.
-KEYWORDS="-* ~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
 IUSE=""
 
 #RESTRICT="fetch strip"
