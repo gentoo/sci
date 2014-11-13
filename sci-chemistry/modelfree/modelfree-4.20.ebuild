@@ -12,7 +12,7 @@ SRC_URI="http://www.palmer.hs.columbia.edu/software/modelfree4_linux.tar.gz"
 
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
 IUSE="doc examples"
 
 RDEPEND="
