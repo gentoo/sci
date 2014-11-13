@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <longdescription lang="en">
   DCMTK is a collection of libraries and applications implementing large
   parts the DICOM standard. It includes software for examining,
   constructing and converting DICOM image files, handling offline media,
   sending and receiving images over a network connection, as well as
   demonstrative image storage and worklist servers.
 </longdescription>
-<longdescription lang="fr">
+  <longdescription lang="fr">
   DCMTK est un ensemble de bibliothèques et d'application implémentant
   une grande partie du standard DICOM. Cela comprend des logiciels de
   visualisation et de conversion des fichier image, de manipulation de
