@@ -27,7 +27,7 @@ DEPEND=">=dev-lang/perl-5.8
 	dev-perl/Bit-Vector
 	dev-perl/SVG
 	dev-perl/TermReadKey
-	perl-core/Time-HiRes
+	virtual/perl-Time-HiRes
 	dev-perl/DBI
 	dev-perl/XML-Parser
 	dev-perl/Carp-Clan
@@ -38,8 +38,8 @@ DEPEND=">=dev-lang/perl-5.8
 	dev-perl/URI
 	dev-perl/Inline
 	dev-perl/Parse-RecDescent
-	perl-core/version
-	perl-core/DB_File
+	virtual/perl-version
+	virtual/perl-DB_File
 	dev-perl/DBD-mysql
 	>=dev-lang/python-2.6
 	dev-lang/ruby
