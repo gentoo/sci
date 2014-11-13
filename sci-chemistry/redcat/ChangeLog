@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  13 Nov 2014; Justin Lecher <jlec@gentoo.org> redcat-3.ebuild:
+  Use java eclasses correctly
+
   22 Jul 2014; Justin Lecher <jlec@gentoo.org> +redcat-3.ebuild,
   +files/CMakeLists.txt, +metadata.xml:
   New package written by me
