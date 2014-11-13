@@ -6,12 +6,6 @@
     <email>tim@cerazone.net</email>
     <name>Tim Cera</name>
   </maintainer>
-  <use>
-    <flag name="non-commercial">
-		Allows the use of a tide constituent database that is available for
-		non-commercial use only.
-	</flag>
-  </use>
   <longdescription lang="en">
 Library for reading and writing Tide Constituent Database (TCD) files.
 </longdescription>
