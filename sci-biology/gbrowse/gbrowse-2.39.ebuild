@@ -36,7 +36,7 @@ S="${WORKDIR}/${MY_P}"
 # TODO: dev-perl/MOBY, dev-perl/Bio-SCF, dev-perl/Safe-World (not compatible w/perl-5.10)
 # how about mod_fcgi and dev-libs/fcgi and mod_scgi?
 DEPEND="
-	>=perl-core/Module-Build-0.380.0
+	>=virtual/perl-Module-Build-0.380.0
 	>=dev-lang/perl-5.8.8:=
 	dev-perl/Capture-Tiny
 	>=sci-biology/bioperl-1.6.901
@@ -67,8 +67,8 @@ RDEPEND="${DEPEND}
 	!minimal? (
 		dev-perl/File-NFSLock
 		dev-perl/FCGI
-		perl-core/Math-BigInt
-		perl-core/Math-BigInt-FastCalc
+		virtual/perl-Math-BigInt
+		virtual/perl-Math-BigInt-FastCalc
 		dev-perl/Math-BigInt-GMP
 		dev-perl/Digest-SHA1
 		dev-perl/Crypt-SSLeay
