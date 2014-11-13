@@ -7,14 +7,13 @@ EAPI=5
 PYTHON_COMPAT=( python2_7 )
 CMAKE_MAKEFILE_GENERATOR="ninja"
 
-inherit cmake-utils multilib python-single-r1
+inherit cmake-utils python-single-r1
 
 DESCRIPTION="extensible, flexible, fast and parallel simulation software for soft matter research"
 HOMEPAGE="https://www.espresso-pp.de"
 
 if [[ ${PV} = 9999 ]]; then
 	EHG_REPO_URI="https://bitbucket.org/${PN//+/p}/${PN//+/p}"
-	EHG_REVISION="default"
 	inherit mercurial
 	KEYWORDS=
 else
@@ -37,13 +36,10 @@ RDEPEND="${PYTHON_DEPS}
 	dev-python/mpi4py"
 DEPEND="${RDEPEND}"
 
-DOCS=( AUTHORS NEWS README )
-
 src_configure() {
-	mycmakeargs=(
+	local mycmakeargs=(
 		-DEXTERNAL_BOOST=ON
 		-DEXTERNAL_MPI4PY=ON
-		-DLIB="$(get_libdir)"
 		-DWITH_RC_FILES=OFF
 	)
 	cmake-utils_src_configure

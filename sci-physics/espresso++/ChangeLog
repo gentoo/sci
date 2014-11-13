@@ -3,6 +3,9 @@
 # $Header: $
 
   13 Nov 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
+  sync with gx86
+
+  13 Nov 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
   deps on boost:=
 
   25 Aug 2014; Christoph Junghans <ottxor@gentoo.org> espresso++-9999.ebuild:
