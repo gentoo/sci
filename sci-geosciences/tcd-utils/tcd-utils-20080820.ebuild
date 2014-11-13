@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
+
 DESCRIPTION="Utiliies for working with Tidal Constituent Databases."
 HOMEPAGE="http://www.flaterco.com/xtide/"
 SRC_URI="ftp://ftp.flaterco.com/xtide/${P}.tar.bz2"
@@ -13,7 +15,3 @@ IUSE=""
 
 DEPEND=">=sci-geosciences/libtcd-2.2.4"
 RDEPEND="${DEPEND}"
-
-src_install() {
-	emake install DESTDIR="${D}" || die "emake install failed"
-}
