@@ -20,7 +20,7 @@ inherit git-r3 autotools linux-mod toolchain-funcs udev flag-o-matic
 
 DESCRIPTION="Lustre is a parallel distributed file system"
 HOMEPAGE="http://wiki.whamcloud.com/"
-SRC_URI=""
+SRC_URI="https://raw.githubusercontent.com/gentoo-science/sci/master/patches/0002-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
 EGIT_REPO_URI="git://git.whamcloud.com/fs/lustre-release.git"
 
 LICENSE="GPL-2"
@@ -42,7 +42,7 @@ DEPEND="${RDEPEND}
 
 PATCHES=(
 	"${FILESDIR}/0001-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch"
-	"${FILESDIR}/0002-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
+	"${DISTDIR}/0002-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch"
 	"${FILESDIR}/0003-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch"
 	"${FILESDIR}/lustre-readline6.3_fix.patch"
 )

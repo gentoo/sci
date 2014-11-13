@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
-inherit eutils
+inherit eutils toolchain-funcs
 
 DESCRIPTION="An OpenGL utility library for doing tiled rendering"
 HOMEPAGE="http://www.mesa3d.org/brianp/TR.html"
@@ -20,12 +20,13 @@ DEPEND="${RDEPEND}"
 
 src_prepare() {
 	epatch "${FILESDIR}"/${PV}-Makefile.patch
+	tc-export CC
 }
 
 src_install() {
-	insinto /usr/include/
-	doins tr.h || die
-	dobin trdemo{1,2} || die
-	dodoc README || die
-	dohtml tr.htm || die
+	doheader tr.h
+	dobin trdemo{1,2}
+	dodoc README
+	docinto html
+	dodoc tr.htm
 }

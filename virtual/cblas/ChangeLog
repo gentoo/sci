@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/virtual/cblas/ChangeLog,v 1.6 2010/01/11 10:56:05 ulm Exp $
 
+  12 Nov 2014; Justin Lecher <jlec@gentoo.org> cblas-2.0.ebuild, metadata.xml:
+  Bumpt to EAPI=5
+
 *cblas-2.0-r3 (10 Nov 2014)
 
   10 Nov 2014; Christoph Junghans <ottxor@gentoo.org> +cblas-2.0-r3.ebuild:

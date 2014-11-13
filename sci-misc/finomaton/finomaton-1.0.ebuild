@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
+
 # N.B. this is from CTAN
 
 DESCRIPTION="Simple tcl/tk script to draw finite state automata"
@@ -24,10 +26,7 @@ src_install() {
 	dobin finomaton.tcl
 	dodoc ChangeLog TODO README
 	if use examples ; then
-		dodir /usr/share/${PN}
 		insinto /usr/share/${PN}
-		for f in examples ; do
-			doins ${f}
-		done
+		doins -r examples
 	fi
 }

@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
+
 JAVA_PKG_IUSE="doc source"
 
 inherit java-pkg-2 java-ant-2
@@ -78,10 +80,9 @@ RDEPEND=">=virtual/jre-1.4
 
 EANT_BUILD_TARGET="compile package"
 
-src_unpack() {
+src_prepare() {
 	# Models shan’t be unpacked!
-	unpack ${P}.tgz
-	cd "${S}"/lib
+	cd "${S}"/lib || die
 	rm -v *.jar || die "failed to rm jars"
 	java-pkg_jar-from trove
 	java-pkg_jar-from jwnl jwnl.jar jwnl-1.3.3.jar

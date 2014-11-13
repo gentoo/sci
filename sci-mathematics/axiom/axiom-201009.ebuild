@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
+
 inherit eutils flag-o-matic multilib
 
 DESCRIPTION="Axiom is a general purpose Computer Algebra system"
@@ -57,10 +59,7 @@ S="${WORKDIR}"/${PN}
 # 	fi
 # }
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-
+src_prepare() {
 	## How weird, axiom ships these patches, but does not apply them.
 	## So, we keep our gentoo patches around.
 	cp "${FILESDIR}"/noweb-2.9-insecure-tmp-file.patch.input \
@@ -69,16 +68,13 @@ src_unpack() {
 # 	cp "${FILESDIR}"/${PN}-200711-gcl-configure.patch \
 # 		"${S}"/zips/gcl-2.6.7.configure.in.patch \
 # 		|| die "Failed to fix gcl-2.6.7 configure"
-	epatch "${FILESDIR}"/noweb-2.9-insecure-tmp-file.Makefile.patch \
-		|| die "Failed to patch noweb security issue!"
+	epatch "${FILESDIR}"/noweb-2.9-insecure-tmp-file.Makefile.patch
+
+	# lots of strict-aliasing badness
+	append-flags -fno-strict-aliasing
 }
 
 src_compile() {
-	# lots of strict-aliasing badness
-	append-flags -fno-strict-aliasing
-
-	econf || die "Failed to configure"
-
 ## I believe 2.6.8_pre4 can be used now.
 	# use gcl 2.6.7
 #	sed -e "s:GCLVERSION=gcl-2.6.8pre$:GCLVERSION=gcl-2.6.7:" \
@@ -94,22 +90,21 @@ src_compile() {
 	unset ABI
 
 	# Let the fun begin...
-	AXIOM="${S}"/mnt/linux emake -j1 || die "emake failed"
+	AXIOM="${S}"/mnt/linux emake -j1
 }
 
 src_install() {
-	emake DESTDIR="${D}"/opt/axiom COMMAND="${D}"/opt/axiom/mnt/linux/bin/axiom install \
-		|| die 'Failed to install Axiom!'
+	emake DESTDIR="${ED}"/opt/axiom COMMAND="${ED}"/opt/axiom/mnt/linux/bin/axiom install
 
-	mv "${D}"/opt/axiom/mnt/linux/* "${D}"/opt/axiom \
+	mv "${ED}"/opt/axiom/mnt/linux/* "${ED}"/opt/axiom \
 		|| die "Failed to mv axiom into its final destination path."
-	rm -fr "${D}"/opt/axiom/mnt \
+	rm -fr "${ED}"/opt/axiom/mnt \
 		|| die "Failed to remove old directory."
 
-	dodir /usr/bin
-	dosym /opt/axiom/bin/axiom /usr/bin/axiom
+	dosym ../../axiom/bin/axiom /usr/bin/axiom
 
-	sed -e "2d;3i AXIOM=/opt/axiom" \
+	sed \
+		-e "2d;3i AXIOM=/opt/axiom" \
 		-i "${D}"/opt/axiom/bin/axiom \
 		|| die "Failed to patch axiom runscript!"
 
