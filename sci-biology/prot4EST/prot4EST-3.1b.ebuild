@@ -19,8 +19,8 @@ IUSE=""
 DEPEND="sci-biology/emboss
 	sci-biology/estscan
 	sci-biology/bioperl
-	perl-core/File-Path
-	perl-core/Getopt-Long
+	virtual/perl-File-Path
+	virtual/perl-Getopt-Long
 	dev-perl/Statistics-Descriptive
 	dev-perl/Tie-IxHash"
 	#dev-perl/Algorithm-Loops
