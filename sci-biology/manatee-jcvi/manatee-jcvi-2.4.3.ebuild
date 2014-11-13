@@ -24,10 +24,10 @@ DEPEND=">=dev-libs/expat-1.95.8
 		dev-perl/XML-Writer
 		dev-perl/HTML-Template
 		dev-perl/Tree-DAG_Node
-		perl-core/File-Spec
-		perl-core/Data-Dumper
+		virtual/perl-File-Spec
+		virtual/perl-Data-Dumper
 		dev-perl/GD
-		perl-core/Storable
+		virtual/perl-Storable
 		dev-perl/Log-Log4perl
 		dev-perl/Log-Cabin
 		dev-perl/IO-Tee
