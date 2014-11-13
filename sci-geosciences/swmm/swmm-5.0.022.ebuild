@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=5
+
 inherit eutils versionator
 
 MY_PV=$(delete_all_version_separators)
@@ -23,29 +25,23 @@ RDEPEND=""
 S="${WORKDIR}/${PN}"
 
 src_unpack() {
-	mkdir "${S}" && cd "${S}"
+	mkdir "${S}" && cd "${S}" || die
 	unpack "${MY_SRC}"
 	# Need to delete Readme.txt, because it is in makefiles.zip
-	rm Readme.txt
-	unpack ./makefiles.zip
-	unpack ./GNU_CON.zip
-	unpack ./source*.ZIP
+	rm Readme.txt || die
+	unpack ./makefiles.zip ./GNU_CON.zip ./source*.ZIP
 }
 
-src_compile(){
+src_prepare(){
 	# 'sed' command has to accomodate DOS formatted file.
 	sed -i \
 	    -e 's;^#define DLL;//#define DLL;' \
 	    -e 's;^//#define CLE;#define CLE;' \
-		swmm5.c
-	emake || die "compile failed"
+		swmm5.c || die
 }
 
 src_install(){
 	# Don't like the version number in the name.
-	mv swmm5 swmm
-	dobin swmm
-	if use doc ; then
-		dodoc Roadmap.txt
-	fi
+	newbin swmm5 swmm
+	use doc && dodoc Roadmap.txt
 }
