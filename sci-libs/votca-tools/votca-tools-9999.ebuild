@@ -28,7 +28,7 @@ IUSE="doc +fftw +gsl sqlite"
 RDEPEND="fftw? ( sci-libs/fftw:3.0 )
 	dev-libs/expat
 	gsl? ( sci-libs/gsl )
-	dev-libs/boost
+	dev-libs/boost:=
 	sqlite? ( dev-db/sqlite:3 )"
 
 DEPEND="${RDEPEND}
