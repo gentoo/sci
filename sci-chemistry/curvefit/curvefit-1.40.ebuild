@@ -12,7 +12,7 @@ SRC_URI="http://cpmcnet.columbia.edu/dept/gsas/biochem/labs/palmer/software/curv
 
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
 IUSE="examples"
 
 RDEPEND="
