@@ -20,18 +20,23 @@ fi
 
 LICENSE="BSD"
 SLOT="0"
-IUSE=""
+IUSE="mpi"
 
+# https://github.com/icnc/icnc/issues/14 OpenMPI not supported, only *ch implementation
 DEPEND="
 	>=dev-cpp/tbb-4.2
 	sys-libs/glibc
+	mpi? ( || (
+		sys-cluster/mpich
+		sys-cluster/mpich2
+		sys-cluster/mvapich2
+	) )
 	"
 RDEPEND="${DEPEND}"
 
 src_configure() {
-#TODO has mpi support but broken with virtual/mpi
-# 		$(cmake-utils_use mpi BUILD_LIBS_FOR_MPI)
 	local mycmakeargs=(
+		$(cmake-utils_use mpi BUILD_LIBS_FOR_MPI)
 		-DLIB=$(get_libdir)
 	)
 	cmake-utils_src_configure
