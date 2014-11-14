@@ -35,5 +35,6 @@ src_compile(){
 
 src_install(){
 	emake install DESTDIR="${D}"
+	use gtk && emake install-gui DESTDIR="${D}"
 	dodoc README.md CHANGES
 }
