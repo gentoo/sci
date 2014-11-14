@@ -39,7 +39,7 @@ RDEPEND="${PYTHON_DEPS}
 	media-libs/fontconfig
 	media-libs/freetype
 	media-libs/libpng:1.2
-	sys-libs/db:4.8
+	sys-libs/db:4.7
 	sys-libs/gdbm
 	sys-libs/ncurses[tinfo]
 	sys-libs/readline
