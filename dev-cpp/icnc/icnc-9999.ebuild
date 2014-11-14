@@ -22,15 +22,10 @@ LICENSE="BSD"
 SLOT="0"
 IUSE="mpi"
 
-# https://github.com/icnc/icnc/issues/14 OpenMPI not supported, only *ch implementation
 DEPEND="
 	>=dev-cpp/tbb-4.2
 	sys-libs/glibc
-	mpi? ( || (
-		sys-cluster/mpich
-		sys-cluster/mpich2
-		sys-cluster/mvapich2
-	) )
+	mpi? ( virtual/mpi )
 	"
 RDEPEND="${DEPEND}"
 
