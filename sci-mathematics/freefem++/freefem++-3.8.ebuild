@@ -39,13 +39,8 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	doc? (
-		|| (
-			(
-				dev-texlive/texlive-latexrecommended
-				dev-texlive/texlive-latexextra
-			)
-			app-text/ptex
-			)
+		dev-texlive/texlive-latexrecommended
+		dev-texlive/texlive-latexextra
 		virtual/latex-base
 		media-gfx/imagemagick
 		)"
