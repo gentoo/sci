@@ -14,4 +14,4 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 DEPEND=""
-RDEPEND="|| ( sci-physics/geant:3 sci-physics/geant3-vmc )"
+RDEPEND="|| ( sci-physics/geant:3 sci-physics/geant-vmc:3 )"
