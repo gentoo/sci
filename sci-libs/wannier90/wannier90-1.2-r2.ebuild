@@ -22,11 +22,7 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	doc? ( virtual/latex-base
-		|| (
-			dev-texlive/texlive-latexextra
-			app-text/tetex
-			app-tex/ptex
-		)
+		dev-texlive/texlive-latexextra
 	)"
 
 src_prepare() {
