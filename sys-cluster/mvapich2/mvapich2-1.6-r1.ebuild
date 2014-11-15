@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
 inherit flag-o-matic fortran-2 mpi
 
@@ -16,13 +16,11 @@ KEYWORDS="~x86 ~amd64"
 IUSE="debug fortran large-cluster medium-cluster romio threads"
 
 RDEPEND="
-	|| (
-		(
-			sys-infiniband/libibverbs
-			sys-infiniband/libibumad
-			sys-infiniband/libibmad
-			sys-infiniband/librdmacm )
-		sys-infiniband/openib-userspace )"
+	sys-infiniband/libibverbs
+	sys-infiniband/libibumad
+	sys-infiniband/libibmad
+	sys-infiniband/librdmacm
+	"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/mvapich2-${PV/_/-}"
