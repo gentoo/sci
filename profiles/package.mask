@@ -30,6 +30,21 @@
 
 #--- END OF EXAMPLES ---
 
+# Christoph Junghans <ottxor@gentoo.org> (14 Nov 2014)
+# sci-misc/salome-* masked for removal in 30 days
+# not bumped since 2010, reintroduced back in science overlay
+# if properly maintained
+sci-misc/salome-component
+sci-misc/salome-geom
+sci-misc/salome-gui
+sci-misc/salome-kernel
+sci-misc/salome-med
+sci-misc/salome-meta
+sci-misc/salome-pycalculator
+sci-misc/salome-smesh
+sci-misc/salome-visu
+sci-misc/salome-yacs
+
 # Andreas K. Huettel <dilfridge@gentoo.org> (1 Nov 2014)
 # Lab::Instrument and Lab::Tools provided as separate packages
 # are way outdated. These are now supplied as parts of the package
