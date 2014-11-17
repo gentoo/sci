@@ -1,0 +1,9 @@
+# ChangeLog for dev-util/nvidia-cuda-sdk
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*nvidia-cuda-sdk-6.5.19 (15 Nov 2014)
+
+  15 Nov 2014; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +nvidia-cuda-sdk-6.5.19.ebuild:
+  dev-util/nvidia-cuda-sdk: add version 6.5.19
