@@ -15,7 +15,7 @@ SRC_URI="
 
 SLOT="0"
 LICENSE="all-rights-reserved"
-KEYWORDS="~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
 IUSE="custom-cflags"
 
 RDEPEND="

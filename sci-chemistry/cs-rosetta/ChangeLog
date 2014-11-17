@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Nov 2014; Justin Lecher <jlec@gentoo.org>
+  cs-rosetta-1.01.2009.1109.11.ebuild:
+  Drop all keywords
+
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org>
   cs-rosetta-1.01.2009.1109.11.ebuild:
   dropped ~amd64 as sci-chemistry/nmrpipe doesn't have ~amd64
