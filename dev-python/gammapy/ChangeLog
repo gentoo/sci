@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Nov 2014; Joseph Jon Booker <joe@neoturbine.net> gammapy-0.1.ebuild,
+  gammapy-9999.ebuild:
+  dev-python/gammapy: Make astropy-helpers a DEPEND, not RDEPEND package
+
 *gammapy-0.1 (28 Aug 2014)
 
   28 Aug 2014; Joseph Jon Booker <joe@neoturbine.net> +gammapy-0.1.ebuild,
