@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils toolchain-funcs portability unpacker versionator
+inherit eutils portability toolchain-funcs unpacker versionator
 
 MYD=$(get_version_component_range 1)_$(get_version_component_range 2)
 
@@ -21,10 +21,9 @@ KEYWORDS="~amd64"
 IUSE="+healthmon +nvml +doc examples"
 
 RDEPEND="
->=dev-util/nvidia-cuda-toolkit-6.5
-examples? ( >=x11-drivers/nvidia-drivers-340.32[uvm] )
-media-libs/freeglut
-"
+	>=dev-util/nvidia-cuda-toolkit-6.5
+	examples? ( >=x11-drivers/nvidia-drivers-340.32[uvm] )
+	media-libs/freeglut"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/payload"
@@ -37,13 +36,11 @@ src_unpack() {
 
 src_compile() {
 	use examples || return
-	cd "${S}"/nvml/example
+	cd "${S}"/nvml/example || die
 	emake || die
 }
 
 src_install() {
-	cd "${S}/"
-
 	local i j f t
 
 	if use doc; then
@@ -60,10 +57,10 @@ src_install() {
 		if use healthmon ; then
 			ebegin "Installing nvml docs..."
 				doman nvml/doc/man/man3/*.3
-				cd "${S}/nvml/"
+				cd "${S}/nvml/" || die
 				treecopy $(find -type f \( -name README.txt -name COPYRIGHT.txt -o -name "*.pdf" \)) "${ED}"/usr/share/doc/${PF}/nvml/
 				docompress -x $(find "${ED}"/usr/share/doc/${PF}/nvml/ -type f -name readme.txt | sed -e "s:${ED}::")
-				cd "${S}/"
+				cd "${S}/" || die
 			eend
 		fi
 	fi
@@ -74,40 +71,40 @@ src_install() {
 
 	if use healthmon; then
 		ebegin "Installing nvidia-healthmon"
-		exeinto "/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/"
-		doexe "nvidia-healthmon/nvidia-healthmon-amd64-${PV}/bin"/gpu_rdma_bw
-		doexe "nvidia-healthmon/nvidia-healthmon-amd64-${PV}/bin"/ibv_rdma_bw
-		doexe "nvidia-healthmon/nvidia-healthmon-amd64-${PV}/bin"/rdma_test.sh
-		exeinto "/opt/cuda/gdk/nvidia-healthmon/"
-		doexe "nvidia-healthmon/nvidia-healthmon-amd64-${PV}"/nvidia-healthmon
-		insinto "/etc/nvidia-healthmon/"
-		doins "nvidia-healthmon/nvidia-healthmon-amd64-${PV}"/nvidia-healthmon.conf
+			exeinto "/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/"
+			doexe "nvidia-healthmon/nvidia-healthmon-amd64-${PV}/bin"/{*,*.*}
+			exeinto "/opt/cuda/gdk/nvidia-healthmon/"
+			doexe "nvidia-healthmon/nvidia-healthmon-amd64-${PV}"/nvidia-healthmon
+			insinto "/etc/nvidia-healthmon/"
+			doins "nvidia-healthmon/nvidia-healthmon-amd64-${PV}"/nvidia-healthmon.conf
 
-		# install launch script
-		exeinto /opt/bin
-		doexe "${FILESDIR}"/nvidia-healthmon
+			# install launch script
+			exeinto /opt/bin
+			doexe "${FILESDIR}"/nvidia-healthmon
+		eend
 	fi
 
 	if use nvml; then
 		ebegin "Installing nvml"
-		cd "${S}/nvml"
-		for f in $(find .); do
-			local t="$(dirname ${f})"
-			if [[ "${t/obj\/}" != "${t}" || "${t##*.}" == "a" ]]; then
-				continue
-			fi
-
-			if [[ ! -d "${f}" ]]; then
-				if [[ -x "${f}" ]]; then
-					exeinto "/opt/cuda/gdk/nvml/${t}"
-					doexe "${f}"
-				else
-					insinto "/opt/cuda/gdk/nvml/${t}"
-					doins "${f}"
+			cd "${S}/nvml" || die
+			for f in $(find .); do
+				local t="$(dirname ${f})"
+				if [[ "${t/obj\/}" != "${t}" || "${t##*.}" == "a" ]]; then
+					continue
 				fi
-			fi
-		done
-		cd "${S}/"
+
+				if [[ ! -d "${f}" ]]; then
+					if [[ -x "${f}" ]]; then
+						exeinto "/opt/cuda/gdk/nvml/${t}"
+						doexe "${f}"
+					else
+						insinto "/opt/cuda/gdk/nvml/${t}"
+						doins "${f}"
+					fi
+				fi
+			done
+			cd "${S}/" || die
+		eend
 	fi
 
 }
