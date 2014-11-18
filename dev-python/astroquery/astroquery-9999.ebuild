@@ -32,7 +32,9 @@ RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/beautifulsoup:4[${PYTHON_USEDEP}]
 	dev-python/html5lib[${PYTHON_USEDEP}]"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	dev-python/astropy-helpers[${PYTHON_USEDEP}]
+"
 
 S=${WORKDIR}/${PN}-${MY_PV}
 
