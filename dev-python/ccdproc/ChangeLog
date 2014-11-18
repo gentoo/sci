@@ -2,6 +2,13 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*ccdproc-0.2.2 (18 Nov 2014)
+
+  18 Nov 2014; Joseph Jon Booker <joe@neoturbine.net> +ccdproc-0.2.2.ebuild,
+  -ccdproc-0.2.ebuild, ccdproc-0.2.1.ebuild, ccdproc-9999.ebuild:
+  dev-python/ccdproc: Version bump, remove old version, and make astropy-helpers
+  a DEPEND, not RDEPEND
+
 *ccdproc-0.2.1 (18 Oct 2014)
 
   18 Oct 2014; Joseph Jon Booker <joe@neoturbine.net> +ccdproc-0.2.1.ebuild,
