@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>marbre@linux.sungazer.de</email>
+    <name>Marius Brehler</name>
+  </maintainer>
+  <use>
+    <flag name="healthmon">
+			Install nvidia-healthmon.
+		</flag>
+    <flag name="nvml">
+			Install the NVIDIA Managment Library.
+		</flag>
+  </use>
+</pkgmetadata>
