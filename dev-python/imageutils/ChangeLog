@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Nov 2014; Joseph Jon Booker <joe@neoturbine.net> imageutils-9999.ebuild:
+  dev-python/imageutils: Make astropy-helpers a DEPEND, not RDEPEND package
+
 *imageutils-9999 (08 Aug 2014)
 
   08 Aug 2014; Joseph Jon Booker <joe@neoturbine.net> +imageutils-9999.ebuild,
