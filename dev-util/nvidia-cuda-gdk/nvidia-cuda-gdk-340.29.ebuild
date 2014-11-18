@@ -37,7 +37,7 @@ src_unpack() {
 src_compile() {
 	use examples || return
 	cd "${S}"/nvml/example || die
-	emake || die
+	emake
 }
 
 src_install() {
@@ -47,10 +47,10 @@ src_install() {
 		if use healthmon ; then
 			ebegin "Installing healthmon docs..."
 				doman nvidia-healthmon/docs/man/man8/nvidia-healthmon.8
-				cd "${S}/nvidia-healthmon/nvidia-healthmon-amd64-${PV}"
+				cd "${S}/nvidia-healthmon/nvidia-healthmon-amd64-${PV}" || die
 				treecopy $(find -type f \( -name README.txt -name COPYING.txt -o -name "*.pdf" \)) "${ED}"/usr/share/doc/${PF}/nvidia-healthmon/
 				docompress -x $(find "${ED}"/usr/share/doc/${PF}/nvidia-healthmon/ -type f -name readme.txt | sed -e "s:${ED}::")
-				cd "${S}/"
+				cd "${S}/" || die
 			eend
 		fi
 
