@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Nov 2014; Joseph Jon Booker <joe@neoturbine.net> specutils-9999.ebuild:
+  dev-python/specutils: Make astropy-helpers a DEPEND, not RDEPEND package
+
 *specutils-9999 (08 Aug 2014)
 
   08 Aug 2014; Joseph Jon Booker <joe@neoturbine.net> +metadata.xml,

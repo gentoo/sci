@@ -25,11 +25,12 @@ DOCS=( README.rst )
 
 RDEPEND="
 	>=dev-python/astropy-0.4[${PYTHON_USEDEP}]
-	dev-python/astropy-helpers[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]"
 
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	dev-python/astropy-helpers[${PYTHON_USEDEP}]
+"
 
 python_prepare_all() {
 	distutils-r1_python_prepare_all
