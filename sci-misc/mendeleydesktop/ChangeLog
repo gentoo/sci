@@ -1,0 +1,12 @@
+# ChangeLog for sci-misc/mendeleydesktop
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mendeleydesktop-1.12.3 (19 Nov 2014)
+
+  19 Nov 2014; Marius Brehler <marbre@linux.sungazer.de> +files/mendeleydesktop,
+  +mendeleydesktop-1.12.3.ebuild, +metadata.xml:
+  Version bump, #529230
+
+  14 Nov 2014; Michael Weber <xmw@gentoo.org> mendeleydesktop-1.12.3.ebuild:
+  Fix bug 480346.
