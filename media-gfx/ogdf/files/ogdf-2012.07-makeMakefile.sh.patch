@@ -1,0 +1,6 @@
+--- a/makeMakefile.sh
++++ b/makeMakefile.sh
+@@ -1,2 +1,2 @@
+ #!/bin/sh
+-python makeMakefile.py
++python2.7 makeMakefile.py

@@ -1,0 +1,11 @@
+--- a/makeMakefile.config	
++++ b/makeMakefile.config	
+@@ -1,7 +1,7 @@
+ [GENERAL]
+ #**********************************************************
+ #* build OGDF as a static library (false) or shared library (true)
+-sharedLib = false
++sharedLib = true
+ 
+ #* name of the static (import) library
+ libName = libOGDF.a 
