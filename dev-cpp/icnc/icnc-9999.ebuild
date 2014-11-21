@@ -20,7 +20,7 @@ fi
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="mpi"
+IUSE="doc examples mpi"
 
 DEPEND="
 	>=dev-cpp/tbb-4.2
@@ -35,4 +35,22 @@ src_configure() {
 		-DLIB=$(get_libdir)
 	)
 	cmake-utils_src_configure
+}
+
+src_install() {
+	cmake-utils_src_install
+	if use doc ; then
+		insinto /usr/share/doc/${P}/html
+		doins -r "${ED}"/usr/doc/api/*
+	fi
+	rm -r "${ED}"/usr/doc/api || die
+	rmdir "${ED}"/usr/doc || die
+	if use examples ; then
+		insinto /usr/share/${PN}/examples
+		doins -r "${ED}"/usr/samples/*
+	fi
+	rm -r "${ED}"/usr/samples || die
+	insinto /usr/share/${PN}/
+	doins -r "${ED}"/usr/misc/*
+	rm -r "${ED}"/usr/misc/ || die
 }
