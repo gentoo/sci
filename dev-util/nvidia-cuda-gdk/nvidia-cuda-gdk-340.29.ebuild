@@ -17,7 +17,7 @@ SRC_URI="
 
 LICENSE="NVIDIA-gdk"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="+healthmon +nvml +doc examples"
 
 RDEPEND="
@@ -41,13 +41,20 @@ src_compile() {
 }
 
 src_install() {
-	local i j f t
+	local i j f t ARCH
+	if use amd64; then
+		ARCH=amd64;
+	elif use x86; then
+		ARCH=x86;
+	else
+		die;
+	fi
 
 	if use doc; then
 		if use healthmon ; then
 			ebegin "Installing healthmon docs..."
 				doman nvidia-healthmon/docs/man/man8/nvidia-healthmon.8
-				cd "${S}/nvidia-healthmon/nvidia-healthmon-amd64-${PV}" || die
+				cd "${S}/nvidia-healthmon/nvidia-healthmon-${ARCH}-${PV}" || die
 				treecopy $(find -type f \( -name README.txt -name COPYING.txt -o -name "*.pdf" \)) "${ED}"/usr/share/doc/${PF}/nvidia-healthmon/
 				docompress -x $(find "${ED}"/usr/share/doc/${PF}/nvidia-healthmon/ -type f -name readme.txt | sed -e "s:${ED}::")
 				cd "${S}/" || die
@@ -72,11 +79,11 @@ src_install() {
 	if use healthmon; then
 		ebegin "Installing nvidia-healthmon"
 			exeinto "/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/"
-			doexe "nvidia-healthmon/nvidia-healthmon-amd64-${PV}/bin"/{*,*.*}
+			doexe "nvidia-healthmon/nvidia-healthmon-${ARCH}-${PV}/bin"/{*,*.*}
 			exeinto "/opt/cuda/gdk/nvidia-healthmon/"
-			doexe "nvidia-healthmon/nvidia-healthmon-amd64-${PV}"/nvidia-healthmon
+			doexe "nvidia-healthmon/nvidia-healthmon-${ARCH}-${PV}"/nvidia-healthmon
 			insinto "/etc/nvidia-healthmon/"
-			doins "nvidia-healthmon/nvidia-healthmon-amd64-${PV}"/nvidia-healthmon.conf
+			doins "nvidia-healthmon/nvidia-healthmon-${ARCH}-${PV}"/nvidia-healthmon.conf
 
 			# install launch script
 			exeinto /opt/bin
