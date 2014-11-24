@@ -59,13 +59,6 @@ dev-perl/Lab-Tools
 # mask until bug is not fixed
 dev-python/pythonocc
 
-# Jauhien Piatlicki <jauhien@gentoo.org> (09 Sep 2014)
-# www-apps/swish-e masked in tree for removal
-# www-apps/py-swish-e should be masked until
-# www-apps/swish-e is properly maintained and
-# reintroduced back in tree or science overlay
-www-apps/py-swish-e
-
 # Honza Macháček <Hloupy.Honza@centrum.cz> (17 June 2013)
 # bigdft moved from sci-libs to sci-physics
 # sci-physics/abinit now uses sci-libs/bigdft-abi instead
