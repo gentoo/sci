@@ -121,7 +121,7 @@ src_configure() {
 	use sse4_1 && acce="SSE4.1"
 	use avx_128_fma && acce="AVX_128_FMA"
 	use avx_256 && acce="AVX_256"
-	use avx2_256 && acee="AVX2_256"
+	use avx2_256 && acce="AVX2_256"
 
 	#to create man pages, build tree binaries are executed (bug #398437)
 	[[ ${CHOST} = *-darwin* ]] && \
