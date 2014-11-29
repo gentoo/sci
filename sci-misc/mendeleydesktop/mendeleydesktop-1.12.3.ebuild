@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit eutils multilib
+inherit eutils fdo-mime multilib
 
 MY_P_AMD64="${P}-linux-x86_64"
 MY_P_X86="${P}-linux-i486"
@@ -115,4 +115,9 @@ src_install() {
 	# install launch script
 	into /opt
 	make_wrapper ${PN} "/opt/${PN}/bin/${PN} --unix-distro-build"
+}
+
+pkg_postinst() {
+	fdo-mime_desktop_database_update
+	fdo-mime_mime_database_update
 }
