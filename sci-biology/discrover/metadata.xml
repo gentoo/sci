@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer>
+    <email>jonas@maaskola.de</email>
+    <name>Jonas Maaskola</name>
+  </maintainer>
+  <use>
+    <flag name="dreme">Allow to use DREME from the MEME package for seeding</flag>
+    <flag name="rmathlib">Link to the standalone Rmathlib for statistical routines</flag>
+    <flag name="logo">Enable LaTeX/TikZ based ruby script for sequence logo drawing</flag>
+  </use>
+</pkgmetadata>
