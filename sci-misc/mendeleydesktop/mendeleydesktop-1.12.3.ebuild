@@ -113,6 +113,6 @@ src_install() {
 	doins -r share/mendeleydesktop
 
 	# install launch script
-	exeinto /opt/bin
-	doexe "${FILESDIR}"/${PN}
+	into /opt
+	make_wrapper ${PN} "/opt/${PN}/bin/${PN} --unix-distro-build"
 }
