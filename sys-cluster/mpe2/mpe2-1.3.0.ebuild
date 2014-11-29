@@ -68,7 +68,7 @@ pkg_setup() {
 
 src_prepare() {
 	# Don't assume path contains ./
-	sed -i 's,\($MPERUN\) $pgm,\1 ./$pgm,' sbin/mpetestexeclog.in
+	sed -i 's,\($MPERUN\) $pgm,\1 ./$pgm,' sbin/mpetestexeclog.in || die
 }
 
 src_configure() {
@@ -105,7 +105,7 @@ src_configure() {
 src_test() {
 	local rc
 
-	cd "${S}"
+	cd "${S}" || die
 	if [[ "${MPE_IMP}" == mpich2 ]]; then
 		echo "MPD_SECRETWORD=junk" > "${T}"/mpd.conf
 		chmod 600 "${T}"/mpd.conf
