@@ -12,12 +12,13 @@ EGIT_REPO_URI="https://github.com/maaskola/${PN}"
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="dreme doc +logo +rmathlib tcmalloc"
+IUSE="dreme doc +logo +rmathlib misc_scripts tcmalloc"
 
 RDEPEND="
 	dev-libs/boost
 	dreme? ( sci-biology/meme )
-	logo? ( dev-texlive/texlive-latex dev-tex/pgf dev-tex/xcolor media-gfx/imagemagick )
+	logo? ( dev-lang/ruby dev-texlive/texlive-latex dev-tex/pgf dev-tex/xcolor media-gfx/imagemagick )
+	misc_scripts? ( dev-lang/ruby )
 	rmathlib? ( dev-lang/R )
 	tcmalloc? ( dev-util/google-perftools )
 "

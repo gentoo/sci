@@ -7,7 +7,8 @@
   </maintainer>
   <use>
     <flag name="dreme">Allow to use DREME from the MEME package for seeding</flag>
-    <flag name="rmathlib">Link to the standalone Rmathlib for statistical routines</flag>
     <flag name="logo">Enable LaTeX/TikZ based ruby script for sequence logo drawing</flag>
+    <flag name="misc_scripts">Install some miscellaneous scripts (e.g. to extract sequence length statistics)</flag>
+    <flag name="rmathlib">Link to the standalone Rmathlib for statistical routines</flag>
   </use>
 </pkgmetadata>
