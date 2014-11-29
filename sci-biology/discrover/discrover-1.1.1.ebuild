@@ -12,17 +12,17 @@ SRC_URI="https://github.com/maaskola/discrover/archive/${PV}.tar.gz -> ${PN}-${P
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="dreme doc logo +rmathlib tcmalloc"
+IUSE="dreme doc +logo +rmathlib tcmalloc"
 
 RDEPEND="
 	dev-libs/boost
-	rmathlib? ( dev-lang/R )
 	dreme? ( sci-biology/meme )
+	logo? ( dev-texlive/texlive-latex dev-tex/pgf dev-tex/xcolor media-gfx/imagemagick )
+	rmathlib? ( dev-lang/R )
 	tcmalloc? ( dev-util/google-perftools )
 "
 DEPEND="${RDEPEND}
-	doc? ( dev-texlive/texlive-latex dev-texlive/texlive-latexextra )
-	logo? ( dev-texlive/texlive-latex media-gfx/imagemagick )
+	doc? ( dev-texlive/texlive-latex dev-texlive/texlive-latexextra dev-texlive/texlive-latexrecommended media-gfx/imagemagick )
 "
 src_configure() {
 	local mycmakeargs=(
@@ -45,8 +45,14 @@ src_configure() {
 		elog
 	else
 		elog
-		elog "Not linking to DREME from the MEME suite."
+		elog "Not linking to DREME from the MEME suite (sci-biology/meme)."
 		elog "You will not be able to use DREME to find seeds."
+		elog
+	fi
+
+	if use doc ; then
+		elog
+		elog "User manual available at /usr/share/doc/discrover/discrover-manual.pdf"
 		elog
 	fi
 
