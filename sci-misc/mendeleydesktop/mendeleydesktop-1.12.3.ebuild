@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI="5"
 
 inherit eutils multilib
 
@@ -30,7 +30,7 @@ RDEPEND=">=dev-qt/qtcore-4.6:4
 	>=dev-qt/qtwebkit-4.6:4
 	>=dev-qt/qtxmlpatterns-4.6:4"
 
-QA_FLAGS_IGNORED="
+QA_PREBUILT="
 	/opt/mendeleydesktop/lib64/libMendeley.so.${PV}
 	/opt/mendeleydesktop/lib64/libPDFNetC.so
 	/opt/mendeleydesktop/lib64/mendeleydesktop/libexec/Updater
@@ -56,12 +56,12 @@ pkg_nofetch() {
 src_unpack() {
 	unpack ${A}
 
-	cd "${WORKDIR}"
+	cd "${WORKDIR}" || die
 
 	if use amd64 || use amd64-linux ; then
-		mv -f "${MY_P_AMD64}" "${P}"
+		mv -f "${MY_P_AMD64}" "${P}" || die
 	else
-		mv -f "${MY_P_X86}" "${P}"
+		mv -f "${MY_P_X86}" "${P}" || die
 	fi
 }
 
