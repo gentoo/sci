@@ -2,6 +2,10 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Nov 2014; Marius Brehler <marbre@linux.sungazer.de> -files/medneleydekstop,
+  mendeleydesktop-1.12.3.ebuild:
+  Fixes according to https://github.com/gentoo-science/sci/pull/291
+
 *mendeleydesktop-1.12.3 (19 Nov 2014)
 
   19 Nov 2014; Marius Brehler <marbre@linux.sungazer.de> +files/mendeleydesktop,
