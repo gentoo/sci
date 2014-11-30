@@ -39,13 +39,6 @@ QA_PREBUILT="
 	/opt/mendeleydesktop/lib/libPDFNetC.so
 	/opt/mendeleydesktop/lib/mendeleydesktop/libexec/Updater
 	/opt/mendeleydesktop/lib/mendeleydesktop/libexec/mendeleydesktop.i486"
-QA_PRESTRIPPED="
-	/opt/mendeleydesktop/lib64/libMendeley.so.${PV}
-	/opt/mendeleydesktop/lib64/libPDFNetC.so
-	/opt/mendeleydesktop/lib64/mendeleydesktop/libexec/mendeleydesktop.x86_64
-	/opt/mendeleydesktop/lib/libMendeley.so.${PV}
-	/opt/mendeleydesktop/lib/libPDFNetC.so
-	/opt/mendeleydesktop/lib/mendeleydesktop/libexec/mendeleydesktop.i486"
 
 pkg_nofetch() {
 	elog "Please download ${A} from:"
@@ -118,6 +111,11 @@ src_install() {
 }
 
 pkg_postinst() {
+	fdo-mime_desktop_database_update
+	fdo-mime_mime_database_update
+}
+
+pkg_postrm() {
 	fdo-mime_desktop_database_update
 	fdo-mime_mime_database_update
 }
