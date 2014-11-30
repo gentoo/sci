@@ -76,7 +76,7 @@ src_install() {
 	echo "${installdir}/bin/eagle" '"$@"' >> "${D}/opt/bin/eagle"
 
 	# Install the documentation
-	cd doc
+	cd doc || die
 	dodoc README_${MY_LANG} UPDATE_${MY_LANG} library_${MY_LANG}.txt
 	doman eagle.1
 
@@ -86,7 +86,7 @@ src_install() {
 	fi
 	# Remove docs left in $installdir
 	rm -rf "${D}${installdir}/doc"
-	cd "${S}"
+	cd "${S}" || die
 
 	echo -e "ROOTPATH=${installdir}/bin\nPRELINK_PATH_MASK=${installdir}" > "${S}/90eagle-${PV}"
 	doenvd "${S}/90eagle-${PV}"
