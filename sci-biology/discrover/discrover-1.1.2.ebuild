@@ -12,7 +12,7 @@ SRC_URI="https://github.com/maaskola/discrover/archive/${PV}.tar.gz -> ${P}.tar.
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="dreme doc +logo +rmathlib misc_scripts tcmalloc"
+IUSE="dreme doc +logo misc_scripts +rmathlib tcmalloc"
 
 RDEPEND="
 	dev-libs/boost
@@ -27,10 +27,12 @@ DEPEND="${RDEPEND}
 "
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_with rmathlib RMATHLIB)
 		$(cmake-utils_use_with dreme DREME)
-		$(cmake-utils_use_with tcmalloc TCMALLOC)
 		$(cmake-utils_use_with doc DOC)
+		$(cmake-utils_use_with logo LOGO)
+		$(cmake-utils_use_with misc_scripts MISC_SCRIPTS)
+		$(cmake-utils_use_with rmathlib RMATHLIB)
+		$(cmake-utils_use_with tcmalloc TCMALLOC)
 	)
 
 	unset R_HOME
