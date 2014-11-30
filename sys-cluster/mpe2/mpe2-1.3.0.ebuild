@@ -137,6 +137,6 @@ src_test() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die
+	default
 	rm -f "${D}"/usr/sbin/mpeuninstall || die
 }
