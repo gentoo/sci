@@ -74,6 +74,7 @@ src_install() {
 
 	ebegin "Cleaning before installation..."
 		find -type f \( -name "*.o" -o -name "*.pdf" -o -name "*.txt" -o -name "*.3" \) -delete || die
+		rm -f "${S}"/nvml/lib/libnvidia-ml.so
 	eend
 
 	if use healthmon; then
@@ -110,6 +111,8 @@ src_install() {
 					fi
 				fi
 			done
+
+			dosym libnvidia-ml.so.1 /opt/cuda/gdk/nvml/lib/libnvidia-ml.so
 			cd "${S}/" || die
 		eend
 	fi
