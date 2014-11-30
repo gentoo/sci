@@ -7,7 +7,7 @@ inherit cmake-utils
 
 DESCRIPTION="A sequence motif discovery tool that uses discriminative learning"
 HOMEPAGE="https://github.com/maaskola/discrover"
-SRC_URI="https://github.com/maaskola/discrover/archive/${PV}.tar.gz -> ${PN}-${PVR}.tar.gz"
+SRC_URI="https://github.com/maaskola/discrover/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3+"
 SLOT="0"
