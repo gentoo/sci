@@ -69,6 +69,10 @@ pkg_setup() {
 src_prepare() {
 	# Don't assume path contains ./
 	sed -i 's,\($MPERUN\) $pgm,\1 ./$pgm,' sbin/mpetestexeclog.in || die
+
+	# No parallel make:
+	# http://trac.mcs.anl.gov/projects/mpich2/ticket/1095#comment:1
+	MAKEOPTS+=" -j1"
 }
 
 src_configure() {
@@ -118,9 +122,7 @@ src_test() {
 		return 0
 	fi
 
-	# No parallel make:
-	# http://trac.mcs.anl.gov/projects/mpich2/ticket/1095#comment:1
-	emake -j1 \
+	emake \
 		CC="${S}"/bin/mpecc \
 		FC="${S}"/bin/mpefc \
 		MPERUN="${ROOT}/usr/bin/mpiexec -n 4" \
@@ -135,8 +137,6 @@ src_test() {
 }
 
 src_install() {
-	# No parallel make:
-	# http://trac.mcs.anl.gov/projects/mpich2/ticket/1095#comment:1
-	emake -j1 DESTDIR="${D}" install || die
+	emake DESTDIR="${D}" install || die
 	rm -f "${D}"/usr/sbin/mpeuninstall || die
 }
