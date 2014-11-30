@@ -28,7 +28,10 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/payload"
 
-RESTRICT="binchecks"
+QA_PREBUILT="/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon
+	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/gpu_rdma_bw
+	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/ibv_rdma_bw
+	/opt/cuda/gdk/nvml/lib/libnvidia-ml.so.1"
 
 src_unpack() {
 	unpacker
