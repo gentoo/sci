@@ -62,10 +62,10 @@ src_install() {
 	# don't exist
 	[[ ${LINGUAS} == *zh* ]] && MY_INST_LANG="zh" || MY_INST_LANG="${MY_LANG}"
 
-	insinto $installdir
+	insinto "$installdir"
 	doins -r .
 
-	fperms 0755 ${installdir}/bin/eagle
+	fperms 0755 "${installdir}"/bin/eagle
 
 	# Install wrapper (suppressing leading tabs)
 	# see bug #188368 or http://www.cadsoftusa.com/training/faq/#3
@@ -74,12 +74,12 @@ src_install() {
 
 	# Install the documentation
 	cd doc || die
-	dodoc README_${MY_LANG} UPDATE_${MY_LANG} library_${MY_LANG}.txt
+	dodoc README_"${MY_LANG}" UPDATE_"${MY_LANG}" library_"${MY_LANG}".txt
 	doman eagle.1
 
 	# Install extra documentation if requested
 	if use doc; then
-		dodoc {connect-device-split-symbol-${MY_INST_LANG},elektro-tutorial,manual_${MY_INST_LANG},tutorial_${MY_INST_LANG},layer-setup_designrules}.pdf
+		dodoc {connect-device-split-symbol-"${MY_INST_LANG}",elektro-tutorial,manual_"${MY_INST_LANG}",tutorial_"${MY_INST_LANG}",layer-setup_designrules}.pdf
 	fi
 	# Remove docs left in $installdir
 	rm -rf "${D}${installdir}/doc"
@@ -89,8 +89,8 @@ src_install() {
 	doenvd "${S}/90eagle-${PV}"
 
 	# Create desktop entry
-	newicon bin/${PN}icon50.png ${PF}-icon50.png
-	make_desktop_entry "${ROOT}/opt/bin/eagle" "CadSoft EAGLE Layout Editor" ${PF}-icon50 "Graphics;Electronics"
+	newicon bin/"${PN}"icon50.png "${PF}"-icon50.png
+	make_desktop_entry "${ROOT}/opt/bin/eagle" "CadSoft EAGLE Layout Editor" "${PF}"-icon50 "Graphics;Electronics"
 }
 
 pkg_postinst() {
