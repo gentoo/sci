@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  01 Dec 2014; Justin Lecher <jlec@gentoo.org> nvidia-cuda-gdk-340.29.ebuild:
+  Drop empty lines, clean variable names and quoting
+
   19 Nov 2014; Marius Brehler <marbre@linux.sungazer.de>
   nvidia-cuda-gdk-340.29.ebuild:
   Add ~x86 keyword

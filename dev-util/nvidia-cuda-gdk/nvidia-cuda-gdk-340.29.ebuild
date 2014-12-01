@@ -22,8 +22,9 @@ IUSE="+healthmon +nvml +doc examples"
 
 RDEPEND="
 	>=dev-util/nvidia-cuda-toolkit-6.5
+	media-libs/freeglut
 	examples? ( >=x11-drivers/nvidia-drivers-340.32[uvm] )
-	media-libs/freeglut"
+	"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/payload"
@@ -41,11 +42,11 @@ src_compile() {
 }
 
 src_install() {
-	local i j f t ARCH
+	local i j f t _arch
 	if use amd64; then
-		ARCH=amd64;
+		_arch=amd64;
 	elif use x86; then
-		ARCH=x86;
+		_arch=x86;
 	else
 		die;
 	fi
@@ -54,9 +55,12 @@ src_install() {
 		if use healthmon ; then
 			ebegin "Installing healthmon docs..."
 				doman nvidia-healthmon/docs/man/man8/nvidia-healthmon.8
-				cd "${S}/nvidia-healthmon/nvidia-healthmon-${ARCH}-${PV}" || die
-				treecopy $(find -type f \( -name README.txt -name COPYING.txt -o -name "*.pdf" \)) "${ED}"/usr/share/doc/${PF}/nvidia-healthmon/
-				docompress -x $(find "${ED}"/usr/share/doc/${PF}/nvidia-healthmon/ -type f -name readme.txt | sed -e "s:${ED}::")
+				cd "${S}/nvidia-healthmon/nvidia-healthmon-${_arch}-${PV}" || die
+				treecopy \
+					$(find -type f \( -name README.txt -name COPYING.txt -o -name "*.pdf" \)) \
+					"${ED}"/usr/share/doc/${PF}/nvidia-healthmon/
+				docompress -x \
+					$(find "${ED}"/usr/share/doc/${PF}/nvidia-healthmon/ -type f -name readme.txt | sed -e "s:${ED}::")
 				cd "${S}/" || die
 			eend
 		fi
@@ -65,25 +69,30 @@ src_install() {
 			ebegin "Installing nvml docs..."
 				doman nvml/doc/man/man3/*.3
 				cd "${S}/nvml/" || die
-				treecopy $(find -type f \( -name README.txt -name COPYRIGHT.txt -o -name "*.pdf" \)) "${ED}"/usr/share/doc/${PF}/nvml/
-				docompress -x $(find "${ED}"/usr/share/doc/${PF}/nvml/ -type f -name readme.txt | sed -e "s:${ED}::")
+				treecopy \
+					$(find -type f \( -name README.txt -name COPYRIGHT.txt -o -name "*.pdf" \)) \
+					"${ED}"/usr/share/doc/${PF}/nvml/
+				docompress -x \
+					$(find "${ED}"/usr/share/doc/${PF}/nvml/ -type f -name readme.txt | sed -e "s:${ED}::")
 				cd "${S}/" || die
 			eend
 		fi
 	fi
 
 	ebegin "Cleaning before installation..."
-		find -type f \( -name "*.o" -o -name "*.pdf" -o -name "*.txt" -o -name "*.3" \) -delete || die
+		find -type f \
+			\( -name "*.o" -o -name "*.pdf" -o -name "*.txt" -o -name "*.3" \) -delete \
+			|| die
 	eend
 
 	if use healthmon; then
 		ebegin "Installing nvidia-healthmon"
-			exeinto "/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/"
-			doexe "nvidia-healthmon/nvidia-healthmon-${ARCH}-${PV}/bin"/{*,*.*}
-			exeinto "/opt/cuda/gdk/nvidia-healthmon/"
-			doexe "nvidia-healthmon/nvidia-healthmon-${ARCH}-${PV}"/nvidia-healthmon
-			insinto "/etc/nvidia-healthmon/"
-			doins "nvidia-healthmon/nvidia-healthmon-${ARCH}-${PV}"/nvidia-healthmon.conf
+			exeinto /opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/
+			doexe "nvidia-healthmon/nvidia-healthmon-${_arch}-${PV}/bin"/{*,*.*}
+			exeinto /opt/cuda/gdk/nvidia-healthmon/
+			doexe "nvidia-healthmon/nvidia-healthmon-${_arch}-${PV}"/nvidia-healthmon
+			insinto /etc/nvidia-healthmon/
+			doins "nvidia-healthmon/nvidia-healthmon-${_arch}-${PV}"/nvidia-healthmon.conf
 
 			# install launch script
 			exeinto /opt/bin
@@ -113,5 +122,4 @@ src_install() {
 			cd "${S}/" || die
 		eend
 	fi
-
 }
