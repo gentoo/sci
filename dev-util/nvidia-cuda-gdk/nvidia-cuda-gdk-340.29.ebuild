@@ -29,7 +29,10 @@ DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/payload"
 
-RESTRICT="binchecks"
+QA_PREBUILT="/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon
+	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/gpu_rdma_bw
+	/opt/cuda/gdk/nvidia-healthmon/nvidia-healthmon-tests/ibv_rdma_bw
+	/opt/cuda/gdk/nvml/lib/libnvidia-ml.so.1"
 
 src_unpack() {
 	unpacker
@@ -83,6 +86,7 @@ src_install() {
 		find -type f \
 			\( -name "*.o" -o -name "*.pdf" -o -name "*.txt" -o -name "*.3" \) -delete \
 			|| die
+		rm -f "${S}"/nvml/lib/libnvidia-ml.so
 	eend
 
 	if use healthmon; then
@@ -119,6 +123,8 @@ src_install() {
 					fi
 				fi
 			done
+
+			dosym libnvidia-ml.so.1 /opt/cuda/gdk/nvml/lib/libnvidia-ml.so
 			cd "${S}/" || die
 		eend
 	fi
