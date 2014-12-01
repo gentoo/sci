@@ -70,10 +70,7 @@ src_install() {
 	# Install wrapper (suppressing leading tabs)
 	# see bug #188368 or http://www.cadsoftusa.com/training/faq/#3
 	exeinto /opt/bin
-	newexe "${FILESDIR}/eagle_wrapper_script" eagle
-	# Finally, append the path of the eagle binary respecting $installdir and any
-	# arguments passed to the script (thanks Denilson)
-	echo "${installdir}/bin/eagle" '"$@"' >> "${D}/opt/bin/eagle"
+	newexe "${FILESDIR}/eagle_wrapper_script" "${PN}"
 
 	# Install the documentation
 	cd doc || die
