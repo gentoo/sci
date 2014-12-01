@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86 -*"
 IUSE="doc linguas_de linguas_zh"
 
-QA_PREBUILT="opt/eagle/bin/eagle"
+QA_PREBUILT="/opt/eagle/bin/eagle"
 
 RDEPEND="
 	sys-libs/glibc
@@ -85,8 +85,11 @@ src_install() {
 	rm -rf "${D}${installdir}/doc"
 	cd "${S}" || die
 
-	echo -e "ROOTPATH=${installdir}/bin\nPRELINK_PATH_MASK=${installdir}" > "${S}/90eagle-${PV}"
-	doenvd "${S}/90eagle-${PV}"
+	cat > "${T}"/90eagle <<- EOF
+		ROOTPATH=${installdir}/bin
+		PRELINK_PATH_MASK=${installdir}
+	EOF
+	doenvd "${T}"/90eagle
 
 	# Create desktop entry
 	newicon bin/"${PN}"icon50.png "${PF}"-icon50.png
