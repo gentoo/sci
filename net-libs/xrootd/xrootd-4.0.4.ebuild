@@ -38,9 +38,7 @@ pkg_setup() {
 	enewuser xrootd -1 -1 "${EPREFIX}"/var/spool/xrootd xrootd
 }
 
-src_prepare() {
-	epatch "${FILESDIR}/${PN}-no-werror.patch"
-}
+PATCHES=( "${FILESDIR}"/${PN}-no-werror.patch )
 
 src_configure() {
 	local mycmakeargs=(
