@@ -17,13 +17,24 @@ IUSE="dreme doc +logo misc_scripts +rmathlib tcmalloc"
 RDEPEND="
 	dev-libs/boost
 	dreme? ( sci-biology/meme )
-	logo? ( dev-lang/ruby dev-texlive/texlive-latex dev-tex/pgf dev-tex/xcolor media-gfx/imagemagick )
+	logo? (
+		dev-lang/ruby
+		dev-texlive/texlive-latex
+		dev-tex/pgf
+		dev-tex/xcolor
+		media-gfx/imagemagick
+	)
 	misc_scripts? ( dev-lang/ruby )
 	rmathlib? ( dev-lang/R )
 	tcmalloc? ( dev-util/google-perftools )
 "
 DEPEND="${RDEPEND}
-	doc? ( dev-texlive/texlive-latex dev-texlive/texlive-latexextra dev-texlive/texlive-latexrecommended media-gfx/imagemagick )
+	doc? (
+		dev-texlive/texlive-latex
+		dev-texlive/texlive-latexextra
+		dev-texlive/texlive-latexrecommended
+		media-gfx/imagemagick
+	)
 "
 src_configure() {
 	local mycmakeargs=(
