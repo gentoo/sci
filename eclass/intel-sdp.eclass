@@ -89,6 +89,16 @@
 #
 # e.g. CLI_install/rpm/intel-vtune-amplifier-xe-cli
 
+# @ECLASS-VARIABLE: INTEL_AMD64_RPMS
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# AMD64 single arch rpms. Same syntax as INTEL_BIN_RPMS
+
+# @ECLASS-VARIABLE: INTEL_X86_RPMS
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# X86 single arch rpms. Same syntax as INTEL_BIN_RPMS
+
 # @ECLASS-VARIABLE: INTEL_DAT_RPMS
 # @DEFAULT_UNSET
 # @DESCRIPTION:
@@ -362,6 +372,34 @@ intel-sdp_pkg_setup() {
 			fi
 		done
 	done
+	if use amd64; then
+		if [[ $(declare -p INTEL_AMD64_RPMS) = "declare -a "* ]] ; then
+			_INTEL_AMD64_RPMS=( ${INTEL_AMD64_RPMS[@]} )
+		else
+			read -r -d '' -a _INTEL_AMD64_RPMS <<<"${INTEL_AMD64_RPMS}"
+		fi
+		for p in "${_INTEL_AMD64_RPMS[@]}"; do
+			if [ ${p} == $(basename ${p}) ]; then
+				INTEL_RPMS+=( intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.x86_64.rpm )
+			else
+				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.x86_64.rpm )
+			fi
+
+		done
+	elif use x86; then
+		if [[ $(declare -p INTEL_X86_RPMS) = "declare -a "* ]] ; then
+			_INTEL_X86_RPMS=( ${INTEL_X86_RPMS[@]} )
+		else
+			read -r -d '' -a _INTEL_X86_RPMS <<<"${INTEL_X86_RPMS}"
+		fi
+		for p in "${_INTEL_X86_RPMS[@]}"; do
+			if [ ${p} == $(basename ${p}) ]; then
+				INTEL_RPMS+=( intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.ia32.rpm )
+			else
+				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.ia32.rpm )
+			fi
+		done
+	fi
 	if [[ $(declare -p INTEL_DAT_RPMS) = "declare -a "* ]] ; then
 		_INTEL_DAT_RPMS=( ${INTEL_DAT_RPMS[@]} )
 	else
