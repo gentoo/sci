@@ -78,7 +78,6 @@
 : ${INTEL_X86:=i486}
 
 # @ECLASS-VARIABLE: INTEL_BIN_RPMS
-# @DEFAULT_UNSET
 # @DESCRIPTION:
 # Functional name of rpm without any version/arch tag
 #
@@ -88,19 +87,19 @@
 # specify the full path
 #
 # e.g. CLI_install/rpm/intel-vtune-amplifier-xe-cli
+: ${INTEL_BIN_RPMS:=""}
 
 # @ECLASS-VARIABLE: INTEL_AMD64_RPMS
-# @DEFAULT_UNSET
 # @DESCRIPTION:
 # AMD64 single arch rpms. Same syntax as INTEL_BIN_RPMS
+: ${INTEL_AMD64_RPMS:=""}
 
 # @ECLASS-VARIABLE: INTEL_X86_RPMS
-# @DEFAULT_UNSET
 # @DESCRIPTION:
 # X86 single arch rpms. Same syntax as INTEL_BIN_RPMS
+: ${INTEL_X86_RPMS:=""}
 
 # @ECLASS-VARIABLE: INTEL_DAT_RPMS
-# @DEFAULT_UNSET
 # @DESCRIPTION:
 # Functional name of rpm of common data which are arch free
 # without any version tag
@@ -111,6 +110,7 @@
 # specify the full path
 #
 # e.g. CLI_install/rpm/intel-vtune-amplifier-xe-cli-common
+: ${INTEL_DAT_RPMS:=""}
 
 # @ECLASS-VARIABLE: INTEL_SINGLE_ARCH
 # @DESCRIPTION:
@@ -128,6 +128,12 @@ _INTEL_PV1=$(get_version_component_range 1)
 _INTEL_PV2=$(get_version_component_range 2)
 _INTEL_PV3=$(get_version_component_range 3)
 _INTEL_PV4=$(get_version_component_range 4)
+_INTEL_PV=""
+[[ -n ${_INTEL_PV4} ]] && _INTEL_PV+="${_INTEL_PV4}-"
+[[ -n ${_INTEL_PV1} ]] && _INTEL_PV+="${_INTEL_PV1}"
+[[ -n ${_INTEL_PV2} ]] && _INTEL_PV+=".${_INTEL_PV2}"
+[[ -n ${_INTEL_PV3} ]] && _INTEL_PV+="-${_INTEL_PV3}"
+
 _INTEL_URI="http://registrationcenter-download.intel.com/irc_nas/${INTEL_DID}/${INTEL_DPN}"
 
 if [ ${INTEL_SINGLE_ARCH} == true ]; then
@@ -150,14 +156,16 @@ RESTRICT="mirror"
 RDEPEND=""
 DEPEND="app-arch/rpm2targz"
 
-_INTEL_SDP_YEAR=${INTEL_DPV%_update*}
-_INTEL_SDP_YEAR=${INTEL_DPV%_sp*}
+_INTEL_SDP_YEAR=${INTEL_DPV}
+_INTEL_SDP_YEAR=${_INTEL_SDP_YEAR%_sp*}
+_INTEL_SDP_YEAR=${_INTEL_SDP_YEAR%_update*}
 
 # @ECLASS-VARIABLE: INTEL_SDP_DIR
-# @DEFAULT_UNSET
 # @DESCRIPTION:
 # Full rootless path to installation dir
-INTEL_SDP_DIR="opt/intel/${INTEL_SUBDIR}-${_INTEL_SDP_YEAR:-${_INTEL_PV1}}.${_INTEL_PV3}.${_INTEL_PV4}"
+INTEL_SDP_DIR="opt/intel/${INTEL_SUBDIR}-${_INTEL_SDP_YEAR:-${_INTEL_PV1}}"
+[[ -n ${_INTEL_PV3} ]] && INTEL_SDP_DIR+=".${_INTEL_PV3}"
+[[ -n ${_INTEL_PV4} ]] && INTEL_SDP_DIR+=".${_INTEL_PV4}"
 
 # @ECLASS-VARIABLE: INTEL_SDP_EDIR
 # @DEFAULT_UNSET
@@ -366,9 +374,9 @@ intel-sdp_pkg_setup() {
 	for p in "${_INTEL_BIN_RPMS[@]}"; do
 		for a in ${arch}; do
 			if [ ${p} == $(basename ${p}) ]; then
-				INTEL_RPMS+=( intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm )
+				INTEL_RPMS+=( intel-${p}-${_INTEL_PV}.${a}.rpm )
 			else
-				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.${a}.rpm )
+				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV}.${a}.rpm )
 			fi
 		done
 	done
@@ -380,26 +388,25 @@ intel-sdp_pkg_setup() {
 		fi
 		for p in "${_INTEL_AMD64_RPMS[@]}"; do
 			if [ ${p} == $(basename ${p}) ]; then
-				INTEL_RPMS+=( intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.x86_64.rpm )
+				INTEL_RPMS+=( intel-${p}-${_INTEL_PV}.x86_64.rpm )
 			else
-				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.x86_64.rpm )
+				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV}.x86_64.rpm )
 			fi
 
 		done
-	elif use x86; then
-		if [[ $(declare -p INTEL_X86_RPMS) = "declare -a "* ]] ; then
-			_INTEL_X86_RPMS=( ${INTEL_X86_RPMS[@]} )
-		else
-			read -r -d '' -a _INTEL_X86_RPMS <<<"${INTEL_X86_RPMS}"
-		fi
-		for p in "${_INTEL_X86_RPMS[@]}"; do
-			if [ ${p} == $(basename ${p}) ]; then
-				INTEL_RPMS+=( intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.ia32.rpm )
-			else
-				INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.ia32.rpm )
-			fi
-		done
 	fi
+	if [[ $(declare -p INTEL_X86_RPMS) = "declare -a "* ]] ; then
+		_INTEL_X86_RPMS=( ${INTEL_X86_RPMS[@]} )
+	else
+		read -r -d '' -a _INTEL_X86_RPMS <<<"${INTEL_X86_RPMS}"
+	fi
+	for p in "${_INTEL_X86_RPMS[@]}"; do
+		if [ ${p} == $(basename ${p}) ]; then
+			INTEL_RPMS+=( intel-${p}-${_INTEL_PV}.${INTEL_X86}.rpm )
+		else
+			INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV}.${INTEL_X86}.rpm )
+		fi
+	done
 	if [[ $(declare -p INTEL_DAT_RPMS) = "declare -a "* ]] ; then
 		_INTEL_DAT_RPMS=( ${INTEL_DAT_RPMS[@]} )
 	else
@@ -407,9 +414,9 @@ intel-sdp_pkg_setup() {
 	fi
 	for p in "${_INTEL_DAT_RPMS[@]}"; do
 		if [ ${p} == $(basename ${p}) ]; then
-			INTEL_RPMS+=( intel-${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.noarch.rpm )
+			INTEL_RPMS+=( intel-${p}-${_INTEL_PV}.noarch.rpm )
 		else
-			INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV4}-${_INTEL_PV1}.${_INTEL_PV2}-${_INTEL_PV3}.noarch.rpm )
+			INTEL_RPMS_FULL+=( ${p}-${_INTEL_PV}.noarch.rpm )
 		fi
 	done
 }
