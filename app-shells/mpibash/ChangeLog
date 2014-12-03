@@ -2,6 +2,13 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mpibash-4.3_p30-r1 (03 Dec 2014)
+
+  03 Dec 2014; Christoph Junghans <ottxor@gentoo.org>
+  +files/bash-4.3-term-cleanup.patch, +mpibash-4.3_p30-r1.ebuild,
+  -mpibash-4.3_p24.ebuild:
+  version bump
+
   01 Nov 2014; Justin Lecher <jlec@gentoo.org> mpibash-4.3_p24.ebuild,
   metadata.xml:
   Bump to EAPI=5
