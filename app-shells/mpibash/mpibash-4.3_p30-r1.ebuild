@@ -38,7 +38,7 @@ SRC_URI="mirror://gnu/bash/${MY_P}.tar.gz $(patches)"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~amd64-linux"
 IUSE="afs bashlogger examples mem-scramble +net nls plugins +readline vanilla"
 
 DEPEND=">=sys-libs/ncurses-5.2-r2
@@ -101,6 +101,17 @@ src_configure() {
 
 	# For descriptions of these, see config-top.h
 	# bashrc/#26952 bash_logout/#90488 ssh/#24762
+	if use prefix ; then
+		append-cppflags \
+			-DDEFAULT_PATH_VALUE=\'\"${EPREFIX}/usr/sbin:${EPREFIX}/usr/bin:${EPREFIX}/sbin:${EPREFIX}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"\' \
+			-DSTANDARD_UTILS_PATH=\'\"${EPREFIX}/bin:${EPREFIX}/usr/bin:${EPREFIX}/sbin:${EPREFIX}/usr/sbin:/bin:/usr/bin:/sbin:/usr/sbin\"\' \
+			-DSYS_BASHRC=\'\"${EPREFIX}/etc/bash/bashrc\"\' \
+			-DSYS_BASH_LOGOUT=\'\"${EPREFIX}/etc/bash/bash_logout\"\' \
+			-DNON_INTERACTIVE_LOGIN_SHELLS \
+			-DSSH_SOURCE_BASHRC \
+			$($(tc-getPKG_CONFIG) --cflags libcircle) \
+			$(use bashlogger && echo -DSYSLOG_HISTORY)
+	else
 	append-cppflags \
 		-DDEFAULT_PATH_VALUE=\'\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"\' \
 		-DSTANDARD_UTILS_PATH=\'\"/bin:/usr/bin:/sbin:/usr/sbin\"\' \
@@ -110,6 +121,7 @@ src_configure() {
 		-DSSH_SOURCE_BASHRC \
 		$($(tc-getPKG_CONFIG) --cflags libcircle) \
 		$(use bashlogger && echo -DSYSLOG_HISTORY)
+	fi
 
 	# Don't even think about building this statically without
 	# reading Bug 7714 first.  If you still build it statically,
@@ -173,14 +185,17 @@ src_compile() {
 }
 
 src_install() {
-	local d f
-
-	default
+	emake install DESTDIR="${D}"
 
 	find "${ED}" -name "bashbug*" -delete || die
+	rm -rf "${ED}"/usr/share/locale
 	mv "${ED}"/usr/share/man/man1/{,mpi}bash.1 || die
 	mv "${ED}"/usr/share/info/{,mpi}bash.info || die
 	return 0
+
+	local d f
+
+	default
 
 	dodir /bin
 	mv "${ED}"/usr/bin/bash "${ED}"/bin/ || die
