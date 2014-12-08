@@ -4,7 +4,9 @@
 
 EAPI=5
 
-inherit cmake-utils multilib
+PYTHON_COMPAT=( python2_7 )
+
+inherit cmake-utils multilib python-any-r1
 
 DESCRIPTION="Intel Concurrent Collections for C++ - Parallelism without the Pain"
 HOMEPAGE="https://software.intel.com/en-us/articles/intel-concurrent-collections-for-cc"
@@ -20,14 +22,18 @@ fi
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="doc examples mpi"
+IUSE="doc examples mpi test"
+RESTRICT="test" #currently tests only work if icnc is already installed
 
-DEPEND="
+RDEPEND="
 	>=dev-cpp/tbb-4.2
 	sys-libs/glibc
 	mpi? ( virtual/mpi )
 	"
-RDEPEND="${DEPEND}"
+DEPEND="
+	${RDEPEND}
+	test? ( ${PYTHON_DEPS} )
+	"
 
 src_configure() {
 	local mycmakeargs=(
@@ -35,6 +41,21 @@ src_configure() {
 		-DLIB=$(get_libdir)
 	)
 	cmake-utils_src_configure
+	if use test ; then
+		mycmakeargs=( -DRUN_DIST=OFF )
+		CMAKE_USE_DIR="${S}/tests" \
+			BUILD_DIR="${WORKDIR}/${P}_tests_build" \
+			cmake-utils_src_configure
+	fi
+}
+
+src_compile() {
+	cmake-utils_src_compile
+	use test && BUILD_DIR="${WORKDIR}/${P}_tests_build" cmake-utils_src_compile
+}
+
+src_test() {
+	BUILD_DIR="${WORKDIR}/${P}_tests_build" cmake-utils_src_test
 }
 
 src_install() {
