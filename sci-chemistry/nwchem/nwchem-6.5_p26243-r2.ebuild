@@ -26,7 +26,7 @@ SRC_URI="http://www.nwchem-sw.org/images/Nwchem-${PV%_p*}.revision${PV#*_p}-src.
 LICENSE="ECL-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="blas cuda infiniband lapack mpi doc examples int64 nwchem-tests openmp mrcc python scalapack"
+IUSE="blas cuda doc examples infiniband int64 lapack mpi mrcc nwchem-tests openmp python scalapack"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )
 	infiniband? ( mpi )
@@ -93,7 +93,12 @@ pkg_setup() {
 		rm -f "${fcode}.*"
 		popd
 
-		append-flags "${openmp}"
+#		append-flags "${openmp}"
+#		append-ldflags "${openmp}
+		export FC="${FC} ${openmp}"
+		export F77="${F77} ${openmp}"
+		export CC="${CC} ${openmp}"
+		export CXX="${CXX} ${openmp}"
 	fi
 
 	use python && python-single-r1_pkg_setup
@@ -136,9 +141,9 @@ src_prepare() {
 
 src_compile() {
 	export NWCHEM_LONG_PATHS=Y
-	export USE_SUBGROUPS=yes
+	export USE_NOIO=TRUE
+	use openmp && export USE_OPENMP=1
 	if use mpi ; then
-		export MSG_COMMS=MPI
 		export USE_MPI=y
 		export USE_MPIF=y
 		export USE_MPIF4=y
@@ -148,15 +153,10 @@ src_compile() {
 		export LIBMPI="$(mpif90 -showme:link)"
 		if use infiniband; then
 			export ARMCI_NETWORK=OPENIB
+			export MSG_COMMS=MPI
 		else
-			export ARMCI_NETWORK=MPI-TS
+			unset ARMCI_NETWORK
 		fi
-	else
-		unset USE_MPI
-		unset USE_MPIF
-		unset USE_MPIF4
-		export MSG_COMMS=TCGMSG
-		export ARMCI_NETWORK=SOCKETS
 	fi
 	if [ "$ARCH" = "amd64" ]; then
 		export NWCHEM_TARGET=LINUX64
@@ -180,9 +180,11 @@ src_compile() {
 	else
 		export NWCHEM_MODULES="all"
 	fi
-	use mrcc && export MRCC_THEORY="TRUE"
-	export CCSDTQ="TRUE"
-	export CCSDTLR="TRUE"
+	use mrcc && export MRCC_METHODS="TRUE" # Multi Reference Coupled Clusters
+	export CCSDTQ="TRUE"                   # Coupled Clusters Singlets + Dublets + Triplets + Quadruplets
+	export CCSDTLR="TRUE"                  # CCSDT (and CCSDTQ?) Linear Response
+	export EACCSD="TRUE"                   # Electron Affinities at the CCSD level
+	export IPCCSD="TRUE"                   # Ionisation Potentials at the CCSD level
 	unset BLASOPT
 	use blas && export BLASOPT="$(pkg-config --libs blas)"
 	use lapack && export BLASOPT+="$(pkg-config --libs lapack)"
@@ -198,28 +200,45 @@ src_compile() {
 	export LARGE_FILES="TRUE"
 
 	cd src
-	if use int64; then
-		export BLAS_SIZE=8
-		export LAPACK_SIZE=8
-		export SCALAPACK_SIZE=8
-	else
-		export BLAS_SIZE=4
-		export LAPACK_SIZE=4
-		export SCALAPACK_SIZE=4
-		export USE_64TO32=y
-		emake \
-			DIAG=PAR \
-			FC=$(tc-getFC) \
-			CC=$(tc-getCC) \
-			CXX=$(tc-getCXX) \
-			NWCHEM_TOP="${S}" \
-			64_to_32
+	if use blas && [ "$NWCHEM_TARGET" = "LINUX64" ]; then
+		if use int64; then
+			export BLAS_SIZE=8
+			export LAPACK_SIZE=8
+			export SCALAPACK_SIZE=8
+		else
+			emake \
+				DIAG=PAR \
+				FC="$(tc-getFC)" \
+				CC="$(tc-getCC)" \
+				CXX="$(tc-getCXX)" \
+				NWCHEM_TOP="${S}" \
+				clean
+			emake \
+				DIAG=PAR \
+				FC="$(tc-getFC)" \
+				CC="$(tc-getCC)" \
+				CXX="$(tc-getCXX)" \
+				NWCHEM_TOP="${S}" \
+				64_to_32
+			export BLAS_SIZE=4
+			export LAPACK_SIZE=4
+			export SCALAPACK_SIZE=4
+			export USE_64TO32=y
+		fi
 	fi
 	emake \
 		DIAG=PAR \
-		FC=$(tc-getFC) \
-		CC=$(tc-getCC) \
-		CXX=$(tc-getCXX) \
+		FC="$(tc-getFC)" \
+		CC="$(tc-getCC)" \
+		CXX="$(tc-getCXX)" \
+		NWCHEM_TOP="${S}" \
+		NWCHEM_EXECUTABLE="${S}/bin/${NWCHEM_TARGET}/nwchem" \
+		nwchem_config
+	emake \
+		DIAG=PAR \
+		FC="$(tc-getFC)" \
+		CC="$(tc-getCC)" \
+		CXX="$(tc-getCXX)" \
 		NWCHEM_TOP="${S}" \
 		NWCHEM_EXECUTABLE="${S}/bin/${NWCHEM_TARGET}/nwchem"
 

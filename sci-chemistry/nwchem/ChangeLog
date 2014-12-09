@@ -2,6 +2,14 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nwchem-6.5_p26243-r2 (09 Dec 2014)
+
+  09 Dec 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -nwchem-6.5_p26243-r1.ebuild, +nwchem-6.5_p26243-r2.ebuild, metadata.xml:
+  One more correction of 64 vs 32 bit integers handling in
+  sci-chemistry/nwchem-6.5_p26243. OpenMP support enabled, as well as some
+  advanced methods not compiled by default.
+
 *nwchem-6.5_p26243-r1 (12 Nov 2014)
 
   12 Nov 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
