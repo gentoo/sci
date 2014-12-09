@@ -23,7 +23,6 @@ fi
 LICENSE="BSD"
 SLOT="0"
 IUSE="doc examples mpi test"
-RESTRICT="test" #currently tests only work if icnc is already installed
 
 RDEPEND="
 	>=dev-cpp/tbb-4.2
@@ -39,23 +38,14 @@ src_configure() {
 	local mycmakeargs=(
 		$(cmake-utils_use mpi BUILD_LIBS_FOR_MPI)
 		-DLIB=$(get_libdir)
+		$(cmake-utils_use test ENABLE_TESTING)
+		-DRUN_DIST=OFF
 	)
 	cmake-utils_src_configure
-	if use test ; then
-		mycmakeargs=( -DRUN_DIST=OFF )
-		CMAKE_USE_DIR="${S}/tests" \
-			BUILD_DIR="${WORKDIR}/${P}_tests_build" \
-			cmake-utils_src_configure
-	fi
 }
 
 src_compile() {
 	cmake-utils_src_compile
-	use test && BUILD_DIR="${WORKDIR}/${P}_tests_build" cmake-utils_src_compile
-}
-
-src_test() {
-	BUILD_DIR="${WORKDIR}/${P}_tests_build" cmake-utils_src_test
 }
 
 src_install() {
