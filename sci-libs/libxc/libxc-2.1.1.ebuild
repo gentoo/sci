@@ -4,30 +4,36 @@
 
 EAPI=5
 
-inherit autotools-utils fortran-2 multilib subversion
+AUTOTOOLS_AUTORECONF=true
+
+inherit autotools-utils flag-o-matic fortran-2 multilib
+
+MY_P=${P//_/-}
 
 DESCRIPTION="A library of exchange-correlation functionals for use in DFT"
 HOMEPAGE="http://www.tddft.org/programs/octopus/wiki/index.php/Libxc"
-ESVN_REPO_URI="http://www.tddft.org/svn/octopus/trunk/${PN}/"
-ESVN_BOOTSTRAP="eautoreconf -i"
+SRC_URI="http://www.tddft.org/programs/octopus/download/${PN}/${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE="fortran static-libs -test"
 
-MAKEOPTS+=" -j1"
+S="${WORKDIR}"/${MY_P}
 
 pkg_setup() {
 	use fortran && fortran-2_pkg_setup
 }
 
+src_prepare() {
+	sed \
+		-e "s:${PN}.f90:${PN}.F90:g" \
+		-i src/Makefile.am || die
+	autotools-utils_src_prepare
+}
+
 src_configure() {
-	local myeconfargs=(
-		$(use_enable fortran)
-		FCFLAGS="${FCFLAGS:- ${FFLAGS:- -O2}} -fPIC"
-		CFLAGS="${CFLAGS} -fPIC"
-		)
+	local myeconfargs=( $(use_enable fortran) )
 	autotools-utils_src_configure
 }
 

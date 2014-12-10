@@ -21,8 +21,6 @@ IUSE="fortran static-libs -test"
 
 S="${WORKDIR}"/${MY_P}
 
-MAKEOPTS+=" -j1"
-
 pkg_setup() {
 	use fortran && fortran-2_pkg_setup
 }

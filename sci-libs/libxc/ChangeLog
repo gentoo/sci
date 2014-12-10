@@ -2,6 +2,15 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*libxc-2.2.1 (10 Dec 2014)
+*libxc-2.1.1 (10 Dec 2014)
+
+  10 Dec 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -libxc-1.2.0-r1.ebuild, -libxc-2.0.1.ebuild, -libxc-2.0.2.ebuild,
+  -libxc-2.0.3.ebuild, -libxc-2.1.0.ebuild, +libxc-2.1.1.ebuild,
+  -libxc-2.2.0.ebuild, +libxc-2.2.1.ebuild, -libxc-9999.ebuild:
+  Version bumps to sci-libs/libxc-2.1.1 and 2.2.1, cleanup.
+
   27 Jun 2014; Honza Macháček <Hloupy.Honza@centrum.cz> libxc-2.0.3.ebuild:
   sci-libs/libxc-2.0.3.ebuild adjusted to export the C preprocessor name in the
   FCCPP variable that the build system looks for
