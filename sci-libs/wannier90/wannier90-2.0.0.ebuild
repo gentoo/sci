@@ -25,13 +25,6 @@ DEPEND="${RDEPEND}
 		dev-texlive/texlive-latexextra
 	)"
 
-src_prepare() {
-	# Patch taken from sci-physics/abinit-5.7.3 bundled version
-	epatch \
-		"${FILESDIR}"/${PN}-1.1-0001.patch \
-		"${FILESDIR}"/${PN}-1.1-0002.patch
-}
-
 src_configure() {
 	cat <<- EOF >> "${S}"/make.sys
 		F90 = $(tc-getFC)
@@ -61,8 +54,8 @@ src_install() {
 	dobin wannier90.x
 	use perl && dobin utility/kmesh.pl
 	dolib.a libwannier.a
-	insinto /usr/$(get_libdir)/finclude
-	doins src/*.mod
+	insinto /usr/include
+	doins src/obj/*.mod
 	if use examples; then
 		insinto /usr/share/${PN}
 		doins -r examples

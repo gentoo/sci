@@ -2,6 +2,15 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*wannier90-2.0.0 (10 Dec 2014)
+*wannier90-1.2-r3 (10 Dec 2014)
+
+  10 Dec 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -wannier90-1.2-r2.ebuild, +wannier90-1.2-r3.ebuild, +wannier90-2.0.0.ebuild:
+  Version bump to sci-libs/wannier90-2.0. Preserved 1.2 version until
+  compatibility of 2.0 with sci-physics/abinit is verified, stepped up to
+  1.2-r3 purging forgotten LIBDIR/finclude.
+
   15 Nov 2014; Christoph Junghans <ottxor@gentoo.org> wannier90-1.2-r2.ebuild:
   fixed latex dep
 
