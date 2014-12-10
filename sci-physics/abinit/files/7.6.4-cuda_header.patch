@@ -1,0 +1,11 @@
+diff -Naurp abinit-7.6.4.orig/src/incs/cuda_header.h abinit-7.6.4/src/incs/cuda_header.h
+--- abinit-7.6.4.orig/src/incs/cuda_header.h	2014-05-03 14:18:46.000000000 +0000
++++ abinit-7.6.4/src/incs/cuda_header.h	2014-12-04 13:21:36.000000000 +0000
+@@ -17,6 +17,7 @@
+ //#include <cutil.h>
+ #include <stdlib.h>
+ #include <unistd.h>
++#include <stdio.h>
+ #include <cufft.h>
+ #include <cuda_runtime.h>
+ #include <cuda.h>

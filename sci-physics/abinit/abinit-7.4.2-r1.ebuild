@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_5,2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit autotools-utils eutils flag-o-matic fortran-2 multilib python-single-r1 toolchain-funcs
 
@@ -15,36 +15,27 @@ SRC_URI="http://ftp.abinit.org/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="atompaw bigdft cuda cuda-double -debug +etsf_io +fftw fftw-mpi +fftw-threads +fox gsl +hdf5 levmar -libabinit libxc -lotf mpi +netcdf openmp python scalapack scripts -test +threads wannier"
+IUSE="atompaw bigdft cuda cuda-double -debug +etsf_io +fftw +fftw-threads +fox gsl +hdf5 levmar -libabinit libxc -lotf mpi +netcdf openmp python scripts -test +threads -vdwxc wannier"
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-#"			scalapack? ( !bigdft )"
+REQUIRED_USE="scripts? ( ${PYTHON_REQUIRED_USE} )
+	test? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="virtual/blas
 	virtual/lapack
-	${PYTHON_DEPS}
-	dev-python/numpy
 	atompaw? ( >=sci-physics/atompaw-3.0.1.9-r1[libxc?] )
-	bigdft? ( ~sci-libs/bigdft-abi-1.0.4[scalapack?] )
+	bigdft? ( ~sci-libs/bigdft-abi-1.0.4 )
 	cuda? ( dev-util/nvidia-cuda-sdk )
 	etsf_io? ( >=sci-libs/etsf_io-1.0.3-r2 )
 	fftw? (
 		sci-libs/fftw:3.0
-		fftw-threads? (
-			openmp? ( sci-libs/fftw:3.0[openmp] )
-			!openmp? ( sci-libs/fftw:3.0[threads] )
-			)
-		fftw-mpi? (
-			sci-libs/fftw:3.0[mpi]
-			openmp? ( sci-libs/fftw:3.0[openmp] )
-			!openmp? ( sci-libs/fftw:3.0[threads] )
-			)
+		fftw-threads? ( sci-libs/fftw:3.0[threads] )
 		)
 	fox? ( >=sci-libs/fox-4.1.2-r2[sax] )
 	gsl? ( sci-libs/gsl )
 	hdf5? ( sci-libs/hdf5[fortran] )
 	levmar? ( sci-libs/levmar )
-	libxc? ( =sci-libs/libxc-2.0*[fortran] )
+	libxc? ( >=sci-libs/libxc-2.0[fortran]
+			<sci-libs/libxc-2.2 )
 	netcdf? (
 		sci-libs/netcdf[hdf5?]
 		|| (
@@ -53,12 +44,16 @@ RDEPEND="virtual/blas
 			)
 		)
 	mpi? ( virtual/mpi )
-	scalapack? ( virtual/scalapack )
-	scripts? ( dev-python/PyQt4 )
+	python? (  ${PYTHON_DEPS}
+		dev-python/numpy )
+	scripts? ( ${PYTHON_DEPS}
+		dev-python/numpy
+		dev-python/PyQt4 )
 	wannier? ( >=sci-libs/wannier90-1.2-r1 )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	dev-perl/Text-Markdown"
+	dev-perl/Text-Markdown
+	test? ( ${PYTHON_DEPS} )"
 
 S=${WORKDIR}/${P%[a-z]}
 
@@ -141,7 +136,6 @@ pkg_setup() {
 			die "Please switch to an openmp compatible C compiler"
 		else
 			export CC="${CC} ${openmp}"
-			export CXX="${CXX} ${openmp}"
 		fi
 
 		pushd "${T}"
@@ -160,31 +154,23 @@ pkg_setup() {
 		popd
 
 		if (( ${ret} )); then
-			die "Please switch to an openmp compatible fortran compiler."
+			die "Please switch to an openmp compatible fortran compiler"
 		else
 			export FC="${FC} ${openmp}"
-			export F77="${F77} ${openmp}"
 		fi
 	fi
 
 	# Sort out some USE options
 	if use fftw-threads && ! use fftw; then
-		ewarn "fftw-threads set but fftw not used, ignored."
-	fi
-	if use fftw-mpi; then
-		if ! use fftw; then
-			ewarn "fftw-mpi set but fftw not used, ignored."
-		elif ! use mpi; then
-			ewarn "fftw-mpi set but mpi not used, ignored."
-		elif ! use fftw-threads; then
-			ewarn "fftw-mpi set but fftw-threads not. Will use a threaded fftw nevertheless, required with MPI."
-		fi
+		ewarn "fftw-threads set but fftw not used, ignored"
 	fi
 	if use cuda-double && ! use cuda; then
 		ewarn "cuda-double set but cuda not used, ignored"
 	fi
 
-	python-single-r1_pkg_setup
+	if use scripts || use test; then
+		python-single-r1_pkg_setup
+	fi
 
 }
 
@@ -193,13 +179,14 @@ src_prepare() {
 		"${FILESDIR}"/6.2.2-change-default-directories.patch \
 		"${FILESDIR}"/6.12.1-autoconf.patch \
 		"${FILESDIR}"/6.12.1-xmalloc.patch \
-		"${FILESDIR}"/7.6.3-libabinit_options.patch \
 		"${FILESDIR}"/7.4.2-levmar_diag_scaling.patch \
 		"${FILESDIR}"/7.4.2-syntax.patch \
-		"${FILESDIR}"/7.4.2-cuda_link_stdc++.patch
+		"${FILESDIR}"/7.4.2-cuda_link_stdc++.patch \
+		"${FILESDIR}"/7.6.4-cuda_header.patch \
+		"${FILESDIR}"/7.6.4-libxc_versions.patch
 	eautoreconf
 	sed -e"s/\(grep '\^-\)\(\[LloW\]\)'/\1\\\(\2\\\|pthread\\\)'/g" -i configure
-	python_fix_shebang "${S}"
+	use test && python_fix_shebang "${S}"/tests
 }
 
 src_configure() {
@@ -214,11 +201,6 @@ src_configure() {
 
 	local netcdff_libs="-lnetcdff"
 	use hdf5 && netcdff_libs="${netcdff_libs} -lhdf5_fortran"
-
-#	local linalg_flavor="atlas"
-	local linalg_flavor="custom"
-	local mylapack="lapack"
-	use scalapack && mylapack="scalapack" && linalg_flavor="${linalg_flavor}+scalapack"
 
 	local dft_flavor=""
 	use atompaw && dft_flavor="${dft_flavor}+atompaw"
@@ -237,29 +219,13 @@ src_configure() {
 	# USE flags should be added to select them in future;
 	# unusable with previous FFTW versions, they are postponed
 	# for now.
-	if use mpi && use fftw-mpi; then
-		fft_flavor="fftw3-mpi"
-		fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3_mpi)"
-		fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3f_mpi)"
-		if use openmp; then
-			fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3_omp)"
-			fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3f_omp)"
-		else
-			fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3_threads)"
-			fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3f_threads)"
-		fi
-	elif use fftw-threads; then
+	if use fftw-threads; then
 		fft_flavor="fftw3-threads"
-		if use openmp; then
-			fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3_omp)"
-			fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3f_omp)"
-		else
-			fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3_threads)"
-			fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3f_threads)"
-		fi
+		fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3_threads)"
+		fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3f_threads)"
 	else
-		fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3)"
-		fft_libs+="$($(tc-getPKG_CONFIG) --libs fftw3f)"
+		fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3)"
+		fft_libs="${fft_libs} $($(tc-getPKG_CONFIG) --libs fftw3f)"
 	fi
 
 	local gpu_flavor="none"
@@ -278,6 +244,7 @@ src_configure() {
 		$(use_enable mpi)
 		$(use_enable mpi mpi-io)
 		$(use_enable openmp)
+		$(use_enable vdwxc)
 		$(use_enable lotf)
 		$(use_enable cuda gpu)
 		"$(use cuda && echo "--with-gpu-flavor=${gpu_flavor}")"
@@ -287,8 +254,8 @@ src_configure() {
 		"$(use gsl && echo "--with-math-libs=$($(tc-getPKG_CONFIG) --libs gsl)")"
 		"$(use levmar && echo "--with-algo-flavor=levmar")"
 		"$(use levmar && echo "--with-algo-libs=-llevmar")"
-		--with-linalg-flavor="${linalg_flavor}"
-		--with-linalg-libs="$($(tc-getPKG_CONFIG) --libs "${mylapack}")"
+		--with-linalg-flavor="atlas"
+		--with-linalg-libs="$($(tc-getPKG_CONFIG) --libs lapack)"
 		--with-trio-flavor="${trio_flavor}"
 		"$(use netcdf && echo "--with-netcdf-incs=-I/usr/include")"
 		"$(use netcdf && echo "--with-netcdf-libs=$($(tc-getPKG_CONFIG) --libs netcdf) ${netcdff_libs}")"
@@ -305,7 +272,7 @@ src_configure() {
 		"$(use libxc && echo "--with-libxc-libs=$($(tc-getPKG_CONFIG) --libs libxc)")"
 		"$(use wannier && echo "--with-wannier90-bins=/usr/bin")"
 		"$(use wannier && echo "--with-wannier90-incs=${modules}")"
-		"$(use wannier && echo "--with-wannier90-libs=-lwannier $($(tc-getPKG_CONFIG) --libs blas lapack)")"
+		"$(use wannier && echo "--with-wannier90-libs=-lwannier $($(tc-getPKG_CONFIG) --libs lapack)")"
 		"$(use fftw && echo "--with-fft-flavor=${fft_flavor}")"
 		"$(use fftw && echo "--with-fft-incs=-I/usr/include")"
 		"$(use fftw && echo "--with-fft-libs=${fft_libs}")"
@@ -331,18 +298,9 @@ src_compile() {
 }
 
 src_test() {
-	einfo "The complete tests take quite a while, easily several hours or even days."
-	# autotools-utils_src_test expanded and modified
-	_check_build_dir
-	pushd "${BUILD_DIR}" > /dev/null || die
+	einfo "The tests take quite a while, easily several hours or even days"
 
-	einfo "Running the internal tests."
-	emake tests_in || die 'The internal tests failed.'
-
-	einfo "Running the thorough tests. Be patient, please."
-	"${S}"/tests/runtests.py || ewarn "The package has not passed the thorough tests."
-
-	popd > /dev/null || die
+	autotools-utils_src_test
 }
 
 src_install() {
@@ -355,7 +313,7 @@ src_install() {
 
 	if use test; then
 		for dc in results.tar.gz results.txt suite_report.html; do
-			test -e Test_suite/"${dc}" && dodoc Test_suite/"${dc}" || ewarn "Copying tests results ${dc} failed"
+			test -e tests/"${dc}" && dodoc tests/"${dc}" || ewarn "Copying tests results ${dc} failed"
 		done
 	fi
 
@@ -385,4 +343,11 @@ src_install() {
 
 	# Remove libtool files and unnecessary static libs
 	prune_libtool_files
+}
+
+pkg_postinst() {
+	if use test; then
+		elog "The full test results will be installed as summary_tests.tar.bz2."
+		elog "Also a concise report tests_summary.txt is installed."
+	fi
 }

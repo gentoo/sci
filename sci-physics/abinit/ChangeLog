@@ -2,6 +2,15 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*abinit-7.6.4-r1 (10 Dec 2014)
+*abinit-7.4.2-r1 (10 Dec 2014)
+
+  10 Dec 2014; Honza Macháček <Hloupy.Honza@centrum.cz> -abinit-7.4.2.ebuild,
+  +abinit-7.4.2-r1.ebuild, -abinit-7.6.4.ebuild, +abinit-7.6.4-r1.ebuild,
+  +files/7.6.4-cuda_header.patch, +files/7.6.4-libxc_versions.patch:
+  Treated a small problem with CUDA in sci-physics/abinit, corrected its
+  dependency on sci-libs/libxs versions.
+
   17 Sep 2014; Christoph Junghans <ottxor@gentoo.org> metadata.xml:
   updated metadata.xml
 

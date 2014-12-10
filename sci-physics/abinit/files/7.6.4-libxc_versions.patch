@@ -1,0 +1,40 @@
+diff -Naurp abinit-7.6.4.orig/config/m4/conn-dft.m4 abinit-7.6.4/config/m4/conn-dft.m4
+--- abinit-7.6.4.orig/config/m4/conn-dft.m4	2014-05-03 14:18:46.000000000 +0000
++++ abinit-7.6.4/config/m4/conn-dft.m4	2014-12-10 14:08:19.786380878 +0000
+@@ -135,7 +135,7 @@ AC_DEFUN([_ABI_DFT_CHECK_BIGDFT],[
+ 
+ 
+ 
+-# _ABI_DFT_CHECK_LIBXC(API_MAJOR, API_MINOR)
++# _ABI_DFT_CHECK_LIBXC(API_MIN_MAJOR, API_MIN_MINOR, API_MAX_MAJOR, API_MAX_MINOR)
+ # ------------------------------------------
+ #
+ # Check whether the LibXC library is working.
+@@ -203,7 +203,7 @@ AC_DEFUN([_ABI_DFT_CHECK_LIBXC],[
+   dnl Check that we have the correct LibXC version
+   if test "${abi_dft_libxc_has_incs}" = "yes" -a \
+           "${abi_dft_libxc_has_libs}" = "yes"; then
+-    AC_MSG_CHECKING([whether this is LibXC version $1.$2])
++    AC_MSG_CHECKING([whether this is LibXC version from $1.$2 to $3.$4])
+     AC_LANG_PUSH([C])
+     AC_RUN_IFELSE([AC_LANG_PROGRAM(
+       [[
+@@ -212,7 +212,8 @@ AC_DEFUN([_ABI_DFT_CHECK_LIBXC],[
+       [[
+         int major = -1, minor = -1;
+         xc_version(&major, &minor);
+-        if ( (major != $1) || (minor != $2) ) {
++        if ( (major < $1) || (major == $1) && (minor < $2) ||
++		(major == $3) && (minor > $4) || (major > $3) ) {
+           return 1; }
+       ]])], [abi_dft_libxc_version="yes"], [abi_dft_libxc_version="no"])
+     AC_LANG_POP([C])
+@@ -518,7 +519,7 @@ AC_DEFUN([ABI_CONNECT_DFT],[
+           ;;
+ 
+         libxc)
+-          _ABI_DFT_CHECK_LIBXC(2,0)
++          _ABI_DFT_CHECK_LIBXC(2,0,2,1)
+           if test "${abi_dft_libxc_serial}" = "yes" -o \
+                   "${enable_fallbacks}" = "yes"; then
+             AC_DEFINE([HAVE_DFT_LIBXC],1,
