@@ -44,24 +44,10 @@ src_configure() {
 	cmake-utils_src_configure
 }
 
-src_compile() {
-	cmake-utils_src_compile
-}
-
 src_install() {
 	cmake-utils_src_install
-	if use doc ; then
-		insinto /usr/share/doc/${P}/html
-		doins -r "${ED}"/usr/doc/api/*
-	fi
-	rm -r "${ED}"/usr/doc/api || die
-	rmdir "${ED}"/usr/doc || die
-	if use examples ; then
-		insinto /usr/share/${PN}/examples
-		doins -r "${ED}"/usr/samples/*
-	fi
-	rm -r "${ED}"/usr/samples || die
-	insinto /usr/share/${PN}/
-	doins -r "${ED}"/usr/misc/*
-	rm -r "${ED}"/usr/misc/ || die
+	mv "${ED}"/usr/share/{icnc/doc/api,doc/${P}/html} || die
+	rmdir "${ED}"/usr/share/icnc/doc || die
+	use doc || rm -r "${ED}"/usr/share/doc/${P}/html || die
+	use examples || rm -r "${ED}"/usr/share/icnc/samples || die
 }
