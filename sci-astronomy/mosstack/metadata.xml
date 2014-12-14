@@ -7,12 +7,14 @@
   </maintainer>
   <longdescription>
     An open source stacking software for astronomical images taken with a DSLR
-    camera. PyAstroStack can calibrate, debayer, register, align and stack photos
+    camera. Mosstack can calibrate, debayer, register, align and stack photos
     taken with modern DSLR's from Canon. It has a command line user interface
-    inspired by AstroSurf IRIS.
+    inspired by AstroSurf IRIS and a graphical user interface written with PyQt4
   </longdescription>
   <use>
     <flag name="opencl">Enables OpenCL support and pulls in pyopencl. This makes
     some operations much faster but requires specific hardware and drivers.</flag>
+    <flag name="qt4">Pulls in PyQt4. Program works on command line interface
+    without it but for GUI the library is required.</flag>
   </use>
 </pkgmetadata>
