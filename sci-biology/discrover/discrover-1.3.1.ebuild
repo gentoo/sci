@@ -20,6 +20,7 @@ RDEPEND="
 	logo? (
 		dev-lang/ruby
 		dev-texlive/texlive-latex
+		dev-texlive/texlive-latexextra
 		dev-tex/pgf
 		dev-tex/xcolor
 		media-gfx/imagemagick
