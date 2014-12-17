@@ -26,10 +26,9 @@ SRC_URI="http://www.nwchem-sw.org/images/Nwchem-${PV%_p*}.revision${PV#*_p}-src.
 LICENSE="ECL-2.0"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="blas cuda doc examples infiniband int64 lapack mpi mrcc nwchem-tests openmp python scalapack"
+IUSE="blas cuda doc examples infiniband int64 lapack mrcc nwchem-tests openmp python scalapack"
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )
-	infiniband? ( mpi )
 	scalapack? ( !int64 )
 	lapack? ( blas )
 	scalapack? ( blas )"
@@ -46,8 +45,9 @@ RDEPEND="
 	)
 	python? ( ${PYTHON_DEPS} )"
 DEPEND="${RDEPEND}
+	virtual/pkgconfig
 	app-shells/tcsh
-	mpi? ( virtual/mpi[fortran] )
+	virtual/mpi[fortran]
 	infiniband? ( || (
 		sys-cluster/openmpi[fortran,openmpi_fabrics_ofed]
 		sys-cluster/mvapich2[fortran]
@@ -61,14 +61,10 @@ S="${WORKDIR}/${PN}"
 
 pkg_setup() {
 	# fortran-2.eclass does not handle mpi wrappers
-	if use mpi; then
-		export FC="mpif90"
-		export F77="mpif77"
-		export CC="mpicc"
-		export CXX="mpic++"
-	else
-		tc-export FC F77 CC CXX
-	fi
+	export FC="mpif90"
+	export F77="mpif77"
+	export CC="mpicc"
+	export CXX="mpic++"
 
 	use openmp && FORTRAN_NEED_OPENMP=1
 
@@ -143,20 +139,18 @@ src_compile() {
 	export NWCHEM_LONG_PATHS=Y
 	export USE_NOIO=TRUE
 	use openmp && export USE_OPENMP=1
-	if use mpi ; then
-		export USE_MPI=y
-		export USE_MPIF=y
-		export USE_MPIF4=y
-		export MPI_LOC="${EPREFIX}"/usr
-		export MPI_INCLUDE=$MPI_LOC/include
-		export MPI_LIB=$MPI_LOC/$(get_libdir)
-		export LIBMPI="$(mpif90 -showme:link)"
-		if use infiniband; then
-			export ARMCI_NETWORK=OPENIB
-			export MSG_COMMS=MPI
-		else
-			unset ARMCI_NETWORK
-		fi
+	export USE_MPI=y
+	export USE_MPIF=y
+	export USE_MPIF4=y
+	export MPI_LOC="${EPREFIX}"/usr
+	export MPI_INCLUDE=$MPI_LOC/include
+	export MPI_LIB=$MPI_LOC/$(get_libdir)
+	export LIBMPI="$(mpif90 -showme:link)"
+	if use infiniband; then
+		export ARMCI_NETWORK=OPENIB
+		export MSG_COMMS=MPI
+	else
+		unset ARMCI_NETWORK
 	fi
 	if [ "$ARCH" = "amd64" ]; then
 		export NWCHEM_TARGET=LINUX64
@@ -186,9 +180,15 @@ src_compile() {
 	export EACCSD="TRUE"                   # Electron Affinities at the CCSD level
 	export IPCCSD="TRUE"                   # Ionisation Potentials at the CCSD level
 	unset BLASOPT
-	use blas && export BLASOPT="$(pkg-config --libs blas)"
-	use lapack && export BLASOPT+="$(pkg-config --libs lapack)"
-	use scalapack && export BLASOPT+="$(pkg-config --libs scalapack)"
+	local blaspkg="blas"
+	local lapackpkg="lapack"
+	if use int64; then
+		blaspkg="blas-int64"
+		lapackpkg="lapack-int64"
+	fi
+	use blas && export BLASOPT="$($(tc-getPKG_CONFIG) --libs ${blaspkg})"
+	use lapack && export BLASOPT+="$($(tc-getPKG_CONFIG) --libs ${lapackpkg})"
+	use scalapack && export BLASOPT+="$($(tc-getPKG_CONFIG) --libs scalapack)"
 	if use cuda; then
 		export TCE_CUDA=Y
 		export CUDA_PATH=/opt/cuda
