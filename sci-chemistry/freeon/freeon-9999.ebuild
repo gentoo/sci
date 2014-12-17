@@ -16,7 +16,7 @@ SRC_URI=""
 EGIT_REPO_URI="https://github.com/FreeON/freeon.git"
 
 LICENSE="GPL-3"
-SLOT="0"
+SLOT="live"
 KEYWORDS=""
 IUSE=""
 
