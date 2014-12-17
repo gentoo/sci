@@ -6,7 +6,7 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=1
 FORTRAN_STANDARD=90
-PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
+PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3,3_4} )
 
 inherit autotools-utils fortran-2 git-r3 python-any-r1
 
@@ -35,6 +35,7 @@ src_prepare() {
 src_configure() {
 	local myeconfargs=(
 		"--enable-git-tag"
+		"--prefix=/opt/freeon/experimental"
 	)
 	autotools-utils_src_configure
 }
