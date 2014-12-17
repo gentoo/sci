@@ -20,8 +20,12 @@ KEYWORDS="~amd64 ~amd64-linux"
 IUSE="examples"
 
 RDEPEND="
-	x11-libs/qwt:5
+	dev-libs/libxml2:2
+	dev-qt/qtcore:4
+	dev-qt/qtgui:4
+	media-libs/tiff:0
 	sci-libs/cbflib
+	x11-libs/qwt:5
 "
 DEPEND="dev-util/patchelf"
 
@@ -29,7 +33,7 @@ RESTRICT="fetch"
 
 S="${WORKDIR}"/${P^^}-1
 
-QA_PREBUILT="opt/.*"
+QA_PREBUILT="opt/.* usr/.*"
 
 pkg_nofetch() {
 	elog "Please visit http://www.embl-hamburg.de/biosaxs/atsas-online/download.php"
