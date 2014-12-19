@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Dec 2014; Nicolas Bock <nicolasbock@gentoo.org> freeon-9999.ebuild:
+  sci-chemistry/freeon-9999: Move files.
+
   19 Dec 2014; Nicolas Bock <nicolasbock@gentoo.org> -Manifest,
   -freeon-1.0.8-r1.ebuild, -freeon-1.0.8.ebuild:
   sci-chemistry/freeon: Cleaning up old ebuilds.

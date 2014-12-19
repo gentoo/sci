@@ -35,7 +35,7 @@ src_prepare() {
 src_configure() {
 	local myeconfargs=(
 		"--enable-git-tag"
-		"--prefix=/opt/freeon/experimental"
+		"--prefix=/opt/freeon"
 	)
 	autotools-utils_src_configure
 }
