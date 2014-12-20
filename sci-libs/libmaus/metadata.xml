@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-libs</herd>
+<herd>sci-biology</herd>
 <longdescription lang="en">
 libmaus is a collection of data structures and algorithms. It contains
 
