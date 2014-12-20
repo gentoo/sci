@@ -11,7 +11,7 @@ DESCRIPTION="Library for biobambam"
 HOMEPAGE="https://github.com/gt1/libmaus"
 SRC_URI="https://github.com/gt1/libmaus/archive/${FULLVER}.tar.gz"
 
-LICENSE="GPLv3"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86"
 IUSE=""

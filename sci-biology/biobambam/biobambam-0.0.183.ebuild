@@ -11,7 +11,7 @@ DESCRIPTION="Tools for bam file processing"
 HOMEPAGE="https://github.com/gt1/biobambam"
 SRC_URI="https://github.com/gt1/biobambam/archive/${FULLVER}.tar.gz"
 
-LICENSE="GPLv3"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
