@@ -22,7 +22,6 @@ S="${WORKDIR}/${PN}_v${PV}"
 
 src_install() {
 	dobin bismark{,2bedGraph,2report,_genome_preparation,_methylation_extractor} coverage2cytosine deduplicate_bismark
-	dodir /usr/share/${P}
 	insinto /usr/share/${P}
 	doins bismark_sitrep.tpl
 	dosym /usr/share/${P}/bismark_sitrep.tpl /usr/bin/bismark_sitrep.tpl
