@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=5
-inherit autotools-utils
 
 FULLVER=${PV}-release-20141208165400
 

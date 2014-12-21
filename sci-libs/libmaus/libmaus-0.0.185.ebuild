@@ -3,7 +3,6 @@
 # $Header: $
 
 EAPI=5
-inherit autotools-utils
 
 FULLVER=${PV}-release-20141201090944
 
@@ -15,8 +14,5 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
-
-DEPEND=""
-RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/${PN}-${FULLVER}
