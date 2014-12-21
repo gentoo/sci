@@ -259,9 +259,13 @@ src_install() {
 	for x in "${ED}"usr/bin/gmx-completion{,?*}.bash ; do
 		echo $(<${x})
 	done > "${T}"/gmx-bashcomp || die
-	newbashcomp "${T}"/gmx-bashcomp gromacs
+	newbashcomp "${T}"/gmx-bashcomp gmx
+	bashcomp_alias gmx mdrun
 	rm "${ED}"usr/bin/gmx-completion{,?*}.bash || die
-
+	if use double-precision && use single-precision; then
+		bashcomp_alias gmx gmx_d
+		bashcomp_alias gmx mdrun_d
+	fi
 	readme.gentoo_create_doc
 }
 
