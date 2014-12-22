@@ -36,6 +36,12 @@ src_configure() {
 	local myeconfargs=(
 		"--enable-git-tag"
 		"--prefix=/opt/freeon"
+		"--mandir=/opt/freeon/share/man"
+		"--infodir=/opt/freeon/share/info"
+		"--datadir=/opt/freeon/share"
+		"--sysconfdir=/opt/freeon/etc"
+		"--libdir=/opt/freeon/lib64"
+		"--docdir=/opt/freeon/share/doc"
 	)
 	autotools-utils_src_configure
 }
