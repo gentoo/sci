@@ -45,14 +45,14 @@ src_install() {
 	local i
 	for i in bin/*; do
 		patchelf \
-			--set-rpath "$(gcc-config -L):${EPREFIX}/opt/${PN}/:${EPREFIX}/usr/lib/" \
+			--set-rpath "$(gcc-config -L):${EPREFIX}/opt/${PN}/:${EPREFIX}/usr/lib/qt4/" \
 			${i} || die
 	done
 	exeinto /opt/bin
 	doexe bin/*
 
 	insinto /opt/${PN}
-	doins lib/*/atsas/{libedf.so*,libqtsoap.so*,libsaxs*.so*}
+	doins lib/*/atsas/{libedf.so*,libqtsoap.so*,libqwt*.so*,libsaxs*.so*}
 
 	python_foreach_impl python_domodule lib/*/atsas/python*/dist-packages/*
 
