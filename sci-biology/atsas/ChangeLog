@@ -2,6 +2,9 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  22 Dec 2014; Justin Lecher <jlec@gentoo.org> atsas-2.6.0.ebuild:
+  Add libdir to rpath
+
   21 Dec 2014; Justin Lecher <jlec@gentoo.org> atsas-2.6.0.ebuild:
   Drop quotes
 

@@ -44,7 +44,9 @@ pkg_nofetch() {
 src_install() {
 	local i
 	for i in bin/*; do
-		patchelf --set-rpath "$(gcc-config -L):${EPREFIX}/opt/${PN}/" ${i} || die
+		patchelf \
+			--set-rpath "$(gcc-config -L):${EPREFIX}/opt/${PN}/:${EPREFIX}/usr/lib/" \
+			${i} || die
 	done
 	exeinto /opt/bin
 	doexe bin/*
