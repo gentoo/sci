@@ -9,29 +9,35 @@ inherit cmake-utils eutils multilib
 DESCRIPTION="Solving partial differential equations with the finite element method"
 HOMEPAGE="http://www.dealii.org/"
 
-SRC_URI="
-	https://dealii.googlecode.com/files/deal.II-${PV}.tar.gz
-	doc? ( https://dealii.googlecode.com/files/deal.offlinedoc-${PV}.tar.gz )"
-S="${WORKDIR}/deal.II"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+if [[ ${PV} = *9999* ]]; then
+	inherit git-r3
+	EGIT_REPO_URI="git://github.com/dealii/dealii.git"
+	SRC_URI=""
+	KEYWORDS=""
+else
+	SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}.tar.gz
+		doc? ( https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}-offline_documentation.tar.gz )"
+	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+	S="${WORKDIR}/deal.II"
+fi
 
 LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
 	arpack avx +debug doc +examples hdf5 +lapack mesh_converter metis mpi
-	mumps netcdf p4est parameter_gui petsc +sparse sse2 static-libs +tbb
-	trilinos +zlib
+	mumps netcdf p4est parameter_gui petsc +sparse
+	sse2 static-libs +tbb trilinos
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
 REQUIRED_USE="
 	mumps? ( mpi lapack )
 	p4est? ( mpi )
-	trilinos? ( mpi )
-"
+	trilinos? ( mpi )"
 
-RDEPEND="
-	dev-libs/boost
+RDEPEND="dev-libs/boost
+	app-arch/bzip2
+	sys-libs/zlib
 	arpack? ( sci-libs/arpack[mpi=] )
 	hdf5? ( sci-libs/hdf5[mpi=] )
 	lapack? ( virtual/lapack )
@@ -44,30 +50,17 @@ RDEPEND="
 	petsc? ( sci-mathematics/petsc[mpi=] )
 	sparse? ( sci-libs/umfpack )
 	tbb? ( dev-cpp/tbb )
-	trilinos? ( sci-libs/trilinos )
-	zlib? ( sys-libs/zlib )
-"
+	trilinos? ( sci-libs/trilinos )"
 
-DEPEND="
-	${RDEPEND}
+DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	doc? ( app-doc/doxygen[dot] dev-lang/perl )
-"
-
-src_prepare() {
-	epatch "${FILESDIR}"/dealii-8.1.0-p4est1.0-support.patch
-}
+	doc? ( app-doc/doxygen[dot] dev-lang/perl )"
 
 src_configure() {
-
-	if use debug; then
-		CMAKE_BUILD_TYPE="DebugRelease"
-	else
-		CMAKE_BUILD_TYPE="Release"
-	fi
+	# deal.II needs a custom build type:
+	local CMAKE_BUILD_TYPE=$(usex debug DebugRelease Release)
 
 	local mycmakeargs=(
-		${live_version}
 		-DDEAL_II_ALLOW_AUTODETECTION=OFF
 		-DDEAL_II_ALLOW_BUNDLED=OFF
 		-DDEAL_II_ALLOW_PLATFORM_INTROSPECTION=OFF
@@ -78,6 +71,8 @@ src_configure() {
 		-DDEAL_II_DOCREADME_RELDIR=share/doc/${PF}/
 		-DDEAL_II_EXAMPLES_RELDIR=share/doc/${PF}/examples
 		-DDEAL_II_LIBRARY_RELDIR=$(get_libdir)
+		-DDEAL_II_WITH_BZIP2=ON
+		-DDEAL_II_WITH_ZLIB=ON
 		$(cmake-utils_use arpack DEAL_II_WITH_ARPACK)
 		$(cmake-utils_use avx DEAL_II_HAVE_AVX)
 		$(cmake-utils_use doc DEAL_II_COMPONENT_DOCUMENTATION)
@@ -98,7 +93,6 @@ src_configure() {
 		$(cmake-utils_use static-libs DEAL_II_PREFER_STATIC_LIBS)
 		$(cmake-utils_use tbb DEAL_II_WITH_THREADS)
 		$(cmake-utils_use trilinos DEAL_II_WITH_TRILINOS)
-		$(cmake-utils_use zlib DEAL_II_WITH_ZLIB)
 		)
 	cmake-utils_src_configure
 }
@@ -106,9 +100,10 @@ src_configure() {
 src_install() {
 	DOCS=( README )
 
-	if use doc; then
+	if use doc && [[ ${PV} != *9999* ]]; then
 		# copy missing images to the build directory:
-		cp -r "${WORKDIR}"/doc/doxygen/deal.II/images "${BUILD_DIR}"/doc/doxygen/deal.II || die
+		cp -r "${WORKDIR}"/doc/doxygen/deal.II/images \
+			"${BUILD_DIR}"/doc/doxygen/deal.II || die
 		# replace links:
 		sed -i \
 			's#"http://www.dealii.org/images/steps/developer/\(step-.*\)"#"images/\1"#g' \
@@ -116,6 +111,6 @@ src_install() {
 	fi
 	cmake-utils_src_install
 
-	# unpack the installed example sources:
+	# decompress the installed example sources:
 	use examples && docompress -x /usr/share/doc/${PF}/examples
 }
