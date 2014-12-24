@@ -108,8 +108,6 @@ src_configure() {
 }
 
 src_install() {
-	DOCS=( README )
-
 	if use doc && [[ ${PV} != *9999* ]]; then
 		# copy missing images to the build directory:
 		cp -r "${WORKDIR}"/doc/doxygen/deal.II/images \
