@@ -24,6 +24,7 @@ and extra output. If you want to get meaningful backtraces see
 		<flag name="metis">Add support for metis (<pkg>sci-libs/metis</pkg>)</flag>
 		<flag name="mumps">Add support for mumps (<pkg>sci-libs/mumps</pkg>)</flag>
 		<flag name="muparser">Add support for muparser (<pkg>dev-cpp/muParser</pkg>)</flag>
+		<flag name="opencascade">Add support for opencascade (<pkg>sci-libs/opencascade</pkg>)</flag>
 		<flag name="p4est">Add support for p4est (<pkg>sci-mathematics/p4est</pkg>)</flag>
 		<flag name="parameter_gui">Build and install the parameter_gui executable</flag>
 		<flag name="petsc">Add support for petsc (<pkg>sci-libs/petsc</pkg>)</flag>
