@@ -6,7 +6,7 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF=1
 FORTRAN_STANDARD=90
-PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3} )
+PYTHON_COMPAT=( python{2_6,2_7,3_2,3_3,3_4} )
 
 inherit autotools-utils fortran-2 git-r3 python-any-r1
 
@@ -16,7 +16,7 @@ SRC_URI=""
 EGIT_REPO_URI="https://github.com/FreeON/freeon.git"
 
 LICENSE="GPL-3"
-SLOT="0"
+SLOT="live"
 KEYWORDS=""
 IUSE=""
 
@@ -35,6 +35,13 @@ src_prepare() {
 src_configure() {
 	local myeconfargs=(
 		"--enable-git-tag"
+		"--prefix=/opt/freeon"
+		"--mandir=/opt/freeon/share/man"
+		"--infodir=/opt/freeon/share/info"
+		"--datadir=/opt/freeon/share"
+		"--sysconfdir=/opt/freeon/etc"
+		"--libdir=/opt/freeon/lib64"
+		"--docdir=/opt/freeon/share/doc"
 	)
 	autotools-utils_src_configure
 }

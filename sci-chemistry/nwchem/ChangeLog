@@ -2,6 +2,15 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nwchem-6.5_p26243-r3 (17 Dec 2014)
+
+  17 Dec 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -nwchem-6.5_p26243-r2.ebuild, +nwchem-6.5_p26243-r3.ebuild:
+  Use tc-getPKG_CONFIG from toolchain-funcs.eclass instead of plain pkg-config;
+  correct dep for pkgconfig to virtual; correct the pkgconfig names of
+  libraries for the int64 versions; remove mpi USE flag, MPI is mandatory
+  in the 6.5 version
+
 *nwchem-6.5_p26243-r2 (09 Dec 2014)
 
   09 Dec 2014; Honza Macháček <Hloupy.Honza@centrum.cz>
