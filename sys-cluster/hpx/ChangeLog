@@ -2,6 +2,13 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Dec 2014; Christoph Junghans <ottxor@gentoo.org> -Manifest,
+  -hpx-0.9.7.ebuild, -hpx-0.9.8.ebuild:
+  remove old
+
+  24 Dec 2014; Christoph Junghans <ottxor@gentoo.org> hpx-9999.ebuild:
+  fixed deps (bug #529066)
+
 *hpx-0.9.8 (20 May 2014)
 
   20 May 2014; Christoph Junghans <ottxor@gentoo.org>

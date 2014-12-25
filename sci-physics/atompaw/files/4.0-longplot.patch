@@ -1,0 +1,42 @@
+diff -Naurp atompaw-4.0.0.10.orig/src/atompaw_report.F90 atompaw-4.0.0.10/src/atompaw_report.F90
+--- atompaw-4.0.0.10.orig/src/atompaw_report.F90	2014-08-21 19:55:18.000000000 +0000
++++ atompaw-4.0.0.10/src/atompaw_report.F90	2014-10-08 14:45:17.320341463 +0000
+@@ -142,7 +142,7 @@ CONTAINS
+         OPEN(ifout,file='wfn'//TRIM(flnm),form='formatted')
+         WRITE(ifout,*) '# l=',PAW%l(io),'basis function with energy  ',&
+              PAW%eig(io)
+-          DO i=1,irc+50
++          DO i=1,n
+              WRITE(ifout,'(1p,5e12.4)') Grid%r(i),PAW%ophi(i,io),&
+                     PAW%otphi(i,io),PAW%otp(i,io)
+           ENDDO
+@@ -155,7 +155,7 @@ CONTAINS
+         OPEN(ifout,file='wfn00'//TRIM(flnm),form='formatted')
+         WRITE(ifout,*) '# l=',PAW%l(io),'basis function with energy  ',&
+              PAW%eig(io)
+-          DO i=1,irc+50
++          DO i=1,n
+              WRITE(ifout,'(1p,5e12.4)') Grid%r(i),PAW%phi(i,io),&
+                     PAW%tphi(i,io),PAW%tp(i,io)
+           ENDDO
+diff -Naurp atompaw-4.0.0.10.orig/src/pseudo.F90 atompaw-4.0.0.10/src/pseudo.F90
+--- atompaw-4.0.0.10.orig/src/pseudo.F90	2014-08-22 12:22:34.000000000 +0000
++++ atompaw-4.0.0.10/src/pseudo.F90	2014-10-08 14:45:47.528573288 +0000
+@@ -3808,7 +3808,7 @@ CONTAINS
+         OPEN(ifout,file=TRIM(fdata)//'.wfn'//TRIM(flnm),form='formatted')
+         WRITE(ifout,*) '# l=',PAW%l(io),'basis function with energy  ',&
+ &            PAW%eig(io)
+-          DO i=1,irc+50
++          DO i=1,n
+              WRITE(ifout,'(1p,5e12.4)') Grid%r(i),PAW%ophi(i,io),&
+ &                   PAW%otphi(i,io),PAW%otp(i,io)
+           ENDDO
+@@ -3821,7 +3821,7 @@ CONTAINS
+         OPEN(ifout,file=TRIM(fdata)//'.wfn00'//TRIM(flnm),form='formatted')
+         WRITE(ifout,*) '# l=',PAW%l(io),'basis function with energy  ',&
+ &            PAW%eig(io)
+-          DO i=1,irc+50
++          DO i=1,n
+              WRITE(ifout,'(1p,5e12.4)') Grid%r(i),PAW%phi(i,io),&
+ &                   PAW%tphi(i,io),PAW%tp(i,io)
+           ENDDO

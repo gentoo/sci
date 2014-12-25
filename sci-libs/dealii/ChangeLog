@@ -2,6 +2,17 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  24 Dec 2014; Matthias Maier <tamiko@gentoo.org> dealii-9999.ebuild:
+  fix installation
+
+*dealii-8.1.0-r2 (24 Dec 2014)
+*dealii-8.2.0_rc2 (24 Dec 2014)
+
+  24 Dec 2014; Matthias Maier <tamiko@gentoo.org> +dealii-8.1.0-r2.ebuild,
+  +dealii-8.2.0_rc2.ebuild, -dealii-8.1.0-r1.ebuild, dealii-9999.ebuild,
+  metadata.xml:
+  version bump; ebuild maintenance; fix SRC_URI
+
 *dealii-8.1.0-r1 (14 Oct 2014)
 
   14 Oct 2014; Matthias Maier <tamiko@gentoo.org> +dealii-8.1.0-r1.ebuild,

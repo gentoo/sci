@@ -42,6 +42,7 @@ DEPEND="${RDEPEND}
 	app-arch/p7zip
 	virtual/pkgconfig
 	test? ( dev-lang/python )
+	doc? ( >=dev-libs/boost-1.56.0-r1[tools] )
 "
 REQUIRED_USE="test? ( ${PYTHON_REQUIRED_USE} )"
 

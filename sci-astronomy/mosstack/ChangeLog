@@ -1,0 +1,10 @@
+# ChangeLog for sci-astronomy/mosstack
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*mosstack-0.6.1 (13 Dec 2014)
+
+  13 Dec 2014; Mikko Laine <mikko.laine@gmail.com> +metadata.xml,
+  +mosstack-0.6.1.ebuild:
+  sci-astronomy/mosstack: pyAstroStack renamed to Mosstack and version bumped to
+  0.6.1

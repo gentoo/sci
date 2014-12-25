@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 python3_2 python3_3 )
+PYTHON_COMPAT=( python2_7 python3_{3,4} )
 
 inherit distutils-r1 git-r3
 
@@ -21,5 +21,5 @@ RDEPEND="
 	|| ( dev-python/pyfits[${PYTHON_USEDEP}] dev-python/astropy[${PYTHON_USEDEP}] )
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/matplotlib[${PYTHON_USEDEP}]
-	virtual/pywcs[${PYTHON_USEDEP}]"
+	|| ( virtual/pywcs[${PYTHON_USEDEP}] dev-python/astropy[${PYTHON_USEDEP}] )"
 DEPEND="${RDEPEND}"

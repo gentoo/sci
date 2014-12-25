@@ -1,0 +1,11 @@
+# ChangeLog for sci-biology/discrover
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*discrover-1.3.1 (15 Dec 2014)
+
+  15 Dec 2014; Jonas Maaskola <jonas@maaskola.de> +discrover-1.3.1.ebuild,
+  -discrover-1.1.2.ebuild, discrover-9999.ebuild:
+  sci-biology/discrover: version bump; add to RDEPEND  Bump ebuild for new
+  release. When the USE flag "logo" is used, we also need to depend on texlive-
+  latexextra for the standalone package.
