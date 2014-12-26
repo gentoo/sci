@@ -9,7 +9,7 @@ PYTHON_COMPAT=( python2_7 )
 inherit autotools-utils python-single-r1 savedconfig
 
 DESCRIPTION="Extensible Simulation Package for Research on Soft matter"
-HOMEPAGE="http://www.espressomd.org"
+HOMEPAGE="http://espressomd.org"
 
 if [[ ${PV} = 9999 ]]; then
 	EGIT_REPO_URI="git://git.savannah.nongnu.org/espressomd.git"
@@ -48,7 +48,7 @@ RDEPEND="
 
 DEPEND="${RDEPEND}
 	doc? (
-		|| ( <app-doc/doxygen-1.7.6.1[-nodot] >=app-doc/doxygen-1.7.6.1[dot] )
+		app-doc/doxygen[dot]
 		dev-texlive/texlive-latexextra
 		virtual/latex-base )"
 
