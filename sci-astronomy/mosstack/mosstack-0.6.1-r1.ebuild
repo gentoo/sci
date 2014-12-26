@@ -9,7 +9,7 @@ inherit distutils-r1
 
 DESCRIPTION="Stacking software for astronomical images"
 HOMEPAGE="https://sites.google.com/site/mosstack"
-SRC_URI="https://sites.google.com/site/mosstack/installing/mosstack-0.6.1.tar?attredirects=0&d=1"
+SRC_URI="http://bitbucket.org/mikko_laine/mosstack/downloads/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
