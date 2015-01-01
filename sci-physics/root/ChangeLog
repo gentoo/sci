@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  01 Jan 2015; Andrew Savchenko <bircoph@gentoo.org> root-5.34.18-r2.ebuild,
+  root-6.00.01-r1.ebuild, root-6.00.02.ebuild, root-9999.ebuild:
+  Use virtual for postgres dependency. This fixes bug 534086,
+  reported by Juergen Rose
+
   01 Jan 2015; Andrew Savchenko <bircoph@gentoo.org> metadata.xml:
   Update maintainer information.
 
