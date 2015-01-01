@@ -20,7 +20,10 @@ else
 	SRC_URI="https://github.com/dealii/dealii/archive/v${MY_PV}.tar.gz -> ${P}.tar.gz
 		doc? (
 			https://github.com/${PN}/${PN}/releases/download/v${MY_PV}/${MY_P}-offline_documentation.tar.gz
-			-> ${P}-offline_documentation.tar.gz )"
+			-> ${P}-offline_documentation.tar.gz
+			http://ganymed.iwr.uni-heidelberg.de/~maier/dealii/releases/${MY_P}-offline_documentation.tar.gz
+			-> ${P}-offline_documentation.tar.gz
+			)"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 	S="${WORKDIR}/${PN}-${MY_PV}"
 fi
