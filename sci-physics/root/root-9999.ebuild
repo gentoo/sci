@@ -93,7 +93,7 @@ CDEPEND="
 		mysql? ( virtual/mysql )
 		odbc? ( || ( dev-db/libiodbc:0= dev-db/unixODBC:0= ) )
 		oracle? ( dev-db/oracle-instantclient-basic:0= )
-		postgres? ( virtual/postgresql:= )
+		postgres? ( dev-db/postgresql:= )
 		pythia6? ( sci-physics/pythia:6= )
 		pythia8? ( >=sci-physics/pythia-8.1.80:8= )
 		python? ( ${PYTHON_DEPS} )
