@@ -1,6 +1,11 @@
-# ChangeLog for sys-cluster/condor
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sys-cluster/htcondor
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  16 Apr 2014; wilhelm htcondor-8.0.0.ebuild:
+  sys-cluster/htcondor: Changed fetch url to auto generate for new versions and
+  replaced fetch requirement with mirror. I also upgraded the version to 8.1.5
+  from 8.0.0 .Fixes gentoo-science/sci#219
 
 *condor-7.5.4 (08 Jan 2011)
 
@@ -37,4 +42,3 @@
   +files/log_lock_run.patch, +files/no_basename.patch,
   +files/no_rpmdb_query.patch, +files/stdsoap2.h.patch.patch, +metadata.xml:
   Initial import
-
