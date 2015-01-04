@@ -6,10 +6,13 @@
 		<name>Jonas Maaskola</name>
 	</maintainer>
 	<use>
+		<flag name="cairo">
+			Use Cairo for sequence logo plotting capabilities
+		</flag>
 		<flag name="dreme">
 			Allow to use DREME from the MEME package for seeding
 		</flag>
-		<flag name="logo">
+		<flag name="tikzlogo">
 			Enable LaTeX/TikZ based ruby script for sequence logo drawing
 		</flag>
 		<flag name="misc_scripts">
