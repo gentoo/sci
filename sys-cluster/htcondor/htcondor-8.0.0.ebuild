@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -31,7 +31,7 @@ CDEPEND="sys-libs/zlib
 	kerberos? ( virtual/krb5 )
 	X? ( x11-libs/libX11 )
 	management? ( net-libs/qmf )
-	postgres? ( >=dev-db/postgresql-base-8.2.4 )
+	postgres? ( >=dev-db/postgresql-8.2.4 )
 	python? ( ${PYTHON_DEPS} )
 	soap? ( >=net-libs/gsoap-2.7.11[ssl?] )
 	ssl? ( >=dev-libs/openssl-0.9.8i )
