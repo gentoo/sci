@@ -1,6 +1,13 @@
 # ChangeLog for sci-chemistry/nwchem
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*nwchem-6.5_p26243-r4 (05 Jan 2015)
+
+  05 Jan 2015; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -nwchem-6.5_p26243-r3.ebuild, +nwchem-6.5_p26243-r4.ebuild:
+  2 new upstream patches added, USE_NOIO unset (disables semidirect
+  calculations, introduced by mistake)
 
 *nwchem-6.5_p26243-r3 (17 Dec 2014)
 

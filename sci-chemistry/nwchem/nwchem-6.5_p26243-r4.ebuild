@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,7 +21,9 @@ SRC_URI="http://www.nwchem-sw.org/images/Nwchem-${PV%_p*}.revision${PV#*_p}-src.
 	http://www.nwchem-sw.org/images/Makefile_gcc4x.patch.gz
 	http://www.nwchem-sw.org/images/Bcast_ccsd.patch.gz
 	http://www.nwchem-sw.org/images/Elpa_syncs.patch.gz
-	http://www.nwchem-sw.org/images/Xlmpoles_ifort15.patch.gz"
+	http://www.nwchem-sw.org/images/Xlmpoles_ifort15.patch.gz
+	http://www.nwchem-sw.org/images/Ifort15_fpp_offload.patch.gz
+	http://www.nwchem-sw.org/images/Texas_iorb.patch.gz"
 
 LICENSE="ECL-2.0"
 SLOT="0"
@@ -107,7 +109,7 @@ src_unpack() {
 
 src_prepare() {
 	pushd "${S}"/src
-		for p in Util_md_sockets Hbar Tcenxtask Parallelmpi Makefile_gcc4x Bcast_ccsd Elpa_syncs Xlmpoles_ifort15
+		for p in Util_md_sockets Hbar Tcenxtask Parallelmpi Makefile_gcc4x Bcast_ccsd Elpa_syncs Xlmpoles_ifort15 Ifort15_fpp_offload Texas_iorb
 			do epatch "${WORKDIR}"/"${p}.patch"
 		done
 		cd NWints/hondo
@@ -137,7 +139,6 @@ src_prepare() {
 
 src_compile() {
 	export NWCHEM_LONG_PATHS=Y
-	export USE_NOIO=TRUE
 	use openmp && export USE_OPENMP=1
 	export USE_MPI=y
 	export USE_MPIF=y
