@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,12 +12,13 @@ SRC_URI="https://github.com/maaskola/discrover/archive/${PV}.tar.gz -> ${P}.tar.
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="dreme doc +logo misc_scripts +rmathlib tcmalloc"
+IUSE="+cairo dreme doc tikzlogo misc_scripts +rmathlib tcmalloc"
 
 RDEPEND="
 	dev-libs/boost
+	cairo? ( x11-libs/cairo )
 	dreme? ( sci-biology/meme )
-	logo? (
+	tikzlogo? (
 		dev-lang/ruby
 		dev-texlive/texlive-latex
 		dev-texlive/texlive-latexextra
@@ -39,9 +40,10 @@ DEPEND="${RDEPEND}
 "
 src_configure() {
 	local mycmakeargs=(
+		$(cmake-utils_use_with cairo CAIRO)
 		$(cmake-utils_use_with dreme DREME)
 		$(cmake-utils_use_with doc DOC)
-		$(cmake-utils_use_with logo LOGO)
+		$(cmake-utils_use_with tikzlogo TIKZLOGO)
 		$(cmake-utils_use_with misc_scripts MISC_SCRIPTS)
 		$(cmake-utils_use_with rmathlib RMATHLIB)
 		$(cmake-utils_use_with tcmalloc TCMALLOC)
