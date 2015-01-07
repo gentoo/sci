@@ -1,0 +1,17 @@
+# Copyright 1999-2015 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+EAPI=5
+
+DESCRIPTION="Design degenerate primers"
+HOMEPAGE="http://mblab.wustl.edu/software.html"
+SRC_URI="http://mblab.wustl.edu/software/download/primerD.tar.gz -> primerD-1.0.tar.gz"
+
+LICENSE=""
+SLOT="0"
+KEYWORDS=""
+IUSE=""
+
+DEPEND=""
+RDEPEND="${DEPEND}"
