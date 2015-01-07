@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer>
+		<email>weaver@gentoo.org</email>
+		<name>Andrey Kislyuk</name>
+	</maintainer>
+	<herd>sci-biology</herd>
+	<use>
+		<flag name="server">Install genome browser Web application. If this flag is off, only libraries and utilities from the suite are installed.</flag>
+	</use>
+</pkgmetadata>
