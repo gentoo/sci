@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,10 +16,11 @@ KEYWORDS=""
 IUSE=""
 
 # contains bundled binaries of hmmer-3.1 (dev version)
+# needs >=perl-5.6
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	>=dev-lang/perl-5.6
+	dev-lang/perl
 	sci-biology/nesoni"
 
 src_install(){
