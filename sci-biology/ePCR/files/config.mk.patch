@@ -1,0 +1,18 @@
+--- stand/config.mk.ori	2012-01-16 17:38:11.000000000 +0100
++++ stand/config.mk	2012-01-16 17:39:12.000000000 +0100
+@@ -52,11 +52,11 @@
+ 
+ #########################################################################
+ # GNU compiler flags
+-CC = gcc
+-CXX = g++
+-CXXFLAGS = -I$(srcdir) -I$(INCDIR) $(CC_FLAGS) $(PART_CXXFLAGS) \
++#CC = gcc
++#CXX = g++
++CXXFLAGS = -I$(srcdir) -I$(INCDIR) -I`pwd` \
+ 	-DDEALLOCATE=0 $(LF64CCFLAGS) $(VERSION_FLAGS) -DSTANDALONE=1
+-LDFLAGS = $(LD_FLAGS) $(LF64LDFLAGS) -L$(tgtdir) -L$(LIBDIR) $(PART_LDFLAGS) 
++LDFLAGS = $(LF64LDFLAGS) -L$(tgtdir) -L$(LIBDIR) 
+ #	$(PART_PRELIBS) $(LIBS:%=-l%) $(PART_POSTLIBS)
+ 
+ LF64CCFLAGS = `getconf LFS_CFLAGS` 
