@@ -1,0 +1,8 @@
+--- vague.ori	2015-01-08 13:31:31.755604378 +0100
++++ vague	2015-01-08 13:31:49.525604424 +0100
+@@ -1,4 +1,4 @@
+ echo "Starting Vague, please wait..."
+ export VAGUE_DIR=`dirname $0`
+ export PATH=$PATH:$VAGUE_DIR
+-java -Xmx3750m -jar `dirname $0`/vague.jar $*
++java -Xmx3750m -jar /usr/share/vague-bin/lib/vague.jar $*
