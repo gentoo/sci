@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/transdecoder
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*transdecoder-20140704 (08 Jan 2015)
+
+  08 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +transdecoder-20140704.ebuild:
+  sci-biology/transdecoder: new package
