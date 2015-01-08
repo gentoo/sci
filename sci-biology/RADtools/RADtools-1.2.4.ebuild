@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -32,5 +32,9 @@ RDEPEND="${DEPEND}"
 src_install() {
 	dobin RADMIDs RADmarkers RADpools RADtags
 	mydoc="CHANGELOG RADmanual.pdf RADmanual.tex README"
-	perl-module_src_install DESTDIR="${D}" # install  RADtools.pm into @INC path
+	eval `perl '-V:installvendorlib'`
+	vendor_lib_install_dir="${installvendorlib}"
+	dodir ${vendor_lib_install_dir}
+	insinto ${vendor_lib_install_dir}
+	doins *.pm
 }
