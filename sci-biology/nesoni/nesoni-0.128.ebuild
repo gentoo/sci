@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -27,7 +27,7 @@ RDEPEND="${DEPEND}
 	dev-lang/R"
 
 	# sci-biology/freebayes
-	# SplitsTree4
+	# SplitsTree4 http://www.splitstree.org/
 	# BioConductor (limma, edgeR, goseq)
 	# seriation
 	# NMF
