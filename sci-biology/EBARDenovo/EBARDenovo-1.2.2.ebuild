@@ -8,6 +8,7 @@ DESCRIPTION="Transcriptome de novo assembler with chimera detection"
 HOMEPAGE="http://ebardenovo.sourceforge.net"
 SRC_URI="http://downloads.sourceforge.net/project/ebardenovo/EBARDenovo-1.2.2-20130404.zip"
 
+# This software package (with patent pending) is free of charge for academic use only
 LICENSE="CPL-1.0"
 SLOT="0"
 KEYWORDS="~amd64"
