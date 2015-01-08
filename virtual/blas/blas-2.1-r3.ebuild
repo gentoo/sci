@@ -24,7 +24,7 @@ RDEPEND="
 	)
 	|| (
 		>=sci-libs/blas-reference-20131116-r1[int64?]
-		>=dev-cpp/eigen-3.1.2
+		>=dev-cpp/eigen-3.1.4
 		sci-libs/atlas[fortran]
 		>=sci-libs/openblas-0.2.11[int64?]
 		>=sci-libs/acml-4.4
