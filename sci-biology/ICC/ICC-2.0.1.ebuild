@@ -4,8 +4,6 @@
 
 EAPI=5
 
-inherit perl-module
-
 DESCRIPTION="Error corrector for Roche/454 and IonTorrent data with indel and carryforward, SNP and haplotype calling"
 HOMEPAGE="http://indra.mullins.microbiol.washington.edu/ICC"
 SRC_URI="http://indra.mullins.microbiol.washington.edu/cgi-bin/ICC/info.cgi?ID=ICC_v2.0.1.zip -> ICC_v2.0.1.zip"
@@ -16,6 +14,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="dev-lang/perl
+	dev-perl/Parallel-ForkManager
 	sci-biology/ncbi-tools++"
 RDEPEND="${DEPEND}"
 
@@ -24,11 +23,6 @@ S="${WORKDIR}"
 src_install(){
 	dobin Scripts/*.pl
 	dodoc README.txt
-
-	# BUG: does not work
-	cd Scripts/lib || die
-	perl-module_src_install DESTDIR="${D}" *.pm Parallel/ForkManager.pm # install into @INC path
-
 }
 
 #    testing: Blast/Linux/LICENSE      OK
