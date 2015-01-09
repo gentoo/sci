@@ -3,6 +3,9 @@
 # $Header: $
 
   09 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> ESTate-0.5.ebuild:
+  add the probability matrices
+
+  09 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> ESTate-0.5.ebuild:
   add the PhD thesis itself as documentation
 
 *ESTate-0.5 (09 Jan 2015)
