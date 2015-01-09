@@ -3,6 +3,10 @@
 # $Header: $
 
   09 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> ESTate-0.5.ebuild:
+  improve description and emphasize the ORF finder can overcome frameshifts in
+  CDS
+
+  09 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> ESTate-0.5.ebuild:
   use 'insinto' and not 'doins'
 
   09 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> ESTate-0.5.ebuild:

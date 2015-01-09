@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="EST clustering tools (estcluster, usage counter, revcomp and translate)"
+DESCRIPTION="ORF finding despite frameshifts, EST clustering (framefinder, estcluster, usage counter, revcomp and translate)"
 HOMEPAGE="http://www.ebi.ac.uk/~guy/estate"
 SRC_URI="http://www.ebi.ac.uk/~guy/estate/estate.tar.gz
 	http://www.ebi.ac.uk/~guy/estate/thesis.ps.gz"
