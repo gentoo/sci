@@ -15,8 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="sys-cluster/openmpi
-	sci-biology/hmmer
+DEPEND=">=sci-biology/hmmer-3.0
 	sci-biology/cd-hit
 	sci-biology/parafly
 	sci-biology/ffindex"
@@ -27,6 +26,8 @@ S="${WORKDIR}"/TransDecoder_r20140704
 src_prepare(){
 	rm -rf 3rd_party
 	mv Makefile Makefile.old
+	epatch "${FILESDIR}"/TransDecoder.patch
+	epatch "${FILESDIR}"/pfam_runner.pl.patch
 }
 
 # avoid fetching 1.5TB "${S}"/pfam/Pfam-AB.hmm.bin, see
@@ -41,4 +42,8 @@ src_install(){
 	dodir ${vendor_lib_install_dir}
 	insinto ${vendor_lib_install_dir}
 	doins PerlLib/*.pm
+
+	einfo "Fetch on your own:"
+	einfo "wget --mirror -nH -nd http://downloads.sourceforge.net/project/transdecoder/Pfam-AB.hmm.bin"
+	einfo "hmmpress Pfam-AB.hmm.bin"
 }

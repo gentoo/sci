@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/TransDecoder.patch, +files/pfam_runner.pl.patch,
+  transdecoder-20140704.ebuild:
+  sci-biology/transdecoder: added patches so that we use PATH to loclate
+  binaries and not in a local subdirectory named 'util', drop sys-
+  cluster/openmpi requirement, it does not link against it all all, this is a
+  bunch of perl and shell scripts
+
 *transdecoder-20140704 (08 Jan 2015)
 
   08 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
