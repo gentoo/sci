@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/tablet
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  09 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> tablet-9999.ebuild:
+  sci-biology/tablet: note the compilation from source is not coded into ebuild
+  yet
 
 *tablet-1.14.04.10 (02 Jul 2014)
 
