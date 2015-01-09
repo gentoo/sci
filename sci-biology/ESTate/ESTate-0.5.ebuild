@@ -6,7 +6,8 @@ EAPI=5
 
 DESCRIPTION="EST clustering tools (estcluster, usage counter, revcomp and translate)"
 HOMEPAGE="http://www.ebi.ac.uk/~guy/estate"
-SRC_URI="http://www.ebi.ac.uk/~guy/estate/estate.tar.gz"
+SRC_URI="http://www.ebi.ac.uk/~guy/estate/estate.tar.gz
+	http://www.ebi.ac.uk/~guy/estate/thesis.ps.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -28,5 +29,6 @@ src_install(){
 	insinto /usr/share/ESTate/etc
 	doins etc/ESTaterc
 	dodoc ANNOUNCE.txt README.txt
+	dodoc "${DISTDIR}"/thesis.ps.gz
 	einfo "Additionally you may want to install sci-biology/wcd which can be used by ESTate"
 }
