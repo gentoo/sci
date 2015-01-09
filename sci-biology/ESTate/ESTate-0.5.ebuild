@@ -28,7 +28,7 @@ src_install(){
 	doman doc/man/man1/*.1 doc/man/man7/*.7
 	insinto /usr/share/ESTate/etc
 	doins etc/ESTaterc
-	doins /usr/share/ESTate/example
+	insinto /usr/share/ESTate/example
 	doins example/embl59* example/drosophila*
 	dodoc ANNOUNCE.txt README.txt
 	dodoc "${DISTDIR}"/thesis.ps.gz
