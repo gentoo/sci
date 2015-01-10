@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit eutils distutils-r1
 
@@ -16,7 +16,7 @@ ESVN_REPO_URI="http://est2assembly.googlecode.com/svn/trunk"
 
 if [ "$PV" == "9999" ]; then
 	ESVN_REPO_URI="http://est2assembly.googlecode.com/svn/trunk"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS=""
 else
 	SRC_URI="http://est2assembly.googlecode.com/files/est2assembly_"${PV}".tar.gz"
 	KEYWORDS="~amd64 ~x86"
@@ -30,14 +30,15 @@ IUSE=""
 # annot8r  http://nematodes.org/bioinformatics/annot8r/index.shtml and http://nematodes.org/bioinformatics/Annot8r_physprop/
 # prot4EST http://nematodes.org/bioinformatics/prot4EST/
 
-DEPEND="dev-lang/perl
-		dev-perl/Time-Progress
-		sci-biology/fasta
-		sci-biology/ssaha2-bin
-		sci-biology/mira
-		sci-biology/emboss
-		sci-biology/bioperl
-		app-arch/pbzip2"
+DEPEND="
+	app-arch/pbzip2
+	dev-lang/perl
+	dev-perl/Time-Progress
+	sci-biology/fasta
+	sci-biology/ssaha2-bin
+	sci-biology/mira
+	sci-biology/emboss
+	sci-biology/bioperl"
 RDEPEND="${DEPEND}"
 
 # more install tricks in "${S}"/install.pl
