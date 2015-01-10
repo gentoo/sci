@@ -26,16 +26,10 @@ DEPEND="${RDEPEND}
 
 CMAKE_BUILD_TYPE=Release
 
-src_prepare() {
-	if use cpu; then
-		epatch "${FILESDIR}/FindCBLAS.patch"
-	fi
-	if use examples; then
-		epatch "${FILESDIR}/CMakeLists_examples.patch"
-	fi
-
-	cmake-utils_src_prepare
-}
+PATCHES=(
+	"${FILESDIR}"/FindCBLAS.patch
+	"${FILESDIR}"/CMakeLists_examples.patch
+)
 
 src_configure() {
 	if use cuda; then
