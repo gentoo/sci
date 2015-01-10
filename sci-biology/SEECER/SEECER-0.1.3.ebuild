@@ -6,15 +6,17 @@ EAPI=5
 
 DESCRIPTION="Error corrector for RNA-Seq reads"
 HOMEPAGE="http://sb.cs.cmu.edu/seecer/"
-SRC_URI="http://sb.cs.cmu.edu/seecer/downloads/SEECER-0.1.3.tar.gz
+SRC_URI="
+	http://sb.cs.cmu.edu/seecer/downloads/SEECER-0.1.3.tar.gz
 	http://sb.cs.cmu.edu/seecer/downloads/manual.pdf"
 
-LICENSE=""
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="sci-libs/gsl
+DEPEND="
+	sci-libs/gsl
 	sci-biology/seqan
 	sci-biology/jellyfish"
 RDEPEND="${DEPEND}"
@@ -27,7 +29,6 @@ S="${S}"/SEECER
 # 
 # Uses:
 #         libgomp.so.1 => /usr/lib/gcc/x86_64-pc-linux-gnu/4.8.3/libgomp.so.1 (0x00007f7853faf000)
-
 
 # dobin bin/run_seecer.sh
 # dodoc "${DISTDIR}"/manual.pdf
