@@ -14,7 +14,7 @@ KEYWORDS="~amd64"
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="+examples +cpu cuda independent test"
+IUSE="+examples +cpu cuda test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7.3-r1
@@ -31,11 +31,23 @@ CMAKE_BUILD_TYPE=Release
 PATCHES=(
 	"${FILESDIR}"/FindCBLAS.patch
 	"${FILESDIR}"/CMakeLists_examples.patch
-    "${FILESDIR}"/build_gtest.patch
+	"${FILESDIR}"/build_gtest.patch
 )
 
+# We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
+# user is (usually) not in the video group
+RESTRICT="userpriv"
+
+pkg_pretend() {
+	if [[ ${MERGE_TYPE} != binary ]]; then
+		if [[ $(gcc-major-version) -lt 4 ]] || ( [[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 7 ]] ) ; then
+			die "Compilation with gcc older than 4.7 is not supported."
+		fi
+	fi
+}
+
 src_unpack() {
-    git-r3_src_unpack
+	git-r3_src_unpack
 
 	if use test; then
 		mkdir -p "${BUILD_DIR}"/third_party/src/ || die
