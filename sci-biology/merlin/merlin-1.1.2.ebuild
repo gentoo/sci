@@ -20,12 +20,12 @@ src_prepare() {
 }
 
 src_compile() {
-	emake INSTALLDIR="${S}/bin" install || die
+	emake INSTALLDIR="${S}/bin" install
 }
 
 src_install() {
-	dobin "${S}"/bin/* || die
+	dobin "${S}"/bin/*
 	insinto /usr/share/${PN}
-	doins -r examples || die
+	doins -r examples
 	dodoc README
 }
