@@ -20,10 +20,6 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"
 
-src_prepare(){
-	cp -p "${DISTDIR}"/velvetk.pl . || die
-}
-
 src_install(){
-	dobin velvetk.pl
+	dobin "${DISTDIR}"/velvetk.pl
 }
