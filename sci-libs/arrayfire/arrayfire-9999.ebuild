@@ -51,6 +51,5 @@ src_configure() {
 src_install() {
 	cmake-utils_src_install
 
-	exeinto /usr/bin
-	doexe "build/bin2cpp"
+	dobin "bin2cpp"
 }
