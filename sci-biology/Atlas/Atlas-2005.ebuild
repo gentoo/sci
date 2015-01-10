@@ -9,7 +9,7 @@ HOMEPAGE="https://www.hgsc.bcm.edu/software/atlas-whole-genome-assembly-suite"
 SRC_URI="https://www.hgsc.bcm.edu/sites/default/files/software/Atlas/atlas-src.tgz"
 # https://www.hgsc.bcm.edu/sites/default/files/software/Atlas/atlas2005-linux.tgz
 
-LICENSE=""
+LICENSE="ATLAS"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
