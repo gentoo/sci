@@ -4,9 +4,12 @@
 
 EAPI=5
 
-DESCRIPTION="ORF finding despite frameshifts, EST clustering (framefinder, estcluster, usage counter, revcomp and translate)"
+inherit eutils
+
+DESCRIPTION="ORF finding despite frameshifts, EST clustering"
 HOMEPAGE="http://www.ebi.ac.uk/~guy/estate"
-SRC_URI="http://www.ebi.ac.uk/~guy/estate/estate.tar.gz
+SRC_URI="
+	http://www.ebi.ac.uk/~guy/estate/estate.tar.gz
 	http://www.ebi.ac.uk/~guy/estate/thesis.ps.gz"
 
 LICENSE="GPL-2"
@@ -14,23 +17,30 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
 S="${WORKDIR}"/estate
 
 src_prepare(){
-	sed -e "s/^CC/#CC/" -e "s/^LDFLAGS/#LDFLAGS/" -e "s/^CFLAGS/#CFLAGS/" -e "s/LDFLAGS/CFLAGS/" -i src/Makefile || die
+	sed \
+		-e "s/^CC/#CC/" \
+		-e "s/^LDFLAGS/#LDFLAGS/" \
+		-e "s/^CFLAGS/#CFLAGS/" \
+		-e "s/LDFLAGS/CFLAGS/" \
+		-i src/Makefile || die
 }
 
 src_install(){
 	dobin bin/*
 	doman doc/man/man1/*.1 doc/man/man7/*.7
+
 	insinto /usr/share/ESTate/etc
 	doins etc/ESTaterc
+
 	insinto /usr/share/ESTate/example
 	doins example/embl59* example/drosophila*
-	dodoc ANNOUNCE.txt README.txt
-	dodoc "${DISTDIR}"/thesis.ps.gz
-	einfo "Additionally you may want to install sci-biology/wcd which can be used by ESTate"
+
+	dodoc ANNOUNCE.txt README.txt "${DISTDIR}"/thesis.ps.gz
+}
+
+pkg_postinst() {
+	optfeature "additional features" sci-biology/wcd
 }
