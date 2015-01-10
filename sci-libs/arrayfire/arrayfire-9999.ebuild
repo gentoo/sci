@@ -13,7 +13,7 @@ KEYWORDS="~amd64"
 
 LICENSE="ArrayFire"
 SLOT="0"
-IUSE="+examples +cpu cuda test"
+IUSE="+examples +cpu cuda independent test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7.3-r1
@@ -27,12 +27,6 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${P}"
 BUILD_DIR="${S}/build"
 CMAKE_BUILD_TYPE=Release
-
-# We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
-# user is (usually) not in the video group
-if use cuda; then
-	RESTRICT="userpriv"
-fi
 
 src_prepare() {
 	if use cpu; then
