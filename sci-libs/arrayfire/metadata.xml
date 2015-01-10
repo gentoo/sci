@@ -9,7 +9,7 @@
   <use>
     <flag name="cpu">
       Enable CPU Build.
-    </flag>flag>
+    </flag>
     <flag name="cuda">
       Enable CUDA Build.
     </flag>
