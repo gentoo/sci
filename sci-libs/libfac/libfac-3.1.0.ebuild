@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=5
 
 inherit eutils versionator
 
@@ -25,7 +25,5 @@ S="${WORKDIR}/${PN}"
 RESTRICT="mirror"
 
 src_configure() {
-	econf --prefix="${D}/usr" \
-		$(use_with singular Singular)
-
+	econf $(use_with singular Singular)
 }
