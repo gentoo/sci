@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=5
 
 inherit toolchain-funcs versionator
 
@@ -26,14 +26,14 @@ src_prepare() {
 }
 
 src_compile() {
-	emake CC="$(tc-getCC)" CFLAGS="${CFLAGS}" || die
+	emake CC="$(tc-getCC)" CFLAGS="${CFLAGS}"
 }
 
 src_install() {
-	dobin codonw || die
+	dobin codonw
 	# woohoo watch out for collisions
 	for i in rscu cu aau raau tidy reader cutab cutot transl bases base3s dinuc cai fop gc3s gc cbi enc; do
-		dosym codonw /usr/bin/${i} || die
+		dosym codonw /usr/bin/${i}
 	done
-	dodoc *.txt || die
+	dodoc *.txt
 }
