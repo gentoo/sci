@@ -4,19 +4,19 @@
 
 EAPI=5
 
-[ "$PV" == "9999" ] && inherit git-2
+[ "$PV" == "9999" ] && inherit git-r3
 
 DESCRIPTION="Biological data warehouse integrating complex data"
-HOMEPAGE=""
+HOMEPAGE="http://github.com/intermine/intermine"
 if [ "$PV" == "9999" ]; then
 	EGIT_REPO_URI="https://github.com/intermine/intermine"
 	KEYWORDS=""
 else
 	SRC_URI=""
-	KEYWORDS=""
+	KEYWORDS="~amd64"
 fi
 
-LICENSE="LGPL-v3"
+LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE=""
 
