@@ -8,7 +8,7 @@ DESCRIPTION="Genome browser and analysis"
 HOMEPAGE="http://johnsonlab.ucsf.edu/mochi.html"
 SRC_URI=""
 
-LICENSE=""
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
