@@ -4,16 +4,17 @@
 
 EAPI=5
 
-DESCRIPTION="Error corrector for Roche/454 and IonTorrent data with indel and carryforward, SNP and haplotype calling"
+DESCRIPTION="Error corrector for Roche/454 and IonTorrent data"
 HOMEPAGE="http://indra.mullins.microbiol.washington.edu/ICC"
 SRC_URI="http://indra.mullins.microbiol.washington.edu/cgi-bin/ICC/info.cgi?ID=ICC_v2.0.1.zip -> ICC_v2.0.1.zip"
 
-LICENSE=""
+LICENSE="all-rights-reserved"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="dev-lang/perl
+DEPEND="
+	dev-lang/perl
 	dev-perl/Parallel-ForkManager
 	sci-biology/ncbi-tools++"
 RDEPEND="${DEPEND}"
@@ -52,4 +53,3 @@ src_install(){
 #    testing: Scripts/runICC.pl        OK
 #    testing: Scripts/uniqueReads.pl   OK
 #    testing: VersionHistory.txt       OK
-
