@@ -16,7 +16,7 @@ else
 	KEYWORDS="~amd64"
 fi
 
-LICENSE="InterMine"
+LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE=""
 
