@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit cmake-utils eutils git-r3
+inherit cmake-utils git-r3
 
 DESCRIPTION="A general purpose GPU library."
 HOMEPAGE="http://www.arrayfire.com/"
@@ -24,8 +24,6 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	test? ( dev-vcs/subversion )"
 
-S="${WORKDIR}/${P}"
-BUILD_DIR="${S}/build"
 CMAKE_BUILD_TYPE=Release
 
 src_prepare() {
