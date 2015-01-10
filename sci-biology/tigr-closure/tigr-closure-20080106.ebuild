@@ -11,7 +11,7 @@ HOMEPAGE="http://tigr-closure.sourceforge.net/"
 # http://tigr-closure.svn.sourceforge.net/tigr-closure/
 SRC_URI="tigr-closure-svn-20080106.tar.gz"
 
-LICENSE=""
+LICENSE="all-rights-reserved"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
@@ -20,48 +20,45 @@ DEPEND="dev-lang/perl"
 RDEPEND=""
 
 src_compile() {
-	cd TIGR
-	# install the two *.pm files into our perl path?
-	cd ..
 
 	# Closure Work Order Processing (CWP - CLOVER)
 	# clover and oats
-	cd ${WORKDIR}/CWPSystem/trunk/
+	cd "${WORKDIR}"/CWPSystem/trunk/ || die
 	# needs TIGR/EUIDService.pm in PERL paths
-	make dist
+	emake dist
 	# how to install the files from install/ ?
-	cd ../..
-	
-	# 
-	cd ScaffoldMgmt/trunk
-	make dist
+	cd ../.. || die
+
+	#
+	cd ScaffoldMgmt/trunk || die
+	emake dist
 	# FIXME: unpack the .tar file into image during src_install()
-	cd ../..
+	cd ../.. || die
 
 	# awfull
-	cd ClosureQC/trunk/
-	mkdir sandbox
-	${SANDBOX}=${WORKDIR}/sandbox
+	cd ClosureQC/trunk/ || die
+	mkdir sandbox || die
+	${SANDBOX}="${WORKDIR}"/sandbox
 	# have ./src/, ./doc, ./install, ./test/work/drivers, ./test/work/getqc, ./test/tmp
-	cd test
+	cd test || die
 	# ...
-	cd ../../..
+	cd ../../.. || die
 
-	# 
-	cd ClosureReactionSystem/trunk
-	make BUILD=true
-	cd ../..
+	#
+	cd ClosureReactionSystem/trunk || die
+	emake BUILD=true
+	cd ../.. || die
 
 	# some Java servlet?
-	cd AserverConsoleEJB3Hibernate
+	cd AserverConsoleEJB3Hibernate || die
 	# huh?
-	cd ../..
+	cd ../.. || die
 }
 
 src_install() {
-	cd ${WORKDIR}/SequenceTiling
+	cd "${WORKDIR}"/SequenceTiling || die
 	dobin trunk/src/*.pl
-	cd trunk/src/TIGR/SequenceTiling/
+	cd trunk/src/TIGR/SequenceTiling/ || die
 	myinst="DESTDIR=${D}"
 	perl-module_src_install
 	#
