@@ -4,16 +4,17 @@
 
 EAPI=5
 
-DESCRIPTION="Use set of 458 core proteins to predict genes in a genome and use them for training to find all genes"
+DESCRIPTION="Predict genes in a genome and use them for training to find all genes"
 HOMEPAGE="http://korflab.ucdavis.edu/datasets/cegma"
-SRC_URI="http://korflab.ucdavis.edu/datasets/cegma/CEGMA_v"${PV}".tar.gz"
+SRC_URI="http://korflab.ucdavis.edu/datasets/cegma/CEGMA_v${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
-DEPEND="dev-lang/perl
+DEPEND="
+	dev-lang/perl
 	sci-biology/wise
 	>=sci-biology/hmmer-3.0
 	sci-biology/geneid
