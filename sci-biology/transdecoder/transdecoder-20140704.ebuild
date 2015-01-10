@@ -39,9 +39,11 @@ src_install(){
 	dobin TransDecoder *.pl util/*.pl util/*.sh
 	eval `perl '-V:installvendorlib'`
 	vendor_lib_install_dir="${installvendorlib}"
-	dodir ${vendor_lib_install_dir}
-	insinto ${vendor_lib_install_dir}
+	dodir ${vendor_lib_install_dir}/TransDecoder
+	insinto ${vendor_lib_install_dir}/TransDecoder
 	doins PerlLib/*.pm
+	echo "PERL5LIB="${vendor_lib_install_dir}"/TransDecoder" > ${S}"/99TransDecoder"
+	doenvd ${S}"/99TransDecoder" || die
 
 	einfo "Fetch on your own:"
 	einfo "wget --mirror -nH -nd http://downloads.sourceforge.net/project/transdecoder/Pfam-AB.hmm.bin"

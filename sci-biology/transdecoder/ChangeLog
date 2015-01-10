@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  transdecoder-20140704.ebuild:
+  install *.pm into PERL5LIB/TransDecoder and pass that via env.d
+
   09 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   +files/TransDecoder.patch, +files/pfam_runner.pl.patch,
   transdecoder-20140704.ebuild:
