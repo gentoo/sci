@@ -4,7 +4,7 @@
 
   10 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
   rnaplex-0.2.ebuild:
-  Move to EAPI=5; Update homepage and SRC_URI.
+  Move to EAPI=5; Update homepage and SRC_URI; Cleanup.
 
   29 Apr 2009; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
   New package, ebuild written by me

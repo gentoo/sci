@@ -8,17 +8,11 @@ MY_P=RNAplex-${PV}
 
 DESCRIPTION="RNA-RNA interaction search"
 HOMEPAGE="http://www.bioinf.uni-leipzig.de/Software/RNAplex/"
-SRC_URI="http://www.bioinf.uni-leipzig.de/Software/RNAplex/RNAplex-0.2.tar.gz"
+SRC_URI="http://www.bioinf.uni-leipzig.de/Software/RNAplex/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 IUSE=""
 KEYWORDS="~amd64 ~x86"
 
-DEPEND=""
-RDEPEND="${DEPEND}"
 S=${WORKDIR}/${MY_P}
-
-src_install() {
-	emake DESTDIR="${D}" install
-}
