@@ -22,8 +22,7 @@ RDEPEND="
 	virtual/cblas
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-6.0 )
 	sci-libs/fftw:3.0"
-DEPEND="${RDEPEND}
-	test? ( app-arch/unzip )"
+DEPEND="${RDEPEND}"
 
 BUILD_DIR="${S}/build"
 CMAKE_BUILD_TYPE=Release
