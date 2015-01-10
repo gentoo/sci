@@ -12,7 +12,7 @@ EGIT_REPO_URI="https://github.com/arrayfire/arrayfire.git"
 SRC_URI="test? ( https://googletest.googlecode.com/files/gtest-1.7.0.zip )"
 KEYWORDS="~amd64"
 
-LICENSE="ArrayFire"
+LICENSE="BSD"
 SLOT="0"
 IUSE="+examples +cpu cuda independent test"
 
