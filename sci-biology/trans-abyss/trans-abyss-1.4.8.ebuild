@@ -6,7 +6,7 @@ EAPI=5
 
 DESCRIPTION="Analyze and combine multiple assemblies from abyss"
 HOMEPAGE="http://www.bcgsc.ca/platform/bioinfo/software/trans-abyss"
-SRC_URI="http://www.bcgsc.ca/platform/bioinfo/software/trans-abyss/releases/"${PV}"/trans-ABySS-v"${PV}"_20130916.tar.gz"
+SRC_URI="http://www.bcgsc.ca/platform/bioinfo/software/trans-abyss/releases/${PV}/trans-ABySS-v${PV}_20130916.tar.gz"
 
 # http://www.bcgsc.ca/platform/bioinfo/license/bcca_2010
 LICENSE="bcca_2010"
