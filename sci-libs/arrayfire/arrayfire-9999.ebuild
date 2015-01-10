@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit cmake-utils eutils git-r3 toolchain-funcs
+inherit cmake-utils eutils git-r3
 
 DESCRIPTION="A general purpose GPU library."
 HOMEPAGE="http://www.arrayfire.com/"
@@ -13,7 +13,7 @@ KEYWORDS="~amd64"
 
 LICENSE="ArrayFire"
 SLOT="0"
-IUSE="+examples +cpu cuda"
+IUSE="+examples +cpu cuda test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7.3-r1
@@ -21,7 +21,12 @@ RDEPEND="
 	virtual/cblas
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-6.0 )
 	sci-libs/fftw:3.0"
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+	test? ( dev-vcs/subversion )"
+
+S="${WORKDIR}/${P}"
+BUILD_DIR="${S}/build"
+CMAKE_BUILD_TYPE=Release
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
 # user is (usually) not in the video group
@@ -29,23 +34,14 @@ if use cuda; then
 	RESTRICT="userpriv"
 fi
 
-S="${WORKDIR}/${P}"
-
-QA_PREBUILT="/usr/share/arrayfire/examples/helloworld_cpu
-	/usr/share/arrayfire/examples/pi_cpu
-	/usr/share/arrayfire/examples/vectorize_cpu
-	/usr/share/arrayfire/examples/helloworld_cuda
-	/usr/share/arrayfire/examples/pi_cuda
-	/usr/share/arrayfire/examples/vectorize_cuda"
-
-src_unpack() {
-	git-r3_src_unpack
-}
-
 src_prepare() {
 	if use cpu; then
 		epatch "${FILESDIR}/FindCBLAS.patch"
 	fi
+	if use examples; then
+		epatch "${FILESDIR}/CMakeLists_examples.patch"
+	fi
+
 	cmake-utils_src_prepare
 }
 
@@ -56,20 +52,14 @@ src_configure() {
 		addwrite /dev/nvidia-uvm
 	fi
 
-	local mycmakeargs="
-	-DCMAKE_BUILD_TYPE=Release
-	$(cmake-utils_use_build cpu CPU)
-	$(cmake-utils_use_build cuda CUDA)
-	-DBUILD_OPENCL=OFF
-	$(cmake-utils_use_build examples EXAMPLES)
-	-DBUILD_TEST=OFF
-	"
-
-	BUILD_DIR="${S}/build" cmake-utils_src_configure
-}
-
-src_compile() {
-	BUILD_DIR="${S}/build" cmake-utils_src_compile
+	local mycmakeargs=(
+	   $(cmake-utils_use_build cpu CPU)
+	   $(cmake-utils_use_build cuda CUDA)
+	   -DBUILD_OPENCL=OFF
+	   $(cmake-utils_use_build examples EXAMPLES)
+	   $(cmake-utils_use_build test TEST)
+	)
+	cmake-utils_src_configure
 }
 
 src_install() {
@@ -77,20 +67,4 @@ src_install() {
 
 	exeinto /usr/bin
 	doexe "build/bin2cpp"
-
-	if use examples; then
-		ebegin "Installing examples"
-			exeinto /usr/share/arrayfire/examples/
-			if use cpu; then
-				doexe "build/examples/helloworld_cpu"
-				doexe "build/examples/pi_cpu"
-				doexe "build/examples/vectorize_cpu"
-			fi
-			if use cuda; then
-				doexe "build/examples/helloworld_cuda"
-				doexe "build/examples/pi_cuda"
-				doexe "build/examples/vectorize_cuda"
-			fi
-		eend
-	fi
 }

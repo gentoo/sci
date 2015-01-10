@@ -11,7 +11,7 @@
       Enable CPU Build.
     </flag>flag>
     <flag name="cuda">
-			Enable CUDA Build.
-		</flag>
+      Enable CUDA Build.
+    </flag>
   </use>
 </pkgmetadata>
