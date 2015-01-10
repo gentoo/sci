@@ -6,10 +6,11 @@ EAPI=5
 
 DESCRIPTION="Error corrector for Illummina and Roche/454 able to also fix insertions and deletions"
 HOMEPAGE="http://www.csiro.au/Outcomes/ICT-and-Services/Software/Blue.aspx"
-SRC_URI="http://www.csiro.au/~/media/CSIROau/Images/Bioinformatics/Blue_software/Version_1-1-2/Linux112.ashx -> "${P}".tar.gz
+SRC_URI="
+	http://www.csiro.au/~/media/CSIROau/Images/Bioinformatics/Blue_software/Version_1-1-2/Linux112.ashx -> ${P}.tar.gz
 	http://www.csiro.au/~/media/CSIROau/Images/Bioinformatics/Blue_software/Version_1-1-2/Correcting_reads_with_Blue.ashx -> Correcting_reads_with_Blue.pdf"
 
-LICENSE="GPL"
+LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
