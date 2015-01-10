@@ -68,7 +68,7 @@ DEPEND="
 	mysql? ( dev-db/mysql )
 	pdf? ( media-libs/libharu )
 	png? ( media-libs/gd[png] )
-	postgres? ( dev-db/postgresql-base )
+	postgres? ( dev-db/postgresql )
 	X? ( x11-libs/libXt )"
 RDEPEND="${DEPEND}"
 
