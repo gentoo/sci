@@ -6,12 +6,9 @@ EAPI=5
 
 DESCRIPTION="Combine results from external gene predictors into final gene models"
 HOMEPAGE="http://www.cbcb.umd.edu/software/jigsaw"
-SRC_URI="http://cbcb.umd.edu/software/jigsaw/"${P}".tar.gz"
+SRC_URI="http://cbcb.umd.edu/software/jigsaw/${P}.tar.gz"
 
-LICENSE=""
+LICENSE="Artistic"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
-
-DEPEND=""
-RDEPEND="${DEPEND}"
