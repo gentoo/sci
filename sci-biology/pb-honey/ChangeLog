@@ -1,0 +1,7 @@
+# ChangeLog for sci-biology/pb-honey
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  10 Jan 2015; Justin Lecher <jlec@gentoo.org> pb-honey-14.1.15.ebuild:
+  Fix license; add missing []
+

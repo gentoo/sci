@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,14 +12,15 @@ DESCRIPTION="Structural variant identification (SNV) using long reads (over 10kb
 HOMEPAGE="https://www.hgsc.bcm.edu/software/honey"
 SRC_URI="http://sourceforge.net/projects/pb-jelly/files/PBHoney/PBHoney_14.1.15.tgz"
 
-LICENSE=""
+LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="sci-biology/samtools
+DEPEND="
+	sci-biology/samtools
 	sci-biology/blasr
-	sci-biology/pysam
-	dev-python/h5py
-	dev-python/numpy"
+	sci-biology/pysam[${PYTHON_USEDEP}]
+	dev-python/h5py[${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}"
