@@ -27,6 +27,10 @@ PATCHES=(
 	"${FILESDIR}/${P}"-makefile.patch
 )
 
+src_prepare() {
+	epatch ${PATCHES[@]}
+}
+
 src_install() {
 	emake \
 		QCLDIR="${D}/usr/share/${PN}" \
