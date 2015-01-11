@@ -2,8 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*givaro-3.8.0 (11 Jan 2015)
+
+  11 Jan 2015; Marius Brehler <marbre@linux.sungazer.de> +givaro-3.8.0.ebuild:
+  Version bump
+
   11 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
-  givaro-3.3.0, ivaro-3.2.13:
+  givaro-3.3.0, givaro-3.2.13:
   Move to EAPI=5; Cleanup ebuilds, Fix SRC_URI for 3.3.0
 
 *givaro-3.3.0 (09 Nov 2009)
@@ -16,4 +21,3 @@
 
   18 Jul 2008; Francois Bissey <f.r.bissey@massey.ac.nz> ChangeLog:
   Initial import, see bug #227803
-
