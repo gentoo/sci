@@ -37,7 +37,6 @@ src_install() {
 		QCLBIN="${D}/usr/bin" install
 	dodoc README CHANGES
 	if use doc; then
-		insinto /usr/share/doc/${PF}
-		doins "${DISTDIR}"/{structquprog,qcldoc,quprog}.pdf
+		dodoc {structquprog,qcldoc,quprog}.pdf
 	fi
 }
