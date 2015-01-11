@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/givaro
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  11 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
+  givaro-3.3.0, ivaro-3.2.13:
+  Move to EAPI=5; Cleanup ebuilds, Fix SRC_URI for 3.3.0
 
 *givaro-3.3.0 (09 Nov 2009)
 *givaro-3.2.13 (09 Nov 2009)
