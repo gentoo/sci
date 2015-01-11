@@ -22,8 +22,6 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}"
 
-RESTRICT="mirror"
-
 src_configure() {
 	econf $(use_with singular Singular)
 }
