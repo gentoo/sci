@@ -1,0 +1,19 @@
+--- Makefile.orig	2015-01-01 21:51:30.999356027 -0400
++++ Makefile	2015-01-04 16:54:02.527824499 -0400
+@@ -131,6 +131,16 @@
+ ext_depend: check_portaudio
+ 	-for x in $(EXT_SUBDIRS); do $(MAKE) -C $$x depend; done
+ 
++print-binfiles: $(addsuffix /print-binfiles, $(SUBDIRS))
++
++%/print-binfiles:
++	@$(MAKE) --no-print-directory -C $(dir $@) print-binfiles
++
++print-libfiles: $(addsuffix /print-libfiles, $(SUBDIRS))
++
++%/print-libfiles:
++	@$(MAKE) --no-print-directory -C $(dir $@) print-libfiles
++
+ 
+ .PHONY: $(SUBDIRS)
+ $(SUBDIRS) : mklibdir

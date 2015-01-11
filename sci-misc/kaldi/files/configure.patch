@@ -1,0 +1,71 @@
+--- configure.orig	2015-01-01 21:51:05.611960184 -0400
++++ configure	2015-01-01 22:06:11.027064734 -0400
+@@ -45,15 +45,6 @@
+   fi
+ }
+ 
+-
+-
+-##   First do some checks.  These verify that all the things are
+-##   here that should be here.
+-if [ "`basename $PWD`" != "src" ]; then
+-  echo 'You must run "configure" from the src/ directory.'
+-  exit 1
+-fi
+-
+ ## Default locations for FST and linear algebra libraries.
+ MATHLIB='ATLAS'
+ ATLASROOT=`rel2abs ../tools/ATLAS/`
+@@ -473,6 +464,23 @@
+   exit_success;
+ }
+ 
++function linux_configure_gentoo {
++  m=$1  # 64 or empty.
++  ATLASLIBS="/usr/lib$m/libatlas.so.3 /usr/lib$m/libf77blas.so.3 /usr/lib$m/libatlcblas.so.3 /usr/lib$m/libatlclapack.so.3"
++  for f in $ATLASLIBS; do 
++    [ ! -f $f ] && return 1;
++  done
++  libdir=$(dirname $(echo $ATLASLIBS | awk '{print $1}'))
++  [ -z "$libdir" ] && echo "Error getting libdir in linux_configure_gentoo" && exit 1;
++  echo ATLASINC = $ATLASROOT >> kaldi.mk
++  echo ATLASLIBS = $ATLASLIBS -Wl,-rpath=$libdir >> kaldi.mk
++  echo 
++  cat makefiles/linux_atlas.mk >> kaldi.mk
++  fix_cxx_flag
++  echo "Successfully configured for gentoo [dynamic libraries] with ATLASLIBS =$ATLASLIBS"
++  $use_cuda && linux_configure_cuda
++  exit_success;
++}
+ 
+ function linux_configure_static {
+   if $threaded_atlas; then pt=pt; else pt=""; fi
+@@ -716,8 +724,8 @@
+ 
+   echo "On Linux: Checking for linear algebra header files ..."
+   if [ "$MATHLIB" == "ATLAS" ]; then
+-    if [ ! -f $ATLASROOT/include/cblas.h ] || [ ! -f $ATLASROOT/include/clapack.h ] ; then
+-      failure "Could not find required header files cblas.h or clapack.h in ATLAS dir '$ATLASROOT/include'"
++    if  ( [ ! -f $ATLASROOT/include/cblas.h ] || [ ! -f $ATLASROOT/include/clapack.h ] ) && ( [ ! -f $ATLASROOT/cblas.h ] || [ ! -f $ATLASROOT/clapack.h ] ) ; then
++      failure "Could not find required header files cblas.h or clapack.h in ATLAS dirs '$ATLASROOT/include' or '$ATLASROOT'"
+     fi
+     echo "Using ATLAS as the linear algebra library."
+     
+@@ -741,6 +749,8 @@
+         linux_configure_debian7 || \
+         linux_configure_redhat 64 || \
+         linux_configure_redhat || \
++        linux_configure_gentoo 64 || \
++        linux_configure_gentoo || \
+         linux_atlas_failure "Failed to configure ATLAS lbiraries";
+     else
+       # Prefer dynamic to static math.
+@@ -751,6 +761,8 @@
+         linux_configure_debian7 || \
+         linux_configure_redhat 64 || \
+         linux_configure_redhat || \
++        linux_configure_gentoo 64 || \
++        linux_configure_gentoo || \
+         linux_atlas_failure "Failed to configure ATLAS lbiraries";
+     fi
+ 

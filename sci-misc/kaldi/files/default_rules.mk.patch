@@ -1,0 +1,20 @@
+--- makefiles/default_rules.mk.orig	2015-01-10 19:56:03.918751769 -0400
++++ makefiles/default_rules.mk	2015-01-11 13:34:14.596055674 -0400
+@@ -14,7 +14,7 @@
+         LIBFILE = lib$(LIBNAME).so
+         #LDLIBS  += -l$(LIBNAME)
+       endif
+-      LDFLAGS += -Wl,-rpath=$(shell readlink -f $(KALDILIBDIR)) -L.
++      LDFLAGS += -L.
+       LDFLAGS += $(foreach dep,$(ADDLIBS), -L$(dir $(dep)) )
+       XDEPENDS = $(foreach dep,$(ADDLIBS), $(dir $(dep))/lib$(notdir $(basename $(dep))).so )
+     else  # Platform not supported
+@@ -84,3 +84,8 @@
+ #.depend.mk: depend
+ -include .depend.mk
+ 
++print-binfiles:
++	@echo $(addprefix $(shell pwd)/, $(BINFILES))
++
++print-libfiles:
++	@echo $(addsuffix .so, $(addprefix $(shell pwd)/lib, $(LIBNAME)))
