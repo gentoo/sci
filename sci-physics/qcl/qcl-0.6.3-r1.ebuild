@@ -1,8 +1,9 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=5
+
 inherit eutils flag-o-matic
 
 DESCRIPTION="Quantum Computation Language with an emulator of a quantum computer"
@@ -21,19 +22,18 @@ DEPEND="media-libs/plotutils
 	sys-libs/readline"
 RDEPEND="${DEPEND}"
 
-src_prepare() {
-	epatch "${FILESDIR}"/${P}-gcc43.patch
-	epatch "${FILESDIR}"/${P}-makefile.patch
-}
+PATCHES=(
+	"${FILESDIR}/${P}"-gcc43.patch
+	"${FILESDIR}/${P}"-makefile.patch
+)
 
 src_install() {
 	emake \
 		QCLDIR="${D}/usr/share/${PN}" \
-		QCLBIN="${D}/usr/bin" install \
-		|| die "emake install failed"
+		QCLBIN="${D}/usr/bin" install
 	dodoc README CHANGES
 	if use doc; then
 		insinto /usr/share/doc/${PF}
-		doins "${DISTDIR}"/{structquprog,qcldoc,quprog}.pdf || die
+		doins "${DISTDIR}"/{structquprog,qcldoc,quprog}.pdf
 	fi
 }

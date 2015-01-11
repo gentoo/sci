@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -22,9 +22,10 @@ DEPEND="media-libs/plotutils
 	sys-libs/readline"
 RDEPEND="${DEPEND}"
 
-src_prepare() {
-	epatch "${FILESDIR}/${PN}-0.6.3-gcc43.patch" "${FILESDIR}/${P}-makefile.patch"
-}
+PATCHES=(
+	"${FILESDIR}/${PN}"-0.6.3-gcc43.patch
+	"${FILESDIR}/${P}"-makefile.patch
+)
 
 src_install() {
 	emake \
@@ -33,6 +34,6 @@ src_install() {
 	dodoc README CHANGES
 	if use doc; then
 		insinto /usr/share/doc/${PF}
-		doins "${DISTDIR}"/{structquprog,qcldoc,quprog}.pdf || die
+		doins "${DISTDIR}"/{structquprog,qcldoc,quprog}.pdf
 	fi
 }
