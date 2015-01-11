@@ -22,27 +22,22 @@ PATCHES=( "${FILESDIR}/${P}"-autotools.patch )
 
 src_configure() {
 	local myeconfargs=(
-		--docdir="${EPREFIX}/usr/share/doc/${PF}" \
-		--enable-shared \
-		--disable-test \
-		$(use_enable fortran) \
-		#$(use_enable doc docs) \
-		$(use_enable static-libs static)
+		--disable-test
+		#$(use_enable doc docs)
 	)
 	autotools-utils_src_configure
 }
 
 src_install() {
 	autotools-utils_src_install
-	dodoc README ChangeLog
 	#if use doc; then
 	#	insinto /usr/share/doc/${PF}
 	#	doins -r doxygen/html || die
 	#fi
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
-		doins test/test* || die
+		doins test/test*
 		insinto /usr/share/${PN}
-		doins share/test* || die
+		doins share/test*
 	fi
 }
