@@ -1,0 +1,29 @@
+--- configure.ac.orig	2010-08-10 20:36:52.000000000 +0100
++++ configure.ac	2010-08-10 20:39:03.000000000 +0100
+@@ -5,7 +5,7 @@
+ AC_INIT([MATIO],[1.3.4],[cch@isl-inc.com],[])
+ AC_CONFIG_SRCDIR([src/matio.h])
+ AC_CONFIG_AUX_DIR(config)
+-AC_CONFIG_MACRO_DIR([m4])
++
+ dnl AM_INIT_AUTOMAKE([-no-undefined])
+ AM_INIT_AUTOMAKE
+ AM_MAINTAINER_MODE
+--- src/Makefile.am.orig	2010-08-10 20:31:41.000000000 +0100
++++ src/Makefile.am	2010-08-10 20:34:44.000000000 +0100
+@@ -17,6 +17,7 @@
+ lib_LTLIBRARIES     = libmatio.la
+ libmatio_la_SOURCES = snprintf.c endian.c io.c $(ZLIB_SRC) read_data.c \
+                       mat5.c mat4.c mat.c
++libmatio_la_LIBADD  = $(ZLIB_LIBS)
+ 
+ if ENABLE_FORTRAN
+     AM_FCFLAGS             = -I. -I$(top_builddir)/src/fortran
+@@ -25,6 +26,7 @@
+     noinst_HEADERS        += fortran/create.f90 fortran/read_data.f90 \
+                              fortran/write_data.f90 fortran/write.f90
+     libmatio_la_SOURCES   += fortran/matio_internal.c fortran/matio.f90
++$(top_builddir)/src/matio.mod: libmatio.la
+ endif
+ 
+ dosubst = sed -e 's,[@]PACKAGE[@],$(PACKAGE),g' \
