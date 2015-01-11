@@ -4,12 +4,14 @@
 
 EAPI=5
 
-inherit cmake-utils git-r3 unpacker
+inherit cmake-utils git-r3
+
+GTEST_PV="1.7.0"
 
 DESCRIPTION="A general purpose GPU library."
 HOMEPAGE="http://www.arrayfire.com/"
 EGIT_REPO_URI="https://github.com/arrayfire/arrayfire.git"
-SRC_URI="test? ( https://googletest.googlecode.com/files/gtest-1.7.0.zip )"
+SRC_URI="test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"
 KEYWORDS="~amd64"
 
 LICENSE="BSD"
@@ -22,8 +24,7 @@ RDEPEND="
 	virtual/cblas
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-6.0 )
 	sci-libs/fftw:3.0"
-DEPEND="${RDEPEND}
-	test? ( app-arch/unzip )"
+DEPEND="${RDEPEND}"
 
 BUILD_DIR="${S}/build"
 CMAKE_BUILD_TYPE=Release
@@ -52,8 +53,8 @@ src_unpack() {
 	if use test; then
 		mkdir -p "${BUILD_DIR}"/third_party/src/ || die
 		cd "${BUILD_DIR}"/third_party/src/ || die
-		unpack_zip "${DISTDIR}/"gtest-1.7.0.zip
-		mv "${BUILD_DIR}"/third_party/src/gtest-1.7.0 "${BUILD_DIR}"/third_party/src/googletest || die
+		unpack ${A}
+		mv "${BUILD_DIR}"/third_party/src/gtest-"${GTEST_PV}" "${BUILD_DIR}"/third_party/src/googletest || die
 	fi
 }
 
