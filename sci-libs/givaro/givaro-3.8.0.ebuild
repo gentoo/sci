@@ -6,9 +6,9 @@ EAPI=5
 
 DESCRIPTION="C++ library for arithmetic and algebraic computations"
 HOMEPAGE="http://ljk.imag.fr/CASYS/LOGICIELS/givaro/"
-SRC_URI="http://ljk.imag.fr/CASYS/LOGICIELS/givaro/Downloads/${P}.tar.gz"
+SRC_URI="https://forge.imag.fr/frs/download.php/592/${P}.tar.gz"
 
-LICENSE="GPL-3"
+LICENSE="CeCILL-B"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86 ~ppc64"
 IUSE=""
@@ -18,10 +18,4 @@ DEPEND="${RDEPEND}"
 
 src_configure(){
 	econf "--enable-shared"
-}
-
-pkg_postinst() {
-	elog "The givaro ebuild is still under development."
-	elog "Help us improve the ebuild in:"
-	elog "http://bugs.gentoo.org/show_bug.cgi?id=227803"
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+    <herd>sci</herd>
+    <longdescription lang="en">
+        Libconfig is a simple library for processing structured configuration files.
+        Libconfig is very compact — a fraction of the size of the expat XML parser library.
+        This makes it well-suited for memory-constrained systems like handheld devices.
+        The library includes bindings for both the C and C++ languages.
+        It works on POSIX-compliant UNIX systems (GNU/Linux, Mac OS X, Solaris, FreeBSD).
+    </longdescription>
+</pkgmetadata>
