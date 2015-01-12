@@ -13,7 +13,7 @@ ESVN_REPO_URI="https://svn.code.sf.net/p/kaldi/code/trunk/src@4735"
 LICENSE="Apache-2.0"
 SLOT="0"
 IUSE="doc test threads"
-KEYWORDS="~amd64"
+KEYWORDS=""
 
 RDEPEND="
 	media-libs/speex
