@@ -11,6 +11,7 @@ GTEST_PV="1.7.0"
 DESCRIPTION="A general purpose GPU library."
 HOMEPAGE="http://www.arrayfire.com/"
 EGIT_REPO_URI="https://github.com/arrayfire/arrayfire.git"
+EGIT_BRANCH="master"
 SRC_URI="test? ( https://googletest.googlecode.com/files/gtest-${GTEST_PV}.zip )"
 KEYWORDS="~amd64"
 
