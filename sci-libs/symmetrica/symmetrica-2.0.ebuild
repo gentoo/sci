@@ -8,7 +8,7 @@ inherit versionator
 
 DESCRIPTION="A collection of routine to handle a variety of topics"
 HOMEPAGE="http://www.neu.uni-bayreuth.de/de/Uni_Bayreuth/Fakultaeten/1_Mathematik_Physik_und_Informatik/Fachgruppe_Informatik/prof_diskrete_algorithmen/en/research/SYMMETRICA/index.html"
-MY_P=SYM$(replace_all_version_separators '_')
+MY_P=SYM${PV//./_}
 SRC_URI="http://www.neu.uni-bayreuth.de/de/Uni_Bayreuth/Fakultaeten/1_Mathematik_Physik_und_Informatik/Fachgruppe_Informatik/prof_diskrete_algorithmen/en/research/SYMMETRICA/${MY_P}_tar.gz -> ${MY_P}.tar.gz"
 
 LICENSE="MIT"
@@ -27,8 +27,6 @@ src_prepare() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install
-
-#	symmetrica's documentation are just text files with a ".doc" extension.
-	dodoc README *.doc
+	default
+	use doc && dodoc *.doc
 }
