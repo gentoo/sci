@@ -13,8 +13,7 @@ HOMEPAGE="http://www.hyperrealm.com/libconfig/libconfig.html"
 LICENSE="LGPL-2.1"
 SLOT="0"
 if [[ ${PV} == "9999" ]] ; then
-	EGIT_REPO_URI="https://github.com/hyperrealm/libconfig.git"
-	EGIT_BRANCH="master"
+	EGIT_REPO_URI="https://github.com/hyperrealm/libconfig.git git://github.com/hyperrealm/libconfig.git"
 	inherit git-r3
 	KEYWORDS=""
 else
@@ -27,7 +26,7 @@ IUSE="+cxx examples static-libs"
 
 DEPEND="
 	sys-devel/libtool
-	sys-devel/bison"
+	virtual/yacc"
 
 src_prepare() {
 	sed -i configure.ac -e 's|AM_CONFIG_HEADER|AC_CONFIG_HEADERS|g' || die
