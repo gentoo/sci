@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/matio
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  11 Jan 2015; Marius Brehler <marbre@linux.sungazer.de> matio-1.3.4.ebuild:
+  Move to EAPI=5, cleanup the ebuild
+
 
   21 Jun 2011; Justin Lecher <jlec@gentoo.org> matio-1.3.4.ebuild:
   Added fortran-2.eclass support
