@@ -4,7 +4,7 @@
 
   11 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
   symmetrica-2.0.ebuild:
-  Move to EAPUI=5 and clean the ebuild
+  Move to EAPI=5 and clean the ebuild
 
   24 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   symmetrica-2.0.ebuild:
