@@ -82,5 +82,5 @@ src_configure() {
 src_install() {
 	cmake-utils_src_install
 
-	dobin "bin2cpp"
+	dobin "${BUILD_DIR}/bin2cpp"
 }
