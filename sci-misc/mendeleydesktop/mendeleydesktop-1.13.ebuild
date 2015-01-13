@@ -25,11 +25,11 @@ RESTRICT="fetch"
 
 DEPEND=""
 RDEPEND="
-	>=dev-qt/qtcore-4.6:4
-	>=dev-qt/qtgui-4.6:4
-	>=dev-qt/qtsvg-4.6:4
-	>=dev-qt/qtwebkit-4.6:4
-	>=dev-qt/qtxmlpatterns-4.6:4"
+	dev-qt/qtcore:4
+	dev-qt/qtgui:4
+	dev-qt/qtsvg:4
+	dev-qt/qtwebkit:4
+	dev-qt/qtxmlpatterns:4"
 
 QA_PREBUILT="/opt/mendeleydesktop/.*"
 
@@ -53,9 +53,9 @@ src_unpack() {
 
 src_prepare() {
 	# remove bundled Qt libraries
-	rm -rf lib/mendeleydesktop/plugins \
+	rm -r lib/mendeleydesktop/plugins \
 		|| die "failed to remove plugin directory"
-	rm -rf lib/qt || die "failed to remove qt libraries"
+	rm -r lib/qt || die "failed to remove qt libraries"
 
 	# force use of system Qt libraries
 	sed -i "s:sys\.argv\.count(\"--force-system-qt\") > 0:True:" \
