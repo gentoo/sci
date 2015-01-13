@@ -30,6 +30,8 @@ src_prepare() {
 }
 
 src_configure() {
+	# Upstream's configure script is "hand-generated" and not autotools compatible,
+	# for this reason econf can not be used
 	./configure \
 		--shared \
 		--fst-root="${EPREFIX}/usr" \
