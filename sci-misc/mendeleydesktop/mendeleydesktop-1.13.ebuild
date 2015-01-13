@@ -16,7 +16,7 @@ SRC_URI="amd64? ( ${MY_P_AMD64}.tar.bz2 )
 	amd64-linux? ( ${MY_P_AMD64}.tar.bz2 )
 	x86-linux? ( ${MY_P_X86}.tar.bz2 )"
 
-LICENSE="Mendeley-EULA"
+LICENSE="Mendeley-terms"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
