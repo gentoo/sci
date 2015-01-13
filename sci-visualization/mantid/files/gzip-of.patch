@@ -1,0 +1,14 @@
+--- MantidPlot/src/zlib123/minigzip.c.orig  2012-12-17 05:05:25.000000000 +0000
++++ MantidPlot/src/zlib123/minigzip.c  2012-12-18 16:31:59.516405000 +0000
+@@ -50,6 +50,10 @@
+ #  include <unix.h> /* for fileno */
+ #endif
+ 
++#ifndef OF
++#  define OF(args) args
++#endif
++
+ #ifndef WIN32 /* unlink already in stdio.h for WIN32 */
+   extern int unlink OF((const char *));
+ #else
+

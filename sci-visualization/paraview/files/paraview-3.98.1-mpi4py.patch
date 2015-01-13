@@ -1,0 +1,12 @@
+disable internal mpi4py copy
+
+--- ParaView-3.98.0-src/CMakeLists.txt
++++ ParaView-3.98.0-src/CMakeLists.txt
+@@ -555,7 +555,6 @@
+   
+ add_subdirectory(CommandLineExecutables)
+ add_subdirectory(Applications)
+-add_subdirectory(Utilities/mpi4py)
+ 
+ #------------------------------------------------------------------------------
+ # We add a mechanism to incorporate arbitrary install rules into the

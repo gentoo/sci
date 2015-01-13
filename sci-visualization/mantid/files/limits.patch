@@ -1,0 +1,16 @@
+--- Framework/Geometry/CMakeLists.txt.orig   2012-12-17 05:05:26.000000000 +0000
++++ Framework/Geometry/CMakeLists.txt  2012-12-18 11:27:06.378414000 +0000
+@@ -302,10 +302,8 @@
+   add_definitions ( -DNO_OPENCASCADE )
+ endif ()
+ 
+-# A few defines needed for OpenCascade on the Mac
+-if ( APPLE )
+-  add_definitions ( -DHAVE_IOSTREAM -DHAVE_LIMITS -DHAVE_IOMANIP )
+-endif ()
++# A few defines needed for OpenCascade
++add_definitions ( -DHAVE_IOSTREAM -DHAVE_LIMITS -DHAVE_IOMANIP )
+ 
+ include_directories ( ${OPENGL_INCLUDE_DIR} )
+ include_directories ( ${GSL_INCLUDE_DIR} )
+

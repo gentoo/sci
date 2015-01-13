@@ -1,0 +1,54 @@
+--- Build/CMake/FindOpenCascade.cmake.orig   2012-12-17 05:05:25.000000000 +0000
++++ Build/CMake/FindOpenCascade.cmake  2012-12-18 11:18:36.643727000 +0000
+@@ -16,38 +16,41 @@
+   add_definitions ( -DWNT )
+ endif ( WIN32 )
+ 
+-set ( OC_REDHAT_RPM /opt/OpenCASCADE/lib64 )
++find_path ( OPENCASCADE_LIBRARY_DIR libTKernel.so PATHS
++               $ENV{CASROOT}/lib64 
++)
++
+ find_library ( OPENCASCADE_LIB_TKERNEL
+                  NAMES TKernel
+-                 PATHS ${OC_REDHAT_RPM}         
++                 PATHS ${OPENCASCADE_LIBRARY_DIR}         
+ )
+ find_library ( OPENCASCADE_LIB_TKBO
+                  NAMES TKBO
+-                 PATHS ${OC_REDHAT_RPM}         
++                 PATHS ${OPENCASCADE_LIBRARY_DIR}         
+ )
+ find_library ( OPENCASCADE_LIB_TKPRIM
+                  NAMES TKPrim
+-                 PATHS ${OC_REDHAT_RPM}         
++                 PATHS ${OPENCASCADE_LIBRARY_DIR}         
+ )
+ find_library ( OPENCASCADE_LIB_TKMESH
+                  NAMES TKMesh
+-                 PATHS ${OC_REDHAT_RPM}         
++                 PATHS ${OPENCASCADE_LIBRARY_DIR}         
+ )
+ find_library ( OPENCASCADE_LIB_TKBREP
+                  NAMES TKBRep
+-                 PATHS ${OC_REDHAT_RPM}         
++                 PATHS ${OPENCASCADE_LIBRARY_DIR}         
+ )
+ find_library ( OPENCASCADE_LIB_TKTOPALGO
+                  NAMES TKTopAlgo
+-                 PATHS ${OC_REDHAT_RPM}         
++                 PATHS ${OPENCASCADE_LIBRARY_DIR}         
+ )
+ find_library ( OPENCASCADE_LIB_TKMATH
+                  NAMES TKMath
+-                 PATHS ${OC_REDHAT_RPM}         
++                 PATHS ${OPENCASCADE_LIBRARY_DIR}         
+ )
+ find_library ( OPENCASCADE_LIB_TKG2D
+                  NAMES TKG2d
+-                 PATHS ${OC_REDHAT_RPM}         
++                 PATHS ${OPENCASCADE_LIBRARY_DIR}         
+ )
+ 
+ set ( OPENCASCADE_LIBRARIES
+
