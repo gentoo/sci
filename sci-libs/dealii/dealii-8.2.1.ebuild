@@ -32,12 +32,13 @@ LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
 	arpack avx c++11 +debug doc +examples hdf5 +lapack mesh_converter metis
-	mpi muparser opencascade netcdf p4est parameter_gui petsc +sparse
+	mpi mumps muparser opencascade netcdf p4est parameter_gui petsc +sparse
 	sse2 static-libs +tbb trilinos
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
 REQUIRED_USE="
+	mumps? ( mpi lapack )
 	p4est? ( mpi )
 	trilinos? ( mpi )"
 
@@ -49,6 +50,7 @@ RDEPEND="dev-libs/boost
 	lapack? ( virtual/lapack )
 	metis? ( >=sci-libs/parmetis-4 )
 	mpi? ( virtual/mpi )
+	mumps? ( sci-libs/mumps[mpi] )
 	muparser? ( dev-cpp/muParser )
 	netcdf? ( || ( <sci-libs/netcdf-4.2[cxx] sci-libs/netcdf-cxx ) )
 	opencascade? ( sci-libs/opencascade )
@@ -90,6 +92,7 @@ src_configure() {
 		$(cmake-utils_use mesh_converter DEAL_II_COMPONENT_MESH_CONVERTER)
 		$(cmake-utils_use metis DEAL_II_WITH_METIS)
 		$(cmake-utils_use mpi DEAL_II_WITH_MPI)
+		$(cmake-utils_use mumps DEAL_II_WITH_MUMPS)
 		$(cmake-utils_use muparser DEAL_II_WITH_MUPARSER)
 		$(cmake-utils_use netcdf DEAL_II_WITH_NETCDF)
 		-DOPENCASCADE_DIR="${CASROOT}"
