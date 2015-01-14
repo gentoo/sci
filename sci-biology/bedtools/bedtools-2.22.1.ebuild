@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/bedtools/bedtools-2.16.2.ebuild,v 1.1 2012/05/29 02:54:40 weaver Exp $
 
@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-S="${WORKDIR}/bedtools2-${PV}"
+S="${WORKDIR}/bedtools2"
 
 src_prepare() {
 	filter-ldflags -Wl,--as-needed
