@@ -21,7 +21,7 @@ IUSE="debugger doc eclipse profiler"
 DEPEND=""
 RDEPEND="${DEPEND}
 	>=sys-devel/gcc-4.7[cxx]
-	>=x11-drivers/nvidia-drivers-340.32[uvm]
+	>=x11-drivers/nvidia-drivers-346.22[uvm]
 	debugger? (
 		sys-libs/libtermcap-compat
 		sys-libs/ncurses[tinfo]
@@ -149,4 +149,8 @@ pkg_postinst() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
 		pkg_postinst_check
 	fi
+	elog "The CUDA toolkit 7.0 release candidate bundels the"
+	elog " - nvidia-driver-346.29"
+	elog "This is not yet in portage, as a seperate download is not"
+	elog "available. Anyway driver 346.22 is already CUDA enabled."
 }
