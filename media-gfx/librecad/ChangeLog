@@ -1,6 +1,10 @@
 # ChangeLog for media-gfx/librecad
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
+
+  15 Jan 2015; Dongxu Li <dongxuli2011@gmail.com> +librecad-2.0.7.ebuild, -librecad-2.0.3.ebuild:
+  Version bump: 2.0.7
+
   19 Sep 2014; Dongxu Li <dongxuli2011@gmail.com> : librecad-9999.ebuild:
   install appdata.xml
 
