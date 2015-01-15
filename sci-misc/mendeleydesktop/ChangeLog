@@ -1,0 +1,14 @@
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header:  $
+
+*mendeleydesktop-1.13.1 (14 Jan 2015)
+
+  14 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>,
+  -mendeleydesktop-1.13.ebuild, +mendeleydesktop-1.13.1.ebuild:
+  Version bump; Drop old
+
+*mendeleydesktop-1.13 (13 Jan 2015)
+
+  13 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>,
+  +mendeleydesktop-1.13.ebuild, metadata.xml:
+  Add version bumped ebuild
