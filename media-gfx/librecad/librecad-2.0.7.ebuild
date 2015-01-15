@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit qt4-r2 eutils flag-o-matic
+inherit eutils flag-o-matic qt4-r2 vcs-snapshot
 
 DESCRIPTION="Generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
@@ -21,18 +21,15 @@ DEPEND="
 	dev-qt/qtsvg:4
 	dev-libs/boost
 	dev-cpp/muParser
-	media-libs/freetype
-	"
-RDEPEND="${DEPEND}"
+	media-libs/freetype"
 
-src_unpack() {
-	unpack ${A}
-	mv * ${P}
-}
+RDEPEND="${DEPEND}"
 
 src_prepare() {
 	# currently RS_VECTOR3D causes an internal compiler error on GCC-4.8
-	use 3d || sed -i -e '/RS_VECTOR2D/ s/^#//' librecad/src/src.pro
+	if ! use 3d; then
+		sed -i -e '/RS_VECTOR2D/ s/^#//' librecad/src/src.pro || die
+	fi
 }
 
 src_install() {
@@ -40,6 +37,6 @@ src_install() {
 	insinto /usr/share/${PN}
 	doins -r unix/resources/*
 	use doc && dohtml -r support/doc/*
-	doicon librecad/res/main/${PN}.png
-	make_desktop_entry ${PN} LibreCAD ${PN} Graphics
+	doicon librecad/res/main/"${PN}".png
+	make_desktop_entry "${PN}" LibreCAD "${PN}" Graphics
 }
