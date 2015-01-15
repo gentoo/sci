@@ -196,7 +196,7 @@ src_compile() {
 		export CUDA=${CUDA_PATH}/bin/nvcc
 		export CUDA_FLAGS="-arch=compute_20 -code=sm_20,compute_20"
 		export CUDA_INCLUDE="-I${CUDA_PATH}/include"
-		export CUDA_LIBS="-L${CUDA_PATH}/$(get_libdir) -lcublas -lcufft -lcudart -lcuda"
+		export CUDA_LIBS="-L${CUDA_PATH}/$(get_libdir) -lcublas -lcufft -lcudart -lcuda -lstdc++"
 	fi
 	export LARGE_FILES="TRUE"
 

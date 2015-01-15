@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nwchem-6.5_p26243-r5 (15 Jan 2015)
+
+  15 Jan 2015; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -nwchem-6.5_p26243-r4.ebuild, +nwchem-6.5_p26243-r5.ebuild:
+  Added -lstdc++ to CUDA libraries, now CUDA support (used in TCE only)
+  compiles
+
 *nwchem-6.5_p26243-r4 (05 Jan 2015)
 
   05 Jan 2015; Honza Macháček <Hloupy.Honza@centrum.cz>
