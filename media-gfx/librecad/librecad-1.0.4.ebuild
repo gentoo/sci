@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit eutils qt4-r2
+inherit eutils qt4-r2 vcs-snapshot
 
 DESCRIPTION="An generic 2D CAD program"
 HOMEPAGE="http://www.librecad.org/"
@@ -23,11 +23,6 @@ RDEPEND="
 
 DEPEND="${RDEPEND}"
 
-src_unpack() {
-	unpack ${A}
-	mv * ${P} || die
-}
-
 src_prepare() {
 	sed -i -e "s:\\\$\+system(git describe --tags):1.0.3:" "${PN}.pro" || die
 }
@@ -36,9 +31,7 @@ src_install() {
 	dobin unix/librecad
 	insinto /usr/share/"${PN}"
 	doins -r unix/resources/*
-	if use doc ; then
-		dohtml -r support/doc/*
-	fi
+	use doc && dohtml -r support/doc/*
 	doicon res/main/"${PN}".png
 	make_desktop_entry "${PN}" LibreCAD "${PN}.png" Graphics
 }
