@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,7 +12,7 @@ DESCRIPTION="Compare quality of multiple genome assemblies to each other"
 HOMEPAGE="http://bioinf.spbau.ru/QUAST"
 SRC_URI="http://sourceforge.net/projects/quast/files/${P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2" # and some other for the bundled copies, see http://quast.bioinf.spbau.ru/LICENSE
 SLOT="0"
 KEYWORDS=""
 IUSE=""

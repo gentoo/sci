@@ -8,7 +8,7 @@ DESCRIPTION="Utilities for variant calling and manipulating VCF and BCF files"
 HOMEPAGE="http://www.htslib.org/bcftools_release_notes"
 SRC_URI="http://sourceforge.net/projects/samtools/files/samtools/1.1/bcftools-1.1.tar.bz2"
 
-LICENSE="MIT-GRL"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""

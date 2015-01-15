@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,9 +13,15 @@ SRC_URI="
 LICENSE="GPL-2 || ( MIT )"
 SLOT="0"
 IUSE=""
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
+
+# https://code.google.com/p/mosaik-aligner/issues/detail?id=135
 
 S="${WORKDIR}"/MOSAIK-${PV}-source
+
+src_prepare(){
+	sed -e "s@export LDFLAGS = -Wl@#export LDFLAGS = -Wl@" -i Makefile
+}
 
 src_install() {
 	dobin "${WORKDIR}"/bin/*
