@@ -27,9 +27,7 @@ RDEPEND="${DEPEND}"
 
 src_prepare() {
 	# currently RS_VECTOR3D causes an internal compiler error on GCC-4.8
-	if ! use 3d; then
-		sed -i -e '/RS_VECTOR2D/ s/^#//' librecad/src/src.pro || die
-	fi
+	use 3d || sed -i -e '/RS_VECTOR2D/ s/^#//' librecad/src/src.pro || die
 }
 
 src_install() {
