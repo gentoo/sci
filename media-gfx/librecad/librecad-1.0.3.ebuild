@@ -25,7 +25,7 @@ DEPEND="${RDEPEND}"
 
 src_unpack() {
 	unpack ${A}
-	mv * ${P}
+	mv * ${P} || die
 }
 
 src_prepare() {
