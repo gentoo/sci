@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/sickle
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  15 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> sickle-9999.ebuild:
+  correct package description
 
 *sickle-9999 (24 Mar 2014)
 
@@ -8,4 +11,3 @@
   +sickle-9999.ebuild, +metadata.xml:
   simple ebuild, bundled Makefile forces compile flags, program version, but
   works
-
