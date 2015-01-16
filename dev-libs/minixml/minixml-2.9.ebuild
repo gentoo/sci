@@ -4,8 +4,6 @@
 
 EAPI=5
 
-inherit eutils
-
 DESCRIPTION="A lightweight ANSI C XML library"
 HOMEPAGE="http://www.msweet.org/projects.php?Z3"
 SRC_URI="http://www.msweet.org/files/project3/mxml-${PV}.tar.gz"
