@@ -14,8 +14,3 @@ KEYWORDS="~amd64"
 IUSE=""
 
 S="${WORKDIR}/mxml-${PV}"
-
-src_install() {
-	emake install DSTROOT="${D}"
-	dodoc README ANNOUNCEMENT CHANGES
-}
