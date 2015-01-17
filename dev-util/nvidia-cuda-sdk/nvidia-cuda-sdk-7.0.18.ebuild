@@ -25,7 +25,7 @@ RDEPEND="
 		media-libs/freeimage
 		media-libs/glew
 		virtual/mpi
-		>=x11-drivers/nvidia-drivers-346.22[uvm]
+		>=x11-drivers/nvidia-drivers-346.35[uvm]
 		)"
 DEPEND="${RDEPEND}"
 
