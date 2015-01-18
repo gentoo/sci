@@ -1,17 +1,14 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/embassy.eclass,v 1.17 2008/11/03 22:17:50 ribosome Exp $
-
-# Creator of the original eclass
-# Author Olivier Fisette <ofisette@gmail.com>
-#
-# Author of the next generation eclass
-# Justin Lecher <jlec@gentoo.org>
+# $Header: /var/cvsroot/gentoo-x86/eclass/emboss.eclass,v 1.3 2012/09/27 16:35:41 axs Exp $
 
 # @ECLASS: emboss.eclass
 # @MAINTAINER:
 # sci-biology@gentoo.org
 # jlec@gentoo.org
+# @AUTHOR:
+# Original author: Author Olivier Fisette <ofisette@gmail.com>
+# Next gen author: Justin Lecher <jlec@gentoo.org>
 # @BLURB: Use this to easy install EMBOSS and EMBASSY programs (EMBOSS add-ons).
 # @DESCRIPTION:
 # The inheriting ebuild must set EAPI=4 and provide EBO_DESCRIPTION before the inherit line.
@@ -48,11 +45,11 @@
 # Extra config options passed to econf, similar to EXTRA_ECONF.
 
 case ${EAPI:-0} in
-	4) ;;
+	4|5) ;;
 	*) die "this eclass doesn't support < EAPI 4" ;;
 esac
 
-inherit autotools eutils
+inherit autotools-utils eutils
 
 HOMEPAGE="http://emboss.sourceforge.net/"
 LICENSE="LGPL-2 GPL-2"
@@ -68,7 +65,7 @@ DEPEND="
 	mysql? ( dev-db/mysql )
 	pdf? ( media-libs/libharu )
 	png? ( media-libs/gd[png] )
-	postgres? ( dev-db/postgresql )
+	postgres? ( dev-db/postgresql-base )
 	X? ( x11-libs/libXt )"
 RDEPEND="${DEPEND}"
 
@@ -80,7 +77,7 @@ if [[ ${PN} == embassy-* ]]; then
 	EF=$(echo ${EN} | tr "[:lower:]" "[:upper:]")-${PV}
 	: ${EBO_DESCRIPTION:=${EN}}
 	DESCRIPTION="EMBOSS integrated version of ${EBO_DESCRIPTION}"
-	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/${EF}.tar.gz -> embassy-${EN}-${PVR}.tar.gz"
+	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/${EF}.tar.gz -> embassy-${EN}-${PV}.tar.gz"
 	DEPEND+=" >=sci-biology/emboss-6.3.1_p4[mysql=,pdf=,png=,postgres=,static-libs=,X=]"
 
 	S="${WORKDIR}"/${EF}
@@ -97,8 +94,19 @@ DOCS="AUTHORS ChangeLog NEWS README"
 #
 
 emboss_src_prepare() {
+	[[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}-upstream.patch
 	[[ -f ${FILESDIR}/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
-	[[ ${EBO_EAUTORECONF} == yes ]] && eautoreconf
+
+	# Delete pointless install-exec-hook update check
+        sed -i -e '/install-exec-hook:/,+1d' Makefile.am
+
+	if [[ ${EBO_EAUTORECONF} == yes ]];
+	then
+		AUTOTOOLS_AUTORECONF=1
+		AUTOTOOLS_IN_SOURCE_BUILD=1
+	fi
+
+	autotools-utils_src_prepare
 }
 
 # @FUNCTION: emboss_src_configure
@@ -120,16 +128,17 @@ emboss_src_prepare() {
 emboss_src_configure() {
 	econf \
 		$(use_with X x) \
-		$(use_with png pngdriver) \
-		$(use_with pdf hpdf) \
-		$(use_with mysql mysql) \
-		$(use_with postgres postgresql) \
+		$(use_with png pngdriver "${EPREFIX}/usr") \
+		$(use_with png pngdriver "${EPREFIX}/usr") \
+		$(use_with pdf hpdf "${EPREFIX}/usr") \
+		$(use_with mysql mysql "${EPREFIX}/usr/bin/mysql_config") \
+		$(use_with postgres postgresql "${EPREFIX}/usr/bin/pg_config") \
 		$(use_enable static-libs static) \
 		--enable-large \
 		--without-java \
 		--enable-systemlibs \
 		--docdir="${EPREFIX}/usr/share/doc/${PF}" \
-		${EBO_EXTRA_ECONF}
+		${EBO_EXTRA_ECONF} || die
 }
 
 EXPORT_FUNCTIONS src_prepare src_configure

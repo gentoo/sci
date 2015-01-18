@@ -1,0 +1,13 @@
+--- configure.in
++++ configure.in
+@@ -715,6 +715,10 @@
+ AC_CHECK_LIB([m], [main])
+ 
+ 
++# Include expat in LIBS (underlinking)
++LIBS="${LIBS} -lexpat"
++
++
+ # GD for FreeBSD requires libiconv
+ 
+ AS_CASE([${host_os}],
