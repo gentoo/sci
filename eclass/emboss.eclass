@@ -1,4 +1,4 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/eclass/emboss.eclass,v 1.3 2012/09/27 16:35:41 axs Exp $
 
@@ -34,11 +34,6 @@
 #
 # Defaults to the upstream name of the module.
 
-# @ECLASS-VARIABLE: EBO_EAUTORECONF
-# @DESCRIPTION:
-# Set to 'no', if you don't want eautoreconf to be run after patching.
-: ${EBO_EAUTORECONF:=yes}
-
 # @ECLASS-VARIABLE: EBO_EXTRA_ECONF
 # @DEFAULT_UNSET
 # @DESCRIPTION:
@@ -49,7 +44,8 @@ case ${EAPI:-0} in
 	*) die "this eclass doesn't support < EAPI 4" ;;
 esac
 
-inherit autotools-utils eutils
+AUTOTOOLS_IN_SOURCE_BUILD=1
+inherit autotools autotools-utils eutils
 
 HOMEPAGE="http://emboss.sourceforge.net/"
 LICENSE="LGPL-2 GPL-2"
@@ -97,15 +93,6 @@ emboss_src_prepare() {
 	[[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}-upstream.patch
 	[[ -f ${FILESDIR}/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
 
-	# Delete pointless install-exec-hook update check
-        sed -i -e '/install-exec-hook:/,+1d' Makefile.am
-
-	if [[ ${EBO_EAUTORECONF} == yes ]];
-	then
-		AUTOTOOLS_AUTORECONF=1
-		AUTOTOOLS_IN_SOURCE_BUILD=1
-	fi
-
 	autotools-utils_src_prepare
 }
 
@@ -126,19 +113,20 @@ emboss_src_prepare() {
 #  ${EBO_EXTRA_ECONF}
 
 emboss_src_configure() {
-	econf \
-		$(use_with X x) \
-		$(use_with png pngdriver "${EPREFIX}/usr") \
-		$(use_with png pngdriver "${EPREFIX}/usr") \
-		$(use_with pdf hpdf "${EPREFIX}/usr") \
-		$(use_with mysql mysql "${EPREFIX}/usr/bin/mysql_config") \
-		$(use_with postgres postgresql "${EPREFIX}/usr/bin/pg_config") \
-		$(use_enable static-libs static) \
-		--enable-large \
-		--without-java \
-		--enable-systemlibs \
-		--docdir="${EPREFIX}/usr/share/doc/${PF}" \
-		${EBO_EXTRA_ECONF} || die
+	local myeconfargs=(
+		$(use_with X x)
+		$(use_with png pngdriver "${EPREFIX}/usr")
+		$(use_with pdf hpdf "${EPREFIX}/usr")
+		$(use_with mysql mysql "${EPREFIX}/usr/bin/mysql_config")
+		$(use_with postgres postgresql "${EPREFIX}/usr/bin/pg_config")
+		$(use_enable static-libs static)
+		--enable-large
+		--without-java
+		--enable-systemlibs
+		--docdir="${EPREFIX}/usr/share/doc/${PF}"
+		${EBO_EXTRA_ECONF}
+	)
+	autotools-utils_src_configure
 }
 
 EXPORT_FUNCTIONS src_prepare src_configure

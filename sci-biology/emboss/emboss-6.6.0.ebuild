@@ -4,16 +4,16 @@
 
 EAPI=5
 
+AUTOTOOLS_AUTORECONF=1
 inherit autotools-utils emboss eutils
 
 EBO_PATCH=""
 EBOV=${PV}
-EBO_EAUTORECONF=yes
 
 DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
 SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-${PV}.tar.gz"
 
-KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
+KEYWORDS="~amd64 ~x86"
 IUSE+=" minimal"
 
 RDEPEND+=" !sys-devel/cons"
@@ -32,8 +32,10 @@ EBO_EXTRA_ECONF="--includedir=${EPREFIX}/usr/include/emboss"
 
 DOCS=( ChangeLog AUTHORS NEWS THANKS FAQ )
 PATCHES=(
-	"${FILESDIR}/${P}_FORTIFY_SOURCES.patch"
-	"${FILESDIR}/${P}_underlinking.patch"
+	"${FILESDIR}/${P}_unbundle-libraries.patch"
+	"${FILESDIR}/${P}_FORTIFY_SOURCE-fix.patch"
+	"${FILESDIR}/${P}_plplot-declarations.patch"
+	"${FILESDIR}/${P}_qa-implicit-declarations.patch"
 )
 
 src_install() {
