@@ -18,7 +18,7 @@ else
 	KEYWORDS=""
 fi
 
-LICENSE=""
+LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
