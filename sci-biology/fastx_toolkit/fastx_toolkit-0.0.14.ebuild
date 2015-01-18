@@ -26,8 +26,8 @@ RDEPEND="${DEPEND}
 src_prepare() {
 	# remove pointless installation of generic autoconf-archive m4 macros
 	# causing file collisions with sys-devel/autoconf-archive
-	rm m4/Makefile.am
-	sed -i -e 's/m4 //g' Makefile.am
+	rm m4/Makefile.am || die
+	sed -i -e 's/m4 //g' Makefile.am || die
 
 	eautoreconf
 }
