@@ -40,7 +40,8 @@ src_configure() {
 src_install() {
 	autotools-utils_src_install
 
-	# We cannot disable the build of static libs, so delete after installed to ${D}
+	# Passing --disable-static to configure won't disable the build of static libs,
+	# as libtool isn't used. Therefore the static libs are deleted after installed to ${D}.
 	if ! use static-libs; then
 		find "${D}" -type f -name "*.a" -delete || die
 	fi
