@@ -193,7 +193,7 @@
 +  PKG_CHECK_MODULES([PLPLOT], [plplotd])
 +],
 +[
-+dnl using bundles libraries
++dnl using bundled libraries
 +  dnl PCRE library definitions - see the MAJOR and MINOR values
 +  dnl to see which version's configure.in these lines come from
 +
