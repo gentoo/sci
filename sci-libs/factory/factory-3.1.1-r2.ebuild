@@ -42,7 +42,5 @@ src_install() {
 
 	# Passing --disable-static to configure won't disable the build of static libs,
 	# as libtool isn't used. Therefore the static libs are deleted after installed to ${D}.
-	if ! use static-libs; then
-		find "${D}" -type f -name "*.a" -delete || die
-	fi
+	use !static-libs || find "${ED}" -type f -name "*.a" -delete || die
 }
