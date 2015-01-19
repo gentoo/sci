@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-visualization/mayavi/mayavi-4.3.0.ebuild,v 1.1 2013/04/16 16:00:48 idella4 Exp $
+# $Header: Exp $
 
 EAPI=5
 
@@ -46,6 +46,7 @@ DEPEND="
 # testsuite is a trainwreck; https://github.com/enthought/mayavi/issues/66
 #RESTRICT="test"
 
+# not sure if this is still needed
 #PATCHES=( "${FILESDIR}"/${PN}-4.2.0-doc.patch )
 
 python_compile_all() {
