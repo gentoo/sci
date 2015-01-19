@@ -1,3 +1,47 @@
+--- EMBOSS-6.6.0/ajax/acd/Makefile.am
++++ EMBOSS-6.6.0/ajax/acd/Makefile.am
+@@ -3,16 +3,19 @@
+ lib_LTLIBRARIES = libacd.la
+ 
+ libacd_la_CFLAGS = $(WARN_CFLAGS) $(DEVWARN_CFLAGS) $(JAVA_CFLAGS)
++libacd_la_LIBADD = ../core/libajax.la ../graphics/libajaxg.la
+ 
+ libacd_la_CPPFLAGS  = -I$(top_srcdir)/ajax/ajaxdb
+ libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/ensembl
+ libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/graphics
+-libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
+ if !ESYSTEMLIBS
++libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
+ libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/expat
+ libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/zlib
+-endif
+ libacd_la_CPPFLAGS += -I$(top_srcdir)/plplot
++else
++libacd_la_CFLAGS   += $(PLPLOT_CFLAGS)
++endif
+ libacd_la_CPPFLAGS += $(JAVA_CPPFLAGS)
+ 
+ libacd_la_LDFLAGS  = -version-info 6:5:0
+--- EMBOSS-6.6.0/ajax/ajaxdb/Makefile.am
++++ EMBOSS-6.6.0/ajax/ajaxdb/Makefile.am
+@@ -3,14 +3,15 @@
+ lib_LTLIBRARIES = libajaxdb.la
+ 
+ libajaxdb_la_CFLAGS = $(WARN_CFLAGS) $(DEVWARN_CFLAGS) $(JAVA_CFLAGS)
++libajaxdb_la_LIBADD = ../core/libajax.la ../ensembl/libensembl.la
+ 
+ libajaxdb_la_CPPFLAGS  = -I$(top_srcdir)/ajax/ensembl
+-libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
+ if !ESYSTEMLIBS
++libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
+ libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/expat
+ libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/zlib
+-endif
+ libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/plplot
++endif
+ libajaxdb_la_CPPFLAGS += $(AXIS2C_CPPFLAGS)
+ libajaxdb_la_CPPFLAGS += $(JAVA_CPPFLAGS)
+ 
 --- EMBOSS-6.6.0/ajax/core/ajreg.h
 +++ EMBOSS-6.6.0/ajax/core/ajreg.h
 @@ -39,9 +39,8 @@
@@ -21,48 +65,13 @@
      pcre_extra *extra;
      int *ovector;
      const char* orig;
---- EMBOSS-6.6.0/ajax/acd/Makefile.am
-+++ EMBOSS-6.6.0/ajax/acd/Makefile.am
-@@ -7,12 +7,14 @@
- libacd_la_CPPFLAGS  = -I$(top_srcdir)/ajax/ajaxdb
- libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/ensembl
- libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/graphics
--libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
- if !ESYSTEMLIBS
-+libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
- libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/expat
- libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/zlib
--endif
- libacd_la_CPPFLAGS += -I$(top_srcdir)/plplot
-+else
-+libacd_la_CFLAGS   += $(PLPLOT_CFLAGS)
-+endif
- libacd_la_CPPFLAGS += $(JAVA_CPPFLAGS)
- 
- libacd_la_LDFLAGS  = -version-info 6:5:0
---- EMBOSS-6.6.0/ajax/ajaxdb/Makefile.am
-+++ EMBOSS-6.6.0/ajax/ajaxdb/Makefile.am
-@@ -5,12 +5,12 @@
- libajaxdb_la_CFLAGS = $(WARN_CFLAGS) $(DEVWARN_CFLAGS) $(JAVA_CFLAGS)
- 
- libajaxdb_la_CPPFLAGS  = -I$(top_srcdir)/ajax/ensembl
--libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
- if !ESYSTEMLIBS
-+libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
- libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/expat
- libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/zlib
--endif
- libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/plplot
-+endif
- libajaxdb_la_CPPFLAGS += $(AXIS2C_CPPFLAGS)
- libajaxdb_la_CPPFLAGS += $(JAVA_CPPFLAGS)
- 
-
 --- EMBOSS-6.6.0/ajax/core/Makefile.am
 +++ EMBOSS-6.6.0/ajax/core/Makefile.am
-@@ -4,12 +4,13 @@
+@@ -3,13 +3,15 @@
+ lib_LTLIBRARIES = libajax.la
  
  libajax_la_CFLAGS = $(WARN_CFLAGS) $(DEVWARN_CFLAGS) $(JAVA_CFLAGS)
++libajax_la_LIBADD = $(EXPAT_LIBS) $(PCRE_LIBS) $(ZLIB_LIBS)
  
 -libajax_la_CPPFLAGS  = -I$(top_srcdir)/ajax/pcre
 +libajax_la_CPPFLAGS  =
@@ -78,9 +87,11 @@
  libajax_la_CPPFLAGS += $(POSTGRESQL_CPPFLAGS)
 --- EMBOSS-6.6.0/ajax/ensembl/Makefile.am
 +++ EMBOSS-6.6.0/ajax/ensembl/Makefile.am
-@@ -4,12 +4,13 @@
+@@ -3,13 +3,15 @@
+ lib_LTLIBRARIES = libensembl.la
  
  libensembl_la_CFLAGS = $(WARN_CFLAGS) $(DEVWARN_CFLAGS) $(JAVA_CFLAGS)
++libensembl_la_LIBADD = ../core/libajax.la
  
 -libensembl_la_CPPFLAGS  = -I$(top_srcdir)/ajax/pcre
 +libensembl_la_CPPFLAGS  =
@@ -94,12 +105,13 @@
  libensembl_la_CPPFLAGS += $(JAVA_CPPFLAGS)
  
  libensembl_la_LDFLAGS  = -version-info 6:5:0
-
 --- EMBOSS-6.6.0/ajax/graphics/Makefile.am
 +++ EMBOSS-6.6.0/ajax/graphics/Makefile.am
-@@ -4,11 +4,14 @@
+@@ -3,12 +3,16 @@
+ lib_LTLIBRARIES = libajaxg.la
  
  libajaxg_la_CFLAGS = $(WARN_CFLAGS) $(DEVWARN_CFLAGS) $(JAVA_CFLAGS)
++libajaxg_la_LIBADD = ../core/libajax.la $(PLPLOT_LIBS)
  
 -libajaxg_la_CPPFLAGS  = -I$(top_srcdir)/ajax/pcre
 +libajaxg_la_CPPFLAGS  =
@@ -289,7 +301,15 @@
 -	$(bindir)/embossupdate
 --- EMBOSS-6.6.0/nucleus/Makefile.am
 +++ EMBOSS-6.6.0/nucleus/Makefile.am
-@@ -10,11 +10,14 @@
+@@ -3,6 +3,7 @@
+ lib_LTLIBRARIES = libnucleus.la
+ 
+ libnucleus_la_CFLAGS  = $(WARN_CFLAGS) $(DEVWARN_CFLAGS) $(JAVA_CFLAGS)
++libnucleus_la_LIBADD  = ../ajax/core/libajax.la ../ajax/ajaxdb/libajaxdb.la ../ajax/acd/libacd.la
+ 
+ if ISSHARED
+ if ISAIXIA64
+@@ -10,11 +11,14 @@
  endif
  endif
  
