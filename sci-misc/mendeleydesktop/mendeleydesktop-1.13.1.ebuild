@@ -66,6 +66,9 @@ src_prepare() {
 		-e "s:lib/mendeleydesktop:$(get_libdir)/mendeleydesktop:g" \
 		-e "s:MENDELEY_BASE_PATH + \"/lib/\":MENDELEY_BASE_PATH + \"/$(get_libdir)/\":g" \
 		bin/mendeleydesktop || die "failed to patch library path"
+
+	# patch for python3
+	epatch "${FILESDIR}/mendeleydesktop-fix-python3.patch"
 }
 
 src_install() {
