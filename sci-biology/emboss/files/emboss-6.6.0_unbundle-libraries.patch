@@ -126,8 +126,8 @@
 +SUBDIRS += pcre expat zlib
  endif
  SUBDIRS += core graphics ensembl ajaxdb acd
---- EMBOSS-6.6.0/configure.in
-+++ EMBOSS-6.6.0/configure.in
+--- EMBOSS-6.6.0/configure.ac
++++ EMBOSS-6.6.0/configure.ac
 @@ -629,32 +629,6 @@
  
  
@@ -195,7 +195,7 @@
 +[
 +dnl using bundled libraries
 +  dnl PCRE library definitions - see the MAJOR and MINOR values
-+  dnl to see which version's configure.in these lines come from
++  dnl to see which version's configure.ac these lines come from
 +
 +  dnl Provide the current PCRE version information. Do not use numbers
 +  dnl with leading zeros for the minor version, as they end up in a C

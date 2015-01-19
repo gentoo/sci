@@ -38,6 +38,12 @@ PATCHES=(
 	"${FILESDIR}/${P}_qa-implicit-declarations.patch"
 )
 
+src_prepare() {
+	mv configure.{in,ac} || die
+
+	emboss_src_prepare
+}
+
 src_install() {
 	# Use autotools-utils_* to remove useless *.la files
 	autotools-utils_src_install
