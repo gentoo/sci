@@ -1,0 +1,10 @@
+--- setup.py	2015-01-12 19:37:38.000000000 +0100
++++ setup.py.new	2015-01-20 23:44:09.000000000 +0100
+@@ -348,7 +348,6 @@ path = abspath(dirname(__file__))
+ 
+ print()
+ if 'develop' in sys.argv:
+-    check_remove_bokeh_install(site_packages)
+     with open(path_file, "w+") as f:
+         f.write(path)
+     print("Installing Bokeh for development:")

@@ -55,7 +55,7 @@ DEPEND="
 	"
 DOCS=( CHANGELOG QUICKSTART.md README.md )
 
-PATCHES=( "${FILESDIR}"/${PV}-setup.patch )
+PATCHES=( "${FILESDIR}"/${P}-setup.patch )
 
 DISTUTILS_NO_PARALLEL_BUILD=1
 
