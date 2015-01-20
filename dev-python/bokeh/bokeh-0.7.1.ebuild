@@ -20,6 +20,7 @@ IUSE="examples test chaco"
 # A doc build requires napoleon sphinx extension which will be included in sphinx release 1.3
 # Therefore refraining from adding the doc build for now
 RDEPEND="
+	>=net-libs/nodejs-0.8.28[npm]
 	>=dev-python/flask-0.10.1[${PYTHON_USEDEP}]
 	>=dev-python/greenlet-0.4.1[${PYTHON_USEDEP}]
 	>=dev-python/itsdangerous-0.21[${PYTHON_USEDEP}]
@@ -67,6 +68,12 @@ python_prepare_all() {
 	if ! use chaco; then
 		sed -i -e "/'bokeh.chaco_gg'/d" setup.py || die
 	fi
+
+	sed -i -e "s/jsbuild = get_user_jsargs()/jsbuild = False/g" setup.py || die
+	cd bokehjs || die
+	npm install ||die
+	cd .. || die
+	python ./setup.py --build_js sdist || die
 
 	distutils-r1_python_prepare_all
 }
