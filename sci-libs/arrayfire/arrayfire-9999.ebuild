@@ -24,10 +24,15 @@ IUSE="+examples +cpu cuda test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7.3-r1
-	virtual/blas
-	virtual/cblas
-	cuda? ( >=dev-util/nvidia-cuda-toolkit-6.0 )
-	sci-libs/fftw:3.0"
+	cuda? (
+		>=dev-util/nvidia-cuda-toolkit-6.0
+		dev-libs/boost
+	)
+	cpu? (
+		virtual/blas
+		virtual/cblas
+		sci-libs/fftw:3.0
+	)"
 DEPEND="${RDEPEND}"
 
 BUILD_DIR="${S}/build"
