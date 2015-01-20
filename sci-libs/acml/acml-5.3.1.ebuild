@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,11 +12,11 @@ QA_PREBUILT="${ACML_INST_DIR}/*/lib/*"
 MYP=${PN}-$(replace_all_version_separators -)
 
 DESCRIPTION="AMD Core Math Library for amd64 CPUs"
-HOMEPAGE="http://developer.amd.com/tools/cpu-development/amd-core-math-library-acml/"
+HOMEPAGE="http://developer.amd.com/tools-and-sdks/cpu-development/amd-core-math-library-acml/acml-downloads-resources/"
 
 # here we go for the url mess
 FCOMP64=""
-URI="http://developer.amd.com/tools/cpu-development/amd-core-math-library-acml/acml-downloads-resources/"
+URI="http://developer.amd.com/tools-and-sdks/cpu-development/amd-core-math-library-acml/acml-downloads-resources/"
 for fcomp in gfortran ifort open64 pgi; do
 	FCOMP64="${FCOMP64} ${fcomp}? ( ${URI}/${MYP}-${fcomp}-64bit.tgz
 			int64? ( ${URI}/${MYP}-${fcomp}-64bit-int64.tgz ) )"
