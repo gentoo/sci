@@ -7,7 +7,7 @@ EAPI=5
 FORTRAN_NEEDED=fortran
 FORTRAN_STANDARD=90
 PYTHON_COMPAT=( python2_7 )
-inherit fortran-2 java-pkg-opt-2 flag-o-matic python-single-r1
+inherit fortran-2 flag-o-matic python-single-r1
 
 DESCRIPTION="Data format for neutron and x-ray scattering data"
 HOMEPAGE="http://nexusformat.org/"
@@ -53,6 +53,6 @@ src_configure() {
 
 src_compile() {
 	# Handling of dependencies between Fortran module files doesn't play well with parallel make
-	use fortran && MAKEOPTS+=" -j1 "
+	use fortran && MAKEOPTS="${MAKEOPTS} -j1 "
 	default
 }
