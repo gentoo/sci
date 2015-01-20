@@ -33,6 +33,8 @@ DEPEND="${RDEPEND}
 
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
+	# Handling of dependencies between Fortran module files doesn't play well with parallel make
+	use fortran && export MAKEOPTS="${MAKEOPTS} -j1 "
 	use fortran && fortran-2_pkg_setup
 }
 
@@ -49,10 +51,4 @@ src_configure() {
 		$(use_with guile) \
 		$(use_with java) \
 		$(use_with python)
-}
-
-src_compile() {
-	# Handling of dependencies between Fortran module files doesn't play well with parallel make
-	use fortran && MAKEOPTS="${MAKEOPTS} -j1 "
-	default
 }
