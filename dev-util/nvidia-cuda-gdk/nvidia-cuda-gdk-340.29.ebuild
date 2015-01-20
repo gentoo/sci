@@ -68,7 +68,7 @@ src_install() {
 			eend
 		fi
 
-		if use healthmon ; then
+		if use nvml ; then
 			ebegin "Installing nvml docs..."
 				doman nvml/doc/man/man3/*.3
 				cd "${S}/nvml/" || die
