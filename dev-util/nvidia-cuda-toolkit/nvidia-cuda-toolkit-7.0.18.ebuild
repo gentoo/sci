@@ -32,7 +32,7 @@ RDEPEND="${DEPEND}
 RESTRICT="fetch"
 
 pkg_nofetch() {
-	einfo "Please download"
+	einfo "Please download the Fedora 21 \"Runfile Installer\""
 	einfo "  - cuda_${P}_rc_linux.run"
 	einfo "from ${CURI} and place it in ${DISTDIR}"
 }

@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=5
 
 inherit autotools-utils versionator
 
@@ -15,9 +15,7 @@ SRC_URI="ftp://www.mathematik.uni-kl.de/pub/Math/Singular/Factory/${PN}-${MY_PV}
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~ppc"
-IUSE="singular"
-
-RESTRICT="mirror"
+IUSE="singular static-libs"
 
 DEPEND="dev-libs/gmp
 	>=dev-libs/ntl-5.4.1"
@@ -39,4 +37,10 @@ src_configure() {
 	autotools-utils_src_configure
 }
 
-# TODO: get rid of factories static libs ?
+src_install() {
+	autotools-utils_src_install
+
+	# Passing --disable-static to configure won't disable the build of static libs,
+	# as libtool isn't used. Therefore the static libs are deleted after installed to ${D}.
+	use !static-libs || find "${ED}" -type f -name "*.a" -delete || die
+}
