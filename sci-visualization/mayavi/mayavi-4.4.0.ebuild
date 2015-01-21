@@ -41,8 +41,6 @@ DEPEND="
 		media-fonts/font-misc-misc
 	)"
 
-#DOCS="docs/*.txt"
-
 # testsuite is a trainwreck; https://github.com/enthought/mayavi/issues/66
 #RESTRICT="test"
 
@@ -51,25 +49,19 @@ DEPEND="
 
 python_compile_all() {
 	if use doc; then
-		${PYTHON} setup.py gen_docs || die
-		${PYTHON} setup.py build_docs || die
+		esetup.py gen_docs || die
+		esetup.py build_docs || die
 	fi
 }
 
 python_test() {
-
 	VIRTUALX_COMMAND="nosetests" virtualmake
 }
 
 python_install_all() {
+	use examples && EXAMPLES=( examples/. )
+	use doc && HTML_DOCS=( docs/build/mayavi/html/. )
 	distutils-r1_python_install_all
-	use doc && dohtml -r docs/build/mayavi/html/
-
-	if use examples; then
-		docompress -x usr/share/doc/${PF}/examples/
-		insinto /usr/share/doc/${PF}
-		doins -r examples
-	fi
 
 	newicon mayavi/core/ui/images/m2.png mayavi2.png
 	make_desktop_entry ${PN}2 \
