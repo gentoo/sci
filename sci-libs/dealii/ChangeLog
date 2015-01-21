@@ -3,6 +3,9 @@
 # $Header: $
 
   21 Jan 2015; Matthias Maier <tamiko@gentoo.org> dealii-9999.ebuild:
+  sci-libs/dealii - fix typo in live ebuild
+
+  21 Jan 2015; Matthias Maier <tamiko@gentoo.org> dealii-9999.ebuild:
   sci-libs/dealii - update live ebuild
 
 *dealii-8.2.1 (14 Jan 2015)
