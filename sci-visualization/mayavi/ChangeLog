@@ -4,5 +4,5 @@
 
 *mayavi-4.4.0 (22 Jan 2015)
 
-  22 Jan 2015; Justin Lecher <jlec@gentoo.org> +mayavi-4.4.0.ebuild:
+  22 Jan 2015; Jan Simons <jamasi@digitac.cc> +mayavi-4.4.0.ebuild:
   version bump, QA cleanup
