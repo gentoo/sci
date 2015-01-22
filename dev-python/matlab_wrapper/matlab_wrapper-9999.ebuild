@@ -12,7 +12,7 @@ HOMEPAGE="https://github.com/mrkrd/matlab_wrapper"
 
 if [ ${PV} == "9999" ] ; then
 	inherit git-r3
-	EGIT_REPO_URI="https://github.com/mrkrd/matlab_wrapper.git git://github.com/mrkrd/matlab_wrapper.git"
+	EGIT_REPO_URI="https://github.com/mrkrd/${PN}.git git://github.com/mrkrd/${PN}.git"
 else
 	SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 	KEYWORDS="~amd64"
