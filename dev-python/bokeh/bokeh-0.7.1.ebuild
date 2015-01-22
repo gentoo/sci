@@ -21,6 +21,7 @@ IUSE="examples test chaco"
 # Therefore refraining from adding the doc build for now
 RDEPEND="
 	>=net-libs/nodejs-0.8.28[npm]
+	>=www-client/phantomjs-1.9.8
 	>=dev-python/flask-0.10.1[${PYTHON_USEDEP}]
 	>=dev-python/greenlet-0.4.1[${PYTHON_USEDEP}]
 	>=dev-python/itsdangerous-0.21[${PYTHON_USEDEP}]
@@ -73,7 +74,7 @@ python_prepare_all() {
 	cd bokehjs || die
 	npm install ||die
 	cd .. || die
-	python ./setup.py --build_js sdist || die
+	esetup.py --build_js sdist
 
 	distutils-r1_python_prepare_all
 }
