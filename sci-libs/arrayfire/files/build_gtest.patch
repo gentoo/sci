@@ -1,5 +1,9 @@
---- CMakeModules/build_gtest.cmake	2015-01-10 11:27:52.007076159 +0100
-+++ CMakeModules/build_gtest.cmake	2015-01-10 17:36:23.000000000 +0100
+Don't fetch googletest from SVN.
+
+Patch by Marius Brehler.
+
+--- CMakeModules/build_gtest.cmake
++++ CMakeModules/build_gtest.cmake
 @@ -1,27 +1,4 @@
 -#Downloads and installs GTest into the third_party directory
 -
