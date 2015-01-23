@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_7,3_3,3_4} )
 
-inherit distutils-r1
+inherit distutils-r1 readme.gentoo
 
 DESCRIPTION="Statistical and interactive HTML plots for Python"
 HOMEPAGE="http://bokeh.pydata.org/"
@@ -59,6 +59,8 @@ PATCHES=( "${FILESDIR}"/${P}-setup.patch )
 DISTUTILS_NO_PARALLEL_BUILD=1
 
 python_prepare_all() {
+	DOC_CONTENTS="websockets work only with python2_7"
+
 	sed -i -e "s/jsbuild = get_user_jsargs()/jsbuild = False/g" setup.py || die
 	cd bokehjs || die
 	npm install ||die
@@ -69,6 +71,8 @@ python_prepare_all() {
 }
 
 python_install_all() {
+	readme.gentoo_create_doc
+
 	use examples && local EXAMPLES=( examples/. )
 
 	distutils-r1_python_install_all
@@ -81,16 +85,4 @@ python_test() {
 		-e multiuser_auth_test \
 		-e usermodel_test \
 		|| die
-}
-
-pkg_postinst() {
-	elog "websockets work only with python2_7"
-	local chaco_msg="chaco useflag doesn't affect python targets other than python2_7"
-	if use chaco; then
-		if use python_targets_python2_7; then
-			elog "${chaco_msg}"
-		else
-			ewarn "${chaco_msg}"
-		fi
-	fi
 }
