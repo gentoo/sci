@@ -15,7 +15,7 @@ SRC_URI="https://github.com/ContinuumIO/${PN}/archive/${PV}.tar.gz -> ${P}.tar.g
 SLOT="0"
 LICENSE="BSD"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="examples test chaco"
+IUSE="examples test"
 
 # A doc build requires napoleon sphinx extension which will be included in sphinx release 1.3
 # Therefore refraining from adding the doc build for now
@@ -41,9 +41,6 @@ RDEPEND="
 	>=dev-python/werkzeug-0.9.1[${PYTHON_USEDEP}]
 	$(python_gen_cond_dep '>=dev-python/gevent-1.0[${PYTHON_USEDEP}]' python2_7)
 	$(python_gen_cond_dep '>=dev-python/gevent-websocket-0.9.2[${PYTHON_USEDEP}]' python2_7)
-	chaco? (
-		$(python_gen_cond_dep '>=dev-python/traits-4.4[${PYTHON_USEDEP}]' python2_7)
-		$(python_gen_cond_dep '>=dev-python/chaco-4.4[${PYTHON_USEDEP}]' python2_7) )
 	"
 # testing server: needs websocket not in portage yet
 # websocket is in pypi for the adding
@@ -62,14 +59,6 @@ PATCHES=( "${FILESDIR}"/${P}-setup.patch )
 DISTUTILS_NO_PARALLEL_BUILD=1
 
 python_prepare_all() {
-	# https://github.com/bokeh/bokeh/issues/1352
-	sed -e "s:        'bokeh.mplexporter',:&\n        'bokeh.mplexporter.renderers',:" \
-		-i setup.py || die
-
-	if ! use chaco; then
-		sed -i -e "/'bokeh.chaco_gg'/d" setup.py || die
-	fi
-
 	sed -i -e "s/jsbuild = get_user_jsargs()/jsbuild = False/g" setup.py || die
 	cd bokehjs || die
 	npm install ||die
