@@ -1,0 +1,8 @@
+--- opt/bin/geogebra	2013-10-03 13:02:13.000000000 +0200
++++ geogebra.new	2014-02-24 20:38:23.597636225 +0100
+@@ -16,4 +16,4 @@
+ #---------------------------------------------
+ # Run
+ 
+-exec "/usr/share/geogebra/geogebra" "$@"
++exec "/opt/share/geogebra/geogebra" "$@"
