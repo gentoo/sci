@@ -1,5 +1,9 @@
---- b/src/condor_examples/condor_config.generic	2015-01-11 19:34:36.000000000 +0100
-+++ a/src/condor_examples/condor_config.generic	2015-01-11 19:38:18.000000000 +0100
+Adjust the generic condor_config to Gentoo's needs.
+Ported patch from htcondor-8.0.0 to 8.3.2
+
+Patch by Marius Brehler.
+--- b/src/condor_examples/condor_config.generic
++++ a/src/condor_examples/condor_config.generic
 @@ -19,7 +19,7 @@
  ######################################################################
  
