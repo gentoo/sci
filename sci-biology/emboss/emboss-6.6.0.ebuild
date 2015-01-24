@@ -4,7 +4,6 @@
 
 EAPI=5
 
-AUTOTOOLS_AUTORECONF=1
 inherit autotools-utils emboss eutils
 
 EBO_PATCH=""
@@ -32,17 +31,10 @@ EBO_EXTRA_ECONF="--includedir=${EPREFIX}/usr/include/emboss"
 
 DOCS=( ChangeLog AUTHORS NEWS THANKS FAQ )
 PATCHES=(
-	"${FILESDIR}/${P}_unbundle-libraries.patch"
 	"${FILESDIR}/${P}_FORTIFY_SOURCE-fix.patch"
 	"${FILESDIR}/${P}_plplot-declarations.patch"
 	"${FILESDIR}/${P}_qa-implicit-declarations.patch"
 )
-
-src_prepare() {
-	mv configure.{in,ac} || die
-
-	emboss_src_prepare
-}
 
 src_install() {
 	# Use autotools-utils_* to remove useless *.la files

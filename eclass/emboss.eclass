@@ -45,7 +45,7 @@ case ${EAPI:-0} in
 esac
 
 AUTOTOOLS_IN_SOURCE_BUILD=1
-inherit autotools autotools-utils eutils
+inherit autotools autotools-utils eutils flag-o-matic
 
 HOMEPAGE="http://emboss.sourceforge.net/"
 LICENSE="LGPL-2 GPL-2"
@@ -66,6 +66,7 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 if [[ ${PN} == embassy-* ]]; then
+	EMBASSY_PACKAGE=yes
 	# The EMBASSY package name, retrieved from the inheriting ebuild's name
 	EN=${PN:8}
 	# The full name and version of the EMBASSY package (excluding the Gentoo
@@ -73,13 +74,14 @@ if [[ ${PN} == embassy-* ]]; then
 	EF=$(echo ${EN} | tr "[:lower:]" "[:upper:]")-${PV}
 	: ${EBO_DESCRIPTION:=${EN}}
 	DESCRIPTION="EMBOSS integrated version of ${EBO_DESCRIPTION}"
-	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/${EF}.tar.gz -> embassy-${EN}-${PV}.tar.gz"
+	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/${EF}.tar.gz -> embassy-${EN}-${PVR}.tar.gz"
 	DEPEND+=" >=sci-biology/emboss-6.3.1_p4[mysql=,pdf=,png=,postgres=,static-libs=,X=]"
 
 	S="${WORKDIR}"/${EF}
 fi
 
-DOCS="AUTHORS ChangeLog NEWS README"
+DOCS=""
+#DOCS="AUTHORS ChangeLog NEWS README"
 
 # @FUNCTION: emboss_src_prepare
 # @DESCRIPTION:
@@ -90,6 +92,12 @@ DOCS="AUTHORS ChangeLog NEWS README"
 #
 
 emboss_src_prepare() {
+	if [[ -f "${FILESDIR}"/${P}_fix-build-system.patch ]]; then
+		mv configure.{in,ac} || die
+		epatch "${FILESDIR}"/${P}_fix-build-system.patch
+		AUTOTOOLS_AUTORECONF=1
+	fi
+
 	[[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}-upstream.patch
 	[[ -f ${FILESDIR}/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
 
@@ -126,6 +134,11 @@ emboss_src_configure() {
 		--docdir="${EPREFIX}/usr/share/doc/${PF}"
 		${EBO_EXTRA_ECONF}
 	)
+
+	if [[ ${EMBASSY_PACKAGE} == yes ]]; then
+		append-cppflags "-I${EPREFIX}/usr/include/emboss"
+	fi
+
 	autotools-utils_src_configure
 }
 
