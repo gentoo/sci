@@ -1,5 +1,8 @@
---- b/build/cmake/CondorConfigure.cmake	2015-01-11 19:29:57.000000000 +0100
-+++ a/build/cmake/CondorConfigure.cmake	2015-01-11 19:30:40.000000000 +0100
+Ported patch from htcondor-8.0.0 to 8.3.2
+
+Patch by Marius Brehler.
+-- b/build/cmake/CondorConfigure.cmake
++++ a/build/cmake/CondorConfigure.cmake
 @@ -841,7 +841,7 @@ set (CONDOR_LIBS "condor_utils;${RT_FOUN
  set (CONDOR_TOOL_LIBS "condor_utils;${RT_FOUND};${CLASSADS_FOUND};${SECURITY_LIBS};${PCRE_FOUND};${COREDUMPER_FOUND}")
  set (CONDOR_SCRIPT_PERMS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)

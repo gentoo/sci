@@ -1,5 +1,9 @@
---- b/build/cmake/CondorPackageConfig.cmake	2015-01-11 19:46:05.000000000 +0100
-+++ a/build/cmake/CondorPackageConfig.cmake	2015-01-11 19:47:05.000000000 +0100
+Adjust the package directories.
+Ported patch from htcondor-8.0.0 to 8.3.2
+
+Patch by Marius Brehler.
+--- b/build/cmake/CondorPackageConfig.cmake
++++ a/build/cmake/CondorPackageConfig.cmake
 @@ -406,6 +406,29 @@ elseif( ${OS_NAME} STREQUAL "LINUX" AND
  		set(CMAKE_INSTALL_PREFIX "")
  		set(CPACK_SET_DESTDIR "ON")

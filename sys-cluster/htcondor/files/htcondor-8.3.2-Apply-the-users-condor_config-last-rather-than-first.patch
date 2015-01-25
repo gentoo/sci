@@ -1,5 +1,9 @@
---- src/condor_utils/condor_config.cpp	2014-12-23 18:18:42.000000000 +0100
-+++ src/condor_utils/condor_config.cpp	2015-01-11 19:59:17.000000000 +0100
+Apply the users condor_config last, rather than first.
+Ported patch from htcondor-8.0.0 to 8.3.2
+
+Patch by Marius Brehler.
+--- src/condor_utils/condor_config.cpp
++++ src/condor_utils/condor_config.cpp
 @@ -1454,18 +1454,14 @@ find_file(const char *env_name, const ch
  	if (!config_source) {
  			// List of condor_config file locations we'll try to open.

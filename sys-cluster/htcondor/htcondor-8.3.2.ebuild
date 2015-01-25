@@ -49,10 +49,10 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch	"${FILESDIR}/condor_shadow_dlopen-${PV}.patch"
-	epatch "${FILESDIR}/condor_config.generic-${PV}.patch"
-	epatch "${FILESDIR}/Apply-the-user-s-condor_config-last-rather-than-first-${PV}.patch"
-	epatch "${FILESDIR}/packaging_directories-${PV}.patch"
+	epatch "${FILESDIR}/${P}-shadow_dlopen.patch"
+	epatch "${FILESDIR}/${P}-condor_config.generic.patch"
+	epatch "${FILESDIR}/${P}-Apply-the-users-condor_config-last-rather-than-first.patch"
+	epatch "${FILESDIR}/${P}-packaging_directories.patch"
 	epatch "${FILESDIR}/fix_sandbox_violations-8.0.0.patch"
 	cmake-utils_src_prepare
 }
