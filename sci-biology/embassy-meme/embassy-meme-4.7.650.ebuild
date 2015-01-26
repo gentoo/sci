@@ -4,8 +4,10 @@
 
 EAPI=5
 
-EBO_DESCRIPTION="MEME suite"
+EBO_DESCRIPTION="wrappers for MEME - Multiple Em for Motif Elicitation"
 
 inherit emboss
 
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
+
+RDEPEND+="sci-biology/meme"

@@ -4,8 +4,10 @@
 
 EAPI=5
 
-EBO_DESCRIPTION="Protein domain alignment add-on package"
+EBO_DESCRIPTION="wrappers for Clustal Omega - Scalable multiple alignment of protein sequences"
 
 inherit emboss
 
 KEYWORDS="~amd64 ~x86 ~x86-linux ~ppc-macos"
+
+RDEPEND+="sci-biology/clustal-omega"
