@@ -75,3 +75,9 @@ src_configure() {
 		)
 	cmake-utils_src_configure
 }
+
+src_test() {
+	# Tests are not built by default
+	emake AllTests
+	cmake-utils_src_test
+}
