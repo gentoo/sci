@@ -1,0 +1,15 @@
+diff --git a/MantidPlot/src/zlib123/minigzip.c b/MantidPlot/src/zlib123/minigzip.c
+index 97fbae1..5f4612f 100644
+--- a/MantidPlot/src/zlib123/minigzip.c
++++ b/MantidPlot/src/zlib123/minigzip.c
+@@ -50,6 +50,10 @@
+ #  include <unix.h> /* for fileno */
+ #endif
+ 
++#ifndef OF
++#  define OF(args) args
++#endif
++
+ #ifndef WIN32 /* unlink already in stdio.h for WIN32 */
+   extern int unlink OF((const char *));
+ #else
