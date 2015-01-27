@@ -32,18 +32,22 @@ RDEPEND="
 	x11-libs/qscintilla
 	x11-libs/qwt:5
 	x11-libs/qwtplot3d
-	dev-python/pyqwt
+	dev-python/PyQt4
 	sci-libs/gsl
+	dev-python/ipython[qt4]
 	dev-python/numpy
 	sci-libs/scipy
 	dev-cpp/muParser
 	dev-libs/jsoncpp
+	dev-libs/openssl
 	sci-libs/opencascade
 "
 
 DEPEND="${RDEPEND}
 	dev-python/sphinx
-	doc?	( app-doc/doxygen )
+	doc?	( app-doc/doxygen
+		  dev-python/sphinx
+		  dev-python/sphinx-bootstrap-theme )
 	test?	( dev-util/cppcheck )
 "
 
