@@ -18,6 +18,7 @@ LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="doc opencl paraview shared-libs tcmalloc test"
+RESTRICT="test" # Testing requires sample data and X11 access
 
 RDEPEND="
 	${PYTHON_DEPS}
