@@ -2,6 +2,22 @@
 # Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  27 Jan 2015; Guillaume Horel <guillaume.horel@gmail.com>
+  -files/scilab-5.3.3-as-needed.patch, -files/scilab-5.3.3-blas-libs.patch,
+  -files/scilab-5.3.3-disable-build-help.patch,
+  -files/scilab-5.3.3-fix-random-runtime-failures.patch,
+  -files/scilab-5.3.3-fortran-link.patch, -files/scilab-5.3.3-gui-no-xcos.patch,
+  -files/scilab-5.3.3-hdf18.patch, -files/scilab-5.3.3-java-heap.patch,
+  -files/scilab-5.3.3-java-version-check.patch,
+  -files/scilab-5.3.3-javadoc-utf8.patch, -files/scilab-5.3.3-jgrapx-min.patch,
+  -files/scilab-5.3.3-jvm-detection.patch, -files/scilab-5.3.3-matio15.patch,
+  -files/scilab-5.3.3-no-lhpi.patch, -files/scilab-5.3.3-no-xcos-deps.patch,
+  -files/scilab-5.4.1-fix-random-runtime-failure.patch,
+  -files/scilab-5.4.1-followlinks.patch, -files/scilab-5.4.1-gluegen.patch,
+  -files/scilab-5.4.1-java-heap.patch, -scilab-5.3.3-r2.ebuild,
+  -scilab-5.4.1.ebuild:
+  sci-mathematics/scilab: remove old versions
+
   29 Jun 2014; Guillaume Horel <guillaume.horel@gmail.com>
   +files/scilab-5.5.0-jdk1.8.patch, scilab-5.5.0.ebuild:
   sci-mathematics/scilab: support jdk1.8
