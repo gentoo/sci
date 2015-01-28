@@ -60,11 +60,6 @@ src_prepare() {
 		"${FILESDIR}/${P}-minigzip-OF.patch"
 }
 
-# pkg_setup() {
-# 	python-single-r1_pkg_setup
-# 	fortran-2_pkg_setup
-# }
-
 src_configure() {
 	mycmakeargs=(	$(cmake-utils_use_enable doc QTASSISTANT)
 			$(cmake-utils_use_use doc DOT)
