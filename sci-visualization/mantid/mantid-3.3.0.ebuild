@@ -55,12 +55,12 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${P}-Source"
 
 src_prepare() {
-	epatch	"${FILESDIR}/${P}-HAVE_IOSTREAM.patch" \
-		"${FILESDIR}/${P}-FindOpenCascade.patch" \
+	epatch	"${FILESDIR}/${P}-FindOpenCascade.patch" \
 		"${FILESDIR}/${P}-minigzip-OF.patch"
 }
 
 src_configure() {
+	export CPPFLAGS="-DHAVE_IOSTREAM -DHAVE_LIMITS -DHAVE_IOMANIP ${CPPFLAGS}"
 	mycmakeargs=(	$(cmake-utils_use_enable doc QTASSISTANT)
 			$(cmake-utils_use_use doc DOT)
 			$(cmake-utils_use opencl OPENCL_BUILD)
