@@ -6,7 +6,7 @@ EAPI=5
 
 FORTRAN_STANDARD=90
 PYTHON_COMPAT=python2_7
-inherit eutils cmake-utils fortran-2 versionator python-single-r1
+inherit eutils cmake-utils versionator python-single-r1
 
 MAJOR_PV=$(get_version_component_range 1-2)
 
