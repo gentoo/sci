@@ -46,7 +46,7 @@ RDEPEND="
 
 DEPEND="${RDEPEND}
 	dev-python/sphinx
-	doc?	( app-doc/doxygen
+	doc?	( app-doc/doxygen[dot]
 		  dev-python/sphinx[${PYTHON_USEDEP}]
 		  dev-python/sphinx-bootstrap-theme[${PYTHON_USEDEP}] )
 	test?	( dev-util/cppcheck )
