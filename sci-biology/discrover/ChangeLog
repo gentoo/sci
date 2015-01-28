@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*discrover-1.5.2 (27 Jan 2015)
+
+  27 Jan 2015; Jonas Maaskola <jonas@maaskola.de> +discrover-1.5.2.ebuild,
+  -discrover-1.4.1.ebuild, discrover-9999.ebuild, metadata.xml:
+  sci-biology/discrover: bump package version, add USE flag for link-time
+  optimization, install doc to /usr/share/doc/${PF}
+
 *discrover-1.4.1 (05 Jan 2015)
 
   05 Jan 2015; Jonas Maaskola <jonas@maaskola.de> +discrover-1.4.1.ebuild,

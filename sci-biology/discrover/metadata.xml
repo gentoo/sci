@@ -10,7 +10,10 @@
 			Use Cairo for sequence logo plotting capabilities
 		</flag>
 		<flag name="dreme">
-			Allow to use DREME from the MEME package for seeding
+			Enable usage of DREME from the MEME package for seeding
+		</flag>
+		<flag name="lto">
+			Compile with link-time optimization (LTO)
 		</flag>
 		<flag name="tikzlogo">
 			Enable LaTeX/TikZ based ruby script for sequence logo drawing
