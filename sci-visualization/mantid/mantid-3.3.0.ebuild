@@ -6,7 +6,7 @@ EAPI=5
 
 FORTRAN_STANDARD=90
 PYTHON_COMPAT=python2_7
-inherit eutils cmake-utils versionator python-single-r1
+inherit eutils cmake-utils versionator python-single-r1 multilib
 
 MAJOR_PV=$(get_version_component_range 1-2)
 
@@ -55,8 +55,7 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${P}-Source"
 
 src_prepare() {
-	epatch	"${FILESDIR}/${P}-FindOpenCascade.patch" \
-		"${FILESDIR}/${P}-minigzip-OF.patch"
+	epatch	"${FILESDIR}/${P}-minigzip-OF.patch"
 }
 
 src_configure() {
@@ -68,6 +67,7 @@ src_configure() {
 			$(cmake-utils_use_use tcmalloc TCMALLOC)
 			$(cmake-utils_use paraview MAKE_VATES)
 			$(cmake-utils_use_build test TESTING)
+			-DCMAKE_PREFIX_PATH="${CASROOT}"
 		)
 	cmake-utils_src_configure
 }
