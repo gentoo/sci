@@ -22,33 +22,33 @@ RESTRICT="test" # Testing requires sample data and X11 access
 
 RDEPEND="
 	${PYTHON_DEPS}
-	>=sci-libs/nexus-4.2
+	>=sci-libs/nexus-4.2[${PYTHON_USEDEP}]
 	>=dev-libs/poco-1.4.2
-	dev-libs/boost[python]
+	dev-libs/boost[python,${PYTHON_USEDEP}]
 	opencl?		( virtual/opencl )
 	tcmalloc?	( dev-util/google-perftools )
-	paraview?	( >=sci-visualization/paraview-4 )
+	paraview?	( >=sci-visualization/paraview-4[python,${PYTHON_USEDEP}] )
 	virtual/opengl
 	dev-qt/qthelp
 	x11-libs/qscintilla
 	x11-libs/qwt:5
 	x11-libs/qwtplot3d
-	dev-python/PyQt4
+	dev-python/PyQt4[${PYTHON_USEDEP}]
 	sci-libs/gsl
-	dev-python/ipython[qt4]
-	dev-python/numpy
-	sci-libs/scipy
+	dev-python/ipython[qt4,${PYTHON_USEDEP}]
+	dev-python/numpy[${PYTHON_USEDEP}]
+	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-cpp/muParser
 	dev-libs/jsoncpp
 	dev-libs/openssl
-	sci-libs/opencascade
+	sci-libs/opencascade[qt4]
 "
 
 DEPEND="${RDEPEND}
 	dev-python/sphinx
 	doc?	( app-doc/doxygen
-		  dev-python/sphinx
-		  dev-python/sphinx-bootstrap-theme )
+		  dev-python/sphinx[${PYTHON_USEDEP}]
+		  dev-python/sphinx-bootstrap-theme[${PYTHON_USEDEP}] )
 	test?	( dev-util/cppcheck )
 "
 
