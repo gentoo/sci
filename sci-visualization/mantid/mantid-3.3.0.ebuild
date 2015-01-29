@@ -17,7 +17,7 @@ SRC_URI="mirror://sourceforge/project/${PN}/${MAJOR_PV}/${P}-Source.tar.gz"
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="doc +opencascade opencl paraview shared-libs tcmalloc test"
+IUSE="doc +opencascade opencl paraview tcmalloc test"
 RESTRICT="test" # Testing requires sample data and X11 access
 
 # There is a list of dependencies on the Mantid website at:
@@ -70,7 +70,6 @@ src_configure() {
 			$(cmake-utils_use_use doc DOT)
 			$(cmake-utils_use_no opencascade)
 			$(cmake-utils_use opencl OPENCL_BUILD)
-			$(cmake-utils_use_build shared-libs SHARED_LIBS)
 			$(cmake-utils_use_use tcmalloc TCMALLOC)
 			$(cmake-utils_use paraview MAKE_VATES)
 			$(cmake-utils_use_build test TESTING)

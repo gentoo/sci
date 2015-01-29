@@ -18,7 +18,6 @@
 	<flag name="opencascade">Use OpenCascade to show 3D models of instruments</flag>
 	<flag name="opencl">Use OpenCL to accelerate calculations</flag>
 	<flag name="paraview">Enable the Visualisation and Analysis Toolkit ExtensionS (VATES)</flag>
-	<flag name="shared-libs">Build shared libraries</flag>
 	<flag name="tcmalloc">Use thread-caching malloc</flag>
 </use>
 </pkgmetadata>
