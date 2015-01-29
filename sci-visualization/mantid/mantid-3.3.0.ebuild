@@ -24,7 +24,7 @@ RESTRICT="test" # Testing requires sample data and X11 access
 # http://www.mantidproject.org/Mantid_Prerequisites
 RDEPEND="
 	${PYTHON_DEPS}
-	>=sci-libs/nexus-4.2[${PYTHON_USEDEP}]
+	>=sci-libs/nexus-4.2
 	>=dev-libs/poco-1.4.2
 	dev-libs/boost[python,${PYTHON_USEDEP}]
 	>=dev-qt/qthelp-4.6:4
