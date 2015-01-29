@@ -75,8 +75,12 @@ src_configure() {
 			$(cmake-utils_use paraview MAKE_VATES)
 			$(cmake-utils_use_use pch PRECOMPILED_HEADERS)
 			$(cmake-utils_use_build test TESTING)
-			-DCMAKE_PREFIX_PATH="${CASROOT}"
 		)
+	if use opencascade
+	then
+		[[ -z ${CASROOT} ]] && die "CASROOT environment variable not defined, that usually means you need to use 'eselect opencascade'."
+		mycmakeargs+=( -DCMAKE_PREFIX_PATH="${CASROOT}" )
+	fi
 	cmake-utils_src_configure
 }
 
