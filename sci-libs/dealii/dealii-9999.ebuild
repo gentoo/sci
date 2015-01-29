@@ -31,9 +31,10 @@ fi
 LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
-	arpack avx c++11 +debug doc +examples hdf5 +lapack mesh_converter metis
-	mpi muparser opencascade netcdf p4est parameter_gui petsc +sparse
-	sse2 static-libs +tbb trilinos
+	arpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_sse2 c++11
+	+debug doc +examples hdf5 +lapack mesh_converter metis mpi muparser
+	opencascade netcdf p4est parameter_gui petsc +sparse static-libs +tbb
+	trilinos
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
@@ -79,8 +80,10 @@ src_configure() {
 		-DDEAL_II_WITH_BZIP2=ON
 		-DDEAL_II_WITH_ZLIB=ON
 		$(cmake-utils_use arpack DEAL_II_WITH_ARPACK)
-		$(cmake-utils_use avx DEAL_II_HAVE_AVX)
 		$(cmake-utils_use c++11 DEAL_II_WITH_CXX11)
+		$(cmake-utils_use cpu_flags_x86_avx DEAL_II_HAVE_AVX)
+		$(cmake-utils_use cpu_flags_x86_avx2 DEAL_II_HAVE_AVX512)
+		$(cmake-utils_use cpu_flags_x86_sse2 DEAL_II_HAVE_SSE2)
 		$(cmake-utils_use doc DEAL_II_COMPONENT_DOCUMENTATION)
 		$(cmake-utils_use examples DEAL_II_COMPONENT_EXAMPLES)
 		$(cmake-utils_use hdf5 DEAL_II_WITH_HDF5)
@@ -96,7 +99,6 @@ src_configure() {
 		$(cmake-utils_use parameter_gui DEAL_II_COMPONENT_PARAMETER_GUI)
 		$(cmake-utils_use petsc DEAL_II_WITH_PETSC)
 		$(cmake-utils_use sparse DEAL_II_WITH_UMFPACK)
-		$(cmake-utils_use sse2 DEAL_II_HAVE_SSE2)
 		$(cmake-utils_use !static-libs BUILD_SHARED_LIBS)
 		$(cmake-utils_use static-libs DEAL_II_PREFER_STATIC_LIBS)
 		$(cmake-utils_use tbb DEAL_II_WITH_THREADS)
