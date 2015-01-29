@@ -1,3 +1,10 @@
+The minigzip code does the same thing as sys-libs/zlib[minizip] but for .gz files rather than .zip
+
+It uses a macro 'OF(args)'. I'm not sure what it does but defining it as nothing seems to work.
+
+This patch has been submitted upstream at:
+https://github.com/mantidproject/mantid/pull/149
+
 diff --git a/MantidPlot/src/zlib123/minigzip.c b/MantidPlot/src/zlib123/minigzip.c
 index 97fbae1..5f4612f 100644
 --- a/MantidPlot/src/zlib123/minigzip.c
