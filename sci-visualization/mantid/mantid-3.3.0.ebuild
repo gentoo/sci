@@ -68,6 +68,7 @@ src_configure() {
 	append-cppflags -DHAVE_IOSTREAM -DHAVE_LIMITS -DHAVE_IOMANIP
 	mycmakeargs=(	$(cmake-utils_use_enable doc QTASSISTANT)
 			$(cmake-utils_use_use doc DOT)
+			$(cmake-utils_use doc DOCS_HTML)
 			$(cmake-utils_use_no opencascade)
 			$(cmake-utils_use opencl OPENCL_BUILD)
 			$(cmake-utils_use_use tcmalloc TCMALLOC)
