@@ -20,7 +20,7 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
 
-DEPEND=""
+DEPEND="sys-libs/zlib"
 RDEPEND="${DEPEND}"
 
 S="${S}"-source
@@ -37,4 +37,6 @@ src_compile(){
 src_install(){
 	dobin bin/[a-s]* bin/utilities/*
 	dodoc README.txt doc/SubreadUsersGuide.pdf
+	insinto  /usr/share/subread
+	doins annotation/*.txt
 }
