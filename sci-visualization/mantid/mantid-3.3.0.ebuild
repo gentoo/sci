@@ -6,7 +6,7 @@ EAPI=5
 
 FORTRAN_STANDARD=90
 PYTHON_COMPAT=python2_7
-inherit eutils cmake-utils versionator python-single-r1 multilib
+inherit eutils cmake-utils versionator python-single-r1 multilib flag-o-matic
 
 MAJOR_PV=$(get_version_component_range 1-2)
 
@@ -65,7 +65,7 @@ S="${WORKDIR}/${P}-Source"
 PATCHES=( "${FILESDIR}/${P}-minigzip-OF.patch" )
 
 src_configure() {
-	export CPPFLAGS="-DHAVE_IOSTREAM -DHAVE_LIMITS -DHAVE_IOMANIP ${CPPFLAGS}"
+	append-cppflags -DHAVE_IOSTREAM -DHAVE_LIMITS -DHAVE_IOMANIP
 	mycmakeargs=(	$(cmake-utils_use_enable doc QTASSISTANT)
 			$(cmake-utils_use_use doc DOT)
 			$(cmake-utils_use_no opencascade)
