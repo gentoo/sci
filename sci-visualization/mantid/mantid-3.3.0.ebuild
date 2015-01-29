@@ -20,21 +20,26 @@ KEYWORDS="~amd64"
 IUSE="doc opencl paraview shared-libs tcmalloc test"
 RESTRICT="test" # Testing requires sample data and X11 access
 
+# There is a list of dependencies on the Mantid website at:
+# http://www.mantidproject.org/Mantid_Prerequisites
 RDEPEND="
 	${PYTHON_DEPS}
 	>=sci-libs/nexus-4.2[${PYTHON_USEDEP}]
 	>=dev-libs/poco-1.4.2
 	dev-libs/boost[python,${PYTHON_USEDEP}]
+	>=dev-qt/qthelp-4.6:4
+	>=dev-qt/qtwebkit-4.6:4
+	doc?		( >=dev-qt/assistant-4.6:4 )
 	opencl?		( virtual/opencl )
 	tcmalloc?	( dev-util/google-perftools )
 	paraview?	( >=sci-visualization/paraview-4[python,${PYTHON_USEDEP}] )
 	virtual/opengl
-	dev-qt/qthelp
 	x11-libs/qscintilla
 	x11-libs/qwt:5
 	x11-libs/qwtplot3d
 	dev-python/PyQt4[${PYTHON_USEDEP}]
 	sci-libs/gsl
+	dev-python/sip[${PYTHON_USEDEP}]
 	dev-python/ipython[qt4,${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]
@@ -48,7 +53,10 @@ DEPEND="${RDEPEND}
 	dev-python/sphinx
 	doc?	( app-doc/doxygen[dot]
 		  dev-python/sphinx[${PYTHON_USEDEP}]
-		  dev-python/sphinx-bootstrap-theme[${PYTHON_USEDEP}] )
+		  dev-python/sphinx-bootstrap-theme[${PYTHON_USEDEP}]
+		  app-text/dvipng
+		  dev-texlive/texlive-latex
+		  dev-texlive/texlive-latexextra )
 	test?	( dev-util/cppcheck )
 "
 
