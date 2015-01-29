@@ -30,11 +30,12 @@ src_unpack() {
 	default
 	cp "${DISTDIR}/${MY_P}.pdf" "${S}"
 }
-#TODO needs to be updated for 2.8
-#src_prepare() {
-	#epatch "${FILESDIR}"/01_${MY_P}_Makefile_custom_cxx_flags.patch
-	#epatch "${FILESDIR}"/02_${MY_P}_menu_fix-freeglut_2.8.1.patch
-#}
+src_prepare() {
+	epatch "${FILESDIR}"/01_${MY_P}_Makefile_custom_cxx_flags.patch
+
+	#assuming this fix is still needed for 2.8
+	epatch "${FILESDIR}"/02_${MY_P}_menu_fix-freeglut_2.8.1.patch
+}
 
 src_configure () {
 	# Does not compile without -lpthread

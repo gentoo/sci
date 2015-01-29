@@ -1,0 +1,76 @@
+diff -rupN CalculiX/cgx_2.8/src/Makefile CalculiX.patched/cgx_2.8/src/Makefile
+--- CalculiX/cgx_2.8/src/Makefile	2014-04-07 13:26:41.000000000 -0400
++++ CalculiX.patched/cgx_2.8/src/Makefile	2015-01-29 14:31:52.730978918 -0500
+@@ -1,15 +1,15 @@
+-CFLAGS = -O3 -Wall \
++CFLAGS := -O3 -Wall \
+   -I./ \
+   -I/usr/include \
+   -I/usr/include/GL \
+   -I../../libSNL/src \
+   -I../../glut-3.5/src \
+-  -I/usr/X11/include 
++  -I/usr/X11/include $(CFLAGS)
+ 
+-LFLAGS = \
+-  -L/usr/lib64 -lGL -lGLU \
+-  -L/usr/X11R6/lib64 -lX11 -lXi -lXmu -lXext -lXt -lSM -lICE \
+-  -lm -lpthread -lrt
++LFLAGS := \
++  -L/usr/lib -lGL -lGLU -lglut \
++  -L/usr/X11R6/lib -lX11 -lXi -lXmu -lXext -lXt -lSM -lICE \
++  -lm $(PTHREAD) -lrt $(LFLAGS)
+ 
+ 
+ # on 32bit systems change lib64 to lib
+@@ -22,41 +22,6 @@ ULIB = \
+  userFunction.c
+ 
+ SUTIL = \
+- ../../glut-3.5/src/layerutil.c \
+- ../../glut-3.5/src/glut_dials.c \
+- ../../glut-3.5/src/glut_ext.c \
+- ../../glut-3.5/src/glut_mesa.c \
+- ../../glut-3.5/src/glut_menu.c \
+- ../../glut-3.5/src/glut_modifier.c \
+- ../../glut-3.5/src/glut_space.c \
+- ../../glut-3.5/src/glut_shapes.c \
+- ../../glut-3.5/src/glut_tablet.c \
+- ../../glut-3.5/src/glut_warp.c \
+- ../../glut-3.5/src/glut_8x13.c \
+- ../../glut-3.5/src/glut_9x15.c \
+- ../../glut-3.5/src/glut_hel10.c \
+- ../../glut-3.5/src/glut_hel18.c \
+- ../../glut-3.5/src/glut_hel12.c \
+- ../../glut-3.5/src/glut_tr10.c \
+- ../../glut-3.5/src/glut_tr24.c \
+- ../../glut-3.5/src/glut_bitmap.c \
+- ../../glut-3.5/src/glut_cursor.c \
+- ../../glut-3.5/src/glut_event.c \
+- ../../glut-3.5/src/glut_get.c \
+- ../../glut-3.5/src/glut_overlay.c \
+- ../../glut-3.5/src/glut_input.c \
+- ../../glut-3.5/src/glut_stroke.c \
+- ../../glut-3.5/src/glut_teapot.c \
+- ../../glut-3.5/src/glut_winmisc.c \
+- ../../glut-3.5/src/glut_fullscrn.c \
+- ../../glut-3.5/src/glut_cindex.c \
+- ../../glut-3.5/src/glut_roman.c \
+- ../../glut-3.5/src/glut_mroman.c \
+- ../../glut-3.5/src/glut_swidth.c \
+- ../../glut-3.5/src/glut_bwidth.c \
+- ../../glut-3.5/src/glut_win.c \
+- ../../glut-3.5/src/glut_init.c \
+- ../../glut-3.5/src/glut_util.c \
+  uselibSNL.cpp \
+  generateTet.cpp \
+  ../../libSNL/src/*.cpp
+@@ -66,7 +31,7 @@ OULIB = $(ULIB:.c=.o)
+ OUTIL = $(SUTIL:.c=.o)
+ 
+ cgx: $(OLIB) $(OUTIL) $(OULIB)
+-	g++  $(OULIB)  $(OLIB) $(OUTIL)  $(CFLAGS) $(LFLAGS) -o  $@
++	$(CXX)  $(OULIB)  $(OLIB) $(OUTIL)  $(CFLAGS) $(LFLAGS) -o  $@
+ 
+ 
+ 

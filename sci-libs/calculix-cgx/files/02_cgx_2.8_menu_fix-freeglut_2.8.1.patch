@@ -1,0 +1,73 @@
+diff -rupN CalculiX/cgx_2.8/src/cgx.c CalculiX.patched/cgx_2.8/src/cgx.c
+--- CalculiX/cgx_2.8/src/cgx.c	2015-01-17 05:24:20.000000000 -0500
++++ CalculiX.patched/cgx_2.8/src/cgx.c	2015-01-29 14:32:48.700979203 -0500
+@@ -241,6 +241,9 @@ int   subsubmenu_entity=-1, subsubmenu_p
+ int   subsubmenu_animTune=-1, subsubmenu_animSteps=-1;
+ int   subsubmenu_animPeriod=-1;
+ 
++char recompileFlag=0; /* 0 if nothing to recompile */
++int recompileMenu=0; /* If recompile needed, set to lc */
++
+ GLfloat lmodel_twoside[] = { GL_TRUE };
+ GLfloat lmodel_oneside[] = { GL_FALSE };
+ double dx ,dy;                                      /* Mauskoordinaten im bereich +-1*/
+@@ -400,6 +403,12 @@ void allocUtilityData(void)
+ }
+ 
+ 
++void queueRecompileEntitiesInMenu(int lc) 
++{
++  recompileFlag = 1;
++  recompileMenu = lc;
++}
++
+ 
+ 
+ #if INX_MODE
+@@ -3132,7 +3141,7 @@ void selectDataset( int selection )
+       seqLC[2]=anz->l-1;
+   }/* no sequence until a new entity is selected and all data are prepared */
+ 
+-  recompileEntitiesInMenu(pre_lc);
++  queueRecompileEntitiesInMenu(pre_lc);
+ }
+ 
+ 
+@@ -3160,7 +3169,15 @@ void createNewMainMenu(void)
+   glutSetWindow( activWindow);
+ }
+ 
+-
++void processMenuStatus(int status, int x, int y) 
++{
++  if (status == GLUT_MENU_NOT_IN_USE) {
++    if (recompileFlag) {
++      recompileEntitiesInMenu(recompileMenu);
++      recompileFlag = 0;
++    }
++  }
++}
+ 
+ void recompileEntitiesInMenu(int lc)
+ {
+@@ -5530,6 +5547,7 @@ int main ( int argc, char **argv )
+   glutSpecialFunc ( specialKeyboard );
+   glutEntryFunc ( entryfunktion );
+   glutPassiveMotionFunc ( Mouse );
++  glutMenuStatusFunc( processMenuStatus );
+   glDisable(GL_DITHER);
+   glLightModelfv(GL_LIGHT_MODEL_TWO_SIDE, lmodel_oneside);
+   glCullFace ( GL_BACK );
+diff -rupN CalculiX/cgx_2.8/src/extUtil.h CalculiX.patched/cgx_2.8/src/extUtil.h
+--- CalculiX/cgx_2.8/src/extUtil.h	2015-01-17 05:24:49.000000000 -0500
++++ CalculiX.patched/cgx_2.8/src/extUtil.h	2015-01-29 13:42:13.544297242 -0500
+@@ -34,7 +34,8 @@ void printf_fflush(const char *fmt,...);
+ }
+   #endif
+ #else
+-  #include <GL/glut_cgx.h>
++  //#include <GL/glut_cgx.h>
++  #include <GL/glut.h>
+ #endif
+ 
+ #define     PI          3.14159265358979323846264338327950288
