@@ -62,9 +62,7 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${P}-Source"
 
-src_prepare() {
-	epatch	"${FILESDIR}/${P}-minigzip-OF.patch"
-}
+PATCHES=( "${FILESDIR}/${P}-minigzip-OF.patch" )
 
 src_configure() {
 	export CPPFLAGS="-DHAVE_IOSTREAM -DHAVE_LIMITS -DHAVE_IOMANIP ${CPPFLAGS}"
