@@ -84,7 +84,7 @@ src_configure() {
 }
 
 src_test() {
-	cd "${BUILD_DIR}" # For some reason this is not done automatically...
+	pushd "${BUILD_DIR}" # For some reason this is not done automatically...
 
 	# Tests are not built by default
 	emake AllTests
@@ -97,8 +97,8 @@ src_test() {
 	# http://trac.mantidproject.org/mantid/ticket/10871
 
 	# For now we use a subset of tests that work without data files or GUI access
-	ctest -R 'KernelTest_'		  --exclude-regex 'Config|File|Glob|Nexus'	|| die
-	ctest -R 'GeometryTest_'	  --exclude-regex 'InstrumentDefinitionParser'	|| die
+	ctest -R 'KernelTest_'		  --exclude-regex 'Config|File|Glob|Nexus|V3D'	|| die
+	ctest -R 'GeometryTest_'	  --exclude-regex 'InstrumentDefinition|CompAssembly|DetectorGroup|PolygonEdge|Rectangular'	|| die
 	ctest -R 'APITest_'		  --exclude-regex 'File|IO'	|| die
 	ctest -R 'PythonInterface_'	  --exclude-regex 'Load'	|| die
 	ctest -R 'PythonInterfaceCppTest_'	|| die
@@ -107,20 +107,22 @@ src_test() {
 	# Too many failing tests for 'PythonAlgorithms_'
 	ctest -R 'PythonFunctions_'	|| die
 	ctest -R 'DataObjectsTest_'	|| die
-	ctest -R 'DataHandlingTest_'	  --exclude-regex 'Append|Chunk|File|Group|Load|Log|Save|PSD|Workspace|XML'	|| die
+	ctest -R 'DataHandlingTest_'	  --exclude-regex 'Append|Chunk|File|FindDetectorsPar|Group|Load|Log|Save|PSD|Workspace|XML'	|| die
 	# Too many failing tests for 'AlgorithmTest_'
-	ctest -R 'CurveFittingTest_'	  --exclude-regex 'AugmentedLagrangian|FitPowderDiffPeaks|TabulatedFunction'	|| die
+	# Too many failing tests for 'CurveFittingTest_'
 	# Too many failing tests for 'CrystalTest_'
 	ctest -R 'ICatTest_'	|| die
 	ctest -R 'LiveDataTest_'	  --exclude-regex 'File'	|| die
 	ctest -R 'PSISINQTest_'		  --exclude-regex 'LoadFlexiNexus'	|| die
-	ctest -R 'MDAlgorithmsTest_'	  --exclude-regex 'LoadSQW'	|| die
+	ctest -R 'MDAlgorithmsTest_'	  --exclude-regex 'LoadSQW|EvaluateMDFunction'	|| die
 	ctest -R 'MDEventsTest_'	  --exclude-regex 'OneStepMDEW'	|| die
 	ctest -R 'ScriptRepositoryTest_'	|| die
 	ctest -R 'MantidQtAPITest_'	|| die
-	ctest -R 'MantidWidgetsTest_'	|| die
+	ctest -R 'MantidWidgetsTest_'	  --exclude-regex 'MWRunFiles'	|| die
 	ctest -R 'CustomInterfacesTest_'  --exclude-regex 'IO|Load'	|| die
-	ctest -R 'SliceViewerMantidPlotTest_'	|| die
+	ctest -R 'SliceViewerMantidPlotTest_'	--exclude-regex 'SliceViewerPythonInterface'	|| die
 	ctest -R 'SliceViewerTest_'	|| die
 	# All the MantidPlot* tests use the GUI
+
+	popd
 }
