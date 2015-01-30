@@ -87,30 +87,30 @@ src_test() {
 	# Tests are not built by default
 	emake AllTests
 	# Run only the tests that work without data files or GUI access
-	ctest -R 'KernelTest_'		  --exclude-regex 'Config|File|Glob|Nexus'
-	ctest -R 'GeometryTest_'	  --exclude-regex 'InstrumentDefinitionParser'
-	ctest -R 'APITest_'		  --exclude-regex 'File|IO'
-	ctest -R 'PythonInterface_'	  --exclude-regex 'Load'
-	ctest -R 'PythonInterfaceCppTest_'
-	ctest -R 'PythonInterfaceKernel_' --exclude-regex 'PropertyHistory'
-	ctest -R 'PythonInterfaceGeometry_'
+	ctest -R 'KernelTest_'		  --exclude-regex 'Config|File|Glob|Nexus'	|| die
+	ctest -R 'GeometryTest_'	  --exclude-regex 'InstrumentDefinitionParser'	|| die
+	ctest -R 'APITest_'		  --exclude-regex 'File|IO'	|| die
+	ctest -R 'PythonInterface_'	  --exclude-regex 'Load'	|| die
+	ctest -R 'PythonInterfaceCppTest_'	|| die
+	ctest -R 'PythonInterfaceKernel_' --exclude-regex 'PropertyHistory'	|| die
+	ctest -R 'PythonInterfaceGeometry_'	|| die
 	# Too many failing tests for 'PythonAlgorithms_'
-	ctest -R 'PythonFunctions_'
-	ctest -R 'DataObjectsTest_'
-	ctest -R 'DataHandlingTest_'	  --exclude-regex 'Append|Chunk|File|Group|Load|Log|Save|PSD|Workspace|XML'
+	ctest -R 'PythonFunctions_'	|| die
+	ctest -R 'DataObjectsTest_'	|| die
+	ctest -R 'DataHandlingTest_'	  --exclude-regex 'Append|Chunk|File|Group|Load|Log|Save|PSD|Workspace|XML'	|| die
 	# Too many failing tests for 'AlgorithmTest_'
-	ctest -R 'CurveFittingTest_'	  --exclude-regex 'AugmentedLagrangian|FitPowderDiffPeaks|TabulatedFunction'
+	ctest -R 'CurveFittingTest_'	  --exclude-regex 'AugmentedLagrangian|FitPowderDiffPeaks|TabulatedFunction'	|| die
 	# Too many failing tests for 'CrystalTest_'
-	ctest -R 'ICatTest_'
-	ctest -R 'LiveDataTest_'	  --exclude-regex 'File'
-	ctest -R 'PSISINQTest_'		  --exclude-regex 'LoadFlexiNexus'
-	ctest -R 'MDAlgorithmsTest_'	  --exclude-regex 'LoadSQW'
-	ctest -R 'MDEventsTest_'	  --exclude-regex 'OneStepMDEW'
-	ctest -R 'ScriptRepositoryTest_'
-	ctest -R 'MantidQtAPITest_'
-	ctest -R 'MantidWidgetsTest_'
-	ctest -R 'CustomInterfacesTest_'  --exclude-regex 'IO|Load'
-	ctest -R 'SliceViewerMantidPlotTest_'
-	ctest -R 'SliceViewerTest_'
+	ctest -R 'ICatTest_'	|| die
+	ctest -R 'LiveDataTest_'	  --exclude-regex 'File'	|| die
+	ctest -R 'PSISINQTest_'		  --exclude-regex 'LoadFlexiNexus'	|| die
+	ctest -R 'MDAlgorithmsTest_'	  --exclude-regex 'LoadSQW'	|| die
+	ctest -R 'MDEventsTest_'	  --exclude-regex 'OneStepMDEW'	|| die
+	ctest -R 'ScriptRepositoryTest_'	|| die
+	ctest -R 'MantidQtAPITest_'	|| die
+	ctest -R 'MantidWidgetsTest_'	|| die
+	ctest -R 'CustomInterfacesTest_'  --exclude-regex 'IO|Load'	|| die
+	ctest -R 'SliceViewerMantidPlotTest_'	|| die
+	ctest -R 'SliceViewerTest_'	|| die
 	# All the MantidPlot* tests use the GUI
 }
