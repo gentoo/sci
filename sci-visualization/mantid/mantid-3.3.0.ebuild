@@ -86,7 +86,15 @@ src_configure() {
 src_test() {
 	# Tests are not built by default
 	emake AllTests
-	# Run only the tests that work without data files or GUI access
+
+	# Many of the tests require data files not included in the source tarball.
+	# There are pull requests on Github to deal with this, so hopefully it
+	# will be fixed by the next release. See:
+	# https://github.com/mantidproject/mantid/pull/150
+	# http://trac.mantidproject.org/mantid/ticket/10869
+	# http://trac.mantidproject.org/mantid/ticket/10871
+
+	# For now we use a subset of tests that work without data files or GUI access
 	ctest -R 'KernelTest_'		  --exclude-regex 'Config|File|Glob|Nexus'	|| die
 	ctest -R 'GeometryTest_'	  --exclude-regex 'InstrumentDefinitionParser'	|| die
 	ctest -R 'APITest_'		  --exclude-regex 'File|IO'	|| die
