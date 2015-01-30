@@ -18,7 +18,6 @@ LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="doc +opencascade opencl paraview pch tcmalloc test"
-RESTRICT="test" # Testing requires sample data and X11 access
 
 # There is a list of dependencies on the Mantid website at:
 # http://www.mantidproject.org/Mantid_Prerequisites
@@ -87,5 +86,31 @@ src_configure() {
 src_test() {
 	# Tests are not built by default
 	emake AllTests
-	cmake-utils_src_test
+	# Run only the tests that work without data files or GUI access
+	ctest -R 'KernelTest_'		  --exclude-regex 'Config|File|Glob|Nexus'
+	ctest -R 'GeometryTest_'	  --exclude-regex 'InstrumentDefinitionParser'
+	ctest -R 'APITest_'		  --exclude-regex 'File|IO'
+	ctest -R 'PythonInterface_'	  --exclude-regex 'Load'
+	ctest -R 'PythonInterfaceCppTest_'
+	ctest -R 'PythonInterfaceKernel_' --exclude-regex 'PropertyHistory'
+	ctest -R 'PythonInterfaceGeometry_'
+	# Too many failing tests for 'PythonAlgorithms_'
+	ctest -R 'PythonFunctions_'
+	ctest -R 'DataObjectsTest_'
+	ctest -R 'DataHandlingTest_'	  --exclude-regex 'Append|Chunk|File|Group|Load|Log|Save|PSD|Workspace|XML'
+	# Too many failing tests for 'AlgorithmTest_'
+	ctest -R 'CurveFittingTest_'	  --exclude-regex 'AugmentedLagrangian|FitPowderDiffPeaks|TabulatedFunction'
+	# Too many failing tests for 'CrystalTest_'
+	ctest -R 'ICatTest_'
+	ctest -R 'LiveDataTest_'	  --exclude-regex 'File'
+	ctest -R 'PSISINQTest_'		  --exclude-regex 'LoadFlexiNexus'
+	ctest -R 'MDAlgorithmsTest_'	  --exclude-regex 'LoadSQW'
+	ctest -R 'MDEventsTest_'	  --exclude-regex 'OneStepMDEW'
+	ctest -R 'ScriptRepositoryTest_'
+	ctest -R 'MantidQtAPITest_'
+	ctest -R 'MantidWidgetsTest_'
+	ctest -R 'CustomInterfacesTest_'  --exclude-regex 'IO|Load'
+	ctest -R 'SliceViewerMantidPlotTest_'
+	ctest -R 'SliceViewerTest_'
+	# All the MantidPlot* tests use the GUI
 }
