@@ -84,6 +84,8 @@ src_configure() {
 }
 
 src_test() {
+	cd "${BUILD_DIR}" # For some reason this is not done automatically...
+
 	# Tests are not built by default
 	emake AllTests
 
