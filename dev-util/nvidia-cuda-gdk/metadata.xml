@@ -6,6 +6,11 @@
     <email>marbre@linux.sungazer.de</email>
     <name>Marius Brehler</name>
   </maintainer>
+  <longdescription>
+    The GPU Deployment Kit (previously known as the Tesla Deployment
+    Kit) is a set of tools provided for the NVIDIA Tesla™, GRID™ and
+    Quadro™ GPUs.
+  </longdescription>
   <use>
     <flag name="healthmon">
 			Install nvidia-healthmon.
