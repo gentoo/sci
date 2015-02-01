@@ -39,11 +39,14 @@ CDEPEND="dev-libs/libpcre
 	sys-libs/ncurses
 	sys-libs/readline
 	virtual/lapack
-	emf? ( dev-java/freehep-graphicsio-emf )
+	emf? (  dev-java/freehep-graphicsio
+			dev-java/freehep-graphicsio-emf
+			dev-java/freehep-graphics2d
+			dev-java/freehep-io
+			dev-java/freehep-util )
 	fftw? ( sci-libs/fftw:3.0 )
 	gui? (
 		dev-java/avalon-framework:4.2
-		dev-java/batik:1.7
 		dev-java/commons-io:1
 		dev-java/commons-logging:0
 		>=dev-java/flexdock-1.2.4:0
@@ -58,7 +61,9 @@ CDEPEND="dev-libs/libpcre
 		>=dev-java/jrosetta-1.0.4:0
 		dev-java/skinlf:0
 		dev-java/xmlgraphics-commons:1.5
-		virtual/opengl )
+		virtual/opengl
+		xcos? ( dev-java/jgraphx:2.5 )
+		)
 	matio? ( >=sci-libs/matio-1.5 )
 	tk? ( dev-lang/tk )
 	umfpack? ( sci-libs/umfpack )"
@@ -71,11 +76,12 @@ DEPEND="${CDEPEND}
 	debug? ( dev-util/lcov )
 	gui? (
 		>=virtual/jdk-1.5
-		doc? ( app-text/docbook-xsl-stylesheets
+		doc? ( dev-java/batik:1.7
+			   app-text/docbook-xsl-stylesheets
 			   dev-java/xml-commons-external:1.4
 			   dev-java/saxon:9 )
-		xcos? ( dev-lang/ocaml
-				dev-java/jgraphx:2.5 ) )
+		xcos? ( dev-lang/ocaml )
+		)
 	test? (
 		dev-java/junit:4
 		gui? ( ${VIRTUALX_DEPEND} ) )"
@@ -155,13 +161,15 @@ src_prepare() {
 		java-pkg_jar-from xmlgraphics-commons-1.5,commons-io-1
 		java-pkg_jar-from jogl-2.1 jogl-all.jar jogl2.jar
 		java-pkg_jar-from gluegen-2.1 gluegen-rt.jar gluegen2-rt.jar
-		java-pkg_jar-from batik-1.7 batik-all.jar
 		java-pkg_jar-from fop fop.jar
 		java-pkg_jar-from javahelp jhall.jar
 		java-pkg_jar-from jlatexmath-fop-1
-		java-pkg_jar-from xml-commons-external-1.4 xml-apis-ext.jar
 		use xcos &&	java-pkg_jar-from jgraphx-2.5
-		use doc && java-pkg_jar-from saxon-9 saxon.jar saxon9he.jar
+		if use doc; then
+			java-pkg_jar-from --build-only batik-1.7 batik-all.jar
+			java-pkg_jar-from --build-only saxon-9 saxon.jar saxon9he.jar
+			java-pkg_jar-from --build-only xml-commons-external-1.4 xml-apis-ext.jar
+		fi
 	fi
 	if use emf; then
 		java-pkg_jar-from freehep-graphicsio-emf,freehep-graphics2d
