@@ -1,6 +1,12 @@
 # ChangeLog for dev-util/amdapp
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*amdapp-2.9 (01 Feb 2015)
+
+  01 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +amdapp-2.9.ebuild:
+  Version bump and fix 32bit build
 
   14 Nov 2014; Christoph Junghans <ottxor@gentoo.org> amdapp-2.8.ebuild:
   switch to virtual/opencl
