@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,7 +13,7 @@ SRC_URI="http://${PN}.unipro.ru/downloads/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="sse2"
+IUSE="cpu_flags_x86_sse2"
 
 DEPEND="
 	dev-qt/qtgui:4"
@@ -29,7 +29,7 @@ src_configure() {
 		CONFIG_OPTS+=( CONFIG+="ppc" )
 	fi
 
-	use sse2 && CONFIG_OPTS+=( use_sse2 )
+	use cpu_flags_x86_sse2 && CONFIG_OPTS+=( use_sse2 )
 
 	eqmake4 $CONFIG_OPTS || die
 }
