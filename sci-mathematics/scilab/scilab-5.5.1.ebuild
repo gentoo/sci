@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -219,6 +219,8 @@ src_configure() {
 }
 
 src_compile() {
+	#bug 531886 need to investigate what's using /proc/mtrr
+	addpredict /proc/mtrr
 	emake
 	use doc && emake doc
 }
