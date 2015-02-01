@@ -51,7 +51,7 @@ pkg_nofetch() {
 }
 
 src_unpack() {
-	default 
+	default
 
 	cd "${WORKDIR}" || die
 
