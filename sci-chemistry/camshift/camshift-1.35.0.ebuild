@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,7 +15,7 @@ SRC_URI="http://www-vendruscolo.ch.cam.ac.uk/${PN}/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="sse"
+IUSE="cpu_flags_x86_sse"
 
 RDEPEND="
 	virtual/blas
@@ -31,7 +31,7 @@ src_configure(){
 	local myeconfargs=(
 		--with-lapack
 		--with-external-blas
-		$(use_enable sse mkasm)
+		$(use_enable cpu_flags_x86_sse mkasm)
 	)
 	autotools-utils_src_configure
 }
