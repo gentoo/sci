@@ -5,6 +5,7 @@
 EAPI=5
 
 DESCRIPTION="A meta-package for installing all EMBASSY packages (EMBOSS add-ons)"
+HOMEPAGE="http://emboss.sourceforge.net/embassy/"
 
 LICENSE+=" freedist"
 SLOT="0"

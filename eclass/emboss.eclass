@@ -44,8 +44,12 @@ case ${EAPI:-0} in
 	*) die "this eclass doesn't support < EAPI 4" ;;
 esac
 
-AUTOTOOLS_IN_SOURCE_BUILD=1
-inherit autotools autotools-utils eutils flag-o-matic
+if [[ -f "${FILESDIR}"/${P}_fix-build-system.patch ]]; then
+	AUTOTOOLS_AUTORECONF=1
+	AUTOTOOLS_IN_SOURCE_BUILD=1
+fi
+
+inherit autotools-utils eutils flag-o-matic
 
 HOMEPAGE="http://emboss.sourceforge.net/"
 LICENSE="LGPL-2 GPL-2"
@@ -80,7 +84,7 @@ if [[ ${PN} == embassy-* ]]; then
 	S="${WORKDIR}"/${EF}
 fi
 
-DOCS=""
+DOCS=()
 #DOCS="AUTHORS ChangeLog NEWS README"
 
 # @FUNCTION: emboss_src_prepare
@@ -95,7 +99,6 @@ emboss_src_prepare() {
 	if [[ -f "${FILESDIR}"/${P}_fix-build-system.patch ]]; then
 		mv configure.{in,ac} || die
 		epatch "${FILESDIR}"/${P}_fix-build-system.patch
-		AUTOTOOLS_AUTORECONF=1
 	fi
 
 	[[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}-upstream.patch
