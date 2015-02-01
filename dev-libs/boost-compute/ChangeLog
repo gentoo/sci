@@ -1,0 +1,10 @@
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*boost-compute-9999 (01 Feb 2015)
+*boost-compute-0.4 (01 Feb 2015)
+
+  01 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +metadata.xml, +boost-compute-9999.ebuild, +boost-compute-0.4.ebuild:
+  Add Boost.Compute to overlay
+ 
