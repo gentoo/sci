@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/fftw
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  29 Jan 2015; Marius Brehler <marbre@linux.sungazer.de> fftw-9999.ebuild,
+  metadata.xml:
+  Convert to CPU_FLAGS_X86 (adopted from tree)
 
   04 Jul 2014; Justin Lecher <jlec@gentoo.org> fftw-9999.ebuild:
   Drop reference to app-emulation/emul-linux-x86-soundlibs

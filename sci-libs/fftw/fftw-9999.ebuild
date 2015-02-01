@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -24,7 +24,7 @@ fi
 
 LICENSE="GPL-2"
 SLOT="3.0"
-IUSE="altivec avx doc fma fortran mpi neon openmp quad sse sse2 static-libs test threads zbus"
+IUSE="altivec cpu_flags_x86_avx doc cpu_flags_x86_fma3 cpu_flags_x86_fma4 fortran mpi neon openmp quad cpu_flags_x86_sse cpu_flags_x86_sse2 static-libs test threads zbus"
 
 RDEPEND="mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
@@ -95,7 +95,7 @@ src_configure() {
 		fi
 
 		myeconfargs=(
-			$(use_enable fma)
+			$(use_enable "cpu_flags_x86_fma$(usex cpu_flags_x86_fma3 3 4)" fma)
 			$(use_enable fortran)
 			$(use_enable zbus mips-zbus-timer)
 			$(use_enable threads)
@@ -106,15 +106,15 @@ src_configure() {
 			myeconfargs+=(
 				--enable-single
 				$(use_enable altivec)
-				$(use_enable avx)
-				$(use_enable sse)
+				$(use_enable cpu_flags_x86_avx avx)
+				$(use_enable cpu_flags_x86_sse sse)
 				${enable_mpi}
 				$(use_enable neon)
 			)
 		elif [[ $x == double ]]; then
 			myeconfargs+=(
-				$(use_enable avx)
-				$(use_enable sse2)
+				$(use_enable cpu_flags_x86_avx avx)
+				$(use_enable cpu_flags_x86_sse2 sse2)
 				${enable_mpi}
 			)
 		elif [[ $x == longdouble ]]; then

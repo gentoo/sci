@@ -12,8 +12,6 @@
   publicly available FFT software.
 </longdescription>
   <use>
-    <flag name="avx">Adds support for Advanced Vector Extensions</flag>
-    <flag name="fma">Use the Fused Multiply Add instruction set (fma3/fma4 either one)</flag>
     <flag name="quad">Build quadruple precision lib</flag>
     <flag name="zbus">Adds support for ZBus cycle-counter of mips</flag>
   </use>
