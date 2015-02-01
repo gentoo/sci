@@ -6,6 +6,13 @@
     <email>marbre@linux.sungazer.de</email>
     <name>Marius Brehler</name>
   </maintainer>
+  <longdescription>
+    ArrayFire is a high performance software library for parallel
+    computing with an easy-to-use API. Its array based function set
+    makes parallel programming simple. ArrayFire's multiple backends
+    (CUDA, OpenCL and native CPU) make it platform independent and
+    highly portable.
+  </longdescription>
   <use>
     <flag name="cpu">
       Enable CPU Build.
