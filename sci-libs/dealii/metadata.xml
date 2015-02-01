@@ -14,7 +14,6 @@ to the complex data structures and algorithms required.
 	</longdescription>
 	<use>
 		<flag name="arpack">Adds support for ARPACK (<pkg>sci-libs/arpack</pkg>)</flag>
-		<flag name="avx">Use Advanced Vector Extensions for AVX capable chips</flag>
 		<flag name="debug">
 Build an additional debug library with extra debug codepaths, like asserts
 and extra output. If you want to get meaningful backtraces see

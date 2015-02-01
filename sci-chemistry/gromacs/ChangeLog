@@ -1,6 +1,10 @@
 # ChangeLog for sci-chemistry/gromacs
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  31 Jan 2015; Christoph Junghans <ottxor@gentoo.org> gromacs-4.6.9999.ebuild,
+  gromacs-5.0.9999.ebuild, gromacs-9999.ebuild, metadata.xml:
+  Switch to CPU_FLAGS_X86 (bug #538268)
 
   21 Dec 2014; Christoph Junghans <ottxor@gentoo.org> gromacs-5.0.9999.ebuild:
   sync with gx86
