@@ -1,0 +1,110 @@
+--- extras/build.orig	2013-10-18 21:37:53.533939550 +1300
++++ extras/build	2013-10-18 21:40:42.283158471 +1300
+@@ -41,7 +41,7 @@
+ 
+ errorprojs="" ; export errorprojs ;
+ 
+-PROJECTS="tcl tk zlib libpng libiconv libgd libgdc libprob libcprob newmat cprob newran cephes fftw"
++PROJECTS="libgdc libprob libcprob newmat cprob newran cephes"
+ 
+ for projname in $PROJECTS; do
+ 
+--- build.orig	2013-10-18 22:24:22.312777248 +1300
++++ build	2013-10-18 22:24:59.161835107 +1300
+@@ -11,8 +11,7 @@
+ ifit load_varian load_dicom misc_scripts fdt first possum sgeutils flameo oxford_asl relax qboot topup ptx2 lesions eddy dwssfp";
+ fi
+ 
+-echo "Building projects - see build.log file for progress..."
+-./config/common/buildproj $PROJECTS > ./build.log 2>&1
+-echo "Finished build : end of log file shows ..."
+-tail -10 build.log
++echo "Building projects"
++./config/common/buildproj $PROJECTS
++echo "Finished build"
+ 
+--- config/common/buildproj.orig	2013-10-18 22:28:40.683182435 +1300
++++ config/common/buildproj	2013-10-18 22:29:09.612227825 +1300
+@@ -11,10 +11,10 @@
+ fi
+ PROJECTS="$@" ; export PROJECTS ;
+ 
+-FSLDIR=`pwd`
++#FSLDIR=`pwd`
+ FSLDEVDIR=${FSLDIR}
+ FSLCONFDIR=${FSLDIR}/config
+-FSLMACHTYPE=`${FSLDIR}/etc/fslconf/fslmachtype.sh`
++#FSLMACHTYPE=`${FSLDIR}/etc/fslconf/fslmachtype.sh`
+ export FSLDIR FSLDEVDIR FSLCONFDIR FSLMACHTYPE
+ 
+ buildmessages="" ; export buildmessages ;
+--- config/generic/systemvars.mk.orig	2007-07-13 23:00:20.000000000 +1200
++++ config/generic/systemvars.mk	2013-10-18 23:13:06.472693414 +1300
+@@ -4,20 +4,20 @@
+ 
+ # System dependent commands (NB: the first two are the most platform dependent)
+ 
+-INSTALL = ginstall -p
+-RANLIB = ranlib
++INSTALL = install -p
++RANLIB = @@GENTOO_RANLIB@@
+ 
+ RM = /bin/rm
+ CP = /bin/cp
+ MV = /bin/mv
+ CHMOD = /bin/chmod
+ MKDIR = /bin/mkdir
+-TCLSH = ${FSLDIR}/bin/fsltclsh
++TCLSH = tclsh
+ 
+ # Compiler dependent variables
+ 
+-CC = gcc
+-CXX = c++
++CC = @@GENTOO_CC@@
++CXX = @@GENTOO_CXX@@
+ CSTATICFLAGS = -static
+ CXXSTATICFLAGS = -static
+ 
+@@ -25,7 +25,7 @@
+ 
+ DEPENDFLAGS = -MM
+ 
+-OPTFLAGS =  -O3 -fexpensive-optimizations ${ARCHFLAGS}
++OPTFLAGS =
+ MACHDBGFLAGS =
+ GNU_ANSI_FLAGS = -Wall -ansi -pedantic
+ SGI_ANSI_FLAGS = -ansi -fullwarn
+--- config/common/vars.mk.orig	2013-10-18 23:39:26.384029157 +1300
++++ config/common/vars.mk	2013-10-18 23:40:49.489145387 +1300
+@@ -24,15 +24,15 @@
+ USRCFLAGS = 
+ USRCXXFLAGS =
+ 
+-LDFLAGS = ${ARCHLDFLAGS} ${USRLDFLAGS} -L. -L${DEVLIBDIR} -L${LIBDIR}
++LDFLAGS = ${ARCHLDFLAGS} ${USRLDFLAGS} -L. -L${DEVLIBDIR} -L${LIBDIR} ${USERLDFLAGS}
+ 
+-AccumulatedIncFlags = ${USRINCFLAGS} -I. -I${DEVINCDIR} -I${INCDIR}
++AccumulatedIncFlags = ${USRINCFLAGS} -I. -I${DEVINCDIR} -I${INCDIR} ${CPPFLAGS}
+ 
+ CFLAGS = ${ANSI_FLAGS} ${DBGFLAGS} ${USEDCSTATICFLAGS} ${USRCFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
+-	${AccumulatedIncFlags}
++	${AccumulatedIncFlags} ${USERCFLAGS}
+ 
+ CXXFLAGS = ${ANSI_FLAGS} ${DBGFLAGS} ${USEDCXXSTATICFLAGS} ${USRCXXFLAGS} ${ARCHFLAGS} ${OPTFLAGS}  \
+-	${AccumulatedIncFlags}
++	${AccumulatedIncFlags} ${USERCXXFLAGS}
+ 
+ HFILES = *.h
+ AFILES = *.a
+--- config/common/buildproj.orig	2013-10-19 23:27:10.477238469 +1300
++++ config/common/buildproj	2013-10-19 23:28:32.207370622 +1300
+@@ -66,7 +66,7 @@
+ 	  if [ -x fslconfig ] ; then
+ 	    ./fslconfig ;
+ 	  fi
+-	  if ${MAKE} -k ${MAKEOPTIONS} ; then 
++	  if ${MAKE} ${MAKEOPTIONS} ${MAKEOPTS} ; then 
+ 	    if ${MAKE} install ; then
+ 	      installok=true;
+ 	      # Clean up after ourselves
