@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
+  amdapp-2.8.ebuild:
+  Fix 32bit build, add link to download archive
+
 *amdapp-2.9 (01 Feb 2015)
 
   01 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
