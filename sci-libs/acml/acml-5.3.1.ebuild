@@ -30,7 +30,7 @@ SRC_URI="
 LICENSE="ACML"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~amd64-linux"
-IUSE="doc examples fma gfortran ifort int64 open64 openmp pgi static-libs test"
+IUSE="doc examples cpu_flags_x86_fma4 gfortran ifort int64 open64 openmp pgi static-libs test"
 RESTRICT="fetch strip mirror"
 
 DEPEND=""
@@ -42,7 +42,7 @@ src_unpack() {
 	unpack ${A}
 	unpack ./contents-acml-*.tgz
 	use openmp || rm -rf *_mp*
-	use fma || rm -rf *_fma*
+	use cpu_flags_x86_fma4 || rm -rf *_fma*
 }
 
 src_test() {
@@ -99,7 +99,7 @@ src_install() {
 		use ${fdir} && opts=${fdir}
 	done
 	opts+="64"
-	use fma && opts+="_fma4"
+	use cpu_flags_x86_fma4 && opts+="_fma4"
 	use openmp && opts+="_mp"
 	use int64 && opts+="_int64"
 	dosym $(ls -1d */lib | grep ${opts}) /${ACML_INST_DIR}/${libdir}

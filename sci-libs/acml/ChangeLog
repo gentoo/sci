@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
+  acml-5.3.0.ebuild:
+  Convert fma to cpu_flags_x86_fma4
+
   20 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
   acml-5.3.0.ebuild:
   Fix HOMEPAGE and URI
