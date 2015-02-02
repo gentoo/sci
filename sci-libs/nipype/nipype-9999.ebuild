@@ -18,7 +18,7 @@ EGIT_REPO_URI="https://github.com/nipy/nipype"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
-IUSE="fsl, spm"
+IUSE="fsl spm"
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
