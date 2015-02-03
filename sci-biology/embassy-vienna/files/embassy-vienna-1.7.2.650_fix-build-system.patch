@@ -77,7 +77,7 @@
 -AM_CPPFLAGS = -I../H -I${embprefix}/include -I${embprefix}/include/eplplot \
 -	$(NLINCLUDES) \
 -	-I${embprefix}/include/epcre
-+AM_CPPFLAGS = -I../H -I${embprefix}/include $(NLINCLUDES) $(PLPLOT_CFLAGS)
++AM_CPPFLAGS = -I$(top_srcdir)/H -I${embprefix}/include $(NLINCLUDES) $(PLPLOT_CFLAGS)
  endif
  
  if ISSHARED

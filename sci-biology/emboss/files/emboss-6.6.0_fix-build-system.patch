@@ -1,12 +1,13 @@
 --- EMBOSS-6.6.0/ajax/acd/Makefile.am
 +++ EMBOSS-6.6.0/ajax/acd/Makefile.am
-@@ -3,16 +3,19 @@
+@@ -3,16 +3,20 @@
  lib_LTLIBRARIES = libacd.la
  
  libacd_la_CFLAGS = $(WARN_CFLAGS) $(DEVWARN_CFLAGS) $(JAVA_CFLAGS)
 +libacd_la_LIBADD = ../core/libajax.la ../graphics/libajaxg.la
  
  libacd_la_CPPFLAGS  = -I$(top_srcdir)/ajax/ajaxdb
++libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/core
  libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/ensembl
  libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/graphics
 -libacd_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
@@ -24,7 +25,7 @@
  libacd_la_LDFLAGS  = -version-info 6:5:0
 --- EMBOSS-6.6.0/ajax/ajaxdb/Makefile.am
 +++ EMBOSS-6.6.0/ajax/ajaxdb/Makefile.am
-@@ -3,14 +3,15 @@
+@@ -3,14 +3,16 @@
  lib_LTLIBRARIES = libajaxdb.la
  
  libajaxdb_la_CFLAGS = $(WARN_CFLAGS) $(DEVWARN_CFLAGS) $(JAVA_CFLAGS)
@@ -32,6 +33,7 @@
  
  libajaxdb_la_CPPFLAGS  = -I$(top_srcdir)/ajax/ensembl
 -libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
++libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/core
  if !ESYSTEMLIBS
 +libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
  libajaxdb_la_CPPFLAGS += -I$(top_srcdir)/ajax/expat
@@ -94,7 +96,7 @@
 +libensembl_la_LIBADD = ../core/libajax.la
  
 -libensembl_la_CPPFLAGS  = -I$(top_srcdir)/ajax/pcre
-+libensembl_la_CPPFLAGS  =
++libensembl_la_CPPFLAGS  = -I$(top_srcdir)/ajax/core
  if !ESYSTEMLIBS
 +libensembl_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
  libensembl_la_CPPFLAGS += -I$(top_srcdir)/ajax/expat
@@ -114,7 +116,7 @@
 +libajaxg_la_LIBADD = ../core/libajax.la $(PLPLOT_LIBS)
  
 -libajaxg_la_CPPFLAGS  = -I$(top_srcdir)/ajax/pcre
-+libajaxg_la_CPPFLAGS  =
++libajaxg_la_CPPFLAGS  = -I$(top_srcdir)/ajax/core
  if !ESYSTEMLIBS
 +libajaxg_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
  libajaxg_la_CPPFLAGS += -I$(top_srcdir)/ajax/expat
@@ -246,8 +248,11 @@
  # Enable the purify tool: --enable-purify, sets CC and LIBTOOL
 --- EMBOSS-6.6.0/emboss/Makefile.am
 +++ EMBOSS-6.6.0/emboss/Makefile.am
-@@ -30,13 +30,15 @@
+@@ -28,15 +28,18 @@
+ 
+ AM_CPPFLAGS  = -I$(top_srcdir)/ajax/acd
  AM_CPPFLAGS += -I$(top_srcdir)/ajax/ajaxdb
++AM_CPPFLAGS += -I$(top_srcdir)/ajax/core
  AM_CPPFLAGS += -I$(top_srcdir)/ajax/ensembl
  AM_CPPFLAGS += -I$(top_srcdir)/ajax/graphics
 -AM_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
@@ -264,7 +269,7 @@
  AM_CPPFLAGS += $(AXIS2C_CPPFLAGS)
  AM_CPPFLAGS += $(JAVA_CPPFLAGS)
  
-@@ -49,9 +51,11 @@
+@@ -49,9 +52,11 @@
  if !ESYSTEMLIBS
  LDADD += ../ajax/zlib/libezlib.la
  LDADD += ../ajax/expat/libeexpat.la
@@ -277,6 +282,41 @@
  LDADD += $(XLIB)
  
  #if PURIFY
+--- EMBOSS-6.6.0/jemboss/lib/Makefile.am
++++ EMBOSS-6.6.0/jemboss/lib/Makefile.am
+@@ -12,7 +12,7 @@
+ jalviewApplet.jar \
+ jemboss.jar
+ 
+-jemboss.jar:../org/emboss/jemboss/server/JembossFile*Server.java
++jemboss.jar:$(srcdir)/../org/emboss/jemboss/server/JembossFile*Server.java
+ if JAVA_BUILD
+ 	$(ANT) -f ../build.xml package -Demboss.data=../emboss/data -Dname=jemboss -Djar.dir=lib -Dnotformemboss=yes;
+ endif
+--- EMBOSS-6.6.0/m4/idxdbs.m4
++++ EMBOSS-6.6.0/m4/idxdbs.m4
+@@ -1,17 +1,8 @@
+ AC_DEFUN([CHECK_IDXDBS],
+ [
+-AC_MSG_CHECKING(for EMBOSS pre-indexed databases)
++AC_MSG_NOTICE(checking for EMBOSS pre-indexed databases)
+ 
+-
+-if test -f ./emboss/index/edam.xac; then
+-AC_MSG_RESULT(yes)
+-else
+-AC_MSG_RESULT(no)
+-echo ""
+-echo "Pre-indexed edam, taxon + drcat databases not found."
+-echo "Please download them from within this directory using:"
+-echo "    rsync -av rsync://emboss.open-bio.org/EMBOSS/ ."
+-echo "and then repeat the configure step."
+-exit 1
+-fi
++AC_CHECK_FILE([$srcdir/emboss/index/edam.xac],
++	[],
++	[AC_MSG_ERROR([cannot find pre-indexed edam, taxon + drcat databases])])
+ ])
 --- EMBOSS-6.6.0/Makefile.am
 +++ EMBOSS-6.6.0/Makefile.am
 @@ -12,8 +12,11 @@
@@ -315,7 +355,7 @@
  
 -libnucleus_la_CPPFLAGS  = -I$(top_srcdir)/plplot
 -libnucleus_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre
-+libnucleus_la_CPPFLAGS  =
++libnucleus_la_CPPFLAGS  = -I$(top_srcdir)/ajax/core
  if !ESYSTEMLIBS
 +libnucleus_la_CPPFLAGS += -I$(top_srcdir)/plplot
 +libnucleus_la_CPPFLAGS += -I$(top_srcdir)/ajax/pcre

@@ -78,7 +78,7 @@
 -	-I${embprefix}/include/eplplot \
 -	$(NLINCLUDES) \
 -	-I${embprefix}/include/epcre
-+AM_CPPFLAGS = -I../include -I${embprefix}/include $(NLINCLUDES) $(PLPLOT_CFLAGS)
++AM_CPPFLAGS = -I$(top_srcdir)/include -I${embprefix}/include $(NLINCLUDES) $(PLPLOT_CFLAGS)
  endif
  
  if ISSHARED
@@ -89,3 +89,10 @@
 -        -lajax -lepcre $(NLADD) -leplplot $(XLIB)
 +        -lajax $(NLADD) $(XLIB)
  endif
+--- PHYLIPNEW-3.69.650/emboss_acd/Makefile.am
++++ PHYLIPNEW-3.69.650/emboss_acd/Makefile.am
+@@ -1,3 +1,3 @@
+ 
+-pkgdata_DATA = *.acd
++pkgdata_DATA = $(srcdir)/*.acd
+ pkgdatadir=$(prefix)/share/EMBOSS/acd

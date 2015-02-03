@@ -1,20 +1,22 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/emboss.eclass,v 1.3 2012/09/27 16:35:41 axs Exp $
+# $Header: $
 
 # @ECLASS: emboss.eclass
 # @MAINTAINER:
 # sci-biology@gentoo.org
 # jlec@gentoo.org
+# ted.tanberry@gmail.com
 # @AUTHOR:
 # Original author: Author Olivier Fisette <ofisette@gmail.com>
 # Next gen author: Justin Lecher <jlec@gentoo.org>
+# Next gen author: Ted Tanberry <ted.tanberry@gmail.com>
 # @BLURB: Use this to easy install EMBOSS and EMBASSY programs (EMBOSS add-ons).
 # @DESCRIPTION:
-# The inheriting ebuild must set EAPI=4 and provide EBO_DESCRIPTION before the inherit line.
+# The inheriting ebuild must set at least EAPI=4 and provide EBO_DESCRIPTION before the inherit line.
 # KEYWORDS should be set. Additionally "(R|P)DEPEND"encies and other standard
 # ebuild variables can be extended (FOO+=" bar").
-# Default installation of following DOCS="AUTHORS ChangeLog NEWS README"
+# Default installation of following DOCS=()
 #
 # Example:
 #
@@ -46,7 +48,6 @@ esac
 
 if [[ -f "${FILESDIR}"/${P}_fix-build-system.patch ]]; then
 	AUTOTOOLS_AUTORECONF=1
-	AUTOTOOLS_IN_SOURCE_BUILD=1
 fi
 
 inherit autotools-utils eutils flag-o-matic
@@ -85,14 +86,15 @@ if [[ ${PN} == embassy-* ]]; then
 fi
 
 DOCS=()
-#DOCS="AUTHORS ChangeLog NEWS README"
 
 # @FUNCTION: emboss_src_prepare
 # @DESCRIPTION:
-# Does following things
+# Does the following things
 #
-#  1. Patches with "${FILESDIR}"/${PF}.patch, if present
-#  2. Runs eautoreconf, unless EBO_EAUTORECONF is set to no
+#  1. Patches with "${FILESDIR}"/${P}_fix-build-system.patch, if present,
+#     and eventually runs eautoreconf in autotools-utils
+#  2. Patches with "${WORKDIR}"/${P}-upstream-r1.patch, if ${EBO_PATCH} is set
+#  3. Patches with "${FILESDIR}"/${PF}.patch, if present
 #
 
 emboss_src_prepare() {
@@ -101,7 +103,7 @@ emboss_src_prepare() {
 		epatch "${FILESDIR}"/${P}_fix-build-system.patch
 	fi
 
-	[[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}-upstream.patch
+	[[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}-upstream-r1.patch
 	[[ -f ${FILESDIR}/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
 
 	autotools-utils_src_prepare

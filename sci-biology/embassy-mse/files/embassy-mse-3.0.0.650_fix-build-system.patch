@@ -102,7 +102,7 @@
 -AM_CPPFLAGS = -I../h -I${embprefix}/include \
 -	-I${embprefix}/include/eplplot -I${embprefix}/include/epcre \
 -	$(NLINCLUDES)
-+AM_CPPFLAGS = -I../h -I${embprefix}/include $(NLINCLUDES) $(PLPLOT_CFLAGS) $(NCURSES_CFLAGS)
++AM_CPPFLAGS = -I$(top_srcdir)/h -I${embprefix}/include $(NLINCLUDES) $(PLPLOT_CFLAGS) $(NCURSES_CFLAGS)
  endif
  
  if ISSHARED
@@ -113,3 +113,21 @@
 -	-lensembl -lajaxg -lajax -lepcre $(NLADD) -leplplot $(XLIB)
 +	-lensembl -lajaxg -lajax $(NLADD) $(NCURSES_LIBS) $(XLIB)
  endif
+--- MSE-3.0.0.650/ckit/Makefile.am
++++ MSE-3.0.0.650/ckit/Makefile.am
+@@ -2,7 +2,7 @@
+ 
+ lib_LTLIBRARIES = libckit.la
+ 
+-AM_CPPFLAGS = -I../h
++AM_CPPFLAGS = -I$(top_srcdir)/h
+ 
+ CKITSRC = datafiles.c next.c seqentry.c strings.c gcg.c pir.c \
+ seqspec.c ttyinterface.c nextseqentry.c \
+--- MSE-3.0.0.650/emboss_acd/Makefile.am
++++ MSE-3.0.0.650/emboss_acd/Makefile.am
+@@ -1,3 +1,3 @@
+ 
+-pkgdata_DATA = *.acd
++pkgdata_DATA = $(srcdir)/*.acd
+ pkgdatadir=$(prefix)/share/EMBOSS/acd
