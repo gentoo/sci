@@ -1,6 +1,11 @@
 # ChangeLog for sci-biology/embassy-emnu
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-emnu/ChangeLog,v 1.29 2010/01/01 21:55:20 fauli Exp $
+
+  04 Feb 2015; Justin Lecher <jlec@gentoo.org> -embassy-emnu-1.05-r7.ebuild,
+  embassy-emnu-1.05.650.ebuild, -files/embassy-emnu-1.05-r7.patch,
+  metadata.xml:
+  Bump eclass, Drop old
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> embassy-emnu-1.05-r7.ebuild:
   Dropped ~ppc due to missing keywording of sci-libs/plplot, #358035
