@@ -7,7 +7,7 @@ EAPI=5
 EBO_DESCRIPTION="MSE - Multiple Sequence Screen Editor"
 EBO_EXTRA_ECONF="$(use_enable ncurses curses)"
 
-inherit emboss
+inherit emboss-r1
 
 KEYWORDS="~amd64 ~x86 ~x86-linux ~ppc-macos"
 IUSE+=" ncurses"
@@ -15,7 +15,7 @@ IUSE+=" ncurses"
 RDEPEND+=" ncurses? ( sys-libs/ncurses )"
 
 src_install() {
-	default
+	emboss-r1_src_install
 	insinto /usr/include/emboss/mse
 	doins h/*.h
 }
