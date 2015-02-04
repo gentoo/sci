@@ -12,7 +12,7 @@ HOMEPAGE="https://github.com/jiffyclub/brewer2mpl"
 
 if [ ${PV} == "9999" ] ; then
 	inherit git-r3
-	EGIT_REPO_URI="https://github.com/jiffyclub/${PN}.git git://github.com:jiffyclub/${PN}.git"
+	EGIT_REPO_URI="https://github.com/jiffyclub/${PN}.git git://github.com/jiffyclub/${PN}.git"
 else
 	SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 	KEYWORDS="~amd64"
