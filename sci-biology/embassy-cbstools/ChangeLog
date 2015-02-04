@@ -1,6 +1,11 @@
 # ChangeLog for sci-biology/embassy-cbstools
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-cbstools/ChangeLog,v 1.5 2010/01/15 22:44:35 fauli Exp $
+
+  04 Feb 2015; Justin Lecher <jlec@gentoo.org>
+  -embassy-cbstools-1.0.0-r3.ebuild, embassy-cbstools-1.0.0.650.ebuild,
+  -files/embassy-cbstools-1.0.0-r2.patch, metadata.xml:
+  Bump eclass, Drop old
 
 *embassy-cbstools-1.0.0-r3 (19 Sep 2011)
 

@@ -19,7 +19,7 @@ SLOT="0"
 IUSE=""
 KEYWORDS="~amd64 ~x86"
 
-S="${WORKDIR}"/fastDNAml_${PV/_p/-}
+S="${WORKDIR}"/fastDNAml_${PV%_p*}
 
 src_prepare() {
 	mv ../debian . || die

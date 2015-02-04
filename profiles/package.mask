@@ -84,25 +84,26 @@ sci-biology/artemis-bin
 # Justin Lecher <jlec@gentoo.org> (20 Feb 2012)
 # They are broken in one or the other way
 # Need to be bumped to emboss-6.4.0
-sci-biology/emboss
-sci-biology/embassy
-sci-biology/embassy-cbstools
-sci-biology/embassy-domainatrix
-sci-biology/embassy-domalign
-sci-biology/embassy-domsearch
-sci-biology/embassy-emnu
-sci-biology/embassy-esim4
-sci-biology/embassy-hmmer
-sci-biology/embassy-iprscan
+<sci-biology/emboss-6.6.0
+<sci-biology/embassy-6.6.0
+<sci-biology/embassy-cbstools-1.0.0.650
+<sci-biology/embassy-clustalomega-1.1.0
+<sci-biology/embassy-domainatrix-0.1.650
+<sci-biology/embassy-domalign-0.1.650
+<sci-biology/embassy-domsearch-0.1.650
+<sci-biology/embassy-emnu-1.05.650
+<sci-biology/embassy-esim4-1.0.0.650
+<sci-biology/embassy-hmmer-2.3.2.650
+<sci-biology/embassy-iprscan-4.3.1.650
+<sci-biology/embassy-meme-4.7.650
 sci-biology/embassy-memenew
 sci-biology/embassy-mira
-sci-biology/embassy-mse
-sci-biology/embassy-phylipnew
-sci-biology/embassy-signature
-sci-biology/embassy-structure
-sci-biology/embassy-topo
-sci-biology/embassy-vienna
-sci-biology/embassy-clustalomega
+<sci-biology/embassy-mse-3.0.0.650
+<sci-biology/embassy-phylipnew-3.69.650
+<sci-biology/embassy-signature-0.1.650
+<sci-biology/embassy-structure-0.1.650
+<sci-biology/embassy-topo-2.0.650
+<sci-biology/embassy-vienna-1.7.2.650
 
 # Justin Lecher <jlec@gentoo.org> (24 Jun 2011)
 # paraview dep is masked
