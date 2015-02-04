@@ -4,10 +4,10 @@
 
 EAPI=5
 
-EBO_DESCRIPTION="wrappers for Clustal Omega - Scalable multiple alignment of protein sequences"
+EBO_DESCRIPTION="Clustal Omega - Scalable multiple protein sequences alignment"
 
-inherit emboss
+inherit emboss-r1
 
 KEYWORDS="~amd64 ~x86 ~x86-linux ~ppc-macos"
 
-RDEPEND+="sci-biology/clustal-omega"
+RDEPEND+=" sci-biology/clustal-omega"

@@ -1,6 +1,10 @@
-# ChangeLog for sci-biology/embassy-domalign
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sci-biology/embassy-clustalomega
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-domalign/ChangeLog,v 1.20 2010/01/01 21:51:36 fauli Exp $
+
+  04 Feb 2015; Justin Lecher <jlec@gentoo.org>
+  embassy-clustalomega-1.1.0.ebuild, metadata.xml:
+  Bump eclass
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org>
   embassy-domalign-0.1.0-r5.ebuild:
