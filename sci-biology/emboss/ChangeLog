@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/emboss
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/ChangeLog,v 1.61 2011/03/09 16:29:05 jlec Exp $
+
+  04 Feb 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Clean a bit, user readme.gentoo.eclass
 
   04 Jul 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   +files/emboss-6.3.1_p4-r2_rename_plwid_to_plwidth.patch,
