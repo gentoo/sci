@@ -6,6 +6,6 @@ EAPI=5
 
 EBO_DESCRIPTION="Protein domain alignment add-on package"
 
-inherit emboss
+inherit emboss-r1
 
 KEYWORDS="~amd64 ~x86 ~x86-linux ~ppc-macos"
