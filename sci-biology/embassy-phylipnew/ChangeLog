@@ -1,6 +1,11 @@
 # ChangeLog for sci-biology/embassy-phylipnew
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-phylipnew/ChangeLog,v 1.12 2010/01/01 22:02:06 fauli Exp $
+
+  04 Feb 2015; Justin Lecher <jlec@gentoo.org> -embassy-phylipnew-3.69.ebuild,
+  embassy-phylipnew-3.69.650.ebuild, -files/embassy-phylipnew-3.69.patch,
+  metadata.xml:
+  Bump eclass, drop old
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> embassy-phylipnew-3.69.ebuild:
   Dropped ~ppc due to missing keywording of sci-libs/plplot, #358035

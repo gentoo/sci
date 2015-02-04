@@ -6,7 +6,7 @@ EAPI=5
 
 EBO_DESCRIPTION="the Phylogeny Inference Package"
 
-inherit emboss
+inherit emboss-r1
 
 LICENSE+=" freedist"
 
