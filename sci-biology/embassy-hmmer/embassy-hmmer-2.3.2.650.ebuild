@@ -6,7 +6,7 @@ EAPI=5
 
 EBO_DESCRIPTION="wrappers for HMMER - Biological sequence analysis with profile HMMs"
 
-inherit emboss
+inherit emboss-r1
 
 KEYWORDS="~amd64 ~x86 ~x86-linux ~ppc-macos"
 
