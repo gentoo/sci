@@ -1,6 +1,10 @@
-# ChangeLog for sci-biology/embassy-memenew
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# ChangeLog for sci-biology/embassy-meme
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/embassy-memenew/ChangeLog,v 1.11 2010/01/01 22:03:00 fauli Exp $
+
+  04 Feb 2015; Justin Lecher <jlec@gentoo.org> embassy-meme-4.7.650.ebuild,
+  metadata.xml:
+  Bump eclass, Drop old
 
   14 Jan 2012; Andreas K. Huettel <dilfridge@gentoo.org>
   -embassy-memenew-4.0.0-r1.ebuild:
