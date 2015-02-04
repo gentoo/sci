@@ -4,10 +4,7 @@
 
 EAPI=5
 
-inherit autotools-utils emboss eutils
-
-EBO_PATCH=""
-EBOV=${PV}
+inherit autotools-utils emboss-r1 eutils readme.gentoo
 
 DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
 SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-${PV}.tar.gz"
@@ -25,38 +22,36 @@ PDEPEND+="
 		sci-biology/rebase
 		)"
 
-S="${WORKDIR}"/EMBOSS-${EBOV}
-
-EBO_EXTRA_ECONF="--includedir=${EPREFIX}/usr/include/emboss"
+S="${WORKDIR}"/EMBOSS-${PV}
 
 DOCS=( ChangeLog AUTHORS NEWS THANKS FAQ )
+
 PATCHES=(
-	"${FILESDIR}/${P}_FORTIFY_SOURCE-fix.patch"
-	"${FILESDIR}/${P}_plplot-declarations.patch"
-	"${FILESDIR}/${P}_qa-implicit-declarations.patch"
+	"${FILESDIR}"/${P}_FORTIFY_SOURCE-fix.patch
+	"${FILESDIR}"/${P}_plplot-declarations.patch
+	"${FILESDIR}"/${P}_qa-implicit-declarations.patch
 )
 
 src_install() {
 	# Use autotools-utils_* to remove useless *.la files
 	autotools-utils_src_install
 
-	sed -e "s:EPREFIX:${EPREFIX}:g" "${FILESDIR}"/${PN}-README.Gentoo-2 > README.Gentoo && \
-	dodoc README.Gentoo
+	readme.gentoo_create_doc
 
 	# Install env file for setting libplplot and acd files path.
-	cat <<- EOF > 22emboss
+	cat > 22emboss <<- EOF
 		# ACD files location
 		EMBOSS_ACDROOT="${EPREFIX}/usr/share/EMBOSS/acd"
 		EMBOSS_DATA="${EPREFIX}/usr/share/EMBOSS/data"
 	EOF
 	doenvd 22emboss
 
-	# Remove useless dummy files from the image.
+	# Remove useless dummy files
 	find "${ED}"/usr/share/EMBOSS -name dummyfile -delete || die "Failed to remove dummy files."
 
 	# Move the provided codon files to a different directory. This will avoid
 	# user confusion and file collisions on case-insensitive file systems (see
-	# bug #115446). This change is documented in "README.Gentoo".
+	# bug #115446). This change is documented in "README.gentoo".
 	mv "${ED}"/usr/share/EMBOSS/data/CODONS{,.orig} || \
 			die "Failed to move CODON directory."
 }

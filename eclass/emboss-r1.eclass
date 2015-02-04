@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-# @ECLASS: emboss.eclass
+# @ECLASS: emboss-r1.eclass
 # @MAINTAINER:
 # sci-biology@gentoo.org
 # jlec@gentoo.org
@@ -13,14 +13,13 @@
 # Next gen author: Ted Tanberry <ted.tanberry@gmail.com>
 # @BLURB: Use this to easy install EMBOSS and EMBASSY programs (EMBOSS add-ons).
 # @DESCRIPTION:
-# The inheriting ebuild must set at least EAPI=4 and provide EBO_DESCRIPTION before the inherit line.
+# The inheriting ebuild must set at least EAPI=5 and provide EBO_DESCRIPTION before the inherit line.
 # KEYWORDS should be set. Additionally "(R|P)DEPEND"encies and other standard
 # ebuild variables can be extended (FOO+=" bar").
-# Default installation of following DOCS=()
 #
 # Example:
 #
-# EAPI="4"
+# EAPI="5"
 #
 # EBO_DESCRIPTION="applications from the CBS group"
 #
@@ -42,8 +41,8 @@
 # Extra config options passed to econf, similar to EXTRA_ECONF.
 
 case ${EAPI:-0} in
-	4|5) ;;
-	*) die "this eclass doesn't support < EAPI 4" ;;
+	5) ;;
+	*) die "this eclass doesn't support < EAPI 5" ;;
 esac
 
 if [[ -f "${FILESDIR}"/${P}_fix-build-system.patch ]]; then
@@ -85,26 +84,23 @@ if [[ ${PN} == embassy-* ]]; then
 	S="${WORKDIR}"/${EF}
 fi
 
-DOCS=()
-
 # @FUNCTION: emboss_src_prepare
 # @DESCRIPTION:
 # Does the following things
 #
 #  1. Patches with "${FILESDIR}"/${P}_fix-build-system.patch, if present,
 #     and eventually runs eautoreconf in autotools-utils
-#  2. Patches with "${WORKDIR}"/${P}-upstream-r1.patch, if ${EBO_PATCH} is set
-#  3. Patches with "${FILESDIR}"/${PF}.patch, if present
+#  2. Patches with "${FILESDIR}"/${PF}.patch, if present
+#  3. Applies ${PATCHES[@]} via autotools-utils.eclass
 #
 
-emboss_src_prepare() {
+emboss-r1_src_prepare() {
 	if [[ -f "${FILESDIR}"/${P}_fix-build-system.patch ]]; then
 		mv configure.{in,ac} || die
 		epatch "${FILESDIR}"/${P}_fix-build-system.patch
 	fi
 
-	[[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}-upstream-r1.patch
-	[[ -f ${FILESDIR}/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
+	[[ -f "${FILESDIR}"/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
 
 	autotools-utils_src_prepare
 }
@@ -125,14 +121,13 @@ emboss_src_prepare() {
 #  --docdir="${EPREFIX}/usr/share/doc/${PF}"
 #  ${EBO_EXTRA_ECONF}
 
-emboss_src_configure() {
+emboss-r1_src_configure() {
 	local myeconfargs=(
 		$(use_with X x)
 		$(use_with png pngdriver "${EPREFIX}/usr")
 		$(use_with pdf hpdf "${EPREFIX}/usr")
 		$(use_with mysql mysql "${EPREFIX}/usr/bin/mysql_config")
 		$(use_with postgres postgresql "${EPREFIX}/usr/bin/pg_config")
-		$(use_enable static-libs static)
 		--enable-large
 		--without-java
 		--enable-systemlibs
@@ -140,9 +135,8 @@ emboss_src_configure() {
 		${EBO_EXTRA_ECONF}
 	)
 
-	if [[ ${EMBASSY_PACKAGE} == yes ]]; then
+	[[ ${EMBASSY_PACKAGE} == yes ]] && \
 		append-cppflags "-I${EPREFIX}/usr/include/emboss"
-	fi
 
 	autotools-utils_src_configure
 }
