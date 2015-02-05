@@ -62,7 +62,7 @@ DEPEND="
 	dev-libs/libpcre:3
 	sci-libs/plplot
 	sys-libs/zlib
-	mysql? ( dev-db/mysql )
+	mysql? ( virtual/mysql )
 	pdf? ( media-libs/libharu )
 	png? ( media-libs/gd[png] )
 	postgres? ( dev-db/postgresql )
