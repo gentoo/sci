@@ -14,5 +14,6 @@
 </longdescription>
   <use>
     <flag name="3d">Use 3D vectors</flag>
+    <flag name="tools">Build additional tool programs</flag>
   </use>
 </pkgmetadata>
