@@ -19,16 +19,20 @@ IUSE="examples"
 DEPEND="app-arch/unzip"
 RDEPEND=""
 
-PATCHES=( "${FILESDIR}"/${P}-buildsystem.patch )
+DOCS=( AUTHORS NEWS TUTORIAL doc/README )
+HTML_DOCS=( doc/{manual.html,style.css} )
 
 src_prepare() {
-	epatch ${PATCHES[@]}
+	# Suppress useless -Wall pollution
+	sed -i 's/\-Wall/\-Wno-enum-compare/g' Makefile
 }
 
 src_compile() {
-	unset CFLAGS
 	emake \
-		CXX="$(tc-getCXX)" \
+		CC="$(tc-getCC)" \
+		CPP="$(tc-getCXX)" \
+		CFLAGS="" \
+		CXXFLAGS="" \
 		EXTRA_FLAGS="${LDFLAGS}" \
 		RELEASE_FLAGS="${CXXFLAGS}"
 }
@@ -39,10 +43,8 @@ src_install() {
 	exeinto /usr/libexec/${PN}
 	doexe scripts/*
 
-	newman MANUAL ${PN}
-	dodoc AUTHORS NEWS TUTORIAL doc/README
-	docinto html
-	dodoc doc/{manual.html,style.css}
+	newman MANUAL ${PN}.1
+	einstalldocs
 
 	if use examples; then
 		insinto /usr/share/${PN}

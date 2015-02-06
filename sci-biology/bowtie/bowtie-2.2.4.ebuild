@@ -23,16 +23,15 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${PN}2-${PV}"
 
-PATCHES=( "${FILESDIR}"/${P}-buildsystem.patch )
-
-src_prepare() {
-	epatch ${PATCHES[@]}
-}
+DOCS=( AUTHORS NEWS TUTORIAL )
+HTML_DOCS=( doc/{manual.html,style.css} )
 
 src_compile() {
-	unset CFLAGS
 	emake \
-		CXX="$(tc-getCXX)" \
+		CC="$(tc-getCC)" \
+		CPP="$(tc-getCXX)" \
+		CFLAGS="" \
+		CXXFLAGS="" \
 		EXTRA_FLAGS="${LDFLAGS}" \
 		RELEASE_FLAGS="${CXXFLAGS} -msse2"
 }
@@ -43,10 +42,8 @@ src_install() {
 	exeinto /usr/libexec/${PN}2
 	doexe scripts/*
 
-	newman MANUAL ${PN}2.2
-	dodoc AUTHORS NEWS TUTORIAL
-	docinto html
-	dodoc doc/{manual.html,style.css}
+	newman MANUAL ${PN}2.1
+	einstalldocs
 
 	if use examples; then
 		insinto /usr/share/${PN}2
