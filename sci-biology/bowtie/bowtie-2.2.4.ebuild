@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit base eutils toolchain-funcs
+inherit eutils toolchain-funcs
 
 DESCRIPTION="An ultrafast memory-efficient short read aligner"
 HOMEPAGE="http://bowtie-bio.sourceforge.net/bowtie2/"
@@ -12,8 +12,10 @@ SRC_URI="mirror://sourceforge/project/${PN}-bio/${PN}2/${PV}/${PN}2-${PV}-source
 
 LICENSE="GPL-3"
 SLOT="2"
-IUSE="examples"
 KEYWORDS="~amd64 ~x86"
+
+IUSE="examples cpu_flags_x86_sse2"
+REQUIRED_USE="cpu_flags_x86_sse2"
 
 RDEPEND="dev-lang/perl"
 DEPEND="${RDEPEND}
@@ -23,16 +25,13 @@ S="${WORKDIR}/${PN}2-${PV}"
 
 PATCHES=( "${FILESDIR}"/${P}-buildsystem.patch )
 
-pkg_pretend() {
-	grep "sse2" /proc/cpuinfo > /dev/null
-	if [[ $? -ne 0 ]] ; then
-		ewarn "Your processor does not support sse2. Bowtie will probably not work on this machine."
-	fi
+src_prepare() {
+	epatch ${PATCHES[@]}
 }
 
 src_compile() {
+	unset CFLAGS
 	emake \
-		CC="$(tc-getCC)" \
 		CXX="$(tc-getCXX)" \
 		EXTRA_FLAGS="${LDFLAGS}" \
 		RELEASE_FLAGS="${CXXFLAGS} -msse2"
@@ -40,12 +39,14 @@ src_compile() {
 
 src_install() {
 	dobin ${PN}2 ${PN}2-*
-	exeinto /usr/share/${PN}2/scripts
+
+	exeinto /usr/libexec/${PN}2
 	doexe scripts/*
 
-	newman MANUAL ${PN}2.1
+	newman MANUAL ${PN}2.2
 	dodoc AUTHORS NEWS TUTORIAL
-	dohtml doc/manual.html doc/style.css
+	docinto html
+	dodoc doc/{manual.html,style.css}
 
 	if use examples; then
 		insinto /usr/share/${PN}2

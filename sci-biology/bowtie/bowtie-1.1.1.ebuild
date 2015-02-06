@@ -4,21 +4,26 @@
 
 EAPI=5
 
-inherit base eutils toolchain-funcs
+inherit eutils toolchain-funcs
 
 DESCRIPTION="An ultrafast memory-efficient short read aligner"
 HOMEPAGE="http://bowtie-bio.sourceforge.net/"
-SRC_URI="mirror://sourceforge/bowtie-bio/bowtie-1.1.1-src.zip"
+SRC_URI="mirror://sourceforge/bowtie-bio/${P}-src.zip"
 
 LICENSE="Artistic"
 SLOT="1"
-IUSE=""
 KEYWORDS="~amd64 ~x86 ~x64-macos"
+
+IUSE="examples"
 
 DEPEND="app-arch/unzip"
 RDEPEND=""
 
 PATCHES=( "${FILESDIR}"/${P}-buildsystem.patch )
+
+src_prepare() {
+	epatch ${PATCHES[@]}
+}
 
 src_compile() {
 	unset CFLAGS
@@ -29,14 +34,18 @@ src_compile() {
 }
 
 src_install() {
-	dobin bowtie bowtie-*
-	exeinto /usr/share/${PN}/scripts
+	dobin ${PN} ${PN}-*
+
+	exeinto /usr/libexec/${PN}
 	doexe scripts/*
 
-	insinto /usr/share/${PN}
-	doins -r genomes indexes
-
-	newman MANUAL bowtie.1
+	newman MANUAL ${PN}
 	dodoc AUTHORS NEWS TUTORIAL doc/README
-	dohtml doc/{manual.html,style.css}
+	docinto html
+	dodoc doc/{manual.html,style.css}
+
+	if use examples; then
+		insinto /usr/share/${PN}
+		doins -r genomes indexes
+	fi
 }
