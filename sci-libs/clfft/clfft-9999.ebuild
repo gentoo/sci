@@ -29,11 +29,11 @@ RDEPEND="
 	>=sys-devel/gcc-4.6
 	virtual/opencl
 	dev-libs/boost"
-	#test? (
-	#	dev-cpp/gtest
-	#	sci-libs/fftw:3.0
-	#)"
 DEPEND="${RDEPEND}"
+#	test? (
+#		dev-cpp/gtest
+#		sci-libs/fftw:3.0
+#	)"
 
 # The tests only get compiled to an executable named Test, which is not recogniozed by cmake.
 # Therefore src_test() won't execute any test.
