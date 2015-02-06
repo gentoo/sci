@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit base toolchain-funcs
+inherit eutils toolchain-funcs
 
 DESCRIPTION="Burrows-Wheeler Alignment Tool, a fast short genomic sequence aligner"
 HOMEPAGE="http://bio-bwa.sourceforge.net/"
@@ -17,15 +17,18 @@ KEYWORDS="~amd64 ~x86 ~x64-macos"
 
 PATCHES=( "${FILESDIR}"/${PN}_Makefile.patch )
 
-src_compile() {
+src_prepare() {
+	epatch ${PATCHES[@]}
 	tc-export CC AR
-	default
 }
 
 src_install() {
-	dobin bwa || die
-	doman bwa.1 || die
-	exeinto /usr/share/${PN}
-	doexe qualfa2fq.pl xa2multi.pl || die
-	dodoc NEWS.md README-alt.md README.md || die
+	dobin bwa
+
+	doman bwa.1
+
+	exeinto /usr/libexec/${PN}
+	doexe qualfa2fq.pl xa2multi.pl
+
+	dodoc NEWS.md README-alt.md README.md
 }
