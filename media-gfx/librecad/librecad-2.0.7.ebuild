@@ -12,8 +12,8 @@ SRC_URI="https://github.com/LibreCAD/LibreCAD/archive/${PV/_/}.zip -> ${P}.zip"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="debug doc 3d"
+KEYWORDS="~amd64 ~x86"
+IUSE="debug doc tools 3d"
 
 DEPEND="
 	dev-qt/qtgui:4
@@ -33,9 +33,10 @@ src_prepare() {
 
 src_install() {
 	dobin unix/librecad
+	use tools && dobin unix/ttf2lff
 	insinto /usr/share/${PN}
 	doins -r unix/resources/*
 	use doc && dohtml -r support/doc/*
 	doicon librecad/res/main/"${PN}".png
-	make_desktop_entry "${PN}" LibreCAD "${PN}" Graphics
+	make_desktop_entry ${PN} LibreCAD ${PN} Graphics
 }
