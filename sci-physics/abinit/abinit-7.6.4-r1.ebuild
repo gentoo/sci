@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -201,7 +201,7 @@ src_prepare() {
 		"${FILESDIR}"/7.6.4-cuda_header.patch \
 		"${FILESDIR}"/7.6.4-libxc_versions.patch
 	eautoreconf
-	sed -e"s/\(grep '\^-\)\(\[LloW\]\)'/\1\\\(\2\\\|pthread\\\)'/g" -i configure
+	sed -e"s/\(grep '\^-\)\(\[LloW\]\)'/\1\\\(\2\\\|pthread\\\)'/g" -i configure || die
 	python_fix_shebang "${S}"
 }
 
@@ -330,7 +330,7 @@ src_compile() {
 	# Can Abinit use external libabinit.a?
 	use libabinit && autotools-utils_src_compile libabinit.a
 
-	sed -i -e's/libatlas/lapack/' "${AUTOTOOLS_BUILD_DIR}"/config.pc
+	sed -i -e's/libatlas/lapack/' "${AUTOTOOLS_BUILD_DIR}"/config.pc || die
 }
 
 src_test() {
@@ -340,7 +340,7 @@ src_test() {
 	pushd "${BUILD_DIR}" > /dev/null || die
 
 	einfo "Running the internal tests."
-	emake tests_in || die 'The internal tests failed.'
+	emake tests_in
 
 	einfo "Running the thorough tests. Be patient, please."
 	"${S}"/tests/runtests.py || ewarn "The package has not passed the thorough tests."
@@ -352,7 +352,7 @@ src_install() {
 	#autotools-utils_src_install() expanded
 	_check_build_dir
 	pushd "${AUTOTOOLS_BUILD_DIR}" > /dev/null
-	emake DESTDIR="${D}" install || die "make install failed"
+	emake DESTDIR="${D}" install
 
 	use libabinit && dolib libabinit.a
 
@@ -373,12 +373,12 @@ src_install() {
 		for f in README* ChangeLog AUTHORS NEWS TODO CHANGES \
 				THANKS BUGS FAQ CREDITS CHANGELOG; do
 			if [[ -s ${f} ]]; then
-				dodoc "${f}" || die "(default) dodoc ${f} failed"
+				dodoc "${f}"
 			fi
 		done
 	fi
 	if [[ ${HTML_DOCS} ]]; then
-		dohtml -r "${HTML_DOCS[@]}" || die "dohtml failed"
+		dohtml -r "${HTML_DOCS[@]}"
 	fi
 
 	if use scripts; then
