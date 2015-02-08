@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="5"
+EAPI=5
 
 inherit autotools eutils
 
@@ -27,33 +27,36 @@ DEPEND=">=dev-lang/ocaml-3.12.1
 		why3? ( sci-mathematics/why3 )"
 RDEPEND="${DEPEND}"
 
+DOCS=( CHANGES README Version )
+
 src_prepare() {
 	sed -i Makefile.in \
 		-e "s/DESTDIR =.*//g" \
-		-e "s/@COQLIB@/\$(DESTDIR)\/@COQLIB@/g"
+		-e "s/@COQLIB@/\$(DESTDIR)\/@COQLIB@/g" || die
 
 	#to build with apron-0.9.10
 	sed -i configure.in \
 		-e "s/pvs/sri-pvs/g" \
 		-e "s/oct_caml/octMPQ_caml/g" \
 		-e "s/box_caml/boxMPQ_caml/g" \
-		-e "s/polka_caml/polkaMPQ_caml/g"
+		-e "s/polka_caml/polkaMPQ_caml/g" || die
 
 	epatch "${FILESDIR}"/why-flocq23.patch
 	eautoreconf
 }
 
 src_configure() {
-	econf $(use_enable apron) PATH="/usr/bin:$PATH" || die "econf failed"
+	econf $(use_enable apron) PATH="/usr/bin:$PATH"
 }
 
 src_compile(){
-	emake -j1 DESTDIR="/" || die "emake failed"
+	MAKEOPTS+=" -j1"
+	emake DESTDIR="/"
 }
 
 src_install(){
-	emake install DESTDIR="${D}" || die "emake install failed"
-	dodoc CHANGES README Version
+	default
+
 	doman doc/why.1
 
 	if use doc; then

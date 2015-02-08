@@ -1,6 +1,10 @@
 # ChangeLog for sci-mathematics/why
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
+  why-2.34.ebuild:
+  Cleanup ebuild
 
   21 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -why-2.30.ebuild, -files/why-2.30.patch, +why-2.34.ebuild, +why-flocq23.patch:
