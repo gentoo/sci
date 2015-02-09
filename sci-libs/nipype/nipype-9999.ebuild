@@ -25,7 +25,7 @@ DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-1.2[${PYTHON_USEDEP}]
 	fsl? ( sci-biology/fsl )
-	spm ( sc-biology/spm )"
+	spm? ( sci-biology/spm )"
 RDEPEND="
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-python/traits[${PYTHON_USEDEP}]
