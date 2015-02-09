@@ -6,8 +6,7 @@ EAPI=5
 
 DESCRIPTION="Analysis of brain imaging data sequences for Octave or Matlab"
 HOMEPAGE="http://www.fil.ion.ucl.ac.uk/spm/"
-URI_BASE="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/"
-SRC_URI="${URI_BASE}${PN}${PV}.zip"
+SRC_URI="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/${PN}${PV}.zip"
 
 LICENSE="GPL-2+"
 SLOT="8"
