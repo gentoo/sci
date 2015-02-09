@@ -4,7 +4,7 @@
 
 EAPI=5
 
-[ "$PV" == "9999" ] && inherit git-2
+[ "$PV" == "9999" ] && inherit git-r3
 
 inherit toolchain-funcs
 
@@ -20,8 +20,6 @@ fi
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS=""
-IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}"
