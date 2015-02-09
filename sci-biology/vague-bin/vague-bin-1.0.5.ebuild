@@ -6,7 +6,7 @@ EAPI=5
 
 inherit java-pkg-2
 
-[ "$PV" == "9999" ] && inherit git-2
+[ "$PV" == "9999" ] && inherit git-r3
 
 DESCRIPTION="GUI for Velvet de novo assembler"
 HOMEPAGE="http://www.vicbioinformatics.com/software.vague.shtml"
@@ -15,14 +15,12 @@ if [ "$PV" == "9999" ]; then
 	EGIT_REPO_URI="https://github.com/Victorian-Bioinformatics-Consortium/vague"
 	KEYWORDS=""
 else
-	SRC_URI="http://www.vicbioinformatics.com/vague-"${PV}".tar.gz"
+	SRC_URI="http://www.vicbioinformatics.com/vague-${PV}.tar.gz"
 	KEYWORDS="~amd64"
 fi
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND=">=virtual/jre-1.5
 	sci-biology/velvet
