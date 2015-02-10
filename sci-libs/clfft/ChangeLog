@@ -1,0 +1,11 @@
+# ChangeLog for sci-libs/clfft
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*clfft-2.2 (06 Feb 2015)
+*clfft-9999 (06 Feb 2015)
+
+  06 Feb 2015; Marius Brehler <marbre@linux.sungazer.de> +clfft-2.2.ebuild,
+  +clfft-9999.ebuild, +files/clfft-client_CMakeLists.patch,
+  +files/clfft-scripts_perf_CMakeLists.patch, +metadata.xml:
+  sci-libs/clfft: Inital commit

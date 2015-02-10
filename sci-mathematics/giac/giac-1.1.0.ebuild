@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -29,9 +29,9 @@ src_prepare(){
 		-e "s:config.h \$(includedir)/giac:config.h \$(DESTDIR)\$(includedir)/giac:g" \
 		-e "s:\$(DESTDIR)\$(DESTDIR):\$(DESTDIR):g"	\
 		-e "s:\$(DESTDIR)/\$(DESTDIR):\$(DESTDIR):g" \
-		-i `find -name Makefile\*`
+		-i `find -name Makefile\*` || die
 	if use !fltk; then
-		sed -e "s: gl2ps\.[chlo]*::g" -i src/Makefile.*
+		sed -e "s: gl2ps\.[chlo]*::g" -i src/Makefile.* || die
 	fi
 }
 
@@ -40,36 +40,36 @@ src_configure(){
 	then
 		append-cppflags -I$(fltk-config --includedir)
 		append-lfs-flags
-		append-libs $(fltk-config --ldflags | sed -e 's/\(-L\S*\)\s.*/\1/')
+		append-libs $(fltk-config --ldflags | sed -e 's/\(-L\S*\)\s.*/\1/') || die
 	fi
 	local myeconfargs=(
 		$(use_enable fltk gui)
 	)
-	autotools-utils_src_configure || die "configuring failed"
+	autotools-utils_src_configure
 }
 
 src_install() {
-	emake install DESTDIR="${D}" || die "emake install failed"
-	mv "${D}"/usr/bin/{aide,giac-help}
-	rm "${D}"/usr/bin/*cas_help
+	emake install DESTDIR="${D}"
+	mv "${D}"/usr/bin/{aide,giac-help} || die
+	rm "${D}"/usr/bin/*cas_help || die
 	dodoc AUTHORS ChangeLog INSTALL NEWS README TROUBLES
 	if use !fltk; then
-		rm "${D}"/usr/bin/x*
+		rm "${D}"/usr/bin/x* || die
 	elif host-is-pax; then
 		pax-mark -m "${D}"/usr/bin/x*
 	fi
 	if use !doc; then
-		rm -R "${D}"/usr/share/doc/giac "${D}"/usr/share/giac/doc/
+		rm -R "${D}"/usr/share/doc/giac "${D}"/usr/share/giac/doc/ || die
 	else
 		for LANG in el en es fr pt; do
 			if echo ${LINGUAS} | grep -v "$LANG" &> /dev/null; then
 				rm -R "${D}"/usr/share/giac/doc/"$LANG"
 			else
-				ln "${D}"/usr/share/giac/doc/aide_cas "${D}"/usr/share/giac/doc/"$LANG"/aide_cas
+				ln "${D}"/usr/share/giac/doc/aide_cas "${D}"/usr/share/giac/doc/"$LANG"/aide_cas || die
 			fi
 		done
 	fi
 	if use !examples; then
-		rm -R "${D}"/usr/share/giac/examples
+		rm -R "${D}"/usr/share/giac/examples || die
 	fi
 }

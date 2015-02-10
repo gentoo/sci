@@ -1,28 +1,15 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="4"
+EAPI=5
 
-inherit emboss eutils
-
-#EBO_PATCH="4"
-#EBOV=${PV/_p*}
-
-EBO_PATCH=""
-EBOV=${PV}
+inherit autotools-utils emboss-r1 eutils readme.gentoo
 
 DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
-SRC_URI="
-	ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-${PV}.tar.gz"
-# ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-6.6.0.tar.gz
-# ftp://emboss.open-bio.org/pub/EMBOSS/old/6.5.0/EMBOSS-6.5.7.tar.gz
+SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/EMBOSS-${PV}.tar.gz"
 
-##[[ -n ${EBO_PATCH} ]] && SRC_URI+=" ftp://${PN}.open-bio.org/pub/EMBOSS/fixes/patches/patch-1-${EBO_PATCH}.gz -> ${P}-upstream.patch.gz"
-#[[ -n ${EBO_PATCH} ]] && SRC_URI+=" http://pkgs.fedoraproject.org/lookaside/pkgs/EMBOSS/patch-1-4.gz/7a42594c5eda4adc6457f33e4ab0d8f2/patch-1-${EBO_PATCH}.gz -> ${P}-upstream.patch.gz"
-
-#KEYWORDS="~amd64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE+=" minimal"
 
 RDEPEND+=" !sys-devel/cons"
@@ -33,51 +20,38 @@ PDEPEND+="
 		sci-biology/prints
 		sci-biology/prosite
 		sci-biology/rebase
-		sci-biology/transfac
 		)"
 
-S="${WORKDIR}"/EMBOSS-${EBOV}
+S="${WORKDIR}"/EMBOSS-${PV}
 
-EBO_EXTRA_ECONF="--includedir=${EPREFIX}/usr/include/emboss"
+DOCS=( ChangeLog AUTHORS NEWS THANKS FAQ )
 
-DOCS+=" FAQ THANKS"
-
-src_prepare() {
-	[[ -n ${EBO_PATCH} ]] && epatch "${WORKDIR}"/${P}-upstream.patch
-	# epatch "${WORKDIR}"/${PF}.patch
-	#epatch "${FILESDIR}/${PF}_plcol.patch"
-	emboss_src_prepare
-}
+PATCHES=(
+	"${FILESDIR}"/${P}_FORTIFY_SOURCE-fix.patch
+	"${FILESDIR}"/${P}_plplot-declarations.patch
+	"${FILESDIR}"/${P}_qa-implicit-declarations.patch
+)
 
 src_install() {
-	default
+	# Use autotools-utils_* to remove useless *.la files
+	autotools-utils_src_install
 
-	sed -e "s:EPREFIX:${EPREFIX}:g" "${FILESDIR}"/${PN}-README.Gentoo-2 > README.Gentoo && \
-	dodoc README.Gentoo
+	readme.gentoo_create_doc
 
 	# Install env file for setting libplplot and acd files path.
-	cat <<- EOF > 22emboss
+	cat > 22emboss <<- EOF
 		# ACD files location
 		EMBOSS_ACDROOT="${EPREFIX}/usr/share/EMBOSS/acd"
 		EMBOSS_DATA="${EPREFIX}/usr/share/EMBOSS/data"
 	EOF
 	doenvd 22emboss
 
-	# Clashes #330507, resolved upstream
-	mv "${ED}"/usr/bin/{digest,pepdigest} || die
-
-	# Remove useless dummy files from the image.
+	# Remove useless dummy files
 	find "${ED}"/usr/share/EMBOSS -name dummyfile -delete || die "Failed to remove dummy files."
 
 	# Move the provided codon files to a different directory. This will avoid
 	# user confusion and file collisions on case-insensitive file systems (see
-	# bug #115446). This change is documented in "README.Gentoo".
+	# bug #115446). This change is documented in "README.gentoo".
 	mv "${ED}"/usr/share/EMBOSS/data/CODONS{,.orig} || \
 			die "Failed to move CODON directory."
-
-	# Move the provided restriction enzyme prototypes file to a different name.
-	# This avoids file collisions with versions of rebase that install their
-	# own enzyme prototypes file (see bug #118832).
-	mv "${ED}"/usr/share/EMBOSS/data/embossre.equ{,.orig} || \
-			die "Failed to move enzyme equivalence file."
 }

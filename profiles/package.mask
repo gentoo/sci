@@ -81,29 +81,6 @@ sci-biology/artemis-bin
 # masked until reverse depedencies are fixed
 >=sci-libs/parmetis-4
 
-# Justin Lecher <jlec@gentoo.org> (20 Feb 2012)
-# They are broken in one or the other way
-# Need to be bumped to emboss-6.4.0
-sci-biology/emboss
-sci-biology/embassy
-sci-biology/embassy-cbstools
-sci-biology/embassy-domainatrix
-sci-biology/embassy-domalign
-sci-biology/embassy-domsearch
-sci-biology/embassy-emnu
-sci-biology/embassy-esim4
-sci-biology/embassy-hmmer
-sci-biology/embassy-iprscan
-sci-biology/embassy-memenew
-sci-biology/embassy-mira
-sci-biology/embassy-mse
-sci-biology/embassy-phylipnew
-sci-biology/embassy-signature
-sci-biology/embassy-structure
-sci-biology/embassy-topo
-sci-biology/embassy-vienna
-sci-biology/embassy-clustalomega
-
 # Justin Lecher <jlec@gentoo.org> (24 Jun 2011)
 # paraview dep is masked
 sci-visualization/vtkPOFFReader
