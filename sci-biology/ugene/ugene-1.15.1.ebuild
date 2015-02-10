@@ -8,7 +8,7 @@ inherit qt4-r2
 
 DESCRIPTION="A free open-source cross-platform bioinformatics software"
 HOMEPAGE="http://ugene.unipro.ru"
-SRC_URI="http://${PN}.unipro.ru/downloads/${P}.tar.gz"
+SRC_URI="http://${PN}.unipro.ru/downloads/${P}-x86-64.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
