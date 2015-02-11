@@ -26,15 +26,12 @@ RDEPEND="${DEPEND}
 	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
-TEXMF=/usr/share/texmf-site
-
-S="${WORKDIR}"/${PN}
-src_prepare() {
-	rm pythontex.sty || die "Could not remove pythontex.sty!"
-}
+S="${WORKDIR}"/${P}/${PN}
 
 src_compile() {
 	ebegin "Compiling ${PN}"
+	pwd
+	stat ${PN}.ins
 	latex ${PN}.ins extra > "${T}"/build-latex.log || die "Building style from ${PN}.ins failed"
 	eend
 	sed -i -e '1i#!/usr/bin/env python' depythontex2.py || die "adding shebang failed!"
