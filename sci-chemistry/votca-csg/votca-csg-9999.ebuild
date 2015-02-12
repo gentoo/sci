@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,7 +8,7 @@ CMAKE_MAKEFILE_GENERATOR="ninja"
 
 inherit bash-completion-r1 cmake-utils multilib
 
-IUSE="doc examples extras +gromacs"
+IUSE="doc examples extras +gromacs hdf5"
 PDEPEND="extras? ( =sci-chemistry/${PN}apps-${PV} )"
 if [ "${PV}" != "9999" ]; then
 	SRC_URI="http://downloads.votca.googlecode.com/hg/${P}.tar.gz
@@ -30,12 +30,13 @@ SLOT="0"
 
 RDEPEND="=sci-libs/votca-tools-${PV}
 	gromacs? ( sci-chemistry/gromacs:= )
+	hdf5? ( sci-libs/hdf5[cxx] )
 	dev-lang/perl
 	app-shells/bash"
 
 DEPEND="${RDEPEND}
 	doc? (
-		|| ( <app-doc/doxygen-1.7.6.1[-nodot] >=app-doc/doxygen-1.7.6.1[dot] )
+		app-doc/doxygen[dot]
 		dev-texlive/texlive-latexextra
 		virtual/latex-base
 		dev-tex/pgf
@@ -53,7 +54,7 @@ src_unpack() {
 		use doc && mercurial_fetch \
 			https://code.google.com/p/votca.csg-manual/ \
 			votca.csg-manual \
-			"${WORKDIR}/manual"
+			"${WORKDIR}/${PN}-manual"
 		use examples && mercurial_fetch \
 			https://code.google.com/p/votca.csg-tutorials/ \
 			votca.csg-tutorials \
@@ -62,23 +63,9 @@ src_unpack() {
 }
 
 src_configure() {
-	local GMX_DEV="OFF" GMX_DOUBLE="OFF" extra
-
-	if use gromacs; then
-		has_version =sci-chemistry/gromacs-9999 && GMX_DEV="ON"
-		has_version sci-chemistry/gromacs[double-precision] && GMX_DOUBLE="ON"
-	fi
-
-	#to create man pages, build tree binaries are executed (bug #398437)
-	[[ ${CHOST} = *-darwin* ]] && \
-		extra+=" -DCMAKE_BUILD_WITH_INSTALL_RPATH=OFF"
-
 	mycmakeargs=(
 		$(cmake-utils_use_with gromacs GMX)
-		-DWITH_GMX_DEVEL="${GMX_DEV}"
-		-DGMX_DOUBLE="${GMX_DOUBLE}"
-		-DCMAKE_INSTALL_RPATH="\\\$ORIGIN/../$(get_libdir)"
-		${extra}
+		$(cmake-utils_use_with hdf5 H5MD)
 		-DWITH_RC_FILES=OFF
 		-DLIB=$(get_libdir)
 	)
@@ -94,18 +81,16 @@ src_install() {
 	done
 	if use doc; then
 		if [[ ${PV} = *9999* ]]; then
-			pushd "${WORKDIR}"/manual
+			#we need to do that here, because we need an installed version of csg to build the manual
 			[[ ${CHOST} = *-darwin* ]] && \
-				export DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}${DYLD_LIBRARY_PATH:+:}${ED}/usr/$(get_libdir)"
-			emake PATH="${PATH}${PATH:+:}${ED}/usr/bin"
-			newdoc manual.pdf "${PN}-manual-${PV}.pdf"
-			popd > /dev/null
+				emake -C "${WORKDIR}/${PN}"-manual PATH="${PATH}${PATH:+:}${ED}/usr/bin" DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}${DYLD_LIBRARY_PATH:+:}${ED}/usr/$(get_libdir)" \
+				|| emake -C "${WORKDIR}/${PN}"-manual PATH="${PATH}${PATH:+:}${ED}/usr/bin" LD_LIBRARY_PATH="${LD_LIBRARY_PATH}${LD_LIBRARY_PATH:+:}${ED}/usr/$(get_libdir)"
+			newdoc "${WORKDIR}/${PN}"-manual/manual.pdf "${PN}-manual-${PV}.pdf"
 		else
 			dodoc "${DISTDIR}/${PN}-manual-${PV}.pdf"
 		fi
-		cd "${CMAKE_BUILD_DIR}" || die
-		cmake-utils_src_make html
-		dohtml -r share/doc/html/*
+		cmake-utils_src_make -C "${CMAKE_BUILD_DIR}" html
+		dohtml -r "${CMAKE_BUILD_DIR}"/share/doc/html/*
 	fi
 	if use examples; then
 		insinto "/usr/share/doc/${PF}/tutorials"
