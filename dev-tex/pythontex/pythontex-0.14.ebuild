@@ -10,7 +10,7 @@ inherit latex-package python-single-r1
 
 DESCRIPTION="Fast Access to Python from within LaTeX"
 HOMEPAGE="https://github.com/gpoore/pythontex"
-SRC_URI="https://github.com/gpoore/pythontex/raw/master/package_downloads/${PN}_${PV}.zip https://github.com/gpoore/pythontex/raw/master/package_downloads/old_versions/${PN}_${PV}.zip"
+SRC_URI="https://github.com/gpoore/${PN}/archive/v${PV}.zip"
 
 SLOT="0"
 LICENSE="LPPL-1.3 BSD"
@@ -26,19 +26,16 @@ RDEPEND="${DEPEND}
 	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
-TEXMF=/usr/share/texmf-site
-
-S="${WORKDIR}"/${PN}
 src_prepare() {
-	rm pythontex.sty || die "Could not remove pythontex.sty!"
+	S="${WORKDIR}/${P}/${PN}"
+	cd "${S}" || die
+	rm pythontex.sty || die "Could not remove pre-compiled pythontex.sty!"
 }
 
 src_compile() {
 	ebegin "Compiling ${PN}"
 	latex ${PN}.ins extra > "${T}"/build-latex.log || die "Building style from ${PN}.ins failed"
 	eend
-	sed -i -e '1i#!/usr/bin/env python' depythontex2.py || die "adding shebang failed!"
-	sed -i -e '1i#!/usr/bin/env python' depythontex3.py || die "adding shebang failed!"
 }
 
 src_install() {
