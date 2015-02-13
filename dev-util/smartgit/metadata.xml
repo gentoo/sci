@@ -2,4 +2,8 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <longdescription>SmartSVN is a powerful GUI SVN client written in Java</longdescription>
+  <use>
+    <flag name="git">Enable git support through <pkg>dev-vcs/git</pkg></flag>
+    <flag name="mercurial">Enable hg support through <pkg>dev-vcs/mercurial</pkg></flag>
+  </use>
 </pkgmetadata>

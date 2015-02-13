@@ -16,12 +16,16 @@ SRC_URI="http://www.syntevo.com/download/${PN}/${MY_P}.tar.gz"
 SLOT="0"
 LICENSE="smartgit"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="git mercurial"
 
 RESTRICT="fetch"
 
-RDEPEND=">=virtual/jre-1.7:1.7"
-DEPEND="${RDEPEND}"
+DEPEND=">=virtual/jre-1.7:1.7"
+RDEPEND="
+	${DEPEND}
+	git? ( dev-vcs/git )
+	mercurial? ( dev-vcs/mercurial )
+	"
 
 S="${WORKDIR}"/${PN}
 
