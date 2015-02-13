@@ -20,7 +20,8 @@ IUSE="highlighting"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}
-	app-text/texlive"
+	app-text/texlive
+	app-arch/unzip"
 RDEPEND="${DEPEND}
 	dev-texlive/texlive-xetex
 	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
