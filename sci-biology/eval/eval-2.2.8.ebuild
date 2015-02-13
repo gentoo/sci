@@ -9,7 +9,7 @@ HOMEPAGE="http://mblab.wustl.edu/software.html"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 SRC_URI="http://mblab.wustl.edu/software/download/"${PN}"-"${PV}".tar.gz
 		http://mblab.wustl.edu/software/download/eval-documentation.pdf"
@@ -27,7 +27,14 @@ src_install(){
 	dodoc help/*.ps
 	insinto /usr/share/eval
 	doins *.gtf
-	insinto /usr/share/eval/perl
+	eval `perl '-V:installvendorlib'`
+	vendor_lib_install_dir="${installvendorlib}"
+	dodir ${vendor_lib_install_dir}/eval
+	insinto ${vendor_lib_install_dir}/eval
 	doins *.pm
-	# TODO: need to add this into PERL_PATH
+	echo "PERL5LIB="${vendor_lib_install_dir}"/eval" > ${S}"/99eval"
+	doenvd ${S}"/99eval" || die
 }
+
+# the version of validate_gtf.pl bundled with eval differs a bit from
+# validate_gtf-1.0.pl from http://mblab.wustl.edu/software.html#validategtf
