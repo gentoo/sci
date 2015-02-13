@@ -1,25 +1,6 @@
-language: python
-python:
-  - pypy
 env:
   - PORTAGE=2.2.14
   - PORTAGE=2.2.17
-  - JOB=0
-  - JOB=1
-  - JOB=2
-  - JOB=3
-  - JOB=4
-  - JOB=5
-  - JOB=6
-  - JOB=7
-  - JOB=8
-  - JOB=9
-  - JOB=10
-  - JOB=11
-  - JOB=12
-  - JOB=13
-  - JOB=14
-  - JOB=15
 
 before_script:
     - mkdir travis-overlay
@@ -40,16 +21,7 @@ before_script:
     - sed -i 's/fcmd=fcmd/fcmd=("%s -q" % fcmd)/' ./../portage-$PORTAGE/bin/repoman
 
 script:
-    - ret=0; cx=0;
-      for x in $(cat /usr/portage/profiles/categories); do
-      if test $(( cx++ % 16 )) -eq ${JOB}; then
-          cd ${x} && {
-            python ./../portage-${PORTAGE}/bin/repoman full -v -d -x || ret=1;
-          } && cd -;
-        fi;
-      done;
-      exit "${ret}"
+    - "./../portage-$PORTAGE/bin/repoman full -d -v"
 
 notifications:
   irc: "chat.freenode.net#gentoo-science"
-
