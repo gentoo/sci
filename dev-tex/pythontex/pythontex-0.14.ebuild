@@ -10,7 +10,7 @@ inherit latex-package python-single-r1
 
 DESCRIPTION="Fast Access to Python from within LaTeX"
 HOMEPAGE="https://github.com/gpoore/pythontex"
-SRC_URI="https://github.com/gpoore/${PN}/archive/v${PV}.zip"
+SRC_URI="https://github.com/gpoore/${PN}/archive/v${PV}.zip -> ${P}.zip"
 
 SLOT="0"
 LICENSE="LPPL-1.3 BSD"
