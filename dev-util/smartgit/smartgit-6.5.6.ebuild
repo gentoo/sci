@@ -39,6 +39,8 @@ src_install() {
 	local rdir="/opt/${PN}" X
 	insinto ${rdir}
 	doins -r *
+	
+	java-pkg_register-environment-variable SWT_GTK3 0
 
 	java-pkg_regjar "${ED}"/${rdir}/lib/*.jar
 
