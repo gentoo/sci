@@ -27,9 +27,9 @@ RDEPEND="${DEPEND}
 	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
+S="${WORKDIR}/${P}/${PN}"
+
 src_prepare() {
-	S="${WORKDIR}/${P}/${PN}"
-	cd "${S}" || die
 	rm pythontex.sty || die "Could not remove pre-compiled pythontex.sty!"
 }
 
