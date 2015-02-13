@@ -41,7 +41,6 @@ src_compile() {
 }
 
 src_install() {
-	python_optimize .
 	if python_is_python3; then
 		python_newscript pythontex3.py pythontex.py
 		python_newscript depythontex3.py depythontex.py
@@ -66,4 +65,5 @@ src_install() {
 
 	dodoc README
 	mktexlsr
+	python_optimize
 }
