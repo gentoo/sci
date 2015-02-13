@@ -1,6 +1,15 @@
 # ChangeLog for app-shells/mpibash
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*mpibash-1.1 (13 Feb 2015)
+
+  13 Feb 2015; Christoph Junghans <ottxor@gentoo.org> +mpibash-1.1.ebuild,
+  -files/bash-4.3-append-process-segfault.patch,
+  -files/bash-4.3-compat-lvl.patch, -files/bash-4.3-parse-time-keyword.patch,
+  -files/bash-4.3-term-cleanup.patch, -files/mpibash-4.3.patch,
+  -mpibash-4.3_p30-r1.ebuild, metadata.xml:
+  version bump
 
   05 Dec 2014; Christoph Junghans <ottxor@gentoo.org> mpibash-4.3_p30-r1.ebuild:
   added prefix support
