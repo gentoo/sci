@@ -19,10 +19,11 @@ IUSE="highlighting"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-DEPEND="${PYTHON_DEPS}
-	app-text/texlive
+COMMON_DEPEND="${PYTHON_DEPS}
+	app-text/texlive"
+DEPEND="${COMMON_DEPEND}
 	app-arch/unzip"
-RDEPEND="${DEPEND}
+RDEPEND="${COMMON_DEPEND}
 	dev-texlive/texlive-xetex
 	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
