@@ -26,16 +26,16 @@ RDEPEND="${DEPEND}
 	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
-S="${WORKDIR}"/${P}/${PN}
+src_prepare() {
+	S="${WORKDIR}/${P}/${PN}"
+	cd "${S}" || die
+	rm pythontex.sty || die "Could not remove pre-compiled pythontex.sty!"
+}
 
 src_compile() {
 	ebegin "Compiling ${PN}"
-	pwd
-	stat ${PN}.ins
 	latex ${PN}.ins extra > "${T}"/build-latex.log || die "Building style from ${PN}.ins failed"
 	eend
-	sed -i -e '1i#!/usr/bin/env python' depythontex2.py || die "adding shebang failed!"
-	sed -i -e '1i#!/usr/bin/env python' depythontex3.py || die "adding shebang failed!"
 }
 
 src_install() {
