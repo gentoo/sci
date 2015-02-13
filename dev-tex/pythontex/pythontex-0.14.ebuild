@@ -55,11 +55,7 @@ src_install() {
 	python_moduleinto ${PYTHON_SCRIPTDIR}
 	python_domodule "${S}"/pythontex_engines.py "${S}"/pythontex_utils.py
 
-	insinto /usr/share/texmf-site/tex/latex/pythontex/
-	doins "${S}"/pythontex.sty
-
-	insinto /usr/share/texmf-site/source/latex/pythontex/
-	doins "${S}"/pythontex.dtx "${S}"/pythontex.ins
+	latex-package_src_doinstall ${PN}.{dtx,ins,sty}
 
 	latex-package_src_install
 
