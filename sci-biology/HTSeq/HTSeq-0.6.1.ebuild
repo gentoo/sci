@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit distutils-r1
 
-DESCRIPTION="Use SAM/BAM/FASTA/Q/GFF/GTF files in python, count reads, genomic intervals"
+DESCRIPTION="Use SAM/BAM/Bowtie/FASTA/Q/GFF/GTF files in python, count reads, genomic intervals"
 HOMEPAGE="http://www-huber.embl.de/users/anders/HTSeq"
 SRC_URI="mirror://pypi/H/"${PN}"/"${P}".tar.gz"
 
