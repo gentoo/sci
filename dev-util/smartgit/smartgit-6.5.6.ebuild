@@ -16,16 +16,12 @@ SRC_URI="http://www.syntevo.com/download/${PN}/${MY_P}.tar.gz"
 SLOT="0"
 LICENSE="smartgit"
 KEYWORDS="~amd64 ~x86"
-IUSE="git mercurial"
+IUSE=""
 
 RESTRICT="fetch"
 
 DEPEND=">=virtual/jre-1.7:1.7"
-RDEPEND="
-	${DEPEND}
-	git? ( dev-vcs/git )
-	mercurial? ( dev-vcs/mercurial )
-	"
+RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/${PN}
 
@@ -39,7 +35,7 @@ src_install() {
 	local rdir="/opt/${PN}" X
 	insinto ${rdir}
 	doins -r *
-	
+
 	java-pkg_register-environment-variable SWT_GTK3 0
 
 	java-pkg_regjar "${ED}"/${rdir}/lib/*.jar
@@ -52,4 +48,10 @@ src_install() {
 	done
 
 	make_desktop_entry "${PN}" "SmartGIT" ${PN} "Development;RevisionControl"
+}
+
+pkg_postinst() {
+	elog "${PN} relies on external git/hg executables to work."
+	optfeature "Git support" dev-vcs/git
+	optfeature "Mercurial support" dev-vcs/mercurial
 }

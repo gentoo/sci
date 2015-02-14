@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Feb 2015; Luca Molari <lmolr@gentoo.org> metadata.xml,
+  smartgit-6.5.6.ebuild:
+  projects/sci: dev-util/smartgit: git mercurial optfeatures
+
   13 Feb 2015; Luca Molari (LMolr) <molari.luca@gmail.com>
   smartgit-6.5.6.ebuild:
   projects/sci: dev-util/smartgit: set SWT_GTK3 env var
