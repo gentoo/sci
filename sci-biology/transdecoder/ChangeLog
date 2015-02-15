@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  15 Feb 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  transdecoder-20140704.ebuild:
+  drop hmmer-3 dependency, it is an optional dependency only
+
   10 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   transdecoder-20140704.ebuild:
   install *.pm into PERL5LIB/TransDecoder and pass that via env.d
