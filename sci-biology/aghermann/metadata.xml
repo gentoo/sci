@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-biology</herd>
+  <maintainer>
+    <email>johnhommer@gmail.com</email>
+    <name>Andrei Zavada</name>
+  </maintainer>
+  <longdescription>
+    Aghermann is a program designed around a common workflow in
+    sleep-research, complete with scoring facility; cairo subpixel
+    drawing on screen or to file; conventional PSD and EEG Micrcontinuity
+    profiles; Independent Component Analysis; artifact detection; and
+    Process S simulation following Achermann et al, 1993.
+  </longdescription>
+</pkgmetadata>
