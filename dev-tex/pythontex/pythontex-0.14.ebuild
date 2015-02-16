@@ -51,7 +51,6 @@ src_install() {
 	fi
 
 	python_export PYTHON_SCRIPTDIR
-
 	python_moduleinto ${PYTHON_SCRIPTDIR}
 	python_domodule "${S}"/pythontex_engines.py "${S}"/pythontex_utils.py
 
