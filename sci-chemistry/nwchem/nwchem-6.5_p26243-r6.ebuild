@@ -23,7 +23,9 @@ SRC_URI="http://www.nwchem-sw.org/images/Nwchem-${PV%_p*}.revision${PV#*_p}-src.
 	http://www.nwchem-sw.org/images/Elpa_syncs.patch.gz
 	http://www.nwchem-sw.org/images/Xlmpoles_ifort15.patch.gz
 	http://www.nwchem-sw.org/images/Ifort15_fpp_offload.patch.gz
-	http://www.nwchem-sw.org/images/Texas_iorb.patch.gz"
+	http://www.nwchem-sw.org/images/Texas_iorb.patch.gz
+	http://www.nwchem-sw.org/images/Dmapp_inc.patch.gz
+	http://www.nwchem-sw.org/images/Print1e.patch.gz"
 
 LICENSE="ECL-2.0"
 SLOT="0"
@@ -109,13 +111,14 @@ src_unpack() {
 
 src_prepare() {
 	pushd "${S}"/src
-		for p in Util_md_sockets Hbar Tcenxtask Parallelmpi Makefile_gcc4x Bcast_ccsd Elpa_syncs Xlmpoles_ifort15 Ifort15_fpp_offload Texas_iorb
+		for p in Util_md_sockets Hbar Tcenxtask Parallelmpi Makefile_gcc4x Bcast_ccsd Elpa_syncs Xlmpoles_ifort15 Ifort15_fpp_offload Texas_iorb Dmapp_inc Print1e
 			do epatch "${WORKDIR}"/"${p}.patch"
 		done
 		cd NWints/hondo
 		epatch "${WORKDIR}"/Hnd_giaxyz_noinline.patch
 	popd
 	epatch "${FILESDIR}"/nwchem-6.1.1-nwchemrc.patch
+	epatch "${FILESDIR}"/nwchem-6.5-icosahedron_zcoord.patch
 	use python && epatch "${FILESDIR}"/nwchem-6.5-python_makefile.patch
 	use doc && epatch "${FILESDIR}"/nwchem-6.3-r1-html_doc.patch
 
