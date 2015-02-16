@@ -10,7 +10,7 @@ inherit latex-package python-single-r1
 
 DESCRIPTION="Fast Access to Python from within LaTeX"
 HOMEPAGE="https://github.com/gpoore/pythontex"
-SRC_URI="https://github.com/gpoore/${PN}/archive/v${PV}.zip"
+SRC_URI="https://github.com/gpoore/${PN}/archive/v${PV}.zip -> ${P}.zip"
 
 SLOT="0"
 LICENSE="LPPL-1.3 BSD"
@@ -19,16 +19,18 @@ IUSE="highlighting"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-DEPEND="${PYTHON_DEPS}
+COMMON_DEPEND="${PYTHON_DEPS}
 	app-text/texlive"
-RDEPEND="${DEPEND}
+DEPEND="${COMMON_DEPEND}
+	app-arch/unzip"
+RDEPEND="${COMMON_DEPEND}
 	dev-texlive/texlive-xetex
 	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
+S="${WORKDIR}/${P}/${PN}"
+
 src_prepare() {
-	S="${WORKDIR}/${P}/${PN}"
-	cd "${S}" || die
 	rm pythontex.sty || die "Could not remove pre-compiled pythontex.sty!"
 }
 
@@ -39,7 +41,6 @@ src_compile() {
 }
 
 src_install() {
-	python_optimize .
 	if python_is_python3; then
 		python_newscript pythontex3.py pythontex.py
 		python_newscript depythontex3.py depythontex.py
@@ -54,14 +55,11 @@ src_install() {
 	python_moduleinto ${PYTHON_SCRIPTDIR}
 	python_domodule "${S}"/pythontex_engines.py "${S}"/pythontex_utils.py
 
-	insinto /usr/share/texmf-site/tex/latex/pythontex/
-	doins "${S}"/pythontex.sty
-
-	insinto /usr/share/texmf-site/source/latex/pythontex/
-	doins "${S}"/pythontex.dtx "${S}"/pythontex.ins
+	latex-package_src_doinstall ${PN}.{dtx,ins,sty}
 
 	latex-package_src_install
 
 	dodoc README
 	mktexlsr
+	python_optimize
 }
