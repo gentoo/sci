@@ -41,13 +41,13 @@ src_compile() {
 }
 
 src_install() {
-	if python_is_python3; then
-		python_newscript pythontex3.py pythontex.py
-		python_newscript depythontex3.py depythontex.py
-	else
-		python_newscript pythontex2.py pythontex.py
+	python_doscript pythontex3.py
+	python_doscript depythontex3.py
+	python_doscript pythontex2.py
+	python_doscript depythontex2.py
+	
+	if python_is_python2; then
 		python_doscript pythontex_2to3.py
-		python_newscript depythontex2.py depythontex.py
 	fi
 
 	python_export PYTHON_SCRIPTDIR
