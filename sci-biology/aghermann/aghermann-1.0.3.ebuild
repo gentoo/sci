@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,17 +13,19 @@ LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-DEPEND="x11-libs/gtk+:3
-	dev-libs/libconfig
-	dev-libs/libunique:3
-	sci-libs/gsl
-	sci-libs/itpp
-	sci-libs/fftw
-	dev-libs/libconfig
-	dev-libs/libxml2
-	media-libs/samplerate
-	x11-libs/vte
-	dev-lang/lua"
+RDEPEND="x11-libs/gtk+:3
+	 dev-libs/libconfig
+	 dev-libs/libunique:3
+	 sci-libs/gsl
+	 sci-libs/itpp
+	 sci-libs/fftw
+	 dev-libs/libconfig
+	 dev-libs/libxml2
+	 media-libs/libsamplerate
+	 x11-libs/vte
+	 dev-lang/lua"
+
+DEPEND="${RDEPEND}"
 
 src_configure() {
         econf \
@@ -31,6 +33,6 @@ src_configure() {
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "make install failed"
-	dodoc AUTHORS ChangeLog* README || die "dodoc failed"
+	emake DESTDIR="${D}" install
+	dodoc AUTHORS ChangeLog* README
 }
