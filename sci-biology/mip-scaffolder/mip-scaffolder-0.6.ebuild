@@ -10,7 +10,7 @@ DESCRIPTION="Scaffold contigs using ABI Solid or Illumina mate pair info"
 HOMEPAGE="http://www.cs.helsinki.fi/u/lmsalmel/mip-scaffolder"
 SRC_URI="http://www.cs.helsinki.fi/u/lmsalmel/mip-scaffolder/"${P}".tar.gz"
 
-LICENSE="mip-scaffolder"
+LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
