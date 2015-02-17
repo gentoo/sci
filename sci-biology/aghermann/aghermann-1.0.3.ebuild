@@ -12,21 +12,20 @@ LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-RDEPEND="x11-libs/gtk+:3
+RDEPEND="dev-lang/lua
+	 dev-libs/libconfig
 	 dev-libs/libconfig
 	 dev-libs/libunique:3
+	 media-libs/libsamplerate
+	 sci-libs/fftw
 	 sci-libs/gsl
 	 sci-libs/itpp
-	 sci-libs/fftw
-	 dev-libs/libconfig
-	 media-libs/libsamplerate
-	 x11-libs/vte
-	 dev-lang/lua"
+	 x11-libs/gtk+:3
+	 x11-libs/vte"
 
 DEPEND="${RDEPEND}
-        dev-util/pkgconfig"
+	dev-util/pkgconfig"
 
 src_configure() {
-        econf \
-                --bindir="${EPREFIX}"/bin
+	econf --bindir="${EPREFIX}"/bin
 }
