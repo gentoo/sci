@@ -3,11 +3,10 @@
 # $Header: $
 
 EAPI="5"
-inherit eutils
 
 DESCRIPTION="A sleep-research experiment manager, EDF viewer & Achermann's Process S model runner"
 HOMEPAGE="http://johnhommer.com/academic/code/aghermann"
-SRC_URI="http://johnhommer.com/academic/code/aghermann/source/${PN}-${PV}.tar.xz"
+SRC_URI="http://johnhommer.com/academic/code/aghermann/source/${P}.tar.xz"
 
 LICENSE="GPL-2+"
 SLOT="0"
@@ -20,19 +19,14 @@ RDEPEND="x11-libs/gtk+:3
 	 sci-libs/itpp
 	 sci-libs/fftw
 	 dev-libs/libconfig
-	 dev-libs/libxml2
 	 media-libs/libsamplerate
 	 x11-libs/vte
 	 dev-lang/lua"
 
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND}
+        dev-util/pkgconfig"
 
 src_configure() {
         econf \
                 --bindir="${EPREFIX}"/bin
-}
-
-src_install() {
-	emake DESTDIR="${D}" install
-	dodoc AUTHORS ChangeLog* README
 }
