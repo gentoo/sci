@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_7,3_2,3_3} )
 
-inherit latex-package python-single-r1
+inherit latex-package python-r1
 
 DESCRIPTION="Fast Access to Python from within LaTeX"
 HOMEPAGE="https://github.com/gpoore/pythontex"
@@ -41,18 +41,18 @@ src_compile() {
 }
 
 src_install() {
-	python_doscript pythontex3.py
-	python_doscript depythontex3.py
-	python_doscript pythontex2.py
-	python_doscript depythontex2.py
-	
-	if python_is_python2; then
-		python_doscript pythontex_2to3.py
+	python_setup
+	if python_is_python3; then
+		python_domodule pythontex3.py
+		python_domodule depythontex3.py
+	else	
+		python_domodule pythontex2.py
+		python_domodule depythontex2.py
+		python_domodule pythontex_2to3.py
 	fi
 
-	python_export PYTHON_SCRIPTDIR
-	python_moduleinto ${PYTHON_SCRIPTDIR}
-	python_domodule "${S}"/pythontex_engines.py "${S}"/pythontex_utils.py
+	python_domodule pythontex_engines.py 
+	python_domodule pythontex_utils.py
 
 	latex-package_src_doinstall ${PN}.{dtx,ins,sty}
 
