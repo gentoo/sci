@@ -1,6 +1,6 @@
 env:
   - PORTAGE=2.2.14
-  - PORTAGE=2.2.15
+  - PORTAGE=2.2.17
 
 before_script:
     - mkdir travis-overlay
@@ -20,5 +20,8 @@ before_script:
     - cd travis-overlay
     - sed -i 's/fcmd=fcmd/fcmd=("%s -q" % fcmd)/' ./../portage-$PORTAGE/bin/repoman
 
-script: 
+script:
     - "./../portage-$PORTAGE/bin/repoman full -d -v"
+
+notifications:
+  irc: "chat.freenode.net#gentoo-science"

@@ -1,0 +1,12 @@
+diff -Naurp nwchem.orig/src/geom/geom_hnd.F nwchem/src/geom/geom_hnd.F
+--- nwchem.orig/src/geom/geom_hnd.F	2014-09-10 18:11:03.000000000 +0000
++++ nwchem/src/geom/geom_hnd.F	2015-01-28 16:14:38.249027101 +0000
+@@ -1644,7 +1644,7 @@ c
+          nlnba=3*mxlnba
+          if (.not. zdone) goto 55555 ! attempt to recover
+ c
+-         if (nzvar .gt. 10*(max(6,3*nat-6))) then
++         if (nzvar .gt. 20*(max(6,3*nat-6))) then
+ c
+ c     Made a z-matrix but it is asburdly big.  Nothing yet to fix this
+ c
