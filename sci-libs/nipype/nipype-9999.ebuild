@@ -18,13 +18,13 @@ EGIT_REPO_URI="https://github.com/nipy/nipype"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
-IUSE="fsl, spm"
+IUSE="fsl spm"
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-1.2[${PYTHON_USEDEP}]
-	fsl?   ( sci-biology/fsl )
+	fsl? ( sci-biology/fsl )
 	spm? ( sci-biology/spm )"
 RDEPEND="
 	sci-libs/scipy[${PYTHON_USEDEP}]
