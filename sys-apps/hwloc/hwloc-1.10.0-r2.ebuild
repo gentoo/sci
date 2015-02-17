@@ -46,6 +46,8 @@ src_prepare() {
 		append-cppflags -I/opt/cuda/include
 		append-ldflags -L/opt/cuda/$(get_libdir)
 	fi
+	#fails with -ftracer in CFLAGS, see #540036#c7
+	filter-flags -ftracer
 	autotools-utils_src_prepare
 }
 

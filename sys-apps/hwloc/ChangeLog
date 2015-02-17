@@ -3,6 +3,9 @@
 # $Header: /var/cvsroot/gentoo-x86/sys-apps/hwloc/ChangeLog,v 1.49 2015/01/05 17:56:52 aballier Exp $
 
   17 Feb 2015; Christoph Junghans <ottxor@gentoo.org> hwloc-1.10.0-r2.ebuild:
+  filter -ftracer
+
+  17 Feb 2015; Christoph Junghans <ottxor@gentoo.org> hwloc-1.10.0-r2.ebuild:
   use multilib nvidia-cuda-toolkit
 
   05 Jan 2015; Alexis Ballier <aballier@gentoo.org> hwloc-1.10.0-r1.ebuild:
