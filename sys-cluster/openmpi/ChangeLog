@@ -1,6 +1,15 @@
 # ChangeLog for sys-cluster/openmpi
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  17 Feb 2015; Christoph Junghans <ottxor@gentoo.org> +files/openmpi-ltdl.patch,
+  openmpi-1.8.4-r2.ebuild:
+  added fortran workaround and missing patch
+
+*openmpi-1.8.4-r2 (17 Feb 2015)
+
+  17 Feb 2015; Christoph Junghans <ottxor@gentoo.org> +openmpi-1.8.4-r2.ebuild:
+  added multilib mpi for testing
 
 *openmpi-1.8.3 (15 Oct 2014)
 
