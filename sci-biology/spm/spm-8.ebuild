@@ -19,7 +19,7 @@ DEPEND="${RDEPEND}
 	app-arch/unzip
 	"
 
-S=${WORKDIR}/${PN}${PV}
+S="${WORKDIR}/${PN}${PV}"
 
 src_prepare() {
 	echo "MEXOPTS += -v" >> src/Makefile.var
