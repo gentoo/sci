@@ -1,8 +1,10 @@
 # ChangeLog for dev-tex/pythontex
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  17 Feb 2015;  <chymera@gentoo.org> pythontex-0.14.ebuild:
+  repoman stuff
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> pythontex-0.12.ebuild,
   pythontex-9999.ebuild, +metadata.xml:
   Switch from git-2 to git-r3
-
