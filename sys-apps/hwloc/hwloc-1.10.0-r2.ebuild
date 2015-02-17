@@ -18,6 +18,7 @@ KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x8
 IUSE="cairo cuda debug gl +numa opencl +pci plugins svg static-libs xml X"
 
 # TODO opencl only works with AMD so no virtual
+# dev-util/nvidia-cuda-toolkit is always multilib
 
 RDEPEND=">=sys-libs/ncurses-5.9-r3[${MULTILIB_USEDEP}]
 	cairo? ( >=x11-libs/cairo-1.12.14-r4[X?,svg?,${MULTILIB_USEDEP}] )
@@ -54,7 +55,7 @@ multilib_src_configure() {
 		--disable-silent-rules
 		--docdir="${EPREFIX}"/usr/share/doc/${PF}
 		$(use_enable cairo)
-		$(multilib_native_use_enable cuda)
+		$(use_enable cuda)
 		$(use_enable debug)
 		$(multilib_native_use_enable gl)
 		$(multilib_native_use_enable opencl)
