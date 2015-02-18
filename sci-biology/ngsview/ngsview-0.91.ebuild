@@ -1,12 +1,14 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
+inherit qt4-r2
+
 DESCRIPTION="Display, edit next-gen sequence alignment (BED, BLAST, Eland, mapview processed MAQ, Corona formats)"
 HOMEPAGE="http://sourceforge.net/projects/ngsview"
-SRC_URI="http://sourceforge.net/projects/ngsview/files/ngsview/ngsview-0.91.tar.gz"
+SRC_URI="mirror://sourceforge/projects/${PN}/files/${PN}/${P}.tar.gz"
 
 # http://ngsview.sourceforge.net/manual.html
 
@@ -15,13 +17,18 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="media-gfx/graphviz
-		>=sys-libs/db-4.3
-		>=dev-qt/qtcore-4"
+DEPEND="
+	media-gfx/graphviz
+	sys-libs/db:*
+	dev-qt/qtcore:4"
 RDEPEND="${DEPEND}"
 
-src_compile(){
+src_configure(){
 	cd src/trapper || die "Cannot cd to src/trapper"
-	qmake || die
-	make || die
+	eqmake4
+}
+
+src_compile() {
+	cd src/trapper || die "Cannot cd to src/trapper"
+	default
 }
