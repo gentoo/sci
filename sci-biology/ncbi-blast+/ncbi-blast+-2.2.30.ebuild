@@ -4,7 +4,9 @@
 
 EAPI=5
 
-inherit eutils flag-o-matic multilib toolchain-funcs
+PYTHON_COMPAT=( python2_7 )
+
+inherit eutils flag-o-matic multilib python-single-r1 toolchain-funcs
 
 MY_PV="2.2.30"
 MY_P="ncbi-blast-${PV}+-src"
@@ -30,6 +32,8 @@ IUSE="
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 #KEYWORDS=""
 
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 # sys-libs/db should be compiled with USE=cxx
 DEPEND="
 	!sci-biology/ncbi-tools++
@@ -37,7 +41,7 @@ DEPEND="
 	berkdb? ( sys-libs/db:4.3[cxx] )
 	boost? ( dev-libs/boost )
 	curl? ( net-misc/curl )
-	sqlite? ( dev-db/sqlite )
+	sqlite? ( dev-db/sqlite:0 )
 	sqlite3? ( dev-db/sqlite:3 )
 	mysql? ( virtual/mysql )
 	fltk? ( x11-libs/fltk )
@@ -47,7 +51,7 @@ DEPEND="
 	freetype? ( media-libs/freetype )
 	fastcgi? ( www-apache/mod_fastcgi )
 	gnutls? ( net-libs/gnutls )
-	python? ( dev-lang/python )
+	python? ( ${PYTHON_DEPS} )
 	cppunit? ( dev-util/cppunit )
 	icu? ( dev-libs/icu )
 	expat? ( dev-libs/expat )
@@ -59,9 +63,9 @@ DEPEND="
 	muparser? ( dev-cpp/muParser )
 	hdf5? ( sci-libs/hdf5[cxx] )
 	gif? ( media-libs/giflib )
-	jpeg? ( virtual/jpeg )
-	png? ( media-libs/libpng )
-	tiff? ( media-libs/tiff )
+	jpeg? ( virtual/jpeg:0= )
+	png? ( media-libs/libpng:0= )
+	tiff? ( media-libs/tiff:0= )
 	xpm? ( x11-libs/libXpm )
 	dev-libs/lzo
 	app-arch/bzip2
