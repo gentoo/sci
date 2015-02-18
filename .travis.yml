@@ -20,14 +20,19 @@ env:
   - JOB=15
 
 before_script:
+    - mkdir travis-overlay
+    - mv !(travis-overlay) travis-overlay/
+    - mv .git travis-overlay/
+    - wget -O - "https://github.com/gentoo/portage/archive/master.tar.gz" | tar -xz
+    - wget "https://github.com/gentoo/gentoo-portage-rsync-mirror/archive/master.tar.gz" | tar xz -C /usr/portage --strip-components=1
     - sudo chmod a+rwX /etc/passwd /etc/group /etc /usr
     - echo "portage:x:250:250:portage:/var/tmp/portage:/bin/false" >> /etc/passwd
     - echo "portage::250:portage,travis" >> /etc/group
-    - ln -s "${PWD}" /usr/portage
-    - mkdir -p /etc/portage distfiles
-    - ln -s "${PWD}"/profiles/base/ /etc/portage/make.profile
-    - wget -O - "https://github.com/gentoo/portage/archive/master.tar.gz" | tar -xz
-
+    - mkdir -p /etc/portage/ /usr/portage/distfiles
+    - cp portage-master/cnf/repos.conf /etc/portage/
+    - ln -s /usr/portage/profiles/base/ /etc/portage/make.profile
+    - wget "http://www.gentoo.org/dtd/metadata.dtd" -O /usr/portage/distfiles/metadata.dtd
+    - cd travis-overlay
 script:
     - ret=0; cx=0;
       for x in $(cat profiles/categories); do
