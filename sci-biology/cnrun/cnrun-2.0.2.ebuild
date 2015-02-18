@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="dev-libs/libxml2
-	 dev-lang/lua
+	 dev-lang/lua:*
 	 sci-libs/gsl"
 
 DEPEND="${RDEPEND}"
