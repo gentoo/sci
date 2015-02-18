@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/igv
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> -igv-2.0.32.ebuild,
+  igv-2.0.35.ebuild, metadata.xml:
+  sci-biology/igv: fix SLOT operators; drop KEYWORDS for live ebuilds
 
   23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> igv-2.0.35.ebuild:
   API bumped, whitespace removal
