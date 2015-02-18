@@ -27,7 +27,7 @@ RDEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/pyface[${PYTHON_USEDEP}]
 	>=dev-python/traitsui-4[${PYTHON_USEDEP}]
-	dev-python/wxpython[${PYTHON_USEDEP}]"
+	dev-python/wxpython:*[${PYTHON_USEDEP}]"
 CDEPEND="sci-libs/vtk[python]"
 DEPEND="
 	${CDEPEND}
@@ -49,8 +49,8 @@ DEPEND="
 
 python_compile_all() {
 	if use doc; then
-		esetup.py gen_docs || die
-		esetup.py build_docs || die
+		esetup.py gen_docs
+		esetup.py build_docs
 	fi
 }
 
