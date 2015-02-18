@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> -amdapp-2.8.ebuild,
+  amdapp-2.9.ebuild, metadata.xml:
+  dev-util/amdapp: fix SLOT operators; restrict fetch; drop old
+
   02 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
   amdapp-2.8.ebuild:
   Fix 32bit build, add link to download archive
