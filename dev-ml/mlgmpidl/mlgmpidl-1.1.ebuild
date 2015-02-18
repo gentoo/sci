@@ -1,12 +1,12 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="5"
+EAPI=5
 
 inherit eutils toolchain-funcs
 
-DESCRIPTION="MLGMPIDL is an OCaml interface to the GMP and MPFR libraries"
+DESCRIPTION="OCaml interface to the GMP and MPFR libraries"
 HOMEPAGE="http://www.inrialpes.fr/pop-art/people/bjeannet/mlxxxidl-forge/mlgmpidl/"
 SRC_URI="https://gforge.inria.fr/frs/download.php/20228/${PN}-${PV}.tgz"
 
@@ -15,44 +15,42 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc +mpfr"
 
-DEPEND=">=dev-lang/ocaml-3.09
-		dev-ml/camlidl
-		dev-libs/gmp
-		mpfr? ( dev-libs/mpfr )
-		doc? ( app-text/texlive
-				app-text/ghostscript-gpl )"
-RDEPEND="${DEPEND}"
+RDEPEND="
+	>=dev-lang/ocaml-3.09
+	dev-ml/camlidl
+	dev-libs/gmp:0
+	mpfr? ( dev-libs/mpfr:0 )"
+DEPEND="${RDEPEND}
+	doc? (
+		app-text/texlive
+		app-text/ghostscript-gpl
+		)"
 
 S="${WORKDIR}/${PN}"
 
 src_prepare() {
-	rm -R html mlgmpidl.pdf
-	mv Makefile.config.model Makefile.config
-	sed -i Makefile.config \
+	rm -R html mlgmpidl.pdf || die
+	mv Makefile.config.model Makefile.config || die
+	sed \
 		-e "s/FLAGS = \\\/FLAGS += \\\/g" \
 		-e "s/-O3 -UNDEBUG/-DUDEBUG/g" \
-		-e "s/MLGMPIDL_PREFIX = /MLGMPIDL_PREFIX = \$(DESTDIR)\/usr/g"
+		-e "s/MLGMPIDL_PREFIX = /MLGMPIDL_PREFIX = \$(DESTDIR)\/usr/g" \
+		-i Makefile.config || die
 
 	if use !mpfr; then
-		sed -i -e "s/HAS_MPFR=1/#HAS_MPFR=0/g" Makefile.config
+		sed -i -e "s/HAS_MPFR=1/#HAS_MPFR=0/g" Makefile.config || die
 	fi
 
-	epatch "${FILESDIR}/${P}-mpfr-3_compat.patch"
+	epatch "${FILESDIR}"/${P}-mpfr-3_compat.patch
 }
 
 src_compile() {
-	emake all gmprun gmptop -j1 || die "emake failed"
+	emake -j1 all gmprun gmptop
 
-	if use doc; then
-		make html mlgmpidl.pdf || die "emake doc failed"
-	fi
+	use doc && emake html mlgmpidl.pdf
 }
 
 src_install(){
-	emake install DESTDIR="${D}" || die "emake install failed"
-	dodoc README
-
-	if use doc; then
-		dodoc mlgmpidl.pdf
-	fi
+	use doc && DOCS+=( mlgmpidl.pdf )
+	default
 }
