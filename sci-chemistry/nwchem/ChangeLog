@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nwchem-6.5_p26243-r6 (16 Feb 2015)
+
+  16 Feb 2015; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -nwchem-6.5_p26243-r5.ebuild, +nwchem-6.5_p26243-r6.ebuild,
+  +files/nwchem-6.5-icosahedron_zcoord.patch:
+  2 new upstream patches added (Dmapp_inc and Print1e), limit for internal
+  coordinates increased to accomodate icosahedral clusters
+
 *nwchem-6.5_p26243-r5 (15 Jan 2015)
 
   15 Jan 2015; Honza Macháček <Hloupy.Honza@centrum.cz>

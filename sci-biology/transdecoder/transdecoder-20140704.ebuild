@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=">=sci-biology/hmmer-3.0
+DEPEND="sci-biology/hmmer
 	sci-biology/cd-hit
 	sci-biology/parafly
 	sci-biology/ffindex"
