@@ -37,7 +37,7 @@ script:
       for x in $(cat profiles/categories); do
       if test $(( cx++ % 16 )) -eq ${JOB}; then
           cd ${x} && {
-            python ../portage-*/bin/repoman full -vdx || ret=1;
+            python ../../portage-master/bin/repoman full -vdx || ret=1;
           } && cd -;
         fi;
       done;
