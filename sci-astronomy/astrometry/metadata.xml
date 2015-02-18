@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-astronomy</herd>
-<longdescription lang="en">
+  <herd>sci-astronomy</herd>
+  <longdescription lang="en">
   If you have astronomical imaging of the sky with celestial
   coordinates you do not know—or do not trust—then Astrometry.net is
   for you. Input an image and we'll give you back astrometric
   calibration meta-data, plus lists of known objects falling inside
   the field of view.
 </longdescription>
-<use>
-  <flag name="extra">Add extra tools, specifically for plots</flag>
-</use>
+  <use>
+    <flag name="extra">Add extra tools, specifically for plots</flag>
+  </use>
 </pkgmetadata>
