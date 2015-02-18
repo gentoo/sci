@@ -1,27 +1,36 @@
+#
+# Run repoman via travis
+# See https://github.com/mrueg/repoman-travis
+#
+language: python
+python:
+    - pypy
 env:
-  - PORTAGE=2.2.14
-  - PORTAGE=2.2.17
-
+    - PORTAGE_VER="2.2.17"
 before_script:
     - mkdir travis-overlay
     - mv !(travis-overlay) travis-overlay/
     - mv .git travis-overlay/
-    - wget "http://distfiles.gentoo.org/distfiles/portage-$PORTAGE.tar.bz2"
-    - wget "http://distfiles.gentoo.org/snapshots/portage-latest.tar.xz"
-    - sudo chmod 777 /etc/passwd /etc/group /etc /usr
+    - wget "https://raw.githubusercontent.com/mrueg/repoman-travis/master/.travis.yml" -O .travis.yml.upstream
+    - wget "https://github.com/gentoo/portage/archive/v${PORTAGE_VER}.tar.gz" -O portage-${PORTAGE_VER}.tar.gz
+    - wget "https://raw.githubusercontent.com/mrueg/repoman-travis/master/spinner.sh"
+    - wget "https://github.com/gentoo/gentoo-portage-rsync-mirror/archive/master.tar.gz" -O portage-tree.tar.gz
+    - sudo chmod a+rwX /etc/passwd /etc/group /etc /usr spinner.sh
+    - chmod a+rwx spinner.sh
     - echo "portage:x:250:250:portage:/var/tmp/portage:/bin/false" >> /etc/passwd
     - echo "portage::250:portage,travis" >> /etc/group
     - mkdir -p /etc/portage/ /usr/portage/distfiles
-    - tar xjf portage-$PORTAGE.tar.bz2
-    - tar xJf portage-latest.tar.xz -C /usr/
-    - cp portage-$PORTAGE/cnf/repos.conf /etc/portage/
-    - rsync --recursive --links --safe-links --perms --times --omit-dir-times --compress --force --whole-file --delete --stats --human-readable --timeout=180 --exclude=/distfiles --checksum --quiet rsync://rsync.gentoo.org/gentoo-portage /usr/portage
+    - tar xzf portage-${PORTAGE_VER}.tar.gz
+    - tar xzf portage-tree.tar.gz -C /usr/portage --strip-components=1
+    - cp portage-${PORTAGE_VER}/cnf/repos.conf /etc/portage/
     - ln -s /usr/portage/profiles/base/ /etc/portage/make.profile
+    - wget "http://www.gentoo.org/dtd/metadata.dtd" -O /usr/portage/distfiles/metadata.dtd
+    - SIZE=`stat -c %s .travis.yml.upstream`
+    - if ! cmp -n $SIZE -s .travis.yml .travis.yml.upstream; then  echo -e "\e[31m !!! .travis.yml outdated! Update available https://github.com/mrueg/repoman-travis \e[0m" > /tmp/update ; fi
     - cd travis-overlay
-    - sed -i 's/fcmd=fcmd/fcmd=("%s -q" % fcmd)/' ./../portage-$PORTAGE/bin/repoman
-
 script:
-    - "./../portage-$PORTAGE/bin/repoman full -d -v"
+    - ./../spinner.sh "./../portage-${PORTAGE_VER}/bin/repoman full -d"
+# You can append own scripts after this line
 
 notifications:
   irc: "chat.freenode.net#gentoo-science"
