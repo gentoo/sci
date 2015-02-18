@@ -24,7 +24,7 @@ RDEPEND=">=sys-libs/ncurses-5.9-r3[${MULTILIB_USEDEP}]
 	cairo? ( >=x11-libs/cairo-1.12.14-r4[X?,svg?,${MULTILIB_USEDEP}] )
 	cuda? ( dev-util/nvidia-cuda-toolkit )
 	gl? ( media-video/nvidia-settings )
-	opencl? ( x11-drivers/ati-drivers )
+	opencl? ( x11-drivers/ati-drivers:* )
 	pci? (
 		>=sys-apps/pciutils-3.3.0-r2[${MULTILIB_USEDEP}]
 		>=x11-libs/libpciaccess-0.13.1-r1[${MULTILIB_USEDEP}]
