@@ -16,10 +16,10 @@ KEYWORDS="~x86 ~amd64"
 IUSE="debug fortran large-cluster medium-cluster romio threads"
 
 RDEPEND="
-	sys-infiniband/libibverbs
-	sys-infiniband/libibumad
-	sys-infiniband/libibmad
-	sys-infiniband/librdmacm
+	sys-infiniband/libibverbs:=
+	sys-infiniband/libibumad:=
+	sys-infiniband/libibmad:=
+	sys-infiniband/librdmacm:=
 	"
 DEPEND="${RDEPEND}"
 
