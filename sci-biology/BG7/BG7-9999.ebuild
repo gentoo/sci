@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,8 +17,8 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="
-	>=virtual/jre-1.5
+	>=virtual/jre-1.5:*
 	dev-java/ant-core"
 RDEPEND="${DEPEND}
-	>=virtual/jre-1.5
+	>=virtual/jre-1.5:*
 	sci-biology/ncbi-tools++"

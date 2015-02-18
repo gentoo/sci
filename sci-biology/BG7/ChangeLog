@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/BG7
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> BG7-9999.ebuild:
+  sci-biology/BG7: fix SLOT operators
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> BG7-9999.ebuild, +metadata.xml:
   Switch from git-2 to git-r3
@@ -9,4 +12,3 @@
 
   29 Aug 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +BG7-9999.ebuild:
   Initial, not yet working ebuild.
-
