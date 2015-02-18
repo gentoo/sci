@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="pam ssl"
 
-DEPEND="ssl? ( dev-libs/openssl )"
+DEPEND="ssl? ( dev-libs/openssl:0 )"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${P}/bbftpd"
@@ -41,10 +41,10 @@ src_configure() {
 }
 
 src_install() {
+	DOCS=( ../README ../ChangeLog ../TODO ../doc/. )
 	default
 
 	newinitd "${FILESDIR}"/bbftpd.init.d bbftpd
-	dodoc ../README ../ChangeLog ../TODO ../doc/*
 	doman ../doc/bbftpd.1
 	if use pam; then
 		echo -e "#%PAM-1.0\nauth include system-auth\naccount include system-auth" >> "${T}"/bbftp.pam
