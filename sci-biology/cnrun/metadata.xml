@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-biology</herd>
+  <maintainer>
+    <email>johnhommer@gmail.com</email>
+    <name>Andrei Zavada</name>
+  </maintainer>
+  <longdescription>
+    CNrun is a neuronal network simulator, with these features:
+
+    * a conductance- and rate-based Hodgkin-Huxley neurons, a Rall and
+      Alpha-Beta synapses;
+    * a 6-5 Runge-Kutta integration method: slow but precise, adjustable;
+    * Poisson, Van der Pol, Colpitts oscillators and interface for
+      external stimulation sources;
+    * NeuroML network topology import/export;
+    * logging state variables, spikes;
+    * implemented as a Lua module, for scripting model behaviour (e.g.,
+      to enable plastic processes regulated by model state);
+    * interaction (topology push/pull, async connections) with other
+      cnrun models running elsewhere on a network, with interactions
+      (planned).
+
+    Note that there is no `cnrun' executable, which existed in cnrun-1.*.
+    Instead, you write a script for your simulation in Lua, and execute
+    it as detailed in /usr/share/lua-cnrun/examples/example1.lua.
+  </longdescription>
+</pkgmetadata>
