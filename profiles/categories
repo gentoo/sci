@@ -19,12 +19,10 @@ dev-tex
 dev-util
 media-gfx
 media-libs
-metadata
 net-firewall
 net-ftp
 net-libs
 net-misc
-patches
 perl-core
 sci-astronomy
 sci-biology
