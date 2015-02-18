@@ -1,6 +1,10 @@
 # ChangeLog for dev-ml/zarith
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> metadata.xml,
+  zarith-1.2.1.ebuild:
+  dev-ml/zarith: fix SLOT operators; fix usage of die
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> zarith-1.2.1.ebuild:
   clean up
