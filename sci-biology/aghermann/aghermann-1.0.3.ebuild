@@ -13,14 +13,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="dev-lang/lua:*
-	 dev-libs/libconfig
-	 dev-libs/libunique:3
-	 media-libs/libsamplerate
-	 sci-libs/fftw:3.0
-	 sci-libs/gsl
-	 sci-libs/itpp
-	 x11-libs/gtk+:3
-	 x11-libs/vte:2.90"
+	dev-libs/libconfig
+	dev-libs/libunique:3
+	media-libs/libsamplerate
+	sci-libs/fftw:3.0
+	sci-libs/gsl
+	sci-libs/itpp
+	x11-libs/gtk+:3
+	x11-libs/vte:2.90"
 
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
