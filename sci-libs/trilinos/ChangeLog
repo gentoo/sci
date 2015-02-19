@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/trilinos
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  19 Feb 2015; Christoph Junghans <ottxor@gentoo.org> trilinos-11.0.3.ebuild,
+  trilinos-11.10.2.ebuild, trilinos-11.12.1.ebuild, trilinos-11.4.2.ebuild:
+  BSD/LGPL-2.1 never implies a fetch restriction, updated Manifest
 
 *trilinos-11.12.1 (06 Dec 2014)
 
