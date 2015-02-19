@@ -8,5 +8,5 @@
   18 Feb 2015; Justin Lecher <jlec@gentoo.org> aghermann-1.0.3.ebuild:
   sci-biology/aghermann: Fix indention and use virtual for pkgconfig
 
-  17 Jan 2015; Andrei Zavada <johnhommer@gmail.com> aghermann-1.0.3.ebuild:
+  17 Feb 2015; Andrei Zavada <johnhommer@gmail.com> aghermann-1.0.3.ebuild:
   Initial packaging for gentoo.
