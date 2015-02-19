@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Feb 2015; Christoph Junghans <ottxor@gentoo.org> boost-1.56.0-r2.ebuild:
+  dropped sparc
+
 *boost-1.56.0-r2 (17 Feb 2015)
 
   17 Feb 2015; Christoph Junghans <ottxor@gentoo.org> +boost-1.56.0-r2.ebuild,
