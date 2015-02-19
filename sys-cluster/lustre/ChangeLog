@@ -1,6 +1,9 @@
 # ChangeLog for sys-cluster/lustre
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> lustre-9999.ebuild:
+  sys-cluster/lustre: fix SLOT operators
 
   12 Nov 2014; Justin Lecher <jlec@gentoo.org> lustre-9999.ebuild,
   -files/0002-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch:

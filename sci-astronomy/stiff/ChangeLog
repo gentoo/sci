@@ -1,6 +1,9 @@
 # ChangeLog for sci-astronomy/stiff
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-astronomy/stiff/ChangeLog,v 1.7 2011/08/04 18:33:30 bicatali Exp $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> metadata.xml, stiff-9999.ebuild:
+  sci-astronomy/stiff: fix SLOT operators
 
 *stiff-2.4.0 (21 Mar 2014)
 

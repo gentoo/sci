@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-mathematics</herd>
-<longdescription>
+  <herd>sci-mathematics</herd>
+  <longdescription>
   MLGMPIDL is a package offering an interface to the GMP and MPFR
   libraries for OCaml version 3.07 or higher. The interface offers access
   to almost all the functions of the library, and is decomposed into 7
   submodules.
 </longdescription>
-<use>
-  <flag name="mpfr">Add support for <pkg>dev-libs/mpfr</pkg></flag>
-</use>
+  <use>
+    <flag name="mpfr">Add support for <pkg>dev-libs/mpfr</pkg></flag>
+  </use>
 </pkgmetadata>

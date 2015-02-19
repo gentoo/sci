@@ -1,6 +1,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*nvidia-cuda-toolkit-7.0.18-r1 (19 Feb 2015)
+
+  19 Feb 2015; Justin Lecher <jlec@gentoo.org>
+  +nvidia-cuda-toolkit-7.0.18-r1.ebuild, -nvidia-cuda-toolkit-7.0.18.ebuild:
+  dev-util/nvidia-cuda-toolkit: Create convinience symlink lib32 -> lib
+
 *nvidia-cuda-sdk-7.0.18 (14 Jan 2015)
 
   14 Jan 2014; Marius Brehler <marbre@linux.sungazer.de> +files/cuda-config.in,

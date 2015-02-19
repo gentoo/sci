@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/ncbi-tools++
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> ncbi-tools++-12.0.0.ebuild:
+  sci-biology/ncbi-tools++: fix SLOT operators; correct python deps
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org>
   -files/ncbi-tools++-12.0.0-as-needed.patch,

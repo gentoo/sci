@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -33,7 +33,7 @@ IUSE="adolc doc fortran fftw gmp metis mkl pastix sparse static-libs test"
 CDEPEND="
 	adolc? ( sci-libs/adolc[sparse?] )
 	fftw? ( sci-libs/fftw:3.0 )
-	gmp? ( dev-libs/gmp dev-libs/mpfr )
+	gmp? ( dev-libs/gmp:0 dev-libs/mpfr:0 )
 	metis? ( sci-libs/metis )
 	mkl? ( sci-libs/mkl )
 	pastix? ( sci-libs/pastix )

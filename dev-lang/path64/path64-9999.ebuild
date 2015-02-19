@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -27,7 +27,8 @@ SLOT="0"
 KEYWORDS=""
 IUSE="assembler custom-cflags debugger fortran +native +openmp valgrind"
 
-DEPEND="!native? ( sys-devel/gcc[vanilla] )
+DEPEND="
+	!native? ( sys-devel/gcc:*[vanilla] )
 	native? ( || ( dev-lang/ekopath dev-lang/path64 ) )
 	valgrind? ( dev-util/valgrind )"
 RDEPEND="${DEPEND}"

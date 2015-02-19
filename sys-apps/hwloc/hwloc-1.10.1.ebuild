@@ -22,9 +22,9 @@ IUSE="cairo cuda debug gl +numa opencl +pci plugins svg static-libs xml X"
 
 RDEPEND=">=sys-libs/ncurses-5.9-r3[${MULTILIB_USEDEP}]
 	cairo? ( >=x11-libs/cairo-1.12.14-r4[X?,svg?,${MULTILIB_USEDEP}] )
-	cuda? ( dev-util/nvidia-cuda-toolkit )
+	cuda? ( >=dev-util/nvidia-cuda-toolkit-6.5.19-r1 )
 	gl? ( media-video/nvidia-settings )
-	opencl? ( x11-drivers/ati-drivers )
+	opencl? ( x11-drivers/ati-drivers:* )
 	pci? (
 		>=sys-apps/pciutils-3.3.0-r2[${MULTILIB_USEDEP}]
 		>=x11-libs/libpciaccess-0.13.1-r1[${MULTILIB_USEDEP}]
@@ -44,13 +44,13 @@ src_prepare() {
 	if use cuda ; then
 		append-cflags -I/opt/cuda/include
 		append-cppflags -I/opt/cuda/include
-		append-ldflags -L/opt/cuda/$(get_libdir)
 	fi
 	autotools-utils_src_prepare
 }
 
 multilib_src_configure() {
 	export HWLOC_PKG_CONFIG=$(tc-getPKG_CONFIG) #393467
+	use cuda && local LDFLAGS="${LDFLAGS} -L/opt/cuda/$(get_libdir)"
 	local myeconfargs=(
 		--disable-silent-rules
 		--docdir="${EPREFIX}"/usr/share/doc/${PF}

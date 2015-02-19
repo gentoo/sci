@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <longdescription lang="en">
   HDF is a versatile data model that can represent very complex data
   objects and a wide variety of metadata. It is a completely portable
   file format with no limit on the number or size of data objects in
@@ -10,8 +10,8 @@
   This Java package implements HDF4/HDF5 data objects in an object-oriented
   form. It provides a common Java API for accessing HDF files.
 </longdescription>
-<use>
-  <flag name='hdf'>Add support for the Hierarchical Data Format v.4 (<pkg>sci-libs/hdf</pkg>)</flag>
-  <flag name='hdfview'>Build a GUI viewer for all files supported in <pkg>dev-java/hdf-java</pkg></flag>
-</use>
+  <use>
+    <flag name="hdf">Add support for the Hierarchical Data Format v.4 (<pkg>sci-libs/hdf</pkg>)</flag>
+    <flag name="hdfview">Build a GUI viewer for all files supported in <pkg>dev-java/hdf-java</pkg></flag>
+  </use>
 </pkgmetadata>

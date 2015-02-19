@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,9 +15,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="+ocamlopt doc mpir"
 
-DEPEND=">=dev-lang/ocaml-3.12.1[ocamlopt?]
-		!mpir? ( dev-libs/gmp )
-		mpir? ( sci-libs/mpir )"
+DEPEND="
+	>=dev-lang/ocaml-3.12.1[ocamlopt?]
+	!mpir? ( dev-libs/gmp:0 )
+	mpir? ( sci-libs/mpir:0 )"
 RDEPEND="${DEPEND}"
 
 pkg_setup() {
@@ -25,8 +26,9 @@ pkg_setup() {
 }
 
 src_prepare(){
-	sed -e 's:(OCAMLFIND) install:(OCAMLFIND) install -ldconf $(INSTALLDIR)/ld.conf:g' \
-		-i "${S}"/project.mak
+	sed \
+		-e 's:(OCAMLFIND) install:(OCAMLFIND) install -ldconf $(INSTALLDIR)/ld.conf:g' \
+		-i "${S}"/project.mak || die
 }
 
 src_configure(){
@@ -36,15 +38,16 @@ src_configure(){
 }
 
 src_compile(){
-	emake
+	default
 	use doc && emake doc
 }
 
 src_install(){
 	findlib_src_preinst
-	cp "${OCAMLDIR}"/ld.conf "${D}/${OCAMLDIR}"/ld.conf
-	emake install
-	rm -f "${D}/${OCAMLDIR}"/ld.conf
-	dodoc Changes README
-	use doc && dodoc -r html/
+	cp "${OCAMLDIR}"/ld.conf "${D}/${OCAMLDIR}"/ld.conf || die
+	default
+	rm -f "${D}/${OCAMLDIR}"/ld.conf || die
+	DOCS=( Changes README )
+	use doc && HTML_DOCS=( html/. )
+	einstalldocs
 }

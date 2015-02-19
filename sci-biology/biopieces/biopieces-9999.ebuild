@@ -1,51 +1,58 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-[ "$PV" == "9999" ] && inherit subversion
+PYTHON_COMPAT=( python2_7 )
+
+USE_RUBY="ruby19"
+
+if [ "$PV" == "9999" ]; then
+	ESVN_REPO_URI="http://biopieces.googlecode.com/svn/trunk"
+	KEYWORDS=""
+	inherit subversion
+else
+	SRC_URI="http://biopieces.googlecode.com/files/biopieces_installer-${PV}.sh"
+	KEYWORDS=""
+fi
+
+inherit ruby-fakegem python-single-r1
 
 DESCRIPTION="Toolkit to find and trim adaptors, plot read lengths, qualities, map reads and submit to GenBank"
 HOMEPAGE="http://code.google.com/p/biopieces"
 SRC_URI=""
-if [ "$PV" == "9999" ]; then
-	ESVN_REPO_URI="http://biopieces.googlecode.com/svn/trunk"
-	KEYWORDS=""
-else
-	SRC_URI="http://biopieces.googlecode.com/files/biopieces_installer-"${PV}".sh"
-	KEYWORDS=""
-fi
 
 LICENSE="GPL-2"
 SLOT="0"
 IUSE=""
 
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 #    Ruby terminal-table ?
 
-DEPEND=">=dev-lang/perl-5.8
+DEPEND="
+	>=dev-lang/perl-5.8
+	dev-perl/libwww-perl
 	dev-perl/Bit-Vector
-	dev-perl/SVG
-	dev-perl/TermReadKey
-	virtual/perl-Time-HiRes
-	dev-perl/DBI
-	dev-perl/XML-Parser
 	dev-perl/Carp-Clan
 	dev-perl/Class-Inspector
+	dev-perl/DBD-mysql
+	dev-perl/DBI
 	dev-perl/HTML-Parser
-	dev-perl/libwww-perl
-	dev-perl/SOAP-Lite
-	dev-perl/URI
 	dev-perl/Inline
 	dev-perl/Parse-RecDescent
+	dev-perl/SOAP-Lite
+	dev-perl/SVG
+	dev-perl/TermReadKey
+	dev-perl/URI
+	dev-perl/XML-Parser
 	virtual/perl-version
 	virtual/perl-DB_File
-	dev-perl/DBD-mysql
-	>=dev-lang/python-2.6
-	dev-lang/ruby
-	dev-ruby/gnuplot
-	dev-ruby/narray
-	dev-ruby/RubyInline"
+	virtual/perl-Time-HiRes"
+
+ruby_add_bdepend "dev-ruby/RubyInline"
+ruby_add_rdepend "dev-ruby/gnuplot dev-ruby/narray"
 
 # sci-biology/vmatch # http://www.vmatch.de/ # fecth restrict
 # sci-biology/usearch-bin # http://www.drive5.com/usearch/ # fecth restrict

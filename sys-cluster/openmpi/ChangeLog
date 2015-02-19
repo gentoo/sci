@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> metadata.xml,
+  openmpi-1.6.5.ebuild, openmpi-1.7.3.ebuild, openmpi-1.8.1.ebuild,
+  openmpi-1.8.3.ebuild, openmpi-1.8.4-r2.ebuild:
+  sys-cluster/openmpi: fix SLOT operators
+
   17 Feb 2015; Christoph Junghans <ottxor@gentoo.org> +files/openmpi-ltdl.patch,
   openmpi-1.8.4-r2.ebuild:
   added fortran workaround and missing patch

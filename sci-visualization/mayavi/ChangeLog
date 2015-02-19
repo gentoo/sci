@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: Exp $
 
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> mayavi-4.4.0.ebuild,
+  metadata.xml:
+  sci-visualization/mayavi: fix SLOT operators
+
 *mayavi-4.4.0 (22 Jan 2015)
 
   22 Jan 2015; Jan Simons <jamasi@digitac.cc> +mayavi-4.4.0.ebuild:

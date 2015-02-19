@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> discrover-1.5.2.ebuild,
+  discrover-9999.ebuild, metadata.xml:
+  sci-biology/discrover: fix SLOT operators; correct ruby deps
+
 *discrover-1.5.2 (27 Jan 2015)
 
   27 Jan 2015; Jonas Maaskola <jonas@maaskola.de> +discrover-1.5.2.ebuild,

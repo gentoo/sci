@@ -1,10 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 JAVA_PKG_OPT_USE="gui"
 
 inherit java-pkg-opt-2 python-single-r1
@@ -19,9 +19,11 @@ SLOT="0"
 LICENSE="BSD-2"
 IUSE="gui test"
 
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
 RDEPEND="virtual/mpi
 	${PYTHON_DEPS}
-	gui? ( virtual/jdk dev-java/jython:0 )"
+	gui? ( virtual/jdk:* dev-java/jython:0 )"
 DEPEND="${RDEPEND}"
 
 src_compile() {
