@@ -23,7 +23,7 @@ SLOT="0"
 IUSE="+examples +cpu cuda test"
 
 RDEPEND="
-	>=sys-devel/gcc-4.7.3-r1
+	>=sys-devel/gcc-4.7:*
 	cuda? (
 		>=dev-util/nvidia-cuda-toolkit-6.0
 		dev-libs/boost
