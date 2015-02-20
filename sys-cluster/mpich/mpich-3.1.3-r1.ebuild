@@ -97,7 +97,7 @@ multilib_src_configure() {
 		--with-hwloc-prefix=/usr \
 		$(use_enable romio) \
 		$(use_enable cxx) \
-		$(use_enable fortran fortran all)
+		$(multilib_native_use_enable fortran fortran all)
 }
 
 multilib_src_test() {
@@ -108,7 +108,7 @@ multilib_src_install() {
 	default
 
 	#fortran modules are arch-specific, follow OpenMPI and put them in lib
-	if use fortran; then
+	if multilib_is_native_abi && use fortran; then
 		mv "${ED}"/usr/include/*.mod "${ED}"/usr/$(get_libdir) || die
 	fi
 }
