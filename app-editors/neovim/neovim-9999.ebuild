@@ -4,7 +4,10 @@
 
 EAPI=5
 
-inherit cmake-utils flag-o-matic
+inherit cmake-utils
+
+DESCRIPTION="Vim's rebirth for the 21st century"
+HOMEPAGE="https://github.com/neovim/neovim"
 
 if [ "${PV}" = "9999" ]; then
 	EGIT_REPO_URI="git://github.com/neovim/neovim.git"
@@ -15,23 +18,18 @@ else
 	KEYWORDS="~amd64"
 fi
 
-DESCRIPTION="Vim's rebirth for the 21st century"
-HOMEPAGE="https://github.com/neovim/neovim"
-
-LICENSE="vim"
+LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-src_configure()  {
-	append-flags "-DNDEBUG -Wno-error -D_FORTIFY_SOURCE=1"
-	cmake-utils_src_configure
-}
-
-RDEPEND="app-admin/eselect-vi
-	sys-libs/ncurses"
-DEPEND="${RDEPEND}
-	dev-lang/luajit
-	>=dev-libs/libuv-0.11.19
+DEPEND="
+	${RDEPEND}
+	dev-lang/luajit:2
+	=dev-libs/libtermkey-9999
+	=dev-libs/unibilium-1.1.1
+	=dev-libs/msgpack-9999
+	>=dev-libs/libuv-1.1.0
 	dev-lua/lpeg
-	>=dev-lua/cmsgpack-9999"
+	dev-lua/messagepack
+"
