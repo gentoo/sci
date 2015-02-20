@@ -22,6 +22,6 @@ DOCS=( CHANGELOG.md README.md CROSSLANG.md QUICKSTART-C.md QUICKSTART-CPP.md)
 
 src_prepare() {
 	append-cflags "-I${S}/include"
-	sed -i 's/-O3 //' configure.in
+	sed -i 's/-O3 //' configure.in || die
 	autotools-multilib_src_prepare
 }
