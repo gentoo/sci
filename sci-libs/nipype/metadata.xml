@@ -18,4 +18,8 @@
 	creating a collaborative platform for neuroimaging software development
 	in a high-level language and addressing limitations of existing pipeline systems.
 </longdescription>
+  <use>
+    <flag name="spm">Pull in "Statistical Parametric Mapping" (sci-biology/spm)</flag>
+    <flag name="fsl">Pull in the "FMRIB Software Library" (sci-biology/fsl)</flag>
+  </use>
 </pkgmetadata>
