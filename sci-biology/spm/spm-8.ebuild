@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,8 +6,7 @@ EAPI=5
 
 DESCRIPTION="Analysis of brain imaging data sequences for Octave or Matlab"
 HOMEPAGE="http://www.fil.ion.ucl.ac.uk/spm/"
-URI_BASE="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/"
-SRC_URI="${URI_BASE}${PN}${PV}.zip"
+SRC_URI="http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/${PN}${PV}.zip"
 
 LICENSE="GPL-2+"
 SLOT="8"
@@ -19,7 +18,7 @@ DEPEND="${RDEPEND}
 	app-arch/unzip
 	"
 
-S=${WORKDIR}/${PN}${PV}
+S="${WORKDIR}/${PN}${PV}"
 
 src_prepare() {
 	echo "MEXOPTS += -v" >> src/Makefile.var
