@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,7 +10,7 @@ MY_PV=$(replace_version_separator 2 '-')
 
 DESCRIPTION="Solve PDEs using FEM on 2d and 3d domains"
 HOMEPAGE="http://www.freefem.org/ff++/"
-SRC_URI="http://www.freefem.org/ff%2B%2B/ftp/${PN}-${MY_PV}.tar.gz"
+SRC_URI="http://www.freefem.org/ff++/ftp/old-v3/${PN}-${MY_PV}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
@@ -18,7 +18,7 @@ KEYWORDS="~amd64"
 IUSE="doc examples mpi opengl X"
 
 RDEPEND="
-	sci-libs/fftw
+	sci-libs/fftw:3.0
 	virtual/cblas
 	virtual/lapack
 	sci-libs/umfpack
