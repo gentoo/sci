@@ -75,14 +75,7 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 MULTILIB_WRAPPED_HEADERS=(
-	/usr/include/mpif-io-handles.h
-	/usr/include/mpif-constants.h
 	/usr/include/mpi.h
-	/usr/include/mpif-externals.h
-	/usr/include/mpif-io-constants.h
-	/usr/include/mpif-config.h
-	/usr/include/mpif-sentinels.h
-	/usr/include/mpif-handles.h
 )
 
 pkg_setup() {
@@ -165,11 +158,22 @@ multilib_src_install() {
 
 	# Remove la files, no static libs are installed and we have pkg-config
 	find "${ED}"/usr/$(get_libdir)/ -type f -name '*.la' -delete
+
+	# fortran header cannot be wrapped (bug #540508), workaround part 1
+	if multilib_is_native_abi && use fortran; then
+		mkdir "${T}"/fortran || die
+		mv "${ED}"/usr/include/mpif* "${T}"/fortran || die
+	fi
 }
 
 multilib_src_install_all() {
 	# From USE=vt see #359917
 	rm "${ED}"/usr/share/libtool &> /dev/null
+
+	# fortran header cannot be wrapped (bug #540508), workaround part 2
+	if use fortran; then
+		mv "${T}"/fortran/mpif* "${ED}"/usr/include || die
+	fi
 
 	# Avoid collisions with libevent
 	rm -rf "${ED}"/usr/include/event2 &> /dev/null
