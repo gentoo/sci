@@ -3,6 +3,9 @@
 # $Header: $
 
   20 Feb 2015; Christoph Junghans <ottxor@gentoo.org> openmpi-1.8.4-r3.ebuild:
+  enabled multilib cuda
+
+  20 Feb 2015; Christoph Junghans <ottxor@gentoo.org> openmpi-1.8.4-r3.ebuild:
   added fortran hack for bug #540508
 
 *openmpi-1.8.4-r3 (19 Feb 2015)
