@@ -1,6 +1,6 @@
-diff -ru src/def.h c/def.h
---- src/def.h	2007-12-06 17:30:56.000000000 +0100
-+++ c/def.h	2013-10-19 18:42:55.118745730 +0200
+Patch imported from sage-on-gentoo.
+--- src/def.h
++++ c/def.h
 @@ -2,14 +2,9 @@
  /* INT should always be 4 byte */
  #ifndef DEF_H

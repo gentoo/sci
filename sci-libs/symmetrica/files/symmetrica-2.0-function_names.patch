@@ -1,6 +1,6 @@
-diff -r 5cd656a07aa5 src/bar.c
---- a/bar.c	Thu May 14 06:01:00 2009 -0400
-+++ b/bar.c	Thu May 14 07:38:17 2009 -0400
+Patch imported from sage-on-gentoo.
+--- a/bar.c
++++ b/bar.c
 @@ -237,7 +237,7 @@
      g = callocobject();
      e = S_V_I(a,0L);
@@ -28,9 +28,8 @@ diff -r 5cd656a07aa5 src/bar.c
      for(i=0L;i<S_P_LI(a);i++)
          {
          if (S_V_II(S_V_I(c,0L),i) == 1L)
-diff -r 5cd656a07aa5 src/def.h
---- a/def.h	Thu May 14 06:01:00 2009 -0400
-+++ b/def.h	Thu May 14 07:38:17 2009 -0400
+--- a/def.h
++++ b/def.h
 @@ -3105,7 +3105,7 @@
  extern INT so_character ();
  extern INT so_dimension ();
@@ -49,9 +48,8 @@ diff -r 5cd656a07aa5 src/def.h
  extern INT sum_integervector();
  extern INT sum_matrix();
  extern INT sum_vector();
-diff -r 5cd656a07aa5 src/di.c
---- a/di.c	Thu May 14 06:01:00 2009 -0400
-+++ b/di.c	Thu May 14 07:38:17 2009 -0400
+--- a/di.c
++++ b/di.c
 @@ -1355,7 +1355,7 @@
  				m_il_nv(0L,weight_watcher);
  				m_il_nv(0L,perm_vec);
@@ -70,9 +68,8 @@ diff -r 5cd656a07aa5 src/di.c
  		if(!hfix_in_ww(hfix,ww))
  		{
  			inc(ww);
-diff -r 5cd656a07aa5 src/ga.c
---- a/ga.c	Thu May 14 06:01:00 2009 -0400
-+++ b/ga.c	Thu May 14 07:38:17 2009 -0400
+--- a/ga.c
++++ b/ga.c
 @@ -632,7 +632,7 @@
      else if (what == 0L)
          erg += vertikal_sum(S_V_L(a),c);
@@ -91,9 +88,8 @@ diff -r 5cd656a07aa5 src/ga.c
      for (i=0L;i<S_V_LI(g);i++)
          {
          erg += m_i_i(S_V_II(g,i),S_P_I(a,j));
-diff -r 5cd656a07aa5 src/galois.c
---- a/galois.c	Thu May 14 06:01:00 2009 -0400
-+++ b/galois.c	Thu May 14 07:38:17 2009 -0400
+--- a/galois.c
++++ b/galois.c
 @@ -758,7 +758,7 @@
  		}
          }
@@ -103,9 +99,8 @@ diff -r 5cd656a07aa5 src/galois.c
      }
      S3R(k,phg_c,phg_d,"all_points_phg_store",res);
      ENDR("all_points");
-diff -r 5cd656a07aa5 src/macro.h
---- a/macro.h	Thu May 14 06:01:00 2009 -0400
-+++ b/macro.h	Thu May 14 07:38:17 2009 -0400
+--- a/macro.h
++++ b/macro.h
 @@ -1,6 +1,8 @@
  /* file: macro.h symmetrica source code */
  #ifndef MACRO_H
@@ -116,8 +111,8 @@ diff -r 5cd656a07aa5 src/macro.h
  #define SYM_MALLOC(a) mem_malloc(a)
  #else
  #define C_O_K(a,b) ((a)->ob_kind = (OBJECTKIND)(b))
---- a/nc.c	Thu May 14 06:01:00 2009 -0400
-+++ b/nc.c	Thu May 14 07:38:17 2009 -0400
+--- a/nc.c
++++ b/nc.c
 @@ -204,7 +204,7 @@
      erg += mult(S_NC_C(a),S_NC_C(b),d);
      erg += m_gl_co(S_NC_GL(a),e);
@@ -163,9 +158,8 @@ diff -r 5cd656a07aa5 src/macro.h
      erg += typusorder(S_V_I(h,S_I_I(i)), zb, za, a, f);
      erg += freeall(f); 
      erg += freeall(c); 
-diff -r 5cd656a07aa5 src/nu.c
---- a/nu.c	Thu May 14 06:01:00 2009 -0400
-+++ b/nu.c	Thu May 14 07:38:17 2009 -0400
+--- a/nu.c
++++ b/nu.c
 @@ -531,13 +531,13 @@
      ENDR("add");
  }
@@ -221,9 +215,8 @@ diff -r 5cd656a07aa5 src/nu.c
  }
  
  
-diff -r 5cd656a07aa5 src/part.c
---- a/part.c	Thu May 14 06:01:00 2009 -0400
-+++ b/part.c	Thu May 14 07:38:17 2009 -0400
+--- a/part.c
++++ b/part.c
 @@ -347,7 +347,7 @@
      if (a == b) { /* a := a+a */
          if (S_PA_K(a) == VECTOR) {
@@ -242,9 +235,8 @@ diff -r 5cd656a07aa5 src/part.c
  */
              inc_vector_co(S_PA_S(a),S_PA_LI(b));
              for (j=S_PA_LI(a)-1;j>=0;j--)
-diff -r 5cd656a07aa5 src/perm.c
---- a/perm.c	Thu May 14 06:01:00 2009 -0400
-+++ b/perm.c	Thu May 14 07:38:17 2009 -0400
+--- a/perm.c
++++ b/perm.c
 @@ -833,9 +833,9 @@
      /* s = Anzahl der spalten */
          
@@ -284,9 +276,8 @@ diff -r 5cd656a07aa5 src/perm.c
      if (NULLP(zw)) 
          {
          erg += m_il_integervector((INT)0,b);
-diff -r 5cd656a07aa5 src/rest.c
---- a/rest.c	Thu May 14 06:01:00 2009 -0400
-+++ b/rest.c	Thu May 14 07:38:17 2009 -0400
+--- a/rest.c
++++ b/rest.c
 @@ -3998,7 +3998,7 @@
                  oj = j;
                  }
@@ -296,9 +287,8 @@ diff -r 5cd656a07aa5 src/rest.c
  eee:
      erg += freeall(c);
      ENDR("charge_word");
-diff -r 5cd656a07aa5 src/ta.c
---- a/ta.c	Thu May 14 06:01:00 2009 -0400
-+++ b/ta.c	Thu May 14 07:38:17 2009 -0400
+--- a/ta.c
++++ b/ta.c
 @@ -1596,7 +1596,7 @@
      {
      OP d,e;
@@ -317,9 +307,8 @@ diff -r 5cd656a07aa5 src/ta.c
      erg += m_l_v(c,column_index);
      erg += m_l_v(c,row_index);
      for(i=0,l=0;i<S_M_HI(matrix);i++)
-diff -r 5cd656a07aa5 src/zyk.c
---- a/zyk.c	Thu May 14 06:01:00 2009 -0400
-+++ b/zyk.c	Thu May 14 07:38:17 2009 -0400
+--- a/zyk.c
++++ b/zyk.c
 @@ -804,7 +804,7 @@
      zykeltypvec = CALLOCOBJECT();
      ak_order = CALLOCOBJECT();

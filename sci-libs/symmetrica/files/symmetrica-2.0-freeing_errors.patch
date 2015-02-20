@@ -1,5 +1,6 @@
---- src/bruch.c	2007-12-06 11:30:00.000000000 -0500
-+++ b/bruch.c	2013-10-22 08:37:43.000000000 -0400
+Patch imported from sage-on-gentoo.
+--- src/bruch.c
++++ b/bruch.c
 @@ -975,14 +975,16 @@
      ggterg = ggt_i(S_B_UI(bruch),S_B_OI(bruch));
  
