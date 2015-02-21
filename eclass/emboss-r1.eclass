@@ -23,7 +23,7 @@
 #
 # EBO_DESCRIPTION="applications from the CBS group"
 #
-# inherit emboss
+# inherit emboss-r1
 
 # @ECLASS-VARIABLE: EBO_DESCRIPTION
 # @DESCRIPTION:
@@ -79,7 +79,7 @@ if [[ ${PN} == embassy-* ]]; then
 	: ${EBO_DESCRIPTION:=${EN}}
 	DESCRIPTION="EMBOSS integrated version of ${EBO_DESCRIPTION}"
 	SRC_URI="ftp://emboss.open-bio.org/pub/EMBOSS/${EF}.tar.gz -> embassy-${EN}-${PVR}.tar.gz"
-	DEPEND+=" >=sci-biology/emboss-6.3.1_p4[mysql=,pdf=,png=,postgres=,static-libs=,X=]"
+	DEPEND+=" >=sci-biology/emboss-6.6.0[mysql=,pdf=,png=,postgres=,static-libs=,X=]"
 
 	S="${WORKDIR}"/${EF}
 fi
