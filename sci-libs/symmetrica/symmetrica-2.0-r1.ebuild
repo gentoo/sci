@@ -4,12 +4,12 @@
 
 EAPI=5
 
-inherit base
+inherit eutils
 
 DESCRIPTION="A collection of routine to handle a variety of topics"
 HOMEPAGE="http://www.neu.uni-bayreuth.de/de/Uni_Bayreuth/Fakultaeten/1_Mathematik_Physik_und_Informatik/Fachgruppe_Informatik/prof_diskrete_algorithmen/en/research/SYMMETRICA/index.html"
 MY_P=SYM${PV//./_}
-SRC_URI="http://www.neu.uni-bayreuth.de/de/Uni_Bayreuth/Fakultaeten/1_Mathematik_Physik_und_Informatik/Fachgruppe_Informatik/prof_diskrete_algorithmen/en/research/SYMMETRICA/${MY_P}_tar.gz -> ${MY_P}.tar.gz"
+SRC_URI="http://www.neu.uni-bayreuth.de/de/Uni_Bayreuth/Fakultaeten/1_Mathematik_Physik_und_Informatik/Fachgruppe_Informatik/prof_diskrete_algorithmen/en/research/SYMMETRICA/${MY_P}_tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -26,7 +26,7 @@ PATCHES=(
 )
 
 src_prepare() {
-	base_src_prepare
+	epatch ${PATCHES[@]}
 	# symmetrica by itself is just a bunch of files and a few headers
 	# plus documentation that you can use as you wish in your programs.
 	# For sage and ease of use we make it into a library with the following
