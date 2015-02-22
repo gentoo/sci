@@ -65,13 +65,13 @@ RDEPEND="
 	>=sys-libs/zlib-1.2.8-r1[${MULTILIB_USEDEP}]
 	cuda? ( >=dev-util/nvidia-cuda-toolkit-6.5.19-r1 )
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
-	openmpi_fabrics_ofed? ( sys-infiniband/ofed:* )
+	openmpi_fabrics_ofed? ( sys-infiniband/ofed )
 	openmpi_fabrics_knem? ( sys-cluster/knem )
 	openmpi_fabrics_open-mx? ( sys-cluster/open-mx )
-	openmpi_fabrics_psm? ( sys-infiniband/infinipath-psm:* )
+	openmpi_fabrics_psm? ( sys-infiniband/infinipath-psm )
 	openmpi_rm_pbs? ( sys-cluster/torque )
 	openmpi_rm_slurm? ( sys-cluster/slurm )
-	openmpi_ofed_features_rdmacm? ( sys-infiniband/librdmacm:* )
+	openmpi_ofed_features_rdmacm? ( sys-infiniband/librdmacm )
 	"
 DEPEND="${RDEPEND}"
 
