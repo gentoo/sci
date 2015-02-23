@@ -22,14 +22,11 @@ RDEPEND="${DEPEND}"
 LANGS="cs en ru zh"
 
 src_configure() {
-	local CONFIG_OPTS
-	if use amd64; then
-		CONFIG_OPTS+=( CONFIG+="x64" )
-	elif use ppc; then
-		CONFIG_OPTS+=( CONFIG+="ppc" )
-	fi
+	CONFIG_OPTS=(
+		usex amd64 x64 ""
+		usev ppc
+		usex cpu_flags_x86_sse2 use_sse2 ""
+	)
 
-	use cpu_flags_x86_sse2 && CONFIG_OPTS+=( use_sse2 )
-
-	eqmake4 $CONFIG_OPTS || die
+	eqmake4 $CONFIG_OPTS
 }
