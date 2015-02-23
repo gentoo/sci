@@ -1,6 +1,9 @@
 # ChangeLog for app-forensics/vine
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> metadata.xml, vine-1.0.ebuild:
+  app-forensics/vine: Drop unneeded @system deps
 
 *vine-1.0 (16 Mar 2013)
 

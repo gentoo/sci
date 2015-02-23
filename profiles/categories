@@ -1,6 +1,8 @@
 app-admin
 app-benchmarks
 app-doc
+app-editors
+app-forensics
 app-portage
 app-text
 app-vim
@@ -8,6 +10,7 @@ dev-cpp
 dev-java
 dev-lang
 dev-libs
+dev-lua
 dev-ml
 dev-perl
 dev-python
@@ -18,6 +21,7 @@ media-gfx
 media-libs
 net-firewall
 net-ftp
+net-libs
 net-misc
 perl-core
 sci-astronomy
@@ -30,9 +34,11 @@ sci-mathematics
 sci-misc
 sci-physics
 sci-visualization
+sys-apps
 sys-cluster
 sys-devel
-sys-fs
+sys-infiniband
+sys-process
 virtual
-www-apps
 x11-libs
+x11-misc

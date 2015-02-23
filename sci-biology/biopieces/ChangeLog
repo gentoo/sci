@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/biopieces
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> -Manifest, biopieces-9999.ebuild:
+  sci-biology/biopieces: fix SLOT operators; correct ruby and python deps
 
   13 Nov 2014; Justin Lecher <jlec@gentoo.org> biopieces-0.51.ebuild,
   biopieces-9999.ebuild:

@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -8,15 +8,13 @@ inherit cmake-utils toolchain-funcs
 
 DESCRIPTION="Scientific library collection for large scale problems"
 HOMEPAGE="http://trilinos.sandia.gov/"
-SRC_URI="${P}-Source.tar.gz"
+SRC_URI="http://trilinos.org/oldsite/download/files/${P}-Source.tar.gz"
 SRC_PAGE="11.0"
 
 SLOT="0"
 LICENSE="BSD LGPL-2.1"
 KEYWORDS="~amd64 ~x86"
 IUSE="arprec boost cuda hdf5 hwloc netcdf qd qt4 scotch taucs tbb test umfpack zlib"
-
-RESTRICT="fetch"
 
 RDEPEND="
 	virtual/blas

@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/BBmap
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> BBmap-31.40.ebuild:
+  sci-biology/BBmap: fix SLOT operators
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> BBmap-31.40.ebuild:
   added license

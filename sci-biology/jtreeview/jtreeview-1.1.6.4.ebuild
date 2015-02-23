@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -10,7 +10,8 @@ S="${WORKDIR}"/TreeView-1.1.6r4-src
 
 DESCRIPTION="Viewer for Microarray Data in PCL or CDT formats"
 HOMEPAGE="http://jtreeview.sourceforge.net/"
-SRC_URI="http://sourceforge.net/projects/jtreeview/files/jtreeview/1.1.6r4/TreeView-1.1.6r4-src.tar.gz
+SRC_URI="
+	http://sourceforge.net/projects/jtreeview/files/jtreeview/1.1.6r4/TreeView-1.1.6r4-src.tar.gz
 	http://sourceforge.net/projects/jtreeview/files/helper-scripts/0.0.2/helper-scripts-0.0.2.tar.gz"
 #http://sourceforge.net/projects/jtreeview/files/jtreeview/1.1.6r4/TreeView-1.1.6r4-bin.tar.gz
 
@@ -19,6 +20,6 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="virtual/jdk"
+DEPEND="virtual/jdk:*"
 RDEPEND="${DEPEND}
-	virtual/jre"
+	virtual/jre:*"

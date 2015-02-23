@@ -3,8 +3,10 @@
 # $Header: $
 
 EAPI=5
+
 CMAKE_MIN_VERSION=2.8
-PYTHON_COMPAT=( python{2_6,2_7} )
+
+PYTHON_COMPAT=( python2_7 )
 
 inherit cmake-utils python-single-r1 user vcs-snapshot
 
@@ -31,10 +33,10 @@ CDEPEND="sys-libs/zlib
 	kerberos? ( virtual/krb5 )
 	X? ( x11-libs/libX11 )
 	management? ( net-libs/qmf )
-	postgres? ( >=dev-db/postgresql-8.2.4 )
+	postgres? ( >=dev-db/postgresql-8.2.4:= )
 	python? ( ${PYTHON_DEPS} )
 	soap? ( >=net-libs/gsoap-2.7.11[ssl?] )
-	ssl? ( >=dev-libs/openssl-0.9.8i )
+	ssl? ( >=dev-libs/openssl-0.9.8i:0 )
 	xml? ( >=dev-libs/libxml2-2.7.3 )"
 
 DEPEND="${CDEPEND}
@@ -49,11 +51,12 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-shadow_dlopen.patch"
-	epatch "${FILESDIR}/${P}-condor_config.generic.patch"
-	epatch "${FILESDIR}/${P}-Apply-the-users-condor_config-last-rather-than-first.patch"
-	epatch "${FILESDIR}/${P}-packaging_directories.patch"
-	epatch "${FILESDIR}/fix_sandbox_violations-8.0.0.patch"
+	epatch \
+		"${FILESDIR}"/${P}-shadow_dlopen.patch \
+		"${FILESDIR}"/${P}-condor_config.generic.patch \
+		"${FILESDIR}"/${P}-Apply-the-users-condor_config-last-rather-than-first.patch \
+		"${FILESDIR}"/${P}-packaging_directories.patch \
+		"${FILESDIR}"/fix_sandbox_violations-8.0.0.patch
 	cmake-utils_src_prepare
 }
 

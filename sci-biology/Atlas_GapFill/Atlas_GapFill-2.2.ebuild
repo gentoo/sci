@@ -16,13 +16,10 @@ KEYWORDS=""
 IUSE=""
 
 # is there an ebuild for newbler so we could add it to DEPEND?
-DEPEND="
+RDEPEND="
 	dev-lang/perl
-	|| (
-		sys-cluster/openpbs
-		sys-cluster/torque
-		)
+	sys-cluster/torque
 	sci-biology/phrap
 	sci-biology/bwa
 	sci-biology/velvet"
-RDEPEND="${DEPEND}"
+DEPEND=""

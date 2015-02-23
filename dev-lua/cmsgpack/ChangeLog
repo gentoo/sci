@@ -1,6 +1,9 @@
 # ChangeLog for dev-lua/cmsgpack
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> cmsgpack-9999.ebuild:
+  dev-lua/cmsgpack: fix SLOT operators; use symlink
 
 *cmsgpack-0.3.0 (10 May 2014)
 *cmsgpack-9999 (10 May 2014)

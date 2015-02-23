@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>cluster</herd>
@@ -10,6 +10,6 @@
     <email>gentryx@gmx.de</email>
   </maintainer>
   <use>
-	<flag name='examples'>Build the OpenCL example programs</flag>
+    <flag name="examples">Build the OpenCL example programs</flag>
   </use>
 </pkgmetadata>

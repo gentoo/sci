@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  20 Feb 2015; Ole Reifschneider <mail@ole-reifschneider.de> neovim-9999.ebuild:
+  Fix dependencies
+
   19 Jan 2015; Justin Lecher <jlec@gentoo.org> neovim-9999.ebuild:
   Fix deps, https://github.com/neovim/neovim/issues/1166
 

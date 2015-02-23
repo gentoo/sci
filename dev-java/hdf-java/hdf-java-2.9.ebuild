@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -19,7 +19,7 @@ IUSE="hdf hdfview szip test zlib"
 
 CDEPEND="
 	>=sci-libs/hdf5-1.8[szip=,zlib=]
-	hdf? ( sci-libs/hdf virtual/jpeg )
+	hdf? ( sci-libs/hdf virtual/jpeg:0 )
 	hdfview? ( dev-java/fits dev-java/netcdf )"
 
 RDEPEND="${CDEPEND}
