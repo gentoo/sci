@@ -1,6 +1,6 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-cluster/openmpi/openmpi-1.8.4-r1.ebuild,v 1.1 2015/02/04 21:46:32 jsbronder Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-cluster/openmpi/openmpi-1.8.4-r2.ebuild,v 1.1 2015/02/17 01:17:41 jsbronder Exp $
 
 EAPI=5
 
@@ -34,8 +34,8 @@ HOMEPAGE="http://www.open-mpi.org"
 SRC_URI="http://www.open-mpi.org/software/ompi/v$(get_version_component_range 1-2)/downloads/${MY_P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux"
-IUSE="cma cuda +cxx elibc_FreeBSD fortran heterogeneous ipv6 mpi-threads romio threads vt
+KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux"
+IUSE="cma cuda +cxx elibc_FreeBSD fortran heterogeneous ipv6 mpi-threads numa romio threads vt
 	${IUSE_OPENMPI_FABRICS} ${IUSE_OPENMPI_RM} ${IUSE_OPENMPI_OFED_FEATURES}"
 
 REQUIRED_USE="openmpi_rm_slurm? ( !openmpi_rm_pbs )
@@ -54,15 +54,16 @@ MPI_UNCLASSED_DEP_STR="
 		!app-text/lcdf-typetools
 	)"
 
+# dev-util/nvidia-cuda-toolkit is always multilib
 RDEPEND="
 	!sys-cluster/mpich
 	!sys-cluster/mpich2
 	!sys-cluster/mpiexec
 	>=dev-libs/libevent-2.0.21[${MULTILIB_USEDEP}]
 	dev-libs/libltdl:0[${MULTILIB_USEDEP}]
-	>=sys-apps/hwloc-1.10.0-r2[${MULTILIB_USEDEP}]
+	>=sys-apps/hwloc-1.10.0-r2[${MULTILIB_USEDEP},numa?]
 	>=sys-libs/zlib-1.2.8-r1[${MULTILIB_USEDEP}]
-	cuda? ( dev-util/nvidia-cuda-toolkit )
+	cuda? ( >=dev-util/nvidia-cuda-toolkit-6.5.19-r1 )
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
 	openmpi_fabrics_ofed? ( sys-infiniband/ofed )
 	openmpi_fabrics_knem? ( sys-cluster/knem )
@@ -75,14 +76,7 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 MULTILIB_WRAPPED_HEADERS=(
-	/usr/include/mpif-io-handles.h
-	/usr/include/mpif-constants.h
 	/usr/include/mpi.h
-	/usr/include/mpif-externals.h
-	/usr/include/mpif-io-constants.h
-	/usr/include/mpif-config.h
-	/usr/include/mpif-sentinels.h
-	/usr/include/mpif-handles.h
 )
 
 pkg_setup() {
@@ -142,7 +136,7 @@ multilib_src_configure() {
 	ECONF_SOURCE=${S} econf "${myconf[@]}" \
 		$(use_enable cxx mpi-cxx) \
 		$(use_with cma) \
-		$(multilib_native_use_with cuda cuda "${EPREFIX}"/opt/cuda) \
+		$(use_with cuda cuda "${EPREFIX}"/opt/cuda) \
 		$(use_enable romio io-romio) \
 		$(use_enable heterogeneous) \
 		$(use_enable ipv6) \
@@ -165,11 +159,25 @@ multilib_src_install() {
 
 	# Remove la files, no static libs are installed and we have pkg-config
 	find "${ED}"/usr/$(get_libdir)/ -type f -name '*.la' -delete
+
+	# fortran header cannot be wrapped (bug #540508), workaround part 1
+	if multilib_is_native_abi && use fortran; then
+		mkdir "${T}"/fortran || die
+		mv "${ED}"/usr/include/mpif* "${T}"/fortran || die
+	else
+		#some fortran files get installed unconditionally 
+		rm "${ED}"/usr/include/mpif* "${ED}"/usr/bin/mpif* || die
+	fi
 }
 
 multilib_src_install_all() {
 	# From USE=vt see #359917
 	rm "${ED}"/usr/share/libtool &> /dev/null
+
+	# fortran header cannot be wrapped (bug #540508), workaround part 2
+	if use fortran; then
+		mv "${T}"/fortran/mpif* "${ED}"/usr/include || die
+	fi
 
 	# Avoid collisions with libevent
 	rm -rf "${ED}"/usr/include/event2 &> /dev/null

@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Feb 2015; Christoph Junghans <ottxor@gentoo.org> fftw-3.3.4-r1.ebuild:
+  dropped sparc
+
 *fftw-3.3.4-r1 (17 Feb 2015)
 
   17 Feb 2015; Christoph Junghans <ottxor@gentoo.org> +fftw-3.3.4-r1.ebuild:

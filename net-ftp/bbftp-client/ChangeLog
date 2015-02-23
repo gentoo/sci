@@ -1,6 +1,9 @@
 # ChangeLog for net-ftp/bbftp-client
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> bbftp-client-3.2.1.ebuild:
+  net-ftp/bbftp-client: fix SLOT operators
 
   10 Nov 2014; Justin Lecher <jlec@gentoo.org> -bbftp-client-3.2.0.ebuild,
   +bbftp-client-3.2.1.ebuild, metadata.xml:
@@ -17,4 +20,3 @@
 
   01 Dec 2007; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
   initial import
-

@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -29,7 +29,7 @@ IUSE="+client +utils server liblustre readline tests tcpd +urandom"
 
 RDEPEND="
 	virtual/awk
-	readline? ( sys-libs/readline )
+	readline? ( sys-libs/readline:0 )
 	tcpd? ( sys-apps/tcp-wrappers )
 	server? (
 		>=sys-kernel/spl-0.6.1

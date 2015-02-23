@@ -22,12 +22,13 @@ fi
 LICENSE="GPL-2"
 SLOT="0"
 
-DEPEND=">=virtual/jre-1.5
+RDEPEND="
+	>=virtual/jre-1.5:*
 	sci-biology/velvet
 	sci-biology/velvetk"
-RDEPEND="${DEPEND}"
+DEPEND=">=virtual/jdk-1.5:*"
 
-S="${WORKDIR}"/vague-"${PV}"
+S="${WORKDIR}"/vague-${PV}
 
 src_prepare(){
 	epatch "${FILESDIR}"/vague.patch
@@ -35,5 +36,5 @@ src_prepare(){
 
 src_install(){
 	dobin vague
-	java-pkg_dojar vague.jar || die
+	java-pkg_dojar vague.jar
 }

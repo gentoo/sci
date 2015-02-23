@@ -14,11 +14,11 @@ MY_P_AMD32="AMD-APP-SDK-v${PV}-RC-lnx32"
 MY_P="AMD-APP-SDK-v${PV}-RC"
 
 DESCRIPTION="AMD Accelerated Parallel Processing (APP) SDK"
-HOMEPAGE="http://developer.amd.com/tools-and-sdks/opencl-zone/\
-amd-accelerated-parallel-processing-app-sdk"
+HOMEPAGE="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk"
 SRC_URI="
-		amd64? ( ${AMD64_AT} )
-		x86? ( ${X86_AT} )"
+	amd64? ( ${AMD64_AT} )
+	x86? ( ${X86_AT} )"
+
 LICENSE="AMD"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
@@ -28,7 +28,7 @@ RDEPEND="
 	app-admin/eselect-opengl
 	!<dev-util/amdstream-2.6
 	sys-devel/llvm
-	sys-devel/gcc
+	sys-devel/gcc:*
 	media-libs/mesa
 	media-libs/freeglut
 	virtual/opencl
@@ -40,7 +40,7 @@ DEPEND="
 	dev-util/patchelf
 	sys-apps/fakeroot"
 
-RESTRICT="mirror strip"
+RESTRICT="mirror strip fetch"
 
 S="${WORKDIR}/${MY_P}"
 

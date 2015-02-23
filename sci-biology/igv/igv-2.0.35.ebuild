@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,30 +17,32 @@ inherit subversion java-pkg-2 java-ant-2
 DESCRIPTION="Integrative Genomics Viewer"
 HOMEPAGE="http://www.broadinstitute.org/igv/"
 SRC_URI=""
+
 LICENSE="LGPL-2.1"
 SLOT="0"
 IUSE=""
-KEYWORDS="~amd64"
+KEYWORDS=""
 
-COMMON_DEPS="dev-java/batik
+COMMON_DEPS="
+	dev-java/batik
 	dev-java/absolutelayout
 	dev-java/jama
 	dev-java/commons-logging
-	dev-java/commons-math
+	dev-java/commons-math:3
 	dev-java/concurrent-util
 	dev-java/jcommon
 	dev-java/jfreechart
 	dev-java/hdf-java
 	dev-java/jlfgr
-	dev-java/junit
+	dev-java/junit:0
 	dev-java/log4j
 	dev-db/mysql-connector-c++
 	sci-biology/samtools
 	dev-java/swing-layout
 	sci-biology/vcftools"
-DEPEND=">=virtual/jdk-1.6
+DEPEND=">=virtual/jdk-1.6:*
 	${COMMON_DEPS}"
-RDEPEND=">=virtual/jre-1.6
+RDEPEND=">=virtual/jre-1.6:*
 	${COMMON_DEPS}"
 
 src_install() {
@@ -90,8 +92,8 @@ src_install() {
 	# /usr/share/igv/lib/xml-apis-1.3.04.jar
 	# /usr/share/igv/lib/xml-apis-ext-1.3.04.jar
 	cd lib || die
-	rm AbsoluteLayout.jar Jama*.jar batik*.jar commons-logging*.jar commons-math*.jar concurrent*.jar jcommon*.jar jfreechart*.jar jhdf*.jar jlfgr*.jar junit*.jar log4j*.jar sam*.jar swing*.jar vcf*.jar
-	cd ..
+	rm AbsoluteLayout.jar Jama*.jar batik*.jar commons-logging*.jar commons-math*.jar concurrent*.jar jcommon*.jar jfreechart*.jar jhdf*.jar jlfgr*.jar junit*.jar log4j*.jar sam*.jar swing*.jar vcf*.jar || die
+	cd .. || die
 
 	for i in lib/*.jar; do java-pkg_dojar $i; done
 

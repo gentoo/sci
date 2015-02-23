@@ -36,7 +36,6 @@ S="${WORKDIR}"/${PN}-${MY_PV}
 MULTILIB_WRAPPED_HEADERS=(
 	/usr/include/mpicxx.h
 	/usr/include/mpi.h
-	/usr/include/mpif.h
 	/usr/include/opa_config.h
 )
 
@@ -97,7 +96,7 @@ multilib_src_configure() {
 		--with-hwloc-prefix=/usr \
 		$(use_enable romio) \
 		$(use_enable cxx) \
-		$(use_enable fortran fortran all)
+		$(multilib_native_use_enable fortran fortran all)
 }
 
 multilib_src_test() {
@@ -107,13 +106,20 @@ multilib_src_test() {
 multilib_src_install() {
 	default
 
-	#fortran modules are arch-specific, follow OpenMPI and put them in lib
-	if use fortran; then
-		mv "${ED}"/usr/include/*.mod "${ED}"/usr/$(get_libdir) || die
+	# fortran header cannot be wrapped (bug #540508), workaround part 1
+	if multilib_is_native_abi && use fortran; then
+		mkdir "${T}"/fortran || die
+		mv "${ED}"/usr/include/mpif* "${T}"/fortran || die
+		mv "${ED}"/usr/include/*.mod "${T}"/fortran || die
 	fi
 }
 
 multilib_src_install_all() {
+	# fortran header cannot be wrapped (bug #540508), workaround part 2
+	if use fortran; then
+		mv "${T}"/fortran/* "${ED}"/usr/include || die
+	fi
+
 	dodir /usr/share/doc/${PF}
 	dodoc README{,.envvar} CHANGES RELEASE_NOTES
 	newdoc src/pm/hydra/README README.hydra

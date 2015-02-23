@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -17,12 +17,12 @@ KEYWORDS=""
 IUSE=""
 
 # uses its own BamView
-DEPEND="
+RDEPEND="
 	sci-biology/samtools
-	>=virtual/jdk-1.6
-	dev-java/ant-core"
-RDEPEND="${DEPEND}
-	>=virtual/jre-1.6"
+	>=virtual/jre-1.6:*"
+DEPEND="${RDEPEND}
+	dev-java/ant-core
+	>=virtual/jdk-1.6:*"
 
 # http://www.mail-archive.com/artemis-users@sanger.ac.uk/msg00551.html
 # http://www.mail-archive.com/artemis-users@sanger.ac.uk/msg00561.html

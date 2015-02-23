@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <longdescription lang="en">
   Mayavi2 is a general purpose, cross-platform tool for 3-D scientific
   data visualization. Its features include:
   * Visualization of scalar, vector and tensor data in 2 and 3 dimensions.

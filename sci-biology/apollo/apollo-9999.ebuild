@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -24,14 +24,17 @@ SLOT="0"
 IUSE=""
 KEYWORDS=""
 
-DEPEND=">=virtual/jre-1.5
-		dev-vcs/subversion
-		dev-java/ant-core
-		dev-lang/perl"
-RDEPEND="${DEPEND}"
+RDEPEND="
+	>=virtual/jre-1.5:*
+	dev-lang/perl
+	"
+DEPEND="${RDEPEND}
+	>=virtual/jdk-1.5:*
+	dev-java/ant-core
+	"
 
 src_unpack() {
-	subversion_src_unpack || die
+	subversion_src_unpack
 }
 
 src_compile() {
@@ -40,7 +43,7 @@ src_compile() {
 }
 
 src_install() {
-	java-pkg_dojar jars/apollo.jar || die
+	java-pkg_dojar jars/apollo.jar
 
 	echo "PATH=/opt/Apollo" > 99Apollo
 	doenvd 99Apollo || die

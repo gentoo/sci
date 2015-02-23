@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/BamView
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> BamView-1.2.11.ebuild,
+  metadata.xml:
+  sci-biology/BamView: fix SLOT operators
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> +metadata.xml,
   BamView-1.2.11.ebuild:

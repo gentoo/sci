@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="ssl"
 
-DEPEND="ssl? ( dev-libs/openssl )"
+DEPEND="ssl? ( dev-libs/openssl:0 )"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${P}/bbftpc"
@@ -37,7 +37,7 @@ src_configure() {
 }
 
 src_install() {
+	DOCS=( ../README ../ChangeLog ../TODO ../doc/. )
 	default
-	dodoc ../README ../ChangeLog ../TODO ../doc/*
 	doman ../doc/bbftp.1
 }

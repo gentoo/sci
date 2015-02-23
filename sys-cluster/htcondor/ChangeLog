@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> htcondor-8.0.0.ebuild,
+  htcondor-8.3.2.ebuild:
+  sys-cluster/htcondor: fix SLOT operators
+
 *htcondor-8.3.2 (06 Jan 2015)
 
   06 Jan 2015; Christoph Junghans <ottxor@gentoo.org> +htcondor-8.3.2.ebuild:

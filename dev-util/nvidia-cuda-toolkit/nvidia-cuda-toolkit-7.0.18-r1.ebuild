@@ -110,6 +110,8 @@ src_install() {
 		fi
 	done
 
+	ln -sf lib lib32 || die
+
 	dodir ${cudadir}
 	mv * "${ED}"${cudadir} || die
 

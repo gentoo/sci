@@ -26,7 +26,7 @@ SLOT="0"
 IUSE="test"
 
 RDEPEND="
-	>=sys-devel/gcc-4.6
+	>=sys-devel/gcc-4.6:*
 	virtual/opencl
 	dev-libs/boost"
 DEPEND="${RDEPEND}"

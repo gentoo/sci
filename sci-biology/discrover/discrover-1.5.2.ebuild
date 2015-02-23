@@ -3,7 +3,11 @@
 # $Header: $
 
 EAPI=5
-inherit cmake-utils
+
+USE_RUBY="ruby19"
+RUBY_OPTIONAL=yes
+
+inherit cmake-utils ruby-fakegem
 
 DESCRIPTION="A sequence motif discovery tool that uses discriminative learning"
 HOMEPAGE="https://github.com/maaskola/discrover"
@@ -19,14 +23,14 @@ RDEPEND="
 	cairo? ( x11-libs/cairo )
 	dreme? ( sci-biology/meme )
 	tikzlogo? (
-		dev-lang/ruby
+		$(ruby_implementations_depend)
 		dev-texlive/texlive-latex
 		dev-texlive/texlive-latexextra
 		dev-tex/pgf
 		dev-tex/xcolor
 		media-gfx/imagemagick
 	)
-	misc_scripts? ( dev-lang/ruby )
+	misc_scripts? ( $(ruby_implementations_depend) )
 	rmathlib? ( dev-lang/R )
 	tcmalloc? ( dev-util/google-perftools )
 "
@@ -37,7 +41,7 @@ DEPEND="${RDEPEND}
 		dev-texlive/texlive-latexrecommended
 		media-gfx/imagemagick
 	)
-	lto? ( >=sys-devel/gcc-4.8 )
+	lto? ( >=sys-devel/gcc-4.8:* )
 "
 pkg_pretend() {
 	if use lto; then
@@ -64,25 +68,25 @@ src_configure() {
 	unset R_HOME
 
 	if use rmathlib ; then
-		elog
+		echo
 		elog "Using statistical routines from standalone Rmathlib."
-		elog
+		echo
 	fi
 	if use dreme ; then
-		elog
+		echo
 		elog "Linking to DREME from the MEME suite."
-		elog
+		echo
 	else
-		elog
+		echo
 		elog "Not linking to DREME from the MEME suite (sci-biology/meme)."
 		elog "You will not be able to use DREME to find seeds."
-		elog
+		echo
 	fi
 
 	if use doc ; then
-		elog
+		echo
 		elog "User manual available at /usr/share/doc/discrover/discrover-manual.pdf"
-		elog
+		echo
 	fi
 
 	cmake-utils_src_configure

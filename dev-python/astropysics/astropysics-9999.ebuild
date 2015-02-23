@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -25,7 +25,7 @@ RDEPEND="
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/pygraphviz[${PYTHON_USEDEP}]
-	dev-python/atpy[fits,votable,${PYTHON_USEDEP}]
+	dev-python/atpy[${PYTHON_USEDEP}]
 	sci-astronomy/sextractor
 	sci-visualization/mayavi[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]"

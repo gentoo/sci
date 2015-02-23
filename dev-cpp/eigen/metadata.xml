@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <longdescription lang="en">
   Eigen is a lightweight C++ template library for vector and matrix math,
   a.k.a. linear algebra. Unlike most other linear algebra libraries, Eigen
   focuses on the simple mathematical needs of applications: games and other
   OpenGL apps, spreadsheets and other office apps, etc. Eigen is dedicated to
   providing optimal speed with GCC.
 </longdescription>
-<use>
-  <flag name="adolc">
+  <use>
+    <flag name="adolc">
     Enable automatic differentiation using <pkg>sci-libs/adolc</pkg>
   </flag>
-  <flag name="metis">
+    <flag name="metis">
     Enable matrix partitioning using <pkg>sci-libs/metis</pkg></flag>
-  <flag name="mkl">
+    <flag name="mkl">
     Use propertary intel blas/lapack implementation through <pkg>sci-libs/mkl</pkg>
   </flag>
-  <flag name="pastix">
+    <flag name="pastix">
     Enable large scale direct solver with using <pkg>sci-libs/pastix</pkg>
   </flag>
-  <flag name="sparse">
+    <flag name="sparse">
     Enable use for extra sparse matrix with <pkg>sci-libs/umfpack</pkg>, <pkg>sci-libs/cholmod</pkg>, <pkg>sci-libs/superlu</pkg> and <pkg>dev-cpp/sparsehash</pkg>
   </flag>
-</use>
+  </use>
 </pkgmetadata>

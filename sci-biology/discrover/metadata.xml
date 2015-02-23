@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>jonas@maaskola.de</email>
-		<name>Jonas Maaskola</name>
-	</maintainer>
-	<use>
-		<flag name="cairo">
+  <maintainer>
+    <email>jonas@maaskola.de</email>
+    <name>Jonas Maaskola</name>
+  </maintainer>
+  <use>
+    <flag name="cairo">
 			Use Cairo for sequence logo plotting capabilities
 		</flag>
-		<flag name="dreme">
+    <flag name="dreme">
 			Enable usage of DREME from the MEME package for seeding
 		</flag>
-		<flag name="lto">
+    <flag name="lto">
 			Compile with link-time optimization (LTO)
 		</flag>
-		<flag name="tikzlogo">
+    <flag name="tikzlogo">
 			Enable LaTeX/TikZ based ruby script for sequence logo drawing
 		</flag>
-		<flag name="misc_scripts">
+    <flag name="misc_scripts">
 			Install miscellaneous scripts, e.g. for sequence length statistics
 		</flag>
-		<flag name="rmathlib">
+    <flag name="rmathlib">
 			Link to the standalone Rmathlib for statistical routines
 		</flag>
-	</use>
+  </use>
 </pkgmetadata>
