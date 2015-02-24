@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,13 +16,14 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="sci-biology/picard
-	>=virtual/jrei-1.6"
+	>=virtual/jre-1.5"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/FastQC
 
 src_install(){
-	dobin fastqc
+	dobin fastqc run_fastqc.bat
+	dodoc README.txt RELEASE_NOTES.txt
 
 	# TODO: need to compile java in uk/ac/babraham/FastQC/
 	# and decide whether jbzip2-0.9.jar is a standard java lib or not

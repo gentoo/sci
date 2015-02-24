@@ -1,6 +1,12 @@
 # ChangeLog for sci-biology/fastqc
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*fastqc-0.11.2 (24 Feb 2015)
+
+  24 Feb 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +fastqc-0.11.2.ebuild, -fastqc-0.10.1.ebuild:
+  version bump; still missing src_compile() logic
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> fastqc-0.10.1.ebuild:
   clean up
