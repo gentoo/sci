@@ -30,7 +30,7 @@ SRC_URI="${SRC_URI}
 		http://root.cern.ch/download/doc/RooFit_Users_Manual_${ROOFIT_DOC_PV}.pdf
 		http://root.cern.ch/drupal/sites/default/files/roofit_quickstart_${ROOFIT_QS_DOC_PV}.pdf )
 	api? (
-		${HOMEPAGE}/sites/default/files/images/root6-banner.jpg
+		${HOMEPAGE}/sites/all/themes/newsflash/images/blue/root-banner.png
 		${HOMEPAGE}/sites/all/themes/newsflash/images/info.png )"
 
 SLOT="0"
@@ -124,7 +124,7 @@ src_install() {
 
 	if use api; then
 		# Install offline replacements for online messages
-		cp "${DISTDIR}"/{root6-banner.jpg,info.png} htmldoc/ || die "cp failed"
+		cp "${DISTDIR}"/{root-banner.png,info.png} htmldoc/ || die "cp failed"
 		# too large data to copy
 		dodir "${DOC_DIR}/html"
 		mv htmldoc/* "${ED}${DOC_DIR}/html/" || die
