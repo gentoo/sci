@@ -228,7 +228,7 @@ src_prepare() {
 		configure || die "prefixify configure failed"
 
 	# CSS should use local images
-	sed -i -e 's,http://.*/images/,,' etc/html/ROOT.css || die "html sed failed"
+	sed -i -e 's,http://.*/,,' etc/html/ROOT.css || die "html sed failed"
 
 	# fix reflex path (bug #497280)
 	sed -i -e 's|${ROOTSYS}/lib|@libdir@|' config/genreflex.in || die
