@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/net-libs/xrootd/xrootd-4.0.0.ebuild,v 1.1 2014/06/19 18:13:17 bicatali Exp $
 
@@ -15,13 +15,14 @@ SRC_URI="${HOMEPAGE}/download/v${PV}/${P}.tar.gz"
 LICENSE="LGPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="doc fuse kerberos perl readline ssl test"
+IUSE="doc fuse kerberos perl libevent readline ssl test"
 
 RDEPEND="
 	!<sci-physics/root-5.32[xrootd]
 	sys-libs/zlib:0=
 	fuse? ( sys-fs/fuse:0= )
 	kerberos? ( virtual/krb5 )
+	libevent? ( dev-libs/libevent[threads] )
 	perl? (
 		dev-lang/perl
 		readline? ( dev-perl/Term-ReadLine-Perl )
@@ -45,6 +46,7 @@ src_configure() {
 		$(cmake-utils_use_enable fuse)
 		$(cmake-utils_use_enable kerberos KRB5)
 		$(cmake-utils_use_enable perl)
+		$(cmake-utils_use_enable libevent)
 		$(cmake-utils_use_enable readline)
 		$(cmake-utils_use_enable ssl CRYPTO)
 		$(cmake-utils_use_enable test TESTS)
