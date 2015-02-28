@@ -37,7 +37,6 @@ sys-apps
 sys-cluster
 sys-devel
 sys-infiniband
-sys-process
 virtual
 x11-libs
 x11-misc
