@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/net-libs/xrootd/ChangeLog,v 1.19 2014/06/19 18:13:17 bicatali Exp $
 
+*xrootd-4.1.1 (28 Feb 2015)
+
+  28 Feb 2015; Andrew Savchenko <bircoph@gentoo.org> +xrootd-4.1.1.ebuild,
+  metadata.xml:
+  Version bump. Add http USE flag.
+
   27 Feb 2015; Andrew Savchenko <bircoph@gentoo.org> xrootd-4.0.4.ebuild,
   metadata.xml:
   Add libevent dependency. This removes automagick and fixes build
