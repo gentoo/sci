@@ -1,6 +1,12 @@
 # ChangeLog for sci-misc/irstlm
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*irstlm-5.80.08 (28 Feb 2015)
+
+  28 Feb 2015; Pavel Denisov <pavel.a.denisov@gmail.com>
+  -irstlm-5.80.03.ebuild, -irstlm-5.80.06.ebuild, +irstlm-5.80.08.ebuild:
+  Version bump.
 
 *irstlm-5.80.06 (22 Oct 2014)
 
