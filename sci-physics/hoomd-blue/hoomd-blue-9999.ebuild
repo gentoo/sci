@@ -21,7 +21,7 @@ else
 	KEYWORDS="~amd64"
 fi
 
-LICENSE="GPL-3"
+LICENSE="hoomd-blue"
 SLOT="0"
 IUSE="cuda doc test mpi +zlib"
 
