@@ -8,7 +8,7 @@ inherit eutils flag-o-matic subversion
 
 DESCRIPTION="A toolkit for speech recognition"
 HOMEPAGE="http://kaldi.sourceforge.net/"
-ESVN_REPO_URI="https://svn.code.sf.net/p/kaldi/code/trunk/src@4735"
+ESVN_REPO_URI="https://svn.code.sf.net/p/kaldi/code/trunk/src@4927"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -18,7 +18,7 @@ KEYWORDS=""
 RDEPEND="
 	media-libs/speex
 	sci-libs/atlas[lapack,threads=]
-	~sci-misc/openfst-1.3.4"
+	>=sci-misc/openfst-1.4.1"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
@@ -41,7 +41,6 @@ src_configure() {
 	use test || append-cxxflags -DNDEBUG
 
 	sed -i \
-		-e 's/OPENFST_VER =/OPENFST_VER = 1.3.4#/' \
 		-e "s:-g :-DHAVE_SPEEX ${CXXFLAGS} :" \
 		-e "s:-lm -lpthread -ldl:-lm -lpthread -ldl -lspeex ${LDFLAGS}:" \
 		kaldi.mk || die "sed unix/kaldi.mk failed"
