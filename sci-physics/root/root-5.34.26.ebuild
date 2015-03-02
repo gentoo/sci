@@ -7,12 +7,11 @@ EAPI=5
 if [[ ${PV} == "9999" ]] ; then
 	inherit git-r3
 	EGIT_REPO_URI="http://root.cern.ch/git/root.git"
-	SRC_URI=""
-	KEYWORDS=""
 else
 	SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
+SRC_URI+=" http://dev.gentoo.org/~bircoph/patches/${PN}-5.34.26-ldflags.patch.xz"
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -196,7 +195,7 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-5.34.05-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-5.34.13-unuran.patch \
 		"${FILESDIR}"/${PN}-5.34.13-desktop.patch \
-		"${FILESDIR}"/${PN}-5.34.26-prop-flags.patch
+		"${WORKDIR}"/${PN}-5.34.26-ldflags.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
@@ -264,7 +263,7 @@ src_configure() {
 	esac
 
 	# the configure script is not the standard autotools
-	local myconf+=(
+	myconf+=(
 		--prefix="${EPREFIX}/usr"
 		--etcdir="${EPREFIX}/etc/root"
 		--libdir="${EPREFIX}/usr/$(get_libdir)/${PN}"
@@ -273,14 +272,13 @@ src_configure() {
 		--testdir="${EPREFIX}${DOC_DIR}/examples/tests"
 		--disable-werror
 		--nohowto
+		--cflags='${CFLAGS}'
+		--cxxflags='${CXXFLAGS}'
+		--ldflags='${LDFLAGS}'
 	)
 
 	if use minimal; then
-		myconf+=(
-			$(usex X --gminimal --minimal)
-			--cflags='${CFLAGS}'
-			--cxxflags='${CXXFLAGS}'
-		)
+		myconf+=( $(usex X --gminimal --minimal) )
 	else
 		myconf+=(
 			--with-afs-shared=yes
@@ -302,8 +300,6 @@ src_configure() {
 			--enable-soversion
 			--enable-table
 			--fail-on-missing
-			--cflags='${CFLAGS}'
-			--cxxflags='${CXXFLAGS}'
 			$(use_enable X x11)
 			$(use_enable X asimage)
 			$(use_enable X xft)
