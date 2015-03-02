@@ -25,7 +25,9 @@ SRC_URI="http://www.nwchem-sw.org/images/Nwchem-${PV%_p*}.revision${PV#*_p}-src.
 	http://www.nwchem-sw.org/images/Ifort15_fpp_offload.patch.gz
 	http://www.nwchem-sw.org/images/Texas_iorb.patch.gz
 	http://www.nwchem-sw.org/images/Dmapp_inc.patch.gz
-	http://www.nwchem-sw.org/images/Print1e.patch.gz"
+	http://www.nwchem-sw.org/images/Print1e.patch.gz
+	http://www.nwchem-sw.org/images/Hnd_rys.patch.gz
+	http://www.nwchem-sw.org/images/Tddft_grad.patch.gz"
 
 LICENSE="ECL-2.0"
 SLOT="0"
@@ -111,7 +113,7 @@ src_unpack() {
 
 src_prepare() {
 	pushd "${S}"/src
-		for p in Util_md_sockets Hbar Tcenxtask Parallelmpi Makefile_gcc4x Bcast_ccsd Elpa_syncs Xlmpoles_ifort15 Ifort15_fpp_offload Texas_iorb Dmapp_inc Print1e
+		for p in Util_md_sockets Hbar Tcenxtask Parallelmpi Makefile_gcc4x Bcast_ccsd Elpa_syncs Xlmpoles_ifort15 Ifort15_fpp_offload Texas_iorb Dmapp_inc Print1e Hnd_rys Tddft_grad
 			do epatch "${WORKDIR}"/"${p}.patch"
 		done
 		cd NWints/hondo
