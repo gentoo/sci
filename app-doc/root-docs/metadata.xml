@@ -2,12 +2,10 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 <maintainer>
-  <email>bircoph@gmail.com</email>
+  <email>bircoph@gentoo.org</email>
   <name>Andrew Savchenko</name>
-  <description>Maintainer. Assign bugs to him</description>
 </maintainer>
 <herd>sci-physics</herd>
-<herd>proxy-maintainers</herd>
 <longdescription lang="en">
   This package contains the automatically generated ROOT class
   documentation.
