@@ -2,10 +2,6 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci</herd>
-  <maintainer>
-    <email>marbre@linux.sungazer.de</email>
-    <name>Marius Brehler</name>
-  </maintainer>
   <longdescription>
     Python agent for the New Relic web application performance
     monitoring service.

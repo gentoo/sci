@@ -2,10 +2,6 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci</herd>
-  <maintainer>
-    <email>marbre@linux.sungazer.de</email>
-    <name>Marius Brehler</name>
-  </maintainer>
   <longdescription>
     Jupyter nbviewer is the web application behind The Jupyter Notebook
     Viewer, which is graciously hosted by Rackspace. Run this locally
