@@ -24,6 +24,9 @@ LICENSE="BSD"
 SLOT="0"
 
 RDEPEND="
-	>=dev-python/ipython-3.0.0[${PYTHON_USEDEP}]
+	>=dev-python/ipython-3.0.0[notebook,${PYTHON_USEDEP}]
+	dev-python/sqlalchemy[${PYTHON_USEDEP}]
+	dev-python/flask[${PYTHON_USEDEP}]
+	dev-python/autopep8[${PYTHON_USEDEP}]
 	"
 DEPEND="${RDEPEND}"
