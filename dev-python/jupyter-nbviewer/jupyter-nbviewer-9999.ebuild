@@ -20,7 +20,7 @@ else
 	KEYWORDS="~amd64"
 fi
 
-LICENSE="BSD"
+LICENSE="BSD-4"
 SLOT="0"
 
 RDEPEND="
