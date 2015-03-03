@@ -15,14 +15,13 @@ MY_P_AMD64="AMD-APP-SDK-v${MY_V}-1.599.381-GA-linux64.sh"
 MY_P_AMD32="AMD-APP-SDK-v${MY_V}-1.599.381-GA-linux32.sh"
 
 DESCRIPTION="AMD Accelerated Parallel Processing (APP) SDK"
-HOMEPAGE="http://developer.amd.com/tools-and-sdks/opencl-zone/\
-amd-accelerated-parallel-processing-app-sdk"
+HOMEPAGE="http://developer.amd.com/tools-and-sdks/opencl-zone/amd-accelerated-parallel-processing-app-sdk"
 SRC_URI="
 		amd64? ( ${AMD64_AT} )
 		x86? ( ${X86_AT} )"
 LICENSE="AMD-APPSDK"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
 RDEPEND="
