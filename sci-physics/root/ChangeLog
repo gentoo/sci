@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  03 Mar 2015; Andrew Savchenko <bircoph@gentoo.org> -root-5.34.26.ebuild,
+  -files/root-5.32.00-dotfont.patch, -files/root-5.34.05-nobyte-compile.patch,
+  metadata.xml:
+  5.34.26 is moved to the portage tree
+
   02 Mar 2015; Andrew Savchenko <bircoph@gentoo.org> metadata.xml:
   Indentation fixes (in order to conform to portage version)
 
