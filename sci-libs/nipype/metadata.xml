@@ -21,5 +21,6 @@
   <use>
     <flag name="spm">Pull in "Statistical Parametric Mapping" (sci-biology/spm)</flag>
     <flag name="fsl">Pull in the "FMRIB Software Library" (sci-biology/fsl)</flag>
+    <flag name="afni">Pull in the NIH AFNI software bundle (sci-biology/afni)</flag>
   </use>
 </pkgmetadata>

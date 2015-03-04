@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,14 +18,15 @@ EGIT_REPO_URI="https://github.com/nipy/nipype"
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS=""
-IUSE="fsl spm"
+IUSE="fsl spm afni"
 
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/numpy[${PYTHON_USEDEP}]
 	>=sci-libs/nibabel-1.2[${PYTHON_USEDEP}]
 	fsl? ( sci-biology/fsl )
-	spm? ( sci-biology/spm )"
+	spm? ( sci-biology/spm )
+	afni? ( sci-biology/afni )"
 RDEPEND="
 	sci-libs/scipy[${PYTHON_USEDEP}]
 	dev-python/traits[${PYTHON_USEDEP}]
