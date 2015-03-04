@@ -3,6 +3,9 @@
 # $Header: $
 
   04 Mar 2015;  <chymera@gentoo.org> spm-12.ebuild:
+  typo
+
+  04 Mar 2015;  <chymera@gentoo.org> spm-12.ebuild:
   fixed doins path
 
 *spm-12 (04 Mar 2015)
