@@ -8,11 +8,11 @@ inherit pax-utils
 
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"
-SRC_URI="http://afni.nimh.nih.gov/pub/dist/tgz/linux_xorg7_64.tgz"
+SRC_URI="http://afni.nimh.nih.gov/pub/dist/tgz/afni_src.tgz"
 
 LICENSE="GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 RDEPEND="x11-libs/motif[-static-libs]"
@@ -24,7 +24,8 @@ RDEPEND="x11-libs/motif[-static-libs]"
 DEPEND="x11-libs/motif[-static-libs]
 	app-shells/tcsh
 	dev-libs/expat
-	x11-libs/libXpm"
+	x11-libs/libXpm
+	media-libs/netpbm"
 
 S=${WORKDIR}/afni_src
 BUILD="linux_fedora_19_64"
