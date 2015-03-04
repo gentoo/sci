@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*spm-12 (04 Mar 2015)
+
+  04 Mar 2015;  <chymera@gentoo.org> +spm-12.ebuild, spm-8.ebuild:
+  removed slots, added new version
+
   17 Feb 2015;  <chymera@gentoo.org> -spm-8.ebuild.orig, spm-8.ebuild:
   added quotation marks, removed ori file
 
