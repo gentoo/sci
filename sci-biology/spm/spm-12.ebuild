@@ -22,15 +22,16 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}/${PN}${PV}/src"
 
 src_prepare() {
-	emake -C distclean PLATFORM=octave
+	emake distclean PLATFORM=octave
 }
 
 src_compile() {
-	emake PLATFORM=octave
+	emake -j1 PLATFORM=octave
 }
 
 src_install() {
 	emake install PLATFORM=octave
 	insinto $(octave-config --m-site-dir)
-	doins -r "${S}"/*.m
+	doins -r "${WORKDIR}/${PN}${PV}"/*.m
+
 }
