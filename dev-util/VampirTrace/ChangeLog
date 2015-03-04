@@ -1,0 +1,9 @@
+# ChangeLog for dev-util/VampirTrace
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*VampirTrace-5.14.4 (04 Mar 2015)
+
+  04 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +VampirTrace-5.14.4.ebuild:
+  Version bump
