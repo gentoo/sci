@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/pairagon
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pairagon-1.1 (05 Mar 2015)
+
+  05 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +pairagon-1.1.ebuild:
+  new package
