@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit java-pkg-2 eutils
+inherit java-pkg-2 eutils java-ant-2
 
 DESCRIPTION="Perl-based wrapper around java apps to quality control FASTA/FASTQ sequence files"
 HOMEPAGE="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
@@ -16,10 +16,16 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="sci-biology/picard
-	>=virtual/jre-1.5"
-RDEPEND="${DEPEND}"
+	>=virtual/jre-1.5:*"
+RDEPEND="${DEPEND}
+	>=virtual/jdk-1.5:*
+	dev-java/ant-core"
 
 S="${WORKDIR}"/FastQC
+
+src_prepare(){
+	cp "${FILESDIR}"/build.xml . || die
+}
 
 src_install(){
 	dobin fastqc run_fastqc.bat
