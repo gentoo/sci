@@ -8,8 +8,8 @@ Our users have been able to get working AFNI and FSL distributions *since 2013* 
 
 ##Install
 
-As per the [corrent portage specifications](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html) overlays should be managed via `/etc/portage/repos.conf/`.
-To enable our overlay make sure you are using a recent portage version (at least `2.2.14`), and add crate an `/etc/portage/repos.conf/neurogentoo` file containing precisely:
+As per the [current portage specifications](https://dev.gentoo.org/~zmedico/portage/doc/man/portage.5.html) overlays should be managed via `/etc/portage/repos.conf/`.
+To enable our overlay make sure you are using a recent portage version (at least `2.2.14`), and crate an `/etc/portage/repos.conf/neurogentoo` file containing precisely:
 
 ```
 [neurogentoo]
@@ -18,6 +18,9 @@ sync-type = git
 sync-uri = https://github.com/TheChymera/neurogentoo.git
 priority=8888
 ```
+
+Afterwards, simply run `emerge --sync`, and all our ebuilds should be available to you via portage. 
+Many of our packages are available as live (`*-9999`) ebuilds, and also need manual unmasking in `/etc/portage/package.accept_keywords` before they can be emerged. 
 
 ---
 Please fork! We will merge! See [this](https://github.com/gentoo-science/sci/blob/master/CONTRIBUTING.md) document for more instructions.
