@@ -25,7 +25,8 @@ DEPEND="x11-libs/motif[-static-libs]
 	app-shells/tcsh
 	dev-libs/expat
 	x11-libs/libXpm
-	media-libs/netpbm"
+	media-libs/netpbm
+	media-video/mpeg-tools"
 
 S=${WORKDIR}/afni_src
 BUILD="linux_fedora_19_64"
