@@ -1,7 +1,7 @@
 #NeuroGentoo Overlay
 
 NeuroGentoo is a persistent fork of the science overlay, which augments the Gentoo ecosystem by helping you get neuroscience software not (yet) provided via [Gentoo Science](http://wiki.gentoo.org/wiki/Project:Science/Overlay).
-This repository is the cornerstone of NeuroGentoo initiative, which is documented in some greater length on [Chymeric Tutorials](http://chymeric.eu/blog/2013/10/02/neurogentoo/).
+This repository is the cornerstone of the NeuroGentoo initiative, which is documented to some extent on [Chymeric Tutorials](http://chymeric.eu/blog/2013/10/02/neurogentoo/).
 
 Our overlays are functional, though occasionally unstable, and often bundled with cruft from upstream - but we are *fast*:
 Our users have been able to get working AFNI and FSL distributions since 2013 - now, over 2 years later, these programs are still not available on Gentoo Science, or any other overlay for that matter.
