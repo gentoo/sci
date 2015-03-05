@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*igv-2.3.40 (05 Mar 2015)
+
+  05 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +igv-2.3.40.ebuild,
+  -igv-2.0.35.ebuild:
+  updated ebuild to github URLs; version bump but does not compile for me
+
   18 Feb 2015; Justin Lecher <jlec@gentoo.org> -igv-2.0.32.ebuild,
   igv-2.0.35.ebuild, metadata.xml:
   sci-biology/igv: fix SLOT operators; drop KEYWORDS for live ebuilds

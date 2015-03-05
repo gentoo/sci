@@ -4,24 +4,35 @@
 
 EAPI=5
 
-#ESVN_REPO_URI="http://igv.googlecode.com/svn/trunk"
-ESVN_REPO_URI="http://igv.googlecode.com/svn/tags/Version_${PV}"
+inherit java-pkg-2 java-ant-2
+
+[ "$PV" == "9999" ] && inherit subversion
+
+if [ "$PV" == "9999" ]; then
+	#ESVN_REPO_URI="http://igv.googlecode.com/svn/trunk"
+	#ESVN_REPO_URI="http://igv.googlecode.com/svn/tags/Version_${PV}"
+	EGIT_REPO_URI="https://github.com/broadinstitute/IGV.git"
+	KEYWORDS=""
+else
+	SRC_URI="https://github.com/broadinstitute/IGV/archive/v"${PV}".zip"
+	KEYWORDS=""
+	# binaries
+	# http://www.broadinstitute.org/igv/projects/downloads/IGV_2.3.40.zip
+	# http://www.broadinstitute.org/igv/projects/downloads/igvtools_2.3.40.zip
+fi
 
 EANT_BUILD_TARGET="all"
 JAVA_ANT_REWRITE_CLASSPATH="true"
 EANT_NEEDS_TOOLS="true"
 WANT_ANT_TASKS="ant-apache-bcel"
 
-inherit subversion java-pkg-2 java-ant-2
-
 DESCRIPTION="Integrative Genomics Viewer"
 HOMEPAGE="http://www.broadinstitute.org/igv/"
-SRC_URI=""
 
 LICENSE="LGPL-2.1"
 SLOT="0"
 IUSE=""
-KEYWORDS=""
+KEYWORDS="~amd64"
 
 COMMON_DEPS="
 	dev-java/batik
@@ -44,6 +55,8 @@ DEPEND=">=virtual/jdk-1.6:*
 	${COMMON_DEPS}"
 RDEPEND=">=virtual/jre-1.6:*
 	${COMMON_DEPS}"
+
+S="${WORKDIR}"/IGV-"${PV}"
 
 src_install() {
 	java-pkg_newjar igv.jar
