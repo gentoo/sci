@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  removing faulty check
+
   04 Mar 2015;  <chymera@gentoo.org> files/99fsl:
   added FSLPATH
 
