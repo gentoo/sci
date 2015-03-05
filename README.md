@@ -19,7 +19,7 @@ sync-uri = https://github.com/TheChymera/neurogentoo.git
 priority=8888
 ```
 
-Afterwards, simply run `emerge --sync`, and all our ebuilds should be available to you via portage. 
+Afterwards, simply run `emerge --sync`, and Portage should seamlessly make all our ebuilds available. 
 Many of our packages are available as live (`*-9999`) ebuilds, and also need manual unmasking in `/etc/portage/package.accept_keywords` before they can be emerged. 
 
 ---
