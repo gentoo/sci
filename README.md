@@ -1,6 +1,6 @@
 #NeuroGentoo Overlay
 
-NeuroGentoo is a persistent fork of the science overlay, which augments the Gentoo ecosystem with neuroscience ebuilds - by helping you get neuroscience software not (yet) provided by [Gentoo Science](http://wiki.gentoo.org/wiki/Project:Science/Overlay).
+NeuroGentoo is a persistent fork of the science overlay, which augments the Gentoo ecosystem by helping you get neuroscience software not (yet) provided via [Gentoo Science](http://wiki.gentoo.org/wiki/Project:Science/Overlay).
 This repository is the cornerstone of NeuroGentoo initiative, which is documented in some greater length on [Chymeric Tutorials](http://chymeric.eu/blog/2013/10/02/neurogentoo/).
 
 Our overlays are functional, though occasionally unstable, and often bundled with cruft from upstream - but we are *fast*:
