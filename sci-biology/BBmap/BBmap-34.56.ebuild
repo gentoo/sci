@@ -6,14 +6,13 @@ EAPI=5
 
 inherit java-pkg-2 java-ant-2
 
-DESCRIPTION="Short read aligner, K-mer-based error-correction and normalization, FASTA/FASTQ conversion"
+DESCRIPTION="Short read aligner, K-mer-based error-correction and normalization, FASTA/Q conversion"
 HOMEPAGE="http://sourceforge.net/projects/bbmap/"
-SRC_URI="http://sourceforge.net/projects/bbmap/files/BBMap_31.40_java7.tar.gz"
-#SRC_URI="http://sourceforge.net/projects/bbmap/files/BBMap_31.40_java6.tar.gz"
+SRC_URI="http://sourceforge.net/projects/bbmap/files/BBMap_"${PV}".tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
@@ -23,3 +22,13 @@ RDEPEND="${DEPEND}
 	>=virtual/jre-1.7:*"
 
 S="${WORKDIR}"/bbmap
+
+src_compile(){
+	ant compile || die
+}
+
+src_install(){
+	dobin *.sh
+	dodoc docs/readme.txt
+	java-pkg_dojar lib/BBTools.jar
+}
