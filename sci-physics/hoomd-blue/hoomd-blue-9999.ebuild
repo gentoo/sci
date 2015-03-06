@@ -48,6 +48,7 @@ src_configure() {
 		$(cmake-utils_use_enable cuda CUDA)
 		$(cmake-utils_use_enable zlib ZLIB)
 		$(cmake-utils_use_build test BUILD_TESTING)
+		-DPYTHON_EXECUTABLE="${PYTHON}"
 		-DPYTHON_SITEDIR=$(python_get_sitedir)
 	)
 	cmake-utils_src_configure
@@ -56,6 +57,4 @@ src_configure() {
 src_install() {
 	use doc && HTML_DOCS=( "${BUILD_DIR}"/doc/hoomd-*doc* )
 	cmake-utils_src_install
-
-	sed -i "s/^python/${EPYTHON}/" "${ED}"/usr/bin/hoomd || die
 }
