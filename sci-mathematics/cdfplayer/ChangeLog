@@ -1,6 +1,12 @@
 # ChangeLog for sci-mathematics/cdfplayer
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*cdfplayer-10.0.2 (08 Mar 2015)
+
+  08 Mar 2015; zcj <ustcscgy@163.com> +cdfplayer-10.0.2.ebuild,
+  -cdfplayer-9.0.1.ebuild, -files/cdfplayer-9.0.1-installer.patch:
+  sci-mathematics/cdfplayer: Version bump; Patch is not needed.
 
 *cdfplayer-9.0.1 (11 Mar 2013)
 
@@ -22,4 +28,3 @@
   +cdfplayer-8.0.4.ebuild, +files/cdfplayer-8.0.4-installer.patch,
   +metadata.xml:
   initial commit for bug #421019
-

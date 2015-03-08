@@ -40,9 +40,12 @@ CMAKE_BUILD_TYPE=Release
 
 PATCHES=(
 	"${FILESDIR}"/FindCBLAS.patch
-	"${FILESDIR}"/CMakeLists_examples.patch
-	"${FILESDIR}"/build_gtest.patch
+	"${FILESDIR}/${P}"-CMakeLists_examples.patch
 )
+
+if [[ ${PV} == "0.9999" ]] ; then
+	PATCHES+=("${FILESDIR}/${P}"-build_gtest.patch)
+fi
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
 # user is (usually) not in the video group
