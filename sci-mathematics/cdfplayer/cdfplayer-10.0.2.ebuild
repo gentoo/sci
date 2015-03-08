@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,7 @@ EAPI=5
 inherit eutils
 
 MY_SCRIPT=CDFPlayer_${PV}_LINUX.sh
-MY_DESKTOPFILE=${ED}/opt/wolfram/SystemFiles/Installation/wolfram-cdf9.desktop
+MY_DESKTOPFILE=${ED}/opt/wolfram/SystemFiles/Installation/wolfram-cdf10.desktop
 
 DESCRIPTION="Player for Wolfram CDF"
 HOMEPAGE="http://www.wolfram.com/cdf-player/"
@@ -30,12 +30,8 @@ src_unpack() {
 	chmod u+x "${S}/${MY_SCRIPT}" || die
 }
 
-src_prepare() {
-	epatch "${FILESDIR}/${P}-installer.patch"
-}
-
 src_install() {
-	"${S}/${MY_SCRIPT}" --target "${S}/${P}" -- -auto -verbose -createdir=y \
+	"${S}/${MY_SCRIPT}" --target "${S}/${P}" --nox11 -- -auto -verbose -createdir=y \
 		-targetdir="${ED}/opt/wolfram" -execdir="${ED}/usr/bin" || die
 	find "${ED}" -name '*.desktop' -exec \
 		sed -i "s%${ED}%/%g" {} \; || die
