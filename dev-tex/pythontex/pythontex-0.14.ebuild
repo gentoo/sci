@@ -41,7 +41,6 @@ src_compile() {
 }
 
 src_install() {
-	python_setup
 	if python_is_python3; then
 		python_domodule pythontex3.py
 		python_domodule depythontex3.py
