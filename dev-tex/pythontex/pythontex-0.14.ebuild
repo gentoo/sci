@@ -60,4 +60,5 @@ src_install() {
 	dodoc README
 	mktexlsr
 	python_optimize
+	newbin pythontex.py pythontex
 }

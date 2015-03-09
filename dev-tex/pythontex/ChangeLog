@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  09 Mar 2015;  <chymera@gentoo.org> pythontex-0.14.ebuild:
+  added binary
+
   08 Mar 2015;  <chymera@gentoo.org> pythontex-0.14.ebuild:
   removed python_setup
 
