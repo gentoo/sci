@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -21,6 +21,7 @@ RDEPEND="
 	dev-libs/double-conversion:0=
 	dev-libs/gmp:0=
 	dev-libs/libpcre:3=
+	>=dev-libs/libgit2-0.21
 	dev-libs/mpfr:0=
 	dev-libs/utf8proc:0=
 	sci-libs/arpack:0=
@@ -32,7 +33,7 @@ RDEPEND="
 	sci-libs/spqr:0=
 	sci-libs/umfpack:0=
 	sci-mathematics/glpk:0=
-	=sys-devel/llvm-3.4*
+	>=sys-devel/llvm-3.4
 	>=sys-libs/libunwind-1.1:7=
 	sys-libs/readline:0=
 	sys-libs/zlib:0=
@@ -120,6 +121,7 @@ src_configure() {
 		USE_SYSTEM_GMP=1
 		USE_SYSTEM_GRISU=1
 		USE_SYSTEM_LAPACK=1
+		USE_SYSTEM_LIBGIT2=1
 		USE_SYSTEM_LIBM=0
 		USE_SYSTEM_LIBUNWIND=1
 		USE_SYSTEM_LIBUV=0

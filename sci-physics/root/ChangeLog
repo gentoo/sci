@@ -2,6 +2,36 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  03 Mar 2015; Andrew Savchenko <bircoph@gentoo.org> -root-5.34.26.ebuild,
+  -files/root-5.32.00-dotfont.patch, -files/root-5.34.05-nobyte-compile.patch,
+  metadata.xml:
+  5.34.26 is moved to the portage tree
+
+  02 Mar 2015; Andrew Savchenko <bircoph@gentoo.org> metadata.xml:
+  Indentation fixes (in order to conform to portage version)
+
+  02 Mar 2015; Andrew Savchenko <bircoph@gentoo.org> root-5.34.26.ebuild,
+  files/root-5.32.00-chklib64.patch, -files/root-5.34.26-prop-flags.patch:
+  Add configurable LDFLAGS the same way as upstream did for
+  configurable CFLAGS/CXXFLAGS. Optimize configure variables.
+
+  24 Feb 2015; Andrew Savchenko <bircoph@gentoo.org> root-5.34.26.ebuild:
+  Remove full path from local images, otherwise html header
+  background is missing.
+
+  23 Feb 2015; Andrew Savchenko <bircoph@gentoo.org> -root-5.34.18-r2.ebuild,
+  -root-6.00.01-r1.ebuild, -files/root-5.32.00-prop-flags.patch,
+  -files/root-5.34.18-tutorials-path.patch, -files/root-6.00.01-cling.patch,
+  metadata.xml:
+  Remove old versions and unused patches.
+
+*root-5.34.26 (23 Feb 2015)
+
+  23 Feb 2015; Andrew Savchenko <bircoph@gentoo.org> +root-5.34.26.ebuild,
+  +files/root-5.34.26-prop-flags.patch, metadata.xml:
+  Version bump. Add http support. Add c++14 support. Rework compilers
+  handling.
+
   01 Jan 2015; Andrew Savchenko <bircoph@gentoo.org> root-5.34.18-r2.ebuild,
   root-6.00.01-r1.ebuild, root-6.00.02.ebuild, root-9999.ebuild:
   Rename virtual/postgresql to dev-db/postgresql

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <longdescription>
+    Jupyter nbviewer is the web application behind The Jupyter Notebook
+    Viewer, which is graciously hosted by Rackspace. Run this locally
+    to get most of the features of nbviewer on your own network.
+  </longdescription>
+</pkgmetadata>

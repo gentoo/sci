@@ -1,6 +1,9 @@
 # ChangeLog for dev-lang/julia
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Mar 2015; zcj <ustcscgy@163.com> julia-9999.ebuild:
+  dev-lang/julia: Add new dependency, fix build.
 
   13 Sep 2014; Mark Wright <gienah@gentoo.org> julia-9999.ebuild:
   Add int64 use flag to julia-9999.ebuild. Depend on

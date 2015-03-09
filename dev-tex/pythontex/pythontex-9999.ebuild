@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_2,3_3} )
+PYTHON_COMPAT=( python2_7 python3_{3,4} )
 
 inherit latex-package python-r1 git-r3
 
@@ -20,44 +20,39 @@ IUSE="highlighting"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-COMMON_DEPEND="${PYTHON_DEPS}
-	app-text/texlive"
-DEPEND="${COMMON_DEPEND}
-	app-arch/unzip"
-RDEPEND="${COMMON_DEPEND}
+DEPEND="${PYTHON_DEPS}
+	dev-texlive/texlive-latex"
+RDEPEND="${DEPEND}
 	dev-texlive/texlive-xetex
 	>=dev-python/matplotlib-1.2.0[${PYTHON_USEDEP}]
 	highlighting? ( dev-python/pygments[${PYTHON_USEDEP}] )"
 
-S="${WORKDIR}/${P}/${PN}"
-
-src_prepare() {
-	rm pythontex.sty || die "Could not remove pre-compiled pythontex.sty!"
-}
+TEXMF=/usr/share/texmf-site
 
 src_compile() {
+	cd ${PN} || die
 	ebegin "Compiling ${PN}"
-	latex ${PN}.ins extra > "${T}"/build-latex.log || die "Building style from ${PN}.ins failed"
+	rm ${PN}.sty || die
+	latex ${PN}.ins extra || die
 	eend
 }
 
 src_install() {
-	python_setup
-	if python_is_python3; then
-		python_domodule pythontex3.py
-		python_domodule depythontex3.py
-	else	
-		python_domodule pythontex2.py
-		python_domodule depythontex2.py
-		python_domodule pythontex_2to3.py
-	fi
+	dodoc ${PN}/README "${S}"/*rst ${PN}_quickstart/*
 
-	python_domodule pythontex_engines.py 
-	python_domodule pythontex_utils.py
+	cd ${PN} || die
+
+	installation() {
+	if python_is_python3; then
+			python_domodule {de,}${PN}3.py
+	else
+			python_domodule {de,}${PN}2.py
+	fi
+		python_domodule ${PN}_{engines,utils}.py
+		python_doscript {de,}${PN}.py syncpdb.py
+		python_optimize
+	}
+	python_foreach_impl installation
 
 	latex-package_src_doinstall ${PN}.{dtx,ins,sty}
-
-	latex-package_src_install
-
-	dodoc README
 }

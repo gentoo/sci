@@ -15,7 +15,6 @@
 	<flag name="make-symlinks">Create symbolic links for pre-5.0 binary names</flag>
     <!-- acceleration optimization flags -->
     <flag name="offensive">Enable gromacs partly offensive quotes</flag>
-    <flag name="openmm">Add acceleration through <pkg>sci-libs/openmm</pkg></flag>
     <flag name="mkl">Use <pkg>sci-libs/mkl</pkg> for fft, blas, lapack routines</flag>
   </use>
 </pkgmetadata>

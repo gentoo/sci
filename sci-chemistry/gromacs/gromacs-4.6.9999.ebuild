@@ -44,7 +44,7 @@ HOMEPAGE="http://www.gromacs.org/"
 #        base,    vmd plugins, fftpack from numpy,  blas/lapck from netlib,        memtestG80 library,  mpi_thread lib
 LICENSE="LGPL-2.1 UoI-NCSA !mkl? ( !fftw? ( BSD ) !blas? ( BSD ) !lapack? ( BSD ) ) cuda? ( LGPL-3 ) threads? ( BSD )"
 SLOT="0/${PV}"
-IUSE="X blas cuda doc -double-precision +fftw gsl lapack mkl mpi +offensive openmm openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
+IUSE="X blas cuda doc -double-precision +fftw gsl lapack mkl mpi +offensive openmp +single-precision test +threads zsh-completion ${ACCE_IUSE}"
 
 CDEPEND="
 	X? (
@@ -58,11 +58,7 @@ CDEPEND="
 	gsl? ( sci-libs/gsl )
 	lapack? ( virtual/lapack )
 	mkl? ( sci-libs/mkl )
-	mpi? ( virtual/mpi )
-	openmm? (
-		>=dev-util/nvidia-cuda-toolkit-4.2.9-r1
-		sci-libs/openmm[cuda,opencl]
-	)"
+	mpi? ( virtual/mpi )"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig
 	${LIVE_DEPEND}
@@ -72,7 +68,6 @@ RDEPEND="${CDEPEND}"
 REQUIRED_USE="
 	|| ( single-precision double-precision )
 	cuda? ( single-precision )
-	openmm? ( single-precision )
 	mkl? ( !blas !fftw !lapack )"
 
 DOCS=( AUTHORS README )
@@ -191,15 +186,6 @@ src_configure() {
 			"$(use test && echo -DREGRESSIONTEST_PATH="${WORKDIR}/${P}_${x}/tests")"
 			-DGMX_BINARY_SUFFIX="${suffix}" -DGMX_LIBS_SUFFIX="${suffix}" )
 		BUILD_DIR="${WORKDIR}/${P}_${x}" cmake-utils_src_configure
-		if [[ ${x} = float ]] && use openmm; then
-			einfo "Configuring for openmm build"
-			mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_MPI=OFF
-				-DGMX_THREAD_MPI=OFF -DGMX_GPU=OFF -DGMX_OPENMM=ON
-				-DOpenMM_PLUGIN_DIR="${EPREFIX}/usr/$(get_libdir)/plugins"
-				-DGMX_BINARY_SUFFIX="_openmm" -DGMX_LIBS_SUFFIX="_openmm" )
-			BUILD_DIR="${WORKDIR}/${P}_openmm" \
-				OPENMM_ROOT_DIR="${EPREFIX}/usr" cmake-utils_src_configure
-		fi
 		use mpi || continue
 		einfo "Configuring for ${x} precision with mpi"
 		mycmakeargs=( ${mycmakeargs_pre[@]} ${p} -DGMX_THREAD_MPI=OFF
@@ -214,11 +200,6 @@ src_compile() {
 		einfo "Compiling for ${x} precision"
 		BUILD_DIR="${WORKDIR}/${P}_${x}"\
 			cmake-utils_src_compile
-		if [[ ${x} = float ]] && use openmm; then
-			einfo "Compiling for openmm build"
-			BUILD_DIR="${WORKDIR}/${P}_openmm"\
-				cmake-utils_src_compile mdrun
-		fi
 		use mpi || continue
 		einfo "Compiling for ${x} precision with mpi"
 		BUILD_DIR="${WORKDIR}/${P}_${x}_mpi"\
@@ -237,10 +218,6 @@ src_install() {
 	for x in ${GMX_DIRS}; do
 		BUILD_DIR="${WORKDIR}/${P}_${x}" \
 			cmake-utils_src_install
-		if [[ ${x} = float ]] && use openmm; then
-			BUILD_DIR="${WORKDIR}/${P}_openmm" \
-				DESTDIR="${D}" cmake-utils_src_make install-mdrun
-		fi
 		#manual can only be build after gromacs was installed once in image
 		if use doc && [[ $PV = *9999*  && ! -d ${WORKDIR}/manual_build ]]; then
 			mycmakeargs=( -DGMXBIN="${ED}"/usr/bin -DGMXSRC="${WORKDIR}/${P}" )

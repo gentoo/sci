@@ -2,17 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  08 Mar 2015;  <chymera@gentoo.org> pythontex-0.14.ebuild:
-  removed python_setup
+*pythontex-0.14 (09 Mar 2015)
 
-  05 Mar 2015;  <chymera@gentoo.org> -pythontex-0.12.ebuild:
-  removed 0.12
-
-  20 Feb 2015;  <chymera@gentoo.org> pythontex-9999.ebuild:
-  updated live ebuild
-
-  17 Feb 2015;  <chymera@gentoo.org> pythontex-0.14.ebuild:
-  repoman stuff
+  09 Mar 2015; Justin Lecher <jlec@gentoo.org> +pythontex-0.14.ebuild,
+  -pythontex-0.12.ebuild, pythontex-9999.ebuild:
+  dev-tex/pythontex: Version BUmp
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> pythontex-0.12.ebuild,
   pythontex-9999.ebuild, +metadata.xml:

@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*BBmap-34.56 (05 Mar 2015)
+
+  05 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +BBmap-34.56.ebuild,
+  -BBmap-31.40.ebuild:
+  version bump
+
   18 Feb 2015; Justin Lecher <jlec@gentoo.org> BBmap-31.40.ebuild:
   sci-biology/BBmap: fix SLOT operators
 

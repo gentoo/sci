@@ -1,0 +1,14 @@
+Adjust installation path of examples.
+
+Patch by Marius Brehler.
+
+--- examples/CMakeLists.txt
++++ examples/CMakeLists.txt_new
+@@ -18,6 +18,7 @@ MACRO(CREATE_EXAMPLES BACKEND)
+                                COMPILE_FLAGS -DAF_${DEF_NAME}
+                                OUTPUT_NAME ${EXAMPLE}_${BACKEND}
+                                RUNTIME_OUTPUT_DIRECTORY ${DIR_NAME})
++        INSTALL(TARGETS ${EXAMPLE_NAME} DESTINATION share/arrayfire/examples)
+      ENDFOREACH()
+ ENDMACRO(CREATE_EXAMPLES)
+ 
