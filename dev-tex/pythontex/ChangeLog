@@ -3,6 +3,9 @@
 # $Header: $
 
   09 Mar 2015;  <chymera@gentoo.org> pythontex-0.14.ebuild:
+  installing depythontex and syncpdb
+
+  09 Mar 2015;  <chymera@gentoo.org> pythontex-0.14.ebuild:
   added binary
 
   08 Mar 2015;  <chymera@gentoo.org> pythontex-0.14.ebuild:

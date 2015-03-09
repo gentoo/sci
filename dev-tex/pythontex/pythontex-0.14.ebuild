@@ -52,6 +52,7 @@ src_install() {
 
 	python_domodule pythontex_engines.py 
 	python_domodule pythontex_utils.py
+	python_domodule syncpdb.py
 
 	latex-package_src_doinstall ${PN}.{dtx,ins,sty}
 
@@ -61,4 +62,5 @@ src_install() {
 	mktexlsr
 	python_optimize
 	newbin pythontex.py pythontex
+	newbin depythontex.py depythontex
 }
