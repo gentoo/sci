@@ -6,16 +6,15 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_7,3_2,3_3} )
 
-inherit latex-package python-r1 git-r3
+inherit latex-package python-r1
 
 DESCRIPTION="Fast Access to Python from within LaTeX"
 HOMEPAGE="https://github.com/gpoore/pythontex"
-SRC_URI=""
-EGIT_REPO_URI="https://github.com/gpoore/pythontex.git"
+SRC_URI="https://github.com/gpoore/${PN}/archive/v${PV}.zip -> ${P}.zip"
 
 SLOT="0"
 LICENSE="LPPL-1.3 BSD"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE="highlighting"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
@@ -42,7 +41,6 @@ src_compile() {
 }
 
 src_install() {
-	python_setup
 	if python_is_python3; then
 		python_domodule pythontex3.py
 		python_domodule depythontex3.py
@@ -54,10 +52,15 @@ src_install() {
 
 	python_domodule pythontex_engines.py 
 	python_domodule pythontex_utils.py
+	python_domodule syncpdb.py
 
 	latex-package_src_doinstall ${PN}.{dtx,ins,sty}
 
 	latex-package_src_install
 
 	dodoc README
+	mktexlsr
+	python_optimize
+	newbin pythontex.py pythontex
+	newbin depythontex.py depythontex
 }
