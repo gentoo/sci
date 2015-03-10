@@ -1,9 +1,0 @@
-# ChangeLog for dev-lua/messagepack
-# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-*messagepack-9999 (20 Feb 2015)
-
-  20 Feb 2015; Ole Reifschneider <mail@ole-reifschneider.de>
-  +messagepack-9999.ebuild, +metadata.xml:
-  Initial commit
