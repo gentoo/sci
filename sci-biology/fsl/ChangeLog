@@ -3,6 +3,9 @@
 # $Header: $
 
   10 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  reformatted tcl sed calls
+
+  10 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
   fixed tcl location according to instructions by kiwifb
 
   10 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
