@@ -43,7 +43,7 @@ src_compile() {
 
 src_install() {
 	exeinto /opt/${PN}
-	doexe -r "${S}/${BUILD}"/*
+	doexe "${S}/${BUILD}"/*
 
 	echo "LDPATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
 	echo "PATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."

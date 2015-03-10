@@ -3,6 +3,9 @@
 # $Header: $
 
   10 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  no recursive doexe
+
+  10 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
   installing everyting as exe
 
   10 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
