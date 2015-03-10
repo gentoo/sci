@@ -85,10 +85,6 @@ src_prepare(){
 		$(grep -rl "\'\${FSLDIR}\'/doc" src/*)
 
 	sed -i -e "s:\$FSLDIR/etc:/etc:g" `grep -rlI \$FSLDIR/etc *`
-
-	sed -i "s:\${FSLDIR}/tcl:/usr/libexec/fsl:g" `grep -lI \${FSLDIR}/tcl bin/*` `grep -l 
-\${FSLDIR}/tcl  tcl/*`
-	sed -i "s:\$FSLDIR/tcl:/usr/libexec/fsl:g" `grep -l \$FSLDIR/tcl tcl/*`
 }
 
 src_compile() {
@@ -109,6 +105,11 @@ src_install() {
 
 	insinto /usr/share/${PN}
 	doins -r doc data refdoc
+
+	sed -i "s:\${FSLDIR}/tcl:/usr/libexec/fsl:g" \
+		`grep -lI \${FSLDIR}/tcl bin/*` \
+		`grep -l \${FSLDIR}/tcl  tcl/*`
+	sed -i "s:\$FSLDIR/tcl:/usr/libexec/fsl:g" `grep -l \$FSLDIR/tcl tcl/*`	
 
 	insinto /usr/libexec/fsl
 	doins -r tcl/*
