@@ -42,9 +42,8 @@ src_compile() {
 	}
 
 src_install() {
-	insinto /opt/${PN}
-	chmod -x "${S}/${BUILD}"/* || die "Adding run permissions failed."
-	doins -r "${S}/${BUILD}"/*
+	exeinto /opt/${PN}
+	doexe "${S}/${BUILD}"/*
 
 	echo "LDPATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
 	echo "PATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
