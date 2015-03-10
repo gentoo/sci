@@ -34,7 +34,7 @@ BUILD="linux_fedora_19_64"
 src_prepare() {
 	sed -e 's/-V 32//g' -i other_builds/Makefile.${BUILD} || die # they provide somewhat problematic makefiles :(
 	cp other_builds/Makefile.${BUILD} Makefile || die # some Makefile under ptaylor looks
-	# for the parent makefile at "Makefile".	
+	# for the parent makefile at "Makefile".
 	}
 
 src_compile() {
@@ -44,8 +44,9 @@ src_compile() {
 src_install() {
 	insinto /opt/${PN}
 	doins -r "${S}/${BUILD}"/*
-	echo "LDPATH=/opt/afni" >> "${T}"/95${PN} || die "Can't write environment variable."
-	doenvd "${T}"/95${PN}
+	echo "LDPATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
+	echo "PATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
+	doenvd "${T}"/98${PN}
 
 	dobin "${S}/${BUILD}/${PN}"
 	pax-mark m "${D}/usr/bin/${PN}"
