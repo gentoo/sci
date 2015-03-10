@@ -109,6 +109,9 @@ src_install() {
 	insinto /usr/libexec/fsl
 	doins -r tcl
 
+	insinto /etc/fslconf
+	doins etc/fslconf/fsl.sh
+
 	insinto /etc
 	doins -r etc/default_flobs.flobs etc/flirtsch etc/js etc/luts
 	#if use matlab; then
