@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  10 Mar 2015;  <chymera@gentoo.org> spm-12.ebuild:
+  installing ALL the things
+
   04 Mar 2015;  <chymera@gentoo.org> spm-12.ebuild:
   typo
 
