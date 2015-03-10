@@ -107,9 +107,10 @@ src_install() {
 	doins -r doc data refdoc
 
 	sed -i "s:\${FSLDIR}/tcl:/usr/libexec/fsl:g" \
-		`grep -lI \${FSLDIR}/tcl bin/*` \
-		`grep -l \${FSLDIR}/tcl  tcl/*`
-	sed -i "s:\$FSLDIR/tcl:/usr/libexec/fsl:g" `grep -l \$FSLDIR/tcl tcl/*`	
+		$(grep -lI "\${FSLDIR}/tcl" bin/*) \
+		$(grep -l "\${FSLDIR}/tcl"  tcl/*)
+	sed -i "s:\$FSLDIR/tcl:/usr/libexec/fsl:g" \
+		$(grep -l "\$FSLDIR/tcl" tcl/*)
 
 	insinto /usr/libexec/fsl
 	doins -r tcl/*
