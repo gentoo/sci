@@ -1,0 +1,8 @@
+# ChangeLog for sci-biology/ants
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*ants-9999 (10 Mar 2015)
+
+  10 Mar 2015;  <chymera@gentoo.org> +ants-9999.ebuild, +metadata.xml:
+  ebuild draft
