@@ -100,17 +100,17 @@ src_compile() {
 }
 
 src_install() {
-	exeinto /usr/bin
-	doexe bin/*
-
-	insinto /usr/share/${PN}
-	doins -r doc data refdoc
-
 	sed -i "s:\${FSLDIR}/tcl:/usr/libexec/fsl:g" \
 		$(grep -lI "\${FSLDIR}/tcl" bin/*) \
 		$(grep -l "\${FSLDIR}/tcl"  tcl/*)
 	sed -i "s:\$FSLDIR/tcl:/usr/libexec/fsl:g" \
 		$(grep -l "\$FSLDIR/tcl" tcl/*)
+
+	exeinto /usr/bin
+	doexe bin/*
+
+	insinto /usr/share/${PN}
+	doins -r doc data refdoc
 
 	insinto /usr/libexec/fsl
 	doins -r tcl/*
