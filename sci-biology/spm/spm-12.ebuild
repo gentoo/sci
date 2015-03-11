@@ -31,6 +31,6 @@ src_compile() {
 
 src_install() {
 	emake install PLATFORM=octave
-	insinto $(octave-config --m-site-dir)
+	insinto "$(octave-config --m-site-dir)/${P}"
 	doins -r "${WORKDIR}/${PN}${PV}"/*
 }
