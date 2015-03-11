@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/vcftools
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*vcftools-0.1.12b (11 Mar 2015)
+
+  11 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +vcftools-0.1.12b.ebuild:
+  version bump; vcftools-0.1.8-buildsystem.patch does not apply to current tree
+  so using sed calls from within ebuild to mimic the tweaks
