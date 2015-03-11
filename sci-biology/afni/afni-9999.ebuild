@@ -30,7 +30,7 @@ DEPEND="x11-libs/motif[-static-libs]
 	media-libs/netpbm
 	media-video/mpeg-tools"
 
-S=${WORKDIR}/src
+S=${WORKDIR}/${P}/src
 BUILD="linux_fedora_19_64"
 
 src_prepare() {
