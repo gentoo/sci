@@ -3,6 +3,9 @@
 # $Header: $
 
   11 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  reverted to insinto, dealing with run permissions separately
+
+  11 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
   finished git-uri rewrite
 
   11 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
