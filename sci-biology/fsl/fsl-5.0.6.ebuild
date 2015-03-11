@@ -119,6 +119,7 @@ src_install() {
 	doins etc/fslconf/fsl.sh
 
 	insinto /etc
+	doins etc/fslversion
 	doins -r etc/default_flobs.flobs etc/flirtsch etc/js etc/luts
 	#if use matlab; then
 	#	doins etc/matlab
