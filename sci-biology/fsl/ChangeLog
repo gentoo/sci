@@ -3,6 +3,9 @@
 # $Header: $
 
   11 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  installing fslversion
+
+  11 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
   sed-ing before installing
 
   10 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
