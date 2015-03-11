@@ -34,3 +34,7 @@ DEPEND=""
 RDEPEND="${DEPEND}
 	sci-biology/bamtools
 	sci-biology/samtools"
+
+src_install(){
+	dobin  bin/freebayes bin/bamleftalign
+}

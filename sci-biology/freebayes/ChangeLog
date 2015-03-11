@@ -4,6 +4,10 @@
 
   11 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   freebayes-9999.ebuild:
+  added src_install()
+
+  11 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  freebayes-9999.ebuild:
   ebuild cleanup; the git clone --recursive flag does not work
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> freebayes-9999.ebuild:
