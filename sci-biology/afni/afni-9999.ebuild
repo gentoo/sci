@@ -4,11 +4,13 @@
 
 EAPI=5
 
-inherit pax-utils
+inherit pax-utils git-r3
 
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"
-SRC_URI="http://afni.nimh.nih.gov/pub/dist/tgz/afni_src.tgz"
+SRC_URI=""
+EGIT_REPO_URI="https://github.com/afniHQ/AFNI"
+
 
 LICENSE="GPL-3+"
 SLOT="0"
@@ -28,13 +30,14 @@ DEPEND="x11-libs/motif[-static-libs]
 	media-libs/netpbm
 	media-video/mpeg-tools"
 
-S=${WORKDIR}/afni_src
+S=${WORKDIR}/src
 BUILD="linux_fedora_19_64"
 
 src_prepare() {
-	sed -e 's/-V 32//g' -i other_builds/Makefile.${BUILD} || die # they provide somewhat problematic makefiles :(
-	cp other_builds/Makefile.${BUILD} Makefile || die # some Makefile under ptaylor looks
-	# for the parent makefile at "Makefile".
+	sed -e 's/-V 32//g' -i other_builds/Makefile.${BUILD} || die "Could not edit Makefile"
+		# they provide somewhat problematic makefiles :(
+	cp other_builds/Makefile.${BUILD} Makefile || die "Could not copy Makefile" 
+		# some Makefile under ptaylor looks for the parent makefile at "Makefile".
 	}
 
 src_compile() {
