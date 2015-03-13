@@ -36,5 +36,6 @@ RDEPEND="${DEPEND}
 	sci-biology/samtools"
 
 src_install(){
-	dobin  bin/freebayes bin/bamleftalign
+	dobin bin/freebayes bin/bamleftalign
+	dobin vcflib/bin/*
 }
