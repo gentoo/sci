@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=3
+EAPI=5
 
 inherit java-pkg-2 java-ant-2 java-utils-2 toolchain-funcs
 
@@ -15,10 +15,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=">=virtual/jre-1.5"
 DEPEND="
-	>=virtual/jdk-1.5
+	>=virtual/jdk-1.5:*
 	dev-java/ant-core"
+RDEPEND=">=virtual/jre-1.5:*"
 
 S="${WORKDIR}"/workspace-2008-03-11
 
