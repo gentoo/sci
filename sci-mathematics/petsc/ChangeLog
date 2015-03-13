@@ -1,6 +1,12 @@
 # ChangeLog for sci-mathematics/petsc
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*petsc-3.5.3 (13 Mar 2015)
+
+  13 Mar 2015; Matthias Maier <tamiko@gentoo.org>
+  +files/petsc-3.5.3-disable-rpath.patch, +petsc-3.5.3.ebuild:
+  version bump
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> petsc-3.4.2.ebuild:
   remove whitespace
