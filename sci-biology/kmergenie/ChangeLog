@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/kmergenie
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*kmergenie-1.6950 (13 Mar 2015)
+
+  13 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +kmergenie-1.6950.ebuild, +metadata.xml:
+  new package; the k-mer size is set during compilation, use 'k=121 emerge
+  kmergenie' to set your k-mer size
