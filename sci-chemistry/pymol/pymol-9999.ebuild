@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,7 @@ EAPI=5
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="tk"
 
-inherit distutils-r1 fdo-mime subversion versionator
+inherit distutils-r1 fdo-mime flag-o-matic subversion versionator
 
 DESCRIPTION="A Python-extensible molecular graphics system"
 HOMEPAGE="http://www.pymol.org/"
@@ -21,11 +21,11 @@ IUSE="apbs web"
 
 DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
-	dev-python/pmw[${PYTHON_USEDEP}]
+	dev-python/pmw:0[${PYTHON_USEDEP}]
 	dev-python/pyopengl[${PYTHON_USEDEP}]
 	media-libs/freetype:2
 	media-libs/glew
-	media-libs/libpng
+	media-libs/libpng:0=
 	media-video/mpeg-tools
 	sys-libs/zlib
 	media-libs/freeglut
@@ -53,6 +53,8 @@ python_prepare_all() {
 		-e "s:/opt/local:${EPREFIX}/usr:g" \
 		-e '/ext_comp_args/s:\[.*\]:[]:g' \
 		-i setup.py || die
+
+	append-cxxflags -std=c++0x
 
 	distutils-r1_python_prepare_all
 }
