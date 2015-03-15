@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -11,9 +11,9 @@ inherit java-pkg-2 python-r1
 DESCRIPTION="Viewer of next generation sequence assemblies and alignments."
 HOMEPAGE="http://bioinf.scri.ac.uk/tablet/"
 SRC_URI="
-	x86? ( http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x86_$(replace_all_version_separators _).sh -> ${P}.sh )
-	amd64? ( http://bioinf.scri.ac.uk/tablet/installers/tablet_linux_x64_$(replace_all_version_separators _).sh -> ${P}.sh )
-	http://bioinf.scri.ac.uk/tablet/additional/coveragestats.py"
+	x86? ( http://bioinf.hutton.ac.uk/tablet/installers/tablet_linux_x86_$(replace_all_version_separators _).sh -> ${P}.sh )
+	amd64? ( http://bioinf.hutton.ac.uk/tablet/installers/tablet_linux_x64_$(replace_all_version_separators _).sh -> ${P}.sh )
+	http://bioinf.hutton.ac.uk/tablet/additional/coveragestats.py"
 
 # Upstream says regarding source code unavailability:
 # Tablet uses a modified version of the BSD License which has been edited to
@@ -83,7 +83,14 @@ src_install() {
 
 	rm -rf "${ED}"/opt/Tablet/jre || die
 
-	python_foreach_impl python_doscript "${WORKDIR}"/coveragestats.py
+	# this dies with tablet-bin-1.14.04.10 with
+	#  * python2_7: running python_doscript /mnt/1TB/var/tmp/portage/sci-biology/tablet-bin-1.14.04.10/work/coveragestats.py
+	#  * The file has incompatible shebang:
+	#  *   file: /usr/lib/python-exec/python2.7/coveragestats.py
+	#  *   current shebang: #!/usr/bin/env python
+	#  *   requested impl: python2.7
+	#
+	# python_foreach_impl python_doscript "${WORKDIR}"/coveragestats.py
 
 	echo "PATH=${EPREFIX}/opt/Tablet" > 99Tablet
 	doenvd 99Tablet || die
