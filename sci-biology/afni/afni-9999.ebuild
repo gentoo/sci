@@ -48,6 +48,10 @@ src_install() {
 	insinto /opt/${PN}
 	doins -r "${S}/${BUILD}"/*
 
+	exeinto /opt/${PN}
+	doexe $(grep -v '^$\|^\s*\#' src/prog_list.txt | while read line; do echo "${S}/${BUILD}/$line"; 
+done)
+
 	echo "LDPATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
 	echo "PATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
 	doenvd "${T}"/98${PN}
