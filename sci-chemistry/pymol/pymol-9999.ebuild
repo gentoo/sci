@@ -21,14 +21,14 @@ IUSE="apbs web"
 
 DEPEND="
 	dev-python/numpy[${PYTHON_USEDEP}]
-	dev-python/pmw:0[${PYTHON_USEDEP}]
 	dev-python/pyopengl[${PYTHON_USEDEP}]
+	media-libs/freeglut
 	media-libs/freetype:2
 	media-libs/glew
 	media-libs/libpng:0=
 	media-video/mpeg-tools
 	sys-libs/zlib
-	media-libs/freeglut
+	virtual/pmw[${PYTHON_USEDEP}]
 	apbs? (
 		sci-chemistry/apbs[${PYTHON_USEDEP}]
 		sci-chemistry/pdb2pqr[${PYTHON_USEDEP}]
