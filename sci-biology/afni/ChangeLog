@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  16 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  Now istalling exes specified in src/prog_list.txt
+
   11 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
   reverted to insinto, dealing with run permissions separately
 
