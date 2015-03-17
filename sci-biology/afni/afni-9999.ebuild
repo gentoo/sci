@@ -38,6 +38,9 @@ src_prepare() {
 		# they provide somewhat problematic makefiles :(
 	cp other_builds/Makefile.${BUILD} Makefile || die "Could not copy Makefile" 
 		# some Makefile under ptaylor looks for the parent makefile at "Makefile".
+	pwd
+	cat Makefile.INCLUDE >> Makefile || die "Could not include Makefile.INCLUDE"
+		# because this builds some additional files
 	}
 
 src_compile() {
@@ -49,8 +52,10 @@ src_install() {
 	doins -r "${S}/${BUILD}"/*
 
 	exeinto /opt/${PN}
-	doexe $(grep -v '^$\|^\s*\#' src/prog_list.txt | while read line; do echo "${S}/${BUILD}/$line"; 
-done)
+	PROG_LIST=$(grep -v '^$\|^\s*\#' "${S}"/prog_list.txt | while read LINE; do echo "${S}/${BUILD}/${LINE}"; done)
+		
+	echo ${PROG_LIST}
+	nonfatal doexe "${PROG_LIST[@]}"
 
 	echo "LDPATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
 	echo "PATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
