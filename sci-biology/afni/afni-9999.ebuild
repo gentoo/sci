@@ -38,8 +38,7 @@ src_prepare() {
 		# they provide somewhat problematic makefiles :(
 	cp other_builds/Makefile.${BUILD} Makefile || die "Could not copy Makefile" 
 		# some Makefile under ptaylor looks for the parent makefile at "Makefile".
-	pwd
-	cat Makefile.INCLUDE >> Makefile || die "Could not include Makefile.INCLUDE"
+	#cat Makefile.INCLUDE >> Makefile || die "Could not include Makefile.INCLUDE"
 		# because this builds some additional files
 	}
 
