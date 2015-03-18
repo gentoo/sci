@@ -17,7 +17,9 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="dev-lang/R"
+# dev-python/docopt[${PYTHON_USEDEP}]
+DEPEND="dev-python/docopt
+	dev-lang/R"
 RDEPEND="${DEPEND}"
 
 # Type `make` in the KmerGenie directory
@@ -27,6 +29,7 @@ RDEPEND="${DEPEND}"
 
 src_prepare(){
 	sed -e 's#-O4##' -i makefile || die
+	sed -e 's#third_party.##' -i kmergenie || die
 }
 
 src_compile(){
@@ -34,7 +37,7 @@ src_compile(){
 }
 
 src_install(){
-	dobin kmergenie
+	dobin kmergenie specialk
 	dodoc README
 	# TODO: install also the python files
 }
