@@ -52,8 +52,6 @@ src_install() {
 
 	exeinto /opt/${PN}
 	PROG_LIST=$(grep -v '^$\|^\s*\#' "${S}"/prog_list.txt | while read LINE; do echo "${S}/${BUILD}/${LINE}"; done)
-		
-	echo ${PROG_LIST}
 	nonfatal doexe "${PROG_LIST[@]}"
 
 	echo "LDPATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
