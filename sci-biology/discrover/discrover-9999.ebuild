@@ -3,11 +3,7 @@
 # $Header: $
 
 EAPI=5
-
-USE_RUBY="ruby19"
-RUBY_OPTIONAL=yes
-
-inherit cmake-utils git-r3 ruby-fakegem
+inherit cmake-utils git-r3
 
 DESCRIPTION="A sequence motif discovery tool that uses discriminative learning"
 HOMEPAGE="https://github.com/maaskola/discrover"
@@ -17,21 +13,12 @@ EGIT_REPO_URI="https://github.com/maaskola/${PN}"
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+cairo dreme doc +lto tikzlogo misc_scripts +rmathlib tcmalloc"
+IUSE="+cairo dreme doc +lto misc_scripts +rmathlib tcmalloc"
 
 RDEPEND="
 	dev-libs/boost
 	cairo? ( x11-libs/cairo )
 	dreme? ( sci-biology/meme )
-	tikzlogo? (
-		$(ruby_implementations_depend)
-		dev-texlive/texlive-latex
-		dev-texlive/texlive-latexextra
-		dev-tex/pgf
-		dev-tex/xcolor
-		media-gfx/imagemagick
-	)
-	misc_scripts? ( $(ruby_implementations_depend) )
 	rmathlib? ( dev-lang/R )
 	tcmalloc? ( dev-util/google-perftools )
 "
@@ -59,7 +46,6 @@ src_configure() {
 		$(cmake-utils_use_with dreme DREME)
 		$(cmake-utils_use_with doc DOC)
 		$(cmake-utils_use_with lto LTO)
-		$(cmake-utils_use_with tikzlogo TIKZLOGO)
 		$(cmake-utils_use_with misc_scripts MISC_SCRIPTS)
 		$(cmake-utils_use_with rmathlib RMATHLIB)
 		$(cmake-utils_use_with tcmalloc TCMALLOC)

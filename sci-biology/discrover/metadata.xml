@@ -7,22 +7,19 @@
   </maintainer>
   <use>
     <flag name="cairo">
-			Use Cairo for sequence logo plotting capabilities
-		</flag>
+      Use Cairo for sequence logo plotting capabilities
+    </flag>
     <flag name="dreme">
-			Enable usage of DREME from the MEME package for seeding
-		</flag>
+      Enable usage of DREME from the MEME package for seeding
+    </flag>
     <flag name="lto">
-			Compile with link-time optimization (LTO)
-		</flag>
-    <flag name="tikzlogo">
-			Enable LaTeX/TikZ based ruby script for sequence logo drawing
-		</flag>
+      Compile with link-time optimization (LTO)
+    </flag>
     <flag name="misc_scripts">
-			Install miscellaneous scripts, e.g. for sequence length statistics
-		</flag>
+      Install miscellaneous scripts
+    </flag>
     <flag name="rmathlib">
-			Link to the standalone Rmathlib for statistical routines
-		</flag>
+      Link to the standalone Rmathlib for statistical routines
+    </flag>
   </use>
 </pkgmetadata>
