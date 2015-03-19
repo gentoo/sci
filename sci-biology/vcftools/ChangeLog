@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  vcftools-0.1.12b.ebuild:
+  removing KEYWORDS until the perl files are installed to some other place. At
+  the moment I get: 'perl-module.eclass: Suspicious environment values found.
+  PERL5LIB="/usr/share/vcftools/perl"'
+
 *vcftools-0.1.12b (11 Mar 2015)
 
   11 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
