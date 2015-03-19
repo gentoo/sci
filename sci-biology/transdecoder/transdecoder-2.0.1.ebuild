@@ -8,7 +8,7 @@ inherit perl-module
 
 DESCRIPTION="Extract ORF/CDS regions from FASTA sequences"
 HOMEPAGE="http://sourceforge.net/projects/transdecoder/"
-SRC_URI="http://downloads.sourceforge.net/project/transdecoder/TransDecoder_r20140704.tar.gz"
+SRC_URI="https://github.com/TransDecoder/TransDecoder/archive/"${PV}".tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD-BroadInstitute"
 SLOT="0"
@@ -21,14 +21,13 @@ DEPEND="sci-biology/hmmer
 	sci-biology/ffindex"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}"/TransDecoder_r20140704
+S="${WORKDIR}"/TransDecoder-2.0.1
 
-src_prepare(){
-	rm -rf 3rd_party
-	mv Makefile Makefile.old
-	epatch "${FILESDIR}"/TransDecoder.patch
-	epatch "${FILESDIR}"/pfam_runner.pl.patch
-}
+##src_prepare(){
+#	#mv Makefile Makefile.old
+#	#epatch "${FILESDIR}"/TransDecoder.patch
+#	#epatch "${FILESDIR}"/pfam_runner.pl.patch
+#}
 
 # avoid fetching 1.5TB "${S}"/pfam/Pfam-AB.hmm.bin, see
 # "Re: [Transdecoder-users] Announcement: Transdecoder release r20140704" thread in archives
