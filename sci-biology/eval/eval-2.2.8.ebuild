@@ -9,7 +9,7 @@ HOMEPAGE="http://mblab.wustl.edu/software.html"
 
 LICENSE="GPL-2+"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 SRC_URI="http://mblab.wustl.edu/software/download/"${PN}"-"${PV}".tar.gz
 		http://mblab.wustl.edu/software/download/eval-documentation.pdf"
