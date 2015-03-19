@@ -29,7 +29,8 @@ DEPEND="x11-libs/motif[-static-libs]
 	dev-libs/expat
 	x11-libs/libXpm
 	media-libs/netpbm
-	media-video/mpeg-tools"
+	media-video/mpeg-tools
+	x11-libs/libGLw"
 
 S=${WORKDIR}/${P}/src
 BUILD="linux_fedora_19_64"
