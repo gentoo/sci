@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  19 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  transdecoder-2.0.1.ebuild:
+  dropped hmmer dependency altogether, added pkg_postinst() with
+  usage/dependency info
+
 *transdecoder-2.0.1 (19 Mar 2015)
 
   19 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>

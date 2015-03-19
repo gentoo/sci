@@ -15,7 +15,7 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="sci-biology/hmmer
+DEPEND="
 	sci-biology/cd-hit
 	sci-biology/parafly
 	sci-biology/ffindex"
@@ -47,4 +47,11 @@ src_install(){
 	einfo "Fetch on your own:"
 	einfo "wget --mirror -nH -nd http://downloads.sourceforge.net/project/transdecoder/Pfam-AB.hmm.bin"
 	einfo "hmmpress Pfam-AB.hmm.bin"
+}
+
+pkg_postinst(){
+	einfo "It is recommended to use TransDecoder with hmmer-3 or at least NCBI blast"
+	einfo "from either sci-biology/ncbi-blast+ (released more often) or"
+	einfo "from sci-biology/ncbi-toolkit++ (huge bundle with releases and less frequent bugfixes)"
+	einfo "Author says the minimum requirement is sci-biology/cd-hit"
 }
