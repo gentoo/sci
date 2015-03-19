@@ -3,6 +3,9 @@
 # $Header: $
 
   19 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  depend on  x11-libs/libGLw
+
+  19 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
   Ebuild remake by grknight, now honoring cflags and other gentoo settings
 
   18 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
