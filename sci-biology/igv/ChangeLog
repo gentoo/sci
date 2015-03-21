@@ -2,6 +2,16 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  21 Mar 2015; Johann Schmitz <ercpe@gentoo.org> igv-2.3.44.ebuild:
+  Fixed upstream bug https://github.com/broadinstitute/IGV/issues/114 as
+  requested by Martin Mokrejŝ (note: i've excluded the test code by passing
+  -Dnotests=true to ant so it may break at some point).  Also improved the
+  ebuild by unbundling stuff we already have in portage. There are quite a
+  number of libraries which aren't used for compilation which may be needed at
+  runtime. I haven't tested the program in depth: it started at didn't throw
+  errors when i clicked around - everything else is way beyond my knowledge.
+  Improved the ebuild for sci-biology/igv
+
   17 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> igv-2.3.44.ebuild:
   fix inherit to use git instead of previously used subversion
 
