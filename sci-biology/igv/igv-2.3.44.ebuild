@@ -6,7 +6,7 @@ EAPI=5
 
 inherit java-pkg-2 java-ant-2
 
-[ "$PV" == "9999" ] && inherit git-3
+[ "$PV" == "9999" ] && inherit git-r3
 
 if [ "$PV" == "9999" ]; then
 	#ESVN_REPO_URI="http://igv.googlecode.com/svn/trunk"
