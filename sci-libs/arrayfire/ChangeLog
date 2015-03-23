@@ -1,6 +1,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -files/arrayfire-0.9999-CMakeLists_examples.patch,
+  -files/arrayfire-9999-CMakeLists_examples.patch, arrayfire-9999.ebuild:
+  Drop patches, fix ebuild
+
   08 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
   +files/arrayfire-0.9999-CMakeLists_examples.patch,
   +files/arrayfire-0.9999-build_gtest.patch,
