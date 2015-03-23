@@ -23,7 +23,7 @@ fi
 
 LICENSE="Apache-2.0"
 SLOT="0"
-IUSE="client examples +ktest performance test"
+IUSE="+client examples +ktest performance test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.6:*
@@ -43,6 +43,7 @@ DEPEND="${RDEPEND}"
 RESTRICT="test"
 
 PATCHES=(
+	"${FILESDIR}"/clblas-client_CMakeLists.patch
 	"${FILESDIR}"/clblas-library_tools_tune_CMakeLists.patch
 	"${FILESDIR}"/clblas-samples_CMakeLists.patch
 	"${FILESDIR}"/clblas-scripts_perf_CMakeLists.patch
@@ -58,10 +59,11 @@ pkg_pretend() {
 
 src_configure() {
 	local mycmakeargs=(
-	   $(cmake-utils_use_build examples SAMPLE)
-	   $(cmake-utils_use_build ktest KTEST)
-	   $(cmake-utils_use_build performance PERFORMANCE)
-	   $(cmake-utils_use_build test TEST)
+		$(cmake-utils_use_build client CLIENT)
+		$(cmake-utils_use_build examples SAMPLE)
+		$(cmake-utils_use_build ktest KTEST)
+		$(cmake-utils_use_build performance PERFORMANCE)
+		$(cmake-utils_use_build test TEST)
 	)
 	cmake-utils_src_configure
 }
