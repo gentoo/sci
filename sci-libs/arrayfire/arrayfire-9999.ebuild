@@ -16,6 +16,8 @@ KEYWORDS=""
 if [[ ${PV} == "0.9999" ]] ; then
 	# the remote HEAD points to devel, but we want to pull the master instead
 	EGIT_BRANCH="master"
+elif [[ ${PV} == "3.0_beta" ]] ; then
+	EGIT_COMMIT="v3.0beta"
 fi
 
 LICENSE="BSD"
