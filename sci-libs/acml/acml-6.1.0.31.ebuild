@@ -19,7 +19,7 @@ SRC_URI="gfortran? ( ${P}-gfortran64.tgz )"
 LICENSE="ACML-EULA"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~amd64-linux"
-IUSE="doc examples cpu_flags_x86_fma4 +gfortran openmp test"
+IUSE="doc examples +gfortran openmp test"
 RESTRICT="strip mirror"
 
 DEPEND=""
@@ -87,7 +87,6 @@ src_install() {
 
 	# default profile: first one matching use flags
 	local opts=gfortran64
-	use cpu_flags_x86_fma4 && opts+="_fma4"
 	use openmp && opts+="_mp"
 	dosym $(ls -1d */lib | grep ${opts}) /${ACML_INST_DIR}/${libdir}
 
