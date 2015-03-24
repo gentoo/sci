@@ -18,6 +18,7 @@ if [[ ${PV} == "0.9999" ]] ; then
 	EGIT_BRANCH="master"
 elif [[ ${PV} == "3.0_beta" ]] ; then
 	EGIT_COMMIT="v3.0beta"
+	KEYWORDS="~amd64"
 fi
 
 LICENSE="BSD"
