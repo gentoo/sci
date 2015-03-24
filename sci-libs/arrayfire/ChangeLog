@@ -2,6 +2,10 @@
 # $Header: $
 
   24 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -files/arrayfire-0.9999-build_gtest.patch:
+  Drop patch, fixed upstream
+
+  24 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
   +files/FindBoostCompute.patch, +files/opencl_CMakeLists.patch,
   arrayfire-9999.ebuild, metadata.xml:
   Enable OpenCL backend
