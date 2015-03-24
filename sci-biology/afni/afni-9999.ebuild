@@ -54,8 +54,8 @@ src_compile() {
 	}
 
 src_install() {
-	emake INSTALLDIR="${D}/opt/${PN}" install install_plugins
-	emake LIBDIR="${D}/opt/${PN}" install_lib
+	emake INSTALLDIR="${D}/opt/${PN}" -j1 install install_plugins
+	emake LIBDIR="${D}/opt/${PN}" -j1 install_lib
 #	insinto /opt/${PN}
 #	doins -r "${S}/${BUILD}"/*
 
@@ -69,6 +69,6 @@ src_install() {
 	echo "PATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
 	doenvd "${T}"/98${PN}
 
-	dobin "${S}/${BUILD}/${PN}"
-	pax-mark m "${D}/usr/bin/${PN}"
+#	dobin "${S}/${BUILD}/${PN}"
+#	pax-mark m "${D}/usr/bin/${PN}"
 	}
