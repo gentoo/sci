@@ -9,7 +9,7 @@ inherit cmake-utils
 MY_PN="clBLAS"
 
 DESCRIPTION="A software library containing BLAS routines for OpenCL"
-HOMEPAGE="https://github.com/clMathLibraries/clFFT"
+HOMEPAGE="https://github.com/clMathLibraries/clBLAS"
 
 if [ ${PV} == "9999" ] ; then
 	inherit git-r3
