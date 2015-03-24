@@ -44,6 +44,9 @@ src_prepare() {
 		-e "s~RANLIB = /usr/bin/ranlib~RANLIB = $(tc-getRANLIB)~" \
 		-i Makefile || die "Could not edit Makefile"
 		# they provide somewhat problematic makefiles :(
+	sed -e "s~ifeq ($(CC),gcc)~ifeq (1,1)~"\
+		-i SUMA/SUMA_Makefile || die "Could not edit SUMA/SUMA_Makefile"
+		# upstream checks if $CC is EXACTLY gcc, else sets variables for Mac
 	}
 
 src_compile() {
