@@ -23,7 +23,7 @@ fi
 
 LICENSE="BSD"
 SLOT="0"
-IUSE="+examples +cpu cuda test"
+IUSE="+examples +cpu cuda opencl test"
 
 RDEPEND="
 	>=sys-devel/gcc-4.7:*
@@ -35,6 +35,12 @@ RDEPEND="
 		virtual/blas
 		virtual/cblas
 		sci-libs/fftw:3.0
+	)
+	opencl? (
+		dev-libs/boost
+		dev-libs/boost-compute
+		sci-libs/clblas
+		sci-libs/clfft
 	)"
 DEPEND="${RDEPEND}"
 
@@ -43,6 +49,8 @@ CMAKE_BUILD_TYPE=Release
 
 PATCHES=(
 	"${FILESDIR}"/FindCBLAS.patch
+	"${FILESDIR}"/FindBoostCompute.patch
+	"${FILESDIR}"/opencl_CMakeLists.patch
 )
 
 # We need write acccess /dev/nvidiactl, /dev/nvidia0 and /dev/nvidia-uvm and the portage
@@ -78,7 +86,7 @@ src_configure() {
 	local mycmakeargs=(
 	   $(cmake-utils_use_build cpu CPU)
 	   $(cmake-utils_use_build cuda CUDA)
-	   -DBUILD_OPENCL=OFF
+	   $(cmake-utils_use_build opencl OPENCL)
 	   $(cmake-utils_use_build examples EXAMPLES)
 	   $(cmake-utils_use_build test TEST)
 	)
