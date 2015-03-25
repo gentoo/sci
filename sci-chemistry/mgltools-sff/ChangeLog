@@ -3,6 +3,9 @@
 # $Header: $
 
   25 Mar 2015; Justin Lecher <jlec@gentoo.org> mgltools-sff-1.5.6.ebuild:
+  sci-chemistry/mgltools-sff: Add missing die
+
+  25 Mar 2015; Justin Lecher <jlec@gentoo.org> mgltools-sff-1.5.6.ebuild:
   sci-chemistry/mgltools-sff: Drop PYTHON_MODNAME and support for python2_6
 
   10 Jun 2013; Justin Lecher <jlec@gentoo.org> -mgltools-sff-1.5.4-r1.ebuild,
