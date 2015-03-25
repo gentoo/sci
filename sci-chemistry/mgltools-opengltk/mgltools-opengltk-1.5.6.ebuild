@@ -1,17 +1,15 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 eutils prefix
 
 MY_PN="opengltk"
 MY_P="${MY_PN}-${PV/_rc3/}"
-
-PYTHON_MODNAME="${MY_PN}"
 
 DESCRIPTION="MGLTools Plugin -- opengltk"
 HOMEPAGE="http://mgltools.scripps.edu"
@@ -23,10 +21,10 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	dev-lang/tk
-	dev-python/numpy
+	dev-lang/tk:0
+	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-tcltk/tkdnd
-	dev-tcltk/togl
+	dev-tcltk/togl:0
 	media-libs/glew
 	virtual/opengl"
 DEPEND="${RDEPEND}
