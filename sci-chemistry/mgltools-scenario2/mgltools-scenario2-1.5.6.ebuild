@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -11,8 +11,6 @@ inherit distutils-r1 eutils
 MY_PN="Scenario2"
 MY_P="${MY_PN}-${PV/_rc3/}"
 
-PYTHON_MODNAME="${MY_PN}"
-
 DESCRIPTION="MGLTools Plugin -- Scenario2"
 HOMEPAGE="http://mgltools.scripps.edu"
 SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
@@ -23,8 +21,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	dev-python/simpy
-	dev-python/pmw[${PYTHON_USEDEP}]"
+	dev-python/simpy[${PYTHON_USEDEP}]
+	virtual/pmw[${PYTHON_USEDEP}]
+	"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
