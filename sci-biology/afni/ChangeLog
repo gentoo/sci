@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
+  unindented accolades
+
   24 Mar 2015;  <chymera@gentoo.org> afni-9999.ebuild:
   no longer making afni bin, compiling everything with -j1
 
