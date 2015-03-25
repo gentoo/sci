@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -67,7 +67,7 @@ src_install() {
 	find . -name "*.pyc" -type f -delete
 	dodir /usr/bin
 	sed \
-		-e "s|gentoo_sitedir|${EPREFIX}$(python_get_sitedir)|g" \
+		-e "s|gentoo_sitedir|$(python_get_sitedir)|g" \
 		-e "s|gentoolibdir|${EPREFIX}/usr/${libdir}|g" \
 		-e "s|gentootk|${EPREFIX}/usr/${libdir}/tk${tkver}|g" \
 		-e "s|gentootcl|${EPREFIX}/usr/${libdir}/tclk${tkver}|g" \

@@ -1,0 +1,18 @@
+# ChangeLog for sci-biology/RADtools
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  08 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  RADtools-1.2.4.ebuild, RADtools-9999.ebuild:
+  sci-biology/RADtools: manually install perl modules int PERL5INC path
+
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> RADtools-1.2.4.ebuild,
+  RADtools-9999.ebuild:
+  removed empty line
+
+*RADtools-1.2.4 (28 Mar 2014)
+*RADtools-9999 (28 Mar 2014)
+
+  28 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +RADtools-1.2.4.ebuild, +RADtools-9999.ebuild, +metadata.xml:
+  sci-biology/RADtools: new package

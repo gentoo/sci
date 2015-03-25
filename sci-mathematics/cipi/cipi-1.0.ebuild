@@ -1,15 +1,14 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
-inherit cmake-utils git-2
+inherit cmake-utils
 
 DESCRIPTION="Computing information projections iteratively"
 HOMEPAGE="http://github.com/tom111/cipi"
-EGIT_REPO_URI="git://github.com/tom111/cipi.git"
-EGIT_COMMIT="${PV}"
+SRC_URI="https://github.com/tom111/cipi/archive/1.0.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

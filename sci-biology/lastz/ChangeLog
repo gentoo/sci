@@ -4,13 +4,13 @@
 
   12 Jun 2013; Justin Lecher <jlec@gentoo.org> -lastz-1.02.00.ebuild,
   +lastz-1.03.34.ebuild, +files/lastz-1.03.34-build.patch, metadata.xml:
-  Version BUmp; fix license; bump to EAPI=5; fix buildsystem
+  Version Bump; fix license; bump to EAPI=5; fix buildsystem
 
 *lastz-1.03.34 (12 Jun 2013)
 
   12 Jun 2013; Justin Lecher <jlec@gentoo.org> -lastz-1.02.00.ebuild,
   +lastz-1.03.34.ebuild, +files/lastz-1.03.34-build.patch, metadata.xml:
-  Version BUmp; fix license; bump to EAPI=5; fix buildsystem
+  Version Bump; fix license; bump to EAPI=5; fix buildsystem
 
 *lastz-1.02.00 (16 Jan 2012)
 

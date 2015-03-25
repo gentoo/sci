@@ -1,0 +1,11 @@
+--- scilab/modules/gui/src/java/org/scilab/modules/gui/SwingView.java.orig	2014-03-24 22:38:00.928934500 -0400
++++ scilab/modules/gui/src/java/org/scilab/modules/gui/SwingView.java	2014-03-24 22:37:33.947567043 -0400
+@@ -157,7 +157,7 @@
+ 
+     static {
+         try {
+-            System.loadLibrary("gluegen2-rt");
++            System.loadLibrary("gluegen-rt");
+         } catch (Exception e) {
+             System.err.println(e);
+         }

@@ -1,0 +1,2 @@
+move sci-physics/LoopTools sci-physics/looptools
+move sci-astronomy/pyAstroStack sci-astronomy/mosstack

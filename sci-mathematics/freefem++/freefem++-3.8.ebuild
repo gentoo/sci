@@ -1,6 +1,8 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=5
 
 inherit autotools eutils flag-o-matic mpi versionator toolchain-funcs
 
@@ -8,15 +10,15 @@ MY_PV=$(replace_version_separator 2 '-')
 
 DESCRIPTION="Solve PDEs using FEM on 2d and 3d domains"
 HOMEPAGE="http://www.freefem.org/ff++/"
-SRC_URI="http://www.freefem.org/ff%2B%2B/ftp/${PN}-${MY_PV}.tar.gz"
+SRC_URI="http://www.freefem.org/ff++/ftp/old-v3/${PN}-${MY_PV}.tar.gz"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="doc examples mpi opengl vim-syntax X"
+IUSE="doc examples mpi opengl X"
 
 RDEPEND="
-	sci-libs/fftw
+	sci-libs/fftw:3.0
 	virtual/cblas
 	virtual/lapack
 	sci-libs/umfpack
@@ -26,7 +28,6 @@ RDEPEND="
 		media-libs/freeglut
 		virtual/opengl
 		)
-	vim-syntax? ( app-vim/freefem++-syntax )
 	X? (
 		media-fonts/font-misc-misc
 		x11-libs/libX11
@@ -38,23 +39,15 @@ RDEPEND="
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	doc? (
-		|| (
-			(
-				dev-texlive/texlive-latexrecommended
-				dev-texlive/texlive-latexextra
-			)
-			app-text/ptex
-			)
+		dev-texlive/texlive-latexrecommended
+		dev-texlive/texlive-latexextra
 		virtual/latex-base
 		media-gfx/imagemagick
 		)"
 
 S="${WORKDIR}/${PN}-${MY_PV}"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-
+src_prepare() {
 	# acoptim.m4 forced -O2 removal
 	epatch "${FILESDIR}"/${PN}-acoptim.patch
 	# do not try to do a forced "manual" installation of
@@ -66,7 +59,7 @@ src_unpack() {
 	eautoreconf
 }
 
-src_compile() {
+src_configure() {
 	local myconf
 
 	if use mpi; then
@@ -84,11 +77,13 @@ src_compile() {
 		$(use_enable opengl) \
 		$(use_with X x) \
 		${myconf}
+}
 
-	emake || die "emake failed"
+src_compile() {
+	default
 
 	if use doc; then
-		emake documentation || die "emake documentation failed"
+		emake documentation
 	fi
 }
 
@@ -102,24 +97,22 @@ src_test() {
 		ewarn "result in a failing emerge."
 		epause
 	fi
-	emake -j1 check || die "check test failed"
+	emake -j1 check
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
-
-	dodoc AUTHORS INNOVATION HISTORY* README
+	default
 
 	insinto /usr/share/doc/${PF}
 	if use doc; then
-		doins DOC/freefem++doc.pdf || die
+		doins DOC/freefem++doc.pdf
 	fi
 
 	if use examples; then
 		einfo "Installing examples..."
 
 		# Remove compiled examples:
-		emake clean || die "emake clean failed"
+		emake clean
 
 		einfo "Some of the installed examples assumes that the user has write"
 		einfo "permissions in the working directory and other will look for"
@@ -129,7 +122,7 @@ src_install() {
 		einfo "it's better to copy the entire examples++-tutorial folder into"
 		einfo "the user directory."
 
-		rm -f examples*/Makefile*
+		rm -f examples*/Makefile* || die
 		doins -r examples*
 	fi
 }

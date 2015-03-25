@@ -1,6 +1,40 @@
 # ChangeLog for sci-biology/emboss
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/emboss/ChangeLog,v 1.61 2011/03/09 16:29:05 jlec Exp $
+
+  04 Feb 2015; Justin Lecher <jlec@gentoo.org> -emboss-6.3.1_p4-r2.ebuild:
+  Drop old
+
+  04 Feb 2015; Justin Lecher <jlec@gentoo.org> metadata.xml:
+  Clean a bit, user readme.gentoo.eclass
+
+  04 Jul 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/emboss-6.3.1_p4-r2_rename_plwid_to_plwidth.patch,
+  emboss-6.3.1_p4-r2.ebuild:
+  sci-biology/emboss-6.3.1_p4-r2: added a patch for 'undefined reference to
+  c_plwid' bug #493724
+
+  24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  emboss-6.3.1_p4-r2.ebuild:
+  sci-biology/emboss-6.3.1_p4-r2: add plplot dependency, trying to get rid of a
+  Makefile.patch using sed hackery
+
+  16 Sep 2013; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  emboss-6.6.0.ebuild, +files/emboss-6.6.0_plcol.patch:
+  emboss-6.6.0.ebuild files/emboss-6.6.0_plcol.patch
+  Added the misisng patch, disabled searches for Gentoo-patches,
+  fixed patch-related variable values in the 6.6.0 ebuild, BUT
+  1) the ebuild does not work, configure exits after looking for
+  -lhpdf or later -lpng (that can be obeyed by omitting --with-hpdf
+  --with-pngdriver)
+  2) if one relies on whatever configure detects compilation aborts
+  while compiling embossversion.c or because -lexpat is not in LIBS.
+  Well, expat is not in configure flags at all.
+
+  Maybe something is caused by the --enable-systemlibs configure switch,
+  I think it actually enables inclusion of these from their bundled
+  copies in the EMBOSS tarball (and not use of the system-wide headers
+  and libs).
 
 *emboss-6.3.1_p4-r2 (11 Sep 2013)
 *emboss-6.5.7 (11 Sep 2013)

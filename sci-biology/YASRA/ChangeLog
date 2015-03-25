@@ -1,10 +1,17 @@
 # ChangeLog for sci-biology/YASRA
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*YASRA-2.33 (28 Mar 2014)
+
+  28 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +YASRA-2.33.ebuild,
+  -YASRA-2.32.ebuild:
+  sci-biology/YASRA: version bump to a version without compile errors when
+  gcc-4.8 is used
 
   16 Jun 2013; Justin Lecher <jlec@gentoo.org> -YASRA-2.1.ebuild,
   +YASRA-2.32.ebuild:
-  Version BUmp; add KEYWORDS
+  Version Bump; add KEYWORDS
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> YASRA-2.1.ebuild, metadata.xml:
   Drop keywords as deps are unkeyworded
@@ -14,4 +21,3 @@
   17 Jan 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +YASRA-2.1.ebuild,
   +metadata.xml:
   initial ebuild
-

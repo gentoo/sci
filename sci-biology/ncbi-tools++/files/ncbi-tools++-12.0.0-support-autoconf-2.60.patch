@@ -1,0 +1,296 @@
+--- ncbi_cxx--12_0_0/src/build-system/aclocal.m4.ori       2014/05/05 12:38:59     62744
++++ ncbi_cxx--12_0_0/src/build-system/aclocal.m4       2014/05/05 13:59:33     62745
+@@ -1,126 +1,44 @@
+-# Hacked up in various ways, since Autoconf's version doesn't quite
+-# suit our (unusual) conventions.  (Originally from status.m4)
+-m4_define([_AC_SRCPATHS],
+-[#ac_builddir=. # Useless!
+-ac_builddir=$builddir
+-dnl Base source directories on path to *input* file.
+-if test -n "$ac_file_in"; then
+-   ac_dir_in=`AS_DIRNAME(["$ac_file_in"])`
++# Autoconf's _AC_SRCDIRS (from status.m4; historically _AC_SRCPATHS)
++# doesn't quite suit the C++ Toolkit's conventions; tweak it accordingly.
++m4_copy([_AC_SRCDIRS], [NCBI_ORIG__AC_SRCDIRS])
++m4_define([_AC_SRCDIRS],
++[# Base source directories on path to *input* file.
++if test -n "$ac_f"; then
++   ac_dir_in=`AS_DIRNAME(["$ac_f"])`
+ else
+    ac_dir_in=$1
+ fi
+ 
+-if test $ac_dir_in != .; then
+-  ac_dir_suffix=`echo $ac_dir_in | sed 's,^\.[[\\/]],,'`
+-  # A "../" for each directory in $ac_dir_suffix.
+-  ac_top_builddir=../`echo "$ac_dir_suffix" | sed 's,/[[^\\/]]*,../,g'`
+-else
+-  ac_dir_suffix= ac_top_builddir=
+-fi
++NCBI_ORIG__AC_SRCDIRS(["$ac_dir_in"])
+ 
+-case $srcdir in
+-  .)  # No --srcdir option.  We are building in place.
+-    ac_srcdir=.
+-    if test -z "$ac_top_builddir"; then
+-       ac_top_srcdir=.
+-    else
+-       ac_top_srcdir=`echo $ac_top_builddir | sed 's,/$,,'`
+-    fi ;;
+-  [[\\/]]* | ?:[[\\/]]* )  # Absolute path.
+-    ac_srcdir=$srcdir/$ac_dir_suffix;
+-    ac_top_srcdir=$srcdir ;;
+-  *) # Relative path.
+-    ac_srcdir=$ac_top_builddir$srcdir/$ac_dir_suffix
+-    ac_top_srcdir=$ac_top_builddir$srcdir ;;
+-esac
+-# Do not use `cd foo && pwd` to compute absolute paths, because
+-# the directories may not exist.
+-AS_SET_CATFILE([ac_abs_builddir],   [$builddir],        [$1])
+-AS_SET_CATFILE([ac_abs_top_builddir],
+-                                    [$ac_abs_builddir], [${ac_top_builddir}.])
+-AS_SET_CATFILE([ac_abs_top_srcdir], [$ac_dir_in],       [$real_srcdir])
+-AS_SET_CATFILE([ac_abs_srcdir],     [$ac_abs_top_srcdir], [$ac_dir_suffix])
+-])# _AC_SRCPATHS
+-
+-
+-# Copied from autoconf 2.59 (m4sh.m4), but rearranged to make bash a
+-# last resort due to issues with sourcing .bashrc.
+-m4_define([_AS_LINENO_PREPARE],
+-[_AS_LINENO_WORKS || {
+-  # Find who we are.  Look in the path if we contain no path at all
+-  # relative or not.
+-  case $[0] in
+-    *[[\\/]]* ) as_myself=$[0] ;;
+-    *) _AS_PATH_WALK([],
+-                   [test -r "$as_dir/$[0]" && as_myself=$as_dir/$[0] && break])
+-       ;;
+-  esac
+-  # We did not find ourselves, most probably we were run as `sh COMMAND'
+-  # in which case we are not to be found in the path.
+-  if test "x$as_myself" = x; then
+-    as_myself=$[0]
+-  fi
+-  if test ! -f "$as_myself"; then
+-    AS_ERROR([cannot find myself; rerun with an absolute path])
+-  fi
+-  case $CONFIG_SHELL in
+-  '')
+-    AS_UNSET(ZSH_VERSION)
+-    for as_base in sh ksh sh5 bash; do
+-      _AS_PATH_WALK([/bin$PATH_SEPARATOR/usr/bin$PATH_SEPARATOR$PATH],
+-         [case $as_dir in
+-         /*)
+-           if ("$as_dir/$as_base" -c \
+-                 'test -z "$ZSH_VERSION" && { _AS_LINENO_WORKS; }') 2>/dev/null
+-           then
+-             AS_UNSET(BASH_ENV)
+-             AS_UNSET(ENV)
+-             CONFIG_SHELL=$as_dir/$as_base
+-             export CONFIG_SHELL
+-             exec "$CONFIG_SHELL" "$[0]" ${1+"$[@]"}
+-           fi;;
+-         esac
+-       done]);;
+-  esac
+-
+-  # Create $as_me.lineno as a copy of $as_myself, but with $LINENO
+-  # uniformly replaced by the line number.  The first 'sed' inserts a
+-  # line-number line before each line; the second 'sed' does the real
+-  # work.  The second script uses 'N' to pair each line-number line
+-  # with the numbered line, and appends trailing '-' during
+-  # substitution so that $LINENO is not a special case at line end.
+-  # (Raja R Harinath suggested sed '=', and Paul Eggert wrote the
+-  # second 'sed' script.  Blame Lee E. McMahon for sed's syntax.  :-)
+-  sed '=' <$as_myself |
+-    sed '
+-      N
+-      s,$,-,
+-      : loop
+-      s,^\([['$as_cr_digits']]*\)\(.*\)[[$]]LINENO\([[^'$as_cr_alnum'_]]\),\1\2\1\3,
+-      t loop
+-      s,-$,,
+-      s,^[['$as_cr_digits']]*\n,,
+-    ' >$as_me.lineno &&
+-  chmod +x $as_me.lineno ||
+-    AS_ERROR([cannot create $as_me.lineno; rerun with a POSIX shell])
+-
+-  # Don't try to exec as it changes $[0], causing all sort of problems
+-  # (the dirname of $[0] is not the place where we might find the
+-  # original and so on.  Autoconf is especially sensible to this).
+-  . ./$as_me.lineno
+-  # Exit status is that of the last command.
+-  exit
+-}
+-])# _AS_LINENO_PREPARE
++ac_builddir=$builddir
++])
++
++
++# _AS_DETECT_BETTER_SHELL and its helper _AS_RUN (from m4sh.m4; both
++# historically part of _AS_LINENO_PREPARE) also need tweaking, to make
++# bash a last resort due to issues with sourcing .bashrc while entirely
++# avoiding zsh, which passes itself off as ksh on some systems but runs
++# parent shells' exit handlers from subshells, resulting in premature
++# cleanup of temporary files (notably confdefs.h).
++m4_copy([_AS_DETECT_BETTER_SHELL], [NCBI_ORIG__AS_DETECT_BETTER_SHELL])
++m4_copy([_AS_RUN], [NCBI_ORIG___AS_RUN])
++
++m4_define([_AS_DETECT_BETTER_SHELL],
++  [patsubst(m4_defn([NCBI_ORIG__AS_DETECT_BETTER_SHELL]),
++     [sh bash ksh sh5], [sh ksh sh5 bash])])
++m4_define([_AS_RUN],
++[m4_divert_once([M4SH-SANITIZE], [AS_UNSET(ZSH_VERSION)])dnl
++NCBI_ORIG___AS_RUN([test -z "${ZSH_VERSION+set}" || exit $?; $1], [$2])])
+ 
+ 
+ # One more hack: suppress PACKAGE_*, as we don't use them and some
+ # third-party libraries expose their corresponding settings, leading
+ # to preprocessor warnings.
+-m4_define([NCBI_ORIG_ACDU], m4_defn([AC_DEFINE_UNQUOTED]))
++m4_copy([AC_DEFINE_UNQUOTED], [NCBI_ORIG_AC_DEFINE_UNQUOTED])
+ m4_define([AC_DEFINE_UNQUOTED],
+    [ifelse(m4_substr([$1], 0, 8), [PACKAGE_], [],
+-       [NCBI_ORIG_ACDU($@)])])
++       [NCBI_ORIG_AC_DEFINE_UNQUOTED($@)])])
+ 
+ 
+ AC_DEFUN(NCBI_FIX_DIR,
+@@ -158,7 +76,7 @@
+        AC_MSG_WARN([Proceeding without questions per --without-caution]) ;;
+     * )
+        echo "$1 [[y/N]]"
+-       read answer
++       read answer <& AS_ORIGINAL_STDIN_FD
+        case "$answer" in
+          [[Yy]]* )  AC_MSG_WARN([Proceeding at your own risk...]) ;;
+          *       )  AC_MSG_ERROR([Configuration has been canceled by user.]) ;;
+--- ncbi_cxx--12_0_0/src/build-system/configure.ac.ori     2014/05/05 12:38:59     62744
++++ ncbi_cxx--12_0_0/src/build-system/configure.ac     2014/05/05 13:59:33     62745
+@@ -38,7 +38,7 @@
+ #
+ #############################################################################
+ 
+-AC_PREREQ(2.59)
++AC_PREREQ(2.60)
+ 
+ dnl Early setup, most crucially for locking.  The diversion magic lets
+ dnl this occur before AC_INIT, which already interferes with other
+@@ -493,6 +493,10 @@
+    [***** See also HTML documentation in ./doc/index.html *****])
+ 
+ 
++AC_DIVERT_PUSH(PARSE_ARGS)
++dnl As of Autoconf 2.60, this needs to run too early for config.log,
++dnl to which AC_MSG_ERROR normally copies its output, to be available.
++m4_rename([AS_MESSAGE_LOG_FD], [NCBI_ORIG_ASMLFD])
+ #### Check the passed arguments against the list of available ones
+ x_with_list="\
+ debug max-debug symbols optimization profiling tcheck dll static static-exe \
+@@ -564,7 +568,7 @@
+       | --with-muparser=* | --with-hdf5=* | --with-jni=* | --with-magic=* \
+       | --x-includes=* | --x-libraries=* | --with-3psw=* \
+       | --target=* | --with-runpath=* | --with-relative-runpath=* \
+-      | --no-create | --no-recursion)
++      | --help | --no-create | --no-recursion)
+       ;;
+ 
+       * )
+@@ -572,6 +576,8 @@
+       ;;
+    esac
+ done
++m4_rename([NCBI_ORIG_ASMLFD], [AS_MESSAGE_LOG_FD])
++AC_DIVERT_POP
+ 
+ 
+ if test "$with_gbench" = "yes" ; then
+@@ -2176,7 +2182,7 @@
+ fi
+ 
+ AC_PATH_PROG(TOUCH, touch, [], /bin:/usr/bin:$PATH)
+-AC_PATH_PROG(GREP, grep)
++dnl AC_PATH_PROG(GREP, grep)
+ AC_PROG_EGREP
+ AC_MSG_CHECKING([how to run $EGREP quietly])
+ if test -z "`echo foo | $EGREP -q fo+ 2>>config.log || echo $?`"; then
+--- ncbi_cxx--12_0_0/include/common/config/ncbiconf_xcode.h.ori    2014/05/05 14:10:55     62749
++++ ncbi_cxx--12_0_0/include/common/config/ncbiconf_xcode.h    2014/05/05 14:23:49     62750
+@@ -694,7 +694,7 @@
+ /* Define to empty if `const' does not conform to ANSI C. */
+ /* #undef const */
+ 
+-/* Define to `unsigned' if <sys/types.h> does not define. */
++/* Define to `unsigned int' if <sys/types.h> does not define. */
+ /* #undef size_t */
+ 
+ /*
+--- ncbi_cxx--12_0_0/src/build-system/config.h.in.ori      2014/05/05 14:10:55     62749
++++ ncbi_cxx--12_0_0/src/build-system/config.h.in      2014/05/05 14:23:49     62750
+@@ -802,37 +802,37 @@
+    by a signal. */
+ #undef SELECT_UPDATES_TIMEOUT
+ 
+-/* The size of a `char', as computed by sizeof. */
++/* The size of `char', as computed by sizeof. */
+ #undef SIZEOF_CHAR
+ 
+-/* The size of a `double', as computed by sizeof. */
++/* The size of `double', as computed by sizeof. */
+ #undef SIZEOF_DOUBLE
+ 
+-/* The size of a `float', as computed by sizeof. */
++/* The size of `float', as computed by sizeof. */
+ #undef SIZEOF_FLOAT
+ 
+-/* The size of a `int', as computed by sizeof. */
++/* The size of `int', as computed by sizeof. */
+ #undef SIZEOF_INT
+ 
+-/* The size of a `long', as computed by sizeof. */
++/* The size of `long', as computed by sizeof. */
+ #undef SIZEOF_LONG
+ 
+-/* The size of a `long double', as computed by sizeof. */
++/* The size of `long double', as computed by sizeof. */
+ #undef SIZEOF_LONG_DOUBLE
+ 
+-/* The size of a `long long', as computed by sizeof. */
++/* The size of `long long', as computed by sizeof. */
+ #undef SIZEOF_LONG_LONG
+ 
+-/* The size of a `short', as computed by sizeof. */
++/* The size of `short', as computed by sizeof. */
+ #undef SIZEOF_SHORT
+ 
+-/* The size of a `size_t', as computed by sizeof. */
++/* The size of `size_t', as computed by sizeof. */
+ #undef SIZEOF_SIZE_T
+ 
+-/* The size of a `void*', as computed by sizeof. */
++/* The size of `void*', as computed by sizeof. */
+ #undef SIZEOF_VOIDP
+ 
+-/* The size of a `__int64', as computed by sizeof. */
++/* The size of `__int64', as computed by sizeof. */
+ #undef SIZEOF___INT64
+ 
+ /* Define to 1 if the stack grows down. */
+@@ -873,5 +873,5 @@
+ /* Define to empty if `const' does not conform to ANSI C. */
+ #undef const
+ 
+-/* Define to `unsigned' if <sys/types.h> does not define. */
++/* Define to `unsigned int' if <sys/types.h> does not define. */
+ #undef size_t
+--- ncbi_cxx--12_0_0/src/build-system/aclocal.m4.ori       2014/05/06 13:12:18     62759
++++ ncbi_cxx--12_0_0/src/build-system/aclocal.m4       2014/05/06 13:42:48     62760
+@@ -11,6 +11,7 @@
+ 
+ NCBI_ORIG__AC_SRCDIRS(["$ac_dir_in"])
+ 
++AS_SET_CATFILE([ac_abs_top_srcdir], [$ac_dir_in], [$real_srcdir])
+ ac_builddir=$builddir
+ ])
+ 
+

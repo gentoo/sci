@@ -1,6 +1,26 @@
 # ChangeLog for sci-chemistry/phenix-bin
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  14 Nov 2014; Justin Lecher <jlec@gentoo.org> phenix-bin-1.9.1692.ebuild:
+  Fix dep SLOT of sys-libs/db
+
+  13 May 2014; Justin Lecher <jlec@gentoo.org> -phenix-bin-1.9.1690.ebuild,
+  +phenix-bin-1.9.1692.ebuild:
+  Version Bump
+
+*phenix-bin-1.9.1690 (06 May 2014)
+
+  06 May 2014; Justin Lecher <jlec@gentoo.org> +phenix-bin-1.9.1690.ebuild:
+  Version Bump
+
+  25 Feb 2014; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.4.1496.ebuild:
+  Fix prefix problems
+
+*phenix-bin-1.8.4.1496 (09 Oct 2013)
+
+  09 Oct 2013; Justin Lecher <jlec@gentoo.org> +phenix-bin-1.8.4.1496.ebuild:
+  Version Bump
 
   13 Aug 2013; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.2.1309.ebuild:
   Move jpeg to virtual
@@ -12,7 +32,7 @@
 
   11 Mar 2013; Justin Lecher <jlec@gentoo.org> -phenix-bin-1.8.1.1168.ebuild,
   +phenix-bin-1.8.2.1309.ebuild:
-  Version BUmp
+  Version Bump
 
   17 Jan 2013; Justin Lecher <jlec@gentoo.org> phenix-bin-1.8.1.1168.ebuild,
   metadata.xml:

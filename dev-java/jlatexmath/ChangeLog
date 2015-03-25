@@ -1,6 +1,12 @@
 # ChangeLog for dev-java/jlatexmath
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*jlatexmath-1.0.3 (22 Apr 2014)
+
+  22 Apr 2014; Guillaume Horel <guillaume.horel@gmail.com>
+  +jlatexmath-1.0.3.ebuild, -jlatexmath-1.0.2.ebuild:
+  dev-java/jlatexmath: version bump
 
 *jlatexmath-1.0.0 (25 Sep 2012)
 

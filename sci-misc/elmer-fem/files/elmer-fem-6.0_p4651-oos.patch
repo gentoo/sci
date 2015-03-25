@@ -1,0 +1,75 @@
+ src/Makefile.am | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 9e48c31..b94705c 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -182,11 +182,11 @@ SC2Elmer_SOURCES = SC2Elmer.c
+ 
+ if USE_LOCAL_MPIF_H
+ mpif: mpif_stub.h
+-	$(CP) mpif_stub.h mpif.h
+-	$(CP) mpif_stub.h mpif
++	$(CP) $(srcdir)/mpif_stub.h mpif.h
++	$(CP) $(srcdir)/mpif_stub.h mpif
+ else 
+ mpif: mpif_stub.h
+-	$(CP) mpif_stub.h mpif
++	$(CP) $(srcdir)/mpif_stub.h mpif
+ endif
+ 
+ EXTRA_DIST = \
+ src/Makefile.am | 25 +++++++++++++------------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 92de7a4..89a2236 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -144,32 +144,33 @@ ELMER_SOLVER_DATADIR=$(prefix)/share/elmersolver
+ install-data-local:
+ 	@echo "Installing solvers to ${ELMER_SOLVER_DATADIR}/lib"
+ 
+-	mkdir -p $(DESTDIR)$(ELMER_SOLVER_DATADIR)/lib
+-	$(CP) `ls -f *$(SHL_EXT) | grep -v libelmersolver` $(DESTDIR)$(ELMER_SOLVER_DATADIR)/lib
+-	$(CP) elements.def $(DESTDIR)$(ELMER_SOLVER_DATADIR)/lib
+-	$(CP) SOLVER.KEYWORDS $(DESTDIR)$(ELMER_SOLVER_DATADIR)/lib
++	mkdir -p $(DESTDIR)$(ELMER_SOLVER_DATADIR)/$(libdir)
++	$(CP) `ls -f $(builddir)/*$(SHL_EXT) | grep -v libelmersolver` $(DESTDIR)$(ELMER_SOLVER_DATADIR)/$(libdir)
++	$(CP) $(srcdir)/elements.def $(DESTDIR)$(ELMER_SOLVER_DATADIR)/$(libdir)
++	$(CP) $(srcdir)/SOLVER.KEYWORDS $(DESTDIR)$(ELMER_SOLVER_DATADIR)/$(libdir)
+ 
+ 	@echo "Installing *.mod to ${ELMER_SOLVER_DATADIR}/include"
+ 	mkdir -p $(DESTDIR)$(ELMER_SOLVER_DATADIR)/include
+-	$(CP) *.mod $(DESTDIR)$(ELMER_SOLVER_DATADIR)/include
++	$(CP) $(builddir)/*.mod $(DESTDIR)$(ELMER_SOLVER_DATADIR)/include
+ 
+ 
+ install-exec-local:
+ 	@echo "Installing stuff to ${prefix}/bin"
+ 	$(MKDIR) $(DESTDIR)$(prefix)/bin
+-	$(CP) ElmerSolver$(EXEEXT) $(DESTDIR)$(prefix)/bin
+-	$(CP) ViewFactors$(EXEEXT) $(DESTDIR)$(prefix)/bin
+-	$(CP) GebhardtFactors$(EXEEXT) $(DESTDIR)$(prefix)/bin
++	$(CP) $(builddir)/ElmerSolver$(EXEEXT) $(DESTDIR)$(prefix)/bin
++	$(CP) $(builddir)/ViewFactors$(EXEEXT) $(DESTDIR)$(prefix)/bin
++	$(CP) $(builddir)/GebhardtFactors$(EXEEXT) $(DESTDIR)$(prefix)/bin
+ if USE_WINDOWS_COMPILER
+ 	$(CP) libelmersolver*$(SHL_EXT) $(DESTDIR)$(prefix)/lib
+ else
+-	$(CP) libelmersolver-$(VERSION)$(SHL_EXT) $(DESTDIR)$(prefix)/lib
++	mkdir -p $(DESTDIR)$(prefix)/$(libdir)
++	$(CP) $(builddir)/libelmersolver-$(VERSION)$(SHL_EXT) $(DESTDIR)$(prefix)/$(libdir)
+ 	$(LN) -sf libelmersolver-$(VERSION)$(SHL_EXT)\
+-              $(DESTDIR)$(prefix)/lib/libelmersolver$(SHL_EXT)
++              $(DESTDIR)$(prefix)/$(libdir)/libelmersolver$(SHL_EXT)
+ endif
+-	$(CP) elmerf90 elmerf90-nosh elmerld $(DESTDIR)$(prefix)/bin
++	$(CP) $(builddir)/elmerf90 $(builddir)/elmerf90-nosh elmerld $(DESTDIR)$(prefix)/bin
+ if USE_MPI
+-	$(CP) ElmerSolver_mpi$(EXEEXT) $(DESTDIR)$(prefix)/bin
++	$(CP) $(builddir)/ElmerSolver_mpi$(EXEEXT) $(DESTDIR)$(prefix)/bin
+ endif
+ 
+ clean-local:

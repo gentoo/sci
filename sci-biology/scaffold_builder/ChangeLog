@@ -1,0 +1,19 @@
+# ChangeLog for sci-biology/scaffold_builder
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*scaffold_builder-20131122 (30 Jan 2015)
+
+  30 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +scaffold_builder-20131122.ebuild, -scaffold_builder-20130403.ebuild:
+  version bump
+
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org>
+  scaffold_builder-20130403.ebuild:
+  added license
+
+*scaffold_builder-20130403 (23 Mar 2014)
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +scaffold_builder-20130403.ebuild, +metadata.xml:
+  new package but with a missing LICENSE

@@ -1,0 +1,29 @@
+Apply the users condor_config last, rather than first.
+Ported patch from htcondor-8.0.0 to 8.3.2
+
+Patch by Marius Brehler.
+--- src/condor_utils/condor_config.cpp
++++ src/condor_utils/condor_config.cpp
+@@ -1454,18 +1454,14 @@ find_file(const char *env_name, const ch
+ 	if (!config_source) {
+ 			// List of condor_config file locations we'll try to open.
+ 			// As soon as we find one, we'll stop looking.
+-		const int locations_length = 4;
++		const int locations_length = 3;
+ 		MyString locations[locations_length];
+-			// 1) $HOME/.condor/condor_config
+-		// $HOME/.condor/condor_config was added for BOSCO and never used, We are removing it in 8.3.1, but may put it back if users complain.
+-		//find_user_file(locations[0], file_name, false);
+-			// 2) /etc/condor/condor_config
+-		locations[1].formatstr( "/etc/%s/%s", myDistro->Get(), file_name );
++		locations[0].formatstr( "/etc/%s/%s", myDistro->Get(), file_name );
+ 			// 3) /usr/local/etc/condor_config (FreeBSD)
+-		locations[2].formatstr( "/usr/local/etc/%s", file_name );
++		locations[1].formatstr( "/usr/local/etc/%s", file_name );
+ 		if (tilde) {
+ 				// 4) ~condor/condor_config
+-			locations[3].formatstr( "%s/%s", tilde, file_name );
++			locations[2].formatstr( "%s/%s", tilde, file_name );
+ 		}
+ 
+ 		int ctr;	

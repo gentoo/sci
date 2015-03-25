@@ -1,6 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=5
 
 DESCRIPTION="Utiliies for working with Tidal Constituent Databases."
 HOMEPAGE="http://www.flaterco.com/xtide/"
@@ -13,7 +15,3 @@ IUSE=""
 
 DEPEND=">=sci-geosciences/libtcd-2.2.4"
 RDEPEND="${DEPEND}"
-
-src_install() {
-	emake install DESTDIR="${D}" || die "emake install failed"
-}

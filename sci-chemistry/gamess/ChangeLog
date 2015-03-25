@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*gamess-20130501.1 (29 Sep 2013)
+
+  29 Sep 2013; Reinis Danne <rei4dan@gmail.com> +gamess-20130501.1.ebuild,
+  +files/gamess-20130501.1.gentoo.patch:
+  Bump to 2013 May 01 (R1).
+
   27 Feb 2013; Justin Lecher <jlec@gentoo.org> gamess-20120501.1.ebuild,
   files/gamess-20120501.1.gentoo.patch, metadata.xml:
   Use PKG_CONFIG instead of generic pkg-config

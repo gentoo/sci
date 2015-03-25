@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-cluster/openmpi/openmpi-1.2.4.ebuild,v 1.2 2007/12/13 22:39:53 jsbronder Exp $
+# $Header: $
 
 EAPI=5
 
@@ -57,15 +57,15 @@ MPI_UNCLASSED_DEP_STR="
 RDEPEND="
 	>=sys-apps/hwloc-1.3
 	elibc_FreeBSD? ( dev-libs/libexecinfo )
-	openmpi_fabrics_dapl? ( sys-infiniband/dapl )
-	openmpi_fabrics_ofed? ( sys-infiniband/ofed )
+	openmpi_fabrics_dapl? ( sys-infiniband/dapl:* )
+	openmpi_fabrics_ofed? ( sys-infiniband/ofed:* )
 	openmpi_fabrics_knem? ( sys-cluster/knem )
 	openmpi_fabrics_open-mx? ( sys-cluster/open-mx )
-	openmpi_fabrics_psm? ( sys-infiniband/infinipath-psm )
+	openmpi_fabrics_psm? ( sys-infiniband/infinipath-psm:* )
 	openmpi_fabrics_sctp? ( net-misc/lksctp-tools )
 	openmpi_rm_pbs? ( sys-cluster/torque )
 	openmpi_rm_slurm? ( sys-cluster/slurm )
-	openmpi_ofed_features_rdmacm? ( sys-infiniband/librdmacm )
+	openmpi_ofed_features_rdmacm? ( sys-infiniband/librdmacm:* )
 	$(mpi_imp_deplist)"
 DEPEND="${RDEPEND}"
 

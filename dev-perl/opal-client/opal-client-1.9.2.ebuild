@@ -1,8 +1,12 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit perl-module
+EAPI=5
+
+PYTHON_COMPAT=( python2_7 )
+
+inherit perl-module python-single-r1
 
 MY_PN="${PN/client/perl}"
 MY_P="${MY_PN}-${PV}"
@@ -19,14 +23,15 @@ IUSE=""
 RDEPEND="
 	dev-perl/SOAP-Lite
 	dev-lang/perl
-	dev-python/opal-client"
+	dev-python/opal-client[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}"
 
 S="${WORKDIR}"/${MY_P}
 
 src_install() {
 	insinto ${SITE_LIB}
-	doins *.pm || die
-	dodoc README etc/* pdb2pqrclient.pl || die
-	dohtml docs/* || die
+	doins *.pm
+	dodoc README etc/* pdb2pqrclient.pl
+	docinto html
+	dodoc docs/*
 }

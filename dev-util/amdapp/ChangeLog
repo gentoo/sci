@@ -1,0 +1,32 @@
+# ChangeLog for dev-util/amdapp
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*amdapp-3.0_beta (23 Mar 2015)
+
+  23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +amdapp-3.0_beta.ebuild:
+  Add 3.0_beta
+
+*amdapp-2.9.1 (03 Mar 2015)
+
+  03 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +amdapp-2.9.1.ebuild:
+  Version bump
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> -amdapp-2.8.ebuild,
+  amdapp-2.9.ebuild, metadata.xml:
+  dev-util/amdapp: fix SLOT operators; restrict fetch; drop old
+
+  02 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
+  amdapp-2.8.ebuild:
+  Fix 32bit build, add link to download archive
+
+*amdapp-2.9 (01 Feb 2015)
+
+  01 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +amdapp-2.9.ebuild:
+  Version bump and fix 32bit build
+
+  14 Nov 2014; Christoph Junghans <ottxor@gentoo.org> amdapp-2.8.ebuild:
+  switch to virtual/opencl

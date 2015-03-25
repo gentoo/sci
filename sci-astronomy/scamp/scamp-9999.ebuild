@@ -1,8 +1,8 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
 	_SVN=subversion
@@ -14,7 +14,10 @@ else
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 fi
 
-inherit ${_SVN} autotools
+AUTOTOOLS_AUTORECONF=1
+AUTOTOOLS_IN_SOURCE_BUILD=1
+
+inherit ${_SVN} autotools-utils multilib
 
 DESCRIPTION="Astrometric and photometric solutions for astronomical images"
 HOMEPAGE="http://www.astromatic.net/software/scamp"
@@ -23,10 +26,11 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE="doc plplot threads"
 
-RDEPEND=">=sci-astronomy/cdsclient-3.4
-	sci-libs/atlas[lapack]
+RDEPEND="
+	>=sci-astronomy/cdsclient-3.4
+	sci-libs/atlas[lapack,threads=]
 	sci-libs/fftw:3.0
-	plplot? ( sci-libs/plplot )"
+	plplot? ( sci-libs/plplot:= )"
 DEPEND="${RDEPEND}"
 
 src_prepare() {
@@ -41,18 +45,22 @@ src_prepare() {
 		-e "s/-lcblas/-l${mycblas}/g" \
 		-e "s/AC_CHECK_LIB(cblas/AC_CHECK_LIB(${mycblas}/g" \
 		-e "s/-llapack/-l${myclapack}/g" \
+		-e "s/\(lapack_lib=\).*/\1${myclapack}/g" \
 		-e "s/AC_CHECK_LIB(lapack/AC_CHECK_LIB(${myclapack}/g" \
 		acx_atlas.m4 || die
-	eautoreconf
+	autotools-utils_src_prepare
 }
 
 src_configure() {
-	econf \
-		--with-atlas-incdir="${EPREFIX}/usr/include/atlas" \
+	local myeconfargs=(
+		--with-atlas-incdir="${EPREFIX}/usr/include/atlas"
+		$(use_enable plplot)
 		$(use_enable threads)
+	)
+	autotools-utils_src_configure
 }
 
 src_install () {
-	default
+	autotools-utils_src_install
 	use doc && dodoc doc/*
 }

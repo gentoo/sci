@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1 git-2
+inherit distutils-r1 git-r3
 
 DESCRIPTION="General purpose python library for professional astronomers/astrophysicists"
 HOMEPAGE="http://packages.python.org/Astropysics/"
@@ -25,7 +25,7 @@ RDEPEND="
 	dev-python/matplotlib[${PYTHON_USEDEP}]
 	dev-python/networkx[${PYTHON_USEDEP}]
 	dev-python/pygraphviz[${PYTHON_USEDEP}]
-	dev-python/atpy[fits,votable,${PYTHON_USEDEP}]
+	dev-python/atpy[${PYTHON_USEDEP}]
 	sci-astronomy/sextractor
 	sci-visualization/mayavi[${PYTHON_USEDEP}]
 	sci-libs/scipy[${PYTHON_USEDEP}]"

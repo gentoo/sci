@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>sci-astronomy</herd>
+	<longdescription lang="en">
+		pywcsgrid2 provides a custom Axes class (derived from matplotlib's
+		original Axes class) suitable for displaying fits images. Its main
+		functionality is to draw ticks, ticklabels, and grids in an
+		appropriate sky coordinates.
+	</longdescription>
+</pkgmetadata>

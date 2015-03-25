@@ -1,7 +1,49 @@
 # ChangeLog for sci-biology/igv
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  21 Mar 2015; Johann Schmitz <ercpe@gentoo.org> igv-2.3.44.ebuild:
+  Fixed upstream bug https://github.com/broadinstitute/IGV/issues/114 as
+  requested by Martin Mokrejŝ (note: i've excluded the test code by passing
+  -Dnotests=true to ant so it may break at some point).  Also improved the
+  ebuild by unbundling stuff we already have in portage. There are quite a
+  number of libraries which aren't used for compilation which may be needed at
+  runtime. I haven't tested the program in depth: it started at didn't throw
+  errors when i clicked around - everything else is way beyond my knowledge.
+  Improved the ebuild for sci-biology/igv
+
+  21 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> igv-2.3.44.ebuild:
+  sci-biology/igv: fix inherit to git-r3
+
+  17 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> igv-2.3.44.ebuild:
+  fix inherit to use git instead of previously used subversion
+
+*igv-2.3.44 (17 Mar 2015)
+
+  17 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +igv-2.3.44.ebuild,
+  -igv-2.3.40.ebuild:
+  version bump
+
+*igv-2.3.40 (05 Mar 2015)
+
+  05 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +igv-2.3.40.ebuild,
+  -igv-2.0.35.ebuild:
+  updated ebuild to github URLs; version bump but does not compile for me
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> -igv-2.0.32.ebuild,
+  igv-2.0.35.ebuild, metadata.xml:
+  sci-biology/igv: fix SLOT operators; drop KEYWORDS for live ebuilds
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> igv-2.0.35.ebuild:
+  API bumped, whitespace removal
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> igv-2.0.35.ebuild:
+  added some dev-java dependencies and removed some bundled .jar files
+
+*igv-2.0.35 (23 Mar 2014)
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +igv-2.0.35.ebuild:
+  sci-biology/igv-2.0.35: version bump
 
   08 Jan 2012; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
   New package, ebuild written by me
-

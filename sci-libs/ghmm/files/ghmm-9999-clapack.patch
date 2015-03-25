@@ -1,0 +1,11 @@
+--- ghmm/matrixop.c
++++ ghmm/matrixop.c
+@@ -45,7 +45,7 @@
+ #endif
+ 
+ #ifdef DO_WITH_ATLAS
+-#include <clapack.h>
++#include <clapack/clapack.h>
+ #endif
+ 
+ /*============================================================================*/

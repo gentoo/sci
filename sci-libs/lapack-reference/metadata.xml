@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci</herd>
-<longdescription lang="en">
+  <herd>sci</herd>
+  <longdescription lang="en">
   The Linear Algebra PACKage (LAPACK) is a comprehensive library that
   does linear algebra operations including matrix inversions, least
   squared solutions to linear sets of equations, eigenvector analysis,
@@ -12,8 +12,9 @@
   Netlib for LAPACK and optionnally the one for the Basic Linear
   Algebra Subprogram (BLAS).
 </longdescription>
-<use>
-  <flag name="xblas">Build LAPACK with extra precision (needs
+  <use>
+    <flag name="int64">Build the 64 bits integer library</flag>
+    <flag name="xblas">Build LAPACK with extra precision (needs
   <pkg>sci-libs/xblas</pkg>)</flag>
-</use>
+  </use>
 </pkgmetadata>

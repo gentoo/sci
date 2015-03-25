@@ -1,6 +1,307 @@
 # ChangeLog for sys-cluster/lustre
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> lustre-9999.ebuild:
+  sys-cluster/lustre: fix SLOT operators
+
+  12 Nov 2014; Justin Lecher <jlec@gentoo.org> lustre-9999.ebuild,
+  -files/0002-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch:
+  Move large patch into patch dir
+
+  29 May 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0001-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  files/0002-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  files/0003-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch,
+  lustre-9999.ebuild:
+  Update to latest source
+
+  24 May 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  +files/0002-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  +files/0003-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch,
+  -files/0001-LU-3319-procfs-Move-NRS-TBF-proc-handling-to-seq_fil.patch,
+  -files/0002-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  -files/0003-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  -files/0004-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  -files/0005-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch,
+  lustre-9999.ebuild:
+  Update lustre patches
+
+  20 May 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0004-LU-2096-lprocfs-symlinks-for-forward-compatibility.patch,
+  +files/0005-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  +files/0006-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch,
+  -files/0004-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  -files/0005-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  -files/0006-LU-2096-lprocfs-symlinks-for-forward-compatibility.patch,
+  -files/0007-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  -files/0008-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch,
+  files/0001-LU-3319-procfs-Move-NRS-TBF-proc-handling-to-seq_fil.patch,
+  files/0002-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  files/0003-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  lustre-9999.ebuild:
+  Update patches
+
+  22 Apr 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0006-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  files/0007-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch:
+  Update lustre patches
+
+  22 Apr 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-LU-3319-procfs-Move-NRS-TBF-proc-handling-to-seq_fil.patch,
+  +files/0002-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  +files/0003-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  +files/0004-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  +files/0005-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  +files/0006-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  +files/0007-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch,
+  -files/0001-LU-3319-procfs-fix-symlink-handling.patch,
+  -files/0002-LU-3319-procfs-Move-NRS-TBF-proc-handling-to-seq_fil.patch,
+  -files/0003-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  -files/0004-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  -files/0005-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  -files/0006-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  -files/0007-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  -files/0008-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  -files/0009-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  -files/0010-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch,
+  lustre-9999.ebuild:
+  Update lustre patches
+
+  02 Apr 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0010-LU-4416-mm-Backport-shrinker-changes-from-upstream.patch,
+  +files/lustre-readline6.3_fix.patch,
+  files/0001-LU-3319-procfs-fix-symlink-handling.patch,
+  files/0002-LU-3319-procfs-Move-NRS-TBF-proc-handling-to-seq_fil.patch,
+  files/0003-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  files/0004-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  files/0005-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  files/0006-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  files/0007-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  files/0008-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  files/0009-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  lustre-9999.ebuild:
+  Lustre with patches up to kernel v3.13
+
+  02 Apr 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-LU-3319-procfs-fix-symlink-handling.patch,
+  +files/0002-LU-3319-procfs-Move-NRS-TBF-proc-handling-to-seq_fil.patch,
+  +files/0003-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  +files/0004-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  +files/0007-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  +files/0008-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  -files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  -files/0002-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  -files/0003-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  -files/0004-LU-3319-procfs-fix-symlink-handling.patch,
+  -files/0007-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  -files/0008-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  -files/0010-LU-3319-lprocfs-client-side-cleanups.patch,
+  -files/0011-LU-3974-llite-use-new-struct-dir_context.patch,
+  -files/0012-LU-3974-llite-invalidatepage-api-changed.patch,
+  files/0005-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  files/0006-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  files/0009-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  lustre-9999.ebuild:
+  Lustre need more patches
+
+  27 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0002-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  files/0003-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  files/0004-LU-3319-procfs-fix-symlink-handling.patch,
+  files/0005-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  files/0006-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  files/0007-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  files/0008-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  files/0009-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  files/0010-LU-3319-lprocfs-client-side-cleanups.patch,
+  files/0011-LU-3974-llite-use-new-struct-dir_context.patch,
+  files/0012-LU-3974-llite-invalidatepage-api-changed.patch:
+  Update patches
+
+  12 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0011-LU-3974-llite-use-new-struct-dir_context.patch,
+  files/0012-LU-3974-llite-invalidatepage-api-changed.patch:
+  Fix build v2
+
+  12 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Drop unneded patch v2
+
+  12 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  +files/0002-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  +files/0003-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  +files/0004-LU-3319-procfs-fix-symlink-handling.patch,
+  +files/0005-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  +files/0006-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  +files/0007-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  +files/0008-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  +files/0009-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  +files/0010-LU-3319-lprocfs-client-side-cleanups.patch,
+  +files/0011-LU-3974-llite-use-new-struct-dir_context.patch,
+  +files/0012-LU-3974-llite-invalidatepage-api-changed.patch,
+  -files/0001-LU-4554-lfsck-old-single-OI-MDT-always-scrubbed.patch,
+  -files/0002-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  -files/0003-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  -files/0004-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  -files/0005-LU-3319-procfs-fix-symlink-handling.patch,
+  -files/0006-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  -files/0007-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  -files/0008-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  -files/0009-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  -files/0010-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  -files/0011-LU-3319-lprocfs-client-side-cleanups.patch,
+  -files/0012-LU-3974-llite-use-new-struct-dir_context.patch,
+  -files/0013-LU-3974-llite-invalidatepage-api-changed.patch:
+  Drop unneded patch
+
+  12 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0001-LU-4554-lfsck-old-single-OI-MDT-always-scrubbed.patch,
+  +files/0002-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  +files/0003-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  +files/0005-LU-3319-procfs-fix-symlink-handling.patch,
+  +files/0008-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  +files/0009-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  +files/0011-LU-3319-lprocfs-client-side-cleanups.patch,
+  -files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  -files/0002-LU-3319-lprocfs-client-side-cleanups.patch,
+  -files/0003-LU-3319-procfs-fix-symlink-handling.patch,
+  -files/0005-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  -files/0008-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  -files/0009-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  -files/0011-LU-3373-osd-ldiskfs-readdir-replace-by-iterate.patch,
+  files/0004-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  files/0006-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  files/0007-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  files/0010-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  files/0012-LU-3974-llite-use-new-struct-dir_context.patch,
+  files/0013-LU-3974-llite-invalidatepage-api-changed.patch, lustre-9999.ebuild:
+  Update lustre patches
+
+  04 Feb 2014; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0002-LU-3319-lprocfs-client-side-cleanups.patch,
+  +files/0003-LU-3319-procfs-fix-symlink-handling.patch,
+  +files/0004-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  +files/0005-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  +files/0006-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  +files/0007-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  +files/0008-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  +files/0009-LU-3319-procfs-move-mdd-ofd-proc-handling-to-seq_fil.patch,
+  +files/0010-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  +files/0011-LU-3373-osd-ldiskfs-readdir-replace-by-iterate.patch,
+  +files/0012-LU-3974-llite-use-new-struct-dir_context.patch,
+  +files/0013-LU-3974-llite-invalidatepage-api-changed.patch,
+  -files/0002-LU-3373-ldiskfs-ldiskfs-patches-for-3.11.1-fc19.patch,
+  -files/0003-LU-3974-llite-dentry-d_compare-changes-in-3.11.patch,
+  -files/0004-LU-3974-llite-use-new-struct-dir_context.patch,
+  -files/0005-LU-3974-llite-invalidatepage-api-changed.patch,
+  -files/0006-LU-3319-procfs-move-llite-proc-handling-over-to-seq_.patch,
+  -files/0007-LU-3319-procfs-move-lmv-proc-handling-over-to-seq_fi.patch,
+  -files/0008-LU-3319-procfs-move-ldlm-proc-handling-over-to-seq_f.patch,
+  -files/0009-LU-3319-procfs-move-ost-proc-handling-over-to-seq_fi.patch,
+  -files/0010-LU-3319-procfs-update-shared-server-side-core-proc-h.patch,
+  -files/0011-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  -files/0012-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  -files/0013-LU-3319-procfs-move-ofd-proc-handling-to-seq_files.patch,
+  -files/0014-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  -files/0015-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  -files/0016-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  -files/0017-LU-3319-procfs-move-mdd-proc-handling-to-seq_files.patch,
+  -files/0018-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  lustre-9999.ebuild:
+  Make lustre build with 3.11 kernel
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> lustre-9999.ebuild:
+  Switch from git-2 to git-r3
+
+  19 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0002-LU-3373-ldiskfs-ldiskfs-patches-for-3.11.1-fc19.patch,
+  files/0003-LU-3974-llite-dentry-d_compare-changes-in-3.11.patch,
+  files/0004-LU-3974-llite-use-new-struct-dir_context.patch,
+  files/0005-LU-3974-llite-invalidatepage-api-changed.patch,
+  files/0006-LU-3319-procfs-move-llite-proc-handling-over-to-seq_.patch,
+  files/0007-LU-3319-procfs-move-lmv-proc-handling-over-to-seq_fi.patch,
+  files/0008-LU-3319-procfs-move-ldlm-proc-handling-over-to-seq_f.patch,
+  files/0009-LU-3319-procfs-move-ost-proc-handling-over-to-seq_fi.patch,
+  files/0010-LU-3319-procfs-update-shared-server-side-core-proc-h.patch,
+  files/0011-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  files/0012-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  files/0013-LU-3319-procfs-move-ofd-proc-handling-to-seq_files.patch,
+  files/0014-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  files/0015-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  files/0016-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  files/0017-LU-3319-procfs-move-mdd-proc-handling-to-seq_files.patch,
+  files/0018-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch:
+  It moves..
+
+  19 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  files/0016-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  files/0017-LU-3319-procfs-move-mdd-proc-handling-to-seq_files.patch,
+  files/0018-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch:
+  More... More.. Go^W patches
+
+  19 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0010-LU-3319-procfs-update-shared-server-side-core-proc-h.patch,
+  +files/0011-LU-3319-procfs-update-zfs-proc-handling-to-seq_files.patch,
+  +files/0012-LU-3319-procfs-move-mgs-proc-handling-to-seq_files.patch,
+  +files/0013-LU-3319-procfs-move-ofd-proc-handling-to-seq_files.patch,
+  +files/0014-LU-3319-procfs-move-lod-proc-handling-to-seq_files.patch,
+  +files/0015-LU-3319-procfs-move-osp-proc-handling-to-seq_files.patch,
+  +files/0016-LU-3319-procfs-move-mdt-mds-proc-handling-to-seq_fil.patch,
+  +files/0017-LU-3319-procfs-move-mdd-proc-handling-to-seq_files.patch,
+  +files/0018-LU-3319-procfs-update-ldiskfs-proc-handling-to-seq_f.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0002-LU-3373-ldiskfs-ldiskfs-patches-for-3.11.1-fc19.patch,
+  files/0003-LU-3974-llite-dentry-d_compare-changes-in-3.11.patch,
+  files/0004-LU-3974-llite-use-new-struct-dir_context.patch,
+  files/0005-LU-3974-llite-invalidatepage-api-changed.patch,
+  files/0006-LU-3319-procfs-move-llite-proc-handling-over-to-seq_.patch,
+  files/0007-LU-3319-procfs-move-lmv-proc-handling-over-to-seq_fi.patch,
+  files/0008-LU-3319-procfs-move-ldlm-proc-handling-over-to-seq_f.patch,
+  files/0009-LU-3319-procfs-move-ost-proc-handling-over-to-seq_fi.patch,
+  lustre-9999.ebuild:
+  More...
+
+  19 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0007-LU-3319-procfs-move-lmv-proc-handling-over-to-seq_fi.patch,
+  +files/0008-LU-3319-procfs-move-ldlm-proc-handling-over-to-seq_f.patch,
+  +files/0009-LU-3319-procfs-move-ost-proc-handling-over-to-seq_fi.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0002-LU-3373-ldiskfs-ldiskfs-patches-for-3.11.1-fc19.patch,
+  files/0003-LU-3974-llite-dentry-d_compare-changes-in-3.11.patch,
+  files/0004-LU-3974-llite-use-new-struct-dir_context.patch,
+  files/0005-LU-3974-llite-invalidatepage-api-changed.patch,
+  files/0006-LU-3319-procfs-move-llite-proc-handling-over-to-seq_.patch,
+  lustre-9999.ebuild:
+  Give me more patches =D
+
+  19 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0006-LU-3319-procfs-move-llite-proc-handling-over-to-seq_.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  files/0002-LU-3373-ldiskfs-ldiskfs-patches-for-3.11.1-fc19.patch,
+  files/0003-LU-3974-llite-dentry-d_compare-changes-in-3.11.patch,
+  files/0004-LU-3974-llite-use-new-struct-dir_context.patch,
+  files/0005-LU-3974-llite-invalidatepage-api-changed.patch, lustre-9999.ebuild:
+  Fix flag filtering and build
+
+  19 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org> lustre-9999.ebuild:
+  Dissalow unsafe flags for kernel build
+
+  19 Dec 2013; Alexey Shvetsov <alexxy@gentoo.org>
+  +files/0002-LU-3373-ldiskfs-ldiskfs-patches-for-3.11.1-fc19.patch,
+  +files/0003-LU-3974-llite-dentry-d_compare-changes-in-3.11.patch,
+  +files/0004-LU-3974-llite-use-new-struct-dir_context.patch,
+  +files/0005-LU-3974-llite-invalidatepage-api-changed.patch,
+  -files/0002-LU-2686-kernel-Kernel-update-for-3.7.2-201.fc18.patch,
+  -files/0003-LU-3079-kernel-3.9-hlist_for_each_entry-uses-3-args.patch,
+  -files/0004-LU-3079-kernel-f_vfsmnt-replaced-by-f_path.mnt.patch,
+  files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,
+  lustre-9999.ebuild:
+  Update lustre build for 3.11 for workstations =D
 
   11 Jul 2013; Alexey Shvetsov <alexxy@gentoo.org>
   +files/0001-LU-2982-build-make-AC-check-for-linux-arch-sandbox-f.patch,

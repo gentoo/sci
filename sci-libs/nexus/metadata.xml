@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+<herd>sci</herd>
+<maintainer>
+	<email>cjk34@cam.ac.uk</email>
+	<name>Chris Kerr</name>
+	<description>I don't develop this software, I'm just a Gentoo user who wanted to install it</description>
+</maintainer>
+<longdescription>Libraries and tools for the NeXus data format, developed
+  collaboratively by scientists from major scientific facilities to facilitate
+  analysis and visualisation of neutron, x-ray and muon data.
+  NeXus is based on HDF5.</longdescription>
+<use>
+	<flag name="xml">Allow using the verbose XML representation of NeXus data</flag>
+	<flag name="doc">Generate library documentation with <pkg>app-doc/doxygen</pkg></flag>
+	<flag name="swig">Generate bindings with <pkg>dev-lang/swig</pkg></flag>
+	<flag name="cbf">Support for Crystallographic Binary Format files with sci-libs/cbflib</flag>
+	<flag name="fortran">Build the Fortran bindings</flag>
+	<flag name="guile">Build the Scheme bindings</flag>
+	<flag name="tcl">Build the TCL bindings</flag>
+	<flag name="java">Build the Java bindings</flag>
+	<flag name="python">Build the Python bindings</flag>
+</use>
+
+</pkgmetadata>

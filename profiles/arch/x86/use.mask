@@ -1,0 +1,10 @@
+# Copyright 1999-2014 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+# Unmask the flag which corresponds to ARCH.
+-x86
+
+# Mark Wright <gienah@gentoo.org> (26 Apr 2014)
+# mask int64 flag for 32 bits arches
+int64

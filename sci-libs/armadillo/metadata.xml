@@ -19,9 +19,12 @@
     Link with <pkg>sci-libs/atlas</pkg> libraries for cblas and
     clapack
   </flag>
-  <flag name='int64'>
-    Use 64 bits integer for matrix indexation
+  <flag name="arpack">
+    Link with <pkg>sci-libs/arpack</pkg> libraries for eigen decomposition
   </flag>
+  <flag name='mkl'>
+    Use matrix allocation from the Intel MKL <pkg>sci-libs/mkl</pkg>
+  </flag> 
   <flag name='tbb'>
     Use matrix allocation from the Threads Building Blocks
     <pkg>dev-cpp/tbb</pkg>

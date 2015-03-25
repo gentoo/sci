@@ -1,8 +1,8 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 inherit eutils toolchain-funcs versionator alternatives-2 multilib
 
 DESCRIPTION="Basic Linear Algebra Communication Subprograms with MPI"
@@ -42,13 +42,13 @@ static_to_shared() {
 			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
 			"$@" -o ${libdir}/${soname} || die "${soname} failed"
 		[[ $(get_version_component_count) -gt 1 ]] && \
-			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version))
-		ln -s ${soname} ${libdir}/${libname}$(get_libname)
+			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version)) || die
+		ln -s ${soname} ${libdir}/${libname}$(get_libname) || die
 	fi
 }
 
 src_prepare() {
-	find . -name Makefile -exec sed -i -e 's:make:$(MAKE):g' '{}' \;
+	find . -name Makefile -exec sed -i -e 's:make:$(MAKE):g' '{}' \; || die
 
 	sed -e "s:\(SHELL\s*=\).*:\1$(type -P sh):" \
 		-e "s:\(BTOPdir\s*=\).*:\1${S}:" \

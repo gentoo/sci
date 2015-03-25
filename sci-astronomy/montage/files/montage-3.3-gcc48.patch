@@ -1,0 +1,97 @@
+diff -Nur Montage_v3.3.orig/grid/Pegasus/mPresentation.c Montage_v3.3/grid/Pegasus/mPresentation.c
+--- Montage_v3.3.orig/grid/Pegasus/mPresentation.c	2009-12-10 19:54:51.000000000 -0800
++++ Montage_v3.3/grid/Pegasus/mPresentation.c	2014-04-17 14:36:28.735594113 -0700
+@@ -14,6 +14,7 @@
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <strings.h>
++#include <string.h>
+ 
+ #define MAXLEN 20000
+ 
+diff -Nur Montage_v3.3.orig/lib/src/coord/ccalc.c Montage_v3.3/lib/src/coord/ccalc.c
+--- Montage_v3.3.orig/lib/src/coord/ccalc.c	2009-12-10 19:54:51.000000000 -0800
++++ Montage_v3.3/lib/src/coord/ccalc.c	2014-04-17 14:11:51.041349620 -0700
+@@ -25,7 +25,7 @@
+ static int ConvertfromDD(char *fmt, char *clongprec, char *clatprec, 
+ 			 char *clon, char *clat, double *lon, double *lat);
+ static char *downcase(char *s);
+-char *strdup(const char *s1);
++
+ int ParseUnits(char *cunit, int *chflag, CoordUnit *unit);
+ int ParsePrec(CoordUnit units, char *cprec, int longflag);
+ 
+diff -Nur Montage_v3.3.orig/lib/src/two_plane_v1.1/initdistdata.c Montage_v3.3/lib/src/two_plane_v1.1/initdistdata.c
+--- Montage_v3.3.orig/lib/src/two_plane_v1.1/initdistdata.c	2009-12-10 19:54:51.000000000 -0800
++++ Montage_v3.3/lib/src/two_plane_v1.1/initdistdata.c	2014-04-17 14:35:14.559081232 -0700
+@@ -1,8 +1,13 @@
+ #include <stdio.h>
++#include <string.h>
+ #include <strings.h>
+ #include "fitsio.h"
+ #include "distort.h"
+ 
++int parse_double(char *fitsheader, double *value, const char *key);
++int parse_int(char *fitsheader, int *value, const char *key);
++int parse_str(char *fitsheader, char *value, const char *key);
++
+ fitsfile        *ffp_FITS_In;
+ 
+ int openfitsfile(char *fitsfilename) 
+@@ -21,16 +26,16 @@
+   return 0;
+ }
+ 
+-closefitsfile()
++int closefitsfile()
+ { 
+   int I_fits_return_status=0;
+   fits_close_file(ffp_FITS_In, &I_fits_return_status); 
+   if (I_fits_return_status != 0)
+   {
+      fprintf(stderr, "Error closing file\n");
+-     return;
++     return -1;
+   }
+-  return;    
++  return 0;    
+ }
+ 
+ int initdata_byheader(char *fitsheader, DistCoeff *coeff) 
+diff -Nur Montage_v3.3.orig/lib/src/two_plane_v1.1/two_plane.c Montage_v3.3/lib/src/two_plane_v1.1/two_plane.c
+--- Montage_v3.3.orig/lib/src/two_plane_v1.1/two_plane.c	2010-02-04 11:53:56.000000000 -0800
++++ Montage_v3.3/lib/src/two_plane_v1.1/two_plane.c	2014-04-17 14:43:20.094377873 -0700
+@@ -21,6 +21,11 @@
+ #include "two_plane.h"
+ #include "distort.h"
+ 
++int undistort(double u, double v, DistCoeff coeff, double *x, double *y);
++int distort(double x, double y, DistCoeff coeff, double *u, double *v);
++int initdata_byheader(char *fitsheader, DistCoeff *coeff);
++
++
+ int plane1_to_plane2_transform(double x_1, double y_1, double *x_2, double *y_2, 
+ 			   struct TwoPlane *two_plane){
+ 
+diff -Nur Montage_v3.3.orig/lib/src/wcstools-3.8.1/libwcs/imhfile.c Montage_v3.3/lib/src/wcstools-3.8.1/libwcs/imhfile.c
+--- Montage_v3.3.orig/lib/src/wcstools-3.8.1/libwcs/imhfile.c	2007-01-08 09:24:29.000000000 -0800
++++ Montage_v3.3/lib/src/wcstools-3.8.1/libwcs/imhfile.c	2014-04-17 14:40:06.993064103 -0700
+@@ -1019,7 +1019,6 @@
+     nbw = write (fd, image, nbimage);
+     close (fd);
+ 
+-    free (pixname);
+     return (nbw);
+ }
+ 
+diff -Nur Montage_v3.3.orig/util/TblExec/mTblExec.c Montage_v3.3/util/TblExec/mTblExec.c
+--- Montage_v3.3.orig/util/TblExec/mTblExec.c	2009-12-10 19:54:51.000000000 -0800
++++ Montage_v3.3/util/TblExec/mTblExec.c	2014-04-17 14:49:34.896939154 -0700
+@@ -4,6 +4,7 @@
+ #include <ctype.h>
+ #include <sys/types.h>
+ #include <time.h>
++#include <unistd.h>
+ 
+ #include <mtbl.h>
+ #include <svc.h>

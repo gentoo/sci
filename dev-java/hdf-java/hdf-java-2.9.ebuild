@@ -1,22 +1,25 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
+
 JAVA_PKG_IUSE="doc examples"
-inherit eutils java-pkg-2 autotools fdo-mime
+
+inherit autotools eutils fdo-mime java-pkg-2
 
 DESCRIPTION="Java interface to the HDF5 library"
 HOMEPAGE="http://www.hdfgroup.org/hdf-java-html/index.html"
-SRC_URI="http://www.hdfgroup.org/ftp/HDF5/hdf-java/src/${P}-src.tar"
+SRC_URI="http://www.hdfgroup.org/ftp/HDF5/prev-releases/HDF-JAVA/hdf-java-2.9/src/${P}-src.tar"
 
 LICENSE="NCSA-HDF"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="hdf hdfview szip test zlib"
 
-CDEPEND=">=sci-libs/hdf5-1.8[szip=,zlib=]
-	hdf? ( sci-libs/hdf virtual/jpeg )
+CDEPEND="
+	>=sci-libs/hdf5-1.8[szip=,zlib=]
+	hdf? ( sci-libs/hdf virtual/jpeg:0 )
 	hdfview? ( dev-java/fits dev-java/netcdf )"
 
 RDEPEND="${CDEPEND}

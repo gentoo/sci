@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-physics</herd>
-<use>
-  <flag name="libxc">Use libxc for something</flag>
-</use>
+	<herd>sci-physics</herd>
+	<maintainer>
+		<email>sci@gentoo.org</email>
+	</maintainer>
+	<use>
+		<flag name="libxc">Enable support for libxc, an exchange-correlation potentials library</flag>
+	</use>
+	<use>
+		<flag name="longplot">
+                  Patch the sources to plot functions all over the space considered,
+                  not just up to the matching radius plus 50 grid points. May be useless
+                  or even harmful.
+                </flag>
+	</use>
 </pkgmetadata>

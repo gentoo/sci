@@ -1,0 +1,31 @@
+# ChangeLog for sci-physics/tauola
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  04 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> tauola-1.1.5.ebuild,
+  +files/tauola-1.1.5-doc.patch:
+  fix doc building failure
+
+*tauola-1.1.5 (03 Sep 2014)
+
+  03 Sep 2014; Jauhien Piatlicki <jauhien@gentoo.org> +tauola-1.1.5.ebuild:
+  version bump
+
+  13 Dec 2013; Justin Lecher <jlec@gentoo.org> tauola-1.1.3.ebuild,
+  tauola-1.1.4.ebuild, tauola-9999.ebuild, metadata.xml:
+  Some minor formatting improvments
+
+*tauola-1.1.4 (13 Dec 2013)
+
+  13 Dec 2013; Jauhien Piatlicki <piatlicki@gmail.com> +tauola-1.1.4.ebuild,
+  +files/tauola-1.1.4-makefile.patch:
+  version bump
+
+*tauola-9999 (22 Nov 2013)
+*tauola-1.1.3 (22 Nov 2013)
+
+  22 Nov 2013; Jauhien Piatlicki <piatlicki@gmail.com> +tauola-1.1.3.ebuild,
+  +tauola-9999.ebuild, +files/tauola-1.1.3-makefile.patch,
+  +files/tauola-1.1.3-tau-spinner-makefile.patch, +metadata.xml:
+  ebuild added
+

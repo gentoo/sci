@@ -1,0 +1,43 @@
+ DejaVu/Camera.py  | 12 +++++++++---
+ DejaVu/Texture.py |  5 ++++-
+ 2 files changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/DejaVu/Camera.py b/DejaVu/Camera.py
+index 9ecc0eb..555666a 100644
+--- a/DejaVu/Camera.py
++++ b/DejaVu/Camera.py
+@@ -38,9 +38,15 @@ This Module implements the Camera class and the Fog class.
+ 
+ import os, sys, warnings
+ 
+-import Image
+-import ImageFilter
+-import ImageChops
++try:
++    import Image
++    import ImageFilter
++    import ImageChops
++except ImportError:
++    from PIL import Image
++    from PIL import ImageFilter
++    from PIL import ImageChops
++
+ 
+ import tkMessageBox
+ 
+diff --git a/DejaVu/Texture.py b/DejaVu/Texture.py
+index dccc280..bcf16be 100644
+--- a/DejaVu/Texture.py
++++ b/DejaVu/Texture.py
+@@ -15,7 +15,10 @@
+ #
+ 
+ import sys, os
+-import Image
++try:
++    import Image
++except ImportError:
++    from PIL import Image
+ import numpy.oldnumeric as Numeric
+ import warnings
+ 

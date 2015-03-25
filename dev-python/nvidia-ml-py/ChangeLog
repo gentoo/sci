@@ -1,0 +1,8 @@
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*nvidia-ml-py-6.340.0 (26 Jan 2015)
+
+  26 Jan 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +nvidia-ml-py-6.340.0.ebuild:
+  Initial commit.

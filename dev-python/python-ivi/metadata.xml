@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>marbre@linux.sungazer.de</email>
+    <name>Marius Brehler</name>
+  </maintainer>
+  <longdescription>
+    Python IVI is a Python-based interpretation of the Interchangeable
+    Virtual Instrument standard from the IVI foundation. Python IVI can
+    use Python VXI-11, Python USBTMC, PyVISA, pySerial and linux-gpib to
+    connect to instruments.
+  </longdescription>
+</pkgmetadata>

@@ -1,0 +1,30 @@
+Author: Matt McCormick <matt.mccormick@kitware.com>
+Date:   Thu Feb 6 10:26:49 2014 -0500
+
+    COMP: Wrap OptimizerParameterScalesEstimatorTemplate.
+    
+    The class name changed and it became templated.  Fixes:
+    
+      /playpen/blowekamp/MacOSX-WrapITK/ITK-build/Wrapping/Modules/ITKOptimizersv4/itkOptimizerParameterScalesEstimator.xml:
+      warning(5): Unknown type type: itk::OptimizerParameterScalesEstimator
+      [typedef]
+      /playpen/blowekamp/MacOSX-WrapITK/ITK-build/Wrapping/Modules/ITKOptimizersv4/itkOptimizerParameterScalesEstimator.xml:
+      warning(4): ITK type not wrapped, or currently not known:
+      itk::OptimizerParameterScalesEstimatorTemplate< double >
+    
+    Change-Id: Ic6b4d6fba10d5d6c7b58de8d842bad6511e1ae7b
+
+diff --git a/Modules/Numerics/Optimizersv4/wrapping/itkOptimizerParameterScalesEstimator.wrap b/Modules/Numerics/Optimizersv4/wrapping/itkOptim
+index efd6a8c..a647ee4 100644
+--- a/Modules/Numerics/Optimizersv4/wrapping/itkOptimizerParameterScalesEstimator.wrap
++++ b/Modules/Numerics/Optimizersv4/wrapping/itkOptimizerParameterScalesEstimator.wrap
+@@ -1 +1,7 @@
+-itk_wrap_simple_class("itk::OptimizerParameterScalesEstimator" POINTER)
++set(WRAPPER_AUTO_INCLUDE_HEADERS OFF)
++itk_wrap_include("itkOptimizerParameterScalesEstimator.h")
++itk_wrap_class("itk::OptimizerParameterScalesEstimatorTemplate" POINTER)
++  foreach(t ${WRAP_ITK_REAL})
++    itk_wrap_template("${ITKM_${t}}" "${ITKT_${t}}")
++  endforeach(t)
++itk_end_wrap_class()
+

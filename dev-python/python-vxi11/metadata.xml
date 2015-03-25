@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>marbre@linux.sungazer.de</email>
+    <name>Marius Brehler</name>
+  </maintainer>
+  <longdescription>
+    Python VXI-11 is a Python implementation of the VXI-11 Ethernet
+    instrument control protocol. It is compatible with VXI-11,
+    LXI instruments and VXI-11 to GPIB bridges (HP E2050A, etc.).
+  </longdescription>
+</pkgmetadata>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>flammie@gentoo.org</email>
-	</maintainer>
-	<longdescription lang="en">
+  <maintainer>
+    <email>flammie@gentoo.org</email>
+  </maintainer>
+  <longdescription lang="en">
     Omorfi is a free open source implementation of Finnish word form
     morphology.
 </longdescription>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer>
+    <email>yanlinlin82@gmail.com</email>
+    <name>Linlin Yan</name>
+  </maintainer>
+  <herd>sci-biology</herd>
+  <longdescription lang="en">
+Bismark is a program to map bisulfite treated sequencing reads to a genome of
+interest and perform methylation calls in a single step. The output can be
+easily imported into a genome viewer, such as SeqMonk, and enables a researcher
+to analyse the methylation levels of their samples straight away. It's main
+features are: (1) Bisulfite mapping and methylation calling in one single step;
+(2) Supports single-end and paired-end read alignments; (3) Supports ungapped
+and gapped alignments; (4) Alignment seed length, number of mismatches etc. are
+adjustable; (5) Output discriminates between cytosine methylation in CpG, CHG
+and CHH context.
+  </longdescription>
+</pkgmetadata>

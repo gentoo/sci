@@ -1,0 +1,262 @@
+[22:01:44] *** Joins: jlec (~jlec@gentoo/developer/jlec)
+[22:01:53] <tomka> here
+[22:01:53] <willikins> tomka, you have notes! [17:16] <darkside_> thats a fun OSX error o_0 [18:46] <hwoarang> how about moving the tatt source code to the arch-tools repository please?!
+[22:02:13] <jlec> hi
+[22:02:59] <bicatali> let's wait another minute or so, although not sure we'll be so many of us
+[22:03:53] <jlec> Actually the science channel looks quite full
+[22:04:32] <bicatali> may be we should switch the meeting there then
+[22:04:53] <bicatali> ok, let's start
+[22:05:06] <jlec> I am supressing the join/part messages so I don't know when they all joined
+[22:05:06] <bicatali> 1. alternatives
+[22:05:26] <jlec> Who is willing to work on that?
+[22:06:03] <bicatali> i'm working on an eselect fork, some fixes are already on github.com/gentoo-science/eselect.git
+[22:06:31] <tomka> I'm mostly in maintenance mode, not going to take over new projects, sorry.
+[22:06:33] <jlec> How much work do you think needs to be done until we can start merging it into the main eselect?
+[22:06:45] <bicatali> more fixes will follow this week end to do the alternatives_for into the eselect
+[22:07:04] <jlec> is ulm following the changes?
+[22:07:15] <bicatali> these last fixes should be enough for ulm to review and pull
+[22:07:24] <jlec> perfect.
+[22:07:41] <jlec> That you are taking care of eselect.
+[22:07:45] <bicatali> then there is the ldscript issue, which i have not started
+[22:07:46] <bicatali> yep
+[22:08:12] <jlec> yeah about the ldscript thing.
+[22:08:12] *** Joins: heroxbd (~user@gentoo/developer/heroxbd)
+[22:08:17] <bicatali> after those fixes the eclass will need to be rewritten, but it should be much more simple
+[22:08:31] <heroxbd> sorry I'm late, it's 5am here.
+[22:08:44] <jlec> no problem
+[22:08:48] <jlec> we just started
+[22:08:55] <heroxbd> ;)
+[22:09:07] <jlec> bicatali:	so we are waiting for you to fix eselect
+[22:09:21] <bicatali> so has anyone tried the eselect-9999 from the science overlay?
+[22:09:39] <jlec> not yet, but I will switch to tomorrow
+[22:10:11] * heroxbd is wondering if it is about blas/atlas/gotoblas selection
+[22:10:19] <bicatali> i would like a tester for the current eclass/eselect with multiple blas
+[22:10:25] <jlec> heroxbd: alternatives framework
+[22:10:32] <heroxbd> I see
+[22:10:53] <bicatali> heroxbd: you need to unmask eselect-9999::science
+[22:11:13] <heroxbd> bicatali: I'd like to be a tester, too.
+[22:11:19] <bicatali> the other issue is what we do with library sonames
+[22:11:31] <jlec> right
+[22:11:43] <jlec> But I still disagree with equalizing them
+[22:12:02] <jlec> You are right we reduce the rebuilding when one implementation is drop
+[22:12:04] <jlec> ped
+[22:12:07] <bicatali> so debian changes soname for atlas and openblas to blas
+[22:12:28] <jlec> But we loose the ability to use different blas implementations for different programms
+[22:13:31] <jlec> What do we gain in addition to the rebuilds to set all sonames to blas?
+[22:13:33] <bicatali> i don't think we want users to compile R against openblas-threaded and octave against atlas
+[22:13:49] <jlec> Why not?
+[22:14:37] <bicatali> it's calling for bugs while rebuilding, and what do we do if the user removes one provider?
+[22:15:00] <jlec> portage should catch that and preserve libs.
+[22:15:03] <bicatali> and truely, once you choose one, you don't move
+[22:15:25] <jlec> Not that I would recommend using different blas for different apps
+[22:15:31] <jlec> But it's about choice
+[22:15:35] <bicatali> we could do more eselect modules: blas-threads, blas-serial, blas-int64
+[22:16:21] <heroxbd> just to confirm, they cannot be made ABI at all. So we are exclued with this probability, is that true?
+[22:16:27] <jlec> so instead of splitting into different providers, splitting into different types of implementation.
+[22:16:30] <heroxbd> ABI-compatible I mean
+[22:16:59] <jlec> bicatali: that sounds like a good idea
+[22:17:29] <bicatali> yes, so we would use the mutlibuild eclass for each, then add some use flags threads, int64, etc... for the dependent packages
+[22:18:02] <jlec> bicatali: but what about the libs which are splitted in to different so files? How do you handle sonames there?
+[22:18:15] <bicatali> this makes sense: sometimes a threaded program does want a serial blas to avoid oversuscribing
+[22:18:38] <bicatali> same soname for a given eselect module?
+[22:19:20] <bicatali> right now i would suggest lets split, then later on let's worry about soname/ldscript
+[22:19:49] <jlec> split what?
+[22:20:22] <bicatali> let's make several blas eselect modules: blas-serial, blas-threads, ...
+[22:20:59] <bicatali> and add use flags to virtual/blas
+[22:22:15] <jlec> And would that look for different providers for e.g. blas-serial?
+[22:22:30] <jlec> so atlas and reference are installed and provide serial
+[22:22:40] <jlec> How can the user choose?
+[22:22:51] <bicatali> use flag?
+[22:23:19] <bicatali> threads? ( virtual/blas[threads] )
+[22:23:56] <jlec> so we have can do eselect blas-thread set atlas ?
+[22:23:59] <bicatali> the worry about this is: much work to change ebuilds
+[22:24:34] <bicatali> eselect blas-threads to select atlas-threads
+[22:24:47] <bicatali> eselect blas-serial to select atlas...
+[22:25:14] <jlec> and what if want now reference ?
+[22:25:44] <bicatali> only on eselect blas-serial and virtual/blas with -threads
+[22:26:25] <jlec> So you want to control everything over virtual/blas?
+[22:26:57] <bicatali> on the package level yes, or do several virtual/blas-*
+[22:27:30] <bicatali> it seems it needs more thinking, so let's set this for another time
+[22:27:56] <jlec> yes fine. Perhaps you could write up a draft of your ideas
+[22:28:34] * heroxbd considers a written guideline for us and the users necessary
+[22:28:41] <bicatali> so actions: i'll finish the eselect, heroxbd will test the current builds with it
+[22:28:55] <jlec> I will also test
+[22:29:13] <jlec> sounds good
+[22:29:14] <bicatali> anyone wants to investigate multibuilds?
+[22:29:16] <heroxbd> no problem
+[22:29:29] <heroxbd> I've been googling for it
+[22:29:34] <jlec> bicatali: I can take a look
+[22:29:49] <jlec> but we need to have a chat about your exact ideas
+[22:30:08] <bicatali> yes. and let's start an alternatives wiki page
+[22:30:37] <bicatali> btw anyone with another word than 'alternatives' is welcome
+[22:31:05] * jlec slowly gets bicatali plan
+[22:31:39] <bicatali> time to switch to the 2. documentation
+[22:31:52] <jlec> WE need more.
+[22:32:04] <heroxbd> exactly
+[22:32:23] <jlec> I am trying to work on the whole contribution/community part
+[22:32:43] <jlec> And I am currently in progress to move the mpi.eclass/empi thing to the tree.
+[22:33:08] <jlec> This also need more documentation, which is probably more a business of the clusterteam
+[22:33:31] <jlec> Which other documentations are top priority?
+[22:33:33] <bicatali> regarding https://wiki.gentoo.org/wiki/Project:Science: it would be nice if everyone reads all the pages/subpages and resources 
+[22:34:36] <bicatali> like the Gentoo Electronics project and herd are empty
+[22:34:49] <bicatali> but is it?
+[22:34:56] <bicatali> the mail alias is not
+[22:35:26] <jlec> bicatali: I will go through it and send mails to the aliases.
+[22:35:57] <jlec> !herd sci-electronics
+[22:36:00] <willikins> jlec: (sci-electronics) calchan, rafaelmartins, tomjbe, xmw
+[22:37:38] <jlec> And wee need to increase the staffing needs
+[22:37:45] <jlec> As we really need staff
+[22:37:58] <jlec> BTW please try to recruit
+[22:38:19] <bicatali> so let's push some jobs in the next gmn
+[22:38:19] <jlec> we are super fast in recruiting currently so the process is really fast
+[22:38:28] <jlec> good idea
+[22:39:10] <bicatali> who would like to review all the wiki pages to make them consistent?
+[22:39:30] <heroxbd> I can, haven't read it carefully yet
+[22:39:32] <bicatali> i've tried quite a bit already, but it needs more reviewing
+[22:39:46] <tomka> What's inconsistent?
+[22:39:57] <bicatali> jlec: want to ping the herds to include themselves in the wiki?
+[22:40:06] <jlec> It seems to be quite consistent
+[22:40:12] <bicatali> herds, members and mail aliases
+[22:40:18] <jlec> bicatali: ask for input on their pages
+[22:40:29] <jlec> I will also go through it
+[22:41:04] <tomka> Recruitment looks pretty much boilerplate.
+[22:41:09] <tomka> It's the same on every sub-page.
+[22:41:23] <tomka> But missing on sci-biology
+[22:41:27] <bicatali> just want to make sure we can get rid of http://www.gentoo.org/proj/en/science/index.xml
+[22:41:28] <tomka> are they fully staffed?
+[22:41:42] <bicatali> which is still the first google result for gentoo science
+[22:43:08] <jlec> I will first take a look that everything from the old xml site is covered by the wiki and then clean/improve the wiki pages.
+[22:43:12] <heroxbd> so the task is to review the wiki to make sure it has the full coverage of proj/science/xml and then redirect it.
+[22:43:48] <bicatali> yes, the blas-lapack page i will start the rewrite with the alternatives
+[22:43:48] <heroxbd> !herd sci-biology
+[22:43:49] <willikins> heroxbd: (sci-biology) je_fro, jlec, weaver
+[22:44:05] <bicatali> !herd sci-geosciences
+[22:44:06] <willikins> bicatali: (sci-geosciences) fordfrog
+[22:44:06] <jlec> heroxbd: it's just me
+[22:44:20] <heroxbd> ;)
+[22:44:32] <bicatali> so these sub-projects make sense?
+[22:44:59] <jlec> you mean the packages in the wiki or the herd subdivision?
+[22:45:05] <heroxbd> I think so, there would be more stuff.
+[22:45:36] <bicatali> we have both sub-herds and sub-projects
+[22:46:00] <bicatali> ok, let's keep it that way and get more people i guess
+[22:46:28] <jlec> sub-projects don't make really sense. 
+[22:46:33] <jlec> sub-herds do
+[22:47:17] <jlec> I think the sub-projects should be things like the alternative framework rather then different science fields
+[22:47:29] <bicatali> well we had this: http://www.gentoo.org/proj/en/science/electronics/
+[22:48:09] <jlec> so we can add the electronics test bench sub project
+[22:48:36] <bicatali> first make sure that electronics is active...
+[22:49:02] <jlec> So I will ask the current sub-projects if they are willing to merge into the parent
+[22:49:14] <jlec> or otherwise maintain their subpage
+[22:49:24] <bicatali> yes, and then re-organize the wiki
+[22:49:26] <jlec> rafaelmartins: what about sci-electronics?
+[22:49:34] <jlec> !seen rafaelmartins
+[22:49:37] <willikins> jlec: rafaelmartins was last seen 4 hours, 44 minutes and 31 seconds ago, joining #gentoo-prefix
+[22:50:35] <heroxbd> we can make alternative framework itself a subproject in parallel to the fields.
+[22:51:22] <bicatali> i'd rather see the alternatives part of the eselect, i'll talk to ulm
+[22:51:32] <jlec> kk
+[22:52:00] <rafaelmartins> jlec: hello
+[22:52:05] <jlec> hi
+[22:52:08] * rafaelmartins jumps in the meeting
+[22:52:18] <heroxbd> hi
+[22:52:21] <jlec> I will send around mails
+[22:52:26] <jlec> that's better
+[22:52:30] <rafaelmartins> so, we are having low activity lately
+[22:52:31] <bicatali> actions: wiki review herobxd, jlec. wiki reorg: jlec?. alternatives write-up start: bicatali
+[22:52:37] <bicatali> rafaelmartins: oi
+[22:52:45] <rafaelmartins> bicatali: oi :)
+[22:53:01] <jlec> bicatali: I will take care of the wiki
+[22:54:14] <bicatali> finally: 3. new leader
+[22:54:21] <bicatali> i nominate jlec 
+[22:54:46] * heroxbd nods
+[22:54:46] <jlec> Thanks. I accept the nomination.
+[22:54:53] <tomka> I second that.
+[22:54:59] <rafaelmartins> about electronics, quickly:
+[22:55:33] <rafaelmartins> I'am not doing a lot of work on this. mainly maintaining just the stuff I use to play for fun, not working with any eng-related stuff at this point
+[22:56:12] <rafaelmartins> I assumed as lead mainly because calchan wasn't able to do it at that time, my plan is to schedule a subproject lead election soon
+[22:56:37] <bicatali> rafaelmartins: pushing for new recruits and updating the wiki should be enough for electronics to survive
+[22:56:42] <jlec> rafaelmartins: I will take care of the wiki and do the rest by mail to the alias
+[22:56:50] <rafaelmartins> so, the subproject still exists, but with quite low activity at this point
+[22:56:59] <heroxbd> rafaelmartins: or would like to merge the sub project into science?
+[22:57:10] <rafaelmartins> bicatali: yeah, we got some people interested, but they disappear :(
+[22:57:34] <rafaelmartins> heroxbd: I'd like to hear calchan's opinion on this
+[22:57:52] <heroxbd> rafaelmartins: ok
+[22:57:59] <rafaelmartins> we can keep everything as is now, just migrating the project page to the wiki and decide on it later
+[22:58:05] <bicatali> rafaelmartins: could you help jlec merging the old page into https://wiki.gentoo.org/wiki/Project:Electronics
+[22:58:16] <rafaelmartins> bicatali: of course
+[22:58:49] *** Joins: fbissey (~fbissey@132.181.64.206)
+[22:58:53] <bicatali> ok voting: i vote for jlec as new leader
+[22:59:08] <rafaelmartins> +1 for jlec
+[22:59:10] <fbissey> Just in time for the vote
+[22:59:17] <bicatali> hey fbissey 
+[22:59:23] <heroxbd> I vote for jlec, too
+[22:59:27] <heroxbd> fbissey: hi
+[22:59:39] <fbissey> no surprise that jlec is put in the driving seat
+[22:59:52] <tomka> +1 for jlec
+[23:00:49] <bicatali> jlec: clearly you are our new leader, please someone kicks me out from this channel!
+[23:01:08] <jlec> THank you everbody
+[23:01:12] <heroxbd> bicatali: ;)
+[23:01:15] <fbissey> congrats!
+[23:01:50] <jlec> ANd thank you bicatali doing the work the last years
+[23:01:55] <heroxbd> jlec: hey you haven't voted yet
+[23:01:59] <tomka> yeah thanks bicatali 
+[23:02:24] <fbissey> thanks for putting up with us bicatali
+[23:02:50] <heroxbd> bicatali: yeah, thanks. And may I ask why you stepped down and what's your plan with science herd next?
+[23:03:02] <bicatali> i'll try to clean up my leadership with a bug free alternatives
+[23:03:36] <fbissey> I remember jlec and I came to gentoo at the same time and he is lead and I haven't made it to developer yet
+[23:03:52] <bicatali> heroxbd: jlec is more involved than me. i'm going to work on an automated gentoo
+[23:04:07] <heroxbd> fbissey: wow
+[23:04:38] <jlec> I think we set some nice clean up for the next months.
+[23:04:39] <heroxbd> bicatali: that's cluster deployment?
+[23:04:58] <jlec> Getting the alternatives into the tree should be top priority.
+[23:05:11] <heroxbd> jlec: agreed.
+[23:05:43] <heroxbd> jlec: and as the wiki reorg/review overlaps, you can assign me some jobs in detail.
+[23:05:59] <bicatali> heroxbd: no, some minimal gentoo core + cvmfs ala coreos to automate stabilizing 
+[23:06:20] <bicatali> anyone keeping logs?
+[23:06:31] <jlec> I am logging
+[23:06:54] <heroxbd> ain't there a 4. open floor?
+[23:07:15] <heroxbd> just some FYI: first some news from roverlay.
+[23:07:18] <bicatali> heroxbd: yes you are right
+[23:08:27] <heroxbd> I started co-maintaining the roverlay with calchan, it is automated generatedfrom cran. once it's mature, I'll write up some doc
+[23:08:49] <bicatali> that is good news
+[23:09:13] <heroxbd> sorry, creepy internet connection
+[23:09:32] <bicatali> jlec: want to post meeting log on the wiki then?
+[23:09:48] <jlec> bicatali: I will
+[23:09:56] <fbissey> heroxbd: can it take other R repo like bioconductor?
+[23:11:04] <heroxbd> fbissey, I think it high possible, as the overlay generation tools are actively developed by another student.
+[23:11:13] <heroxbd> *highly
+[23:11:32] <heroxbd> it has been a google summer of code project
+[23:12:57] <heroxbd> FYI2, among the Prefix users, many are from academic field. They submit bugs, and are good candidatesfor recruitment.
+[23:14:38] <jlec> heroxbd: sounds great.
+[23:14:45] <bicatali> ok folks, thanks, i'm off the meeting
+[23:14:53] <jlec> make them fix the quizzes and get them a bug
+[23:14:57] <fbissey> bye bicatali
+[23:15:05] <jlec> bicatali thanks for all
+[23:15:07] <jlec> bye
+[23:15:28] <heroxbd> bicatali: see you
+[23:17:30] <jlec> Okay guys, anymore more openfloor topics?
+[23:17:34] <heroxbd> are we waiting for closing the meeting?
+[23:18:08] <fbissey> I have some stuff but I will probably post on list for discusion
+[23:18:19] <jlec> If there is nothing else, I would close it
+[23:18:47] <jlec> We can schedule the next meeting sooner, in 1-2 months or so
+[23:19:12] <jlec> fbissey: Or do you want to discuss now. It is up to you.
+[23:19:31] <fbissey> I can introduce it.
+[23:19:58] <fbissey> blas/lapack setup in python package is horrible
+[23:20:26] <fbissey> motivated by work I am doing with people in sage I trying to get stuff to simplify that
+[23:20:27] <jlec> We should wait for this a little
+[23:20:39] <heroxbd> fbissey: python build system tries to do all the smart but wrong guessing 
+[23:21:00] <jlec> After bicatali fixed eselect and we decided about the soname thing, we shoudl have an ldscript
+[23:21:10] <jlec> then it will become easier
+[23:21:13] <fbissey> there is a python module to interface with pkg-config that makes some things easier
+[23:21:22] <heroxbd> good idea
+[23:21:42] <jlec> fbissey: best would be to simply have libblas.so as ldscript
+[23:21:57] <jlec> but that should be implemented after we fixed the rest
+[23:21:59] <fbissey> that make things easy agreed.
+[23:23:57] <fbissey> nothing more from me
+[23:24:05] <jlec> fine
+[23:24:18] <jlec> So I will close the meeting here. Thanks for attending.
+[23:24:29] <jlec> I will post the meeting log on the wiki
+[23:24:36] <heroxbd> Thanks all
+[23:24:47] <tomka> thanks
+[23:25:30] *** Parts: fbissey (~fbissey@132.181.64.206) ("Konversation terminated!")
+[23:33:09] *** Quits: tomka (~tomka@gentoo/developer/tomka) (Quit: tomka)
+[23:44:50] *** Joins: Calchan (~calchan@gentoo/developer/calchan)

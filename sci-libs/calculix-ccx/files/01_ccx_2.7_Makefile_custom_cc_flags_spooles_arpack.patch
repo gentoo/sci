@@ -1,0 +1,31 @@
+diff -rupN CalculiX/ccx_2.7/src/Makefile CalculiX.patched/ccx_2.7/src/Makefile
+--- CalculiX/ccx_2.7/src/Makefile	2014-03-02 09:33:28.000000000 -0500
++++ CalculiX.patched/ccx_2.7/src/Makefile	2014-09-04 16:49:28.456612880 -0400
+@@ -1,9 +1,8 @@
++CFLAGS := -Wall -O3 -DARCH="Linux" -DMATRIXSTORAGE $(CFLAGS)
++FFLAGS := -Wall -O3 $(FFLAGS)
+ 
+-CFLAGS = -Wall -O3  -I ../../../SPOOLES.2.2 -DARCH="Linux" -DSPOOLES -DARPACK -DMATRIXSTORAGE
+-FFLAGS = -Wall -O3
+-
+-CC=cc
+-FC=gfortran
++#CC:=cc
++#FC:=gfortran
+ 
+ .c.o :
+ 	$(CC) $(CFLAGS) -c $<
+@@ -18,12 +17,7 @@ OCCXF = $(SCCXF:.f=.o)
+ OCCXC = $(SCCXC:.c=.o)
+ OCCXMAIN = $(SCCXMAIN:.c=.o)
+ 
+-DIR=../../../SPOOLES.2.2
+-
+-LIBS = \
+-       $(DIR)/spooles.a \
+-	../../../ARPACK/libarpack_INTEL.a \
+-       -lpthread -lm -lc
++LIBS = $(ARPACKLIB) $(LAPACK) -lm -lc -lspooles -lpthread
+ 
+ ccx_2.7: $(OCCXMAIN) ccx_2.7.a  $(LIBS)
+ 	./date.pl; $(CC) $(CFLAGS) -c ccx_2.7.c; $(FC) -Wall -O3 -o $@ $(OCCXMAIN) ccx_2.7.a $(LIBS)

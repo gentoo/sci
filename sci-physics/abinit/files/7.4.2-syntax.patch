@@ -1,0 +1,21 @@
+diff -Naurp abinit-7.4.2.orig/src/98_main/mrgscr.F90 abinit-7.4.2/src/98_main/mrgscr.F90
+--- abinit-7.4.2.orig/src/98_main/mrgscr.F90	2013-09-08 07:24:13.000000000 +0000
++++ abinit-7.4.2/src/98_main/mrgscr.F90	2013-09-17 10:32:55.212877871 +0000
+@@ -2309,7 +2309,7 @@ program mrgscr
+ 
+          case(2) ! Fit everything
+ 
+-           if (is_scr/=.true.) then
++           if (is_scr.neqv..true.) then
+              write(std_out,'(2(a))') ch10,&
+ &             ' Complete fits can only be done for _SCR file for now. Exiting ...'
+              goto 100
+@@ -2387,7 +2387,7 @@ program mrgscr
+ 
+ !!OMP *** OPENMP SECTION *** Added by MS
+ !$OMP PARALLEL SHARED(Hscr_file,epsm1,nfreqre,epsm1_pole, &
+-!$OMP                 is_scr,npoles,std_out,iqibz,one) &
++!$OMP                 is_scr,npoles,std_out,iqibz) &
+ !$OMP          PRIVATE(ig1,ig2,refval,imfval,phase)
+ !!OMP write(std_out,'(a,i0)') ' Entering openmp loop. Number of threads: ',omp_get_num_threads()
+              ABI_MALLOC(refval,(Hscr_file(1)%nomega))

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>bryan.d.green@nasa.gov</email>
-		<name>Bryan Green</name>
-	</maintainer>
-	<longdescription>
+  <maintainer>
+    <email>bryan.d.green@nasa.gov</email>
+    <name>Bryan Green</name>
+  </maintainer>
+  <longdescription>
 		Growler-Link is the lowest-level Growler package.  It provides basic support for
 		dynamic linking, components and modules, as well as several other of Growler's
 		commonly used API's, such as Clogger.

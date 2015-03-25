@@ -1,0 +1,13 @@
+--- fem/src/Makefile.am.old	2012-11-12 14:50:05.435767716 +0100
++++ fem/src/Makefile.am	2012-11-12 14:51:29.271802187 +0100
+@@ -154,8 +154,9 @@
+ 
+ 
+ install-exec-local:
+-	@echo "Installing stuff to ${prefix}/bin"
++	@echo "Installing stuff to ${DESTDIR}${prefix}/bin"
+ 	$(MKDIR) $(DESTDIR)$(prefix)/bin
++	$(MKDIR) $(DESTDIR)$(prefix)/lib
+ 	$(CP) ElmerSolver$(EXEEXT) $(DESTDIR)$(prefix)/bin
+ 	$(CP) ViewFactors$(EXEEXT) $(DESTDIR)$(prefix)/bin
+ 	$(CP) GebhardtFactors$(EXEEXT) $(DESTDIR)$(prefix)/bin

@@ -1,0 +1,67 @@
+Software licence
+
+When you complete a registration form for the STFC software and submit it to STFC, your institution (in the registration form and the licence agreement called "the Licensee") is entering into a contract with the Science and Technology Facilities Council ("STFC") on the terms set out in the licence agreement below.
+
+By submitting the Registration Form to STFC, you are confirming that:
+
+the institution whose name appears as the Licensee in the Registration Form agrees to the terms of the Licence
+you have authority to agree to the terms of the Licence and to enter into a contract with STFC on behalf of that institution;
+STFC Software will be used only for Academic Purposes (as defined in the Licence);
+the information given on the Registration Form is true; and
+you agree to your personal data being used for the purpose of managing your institution's licence of the STFC Software, including contacting you to tell you about changes to and error corrections for that software and generally about the software.
+Please read the terms of the Licence carefully. If you do not agree to them, you should not submit the registration form.
+
+A contract between the Licensee and STFC will come into existence when you click on the SUBMIT button at the end of the Registration Form.
+
+STFC is an executive Non-Departmental Public Body established as a Research Council by Royal Charter under the Science and Technology Act 1965. Its address is Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Didcot OX11 0QX and its VAT number is GB 618 3673 25.
+
+If you wish to contact STFC about the Licence or the STFC Software, please e-mail Linda Baines.
+
+Licence
+
+STFC grants any person who obtains a copy of this software (the Software), free of charge, the non-exclusive, worldwide right to use, copy, modify, distribute and sub-license the use of the Software on the terms and clauses appearing below:
+
+Any use of the Software is for academic purposes only and any sub-licensees may only use the Software for academic purposes. Academic purposes means fundamental or basic research or academic teaching, including any fundamental research that is funded by any public or charitable body, but not any purpose that generates revenue (as opposed to grant income) for any person. Any research that is wholly or partially sponsored by any profit-making organisation, or that is carried out for the benefit of any profit-making organisation, is not an academic purpose.
+
+The STFC copyright notice and any other notice placed by STFC on the Software must be reproduced on every copy of the Software, and on every Derived Work.  A Derived Work means any modification of, or enhancement or improvement to, any of the Software, and any software or other work developed or derived from any of the Software.
+
+The following software is supplied to the Licensee on the terms of the licence set out below and as indicated on this website from time to time:
+
+Third party softwareLicence
+ 
+ Sun Java Cryptography Extension (JCE)Binary Code License Agreement
+ Sun Java Cryptography Extension
+  
+  Java Commodity Grid (CoG) toolkitCommon Public License Version 0.5
+  The Apache Software License, Version 1.1
+   
+   The Legion of the Bouncy Castle Crypto APIs for JavaThe Legion Of The Bouncy Castle Crypto APIs for Java
+    
+
+
+	In any published work produced by the user and which includes results achieved by using the Software, the user shall acknowledge that the Software was used in producing the information contained in such publication.
+
+	STFC gives no warranty and makes no representation in relation to the Software. The Licensee and anyone to whom the Licensee makes the Software or any Derived Work available, use the Software at their own risk.
+
+	All warranties, clauses, terms, undertakings and obligations on the part of STFC, implied by statute, common law, custom, trade usage, course of dealing or in any other way are excluded to the fullest extent permitted by law.
+
+	Subject to condition 8, STFC will not be liable for:
+
+	any loss of profits, loss of revenue, loss or corruption of data, loss of contracts or opportunity, loss of savings or third party claims (in each case whether direct or indirect);
+	any indirect loss or damage arising out of or in connection with the Software;
+	any direct loss or damage arising out of, or in connection with, the Software
+
+	in each case, whether that loss arises as a result of STFC'ss negligence, or in any other way, even if STFC has been advised of the possibility of that loss arising, or if it was within STFC's contemplation.
+
+	None of these clauses limits or excludes STFC's liability for death or personal injury caused by its negligence or for any fraud, or for any sort of liability that, by law, cannot be limited or excluded.
+
+	These clauses set out the entire agreement relating to the Software.  The licensee acknowledges that it has not relied on any warranty, representation, statement, agreement or undertaking given by STFC, and waives any claim in respect of any of the same.
+
+	The rights granted above will cease immediately on any breach of these clauses and the licensee will destroy all copies of the Software and any Derived Work in its control or possession.  Clauses 5, 6, 7, 8, 9, 10, and 11 will survive termination and continue indefinitely.
+
+	The licence and these clauses are governed by, and are to be construed in accordance with, English law.  The English Courts will have exclusive jurisdiction to deal with any dispute which has arisen or may arise out of or in connection with the Software, the rights granted and these clauses, except that STFC may bring proceedings for an injunction in any jurisdiction.
+
+	If the whole or any part of these clauses are void or unenforceable in any jurisdiction, the other provisions, and the rest of the void or unenforceable provision, will continue in force in that jurisdiction, and the validity and enforceability of that provision in any other jurisdiction will not be affected.
+
+	© 2013 Science and Technology Facilities Council - All Rights Reserved.
+

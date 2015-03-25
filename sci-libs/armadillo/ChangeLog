@@ -1,6 +1,92 @@
 # ChangeLog for sci-libs/armadillo
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*armadillo-4.650.4 (24 Mar 2015)
+
+  24 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +armadillo-4.650.4.ebuild:
+  Version bump
+
+*armadillo-4.650.2 (08 Mar 2015)
+
+  08 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +armadillo-4.650.2.ebuild:
+  Version bump
+
+  27 Feb 2015; Andreas K. Huettel <dilfridge@gentoo.org>
+  -armadillo-4.200.0.ebuild, -armadillo-4.300.8.ebuild,
+  -armadillo-4.300.9.ebuild, -files/armadillo-3.820.1-example-makefile.patch,
+  -files/armadillo-4.000.3-hdf5.patch:
+  Remove old
+
+*armadillo-4.600.4 (27 Jan 2015)
+
+  27 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +armadillo-4.600.4.ebuild:
+  Version bump
+
+*armadillo-4.600.2 (11 Jan 2015)
+
+  11 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +armadillo-4.600.2.ebuild:
+  Version bump, fix examples install location
+
+*armadillo-4.300.9 (28 Jun 2014)
+
+  28 Jun 2014; Jauhien Piatlicki <jauhien@gentoo.org>
+  +armadillo-4.300.9.ebuild, metadata.xml:
+  version bump, see bug #515624
+
+*armadillo-4.300.8 (02 Jun 2014)
+
+  02 Jun 2014; Sébastien Fabbro <bicatali@gentoo.org> +armadillo-4.300.8.ebuild,
+  -armadillo-3.930.0.ebuild, -armadillo-4.100.2.ebuild,
+  -armadillo-4.300.0.ebuild, -files/armadillo-3.820.1-hdf5.patch:
+  Version bump
+
+*armadillo-4.300.0 (06 May 2014)
+
+  06 May 2014; Sébastien Fabbro <bicatali@gentoo.org> +armadillo-4.300.0.ebuild:
+  sci-libs/armadillo: Version bump
+
+*armadillo-4.200.0 (22 Apr 2014)
+
+  22 Apr 2014; Sébastien Fabbro <bicatali@gentoo.org> +armadillo-4.200.0.ebuild,
+  -armadillo-4.000.4.ebuild:
+  sci-libs/armadillo: Version bump
+
+*armadillo-4.100.2 (19 Mar 2014)
+
+  19 Mar 2014; Sébastien Fabbro <bicatali@gentoo.org> +armadillo-4.100.2.ebuild,
+  -armadillo-4.000.3.ebuild:
+  sci-libs/armadillo: Version bump
+
+*armadillo-4.000.4 (16 Feb 2014)
+
+  16 Feb 2014; Reinis Danne <rei4dan@gmail.com> +armadillo-4.000.4.ebuild:
+  Bump to version 4.000.4.
+
+  10 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> armadillo-4.000.3.ebuild:
+  sci-libs/armadillo: removed int64 flag, it is only for revdep at compile time
+
+  09 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml:
+  sci-libs/armadillo: add use flag description
+
+*armadillo-4.000.3 (09 Feb 2014)
+
+  09 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> +armadillo-4.000.3.ebuild,
+  +files/armadillo-4.000.3-hdf5.patch:
+  sci-libs/armadillo: Version bump
+
+  08 Feb 2014; Reinis Danne <rei4dan@gmail.com> armadillo-3.930.0.ebuild:
+  Fix cblas, clapack include dir.
+
+*armadillo-3.930.0 (07 Dec 2013)
+
+  07 Dec 2013; Sébastien Fabbro <bicatali@gentoo.org> +armadillo-3.930.0.ebuild,
+  -armadillo-3.910.0.ebuild:
+  sci-libs/armadillo: Version bump
 
 *armadillo-3.910.0 (19 Aug 2013)
 

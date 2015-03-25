@@ -1,6 +1,21 @@
 # ChangeLog for dev-python/healpy
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*healpy-1.7.4 (03 Mar 2014)
+
+  03 Mar 2014; Sébastien Fabbro <bicatali@gentoo.org> +healpy-1.7.4.ebuild,
+  -healpy-1.7.3.ebuild:
+  dev-python/healpy: Version bump
+
+*healpy-1.7.3 (03 Feb 2014)
+
+  03 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> +healpy-1.7.3.ebuild,
+  -healpy-1.6.2.ebuild, metadata.xml:
+  dev-python/healpy: Version bump
+
+  17 Sep 2013; Michał Górny <mgorny@gentoo.org> healpy-1.6.2.ebuild:
+  dev-python/healpy: Clean up python_test(). Bug #484426.
 
 *healpy-1.6.2 (17 Jun 2013)
 

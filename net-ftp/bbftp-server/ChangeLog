@@ -1,6 +1,13 @@
 # ChangeLog for net-ftp/bbftp-server
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> bbftp-server-3.2.1.ebuild:
+  net-ftp/bbftp-server: fix SLOT operators
+
+  10 Nov 2014; Justin Lecher <jlec@gentoo.org> -bbftp-server-3.2.0.ebuild,
+  +bbftp-server-3.2.1.ebuild, metadata.xml:
+  Bump EAPI; respect CC; version Bump
 
   24 Jun 2011; Justin Lecher <jlec@gentoo.org> bbftp-server-3.2.0.ebuild:
   Sort inherit and/or USE
@@ -17,4 +24,3 @@
 
   01 Dec 2007; Bryan Green <bryan.d.green@nasa.gov> ChangeLog:
   initial import
-

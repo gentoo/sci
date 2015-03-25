@@ -1,34 +1,34 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
-
-# svn export -r "{2009-05-09}" https://gluegen.dev.java.net/svn/gluegen/trunk
-# gluegen --username xxx --password xxx
+EAPI=5
 
 WANT_ANT_TASKS="ant-antlr"
 JAVA_PKG_IUSE=""
 
 inherit java-pkg-2 java-ant-2
 
-DESCRIPTION="GlueGen is a tool which automatically generates the Java and JNI
-code necessary to call C libraries"
-HOMEPAGE="https://gluegen.dev.java.net"
+DESCRIPTION="Automatically generate the JNI code necessary to call C libraries"
+HOMEPAGE="http://jogamp.org/gluegen/www/"
+# svn export -r "{2009-05-09}" https://gluegen.dev.java.net/svn/gluegen/trunk
+# gluegen --username xxx --password xxx
 SRC_URI="http://dev.gentoo.org/~ali_bush/distfiles/${PN}-${PV#1_p}.tar.bz2"
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+IUSE=""
 
-RDEPEND=">=virtual/jre-1.4
+RDEPEND="
+	>=virtual/jre-1.4
 	dev-java/antlr:0"
 
-DEPEND=">=virtual/jdk-1.4
+DEPEND="
+	>=virtual/jdk-1.4
 	dev-java/ant-core:0
 	dev-java/antlr:0
 	dev-java/cpptasks:0"
-IUSE=""
 
 S="${WORKDIR}/${PN}-${PV#1_p}"
 
@@ -53,7 +53,7 @@ src_install() {
 
 	#build copies system antlr.jar here.
 	#So we just need to replace it.
-	rm "${PN}-rt-natives"*.jar
+	rm "${PN}-rt-natives"*.jar || die
 	java-pkg_dojar *.jar
 	java-pkg_doso obj/*.so
 

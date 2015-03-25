@@ -1,0 +1,13 @@
+# ChangeLog for sci-chemistry/cpmgfit
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  13 Nov 2014; Justin Lecher <jlec@gentoo.org> cpmgfit-1.43.ebuild:
+  Drop all KEYWORDS due to broken revdeps
+
+*cpmgfit-1.43 (03 Jul 2014)
+
+  03 Jul 2014; Justin Lecher <jlec@gentoo.org> +cpmgfit-1.43.ebuild,
+  +metadata.xml:
+  New package written by me
+

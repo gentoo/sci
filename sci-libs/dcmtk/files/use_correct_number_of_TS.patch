@@ -1,0 +1,19 @@
+Description: Fixed crash if less than four transfer syntaxes are enabled.
+ This fixes debian bug #703716.
+ Affects: dcmqrdb/libsrc/dcmqrsrv.cc
+Author: Uli Schlachter <Uli.Schlachter@Informatik.Uni-Oldenburg.DE>
+Bug-Debian: http://bugs.debian.org/703716
+
+Index: dcmtk-3.6.0/dcmqrdb/libsrc/dcmqrsrv.cc
+===================================================================
+--- dcmtk-3.6.0.orig/dcmqrdb/libsrc/dcmqrsrv.cc	2010-10-14 15:14:36.000000000 +0200
++++ dcmtk-3.6.0/dcmqrdb/libsrc/dcmqrsrv.cc	2013-05-15 09:39:13.327725435 +0200
+@@ -786,7 +786,7 @@
+       cond = ASC_acceptContextsWithPreferredTransferSyntaxes(
+         assoc->params,
+         dcmAllStorageSOPClassUIDs, numberOfAllDcmStorageSOPClassUIDs,
+-        (const char**)transferSyntaxes, DIM_OF(transferSyntaxes));
++        (const char**)transferSyntaxes, numTransferSyntaxes);
+       if (cond.bad()) {
+         DCMQRDB_ERROR("Cannot accept presentation contexts: " << DimseCondition::dump(temp_str, cond));
+       }

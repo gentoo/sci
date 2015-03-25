@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-biology</herd>
+  <maintainer>
+    <email>mmokrejs@fold.natur.cuni.cz</email>
+    <name>Martin Mokrejs</name>
+  </maintainer>
+  <use>
+    <flag name="boost">Undocumented USE</flag>
+  </use>
+  <use>
+    <flag name="cppunit">Undocumented USE</flag>
+  </use>
+  <use>
+    <flag name="freetype">Undocumented USE</flag>
+  </use>
+  <use>
+    <flag name="mesa">Undocumented USE</flag>
+  </use>
+  <use>
+    <flag name="muparser">Undocumented USE</flag>
+  </use>
+  <use>
+    <flag name="sablotron">Undocumented USE</flag>
+  </use>
+  <use>
+    <flag name="xerces">Undocumented USE</flag>
+  </use>
+  <use>
+    <flag name="xalan">Undocumented USE</flag>
+  </use>
+  <use>
+    <flag name="xslt">Undocumented USE</flag>
+  </use>
+</pkgmetadata>

@@ -1,0 +1,13 @@
+# ChangeLog for sci-biology/jigsaw
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  10 Jan 2015; Justin Lecher <jlec@gentoo.org> jigsaw-3.2.10.ebuild:
+  Fix license
+
+*jigsaw-3.2.10 (07 Jan 2015)
+
+  07 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +jigsaw-3.2.10.ebuild, +metadata.xml:
+  initial ebuild
+

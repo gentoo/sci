@@ -1,0 +1,11 @@
+--- geneid/Makefile	2014-06-17 11:37:07.000000000 +0200
++++ geneid/Makefile	2014-06-17 11:37:27.000000000 +0200
+@@ -13,7 +13,7 @@
+ PROGRAM= geneid
+ PRODUCT= $(BIN)/$(PROGRAM)
+ CC=gcc
+-OPTS=-I$(INCLUDE) -Wall -O3
++OPTS=$(CFLAGS) -I$(INCLUDE)
+ #OPTS=-I$(INCLUDE) -Wall -g
+ #######
+ 

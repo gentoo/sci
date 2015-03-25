@@ -1,6 +1,27 @@
 # ChangeLog for sci-physics/herwig++
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*herwig++-2.7.1 (31 Aug 2014)
+
+  31 Aug 2014; Jauhien Piatlicki <jauhien@gentoo.org> +herwig++-2.7.1.ebuild:
+  version bump
+
+  31 Aug 2014; Jauhien Piatlicki <jauhien@gentoo.org> herwig++-2.7.0-r1.ebuild:
+  fix dependency on sci-physics/looptools
+
+*herwig++-2.7.0-r1 (07 May 2014)
+
+  07 May 2014; Sébastien Fabbro <bicatali@gentoo.org> +herwig++-2.7.0-r1.ebuild,
+  -herwig++-2.6.3.ebuild, -herwig++-2.7.0.ebuild:
+  sci-physics/herwig++: Switch to autotools-utils, a few more link fixes, prefix
+  love
+
+*herwig++-2.7.0 (04 Nov 2013)
+
+  04 Nov 2013; Jauhien Piatlicki <piatlicki@gmail.com> +herwig++-2.7.0.ebuild,
+  metadata.xml:
+  Version bump, c++0x USE added
 
 *herwig++-2.6.3 (11 Mar 2013)
 
@@ -28,4 +49,3 @@
   08 Sep 2012; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
   +herwig++-2.6.0.ebuild, +files/herwig++-2.6.0-looptools.patch, +metadata.xml:
   New Ebuild for bug #433060
-

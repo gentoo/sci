@@ -1,6 +1,9 @@
 # ChangeLog for x11-libs/tr
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  12 Nov 2014; Justin Lecher <jlec@gentoo.org> tr-1.3.ebuild, metadata.xml:
+  Bump to EAPI=5; respect CC
 
   07 Jan 2011; Justin Lecher <jlec@gentoo.org> tr-1.3.ebuild:
   Some QA on ebuild style

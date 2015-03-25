@@ -1,6 +1,10 @@
 # ChangeLog for dev-java/flexdock
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Nov 2014; Justin Lecher <jlec@gentoo.org> flexdock-1.1.1.ebuild,
+  metadata.xml:
+  Bump to EAPI=5
 
   25 Nov 2012; Andrew Savchenko <bircoph@gmail.com> flexdock-1.1.1.ebuild:
   In bug 433950 SRC_URI and Manifest were fixed only for 1.2.0

@@ -1,0 +1,26 @@
+# ChangeLog for sci-biology/BBmap
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  09 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> BBmap-34.56.ebuild:
+  new package, needs openmpi with java support to provide mpi.jar, see bug
+  #542700
+
+*BBmap-34.56 (05 Mar 2015)
+
+  05 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +BBmap-34.56.ebuild,
+  -BBmap-31.40.ebuild:
+  version bump
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> BBmap-31.40.ebuild:
+  sci-biology/BBmap: fix SLOT operators
+
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> BBmap-31.40.ebuild:
+  added license
+
+*BBmap-31.40 (23 Mar 2014)
+
+  23 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +BBmap-31.40.ebuild, +metadata.xml:
+  sci-biology/BBmap: a skeleton for a new package, needs help from java team
+  for sure

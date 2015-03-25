@@ -4,11 +4,11 @@
 
   30 Jun 2013; Justin Lecher <jlec@gentoo.org> -msms-1.5.4-r1.ebuild,
   -msms-1.5.6_rc2.ebuild, +msms-1.5.6.ebuild, metadata.xml:
-  Version BUmp; Bump to new distutil-r1.eclass
+  Version Bump; Bump to new distutil-r1.eclass
 
   30 Jun 2013; Justin Lecher <jlec@gentoo.org> -msms-1.5.4-r1.ebuild,
   -msms-1.5.6_rc2.ebuild, +msms-1.5.6.ebuild, metadata.xml:
-  Version BUmp; Bump to new distutil-r1.eclass
+  Version Bump; Bump to new distutil-r1.eclass
 
   27 Apr 2012; Justin Lecher <jlec@gentoo.org> msms-1.5.4-r1.ebuild,
   msms-1.5.6_rc2.ebuild:

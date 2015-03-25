@@ -1,6 +1,10 @@
 # ChangeLog for sci-mathematics/axiom
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-mathematics/axiom/ChangeLog,v 1.22 2008/08/30 13:17:33 markusle Exp $
+
+  12 Nov 2014; Justin Lecher <jlec@gentoo.org> axiom-201009.ebuild,
+  metadata.xml:
+  Bump to EAPI=5
 
   25 Jun 2011; Justin Lecher <jlec@gentoo.org> axiom-201009.ebuild,
   metadata.xml:

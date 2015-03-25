@@ -1,7 +1,37 @@
 # ChangeLog for media-gfx/librecad
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header$
 
+  15 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
+  librecad-2.0.7.ebuild:
+  Cleanup
+
+  15 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
+  librecad-1.0.3.ebuild, librecad-1.0.4.ebuild:
+  Move to EAPI=5
+
+  15 Jan 2015; Dongxu Li <dongxuli2011@gmail.com> +librecad-2.0.7.ebuild, -librecad-2.0.3.ebuild:
+  Version bump: 2.0.7
+
+  19 Sep 2014; Dongxu Li <dongxuli2011@gmail.com> : librecad-9999.ebuild:
+  install appdata.xml
+
+  23 Mar 2014; Dongxu Li <dongxuli2011@gmail.com> +librecad-2.0.3.ebuild:
+  Version bump: 2.0.3
+
+  10 Jan 2014; Justin Lecher <jlec@gentoo.org> +librecad-2.0.2.ebuild:
+  Version bump: 2.0.2
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> librecad-9999.ebuild,
+  metadata.xml:
+  Switch from git-2 to git-r3
+
+  28 Dec 2013: Dongxu Li <dongxuli2011@gmail.com> +librecad-2.0.0.ebuild -librecad-2.0.0_rc2.ebuild:
+  Version bump: 2.0.0
+
+  14 Nov 2013: Dongxu Li <dongxuli2011@gmail.com> +librecad-1.0.4.ebuild +librecad-2.0.0_rc3.ebuild:
+  Version bump: 1.0.4, 2.0.0rc3
+  
   3 Sept 2013: Dongxu Li <dongxuli2011@gmail.com> +librecad-2.0.0_rc2.ebuild:
   Version bump 2.0.0_rc2
 

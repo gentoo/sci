@@ -1,0 +1,26 @@
+Change the client binary's name to clfft-client.
+
+Patch by Marius Brehler.
+--- client/CMakeLists.txt
++++ client/CMakeLists.txt
+@@ -43,15 +43,15 @@ endif( )
+ # Include standard OpenCL headers
+ include_directories( ${Boost_INCLUDE_DIRS} ${OPENCL_INCLUDE_DIRS} ../../../common ${PROJECT_BINARY_DIR}/include ../include )
+ 
+-add_executable( Client ${Client.Files} )
++add_executable( clfft-client ${Client.Files} )
+ 
+-target_link_libraries( Client clFFT ${Boost_LIBRARIES} ${OPENCL_LIBRARIES} ${DL_LIB} )
++target_link_libraries( clfft-client clFFT ${Boost_LIBRARIES} ${OPENCL_LIBRARIES} ${DL_LIB} )
+ 
+-set_target_properties( Client PROPERTIES VERSION ${CLFFT_VERSION} )
+-set_target_properties( Client PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/staging" )
++set_target_properties( clfft-client PROPERTIES VERSION ${CLFFT_VERSION} )
++set_target_properties( clfft-client PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/staging" )
+ 
+ # CPack configuration; include the executable into the package
+-install( TARGETS Client
++install( TARGETS clfft-client
+         RUNTIME DESTINATION bin${SUFFIX_BIN}
+         LIBRARY DESTINATION lib${SUFFIX_LIB}
+         ARCHIVE DESTINATION lib${SUFFIX_LIB}/import

@@ -1,8 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=2
+EAPI=5
 
 inherit toolchain-funcs
 
@@ -20,12 +20,12 @@ src_prepare() {
 }
 
 src_compile() {
-	emake INSTALLDIR="${S}/bin" install || die
+	emake INSTALLDIR="${S}/bin" install
 }
 
 src_install() {
-	dobin "${S}"/bin/* || die
+	dobin "${S}"/bin/*
 	insinto /usr/share/${PN}
-	doins -r examples || die
+	doins -r examples
 	dodoc README
 }

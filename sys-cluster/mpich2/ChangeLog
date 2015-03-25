@@ -1,6 +1,21 @@
 # ChangeLog for sys-cluster/mpich2
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  21 Feb 2015; Christoph Junghans <ottxor@gentoo.org> -mpich2-1.5-r1.ebuild:
+  mpich2 will not be ported to multilib
+
+  20 Feb 2015; Christoph Junghans <ottxor@gentoo.org> mpich2-1.5-r1.ebuild:
+  disable natvie fortran
+
+*mpich2-1.5-r1 (17 Feb 2015)
+
+  17 Feb 2015; Christoph Junghans <ottxor@gentoo.org> +mpich2-1.5-r1.ebuild:
+  added multilib mpi for testing
+
+  04 Dec 2013; Justin Lecher <jlec@gentoo.org> -mpich2-1.2.1_p1-r2.ebuild,
+  -mpich2-1.4.1_p1.ebuild, metadata.xml:
+  Drop old
 
 *mpich2-1.5 (30 Oct 2012)
 
@@ -172,4 +187,3 @@
   sys-cluster/mpich2/mpich2-1.0.8.ebuild:
   sys-cluster/mpich-1.0.8 bugfixes, no revbump. Fix some doc file locations
   (#255748). Fix sandbox errors (254167).
-

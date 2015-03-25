@@ -1,0 +1,39 @@
+# ChangeLog for sci-physics/genfit
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  03 Apr 2014; Sebastien Fabbro <fabbros@gentoo.org> genfit-9999.ebuild,
+  metadata.xml:
+  Link fixed version ebuild to live one, add no keyword to live version
+
+  03 Apr 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  genfit-02.00.00.ebuild:
+  Use zip-snapshot mirrored by jlec, sourceforge cannot automatically recreate
+  them and changes CRC each time
+
+  28 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  genfit-02.00.00.ebuild, genfit-9999.ebuild:
+  Unify the specialties between live and non-live ebuild so only one if-clause
+  is needed. 
+
+*genfit-9999 (25 Mar 2014)
+
+  25 Mar 2014; Oliver Freyermuth <o.freyermuth@googlemail.com>
+  genfit-02.00.00.ebuild, +genfit-9999.ebuild:
+  Add live-ebuild, add subslot-dependency on sci-physics/root (depends on
+  #505358 to become effective) and dev-libs/boost .
+
+  22 Mar 2014; <o.freyermuth@googlemail.com> genfit-02.00.00.ebuild:
+  Fix incorrect working directory (adapt to zipped file)
+
+  22 Mar 2014; <o.freyermuth@googlemail.com> genfit-02.00.00.ebuild:
+  Use zip'ed snapshot instead of tag from repository. 
+
+  22 Mar 2014; <o.freyermuth@googlemail.com> genfit-02.00.00.ebuild, metadata.xml:
+  Address ebuild issues found in review (indentation, missing and superfluous
+  die's). 
+
+*genfit-02.00.00 (22 Mar 2014)
+
+  22 Mar 2014; <o.freyermuth@googlemail.com> +genfit-02.00.00.ebuild, +metadata.xml:
+  Initial ebuild. 

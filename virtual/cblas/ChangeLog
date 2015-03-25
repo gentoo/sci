@@ -1,6 +1,25 @@
 # ChangeLog for virtual/cblas
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/virtual/cblas/ChangeLog,v 1.6 2010/01/11 10:56:05 ulm Exp $
+
+  12 Nov 2014; Justin Lecher <jlec@gentoo.org> cblas-2.0.ebuild, metadata.xml:
+  Bumpt to EAPI=5
+
+*cblas-2.0-r3 (10 Nov 2014)
+
+  10 Nov 2014; Christoph Junghans <ottxor@gentoo.org> +cblas-2.0-r3.ebuild:
+  added multilib support (bug #528622)
+
+*cblas-2.0-r2 (13 Oct 2014)
+
+  13 Oct 2014; Mark Wright <gienah@gentoo.org> +cblas-2.0-r2.ebuild:
+  Bump the cblas virtual to add int64 supplort for cblas-reference.
+
+*cblas-2.0-r1 (26 Apr 2014)
+
+  26 Apr 2014; Mark Wright <gienah@gentoo.org> +cblas-2.0-r1.ebuild,
+  metadata.xml:
+  Add int64 use flag for separate eselect modules for int64 providers
 
   11 Aug 2013; Justin Lecher <jlec@gentoo.org> cblas-2.0.ebuild, metadata.xml:
   Drop obsolete USE dep for openblas, #478130

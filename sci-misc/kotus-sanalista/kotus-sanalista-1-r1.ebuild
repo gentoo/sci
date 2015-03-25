@@ -1,6 +1,8 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=5
 
 MY_P=${PN}-v${PVR}
 
@@ -17,8 +19,3 @@ DEPEND="dev-java/saxon"
 RDEPEND=""
 
 S="${WORKDIR}/${MY_P}"
-
-src_install() {
-	emake DESTDIR="${D}" install || die "install failed"
-	dodoc AUTHORS ChangeLog THANKS README README.fi NEWS || die "docs missing"
-}

@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="5"
 
 inherit eutils toolchain-funcs
 
@@ -12,7 +12,7 @@ SRC_URI="http://apron.cri.ensmp.fr/library/${P}.tgz"
 
 LICENSE="LGPL-2 GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="cxx doc ocaml ppl"
 
 RDEPEND="ocaml? ( >=dev-lang/ocaml-3.09
@@ -34,8 +34,8 @@ src_prepare() {
 	sed -i Makefile.config \
 		-e "s/FLAGS = \\\/FLAGS += \\\/g" \
 		-e "s/-O3 -DNDEBUG/-DNDEBUG/g" \
-		-e "s/APRON_PREFIX =.*/APRON_PREFIX = \${DESTDIR}\/usr/g" \
-		-e "s/MLGMPIDL_PREFIX =.*/MLGMPIDL_PREFIX = \${DESTDIR}\/usr/g"
+		-e "s/APRON_PREFIX =.*/APRON_PREFIX = \$(DESTDIR)\/usr/g" \
+		-e "s/MLGMPIDL_PREFIX =.*/MLGMPIDL_PREFIX = \$(DESTDIR)\/usr/g"
 
 	#fix doc building process
 	sed -i Makefile -e "s/; make html/; make/g"

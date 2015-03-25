@@ -1,6 +1,16 @@
 # ChangeLog for sci-astronomy/stuff
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*stuff-1.26.0 (21 Mar 2014)
+
+  21 Mar 2014; Sébastien Fabbro <bicatali@gentoo.org> +stuff-1.26.0.ebuild,
+  stuff-9999.ebuild:
+  sci-astronomy/stuff: Add new version linked to live one
+
+  27 Feb 2014; Sébastien Fabbro <bicatali@gentoo.org> -Manifest,
+  -files/stuff-configure.patch, -stuff-1.19.ebuild, stuff-9999.ebuild:
+  sci-astronomy/stuff: EAPI-5, autotools-utils
 
   04 Aug 2011; Sébastien Fabbro <bicatali@gentoo.org> metadata.xml:
   Switched herd to sci-astronomy
@@ -13,4 +23,3 @@
   27 Jul 2009; Sébastien Fabbro <bicatali@gentoo.org> +stuff-1.19.ebuild,
   +files/stuff-configure.patch, +metadata.xml:
   Initial import
-

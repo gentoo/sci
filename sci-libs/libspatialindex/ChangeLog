@@ -1,6 +1,10 @@
 # ChangeLog for sci-libs/libspatialindex
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> libspatialindex-1.8.5.ebuild,
+  metadata.xml:
+  sci-libs/libspatialindex: Fix compyright and move to autotools-utils.eclass
 
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> libspatialindex-1.6.1.ebuild,
   metadata.xml:
@@ -11,4 +15,3 @@
   01 Aug 2011; Andrey Kislyuk <weaver@gentoo.org>
   +libspatialindex-1.6.1.ebuild, +metadata.xml:
   New package, ebuild written by me
-

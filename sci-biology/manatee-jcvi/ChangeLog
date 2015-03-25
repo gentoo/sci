@@ -1,6 +1,13 @@
 # ChangeLog for sci-biology/manatee-jcvi
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  13 Nov 2014; Justin Lecher <jlec@gentoo.org> manatee-jcvi-2.4.3.ebuild,
+  metadata.xml:
+  Use perl virtuals instead of core
+
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> manatee-jcvi-2.4.3.ebuild:
+  clean up
 
 *manatee-jcvi-2.4.3 (29 Aug 2013)
 
@@ -8,4 +15,3 @@
   +manatee-jcvi-2.4.3.ebuild, +metadata.xml:
   Initial ebuild for the other version of manatee, using different database
   schema.
-

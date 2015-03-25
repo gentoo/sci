@@ -1,0 +1,20 @@
+ src/Makefile.am | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index f4234a1..6d99d31 100755
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -23,9 +23,11 @@ ElmerPost_LDADD=\
+ 	./visuals/libvisuals.a \
+ 	./graphics/libgraphics.a \
+ 	./glaux/libglaux.a \
+-	./tk/libtk.a
++	./tk/libtk.a \
++	-lX11
+ 
+ QueryGLXExt_SOURCES=QueryGLXExt.c 
++QueryGLXExt_LDADD=-lX11
+ 
+ all-local: screensave.so
+ clean-local:

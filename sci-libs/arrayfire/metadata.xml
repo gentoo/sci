@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <maintainer>
+    <email>marbre@linux.sungazer.de</email>
+    <name>Marius Brehler</name>
+  </maintainer>
+  <longdescription>
+    ArrayFire is a high performance software library for parallel
+    computing with an easy-to-use API. Its array based function set
+    makes parallel programming simple. ArrayFire's multiple backends
+    (CUDA, OpenCL and native CPU) make it platform independent and
+    highly portable.
+  </longdescription>
+  <use>
+    <flag name="cpu">
+      Enable CPU Build.
+    </flag>
+    <flag name="cuda">
+      Enable CUDA Build.
+    </flag>
+    <flag name="opencl">
+      Enable OpenCL Build.
+    </flag>
+  </use>
+</pkgmetadata>

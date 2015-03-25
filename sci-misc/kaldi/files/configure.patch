@@ -1,0 +1,93 @@
+*** configure.orig	2015-02-28 16:31:35.568045409 -0400
+--- configure	2015-02-28 17:21:58.477634475 -0400
+***************
+*** 46,60 ****
+    fi
+  }
+  
+- 
+- 
+- ##   First do some checks.  These verify that all the things are
+- ##   here that should be here.
+- if [ "`basename $PWD`" != "src" ]; then
+-   echo 'You must run "configure" from the src/ directory.'
+-   exit 1
+- fi
+- 
+  ## Default locations for FST and linear algebra libraries.
+  MATHLIB='ATLAS'
+  ATLASROOT=`rel2abs ../tools/ATLAS/`
+--- 46,51 ----
+***************
+*** 522,527 ****
+--- 513,535 ----
+    exit_success;
+  }
+  
++ function linux_configure_gentoo {
++   m=$1  # 64 or empty.
++   ATLASLIBS="/usr/lib$m/libatlas.so.3 /usr/lib$m/libf77blas.so.3 /usr/lib$m/libatlcblas.so.3 /usr/lib$m/libatlclapack.so.3"
++   for f in $ATLASLIBS; do 
++     [ ! -f $f ] && return 1;
++   done
++   libdir=$(dirname $(echo $ATLASLIBS | awk '{print $1}'))
++   [ -z "$libdir" ] && echo "Error getting libdir in linux_configure_gentoo" && exit 1;
++   echo ATLASINC = $ATLASROOT >> kaldi.mk
++   echo ATLASLIBS = $ATLASLIBS -Wl,-rpath=$libdir >> kaldi.mk
++   echo 
++   cat makefiles/linux_atlas.mk >> kaldi.mk
++   fix_cxx_flag
++   echo "Successfully configured for gentoo [dynamic libraries] with ATLASLIBS =$ATLASLIBS"
++   $use_cuda && linux_configure_cuda
++   exit_success;
++ }
+  
+  function linux_configure_static {
+    if $threaded_atlas; then pt=pt; else pt=""; fi
+***************
+*** 682,688 ****
+  echo "FSTROOT = $FSTROOT" >> kaldi.mk
+  
+  # Check installed OpenFst version and add C++11 flags if OpenFst >= 1.4
+! OPENFST_VER=`grep 'PACKAGE_VERSION' $FSTROOT/Makefile | sed -e 's:.*= ::'`
+  echo "OPENFST_VER = $OPENFST_VER" >> kaldi.mk
+  OPENFST_VER_NUM=`echo $OPENFST_VER | sed 's/\./ /g' | xargs printf "%d%02d%02d"`
+  if [ $OPENFST_VER_NUM -ge 10400 ]; then
+--- 690,696 ----
+  echo "FSTROOT = $FSTROOT" >> kaldi.mk
+  
+  # Check installed OpenFst version and add C++11 flags if OpenFst >= 1.4
+! OPENFST_VER="1.4.1"
+  echo "OPENFST_VER = $OPENFST_VER" >> kaldi.mk
+  OPENFST_VER_NUM=`echo $OPENFST_VER | sed 's/\./ /g' | xargs printf "%d%02d%02d"`
+  if [ $OPENFST_VER_NUM -ge 10400 ]; then
+***************
+*** 765,772 ****
+  
+    echo "On Linux: Checking for linear algebra header files ..."
+    if [ "$MATHLIB" == "ATLAS" ]; then
+!     if [ ! -f $ATLASROOT/include/cblas.h ] || [ ! -f $ATLASROOT/include/clapack.h ] ; then
+!       failure "Could not find required header files cblas.h or clapack.h in ATLAS dir '$ATLASROOT/include'"
+      fi
+      echo "Using ATLAS as the linear algebra library."
+      
+--- 773,780 ----
+  
+    echo "On Linux: Checking for linear algebra header files ..."
+    if [ "$MATHLIB" == "ATLAS" ]; then
+!     if  ( [ ! -f $ATLASROOT/include/cblas.h ] || [ ! -f $ATLASROOT/include/clapack.h ] ) && ( [ ! -f $ATLASROOT/cblas.h ] || [ ! -f $ATLASROOT/clapack.h ] ) ; then
+!       failure "Could not find required header files cblas.h or clapack.h in ATLAS dirs '$ATLASROOT/include' or '$ATLASROOT'"
+      fi
+      echo "Using ATLAS as the linear algebra library."
+      
+***************
+*** 797,802 ****
+--- 805,812 ----
+      else
+        # Prefer dynamic to static math.
+        linux_configure_debian_ubuntu3 || \
++         linux_configure_gentoo 64 || \
++         linux_configure_gentoo || \
+          linux_configure_dynamic || \
+          linux_configure_static || \
+          linux_configure_debian_ubuntu 64 || \

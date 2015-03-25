@@ -1,6 +1,10 @@
 # ChangeLog for dev-perl/Bio-DB-Das-Chado
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  24 Sep 2014; Justin Lecher <jlec@gentoo.org> -Bio-DB-Das-Chado-0.32.ebuild,
+  +Bio-DB-Das-Chado-0.34.ebuild, metadata.xml:
+  Version BUmp; Bump to EAPI=5
 
   09 Feb 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   Bio-DB-Das-Chado-0.32.ebuild:

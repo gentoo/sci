@@ -1,6 +1,8 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-biology/mrbayes/mrbayes-3.1.2.ebuild,v 1.7 2008/06/11 18:10:48 ken69267 Exp $
+# $Header: $
+
+EAPI=5
 
 inherit eutils mpi toolchain-funcs
 
@@ -15,12 +17,10 @@ IUSE="mpi readline"
 
 DEPEND="
 	mpi? ( $(mpi_pkg_deplist) )
-	readline? ( sys-libs/readline )"
+	readline? ( sys-libs/readline:0 )"
 RDEPEND="${DEPEND}"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
+src_prepare() {
 	sed \
 		-e "s:OPTFLAGS ?= -O3:CFLAGS = ${CFLAGS}:" \
 		-e "s:CC = gcc:CC = $(tc-getCC):" \
@@ -42,9 +42,9 @@ src_unpack() {
 
 src_compile() {
 	mpi_pkg_set_env
-	emake || die
+	emake
 }
 
 src_install() {
-	mpi_dobin mb || die "Installation failed."
+	mpi_dobin mb
 }

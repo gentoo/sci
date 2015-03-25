@@ -1,0 +1,13 @@
+--- ncbi_cxx--12_0_0/src/app/agpconvert/Makefile.agpconvert.app.ori     (revision 439078)
++++ ncbi_cxx--12_0_0/src/app/agpconvert/Makefile.agpconvert.app     (working copy)
+@@ -7,8 +7,8 @@
+ SRC = agpconvert
+ 
+ LIB  = xalgoseq xobjedit $(OBJREAD_LIBS) taxon1 xalnmgr xobjutil submit \
+-    ncbi_xdbapi_ftds $(FTDS_LIB) tables xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
+-LIBS = $(FTDS_LIBS) $(CMPRS_LIBS) $(PCRE_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
++       tables xregexp $(PCRE_LIB) $(OBJMGR_LIBS)
++LIBS = $(CMPRS_LIBS) $(PCRE_LIBS) $(NETWORK_LIBS) $(DL_LIBS) $(ORIG_LIBS)
+ 
+ CXXFLAGS = $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)

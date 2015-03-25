@@ -1,6 +1,11 @@
 # ChangeLog for sci-geosciences/harmonics-dwf-free
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  10 Nov 2014; Justin Lecher <jlec@gentoo.org>
+  -harmonics-dwf-free-20110410-r1.ebuild, harmonics-dwf-free-20120302.ebuild,
+  metadata.xml:
+  Bump to EAPI=5
 
   17 Jun 2012; Tim Cera <tim@cerazone.net> harmonics-dwf-free-20120302.ebuild:
   sci-geosciences/harmonics-dwf-20120302: Fixed problem where "S" directory

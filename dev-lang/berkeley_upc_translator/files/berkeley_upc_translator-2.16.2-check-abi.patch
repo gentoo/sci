@@ -1,0 +1,10 @@
+--- config-aux/config-builddir
++++ config-aux/config-builddir
+@@ -1,5 +1,7 @@
+ #!/bin/sh
+ 
++unset ABI
++
+ MYDIR=`dirname $0`
+ GUESS="$MYDIR/config.guess"
+ if test ! -x "$GUESS" ; then

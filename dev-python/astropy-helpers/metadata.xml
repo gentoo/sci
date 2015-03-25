@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-astronomy</herd>
+  <longdescription lang="en">
+		astropy-helpers is a collection of build tools used by astropy
+		that may be used by other projects.
+	</longdescription>
+</pkgmetadata>
