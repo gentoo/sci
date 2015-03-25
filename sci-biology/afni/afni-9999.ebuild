@@ -23,7 +23,7 @@ RDEPEND="x11-libs/motif[-static-libs]"
 # See upstream discussion
 # http://afni.nimh.nih.gov/afni/community/board/read.php?1,85348,85348#msg-85348
 
-DEPEND="x11-libs/motif[-static-libs]
+DEPEND="${RDEPEND}
 	app-shells/tcsh
 	sci-libs/gsl
 	dev-libs/expat
