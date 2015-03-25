@@ -33,6 +33,7 @@ src_unpack() {
 }
 
 python_prepare_all() {
+	local PATCHES=( "${FILESDIR}"/${P}-swig.patch )
 	ecvs_clean
 	find "${S}" -name LICENSE -type f -delete || die
 
