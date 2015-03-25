@@ -10,7 +10,7 @@ DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
 SRC_URI="http://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz"
 
-LICENSE="GPL-3+"
+LICENSE="FSL newmat"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
