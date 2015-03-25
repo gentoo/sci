@@ -23,7 +23,7 @@ RDEPEND="x11-libs/motif[-static-libs]"
 # See upstream discussion
 # http://afni.nimh.nih.gov/afni/community/board/read.php?1,85348,85348#msg-85348
 
-DEPEND="x11-libs/motif[-static-libs]
+DEPEND="${RDEPEND}
 	app-shells/tcsh
 	sci-libs/gsl
 	dev-libs/expat
@@ -47,11 +47,11 @@ src_prepare() {
 	sed -e "s~ifeq ($(CC),gcc)~ifeq (1,1)~"\
 		-i SUMA/SUMA_Makefile || die "Could not edit SUMA/SUMA_Makefile"
 		# upstream checks if $CC is EXACTLY gcc, else sets variables for Mac
-	}
+}
 
 src_compile() {
 	emake INSTALLDIR="${D}/opt/${PN}" -j1 all plugins suma_exec
-	}
+}
 
 src_install() {
 	emake INSTALLDIR="${D}/opt/${PN}" -j1 install install_plugins
@@ -71,4 +71,4 @@ src_install() {
 
 #	dobin "${S}/${BUILD}/${PN}"
 #	pax-mark m "${D}/usr/bin/${PN}"
-	}
+}
