@@ -3,6 +3,9 @@
 # $Header: $
 
   25 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  added license for included gdchart
+
+  25 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
   set the correct licences
 
   11 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
