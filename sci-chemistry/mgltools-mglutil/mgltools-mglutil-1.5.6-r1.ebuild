@@ -34,7 +34,10 @@ src_unpack() {
 }
 
 python_prepare_all() {
-	local PATCHES=( "${FILESDIR}"/1.5.4-python.patch )
+	local PATCHES=(
+		"${FILESDIR}"/1.5.4-python.patch
+		"${FILESDIR}"/${P}-tcltk86.patch
+		)
 	ecvs_clean
 	find "${S}" -name LICENSE -type f -delete || die
 

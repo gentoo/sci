@@ -1,0 +1,104 @@
+Index: mglutil-1.5.7~rc1+cvs.20150324/mglutil/gui/BasicWidgets/Tk/thumbwheel.py
+===================================================================
+--- mglutil-1.5.7~rc1+cvs.20150324.orig/mglutil/gui/BasicWidgets/Tk/thumbwheel.py
++++ mglutil-1.5.7~rc1+cvs.20150324/mglutil/gui/BasicWidgets/Tk/thumbwheel.py
+@@ -88,7 +88,8 @@
+ #            checkkeywords(kw)
+             
+ 	Tkinter.Frame.__init__(self, master)
+-	Tkinter.Pack.config(self, side='left', anchor='w')
++	#Tkinter.Pack.config(self, side='left', anchor='w')
++	Tkinter.Pack.config(master, side='left', anchor='w')
+ 
+         #FIXME: nblines are not dynamically computed
+         self.nblines = 30
+Index: mglutil-1.5.7~rc1+cvs.20150324/mglutil/gui/BasicWidgets/Tk/vector3DGUI.py
+===================================================================
+--- mglutil-1.5.7~rc1+cvs.20150324.orig/mglutil/gui/BasicWidgets/Tk/vector3DGUI.py
++++ mglutil-1.5.7~rc1+cvs.20150324/mglutil/gui/BasicWidgets/Tk/vector3DGUI.py
+@@ -86,7 +86,7 @@
+              [  0.25      ,  0.25      ,  0.93541437,  0.        ],
+              [  0.        ,  0.        ,  0.        ,  1.        ]],'f')
+         self.viewingMat = Numeric.transpose(self.viewingMatInv)
+-        self.createCanvas(master, size)
++        self.createCanvas(self, size)
+         self.createEntries(self.frame)
+ 	Tkinter.Widget.bind(self.canvas, "<ButtonPress-1>", self.mouseDown)
+ 	Tkinter.Widget.bind(self.canvas, "<ButtonRelease-1>", self.mouseUp)
+@@ -357,19 +357,22 @@
+ 
+     def createEntries(self, master):
+         self.f = Tkinter.Frame(master)
+-	self.f.grid(column=3, rowspan=3)
++        self.f.pack(side='top', expand=1)
++        self.f.grid = Tkinter.Frame(self.f)
++        self.f.grid.pack(side='top', expand=1)
++	self.f.grid.grid(column=3, rowspan=3)
+ 
+         def fX(): self.vector = [1.,0.,0.]; self.setEntries(); self.callbacks.CallCallbacks(self.vector)
+         def fY(): self.vector = [0.,1.,0.]; self.setEntries(); self.callbacks.CallCallbacks(self.vector)
+         def fZ(): self.vector = [0.,0.,1.]; self.setEntries(); self.callbacks.CallCallbacks(self.vector)
+-        lX = Tkinter.Button(master=self.f, text='x', command=fX)
+-        lY = Tkinter.Button(master=self.f, text='y', command=fY)
+-        lZ = Tkinter.Button(master=self.f, text='z', command=fZ)
++        lX = Tkinter.Button(master=self.f.grid, text='x', command=fX)
++        lY = Tkinter.Button(master=self.f.grid, text='y', command=fY)
++        lZ = Tkinter.Button(master=self.f.grid, text='z', command=fZ)
+         lX.grid(row=0, column=0)
+         lY.grid(row=1, column=0)
+         lZ.grid(row=2, column=0)
+ 
+-        self.thumbx = ThumbWheel(master=self.f, width=50,
++        self.thumbx = ThumbWheel(master=self.f.grid, width=50,
+                                  height=20, labcfg={'text':'X:','side':'left'},
+                                  wheelPad=2, oneTurn=.1, min=-1, max=1,
+                                  showLabel=0, precision=5, type=float)
+@@ -378,7 +381,7 @@
+         self.thumbx.canvas.unbind("<Button-3>")
+         self.thumbx.grid(row=0, column=1)
+ 
+-        self.thumby = ThumbWheel(master=self.f, width=50,
++        self.thumby = ThumbWheel(master=self.f.grid, width=50,
+                                  height=20, labcfg={'text':'Y:','side':'left'},
+                                  wheelPad=2, oneTurn=.1, min=-1, max=1,
+                                  showLabel=0, precision=5, type=float)
+@@ -387,7 +390,7 @@
+         self.thumby.canvas.unbind("<Button-3>")
+         self.thumby.grid(row=1, column=1)
+ 
+-        self.thumbz = ThumbWheel(master=self.f, width=50,
++        self.thumbz = ThumbWheel(master=self.f.grid, width=50,
+                                  height=20, labcfg={'text':'Z:','side':'left'},
+                                  wheelPad=2, oneTurn=.1, min=-1, max=1,
+                                  showLabel=0, precision=5, type=float)
+@@ -397,19 +400,19 @@
+         self.thumbz.grid(row=2, column=1)
+ 
+         self.entryXTk = Tkinter.StringVar()
+-        self.entryX = Tkinter.Entry(master=self.f, textvariable=self.entryXTk,
++        self.entryX = Tkinter.Entry(master=self.f.grid, textvariable=self.entryXTk,
+                                     width=8)
+         self.entryX.bind('<Return>', self.entryX_cb)
+         self.entryX.grid(row=0, column=2)
+ 
+         self.entryYTk = Tkinter.StringVar()
+-        self.entryY = Tkinter.Entry(master=self.f, textvariable=self.entryYTk,
++        self.entryY = Tkinter.Entry(master=self.f.grid, textvariable=self.entryYTk,
+                                     width=8)
+         self.entryY.bind('<Return>', self.entryY_cb)
+         self.entryY.grid(row=1, column=2)
+ 
+         self.entryZTk = Tkinter.StringVar()
+-        self.entryZ = Tkinter.Entry(master=self.f, textvariable=self.entryZTk,
++        self.entryZ = Tkinter.Entry(master=self.f.grid, textvariable=self.entryZTk,
+                                     width=8)
+         self.entryZ.bind('<Return>', self.entryZ_cb)
+         self.entryZ.grid(row=2, column=2)
+@@ -420,7 +423,6 @@
+         
+         self.entryV.bind('<Return>', self.entryV_cb)
+         
+-        self.f.pack(side='top', expand=1)
+ 
+         self.entryV.pack()
+         
