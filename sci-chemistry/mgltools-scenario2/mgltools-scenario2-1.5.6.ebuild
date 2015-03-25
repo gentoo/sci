@@ -30,8 +30,8 @@ DEPEND="${RDEPEND}
 S="${WORKDIR}"/${MY_P}
 
 src_unpack() {
-	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
-	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
+	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
+	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
 }
 
 python_prepare_all() {
