@@ -3,6 +3,9 @@
 # $Header: $
 
   25 Mar 2015; Justin Lecher <jlec@gentoo.org> mgltools-pmv-1.5.6.ebuild:
+  sci-chemistry/mgltools-pmv: Add missing dep
+
+  25 Mar 2015; Justin Lecher <jlec@gentoo.org> mgltools-pmv-1.5.6.ebuild:
   sci-chemistry/mgltools-pmv: Drop PYTHON_MODNAME
 
   10 Jun 2013; Justin Lecher <jlec@gentoo.org> -mgltools-pmv-1.5.4-r1.ebuild,

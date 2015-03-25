@@ -20,7 +20,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=""
+RDEPEND="sci-chemistry/mgltools-support[${PYTHON_USEDEP}]"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
