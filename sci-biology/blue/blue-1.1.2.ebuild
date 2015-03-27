@@ -28,5 +28,7 @@ src_compile(){
 
 src_install(){
 	dobin Tessel.exe GenerateMerPairs.exe Blue.exe
-	# BUG: probably have to install also the *.exe.so files
+	# one could install also the *.exe.so files for speedup into /usr/bin/
 }
+
+# it's author uses 'mono-sgen /usr/bin/Blue.exe' to use the alternative garbage collector

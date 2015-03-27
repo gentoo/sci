@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -19,7 +19,7 @@ SLOT="0"
 IUSE="doc png ssl tcpd +threads tiff xml zlib"
 
 RDEPEND="
-	virtual/jpeg
+	virtual/jpeg:0=
 	png? ( media-libs/libpng:0= )
 	ssl? ( dev-libs/openssl:= )
 	tcpd? ( sys-apps/tcp-wrappers )
@@ -71,5 +71,5 @@ src_configure() {
 }
 
 src_compile() {
-	cmake-utils_src_compile all $(usex doc "html")
+	cmake-utils_src_compile all $(usex doc "html" "")
 }

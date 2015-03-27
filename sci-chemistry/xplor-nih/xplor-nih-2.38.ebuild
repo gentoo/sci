@@ -22,7 +22,10 @@ IUSE=""
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-RDEPEND="${PYTHON_DEPS}"
+RDEPEND="${PYTHON_DEPS}
+	dev-lang/tcl:8.5
+	dev-lang/tk:8.5
+"
 DEPEND="${RDEPEND}"
 
 RESTRICT="fetch"

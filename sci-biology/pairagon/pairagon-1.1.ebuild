@@ -10,7 +10,7 @@ SRC_URI="http://mblab.wustl.edu/software/download/pairagon_.tar"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 DEPEND="dev-lang/perl"

@@ -9,7 +9,7 @@ inherit distutils-r1
 
 MY_PN="nbviewer"
 
-DESCRIPTION="A system for assigning and grading notebooks"
+DESCRIPTION="Nbconvert as a webservice (rendering ipynb to static HTML)"
 HOMEPAGE="http://jupyter.org"
 
 if [ ${PV} == "9999" ] ; then

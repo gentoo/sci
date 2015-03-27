@@ -12,10 +12,12 @@ SRC_URI="http://sourceforge.net/projects/bbmap/files/BBMap_"${PV}".tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
+# needs USE=java, see bug #542700
 DEPEND="
+	sys-cluster/openmpi[java]
 	>=virtual/jdk-1.7:*
 	dev-java/ant-core"
 RDEPEND="${DEPEND}
@@ -23,12 +25,17 @@ RDEPEND="${DEPEND}
 
 S="${WORKDIR}"/bbmap
 
+#src_prepare(){
+#	# fix the line in build.xml to point to mpi.jar location
+#	# <property name="mpijar" location="/tmp/mpi.jar" ></property>
+#}
+
 src_compile(){
-	ant compile || die
+	ant dist || die
 }
 
 src_install(){
 	dobin *.sh
 	dodoc docs/readme.txt
-	java-pkg_dojar lib/BBTools.jar
+	java-pkg_dojar dist/lib/BBTools.jar
 }

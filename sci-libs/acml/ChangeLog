@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de> acml-6.1.0.31.ebuild:
+  Fix #543740 (drop fma4)
+
 *acml-6.1.0.31 (02 Feb 2015)
 
   02 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>

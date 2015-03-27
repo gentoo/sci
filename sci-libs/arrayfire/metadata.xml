@@ -20,5 +20,8 @@
     <flag name="cuda">
       Enable CUDA Build.
     </flag>
+    <flag name="opencl">
+      Enable OpenCL Build.
+    </flag>
   </use>
 </pkgmetadata>

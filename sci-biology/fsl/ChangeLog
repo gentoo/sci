@@ -2,6 +2,16 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  25 Mar 2015;  <chymera@gentoo.org> fsl-5.0.4.ebuild, fsl-5.0.5.ebuild,
+  fsl-5.0.8.ebuild:
+  added licences to all versions
+
+  25 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  added license for included gdchart
+
+  25 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  set the correct licences
+
   11 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
   installing fslversion
 

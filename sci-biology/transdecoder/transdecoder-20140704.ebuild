@@ -12,7 +12,7 @@ SRC_URI="http://downloads.sourceforge.net/project/transdecoder/TransDecoder_r201
 
 LICENSE="BSD-BroadInstitute"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE=""
 
 DEPEND="sci-biology/hmmer
