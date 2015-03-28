@@ -44,7 +44,7 @@ RDEPEND="dev-libs/boost
 	metis? ( >=sci-libs/parmetis-4 )
 	mpi? ( virtual/mpi )
 	mumps? ( sci-libs/mumps[mpi] )
-	netcdf? ( || ( <sci-libs/netcdf-4.2[cxx] sci-libs/netcdf-cxx ) )
+	netcdf? ( sci-libs/netcdf-cxx:0 )
 	p4est? ( sci-libs/p4est[mpi] )
 	parameter_gui? ( dev-qt/qtgui )
 	petsc? ( sci-mathematics/petsc[mpi=] )
