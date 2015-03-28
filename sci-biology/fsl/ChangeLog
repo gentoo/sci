@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Mar 2015;  <chymera@gentoo.org> fsl-5.0.8.ebuild:
+  using new setup patch file for new ebuild
+
   28 Mar 2015;  <chymera@gentoo.org> +files/fsl-5.0.8-setup.patch:
   new pathc by François Bissey
 
