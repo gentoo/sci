@@ -2,49 +2,49 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  28 Mar 2015;  <chymera@gentoo.org> fsl-5.0.8.ebuild:
+  28 Mar 2015;  <h.chr@mail.ru> fsl-5.0.8.ebuild:
   using new setup patch file for new ebuild
 
-  28 Mar 2015;  <chymera@gentoo.org> +files/fsl-5.0.8-setup.patch:
+  28 Mar 2015;  <h.chr@mail.ru> +files/fsl-5.0.8-setup.patch:
   new pathc by François Bissey
 
-  25 Mar 2015;  <chymera@gentoo.org> fsl-5.0.4.ebuild, fsl-5.0.5.ebuild,
+  25 Mar 2015;  <h.chr@mail.ru> fsl-5.0.4.ebuild, fsl-5.0.5.ebuild,
   fsl-5.0.8.ebuild:
   added licences to all versions
 
-  25 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  25 Mar 2015;  <h.chr@mail.ru> fsl-5.0.6.ebuild:
   added license for included gdchart
 
-  25 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  25 Mar 2015;  <h.chr@mail.ru> fsl-5.0.6.ebuild:
   set the correct licences
 
-  11 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  11 Mar 2015;  <h.chr@mail.ru> fsl-5.0.6.ebuild:
   installing fslversion
 
-  11 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  11 Mar 2015;  <h.chr@mail.ru> fsl-5.0.6.ebuild:
   sed-ing before installing
 
-  10 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  10 Mar 2015;  <h.chr@mail.ru> fsl-5.0.6.ebuild:
   changed grep wrapper
 
-  10 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  10 Mar 2015;  <h.chr@mail.ru> fsl-5.0.6.ebuild:
   reformatted tcl sed calls
 
-  10 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  10 Mar 2015;  <h.chr@mail.ru> fsl-5.0.6.ebuild:
   fixed tcl location according to instructions by kiwifb
 
-  10 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  10 Mar 2015;  <h.chr@mail.ru> fsl-5.0.6.ebuild:
   installing fsl.sh
 
-  05 Mar 2015;  <chymera@gentoo.org> fsl-5.0.6.ebuild:
+  05 Mar 2015;  <h.chr@mail.ru> fsl-5.0.6.ebuild:
   removing faulty check
 
-  04 Mar 2015;  <chymera@gentoo.org> files/99fsl:
+  04 Mar 2015;  <h.chr@mail.ru> files/99fsl:
   added FSLPATH
 
 *fsl-5.0.8 (20 Feb 2015)
 
-  20 Feb 2015;  <chymera@gentoo.org> +fsl-5.0.8.ebuild:
+  20 Feb 2015;  <h.chr@mail.ru> +fsl-5.0.8.ebuild:
   bumped version
 
   18 Oct 2013; François Bissey <francois.bissey@canterbury.ac.nz>
