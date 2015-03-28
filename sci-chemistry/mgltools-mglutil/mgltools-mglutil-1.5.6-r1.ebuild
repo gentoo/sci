@@ -1,20 +1,17 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
-PYTHON_REQ_USE="tk"
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 eutils
 
-MY_PN="DejaVu"
+MY_PN="mglutil"
 MY_P="${MY_PN}-${PV/_rc3/}"
 
-PYTHON_MODNAME="${MY_PN}"
-
-DESCRIPTION="MGLTools Plugin -- DejaVu"
+DESCRIPTION="MGLTools Plugin -- mglutil"
 HOMEPAGE="http://mgltools.scripps.edu"
 SRC_URI="http://mgltools.scripps.edu/downloads/tars/releases/REL${PV}/mgltools_source_${PV}.tar.gz"
 
@@ -29,14 +26,18 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}"/${MY_P}
 
-DOCS=( DejaVu/RELNOTES )
+DOCS=( mglutil/RELNOTES )
 
 src_unpack() {
-	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
-	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
+	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
+	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
 }
 
 python_prepare_all() {
+	local PATCHES=(
+		"${FILESDIR}"/1.5.4-python.patch
+		"${FILESDIR}"/${P}-tcltk86.patch
+		)
 	ecvs_clean
 	find "${S}" -name LICENSE -type f -delete || die
 
