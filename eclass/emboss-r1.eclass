@@ -38,8 +38,7 @@
 # @ECLASS-VARIABLE: EBO_EXTRA_ECONF
 # @DEFAULT_UNSET
 # @DESCRIPTION:
-# Extra config options passed to econf, similar to EXTRA_ECONF
-# but can be set by the ebuild.
+# Extra config options passed to econf.
 
 case ${EAPI:-0} in
 	5) ;;
