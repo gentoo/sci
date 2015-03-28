@@ -6,6 +6,8 @@ EAPI=5
 
 EBO_DESCRIPTION="Protein domain alignment add-on package"
 
+PATCHES=( "${FILESDIR}"/${P}_fix-build-system.patch )
+AUTOTOOLS_AUTORECONF=1
 inherit emboss-r1
 
 KEYWORDS="~amd64 ~x86 ~x86-linux ~ppc-macos"

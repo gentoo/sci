@@ -38,16 +38,13 @@
 # @ECLASS-VARIABLE: EBO_EXTRA_ECONF
 # @DEFAULT_UNSET
 # @DESCRIPTION:
-# Extra config options passed to econf, similar to EXTRA_ECONF.
+# Extra config options passed to econf, similar to EXTRA_ECONF
+# but can be set by the ebuild.
 
 case ${EAPI:-0} in
 	5) ;;
 	*) die "this eclass doesn't support < EAPI 5" ;;
 esac
-
-if [[ -f "${FILESDIR}"/${P}_fix-build-system.patch ]]; then
-	AUTOTOOLS_AUTORECONF=1
-fi
 
 inherit autotools-utils eutils flag-o-matic
 
@@ -88,19 +85,14 @@ fi
 # @DESCRIPTION:
 # Does the following things
 #
-#  1. Patches with "${FILESDIR}"/${P}_fix-build-system.patch, if present,
-#     and eventually runs eautoreconf in autotools-utils
-#  2. Patches with "${FILESDIR}"/${PF}.patch, if present
-#  3. Applies ${PATCHES[@]} via autotools-utils.eclass
+#  1. Renames configure.in to configure.ac, if possible
+#  2. Applies ${PATCHES[@]} and runs autotools via autotools-utils.eclass
 #
 
 emboss-r1_src_prepare() {
-	if [[ -f "${FILESDIR}"/${P}_fix-build-system.patch ]]; then
+	if [[ -e configure.in ]]; then
 		mv configure.{in,ac} || die
-		epatch "${FILESDIR}"/${P}_fix-build-system.patch
 	fi
-
-	[[ -f "${FILESDIR}"/${PF}.patch ]] && epatch "${FILESDIR}"/${PF}.patch
 
 	autotools-utils_src_prepare
 }
@@ -118,7 +110,6 @@ emboss-r1_src_prepare() {
 #  --enable-large
 #  --without-java
 #  --enable-systemlibs
-#  --docdir="${EPREFIX}/usr/share/doc/${PF}"
 #  ${EBO_EXTRA_ECONF}
 
 emboss-r1_src_configure() {
@@ -131,7 +122,6 @@ emboss-r1_src_configure() {
 		--enable-large
 		--without-java
 		--enable-systemlibs
-		--docdir="${EPREFIX}/usr/share/doc/${PF}"
 		${EBO_EXTRA_ECONF}
 	)
 

@@ -4,6 +4,7 @@
 
 EAPI=5
 
+AUTOTOOLS_AUTORECONF=1
 inherit autotools-utils emboss-r1 eutils readme.gentoo
 
 DESCRIPTION="The European Molecular Biology Open Software Suite - A sequence analysis package"
@@ -27,6 +28,7 @@ S="${WORKDIR}"/EMBOSS-${PV}
 DOCS=( ChangeLog AUTHORS NEWS THANKS FAQ )
 
 PATCHES=(
+	"${FILESDIR}"/${P}_fix-build-system.patch
 	"${FILESDIR}"/${P}_FORTIFY_SOURCE-fix.patch
 	"${FILESDIR}"/${P}_plplot-declarations.patch
 	"${FILESDIR}"/${P}_qa-implicit-declarations.patch

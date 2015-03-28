@@ -6,6 +6,8 @@ EAPI=5
 
 EBO_DESCRIPTION="the Phylogeny Inference Package"
 
+PATCHES=( "${FILESDIR}"/${P}_fix-build-system.patch )
+AUTOTOOLS_AUTORECONF=1
 inherit emboss-r1
 
 LICENSE+=" freedist"

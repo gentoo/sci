@@ -6,6 +6,8 @@ EAPI=5
 
 EBO_DESCRIPTION="Vienna RNA package - RNA folding"
 
+PATCHES=( "${FILESDIR}"/${P}_fix-build-system.patch )
+AUTOTOOLS_AUTORECONF=1
 inherit emboss-r1
 
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
