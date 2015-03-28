@@ -83,6 +83,8 @@ src_prepare(){
 
 	sed -i "s:\'\${FSLDIR}\'/doc:${EPREFIX}/usr/share/fsl/doc:g" \
 		$(grep -rl "\'\${FSLDIR}\'/doc" src/*)
+
+	sed -i -e "s:\$FSLDIR/etc:/etc:g" `grep -rlI \$FSLDIR/etc *`
 }
 
 src_compile() {
@@ -98,6 +100,12 @@ src_compile() {
 }
 
 src_install() {
+	sed -i "s:\${FSLDIR}/tcl:/usr/libexec/fsl:g" \
+		$(grep -lI "\${FSLDIR}/tcl" bin/*) \
+		$(grep -l "\${FSLDIR}/tcl"  tcl/*)
+	sed -i "s:\$FSLDIR/tcl:/usr/libexec/fsl:g" \
+		$(grep -l "\$FSLDIR/tcl" tcl/*)
+
 	exeinto /usr/bin
 	doexe bin/*
 
@@ -105,9 +113,13 @@ src_install() {
 	doins -r doc data refdoc
 
 	insinto /usr/libexec/fsl
-	doins -r tcl
+	doins -r tcl/*
+
+	insinto /etc/fslconf
+	doins etc/fslconf/fsl.sh
 
 	insinto /etc
+	doins etc/fslversion
 	doins -r etc/default_flobs.flobs etc/flirtsch etc/js etc/luts
 	#if use matlab; then
 	#	doins etc/matlab

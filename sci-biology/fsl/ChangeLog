@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Mar 2015;  <chymera@gentoo.org> fsl-5.0.8.ebuild:
+  ported changes from 5.0.6 regarding FSLDIR
+
   28 Mar 2015;  <chymera@gentoo.org> files/fsl-5.0.4-headers.patch:
   hunk implemented by upstream
 
