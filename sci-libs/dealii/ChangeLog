@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*dealii-8.2.1-r1 (28 Mar 2015)
+
+  28 Mar 2015; Matthias Maier <tamiko@gentoo.org> +dealii-8.2.1-r1.ebuild,
+  -dealii-8.2.1.ebuild, dealii-8.1.0-r2.ebuild, dealii-8.2.0.ebuild,
+  dealii-9999.ebuild:
+  sci-libs/dealii: Ebuild maintenance, remove wrong avx2 use flag
+
   29 Jan 2015; Matthias Maier <tamiko@gentoo.org> dealii-8.1.0-r2.ebuild,
   dealii-8.2.1.ebuild, dealii-9999.ebuild, metadata.xml:
   Convert to CPU_FLAGS_X86
