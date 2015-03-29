@@ -32,7 +32,7 @@ S=${WORKDIR}/${PN}
 
 src_prepare(){
 	epatch "${FILESDIR}/${PN}"-5.0.8-setup.patch
-	epatch "${FILESDIR}/${PN}"-5.0.4-headers.patch
+	epatch "${FILESDIR}/${PN}"-5.0.8-headers.patch
 	epatch "${FILESDIR}/${PN}"-5.0.6-fsldir_redux.patch
 
 	sed -i \
