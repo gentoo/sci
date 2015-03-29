@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci-geosciences</herd>
+  <longdescription>libLAS is a C/C++ library for reading and writing the very common LAS LiDAR format.
+                   http://www.liblas.org/
+  </longdescription>
+  <use>
+    <flag name='gdal'>Support for some further map formats</flag>
+    <flag name='geotiff'>Install geotiff support. Allows using USGS DRG topo
+                         maps or other types of geotiff mapes/images</flag>    
+  </use>
+</pkgmetadata>

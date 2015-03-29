@@ -1,0 +1,11 @@
+# ChangeLog for sci-geosciences/laszip
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*laszip-2.2.0 (29 Mar 2015)
+
+  29 Mar 2015; Ted Tanberry <ted.tanberry@gmail.com> +laszip-2.2.0.ebuild,
+  +files/laszip-2.2.0_fix-build-system.patch, +metadata.xml:
+  Added sci-geosciences/laszip as new package. Dependency of
+  sci-geosciences/liblas.
+

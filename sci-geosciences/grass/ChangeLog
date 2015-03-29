@@ -2,8 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  28 Mar 2015; Ted Tanberry <ted.tanberry@gmail.com> +grass-7.0.0.ebuild:
-  Version bump
+*grass-7.0.0 (29 Mar 2015)
+
+  29 Mar 2015; Ted Tanberry <ted.tanberry@gmail.com> +grass-7.0.0.ebuild:
+  Bumped sci-geosciences/grass to 7.0.0; added USE=las,netcdf,openmp; updated
+  python handling to modern -r1 eclass.
 
   20 Mar 2015; Justin Lecher <jlec@gentoo.org> grass-6.4.2.ebuild:
   Fix tcl/tk slotting

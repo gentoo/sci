@@ -5,9 +5,8 @@
 EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
-WANT_AUTOCONF="2.1"
 
-inherit eutils gnome2 multilib python-r1 versionator wxwidgets autotools
+inherit eutils gnome2 multilib python-single-r1 versionator wxwidgets
 
 MY_PM=${PN}$(get_version_component_range 1-2 ${PV})
 MY_PM=${MY_PM/.}
@@ -19,7 +18,7 @@ SRC_URI="http://grass.osgeo.org/${MY_PM}/source/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="7"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
-IUSE="X cairo cxx ffmpeg fftw gmath jpeg motif mysql nls odbc opengl png postgres python readline sqlite tiff truetype wxwidgets"
+IUSE="X cairo cxx ffmpeg fftw gmath jpeg las motif mysql netcdf nls odbc opengl openmp png postgres python readline sqlite tiff truetype wxwidgets"
 
 TCL_DEPS="
 	>=dev-lang/tcl-8.5:0
@@ -27,6 +26,7 @@ TCL_DEPS="
 	"
 
 RDEPEND="
+	${PYTHON_DEPS}
 	>=app-admin/eselect-1.2
 	sci-libs/gdal
 	sci-libs/proj
@@ -41,7 +41,9 @@ RDEPEND="
 		virtual/lapack
 	)
 	jpeg? ( virtual/jpeg:0 )
+	las? ( sci-geosciences/liblas )
 	mysql? ( virtual/mysql )
+	netcdf? ( sci-libs/netcdf )
 	odbc? ( dev-db/unixODBC )
 	opengl? (
 		virtual/opengl
@@ -88,16 +90,6 @@ DEPEND="${RDEPEND}
 		x11-proto/xproto
 	)"
 
-#S="${WORKDIR}/${MY_P}"
-
-PATCHES=(
-	"${FILESDIR}"/${PN}-pkgconf.patch
-	"${FILESDIR}"/${PN}-6.4.1-libav-0.8.patch
-	"${FILESDIR}"/${PN}-6.4.2-ffmpeg-1.patch
-	"${FILESDIR}"/${PN}-6.4.2-configure.patch
-	"${FILESDIR}"/${PN}-6.4.2-libav-9.patch
-)
-
 REQUIRED_USE="
 	motif? ( X )
 	opengl? ( X )
@@ -128,17 +120,6 @@ pkg_setup() {
 	if use python; then
 		python_setup
 	fi
-}
-
-src_prepare() {
-	#use opengl || epatch "${FILESDIR}"/${PN}-6.4.0-html-nonviz.patch
-	#epatch ${PATCHES[@]}
-
-	echo $MY_PM
-	echo $MY_P
-
-	epatch_user
-	eautoconf
 }
 
 src_configure() {
@@ -199,11 +180,14 @@ src_configure() {
 		$(use_with gmath blas) \
 		$(use_with gmath lapack) \
 		$(use_with jpeg) \
+		$(use_with las liblas) \
 		$(use_with mysql) \
 		--with-mysql-includes=/usr/include/mysql \
 		--with-mysql-libs=/usr/$(get_libdir)/mysql \
+		$(use_with netcdf) \
 		$(use_with nls) \
 		$(use_with odbc) \
+		$(use_with openmp) \
 		$(use_with png) \
 		$(use_with postgres) \
 		$(use_with python) \
@@ -238,9 +222,6 @@ src_install() {
 
 	# manuals
 	dodir /usr/share/man/man1
-	#mv man/man1/* "${ED}"/usr/share/man/man1/ || die
-	#rm -rf man/ || die
-	#mv -vf "${ED}"/usr/share/man/man1/sql.1{,grass} || die #381599
 
 	# translations
 	if use nls; then
@@ -263,13 +244,6 @@ src_install() {
 
 	# mv remaining gisbase stuff to libdir
 	mv "${ED}"/usr/${MY_PM} "${ED}"/usr/$(get_libdir) || die
-
-	# set proper default window renderer
-	#if [[ ${WX_BUILD} == yes ]]; then
-	#	sed -i \
-	#		-e "1,\$s:^DEFAULT_GUI.*:DEFAULT_GUI=\"wxpython\":" \
-	#		"${ED}"/usr/$(get_libdir)/${MY_PM}/etc/Init.sh || die
-	#fi
 
 	# get proper folder for grass path in script
 	sed -i \

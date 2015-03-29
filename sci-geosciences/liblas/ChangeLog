@@ -1,0 +1,11 @@
+# ChangeLog for sci-geosciences/liblas
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*liblas-1.8.0 (29 Mar 2015)
+
+  29 Mar 2015; Ted Tanberry <ted.tanberry@gmail.com> +liblas-1.8.0.ebuild,
+  +files/liblas-1.8.0_remove-std-c++98.patch, +metadata.xml:
+  Added sci-geosciences/liblas as new package; dependency of
+  sci-geosciences/grass-7.0.0.
+

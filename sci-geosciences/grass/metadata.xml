@@ -7,5 +7,6 @@ See the GRASS Documentation Project for more info http://grass.itc.it/gdp/index.
 </longdescription>
   <use>
     <flag name="gmath">Enable gmath wrapper for BLAS/Lapack (<pkg>virtual/blas</pkg>, <pkg>virtual/lapack</pkg>)</flag>
+    <flag name="las">Enable liblas library for manipulating the LAS LiDAR format (<pkg>sci-geosciences/liblas</pkg>)</flag>
   </use>
 </pkgmetadata>
