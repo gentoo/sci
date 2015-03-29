@@ -31,10 +31,9 @@ fi
 LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="
-	arpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_sse2 c++11
-	+debug doc +examples hdf5 +lapack mesh_converter metis mpi muparser
-	opencascade netcdf p4est parameter_gui petsc +sparse static-libs +tbb
-	trilinos
+	arpack cpu_flags_x86_avx cpu_flags_x86_sse2 c++11 +debug doc +examples
+	hdf5 +lapack mesh_converter metis mpi muparser opencascade
+	netcdf p4est parameter_gui petsc +sparse static-libs +tbb trilinos
 "
 
 # TODO: add slepc use flag once slepc is packaged for gentoo-science
@@ -51,7 +50,7 @@ RDEPEND="dev-libs/boost
 	metis? ( >=sci-libs/parmetis-4 )
 	mpi? ( virtual/mpi )
 	muparser? ( dev-cpp/muParser )
-	netcdf? ( || ( <sci-libs/netcdf-4.2[cxx] sci-libs/netcdf-cxx ) )
+	netcdf? ( sci-libs/netcdf-cxx:0 )
 	opencascade? ( sci-libs/opencascade )
 	p4est? ( sci-libs/p4est[mpi] )
 	parameter_gui? ( dev-qt/qtgui )
@@ -82,7 +81,6 @@ src_configure() {
 		$(cmake-utils_use arpack DEAL_II_WITH_ARPACK)
 		$(cmake-utils_use c++11 DEAL_II_WITH_CXX11)
 		$(cmake-utils_use cpu_flags_x86_avx DEAL_II_HAVE_AVX)
-		$(cmake-utils_use cpu_flags_x86_avx2 DEAL_II_HAVE_AVX512)
 		$(cmake-utils_use cpu_flags_x86_sse2 DEAL_II_HAVE_SSE2)
 		$(cmake-utils_use doc DEAL_II_COMPONENT_DOCUMENTATION)
 		$(cmake-utils_use examples DEAL_II_COMPONENT_EXAMPLES)
