@@ -7,6 +7,7 @@ EAPI=4
 inherit autotools flag-o-matic
 
 DESCRIPTION="De novo assembly of whole-genome shotgun microreads"
+# see also http://www.broadinstitute.org/software/allpaths-lg/blog/?page_id=12
 HOMEPAGE="http://www.broadinstitute.org/science/programs/genome-biology/crd"
 SRC_URI="ftp://ftp.broadinstitute.org/pub/crd/ALLPATHS/Release-LG/latest_source_code/${P}.tar.gz"
 

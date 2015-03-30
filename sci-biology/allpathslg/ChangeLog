@@ -1,6 +1,10 @@
 # ChangeLog for sci-biology/allpathslg
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/allpathslg/ChangeLog,v 1.16 2013/11/13 02:34:46 patrick Exp $
+
+  30 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  allpathslg-52415.ebuild:
+  sci-biology/allpathslg: noted another home-like web page
 
   13 Nov 2013; Patrick Lauer <patrick@gentoo.org> allpathslg-42337.ebuild,
   allpathslg-47093.ebuild:
