@@ -2,6 +2,20 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  30 Mar 2015;  <chymera@gentoo.org> +files/fsl-5.0.8-fsldir_redux.patch,
+  -files/fsl-5.0.8-redux.patch, fsl-5.0.8.ebuild:
+  implemented 5.0.8 fsldir redux patch
+
+  30 Mar 2015;  <chymera@gentoo.org> +files/fsl-5.0.8-redux.patch:
+  5.0.8 redux patch by François Bissey
+
+  29 Mar 2015;  <chymera@gentoo.org> fsl-5.0.8.ebuild:
+  using the 5.0.8 headers patch
+
+  29 Mar 2015;  <chymera@gentoo.org> +files/fsl-5.0.8-headers.patch,
+  files/fsl-5.0.4-headers.patch:
+  reimplmented pathc fsl-5.0.4-headers
+
   28 Mar 2015;  <chymera@gentoo.org> fsl-5.0.8.ebuild:
   ported changes from 5.0.6 regarding FSLDIR
 
