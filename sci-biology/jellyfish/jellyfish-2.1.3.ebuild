@@ -21,7 +21,8 @@ RDEPEND="${DEPEND}"
 
 src_install(){
 	default
-	mkdir -p ${D}/usr/include/${PN} || die
-	mv ${D}/usr/include/${P}/${PN}/* ${D}/usr/include/${PN}/ || die
-	rm -rf ${D}/usr/include/${P}
+	sed -e 's#jellyfish-2.1.3#jellyfish#' -i "${D}"/usr/lib64/pkgconfig/jellyfish-2.0.pc || die
+	mkdir -p "${D}/usr/include/${PN}" || die
+	mv "${D}"/usr/include/"${P}"/"${PN}"/* "${D}/usr/include/${PN}/" || die
+	rm -rf "${D}/usr/include/${P}"
 }
