@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Order and orientate contigs, design primers for gap closing"
+DESCRIPTION="Order and orientate DNA contigs even via 6-frame protein alignments, design primers for gap closing"
 HOMEPAGE="http://abacas.sourceforge.net"
 SRC_URI="http://downloads.sourceforge.net/project/abacas/abacas.1.3.1.pl"
 
