@@ -1,8 +1,20 @@
 # ChangeLog for sci-libs/pydicom
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*pydicom-9999 (31 Mar 2015)
+
+  31 Mar 2015;  <chymera@gentoo.org> +pydicom-9999.ebuild:
+  new live ebuild
+
+  31 Mar 2015;  <chymera@gentoo.org> pydicom-0.9.8.ebuild:
+  removed python 3 support (only inofficial:
+  https://dcmstack.readthedocs.org/en/latest/Introduction.html#dependencies )
+  added python 2.6 support
+
+  31 Mar 2015;  <chymera@gentoo.org> pydicom-0.9.8.ebuild:
+  added python 3.3 compatibility
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> pydicom-0.9.8.ebuild,
   +metadata.xml:
   Add missing metadata.xml
-
