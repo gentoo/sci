@@ -3,6 +3,9 @@
 # $Header: $
 
   31 Mar 2015;  <chymera@gentoo.org> dcmstack-9999.ebuild:
+  removed unneeded bits, sorted eclasses
+
+  31 Mar 2015;  <chymera@gentoo.org> dcmstack-9999.ebuild:
   updated deps
 
 *dcmstack-9999 (31 Mar 2015)
