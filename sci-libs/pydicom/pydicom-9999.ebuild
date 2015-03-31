@@ -11,11 +11,11 @@ inherit distutils-r1 git-r3
 DESCRIPTION="A pure python package for parsing DICOM files"
 HOMEPAGE="https://code.google.com/p/pydicom/"
 SRC_URI=""
-EGIT_REPO_UIR="https://github.com/darcymason/pydicom"
+EGIT_REPO_URI="https://github.com/darcymason/pydicom"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-S="${WORKDIR}/source"
+S="${S}/source"
