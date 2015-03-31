@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,14 +13,14 @@ HOMEPAGE="http://z3.codeplex.com/"
 SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}.tar.xz"
 
 SLOT="0"
-LICENSE="MSR-LA"
+LICENSE="MIT"
 KEYWORDS="~amd64 ~x86"
 IUSE="gmp"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="${PYTHON_DEPS}
-	gmp? ( dev-libs/gmp )"
+	gmp? ( dev-libs/gmp:0 )"
 DEPEND="${RDEPEND}"
 
 pkg_setup() {

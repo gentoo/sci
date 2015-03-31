@@ -5,25 +5,17 @@
   <maintainer>
     <email>dongxuli2011@gmail.com</email>
     <name>Dongxu Li</name>
-    <description>ACL2 industrial strength theorem prover</description>
+    <description>Industrial strength theorem prover</description>
   </maintainer>
   <longdescription>
-ACL2 is both a programming language in which you can model computer systems and 
-a tool to help you prove properties of those models. ACL2 is part of the 
-Boyer-Moore family of provers, for which its authors have received the 2005 ACM 
+ACL2 is both a programming language in which you can model computer systems and
+a tool to help you prove properties of those models. ACL2 is part of the
+Boyer-Moore family of provers, for which its authors have received the 2005 ACM
 Software System Award.
-</longdescription>
+  </longdescription>
   <use>
     <flag name="books">
 	build community books, the canonical collection of open-source libraries
-</flag>
-  </use>
-  <use>
-    <flag name="html"> Install HTML documentation</flag>
-  </use>
-  <use>
-    <flag name="workshops"> 
-	build community books from ACL2 community workshops
-</flag>
+    </flag>
   </use>
 </pkgmetadata>
