@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*pydicom-9999 (31 Mar 2015)
+
+  31 Mar 2015;  <chymera@gentoo.org> +pydicom-9999.ebuild:
+  new live ebuild
+
   31 Mar 2015;  <chymera@gentoo.org> pydicom-0.9.8.ebuild:
   removed python 3 support (only inofficial:
   https://dcmstack.readthedocs.org/en/latest/Introduction.html#dependencies )
