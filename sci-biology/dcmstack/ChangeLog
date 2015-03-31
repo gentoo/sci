@@ -3,6 +3,9 @@
 # $Header: $
 
   31 Mar 2015;  <chymera@gentoo.org> dcmstack-9999.ebuild:
+  gentoo does not support python 2_6
+
+  31 Mar 2015;  <chymera@gentoo.org> dcmstack-9999.ebuild:
   corrected python compatibilities
 
   31 Mar 2015;  <chymera@gentoo.org> dcmstack-9999.ebuild:
