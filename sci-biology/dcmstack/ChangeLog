@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  31 Mar 2015;  <chymera@gentoo.org> dcmstack-9999.ebuild:
+  updated deps
+
 *dcmstack-9999 (31 Mar 2015)
 
   31 Mar 2015;  <chymera@gentoo.org> +dcmstack-9999.ebuild, +metadata.xml:

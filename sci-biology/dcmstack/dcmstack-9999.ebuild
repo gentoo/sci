@@ -22,7 +22,8 @@ KEYWORDS=""
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]"
 RDEPEND="${DEPEND}
-	sci-libs/nibabel[${PYTHON_USEDEP}]"
+	sci-libs/nibabel[${PYTHON_USEDEP}]
+	>=sci-libs/pydicom-0.9.7[${PYTHON_USEDEP}]"
 
 python_prepare_all() {
 	distutils-r1_python_prepare_all
