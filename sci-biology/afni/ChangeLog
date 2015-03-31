@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  31 Mar 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
+  removed commented lines from earlier ebuild versions
+
   25 Mar 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild:
   updated nonlive ebuild
 
