@@ -1,8 +1,13 @@
 # ChangeLog for sci-libs/nipype
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  04 Mar 2015;  <chymera@gentoo.org> metadata.xml, nipype-9999.ebuild:
+  Addef afni USE flag
+
+  20 Feb 2015;  <chymera@gentoo.org> metadata.xml:
+  added fsl and spm use flags
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> nipype-9999.ebuild,
   metadata.xml:
   Switch from git-2 to git-r3
-
