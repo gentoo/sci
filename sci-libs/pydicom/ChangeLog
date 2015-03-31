@@ -3,6 +3,11 @@
 # $Header: $
 
   31 Mar 2015;  <chymera@gentoo.org> pydicom-0.9.8.ebuild:
+  removed python 3 support (only inofficial:
+  https://dcmstack.readthedocs.org/en/latest/Introduction.html#dependencies )
+  added python 2.6 support
+
+  31 Mar 2015;  <chymera@gentoo.org> pydicom-0.9.8.ebuild:
   added python 3.3 compatibility
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> pydicom-0.9.8.ebuild,
