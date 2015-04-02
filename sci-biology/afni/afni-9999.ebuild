@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit pax-utils git-r3 toolchain-funcs
+inherit multilib pax-utils git-r3 toolchain-funcs
 
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"
@@ -56,8 +56,19 @@ src_compile() {
 src_install() {
 	emake INSTALLDIR="${D}/opt/${PN}" -j1 install install_plugins
 	emake LIBDIR="${D}/opt/${PN}" -j1 install_lib
+#	insinto /opt/${PN}
+#	doins -r "${S}/${BUILD}"/*
+
+#	exeinto /opt/${PN}
+#	PROG_LIST=$(grep -v '^$\|^\s*\#' "${S}"/prog_list.txt | while read LINE; do echo "${S}/${BUILD}/${LINE}"; done)
+
+#	echo ${PROG_LIST}
+#	nonfatal doexe "${PROG_LIST[@]}"
 
 	echo "LDPATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
 	echo "PATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
 	doenvd "${T}"/98${PN}
+
+#	dobin "${S}/${BUILD}/${PN}"
+#	pax-mark m "${D}/usr/bin/${PN}"
 }
