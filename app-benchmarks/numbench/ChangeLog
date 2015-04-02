@@ -1,6 +1,10 @@
 # ChangeLog for app-benchmarks/numbench
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  02 Apr 2015; Justin Lecher <jlec@gentoo.org> numbench-0.2.ebuild,
+  numbench-9999.ebuild:
+  app-benchmarks/numbench: Move to new CAT
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> numbench-9999.ebuild:
   Switch from git-2 to git-r3
