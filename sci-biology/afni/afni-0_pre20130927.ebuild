@@ -52,10 +52,9 @@ src_compile() {
 }
 
 src_install() {
-	emake INSTALLDIR="${D}/opt/${PN}" -j1 install install_plugins
+	emake INSTALLDIR="${D}/ur/bin" -j1 install install_plugins
 	emake LIBDIR="${D}/opt/${PN}" -j1 install_lib
 
 	echo "LDPATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
-	echo "PATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
 	doenvd "${T}"/98${PN}
 }
