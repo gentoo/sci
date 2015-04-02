@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Apr 2015; Justin Lecher <jlec@gentoo.org> amdapp-2.9.1.ebuild,
+  amdapp-2.9.ebuild, amdapp-3.0_beta.ebuild:
+  dev-util/amdapp: Move to new CAT
+
 *amdapp-3.0_beta (23 Mar 2015)
 
   23 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>

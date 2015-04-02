@@ -25,7 +25,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="examples"
 
 RDEPEND="
-	app-admin/eselect-opengl
+	app-eselect/eselect-opengl
 	!<dev-util/amdstream-2.6
 	sys-devel/llvm
 	sys-devel/gcc:*
@@ -33,7 +33,7 @@ RDEPEND="
 	media-libs/freeglut
 	virtual/opencl
 	examples? ( media-libs/glew )
-	app-admin/eselect-opencl"
+	app-eselect/eselect-opencl"
 DEPEND="
 	${RDEPEND}
 	dev-lang/perl
