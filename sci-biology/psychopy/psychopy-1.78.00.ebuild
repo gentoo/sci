@@ -32,7 +32,7 @@ RDEPEND="
 	dev-python/pygame[${PYTHON_USEDEP}]
 	"
 
-DEPEND="app-admin/eselect
+DEPEND="
 	app-arch/unzip
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	test? ( ${RDEPEND} )
