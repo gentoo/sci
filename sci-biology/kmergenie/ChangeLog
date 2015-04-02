@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*kmergenie-1.6971 (30 Mar 2015)
+
+  30 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +kmergenie-1.6971.ebuild, -kmergenie-1.6950.ebuild:
+  sci-biology/kmergenie: version bump
+
   18 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   kmergenie-1.6950.ebuild:
   install the real binary, add dependency of external python module; the DEPEND

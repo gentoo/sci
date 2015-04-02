@@ -1,0 +1,7 @@
+# ChangeLog for sci-biology/bambus
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  31 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> bambus-2.33.ebuild:
+  sci-biology/bambus: fix installation process and use current perl-module files
+  from amos package instead
