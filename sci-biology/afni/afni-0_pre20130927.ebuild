@@ -48,12 +48,12 @@ src_prepare() {
 }
 
 src_compile() {
-	emake INSTALLDIR="${D}/opt/${PN}" -j1 all plugins suma_exec
+	emake INSTALLDIR="${ED}/opt/${PN}" -j1 all plugins suma_exec
 }
 
 src_install() {
-	emake INSTALLDIR="${D}/ur/bin" -j1 install install_plugins
-	emake LIBDIR="${D}/opt/${PN}" -j1 install_lib
+	emake INSTALLDIR="${ED}/ur/bin" -j1 install install_plugins
+	emake LIBDIR="${ED}/opt/${PN}" -j1 install_lib
 
 	echo "LDPATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
 	doenvd "${T}"/98${PN}
