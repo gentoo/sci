@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/exonerate/exonerate-2.2.0-r1.ebuild,v 1.5 2013/01/25 16:24:50 jlec Exp $
 
-EAPI=4
+EAPI=5
 
 AUTOTOOLS_AUTORECONF=true
 
@@ -10,11 +10,12 @@ inherit autotools-utils toolchain-funcs git-r3
 
 DESCRIPTION="exonerate-2.2.0 with patches to add GFF3 formatted output"
 HOMEPAGE="https://github.com/hotdogee/exonerate-gff3"
+SRC_URI=""
 EGIT_REPO_URI="https://github.com/hotdogee/exonerate-gff3.git"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE="utils test threads"
 
 REQUIRED_USE="test? ( utils )"
@@ -34,6 +35,7 @@ src_prepare() {
 	sed \
 		-e 's: -O3 -finline-functions::g' \
 		-i configure.in || die
+	mc configure.in configure.ac
 	autotools-utils_src_prepare
 }
 

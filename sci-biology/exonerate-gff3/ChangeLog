@@ -2,6 +2,13 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*exonerate-gff3-9999 (02 Apr 2015)
+
+  02 Apr 2015; Justin Lecher <jlec@gentoo.org> +exonerate-gff3-9999.ebuild,
+  +files/exonerate-gff3-9999-asneeded.patch, -exonerate-gff3-2.2.0-r1.ebuild,
+  -files/exonerate-gff3-2.2.0-asneeded.patch, metadata.xml:
+  sci-biology/exonerate-gff3: Move live ebuild to 9999
+
 *exonerate-gff3-2.2.0-r1 (30 Mar 2015)
 
   30 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
@@ -9,4 +16,3 @@
   +metadata.xml:
   sci-biology/exonerate-gff3: an improved version of exonerate-2.2.0 with GFF3
   format output support
-
