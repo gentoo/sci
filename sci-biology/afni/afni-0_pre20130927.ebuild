@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit pax-utils toolchain-funcs
+inherit multilib pax-utils toolchain-funcs
 
 DESCRIPTION="An open-source environment for processing and displaying functional MRI data"
 HOMEPAGE="http://afni.nimh.nih.gov/"
@@ -53,8 +53,5 @@ src_compile() {
 
 src_install() {
 	emake INSTALLDIR="${ED}/ur/bin" -j1 install install_plugins
-	emake LIBDIR="${ED}/opt/${PN}" -j1 install_lib
-
-	echo "LDPATH=/opt/afni" >> "${T}"/98${PN} || die "Cannot write environment variable."
-	doenvd "${T}"/98${PN}
+	emake LIBDIR="${ED}/usr/lib$(get_libdir)" -j1 install_lib
 }
