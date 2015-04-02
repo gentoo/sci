@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Apr 2015; Marius Brehler <marbre@linux.sungazer.de> openblas-9999.ebuild:
+  Fix Bug 528974
+
 *openblas-0.2.14 (27 Mar 2015)
 
   27 Mar 2015; Denis Dupeyron <calchan@gentoo.org> +openblas-0.2.14.ebuild:
