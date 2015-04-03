@@ -2,6 +2,22 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
+  using $(getlib_dir) correctly
+
+  02 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
+  installing in /usr/lib
+
+  02 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
+  using ED instead of D (prefix support)
+
+  02 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
+  installing afni binaries under /usr/bin
+
   31 Mar 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   removed commented lines from earlier ebuild versions
