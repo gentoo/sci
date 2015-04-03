@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
 inherit eutils toolchain-funcs versionator
 
@@ -40,10 +40,10 @@ src_configure() {
 
 src_test () {
 	if use debug; then
-		emake check || die
+		emake check
 	fi
 }
 
 src_install () {
-	emake DESTDIR="${D}" install || die
+	emake DESTDIR="${D}" install
 }
