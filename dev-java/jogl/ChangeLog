@@ -1,6 +1,13 @@
 # ChangeLog for dev-java/jogl
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*jogl-2.2.4 (03 Apr 2015)
+
+  03 Apr 2015; Guillaume Horel <guillaume.horel@gmail.com>
+  +files/disable-applet.diff, +files/jogl-2.2.4-notests.patch,
+  +jogl-2.2.4.ebuild:
+  dev-java/jogl: version bump
 
   03 Nov 2014; Justin Lecher <jlec@gentoo.org> jogl-2.0_rc8-r1.ebuild,
   -jogl-2.1.2.ebuild, jogl-2.1.4.ebuild:
