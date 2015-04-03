@@ -47,8 +47,6 @@ src_prepare() {
 	sed -e "s~ifeq ($(CC),gcc)~ifeq (1,1)~"\
 		-i SUMA/SUMA_Makefile || die "Could not edit SUMA/SUMA_Makefile"
 		# upstream checks if $CC is EXACTLY gcc, else sets variables for Mac
-        sed -i "s|install_lib: \$(LIBDIR)|install_lib:|" \
-                Makefile.INCLUDE || die "Could not edit Makefile.INCLUDE"
 }
 
 src_compile() {
@@ -57,5 +55,5 @@ src_compile() {
 
 src_install() {
 	emake INSTALLDIR="${ED}/usr/bin" -j1 install install_plugins
-	emake LIBDIR="${ED}/usr/$(get_libdir)" -j1 install_lib
+	emake INSTALLDIR="${ED}/usr/$(get_libdir)" -j1 install_lib
 }
