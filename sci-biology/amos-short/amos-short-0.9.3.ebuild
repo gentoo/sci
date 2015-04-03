@@ -1,20 +1,18 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI=5
 
 inherit eutils
 
 DESCRIPTION="A Modular, Open-Source whole genome assembler with defaults for short reads"
 HOMEPAGE="http://amos.sourceforge.net/"
-SRC_URI="http://sourceforge.net/projects/amos/files/short_read_assembly/0.9.3/AMOS-short.tgz"
-#SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
+SRC_URI="http://sourceforge.net/projects/amos/files/short_read_assembly/${PV}/AMOS-short.tgz"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE=""
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 DEPEND=""
 RDEPEND="${DEPEND}"
@@ -26,9 +24,9 @@ src_prepare() {
 }
 
 src_compile() {
-	emake -j1 || die "emake failed"
+	emake -j1
 }
 
 src_install() {
-	emake DESTDIR="${D}" install || die "emake install failed"
+	emake DESTDIR="${D}" install
 }
