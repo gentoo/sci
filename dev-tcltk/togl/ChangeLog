@@ -1,6 +1,9 @@
 # ChangeLog for dev-tcltk/togl
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  03 Apr 2015; Marius Brehler <marbre@linux.sungazer.de> togl-1.7-r1.ebuild:
+  Bump to EAPI=5; Cleanup
 
   01 Oct 2009; Oliver Borm (boroli) <oli.borm@web.de> ChangeLog:
   Fixed install paths for togl-1.7; removed 2.0 as this is now in portage
@@ -22,4 +25,3 @@
   20 Mar 2009; Justin Lecher (jlec) <jlec@j-schmitz.net> +metadata.xml,
   +togl-2.0.ebuild:
   Initial checkin
-
