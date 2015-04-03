@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Apr 2015; Guillaume Horel <guillaume.horel@gmail.com>
+  -files/disable-applet.diff, -files/jogl-2.2.4-notests.patch,
+  jogl-2.2.4.ebuild:
+  dev-java/jogl: rework ebuild starting from 2.1.4
+
 *jogl-2.2.4 (03 Apr 2015)
 
   03 Apr 2015; Guillaume Horel <guillaume.horel@gmail.com>

@@ -2,103 +2,69 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-###############################################################################
-# WARNING: don't add to main tree without fixing QA issues first!
-###############################################################################
-
 EAPI=5
 
-RESTRICT="test"
-
-JAVA_PKG_IUSE="doc source test"
+JAVA_PKG_IUSE="doc source"
+WANT_ANT_TASKS="ant-antlr ant-contrib dev-java/cpptasks:0"
 
 inherit java-pkg-2 java-ant-2
 
-MY_PV=v${PV}
-MY_P=${PN}-${MY_PV}
-
 DESCRIPTION="Java(TM) Binding fot the OpenGL(TM) API"
 HOMEPAGE="http://jogamp.org/jogl/www/"
-SRC_URI="http://jogamp.org/deployment/${MY_PV}/archive/Sources/${MY_P}.tar.7z"
+SRC_URI="https://github.com/sgothel/jogl/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="2.2"
 KEYWORDS="~amd64 ~x86"
 IUSE="cg"
 
-COMMON_DEP="
-	dev-java/ant-core:0
-	dev-java/ant-junit:0
-	dev-java/antlr:0
-	dev-java/cpptasks:0
+CDEPEND="
 	=dev-java/gluegen-${PV}:${SLOT}
-	dev-java/junit:4
-	dev-java/swt:3.7
+	dev-java/antlr:0
+	dev-java/ant-core:0
 	x11-libs/libX11
 	x11-libs/libXxf86vm
+	dev-java/swt:3.7
 	virtual/opengl
 	cg? ( media-gfx/nvidia-cg-toolkit )"
-RDEPEND="${COMMON_DEP}
+
+RDEPEND="${CDEPEND}
 	>=virtual/jre-1.5"
-DEPEND="${COMMON_DEP}
-	>=virtual/jdk-1.5
-	app-arch/p7zip
-	dev-java/ant-antlr:0
-	dev-java/ant-contrib:0
-	dev-java/ant-nodeps:0
-	dev-java/cpptasks:0"
+DEPEND="${CDEPEND}
+	>=virtual/jdk-1.5"
 
-S=${WORKDIR}/${MY_P}
+# upstream has a crude way to call the junit tests, which cause a lot of trouble to pass
+# our test classpath...
+RESTRICT="test"
 
-src_unpack() {
-	default
-	unpack ./${MY_P}.tar
-}
+JAVA_PKG_BSFIX_NAME+=" build-jogl.xml build-nativewindow.xml build-newt.xml"
+JAVA_ANT_REWRITE_CLASSPATH="yes"
+EANT_BUILD_XML="make/build.xml"
+EANT_BUILD_TARGET="init build.nativewindow build.jogl build.newt build.oculusvr one.dir tag.build"
+EANT_DOC_TARGET=""
+EANT_GENTOO_CLASSPATH="gluegen-${SLOT},antlr,ant-core,swt-3.7"
+EANT_GENTOO_CLASSPATH_EXTRA="${S}/build/${PN}/*.jar:${S}/build/nativewindow/*.jar"
+EANT_NEEDS_TOOLS="yes"
 
 java_prepare() {
-	find -name '*.jar' -exec rm -v {} + || die
+	#we keep make/lib/plugin3/puglin3-public.jar
+	find -name 'make/lib/swt/*.jar' -delete -print || die
 
 	# Empty filesets are never out of date!
-	sed -i -e 's/<outofdate>/<outofdate force="true">/' make/build*xml || die
-	epatch "${FILESDIR}/disable-applet.diff" \
-		"${FILESDIR}/${P}-notests.patch"
-}
+	sed -i -e 's/<outofdate>/<outofdate force="true">/'  make/build*xml || die
 
-JAVA_PKG_BSFIX_NAME+=" build-jogl.xml build-nativewindow.xml build-newt.xml build-test.xml"
-JAVA_ANT_REWRITE_CLASSPATH="yes"
-
-EANT_BUILD_XML="make/build.xml"
-EANT_BUILD_TARGET="all"
-EANT_DOC_TARGET="" # FIXME there are a couple javadoc targets, pick one
-EANT_GENTOO_CLASSPATH="ant-core,antlr,swt-3.7,ant-junit"
-EANT_NEEDS_TOOLS="yes"
-EANT_ANT_TASKS="ant-antlr ant-contrib ant-junit ant-nodeps cpptasks"
-
-src_compile() {
 	EANT_EXTRA_ARGS+=" -Dcommon.gluegen.build.done=true"
 	EANT_EXTRA_ARGS+=" -Dgluegen.root=/usr/share/gluegen-${SLOT}/"
 	EANT_EXTRA_ARGS+=" -Dgluegen.jar=$(java-pkg_getjar gluegen-${SLOT} gluegen.jar)"
 	EANT_EXTRA_ARGS+=" -Dgluegen-rt.jar=$(java-pkg_getjar gluegen-${SLOT} gluegen-rt.jar)"
 
-	# FIXME don't build tests just yet
-	use test & EANT_EXTRA_ARGS+=" -Djunit.jar=$(java-pkg_getjar --build-only junit-4 junit.jar)"
-
 	use cg && EANT_EXTRA_ARGS+=" -Djogl.cg=1 -Dx11.cg.lib=/usr/lib"
-
-	java-pkg-2_src_compile
 }
 
-EANT_TEST_TARGET="junit.run"
-# FIXME src_test
-
 src_install() {
-	# There are many more
 	java-pkg_dojar build/jar/*.jar
 	java-pkg_doso build/lib/*.so
 
-	if use doc; then
-		#java-pkg_dojavadoc javadoc_public
-		dodoc -r doc
-	fi
+	use doc && dodoc -r doc
 	use source && java-pkg_dosrc src/jogl/classes/*
 }
