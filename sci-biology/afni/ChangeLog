@@ -4,6 +4,10 @@
 
   03 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
+  hackin INSTALLDIR to substitute for LIBDIR
+
+  03 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
   setting LIBDIR and compiling without target directory
 
   03 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild:
