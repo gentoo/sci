@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Apr 2015; Guillaume Horel <guillaume.horel@gmail.com>
+  +files/2.2.4-dont-copy-jars.patch, +files/2.2.4-dont-strip.patch,
+  +files/2.2.4-dont-test-archive.patch, gluegen-2.2.4.ebuild:
+  dev-java/gluegen: rework ebuild starting from 2.1.4
+
 *gluegen-2.2.4 (03 Apr 2015)
 
   03 Apr 2015; Guillaume Horel <guillaume.horel@gmail.com>
