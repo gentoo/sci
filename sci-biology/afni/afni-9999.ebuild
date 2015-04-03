@@ -47,10 +47,12 @@ src_prepare() {
 	sed -e "s~ifeq ($(CC),gcc)~ifeq (1,1)~"\
 		-i SUMA/SUMA_Makefile || die "Could not edit SUMA/SUMA_Makefile"
 		# upstream checks if $CC is EXACTLY gcc, else sets variables for Mac
+        sed -i "s|install_lib: \$(LIBDIR)|install_lib:|" \
+                Makefile.INCLUDE || die "Could not edit Makefile.INCLUDE"
 }
 
 src_compile() {
-	emake INSTALLDIR="${ED}/opt/${PN}" -j1 all plugins suma_exec
+	emake -j1 all plugins suma_exec
 }
 
 src_install() {
