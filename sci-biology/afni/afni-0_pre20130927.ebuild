@@ -52,6 +52,6 @@ src_compile() {
 }
 
 src_install() {
-	emake INSTALLDIR="${ED}/ur/bin" -j1 install install_plugins
+	emake INSTALLDIR="${ED}/usr/bin" -j1 install install_plugins
 	emake LIBDIR="${ED}/usr/$(get_libdir)" -j1 install_lib
 }
