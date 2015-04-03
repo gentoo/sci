@@ -1,0 +1,12 @@
+diff -urN jogl-v2.2.4.orig/make/build.xml jogl-v2.2.4/make/build.xml
+--- jogl-v2.2.4.orig/make/build.xml	2015-04-03 10:09:28.730409643 -0400
++++ jogl-v2.2.4/make/build.xml	2015-04-03 10:10:57.040418430 -0400
+@@ -8,7 +8,7 @@
+        - Main build target.
+       -->
+ 
+-    <target name="all" description="Build nativewindow, jogl and newt projects, incl. all junit tests " depends="init,build.nativewindow,build.jogl,build.newt,build.oculusvr,one.dir,tag.build,test.compile,developer-zip-archive" />
++    <target name="all" description="Build nativewindow, jogl and newt projects" depends="init,build.nativewindow,build.jogl,build.newt,build.oculusvr,one.dir,tag.build" />
+ 
+     <target name="all.debug" description="Debug build nativewindow, jogl and newt projects, incl. all junit tests " depends="init.debug,build.nativewindow,build.jogl,build.newt,build.oculusvr,one.dir,tag.build,test.compile,developer-zip-archive" />
+ 

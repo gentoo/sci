@@ -1,0 +1,22 @@
+Index: libjogl2-java-2.1.4/make/build-newt.xml
+===================================================================
+--- libjogl2-java-2.1.4.orig/make/build-newt.xml	2014-02-27 23:21:42.000000000 +0100
++++ libjogl2-java-2.1.4/make/build-newt.xml	2014-02-27 23:32:11.638399263 +0100
+@@ -100,7 +100,7 @@
+         <!-- partitioning -->
+ 
+         <property name="java.part.core"
+-                  value="com/jogamp/newt/* com/jogamp/newt/event/* com/jogamp/newt/util/* com/jogamp/newt/util/applet/* jogamp/newt/* jogamp/newt/event/* jogamp/newt/driver/*"/>
++                  value="com/jogamp/newt/* com/jogamp/newt/event/* com/jogamp/newt/util/* jogamp/newt/* jogamp/newt/event/* jogamp/newt/driver/*"/>
+ 
+         <property name="java.part.opengl"
+                   value="com/jogamp/newt/opengl/** jogamp/newt/driver/opengl/**"/>
+@@ -236,7 +236,7 @@
+       -->
+     <target name="java.compile.javase">
+         <javac destdir="${classes}"
+-               excludes="${java.excludes.all} ${java.part.driver.android}"
++               excludes="${java.excludes.all} ${java.part.driver.android} com/jogamp/newt/util/applet/*"
+                fork="yes"
+                includeAntRuntime="false"
+                memoryMaximumSize="${javac.memorymax}"
