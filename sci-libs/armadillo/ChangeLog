@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  03 Apr 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -armadillo-4.600.2.ebuild, -armadillo-4.600.4.ebuild,
+  -armadillo-4.650.2.ebuild:
+  Moved to tree; Drop old
+
 *armadillo-4.650.4 (24 Mar 2015)
 
   24 Mar 2015; Marius Brehler <marbre@linux.sungazer.de>
