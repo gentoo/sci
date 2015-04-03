@@ -30,7 +30,11 @@ DEPEND="${RDEPEND}
 	x11-libs/libXpm
 	media-libs/netpbm
 	media-video/mpeg-tools
-	x11-libs/libGLw"
+	x11-libs/libGLw
+	media-libs/qhull
+        sys-devel/llvm
+        media-video/mpeg-tools
+        media-libs/libjpeg-turbo"
 
 S=${WORKDIR}/${P}/src
 BUILD="linux_fedora_19_64"
