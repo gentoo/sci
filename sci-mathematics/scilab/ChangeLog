@@ -2,6 +2,16 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*scilab-5.5.2 (03 Apr 2015)
+
+  03 Apr 2015; Guillaume Horel <guillaume.horel@gmail.com>
+  +files/scilab-5.5.2-accessviolation.patch,
+  +files/scilab-5.5.2-fix-random-runtime-failure.patch,
+  +files/scilab-5.5.2-followlinks.patch, +files/scilab-5.5.2-gluegen.patch,
+  +files/scilab-5.5.2-java-heap.patch, +files/scilab-5.5.2-missinglib.patch,
+  +files/scilab-5.5.2-nogui.patch, +scilab-5.5.2.ebuild:
+  sci-mathematics/scilab: version bump
+
   01 Feb 2015; Guillaume Horel <guillaume.horel@gmail.com> scilab-5.5.1.ebuild:
   sci-mathematics/scilab: more precise dependencies
 
