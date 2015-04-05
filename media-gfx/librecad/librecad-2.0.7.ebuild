@@ -36,7 +36,9 @@ src_install() {
 	use tools && dobin unix/ttf2lff
 	insinto /usr/share/${PN}
 	doins -r unix/resources/*
-	use doc && dohtml -r support/doc/*
+	use doc && dohtml -r librecad/support/doc/*
+	insinto /usr/share/appdata
+	doins unix/appdata/librecad.appdata.xml
 	doicon librecad/res/main/"${PN}".png
 	make_desktop_entry ${PN} LibreCAD ${PN} Graphics
 }
