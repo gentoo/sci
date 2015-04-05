@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
+  solving binary conflicts
+
+  03 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
+  added deps
+
   03 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
   afni-9999.ebuild:
   hackin INSTALLDIR to substitute for LIBDIR
