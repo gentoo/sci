@@ -36,6 +36,7 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/afni_src
 BUILD="linux_fedora_19_64"
+BIN_CONFLICTS=(qdelaunay whirlgif djpeg cjpeg qhull rbox count mpeg_encode)
 
 src_prepare() {
 	cp other_builds/Makefile.${BUILD} Makefile || die "Could not copy Makefile"
@@ -58,4 +59,7 @@ src_compile() {
 src_install() {
 	emake INSTALLDIR="${ED}/usr/bin" -j1 install install_plugins
 	emake INSTALLDIR="${ED}/usr/$(get_libdir)" -j1 install_lib
+	for CONFLICT in ${BIN_CONFLICTS[@]}; do
+		rm "${ED}/usr/bin/${CONFLICT}"
+	done
 }
