@@ -15,7 +15,7 @@ EGIT_REPO_URI="https://github.com/darcymason/pydicom"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 S="${S}/source"

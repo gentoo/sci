@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Apr 2015;  <chymera@gentoo.org> pydicom-9999.ebuild:
+  no keywords in live ebuilds
+
   31 Mar 2015;  <chymera@gentoo.org> pydicom-0.9.8.ebuild, pydicom-9999.ebuild:
   gentoo does not support python 2.6 and 3.2
 
