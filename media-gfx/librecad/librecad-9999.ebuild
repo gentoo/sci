@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -37,6 +37,8 @@ src_install() {
 	insinto /usr/share/${PN}
 	doins -r unix/resources/*
 	use doc && dohtml -r librecad/support/doc/*
+	insinto /usr/share/appdata
+	doins unix/appdata/librecad.appdata.xml
 	doicon librecad/res/main/${PN}.png
 	make_desktop_entry ${PN} LibreCAD ${PN} Graphics
 }

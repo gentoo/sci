@@ -1,0 +1,23 @@
+# ChangeLog for sci-biology/dcmstack
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  31 Mar 2015;  <chymera@gentoo.org> dcmstack-9999.ebuild:
+  gentoo does not support python 2_6
+
+  31 Mar 2015;  <chymera@gentoo.org> dcmstack-9999.ebuild:
+  corrected python compatibilities
+
+  31 Mar 2015;  <chymera@gentoo.org> dcmstack-9999.ebuild:
+  added python 3.3 compatibility
+
+  31 Mar 2015;  <chymera@gentoo.org> dcmstack-9999.ebuild:
+  removed unneeded bits, sorted eclasses
+
+  31 Mar 2015;  <chymera@gentoo.org> dcmstack-9999.ebuild:
+  updated deps
+
+*dcmstack-9999 (31 Mar 2015)
+
+  31 Mar 2015;  <chymera@gentoo.org> +dcmstack-9999.ebuild, +metadata.xml:
+  new package, initial draft
