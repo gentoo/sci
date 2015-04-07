@@ -6,7 +6,7 @@
 
   09 Mar 2015; Justin Lecher <jlec@gentoo.org> +pythontex-0.14.ebuild,
   -pythontex-0.12.ebuild, pythontex-9999.ebuild:
-  dev-tex/pythontex: Version BUmp
+  dev-tex/pythontex: Version Bump
 
   06 Jan 2014; Justin Lecher <jlec@gentoo.org> pythontex-0.12.ebuild,
   pythontex-9999.ebuild, +metadata.xml:
