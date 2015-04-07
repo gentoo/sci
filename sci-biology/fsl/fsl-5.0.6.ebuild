@@ -8,7 +8,7 @@ inherit eutils toolchain-funcs prefix
 
 DESCRIPTION="Analysis of functional, structural, and diffusion MRI brain imaging data"
 HOMEPAGE="http://www.fmrib.ox.ac.uk/fsl"
-SRC_URI="http://fsl.fmrib.ox.ac.uk/fsldownloads/${P}-sources.tar.gz"
+SRC_URI="http://dev.gentoo.org/~jlec/distfiles/${P}-sources.tar.gz"
 
 LICENSE="FSL BSD-2 newmat"
 SLOT="0"
