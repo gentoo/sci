@@ -27,7 +27,6 @@ DEPEND="${RDEPEND}
 	dev-libs/expat
 	x11-libs/libXpm
 	media-libs/netpbm
-	media-video/mpeg-tools
 	x11-libs/libGLw
 	media-libs/qhull
 	sys-devel/llvm
