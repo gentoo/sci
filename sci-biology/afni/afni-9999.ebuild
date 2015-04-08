@@ -17,20 +17,23 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-RDEPEND="x11-libs/motif[-static-libs]"
+RDEPEND="x11-libs/motif[-static-libs]
+	sci-libs/gsl
+	dev-libs/expat
+	x11-libs/libXpm
+	media-libs/netpbm
+	x11-libs/libGLw
+	media-libs/qhull
+	sys-devel/llvm
+	media-video/mpeg-tools
+	media-libs/libjpeg-turbo"
 
 # x11-libs/motif[static-libs] breaks the build.
 # See upstream discussion
 # http://afni.nimh.nih.gov/afni/community/board/read.php?1,85348,85348#msg-85348
 
 DEPEND="${RDEPEND}
-	app-shells/tcsh
-	sci-libs/gsl
-	dev-libs/expat
-	x11-libs/libXpm
-	media-libs/netpbm
-	media-video/mpeg-tools
-	x11-libs/libGLw"
+	app-shells/tcsh"
 
 S=${WORKDIR}/${P}/src
 BUILD="linux_fedora_19_64"

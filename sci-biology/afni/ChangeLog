@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  08 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild,
+  afni-9999.ebuild:
+  reorganized dependencies, added unadded deps to 9999
+
   07 Apr 2015;  <chymera@gentoo.org> afni-0_pre20130927.ebuild:
   removed double dependency entry
 
