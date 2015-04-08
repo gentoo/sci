@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/augustus
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/augustus/ChangeLog,v 1.19 2013/03/11 14:37:00 jlec Exp $
+
+  08 Apr 2015; Justin Lecher <jlec@gentoo.org> augustus-3.0.3.ebuild:
+  sci-biology/augustus: Drop suspect DEPEND
 
   11 Mar 2013; Justin Lecher <jlec@gentoo.org> metadata.xml:
   Drop Andrey as maintainer so that bugs get assigned to sci-biology directly

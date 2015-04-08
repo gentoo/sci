@@ -21,9 +21,9 @@ IUSE="examples"
 DEPEND="
 	sci-libs/gsl
 	dev-libs/boost
-	sys-libs/zlib
+	sys-libs/zlib"
+RDEPEND="${DEPEND}
 	sys-devel/flex"
-RDEPEND="${DEPEND}"
 
 src_prepare() {
 	# TODO: do we need anything from the 2.5.5 patch?
