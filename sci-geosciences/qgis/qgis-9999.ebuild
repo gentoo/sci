@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="sqlite"
 
 inherit cmake-utils gnome2-utils multilib python-single-r1 subversion eutils

@@ -7,7 +7,7 @@ EAPI=5
 AUTOTOOLS_AUTORECONF=true
 FORTRAN_NEEDED=fortran
 FORTRAN_STANDARD=2003
-PYTHON_COMPAT=( python{2_6,2_7} ) # python 3 supported by github master
+PYTHON_COMPAT=( python2_7 ) # python 3 supported by github master
 
 inherit eutils autotools-utils python-single-r1 java-pkg-opt-2 fortran-2
 

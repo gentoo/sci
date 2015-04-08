@@ -14,7 +14,7 @@ else
 	S="${WORKDIR}/${PN}"
 fi
 
-PYTHON_COMPAT=( python2_{6,7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit elisp-common eutils fdo-mime fortran-2 multilib python-single-r1 \
 	toolchain-funcs user versionator
