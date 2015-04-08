@@ -1,6 +1,6 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-doc/root-docs/root-docs-5.34.18-r1.ebuild,v 1.2 2014/03/28 18:48:01 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-doc/root-docs/root-docs-5.34.28.ebuild,v 1.1 2015/03/25 21:39:33 bircoph Exp $
 
 EAPI=5
 
@@ -13,11 +13,10 @@ if [[ ${PV} == "9999" ]] ; then
 	inherit git-r3
 	EVCS_OFFLINE=yes # we need exactly the same checkout as root itself
 	EGIT_REPO_URI="http://root.cern.ch/git/root.git"
-	KEYWORDS=""
 else
 	SRC_URI="ftp://root.cern.ch/${ROOT_PN}/${ROOT_PN}_v${PV}.source.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-	S="${WORKDIR}/${ROOT_PN}"
+	S="${WORKDIR}/${ROOT_PN}-${PV}"
 fi
 
 inherit eutils multilib virtualx
@@ -40,7 +39,7 @@ IUSE="api +math +metric http"
 VIRTUALX_REQUIRED="api"
 
 DEPEND="
-	~sci-physics/root-${PV}[X,graphviz,opengl]
+	~sci-physics/root-${PV}[X,graphviz,opengl,tiff]
 	app-text/pandoc
 	app-text/texlive
 	dev-haskell/pandoc-citeproc[bibutils]
@@ -60,9 +59,10 @@ src_unpack() {
 }
 
 src_prepare() {
-	use api && epatch \
+	epatch \
 		"${FILESDIR}/${PN}-6.00.01-makehtml.patch" \
-		"${FILESDIR}/${PN}-6.00.01-fillpatterns.patch"
+		"${FILESDIR}/${PN}-6.02.05-jsroot.patch"
+
 	# prefixify the configure script
 	sed -i \
 		-e "s:/usr:${EPREFIX}/usr:g" \
@@ -90,8 +90,9 @@ src_compile() {
 	local pdf_size=pdfa4
 	use metric || pdf_size=pdfletter
 	use math && pdf_target+=( minuit2 spectrum )
-	use http && pdf_target+=( HttpServer )
+	use http && pdf_target+=( HttpServer JSROOT )
 
+	local i
 	for (( i=0; i<${#pdf_target[@]}; i++ )); do
 		emake -C documentation/"${pdf_target[i]}" "${pdf_size}"
 	done
@@ -105,13 +106,14 @@ src_compile() {
 		# if root.exe crashes, return code will be 0 due to gdb attach,
 		# so we need to check if last html file was generated;
 		# this check is volatile and can't catch crash on the last file.
-		[[ -f htmldoc/tableDescriptor_st.html ]] || die "html doc generation crashed"
+		[[ -f htmldoc/WindowAttributes_t.html ]] || die "html doc generation crashed"
 	fi
 }
 
 src_install() {
 	insinto "${DOC_DIR}"
 
+	local i
 	for (( i=0; i<${#pdf_target[@]}; i++ )); do
 		doins documentation/"${pdf_target[i]}"/*.pdf
 	done

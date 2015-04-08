@@ -1,1 +1,1 @@
-root-docs-6.00.02.ebuild
+root-docs-6.02.05.ebuild
