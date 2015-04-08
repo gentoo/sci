@@ -2,6 +2,15 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+*root-6.02.05 (08 Apr 2015)
+
+  08 Apr 2015; Andrew Savchenko <bircoph@gentoo.org> -root-6.00.02.ebuild,
+  +root-6.02.05.ebuild, -files/root-6.00.01-tutorials-path.patch,
+  -files/root-6.00.02-tm_zone.patch, +files/root-6.02.05-xrootd4.patch,
+  metadata.xml:
+  Version bump for testing and evaluation, add new flags.
+  Remove old.
+
   03 Mar 2015; Andrew Savchenko <bircoph@gentoo.org> -root-5.34.26.ebuild,
   -files/root-5.32.00-dotfont.patch, -files/root-5.34.05-nobyte-compile.patch,
   metadata.xml:

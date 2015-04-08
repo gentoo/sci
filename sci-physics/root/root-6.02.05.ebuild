@@ -1,20 +1,18 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.18-r1.ebuild,v 1.3 2014/03/27 18:51:54 bicatali Exp $
+# $Header: /var/cvsroot/gentoo-x86/sci-physics/root/root-5.34.28.ebuild,v 1.1 2015/03/25 21:38:59 bircoph Exp $
 
 EAPI=5
 
 if [[ ${PV} == "9999" ]] ; then
 	inherit git-r3
 	EGIT_REPO_URI="http://root.cern.ch/git/root.git"
-	KEYWORDS=""
 else
 	SRC_URI="ftp://root.cern.ch/${PN}/${PN}_v${PV}.source.tar.gz"
 	KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
-	S="${WORKDIR}/${PN}"
 fi
 
-PYTHON_COMPAT=( python2_{6,7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit elisp-common eutils fdo-mime fortran-2 multilib python-single-r1 \
 	toolchain-funcs user versionator
@@ -25,21 +23,20 @@ DOC_URI="ftp://root.cern.ch/${PN}/doc"
 
 SLOT="0/$(get_version_component_range 1-3 ${PV})"
 LICENSE="LGPL-2.1 freedist MSttfEULA LGPL-3 libpng UoI-NCSA"
-IUSE="+X afs avahi doc emacs examples fits fftw geocad graphviz
-	http kerberos ldap +math minimal mpi mysql odbc +opengl openmp
-	oracle postgres	prefix pythia6 pythia8 python qt4 sqlite ssl
-	xinetd xml xrootd"
+IUSE="+X afs avahi doc emacs examples fits fftw gdml geocad
+	graphviz http kerberos ldap +math +memstat minimal mpi mysql odbc
+	+opengl openmp oracle postgres prefix pythia6 pythia8
+	python qt4 shadow sqlite ssl table +tiff xinetd xml xrootd"
 
 # TODO: add support for: davix
 # TODO: ROOT-6 supports x32 ABI, but half of its dependencies doesn't
 # TODO: unbundle: cling, vdt
 
 REQUIRED_USE="
+	!X? ( !minimal? ( !opengl !qt4 !tiff ) )
 	mpi? ( math !openmp )
-	opengl? ( X )
 	openmp? ( math !mpi )
 	python? ( ${PYTHON_REQUIRED_USE} )
-	qt4? ( X )
 "
 
 CDEPEND="
@@ -48,12 +45,9 @@ CDEPEND="
 	dev-libs/libpcre:3=
 	media-fonts/dejavu
 	media-libs/freetype:2=
-	media-libs/giflib:0=
 	media-libs/libpng:0=
-	media-libs/tiff:0=
 	>=sys-devel/clang-3.4
 	sys-libs/zlib:0=
-	virtual/jpeg:0
 	virtual/shadow
 	X? (
 		media-libs/ftgl:0=
@@ -62,6 +56,10 @@ CDEPEND="
 		x11-libs/libXext:0=
 		x11-libs/libXpm:0=
 		!minimal? (
+			|| (
+				media-libs/libafterimage:0=[gif,jpeg,png,tiff?]
+				>=x11-wm/afterstep-2.2.11:0=[gif,jpeg,png,tiff?]
+			)
 			opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps:0= )
 			qt4? (
 				dev-qt/qtgui:4=
@@ -80,7 +78,7 @@ CDEPEND="
 		emacs? ( virtual/emacs )
 		fits? ( sci-libs/cfitsio:0= )
 		fftw? ( sci-libs/fftw:3.0= )
-		geocad? ( sci-libs/opencascade:= )
+		geocad? ( <sci-libs/opencascade-6.8.0:= )
 		graphviz? ( media-gfx/graphviz:0= )
 		http? ( dev-libs/fcgi:0= )
 		kerberos? ( virtual/krb5 )
@@ -105,16 +103,9 @@ CDEPEND="
 
 # TODO: ruby is not yet ported to ROOT-6, reenable when (if?) ready
 #		ruby? (
-#			dev-lang/ruby
-#			dev-ruby/rubygems
+#			dev-lang/ruby:=
+#			dev-ruby/rubygems:=
 #		)
-#
-# TODO: root-6.00.01 crashes with system libafterimage
-#			|| (
-#				media-libs/libafterimage:0=[gif,jpeg,png,tiff]
-#				>=x11-wm/afterstep-2.2.11:0=[gif,jpeg,png,tiff]
-#			)
-#			--disable-builtin-afterimage
 
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
@@ -122,16 +113,44 @@ DEPEND="${CDEPEND}
 RDEPEND="${CDEPEND}
 	xinetd? ( sys-apps/xinetd )"
 
-PDEPEND="doc? ( ~app-doc/root-docs-${PV}[http=,math=] )"
+PDEPEND="doc? ( !minimal? ( ~app-doc/root-docs-${PV}[http=,math=] ) )"
 
 # install stuff in ${P} and not ${PF} for easier tracking in root-docs
 DOC_DIR="/usr/share/doc/${P}"
 
+OC_UNSUPPORTED="6.8.0"
+
 die_compiler() {
-	die "Need one of the following C++11 capable compilers:"\
-		"    >=sys-devel/gcc[cxx]-4.8"\
-		"    >=sys-devel/clang-3.4"\
-		"    >=dev-lang/icc-13"
+	eerror "You are using a $(tc-getCXX) without C++$1 capabilities"
+	die "Need one of the following C++$1 capable compilers:\n"\
+		"    >=sys-devel/gcc[cxx]-$2\n"\
+		"    >=sys-devel/clang-$3\n"\
+		"    >=dev-lang/icc-$4"
+}
+
+# check compiler to satisfy minimal versions
+# $1 - std version
+# $2 - g++
+# $3 - clang++
+# $4 - icc/icpc
+check_compiler() {
+	case "$(tc-getCXX)" in
+		*clang++*)
+			version_is_at_least "$3" "$(has_version sys-devel/clang)" || die_compiler "$1" "$2" "$3" "$4"
+		;;
+		*g++*)
+			version_is_at_least "$2" "$(gcc-version)" || die_compiler "$1" "$2" "$3" "$4"
+		;;
+		*icc*|*icpc*)
+			version_is_at_least "$4" "$(has_version dev-lang/icc)" || die_compiler "$1" "$2" "$3" "$4"
+			eerror "ROOT-6 is known not to build with ICC."
+			eerror "Please report any isuses upstream."
+		;;
+		*)
+			ewarn "You are using an unsupported compiler."
+			ewarn "Please report any issues upstream."
+		;;
+	esac
 }
 
 pkg_setup() {
@@ -153,7 +172,7 @@ pkg_setup() {
 
 	if use math; then
 		if use openmp; then
-			if [[ $(tc-getCXX)$ == *g++* ]] && ! tc-has-openmp; then
+			if [[ "$(tc-getCXX)" == *g++* && "$(tc-getCXX)" != *clang++* ]] && ! tc-has-openmp; then
 				ewarn "You are using a g++ without OpenMP capabilities"
 				die "Need an OpenMP capable compiler"
 			else
@@ -164,28 +183,32 @@ pkg_setup() {
 		fi
 	fi
 
-	# check for supported compilers
-	case $(tc-getCXX) in
-		*g++*)
-			if ! version_is_at_least "4.8" "$(gcc-version)"; then
-				eerror "You are using a g++ without C++11 capabilities"
-				die_compiler
-			fi
-		;;
-		*clang++*)
-			# >=clang-3.4 is already in DEPEND
-		;;
-		*icc*|*icpc*)
-			if ! version_is_at_least "13" "$(has_version dev-lang/icc)"; then
-				eerror "You are using an icc without C++11 capabilities"
-				die_compiler
-			fi
-		;;
-		*)
-			ewarn "You are using an unsupported compiler."
-			ewarn "Please report any issues upstream."
-		;;
-	esac
+	# c++11 support is mandatory
+	check_compiler "11" "4.8" "3.4" "13"
+
+	# Active version of opencascade may be >= $OC_UNSUPPORTED,
+	# so we need to eselect proper version (it must exist due to DEPEND requirement)
+	if use geocad; then
+		oc_current=$(eselect opencascade show)
+		# Proceed only if active version is unsupported
+		if version_is_at_least "${OC_UNSUPPORTED}" "${oc_current}"; then
+			local -a vlist
+			vlist=( $(version_sort $(eselect opencascade list | awk '/^ / { print $2 }')) )
+			local i
+			# search for higehr version < $OC_UNSUPPORTED
+			# list is sorted acsending, so loop backwards
+			for (( i=$(( ${#vlist[@]} -1 )); i>=0; i-- )); do
+				version_is_at_least "${OC_UNSUPPORTED}" "${vlist[i]}" || break
+			done
+			[[ $i == "-1" ]] && die "No suitable opencascade eselect slot is available (<${OC_UNSUPPORTED})"
+
+			einfo "Switching opencascade to supported slot: ${oc_current} -> ${vlist[i]}"
+			eselect opencascade set ${vlist[i]} > /dev/null || die "eselect opencascade set ${vlist[i]} failed!"
+		else
+			# forget it, effectively disabling eselect cleanup
+			unset oc_current
+		fi
+	fi
 }
 
 src_prepare() {
@@ -194,19 +217,18 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-5.32.00-afs.patch \
 		"${FILESDIR}"/${PN}-5.32.00-cfitsio.patch \
 		"${FILESDIR}"/${PN}-5.32.00-chklib64.patch \
-		"${FILESDIR}"/${PN}-5.34.13-unuran.patch \
 		"${FILESDIR}"/${PN}-5.34.13-desktop.patch \
+		"${FILESDIR}"/${PN}-5.34.13-unuran.patch \
 		"${FILESDIR}"/${PN}-6.00.01-dotfont.patch \
+		"${FILESDIR}"/${PN}-6.00.01-geocad.patch \
+		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
 		"${FILESDIR}"/${PN}-6.00.01-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-6.00.01-prop-flags.patch \
-		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
-		"${FILESDIR}"/${PN}-6.00.01-geocad.patch \
-		"${FILESDIR}"/${PN}-6.00.01-tutorials-path.patch \
-		"${FILESDIR}"/${PN}-6.00.02-tm_zone.patch
+		"${FILESDIR}"/${PN}-6.02.05-xrootd4.patch
 
 	# make sure we use system libs and headers
 	rm montecarlo/eg/inc/cfortran.h README/cfortran.doc || die
-	#rm -r graf2d/asimage/src/libAfterImage || die
+	rm -r graf2d/asimage/src/libAfterImage || die
 	rm -r graf3d/ftgl/{inc,src} || die
 	rm -r graf2d/freetype/src || die
 	rm -r graf3d/glew/{inc,src} || die
@@ -234,7 +256,10 @@ src_prepare() {
 		configure || die "prefixify configure failed"
 
 	# CSS should use local images
-	sed -i -e 's,http://.*/images/,,' etc/html/ROOT.css || die "html sed failed"
+	sed -i -e 's,http://.*/,,' etc/html/ROOT.css || die "html sed failed"
+
+	# QTDIR only used for qt3 in gentoo, and configure looks for it.
+	unset QTDIR
 }
 
 # NB: ROOT uses bundled LLVM, because it is patched and API-incompatible with
@@ -245,7 +270,7 @@ src_prepare() {
 src_configure() {
 	local -a myconf
 	# Some compilers need special care
-	case $(tc-getCXX) in
+	case "$(tc-getCXX)" in
 		*clang++*)
 			myconf=(
 				--with-clang
@@ -286,20 +311,16 @@ src_configure() {
 		myconf+=(
 			--with-afs-shared=yes
 			--with-sys-iconpath="${EPREFIX}/usr/share/pixmaps"
+			--disable-builtin-afterimage
 			--disable-builtin-ftgl
 			--disable-builtin-freetype
 			--disable-builtin-glew
 			--disable-builtin-pcre
 			--disable-builtin-zlib
 			--disable-builtin-lzma
-			--enable-astiff
 			--enable-explicitlink
-			--enable-gdml
-			--enable-memstat
-			--enable-shadowpw
 			--enable-shared
 			--enable-soversion
-			--enable-table
 			--fail-on-missing
 			$(use_enable X x11)
 			$(use_enable X asimage)
@@ -308,8 +329,10 @@ src_configure() {
 			$(use_enable avahi bonjour)
 			$(use_enable fits fitsio)
 			$(use_enable fftw fftw3)
+			$(use_enable gdml)
 			$(use_enable geocad)
 			$(use_enable graphviz gviz)
+			$(use_enable http)
 			$(use_enable kerberos krb5)
 			$(use_enable ldap)
 			$(use_enable math genvector)
@@ -321,23 +344,25 @@ src_configure() {
 			$(use_enable math vc)
 			$(use_enable math vdt)
 			$(use_enable math unuran)
+			$(use_enable memstat)
 			$(use_enable mysql)
-			$(usex mysql \
-				"--with-mysql-incdir=${EPREFIX}/usr/include/mysql" "")
+			$(usex mysql "--with-mysql-incdir=${EPREFIX}/usr/include/mysql" "")
 			$(use_enable odbc)
 			$(use_enable opengl)
 			$(use_enable oracle)
 			$(use_enable postgres pgsql)
-			$(usex postgres \
-				"--with-pgsql-incdir=$(pg_config --includedir)" "")
+			$(usex postgres "--with-pgsql-incdir=$(pg_config --includedir)" "")
 			$(use_enable prefix rpath)
 			$(use_enable pythia6)
 			$(use_enable pythia8)
 			$(use_enable python)
 			$(use_enable qt4 qt)
 			$(use_enable qt4 qtgsi)
+			$(use_enable shadow shadowpw)
 			$(use_enable sqlite)
 			$(use_enable ssl)
+			$(use_enable table)
+			$(use_enable tiff astiff)
 			$(use_enable xml)
 			$(use_enable xrootd)
 			${EXTRA_ECONF}
@@ -363,6 +388,7 @@ daemon_install() {
 	dodir /var/spool/rootd/{pub,tmp}
 	fperms 1777 /var/spool/rootd/{pub,tmp}
 
+	local i
 	for i in ${daemons}; do
 		newinitd "${FILESDIR}"/${i}.initd ${i}
 		newconfd "${FILESDIR}"/${i}.confd ${i}
@@ -428,13 +454,20 @@ src_install() {
 	cleanup_install
 
 	# do not copress files used by ROOT's CLI (.credit, .demo, .license)
-	docompress -x "${DOC_DIR}"/{CREDITS,LICENSE,examples/tutorials}
+	docompress -x "${DOC_DIR}"/{CREDITS,examples/tutorials}
 	# needed for .license command to work
 	dosym "${ED}"usr/portage/licenses/LGPL-2.1 "${DOC_DIR}/LICENSE"
 }
 
 pkg_postinst() {
 	fdo-mime_desktop_database_update
+
+	# restort opencascade eselect slot
+	if use geocad && [[ -n ${oc_current} ]]; then
+		einfo "Switching to user set slot: $(eselect opencascade show) -> ${oc_current}"
+		eselect opencascade set ${oc_current} > /dev/null || eerror "eselect opencascade set ${vlist[i]} failed!"
+		unset oc_current
+	fi
 }
 
 pkg_postrm() {
