@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,6 +14,7 @@ DESCRIPTION="An experimental suite of programs for linear scaling quantum chemis
 HOMEPAGE="http://www.freeon.org"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/FreeON/freeon.git"
+EGIT_BRANCH="master"
 
 LICENSE="GPL-3"
 SLOT="live"
