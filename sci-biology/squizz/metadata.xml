@@ -19,8 +19,8 @@ Most common sequence and alignment formats are supported :
   </longdescription>
   <upstream>
     <maintainer status="active">
-		   <name>Nicolas Joly</name>
 	     <email>njoly@pasteur.fr</email>	
+		   <name>Nicolas Joly</name>
 		</maintainer>
 		<bugs-to>njoly@pasteur.fr</bugs-to>
   </upstream>
