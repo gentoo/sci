@@ -46,7 +46,7 @@ CDEPEND="
 	media-fonts/dejavu
 	media-libs/freetype:2=
 	media-libs/libpng:0=
-	>=sys-devel/clang-3.4
+	>=sys-devel/clang-3.4:=
 	sys-libs/zlib:0=
 	virtual/shadow
 	X? (
