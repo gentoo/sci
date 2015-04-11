@@ -39,12 +39,14 @@ IUSE="api +math +metric http"
 VIRTUALX_REQUIRED="api"
 
 DEPEND="
-	~sci-physics/root-${PV}[X,graphviz,opengl,tiff]
 	app-text/pandoc
 	app-text/texlive
 	dev-haskell/pandoc-citeproc[bibutils]
-	media-fonts/dejavu
-	virtual/pkgconfig"
+	virtual/pkgconfig
+	api? (
+		media-fonts/dejavu
+		~sci-physics/root-${PV}[X,graphviz,opengl]
+	)"
 RDEPEND=""
 
 DOC_DIR="/usr/share/doc/${ROOT_PN}-${PV}"

@@ -24,7 +24,7 @@ DOC_URI="ftp://root.cern.ch/${PN}/doc"
 SLOT="0/$(get_version_component_range 1-3 ${PV})"
 LICENSE="LGPL-2.1 freedist MSttfEULA LGPL-3 libpng UoI-NCSA"
 IUSE="+X afs avahi doc emacs examples fits fftw gdml geocad
-	graphviz http kerberos ldap +math +memstat minimal mpi mysql odbc
+	graphviz http kerberos ldap +math +memstat mpi mysql odbc
 	+opengl openmp oracle postgres prefix pythia6 pythia8
 	python qt4 shadow sqlite ssl table +tiff xinetd xml xrootd"
 
@@ -33,7 +33,7 @@ IUSE="+X afs avahi doc emacs examples fits fftw gdml geocad
 # TODO: unbundle: cling, vdt
 
 REQUIRED_USE="
-	!X? ( !minimal? ( !opengl !qt4 !tiff ) )
+	!X? ( !opengl !qt4 !tiff )
 	mpi? ( math !openmp )
 	openmp? ( math !mpi )
 	python? ( ${PYTHON_REQUIRED_USE} )
@@ -55,51 +55,48 @@ CDEPEND="
 		x11-libs/libX11:0=
 		x11-libs/libXext:0=
 		x11-libs/libXpm:0=
-		!minimal? (
-			|| (
-				media-libs/libafterimage:0=[gif,jpeg,png,tiff?]
-				>=x11-wm/afterstep-2.2.11:0=[gif,jpeg,png,tiff?]
-			)
-			opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps:0= )
-			qt4? (
-				dev-qt/qtgui:4=
-				dev-qt/qtopengl:4=
-				dev-qt/qt3support:4=
-				dev-qt/qtsvg:4=
-				dev-qt/qtwebkit:4=
-				dev-qt/qtxmlpatterns:4=
-			)
-			x11-libs/libXft:0=
+		|| (
+			media-libs/libafterimage:0=[gif,jpeg,png,tiff?]
+			>=x11-wm/afterstep-2.2.11:0=[gif,jpeg,png,tiff?]
 		)
+		opengl? ( virtual/opengl virtual/glu x11-libs/gl2ps:0= )
+		qt4? (
+			dev-qt/qtgui:4=
+			dev-qt/qtopengl:4=
+			dev-qt/qt3support:4=
+			dev-qt/qtsvg:4=
+			dev-qt/qtwebkit:4=
+			dev-qt/qtxmlpatterns:4=
+		)
+		x11-libs/libXft:0=
 	)
-	!minimal? (
-		afs? ( net-fs/openafs )
-		avahi? ( net-dns/avahi:0= )
-		emacs? ( virtual/emacs )
-		fits? ( sci-libs/cfitsio:0= )
-		fftw? ( sci-libs/fftw:3.0= )
-		geocad? ( <sci-libs/opencascade-6.8.0:= )
-		graphviz? ( media-gfx/graphviz:0= )
-		http? ( dev-libs/fcgi:0= )
-		kerberos? ( virtual/krb5 )
-		ldap? ( net-nds/openldap:0= )
-		math? (
-			sci-libs/gsl:0=
-			sci-mathematics/unuran:0=
-			mpi? ( virtual/mpi )
-		)
-		mysql? ( virtual/mysql )
-		odbc? ( || ( dev-db/libiodbc:0= dev-db/unixODBC:0= ) )
-		oracle? ( dev-db/oracle-instantclient-basic:0= )
-		postgres? ( dev-db/postgresql:= )
-		pythia6? ( sci-physics/pythia:6= )
-		pythia8? ( >=sci-physics/pythia-8.1.80:8= )
-		python? ( ${PYTHON_DEPS} )
-		sqlite? ( dev-db/sqlite:3= )
-		ssl? ( dev-libs/openssl:0= )
-		xml? ( dev-libs/libxml2:2= )
-		xrootd? ( >=net-libs/xrootd-3.3.5:0= )
-	)"
+	afs? ( net-fs/openafs )
+	avahi? ( net-dns/avahi:0= )
+	emacs? ( virtual/emacs )
+	fits? ( sci-libs/cfitsio:0= )
+	fftw? ( sci-libs/fftw:3.0= )
+	geocad? ( <sci-libs/opencascade-6.8.0:= )
+	graphviz? ( media-gfx/graphviz:0= )
+	http? ( dev-libs/fcgi:0= )
+	kerberos? ( virtual/krb5 )
+	ldap? ( net-nds/openldap:0= )
+	math? (
+		sci-libs/gsl:0=
+		sci-mathematics/unuran:0=
+		mpi? ( virtual/mpi )
+	)
+	mysql? ( virtual/mysql )
+	odbc? ( || ( dev-db/libiodbc:0= dev-db/unixODBC:0= ) )
+	oracle? ( dev-db/oracle-instantclient-basic:0= )
+	postgres? ( dev-db/postgresql:= )
+	pythia6? ( sci-physics/pythia:6= )
+	pythia8? ( >=sci-physics/pythia-8.1.80:8= )
+	python? ( ${PYTHON_DEPS} )
+	sqlite? ( dev-db/sqlite:3= )
+	ssl? ( dev-libs/openssl:0= )
+	xml? ( dev-libs/libxml2:2= )
+	xrootd? ( >=net-libs/xrootd-3.3.5:0= )
+"
 
 # TODO: ruby is not yet ported to ROOT-6, reenable when (if?) ready
 #		ruby? (
@@ -113,7 +110,7 @@ DEPEND="${CDEPEND}
 RDEPEND="${CDEPEND}
 	xinetd? ( sys-apps/xinetd )"
 
-PDEPEND="doc? ( !minimal? ( ~app-doc/root-docs-${PV}[http=,math=] ) )"
+PDEPEND="doc? ( ~app-doc/root-docs-${PV}[http=,math=] )"
 
 # install stuff in ${P} and not ${PF} for easier tracking in root-docs
 DOC_DIR="/usr/share/doc/${P}"
@@ -167,8 +164,6 @@ pkg_setup() {
 
 	enewgroup rootd
 	enewuser rootd -1 -1 /var/spool/rootd rootd
-
-	use minimal && return
 
 	if use math; then
 		if use openmp; then
@@ -301,73 +296,66 @@ src_configure() {
 		--docdir="${EPREFIX}${DOC_DIR}"
 		--tutdir="${EPREFIX}${DOC_DIR}/examples/tutorials"
 		--testdir="${EPREFIX}${DOC_DIR}/examples/tests"
+		--disable-builtin-afterimage
+		--disable-builtin-ftgl
+		--disable-builtin-freetype
+		--disable-builtin-glew
+		--disable-builtin-pcre
+		--disable-builtin-zlib
+		--disable-builtin-lzma
 		--disable-werror
+		--enable-explicitlink
+		--enable-shared
+		--enable-soversion
+		--fail-on-missing
 		--nohowto
+		--with-afs-shared=yes
+		--with-sys-iconpath="${EPREFIX}/usr/share/pixmaps"
+		$(use_enable X x11)
+		$(use_enable X asimage)
+		$(use_enable X xft)
+		$(use_enable afs)
+		$(use_enable avahi bonjour)
+		$(use_enable fits fitsio)
+		$(use_enable fftw fftw3)
+		$(use_enable gdml)
+		$(use_enable geocad)
+		$(use_enable graphviz gviz)
+		$(use_enable http)
+		$(use_enable kerberos krb5)
+		$(use_enable ldap)
+		$(use_enable math genvector)
+		$(use_enable math gsl-shared)
+		$(use_enable math mathmore)
+		$(use_enable math minuit2)
+		$(use_enable math roofit)
+		$(use_enable math tmva)
+		$(use_enable math vc)
+		$(use_enable math vdt)
+		$(use_enable math unuran)
+		$(use_enable memstat)
+		$(use_enable mysql)
+		$(usex mysql "--with-mysql-incdir=${EPREFIX}/usr/include/mysql" "")
+		$(use_enable odbc)
+		$(use_enable opengl)
+		$(use_enable oracle)
+		$(use_enable postgres pgsql)
+		$(usex postgres "--with-pgsql-incdir=$(pg_config --includedir)" "")
+		$(use_enable prefix rpath)
+		$(use_enable pythia6)
+		$(use_enable pythia8)
+		$(use_enable python)
+		$(use_enable qt4 qt)
+		$(use_enable qt4 qtgsi)
+		$(use_enable shadow shadowpw)
+		$(use_enable sqlite)
+		$(use_enable ssl)
+		$(use_enable table)
+		$(use_enable tiff astiff)
+		$(use_enable xml)
+		$(use_enable xrootd)
+		${EXTRA_ECONF}
 	)
-
-	if use minimal; then
-		myconf+=( $(usex X --gminimal --minimal) )
-	else
-		myconf+=(
-			--with-afs-shared=yes
-			--with-sys-iconpath="${EPREFIX}/usr/share/pixmaps"
-			--disable-builtin-afterimage
-			--disable-builtin-ftgl
-			--disable-builtin-freetype
-			--disable-builtin-glew
-			--disable-builtin-pcre
-			--disable-builtin-zlib
-			--disable-builtin-lzma
-			--enable-explicitlink
-			--enable-shared
-			--enable-soversion
-			--fail-on-missing
-			$(use_enable X x11)
-			$(use_enable X asimage)
-			$(use_enable X xft)
-			$(use_enable afs)
-			$(use_enable avahi bonjour)
-			$(use_enable fits fitsio)
-			$(use_enable fftw fftw3)
-			$(use_enable gdml)
-			$(use_enable geocad)
-			$(use_enable graphviz gviz)
-			$(use_enable http)
-			$(use_enable kerberos krb5)
-			$(use_enable ldap)
-			$(use_enable math genvector)
-			$(use_enable math gsl-shared)
-			$(use_enable math mathmore)
-			$(use_enable math minuit2)
-			$(use_enable math roofit)
-			$(use_enable math tmva)
-			$(use_enable math vc)
-			$(use_enable math vdt)
-			$(use_enable math unuran)
-			$(use_enable memstat)
-			$(use_enable mysql)
-			$(usex mysql "--with-mysql-incdir=${EPREFIX}/usr/include/mysql" "")
-			$(use_enable odbc)
-			$(use_enable opengl)
-			$(use_enable oracle)
-			$(use_enable postgres pgsql)
-			$(usex postgres "--with-pgsql-incdir=$(pg_config --includedir)" "")
-			$(use_enable prefix rpath)
-			$(use_enable pythia6)
-			$(use_enable pythia8)
-			$(use_enable python)
-			$(use_enable qt4 qt)
-			$(use_enable qt4 qtgsi)
-			$(use_enable shadow shadowpw)
-			$(use_enable sqlite)
-			$(use_enable ssl)
-			$(use_enable table)
-			$(use_enable tiff astiff)
-			$(use_enable xml)
-			$(use_enable xrootd)
-			${EXTRA_ECONF}
-		)
-	fi
 
 	./configure ${myconf[@]} || die "configure failed"
 }
@@ -378,7 +366,7 @@ src_compile() {
 		F77OPT="${FFLAGS}" \
 		ROOTSYS="${S}" \
 		LD_LIBRARY_PATH="${S}/lib"
-	use emacs && ! use minimal && elisp-compile build/misc/*.el
+	use emacs && elisp-compile build/misc/*.el
 }
 
 daemon_install() {
@@ -429,19 +417,17 @@ src_install() {
 	dodoc README.md
 
 	echo "LDPATH=${EPREFIX%/}/usr/$(get_libdir)/root" > 99root
+	use pythia8 && echo "PYTHIA8=${EPREFIX%/}/usr" >> 99root
 
-	if ! use minimal; then
-		use pythia8 && echo "PYTHIA8=${EPREFIX%/}/usr" >> 99root
-		if use python; then
-			echo "PYTHONPATH=${EPREFIX%/}/usr/$(get_libdir)/root" >> 99root
-			python_optimize "${D}/usr/$(get_libdir)/root"
-		fi
-		use emacs && elisp-install ${PN} build/misc/*.{el,elc}
-		if use examples; then
-			# these should really be taken care of by the root make install
-			insinto ${DOC_DIR}/examples/tutorials/tmva
-			doins -r tmva/test
-		fi
+	if use python; then
+		echo "PYTHONPATH=${EPREFIX%/}/usr/$(get_libdir)/root" >> 99root
+		python_optimize "${D}/usr/$(get_libdir)/root"
+	fi
+	use emacs && elisp-install ${PN} build/misc/*.{el,elc}
+	if use examples; then
+		# these should really be taken care of by the root make install
+		insinto ${DOC_DIR}/examples/tutorials/tmva
+		doins -r tmva/test
 	fi
 	doenvd 99root
 
