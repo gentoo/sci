@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/app-doc/root-docs/ChangeLog,v 1.42 2014/03/28 18:48:01 bicatali Exp $
 
+  11 Apr 2015; Andrew Savchenko <bircoph@gentoo.org> root-docs-6.02.05.ebuild:
+  Update deps: root and fonts are needed only for api docs.
+
 *root-docs-6.02.05 (08 Apr 2015)
 
   08 Apr 2015; Andrew Savchenko <bircoph@gentoo.org> -root-docs-6.00.02.ebuild,
