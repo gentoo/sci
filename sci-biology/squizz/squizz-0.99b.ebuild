@@ -4,15 +4,13 @@
 
 EAPI=5
 
-DESCRIPTION="squizz is a sequence format file checker, but it has some
-conversion capabilities too."
-HOMEPAGE=""
+DESCRIPTION="squizz is a sequence format file checker/converter."
+HOMEPAGE="ftp://ftp.pasteur.fr/pub/GenSoft/projects/squizz/README"
 SRC_URI="ftp://ftp.pasteur.fr/pub/gensoft/projects/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}"
