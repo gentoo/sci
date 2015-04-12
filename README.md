@@ -25,6 +25,6 @@ Many of our packages are available as live (`*-9999`) ebuilds, and also need man
 ---
 Please fork! We will merge! See [this](https://github.com/gentoo-science/sci/blob/master/CONTRIBUTING.md) document for more instructions.
 
-Ask for help on irc in #gentoo-science @ freenode.
+Project lead by Horea Christian, please direct all email correspondence to h.chr@mail.ru.
 
 Report bugs on the [github issues site](https://github.com/gentoo-science/sci/issues)
