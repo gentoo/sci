@@ -2,6 +2,11 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-physics/root/ChangeLog,v 1.96 2012/03/29 18:21:49 bicatali Exp $
 
+  12 Apr 2015; Andrew Savchenko <bircoph@gentoo.org> -root-6.02.05-r2.ebuild,
+  -files/root-6.00.01-prop-flags.patch, -files/root-6.02.05-dictpch.patch,
+  -files/root-6.02.05-xrootd4.patch:
+  root-6.02.05-r2 is in the portage tree now
+
   12 Apr 2015; Andrew Savchenko <bircoph@gentoo.org> root-6.02.05-r2.ebuild:
   Fix "pg_config: command not found" QA warning if postgres is not
   installed.
