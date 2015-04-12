@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/pyfaidx
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pyfaidx-0.3.8 (12 Apr 2015)
+
+  12 Apr 2015; Michael Schubert <mschu.dev@gmail.com> +metadata.xml,
+  +pyfaidx-0.3.8.ebuild:
+  sci-biology/pyfaidx: add pyfaidx
