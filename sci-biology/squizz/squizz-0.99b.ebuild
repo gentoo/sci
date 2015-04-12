@@ -14,5 +14,5 @@ KEYWORDS="~amd64"
 
 src_test(){
 	einfo ">>> Test phase [check]: ${CATEGORY}/${PF}"
-	emake  -j1 check || die "test failed"
+	emake  -j1 check
 }
