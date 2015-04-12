@@ -207,6 +207,13 @@ pkg_setup() {
 }
 
 src_prepare() {
+	# Second version of makepch is required in order to generate
+	# PCH file appropriate for Gentoo include headers layout.
+	# This can be done only at install stage, when files are placed
+	# as appropriate. Premature modification of makepch.sh will
+	# broke build process, however.
+	cp "etc/dictpch/makepch.sh" "etc/dictpch/makepch-gentoo.sh" || die
+
 	epatch \
 		"${FILESDIR}"/${PN}-5.28.00b-glibc212.patch \
 		"${FILESDIR}"/${PN}-5.32.00-afs.patch \
@@ -219,6 +226,7 @@ src_prepare() {
 		"${FILESDIR}"/${PN}-6.00.01-llvm.patch \
 		"${FILESDIR}"/${PN}-6.00.01-nobyte-compile.patch \
 		"${FILESDIR}"/${PN}-6.00.01-prop-flags.patch \
+		"${FILESDIR}"/${PN}-6.02.05-dictpch.patch \
 		"${FILESDIR}"/${PN}-6.02.05-xrootd4.patch
 
 	# make sure we use system libs and headers
@@ -410,6 +418,16 @@ cleanup_install() {
 	mv etc/root/proof/utils/pq2/pq2* usr/bin/ || die
 	rm ${DOC_DIR#/}/{INSTALL,LICENSE} || die
 	use examples || rm -r ${DOC_DIR#/}/examples || die
+
+	# clean hardcoded sandbox paths
+	rm etc/root/dictpch/allCppflags.txt.tmp || die
+	sed -i "s|${S}/||" etc/root/cling/llvm/Config/llvm-config.h || die
+	# regenerate pch for Gentoo headers layout
+	rm "etc/root/allDict.cxx.pch" || die
+	sed -i 's|etc/dictpch|etc/root/dictpch|' etc/root/dictpch/allLinkDefs.h || die
+	sed -i 's|etc/cling|etc/root/cling|' etc/root/dictpch/allHeaders.h || die
+	sed -i "s|ROOTDIR_TEMPLATE|${ED}|" etc/root/dictpch/makepch-gentoo.sh || die
+	etc/root/dictpch/makepch-gentoo.sh etc/root/allDict.cxx.pch || die "PCH generation failed"
 }
 
 src_install() {
