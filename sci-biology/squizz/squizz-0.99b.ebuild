@@ -12,9 +12,6 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
 
-DEPEND=""
-RDEPEND="${DEPEND}"
-
 src_test(){
 	einfo ">>> Test phase [check]: ${CATEGORY}/${PF}"
 	emake  -j1 check || die "test failed"
