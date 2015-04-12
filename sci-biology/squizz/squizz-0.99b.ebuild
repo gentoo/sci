@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="squizz is a sequence format file checker/converter."
+DESCRIPTION="Sequence format file checker/converter."
 HOMEPAGE="ftp://ftp.pasteur.fr/pub/GenSoft/projects/squizz/README"
 SRC_URI="ftp://ftp.pasteur.fr/pub/gensoft/projects/${PN}/${P}.tar.gz"
 
