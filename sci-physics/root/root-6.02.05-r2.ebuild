@@ -348,7 +348,6 @@ src_configure() {
 		$(use_enable opengl)
 		$(use_enable oracle)
 		$(use_enable postgres pgsql)
-		$(usex postgres "--with-pgsql-incdir=$(pg_config --includedir)" "")
 		$(use_enable prefix rpath)
 		$(use_enable pythia6)
 		$(use_enable pythia8)
@@ -364,6 +363,10 @@ src_configure() {
 		$(use_enable xrootd)
 		${EXTRA_ECONF}
 	)
+
+	# usex can't be used here, because pg_config may be not
+	# installed with USE="-postgres"
+	use postgres && myconf+=( --with-pgsql-incdir=$(pg_config --includedir) )
 
 	./configure ${myconf[@]} || die "configure failed"
 }
