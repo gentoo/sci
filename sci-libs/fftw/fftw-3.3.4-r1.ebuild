@@ -26,9 +26,7 @@ SLOT="3.0/3"
 IUSE="altivec cpu_flags_x86_avx doc cpu_flags_x86_fma3 cpu_flags_x86_fma4 fortran mpi neon openmp quad cpu_flags_x86_sse cpu_flags_x86_sse2 static-libs test threads zbus"
 
 RDEPEND="
-	mpi? ( >=virtual/mpi-2.0-r4[${MULTILIB_USEDEP}] )
-	abi_x86_32? ( !<=app-emulation/emul-linux-x86-soundlibs-20130224-r2
-					!app-emulation/emul-linux-x86-soundlibs[-abi_x86_32(-)] )"
+	mpi? ( >=virtual/mpi-2.0-r4[${MULTILIB_USEDEP}] )"
 DEPEND="${RDEPEND}
 	test? ( dev-lang/perl )"
 
