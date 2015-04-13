@@ -10,8 +10,9 @@ inherit distutils-r1
 
 DESCRIPTION="Efficient pythonic random access to fasta subsequences"
 HOMEPAGE="https://pypi.python.org/pypi/pyfaidx"
-SRC_URI="mirror://pypi/p/pyfaidx/pyfaidx-${PV}.tar.gz"
+SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
+KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
