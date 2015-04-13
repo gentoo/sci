@@ -11,7 +11,6 @@ HOMEPAGE="http://afni.nimh.nih.gov/"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/afniHQ/AFNI"
 
-
 LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS=""
