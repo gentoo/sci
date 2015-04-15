@@ -4,7 +4,7 @@
 
 EAPI=5
 
-DESCRIPTION="Sequence format file checker/converter."
+DESCRIPTION="Sequence and alignment format file checker/converter."
 HOMEPAGE="ftp://ftp.pasteur.fr/pub/GenSoft/projects/squizz/README"
 SRC_URI="ftp://ftp.pasteur.fr/pub/gensoft/projects/${PN}/${P}.tar.gz"
 
@@ -14,5 +14,5 @@ KEYWORDS="~amd64"
 
 src_test(){
 	einfo ">>> Test phase [check]: ${CATEGORY}/${PF}"
-	emake  -j1 check
+	emake -j1 check
 }
