@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-mathematics/singular/singular-3.1.4-r1.ebuild,v 1.4 2012/06/23 10:50:20 xarthisius Exp $
+# $Header: $
 
 EAPI=5
 

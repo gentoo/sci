@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-text/jabref/jabref-2.10_beta3.ebuild,v 1.1 2014/02/19 04:10:12 nicolasbock Exp $
+# $Header: $
 
 EAPI=5
 
