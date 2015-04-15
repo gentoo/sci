@@ -2,4 +2,9 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <herd>sci</herd>
+  <herd>kde</herd>
+  <maintainer>
+    <email>dilfridge@gentoo.org</email>
+    <name>Andreas K. Huettel</name>
+  </maintainer>
 </pkgmetadata>

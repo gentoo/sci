@@ -21,7 +21,6 @@ HOMEPAGE="https://edu.kde.org/applications/science/labplot/"
 
 LICENSE="GPL-2"
 SLOT="4"
-KEYWORDS=""
 IUSE=""
 
 DEPEND="
