@@ -1,0 +1,15 @@
+# ChangeLog for sci-biology/squiz
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+
+  15 Apr 2015 Bertrand Néron <freeh4cker@gmail.com> squizz-0.99b.ebuild,
+	improve Description
+
+  12 Apr 2015 Bertrand Néron <freeh4cker@gmail.com> squizz-0.99b.ebuild,
+	remove "|| die" as emake does it by default,
+	remove empty variables DEPEND and RDEPEND,
+	Drop ${PN} from description
+
+  11 Apr 2015 Bertrand Néron <freeh4cker@gmail.com> squizz-0.99b.ebuild,
+	first packaging of squizz
