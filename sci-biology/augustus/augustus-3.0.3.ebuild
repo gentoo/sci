@@ -18,11 +18,11 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
-DEPEND="
+RDEPEND="
 	sci-libs/gsl
 	dev-libs/boost
 	sys-libs/zlib"
-RDEPEND="${DEPEND}
+DEPEND="${RDEPEND}
 	sys-devel/flex"
 
 src_prepare() {
