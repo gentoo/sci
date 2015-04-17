@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -48,7 +48,7 @@ src_install() {
 		dobin ${i}/${i}
 	done
 
-	einfo "Optionally, you might want to download UniVec from NCBI if you do not have your own"
+	einfo "Optionally, you may want to download UniVec from NCBI if you do not have your own"
 	einfo "fasta file with vector sequences you want to remove from sequencing"
 	einfo "reads. See http://www.ncbi.nlm.nih.gov/VecScreen/UniVec.html"
 }
