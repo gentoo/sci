@@ -3,6 +3,10 @@
 # $Header: $
 
   17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> bambus-2.33.ebuild:
+  sci-biology/bambus: actually do not install the outdated *.pm files but rely
+  on them from sci-biology/amos
+
+  17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> bambus-2.33.ebuild:
   sci-biology/bambus: fixed installation of perl-related files
 
   31 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> bambus-2.33.ebuild:

@@ -107,10 +107,6 @@ src_install() {
 
 	dobin "${FILESDIR}"/goBambus.pl || die "Failed to install the alternative of goBambus.py written in perl"
 	dodoc "${DISTDIR}"/scaffolding_MIRA_BAMBUS.pdf
-
-	perl_set_version
-	insinto ${VENDOR_LIB}
-	doins "${D}"/usr/lib/DotLib.pm
 	rm -rf "${D}"/usr/lib
 }
 
