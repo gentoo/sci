@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -7,7 +7,8 @@ EAPI=5
 inherit eutils
 
 DESCRIPTION="Manipulate CAF files and convert to GAP4 format (not GAP5), ACE, PHRAP"
-HOMEPAGE="http://www.sanger.ac.uk/resources/software/caf/"
+HOMEPAGE="http://www.sanger.ac.uk/resources/software/caf
+	http://www.ncbi.nlm.nih.gov/pmc/articles/PMC310697"
 SRC_URI="
 	ftp://ftp.sanger.ac.uk/pub/PRODUCTION_SOFTWARE/src/${P}.tar.gz
 	ftp://ftp.sanger.ac.uk/pub/PRODUCTION_SOFTWARE/src/${PN}-2.0.tar.gz"
