@@ -59,9 +59,9 @@ src_install() {
 	# configure --libdir sadly copies both *.a files and *.pm into /usr/lib64/AMOS/ and /usr/lib64/TIGR/, work around it
 	perl_set_version
 	insinto ${VENDOR_LIB}
-	dobin "${D}"/usr/lib64/AMOS/*.pm
+	doins "${D}"/usr/lib64/AMOS/*.pm
 	insinto ${VENDOR_LIB}/TIGR
-	dobin "${D}"/usr/lib64/TIGR/*.pm
+	doins "${D}"/usr/lib64/TIGR/*.pm
 	# move also /usr/lib64/AMOS/AMOS.py to /usr/bin
 	mv "${D}"/usr/lib64/AMOS/*.py "${D}"/usr/bin || die
 }
