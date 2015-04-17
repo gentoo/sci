@@ -4,6 +4,10 @@
 
   17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   amos-3.1.0-r2.ebuild, amos-9999.ebuild:
+  sci-biology/amos: fixed installation of perl-related files
+
+  17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  amos-3.1.0-r2.ebuild, amos-9999.ebuild:
   sci-biology/amos: use doins instead of dobin
 
   17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>

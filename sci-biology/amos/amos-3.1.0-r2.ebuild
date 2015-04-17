@@ -58,7 +58,7 @@ src_install() {
 	# bambus needs TIGR::FASTAreader.pm and others
 	# configure --libdir sadly copies both *.a files and *.pm into /usr/lib64/AMOS/ and /usr/lib64/TIGR/, work around it
 	perl_set_version
-	insinto ${VENDOR_LIB}
+	insinto ${VENDOR_LIB}/AMOS
 	doins "${D}"/usr/lib64/AMOS/*.pm
 	insinto ${VENDOR_LIB}/TIGR
 	doins "${D}"/usr/lib64/TIGR/*.pm
