@@ -4,6 +4,10 @@
 
   17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   seqclean-110625.ebuild:
+  sci-biology/seqclean: bump EAPI
+
+  17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  seqclean-110625.ebuild:
   sci-biology/seqclean: fix language
 
 *seqclean-110625 (25 Jun 2011)
