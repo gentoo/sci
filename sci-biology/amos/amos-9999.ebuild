@@ -4,8 +4,10 @@
 
 EAPI=5
 
-AUTOTOOLS_AUTORECONF=true
+PERL_EXPORT_PHASE_FUNCTIONS=no
+inherit perl-module eutils toolchain-funcs
 
+AUTOTOOLS_AUTORECONF=true
 inherit autotools-utils git-r3
 
 DESCRIPTION="Genome assembly package live cvs sources"
@@ -36,12 +38,11 @@ src_install() {
 	python_replicate_script "${ED}"/usr/bin/goBambus2
 	# bambus needs TIGR::FASTAreader.pm and others
 	# configure --libdir sadly copies both *.a files and *.pm into /usr/lib64/AMOS/ and /usr/lib64/TIGR/, work around it
-	mkdir -p "${D}/usr/share/${PN}/perl/AMOS" || die
-	mv "${D}"/usr/lib64/AMOS/*.pm "${D}/usr/share/${PN}/perl/AMOS" || die
-	mkdir -p "${D}"/usr/share/"${PN}"/perl/TIGR || die
-	mv "${D}"/usr/lib64/TIGR/*.pm "${D}"/usr/share/"${PN}"/perl/TIGR || die
-	echo "PERL5LIB=/usr/share/${PN}/perl" > "${S}/99${PN}"
-	doenvd "${S}/99${PN}" || die
+	perl_set_version
+	insinto ${VENDOR_LIB}
+	dobin "${D}"/usr/lib64/AMOS/*.pm
+	insinto ${VENDOR_LIB}/TIGR
+	dobin "${D}"/usr/lib64/TIGR/*.pm
 	# move also /usr/lib64/AMOS/AMOS.py to /usr/bin
 	mv "${D}"/usr/lib64/AMOS/*.py "${D}"/usr/bin || die
 }
