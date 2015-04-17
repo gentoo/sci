@@ -4,13 +4,16 @@
 
 EAPI=5
 
+PERL_EXPORT_PHASE_FUNCTIONS=no
+inherit perl-module eutils toolchain-funcs
+
 DESCRIPTION="HMM-based cDNA to genome aligner"
 HOMEPAGE="http://mblab.wustl.edu/software.html"
 SRC_URI="http://mblab.wustl.edu/software/download/pairagon_.tar"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="dev-lang/perl"
@@ -30,13 +33,9 @@ src_install(){
 	# emake DESTDIR="${D}"/usr install
 	dobin bin/*
 	dodoc README
+	perl_set_version
 	insinto /usr/share/pairagon
 	doins parameters/*
-	eval `perl '-V:installvendorlib'`
-	vendor_lib_install_dir="${installvendorlib}"
-	dodir ${vendor_lib_install_dir}/pairagon
-	insinto ${vendor_lib_install_dir}/pairagon
+	insinto ${VENDOR_LIB}
 	doins lib/perl5/Alignment.pm
-	echo "PERL5LIB="${vendor_lib_install_dir}"/pairagon" > ${S}"/99pairagon"
-	doenvd ${S}"/99pairagon" || die
 }
