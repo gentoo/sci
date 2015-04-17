@@ -4,7 +4,8 @@
 
 EAPI=5
 
-inherit perl-module
+PERL_EXPORT_PHASE_FUNCTIONS=no
+inherit perl-module eutils toolchain-funcs
 
 DESCRIPTION="Extract ORF/CDS regions from FASTA sequences"
 HOMEPAGE="http://sourceforge.net/projects/transdecoder/"
@@ -37,15 +38,17 @@ src_prepare(){
 
 src_install(){
 	dobin TransDecoder *.pl util/*.pl util/*.sh
-	eval `perl '-V:installvendorlib'`
-	vendor_lib_install_dir="${installvendorlib}"
-	dodir ${vendor_lib_install_dir}/TransDecoder
-	insinto ${vendor_lib_install_dir}/TransDecoder
-	doins PerlLib/*.pm
-	echo "PERL5LIB="${vendor_lib_install_dir}"/TransDecoder" > ${S}"/99TransDecoder"
-	doenvd ${S}"/99TransDecoder" || die
-
+	perl_set_version
+	insinto ${VENDOR_LIB}/TransDecoder
+	dobin PerlLib/*.pm
 	einfo "Fetch on your own:"
 	einfo "wget --mirror -nH -nd http://downloads.sourceforge.net/project/transdecoder/Pfam-AB.hmm.bin"
 	einfo "hmmpress Pfam-AB.hmm.bin"
+}
+
+pkg_postinst(){
+	einfo "It is recommended to use TransDecoder with hmmer-3 or at least NCBI blast"
+	einfo "from either sci-biology/ncbi-blast+ (released more often) or"
+	einfo "from sci-biology/ncbi-toolkit++ (huge bundle with releases and less frequent bugfixes)"
+	einfo "Author says the minimum requirement is sci-biology/cd-hit"
 }

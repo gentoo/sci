@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  transdecoder-2.0.1.ebuild, transdecoder-20140704.ebuild:
+  sci-biology/transdecoder: fixed installation of perl-related files
+
   19 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   transdecoder-2.0.1.ebuild:
   dropped hmmer dependency altogether, added pkg_postinst() with
