@@ -14,9 +14,9 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="dev-lang/perl
-	sci-biology/hmmer
 	sci-biology/muscle
 	dev-perl/Parallel-ForkManager"
+	# >=sci-biology/hmmer-3.0
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/ORFcor
@@ -24,4 +24,8 @@ S="${WORKDIR}"/ORFcor
 src_install(){
 	dobin *.pl
 	dodoc README
+	insinto /usr/share/${PN}
+	doins 31_HMM*
+	insinto /usr/share/${PN}/test_data
+	doins test_data/*
 }
