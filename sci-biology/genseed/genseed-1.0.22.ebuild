@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -13,9 +13,6 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-	# I am not sure whether we want to introduce yet another USE variable "phrap"
-	# This tools optionally uses cross_match if vector masking is required
-	# (sci-biology/phrap but it will be installed only by users having that licence.
 DEPEND="
 	sci-biology/cap3-bin
 	dev-lang/perl
@@ -26,4 +23,9 @@ S="${WORKDIR}"
 
 src_install() {
 	newbin ${PN}.pl ${PN}
+}
+
+pkg_postinst(){
+	einfo "Ideally install also sci-biology/phrap which provides cross_match"
+	einfo "It is used for vector masking"
 }
