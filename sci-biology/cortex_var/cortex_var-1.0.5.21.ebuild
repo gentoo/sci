@@ -32,7 +32,7 @@ src_prepare(){
 }
 
 src_compile(){
-	rm -rf libs/htslib libs/gsl-1.15 
+	rm -rf libs/htslib libs/gsl-1.15
 	make NUM_COLS=1 MAXK=31 cortex_var || die
 }
 
@@ -43,5 +43,5 @@ src_install(){
 	doins scripts/analyse_variants/bioinf-perl/lib/* scripts/calling/*
 	echo "PATH=/usr/share/${PN}/scripts/analyse_variants/needleman_wunsch" >  "${S}/99${PN}"
 	doenvd "${S}/99${PN}"
-	dodoc ${DISTDIR}/cortex_var_user_manual.pdf
+	dodoc "${DISTDIR}"/cortex_var_user_manual.pdf
 }
