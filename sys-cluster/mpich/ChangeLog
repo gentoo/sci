@@ -2,6 +2,14 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*mpich-3.1.3-r99 (20 Apr 2015)
+
+  20 Apr 2015; Justin Bronder <jsbronder@gentoo.org> +mpich-3.1.3-r99.ebuild,
+  -mpich-3.1.3-r1.ebuild:
+  drop keywords from non-empi version  Every other version of the various MPI's
+  supports empi so it was unexpected to have that dropped.  However this version
+  is still useful for porting/testing.
+
   21 Feb 2015; Christoph Junghans <ottxor@gentoo.org> mpich-3.1.3-r1.ebuild:
   added fortran hack for bug #540508
 
