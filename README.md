@@ -4,7 +4,9 @@ NeuroGentoo is a persistent fork of the science overlay, and augments the Gentoo
 This repository is the cornerstone of the NeuroGentoo initiative, which is further documented on [Chymeric Tutorials](http://chymeric.eu/blog/2013/10/02/neurogentoo/).
 
 Our overlays are functional, though occasionally unstable, and often bundled with cruft from upstream - but we are **fast**:
-Our users have been able to get working AFNI and FSL distributions *since 2013* - now, over 2 years later, these programs are still not available on Gentoo Science, or any other overlay for that matter.
+Our users have - for instance - been able to get working AFNI, SPM and FSL distributions *since 2013*!
+SPM and FSL took almost 2 years to get into Gentoo Science, while AFNI is still not available on Gentoo Science - or any other verlay for that matter.
+The same holds true for many other packages.
 
 ##Install
 
@@ -27,4 +29,4 @@ Please fork! We will merge! See [this](https://github.com/gentoo-science/sci/blo
 
 Project lead by Horea Christian, please direct all email correspondence to h.chr@mail.ru.
 
-Report bugs on the [github issues site](https://github.com/gentoo-science/sci/issues)
+Report bugs on the [upstream, on Gentoo Science](https://github.com/gentoo-science/sci/issues), an add @TheChymera in the text.
