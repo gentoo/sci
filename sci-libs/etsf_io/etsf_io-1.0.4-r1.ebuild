@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,7 +12,7 @@ SRC_URI="http://www.etsf.eu/system/files/${P}.tar.gz"
 
 LICENSE="LGPL-2"
 SLOT="0"
-IUSE="examples"
+IUSE="examples pic"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
@@ -28,6 +28,7 @@ FORTRAN_STANDARD="90"
 src_configure() {
 	# fortran 90 uses FCFLAGS
 	export FCFLAGS="${FFLAGS:--O2}"
+	use pic && export FCFLAGS="-fPIC ${FCFLAGS}"
 	econf \
 		$(use_enable examples build-tutorials) \
 		--prefix="${EPREFIX}/usr" \
