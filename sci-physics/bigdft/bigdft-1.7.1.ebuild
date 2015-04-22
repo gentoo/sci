@@ -1,16 +1,16 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=(  python2_7 )
+PYTHON_COMPAT=( python2_5 python2_6 python2_7 )
 
 inherit autotools-utils eutils flag-o-matic fortran-2 python-any-r1 toolchain-funcs
 
 DESCRIPTION="A DFT electronic structure code using a wavelet basis set"
 HOMEPAGE="http://bigdft.org/"
-SRC_URI="http://launchpad.net/${PN}/${PV%.*}/${PV}/+download/${P}.tar.xz"
+SRC_URI="http://launchpad.net/${PN}/${PV%.*}/${PV}/+download/${P}.tar.bz2"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -18,7 +18,8 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE="cuda doc etsf_io glib mpi netcdf openmp opencl scalapack test"
 
 RDEPEND="
-	>=sci-libs/libxc-1.2.0-r1[fortran]
+	( >=sci-libs/libxc-1.2.0-r1[fortran]
+		<sci-libs/libxc-2.2 )
 	virtual/blas
 	virtual/fortran
 	virtual/lapack
@@ -27,7 +28,7 @@ RDEPEND="
 	cuda? ( dev-util/nvidia-cuda-sdk )
 	opencl? ( virtual/opencl )
 	glib? ( >=dev-libs/glib-2.22 )
-	etsf_io? ( >=sci-libs/etsf_io-1.0.3-r2 )
+	etsf_io? ( >=sci-libs/etsf_io-1.0.4[pic] )
 	netcdf? ( || (
 				sci-libs/netcdf[fortran]
 				sci-libs/netcdf-fortran
@@ -91,7 +92,7 @@ pkg_setup() {
 src_prepare() {
 	epatch \
 		"${FILESDIR}"/"${P}"-pkgconfig.patch \
-		"${FILESDIR}"/"${P}"-dynamic_memory.patch
+		"${FILESDIR}"/"${P}"-longline.patch
 
 	eautoreconf
 }
@@ -168,11 +169,4 @@ src_test() {
 
 src_install() {
 	autotools-utils_src_install
-	if use test; then
-		_check_build_dir
-		pushd "${BUILD_DIR}" > /dev/null || die
-		insinto /usr/share/"${P}"
-		doins -r tests
-		popd > /dev/null
-	fi
 }

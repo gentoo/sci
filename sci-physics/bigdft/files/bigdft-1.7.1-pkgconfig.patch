@@ -6,5 +6,5 @@ diff -Naurp bigdft-1.7.1.orig/bigdft.pc.in bigdft-1.7.1/bigdft.pc.in
  Requires: 
  Version: @VERSION@
 -Libs: -L${libdir} @LIBS_DEPENDENCIES@ @FCLIBS@
-+Libs: -L${libdir} @LIBS_SHORT_DEPS@ @FCLIBS@
++Libs: -L${libdir} -lbigdft-1 @LIBS_SHORT_DEPS@ @FCLIBS@
  Cflags: -I${includedir}
