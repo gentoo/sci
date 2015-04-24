@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit git-r3
+inherit git-r3 cmake-utils
 
 DESCRIPTION="C++ computer vision research libraries"
 HOMEPAGE="http://vxl.sourceforge.net"
@@ -19,3 +19,4 @@ KEYWORDS=""
 RDEPEND=""
 
 DEPEND=""
+
