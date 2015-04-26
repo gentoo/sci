@@ -1,6 +1,9 @@
 # ChangeLog for sci-biology/tmhmm
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  26 Apr 2015; Marius Brehler <marbre@linux.sungazer.de> tmhmm-2.0c.ebuild:
+  Bump to EAPI=5 and cleanup
 
   27 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   tmhmm-2.0c.ebuild, -tmhmm:
@@ -8,4 +11,3 @@
 
   21 Aug 2009; Andrey Kislyuk <weaver@gentoo.org> ChangeLog:
   New package, ebuild written by me
-
