@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
 inherit eutils toolchain-funcs
 
@@ -15,7 +15,6 @@ SRC_URI="http://kinemage.biochem.duke.edu/downloads/software/mage/${MY_P}.src.tg
 LICENSE="richardson"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE=""
 
 RDEPEND="sci-chemistry/prekin"
 DEPEND="${RDEPEND}"
@@ -29,10 +28,9 @@ src_prepare() {
 src_compile() {
 	emake \
 		CC="$(tc-getCC)" \
-		dynamic \
-		|| die "make failed"
+		dynamic
 }
 
 src_install() {
-	dobin "${S}"/mage || die "dobin failed"
+	dobin "${S}"/mage
 }

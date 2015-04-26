@@ -1,6 +1,10 @@
 # ChangeLog for sci-chemistry/mage
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
-# $Header: /var/cvsroot/gentoo-x86/sci-chemistry/probe/ChangeLog,v 1.5 2006/09/20 05:09:00 dberkholz Exp $
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  26 Apr 2015; Marius Brehler <marbre@linux.sungazer.de>
+  mage-6.44.060606.ebuild:
+  Bump to EAPI=5
 
 *mage-6.44.060606 (02 Dec 2009)
 
@@ -28,4 +32,3 @@
   04 Jun 2006; Donnie Berkholz <dberkholz@gentoo.org>; +metadata.xml,
   +probe-2.11.050121.ebuild:
   New program that evaluates atomic packing within or between molecules.
-
