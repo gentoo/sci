@@ -21,6 +21,7 @@ DEPEND="dev-tcltk/tix
 	dev-tcltk/togl:1.7
 	virtual/opengl
 	x11-libs/libXmu
+	|| (sci-libs/parmetis sci-libs/metis)
 	opencascade? ( sci-libs/opencascade )
 	ffmpeg? ( media-video/ffmpeg )
 	jpeg? ( virtual/jpeg )
@@ -52,6 +53,7 @@ src_configure() {
 	use jpeg && myconf="${myconf} --enable-jpeglib"
 
 	append-cppflags -I/usr/include/togl-1.7
+	append-cppflags -I/usr/include/metis
 
 	econf \
 		${myconf}
