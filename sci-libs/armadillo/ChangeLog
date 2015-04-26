@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*armadillo-5.000.1 (26 Apr 2015)
+
+  26 Apr 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +armadillo-5.000.1.ebuild:
+  Version bump
+
   03 Apr 2015; Marius Brehler <marbre@linux.sungazer.de>
   -armadillo-4.600.2.ebuild, -armadillo-4.600.4.ebuild,
   -armadillo-4.650.2.ebuild:
