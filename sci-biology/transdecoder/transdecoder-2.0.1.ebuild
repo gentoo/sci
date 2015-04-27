@@ -18,10 +18,11 @@ IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	sci-biology/hmmer
 	sci-biology/cd-hit
+	sci-biology/hmmer
 	sci-biology/parafly
 	sci-biology/ffindex"
+# cdhit-4.6.1 is a real dependency, at least hmmer is optional (also ncbi-tools++ is now used for ORF searches)
 
 S="${WORKDIR}"/TransDecoder-2.0.1
 
@@ -37,10 +38,24 @@ S="${WORKDIR}"/TransDecoder-2.0.1
 # you cna get it from http://downloads.sourceforge.net/project/transdecoder/Pfam-AB.hmm.bin
 
 src_install(){
-	dobin TransDecoder *.pl util/*.pl util/*.sh
+	dobin TransDecoder.Predict TransDecoder.LongOrfs
+	insinto /usr/share/${PN}/util
+	dobin util/*.pl
+	# zap the bundled cdhit binaries copied from transdecoder_plugins/cdhit/ to util/bin
+	rm -rf util/bin
+	#
+	#  * sci-biology/trinityrnaseq-20140413:0::science
+	# *      /usr/bin/Fasta_reader.pm
+	# *      /usr/bin/GFF3_utils.pm
+	# *      /usr/bin/Gene_obj.pm
+	# *      /usr/bin/Gene_obj_indexer.pm
+	# *      /usr/bin/Longest_orf.pm
+	# *      /usr/bin/Nuc_translator.pm
+	# *      /usr/bin/TiedHash.pm
+	#
 	perl_set_version
-	insinto ${VENDOR_LIB}/TransDecoder
-	dobin PerlLib/*.pm
+	insinto ${VENDOR_LIB}/${PN}
+	dobin PerlLib/*.pm # BUG: install into /usr/bin but wanted to have it readable and executable in ${VENDOR_LIB}/${PN} instead
 	einfo "Fetch on your own:"
 	einfo "wget --mirror -nH -nd http://downloads.sourceforge.net/project/transdecoder/Pfam-AB.hmm.bin"
 	einfo "hmmpress Pfam-AB.hmm.bin"
