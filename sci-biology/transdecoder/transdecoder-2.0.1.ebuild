@@ -13,7 +13,7 @@ SRC_URI="https://github.com/TransDecoder/TransDecoder/archive/"${PV}".tar.gz -> 
 
 LICENSE="BSD-BroadInstitute"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=""

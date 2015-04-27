@@ -3,6 +3,10 @@
 # $Header: $
 
   27 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  transdecoder-2.0.1.ebuild:
+  sci-biology/transdecoder: ebuild cleanup
+
+  27 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   -transdecoder-20140704.ebuild, transdecoder-2.0.1.ebuild:
   sci-biology/transdecoder: drop old
 
