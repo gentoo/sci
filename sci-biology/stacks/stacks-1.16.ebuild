@@ -17,7 +17,8 @@ LICENSE="GPL-3"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="sys-cluster/openmpi
+# sys-cluster/openmpi
+DEPEND="
 	dev-cpp/sparsehash
 	sci-biology/samtools
 	sci-biology/bamtools"

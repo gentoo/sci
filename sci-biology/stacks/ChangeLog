@@ -3,6 +3,9 @@
 # $Header: $
 
   27 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> stacks-1.16.ebuild:
+  sci-biology/stacks: commented out sys-cluster/openmpi DEPENDency
+
+  27 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> stacks-1.16.ebuild:
   sci-biology/stacks: SRC_URI cleanup
 
   16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> stacks-1.16.ebuild:
