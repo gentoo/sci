@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/minced
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*minced-9999 (27 Apr 2015)
+
+  27 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +minced-9999.ebuild:
+  sci-biology/minced: new package; the /usr/bin/minced wrapper for the
+  minced.jar does not work
