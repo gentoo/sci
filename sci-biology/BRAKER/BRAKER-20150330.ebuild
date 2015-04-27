@@ -20,6 +20,10 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}
 	virtual/perl-Scalar-List-Utils"
+#
+# BUG:
+# this causes:
+# [blocks B      ] <perl-core/Scalar-List-Utils-1.380.0 ("<perl-core/Scalar-List-Utils-1.380.0" is blocking virtual/perl-Scalar-List-Utils-1.380.0)
 
 S="${WORKDIR}"
 
