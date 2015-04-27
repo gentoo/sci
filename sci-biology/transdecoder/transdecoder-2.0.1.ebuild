@@ -16,11 +16,12 @@ SLOT="0"
 KEYWORDS=""
 IUSE=""
 
-DEPEND="
+DEPEND=""
+RDEPEND="${DEPEND}
+	sci-biology/hmmer
 	sci-biology/cd-hit
 	sci-biology/parafly
 	sci-biology/ffindex"
-RDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/TransDecoder-2.0.1
 
