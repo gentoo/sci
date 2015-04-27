@@ -25,17 +25,19 @@ RDEPEND="${DEPEND}
 
 src_install(){
 	# the below recreates the whole layout
-	insinto /usr/share/"${PN}"
-	doins barrnap
-	chmod a+rx "${D}"/usr/share/"${PN}"/barrnap
-	insinto /usr/share/"${PN}"/binaries
-	doins binaries/nhmmer.linux
-	chmod a+rx "${D}"/usr/share/"${PN}"/binaries/nhmmer.linux
+	insinto /usr/share/"${PN}"/bin
+	doins bin/barrnap
+	chmod a+rx "${D}"/usr/share/"${PN}"/bin/barrnap || die
+	insinto /usr/share/"${PN}"/binaries/linux
+	doins binaries/linux/nhmmer
+	chmod a+rx "${D}"/usr/share/"${PN}"/binaries/linux/nhmmer || die
 	insinto /usr/share/"${PN}"/db
 	doins db/*
-	insinto /usr/share/examples
+	insinto /usr/share/"${PN}"/examples
 	doins examples/*
 
-	echo PATH=/usr/share/"${PN}":$PATH > "${S}"/99barrnap
+	echo PATH=/usr/share/"${PN}"/bin:$PATH > "${S}"/99barrnap
 	doenvd "${S}"/99barrnap
+
+	dodoc README.md
 }
