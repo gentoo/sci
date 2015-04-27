@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -47,14 +47,7 @@ RDEPEND="${DEPEND}
 	sys-libs/ncurses
 	x11-apps/xset
 	|| ( x11-libs/xview x11-libs/xview-bin )
-	|| (
-		(
-			x11-libs/libX11[abi_x86_32(-)]
-		)
-		(
-			app-emulation/emul-linux-x86-xlibs[-abi_x86_32(-)]
-		)
-	)
+	>=x11-libs/libX11-1.6.2[abi_x86_32(-)]
 	prefix? ( dev-util/patchelf )"
 
 S="${WORKDIR}"

@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> eval-2.2.8.ebuild:
+  sci-biology/eval: fixed installation of perl-related files
+
   19 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> eval-2.2.8.ebuild:
   removing KEYWORDS until the perl files are installed to some other place. At
   the moment I get: 'perl-module.eclass: Suspicious environment values found.

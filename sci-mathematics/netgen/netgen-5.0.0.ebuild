@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
 inherit autotools eutils flag-o-matic multilib versionator
 
@@ -71,12 +71,12 @@ src_install() {
 	echo -e "NETGENDIR=${NETGENDIR} \nLDPATH=/usr/$(get_libdir)/Togl1.7" > ./99netgen
 	doenvd 99netgen
 
-	emake DESTDIR="${D}" install || die "make install failed"
-	mv "${D}"/usr/bin/{*.tcl,*.ocf} "${D}${NETGENDIR}"
+	emake DESTDIR="${D}" install
+	mv "${D}"/usr/bin/{*.tcl,*.ocf} "${D}${NETGENDIR}" || die
 
 	# Install icon and .desktop for menu entry
-	doicon "${FILESDIR}"/${PN}.png || die "doicon failed"
-	domenu "${FILESDIR}"/${PN}.desktop || die "domenu failed"
+	doicon "${FILESDIR}"/${PN}.png
+	domenu "${FILESDIR}"/${PN}.desktop
 }
 
 pkg_postinst() {

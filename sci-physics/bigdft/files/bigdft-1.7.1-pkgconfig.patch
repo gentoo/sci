@@ -1,0 +1,10 @@
+diff -Naurp bigdft-1.7.1.orig/bigdft.pc.in bigdft-1.7.1/bigdft.pc.in
+--- bigdft-1.7.1.orig/bigdft.pc.in	2013-12-11 09:31:00.000000000 +0000
++++ bigdft-1.7.1/bigdft.pc.in	2014-01-27 10:17:14.314387505 +0000
+@@ -7,5 +7,5 @@ Name: libbigdft
+ Description: Library for DFT calculation over wavelets.
+ Requires: 
+ Version: @VERSION@
+-Libs: -L${libdir} @LIBS_DEPENDENCIES@ @FCLIBS@
++Libs: -L${libdir} -lbigdft-1 @LIBS_SHORT_DEPS@ @FCLIBS@
+ Cflags: -I${includedir}
