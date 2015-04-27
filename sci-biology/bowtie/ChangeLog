@@ -2,10 +2,16 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*bowtie-2.2.3 (27 Apr 2015)
+*bowtie-2.2.5 (27 Apr 2015)
+
+  27 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +bowtie-2.2.3.ebuild, +bowtie-2.2.5.ebuild, -bowtie-2.2.4.ebuild:
+  sci-biology/bowtie: version bump
+
   06 Feb 2015; Ted Tanberry <ted.tanberry@gmail.com> bowtie-1.1.1.ebuild,
   bowtie-2.2.4.ebuild: Version bump, updated ebuild, fixed small build
   system bugs
 
   28 Sep 2013; Justin Lecher <jlec@gentoo.org> bowtie-2.1.0.ebuild:
   Exchange common variables, fix SRC_URI
-
