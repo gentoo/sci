@@ -21,7 +21,7 @@ DEPEND="dev-tcltk/tix
 	dev-tcltk/togl:1.7
 	virtual/opengl
 	x11-libs/libXmu
-	|| (sci-libs/parmetis sci-libs/metis)
+	|| ( sci-libs/parmetis sci-libs/metis )
 	opencascade? ( sci-libs/opencascade )
 	ffmpeg? ( media-video/ffmpeg )
 	jpeg? ( virtual/jpeg )
