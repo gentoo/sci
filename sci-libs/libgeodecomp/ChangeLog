@@ -1,8 +1,12 @@
 # ChangeLog for sci-libs/libgeodecomp
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  16 Apr 2015; Justin Lecher <jlec@gentoo.org> -Manifest,
+  -libgeodecomp-0.1.0.ebuild, -libgeodecomp-0.2.0.ebuild,
+  -libgeodecomp-0.3.1.ebuild:
+  sci-libs/libgeodecomp: In CVS
 
   22 Mar 2014; Justin Lecher <jlec@gentoo.org> libgeodecomp-9999.ebuild,
   metadata.xml:
   Add missing die
-

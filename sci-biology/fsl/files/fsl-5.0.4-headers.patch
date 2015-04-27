@@ -1,0 +1,32 @@
+--- src/avwutils/fslmaths.cc.orig	2013-10-19 00:17:44.765129309 +1300
++++ src/avwutils/fslmaths.cc	2013-10-19 00:18:02.975157728 +1300
+@@ -71,7 +71,7 @@
+ #include "newimage/newimageall.h"
+ #include "miscmaths/miscmaths.h"
+ #include "utils/fsl_isfinite.h"
+-#include "libprob/libprob.h"
++#include "libprob.h"
+ 
+ using namespace MISCMATHS;
+ using namespace NEWIMAGE;
+--- src/miscvis/writepng.c.orig	2013-10-19 00:18:32.415203592 +1300
++++ src/miscvis/writepng.c	2013-10-19 00:19:05.414255132 +1300
+@@ -32,6 +32,7 @@
+ 
+ #include <stdlib.h>     /* for exit() prototype */
+ 
++#include "zlib.h"
+ #include "png.h"        /* libpng header; includes zlib.h and setjmp.h */
+ #include "writepng.h"   /* typedefs, common macros, public prototypes */
+ 
+--- src/ptx2/surfmaths.cc.orig	2013-10-19 00:19:51.595327317 +1300
++++ src/ptx2/surfmaths.cc	2013-10-19 00:20:09.284354805 +1300
+@@ -72,7 +72,7 @@
+ #include "csv_mesh.h"
+ #include "miscmaths/miscmaths.h"
+ #include "utils/fsl_isfinite.h"
+-#include "libprob/libprob.h"
++#include "libprob.h"
+ 
+ using namespace MISCMATHS;
+ 

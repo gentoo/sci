@@ -1,6 +1,12 @@
 # ChangeLog for sci-libs/etsf_io
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*etsf_io-1.0.4-r1 (22 Apr 2015)
+
+  22 Apr 2015; Honza Macháček <Hloupy.Honza@centrum.cz>
+  -etsf_io-1.0.4.ebuild, +etsf_io-1.0.4-r1.ebuild, metadata.xml:
+  Added pic USE flag, needed by sci-physics/bigdft
 
   15 Apr 2014; Honza Macháček <Hloupy.Honza@centrum.cz> etsf_io-1.0.4.ebuild:
   From sci-libs/etsf_io-1.0.4 removed -fPIC, probably not needed, just

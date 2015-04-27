@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  cgview-bin-20131130.ebuild:
+  sci-biology/cgview-bin: fixed installation of perl-related files
+
   18 Feb 2015; Justin Lecher <jlec@gentoo.org> cgview-bin-20131130.ebuild:
   sci-biology/cgview-bin: fix SLOT operators; drop KEYWORDS as fetch failed
 

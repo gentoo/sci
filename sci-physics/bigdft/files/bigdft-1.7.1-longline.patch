@@ -1,0 +1,14 @@
+diff -Naurp bigdft-1.7.1.orig/libABINIT/src/16_hideleave/m_errors.F90 bigdft-1.7.1/libABINIT/src/16_hideleave/m_errors.F90
+--- bigdft-1.7.1.orig/libABINIT/src/16_hideleave/m_errors.F90	2013-12-11 09:31:00.000000000 +0000
++++ bigdft-1.7.1/libABINIT/src/16_hideleave/m_errors.F90	2015-04-21 08:35:18.781370070 +0000
+@@ -777,7 +777,9 @@ subroutine sentinel(level,mode_paral,fun
+  else if (level==2) then
+   msg = ' '//TRIM(my_funcname)//' : exit '//ch10
+  else 
+-  call die('Wrong level',__FILE__,__LINE__)
++  call die('Wrong level',&
++&  __FILE__,&
++&  __LINE__)
+  end if
+ 
+  call wrtout(std_out,msg,my_mode) 

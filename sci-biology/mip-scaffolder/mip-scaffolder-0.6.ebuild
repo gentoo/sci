@@ -22,7 +22,7 @@ RDEPEND="${DEPEND}"
 
 src_prepare(){
 	sed -e 's:/home/user/lp-solve/:/usr/include/lpsolve/:; s:/home/user/lemon/:/usr/include/lemon:; s:/home/user/mip-scaffolder-0.6/:/usr/bin:' -i Makefile
-	find . -name Makefile | while read f; do sed -e "s:CC=g++:CC=$(tc-getCXX):; s:CFLAGS=-Wall -g -O9:CFLAGS=${CFLAGS}:" -i $f; done
+	find . -name Makefile | while read f; do sed -e "s:CC=g++:CC=$(tc-getCXX):; s:CFLAGS=-Wall -g -O9:CFLAGS=${CXXFLAGS}:" -i $f; done
 	sed -e 's:$(LPSOLVEROOT)/liblpsolve55.a:-llpsolve55:' -i split-scaffold/Makefile
 }
 

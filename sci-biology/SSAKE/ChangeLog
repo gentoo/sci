@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/SSAKE
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*SSAKE-3.8.2 (17 Apr 2015)
+
+  17 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +SSAKE-3.8.2.ebuild,
+  +metadata.xml:
+  sci-biology/SSAKE: new package

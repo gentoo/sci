@@ -2,6 +2,19 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*openmpi-1.8.4-r4 (20 Apr 2015)
+
+  20 Apr 2015; Justin Bronder <jsbronder@gentoo.org> +openmpi-1.8.4-r4.ebuild:
+  sync with upstream
+
+*openmpi-1.8.4-r99 (20 Apr 2015)
+
+  20 Apr 2015; Justin Bronder <jsbronder@gentoo.org> +openmpi-1.8.4-r99.ebuild,
+  -openmpi-1.8.4-r3.ebuild:
+  drop keywords from non-empi version  Every other version of the various MPI's
+  supports empi so it was unexpected to have that dropped.  However this version
+  is still useful for porting/testing.
+
   22 Feb 2015; Christoph Junghans <ottxor@gentoo.org> openmpi-1.8.4-r3.ebuild:
   drop some useless slots
 
