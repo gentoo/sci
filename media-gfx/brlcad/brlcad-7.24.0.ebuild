@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 inherit cmake-utils eutils java-pkg-2 flag-o-matic
 
 DESCRIPTION="Constructive solid geometry modeling system"
@@ -14,14 +14,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="benchmarks debug doc examples java opengl smp"
 
-RDEPEND="media-libs/libpng
+RDEPEND="media-libs/libpng:0
 	sys-libs/zlib
 	>=sci-libs/tnt-3
 	sci-libs/jama
-	>=dev-lang/tcl-8.5
-	>=dev-lang/tk-8.5
-	=dev-tcltk/itcl-3.4*
-	=dev-tcltk/itk-3.4*
+	<dev-lang/tcl-8.6:0
+	<dev-lang/tk-8.6:0
+	<dev-tcltk/itcl-4.0
+	<dev-tcltk/itk-4.0
 	dev-tcltk/iwidgets
 	dev-tcltk/tkimg
 	dev-tcltk/tkpng
@@ -29,14 +29,14 @@ RDEPEND="media-libs/libpng
 	media-libs/urt
 	x11-libs/libXt
 	x11-libs/libXi
-	java? ( >=virtual/jre-1.5 )
+	java? ( >=virtual/jre-1.5:* )
 	"
 
 DEPEND="${RDEPEND}
 	sys-devel/bison
 	sys-devel/flex
 	dev-tcltk/tktable
-	>=virtual/jre-1.5
+	>=virtual/jre-1.5:*
 	doc? (
 		dev-libs/libxslt
 		app-doc/doxygen
@@ -44,13 +44,12 @@ DEPEND="${RDEPEND}
 
 BRLCAD_DIR="${EPREFIX}/usr/${PN}"
 
-src_prepare() {
-	epatch "${FILESDIR}/${P}-cmake.patch"
-}
+#src_prepare() {
+#	epatch "${FILESDIR}/${P}-cmake.patch"
+#}
 
 src_configure() {
 filter-flags -std=c++0x
-append-ldflags $(no-as-needed)
 	if use Debug; then
 		CMAKE_BUILD_TYPE=Debug
 		else
@@ -58,12 +57,12 @@ append-ldflags $(no-as-needed)
 		fi
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_PREFIX="${BRLCAD_DIR}"
-		-DBRLCAD_ENABLE_STRICT=OFF
-		-DBRLCAD-ENABLE_STRICT=OFF
-		-DBRLCAD-ENABLE_COMPILER_WARNINGS=OFF
+		-DBRLCAD_ENABLE_STRICT=NO
+		-DBRLCAD-ENABLE_COMPILER_WARNINGS=NO
+		-DBRLCAD_BUNDLED_LIBS=ON
 		-DBRLCAD_FLAGS_OPTIMIZATION=ON
 		-DBRLCAD_ENABLE_X11=ON
-		-DBRLCAD_BUNDLED_LIBS=AUTO
+		-DCMAKE_BUILD_TYPE=Release
 		)
 
 			# use flag triggered options
