@@ -3,6 +3,13 @@
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/tophat/ChangeLog,v 1.14 2015/04/07 14:35:24 jlec Exp $
 
   28 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  tophat-2.0.12.ebuild, tophat-2.0.13.ebuild, tophat-2.0.14.ebuild:
+  sci-biology/tophat: recorded depependencies; dropped KEYWORDS until we have
+  slotted samtools (or multiple static binaries with version appended to
+  filename), link tophat_reporter against -lsam-0.1.18 and similarly adjust
+  tophat_reporter
+
+  28 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   tophat-2.0.14.ebuild:
   sci-biology/tophat: try to introduce all-recursive target to make upstream
   'make all' call happy

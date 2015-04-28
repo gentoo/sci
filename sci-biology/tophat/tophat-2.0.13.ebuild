@@ -9,7 +9,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit autotools-utils python-single-r1
 
-DESCRIPTION="A fast splice junction mapper for RNA-Seq reads"
+DESCRIPTION="Python-based splice junction mapper for RNA-Seq reads using bowtie/bowtie2"
 HOMEPAGE="http://ccb.jhu.edu/software/tophat"
 # https://github.com/infphilo/tophat
 # http://ccb.jhu.edu/software/tophat/downloads/tophat-2.0.14.tar.gz
@@ -17,14 +17,21 @@ SRC_URI="http://ccb.jhu.edu/software/tophat/downloads/${P}.tar.gz"
 
 LICENSE="Artistic"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="debug"
 
 DEPEND="dev-libs/boost"
-# >=sci-biology/tophat-2.0.13 contain bundled samtools-0.1.18 and SeqAn-1.3
 # sci-biology/seqan provides binaries and headers but there are no *.so files so no need for a runtime dependency
+# boost and seqan is needed for tophat_reporter
+
+# tophat.py calls
+#   samtools_0.1.18 view -h -
+#   samtools_0.1.18 sort
+#   samtools_0.1.18 merge -f -h -u -Q --sam-header
 RDEPEND="${DEPEND}
-	<=sci-biology/bowtie-2.2.3"
+	>=sci-biology/samtools-0.1.17
+	<=sci-biology/samtools-0.1.19
+	>=sci-biology/bowtie-0.12.9 || ( >=sci-biology/bowtie-2.0.5 <=sci-biology/bowtie-2.2.3 )"
 
 # PATCHES=( "${FILESDIR}"/${P}-flags.patch )
 
@@ -49,6 +56,8 @@ src_configure() {
 }
 
 src_install() {
+	# introduce empty all-recursive: target in tophat-2.0.14_build/src/Makefile (BUG: does not replace?)
+	sed -e "s#^all: all-am#all: all-am\nall-recursive: all#g" -i src/Makefile* || die
 	autotools-utils_src_install
 	python_fix_shebang "${ED}"/usr/bin/tophat
 }
