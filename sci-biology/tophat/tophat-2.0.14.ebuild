@@ -49,6 +49,8 @@ src_configure() {
 }
 
 src_install() {
+	# introduce empty all-recursive: target in tophat-2.0.14_build/src/Makefile (BUG: does not replace?)
+	sed -e "s#^all: all-am#all: all-am\nall-recursive: all#g" -i src/Makefile* || die
 	autotools-utils_src_install
 	python_fix_shebang "${ED}"/usr/bin/tophat
 }

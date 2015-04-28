@@ -1,6 +1,11 @@
 # ChangeLog for sci-biology/tophat
-# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/tophat/ChangeLog,v 1.14 2015/04/07 14:35:24 jlec Exp $
+
+  28 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  tophat-2.0.14.ebuild:
+  sci-biology/tophat: try to introduce all-recursive target to make upstream
+  'make all' call happy
 
   17 Oct 2014; Sergey Popov <pinkbyte@gentoo.org> tophat-1.0.12.ebuild:
   Non-maintainer commit: fix building, approved by Justin Lecher
@@ -66,4 +71,3 @@
   07 Dec 2009; Andrey Kislyuk <weaver@gentoo.org> +metadata.xml,
   +tophat-1.0.12.ebuild:
   Import from Science overlay and version bump. Thanks to Philippe Veber.
-
