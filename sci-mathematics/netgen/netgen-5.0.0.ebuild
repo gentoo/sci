@@ -50,7 +50,6 @@ src_configure() {
 		myconf="${myconf} --enable-parallel"
 		append-cppflags -I/usr/include/metis
 	fi
-	
 	use ffmpeg && myconf="${myconf} --enable-ffmpeg"
 	use jpeg && myconf="${myconf} --enable-jpeglib"
 	append-cppflags -I/usr/include/togl-1.7
