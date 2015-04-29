@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/BlastToSam
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*BlastToSam-9999 (29 Apr 2015)
+
+  29 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +BlastToSam-9999.ebuild, +metadata.xml:
+  sci-biology/BlastToSam: new package, works
