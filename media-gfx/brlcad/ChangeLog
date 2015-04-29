@@ -3,8 +3,8 @@
 # $Header: /var/cvsroot/gentoo-x86/media-gfx/brlcad/ChangeLog,v 1.3 2011/04/18 22:47:37 dilfridge Exp $
 
   28 April 2015; Dongxu Li <dongxuli2011@gmail.com>
-  +brlcad-7.24.2.ebuild, brlcad-7.24.0.ebuild, brlcad-9999.ebuild:
-  Version bumped to 7.24.2
+  brlcad-7.24.2.ebuild, brlcad-9999.ebuild:
+  Fixed a deps issue
 
   4 July 2013; Dongxu Li <dongxuli2011@gmail.com> +brlcad-7.24.0.ebuild:
   Version bumped to 7.24.0
