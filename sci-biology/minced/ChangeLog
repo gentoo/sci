@@ -2,6 +2,9 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  29 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> minced-9999.ebuild:
+  sci-biology/minced: fixed the launcher
+
 *minced-9999 (27 Apr 2015)
 
   27 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,

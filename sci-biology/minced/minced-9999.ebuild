@@ -23,7 +23,7 @@ src_compile(){
 }
 
 src_install(){
-	java-pkg_newjar minced.jar
-	java-pkg_dolauncher minced --jar minced.jar # --main minced.minced
+	java-pkg_dojar minced.jar
+	java-pkg_dolauncher
 	dodoc README
 }
