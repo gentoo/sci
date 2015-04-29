@@ -40,4 +40,6 @@ src_install(){
 	dobin kmergenie specialk
 	dodoc README
 	# TODO: install also the python files
+	insinto /usr/share/${PN}/R
+	doins scripts/*
 }
