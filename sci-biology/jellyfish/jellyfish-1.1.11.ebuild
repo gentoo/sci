@@ -6,10 +6,11 @@ EAPI=5
 
 DESCRIPTION="k-mer counter within reads for assemblies"
 HOMEPAGE="http://www.genome.umd.edu/jellyfish.html"
-SRC_URI="ftp://ftp.genome.umd.edu/pub/${PN}/${P}.tar.gz
-	ftp://ftp.genome.umd.edu/pub/jellyfish/JellyfishUserGuide.pdf"
+SRC_URI="http://www.cbcb.umd.edu/software/jellyfish/jellyfish-1.1.11.tar.gz
+	http://www.cbcb.umd.edu/software/jellyfish/jellyfish-manual-1.1.pdf"
 
 # older version is hidden in trinityrnaseq_r20140413p1/trinity-plugins/jellyfish-1.1.11
+# also was bundled in quorum-0.2.1 and MaSuRca-2.1.0
 
 LICENSE="GPL-3+ HalfLICENSE"
 SLOT="0"
