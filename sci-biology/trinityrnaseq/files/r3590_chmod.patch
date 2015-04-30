@@ -1,0 +1,24 @@
+--- trinityrnaseq_r20140413p1/trinity-plugins/coreutils/build_parallel_sort.sh	2014-07-03 01:22:30.000000000 +0200
++++ /home/mmokrejs/tmp/build_parallel_sort.sh	2014-07-03 01:18:35.690493804 +0200
+@@ -29,11 +29,9 @@
+   cd ${DIR}/bin
+   SORTPATH=`which sort`
+   ln -s ${SORTPATH}
+-  if [ ! -x ./sort-softlink]; then
+-    if [ ! -x ${DIR}/bin/sort ]; then
++  if [ ! -x ${DIR}/bin/sort ]; then
+   chmod +x ${DIR}/bin/sort
+     fi
+-  fi
+   exit 0
+ fi 
+ 
+@@ -56,7 +54,7 @@
+ cd ${INSTALLDIR}
+ ./configure
+ #make clean
+-make -j
++make
+ cd src
+ mkdir -p ${DIR}/bin
+ cp sort ${DIR}/bin

@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/trinityrnaseq
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*trinityrnaseq-20140413 (30 Apr 2015)
+
+  30 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/r3590_chmod.patch, +files/sort.patch, +metadata.xml,
+  +trinityrnaseq-20140413.ebuild:
+  sci-biology/trinityrnaseq: new package (with last release on sourceforge)
