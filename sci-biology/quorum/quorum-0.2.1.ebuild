@@ -13,5 +13,9 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="=sci-biology/jellyfish-1.1*"
+DEPEND="=sci-biology/jellyfish-1.1.11"
 RDEPEND="${DEPEND}"
+
+src_configure(){
+	econf --enable-relative-paths --with-relative-jf-path
+}

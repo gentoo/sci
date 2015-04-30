@@ -15,3 +15,7 @@ IUSE=""
 
 DEPEND="=sci-biology/jellyfish-2.1.4"
 RDEPEND="${DEPEND}"
+
+src_configure(){
+	econf --enable-relative-paths --with-relative-jf-path
+}
