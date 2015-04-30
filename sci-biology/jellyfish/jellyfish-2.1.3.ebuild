@@ -17,10 +17,12 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	virtual/pkgconfig"
 
 src_install(){
 	default
+	# beware the filename say 2.0 instead of 2.1. does it matter?
 	sed -e "s#jellyfish-${PV}#jellyfish#" -i "${D}"/usr/lib64/pkgconfig/jellyfish-2.0.pc || die
 	mkdir -p "${D}/usr/include/${PN}" || die
 	mv "${D}"/usr/include/"${P}"/"${PN}"/* "${D}/usr/include/${PN}/" || die
