@@ -28,6 +28,8 @@ RDEPEND="${DEPEND}
 # ReleaseNotes mentions that <sci-biology/samtools-1.1 is needed
 # version of bundled jellyfish is 2.1.4
 
+# optionally install https://github.com/HpcGridRunner/HpcGridRunner/releases
+
 #src_compile(){
 #	emake all
 #	emake plugins # bundled copies of TransDecoder, trimmomatic, fastool, parafly
@@ -41,6 +43,7 @@ src_install(){
 	dodoc trinity-plugins/fstrozzi-Fastool-7c3e034f05/README.md
 	#
 	insinto /usr/share/${PN}/util
+	rm -f util/fasta_tool
 	doins -r util/*
 	#
 	dobin Inchworm/bin/*
