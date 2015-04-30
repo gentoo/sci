@@ -5,7 +5,7 @@
 EAPI=5
 
 DESCRIPTION="k-mer counter within reads for assemblies"
-HOMEPAGE="http://www.genome.umd.edu/jellyfish.html"
+HOMEPAGE="http://www.cbcb.umd.edu/software/jellyfish"
 SRC_URI="http://www.cbcb.umd.edu/software/jellyfish/jellyfish-1.1.11.tar.gz
 	http://www.cbcb.umd.edu/software/jellyfish/jellyfish-manual-1.1.pdf"
 
