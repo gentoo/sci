@@ -6,7 +6,7 @@ EAPI=5
 
 inherit eutils toolchain-funcs
 
-DESCRIPTION="An ultrafast memory-efficient short read aligner"
+DESCRIPTION="Short read aligner supporting gaps, matches to N nucleotides, no end-to-end requirement"
 HOMEPAGE="http://bowtie-bio.sourceforge.net/bowtie2/"
 SRC_URI="mirror://sourceforge/project/${PN}-bio/${PN}2/${PV}/${PN}2-${PV}-source.zip"
 
