@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/sci-biology/tophat/ChangeLog,v 1.14 2015/04/07 14:35:24 jlec Exp $
 
+  02 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  tophat-2.0.12.ebuild, tophat-2.0.13.ebuild, tophat-2.0.14.ebuild:
+  added PYTHON_USEDEP
+
   28 Apr 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   tophat-2.0.12.ebuild, tophat-2.0.13.ebuild, tophat-2.0.14.ebuild:
   sci-biology/tophat: recorded depependencies; dropped KEYWORDS until we have
