@@ -2,6 +2,10 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  02 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  pysam-0.6-r2.ebuild, pysam-0.7.5.ebuild:
+  added PYTHON_USEDEP
+
 *pysam-0.6-r2 (30 Apr 2015)
 *pysam-0.7.5 (30 Apr 2015)
 
