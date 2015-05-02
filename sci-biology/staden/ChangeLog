@@ -4,6 +4,10 @@
 
   02 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   staden-2.0.0_beta9.ebuild, staden-9999.ebuild:
+  sci-biology/staden: added SLOT operator
+
+  02 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  staden-2.0.0_beta9.ebuild, staden-9999.ebuild:
   added PYTHON_USEDEP
 
   24 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> staden-9999.ebuild:
