@@ -42,25 +42,25 @@ src_install(){
 	dobin trinity-plugins/fstrozzi-Fastool-7c3e034f05/fastool
 	dodoc trinity-plugins/fstrozzi-Fastool-7c3e034f05/README.md
 	#
-	insinto /usr/share/${PN}/util
+	insinto /usr/share/"${PN}"/util
 	rm -f util/fasta_tool
 	doins -r util/*
 	#
 	dobin Inchworm/bin/*
 	cd Chrysalis
 	dobin MakeDepend checkLock BreakTransByPairs Chrysalis GraphFromFasta IsoformAugment JoinTransByPairs QuantifyGraph ReadsToTranscripts RunButterfly TranscriptomeFromVaryK analysis/ReadsToComponents.pl
-	cd ${S} || die
-	insinto ${VENDOR_LIB}/${PN}
+	cd "${S}" || die
+	insinto "${VENDOR_LIB}/${PN}"
 	doins util/misc/PerlLib/*.pm PerlLib/*.pm
-	insinto ${VENDOR_LIB}/${PN}/KmerGraphLib
+	insinto "${VENDOR_LIB}/${PN}"/KmerGraphLib
 	doins PerlLib/KmerGraphLib/*.pm
-	insinto ${VENDOR_LIB}/${PN}/CDNA
+	insinto "${VENDOR_LIB}/${PN}"/CDNA
 	doins PerlLib/CDNA/*.pm
-	insinto ${VENDOR_LIB}/${PN}/HPC
+	insinto "${VENDOR_LIB}/${PN}"/HPC
 	doins PerlLib/HPC/*.pm
-	insinto ${VENDOR_LIB}/${PN}/Simulate
+	insinto "${VENDOR_LIB}/${PN}"/Simulate
 	doins PerlLib/Simulate/*.pm
-	insinto ${VENDOR_LIB}/${PN}/CanvasXpress
+	insinto "${VENDOR_LIB}/${PN}"/CanvasXpress
 	doins PerlLib/CanvasXpress/*.pm
-	chmod a+rx -R ${ED}/${VENDOR_LIB}/${PN}
+	chmod a+rx -R "${ED}/${VENDOR_LIB}/${PN}"
 }
