@@ -1,0 +1,37 @@
+--- src/Makefile.old	2015-05-02 15:07:56.169136255 +0200
++++ src/Makefile	2015-05-02 15:10:02.249137955 +0200
+@@ -1,7 +1,7 @@
+ include ../make-include.mak
+ include version.mak
+ 
+-CC=gcc
++CC?=gcc
+ 
+ # default targets
+ 
+@@ -71,7 +71,7 @@
+ 	-DSUBVERSION_REV="\"${SUBVERSION_REV}"\"
+ 
+ 
+-CFLAGS = -O3 ${definedForAll} ${VERSION_FLAGS}
++CFLAGS += ${definedForAll} ${VERSION_FLAGS}
+ 
+ 
+ srcFiles = lastz infer_scores \
+@@ -101,13 +101,13 @@
+ 
+ 
+ lastz: $(foreach part,${srcFiles},${part}.o)
+-	${CC} $(foreach part,${srcFiles},${part}.o) -lm -o $@
++	${CC} $(LDFLAGS) $(foreach part,${srcFiles},${part}.o) -lm -o $@
+ 
+ lastz_D: $(foreach part,${srcFiles},${part}_D.o)
+-	${CC} $(foreach part,${srcFiles},${part}_D.o) -lm -o $@
++	${CC} $(LDFLAGS) $(foreach part,${srcFiles},${part}_D.o) -lm -o $@
+ 
+ lastz_32: $(foreach part,${srcFiles},${part}_32.o)
+-	${CC} $(foreach part,${srcFiles},${part}_32.o) -lm -o $@
++	${CC} $(LDFLAGS) $(foreach part,${srcFiles},${part}_32.o) -lm -o $@
+ 
+ # cleanup
+ 

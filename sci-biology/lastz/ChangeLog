@@ -1,6 +1,13 @@
 # ChangeLog for sci-biology/lastz
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*lastz-1.03.66 (02 May 2015)
+
+  02 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +files/lastz-1.03.66-build.patch, +lastz-1.03.66.ebuild,
+  -files/lastz-1.03.34-build.patch, -lastz-1.03.34.ebuild:
+  sci-biology/lastz: version bump
 
   12 Jun 2013; Justin Lecher <jlec@gentoo.org> -lastz-1.02.00.ebuild,
   +lastz-1.03.34.ebuild, +files/lastz-1.03.34-build.patch, metadata.xml:
@@ -17,4 +24,3 @@
   16 Jan 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   +lastz-1.02.00.ebuild, +metadata.xml:
   initial ebuild
-
