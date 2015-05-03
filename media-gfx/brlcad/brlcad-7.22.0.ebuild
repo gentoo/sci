@@ -1,8 +1,8 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 inherit cmake-utils eutils java-pkg-2 flag-o-matic
 
 DESCRIPTION="Constructive solid geometry modeling system"
@@ -14,12 +14,12 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="benchmarks debug doc examples java opengl smp"
 
-RDEPEND="media-libs/libpng
+RDEPEND="media-libs/libpng:0
 	sys-libs/zlib
 	>=sci-libs/tnt-3
 	sci-libs/jama
-	<dev-lang/tcl-8.6
-	<dev-lang/tk-8.6
+	<dev-lang/tcl-8.6:0
+	<dev-lang/tk-8.6:0
 	<dev-tcltk/itcl-4.0
 	<dev-tcltk/itk-4.0
 	dev-tcltk/iwidgets
@@ -29,14 +29,14 @@ RDEPEND="media-libs/libpng
 	media-libs/urt
 	x11-libs/libXt
 	x11-libs/libXi
-	java? ( >=virtual/jre-1.5 )
+	java? ( >=virtual/jre-1.5:* )
 	"
 
 DEPEND="${RDEPEND}
 	sys-devel/bison
 	sys-devel/flex
 	dev-tcltk/tktable
-	>=virtual/jre-1.5
+	>=virtual/jre-1.5:*
 	doc? (
 		dev-libs/libxslt
 		app-doc/doxygen
@@ -50,7 +50,6 @@ BRLCAD_DIR="${EPREFIX}/usr/${PN}"
 
 src_configure() {
 filter-flags -std=c++0x
-append-ldflags $(no-as-needed)
 	if use Debug; then
 		CMAKE_BUILD_TYPE=Debug
 		else
