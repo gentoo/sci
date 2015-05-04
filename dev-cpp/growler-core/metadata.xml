@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer>
-		<email>bryan.d.green@nasa.gov</email>
-		<name>Bryan Green</name>
-	</maintainer>
-	<longdescription>
+  <maintainer>
+    <email>bryan.d.green@nasa.gov</email>
+    <name>Bryan Green</name>
+  </maintainer>
+  <longdescription>
 		Growler-Core provides a large set of mainly general-purpose classes and
 		functionality for developing and using the Growler Distributed Component
 		Architecture.

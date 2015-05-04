@@ -1,6 +1,33 @@
 # ChangeLog for sci-chemistry/unio
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  13 Nov 2014; Justin Lecher <jlec@gentoo.org> unio-2.0.3-r1.ebuild:
+  Drop all KEYWORDS due to broken revdeps
+
+  16 Sep 2014; Justin Lecher <jlec@gentoo.org> -unio-2.0.2-r1.ebuild,
+  -unio-2.0.3.ebuild, unio-2.0.3-r1.ebuild:
+  Add back dropped ~amd64; drop old
+
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> unio-2.0.2-r1.ebuild,
+  unio-2.0.3-r1.ebuild, unio-2.0.3.ebuild:
+  dropped ~amd64 as no-multilib doesn't have abi_x86_32
+
+  04 Jul 2014; Justin Lecher <jlec@gentoo.org> unio-2.0.3-r1.ebuild:
+  Fix emul-linux deps for modern multilib
+
+*unio-2.0.3-r1 (21 Mar 2014)
+
+  21 Mar 2014; Justin Lecher <jlec@gentoo.org> +unio-2.0.3-r1.ebuild:
+  Add symlinks for all apps
+
+*unio-2.0.3 (16 Jan 2014)
+
+  16 Jan 2014; Justin Lecher <jlec@gentoo.org> +unio-2.0.3.ebuild:
+  Version Bump
+
+  08 Nov 2013; Justin Lecher <jlec@gentoo.org> unio-2.0.2-r1.ebuild:
+  Allow emul packages
 
   13 Aug 2013; Justin Lecher <jlec@gentoo.org> -unio-2.0.1-r1.ebuild,
   -unio-2.0.2.ebuild, +unio-2.0.2-r1.ebuild, metadata.xml:
@@ -38,4 +65,3 @@
   02 Oct 2010; Justin Lecher <jlec@gentoo.org> +unio-2.0.1.ebuild,
   +metadata.xml:
   New addition
-

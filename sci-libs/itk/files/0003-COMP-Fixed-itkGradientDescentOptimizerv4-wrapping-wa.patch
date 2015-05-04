@@ -1,0 +1,73 @@
+From fced46ce8769b4edc7971ea0928045390b5c3f84 Mon Sep 17 00:00:00 2001
+From: Michka Popoff <michkapopoff@gmail.com>
+Date: Mon, 10 Feb 2014 09:41:42 +0100
+Subject: [PATCH 3/3] COMP: Fixed itkGradientDescentOptimizerv4 wrapping
+ warnings
+
+I splitted the 3 wrapping calls in 3 separate files and fixed the wrapping.
+
+The warnings :
+/home/kevin/kitware/ITK_Build/Wrapping/Modules/ITKOptimizersv4/itkGradientDescentOptimizerv4.xml: warning(5): Unknown type type: itk::GradientDescentOptimizerBasev4 [typedef]
+/home/kevin/kitware/ITK_Build/Wrapping/Modules/ITKOptimizersv4/itkGradientDescentOptimizerv4.xml: warning(5): Unknown type type: itk::GradientDescentOptimizerv4 [typedef]
+/home/kevin/kitware/ITK_Build/Wrapping/Modules/ITKOptimizersv4/itkGradientDescentOptimizerv4.xml: warning(5): Unknown type type: itk::ObjectToObjectOptimizerBase [typedef]
+/home/kevin/kitware/ITK_Build/Wrapping/Modules/ITKOptimizersv4/itkGradientDescentOptimizerv4.xml: warning(4): ITK type not wrapped, or currently not known: itk::GradientDescentOptimizerBasev4Template< double >
+/home/kevin/kitware/ITK_Build/Wrapping/Modules/ITKOptimizersv4/itkGradientDescentOptimizerv4.xml: warning(4): ITK type not wrapped, or currently not known: itk::GradientDescentOptimizerv4Template< double >
+/home/kevin/kitware/ITK_Build/Wrapping/Modules/ITKOptimizersv4/itkGradientDescentOptimizerv4.xml: warning(4): ITK type not wrapped, or currently not known: itk::ObjectToObjectOptimizerBaseTemplate< double >
+
+Should also hopefully fix the new error on the dashboard I introduced by fixing the itkQuasiNewtonOptimizerv4 warnings (http://review.source.kitware.com/#/c/14317/)
+/home/kevin/kitware/ITK_Build/Wrapping/Typedefs/itkQuasiNewtonOptimizerv4.i:87: Warning 401: Nothing known about base class 'itk::GradientDescentOptimizerv4Template< float >'. Ignored.
+/home/kevin/kitware/ITK_Build/Wrapping/Typedefs/itkQuasiNewtonOptimizerv4.i:87: Warning 401: Maybe you forgot to instantiate 'itk::GradientDescentOptimizerv4Template< float >' using %template.
+
+Change-Id: I15b6af11690ed6efeaced68f73af5212ab5dc364
+---
+ .../wrapping/itkGradientDescentOptimizerBasev4.wrap            |  7 +++++++
+ .../Optimizersv4/wrapping/itkGradientDescentOptimizerv4.wrap   | 10 +++++++---
+ .../Optimizersv4/wrapping/itkObjectToObjectOptimizerBase.wrap  |  7 +++++++
+ 3 files changed, 21 insertions(+), 3 deletions(-)
+ create mode 100644 Modules/Numerics/Optimizersv4/wrapping/itkGradientDescentOptimizerBasev4.wrap
+ create mode 100644 Modules/Numerics/Optimizersv4/wrapping/itkObjectToObjectOptimizerBase.wrap
+
+diff --git a/Modules/Numerics/Optimizersv4/wrapping/itkGradientDescentOptimizerBasev4.wrap b/Modules/Numerics/Optimizersv4/wrapping/itkGradientDescentOptimizerBasev4.wrap
+new file mode 100644
+index 0000000..74f5a6c
+--- /dev/null
++++ b/Modules/Numerics/Optimizersv4/wrapping/itkGradientDescentOptimizerBasev4.wrap
+@@ -0,0 +1,7 @@
++set(WRAPPER_AUTO_INCLUDE_HEADERS OFF)
++itk_wrap_include("itkGradientDescentOptimizerBasev4.h")
++itk_wrap_class("itk::GradientDescentOptimizerBasev4Template" POINTER)
++  foreach(t ${WRAP_ITK_REAL})
++    itk_wrap_template("${ITKM_${t}}" "${ITKT_${t}}")
++  endforeach(t)
++itk_end_wrap_class()
+diff --git a/Modules/Numerics/Optimizersv4/wrapping/itkGradientDescentOptimizerv4.wrap b/Modules/Numerics/Optimizersv4/wrapping/itkGradientDescentOptimizerv4.wrap
+index d53a176..3236448 100644
+--- a/Modules/Numerics/Optimizersv4/wrapping/itkGradientDescentOptimizerv4.wrap
++++ b/Modules/Numerics/Optimizersv4/wrapping/itkGradientDescentOptimizerv4.wrap
+@@ -1,3 +1,7 @@
+-itk_wrap_simple_class("itk::ObjectToObjectOptimizerBase" POINTER)
+-itk_wrap_simple_class("itk::GradientDescentOptimizerBasev4" POINTER)
+-itk_wrap_simple_class("itk::GradientDescentOptimizerv4" POINTER)
++set(WRAPPER_AUTO_INCLUDE_HEADERS OFF)
++itk_wrap_include("itkGradientDescentOptimizerv4.h")
++itk_wrap_class("itk::GradientDescentOptimizerv4Template" POINTER)
++  foreach(t ${WRAP_ITK_REAL})
++    itk_wrap_template("${ITKM_${t}}" "${ITKT_${t}}")
++  endforeach(t)
++itk_end_wrap_class()
+diff --git a/Modules/Numerics/Optimizersv4/wrapping/itkObjectToObjectOptimizerBase.wrap b/Modules/Numerics/Optimizersv4/wrapping/itkObjectToObjectOptimizerBase.wrap
+new file mode 100644
+index 0000000..61b2c44
+--- /dev/null
++++ b/Modules/Numerics/Optimizersv4/wrapping/itkObjectToObjectOptimizerBase.wrap
+@@ -0,0 +1,7 @@
++set(WRAPPER_AUTO_INCLUDE_HEADERS OFF)
++itk_wrap_include("itkObjectToObjectOptimizerBase.h")
++itk_wrap_class("itk::ObjectToObjectOptimizerBaseTemplate" POINTER)
++  foreach(t ${WRAP_ITK_REAL})
++    itk_wrap_template("${ITKM_${t}}" "${ITKT_${t}}")
++  endforeach(t)
++itk_end_wrap_class()
+-- 
+1.8.5.3
+

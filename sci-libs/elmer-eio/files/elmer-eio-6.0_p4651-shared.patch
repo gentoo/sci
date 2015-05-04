@@ -1,0 +1,37 @@
+ configure.in    | 2 +-
+ src/Makefile.am | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index ac5ce92..cd8fc53 100755
+--- a/configure.in
++++ b/configure.in
+@@ -1,5 +1,5 @@
+ AC_INIT(src/eio_api_f.cpp)
+-
++LT_INIT
+ dnl the fortran stuff needs to be pretty new to work on SunOS
+ dnl AC_PREREQ(2.59c)
+ 
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 1836aba..4d73a4b 100755
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -15,8 +15,8 @@ COMMON_SRCS =  \
+ 	EIOPartWriter.cpp \
+ 	EIOSolverAgent.cpp 
+ 
+-libeioc_a_SOURCES = $(COMMON_SRCS) eio_api_c.cpp
+-libeiof_a_SOURCES = $(COMMON_SRCS) eio_api_f.cpp
++libeioc_la_SOURCES = $(COMMON_SRCS) eio_api_c.cpp
++libeiof_la_SOURCES = $(COMMON_SRCS) eio_api_f.cpp
+ 
+ # if USE_SHARED_LIBS
+ # noinst_LIBRARIES = libeioc.a libeiof.a
+@@ -28,5 +28,5 @@ libeiof_a_SOURCES = $(COMMON_SRCS) eio_api_f.cpp
+ # libeiof.$(SHLEXT): libeiof.a
+ # 	$(SH_LD2) $(SH_LDFLAGS) $(B64FLAGS) $(LDFLAGS) -o $@ libeiof.a
+ # else
+-lib_LIBRARIES = libeioc.a libeiof.a
++lib_LTLIBRARIES = libeioc.la libeiof.la
+ # endif

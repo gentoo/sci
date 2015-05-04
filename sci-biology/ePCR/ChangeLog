@@ -1,0 +1,7 @@
+# ChangeLog for sci-biology/ePCR
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  10 Jan 2015; Justin Lecher <jlec@gentoo.org> ePCR-2.3.12.ebuild:
+  Fix license
+

@@ -1,0 +1,181 @@
+ src/ElmerPost.c              |  2 +-
+ src/Makefile.am              | 16 ++++++++--------
+ src/camera/context.cc        |  2 +-
+ src/camera/file.cc           |  2 +-
+ src/camera/glp.h             |  4 ++--
+ src/elmerpost.h              |  2 +-
+ src/fttext.cpp               |  2 +-
+ src/graphics/graphics.h      |  2 +-
+ src/second.c                 |  2 +-
+ src/sico2elmer/sico2elmerc.c |  2 +-
+ 10 files changed, 18 insertions(+), 18 deletions(-)
+
+diff --git a/src/ElmerPost.c b/src/ElmerPost.c
+index 2a238b0..9c63113 100644
+--- a/src/ElmerPost.c
++++ b/src/ElmerPost.c
+@@ -45,7 +45,7 @@
+ 
+ #define MODULE_MAIN
+ #include "elmerpost.h"
+-#include "../config.h"
++#include "config.h"
+ 
+ #include <tcl.h>
+ #include <tk.h>
+diff --git a/src/Makefile.am b/src/Makefile.am
+index f4234a1..cd35e72 100755
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -98,31 +98,31 @@ install-data-local:
+ 
+ 	@echo "Instaling help to ${ELMER_POST_DATADIR}/help"
+ 	mkdir -p $(DESTDIR)$(ELMER_POST_DATADIR)/help
+-	cp -r help/* $(DESTDIR)$(ELMER_POST_DATADIR)/help
++	cp -r $(srcdir)/help/* $(DESTDIR)$(ELMER_POST_DATADIR)/help
+ 	rm -rf `find $(DESTDIR)$(ELMER_POST_DATADIR)/help -name .svn`
+ 
+ 	@echo "Instaling tcl scripts to ${ELMER_POST_DATADIR}/tcl"
+ 	mkdir -p $(DESTDIR)$(ELMER_POST_DATADIR)/tcl
+-	cp -r tcl/* $(DESTDIR)$(ELMER_POST_DATADIR)/tcl
++	cp -r $(srcdir)/tcl/* $(DESTDIR)$(ELMER_POST_DATADIR)/tcl
+ 	rm -rf `find $(DESTDIR)$(ELMER_POST_DATADIR)/tcl -name .svn`
+ 
+ 	@echo "Instaling initialization scripts to ${ELMER_POST_DATADIR}/lib"
+ 	mkdir -p $(DESTDIR)$(ELMER_POST_DATADIR)/lib
+-	cp -r lib/* $(DESTDIR)$(ELMER_POST_DATADIR)/lib
++	cp -r $(srcdir)/lib/* $(DESTDIR)$(ELMER_POST_DATADIR)/lib
+ 	rm -rf `find $(DESTDIR)$(ELMER_POST_DATADIR)/lib -name .svn`
+ 
+ 	@echo "Installing fonts to $(ELMER_POST_DATADIR)/fonts"
+ 	mkdir -p $(DESTDIR)$(ELMER_POST_DATADIR)/fonts
+-	cp -r fonts/* $(DESTDIR)$(ELMER_POST_DATADIR)/fonts
++	cp -r $(srcdir)/fonts/* $(DESTDIR)$(ELMER_POST_DATADIR)/fonts
+ 	rm -rf `find $(DESTDIR)$(ELMER_POST_DATADIR)/fonts -name .svn`
+ #
+ # Copy the help and tcl
+ #
+ dist-hook:
+-	cp -r tcl $(distdir)
+-	cp -r help $(distdir)
+-	cp -r lib $(distdir)
+-	cp -r fonts $(distdir)
++	cp -r $(srcdir)/tcl $(distdir)
++	cp -r $(srcdir)/help $(distdir)
++	cp -r $(srcdir)/lib $(distdir)
++	cp -r $(srcdir)/fonts $(distdir)
+ 	rm -rf `find $(distdir)/ -name .svn`
+ 	rm -rf `find $(distdir)/ -name CVS`
+ 	rm -rf `find $(distdir)/ -name \#*`
+diff --git a/src/camera/context.cc b/src/camera/context.cc
+index c2bcbd4..e7926b3 100755
+--- a/src/camera/context.cc
++++ b/src/camera/context.cc
+@@ -38,7 +38,7 @@
+ // Include necessary headers.
+ //
+ 
+-#include <../../config.h>
++#include <config.h>
+ 
+ #include "glp.h"
+ #include <math.h>
+diff --git a/src/camera/file.cc b/src/camera/file.cc
+index 1f4cd30..6544830 100755
+--- a/src/camera/file.cc
++++ b/src/camera/file.cc
+@@ -47,7 +47,7 @@
+ //
+ 
+ 
+-#include <../../config.h>
++#include <config.h>
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+diff --git a/src/camera/glp.h b/src/camera/glp.h
+index 8c65318..31a2e49 100755
+--- a/src/camera/glp.h
++++ b/src/camera/glp.h
+@@ -35,7 +35,7 @@
+ 
+ #ifndef _GL_GLP_H_
+ #  define _GL_GLP_H_
+-#include "../../config.h"
++#include "config.h"
+ 
+ #if defined(WIN32) ||defined(MINGW32)
+ #include <windows.h>
+@@ -49,7 +49,7 @@
+ // Include necessary headers.
+ //
+ #include <GL/gl.h>
+-#include "../../config.h"
++#include "config.h"
+ 
+ 
+ 
+diff --git a/src/elmerpost.h b/src/elmerpost.h
+index 53560c0..7d312df 100755
+--- a/src/elmerpost.h
++++ b/src/elmerpost.h
+@@ -44,7 +44,7 @@
+  *
+  ******************************************************************************/
+ 
+-#include "../config.h"
++#include "config.h"
+ 
+ #if defined(WIN32) || defined(MINGW32)
+ #include <windows.h>
+diff --git a/src/fttext.cpp b/src/fttext.cpp
+index 9ee88f8..48a3e0a 100644
+--- a/src/fttext.cpp
++++ b/src/fttext.cpp
+@@ -10,7 +10,7 @@
+ // Date:        15. Jan 2008
+ //-----------------------------------------------------------------------------------
+ #if defined(HAVE_CONFIG_H)
+-#include "../config.h"
++#include "config.h"
+ #endif
+ 
+ #if defined(HAVE_FTGL_NEW) || defined(HAVE_FTGL_OLD)
+diff --git a/src/graphics/graphics.h b/src/graphics/graphics.h
+index 6e702c1..5d6d81b 100755
+--- a/src/graphics/graphics.h
++++ b/src/graphics/graphics.h
+@@ -67,7 +67,7 @@
+  *
+  ******************************************************************************/
+ 
+-#include "../../config.h"
++#include "config.h"
+ 
+ #ifndef MINGW32
+ 
+diff --git a/src/second.c b/src/second.c
+index b719556..128e404 100755
+--- a/src/second.c
++++ b/src/second.c
+@@ -45,7 +45,7 @@
+  ******************************************************************************/
+ 
+ 
+-#include "../config.h"
++#include "config.h"
+ #ifndef WIN32
+ 
+ #include <sys/types.h>
+diff --git a/src/sico2elmer/sico2elmerc.c b/src/sico2elmer/sico2elmerc.c
+index 1522030..23f3abb 100755
+--- a/src/sico2elmer/sico2elmerc.c
++++ b/src/sico2elmer/sico2elmerc.c
+@@ -1,6 +1,6 @@
+ #include "sico2elmer.h"
+ 
+-#include "../../config.h"
++#include "config.h"
+ 
+ /*
+   jv: added fortran function name and char ptr macros to (hopefully) enhance portability

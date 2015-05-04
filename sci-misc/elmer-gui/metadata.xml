@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <herd>sci</herd>
+  <use>
+    <flag name="bundled_netgen"> Use bundled version of <pkg>sci-mathematics/netgen</pkg></flag>
+    <flag name="matc"> Enables <pkg>sci-libs/matc</pkg> support</flag>
+    <flag name="opencascade"> Enable <pkg>sci-libs/opencascade</pkg>
+    support</flag>
+    <flag name="qwt"> Enables <pkg>x11-libs/qwt</pkg> support</flag>
+    <flag name="vtk"> Enables <pkg>sci-libs/vtk</pkg> support</flag>
+    </use>
+</pkgmetadata>

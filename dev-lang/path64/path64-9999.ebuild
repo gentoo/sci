@@ -1,11 +1,11 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-CMAKE_VERBOSE=1
+EAPI=5
+
 if [ "${PV%9999}" != "${PV}" ] ; then
-	SCM=git-2
+	SCM=git-r3
 	EGIT_REPO_URI="git://github.com/pathscale/${PN}-suite.git"
 	PATH64_URI="compiler assembler"
 	PATHSCALE_URI="compiler-rt libcxxrt libdwarf-bsd libunwind stdcxx"
@@ -27,10 +27,13 @@ SLOT="0"
 KEYWORDS=""
 IUSE="assembler custom-cflags debugger fortran +native +openmp valgrind"
 
-DEPEND="!native? ( sys-devel/gcc[vanilla] )
+DEPEND="
+	!native? ( sys-devel/gcc:*[vanilla] )
 	native? ( || ( dev-lang/ekopath dev-lang/path64 ) )
 	valgrind? ( dev-util/valgrind )"
 RDEPEND="${DEPEND}"
+
+CMAKE_VERBOSE=1
 
 pkg_setup() {
 	if use custom-cflags ; then
@@ -42,21 +45,21 @@ pkg_setup() {
 }
 
 src_unpack() {
-	git-2_src_unpack
+	git-r3_src_unpack
 	cd "${S}"
 	mkdir compiler
 	for f in ${PATH64_URI}; do
 		EGIT_REPO_URI="git://github.com/${PN}/${f}.git" \
 		EGIT_DIR="${EGIT_STORE_DIR}/compiler/${f}" \
-		EGIT_SOURCEDIR="${WORKDIR}/${P}/compiler/${f}" git-2_src_unpack
+		EGIT_SOURCEDIR="${WORKDIR}/${P}/compiler/${f}" git-r3_src_unpack
 	done
 	for f in ${PATHSCALE_URI}; do
 		EGIT_REPO_URI="git://github.com/pathscale/${f}.git" \
 		EGIT_DIR="${EGIT_STORE_DIR}/compiler/${f}" \
-		EGIT_SOURCEDIR="${WORKDIR}/${P}/compiler/${f}" git-2_src_unpack
+		EGIT_SOURCEDIR="${WORKDIR}/${P}/compiler/${f}" git-r3_src_unpack
 	done
 	EGIT_REPO_URI=${DBG_URI} EGIT_DIR="${EGIT_STORE_DIR}/compiler/pathdb" \
-		EGIT_SOURCEDIR="${WORKDIR}/${P}/compiler/pathdb" git-2_src_unpack
+		EGIT_SOURCEDIR="${WORKDIR}/${P}/compiler/pathdb" git-r3_src_unpack
 }
 
 src_prepare() {

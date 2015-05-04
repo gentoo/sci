@@ -1,19 +1,19 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
+EAPI=5
 
 inherit eutils alternatives-2 flag-o-matic toolchain-funcs versionator multilib fortran-2
 
 MYPN="${PN/-reference/}"
 
 DESCRIPTION="C wrapper interface to the F77 reference BLAS implementation"
-LICENSE="public-domain"
 HOMEPAGE="http://www.netlib.org/blas/"
 SRC_URI="http://www.netlib.org/blas/blast-forum/${MYPN}.tgz -> ${P}.tgz"
 
 SLOT="0"
+LICENSE="public-domain"
 IUSE="static-libs"
 KEYWORDS="~alpha ~amd64 ~hppa ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~x64-macos ~x86-macos"
 
@@ -43,15 +43,16 @@ static_to_shared() {
 			-shared -Wl,-soname=${soname} \
 			-Wl,--whole-archive ${libstatic} -Wl,--no-whole-archive \
 			"$@" -o ${libdir}/${soname} || die "${soname} failed"
-		[[ $(get_version_component_count) -gt 1 ]] && \
-			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version))
-		ln -s ${soname} ${libdir}/${libname}$(get_libname)
+		if [[ $(get_version_component_count) -gt 1 ]]; then
+			ln -s ${soname} ${libdir}/${libname}$(get_libname $(get_major_version)) || die
+		fi
 	fi
+	ln -s ${soname} ${libdir}/${libname}$(get_libname) || die
 }
 
 src_prepare() {
-	find . -name Makefile  -exec sed -i \
-		-e 's:make:$(MAKE):g' '{}' \;
+	find . -name Makefile -exec sed -i \
+		-e 's:make:$(MAKE):g' '{}' \; || die
 	append-cflags -DADD_
 	cat > Makefile.in <<-EOF
 		BLLIB=$($(tc-getPKG_CONFIG) --libs blas)
@@ -79,13 +80,15 @@ src_compile() {
 }
 
 src_test() {
-	cd testing
+	cd testing || die
 	emake
 	emake run
 }
 
 src_install() {
-	dolib.so lib/lib${LIBNAME}$(get_libname)*
+	# On linux dynamic libraries are of the form .so.${someversion}
+	# On  OS X dynamic libraries are of the form ${someversion}.dylib
+	dolib.so lib/lib${LIBNAME}*$(get_libname)*
 	use static-libs && dolib.a lib/lib${LIBNAME}.a
 	insinto /usr/include/cblas
 	doins include/cblas.h

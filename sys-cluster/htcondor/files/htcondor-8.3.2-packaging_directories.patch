@@ -1,0 +1,36 @@
+Adjust the package directories.
+Ported patch from htcondor-8.0.0 to 8.3.2
+
+Patch by Marius Brehler.
+--- b/build/cmake/CondorPackageConfig.cmake
++++ a/build/cmake/CondorPackageConfig.cmake
+@@ -406,6 +406,29 @@ elseif( ${OS_NAME} STREQUAL "LINUX" AND
+ 		set(CMAKE_INSTALL_PREFIX "")
+ 		set(CPACK_SET_DESTDIR "ON")
+ 
++	else()
++
++		#Directory overrides
++		set( C_BIN			usr/bin )
++		set( C_LIB			usr/lib\${LIB_SUFFIX}/condor )
++		set( C_LIB_PUBLIC		usr/lib\${LIB_SUFFIX} )
++		set( C_LIB32		usr/lib\${LIB_SUFFIX}/condor )
++		set( C_SBIN			usr/sbin )
++		set( C_INCLUDE		usr/include/condor )
++		set( C_INCLUDE_PUBLIC		usr/include )
++		set( C_MAN			usr/share/man )
++		set( C_SRC			usr/src)
++		set( C_SQL			usr/share/condor/sql)
++		set( C_INIT			etc/init.d )
++		set( C_ETC			etc/condor )
++		set( C_CONFIGD		etc/condor/config.d )
++
++		set( C_ETC_EXAMPLES	usr/share/doc/htcondor-${VERSION}/etc/examples )
++		set( C_SHARE_EXAMPLES usr/share/doc/htcondor-${VERSION} )
++		set( C_DOC			usr/share/doc/htcondor-${VERSION} )
++		set( C_LIBEXEC		usr/lib\${LIB_SUFFIX}/condor/libexec )
++		set( C_SYSCONFIG	etc/default )
++
+ 	endif()
+ 
+ 	set( EXTERNALS_LIB "${C_LIB}" )

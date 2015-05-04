@@ -1,6 +1,17 @@
 # ChangeLog for sci-libs/factory
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  18 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -factory-3.1.1-r1.ebuild:
+  Drop old revision
+
+*factory-3.1.1-r2 (17 Jan 2015)
+
+  17 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
+  -factory-3.1.1.ebuild, factory-3.1.1-r1.ebuild, +factory-3.1.1-r2.ebuild:
+  Add 3.1.1-r2 with support for static-libs use flag;
+  Move 3.1.1-r1 to EAPI=5 and drop 3.1.1
 
 *factory-3.1.1-r1 (04 Sep 2010)
 

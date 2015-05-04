@@ -1,0 +1,14 @@
+# ChangeLog for sci-libs/vxl
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  04 May 2015;  <chymera@gentoo.org> vxl-9999.ebuild:
+  dropped emty depend
+
+  24 Apr 2015;  <chymera@gentoo.org> vxl-9999.ebuild:
+  removed blank line
+
+*vxl-9999 (02 Apr 2015)
+
+  02 Apr 2015;  <chymera@gentoo.org> +metadata.xml, +vxl-9999.ebuild:
+  NEw ebuild and license

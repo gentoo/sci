@@ -1,0 +1,36 @@
+# ChangeLog for sci-biology/khmer
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*khmer-1.0.1 (15 May 2014)
+
+  15 May 2014; Justin Lecher <jlec@gentoo.org> khmer-0.8.ebuild,
+  +khmer-1.0.1.ebuild:
+  Version BUmp
+
+  28 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> khmer-9999.ebuild:
+  sci-biology/khmer: upstream dropped the bundled zlib/bzip2 use if it is
+  available system-wide, upstream https://github.com/ged-lab/khmer/pull/346
+
+  24 Mar 2014; Justin Lecher <jlec@gentoo.org> khmer-0.8.ebuild,
+  khmer-9999.ebuild:
+  Also drop sphinx as build requirement
+
+  20 Mar 2014; Justin Lecher <jlec@gentoo.org> khmer-0.8.ebuild,
+  khmer-9999.ebuild:
+  Drop nose requirement during build
+
+*khmer-0.8 (18 Mar 2014)
+
+  18 Mar 2014; Justin Lecher <jlec@gentoo.org> +khmer-0.8.ebuild,
+  khmer-9999.ebuild:
+  Unbundle zlib and bzpi2; bump to disturils-r1; respect CFLAGS
+
+  16 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> khmer-9999.ebuild:
+  sci-biology/khmer: revert to distutils to obey sandbox violation
+
+*khmer-9999 (16 Mar 2014)
+
+  16 Mar 2014; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +khmer-9999.ebuild,
+  +metadata.xml:
+  sci-biology/khmer: new package

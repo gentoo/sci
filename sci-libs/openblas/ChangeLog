@@ -1,6 +1,82 @@
 # ChangeLog for sci-libs/openblas
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  02 Apr 2015; Marius Brehler <marbre@linux.sungazer.de> openblas-9999.ebuild:
+  Fix Bug 528974
+
+*openblas-0.2.14 (27 Mar 2015)
+
+  27 Mar 2015; Denis Dupeyron <calchan@gentoo.org> +openblas-0.2.14.ebuild:
+  Version bump.
+
+  20 Oct 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  Thanks to kiwifb for reporting
+  https://github.com/gentoo-science/sci/issues/280 - Fix openblas: discrepancy
+  between installed libraries and .pc file.
+
+  19 Oct 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  The fix for Bug 524612 failed in src_install building openblas from git. The
+  fix is to move applying the patch to src_compile after building the library,
+  then remove config.h and config_last.h; make config.h - ignoring the spurious
+  warning; then cp config.h to config_last.h.
+
+*openblas-0.2.12 (19 Oct 2014)
+
+  19 Oct 2014; Mark Wright <gienah@gentoo.org> +openblas-0.2.12.ebuild,
+  openblas-9999.ebuild:
+  Fix Bug 524612 - [science overlay] sci-libs/openblas-0.2.11 - Assembler
+  messages: ../kernel/x86_64/gemm_kernel_8x4_barcelona.S:451: Error: missing
+  ')', thanks to Juergen Rose, Jean-Francis Roy and Steven Trogdon for
+  reporting. The problem was that applying the
+  -0.2.11-openblas_config_header_same_between_ABIs.patch patch in src_prepare()
+  causes build failures on assembler code as the assembler does not understand
+  sizeof(float). So delay applying the patch until src_install(). Bump openblas
+  to 0.2.12.
+
+  13 Oct 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  Refactor openblas to use the fortran-int64.eclass. Move the virtuals from
+  RDEPEND to PDEPEND to avoid circular dependencies. Specify the pkg-config
+  module name in openblas
+
+  13 Sep 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  Remove the setting of the FC and F77 environment variables, instead sed the
+  COMMON_OPT in Makefile.rule to include the $(get_abi_CFLAGS). Add
+  get_openblas_abi_cflags and get_openblas_abi_fflags, call them to create the
+  pkg-config ${profname}.pc files. Call get_openblas_abi_cflags to obtain the
+  defines, then remove the OPENBLAS_ at the start, and sed these into
+  COMMON_OPT in Makefile.rule, as USE64BITINT was removed by the patch
+  openblas-0.2.11-openblas_config_header_same_between_ABIs.patch that is
+  required to ensure the openblas_config.h header file is the same between
+  ABIs.
+
+  06 Sep 2014; Mark Wright <gienah@gentoo.org> +openblas-0.2.11.ebuild,
+  openblas-9999.ebuild,
+  +files/openblas-0.2.11-openblas_config_header_same_between_ABIs.patch,
+  -files/openblas-9999-cpuid_x86.patch:
+  Remove openblas-9999-cpuid_x86.patch as a similar change has been applied by
+  upstream.  Tweak the openblas_config.h file to be the same between ABIs.
+
+*openblas-0.2.11 (30 Aug 2014)
+
+  30 Aug 2014; Mark Wright <gienah@gentoo.org> +openblas-0.2.11.ebuild,
+  openblas-9999.ebuild:
+  Bump to 0.2.11 using multi build
+
+  26 Apr 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  Add >=virtual/blas-2.1-r2[int64?] and >=virtual/cblas-2.0-r1[int64?] to
+  RDEPEND. Use separate eselect modules for blas, blas-int64, cblas and
+  cblas-int64.
+
+  19 Feb 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  Thanks to sfabbro: dodoc should be outside the function, they do not change
+
+  18 Feb 2014; Mark Wright <gienah@gentoo.org> openblas-9999.ebuild:
+  multibuild openblas when USE=int64 is specified.
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> openblas-9999.ebuild,
+  metadata.xml:
+  Switch from git-2 to git-r3
 
 *openblas-0.2.8 (06 Aug 2013)
 

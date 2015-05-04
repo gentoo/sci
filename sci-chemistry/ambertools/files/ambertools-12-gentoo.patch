@@ -1,3 +1,26 @@
+ AmberTools/src/Makefile                            |  42 +-
+ AmberTools/src/configure2                          |  63 +-
+ AmberTools/src/cpptraj/src/Makefile_at             |  14 +-
+ AmberTools/src/mdgx/Makefile                       |   9 +-
+ AmberTools/src/mdgx/Trajectory.c                   |   2 +-
+ .../src/mmpbsa_py/MMPBSA_mods/amber_outputs.py     |   4 +-
+ AmberTools/src/nab/database.c                      |   2 +-
+ AmberTools/src/nab/nab.c                           |   4 +-
+ AmberTools/src/pbsa/Makefile                       |  44 +-
+ AmberTools/src/ptraj/Makefile                      |   9 +-
+ AmberTools/src/ptraj/trajectory.c                  |   2 +-
+ AmberTools/src/sff/Makefile                        |   4 +-
+ AmberTools/src/sff/dsarpack.f                      | 654 +++++++++++++++++++++
+ AmberTools/src/sqm/Makefile                        |   7 +-
+ AmberTools/test/Makefile                           |   4 +-
+ .../01_Generalized_Born/energies.csv.save          |   8 +-
+ AmberTools/test/nab/Makefile                       |   2 +
+ AmberTools/test/nab/Run.rism_sp                    |   2 +-
+ AmberTools/test/nab/Run.rism_sp2                   |   2 +-
+ AmberTools/test/test_at_serial.sh                  |   6 +
+ Makefile                                           |   2 +-
+ 21 files changed, 725 insertions(+), 161 deletions(-)
+
 diff --git a/AmberTools/src/Makefile b/AmberTools/src/Makefile
 index e5c0ded..ce8f883 100644
 --- a/AmberTools/src/Makefile
@@ -145,10 +168,10 @@ index e5c0ded..ce8f883 100644
  cuda:
  	@echo "$(AMBERTOOLS) has no CUDA-enabled components"
 diff --git a/AmberTools/src/configure2 b/AmberTools/src/configure2
-index 9ce5ef0..8dfcd3e 100755
+index 25d3f0a..1ad86e6 100755
 --- a/AmberTools/src/configure2
 +++ b/AmberTools/src/configure2
-@@ -389,11 +389,11 @@ omp_flag=
+@@ -387,11 +387,11 @@ omp_flag=
  mpi_flag=
  lex=flex
  flibs_mkl=
@@ -164,7 +187,7 @@ index 9ce5ef0..8dfcd3e 100755
  
  #-----------------------------------
  # skip building of xleap?
-@@ -621,13 +621,14 @@ gnu)
+@@ -618,13 +618,14 @@ gnu)
      flibs_arch="-lgfortran -w"
      flibsf_arch=
      cc=gcc
@@ -182,7 +205,7 @@ index 9ce5ef0..8dfcd3e 100755
      staticflag='-static'
      
      # If -noopt has been requested, force lack of optimisation;
-@@ -648,11 +649,11 @@ gnu)
+@@ -645,11 +646,11 @@ gnu)
        foptflags=""
      else
        cnooptflags=
@@ -197,7 +220,7 @@ index 9ce5ef0..8dfcd3e 100755
      fi
      
      # Debugging options
-@@ -2044,26 +2045,26 @@ EOF
+@@ -2026,26 +2027,26 @@ EOF
        if [ "$sse" = "yes" ]; then
            enable_sse="--enable-sse2=yes" # --enable-avx=yes"
        fi
@@ -243,7 +266,7 @@ index 9ce5ef0..8dfcd3e 100755
        fftw3="\$(LIBDIR)/libfftw3.a"
        if [ "$mpi" = 'yes' ]; then
            flibs_fftw3="-lfftw3_mpi $flibs_fftw3"
-@@ -2300,7 +2301,7 @@ LDFLAGS=$ldflags \$(CUSTOMBUILDFLAGS)
+@@ -2282,7 +2283,7 @@ LDFLAGS=$ldflags \$(CUSTOMBUILDFLAGS)
  AMBERLDFLAGS=\$(AMBERBUILDFLAGS)
  
  LEX=   $lex
@@ -252,7 +275,7 @@ index 9ce5ef0..8dfcd3e 100755
  AR=    ar rv
  M4=    $m4
  RANLIB=$ranlib
-@@ -2337,7 +2338,7 @@ CP=$localcp
+@@ -2319,7 +2320,7 @@ CP=$localcp
  #  Information about Fortran compilation:
  
  FC=$fc
@@ -330,7 +353,7 @@ index 524dad8..5df64c6 100644
    coord tc;
  
 diff --git a/AmberTools/src/mmpbsa_py/MMPBSA_mods/amber_outputs.py b/AmberTools/src/mmpbsa_py/MMPBSA_mods/amber_outputs.py
-index 0349ba9..c700beb 100644
+index b01b891..24ea20f 100644
 --- a/AmberTools/src/mmpbsa_py/MMPBSA_mods/amber_outputs.py
 +++ b/AmberTools/src/mmpbsa_py/MMPBSA_mods/amber_outputs.py
 @@ -210,7 +210,7 @@ class AmberOutput(object):
@@ -502,7 +525,7 @@ index 110ffce..49bdf1a 100644
    char c;     
    int j,ret;
 diff --git a/AmberTools/src/sff/Makefile b/AmberTools/src/sff/Makefile
-index 83f362c..b1a1b2e 100644
+index 83f362c..13efc78 100644
 --- a/AmberTools/src/sff/Makefile
 +++ b/AmberTools/src/sff/Makefile
 @@ -3,7 +3,7 @@ include ../config.h
@@ -514,9 +537,19 @@ index 83f362c..b1a1b2e 100644
  	prm.o rand2.o sasad.o sff.o time.o xminC.o AmberNetcdf.o $(SFF_RISM_INTERFACE)
  
  
+@@ -63,7 +63,7 @@ xminC.o:  sff.h
+ AmberNetcdf.o:  AmberNetcdf.h
+ 
+ hcp_getpdb: hcp_getpdb.c
+-	$(CC) -o $(BINDIR)/hcp_getpdb hcp_getpdb.c
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $(BINDIR)/hcp_getpdb hcp_getpdb.c
+ 
+ .PHONY: ../rism/amber_rism_interface.NAB.o
+ ../rism/amber_rism_interface.NAB.o:
 diff --git a/AmberTools/src/sff/dsarpack.f b/AmberTools/src/sff/dsarpack.f
-index e69de29..5544df9 100644
---- a/AmberTools/src/sff/dsarpack.f
+new file mode 100644
+index 0000000..5544df9
+--- /dev/null
 +++ b/AmberTools/src/sff/dsarpack.f
 @@ -0,0 +1,654 @@
 +      subroutine dsarpack(n_dim,n_eig_in,n_eig_out,ncv_in,itr_in,

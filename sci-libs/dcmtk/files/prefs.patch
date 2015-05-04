@@ -1,0 +1,26 @@
+Author: Jürgen Salk <jsa@debian.org>
+Description: The original maintainer Jürgen Salk applied
+ a set of patches to the original code.  The part which fixes
+ the path to the perl executable is collected in this patch set.
+
+Index: dcmtk-3.6.0/dcmwlm/perl/prefs.ph
+===================================================================
+--- dcmtk-3.6.0.orig/dcmwlm/perl/prefs.ph	2011-01-28 10:10:01.000000000 +0100
++++ dcmtk-3.6.0/dcmwlm/perl/prefs.ph	2011-01-28 10:10:03.000000000 +0100
+@@ -45,13 +45,13 @@
+ # --------------------- WWW Server Configuration ---------------------
+ 
+ # RELATIVE path to the WWW script directory, as seen by httpd
+-$prefs{'cgi_path'}  = '/cgi-bin/worklist';
++$prefs{'cgi_path'}  = '/cgi-bin/dcmtk_wlm';
+ 
+ # RELATIVE path to the WWW html directory, as seen by httpd
+-$prefs{'html_path'}  = '/worklist';
++$prefs{'html_path'}  = '/dcmtk_wlm';
+ 
+ # ABSOLUTE path to the data directory
+-$prefs{'data_path'} = '/home/www/wl-data';
++$prefs{'data_path'} = '/var/lib/dcmtk/wl-data';
+ 
+ # ------------------ Constants - Please do not change! ------------------
+ 

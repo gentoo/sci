@@ -1,0 +1,13 @@
+Index: configure.in
+===================================================================
+--- configure.in	(revision 2332)
++++ configure.in	(working copy)
+@@ -293,7 +293,7 @@
+ CFLAGS="$CFLAGS $LIBXML2_CFLAGS"
+ 
+ dnl final configuration
+-SUBDIRS="ghmm tools tests"
++SUBDIRS="ghmm"
+ 
+ dnl python wrapper can be switched on or off
+ AC_ARG_WITH(python,

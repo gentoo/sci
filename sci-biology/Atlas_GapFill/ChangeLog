@@ -1,0 +1,15 @@
+# ChangeLog for sci-biology/Atlas_GapFill
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> Atlas_GapFill-2.2.ebuild:
+  sci-biology/Atlas_GapFill: drop unknown dep
+
+  10 Jan 2015; Justin Lecher <jlec@gentoo.org> Atlas_GapFill-2.2.ebuild:
+  Fix license
+
+*Atlas_GapFill-2.2 (07 Jan 2015)
+
+  07 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +Atlas_GapFill-2.2.ebuild, +metadata.xml:
+  initial ebuild

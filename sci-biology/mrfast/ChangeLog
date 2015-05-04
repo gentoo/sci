@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/mrfast
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> -mrfast-2.1.0.3.ebuild,
+  +mrfast-2.6.0.1.ebuild, -files/mrfast-2.1.0.3-disc_buffer_overflow.patch,
+  metadata.xml:
+  Version Bump; punt base.eclass
+

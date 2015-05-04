@@ -1,0 +1,171 @@
+--- Makefile.in.orig	2013-09-05 21:45:20.026339263 +1200
++++ Makefile.in	2013-09-05 21:48:20.859739672 +1200
+@@ -24,7 +24,7 @@
+ 	( cd src && $(MAKE) static );
+ 
+ profile:
+-	( export CFLAGS=-pg && export LDFLAGS=-pg && cd src && $(MAKE) );
++	( export CFLAGS="$(CFLAGS) -pg" && CXXFLAGS="$(CXXFLAGS) -pg" && cd src && $(MAKE) );
+ 
+ doc:
+ 	( cd doc && $(MAKE) );
+--- src/Makefile.in.orig	2013-09-05 21:45:35.546373837 +1200
++++ src/Makefile.in	2013-09-05 21:53:51.146459582 +1200
+@@ -22,12 +22,13 @@
+ 
+ SRCS      = `find . -name "*.cc"`
+ MCFLAGS   = @CFLAGS@ -I. -I@top_srcdir@/src `pkg-config modglue --cflags`
++MCXXFLAGS = @CXXFLAGS@ -I. -I@top_srcdir@/src `pkg-config modglue --cflags`
+ TIMESTAMP = -D"RELEASE=\"${RELEASE}\"" -D"DATETIME=\"`date | sed -e 's/  / /'`\"" -DHOSTNAME=\"`hostname`\"
+ 
+ 
+ 
+ %.o: %.cc
+-	@CXX@ ${MCFLAGS} ${TIMESTAMP} -c -o $@ $<
++	@CXX@ ${MCXXFLAGS} ${TIMESTAMP} -c -o $@ $<
+ 
+ modules/xperm.o: modules/xperm.c
+ 	@CC@ @NESTED@ ${MCFLAGS} ${TIMESTAMP} -c -o $@ $<
+@@ -42,10 +43,10 @@
+ 
+ ifeq ($(strip $(MACTEST)),)
+ cadabra: $(OBJS) $(MOBJS)
+-	@CXX@ -o cadabra ${LDFLAGS} -Wl,--as-needed $+ `pkg-config modglue --libs` -lgmpxx -lpcrecpp -lgmp
++	@CXX@ -o cadabra ${MCXXFLAGS} ${LDFLAGS} -Wl,--as-needed $+ `pkg-config modglue --libs` -lgmpxx -lpcrecpp -lgmp
+ else
+ cadabra: $(OBJS) $(MOBJS)
+-	@CXX@ -o cadabra ${LDFLAGS} -Wl,-dead_strip_dylibs $+ `pkg-config modglue --libs` -lgmpxx -lpcrecpp -lgmp
++	@CXX@ -o cadabra ${MCXXFLAGS} ${LDFLAGS} -Wl,-dead_strip_dylibs $+ `pkg-config modglue --libs` -lgmpxx -lpcrecpp -lgmp
+ endif
+ 
+ #`pkg-config glib-2.0 --libs` 
+@@ -53,15 +54,15 @@
+ 
+ cadabra_static: $(OBJS) $(MOBJS)
+ 	rm -f main.o
+-	@CXX@ -Wall -g ${MCFLAGS} ${TIMESTAMP} -DSTATICBUILD -c -o main.o main.cc
++	@CXX@ -Wall -g ${MCXXFLAGS} ${TIMESTAMP} -DSTATICBUILD -c -o main.o main.cc
+ ifeq ($(strip $(MACTEST)),)
+-	@CXX@ -o cadabra -static $+ ${LDFLAGS} `pkg-config modglue --libs` -lmodglue \
++	@CXX@ -o cadabra -static ${MCXXFLAGS} $+ ${LDFLAGS} `pkg-config modglue --libs` -lmodglue \
+                              -lgmpxx -lgmp -lpcrecpp -lpcre \
+                              `pkg-config sigc++-2.0 --libs` -lsigc-2.0 -lutil
+ 
+ else
+ 	export MACOSX_DEPLOYMENT_TARGET=10.3
+-	@CXX@ -o cadabra $+ ${LDFLAGS} `pkg-config modglue --libs` \
++	@CXX@ -o cadabra ${MCXXFLAGS} $+ ${LDFLAGS} `pkg-config modglue --libs` \
+           -lgmp -lgmpxx -lpcre++ -lpcre -lexpect
+ endif
+ 
+@@ -77,32 +78,32 @@
+ # 	@CXX@ -c -o defaults.o defaults.cc
+ 
+ test_tree: test_tree.o 
+-	@CXX@ -o test_tree test_tree.o
++	@CXX@ ${MCXXFLAGS} -o test_tree test_tree.o
+ 
+ test_lie: test_lie.o modules/lie.o
+ ifeq ($(strip $(MACTEST)),)
+-	@CXX@ -o test_lie test_lie.o modules/lie.o `pkg-config --libs modglue`
++	@CXX@ ${MCXXFLAGS} -o test_lie test_lie.o modules/lie.o `pkg-config --libs modglue`
+ else
+-	@CXX@ -o test_lie test_lie.o modules/lie.o `pkg-config --libs modglue`
++	@CXX@ ${MCXXFLAGS} -o test_lie test_lie.o modules/lie.o `pkg-config --libs modglue`
+ endif
+ 
+ tree_regression_tests: tree_regression_tests.o 
+-	@CXX@ -o tree_regression_tests tree_regression_tests.o
++	@CXX@ ${MCXXFLAGS} -o tree_regression_tests tree_regression_tests.o
+ 
+ test_xperm: test_xperm.o modules/xperm.o
+-	@CXX@ -o test_xperm test_xperm.o modules/xperm.o
++	@CXX@ ${MCXXFLAGS} -o test_xperm test_xperm.o modules/xperm.o
+ 
+ tree_example: tree_example.o tree.hh
+-	@CXX@ -o tree_example tree_example.o
++	@CXX@ ${MCXXFLAGS} -o tree_example tree_example.o
+ 
+ test_combinatorics: test_combinatorics.o combinatorics.o
+-	@CXX@ -o test_combinatorics test_combinatorics.o combinatorics.o
++	@CXX@ ${MCXXFLAGS} -o test_combinatorics test_combinatorics.o combinatorics.o
+ 
+ test_young: test_young.o youngtab.o combinatorics.o
+-	@CXX@ -o test_young test_young.o youngtab.o combinatorics.o ${LDFLAGS} -lgmpxx -lgmp
++	@CXX@ ${MCXXFLAGS} -o test_young test_young.o youngtab.o combinatorics.o ${LDFLAGS} -lgmpxx -lgmp
+ 
+ test_preprocessor: test_preprocessor.o preprocessor.o
+-	@CXX@ -o test_preprocessor test_preprocessor.o preprocessor.o ${LDFLAGS} -lgmpxx -lgmp
++	@CXX@ ${MCXXFLAGS} -o test_preprocessor test_preprocessor.o preprocessor.o ${LDFLAGS} -lgmpxx -lgmp
+ 
+ mpi_pass_tree: mpi_pass_tree.o
+ 	@CXX@ -o mpi_pass_tree mpi_pass_tree.o -L/usr/lib/mpich/lib -lmpich++ -lpmpich -lmpich
+@@ -133,13 +134,13 @@
+ # Then the actual compilation.
+ 
+ lex.yy.o: lex.yy.c parser2.tab.h
+-	@CXX@ -c -o lex.yy.o lex.yy.c
++	@CXX@ ${MCXXFLAGS} -c -o lex.yy.o lex.yy.c
+ 
+ parser2.tab.o: parser2.tab.c
+-	@CXX@ -c -o parser2.tab.o parser2.tab.c
++	@CXX@ ${MCXXFLAGS} -c -o parser2.tab.o parser2.tab.c
+ 
+ parser2: parser2.tab.o lex.yy.o storage.o props.o 
+-	@CXX@ -o parser2 $+ -ll -ly -lgmpxx -lgmp -lpcrecpp
++	@CXX@ ${MCXXFLAGS} -o parser2 $+ -ll -ly -lgmpxx -lgmp -lpcrecpp
+ 
+ 
+ 
+@@ -170,7 +171,7 @@
+ .depend:
+ 	rm -f .depend
+ 	for i in ${SRCS}; \
+-		do    @CXX@ ${MCFLAGS} -E -MM -MT `echo $$i | sed -e 's/\.\///' -e 's/\.cc/\.o/'` ${CFLAGS} $$i >> .depend; \
++		do    @CXX@ ${MCXXFLAGS} -E -MM -MT `echo $$i | sed -e 's/\.\///' -e 's/\.cc/\.o/'` ${CXXFLAGS} $$i >> .depend; \
+ 		done
+ 
+ include .depend
+--- gui/Makefile.in.orig	2013-09-05 21:45:50.989408184 +1200
++++ gui/Makefile.in	2013-09-05 21:57:17.495902104 +1200
+@@ -8,26 +8,26 @@
+ static: xcadabra_static
+ 
+ OBJS   = help.o widgets.o window.o main.o ../src/stopwatch.o
+-CFLAGS = -O2 -I. -I@top_srcdir@/include `pkg-config modglue --cflags` `pkg-config --cflags gtkmm-2.4` \
++MCXXFLAGS = -O2 $(CXXFLAGS) -I. -I@top_srcdir@/include `pkg-config modglue --cflags` `pkg-config --cflags gtkmm-2.4` \
+          `pkg-config --cflags pango`
+ SRCS   = `find . -name "*.cc"`
+ TIMESTAMP = -D"RELEASE=\"${RELEASE}\"" -D"DATETIME=\"`date | sed -e 's/  / /'`\"" -DHOSTNAME=\"`hostname`\"
+ 
+ %.o: %.cc
+-	@CXX@ -Wall @CFLAGS@ -D"DESTDIR=\"@prefix@\"" ${TIMESTAMP} ${CFLAGS} -c -o $@ $<
++	@CXX@ -Wall $(MCXXFLAGS) -D"DESTDIR=\"@prefix@\"" ${TIMESTAMP} -c -o $@ $<
+ 
+ main.o: $(OBJS) Makefile
+ 
+ xcadabra: $(OBJS)
+-	@CXX@ -o xcadabra $+ `pkg-config modglue --libs` `pkg-config --libs gtkmm-2.4` -lpcrecpp
++	@CXX@ $(MCXXFLAGS) -o xcadabra $+ $(LDFLAGS) `pkg-config modglue --libs` `pkg-config --libs gtkmm-2.4` -lpcrecpp
+ 
+ xcadabra_static: $(OBJS)
+-	@CXX@ -o xcadabra -static $+  -L@prefix@/lib `pkg-config modglue --libs` \
++	@CXX@ $(MCXXFLAGS) -o xcadabra -static $+  $(LDFLAGS) -L@prefix@/lib `pkg-config modglue --libs` \
+                     `pkg-config --libs gtkmm-2.4` `pkg-config libxml++-2.6` \
+                     -lpthread -lexpat
+ 
+ test_texit: texit.o test_texit.o
+-	@CXX@ -o test_texit `pkg-config modglue --libs` `pkg-config --libs gtkmm-2.4` $+ 
++	@CXX@ $(MCXXFLAGS) -o test_texit `pkg-config modglue --libs` `pkg-config --libs gtkmm-2.4` $+ 
+ 
+ install:
+ ifeq ($(strip $(MACTEST)),)
+@@ -50,7 +50,7 @@
+ .depend:
+ 	rm -f .depend
+ 	for i in ${SRCS}; \
+-		do    g++ -E -MM -MT `echo $$i | sed -e 's/\.\///' -e 's/\.cc/\.o/'` ${CFLAGS} $$i >> .depend; \
++		do    g++ -E -MM -MT `echo $$i | sed -e 's/\.\///' -e 's/\.cc/\.o/'` ${MCXXFLAGS} $$i >> .depend; \
+ 		done
+ 
+ include .depend

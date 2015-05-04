@@ -52,3 +52,19 @@
 +TARGET_LINK_LIBRARIES(dcmsr ${LIBXML_LIBS})
  # declare installation files
  INSTALL_TARGETS(${INSTALL_LIBDIR} dcmsr)
+--- oflog/libsrc/CMakeLists.txt	2014-04-09 15:20:21.160489941 -0700
++++ oflog/libsrc/CMakeLists.txt	2014-04-09 15:19:31.161173872 -0700
+@@ -9,4 +9,5 @@
+ ADD_LIBRARY(oflog oflog apndimpl appender config consap factory fileap filter globinit hierarchy hierlock layout logger logimpl logevent loglevel loglog lloguser ndc ntelogap nullap objreg patlay pointer property rootlog sleep socketap sockbuff socket strhelp syncprims syslogap threads timehelp ${OFLOG_PLATFORM_LIBRARIES})
+ 
+ # declare installation files
++TARGET_LINK_LIBRARIES(oflog ${THREAD_LIBS})
+ INSTALL_TARGETS(${INSTALL_LIBDIR} oflog)
+--- ofstd/libsrc/CMakeLists.txt	2014-04-09 15:21:06.841778722 -0700
++++ ofstd/libsrc/CMakeLists.txt	2014-04-09 15:21:14.478827209 -0700
+@@ -2,4 +2,5 @@
+ ADD_LIBRARY(ofstd ofcmdln ofconapp ofcond ofconfig ofconsol ofcrc32 ofdate ofdatime offname oflist ofstd ofstring ofthread oftime)
+ 
+ # declare installation files
++TARGET_LINK_LIBRARIES(ofstd ${THREAD_LIBS})
+ INSTALL_TARGETS(${INSTALL_LIBDIR} ofstd)

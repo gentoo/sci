@@ -1,0 +1,64 @@
+#!/bin/bash
+# This script is licensed under BSD-3
+
+export PORTAGE_BIN_PATH="/usr/lib/portage/python2.7"
+
+if [[ -f "${PORTAGE_BIN_PATH}"/isolated-functions.sh ]]; then
+	. "${PORTAGE_BIN_PATH}"/isolated-functions.sh
+else
+	alias ebegin=echo
+	alias eend=true
+fi
+
+ebegin "Starting from master"
+	echo
+	git checkout master || exit; _ret=$?
+	echo
+eend ${_ret}
+
+ebegin "Fetching everything"
+	echo
+	git fetch --all -v || exit; _ret=$?
+	echo
+eend ${_ret}
+
+ebegin "Merging github"
+	echo
+	git merge -v github/master || exit; _ret=$?
+	echo
+eend ${_ret}
+
+ebegin "Pushing to g.o.g.o"
+	git push -v origin || exit; _ret=$?
+	echo
+eend ${_ret}
+
+ebegin "Branching out github"
+	echo
+	git checkout -b github-merging github/master || exit; _ret=$?
+	echo
+eend ${_ret}
+
+ebegin "Merging in g.o.g.o"
+	echo
+	git merge -v origin/master || exit; _ret=$?
+	echo
+eend ${_ret}
+
+ebegin "Pushing to github"
+	echo
+	git push -v github HEAD:master || exit; _ret=$?
+	echo
+eend ${_ret}
+
+ebegin "Going back to master"
+	echo
+	git checkout master || exit; _ret=$?
+	echo
+eend ${_ret}
+
+ebegin "Removing github branch"
+	echo
+	git branch -v -D github-merging || exit; _ret=$?
+	echo
+eend ${_ret}

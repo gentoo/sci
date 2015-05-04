@@ -2,6 +2,10 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  28 Dec 2013; Justin Lecher <jlec@gentoo.org> burrow-owl-9999.ebuild,
+  metadata.xml:
+  Bump to git-r3.eclass and virtualx.eclass
+
   03 Mar 2013; Justin Lecher <jlec@gentoo.org> burrow-owl-9999.ebuild,
   metadata.xml:
   Bump to EPAI=5 and move to virtual/pkgconfig

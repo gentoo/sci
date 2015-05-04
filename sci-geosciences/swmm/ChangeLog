@@ -1,6 +1,10 @@
 # ChangeLog for sci-geosciences/swmm
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  13 Nov 2014; Justin Lecher <jlec@gentoo.org> swmm-5.0.022.ebuild,
+  metadata.xml:
+  Bump to EAPI=5
 
 *swmm-5.0.022 (15 Jul 2011)
 

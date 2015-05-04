@@ -1,8 +1,0 @@
-# ChangeLog for sci-biology/consed
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  31 Oct 2012; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
-  consed-20-r1.ebuild:
-  renamed dependency from openmotif to motif consed-20-r1.ebuild
-

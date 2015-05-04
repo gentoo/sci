@@ -1,6 +1,8 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=5
 
 DESCRIPTION="Seed-driven progressive assembly program using legacy NCBI blast, CAP3, and optionally cross_match"
 HOMEPAGE="http://www.coccidia.icb.usp.br/genseed/"
@@ -11,14 +13,17 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 
-		# I am not sure whether we want to introduce yet another USE variable "phrap"
-		# This tools optionally uses cross_match if vector masking is required
-		# (sci-biology/phrap but it will be installed only by users having that licence.
-DEPEND="sci-biology/cap3-bin
-		dev-lang/perl
-		sci-biology/ncbi-tools"
+	# I am not sure whether we want to introduce yet another USE variable "phrap"
+	# This tools optionally uses cross_match if vector masking is required
+	# (sci-biology/phrap but it will be installed only by users having that licence.
+DEPEND="
+	sci-biology/cap3-bin
+	dev-lang/perl
+	sci-biology/ncbi-tools"
 RDEPEND=""
 
+S="${WORKDIR}"
+
 src_install() {
-	dobin genseed.pl
+	newbin ${PN}.pl ${PN}
 }

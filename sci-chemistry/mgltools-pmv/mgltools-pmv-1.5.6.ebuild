@@ -1,17 +1,15 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 eutils
 
 MY_PN="Pmv"
 MY_P="${MY_PN}-${PV/_rc3/}"
-
-PYTHON_MODNAME="${MY_PN}"
 
 DESCRIPTION="MGLTools Plugin -- Pmv"
 HOMEPAGE="http://mgltools.scripps.edu"
@@ -22,7 +20,14 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-RDEPEND=""
+RDEPEND="
+	sci-chemistry/mgltools-dejavu[${PYTHON_USEDEP}]
+	sci-chemistry/mgltools-mglutil[${PYTHON_USEDEP}]
+	sci-chemistry/mgltools-molkit[${PYTHON_USEDEP}]
+	sci-chemistry/mgltools-opengltk[${PYTHON_USEDEP}]
+	sci-chemistry/mgltools-pybabel[${PYTHON_USEDEP}]
+	sci-chemistry/mgltools-support[${PYTHON_USEDEP}]
+	"
 DEPEND="${RDEPEND}
 	dev-lang/swig"
 
@@ -31,8 +36,8 @@ S="${WORKDIR}"/${MY_P}
 DOCS=( Pmv/RELNOTES Pmv/doc )
 
 src_unpack() {
-	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
-	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz
+	tar xzpf "${DISTDIR}"/${A} mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
+	tar xzpf mgltools_source_${PV/_/}/MGLPACKS/${MY_P}.tar.gz || die
 }
 
 python_prepare_all() {

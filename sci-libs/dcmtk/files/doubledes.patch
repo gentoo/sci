@@ -1,0 +1,31 @@
+From d229d6fe6650427ca7319e5c86032291a5bfe39d Mon Sep 17 00:00:00 2001
+From: Michael Onken <dicom@offis.de>
+Date: Fri, 26 Jul 2013 22:51:07 +0200
+Subject: [PATCH] Fixed possible doubled destruction of association.
+
+---
+ CHANGES.361          |    5 +++++
+ dcmnet/libsrc/scp.cc |    3 +--
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+Index: dcmtk-3.6.0/dcmnet/libsrc/scp.cc
+===================================================================
+--- dcmtk-3.6.0.orig/dcmnet/libsrc/scp.cc	2010-10-20 10:09:34.000000000 +0200
++++ dcmtk-3.6.0/dcmnet/libsrc/scp.cc	2013-09-02 11:00:10.455689161 +0200
+@@ -650,7 +650,6 @@
+   {
+     notifyReleaseRequest();
+     ASC_acknowledgeRelease(m_assoc);
+-    ASC_dropSCPAssociation(m_assoc);
+   }
+   else if( cond == DUL_PEERABORTEDASSOCIATION )
+   {
+@@ -1416,7 +1415,7 @@
+   if (m_assoc)
+   {
+     notifyAssociationTermination();
+-    ASC_dropAssociation( m_assoc );
++    ASC_dropSCPAssociation( m_assoc );
+     ASC_destroyAssociation( &m_assoc );
+   }
+ }

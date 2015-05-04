@@ -1,0 +1,22 @@
+diff -Naur spglib-1.6.0/configure.ac spglib-1.6.0-new/configure.ac
+--- spglib-1.6.0/configure.ac	2014-01-07 01:44:11.000000000 -0700
++++ spglib-1.6.0-new/configure.ac	2014-03-11 12:33:21.000000000 -0600
+@@ -14,7 +14,8 @@
+ AM_PROG_CC_C_O
+ AM_PROG_LIBTOOL
+ 
+-# Checks for libraries.
++# Checks for OpenMP.
++AC_OPENMP
+ 
+ # Checks for header files.
+ AC_HEADER_STDC
+diff -Naur spglib-1.6.0/src/Makefile.am spglib-1.6.0-new/src/Makefile.am
+--- spglib-1.6.0/src/Makefile.am	2014-01-06 19:54:45.000000000 -0700
++++ spglib-1.6.0-new/src/Makefile.am	2014-03-11 12:37:21.000000000 -0600
+@@ -57,3 +57,5 @@
+ 
+ # libsymspg_la_LDFLAGS = -version-info 0:1:0
+ libsymspg_la_LIBADD = -lm
++
++AM_CFLAGS = ${OPENMP_CFLAGS}

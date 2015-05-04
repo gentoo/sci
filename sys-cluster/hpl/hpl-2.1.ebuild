@@ -1,6 +1,6 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-cluster/hpl/hpl-2.0-r2.ebuild,v 1.1 2013/02/27 15:57:37 jlec Exp $
+# $Header: $
 
 EAPI=5
 
@@ -26,7 +26,6 @@ src_prepare() {
 	local mpicc_path="$(mpi_pkg_cc)"
 	local a=""
 	local locallib="${EPREFIX}/usr/$(get_libdir)/lib"
-	local localblas="$(for i in $($(tc-getPKG_CONFIG) --libs-only-l blas lapack);do a="${a} ${i/-l/${locallib}}.so "; done; echo ${a})"
 
 	cp setup/Make.Linux_PII_FBLAS Make.gentoo_hpl_fblas_x86 || die
 	sed -i \
@@ -35,7 +34,7 @@ src_prepare() {
 		-e '/^ARCH\>/s,= .*,= gentoo_hpl_fblas_x86,' \
 		-e '/^MPdir\>/s,= .*,=,' \
 		-e '/^MPlib\>/s,= .*,=,' \
-		-e "/^LAlib\>/s,= .*,= ${localblas}," \
+		-e "/^LAlib\>/s%= .*%= $($(tc-getPKG_CONFIG) --libs blas lapack)%" \
 		-e "/^LINKER\>/s,= .*,= ${mpicc_path}," \
 		-e "/^CC\>/s,= .*,= ${mpicc_path}," \
 		-e "/^CCFLAGS\>/s|= .*|= \$(HPL_DEFS) ${CFLAGS}|" \

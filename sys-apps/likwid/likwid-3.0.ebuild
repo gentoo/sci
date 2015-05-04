@@ -1,4 +1,4 @@
-# Copyright 2013-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,7 +16,7 @@ KEYWORDS="~amd64"
 IUSE="+access-daemon uncore"
 
 src_prepare() {
-	epatch "${FILESDIR}/likwid.patch"
+	epatch "${FILESDIR}/${P}-paths.patch"
 	use access-daemon && epatch "${FILESDIR}/use_access_daemon.patch"
 	use uncore        && epatch "${FILESDIR}/use_uncore.patch"
 	sed -i -e "s:/usr/local:${D}/usr:" config.mk || die "Couldn't set prefix!"

@@ -1,0 +1,47 @@
+*** makefiles/default_rules.mk.orig	2015-02-28 16:32:00.830458169 -0400
+--- makefiles/default_rules.mk	2015-02-28 19:10:50.692172138 -0400
+***************
+*** 14,20 ****
+          LIBFILE = lib$(LIBNAME).so
+          #LDLIBS  += -l$(LIBNAME)
+        endif
+!       LDFLAGS += -Wl,-rpath=$(shell readlink -f $(KALDILIBDIR)) -L.
+        LDFLAGS += $(foreach dep,$(ADDLIBS), -L$(dir $(dep)) )
+        XDEPENDS = $(foreach dep,$(ADDLIBS), $(dir $(dep))/lib$(notdir $(basename $(dep))).so )
+      else  # Platform not supported
+--- 14,20 ----
+          LIBFILE = lib$(LIBNAME).so
+          #LDLIBS  += -l$(LIBNAME)
+        endif
+!       LDFLAGS += -L.
+        LDFLAGS += $(foreach dep,$(ADDLIBS), -L$(dir $(dep)) )
+        XDEPENDS = $(foreach dep,$(ADDLIBS), $(dir $(dep))/lib$(notdir $(basename $(dep))).so )
+      else  # Platform not supported
+***************
+*** 72,78 ****
+  test_compile: $(TESTFILES)
+    
+  test: test_compile
+! 	@result=0; for x in $(TESTFILES); do printf "Running $$x ..."; ./$$x >/dev/null 2>&1; if [ $$? -ne 0 ]; then echo "... FAIL $$x"; result=1; else echo "... SUCCESS";  fi;  done; exit $$result
+  
+  .valgrind: $(BINFILES) $(TESTFILES)
+  
+--- 72,78 ----
+  test_compile: $(TESTFILES)
+    
+  test: test_compile
+! 	@result=0; for x in $(TESTFILES); do printf "Running $$x ..."; LD_LIBRARY_PATH=$(KALDILIBDIR):${LD_LIBRARY_PATH} ./$$x >/dev/null 2>&1; if [ $$? -ne 0 ]; then echo "... FAIL $$x"; result=1; else echo "... SUCCESS";  fi;  done; exit $$result
+  
+  .valgrind: $(BINFILES) $(TESTFILES)
+  
+***************
+*** 84,86 ****
+--- 84,91 ----
+  #.depend.mk: depend
+  -include .depend.mk
+  
++ print-binfiles:
++ 	@echo $(addprefix $(shell pwd)/, $(BINFILES))
++ 
++ print-libfiles:
++ 	@echo $(addsuffix .so, $(addprefix $(shell pwd)/lib, $(LIBNAME)))

@@ -1,0 +1,35 @@
+ Makefile | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 76824c4..746b925 100644
+--- a/Makefile
++++ b/Makefile
+@@ -6,7 +6,7 @@
+ # 1) Choose C++ compiler.
+ ################################################################################
+ 
+-CXX = g++
++CXX ?= g++
+ 
+ ################################################################################
+ # 2) Set C++ flags.
+@@ -18,7 +18,8 @@ CXX = g++
+ OTHERFLAGS = -DVERSION="\"1.00\""
+ 
+ # debug mode    
+-CXXFLAGS = -g -W -Wall -pedantic $(OTHERFLAGS)
++CXXFLAGS ?= -g -W -Wall -pedantic
++CXXFLAGS += $(OTHERFLAGS)
+ 
+ # profile mode
+ #CXXFLAGS = -pg -W -Wall -pedantic $(OTHERFLAGS)
+@@ -38,7 +39,7 @@ OBJECTS = AlignedFragment.o Assert.o Block.o Consistency.o GlobalAlign.o LocalAl
+ all : $(TARGETS)
+ 
+ proda : $(OBJECTS)
+-	$(CXX) $(CXXFLAGS) -lm $(OBJECTS) -o proda
++	$(CXX) $(CXXFLAGS) $(OBJECTS) -lm -o proda
+ 
+ Assert.o: Assert.h
+ AlignedFragment.o: AlignedFragment.h Utilities.h

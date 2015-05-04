@@ -1,0 +1,15 @@
+# ChangeLog for dev-python/pywcsgrid2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  23 Dec 2014; Joseph Jon Booker <joe@neoturbine.net> pywcsgrid2-9999.ebuild:
+  dev-python/pywcsgrid2: Update dep and add py3.4
+
+  05 Feb 2014; Joseph Jon Booker <joe@neoturbine.net> pywcsgrid2-9999.ebuild:
+  dev-python/pywcsgrid2: Mask pywcsgrid2-9999 and remove keywords
+
+*pywcsgrid2-9999 (05 Feb 2014)
+
+  05 Feb 2014; Joseph Jon Booker <joe@neoturbine.net> +metadata.xml,
+  +pywcsgrid2-9999.ebuild:
+  dev-python/pywcsgrid2: Add ebuild for git version of pywcsgrid2

@@ -2,6 +2,9 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  14 Nov 2013; Justin Lecher <jlec@gentoo.org> pymol-plugins-psico-9999.ebuild:
+  bump to git-r3 eclass
+
   16 Jun 2013; Justin Lecher <jlec@gentoo.org> pymol-plugins-psico-9999.ebuild:
   Bump to EAPI=5 and distutils-r1.eclass
 

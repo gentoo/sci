@@ -1,9 +1,13 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=4
-inherit eutils autotools
+EAPI=5
+
+AUTOTOOLS_AUTORECONF=1
+AUTOTOOLS_IN_SOURCE_BUILD=1
+
+inherit eutils autotools-utils multilib
 
 DESCRIPTION="Astrometric and photometric solutions for astronomical images"
 HOMEPAGE="http://www.astromatic.net/software/scamp"
@@ -15,9 +19,9 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="doc threads plplot"
 
 RDEPEND=">=sci-astronomy/cdsclient-3.4
-	sci-libs/atlas[lapack]
+	sci-libs/atlas[lapack,threads=]
 	sci-libs/fftw:3.0
-	plplot? ( sci-libs/plplot )"
+	plplot? ( sci-libs/plplot:= )"
 DEPEND="${RDEPEND}"
 
 src_prepare() {
@@ -38,17 +42,19 @@ src_prepare() {
 		 acx_atlas.m4 || die
 	epatch "${FILESDIR}"/${P}-plplot599.patch
 	sed -i -e 's/doc//' Makefile.am || die
-	eautoreconf
+	autotools-utils_src_prepare
 }
 
 src_configure() {
-	econf \
-		--with-atlas-incdir="${EPREFIX}/usr/include/atlas" \
-		$(use_with plplot) \
+	local myeconfargs=(
+		--with-atlas-incdir="${EPREFIX}/usr/include/atlas"
+		$(use_with plplot)
 		$(use_enable threads)
+	)
+	autotools-utils_src_configure
 }
 
 src_install () {
-	default
+	autotools-utils_src_install
 	use doc && dodoc doc/*
 }

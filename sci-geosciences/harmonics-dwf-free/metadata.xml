@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>sci-geosciences</herd>
-<maintainer>
-<email>tim@cerazone.net</email>
-<name>Tim Cera</name>
-</maintainer>
-<longdescription lang="en">
+  <herd>sci-geosciences</herd>
+  <maintainer>
+    <email>tim@cerazone.net</email>
+    <name>Tim Cera</name>
+  </maintainer>
+  <longdescription lang="en">
 Tidal harmonics database for libtcd.  Free to use for any purpose.
 </longdescription>
 </pkgmetadata>

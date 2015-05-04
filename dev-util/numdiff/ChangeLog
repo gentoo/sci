@@ -1,0 +1,10 @@
+# ChangeLog for dev-util/numdiff
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> metadata.xml,
+  numdiff-5.8.1.ebuild:
+  dev-util/numdiff: fix SLOT operators
+
+  16 Sep 2014; Christoph Junghans <ottxor@gentoo.org> numdiff-5.8.1.ebuild:
+  clean up

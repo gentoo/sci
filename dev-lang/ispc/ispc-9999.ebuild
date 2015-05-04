@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -6,13 +6,13 @@ EAPI=5
 
 PYTHON_COMPAT=( python{2_6,2_7} )
 
-inherit base toolchain-funcs python-any-r1
+inherit toolchain-funcs python-any-r1
 
 DESCRIPTION="Intel SPMD Program Compiler"
 HOMEPAGE="http://ispc.github.com/"
 
 if [[ ${PV} = *9999 ]]; then
-	inherit git-2
+	inherit git-r3
 	EGIT_REPO_URI="git://github.com/ispc/ispc.git"
 	KEYWORDS=""
 else
@@ -36,6 +36,7 @@ DEPEND="
 	"
 
 src_compile() {
+	sed -i '/^\t@/s/@//' Makefile || die #make all slient commands ("@") verbose
 	emake LDFLAGS="${LDFLAGS}" OPT="${CXXFLAGS}" CXX="$(tc-getCXX)" CPP="$(tc-getCPP)"
 }
 

@@ -1,6 +1,16 @@
 # ChangeLog for sci-libs/symmetrica
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*symmetrica-2.0-r1 (20 Feb 2015)
+
+  20 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
+  +symmetrica-2.0-r1.ebuild:
+  sci-libs/symmetrica: Apply patches; Raise revision
+
+  11 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
+  symmetrica-2.0.ebuild:
+  Move to EAPI=5 and clean the ebuild
 
   24 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   symmetrica-2.0.ebuild:
@@ -15,4 +25,3 @@
 
   18 Jul 2008; Francois Bissey <f.r.bissey@massey.ac.nz> ChangeLog:
   Initial import, see bug #232014
-

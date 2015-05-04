@@ -1,4 +1,4 @@
-# Copyright 2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -16,7 +16,7 @@ SLOT="0"
 IUSE="mic"
 KEYWORDS="~amd64"
 
-RDEPEND="app-admin/eselect-opencl
+RDEPEND="app-eselect/eselect-opencl
 		sys-process/numactl"
 
 RESTRICT="mirror strip"

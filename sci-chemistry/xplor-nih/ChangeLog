@@ -1,0 +1,12 @@
+# ChangeLog for sci-chemistry/xplor-nih
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  17 Mar 2015; Justin Lecher <jlec@gentoo.org> xplor-nih-2.38.ebuild:
+  sci-chemistry/xplor-nih: Add missing deps
+
+*xplor-nih-2.38 (10 Feb 2015)
+
+  10 Feb 2015; Justin Lecher <jlec@gentoo.org> +metadata.xml,
+  +xplor-nih-2.38.ebuild:
+  sci-chemistry/xplor-nih: New package

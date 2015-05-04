@@ -1,6 +1,38 @@
 # ChangeLog for dev-lang/julia
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  08 Mar 2015; zcj <ustcscgy@163.com> julia-9999.ebuild:
+  dev-lang/julia: Add new dependency, fix build.
+
+  13 Sep 2014; Mark Wright <gienah@gentoo.org> julia-9999.ebuild:
+  Add int64 use flag to julia-9999.ebuild. Depend on
+  >=virtual/blas-2.1-r2[int64?] and >=virtual/lapack-3.5-r2[int64?]. Fixes
+  dev-lang/julia wont compile against openblas -int64 #102.
+
+  27 Aug 2014; François Bissey <francois.bissey@canterbury.ac.nz>
+  julia-9999.ebuild:
+  Bump dependency on llvm as in 0.3
+
+  27 Aug 2014; François Bissey <francois.bissey@canterbury.ac.nz>
+  julia-9999.ebuild:
+  Few fixes: julia wants threaded fftw; multilib-strict install; Added
+  USE_BLAS64=0 to Make.user, some proprietary blas/lapack may be  suitable for
+  the other setting but we cannot count on julia to recognize support just based
+  on name.
+
+  02 Apr 2014; Sebastien Fabbro <fabbros@gentoo.org> julia-9999.ebuild,
+  metadata.xml:
+  various consistent fixes for main tree
+
+  08 Feb 2014;  <xhochy@gentoo.org> julia-9999.ebuild:
+  PREFIX is now prefix
+
+  26 Jan 2014;  <xhochy@gentoo.org> julia-9999.ebuild:
+  Add missing dependency for utf8proc
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> julia-9999.ebuild, metadata.xml:
+  Switch from git-2 to git-r3
 
   17 Jul 2013; Sébastien Fabbro <bicatali@gentoo.org> julia-9999.ebuild,
   metadata.xml:
@@ -8,7 +40,7 @@
 
   14 Jul 2013; James Cloos <cloos@jhcloos.com> julia-9999.ebuild:
   Julia uses submodules, so set EGIT_HAS_SUBMODULES=yes
-  
+
   14 Jun 2013; Justin Lecher <jlec@gentoo.org> julia-9999.ebuild, metadata.xml:
   Drop KEYWORDS of live ebuilds
 

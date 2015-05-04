@@ -1,6 +1,13 @@
 # ChangeLog for sci-chemistry/drawxtl
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  06 Jan 2014; Justin Lecher <jlec@gentoo.org> -drawxtl-44.ebuild,
+  +drawxtl-45.ebuild, -drawxtl-54.ebuild, +drawxtl-55.ebuild,
+  -files/44-gentoo.patch, +files/drawxtl-45-gentoo.patch,
+  -files/54-gcc44.patch, +files/drawxtl-55-gentoo.patch,
+  -files/54-gentoo.patch, -files/54-ldflags.patch, metadata.xml:
+  Version Bump; punt base.eclass
 
   05 Apr 2011; Justin Lecher <jlec@gentoo.org> drawxtl-44.ebuild,
   drawxtl-54.ebuild:

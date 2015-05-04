@@ -1,21 +1,29 @@
 # ChangeLog for sci-mathematics/apron
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  13 Feb 2011; J.C. Demay <jcdemay@gmail.com>
+  17 Jul 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
+  apron-0.9.10-r1.ebuild:
+  force j1 option for make
+
+  21 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
+  +apron-0.9.10-r1.ebuild:
+  dropping cxx and ppl support
+
+  13 Feb 2011; Jonathan-Christofer Demay <jcdemay@gmail.com>
   apron-0.9.10.ebuild:
-  doc generation for cxx fixed using dev-tex/rubber 
+  doc generation for cxx fixed using dev-tex/rubber
 
   04 Jul 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   apron-0.9.10.ebuild, metadata.xml:
   Silence repoman; drop ~sparc since dependencies cannot be fulfilled; move
   doc generation dependencies to RDEPEND
 
-  04 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  04 Jul 2010; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -files/apron-0.9.10-pkgrid_manager.patch, apron-0.9.10.ebuild:
   building process fixed for the latest sources
 
-  03 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  03 Jul 2010; Jonathan-Christofer Demay <jcdemay@gmail.com>
   +metadata.xml, +ChangeLog:
   QA fixes
 

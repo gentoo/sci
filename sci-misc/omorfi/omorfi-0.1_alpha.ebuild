@@ -1,6 +1,8 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
+
+EAPI=5
 
 MY_P="${PN}-${PV/_alpha/-alpha}"
 
@@ -13,19 +15,12 @@ SLOT="0"
 KEYWORDS="~x86"
 IUSE=""
 
-DEPEND=">=sci-misc/kotus-sanalista-1
+DEPEND="
+	>=sci-misc/kotus-sanalista-1
 	dev-java/saxon
 	sci-misc/sfst"
 RDEPEND=""
 
 S="${WORKDIR}/${MY_P}"
 
-src_compile() {
-	econf || die "configure failed"
-	emake -j1 || die "make failed"
-}
-
-src_install() {
-	emake DESTDIR="${D}" install || die "install failed"
-	dodoc AUTHORS ChangeLog README README.fi THANKS || die "docs missing"
-}
+MAKEOPTS+=" -j1"

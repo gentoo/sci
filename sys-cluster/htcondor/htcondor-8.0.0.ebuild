@@ -1,10 +1,12 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
 EAPI=5
+
 CMAKE_MIN_VERSION=2.8
-PYTHON_COMPAT=( python{2_6,2_7} )
+
+PYTHON_COMPAT=( python2_7 )
 
 inherit cmake-utils python-single-r1 user
 
@@ -19,7 +21,8 @@ IUSE="boinc cgroup contrib curl dmtcp doc kerberos libvirt management minimal po
 
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
-CDEPEND="sys-libs/zlib
+CDEPEND="
+	sys-libs/zlib
 	>=dev-libs/libpcre-7.6
 	>=dev-libs/boost-1.49.0[${PYTHON_USEDEP}]
 	net-nds/openldap
@@ -31,10 +34,10 @@ CDEPEND="sys-libs/zlib
 	kerberos? ( virtual/krb5 )
 	X? ( x11-libs/libX11 )
 	management? ( net-libs/qmf )
-	postgres? ( >=dev-db/postgresql-base-8.2.4 )
+	postgres? ( >=dev-db/postgresql-8.2.4:= )
 	python? ( ${PYTHON_DEPS} )
 	soap? ( >=net-libs/gsoap-2.7.11[ssl?] )
-	ssl? ( >=dev-libs/openssl-0.9.8i )
+	ssl? ( >=dev-libs/openssl-0.9.8i:0 )
 	xml? ( >=dev-libs/libxml2-2.7.3 )"
 
 DEPEND="${CDEPEND}
@@ -53,11 +56,12 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch	"${FILESDIR}/condor_shadow_dlopen-${PV}.patch" \
-		"${FILESDIR}/condor_config.generic.patch" \
-		"${FILESDIR}/0001-Apply-the-user-s-condor_config-last-rather-than-firs.patch" \
-		"${FILESDIR}/packaging_directories-${PV}.patch" \
-		"${FILESDIR}/fix_sandbox_violations-${PV}.patch"
+	epatch \
+		"${FILESDIR}"/condor_shadow_dlopen-${PV}.patch \
+		"${FILESDIR}"/condor_config.generic.patch \
+		"${FILESDIR}"/0001-Apply-the-user-s-condor_config-last-rather-than-firs.patch \
+		"${FILESDIR}"/packaging_directories-${PV}.patch \
+		"${FILESDIR}"/fix_sandbox_violations-${PV}.patch
 	cmake-utils_src_prepare
 }
 

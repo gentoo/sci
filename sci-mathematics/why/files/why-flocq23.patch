@@ -1,0 +1,11 @@
+--- lib/coq/WhyFloats.v.orig	2014-03-17 16:01:46.000000000 -0600
++++ lib/coq/WhyFloats.v	2014-04-21 15:39:55.680771647 -0600
+@@ -108,7 +108,7 @@
+ generalize (Zeq_bool_eq _ _ H1). clear.
+ rewrite Fcalc_digits.Z_of_nat_S_digits2_Pnat.
+ intros H.
+-apply (Fcalc_digits.Zpower_gt_Zdigits Fcalc_digits.radix2 (Zpos prec) (Zpos m)).
++apply (Fcore_digits.Zpower_gt_Zdigits Fcalc_digits.radix2 (Zpos prec) (Zpos m)).
+ revert H.
+ unfold FLT_exp.
+ generalize (Fcore_digits.Zdigits radix2 (Zpos m)).

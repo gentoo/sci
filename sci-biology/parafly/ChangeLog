@@ -1,0 +1,9 @@
+# ChangeLog for sci-biology/parafly
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*parafly-20130121 (08 Jan 2015)
+
+  08 Jan 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz> +metadata.xml,
+  +parafly-20130121.ebuild:
+  sci-biology/parafly: new package

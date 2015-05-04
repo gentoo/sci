@@ -1,0 +1,32 @@
+PROVIDER: The National Cancer Institute at the National Institutes of Health, an Agency of the Federal Government 
+
+Definitions: 
+The term "SOFTWARE" throughout this agreement means the machine readable, binary, object code form and related documentation for the modules of the Bambino software package, which is a graphical viewer and variant detector for next-generation sequencing files in SAM/BAM format. 
+
+The term "RECIPIENT" means the party that downloads the software.
+
+By downloading or otherwise receiving the SOFTWARE, RECIPIENT may use the SOFTWARE subject to RECIPIENT's agreement to the following terms:
+
+1. THE SOFTWARE SHALL NOT BE USED IN THE TREATMENT OR DIAGNOSIS OF HUMAN SUBJECTS.
+
+2. RECIPIENT shall not distribute the SOFTWARE, in whole or in part without express advance written approval of PROVIDER.
+
+3. The SOFTWARE may be used for research and academic purposes only. The SOFTWARE may not be used for commercial purposes. RECIPIENT will not license or sell or use the SOFTWARE for commercial purposes or applications.
+
+4. RECIPIENT shall not modify, extend, decompile, make derivatives of, merge, publish, reverse engineer or distribute the SOFTWARE without written permission from PROVIDER.
+
+5. RECIPIENT agrees to comply with all regulations applicable to the use of the SOFTWARE. 
+ 
+6. RECIPIENT may publish or otherwise publicly disclose the results of using the SOFTWARE. RECIPIENT agrees to acknowledge PROVIDER's contribution of the SOFTWARE in all written publications containing any data or information regarding or resulting from use of the SOFTWARE.
+
+7. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE PROVIDER OR THE INDIVIDUAL DEVELOPERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY OF ANY KIND.  USE OF THE SOFTWARE BY RECIPIENT IS AT RECIPIENT'S OWN RISK. PROVIDER makes no representations that the use of SOFTWARE will not infringe any patent or proprietary rights of third parties.
+
+8. No indemnification for any loss, claim, damage, or liability is intended or provided by either Party under this Agreement.  Each Party shall be liable for any loss, claim, damage, or liability that said Party incurs as a result of said Party's activities under this Agreement, except that Provider, as an agency of the United States, assumes liability only to the extent as provided under the Federal Tort Claims Act (28 U.S.C. Chapter 171 Sections 2671-2680).
+
+9. RECIPIENT agrees not to claim, infer, or imply endorsement by the United States Government, or any of its organizational units, contractors or employees.  RECIPIENT agrees that it will not use any trademarks, service marks, trade names, logos or product names of NCI except as required to comply with the terms of this agreement.
+
+10. By conveying the SOFTWARE herein, the PROVIDER and the individual developers will not be obligated to provide to the RECIPIENT, or any other party, support in any form nor will Provider be obligated to replace the SOFTWARE should it become erased or otherwise destroyed.  Accordingly, the PROVIDER and the individual developers shall be under no obligation to provide RECIPIENT any service, guidance, updates or assistance.
+
+11. Title in the SOFTWARE shall remain with the PROVIDER.  It is understood that nothing herein will be deemed to constitute, by implication or otherwise, the grant to either Party by the other of any license or other rights under any patent, patent application or other intellectual property right or interest.  PROVIDER reserves the right to distribute the SOFTWARE to others and to use it for PROVIDER's own purposes.   The United States Government explicitly retains all rights to use the SOFTWARE for any purpose, to have it used on the Government's behalf or to allow others to use it.
+
+

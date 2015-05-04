@@ -1,0 +1,668 @@
+Subject: ensure that all libraries link against all direct dependencies
+
+ * src/**/Makefile.*.lib: set DLL_(D)LIB correctly.  Break the dependency
+   loop between libxblast and libxalgoblastdbindex by having the former
+   provide only the C++ BLAST API, leaving the C core only in libblast.
+ * src/build-system/library_relations.txt: Change xblast's
+   relationship to blast from includes to needs, accordingly.
+ * src/algo/blast/dbindex*/*/Makefile.*.app: Link against libxconnect
+   rather than libconnect for consistency with libblast, which uses the
+   former to keep the aforementioned cycle-breaking from causing
+   inconsistency elsewhere.
+
+Debian-Bug: 633567.
+Author: Aaron M. Ucko <ucko@debian.org>
+Last-Update: 2014-12-02
+--- a/c++/src/algo/blast/core/Makefile.blast.lib
++++ b/c++/src/algo/blast/core/Makefile.blast.lib
+@@ -21,6 +21,7 @@ LIB = blast
+ CFLAGS  = $(FAST_CFLAGS)  
+ LDFLAGS = $(FAST_LDFLAGS) 
+ 
++DLL_LIB = composition_adjustment xconnect tables
+ 
+ WATCHERS = madden camacho
+ 
+--- a/c++/src/algo/blast/dbindex/Makefile.xalgoblastdbindex.lib
++++ b/c++/src/algo/blast/dbindex/Makefile.xalgoblastdbindex.lib
+@@ -11,6 +11,8 @@ SRC = sequence_istream_fasta \
+ CXXFLAGS = -DDO_INLINE $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)
+ 
++DLL_LIB = blast seqdb xobjread xobjutil xobjmgr seqset seq xser xutil xncbi
++
+ ASN_DEP = seqset
+ 
+ WATCHERS = morgulis
+--- a/c++/src/algo/blast/format/Makefile.xblastformat.lib
++++ b/c++/src/algo/blast/format/Makefile.xblastformat.lib
+@@ -7,7 +7,8 @@ SRC = blastfmtutil blastxml_format blast
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLASTFORMAT $(ORIG_CPPFLAGS)
+ 
+-DLL_LIB = align_format blastxml blastxml2 xhtml xcgi
++DLL_LIB = xblast align_format xalnmgr xobjmgr xnetblast scoremat blastxml \
++          seq general xser tables xncbi blastxml2
+ 
+ WATCHERS = jianye zaretska madden camacho fongah2
+ 
+--- a/c++/src/algo/winmask/Makefile.xalgowinmask.lib
++++ b/c++/src/algo/winmask/Makefile.xalgowinmask.lib
+@@ -21,7 +21,7 @@ SRC = seq_masker seq_masker_score_mean s
+ CXXFLAGS = $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)
+ 
+-
++DLL_LIB = seqmasks_io xobjread xobjutil xobjmgr seq xncbi
+ 
+ USES_LIBRARIES =  \
+     seqmasks_io
+--- a/c++/src/cgi/Makefile.cgi.lib
++++ b/c++/src/cgi/Makefile.cgi.lib
+@@ -9,6 +9,8 @@ SRC = ncbicgi cgiapp cgictx ncbicgir ncb
+       user_agent
+ LIB = xcgi
+ 
++DLL_LIB = xutil xncbi
++
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(FASTCGI_INCLUDE)
+ 
+ WATCHERS = vakatov
+--- a/c++/src/html/Makefile.html.lib
++++ b/c++/src/html/Makefile.html.lib
+@@ -7,6 +7,8 @@ SRC = node html htmlhelper page pager se
+       commentdiag indentstream html_exception writer_htmlenc
+ LIB = xhtml
+ 
++DLL_LIB = xncbi
++
+ WATCHERS = ivanov
+ 
+ 
+--- a/c++/src/objects/blast/Makefile.xnetblastcli.lib
++++ b/c++/src/objects/blast/Makefile.xnetblastcli.lib
+@@ -3,6 +3,7 @@ ASN_DEP = xnetblast
+ LIB = xnetblastcli
+ SRC = blastclient blastclient_
+ 
++DLL_LIB = xnetblast xser xconnect xutil xncbi
+ 
+ USES_LIBRARIES =  \
+     xconnect xnetblast
+--- a/c++/src/objtools/align_format/Makefile.align_format.lib
++++ b/c++/src/objtools/align_format/Makefile.align_format.lib
+@@ -13,6 +13,10 @@ SRC = format_flags align_format_util sho
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLASTFORMAT $(ORIG_CPPFLAGS)
+ 
++DLL_LIB = xalnmgr ncbi_xloader_genbank seqdb blast_services xobjread xobjutil \
++          xobjmgr xnetblast blastdb gene_info seqset seq general xser \
++          xcgi xhtml tables xncbi
++
+ ###  EXAMPLES OF OTHER SETTINGS THAT MIGHT BE OF INTEREST
+ # CFLAGS   = $(FAST_CFLAGS)
+ # CXXFLAGS = $(FAST_CXXFLAGS)
+--- a/c++/src/objtools/alnmgr/Makefile.alnmgr.lib
++++ b/c++/src/objtools/alnmgr/Makefile.alnmgr.lib
+@@ -12,7 +12,7 @@ SRC = aln_builders aln_converters aln_ge
+ 
+ WATCHERS = todorov dicuccio grichenk
+ 
+-
++DLL_LIB = xobjmgr seqset seq xser tables xncbi
+ 
+ USES_LIBRARIES =  \
+     tables xobjutil
+--- a/c++/src/objtools/readers/Makefile.xobjread.lib
++++ b/c++/src/objtools/readers/Makefile.xobjread.lib
+@@ -21,7 +21,7 @@ SRC = read_util format_guess_ex \
+       message_listener line_error
+ 
+ 
+-DLL_LIB = creaders
++DLL_LIB = submit seqset seq pub general xser creaders sequtil xutil xncbi
+ 
+ 
+ 
+--- a/c++/src/objtools/seqmasks_io/Makefile.seqmasks_io.lib
++++ b/c++/src/objtools/seqmasks_io/Makefile.seqmasks_io.lib
+@@ -12,7 +12,7 @@ mask_writer_seqloc \
+ mask_writer_blastdb_maskinfo
+ 
+ ASN_DEP = seqset
+-DLL_LIB = seqdb blastdb
++DLL_LIB = seqdb xobjread xobjutil xobjmgr blastdb seqset seq xser xncbi
+ 
+ WATCHERS = morgulis camacho
+ 
+--- a/c++/src/objtools/simple/Makefile.xobjsimple.lib
++++ b/c++/src/objtools/simple/Makefile.xobjsimple.lib
+@@ -7,6 +7,8 @@ WATCHERS =  jcherry
+ 
+ ASN_DEP = seqset
+ 
++DLL_LIB = ncbi_xloader_genbank xobjmgr seq xncbi
++
+ LIB = xobjsimple
+ SRC = simple_om
+ 
+--- a/c++/src/objtools/blast/seqdb_reader/Makefile.seqdb.lib
++++ b/c++/src/objtools/blast/seqdb_reader/Makefile.seqdb.lib
+@@ -24,6 +24,8 @@ seqdbobj
+ 
+ LIB = seqdb
+ 
++DLL_LIB = blastdb xobjmgr seq general xser sequtil xncbi
++
+ CFLAGS   = $(FAST_CFLAGS)
+ CPPFLAGS = -DNCBI_MODULE=BLASTDB $(ORIG_CPPFLAGS)
+ CXXFLAGS = $(FAST_CXXFLAGS)
+--- a/c++/src/objtools/data_loaders/blastdb/Makefile.ncbi_xloader_blastdb.lib
++++ b/c++/src/objtools/data_loaders/blastdb/Makefile.ncbi_xloader_blastdb.lib
+@@ -7,6 +7,8 @@ CPPFLAGS = -DNCBI_MODULE=BLASTDB $(ORIG_
+ 
+ ASN_DEP = blastdb seqset
+ 
++DLL_LIB = seqdb xobjmgr seqset seq xncbi
++
+ WATCHERS = camacho
+ 
+ 
+--- a/c++/src/objtools/data_loaders/blastdb/Makefile.ncbi_xloader_blastdb_rmt.lib
++++ b/c++/src/objtools/data_loaders/blastdb/Makefile.ncbi_xloader_blastdb_rmt.lib
+@@ -5,6 +5,8 @@ SRC = bdbloader_rmt remote_blastdb_adapt
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLASTDB $(ORIG_CPPFLAGS)
+ 
++DLL_LIB = ncbi_xloader_blastdb blast_services xobjmgr seq xncbi
++
+ ASN_DEP = blastdb xnetblast
+ 
+ WATCHERS = camacho
+--- a/c++/src/algo/blast/api/Makefile.xblast.lib
++++ b/c++/src/algo/blast/api/Makefile.xblast.lib
+@@ -74,14 +74,15 @@ cdd_pssm_input \
+ deltablast_options \
+ deltablast
+ 
+-SRC  = $(SRC_C:%=.core_%) $(SRC_CXX)
++SRC  = $(SRC_CXX) # $(SRC_C:%=.core_%)
+ 
+ LIB = xblast
+ 
+ DLL_LIB = xalgoblastdbindex composition_adjustment xalgowinmask \
+ 	xalgodustmask seqmasks_io seqdb $(OBJREAD_LIBS) xobjutil \
+ 	blastdb xnetblastcli xnetblast scoremat xconnect tables \
+-	$(SOBJMGR_LIBS)
++        $(SOBJMGR_LIBS) blast seqdb seqset seq general \
++        xser xconnect sequtil tables xutil xncbi
+ 
+ CFLAGS   = $(FAST_CFLAGS) 
+ CPPFLAGS = -DNCBI_MODULE=BLAST $(ORIG_CPPFLAGS)
+--- a/c++/src/algo/blast/blastinput/Makefile.blastinput.lib
++++ b/c++/src/algo/blast/blastinput/Makefile.blastinput.lib
+@@ -24,7 +24,9 @@ SRC  = $(SRC_CXX)
+ 
+ LIB = blastinput
+ 
+-DLL_LIB = xblast align_format ncbi_xloader_blastdb_rmt ncbi_xloader_blastdb seqdb $(OBJREAD_LIBS) $(OBJMGR_LIBS) xutil
++    DLL_LIB = xblast align_format ncbi_xloader_blastdb_rmt ncbi_xloader_blastdb seqdb xobjread \
++              $(OBJREAD_LIBS) $(OBJMGR_LIBS) xutil ncbi_xloader_genbank ncbi_xreader_id2 ncbi_xreader \
++              scoremat seqset seq xser xutil xncbi
+ 
+ # should be redundant, given the above :-/
+ ASN_DEP = seqset xnetblast
+--- a/c++/src/algo/dustmask/Makefile.xalgodustmask.lib
++++ b/c++/src/algo/dustmask/Makefile.xalgodustmask.lib
+@@ -8,6 +8,8 @@ LIB = xalgodustmask
+ 
+ SRC = symdust
+ 
++DLL_LIB = xobjmgr seq xncbi
++
+ CXXFLAGS = $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)
+ 
+--- a/c++/src/connect/Makefile.xconnect.lib
++++ b/c++/src/connect/Makefile.xconnect.lib
+@@ -14,6 +14,8 @@ UNIX_SRC = $(LOCAL_LBSM)
+ LIB  = xconnect
+ PROJ_TAG = core
+ 
++DLL_LIB = xncbi
++
+ LIBS = $(NETWORK_LIBS) $(ORIG_LIBS)
+ 
+ WATCHERS = lavr
+--- a/c++/src/connect/ext/Makefile.xconnext.lib
++++ b/c++/src/connect/ext/Makefile.xconnext.lib
+@@ -6,6 +6,8 @@ SRC      = $(SRC_C) ncbi_dblb_svcmapper
+ 
+ LIB      = xconnext
+ 
++DLL_LIB = xconnect xncbi
++
+ WATCHERS = lavr
+ 
+ 
+--- a/c++/src/objects/blast/Makefile.blast.lib
++++ b/c++/src/objects/blast/Makefile.blast.lib
+@@ -1,6 +1,8 @@
+ LIB = xnetblast
+ SRC = blast__ blast___ names
+ 
++DLL_LIB = scoremat seqset seq xser xncbi
++
+ WATCHERS = camacho
+ 
+ 
+--- a/c++/src/objects/blastxml/Makefile.blastxml.lib
++++ b/c++/src/objects/blastxml/Makefile.blastxml.lib
+@@ -1,6 +1,8 @@
+ LIB = blastxml
+ SRC = blastxml__ blastxml___
+ 
++DLL_LIB = xser xncbi
++
+ 
+ USES_LIBRARIES =  \
+     xser
+--- a/c++/src/objects/scoremat/Makefile.scoremat.lib
++++ b/c++/src/objects/scoremat/Makefile.scoremat.lib
+@@ -1,6 +1,8 @@
+ LIB = scoremat
+ SRC = scoremat__ scoremat___
+ 
++DLL_LIB = seqset seq general xser xncbi
++
+ 
+ USES_LIBRARIES =  \
+     seqset
+--- a/c++/src/objects/seqedit/Makefile.seqedit.lib
++++ b/c++/src/objects/seqedit/Makefile.seqedit.lib
+@@ -1,6 +1,7 @@
+ LIB = seqedit
+ SRC = seqedit__ seqedit___
+- 
++
++DLL_LIB = seqset seq general xser xncbi
+ 
+ 
+ USES_LIBRARIES =  \
+--- a/c++/src/objects/submit/Makefile.submit.lib
++++ b/c++/src/objects/submit/Makefile.submit.lib
+@@ -1,6 +1,8 @@
+ LIB = submit
+ SRC = submit__ submit___
+ 
++DLL_LIB = seqset seq biblio general xser xncbi
++
+ 
+ USES_LIBRARIES =  \
+     seqset
+--- a/c++/src/objmgr/util/Makefile.util.lib
++++ b/c++/src/objmgr/util/Makefile.util.lib
+@@ -8,6 +8,8 @@ ASN_DEP = submit
+ SRC = weight sequence feature seqtitle create_defline obj_sniff seq_loc_util seq_align_util seq_trimmer bioseqgaps_ci
+ LIB = xobjutil
+ 
++DLL_LIB = xobjmgr seqset seq pub biblio general xser sequtil xutil xncbi
++
+ WATCHERS = ucko vasilche kornbluh
+ 
+ 
+--- a/c++/src/objtools/blast/blastdb_format/Makefile.blastdb_format.lib
++++ b/c++/src/objtools/blast/blastdb_format/Makefile.blastdb_format.lib
+@@ -11,6 +11,7 @@ SRC = seq_writer blastdb_dataextract bla
+ 
+ CPPFLAGS = -DNCBI_MODULE=BLASTDB $(ORIG_CPPFLAGS)
+ 
++DLL_LIB = seqdb xobjutil xobjmgr seq xser sequtil xutil xncbi
+ 
+ ###  EXAMPLES OF OTHER SETTINGS THAT MIGHT BE OF INTEREST
+ # CFLAGS   = $(FAST_CFLAGS)
+--- a/c++/src/objtools/blast/services/Makefile.blast_services.lib
++++ b/c++/src/objtools/blast/services/Makefile.blast_services.lib
+@@ -8,6 +8,8 @@ SRC = blast_services
+ 
+ LIB = blast_services
+ 
++DLL_LIB = xnetblastcli xnetblast xser xconnect xutil xncbi
++
+ CFLAGS   = $(FAST_CFLAGS)
+ CPPFLAGS = -DNCBI_MODULE=NETBLAST $(ORIG_CPPFLAGS)
+ CXXFLAGS = $(FAST_CXXFLAGS)
+--- a/c++/src/objtools/data_loaders/genbank/Makefile.ncbi_xloader_genbank.lib
++++ b/c++/src/objtools/data_loaders/genbank/Makefile.ncbi_xloader_genbank.lib
+@@ -12,6 +12,9 @@ LIB_OR_DLL = both
+ # Dependencies for shared library
+ DLL_LIB = ncbi_xreader$(DLL)
+ 
++DLL_DLIB = ncbi_xreader_cache ncbi_xreader_id1 ncbi_xreader_id2 \
++           id2 id1 ncbi_xreader xobjmgr seq xutil xncbi
++
+ WATCHERS = vasilche
+ 
+ 
+--- a/c++/src/objtools/data_loaders/genbank/Makefile.ncbi_xreader.lib
++++ b/c++/src/objtools/data_loaders/genbank/Makefile.ncbi_xreader.lib
+@@ -15,6 +15,9 @@ LIB_OR_DLL = both
+ DLL_LIB = 
+ DLL_DLIB = $(GENBANK_READER_LDEP)
+ 
++DLL_DLIB = xobjmgr id2 seqsplit id1 seqset seq general \
++           xser xconnect xcompress xutil xncbi
++
+ WATCHERS = vasilche
+ 
+ 
+--- a/c++/src/objtools/data_loaders/genbank/cache/Makefile.ncbi_xreader_cache.lib
++++ b/c++/src/objtools/data_loaders/genbank/cache/Makefile.ncbi_xreader_cache.lib
+@@ -12,6 +12,8 @@ LIB_OR_DLL = both
+ # Dependencies for shared library
+ DLL_LIB = ncbi_xreader$(DLL)
+ 
++DLL_DLIB = ncbi_xreader xobjmgr seq xser xncbi
++
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(CMPRS_INCLUDE)
+ 
+ WATCHERS = vasilche
+--- a/c++/src/objtools/data_loaders/genbank/id1/Makefile.ncbi_xreader_id1.lib
++++ b/c++/src/objtools/data_loaders/genbank/id1/Makefile.ncbi_xreader_id1.lib
+@@ -12,6 +12,8 @@ LIB_OR_DLL = both
+ # Dependencies for shared library
+ DLL_LIB = xconnect ncbi_xreader$(DLL)
+ 
++DLL_DLIB = ncbi_xreader xobjmgr id1 seq general xser xconnect xutil xncbi
++
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(CMPRS_INCLUDE)
+ 
+ WATCHERS = vasilche
+--- a/c++/src/objtools/data_loaders/genbank/id2/Makefile.ncbi_xreader_id2.lib
++++ b/c++/src/objtools/data_loaders/genbank/id2/Makefile.ncbi_xreader_id2.lib
+@@ -12,7 +12,10 @@ LIB_OR_DLL = both
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(Z_INCLUDE)
+ 
+ # Dependencies for shared library (disabled due to problems on Darwin)
+-# DLL_LIB = xconnect ncbi_xreader$(DLL)
++DLL_LIB = xconnect ncbi_xreader$(DLL)
++
++DLL_DLIB = ncbi_xreader xobjmgr id2 seqsplit seq xser xconnect xncbi
++
+ 
+ WATCHERS = vasilche
+ 
+--- a/c++/src/util/compress/api/Makefile.compress.lib
++++ b/c++/src/util/compress/api/Makefile.compress.lib
+@@ -7,7 +7,7 @@ LIB = xcompress
+ 
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(CMPRS_INCLUDE)
+ 
+-DLL_LIB =  $(BZ2_LIB)  $(Z_LIB)  $(LZO_LIB)
++DLL_LIB =  $(BZ2_LIB)  $(Z_LIB)  $(LZO_LIB) xutil xncbi
+ LIBS    =  $(BZ2_LIBS) $(Z_LIBS) $(LZO_LIBS) $(ORIG_LIBS)
+ 
+ WATCHERS = ivanov
+--- a/c++/src/util/sequtil/Makefile.sequtil.lib
++++ b/c++/src/util/sequtil/Makefile.sequtil.lib
+@@ -3,6 +3,8 @@
+ LIB = sequtil
+ SRC = sequtil sequtil_convert sequtil_convert_imp sequtil_manip sequtil_tables sequtil_shared
+ 
++DLL_LIB = xncbi
++
+ WATCHERS = shomrat
+ 
+ 
+--- a/c++/src/corelib/Makefile.test_boost.lib
++++ b/c++/src/corelib/Makefile.test_boost.lib
+@@ -3,6 +3,8 @@
+ SRC = test_boost teamcity_messages
+ LIB = test_boost
+ 
++DLL_LIB = xncbi
++
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(BOOST_INCLUDE)
+ 
+ REQUIRES = Boost.Test.Included
+--- a/c++/src/corelib/Makefile.test_mt.lib
++++ b/c++/src/corelib/Makefile.test_mt.lib
+@@ -3,6 +3,8 @@
+ SRC = test_mt
+ LIB    = test_mt
+ 
++DLL_LIB = xncbi
++
+ # REQUIRES = MT
+ 
+ USE_PCH = no
+--- a/c++/src/objects/biblio/Makefile.biblio.lib
++++ b/c++/src/objects/biblio/Makefile.biblio.lib
+@@ -1,6 +1,8 @@
+ LIB = biblio
+ SRC = biblio__ biblio___ citation_base
+ 
++DLL_LIB = general xser xncbi
++
+ 
+ USES_LIBRARIES =  \
+     general
+--- a/c++/src/objects/blastdb/Makefile.blastdb.lib
++++ b/c++/src/objects/blastdb/Makefile.blastdb.lib
+@@ -1,5 +1,7 @@
+ # $Id: Makefile.blastdb.lib 427424 2014-02-20 13:38:50Z gouriano $
+ 
++
++DLL_LIB = seq xser xncbi
+ LIB = blastdb
+ SRC = blastdb__ blastdb___
+ 
+--- a/c++/src/objects/general/Makefile.general.lib
++++ b/c++/src/objects/general/Makefile.general.lib
+@@ -1,6 +1,8 @@
+ LIB = general
+ SRC = general__ general___ uoconv
+ 
++DLL_LIB = xser xncbi
++
+ 
+ USES_LIBRARIES =  \
+     xser
+--- a/c++/src/objects/genomecoll/Makefile.genome_collection.lib
++++ b/c++/src/objects/genomecoll/Makefile.genome_collection.lib
+@@ -3,6 +3,8 @@
+ LIB = genome_collection
+ SRC = genome_collection__ genome_collection___
+ 
++DLL_LIB = seq general xser xncbi
++
+ WATCHERS = dicuccio
+ 
+ 
+--- a/c++/src/objects/id1/Makefile.id1.lib
++++ b/c++/src/objects/id1/Makefile.id1.lib
+@@ -3,6 +3,8 @@ ASN_DEP = seq
+ LIB = id1
+ SRC = id1__ id1___
+ 
++DLL_LIB = seqset seq xser xncbi
++
+ WATCHERS = vasilche
+ 
+ 
+--- a/c++/src/objects/id2/Makefile.id2.lib
++++ b/c++/src/objects/id2/Makefile.id2.lib
+@@ -1,6 +1,8 @@
+ LIB = id2
+ SRC = id2__ id2___
+ 
++DLL_LIB = seqsplit seq xser xncbi
++
+ WATCHERS = vasilche
+ 
+ 
+--- a/c++/src/objects/medline/Makefile.medline.lib
++++ b/c++/src/objects/medline/Makefile.medline.lib
+@@ -1,6 +1,8 @@
+ LIB = medline
+ SRC = medline__ medline___
+ 
++DLL_LIB = biblio general xser xncbi
++
+ 
+ USES_LIBRARIES =  \
+     biblio
+--- a/c++/src/objects/pub/Makefile.pub.lib
++++ b/c++/src/objects/pub/Makefile.pub.lib
+@@ -1,6 +1,8 @@
+ LIB = pub
+ SRC = pub__ pub___
+ 
++DLL_LIB = medline biblio xser xncbi
++
+ 
+ USES_LIBRARIES =  \
+     medline
+--- a/c++/src/objects/seq/Makefile.seq.lib
++++ b/c++/src/objects/seq/Makefile.seq.lib
+@@ -12,6 +12,8 @@ SRC = $(ASN:%=%__) $(ASN:%=%___) seqport
+       seq_loc_mapper_base seq_align_mapper_base seqlocinfo sofa_map \
+       seq_loc_from_string seq_loc_reverse_complementer
+ 
++DLL_LIB = seqcode pub biblio general xser sequtil xutil xncbi
++
+ WATCHERS = vasilche grichenk
+ 
+ 
+--- a/c++/src/objects/seqcode/Makefile.seqcode.lib
++++ b/c++/src/objects/seqcode/Makefile.seqcode.lib
+@@ -1,6 +1,8 @@
+ LIB = seqcode
+ SRC = seqcode__ seqcode___
+ 
++DLL_LIB = xser xncbi
++
+ 
+ USES_LIBRARIES =  \
+     xser
+--- a/c++/src/objects/seqset/Makefile.seqset.lib
++++ b/c++/src/objects/seqset/Makefile.seqset.lib
+@@ -1,6 +1,8 @@
+ LIB = seqset
+ SRC = seqset__ seqset___ gb_release_file
+ 
++DLL_LIB = seq general xser xncbi
++
+ 
+ USES_LIBRARIES =  \
+     $(SEQ_LIBS) pub
+--- a/c++/src/objects/seqsplit/Makefile.seqsplit.lib
++++ b/c++/src/objects/seqsplit/Makefile.seqsplit.lib
+@@ -1,6 +1,8 @@
+ LIB = seqsplit
+ SRC = seqsplit__ seqsplit___
+ 
++DLL_LIB = seqset seq xser xncbi
++
+ WATCHERS = vasilche
+ 
+ 
+--- a/c++/src/serial/Makefile.serial.lib
++++ b/c++/src/serial/Makefile.serial.lib
+@@ -18,6 +18,8 @@ SRC = \
+ 
+ LIB    = xser
+ 
++DLL_LIB = xutil xncbi
++
+ WATCHERS = gouriano
+ 
+ 
+--- a/c++/src/util/Makefile.util.lib
++++ b/c++/src/util/Makefile.util.lib
+@@ -12,6 +12,7 @@ SRC = random_gen utf8 checksum bytesrc s
+ LIB = xutil
+ PROJ_TAG = core
+ 
++DLL_LIB = xncbi
+ LIBS = $(ORIG_LIBS)
+ 
+ WATCHERS = vakatov kornbluh
+--- a/c++/src/util/xregexp/Makefile.xregexp.lib
++++ b/c++/src/util/xregexp/Makefile.xregexp.lib
+@@ -6,7 +6,7 @@ LIB = xregexp
+ 
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(PCRE_INCLUDE)
+ 
+-DLL_LIB = $(PCRE_LIB)
++DLL_LIB = $(PCRE_LIB) xncbi
+ LIBS    = $(PCRE_LIBS)
+ 
+ WATCHERS = ivanov
+--- a/c++/src/algo/segmask/Makefile.xalgosegmask.lib
++++ b/c++/src/algo/segmask/Makefile.xalgosegmask.lib
+@@ -8,6 +8,8 @@ LIB = xalgosegmask
+ 
+ SRC = segmask
+ 
++DLL_LIB = blast xobjmgr xncbi
++
+ CXXFLAGS = $(FAST_CXXFLAGS)
+ LDFLAGS  = $(FAST_LDFLAGS)
+ 
+--- a/c++/src/objmgr/split/Makefile.id2_split.lib
++++ b/c++/src/objmgr/split/Makefile.id2_split.lib
+@@ -17,7 +17,7 @@ LIB = id2_split
+ 
+ CPPFLAGS = $(ORIG_CPPFLAGS) $(CMPRS_INCLUDE)
+ 
+-DLL_LIB = $(SOBJMGR_LIBS)
++DLL_LIB = xobjmgr seqsplit seqset seq general xser xcompress xncbi
+ 
+ WATCHERS = vasilche
+ 
+--- a/c++/src/objtools/blast/seqdb_writer/Makefile.writedb.lib
++++ b/c++/src/objtools/blast/seqdb_writer/Makefile.writedb.lib
+@@ -8,6 +8,9 @@ SRC = writedb writedb_impl writedb_volum
+ 
+ LIB = writedb
+ 
++DLL_LIB = seqdb xobjread xobjmgr blastdb seqset seq general \
++          xser sequtil xutil xncbi
++
+ CFLAGS   = $(FAST_CFLAGS)
+ CPPFLAGS = -DNCBI_MODULE=BLASTDB $(ORIG_CPPFLAGS)
+ CXXFLAGS = $(FAST_CXXFLAGS)
+--- a/c++/src/algo/blast/Makefile.blast_macros.mk
++++ b/c++/src/algo/blast/Makefile.blast_macros.mk
+@@ -18,7 +18,7 @@ BLAST_INPUT_LIBS = blastinput \
+ BLAST_SRA_LIBS=blast_sra $(SRAXF_LIBS) vxf $(SRA_LIBS)
+ 
+ # BLAST_FORMATTER_LIBS and BLAST_INPUT_LIBS need $BLAST_LIBS
+-BLAST_LIBS = xblast xalgoblastdbindex composition_adjustment \
++BLAST_LIBS = xblast xalgoblastdbindex blast composition_adjustment \
+ 		xalgodustmask xalgowinmask seqmasks_io seqdb blast_services xobjutil \
+ 		$(OBJREAD_LIBS) xnetblastcli xnetblast blastdb scoremat tables xalnmgr
+ # BLAST additionally needs xconnect $(SOBJMGR_LIBS) or $(OBJMGR_LIBS)
+--- a/c++/src/algo/blast/dbindex/makeindex/Makefile.makeindex.app
++++ b/c++/src/algo/blast/dbindex/makeindex/Makefile.makeindex.app
+@@ -2,7 +2,7 @@ APP = makembindex
+ SRC = main mkindex_app
+ 
+ LIB_ = xalgoblastdbindex blast composition_adjustment seqdb blastdb \
+-      $(OBJREAD_LIBS) xobjutil tables connect $(SOBJMGR_LIBS)
++      $(OBJREAD_LIBS) xobjutil tables xconnect $(SOBJMGR_LIBS)
+ LIB = $(LIB_:%=%$(STATIC))
+ 
+ CXXFLAGS = $(FAST_CXXFLAGS)
+--- a/c++/src/build-system/library_relations.txt
++++ b/c++/src/build-system/library_relations.txt
+@@ -1189,7 +1189,7 @@ xasmcompare needs $(SEQ_LIBS)
+ xasmcompare needs pub
+ xasn needs xhtml
+ xasn needs3party $(NCBI_C_ncbi)
+-xblast includes blast
++xblast needs blast
+ xblast needs xalgoblastdbindex
+ xblast needs xalgodustmask
+ xblast needs xalgowinmask

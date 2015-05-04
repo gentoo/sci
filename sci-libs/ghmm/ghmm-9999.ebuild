@@ -1,38 +1,68 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sci-biology/mauvealigner/mauvealigner-9999.ebuild,v 1.1 2009/04/17 18:03:19 weaver Exp $
+# $Header: $
 
-EAPI="2"
+EAPI=5
 
-ESVN_REPO_URI="https://ghmm.svn.sourceforge.net/svnroot/ghmm/trunk/ghmm"
+AUTOTOOLS_AUTORECONF=true
 
-inherit subversion
+PYTHON_COMPAT=( python{2_6,2_7} )
+
+inherit autotools-utils distutils-r1 subversion
 
 DESCRIPTION="General Hidden Markov Model library - efficient data structures and algorithms for HMMs"
 HOMEPAGE="http://ghmm.sourceforge.net/"
 SRC_URI=""
+ESVN_REPO_URI="https://ghmm.svn.sourceforge.net/svnroot/ghmm/trunk/ghmm"
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-IUSE=""
 KEYWORDS=""
+IUSE="gsl lapack +python static-libs"
 
-CDEPEND=""
-DEPEND="${CDEPEND}"
-RDEPEND="${CDEPEND}"
+RDEPEND="
+	dev-libs/libxml2
+	gsl? ( sci-libs/gsl )
+	lapack? (
+		sci-libs/clapack
+		virtual/lapack
+		)"
+DEPEND="${RDEPEND}"
 
 S="${WORKDIR}/${PN}"
 
+ESVN_BOOTSTRAP="autotools-utils_src_prepare"
+
+PATCHES=(
+	"${FILESDIR}"/${P}-clapack.patch
+	"${FILESDIR}"/${P}-out-of-source.patch
+	"${FILESDIR}"/${P}-link.patch
+	"${FILESDIR}"/${P}-respect.patch
+	"${FILESDIR}"/${P}-obsolete.patch
+)
+
 src_prepare() {
-	./autogen.sh
+	use python && AUTOTOOLS_IN_SOURCE_BUILD=1
+	autotools-utils_src_prepare
+	use python && cd "${S}"/ghmmwrapper && distutils-r1_python_prepare
 }
 
 src_configure() {
-	econf
-	# fixme: hack
-	sed -i 's|^prefix = \(.*\)|prefix = ${D}/usr|' {ghmmwrapper,HMMEd}/Makefile || die
+	local myeconfargs=(
+		--without-python
+		--disable-obsolete
+		$(use_enable gsl)
+		$(use_enable lapack atlas)
+	)
+	autotools-utils_src_configure
+}
+
+src_compile() {
+	autotools-utils_src_compile
+	use python && cd "${S}"/ghmmwrapper && distutils-r1_src_compile
 }
 
 src_install() {
-	einstall || die
+	autotools-utils_src_install
+	use python && cd "${S}"/ghmmwrapper && distutils-r1_src_install
 }

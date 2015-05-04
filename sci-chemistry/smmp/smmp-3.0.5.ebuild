@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -20,7 +20,11 @@ LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc mpi test"
 
-RDEPEND="mpi? ( virtual/mpi )"
+REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+RDEPEND="
+	${PYTHON_DEPS}
+	mpi? ( virtual/mpi )"
 DEPEND="${RDEPEND}
 	doc? ( app-doc/doxygen )"
 
@@ -43,17 +47,14 @@ src_compile() {
 
 src_test() {
 	emake examples
-	cd EXAMPLES
+	cd EXAMPLES || die
 	bash smmp.cmd || die
 }
 
 src_install() {
 	dobin ${PN}
-	installation() {
-		python_moduleinto ${PN}
-		python_domodule *.py
-		python_optimize
-	}
-	python_foreach_impl installation
+	python_moduleinto ${PN}
+	python_parallel_foreach_impl python_domodule *.py
+	python_parallel_foreach_impl python_optimize
 	dodoc README
 }

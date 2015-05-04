@@ -1,6 +1,26 @@
 # ChangeLog for sci-libs/dcmtk
-# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  10 Mar 2015; Justin Lecher <jlec@gentoo.org> dcmtk-3.6.0.ebuild:
+  sci-libs/dcmtk: Fix compilation with USE=-doc, fixes https://github.com
+  /gentoo-science/sci/issues/385
+
+  13 Nov 2014; Justin Lecher <jlec@gentoo.org> dcmtk-3.6.0.ebuild,
+  metadata.xml:
+  Move large patch into patch dir
+
+*dcmtk-3.6.0 (09 Apr 2014)
+
+  09 Apr 2014; Sébastien Fabbro <bicatali@gentoo.org> -dcmtk-3.5.4-r3.ebuild,
+  -dcmtk-3.5.5_pre20101008.ebuild, +dcmtk-3.6.0.ebuild,
+  +files/02_dcmtk_3.6.0-1.patch, +files/07_doxygen.patch,
+  +files/bug674361.patch, files/dcmtk-asneeded.patch,
+  +files/dcmtk_version_number.patch, +files/doubledes.patch,
+  +files/fixnull.patch, +files/noleak.patch, +files/nothrow.patch,
+  +files/prefs.patch, +files/regression_stacksequenceisodd.patch,
+  +files/use_correct_number_of_TS.patch, metadata.xml:
+  Version bump, add many patches from debian and extra as-needed fixes
 
   07 Mar 2011; Justin Lecher <jlec@gentoo.org> dcmtk-3.5.4-r3.ebuild,
   dcmtk-3.5.5_pre20101008.ebuild:

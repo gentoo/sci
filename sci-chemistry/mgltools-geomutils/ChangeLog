@@ -1,6 +1,13 @@
 # ChangeLog for sci-chemistry/mgltools-geomutils
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  25 Mar 2015; Justin Lecher <jlec@gentoo.org> mgltools-geomutils-1.5.6.ebuild:
+  sci-chemistry/mgltools-geomutils: Add missing die
+
+  25 Mar 2015; Justin Lecher <jlec@gentoo.org> mgltools-geomutils-1.5.6.ebuild:
+  sci-chemistry/mgltools-geomutils: Drop PYTHON_MODNAME and support for
+  python2_6
 
   10 Jun 2013; Justin Lecher <jlec@gentoo.org>
   -mgltools-geomutils-1.5.4-r1.ebuild, mgltools-geomutils-1.5.6.ebuild:
@@ -51,4 +58,3 @@
   +files/1.5.4-gcc4.3.patch, +mgltools-geomutils-1.5.4.ebuild,
   +metadata.xml:
   Initial checkin
-

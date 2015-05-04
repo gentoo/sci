@@ -1,0 +1,21 @@
+# ChangeLog for sci-libs/libsc
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*libsc-1.1 (13 Oct 2014)
+
+  13 Oct 2014; Matthias Maier <tamiko@gentoo.org> +libsc-1.1.ebuild,
+  -libsc-0.7.3.ebuild, libsc-1.0.ebuild, metadata.xml:
+  sci-libs/libsc: Drop old; version bump; update metadata.xml
+
+*libsc-1.0 (22 Jul 2014)
+
+  22 Jul 2014; Matthias Maier <tamiko@gentoo.org> +libsc-1.0.ebuild,
+  libsc-0.7.3.ebuild, metadata.xml:
+  Version bump to 1.0, fix indentation
+
+*libsc-0.7.3 (02 Mar 2014)
+
+  02 Mar 2014; Matthias Maier <tamiko+GENTOO@kyomu.43-1.org>
+  +libsc-0.7.3.ebuild, +metadata.xml:
+  Initial import.

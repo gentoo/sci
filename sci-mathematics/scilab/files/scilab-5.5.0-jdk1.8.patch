@@ -1,0 +1,76 @@
+diff -urN scilab-5.5.0-orig/build.incl.xml scilab-5.5.0/build.incl.xml
+--- scilab-5.5.0-orig/build.incl.xml	2014-06-29 14:31:51.791054076 -0400
++++ scilab-5.5.0/build.incl.xml	2014-06-29 14:33:12.733269635 -0400
+@@ -84,17 +84,12 @@
+     <target name="init">
+         <!-- Check the version of Java. If it changes after the configure
+          or if there is a mistake in the build system
+-    -->
+-        <fail message="JDK 1.6 or 1.7 required. Found ${ant.java.version}">
+-            <condition>
+-                <not>
+-                    <or>
+-                        <equals arg1="${ant.java.version}" arg2="1.6"/>
+-                        <equals arg1="${ant.java.version}" arg2="1.7"/>
+-                    </or>
+-                </not>
+-            </condition>
+-        </fail>
++         Note: all class names are the same as in m4/java.m4
++        -->
++        <available property="jdk1.6+" classname="java.util.ArrayDeque"/>
++        <available property="jdk1.7+" classname="java.nio.file.Path"/>
++        <available property="jdk1.8+" classname="java.util.stream.DoubleStream"/>
++        <fail message="Require JDK 1.6 or higher. Found ${ant.java.version}" unless="jdk1.6+"/>
+         <mkdir dir="${classes.dir}"/>
+         <mkdir dir="${classes.test.dir}"/>
+         <mkdir dir="${build.jar.dir}"/>
+diff -urN scilab-5.5.0-orig/configure.ac scilab-5.5.0/configure.ac
+--- scilab-5.5.0-orig/configure.ac	2014-06-29 14:32:03.700233944 -0400
++++ scilab-5.5.0/configure.ac	2014-06-29 14:33:12.735269665 -0400
+@@ -805,7 +805,7 @@
+      AC_JAVA_WITH_JDK
+      AC_JAVA_DETECT_JVM
+      case "$ac_java_jvm_version" in
+-        1.6 | 1.7)
++        1.6 | 1.7 | 1.8)
+         ;;
+         *)
+             AC_MSG_ERROR([Wrong version of Java. Expected at least 1.6. Found $ac_java_jvm_version])
+diff -urN scilab-5.5.0-orig/m4/java.m4 scilab-5.5.0/m4/java.m4
+--- scilab-5.5.0-orig/m4/java.m4	2014-06-29 14:32:03.840236057 -0400
++++ scilab-5.5.0/m4/java.m4	2014-06-29 14:33:12.736269680 -0400
+@@ -223,7 +223,7 @@
+ #
+ # VARIABLES SET:
+ #    JAVAC
+-#    ac_java_jvm_version can be set to 1.4, 1.5, 1.6 or 1.7
++#    ac_java_jvm_version can be set to 1.4, 1.5, 1.6, 1.7, 1.8
+ #    ac_java_jvm_dir can be set to the jvm's root directory
+ #
+ # DEPENDS ON:
+@@ -307,6 +307,9 @@
+     # The class java.nio.file.Path is new to 1.7
+     AC_JAVA_TRY_COMPILE([import java.nio.file.Path;], , "no", ac_java_jvm_version=1.7)
+ 
++    # The class java.util.stream.DoubleStream is new to 1.8
++    AC_JAVA_TRY_COMPILE([import java.util.stream.DoubleStream;], , "no", ac_java_jvm_version=1.8)
++
+     if test "x$ac_java_jvm_version" = "x" ; then
+         AC_MSG_ERROR([Could not detect Java version, 1.4 or newer is required])
+     fi
+diff -urN scilab-5.5.0-orig/modules/javasci/Makefile.in scilab-5.5.0/modules/javasci/Makefile.in
+--- scilab-5.5.0-orig/modules/javasci/Makefile.in	2014-06-29 14:32:00.613187355 -0400
++++ scilab-5.5.0/modules/javasci/Makefile.in	2014-06-29 14:34:15.638203989 -0400
+@@ -976,10 +976,10 @@
+ 	@echo "This command is intended for maintainers to use"
+ 	@echo "it deletes files that may require special tools to rebuild."
+ 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+-@JAVASCI_FALSE@distclean-local:
+ @JAVASCI_FALSE@install-data-local:
+ @JAVASCI_FALSE@install-html-local:
+ @JAVASCI_FALSE@clean-local:
++@JAVASCI_FALSE@distclean-local:
+ clean: clean-am
+ 
+ clean-am: clean-generic clean-libtool clean-local \

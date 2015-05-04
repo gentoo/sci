@@ -1,0 +1,55 @@
+ src/ecif_userinterface_TCL.cpp | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/src/ecif_userinterface_TCL.cpp b/src/ecif_userinterface_TCL.cpp
+index 7f581a8..53e0432 100644
+--- a/src/ecif_userinterface_TCL.cpp
++++ b/src/ecif_userinterface_TCL.cpp
+@@ -622,7 +622,11 @@ UserInterface_TCL::createTclEnvironment(Hinst application)
+ 
+   // *** Invoke application-specific initialization.
+   if (My_Tcl_AppInit(interp) != TCL_OK) {
++#if TCL_MAJOR_VERSION <=8 && TCL_MINOR_VERSION < 6
+     WishPanic("My_Tcl_AppInit failed: %s\n", interp->result);
++#else
++    WishPanic("My_Tcl_AppInit failed: %s\n", Tcl_GetStringResult(interp));
++#endif
+   }
+ 
+   // Result value is the Tcl interpreter
+@@ -4685,11 +4689,19 @@ UserInterface_TCL::sendCommandToGui(Tcl_Interp* interp, const char* cmd, const c
+     Tcl_DStringFree( &dstring );
+   }
+ 
++#if TCL_MAJOR_VERSION <=8 && TCL_MINOR_VERSION < 6
+   if (interp->result[0] != '\0') {
++#else
++  if (Tcl_GetStringResult(interp)[0] != '\0') {
++#endif
+ 
+     char err_buf[256];
+     err_buf[255] = '\0';
++#if TCL_MAJOR_VERSION <=8 && TCL_MINOR_VERSION < 6
+     strncpy(err_buf, interp->result, 255);
++#else
++    strncpy(err_buf, Tcl_GetStringResult(interp), 255);
++#endif
+ 
+     char cmd_buf[256];
+     cmd_buf[255] = '\0';
+@@ -5350,10 +5362,14 @@ UserInterface_TCL::start(int argc, char** argv)
+   //--If we can't load the script (= start CONTROL-SIDE interpreter)
+   if (code != TCL_OK) {
+ 
+-    char* p = (char *)Tcl_GetVar(theInterp, "errorInfo", glob_flag);
++    const char* p = (const char *)Tcl_GetVar(theInterp, "errorInfo", glob_flag);
+ 
+     if ((p == NULL) || (*p == '\0')) {
++#if TCL_MAJOR_VERSION <=8 && TCL_MINOR_VERSION < 6
+       p = theInterp->result;
++#else
++      p = Tcl_GetStringResult(theInterp);
++#endif
+     }
+ 
+     ((ofstream*)debugFile)->open("ElmerFront.log", ios::out);

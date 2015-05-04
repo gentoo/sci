@@ -1,0 +1,9 @@
+# ChangeLog for dev-python/pynomo
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*pynomo-0.2.2 (01 Jul 2014)
+
+  01 Jul 2014; Witold Pilat (fau) <witold.pilat@gmail.com> +metadata.xml,
+  +pynomo-0.2.2.ebuild:
+  dev-python/pynomo: New package for bug #515682

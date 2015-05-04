@@ -1,0 +1,136 @@
+--- ncbi_cxx--12_0_0/include/common/config/ncbiconf_msvc.h.ori     2013/09/30 13:46:04     59961
++++ ncbi_cxx--12_0_0/include/common/config/ncbiconf_msvc.h     2013/09/30 14:10:44     59962
+@@ -62,10 +62,6 @@
+ #define HAVE_SYS_TYPES_H 1
+ #define HAVE_VSNPRINTF   1
+ 
+-#if _MSC_VER >= 1600
+-#  define HAVE_IS_SORTED   1
+-#endif
+-
+ #if _MSC_VER < 1500
+ #  define vsnprintf        _vsnprintf
+ #endif
+@@ -136,10 +132,6 @@
+ 
+ #endif
+ 
+-#if _MSC_VER >= 1600
+-#  define HAVE_NULLPTR  1
+-#endif
+-
+ /* Windows XP and above */
+ #define NCBI_WIN32_WINNT 0x0501
+ #if !defined(_WIN32_WINNT)
+--- ncbi_cxx--12_0_0/include/common/config/ncbiconf_xcode.h.ori    2013/09/30 13:46:04     59961
++++ ncbi_cxx--12_0_0/include/common/config/ncbiconf_xcode.h    2013/09/30 14:10:44     59962
+@@ -258,9 +258,6 @@
+ /* Define to 1 if you have `ios(_base)::register_callback'. */
+ #define HAVE_IOS_REGISTER_CALLBACK 1
+ 
+-/* Define to 1 if <algorithm> supplies `std::is_sorted<>'. */
+-/* #undef HAVE_IS_SORTED */
+-
+ /* Define to 1 if you have the `lchown' function. */
+ /* #undef HAVE_LCHOWN */
+ 
+@@ -595,9 +592,6 @@
+ /* Define to 1 if wxWidgets is available. */
+ /* #undef HAVE_WXWIDGETS */
+ 
+-/* Define to 1 if nullptr keyword is available. */
+-/* #undef HAVE_NULLPTR */
+-
+ /* Define as const if the declaration of iconv() needs const. */
+ #if MAC_OS_X_VERSION_MIN_REQUIRED >= 1050 /* MAC_OS_X_VERSION_10_5 */
+ #  define ICONV_CONST
+--- ncbi_cxx--12_0_0/include/common/ncbiconf_impl.h.ori    2013/09/30 13:46:04     59961
++++ ncbi_cxx--12_0_0/include/common/ncbiconf_impl.h    2013/09/30 14:10:44     59962
+@@ -115,6 +115,11 @@
+       || defined(__GXX_EXPERIMENTAL_CPP0X__)
+ #    define NCBI_HAVE_CXX11 1
+ #  endif
++#  if defined(NCBI_HAVE_CXX11) \
++      ||  (defined(NCBI_COMPILER_MSVC)  &&  _MSC_VER >= 1600)
++#    define HAVE_IS_SORTED 1
++#    define HAVE_NULLPTR 1
++#  endif
+ #endif
+ 
+ #include <common/ncbi_skew_guard.h>
+--- ncbi_cxx--12_0_0/src/build-system/config.h.in.ori      2013/09/30 13:46:04     59961
++++ ncbi_cxx--12_0_0/src/build-system/config.h.in      2013/09/30 14:10:44     59962
+@@ -179,9 +179,6 @@
+ /* Define to 1 if you have `ios(_base)::register_callback'. */
+ #undef HAVE_IOS_REGISTER_CALLBACK
+ 
+-/* Define to 1 if <algorithm> supplies `std::is_sorted<>'. */
+-#undef HAVE_IS_SORTED
+-
+ /* Define to 1 if you have the `lchown' function. */
+ #undef HAVE_LCHOWN
+ 
+@@ -391,9 +388,6 @@
+ /* Define to 1 if `min'/`max' templates are not implemented. */
+ #undef HAVE_NO_MINMAX_TEMPLATE
+ 
+-/* Define to 1 if your C++ compiler supports the C++0x `nullptr' keyword. */
+-#undef HAVE_NULLPTR
+-
+ /* Define to 1 if ODBC libraries are available. */
+ #undef HAVE_ODBC
+ 
+--- ncbi_cxx--12_0_0/src/build-system/configure.ac.ori     2013/09/30 13:46:04     59961
++++ ncbi_cxx--12_0_0/src/build-system/configure.ac     2013/09/30 14:10:44     59962
+@@ -3351,17 +3351,6 @@
+ fi
+ 
+ 
+-AC_CACHE_CHECK([for std::is_sorted<> in <algorithm>], ncbi_cv_func_is_sorted,
+-   [AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+-       [[#include <algorithm>]],
+-       [[int a[2]; return std::is_sorted(a, a+2) ? 0 : 1;]])],
+-       [ncbi_cv_func_is_sorted=yes], [ncbi_cv_func_is_sorted=no])])
+-if test "$ncbi_cv_func_is_sorted" = yes; then
+-   AC_DEFINE(HAVE_IS_SORTED, 1,
+-             [Define to 1 if <algorithm> supplies `std::is_sorted<>'.])
+-fi
+-
+-
+ 
+ AC_CACHE_CHECK([for SysV semaphores], ncbi_cv_sys_semaphores,
+    AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <sys/types.h>
+@@ -3498,7 +3487,7 @@
+ AC_CACHE_CHECK([whether the C compiler supports C99 restrict],
+    ncbi_cv_c_restrict,
+    [ncbi_cv_c_restrict=no
+-    for restrict in restrict __restrict__ __restrict; do
++    for restrict in __restrict__ __restrict restrict; do
+        test "$ncbi_cv_c_restrict" = "no" || break
+        AC_COMPILE_IFELSE([AC_LANG_SOURCE([void f(int * $restrict p);])],
+           [ncbi_cv_c_restrict=$restrict], [])
+@@ -3518,7 +3507,7 @@
+ AC_CACHE_CHECK([whether the C++ compiler supports C99 restrict],
+    ncbi_cv_cxx_restrict,
+    [ncbi_cv_cxx_restrict=no
+-    for restrict in restrict __restrict__ __restrict; do
++    for restrict in __restrict__ __restrict restrict; do
+        test "$ncbi_cv_cxx_restrict" = "no" || break
+        AC_COMPILE_IFELSE([AC_LANG_SOURCE([void f(int * $restrict p);])],
+           [ncbi_cv_cxx_restrict=$restrict], [])
+@@ -3623,14 +3612,6 @@
+               unaligned addresses.])
+ fi
+ 
+-AC_CACHE_CHECK([whether $CXX supports C++0x nullptr], ncbi_cv_cxx_nullptr,
+-   [AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [[void * p = nullptr;]])],
+-       [ncbi_cv_cxx_nullptr=yes], [ncbi_cv_cxx_nullptr=no])])
+-if test "$ncbi_cv_cxx_nullptr" = yes; then
+-   AC_DEFINE(HAVE_NULLPTR, 1,
+-      [Define to 1 if your C++ compiler supports the C++0x `nullptr' keyword.])
+-fi
+-
+ ### Check for the availability of other packages
+ ### --------------------------------------------
+ 
+

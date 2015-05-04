@@ -1,0 +1,9 @@
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*python-ivi-9999 (23 Jan 2015)
+*python-ivi-0.14.9 (23 Jan 2015)
+
+  23 Jan 2015; Marius Brehler <marbre@linux.sungazer.de> +metadata.xml,
+  +python-ivi-0.14.9.ebuild, +python-ivi-9999.ebuild:
+  Initial commit.

@@ -1,0 +1,10 @@
+--- scripts/common/new_project.sh      (revision 408264)
++++ scripts/common/new_project.sh      (working copy)
+@@ -6,7 +6,7 @@
+ svn_revision=`echo '$Revision$' | sed "s%\\$[R]evision: *\\([^$][^$]*\\) \\$.*%\\1%"`
+ def_builddir="$NCBI/c++/Debug/build"
+ 
+-repository_url='https://svn.ncbi.nlm.nih.gov/repos/toolkit'
++repository_url='http://anonsvn.ncbi.nlm.nih.gov/repos/v1'
+ tmp_app_checkout_dir='tmp_app_sample'
+ stem='sample/app'

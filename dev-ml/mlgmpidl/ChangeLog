@@ -1,12 +1,15 @@
 # ChangeLog for dev-ml/mlgmpidl
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  03 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  18 Feb 2015; Justin Lecher <jlec@gentoo.org> metadata.xml,
+  mlgmpidl-1.1.ebuild:
+  dev-ml/mlgmpidl: fix SLOT operators; fix usage of die; correct deps
+
+  03 Jul 2010; Jonathan-Christofer Demay <jcdemay@gmail.com>
   mlgmpidl-1.1.ebuild, +files/mlgmpidl-1.1-mpfr-3_compat.patch:
   dev-libs/mpfr-3.0.0 compatibility
 
   23 Jun 2010; Andreas K. Huettel (dilfridge) <mail@akhuettel.de>
   mlgmpidl-1.1.ebuild, +metadata.xml:
   QA fixes
-

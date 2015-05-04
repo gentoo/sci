@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -12,12 +12,12 @@ SRC_URI="http://cpmcnet.columbia.edu/dept/gsas/biochem/labs/palmer/software/curv
 
 SLOT="0"
 LICENSE="GPL-2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS=""
 IUSE="examples"
 
 RDEPEND="
 	sci-libs/blas-reference
-	sys-devel/gcc:4.1"
+	=sys-devel/gcc-4.1*"
 DEPEND="dev-util/patchelf"
 
 S="${WORKDIR}"/linux
@@ -38,7 +38,7 @@ src_install() {
 		_exe=./linux_64/${PN}
 	fi
 
-	patchelf --set-rpath "${EPREFIX}/opt/${PN}:${EPREFIX}/usr/$(get_libdir)/gcc/x86_64-pc-linux-gnu/4.1.2/" ${_exe}
+	patchelf --set-rpath "${EPREFIX}/opt/${PN}:$(gcc-config -L):${EPREFIX}/usr/$(get_libdir)/gcc/x86_64-pc-linux-gnu/4.1.2/" ${_exe} || die
 
 	doexe batch_curve curveplot ${_exe}
 

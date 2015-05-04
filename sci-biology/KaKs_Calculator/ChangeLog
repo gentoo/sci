@@ -1,0 +1,10 @@
+# ChangeLog for sci-biology/KaKs_Calculator
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*KaKs_Calculator-1.2 (21 Mar 2015)
+
+  21 Mar 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
+  +KaKs_Calculator-1.2.ebuild, +metadata.xml:
+  sci-biology/KaKs_Calculator: new package but code does not compile; awaiting
+  some answer from upstream http://cbb.big.ac.cn/Zhang_Zhang

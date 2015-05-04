@@ -1,0 +1,11 @@
+--- /var/tmp/portage/sci-misc/elmer-gui-9999/work/elmer-gui-9999/Application/src/mainwindow.cpp.auto-diff-temp	2012-11-15 17:16:40.602279216 +0100
++++ /var/tmp/portage/sci-misc/elmer-gui-9999/work/elmer-gui-9999/Application/src/mainwindow.cpp	2012-11-15 17:16:52.226288133 +0100
+@@ -4778,7 +4778,7 @@
+ 
+     mp.maxh = meshControl->nglibMaxH.toDouble();
+     mp.fineness = meshControl->nglibFineness.toDouble();
+-    mp.secondorder = 0;
++    mp.second_order = 0;
+     mp.meshsize_filename = backgroundmesh;
+ 
+     if(ngDim == 3) {

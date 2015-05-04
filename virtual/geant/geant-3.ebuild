@@ -1,4 +1,4 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -14,4 +14,4 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 DEPEND=""
-RDEPEND="|| ( sci-physics/geant:3 sci-physics/geant3-vmc )"
+RDEPEND="|| ( sci-physics/geant:3 sci-physics/geant-vmc:3 )"

@@ -1,0 +1,11 @@
+--- src/objtools/alnmgr/demo/Makefile.alnmrg.app.ori	2013-09-13 23:51:34.340031508 +0200
++++ src/objtools/alnmgr/demo/Makefile.alnmrg.app	2013-09-13 23:51:36.660031514 +0200
+@@ -5,7 +5,7 @@
+ SRC = alnmrg
+ 
+ LIB = xalnmgr $(OBJREAD_LIBS) ncbi_xloader_blastdb seqdb xobjutil submit blastdb \
+-      tables $(OBJMGR_LIBS)
++      tables creaders $(OBJMGR_LIBS)
+ 
+ LIBS = $(CMPRS_LIBS) $(DL_LIBS) $(NETWORK_LIBS) $(ORIG_LIBS)
+ 

@@ -1,19 +1,28 @@
 # ChangeLog for sci-mathematics/why
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
-  03 Mar 2013; Justin Lecher <jlec@gentoo.org> why-2.30.ebuild, metadata.xml:
-  Drop ppc as deps are not keyworded; move to EAPI=5 and autotools-utils.eclass
+  08 Feb 2015; Marius Brehler <marbre@linux.sungazer.de>
+  why-2.34.ebuild:
+  Cleanup ebuild
 
-  21 Dec 2011; J.-C. Demay <jcdemay@gmail.com>
-  -why-2.29.ebuild, +why-2.30.ebuild, -files/why_jessie-carbon.patch, +files/why-2.30.patch:
+  21 Jun 2014; Jonathan-Christofer Demay <jcdemay@gmail.com>
+  -why-2.30.ebuild, -files/why-2.30.patch, +why-2.34.ebuild, +why-flocq23.patch:
   version bump
 
-  06 May 2011; J.-C. Demay <jcdemay@gmail.com>
+  03 Mar 2013; Justin Lecher <jlec@gentoo.org>
+  why-2.30.ebuild, metadata.xml:
+  Drop ppc as deps are not keyworded; move to EAPI=5 and autotools-utils.eclass
+
+  21 Dec 2011; Jonathan-Christofer Demay <jcdemay@gmail.com>
+  -why-2.29.ebuild, -files/why_jessie-carbon.patch, +why-2.30.ebuild, +files/why-2.30.patch:
+  version bump
+
+  06 May 2011; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -why-2.28.ebuild, +why-2.29.ebuild:
   version bump
 
-  14 Feb 2011; J.-C. Demay <jcdemay@gmail.com>
+  14 Feb 2011; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -why-2.26.ebuild, +why-2.28.ebuild, +files/why_jessie-carbon.patch:
   version bump
 
@@ -21,11 +30,11 @@
   why-2.26.ebuild:
   Silenced repoman; dropped ~sparc since dependencies cannot be fulfilled.
 
-  08 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  08 Jul 2010; Jonathan-Christofer Demay <jcdemay@gmail.com>
   -why-2.19.ebuild, +why-2.26.ebuild:
   version Bump
 
-  08 Jul 2010; J.-C. Demay <jcdemay@gmail.com>
+  08 Jul 2010; Jonathan-Christofer Demay <jcdemay@gmail.com>
   +ChangeLog, +metadata.xml:
   QA fixes
 

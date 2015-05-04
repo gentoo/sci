@@ -1,0 +1,136 @@
+--- /usr/bin/TransDecoder	2015-01-09 11:22:55.000000000 +0100
++++ TransDecoder	2015-01-09 14:31:44.095839522 +0100
+@@ -48,7 +48,7 @@
+  --prepare_pfam                         Prepare data for PFAM search and then quit (for running PFAM on HPC/computing cluster
+                                          with or without MPI )
+ 
+- --CPU <int>                            number of threads to use; (default: 2)
++ --CPU <int>                            number of threads to use; (default: 1)
+ 
+  --MPI                                  use MPI w/ execution of hmmscan
+ 
+@@ -76,7 +76,7 @@
+ 
+ =head1 PFAM 
+ 
+-You will need hmmer installed. Use hmmpress to prepare the database for hmmer.
++You will need hmmer installed. Use hmmpress from >=hmmer-3.0 to prepare the database for hmmer.
+  L<See|https://sourceforge.net/projects/transdecoder/files/Pfam-AB.hmm.bin> for downloading the database.
+ 
+ =head1 CD-HIT
+@@ -105,7 +105,6 @@
+ use Longest_orf;
+ 
+ my $UTIL_DIR = "$FindBin::RealBin/util";
+-$ENV{PATH} = "$UTIL_DIR/bin:$ENV{PATH}";
+ $ENV{LD_LIBRARY_PATH} .= ":$FindBin::RealBin/util/lib64";
+ 
+ my ($cd_hit_est_exec) = &check_program('cd-hit-est');
+@@ -124,7 +123,7 @@
+ my $verbose;
+ my $search_pfam = "";
+ my ($reuse,$pfam_out);
+-my $CPU = 2;
++my $CPU = 1;
+ my $RETAIN_LONG_ORFS = 900;
+ my $MPI = 0;
+ 
+@@ -330,15 +329,15 @@
+ my $top_cds_file = $train_file && -s $train_file ? $train_file : "$cds_file.top_${top_ORFs_train}_longest";
+ if (!-s $top_cds_file) {
+     # get longest entries
+-    my $cmd = "$UTIL_DIR/get_top_longest_fasta_entries.pl $cds_file $top_ORFs_train > $top_cds_file";
++    my $cmd = "get_top_longest_fasta_entries.pl $cds_file $top_ORFs_train > $top_cds_file";
+     
+     unless ($reuse && -s $top_cds_file){
+         if ($cd_hit_est_exec){
+             # to speed things up only check for redundancy up to 4x the number of entries we want
+             my $red_num = $top_ORFs_train * 4 ;
+-            &process_cmd("$UTIL_DIR/get_top_longest_fasta_entries.pl $cds_file $red_num > $workdir/redundant_top");
++            &process_cmd("get_top_longest_fasta_entries.pl $cds_file $red_num > $workdir/redundant_top");
+             &process_cmd("$cd_hit_est_exec -r 1 -i $workdir/redundant_top -o $workdir/redundant_top.nr90 -M 0 -T $CPU >/dev/null 2>/dev/null");
+-            &process_cmd("$UTIL_DIR/get_top_longest_fasta_entries.pl $workdir/redundant_top.nr90 $top_ORFs_train > $top_cds_file");
++            &process_cmd("get_top_longest_fasta_entries.pl $workdir/redundant_top.nr90 $top_ORFs_train > $top_cds_file");
+             unlink("$workdir/redundant_top");
+             unlink("$workdir/redundant_top.nr90");
+             unlink("$workdir/redundant_top.nr90.bak.clstr");
+@@ -349,20 +348,20 @@
+     }
+ }
+ 
+-$cmd = "$UTIL_DIR/compute_base_probs.pl $transcripts_file $TOP_STRAND_ONLY > $workdir/base_freqs.dat";
++$cmd = "compute_base_probs.pl $transcripts_file $TOP_STRAND_ONLY > $workdir/base_freqs.dat";
+ &process_cmd($cmd) unless $reuse && -s "$workdir/base_freqs.dat";
+ 
+ 
+ # get hexamer scores
+-#$cmd = "$UTIL_DIR/seq_n_background_to_logliklihood_vals.pl $top_cds_file $transcripts_file.random > hexamer.scores";
++#$cmd = "seq_n_background_to_logliklihood_vals.pl $top_cds_file $transcripts_file.random > hexamer.scores";
+ #&process_cmd($cmd) unless ($reuse && -s "hexamer.scores");
+ 
+-$cmd = "$UTIL_DIR/seq_n_baseprobs_to_logliklihood_vals.pl $top_cds_file $workdir/base_freqs.dat > $workdir/hexamer.scores";
++$cmd = "seq_n_baseprobs_to_logliklihood_vals.pl $top_cds_file $workdir/base_freqs.dat > $workdir/hexamer.scores";
+ &process_cmd($cmd) unless $reuse && -s "$workdir/hexamer.scores";
+ 
+ 
+ # score all cds entries
+-$cmd = "$UTIL_DIR/score_CDS_liklihood_all_6_frames.pl $cds_file $workdir/hexamer.scores > $cds_file.scores";
++$cmd = "score_CDS_liklihood_all_6_frames.pl $cds_file $workdir/hexamer.scores > $cds_file.scores";
+ &process_cmd($cmd) unless ($reuse && -s "$cds_file.scores");
+ 
+ 
+@@ -440,18 +439,18 @@
+ }
+ 
+ # index the current gff file:
+-$cmd = "$UTIL_DIR/index_gff3_files_by_isoform.pl $gff3_file";
++$cmd = "index_gff3_files_by_isoform.pl $gff3_file";
+ &process_cmd($cmd);
+ 
+ # retrieve the best entries:
+-$cmd = "$UTIL_DIR/gene_list_to_gff.pl $acc_file $gff3_file.inx > $cds_file.best_candidates.gff3";
++$cmd = "gene_list_to_gff.pl $acc_file $gff3_file.inx > $cds_file.best_candidates.gff3";
+ &process_cmd($cmd);
+ 
+ {
+     my $final_output_prefix = basename($transcripts_file) . ".transdecoder";
+     
+     # exclude shadow orfs (smaller orfs in different reading frame that are eclipsed by longer orfs)
+-    $cmd = "$UTIL_DIR/remove_eclipsed_ORFs.pl $cds_file.best_candidates.gff3 > $final_output_prefix.gff3";
++    $cmd = "remove_eclipsed_ORFs.pl $cds_file.best_candidates.gff3 > $final_output_prefix.gff3";
+     &process_cmd($cmd);
+     
+ 
+@@ -462,14 +461,14 @@
+     my $gff3_file = "$final_output_prefix.gff3";
+     my $bed_file = $gff3_file;
+     $bed_file =~ s/\.gff3$/\.bed/;
+-    $cmd = "$UTIL_DIR/gff3_file_to_bed.pl $gff3_file > $bed_file";
++    $cmd = "gff3_file_to_bed.pl $gff3_file > $bed_file";
+     &process_cmd($cmd);
+     
+     
+     # make a peptide file:
+     my $best_pep_file = $gff3_file;
+     $best_pep_file =~ s/\.gff3$/\.pep/;
+-    $cmd = "$UTIL_DIR/gff3_file_to_proteins.pl $gff3_file $transcripts_file > $best_pep_file";
++    $cmd = "gff3_file_to_proteins.pl $gff3_file $transcripts_file > $best_pep_file";
+     &process_cmd($cmd);
+ 
+ 
+@@ -477,13 +476,13 @@
+     # make a CDS file:
+     my $best_cds_file = $best_pep_file;
+     $best_cds_file =~ s/\.pep$/\.cds/;
+-    $cmd = "$UTIL_DIR/gff3_file_to_proteins.pl $gff3_file $transcripts_file CDS > $best_cds_file";
++    $cmd = "gff3_file_to_proteins.pl $gff3_file $transcripts_file CDS > $best_cds_file";
+     &process_cmd($cmd);
+ 
+     # make a CDS file:
+     my $best_cdna_file = $best_pep_file;
+     $best_cdna_file =~ s/\.pep$/\.mRNA/;
+-    $cmd = "$UTIL_DIR/gff3_file_to_proteins.pl $gff3_file $transcripts_file cDNA > $best_cdna_file";
++    $cmd = "gff3_file_to_proteins.pl $gff3_file $transcripts_file cDNA > $best_cdna_file";
+     &process_cmd($cmd);
+     
+ }

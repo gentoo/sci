@@ -1,0 +1,271 @@
+Upstream commits:
+  4b6a6a9aae750941723890c44f0cb3326e5ba87b
+  67d70862aa2b2c2e925a2b1262c9934ea0f9a873
+  dc0308a408360bfa5e21a58d10c2c2a7dca3a8ad
+
+diff --git a/source/distributed/tria.cc b/source/distributed/tria.cc
+index 5687fae..a6e5e85 100644
+--- a/source/distributed/tria.cc
++++ b/source/distributed/tria.cc
+@@ -155,10 +155,17 @@ namespace internal
+                        types<2>::balance_type btype,
+                        p4est_init_t init_fn);
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++      static
++      p4est_gloidx_t (&partition) (types<2>::forest *p4est,
++                                   int partition_for_coarsening,
++                                   p4est_weight_t weight_fn);
++#else 
+       static
+       void (&partition) (types<2>::forest *p4est,
+                          int partition_for_coarsening,
+                          p4est_weight_t weight_fn);
++#endif 
+ 
+       static
+       void (&save) (const char *filename,
+@@ -173,16 +180,28 @@ namespace internal
+                                  void *user_pointer,
+                                  types<2>::connectivity **p4est);
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++      static
++      int (&connectivity_save) (const char *filename,
++                                types<2>::connectivity *connectivity);
++#else 
+       static
+       void (&connectivity_save) (const char *filename,
+                                  types<2>::connectivity *connectivity);
++#endif 
+ 
+       static
+       int (&connectivity_is_valid) (types<2>::connectivity *connectivity);
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++      static
++      types<2>::connectivity *(&connectivity_load) (const char *filename,
++                                                    long unsigned *length);
++#else 
+       static
+       types<2>::connectivity *(&connectivity_load) (const char *filename,
+                                                     long *length);
++#endif 
+ 
+       static
+       unsigned int (&checksum) (types<2>::forest *p4est);
+@@ -301,10 +320,17 @@ namespace internal
+                                    p4est_init_t init_fn)
+       = p4est_balance;
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++   p4est_gloidx_t (&functions<2>::partition) (types<2>::forest *p4est,
++                                              int partition_for_coarsening,
++                                              p4est_weight_t weight_fn)
++      = p4est_partition_ext; 
++#else 
+     void (&functions<2>::partition) (types<2>::forest *p4est,
+                                      int partition_for_coarsening,
+                                      p4est_weight_t weight_fn)
+       = p4est_partition_ext;
++#endif 
+ 
+     void (&functions<2>::save) (const char *filename,
+                                 types<2>::forest *p4est,
+@@ -320,18 +346,31 @@ namespace internal
+                            types<2>::connectivity **p4est)
+       = p4est_load;
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++   int (&functions<2>::connectivity_save) (const char *filename,
++                                           types<2>::connectivity *connectivity)
++      = p4est_connectivity_save; 
++#else 
+     void (&functions<2>::connectivity_save) (const char *filename,
+                                              types<2>::connectivity *connectivity)
+       = p4est_connectivity_save;
++#endif 
+ 
+     int (&functions<2>::connectivity_is_valid) (types<2>::connectivity
+                                                 *connectivity)
+       = p4est_connectivity_is_valid;
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++    types<2>::connectivity *
++    (&functions<2>::connectivity_load) (const char *filename,
++                                        long unsigned *length)
++      = p4est_connectivity_load;
++#else 
+     types<2>::connectivity *
+     (&functions<2>::connectivity_load) (const char *filename,
+                                         long *length)
+       = p4est_connectivity_load;
++#endif 
+ 
+     unsigned int (&functions<2>::checksum) (types<2>::forest *p4est)
+       = p4est_checksum;
+@@ -451,10 +490,17 @@ namespace internal
+                        types<3>::balance_type btype,
+                        p8est_init_t init_fn);
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++      static
++      p4est_gloidx_t (&partition) (types<3>::forest *p8est,
++                                   int partition_for_coarsening,
++                                   p8est_weight_t weight_fn);
++#else 
+       static
+       void (&partition) (types<3>::forest *p8est,
+                          int partition_for_coarsening,
+                          p8est_weight_t weight_fn);
++#endif 
+ 
+       static
+       void (&save) (const char *filename,
+@@ -469,16 +515,28 @@ namespace internal
+                                  void *user_pointer,
+                                  types<3>::connectivity **p4est);
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++      static
++      int (&connectivity_save) (const char *filename,
++                                types<3>::connectivity *connectivity);
++#else 
+       static
+       void (&connectivity_save) (const char *filename,
+                                  types<3>::connectivity *connectivity);
++#endif 
+ 
+       static
+       int (&connectivity_is_valid) (types<3>::connectivity *connectivity);
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++      static
++      types<3>::connectivity *(&connectivity_load) (const char *filename,
++                                                    long unsigned *length);
++#else 
+       static
+       types<3>::connectivity *(&connectivity_load) (const char *filename,
+                                                     long *length);
++#endif 
+ 
+       static
+       unsigned int (&checksum) (types<3>::forest *p8est);
+@@ -600,10 +658,17 @@ namespace internal
+                                    p8est_init_t init_fn)
+       = p8est_balance;
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++    p4est_gloidx_t (&functions<3>::partition) (types<3>::forest *p8est,
++                                               int partition_for_coarsening,
++                                               p8est_weight_t weight_fn)
++      = p8est_partition_ext;
++#else 
+     void (&functions<3>::partition) (types<3>::forest *p8est,
+                                      int partition_for_coarsening,
+                                      p8est_weight_t weight_fn)
+       = p8est_partition_ext;
++#endif 
+ 
+     void (&functions<3>::save) (const char *filename,
+                                 types<3>::forest *p4est,
+@@ -619,18 +684,31 @@ namespace internal
+                            types<3>::connectivity **p4est)
+       = p8est_load;
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++    int (&functions<3>::connectivity_save) (const char *filename,
++                                            types<3>::connectivity *connectivity)
++      = p8est_connectivity_save;
++#else 
+     void (&functions<3>::connectivity_save) (const char *filename,
+                                              types<3>::connectivity *connectivity)
+       = p8est_connectivity_save;
++#endif 
+ 
+     int (&functions<3>::connectivity_is_valid) (types<3>::connectivity
+                                                 *connectivity)
+       = p8est_connectivity_is_valid;
+ 
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3) 
++    types<3>::connectivity *
++    (&functions<3>::connectivity_load) (const char *filename,
++                                        long unsigned *length)
++      = p8est_connectivity_load;
++#else 
+     types<3>::connectivity *
+     (&functions<3>::connectivity_load) (const char *filename,
+                                         long *length)
+       = p8est_connectivity_load;
++#endif 
+ 
+     unsigned int (&functions<3>::checksum) (types<3>::forest *p8est)
+       = p8est_checksum;
+diff --git a/cmake/modules/FindP4EST.cmake b/cmake/modules/FindP4EST.cmake
+index f2bf417..44846c7 100644
+--- a/cmake/modules/FindP4EST.cmake
++++ b/cmake/modules/FindP4EST.cmake
+@@ -179,17 +179,28 @@
+   STRING(REGEX REPLACE
+     "^[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1"
+     P4EST_VERSION_SUBMINOR "${P4EST_VERSION}")
+-
+-  # Now for the patch number such as in 0.3.4.1. If there
+-  # is no patch number, then the REGEX REPLACE will fail,
+-  # setting P4EST_VERSION_PATCH to P4EST_VERSION. If that
+-  # is the case, then set the patch number to zero
+   STRING(REGEX REPLACE
+-    "^[0-9]+\\.[0-9]+\\.[0-9]+\\.([0-9]+)?.*$" "\\1"
++    "^[0-9]+\\.[0-9]+\\.[0-9]+\\.([0-9]+).*$" "\\1"
+     P4EST_VERSION_PATCH "${P4EST_VERSION}")
+-  IF(${P4EST_VERSION_PATCH} STREQUAL "${P4EST_VERSION}")
++
++  #
++  # We cannot rely on the fact that SUBMINOR or PATCH are defined.
++  # Nevertheless, we need a full version number for our preprocessor macros
++  # to work. If the p4est version number is only of the form x.y instead of
++  # a.b.c.d, then the last two REGEX_REPLACE calls above will have failed
++  # because the regular expression didn't match the version string,
++  # and P4EST_VERSION_SUBMINOR and P4EST_VERSION_PATCH will either be
++  # empty or be the full version string. In those cases, set those numbers
++  # to 0 if necessary.
++  #
++  IF("${P4EST_VERSION_SUBMINOR}" MATCHES "^(|${P4EST_VERSION})$")
++    SET(P4EST_VERSION_SUBMINOR "0")
++  ENDIF()
++
++  IF("${P4EST_VERSION_PATCH}" MATCHES "^(|${P4EST_VERSION})$")
+     SET(P4EST_VERSION_PATCH "0")
+   ENDIF()
++
+ 
+ 
+   MARK_AS_ADVANCED(P4EST_DIR)
+diff --git a/include/deal.II/distributed/tria.h b/include/deal.II/distributed/tria.h
+index ea3e88b..8daa70d 100644
+--- a/include/deal.II/distributed/tria.h
++++ b/include/deal.II/distributed/tria.h
+@@ -88,7 +88,11 @@ namespace internal
+       typedef p4est_quadrant_t     quadrant;
+       typedef p4est_topidx_t       topidx;
+       typedef p4est_locidx_t       locidx;
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3)
++      typedef p4est_connect_type_t balance_type;
++#else
+       typedef p4est_balance_type_t balance_type;
++#endif
+       typedef p4est_ghost_t        ghost;
+     };
+ 
+@@ -101,7 +105,11 @@ namespace internal
+       typedef p8est_quadrant_t     quadrant;
+       typedef p4est_topidx_t       topidx;
+       typedef p4est_locidx_t       locidx;
++#if DEAL_II_P4EST_VERSION_GTE(0,3,4,3)
++      typedef p8est_connect_type_t balance_type;
++#else
+       typedef p8est_balance_type_t balance_type;
++#endif
+       typedef p8est_ghost_t        ghost;
+     };
+ 

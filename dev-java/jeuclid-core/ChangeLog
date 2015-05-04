@@ -1,6 +1,17 @@
 # ChangeLog for dev-java/jeuclid-core
-# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  10 Jan 2015; Marius Brehler <marbre@linux.sungazer.de>
+  jeuclid-core-3.1.8.ebuild, jeuclid-core-3.1.9-r1.ebuild:
+  Move to EAPI=5
+
+*jeuclid-core-3.1.9-r1 (27 Jul 2014)
+
+  27 Jul 2014; Guillaume Horel <guillaume.horel@gmail.com>
+  +files/jeuclid-core-cast-issue.patch, +jeuclid-core-3.1.9-r1.ebuild,
+  -jeuclid-core-3.1.9.ebuild:
+  dev-java/jeuclid-core: upgrade dependencies
 
 *jeuclid-core-3.1.9 (14 May 2012)
 
@@ -18,4 +29,3 @@
 
   22 Jan 2010; Sébastien Fabbro <bicatali@gentoo.org> +metadata.xml:
   Initial import. Ebuild initially submitted by Jiri Tyr, bug #224995
-

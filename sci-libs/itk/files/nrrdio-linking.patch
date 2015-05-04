@@ -1,0 +1,15 @@
+Description: Link libITKNrrdIO with -lm (needed for sqrt)
+Author: Steve Robbins <smr@debian.org>
+Forwarded: no
+
+--- insighttoolkit4-4.5.0.orig/Modules/ThirdParty/NrrdIO/src/NrrdIO/CMakeLists.txt
++++ insighttoolkit4-4.5.0/Modules/ThirdParty/NrrdIO/src/NrrdIO/CMakeLists.txt
+@@ -64,7 +64,7 @@
+ ADD_DEFINITIONS(-DTEEM_ZLIB=1)
+ 
+ ADD_LIBRARY(ITKNrrdIO ${nrrdio_SRCS} )
+-TARGET_LINK_LIBRARIES(ITKNrrdIO ${ITKZLIB_LIBRARIES})
++TARGET_LINK_LIBRARIES(ITKNrrdIO ${ITKZLIB_LIBRARIES} -lm)
+ 
+ IF(ITK_LIBRARY_PROPERTIES)
+   SET_TARGET_PROPERTIES(ITKNrrdIO PROPERTIES ${ITK_LIBRARY_PROPERTIES})

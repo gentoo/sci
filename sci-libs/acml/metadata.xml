@@ -15,7 +15,6 @@
   Alle Routinen sind hoch optimiert für AMD(R) x86 und amd64 CPUs.
 </longdescription>
 <use>
-  <flag name='fma'>Use the Fused Multiply Add instruction set</flag>
   <flag name='gfortran'>Fetch and install acml compiled with GNU FORTRAN compiler</flag>
   <flag name='ifort'>Fetch and install acml compiled with the Intel FORTRAN compiler</flag>
   <flag name='int64'>Install the 64 bits integer library</flag>

@@ -1,8 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI=5
 
 inherit eutils multilib versionator
 
@@ -41,24 +41,19 @@ src_configure() {
 	if use tcl ; then
 		TCLVER="$(echo 'puts [info tclversion]' | $(type -P tclsh))"
 		myconf="${myconf} $(use_with tcl tcl /usr/$(get_libdir)/tcl${TCLVER})"
-		sed -i -e "s|TKLIBS = |TKLIBS = -ltcl${TCLVER} |" make.defs.in
+		sed -i -e "s|TKLIBS = |TKLIBS = -ltcl${TCLVER} |" make.defs.in || die
 	fi
 
 	if use tk ; then
 		# no, there's no tkversion, and type -P wish requires running X
 		TKVER="$(echo 'puts [info tclversion]' | $(type -P tclsh))"
 		myconf="${myconf} $(use_with tk tk /usr/$(get_libdir)/tk${TKVER})"
-		sed -i -e "s|TKLIBS = |TKLIBS = -ltk${TKVER} |" make.defs.in
+		sed -i -e "s|TKLIBS = |TKLIBS = -ltk${TKVER} |" make.defs.in || die
 	fi
 
 	econf \
 		$(use_with X x) \
-		${myconf} \
-		|| die "econf failed"
+		${myconf}
 
-	sed -i -e "s|${D}||" cgconfig
-}
-
-src_install() {
-	emake DESTDIR="${D}" install || die "install failed"
+	sed -i -e "s|${D}||" cgconfig || die
 }

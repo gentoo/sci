@@ -2,6 +2,12 @@
 # Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*emcee-2.0.0 (26 Nov 2013)
+
+  26 Nov 2013; Sébastien Fabbro <bicatali@gentoo.org> +emcee-2.0.0.ebuild,
+  metadata.xml:
+  dev-python/emcee: Version bump
+
 *emcee-1.2.0 (13 Jun 2013)
 
   13 Jun 2013; Justin Lecher <jlec@gentoo.org> -emcee-1.0.1.ebuild,
@@ -13,4 +19,3 @@
   20 Apr 2012; Sébastien Fabbro <bicatali@gentoo.org> +emcee-1.0.1.ebuild,
   +metadata.xml:
   Initial import
-

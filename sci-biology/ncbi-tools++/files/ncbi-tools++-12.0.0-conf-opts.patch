@@ -1,0 +1,64 @@
+ src/build-system/configure.ac | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/src/build-system/configure.ac b/src/build-system/configure.ac
+index 03e34b4..336453d 100644
+--- a/src/build-system/configure.ac
++++ b/src/build-system/configure.ac
+@@ -224,7 +224,7 @@ AC_ARG_WITH(ncbi-c,
+ AC_ARG_WITH(sss,
+    [ --without-sss           do not use NCBI SSS libraries])
+ AC_ARG_WITH(sssutils,
+-   [ --without-utils         do not use NCBI SSS UTIL library])
++   [ --without-sssutils      do not use NCBI SSS UTIL library])
+ AC_ARG_WITH(sssdb,
+    [ --without-sssdb         do not use NCBI SSS DB library])
+ AC_ARG_WITH(included-sss,
+@@ -490,13 +490,13 @@ check ncbi-public strip pch caution ccache distcc \
+ ncbi-c wxwidgets wxwidgets-ucs fastcgi sss sssdb sssutils included-sss \
+ geo included-geo \
+ z bz2 lzo pcre gcrypt gnutls openssl krb5 sybase sybase-local sybase-new \
+-ftds mysql orbacus freetype ftgl opengl mesa glut glew glew-mx \
++ftds mysql orbacus odbc freetype ftgl opengl mesa glut glew glew-mx \
+ bdb python perl jni sqlite3 icu boost boost-tag \
+ sp expat sablot libxml libxslt libexslt xerces xalan zorba \
+ oechem sge muparser hdf5 \
+ gif jpeg tiff png xpm magic curl mimetic 3psw \
+ local-lbsm ncbi-crypt connext \
+-serial objects dbapi app ctools gui algo internal gbench"
++serial objects dbapi app ctools gui algo internal gbench x"
+ 
+ changequote(, )dnl
+ x_with_list=`echo "$x_with_list" | sed 's/\([^ ][^ ]*\)/--with-\1 --without-\1/g'`
+@@ -522,6 +522,7 @@ for x_arg in "$@" ; do
+    case "$x_arg" in
+       --with-extra-action= | --exec-prefix= | --with-projects= | --srcdir= \
+       | --cache-file= | --build= | --host= | --target= | --with-runpath= \
++      | --mandir= | --infodir= | --datadir= | --sysconfdir= | --localstatedir= \
+       | --with-relative-runpath= | --x-includes= | --x-libraries= )
+       AC_MSG_ERROR([$x_arg:  requires value;  use --help to show usage])
+       ;;
+@@ -532,6 +533,7 @@ for x_arg in "$@" ; do
+       | --with-universal=* | --with-tcheck=* \
+       | --cache-file=* | --build=* | --host=* | --prefix=* | --exec-prefix=* \
+       | --libdir=* | --bindir=* | --includedir=* | --srcdir=* \
++      | --mandir=* | --infodir=* | --datadir=* | --sysconfdir=* | --localstatedir=* \
+       | [[A-Z]*=*] \
+       | --with-z=* | --with-bz2=* | --with-lzo=* \
+       | --with-pcre=* \
+@@ -647,6 +649,15 @@ if test -z "${DEF_FAST_FLAGS}${FAST_CXXFLAGS}"; then
+       *\ -O* | *\ -xO* ) skip_fast_flags=yes ;;
+    esac
+ fi
++if test -n "$with_projects"; then
++   case "$with_projects" in
++      /* ) abs_projects=$with_projects         ;;
++      yes) abs_projects=$srcdir/projects       ;;
++      *  ) abs_projects=$srcdir/$with_projects ;;
++   esac
++   test -r "$abs_projects"  ||  \
++      AC_MSG_ERROR([unable to read requested projects file "$abs_projects".])
++fi
+ 
+ #### Always define this
+ AC_DEFINE(NCBI_CXX_TOOLKIT, 1, [This is the NCBI C++ Toolkit.])

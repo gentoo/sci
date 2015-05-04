@@ -1,6 +1,42 @@
 # ChangeLog for sci-mathematics/scilab
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+  01 Feb 2015; Guillaume Horel <guillaume.horel@gmail.com> scilab-5.5.1.ebuild:
+  sci-mathematics/scilab: more precise dependencies
+
+  27 Jan 2015; Guillaume Horel <guillaume.horel@gmail.com>
+  -files/scilab-5.3.3-as-needed.patch, -files/scilab-5.3.3-blas-libs.patch,
+  -files/scilab-5.3.3-disable-build-help.patch,
+  -files/scilab-5.3.3-fix-random-runtime-failures.patch,
+  -files/scilab-5.3.3-fortran-link.patch, -files/scilab-5.3.3-gui-no-xcos.patch,
+  -files/scilab-5.3.3-hdf18.patch, -files/scilab-5.3.3-java-heap.patch,
+  -files/scilab-5.3.3-java-version-check.patch,
+  -files/scilab-5.3.3-javadoc-utf8.patch, -files/scilab-5.3.3-jgrapx-min.patch,
+  -files/scilab-5.3.3-jvm-detection.patch, -files/scilab-5.3.3-matio15.patch,
+  -files/scilab-5.3.3-no-lhpi.patch, -files/scilab-5.3.3-no-xcos-deps.patch,
+  -files/scilab-5.4.1-fix-random-runtime-failure.patch,
+  -files/scilab-5.4.1-followlinks.patch, -files/scilab-5.4.1-gluegen.patch,
+  -files/scilab-5.4.1-java-heap.patch, -scilab-5.3.3-r2.ebuild,
+  -scilab-5.4.1.ebuild:
+  sci-mathematics/scilab: remove old versions
+
+  29 Jun 2014; Guillaume Horel <guillaume.horel@gmail.com>
+  +files/scilab-5.5.0-jdk1.8.patch, scilab-5.5.0.ebuild:
+  sci-mathematics/scilab: support jdk1.8
+
+  05 May 2014; Quentin Minster <quentin@minster.io> scilab-5.5.0.ebuild:
+  sci-mathematics/scilab: Fix minimum version dependency for jlatexmath
+
+*scilab-5.5.0 (22 Apr 2014)
+
+  22 Apr 2014; Guillaume Horel <guillaume.horel@gmail.com>
+  +files/scilab-5.5.0-accessviolation.patch,
+  +files/scilab-5.5.0-fix-random-runtime-failure.patch,
+  +files/scilab-5.5.0-followlinks.patch, +files/scilab-5.5.0-gluegen.patch,
+  +files/scilab-5.5.0-java-heap.patch, +files/scilab-5.5.0-nogui.patch,
+  +scilab-5.5.0.ebuild, -scilab-5.5.0_beta1.ebuild, metadata.xml:
+  version bump
 
   22 Feb 2013; Justin Lecher <jlec@gentoo.org> scilab-5.3.3-r1.ebuild,
   scilab-5.4.0.ebuild, metadata.xml:
