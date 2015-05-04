@@ -18,5 +18,3 @@ KEYWORDS=""
 
 RDEPEND=""
 
-DEPEND=""
-
