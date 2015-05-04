@@ -11,7 +11,7 @@ HOMEPAGE="http://vxl.sourceforge.net"
 SRC_URI=""
 EGIT_REPO_URI="http://git.code.sf.net/p/vxl/git"
 
-LICENSE="VXL"
+LICENSE="BSD"
 SLOT="0"
 IUSE=""
 KEYWORDS=""
