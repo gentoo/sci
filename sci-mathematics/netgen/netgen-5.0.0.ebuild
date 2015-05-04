@@ -24,7 +24,7 @@ DEPEND="dev-tcltk/tix
 	opencascade? ( sci-libs/opencascade )
 	ffmpeg? ( media-video/ffmpeg )
 	jpeg? ( virtual/jpeg )
-	mpi? ( virtual/mpi ) "
+	mpi? ( virtual/mpi ( || ( sci-libs/parmetis sci-libs/metis ) ) ) "
 RDEPEND="${DEPEND}"
 # Note, MPI has not be tested.
 
@@ -46,11 +46,12 @@ src_configure() {
 		myconf="${myconf} --enable-occ --with-occ=$CASROOT"
 		append-ldflags -L$CASROOT/lin/$(get_libdir)
 	fi
-
-	use mpi && myconf="${myconf} --enable-parallel"
+	if use mpi; then
+		myconf="${myconf} --enable-parallel"
+		append-cppflags -I/usr/include/metis
+	fi
 	use ffmpeg && myconf="${myconf} --enable-ffmpeg"
 	use jpeg && myconf="${myconf} --enable-jpeglib"
-
 	append-cppflags -I/usr/include/togl-1.7
 
 	econf \
