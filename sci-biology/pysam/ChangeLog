@@ -2,6 +2,12 @@
 # Copyright 1999-2015 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  04 May 2015; Marius Brehler <marbre@linux.sungazer.de> pysam-0.7.5.ebuild:
+  Fix deps
+
+  04 May 2015; Marius Brehler <marbre@linux.sungazer.de> pysam-0.6-r2.ebuild:
+  Drop keywords due to broken deps
+
   02 May 2015; Martin Mokrejs <mmokrejs@fold.natur.cuni.cz>
   pysam-0.6-r2.ebuild, pysam-0.7.5.ebuild:
   added PYTHON_USEDEP
