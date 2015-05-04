@@ -3,6 +3,9 @@
 # $Header: $
 
   04 May 2015;  <chymera@gentoo.org> vxl-9999.ebuild:
+  bsd license
+
+  04 May 2015;  <chymera@gentoo.org> vxl-9999.ebuild:
   dropped emty depend
 
   24 Apr 2015;  <chymera@gentoo.org> vxl-9999.ebuild:
