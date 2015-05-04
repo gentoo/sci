@@ -11,13 +11,13 @@ SRC_URI="ftp://ftp.genome.umd.edu/pub/${PN}/${P}.tar.gz
 
 # older version is hidden in trinityrnaseq_r20140413p1/trinity-plugins/jellyfish-1.1.11
 
-LICENSE="GPL-3+ HalfLICENSE"
+LICENSE="GPL-3+ BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
-RDEPEND="${DEPEND}
+DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_install(){

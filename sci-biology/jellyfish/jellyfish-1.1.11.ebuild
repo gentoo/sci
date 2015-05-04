@@ -13,13 +13,13 @@ SRC_URI="http://www.cbcb.umd.edu/software/jellyfish/jellyfish-1.1.11.tar.gz
 # also was bundled in quorum-0.2.1 and MaSuRca-2.1.0
 # also bundled in SEECER-0.1.3
 
-LICENSE="GPL-3+ HalfLICENSE"
+LICENSE="GPL-3+ BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
-RDEPEND="${DEPEND}
+DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_install(){
